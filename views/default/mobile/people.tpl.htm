@@ -1,0 +1,110 @@
+<?php TPL::output('mobile/header.tpl.htm'); ?>
+
+<script type="text/javascript">
+	var PEOPLE_USER_ID = '<?php echo $this->user['uid']; ?>';
+	
+	$(document).ready(function () {
+		$('#contents_nav span').click(function () {
+			$('#contents_nav span').removeClass('click');
+			
+			$('div.tpage').hide();
+			$('div.tpage._contents' + $(this).attr('class')).show();
+			
+			if ($('div.tpage._contents' + $(this).attr('class')).find('ul').html() == '')
+			{
+				switch ($(this).attr('class'))
+				{
+					case '_reply':
+						mobile_more_load(G_BASE_URL + '/people/ajax/user_actions/uid-' + PEOPLE_USER_ID + '__actions-201__template-mobile', $('#user_actions_reply_more'), $('#contents_user_actions_reply'));
+					break;
+					
+					case '_ask':
+						mobile_more_load(G_BASE_URL + '/people/ajax/user_actions/uid-' + PEOPLE_USER_ID + '__actions-101__template-mobile', $('#user_actions_question_more_101'), $('#contents_user_actions_question_101'));	// 发起的问题	
+					break;
+					
+					case '_activity':
+						mobile_more_load(G_BASE_URL + '/people/ajax/user_actions/distint-1__template-mobile__uid-' + PEOPLE_USER_ID, $('#user_actions_more'), $('#contents_user_actions'));
+					break;
+				}
+			}
+			
+			$(this).addClass('click');
+		});
+	});
+</script>
+
+<div class="main">
+	<div style="text-align:center; ">
+		<img class="hp" src="<?php echo get_avatar_url($this->user['uid'], 'max'); ?>"/>
+		<div class="name"><?php echo $this->user['user_name']; ?></div>
+		<div class="sign"><?php echo $this->user['signature']; ?></div>
+        <div class="con">
+        	<?php if ($this->user['id'] != $this->user_id) { ?>
+        	<div class="sub<?php if ($this->user_follow_check) { ?> cur<?php } ?>" onclick="follow_people($(this), $(this), <?php echo $this->user['uid']; ?>); return false;"><?php if ($this->user_follow_check) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?></div>
+        	<?php } ?>
+        	
+        	<a href="mobile/new_pm/<?php echo rawurlencode($this->user['user_name']); ?>"><?php _e('私信'); ?></a>
+        <div class="c"></div>
+        </div>
+        
+    	<div class="nav" id="contents_nav">
+        <div>
+        	<span class="_profile click"><?php _e('资料'); ?></span>
+            <span class="_reply"><?php _e('回复'); ?></span>
+            <span class="_ask"><?php _e('发问'); ?></span>
+            <span class="_focus"><?php _e('关注'); ?></span>
+            <span class="_activity"><?php _e('动态'); ?></span>
+        </div>
+        </div>
+       
+        <div class="tpage _contents_profile" style="display:block;">
+        	<div>
+        		<ul class="pdateul">
+	        		<?php if (get_setting('integral_system_enabled') == 'Y') { ?><li><div class="int"><?php _e('积分'); ?></div><div class="num"><?php echo $this->user['integral'];?></div></li><?php } ?>
+                    <li ><div class="hon"><?php _e('威望'); ?></div><div class="num"><?php echo $this->user['reputation'];?></div></li>
+                 	<li ><div class="thx"><?php _e('赞同'); ?></div><div class="num"><?php echo $this->user['agree_count']; ?></div></li>
+                    <li  style="border:none;"><div class="fol"><?php _e('感谢'); ?></div><div class="num"><?php echo $this->user['thanks_count']; ?></div></li>
+                </ul>
+            </div>
+            <div class="c"></div>
+            
+            <div class="ptxt">
+                <p><?php _e('现居'); ?>: <?php if ($this->user['province']) { ?> <?php echo $this->user['province']; ?> <?php echo $this->user['city']; ?> &nbsp; <?php } ?></p>
+                <?php if ($this->job_name) { ?>
+                <p><?php _e('职业'); ?>: <?php echo $this->job_name; ?></p>
+                <?php } ?>
+                <p><?php _e('擅长话题'); ?>: <?php if ($this->reputation_topics) { ?><?php foreach ($this->reputation_topics AS $key => $val) { ?><a href="topic/<?php echo $val['url_token']; ?>" class="tag"><?php echo $val['topic_title']; ?></a><?php } ?><?php } ?>
+                </p>
+            </div>
+        </div>
+        
+        <div class="tpage _contents_reply">
+        	<ul class="qa" id="contents_user_actions_reply"></ul>
+            
+            <div class="more" id="user_actions_reply_more"><?php _e('更多'); ?>...</div>
+        </div>
+            
+        <div class="tpage _contents_ask">
+	        <ul class="qa" id="contents_user_actions_question_101"></ul>
+                
+             <div class="more" id="user_actions_question_more_101"><?php _e('更多'); ?>...</div>
+        </div>
+            
+        <div class="tpage _contents_focus">
+        	<div class="follow">
+	        	<span ><?php _e('关注'); ?>: <br /> <font class="num"><?php echo $this->user['friend_count'];?></font> <?php _e('人'); ?></span>
+	        	<span ><?php _e('关注'); ?>:<br /><font class="num"><?php echo $this->user['topic_focus_count'];?></font> <?php _e('话题'); ?></span>
+	        	<span style="border:none;" ><?php _e('粉丝'); ?>：<br /><font class="num"><?php echo $this->user['fans_count'];?></font> <?php _e('人'); ?></span>       
+	        </div>
+	    </div>
+  			
+        <div class="tpage _contents_activity">
+        	<div class="deve">
+        		<ul id="contents_user_actions"></ul>
+        		
+        		<div class="more" id="user_actions_more"><?php _e('更多'); ?>...</div>
+            </div>
+       </div>
+</div>
+
+<?php TPL::output('mobile/footer.tpl.htm'); ?>

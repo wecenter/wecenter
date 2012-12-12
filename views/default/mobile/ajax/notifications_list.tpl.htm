@@ -1,0 +1,37 @@
+<?php foreach($this->list AS $key => $val) { ?>
+<li<?php if($val['read_flag'] == 0){ ?> class="unread" onClick="mobile_read_notification(<?php echo $val['notification_id']; ?>, $(this));"<?php } ?>><div class="title">
+<?php if ($val['extend_count'] > 1) { ?>
+	<?php if ($val['model_type'] == notify_class::CATEGORY_QUESTION) {?>
+		<?php echo $val['extend_count']; ?> <?php _e('项关于问题'); ?> <a href="mobile/<?php echo $val['key_url']; ?>"><?php echo $val['title']; ?></a>
+	<?php } ?>
+<?php }else{ ?>
+	<?php if ($val['action_type'] == notify_class::TYPE_PEOPLE_FOCUS) { ?>
+		<a href="mobile/<?php echo $val['key_url']; ?>" title="<?php echo $val['p_username']; ?>"><?php echo $val['p_username']; ?></a> <?php _e('关注了你'); ?>
+	<?php }else if ($val['action_type'] == notify_class::TYPE_NEW_ANSWER) { ?>
+		<?php if($val['anonymous']){ ?><?php _e('匿名用户'); ?><?php }else{ ?><a href="mobile/<?php echo $val['p_url']; ?>"><?php echo $val['p_username']; ?></a><?php } ?> <?php _e('回复了问题'); ?> <a href="mobile/<?php echo $val['key_url']; ?>"><?php echo $val['title']; ?></a>
+	<?php }else if ($val['action_type'] == notify_class::TYPE_COMMENT_AT_ME) { ?>
+		<a href="mobile/<?php echo $val['p_url']; ?>"><?php echo $val['p_username']; ?></a> <?php _e('在问题'); ?> <a href="mobile/<?php echo $val['key_url']; ?>"><?php echo $val['title']; ?></a> <?php _e('中的评论提到了你'); ?>
+	<?php }else if ($val['action_type'] == notify_class::TYPE_INVITE_QUESTION) { ?>
+		<a href="mobile/<?php echo $val['p_url']; ?>"><?php echo $val['p_username']; ?></a> <?php _e('邀请你参与问题'); ?> <a href="mobile/<?php echo $val['key_url']; ?>"><?php echo $val['title']; ?></a>
+	<?php }else if ($val['action_type'] == notify_class::TYPE_ANSWER_COMMENT) { ?>
+		<a href="mobile/<?php echo $val['p_url']; ?>"><?php echo $val['p_username']; ?></a> <?php _e('评论了你在问题'); ?> <a href="mobile/<?php echo $val['key_url']; ?>"><?php echo $val['title']; ?></a> <?php _e('中的回复'); ?>
+	<?php }else if ($val['action_type'] == notify_class::TYPE_QUESTION_COMMENT) { ?>
+		<a href="mobile/<?php echo $val['p_url']; ?>"><?php echo $val['p_username']; ?></a> <?php _e('评论了你发起的问题'); ?> <a href="mobile/<?php echo $val['key_url']; ?>"><?php echo $val['title']; ?></a>
+	<?php }else if ($val['action_type'] == notify_class::TYPE_ANSWER_AGREE) { ?>
+		<a href="mobile/<?php echo $val['p_url']; ?>"><?php echo $val['p_username']; ?></a> <?php _e('赞同了你在问题'); ?> <a href="mobile/<?php echo $val['key_url']; ?>"><?php echo $val['title']; ?></a> <?php _e('中的回复'); ?>
+	<?php }else if ($val['action_type'] == notify_class::TYPE_ANSWER_THANK) { ?>
+		<a href="mobile/<?php echo $val['p_url']; ?>"><?php echo $val['p_username']; ?></a> <?php _e('感谢了你在问题'); ?> <a href="mobile/<?php echo $val['key_url']; ?>"><?php echo $val['title']; ?></a> <?php _e('中的回复'); ?>
+	<?php }else if ($val['action_type'] == notify_class::TYPE_MOD_QUESTION) { ?>
+		<a href="mobile/<?php echo $val['p_url']; ?>"><?php echo $val['p_username']; ?></a> <?php _e('编辑了你发布的问题'); ?> <a href="mobile/<?php echo $val['key_url']; ?>"><?php echo $val['title']; ?></a>
+	<?php }else if ($val['action_type'] == notify_class::TYPE_REMOVE_ANSWER) { ?>
+		<a href="mobile/<?php echo $val['p_url']; ?>"><?php echo $val['p_username']; ?></a> <?php _e('删除了你在问题'); ?> <a href="mobile/<?php echo $val['key_url']; ?>"><?php echo $val['title']; ?></a> <?php _e('中的回复'); ?>
+	<?php }else if ($val['action_type'] == notify_class::TYPE_REDIRECT_QUESTION) { ?>
+		<a href="mobile/<?php echo $val['p_url']; ?>"><?php echo $val['p_username']; ?></a> <?php _e('重定向了你发起的问题'); ?> <a href="mobile/<?php echo $val['key_url']; ?>"><?php echo $val['title']; ?></a>
+	<?php }else if ($val['action_type'] == notify_class::TYPE_CONTEXT) { ?>
+		<?php echo $val['content']; ?>
+	<?php } ?>
+<?php } ?>
+</div>
+<div class="time">（<?php echo date('Y-m-d H:i:s', $val['add_time']); ?>）</div>
+</li>
+<?php } ?>

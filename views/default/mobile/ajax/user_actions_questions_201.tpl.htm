@@ -1,0 +1,9 @@
+<?php if (is_array($this->list)) { ?>
+<?php foreach ($this->list AS $key => $val) { ?>
+	<li>
+	    <div class="title"><a href="mobile/question/<?php echo $val['question_id']; ?>"><?php echo $val['question_content']; ?></a></div>
+	    <div class="good"><div class="up"></div> <?php echo $val['answer_info']['agree_count']; ?></div>
+	    <span class="re"><?php echo cjk_substr($val['answer_info']['answer_content'], 0, 130, 'UTF-8', '...'); ?></span>
+    </li>
+<?php } ?>
+<?php } ?>

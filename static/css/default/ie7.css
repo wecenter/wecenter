@@ -1,0 +1,38 @@
+@charset "utf-8";
+/*+--------------------------------------+
+* 名称: ie7.css
+* 功能: ie7
+* anwsin官方:http://www.anwsion.com/
+* developer:诸葛浮云
+* Email:globalbreak@gmail.com 
+* Copyright © 2012 - Anwsion社区, All Rights Reserved 
+* Date:2012-08-01
+*+--------------------------------------+*/
+
+.R_sidebar{position:relative;}
+.r_indexfiller{ position:absolute; width:243px; top:2px;left:1px;}
+.box_shadow{ position:absolute; left:0px;width:180px;}
+.new_ls .ex_hs > em.x{margin-bottom:-2px;}
+
+.trends_ls a.cur:after{visibility: hidden; display: block; font-size: 0; content: " "; clear: both; height: 0;}
+.q_category_nav .q_nav_tx >.i_data_list{ top:93px;}
+.i_search .i_txt{height:19px;}
+.i_glotopic{padding:0 5px 4px 5px;margin-bottom:4px; height:18px; line-height:20px !important; }
+.t_topic_rx,
+.q_UserList{float:left;}
+.t_topic_index > h3  em.i_lock{ vertical-align:middle;}
+.v_essential >li >input[type="radio"],.v_group_bd >li.s3 input[type="checkbox"],
+.v_sver input[type="radio"], .v_sver input[type="checkbox"]{ vertical-align:text-bottom;}
+.c_gloicon >span >.c_topten{ vertical-align:middle;}
+.v_myct li label{ vertical-align:text-bottom; }
+.v_reset li label{ display:inline-block; line-height:30px; vertical-align:text-bottom;}
+.c_progressBar >.b >.sm{ float:left;}
+.c_progressBar{ vertical-align:text-bottom;}
+.i_glotxtClass{overflow:hidden;}
+.c_details >li >.c_gloicon{ float:left;}
+.q_category_nav{padding-bottom:10px;}
+.xd_liste{padding-bottom:20px;}
+.i_glotopic >em.handle{ height:1px; line-height:1px !important;padding-bottom:14px !important; overflow:hidden; top:3px;}
+.editor_input >a{ margin-top:-20px;}
+.a_qsAskQuestion >.a_qsClassList{ top:1px;}
+#search_global .user_header{ margin-top:-4px;}

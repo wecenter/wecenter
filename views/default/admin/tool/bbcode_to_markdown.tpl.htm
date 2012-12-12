@@ -1,0 +1,50 @@
+<?php TPL::output('admin/global/header.tpl.htm'); ?>
+
+<!--left-->
+<?php TPL::output('admin/global/left.tpl.htm'); ?>
+<!--left-->
+
+<!-- main -->
+<div id="main-content">
+	<div class="clear"></div>
+	<div class="content-box">
+		<div class="content-box-header">
+			<h3><?php echo $this->crumb['last']['name']; ?></h3>
+			<div class="clear"></div>
+		</div>
+		<div class="content-box-content" style="margin-left:10px;">
+			<div class="tab-content default-tab" id="tab1">
+				<?php if ($this->message) { ?>
+				<div id="notification_box" class="notification success png_bg"> <a class="close" href="javascript:;"></a>
+					<div name="notification_content"><?php echo $this->message; ?></div>
+				</div>
+				<?php } ?>
+				<form id="_action_form" action="admin/tool/bbcode_to_markdown/" method="post">
+					<input type="hidden" name="model" value="question" />
+					<fieldset>
+					<ul>
+						<h5 style="line-height:22px; "><?php _e('注意'); ?></h5>
+						<li style="line-height:22px;"><?php _e('当前工具对系统内容中的 BBcode 语法转换为 Markdown 语法'); ?></li>
+					</ul>
+					<p style="margin-top:10px;">
+						<input class="button" type="submit" value="<?php _e('开始处理'); ?>" />
+					</p>
+					</fieldset>
+				</form>
+				<div class="clear"></div>
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+
+<!-- footer -->
+<?php TPL::output('admin/global/footer.tpl.htm'); ?>
+<!-- footer -->
+
+</div>
+<!-- main -->
+
+</div>
+
+</body>
+</html>

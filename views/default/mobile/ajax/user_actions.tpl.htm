@@ -1,0 +1,14 @@
+<?php if (is_array($this->list)) { ?>
+<?php foreach ($this->list AS $key => $val) { ?>
+	<li class="li dfc_xline devecon">
+    	<div><p class="max_id">
+        	<span class="txt"><?php echo str_replace(_e('赞同了该回复'), _e('赞同了 1 个回复'), $val['last_action_str']); ?></span>
+    ，<a href="mobile/question/<?php echo $val['question_id']; ?>">
+    <?php echo $val['question_content']; ?>	</a>
+    		</div>
+    		<div class="defa_time time"><?php echo date_friendly($val['add_time']); ?></div>
+            <div class="c"></div>
+    	</p>
+    </li>
+<?php } ?>
+<?php } ?> 

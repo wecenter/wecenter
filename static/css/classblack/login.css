@@ -1,0 +1,98 @@
+/*+--------------------------------------+
+* 名称: login
+* 功能: 登陆、注册 密码找回等相关样式
+* anwsin官方:http://www.anwsion.com/
+* developer:诸葛浮云
+* Email:globalbreak@gmail.com 
+* Copyright © 2012 - Anwsion社区, All Rights Reserved 
+* Date:2012-08-01
+*+--------------------------------------+*/
+
+/* 颜色链接文件 */ 
+@import url("link.css");
+
+/* css3 */ 
+@import url("headleCss3.css");
+
+
+#wrapper{padding-top:214px; position:relative; z-index:999;}
+#login_scroll{ left:0; top:0;}/* 登陆大图切换 */
+.l_xUler li,#login_scroll{background-position:center 0; background-repeat:no-repeat; width:100%;}
+html,body{ background-color:#fff;}
+.l_xUler li{ position:absolute; left:0; top:0; z-index:1;}
+
+.login_bd,.login_bd .login_alp{width:700px; height:376px;}
+.login_bd{ margin:0 auto; position:relative; z-index:1; }
+.login_bd .login_alp{position:absolute; z-index:-1;top:0;left:0}
+.login_bd > h1{ padding:40px 0 0 40px; max-width:330px;}
+.login_bd > h1 > p{ padding-top:15px;}
+.login_bd .login_state{ margin:75px 0 0 40px;max-width:330px;}
+.login_bd > h1 > p,.login_bd .login_title{font-weight:bold;font-size:16px;}
+.login_bd .login_state,.login_mod .login_title .login_reg{font-weight:bold;font-size:14px;}
+
+/* 登陆模块 */
+.login_bd .login_mod{width:324px;height:390px;position:absolute;right:0;top:0;}
+.login_mod .login_title{background:url(img/login_default.png) 0 -1px no-repeat; position:relative; width:244px; height:76px; padding:0 40px; line-height:76px;}
+.login_mod .login_title .login_c{ background-position:-33px 0; height:17px;*height:20px; width:17px; margin-bottom:-2px; margin-right:5px;}
+.login_mod .login_title .login_reg{ background-position:-36px -295px; width:164px;position:absolute; height:46px; line-height:46px;right:40px;top:15px; text-indent:57px;display:inline-block;}
+.login_mod .login_title .login_reg:hover{ background-position:-36px -343px;}
+
+.loging{ padding:40px; width:242px;border-left:1px solid #c9c9c9;border-right:1px solid #c9c9c9;}
+.loging li{height:40px; line-height:40px;}
+.loging li.user_treaty{height:auto; line-height:normal;}/* 注册用户协议 */
+.loging li+ li{margin-top:20px;}
+.loging li.cur{border:1px solid #999;}
+.loging li.cur label{ background-color:#666;}
+.loging .login_txt{padding:8px 4px; height:22px; line-height:22px; width:188px;border:0 none;}
+.loging .un,.loging .pw{ width:43px;height:40px; display:inline-block;}
+.loging .un{background-position:-24px 11px;}
+.loging .pw{background-position:-21px -24px;}
+.loging #login_radio{ margin-right:5px;margin-top:-2px;}
+.login_sub{ background-position:-108px -217px; width:92px; height:36px; text-align:center; margin-bottom:-6px; line-height:36px;}
+.login_sub:hover{background-position:-108px -255px;}
+
+/* 其他登陆 */
+.login_entrance{ height:71px; line-height:71px; padding:0 20px 0 40px;border:1px solid #c9c9c9;border-top:none;}
+.login_entrance .tri{ display:inline-block;background-position:22px -390px; padding-right:20px;height:20px; line-height:20px; margin-top:25px;}
+.login_entrance .tx,.login_entrance .sl,.login_entrance .qq{ height:28px; width:28px; display:inline-block; margin-right:5px; line-height:99em;overflow:hidden; vertical-align:middle;}
+.login_entrance .sl{ background-position:-22px -761px;}
+.login_entrance .tx{ background-position:-22px -795px;}
+.login_entrance .qq{background-position:-22px -2449px;margin-right:0;}
+
+/* 微博登陆 */
+.weibo_login{ height:76px; position:relative; padding-top:214px;}
+.weibo_login h1{ position:absolute; left:50%; bottom:90px; width:658px; margin-left:-328px; color:#fff !important;}
+.weibo_login h1 img{ vertical-align:text-bottom; margin-right:15px;}
+.weibo_login .b{ background:url(img/login_default.png) -2px -86px no-repeat; text-align:center; font-weight:bold; width:658px; font-size:20px; height:76px; line-height:78px; margin:0 auto;}
+.weibo_login .b .i_s{ display:inline-block; height:20px; width:20px; background-position:-30px -694px;vertical-align:middle; margin-right:10px;}
+.Ef_login{ width:656px; margin:0 auto; padding:40px 0; border:1px solid #c9c9c9; overflow:hidden;border-top:0 none;}
+.Ef_login h3{ width:245px; margin:0 auto 20px auto;}
+.Ef_login h3.l_regH3{ font-size:20px;}
+.Ef_login .l_pad{ padding-bottom:15px; line-height:25px;}
+.Ef_login  .loging{ border:0 none; margin:0 auto!important; padding:0!important;}
+.Ef_login h3 .a{ display:inline-block;width:15px; height:10px; margin-left:7px;  background-position:-34px -518px; *vertical-align:middle;/* for ie7 */}
+.Ef_login h3 .a.cur{ background-position:-34px -476px;}
+.Ef_login .loging .login_txt{width:232px; border:1px solid #ccc;}
+#weibo_bind{padding-bottom:40px!important;}
+
+/* 用户注册 */
+.user_treaty_txt{ width:591px; margin-left:-187px; padding:20px;margin-top:10px; padding-right:5px;  white-space:pre-wrap;*white-space:pre;*word-wrap:break-word;/* for ie7 */}
+.user_treaty_txt .txt{  max-height:100px; overflow:hidden; overflow-y:auto;}
+.user_treaty_txt .reg_arrows{ width:13px; height:6px; background-position:-37px -734px; display:inline-block; left:45%; top:-6px;}
+.register li{ position:relative;}
+.Ef_login .register li .auth_code{ width:130px;}
+.register .auth_img img{width:88px; height:35px; vertical-align:top; margin-top:2px; margin-left:10px; cursor:pointer;}
+.reg_right,.reg_tips,.reg_Err,.login_load{position:absolute; height:38px; width:115px;right:-145px; top:0; padding:0 10px;font-size:12px !important;}
+.reg_tips{  background-color:#eef7fd; border:1px solid #cfdde6;  line-height:18px; }
+.reg_right,.reg_Err{ line-height:40px !important;}
+.login_load{ background:url(img/i_loading.gif) 10px center no-repeat;}
+.reg_Err{ background-color:#ffeaea; border:1px solid #e5c3c4;}
+.reg_Err .regErr_ico{display:inline-block;  background-position:-36px -909px;height:14px; width:14px;vertical-align:middle; margin-right:5px; margin-top:-3px;*margin-top:-2px;/* for ie7 */}
+.reg_right{background-position:-26px -594px;}
+.l_explain{ background-color:#ebebeb; padding:25px 30px 30px; margin-bottom:-40px; margin-top:70px;}
+.l_explain >.l_txtex{ color:#999;}
+
+.l_footer{ text-align:center; line-height:22px; margin:95px 0; font-size:12px;}
+
+
+

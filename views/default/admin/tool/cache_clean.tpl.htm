@@ -1,0 +1,50 @@
+<?php TPL::output('admin/global/header.tpl.htm'); ?>
+
+<!--left-->
+<?php TPL::output('admin/global/left.tpl.htm'); ?>
+<!--left-->
+
+<!-- main -->
+<div id="main-content">
+	<div class="clear"></div>
+	<div class="content-box">
+		<div class="content-box-header">
+			<h3><?php echo $this->crumb['last']['name']; ?></h3>
+			<ul class="content-box-tabs">
+			</ul>
+			<div class="clear"></div>
+		</div>
+		<div class="content-box-content">
+			<div class="tab-content default-tab" id="tab1">
+				<?php if ($this->message){ ?>
+				<div id="notification_box" class="notification success png_bg"> <a class="close" href="javascript:;"></a>
+					<div name="notification_content"><?php echo $this->message; ?></div>
+				</div>
+				<?php } ?>
+				<form id="_action_form" action="admin/tool/cache_clean_process/" method="post">
+					<fieldset>
+					<ul>
+					<li style="line-height:22px;"><?php _e('当站点进行了数据恢复、升级或者工作出现异常的时候, 你可以使用本功能重新生成缓存'); ?></li>
+					</ul>
+					<p>
+						<input class="button" type="submit" value="<?php _e('开始处理'); ?>" />
+					</p>
+					</fieldset>
+					<div class="clear"></div>
+				</form>
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+
+<!-- footer -->
+<?php TPL::output('admin/global/footer.tpl.htm'); ?>
+<!-- footer -->
+
+</div>
+<!-- main -->
+
+</div>
+
+</body>
+</html>

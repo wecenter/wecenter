@@ -1,0 +1,14 @@
+<?php if ($this->list) { ?>
+<?php foreach($this->list AS $key => $val) { ?>
+<li<?php if ($val['unread']) { ?> class="unread"<?php } ?>>
+	<img src="<?php echo get_avatar_url($val['uid'], 'mid'); ?>" width="30" height="30" />
+	
+	<a href="mobile/people/<?php echo $val['url_token']; ?>" target="_blank"><span class="name"><?php echo $val['user_name']; ?></span></a>
+    
+	<a href="mobile/inbox/dialog_id-<?php echo $val['dialog_id']; ?>"><div class="mtxt"><?php echo nl2br($val['last_message']); ?></div></a>
+    <div class="r"><?php if ($val['unread']) { ?><?php _e('有'); ?> <?php echo $val['unread']; ?> <?php _e('条新回复'); ?><?php } else { ?><?php echo $val['count']; ?> <?php _e('条对话'); ?><?php } ?>&nbsp;&nbsp;&bull;&nbsp;&nbsp;<font style="color:#105cb6;"><?php _e('删除'); ?></font></div>
+    <div class="time"><?php echo date('Y-m-d H:i', $val['last_time']); ?></div>
+    <div class="c"></div>
+</li>
+<?php } ?>
+<?php } ?>

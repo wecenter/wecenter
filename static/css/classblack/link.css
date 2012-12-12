@@ -1,0 +1,250 @@
+@charset "utf-8";
+/*+--------------------------------------+
+* 名称: link
+* 功能: 公用颜色线条以及背景色
+* anwsin官方:http://www.anwsion.com/
+* developer:诸葛浮云
+* Email:globalbreak@gmail.com 
+* Copyright © 2012 - Anwsion社区, All Rights Reserved 
+* Date:2012-08-01
+*+--------------------------------------+*/
+
+/*
+i_gray a 默认值为#999
+i_gray a:hover #666
+i_gray a.cur #333
+*/
+
+/* 默认标签颜色值为#666 */
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td,hr,button,article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section,select {
+	color:#666;
+}
+
+/* 默认a链接颜色值 */
+a,
+.i_blue,
+.notice_msg h3,
+
+ /* 问题下拉列表站内公用 */
+.i_data_list a:hover,
+
+.q_classify .q_class_ul >li a:hover, /*  分类导航 > 子分类模块*/
+
+.q_bElems a:hover, /* 问题 >内容页 */
+.S_module .s_xs >em.s, /*赞同*/
+.i_globalPage >a:hover, /* 翻页 */
+.t_topicMain >.t_hot .p_time a:hover,
+#msgDropdown >p a
+{color:#105db5;} /* 皇家蓝 */
+
+.i_red{ color:red;}
+.i_color_bg,.msg_unread{ background-color:#fff9b6 !important;}
+
+a:hover,
+.i_header .i_message .lx_set a:hover,
+.q_qusAll .q_navC a:hover,
+#msgDropdown >p a:hover,
+.q_qusAll .q_navC a.cur:hover{color:#2586cd;} /* 鼠标hover颜色 深蓝 */
+
+
+/*+--------------------------------------+*/
+.i_cl_01,
+.s_autograph.i_cl_01,
+.i_gray a.cur, /* 公用 */
+.new_notice h3, /* 首页通知 */
+.new_ls .ex_hs span:hover, /* 首页通知 */
+.latest_trendst_h3,  /* 最新动态 */
+.h3_title,
+.v_essential >li >label, /* >>账号设置 */
+.tags_Mark,.tags_Mark h1,.preview_div h1,.tags_Mark h2,.preview_div h2,.tags_Mark h3,.preview_div h3,.tags_Mark p,.tags_Mark ol p,.tags_Mark ul p,.preview_div ol p,.preview_div ol p,.tags_Mark code,.preview_div code,.tags_Mark ul,.preview_div ul,.tags_Mark em,.preview_div em,.tags_Mark blockquote,
+#msgDropdown >p mark:hover{color:#333;} /* 暗灰色 */
+
+/*+--------------------------------------+*/
+.i_cl_02,
+.reg_tips, /* 注册提示文字颜色 */
+
+.new_ls li > span.time,  /* 首页通知 */
+.new_ls .ex_hs,
+.i_gray_but:hover, /* 公用绿色按钮(四个字) */ 
+.i_gray_bt2:hover,
+
+/* 首页内容模块 */
+.i_gray a,
+.s_ctrl,
+.s_autograph,
+
+.interest_user .add_gray, /* 可能该兴趣的用户 */
+
+.i_callingCard_tips >.i_mod,  /* 小卡片 */
+
+.q_category_nav .q_nav_tx >span, /* 问题分类导航 */
+
+.q_elems,   /* 问题 > 文字颜色 */
+
+.q_hotClass .q_Hspan,  /* 问题 >> 子分类 文字说明*/
+
+.q_editor, /* 编辑小图标 */
+
+.q_bElems a,.q_bElems, /* 问题 >内容页 */
+
+.s_enfoldment >a.a, /* 折叠 */
+
+.i_replymainElem .i_reltxt,  /* 回复框 */
+.i_replymainElem .i_draft,/* 回复框 */ 
+.i_upload li >.i_loadkb,
+.a_contxt >p,
+.i_glotxtClass,
+.pri_letter .p_time, /* 私信 */
+.p_sx >a.p_set, /* 私信 */
+.s_ctrl >.i_gray .cur
+{color:#999;} /* 亮灰色 */
+
+/*+--------------------------------------+*/
+.i_cl_03,
+.i_gray_but, /* 公用绿色按钮(四个字) */
+.i_gray_bt2,
+.i_green_bt2.cur,.i_green_bt2:hover.cur, /*灰色2个字*/
+
+/* 首页内容模块 */
+.i_gray a:hover,
+.i_header .i_message .lx_set a,
+
+ /* 问题下拉列表站内公用 */
+.i_data_list a,
+
+.q_classify .q_class_ul >li a, /*  分类导航 > 子分类模块*/
+
+.q_editor:hover, /* 编辑小图标 */
+.p_sx >a.p_set:hover, /* 私信 */
+.i_globalPage >a, /* 翻页 */
+.t_topicMain >.t_hot .p_time,.t_topicMain >.t_hot .p_time a
+{color:#666;} /* 亮灰色 */
+
+
+.trends_ls a:hover, /* 最新动态 */
+.q_qusAll .q_navC a.cur /* 问题>全部问题>面包屑 */
+{color:#000 !important;} /* 黑色 */
+
+/*+--------------------------------------+*/
+.i_white,
+.i_header .i_menu .i_index,
+.start_question,          /* 发起问题 */
+.i_message_tooltip_b,   /* 通知提示条数 */
+.i_message_tooltip_s,
+.i_add_attention >em, /*加关注*/
+.q_mainElem >.q_reply  /* 问题 > 回复数 */
+{color:#fff!important;} /* 白色 */
+/*+--------------------------------------+*/
+
+.i_cl_04{color:#cff1ff!important;} 
+.i_cl_05{color:#ffa01f!important;} /*黄*/
+
+/* */
+.i_cl_05,
+.reg_Err /* 注册报错提示文字颜色 */
+{ color:#cc0000;} /* 红色 */
+
+.i_cl_06,/* 按钮颜色，墨绿 */
+.login_sub:hover, /* 登陆按钮鼠标经过颜色 */
+.i_green_but,/* 公用按钮(四个字) */
+.i_green_but:hover,
+.i_green_bt2,/* 两个字绿色 */
+.i_green_bt2:hover,
+.i_replay_but2,.i_replay_but2:hover /* 评论按钮 */
+{color:#fff;} 
+
+
+.q_qusAll .q_navC a{color:#6b94ac;}
+/*+--------------------------------------+*/
+
+/**/
+.i_gloCor, /* 公用 */
+.trends_ls a,/* 最新动态 */
+.unityjoin,
+.interest_user h3,
+.q_category_nav .q_nav_tx >b a, /* 问题分类导航 */
+
+.q_mainElem >.q_reply >em, /* 问题 > 回复数 */
+.q_qusAll, /* 子分类 */
+
+.q_congMain >h2,  /* 问题内容页标题 */
+.q_invitation >.q_trt h4,  /* 问题 >> 右边栏 */
+.a_question >.a_qsAsk >h4,  /* 发起问题 >> 高级 */
+.t_topic_index > h3 > b,
+.v_setting > .h4
+{color:#17344a !important;} /*  */
+
+/*头部消息*/
+.i_header .i_message a{color:#2d648f;}
+.i_header .i_message a:hover{color:#3071a3;}
+.i_header .i_menu .i_index:hover,.start_question:hover{ color:#93e2f3 !important;}
+
+/* 登陆模块背景颜色值 */
+.login_bg_01{background-color:#e6e6e6;}
+.login_bg_02{background-color:#f5f5f5;}
+.login_lb{background-color:#ccc;}
+.weibo_login_bg{ background-color:#ccc;} /* 微博、注册、微博绑定头部背景色 */
+.reg_treaty_bg{ background-color:#dedede;} /* 注册用户协议背景色 */
+/*+--------------------------------------+*/
+
+/* 黑色公用背景 */
+.i_black_bg{background-color:#000;}
+
+/* 白色公用背景 */
+.i_white_bg,
+
+.i_header .lx_set,  /* 头部下拉框（设置） */
+
+.i_data_list, /* 问题下拉列表站内公用 */
+.i_data_list .i_list_p >span.i_span
+{background-color:#fff;}
+
+/* 报错信息提示背景色 */
+.i_err_bg{background-color:#fff480;}
+
+
+/* 站内公用线条类 */
+.i_lcol_01{border:1px solid #ebebeb;}
+
+
+/*+--------------------------------------+*/
+/* 公用虚线颜色 #c1cad4 */
+.new_ls li,
+
+ /* 头部下拉框（设置） */
+.i_header .lx_set a+a, 
+
+ /* 问题下拉列表站内公用 */
+.i_data_list p+p,
+.i_data_list span.i_span a+a,
+.i_commentElem .i_maingxr >li + li,
+.q_related_list a+a,
+.v_bind >p +p,
+.c_details >li +li,
+#msgDropdown >p +p,
+.S_module +.S_module,
+.pri_letter >li+li, /* 私信 */
+.q_mainElem + .q_mainElem
+{border-top:1px dotted #c1cad4;}
+
+.i_bdted, /* 公用 */
+.u_rankingList
+{border-bottom:1px dotted #c1cad4;}/* 问题页面内容部分虚线 */
+
+
+/* 小卡片 */
+.i_callingCard_tips >p.i_autograph 
+{border-bottom:1px dotted #C1CAD4;}
+
+
+/*+--------------------------------------+*/
+.i_header .i_message a >em, /*头部消息*/
+.i_message_tooltip_b,    /* 通知条数 */
+.i_message_tooltip_s
+{ background-color:#d90000;}
+
+
+/* 用户排行榜 */
+.u_linkColor{color:#82ad1e;}
+.u_linkCly{ color:#f5a900;}
+.i_linkGreen{ color:#1a9f00;}

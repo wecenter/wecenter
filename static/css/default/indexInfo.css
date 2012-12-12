@@ -1,0 +1,55 @@
+@charset "utf-8";
+/*+--------------------------------------+
+* 名称: indexInfo [此样式只出现一次，分离出来单独引入]
+* 功能: 注册向导
+*+--------------------------------------+*/
+
+.xd_main,.xd_crumbs,.xd_div{width:536px; border-radius:10px; box-shadow:0 0 1px #fff; text-shadow:0 1px 1px #fff; overflow:hidden;}
+.xd_main,.xd_div{ padding:40px;}
+.xd_main{ background-color:#f5f5f5; border:1px solid #656464; left:50%; top:120px; margin-left:-313px; z-index:999;}
+.xd_main >h2{ padding-bottom:40px; line-height:20px; font-size:20px;}
+.xd_crumbs,.xd_div,.xd_liste >li{ background-color:#fff; border:1px solid #e3e3e3;}
+.xd_crumbs{ height:46px; line-height:46px;}
+.xd_crumbs >span,.xd_crumbs >span >em,.xd_crumbs >span.cur >.e,.xd_liste >li p>span{ display:inline-block;}
+.xd_crumbs >span{ width:153px; padding-left:20px; float:left;}
+.xd_crumbs >span.cur,.xd_crumbs.xd_all{ background-color:#e7eff3 !important;}
+.xd_crumbs >span.cur >.e{  width:16px; height:46px; background:url(img/login_default.png) -649px 0 no-repeat;}
+.xd_crumbs >span.cur >.e2{ background-position:-632px 0;}
+
+.xd_crumbs >span >.xd_ex{ height:25px; width:25px; vertical-align:middle; background-color:#e6e6e6; text-align:center; line-height:25px; text-indent:0; margin-right:10px; border-radius:30px; color:#fff; text-shadow:0 0 0;}
+.xd_crumbs >span.cur .xd_ex,.xd_crumbs.xd_all .xd_ex {background-color:#fff !important; color:#999;}
+.xd_div,.xd_but{ margin-top:15px;}
+.xd_div{ width:auto;}
+.xd_upload{ width:100px; margin-right:20px; font-size:12px;}
+.xd_upload .xd_s{ display:block; padding-top:5px;}
+.xd_loadImg{ display:block; width:100px; height:100px;border-radius:10px;}
+.xd_upload >a.i_green_but{ margin-top:20px;}
+.xd_reset{ width:320px;}
+.xd_reset li{ padding-bottom:20px;}
+.xd_reset li >input.i_glotxtClass{ width:300px; margin-top:5px;}
+.xd_reset li >input[type="radio"]{ vertical-align:inherit;}
+.xd_liste{ margin-top:20px; width:600px;}
+.xd_liste >li{ float:left;padding:15px 15px 15px 75px;border-radius:10px; width:167px; margin-right:20px; margin-bottom:20px;}
+.xd_liste >li >.xd_head >img{ width:50px; height:50px; border-radius:5px; float:left;  margin-left:-60px;}
+.xd_liste >li p>span{ width:100px; font-size:12px; margin-top:5px;}
+.xd_liste .c_s5{ max-width:80px; margin:0;}
+.xd_liste >li p{ margin-bottom:5px;}
+.xd_reset li .select_xd{max-width:120px;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

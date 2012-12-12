@@ -1,0 +1,42 @@
+<?php TPL::output('global/header.tpl.htm'); ?>
+
+<div class="i_bd i_mainElem i_clear">
+	<div class="u_mainElm b_restrain">
+		<h3 class="latest_trendst_h3 q_qusAll i_prl q_content_h3 ">
+			<p class="q_navC i_pas">
+			<?php if (get_setting('integral_system_enabled') == 'Y') { ?>
+				<a<?php if ($_GET['sort_key'] == 'integral') { ?> class="cur"<?php } ?> href="people/list/sort_key-integral"><?php _e('积分'); ?></a>
+				<a<?php if (!$_GET['sort_key'] OR $_GET['sort_key'] == 'reputation') { ?> class="cur"<?php } ?>  href="people/list/"><?php _e('威望'); ?></a>
+			<?php } ?>
+			</p>
+			
+			<?php _e('用户排名'); ?>
+		</h3>
+    	   
+		<!--循环-->
+		<?php foreach($this->users_list as $key => $val) { ?>
+		<div class="u_rankingList i_prl u_integral">
+			<p class="u_user i_gltxtHide"><a href="people/<?php echo $val['url_token']; ?>" class="user_msg" data-message="&uid=<?php echo $val['uid']; ?>&card=user"><?php echo $val['user_name']; ?></a> <?php if ($val['verified']) { ?><em title="<?php _e('已认证'); ?>" class="v i_small"></em> <?php } ?><?php if ($val['signature']) { echo $val['signature']; } ?></p>
+			<p class="u_rx i_gltxtHide"><span class="w"><?php _e('威望'); ?>: <em class="u_linkColor i_bold"><?php echo $val['reputation']; ?></em></span><?php if (get_setting('integral_system_enabled') == 'Y') { ?><span class="j"><?php _e('积分'); ?>: <em class="u_linkCly i_bold"><?php echo $val['integral']; ?></em></span><?php } ?><span class="z"><?php _e('赞同'); ?>: <em><?php echo $val['agree_count']; ?></em></span><span class="g"><?php _e('感谢'); ?>: <em><?php echo $val['thanks_count']; ?></em></span></p>
+			
+			<?php if ($val['reputation_topics']) { ?>	
+			<p class="i_gltxtHide"><?php _e('擅长话题'); ?>:
+			<?php foreach($val['reputation_topics'] as $t_key => $t_val) { ?>
+				<a href="topic/<?php echo $t_val['url_token']; ?>" class="i_glotopic user_msg" data-message="&uid=<?php echo $t_val['topic_id']; ?>&card=topic" title="<?php echo $t_val['topic_title']; ?>"><?php echo $t_val['topic_title']; ?></a>
+			<?php } ?>
+			</p>
+			<?php } ?>
+			
+			<a class="i_imgforUser i_pas" href="people/<?php echo $val['url_token']; ?>" class="user_msg" data-message="&uid=<?php echo $val['uid']; ?>&card=user"><img src="<?php echo get_avatar_url($val['uid'], 'mid'); ?>" alt="<?php echo $val['user_name']; ?>" /></a>
+			
+			<?php if (!$_GET['page']) { $_GET['page'] = 1; } ?>
+			<span class="u_rk i_pas<?php if (($key + 1 + ((intval($_GET['page']) - 1) * get_setting('contents_per_page'))) <= 3) { ?> u_linkCly u_Ear<?php } ?>"><?php if (($key + 1 + ((intval($_GET['page']) - 1) * get_setting('contents_per_page'))) < 99) { echo ($key + 1 + ((intval($_GET['page']) - 1) * get_setting('contents_per_page'))); } else { echo '*'; }; ?></span>
+			<?php if ($this->user_id AND $this->user_id != $val['uid']) { ?><a href="javascript:;" onclick="follow_people($(this), $(this), <?php echo $val['uid']; ?>);" class="i_but i_green_bt2 i_pas<?php if ($val['focus']){?> cur<?php }?>"><?php if ($val['focus']) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?></a><?php } ?>
+		</div>
+		<?php } ?>
+		
+		<?php echo $this->pagination; ?>
+	</div>
+</div>
+
+<?php TPL::output('global/footer.tpl.htm'); ?>

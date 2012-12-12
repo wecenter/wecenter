@@ -1,0 +1,56 @@
+<?php TPL::output('admin/global/header.tpl.htm'); ?>
+
+<!--left-->
+<?php TPL::output('admin/global/left.tpl.htm'); ?>
+<!--left-->
+
+<!-- main -->
+	<div id="main-content">
+		<div class="clear"></div>
+	<div class="content-box">
+			<div class="content-box-header">
+				<h3><?php echo $this->crumb['last']['name']; ?></h3>
+				<ul class="content-box-tabs"></ul>
+				<div class="clear"></div>
+			</div>
+			<div class="content-box-content">
+				<?php if ($this->message) { ?>
+				<div class="notification success png_bg" id="notification_box">
+					<a href="javascript:;" class="close"></a>
+					<div name="notification_content"><?php echo $this->message; ?></div>
+				</div>
+				<?php } ?>
+				<div class="tab-content default-tab" id="tab1">
+					<form id="_action_form" action="admin/tool/update_search_index/" method="post">
+						<fieldset>
+						<p><?php _e('如果站点搜索有问题可以尝试更新搜索索引'); ?></p>
+						<p>
+							<?php _e('每次更新个数'); ?>: <input type="text" value="300" name="per_page" class="text-input small-int" style="width:30px;">
+						</p>
+						<p>
+							<input class="button" type="submit" value="<?php _e('开始处理'); ?>" />
+						</p>
+						</fieldset>
+						<div class="clear"></div>
+					</form>
+				</div>
+		</div>
+		
+		<div class="clear"></div>
+		<div id="notf_tip" style="display:none;" class="notification png_bg"> <a href="javascript:;" class="close"><img src="<?php echo G_STATIC_URL;?>/admin/images/icons/cross_grey_small.png" alt="关闭" /></a>
+			<div id="notf_cont"></div>
+		</div>
+		
+	</div>
+
+<!-- footer -->
+<?php TPL::output('admin/global/footer.tpl.htm'); ?>
+<!-- footer -->
+
+</div>
+<!-- main -->
+
+</div>
+
+</body>
+</html>

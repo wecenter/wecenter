@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=2.0, user-scalable=yes" />
+<base href="<?php echo get_setting('base_url');?>/<?php if (get_setting('url_rewrite_enable') != 'Y') { ?><?php echo G_INDEX_SCRIPT; ?><?php } ?>" />
+<?php if (is_array($this->_import_css_files)) { ?>
+<?php foreach ($this->_import_css_files AS $import_css) { ?>
+<link href="<?php echo $import_css; ?>?v=<?php echo G_VERSION_BUILD; ?>" rel="stylesheet" type="text/css" />
+<link rel="apple-touch-icon" href="<?php echo G_STATIC_URL; ?>/common/ios_logo.png" />
+
+<?php } ?>
+<?php } ?>
+<?php if (is_array($this->_import_js_files)) { ?>
+<?php foreach ($this->_import_js_files AS $import_js) { ?>
+<script src="<?php echo $import_js; ?>?v=<?php echo G_VERSION_BUILD; ?>" type="text/javascript"></script>
+<?php } ?>
+<?php } ?>
+<title><?php echo $this->page_title; ?></title>
+<script type="text/javascript">
+	var G_INDEX_SCRIPT = '<?php if (get_setting('url_rewrite_enable') != 'Y') { ?><?php echo G_INDEX_SCRIPT; ?><?php } ?>';
+	var G_SITE_NAME = '<?php echo addcslashes(get_setting('site_name'), "'"); ?>';
+	var G_BASE_URL = '<?php echo get_setting('base_url'); ?><?php if (get_setting('url_rewrite_enable') != 'Y') { ?>/<?php echo rtrim(G_INDEX_SCRIPT, '/'); ?><?php } ?>';
+	var G_STATIC_URL = '<?php echo G_STATIC_URL; ?>';
+	var G_UPLOAD_URL = '<?php echo get_setting('upload_url'); ?>';
+	var G_USER_ID = <?php echo $this->user_id; ?>;
+	var G_USER_NAME = '<?php echo addcslashes($this->user_info['user_name'], "'"); ?>';
+</script>
+<title><?php echo $this->page_title; ?></title>
+</head>
+<body>
+<div class="top">
+	<div class="backbtn">
+		<ul>
+			<?php if ($this->user_id) { ?>
+			<div class="set"><a href="javascript:;"><img class="pic" src="<?php if ($this->user_info['uid']) { echo get_avatar_url($this->user_info['uid'], 'mid'); } else { echo G_STATIC_URL . '/common/avatar-min-img.jpg'; } ?>" width="30px" height="auto" /><?php if ($this->user_info['notice_unread']) { ?><span class="circle"><?php echo ($this->user_info['notice_unread'] + $this->user_info['notification_unread']); ?></span><?php } ?></a></div>
+			
+             <a href="mobile/"><span class="anwsion"></span></a>
+            <?php } ?>
+			<?php if (!$this->user_id) { ?>
+			<a href="mobile/login/"><li class="logout set"><?php _e('登录'); ?></li></a>
+			<?php } else { ?>
+			<span class="s_open"><?php _e('搜索'); ?></span>
+      		<a href="mobile/publish/"><li><?php _e('发起'); ?></li></a>
+      		<a href="mobile/explore/"><li><?php _e('发现'); ?></li></a>
+			<?php } ?>
+		</ul>
+  </div>
+  
+</div>
+
+
+<?php if ($this->user_id) { ?>
+
+<div class="menu" style="display:none;">
+	<div class="info">
+		
+		<a href="mobile/people/"><div><span class="person">个人主页</span></div></a>
+		<a href="mobile/notifications/"><div><span class="notice">&nbsp;&nbsp;&nbsp;&nbsp;通知<?php if ($this->user_info['notification_unread']) { ?><font class="circle"><?php echo $this->user_info['notification_unread']; ?></font><?php } ?></span></div></a>
+        <a href="mobile/inbox/"><div><span class="message">&nbsp;&nbsp;&nbsp;&nbsp;私信<?php if ($this->user_info['notice_unread']) { ?><font class="circle"><?php echo $this->user_info['notice_unread']; ?></font><?php } ?></span></div></a>
+		
+		<a href="account/logout/return_url-/mobile/"><div><span class="quit">&nbsp;&nbsp;&nbsp;&nbsp;退出</span></div></a>
+		
+	</div> 
+</div>
+
+<div class="search"<?php if($_GET['q'] && $_GET['act'] == 'search'){ ?> style="display:block;"<?php } ?>>
+<form id="search" action="mobile/search/" method="post">
+	<div style="padding-right:50px;"><input name="q" value="<?php echo htmlspecialchars($_GET['q']); ?>" type="text" placeholder="搜索话题、问题或人"></div>
+	<div class="search_btn" onclick="$('#search').submit();"></div>
+</form>
+    <div style="clear:both;"></div>
+</div>
+
+<div id="header_message"></div>
+<?php } ?>

@@ -1,0 +1,11 @@
+<?php foreach ($this->users_list AS $key => $val) { ?>
+<li>
+	<a href="javascript:;" class="xd_head"><img src="<?php echo get_avatar_url($val['uid'], 'mid'); ?>" alt="" /></a>
+	<p><a href="javascript:;"><?php echo $val['user_name']; ?></a></p>
+	<p class="i_gltxtHide"><?php echo $val['signature']; ?></p>
+	<p class="c_gloicon">
+		<a class="i_green_bt2 i_right<?php if ($val['follow_check']) { ?> cur<?php } ?>" href="javascript:;" onclick="follow_people($(this), $(this), <?php echo $val['uid']; ?>);"><?php if ($val['follow_check']) { ?><?php _e('取消'); ?><?php } ?><?php _e('关注'); ?></a>
+		<span class="c_s5"><?php _e('威望'); ?>：<big class="u_linkColor"><?php echo $val['reputation']; ?></big></span>
+	</p>
+</li>
+<?php } ?>

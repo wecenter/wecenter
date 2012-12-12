@@ -1,0 +1,10 @@
+<?php if (is_array($this->list)) { ?>
+<?php foreach ($this->list AS $key => $val) { ?>
+	<li>
+		<div class="title"><a href="mobile/question/<?php echo $val['question_id']; ?>"><?php echo $val['question_content']; ?></a></div>
+		<div class="good"><div class="eye"></div><?php echo $val['view_count']; ?></div>
+		<span class="re"><?php echo $val['answer_count']; ?> <?php _e('个回复'); ?></span>
+		<span class="re" onclick="focus_question($(this), $(this), <?php echo $val['question_id']; ?>); return false;"><?php if ($val['has_focus']) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?></span>
+	</li>
+<?php } ?>
+<?php } ?>

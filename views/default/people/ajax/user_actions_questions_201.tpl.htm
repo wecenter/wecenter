@@ -1,0 +1,12 @@
+<?php if (is_array($this->list)) { ?>
+<?php foreach ($this->list AS $key => $val) { ?>	
+    <div class="S_module">
+      <h4><a href="question/<?php echo $val['question_id']; ?>"><?php echo $val['question_content']; ?></a></h4>
+      <div class="s_txt i_prl">
+        <p><?php echo cjk_substr($val['answer_info']['answer_content'], 0, 130, 'UTF-8', '...'); ?></p>
+        <div class="q_bElems"><?php echo date_friendly($val['answer_info']['add_time']); ?></div>
+        <!--赞同数--> 
+        <a href="javascript:;" class="s_endorse i_pas"><?php echo $val['answer_info']['agree_count']; ?></a></div>
+     </div>
+<?php } ?>
+<?php } ?>

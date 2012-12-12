@@ -1,0 +1,37 @@
+.button,
+#main-content table tfoot td .bulk-actions select,
+.pagination a.number,
+form input.text-input,
+form textarea,
+form .wysiwyg,
+form select,
+.dp-popup {
+                -moz-border-radius: 4px;
+                -webkit-border-radius: 4px;
+				border-radius: 4px;
+			}
+			
+
+ul.content-box-tabs li a.current,
+.shortcut-button,
+.notification {
+                -moz-border-radius: 6px;
+                -webkit-border-radius: 6px;
+				border-radius: 6px;
+                }
+
+ul.content-box-tabs li a.current {
+                -moz-border-radius-bottomleft: 0;
+                -moz-border-radius-bottomright: 0;
+                -webkit-border-bottom-left-radius: 0;
+                -webkit-border-bottom-right-radius: 0;
+				border-bottom-left-radius: 0;
+				border-bottom-right-radius: 0;
+                }
+				
+
+.shortcut-button span {
+                -moz-border-radius: 7px;
+                -webkit-border-radius: 7px;
+				border-radius: 7px;
+                }

@@ -1,0 +1,21 @@
+<?php TPL::output('mobile/header.tpl.htm'); ?>
+
+<div class="sort">
+	<div class="newsort">
+    	<div class="s_result"></div><?php _e('搜索'); ?>: <?php echo $this->keyword; ?>
+    </div>
+    <div class="con">
+    	<ul id="search_list"></ul>
+        <div class="more" id="bp_more"><?php _e('更多'); ?>...</div>
+     </div>
+</div>
+
+<script type="text/javascript">
+	search_query = '<?php echo addslashes($this->keyword); ?>';
+
+	$(document).ready(function () {
+		mobile_more_load(G_BASE_URL + '/mobile/ajax/search/q-' + search_query, $('#bp_more'), $('#search_list'), 0);
+	});
+</script>
+
+<?php TPL::output('mobile/footer.tpl.htm'); ?>

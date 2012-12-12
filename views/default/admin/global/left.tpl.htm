@@ -1,0 +1,17 @@
+<div id="sidebar" style="width:200px;height:100%;border-right:1px solid #ccc;">
+	<div id="sidebar-wrapper">
+			<ul id="main-nav">
+			<?php foreach($this->menu_list as $key => $val){  ?>
+				<li class="menu_nav_<?php echo $val['cname'];?>"> <a href="javascript:;" class="nav-top-item no-submenu<?php if($val['select']){?> current<?php } ?>"><span class="menu_nav_s"></span><?php echo $val['title'];?></a>
+				<?php if($val['children']){ ?>
+				<ul<?php if(!$val['select']){?> style="display:none;"<?php } ?>>
+				<?php foreach($val['children'] as $child){ ?>
+					<li><a href="<?php echo $child['url']; ?>"<?php if($child['select']){?> class="current"<?php } ?>><?php echo $child['title'];?></a></li>
+				<?php } ?>
+				</ul>
+				<?php } ?>
+				</li>
+			<?php } ?>
+			</ul>
+		</div>
+</div>

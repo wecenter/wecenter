@@ -1,0 +1,37 @@
+<?php TPL::output('global/header_landing.tpl.htm'); ?>
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		$('#header_action').append('<?php _e('密码找回'); ?>');
+	});
+</script>
+
+<form id="fpw_form" name="fpw_form" method="post" action="account/ajax/request_find_password/">
+<div class="Ef_login login_bg_02">
+  <ul class="loging register" id="psw_retrieve">
+    <li>
+      <input type="text" class="login_txt" name="email" id="login_userName" title="<?php _e('邮箱'); ?>/<?php _e('用户名'); ?>" value="<?php _e('邮箱'); ?>/<?php _e('用户名'); ?>" />
+      <span class="hide"></span> </li>
+    <li>
+      <input type="text" class="login_txt auth_code" id="authCode" name="seccode_verify" title="<?php _e('验证码'); ?>" value="<?php _e('验证码'); ?>" />
+      <em class="auth_img"><img id="seccode" onclick="this.src = G_BASE_URL + '/account/captcha/rnd-' + Math.floor(Math.random() * 10000);" src="" /></em> <span class="hide"></span> </li>
+    <li id="global_err" class="i_hide">
+      <p class="i_global_err i_small i_err_bg"><em class="e"></em><span id="glo_Err"><?php _e('账号或密码错误'); ?></span></p>
+    </li>
+    
+    <li><a href="javascript:;" onclick="ajax_post($('#fpw_form'), _login_form_processer);" class="login_sub i_cl_06 i_fb_14 i_right"><?php _e('下一步'); ?></a></li>
+  </ul>
+</div>
+</form>
+
+<script type="text/javascript" src="<?php echo G_STATIC_URL; ?>/js/app/login.js"></script>
+<script type="text/javascript">
+	$(document).ready(function () {
+		if (document.getElementById('seccode'))
+		{
+			$('#seccode').click();
+		}
+	});
+</script>
+
+<?php TPL::output('global/footer_blank.tpl.htm'); ?>
