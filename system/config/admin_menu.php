@@ -134,11 +134,6 @@ $config[4] = array(
 	'cname' => 'user',
 	'children' => array(
 		array(
-			'id' => 401,
-			'title' => '在线会员',
-			'url' => 'admin/user_manage/online_list/',
-		),
-		array(
 			'id' => 402,
 			'title' => '会员列表',
 			'url' => 'admin/user_manage/list/',

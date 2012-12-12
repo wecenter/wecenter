@@ -481,7 +481,6 @@ $language['开启 QQ 登录功能'] = '开启 QQ 登录功能';
 $language['开启 Rewrite 伪静态'] = '开启 Rewrite 伪静态';
 $language['开启 Ucenter 用户对接'] = '开启 Ucenter 用户对接';
 $language['开启发文验证码限制'] = '开启发文验证码限制';
-$language['开启在线会员统计'] = '开启在线会员统计';
 $language['开启新浪微博登录功能'] = '开启新浪微博登录功能';
 $language['开启系统缓存'] = '开启系统缓存';
 $language['开启缓存可以极大降低服务器负载'] = '开启缓存可以极大降低服务器负载';

@@ -13,7 +13,6 @@ INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES
 ('index_per_page', 's:2:"20";'),
 ('cache_open', 's:1:"N";'),
 ('online_interval', 's:2:"15";'),
-('online_count_open', 's:1:"Y";'),
 ('smtp_server', 's:0:"";'),
 ('smtp_username', NULL),
 ('smtp_password', NULL),

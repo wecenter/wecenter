@@ -92,7 +92,6 @@ class crond_class extends AWS_MODEL
 	// 每半分钟执行
 	public function half_minute($user_id)
 	{
-		$this->model('online')->online_active($user_id);
 		$this->model('edm')->run_task();
 	}
 	
@@ -102,6 +101,7 @@ class crond_class extends AWS_MODEL
 		@unlink(TEMP_PATH . 'plugins_table.php');
 		@unlink(TEMP_PATH . 'plugins_model.php');
 		
+		$this->model('online')->online_active($user_id);
 		$this->model('reputation')->calculate_by_uid($user_id);
 	}
 	
