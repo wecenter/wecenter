@@ -4,7 +4,7 @@
 	[UCenter] (C)2001-2099 Comsenz Inc.
 	This is NOT a freeware, use is subject to license terms
 
-	$Id: user.php 1082 2011-04-07 06:42:14Z svn_project_zhangjie $
+	$Id$
 */
 
 !defined('IN_UC') && exit('Access Denied');

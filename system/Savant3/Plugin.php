@@ -10,7 +10,7 @@
 * 
 * @license http://www.gnu.org/copyleft/lesser.html LGPL
 * 
-* @version $Id: Plugin.php,v 1.5 2005/04/29 16:23:50 pmjones Exp $
+* @version $Id$
 *
 */
 

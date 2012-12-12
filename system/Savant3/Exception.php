@@ -9,7 +9,7 @@
 * 
 * @license http://www.gnu.org/copyleft/lesser.html LGPL
 * 
-* @version $Id: Exception.php,v 1.1 2005/05/27 14:04:36 pmjones Exp $
+* @version $Id$
 * 
 */
 

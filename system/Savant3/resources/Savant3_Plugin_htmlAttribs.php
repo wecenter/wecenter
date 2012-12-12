@@ -10,7 +10,7 @@
 * 
 * @license http://www.gnu.org/copyleft/lesser.html LGPL
 * 
-* @version $Id: Savant3_Plugin_htmlAttribs.php,v 1.3 2005/09/12 17:49:27 pmjones Exp $
+* @version $Id$
 * 
 */
 

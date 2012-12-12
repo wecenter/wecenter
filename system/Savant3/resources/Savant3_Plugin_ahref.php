@@ -10,7 +10,7 @@
 * 
 * @license http://www.gnu.org/copyleft/lesser.html LGPL
 * 
-* @version $Id: Savant3_Plugin_ahref.php,v 1.4 2005/08/09 12:56:14 pmjones Exp $
+* @version $Id$
 *
 */
 

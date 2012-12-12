@@ -17,7 +17,7 @@
  * @subpackage PluginLoader
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: PluginLoader.php 24877 2012-06-04 14:04:53Z adamlundrigan $
+ * @version    $Id$
  */
 
 /** Zend_Loader_PluginLoader_Interface */
