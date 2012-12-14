@@ -70,7 +70,7 @@ class AWS_CONTROLLER
 		
 		if (defined('SYSTEM_LANG'))
 		{
-			TPL::import_js(get_js_url('/language/' . SYSTEM_LANG . '.js'));
+			TPL::import_js(get_setting('base_url') . '/language/' . SYSTEM_LANG . '.js');
 		}
 		
 		TPL::import_js(array(

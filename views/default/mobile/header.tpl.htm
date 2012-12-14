@@ -4,11 +4,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=2.0, user-scalable=yes" />
 <base href="<?php echo get_setting('base_url');?>/<?php if (get_setting('url_rewrite_enable') != 'Y') { ?><?php echo G_INDEX_SCRIPT; ?><?php } ?>" />
+<link rel="apple-touch-icon" href="<?php echo G_STATIC_URL; ?>/common/ios_logo.png" />
 <?php if (is_array($this->_import_css_files)) { ?>
 <?php foreach ($this->_import_css_files AS $import_css) { ?>
 <link href="<?php echo $import_css; ?>?v=<?php echo G_VERSION_BUILD; ?>" rel="stylesheet" type="text/css" />
-<link rel="apple-touch-icon" href="<?php echo G_STATIC_URL; ?>/common/ios_logo.png" />
-
 <?php } ?>
 <?php } ?>
 <?php if (is_array($this->_import_js_files)) { ?>
@@ -26,7 +25,6 @@
 	var G_USER_ID = <?php echo $this->user_id; ?>;
 	var G_USER_NAME = '<?php echo addcslashes($this->user_info['user_name'], "'"); ?>';
 </script>
-<title><?php echo $this->page_title; ?></title>
 </head>
 <body>
 <div class="top">

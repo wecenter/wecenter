@@ -146,6 +146,10 @@ class ajax extends AWS_CONTROLLER
 		{
 			TPL::output('mobile/ajax/index_actions');
 		}
+		else if ($_GET['template'] == 'm')
+		{
+			TPL::output('m/ajax/index_actions');
+		}
 		else
 		{
 			TPL::output('home/ajax/index_actions');
