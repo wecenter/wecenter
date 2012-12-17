@@ -189,11 +189,11 @@ function focus_question(el, text_el, question_id)
 {
 	if (el.hasClass('cur'))
 	{
-		text_el.html('关注');
+		text_el.html(_t('关注'));
 	}
 	else
 	{
-		text_el.html('取消关注');
+		text_el.html(_t('取消关注'));
 	}
 	
 	el.addClass('load');
@@ -232,11 +232,11 @@ function focus_topic(el, text_el, topic_id)
 {
 	if (el.hasClass('cur'))
 	{
-		text_el.html('关注');
+		text_el.html(_t('关注'));
 	}
 	else
 	{
-		text_el.html('取消关注');
+		text_el.html(_t('取消关注'));
 	}
 	
 	el.addClass('load');

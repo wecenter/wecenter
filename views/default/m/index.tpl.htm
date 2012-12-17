@@ -27,7 +27,7 @@
 </div><!-- /page -->
 
 <script type="text/javascript">
-	$(document).ready(function () {
+	$(document).bind('pageinit', function () {
 		load_list_view(G_BASE_URL + '/home/ajax/index_actions/template-m', $('#load_index_actions'));
 	});
 </script>

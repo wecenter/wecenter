@@ -33,9 +33,13 @@ if (function_exists('memory_get_usage'))
 	define('MEMORY_USAGE_START', memory_get_usage());
 }
 
-error_reporting(E_ALL & ~E_NOTICE | E_STRICT);
+//error_reporting(E_ALL & ~E_NOTICE | E_STRICT);
 
-define('AWS_PATH', dirname(__FILE__) . '/');
+if (! defined('AWS_PATH'))
+{
+	define('AWS_PATH', dirname(__FILE__) . '/');
+}
+
 define('ROOT_PATH', dirname(dirname(__FILE__)) . '/');
 define('TEMP_PATH', dirname(dirname(__FILE__)) . '/tmp/');
 
@@ -49,12 +53,12 @@ if (function_exists('get_magic_quotes_gpc'))
 			{
 				$value = stripslashes($value);
 			}
-		
-			array_walk_recursive($_GET, 'stripslashes_gpc');
-			array_walk_recursive($_POST, 'stripslashes_gpc');
-			array_walk_recursive($_COOKIE, 'stripslashes_gpc');
-			array_walk_recursive($_REQUEST, 'stripslashes_gpc');
 		}
+		
+		array_walk_recursive($_GET, 'stripslashes_gpc');
+		array_walk_recursive($_POST, 'stripslashes_gpc');
+		array_walk_recursive($_COOKIE, 'stripslashes_gpc');
+		array_walk_recursive($_REQUEST, 'stripslashes_gpc');	
 	}
 }
 

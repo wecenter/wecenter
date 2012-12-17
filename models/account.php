@@ -129,7 +129,7 @@ class account_class extends AWS_MODEL
 	 * @return
 	 */
 	function check_login($username, $password)
-	{
+	{		
 		if (!$username OR !$password)
 		{
 			return false;

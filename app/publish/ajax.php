@@ -425,6 +425,11 @@ class ajax extends AWS_CONTROLLER
 		
 		if (human_valid('question_valid_hour') AND !core_captcha::validate($_POST['seccode_verify'], false))
 		{
+			if ($_POST['_is_mobile'])
+			{
+				H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('你发帖频率太快了, 坐下来喝杯咖啡休息一下吧')));
+			}
+			
 			H::ajax_json_output(AWS_APP::RSM(array(
 				'tips_id' => 'quick_publish_message'
 			), '-1', AWS_APP::lang()->_t('请填写正确的验证码')));

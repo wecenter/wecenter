@@ -109,7 +109,7 @@ class main extends AWS_CONTROLLER
 		{
 			if ($_GET['is_mobile'])
 			{
-				$url = '/mobile/question/' . $_GET['question_id'];
+				$url = '/m/question/' . $_GET['question_id'];
 			}
 			else
 			{

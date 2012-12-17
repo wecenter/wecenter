@@ -33,11 +33,10 @@ class main extends AWS_CONTROLLER
 		switch ($_GET['act'])
 		{
 			default:
-				/*if (!$this->user_id)
+				if (!$this->user_id)
 				{
-					HTTP::redirect('/mobile/login/url-' . base64_encode($_SERVER['REQUEST_URI']));
+					HTTP::redirect('/m/login/url-' . base64_encode($_SERVER['REQUEST_URI']));
 				}
-				*/
 			break;
 			
 			case 'login':
@@ -73,21 +72,12 @@ class main extends AWS_CONTROLLER
 	{
 		if (! isset($_GET['id']))
 		{
-			HTTP::redirect('/mobile/explore/');
+			HTTP::redirect('/m/explore/');
 		}
 		
 		if (! $question_id = intval($_GET['id']))
 		{
-			H::redirect_msg(AWS_APP::lang()->_t('问题不存在或已被删除'), '/mobile/explore/');
-		}
-		
-		if (! $_GET['sort'] or $_GET['sort'] != 'ASC')
-		{
-			$_GET['sort'] = 'DESC';
-		}
-		else
-		{
-			$_GET['sort'] = 'ASC';
+			H::redirect_msg(AWS_APP::lang()->_t('问题不存在或已被删除'), '/m/explore/');
 		}
 		
 		if ($_GET['notification_id'])
@@ -97,7 +87,7 @@ class main extends AWS_CONTROLLER
 		
 		if (! $question_info = $this->model("question")->get_question_info_by_id($question_id))
 		{
-			H::redirect_msg(AWS_APP::lang()->_t('问题不存在或已被删除'), '/mobile/explore/');
+			H::redirect_msg(AWS_APP::lang()->_t('问题不存在或已被删除'), '/m/explore/');
 		}
 		
 		$question_info['redirect'] = $this->model("question")->get_redirect($question_info['question_id']);
@@ -111,7 +101,7 @@ class main extends AWS_CONTROLLER
 		{
 			if ($from_question = $this->model("question")->get_question_info_by_id($_GET['rf']))
 			{
-				$redirect_message[] = AWS_APP::lang()->_t('从问题') . ' <a href="' . get_js_url('/mobile/question/' . $_GET['rf'] . '?rf=false') . '">' . $from_question['question_content'] . '</a> ' . AWS_APP::lang()->_t('跳转而来');
+				$redirect_message[] = AWS_APP::lang()->_t('从问题') . ' <a href="' . get_js_url('/m/question/' . $_GET['rf'] . '?rf=false') . '">' . $from_question['question_content'] . '</a> ' . AWS_APP::lang()->_t('跳转而来');
 			}
 		}
 		
@@ -119,7 +109,7 @@ class main extends AWS_CONTROLLER
 		{
 			if ($target_question)
 			{
-				HTTP::redirect('/mobile/question/' . $question_info['redirect']['target_id'] . '?rf=' . $question_info['question_id']);
+				HTTP::redirect('/m/question/' . $question_info['redirect']['target_id'] . '?rf=' . $question_info['question_id']);
 			}
 			else
 			{
@@ -130,7 +120,7 @@ class main extends AWS_CONTROLLER
 		{
 			if ($target_question)
 			{
-				$message = AWS_APP::lang()->_t('此问题将跳转至') . ' <a href="' . get_js_url('mobile/question/' . $question_info['redirect']['target_id'] . '?rf=' . $question_info['question_id']) . '">' . $target_question['question_content'] . '</a>';
+				$message = AWS_APP::lang()->_t('此问题将跳转至') . ' <a href="' . get_js_url('/m/question/' . $question_info['redirect']['target_id'] . '?rf=' . $question_info['question_id']) . '">' . $target_question['question_content'] . '</a>';
 				
 				if ($this->user_id && ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator'] OR (!$this->question_info['lock'] AND $this->user_info['permission']['redirect_question'])))
 				{
@@ -151,110 +141,8 @@ class main extends AWS_CONTROLLER
 			$question_info['attachs_ids'] = FORMAT::parse_attachs($question_info['question_detail'], true);
 		}
 		
-		if ($question_info['category_id'] AND get_setting('category_enable') == 'Y')
-		{
-			$question_info['category_info'] = $this->model('system')->get_category_info($question_info['category_id']);
-		}
-		
-		$question_info['user_info'] = $this->model("account")->get_user_info_by_uid($question_info['published_uid'], true);
-		
 		$this->model('question')->update_views($question_id);
-			
-		if ($_GET['sort_key'] == 'add_time')
-		{
-			$answer_order_by = $_GET['sort_key'] . " DESC";
-		}
-		else
-		{
-			$answer_order_by = "agree_count DESC, against_count ASC, add_time ASC";
-		}
-			
-		$answer_count = $this->model('answer')->get_answer_count_by_question_id($question_id, $answer_count_where);
-			
-			
-		if (! $this->user_id)
-		{
-			if ($question_info['best_answer'])
-			{
-				$answer_list = $this->model('answer')->get_answer_list_by_question_id($question_id, 1, 'AND answer.answer_id = ' . (int)$question_info['best_answer']);
-			}
-			else
-			{
-				$answer_list = $this->model('answer')->get_answer_list_by_question_id($question_id, 1, null, 'agree_count DESC');
-			}
-		}
-		else
-		{
-			if ($answer_list_where)
-			{
-				$answer_list_where = ' AND ' . implode(' AND ', $answer_list_where);
-			}
-				
-			$answer_list = $this->model('answer')->get_answer_list_by_question_id($question_id, calc_page_limit($_GET['page'], 100), $answer_list_where, $answer_order_by);
-		}
-			
-		$answer_ids = array();
-		$answer_uids = array();
-			
-		$answers[0] = ''; // 预留给最佳回复
 		
-		if (! is_array($answer_list))
-		{
-			$answer_list = array();
-		}
-			
-		foreach ($answer_list as $answer)
-		{
-			$answer_ids[] = $answer['answer_id'];
-			$answer_uids[] = $answer['uid'];
-		}
-		
-		if (!in_array($question_info['best_answer'], $answer_ids) AND intval($_GET['page']) < 2)
-		{
-			$answer_list = array_merge($this->model('answer')->get_answer_list_by_question_id($question_id, 1, 'AND answer.answer_id = ' . (int)$question_info['best_answer']), $answer_list);
-		}
-			
-		if ($answer_ids)
-		{
-			$answer_agree_users = $this->model('answer')->get_vote_user_by_answer_ids($answer_ids);
-			$answer_vote_status = $this->model('answer')->get_answer_vote_status($answer_ids, $this->user_id);
-			$answer_users_rated_thanks = $this->model('answer')->users_rated('thanks', $answer_ids, $this->user_id);
-			$answer_users_rated_uninterested = $this->model('answer')->users_rated('uninterested', $answer_ids, $this->user_id);
-		}
-			
-		foreach ($answer_list as $answer)
-		{
-			if ($answer['has_attach'])
-			{
-				$answer['attachs'] = $this->model('publish')->get_attach('answer', $answer['answer_id'], 'min');
-			}
-				
-			$answer['user_rated_thanks'] = $answer_users_rated_thanks[$answer['answer_id']];
-			$answer['user_rated_uninterested'] = $answer_users_rated_uninterested[$answer['answer_id']];
-				
-			if ($answer['answer_content'])
-			{
-				$answer['answer_content'] = FORMAT::parse_links(nl2br($answer['answer_content']));
-			}
-				
-			$answer['agree_users'] = $answer_agree_users[$answer['answer_id']];
-			$answer['agree_status'] = $answer_vote_status[$answer['answer_id']];
-			
-			if ($question_info['best_answer'] == $answer['answer_id'])
-			{
-				$answers[0] = $answer;
-			}
-			else
-			{
-				$answers[] = $answer;
-			}
-		}
-			
-		if (! $answers[0])
-		{
-			unset($answers[0]);
-		}
-			
 		if (get_setting('answer_unique') == 'Y')
 		{
 			if ($this->model('answer')->has_answer_by_uid($question_id, $this->user_id))
@@ -262,33 +150,43 @@ class main extends AWS_CONTROLLER
 				TPL::assign('user_answered', TRUE);
 			}
 		}
-			
-		TPL::assign('answers', $answers);
-		TPL::assign('answer_count', $answer_count);
 		
 		$question_info['question_detail'] = FORMAT::parse_attachs(FORMAT::parse_links(nl2br(FORMAT::parse_markdown($question_info['question_detail']))));
-		
-		if ($this->user_id)
-		{		
-			TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
-				'base_url' => get_js_url('/mobile/question/id-' . $question_id . '__sort_key-' . $_GET['sort_key'] . '__sort-' . $_GET['sort'] . '__uid-' . $_GET['uid']), 
-				'total_rows' => $answer_count,
-				'per_page' => 100
-			))->create_links());
-		}
 		
 		TPL::assign('question_id', $question_id);
 		TPL::assign('question_info', $question_info);
 		TPL::assign('question_focus', $this->model("question")->has_focus_question($question_id, $this->user_id));
 		TPL::assign('question_topics', $this->model('question')->get_question_topic_by_question_id($question_id));
 		
-		$this->crumb($question_info['question_content'], '/mobile/question/' . $question_id);
-		
-		TPL::assign('human_valid', human_valid('answer_valid_hour'));
+		$this->crumb($question_info['question_content'], '/m/question/' . $question_id);
 		
 		TPL::assign('redirect_message', $redirect_message);
 		
-		TPL::output('mobile/question');
+		TPL::output('m/question');
+	}
+	
+	public function add_answer_action()
+	{
+		if (!$_GET['question_id'])
+		{
+			H::redirect_msg(AWS_APP::lang()->_t('问题不存在或已被删除'), '/m/explore/');
+		}
+		
+		TPL::assign('question_id', intval($_GET['question_id']));
+		
+		TPL::output('m/add_answer');
+	}
+	
+	public function add_comment_action()
+	{
+		if (!$_GET['question_id'])
+		{
+			H::redirect_msg(AWS_APP::lang()->_t('问题不存在或已被删除'), '/m/explore/');
+		}
+		
+		TPL::assign('question_id', intval($_GET['question_id']));
+		
+		TPL::output('m/add_comment');
 	}
 	
 	public function login_action()
@@ -303,13 +201,13 @@ class main extends AWS_CONTROLLER
 			}
 			else
 			{
-				HTTP::redirect('/mobile/');
+				HTTP::redirect('/m/');
 			}
 		}
 		
 		if (!$_SERVER['HTTP_REFERER'])
 		{
-			$return_url = get_js_url('/mobile/');
+			$return_url = get_js_url('/m/');
 		}
 		else
 		{
@@ -319,9 +217,9 @@ class main extends AWS_CONTROLLER
 		TPL::assign('r_uname', HTTP::get_cookie('r_uname'));
 		TPL::assign('return_url', strip_tags($return_url));
 		
-		$this->crumb(AWS_APP::lang()->_t('登录'), '/mobile/login/');
+		$this->crumb(AWS_APP::lang()->_t('登录'), '/m/login/');
 		
-		TPL::output("mobile/login");
+		TPL::output('m/login');
 	}
 	
 	public function explore_action()
@@ -558,5 +456,24 @@ class main extends AWS_CONTROLLER
 		{
 			HTTP::redirect('/mobile/');
 		}
+	}
+	
+	public function comments_list_action()
+	{
+		$comments_list = $this->model('question')->get_question_comments($_GET['question_id']);
+		
+		$user_infos = $this->model('account')->get_user_info_by_uids(fetch_array_value($comments_list, 'uid'));
+		
+		foreach ($comments_list as $key => $val)
+		{
+			$comments_list[$key]['message'] = FORMAT::parse_links($this->model('question')->parse_at_user($comments_list[$key]['message']));
+			
+			$comments_list[$key]['user_name'] = $user_infos[$val['uid']]['user_name'];
+			$comments_list[$key]['url_token'] = $user_infos[$val['uid']]['url_token'];
+		}
+		
+		TPL::assign('comments_list', $comments_list);
+		
+		TPL::output('m/comments_list');
 	}
 }

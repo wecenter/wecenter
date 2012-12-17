@@ -1,0 +1,21 @@
+<?php TPL::output('m/header.tpl.htm'); ?>
+
+<div data-role="page" id="post">
+	<form action="question/ajax/save_question_comment/question_id-<?php echo $this->question_id; ?>" onsubmit="return false;" method="post" id="comment_form">				
+		<div data-role="header" data-position="fixed" data-theme="b" data-add-back-btn="true">
+			<a href="m/question/<?php echo $this->question_id; ?>" data-role="button">返回</a>
+			
+			<h1>发表评论</h1>
+	
+			<a href="#" data-role="button" onclick="ajax_post($('#comment_form'));">发表</a>
+		</div><!-- /header -->
+		
+		<div data-role="content" class="m_contents">	
+			<div class="content-primary editor">
+				<textarea name="message" placeholder="填写评论内容"></textarea>
+			</div>
+		</div>
+	</form>
+</div>
+
+<?php TPL::output('m/footer.tpl.htm'); ?>

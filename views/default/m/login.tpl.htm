@@ -1,0 +1,26 @@
+<?php TPL::output('m/header.tpl.htm'); ?>
+
+<div data-role="page" class="m_login">
+	<div data-role="content">	
+		<div class="content-primary">
+			<form id="login_form" method="post" onsubmit="ajax_post($('#login_form')); return false;" action="account/ajax/login_process/" data-ajax="false" id="login_form">
+				<input type="hidden" name="return_url" value="<?php echo $this->return_url; ?>" />
+				<input type="hidden" name="post_hash" value="<?php echo new_post_hash(); ?>" />
+				
+				<input type="text" id="user_name" name="user_name" placeholder="<?php _e('邮箱'); ?>/<?php _e('用户名'); ?>" />
+				
+				<input type="password" id="password" name="password" placeholder="<?php _e('密码'); ?>" />
+				
+				<label for="net_auto_login"><?php _e('记住我'); ?>:</label>
+				<select name="net_auto_login" id="net_auto_login" data-role="slider">
+					<option value="0">O</option>
+					<option value="1">|</option>
+				</select>
+				
+				<button type="submit" data-theme="b">登录</button>
+			</form>
+		</div>
+	</div><!-- /content -->
+</div><!-- /page -->
+
+<?php TPL::output('m/footer.tpl.htm'); ?>

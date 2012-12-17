@@ -1,0 +1,69 @@
+<?php TPL::output('m/header.tpl.htm'); ?>
+
+<div data-role="page">
+
+	<div data-role="header" data-position="fixed" data-theme="b" data-add-back-btn="true">
+		<?php if (strstr($_SERVER['HTTP_REFERER'], '/m/')) { ?>
+		<a href="#" data-direction="reverse" data-rel="back" data-role="button">返回</a>
+		<?php } else { ?>
+		<a href="m/" data-role="button">返回</a>
+		<?php } ?>
+		
+		<h1><?php echo $this->question_info['answer_count']; ?> 个回答</h1>
+		
+		<a href="m/" data-role="button">首页</a>
+	</div><!-- /header -->
+
+	<div data-role="content" class="m_contents">	
+		<div class="content-primary" data-theme="d">
+			<div class="question_content">
+				<?php if ($this->question_topics) { ?>
+				<div class="tags">
+					<?php foreach($this->question_topics as $key => $val) { if ($key > 3) { break; } ?>
+						<a href="m/topic/<?php echo $val['url_token']; ?>"><?php echo $val['topic_title']; ?></span></a>
+					<?php } ?>
+					
+					<?php if (sizeof($this->question_topics) > 3) { ?>
+					<a href="#"><span>...</span></a>
+					<?php } ?>
+				</div>
+				<?php } ?>
+			
+				<h3><?php echo $this->question_info['question_content']; ?></h3>
+
+				<?php echo $this->question_info['question_detail']; ?>
+			</div>
+			<div class="question_meta ui-grid-a">
+				<div class="ui-block-a">
+					<a href="#" class="icon_label views"><?php echo $this->question_info['view_count']; ?></a>
+					<a href="m/comments_list/question_id-<?php echo $this->question_info['question_id']; ?>" class="icon_label comments"><?php echo $this->question_info['comment_count']; ?></a>
+				</div>
+				
+				<div class="ui-block-b">
+					<!--<a href="#" data-role="button" data-icon="delete" data-inline="true" data-mini="true">取消关注</a>-->
+					<a href="#" onclick="focus_question($(this), $(this).find('span.ui-btn-text'), <?php echo $this->question_info['question_id']; ?>);" data-role="button" data-icon="<?php if ($this->question_focus) { ?>delete<?php } else { ?>check<?php } ?>" data-theme="<?php if ($this->question_focus) { ?>c<?php } else { ?>b<?php } ?>" data-inline="true" data-mini="true"><?php if ($this->question_focus) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?></a>
+				</div>
+			</div>
+			<a href="m/add_answer/question_id-<?php echo $this->question_info['question_id']; ?>" class="question_add_answer" data-ajax="false">
+				<strong>+</strong> 添加答案
+			</a>
+			
+			<ul class="question_answers" id="listview"></ul>
+			
+			<p class="load_more"><a href="#" id="load_answers" data-role="button">更多...</a></p>
+		</div>
+
+	</div><!-- /content -->
+</div><!-- /page -->
+
+<script type="text/javascript">
+	$(document).bind('pageinit', function () {
+		load_list_view(G_BASE_URL + '/m/ajax/answers_list/question_id-<?php echo $this->question_info['question_id']; ?>', $('#load_answers'), 1);
+		
+		<?php if ($this->question_info['answer_count'] <= 0) { ?>
+		$('#load_answers').hide();
+		<?php } ?>
+	});
+</script>
+
+<?php TPL::output('m/footer.tpl.htm'); ?>

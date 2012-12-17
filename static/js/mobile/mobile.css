@@ -141,6 +141,10 @@ h4.user_name {
 	font-weight: bold;;
 }
 
+h4.user_name a {
+	color: #333 !important;
+	text-decoration: none;
+}
 
 .m_contents .question_answers img {
 	border-radius: 5px;
@@ -173,6 +177,7 @@ h4.user_name {
 
 .icon_nav .ui-btn-active {
 	background: -webkit-linear-gradient( #282828 /*{d-bup-background-start}*/, #1c1c1c /*{d-bup-background-end}*/);
+	background: linear-gradient( #282828 /*{d-bup-background-start}*/, #1c1c1c /*{d-bup-background-end}*/);
 }
 
 .icon_nav .ui-btn .ui-icon { width: 30px !important; height: 25px !important; margin-left: -15px !important; box-shadow: none!important; -moz-box-shadow: none!important; -webkit-box-shadow: none!important; -webkit-border-radius: 0 !important; border-radius: 0 !important; }
@@ -429,8 +434,24 @@ span.user_name {
 }
 
 p.load_more {
-	margin: 0;
+	margin: 0 0 15px 0;
 	padding: 30px 0 0 0;
 	clear: both;
 	zoom: 1;
+}
+
+.m_contents p.load_more {
+	margin: 0 15px 15px 15px;
+}
+
+.m_login {
+	background: #0d7bd5 url(images/glow.png) no-repeat center center;
+	color: #FFF;
+	text-shadow: none;
+}
+
+.m_login .content-primary {
+	padding-top: 120px;
+	background: url(images/logo.png) no-repeat center 20px;
+	background-size: 160px auto;
 }
