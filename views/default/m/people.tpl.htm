@@ -54,13 +54,21 @@
 			</div>
 			
 			<ul data-role="listview" data-inset="true">
-				<li><a href="index.html">详细信息</a></li>
+				<li><a href="#">关注的话题</a> <span class="ui-li-count"><?php echo $this->user['topic_focus_count']; ?></span></li>
+				<li><a href="m/users_list/tag-follows__uid-<?php echo $this->user['uid']; ?>">他关注的人 <span class="ui-li-count"><?php echo $this->user['friend_count']; ?></span></a></li>
 			</ul>
 			
 			<ul data-role="listview" data-inset="true">
-				<li><a href="index.html">全部动态</a></li>
-				<li><a href="index.html">答过 <span class="ui-li-count">0</span></a></li>
-				<li><a href="index.html">问过 <span class="ui-li-count">4</span></a></li>
+				<li><a data-ajax="false" href="m/user_actions/uid-<?php echo $this->user['uid']; ?>__distint-1__actions-<?php echo implode(',', array(
+		ACTION_LOG::ADD_QUESTION,
+		ACTION_LOG::ANSWER_QUESTION,
+		ACTION_LOG::ADD_REQUESTION_FOCUS,
+		ACTION_LOG::ADD_AGREE,
+		ACTION_LOG::ADD_TOPIC,
+		ACTION_LOG::ADD_TOPIC_FOCUS
+	)); ?>">全部动态</a></li>
+				<li><a data-ajax="false" href="m/user_actions/uid-<?php echo $this->user['uid']; ?>__actions-201">发问 <span class="ui-li-count"><?php echo $this->user['question_count']; ?></span></a></li>
+				<li><a data-ajax="false" href="m/user_actions/uid-<?php echo $this->user['uid']; ?>__actions-101">回答 <span class="ui-li-count"><?php echo $this->user['answer_count']; ?></span></a></li>
 			</ul>
 		</div>
 	</div><!-- /content -->

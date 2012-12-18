@@ -272,11 +272,11 @@ span.user_name {
 	vertical-align: middle;
 }
 
-.m_users_list p {
+.m_users_list p, .m_users_list .ui-li-desc {
 	color: #999;
 }
 
-.m_users_list h3 {
+.m_users_list h3, .m_users_list ui-li-heading {
 	margin: 0;
 	padding: 0 0 10px 0;
 	font-size: 14px;

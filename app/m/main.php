@@ -336,18 +336,18 @@ class main extends AWS_CONTROLLER
 	
 	public function search_result_action()
 	{
-		$keyword = htmlspecialchars($_GET['q']);
+		$keyword = htmlspecialchars($_POST['q']);
 		
 		$this->crumb(AWS_APP::lang()->_t('搜索'), '/m/search/');
 		
-		$this->crumb($keyword, '/m/search/q-' . urlencode($keyword));
+		$this->crumb($keyword, '/m/search/');
 		
 		if (!$keyword)
 		{
 			HTTP::redirect('/m/search/');	
 		}
 		
-		TPL::assign('search_type', htmlspecialchars($_GET['search_type']));
+		TPL::assign('search_type', htmlspecialchars($_POST['search_type']));
 		
 		TPL::assign('keyword', $keyword);
 		TPL::assign('split_keyword', implode(' ', $this->model('system')->analysis_keyword($keyword)));
@@ -372,5 +372,51 @@ class main extends AWS_CONTROLLER
 		TPL::assign('comments_list', $comments_list);
 		
 		TPL::output('m/comments_list');
+	}
+	
+	public function users_list_action()
+	{
+		switch ($_GET['tag'])
+		{
+			case 'follows':
+				$users_list = $this->model('follow')->get_user_friends($_GET['uid'], calc_page_limit($_GET['page'], 50));
+			break;
+			
+			case 'fans':
+				$users_list = $this->model('follow')->get_user_fans($_GET['uid'], calc_page_limit($_GET['page'], 50));
+			break;
+		}
+		
+		$total_page = $this->model('follow')->found_rows() / 50;
+		
+		if ($total_page > intval($total_page))
+		{
+			$total_page = intval($total_page) + 1;
+		}
+		
+		if (!$_GET['page'])
+		{
+			$_GET['page'] = 1;
+		}
+		
+		if ($_GET['page'] < $total_page)
+		{
+			$_GET['page'] = $_GET['page'] + 1;
+			
+			TPL::assign('next_page', $_GET['page']);
+		}
+		
+		TPL::assign('users_list', $users_list);
+		
+		TPL::output('m/users_list');
+	}
+	
+	public function user_actions_action()
+	{
+		TPL::assign('distint', intval($_GET['distint']));
+		TPL::assign('uid', intval($_GET['uid']));
+		TPL::assign('actions', htmlspecialchars(addslashes($_GET['actions'])));
+		
+		TPL::output('m/user_actions');
 	}
 }

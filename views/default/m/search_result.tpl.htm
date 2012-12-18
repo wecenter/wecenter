@@ -35,7 +35,7 @@
 	$(document).bind('pageinit', function () {
 		if ($.trim($('#search_result_listview').html()) == '')
 		{
-			load_list_view(G_BASE_URL + '/search/ajax/search_result/search_type-<?php echo $this->search_type; ?>__q-' + encodeURIComponent(search_query) + '__template-m', $('#search_result_listview')， $('#load_search_result'));
+			load_list_view(G_BASE_URL + '/search/ajax/search_result/search_type-<?php echo $this->search_type; ?>__q-' + encodeURIComponent(search_query) + '__template-m', $('#search_result_listview'), $('#load_search_result'));
 		}
 	});
 </script>

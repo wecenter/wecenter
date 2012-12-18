@@ -208,7 +208,7 @@ class follow_class extends AWS_MODEL
 			return false;
 		}
 		
-		$sql = "SELECT UF.*,
+		$sql = "SELECT SQL_CALC_FOUND_ROWS UF.*,
 				MEM.uid, MEM.user_name, MEM.url_token, MEM.avatar_file, MEM.reputation, MEM.agree_count, MEM.thanks_count, MEM.url_token,
 				MEB.*
 				FROM " . $this->get_table('user_follow') . " AS UF 
@@ -256,7 +256,7 @@ class follow_class extends AWS_MODEL
 			return false;
 		}
 		
-		$sql = "SELECT UF.*,
+		$sql = "SELECT SQL_CALC_FOUND_ROWS UF.*,
 				MEM.uid, MEM.user_name, MEM.url_token, MEM.avatar_file,
 				MEB.*, UF.fans_uid  
 				FROM " . $this->get_table('user_follow') . " AS UF 

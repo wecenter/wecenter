@@ -59,9 +59,9 @@ class ajax extends AWS_CONTROLLER
 		
 		TPL::assign('list', $data);
 		
-		if ($_GET['template'] == 'mobile')
+		if ($_GET['template'] == 'm')
 		{
-			$template_dir = 'mobile';
+			$template_dir = 'm';
 		}
 		else
 		{
