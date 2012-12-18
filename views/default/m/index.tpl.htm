@@ -7,28 +7,21 @@
 
 	<div data-role="content" class="m_lists">	
 		<div class="content-primary">
-			<ul data-role="listview" data-theme="d" data-divider-theme="d" id="listview"></ul>
+			<ul data-role="listview" data-theme="d" data-divider-theme="d" id="index_listview"></ul>
 			
 			<p class="load_more"><a href="#" id="load_index_actions" data-role="button">更多...</a></p>
 		</div>
 	</div><!-- /content -->
 	
-	<div data-role="footer" data-position="fixed"> 
-		<div data-role="navbar" class="icon_nav" data-grid="d">
-			<ul>
-				<li><a href="index.html" id="home" data-icon="custom">首页</a></li>
-				<li><a href="b.html" id="explore" data-icon="custom">发现</a></li>
-				<li><a href="c.html" id="search" data-icon="custom">搜索</a></li>
-				<li><a href="d.html" id="message" data-icon="custom">消息</a></li>
-				<li><a href="d.html" id="people" data-icon="people">我</a></li>
-			</ul>
-		</div><!-- /navbar -->
-	</div> 
+	<?php TPL::output('m/footer_nav.tpl.htm'); ?>
 </div><!-- /page -->
 
 <script type="text/javascript">
 	$(document).bind('pageinit', function () {
-		load_list_view(G_BASE_URL + '/home/ajax/index_actions/template-m', $('#load_index_actions'));
+		if ($.trim($('#index_listview').html()) == '')
+		{
+			load_list_view(G_BASE_URL + '/home/ajax/index_actions/template-m', $('#index_listview'), $('#load_index_actions'));
+		}
 	});
 </script>
 

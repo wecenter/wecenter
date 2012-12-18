@@ -1,3 +1,20 @@
+jQuery.fn.extend({
+	highText : function (searchWords, htmlTag, tagClass) {
+		return this.each(function() {
+			$(this).html(function high(replaced, search, htmlTag, tagClass) {
+				var pattarn = search.replace(/\b(\w+)\b/g, "($1)").replace(/\s+/g, "|");
+				
+				return replaced.replace(new RegExp(pattarn, "ig"), function(keyword) {
+					return $("<" + htmlTag + " class=" + tagClass + ">" + keyword + "</" + htmlTag + ">").outerHTML();
+				});
+			}($(this).text(), searchWords, htmlTag, tagClass));
+		});
+	},
+	outerHTML : function(s) {
+		return (s) ? this.before(s).remove() : jQuery("<p>").append(this.eq(0).clone()).html();
+	}
+});
+
 function _t(string, replace)
 {	
 	if (typeof(aws_lang) == 'undefined')
@@ -23,11 +40,10 @@ function _t(string, replace)
 	}	
 }
 
-var _ul_buttons = new Array();
-var _bp_more_pages = new Array();
+var _list_view_pages = new Array();
 
-function load_list_view(url, ul_button, start_page, callback_func)
-{
+function load_list_view(url, list_view, ul_button, start_page, callback_func)
+{	
 	if (!ul_button.attr('id'))
 	{
 		return false;
@@ -38,9 +54,7 @@ function load_list_view(url, ul_button, start_page, callback_func)
 		start_page = 0
 	}
 	
-	_bp_more_pages[ul_button.attr('id')] = start_page;
-	
-	_ul_buttons[ul_button.attr('id')] = ul_button.html();
+	_list_view_pages[ul_button.attr('id')] = start_page;
 	
 	ul_button.unbind('click');
 	
@@ -51,25 +65,25 @@ function load_list_view(url, ul_button, start_page, callback_func)
 	
 		$(_this).addClass('ui-disabled');
 			
-		$.get(url + '__page-' + _bp_more_pages[ul_button.attr('id')], function (response)
-		{
+		$.get(url + '__page-' + _list_view_pages[ul_button.attr('id')], function (response)
+		{			
 			if ($.trim(response) != '')
 			{
-				if (_bp_more_pages[ul_button.attr('id')] == start_page)
+				if (_list_view_pages[ul_button.attr('id')] == start_page)
 				{
-					$('#listview').html(response);
+					list_view.html(response);
 				}
 				else
 				{
-					$('#listview').append(response);
+					list_view.append(response);
 				}
 				
-				if ($('#listview').hasClass('ui-listview'))
+				if (list_view.hasClass('ui-listview'))
 				{
-					$('#listview').listview('refresh');
+					list_view.listview('refresh');
 				}
 					
-				_bp_more_pages[ul_button.attr('id')]++; 
+				_list_view_pages[ul_button.attr('id')]++; 
 				
 				$(_this).removeClass('ui-disabled');
 			}
@@ -322,3 +336,4 @@ function follow_people(el, text_el, uid)
 		}
 	}, 'json');
 }
+

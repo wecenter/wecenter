@@ -37,9 +37,9 @@ class main extends AWS_CONTROLLER
 
 	public function setup()
 	{
-		if (preg_match('/Opera\sMobi/i', $_SERVER['HTTP_USER_AGENT']) || preg_match('/Mobile\sSafari/i', $_SERVER['HTTP_USER_AGENT']) || preg_match('/iPhone\sOS/i', $_SERVER['HTTP_USER_AGENT']))
+		if (preg_match('/Mobile\sSafari/i', $_SERVER['HTTP_USER_AGENT']) || preg_match('/iPhone\sOS/i', $_SERVER['HTTP_USER_AGENT']))
 		{
-			HTTP::redirect('/mobile/');
+			HTTP::redirect('/m/');
 		}
 	}
 

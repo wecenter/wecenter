@@ -30,6 +30,11 @@ class main extends AWS_CONTROLLER
 	
 	public function setup()
 	{
+		if (preg_match('/iPad/i', $_SERVER['HTTP_USER_AGENT']))
+		{
+			HTTP::redirect('/');
+		}
+		
 		switch ($_GET['act'])
 		{
 			default:
@@ -40,9 +45,6 @@ class main extends AWS_CONTROLLER
 			break;
 			
 			case 'login':
-			case 'explore':
-			case 'question':
-			case 'topic':
 			break;
 		}
 		
@@ -162,6 +164,45 @@ class main extends AWS_CONTROLLER
 		
 		TPL::assign('redirect_message', $redirect_message);
 		
+		if (!$answer_list = $this->model('answer')->get_answer_list_by_question_id($question_info['question_id'], calc_page_limit($_GET['page'], 20), null, "agree_count DESC, against_count ASC, add_time ASC"))
+		{
+			$answer_list = array();
+		}
+			
+		foreach ($answer_list as $key => $answer)
+		{
+			if ($answer['has_attach'])
+			{
+				$answer_list[$key]['attachs'] = $this->model('publish')->get_attach('answer', $answer['answer_id'], 'min');
+			}
+				
+			if ($answer['answer_content'])
+			{
+				$answer_list[$key]['answer_content'] = FORMAT::parse_links(nl2br($answer['answer_content']));
+			}
+		}
+		
+		TPL::assign('answers_list', $answer_list);
+		
+		$total_page = $question_info['answer_count'] / 20;
+		
+		if ($total_page > intval($total_page))
+		{
+			$total_page = intval($total_page) + 1;
+		}
+		
+		if (!$_GET['page'])
+		{
+			$_GET['page'] = 1;
+		}
+		
+		if ($_GET['page'] < $total_page)
+		{
+			$_GET['page'] = $_GET['page'] + 1;
+			
+			TPL::assign('next_page', $_GET['page']);
+		}
+		
 		TPL::output('m/question');
 	}
 	
@@ -224,48 +265,9 @@ class main extends AWS_CONTROLLER
 	
 	public function explore_action()
 	{
-		if (!$this->user_info['permission']['visit_explore'])
-		{
-			if (!$this->user_id)
-			{
-				HTTP::redirect('/mobile/login/url-' . base64_encode($_SERVER['REQUEST_URI']));
-			}
-		}
-		
-		//if (get_setting('category_enable') == 'Y')
-		//{
-			$content_category = $this->model('module')->content_category();
+		$this->crumb(AWS_APP::lang()->_t('发现'), '/m/explore/');
 			
-			TPL::assign('content_category', $content_category);
-		//}
-		
-		if ($_GET['category'] and $category_info = $this->model('system')->get_category_info($_GET['category']))
-		{
-			TPL::assign('category_info', $category_info);
-			
-			$this->crumb($category_info['title'], '/mobile/explore/?category=' . $category_info['id']);
-		}
-		
-		TPL::output("mobile/explore");
-	}
-	
-	public function publish_action()
-	{
-		if (!$this->user_info['permission']['publish_question'] AND !$this->user_info['permission']['is_administortar'] AND !$this->user_info['permission']['is_moderator'])
-		{
-			H::redirect_msg(AWS_APP::lang()->_t('你所在用户组没有权限发布问题'));
-		}
-		
-		if (get_setting('category_enable') == 'Y')
-		{
-			TPL::assign('question_category_list', $this->model('system')->build_category_html('question', 0, $question_info['category_id']));
-		}
-		
-		TPL::assign('human_valid', human_valid('question_valid_hour'));
-		
-		TPL::assign('back_url', get_js_url('/mobile/explore/'));
-		
-		TPL::output('mobile/publish');
+		TPL::output('m/explore');
 	}
 	
 	public function people_action()
@@ -300,162 +302,57 @@ class main extends AWS_CONTROLLER
 			
 			if (!$user)
 			{
-				H::redirect_msg(AWS_APP::lang()->_t('用户不存在'), '/mobile/');
+				H::redirect_msg(AWS_APP::lang()->_t('用户不存在'), '/m/');
 			}
 			
 			if (urldecode($user['url_token']) != $_GET['id'])
 			{
-				HTTP::redirect('/mobile/people/' . $user['url_token']);
+				HTTP::redirect('/m/people/' . $user['url_token']);
 			}
 			
 			$this->model('people')->update_views_count($user['uid']);
 		}
 		
-		TPL::assign('reputation_topics', $this->model('people')->get_user_reputation_topic($user['uid'], $user['reputation'], 5));
-		
 		TPL::assign('user', $user);
-		
-		$job_info = $this->model('account')->get_jobs_by_id($user['job_id']);
-		
-		TPL::assign('job_name', $job_info['job_name']);
 		
 		TPL::assign('user_follow_check', $this->model('follow')->user_follow_check($this->user_id, $user['uid']));
 		
 		$this->crumb(AWS_APP::lang()->_t('%s 的个人主页', $user['user_name']), '/mobile/people/' . $user['url_token']);
 		
-		TPL::output('mobile/people');
-	}
-	
-	public function topic_action()
-	{
-		if (is_numeric($_GET['id']))
-		{
-			if (!$topic_info = $this->model('topic')->get_topic_by_id($_GET['id']))
-			{
-				$topic_info = $this->model('topic')->get_topic_by_title($_GET['id']);
-			}
-		}
-		else if ($topic_info = $this->model('topic')->get_topic_by_title($_GET['id']))
-		{
-			
-		}
-		else
-		{
-			$topic_info = $this->model('topic')->get_topic_by_url_token($_GET['id']);
-		}
-		
-		if (!$topic_info)
-		{
-			H::redirect_msg(AWS_APP::lang()->_t('话题不存在'), '/mobile/');
-		}
-		
-		if (urldecode($topic_info['url_token']) != $_GET['id'])
-		{
-			HTTP::redirect('/mobile/topic/' . $topic_info['url_token']);
-		}
-		
-		$topic_info['has_focus'] = $this->model('topic')->has_focus_topic($this->user_id, $topic_info['topic_id']);
-		
-		TPL::assign('topic_info', $topic_info);
-		
-		$this->crumb($topic_info['topic_title'], '/mobile/topic/' . rawurlencode($topic_info['topic_title']));
-		
-		TPL::output('mobile/topic');
-	}
-	
-	public function inbox_action()
-	{
-		if ($_GET['dialog_id'])
-		{
-			$dialog_id = intval($_GET['dialog_id']);
-			
-			if (!$dialog_id)
-			{
-				H::redirect_msg(AWS_APP::lang()->_t('指定的站内信不存在'), '/mobile/inbox/');
-			}
-			
-			$this->model('message')->read_message($dialog_id);
-			
-			$list = $this->model('message')->get_message_by_dialog_id($dialog_id, 100);
-			
-			if (empty($list['list_one']))
-			{
-				HTTP::redirect("/mobile/inbox/");
-			}
-			
-			if (! empty($list))
-			{
-				if ($list['list_one'][0]['sender_uid'] != $this->user_id)
-				{
-					$recipient_user = $this->model('account')->get_user_info_by_uid($list['list_one'][0]['sender_uid']);
-				}
-				else
-				{
-					$recipient_user = $this->model('account')->get_user_info_by_uid($list['list_one'][0]['recipient_uid']);
-				}
-				
-				if ($list['list'])
-				{
-					foreach ($list['list'] as $key => $value)
-					{
-						$value['notice_content'] = FORMAT::parse_links($value['notice_content']);
-						$value['user_name'] = $recipient_user['user_name'];
-						$value['url_token'] = $recipient_user['url_token'];
-						
-						$list_data[] = $value;
-					}
-				}
-			}
-			
-			$this->crumb(AWS_APP::lang()->_t('私信对话') . ': ' . $recipient_user['user_name'], '/mobile/inbox/dialog_id-' . $dialog_id);
-			
-			TPL::assign('list', $list_data);
-			TPL::assign('recipient_user', $recipient_user);
-			
-			TPL::assign('back_url', get_js_url('/mobile/inbox/'));
-			
-			TPL::output("mobile/inbox_read_message");
-		}
-		else
-		{
-			$this->crumb(AWS_APP::lang()->_t('私信'), '/mobile/inbox/');
-		
-			TPL::output("mobile/inbox");
-		}
+		TPL::output('m/people');
 	}
 	
 	public function new_pm_action()
-	{
-		TPL::assign('back_url', get_js_url('/mobile/inbox/'));
-		
+	{		
 		TPL::output("mobile/pm_new");
-	}
-	
-	public function notifications_action()
-	{
-		$this->crumb(AWS_APP::lang()->_t('通知'), '/mobile/notifications/');
-		
-		TPL::output("mobile/notifications");
 	}
 	
 	public function search_action()
 	{
-		if ($_POST['q'])
+		$this->crumb(AWS_APP::lang()->_t('搜索'), '/m/search/');
+		
+		TPL::output('m/search');
+	}
+	
+	public function search_result_action()
+	{
+		$keyword = htmlspecialchars($_GET['q']);
+		
+		$this->crumb(AWS_APP::lang()->_t('搜索'), '/m/search/');
+		
+		$this->crumb($keyword, '/m/search/q-' . urlencode($keyword));
+		
+		if (!$keyword)
 		{
-			HTTP::redirect('/mobile/search/q-' . rawurlencode($_POST['q']));
+			HTTP::redirect('/m/search/');	
 		}
-		else if ($_GET['q'])
-		{
-			$this->crumb(AWS_APP::lang()->_t('搜索'), '/mobile/search/');
-			
-			TPL::assign('keyword', htmlspecialchars($_GET['q']));
-			
-			TPL::output("mobile/search");
-		}
-		else
-		{
-			HTTP::redirect('/mobile/');
-		}
+		
+		TPL::assign('search_type', htmlspecialchars($_GET['search_type']));
+		
+		TPL::assign('keyword', $keyword);
+		TPL::assign('split_keyword', implode(' ', $this->model('system')->analysis_keyword($keyword)));
+		
+		TPL::output('m/search_result');
 	}
 	
 	public function comments_list_action()

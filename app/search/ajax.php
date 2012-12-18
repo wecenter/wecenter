@@ -86,7 +86,14 @@ class ajax extends AWS_CONTROLLER
 		
 		TPL::assign('search_result', $search_result);
 		
-		TPL::output('search/ajax/search_result');
+		if ($_GET['template'] == 'm')
+		{
+			TPL::output('m/ajax/search_result');
+		}
+		else
+		{
+			TPL::output('search/ajax/search_result');
+		}
 	}
 	
 	public function search_action()

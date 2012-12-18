@@ -1,0 +1,70 @@
+<?php TPL::output('m/header.tpl.htm'); ?>
+
+<div data-role="page">
+	<div data-role="header" data-position="fixed" data-theme="b" data-add-back-btn="true">
+		<a href="#" data-direction="reverse" data-rel="back" data-role="button">返回</a>
+		
+		<h1><?php if ($this->user_id == $this->user['uid']) { ?>我的<?php } ?>资料</h1>
+		
+		<a href="m/" data-ajax="false" data-role="button">首页</a>
+	</div><!-- /header -->
+
+	<div data-role="content" class="m_profile">	
+		<div class="content-primary" data-theme="d">
+			<div class="ui-grid-a user_info">
+				<div class="ui-block-a avatar">
+					<img src="<?php echo get_avatar_url($this->user['uid'], 'max'); ?>" alt="" />
+				</div>
+				
+				<div class="ui-block-b profile">
+					<div class="intro"><h4 class="user_name"><?php echo $this->user['user_name']; ?></h4> <p><?php echo $this->user['signature']; ?></p></div>
+
+					<div class="ui-grid-b statistics">
+						<div class="ui-block-a">
+							<span><?php echo $this->user['topic_focus_count']; ?></span>
+
+							他关注的话题
+						</div>
+
+						<div class="ui-block-b">
+							<span><?php echo $this->user['friend_count'];?></span>
+
+							他关注的人
+						</div>
+
+						<div class="ui-block-c">
+							<span><?php echo $this->user['fans_count'];?></span>
+
+							关注他的人
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="ui-grid-a user_control">
+				<div class="ui-block-a">
+					<a href="#" data-role="button"<?php if ($this->user_id != $this->user['uid']) { ?> data-icon="plus" data-iconpos="left"<?php } ?> data-mini="true" data-inline="true"><?php if ($this->user_id == $this->user['uid']) { ?>我的<?php } ?>私信</a>
+				</div>
+
+				<div class="ui-block-b">
+					<?php if ($this->user_id != $this->user['uid']) { ?>
+					<a href="#" data-role="button" onclick="follow_people($(this), $(this).find('span.ui-btn-text'), <?php echo $this->user['uid']; ?>);" data-icon="<?php if ($this->user_follow_check) { ?>delete<?php } else { ?>check<?php } ?>" data-theme="<?php if ($this->user_follow_check) { ?>c<?php } else { ?>b<?php } ?>" data-inline="true" data-mini="true"><?php if ($this->user_follow_check) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?></a>
+					<?php } ?>
+				</div>
+			</div>
+			
+			<ul data-role="listview" data-inset="true">
+				<li><a href="index.html">详细信息</a></li>
+			</ul>
+			
+			<ul data-role="listview" data-inset="true">
+				<li><a href="index.html">全部动态</a></li>
+				<li><a href="index.html">答过 <span class="ui-li-count">0</span></a></li>
+				<li><a href="index.html">问过 <span class="ui-li-count">4</span></a></li>
+			</ul>
+		</div>
+	</div><!-- /content -->
+</div><!-- /page -->
+
+</body>
+</html>

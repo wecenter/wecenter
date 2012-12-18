@@ -2,6 +2,10 @@ input, textarea, button, a:link {
 	-webkit-tap-highlight-color: rgba(225,225,225,0.5);
 }
 
+span.red {
+	color: red !important;
+}
+
 span.counts {
 	color: #FFF;
 	text-shadow: none;
@@ -353,7 +357,7 @@ span.user_name {
 }
 
 .m_profile .user_info .avatar {
-	width: 13%;
+	width: 16%;
 	padding-top: 3px;
 }
 
@@ -363,7 +367,7 @@ span.user_name {
 }
 
 .m_profile .user_info .profile {
-	width: 87%;
+	width: 83%;
 }
 
 .m_profile .user_info .profile h4 {

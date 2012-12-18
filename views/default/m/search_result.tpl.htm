@@ -1,0 +1,43 @@
+<?php TPL::output('m/header.tpl.htm'); ?>
+
+<div data-role="page">
+	<div data-role="header" data-position="fixed" data-theme="b">
+		<a href="#" data-ajax="false" data-direction="reverse" data-rel="back" data-role="button">返回</a>
+		
+		<h1>搜索: <?php echo $this->keyword; ?></h1>
+	</div><!-- /header -->
+
+	<div data-role="content" class="m_lists">	
+		<div class="content-primary">
+			<ul data-role="listview" data-theme="d" data-divider-theme="d" id="search_result_listview"></ul>
+			
+			<p class="load_more"><a href="#" id="load_search_result" data-role="button">更多...</a></p>
+		</div>
+	</div><!-- /content -->
+	
+	<div data-role="footer" data-position="fixed"> 
+		<div data-role="navbar" class="icon_nav" data-grid="d">
+			<ul>
+				<li><a href="m/" id="home" data-icon="custom">首页</a></li>
+				<li><a href="m/explore/" id="explore" data-icon="custom">发现</a></li>
+				<li><a href="m/search/" id="search" data-icon="custom" class="ui-btn-active ui-state-persist">搜索</a></li>
+				<li><a href="m/inbox/" id="message" data-icon="custom">消息</a></li>
+				<li><a href="m/me/" id="people" data-icon="people">我</a></li>
+			</ul>
+		</div><!-- /navbar -->
+	</div> 
+</div><!-- /page -->
+
+<script type="text/javascript">
+	var search_query = '<?php echo addslashes($this->keyword); ?>';
+	var split_query = '<?php echo addslashes($this->split_keyword); ?>';
+	
+	$(document).bind('pageinit', function () {
+		if ($.trim($('#search_result_listview').html()) == '')
+		{
+			load_list_view(G_BASE_URL + '/search/ajax/search_result/search_type-<?php echo $this->search_type; ?>__q-' + encodeURIComponent(search_query) + '__template-m', $('#search_result_listview')， $('#load_search_result'));
+		}
+	});
+</script>
+
+<?php TPL::output('m/footer.tpl.htm'); ?>
