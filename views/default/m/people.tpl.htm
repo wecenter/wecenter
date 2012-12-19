@@ -54,8 +54,8 @@
 			</div>
 			
 			<ul data-role="listview" data-inset="true">
-				<li><a href="#">关注的话题</a> <span class="ui-li-count"><?php echo $this->user['topic_focus_count']; ?></span></li>
-				<li><a href="m/users_list/tag-follows__uid-<?php echo $this->user['uid']; ?>">他关注的人 <span class="ui-li-count"><?php echo $this->user['friend_count']; ?></span></a></li>
+				<li><a href="m/topics_list/tag-focus__id-<?php echo $this->user['uid']; ?>">关注的话题</a> <span class="ui-li-count"><?php echo $this->user['topic_focus_count']; ?></span></li>
+				<li><a href="m/users_list/tag-follows__id-<?php echo $this->user['uid']; ?>">他关注的人 <span class="ui-li-count"><?php echo $this->user['friend_count']; ?></span></a></li>
 			</ul>
 			
 			<ul data-role="listview" data-inset="true">
@@ -74,5 +74,4 @@
 	</div><!-- /content -->
 </div><!-- /page -->
 
-</body>
-</html>
+<?php TPL::output('m/footer.tpl.htm'); ?>

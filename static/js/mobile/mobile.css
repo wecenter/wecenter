@@ -382,6 +382,12 @@ span.user_name {
 	font-weight: normal;
 }
 
+.m_profile .description {
+	margin-top: 8px;
+	font-size: 12px;
+	color: #999;
+}
+
 .m_profile .statistics {
 	margin-top: 8px;
 	font-size: 10px;
@@ -413,6 +419,17 @@ span.user_name {
 	padding: 5px;
 	border-top: 1px #c9c9c9 dotted;
 	border-bottom: 1px #c9c9c9 solid;
+}
+
+.m_profile .user_control .ui-block-a.text {
+	line-height: 40px;
+	font-size: 12px;
+	padding-left: 5px;
+	color: #999;
+}
+
+.m_profile .user_control .ui-block-a.text strong {
+	color: #333;
 }
 
 .m_profile .user_control .ui-block-b {

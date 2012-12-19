@@ -143,7 +143,7 @@ class topic_class extends AWS_MODEL
 			return false;
 		}
 		
-		if ($topic_list = $this->query_all("SELECT topic.* FROM " . $this->get_table('topic') . " AS topic LEFT JOIN " . $this->get_table("topic_focus") . " AS focus ON focus.topic_id = topic.topic_id WHERE focus.uid = " . intval($uid) . " ORDER BY focus.focus_id DESC", $limit))
+		if ($topic_list = $this->query_all("SELECT SQL_CALC_FOUND_ROWS topic.* FROM " . $this->get_table('topic') . " AS topic LEFT JOIN " . $this->get_table("topic_focus") . " AS focus ON focus.topic_id = topic.topic_id WHERE focus.uid = " . intval($uid) . " ORDER BY focus.focus_id DESC", $limit))
 		{
 			foreach ($topic_list AS $key => $val)
 			{

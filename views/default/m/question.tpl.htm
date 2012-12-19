@@ -18,12 +18,12 @@
 			<div class="question_content">
 				<?php if ($this->question_topics) { ?>
 				<div class="tags">
-					<?php foreach($this->question_topics as $key => $val) { if ($key > 3) { break; } ?>
+					<?php foreach($this->question_topics as $key => $val) { if ($key > 2) { break; } ?>
 						<a href="m/topic/<?php echo $val['url_token']; ?>"><?php echo $val['topic_title']; ?></span></a>
 					<?php } ?>
 					
 					<?php if (sizeof($this->question_topics) > 3) { ?>
-					<a href="#"><span>...</span></a>
+					<a href="m/topics_list/tag-question__id-<?php echo $this->question_info['question_id']; ?>"><span>...</span></a>
 					<?php } ?>
 				</div>
 				<?php } ?>
@@ -34,7 +34,7 @@
 			</div>
 			<div class="question_meta ui-grid-a">
 				<div class="ui-block-a">
-					<a href="#" class="icon_label views"><?php echo $this->question_info['view_count']; ?></a>
+					<a href="#" class="icon_label views"><?php echo $this->question_info['focus_count']; ?></a>
 					<a href="m/comments_list/question_id-<?php echo $this->question_info['question_id']; ?>" class="icon_label comments"><?php echo $this->question_info['comment_count']; ?></a>
 				</div>
 				

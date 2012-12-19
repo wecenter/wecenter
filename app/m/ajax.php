@@ -28,6 +28,4 @@ class ajax extends AWS_CONTROLLER
 	{
 		HTTP::no_cache_header();
 	}
-
-
 }

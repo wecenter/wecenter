@@ -70,6 +70,34 @@ class main extends AWS_CONTROLLER
 		TPL::output('m/index');
 	}
 	
+	public function actions_action()
+	{
+		$this->crumb(AWS_APP::lang()->_t('动态'), '/mobile/');
+		
+		switch ($_GET['tag'])
+		{
+			case 'topics':
+				$request_uri = '/topic/ajax/question_list/topic_id-' . htmlspecialchars(addslashes($_GET['id'])) . '__template-m';
+			break;
+			
+			case 'topics_best':
+				$request_uri = '/topic/ajax/question_list/type-best__topic_id-' . htmlspecialchars(addslashes($_GET['id'])) . '__template-m';
+			break;
+			
+			case 'topics_discuss':
+				$request_uri = '/question/ajax/discuss/answer_count-' . intval($_GET['answer_count']) . '__topic_id-' . htmlspecialchars(addslashes($_GET['id'])) . '__template-m';
+			break;
+			
+			case 'related_topics':
+				$request_uri = '/m/ajax/related_topics/topic_id-' . intval($_GET['id']) . '__template-m';
+			break;
+		}
+		
+		TPL::assign('request_uri', $request_uri);
+		
+		TPL::output('m/actions');
+	}
+	
 	public function question_action()
 	{
 		if (! isset($_GET['id']))
@@ -369,6 +397,8 @@ class main extends AWS_CONTROLLER
 			$comments_list[$key]['url_token'] = $user_infos[$val['uid']]['url_token'];
 		}
 		
+		$this->crumb(AWS_APP::lang()->_t('评论'), '/m/search/');
+		
 		TPL::assign('comments_list', $comments_list);
 		
 		TPL::output('m/comments_list');
@@ -379,36 +409,97 @@ class main extends AWS_CONTROLLER
 		switch ($_GET['tag'])
 		{
 			case 'follows':
-				$users_list = $this->model('follow')->get_user_friends($_GET['uid'], calc_page_limit($_GET['page'], 50));
+				$users_list = $this->model('follow')->get_user_friends($_GET['id'], calc_page_limit($_GET['page'], 50));
 			break;
 			
 			case 'fans':
-				$users_list = $this->model('follow')->get_user_fans($_GET['uid'], calc_page_limit($_GET['page'], 50));
+				$users_list = $this->model('follow')->get_user_fans($_GET['id'], calc_page_limit($_GET['page'], 50));
+			break;
+			
+			case 'topics_best_answer':
+				if ($users_list_raw = $this->model('topic')->get_best_answer_users($_GET['id'], $this->user_id, 50))
+				{
+					foreach ($users_list_raw AS $key => $val)
+					{
+						$users_list[] = $val['user_info'];
+					}
+				}
 			break;
 		}
 		
-		$total_page = $this->model('follow')->found_rows() / 50;
-		
-		if ($total_page > intval($total_page))
+		if ($this->model('follow')->found_rows())
 		{
-			$total_page = intval($total_page) + 1;
-		}
+			$total_page = $this->model('follow')->found_rows() / 50;
 		
-		if (!$_GET['page'])
-		{
-			$_GET['page'] = 1;
-		}
-		
-		if ($_GET['page'] < $total_page)
-		{
-			$_GET['page'] = $_GET['page'] + 1;
+			if ($total_page > intval($total_page))
+			{
+				$total_page = intval($total_page) + 1;
+			}
 			
-			TPL::assign('next_page', $_GET['page']);
+			if (!$_GET['page'])
+			{
+				$_GET['page'] = 1;
+			}
+			
+			if ($_GET['page'] < $total_page)
+			{
+				$_GET['page'] = $_GET['page'] + 1;
+				
+				TPL::assign('next_page', $_GET['page']);
+			}
+			
+			$this->crumb(AWS_APP::lang()->_t('用户列表'), '/m/users_list/');
+			
+			TPL::assign('users_list', $users_list);
 		}
-		
-		TPL::assign('users_list', $users_list);
 		
 		TPL::output('m/users_list');
+	}
+	
+	public function topics_list_action()
+	{
+		switch ($_GET['tag'])
+		{
+			case 'focus':
+				$topics_list = $this->model('topic')->get_focus_topic_list($_GET['id'], calc_page_limit($_GET['page'], 50));
+			break;
+			
+			case 'question':
+				$topics_list = $this->model('question')->get_question_topic_by_question_id($_GET['id']);
+			break;
+			
+			case 'related_topics':
+				$topics_list = $this->model('topic')->related_topics($_GET['id']);
+			break;
+		}
+		
+		if ($found_rows = $this->model('follow')->found_rows())
+		{
+			$total_page = $found_rows / 50;
+		
+			if ($total_page > intval($total_page))
+			{
+				$total_page = intval($total_page) + 1;
+			}
+			
+			if (!$_GET['page'])
+			{
+				$_GET['page'] = 1;
+			}
+			
+			if ($_GET['page'] < $total_page)
+			{
+				$_GET['page'] = $_GET['page'] + 1;
+				
+				TPL::assign('next_page', $_GET['page']);
+			}
+		}
+		
+		$this->crumb(AWS_APP::lang()->_t('话题'), '/m/topics_list/');
+		
+		TPL::assign('topics_list', $topics_list);
+		
+		TPL::output('m/topics_list');
 	}
 	
 	public function user_actions_action()
@@ -417,6 +508,44 @@ class main extends AWS_CONTROLLER
 		TPL::assign('uid', intval($_GET['uid']));
 		TPL::assign('actions', htmlspecialchars(addslashes($_GET['actions'])));
 		
+		$this->crumb(AWS_APP::lang()->_t('动态'), '/m/actions/');
+		
 		TPL::output('m/user_actions');
+	}
+	
+	public function topic_action()
+	{
+		if (is_numeric($_GET['id']))
+		{
+			if (!$topic_info = $this->model('topic')->get_topic_by_id($_GET['id']))
+			{
+				$topic_info = $this->model('topic')->get_topic_by_title($_GET['id']);
+			}
+		}
+		else if (!$topic_info = $this->model('topic')->get_topic_by_title($_GET['id']))
+		{
+			$topic_info = $this->model('topic')->get_topic_by_url_token($_GET['id']);
+		}
+		
+		if (!$topic_info)
+		{
+			H::redirect_msg(AWS_APP::lang()->_t('话题不存在'), '/m/');
+		}
+		
+		if (urldecode($topic_info['url_token']) != $_GET['id'])
+		{
+			HTTP::redirect('/m/topic/' . $topic_info['url_token']);
+		}
+		
+		$topic_info['has_focus'] = $this->model('topic')->has_focus_topic($this->user_id, $topic_info['topic_id']);
+		
+		TPL::assign('topic_info', $topic_info);
+		
+		$this->crumb(AWS_APP::lang()->_t('话题'), '/m/topic/');
+		
+		$this->crumb($topic_info['topic_title'], '/m/topic/' . rawurlencode($topic_info['topic_title']));
+		
+		
+		TPL::output('m/topic');
 	}
 }

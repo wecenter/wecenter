@@ -3,14 +3,17 @@
 <a class="main_latest" href="javascript:;" onclick="reload_list(0);" id="new_actions_tip" style="display:none;"><span id="new_action_num"></span> <?php _e('条新动态, 点击查看'); ?></a> 
 
 <script type="text/javascript">
-	if (typeof checkactionsnew_handle != 'undefined')
+	if (typeof(check_actions_new) == 'function')
 	{
-		clearInterval(checkactionsnew_handle);
+		if (typeof checkactionsnew_handle != 'undefined')
+		{
+			clearInterval(checkactionsnew_handle);
+		}
+		
+		checkactionsnew_handle = setInterval(function () {
+			check_actions_new('0', '<?php echo time(); ?>');
+		}, 60000);
 	}
-	
-	checkactionsnew_handle = setInterval(function () {
-		check_actions_new('0', '<?php echo time(); ?>');
-	}, 60000);
 </script>
 <?php } ?>
 <?php foreach ($this->list AS $key => $val) { ?>
