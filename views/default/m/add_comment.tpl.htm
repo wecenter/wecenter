@@ -1,6 +1,6 @@
 <?php TPL::output('m/header.tpl.htm'); ?>
 
-<div data-role="page" id="post">
+<div data-role="page">
 	<form action="question/ajax/save_question_comment/question_id-<?php echo $this->question_id; ?>" onsubmit="return false;" method="post" id="comment_form">				
 		<div data-role="header" data-position="fixed" data-theme="b" data-add-back-btn="true">
 			<a href="m/question/<?php echo $this->question_id; ?>" data-role="button">返回</a>

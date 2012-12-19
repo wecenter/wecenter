@@ -114,14 +114,7 @@ class main extends AWS_CONTROLLER
 	
 	public function delete_dialog_action()
 	{
-		$dialog_id = intval($_GET['dialog_id']);
-		
-		if ($dialog_id == 0)
-		{
-			die;
-		}
-		
-		$list = $this->model('message')->delete_dialog($dialog_id);
+		$list = $this->model('message')->delete_dialog($_GET['dialog_id']);
 		
 		if ($_SERVER['HTTP_REFERER'])
 		{
@@ -156,16 +149,14 @@ class main extends AWS_CONTROLLER
 
 	public function read_message_action()
 	{
-		$dialog_id = intval($_GET['dialog_id']);
-		
-		if (!$dialog_id)
+		if (!$_GET['dialog_id'])
 		{
 			H::redirect_msg(AWS_APP::lang()->_t('指定的站内信不存在'), '/inbox/');
 		}
 		
-		$this->model('message')->read_message($dialog_id);
+		$this->model('message')->read_message($_GET['dialog_id']);
 		
-		$list = $this->model('message')->get_message_by_dialog_id($dialog_id, calc_page_limit($_GET['page'], $this->per_page));
+		$list = $this->model('message')->get_message_by_dialog_id($_GET['dialog_id'], calc_page_limit($_GET['page'], $this->per_page));
 		
 		if (empty($list['list_one']))
 		{
@@ -196,11 +187,11 @@ class main extends AWS_CONTROLLER
 			}
 		}
 		
-		$this->crumb(AWS_APP::lang()->_t('私信对话') . ': ' . $recipient_user['user_name'], '/inbox/read_message/dialog_id-' . $dialog_id);
+		$this->crumb(AWS_APP::lang()->_t('私信对话') . ': ' . $recipient_user['user_name'], '/inbox/read_message/dialog_id-' . intval($_GET['dialog_id']));
 		
 		TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
-			'base_url' => get_js_url('/inbox/read_message/dialog_id-' . $dialog_id), 
-			'total_rows' => $this->model('message')->count_message($dialog_id), 
+			'base_url' => get_js_url('/inbox/read_message/dialog_id-' . intval($_GET['dialog_id'])), 
+			'total_rows' => $this->model('message')->count_message($_GET['dialog_id']), 
 			'per_page' => $this->per_page
 		))->create_links());
 		

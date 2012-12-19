@@ -10,12 +10,16 @@
 	<div data-role="content">	
 		<div class="content-primary" data-theme="d">
 			<ul data-role="listview">
+				<?php if (sizeof($this->users_list) > 0) { ?>
 				<?php foreach ($this->users_list AS $key => $val) { ?>
 				<li class="m_users_list"><a href="m/people/<?php echo $val['url_token']; ?>">
 					<img src="<?php echo get_avatar_url($val['uid'], 'mid'); ?>" alt="" />
 					<h3><?php echo $val['user_name']; ?></h3>
 					<p><?php echo $val['signature']; ?></p>
 				</a></li>
+				<?php } ?>
+				<?php } else { ?>
+				<p class="empty_message">没有相关用户</p>
 				<?php } ?>
 			</ul>
 			

@@ -15,6 +15,10 @@
 
 	<div data-role="content" class="m_contents">	
 		<div class="content-primary" data-theme="d">
+			<?php foreach ($this->redirect_message AS $key => $message) { ?>
+				<div class="notic_message"><?php echo $message; ?></div>
+			<?php } ?>
+			
 			<div class="question_content">
 				<?php if ($this->question_topics) { ?>
 				<div class="tags">
@@ -43,7 +47,7 @@
 					<a href="#" onclick="focus_question($(this), $(this).find('span.ui-btn-text'), <?php echo $this->question_info['question_id']; ?>);" data-role="button" data-icon="<?php if ($this->question_focus) { ?>delete<?php } else { ?>check<?php } ?>" data-theme="<?php if ($this->question_focus) { ?>c<?php } else { ?>b<?php } ?>" data-inline="true" data-mini="true"><?php if ($this->question_focus) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?></a>
 				</div>
 			</div>
-			<a href="m/add_answer/question_id-<?php echo $this->question_info['question_id']; ?>" class="question_add_answer" data-ajax="false">
+			<a href="m/add_answer/question_id-<?php echo $this->question_info['question_id']; ?>__r-<?php echo rand(1, 99999); ?>" class="question_add_answer">
 				<strong>+</strong> 添加答案
 			</a>
 			
@@ -57,7 +61,7 @@
 					</div>
 				
 					<div class="ui-block-b">
-						<h4 class="user_name"><?php if ($val['anonymous']) { ?><?php _e('匿名用户'); ?><?php } else { ?><a href="mobile/people/<?php echo $val['url_token']; ?>"><?php echo $val['user_name']; ?></a><?php } ?></h4>
+						<h4 class="user_name"><?php if ($val['anonymous']) { ?><?php _e('匿名用户'); ?><?php } else { ?><a href="m/people/<?php echo $val['url_token']; ?>"><?php echo $val['user_name']; ?></a><?php } ?></h4>
 				
 						<?php echo FORMAT::parse_attachs($val['answer_content']); ?>
 					</div>

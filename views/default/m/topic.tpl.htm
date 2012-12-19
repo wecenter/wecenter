@@ -11,6 +11,10 @@
 
 	<div data-role="content" class="m_profile">	
 		<div class="content-primary" data-theme="d">
+			<?php foreach ($this->redirect_message AS $key => $message) { ?>
+				<div class="notic_message"><?php echo $message; ?></div>
+			<?php } ?>
+			
 			<div class="ui-grid-a user_info">
 				<div class="ui-block-a avatar">
 					<img src="<?php echo get_topic_pic_url('max', $this->topic_info['topic_pic']); ?>" alt="" />
@@ -36,9 +40,9 @@
 			</div>
 			
 			<ul data-role="listview" data-inset="true">
-				<li><a data-ajax="false" href="m/actions/tag-topics__id-<?php echo $this->topic_info['topic_id']; ?>">话题动态</a></li>
-				<li><a data-ajax="false" href="m/actions/tag-topics_best__id-<?php echo $this->topic_info['topic_id']; ?>">最佳回答</a></li>
-				<li><a data-ajax="false" href="m/actions/tag-topics_discuss__id-<?php echo $this->topic_info['topic_id']; ?>">等待回答</a></li>
+				<li><a data-ajax="false" href="m/actions/tag-topics__id-<?php echo $this->contents_topic_id; ?>">话题动态</a></li>
+				<li><a data-ajax="false" href="m/actions/tag-topics_best__id-<?php echo $this->contents_topic_id; ?>">最佳回答</a></li>
+				<li><a data-ajax="false" href="m/actions/tag-topics_discuss__id-<?php echo $this->contents_topic_id; ?>">等待回答</a></li>
 			</ul>
 			
 			<ul data-role="listview" data-inset="true">

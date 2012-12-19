@@ -43,7 +43,7 @@
 			
 			<div class="ui-grid-a user_control">
 				<div class="ui-block-a">
-					<a href="#" data-role="button"<?php if ($this->user_id != $this->user['uid']) { ?> data-icon="plus" data-iconpos="left"<?php } ?> data-mini="true" data-inline="true"><?php if ($this->user_id == $this->user['uid']) { ?>我的<?php } ?>私信</a>
+					<a href="m/send_pm/<?php if ($this->user_id != $this->user['uid']) { ?>recipient-<?php echo urlencode($this->user['user_name']); ?>__r-<?php echo rand(1, 99999); ?><?php } ?>" data-role="button"<?php if ($this->user_id != $this->user['uid']) { ?> data-icon="plus" data-iconpos="left"<?php } else { ?> data-ajax="false"<?php } ?> data-mini="true" data-inline="true"><?php if ($this->user_id == $this->user['uid']) { ?>我的<?php } ?>私信</a>
 				</div>
 
 				<div class="ui-block-b">
@@ -70,6 +70,10 @@
 				<li><a data-ajax="false" href="m/user_actions/uid-<?php echo $this->user['uid']; ?>__actions-201">发问 <span class="ui-li-count"><?php echo $this->user['question_count']; ?></span></a></li>
 				<li><a data-ajax="false" href="m/user_actions/uid-<?php echo $this->user['uid']; ?>__actions-101">回答 <span class="ui-li-count"><?php echo $this->user['answer_count']; ?></span></a></li>
 			</ul>
+			
+			<?php if ($this->user_id == $this->user['uid']) { ?>
+			<a data-ajax="false" data-theme="e" class="button" href="account/logout/return_url-/m/" data-role="button">退出登录</a>
+			<?php } ?>
 		</div>
 	</div><!-- /content -->
 </div><!-- /page -->

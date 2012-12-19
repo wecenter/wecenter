@@ -1,0 +1,44 @@
+<?php TPL::output('m/header.tpl.htm'); ?>
+
+<div data-role="page">
+	<div data-role="header" data-position="fixed" data-theme="b">
+		<h1>私信</h1>
+	</div><!-- /header -->
+
+	<div data-role="content">	
+		<div class="content-primary">
+			<ul data-role="listview" data-theme="d" data-divider-theme="d" id="inbox_listview"></ul>
+			
+			<p class="load_more"><a href="#" id="load_inbox_actions" data-role="button">更多...</a></p>
+			
+			<!--<div class="chatItem me">
+				<img src="http://wenda.anwsion.com/uploads/avatar/000/00/00/49_avatar_max.jpg" class="avatar" alt="" />
+				
+				<div class="cloud cloudText">
+					<div class="cloudArrow"></div>
+					
+					<div class="cloudPannel">
+						<div class="cloudBody">
+							<div class="cloudContent">
+								这几天在做的东西
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>-->
+		</div>
+	</div><!-- /content -->
+	
+	<?php TPL::output('m/footer_nav.tpl.htm'); ?>
+</div><!-- /page -->
+
+<script type="text/javascript">
+	$(document).bind('pageinit', function () {
+		if ($.trim($('#inbox_listview').html()) == '')
+		{
+			load_list_view(G_BASE_URL + '/m/ajax/inbox_list/template-m', $('#inbox_listview'), $('#load_inbox_actions'), 1);
+		}
+	});
+</script>
+
+<?php TPL::output('m/footer.tpl.htm'); ?>

@@ -9,6 +9,7 @@ span.red {
 span.counts {
 	color: #FFF;
 	text-shadow: none;
+	background: #54a1cd;
 	background: -webkit-linear-gradient( #54a1cd /*{d-bup-background-start}*/, #6bb4e6 /*{d-bup-background-end}*/);
 	padding: 0 5px;
 	border-radius: 4px;
@@ -190,16 +191,50 @@ h4.user_name a {
 	color: #9f9f9f;
 }
 
-#home .ui-icon { background: url(images/icon_home@2x.png) 50% 50% no-repeat; background-size: 20px auto; }
-#explore .ui-icon { background: url(images/icon_explore@2x.png) 50% 50% no-repeat; background-size: 20px auto;  }
-#message .ui-icon { background: url(images/icon_message@2x.png) 50% 50% no-repeat;  background-size: 20px auto; }
-#people .ui-icon { background: url(images/icon_people@2x.png) 50% 50% no-repeat;  background-size: 20px auto; }
-#search .ui-icon { background: url(images/icon_search@2x.png) 50% 50% no-repeat;  background-size: 20px auto; }
+#home .ui-icon {
+	background: url(images/icon_home@2x.png) 50% 50% no-repeat;
+	-moz-background-size: 20px auto;
+	-webkit-background-size: 20px auto;
+	-o-background-size: 20px auto;
+	background-size: 20px auto;
+}
 
-.icon_tool #thanks .ui-icon { background: url(images/icon_tool_thanks.png) 50% 50% no-repeat; background-size: 20px auto; }
-.icon_tool #disagree .ui-icon { background: url(images/icon_tool_disagree.png) 50% 50% no-repeat; background-size: 20px auto;  }
-.icon_tool #favorite .ui-icon { background: url(images/icon_tool_favorite.png) 50% 50% no-repeat;  background-size: 20px auto; }
-.icon_tool #comments .ui-icon { background: url(images/icon_tool_comments.png) 50% 50% no-repeat;  background-size: 20px auto; }
+#explore .ui-icon {
+	background: url(images/icon_explore@2x.png) 50% 50% no-repeat;
+	-moz-background-size: 20px auto;
+	-webkit-background-size: 20px auto;
+	-o-background-size: 20px auto;
+	background-size: 20px auto;
+}
+
+#message .ui-icon {
+	background: url(images/icon_message@2x.png) 50% 50% no-repeat;
+	-moz-background-size: 20px auto;
+	-webkit-background-size: 20px auto;
+	-o-background-size: 20px auto;
+	background-size: 20px auto;
+}
+
+#people .ui-icon {
+	background: url(images/icon_people@2x.png) 50% 50% no-repeat;
+	-moz-background-size: 20px auto;
+	-webkit-background-size: 20px auto;
+	-o-background-size: 20px auto;
+	background-size: 20px auto;
+}
+
+#search .ui-icon {
+	background: url(images/icon_search@2x.png) 50% 50% no-repeat;
+	-moz-background-size: 20px auto;
+	-webkit-background-size: 20px auto;
+	-o-background-size: 20px auto;
+	background-size: 20px auto;
+}
+
+.icon_tool #thanks .ui-icon { background: url(images/icon_tool_thanks.png) 50% 50% no-repeat; }
+.icon_tool #disagree .ui-icon { background: url(images/icon_tool_disagree.png) 50% 50% no-repeat; }
+.icon_tool #favorite .ui-icon { background: url(images/icon_tool_favorite.png) 50% 50% no-repeat; }
+.icon_tool #comments .ui-icon { background: url(images/icon_tool_comments.png) 50% 50% no-repeat; }
 
 .ui-btn-corner-all {
 	border-radius: 8px !important;
@@ -242,21 +277,28 @@ h4.user_name a {
 	font-weight: normal;
 }
 
-.icon_label {
+.icon_label.views {
+	background: url(images/icon_views.png) no-repeat left center;
+	-webkit-background-size: 16px auto;
+	-moz-background-size: 16px auto;
+	-o-background-size: 16px auto;
 	background-size: 16px auto;
+}
+
+.icon_label.comments {
+	background: url(images/icon_comments.png) no-repeat left center;
+	-webkit-background-size: 16px auto;
+	-moz-background-size: 16px auto;
+	-o-background-size: 16px auto;
+	background-size: 16px auto;
+}
+
+.icon_label {
 	display: inline-block;
 	padding-left: 24px;
 	margin-right: 30px;
 	font-size: 12px;
 	line-height: 20px;
-}
-
-.icon_label.views {
-	background: url(images/icon_views.png) no-repeat left center;
-}
-
-.icon_label.comments {
-	background: url(images/icon_comments.png) no-repeat left center;
 }
 
 span.user_name {
@@ -345,6 +387,10 @@ span.user_name {
 .m_profile .user_info {
 	background: #f7f7f7;
 	padding: 5px 10px;
+}
+
+.m_profile .button {
+	margin: 10px 7px;
 }
 
 .m_profile .user_info img {
@@ -474,5 +520,137 @@ p.load_more {
 .m_login .content-primary {
 	padding-top: 120px;
 	background: url(images/logo.png) no-repeat center 20px;
+	-webkit-background-size: 160px auto;
+	-moz-background-size: 160px auto;
+	-o-background-size: 160px auto;
 	background-size: 160px auto;
+}
+
+.m_chat {
+	background: #f5f5f5;
+	padding: 0 10px 10px 10px;
+}
+
+.chatItem {
+	padding: 10px 0;
+	font-size: 14px;
+	clear: both;
+}
+
+
+.chatItem.me .avatar { float:right; height: 32px; width: 32px; border-radius: 5px; }
+.chatItem.me .cloud { float:right; min-width:50px; max-width:200px; margin:0 5px 0 0;}
+
+.chatItem.me .cloudText .cloudBody { 
+	-moz-border-top-colors:none;
+	-moz-border-right-colors:none;
+	-moz-border-bottom-colors:none;
+	-moz-border-left-colors:none;
+	border-color:transparent;
+
+	border:1px solid #AFAFAF;
+	border-radius:5px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	box-shadow: 0px 1px 0px #D5D5D5;
+
+	border:1px solid #9f9f9f;
+	background:#ECECEC;
+	border-radius:6px;
+	margin-left:8px;
+}
+
+.chatItem.me .cloudContent {
+	border:1px solid #eee;
+	border-top:1px solid #FFF;
+	border-bottom:1px solid #F2F2F2;
+	padding:13px;
+	border-radius:13px;
+	border-radius:4px;
+	-moz-border-radius:4px;
+	-webkit-border-radius:4px;
+	color:#000;
+	text-shadow:none;  
+	background-color:#ECECEC;
+		
+	background:-webkit-gradient(linear,
+					left top,left bottom,
+					from(#F4F4F4),to(#E5E5E5),
+					color-stop(0.1,#F3F3F3),color-stop(0.3,#F1F1F1),color-stop(0.5,#ECECEC),color-stop(0.7,#E9E9E9),color-stop(0.9,#E6E6E6),color-stop(1.0,#E5E5E5));
+	
+	background-image:-moz-linear-gradient(top, #F3F3F3 10%, #F1F1F1 30%,  #ECECEC 50%, #E9E9E9 70%, #E6E6E6 90%, #E5E5E5 100%);
+
+}
+	
+.chatItem.me .cloudText .cloudArrow { margin-top: 5px; float: right; width: 13px; height: 24px;	background: url(images/bubble_right.png) no-repeat; }
+		
+.chatItem.me .cloudText .cloudContent { background-color:#E5E5E5;vertical-align: top;padding:7px 10px;background-color:#ECECEC; }
+	
+.chatItem.me .cloudPannel {
+	margin-right: 10px;
+}
+
+.chatItem.you .avatar { float:left; height: 32px; width: 32px; border-radius: 5px; }
+.chatItem.you .cloud{ float:left; min-width:50px; max-width:200px; margin:0 0 0 5px; }
+
+.chatItem.you .cloudText .cloudBody { 
+	-moz-border-top-colors:none;
+	-moz-border-right-colors:none;
+	-moz-border-bottom-colors:none;
+	-moz-border-left-colors:none;
+	border-color:transparent;
+
+	border: 1px solid #7AA23F;
+	border-radius:5px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	box-shadow: 0px 1px 0px #DBDBDB;
+	border:1px solid #73972a;border-radius:6px;
+
+	background-color: #B2CF73;
+	background: -webkit-gradient(linear, left top,left bottom, from(#C4DE94),to(#A4C363), 
+		color-stop(0.1,#B4D174),color-stop(0.2,#B2CF73),
+		color-stop(0.3,#B2CF73), color-stop(0.4,#B2CF73),
+		color-stop(0.5,#B2CF73),color-stop(0.6,#AFCC74), 
+		color-stop(0.7,#ABCA6C),color-stop(0.8,#A9C572),
+		color-stop(0.9,#AECA72),color-stop(1.0,#A4C363));
+	background-image: -moz-linear-gradient(top, #B4D174 10%, #B2CF7320%, #B2CF73 30%, #B2CF73 40%, #B2CF73 50%, #AFCC74 60%, #ABCA6C70%, #A9C572 80%, #AECA72 90%, #A4C363 100%);
+}
+
+.chatItem.you .cloudPannel {
+	margin-left: 6px;
+}
+	
+.chatItem.you .cloudText .cloudContent { 
+	padding:5px 13px;
+	border-radius:13px; 
+	border-radius:5px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	padding:7px 10px;
+	text-shadow:none;
+	color:#030303;
+
+	border-top: 1px solid #DCE6C8;	
+	border-bottom: 1px solid #B9CF8B;	
+	border-right: 1px solid #CCDEA3;
+	background-color: #C0DC85;
+}
+	
+.chatItem.you .cloudText .cloudArrow { float: left; margin-top: 5px; width: 13px; height: 24px; background: url(images/bubble_left.png) no-repeat; }
+
+.notic_message {
+	line-height: 30px;
+	padding: 0px 10px;
+	background-color: #FFFCCF;
+	border: 1px solid #ddd;
+	border-top: 0;
+	font-size: 14px;
+}
+
+.empty_message {
+	text-align: center;
+	padding: 15px;
+	color: #505a6f;
+	font-size: 13px;
 }

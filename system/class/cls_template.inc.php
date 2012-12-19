@@ -38,8 +38,6 @@ class TPL
 			if (file_exists(AWS_PATH . 'config.inc.php') AND class_exists('AWS_APP', false))
 			{
 				self::$in_app = true;
-			
-				//eval(base64_decode('aWYgKCFzdHJzdHIoc3RydG9sb3dlcihzdHJpcF90YWdzKFRQTDo6ZmV0Y2goJ2dsb2JhbC9mb290ZXInKSkpLCAnYW53c2lvbicpKSB7IHNob3dfZXJyb3IoJ0ludmFsaWQgbGljZW5zZScpOyB9'));
 			}
 		}
 		

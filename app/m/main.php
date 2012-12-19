@@ -70,6 +70,76 @@ class main extends AWS_CONTROLLER
 		TPL::output('m/index');
 	}
 	
+	public function send_pm_action()
+	{
+		if (!$_GET['recipient'])
+		{
+			HTTP::redirect('/m/inbox/');
+		}
+		
+		TPL::assign('recipient', htmlspecialchars($_GET['recipient']));
+		
+		TPL::output('m/send_pm');
+	}
+	
+	public function inbox_action()
+	{
+		if ($_GET['dialog_id'])
+		{
+			if (!$_GET['dialog_id'])
+			{
+				H::redirect_msg(AWS_APP::lang()->_t('指定的站内信不存在'), '/m/inbox/');
+			}
+			
+			$this->model('message')->read_message($_GET['dialog_id']);
+			
+			$list = $this->model('message')->get_message_by_dialog_id($_GET['dialog_id'], 100);
+			
+			if (empty($list['list_one']))
+			{
+				HTTP::redirect('/m/inbox/');
+			}
+			
+			if (! empty($list))
+			{
+				if ($list['list_one'][0]['sender_uid'] != $this->user_id)
+				{
+					$recipient_user = $this->model('account')->get_user_info_by_uid($list['list_one'][0]['sender_uid']);
+				}
+				else
+				{
+					$recipient_user = $this->model('account')->get_user_info_by_uid($list['list_one'][0]['recipient_uid']);
+				}
+				
+				if ($list['list'])
+				{
+					foreach ($list['list'] as $key => $value)
+					{
+						$value['notice_content'] = FORMAT::parse_links($value['notice_content']);
+						$value['user_name'] = $recipient_user['user_name'];
+						$value['url_token'] = $recipient_user['url_token'];
+						
+						$list_data[] = $value;
+					}
+				}
+			}
+			
+			$this->crumb(AWS_APP::lang()->_t('私信对话') . ': ' . $recipient_user['user_name'], '/m/inbox/dialog_id-' . intval($_GET['dialog_id']));
+			
+			TPL::assign('list', $list_data);
+			
+			TPL::assign('recipient_user', $recipient_user);
+			
+			TPL::output('m/inbox_read_message');
+		}
+		else
+		{
+			$this->crumb(AWS_APP::lang()->_t('私信'), '/m/inbox/');
+		
+			TPL::output('m/inbox');
+		}
+	}
+	
 	public function actions_action()
 	{
 		$this->crumb(AWS_APP::lang()->_t('动态'), '/mobile/');
@@ -154,7 +224,7 @@ class main extends AWS_CONTROLLER
 				
 				if ($this->user_id && ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator'] OR (!$this->question_info['lock'] AND $this->user_info['permission']['redirect_question'])))
 				{
-					$message .= '&nbsp; (<a href="javascript:;" onclick="' . addslashes('ajax_request(G_BASE_URL + \'/question/ajax/redirect/\', \'item_id=' . $question_id . '\');') . '">' . AWS_APP::lang()->_t('撤消重定向') . '</a>)';
+					$message .= '&nbsp; (<a href="javascript:;" onclick="ajax_request(G_BASE_URL + \'/question/ajax/redirect/\', \'item_id=' . $question_id . '\');">' . AWS_APP::lang()->_t('撤消重定向') . '</a>)';
 				}
 				
 				$redirect_message[] = $message;
@@ -448,10 +518,10 @@ class main extends AWS_CONTROLLER
 				TPL::assign('next_page', $_GET['page']);
 			}
 			
-			$this->crumb(AWS_APP::lang()->_t('用户列表'), '/m/users_list/');
-			
 			TPL::assign('users_list', $users_list);
 		}
+		
+		$this->crumb(AWS_APP::lang()->_t('用户列表'), '/m/users_list/');
 		
 		TPL::output('m/users_list');
 	}
@@ -495,7 +565,7 @@ class main extends AWS_CONTROLLER
 			}
 		}
 		
-		$this->crumb(AWS_APP::lang()->_t('话题'), '/m/topics_list/');
+		$this->crumb(AWS_APP::lang()->_t('话题列表'), '/m/topics_list/');
 		
 		TPL::assign('topics_list', $topics_list);
 		
@@ -532,10 +602,51 @@ class main extends AWS_CONTROLLER
 			H::redirect_msg(AWS_APP::lang()->_t('话题不存在'), '/m/');
 		}
 		
+		if ($topic_info['merged_id'])
+		{
+			HTTP::redirect('/m/topic/' . $topic_info['merged_id'] . '?rf=' . $topic_info['topic_id']);
+		}
+		
 		if (urldecode($topic_info['url_token']) != $_GET['id'])
 		{
-			HTTP::redirect('/m/topic/' . $topic_info['url_token']);
+			HTTP::redirect('/m/topic/' . $topic_info['url_token'] . '?rf=' . $_GET['rf']);
 		}
+		
+		if (is_numeric($_GET['rf']) and $_GET['rf'])
+		{			
+			if ($from_topic = $this->model('topic')->get_topic_by_id($_GET['rf']))
+			{
+				$redirect_message[] = AWS_APP::lang()->_t('话题 (%s) 已与当前话题合并', $from_topic['topic_title']);
+			}
+		}
+		
+		if ($merged_topics = $this->model('topic')->get_merged_topic_ids($topic_info['topic_id']))
+		{
+			foreach ($merged_topics AS $key => $val)
+			{
+				$merged_topic_ids[] = $val['source_id'];
+			}
+			
+			$contents_topic_id = $topic_info['topic_id'] . ',' . implode(',', $merged_topic_ids);
+			
+			if ($merged_topics_info = $this->model('topic')->get_topics_by_ids($merged_topic_ids))
+			{
+				foreach($merged_topics_info AS $key => $val)
+				{
+					$contents_topic_title[] = $val['topic_title'];
+				}
+			}
+			
+			$contents_topic_title = $topic_info['topic_title'] . ',' . implode(',', $contents_topic_title);
+		}
+		else
+		{
+			$contents_topic_id = $topic_info['topic_id'];
+			$contents_topic_title = $topic_info['topic_title'];
+		}
+		
+		TPL::assign('contents_topic_id', $contents_topic_id);
+		TPL::assign('contents_topic_title', $contents_topic_title);
 		
 		$topic_info['has_focus'] = $this->model('topic')->has_focus_topic($this->user_id, $topic_info['topic_id']);
 		
@@ -545,6 +656,7 @@ class main extends AWS_CONTROLLER
 		
 		$this->crumb($topic_info['topic_title'], '/m/topic/' . rawurlencode($topic_info['topic_title']));
 		
+		TPL::assign('redirect_message', $redirect_message);
 		
 		TPL::output('m/topic');
 	}

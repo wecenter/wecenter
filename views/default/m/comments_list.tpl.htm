@@ -12,7 +12,7 @@
 	<div data-role="content" class="m_contents">	
 		<div class="content-primary" data-theme="d">
 			<ul class="question_answers">
-				<?php if ($this->comments_list) { ?>
+				<?php if (sizeof($this->comments_list) > 0) { ?>
 				<?php foreach ($this->comments_list AS $key => $val) { ?>
 				<li class="ui-grid-a">
 					<div class="ui-block-a">
@@ -26,6 +26,8 @@
 					</div>
 				</li>
 				<?php } ?>
+				<?php } else { ?>
+				<p class="empty_message">没有相关评论</p>
 				<?php } ?>
 			</ul>
 		</div>
