@@ -11,7 +11,7 @@
 		<div class="content-primary">
 			<ul data-role="listview" data-theme="d" data-divider-theme="d" id="actions_listview"></ul>
 			
-			<p class="load_more"><a href="#" id="load_actions_actions" data-role="button">更多...</a></p>
+			<p class="load_more"><a href="#" id="load_actions" data-role="button">更多...</a></p>
 		</div>
 	</div><!-- /content -->
 </div><!-- /page -->
@@ -20,7 +20,7 @@
 	$(document).bind('pageinit', function () {
 		if ($.trim($('#actions_listview').html()) == '')
 		{
-			load_list_view(G_BASE_URL + '<?php echo $this->request_uri; ?>', $('#actions_listview'), $('#load_actions_actions'));
+			load_list_view(G_BASE_URL + '<?php echo $this->request_uri; ?>', $('#actions_listview'), $('#load_actions'));
 		}
 	});
 </script>

@@ -1,3 +1,7 @@
+html {
+	-webkit-text-size-adjust: none;
+}
+
 input, textarea, button, a:link {
 	-webkit-tap-highlight-color: rgba(225,225,225,0.5);
 }
@@ -47,6 +51,12 @@ span.desc_text {
 	line-height: 18px;
 	margin: 3px 0 10px 0;
 	padding: 0;
+	overflow: visible;
+	white-space: normal;
+}
+
+.ui-li-aside {
+	width: 16%;
 }
 
 .m_lists .actions {
@@ -76,7 +86,7 @@ span.desc_text {
 
 .m_contents .tags {
 	border-bottom: 1px #bbb dashed;
-	padding-bottom: 10px;
+	padding-bottom: 5px;
 }
 
 .m_contents .tags a {
@@ -89,6 +99,7 @@ span.desc_text {
 	min-width: 40px;
 	text-align: center;
 	text-decoration: none;
+	margin: 0 0 5px 0;
 }
 
 .m_contents .question_content {
@@ -142,6 +153,10 @@ span.desc_text {
 	font-weight: normal;
 }
 
+.m_contents .disabled {
+	color: #bbb !important;
+}
+
 .m_contents .question_answers li {
 	list-style: none;
 	margin: 0;
@@ -166,7 +181,7 @@ h4.user_name a {
 }
 
 .m_contents .question_answers .ui-block-a {
-	width: 15%;
+	width: 16%;
 	text-align: center;
 }
 
@@ -384,7 +399,7 @@ span.user_name {
 }
 
 .m_answer .user_info .ui-block-a {
-	width: 13%;
+	width: 14%;
 }
 
 .m_answer .user_info .ui-block-a img {
@@ -406,7 +421,7 @@ span.user_name {
 }
 
 .m_answer .user_info .ui-block-b {
-	width: 67%;
+	width: 66%;
 }
 
 .m_answer .user_info .ui-block-b p {
@@ -572,6 +587,12 @@ p.load_more {
 	text-shadow: none;
 }
 
+.m_login .ui-link {
+	color: #FFF;
+	text-decoration: none;
+	font-size: 12px;
+}
+
 .m_login .content-primary {
 	padding-top: 120px;
 	background: url(images/logo.png) no-repeat center 20px;
@@ -637,7 +658,18 @@ p.load_more {
 
 }
 	
-.chatItem.me .cloudText .cloudArrow { margin-top: 5px; float: right; width: 13px; height: 24px;	background: url(images/bubble_right.png) no-repeat; }
+.chatItem.me .cloudText .cloudArrow {
+	margin-top: 5px;
+	float: right;
+	width: 13px;
+	height: 24px;
+	background: url(images/bubble_right_2x.png) no-repeat;
+	
+	-moz-background-size: 10px auto;
+	-webkit-background-size: 10px auto;
+	-o-background-size: 10px auto;
+	background-size: 10px auto;
+}
 		
 .chatItem.me .cloudText .cloudContent { background-color:#E5E5E5;vertical-align: top;padding:7px 10px;background-color:#ECECEC; }
 	
@@ -692,7 +724,17 @@ p.load_more {
 	background-color: #C0DC85;
 }
 	
-.chatItem.you .cloudText .cloudArrow { float: left; margin-top: 5px; width: 13px; height: 24px; background: url(images/bubble_left.png) no-repeat; }
+.chatItem.you .cloudText .cloudArrow {
+	float: left;
+	margin-top: 5px;
+	width: 13px;
+	height: 24px;
+	background: url(images/bubble_left_2x.png) no-repeat;
+	-moz-background-size: 7px auto;
+	-webkit-background-size: 7px auto;
+	-o-background-size: 7px auto;
+	background-size: 7px auto;
+}
 
 .notic_message {
 	line-height: 30px;

@@ -103,6 +103,8 @@ function load_list_view(url, list_view, ul_button, start_page, callback_func)
 			{
 				callback_func();
 			}
+			
+			$(_this).removeClass('ui-btn-active');
 		});
 			
 		return false;
