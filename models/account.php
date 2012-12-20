@@ -39,6 +39,7 @@ class account_class extends AWS_MODEL
 	 * 受邀请参与问题计数
 	 */
 	const INVITE_COUNT = 'invite_count';
+	
 
 	function get_source_hash($email)
 	{

@@ -50,7 +50,7 @@ class core_uri
 		
 		if ($_SERVER['REQUEST_URI'])
 		{
-			if ($_SERVER['HTTP_X_REWRITE_URL'])
+			if (isset($_SERVER['HTTP_X_REWRITE_URL']))
 			{
 				$request_main = $_SERVER['HTTP_X_REWRITE_URL'];
 			}

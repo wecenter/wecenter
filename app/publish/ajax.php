@@ -464,11 +464,11 @@ class ajax extends AWS_CONTROLLER
 		}
 		else
 		{
-			$this->model('publish')->publish_question($question_content, $question_detail, $_POST['category_id'], $this->user_id, $_POST['topics'], $_POST['anonymous'], $_POST['attach_access_key'], $_POST['ask_user_id'], $this->user_info['permission']['create_topic']);
+			$question_id = $this->model('publish')->publish_question($question_content, $question_detail, $_POST['category_id'], $this->user_id, $_POST['topics'], $_POST['anonymous'], $_POST['attach_access_key'], $_POST['ask_user_id'], $this->user_info['permission']['create_topic']);
 			
-			if ($_POST['is_mobile'])
+			if ($_POST['_is_mobile'])
 			{
-				$url = get_js_url('/mobile/question/' . $question_id);
+				$url = get_js_url('/m/question/' . $question_id);
 			}
 			else
 			{

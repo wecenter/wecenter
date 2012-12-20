@@ -954,14 +954,3 @@ function answer_user_rate(answer_id, type, element)
 		}
 	}, 'json');
 }
-
-function htmldecode(str) {
-	str = str.replace(/&amp;/gi, '&');
-	str = str.replace(/&nbsp;/gi, ' ');
-	str = str.replace(/&quot;/gi, '"');
-	str = str.replace(/&#39;/g, "'");
-	str = str.replace(/&lt;/gi, '<');
-	str = str.replace(/&gt;/gi, '>');
-	str = str.replace(/<br[^>]*>(?:(rn)|r|n)?/gi, 'n');
-	return str;
-}

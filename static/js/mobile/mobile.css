@@ -71,6 +71,7 @@ span.desc_text {
 .m_contents h3 {
 	margin: 0;
 	padding: 10px 0;
+	color: #333;
 }
 
 .m_contents .tags {
@@ -93,6 +94,9 @@ span.desc_text {
 .m_contents .question_content {
 	padding: 15px;
 	border-bottom: 1px #c9c9c9 solid;
+	line-height: 18px;
+	font-size: 14px;
+	color: #666;
 }
 
 .m_contents .question_meta {
@@ -130,6 +134,12 @@ span.desc_text {
 .m_contents .question_answers {
 	margin: 0;
 	padding: 0;
+}
+
+.m_contents .question_answers .ui-link {
+	color: inherit;
+	font-size: 13px;
+	font-weight: normal;
 }
 
 .m_contents .question_answers li {
@@ -231,27 +241,70 @@ h4.user_name a {
 	background-size: 20px auto;
 }
 
-.icon_tool #thanks .ui-icon { background: url(images/icon_tool_thanks.png) 50% 50% no-repeat; }
-.icon_tool #disagree .ui-icon { background: url(images/icon_tool_disagree.png) 50% 50% no-repeat; }
-.icon_tool #favorite .ui-icon { background: url(images/icon_tool_favorite.png) 50% 50% no-repeat; }
-.icon_tool #comments .ui-icon { background: url(images/icon_tool_comments.png) 50% 50% no-repeat; }
-
-.ui-btn-corner-all {
-	border-radius: 8px !important;
+.icon_tool #thanks .ui-icon {
+	background: url(images/icon_tool_thanks.png) 50% 50% no-repeat;
+	-moz-background-size: 20px auto;
+	-webkit-background-size: 20px auto;
+	-o-background-size: 20px auto;
+	background-size: 20px auto;
 }
 
-.ui-header .ui-btn-corner-all {
+.icon_tool #disagree .ui-icon {
+	background: url(images/icon_tool_disagree.png) 50% 50% no-repeat;
+	-moz-background-size: 20px auto;
+	-webkit-background-size: 20px auto;
+	-o-background-size: 20px auto;
+	background-size: 20px auto;
+}
+
+.icon_tool #favorite .ui-icon {
+	background: url(images/icon_tool_favorite.png) 50% 50% no-repeat;
+	-moz-background-size: 20px auto;
+	-webkit-background-size: 20px auto;
+	-o-background-size: 20px auto;
+	background-size: 20px auto;
+}
+
+.icon_tool #comments .ui-icon {
+	background: url(images/icon_tool_comments.png) 50% 50% no-repeat;
+	-moz-background-size: 20px auto;
+	-webkit-background-size: 20px auto;
+	-o-background-size: 20px auto;
+	background-size: 20px auto;
+}
+
+.ui-dialog.my-dialog .ui-dialog-contain { margin-top: 0 }
+.ui-dialog .ui-dialog-contain { margin-top: 0 }
+
+.ui-btn-corner-all {
+	border-radius: 8px;
+}
+
+.imgScroll img {
+	max-width: 100%;
+	border-radius: 5px;
+	border: 1px #ddd solid;
+}
+
+.ui-corner-top .ui-btn-corner-all {
+	border-radius: 1em;
+}
+
+.ui-corner-bottom .ui-btn-corner-all {
+	border-radius: 8px;
+}
+
+.ui-header-fixed.ui-header .ui-btn-corner-all {
 	border-radius: 5px !important;
 }
 
-.ui-header .ui-btn-inner {
+.ui-header-fixed.ui-header .ui-btn-inner {
 	padding: .45em 11px .5em
 }
 
-.ui-header .ui-btn {
+.ui-header-fixed.ui-header .ui-btn {
 	margin-top: 2px;
 }
-
 
 .editor {
 	background: transparent;
@@ -331,7 +384,7 @@ span.user_name {
 }
 
 .m_answer .user_info .ui-block-a {
-	width: 15%;
+	width: 13%;
 }
 
 .m_answer .user_info .ui-block-a img {
@@ -353,7 +406,7 @@ span.user_name {
 }
 
 .m_answer .user_info .ui-block-b {
-	width: 65%;
+	width: 67%;
 }
 
 .m_answer .user_info .ui-block-b p {
@@ -377,7 +430,9 @@ span.user_name {
 }
 
 .m_answer .answer_content {
-	padding: 10px 15px;
+	padding: 60px 15px 10px 15px;
+	font-size: 14px;
+	line-height: 18px;
 }
 
 .m_profile {

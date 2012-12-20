@@ -1,21 +1,9 @@
-<?php TPL::output('m/header.tpl.htm'); ?>
-
-<div data-role="page">
-	<form action="question/ajax/save_question_comment/question_id-<?php echo $this->question_id; ?>" onsubmit="return false;" method="post" id="comment_form">				
-		<div data-role="header" data-position="fixed" data-theme="b" data-add-back-btn="true">
-			<a href="m/question/<?php echo $this->question_id; ?>" data-role="button">返回</a>
-			
-			<h1>发表评论</h1>
-	
-			<a href="#" data-role="button" onclick="ajax_post($('#comment_form'));">发表</a>
-		</div><!-- /header -->
-		
-		<div data-role="content" class="m_contents">	
-			<div class="content-primary editor">
-				<textarea name="message" placeholder="填写评论内容"></textarea>
-			</div>
-		</div>
-	</form>
-</div>
-
-<?php TPL::output('m/footer.tpl.htm'); ?>
+<?php TPL::output('m/header.tpl.htm'); ?><div data-role="page">
+	<?php if ($_GET['question_id']) { ?>	<form action="question/ajax/save_question_comment/question_id-<?php echo intval($_GET['question_id']); ?>" onsubmit="return false;" method="post" id="comment_form">
+	<?php } else { ?>
+	<form action="question/ajax/save_answer_comment/answer_id-<?php echo intval($_GET['answer_id']); ?>" onsubmit="return false;" method="post" id="comment_form">
+	<?php } ?>						<div data-role="header" data-position="fixed" data-theme="b" data-add-back-btn="true">
+			<?php if ($_GET['question_id']) { ?>			<a href="m/question/<?php echo intval($_GET['question_id']); ?>" data-role="button">返回</a>
+			<?php } else { ?>
+			<a href="m/answer/<?php echo intval($_GET['answer_id']); ?>" data-role="button">返回</a>
+			<?php } ?>						<h1>发表评论</h1>				<a href="javascript:;" data-role="button" onclick="ajax_post($('#comment_form'));">发表</a>		</div><!-- /header -->				<div data-role="content" class="m_contents">				<div class="content-primary editor">				<textarea name="message" placeholder="填写评论内容"></textarea>			</div>		</div>	</form></div><?php TPL::output('m/footer.tpl.htm'); ?>

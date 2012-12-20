@@ -2,9 +2,15 @@
 
 <div data-role="page">
 	<div data-role="header" data-position="fixed" data-theme="b">
-		<a href="#" data-ajax="false" data-direction="reverse" data-rel="back" data-role="button">返回</a>
+		<a href="javascript:;" data-ajax="false" data-direction="reverse" data-rel="back" data-role="button">返回</a>
 		
-		<h1>搜索: <?php echo $this->keyword; ?></h1>
+		<h1><?php echo $this->keyword; ?></h1>
+		
+		<?php if ($this->user_info['permission']['publish_question'] OR $this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?>
+		<a href="m/add_question/question_content-<?php echo urlencode($this->keyword); ?>" data-ajax="false" data-role="button">提问</a>
+		<?php } else { ?>
+		<a href="#" class="ui-disabled" data-role="button">提问</a>
+		<?php } ?>
 	</div><!-- /header -->
 
 	<div data-role="content" class="m_lists">	

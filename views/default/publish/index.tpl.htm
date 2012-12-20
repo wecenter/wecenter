@@ -27,7 +27,7 @@
 						
 					</div>
 				</div>
-                <input type="text"  name="question_content" id="question_contents" value="<?php echo $this->question_info['question_content']; ?>" onFocus="$.focus(this,'<?php _e('发起问题的标题'); ?>...');" class=" a_txtClass question_title_txt i_glotxtClass"/>
+                <input type="text" name="question_content" id="question_contents" value="<?php echo $this->question_info['question_content']; ?>" onFocus="$.focus(this,'<?php _e('发起问题的标题'); ?>...');" class=" a_txtClass question_title_txt i_glotxtClass"/>
 			</div>
 		</div>
 		
@@ -53,7 +53,7 @@
 				
 				<?php if ($_POST['topics']) { ?>
 				<?php foreach ($_POST['topics'] AS $key => $val) { ?>
-				<a style="" data-value="sds" class="i_glotopic i_prl pd"><?php echo $val; ?><em title="<?php _e('删除'); ?>" onclick="$.topic.deleted_topic(this,event,true); return false;" class="handle i_pas">×</em><input type="hidden" value="<?php echo $val; ?>" name="topics[]"></a>
+				<a style="" data-value="sds" class="i_glotopic i_prl pd"><?php echo $val; ?><em title="<?php _e('删除'); ?>" onclick="$.topic.deleted_topic(this,event,true); return false;" class="handle i_pas">×</em><input type="hidden" value="<?php echo $val; ?>" name="topics[]" /></a>
 				<?php } ?>
 				<?php } ?>
 			</span>

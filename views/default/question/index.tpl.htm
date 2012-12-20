@@ -200,7 +200,7 @@
 							<a class="q_collect" onClick="$.Q.favorite(<?php echo $val['answer_id']; ?>);" href="javascript:;"><?php _e('收藏'); ?></a>
 						<?php } ?>
 						<?php if ($this->user_id != $val['uid'] AND $this->user_id) { ?>
-						<a class="q_grateful i_prl" href="javascript:;" <?php if (!$val['user_rated_thanks']) { ?> onclick="answer_user_rate(<?php echo $val['answer_id']; ?>, 'thanks', this);"<?php } ?>><?php if ($val['user_rated_thanks']) { ?><?php _e('已感谢'); ?><?php } else { ?><?php _e('感谢'); ?><?php } ?><?php if (!$val['user_rated_thanks']) { ?><span class="i_tips_black i_pas i_hide"><em></em><?php _e('感谢热心的回复者'); ?></span><?php } ?></a>
+						<a class="q_grateful i_prl" href="javascript:;"<?php if (!$val['user_rated_thanks']) { ?> onclick="answer_user_rate(<?php echo $val['answer_id']; ?>, 'thanks', this);"<?php } ?>><?php if ($val['user_rated_thanks']) { ?><?php _e('已感谢'); ?><?php } else { ?><?php _e('感谢'); ?><?php } ?><?php if (!$val['user_rated_thanks']) { ?><span class="i_tips_black i_pas i_hide"><em></em><?php _e('感谢热心的回复者'); ?></span><?php } ?></a>
 						<?php } ?>						
 						</p>
 					</div>
