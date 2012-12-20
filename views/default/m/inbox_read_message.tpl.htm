@@ -6,7 +6,7 @@
 		
 		<h1><?php echo $this->recipient_user['user_name']; ?></h1>
 		
-		<a href="m/send_pm/recipient-<?php echo urlencode($this->recipient_user['user_name']); ?>__r-<?php echo rand(1, 99999); ?>" data-role="button">回复</a>
+		<a href="<?php echo get_setting('base_url');?>/<?php if (get_setting('url_rewrite_enable') != 'Y') { ?><?php echo G_INDEX_SCRIPT; ?><?php } ?>m/send_pm/recipient-<?php echo urlencode($this->recipient_user['user_name']); ?>__r-<?php echo rand(1, 99999); ?>" data-role="button">回复</a>
 	</div><!-- /header -->
 
 	<div data-role="content" class="m_chat">	

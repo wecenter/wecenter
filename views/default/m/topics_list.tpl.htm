@@ -12,7 +12,7 @@
 			<ul data-role="listview">
 				<?php if (sizeof($this->topics_list) > 0) { ?>
 				<?php foreach ($this->topics_list AS $key => $val) { ?>
-				<li class="m_users_list"><a href="m/topic/<?php echo $val['url_token']; ?>">
+				<li class="m_users_list"><a href="<?php echo get_setting('base_url');?>/<?php if (get_setting('url_rewrite_enable') != 'Y') { ?><?php echo G_INDEX_SCRIPT; ?><?php } ?>m/topic/<?php echo $val['url_token']; ?>">
 					<img src="<?php echo get_topic_pic_url('max', $val['topic_pic']); ?>" alt="" />
 					<h3><?php echo $val['topic_title']; ?></h3>
 					<p><?php echo cjk_substr($val['topic_description'], 0, 128, 'UTF-8', '...'); ?></p>
@@ -24,7 +24,7 @@
 			</ul>
 			
 			<?php if ($this->next_page) { ?>
-			<p class="load_more"><a href="m/topics_list/tag-<?php echo htmlspecialchars($_GET['tag']); ?>__id-<?php echo intval($_GET['id']); ?>__page-<?php echo $this->next_page; ?>" data-role="button">下一页</a></p>
+			<p class="load_more"><a href="<?php echo get_setting('base_url');?>/<?php if (get_setting('url_rewrite_enable') != 'Y') { ?><?php echo G_INDEX_SCRIPT; ?><?php } ?>m/topics_list/tag-<?php echo htmlspecialchars($_GET['tag']); ?>__id-<?php echo intval($_GET['id']); ?>__page-<?php echo $this->next_page; ?>" data-role="button">下一页</a></p>
 			<?php } ?>
 		</div>
 

@@ -637,6 +637,7 @@ p.load_more {
 }
 
 .chatItem.me .cloudContent {
+	word-break: break-all;
 	border:1px solid #eee;
 	border-top:1px solid #FFF;
 	border-bottom:1px solid #F2F2F2;
@@ -708,7 +709,8 @@ p.load_more {
 	margin-left: 6px;
 }
 	
-.chatItem.you .cloudText .cloudContent { 
+.chatItem.you .cloudText .cloudContent {
+	word-break: break-all;
 	padding:5px 13px;
 	border-radius:13px; 
 	border-radius:5px;

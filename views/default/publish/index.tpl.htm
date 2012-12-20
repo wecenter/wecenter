@@ -70,7 +70,7 @@
 		
 			<div class="a_qsAsk i_tr" style=" padding-top:5px;">
 				<?php if ($this->question_info['question_id'] AND ((!$this->question_info['lock'] AND ($this->question_info['published_uid'] == $this->user_id OR $this->user_info['permission']['edit_question'])) OR $this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator'])) { ?>
-				<span class="i_anonymity"><input type="checkbox" name="do_delete" value="1" id="i_delete"><label for="i_delete"<?php _e('删除问题'); ?></label></span>
+				<span class="i_anonymity"><input type="checkbox" name="do_delete" value="1" id="i_delete"><label for="i_delete"><?php _e('删除问题'); ?></label></span>
 				<?php } ?>
 				<?php if (!$this->question_info['question_id'] AND get_setting('anonymous_enable') == 'Y') { ?>
 				<span class="i_anonymity"><input type="checkbox" name="anonymous" value="1" id="i_anonymity"><label for="i_anonymity"><?php _e('匿名'); ?></label></span>

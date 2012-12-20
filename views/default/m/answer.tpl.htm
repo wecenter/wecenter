@@ -6,14 +6,14 @@
 		
 		<h1><?php echo $this->question_info['question_content']; ?></h1>
 		
-		<a href="m/question/<?php echo $this->answer_info['question_id']; ?>" data-role="button">查看问题</a>
+		<a href="<?php echo get_setting('base_url');?>/<?php if (get_setting('url_rewrite_enable') != 'Y') { ?><?php echo G_INDEX_SCRIPT; ?><?php } ?>m/question/<?php echo $this->answer_info['question_id']; ?>" data-role="button">查看问题</a>
 	</div><!-- /header -->
 
 	<div data-role="content" class="m_answer">	
 		<div class="content-primary" data-theme="d">
 			<div class="ui-grid-b user_info">
 				<div class="ui-block-a">
-					<a href="m/people/<?php echo $this->answer_info['user_info']['url_token']; ?>"><img src="<?php echo get_avatar_url($this->answer_info['user_info']['uid'], 'mid'); ?>" alt="" /></a>
+					<a href="<?php echo get_setting('base_url');?>/<?php if (get_setting('url_rewrite_enable') != 'Y') { ?><?php echo G_INDEX_SCRIPT; ?><?php } ?>m/people/<?php echo $this->answer_info['user_info']['url_token']; ?>"><img src="<?php echo get_avatar_url($this->answer_info['user_info']['uid'], 'mid'); ?>" alt="" /></a>
 				</div>
 				
 				<div class="ui-block-b">
@@ -22,7 +22,7 @@
 				</div>
 				
 				<div class="ui-block-c">
-					<a href="m/answer_vote/<?php echo $this->answer_info['answer_id']; ?>?r=<?php echo rand(1, 99999); ?>" data-rel="dialog" id="answer_vote_button" data-role="button" data-transition="slidedown" data-icon="star" data-iconpos="right" data-mini="true" data-inline="true" data-theme="<?php if ($this->answer_info['agree_status']['vote_value']) { ?>b<?php } else { ?>d<?php } ?>"><?php echo $this->answer_info['agree_count']; ?></a>
+					<a href="<?php echo get_setting('base_url');?>/<?php if (get_setting('url_rewrite_enable') != 'Y') { ?><?php echo G_INDEX_SCRIPT; ?><?php } ?>m/answer_vote/<?php echo $this->answer_info['answer_id']; ?>?r=<?php echo rand(1, 99999); ?>" data-rel="dialog" id="answer_vote_button" data-role="button" data-transition="slidedown" data-icon="star" data-iconpos="right" data-mini="true" data-inline="true" data-theme="<?php if ($this->answer_info['agree_status']['vote_value']) { ?>b<?php } else { ?>d<?php } ?>"><?php echo $this->answer_info['agree_count']; ?></a>
 				</div>
 			</div>
 			
@@ -49,7 +49,7 @@
 				<li><a href="javascript:;" id="thanks" data-icon="custom"<?php if (!$this->answer_info['user_rated_thanks']) { ?> onclick="answer_user_rate(<?php echo $this->answer_info['answer_id']; ?>, 'thanks', this);"<?php } ?>><?php if ($this->answer_info['user_rated_thanks']) { ?><?php _e('已感谢'); ?><?php } else { ?><?php _e('感谢'); ?><?php } ?></a></li>
 				<li><a href="javascript:;" onclick="answer_user_rate(<?php echo $this->answer_info['answer_id']; ?>, 'uninterested', this);" id="disagree" data-icon="custom"><?php if ($this->answer_info['user_rated_uninterested']) { ?><?php _e('撤消没有帮助'); ?><?php } else { ?><?php _e('没有帮助'); ?><?php } ?></a></li>
 				<!--<li><a href="#" id="favorite" data-icon="custom">收藏</a></li>-->
-				<li><a href="m/comments_list/answer_id-<?php echo $this->answer_info['answer_id']; ?>" id="comments" data-icon="custom">评论 (<?php echo $this->answer_info['comment_count']; ?>)</a></li>
+				<li><a href="<?php echo get_setting('base_url');?>/<?php if (get_setting('url_rewrite_enable') != 'Y') { ?><?php echo G_INDEX_SCRIPT; ?><?php } ?>m/comments_list/answer_id-<?php echo $this->answer_info['answer_id']; ?>" id="comments" data-icon="custom">评论 (<?php echo $this->answer_info['comment_count']; ?>)</a></li>
 			</ul>
 		</div><!-- /navbar -->
 	</div> 

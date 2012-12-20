@@ -390,7 +390,7 @@ class ajax extends AWS_CONTROLLER
 			), - 1, AWS_APP::lang()->_t('请输入问题标题')));
 		}
 		
-		if (get_setting('category_enable') == 'N')
+		if (get_setting('category_enable') == 'N' OR $_POST['_is_mobile'])
 		{
 			$_POST['category_id'] = 1;
 		}

@@ -21,17 +21,7 @@
 		</div>
 	</div><!-- /content -->
 	
-	<div data-role="footer" data-position="fixed"> 
-		<div data-role="navbar" class="icon_nav" data-grid="d">
-			<ul>
-				<li><a href="m/" id="home" data-icon="custom">首页</a></li>
-				<li><a href="m/explore/" id="explore" data-icon="custom">发现</a></li>
-				<li><a href="m/search/" id="search" data-icon="custom" class="ui-btn-active ui-state-persist">搜索</a></li>
-				<li><a href="m/inbox/" id="message" data-icon="custom">消息</a></li>
-				<li><a href="m/me/" id="people" data-icon="people">我</a></li>
-			</ul>
-		</div><!-- /navbar -->
-	</div> 
+	<?php TPL::output('m/footer_nav.tpl.htm'); ?>
 </div><!-- /page -->
 
 <script type="text/javascript">
