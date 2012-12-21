@@ -177,7 +177,7 @@ body.bd .b_user{ width:110px; right:0; top:0;}
 /* 全文搜索 */
 .i_search{ background:#fff; border:1px solid #333; height:28px; margin-top:6px;padding-right:28px; max-width:250px;}
 .i_search.s_topicSearch{ border:1px solid #ccc;}
-.i_search.s_topicSearch >.i_cur{ border:0 none !important;}
+.i_search.s_topicSearch >.i_cur{ border:0 none !important;box-shadow:0 0 0 !important;}
 .i_search .i_txt{ width:250px; height:20px; padding:4px; border:0 none; font-size:13px;}
 .i_search .i_result{ display:inline-block; background:url(img/main_default.png) -635px 0 no-repeat; height:28px; width:28px;right:0; top:0; line-height:99em; overflow:hidden; }
 .i_search .i_wd{ width:250px;}
