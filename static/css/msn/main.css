@@ -239,6 +239,8 @@
 .q_pagelogs li del{ background:#F7D3D3;}
 .q_pagelogs li ins{ background:#EDFCE5;}
 
+.text_content { padding:10px; line-height: 150%; }
+
 .q_bElems{ font-size:12px; margin-top:5px;}
 .q_bElems a{ padding-left:17px;}
 .q_bElems .q_criticism, /* 评论 */
@@ -405,10 +407,10 @@
 .t_topicMain >.t_hot >li >.p_txt{ max-height:40px; min-height:40px; overflow:hidden;}
 
 /*  >> 话题首页_s */
-.t_topic_index{ padding:0 20px 15px 135px;min-height:100px;}
+.t_topic_index{ padding:0 20px 15px 85px; }
 .t_topic_index >.u_topicHead{ left:20px; top:0;}
 .b_x4 .u_topicHead{ left:20px !important; top:20px; }
-.t_topic_index >.u_topicHead >img,
+.t_topic_index >.u_topicHead >img { width:50px; height:50px; }
 .v_headSet >.v_user-headimgs img,
 .c_mainData .c_userPic >img{ width:100px; height:100px;}
 .t_topic_index >.u_topicHead >.q_editor{ width:22px; height:22px;  position:absolute; z-index:99; top:70px; right:15px; background-color:#92908d; overflow:hidden; line-height:99em; padding:0; background-position:-30px -320px; visibility:visible !important;}
