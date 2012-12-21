@@ -14,30 +14,32 @@
 
 class core_form
 {
-	var $post_hash_session_name = 'post_hash';
+	var $post_hash_cache_key;
 	var $post_hash_lib = array();
 	
 	public function __construct()
 	{
-		$this->reload_post_hash_lib();
+		$this->post_hash_cache_key = 'post_hash_' . session_id();
+		
+		if ($post_hash_lib = AWS_APP::model('cache')->load($this->post_hash_cache_key))
+		{
+			$this->post_hash_lib = $post_hash_lib;
+		}
 	}
 	
-	public function reload_post_hash_lib()
+	public function save_post_hash_lib()
 	{
-		if ($_SESSION[$this->post_hash_session_name])
-		{
-			$this->post_hash_lib = $_SESSION[$this->post_hash_session_name];
-		}
+		AWS_APP::model('cache')->save($this->post_hash_cache_key, $this->post_hash_lib, (3600 * 12));
 	}
 	
 	public function new_post_hash()
 	{
 		// 超过 50 个的时候开始清理
-		if (sizeof($_SESSION[$this->post_hash_session_name]) >= 50)
+		if (sizeof($this->post_hash_lib) >= 50)
 		{
-			$_SESSION[$this->post_hash_session_name] = array_values($_SESSION[$this->post_hash_session_name]);
+			$this->post_hash_lib = array_values($this->post_hash_lib);
 
-			unset($_SESSION[$this->post_hash_session_name][0]);
+			unset($this->post_hash_lib[0]);
 		}
 		
 		$post_hash = substr(md5(rand(1, 88888888) . microtime()), 8, 16);
@@ -47,26 +49,26 @@ class core_form
 			$post_hash = strtoupper($post_hash);
 		}
 		
-		$_SESSION[$this->post_hash_session_name][] = $post_hash;
+		$this->post_hash_lib[] = $post_hash;
 		
-		$this->reload_post_hash_lib();
+		$this->save_post_hash_lib();
 		
 		return $post_hash;
 	}
 	
 	public function remove_post_hash($hash)
 	{
-		foreach ($_SESSION[$this->post_hash_session_name] AS $key => $val)
+		foreach ($this->post_hash_lib AS $key => $val)
 		{
 			if ($val == $hash)
 			{
-				unset($_SESSION[$this->post_hash_session_name][$key]);
+				unset($this->post_hash_lib[$key]);
 				
 				break;
 			}
 		}
 		
-		$this->reload_post_hash_lib();
+		$this->save_post_hash_lib();
 	}
 	
 	public function valid_post_hash($hash)
