@@ -11,12 +11,10 @@
 <div class="i_bd mainElem i_clear i_allbg">
 	<div class="i_left L_sidebar">
 		<div class="t_topic_index i_prl q_congMain b_x4">
-			<h3 class="i_bdted i_prl">
+			<h3 class="i_prl">
                    <div class="q_rightBar i_pas">
-						<?php if ($this->user_id) { ?><a class="i_green_bt2<?php if ($this->topic_info['has_focus']) { ?> cur<?php } ?>" href="javascript:" onclick="focus_topic($(this), $(this), <?php echo $this->topic_info['topic_id']; ?>);"><?php if ($this->topic_info['has_focus']) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?></a><?php } ?>
+						<?php echo $this->topic_info['focus_count']; ?> <?php _e('人关注该话题'); ?> <?php if ($this->user_id) { ?><a class="i_green_bt2<?php if ($this->topic_info['has_focus']) { ?> cur<?php } ?>" href="javascript:" onclick="focus_topic($(this), $(this), <?php echo $this->topic_info['topic_id']; ?>);"><?php if ($this->topic_info['has_focus']) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?></a><?php } ?>
 					</div><b><?php echo $this->topic_info['topic_title']; ?></b> <?php if ($this->topic_info['topic_lock']) { ?><em class="i_lock i_small"><?php _e('已锁定'); ?></em><?php } ?></h3>
-					
-			<p class="i_txtBreak i_cl_01 tags_Mark" align="right"><?php echo $this->topic_info['focus_count']; ?> <?php _e('人关注该话题'); ?></p>
 			
 			<a class="u_topicHead i_pas"><img src="<?php echo get_topic_pic_url('max', $this->topic_info['topic_pic']); ?>" class="i_radiu5" alt="<?php echo $this->topic_info['topic_title']; ?>" title="<?php echo $this->topic_info['topic_title']; ?>"/></a>
 		</div>
