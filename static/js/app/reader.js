@@ -13,6 +13,8 @@ $(document).ready(function () {
 		$(this).addClass('current');
 		
 		view_answer($(this).attr('data_id'));
+		
+		return false;
 	});
 		
 	$('#data_lister').scroll(function() {
