@@ -4,7 +4,7 @@
 			<li><a href="m/" id="home" data-ajax="false" data-icon="custom"<?php if ($_GET['act'] == 'index') { ?> class="ui-btn-active ui-state-persist"<?php } ?>>首页</a></li>
 			<li><a href="m/explore/" data-ajax="false" id="explore" data-icon="custom"<?php if ($_GET['act'] == 'explore') { ?> class="ui-btn-active ui-state-persist"<?php } ?>>发现</a></li>
 			<li><a href="m/search/" data-ajax="false" id="search" data-icon="custom"<?php if ($_GET['act'] == 'search') { ?> class="ui-btn-active ui-state-persist"<?php } ?>>搜索</a></li>
-			<li><a href="m/notifications/" data-ajax="false" id="message" data-icon="custom"<?php if ($_GET['act'] == 'notifications') { ?> class="ui-btn-active ui-state-persist"<?php } ?>>通知</a></li>
+			<li><a href="m/notifications/" data-ajax="false" id="message" data-icon="custom"<?php if ($_GET['act'] == 'notifications') { ?> class="ui-btn-active ui-state-persist"<?php } ?>>通知<?php if ($this->user_info['notification_unread']) { ?> (<?php echo $this->user_info['notification_unread']; ?>)<?php } ?></a></li>
 			<li><a href="m/people/" data-ajax="false" id="people" data-icon="people"<?php if ($_GET['act'] == 'people') { ?> class="ui-btn-active ui-state-persist"<?php } ?>>我</a></li>
 		</ul>
 	</div><!-- /navbar -->
