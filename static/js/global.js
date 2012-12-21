@@ -1361,7 +1361,13 @@
 						timeOut:0
 					});
 				});
+			};
+			
+			
+			if($('#s_topic_search').length > 0 ){
+				$('#s_topic_search').changeElement($.searchEventQs);
 			}
+			
 
 		},
 		
