@@ -33,7 +33,7 @@ if (function_exists('memory_get_usage'))
 	define('MEMORY_USAGE_START', memory_get_usage());
 }
 
-//error_reporting(E_ALL & ~E_NOTICE | E_STRICT);
+error_reporting(E_ALL & ~E_NOTICE | E_STRICT);
 
 if (! defined('AWS_PATH'))
 {

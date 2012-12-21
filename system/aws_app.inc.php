@@ -22,6 +22,7 @@ class AWS_APP
 	private static $pagination;
 	private static $cache;
 	private static $lang;
+	private static $session;
 	
 	private static $models = array();
 	private static $plugins = array();
@@ -117,11 +118,14 @@ class AWS_APP
 	}
 
 	private static function init()
-	{		
+	{
+		Zend_Session::start();
+		
 		self::$config = load_class('core_config');
 		self::$db = load_class('core_db');
 		self::$plugins = load_class('core_plugins');
 		self::$setting = self::model('setting')->get_setting();
+		self::$session = new Zend_Session_Namespace(G_COOKIE_PREFIX . '_Anwsion');
 		
 		if (get_setting('default_timezone'))
 		{
@@ -298,6 +302,11 @@ class AWS_APP
 		}
 		
 		return self::$pagination;
+	}
+	
+	public static function session()
+	{
+		return self::$session;
 	}
 	
 	public static function db($db_object_name = 'master')
