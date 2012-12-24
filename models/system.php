@@ -447,4 +447,9 @@ class system_class extends AWS_MODEL
 		
 		return $final_result;
 	}
+	
+	public function clean_session()
+	{
+		return $this->delete('sessions', '`modified` < ' . (time() - 3600));
+	}
 }

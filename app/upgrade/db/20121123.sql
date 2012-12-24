@@ -21,4 +21,16 @@ CREATE TABLE `[#DB_PREFIX#]topic_merge` (
   KEY `source_id` (`source_id`),
   KEY `target_id` (`target_id`),
   KEY `uid` (`uid`)
-) ENGINE=[#DB_ENGINE#]  DEFAULT CHARSET=utf8 ;
+) ENGINE=[#DB_ENGINE#]  DEFAULT CHARSET=utf8;
+
+CREATE TABLE `[#DB_PREFIX#]sessions` (
+  `id` varchar(32) NOT NULL,
+  `modified` int(10) NOT NULL,
+  `data` text NOT NULL,
+  `lifetime` int(10) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `modified` (`modified`),
+  KEY `lifetime` (`lifetime`)
+) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
+
+UPDATE `[#DB_PREFIX#]users_email_setting` SET `sender_13` = 1, `sender_15` = 1;

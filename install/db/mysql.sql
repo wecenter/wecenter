@@ -455,6 +455,16 @@ CREATE TABLE `[#DB_PREFIX#]school` (
   PRIMARY KEY (`school_id`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8 COMMENT='学校';
 
+CREATE TABLE `[#DB_PREFIX#]sessions` (
+  `id` varchar(32) NOT NULL,
+  `modified` int(10) NOT NULL,
+  `data` text NOT NULL,
+  `lifetime` int(10) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `modified` (`modified`),
+  KEY `lifetime` (`lifetime`)
+) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
+
 CREATE TABLE `[#DB_PREFIX#]system_setting` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
   `varname` VARCHAR( 255 ) NOT NULL COMMENT '字段名',

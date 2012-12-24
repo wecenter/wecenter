@@ -115,6 +115,7 @@ class crond_class extends AWS_MODEL
 	public function hour($user_id)
 	{
 		$this->model('cache')->clean_expire();
+		$this->model('system')->clean_session();
 	}
 	
 	// 每日时执行

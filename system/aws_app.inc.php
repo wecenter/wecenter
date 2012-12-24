@@ -119,13 +119,38 @@ class AWS_APP
 
 	private static function init()
 	{
-		Zend_Session::start();
-		
 		self::$config = load_class('core_config');
 		self::$db = load_class('core_db');
+		
+		if (!defined('G_SESSION_SAVE') OR G_SESSION_SAVE == 'db')
+		{
+				Zend_Session::setSaveHandler(new Zend_Session_SaveHandler_DbTable(array(
+			    'name' 					=> get_table('sessions'),
+			    'primary'				=> 'id',
+			    'modifiedColumn'		=> 'modified',
+			    'dataColumn'			=> 'data',
+			    'lifetimeColumn'		=> 'lifetime',
+				//'authIdentityColumn'	=> 'uid'
+			)));
+		}
+		
+		Zend_Session::setOptions(array(
+			'name' => G_COOKIE_PREFIX . '_Session'
+		));
+		
+		if (G_SESSION_SAVE == 'file' AND G_SESSION_SAVE_PATH)
+		{
+			Zend_Session::setOptions(array(
+				'save_path' => G_SESSION_SAVE_PATH
+			));
+		}
+		
+		Zend_Session::start();
+		
+		self::$session = new Zend_Session_Namespace(G_COOKIE_PREFIX . '_Anwsion');
+		
 		self::$plugins = load_class('core_plugins');
 		self::$setting = self::model('setting')->get_setting();
-		self::$session = new Zend_Session_Namespace(G_COOKIE_PREFIX . '_Anwsion');
 		
 		if (get_setting('default_timezone'))
 		{

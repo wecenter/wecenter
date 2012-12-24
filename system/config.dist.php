@@ -28,3 +28,9 @@ define('X_UA_COMPATIBLE', 'Chrome=1,IE=edge');
 
 // GZIP 压缩输出页面
 define('G_GZIP_COMPRESS', FALSE);
+
+// Session 存储类型 (db, file)
+define('G_SESSION_SAVE', 'db');
+
+// Session 文件存储路径
+define('G_SESSION_SAVE_PATH', '');
