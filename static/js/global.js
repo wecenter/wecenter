@@ -1737,9 +1737,18 @@
 					flg.elem ? flg.elem.hide() :'';
 				}else if(val.length > 1 && val.length < 10){
 					
+					if (typeof(CONTENTS_TOPIC_ID) != 'undefined')
+					{
+						var request_url = G_BASE_URL + '/search/ajax/search/?type=question&q=' + encodeURIComponent(val) + '&topic_ids=' + CONTENTS_TOPIC_ID;
+					}
+					else
+					{
+						var request_url = G_BASE_URL + '/search/ajax/search/?type=question&q=' + encodeURIComponent(val);
+					}
+					
 					$.ajax({
 					  type:'GET',
-					  url:G_BASE_URL+'/search/ajax/search/?type=question&q='+encodeURIComponent(val),
+					  url:request_url,
 					  dataType:'json',
 					  success: function(result){
 						  if(result && result.length > 0){
