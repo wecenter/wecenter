@@ -134,6 +134,8 @@ body.bd{ padding-top:45px !important;}
 
 
 .i_data_list p a{ display:block; font-weight:normal; height:35px; line-height:35px; margin-left:0; text-indent:15px; }
+.i_data_list p.closex{ position:relative; padding-right:25px;}
+.i_data_list p.closex em.e{ position:absolute; top:-8px; right:8px;}
 .i_data_list p:hover,/* 下拉列表鼠标悬停背景色  */
 .i_data_list p.cur,
 #clickEve_v2_0 .bds_tools a:hover /* 站外分享 */

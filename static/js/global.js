@@ -1708,7 +1708,8 @@
 		
 		//公用问题发起的搜索ajax查询
 		searchEventQs:function(s){
-			if($.cookie('data_list_v2') == 'true') return;
+			//if($.cookie('data_list_v2') == 'true') return;
+						
 			var el = $(s), 
 				index= 0,
 				val = $.trim(el.val()),
@@ -1737,18 +1738,18 @@
 					flg.elem ? flg.elem.hide() :'';
 				}else if(val.length > 1 && val.length < 10){
 					
-					if (typeof(CONTENTS_TOPIC_ID) != 'undefined')
+					if (el.attr('id') == 's_topic_search')
 					{
-						var request_url = G_BASE_URL + '/search/ajax/search/?type=question&q=' + encodeURIComponent(val) + '&topic_ids=' + CONTENTS_TOPIC_ID;
+						var search_uri = G_BASE_URL + '/search/ajax/search/?type=question&q=' + encodeURIComponent(val) + '&topic_ids=' + CONTENTS_TOPIC_ID;
 					}
 					else
 					{
-						var request_url = G_BASE_URL + '/search/ajax/search/?type=question&q=' + encodeURIComponent(val);
+						var search_uri = G_BASE_URL + '/search/ajax/search/?type=question&q=' + encodeURIComponent(val);
 					}
 					
 					$.ajax({
 					  type:'GET',
-					  url:request_url,
+					  url:search_uri,
 					  dataType:'json',
 					  success: function(result){
 						  if(result && result.length > 0){
