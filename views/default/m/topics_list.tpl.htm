@@ -2,9 +2,9 @@
 
 <div data-role="page">
 	<div data-role="header" data-position="fixed" data-theme="b" data-add-back-btn="true">
-		<a href="javascript:;" data-rel="back" data-role="button">返回</a>
+		<a href="javascript:;" data-rel="back" data-role="button"><?php _e('返回'); ?></a>
 		
-		<h1>话题列表</h1>
+		<h1><?php _e('话题列表'); ?></h1>
 	</div><!-- /header -->
 
 	<div data-role="content">	
@@ -19,12 +19,12 @@
 				</a></li>
 				<?php } ?>
 				<?php } else { ?>
-				<p class="empty_message">没有相关话题</p>
+				<p class="empty_message"><?php _e('没有相关话题'); ?></p>
 				<?php } ?>
 			</ul>
 			
 			<?php if ($this->next_page) { ?>
-			<p class="load_more"><a href="<?php echo get_setting('base_url');?>/<?php if (get_setting('url_rewrite_enable') != 'Y') { ?><?php echo G_INDEX_SCRIPT; ?><?php } ?>m/topics_list/tag-<?php echo htmlspecialchars($_GET['tag']); ?>__id-<?php echo intval($_GET['id']); ?>__page-<?php echo $this->next_page; ?>" data-role="button">下一页</a></p>
+			<p class="load_more"><a href="<?php echo get_setting('base_url');?>/<?php if (get_setting('url_rewrite_enable') != 'Y') { ?><?php echo G_INDEX_SCRIPT; ?><?php } ?>m/topics_list/tag-<?php echo htmlspecialchars($_GET['tag']); ?>__id-<?php echo intval($_GET['id']); ?>__page-<?php echo $this->next_page; ?>" data-role="button"><?php _e('下一页'); ?></a></p>
 			<?php } ?>
 		</div>
 

@@ -17,11 +17,11 @@
 					<option value="1">|</option>
 				</select>
 				
-				<p><button type="submit" data-theme="b">登录</button></p>
+				<p><button type="submit" data-theme="b"><?php _e('登录'); ?></button></p>
 				
 				<?php if (get_setting('invite_reg_only') == 'N') { ?>
 				<p align="center">
-					<a target="_blank" href="account/register">注册新用户</a>
+					<a target="_blank" href="account/register"><?php _e('注册新用户'); ?></a>
 				</p>
 				<?php } ?>
 			</form>
