@@ -1,34 +1,1 @@
-<?php foreach ($this->search_result AS $key => $val) { ?>
-	<?php if ($val['type'] == 3) { ?>
-		<li class="m_users_list">
-			<a href="<?php echo get_setting('base_url');?>/<?php if (get_setting('url_rewrite_enable') != 'Y') { ?><?php echo G_INDEX_SCRIPT; ?><?php } ?>m/<?php echo $val['url']; ?>">
-				<img src="<?php echo get_avatar_url($val['sno'], 'mid'); ?>" alt="" />
-				<h3><?php echo $val['name']; ?></h3>
-				<p><?php echo $val['detail']['signature']; ?></p>
-			</a>
-		</li> 
-	<?php } else if ($val['type'] == 2) { ?>
-		<li class="m_users_list">
-			<a href="<?php echo get_setting('base_url');?>/<?php if (get_setting('url_rewrite_enable') != 'Y') { ?><?php echo G_INDEX_SCRIPT; ?><?php } ?>m/<?php echo $val['url']; ?>">
-				<img src="<?php echo $val['detail']['topic_pic']; ?>" alt="" />
-				<h3><?php echo $val['name']; ?></h3>
-				<p><?php echo $val['detail']['discuss_count']; ?> <?php _e('个问题'); ?> &nbsp; <?php echo $val['detail']['focus_count']; ?> <?php _e('人关注'); ?></p>
-			</a>
-		</li> 
-	<?php } else if ($val['type'] == 1) { ?>
-		<li>
-			<a href="<?php echo get_setting('base_url');?>/<?php if (get_setting('url_rewrite_enable') != 'Y') { ?><?php echo G_INDEX_SCRIPT; ?><?php } ?>m/<?php echo $val['url']; ?>">
-				<h3><?php echo $val['name']; ?></h3>
-				
-				<p class="actions">
-					<span class="counts"><?php echo $val['detail']['agree_count']; ?></span>
-					<span class="desc_text"><?php echo $val['detail']['answer_count']; ?> <?php _e('个回复'); ?> &nbsp; <?php echo $val['detail']['focus_count']; ?> <?php _e('人关注'); ?></span>
-				</p>
-			</a>
-		</li>
-	<?php } ?>
-
-	<script type="text/javascript">
-		$('#listview h3').highText(split_query, 'span', 'red');
-	</script>
-<?php } ?>
+<?php foreach ($this->search_result AS $key => $val) { ?>	<?php if ($val['type'] == 3) { ?>		<li class="m_users_list">			<a href="<?php echo get_setting('base_url');?>/<?php if (get_setting('url_rewrite_enable') != 'Y') { ?><?php echo G_INDEX_SCRIPT; ?><?php } ?>m/<?php echo $val['url']; ?>">				<img src="<?php echo get_avatar_url($val['sno'], 'mid'); ?>" alt="" />				<h3><?php echo $val['name']; ?></h3>				<p><?php echo $val['detail']['signature']; ?></p>			</a>		</li> 	<?php } else if ($val['type'] == 2) { ?>		<li class="m_users_list">			<a href="<?php echo get_setting('base_url');?>/<?php if (get_setting('url_rewrite_enable') != 'Y') { ?><?php echo G_INDEX_SCRIPT; ?><?php } ?>m/<?php echo $val['url']; ?>">				<img src="<?php echo $val['detail']['topic_pic']; ?>" alt="" />				<h3><?php echo $val['name']; ?></h3>				<p><?php _e('%s 个问题', $val['detail']['discuss_count']); ?> &nbsp; <?php echo $val['detail']['focus_count']; ?> <?php _e('人关注'); ?></p>			</a>		</li> 	<?php } else if ($val['type'] == 1) { ?>		<li>			<a href="<?php echo get_setting('base_url');?>/<?php if (get_setting('url_rewrite_enable') != 'Y') { ?><?php echo G_INDEX_SCRIPT; ?><?php } ?>m/<?php echo $val['url']; ?>">				<h3><?php echo $val['name']; ?></h3>								<p class="actions">					<span class="counts"><?php echo $val['detail']['agree_count']; ?></span>					<span class="desc_text"><?php echo $val['detail']['answer_count']; ?> <?php _e('个回复'); ?> &nbsp; <?php echo $val['detail']['focus_count']; ?> <?php _e('人关注'); ?></span>				</p>			</a>		</li>	<?php } ?>	<script type="text/javascript">		$('#listview h3').highText(split_query, 'span', 'red');	</script><?php } ?>
