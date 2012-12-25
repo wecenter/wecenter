@@ -153,6 +153,7 @@ body .i_line{ display:inline-block;}
 .i_header .lx_set a.set{ background-position:30px -207px;}
 .i_header .lx_set a.exit{ background-position:30px -240px;}
 .i_header .lx_set a.manage{ background-position:33px -2487px;}
+.i_header .lx_set a.index{ background-position:33px -2615px;}
 .i_header .i_message p:hover .lx_set,
 .q_category_nav .q_nav_tx:hover >.i_data_list, /* 问题分类导航下拉显示  */
 .q_classify .q_class_ul >li:hover >.i_data_list, /* 问题分类导航 > 子分类下拉显示 */
