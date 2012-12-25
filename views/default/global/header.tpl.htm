@@ -10,7 +10,7 @@
 				<?php if ($this->user_id) { ?>
 				<p>
 					<a href="people/<?php echo $this->user_info['url_token']; ?>" class="user_head i_alpHover"><?php echo $this->user_info['user_name']; ?><img src="<?php echo get_avatar_url($this->user_info['uid'], 'mid'); ?>" title="<?php echo $this->user_info['user_name']; ?>" alt="<?php echo $this->user_info['user_name']; ?>"/></a>
-					<span class="lx_set i_prl"><em class="i_arrows"></em><a href="people/<?php echo $this->user_info['url_token']; ?>" class="index"><?php _e('个人主页'); ?></a><a href="account/setting/profile/" class="set"><?php _e('设置'); ?></a><?php if ($this->user_info['permission']['is_administortar'] ) { ?><a href="<?php echo get_setting('base_url') . G_INDEX_SCRIPT; ?>admin/" class="manage" target="_blank"><?php _e('管理'); ?></a><?php } ?><a href="account/logout/" class="exit"><?php _e('退出'); ?></a></span>
+					<span class="lx_set i_prl"><em class="i_arrows"></em><a href="people/<?php echo $this->user_info['url_token']; ?>" class="index"><?php _e('主页'); ?></a><a href="account/setting/profile/" class="set"><?php _e('设置'); ?></a><?php if ($this->user_info['permission']['is_administortar'] ) { ?><a href="<?php echo get_setting('base_url') . G_INDEX_SCRIPT; ?>admin/" class="manage" target="_blank"><?php _e('管理'); ?></a><?php } ?><a href="account/logout/" class="exit"><?php _e('退出'); ?></a></span>
 				</p>
 
 				<a href="inbox/" class="private_letter"><?php _e('私信'); ?><em class="i_message_tooltip_s i_hide inbox_num">0</em></a><a href="notifications/" class="not_message" id="not_message"><?php _e('通知'); ?><em class="i_message_tooltip_s i_hide" id="notifications_num" data-value="<?php echo $this->user_info['notification_unread']; ?>"><?php echo $this->user_info['notification_unread']; ?></em></a>
