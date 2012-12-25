@@ -90,7 +90,12 @@ class Zend_Debug
                     . PHP_EOL;
         } else {
             if(!extension_loaded('xdebug')) {
-                $output = htmlspecialchars($output, ENT_QUOTES);
+                $flags = ENT_QUOTES;
+                // PHP 5.4.0+
+                if (defined('ENT_SUBSTITUTE')) {
+                    $flags = ENT_QUOTES | ENT_SUBSTITUTE;
+                }
+                $output = htmlspecialchars($output, $flags);
             }
 
             $output = '<pre>'
