@@ -125,7 +125,6 @@ aws_lang['添加话题标签'] = 'Add tags';
 aws_lang['常用标签'] = 'Usual tags';
 aws_lang['创建新的话题'] = 'Create a topic';
 aws_lang['创建或搜索添加新话题'] = 'Create or search topic';
-aws_lang['话题标题限制 12 个字符以内'] = 'Limited 12 characters for topic';
 aws_lang['同名话题已存在'] = 'The topic to exist';
 aws_lang['话题添加成功'] = 'Added topic sucessful';
 aws_lang['未找到相关话题'] = 'No Related Topics';

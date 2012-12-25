@@ -40,7 +40,7 @@ class core_lang
 	{
 		if ($translate = $this->lang[trim($string)])
 		{
-			if ($replace)
+			if ($replace !== null)
 			{
 				$translate = str_replace('%s', $replace, $translate);
 			}
@@ -54,7 +54,7 @@ class core_lang
 		}
 		else
 		{
-			if ($replace)
+			if ($replace !== null)
 			{
 				$string = str_replace('%s', $replace, $string);
 			}

@@ -22,13 +22,9 @@ if (!defined('IN_ANWSION'))
 
 class ajax extends AWS_CONTROLLER
 {
-
 	public function follow_people_action()
 	{
-		$action = null;
-		$friend_uid = intval($_GET['uid']);
-		
-		if (! $friend_uid)
+		if (! $_GET['uid'] OR $_GET['uid'] == $this->user_id)
 		{
 			return false;
 		}
@@ -36,11 +32,11 @@ class ajax extends AWS_CONTROLLER
 		$follow = $this->model('follow');
 		
 		//首先判断是否存在关注
-		if ($follow->user_follow_check($this->user_id, $friend_uid))
+		if ($follow->user_follow_check($this->user_id, $_GET['uid']))
 		{
 			$action = 'remove';
 			
-			$follow->user_follow_del($this->user_id, $friend_uid);
+			$follow->user_follow_del($this->user_id, $_GET['uid']);
 			
 			H::ajax_json_output(AWS_APP::RSM(array(
 				'type' => 'remove'
@@ -50,13 +46,13 @@ class ajax extends AWS_CONTROLLER
 		{
 			$action = "add";
 			
-			$follow->user_follow_add($this->user_id, $friend_uid);
+			$follow->user_follow_add($this->user_id, $_GET['uid']);
 				
-			$this->model('notify')->send($this->user_id, $friend_uid, notify_class::TYPE_PEOPLE_FOCUS, notify_class::CATEGORY_PEOPLE, $this->user_id, array(
+			$this->model('notify')->send($this->user_id, $_GET['uid'], notify_class::TYPE_PEOPLE_FOCUS, notify_class::CATEGORY_PEOPLE, $this->user_id, array(
 				'from_uid' => $this->user_id
 			));
 				
-			$this->model('email')->action_email(email_class::TYPE_FOLLOW_ME, $friend_uid, get_js_url('/people/' . $this->user_info['url_token']), array(
+			$this->model('email')->action_email(email_class::TYPE_FOLLOW_ME, $_GET['uid'], get_js_url('/people/' . $this->user_info['url_token']), array(
 				'user_name' => $this->user_info['user_name'],
 			));
 				
@@ -65,5 +61,4 @@ class ajax extends AWS_CONTROLLER
 			), 1, null));
 		}
 	}
-
 }
