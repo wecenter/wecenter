@@ -174,6 +174,7 @@
 /* >> 最新、热门导航_s */
 .q_qusAll{ font-weight:bold;border:0 none;}
 .q_qusAll .q_navC{font-size:14px;width:640px; height:30px; font-weight:normal;border-bottom:1px solid #C1CAD4; right:0; bottom:0; padding-right:15px;}
+.q_qusAll .q_navC.s_topic{left:0; right:auto !important; width: auto;}
 .q_qusAll .q_navC a{display:block; border-left:1px solid #C1CAD4;border-top:1px solid #C1CAD4;border-right:1px solid #C1CAD4; padding:0 13px; background-color:#f5faff; float:right; height:29px; line-height:29px;}
 .q_qusAll .q_navC a+a{ margin-right:8px;}
 .q_qusAll .q_navC a.cur{background-color:#fff; height:30px;}
