@@ -34,11 +34,18 @@
 		<div class="a_qsAsk">
 			<h4><?php _e('问题补充 (选填)'); ?>:</h4>
 			<div class="a_qsReplenish">
-				<textarea name="question_detail" id="question_detail" class="i_glotxtClass i_txtHeight a_qstxt advanced_editor" onFocus="$.focus(this,'');"><?php echo $this->question_info['question_detail']; ?></textarea>
+				<textarea name="question_detail" id="question_detail" class="i_glotxtClass i_txtHeight a_qstxt advanced_editor" onFocus="$.focus(this,'');" rows="10"><?php echo $this->question_info['question_detail']; ?></textarea>
                
 					<div class="i_acceMain">
 						<div class="i_uploadMain" id="file_uploader_question">
 							
+						</div>
+						<div class="markItUpPreviewFrame" id="markItUpPreviewFrame" style="border-radius:5px;margin-bottom:10px;">
+							<h2 style="font-size:14px;font-weight:bold;color:#333;padding-bottom:5px;border-bottom:1px solid #ccc;margin-bottom:10px;">
+								Preview:
+							</h2>
+							<div id="markItUpPreviewFrames" class="preview_div tags_Mark">
+							</div>
 						</div>
 					</div>
 				</div>
@@ -121,6 +128,10 @@
 				ajax_post($('#question_form'));
 			}
 		})
+    });
+
+    $(function() {
+        $('#question_detail').markItUp(myMarkdownSettings);
     });
 </script>
 

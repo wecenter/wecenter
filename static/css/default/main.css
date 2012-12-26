@@ -632,10 +632,10 @@ a.v_more{ font-size:13px !important; font-weight:normal;}
 #clickEve_v2_0 .bds_tools a{display:inline-block!important;width:60px;margin-bottom:10px; line-height:16px;}
 
 /* markItUp */
-.markItUp { width: 620px; }
+.markItUp {  }
 .markItUpPreviewFrame {background:#fafafa; border: 1px solid #ccc; padding:10px; font-size:12px; color:#666;margin-top:15px;}
-.markItUpFooter { width: 100%; cursor: n-resize; }
-.markItUpResizeHandle { overflow: hidden; width: 22px; height: 5px; margin-left: auto; margin-right: auto; background-image: url(images/handle.png); cursor: n-resize; }
+.markItUpFooter { cursor: n-resize; border:1px solid #ccc;border-width:0 1px;}
+.markItUpResizeHandle { overflow: hidden; width: 22px; height: 5px; margin-left: auto; margin-right: auto; background-image: url(img/handle.png); cursor: n-resize; }
 /***************************************************************************************/
 /* first row of buttons */
 .markItUpHeader ul li { list-style: none; float: left; position: relative; margin-bottom:5px; max-width:22px; }
