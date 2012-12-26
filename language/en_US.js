@@ -59,7 +59,6 @@ aws_lang['确认删除?'] = 'Confirm Delete?';
 aws_lang['邮箱/用户名'] = 'Email/UID';
 aws_lang['请输入用户名'] = 'Please enter your UID';
 aws_lang['密码'] = 'Password';
-aws_lang['请输入大于六位的密码'] = 'Password to short';
 aws_lang['邮箱'] = 'Email';
 aws_lang['验证码'] = 'Verification code';
 aws_lang['验证码不正确'] = 'Verification code is error';

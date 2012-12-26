@@ -31,7 +31,7 @@ switch ($_POST['step'])
 	default :
 		$system_require = array();
 		
-		if (version_compare(PHP_VERSION, ENVIRONMENT_PHP_VERSION, '>='))
+		if (version_compare(PHP_VERSION, ENVIRONMENT_PHP_VERSION, '>=') AND get_cfg_var('safe_mode') == false)
 		{
 			$system_require['php'] = TRUE;
 		}
@@ -162,6 +162,11 @@ switch ($_POST['step'])
 			'dbname' => $_POST['db_dbname']
 		);
 		
+		if ($_POST['db_port'])
+		{
+			$db_config['db_port'] = $_POST['db_port'];
+		}
+		
 		if ($_POST['db_driver'])
 		{
 			$db_driver = $_POST['db_driver'];
@@ -239,6 +244,11 @@ switch ($_POST['step'])
 			'master' => $db_config, 
 			'slave' => false
 		);
+		
+		if ($_POST['db_port'])
+		{
+			$config['db_port'] = $_POST['db_port'];
+		}
 		
 		load_class('core_config')->set('database', $config);
 		

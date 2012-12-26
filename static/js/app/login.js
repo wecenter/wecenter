@@ -104,16 +104,9 @@ var logPicture = [
 						  $(this).removeClass('i_cur');
 					
 					flgs.val = $(this).val().replace(/^\s+|\s+/g,'');
-					if(flgs.val.length < 6 && !flgs.reg){
-						if($(this).parents('ul').attr('id') == 'weibo_bind'){
-							 $('#bingglobal_err').removeClass('i_hide').find('span').html(_t('请输入大于六位的密码'));
-						 }else{
-							$.EveErr(_t('请输入大于六位的密码'));
-						}
-					}else if(flgs.reg){
-						flgs.val.length < 6 || flgs.val.length > 16 ?
-						$.register.reg.pwhandle('blur',$(this)):
-						$.register.reg.pwhandle('right',$(this));
+					
+					if(flgs.reg){
+						$.register.reg.pwhandle('blur',$(this))
 					}
 				})
 				
@@ -145,16 +138,6 @@ var logPicture = [
 						 $('#bingglobal_err').removeClass('i_hide').find('span').html(_t('请输入用户名'));
 					}else{
 						$.EveErr(_t('请输入用户名'));
-					}
-					
-					return false;
-				}else if($.trim($('#login_password').val()).length < 6){
-					
-					$('#login_password_txt').focus();
-					if($('#login_password').parents('ul').attr('id') == 'weibo_bind'){
-						 $('#bingglobal_err').removeClass('i_hide').find('span').html(_t('请输入大于六位的密码'));
-					}else{
-						$.EveErr(_t('请输入大于六位的密码'));
 					}
 					
 					return false;
@@ -329,11 +312,6 @@ var logPicture = [
 						$.EveErr(_t('请输入邮箱'));
 						return false;
 						
-					}else if($.trim($(flgs ? '#weibo_password' :'#login_password').val()).length < 6){
-						$(flgs ? '#weibo_password_txt':'#login_password_txt').focus();
-						$.EveErr(_t('请输入大于六位的密码'));
-						return false;
-						
 					}
 					else
 					{
@@ -380,9 +358,6 @@ var logPicture = [
 								  $(this).removeClass('i_cur');
 							
 							val = $(this).val().replace(/^\s+|\s+/g,'');
-							if(val.length < 6){
-								$.EveErr(_t('请输入大于六位的密码'));
-							}
 						})
 						
 						//监测事件

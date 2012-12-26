@@ -51,7 +51,7 @@
 .new_ls .ex_more{ padding-top:10px; font-size:12px; line-height:normal;}
 
 /* >> 最新动态提示条_s */
-.main_latest{ background-color:#feffe5; border:1px solid #f9f2a7; color:#d4a639 !important; text-align:center; height:35px; line-height:35px; margin-top:15px; display:block;}
+.main_latest{ background-color:#feffe5; border:1px solid #f9f2a7; color:#d4a639 !important; text-align:center; height:35px; line-height:35px; display:block; margin: 15px 10px; }
 .main_latest:hover{ background-color:#fcfddb;}
 .main_content,.q_congMain{border:1px solid #dfdfdf; padding:20px 20px 0;}
 

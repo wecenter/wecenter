@@ -21,7 +21,7 @@
   <ul class="default_ul">
     <li>
       <label class="label"><?php _e('PHP 版本'); ?></label>
-      <span class="txt_color"><?php echo PHP_VERSION; ?></span> &nbsp; &nbsp; <?php if (!$this->system_require['php']) { ?><span style="color: red; font-weight: bold;">× <?php _e('Anwsion 需要最低 %s 版本的 PHP 才能正常运行, 我们推荐使用 PHP 5.3', ENVIRONMENT_PHP_VERSION); ?></span><?php } else { ?><span style="color: green;">√</span><?php } ?>
+      <span class="txt_color"><?php echo PHP_VERSION; ?></span> &nbsp; &nbsp; <?php if (!$this->system_require['php']) { ?><span style="color: red; font-weight: bold;">× <?php _e('Anwsion 需要最低 %s 版本的 PHP, 并且运行于非安全模式下, 我们推荐使用 PHP 5.3', ENVIRONMENT_PHP_VERSION); ?></span><?php } else { ?><span style="color: green;">√</span><?php } ?>
     </li>
     <li>
       <label class="label"><?php _e('数据库模块'); ?></label>
