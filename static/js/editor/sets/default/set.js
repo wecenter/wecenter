@@ -13,23 +13,24 @@ myMarkdownSettings = {
     previewInElement : '#markItUpPreviewFrames',
     onShiftEnter:       {keepDefault:false, openWith:'\n\n'},
     markupSet: [
-        {name:'Bold', key:"B", openWith:'**', closeWith:'**'},
-        {name:'Italic', key : "I", openWith : '*', closeWith : '*'},
+        {name:_t('粗体'), key:"B", openWith:'**', closeWith:'**'},
+        {name:_t('斜体'), key : "I", openWith : '*', closeWith : '*'},
         {separator:'---------------' },        
-        {name:'Quotes', openWith:'> '},
-        {name:'Code Block / Code', openWith:'{{{\n', closeWith:'\n}}}'},
+        {name:_t('引用'), openWith:'> '},
+        {name:_t('代码'), openWith:'{{{\n', closeWith:'\n}}}'},
         {separator:'---------------' },
-        {name:'Bulleted List', openWith:'- ' },
-        {name:'Numeric List', openWith:function(markItUp) {
+        {name:_t('普通列表'), openWith:'- ' },
+        {name:_t('数字列表'), openWith:function(markItUp) {
             return markItUp.line+'. ';
         }},
         {separator:'---------------' },
-        {name:'Picture', key:"P", replaceWith:'![[![Alternative text]!]]([![Url:!:http://]!] "[![Title]!]")'},
+        {name:_t('图片'), key:"P", openWith:function(){$.uploadPicture()}},
         {separator:'---------------'},
-        {name:'First Level Heading', key : "1", openWith:'\n## '},
-        {name:'Second Level Heading', key : "2", openWith : '\n### ' },
+        {name:_t('大标题'), key : "1", openWith:'\n## '},
+        {name:_t('小标题'), key : "2", openWith : '\n### ' },
         {separator:'---------------'},
         {name : _t('预览模式'), openWith:function(){
+            $('.markItUpButton10 a').toggleClass('cur');
             $('#markItUpPreviewFrame').toggle();
         }}, 
         {name : _t('清空'), openWith:function(){

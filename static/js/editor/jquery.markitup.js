@@ -128,7 +128,7 @@
 				footer = $('<div class="markItUpFooter"></div>').insertAfter($$);
 
 				// add the resize handle after textarea
-				if (options.resizeHandle === true && $.browser.safari !== true) {
+				if (options.resizeHandle === true) {
 					resizeHandle = $('<div class="markItUpResizeHandle"></div>')
 						.insertAfter($$)
 						.bind("mousedown.markItUp", function(e) {
@@ -599,7 +599,7 @@
                                 count += lines[i].length + 1;
                             }
                             
-                            if(/(>|\-|\d\.)/i.test(preLine)){
+                            if(/^(>|\-|\d\.)/i.test(preLine)){
                                 var matches = preLine.match(/(>|\-|\d\.)/i);
                                 var block = '';
                                 switch(matches[1]){

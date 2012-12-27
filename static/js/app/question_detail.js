@@ -37,19 +37,19 @@ $(document).ready(function () {
 		}
 		
 		// 自动保存草稿
-		if ($('textarea#answer_content').attr('id'))
+		if ($('textarea#question_detail').attr('id'))
 		{
-			$('textarea#answer_content').bind('blur', function() {
+			$('textarea#question_detail').bind('blur', function() {
 				if ($(this).val() != '')
 				{
 					$.post(G_BASE_URL + '/account/ajax/save_draft/item_id-' + QUESTION_ID + '__type-answer', 'message=' + $(this).val(), function (result) {
-						$('#answer_content_message').html(result.err + ' <a href="#" onclick="$(\'textarea#answer_content\').attr(\'value\', \'\'); delete_draft(QUESTION_ID, \'answer\'); $(this).parent().html(\' \'); return false;">' + _t('删除草稿') + '</a>');
+						$('#answer_content_message').html(result.err + ' <a href="#" onclick="$(\'textarea#question_detail\').attr(\'value\', \'\'); delete_draft(QUESTION_ID, \'answer\'); $(this).parent().html(\' \'); return false;">' + _t('删除草稿') + '</a>');
 					}, 'json');
 				}
 			});
 			
 			$('#question_replay_submit').click(function () {
-				$('textarea#answer_content').unbind('blur');
+				$('textarea#question_detail').unbind('blur');
 			});
 		}
 		
@@ -83,7 +83,7 @@ $(document).ready(function () {
 		});
 	}, 'json');
 	
-	$('textarea#answer_content').bind('keypress', function(e) {
+	$('textarea#question_detail').bind('keypress', function(e) {
 		e = e ? e : window.event;
 		
 		if (e.ctrlKey && e.keyCode == 13 || e.ctrlKey && e.keyCode == 10)
@@ -91,6 +91,9 @@ $(document).ready(function () {
 			$('#question_replay_submit').click();
 		}
 	});
+
+    $('#question_detail').markItUp(myMarkdownSettings);
+    $('.markItUpButton10 a').addClass('cur');
 });
 
 function answer_force_fold(answer_id, element)

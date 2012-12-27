@@ -405,12 +405,13 @@ function Markdown(text){
       text = text + md_flag_DoLists_z;
       var reg = new RegExp(prefix + '(([ ]{0,'
           + md_less_than_tab + '}(' + marker + ')[ \\t]+'
-          + ')(?:[\\s\\S]+?)(' + md_flag_DoLists_z + '|'
+          + ')(?:[\\s\\S]*?)(' + md_flag_DoLists_z + '|'
           + '\\n{2}(?=\\S)))', "gm");
 
       text = text
           .replace(reg,
               function($0, $1, $2, $3, $4){
+                //console.log('0:' + $0 + '\n1:' + $1+ '\n2:' + $2+ '\n3:' + $3+ '\n4:' + $4);
                 $2 = $2.replace(md_flag_DoLists_z, "");
                 var list = $2;
                 var list_type = $4.match(new RegExp(md_marker_ul)) != null ? "ul" : "ol";
@@ -508,7 +509,7 @@ function Markdown(text){
   
   function _DoBlockQuotes(text){
     text = text + md_flag_DoLxx_z;
-    var md_reg_DoBlockQuotes = new RegExp('((^[ \\t]*>[ \\t]+)(?:[\\s\\S]+?))(' + md_flag_DoLxx_z + '|\\n{2}(?=\\S))', "gm");
+    var md_reg_DoBlockQuotes = new RegExp('((^[ \\t]*>[ \\t]+)(?:[\\s\\S]+?))(' + md_flag_DoLxx_z + '|\\n(?=\\S))', "gm");
     var reg = md_reg_DoBlockQuotes;
     text = text.replace(reg, _DoBlockQuotes_callback).replace(md_flag_DoLxx_z, "");;
     return text;

@@ -1,5 +1,4 @@
 <?php TPL::output('global/header.tpl.htm'); ?>
-
 <div class="i_bd mainElem i_clear i_allbg">
 <div class="i_left L_sidebar">
 <form action="publish/ajax/<?php if ($this->question_info['question_id']) { ?>modify<?php } else { ?>publish<?php } ?>_question/" method="post" id="question_form" onsubmit="return false;">
@@ -132,7 +131,7 @@
 
     $(function() {
         $('#question_detail').markItUp(myMarkdownSettings);
+        $('.markItUpButton10 a').addClass('cur');
     });
 </script>
-
 <?php TPL::output('global/footer.tpl.htm'); ?>

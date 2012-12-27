@@ -662,6 +662,7 @@ a.v_more{ font-size:13px !important; font-weight:normal;}
 
 .markItUp .preview a { background-image: url(images/preview.png); }
 
+.markItUp ul {position:relative;}
 .markItUp .markItUpButton1 a { background-position: -4px -6px;}
 .markItUp .markItUpButton2 a { background-position: -35px -6px;}
 .markItUp .markItUpButton3 a { background-position: -97px -6px;}
@@ -675,6 +676,8 @@ a.v_more{ font-size:13px !important; font-weight:normal;}
 .markItUp .markItUpButton10 a{ background-position: -492px -6px;float:right;height:18px;margin-top:-1px;}
 .markItUp .markItUpButton10 a.cur{background-position: -534px -6px;}
 .markItUp .markItUpButton11 a { background-position: -570px -6px;margin-left:5px;}
+
+.markItUp .markItUpButton10 {position:absolute; right:0;}
 
 /*收藏夹*/
 .sC_collectFloating{ border-bottom:1px solid #C1CAD4; padding:10px 0 0 85px; overflow:hidden;}
