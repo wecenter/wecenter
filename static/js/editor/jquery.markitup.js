@@ -591,9 +591,13 @@
                             var lines = textarea.value.split(/\r?\n/);
                             var count = 0;
                             var preLine = "";
+                            var linecount = 0;
                             for(var i = 0; i < lines.length; i++){
                                 if(count <= cursor && (count + lines[i].length + 1) > cursor){
                                     preLine = lines[i];
+                                    if(document.all){
+                                    	linecount = i;
+                                    }
                                     break;
                                 }
                                 count += lines[i].length + 1;
@@ -613,8 +617,9 @@
                                         block = '\n' + (parseInt(matches[1].substring(0, 1)) + 1) + '. ';
                                         break;
                                 }
-					            textarea.value =  textarea.value.substring(0, cursor)  + block + textarea.value.substring(cursor, textarea.value.length);
+					            textarea.value =  textarea.value.substring(0, cursor + linecount)  + block + textarea.value.substring(cursor + linecount, textarea.value.length);
                             	e.preventDefault();
+                            	set(cursor + linecount + block.length, 0);
                             } else {
 								markup(options.onEnter);
 								return options.onEnter.keepDefault;

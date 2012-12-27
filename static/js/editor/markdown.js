@@ -439,7 +439,7 @@ function Markdown(text){
     list_str += md_flag_ProcessListItems_z;
 
     var reg = new RegExp('(\\n)?(^[ \\t\\n]*)(' + marker_any
-        + ')[ \\t]+(([\\s\\S]+?))(?=('
+        + ')[ \\t]+(([\\s\\S]*?))(?=('
         + md_flag_ProcessListItems_z + '|\n+\\2(' + marker_any
         + '[ \\t]+)))', "gm");
     list_str = list_str.replace(reg, function($0, $1, $2, $3, $4){
