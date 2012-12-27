@@ -40,7 +40,7 @@ class setting extends AWS_CONTROLLER
 
 	function index_action()
 	{
-		$this->profile_action();
+		HTTP::redirect('/account/setting/profile/');
 	}
 
 	function profile_action()
@@ -147,5 +147,22 @@ class setting extends AWS_CONTROLLER
 		$this->crumb(AWS_APP::lang()->_t('安全设置'), '/account/setting/security/');
 		
 		TPL::output("account/setting/security");
+	}
+	
+	function verify_action()
+	{
+		if ($this->user_info['verified'])
+		{
+			HTTP::redirect('/account/setting/');
+		}
+		
+		$this->crumb(AWS_APP::lang()->_t('申请认证'), '/account/setting/verify/');
+		
+		$verify_apply = $this->model('verify')->fetch_apply($this->user_id);
+		
+		TPL::assign('verify_apply', $verify_apply);
+		TPL::assign('job_list', $this->model('work')->get_jobs_list());
+		
+		TPL::output("account/setting/verify");
 	}
 }

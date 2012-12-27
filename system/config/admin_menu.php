@@ -134,6 +134,11 @@ $config[4] = array(
 	'cname' => 'user',
 	'children' => array(
 		array(
+			'id' => 401,
+			'title' => '认证审核',
+			'url' => 'admin/user_manage/verify_approval_list/',
+		),
+		array(
 			'id' => 402,
 			'title' => '会员列表',
 			'url' => 'admin/user_manage/list/',

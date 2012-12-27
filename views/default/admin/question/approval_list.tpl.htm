@@ -56,7 +56,7 @@
 							<?php foreach ($this->approval_list AS $key => $val) { ?>
 							<tr>
 								<td><input type="checkbox" class="approval_ids" name="approval_ids[]" value="<?php echo $val['id']; ?>"></td>
-								<td><a href="people/<?php echo $this->users_info[$val['uid']]['url_token']; ?>"><?php echo $this->users_info[$val['uid']]['user_name']; ?></a></td>
+								<td><a href="people/<?php echo $this->users_info[$val['uid']]['url_token']; ?>" target="_blank"><?php echo $this->users_info[$val['uid']]['user_name']; ?></a></td>
 								
 								<?php if ($_GET['type'] != 'answer') { ?>
 								<td><a href="admin/question/approval_preview/<?php echo $val['id']; ?>" class="fancybox" data-fancybox-type="ajax"><?php echo htmlspecialchars($val['data']['question_content']); ?> <img src="<?php echo G_STATIC_URL;?>/admin/images/icons/information.png" style="vertical-align:middle" alt="" /></a></td>

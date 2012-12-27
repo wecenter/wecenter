@@ -20,7 +20,7 @@ if (!defined('IN_ANWSION'))
 
 class user_manage extends AWS_CONTROLLER
 {
-	var $per_page = 15;
+	var $per_page = 20;
 
 	function get_permission_action()
 	{
@@ -589,5 +589,65 @@ class user_manage extends AWS_CONTROLLER
 		TPL::assign('list', $list);
 		TPL::assign('menu_list', $this->model('admin_group')->get_menu_list($this->user_info['group_id'], 408));
 		TPL::output('admin/user_manage/forbidden_list');
+	}
+	
+	public function verify_approval_list_action()
+	{
+		$approval_list = $this->model('verify')->approval_list($_GET['page'], $this->per_page);
+		
+		$total_rows = $this->model('verify')->found_rows();
+		
+		foreach ($approval_list AS $key => $val)
+		{
+			if (!$uids[$val['uid']])
+			{
+				$uids[$val['uid']] = $val['uid'];
+			}
+		}
+		
+		TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
+			'base_url' => get_setting('base_url') . '/?/admin/user_manage/verify_approval_list/', 
+			'total_rows' => $total_rows, 
+			'per_page' => $this->per_page, 
+			'last_link' => '末页', 
+			'first_link' => '首页', 
+			'next_link' => '下一页 »', 
+			'prev_link' => '« 上一页', 
+			'anchor_class' => ' class="number"', 
+			'cur_tag_open' => '<a class="number current">', 
+			'cur_tag_close' => '</a>', 
+			'direct_page' => TRUE
+		))->create_links());
+		
+		$this->crumb(AWS_APP::lang()->_t('认证审核'), 'admin/user_manage/verify_approval_list/');
+		
+		TPL::assign('users_info', $this->model('account')->get_user_info_by_uids($uids, TRUE));
+		TPL::assign('approval_list', $approval_list);
+		TPL::assign('menu_list', $this->model('admin_group')->get_menu_list($this->user_info['group_id'], 401));
+		TPL::assign('job_list', $this->model('work')->get_jobs_list());
+		TPL::output('admin/user_manage/verify_approval_list');
+	}
+	
+	public function verify_approval_batch_action()
+	{
+		if (!is_array($_POST['approval_ids']))
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择条目进行操作')));
+		}
+		
+		switch ($_POST['batch_type'])
+		{
+			case 'approval':
+			case 'decline':
+				$func = $_POST['batch_type'] . '_verify';
+				
+				foreach ($_POST['approval_ids'] AS $approval_id)
+				{
+					$this->model('verify')->$func($approval_id);
+				}
+			break;
+		}
+		
+		H::ajax_json_output(AWS_APP::RSM(null, 1, null));
 	}
 }

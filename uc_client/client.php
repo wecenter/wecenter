@@ -11,7 +11,7 @@ if(!defined('UC_API')) {
 	exit('Access denied');
 }
 
-//error_reporting(0);
+error_reporting(E_ALL & ~E_NOTICE | E_STRICT);
 
 define('IN_UC', TRUE);
 define('UC_CLIENT_VERSION', '1.6.0');

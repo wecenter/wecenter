@@ -814,6 +814,16 @@ CREATE TABLE `[#DB_PREFIX#]edm_usergroup` (
   PRIMARY KEY (`id`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
 
+CREATE TABLE `[#DB_PREFIX#]verify_apply` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `uid` int(11) NOT NULL,
+  `reason` varchar(255) NOT NULL,
+  `time` int(10) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`),
+  KEY `time` (`time`)
+) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
+
 INSERT INTO `[#DB_PREFIX#]admin_group`(`group_id`,`group_name`,`menu`,`no_menu`,`permission`,`no_permission`) VALUES
 (1,'超级管理员','all',NULL,'all',NULL),
 (2,'管理员','all',NULL,'all',NULL),

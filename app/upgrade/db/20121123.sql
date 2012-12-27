@@ -34,3 +34,13 @@ CREATE TABLE `[#DB_PREFIX#]sessions` (
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
 
 UPDATE `[#DB_PREFIX#]users_email_setting` SET `sender_13` = 1, `sender_15` = 1;
+
+CREATE TABLE `[#DB_PREFIX#]verify_apply` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `uid` int(11) NOT NULL,
+  `reason` varchar(255) NOT NULL,
+  `time` int(10) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`),
+  KEY `time` (`time`)
+) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;

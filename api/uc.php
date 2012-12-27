@@ -41,7 +41,7 @@ if (!defined('ROOT_PATH'))
 	define('ROOT_PATH', realpath('../') . '/');
 }
 
-if(!defined('IN_UC')) {
+if (!defined('IN_UC')) {
 
 	error_reporting(0);
 	
