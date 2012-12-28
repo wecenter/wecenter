@@ -1077,7 +1077,6 @@ str_repeat('
 					(?>
 					  ^[ ]*>[ ]?			# ">" at the start of a line
 						.+\n					# rest of the first line
-					  (.+\n)*					# subsequent consecutive lines
 					  \n*						# blanks
 					)+
 				  )

@@ -14,34 +14,6 @@
 
 class FORMAT
 {
-
-	/**
-	 *  字符进行安全转向处理 
-	 * @param string $request
-	 * @param boolean $istext
-	 */
-	public static function safe($request, $istext = false)
-	{
-		// If we are on PHP >= 6.0.0 we do not need some code
-		if (version_compare(PHP_VERSION, '6.0.0', '<'))
-		{
-			$request = addslashes($request); //转意义
-		}
-		
-		if ($istext === true)
-		{
-			$request = strip_tags(str_replace(array(
-				'<', 
-				'>'
-			), array(
-				'&lt;', 
-				'&gt;'
-			), $request));
-		}
-		
-		return $request;
-	}
-
 	public static function parse_links($str, $popup = TRUE)
 	{
 		$str = @preg_replace_callback('/(?<!["|\'|\)|>])(http[s]?:\/\/[-a-zA-Z0-9@:;%_\+.~#?\&\/\/=!]+)(?!["|\'|\)|>])/i', 'parse_link_callback', $str);
@@ -111,7 +83,7 @@ class FORMAT
 		
 		$Markdown_Parser = load_class('Services_Markdown');
 	
-		$str = $Markdown_Parser->transform($str);
+		$str = $Markdown_Parser->transform(trim($str));
 		
 		return $str;
 	}
