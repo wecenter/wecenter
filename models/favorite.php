@@ -144,7 +144,7 @@ class favorite_class extends AWS_MODEL
 			else
 			{
 				$tag = array(
-					$this->quote($val)
+					$this->quote($tag)
 				);
 			}
 			

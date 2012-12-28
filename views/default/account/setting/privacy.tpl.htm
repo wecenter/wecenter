@@ -1,6 +1,7 @@
 <?php TPL::output('global/header.tpl.htm'); ?>
 
 		<?php TPL::output('account/setting/setting_header.tpl.htm'); ?>
+		
 		<form id="setting_form" method="post" action="account/ajax/privacy_setting/">
 			<div class="v_setting">
 				<h4 class="h4"><?php _e('微博设置'); ?></h4>
@@ -17,8 +18,11 @@
                 <div class="v_setMain v_sver">
                 	<h5 class="i_cl_01" ><?php _e('什么情况下给我发邮件'); ?></h5>
                 	<p class="v_setLsit">
-                        <span><input type="checkbox" name="sender_11" value="1" <?php if ($this->email_setting['sender_11'] == 1) { ?>checked="checked"<?php } ?> /> <?php _e('当有人关注我'); ?> </span><span><input type="checkbox" name="sender_13" value="1" <?php if ($this->email_setting['sender_13'] == 1) { ?>checked="checked"<?php } ?> /> <?php _e('当有人邀请我回答问题'); ?></span>
-                        <span><input type="checkbox" name="sender_14" value="1" <?php if ($this->email_setting['sender_14'] == 1) { ?>checked="checked"<?php } ?> /> <?php _e('当我关注的问题有了新回复'); ?> </span><span><input type="checkbox" name="sender_15" value="1" <?php if ($this->email_setting['sender_15'] == 1) { ?>checked="checked"<?php } ?> /> <?php _e('当有人向我发送私信'); ?></span>
+                        <span><input type="checkbox" name="email_settings[]" value="FOLLOW_ME"<?php if ($this->user_info['email_settings']['FOLLOW_ME'] != 'N') { ?> checked="checked"<?php } ?> /> <?php _e('当有人关注我'); ?> </span>
+                        <span><input type="checkbox" name="email_settings[]" value="QUESTION_INVITE"<?php if ($this->user_info['email_settings']['QUESTION_INVITE'] != 'N') { ?> checked="checked"<?php } ?> /> <?php _e('有人邀请我回答问题'); ?></span>
+                        <span><input type="checkbox" name="email_settings[]" value="NEW_ANSWER"<?php if ($this->user_info['email_settings']['NEW_ANSWER'] != 'N') { ?> checked="checked"<?php } ?> /> <?php _e('我关注的问题有了新回复'); ?></span>
+                        <span><input type="checkbox" name="email_settings[]" value="NEW_MESSAGE"<?php if ($this->user_info['email_settings']['NEW_MESSAGE'] != 'N') { ?> checked="checked"<?php } ?> /> <?php _e('有人向我发送私信'); ?></span>
+                        <span><input type="checkbox" name="email_settings[]" value="QUESTION_MOD"<?php if ($this->user_info['email_settings']['QUESTION_MOD'] != 'N') { ?> checked="checked"<?php } ?> /> <?php _e('我的问题被编辑'); ?></span>
                     </p>
                 </div>
                 <h4 class="h4" id="notifications"><?php _e('通知设置'); ?></h4>
@@ -27,7 +31,7 @@
                     <p class="v_setLsit">
                      <?php foreach($this->notify_actions as $key => $val) { ?>
                         <?php if ($val['user_setting']) { ?>
-                        <span><input name="notification_setting[<?php echo $key;?>]" type="checkbox" value="1"<?php if (!in_array($key, $this->notification_setting['data']) || !$this->notification_setting['data']) { ?>checked="checked"<?php } ?> /> <?php echo _e($val['desc']); ?></span>
+                        <span><input name="notification_setting[<?php echo $key;?>]" type="checkbox" value="1"<?php if (!in_array($key, $this->notification_setting['data']) OR !$this->notification_setting['data']) { ?> checked="checked"<?php } ?> /> <?php echo _e($val['desc']); ?></span>
                         <?php } ?>
                     <?php } ?>
                     </p>
@@ -36,6 +40,7 @@
                 <p class="v_submit i_tr"><a href="javascript:;" onclick="ajax_post($('#setting_form'))" class="i_replay_but2"><?php _e('保存'); ?></a></p>
 			</div>
 		</form>
+		
 		<?php TPL::output('account/setting/setting_footer.tpl.htm'); ?>
 
 <?php TPL::output('global/footer.tpl.htm'); ?>

@@ -8,7 +8,7 @@
  * @subpackage Diff
  */
 
-error_reporting(E_ALL ^ E_NOTICE ^ E_DEPRECATED);
+error_reporting(E_ALL ^ E_NOTICE ^ E_DEPRECATED ^ E_STRICT);
 
 require_once( dirname(__FILE__).'/Text/Diff.php' );	
 /** Text_Diff_Renderer class */

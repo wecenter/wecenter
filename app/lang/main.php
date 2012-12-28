@@ -23,6 +23,8 @@ class main extends AWS_CONTROLLER
 	public function setup()
 	{
 		set_time_limit(0);
+		
+		HTTP::no_cache_header();
 	}
 	
 	public function dump_action()
