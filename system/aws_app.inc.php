@@ -122,7 +122,10 @@ class AWS_APP
 		self::$config = load_class('core_config');
 		self::$db = load_class('core_db');
 		
-		if (!defined('G_SESSION_SAVE') OR G_SESSION_SAVE == 'db')
+		self::$plugins = load_class('core_plugins');
+		self::$setting = self::model('setting')->get_setting();
+		 
+		if ((!defined('G_SESSION_SAVE') OR G_SESSION_SAVE == 'db') AND self::$setting['db_version'] > 20121123)
 		{
 				Zend_Session::setSaveHandler(new Zend_Session_SaveHandler_DbTable(array(
 			    'name' 					=> get_table('sessions'),
@@ -148,9 +151,6 @@ class AWS_APP
 		Zend_Session::start();
 		
 		self::$session = new Zend_Session_Namespace(G_COOKIE_PREFIX . '_Anwsion');
-		
-		self::$plugins = load_class('core_plugins');
-		self::$setting = self::model('setting')->get_setting();
 		
 		if (get_setting('default_timezone'))
 		{
