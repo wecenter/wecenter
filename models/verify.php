@@ -20,11 +20,12 @@ if (!defined('IN_ANWSION'))
 
 class verify_class extends AWS_MODEL
 {
-	public function add_apply($uid, $reason)
+	public function add_apply($uid, $reason, $attach = null)
 	{
 		return $this->insert('verify_apply', array(
 			'uid' => $uid,
 			'reason' => htmlspecialchars($reason),
+			'attach' => $attach,
 			'time' => time()
 		));
 	}
@@ -41,17 +42,35 @@ class verify_class extends AWS_MODEL
 	
 	public function approval_verify($id)
 	{
-		$apply = $this->fetch_row('verify_apply', 'id = ' . intval($id));
+		if (!$verify_apply = $this->fetch_row('verify_apply', 'id = ' . intval($id)))
+		{
+			return false;
+		}
 		
 		$this->update('users', array(
 			'verified' => 1
-		), 'uid = ' . intval($apply['uid']));
+		), 'uid = ' . intval($verify_apply['uid']));
+		
+		if ($verify_apply['attach'])
+		{
+			unlink(get_setting('upload_dir') . '/verify/' . $verify_apply['attach']);
+		}
 		
 		return $this->delete('verify_apply', 'id = ' . intval($id));
 	}
 	
 	public function decline_verify($id)
 	{
+		if (!$verify_apply = $this->fetch_row('verify_apply', 'id = ' . intval($id)))
+		{
+			return false;
+		}
+		
+		if ($verify_apply['attach'])
+		{
+			unlink(get_setting('upload_dir') . '/verify/' . $verify_apply['attach']);
+		}
+		
 		return $this->delete('verify_apply', 'id = ' . intval($id));
 	}
 }

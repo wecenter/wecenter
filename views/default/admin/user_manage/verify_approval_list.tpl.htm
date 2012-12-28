@@ -24,6 +24,7 @@
 								<th><?php _e('说明'); ?></th>
 								<th><?php _e('职业'); ?></th>
 								<th><?php _e('一句话介绍'); ?></th>
+								<th><?php _e('附件'); ?></th>
 							</tr>
 						</thead>
 						<tfoot>
@@ -43,6 +44,7 @@
 								<td><?php echo $val['reason']; ?></td>
 								<td><?php echo $this->job_list[$this->users_info[$val['uid']]['job_id']]; ?></td>
 								<td><?php echo $this->users_info[$val['uid']]['signature']; ?></td>
+								<td> <?php if ($val['attach']) { ?><a href="<?php echo get_setting('upload_url'); ?>/verify/<?php echo $val['attach']; ?>">下载</a><?php } ?> </td>
 							</tr>
 							<?php } ?>
 						</tbody>

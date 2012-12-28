@@ -818,6 +818,7 @@ CREATE TABLE `[#DB_PREFIX#]verify_apply` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `uid` int(11) NOT NULL,
   `reason` varchar(255) NOT NULL,
+  `attach` varchar(255) DEFAULT NULL,
   `time` int(10) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `uid` (`uid`),
