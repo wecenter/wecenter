@@ -24,6 +24,8 @@ class AWS_APP
 	private static $lang;
 	private static $session;
 	
+	public static $session_type = 'file';
+	
 	private static $models = array();
 	private static $plugins = array();
 	private static $setting = array();
@@ -127,7 +129,7 @@ class AWS_APP
 		 
 		if ((!defined('G_SESSION_SAVE') OR G_SESSION_SAVE == 'db') AND self::$setting['db_version'] > 20121123)
 		{
-				Zend_Session::setSaveHandler(new Zend_Session_SaveHandler_DbTable(array(
+			Zend_Session::setSaveHandler(new Zend_Session_SaveHandler_DbTable(array(
 			    'name' 					=> get_table('sessions'),
 			    'primary'				=> 'id',
 			    'modifiedColumn'		=> 'modified',
@@ -135,6 +137,8 @@ class AWS_APP
 			    'lifetimeColumn'		=> 'lifetime',
 				//'authIdentityColumn'	=> 'uid'
 			)));
+			
+			self::$session_type = 'db';
 		}
 		
 		Zend_Session::setOptions(array(
