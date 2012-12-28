@@ -14,7 +14,7 @@
 
 if (! file_exists(dirname(__FILE__) . '/system/config/database.php') AND ! file_exists(dirname(__FILE__) . '/system/config/install.lock.php'))
 {
-	header('Location: ./intall/');
+	header('Location: ./install/');
 	exit;
 }
 
