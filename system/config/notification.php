@@ -55,9 +55,9 @@ $config['action_details'][notify_class::TYPE_QUESTION_THANK] = array(
 );
 
 $config['action_details'][notify_class::TYPE_MOD_QUESTION] = array(
-	'user_setting' => 0,
+	'user_setting' => 1,
 	'combine' => 1,
-	'desc' => "有人修改了我发布的问题",
+	'desc' => "我的问题被编辑",
 );
 
 $config['action_details'][notify_class::TYPE_REMOVE_ANSWER] = array(
