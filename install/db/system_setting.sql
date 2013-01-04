@@ -1,7 +1,7 @@
 INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES
 ('site_name', 's:7:"Anwsion";'),
-('description', 's:29:"Anwsion 是一个问答社区";'),
-('keywords', 's:20:"Anwsion,问题社区";'),
+('description', 's:29:"Anwsion 社交化知识社区";'),
+('keywords', 's:46:"Anwsion,知识社区,社交社区,问答社区";'),
 ('sensitive_words', 's:0:"";'),
 ('def_focus_uids', 's:1:"1";'),
 ('answer_edit_time', 's:2:"30";'),

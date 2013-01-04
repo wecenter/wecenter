@@ -20,7 +20,6 @@ if (!defined('IN_ANWSION'))
 
 class apply extends AWS_CONTROLLER
 {
-
 	public function get_access_rule()
 	{
 		$rule_action['rule_type'] = 'black';

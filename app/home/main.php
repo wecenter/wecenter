@@ -20,7 +20,6 @@ if (!defined('IN_ANWSION'))
 
 class main extends AWS_CONTROLLER
 {
-
 	public function get_access_rule()
 	{
 		$rule_action['rule_type'] = "white"; //'black'黑名单,黑名单中的检查  'white'白名单,白名单以外的检查
@@ -37,9 +36,14 @@ class main extends AWS_CONTROLLER
 
 	public function setup()
 	{
-		if (preg_match('/Mobile\sSafari/i', $_SERVER['HTTP_USER_AGENT']) || preg_match('/iPhone\sOS/i', $_SERVER['HTTP_USER_AGENT']))
+		if (preg_match('/Mobile\sSafari/i', $_SERVER['HTTP_USER_AGENT']) || preg_match('/iPhone\sOS/i', $_SERVER['HTTP_USER_AGENT']) AND HTTP::get_cookie('_ignore_ua_check') != 'TRUE' AND !$_GET['ignore_ua_check'])
 		{
 			HTTP::redirect('/m/');
+		}
+		
+		if ($_GET['ignore_ua_check'])
+		{
+			HTTP::set_cookie('_ignore_ua_check', 'TRUE', (time() + 3600 * 24 * 7));
 		}
 	}
 

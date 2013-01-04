@@ -21,6 +21,7 @@
 			     </form>
 			     <a name="contents"></a>
 			</li>
+			<?php if ($this->list) { ?>
             <?php foreach($this->list AS $key => $val) { ?>
           	<li<?php if ($val['sender_uid'] == $this->user_id) { ?> class="p_isMe"<?php } ?>>
             	<a class="add_user_f user_msg" href="people/<?php echo $val['url_token']; ?>" data-message="&uid=<?php echo $val['sender_uid']; ?>&card=user" ><img src="<?php echo get_avatar_url($val['sender_uid'], 'mid'); ?>" alt="" /></a>
@@ -33,6 +34,7 @@
 	                <em class="q_arr i_pas i_small"><?php _e('小箭头'); ?></em>
                 </div>
      	     </li>
+     	     <?php } ?>
      	     <?php } ?>
      	     </ul>
      	     

@@ -166,6 +166,11 @@ class edm_class extends AWS_MODEL
 		return $this->query("INSERT INTO `" . get_table('edm_userdata') . "` (`usergroup`, `email`) SELECT '" . intval($group_id) . "' ,  `email` FROM `" . get_table('users') . "` WHERE email != '' AND last_active > " . (time() - intval($last_active)));
 	}
 	
+	public function import_system_email_by_last_login($group_id, $last_active)
+	{
+		return $this->query("INSERT INTO `" . get_table('edm_userdata') . "` (`usergroup`, `email`) SELECT '" . intval($group_id) . "' ,  `email` FROM `" . get_table('users') . "` WHERE email != '' AND last_login < " . (time() - intval($last_active)));
+	}
+	
 	public function import_group_data_to_task($task_id, $user_group_id)
 	{
 		return $this->query("INSERT INTO `" . get_table('edm_taskdata') . "` (`taskid`, `email`) SELECT '" . intval($task_id) . "' ,  `email` FROM `" . get_table('edm_userdata') . "` WHERE usergroup = " . intval($user_group_id));

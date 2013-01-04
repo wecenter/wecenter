@@ -65,7 +65,8 @@
 							<option value="text"><?php _e('文本'); ?></option>
 							<option value="system_group"><?php _e('系统用户组'); ?></option>
 							<option value="reputation_group"><?php _e('声望用户组'); ?></option>
-							<option value="last_active"><?php _e('最后活跃时间'); ?></option>
+							<!--<option value="last_active"><?php _e('最后活跃时间'); ?></option>-->
+							<option value="last_login"><?php _e('最后登录时间'); ?></option>
 						</select> 
 					</p>
 					
@@ -106,6 +107,16 @@
 							<input type="radio" name="last_active" value="7776000" checked="checked" /> <?php _e('最近三个月'); ?> &nbsp; 
 							<input type="radio" name="last_active" value="15552000" /> <?php _e('最近半年'); ?> &nbsp; 
 							<input type="radio" name="last_active" value="31104000" /> <?php _e('最近一年'); ?> &nbsp; 
+						</p>
+					</div>
+					
+					<div id="option_last_login" class="hidden_option" style="display:none">
+						<p>
+							<label><?php _e('最后活跃时间'); ?></label><br />
+
+							<input type="radio" name="last_login" value="7776000" checked="checked" /> <?php _e('三个月前'); ?> &nbsp; 
+							<input type="radio" name="last_login" value="15552000" /> <?php _e('半年前'); ?> &nbsp; 
+							<input type="radio" name="last_login" value="31104000" /> <?php _e('一年前'); ?> &nbsp; 
 						</p>
 					</div>
 					

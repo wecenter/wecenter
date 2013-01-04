@@ -120,6 +120,13 @@ class edm extends AWS_CONTROLLER
 					$this->model('edm')->import_system_email_by_last_active($usergroup_id, $_POST['last_active']);
 				}
 			break;
+			
+			case 'last_login':
+				if ($_POST['last_active'])
+				{
+					$this->model('edm')->import_system_email_by_last_login($usergroup_id, $_POST['last_active']);
+				}
+			break;
 		}
 		
 		H::redirect_msg(AWS_APP::lang()->_t('用户群添加完成'), get_setting('base_url') . '/?/admin/edm/groups/');
