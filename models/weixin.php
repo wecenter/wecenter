@@ -17,7 +17,7 @@ if (! defined('IN_ANWSION'))
 	die();
 }
 
-define('WEIXIN_TOKEN', 'weixin');
+define('WEIXIN_TOKEN', 'qwfwqfwqf3452');
 
 class weixin_class extends AWS_MODEL
 {
@@ -40,7 +40,19 @@ class weixin_class extends AWS_MODEL
 			
 			if (! empty($keyword))
 			{
-				$contentStr = $this->model('system')->analysis_keyword($keyword);
+				if ($search_result = $this->model('search')->search_questions($keyword, null, 5))
+				{
+					$contentStr = '为您找到下列相关问题:' . "\n\n";
+					
+					foreach ($search_result AS $key => $val)
+					{
+						$contentStr .= '• <a href="' . get_js_url('/question/' . $val['question_id']) . '">' . $val['question_content'] . '</a>' . "\n";
+					}
+				}
+				else
+				{
+					$contentStr = '没有找到相关问题';	
+				}
 			}
 			else
 			{

@@ -46,6 +46,11 @@ class api extends AWS_CONTROLLER
 		{
 			die;
 		}
+		
+		if ($_GET['echostr'])
+		{
+			echo $_GET['echostr'];
+		}
 	}
 	
 	public function index_action()
