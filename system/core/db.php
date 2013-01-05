@@ -28,11 +28,20 @@ class core_db
 			$start_time = microtime(TURE);
 		}
 		
+		if ($config->charset)
+		{
+			$config->master['charset'] = $config->charset;
+			
+			if ($config->slave)
+			{
+				$config->slave['charset'] = $config->charset;
+			}
+		}
+		
 		$this->db['master'] = Zend_Db::factory($config->driver, $config->master);
 
 		try
 		{
-			$this->db['master']->query("SET NAMES {$config->charset}");
 			$this->db['master']->query("SET sql_mode = ''");
 		}
 		catch (Exception $e)
@@ -56,7 +65,6 @@ class core_db
 			
 			try
 			{
-				$this->db['slave']->query("SET NAMES {$config->charset}");
 				$this->db['slave']->query("SET sql_mode = ''");
 			}
 			catch (Exception $e)

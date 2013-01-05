@@ -57,7 +57,7 @@ class feature_class extends AWS_MODEL
 
 	public function update_feature($feature_id, $update_arr)
 	{
-		return $this->update('feature', $update_arr, 'id = ' . $feature_id);
+		return $this->update('feature', $update_arr, 'id = ' . intval($feature_id));
 	}
 	
 	public function get_feature_by_url_token($url_token)
@@ -80,34 +80,34 @@ class feature_class extends AWS_MODEL
 
 	public function get_feature_by_id($feature_id)
 	{
-		if(!$feature_id)
+		if (!$feature_id)
 		{
 			return false;
 		}
-		
-		$feature_ids = array();
-		
+				
 		if (is_array($feature_id))
 		{
 			$feature_ids = $feature_id;
 		}
 		else
 		{
-			$feature_ids[] = intval($feature_id);
+			$feature_ids[] = $feature_id;
 		}
 		
-		if ($rs = $this->fetch_all('feature', 'id IN (' . implode(',', $feature_ids) . ')'))
+		array_walk_recursive($feature_ids, 'intval_string');
+		
+		if ($features = $this->fetch_all('feature', 'id IN (' . implode(',', $feature_ids) . ')'))
 		{
 			$data = array();
 			
-			foreach($rs as $key => $val)
+			foreach($features as $key => $val)
 			{
 				if (!$val['url_token'])
 				{
-					$rs[$key]['url_token'] = $val['id'];
+					$features[$key]['url_token'] = $val['id'];
 				}
 				
-				$data[$val['id']] = $rs[$key];
+				$data[$val['id']] = $features[$key];
 			}
 		}
 		
@@ -123,31 +123,31 @@ class feature_class extends AWS_MODEL
 
 	public function get_topics_by_feature_id($feature_id, $count = false, $detail = true)
 	{
-		if(!$rs = $this->query_all('SELECT * FROM ' . get_table('topic') . ' t LEFT JOIN ' . get_table('feature_topic') . ' ft ON t.topic_id = ft.topic_id WHERE ft.feature_id = ' . intval($feature_id) . ' ORDER BY t.discuss_count DESC', 10))
+		if (!$topics = $this->query_all('SELECT * FROM ' . get_table('topic') . ' t LEFT JOIN ' . get_table('feature_topic') . ' ft ON t.topic_id = ft.topic_id WHERE ft.feature_id = ' . intval($feature_id) . ' ORDER BY t.discuss_count DESC', 10))
 		{
 			return false;
 		}
 		
 		if ($count)
 		{
-			return count($rs);
+			return count($topics);
 		}
 		
 		if ($detail)
 		{
-			foreach ($rs as $key => $val)
+			foreach ($topics as $key => $val)
 			{
 				if (!$val['url_token'])
 				{
-					$rs[$key]['url_token'] = urlencode($val['topic_title']);
+					$topics[$key]['url_token'] = urlencode($val['topic_title']);
 				}
 			}
 			
-			return $rs;
+			return $topics;
 		}
 		else
 		{
-			foreach ($rs as $key => $val)
+			foreach ($topics as $key => $val)
 			{
 				$topic_ids[] = $val['topic_id'];
 			}
@@ -160,18 +160,28 @@ class feature_class extends AWS_MODEL
 	{
 		if (! $this->fetch_row('feature_topic', 'feature_id = ' . $feature_id . ' AND topic_id = ' . $topic_id))
 		{
-			return $this->insert('feature_topic', array(
+			$this->insert('feature_topic', array(
 				'feature_id' => $feature_id, 
 				'topic_id' => $topic_id
 			));
+			
+			$this->update_feature($feature_id, array(
+				'topic_count' => $this->get_topics_by_feature_id($feature_id, true)
+			));
 		}
 		
-		return false;
+		return true;
 	}
 
 	public function delete_topic($feature_id, $topic_id)
 	{
-		return $this->delete('feature_topic', 'feature_id = ' . intval($feature_id) . ' AND topic_id = ' . intval($topic_id));
+		$this->delete('feature_topic', 'feature_id = ' . intval($feature_id) . ' AND topic_id = ' . intval($topic_id));
+		
+		$this->update_feature($feature_id, array(
+			'topic_count' => $this->get_topics_by_feature_id($feature_id, true)
+		));
+		
+		return true;
 	}
 
 	public function delete_feature($feature_id)
@@ -181,13 +191,6 @@ class feature_class extends AWS_MODEL
 		return $this->delete('feature', 'id = ' . intval($feature_id));
 	}
 
-	public function update_topic_count($feature_id)
-	{
-		return $this->update_feature($feature_id, array(
-			'topic_count' => intval($this->get_topics_by_feature_id($feature_id, true))
-		));
-	}
-
 	public function get_best_question_list($feature_id, $page, $per_page)
 	{
 		$topic_ids = $this->get_topics_by_feature_id($feature_id, false, false);
@@ -195,8 +198,23 @@ class feature_class extends AWS_MODEL
 		return $this->model('topic')->get_topic_action_list($topic_ids, $page, $per_page, TRUE);
 	}
 	
-	function check_url_token($url_token, $feature_id)
+	public function check_url_token($url_token, $feature_id)
 	{
 		return $this->count('feature', "url_token = '" . $this->quote($url_token) . "' AND id != " . intval($feature_id));
+	}
+	
+	public function get_topic_in_features($topic_id)
+	{
+		$feature_ids = array();
+		
+		if ($features = $this->fetch_all('feature_topic', 'topic_id = ' . intval($topic_id)))
+		{
+			foreach ($features AS $key => $val)
+			{
+				$feature_ids[] = $val['feature_id'];
+			}
+		}
+		
+		return $feature_ids;
 	}
 }

@@ -306,6 +306,9 @@ class main extends AWS_CONTROLLER
 		
 		TPL::assign('merged_topics_info', $merged_topics_info);
 		
+		TPL::assign('feature_list', $this->model('feature')->get_feature_list());
+		TPL::assign('topic_in_features', $this->model('feature')->get_topic_in_features($topic_info['topic_id']));
+		
 		$this->crumb(AWS_APP::lang()->_t('话题管理'), '/topic/manage/' . $topic_info['topic_id']);
 		
 		$this->crumb($topic_info['topic_title'], '/topic/' . $topic_info['topic_id']);
