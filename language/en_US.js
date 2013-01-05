@@ -169,4 +169,4 @@ aws_lang['我自己'] = 'Myself';
 aws_lang['要关注、联系请先登录'] = 'Please login to follow';
 aws_lang['问题数'] = 'Questions';
 aws_lang['关注者'] = 'Follower';
-
+aws_lang['请输入小于 16 位的密码'] = '请输入小于 16 位的密码';

@@ -107,4 +107,5 @@ INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES
 ('auto_question_lock_day', 's:2:"30";'),
 ('default_timezone', 's:9:"Etc/GMT-8";'),
 ('reader_questions_last_days', 's:2:"30";'),
-('reader_questions_agree_count', 's:2:"10"');
+('reader_questions_agree_count', 's:2:"10"'),
+('weixin_mp_token', 's:0:"";');

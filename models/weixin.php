@@ -17,8 +17,6 @@ if (! defined('IN_ANWSION'))
 	die();
 }
 
-define('WEIXIN_TOKEN', 'qwfwqfwqf3452');
-
 class weixin_class extends AWS_MODEL
 {
 	public function response_message()
@@ -68,8 +66,13 @@ class weixin_class extends AWS_MODEL
 
 	public function check_signature($signature, $timestamp, $nonce)
 	{
+		if (!get_setting('weixin_mp_token'))
+		{
+			return false;
+		}
+		
 		$tmpArr = array(
-			WEIXIN_TOKEN, 
+			get_setting('weixin_mp_token'), 
 			$timestamp, 
 			$nonce
 		);

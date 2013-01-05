@@ -1,0 +1,1 @@
+INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES ('weixin_mp_token', 's:0:"";');

@@ -16,7 +16,7 @@ var logPicture = [
 ];
 
 
-(function($){
+(function($) {
 
 	$.extend({
 	
@@ -24,7 +24,7 @@ var logPicture = [
 		login:{		
 		
 			//用户名
-			userName : function(options){
+			userName : function(options) {
 			
 				var flgs = $.extend({
 						fg : false, 			    //focus高亮，区别于登陆页面
@@ -35,8 +35,8 @@ var logPicture = [
 					
 				//onfocus
 				$(flgs.id).val()=='' ? $(flgs.id).val(flgs.txt) :'';
-				$(flgs.id).focus(function(){
-					if( $(this).val() == flgs.txt){
+				$(flgs.id).focus(function() {
+					if( $(this).val() == flgs.txt) {
 						 $(this).val('');
 					}
 					flgs.fg ? $(this).parent('li').addClass('cur') : 
@@ -44,10 +44,10 @@ var logPicture = [
 				})
 				
 				//onblur
-				.blur(function(){
-					if( $(this).val().replace(/^\s+|\s+/g,'') == ''){
+				.blur(function() {
+					if( $(this).val().replace(/^\s+|\s+/g,'') == '') {
 						 $(this).val(flgs.txt);
-						 if($(this).parents('ul').attr('id') == 'weibo_bind'){
+						 if($(this).parents('ul').attr('id') == 'weibo_bind') {
 							 $('#bingglobal_err').removeClass('i_hide').find('span').html(_t('请输入用户名'));
 						 }else{
 						 	$.EveErr(_t('请输入用户名'));
@@ -58,12 +58,12 @@ var logPicture = [
 				})
 				
 				//监测事件
-				.keydown($(flgs.id).parents('ul').attr('id') == 'weibo_bind' ? function(){$('#bingglobal_err').addClass('i_hide')} :$.glo_Err);
+				.keydown($(flgs.id).parents('ul').attr('id') == 'weibo_bind' ? function() {$('#bingglobal_err').addClass('i_hide')} :$.glo_Err);
 				return this;
 			},
 			
 			//密码
-		   password: function(options){
+		   password: function(options) {
 			   
 				var flgs = $.extend({
 						txtval:_t('密码'),
@@ -76,8 +76,8 @@ var logPicture = [
 					},options ||{});
 				
 				 //txt onfocus
-				 $(flgs.txt).focus(function(){
-					 //if($(this).val() == flgs.txtval && $(this).val()!=''){
+				 $(flgs.txt).focus(function() {
+					 //if($(this).val() == flgs.txtval && $(this).val()!='') {
 						$(this).addClass('i_hide');
 						$(flgs.pw).removeClass('i_hide');
 						$(flgs.pw).focus();
@@ -85,17 +85,17 @@ var logPicture = [
 				 })
 				 
 				 //password onfocus
-				$(flgs.pw).focus(function(){					
+				$(flgs.pw).focus(function() {					
 					flgs.fg ? $(this).parents('li').addClass('cur') : 
 						  $(this).addClass('i_cur');	
-					if(flgs.reg){
+					if(flgs.reg) {
 						$.register.reg.pwhandle('focus',$(this));//注册页面
 					}
 				})
 				
 				//onblur
-				.blur(function(){
-					if($(this).val() ==''){
+				.blur(function() {
+					if($(this).val() =='') {
 						$(this).addClass('i_hide');
 						$(flgs.txt).removeClass('i_hide');
 					}
@@ -105,24 +105,32 @@ var logPicture = [
 					
 					flgs.val = $(this).val().replace(/^\s+|\s+/g,'');
 					
-					if(flgs.reg){
-						$.register.reg.pwhandle('blur',$(this))
+					if (flgs.val.length > 16 && !flgs.reg) {
+						if($(this).parents('ul').attr('id') == 'weibo_bind') {
+							 $('#bingglobal_err').removeClass('i_hide').find('span').html(_t('请输入小于 16 位的密码'));
+						 }else{
+							$.EveErr(_t('请输入小于 16 位的密码'));
+						}
+					}else if (flgs.reg) {
+						flgs.val.length > 16 ?
+						$.register.reg.pwhandle('blur',$(this)):
+						$.register.reg.pwhandle('right',$(this));
 					}
 				})
 				
 				//监测事件
-				.keydown($(flgs.txt).parents('ul').attr('id') == 'weibo_bind' ? function(){$('#bingglobal_err').addClass('i_hide')} :$.glo_Err);
+				.keydown($(flgs.txt).parents('ul').attr('id') == 'weibo_bind' ? function() {$('#bingglobal_err').addClass('i_hide')} :$.glo_Err);
 				return this;	  
 		   },
 		   
 			//快捷键登陆ctrl+enter || enter
-		   keyEve: function(fn){
-				$(document).keypress(function(e){
+		   keyEve: function(fn) {
+				$(document).keypress(function(e) {
 					var e = e ? e : window.event;
 					
 					//兼容ie 
-					if((e.ctrlKey && e.keyCode == 13) || (e.ctrlKey && e.keyCode == 10) || e.keyCode == 13){
-						if(fn!=null){
+					if((e.ctrlKey && e.keyCode == 13) || (e.ctrlKey && e.keyCode == 10) || e.keyCode == 13) {
+						if(fn!=null) {
 							fn(e); 
 						}
 					}
@@ -130,11 +138,11 @@ var logPicture = [
 		   },
 		   
 		   
-		   loginSubmit: function(fn){				
-				if($.trim($('#login_userName').val()) == '' ||  $('#login_userName').val() == _t('邮箱/用户名')){
+		   loginSubmit: function(fn) {				
+				if($.trim($('#login_userName').val()) == '' ||  $('#login_userName').val() == _t('邮箱/用户名')) {
 						
 					$('#login_userName').focus();
-					if($('#login_userName').parents('ul').attr('id') == 'weibo_bind'){
+					if($('#login_userName').parents('ul').attr('id') == 'weibo_bind') {
 						 $('#bingglobal_err').removeClass('i_hide').find('span').html(_t('请输入用户名'));
 					}else{
 						$.EveErr(_t('请输入用户名'));
@@ -152,10 +160,10 @@ var logPicture = [
 						$('#login_password').val(hex_md5($('#login_password').val()));
 					}
 										
-					if(fn !=null && fn.type == 'keypress'){
+					if(fn !=null && fn.type == 'keypress') {
 						ajax_post($('#login_form'), _login_form_processer); 
 					 }else{
-						if(fn!=null){
+						if(fn!=null) {
 							fn();
 						}
 					}
@@ -167,16 +175,16 @@ var logPicture = [
 		   * 登陆页 vs 微博绑定
 		   * flgs默认为true（首页登陆） flas = false 为微博绑定
 		   *+----------------------------------------+*/
-		   info: function(){
+		   info: function() {
 		   	   var flgs = true ;
-			   if($.isNull($('#login_userName')) && $.isNull($('#login_password'))){
+			   if($.isNull($('#login_userName')) && $.isNull($('#login_password'))) {
 				   $.isNull($('#weibo_bind')) ? flgs = false : flgs;
 					   this.userName({fg:flgs,id:'#login_userName'})
 					   .password({fg:flgs});
 			   }
 			  
 			   //登陆背景图轮换
-			   if(flgs){
+			   if(flgs) {
 				 !$.isNull($('#msn_login')) ? $.scrollPic().scroll() :'';
 				 this.keyEve(this.loginSubmit); 
 			   }
@@ -186,30 +194,30 @@ var logPicture = [
 		}, //end login 
 		
 	   //报错事件
-		 glo_Err: function(){
-			  if(!$('#global_err').hasClass('i_hide')){
+		 glo_Err: function() {
+			  if(!$('#global_err').hasClass('i_hide')) {
 				  $('#global_err').addClass('i_hide');
 			  }   
 		 },
 		 
-		 EveErr: function(html){
+		 EveErr: function(html) {
 			  $('#global_err').removeClass('i_hide').find('span').html(html);
 		 },
 		
 		//邮箱验证
-		email_verify: function(){
+		email_verify: function() {
 			$.login.password();
 			$.register.s.authCode();
 		},
 		
 		//密码找回
-		pas_retrieve:function(){
+		pas_retrieve:function() {
 			$.login.userName({id:'#login_userName'});
 			$.register.s.authCode();
 		},
 		
-		wb_Logins: function( flg ){
-			if($('#weibo_bind').css('display') == 'none'){
+		wb_Logins: function( flg ) {
+			if($('#weibo_bind').css('display') == 'none') {
 				$('#weibo_bind').fadeIn('slow');
 				$(flg).find('em:first-child').addClass('cur') 
 			}else{
@@ -223,7 +231,7 @@ var logPicture = [
 			//微博登陆
 			s: {
 				//用户名 密码
-				callFn : function(){
+				callFn : function() {
 				
 					$.login.userName({
 						id:'#login_account',
@@ -238,36 +246,36 @@ var logPicture = [
 					return this;
 				},
 				
-				callback: function(fn){
+				callback: function(fn) {
 					$.register.s.login(true, fn);
 				},
 				//验证码
-				authCode: function(ev){
+				authCode: function(ev) {
 					var  cd,val;
 					cd = ev == null ? false : ev;  //默认为微博登陆 true为注册页面验证码
-					$('#authCode').focus(function(){
-						if($(this).val() == _t('验证码')){
+					$('#authCode').focus(function() {
+						if($(this).val() == _t('验证码')) {
 							$(this).val('');
 						}
 						
 						//注册页面验证码
-						if(cd){
+						if(cd) {
 							$.register.reg.code('focus',$(this));
 						}
 						 $(this).addClass('i_cur');
 					})
 					
 					//onblur
-					.blur(function(){
-						if( $(this).val() == ''){
+					.blur(function() {
+						if( $(this).val() == '') {
 							$(this).val(_t('验证码'));
 						}
 						val = $(this).val().replace(/^\s+|\s+/g,'');
-						if(val.length < 4 && !cd){
+						if(val.length < 4 && !cd) {
 							$.EveErr(_t('验证码不正确'));
-						}else if(cd){
+						}else if(cd) {
 							//注册验证码
-							if(val.length < 4 || val.length > 4){
+							if(val.length < 4 || val.length > 4) {
 								$.register.reg.code('blur',$(this));
 							}else{
 								$.register.reg.code('right',$(this));
@@ -282,32 +290,32 @@ var logPicture = [
 				},
 				
 				//用户协议
-				usr_Treaty: function(){
+				usr_Treaty: function() {
 					
-					$('#user_agreement').click(function(){
-						if($('#user_agreement').attr('checked') != 'checked'){
+					$('#user_agreement').click(function() {
+						if($('#user_agreement').attr('checked') != 'checked') {
 							$.glo_Err();
 						}
 					})
 				},
 				
-				EveClick: function(){
+				EveClick: function() {
 					$('#user_agre').css('display') == 'none' ? 						
 					$('#user_agre').fadeIn('slow') :
 					$('#user_agre').fadeOut('slow');
 			},
 				
 				//登陆 ,参数flgs 如果为true则为微博登陆，false则为注册页面
-				login: function(flgs, fn){
-					if(!flgs){
-						if($.trim($('#login_userName').val()) == '' ||  $.trim($('#login_userName').val()) == _t('用户名')){
+				login: function(flgs, fn) {
+					if(!flgs) {
+						if($.trim($('#login_userName').val()) == '' ||  $.trim($('#login_userName').val()) == _t('用户名')) {
 							$('#login_userName').focus();
 							$.EveErr(_t('请输入用户名'));
 							return false;
 						}
 					}
 					
-					if($.trim($('#login_account').val()) == '' ||  $.trim($('#login_account').val()) == _t('邮箱')){
+					if($.trim($('#login_account').val()) == '' ||  $.trim($('#login_account').val()) == _t('邮箱')) {
 						$('#login_account').focus();
 						$.EveErr(_t('请输入邮箱'));
 						return false;
@@ -323,8 +331,8 @@ var logPicture = [
 						return false;
 					}
 				},
-			   info: function(){
-					if($.isNull($('#login_account'))){
+			   info: function() {
+					if($.isNull($('#login_account'))) {
 						this.callFn().authCode().usr_Treaty();
 						
 						var txt_pw,
@@ -334,8 +342,8 @@ var logPicture = [
 						 txt_pw = $('#weibo_password_txt');
 						 pw = $('#weibo_password');
 						 //txt onfocus
-						 $(txt_pw).focus(function(){
-							 if($(this).val() == _t('密码') && $(this).val()!=''){
+						 $(txt_pw).focus(function() {
+							 if($(this).val() == _t('密码') && $(this).val()!='') {
 								$(this).addClass('i_hide');
 								$(pw).removeClass('i_hide');
 								$(pw).focus();
@@ -343,14 +351,14 @@ var logPicture = [
 						 })
 						 
 						 //password onfocus
-						$(pw).focus(function(){
+						$(pw).focus(function() {
 						
 							$(this).addClass('i_cur');	
 						})
 						
 						//onblur
-						.blur(function(){
-							if($(this).val() ==''){
+						.blur(function() {
+							if($(this).val() =='') {
 								$(this).addClass('i_hide');
 								$(txt_pw).removeClass('i_hide');
 							}
@@ -404,7 +412,7 @@ var logPicture = [
 				},
 				//
 				n:null, //缓存
-				register: function(){
+				register: function() {
 					
 					var ln = $('#login_userName'),     //用户名
 						la = $('#login_account'),     //账户
@@ -413,23 +421,23 @@ var logPicture = [
 					return{
 						
 						//用户名
-						username:function(){
+						username:function() {
 							$(ln).val() == '' ? $(ln).val(_t('用户名')) :'';
-							$(ln).focus(function(){
+							$(ln).focus(function() {
 								var s = $(this);
-								if(s.val() == _t('用户名')){
+								if(s.val() == _t('用户名')) {
 									s.val('');
 								}
 								_seif.n != null ? (_seif.tips(s,_seif.class_id.focus,_seif.n)) :
 								$.ajax({
 									type:'GET',
 									url:G_BASE_URL+"/account/ajax/check_username/",
-									beforeSend: function(){
+									beforeSend: function() {
 											_seif.tips(s,_seif.class_id.load,'');
 									},
-									success: function(x){
+									success: function(x) {
 										var result = new Function('return'+ x)();
-										if(result.errno == -1){
+										if(result.errno == -1) {
 											_seif.tips(s,_seif.class_id.focus,_seif.n = result.err);	
 										}
 									}	
@@ -437,22 +445,22 @@ var logPicture = [
 								s.addClass('i_cur');
 							})
 							
-							.blur(function(){
+							.blur(function() {
 								var s = $(this);
-								if(s.val() == ''){
+								if(s.val() == '') {
 									s.val(_t('用户名'));
 								}
 									$.ajax({
 										type:'GET',
 										url:G_BASE_URL+"/account/ajax/check_username/username-" + encodeURIComponent(s.val()),
-										beforeSend: function(){
+										beforeSend: function() {
 											_seif.tips(s,_seif.class_id.load,'');
 										},
-										success: function(x){
+										success: function(x) {
 											var result = new Function('return'+ x)();
-											if(result.errno == 1){
+											if(result.errno == 1) {
 												_seif.tips(s,_seif.class_id.right,'');
-											}else if(result.errno == -1){
+											}else if(result.errno == -1) {
 												_seif.tips(s,_seif.class_id.blur,'<em class="regErr_ico i_small"></em>'+result.err);
 											}
 										}
@@ -466,22 +474,22 @@ var logPicture = [
 						},
 						
 						//账号
-						accountnum:function(){
+						accountnum:function() {
 							
 							$(la).val() == '' ? $(la).val(_t('邮箱')) :'';
-							$(la).focus(function(){
-								if($(this).val() == _t('邮箱')){
+							$(la).focus(function() {
+								if($(this).val() == _t('邮箱')) {
 									$(this).val('');
 								}
 								_seif.tips($(this),_seif.class_id.focus,_seif.Acc.focus);	
 								$(this).addClass('i_cur');
 							})
 							
-							.blur(function(){
-								if($(this).val() == ''){
+							.blur(function() {
+								if($(this).val() == '') {
 									$(this).val(_t('邮箱'));
 								}
-								if(_seif.email.test($(this).val())){
+								if(_seif.email.test($(this).val())) {
 									_seif.tips($(this),_seif.class_id.right,'');
 								}else{
 									_seif.tips($(this),_seif.class_id.blur,_seif.Acc.blur);
@@ -494,22 +502,22 @@ var logPicture = [
 						},
 						
 						//密码
-						password: function(){
+						password: function() {
 							$.login.password({reg:true}).keyEve(this.callback); //跟微博登陆判断共用
 							return this;
 						},
 						
 						//authCode
-						authCode: function(){
+						authCode: function() {
 							$.register.s.authCode(true);
 							return this;
 						},
 						
-						callback: function(fn){
+						callback: function(fn) {
 							$.register.s.login(false, fn);
 						},
 						
-						info: function(){
+						info: function() {
 							this.username().accountnum().password().authCode();
 						}
 						
@@ -517,35 +525,35 @@ var logPicture = [
 				},
 				
 				//提示框
-				tips: function(obj,classname,html){
+				tips: function(obj,classname,html) {
 					$( obj ).parent().find('span').eq(0).attr('class',classname).html(html);
 				},
 				
 				//密码处理
-				pwhandle: function(ev,o){ 
-					if(ev =='blur'){
+				pwhandle: function(ev,o) { 
+					if(ev =='blur') {
 						this.tips(o,this.class_id.blur,this.Pw.blur);
-					}else if(ev =='focus'){
+					}else if(ev =='focus') {
 						this.tips(o,this.class_id.focus,this.Pw.focus);
-					}else if(ev =='right'){
+					}else if(ev =='right') {
 						this.tips(o,this.class_id.right,'');
 					}
 				},
 				
 				//验证码处理
-				code: function(ev,o){
-					if(ev =='blur'){
+				code: function(ev,o) {
+					if(ev =='blur') {
 						this.tips(o,this.class_id.blur,this.Cd.blur);
-					}else if(ev =='focus'){
+					}else if(ev =='focus') {
 						this.tips(o,this.class_id.focus,this.Cd.focus);	
-					}else if(ev =='right'){
+					}else if(ev =='right') {
 						this.tips(o,this.class_id.right,'');
 					}	
 				},
 				
 				//注册调用
-				info: function(){
-					if($.isNull($('#login_userName'))){
+				info: function() {
+					if($.isNull($('#login_userName'))) {
 						this.register().info();
 					}
 				}
@@ -557,10 +565,10 @@ var logPicture = [
 	   * 页面调用
 	   * 
 	   *+--------------------------------------+*/
-	   anwsion: function(){
+	   anwsion: function() {
 		   
 		   //首页登陆 微博绑定
-			if($.isNull($('#user_login'))|| $.isNull($('#weibo_bind'))){
+			if($.isNull($('#user_login'))|| $.isNull($('#weibo_bind'))) {
 				$.login.info();	
 			}
 			
@@ -578,14 +586,14 @@ var logPicture = [
 
 	   },
 	   
-	   isNull: function( obj ){
+	   isNull: function( obj ) {
 		  if(obj ==null) return ;
 		  return typeof obj == 'object' && obj.length > 0 ? 
 		  		  true : false;
 	   },
 	
 		//切换 预载
-		scrollPic : function(){
+		scrollPic : function() {
 			var flgArr = [],flg = false;
 			$(logPicture).each(function( f ) {
 				flgArr[f] = new Image();
@@ -595,7 +603,7 @@ var logPicture = [
 			
 		},
 		//切换效果
-		scroll: function(){
+		scroll: function() {
 			
 			var ul = $('<ul/>')
 				 xx ='',
@@ -632,7 +640,7 @@ var logPicture = [
 					.appendTo(flgs)
 					.fadeIn('slow');
 				
-				setTimes = setInterval(function(){
+				setTimes = setInterval(function() {
 						 $('#login_explain').html($(logPicture)[flg].txt);
 						 $('#srcElem > li')
 							.eq(flg++)
