@@ -9,7 +9,7 @@
 * Date:2013-1-7
 */
 /*global*/
-html,body{ background:#000;}
+html,body{ background:#f2f2f2;}
 /* 站内页面宽度限定 */
 .i_bd { width:960px; margin:0 auto; text-align:left; }
 .wrapper{ background:#D0D0D0 url(img/sideShadow.png) repeat-x top; border-bottom:2px solid #aaa;padding:20px 0; clear:both; min-height:600px;}
@@ -92,10 +92,8 @@ body.bd .b_user{ width:110px; right:0; top:0;}
 /*新通知模块*/
 .new_notice{border:1px solid #dfdfdf; background-color:#fbfbfb; margin-bottom:26px; padding-top:15px;}
 .new_notice h3{ margin:0 20px;}
-.new_notice h3,
-.latest_trendst_h3 
 /* 最新动态 */
-{ font-size:20px; padding-bottom:15px;  line-height:20px; min-height:20px;}
+
 .new_ls{ margin:0 15px;}
 .new_ls li{ color:#ccc; font-weight:normal; font-size:12px; padding:15px 0; line-height:15px;}
 .new_ls li > span.time{ font-size:12px;}
