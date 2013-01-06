@@ -1,72 +1,34 @@
 <div class="i_left L_sidebar">
  <div class="b_restrain">
- <?php if (sizeof($this->content_nav_menu) > 0) { ?>
-<div class="i_clear i_allbg b_mainElem"> 
-	<?php if (get_setting('category_display_mode') == 'list') { ?>
-	<div class="q_category_nav q_classify" >
-		<ul class="q_class_ul i_clear" id="q_category_nav">
-		<?php foreach ($this->content_nav_menu as $key => $val) { ?>
-		<li<?php if (($val['type'] == 'category' AND $_GET['category'] AND ($val['type_id'] == $this->category_info['id'] OR $this->category_info['parent_id'] == $val['type_id'])) OR ($val['type'] == 'feature' AND $this->feature_info['id'] == $val['type_id'])) { ?> class="cur"<?php } ?> >
-			<a href="<?php echo $val['link']; ?>"<?php if ($val['type'] == 'custom') { ?> target="_blank"<?php } ?>><?php echo $val['title']; ?></a>
-			
-			<?php if ($val['child'] && get_setting('nav_menu_show_child') == 'Y') { ?>
-			<div class="i_data_list" style="display:none;">
-				
-				<?php foreach ($val['child'] AS $_key => $_val) { ?>
-				<p class="i_list_p"><a href="home/explore/category-<?php echo $_val['id']; ?>"<?php if ($_val['id'] == $this->category_info['id']) { ?> style="font-weight:bold"<?php } ?>><?php echo $_val['title']; ?></a></p>
-				<?php } ?>
-			</div>
-			<?php } ?>
-		</li>
-		<?php } ?>
-		</ul>
-	</div>
-	<?php } else { ?>
-	<div class="q_category_nav i_clear" id="q_category_nav">
-		<?php foreach ($this->content_nav_menu as $key => $val) { ?>
-		<div class="q_nav_tx i_left <?php if (($val['type'] == 'category' AND $_GET['category'] AND ($val['type_id'] == $this->category_info['id'] OR $this->category_info['parent_id'] == $val['type_id'])) OR ($val['type'] == 'feature' AND $this->feature_info['id'] == $val['type_id'])) { ?> cur<?php } ?>"><a href="<?php echo $val['link']; ?>" class="q_imgs"<?php if ($val['type'] == 'custom') { ?> target="_blank"<?php } ?>><img src="<?php if ($val['icon']) { ?><?php echo get_setting('upload_url'); ?>/nav_menu/<?php echo $val['icon']; ?><?php } else { ?><?php echo G_STATIC_URL; ?>/css/<?php echo $this->template_name; ?>/img/default_class_imgs.png<?php } ?>" alt="<?php echo $val['title']; ?>" title="<?php echo $val['title']; ?>"/></a> <b class="q_bCtr"><a href="<?php echo $val['link']; ?>"<?php if ($val['type'] == 'custom') { ?> target="_blank"<?php } ?>><?php echo $val['title']; ?></a></b> <span class="q_span"><?php echo $val['description']; ?></span>
-			<?php if ($val['child'] && get_setting('nav_menu_show_child') == 'Y') { ?>
-			<div class="i_data_list" style="display:none;">
-				<?php foreach ($val['child'] AS $_key => $_val) { ?>
-				<p class="i_list_p"><a href="home/explore/category-<?php echo $_val['id']; ?>"<?php if ($_val['id'] == $this->category_info['id']) { ?> style="font-weight:bold"<?php } ?>><?php echo $_val['title']; ?></a></p>
-				<?php } ?>
-			</div>
-			<?php } ?>
-		</div>
-		<?php } ?>
-	</div>
-	<?php } ?>
-</div>
-<?php } ?>
 	<h3 class="latest_trendst_h3 q_qusAll i_prl q_content_h3 ">
 		<p class="q_navC i_pas">
-			<a href="<?php if ($this->feature_info) { ?>feature/id-<?php echo $this->feature_info['id']; ?><?php } else { ?>home/explore/category-<?php echo $this->category_info['id']; ?><?php } ?>__sort_type-unresponsive" <?php if ($_GET['sort_type'] == 'unresponsive') { ?> class="cur"<?php } ?>>等待回复</a>
+			<a href="<?php if ($this->feature_info) { ?>feature/id-<?php echo $this->feature_info['id']; ?><?php } else { ?>home/explore/category-<?php echo $this->category_info['id']; ?><?php } ?>__sort_type-unresponsive" <?php if ($_GET['sort_type'] == 'unresponsive') { ?> class="cur"<?php } ?>><?php _e('等待回复'); ?></a>
     	 	
-			<a href="<?php if ($this->feature_info) { ?>feature/id-<?php echo $this->feature_info['id']; ?><?php } else { ?>home/explore/category-<?php echo $this->category_info['id']; ?><?php } ?>__sort_type-hot__day-30" id="sort_control_hot" <?php if ($_GET['sort_type'] == 'hot') { ?> class="cur"<?php } ?>>热门</a>
-			<a href="<?php if ($this->feature_info) { ?>feature/id-<?php echo $this->feature_info['id']; ?><?php } else { ?>home/explore/category-<?php echo $this->category_info['id']; ?><?php } ?>__sort_type-new" <?php if (!$_GET['sort_type'] OR $_GET['sort_type'] == 'new') { ?> class="cur"<?php } ?>>最新</a>
+			<a href="<?php if ($this->feature_info) { ?>feature/id-<?php echo $this->feature_info['id']; ?><?php } else { ?>home/explore/category-<?php echo $this->category_info['id']; ?><?php } ?>__sort_type-hot__day-30" id="sort_control_hot" <?php if ($_GET['sort_type'] == 'hot') { ?> class="cur"<?php } ?>><?php _e('热门'); ?></a>
+			<a href="<?php if ($this->feature_info) { ?>feature/id-<?php echo $this->feature_info['id']; ?><?php } else { ?>home/explore/category-<?php echo $this->category_info['id']; ?><?php } ?>__sort_type-new" <?php if (!$_GET['sort_type'] OR $_GET['sort_type'] == 'new') { ?> class="cur"<?php } ?>><?php _e('最新'); ?></a>
 		</p>
 		
-		<?php if ($this->category_info) { ?><?php echo $this->category_info['title']; ?><?php } else if ($this->feature_info) { ?><?php echo $this->feature_info['title']; ?><?php } else { ?>全部问题<?php } ?>
+		<?php if ($this->category_info) { ?><?php echo $this->category_info['title']; ?><?php } else if ($this->feature_info) { ?><?php echo $this->feature_info['title']; ?><?php } else { ?><?php _e('全部问题'); ?><?php } ?>
 	</h3>
 	
 	<?php if ($_GET['sort_type'] == 'hot') { ?>
 	<p class="q_txt_right i_gray">
-		<a href="home/explore/sort_type-hot__<?php if ($this->category_info['id']) { ?>__category-<?php echo $this->category_info['id']; ?><?php } ?>__day-30" day="30" <?php if ($_GET['sort_type'] == 'hot' AND $_GET['day'] == 30) { ?> class="cur"<?php } ?>>30天</a> 
-	  	<a href="home/explore/sort_type-hot__<?php if ($this->category_info['id']) { ?>__category-<?php echo $this->category_info['id']; ?><?php } ?>__day-7" day="7" <?php if ($_GET['sort_type'] == 'hot' AND $_GET['day'] == 7) { ?> class="cur"<?php } ?>>7天</a> 
-	  	<a href="home/explore/sort_type-hot__<?php if ($this->category_info['id']) { ?>__category-<?php echo $this->category_info['id']; ?><?php } ?>__day-1" day="1" <?php if ($_GET['sort_type'] == 'hot' AND $_GET['day'] == 1) { ?> class="cur"<?php } ?>>当天</a>
+		<a href="home/explore/sort_type-hot__<?php if ($this->category_info['id']) { ?>__category-<?php echo $this->category_info['id']; ?><?php } ?>__day-30" day="30" <?php if ($_GET['sort_type'] == 'hot' AND $_GET['day'] == 30) { ?> class="cur"<?php } ?>><?php _e('30天'); ?></a> 
+	  	<a href="home/explore/sort_type-hot__<?php if ($this->category_info['id']) { ?>__category-<?php echo $this->category_info['id']; ?><?php } ?>__day-7" day="7" <?php if ($_GET['sort_type'] == 'hot' AND $_GET['day'] == 7) { ?> class="cur"<?php } ?>><?php _e('7天'); ?></a> 
+	  	<a href="home/explore/sort_type-hot__<?php if ($this->category_info['id']) { ?>__category-<?php echo $this->category_info['id']; ?><?php } ?>__day-1" day="1" <?php if ($_GET['sort_type'] == 'hot' AND $_GET['day'] == 1) { ?> class="cur"<?php } ?>><?php _e('当天'); ?></a>
 	</p>
 	<?php } ?>
 	
 	<div id="question_list" class="question_x2"><?php echo $this->question_list_bit; ?></div>
 	
-	<p id="bp_more"><a class="i_ajax_more" href="<?php if ($this->feature_info) { ?>feature/id-<?php echo $this->feature_info['id']; ?>__<?php } else { ?>home/explore/<?php } ?>page-<?php if (intval($_GET['page']) > 0) { ?><?php echo (intval($_GET['page']) + 1); ?><?php } else { ?>2<?php } ?>__sort_type-<?php if ($_GET['sort_type']) { ?><?php echo $_GET['sort_type']; ?><?php } else { ?>hot<?php } ?><?php if ($this->category_info['id']) { ?>__category-<?php echo $this->category_info['id']; ?><?php } ?>__day-<?php echo intval($_GET['day']); ?>">更多...</a></p>
+	<p id="bp_more"><a class="i_ajax_more" href="<?php if ($this->feature_info) { ?>feature/id-<?php echo $this->feature_info['id']; ?>__<?php } else { ?>home/explore/<?php } ?>page-<?php if (intval($_GET['page']) > 0) { ?><?php echo (intval($_GET['page']) + 1); ?><?php } else { ?>2<?php } ?>__sort_type-<?php if ($_GET['sort_type']) { ?><?php echo preg_replace("/[\(\)\.;']/", '', $_GET['sort_type']); ?><?php } else { ?>hot<?php } ?><?php if ($this->category_info['id']) { ?>__category-<?php echo $this->category_info['id']; ?><?php } ?>__day-<?php echo intval($_GET['day']); ?>"><?php _e('更多'); ?>...</a></p>
 </div>
 </div>
 <?php if (intval($_GET['page']) > 0) { ?>
 <script type="text/javascript">cur_page = <?php echo intval($_GET['page']); ?>;</script>
 <?php } ?>
 <?php if ($_GET['sort_type']) { ?>
-<script type="text/javascript">cur_sort_type = '<?php echo $_GET['sort_type']; ?>';</script>
+<script type="text/javascript">cur_sort_type = '<?php echo preg_replace("/[\(\)\.;']/", '', $_GET['sort_type']); ?>';</script>
 <?php } ?>
 <?php if ($_GET['day']) { ?>
 <script type="text/javascript">cur_day = <?php echo intval($_GET['day']); ?>;</script>
