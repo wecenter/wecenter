@@ -1,13 +1,13 @@
 @charset "utf-8";
-/*+--------------------------------------+
-* 名称: common
-* 功能: 公用样式及组件样式
+/*
+* 名称: fancy
+* 功能: 定制样式
 * anwsin官方:http://www.anwsion.com/
-* developer:诸葛浮云
-* Email:globalbreak@gmail.com 
-* Copyright © 2012 - Anwsion社区, All Rights Reserved 
-* Date:2012-08-01
-*+--------------------------------------+*/
+* developer:顽主
+* Email:76825562@qq.com 
+* Copyright © 2013 - Anwsion社区, All Rights Reserved 
+* Date:2013-1-7
+*/
 /*继承defualt模版下的公用样式*/
 @import url("../default/global.css");
 /* css3 */

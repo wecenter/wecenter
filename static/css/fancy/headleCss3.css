@@ -1,13 +1,13 @@
 @charset "utf-8";
-/*+--------------------------------------+
-* 名称: headleCss3
-* 功能: css3专用
+/*
+* 名称: fancy
+* 功能: 定制样式
 * anwsin官方:http://www.anwsion.com/
-* developer:诸葛浮云
-* Email:globalbreak@gmail.com 
-* Copyright © 2012 - Anwsion社区, All Rights Reserved 
-* Date:2012-08-01
-*+--------------------------------------+*/
+* developer:顽主
+* Email:76825562@qq.com 
+* Copyright © 2013 - Anwsion社区, All Rights Reserved 
+* Date:2013-1-7
+*/
 
 /**/
 input[type="password"] { font-weight: bolder; font-family: "微软雅黑", Tahoma; font-size: 22px; }
