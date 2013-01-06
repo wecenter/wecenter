@@ -11,12 +11,12 @@
     <span class="q_banner i_line"><em class="q_ex i_line i_gray"><a href="home/explore/category-<?php echo $val['category_info']['url_token']; ?>"><?php echo $val['category_info']['title']; ?></a></em></span> •
     <?php } ?>
     <?php if ($val['answer_count'] > 0) { ?>
-    <?php if ($val['answer']['anonymous']) { ?>最后回复来自
-    <a href="javascript:;"  class="noName">匿名用户</a>
-    <?php } else { ?>最后回复了来自
+    <?php if ($val['answer']['anonymous']) { ?><?php _e('最后回复来自'); ?>
+    <a href="javascript:;"  class="noName"<?php _e('匿名用户'); ?>></a>
+    <?php } else { ?><?php _e('最后回复来自'); ?>
     <a href="people/<?php echo $val['answer']['user_info']['url_token']; ?>"  class="user_msg" data-message="&uid=<?php echo $val['answer']['user_info']['uid']; ?>&card=user"><?php echo $val['answer']['user_info']['user_name']; ?></a>
     <?php } ?>
-    <?php _e('回复了问题'); ?>
+ 
     • <?php echo date_friendly($val['update_time']); ?> •
     <?php _e('%s 人关注', $val['focus_count']); ?>
     •
