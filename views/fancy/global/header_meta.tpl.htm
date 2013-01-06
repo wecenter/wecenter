@@ -13,6 +13,11 @@
 <link href="<?php echo $import_css; ?>?v=<?php echo G_VERSION_BUILD; ?>" rel="stylesheet" type="text/css" />
 <?php } ?>
 <?php } ?>
+
+<?php if ($this->template_name != 'default') { ?>
+<link href="<?php echo G_STATIC_URL; ?>/css/<?php echo $this->template_name; ?>/<?php echo $this->template_name; ?>.css" rel="stylesheet" type="text/css" />
+<?php } ?>
+
 <?php $post_hash_var_name = strtoupper(md5(time() . $this->userinfo['salt'])); ?>
 <script type="text/javascript">
 	var _<?php echo $post_hash_var_name; ?>='<?php echo new_post_hash(); ?>';
@@ -28,6 +33,7 @@
 	var G_QUICK_PUBLISH_HUMAN_VALID = '<?php if (human_valid('question_valid_hour')) { ?>1<?php } ?>';
 	var G_UNREAD_NOTIFICATION = 0;
 	var G_NOTIFICATION_INTERVAL = <?php echo intval(get_setting('unread_flush_interval')) * 1000; ?>;
+	var G_CAN_CREATE_TOPIC = '<?php echo $this->user_info['permission']['create_topic']; ?>';
 </script>
 <?php if (is_array($this->_import_js_files)) { ?>
 <?php foreach ($this->_import_js_files AS $import_js) { ?>
