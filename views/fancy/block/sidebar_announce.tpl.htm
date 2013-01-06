@@ -12,8 +12,9 @@ $(document).ready(function()
 </script>
 
 <div id="site_announce" class="shadowBox notice_msg" style="display:none;">
+<h3 class="noticeTitle"><a class="x i_small i_right" onClick="$.I.notice_msg(this); $.cookie('announce_close', ANNOUNCE_CLOSE, { expires: 30 });" title="<?php _e('关闭'); ?>" href="javascript:;">x</a><?php _e('公告'); ?></h3>
 	<div class="i_noticetxt">
-  		<h3><a class="x i_small i_right" onClick="$.I.notice_msg(this); $.cookie('announce_close', ANNOUNCE_CLOSE, { expires: 30 });" title="<?php _e('关闭'); ?>" href="javascript:;">x</a><?php _e('公告'); ?></h3>
+  		
 		<?php echo get_setting('site_announce'); ?>
 	</div>
 </div>

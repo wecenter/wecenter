@@ -190,10 +190,9 @@
 
 
 /* >> 问题内容页css style */
-.q_congMain{background-color: #FFFFFF;border-bottom: 2px solid #E2E2E9;border-radius: 3px 3px 3px 3px;box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15); padding-bottom:20px; margin-bottom:20px;}
-.q_congMain >h2{ color:#000 !important; padding-right:100px; font-size:16px; line-height:30px; padding-bottom:10px;}
+
 .tags_Mark{ color:#999;}
-.q_rightBar{ right:0; top:0; width:200px; text-align:right;}
+.q_rightBar{ right:0; top:0; width:175px; text-align:right;}
 .q_rightBar a{ font-size:13px; font-weight:normal; display:inline-block;vertical-align:middle; margin-left:10px;}
 .q_rightBar .q_setBtn{ width:79px; height:25px; background-position:-121px -446px;}
 .q_rightBar .q_setBtn:hover{ background-position:-121px -474px;}

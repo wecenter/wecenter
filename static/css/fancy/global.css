@@ -254,8 +254,8 @@ body.bd >body.bd >.i_footer .i_txt a,.b_menu > a:hover{ color:#fff;}
 .i_gray_but:hover{ background-position:-121px -190px;}
 .i_green_bt2{background-position:-139px 0; border-radius:3px; color:#fff !important;}
 .i_green_bt2:hover{background-position:-139px -27px;}
-.i_gray_bt2,.i_green_bt2.cur{ background-position:-139px -54px;}
-.i_gray_bt2:hover,.i_green_bt2.cur:hover{ background-position:-139px -81px;}
+.i_gray_bt2,.i_green_bt2.cur{ background-position:-139px -54px; color:#666 !important;}
+/*.i_gray_bt2:hover,.i_green_bt2.cur:hover{ background-position:-139px -81px;}*/
 
 .i_replay_but2{ background:url(img/replayBtn.png) repeat-x; border-radius:3px; color:#fff !important; display:inline-block; font-weight:bold; padding:0 10px;height:36px; /*background-position:-108px -217px;*/ text-align:center; line-height:36px !important;}/* 回复按钮 */
 .i_replay_but2:hover{ background-position:0 -36px;}

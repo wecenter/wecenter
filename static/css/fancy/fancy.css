@@ -116,5 +116,10 @@ body.bd .b_user{ width:110px; right:0; top:0;}
 .main_latest{ background-color:#feffe5; border:1px solid #f9f2a7; color:#d4a639 !important; text-align:center; height:35px; line-height:35px; margin-top:15px; display:block;}
 .main_latest:hover{ background-color:#fcfddb;}
 .main_content,.q_congMain{border:0px solid #dfdfdf; padding:20px 20px 0;}
+.q_congMain{background-color: #FFFFFF;border-bottom: 2px solid #E2E2E9;border-radius: 3px 3px 3px 3px;box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15); padding-bottom:20px; margin-bottom:20px;}
+.q_congMain >h2{ color:#000 !important; padding-right:175px; font-size:16px; line-height:30px; padding-bottom:10px;}
+.viewInfo{ color:#ccc; font-size:11px;}
+.publishTime{ color:#0CC; display:inline-block; margin-right:15px; font-size:11px;}
+.viewNumber{ color:#0CC; font-size:11px;}
 /*link*/
 /*headleCss3*/

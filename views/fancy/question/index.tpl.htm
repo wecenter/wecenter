@@ -39,7 +39,7 @@
 				<?php } ?>
 			</div>
 		</h2>
-		<div>发布时间：<?php echo date_friendly($this->question_info['add_time']); ?> 浏览次数：<?php echo $this->question_info['view_count']; ?></div>
+		<div class="viewInfo">发布时间：<span class="publishTime"><?php echo date_friendly($this->question_info['add_time']); ?> </span>浏览次数：<span class="viewNumber"><?php echo $this->question_info['view_count']; ?></span></div>
 		<div class="q_topicManage">
 			<span class="q_topicMuster" id="i_PublicTopic">
 				<?php foreach($this->question_topics as $key => $val){ ?>
