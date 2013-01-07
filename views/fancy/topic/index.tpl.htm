@@ -17,8 +17,11 @@
 					</div><b><?php echo $this->topic_info['topic_title']; ?></b> <?php if ($this->topic_info['topic_lock']) { ?><em class="i_lock i_small"><?php _e('已锁定'); ?></em><?php } ?></h3>
 			
 			<a class="u_topicHead i_pas"><img src="<?php echo get_topic_pic_url('max', $this->topic_info['topic_pic']); ?>" class="i_radiu5" alt="<?php echo $this->topic_info['topic_title']; ?>" title="<?php echo $this->topic_info['topic_title']; ?>"/></a>
-		</div>
-		<div class="b_restrain">
+		</div>       <div class="i_search i_prl i_right s_topicSearch" style="margin-bottom:20px; margin-right:20px;">
+                <input title="搜索问题..." value="搜索问题..." onfocus="$.focus(this,'搜索问题...');" id="s_topic_search" autocomplete="off" class="i_txt i_left">
+                <a class="i_result i_pas" href="javascript:;">搜索</a>
+            </div>
+		<div class="b_restrain" style="overflow:hidden; width:100%;">
 		<h3 class="latest_trendst_h3 q_qusAll i_prl q_content_h3 ">
 			
 			<p class="q_navC i_pas s_topic" id="v_Elem">
@@ -28,10 +31,7 @@
 				<a href="javascript:;"><?php _e('精华'); ?></a>
 				<a href="javascript:;" class="cur"><?php _e('动态'); ?></a>
 			</p>
-<!--            <div class="i_search i_prl i_right s_topicSearch">
-                <input title="搜索问题..." value="搜索问题..." onfocus="$.focus(this,'搜索问题...');" id="s_topic_search" autocomplete="off" class="i_txt i_left">
-                <a class="i_result i_pas" href="javascript:;">搜索</a>
-            </div>-->
+     
 		</h3>
 		
 		<div class="flx">

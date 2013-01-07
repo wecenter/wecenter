@@ -20,7 +20,7 @@
 <!--内容模块_s-->
 <div class="S_module">
  <!--用户头像--> 
-  <?php if ($val['anonymous'] == 0) { ?><a class="index_user i_alpHover" href="people/<?php echo $val['user_info']['url_token']; ?>"><img src="<?php echo get_avatar_url($val['user_info']['uid'], 'min'); ?>" alt="<?php echo $val['user_info']['user_name']; ?>"  class="user_msg" data-message="&uid=<?php echo $val['user_info']['uid']; ?>&card=user" /></a><?php } else { ?><a href="javascript:;" class="index_user i_alpHover "><img src="<?php echo G_STATIC_URL; ?>/common/avatar-min-img.jpg" alt="<?php _e('匿名用户'); ?>" title="<?php _e('匿名用户'); ?>" /></a><?php } ?>
+
     
   <h4><a class="blank_link" href="question/<?php echo $val['question_id']; ?>#reply<?php echo $val['answer_count']; ?>"><?php echo $val['question_content']; ?></a></h4>
   <p class="s_ctrl commentsDiv">
