@@ -166,7 +166,7 @@
 
 /* >> 列表内容分离模块_s */
 .q_mainElem{ /*background-color:#f3f3f3;*/ background:url(img/itemBg.png) repeat-x; border-bottom:1px solid #E2E2E2; border-top:1px solid #fff; padding:15px 75px 15px 75px;min-height:45px; margin:0 0px;}
-.q_mainElem h4{ line-height:15px; margin-bottom:5px;font-size:14px; text-shadow:1px 1px 1px #fff;}
+.q_mainElem h4{ line-height: 130%;margin-bottom:5px;font-size:16px; text-shadow:1px 1px 1px #fff;}
 .q_mainElem >.q_reply{ background-color:#c0c0c0;display:block;height:20px; padding:0 10px; right:15px; top:25px; text-align:center;}
 .q_mainElem >.q_reply >em{ color:#fff !important;display:block; height:20px; line-height:20px; font-size:12px; font-weight:bold;}
 .q_mainElem >.q_reply.q_zero >em{background-color:#f6f6f6; color:#999 !important;}
@@ -209,7 +209,7 @@
 .q_con_txt{ padding:10px 0;}
 .q_con_imgs img{ max-width:600px;padding:1px;border:1px solid #fff; margin-top:15px;}
 .q_con_imgs img:hover{padding:1px;border:1px solid #dfdfdf;}
-.q_congMain .q_bElems a,.S_module >.s_txt > .q_bElems a{ margin-left:10px;}
+.q_congMain .q_bElems a,.S_module >.s_txt > .q_bElems a{ margin-right:10px;}
 .q_pagelogs li{padding:15px 20px; border-bottom:1px dotted #ccc;}
 .q_pagelogs p{ padding-bottom:5px;}
 .q_pagelogs li del{ background:#F7D3D3;}
@@ -539,7 +539,7 @@
 .c_userflg{ padding-bottom:10px;min-height:25px; padding-top:5px;}
 .c_userflg .c_tosend >a{ vertical-align:middle;}
 .c_userflg .c_tosend >a +a{ margin-left:15px;}
-.c_gloicon >span{display:inline-block; line-height:25px; padding-left:17px; margin-right:10px; max-width:140px;} /* global for class c_gloicon css */
+.c_gloicon >span{display:inline-block; line-height:25px; padding-left:17px; margin-right:5px; max-width:140px;} /* global for class c_gloicon css */
 .c_gloicon >span >big{ font-size:13px; font-weight:bold;}
 .c_gloicon >span.c_s1{ background-position:-32px -2011px;}
 .c_gloicon >span.c_s2{ background-position:-32px -2047px;}

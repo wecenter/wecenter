@@ -56,7 +56,7 @@ body.bd .b_user{ width:110px; right:0; top:0;}
 .b_user .b_drop_down >a +a{ border-top:1px solid #ddd; color:#666}
 .b_mainElem{border-bottom:1px solid #ddd; margin-bottom:0px !important;}
 
-.b_menu{padding-left:20px;width:268px;}
+.b_menu{padding-left:20px;width:300px;}
 .b_menu >a{ display:inline-block;font-family: "microsoft yahei"; height:45px; line-height:45px; padding:0 15px; color:#cacaca; font-size:15px; float:left; /*text-shadow:1px 1px 1px #fff;*/}
 .b_menu >a:hover{ color:#000;text-shadow:1px 1px 1px #ddd;}
 .b_menu >a.cur,.b_user .b_drop_down1 >a:hover{ color:#fff;}
@@ -121,5 +121,19 @@ body.bd .b_user{ width:110px; right:0; top:0;}
 .viewInfo{ color:#ccc; font-size:11px;}
 .publishTime{ color:#0CC; display:inline-block; margin-right:15px; font-size:11px;}
 .viewNumber{ color:#0CC; font-size:11px;}
+/*login user*/
+.quickLogin{  padding:10px;}
+.userDiv{ overflow:hidden}
+.userAvatar{ border-radius:3px; float:left;padding-right:10px; height:32px; width:32px;}
+.c_Username{ float:left;padding-top:5px;}
+.commentsDiv{ margin-left:43px;}
+.indexReply{ margin-left:43px;}
+.addComments{ color:#588CC7 !important;}
+.shareLink{ color:#588CC7 !important;}
+.askUser{ float:left; width:50px;}
+.askUser span > img{ height:48px; width:48px;}
+.askList{ float:left; margin-left:10px; width:350px;}
+.iconTurn{ background:#E9F5FF url(img/iconTurn.png) no-repeat 5px 3px !important; display:inline-block; padding-left:20px !important;; width:30px !important;}
+
 /*link*/
 /*headleCss3*/

@@ -229,9 +229,9 @@ body.bd >body.bd >.i_footer .i_txt a,.b_menu > a:hover{ color:#fff;}
 .i_setErr{ height:40px; line-height:40px;}
 
 /* 通知提示条数 */
-.i_message_tooltip_b,.i_message_tooltip_s{display:inline-block;padding:0 5px; margin-left:6px; font-style:normal;}
-.i_message_tooltip_b{height:20px; font-size:14px;  font-weight:bold;} /* big */
-.i_message_tooltip_s{height:20px; line-height:20px !important; font-size:11px !important;} /* small */
+.i_message_tooltip_b,.i_message_tooltip_s{display:inline-block;/*padding:0 5px;*/ margin-left:6px; font-style:normal;}
+.i_message_tooltip_b{height:20px; font-size:14px;  font-weight:bold; width:20px; text-align:center;} /* big */
+.i_message_tooltip_s{height:20px; line-height:20px !important; font-size:11px !important; width:20px; text-align:center;} /* small */
 .i_header .i_message .i_hide{display:none;}
 
 /*+------------按钮类集合--------------------+*/

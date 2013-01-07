@@ -23,13 +23,13 @@
   <?php if ($val['anonymous'] == 0) { ?><a class="index_user i_alpHover" href="people/<?php echo $val['user_info']['url_token']; ?>"><img src="<?php echo get_avatar_url($val['user_info']['uid'], 'min'); ?>" alt="<?php echo $val['user_info']['user_name']; ?>"  class="user_msg" data-message="&uid=<?php echo $val['user_info']['uid']; ?>&card=user" /></a><?php } else { ?><a href="javascript:;" class="index_user i_alpHover "><img src="<?php echo G_STATIC_URL; ?>/common/avatar-min-img.jpg" alt="<?php _e('匿名用户'); ?>" title="<?php _e('匿名用户'); ?>" /></a><?php } ?>
     
   <h4><a class="blank_link" href="question/<?php echo $val['question_id']; ?>#reply<?php echo $val['answer_count']; ?>"><?php echo $val['question_content']; ?></a></h4>
-  <p class="s_ctrl">
+  <p class="s_ctrl commentsDiv">
   	<?php if ($val['last_action_str']) { ?><?php echo $val['last_action_str']; ?> • <?php echo date_friendly($val['add_time']); ?> • <?php } ?><span class="i_gray"><a  href="question/<?php echo $val['question_id']; ?>#reply<?php echo $val['answer_count']; ?>"> <?php _e('%s 个回复', $val['answer_count']); ?></a> • <a href="javscript:;" class="gxz_b<?php if ($val['has_focus']) { ?> cur<?php } ?>" onclick="focus_question($(this), $(this), <?php echo $val['question_id']; ?>); return false;"><?php if ($val['has_focus']) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?></a><?php if ($_GET['filter'] == 'focus') { ?> • <?php if ($val['topics']) { ?> <?php _e('已添加到'); ?> <?php foreach($val['topics'] as $t_key => $t_val) { if ($t_key > 2) { break; } ?><a href="topic/<?php echo $t_val['url_token']; ?>" class="user_msg" data-message="&uid=<?php echo $t_val['topic_id']; ?>&card=topic"><?php echo $t_val['topic_title']; ?></a> <?php } ?><?php if (sizeof($val['topics']) > 3) { ?> <?php _e('等'); ?> <?php _e('%s 个话题', sizeof($val['topics'])); ?><?php } else { ?><?php _e('话题'); ?><?php } ?><?php } else { ?><a href="question/<?php echo $val['question_id']; ?>"><?php _e('添加话题'); ?></a><?php } ?></p><?php } else { ?> • <a href="javascript:;" onClick="question_uninterested($(this).parents('div.S_module'), <?php echo $val['question_id']; ?>)"><?php _e('不感兴趣'); ?></a><?php } ?></span>
   </p>
  	
  	<!-- 回复开始 -->
 	<?php if ($val['associate_action'] == ACTION_LOG::ANSWER_QUESTION OR $val['associate_action'] == ACTION_LOG::ADD_AGREE) { ?>
-    <div class="s_txt i_prl">
+    <div class="s_txt i_prl indexReply">
     	<p class="s_endorsepeople i_gray i_cl_02 i_hide"> 
             <span class="g_txt"><?php _e('赞同来自'); ?>:</span> 
             <?php if ($val['answer_info']['agree_users']) { $count = 0; ?>
@@ -92,9 +92,9 @@
 		</div>
 		    		
 		<div class="q_bElems">
-			<a class="q_criticism" href="question/<?php echo $val['question_id']; ?>#comments_<?php echo $val['answer_info']['comment_count']; ?>" onclick="toggle_comments(<?php echo $val['answer_info']['answer_id']; ?>, 'answer',this,$.Q.reCallarrows); return false;"><?php if ($val['answer_info']['comment_count']) { ?> <?php _e('%s 条评论', $val['answer_info']['comment_count']); ?><?php } else { ?><?php _e('添加评论'); ?><?php } ?></a>
+			<a class="q_criticism addComments" href="question/<?php echo $val['question_id']; ?>#comments_<?php echo $val['answer_info']['comment_count']; ?>" onclick="toggle_comments(<?php echo $val['answer_info']['answer_id']; ?>, 'answer',this,$.Q.reCallarrows); return false;"><?php if ($val['answer_info']['comment_count']) { ?> <?php _e('%s 条评论', $val['answer_info']['comment_count']); ?><?php } else { ?><?php _e('添加评论'); ?><?php } ?></a>
 			<span class="q_participate i_prl">
-				<a href="javascript:;" class="q_pate"><?php _e('分享'); ?></a>
+				<a href="javascript:;" class="q_pate shareLink"><?php _e('分享'); ?></a>
 				<div class="i_data_list i_pas">
 					
 					<em class="i_arrows"></em>

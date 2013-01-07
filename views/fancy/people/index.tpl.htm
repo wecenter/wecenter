@@ -55,15 +55,18 @@
                     <!--右边栏-->
                     <div class="i_right c_mainElem">
                     <h4 class="c_h4 i_gloCor latest_trendst_h3"><a href="javascript:;" onclick="$('#page_questions').click(); $.scrollTo(1, 600, {queue:true});" class="v_more i_right"><?php _e('更多'); ?> »</a><?php _e('发问'); ?></h4>
-                    <?php foreach ($this->user_actions_questions AS $key => $val) { ?>
-                    <div class="S_module c_module c_rightReply">
-                    	<h4 class="i_gltxtHide"><a href="question/<?php echo $val['question_id']; ?>"><?php echo $val['question_content']; ?></a></h4>
+                    
+                <?php foreach ($this->user_actions_questions AS $key => $val) { ?>
+                
+                  <div class="S_module c_module" style="overflow:hidden">
+                  <div class="askUser"><span class="c_userPic i_left"><img title="<?php echo $this->user['user_name']; ?>" alt="anwsion" class="<?php echo $this->user['user_name']; ?>" src="<?php echo get_avatar_url($this->user['uid'], 'max'); ?>" /></span></div>
+                    	<div class="askList"><h4 class="i_gltxtHide"><a href="question/<?php echo $val['question_id']; ?>"><?php echo $val['question_content']; ?></a></h4>
                     	<div class="s_txt i_prl">
-                    		<p class="i_gltxtHide"><?php _e('%s 次浏览', $val['view_count']); ?> &nbsp;• <?php _e('%s 个关注', $val['focus_count']); ?> &nbsp; • <?php echo date_friendly($val['add_time']); ?></p>
+                    		<p class="i_gltxtHide" style="margin-left:30px"><?php _e('%s 次浏览', $val['view_count']); ?> &nbsp;• <?php _e('%s 个关注', $val['focus_count']); ?> &nbsp; • <?php echo date_friendly($val['add_time']); ?></p>
                     		<!--赞同数--> 
-                    		<a class="s_endorse i_pas i_small" href="question/<?php echo $val['question_id']; ?>"><?php echo $val['answer_count']; ?></a>
-                    	</div>
-                    </div>
+                    		<a class="s_endorse i_pas i_small iconTurn" href="question/<?php echo $val['question_id']; ?>"><?php echo $val['answer_count']; ?></a>
+                    	</div></div>
+                    </div> 
                     <?php } ?>
 
                     <h4 class="i_gloCor latest_trendst_h3"><a href="javascript:;" onclick="$('#page_focus').click(); $.scrollTo(1, 600, {queue:true});" class="v_more i_right"><?php _e('更多'); ?> »</a><?php _e('关注'); ?></h4>
