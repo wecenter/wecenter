@@ -1,12 +1,3 @@
-<div class="shadowBox marginStyle">
-                        <div class="grayTitleBg cell">
-                            <span class="fade">Anwsion 一个完全开源社交问答社区</span>
-                        </div>
-                        <div class="inner">
-                            <div class="nowRegister"><a class="grayBtn" href="account/register/">现在注册</a></div>
-                            <div class="nowRegister"> 已注册用户请 <a href="account/login/" class="nowLogin">登入</a></div>
-                        </div>
-                    </div>
 <div class="shadowBox interest_user topic_u">
   <h3 class="grayTitleBg"><?php if ($this->feature_info){ ?><?php _e('该专题包含'); ?> <?php _e('%s 个话题', $this->feature_info['topic_count']); ?><?php } else { ?><?php _e('热门话题'); ?><?php } ?></h3>
   	<?php if (is_array($this->sidebar_hot_topics)){ ?>
