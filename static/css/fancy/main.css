@@ -23,7 +23,7 @@
 
 /* >> 内容模块_s */
 .S_module{ padding:15px 42px 15px 0;}
-.S_module h4{ padding-bottom:7px; line-height:15px; font-size:14px;}
+.S_module h4{ padding-bottom:7px; line-height:130%; font-size:16px;}
 .S_module .s_ctrl,.S_module .s_autograph{ line-height:15px; padding-bottom:10px;}
 .S_module .s_ctrl{font-size:12px;}
 .S_module .s_txt{ padding-left:33px;}
@@ -280,12 +280,12 @@
 .q_invitation{ }
 .q_invitation >.q_tx{ line-height:15px; padding:10px 0 15px 15px;}
 .q_invitation >.q_tx .cur{font-weight:bold;}
-.q_invitation >.q_trt{ border:1px solid #c1d5dc; background-color:#ebf5ff; padding:10px;}
+.q_invitation >.q_trt{ border:1px solid #ddd; background-color:#fff; padding:10px;}
 .q_invitation >.q_trt >.q_xel{ font-size:12px;}
 .q_related_list{ padding:10px;}
 .q_related_list a{ display:block; padding:5px 0; font-size:12px;}
 .q_state{ padding-top:5px; padding-left:12px;}
-.q_UserList{ padding-top:10px; width:190px;}
+.q_UserList{ padding-top:10px; width:190px;padding-left:10px;}
 .q_UserList a>img{ margin-right:3px; margin-bottom:5px;}
 
 /* 发起问题 >> 高级模式_s */
@@ -394,13 +394,13 @@
 .t_topic_index >h3 em.i_lock{ display:inline-block; width:9px; height:12px; background-position:-33px -1992px; overflow:hidden; line-height:99em; margin-left:7px;}
 .t_topic_index >h3 >span>a+a{ margin-left:10px;}
 .t_topic_index >h3:hover .q_editor,.t_topicTxtCon:hover >.q_editor,.t_topic_index >.u_topicHead:hover >.q_editor{ visibility:visible;}
-.t_topic_rx{ width:210px; padding-top:10px;}
+.t_topic_rx{ width:210px; padding-top:10px;padding-left:10px;}
 .t_topic_rx >a.i_glotopic{ margin-right:10px; margin-bottom:10px; margin-left:0 !important;}
 .t_topicpad{ padding-bottom:10px;}
 .t_topad{ padding-bottom:0 !important; }
 .t_stpd{ padding-top:12px !important;}
 .t_record{font-size:12px; /*word-spacing:-3px;*/}
-.t_record >span{ display:block; padding-top:10px;}
+.t_record >span{ display:block; padding-top:10px; padding-left:10px;}
 .t_share >a{ display:inline-block; padding-left:20px;}
 .t_share >a+a{ margin-left:10px;}
 .t_share >a.w{ background-position:-30px -1752px;}
