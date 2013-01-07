@@ -44,7 +44,7 @@ class weixin_class extends AWS_MODEL
 					
 					foreach ($search_result AS $key => $val)
 					{
-						$contentStr .= '• <a href="' . get_js_url('/question/' . $val['question_id']) . '">' . $val['question_content'] . '</a>' . "\n";
+						$contentStr .= '• <a href="' . get_js_url('/m/question/' . $val['question_id']) . '">' . $val['question_content'] . '</a>' . "\n";
 					}
 				}
 				else
