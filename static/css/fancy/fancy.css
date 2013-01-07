@@ -58,7 +58,7 @@ body.bd .b_user{ width:110px; right:0; top:0;}
 
 .b_menu{padding-left:20px;width:300px;}
 .b_menu >a{ display:inline-block;font-family: "microsoft yahei"; height:45px; line-height:45px; padding:0 15px; color:#cacaca; font-size:15px; float:left; /*text-shadow:1px 1px 1px #fff;*/}
-.b_menu >a:hover{ color:#000;text-shadow:1px 1px 1px #ddd;}
+.b_menu >a:hover{ color:#fff;}
 .b_menu >a.cur,.b_user .b_drop_down1 >a:hover{ color:#fff;}
 .b_startQs{ right:10px; top:0; width:170px;}
 .b_startQs a{font-family: "microsoft yahei";}
