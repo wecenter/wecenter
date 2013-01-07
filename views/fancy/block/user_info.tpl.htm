@@ -1,4 +1,4 @@
-<div class="shadowBox marginStyle quickLogin">
+<div class="grayTitleBg cell"> <span class="fade">Anwsion 一个完全开源社交问答社区</span> </div><div class="shadowBox marginStyle quickLogin">
   <?php if ($this->user_id) { ?>
 <p class="userDiv">  <span class="c_userPic i_left"><img title="<?php echo $this->user_info['user_name']; ?>" alt="anwsion" class="<?php echo $this->user_info['user_name']; ?> userAvatar" src="<?php echo get_avatar_url($this->user_info['uid'], 'mid'); ?>" /></span> 
   <span class="c_Username"><b class="i_gloCor"><?php echo $this->user_info['user_name']; ?></b>
@@ -15,7 +15,7 @@
     <?php _e('回答'); ?>
     : <?php echo $this->user_info['answer_count']; ?></span> </p>
   <?php } else { ?>
-  <div class="grayTitleBg cell"> <span class="fade">Anwsion 一个完全开源社交问答社区</span> </div>
+  
   <div class="inner">
     <div class="nowRegister"><a class="grayBtn" href="account/register/">现在注册</a></div>
     <div class="nowRegister"> 已注册用户请 <a href="account/login/" class="nowLogin">登入</a></div>
