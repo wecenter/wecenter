@@ -1,0 +1,23 @@
+<div class="shadowBox marginStyle">
+	<?php if ($this->user_id) { ?>
+	<span class="c_userPic i_left"><img title="<?php echo $this->user_info['user_name']; ?>" alt="anwsion" class="<?php echo $this->user_info['user_name']; ?>" src="<?php echo get_avatar_url($this->user_info['uid'], 'mid'); ?>" /></span>
+	<p class="c_Username"><b class="i_gloCor"><?php echo $this->user_info['user_name']; ?></b> <?php if ($this->user_info['verified']) { ?><em title="<?php _e('已认证'); ?>" class="v i_small"></em> <?php } ?></p>
+	<br>
+	<br>
+	<p><span class="c_autograph i_cl_02 i_gltxtHide"><?php echo $this->user_info['signature']; ?></span></p>
+	<p class="c_capacity c_gloicon">
+		<span class="c_s5"><?php _e('威望'); ?>: <big class="u_linkColor"><?php echo $this->user_info['reputation']; ?></big></span>
+		<span class="c_s7"><?php _e('问过'); ?>: <?php echo $this->user_info['question_count']; ?></span>
+		<span class="c_s8"><?php _e('回答'); ?>: <?php echo $this->user_info['answer_count']; ?></span>
+	</p>
+	<?php } else { ?>
+	<div class="grayTitleBg cell">
+		<span class="fade">Anwsion 一个完全开源社交问答社区</span>
+	</div>
+	<div class="inner">
+		<div class="nowRegister"><a class="grayBtn" href="account/register/">现在注册</a></div>
+		<div class="nowRegister"> 已注册用户请 <a href="account/login/" class="nowLogin">登入</a></div>
+	</div>
+	<?php } ?>
+</div>
+								
