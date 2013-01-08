@@ -12,69 +12,73 @@
  *
  */
 
-//常量定义
 define('_SP_', chr(0xFF) . chr(0xFE));
 define('UCS2', 'ucs-2be');
 
 class Services_Phpanalysis_Phpanalysis
 {
-	//hash算法选项
+	// hash 算法选项
 	public $mask_value = 0xFFFF;
 	
-	//输入和输出的字符编码（只允许 utf-8、gbk/gb2312/gb18030、big5 三种类型）  
+	// 输入和输出的字符编码（只允许 utf-8、gbk/gb2312/gb18030、big5 三种类型）  
 	public $sourceCharSet = 'utf-8';
 	public $targetCharSet = 'utf-8';
 	
-	//生成的分词结果数据类型 1 为全部， 2为 词典词汇及单个中日韩简繁字符及英文， 3 为词典词汇及英文
+	// 生成的分词结果数据类型 1 为全部，2 为词典词汇及单个中日韩简繁字符及英文， 3 为词典词汇及英文
 	public $resultType = 1;
 	
-	//句子长度小于这个数值时不拆分，notSplitLen = n(个汉字) * 2 + 1
+	// 句子长度小于这个数值时不拆分，notSplitLen = n(个汉字) * 2 + 1
 	public $notSplitLen = 5;
 	
-	//把英文单词全部转小写
+	// 把英文单词全部转小写
 	public $toLower = false;
 	
-	//使用最大切分模式对二元词进行消岐
+	// 使用最大切分模式对二元词进行消岐
 	public $differMax = false;
 	
-	//尝试合并单字
+	// 尝试合并单字
 	public $unitWord = true;
 	
-	//初始化类时直接加载词典
+	// 初始化类时直接加载词典
 	public $loadInit = false;
 	
-	//使用热门词优先模式进行消岐
+	// 使用热门词优先模式进行消岐
 	public $differFreq = false;
 	
-	//被转换为unicode的源字符串
+	// 被转换为 unicode 的源字符串
 	public $sourceString = '';
 	
-	//附加词典
+	// 附加词典
 	public $addonDic = array();
 	public $addonDicFile = 'dict/words_addons.dic';
 	
-	//主词典 
+	// 主词典 
 	public $dicStr = '';
 	public $mainDic = array();
 	public $mainDicHand = false;
 	public $mainDicInfos = array();
 	public $mainDicFile = 'dict/base_dic_full.dic';
-	//是否直接载入词典（选是载入速度较慢，但解析较快；选否载入较快，但解析较慢，需要时才会载入特定的词条）
+	
+	// 是否直接载入词典（选是载入速度较慢，但解析较快；选否载入较快，但解析较慢，需要时才会载入特定的词条）
 	public $isLoadAll = false;
 	
-	//主词典词语最大长度 x / 2
+	// 主词典词语最大长度 x / 2
 	public $dicWordMax = 14;
-	//粗分后的数组（通常是截取句子等用途）
+	
+	// 粗分后的数组（通常是截取句子等用途）
 	public $simpleResult = array();
-	//最终结果(用空格分开的词汇列表)
+	
+	// 最终结果(用空格分开的词汇列表)
 	public $finallyResult = '';
 	
-	//是否已经载入词典
+	// 是否已经载入词典
 	public $isLoadDic = false;
-	//系统识别或合并的新词
+	
+	// 系统识别或合并的新词
 	public $newWords = array();
 	public $foundWordStr = '';
-	//词库载入时间
+	
+	// 词库载入时间
 	public $loadTime = 0;
 
 	/**
@@ -97,10 +101,7 @@ class Services_Phpanalysis_Phpanalysis
 			$this->LoadDict();
 		}
 	}
-
-	/**
-    * 析构函数
-    */
+	
 	function __destruct()
 	{
 		if ($this->mainDicHand !== false)
@@ -110,7 +111,7 @@ class Services_Phpanalysis_Phpanalysis
 	}
 
 	/**
-     * 根据字符串计算key索引
+     * 根据字符串计算 key 索引
      * @param $key
      * @return short int
      */
@@ -139,8 +140,11 @@ class Services_Phpanalysis_Phpanalysis
 		{
 			$this->mainDicHand = fopen($this->mainDicFile, 'r');
 		}
+		
 		$p = 0;
+		
 		$keynum = $this->_get_index($key);
+		
 		if (isset($this->mainDicInfos[$keynum]))
 		{
 			$data = $this->mainDicInfos[$keynum];
@@ -152,18 +156,22 @@ class Services_Phpanalysis_Phpanalysis
 			fseek($this->mainDicHand, $move_pos, SEEK_SET);
 			$dat = fread($this->mainDicHand, 8);
 			$arr = unpack('I1s/n1l/n1c', $dat);
+			
 			if ($arr['l'] == 0)
 			{
 				return false;
 			}
+			
 			fseek($this->mainDicHand, $arr['s'], SEEK_SET);
 			$data = @unserialize(fread($this->mainDicHand, $arr['l']));
 			$this->mainDicInfos[$keynum] = $data;
 		}
+		
 		if (! is_array($data) || ! isset($data[$key]))
 		{
 			return false;
 		}
+		
 		return ($type == 'word' ? $data[$key] : $data);
 	}
 
@@ -182,12 +190,13 @@ class Services_Phpanalysis_Phpanalysis
 		$this->simpleResult = array();
 		$this->finallyResult = array();
 		$this->finallyIndex = array();
+		
 		if ($source != '')
 		{
 			$rs = true;
+			
 			if (preg_match("/^utf/", $source_charset))
 			{
-				
 				$this->sourceString = iconv('utf-8', UCS2, $source);
 			}
 			else if (preg_match("/^gb/", $source_charset))
@@ -207,12 +216,13 @@ class Services_Phpanalysis_Phpanalysis
 		{
 			$rs = false;
 		}
+		
 		return $rs;
 	}
 
 	/**
-     * 设置结果类型(只在获取finallyResult才有效)
-     * @param $rstype 1 为全部， 2去除特殊符号
+     * 设置结果类型 (只在获取 finallyResult 才有效)
+     * @param $rstype 1 为全部， 2 去除特殊符号
      *
      * @return void
      */
@@ -230,7 +240,7 @@ class Services_Phpanalysis_Phpanalysis
 	{
 		$startt = microtime(true);
 		
-		//正常读取文件
+		// 正常读取文件
 		$dicAddon = dirname(__FILE__) . '/' . $this->addonDicFile;
 		
 		if ($maindic == '' || ! file_exists($maindic))
@@ -243,18 +253,24 @@ class Services_Phpanalysis_Phpanalysis
 			$this->mainDicFile = $maindic;
 		}
 		
-		//加载主词典（只打开）
+		// 加载主词典（只打开）
 		$this->mainDicHand = fopen(dirname(__FILE__) . '/' . $dicWords, 'r');
 		
-		//载入副词典
+		// 载入副词典
 		$hw = '';
 		$ds = file($dicAddon);
+		
 		foreach ($ds as $d)
 		{
 			$d = trim($d);
+			
 			if ($d == '')
+			{
 				continue;
+			}
+			
 			$estr = substr($d, 1, 1);
+			
 			if ($estr == ':')
 			{
 				$hw = substr($d, 0, 1);
@@ -266,6 +282,7 @@ class Services_Phpanalysis_Phpanalysis
 				$ws = explode(',', $d);
 				$wall = iconv('utf-8', UCS2, join($spstr, $ws));
 				$ws = explode(_SP_, $wall);
+				
 				foreach ($ws as $estr)
 				{
 					$this->addonDic[$hw][$estr] = strlen($estr);
@@ -283,6 +300,7 @@ class Services_Phpanalysis_Phpanalysis
 	public function IsWord($word)
 	{
 		$winfos = $this->GetWordInfos($word);
+		
 		return ($winfos !== false);
 	}
 
@@ -297,7 +315,9 @@ class Services_Phpanalysis_Phpanalysis
 		{
 			return '/s';
 		}
+		
 		$infos = $this->GetWordInfos($word);
+		
 		return isset($infos[1]) ? "/{$infos[1]}{$infos[0]}" : "/s";
 	}
 
@@ -313,6 +333,7 @@ class Services_Phpanalysis_Phpanalysis
 		{
 			return;
 		}
+		
 		if (isset($this->mainDicInfos[$word]))
 		{
 			$this->newWords[$word] ++;
@@ -342,25 +363,29 @@ class Services_Phpanalysis_Phpanalysis
 		$slen = strlen($this->sourceString);
 		$sbcArr = array();
 		$j = 0;
-		//全角与半角字符对照表
+		
+		// 全角与半角字符对照表
 		for ($i = 0xFF00; $i < 0xFF5F; $i ++)
 		{
 			$scb = 0x20 + $j;
 			$j ++;
 			$sbcArr[$i] = $scb;
 		}
-		//对字符串进行粗分
+		
+		// 对字符串进行粗分
 		$onstr = '';
-		$lastc = 1; //1 中/韩/日文, 2 英文/数字/符号('.', '@', '#', '+'), 3 ANSI符号 4 纯数字 5 非ANSI符号或不支持字符
+		$lastc = 1; // 1 中/韩/日文, 2 英文/数字/符号('.', '@', '#', '+'), 3 ANSI 符号 4 纯数字 5 非 ANSI 符号或不支持字符
 		$s = 0;
 		$ansiWordMatch = "[0-9a-z@#%\+\.-]";
 		$notNumberMatch = "[a-z@#%\+]";
+		
 		for ($i = 0; $i < $slen; $i ++)
 		{
 			$c = $this->sourceString[$i] . $this->sourceString[++ $i];
 			$cn = hexdec(bin2hex($c));
 			$cn = isset($sbcArr[$cn]) ? $sbcArr[$cn] : $cn;
-			//ANSI字符
+			
+			// ANSI字符
 			if ($cn < 0x80)
 			{
 				if (preg_match('/' . $ansiWordMatch . '/i', chr($cn)))
@@ -373,6 +398,7 @@ class Services_Phpanalysis_Phpanalysis
 						$s ++;
 						$onstr = '';
 					}
+					
 					$lastc = 2;
 					$onstr .= chr(0) . chr($cn);
 				}
@@ -391,8 +417,10 @@ class Services_Phpanalysis_Phpanalysis
 							$this->_deep_analysis($onstr, $lastc, $s, $optimize);
 						$s ++;
 					}
+					
 					$onstr = '';
 					$lastc = 3;
+					
 					if ($cn < 31)
 					{
 						continue;
@@ -405,10 +433,10 @@ class Services_Phpanalysis_Phpanalysis
 					}
 				}
 			}
-			//普通字符
+			// 普通字符
 			else
 			{
-				//正常文字
+				// 正常文字
 				if (($cn > 0x3FFF && $cn < 0x9FA6) || ($cn > 0xF8FF && $cn < 0xFA2D) || ($cn > 0xABFF && $cn < 0xD7A4) || ($cn > 0x3040 && $cn < 0x312B))
 				{
 					if ($lastc != 1 && $onstr != '')
@@ -425,6 +453,7 @@ class Services_Phpanalysis_Phpanalysis
 						$s ++;
 						$onstr = '';
 					}
+					
 					$lastc = 1;
 					$onstr .= $c;
 				}
@@ -536,7 +565,7 @@ class Services_Phpanalysis_Phpanalysis
 		} //end for
 		
 
-		//处理分词后的结果
+		// 处理分词后的结果
 		$this->_sort_finally_result();
 	}
 
@@ -549,12 +578,11 @@ class Services_Phpanalysis_Phpanalysis
      */
 	private function _deep_analysis(&$str, $ctype, $spos, $optimize = true)
 	{
-		
-		//中文句子
+		// 中文句子
 		if ($ctype == 1)
 		{
 			$slen = strlen($str);
-			//小于系统配置分词要求长度的句子
+			// 小于系统配置分词要求长度的句子
 			if ($slen < $this->notSplitLen)
 			{
 				$tmpstr = '';

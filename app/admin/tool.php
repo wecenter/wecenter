@@ -221,17 +221,23 @@ class tool extends AWS_CONTROLLER
 
 	public function update_search_index_action()
 	{
-		if ($_GET['model'])
+		if ($_GET['per_page'] OR $_POST['per_page'])
 		{
-			$per_page = intval($_GET['per_page']);
+			if ($_POST['per_page'])
+			{
+				$per_page = intval($_POST['per_page']);
+			}
+			else
+			{
+				$per_page = intval($_GET['per_page']);
+			}
 				
 			$_GET['page'] = (!$_GET['page']) ? 1 : intval($_GET['page']);
 				
 			$_GET['interval'] = (!$_GET['interval']) ? 3 : intval($_GET['interval']);
 				
 			$done = false;
-					
-	
+			
 			if ($question_list = $this->model('question')->query_all("SELECT question_id, question_content FROM " . get_table('question') . " ORDER BY question_id ASC LIMIT " . calc_page_limit($_GET['page'], $per_page)))
 			{
 				foreach ($question_list as $key => $val)

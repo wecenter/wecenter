@@ -75,25 +75,31 @@ class core_plugins
 			            	$this->plugins_model[$aws_plugin['contents']['model']['class_name']] = $this->plugins_path . $file . '/' . $aws_plugin['contents']['model']['include'];
 		            	}
 		            	
-		            	foreach ($aws_plugin['contents']['setups'] AS $key => $data)
+		            	if ($aws_plugin['contents']['setups'])
 		            	{
-		            		if ($data['app'] AND $data['controller'] AND $data['include'])
-		            		{
-			            		$this->plugins_table[$data['app']][$data['controller']]['setup'][] = array(
-			            			'file' => $this->plugins_path . $file . '/' . $data['include'],
-			            		);
-		            		}
+			            	foreach ($aws_plugin['contents']['setups'] AS $key => $data)
+			            	{
+			            		if ($data['app'] AND $data['controller'] AND $data['include'])
+			            		{
+				            		$this->plugins_table[$data['app']][$data['controller']]['setup'][] = array(
+				            			'file' => $this->plugins_path . $file . '/' . $data['include'],
+				            		);
+			            		}
+			            	}
 		            	}
 		            	
-		            	foreach ($aws_plugin['contents']['actions'] AS $key => $data)
+		            	if ($aws_plugin['contents']['actions'])
 		            	{
-		            		if ($data['app'] AND $data['controller'] AND $data['include'])
-		            		{
-			            		$this->plugins_table[$data['app']][$data['controller']][$data['action']][] = array(
-			            			'file' => $this->plugins_path . $file . '/' . $data['include'],
-			            			'template' => $data['template']
-			            		);
-		            		}
+			            	foreach ($aws_plugin['contents']['actions'] AS $key => $data)
+			            	{
+			            		if ($data['app'] AND $data['controller'] AND $data['include'])
+			            		{
+				            		$this->plugins_table[$data['app']][$data['controller']][$data['action']][] = array(
+				            			'file' => $this->plugins_path . $file . '/' . $data['include'],
+				            			'template' => $data['template']
+				            		);
+			            		}
+			            	}
 		            	}
 		            	
 			            $this->plugins[$file] = $aws_plugin;
