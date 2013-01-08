@@ -17,12 +17,9 @@
 					</div><b><?php echo $this->topic_info['topic_title']; ?></b> <?php if ($this->topic_info['topic_lock']) { ?><em class="i_lock i_small"><?php _e('已锁定'); ?></em><?php } ?></h3>
 			
 			<a class="u_topicHead i_pas"><img src="<?php echo get_topic_pic_url('max', $this->topic_info['topic_pic']); ?>" class="i_radiu5" alt="<?php echo $this->topic_info['topic_title']; ?>" title="<?php echo $this->topic_info['topic_title']; ?>"/></a>
-		</div>       <div class="i_search i_prl i_right s_topicSearch" style="margin-bottom:20px; margin-right:20px;">
-                <input title="搜索问题..." value="搜索问题..." onfocus="$.focus(this,'搜索问题...');" id="s_topic_search" autocomplete="off" class="i_txt i_left">
-                <a class="i_result i_pas" href="javascript:;">搜索</a>
-            </div>
-		<div class="b_restrain" style="overflow:hidden; width:100%;">
-		<h3 class="latest_trendst_h3 q_qusAll i_prl q_content_h3 ">
+		</div>
+		<div class="b_restrain">
+		<h3 class="latest_trendst_h3 q_qusAll i_prl q_content_h3" style="border-top:1px solid #ddd;">
 			
 			<p class="q_navC i_pas s_topic" id="v_Elem">
 				<a href="javascript:;"><?php _e('关于话题'); ?></a>
@@ -31,7 +28,10 @@
 				<a href="javascript:;"><?php _e('精华'); ?></a>
 				<a href="javascript:;" class="cur"><?php _e('动态'); ?></a>
 			</p>
-     
+            <div class="i_search i_prl i_right s_topicSearch" style="margin-top:7px;">
+                <input title="搜索问题..." value="搜索问题..." onfocus="$.focus(this,'搜索问题...');" id="s_topic_search" autocomplete="off" class="i_txt i_left">
+                <a class="i_result i_pas" href="javascript:;">搜索</a>
+            </div>
 		</h3>
 		
 		<div class="flx">
@@ -76,8 +76,8 @@
 
 	<div class="R_sidebar"> 
 		<div class="i_rightMain">
-			<div class="shadowBox interest_user">
-				<h3 class="grayTitleBg"><?php _e('话题描述'); ?></h3>
+			<div class="interest_user">
+				<h3><?php _e('话题描述'); ?></h3>
 				
 				<p class="t_stpd">
 					<?php echo nl2br(cjk_substr(strip_tags($this->topic_info['topic_description']), 0, 128, 'UTF-8', '...')); ?>
@@ -101,13 +101,13 @@
 			</div>
 			<?php } ?>
 
-			<div class="shadowBox interest_user">
-				<h3 class="grayTitleBg"><?php _e('%s 人关注该话题', $this->topic_info['focus_count']); ?></h3>
+			<div class="interest_user">
+				<h3><?php _e('%s 人关注该话题', $this->topic_info['focus_count']); ?></h3>
 				
 				<p class="q_UserList t_stpd" id="focus_users"></p>
 			</div>
 			
-            <div class="shadowBox interest_user"><h3 style="cursor:pointer;" class="grayTitleBg am_notes" onclick="$.topic.hideTopic(this,$('#topic_listam'));"><em class="x2 i_small">x</em><?php _e('话题修改记录'); ?></h3>
+            <div class="interest_user"><h3 style="cursor:pointer;" class="am_notes" onclick="$.topic.hideTopic(this,$('#topic_listam'));"><em class="x2 i_small">x</em><?php _e('话题修改记录'); ?></h3>
             	<p class="t_record" id="topic_listam" style="display:none;">			
 					<?php if ($this->log_list) { ?>
 						<?php foreach ($this->log_list as $key => $val) { ?>
@@ -118,8 +118,8 @@
             </div>
             
             <?php if ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator'] OR ($this->topic_info['topic_lock'] == 0 && $this->user_info['permission']['edit_topic']) OR ($this->topic_info['topic_lock'] == 0 && $this->user_info['permission']['manage_topic'])) { ?>
-            <div class="shadowBox interest_user">
-				<h3 class="grayTitleBg"><?php _e('管理'); ?></h3>
+            <div class="interest_user">
+				<h3><?php _e('管理'); ?></h3>
 				
 				<p class="t_record">
 				<?php if ($this->topic_info['topic_lock'] == 0 && $this->user_info['permission']['edit_topic']) { ?>
@@ -138,8 +138,8 @@
 			</div>
 			<?php } ?>
             
-            <div class="shadowBox interest_user" style="cursor:pointer;" onclick="$.startQs({flgs:2,number:0,share_type:'topic',target_id:<?php echo $this->topic_info['topic_id']; ?>});"><h3 class="grayTitleBg"><?php _e('分享/邀请好友完善'); ?></h3></div>
-            <p class="shadowBox t_share i_gray" style="padding:10px;">
+            <div class="interest_user" style="cursor:pointer;" onclick="$.startQs({flgs:2,number:0,share_type:'topic',target_id:<?php echo $this->topic_info['topic_id']; ?>});"><h3><?php _e('分享/邀请好友完善'); ?></h3></div>
+            <p class="t_share i_gray">
 				<a href="javascript:;" class="w" onclick="$.startQs({flgs:2,number:0,share_type:'topic',target_id:<?php echo $this->topic_info['topic_id']; ?>});"><?php _e('站外'); ?></a>
 				<?php if ($this->user_id){ ?>
 					<a href="javascript:;" class="s" onclick="$.startQs({flgs:2,number:1,share_type:'topic',target_id:<?php echo $this->topic_info['topic_id']; ?>});"><?php _e('私信'); ?></a>

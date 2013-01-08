@@ -154,7 +154,7 @@
 
 /* >> 最新、热门导航_s */
 .q_qusAll{ font-weight:bold;border:0 none;}
-.q_qusAll .q_navC{font-size:14px;font-weight:normal;right:5px; bottom:0; }
+.q_qusAll .q_navC{font-size:14px;font-weight:normal;left:5px; bottom:0; }
 .q_qusAll .q_navC a{display:block;padding:0 15px; float:right; height:40px; line-height:40px; color:#999;}
 .q_qusAll .q_navC a.cur{background-color:#fff; border:1px solid #ddd; border-bottom:none; height:39px;}
 .q_qusAll .q_navC a >em.q_arrs_down{ display:inline-block; vertical-align:middle; width:6px; height:6px; background-position:-3px -566px; margin-left:5px;}/* 问题内容页小箭头 */
