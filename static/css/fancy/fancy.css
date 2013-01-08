@@ -136,6 +136,8 @@ body.bd .b_user{ width:110px; right:0; top:0;}
 .iconTurn{ background:#E9F5FF url(img/iconTurn.png) no-repeat 5px 3px !important; display:inline-block; padding-left:20px !important;; width:30px !important;}
 .newComments img{ border-radius:3px !important; height:32px !important; width:32px !important;}
 .index_user img{ height:32px; width:32px;}
+.markItUp ul { position: relative;}
+.markItUp .markItUpButton10 {position: absolute;right: -30px;}
 /*topic*/
 .q_qusAll{ font-weight:bold;border:0 none;}
 .q_qusAll .topicLeft{font-size:14px;font-weight:normal;left:5px; bottom:0; }
