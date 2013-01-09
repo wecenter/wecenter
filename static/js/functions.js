@@ -536,7 +536,7 @@ function bp_more_load(url, bp_more_o_inner, target_el, start_page, callback_func
 		{
 			if ($.trim(response) != '')
 			{
-				if (_bp_more_pages[bp_more_o_inner.attr('id')] == start_page)
+				if (_bp_more_pages[bp_more_o_inner.attr('id')] == start_page && $(_this).attr('auto-load') != 'false')
 				{
 					target_el.html(response);
 				}
@@ -551,7 +551,7 @@ function bp_more_load(url, bp_more_o_inner, target_el, start_page, callback_func
 			}
 			else
 			{
-				if (_bp_more_pages[bp_more_o_inner.attr('id')] == start_page)
+				if (_bp_more_pages[bp_more_o_inner.attr('id')] == start_page && $(_this).attr('auto-load') != 'false')
 				{
 					target_el.html('<p style="padding: 15px 0" align="center">' + _t('没有内容') + '</p>');
 				}
@@ -572,7 +572,10 @@ function bp_more_load(url, bp_more_o_inner, target_el, start_page, callback_func
 		return false;
 	});
 	
-	bp_more_o_inner.click();
+	if (bp_more_load.attr('auto-load') != 'false')
+	{
+		bp_more_o_inner.click();
+	}
 }
 
 function content_switcher(hide_el, show_el)

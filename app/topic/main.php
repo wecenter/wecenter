@@ -141,7 +141,6 @@ class main extends AWS_CONTROLLER
 			$topic_info = $this->model('topic')->get_topic_by_url_token($_GET['id']);
 		}
 		
-		
 		if (!$topic_info)
 		{
 			H::redirect_msg(AWS_APP::lang()->_t('话题不存在'), '/');
@@ -221,9 +220,17 @@ class main extends AWS_CONTROLLER
 			$contents_topic_title = $topic_info['topic_title'];
 		}
 		
+		TPL::assign('list', $this->model('topic')->get_topic_action_list($contents_topic_id, get_setting('contents_per_page')));
+		TPL::assign('all_actions_list_bit', TPL::output('home/ajax/index_actions', false));
+		
+		TPL::assign('list', $this->model('topic')->get_topic_action_list($contents_topic_id, get_setting('contents_per_page'), TRUE));
+		TPL::assign('best_questions_list_bit', TPL::output('home/ajax/index_actions', false));
+		
+		TPL::assign('question_list', $this->model('question')->get_questions_list(1, get_setting('contents_per_page'), null, $contents_topic_id));
+		TPL::assign('all_questions_list_bit', TPL::output('question/ajax/list', false));
+		
 		TPL::assign('contents_topic_id', $contents_topic_id);
 		TPL::assign('contents_topic_title', $contents_topic_title);
-		
 		
 		TPL::assign('log_list', $log_list);
 		

@@ -120,9 +120,9 @@ class TPL
 				}
 			}
 			
-			$output = preg_replace("/([a-zA-Z0-9_]+)-([\"|'])/", '\2', $output);
-			
-			//$output = preg_replace("/([a-zA-Z0-9_]+)-__([a-zA-Z0-9_]+)-/", '\2-', $output);
+			//$output = preg_replace("/([a-zA-Z0-9]+_?[a-zA-Z0-9]+)-__|(__[a-zA-Z0-9]+_?[a-zA-Z0-9]+)-$/i", '', $output);
+			$output = preg_replace('/[a-zA-Z0-9]+_?[a-zA-Z0-9]*\-__/', '', $output);
+			$output = preg_replace('/(__)?[a-zA-Z0-9]+_?[a-zA-Z0-9]*\-([\'|"])/', '\2', $output);
 			
 			if (AWS_APP::config()->get('system')->debug)
 			{

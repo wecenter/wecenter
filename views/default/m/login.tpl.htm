@@ -17,7 +17,7 @@
 					<option value="1">ON</option>
 				</select>
 				
-				<p><button type="submit" data-theme="b"><?php _e('登录'); ?></button></p>
+				<p><button type="submit" data-theme="b" onclick="$('#login_form').attr('action', '<?php echo get_setting('base_url');?>/<?php if (get_setting('url_rewrite_enable') != 'Y') { ?><?php echo G_INDEX_SCRIPT; ?><?php } ?>account/ajax/login_process/')"><?php _e('登录'); ?></button></p>
 				
 				<?php if (get_setting('invite_reg_only') == 'N') { ?>
 				<p align="center">

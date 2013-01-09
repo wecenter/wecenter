@@ -5,7 +5,8 @@
 			<a href="<?php if ($this->feature_info) { ?>feature/id-<?php echo $this->feature_info['id']; ?><?php } else { ?>home/explore/category-<?php echo $this->category_info['id']; ?><?php } ?>__sort_type-unresponsive" <?php if ($_GET['sort_type'] == 'unresponsive') { ?> class="cur"<?php } ?>><?php _e('等待回复'); ?></a>
     	 	
 			<a href="<?php if ($this->feature_info) { ?>feature/id-<?php echo $this->feature_info['id']; ?><?php } else { ?>home/explore/category-<?php echo $this->category_info['id']; ?><?php } ?>__sort_type-hot__day-30" id="sort_control_hot" <?php if ($_GET['sort_type'] == 'hot') { ?> class="cur"<?php } ?>><?php _e('热门'); ?></a>
-			<a href="<?php if ($this->feature_info) { ?>feature/id-<?php echo $this->feature_info['id']; ?><?php } else { ?>home/explore/category-<?php echo $this->category_info['id']; ?><?php } ?>" <?php if (!$_GET['sort_type'] OR $_GET['sort_type'] == 'new') { ?> class="cur"<?php } ?>><?php _e('最新'); ?></a>
+			
+			<a href="<?php if ($this->feature_info) { ?>feature/id-<?php echo $this->feature_info['id']; ?><?php } else { ?>home/explore/<?php if ($this->category_info['id']) { ?>category-<?php echo $this->category_info['id']; ?><?php } ?><?php } ?>"<?php if (!$_GET['sort_type'] OR $_GET['sort_type'] == 'new') { ?> class="cur"<?php } ?>><?php _e('最新'); ?></a>
 		</p>
 		
 		<?php if ($this->category_info) { ?><?php echo $this->category_info['title']; ?><?php } else if ($this->feature_info) { ?><?php echo $this->feature_info['title']; ?><?php } else { ?><?php _e('全部问题'); ?><?php } ?>
