@@ -46,6 +46,8 @@ class core_pagination
 	var $display_pages		= TRUE;
 	var $direct_page		= FALSE;
 	
+	var $page_base_url = '';
+	
 	/**
 	 * Constructor
 	 *
@@ -114,7 +116,8 @@ class core_pagination
 		// If our item count or per-page total is zero there is no need to continue.
 		if ($this->total_rows == 0 OR $this->per_page == 0)
 		{
-			return '';
+			//return '';
+			return $this->full_tag_open.$this->full_tag_close;
 		}
 
 		// Calculate the total number of pages
@@ -123,7 +126,8 @@ class core_pagination
 		// Is there only one page? Hm... nothing more to do here then.
 		if ($num_pages == 1)
 		{
-			return '';
+			//return '';
+			return $this->full_tag_open.$this->full_tag_close;
 		}
 
 		if ($_GET[$this->query_string_segment] != 0)
@@ -168,11 +172,11 @@ class core_pagination
 
 		if (substr($this->base_url, -1, 1) == '/')
 		{
-			$this->base_url = rtrim($this->base_url).$this->query_string_segment.'-';
+			$this->page_base_url = rtrim($this->base_url).$this->query_string_segment.'-';
 		}
 		else
 		{
-			$this->base_url = rtrim($this->base_url).'__'.$this->query_string_segment.'-';
+			$this->page_base_url = rtrim($this->base_url).'__'.$this->query_string_segment.'-';
 		}
 
 		// And here we go...
@@ -182,23 +186,24 @@ class core_pagination
 		if  ($this->first_link !== FALSE AND $this->cur_page > ($this->num_links + 1))
 		{
 			$first_url = ($this->first_url == '') ? $this->base_url : $this->first_url;
+			
 			$output .= $this->first_tag_open.'<a '.$this->anchor_class.'href="'.$first_url.'">'.$this->first_link.'</a>'.$this->first_tag_close;
 		}
 
 		// Render the "previous" link
 		if  ($this->prev_link !== FALSE AND $this->cur_page != 1)
 		{
-			//$i = $uri_page_number - $this->per_page;
 			$i = $uri_page_number - 1;
 
-			if ($i == 0 && $this->first_url != '')
+			if ($i == 1)
 			{
-				$output .= $this->prev_tag_open.'<a '.$this->anchor_class.'href="'.$this->first_url.'">'.$this->prev_link.'</a>'.$this->prev_tag_close;
+				$output .= $this->prev_tag_open.'<a '.$this->anchor_class.'href="'.$this->base_url.'">'.$this->prev_link.'</a>'.$this->prev_tag_close;
 			}
 			else
 			{
 				$i = ($i == 0) ? '' : $this->prefix.$i.$this->suffix;
-				$output .= $this->prev_tag_open.'<a '.$this->anchor_class.'href="'.$this->base_url.$i.'">'.$this->prev_link.'</a>'.$this->prev_tag_close;
+				
+				$output .= $this->prev_tag_open.'<a '.$this->anchor_class.'href="'.$this->page_base_url.$i.'">'.$this->prev_link . '</a>'.$this->prev_tag_close;
 			}
 
 		}
@@ -223,15 +228,15 @@ class core_pagination
 						
 						$n = $n / $this->per_page + 1;	// by Anwsion
 
-						if ($n == '' && $this->first_url != '')
+						if ($n == 1)
 						{
-							$output .= $this->num_tag_open.'<a '.$this->anchor_class.'href="'.$this->first_url.'">'.$loop.'</a>'.$this->num_tag_close;
+							$output .= $this->num_tag_open.'<a '.$this->anchor_class.'href="'.$this->base_url.'">'.$loop.'</a>'.$this->num_tag_close;
 						}
 						else
 						{
 							$n = ($n == '') ? '' : $this->prefix.$n.$this->suffix;
 
-							$output .= $this->num_tag_open.'<a '.$this->anchor_class.'href="'.$this->base_url.$n.'">'.$loop.'</a>'.$this->num_tag_close;
+							$output .= $this->num_tag_open.'<a '.$this->anchor_class.'href="'.$this->page_base_url.$n.'">'.$loop.'</a>'.$this->num_tag_close;
 						}
 					}
 				}
@@ -241,8 +246,7 @@ class core_pagination
 		// Render the "next" link
 		if ($this->next_link !== FALSE AND $this->cur_page < $num_pages)
 		{
-			//$output .= $this->next_tag_open.'<a '.$this->anchor_class.'href="'.$this->base_url.$this->prefix.($this->cur_page * $this->per_page).$this->suffix.'">'.$this->next_link.'</a>'.$this->next_tag_close;
-			$output .= $this->next_tag_open.'<a '.$this->anchor_class.'href="'.$this->base_url.$this->prefix.($this->cur_page + 1).$this->suffix.'">'.$this->next_link.'</a>'.$this->next_tag_close;
+			$output .= $this->next_tag_open.'<a '.$this->anchor_class.'href="'.$this->page_base_url.$this->prefix.($this->cur_page + 1).$this->suffix.'">'.$this->next_link.'</a>'.$this->next_tag_close;
 		}
 
 		// Render the "Last" link
@@ -250,12 +254,12 @@ class core_pagination
 		{
 			//$i = (($num_pages * $this->per_page) - $this->per_page);
 			$i = $num_pages;
-			$output .= $this->last_tag_open.'<a '.$this->anchor_class.'href="'.$this->base_url.$this->prefix.$i.$this->suffix.'">'.$this->last_link.'</a>'.$this->last_tag_close;
+			$output .= $this->last_tag_open.'<a '.$this->anchor_class.'href="'.$this->page_base_url.$this->prefix.$i.$this->suffix.'">'.$this->last_link.'</a>'.$this->last_tag_close;
 		}
 		
 		if ($this->direct_page)
 		{
-			$output .= '<input name="page_jumper" type="text" style="width:30px;"/> <input type="button" value="Go" onClick="window.location = \'' . $this->base_url.$this->prefix . '\' + $(this).parent().find(\'[name=page_jumper]\').val() + \'\';"/>';
+			$output .= '<input name="page_jumper" type="text" style="width:30px;"/> <input type="button" value="Go" onclick="window.location = \'' . $this->page_base_url.$this->prefix . '\' + $(this).parent().find(\'[name=page_jumper]\').val() + \'\';"/>';
 		}
 		
 		// Kill double slashes.  Note: Sometimes we can end up with a double slash
