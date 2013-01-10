@@ -49,26 +49,32 @@
 			
 			<div id="v_Elem_2" class="i_hide">
 				<!--内容填充 循环-->
-				<div class="i_prl" id="c_question_list"></div>
+				<div class="i_prl" id="c_question_list">
+					<?php echo $this->all_questions_list_bit; ?>
+				</div>
 				<!--内容填充 循环-->
 				
-				<p id="c_question_more"><a class="i_ajax_more" href="javascript:;"><?php _e('更多'); ?>...</a></p>
+				<p id="c_question_more" auto-load="false"><a class="i_ajax_more" href="javascript:;"><?php _e('更多'); ?>...</a></p>
 			</div>
 			
 			<div id="v_Elem_3" class="i_hide">
 				<!--内容填充 循环-->
-				<div class="i_prl" id="c_best_question_list"></div>
+				<div class="i_prl" id="c_best_question_list">
+					<?php echo $this->best_questions_list_bit; ?>
+				</div>
 				<!--内容填充 循环-->
 				
-				<p id="bp_best_question_more"><a class="i_ajax_more" href="javascript:;"><?php _e('更多'); ?>...</a></p>
+				<p id="bp_best_question_more" auto-load="false"><a class="i_ajax_more" href="javascript:;"><?php _e('更多'); ?>...</a></p>
 			</div>
 			
 			<div id="v_Elem_4">
 				<!--内容填充 循环-->
-				<div class="i_prl" id="c_all_list"></div>
+				<div class="i_prl" id="c_all_list">
+					<?php echo $this->all_actions_list_bit; ?>
+				</div>
 				<!--内容填充 循环-->
 				
-				<p id="bp_all_more"><a class="i_ajax_more" href="javascript:;"><?php _e('更多'); ?>...</a></p>
+				<p id="bp_all_more" auto-load="false"><a class="i_ajax_more" href="javascript:;"><?php _e('更多'); ?>...</a></p>
 			</div>
 		</div>
         </div>

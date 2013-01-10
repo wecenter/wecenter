@@ -259,7 +259,7 @@ class core_pagination
 		
 		if ($this->direct_page)
 		{
-			$output .= '<input name="page_jumper" type="text" style="width:30px;"/> <input type="button" value="Go" onclick="window.location = \'' . $this->page_base_url.$this->prefix . '\' + $(this).parent().find(\'[name=page_jumper]\').val() + \'\';"/>';
+			$output .= '<input name="page_jumper" type="text" style="width:30px;"/> <input type="button" value="Go" onclick="window.location = \'' . $this->page_base_url.$this->prefix.$this->query_string_segment.'-' . '\' + $(this).parent().find(\'[name=page_jumper]\').val() + \'\';"/>';
 		}
 		
 		// Kill double slashes.  Note: Sometimes we can end up with a double slash

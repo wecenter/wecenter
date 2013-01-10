@@ -4,6 +4,20 @@
 	{
 		if ($log = $this->model('integral')->fetch_page('integral_log', 'uid = ' . intval($_GET['uid']), 'time DESC', $_GET['page'], 50))
 		{
+			TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
+				'base_url' => get_setting('base_url') . '/?/user_manage/integral_log/uid-' . intval($_GET['uid']), 
+				'total_rows' => $this->model('integral')->found_rows(), 
+				'per_page' => 50, 
+				'last_link' => '末页', 
+				'first_link' => '首页', 
+				'next_link' => '下一页 »', 
+				'prev_link' => '« 上一页', 
+				'anchor_class' => ' class="number"', 
+				'cur_tag_open' => '<a class="number current">', 
+				'cur_tag_close' => '</a>', 
+				'direct_page' => TRUE
+			))->create_links());
+			
 			foreach ($log AS $key => $val)
 			{
 				$parse_items[$val['id']] = array(
