@@ -572,7 +572,7 @@ function bp_more_load(url, bp_more_o_inner, target_el, start_page, callback_func
 		return false;
 	});
 	
-	if (bp_more_load.attr('auto-load') != 'false')
+	if (bp_more_o_inner.attr('auto-load') != 'false')
 	{
 		bp_more_o_inner.click();
 	}

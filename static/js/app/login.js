@@ -105,13 +105,7 @@ var logPicture = [
 					
 					flgs.val = $(this).val().replace(/^\s+|\s+/g,'');
 					
-					if (flgs.val.length > 16 && !flgs.reg) {
-						if($(this).parents('ul').attr('id') == 'weibo_bind') {
-							 $('#bingglobal_err').removeClass('i_hide').find('span').html(_t('请输入小于 16 位的密码'));
-						 }else{
-							$.EveErr(_t('请输入小于 16 位的密码'));
-						}
-					}else if (flgs.reg) {
+					if (flgs.reg) {
 						flgs.val.length > 16 ?
 						$.register.reg.pwhandle('blur',$(this)):
 						$.register.reg.pwhandle('right',$(this));
