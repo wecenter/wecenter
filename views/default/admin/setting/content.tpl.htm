@@ -93,11 +93,6 @@
 						<input name="reader_questions_agree_count" class="text-input small-int" type="text" value="<?php echo $this->setting['reader_questions_agree_count']; ?>"/>
 					</p>
 					
-					<p groupid="4" name="weixin_mp_token">
-						<label><?php _e('微信公众平台接口 Token'); ?>: <span style=" font-weight:normal;">(<?php _e('请与微信公众平台后台设置一致'); ?>)</label>
-						<input name="weixin_mp_token" class="text-input small-int" type="text" value="<?php echo $this->setting['weixin_mp_token']; ?>"/>
-					</p>
-					
 					<p>
 						<input class="button" type="button" onClick="ajax_post($('#_save_form'), _form_process);" value="<?php _e('保存'); ?>" />
 					</p>
