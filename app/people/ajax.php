@@ -50,7 +50,7 @@ class ajax extends AWS_CONTROLLER
 
 	function user_actions_action()
 	{
-		if ((isset($_GET['perpage']) && (intval($_GET['perpage']) > 0)))
+		if ((isset($_GET['perpage']) && intval($_GET['perpage']) > 0))
 		{
 			$this->per_page = intval($_GET['perpage']);
 		}
