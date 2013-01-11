@@ -54,19 +54,18 @@ class nav_menu extends AWS_CONTROLLER
 
 	public function save_ajax_action()
 	{
-		if($_POST['nav_sort'])
+		if ($_POST['nav_sort'])
 		{
-			if($menu_ids = explode(',', $_POST['nav_sort']))
+			if ($menu_ids = explode(',', $_POST['nav_sort']))
 			{
-				$i = 0;
-				foreach($menu_ids as $val)
+				foreach($menu_ids as $key => $val)
 				{
-					$this->model('menu')->update_nav_menu($val, array('sort' => $i++));
+					$this->model('menu')->update_nav_menu($val, array('sort' => $key));
 				}
 			}
 		}
 		
-		if($_POST['nav_menu'])
+		if ($_POST['nav_menu'])
 		{
 			foreach($_POST['nav_menu'] as $key => $val)
 			{
@@ -121,14 +120,9 @@ class nav_menu extends AWS_CONTROLLER
 	
 	function remove_nav_menu_action()
 	{
-		if ($this->model('menu')->remove_nav_menu($_GET['nav_menu_id']))
-		{
-			H::ajax_json_output(AWS_APP::RSM(null, 1, null));
-		}
-		else
-		{
-			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('删除失败')));
-		}
+		$this->model('menu')->remove_nav_menu($_GET['nav_menu_id']);
+		
+		H::ajax_json_output(AWS_APP::RSM(null, 1, null));
 	}
 	
 	function icon_upload_ajax_action()

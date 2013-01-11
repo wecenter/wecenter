@@ -144,7 +144,7 @@ class setting extends AWS_CONTROLLER
 		
 		if (array_intersect(array_keys($_POST), $curl_require_setting))
 		{
-			foreach($curl_require_setting as $key)
+			foreach ($curl_require_setting as $key)
 			{
 				if ($_POST[$key] == 'Y' && !function_exists('curl_init'))
 				{

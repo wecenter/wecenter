@@ -21,7 +21,7 @@ class core_form
 	{
 		$this->post_hash_cache_key = 'post_hash_' . session_id();
 		
-		if ($post_hash_lib = AWS_APP::model('cache')->load($this->post_hash_cache_key))
+		if ($post_hash_lib = AWS_APP::cache()->get($this->post_hash_cache_key))
 		{
 			$this->post_hash_lib = $post_hash_lib;
 		}
@@ -29,7 +29,7 @@ class core_form
 	
 	public function save_post_hash_lib()
 	{
-		AWS_APP::model('cache')->save($this->post_hash_cache_key, $this->post_hash_lib, (3600 * 12));
+		AWS_APP::cache()->set($this->post_hash_cache_key, $this->post_hash_lib, (3600 * 12));
 	}
 	
 	public function new_post_hash()
@@ -51,8 +51,6 @@ class core_form
 		
 		$this->post_hash_lib[] = $post_hash;
 		
-		$this->save_post_hash_lib();
-		
 		return $post_hash;
 	}
 	
@@ -67,8 +65,6 @@ class core_form
 				break;
 			}
 		}
-		
-		$this->save_post_hash_lib();
 	}
 	
 	public function valid_post_hash($hash)
@@ -81,5 +77,10 @@ class core_form
 		}
 			
 		return FALSE;
+	}
+	
+	public function __destruct()
+	{
+		$this->save_post_hash_lib();
 	}
 }

@@ -99,7 +99,7 @@
 				<?php foreach ($this->best_answer_users AS $key => $val) { ?>
 				<p class="add_ls">
 					<a class="add_user_f" href="people/<?php echo $val['user_info']['url_token']; ?>"><img class="user_msg" data-message="&uid=<?php echo $val['user_info']['uid']; ?>&card=user" title="<?php echo $val['user_info']['user_name']; ?>" alt="<?php echo $val['user_info']['user_name']; ?>" src="<?php echo get_avatar_url($val['user_info']['uid'], 'mid'); ?>" /></a>
-					<a class="user_msg" data-message="&uid=<?php echo $val['user_info']['uid']; ?>&card=user" href="people/<?php echo $val['user_info']['url_token']; ?>"><?php echo $val['user_info']['user_name']; ?></a> <?php if ($this->user_id != $val['uid'] AND $this->user_id) { ?><span class="i_add_attention<?php if ($val['user_info']['focus']) { ?> cur<?php } ?>" onclick="follow_people($(this), $(this).find('em'), <?php echo $val['user_info']['uid']; ?>);"><em><?php if ($val['user_info']['focus']) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?></em></span><?php } ?>
+					<a class="user_msg" data-message="&uid=<?php echo $val['user_info']['uid']; ?>&card=user" href="people/<?php echo $val['user_info']['url_token']; ?>"><?php echo $val['user_info']['user_name']; ?></a>
 					<span class="add_gray"><?php _e('获得'); ?> <?php _e('%s 次赞同', '<b>' . $val['agree_count'] . '</b>'); ?>, <?php _e('%s 次感谢', '<b>' . $val['thanks_count'] . '</b>'); ?>
 					</span>
 				</p>

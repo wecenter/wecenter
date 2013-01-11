@@ -51,13 +51,12 @@ $config[1] = array(
 			'title' => '开放平台',
 			'url' => 'admin/setting/type-open',
 		),
-/*
+
 		array(
 			'id' => 109,
 			'title' => '性能优化',
 			'url' => 'admin/setting/type-cache',
 		),
-*/
 	)
 );
 

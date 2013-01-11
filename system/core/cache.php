@@ -17,13 +17,13 @@ class core_cache
 	private $cache_factory;
 	private $frontendName = 'Core';
 	
-	// 支持 File, Memcached, APC, Xcache, 手册参考: http://framework.zend.com/manual/zh/zend.cache.html
-	private $backendName = 'File';
-	
 	private $frontendOptions = array(
 		'lifeTime' => 3600, 
 		'automatic_serialization' => TRUE
 	);
+	
+	// 支持 File, Memcached, APC, Xcache, 手册参考: http://framework.zend.com/manual/zh/zend.cache.html
+	private $backendName = 'File';
 	
 	private $backendOptions = array(
 		/*
@@ -47,14 +47,24 @@ class core_cache
 	
 	public function __construct()
 	{
-		$this->groupPrefix = G_COOKIE_PREFIX . $this->groupPrefix;
-		$this->cachePrefix = G_COOKIE_PREFIX . $this->cachePrefix;
-			
+		$this->groupPrefix = G_COOKIE_HASH_KEY . $this->groupPrefix;
+		$this->cachePrefix = G_COOKIE_HASH_KEY . $this->cachePrefix;
+		
 		if (sizeof($this->backendOptions) == 0)
 		{
+			if (!$cache_dir = get_setting('cache_dir'))
+			{
+				$cache_dir = ROOT_PATH . 'cache/';
+			}
+			
 			$this->backendOptions = array(
-				'cache_dir' => realpath(ROOT_PATH . 'cache/')
+				'cache_dir' => realpath($cache_dir)
 			);
+			
+			if (!file_exists($cache_dir . 'index.html'))
+			{
+				file_put_contents($cache_dir . 'index.html', '');
+			}
 		}
 			
 		$this->cache_factory = Zend_Cache::factory($this->frontendName, $this->backendName, $this->frontendOptions, $this->backendOptions);
@@ -72,14 +82,9 @@ class core_cache
 	 */
 	public function set($key, $value, $lifetime = 60, $group = null)
 	{
-		if (get_setting('cache_open') != 'Y')
-		{
-			return false;
-		}
-		
 		if (AWS_APP::config()->get('system')->debug)
 		{
-			list($usec, $sec) = explode(" ", microtime());
+			list($usec, $sec) = explode(' ', microtime());
 			$start_time = (float)$usec + (float)$sec;
 		}
 		
@@ -95,10 +100,12 @@ class core_cache
 			if (is_array($group))
 			{
 				if (count($group) > 0)
+				{
 					foreach ($group as $cg)
 					{
 						$this->setGroup($cg, $key);
 					}
+				}
 			}
 			else
 			{
@@ -108,12 +115,13 @@ class core_cache
 		
 		if (AWS_APP::config()->get('system')->debug)
 		{
-			list($usec, $sec) = explode(" ", microtime());
+			list($usec, $sec) = explode(' ', microtime());
 			$end_time = (float)$usec + (float)$sec;
 			$stime = sprintf("%06f", $end_time - $start_time);
 			
-			AWS_APP::debug_log('cache', $stime, 'Save Cache: ' . $this->cachePrefix . $key);
+			AWS_APP::debug_log('cache', $stime, 'Save Cache: ' . $key);
 		}
+		
 		return $result;
 	}
 
@@ -123,14 +131,9 @@ class core_cache
 	 */
 	public function get($key)
 	{
-		if (get_setting('cache_open') != 'Y')
-		{
-			return false;
-		}
-		
 		if (AWS_APP::config()->get('system')->debug)
 		{
-			list($usec, $sec) = explode(" ", microtime());
+			list($usec, $sec) = explode(' ', microtime());
 			$start_time = (float)$usec + (float)$sec;
 		}
 		
@@ -139,17 +142,15 @@ class core_cache
 			return false;
 		}
 		
-		$key = $this->cachePrefix . $key;
-		
-		$result = $this->cache_factory->load($key);
+		$result = $this->cache_factory->load($this->cachePrefix . $key);
 		
 		if (AWS_APP::config()->get('system')->debug)
 		{
-			list($usec, $sec) = explode(" ", microtime());
+			list($usec, $sec) = explode(' ', microtime());
 			$end_time = (float)$usec + (float)$sec;
 			$stime = sprintf("%06f", $end_time - $start_time);
 			
-			AWS_APP::debug_log('cache', $stime, 'Get Cache: ' . $this->cachePrefix . $key . ', result type: ' .gettype($result));
+			AWS_APP::debug_log('cache', $stime, 'Get Cache: ' . $key . ', result type: ' .gettype($result));
 		}
 
 		return $result;
@@ -162,11 +163,6 @@ class core_cache
 	 */
 	public function setGroup($group_name, $key)
 	{
-		if (get_setting('cache_open') != 'Y')
-		{
-			return false;
-		}
-		
 		$groupData = $this->get($this->groupPrefix . $group_name);
 		
 		if (is_array($groupData) && in_array($key, $groupData))
@@ -185,11 +181,6 @@ class core_cache
 	 */
 	public function getGroup($group_name)
 	{
-		if (get_setting('cache_open') != 'Y')
-		{
-			return false;
-		}
-		
 		return $this->get($this->groupPrefix . $group_name);
 	}
 
@@ -219,6 +210,7 @@ class core_cache
 	public function delete($key)
 	{			
 		$key = $this->cachePrefix . $key;
+		
 		return $this->cache_factory->remove($key);
 	}
 
@@ -226,12 +218,7 @@ class core_cache
 	 * CLEAN
 	 */
 	public function clean()
-	{
-		if (get_setting('cache_open') != 'Y')
-		{
-			return false;
-		}
-		
+	{		
 		return $this->cache_factory->clean(Zend_Cache::CLEANING_MODE_ALL);
 	}
 
@@ -242,6 +229,7 @@ class core_cache
 	public function start($key)
 	{
 		$key = $this->cachePrefix . $key;
+		
 		$this->cache_factory->start($key);
 	}
 
