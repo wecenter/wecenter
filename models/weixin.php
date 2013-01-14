@@ -36,7 +36,7 @@ class weixin_class extends AWS_MODEL
 			
 			$msgType = 'text';
 			
-			if (! empty($keyword))
+			if ($keyword != 'Hello2BizUser')
 			{
 				if ($search_result = $this->model('search')->search_questions($keyword, null, 5))
 				{

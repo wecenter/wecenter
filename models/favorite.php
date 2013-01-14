@@ -224,6 +224,7 @@ class favorite_class extends AWS_MODEL
 					)))
 					{
 						$answer_ids[] = $val['associate_attached'];
+						$answer_id = $val['associate_attached'];
 					}
 				break;
 				
@@ -235,6 +236,7 @@ class favorite_class extends AWS_MODEL
 					)))
 					{
 						$answer_ids[] = $val['associate_id'];
+						$answer_id = $val['associate_id'];
 					}
 				break;
 			}
@@ -243,20 +245,45 @@ class favorite_class extends AWS_MODEL
 			{
 				$action_list_uids[] = $val['uid'];	
 			}
+			
+			if (in_array($val['associate_action'], array(
+				ACTION_LOG::ADD_QUESTION
+			)) and $question_info['has_attach'])
+			{
+				$has_attach_question_ids[] = $question_info['question_id'];
+			}
+			
+			if ($action_list_answers[$answer_id]['has_attach'])
+			{
+				$has_attach_answer_ids[] = $answer_id;
+			}
 		}
 		
 		if ($question_ids)
 		{
 			$action_list_question_info = $this->model('question')->get_question_info_by_ids($question_ids);
 			$action_list_question_focus = $this->model('question')->has_focus_question($question_ids, USER::get_client_uid());
+			
 			$action_list_answers = $this->model('answer')->get_answers_by_ids($answer_ids);
+			
 			$action_list_answers_vote_user = $this->model('answer')->get_vote_user_by_answer_ids($answer_ids);
+			
 			$action_list_answers_vote_status = $this->model('answer')->get_answer_vote_status($answer_ids, USER::get_client_uid());
 		}
 		
 		if ($action_list_uids)
 		{
 			$action_list_users_info = $this->model('account')->get_user_info_by_uids($action_list_uids, TRUE);
+		}
+		
+		if ($has_attach_question_ids)
+		{
+			$question_attachs = $this->model('publish')->get_attachs('question', $has_attach_question_ids, 'min');
+		}
+		
+		if ($has_attach_answer_ids)
+		{
+			$answer_attachs = $this->model('publish')->get_attachs('answer', $has_attach_answer_ids, 'min');
 		}
 		
 		foreach ($action_list as $key => $val)
@@ -296,7 +323,7 @@ class favorite_class extends AWS_MODEL
 				ACTION_LOG::ADD_QUESTION
 			)) and $question_info['has_attach'])
 			{
-				$question_info['attachs'] = $this->model('publish')->get_attach('question', $question_info['question_id'], 'min'); // 获取附件
+				$question_info['attachs'] = $question_attachs[$question_info['question_id']];
 			}
 										
 			$question_info['last_action_str'] = ACTION_LOG::format_action_str($val['associate_action'], $val['uid'], $action_list_users_info[$val['uid']]['user_name'], $question_info, $topic_info);
@@ -309,9 +336,9 @@ class favorite_class extends AWS_MODEL
 						
 				if ($answer_info['has_attach'])
 				{
-					$answer_info['attachs'] = $this->model('publish')->get_attach('answer', $answer_id, 'min'); //获取附件
+					$answer_info['attachs'] = $answer_attachs[$answer_id];
 				}
-						
+				
 				$answer_info['user_name'] = $action_list_users_info[$val['uid']]['user_name'];
 				$answer_info['url_token'] = $action_list_users_info[$val['uid']]['url_token'];
 				$answer_info['signature'] = $action_list_users_info[$val['uid']]['signature'];
