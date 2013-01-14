@@ -51,16 +51,22 @@ class main extends AWS_CONTROLLER
 		
 		$this->model('upgrade')->db_clean();
 		
+		if (get_setting('db_version') < 20120727)
+		{
+			H::redirect_msg(AWS_APP::lang()->_t('当前升级器只支持 1.0.2 以上版本升级, 你当前版本太低, 请下载 1.0.3 版进行升级'));
+		}
+		
 		// 在此标记有 SQL 升级的版本号, 名称为上一个版本的 Build 编号
 		$this->versions = array(
-			20120608,
+			/*20120608,
 			20120615,
 			20120622,
 			20120629,
 			20120706,
 			20120713,
 			20120719,
-			20120720,
+			20120720,*/
+			
 			20120727,
 			20120803,
 			20120810,
@@ -178,10 +184,11 @@ class main extends AWS_CONTROLLER
 		switch ($_GET['case'])
 		{
 			case 'start':				
-				H::redirect_msg(AWS_APP::lang()->_t('正在进入重建数据阶段...'), '/upgrade/final/case-update_question_attach_statistics');
+				H::redirect_msg(AWS_APP::lang()->_t('正在进入重建数据阶段...'), '/upgrade/final/case-update_last_answer');
 			break;
 			
-			case 'update_question_attach_statistics':
+			// 0629
+			/*case 'update_question_attach_statistics':
 				if ($this->model('upgrade')->check_question_attach_statistics())
 				{
 					H::redirect_msg(AWS_APP::lang()->_t('问题附件统计重建完成, 开始重建回复附件统计...'), '/upgrade/final/case-update_answer_attach_statistics');
@@ -195,24 +202,9 @@ class main extends AWS_CONTROLLER
 				{
 					H::redirect_msg(AWS_APP::lang()->_t('问题附件统计重建完成, 开始重建附件统计...'), '/upgrade/final/case-update_answer_attach_statistics');
 				}
-			break;
+			break;*/
 			
-			case 'update_answer_attach_statistics':
-				if ($this->model('upgrade')->check_answer_attach_statistics())
-				{
-					H::redirect_msg(AWS_APP::lang()->_t('附件统计重建完成, 开始重建动作数据...'), '/upgrade/final/case-upgrade_user_action_history');
-				}
-				
-				if ($this->model('upgrade')->update_answer_attach_statistics($_GET['page'], 2500))
-				{
-					H::redirect_msg(AWS_APP::lang()->_t('正在重建附件统计') . ', ' . AWS_APP::lang()->_t('批次: %s', $_GET['page']), '/upgrade/final/case-update_answer_attach_statistics__page-' . ($_GET['page'] + 1));
-				}
-				else
-				{
-					H::redirect_msg(AWS_APP::lang()->_t('附件统计重建完成, 开始更新最后回复数据...'), '/upgrade/final/case-update_last_answer');
-				}
-			break;
-			
+			// 0803
 			case 'update_last_answer':
 				if ($this->model('upgrade')->check_last_answer())
 				{
@@ -229,6 +221,7 @@ class main extends AWS_CONTROLLER
 				}
 			break;
 			
+			// 0824
 			case 'update_popular_value':
 				if ($this->model('upgrade')->update_popular_value_answer($_GET['page'], 2000))
 				{
@@ -236,11 +229,28 @@ class main extends AWS_CONTROLLER
 				}
 				else
 				{
-					H::redirect_msg(AWS_APP::lang()->_t('问题热门度更新完成, 开始重建动作数据...'), '/upgrade/final/case-upgrade_user_action_history');
+					H::redirect_msg(AWS_APP::lang()->_t('问题热门度更新完成, 开始重建附件统计...'), '/upgrade/final/case-update_answer_attach_statistics');
 				}
 			break;
 			
-			case 'upgrade_user_action_history':				
+			case 'update_answer_attach_statistics':
+				if ($this->model('upgrade')->check_answer_attach_statistics())
+				{
+					H::redirect_msg(AWS_APP::lang()->_t('附件统计重建完成...'), '/upgrade/final/case-final');
+				}
+				
+				if ($this->model('upgrade')->update_answer_attach_statistics($_GET['page'], 2500))
+				{
+					H::redirect_msg(AWS_APP::lang()->_t('正在重建附件统计') . ', ' . AWS_APP::lang()->_t('批次: %s', $_GET['page']), '/upgrade/final/case-update_answer_attach_statistics__page-' . ($_GET['page'] + 1));
+				}
+				else
+				{
+					H::redirect_msg(AWS_APP::lang()->_t('附件统计重建完成, 开始更新最后回复数据...'), '/upgrade/final/case-update_last_answer');
+				}
+			break;
+			
+			// 0720
+			/*case 'upgrade_user_action_history':				
 				if ($this->model('upgrade')->upgrade_user_action_history($_GET['page'], 5000))
 				{
 					H::redirect_msg(AWS_APP::lang()->_t('正在重建动作数据') . ', ' . AWS_APP::lang()->_t('批次: %s', $_GET['page']), '/upgrade/final/case-upgrade_user_action_history__page-' . ($_GET['page'] + 1));
@@ -249,7 +259,7 @@ class main extends AWS_CONTROLLER
 				{
 					H::redirect_msg(AWS_APP::lang()->_t('动作数据重建完成...'), '/upgrade/final/case-final');
 				}
-			break;
+			break;*/
 			
 			case 'final':
 				H::redirect_msg(AWS_APP::lang()->_t('升级完成, 您的程序已经是最新版本, 如遇搜索功能异常, 请进入后台更新搜索索引') . '<!-- Analytics --><img src="http://www.anwsion.com/analytics/?build=' . G_VERSION_BUILD . '&amp;site_name=' . urlencode(get_setting('site_name')) . '&amp;base_url=' . urlencode(get_setting('base_url')) . '&amp;php=' . PHP_VERSION . '" alt="" width="1" height="1" /><!-- / Analytics -->', '/');

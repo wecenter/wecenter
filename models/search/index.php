@@ -28,7 +28,7 @@ class search_index_class extends AWS_MODEL
 		}
 		
 		$string = convert_encoding($string, 'UTF-8', 'UTF-16');
-
+		
 		for ($i = 0; $i < strlen($string); $i++, $i++)
     	{ 
     		$code = ord($string{$i}) * 256 + ord($string{$i + 1});

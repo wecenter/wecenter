@@ -72,7 +72,7 @@ class upgrade_class extends AWS_MODEL
 		}
 	}
 	
-	public function upgrade_user_action_history($page, $limit = 100)
+	/*public function upgrade_user_action_history($page, $limit = 100)
 	{
 		if (!$action_history_data = $this->query_all("SELECT history_id, associate_attached FROM " . get_table('user_action_history_data') . " LIMIT " . calc_page_limit($page, $limit)))
 		{
@@ -100,7 +100,7 @@ class upgrade_class extends AWS_MODEL
 		}
 		
 		return true;
-	}
+	}*/
 	
 	public function check_last_answer()
 	{
@@ -142,7 +142,7 @@ class upgrade_class extends AWS_MODEL
 		return true;
 	}
 	
-	public function check_question_attach_statistics()
+	/*public function check_question_attach_statistics()
 	{
 		return $this->fetch_row('question', 'has_attach = 1');
 	}
@@ -167,7 +167,7 @@ class upgrade_class extends AWS_MODEL
 		}
 		
 		return true;
-	}
+	}*/
 	
 	public function check_answer_attach_statistics()
 	{
