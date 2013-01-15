@@ -54,7 +54,7 @@ $(document).ready(function()
 	$('#bp_more').click(function()
 	{
 		var _this = this;
-		var index_all= false ;//首页最新动态
+		var index_all= false;	// 首页最新动态
 		
 		$("#delete_draft").hide();
 		$("#c_list").removeClass();
@@ -92,7 +92,8 @@ $(document).ready(function()
 					{
 						cur_uid = 0;
 					}
-					index_all =false;
+					
+					index_all = false;
 				}
 				else
 				{
@@ -153,7 +154,8 @@ $(document).ready(function()
 			}
 			
 			$(_this).removeClass('loading');
-			index_all ? $('#c_list >.S_module').addClass('index_module'):'';
+			
+			index_all ? $('#c_list >.S_module').addClass('index_module') : '';
 			
 		})
 		

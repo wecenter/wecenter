@@ -13,7 +13,6 @@
 			<ul class="content-box-tabs">
 				<li><a href="#tab1" class="default-tab current"><?php _e('编辑专题'); ?></a></li>
 				<li><a href="admin/feature/list/" class=""><?php _e('专题列表'); ?></a></li>
-				<li><a href="#tab2"><?php _e('添加专题'); ?></a></li>
 			</ul>
 			<div class="clear"></div>
 		</div>
@@ -49,38 +48,10 @@
 						<textarea id="css" rows="3" cols="100" name="css"><?php echo $this->feature['css']; ?></textarea>
 					</p>
 					<p>
+						<label><input name="is_scope" type="checkbox" value="1"<?php if ($this->feature['is_scope']) { ?> checked="checked"<?php } ?> /> <?php _e('设为领域'); ?></label>
+					</p>
+					<p>
 						<input class="button" type="button" onClick="ajax_post($('#_save_form'), _form_process);" value="<?php _e('保存'); ?>" />
-					</p>
-					</label>
-					</p>
-				</form>
-			</div>
-			<div class="tab-content" id="tab2" style="display: none;">
-				<h3><?php _e('添加专题'); ?></h3>
-				<form id="_add_form" action="admin/feature/save_ajax/" method="post" enctype="multipart/form-data">
-					<p>
-						<label><?php _e('专题标题'); ?>:</label>
-						<input type="text" value="" class="text-input medium-input" name="title">
-					</p>
-					<p>
-						<label><?php _e('别名'); ?>:</label>
-						<?php echo get_js_url('/'); ?>feature/ <input type="text" name="url_token" class="text-input" style="width:120px;" value="<?php echo $this->feature['url_token']; ?>">
-					</p>
-					<p>
-						<label><?php _e('专题描述'); ?>:</label>
-						<input id="description" type="text" value="" class="text-input medium-input" name="description">
-					</p>
-					<p>
-						<label><?php _e('专题图标'); ?>:</label>
-						<input name="icon" class="upload-input" type="file">
-						<br />
-						<small>(<?php _e('支持上传图片类型'); ?>: jpg,jpeg,gif,png)</small> </p>
-					<p>
-						<label><?php _e('自定义页面样式(CSS)'); ?>：</label>
-						<textarea id="description" rows="3" cols="100" name="description"><?php echo $this->feature['css']; ?></textarea>
-					</p>
-					<p>
-						<input class="button" type="button" onClick="ajax_post($('#_add_form'), _form_process);" value="<?php _e('添加新专题'); ?>" />
 					</p>
 					</label>
 					</p>
