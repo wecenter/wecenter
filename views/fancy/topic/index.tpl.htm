@@ -93,8 +93,8 @@
 			<?php TPL::output('topic/related_topics.tpl.htm'); ?>
 			
 			<?php if (is_array($this->best_answer_users)) { ?>
-			<div class="interest_user">
-				<h3><?php _e('最佳回复者'); ?></h3>
+			<div class="shadowBox interest_user">
+				<h3 class="grayTitleBg"><?php _e('最佳回复者'); ?></h3>
 				
 				<?php foreach ($this->best_answer_users AS $key => $val) { ?>
 				<p class="add_ls">

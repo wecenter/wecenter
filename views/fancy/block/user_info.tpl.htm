@@ -1,5 +1,6 @@
-<div class="grayTitleBg cell"> <span class="fade">Anwsion 一个完全开源社交问答社区</span> </div><div class="shadowBox marginStyle quickLogin">
-  <?php if ($this->user_id) { ?>
+<div class="grayTitleBg cell" style="border-top-left-radius:3px;border-top-right-radius:3px"><span class="fade"><?php echo get_setting('site_name'); ?></span></div>
+<div class="shadowBox marginStyle quickLogin" style="border-top-left-radius:0;border-top-right-radius:0">
+<?php if ($this->user_id) { ?>
 <p class="userDiv">  <span class="c_userPic i_left"><img title="<?php echo $this->user_info['user_name']; ?>" alt="anwsion" class="<?php echo $this->user_info['user_name']; ?> userAvatar" src="<?php echo get_avatar_url($this->user_info['uid'], 'mid'); ?>" /></span> 
   <span class="c_Username"><b class="i_gloCor"><?php echo $this->user_info['user_name']; ?></b>
   <?php if ($this->user_info['verified']) { ?>

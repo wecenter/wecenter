@@ -34,6 +34,9 @@
       <label class="label"><?php _e('Cookie 支持'); ?></label> &nbsp; &nbsp; <?php if (!$this->system_require['cookie']) { ?><span style="color: red; font-weight: bold;">×</span><?php } else { ?><span style="color: green;">√</span><?php } ?>
     </li>
     <li>
+      <label class="label"><?php _e('CType 支持'); ?></label> &nbsp; &nbsp; <?php if (!$this->system_require['ctype']) { ?><span style="color: red; font-weight: bold;">×</span><?php } else { ?><span style="color: green;">√</span><?php } ?>
+    </li>
+    <li>
       <label class="label"><?php _e('图象处理库'); ?></label> <span class="txt_color"><?php echo $this->system_require['image_lib']; ?></span> &nbsp; &nbsp; <?php if (!$this->system_require['image_lib']) { ?><span style="color: red; font-weight: bold;">× <?php _e('Anwsion 至少需要有 GD 图象处理库才能正常运行'); ?></span><?php } else { ?><span style="color: green;">√ <?php if ($this->system_require['image_lib'] == 'GD') { ?>(<?php _e('加装 ImageMagick 性能更佳'); ?>)<?php } ?></span><?php } ?>
     </li>
     <li>
@@ -49,7 +52,7 @@
       <label class="label"><?php _e('目录权限'); ?></label> <span class="txt_color"><?php echo AWS_PATH; ?>config/</span> &nbsp; &nbsp; <?php if (!$this->system_require['config_writable_config']) { ?><span style="color: red; font-weight: bold;">×</span><?php } else { ?><span style="color: green;">√</span><?php } ?>
     </li>
     
-    <li class="default_setup_n" id="setup_control"><a href="#" class="i_green_but"<?php if (sizeof($this->system_require) != 8) { ?> onclick="alert('<?php _e('抱歉, 您的服务器需要满足系统的运行需求才能安装'); ?>'); return false;"<?php } else { ?> onclick="document.getElementById('installer').submit(); document.getElementById('setup_control').style.display = 'none'; return false;"<?php } ?>><?php _e('下一步'); ?></a></li>
+    <li class="default_setup_n" id="setup_control"><a href="#" class="i_green_but"<?php if (sizeof($this->system_require) != 9) { ?> onclick="alert('<?php _e('抱歉, 您的服务器需要满足系统的运行需求才能安装'); ?>'); return false;"<?php } else { ?> onclick="document.getElementById('installer').submit(); document.getElementById('setup_control').style.display = 'none'; return false;"<?php } ?>><?php _e('下一步'); ?></a></li>
   </ul>
   </form>
 </div>

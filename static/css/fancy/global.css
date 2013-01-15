@@ -220,9 +220,10 @@ body.bd >body.bd >.i_footer .i_txt a,.b_menu > a:hover{ color:#fff;}
 .i_glotopic >em.handle:hover{ background-color:#6dc4ea;}
 .editor_input{ padding:5px 0; line-height:30px;}
 .editor_input input.i_glotxtClass{ width:250px; height:30px; line-height:30px !important;}
-.editor_input a{ float:left; margin-left:15px; margin-top:10px;vertical-align:middle;}
-.editor_input.rightSide{text-align:right;padding-bottom:15px;}
+.editor_input a{ margin:0 5px; vertical-align:middle;}
+.editor_input.rightSide{ text-align:right;padding-bottom:15px; }
 .editor_input.rightSide .i_glotxtClass{ margin-right:15px;width:200px;}
+.editor_input.rightSide .i_green_bt2 { margin-right: 15px; }
 
 /* 报错提示框 */
 .i_global_err{ background-position:-20px -634px;padding-left:40px;border:1px solid #ebebeb; overflow:hidden;}

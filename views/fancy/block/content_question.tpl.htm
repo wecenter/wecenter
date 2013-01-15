@@ -59,21 +59,7 @@
 	
 	<div id="question_list" class="question_x2"><?php echo $this->question_list_bit; ?></div>
 	
-	<p id="bp_more"><a class="i_ajax_more" href="<?php if ($this->feature_info) { ?>feature/id-<?php echo $this->feature_info['id']; ?>__<?php } else { ?>home/explore/<?php } ?>page-<?php if (intval($_GET['page']) > 0) { ?><?php echo (intval($_GET['page']) + 1); ?><?php } else { ?>2<?php } ?>__sort_type-<?php if ($_GET['sort_type']) { ?><?php echo preg_replace("/[\(\)\.;']/", '', $_GET['sort_type']); ?><?php } else { ?>hot<?php } ?><?php if ($this->category_info['id']) { ?>__category-<?php echo $this->category_info['id']; ?><?php } ?>__day-<?php echo intval($_GET['day']); ?>"><?php _e('更多'); ?>...</a></p>
+	
+	<?php echo $this->pagination; ?>
 </div>
 </div>
-<?php if (intval($_GET['page']) > 0) { ?>
-<script type="text/javascript">cur_page = <?php echo intval($_GET['page']); ?>;</script>
-<?php } ?>
-<?php if ($_GET['sort_type']) { ?>
-<script type="text/javascript">cur_sort_type = '<?php echo preg_replace("/[\(\)\.;']/", '', $_GET['sort_type']); ?>';</script>
-<?php } ?>
-<?php if ($_GET['day']) { ?>
-<script type="text/javascript">cur_day = <?php echo intval($_GET['day']); ?>;</script>
-<?php } ?>
-<?php if ($this->category_info['id']) { ?>
-<script type="text/javascript">cur_category_id = <?php echo intval($this->category_info['id']); ?>;</script>
-<?php } ?>
-<?php if ($this->feature_info['id']) { ?>
-<script type="text/javascript">cur_feature_id = <?php echo $this->feature_info['id']; ?>;</script>
-<?php } ?>

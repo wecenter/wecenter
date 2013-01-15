@@ -95,7 +95,7 @@ body.bd .b_user{ width:110px; right:0; top:0;}
 /* 最新动态 */
 
 .new_ls{ margin:0 15px;}
-.new_ls li{ color:#ccc; font-weight:normal; font-size:12px; padding:15px 0; line-height:15px;}
+.new_ls li{ color:#778087; font-weight:normal; font-size:12px; padding:15px 0; line-height:15px;}
 .new_ls li > span.time{ font-size:12px;}
 .new_ls li.i_bold >span,.new_ls li.i_bold .ex_more,.new_ls li.i_bold .ex_hs{ font-weight:normal; font-size:12px;}
 .new_ls li.i_bold >span{color:#999;}

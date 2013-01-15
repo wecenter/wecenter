@@ -116,8 +116,8 @@ class core_pagination
 		// If our item count or per-page total is zero there is no need to continue.
 		if ($this->total_rows == 0 OR $this->per_page == 0)
 		{
-			//return '';
-			return $this->full_tag_open.$this->full_tag_close;
+			return '';
+			//return $this->full_tag_open.$this->full_tag_close;
 		}
 
 		// Calculate the total number of pages
@@ -126,8 +126,8 @@ class core_pagination
 		// Is there only one page? Hm... nothing more to do here then.
 		if ($num_pages == 1)
 		{
-			//return '';
-			return $this->full_tag_open.$this->full_tag_close;
+			return '';
+			//return $this->full_tag_open.$this->full_tag_close;
 		}
 
 		if ($_GET[$this->query_string_segment] != 0)
