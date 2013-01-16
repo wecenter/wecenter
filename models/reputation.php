@@ -20,9 +20,18 @@ if (!defined('IN_ANWSION'))
 
 class reputation_class extends AWS_MODEL
 {
-	public function get_reputation_topic($uid)
+	public function get_reputation_topic($uids)
 	{
-		return $this->fetch_all('reputation_topic', 'uid = ' . intval($uid), 'topic_count DESC');
+		if (!is_array($uids))
+		{
+			$uids = array(
+				$uids
+			);
+		}
+		
+		array_walk_recursive($uids, 'intval_string');
+		
+		return $this->fetch_all('reputation_topic', 'uid IN (' . implode(',', $uids) . ')', 'topic_count DESC');
 	}
 	
 	public function calculate_by_uid($uid)

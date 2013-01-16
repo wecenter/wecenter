@@ -823,11 +823,19 @@ class topic_class extends AWS_MODEL
 	}
 
 	/**
-	 * 获取 分类 的热门话题
+	 * 获取热门话题
 	 * @param  $category
+	 * @param  $limit
 	 */
-	public function get_hot_topic($category_id = 0, $limit = 5)
-	{	
+	public function get_hot_topics($category_id = 0, $limit = 5)
+	{
+		$hot_topics = AWS_APP::cache()->get('hot_topics_' . intval($category_id) . '_' . intval($limit));
+		
+		if (is_array($hot_topics))
+		{
+			return $hot_topics;
+		}
+		
 		if ($category_id)
 		{
 			$questions = $this->query_all("SELECT question_id FROM " . get_table('question') . " WHERE answer_count > 0 AND category_id IN(" . implode(',', $this->model('system')->get_category_with_child_ids('question', $category_id)) . ') ORDER BY add_time DESC LIMIT 200');
@@ -850,27 +858,25 @@ class topic_class extends AWS_MODEL
 			return false;
 		}
 		
-		if ($result = $this->query_all('SELECT topic_question.topic_id, topic_question.question_id, topic.topic_description, topic.focus_count, topic.topic_title, topic.topic_pic, topic.url_token, topic.discuss_count, topic.focus_count FROM ' . $this->get_table('topic_question') . ' AS topic_question LEFT JOIN ' . $this->get_table('topic') . ' AS topic ON topic_question.topic_id = topic.topic_id WHERE topic.discuss_count > 1 AND topic_question.question_id IN (' . implode(',', $question_ids) . ')'))
+		if (!$topic_ids_query = $this->fetch_all('topic_question', 'question_id IN (' . implode(',', $question_ids) . ')'))
+		{
+			return false;
+		}
+		
+		foreach ($topic_ids_query AS $key => $val)
+		{
+			$topic_ids[] = $val['topic_id'];
+				
+			$topic_question[$val['topic_id']][$val['question_id']] = $val['question_id'];
+		}
+		
+		if ($result = $this->model('topic')->get_topics_by_ids($topic_ids))
 		{
 			foreach ($result as $key => $val)
 			{
-				$topics[$val['topic_id']]['topic_id'] = $val['topic_id'];
-				$topics[$val['topic_id']]['focus_count'] = $val['focus_count'];
-				$topics[$val['topic_id']]['discuss_count'] = $val['discuss_count'];
-				$topics[$val['topic_id']]['topic_title'] = $val['topic_title'];
-				$topics[$val['topic_id']]['topic_description'] = $val['topic_description'];
-				$topics[$val['topic_id']]['topic_pic'] = $val['topic_pic'];
-				$topics[$val['topic_id']]['question_count'] = intval($topics[$val['topic_id']]['question_count']) + 1;
-				$topics[$val['topic_id']]['scores'] = $topics[$val['topic_id']]['focus_count'] + $topics[$val['topic_id']]['question_count'];
-				
-				if (!$val['url_token'])
-				{
-					$topics[$val['topic_id']]['url_token'] = urlencode($val['topic_title']);
-				}
-				else
-				{
-					$topics[$val['topic_id']]['url_token'] = $val['url_token'];
-				}
+				$topics[$val['topic_id']] = $val;
+				$topics[$val['topic_id']]['question_count'] = sizeof($topic_question[$val['topic_id']]);
+				$topics[$val['topic_id']]['scores'] = $val['focus_count'] + $topics[$val['topic_id']]['question_count'];
 			}
 		}
 		
@@ -893,19 +899,19 @@ class topic_class extends AWS_MODEL
 					$topics = array_slice($topics, 0, $limit);
 				}
 				
-				return array(
+				$hot_topics = array(
 					'topics' => $topics, 
 					'topics_count' => $topics_count
 				);
 			}
-			else
-			{
-				return array(
-					'topics' => array(), 
-					'topics_count' => 0
-				);
-			}
 		}
+		
+		if (!$hot_topics)
+		{
+			$hot_topics = array();
+		}
+		
+		AWS_APP::cache()->set('hot_topics_' . intval($category_id) . '_' . intval($limit), $hot_topics, get_setting('cache_level_low'));
 	}
 
 	/**
