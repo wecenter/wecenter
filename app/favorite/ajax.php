@@ -22,6 +22,15 @@ if (!defined('IN_ANWSION'))
 
 class ajax extends AWS_CONTROLLER
 {
+	public function get_access_rule()
+	{
+		$rule_action['rule_type'] = 'white';
+		
+		$rule_action['actions'] = array();
+		
+		return $rule_action;
+	}
+	
 	function setup()
 	{
 		HTTP::no_cache_header();
