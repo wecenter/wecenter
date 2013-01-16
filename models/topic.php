@@ -930,9 +930,7 @@ class topic_class extends AWS_MODEL
 		{
 			return;
 		}
-		/**
-		 * 找到唯一数据值
-		 */
+		
 		foreach ($log_list as $key => $log)
 		{
 			
