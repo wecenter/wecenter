@@ -1162,7 +1162,7 @@ class topic_class extends AWS_MODEL
 		{
 			if ($best_answer)
 			{
-				if (!$question_ids = $this->model('topic')->get_question_ids_by_topics_ids($topic_ids, $limit, 'best_answer > 0'))
+				if ($question_ids = $this->model('topic')->get_question_ids_by_topics_ids($topic_ids, $limit, 'best_answer > 0'))
 				{
 					if ($best_answers = $this->query_all("SELECT best_answer FROM " . $this->get_table('question') . " WHERE best_answer > 0 AND question_id IN (" . implode(',', $question_ids) . ")"))
 					{
