@@ -41,14 +41,14 @@ class ajax extends AWS_CONTROLLER
 		return $rule_action;
 	}
 
-	function setup()
+	public function setup()
 	{
 		$this->per_page = get_setting('contents_per_page');
 		
 		HTTP::no_cache_header();
 	}
 
-	function user_actions_action()
+	public function user_actions_action()
 	{
 		if ((isset($_GET['perpage']) && intval($_GET['perpage']) > 0))
 		{
@@ -82,45 +82,42 @@ class ajax extends AWS_CONTROLLER
 		}
 	}
 	
-	function user_info_action()
+	public function user_info_action()
 	{
-		if (!$_GET['uid'])
+		if ($this->user_id == $_GET['uid'])
+		{
+			$user_info = $this->user_info;
+		}
+		else if (!$user_info = $this->model('account')->get_user_info_by_uid($_GET['uid'], ture))
 		{
 			H::ajax_json_output(array(
 				'uid' => null
 			));
 		}
 		
-		if (!$user = $this->model('account')->get_user_info_by_uid($_GET['uid'], ture))
+		if ($this->user_id != $user_info['uid'])
 		{
-			H::ajax_json_output(array(
-				'uid' => null
-			));
+			$user_follow_check = $this->model('follow')->user_follow_check($this->user_id, $user_info['uid']);
 		}
 		
-		if ($this->user_id)
-		{
-			$user_follow_check = $this->model('follow')->user_follow_check($this->user_id, $user['uid']);
-		}
-
-		$user_info['reputation'] = intval($user['reputation']);
-		$user_info['agree_count'] = intval($user['agree_count']);
-		$user_info['thanks_count'] = intval($user['thanks_count']);
-		$user_info['type'] = 'people';
-		$user_info['uid'] = $user['uid'];
-		$user_info['user_name'] = $user['user_name'];
-		$user_info['avatar_file'] = get_avatar_url($user['uid'], 'mid');
-		$user_info['signature'] = $user['signature'];
-		$user_info['focus'] = $user_follow_check ? true : false;
-		$user_info['is_me'] = ($this->user_id == $user['uid']) ? true : false;
-		$user_info['url'] = get_js_url('/people/' . $user['url_token']);
-		$user_info['category_enable'] = (get_setting('category_enable') == 'Y') ? 1 : 0;
-		$user_info['verified'] = $user['verified'];
-		
-		H::ajax_json_output($user_info);
+		H::ajax_json_output(array(
+			'reputation' => $user_info['reputation'],
+			'agree_count' => $user_info['agree_count'],
+			'thanks_count' => $user_info['thanks_count'],
+			'type' => 'people',
+			'uid' => $user_info['uid'],
+			'user_name' => $user_info['user_name'],
+			'avatar_file' => get_avatar_url($user_info['uid'], 'mid'),
+			'signature' => $user_info['signature'],
+			'focus' => ($user_follow_check ? true : false),
+			'is_me' => (($this->user_id == $user_info['uid']) ? true : false),
+			'url' => get_js_url('/people/' . $user_info['url_token']),
+			'category_enable' => ((get_setting('category_enable') == 'Y') ? 1 : 0),
+			'verified' => $user_info['verified']
+		));
 	}
 	
-	function follows_action()
+	public function follows_action()
 	{
 		switch ($_GET['type'])
 		{
@@ -137,16 +134,7 @@ class ajax extends AWS_CONTROLLER
 		{
 			foreach ($users_list as $key => $val)
 			{
-				switch ($_GET['type'])
-				{
-					case 'follows':
-						$users_ids[] = $val['friend_uid'];
-					break;
-					
-					case 'fans':
-						$users_ids[] = $val['fans_uid'];
-					break;
-				}
+				$users_ids[] = $val['uid'];
 			}
 			
 			if ($users_ids)
@@ -155,16 +143,7 @@ class ajax extends AWS_CONTROLLER
 					
 				foreach ($users_list as $key => $val)
 				{
-					switch ($_GET['type'])
-					{
-						case 'follows':
-							$users_list[$key]['follow_check'] = $follow_checks[$val['friend_uid']];
-						break;
-						
-						case 'fans':
-							$users_list[$key]['follow_check'] = $follow_checks[$val['fans_uid']];
-						break;
-					}
+					$users_list[$key]['follow_check'] = $follow_checks[$val['uid']];
 				}
 			}
 		}
@@ -174,7 +153,7 @@ class ajax extends AWS_CONTROLLER
 		TPL::output('people/ajax/follows');
 	}
 
-	function topics_action()
+	public function topics_action()
 	{
 		if ($topic_list = $this->model('topic')->get_focus_topic_list($_GET['uid'], (intval($_GET['page']) * $this->per_page) . ", {$this->per_page}") AND $this->user_id)
 		{
