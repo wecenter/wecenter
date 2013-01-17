@@ -81,7 +81,8 @@ class main extends AWS_CONTROLLER
 			20121102,
 			20121109,
 			20121123,
-			20121228
+			20121228,
+			20130111
 		);
 		
 		if (!$this->db_version = get_setting('db_version'))
