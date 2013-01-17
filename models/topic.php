@@ -20,7 +20,6 @@ if (!defined('IN_ANWSION'))
 
 class topic_class extends AWS_MODEL
 {
-
 	/**
 	 * 
 	 * 根据指定条件获取话题数据
