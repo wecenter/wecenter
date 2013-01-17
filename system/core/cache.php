@@ -50,7 +50,7 @@ class core_cache
 		$this->groupPrefix = G_COOKIE_HASH_KEY . $this->groupPrefix;
 		$this->cachePrefix = G_COOKIE_HASH_KEY . $this->cachePrefix;
 		
-		if (sizeof($this->backendOptions) == 0)
+		if ($this->backendName == 'File')
 		{
 			if (!$cache_dir = get_setting('cache_dir'))
 			{
