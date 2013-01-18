@@ -39,7 +39,7 @@ body .i_line{ display:inline-block;}
 
 /* 定位 */
 .i_prl{ position:relative;}
-.i_pas{ position:absolute;}
+.i_pas{ position:absolute; z-index: 2; }
 
 /* 加粗 */
 .i_bold{ font-weight:bold;}

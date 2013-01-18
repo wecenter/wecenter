@@ -2,22 +2,10 @@
 		
 		if (!$_POST['topics'])
 		{
-			if ($question_related_list = $this->model('question')->get_related_question_list(null, $question_content, 3))
-			{
-				foreach ($question_related_list AS $key => $val)
-				{
-					$question_related_ids[] = $val['question_id'];
-				}
-				
-				if ($related_topics = $this->model('question')->get_question_topic_by_question_ids($question_related_ids))
-				{
-					foreach ($related_topics AS $related_topic)
-					{
-						foreach ($related_topic AS $key => $val)
-						{
-							$_POST['topics'][] = $val['topic_title'];
-						}
-					}
-				}
-			}
+			$_POST['topics'] = $this->model('question')->get_related_topics($question_content);
+		}
+		
+		if ($question_detail AND $_POST['_is_mobile'])
+		{
+			$question_detail .= "\n\n" . AWS_APP::lang()->_t('[发送自手机版]');
 		}				if ($this->publish_approval_valid())		{						$this->model('publish')->publish_approval('question', array(				'question_content' => $question_content,				'question_detail' => $question_detail,				'category_id' => $_POST['category_id'],				'topics' => $_POST['topics'],				'anonymous' => $_POST['anonymous'],				'attach_access_key' => $_POST['attach_access_key'],				'ask_user_id' => $_POST['ask_user_id'],				'permission_create_topic' => $this->user_info['permission']['create_topic']			), $this->user_id, $_POST['attach_access_key']);							H::ajax_json_output(AWS_APP::RSM(array(				'url' => get_js_url('/publish/wait_approval/')			), 1, null));		}		else		{			$question_id = $this->model('publish')->publish_question($question_content, $question_detail, $_POST['category_id'], $this->user_id, $_POST['topics'], $_POST['anonymous'], $_POST['attach_access_key'], $_POST['ask_user_id'], $this->user_info['permission']['create_topic']);						if ($_POST['_is_mobile'])			{				$url = get_js_url('/m/question/' . $question_id);			}			else			{				$url = get_js_url('/question/' . $question_id);			}							H::ajax_json_output(AWS_APP::RSM(array(				'url' => $url			), 1, null));		}	}}
