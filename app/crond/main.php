@@ -34,7 +34,7 @@ class main extends AWS_CONTROLLER
 	
 	public function index_action()
 	{
-		$this->run_action();
+		$this->run();
 	}
 	
 	public function run_action()
@@ -58,7 +58,7 @@ class main extends AWS_CONTROLLER
 					}
 				}
 			
-				$call_function = $call_action . '_action';
+				$call_function = $call_action;
 			
 				$this->$call_function($this->user_id);
 			}
@@ -71,43 +71,43 @@ class main extends AWS_CONTROLLER
 	}
 	
 	// 每秒执行
-	public function second_action($user_id = null)
+	public function second($user_id = null)
 	{
 		$this->model('crond')->second($user_id);
 	}
 	
 	// 每半分钟执行
-	public function half_minute_action($user_id = null)
+	public function half_minute($user_id = null)
 	{
-		$this->model('crond')->half_minute($this->user_id);
+		$this->model('crond')->half_minute($user_id);
 	}
 	
 	// 每分钟执行
-	public function minute_action($user_id = null)
+	public function minute($user_id = null)
 	{
 		$this->model('crond')->minute($user_id);
 	}
 	
 	// 每半小时执行
-	public function half_hour_action($user_id = null)
+	public function half_hour($user_id = null)
 	{
 		$this->model('crond')->half_hour($user_id);
 	}
 	
 	// 每小时执行
-	public function hour_action($user_id = null)
+	public function hour($user_id = null)
 	{
 		$this->model('crond')->hour($user_id);
 	}
 	
 	// 每日时执行
-	public function day_action($user_id = null)
+	public function day($user_id = null)
 	{
 		$this->model('crond')->day($user_id);
 	}
 	
 	// 每周执行
-	public function week_action($user_id = null)
+	public function week($user_id = null)
 	{
 		$this->model('crond')->week($user_id);
 	}

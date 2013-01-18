@@ -119,7 +119,7 @@ class core_cache
 			$end_time = (float)$usec + (float)$sec;
 			$stime = sprintf("%06f", $end_time - $start_time);
 			
-			AWS_APP::debug_log('cache', $stime, 'Save Cache: ' . $key);
+			AWS_APP::debug_log('cache', $stime, 'Save Cache: ' . $key . ', result type: ' . gettype($value));
 		}
 		
 		return $result;
@@ -150,7 +150,7 @@ class core_cache
 			$end_time = (float)$usec + (float)$sec;
 			$stime = sprintf("%06f", $end_time - $start_time);
 			
-			AWS_APP::debug_log('cache', $stime, 'Get Cache: ' . $key . ', result type: ' .gettype($result));
+			AWS_APP::debug_log('cache', $stime, 'Get Cache: ' . str_replace($this->groupPrefix, '', $key) . ', result type: ' . gettype($result));
 		}
 
 		return $result;
