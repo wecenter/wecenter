@@ -23,13 +23,13 @@
 	$(document).bind('pageinit', function () {
 		if ($.trim($('#explore_listview').html()) == '')
 		{
-			load_list_view(G_BASE_URL + '/question/ajax/discuss/sort_type-' + $('#listview_type').val()  + '__template-m', $('#explore_listview'), $('#load_explore'), 1);
+			load_list_view(G_BASE_URL + '/question/ajax/discuss/?sort_type=' + $('#listview_type').val()  + '&template=m', $('#explore_listview'), $('#load_explore'), 1);
 		}
 		
 		$('#listview_type').change(function () {
 			$('#listview').empty();
 			
-			load_list_view(G_BASE_URL + '/question/ajax/discuss/sort_type-' + $('#listview_type').val()  + '__template-m', $('#explore_listview'), $('#load_explore'), 1);
+			load_list_view(G_BASE_URL + '/question/ajax/discuss/?sort_type=' + $('#listview_type').val()  + '&template=m', $('#explore_listview'), $('#load_explore'), 1);
 		});
 	});
 </script>
