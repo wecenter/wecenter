@@ -27,11 +27,12 @@
 <script type="text/javascript">
 	var search_query = '<?php echo addslashes($this->keyword); ?>';
 	var split_query = '<?php echo addslashes($this->split_keyword); ?>';
+	var request_uri = G_BASE_URL + '/search/ajax/search_result/search_type-<?php echo $this->search_type; ?>__q-{q}__template-m';
 	
 	$(document).bind('pageinit', function () {
 		if ($.trim($('#search_result_listview').html()) == '')
 		{
-			load_list_view(G_BASE_URL + '/search/ajax/search_result/?search_type=<?php echo $this->search_type; ?>&q=' + encodeURIComponent(search_query) + '&template=m', $('#search_result_listview'), $('#load_search_result'));
+			load_list_view(request_uri.replace('{q}', encodeURIComponent(search_query)), $('#search_result_listview'), $('#load_search_result'));
 		}
 	});
 </script>
