@@ -4,6 +4,10 @@ var COMMENT_UNFOLD;
 var QUESTION_ID;
 var UNINTERESTED_COUNT;
 
+// for codemirror
+var mode = 'basic';
+var editor = null;
+
 $(document).ready(function () {
 	if ($('#c_log_list').attr('id'))
 	{
@@ -93,7 +97,21 @@ $(document).ready(function () {
 	});
 
     $('#question_detail').markItUp(myMarkdownSettings);
-    $('.markItUpButton10 a').addClass('cur');
+    $.setEditorPreview();
+
+    setInterval(function(){
+    	if(editor != null){
+	    	editor.save();
+	        var content = Markdown($('#question_detail').val());
+	        $('#markItUpPreviewFrames').html(content);
+    	}
+    	var content = $('#question_detail').val().split(/\r?\n/);
+    	if(content.length > 5 && content.length < 30){
+    		$('#question_detail').height(content.length * 21).css('overflow', 'hidden');
+    	} else if (content.length >= 30) {
+    		$('#question_detail').height(30 * 21).css('overflow', 'auto');
+    	}
+    }, 500);
 });
 
 function answer_force_fold(answer_id, element)

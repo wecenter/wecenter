@@ -33,7 +33,7 @@
 		<div class="a_qsAsk">
 			<h4><?php _e('问题补充 (选填)'); ?>:</h4>
 			<div class="a_qsReplenish">
-				<textarea name="question_detail" id="question_detail" class="i_glotxtClass i_txtHeight a_qstxt advanced_editor" onFocus="$.focus(this,'');" rows="10"><?php echo $this->question_info['question_detail']; ?></textarea>
+				<textarea name="question_detail" id="question_detail" class="i_glotxtClass i_txtHeight a_qstxt advanced_editor" onFocus="$.focus(this,'');"><?php echo $this->question_info['question_detail']; ?></textarea>
                
 					<div class="i_acceMain">
 						<div class="i_uploadMain" id="file_uploader_question">
@@ -126,10 +126,29 @@
 		})
     });
 
+
+    var mode = 'basic';
+    var editor = null;
+
     $(function() {
         $('#question_detail').markItUp(myMarkdownSettings);
-        $('.markItUpButton10 a').addClass('cur');
+        $.setEditorPreview();
     });
+
+    setInterval(function(){
+    	if(editor != null){
+	    	editor.save();
+	        var content = Markdown($('#question_detail').val());
+	        $('#markItUpPreviewFrames').html(content);
+    	}
+
+    	var content = $('#question_detail').val().split(/\r?\n/);
+    	if(content.length > 5 && content.length < 30){
+    		$('#question_detail').height(content.length * 21).css('overflow', 'hidden');
+    	} else if (content.length >= 30) {
+    		$('#question_detail').height(30 * 21).css('overflow', 'auto');
+    	}
+    }, 500);
 </script>
 
 <?php TPL::output('global/footer.tpl.htm'); ?>

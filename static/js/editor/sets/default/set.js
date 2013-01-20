@@ -12,6 +12,10 @@ myMarkdownSettings = {
     },
     previewInElement : '#markItUpPreviewFrames',
     onShiftEnter:       {keepDefault:false, openWith:'\n\n'},
+    onCtrlEnter:       {keepDefault:false, openWith:function(){      
+        // 当ctrl+enter时提交表单
+        $('.i_replay_but2').click();
+    }},
     markupSet: [
         {name:_t('粗体'), key:"B", openWith:'**', closeWith:'**'},
         {name:_t('斜体'), key : "I", openWith : '*', closeWith : '*'},
@@ -25,18 +29,21 @@ myMarkdownSettings = {
         }},
         {separator:'---------------' },
         {name:_t('图片'), key:"P", openWith:function(){$.uploadPicture()}},
+        {name:_t('视频'), key:"Y", openWith:function(){$.uploadVideo()}},
         {separator:'---------------'},
         {name:_t('大标题'), key : "1", openWith:'\n## '},
         {name:_t('小标题'), key : "2", openWith : '\n### ' },
         {separator:'---------------'},
         {name : _t('预览模式'), openWith:function(){
-            $('.markItUpButton10 a').toggleClass('cur');
+            $('.markItUpButton11 a').toggleClass('cur');
             $('#markItUpPreviewFrame').toggle();
+            $.cookie('data_editor_preview', !$.cookie('data_editor_preview'));
         }}, 
         {name : _t('清空'), openWith:function(){
             $('#question_detail').val('');
             $('#markItUpPreviewFrames').html('');
-        }}
+        }},
+        {name:'ToggleMode', call:'toggleMode', className:"toggleMode"}
     ]
 }
 

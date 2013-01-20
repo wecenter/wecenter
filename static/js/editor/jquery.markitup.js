@@ -196,7 +196,7 @@
 								eval(button.call)();
 							}
                             setTimeout(function() {
-                                markup(button) 
+                            	$.insertIntoCodemirror(markup, button);
                             },1);
 							return false;
 						}).bind('mouseenter.markItUp', function() {
@@ -504,6 +504,21 @@
 					previewWindow.focus();
 				}
 			}
+
+		    function toggleMode(){
+		    	if('basic' == mode){
+					editor = CodeMirror.fromTextArea(document.getElementById("question_detail"), {
+						mode: 'markdown',
+						lineNumbers: true,
+						theme: "default",
+						extraKeys: {"Enter": "newlineAndIndentContinueMarkdownList"}
+					});
+		    	}else{
+		    		editor.toTextArea();
+		    		editor = null;
+		    	}
+		    	mode = 'basic' == mode ? 'advance' : 'basic';
+		    }
 
 			// refresh Preview window
 			function refreshPreview() {

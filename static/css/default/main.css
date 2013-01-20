@@ -671,14 +671,15 @@ a.v_more{ font-size:13px !important; font-weight:normal;}
 .markItUp .markItUpButton5 a { background-position: -217px -6px;}
 .markItUp .markItUpButton6 a { background-position: -247px -6px;}
 .markItUp .markItUpButton7 a { background-position: -307px -6px;}
-/* .markItUp .markItUpButton8 a { background-position: -366px -6px;} */
-.markItUp .markItUpButton8 a { background-position: -427px -7px;}
-.markItUp .markItUpButton9 a { background-position: -454px -7px;}
-.markItUp .markItUpButton10 a{ background-position: -492px -6px;float:right;height:18px;margin-top:-1px;}
-.markItUp .markItUpButton10 a.cur{background-position: -534px -6px;}
-.markItUp .markItUpButton11 a { background-position: -570px -6px;margin-left:5px;}
+.markItUp .markItUpButton8 a { background-position: -337px -6px;}
+.markItUp .markItUpButton9 a { background-position: -427px -7px;}
+.markItUp .markItUpButton10 a { background-position: -454px -7px;}
+.markItUp .markItUpButton11 a{ background-position: -492px -6px;float:right;height:18px;margin-top:-1px;}
+.markItUp .markItUpButton11 a.cur{background-position: -534px -6px;}
+.markItUp .markItUpButton12 a { background-position: -570px -6px;}
+.markItUp .markItUpButton13 a { background-position: -277px -6px;margin-left:5px;}
 
-.markItUp .markItUpButton10 {position:absolute; right:0;}
+.markItUp .markItUpButton11 {position:absolute; right:0;}
 
 /*收藏夹*/
 .sC_collectFloating{ border-bottom:1px solid #C1CAD4; padding:10px 0 0 85px; overflow:hidden;}
