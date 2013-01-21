@@ -121,6 +121,10 @@
 						<label><?php _e('一小时内发表回复超过规定条数需要验证码 (设置 0 为不限制)'); ?>:</label>
 						<input type="text" name="answer_valid_hour" class="text-input small-int" value="<?php echo intval($this->group_pms['answer_valid_hour']); ?>">
 					</p>
+					<p>
+						<label><?php _e('编辑话题 / 添加话题 / 话题重定向功能使用间隔限制 (单位: 秒, 设置 0 为不限制, 对管理员无效)'); ?>:</label>						
+						<input type="text" name="function_interval" class="text-input small-int" value="<?php echo intval($this->group_pms['function_interval']); ?>">
+					</p>
 					<?php } else { ?>
 					<p>
 						<label><?php _e('允许浏览网站'); ?>:</label>
