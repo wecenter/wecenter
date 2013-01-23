@@ -79,7 +79,7 @@ class core_image
 		return $this;
 	}
 	
-	public function Resize()
+	public function resize()
 	{
 		if (!file_exists($this->source_image))
 		{
