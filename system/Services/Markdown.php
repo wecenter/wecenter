@@ -424,10 +424,13 @@ str_repeat('
 		# Process character escapes, code spans, and inline HTML
 		# in one shot.
 		"parseSpan" => - 30, 
+
+		# !![foo](url) video
+		"doVideos" => 10, 
 		
 		# Process anchor and image tags. Images must come first,
 		# because ![foo][f] looks like an anchor.
-		"doImages" => 10, 
+		"doImages" => 20, 
 		
 		# Make links out of things like `<http://example.com/>`
 		# Must come after doAnchors, because you can use < and >
@@ -578,6 +581,50 @@ str_repeat('
 		$result .= $this->empty_element_suffix;
 		
 		return $this->hashPart($result);
+	}
+
+	function doVideos($text)
+	{
+		$text = preg_replace_callback('{
+				(				# wrap whole match in $1
+				  !!\[
+					(' . $this->nested_brackets_re . ')		# alt text = $2
+				  \]
+				  \s?			# One optional whitespace character
+				  \(			# literal paren
+					[ \n]*
+					(?:
+						<(\S*)>	# src url = $3
+					|
+						(' . $this->nested_url_parenthesis_re . ')	# src url = $4
+					)
+					[ \n]*
+					(			# $5
+					  ([\'"])	# quote char = $6
+					  (.*?)		# title = $7
+					  \6		# matching quote
+					  [ \n]*
+					)?			# title is optional
+				  \)
+				)
+				}xs', array(
+			&$this, 
+			'_doVideos_callback'
+		), $text);
+		
+		return $text;
+	}
+
+	function _doVideos_callback($matches)
+	{
+		$whole_match = $matches[1];
+		$video_text = $matches[2];
+		$url = $matches[3] == '' ? $matches[4] : $matches[3];
+		
+		$Video_Parser = load_class('Services_VideoUrlParser');
+		$video_content = $Video_Parser->parse($url);
+		
+		return $this->hashPart($video_content['object']);
 	}
 
 	function doHeaders($text)
