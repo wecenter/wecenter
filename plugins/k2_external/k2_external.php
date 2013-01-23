@@ -20,18 +20,18 @@ if (!defined('IN_ANWSION'))
 
 class k2_external_class extends AWS_MODEL
 {
-	public function format_js_question_output($ul_class, $data)
+	public function format_js_question_output($data)
 	{
 		if ($data)
 		{
 			foreach ($data AS $key => $val)
-			{
+			{				
 				if ($val['title'])
 				{
 					$val['question_content'] = $val['title'];
 				}
 				
-				$output .='<div class="item"><div class="user"><ul><li class="u"><a href="' . get_js_url('/people/' . $val['user_info']['url_token']) . '">' . $val['user_info']['user_name'] . '</a></li><li class="r">' . $val['answer_content'] . ' 条回复</li><li class="t">' . date_friendly($val['update_time'], 2592000) . '</li></ul></div><div class="cnt"><h3><a href="' . get_js_url('/question/' . $val['question_id']) . '">' . $val['question_content'] . '</a></h3><dl class="inf">';
+				$output .='<div class="item"><div class="user"><ul><li class="u"><a href="' . get_js_url('/people/' . $val['user_info']['url_token']) . '">' . $val['user_info']['user_name'] . '</a></li><li class="r">' . $val['answer_count'] . ' 条回复</li><li class="t">' . date_friendly($val['update_time'], 2592000) . '</li></ul></div><div class="cnt"><h3><a href="' . get_js_url('/question/' . $val['question_id']) . '">' . $val['question_content'] . '</a></h3><dl class="inf">';
 				
 				if ($val['category_info']['title'])
 				{
