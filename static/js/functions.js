@@ -22,27 +22,20 @@ jQuery.fn.extend({
 
 function _t(string, replace)
 {	
-	if (typeof(aws_lang) == 'undefined')
+	if (typeof(aws_lang) != 'undefined')
 	{
-		if (replace)
+		if (typeof(aws_lang[string]) != 'undefined')
 		{
-			string = string.replace('%s', replace);
+			string = aws_lang[string];
 		}
-		
-		return string;
 	}
 	
-	if (aws_lang[string])
+	if (replace)
 	{
-		string = aws_lang[string];
+		string = string.replace('%s', replace);
+	}
 		
-		if (replace)
-		{
-			string = string.replace('%s', replace);
-		}
-		
-		return string;
-	}	
+	return string;
 }
 
 function ajax_request(url, params)

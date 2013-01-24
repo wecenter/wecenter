@@ -41,7 +41,7 @@ class js extends AWS_CONTROLLER
 			$_GET['limit'] = 10;
 		}
 		
-		echo $this->model('k2_external')->format_js_question_output($this->model('question')->get_questions_list(null, $_GET['limit'], 'new', $_GET['topic_ids'], $_GET['category_id'], null, $_GET['day']));
+		echo $this->model('k2_external')->format_js_question_output($this->model('question')->get_questions_list(1, intval($_GET['limit']), 'new', $_GET['topic_ids'], $_GET['category_id'], null, $_GET['day']));
 	}
 	
 	public function hot_users_action()
