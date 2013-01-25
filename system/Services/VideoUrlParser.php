@@ -72,44 +72,60 @@ class Services_VideoUrlParser
 	static public function parse($url = '', $createObject = true)
 	{
 		$lowerurl = strtolower($url);
-		preg_match(self::CHECK_URL_VALID, $lowerurl, $matches);
-		if (!$matches)
-			return false;
 		
-		switch ($matches[1])
+		preg_match(self::CHECK_URL_VALID, $lowerurl, $matches);
+		
+		if (!$matches)
 		{
-			case 'youku.com' :
-				$data = self::_parseYouku($url);
-				break;
-			case 'tudou.com' :
-				$data = self::_parseTudou($url);
-				break;
-			case 'ku6.com' :
-				$data = self::_parseKu6($url);
-				break;
-			case '56.com' :
-				$data = self::_parse56($url);
-				break;
-			case 'letv.com' :
-				$data = self::_parseLetv($url);
-				break;
-			case 'video.sina.com.cn' :
-				$data = self::_parseSina($url);
-				break;
-			case 'my.tv.sohu.com' :
-			case 'tv.sohu.com' :
-			case 'sohu.com' :
-				$data = self::_parseSohu($url);
-				break;
-			case 'v.qq.com' :
-				$data = self::_parseQq($url);
-				break;
-			default :
-				$data = false;
+			return false;
+		}
+		
+		if (!$data = AWS_APP::cache()->get('video_parse_' . md5($url)))
+		{
+			switch ($matches[1])
+			{
+				case 'youku.com' :
+					$data = self::_parseYouku($url);
+					break;
+				case 'tudou.com' :
+					$data = self::_parseTudou($url);
+					break;
+				case 'ku6.com' :
+					$data = self::_parseKu6($url);
+					break;
+				case '56.com' :
+					$data = self::_parse56($url);
+					break;
+				case 'letv.com' :
+					$data = self::_parseLetv($url);
+					break;
+				case 'video.sina.com.cn' :
+					$data = self::_parseSina($url);
+					break;
+				case 'my.tv.sohu.com' :
+				case 'tv.sohu.com' :
+				case 'sohu.com' :
+					$data = self::_parseSohu($url);
+					break;
+				case 'v.qq.com' :
+					$data = self::_parseQq($url);
+					break;
+				default :
+					$data = false;
+			}
+			
+			if ($data)
+			{
+				AWS_APP::cache()->set('video_parse_' . md5($url), $data, 86400, 'video_parser');
+			}
+			
 		}
 		
 		if ($data && $createObject)
+		{
 			$data['object'] = "<embed src=\"{$data['swf']}\" quality=\"high\" width=\"480\" height=\"400\" align=\"middle\" allowNetworking=\"all\" allowScriptAccess=\"always\" type=\"application/x-shockwave-flash\" wmode=\"transparent\"></embed>";
+		}
+		
 		return $data;
 	}
 	/**
