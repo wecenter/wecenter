@@ -5,7 +5,6 @@
 * developer:诸葛浮云
 * Email:globalbreak@gmail.com 
 * Copyright © 2012 - Anwsion社区, All Rights Reserved 
-* Date:2012-08-01
 *+--------------------------------------+*/
 
 //登陆背景图轮播
@@ -386,7 +385,7 @@ var logPicture = [
 				},
 				//用户名
 				User:{
-					focus:'',
+					focus: _t('请输入一个 2-14 位的用户名'),
 					blur: '<em class="regErr_ico i_small"></em>' + _t('用户名不符合规则')
 				},
 				//账户
@@ -422,28 +421,38 @@ var logPicture = [
 								if(s.val() == _t('用户名')) {
 									s.val('');
 								}
-								_seif.n != null ? (_seif.tips(s,_seif.class_id.focus,_seif.n)) :
-								$.ajax({
-									type:'GET',
-									url:G_BASE_URL+"/account/ajax/check_username/",
-									beforeSend: function() {
-											_seif.tips(s,_seif.class_id.load,'');
-									},
-									success: function(x) {
-										var result = new Function('return'+ x)();
-										if(result.errno == -1) {
-											_seif.tips(s,_seif.class_id.focus,_seif.n = result.err);	
-										}
-									}	
-								});
+								//_seif.n != null ? (_seif.tips(s,_seif.class_id.focus,_seif.n)) :
+								_seif.tips($(this),_seif.class_id.focus,_seif.User.focus);
+
+								if (s.val())
+								{
+									$.ajax({
+										type:'GET',
+										url:G_BASE_URL+"/account/ajax/check_username/",
+										beforeSend: function() {
+												_seif.tips(s,_seif.class_id.load,'');
+										},
+										success: function(x) {
+											var result = new Function('return'+ x)();
+											if(result.errno == -1) {
+												_seif.tips(s,_seif.class_id.focus,_seif.n = result.err);	
+											}
+										}	
+									});
+								}
+								
 								s.addClass('i_cur');
 							})
 							
 							.blur(function() {
 								var s = $(this);
-								if(s.val() == '') {
+
+								if (s.val() == '') {
 									s.val(_t('用户名'));
+									_seif.tips(s, '', '');
 								}
+								else
+								{
 									$.ajax({
 										type:'GET',
 										url:G_BASE_URL+"/account/ajax/check_username/username-" + encodeURIComponent(s.val()),
@@ -460,6 +469,8 @@ var logPicture = [
 										}
 										
 									});
+								}
+
 								s.removeClass('i_cur');
 							})
 							
