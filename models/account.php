@@ -1336,14 +1336,9 @@ class account_class extends AWS_MODEL
 		{
 			foreach ($friends as $key => $val)
 			{
-				$follow_uid = intval($val['uid']);
+				$follow_uids[] = $follow_uid;
 				
-				if ($follow_uid)
-				{
-					$follow_uids[] = $follow_uid;
-				
-					$follow_users_info[$follow_uid] = $val;
-				}
+				$follow_users_info[$follow_uid] = $val;
 			}
 		}
 		
@@ -1351,6 +1346,8 @@ class account_class extends AWS_MODEL
 		{
 			return $this->get_users_list(false, $limit, true);
 		}
+		
+		array_walk_recursive($follow_uids, 'intval_string');
 		
 		if ($users_focus = $this->query_all("SELECT DISTINCT friend_uid, fans_uid FROM " . $this->get_table('user_follow') . " WHERE fans_uid IN(" . implode($follow_uids, ',') . ") ORDER BY follow_id DESC", $limit))
 		{

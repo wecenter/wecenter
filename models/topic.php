@@ -682,6 +682,8 @@ class topic_class extends AWS_MODEL
 			return $this->get_topic_list("topic_id NOT IN(" . implode($topic_focus_ids, ',') . ")", $limit, 'topic_id DESC');
 		}
 		
+		array_walk_recursive($topic_focus_ids, 'intval_string');
+		
 		if ($topic_focus = $this->query_all("SELECT DISTINCT topic_id, uid FROM " . $this->get_table("topic_focus") . " WHERE uid IN(" . implode($follow_uids, ',') . ") AND topic_id NOT IN (" . implode($topic_focus_ids, ',') . ") ORDER BY focus_id DESC LIMIT " . $limit))
 		{
 			foreach ($topic_focus as $key => $val)
