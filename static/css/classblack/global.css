@@ -449,4 +449,5 @@ a.v,em.v{ display:inline-block !important; width:15px !important; height:13px !i
 .rd_message{margin:-25px auto 5px; width:960px;}
 .rd_message > .qs_reset{height: 30px; line-height: 30px; padding:0px 20px; background-color:#FFFCCF; border:1px solid #ddd; margin-bottom:5px;}
 
-
+.markItUpPreviewFrame { border-radius:5px;margin-bottom:10px; }
+.markItUpPreviewFrame h2.title { font-size:14px;font-weight:bold;color:#333;padding-bottom:5px;border-bottom:1px solid #ccc;margin-bottom:10px; }

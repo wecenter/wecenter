@@ -450,4 +450,5 @@ a.v,em.v{ display:inline-block !important; width:15px !important; height:13px !i
 .i_alink{display:inline-block;width:18px;height:18px; background-position:-30px -2422px;vertical-align:middle;}
 .qs_reset{height: 30px; line-height: 30px; border-left: 1px solid #C9C9C9; border-right:1px solid #C9C9C9; padding:0px 30px; width:898px;margin:0 auto;  background-color:#FFFCCF; border-bottom: 1px solid #ddd;}
 
-
+.markItUpPreviewFrame { border-radius:5px;margin-bottom:10px; }
+.markItUpPreviewFrame h2.title { font-size:14px;font-weight:bold;color:#333;padding-bottom:5px;border-bottom:1px solid #ccc;margin-bottom:10px; }

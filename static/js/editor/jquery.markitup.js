@@ -24,6 +24,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 // ----------------------------------------------------------------------------
+
+var advanced_editor_mode = 'basic';
+var advanced_editor = null;
+
 (function($) {
 	$.fn.markItUp = function(settings, extraSettings) {
 		var method, params, options, ctrlKey, shiftKey, altKey; ctrlKey = shiftKey = altKey = false;
@@ -506,18 +510,19 @@
 			}
 
 		    function toggleMode(){
-		    	if('basic' == mode){
-					editor = CodeMirror.fromTextArea(document.getElementById("question_detail"), {
+		    	if('basic' == advanced_editor_mode){
+					advanced_editor = CodeMirror.fromTextArea(document.getElementById("advanced_editor"), {
 						mode: 'markdown',
 						lineNumbers: true,
 						theme: "default",
 						extraKeys: {"Enter": "newlineAndIndentContinueMarkdownList"}
 					});
 		    	}else{
-		    		editor.toTextArea();
-		    		editor = null;
+		    		advanced_editor.toTextArea();
+		    		advanced_editor = null;
 		    	}
-		    	mode = 'basic' == mode ? 'advance' : 'basic';
+		    	
+		    	advanced_editor_mode = 'basic' == advanced_editor_mode ? 'advance' : 'basic';
 		    }
 
 			// refresh Preview window

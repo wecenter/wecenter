@@ -33,14 +33,15 @@
 		<div class="a_qsAsk">
 			<h4><?php _e('问题补充 (选填)'); ?>:</h4>
 			<div class="a_qsReplenish">
-				<textarea name="question_detail" id="question_detail" class="i_glotxtClass i_txtHeight a_qstxt advanced_editor" onFocus="$.focus(this,'');"><?php echo $this->question_info['question_detail']; ?></textarea>
+				<textarea name="question_detail" id="advanced_editor" class="i_glotxtClass i_txtHeight a_qstxt" onFocus="$.focus(this,'');"><?php echo $this->question_info['question_detail']; ?></textarea>
                
 					<div class="i_acceMain">
 						<div class="i_uploadMain" id="file_uploader_question">
 							
 						</div>
-						<div class="markItUpPreviewFrame" id="markItUpPreviewFrame" style="border-radius:5px;margin-bottom:10px;">
-							<h2 style="font-size:14px;font-weight:bold;color:#333;padding-bottom:5px;border-bottom:1px solid #ccc;margin-bottom:10px;">
+						
+						<div class="markItUpPreviewFrame" id="markItUpPreviewFrame">
+							<h2 class="title">
 								<?php _e('预览模式'); ?>:
 							</h2>
 							<div id="markItUpPreviewFrames" class="preview_div tags_Mark">
@@ -81,7 +82,7 @@
 				<?php if (!$this->question_info['question_id'] AND get_setting('anonymous_enable') == 'Y') { ?>
 				<span class="i_anonymity"><input type="checkbox" name="anonymous" value="1" id="i_anonymity"><label for="i_anonymity"><?php _e('匿名'); ?></label></span>
 				<?php } ?>
-				<a class="i_replay_but2" href="javascript:;" id="startQs_submite"><?php _e('确认发起'); ?></a>
+				<a class="i_replay_but2" href="javascript:;" onclick="$('#question_contents').focus(); ajax_post($('#question_form'));"><?php _e('确认发起'); ?></a>
 			</div>
 </div>		
 </form>
@@ -110,45 +111,11 @@
 	
 	$(document).ready(function(e) {
         $('#category_id').length == 0 ? ($('#category_list').hide(),$('#category_list').parent().addClass('category_list')) :'';
+        
 		$('#category_id').val() > 0 ? $('#category_container').click() : '';
-		$('#question_contents').changeElement($.searchEventQs);
 		
-		$('#startQs_submite').click(function(){
-			if ($('#question_contents').val() == '<?php _e('问题标题'); ?>...' || $.trim($('#question_contents').val()).length == 0){
-				$.alert('<?php _e('请输入问题标题'); ?>...')
-				return;
-			}else if ($('#category_id').length > 0 && $('#category_id').val().length == 0){
-				$.alert('<?php _e('请选择问题的分类'); ?>...')
-				return;
-			}else{
-				ajax_post($('#question_form'));
-			}
-		})
+		$('#question_contents').changeElement($.searchEventQs);
     });
-
-
-    var mode = 'basic';
-    var editor = null;
-
-    $(function() {
-        $('#question_detail').markItUp(myMarkdownSettings);
-        $.setEditorPreview();
-    });
-
-    setInterval(function(){
-    	if(editor != null){
-	    	editor.save();
-	        var content = Markdown($('#question_detail').val());
-	        $('#markItUpPreviewFrames').html(content);
-    	}
-
-    	var content = $('#question_detail').val().split(/\r?\n/);
-    	if(content.length > 5 && content.length < 30){
-    		$('#question_detail').height(content.length * 21).css('overflow', 'hidden');
-    	} else if (content.length >= 30) {
-    		$('#question_detail').height(30 * 21).css('overflow', 'auto');
-    	}
-    }, 500);
 </script>
 
 <?php TPL::output('global/footer.tpl.htm'); ?>
