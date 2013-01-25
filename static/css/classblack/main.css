@@ -408,7 +408,7 @@
 .t_topic_index >.u_topicHead >img { width:50px; height:50px; }
 .v_headSet >.v_user-headimgs img,
 .c_mainData .c_userPic >img{ width:100px; height:100px;}
-.t_topic_index >.u_topicHead >.q_editor{ width:22px; height:22px;  position:absolute; z-index:99; top:70px; right:15px; background-color:#92908d; overflow:hidden; line-height:99em; padding:0; background-position:-30px -320px; visibility:visible !important;}
+.t_topic_index >.u_topicHead >.q_editor{ width:22px; height:22px; position:absolute; z-index:99; top:26px; right:2px; background-color:#FFF; overflow:hidden; line-height:99em; padding:0; background-position:-30px -320px; visibility:visible !important; text-indent: -99px; -moz-opacity: 0.5; -webkit-opacity: 0.5; opacity: 0.5; }
 .t_topic_index >h3{ min-height:25px; padding-bottom:15px; line-height:22px; margin-bottom:10px;}
 .t_topic_index >h3 >b{ font-size:20px;}
 .t_topic_index >h3 em.i_lock{ display:inline-block; width:9px; height:12px; background-position:-33px -1992px; overflow:hidden; line-height:99em; margin-left:7px;}
@@ -639,13 +639,13 @@ a.v_more{ font-size:13px !important; font-weight:normal;}
 #clickEve_v2_0 .bds_tools a{display:inline-block!important;width:60px;margin-bottom:10px; line-height:16px;}
 
 /* markItUp */
-.markItUp { width: 620px; }
+.markItUp {  }
 .markItUpPreviewFrame {background:#fafafa; border: 1px solid #ccc; padding:10px; font-size:12px; color:#666;margin-top:15px;}
-.markItUpFooter { width: 100%; cursor: n-resize; }
-.markItUpResizeHandle { overflow: hidden; width: 22px; height: 5px; margin-left: auto; margin-right: auto; background-image: url(images/handle.png); cursor: n-resize; }
+.markItUpFooter { cursor: n-resize; border:1px solid #ccc;border-width:0 1px;}
+.markItUpResizeHandle { overflow: hidden; width: 22px; height: 5px; margin-left: auto; margin-right: auto; background-image: url(img/handle.png); cursor: n-resize; }
 /***************************************************************************************/
 /* first row of buttons */
-.markItUpHeader ul li { list-style: none; float: left; position: relative; margin-bottom:5px; max-width:22px;}
+.markItUpHeader ul li { list-style: none; float: left; position: relative; margin-bottom:5px; max-width:22px; }
 .markItUpHeader ul li ul { display: none; }
 .markItUpHeader ul li:hover > ul { display: block; }
 .markItUpHeader ul .markItUpDropMenu { background: transparent url(images/menu.png) no-repeat 115% 50%; margin-right: 5px; }
@@ -669,6 +669,7 @@ a.v_more{ font-size:13px !important; font-weight:normal;}
 
 .markItUp .preview a { background-image: url(images/preview.png); }
 
+.markItUp ul {position:relative;}
 .markItUp .markItUpButton1 a { background-position: -4px -6px;}
 .markItUp .markItUpButton2 a { background-position: -35px -6px;}
 .markItUp .markItUpButton3 a { background-position: -97px -6px;}
@@ -676,12 +677,15 @@ a.v_more{ font-size:13px !important; font-weight:normal;}
 .markItUp .markItUpButton5 a { background-position: -217px -6px;}
 .markItUp .markItUpButton6 a { background-position: -247px -6px;}
 .markItUp .markItUpButton7 a { background-position: -307px -6px;}
-/* .markItUp .markItUpButton8 a { background-position: -366px -6px;} */
-.markItUp .markItUpButton8 a { background-position: -427px -7px;}
-.markItUp .markItUpButton9 a { background-position: -454px -7px;}
-.markItUp .markItUpButton10 a{ background-position: -492px -6px;float:right;height:18px;margin-top:-1px;}
-.markItUp .markItUpButton10 a.cur{background-position: -534px -6px;}
-.markItUp .markItUpButton11 a { background-position: -570px -6px;margin-left:5px;}
+.markItUp .markItUpButton8 a { background-position: -337px -6px;}
+.markItUp .markItUpButton9 a { background-position: -427px -7px;}
+.markItUp .markItUpButton10 a { background-position: -454px -7px;}
+.markItUp .markItUpButton11 a{ background-position: -492px -6px;float:right;height:18px;margin-top:-1px;}
+.markItUp .markItUpButton11 a.cur{background-position: -534px -6px;}
+.markItUp .markItUpButton12 a { background-position: -570px -6px;}
+.markItUp .markItUpButton13 a { background-position: -277px -6px;margin-left:5px;}
+
+.markItUp .markItUpButton11 {position:absolute; right:0;}
 
 /*收藏夹*/
 .sC_collectFloating{ border-bottom:1px solid #C1CAD4; padding:10px 0 0 85px; overflow:hidden; margin:0 20px;}
