@@ -13,30 +13,25 @@
 */
 
 class H
-{
-
-	/**
-	 * 获取文件扩展名
-	 * @param string $filename 文件名
-	 */
-	
-	public static function get_file_ext($filename)
+{	
+	public static function get_file_ext($file_name, $merge_type = true)
 	{
-		$filename = explode('.', $filename);
+		$file_ext = end(explode('.', $file_name));
 		
-		$ext_count = sizeof($filename) - 1;
-		
-		if ($filename[$ext_count] == 'jpeg' or $filename[$ext_count] == 'jpe')
+		if ($merge_type)
 		{
-			$filename[$ext_count] = 'jpg';
+			if ($file_ext == 'jpeg' or $file_ext == 'jpe')
+			{
+				$file_ext = 'jpg';
+			}
+			
+			if ($file_ext == 'htm')
+			{
+				$file_ext = 'html';
+			}
 		}
 		
-		if ($filename[$ext_count] == 'htm')
-		{
-			$filename[$ext_count] = 'html';
-		}
-		
-		return strtolower($filename[$ext_count]);
+		return $file_ext;
 	}
 
 	/**

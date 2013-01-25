@@ -29,13 +29,25 @@ class main extends AWS_CONTROLLER
 	
 	public function dump_action()
 	{
-		$lang = $this->model('system')->fetch_all('lang', null);
+		$lang = $this->model('system')->fetch_all('lang', "type = '" . $this->model('system')->quote($_GET['type']) . "'");
 		
-		$file_content = "<?php \r\n\r\n";
-		
-		foreach ($lang AS $key => $data)
+		if ($_GET['type'] == 'js')
 		{
-			$file_content .= '$language[\'' . addcslashes($data['string'], "'") . '\'] = \'' . addcslashes($data['string'], "'") . "';\r\n";
+			$file_content = "var aws_lang = new Array();\r\n\r\n";
+		
+			foreach ($lang AS $key => $data)
+			{
+				$file_content .= 'aws_lang[\'' . addcslashes($data['string'], "'") . '\'] = \'' . addcslashes($data['string'], "'") . "';\r\n";
+			}
+		}
+		else
+		{
+			$file_content = "<?php\r\n\r\n";
+		
+			foreach ($lang AS $key => $data)
+			{
+				$file_content .= '$language[\'' . addcslashes($data['string'], "'") . '\'] = \'' . addcslashes($data['string'], "'") . "';\r\n";
+			}
 		}
 		
 		echo $file_content;
@@ -43,19 +55,8 @@ class main extends AWS_CONTROLLER
 	
 	public function models_action()
 	{
-		$dir_handle = opendir(ROOT_PATH . 'models/openid/');
-	    
-	    while (($file = readdir($dir_handle)) !== false)
-	    {
-	    	if ($file != '.' AND $file != '..' AND !is_dir(ROOT_PATH . 'models/openid/' . $file))
-	    	{
-		    	if (strstr($file, '.php'))
-		    	{
-			    	$files_list[] = ROOT_PATH . 'models/openid/' . $file;
-		    	}
-	    	}
-	    }
-	    
+		$files_list = fetch_file_lists(ROOT_PATH . 'models/', 'php');
+			    
 	    foreach ($files_list AS $search_file)
 	    {
 		 	$data = file_get_contents($search_file);
@@ -90,10 +91,11 @@ class main extends AWS_CONTROLLER
 					$string = $string[0];
 				}
 				
-				if (!$this->model('system')->fetch_row('lang', "string = '" . $this->model('system')->quote($string) . "'"))
+				if (!$this->model('system')->fetch_row('lang', "string = '" . $this->model('system')->quote($string) . "' AND type = 'app'"))
 				{
 					$this->model('system')->insert('lang', array(
-						'string' => $string
+						'string' => $string,
+						'type' => 'app'
 					));
 				}
 			}   
@@ -102,26 +104,7 @@ class main extends AWS_CONTROLLER
 	
 	public function app_action()
 	{
-		$dir_handle = opendir(ROOT_PATH . 'app/');
-	    
-	    while (($file = readdir($dir_handle)) !== false)
-	    {
-	    	if ($file != '.' AND $file != '..' AND is_dir(ROOT_PATH . 'app/' . $file))
-	    	{
-		    	$app_dir_handle = opendir(ROOT_PATH . 'app/' . $file . '/');
-		    	
-		    	while (($_file = readdir($app_dir_handle)) !== false)
-		    	{
-		    		if ($_file != '.' AND $_file != '..' AND !is_dir(ROOT_PATH . 'app/' . $file . '/' . $_file))
-		    		{
-		    			if (strstr($_file, '.php'))
-		    			{
-			    			$files_list[] = ROOT_PATH . 'app/' . $file . '/' . $_file;
-		    			}
-		    		}
-		    	}
-	    	}
-	    }
+		$files_list = fetch_file_lists(ROOT_PATH . 'app/', 'php');
 	    
 	    foreach ($files_list AS $search_file)
 	    {
@@ -157,10 +140,11 @@ class main extends AWS_CONTROLLER
 					$string = $string[0];
 				}
 				
-				if (!$this->model('system')->fetch_row('lang', "string = '" . $this->model('system')->quote($string) . "'"))
+				if (!$this->model('system')->fetch_row('lang', "string = '" . $this->model('system')->quote($string) . "' AND type = 'app'"))
 				{
 					$this->model('system')->insert('lang', array(
-						'string' => $string
+						'string' => $string,
+						'type' => 'app'
 					));
 				}
 			}   
@@ -169,42 +153,8 @@ class main extends AWS_CONTROLLER
 	
 	public function views_action()
 	{
-		$dir_handle = opendir(ROOT_PATH . 'views/default/');
-	    
-	    while (($file = readdir($dir_handle)) !== false)
-	    {
-	    	if ($file != '.' AND $file != '..' AND is_dir(ROOT_PATH . 'views/default/' . $file))
-	    	{
-		    	$app_dir_handle = opendir(ROOT_PATH . 'views/default/' . $file . '/');
-		    	
-		    	while (($_file = readdir($app_dir_handle)) !== false)
-		    	{
-		    		if ($_file != '.' AND $_file != '..' AND !is_dir(ROOT_PATH . 'views/default/' . $file . '/' . $_file))
-		    		{
-		    			if (strstr($_file, '.htm'))
-		    			{
-			    			$files_list[] = ROOT_PATH . 'views/default/' . $file . '/' . $_file;
-		    			}
-		    		}
-		    		else if ($_file != '.' AND $_file != '..' AND is_dir(ROOT_PATH . 'views/default/' . $file . '/' . $_file))
-		    		{
-			    		$sub_dir_handle = opendir(ROOT_PATH . 'views/default/' . $file . '/' . $_file);
-			    		
-			    		while (($__file = readdir($sub_dir_handle)) !== false)
-			    		{
-				    		if ($__file != '.' AND $__file != '..' AND !is_dir(ROOT_PATH . 'views/default/' . $file . '/' . $_file . '/' . $__file))
-				    		{
-					    		if (strstr($__file, '.htm'))
-					    		{
-						    		$files_list[] = ROOT_PATH . 'views/default/' . $file . '/' . $_file . '/' . $__file;
-						    	}	
-				    		}
-				    	}
-		    		}
-		    	}
-	    	}
-	    }
-	    
+		$files_list = fetch_file_lists(ROOT_PATH . 'views/default/', 'htm');
+			    
 	    foreach ($files_list AS $search_file)
 	    {
 		 	$data = file_get_contents($search_file);
@@ -239,10 +189,109 @@ class main extends AWS_CONTROLLER
 					$string = $string[0];
 				}
 				
-				if (!$this->model('system')->fetch_row('lang', "string = '" . $this->model('system')->quote($string) . "'"))
+				if (!$this->model('system')->fetch_row('lang', "string = '" . $this->model('system')->quote($string) . "' AND type = 'app'"))
 				{
 					$this->model('system')->insert('lang', array(
-						'string' => $string
+						'string' => $string,
+						'type' => 'app'
+					));
+				}
+			}   
+	    }
+	}
+	
+	public function js_views_action()
+	{
+		$files_list = fetch_file_lists(ROOT_PATH . 'views/default/', 'htm');
+			    
+	    foreach ($files_list AS $search_file)
+	    {
+		 	$data = file_get_contents($search_file);
+		
+			preg_match_all("#" . preg_quote('_t(\'') . "(.*)" . preg_quote('\')') . "#isU", $data, $matchs);
+			
+			foreach ($matchs[1] AS $key => $val)
+			{
+				$string = $val;
+				
+				if (strstr($string, "', "))
+				{
+					$string = explode("', ", $string);
+					$string = $string[0];
+				}
+				
+				if (strstr($string, "'), "))
+				{
+					$string = explode("'), ", $string);
+					$string = $string[0];
+				}
+				
+				if (strstr($string, "') ."))
+				{
+					$string = explode("') .", $string);
+					$string = $string[0];
+				}
+				
+				if (strstr($string, "') "))
+				{
+					$string = explode("') ", $string);
+					$string = $string[0];
+				}
+				
+				if (!$this->model('system')->fetch_row('lang', "string = '" . $this->model('system')->quote($string) . "' AND `type` = 'js'"))
+				{
+					$this->model('system')->insert('lang', array(
+						'string' => $string,
+						'type' => 'js'
+					));
+				}
+			}   
+	    }
+	}
+	
+	public function js_action()
+	{
+		$files_list = fetch_file_lists(ROOT_PATH . 'static/js/', 'js');
+		
+	    foreach ($files_list AS $search_file)
+	    {
+		 	$data = file_get_contents($search_file);
+		
+			preg_match_all("#" . preg_quote('_t(\'') . "(.*)" . preg_quote('\')') . "#isU", $data, $matchs);
+			
+			foreach ($matchs[1] AS $key => $val)
+			{
+				$string = $val;
+				
+				if (strstr($string, "', "))
+				{
+					$string = explode("', ", $string);
+					$string = $string[0];
+				}
+				
+				if (strstr($string, "'), "))
+				{
+					$string = explode("'), ", $string);
+					$string = $string[0];
+				}
+				
+				if (strstr($string, "') ."))
+				{
+					$string = explode("') .", $string);
+					$string = $string[0];
+				}
+				
+				if (strstr($string, "') "))
+				{
+					$string = explode("') ", $string);
+					$string = $string[0];
+				}
+				
+				if (!$this->model('system')->fetch_row('lang', "string = '" . $this->model('system')->quote($string) . "' AND type = 'js'"))
+				{
+					$this->model('system')->insert('lang', array(
+						'string' => $string,
+						'type' => 'js'
 					));
 				}
 			}   
