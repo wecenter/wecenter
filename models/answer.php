@@ -890,16 +890,8 @@ class answer_class extends AWS_MODEL
 				ACTION_LOG::set_fold_action_history($answer_info['answer_id'], 1);
 				
 				$this->model('integral')->process($answer_info['uid'], 'ANSWER_FOLD_' . $answer_info['answer_id'], get_setting('integral_system_config_answer_fold'), '回复折叠 #' . $answer_info['answer_id']);
-				
-				/*ACTION_LOG::delete_action_history('associate_type = ' . ACTION_LOG::CATEGORY_ANSWER . ' AND associate_id = ' . intval($answer_id));	// 删除动作
-			
-				ACTION_LOG::delete_action_history('associate_type = ' . ACTION_LOG::CATEGORY_QUESTION . ' AND associate_action = ' . ACTION_LOG::ANSWER_QUESTION . ' AND associate_attached = ' . intval($answer_id));	// 删除动作*/
 			}
 		}
-		/*else if ($answer_info['uninterested_count'] < get_setting('uninterested_fold'))
-		{
-			ACTION_LOG::set_fold_action_history($answer_info['answer_id'], 0);
-		}*/
 		
 		$this->model('account')->update_thanks_count($answer_info['uid']);
 		
