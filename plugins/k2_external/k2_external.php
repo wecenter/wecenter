@@ -50,7 +50,7 @@ class k2_external_class extends AWS_MODEL
 					
 				}
 				
-				$output .= ' • 1 小时前 • 11 人关注 • 363 次浏览</dd></dl></div><!-- .cnt --></div><!-- .item -->';
+				$output .= ' • ' . date_friendly($val['update_time']) . ' • ' . $val['focus_count'] . ' 人关注 • ' . $val['view_count'] . ' 次浏览</dd></dl></div><!-- .cnt --></div><!-- .item -->';
 			}
 		}
 		

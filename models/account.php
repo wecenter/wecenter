@@ -1332,6 +1332,11 @@ class account_class extends AWS_MODEL
 
 	public function get_user_recommend_v2($uid, $limit = 10)
 	{
+		if ($users_list = AWS_APP::cache()->get('user_recommend_' . $uid))
+		{
+			return $users_list;
+		}
+		
 		if ($friends = $this->model('follow')->get_user_friends($uid, 100))
 		{
 			foreach ($friends as $key => $val)
@@ -1341,8 +1346,7 @@ class account_class extends AWS_MODEL
 				$follow_users_info[$val['uid']] = $val;
 			}
 		}
-		
-		if (! $follow_uids)
+		else
 		{
 			return $this->get_users_list(false, $limit, true);
 		}
@@ -1351,15 +1355,12 @@ class account_class extends AWS_MODEL
 		{
 			foreach ($users_focus as $key => $val)
 			{
-				$users_ids[] = $val['friend_uid'];
+				$friend_uids[$val['friend_uid']] = $val['friend_uid'];
 				
-				if (! isset($users_ids_recommend[$val['friend_uid']]))
-				{
-					$users_ids_recommend[$val['friend_uid']] = array(
-						'type' => 'friend', 
-						'fans_uid' => $val['fans_uid']
-					);
-				}
+				$users_ids_recommend[$val['friend_uid']] = array(
+					'type' => 'friend', 
+					'fans_uid' => $val['fans_uid']
+				);
 			}
 		}
 		
@@ -1373,52 +1374,49 @@ class account_class extends AWS_MODEL
 			}
 		}
 		
-		if ($uids = $this->get_users_list_by_topic_focus($my_focus_topics_ids))
+		if ($topic_focus_uids = $this->get_users_list_by_topic_focus($my_focus_topics_ids))
 		{
-			foreach ($uids as $key => $val)
+			foreach ($topic_focus_uids as $key => $val)
 			{
-				if (@in_array($val['uid'], $users_ids))
+				if ($friend_uids[$val['uid']])
 				{
 					continue;
 				}
 				
-				$users_ids[$val['uid']] = $val['uid'];
+				$friend_uids[$val['uid']] = $val['uid'];
 				
-				if (! isset($users_ids_recommend[$val['friend_uid']]))
-				{
-					$users_ids_recommend[$val['uid']] = array(
-						'type' => 'topic', 
-						'topic_id' => $val['topic_id']
-					);
-				}
+				$users_ids_recommend[$val['uid']] = array(
+					'type' => 'topic', 
+					'topic_id' => $val['topic_id']
+				);
 			}
 		}
 		
-		if (! $users_ids)
+		if (! $friend_uids)
 		{
 			return $this->get_users_list("MEM.uid NOT IN (" . implode($follow_uids, ',') . ")", $limit, true);
 		}
 		
-		if (!$users = $this->get_users_list("MEM.uid IN(" . implode($users_ids, ',') . ") AND MEM.uid NOT IN (" . implode($follow_uids, ',') . ")", $limit, true, true))
+		if ($users_list = $this->get_users_list("MEM.uid IN(" . implode($friend_uids, ',') . ") AND MEM.uid NOT IN (" . implode($follow_uids, ',') . ")", $limit, true, true))
 		{
-			return false;
-		}
-		
-		foreach ($users as $key => $val)
-		{
-			$users[$key]['type'] = $users_ids_recommend[$val['uid']]['type'];
+			foreach ($users_list as $key => $val)
+			{
+				$users_list[$key]['type'] = $users_ids_recommend[$val['uid']]['type'];
+				
+				if ($users_ids_recommend[$val['uid']]['type'] == 'friend')
+				{
+					$users_list[$key]['friend_users'] = $follow_users_info[$users_ids_recommend[$val['uid']]['fans_uid']];
+				}
+				else if ($users_ids_recommend[$val['uid']]['type'] == 'topic')
+				{
+					$users_list[$key]['topic_info'] = $my_focus_topics_info[$users_ids_recommend[$val['uid']]['topic_id']];
+				}
+			}
 			
-			if ($users_ids_recommend[$val['uid']]['type'] == 'friend')
-			{
-				$users[$key]['friend_users'] = $follow_users_info[$users_ids_recommend[$val['uid']]['fans_uid']];
-			}
-			else if ($users_ids_recommend[$val['uid']]['type'] == 'topic')
-			{
-				$users[$key]['topic_info'] = $my_focus_topics_info[$users_ids_recommend[$val['uid']]['topic_id']];
-			}
+			AWS_APP::cache()->set('user_recommend_' . $uid, $users_list, get_setting('cache_level_normal'));
 		}
 		
-		return $users;
+		return $users_list;
 	}
 	
 	/**
