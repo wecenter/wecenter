@@ -76,11 +76,9 @@ var logPicture = [
 				
 				 //txt onfocus
 				 $(flgs.txt).focus(function() {
-					 //if($(this).val() == flgs.txtval && $(this).val()!='') {
-						$(this).addClass('i_hide');
-						$(flgs.pw).removeClass('i_hide');
-						$(flgs.pw).focus();
-					//}
+					$(this).addClass('i_hide');
+					$(flgs.pw).removeClass('i_hide');
+					$(flgs.pw).focus();
 				 })
 				 
 				 //password onfocus
@@ -336,11 +334,9 @@ var logPicture = [
 						 pw = $('#weibo_password');
 						 //txt onfocus
 						 $(txt_pw).focus(function() {
-							 if($(this).val() == _t('密码') && $(this).val()!='') {
-								$(this).addClass('i_hide');
-								$(pw).removeClass('i_hide');
-								$(pw).focus();
-							}
+							$(this).addClass('i_hide');
+							$(pw).removeClass('i_hide');
+							$(pw).focus();
 						 })
 						 
 						 //password onfocus
