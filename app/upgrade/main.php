@@ -172,6 +172,8 @@ class main extends AWS_CONTROLLER
 			'db_version' => G_VERSION_BUILD
 		));
 		
+		AWS_APP::cache()->clean();
+		
 		H::redirect_msg(AWS_APP::lang()->_t('升级完成, 下面开始重建数据...'), '/upgrade/final/case-start');
 	}
 	

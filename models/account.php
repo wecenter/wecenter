@@ -416,7 +416,7 @@ class account_class extends AWS_MODEL
 	
 	function insert_user($username, $password, $email, $sex = 0, $mobile = null)
 	{
-		if ($username == '')
+		if (!$username OR !$password OR !$email)
 		{
 			return false;
 		}
@@ -432,17 +432,14 @@ class account_class extends AWS_MODEL
 			'mobile' => htmlspecialchars($mobile),
 			'reg_time' => time(),
 			'reg_ip' => ip2long(fetch_ip()),
-			'email_settings' => serialize(array(
-				'FOLLOW_ME' => 'N',
-				'NEW_ANSWER' => 'N'
-			))
+			'email_settings' => get_setting('new_user_email_setting')
 		)))
 		{
 			$this->insert('users_attrib', array(
 				'uid' => $uid
 			));
 			
-			$this->update_notification_setting_fields(null, $uid);
+			$this->update_notification_setting_fields(get_setting('new_user_notification_setting'), $uid);
 			
 			//$this->model('search_index')->push_index('user', $username, $uid);
 		}
@@ -625,24 +622,25 @@ class account_class extends AWS_MODEL
 	/**
 	 * 更新用户通知设置
 	 * 
-	 * @param  $update_data	更新数组
-	 * @param  $userid	UID
+	 * @param  $data	更新数组
+	 * @param  $uid	UID
 	 * 
 	 * @return bool
 	 */
-	function update_notification_setting_fields($update_data, $uid)
+	function update_notification_setting_fields($data, $uid)
 	{
-		$user_setting = $this->fetch_row('users_notification_setting', 'uid = ' . intval($uid));
-		
-		if (empty($user_setting))
-		{
-			$update_data['uid'] = intval($uid);
-			
-			$this->insert('users_notification_setting', $update_data);
+		if (!$this->count('users_notification_setting', 'uid = ' . intval($uid)))
+		{			
+			$this->insert('users_notification_setting', array(
+				'data' => serialize($data),
+				'uid' => intval($uid)
+			));
 		}
 		else
 		{
-			$this->update('users_notification_setting', $update_data, 'uid = ' . intval($uid));
+			$this->update('users_notification_setting', array(
+				'data' => serialize($data)
+			), 'uid = ' . intval($uid));
 		}
 		
 		return true;

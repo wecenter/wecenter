@@ -32,6 +32,15 @@ class js extends AWS_CONTROLLER
 	public function setup()
 	{
 		HTTP::no_cache_header();
+		
+		$category_ids_map = array(
+			1 => 2,
+		);
+		
+		if ($category_ids_map[$_GET['category']] AND $_GET['category'])
+		{
+			$_GET['category_id'] = $category_ids_map[$_GET['category']];
+		}
 	}
 	
 	public function last_questions_action()

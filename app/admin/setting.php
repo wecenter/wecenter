@@ -20,7 +20,6 @@ if (!defined('IN_ANWSION'))
 
 class setting extends AWS_CONTROLLER
 {
-
 	function get_permission_action()
 	{
 	
@@ -68,6 +67,12 @@ class setting extends AWS_CONTROLLER
 			TPL::assign('styles', $this->model('setting')->get_ui_styles());
 		}
 		
+		if ($type == 'reg_visit')
+		{			
+			TPL::assign('notification_settings', get_setting('new_user_notification_setting'));
+			TPL::assign('notify_actions', $this->model('notify')->notify_action_details);
+		}
+		
 		$this->crumb(AWS_APP::lang()->_t('系统设置'), 'admin/setting/type-' . $type);
 		
 		TPL::import_js('admin/js/setting.js');
@@ -78,13 +83,10 @@ class setting extends AWS_CONTROLLER
 		
 		TPL::output("admin/setting/" . $type);
 	}
-
-
-	/**
-	 * 保存设置
-	 */
+	
+	
 	public function sys_save_ajax_action()
-	{
+	{		
 		define('IN_AJAX', TRUE);
 		
 		if ($_POST['upload_dir'] && preg_match('/(.*)\/$/i', $_POST['upload_dir']))
@@ -156,6 +158,45 @@ class setting extends AWS_CONTROLLER
 		if (!$_POST['newer_content_type'])
 		{
 			$_POST['newer_content_type'] = array();
+		}
+		
+		if ($_POST['set_notification_settings'])
+		{
+			if ($notify_actions = $this->model('notify')->notify_action_details)
+			{
+				$notification_setting = array();
+				
+				foreach ($notify_actions as $key => $val)
+				{
+					if (! isset($_POST['new_user_notification_setting'][$key]) && $val['user_setting'])
+					{
+						$notification_setting[] = intval($key);
+					}
+				}
+			}
+			
+			$_POST['new_user_notification_setting'] = $notification_setting;
+		}
+		
+		if ($_POST['set_email_settings'])
+		{			
+			$email_settings = array(
+				'FOLLOW_ME' => 'N',
+				'QUESTION_INVITE' => 'N',
+				'NEW_ANSWER' => 'N',
+				'NEW_MESSAGE' => 'N',
+				'QUESTION_MOD' => 'N',
+			);
+				
+			if ($_POST['new_user_email_setting'])
+			{
+				foreach ($_POST['new_user_email_setting'] AS $key => $val)
+				{
+					unset($email_settings[$val]);
+				}
+			}
+			
+			$_POST['new_user_email_setting'] = $email_settings;
 		}
 		
 		$this->model('setting')->set_vars($this->model('setting')->check_vars($_POST));

@@ -134,6 +134,24 @@
 						<textarea id="welcome_message_email" rows="3" cols="100" name="welcome_message_email"><?php echo $this->setting['welcome_message_email']; ?></textarea>
 					</p>
 					<p><?php _e('新用户注册欢迎内容, 以下变量可作为内容替换: <br />{username}: 用户名<br />{time}: 发送时间<br />{sitename}: 网站名称'); ?></p>
+					<p groupid="2" name="new_user_email_setting">
+					<input type="hidden" name="set_email_settings" value="1" />
+						<label><?php _e('新用户默认邮件提醒设置'); ?>:</label>
+						<span><input type="checkbox" name="new_user_email_setting[]" value="FOLLOW_ME"<?php if ($this->setting['new_user_email_setting']['FOLLOW_ME'] != 'N') { ?> checked="checked"<?php } ?> /> <?php _e('当有人关注我'); ?></span> &nbsp;
+                        <span><input type="checkbox" name="new_user_email_setting[]" value="QUESTION_INVITE"<?php if ($this->setting['new_user_email_setting']['QUESTION_INVITE'] != 'N') { ?> checked="checked"<?php } ?> /> <?php _e('有人邀请我回答问题'); ?></span> &nbsp;
+                        <span><input type="checkbox" name="new_user_email_setting[]" value="NEW_ANSWER"<?php if ($this->setting['new_user_email_setting']['NEW_ANSWER'] != 'N') { ?> checked="checked"<?php } ?> /> <?php _e('我关注的问题有了新回复'); ?></span> &nbsp;
+                        <span><input type="checkbox" name="new_user_email_setting[]" value="NEW_MESSAGE"<?php if ($this->setting['new_user_email_setting']['NEW_MESSAGE'] != 'N') { ?> checked="checked"<?php } ?> /> <?php _e('有人向我发送私信'); ?></span> &nbsp;
+                        <span><input type="checkbox" name="new_user_email_setting[]" value="QUESTION_MOD"<?php if ($this->setting['new_user_email_setting']['QUESTION_MOD'] != 'N') { ?> checked="checked"<?php } ?> /> <?php _e('我的问题被编辑'); ?></span>
+					</p>
+					<p groupid="2" name="new_user_email_setting">
+					<input type="hidden" name="set_notification_settings" value="1" />
+						<label><?php _e('新用户默认通知设置'); ?>:</label>
+						<?php foreach($this->notify_actions as $key => $val) { ?>
+                        <?php if ($val['user_setting']) { ?>
+                        <span><input name="new_user_notification_setting[<?php echo $key;?>]" type="checkbox" value="1"<?php if (!in_array($key, $this->notification_settings)) { ?> checked="checked"<?php } ?> /> <?php _e($val['desc']); ?></span>  &nbsp;
+                        <?php } ?>
+                        <?php } ?>
+					</p>
 					<p>
 						<input class="button" type="button" onClick="ajax_post($('#_save_form'), _form_process);" value="<?php _e('保存'); ?>" />
 					</p>

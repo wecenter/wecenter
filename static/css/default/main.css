@@ -62,7 +62,7 @@
 .S_module .s_autograph{ padding-bottom:5px;}
 .S_module .s_ctrl .i_gray >a.user_msg{ color:#105DB5 !important; background-color:#D4F2FF; padding:1px 3px; border-radius:5px;}
 .S_module .s_xs,.s_txt .s_endorse{ left:0; top:0; display:inline-block;}
-.s_txt .s_endorse{background-color:#e9f5ff; height:23px; width:17px;  line-height:23px; text-align:center; padding:0 3px;}
+.s_txt .s_endorse{background-color:#e9f5ff; height:23px; min-width:17px;  line-height:23px; text-align:center; padding:0 3px;}
 .S_module .s_endorsepeople{ padding-bottom:5px;word-break:break-all;}
 .S_module .s_endorsepeople .v_more,.S_module .s_endorsepeople{font-size:12px!important;}
 .S_module .s_endorsepeople .v_more{margin-left:10px;}

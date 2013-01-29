@@ -652,7 +652,7 @@ str_repeat('
 	}
 
 	function doLists($text)
-	{
+	{		
 		#
 		# Form HTML ordered (numbered) and unordered (bulleted) lists.
 		#
