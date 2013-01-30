@@ -424,7 +424,7 @@ class ACTION_LOG
 			$where = '(' . $where . ') AND anonymous = 0';
 		}
 		
-		if ($action_history = AWS_APP::model()->query_all("SELECT history_id FROM " . get_table('user_action_history_fresh') . " WHERE " . $where . " ORDER BY history_id DESC", $limit))
+		if ($action_history = AWS_APP::model()->query_all("SELECT history_id FROM " . get_table('user_action_history_fresh') . " WHERE " . $where . " ORDER BY add_time DESC", $limit))
 		{
 			foreach ($action_history as $key => $val)
 			{
