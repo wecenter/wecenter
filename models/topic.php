@@ -1161,7 +1161,7 @@ class topic_class extends AWS_MODEL
 			}
 		}
 		
-		if (!$action_list = AWS_APP::cache()->get('topic_action_list_' . md5($topic_ids . $limit . $best_answer)))
+		//if (!$action_list = AWS_APP::cache()->get('topic_action_list_' . md5($topic_ids . $limit . $best_answer)))
 		{
 			if ($best_answer)
 			{
@@ -1207,7 +1207,7 @@ class topic_class extends AWS_MODEL
 			{
 				$action_list = array();
 			}
-			else if (!$action_list = ACTION_LOG::get_actions_fresh_by_where("(associate_type = " . $associate_type . " AND associate_id IN (" . implode($associate_id, ",") . ") AND associate_action IN(" . implode(',', $associate_action) . "))", $limit))
+			else if (!$action_list = ACTION_LOG::get_actions_fresh_by_where("1(associate_type = " . $associate_type . " AND associate_id IN (" . implode(',', $associate_id) . ") AND associate_action IN(" . implode(',', $associate_action) . "))", $limit))
 			{
 				$action_list = array();
 			}

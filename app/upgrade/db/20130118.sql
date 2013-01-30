@@ -6,7 +6,7 @@ ALTER TABLE `[#DB_PREFIX#]user_action_history` ADD KEY `associate_with_uid` (  `
 CREATE TABLE `[#DB_PREFIX#]user_action_history_fresh` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `history_id` int(11) NOT NULL,
-  `associate_id` tinyint(11) NOT NULL,
+  `associate_id` int(11) NOT NULL,
   `associate_type` tinyint(1) NOT NULL,
   `associate_action` smallint(3) NOT NULL,
   `add_time` int(10) NOT NULL DEFAULT '0',
