@@ -1161,7 +1161,7 @@ class topic_class extends AWS_MODEL
 			}
 		}
 		
-		//if (!$action_list = AWS_APP::cache()->get('topic_action_list_' . md5($topic_ids . $limit . $best_answer)))
+		if (!$action_list = AWS_APP::cache()->get('topic_action_list_' . md5($topic_ids . $limit . $best_answer)))
 		{
 			if ($best_answer)
 			{
