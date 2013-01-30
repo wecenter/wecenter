@@ -193,7 +193,7 @@ class ACTION_LOG
 	
 	public static function associate_fresh_action($history_id, $associate_id, $associate_type, $associate_action, $uid, $anonymous, $add_time)
 	{
-		AWS_APP::model()->delete('user_action_history_fresh', 'associate_id = ' . intval($associate_id) . ' AND associate_type = ' . intval($associate_type) . ' AND associate_action = ' . intval($associate_action));
+		AWS_APP::model()->delete('user_action_history_fresh', 'associate_id = ' . intval($associate_id) . ' AND associate_type = ' . intval($associate_type));
 		
 		return AWS_APP::model()->insert('user_action_history_fresh', array(
 			'history_id' => intval($history_id),
