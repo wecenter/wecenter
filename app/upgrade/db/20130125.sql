@@ -1,2 +1,0 @@
-INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES ('new_user_email_setting', 'a:2:{s:9:"FOLLOW_ME";s:1:"N";s:10:"NEW_ANSWER";s:1:"N";}');
-INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES ('new_user_notification_setting', 'a:0:{}');
