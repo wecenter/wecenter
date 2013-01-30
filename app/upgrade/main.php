@@ -82,7 +82,8 @@ class main extends AWS_CONTROLLER
 			20121109,
 			20121123,
 			20121228,
-			20130111
+			20130111,
+			20130118
 		);
 		
 		if (!$this->db_version = get_setting('db_version'))
@@ -239,7 +240,7 @@ class main extends AWS_CONTROLLER
 			case 'update_answer_attach_statistics':
 				if ($this->model('upgrade')->check_answer_attach_statistics())
 				{
-					H::redirect_msg(AWS_APP::lang()->_t('附件统计重建完成...'), '/upgrade/final/case-final');
+					H::redirect_msg(AWS_APP::lang()->_t('附件统计重建完成, 开始升级动作数据...'), '/upgrade/final/case-upgrade_user_action_history');
 				}
 				
 				if ($this->model('upgrade')->update_answer_attach_statistics($_GET['page'], 2500))
@@ -252,17 +253,17 @@ class main extends AWS_CONTROLLER
 				}
 			break;
 			
-			// 0720
-			/*case 'upgrade_user_action_history':				
+			//0201
+			case 'upgrade_user_action_history':				
 				if ($this->model('upgrade')->upgrade_user_action_history($_GET['page'], 5000))
 				{
-					H::redirect_msg(AWS_APP::lang()->_t('正在重建动作数据') . ', ' . AWS_APP::lang()->_t('批次: %s', $_GET['page']), '/upgrade/final/case-upgrade_user_action_history__page-' . ($_GET['page'] + 1));
+					H::redirect_msg(AWS_APP::lang()->_t('正在升级动作数据') . ', ' . AWS_APP::lang()->_t('批次: %s', $_GET['page']), '/upgrade/final/case-upgrade_user_action_history__page-' . ($_GET['page'] + 1));
 				}
 				else
 				{
-					H::redirect_msg(AWS_APP::lang()->_t('动作数据重建完成...'), '/upgrade/final/case-final');
+					H::redirect_msg(AWS_APP::lang()->_t('动作数据升级完成...'), '/upgrade/final/case-final');
 				}
-			break;*/
+			break;
 			
 			case 'final':
 				H::redirect_msg(AWS_APP::lang()->_t('升级完成, 您的程序已经是最新版本, 如遇搜索功能异常, 请进入后台更新搜索索引') . '<!-- Analytics --><img src="http://www.anwsion.com/analytics/?build=' . G_VERSION_BUILD . '&amp;site_name=' . urlencode(get_setting('site_name')) . '&amp;base_url=' . urlencode(get_setting('base_url')) . '&amp;php=' . PHP_VERSION . '" alt="" width="1" height="1" /><!-- / Analytics -->', '/');

@@ -190,29 +190,28 @@ class ACTION_LOG
 		self::ADD_TOPIC_PARENT => '增加话题分类', 
 		self::DELETE_TOPIC_PARENT => '删除话题分类'
 	);
-
-	/**
-	 * 
-	 * 增加用户动作跟踪
-	 * @param int    $uid
-	 * @param int    $associate_id   关联ID
-	 * @param int    $action_type    动作大类型
-	 * @param int    $action_id      动作详细类型
-	 * @param string $action_content 动作内容
-	 * @param string $action_attch   动作附加内容
-	 * @param int    $add_time       动作发送时间
-	 * 
-	 * @return boolean true|false
-	 */
+	
+	public static function associate_fresh_action($history_id, $associate_id, $associate_type, $associate_action, $uid, $anonymous, $add_time)
+	{
+		AWS_APP::model()->delete('user_action_history_fresh', 'associate_id = ' . intval($associate_id) . ' AND associate_type = ' . intval($associate_type) . ' AND associate_action = ' . intval($associate_action));
+		
+		return AWS_APP::model()->insert('user_action_history_fresh', array(
+			'history_id' => intval($history_id),
+			'associate_id' => intval($associate_id),
+			'associate_type' => intval($associate_type),
+			'associate_action' => intval($associate_action),
+			'uid' => intval($uid),
+			'anonymous' => intval($anonymous),
+			'add_time' => $add_time
+		));
+	}
+	
 	public static function save_action($uid, $associate_id, $action_type, $action_id, $action_content = '', $action_attch = '', $add_time = 0, $anonymous = 0, $addon_data = null)
 	{
 		if (intval($uid) == 0 || intval($associate_id) == 0)
 		{
 			return false;
 		}
-		
-		//增加用户计数器
-		self::update_user_nums($action_id, uid);
 		
 		if (is_numeric($action_attch))
 		{
@@ -224,14 +223,19 @@ class ACTION_LOG
 			$action_attch_update = $action_attch;
 		}
 		
+		if (!$add_time)
+		{
+			$add_time = time();
+		}
+		
 		$history_id = AWS_APP::model()->insert('user_action_history', array(
 			'uid' => intval($uid), 
 			'associate_type' => $action_type, 
 			'associate_action' => $action_id, 
 			'associate_id' => $associate_id, 
 			'associate_attached' => $action_attch_insert,
-			'add_time' => ($add_time == 0) ? time() : $add_time,
-			'anonymous' => $anonymous,
+			'add_time' => $add_time,
+			'anonymous' => intval($anonymous),
 		));
 		
 		AWS_APP::model()->insert('user_action_history_data', array(
@@ -241,60 +245,9 @@ class ACTION_LOG
 			'addon_data' => $addon_data ? serialize($addon_data) : '',
 		));
 		
-		return $history_id;
-	}
-
-	/**
-	 * 
-	 * 更新用户计数器
-	 */
-	public static function update_user_nums($action_id, $uid)
-	{
-		$account_class = new account_class();
+		self::associate_fresh_action($history_id, $associate_id, $action_type, $action_id, $uid, $anonymous, $add_time);
 		
-		switch ($action_id)
-		{
-			case self::ADD_COMMENT :
-				
-				break;
-			case self::ADD_QUESTION :
-				
-				break;
-			case self::ADD_TOPIC :
-				
-				break;
-			case self::ADD_TOPIC_FOCUS :
-				
-				break;
-				
-			case self::ANSWER_QUESTION :
-				$account_class->increase_user_statistics(account_class::ANSWER_COUNT, $uid);
-				break;
-			case self::DELETE_ANSWER :
-				$account_class->increase_user_statistics(account_class::ANSWER_COUNT, -1, $uid);
-				break;
-			case self::DELETE_COMMENT :
-				
-				break;
-			case self::DELETE_REQUESTION_FOCUS :
-				
-				break;
-			case self::DELETE_TOPIC :
-				
-				break;
-			case self::DELETE_TOPIC_FOCUS :
-				
-				break;
-			case self::DELETE_TOPIC_PARENT :
-				
-				break;
-			case self::MOD_ANSWER :
-			case self::MOD_QUESTION_DESCRI :
-			case self::MOD_QUESTON_TITLE :
-			case self::MOD_TOPIC :
-			case self::MOD_TOPIC_DESCRI :
-			case self::MOD_TOPIC_PIC :
-		}
+		return $history_id;
 	}
 
 	/**
@@ -454,14 +407,12 @@ class ACTION_LOG
 		return $user_action_history;
 	}
 		
-	public static function get_actions_distint_by_where($where = '', $limit = 20, $add_time = null, $show_anonymous = false)
+	public static function get_actions_fresh_by_where($where = null, $limit = 20, $add_time = null, $show_anonymous = false)
 	{
 		if (!$where)
 		{
 			return false;
 		}
-		
-		$where = '(' . $where . ') AND fold_status = 0';
 		
 		if ($add_time)
 		{
@@ -473,24 +424,20 @@ class ACTION_LOG
 			$where = '(' . $where . ') AND anonymous = 0';
 		}
 		
-		$sql = "SELECT MAX(history_id) history_id FROM " . get_table('user_action_history') . " WHERE " . $where . " GROUP BY associate_id, associate_type ORDER BY history_id DESC";
-		
-		if ($action_history = AWS_APP::model()->query_all($sql, $limit))
+		if ($action_history = AWS_APP::model()->query_all("SELECT history_id FROM " . get_table('user_action_history_fresh') . " WHERE " . $where . " ORDER BY history_id DESC", $limit))
 		{
 			foreach ($action_history as $key => $val)
 			{
 				$history_ids[] = $val['history_id'];
 			}
 			
-			if ($action_history = self::get_action_by_where('history_id IN(' . implode(',', $history_ids) . ')', null, $show_anonymous, null))
+			if ($action_history = self::get_action_by_where('history_id IN(' . implode(',', $history_ids) . ')', null, null, null))
 			{
-				$last_history = array();
-						
 				foreach ($action_history as $key => $val)
 				{
 					$last_history[$val['history_id']] = $action_history[$key];
 				}
-						
+				
 				krsort($last_history);
 						
 				return $last_history;
@@ -512,21 +459,17 @@ class ACTION_LOG
 	 */
 	public static function get_action_distinct($uid = 0, $limit = null, $action_type = null, $action_id = null)
 	{
-		$sql = "SELECT DISTINCT associate_id, associate_type FROM " . get_table('user_action_history') . " WHERE uid = " . intval($uid);
-		
 		if ($action_type)
 		{
-			$sql .= ' AND associate_type IN(' . $action_type . ')';
+			$where[] = 'associate_type IN(' . $action_type . ')';
 		}
 		
 		if ($action_id)
 		{
-			$sql .= ' AND associate_action IN(' . $action_id . ')';
+			$where[] = 'associate_action IN(' . $action_id . ')';
 		}
 		
-		$sql .= ' ORDER BY add_time DESC';
-		
-		return AWS_APP::model()->query_all($sql, $limit);
+		return AWS_APP::model()->query_all("SELECT DISTINCT associate_id, associate_type FROM " . get_table('user_action_history') . " " . implode(' AND ', $where) . " ORDER BY add_time DESC", $limit);
 	}
 
 	/**
@@ -538,43 +481,42 @@ class ACTION_LOG
 	 * 
 	 * @return array
 	 */
-	public static function get_action_detail_by_action_type($associate_id = '', $action_type = '', $limit = 1, $action_id = '', $uid = 0)
-	{		
-		$sql = "SELECT * FROM " . get_table('user_action_history') . " WHERE associate_id = " . intval($associate_id);
+	public static function get_action_detail_by_action_type($associate_id = '', $action_type = '', $limit = 1, $action_id = '', $uid = null)
+	{
+		$where[] = 'associate_id = ' . intval($associate_id);
 		
 		if ($action_type)
 		{
-			$sql .= ' AND associate_type IN (' . $action_type . ')';
+			$where[] = 'associate_type IN (' . $action_type . ')';
 		}
 		
 		if ($action_id)
 		{
-			$sql .= ' AND associate_action IN(' . $action_id . ')';
+			$where[] = 'associate_action IN(' . $action_id . ')';
 		}
 		
 		if ($uid)
 		{
-			$sql .= ' AND uid = ' . intval($uid);
+			$where[] = 'uid = ' . intval($uid);
 		}
 		
-		$sql .= ' ORDER BY add_time DESC, history_id DESC';
-		
-		if ($user_action_history = AWS_APP::model()->query_all($sql, $limit))
+		if ($user_action_history = AWS_APP::model()->fetch_all('user_action_history', implode(' AND ', $where), 'add_time DESC, history_id DESC', $limit))
 		{
 			foreach ($user_action_history AS $key => $val)
 			{
 				$history_ids[] = $val['history_id'];
 			}
 				
-			$actions_data = self::get_action_data_by_history_ids($history_ids);
-				
-			foreach ($user_action_history AS $key => $val)
+			if ($actions_data = self::get_action_data_by_history_ids($history_ids))
 			{
-				$user_action_history[$key]['associate_content'] = $actions_data[$val['history_id']]['associate_content'];
-				
-				if ($user_action_history[$key]['associate_attached'] == -1)
+				foreach ($user_action_history AS $key => $val)
 				{
-					$user_action_history[$key]['associate_attached'] = $actions_data[$val['history_id']]['associate_attached'];
+					$user_action_history[$key]['associate_content'] = $actions_data[$val['history_id']]['associate_content'];
+					
+					if ($user_action_history[$key]['associate_attached'] == -1)
+					{
+						$user_action_history[$key]['associate_attached'] = $actions_data[$val['history_id']]['associate_attached'];
+					}
 				}
 			}
 		}
@@ -778,6 +720,17 @@ class ACTION_LOG
 		AWS_APP::model()->update('user_action_history', array(
 			'fold_status' => $fold
 		), 'associate_type = ' . self::CATEGORY_QUESTION . ' AND associate_action = ' . ACTION_LOG::ANSWER_QUESTION . ' AND associate_attached = ' . intval($answer_id));
+		
+		if ($fold == 1)
+		{
+			if ($action_history = AWS_APP::model()->fetch_all('user_action_history', 'associate_type IN(' . self::CATEGORY_QUESTION . ',' . self::CATEGORY_ANSWER . ') AND associate_action = ' . ACTION_LOG::ANSWER_QUESTION . ' AND associate_attached = ' . intval($answer_id)))
+			{
+				foreach ($action_history AS $key => $val)
+				{
+					AWS_APP::model()->delete('user_action_history_fresh', 'history_id = ' . $val['history_id']);
+				}
+			}
+		}
 		
 		return $fold;
 	}

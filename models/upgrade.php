@@ -72,35 +72,23 @@ class upgrade_class extends AWS_MODEL
 		}
 	}
 	
-	/*public function upgrade_user_action_history($page, $limit = 100)
+	public function upgrade_user_action_history($page, $limit = 100)
 	{
-		if (!$action_history_data = $this->query_all("SELECT history_id, associate_attached FROM " . get_table('user_action_history_data') . " LIMIT " . calc_page_limit($page, $limit)))
+		if (!$action_history_data = $this->fetch_all('user_action_history', null, 'history_id ASC', calc_page_limit($page, $limit)))
 		{
 			return false;
 		}
 		
 		foreach ($action_history_data AS $key => $val)
 		{
-			if (is_numeric($val['associate_attached']))
+			if ($val['fold_status'] == 0)
 			{
-				$this->update('user_action_history', array(
-					'associate_attached' => $val['associate_attached']
-				), 'history_id = ' . $val['history_id']);
-				
-				$this->update('user_action_history_data', array(
-					'associate_attached' => ''
-				), 'history_id = ' . $val['history_id']);
-			}
-			else if ($val['associate_attached'])
-			{
-				$this->update('user_action_history', array(
-					'associate_attached' => '-1'
-				), 'history_id = ' . $val['history_id']);
+				ACTION_LOG::associate_fresh_action($val['history_id'], $val['associate_id'], $val['associate_type'], $val['associate_action'], $val['uid'], $val['anonymous'], $val['add_time']);
 			}
 		}
 		
 		return true;
-	}*/
+	}
 	
 	public function check_last_answer()
 	{
