@@ -705,6 +705,7 @@ class ACTION_LOG
 			foreach ($action_history AS $key => $val)
 			{
 				AWS_APP::model()->delete('user_action_history_data', 'history_id = ' . $val['history_id']);
+				AWS_APP::model()->delete('user_action_history_fresh', 'history_id = ' . $val['history_id']);
 			}
 			
 			$action_history = AWS_APP::model()->delete('user_action_history', $where);
