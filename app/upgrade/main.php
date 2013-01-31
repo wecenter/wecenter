@@ -18,6 +18,8 @@ if (!defined('IN_ANWSION'))
 	die;
 }
 
+define('DISABLE_CACHE', TRUE);
+
 class main extends AWS_CONTROLLER
 {
 	var $versions = array();
