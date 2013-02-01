@@ -82,6 +82,11 @@ class core_cache
 	 */
 	public function set($key, $value, $lifetime = 60, $group = null)
 	{
+		if (defined('DISABLE_CACHE'))
+		{
+			return false;
+		}
+		
 		if (AWS_APP::config()->get('system')->debug)
 		{
 			list($usec, $sec) = explode(' ', microtime());
