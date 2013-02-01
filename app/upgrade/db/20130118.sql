@@ -1,5 +1,6 @@
 INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES ('new_user_email_setting', 'a:2:{s:9:"FOLLOW_ME";s:1:"N";s:10:"NEW_ANSWER";s:1:"N";}');
 INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES ('new_user_notification_setting', 'a:0:{}');
+INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES ('user_action_history_fresh_upgrade', 's:1:"N";');
 
 ALTER TABLE `[#DB_PREFIX#]user_action_history` ADD KEY `associate_with_uid` (  `uid`, `associate_type`, `associate_action` );
 

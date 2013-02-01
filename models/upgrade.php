@@ -74,6 +74,11 @@ class upgrade_class extends AWS_MODEL
 	
 	public function upgrade_user_action_history($page, $limit = 100)
 	{
+		if (get_setting('user_action_history_fresh_upgrade') == 'Y')
+		{
+			return false;
+		}
+		
 		if (!$action_history_data = $this->fetch_page('user_action_history', null, 'history_id ASC', $page, $limit))
 		{
 			return false;

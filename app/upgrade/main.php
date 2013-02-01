@@ -257,12 +257,16 @@ class main extends AWS_CONTROLLER
 			
 			//0201
 			case 'upgrade_user_action_history':				
-				if ($this->model('upgrade')->upgrade_user_action_history($_GET['page'], 5000))
+				if ($this->model('upgrade')->upgrade_user_action_history($_GET['page'], 2000))
 				{
 					H::redirect_msg(AWS_APP::lang()->_t('正在升级动作数据') . ', ' . AWS_APP::lang()->_t('批次: %s', $_GET['page']), '/upgrade/final/case-upgrade_user_action_history__page-' . ($_GET['page'] + 1));
 				}
 				else
 				{
+					$this->model('setting')->set_vars(array(
+						'user_action_history_fresh_upgrade' => 'Y'
+					));
+					
 					H::redirect_msg(AWS_APP::lang()->_t('动作数据升级完成...'), '/upgrade/final/case-final');
 				}
 			break;
