@@ -448,6 +448,24 @@ class system_class extends AWS_MODEL
 		return $final_result;
 	}
 	
+	public function update_associate_fresh_action($page, $limit = 100)
+	{		
+		if (!$action_history_data = $this->fetch_page('user_action_history', null, 'history_id ASC', $page, $limit))
+		{
+			return false;
+		}
+		
+		foreach ($action_history_data AS $key => $val)
+		{
+			if ($val['fold_status'] == 0)
+			{
+				ACTION_LOG::associate_fresh_action($val['history_id'], $val['associate_id'], $val['associate_type'], $val['associate_action'], $val['uid'], $val['anonymous'], $val['add_time']);
+			}
+		}
+		
+		return true;
+	}
+	
 	public function clean_session()
 	{
 		return $this->delete('sessions', '`modified` < ' . (time() - 3600));

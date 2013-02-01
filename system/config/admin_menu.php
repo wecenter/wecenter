@@ -214,23 +214,8 @@ $config[5] = array(
 	'children' => array(
 		array(
 			'id' => 501,
-			'title' => '更新缓存',
-			'url' => 'admin/tool/cache_clean/',
-		),
-		array(
-			'id' => 502,
-			'title' => '更新搜索索引',
-			'url' => 'admin/tool/update_search_index/',
-		),
-		array(
-			'id' => 504,
-			'title' => '更新威望数据',
-			'url' => 'admin/tool/reputation_rebuild/',
-		),
-		array(
-			'id' => 505,
-			'title' => '转换 BBcode',
-			'url' => 'admin/tool/bbcode_to_markdown/',
+			'title' => '系统维护',
+			'url' => 'admin/tool/',
 		),
 	)
 );

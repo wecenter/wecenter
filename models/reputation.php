@@ -269,14 +269,16 @@ class reputation_class extends AWS_MODEL
 
 	public function calculate($start = 0, $limit = 100)
 	{
-		if (! $users_list = $this->query_all("SELECT uid FROM " . get_table('users') . " ORDER BY uid ASC", $start . ',' . $limit))
+		if ($users_list = $this->query_all("SELECT uid FROM " . get_table('users') . " ORDER BY uid ASC", $start . ',' . $limit))
 		{
-			$users_list = array();
+			foreach ($users_list as $key => $val)
+			{
+				$this->calculate_by_uid($val['uid']);
+			}
+			
+			return true;
 		}
 		
-		foreach ($users_list as $key => $val)
-		{
-			$this->calculate_by_uid($val['uid']);
-		}
+		return false;
 	}
 }

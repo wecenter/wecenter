@@ -71,30 +71,7 @@ class upgrade_class extends AWS_MODEL
 			}
 		}
 	}
-	
-	public function upgrade_user_action_history($page, $limit = 100)
-	{
-		if (get_setting('user_action_history_fresh_upgrade') == 'Y')
-		{
-			return false;
-		}
 		
-		if (!$action_history_data = $this->fetch_page('user_action_history', null, 'history_id ASC', $page, $limit))
-		{
-			return false;
-		}
-		
-		foreach ($action_history_data AS $key => $val)
-		{
-			if ($val['fold_status'] == 0)
-			{
-				ACTION_LOG::associate_fresh_action($val['history_id'], $val['associate_id'], $val['associate_type'], $val['associate_action'], $val['uid'], $val['anonymous'], $val['add_time']);
-			}
-		}
-		
-		return true;
-	}
-	
 	public function check_last_answer()
 	{
 		return $this->fetch_row('question', 'last_answer > 0');
@@ -134,33 +111,6 @@ class upgrade_class extends AWS_MODEL
 		
 		return true;
 	}
-	
-	/*public function check_question_attach_statistics()
-	{
-		return $this->fetch_row('question', 'has_attach = 1');
-	}
-	
-	public function update_question_attach_statistics($page, $limit = 100)
-	{
-		if (!$questions = $this->query_all("SELECT question_id FROM " . $this->get_table('question') . ' LIMIT ' . calc_page_limit($page, $limit)))
-		{
-			return false;
-		}
-		
-		foreach ($questions AS $key => $val)
-		{
-			if ($this->count('attach', "item_type = 'question' AND item_id = " . $val['question_id']))
-			{
-				$this->update('question', array('has_attach' => 1), 'question_id = ' . intval($val['question_id']));
-			}
-			else
-			{
-				$this->update('question', array('has_attach' => 0), 'question_id = ' . intval($val['question_id']));
-			}
-		}
-		
-		return true;
-	}*/
 	
 	public function check_answer_attach_statistics()
 	{

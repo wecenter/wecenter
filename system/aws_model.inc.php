@@ -415,6 +415,11 @@ class AWS_MODEL
 			}
 		}
 		
+		if (!$page)
+		{
+			$page = 1;
+		}
+		
 		if ($limit)
 		{
 			$select->limitPage($page, $limit);
