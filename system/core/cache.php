@@ -52,10 +52,12 @@ class core_cache
 		
 		if ($this->backendName == 'File')
 		{
-			if (!$cache_dir = get_setting('cache_dir'))
+			$cache_dir = ROOT_PATH . 'cache/';
+			
+			/*if (!$cache_dir = get_setting('cache_dir'))
 			{
 				$cache_dir = ROOT_PATH . 'cache/';
-			}
+			}*/
 			
 			$this->backendOptions = array(
 				'cache_dir' => realpath($cache_dir)
@@ -81,12 +83,7 @@ class core_cache
 	 * @return boolean
 	 */
 	public function set($key, $value, $lifetime = 60, $group = null)
-	{
-		if (defined('DISABLE_CACHE'))
-		{
-			return false;
-		}
-		
+	{		
 		if (AWS_APP::config()->get('system')->debug)
 		{
 			list($usec, $sec) = explode(' ', microtime());
@@ -136,11 +133,6 @@ class core_cache
 	 */
 	public function get($key)
 	{
-		if (defined('DISABLE_CACHE'))
-		{
-			return false;
-		}
-		
 		if (AWS_APP::config()->get('system')->debug)
 		{
 			list($usec, $sec) = explode(' ', microtime());

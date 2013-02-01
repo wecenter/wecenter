@@ -93,7 +93,7 @@ class AWS_CONTROLLER
 			}
 		}
 		
-		if (get_setting('site_close') == 'Y' && $this->user_info['group_id'] != 1 && !($_GET['app'] == 'account' && in_array($_GET['act'], array('login_process', 'login', 'upgrade'))))
+		if (get_setting('site_close') == 'Y' AND $this->user_info['group_id'] != 1 AND !in_array($_GET['app'], array('account', 'upgrade')))
 		{
 			$this->model('account')->logout();
 			

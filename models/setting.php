@@ -20,24 +20,16 @@ if (!defined('IN_ANWSION'))
 
 class setting_class extends AWS_MODEL
 {
-	function get_setting($where = null)
-	{
-		if (!$system_setting = AWS_APP::cache()->get('system_setting_' . md5($where)))
-		{
-			if ($system_setting = $this->fetch_all('system_setting', $where))
-			{
-				AWS_APP::cache()->set('system_setting_' . md5($where), $system_setting, get_setting('cache_level_high'), 'system_setting');
-			}
-		}
-		
-		if ($system_setting)
+	function get_settings()
+	{		
+		if ($system_setting = $this->fetch_all('system_setting'))
 		{
 			foreach ($system_setting as $key => $val)
 			{
-				$setting[$val['varname']] = unserialize($val['value']);				
+				$settings[$val['varname']] = unserialize($val['value']);				
 			}
 			
-			return $setting;
+			return $settings;
 		}
 		else
 		{
@@ -51,7 +43,7 @@ class setting_class extends AWS_MODEL
 	 */
 	function check_vars($input)
 	{
-		if (empty($input))
+		if (!is_array($input))
 		{
 			return false;
 		}
@@ -60,7 +52,7 @@ class setting_class extends AWS_MODEL
 		
 		foreach ($input as $key => $val)
 		{
-			if (in_array($key, array_keys(AWS_APP::setting())))
+			if (in_array($key, array_keys(AWS_APP::$settings)))
 			{
 				$r_vars[$key] = $val;
 			}
@@ -87,7 +79,7 @@ class setting_class extends AWS_MODEL
 			), "varname = '" . $this->quote($key) . "'");
 		}
 		
-		AWS_APP::cache()->cleanGroup('system_setting');
+		AWS_APP::cache()->delete('system_settings');
 		
 		return true;
 	}

@@ -18,8 +18,6 @@ if (!defined('IN_ANWSION'))
 	die;
 }
 
-define('DISABLE_CACHE', TRUE);
-
 class main extends AWS_CONTROLLER
 {
 	var $versions = array();
@@ -53,11 +51,6 @@ class main extends AWS_CONTROLLER
 		
 		$this->model('upgrade')->db_clean();
 		
-		if (get_setting('db_version') < 20120727)
-		{
-			H::redirect_msg(AWS_APP::lang()->_t('当前升级器只支持 1.0.2 以上版本升级, 你当前版本太低, 请下载 1.0.3 版进行升级'));
-		}
-		
 		// 在此标记有 SQL 升级的版本号, 名称为上一个版本的 Build 编号
 		$this->versions = array(
 			/*20120608,
@@ -85,17 +78,23 @@ class main extends AWS_CONTROLLER
 			20121123,
 			20121228,
 			20130111,
-			20130118
+			20130118,
+			20130125
 		);
 		
-		if (!$this->db_version = get_setting('db_version'))
+		if (!$this->db_version = get_setting('db_version', false))
 		{
 			$this->db_version = 20120608;
 		}
 		
+		if ($this->db_version < 20120727)
+		{
+			H::redirect_msg(AWS_APP::lang()->_t('当前升级器只支持 1.0.2 以上版本升级, 你当前版本太低, 请下载 1.0.3 版进行升级'));
+		}
+		
 		if (!in_array($this->db_version, $this->versions) AND $_GET['act'] != 'final')
 		{
-			H::redirect_msg(AWS_APP::lang()->_t('您的程序已经是最新版本'));
+			H::redirect_msg(AWS_APP::lang()->_t('您的程序已经是最新版本' . $this->db_version));
 		}
 		
 		TPL::assign('static_url', G_STATIC_URL);

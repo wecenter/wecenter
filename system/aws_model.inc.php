@@ -23,11 +23,6 @@ class AWS_MODEL
 	{
 		$this->prefix = AWS_APP::config()->get('database')->prefix;
 		
-		if ($this->db())
-		{
-			$this->setting = get_setting();
-		}
-		
 		$this->setup();
 	}
 	
