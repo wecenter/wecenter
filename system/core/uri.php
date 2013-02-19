@@ -22,7 +22,7 @@ class core_uri
 	);
 	
 	// 默认控制器
-	var $default = array(
+	var $default_vars = array(
 		'app_dir' => 'home', 
 		'controller' => 'main', 
 		'action' => 'index'
@@ -89,6 +89,11 @@ class core_uri
 			$request_main = str_replace($base_script . '/', '', $request_main);
 		}
 		
+		if (!strstr($request_main, '/'))
+		{
+			$request_main .= '/';
+		}
+		
 		if (count($requests) == 1)
 		{
 			$request_main = $this->parse_uri($request_main);
@@ -99,7 +104,7 @@ class core_uri
 	
 	public function parse_uri($request_main)
 	{
-		if ((get_setting('url_rewrite_enable') == 'Y') && ($request_routes = get_request_route(false)))
+		if ((get_setting('url_rewrite_enable') == 'Y') AND $request_routes = get_request_route(false))
 		{
 			if (!$request_main)
 			{
@@ -111,6 +116,7 @@ class core_uri
 				if (preg_match('/^' . $val[0] . '/', $request_main))
 				{
 					$request_main = preg_replace('/^' . $val[0] . '/', $val[1], $request_main);
+					
 					return $request_main;
 				}
 			}
@@ -171,13 +177,13 @@ class core_uri
 		$request = explode($this->params['sep_act'], $uri['first']);
 		
 		$uri['first'] = array(
-			'pattern' => "", 
+			'pattern' => '', 
 			'args' => $request
 		);
 		
-		$__app_dir = $this->default['app_dir'];	// 应用目录
-		$__controller = $this->default['controller'];	// 控制器
-		$__action = $this->default['action'];	// 动作
+		$__app_dir = $this->default_vars['app_dir'];	// 应用目录
+		$__controller = $this->default_vars['controller'];	// 控制器
+		$__action = $this->default_vars['action'];	// 动作
 		
 		$args_var_str = '';
 		
@@ -209,13 +215,13 @@ class core_uri
 			break;
 			
 			case 2:
-				$__app_dir = $uri['first']['args'][0] ? $uri['first']['args'][0] : $this->default['app_dir'];	// 应用目录
+				$__app_dir = $uri['first']['args'][0] ? $uri['first']['args'][0] : $this->default_vars['app_dir'];	// 应用目录
 				$args_var_str = $uri['first']['args'][1];
 			break;
 			
 			case 3:
 				$args_var_str = $uri['first']['args'][2];
-				$__app_dir = $uri['first']['args'][0] ? $uri['first']['args'][0] : $this->default['app_dir'];	// 应用目录
+				$__app_dir = $uri['first']['args'][0] ? $uri['first']['args'][0] : $this->default_vars['app_dir'];	// 应用目录
 				
 				if (file_exists(ROOT_PATH . 'app/' . $__app_dir . '/' . $uri['first']['args'][1] . '.php'))
 				{
@@ -223,16 +229,16 @@ class core_uri
 				}
 				else
 				{
-					$__controller = $this->default['controller'];	// 控制器
+					$__controller = $this->default_vars['controller'];	// 控制器
 					$__action = $uri['first']['args'][1];	// 动作
 				}
 			break;
 			
 			case 4:
 				$args_var_str = $uri['first']['args'][3];
-				$__app_dir = $uri['first']['args'][0] ? $uri['first']['args'][0] : $this->default['app_dir'];	// 应用目录
-				$__controller = $uri['first']['args'][1] ? $uri['first']['args'][1] : $this->default['controller'];	// 控制器
-				$__action = $uri['first']['args'][2] ? $uri['first']['args'][2] : $this->default['action'];	// 动作
+				$__app_dir = $uri['first']['args'][0] ? $uri['first']['args'][0] : $this->default_vars['app_dir'];	// 应用目录
+				$__controller = $uri['first']['args'][1] ? $uri['first']['args'][1] : $this->default_vars['controller'];	// 控制器
+				$__action = $uri['first']['args'][2] ? $uri['first']['args'][2] : $this->default_vars['action'];	// 动作
 			break;
 		}
 		
