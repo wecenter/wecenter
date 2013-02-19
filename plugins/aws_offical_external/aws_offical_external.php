@@ -31,8 +31,7 @@ class aws_offical_external_class extends AWS_MODEL
 					$val['question_content'] = $val['title'];
 				}
 				
-				$output .= '<div class="q_mainElem i_prl">
-				<span class="q_reply"><em>' . $val['answer_count'] . '</em>回复</span>';
+				$output .= '<div class="q_mainElem i_prl"><span class="q_reply"><em>' . $val['answer_count'] . '</em>回复</span>';
 				
 				if ($val['answer_count'] > 0)
 				{
@@ -43,16 +42,12 @@ class aws_offical_external_class extends AWS_MODEL
 					$output .= '<a class="q_user i_alpHover" href="' . get_js_url('/people/' . $val['user_info']['url_token']) . '"><img src="' . get_avatar_url($val['user_info']['uid'], 'mid') . '" class="user_msg" /></a>';
 				}
 				
-				$output .= '<h4><a href="' . get_js_url('/question/' . $val['question_id']) . '">' . $val['question_content'] . '</a></h4>
-	    
-			    <p class="q_elems">';
+				$output .= '<h4><a href="' . get_js_url('/question/' . $val['question_id']) . '">' . $val['question_content'] . '</a></h4><p class="q_elems">';
 				
 				if ($val['category_info']['title'])
 				{
 					$output .= '<span class="q_banner i_line"><em class="q_ex i_line i_gray"><a href="' . get_js_url('home/explore/category-' . $val['category_info']['url_token']) . '">' . $val['category_info']['title'] . '</a></em></span> • ';
 				}
-				
-				$output .= '<dd class="info"> • ';
 				
 				if ($val['answer_count'] > 0)
 				{
@@ -60,11 +55,11 @@ class aws_offical_external_class extends AWS_MODEL
 				}
 				else
 				{
-					$output .= '<a class="user_msg" href="' . get_js_url('/people/' . $val['user_info']['url_token']) . '">' . $val['user_info'] . '</a> 发起了问题';
+					$output .= '<a class="user_msg" href="' . get_js_url('/people/' . $val['user_info']['url_token']) . '">' . $val['user_info']['user_name'] . '</a> 发起了问题';
 					
 				}
 				
-				$output .= ' • ' . date_friendly($val['update_time']) . ' • ' . $val['focus_count'] . ' 人关注 • ' . $val['view_count'] . ' 次浏览</p>';
+				$output .= ' • ' . date_friendly($val['update_time']) . ' • ' . $val['focus_count'] . ' 人关注 • ' . $val['view_count'] . ' 次浏览</p></div>';
 			}
 		}
 		
