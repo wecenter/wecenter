@@ -82,7 +82,7 @@ function ajax_post(formEl, processer)	// 表单对象，用 jQuery 获取，回�
 {	
 	if (typeof(processer) != 'function')
 	{
-		processer = _ajax_post_processer_qAlert;
+		processer = _ajax_post_processer;
 	}
 	else
 	{
@@ -102,11 +102,6 @@ function ajax_post(formEl, processer)	// 表单对象，用 jQuery 获取，回�
 		success: processer,
 		error:	function (error) { if ($.trim(error.responseText) != '') { alert(_t('发生错误, 返回的信息:') + ' ' + error.responseText); } }
 	});
-}
-
-function _ajax_post_processer_qAlert(result)
-{
-	return _ajax_post_processer(result)
 }
 
 function _ajax_post_processer(result)

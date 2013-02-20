@@ -1,4 +1,29 @@
-<?php/*+--------------------------------------------------------------------------|   Anwsion [#RELEASE_VERSION#]|   ========================================|   by Anwsion dev team|   (c) 2011 - 2012 Anwsion Software|   http://www.anwsion.com|   ========================================|   Support: zhengqiang@gmail.com|   +---------------------------------------------------------------------------*/if (!defined('IN_ANWSION')){	die;}class tool extends AWS_CONTROLLER{	function get_permission_action()	{		}	public function setup()	{		$this->model('admin_session')->init($this->get_permission_action());	}
+<?php
+/*
++--------------------------------------------------------------------------
+|   Anwsion [#RELEASE_VERSION#]
+|   ========================================
+|   by Anwsion dev team
+|   (c) 2011 - 2012 Anwsion Software
+|   http://www.anwsion.com
+|   ========================================
+|   Support: zhengqiang@gmail.com
+|   
++---------------------------------------------------------------------------
+*/
+
+
+if (!defined('IN_ANWSION'))
+{
+	die;
+}
+
+class tool extends AWS_CONTROLLER
+{
+	public function setup()
+	{
+		$this->model('admin_session')->init();
+	}
 	
 	public function index_action()
 	{
@@ -11,9 +36,15 @@
 	public function init_action()
 	{
 		H::redirect_msg(AWS_APP::lang()->_t('正在准备...'), '?/admin/tool/' . $_POST['action'] . '/page-1__per_page-' . $_POST['per_page']);
-	}		public function cache_clean_action()	{			AWS_APP::cache()->clean();
+	}
+	
+	public function cache_clean_action()
+	{	
+		AWS_APP::cache()->clean();
 		
-		H::redirect_msg(AWS_APP::lang()->_t('缓存清理完成'), '?/admin/tool/');	}	
+		H::redirect_msg(AWS_APP::lang()->_t('缓存清理完成'), '?/admin/tool/');
+	}
+	
 	public function update_users_reputation_action()
 	{
 		if ($this->model('reputation')->calculate((($_GET['page'] * $_GET['per_page']) - $_GET['per_page']), $_GET['per_page']))
@@ -113,4 +144,5 @@
 		{
 			H::redirect_msg(AWS_APP::lang()->_t('最新动态更新完成'));
 		}
-	}}
+	}
+}

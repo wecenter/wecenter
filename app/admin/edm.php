@@ -21,15 +21,10 @@ if (!defined('IN_ANWSION'))
 class edm extends AWS_CONTROLLER
 {
 	var $per_page = 20;
-	
-	function get_permission_action()
-	{
-	
-	}
 
 	public function setup()
 	{
-		$this->model('admin_session')->init($this->get_permission_action());
+		$this->model('admin_session')->init();
 		
 		$this->crumb(AWS_APP::lang()->_t('邮件群发'), "admin/edm/");
 	}

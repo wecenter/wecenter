@@ -20,14 +20,9 @@ if (!defined('IN_ANWSION'))
 
 class statistic extends AWS_CONTROLLER
 {
-	function get_permission_action()
-	{
-	
-	}
-
 	public function setup()
 	{
-		$this->model('admin_session')->init($this->get_permission_action());
+		$this->model('admin_session')->init();
 		
 		$this->crumb(AWS_APP::lang()->_t('数据统计'), 'admin/statistic/');
 		

@@ -20,14 +20,9 @@ if (!defined('IN_ANWSION'))
 
 class setting extends AWS_CONTROLLER
 {
-	function get_permission_action()
-	{
-	
-	}
-
 	public function setup()
 	{
-		admin_session_class::init($this->get_permission_action());
+		$this->model('admin_session')->init();
 	}
 
 	public function index_action()

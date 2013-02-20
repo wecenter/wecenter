@@ -22,14 +22,9 @@ class topic extends AWS_CONTROLLER
 {
 	var $per_page = 15;
 
-	function get_permission_action()
-	{
-		
-	}
-
 	public function setup()
 	{
-		$this->model('admin_session')->init($this->get_permission_action());
+		$this->model('admin_session')->init();
 		
 		TPL::assign('menu_list', $this->model('admin_group')->get_menu_list($this->user_info['group_id'], 303));
 	}

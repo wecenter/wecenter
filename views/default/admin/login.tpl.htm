@@ -21,18 +21,17 @@
 <div class="default_setup">
   <p class="default_head"><span class="default_logo"></span></p>
   <div class="default_contents">
-    <div class="default_error" id="notification"><h3 id="not_cont"><?php _e('请输入 E-mail / 账号、密码'); ?></h3></div>
     <form id="login_form" onsubmit="return false" action="admin/login_process_ajax/" method="post">
-		<?php if($_GET['url']){ ?>
+		<?php if ($_GET['url']){ ?>
 			<input type="hidden" name="url" value="<?php echo htmlspecialchars($_GET['url']); ?>">
 		<?php } ?>
       <ul class="default_ul">
         <li>
           <label class="label">E-mail: </label>
-		  <?php if($this->user_info){ ?>
+		<?php if($this->user_info) { ?>
         <span class="txt_color"><?php echo $this->user_info['email']; ?></span>
         <input class="default_textt" value="<?php echo $this->user_info['email']; ?>" type="hidden" name="username" id="username"/>
-        <?php }else{ ?>
+        <?php } else { ?>
         <input class="default_text" type="text" name="username" id="username" />
         <?php } ?>
           </li>
@@ -46,7 +45,7 @@
 		    <input class="default_text" style="width:60px;" type="text" name="seccode_verify" value="" id="seccode_verify" onkeydown="if (event.keyCode == 13) { document.getElementById('login_submit').click(); };"/> &nbsp; <img src="" onclick="this.src = G_BASE_URL + '/account/captcha/?' + Math.floor(Math.random() * 10000);" id="seccode" style="vertical-align:middle" /> <a href="javascript:void(0);" onclick="$('#seccode').click();"><?php _e('换一张'); ?></a>
         </li>
         <?php } ?>
-        <li  class="default_setup_n"><a id="login_submit" class="default_install" href="javascript:;" onclick="ajax_post($('#login_form'), _login_post_processer);"><?php _e('登录'); ?></a></li>
+        <li  class="default_setup_n"><a id="login_submit" class="default_install" href="javascript:;" onclick="ajax_post($('#login_form'), _ajax_post_alert_processer);"><?php _e('登录'); ?></a></li>
       </ul>
     </form>
   </div>
@@ -54,30 +53,9 @@
 
 
 <script type="text/javascript">
-
 $(document).ready(function () {
 	$('#seccode').click();
 });
-
-function _login_post_processer(result)
-{
-	if (result.errno == "-1")
-	{
-		$("#notification").removeClass("information").addClass("error");
-		$("#not_cont").html(result.err);
-	}
-	else if (result.errno == 1)
-	{
-		if (result.rsm.url != undefined)
-		{
-			window.location.href = result.rsm.url;
-		}
-		else
-		{
-			window.location.href = G_BASE_URL + '/admin/';
-		}
-	}
-}
 </script>
 
 <?php TPL::output('global/debuger.tpl.htm'); ?>
