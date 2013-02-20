@@ -10,6 +10,7 @@ $(document).ready(function () {
 	
 	$('a.show_answer').live('click', function () {
 		$('a.show_answer').removeClass('current');
+		
 		$(this).addClass('current');
 		
 		view_answer($(this).attr('data_id'));
@@ -73,7 +74,7 @@ function load_questions_list()
 }
 
 function view_answer(answer_id)
-{
+{	
 	$('#top_actions').attr('href', G_BASE_URL + '/question/' + answers_list[answer_id]['question_id']);
 	
 	$('#answer_users').html(questions_list[answers_list[answer_id]['question_id']]['answer_users']);
@@ -98,20 +99,26 @@ function view_answer(answer_id)
 	$('#vote_info_users_list').empty();
 	$('#vote_info_users_list_more').empty().hide();
 	$('#vote_info_more_link').show();
+	$('#answer_vote_info').hide();
 	
-	$.each(answers_list[answer_id]['agree_users'], function (i, name) {
-		if ($('#vote_info_users_list li').length < 5)
-		{
-			$('#vote_info_users_list').append('<li><a href="' + G_BASE_URL + '/people/' + i + '">' + name + '</a>、</li>');
-		}
-		else
-		{
-			$('#vote_info_users_list_more').append('<li><a href="' + G_BASE_URL + '/people/' + i + '">' + name + '</a>、</li>');
-		}
+	if (answers_list[answer_id]['agree_users'])
+	{
+		$.each(answers_list[answer_id]['agree_users'], function (i, name) {
+			if ($('#vote_info_users_list li').length < 5)
+			{
+				$('#vote_info_users_list').append('<li><a href="' + G_BASE_URL + '/people/' + i + '">' + name + '</a>、</li>');
+			}
+			else
+			{
+				$('#vote_info_users_list_more').append('<li><a href="' + G_BASE_URL + '/people/' + i + '">' + name + '</a>、</li>');
+			}
+		});
 		
-		$('#answer_content').html(answers_list[answer_id]['answer_content']);
-		$('#add_time').html(answers_list[answer_id]['add_time']);
-	});
+		$('#answer_vote_info').show();
+	}
+	
+	$('#answer_content').html(answers_list[answer_id]['answer_content']);
+	$('#add_time').html(answers_list[answer_id]['add_time']);
 	
 	$('#right_panel').show();
 }
