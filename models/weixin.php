@@ -38,13 +38,31 @@ class weixin_class extends AWS_MODEL
 			
 			if ($keyword != 'Hello2BizUser')
 			{
-				if ($search_result = $this->model('search')->search_questions($keyword, null, 5))
+				if ($search_result = $this->model('search')->search_questions($keyword, null, 6))
 				{
 					$contentStr = '为您找到下列相关问题:' . "\n\n";
 					
 					foreach ($search_result AS $key => $val)
 					{
 						$contentStr .= '• <a href="' . get_js_url('/m/question/' . $val['question_id']) . '">' . $val['question_content'] . '</a>' . "\n";
+						
+						if ($key == 0 AND $val['answer_count'] > 0)
+						{
+							$contentStr .= "----------\n";
+							
+							if ($val['best_answer'])
+							{
+								$answer_list = $this->model('answer')->get_answer_list_by_question_id($question_id, 1, 'AND answer.answer_id = ' . (int)$question_info['best_answer']);
+							}
+							else
+							{
+								$answer_list = $this->model('answer')->get_answer_list_by_question_id($question_id, 1, null, 'agree_count DESC');
+							}
+							
+							$contentStr .= cjk_substr($answer_list[0]['answer_content'], 0, 128, 'UTF-8', '...') . "\n";
+							
+							$contentStr .= "----------\n";
+						}
 					}
 				}
 				else
