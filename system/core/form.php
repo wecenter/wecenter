@@ -29,7 +29,7 @@ class core_form
 	
 	public function save_post_hash_lib()
 	{
-		AWS_APP::cache()->set($this->post_hash_cache_key, $this->post_hash_lib, (3600 * 12));
+		AWS_APP::cache()->set($this->post_hash_cache_key, $this->post_hash_lib, 3600);
 	}
 	
 	public function new_post_hash()

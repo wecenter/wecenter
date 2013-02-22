@@ -181,7 +181,7 @@ class main extends AWS_CONTROLLER
 	
 	public function final_action()
 	{
-		if (!$_GET['page'])
+		if (intval($_GET['page']) < 1)
 		{
 			$_GET['page'] = 1;
 		}
