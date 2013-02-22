@@ -40,28 +40,28 @@ class weixin_class extends AWS_MODEL
 			{
 				if ($search_result = $this->model('search')->search_questions($keyword, null, 6))
 				{
-					$contentStr = '为您找到下列相关问题:' . "\n\n";
+					$contentStr = '为您找到下列相关问题:' . "\n";
 					
 					foreach ($search_result AS $key => $val)
 					{
-						$contentStr .= '• <a href="' . get_js_url('/m/question/' . $val['question_id']) . '">' . $val['question_content'] . '</a>' . "\n";
+						$contentStr .= "\n" . '• <a href="' . get_js_url('/m/question/' . $val['question_id']) . '">' . $val['question_content'] . '</a>' . "\n";
 						
 						if ($key == 0 AND $val['answer_count'] > 0)
 						{
-							$contentStr .= "----------\n";
+							$contentStr .= "--------------------\n";
 							
 							if ($val['best_answer'])
 							{
-								$answer_list = $this->model('answer')->get_answer_list_by_question_id($question_id, 1, 'AND answer.answer_id = ' . (int)$question_info['best_answer']);
+								$answer_list = $this->model('answer')->get_answer_list_by_question_id($val['question_id'], 1, 'AND answer.answer_id = ' . (int)$val['best_answer']);
 							}
 							else
 							{
-								$answer_list = $this->model('answer')->get_answer_list_by_question_id($question_id, 1, null, 'agree_count DESC');
+								$answer_list = $this->model('answer')->get_answer_list_by_question_id($val['question_id'], 1, null, 'agree_count DESC');
 							}
 							
-							$contentStr .= cjk_substr($answer_list[0]['answer_content'], 0, 128, 'UTF-8', '...') . "\n";
+							$contentStr .= "最佳答案: \n\n" . cjk_substr($answer_list[0]['answer_content'], 0, 128, 'UTF-8', '...') . "\n";
 							
-							$contentStr .= "----------\n";
+							$contentStr .= "--------------------\n";
 						}
 					}
 				}

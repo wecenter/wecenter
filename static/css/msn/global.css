@@ -450,3 +450,5 @@ a.v,em.v{ display:inline-block !important; width:15px !important; height:13px !i
 
 .markItUpPreviewFrame { border-radius:5px;margin-bottom:10px; }
 .markItUpPreviewFrame h2.title { font-size:14px;font-weight:bold;color:#333;padding-bottom:5px;border-bottom:1px solid #ccc;margin-bottom:10px; }
+
+.tips_message { padding: 5px 10px; background: #e0e2e1; border-radius: 5px; color: #999; margin: 5px 0; }
