@@ -52,14 +52,14 @@ class api extends AWS_CONTROLLER
 			echo $_GET['echostr'];
 		}
 		
-		$this->input_message = $this->fetch_message();
+		$this->input_message = $this->model('weixin')->fetch_message();
 	}
 	
 	public function index_action()
-	{
+	{		
 		if (strtolower(substr($this->input_message['content'], 0, 2)) == 'fn')
 		{
-			
+			$this->model('weixin')->func_parser($this->input_message);
 		}
 		else
 		{
