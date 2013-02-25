@@ -86,8 +86,8 @@ class weixin_class extends AWS_MODEL
 	
 	public function func_parser($input_message = array())
 	{
-		$func_code = substr($this->input_message['content'], 2, 4);
-		$func_param = strtoupper(substr($this->input_message['content'], 4));
+		$func_code = substr($input_message['content'], 2, 2);
+		$func_param = strtoupper(substr($input_message['content'], 4));
 		
 		switch ($func_code)
 		{
@@ -117,8 +117,6 @@ class weixin_class extends AWS_MODEL
 				$response_message = $this->weixin_unbind($input_message['fromUsername']);
 			break;
 		}
-		
-		$response_message = $this->input_message['content'];
 		
 		echo sprintf($this->text_tpl, $input_message['fromUsername'], $input_message['toUsername'], $input_message['time'], 'text', $response_message);
 		die;
@@ -150,7 +148,7 @@ class weixin_class extends AWS_MODEL
 	
 	public function weixin_valid($param, $weixin_id)
 	{
-		if ($this->fetch_row('users', "`weixin_id` = '" . $this->quote($weixin_id) . "'"))
+		if ($this->model('account')->get_user_info_by_weixin_id($weixin_id))
 		{
 			return '微信帐号已经与一个账户绑定, 解绑请回复 FN02';
 		}
@@ -170,7 +168,7 @@ class weixin_class extends AWS_MODEL
 	
 	public function weixin_unbind($weixin_id)
 	{
-		$this->update('users', "`weixin_id` = ''", "`weixin_id` = '" . $this->quote($weixin_id) . "'");
+		$this->update('users', array('weixin_id' => ''), "`weixin_id` = '" . $this->quote($weixin_id) . "'");
 		
 		return '微信绑定解除成功';
 	}

@@ -29,7 +29,7 @@
 					<?php } ?>
 					
 					<?php if ($this->user_info['weixin_id']) { ?>
-					<p><a href="javascript:;" onclick="ajax_request(G_BASE_URL + '/account/ajax/unbinding_weixin/');" class="i_gray_but i_right"><?php _e('取消绑定'); ?></a><span class="wx i_small"><?php _e('微信'); ?>: <?php echo $this->user_info['weixin_id']; ?></span></p>
+					<p><a href="javascript:;" onclick="ajax_request(G_BASE_URL + '/account/ajax/unbinding_weixin/');" class="i_gray_but i_right"><?php _e('取消绑定'); ?></a><span class="wx i_small"><?php _e('微信已绑定'); ?></span></p>
 					<?php } ?>
 				</div>
 			<?php } ?>
