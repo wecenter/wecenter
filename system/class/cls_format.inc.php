@@ -30,6 +30,8 @@ class FORMAT
 
 	public static function outside_url_exists($str)
 	{
+		$str = strtolower($str);
+		
 		if (strstr($str, 'http'))
 		{
 			preg_match_all('/(?<!["|\'|\)|>])(http[s]?:\/\/[-a-zA-Z0-9@:;%_\+.~#?\&\/\/=!]+)(?!["|\'|\)|>])/i', $str, $matches);
@@ -39,11 +41,11 @@ class FORMAT
 			preg_match_all('/(www\.[-a-zA-Z0-9@:;%_\+\.~#?&\/\/=]+)/i', $str, $matches);
 		}
 		
-		if($matches)
+		if ($matches)
 		{
 			foreach($matches as $key => $val)
 			{
-				if(empty($val))
+				if (empty($val))
 				{
 					continue;
 				}
