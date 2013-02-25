@@ -695,9 +695,9 @@ function valid_post_hash($hash)
 
 function new_post_hash()
 {
-	if (! AWS_APP::session()->permission)
+	if (! AWS_APP::session()->client_info)
 	{
-		return fase;
+		return false;
 	}
 	
 	return AWS_APP::form()->new_post_hash();

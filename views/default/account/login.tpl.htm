@@ -14,7 +14,6 @@
         	<h3 class="login_title i_white"><span class="login_c i_small i_line"></span><?php _e('登录'); ?><?php if (get_setting('invite_reg_only') == 'N') { ?><a href="account/register/" class="login_reg i_white"><?php _e('注册新用户'); ?></a><?php } ?></h3>
         	<form id="login_form" method="post" onsubmit="return false" action="account/ajax/login_process/">
         	<input type="hidden" name="return_url" value="<?php echo $this->return_url; ?>" />
-			<input type="hidden" name="post_hash" value="<?php echo new_post_hash(); ?>" />
             <ul class="loging login_bg_02">
             	<li class="i_lcol_01 i_white_bg"><label for="login_userName" class="login_lb i_small un i_left"></label><input tabindex="1" type="text" class="login_txt" id="login_userName" title="<?php _e('邮箱'); ?>/<?php _e('用户名'); ?>" name="user_name" value="<?php echo $this->r_uname; ?>" /></li>
                 <li class="i_lcol_01 i_white_bg"><label for="login_password" class="login_lb i_small pw i_left"></label><input tabindex="2" type="text" class="login_txt" id="login_password_txt" title="<?php _e('密码'); ?>" value="<?php _e('密码'); ?>" /><input type="password" class="login_txt i_hide" id="login_password" title="<?php _e('密码'); ?>" name="password" /></li>
