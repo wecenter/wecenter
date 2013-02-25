@@ -76,7 +76,7 @@ class setting extends AWS_CONTROLLER
 		
 		TPL::assign('menu_list', $this->model('admin_group')->get_menu_list($this->user_info['group_id'], array_search($type, $menu)));
 		
-		TPL::output("admin/setting/" . $type);
+		TPL::output('admin/setting/' . $type);
 	}
 	
 	

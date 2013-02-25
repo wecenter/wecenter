@@ -20,7 +20,7 @@ if (!defined('IN_ANWSION'))
 
 class api extends AWS_CONTROLLER
 {
-	//var $api_data;
+	var $input_message;
 	
 	public function get_access_rule()
 	{
@@ -51,10 +51,19 @@ class api extends AWS_CONTROLLER
 		{
 			echo $_GET['echostr'];
 		}
+		
+		$this->input_message = $this->fetch_message();
 	}
 	
 	public function index_action()
 	{
-		$this->model('weixin')->response_message();
+		if (strtolower(substr($this->input_message['content'], 0, 2)) == 'fn')
+		{
+			
+		}
+		else
+		{
+			$this->model('weixin')->response_message($this->input_message);
+		}
 	}
 }

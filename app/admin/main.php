@@ -33,10 +33,12 @@ class main extends AWS_CONTROLLER
 	public function index_action()
 	{
 		$writable_check = array(
-			'./cache' => is_really_writable(realpath('./cache')), 
-			'./tmp' => is_really_writable(realpath('./tmp')), 
+			'cache' => is_really_writable(ROOT_PATH . 'cache/'), 
+			'tmp' => is_really_writable(ROOT_PATH . './tmp/'), 
 			get_setting('upload_dir') => is_really_writable(get_setting('upload_dir'))
 		);
+		
+		TPL::assign('writable_check', $writable_check);
 		
 		TPL::assign('users_count', $this->model('system')->count('users'));
 		TPL::assign('users_valid_email_count', $this->model('system')->count('users', 'valid_email = 1'));
@@ -70,10 +72,7 @@ class main extends AWS_CONTROLLER
 		
 		TPL::output("admin/login");
 	}
-
-	/**
-	 * 登录处理
-	 */
+	
 	public function login_process_ajax_action()
 	{
 		define('IN_AJAX', TRUE);
@@ -106,10 +105,8 @@ class main extends AWS_CONTROLLER
 			$user_info = $this->model('account')->check_login($user_name, $password);
 		}
 		
-		if ($user_info)
+		if ($user_info['uid'])
 		{
-			$this->model('admin_session')->admin_logout();
-			
 			$this->model('admin_session')->set_admin_login($user_info['uid']);
 			
 			$url = $_POST['url'] ? base64_decode($_POST['url']) : get_js_url('?/admin/');

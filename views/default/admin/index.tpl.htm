@@ -9,15 +9,17 @@
 <div class="content-box-header" style="margin-bottom:10px;">
 	<h3><?php _e('欢迎访问'); ?> <?php echo get_setting('site_name'); ?> <?php _e('后台管理面板'); ?></h3>
 </div>
+
 <?php if ($this->writable_check) { ?>
 <?php foreach ($this->writable_check as $key => $val) { ?>
-<?php if(!$val) { ?>
+<?php if (!$val) { ?>
 <div class="notification png_bg error" id="notification_box" style="margin:5px auto; margin-bottom:10px; width:96%;"> <a href="javascript:;" class="close"></a>
 	<div name="notification_content" style="height:20px;"><span style="float:left"><?php echo $key; ?> <?php _e('文件夹无法写入, 请检查并将文件夹权限设置为 0777'); ?></span></div>
 </div>
 <?php } ?>
 <?php } ?>
 <?php } ?>
+
 <div style="width:950px;">
 <div class="content-box-content" style=" float:left;width:550px;">
 	<table width="100%">

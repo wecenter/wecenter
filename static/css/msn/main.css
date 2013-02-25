@@ -539,6 +539,7 @@
 .v_bind >p >span.qq{background-position:-34px -2316px;}
 .v_bind >p >span.sina{background-position:-34px -834px;}
 .v_bind >p >span.tx{background-position:-34px -864px;}
+.v_bind >p >span.wx{background: url(../../common/icon_weixin.png) 0 10px no-repeat;}
 .v_data_Tabs{ width:96%; margin:0 auto;}
 .v_data_Tabs{ border:1px solid #dfdfdf;}
 .v_data_Tabs tr >th{ background-color:#F8F8F8; font-weight:bold;}
