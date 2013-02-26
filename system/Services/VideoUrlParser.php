@@ -116,7 +116,7 @@ class Services_VideoUrlParser
 			
 			if ($data)
 			{
-				AWS_APP::cache()->set('video_parse_' . md5($url), $data, 86400, 'video_parser');
+				AWS_APP::cache()->set('video_parse_' . md5($url), $data, 3600, 'video_parser');
 			}
 			
 		}
