@@ -152,12 +152,11 @@ form input[type="checkbox"], form input[type="radio"] { padding: 0; background: 
 /*************** Notifications ***************/
 
 .notification { position: relative; margin: 0 0 15px 8px; padding: 0; border: 1px solid; background-position: 10px 11px !important; background-repeat: no-repeat !important; font-size: 13px; width: 98%; }
-.attention { background: #fffbcc url('../images/icons/exclamation.png') 10px 11px no-repeat; border-color: #e6db55; color: #666452; }
-.information { background: #dbe3ff url('../images/icons/information.png'); border-color: #a2b4ee; color: #585b66; }
-.success { background: #d5ffce url('../images/icons/tick_yes.png'); border-color: #9adf8f; color: #556652; }
-.error { background: #ffcece url('../images/icons/cross_circle.png'); border-color: #df8f8f; color: #665252; }
+.attention { background: #fffbcc url('../images/icons/bullet_delete.png') 10px 11px no-repeat; border-color: #e6db55; color: #666452; }
+.information { background: #dbe3ff url('../images/icons/book_open.png'); border-color: #a2b4ee; color: #585b66; }
+.success { background: #d5ffce url('../images/icons/accept.png'); border-color: #9adf8f; color: #556652; }
+.error { background: #ffcece url('../images/icons/bullet_delete.png'); border-color: #df8f8f; color: #665252; }
 .notification div { display:block; font-style:normal; padding: 10px 10px 10px 36px; line-height: 1.5em; }
-.notification .close { color:#990000; font-size:9px; position:absolute; right:5px; top:5px; width:10px; height:10px; background: url('../images/icons/cross_grey_small.png') no-repeat;}
 /* Notification for form inputs */
 
 .input-notification { background-position: left 2px; background-repeat: no-repeat; padding: 2px 0 2px 22px; background-color: transparent; margin: 0 0 0 5px; }

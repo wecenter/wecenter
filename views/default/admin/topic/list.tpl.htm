@@ -66,11 +66,11 @@
 								<?php if ($val['topic_lock'] == 1){ ?>
 									<a href="javascript:;" onClick="topic_lock(<?php echo $val['topic_id']; ?>, 0)" title="<?php _e('解除锁定'); ?>"><img src="<?php echo G_STATIC_URL;?>/admin/images/icons/lock.png"/></a>
 								<?php }else{ ?>
-									<a href="javascript:;" onClick="topic_lock(<?php echo $val['topic_id']; ?>, 1)" title="<?php _e('锁定话题'); ?>"><img src="<?php echo G_STATIC_URL;?>/admin/images/icons/unlock.png"/></a>
+									<a href="javascript:;" onClick="topic_lock(<?php echo $val['topic_id']; ?>, 1)" title="<?php _e('锁定话题'); ?>"><img src="<?php echo G_STATIC_URL;?>/admin/images/icons/lock_open.png"/></a>
 								<?php } ?>
 								</td>
 								<td style="width:100px; text-align:center;">
-									<a href="admin/topic/edit/topic_id-<?php echo $val['topic_id']; ?>" title="<?php _e('编辑'); ?>"><img src="<?php echo G_STATIC_URL;?>/admin/images/icons/pencil.png"/></a>
+									<a href="admin/topic/edit/topic_id-<?php echo $val['topic_id']; ?>" title="<?php _e('编辑'); ?>"><img src="<?php echo G_STATIC_URL;?>/admin/images/icons/page_edit.png"/></a>
 								</td>
 							</tr>
 <?php } ?>

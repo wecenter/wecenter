@@ -18,7 +18,7 @@
 			<div class="tab-content default-tab" id="tab1">
 				<form id="batchs_form" action="admin/question/answer_batch/" method="post">
 					<?php if (!$this->list) { ?>
-					<div class="notification attention png_bg"> <a href="#" class="close"><img src="<?php echo G_STATIC_URL;?>/admin/images/icons/cross_grey_small.png" title="Close this notification" alt="close" /></a>
+					<div class="notification attention png_bg">
 						<div>
 							<?php if ($this->keyword) { ?>
 							<?php _e('没有找到'); ?> <?php echo $this->keyword; ?> <?php _e('相关的内容'); ?>, <a href="javascript:;" onClick="$('#keyword').val(''); $('#_search_form').submit();"><?php _e('返回'); ?></a>

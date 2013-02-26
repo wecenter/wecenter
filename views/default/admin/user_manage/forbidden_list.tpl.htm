@@ -42,7 +42,7 @@
 							<?php if (get_setting('integral_system_enabled') == 'Y') { ?>
 								<td><?php echo $val['integral']; ?></td>
 							<?php } ?>
-							<td><a href="admin/user_manage/edit/uid-<?php echo $val['uid']; ?>" title="修改"><img src="<?php echo G_STATIC_URL;?>/admin/images/icons/pencil.png"/></a><?php if ($val['uid'] != $this->user_id) { ?> &nbsp; <a href="javascript:;" onClick="ajax_request(G_BASE_URL + '/admin/user_manage/forbidden_status_ajax/user_id-<?php echo $val['uid']; ?>__status-<?php echo intval($val['forbidden']) ? 0 : 1; ?>');" title="<?php if ($val['forbidden']) { ?><?php _e('解除禁止'); ?><?php } else { ?><?php _e('禁止用户'); ?><?php } ?>"><img src="<?php echo G_STATIC_URL;?>/admin/images/icons/<?php if ($val['forbidden']) { ?>lock<?php } else { ?>unlock<?php } ?>.png"/></a><?php } ?></td>
+							<td><a href="admin/user_manage/edit/uid-<?php echo $val['uid']; ?>" title="修改"><img src="<?php echo G_STATIC_URL;?>/admin/images/icons/page_edit.png"/></a><?php if ($val['uid'] != $this->user_id) { ?> &nbsp; <a href="javascript:;" onClick="ajax_request(G_BASE_URL + '/admin/user_manage/forbidden_status_ajax/user_id-<?php echo $val['uid']; ?>__status-<?php echo intval($val['forbidden']) ? 0 : 1; ?>');" title="<?php if ($val['forbidden']) { ?><?php _e('解除禁止'); ?><?php } else { ?><?php _e('禁止用户'); ?><?php } ?>"><img src="<?php echo G_STATIC_URL;?>/admin/images/icons/<?php if ($val['forbidden']) { ?>lock<?php } else { ?>unlock<?php } ?>.png"/></a><?php } ?></td>
 						</tr>
 						<?php } ?>
 					</tbody>
