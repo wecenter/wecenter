@@ -47,7 +47,14 @@ class ucenter_class extends AWS_MODEL
 	
 	function register($_username, $_password, $_email, $email_valid = false)
 	{
-		$result = uc_user_register($_username, $_password, $_email);
+		if (get_setting('ucenter_charset') != 'utf-8')
+		{
+			$result = uc_user_register(convert_encoding($_username, 'utf-8', get_setting('ucenter_charset')), $_password, $_email);
+		}
+		else
+		{
+			$result = uc_user_register($_username, $_password, $_email);
+		}
 		
 		switch ($result)
 		{
@@ -94,11 +101,19 @@ class ucenter_class extends AWS_MODEL
 		{
 			// 使用 E-mail 登录
 			list($uc_uid, $username, $password, $email) = uc_user_login($_username, $_password, 2);
+			
 		}
 		
 		if (!$uc_uid)
 		{
-			list($uc_uid, $username, $password, $email) = uc_user_login($_username, $_password);
+			if (get_setting('ucenter_charset') != 'utf-8')
+			{
+				list($uc_uid, $username, $password, $email) = uc_user_login(convert_encoding($_username, 'utf-8', get_setting('ucenter_charset')), $_password);
+			}
+			else
+			{
+				list($uc_uid, $username, $password, $email) = uc_user_login($_username, $_password);
+			}
 		}
 		
 		if ($uc_uid > 0)
@@ -117,7 +132,7 @@ class ucenter_class extends AWS_MODEL
 					return false;
 				}
 				
-				if($new_user_id = $this->model('account')->user_register($username, $_password, $email, TRUE))
+				if ($new_user_id = $this->model('account')->user_register($username, $_password, $email, TRUE))
 				{
 					if ($exists_uc_id = $this->is_uc_user($email))
 					{

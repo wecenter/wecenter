@@ -32,7 +32,7 @@ class setting extends AWS_CONTROLLER
 
 	public function setting_action()
 	{
-		$menu = array(
+		$settings_menu = array(
 			101 => 'site_info',
 			102 => 'reg_visit',
 			103 => 'site_func',
@@ -50,33 +50,31 @@ class setting extends AWS_CONTROLLER
 			603 => 'today_topics',
 		);
 		
-		$type = $_GET['type'];
-		
-		if (!in_array($type, $menu))
+		if (!in_array($_GET['type'], $settings_menu))
 		{
 			HTTP::redirect('?/admin/main/');
 		}
 		
-		if ($type == 'view_set')
+		if ($_GET['type'] == 'view_set')
 		{
 			TPL::assign('styles', $this->model('setting')->get_ui_styles());
 		}
 		
-		if ($type == 'reg_visit')
+		if ($_GET['type'] == 'reg_visit')
 		{			
 			TPL::assign('notification_settings', get_setting('new_user_notification_setting'));
 			TPL::assign('notify_actions', $this->model('notify')->notify_action_details);
 		}
 		
-		$this->crumb(AWS_APP::lang()->_t('系统设置'), 'admin/setting/type-' . $type);
+		$this->crumb(AWS_APP::lang()->_t('系统设置'), 'admin/setting/type-' . $_GET['type']);
 		
 		TPL::import_js('admin/js/setting.js');
 		
 		TPL::assign('setting', get_setting());
 		
-		TPL::assign('menu_list', $this->model('admin_group')->get_menu_list($this->user_info['group_id'], array_search($type, $menu)));
+		TPL::assign('menu_list', $this->model('admin_group')->get_menu_list($this->user_info['group_id'], array_search($_GET['type'], $settings_menu)));
 		
-		TPL::output('admin/setting/' . $type);
+		TPL::output('admin/setting/' . $_GET['type']);
 	}
 	
 	

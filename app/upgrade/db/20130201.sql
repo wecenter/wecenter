@@ -8,3 +8,5 @@ CREATE TABLE `[#DB_PREFIX#]weixin_valid` (
   KEY `uid` (`uid`),
   KEY `code` (`code`)
 ) ENGINE=[#DB_ENGINE#]  DEFAULT CHARSET=utf8;
+
+INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES ('ucenter_charset', 's:5:"UTF-8";');
