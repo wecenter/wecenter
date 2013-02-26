@@ -41,9 +41,9 @@
 							<td align="center"><?php echo $val['id']; ?></td>
 							<td><a href="feature/<?php echo $val['id']; ?>" target="_blank"><?php echo $val['title']; ?></a></td>
 							<td><?php echo $val['description']; ?></td>
-							<td><?php if ($val['is_scope']) { ?>是<?php } else { ?>否<?php } ?></td>
+							<td align="center"><?php if ($val['is_scope']) { ?>是<?php } else { ?>否<?php } ?></td>
 							<td align="center"><a href="admin/feature/topic_list/feature_id-<?php echo $val['id']; ?>">
-								<?php if ($val['topic_count']){ ?>
+								<?php if ($val['topic_count']) { ?>
 								<?php _e('%s 个话题', $val['topic_count']); ?>
 								<?php } else { ?>
 								<?php _e('添加话题'); ?>

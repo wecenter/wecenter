@@ -21,7 +21,7 @@
 					<fieldset>
 					<p groupid="12" name="sensitive_words">
 						<label><?php _e('敏感词列表'); ?>: <span style="font-weight:normal">(<?php _e('内容中出现敏感词将被替换成 * , 每行填写一个词'); ?>)</span></label>
-						<textarea name="sensitive_words" cols="100" rows="10" id="sensitive_words" style="width:200px;"><?php echo get_setting('sensitive_words'); ?></textarea>
+						<textarea name="sensitive_words" cols="100" rows="10" id="sensitive_words"><?php echo get_setting('sensitive_words'); ?></textarea>
 					</p>
 					<p>
 						<input class="button" type="button" onClick="ajax_post($('#_save_form'), _form_process);" value="<?php _e('保存'); ?>" />
