@@ -35,7 +35,7 @@ class question extends AWS_CONTROLLER
 
 	public function question_list_action()
 	{
-		if ($_POST)
+		if ($this->is_post())
 		{
 			if ($_POST['username'] && (! $user_info = $this->model('account')->get_user_info_by_username($_POST['username'])))
 			{
@@ -185,8 +185,10 @@ class question extends AWS_CONTROLLER
 
 	public function report_list_action()
 	{
-		if ($report_list = $this->model('question')->get_report_list('status = ' . intval($_GET['status']), null, '10'))
+		if ($report_list = $this->model('question')->get_report_list('status = ' . intval($_GET['status']), $_GET['page'], $this->per_page))
 		{
+			$report_total = $this->model('question')->found_rows();
+			
 			$userinfos = $this->model('account')->get_user_info_by_uids(fetch_array_value($report_list, 'uid'));
 			
 			foreach ($report_list as $key => $val)
@@ -199,6 +201,21 @@ class question extends AWS_CONTROLLER
 		
 		TPL::assign('list', $report_list);
 		TPL::assign('menu_list', $this->model('admin_group')->get_menu_list($this->user_info['group_id'], 306));
+		
+		TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
+			'base_url' => get_setting('base_url') . '/?/admin/question/report_list/status-' . intval($_GET['status']), 
+			'total_rows' => $report_total, 
+			'per_page' => $this->per_page, 
+			'last_link' => "末页", 
+			'first_link' => "首页", 
+			'next_link' => "下一页 »", 
+			'prev_link' => "« 上一页", 
+			'anchor_class' => ' class="number"', 
+			'cur_tag_open' => '<a class="number current">', 
+			'cur_tag_close' => '</a>', 
+			'direct_page' => TRUE
+		))->create_links());
+		
 		TPL::output('admin/question/report_list');
 	}
 
