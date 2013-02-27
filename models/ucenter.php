@@ -21,6 +21,7 @@ if (!defined('IN_ANWSION'))
 class ucenter_class extends AWS_MODEL
 {
 	var $uc_client_path;
+	var $ucenter_charset;
 	
 	function setup()
 	{
@@ -43,13 +44,15 @@ class ucenter_class extends AWS_MODEL
 		
 		require_once $this->uc_client_path . '/config.inc.php';
 		require_once $this->uc_client_path . '/client.php';
+		
+		$this->ucenter_charset = strtolower(get_setting('ucenter_charset'));
 	}
 	
 	function register($_username, $_password, $_email, $email_valid = false)
 	{
-		if (get_setting('ucenter_charset') != 'utf-8')
+		if ($this->ucenter_charset != 'utf-8')
 		{
-			$result = uc_user_register(convert_encoding($_username, 'utf-8', get_setting('ucenter_charset')), $_password, $_email);
+			$result = uc_user_register(convert_encoding($_username, 'utf-8', $this->ucenter_charset), $_password, $_email);
 		}
 		else
 		{
@@ -106,26 +109,38 @@ class ucenter_class extends AWS_MODEL
 		
 		if (!$uc_uid)
 		{
-			if (get_setting('ucenter_charset') != 'utf-8')
+			if ($this->ucenter_charset != 'utf-8')
 			{
-				list($uc_uid, $username, $password, $email) = uc_user_login(convert_encoding($_username, 'utf-8', get_setting('ucenter_charset')), $_password);
+				list($uc_uid, $username, $password, $email) = uc_user_login(convert_encoding($_username, 'utf-8', $this->ucenter_charset), $_password);
+								
+				if ($username)
+				{
+					$username = convert_encoding($username, $this->ucenter_charset, 'UTF-8');
+				}
+				
+				$username = htmlspecialchars($username);
 			}
 			else
 			{
 				list($uc_uid, $username, $password, $email) = uc_user_login($_username, $_password);
+				
+				if ($username)
+				{
+					$username = htmlspecialchars($username);
+				}
 			}
 		}
 		
 		if ($uc_uid > 0)
-		{			
+		{	
 			if (!$user_info = $this->get_uc_user_info($uc_uid))
 			{		
 				if ($site_user_info = $this->model('account')->get_user_info_by_email($email))
-				{					
+				{	
 					$this->insert('users_ucenter', array(
 						'uid' => $site_user_info['uid'],
 						'uc_uid' => $uc_uid,
-						'username' => htmlspecialchars($username),
+						'username' => $username,
 						'email' => $email
 					));
 					
@@ -137,7 +152,7 @@ class ucenter_class extends AWS_MODEL
 					if ($exists_uc_id = $this->is_uc_user($email))
 					{
 						$this->update('users_ucenter', array(
-							'username' => htmlspecialchars($username),
+							'username' => $username,
 							'uid' => $new_user_id
 						), 'uc_uid = ' . intval($exists_uc_id));
 					}
@@ -146,7 +161,7 @@ class ucenter_class extends AWS_MODEL
 						$this->insert('users_ucenter', array(
 							'uid' => $new_user_id,
 							'uc_uid' => $uc_uid,
-							'username' => htmlspecialchars($username),
+							'username' => $username,
 							'email' => $email
 						));
 					}
