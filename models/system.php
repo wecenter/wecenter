@@ -122,6 +122,10 @@ class system_class extends AWS_MODEL
 				
 				$html .= $this->build_category_html($type, $val['id'], $selected_id, $prefix);
 			}
+			else
+			{
+				unset($prefix);
+			}
 		}
 			
 		return $html;
