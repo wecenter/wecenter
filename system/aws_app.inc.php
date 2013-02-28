@@ -225,19 +225,15 @@ class AWS_APP
    	* @param $rsm 		结果数据,可以为空
    	* @param $errno		错误代码，默认为 0 无错误，其它值为相应的错误代码
    	* @param $err		错误信息
-   	* @param $level 	错误级别，默认为 0 ， $err 将直接显示给用户看，如果为 1 则不显示给用户看，统一为提示为  系统繁忙，请稍后再试...
-   	* @param $log		当数据层需要 组件管理中心 写日志时，给出值，默认为空，不写日志
    	* 
-   	* @return 返回标准的RSM数据
+   	* @return 返回标准的 RSM 数据
    	*/
-	public static function RSM($rsm, $errno = 0, $err = "", $level = 0, $log = "")
+	public static function RSM($rsm, $errno = 0, $err = '')
 	{
 		return array(
 			'rsm' => $rsm, 
 			'errno' => (int)$errno, 
-			'err' => $err, 
-			'level' => $level, 
-			'log' => $log
+			'err' => $err,
 		);
 	}
 		
