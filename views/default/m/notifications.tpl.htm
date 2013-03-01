@@ -25,13 +25,13 @@
 	$(document).bind('pageinit', function () {
 		if ($.trim($('#notifications_listview').html()) == '')
 		{
-			load_list_view(request_uri.replace('{q}', $('#listview_type').val()), $('#notifications_listview'), $('#load_notifications'));
+			load_list_view(request_uri.replace('{flag}', $('#listview_type').val()), $('#notifications_listview'), $('#load_notifications'));
 		}
 		
 		$('#listview_type').change(function () {
 			$('#notifications_listview').empty();
 			
-			load_list_view(request_uri.replace('{q}', $('#listview_type').val()), $('#notifications_listview'), $('#load_notifications'));
+			load_list_view(request_uri.replace('{flag}', $('#listview_type').val()), $('#notifications_listview'), $('#load_notifications'));
 		});
 	});
 </script>

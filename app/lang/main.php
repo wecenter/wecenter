@@ -105,6 +105,9 @@ class main extends AWS_CONTROLLER
 	public function app_action()
 	{
 		$files_list = fetch_file_lists(ROOT_PATH . 'app/', 'php');
+		
+		$files_list[] = AWS_PATH . 'class/cls_action_log_class.inc.php';
+		$files_list[] = AWS_PATH . 'functions.inc.php';
 	    
 	    foreach ($files_list AS $search_file)
 	    {
