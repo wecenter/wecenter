@@ -41,7 +41,7 @@ class core_autoload
 		
 		if (file_exists($require_file))
 		{
-			return require $require_file;
+			return require_once $require_file;
 		}
 		
 		if (class_exists('AWS_APP', false))
@@ -52,17 +52,17 @@ class core_autoload
 		// 如果内置有显示就读内置的
 		if (isset(self::$_gz_class[$class_name]))
 		{
-			return require(self::$_gz_class[$class_name]);
+			return require_once self::$_gz_class[$class_name];
 		}
 		// 查找 models 目录
 		else if (file_exists(ROOT_PATH . 'models/' . str_replace(array('_class', '_'), array('', '/'), $class_name) . '.php'))
 		{
-			return require(ROOT_PATH . 'models/' . str_replace(array('_class', '_'), array('', '/'), $class_name) . '.php');
+			return require_once ROOT_PATH . 'models/' . str_replace(array('_class', '_'), array('', '/'), $class_name) . '.php';
 		}
 		// 查找 includes
 		else if (file_exists(AWS_PATH . 'class/' . $class_name . '.inc.php'))
 		{
-			return require(AWS_PATH . 'class/' . $class_name . '.inc.php');
+			return require_once AWS_PATH . 'class/' . $class_name . '.inc.php';
 		}
 	}
 }
