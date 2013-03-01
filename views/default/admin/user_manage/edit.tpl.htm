@@ -56,7 +56,8 @@
 						<img src="<?php echo get_avatar_url($this->user['uid'], 'max'); ?>"/><br />
 						<input name="delete_avatar" type="checkbox" value="1"> <?php _e('删除头像'); ?>
 					</p>
-					<?php if ($this->user_info['group_id'] == '1'){ ?>
+					
+					<?php if ($this->user_info['group_id'] == 1) { ?>
 					<p>
 						<label><?php _e('用户组'); ?>:</label>
 						<select class="small-input" name="group_id">
@@ -66,46 +67,53 @@
 						</select>
 					</p>
 					<?php } ?>
+					
 					<p>
-						<label><?php _e('锁定当前用户'); ?>:</label>
+						<label><?php _e('封禁用户'); ?>:</label>
 						<input type="radio" name="forbidden" value="1"<?php if ($this->user['forbidden'] == 1) { ?> checked="checked"<?php } ?> />
 						<?php _e('是'); ?>
 						<input type="radio" name="forbidden" value="0"<?php if ($this->user['forbidden'] == 0) { ?> checked="checked"<?php } ?> />
 						<?php _e('否'); ?>
 					</p>
+					
 					<p>
 						<label><?php _e('注册时间'); ?>:</label>
-						<input name="reg_time" class="text-input small-input" type="text" value="<?php if ($this->user['reg_time']){ echo date("Y-m-d H:i:s", $this->user['reg_time']); } ?>"/>
+						<?php echo date_friendly($this->user['reg_time']); ?>
 					</p>
+					
+					<?php if ($this->user['reg_ip']) { ?>
 					<p>
 						<label><?php _e('注册 IP'); ?>:</label>
-						<input name="reg_ip" class="text-input small-input" type="text" value="<?php if ($this->user['reg_time']){ echo long2ip($this->user['reg_ip']); } ?>"/>
+						<?php echo long2ip($this->user['reg_ip']); ?>
 					</p>
-					<p>
-						<label><?php _e('上次登录时间'); ?>:</label>
-						<input name="last_login" class="text-input small-input" type="text" value="<?php if ($this->user['last_login']){ echo date("Y-m-d H:i:s", $this->user['last_login']); } ?>"/>
-					</p>
+					<?php } ?>
+					
+					<?php if ($this->user['last_ip']) { ?>
 					<p>
 						<label><?php _e('上次登录 IP'); ?>:</label>
-						<input name="last_ip" class="text-input small-input" type="text" value="<?php if ($this->user['last_ip']){ echo long2ip($this->user['last_ip']); } ?>"/>
+						<?php echo long2ip($this->user['last_ip']); ?>
 					</p>
+					<?php } ?>
+					<p>
+						<label><?php _e('上次登录时间'); ?>:</label>
+						<?php echo date_friendly($this->user['last_login']); ?>
+					</p>
+					
 					<p>
 						<label><?php _e('性别'); ?>:</label>
-						<input type="radio" name="sex" value="1" <?php if ($this->user['sex'] == 1) { ?> checked="checked"<?php } ?>/>
+						<input type="radio" name="sex" value="1"<?php if ($this->user['sex'] == 1) { ?> checked="checked"<?php } ?>/>
 						<?php _e('男'); ?>
-						<input type="radio" name="sex" value="2" <?php if ($this->user['sex'] == 2) { ?> checked="checked"<?php } ?>/>
+						<input type="radio" name="sex" value="2"<?php if ($this->user['sex'] == 2) { ?> checked="checked"<?php } ?>/>
 						<?php _e('女'); ?>
-						<input type="radio" name="sex" value="3" <?php if ($this->user['sex'] == 3) { ?> checked="checked"<?php } ?>/>
+						<input type="radio" name="sex" value="3"<?php if (!$this->user['sex'] OR $this->user['sex'] == 3) { ?> checked="checked"<?php } ?>/>
 						<?php _e('保密'); ?>
 					</p>
-					<p>
-						<label><?php _e('出生日期'); ?>:</label>
-						<input name="birthday" class="text-input small-input" type="text" value="<?php if ($this->user['birthday']){ echo date("Y-m-d H:i:s", $this->user['birthday']); } ?>"/>
-					</p>
+
 					<p>
 						<label><?php _e('可用邀请名额'); ?>: </label>
 						<input name="invitation_available" class="text-input small-input" type="text" value="<?php echo $this->user['invitation_available']; ?>"/>
 					</p>
+					
 					<p>
 						<input class="button" type="button" onClick="ajax_post($('#_save_form'), _form_process);" value="<?php _e('保存'); ?>" />
 					</p>

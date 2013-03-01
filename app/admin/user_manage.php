@@ -315,74 +315,52 @@ class user_manage extends AWS_CONTROLLER
 				H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('用户不存在')));
 			}
 			
-			;
-			
 			if ($_POST['user_name'] != $user_info['user_name'] && $this->model('account')->get_user_info_by_username($_POST['user_name']))
 			{
 				H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('用户名已存在')));
 			}
-
-			foreach($_POST as $key => $val)
-			{
-				if (empty($val))
-				{
-					continue;
-				}
 			
-				if (in_array($key, array('reg_time', 'last_login', 'birthday')))
-				{
-					$update_user[$key] = strtotime($val);
-				}
-				else if (in_array($key, array('reg_ip', 'last_ip')))
-				{
-					$update_user[$key] = ip2long($val);
-				}
-				else
-				{
-					$update_user[$key] = htmlspecialchars($val);
-				}
+			if ($_POST['email'])
+			{
+				$update_data['email'] = htmlspecialchars($_POST['email']);
 			}
 			
-			$update_user['verified'] = isset($_POST['verified']) ? 1 : 0;
+			if ($_POST['invitation_available'])
+			{
+				$update_data['invitation_available'] = intval($_POST['invitation_available']);
+			}
 			
-			if ($update_user['delete_avatar'])
+			$update_data['verified'] = intval($_POST['verified']);
+			$update_data['valid_email'] = intval($_POST['valid_email']);
+			$update_data['forbidden'] = intval($_POST['forbidden']);
+			
+			if ($this->user_info['group_id'] == 1 AND $_POST['group_id'])
+			{
+				$update_data['group_id'] = intval($_POST['group_id']);
+			}
+			
+			$this->model('account')->update_users_fields($update_data, $user_id);
+			
+			if ($_POST['delete_avatar'])
 			{
 				$this->model('account')->delete_avatar($user_id);
-				
-				unset($update_user['delete_avatar']);
 			}
 			
-			if ($this->user_info['group_id'] != '1')
+			if ($_POST['password'])
 			{
-				unset($update_user['group_id']);
+				$this->model('account')->update_user_password_ingore_oldpassword($_POST['password'], $user_id, fetch_salt(4));
 			}
-			
-			if (! empty($update_user['password']))
-			{
-				$this->model('account')->update_user_password_ingore_oldpassword($update_user['password'], $user_id, fetch_salt(4));
-			}
-			
-			if ($user_info['group_id'] == 3 && $update_user['valid_email'] == 1)
-			{
-				$update_user['group_id'] = 4;
-			}
-			
-			unset($update_user['password']);
 			
 			$this->model('account')->update_users_attrib_fields(array(
-				'signature' => htmlspecialchars($update_user['signature'])
+				'signature' => htmlspecialchars($_POST['signature'])
 			), $user_id);
-			
-			unset($update_user['signature']);
-			
-			$this->model('account')->update_users_fields($update_user, $user_id);
 			
 			if ($_POST['user_name'] != $user_info['user_name'])
 			{
 				$this->model('account')->update_user_name($_POST['user_name'], $user_id);
 			}
 			
-			H::ajax_json_output(AWS_APP::RSM(null, 1, null));
+			H::ajax_json_output(AWS_APP::RSM(null, 1, AWS_APP::lang()->_t('用户资料更新成功')));
 		}
 		else
 		{
@@ -408,7 +386,7 @@ class user_manage extends AWS_CONTROLLER
 			
 			$this->model('account')->user_register($_POST['user_name'], $_POST['password'], $_POST['email'], true);
 			
-			H::ajax_json_output(AWS_APP::RSM(null, 1, null));
+			H::ajax_json_output(AWS_APP::RSM(null, 1, AWS_APP::lang()->_t('用户添加成功')));
 		}
 	}
 	

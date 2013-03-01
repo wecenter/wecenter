@@ -89,7 +89,7 @@ class core_uri
 			$request_main = str_replace($base_script . '/', '', $request_main);
 		}
 		
-		if (!strstr($request_main, '/'))
+		if (!strstr($request_main, '/') AND !strstr($request_main, '-'))
 		{
 			$request_main .= '/';
 		}
