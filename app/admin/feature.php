@@ -34,35 +34,18 @@ class feature extends AWS_CONTROLLER
 
 	public function list_action()
 	{
-		$per_page = 20;
-		
-		$page_id = intval($_GET['page_id']);
-
-		$page_id = ($page_id == 0) ? 1 : $page_id;
-		
-		$limit = ($page_id - 1) * $per_page . "," . $per_page;
-		
-		$feature_list = $this->model('feature')->get_feature_list(null, $limit, 'id DESC');
+		$feature_list = $this->model('feature')->get_feature_list(null, 'id DESC', $_GET['page'], $limit);
 		
 		$feature_count = $this->model('feature')->found_rows();
 		
-		AWS_APP::pagination()->initialize(array(
-			'base_url' => get_setting('base_url') . '/?/admin/feature/list/',
-			'total_rows' => $feature_count,
-			'per_page' => $per_page,
-			'last_link' => "末页",
-			'first_link' => "首页",
-			'next_link' => "下一页 »",
-			'prev_link' => "« 上一页",
-			'anchor_class' => ' class="number"',
-			'cur_tag_open' => '<a class="number current">',
-			'cur_tag_close' => '</a>',
-			'direct_page' => TRUE
-		));
-		
 		$this->crumb(AWS_APP::lang()->_t('专题管理'), "admin/feature/list/");
 		
-		TPL::assign('pagination', AWS_APP::pagination()->create_links());
+		TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
+			'base_url' => get_setting('base_url') . '/?/admin/feature/list/',
+			'total_rows' => $feature_count,
+			'per_page' => 20,
+			'direct_page' => TRUE
+		))->create_links());
 		
 		TPL::assign('list', $feature_list);
 		

@@ -50,6 +50,7 @@ class api extends AWS_CONTROLLER
 		if ($_GET['echostr'])
 		{
 			echo $_GET['echostr'];
+			die;
 		}
 		
 		$this->input_message = $this->model('weixin')->fetch_message();

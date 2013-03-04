@@ -121,10 +121,8 @@ table tfoot td .bulk-actions select { padding: 4px; border: 1px solid #ccc; }
 /*************** Pagination ***************/
 
 #main-content .pagination { text-align: right; padding: 20px 0 5px 0; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 12px; }
-.pagination a { margin: 0 5px 0 0; padding: 3px 6px; }
-.pagination a.number { border: 1px solid #ddd;cursor:pointer; }
-.pagination a.current { background:url(../images/bg-button-green.gif) top left repeat-x !important;border:none; color: #fff !important; }
-.pagination a.current:hover { text-decoration: underline; }
+.pagination a { margin: 0 5px 0 0; padding: 3px 6px; border: 1px solid #ddd; cursor:pointer; }
+.pagination strong { margin: 0 5px 0 0; padding: 3px 6px; background:url(../images/bg-button-green.gif) top left repeat-x !important;border:none; color: #fff !important; }
 /************ Shortcut Buttons ************/
 
 .shortcut-button { border: 1px solid #ccc; background: #f7f7f7 url('../images/shortcut-button-bg.gif') top left no-repeat; display: block; width: 120px; margin: 0 0 20px 0; }

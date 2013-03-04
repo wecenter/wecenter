@@ -54,7 +54,7 @@ $(document).ready(function()
 	$('#bp_more').click(function()
 	{
 		var _this = this;
-		var index_all= false;	// 首页最新动态
+		var index_all = false;	// 首页最新动态
 		
 		$("#delete_draft").hide();
 		$("#c_list").removeClass();
