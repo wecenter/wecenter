@@ -87,7 +87,7 @@ class answer_class extends AWS_MODEL
 		
 		if ($where)
 		{
-			$sql = $sql . ' ' . $where;
+			$sql = $sql . ' AND (' . $where . ')';
 		}
 		
 		if (!$order_by)

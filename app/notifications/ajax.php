@@ -43,14 +43,12 @@ class ajax extends AWS_CONTROLLER
 	
 	public function list_action()
 	{	
-		if(!$_GET['per_page'])
+		if (!$_GET['per_page'])
 		{
 			$_GET['per_page'] = $this->per_page;
 		}
 		
-		$list = $this->model('notify')->list_notification($this->user_id, $_GET['flag'], intval($_GET['page']) * intval($_GET['per_page']) . ', ' . intval($_GET['per_page']));
-		
-		if (empty($list) && $this->user_info['notification_unread'] != 0)
+		if (!$list = $this->model('notify')->list_notification($this->user_id, $_GET['flag'], intval($_GET['page']) * intval($_GET['per_page']) . ', ' . intval($_GET['per_page'])) && $this->user_info['notification_unread'] != 0)
 		{
 			$this->model('account')->increase_user_statistics(account_class::NOTIFICATION_UNREAD, 0, $this->user_id);
 		}
@@ -88,5 +86,4 @@ class ajax extends AWS_CONTROLLER
 		
 		H::ajax_json_output(AWS_APP::RSM(null, 1, null));
 	}
-
 }

@@ -1,3 +1,4 @@
+<?php if ($this->list) { ?>
 <?php foreach($this->list AS $key => $val) { ?>
 <li>
 	<?php if ($val['extend_count'] > 1) { ?>
@@ -85,4 +86,5 @@
 		<?php } ?>
 	<?php } ?>
 </li>
+<?php } ?>
 <?php } ?>
