@@ -95,6 +95,10 @@ class weixin_class extends AWS_MODEL
 				$response_message = "代码无效, 支持的代码: \nFN00 - 查询微信绑定状态\nFN02 - 解除微信绑定";
 			break;
 			
+			case 'HP':
+				$response_message = "支持的代码: \nFN00 - 查询微信绑定状态\nFN02 - 解除微信绑定";
+			break;
+			
 			// 绑定认证
 			case '00':
 				if ($user_info = $this->model('account')->get_user_info_by_weixin_id($input_message['fromUsername']))
