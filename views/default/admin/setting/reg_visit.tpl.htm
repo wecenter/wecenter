@@ -89,14 +89,13 @@
 					</p>
 					<p groupid="2" name="username_rule">
 						<label><?php _e('用户名规则'); ?>:</label>
-						<label>
-						<input type="radio" value="1" name="username_rule" <?php if ($this->setting['username_rule'] == '1') { ?> checked="checked"<?php } ?>>
+						<label><input type="radio" value="0" name="username_rule"<?php if ($this->setting['username_rule'] == 0) { ?> checked="checked"<?php } ?> />
+						<?php _e('不限制'); ?></label>
+						<label><input type="radio" value="1" name="username_rule"<?php if ($this->setting['username_rule'] == 1) { ?> checked="checked"<?php } ?> />
 						<?php _e('汉字/字母/数字/下划线'); ?></label>
-						<label>
-						<input type="radio" value="2" name="username_rule" <?php if ($this->setting['username_rule'] == '2') { ?> checked="checked"<?php } ?>>
+						<label><input type="radio" value="2" name="username_rule"<?php if ($this->setting['username_rule'] == 2) { ?> checked="checked"<?php } ?> />
 						<?php _e('字母/数字/下划线'); ?></label>
-						<label>
-						<input type="radio" value="3" name="username_rule" <?php if ($this->setting['username_rule'] == '3') { ?> checked="checked"<?php } ?>>
+						<label><input type="radio" value="3" name="username_rule"<?php if ($this->setting['username_rule'] == 3) { ?> checked="checked"<?php } ?> />
 						<?php _e('汉字'); ?></label>
 					</p>
 					<p>

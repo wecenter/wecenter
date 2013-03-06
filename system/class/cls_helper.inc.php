@@ -46,42 +46,12 @@ class H
 		echo str_replace(array("\r", "\n", "\t"), '', json_encode(H::sensitive_words($array)));
 		exit;
 	}
-
-	/**
-	 * 检查手机号码是否合法
-	 * @param $moblie
-	 * @return unknown_type
-	 */
-	public static function check_mobile_char($mobile)
-	{	
-		$mobile = trim($mobile);
-		
-		if (strlen($mobile) != 11)
-		{
-			return false;
-		}
-		
-		$exp = '/^(((13[0-9]{1})|(15[0-9]{1}))+\d{8})/isU';
-		
-		return preg_match($exp, $mobile);
 	
-	}
-
-	/**
-	 * 是否电子邮件格式
-	 * @param $email
-	 * @return bool
-	 */
 	public static function valid_email($email)
-	{
-		if (!$email)
-		{
-			return false;
-		}
+	{	
+		return Zend_Validate::is($email, 'EmailAddress');
 		
-		//return strlen($email) > 6 && preg_match("/^[\w\-\.]+@[\w\-\.]+(\.\w+)+$/", $email);
-		
-		return ( ! preg_match("/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix", $email)) ? FALSE : TRUE;
+		//return ( ! preg_match("/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix", $email)) ? FALSE : TRUE;
 	}
 	
 	public static function redirect_msg($message, $url = NULL, $interval = 5)
@@ -97,34 +67,31 @@ class H
 	/**
 	 * 加密hash，生成发送给用户的hash字符串
 	 *
-	 * @param array $hash_arr
+	 * @param array $hash_array
+	 * @param string $hash_key
 	 * @return string
 	 */
-	public static function encode_hash($hash_arr, $hash_key = false)
+	public static function encode_hash($hash_array, $hash_key = false)
 	{
-		if (empty($hash_arr))
+		if (empty($hash_array))
 		{
 			return false;
 		}
 		
-		$hash_str = "";
-		
-		foreach ($hash_arr as $key => $value)
+		foreach ($hash_array as $key => $value)
 		{
 			$hash_str .= $key . "^]+" . $value . "!;-";
 		}
 		
 		$hash_str = substr($hash_str, 0, - 3);
 		
-		// 加密干扰码，加密解密时需要用到的KEY
+		// 加密干扰码，加密解密时需要用到的 key
 		if (! $hash_key)
 		{
 			$hash_key = G_COOKIE_HASH_KEY;
 		}
 		
 		// 加密过程
-		$tmp_str = '';
-		
 		for ($i = 1; $i <= strlen($hash_str); $i ++)
 		{
 			$char = substr($hash_str, $i - 1, 1);
@@ -143,8 +110,6 @@ class H
 			'_', 
 			'.'
 		), $hash_str);
-		//$hash_str	=	urlencode($hash_str);
-		
 
 		return $hash_str;
 	}
@@ -163,16 +128,14 @@ class H
 			return array();
 		}
 			
-			// 加密干扰码，加密解密时需要用到的KEY
+		// 加密干扰码，加密解密时需要用到的 key
 		if (! $hash_key)
 		{
 			$hash_key = G_COOKIE_HASH_KEY;
 		}
 		
-		//解密过程
-		$tmp_str = '';
-		
-		if (strpos($hash_str, "-") || strpos($hash_str, "_") || strpos($hash_str, "."))
+		//解密过程		
+		if (strpos($hash_str, '-') || strpos($hash_str, "_") || strpos($hash_str, '.'))
 		{
 			$hash_str = str_replace(array(
 				'-', 
@@ -195,33 +158,33 @@ class H
 			$tmp_str .= $char;
 		}
 		
-		$hash_arr = array();
-		$arr = explode("!;-", $tmp_str);
+		$hash_array = array();
+		
+		$arr = explode('!;-', $tmp_str);
 		
 		foreach ($arr as $value)
 		{
-			list($k, $v) = explode("^]+", $value);
+			list($k, $v) = explode('^]+', $value);
+			
 			if ($k)
 			{
-				$hash_arr[$k] = $v;
+				$hash_array[$k] = $v;
 			}
 		}
 		
-		return $hash_arr;
+		return $hash_array;
 	}
 
 	/** 生成 Options **/
 	public static function display_options($param, $default = '_DEFAULT_', $default_key='key')
 	{
-		$output = '';
-		
 		if (is_array($param))
 		{
 			$keyindex = 0;
 			
 			foreach ($param as $key => $value)
 			{	
-				if ($default_key=='value')
+				if ($default_key == 'value')
 				{
 					$output .= '<option value="' . $key . '"' . (($value == $default) ? '  selected' : '') . '>' . $value . '</option>';
 				}
@@ -234,30 +197,6 @@ class H
 		}
 		
 		return $output;
-	}
-	
-	public static function get_common_email($email)
-	{
-		if (!self::valid_email($email))
-		{
-			return false;
-		}
-		
-		$email_domain = substr(stristr($email, '@'), 1);
-		
-		$common_email = (array)AWS_APP::config()->get('common_email');
-		
-		if ($common_email[$email_domain])
-		{
-			return $common_email[$email_domain];
-		}
-		else
-		{
-			return array(
-					'name' => $email_domain,
-					'url' => 'http://www.' . $email_domain,
-			);
-		}
 	}
 
 	/**

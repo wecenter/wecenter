@@ -201,7 +201,8 @@ class FORMAT
 		if (strlen($url) > $length) 
 		{
 			$url = str_replace(array('%3A', '%2F'), array(':', '/'), rawurlencode($url));
-			$url = substr($url, 0, intval($length * 0.6)).' ... '.substr($url, - intval($length * 0.1));
+			
+			$url = substr($url, 0, intval($length * 0.6)) . ' ... ' . substr($url, - intval($length * 0.1));
 		}
 		
 		return $url;

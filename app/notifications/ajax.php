@@ -22,7 +22,7 @@ if (!defined('IN_ANWSION'))
 
 class ajax extends AWS_CONTROLLER
 {
-	var $per_page = 10;
+	var $per_page;
 	
 	public function get_access_rule()
 	{
@@ -35,10 +35,7 @@ class ajax extends AWS_CONTROLLER
 	{
 		HTTP::no_cache_header();
 		
-		if (get_setting('notifications_per_page'))
-		{
-			$this->per_page = get_setting('notifications_per_page');
-		}
+		$this->per_page = get_setting('notifications_per_page');
 	}
 	
 	public function list_action()
@@ -48,7 +45,9 @@ class ajax extends AWS_CONTROLLER
 			$_GET['per_page'] = $this->per_page;
 		}
 		
-		if (!$list = $this->model('notify')->list_notification($this->user_id, $_GET['flag'], intval($_GET['page']) * intval($_GET['per_page']) . ', ' . intval($_GET['per_page'])) && $this->user_info['notification_unread'] != 0)
+		$list = $this->model('notify')->list_notification($this->user_id, $_GET['flag'], intval($_GET['page']) * intval($_GET['per_page']) . ', ' . intval($_GET['per_page']));
+		
+		if (empty($list) AND $this->user_info['notification_unread'] != 0)
 		{
 			$this->model('account')->increase_user_statistics(account_class::NOTIFICATION_UNREAD, 0, $this->user_id);
 		}
@@ -71,15 +70,12 @@ class ajax extends AWS_CONTROLLER
 	}
 	
 	public function read_notification_action()
-	{
-		$notification_id = intval($_GET['notification_id']);
-		$read_type = intval($_GET['read_type']);
-		
-		if ($read_type == 1)
+	{		
+		if ($_GET['read_type'] == 1)
 		{
-			$this->model('notify')->read_notification($notification_id);
+			$this->model('notify')->read_notification($_GET['notification_id']);
 		}
-		else if ($read_type == 0)
+		else if ($_GET['read_type'] == 0)
 		{
 			$this->model('notify')->read_all();
 		}
