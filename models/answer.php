@@ -590,14 +590,10 @@ class answer_class extends AWS_MODEL
 	 */
 	public function remove_answers_by_question_id($question_id)
 	{
-		$answers = $this->get_answer_list_by_question_id($question_id);
-		
-		if (empty($answers))
+		if (!$answers = $this->get_answer_list_by_question_id($question_id))
 		{
 			return false;
 		}
-		
-		$answer_ids = array();
 		
 		foreach ($answers as $key => $val)
 		{
