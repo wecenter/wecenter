@@ -107,7 +107,7 @@ class weixin_class extends AWS_MODEL
 					{
 						TPL::assign('list', $notifications);
 					
-						$response_message = "最新通知: \n\n" . str_replace(array('	', '</a>'), array('', "</a>\n"),  TPL::output('weixin/notifications', false));
+						$response_message = "最新通知:" . str_replace(array("\r", "\n", '	', '•'), array('', '', '', "\n\n•"),  TPL::output('weixin/notifications', false));
 					}
 					else
 					{
