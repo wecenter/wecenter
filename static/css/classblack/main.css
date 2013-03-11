@@ -402,7 +402,7 @@
 .t_topicMain >.t_hot >li >.p_txt{ max-height:40px; min-height:40px; overflow:hidden;}
 
 /*  >> 话题首页_s */
-.t_topic_index{ padding:0 20px 15px 85px; }
+.t_topic_index{ padding:0 20px 15px 100px; }
 .t_topic_index >.u_topicHead{ left:20px; top:0;}
 .b_x4 .u_topicHead{ left:20px !important; top:20px; }
 .t_topic_index >.u_topicHead >img { width:50px; height:50px; }

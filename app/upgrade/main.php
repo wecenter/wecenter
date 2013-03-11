@@ -252,7 +252,7 @@ class main extends AWS_CONTROLLER
 				}
 				else
 				{
-					H::redirect_msg(AWS_APP::lang()->_t('附件统计重建完成, 开始更新最后回复数据...'), '/upgrade/final/case-update_last_answer');
+					H::redirect_msg(AWS_APP::lang()->_t('附件统计重建完成, 开始升级动作数据...'), '/upgrade/final/case-upgrade_user_action_history');
 				}
 			break;
 			

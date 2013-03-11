@@ -199,8 +199,6 @@ class category extends AWS_CONTROLLER
 		$fromids = $_POST['fromids'];
 		$targetid = $_POST['targetid'];
 		
-		$target_id = array_pop($targetid);
-		
 		if (!is_array($fromids) || !$target_id)
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请先选择指定分类和目标分类')));

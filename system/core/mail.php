@@ -94,16 +94,16 @@ class core_mail
 		return $this->mail_transport;
 	}
 	
-	public function send_mail($from_email, $from_name, $to_email, $to_name, $title, $body)
-	{
-		if (!$from_email)
-		{
-			$from_email = get_setting('from_email');
-		}
-		
+	public function send_mail($from_name, $to_email, $to_name, $title, $body)
+	{		
 		if (!$this->mail_transport)
 		{
 			$this->connect();
+		}
+		
+		if (!$from_email = get_setting('from_email'))
+		{
+			$from_email = 'localhost';
 		}
 		
 		try 
@@ -114,7 +114,7 @@ class core_mail
 			$mail->addTo($to_email, $to_name);
 			$mail->setSubject("=?UTF-8?B?" . base64_encode($title) . "?=");
 				
-			return $mail->send($this->mail_transport);
+			$mail->send($this->mail_transport);
 		}
 		catch (Exception $e)
 		{
