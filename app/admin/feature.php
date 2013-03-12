@@ -67,7 +67,7 @@ class feature extends AWS_CONTROLLER
 	{
 		$feature = $this->model('feature')->get_feature_by_id($_GET['feature_id']);
 		
-		$list = $this->model('feature')->get_topics_by_feature_id($_GET['feature_id']);
+		$list = $this->model('topic')->get_topics_by_ids($this->model('feature')->get_topics_by_feature_id($_GET['feature_id']));
 		
 		$this->crumb(AWS_APP::lang()->_t('专题话题管理'), "admin/feature/list/");
 		

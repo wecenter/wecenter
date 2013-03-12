@@ -25,7 +25,7 @@
 							<th><?php _e('专题标题'); ?></th>
 							<th><?php _e('描述'); ?></th>
 							<th><?php _e('是否领域'); ?></th>
-							<th align="center"><?php _e('管理话题'); ?></th>
+							<th align="center"><?php _e('话题'); ?></th>
 							<th><?php _e('操作'); ?></th>
 						</tr>
 					</thead>
@@ -42,14 +42,8 @@
 							<td><a href="feature/<?php echo $val['id']; ?>" target="_blank"><?php echo $val['title']; ?></a></td>
 							<td><?php echo $val['description']; ?></td>
 							<td align="center"><?php if ($val['is_scope']) { ?>是<?php } else { ?>否<?php } ?></td>
-							<td align="center"><a href="admin/feature/topic_list/feature_id-<?php echo $val['id']; ?>">
-								<?php if ($val['topic_count']) { ?>
-								<?php _e('%s 个话题', $val['topic_count']); ?>
-								<?php } else { ?>
-								<?php _e('添加话题'); ?>
-								<?php } ?>
-								</a></td>
-							<td><a href="admin/feature/edit/feature_id-<?php echo $val['id']; ?>" title="<?php _e('编辑专题'); ?>"><img src="<?php echo G_STATIC_URL;?>/admin/images/icons/page_edit.png"/></a> &nbsp; <a href="javascript:void(0);" onClick="ajax_request(G_BASE_URL + '/admin/feature/delete_feature_ajax/', 'feature_id=<?php echo $val['id']; ?>');" title="<?php _e('删除专题'); ?>"><img src="<?php echo G_STATIC_URL;?>/admin/images/icons/page_delete.png" /></a></td>
+							<td align="center"><a href="admin/feature/topic_list/feature_id-<?php echo $val['id']; ?>"><?php if ($val['topic_count']) { ?><?php _e('%s 个话题', $val['topic_count']); ?><?php } else { ?><?php _e('添加话题'); ?><?php } ?></a></td>
+							<td><a href="admin/feature/edit/feature_id-<?php echo $val['id']; ?>" title="<?php _e('编辑专题'); ?>"><img src="<?php echo G_STATIC_URL;?>/admin/images/icons/page_edit.png"/></a> &nbsp; <a href="javascript:void(0);" onClick="ajax_request(G_BASE_URL + '/admin/feature/delete_feature_ajax/', 'feature_id=<?php echo $val['id']; ?>');" title="<?php _e('删除专题'); ?>"><img src="<?php echo G_STATIC_URL;?>/admin/images/icons/page_delete.png" /></a> &nbsp; <a href="admin/feature/topic_list/feature_id-<?php echo $val['id']; ?>" title="<?php _e('话题管理'); ?>"><img src="<?php echo G_STATIC_URL;?>/admin/images/icons/page_link.png" /></a></td>
 						</tr>
 						<?php } ?>
 					</tbody>

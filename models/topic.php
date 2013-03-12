@@ -1151,7 +1151,7 @@ class topic_class extends AWS_MODEL
 		return $topic['user_related'];
 	}
 
-	public function get_topic_action_list($topic_ids, $limit, $best_answer = false)
+	public function get_topic_best_answer_action_list($topic_ids, $limit)
 	{
 		if (is_string($topic_ids))
 		{
@@ -1176,10 +1176,6 @@ class topic_class extends AWS_MODEL
 					}
 				}
 			}
-			else
-			{
-				$question_ids = $this->get_question_ids_by_topics_ids($topic_ids);
-			}
 			
 			if ($best_answer)
 			{
@@ -1190,17 +1186,6 @@ class topic_class extends AWS_MODEL
 				$associate_type = ACTION_LOG::CATEGORY_ANSWER;
 				
 				$associate_id = $answer_ids;
-			}
-			else
-			{
-				$associate_action = array(
-					ACTION_LOG::ADD_QUESTION,
-					ACTION_LOG::ANSWER_QUESTION
-				);
-				
-				$associate_type = ACTION_LOG::CATEGORY_QUESTION;
-				
-				$associate_id = $question_ids;
 			}
 			
 			if (!$associate_id)

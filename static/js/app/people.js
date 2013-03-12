@@ -19,4 +19,12 @@ $(document).ready(function () {
 	bp_more_load(G_BASE_URL + '/people/ajax/follows/type-fans__uid-' + PEOPLE_USER_ID, $('#bp_user_fans_more'), $('#contents_user_fans'));	// 粉丝
 		
 	bp_more_load(G_BASE_URL + '/people/ajax/topics/uid-' + PEOPLE_USER_ID, $('#bp_user_topics_more'), $('#contents_user_topics'));	// 话题
+	
+	if (window.location.hash)
+	{
+		if (document.getElementById(window.location.hash.replace('#', '')))
+		{
+			document.getElementById(window.location.hash.replace('#', '')).click();
+		}
+	}
 });
