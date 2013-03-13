@@ -22,11 +22,6 @@ class main extends AWS_CONTROLLER
 {
 	public function setup()
 	{
-		if (!strstr($_SERVER['REQUEST_URI'], G_INDEX_SCRIPT))
-		{
-			HTTP::redirect(get_setting('base_url') . '/?/admin/');
-		}
-		
 		$this->model('admin_session')->init();
 	}
 

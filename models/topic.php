@@ -1161,195 +1161,99 @@ class topic_class extends AWS_MODEL
 			}
 		}
 		
-		if (!$action_list = AWS_APP::cache()->get('topic_action_list_' . md5($topic_ids . $limit . $best_answer)))
-		{
-			if ($best_answer)
-			{
-				if ($question_ids = $this->get_question_ids_by_topics_ids($topic_ids, null, 'best_answer > 0'))
-				{
-					if ($best_answers = $this->query_all("SELECT best_answer FROM " . $this->get_table('question') . " WHERE best_answer > 0 AND question_id IN (" . implode(',', $question_ids) . ")"))
-					{
-						foreach ($best_answers AS $key => $val)
-						{
-							$answer_ids[] = $val['best_answer'];
-						}
-					}
-				}
-			}
-			
-			if ($best_answer)
-			{
-				$associate_action = array(
-					ACTION_LOG::ANSWER_QUESTION
-				);
-				
-				$associate_type = ACTION_LOG::CATEGORY_ANSWER;
-				
-				$associate_id = $answer_ids;
-			}
-			
-			if (!$associate_id)
-			{
-				$action_list = array();
-			}
-			else if (!$action_list = ACTION_LOG::get_actions_fresh_by_where("(associate_type = " . $associate_type . " AND associate_id IN (" . implode(',', $associate_id) . ") AND associate_action IN(" . implode(',', $associate_action) . "))", $limit))
-			{
-				$action_list = array();
-			}
-			
-			AWS_APP::cache()->set('topic_action_list_' . md5($topic_ids . $limit . $best_answer), $action_list, get_setting('cache_level_low'));
-		}
-		
-		if (sizeof($action_list) == 0 OR !$action_list)
+		if (!$question_ids = $this->get_question_ids_by_topics_ids($topic_ids, null, 'best_answer > 0'))
 		{
 			return false;
 		}
 		
-		foreach ($action_list as $key => $val)
+		if (!$questions_info = AWS_APP::cache()->get('topic_best_answer_action_list_' . md5($topic_ids) . '_' . intval($limit)))
 		{
-			switch ($val['associate_type'])
+			if ($best_answers = $this->query_all("SELECT best_answer FROM " . $this->get_table('question') . " WHERE best_answer > 0 AND question_id IN (" . implode(',', $question_ids) . ")"))
 			{
-				case ACTION_LOG::CATEGORY_QUESTION :
-					$question_ids[] = $val['associate_id'];
+				foreach ($best_answers AS $key => $val)
+				{
+					$answer_ids[] = $val['best_answer'];
+				}
+			}
 					
-					if (in_array($val['associate_action'], array(
-						ACTION_LOG::ANSWER_QUESTION
-					)))
-					{
-						$answer_ids[] = $val['associate_attached'];
-					}
-				break;
+			$questions_info = $this->model('question')->get_question_info_by_ids($question_ids);
+					
+			$answers_info = $this->model('answer')->get_answers_by_ids($answer_ids);
 				
-				case ACTION_LOG::CATEGORY_ANSWER :
-					$question_ids[] = $val['associate_attached'];
-					
-					if (in_array($val['associate_action'], array(
-						ACTION_LOG::ANSWER_QUESTION
-					)))
-					{
-						$answer_ids[] = $val['associate_id'];
-					}
-				break;
-			}
 			
-			if ($val['uid'])
+			foreach ($questions_info AS $key => $val)
 			{
-				$action_list_uids[] = $val['uid'];	
+				$questions_info[$key]['associate_action'] = ACTION_LOG::ANSWER_QUESTION;
+				
+				$action_list_uids[$val['published_uid']] = $val['published_uid'];
 			}
 			
-			if (in_array($val['associate_action'], array(
-				ACTION_LOG::ADD_QUESTION
-			)) and $question_info['has_attach'])
+			foreach ($answers_info AS $key => $val)
 			{
-				$has_attach_question_ids[] = $question_info['question_id'];
+				$answers_info[$val['uid']] = $val['uid'];
 			}
-		}
-		
-		if ($question_ids)
-		{
-			$action_list_question_info = $this->model('question')->get_question_info_by_ids($question_ids);
-			$action_list_question_focus = $this->model('question')->has_focus_questions($question_ids, USER::get_client_uid());
 			
-			$action_list_answers = $this->model('answer')->get_answers_by_ids($answer_ids);
-			$action_list_answers_vote_user = $this->model('answer')->get_vote_user_by_answer_ids($answer_ids);
-			$action_list_answers_vote_status = $this->model('answer')->get_answer_vote_status($answer_ids, USER::get_client_uid());
+			if ($action_list_uids)
+			{
+				$action_list_users_info = $this->model('account')->get_user_info_by_uids($action_list_uids, TRUE);
+			}
+			
+			$answers_info = $this->model('answer')->get_answers_by_ids($answer_ids);
+			$answers_info_vote_user = $this->model('answer')->get_vote_user_by_answer_ids($answer_ids);
 			
 			$answer_attachs = $this->model('publish')->get_attachs('answer', $answer_ids, 'min');
-		}
-		
-		if ($action_list_uids)
-		{
-			$action_list_users_info = $this->model('account')->get_user_info_by_uids($action_list_uids, TRUE);
-		}
-		
-		if ($has_attach_question_ids)
-		{
-			$question_attachs = $this->model('publish')->get_attachs('question', $has_attach_question_ids, 'min');
-		}
-		
-		foreach ($action_list as $key => $val)
-		{
-			switch ($val['associate_type'])
-			{
-				case ACTION_LOG::CATEGORY_QUESTION :
-					$question_id = $val['associate_id'];
-					
-					if (in_array($val['associate_action'], array(
-						ACTION_LOG::ANSWER_QUESTION
-					)))
-					{
-						$answer_id = $val['associate_attached'];
-					}
-				break;
+			
+			foreach ($questions_info AS $key => $val)
+			{	
+				$questions_info[$key]['user_info'] = $action_list_users_info[$val['uid']];
 				
-				case ACTION_LOG::CATEGORY_ANSWER :
-					$question_id = $val['associate_attached'];
-					
-					if (in_array($val['associate_action'], array(
-						ACTION_LOG::ANSWER_QUESTION
-					)))
-					{
-						$answer_id = $val['associate_id'];
-					}
-				break;
-			}
-			
-			$action_list[$key]['user_info'] = $action_list_users_info[$val['uid']];
-			
-			$question_info = $action_list_question_info[$question_id];
-					
-			$question_info['has_focus'] = $action_list_question_focus[$question_info['question_id']];
-					
-			if (in_array($val['associate_action'], array(
-				ACTION_LOG::ADD_QUESTION
-			)) and $question_info['has_attach'])
-			{
-				$question_info['attachs'] = $question_attachs[$question_info['question_id']];
-			}
-										
-			$question_info['last_action_str'] = ACTION_LOG::format_action_str($val['associate_action'], $val['uid'], $action_list_users_info[$val['uid']]['user_name'], $question_info, $topic_info);
-					
-			if (in_array($val['associate_action'], array(
-				ACTION_LOG::ANSWER_QUESTION
-			)))
-			{
-				$answer_info = $action_list_answers[$answer_id];
-						
-				if ($answer_info['has_attach'])
+				if ($val['has_attach'])
 				{
-					$answer_info['attachs'] = $answer_attachs[$answer_id];
+					$questions_info[$key]['attachs'] = $question_attachs[$val['question_id']];
 				}
-						
-				$answer_info['user_name'] = $action_list_users_info[$val['uid']]['user_name'];
-				$answer_info['url_token'] = $action_list_users_info[$val['uid']]['url_token'];
-				$answer_info['signature'] = $action_list_users_info[$val['uid']]['signature'];					
-			}
-			else
-			{
-				$answer_info = null;
-			}
-					
-			if (! empty($answer_info))
-			{
-				$question_info['answer_info'] = $answer_info;
-			}
-					
-			if ($question_info['answer_info']['agree_count'] > 0)
-			{
-				$question_info['answer_info']['agree_users'] = $action_list_answers_vote_user[$question_info['answer_info']['answer_id']];
-			}
-					
-			$question_info['answer_info']['agree_status'] = $action_list_answers_vote_status[$question_info['answer_info']['answer_id']];
-					
-			foreach ($question_info as $qkey => $qval)
-			{
-				$action_list[$key][$qkey] = $qval;
+				
+				$questions_info[$key]['last_action_str'] = ACTION_LOG::format_action_str($val['associate_action'], $val['published_uid'], $action_list_users_info[$val['published_uid']]['user_name'], $question_info);
+				
+				$questions_info[$key]['answer_info'] = $answers_info[$val['best_answer']];
+							
+				if ($questions_info[$key]['answer_info']['has_attach'])
+				{
+					$questions_info[$key]['answer_info']['attachs'] = $answer_attachs[$val['best_answer']];
+				}
+							
+				$questions_info[$key]['answer_info']['user_name'] = $action_list_users_info[$val['uid']]['user_name'];
+				$questions_info[$key]['answer_info']['url_token'] = $action_list_users_info[$val['uid']]['url_token'];
+				$questions_info[$key]['answer_info']['signature'] = $action_list_users_info[$val['uid']]['signature'];
+				
+				if ($questions_info[$key]['answer_info']['agree_count'] > 0)
+				{
+					$questions_info[$key]['answer_info']['agree_users'] = $answers_info_vote_user[$val['best_answer']];
+				}
 			}
 			
-			$action_list[$key]['add_time'] = $val['add_time'];
+			AWS_APP::cache()->set('topic_best_answer_action_list_' . md5($topic_ids) . '_' . intval($limit), $questions_info, get_setting('cache_level_low'));
 		}
 		
-		return $action_list;
+		if (USER::get_client_uid())
+		{
+			foreach ($questions_info AS $key => $val)
+			{
+				$question_ids[] = $val['question_id'];
+				$answer_ids[] = $val['best_answer'];
+			}
+			
+			$questions_focus = $this->model('question')->has_focus_questions($question_ids, USER::get_client_uid());
+			$answers_info_vote_status = $this->model('answer')->get_answer_vote_status($answer_ids, USER::get_client_uid());
+		
+			foreach ($questions_info AS $key => $val)
+			{
+				$questions_info[$key]['has_focus'] = $questions_focus[$val['question_id']];
+				
+				$questions_info[$key]['answer_info']['agree_status'] = $answers_info_vote_status[$val['best_answer']];
+			}
+		}
+		
+		return $questions_info;
 	}
 	
 	function check_url_token($url_token, $topic_id)
