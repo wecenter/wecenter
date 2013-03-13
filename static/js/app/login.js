@@ -210,9 +210,11 @@ var logPicture = [
 		wb_Logins: function( flg ) {
 			if($('#weibo_bind').css('display') == 'none') {
 				$('#weibo_bind').fadeIn('slow');
-				$(flg).find('em:first-child').addClass('cur') 
+				$('#weibo_login').hide();
+				$(flg).find('em:first-child').addClass('cur');
 			}else{
-				$('#weibo_bind').fadeOut('slow');
+				$('#weibo_bind').hide();
+				$('#weibo_login').fadeIn('slow');
 				$(flg).find('em:first-child').removeClass('cur');
 			}
 		},
@@ -573,7 +575,7 @@ var logPicture = [
 			$.isNull($('#user_register')) ? $.register.reg.info() :'';
 			
 			//微博登录 
-			$.isNull($('#login_weibo')) ? $.register.s.info() :'';
+			$.isNull($('#weibo_login')) ? $.register.s.info() :'';
 			
 			//邮箱验证 
 			$.isNull($('#email_verify')) ? $.email_verify() :'';
