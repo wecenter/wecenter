@@ -326,7 +326,7 @@ class favorite_class extends AWS_MODEL
 				$question_info['attachs'] = $question_attachs[$question_info['question_id']];
 			}
 										
-			$question_info['last_action_str'] = ACTION_LOG::format_action_str($val['associate_action'], $val['uid'], $action_list_users_info[$val['uid']]['user_name'], $question_info, $topic_info);
+			$question_info['last_action_str'] = ACTION_LOG::format_action_str($val['associate_action'], $val['uid'], $action_list_users_info[$val['uid']]['user_name'], $question_info);
 					
 			if (in_array($val['associate_action'], array(
 				ACTION_LOG::ANSWER_QUESTION
@@ -366,8 +366,6 @@ class favorite_class extends AWS_MODEL
 			{
 				$action_list[$key][$qkey] = $qval;
 			}
-			
-			$action_list[$key]['add_time'] = $val['add_time'];
 		}
 		
 		return $action_list;

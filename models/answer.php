@@ -482,14 +482,7 @@ class answer_class extends AWS_MODEL
 	
 	public function user_agree_count($uid)
 	{
-		$uid = intval($uid);
-		
-		if ($uid == 0)
-		{
-			return false;
-		}
-		
-		return $this->count('answer_vote', 'vote_value = 1 AND answer_uid = ' . $uid);
+		return $this->count('answer_vote', 'vote_value = 1 AND answer_uid = ' . intval($uid));
 	}
 
 	/**
@@ -661,7 +654,7 @@ class answer_class extends AWS_MODEL
 	 */
 	function has_answer_by_uid($question_id, $uid)
 	{
-		return $this->count('answer', "question_id = " . intval($question_id) . " AND uid = " . intval($uid));
+		return $this->fetch_one('answer', 'answer_id', "question_id = " . intval($question_id) . " AND uid = " . intval($uid));
 	}
 	
 	public function get_last_answer($question_id)
@@ -915,35 +908,30 @@ class answer_class extends AWS_MODEL
 	
 	function calc_best_answer()
 	{
-		if (!intval(get_setting('best_answer_day')))
+		if (!$best_answer_day = intval(get_setting('best_answer_day')))
 		{
 			return false;
 		}
 		
-		$start_time = time() - get_setting('best_answer_day') * 3600 * 24;
+		$start_time = time() - $best_answer_day * 3600 * 24;
 		
 		if ($questions = $this->query_all("SELECT question_id FROM " . $this->get_table('question') . " WHERE add_time < " . $start_time . " AND best_answer = 0 AND answer_count > " . get_setting('best_answer_min_count')))
 		{
 			foreach ($questions AS $key => $val)
 			{
-				$best_answer = $this->model('answer')->get_answer_list_by_question_id($val['question_id'], 1, null, 'agree_count DESC');
+				$best_answer = $this->fetch_row('answer', 'question_id = ' . intval($val['question_id']), 'agree_count DESC');
 				
-				if ($best_answer[0]['agree_count'] > get_setting('best_agree_min_count'))
+				if ($best_answer['agree_count'] > get_setting('best_agree_min_count'))
 				{
-					$this->model('integral')->process($best_answer[0]['uid'], 'BEST_ANSWER', get_setting('integral_system_config_best_answer'), '问题 #' . $val['question_id'] . ' 最佳回复');
+					$this->model('integral')->process($best_answer['uid'], 'BEST_ANSWER', get_setting('integral_system_config_best_answer'), '问题 #' . $val['question_id'] . ' 最佳回复');
 					
 					$this->update('question', array(
-						'best_answer' => $best_answer[0]['answer_id']
-					), 'question_id = ' . intval($best_answer[0]['question_id']));
+						'best_answer' => $best_answer['answer_id']
+					), 'question_id = ' . intval($best_answer['question_id']));
 				}
 			}
 		}
 		
 		return true;
-	}
-	
-	public function check_answer_question($question_id, $uid)
-	{
-		return $this->fetch_row('answer', "question_id = " . intval($question_id) . " AND uid = " . intval($uid));
 	}
 }
