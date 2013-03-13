@@ -1153,21 +1153,18 @@ class topic_class extends AWS_MODEL
 
 	public function get_topic_best_answer_action_list($topic_ids, $limit)
 	{
-		if (is_string($topic_ids))
+		if (!$questions_info = AWS_APP::cache()->get('topic_best_answer_action_list_' . md5($topic_ids) . '_' . intval($limit)))
 		{
 			if (strstr($topic_ids, ','))
 			{
 				$topic_ids = explode(',', $topic_ids);
 			}
-		}
-		
-		if (!$question_ids = $this->get_question_ids_by_topics_ids($topic_ids, null, 'best_answer > 0'))
-		{
-			return false;
-		}
-		
-		if (!$questions_info = AWS_APP::cache()->get('topic_best_answer_action_list_' . md5($topic_ids) . '_' . intval($limit)))
-		{
+			
+			if (!$question_ids = $this->get_question_ids_by_topics_ids($topic_ids, null, 'best_answer > 0'))
+			{
+				return false;
+			}
+			
 			if ($best_answers = $this->query_all("SELECT best_answer FROM " . $this->get_table('question') . " WHERE best_answer > 0 AND question_id IN (" . implode(',', $question_ids) . ")"))
 			{
 				foreach ($best_answers AS $key => $val)
