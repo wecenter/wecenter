@@ -128,7 +128,7 @@ class topic_class extends AWS_MODEL
 	/**
 	 * 根据用户 ID, 得到用户关注话题列表
 	 */
-	public function get_focus_topic_list($uid = null, $limit = 20)
+	public function get_focus_topic_list($uid, $limit = 20)
 	{		
 		if (!$uid)
 		{
@@ -147,6 +147,26 @@ class topic_class extends AWS_MODEL
 		}
 		
 		return $topic_list;
+	}
+	
+	public function get_focus_topic_ids_by_uid($uid)
+	{		
+		if (!$uid)
+		{
+			return false;
+		}
+		
+		if (!$topic_focus = $this->fetch_all('topic_focus', "uid = " . intval($uid)))
+		{
+			return false;
+		}
+		
+		foreach ($topic_focus as $key => $val)
+		{
+			$topic_ids[$val['topic_id']] = $val['topic_id'];
+		}
+		
+		return $topic_ids;
 	}
 	
 	public function get_sized_file($size = null, $pic_file = null)
@@ -1154,13 +1174,8 @@ class topic_class extends AWS_MODEL
 	public function get_topic_best_answer_action_list($topic_ids, $limit)
 	{
 		if (!$questions_info = AWS_APP::cache()->get('topic_best_answer_action_list_' . md5($topic_ids) . '_' . intval($limit)))
-		{
-			if (strstr($topic_ids, ','))
-			{
-				$topic_ids = explode(',', $topic_ids);
-			}
-			
-			if (!$question_ids = $this->get_question_ids_by_topics_ids($topic_ids, null, 'best_answer > 0'))
+		{			
+			if (!$question_ids = $this->get_question_ids_by_topics_ids(explode(',', $topic_ids), null, 'best_answer > 0'))
 			{
 				return false;
 			}

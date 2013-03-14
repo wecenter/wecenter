@@ -11,7 +11,7 @@ $(document).ready(function () {
 		}
 		else
 		{
-			bp_more_load(G_BASE_URL + '/topic/ajax/question_list/feature_id-' + FEATURE_ID, $('#bp_all_more'), $('#c_all_list'));
+			bp_more_load(G_BASE_URL + '/question/ajax/discuss/sort_type-new__feature_id-' + FEATURE_ID, $('#bp_all_more'), $('#c_all_list'), 1);
 		}
 	});
 

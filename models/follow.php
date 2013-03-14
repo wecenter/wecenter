@@ -37,12 +37,12 @@ class follow_class extends AWS_MODEL
 			return false;
 		}
 		else
-		{
-			$insert_data['fans_uid'] = intval($fans_uid);
-			$insert_data['friend_uid'] = intval($friend_uid);
-			$insert_data['add_time'] = time();
-			
-			$result = $this->insert('user_follow', $insert_data);
+		{			
+			$result = $this->insert('user_follow', array(
+				'fans_uid' => intval($fans_uid),
+				'friend_uid' => intval($friend_uid),
+				'add_time' => time()
+			));
 			
 			$this->update_user_count($friend_uid);
 			$this->update_user_count($fans_uid);
@@ -54,7 +54,7 @@ class follow_class extends AWS_MODEL
 
 	public function user_follow_check($fans_uid, $friend_uid)
 	{
-		if (! $fans_uid || ! $friend_uid)
+		if (! $fans_uid OR ! $friend_uid)
 		{
 			return false;
 		}
@@ -86,7 +86,7 @@ class follow_class extends AWS_MODEL
 	
 	public function user_follow_del($fans_uid, $friend_uid)
 	{
-		if (! $fans_uid || ! $friend_uid)
+		if (! $fans_uid OR ! $friend_uid)
 		{
 			return false;
 		}
@@ -97,7 +97,7 @@ class follow_class extends AWS_MODEL
 		}
 		else
 		{
-			$result = $this->delete("user_follow", "fans_uid = " . intval($fans_uid) . " AND friend_uid = " . intval($friend_uid));
+			$result = $this->delete('user_follow', "fans_uid = " . intval($fans_uid) . " AND friend_uid = " . intval($friend_uid));
 			
 			$this->update_user_count($friend_uid);
 			$this->update_user_count($fans_uid);
@@ -121,7 +121,7 @@ class follow_class extends AWS_MODEL
 		
 		foreach ($user_fans AS $key => $val)
 		{
-			$fans_uids[] = $val['fans_uid'];
+			$fans_uids[$val['fans_uid']] = $val['fans_uid'];
 		}
 		
 		return $this->model('account')->get_user_info_by_uids($fans_uids, true);
@@ -142,10 +142,25 @@ class follow_class extends AWS_MODEL
 		
 		foreach ($user_follow AS $key => $val)
 		{
-			$friend_uids[] = $val['friend_uid'];
+			$friend_uids[$val['friend_uid']] = $val['friend_uid'];
 		}
 		
 		return $this->model('account')->get_user_info_by_uids($friend_uids, true);
+	}
+	
+	public function get_user_friends_ids($fans_uid)
+	{
+		if (!$user_follow = $this->fetch_all('user_follow', 'fans_uid = ' . intval($fans_uid)))
+		{
+			return false;
+		}
+		
+		foreach ($user_follow AS $key => $val)
+		{
+			$friend_uids[$val['friend_uid']] = $val['friend_uid'];
+		}
+		
+		return $friend_uids;
 	}
 	
 	public function get_fans_count($friend_uid)
