@@ -214,14 +214,14 @@ function focus_question(el, text_el, question_id)
 		
 		el.removeClass('ui-btn-up-b').removeClass('ui-btn-hover-b');
 		
-		el.addClass('ui-btn-up-c');
-		el.attr('data-theme', 'c');
+		el.addClass('ui-btn-up-d');
+		el.attr('data-theme', 'd');
 	}
 	else
 	{
 		text_el.html(_t('关注'));
 		
-		el.removeClass('ui-btn-up-c').removeClass('ui-btn-hover-c');
+		el.removeClass('ui-btn-up-d').removeClass('ui-btn-hover-d');
 		
 		el.addClass('ui-btn-up-b');
 		el.attr('data-theme', 'b');
@@ -256,14 +256,14 @@ function focus_topic(el, text_el, topic_id)
 		
 		el.removeClass('ui-btn-up-b').removeClass('ui-btn-hover-b');
 		
-		el.addClass('ui-btn-up-c');
-		el.attr('data-theme', 'c');
+		el.addClass('ui-btn-up-d');
+		el.attr('data-theme', 'd');
 	}
 	else
 	{
 		text_el.html(_t('关注'));
 		
-		el.removeClass('ui-btn-up-c').removeClass('ui-btn-hover-c');
+		el.removeClass('ui-btn-up-d').removeClass('ui-btn-hover-d');
 		
 		el.addClass('ui-btn-up-b');
 		el.attr('data-theme', 'b');
@@ -298,14 +298,14 @@ function follow_people(el, text_el, uid)
 		
 		el.removeClass('ui-btn-up-b').removeClass('ui-btn-hover-b');
 		
-		el.addClass('ui-btn-up-c');
-		el.attr('data-theme', 'c');
+		el.addClass('ui-btn-up-d');
+		el.attr('data-theme', 'd');
 	}
 	else
 	{
 		text_el.html(_t('关注'));
 		
-		el.removeClass('ui-btn-up-c').removeClass('ui-btn-hover-c');
+		el.removeClass('ui-btn-up-d').removeClass('ui-btn-hover-d');
 		
 		el.addClass('ui-btn-up-b');
 		el.attr('data-theme', 'b');

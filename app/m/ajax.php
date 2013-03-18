@@ -20,6 +20,8 @@ if (!defined('IN_ANWSION'))
 	die;
 }
 
+define('IN_MOBILE', true);
+
 class ajax extends AWS_CONTROLLER
 {
 	var $per_page = 20;

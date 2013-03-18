@@ -597,6 +597,10 @@ p.load_more {
 	font-size: 12px;
 }
 
+.m_login .ui-link:visited {
+	color: #FFF;
+}
+
 .m_login .content-primary {
 	padding-top: 120px;
 	background: url(images/logo.png) no-repeat center 20px;
@@ -761,7 +765,7 @@ p.load_more {
 /* Header */
 .aw-header {
 	background: #fff;
-	border-top: 3px solid #6ABA2F;
+	border-top: 3px solid #86c5e3;
 	border-bottom: 1px solid #e0e0e0;
 	color: #777;
 	text-shadow: 0 1px 0 #fff;

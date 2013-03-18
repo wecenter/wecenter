@@ -106,12 +106,12 @@ class TPL
 				$output = H::sensitive_words($output);
 			}
 			
-			if (get_setting('url_rewrite_enable') != 'Y' OR $template_dirs[0] == 'admin')
+			if (get_setting('url_rewrite_enable') != 'Y' OR defined('IN_MOBILE') OR $template_dirs[0] == 'admin')
 			{
 				$output = preg_replace('/(href|action)=([\"|\'])(?!http)(?!javascript)(?![\/|\#])(?!\.\/)([^\"\']+)([\"|\'])/is','\1=\2' . get_setting('base_url') . '/' . G_INDEX_SCRIPT . '\3\4', $output);
 			}
 		
-			if (($request_routes = get_request_route()) && ($template_dirs[0] != 'admin') && get_setting('url_rewrite_enable') == 'Y')
+			if ($request_routes = get_request_route() AND $template_dirs[0] != 'admin' AND get_setting('url_rewrite_enable') == 'Y')
 			{
 				foreach ($request_routes as $key => $val)
 				{
