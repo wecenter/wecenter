@@ -1,7 +1,11 @@
 <?php TPL::output('m/header.tpl.htm'); ?>
 
 <div data-role="page">
-	<div data-role="header" data-position="fixed" data-theme="b">
+	<?php TPL::output('m/panel.tpl.htm'); ?>
+	
+	<div data-role="header" data-theme="b" role="banner" class="aw-header">
+		<a href="#panel" data-inline="true" data-icon="bars" data-iconpos="notext"><?php _e('导航'); ?></a>
+		
 		<select id="listview_type" data-mini="true">
 			<option value="0"><?php _e('未读通知'); ?></option>
 			<option value="2"><?php _e('全部通知'); ?></option>
@@ -10,13 +14,11 @@
 
 	<div data-role="content" class="m_lists">	
 		<div class="content-primary">
-			<ul data-role="listview" data-theme="d" data-divider-theme="d" id="notifications_listview"></ul>
+			<ul data-role="listview" class="aw-list" data-theme="d" data-divider-theme="d" id="notifications_listview"></ul>
 			
 			<p class="load_more"><a href="javascript:top.window.location.reload();" id="load_notifications" data-role="button"><?php _e('更多'); ?>...</a></p>
 		</div>
 	</div><!-- /content -->
-	
-	<?php TPL::output('m/footer_nav.tpl.htm'); ?>
 </div><!-- /page -->
 
 <script type="text/javascript">

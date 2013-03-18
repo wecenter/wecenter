@@ -1,7 +1,11 @@
 <?php TPL::output('m/header.tpl.htm'); ?>
 
 <div data-role="page">
-	<div data-role="header" data-position="fixed" data-theme="b">
+	<?php TPL::output('m/panel.tpl.htm'); ?>
+	
+	<div data-role="header" data-theme="b" role="banner" class="aw-header">
+		<a href="#panel" data-inline="true" data-icon="bars" data-iconpos="notext"><?php _e('导航'); ?></a>
+		
 		<h1><?php _e('搜索'); ?></h1>
 	</div><!-- /header -->
 
@@ -10,7 +14,7 @@
 			<form action="m/search_result/" method="post" data-ajax="false">
 				<input type="search" name="q" id="q" value="" placeholder="<?php _e('提问前先搜索一下'); ?>" />
 			
-				<fieldset data-role="controlgroup" data-mini="true">
+				<fieldset data-role="controlgroup" data-theme="d" data-mini="true">
 		         	<input type="radio" name="search_type" id="search_type_all" value="all" checked="checked" />
 		         	<label for="search_type_all"><?php _e('全部'); ?></label>
 		

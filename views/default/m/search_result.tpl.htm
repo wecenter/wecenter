@@ -1,21 +1,21 @@
 <?php TPL::output('m/header.tpl.htm'); ?>
 
 <div data-role="page">
-	<div data-role="header" data-position="fixed" data-theme="b">
-		<a href="javascript:;" data-ajax="false" data-rel="back" data-role="button"><?php _e('返回'); ?></a>
+	<?php TPL::output('m/panel.tpl.htm'); ?>
+	
+	<div data-role="header" data-theme="b" role="banner" class="aw-header">
+		<a href="#panel" data-inline="true" data-icon="bars" data-iconpos="notext"><?php _e('导航'); ?></a>
 		
 		<h1><?php echo $this->keyword; ?></h1>
 		
-		<?php if ($this->user_info['permission']['publish_question'] OR $this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?>
-		<a href="m/add_question/question_content-<?php echo urlencode($this->keyword); ?>" data-ajax="false" data-role="button"><?php _e('提问'); ?></a>
-		<?php } else { ?>
-		<a href="#" class="ui-disabled" data-role="button"><?php _e('提问'); ?></a>
+		<?php if ($this->user_info['permission']['publish_question'] OR $this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?>		
+		<a href="m/add_question/question_content-<?php echo urlencode($this->keyword); ?>" data-inline="true" data-icon="plus" data-iconpos="notext"><?php _e('提问'); ?></a>
 		<?php } ?>
 	</div><!-- /header -->
 
 	<div data-role="content" class="m_lists">	
 		<div class="content-primary">
-			<ul data-role="listview" data-theme="d" data-divider-theme="d" id="search_result_listview"></ul>
+			<ul data-role="listview" class="aw-list" data-theme="d" data-divider-theme="d" id="search_result_listview"></ul>
 			
 			<p class="load_more"><a href="javascript:top.window.location.reload();" id="load_search_result" data-role="button"><?php _e('更多'); ?>...</a></p>
 		</div>
