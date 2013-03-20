@@ -34,14 +34,20 @@ class weixin_class extends AWS_MODEL
 				'fromUsername' => $postObj->FromUserName,
 				'toUsername' => $postObj->ToUserName,
 				'content' => trim($postObj->Content),
-				'time' => time()
+				'time' => time(),
+				'msgType' => $postObj->MsgType,
+				'eventKey' => $postObj->EventKey
 			);
 		}
 	}
 	
 	public function response_message($input_message = array())
 	{
-		if ($input_message['content'] != 'Hello2BizUser')
+		if ($input_message['msgType'] == 'subscribe')
+		{
+			$response_message = '您已经成功关注 ' . get_setting('site_name') . ',您可以随意输入您想问的问题,会有意想不到的结果等着您! 如果需要其他使用帮助,请输入 FN99';
+		}
+		else
 		{
 			if ($search_result = $this->model('search')->search_questions($input_message['content'], null, 6))
 			{
@@ -74,10 +80,6 @@ class weixin_class extends AWS_MODEL
 			{
 				$response_message = "抱歉, 没有找到相关问题, 请您替换关键词重新检索\n如果您要继续提问，可以<a href='" . get_js_url('/m/add_question/question_content-' . urlencode($input_message['content'])) . "'>点击这里提问</a>. 您也可以通过输入: FNNF 查看最新通知";
 			}
-		}
-		else
-		{
-			$response_message = '您已经成功关注 ' . get_setting('site_name') . ',您可以随意输入您想问的问题,会有意想不到的结果等着您! 如果需要其他使用帮助,请输入 FN99';
 		}
 			
 		echo sprintf($this->text_tpl, $input_message['fromUsername'], $input_message['toUsername'], $input_message['time'], 'text', $response_message);
