@@ -107,9 +107,12 @@ class weixin_class extends AWS_MODEL
 				{
 					if ($notifications = $this->model('notify')->list_notification($user_info['uid'], 0, 5))
 					{
-						TPL::assign('list', $notifications);
-					
-						$response_message = "最新通知:" . str_replace(array("\r", "\n", '	', '•'), array('', '', '', "\n\n•"),  TPL::output('weixin/notifications', false));
+						$response_message = '最新通知:';
+						
+						foreach($notifications AS $key => $val)
+						{
+							$response_message .= '\n\n• ' . $val['message'];
+						}	
 					}
 					else
 					{
