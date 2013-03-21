@@ -116,7 +116,7 @@ class system_class extends AWS_MODEL
 				$html .= '<option value="' . $category_id . '">' . $_prefix . $val['title'] . '</option>';
 			}
 			
-			if ($child && $val['child'])
+			if ($child AND $val['child'])
 			{
 				$prefix .= '-';
 				
@@ -160,6 +160,8 @@ class system_class extends AWS_MODEL
 				
 				$data = array_merge($data, json_decode($this->build_category_json($type, $val['id'], $prefix), true));
 			}
+			
+			unset($prefix);
 		}
 			
 		return json_encode($data);
