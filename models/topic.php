@@ -755,8 +755,8 @@ class topic_class extends AWS_MODEL
 		
 		return $users_list;
 	}
-
-	function get_question_ids_by_topics_ids($topic_ids, $limit = null, $where = null, $order = 'update_time DESC')
+	
+	function get_question_best_ids_by_topics_ids($topic_ids, $limit = null)
 	{
 		if (!is_array($topic_ids))
 		{
@@ -767,32 +767,51 @@ class topic_class extends AWS_MODEL
 		
 		array_walk_recursive($topic_ids, 'intval_string');
 		
-		$topic_id_in = implode(',', $topic_ids);
-		
-		if ($where)
+		if (!AWS_APP::cache()->get('best_question_ids_by_topics_ids_' . intval($topic_ids)))
 		{
-			$where = ' AND ' . $where;
-		}
-		
-		$_order = explode(' ', $order);
-		
-		if (!$where AND $_order[0] == 'question_id')
-		{
-			$result = $this->query_all("SELECT question_id FROM " . $this->get_table('topic_question') . " WHERE topic_id IN (" . $topic_id_in . ") ORDER BY " . $order, $limit);
-		}
-		else
-		{
-			$result = AWS_APP::cache()->get('question_ids_by_topics_ids_' . md5($topic_id_in . $where . $limit . $order));
-				
-			if (!is_array($result))
+			if ($question_ids_query = $this->query_all("SELECT question_id FROM " . $this->get_table('topic_question') . " WHERE topic_id IN (" . implode(',', $topic_ids) . ")"))
 			{
-				$result = $this->query_all("SELECT question_id FROM " . get_table('question') . " WHERE EXISTS (SELECT question_id FROM " . $this->get_table('topic_question') . " WHERE " . get_table('question') . ".question_id = " . $this->get_table('topic_question') . ".question_id AND topic_id IN (" . $topic_id_in . ")) " . $where . " ORDER BY " . $order, $limit);
-				
-				AWS_APP::cache()->set('question_ids_by_topics_ids_' . md5($topic_id_in . $where . $limit . $order), $result, get_setting('cache_level_normal'));
+				foreach ($question_ids_query AS $key => $val)
+				{
+					$question_ids[] = $val['question_id'];	
+				}
+					
+				unset($question_ids_query);
 			}
+				
+			$result = $this->query_all("SELECT question_id FROM " . get_table('question') . " WHERE question_id IN (" . implode(',', $question_ids) . ") ORDER BY update_time DESC");
+				
+			AWS_APP::cache()->set('best_question_ids_by_topics_ids_' . intval($topic_ids), $result, get_setting('cache_level_low'));
+		}
+		
+		if ($limit AND $result)
+		{
+			$result = array_slice($result, 0, $limit);
 		}
 		
 		if ($result)
+		{
+			foreach ($result AS $key => $val)
+			{
+				$question_ids[] = $val['question_id'];	
+			}
+		}
+		
+		return $question_ids;
+	}
+
+	function get_question_ids_by_topics_ids($topic_ids, $limit = null)
+	{
+		if (!is_array($topic_ids))
+		{
+			$topic_ids = array(
+				$topic_ids
+			);
+		}
+		
+		array_walk_recursive($topic_ids, 'intval_string');
+		
+		if ($result = $this->query_all("SELECT question_id FROM " . $this->get_table('topic_question') . " WHERE topic_id IN (" . implode(',', $topic_ids) . ") ORDER BY question_id DESC", $limit))
 		{
 			foreach ($result AS $key => $val)
 			{
@@ -1128,7 +1147,7 @@ class topic_class extends AWS_MODEL
 
 	public function get_auto_related_topics($topic_id)
 	{
-		if (! $question_ids = $this->get_question_ids_by_topics_ids($topic_id, 10, null, 'question_id DESC'))
+		if (! $question_ids = $this->get_question_ids_by_topics_ids($topic_id, 10))
 		{
 			return false;
 		}
@@ -1175,7 +1194,7 @@ class topic_class extends AWS_MODEL
 	{
 		if (!$questions_info = AWS_APP::cache()->get('topic_best_answer_action_list_' . md5($topic_ids) . '_' . intval($limit)))
 		{			
-			if (!$question_ids = $this->get_question_ids_by_topics_ids(explode(',', $topic_ids), null, 'best_answer > 0'))
+			if (!$question_ids = $this->get_question_best_ids_by_topics_ids(explode(',', $topic_ids)))
 			{
 				return false;
 			}
@@ -1191,7 +1210,6 @@ class topic_class extends AWS_MODEL
 			$questions_info = $this->model('question')->get_question_info_by_ids($question_ids);
 					
 			$answers_info = $this->model('answer')->get_answers_by_ids($answer_ids);
-				
 			
 			foreach ($questions_info AS $key => $val)
 			{
@@ -1251,7 +1269,11 @@ class topic_class extends AWS_MODEL
 			foreach ($questions_info AS $key => $val)
 			{
 				$question_ids[] = $val['question_id'];
-				$answer_ids[] = $val['best_answer'];
+				
+				if ($val['best_answer'])
+				{
+					$answer_ids[] = $val['best_answer'];
+				}
 			}
 			
 			$questions_focus = $this->model('question')->has_focus_questions($question_ids, USER::get_client_uid());
