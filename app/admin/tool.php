@@ -22,6 +22,8 @@ class tool extends AWS_CONTROLLER
 {
 	public function setup()
 	{
+		set_time_limit(0);
+		
 		$this->model('admin_session')->init();
 	}
 	
