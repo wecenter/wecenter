@@ -540,8 +540,6 @@ class topic_class extends AWS_MODEL
 		}
 		
 		//更新个人计数
-		
-
 		$focus_count = $this->count('topic_focus', 'uid = ' . intval($uid));
 		
 		$this->model('account')->update_users_fields(array(
