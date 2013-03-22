@@ -111,7 +111,7 @@ class weixin_class extends AWS_MODEL
 						
 						foreach($notifications AS $key => $val)
 						{
-							$response_message .= '\n\n• ' . $val['message'];
+							$response_message .= "\n\n• " . $val['message'];
 						}	
 					}
 					else
