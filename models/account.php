@@ -650,7 +650,7 @@ class account_class extends AWS_MODEL
 	public function update_notic_unread($uid)
 	{
 		return $this->update('users', array(
-			'notice_unread' => $this->count('notice_recipient', "recipient_uid = " . intval($uid) . " AND recipient_time = 0 AND recipient_del <> 1")
+			'notice_unread' => $this->count('notice_recipient', "recipient_uid = " . intval($uid) . " AND recipient_time = 0 AND (recipient_del IS NULL OR recipient_del = 0)")
 		), 'uid = ' . intval($uid));
 	}
 	
