@@ -763,7 +763,7 @@ class topic_class extends AWS_MODEL
 		
 		array_walk_recursive($topic_ids, 'intval_string');
 		
-		if (!$result = AWS_APP::cache()->get('best_question_ids_by_topics_ids_' . intval($topic_ids)))
+		if (!$result = AWS_APP::cache()->get('best_question_ids_by_topics_ids_' . implode('', $topic_ids)))
 		{
 			if ($question_ids_query = $this->query_all("SELECT question_id FROM " . $this->get_table('topic_question') . " WHERE topic_id IN (" . implode(',', $topic_ids) . ")"))
 			{
@@ -776,13 +776,24 @@ class topic_class extends AWS_MODEL
 			}
 				
 			$result = $this->query_all("SELECT question_id FROM " . get_table('question') . " WHERE question_id IN (" . implode(',', $question_ids) . ") AND best_answer > 0 ORDER BY update_time DESC");
+			
+			unset($question_ids);
 				
-			AWS_APP::cache()->set('best_question_ids_by_topics_ids_' . intval($topic_ids), $result, get_setting('cache_level_low'));
+			AWS_APP::cache()->set('best_question_ids_by_topics_ids_' . implode('', $topic_ids), $result, get_setting('cache_level_low'));
 		}
 		
 		if ($limit AND $result)
 		{
-			$result = array_slice($result, 0, $limit);
+			if (strstr($limit, ','))
+			{
+				$limit = explode(',', $limit, 2);
+					
+				$result = array_slice($result, $limit[0], trim($limit[1]));
+			}
+			else
+			{
+				$result = array_slice($result, 0, $limit);
+			}
 		}
 		
 		if ($result)
@@ -926,7 +937,7 @@ class topic_class extends AWS_MODEL
 				{
 					$limit = explode(',', $limit, 2);
 					
-					$topics = array_slice($topics, $limit[0], $limit[1]);
+					$topics = array_slice($topics, $limit[0], trim($limit[1]));
 				}
 				else
 				{
@@ -1188,9 +1199,9 @@ class topic_class extends AWS_MODEL
 
 	public function get_topic_best_answer_action_list($topic_ids, $limit)
 	{
-		if (!$questions_info = AWS_APP::cache()->get('topic_best_answer_action_list_' . md5($topic_ids) . '_' . intval($limit)))
-		{	
-			if (!$question_ids = $this->get_question_best_ids_by_topics_ids(explode(',', $topic_ids)))
+		if (!$questions_info = AWS_APP::cache()->get('topic_best_answer_list_' . md5($topic_ids) . '_' . intval($limit)))
+		{
+			if (!$question_ids = $this->get_question_best_ids_by_topics_ids(explode(',', $topic_ids), $limit))
 			{
 				return false;
 			}
@@ -1201,6 +1212,10 @@ class topic_class extends AWS_MODEL
 				{
 					$answer_ids[] = $val['best_answer'];
 				}
+			}
+			else
+			{
+				return false;
 			}
 			
 			if ($questions_info = $this->model('question')->get_question_info_by_ids($question_ids))
@@ -1248,7 +1263,7 @@ class topic_class extends AWS_MODEL
 				$questions_info[$key]['answer_info']['agree_users'] = $answers_info_vote_user[$val['best_answer']];
 			}
 			
-			AWS_APP::cache()->set('topic_best_answer_action_list_' . md5($topic_ids) . '_' . intval($limit), $questions_info, get_setting('cache_level_low'));
+			AWS_APP::cache()->set('topic_best_answer_list_' . md5($topic_ids) . '_' . intval($limit), $questions_info, get_setting('cache_level_low'));
 		}
 		
 		if (USER::get_client_uid())

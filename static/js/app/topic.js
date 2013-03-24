@@ -2,12 +2,10 @@ $(document).ready(function() {
 	if ($('#v_Elem').attr('id'))
 	{
 		$.tabs('#v_Elem');	// tabs切换
-	
-		bp_more_load(G_BASE_URL + '/topic/ajax/question_list/topic_id-' + CONTENTS_TOPIC_ID, $('#bp_all_more'), $('#c_all_list'), 1);
-		
-		bp_more_load(G_BASE_URL + '/topic/ajax/question_list/type-best__topic_id-' + CONTENTS_TOPIC_ID, $('#bp_best_question_more'), $('#c_best_question_list'), 1);
 		
 		bp_more_load(G_BASE_URL + '/question/ajax/discuss/sort_type-new__topic_id-' + CONTENTS_TOPIC_ID, $('#c_question_more'), $('#c_question_list'), 2);
+		
+		bp_more_load(G_BASE_URL + '/topic/ajax/question_list/type-best__topic_id-' + CONTENTS_TOPIC_ID, $('#bp_best_question_more'), $('#c_best_question_list'), 2);
 		
 		bp_more_load(G_BASE_URL + '/topic/ajax/question_list/type-favorite__topic_title-' + encodeURIComponent(CONTENTS_TOPIC_TITLE), $('#bp_favorite_more'), $('#c_favorite_list'), 0, function () { if ($('#c_favorite_list a').attr('id')) { $('#i_favorite').show() } });
 	}
