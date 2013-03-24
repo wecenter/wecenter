@@ -19,7 +19,7 @@ class core_form
 	
 	public function __construct()
 	{
-		$this->post_hash_cache_key = 'post_hash_' . session_id();
+		$this->post_hash_cache_key = 'post_hash_' . md5(session_id());
 		
 		if ($post_hash_lib = AWS_APP::cache()->get($this->post_hash_cache_key))
 		{

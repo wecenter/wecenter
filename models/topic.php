@@ -758,14 +758,12 @@ class topic_class extends AWS_MODEL
 	{
 		if (!is_array($topic_ids))
 		{
-			$topic_ids = array(
-				$topic_ids
-			);
+			return false;
 		}
 		
 		array_walk_recursive($topic_ids, 'intval_string');
 		
-		if (!AWS_APP::cache()->get('best_question_ids_by_topics_ids_' . intval($topic_ids)))
+		if (!$result = AWS_APP::cache()->get('best_question_ids_by_topics_ids_' . intval($topic_ids)))
 		{
 			if ($question_ids_query = $this->query_all("SELECT question_id FROM " . $this->get_table('topic_question') . " WHERE topic_id IN (" . implode(',', $topic_ids) . ")"))
 			{
@@ -777,7 +775,7 @@ class topic_class extends AWS_MODEL
 				unset($question_ids_query);
 			}
 				
-			$result = $this->query_all("SELECT question_id FROM " . get_table('question') . " WHERE question_id IN (" . implode(',', $question_ids) . ") ORDER BY update_time DESC");
+			$result = $this->query_all("SELECT question_id FROM " . get_table('question') . " WHERE question_id IN (" . implode(',', $question_ids) . ") AND best_answer > 0 ORDER BY update_time DESC");
 				
 			AWS_APP::cache()->set('best_question_ids_by_topics_ids_' . intval($topic_ids), $result, get_setting('cache_level_low'));
 		}
@@ -1191,7 +1189,7 @@ class topic_class extends AWS_MODEL
 	public function get_topic_best_answer_action_list($topic_ids, $limit)
 	{
 		if (!$questions_info = AWS_APP::cache()->get('topic_best_answer_action_list_' . md5($topic_ids) . '_' . intval($limit)))
-		{			
+		{	
 			if (!$question_ids = $this->get_question_best_ids_by_topics_ids(explode(',', $topic_ids)))
 			{
 				return false;
@@ -1204,21 +1202,15 @@ class topic_class extends AWS_MODEL
 					$answer_ids[] = $val['best_answer'];
 				}
 			}
-					
-			$questions_info = $this->model('question')->get_question_info_by_ids($question_ids);
-					
-			$answers_info = $this->model('answer')->get_answers_by_ids($answer_ids);
 			
-			foreach ($questions_info AS $key => $val)
+			if ($questions_info = $this->model('question')->get_question_info_by_ids($question_ids))
 			{
-				$questions_info[$key]['associate_action'] = ACTION_LOG::ANSWER_QUESTION;
-				
-				$action_list_uids[$val['published_uid']] = $val['published_uid'];
-			}
-			
-			foreach ($answers_info AS $key => $val)
-			{
-				$answers_info[$val['uid']] = $val['uid'];
+				foreach ($questions_info AS $key => $val)
+				{
+					$questions_info[$key]['associate_action'] = ACTION_LOG::ANSWER_QUESTION;
+					
+					$action_list_uids[$val['published_uid']] = $val['published_uid'];
+				}
 			}
 			
 			if ($action_list_uids)
@@ -1253,10 +1245,7 @@ class topic_class extends AWS_MODEL
 				$questions_info[$key]['answer_info']['url_token'] = $action_list_users_info[$val['uid']]['url_token'];
 				$questions_info[$key]['answer_info']['signature'] = $action_list_users_info[$val['uid']]['signature'];
 				
-				if ($questions_info[$key]['answer_info']['agree_count'] > 0)
-				{
-					$questions_info[$key]['answer_info']['agree_users'] = $answers_info_vote_user[$val['best_answer']];
-				}
+				$questions_info[$key]['answer_info']['agree_users'] = $answers_info_vote_user[$val['best_answer']];
 			}
 			
 			AWS_APP::cache()->set('topic_best_answer_action_list_' . md5($topic_ids) . '_' . intval($limit), $questions_info, get_setting('cache_level_low'));
@@ -1276,14 +1265,14 @@ class topic_class extends AWS_MODEL
 			
 			$questions_focus = $this->model('question')->has_focus_questions($question_ids, USER::get_client_uid());
 			$answers_info_vote_status = $this->model('answer')->get_answer_vote_status($answer_ids, USER::get_client_uid());
-		
-			foreach ($questions_info AS $key => $val)
-			{
-				$questions_info[$key]['has_focus'] = $questions_focus[$val['question_id']];
-				
-				$questions_info[$key]['answer_info']['agree_status'] = $answers_info_vote_status[$val['best_answer']];
-			}
 		}
+		
+		foreach ($questions_info AS $key => $val)
+		{
+			$questions_info[$key]['has_focus'] = $questions_focus[$val['question_id']];
+			$questions_info[$key]['answer_info']['agree_status'] = intval($answers_info_vote_status[$val['best_answer']]);
+		}
+		
 		
 		return $questions_info;
 	}
