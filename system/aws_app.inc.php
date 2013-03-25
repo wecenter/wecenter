@@ -143,7 +143,8 @@ class AWS_APP
 		}
 		
 		Zend_Session::setOptions(array(
-			'name' => G_COOKIE_PREFIX . '_Session'
+			'name' => G_COOKIE_PREFIX . '_Session',
+			'cookie_domain' => G_COOKIE_DOMAIN
 		));
 		
 		if (G_SESSION_SAVE == 'file' AND G_SESSION_SAVE_PATH)
