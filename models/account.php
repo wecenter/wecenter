@@ -1567,18 +1567,32 @@ class account_class extends AWS_MODEL
 	}
 	
 	function update_user_reputation_group($uid)
-	{
+	{	
 		$user_info = $this->get_user_info_by_uid($uid);
+	
+		$user_group = $this->get_user_group($user_info['group_id']);
+	
+		if ($user_group['custom'] == 1)
+		{
+			if ($user_info['reputation_group'])
+			{
+				$this->update_users_fields(array(
+					'reputation_group' => 0
+				), $uid);
+			}
 		
+			return false;
+		}
+	
 		$reputation_group = $this->get_user_group_by_reputation($user_info['reputation'], 'group_id');
-		
+	
 		if ($reputation_group != $user_info['reputation_group'])
 		{
 			return $this->update_users_fields(array(
 				'reputation_group' => $reputation_group
 			), $uid);
 		}
-		
+	
 		return false;
 	}
 	
