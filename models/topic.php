@@ -774,6 +774,10 @@ class topic_class extends AWS_MODEL
 					
 				unset($question_ids_query);
 			}
+			else
+			{
+				return false;
+			}
 				
 			$result = $this->query_all("SELECT question_id FROM " . get_table('question') . " WHERE question_id IN (" . implode(',', $question_ids) . ") AND best_answer > 0 ORDER BY update_time DESC");
 			
