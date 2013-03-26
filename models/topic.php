@@ -1234,7 +1234,7 @@ class topic_class extends AWS_MODEL
 			
 			if ($action_list_uids)
 			{
-				$action_list_users_info = $this->model('account')->get_user_info_by_uids($action_list_uids, TRUE);
+				$action_list_users_info = $this->model('account')->get_user_info_by_uids($action_list_uids);
 			}
 			
 			$answers_info = $this->model('answer')->get_answers_by_ids($answer_ids);
