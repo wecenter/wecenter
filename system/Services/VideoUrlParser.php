@@ -123,7 +123,7 @@ class Services_VideoUrlParser
 		
 		if ($data && $createObject)
 		{
-			$data['object'] = "<p><embed src=\"{$data['swf']}\" quality=\"high\" width=\"480\" height=\"360\" align=\"middle\" allowNetworking=\"all\" allowFullScreen=\"true\" allowScriptAccess=\"always\" type=\"application/x-shockwave-flash\" wmode=\"transparent\"></embed></p>";
+			$data['object'] = "<p><embed src=\"{$data['swf']}\" quality=\"high\" width=\"480\" height=\"400\" align=\"middle\" allowNetworking=\"all\" allowFullScreen=\"true\" allowScriptAccess=\"always\" type=\"application/x-shockwave-flash\" wmode=\"transparent\"></embed></p>";
 		}
 		
 		return $data;
