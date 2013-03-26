@@ -1598,17 +1598,15 @@ class account_class extends AWS_MODEL
 	
 	function get_user_group($group_id, $reputation_group = 0)
 	{
-		if ($group_id == 4)
+		if ($group_id == 4 AND $reputation_group)
 		{
-			$group_info = $this->model('account')->get_group_by_id($reputation_group);
+			if ($user_group = $this->model('account')->get_group_by_id($reputation_group))
+			{
+				return $user_group;
+			}
 		}
 		
-		if (!$group_info)
-		{
-			return $this->model('account')->get_group_by_id($group_id);
-		}
-		
-		return $group_info;
+		return $this->model('account')->get_group_by_id($group_id);
 	}
 	
 	function check_url_token($url_token, $uid)

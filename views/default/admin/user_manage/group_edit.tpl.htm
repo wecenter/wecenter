@@ -18,6 +18,11 @@
 			<div id="notification_box" class="notification success png_bg" style="display:none;"> <a class="close" href="javascript:;"></a>
 				<div name="notification_content"></div>
 			</div>
+			<?php if ($this->group['group_id'] == 4) { ?>
+			<div class="notification information png_bg">
+				<div name="notification_content"><?php _e('注意: 这个用户组的权限会被会员组覆盖, 除非用户的威望不在会员组范围内才会使用此用户组权限'); ?></div>
+			</div>
+			<?php } ?>
 			<div id="tab1" class="tab-content default-tab" style="display: block;">
 				<form method="post" action="admin/user_manage/group_edit_process/group_id-<?php echo $this->group['group_id']; ?>" id="_save_form">
 					<fieldset>

@@ -84,14 +84,14 @@ class core_uri
 		
 		$base_script = basename($_SERVER['SCRIPT_NAME']);
 		
-		if (strstr($base_script, '.php'))
-		{
-			$request_main = str_replace($base_script . '/', '', $request_main);
-		}
-		
 		if (!strstr($request_main, '/') AND !strstr($request_main, '-'))
 		{
 			$request_main .= '/';
+		}
+		
+		if (strstr($base_script, '.php'))
+		{
+			$request_main = str_replace($base_script . '/', '', $request_main);
 		}
 		
 		if (count($requests) == 1)
@@ -104,7 +104,7 @@ class core_uri
 	
 	public function parse_uri($request_main)
 	{
-		if ((get_setting('url_rewrite_enable') == 'Y') AND $request_routes = get_request_route(false))
+		if (get_setting('url_rewrite_enable') == 'Y' AND $request_routes = get_request_route(false))
 		{
 			if (!$request_main)
 			{
