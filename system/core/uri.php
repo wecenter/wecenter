@@ -15,7 +15,6 @@
 class core_uri
 {
 	var $params = array(
-		'suffix' => '.html', 
 		'sep_value' => '-',	// 赋值分隔符
 		'sep_var' => '__',	// 变量分割符
 		'sep_act' => '/'	// 动作分割符
@@ -84,7 +83,7 @@ class core_uri
 		
 		$base_script = basename($_SERVER['SCRIPT_NAME']);
 		
-		if (!strstr($request_main, '/') AND !strstr($request_main, '-'))
+		if (!strstr($request_main, '/') AND !strstr($request_main, '-') AND !strstr($request_main, '.'))
 		{
 			$request_main .= '/';
 		}
@@ -144,18 +143,13 @@ class core_uri
 			return $this;
 		}
 		
-		$request = explode($this->params['suffix'], $request_main, 2);	
+  		$request = explode('?', $request_main, 2);
 		
- 		if (count($request) == 1)
+  		if (count($request) == 1)
   		{
-  			$request = explode('?', $request_main, 2);
-  			
-  			if (count($request) == 1)
-  			{
-  				$request = explode('&', $request_main, 2);
-  			}
- 		}
- 		
+  			$request = explode('&', $request_main, 2);
+  		}
+
 		$uri = array(
 			'first' => array_shift($request), 
 			'last' => ltrim(implode($request), '?')

@@ -65,25 +65,25 @@ class H
 	}
 
 	/**
-	 * 加密hash，生成发送给用户的hash字符串
+	 * 加密 hash，生成发送给用户的 hash 字符串
 	 *
-	 * @param array $hash_array
+	 * @param array $hash_data
 	 * @param string $hash_key
 	 * @return string
 	 */
-	public static function encode_hash($hash_array, $hash_key = false)
+	public static function encode_hash($hash_data, $hash_key = false)
 	{
-		if (empty($hash_array))
+		if (!$hash_data)
 		{
 			return false;
 		}
 		
-		foreach ($hash_array as $key => $value)
+		foreach ($hash_data as $key => $value)
 		{
-			$hash_str .= $key . "^]+" . $value . "!;-";
+			$hash_string .= $key . "^]+" . $value . "!;-";
 		}
 		
-		$hash_str = substr($hash_str, 0, - 3);
+		$hash_string = substr($hash_string, 0, - 3);
 		
 		// 加密干扰码，加密解密时需要用到的 key
 		if (! $hash_key)
@@ -92,16 +92,16 @@ class H
 		}
 		
 		// 加密过程
-		for ($i = 1; $i <= strlen($hash_str); $i ++)
+		for ($i = 1; $i <= strlen($hash_string); $i ++)
 		{
-			$char = substr($hash_str, $i - 1, 1);
+			$char = substr($hash_string, $i - 1, 1);
 			$keychar = substr($hash_key, ($i % strlen($hash_key)) - 2, 1);
 			$char = chr(ord($char) + ord($keychar));
 			$tmp_str .= $char;
 		}
 		
-		$hash_str = base64_encode($tmp_str);
-		$hash_str = str_replace(array(
+		$hash_string = base64_encode($tmp_str);
+		$hash_string = str_replace(array(
 			'+', 
 			'/', 
 			'='
@@ -109,35 +109,34 @@ class H
 			'-', 
 			'_', 
 			'.'
-		), $hash_str);
+		), $hash_string);
 
-		return $hash_str;
+		return $hash_string;
 	}
 
 	/**
-	 * 解密hash，从用户回链的hash字符串解密出里面的内容
+	 * 解密 hash，从用户回链的 hash 字符串解密出里面的内容
 	 *
-	 * @param string $hash_str
-	 * @param boolean $b_urldecode	当$hash_str不是通过浏览器传递的时候就需要urldecode,否则会解密失败，反之也一样
+	 * @param string $hash_string
 	 * @return array
 	 */
-	public static function decode_hash($hash_str, $b_urldecode = false, $hash_key = false)
+	public static function decode_hash($hash_string, $hash_key = false)
 	{
-		if (empty($hash_str))
+		if (!$hash_string)
 		{
 			return array();
 		}
 			
-		// 加密干扰码，加密解密时需要用到的 key
+		// 加密干扰码，加密解密时需要用到的 Key
 		if (! $hash_key)
 		{
 			$hash_key = G_COOKIE_HASH_KEY;
 		}
 		
-		//解密过程		
-		if (strpos($hash_str, '-') || strpos($hash_str, "_") || strpos($hash_str, '.'))
+		// 解密过程		
+		if (strpos($hash_string, '-') || strpos($hash_string, '_') || strpos($hash_string, '.'))
 		{
-			$hash_str = str_replace(array(
+			$hash_string = str_replace(array(
 				'-', 
 				'_', 
 				'.'
@@ -145,20 +144,20 @@ class H
 				'+', 
 				'/', 
 				'='
-			), $hash_str);
+			), $hash_string);
 		}
 		
-		$hash_str = base64_decode($hash_str);
+		$hash_string = base64_decode($hash_string);
 		
-		for ($i = 1; $i <= strlen($hash_str); $i ++)
+		for ($i = 1; $i <= strlen($hash_string); $i ++)
 		{
-			$char = substr($hash_str, $i - 1, 1);
+			$char = substr($hash_string, $i - 1, 1);
 			$keychar = substr($hash_key, ($i % strlen($hash_key)) - 2, 1);
 			$char = chr(ord($char) - ord($keychar));
 			$tmp_str .= $char;
 		}
 		
-		$hash_array = array();
+		$hash_data = array();
 		
 		$arr = explode('!;-', $tmp_str);
 		
@@ -168,11 +167,11 @@ class H
 			
 			if ($k)
 			{
-				$hash_array[$k] = $v;
+				$hash_data[$k] = $v;
 			}
 		}
 		
-		return $hash_array;
+		return $hash_data;
 	}
 
 	/** 生成 Options **/
