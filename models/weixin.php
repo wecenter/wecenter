@@ -28,24 +28,30 @@ class weixin_class extends AWS_MODEL
 		//extract post data
 		if (! empty($postStr))
 		{
-			$postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
+			$postObj = (array)simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
 			
 			return array(
-				'fromUsername' => $postObj->FromUserName,
-				'toUsername' => $postObj->ToUserName,
-				'content' => trim($postObj->Content),
+				'fromUsername' => $postObj['FromUserName'],
+				'toUsername' => $postObj['ToUserName'],
+				'content' => trim($postObj['Content']),
 				'time' => time(),
-				'msgType' => $postObj->MsgType,
-				'eventKey' => $postObj->EventKey
+				'msgType' => $postObj['MsgType'],
+				'event' => $postObj['Event'],
+				'eventKey' => $postObj['EventKey']
 			);
 		}
 	}
 	
 	public function response_message($input_message = array())
 	{
-		if ($input_message['msgType'] == 'subscribe')
+		if ($input_message['msgType'] == 'event')
 		{
-			$response_message = '您已经成功关注 ' . get_setting('site_name') . ',您可以随意输入您想问的问题,会有意想不到的结果等着您! 如果需要其他使用帮助,请输入 FN99';
+			switch ($input_message['event'])
+			{
+				case 'subscribe':
+					$response_message = '您已经成功关注 ' . get_setting('site_name') . ',您可以随意输入您想问的问题,会有意想不到的结果等着您! 如果需要其他使用帮助,请输入 FN99';
+				break;
+			}
 		}
 		else
 		{
