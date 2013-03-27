@@ -27,6 +27,11 @@ class integral_class extends AWS_MODEL
 			return false;
 		}*/
 		
+		if ($integral == 0)
+		{
+			return false;
+		}
+		
 		$log_id = $this->log($uid, $action, $integral, $note, $item_id);
 		
 		$this->sum_integral($uid);
@@ -40,7 +45,7 @@ class integral_class extends AWS_MODEL
 	}
 	
 	public function log($uid, $action, $integral, $note = '', $item_id = null)
-	{
+	{		
 		if ($user_info = $this->model('account')->get_user_info_by_uid($uid))
 		{
 			return $this->insert('integral_log', array(
