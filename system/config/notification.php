@@ -33,7 +33,19 @@ $config['action_details'][notify_class::TYPE_ANSWER_COMMENT] = array(
 $config['action_details'][notify_class::TYPE_COMMENT_AT_ME] = array(
 	'user_setting' => 1,
 	'combine' => 1,
-	'desc' => "有评论提到我",
+	'desc' => "有问题评论提到我",
+);
+
+$config['action_details'][notify_class::TYPE_ANSWER_COMMENT_AT_ME] = array(
+	'user_setting' => 1,
+	'combine' => 1,
+	'desc' => "有回答评论提到我",
+);
+
+$config['action_details'][notify_class::TYPE_ANSWER_AT_ME] = array(
+	'user_setting' => 1,
+	'combine' => 1,
+	'desc' => "有回答提到我",
 );
 
 $config['action_details'][notify_class::TYPE_ANSWER_AGREE] = array(

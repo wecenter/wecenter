@@ -23,7 +23,7 @@
 				</form>
 			</p>
 
-			<div id="chart_data" style="height: 400px;"></div>
+			<div id="chart_data"></div>
 			
 			<div id="statistic" style="background:#CCCCCC; margin-top:10px;">
 				<table width="100%">
@@ -78,6 +78,11 @@ $(document).ready(function () {
 	$('#chart_data').css('width', $('#statistic').width());
 	
     var chartData = [<?php foreach($this->statistic_list as $key => $val){ ?>{date : new Date(<?php echo date('Y', $val['date']); ?>, <?php echo intval(date('m', $val['date'])) - 1; ?>, <?php echo date('d', $val['date']); ?>), visits : <?php echo $val['visits']; ?>}, <?php } ?>];
+    
+    if (chartData.length > 0)
+    {
+	    $('#chart_data').css('height', 480);
+	}
 
     AmCharts.ready(function () {
 		AmCharts.shortMonthNames = ['<?php _e('一月'); ?>', '<?php _e('二月'); ?>', '<?php _e('三月'); ?>', '<?php _e('四月'); ?>', '<?php _e('五月'); ?>', '<?php _e('六月'); ?>', '<?php _e('七月'); ?>', '<?php _e('八月'); ?>', '<?php _e('九月'); ?>', '<?php _e('十月'); ?>', '<?php _e('十一月'); ?>', '<?php _e('十二月'); ?>'];
@@ -141,11 +146,6 @@ $(document).ready(function () {
         chartScrollbar.scrollbarHeight = 25;
         chart.addChartScrollbar(chartScrollbar);
         
-        // LEGEND
-        var legend = new AmCharts.AmLegend();
-        legend.position = "top";
-        chart.addLegend(legend);
-
         // WRITE
         chart.write('chart_data');
     });
