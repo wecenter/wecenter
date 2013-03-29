@@ -24,7 +24,7 @@
                 <a  href="home/explore/" class="i_index<?php if ($_GET['app'] == 'question' OR $_GET['act'] == 'explore') { ?> cur<?php } ?>"><em class="q i_small"></em>问题</a>
                 <a href="topic/" class="i_index<?php if ($_GET['app'] == 'topic') { ?> cur<?php } ?>"><em class="t i_small"></em>话题</a>
                 <!--<a href="people/list/" class="i_index<?php if ($_GET['app'] == 'people') { ?> cur<?php } ?>"><em class="u i_small"></em>用户</a>-->
-               <a href="notifications/" id="not_message" class="not_message">通知 <?php if ($this->user_id) { ?><em class="i_message_tooltip_s" style="display:none;" id="notifications_num" data-value="<?php echo $this->user_info['notification_unread']; ?>"><?php echo $this->user_info['notification_unread']; ?></em><?php } ?></a>
+               <a href="notifications/" id="not_message" class="not_message<?php if ($_GET['app'] == 'notifications') { ?> cur<?php } ?>">通知 <?php if ($this->user_id) { ?><em class="i_message_tooltip_s" style="display:none;" id="notifications_num" data-value="<?php echo $this->user_info['notification_unread']; ?>"><?php echo $this->user_info['notification_unread']; ?></em><?php } ?></a>
                
              </p>
 

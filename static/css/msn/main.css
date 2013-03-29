@@ -335,7 +335,8 @@
 .a_qsAskQuestion >.a_qsClassList .i_data_list .txtoverflow{ max-height:250px; overflow:hidden;overflow-y:auto;}
 .a_question .i_data_list >p >a,.qs_txtare .i_data_list >p >a{ background-image:none;}
 .a_qsAskQuestion >.a_qsClassList .i_data_list >p >span{ left:145px;}
-.a_question .a_qstxt{ padding:5px;width:596px;overflow:hidden;clear:left; margin-bottom:-2px;}
+.a_question .a_qstxt{ padding:5px;width:656px;overflow:hidden;clear:left; margin-bottom:-2px;}
+.a_question .a_qstxt#advanced_editor_reply{ width:596px;}
 .a_question .a_qsReplenish{ padding:0; overflow:visible;}
 .a_question .i_acceMain{border:1px solid #c1cad4;border-top:0 none; padding:3px 15px 15px 15px;}
 .a_question .a_txtClass,.qs_txtare  .a_qsClassList > .a_qsSelect,.qs_txtare .qs_txtClass,.i_txtClss,.topic_titleInput .i_glotxtClass{ height:30px; line-height:30px;}
@@ -409,7 +410,7 @@
 .t_topicMain >.t_hot >li >.p_txt{ max-height:40px; min-height:40px; overflow:hidden;}
 
 /*  >> 话题首页_s */
-.t_topic_index{ padding:0 20px 15px 85px; }
+.t_topic_index{ padding:0 20px 15px 100px; }
 .t_topic_index >.u_topicHead{ left:20px; top:0;}
 .b_x4 .u_topicHead{ left:20px !important; top:20px; }
 .t_topic_index >.u_topicHead >img { width:50px; height:50px; }
@@ -493,7 +494,7 @@
 
 
 /*  >> 账号设置相关_s */
-.v_setting >.h4,.c_atte{ height:40px; line-height:40px; background-color:#f7fcff; font-weight:bold; text-indent:20px;}
+.v_setting >.h4,.c_atte{ height:40px; line-height:40px; background-color:#cfecfa; font-weight:bold; text-indent:20px;}
 .v_setMain{ padding:30px 89px; border-bottom:1px  dotted #dfdfdf;}
 .v_ess{ padding-right:300px; width:475px;}
 .v_essential{ width:380px; padding-left:80px;} /*  >>相关信息 */

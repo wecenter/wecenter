@@ -328,7 +328,8 @@
 .a_qsAskQuestion >.a_qsClassList .i_data_list .txtoverflow{ max-height:250px; overflow:hidden;overflow-y:auto;}
 .a_question .i_data_list >p >a,.qs_txtare .i_data_list >p >a{ background-image:none;}
 .a_qsAskQuestion >.a_qsClassList .i_data_list >p >span{ left:145px;}
-.a_question .a_qstxt{ padding:5px;width:595px;overflow:hidden;clear:left;}
+.a_question .a_qstxt{ padding:5px;width:655px;overflow:hidden;clear:left;}
+.a_question .a_qstxt#advanced_editor_reply{ width:595px;}
 .a_question .a_qsReplenish{ padding:0; overflow:visible;}
 .a_question .i_acceMain{border:1px solid #c1cad4;border-top:0 none; padding:3px 15px 15px 15px;}
 .a_question .a_txtClass,.qs_txtare  .a_qsClassList > .a_qsSelect,.qs_txtare .qs_txtClass,.i_txtClss,.topic_titleInput .i_glotxtClass{ height:30px; line-height:30px;}

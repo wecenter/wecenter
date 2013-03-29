@@ -289,7 +289,7 @@ body.bd >.i_footer .i_txt,body.bd >.i_footer .i_txt a{color:#999;}
 .i_green_bt2,.i_green_bt2.cur,/* 两个字绿色 */
 .i_gray_bt2, /* 两个字灰色 */
 .i_upload_but
-{display:inline-block;height:25px!important; line-height:25px !important; text-align:center!important; overflow:hidden;text-indent:0!important; background:#0283c9 !important;}
+{display:inline-block;height:25px!important; line-height:25px !important; text-align:center!important; overflow:hidden;text-indent:0!important; background:#13a3d9 !important;}
 
 .i_green_but,
 .i_gray_but{ width:79px!important; height:32px !important; line-height:32px !important;}
@@ -298,8 +298,8 @@ body.bd >.i_footer .i_txt,body.bd >.i_footer .i_txt a{color:#999;}
 .i_gray_bt2{width:61px!important;}
 .i_green_bt2.cur,.i_gray_but,.i_gray_bt2{ background:#bbb !important;color:#fff !important;}
 
-.i_replay_but2{ display:inline-block;width:92px; height:36px; text-align:center; line-height:36px !important;background:#0283c9 !important;}/* 回复按钮 */
-.i_replay_but2:hover{}
+.i_replay_but2{ display:inline-block;width:92px; height:36px; text-align:center; line-height:36px !important;background:#13a3d9 !important;}/* 回复按钮 */
+.i_replay_but2:hover{background:#38a3db !important;}
 .i_upload_but{width:83px; background:url(img/i_default_button.png) 0 0 no-repeat !important; } /* 上传按钮 */
 
 /*+--------------------------------------+*/
@@ -451,4 +451,4 @@ a.v,em.v{ display:inline-block !important; width:15px !important; height:13px !i
 .markItUpPreviewFrame { border-radius:5px;margin-bottom:10px; }
 .markItUpPreviewFrame h2.title { font-size:14px;font-weight:bold;color:#333;padding-bottom:5px;border-bottom:1px solid #ccc;margin-bottom:10px; }
 
-.tips_message { padding: 5px 10px; background: #e0e2e1; border-radius: 5px; color: #999; margin: 5px 0; }
+.tips_message { padding: 5px 10px; background: #e0e2e1; color: #999; margin: 5px 0; }
