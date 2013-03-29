@@ -207,7 +207,7 @@
 .q_box,.i_rightMain{padding:0 30px 15px;}
 .q_box .interest_user,.c_mainElem >h4,.a_question >.a_qsAsk{ padding-top:30px;}
 .q_box .topic_u h3{ padding-bottom:5px;}
-.q_txt_right{ background-color:#F7FCFF; height:30px; line-height:30px;text-align:right; padding:0 10px;}
+.q_txt_right{ background-color:#cfecfa; height:30px; line-height:30px;text-align:right; padding:0 10px;}
 .q_txt_right a{ margin-left:15px;}
 .question_x2 { margin-bottom:10px; }
 .question_x2 >.q_mainElem .q_reply{ left:auto !important; right:0; background:url(img/main_default.png) -26px -166px no-repeat; width:39px; height:25px; overflow:hidden;} /*问题首页单独调整*/
