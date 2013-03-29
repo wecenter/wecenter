@@ -111,7 +111,7 @@ class Services_VideoUrlParser
 					$data = self::_parseQq($url);
 					break;
 				default :
-					$data = false;
+					return $url;
 			}
 			
 			if ($data)

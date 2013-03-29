@@ -185,7 +185,7 @@ $config[6] = array(
 			'id' => 603,
 			'title' => '今日话题',
 			'url' => 'admin/setting/type-today_topics',
-		)
+		),
 	)
 );
 
