@@ -436,7 +436,7 @@ class topic_class extends AWS_MODEL
 		{
 			$this->update('topic', $data, 'topic_id = ' . intval($topic_id));
 			
-			//记录日志
+			// 记录日志
 			if ($topic_title && $topic_title != $topic_info['topic_title'])
 			{
 				ACTION_LOG::save_action(USER::get_client_uid(), $topic_id, ACTION_LOG::CATEGORY_TOPIC, ACTION_LOG::MOD_TOPIC, $topic_title, $topic_info['topic_title']);
@@ -1201,7 +1201,7 @@ class topic_class extends AWS_MODEL
 		return $topic['user_related'];
 	}
 
-	public function get_topic_best_answer_action_list($topic_ids, $limit)
+	public function get_topic_best_answer_action_list($topic_ids, $uid, $limit)
 	{
 		if (!$questions_info = AWS_APP::cache()->get('topic_best_answer_list_' . md5($topic_ids) . '_' . intval($limit)))
 		{
@@ -1251,8 +1251,6 @@ class topic_class extends AWS_MODEL
 					$questions_info[$key]['attachs'] = $question_attachs[$val['question_id']];
 				}
 				
-				$questions_info[$key]['last_action_str'] = ACTION_LOG::format_action_str($val['associate_action'], $val['published_uid'], $action_list_users_info[$val['published_uid']]['user_name'], $question_info);
-				
 				$questions_info[$key]['answer_info'] = $answers_info[$val['best_answer']];
 							
 				if ($questions_info[$key]['answer_info']['has_attach'])
@@ -1270,7 +1268,7 @@ class topic_class extends AWS_MODEL
 			AWS_APP::cache()->set('topic_best_answer_list_' . md5($topic_ids) . '_' . intval($limit), $questions_info, get_setting('cache_level_low'));
 		}
 		
-		if (USER::get_client_uid())
+		if ($uid)
 		{
 			foreach ($questions_info AS $key => $val)
 			{
@@ -1282,8 +1280,8 @@ class topic_class extends AWS_MODEL
 				}
 			}
 			
-			$questions_focus = $this->model('question')->has_focus_questions($question_ids, USER::get_client_uid());
-			$answers_info_vote_status = $this->model('answer')->get_answer_vote_status($answer_ids, USER::get_client_uid());
+			$questions_focus = $this->model('question')->has_focus_questions($question_ids, $uid);
+			$answers_info_vote_status = $this->model('answer')->get_answer_vote_status($answer_ids, $uid);
 		}
 		
 		foreach ($questions_info AS $key => $val)

@@ -42,7 +42,7 @@ class ajax extends AWS_CONTROLLER
 	public function inbox_list_action()
 	{
 		$list = $this->model('message')->list_message($_GET['page'], $this->per_page, $this->user_id);
-				
+		
 		if ($list['user_list'])
 		{
 			if ($users_info_query = $this->model('account')->get_user_info_by_uids($list['user_list']))
@@ -65,7 +65,7 @@ class ajax extends AWS_CONTROLLER
 			
 			foreach ($list['content_list'] as $key => $value)
 			{
-				if (($value['sender_uid'] == $this->user_id) && ($value['sender_count'] > 0)) //当前处于发送用户
+				if ($value['sender_uid'] == $this->user_id && $value['sender_count'] > 0) // 当前处于发送用户
 				{
 					$tmp['user_name'] = $users_info[$value['recipient_uid']]['user_name'];
 					$tmp['url_token'] = $users_info[$value['recipient_uid']]['url_token'];
@@ -74,7 +74,7 @@ class ajax extends AWS_CONTROLLER
 					$tmp['count'] = $value['sender_count'];
 					$tmp['uid'] = $value['recipient_uid'];
 				}
-				else if (($value['recipient_uid'] == $this->user_id) && ($value['recipient_count'] > 0)) ////当前处于接收用户
+				else if ($value['recipient_uid'] == $this->user_id && $value['recipient_count'] > 0) // 当前处于接收用户
 				{
 					$tmp['user_name'] = $users_info[$value['sender_uid']]['user_name'];
 					$tmp['url_token'] = $users_info[$value['sender_uid']]['url_token'];

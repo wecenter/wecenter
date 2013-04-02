@@ -37,7 +37,7 @@ body .i_line{ display:inline-block;}
 
 /* 定位 */
 .i_prl{ position:relative;}
-.i_pas{ position:absolute; z-index: 2; }
+.i_pas{ position:absolute;}
 
 /* 加粗 */
 .i_bold{ font-weight:bold;}
@@ -136,6 +136,7 @@ body .i_line{ display:inline-block;}
 .i_data_list .i_list_p >span.i_span,
 .i_commentElem /* 评论 */
 { border:1px solid #c1cad4;}
+.i_data_list { z-index: 99; }
 
 .i_header .lx_set{ display:block; width:92px; margin-top:10px; border:1px solid #ccc; display:none;}
 .i_header .lx_set a{width:92px;}

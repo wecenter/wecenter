@@ -42,7 +42,7 @@ body .i_line{ display:inline-block;}
 
 /* 定位 */
 .i_prl{ position:relative;}
-.i_pas{ position:absolute; z-index: 2; }
+.i_pas{ position:absolute;}
 
 /* 加粗 */
 .i_bold{ font-weight:bold;}
@@ -132,7 +132,7 @@ body.bd{ padding-top:45px !important;}
 .i_commentElem /* 评论 */
 { border:1px solid #c1cad4;}
 
-
+.i_data_list { z-index: 99; }
 .i_data_list p a{ display:block; font-weight:normal; height:35px; line-height:35px; margin-left:0; text-indent:15px; }
 .i_data_list p.closex{ position:relative; padding-right:25px;}
 .i_data_list p.closex em.e{ position:absolute; top:-8px; right:8px;}

@@ -155,17 +155,14 @@ class favorite_class extends AWS_MODEL
 			$favorite_tags = $this->fetch_all('favorite_tag', 'uid = ' . intval($uid), 'answer_id DESC', $limit);
 		}
 		
-		if ($favorite_tags)
-		{
-			foreach ($favorite_tags AS $key => $val)
-			{
-				$answer_ids[] = $val['answer_id'];
-			}
-		}
-		
-		if (!$answer_ids)
+		if (!$favorite_tags)
 		{
 			return false;
+		}
+		
+		foreach ($favorite_tags AS $key => $val)
+		{
+			$answer_ids[] = $val['answer_id'];
 		}
 		
 		if (!$action_list = ACTION_LOG::get_action_by_where("(associate_type = " . ACTION_LOG::CATEGORY_QUESTION . " AND associate_attached IN (" . implode($answer_ids, ",") . ") AND associate_action = " . ACTION_LOG::ANSWER_QUESTION . ")", ''))
@@ -174,43 +171,6 @@ class favorite_class extends AWS_MODEL
 		}
 		
 		unset($answer_ids);
-		
-		foreach ($action_list as $key => $val)
-		{
-			switch ($val['associate_type'])
-			{
-				case ACTION_LOG::CATEGORY_QUESTION :
-					$question_ids[] = $val['associate_id'];
-					
-					if (in_array($val['associate_action'], array(
-						ACTION_LOG::ANSWER_QUESTION
-					)))
-					{
-						$answer_ids[] = $val['associate_attached'];
-					}
-				break;
-				
-				case ACTION_LOG::CATEGORY_ANSWER :
-					$question_ids[] = $val['associate_attached'];
-					
-					if (in_array($val['associate_action'], array(
-						ACTION_LOG::ANSWER_QUESTION
-					)))
-					{
-						$answer_ids[] = $val['associate_id'];
-					}
-				break;
-			}
-		}
-		
-		if ($question_ids)
-		{
-			$action_list_question_info = $this->model('question')->get_question_info_by_ids($question_ids);
-			$action_list_question_focus = $this->model('question')->has_focus_question($question_ids, USER::get_client_uid());
-			$action_list_answers = $this->model('answer')->get_answers_by_ids($answer_ids);
-			$action_list_answers_vote_user = $this->model('answer')->get_vote_user_by_answer_ids($answer_ids);
-			$action_list_answers_vote_status = $this->model('answer')->get_answer_vote_status($answer_ids, USER::get_client_uid());
-		}
 		
 		foreach ($action_list as $key => $val)
 		{
@@ -246,13 +206,6 @@ class favorite_class extends AWS_MODEL
 				$action_list_uids[] = $val['uid'];	
 			}
 			
-			if (in_array($val['associate_action'], array(
-				ACTION_LOG::ADD_QUESTION
-			)) and $question_info['has_attach'])
-			{
-				$has_attach_question_ids[] = $question_info['question_id'];
-			}
-			
 			if ($action_list_answers[$answer_id]['has_attach'])
 			{
 				$has_attach_answer_ids[] = $answer_id;
@@ -262,23 +215,15 @@ class favorite_class extends AWS_MODEL
 		if ($question_ids)
 		{
 			$action_list_question_info = $this->model('question')->get_question_info_by_ids($question_ids);
-			$action_list_question_focus = $this->model('question')->has_focus_question($question_ids, USER::get_client_uid());
 			
 			$action_list_answers = $this->model('answer')->get_answers_by_ids($answer_ids);
 			
 			$action_list_answers_vote_user = $this->model('answer')->get_vote_user_by_answer_ids($answer_ids);
-			
-			$action_list_answers_vote_status = $this->model('answer')->get_answer_vote_status($answer_ids, USER::get_client_uid());
 		}
 		
 		if ($action_list_uids)
 		{
 			$action_list_users_info = $this->model('account')->get_user_info_by_uids($action_list_uids, TRUE);
-		}
-		
-		if ($has_attach_question_ids)
-		{
-			$question_attachs = $this->model('publish')->get_attachs('question', $has_attach_question_ids, 'min');
 		}
 		
 		if ($has_attach_answer_ids)
@@ -317,17 +262,6 @@ class favorite_class extends AWS_MODEL
 			
 			$question_info = $action_list_question_info[$question_id];
 					
-			$question_info['has_focus'] = $action_list_question_focus[$question_info['question_id']];
-					
-			if (in_array($val['associate_action'], array(
-				ACTION_LOG::ADD_QUESTION
-			)) and $question_info['has_attach'])
-			{
-				$question_info['attachs'] = $question_attachs[$question_info['question_id']];
-			}
-										
-			$question_info['last_action_str'] = ACTION_LOG::format_action_str($val['associate_action'], $val['uid'], $action_list_users_info[$val['uid']]['user_name'], $question_info);
-					
 			if (in_array($val['associate_action'], array(
 				ACTION_LOG::ANSWER_QUESTION
 			)))
@@ -349,18 +283,11 @@ class favorite_class extends AWS_MODEL
 			{
 				$answer_info = null;
 			}
-					
+			
 			if (! empty($answer_info))
 			{
 				$question_info['answer_info'] = $answer_info;
 			}
-					
-			if ($question_info['answer_info']['agree_count'] > 0)
-			{
-				$question_info['answer_info']['agree_users'] = $action_list_answers_vote_user[$question_info['answer_info']['answer_id']];
-			}
-					
-			$question_info['answer_info']['agree_status'] = $action_list_answers_vote_status[$question_info['answer_info']['answer_id']];
 					
 			foreach ($question_info as $qkey => $qval)
 			{
