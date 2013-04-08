@@ -375,6 +375,37 @@ function answer_user_rate(answer_id, type, element)
 	}, 'json');
 }
 
+function _ajax_post_confirm_processer(result)
+{
+	$.mobile.loading('hide');
+	
+	if (typeof(result.errno) == 'undefined')
+	{
+		alert(result);
+	}
+	else if (result.errno != 1)
+	{
+		if (!confirm(result.err))
+		{
+			return false;	
+		}
+	}
+	
+	if (result.errno == 1 && result.err)
+	{
+		alert(result.err);
+	}
+	
+	if (result.rsm && result.rsm.url)
+	{
+		window.location = decodeURIComponent(result.rsm.url);
+	}
+	else
+	{
+		window.location.reload();
+	}
+}
+
 function answer_vote(element, answer_id, val)
 {
 	var data_theme = element.attr('data-theme');

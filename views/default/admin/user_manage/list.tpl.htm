@@ -62,9 +62,9 @@
 							<td><?php echo round($val['online_time'] / 60); ?></td>
 							<td><?php echo $val['reputation']; ?></td>
 							<?php if (get_setting('integral_system_enabled') == 'Y') { ?>
-							<td><a href="admin/user_manage/integral_log/uid-<?php echo $val['uid']; ?>"><?php echo $val['integral']; ?> (日志)</a></td>
+							<td><a href="admin/user_manage/integral_log/uid-<?php echo $val['uid']; ?>"><img src="<?php echo G_STATIC_URL;?>/admin/images/icons/database_table.png" title="<?php _e('日志'); ?>" alt="" /></a> &nbsp;<?php echo $val['integral']; ?></td>
 							<?php } ?>
-							<td><a href="admin/user_manage/edit/uid-<?php echo $val['uid']; ?>" title="修改"><img src="<?php echo G_STATIC_URL;?>/admin/images/icons/user_edit.png"/></a><?php if ($val['uid'] != $this->user_id) { ?> &nbsp; <a href="javascript:;" onClick="ajax_request(G_BASE_URL + '/admin/user_manage/forbidden_status_ajax/user_id-<?php echo $val['uid']; ?>__status-<?php echo intval($val['forbidden']) ? 0 : 1; ?>');" title="<?php if ($val['forbidden']) { ?><?php _e('解除封禁'); ?><?php } else { ?><?php _e('封禁用户'); ?><?php } ?>"><img src="<?php echo G_STATIC_URL;?>/admin/images/icons/<?php if ($val['forbidden']) { ?>user_add<?php } else { ?>user_delete<?php } ?>.png"/></a><?php } ?></td>
+							<td><a href="admin/user_manage/edit/uid-<?php echo $val['uid']; ?>" title="修改"><img src="<?php echo G_STATIC_URL;?>/admin/images/icons/user_edit.png" alt=""  /></a><?php if ($val['uid'] != $this->user_id) { ?> &nbsp; <a href="javascript:;" onClick="ajax_request(G_BASE_URL + '/admin/user_manage/forbidden_status_ajax/user_id-<?php echo $val['uid']; ?>__status-<?php echo intval($val['forbidden']) ? 0 : 1; ?>');" title="<?php if ($val['forbidden']) { ?><?php _e('解除封禁'); ?><?php } else { ?><?php _e('封禁用户'); ?><?php } ?>"><img src="<?php echo G_STATIC_URL;?>/admin/images/icons/<?php if ($val['forbidden']) { ?>user_add<?php } else { ?>user_delete<?php } ?>.png" alt="" /></a><?php } ?></td>
 						</tr>
 						<?php } ?>
 					</tbody>
