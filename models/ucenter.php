@@ -107,6 +107,11 @@ class ucenter_class extends AWS_MODEL
 			
 		}
 		
+		if ($this->ucenter_charset != 'utf-8')
+		{	
+			$username = convert_encoding($username, $this->ucenter_charset, 'UTF-8');
+		}
+		
 		if (!$uc_uid)
 		{
 			if ($this->ucenter_charset != 'utf-8')
@@ -117,18 +122,16 @@ class ucenter_class extends AWS_MODEL
 				{
 					$username = convert_encoding($username, $this->ucenter_charset, 'UTF-8');
 				}
-				
-				$username = htmlspecialchars($username);
 			}
 			else
 			{
 				list($uc_uid, $username, $password, $email) = uc_user_login($_username, $_password);
-				
-				if ($username)
-				{
-					$username = htmlspecialchars($username);
-				}
 			}
+		}
+		
+		if ($username)
+		{
+			$username = htmlspecialchars($username);
 		}
 		
 		if ($uc_uid > 0)

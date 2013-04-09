@@ -56,18 +56,16 @@ $ucenter_db = Zend_Db::factory($config['driver'], $config['ucenter']);
 $master_db->query("SET NAMES utf8");
 $ucenter_db->query("SET NAMES utf8");
 
-if (intval($_GET['page']) == 0 OR intval($_GET['page']) == 1)
+if (intval($_GET['page']) == 0)
 {
 	$next_page = 2;
-	$limit = 0;
 }
 else
 {
 	$next_page = intval($_GET['page']) + 1;
-	$limit = ($next_page - 2) * USER_IMPORT_PRE;
 }
 
-$users_list = $master_db->fetchAll("SELECT * FROM " . DB_PREFIX_MASTER . "users LIMIT " . $limit . ", " . USER_IMPORT_PRE);
+$users_list = $master_db->fetchAll("SELECT * FROM " . DB_PREFIX_MASTER . "users LIMIT " . calc_page_limit($_GET['page'], USER_IMPORT_PRE));
 
 foreach ($users_list AS $key => $data)
 {
@@ -77,24 +75,30 @@ foreach ($users_list AS $key => $data)
 	{
 		if (USER_MERGE_MODE == 1)
 		{
-			$ucenter_db->query("UPDATE ".DB_PREFIX_UCENTER."members SET username='" . addslashes($data['user_name']) . "', password='" . $data['password'] . "', email='" . $data['email'] . "', regip='" . long2ip($data['reg_ip']) . "', regdate='" . $data['reg_time'] . "', salt='" . $data['salt'] . "' WHERE uid = " . intval($uc_user['uid']) . " LIMIT 1");
+			$ucenter_db->query("UPDATE " . DB_PREFIX_UCENTER . "members SET username = '" . addslashes($data['user_name']) . "', password = '" . $data['password'] . "', email = '" . $data['email'] . "', regip = '" . long2ip($data['reg_ip']) . "', regdate = '" . $data['reg_time'] . "', salt = '" . $data['salt'] . "' WHERE uid = " . intval($uc_user['uid']) . " LIMIT 1");
 			
 			$other_user = $ucenter_db->fetchRow("SELECT * FROM " . DB_PREFIX_UCENTER . "members WHERE username = '" . addslashes($data['user_name']) . "' AND uid <> " . intval($uc_user['uid']));
 			
 			if ($other_user['uid'] > 1)
 			{
-				$ucenter_db->query("DELETE FROM ".DB_PREFIX_UCENTER."members WHERE uid = " . intval($other_user['uid']));
-				$ucenter_db->query("DELETE FROM ".DB_PREFIX_UCENTER."memberfields WHERE uid = " . intval($other_user['uid']));
+				$ucenter_db->query("DELETE FROM " . DB_PREFIX_UCENTER . "members WHERE uid = " . intval($other_user['uid']));
+				$ucenter_db->query("DELETE FROM " . DB_PREFIX_UCENTER . "memberfields WHERE uid = " . intval($other_user['uid']));
 			}
+			
+			$master_db->query("DELETE FROM " . DB_PREFIX_MASTER . "users_ucenter WHERE uc_uid = " . intval($uc_user['uid']));
+			$master_db->query("INSERT INTO " . DB_PREFIX_MASTER . "users_ucenter SET uid = " . $data['uid'] . ", uc_uid = " . $uc_user['uid'] . ", username = '" . addslashes($data['user_name']) . "', email = '" . $data['email'] . "'");
 		}
 	}
 	else
 	{
-		$ucenter_db->query("INSERT INTO ".DB_PREFIX_UCENTER."members SET username='" . addslashes($data['user_name']) . "', password='" . $data['password'] . "', email='" . $data['email'] . "', regip='" . long2ip($data['reg_ip']) . "', regdate='" . $data['reg_time'] . "', salt='" . $data['salt'] . "'");
+		$ucenter_db->query("INSERT INTO " . DB_PREFIX_UCENTER . "members SET username = '" . addslashes($data['user_name']) . "', password = '" . $data['password'] . "', email = '" . $data['email'] . "', regip = '" . long2ip($data['reg_ip']) . "', regdate = '" . $data['reg_time'] . "', salt = '" . $data['salt'] . "'");
 		
 		$uid = $ucenter_db->lastInsertId();
 		
-		$ucenter_db->query("INSERT INTO ".DB_PREFIX_UCENTER."memberfields SET uid='" . $uid ."'");
+		$ucenter_db->query("INSERT INTO " . DB_PREFIX_UCENTER . "memberfields SET uid = " . $uid);
+		
+		$master_db->query("DELETE FROM " . DB_PREFIX_MASTER . "users_ucenter WHERE uc_uid = " . intval($uid));
+		$master_db->query("INSERT INTO " . DB_PREFIX_MASTER . "users_ucenter SET uid = " . $data['uid'] . ", uc_uid = " . $uid .", username = '" . addslashes($data['user_name']) . "', email = '" . $data['email'] . "'");
 	}
 }
 
