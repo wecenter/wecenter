@@ -49,7 +49,7 @@ class api extends AWS_CONTROLLER
 		
 		if ($_GET['echostr'])
 		{
-			echo $_GET['echostr'];
+			echo htmlspecialchars($_GET['echostr']);
 			die;
 		}
 		
