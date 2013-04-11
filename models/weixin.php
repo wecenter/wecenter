@@ -190,7 +190,7 @@ class weixin_class extends AWS_MODEL
 					{
 						if ($response_message)
 						{
-							$response_message .= "\n\n============\n\n关于 " . $input_message['content'] . " 的话题:\n";
+							$response_message .= "\n\n============\n\n关于 " . $input_message['content'] . " 的话题:\n\n";
 						}
 						
 						$response_message .= strip_tags($topic_info['topic_description']);
@@ -297,11 +297,7 @@ class weixin_class extends AWS_MODEL
 		$func_param = strtoupper($func_param_original);
 		
 		switch ($func_code)
-		{
-			default:
-				$response_message = "指令无效, 支持的指令: \n\n绑定状态 - 查询微信绑定状态\n解除绑定 - 解除微信绑定\n我的问题 - 显示我的提问\n最新通知 - 显示最新通知";
-			break;
-			
+		{			
 			// 查询用户动态
 			case 'INFO':
 				if ($user_info = $this->model('account')->get_user_info_by_username($func_param_original))
