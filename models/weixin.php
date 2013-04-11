@@ -300,4 +300,6 @@ class weixin_class extends AWS_MODEL
 			return false;
 		}
 	}
+	
+	
 }
