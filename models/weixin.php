@@ -23,11 +23,11 @@ class weixin_class extends AWS_MODEL
 	
 	var $language_characteristic = array(
 		'ok' => array(
-			'好', '是', '恩', '可', '行', '中', 'y', 'ok', '要', '哦', 'en', '嗯', '确认', '确定'
+			'好', '是', '恩', '可', '行', '中', '要', '哦', '嗯', '确认', '确定'
 		),
 		
 		'cancel' => array(
-			'不', '别', '算了', '取消', 'n'
+			'不', '别', '算了', '取消'
 		),
 		
 		'bad' => array(
