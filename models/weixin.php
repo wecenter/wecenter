@@ -115,6 +115,13 @@ class weixin_class extends AWS_MODEL
 							$response_message .= "\n" . '• <a href="' . get_js_url('/m/question/' . $val['question_id']) . '">' . $val['question_content'] . '</a>' . "\n";
 						}
 					}
+					
+					if (!$answer_list)
+					{
+						$response_message .= "\n\n问题没有人提到过? 需要帮忙么?";
+						
+						$action = 'publish';
+					}
 				}
 				else
 				{
