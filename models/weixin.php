@@ -23,11 +23,11 @@ class weixin_class extends AWS_MODEL
 	
 	var $language_characteristic = array(
 		'ok' => array(
-			'好', '是', '恩', '可', '行', '中', '要', '哦', '嗯', '确认', '确定'
+			'好', '好的', '是', '是的', '恩', '可', '可以', '行', '行啊', '中', '要', '哦', '嗯', '确认', '确定', 'yes'
 		),
 		
 		'cancel' => array(
-			'不', '别', '算了', '取消'
+			'不', '不要', '别', '算了', '取消', 'no', '否', "don't"
 		),
 		
 		'bad' => array(
@@ -71,7 +71,11 @@ class weixin_class extends AWS_MODEL
 			break;
 			
 			default:
-				if ($this->is_language($input_message['content'], 'ok'))
+				if ($response_message = $this->message_parser($input_message))
+				{
+					// Success...
+				}
+				else if ($this->is_language($input_message['content'], 'ok'))
 				{
 					$response_message = $this->process_last_action($input_message['fromUsername']);
 				}
@@ -80,10 +84,6 @@ class weixin_class extends AWS_MODEL
 					$this->delete('weixin_message', "weixin_id = '" . $this->quote($input_message['fromUsername']) . "'");
 					
 					$response_message = '好的, 还有什么可以帮您的吗?';
-				}
-				else if ($response_message = $this->message_parser($input_message))
-				{
-					// Success...
 				}
 				else if ($this->is_language($input_message['content'], 'bad'))
 				{
@@ -105,12 +105,13 @@ class weixin_class extends AWS_MODEL
 							{
 								$answer_list = $this->model('answer')->get_answer_list_by_question_id($val['question_id'], 1, null, 'agree_count DESC');
 							}
-								
-							$response_message = $answer_list[0]['answer_content'];
-												
-							break;
+							
+							if ($answer_list)
+							{
+								$response_message = $answer_list[0]['answer_content'];
+							}
 						}
-						else
+						else if (!$answer_list)
 						{
 							$response_message .= "\n" . '• <a href="' . get_js_url('/m/question/' . $val['question_id']) . '">' . $val['question_content'] . '</a>' . "\n";
 						}
@@ -165,6 +166,11 @@ class weixin_class extends AWS_MODEL
 	public function message_parser($input_message)
 	{
 		$message_code = strtoupper(trim($input_message['content']));
+		
+		if (cjk_strlen($message_code) < 2)
+		{
+			return false;
+		}
 		
 		switch ($message_code)
 		{
@@ -426,13 +432,23 @@ class weixin_class extends AWS_MODEL
 			return false;
 		}
 		
-		$string = strtolower($string);
+		$string = trim(strtolower($string));
 		
 		foreach ($characteristic AS $key => $text)
 		{
-			if (strstr($string, $text))
+			if ($type == 'bad')
 			{
-				return true;
+				if (strstr($string, $text))
+				{
+					return true;
+				}
+			}
+			else
+			{
+				if ($string == $text)
+				{
+					return true;
+				}
 			}
 		}
 	}
@@ -444,7 +460,7 @@ class weixin_class extends AWS_MODEL
 			return '这是地球语言么?';
 		}
 		
-		$this->delete('weixin_message', "weixin_id = '" . $this->quote($input_message['fromUsername']) . "'");
+		$this->delete('weixin_message', "weixin_id = '" . $this->quote($weixin_id) . "'");
 		
 		switch ($last_action['action'])
 		{
