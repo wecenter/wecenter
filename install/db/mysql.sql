@@ -22,6 +22,17 @@ CREATE TABLE `[#DB_PREFIX#]mail_queue` (
   `weixin_id` VARCHAR( 32 ) NULL,  PRIMARY KEY (`uid`),  KEY `user_name` (`user_name`),  KEY `email` (`email`),  KEY `reputation` (`reputation`),  KEY `reputation_update_time` (`reputation_update_time`),  KEY `group_id` (`group_id`),  KEY `agree_count` (`agree_count`),  KEY `thanks_count` (`thanks_count`),  KEY `forbidden` (`forbidden`),  KEY `valid_email` (`valid_email`),  KEY `last_active` (`last_active`),  KEY `integral` (`integral`),  KEY `url_token` (`url_token`),  KEY `verified` (`verified`),
   KEY `weixin_id` (`weixin_id`)) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;CREATE TABLE `[#DB_PREFIX#]users_attrib` (  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增id',  `uid` int(11) DEFAULT NULL COMMENT '用户UID',  `introduction` varchar(255) DEFAULT NULL COMMENT '个人简介',  `signature` varchar(255) DEFAULT NULL COMMENT '个人签名',  `qq` int(10) DEFAULT NULL,  `homepage` varchar(255) DEFAULT NULL,  PRIMARY KEY (`id`),  KEY `uid` (`uid`)) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8 COMMENT='用户附加属性表';
 
+CREATE TABLE `[#DB_PREFIX#]weixin_message` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weixin_id` varchar(32) NOT NULL,
+  `content` varchar(255) NOT NULL,
+  `action` varchar(32) DEFAULT NULL,
+  `time` int(10) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `weixin_id` (`weixin_id`),
+  KEY `time` (`time`)
+) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
+
 CREATE TABLE `[#DB_PREFIX#]weixin_valid` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `uid` int(11) NOT NULL,

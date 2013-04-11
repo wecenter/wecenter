@@ -58,13 +58,6 @@ class api extends AWS_CONTROLLER
 	
 	public function index_action()
 	{		
-		if (strtolower(substr($this->input_message['content'], 0, 2)) == 'fn')
-		{
-			$this->model('weixin')->func_parser($this->input_message);
-		}
-		else
-		{
-			$this->model('weixin')->response_message($this->input_message);
-		}
+		$this->model('weixin')->response_message($this->input_message);
 	}
 }

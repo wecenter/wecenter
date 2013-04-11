@@ -7,8 +7,8 @@
 </script>
 
 <form action="account/ajax/register_process/" method="post" id="register_form">
-<?php if ($this->icode) { ?><input type="hidden" name="icode" id="icode" value="<?php echo $this->icode; ?>"/><?php } ?>
-<?php if ($this->return_url) { ?><input type="hidden" name="return_url" value="<?php echo $this->return_url; ?>"/><?php } ?>
+<?php if ($this->icode) { ?><input type="hidden" name="icode" id="icode" value="<?php echo $this->icode; ?>" /><?php } ?>
+<?php if ($this->return_url) { ?><input type="hidden" name="return_url" value="<?php echo $this->return_url; ?>" /><?php } ?>
 <?php if ($this->fromuid AND $_GET['invite_question_id']) { ?>
   	<input type="hidden" name="invite_question_id" value="<?php echo htmlspecialchars($_GET['invite_question_id']); ?>"/> 
 <?php } ?>
@@ -18,8 +18,7 @@
       <input type="text" class="login_txt" name="user_name" id="login_userName" title="<?php _e('用户名'); ?>" value="<?php echo htmlspecialchars($_GET['user_name']); ?>" tabindex="1"/>
       <span class="hide"></span> </li>
     <li>
-      <?php if ($_GET['email']) { ?><input type="hidden" id="userEmail" /><?php } ?>
-      <input type="text" class="login_txt" id="login_account" title="<?php _e('邮箱'); ?>" name="email" value="<?php echo htmlspecialchars($_GET['email']); ?>" tabindex="2" />
+      <input type="text" class="login_txt" id="login_account" title="<?php _e('邮箱'); ?>" name="email" value="<?php echo htmlspecialchars(urldecode($_GET['email'])); ?>" tabindex="2" />
       <span class="hide"></span> </li>
     <li>
       <input type="text" class="login_txt" id="login_password_txt" tabindex="3" title="<?php _e('密码'); ?>" value="<?php _e('密码'); ?>"/>
