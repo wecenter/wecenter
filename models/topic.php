@@ -1302,7 +1302,14 @@ class topic_class extends AWS_MODEL
 	function update_url_token($url_token, $topic_id)
 	{
 		return $this->update('topic', array(
-			'url_token' => $url_token
+			'url_token' => htmlspecialchars($url_token)
+		), 'topic_id = ' . intval($topic_id));
+	}
+	
+	function update_seo_title($seo_title, $topic_id)
+	{
+		return $this->update('topic', array(
+			'seo_title' => htmlspecialchars($seo_title)
 		), 'topic_id = ' . intval($topic_id));
 	}
 }
