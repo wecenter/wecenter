@@ -31,7 +31,7 @@ class weixin_class extends AWS_MODEL
 		),
 		
 		'bad' => array(
-			'fuck', 'shit', '狗屎', '婊子', '贱', '你妈', '你娘', '你祖宗', '滚'
+			'fuck', 'shit', '狗屎', '婊子', '贱', '你妈', '你娘', '你祖宗', '滚', '你妹'
 		),
 	);
 	
@@ -99,16 +99,17 @@ class weixin_class extends AWS_MODEL
 						{
 							if ($val['best_answer'])
 							{
-								$answer_list = $this->model('answer')->get_answer_list_by_question_id($val['question_id'], 1, 'answer.answer_id = ' . (int)$val['best_answer']);
+								if ($answer_list = $this->model('answer')->get_answer_by_id($val['best_answer']))
+								{
+									$response_message = $answer_list['answer_content'];
+								}		
 							}
 							else
 							{
-								$answer_list = $this->model('answer')->get_answer_list_by_question_id($val['question_id'], 1, null, 'agree_count DESC');
-							}
-							
-							if ($answer_list)
-							{
-								$response_message = $answer_list[0]['answer_content'];
+								if ($answer_list = $this->model('answer')->get_answer_list_by_question_id($val['question_id'], 1, null, 'agree_count DESC'))
+								{
+									$response_message = $answer_list[0]['answer_content'];
+								}
 							}
 						}
 						else if (!$answer_list)
@@ -259,15 +260,19 @@ class weixin_class extends AWS_MODEL
 									
 								if ($val['best_answer'])
 								{
-									$answer_list = $this->model('answer')->get_answer_list_by_question_id($val['question_id'], 1, 'answer.answer_id = ' . (int)$val['best_answer']);
+									if ($answer_list = $this->model('answer')->get_answer_by_id($val['best_answer']))
+									{
+										$response_message .= "最新答案: \n\n" . cjk_substr($answer_list['answer_content'], 0, 128, 'UTF-8', '...') . "\n";
+									}	
 								}
 								else
 								{
-									$answer_list = $this->model('answer')->get_answer_list_by_question_id($val['question_id'], 1, 'answer.uninterested_count < ' . get_setting('uninterested_fold') . ' AND answer.force_fold = 0', 'add_time DESC');
+									if ($answer_list = $this->model('answer')->get_answer_list_by_question_id($val['question_id'], 1, 'answer.uninterested_count < ' . get_setting('uninterested_fold') . ' AND answer.force_fold = 0', 'add_time DESC'))
+									{
+										$response_message .= "最新答案: \n\n" . cjk_substr($answer_list[0]['answer_content'], 0, 128, 'UTF-8', '...') . "\n";
+									}
 								}
-									
-								$response_message .= "最新答案: \n\n" . cjk_substr($answer_list[0]['answer_content'], 0, 128, 'UTF-8', '...') . "\n";
-									
+								
 								$response_message .= "--------------------\n";
 							}
 						}
