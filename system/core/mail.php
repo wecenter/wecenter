@@ -27,23 +27,23 @@ class core_mail
 			case 'smtp':
 				$auth = array(
 					'auth' => 'login',
-					'username' => $this->config['transport']['user_name'],
-					'password' => $this->config['transport']['password']
+					'username' => $this->config['username'],
+					'password' => $this->config['password']
 				);
 					
-				if ($this->config['transport']['port'])
+				if ($this->config['port'])
 				{
-					$auth['port'] = $this->config['transport']['port'];
+					$auth['port'] = $this->config['port'];
 				}
 					
-				if ($this->config['transport']['ssl'])
+				if ($this->config['ssl'])
 				{
 					$auth['ssl'] = 'ssl';
 				}
 				
 				try 
 				{
-					$this->transport = new Zend_Mail_Transport_Smtp($this->config['transport']['server'], $auth);
+					$this->transport = new Zend_Mail_Transport_Smtp($this->config['server'], $auth);
 				}
 				catch (Exception $e)
 				{
@@ -80,14 +80,13 @@ class core_mail
 			$body = convert_encoding($body, 'UTF-8', $this->config['charset']);
 		}
 		
-		$zend_mail = new Zend_Mail($this->config['charset']);
-		$zend_mail->setBodyHtml($body);
-		$zend_mail->setFrom(get_setting('from_email'), $from_name);
-		$zend_mail->addTo($address, $to_name);
-		$zend_mail->setSubject($title);
-		
-		try 
+		try
 		{
+			$zend_mail = new Zend_Mail($this->config['charset']);
+			$zend_mail->setBodyHtml($body);
+			$zend_mail->setFrom(get_setting('from_email'), $from_name);
+			$zend_mail->addTo($address, $to_name);
+			$zend_mail->setSubject($title);
 			$zend_mail->send($this->transport);
 		}
 		catch (Exception $e)

@@ -63,8 +63,6 @@ ALTER TABLE `[#DB_PREFIX#]topic` ADD INDEX ( `user_related` );
 ALTER TABLE `[#DB_PREFIX#]topic` ADD INDEX ( `focus_count` );
 ALTER TABLE `[#DB_PREFIX#]topic` ADD INDEX ( `topic_lock` );
 
-ALTER TABLE `[#DB_PREFIX#]redirect` ADD INDEX ( `type` );
-
 ALTER TABLE `[#DB_PREFIX#]users_online` ADD INDEX ( `last_active` );
 
 ALTER TABLE `[#DB_PREFIX#]users_ucenter` ADD INDEX ( `uc_uid` );

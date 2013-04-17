@@ -22,7 +22,7 @@
 				<form id="_save_form" action="admin/setting/sys_save_ajax/" method="post">
 					<fieldset>
 					<p groupid="7" name="transport">
-						<label><?php _e('系统邮件发送方式'); ?>: <span style="font-weight:normal">(<?php _e('配置完成后可在 工具 - 系统维护 中进行发送测试'); ?>)</span></label>
+						<label><?php _e('系统邮件发送方式'); ?>:</label>
 						<select class="small-input" name="mail_config[transport]" style="width:500px;">
 							<option value="sendmail"<?php if ($this->setting['mail_config']['transport'] == 'sendmail') { ?> selected="selected"<?php } ?>><?php _e('通过 PHP 的 Sendmail 发送'); ?></option>
 							<option value="smtp"<?php if ($this->setting['mail_config']['transport'] == 'smtp') { ?> selected="selected"<?php } ?>><?php _e('通过 SOCKET 连接 SMTP 服务器发送'); ?></option>
@@ -63,6 +63,19 @@
 						<input class="button" type="button" onclick="ajax_post($('#_save_form'), _form_process);" value="<?php _e('保存'); ?>" />
 					</p>
 					</fieldset>
+				</form>
+				<br />
+				<form action="admin/tool/email_setting_test/" method="post" id="email_setting_test_form" onsubmit="return false">
+				<p>
+					<label><?php _e('邮件系统测试'); ?>:</label>
+					<p style="color:#999;"><?php _e('使用此功能测试邮件系统配置是否正确'); ?>, <?php _e('更改配置后请先保存设置, 再进行测试'); ?></p>
+					<p>
+						<?php _e('收件人地址'); ?>: <input type="text" name="test_email" class="text-input small-int" />
+					</p>
+					<p>
+						<input class="button" type="button" onclick="ajax_post($('#email_setting_test_form'), _ajax_post_alert_processer);" value="<?php _e('发送邮件'); ?>" />
+					</p>
+				</p>
 				</form>
 			</div>
 		</div>
