@@ -49,6 +49,10 @@
 						<label><?php _e('问题标题最大字符数限制'); ?>: <span style=" font-weight:normal;">(<?php _e('填写 0 则不限制'); ?>)</span></label>
 						<input name="question_title_limit" class="text-input small-int" type="text" value="<?php echo $this->setting['question_title_limit']; ?>"/>
 					</p>
+					<p groupid="4" name="question_topics_limit">
+						<label><?php _e('问题话题数量限制'); ?>: <span style=" font-weight:normal;">(<?php _e('填写 0 则不限制'); ?>)</span></label>
+						<input name="question_topics_limit" class="text-input small-int" type="text" value="<?php echo $this->setting['question_topics_limit']; ?>"/>
+					</p>
 					<p groupid="4" name="comment_limit">
 						<label><?php _e('评论内容最大字符数限制'); ?>: <span style=" font-weight:normal;">(<?php _e('填写 0 则不限制'); ?>)</span></label>
 						<input name="comment_limit" class="text-input small-int" type="text" value="<?php echo $this->setting['comment_limit']; ?>"/>

@@ -610,6 +610,10 @@ p.load_more {
 	background-size: 160px auto;
 }
 
+.m_login img {
+	border-radius: 5px;
+}
+
 .m_chat {
 	background: #f5f5f5;
 	padding: 0 10px 10px 10px;

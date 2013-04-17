@@ -24,7 +24,7 @@
       <input type="text" class="login_txt" id="login_password_txt" tabindex="3" title="<?php _e('密码'); ?>" value="<?php _e('密码'); ?>"/>
       <input type="password" name="password" title="<?php _e('密码'); ?>" id="login_password" class="login_txt i_hide">
       <span class="hide"></span> </li>
-    <li<?php if ($this->fromuid || $this->icode || (get_setting('register_seccode') == 'N')) { ?> style="display:none;"<?php } ?>>
+    <li<?php if ($this->fromuid OR $this->icode OR get_setting('register_seccode') == 'N') { ?> style="display:none;"<?php } ?>>
       <input type="text" class="login_txt auth_code" id="authCode" name="seccode_verify" title="<?php _e('验证码'); ?>" value="<?php _e('验证码'); ?>" tabindex="4" />
       <em class="auth_img"><img src="" onclick="this.src = G_BASE_URL + '/account/captcha/rnd-' + Math.floor(Math.random() * 10000);" id="seccode" /></em> <span class="hide"></span> </li>
     <li id="global_err" class="i_hide">

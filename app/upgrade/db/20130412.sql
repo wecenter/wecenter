@@ -71,3 +71,5 @@ ALTER TABLE `[#DB_PREFIX#]users_ucenter` ADD INDEX ( `uc_uid` );
 ALTER TABLE `[#DB_PREFIX#]users_ucenter` ADD INDEX ( `email` );
 
 ALTER TABLE `[#DB_PREFIX#]users_forbidden` ADD INDEX ( `uid` );
+
+INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES ('question_topics_limit', 's:2:"10";');

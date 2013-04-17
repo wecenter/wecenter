@@ -23,7 +23,7 @@ class weixin_class extends AWS_MODEL
 	
 	var $language_characteristic = array(
 		'ok' => array(
-			'好', '好的', '是', '是的', '恩', '可', '可以', '行', '行啊', '中', '要', '哦', '嗯', '确认', '确定', 'yes'
+			'好', '好的', '是', '是的', '恩', '可', '可以', '行', '行啊', '中', '要', '哦', '嗯', '确认', '确定', 'yes', '更多'
 		),
 		
 		'cancel' => array(
@@ -34,6 +34,8 @@ class weixin_class extends AWS_MODEL
 			'fuck', 'shit', '狗屎', '婊子', '贱', '你妈', '你娘', '你祖宗', '滚', '你妹'
 		),
 	);
+	
+	var $help_message = "以下指令可以帮助您更好的利用微信公众号:\n\n绑定状态 - 查询微信绑定状态\n解除绑定 - 解除微信绑定\n我的问题 - 显示我的提问\n最新通知 - 显示最新通知";
 	
 	public function fetch_message()
 	{
@@ -64,20 +66,24 @@ class weixin_class extends AWS_MODEL
 				switch ($input_message['event'])
 				{
 					case 'subscribe':
-						$response_message = '您已经成功关注 ' . get_setting('site_name') . ', 您可以随意输入您想问的问题, 会有意想不到的结果等着您! 是否需要指令帮助?';
-						$action = 'help';
+						$response_message = '您已经成功关注 ' . get_setting('site_name') . ', 请问需要什么帮助吗? 您可以通过输入 "help, 帮助" 获得更多支持!';
 					break;
 				}
 			break;
 			
 			default:
-				if ($response_message = $this->message_parser($input_message))
+				if ($response = $this->message_parser($input_message))
 				{
 					// Success...
+					$response_message = $response['message'];
+					$action = $response['action'];
 				}
 				else if ($this->is_language($input_message['content'], 'ok'))
 				{
-					$response_message = $this->process_last_action($input_message['fromUsername']);
+					$response = $this->process_last_action($input_message['fromUsername']);
+					
+					$response_message = $response['message'];
+					$action = $response['action'];
 				}
 				else if ($this->is_language($input_message['content'], 'cancel'))
 				{
@@ -120,7 +126,7 @@ class weixin_class extends AWS_MODEL
 					
 					if (!$answer_list)
 					{
-						$response_message .= "\n\n问题没有人提到过? 需要帮忙么?";
+						$response_message .= "\n\n您的问题没有人提到过, 需要帮忙么? 回复 '是' 提交问题到社区!";
 						
 						$action = 'publish';
 					}
@@ -164,7 +170,7 @@ class weixin_class extends AWS_MODEL
 		return sprintf($this->text_tpl, $input_message['fromUsername'], $input_message['toUsername'], $input_message['time'], 'text', $response_message);
 	}
 	
-	public function message_parser($input_message)
+	public function message_parser($input_message, $param = null)
 	{
 		$message_code = strtoupper(trim($input_message['content']));
 		
@@ -176,7 +182,7 @@ class weixin_class extends AWS_MODEL
 		switch ($message_code)
 		{
 			default:
-				if (cjk_strlen($input_message['content']) > 2)
+				if (cjk_strlen($input_message['content']) > 1)
 				{
 					if ($user_info = $this->model('account')->get_user_info_by_username($input_message['content']))
 					{
@@ -198,6 +204,16 @@ class weixin_class extends AWS_MODEL
 						}
 						
 						$response_message .= "\n\n威望: " . $user_info['reputation'] . "\n\n赞同: " . $user_info['agree_count'] . "\n\n感谢: " . $user_info['thanks_count'] . "\n\n最后活跃: " . date_friendly($user_info['last_active']);
+						
+						if ($user_actions = $this->model('account')->get_user_actions($user_info['uid'], 5, 101))
+						{
+							$response_message .= "\n\n" . $user_info['user_name'] . " 的动态: \n";
+							
+							foreach ($user_actions AS $key => $val)
+							{
+								$response_message .= "\n" . '• ' . $val['last_action_str'] . ', <a href="' . get_js_url('/question/' . $val['question_id']) . '">' . $val['question_content'] . '</a> (' . date_friendly($val['add_time']) . ')' . "\n";
+							}
+						}
 					}
 					
 					if ($topic_info = $this->model('topic')->get_topic_by_title($input_message['content']))
@@ -212,41 +228,56 @@ class weixin_class extends AWS_MODEL
 				}
 			break;
 			
-			case 'H':
-			case '?':
+			case '帮助':
 			case 'HELP':
-				$response_message = "支持的指令: \n\n绑定状态 - 查询微信绑定状态\n解除绑定 - 解除微信绑定\n我的问题 - 显示我的提问\n最新通知 - 显示最新通知";
+				$response_message = $this->help_message;
 			break;
 			
-			case '通知':
 			case '最新通知':
 				if ($user_info = $this->model('account')->get_user_info_by_weixin_id($input_message['fromUsername']))
 				{
-					if ($notifications = $this->model('notify')->list_notification($user_info['uid'], 0, 5))
+					if ($notifications = $this->model('notify')->list_notification($user_info['uid'], 0, calc_page_limit($param, 5)))
 					{
 						$response_message = '最新通知:';
 						
 						foreach($notifications AS $key => $val)
 						{
 							$response_message .= "\n\n• " . $val['message'];
-						}	
+						}
+						
+						$response_message .= "\n\n请输入 '更多' 显示其他相关内容";
+						
+						if (!$param)
+						{
+							$param = 1;
+						}
+						
+						$action = 'notification-' . ($param + 1);
 					}
 					else
 					{
-						$response_message = '暂时没有新通知';
+						$this->delete('weixin_message', "weixin_id = '" . $this->quote($input_message['fromUsername']) . "'");
+						
+						if ($param > 1)
+						{
+							$response_message = '没有更多新通知了';
+						}
+						else
+						{
+							$response_message = '暂时没有新通知';
+						}
 					}
 				}
 				else
 				{
-					$response_message = '你的微信帐号没有绑定 ' . get_setting('site_name') . ' 的帐号, 请登录网站绑定';
+					$response_message = '你的微信帐号没有绑定 ' . get_setting('site_name') . ' 的帐号, 请<a href="' . get_js_url('/m/login/?weixin_id=' . $input_message['fromUsername']) . '">点此绑定</a>或<a href="' . get_js_url('/m/register/?weixin_id=' . $input_message['fromUsername']) . '">注册新账户</a>';
 				}
 			break;
 			
-			case '问题':
 			case '我的问题':
 				if ($user_info = $this->model('account')->get_user_info_by_weixin_id($input_message['fromUsername']))
 				{
-					if ($user_actions = $this->model('account')->get_user_actions($user_info['uid'], 5, 101))
+					if ($user_actions = $this->model('account')->get_user_actions($user_info['uid'], calc_page_limit($param, 5), 101))
 					{
 						$response_message = "我的提问: \n";
 						
@@ -267,7 +298,7 @@ class weixin_class extends AWS_MODEL
 								}
 								else
 								{
-									if ($answer_list = $this->model('answer')->get_answer_list_by_question_id($val['question_id'], 1, 'answer.uninterested_count < ' . get_setting('uninterested_fold') . ' AND answer.force_fold = 0', 'add_time DESC'))
+									if ($answer_list = $this->model('answer')->get_answer_list_by_question_id($val['question_id'], 1, 'uninterested_count < ' . get_setting('uninterested_fold') . ' AND force_fold = 0', 'add_time DESC'))
 									{
 										$response_message .= "最新答案: \n\n" . cjk_substr($answer_list[0]['answer_content'], 0, 128, 'UTF-8', '...') . "\n";
 									}
@@ -276,19 +307,36 @@ class weixin_class extends AWS_MODEL
 								$response_message .= "--------------------\n";
 							}
 						}
+						
+						$response_message .= "\n\n请输入 '更多' 显示其他相关内容";
+						
+						if (!$param)
+						{
+							$param = 1;
+						}
+						
+						$action = 'my_questions-' . ($param + 1);
 					}
 					else
 					{
-						$response_message = '你还没有进行提问';
+						$this->delete('weixin_message', "weixin_id = '" . $this->quote($input_message['fromUsername']) . "'");	
+						
+						if ($param > 1)
+						{
+							$response_message = '没有更多提问了';
+						}
+						else
+						{
+							$response_message = '你还没有进行提问';
+						}
 					}
 				}
 				else
 				{
-					$response_message = '你的微信帐号没有绑定 ' . get_setting('site_name') . ' 的帐号, 请登录网站绑定';
+					$response_message = '你的微信帐号没有绑定 ' . get_setting('site_name') . ' 的帐号, 请<a href="' . get_js_url('/m/login/?weixin_id=' . $input_message['fromUsername']) . '">点此绑定</a>或<a href="' . get_js_url('/m/register/?weixin_id=' . $input_message['fromUsername']) . '">注册新账户</a>';
 				}
 			break;
 			
-			case '绑定':
 			case '绑定状态':
 				if ($user_info = $this->model('account')->get_user_info_by_weixin_id($input_message['fromUsername']))
 				{
@@ -296,7 +344,7 @@ class weixin_class extends AWS_MODEL
 				}
 				else
 				{
-					$response_message = '你的微信帐号没有绑定 ' . get_setting('site_name') . ' 的帐号, 请登录网站绑定';
+					$response_message = '你的微信帐号没有绑定 ' . get_setting('site_name') . ' 的帐号, 请<a href="' . get_js_url('/m/login/?weixin_id=' . $input_message['fromUsername']) . '">点此绑定</a>或<a href="' . get_js_url('/m/register/?weixin_id=' . $input_message['fromUsername']) . '">注册新账户</a>';
 				}
 			break;
 			
@@ -305,7 +353,15 @@ class weixin_class extends AWS_MODEL
 			break;
 		}
 		
-		return $response_message;
+		if (!$response_message)
+		{
+			return false;
+		}
+		
+		return array(
+			'message' => $response_message,
+			'action' => $action
+		);
 	}
 	
 	public function func_parser($weixin_id, $message_content)
@@ -316,30 +372,6 @@ class weixin_class extends AWS_MODEL
 		
 		switch ($func_code)
 		{			
-			// 查询用户动态
-			case 'INFO':
-				if ($user_info = $this->model('account')->get_user_info_by_username($func_param_original))
-				{
-					if ($user_actions = $this->model('account')->get_user_actions($user_info['uid'], 5, 101))
-					{
-						$response_message = $user_info['user_name'] . "的动态: \n";
-						
-						foreach ($user_actions AS $key => $val)
-						{
-							$response_message .= "\n" . '• ' . $val['last_action_str'] . ', <a href="' . get_js_url('/question/' . $val['question_id']) . '">' . $val['question_content'] . '</a> (' . date_friendly($val['add_time']) . ')' . "\n";
-						}
-					}
-					else
-					{
-						$response_message = '该用户目前没有动态';
-					}
-				}
-				else
-				{
-					$response_message = '目前没有找到相关用户';
-				}
-			break;
-			
 			// 绑定认证
 			case 'BIND':
 				if ($this->model('account')->get_user_info_by_weixin_id($weixin_id))
@@ -363,6 +395,11 @@ class weixin_class extends AWS_MODEL
 					$response_message = '微信绑定代码无效';
 				}
 			break;
+		}
+		
+		if (!$response_message)
+		{
+			return false;
 		}
 		
 		return array(
@@ -467,16 +504,20 @@ class weixin_class extends AWS_MODEL
 		
 		$this->delete('weixin_message', "weixin_id = '" . $this->quote($weixin_id) . "'");
 		
-		switch ($last_action['action'])
+		if (strstr($last_action['action'], '-'))
 		{
-			case 'help':
-				$response_message = "支持的指令: \n\n绑定状态 - 查询微信绑定状态\n解除绑定 - 解除微信绑定\n我的问题 - 显示我的提问\n最新通知 - 显示最新通知";
-			break;
+			$last_actions = explode('-', $last_action['action']);
 			
+			$last_action['action'] = $last_actions[0];
+			$last_action_param = $last_actions[1];
+		}
+		
+		switch ($last_action['action'])
+		{			
 			case 'publish':
 				if (!$user_info = $this->model('account')->get_user_info_by_weixin_id($weixin_id))
 				{
-					$response_message = '你的微信帐号没有绑定 ' . get_setting('site_name') . ' 的帐号, 请登录网站绑定';
+					$response_message = '你的微信帐号没有绑定 ' . get_setting('site_name') . ' 的帐号, 请<a href="' . get_js_url('/m/login/?weixin_id=' . $weixin_id) . '">点此绑定</a>或<a href="' . get_js_url('/m/register/?weixin_id=' . $weixin_id) . '">注册新账户</a>';
 				}
 				else
 				{
@@ -488,16 +529,30 @@ class weixin_class extends AWS_MODEL
 					{
 						$this->model('publish')->publish_question($last_action['content'], '', 1, $user_info['uid']);
 						
-						$response_message = '您的问题已提交，晚点您可以输入 "我的问题" 或点击菜单我的问题查看';
+						$response_message = '您的问题已提交，晚点您可以输入 "我的问题" 查看';
 					}
 				}
 			break;
 			
 			case 'unbind':
-				$response_message = $this->message_parser(array(
+				return $this->message_parser(array(
 					'content' => '解除绑定',
 					'fromUsername' => $weixin_id
 				));
+			break;
+			
+			case 'my_questions':
+				return $this->message_parser(array(
+					'content' => '我的问题',
+					'fromUsername' => $weixin_id
+				), $last_action_param);
+			break;
+			
+			case 'notification':
+				return $this->message_parser(array(
+					'content' => '最新通知',
+					'fromUsername' => $weixin_id
+				), $last_action_param);
 			break;
 			
 			default:
@@ -505,7 +560,10 @@ class weixin_class extends AWS_MODEL
 			break;
 		}
 		
-		return $response_message;
+		return array(
+			'message' => $response_message,
+			'action' => $action
+		);
 	}
 	
 	public function get_last_message($weixin_id)
