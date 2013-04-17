@@ -24,6 +24,7 @@ class AWS_APP
 	private static $lang;
 	private static $session;
 	private static $captcha;
+	private static $mail;
 	
 	public static $session_type = 'file';
 	
@@ -309,6 +310,16 @@ class AWS_APP
 		}
 		
 		return self::$form;
+	}
+	
+	public static function mail()
+	{
+		if (!self::$mail)
+		{
+			self::$mail = load_class('core_mail');
+		}
+		
+		return self::$mail;
 	}
 	
 	public static function plugins()

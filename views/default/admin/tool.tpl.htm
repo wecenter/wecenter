@@ -23,6 +23,19 @@
 			</p>
 			</form>
 			
+			<form action="admin/tool/email_setting_test/" method="post" id="email_setting_test_form" onsubmit="return false">
+			<p>
+				<label><?php _e('邮件系统测试'); ?>:</label>
+				<p style="color:#999;"><?php _e('使用此功能测试邮件系统配置是否正确'); ?></p>
+				<p>
+					<?php _e('收件人地址'); ?>: <input type="text" name="test_email" class="text-input small-int" />
+				</p>
+				<p>
+					<input class="button" type="button" onclick="ajax_post($('#email_setting_test_form'), _ajax_post_alert_processer);" value="<?php _e('发送邮件'); ?>" />
+				</p>
+			</p>
+			</form>
+			
 			<form action="admin/tool/init/" method="post" target="_blank">
 			<input type="hidden" name="action" value="update_search_index" />
 			<p>

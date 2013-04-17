@@ -18,8 +18,8 @@
 /**
 * Always have these classes available.
 */
-include_once dirname(__FILE__) . '/Savant3/Filter.php';
-include_once dirname(__FILE__) . '/Savant3/Plugin.php';
+//include_once dirname(__FILE__) . '/Savant3/Filter.php';
+//include_once dirname(__FILE__) . '/Savant3/Plugin.php';
 
 
 /**
@@ -292,7 +292,7 @@ class Savant3 {
 					);
 				} else {
 					// available, load the class file
-					include_once $result;
+					//include_once $result;
 				}
 			}
 			
@@ -1334,4 +1334,3 @@ class Savant3 {
 		}
 	}
 }
-?>

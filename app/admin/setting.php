@@ -196,35 +196,4 @@ class setting extends AWS_CONTROLLER
 		
 		H::ajax_json_output(AWS_APP::RSM(null, 1, AWS_APP::lang()->_t('系统设置修改成功')));
 	}
-
-	public function test_email_setting_action()
-	{
-		define('IN_AJAX', TRUE);
-		
-		$smtp_config = array(
-			'smtp_server' => $_POST['smtp_server'], 
-			'smtp_ssl' => $_POST['smtp_ssl'], 
-			'smtp_port' => $_POST['smtp_port'], 
-			'smtp_username' => $_POST['smtp_username'], 
-			'smtp_password' => $_POST['smtp_password']
-		);
-		
-		$core_mail = new core_mail();
-		
-		$connect_result = $core_mail->connect($_POST['email_type'], $smtp_config);
-		
-		if (is_string($connect_result))
-		{
-			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('邮件服务器连接失败, 返回的信息: %s', strip_tags($connect_result))));
-		}
-		
-		if ($sendmail_result = $core_mail->send_mail(get_setting('site_name'), $_POST['test_email'], $_POST['test_email'], get_setting('site_name') . ' - ' . AWS_APP::lang()->_t('邮件服务器配置测试'), AWS_APP::lang()->_t('这是一封测试邮件，收到邮件表示邮件服务器配置成功')))
-		{
-			H::ajax_json_output(AWS_APP::RSM(null, 1, AWS_APP::lang()->_t('测试邮件发送失败, 返回的信息: %s', strip_tags($sendmail_result))));
-		}
-		else
-		{
-			H::ajax_json_output(AWS_APP::RSM(null, 1, AWS_APP::lang()->_t('测试邮件已发送, 请查收邮件测试配置是否正确')));
-		}
-	}
 }

@@ -14,107 +14,81 @@
 
 class core_mail
 {
-	private $mail;
-	private $mail_transport;
-	private $charset = 'utf-8';
-		
-	public function connect($email_type = null, $smtp_config = null)
+	private $transport;
+	private $config;
+	private $transport_error;
+	
+	public function __construct()
 	{
-		if (!$email_type)
-		{
-			$email_type = get_setting('email_type');
-		}
+		$this->config = get_setting('mail_config');
 		
-		switch ($email_type)
+		switch ($this->config['transport'])
 		{
-			case 1:	// SMTP
-				if (!$smtp_config)
+			case 'smtp':
+				$auth = array(
+					'auth' => 'login',
+					'username' => $this->config['transport']['user_name'],
+					'password' => $this->config['transport']['password']
+				);
+					
+				if ($this->config['transport']['port'])
 				{
-					$auth = array(
-						'auth' => 'login',
-						'username' => get_setting('smtp_username'),
-						'password' => get_setting('smtp_password')
-					);
-					
-					if (get_setting('smtp_port') > 0)
-					{
-						$auth['port'] = get_setting('smtp_port');
-					}
-					
-					if (get_setting('smtp_ssl') == 'Y')
-					{
-						$auth['ssl'] = 'ssl';
-					}
-					
-					$smtp_server = get_setting('smtp_server');
+					$auth['port'] = $this->config['transport']['port'];
 				}
-				else
+					
+				if ($this->config['transport']['ssl'])
 				{
-					$auth = array(
-						'auth' => 'login',
-						'username' => $smtp_config['smtp_username'],
-						'password' => $smtp_config['smtp_password'],
-					);
-					
-					if ($smtp_config['smtp_port'] > 0)
-					{
-						$auth['port'] = $smtp_config['smtp_port'];
-					}
-					
-					if ($smtp_config['smtp_ssl'] == 'Y')
-					{
-						$auth['ssl'] = 'ssl';
-					}
-					
-					$smtp_server = $smtp_config['smtp_server'];
+					$auth['ssl'] = 'ssl';
 				}
 				
 				try 
 				{
-					$this->mail_transport = new Zend_Mail_Transport_Smtp($smtp_server, $auth);
+					$this->transport = new Zend_Mail_Transport_Smtp($this->config['transport']['server'], $auth);
 				}
 				catch (Exception $e)
 				{
-					return $e->getMessage();
+					$this->transport_error = $e->getMessage();
 				}
 			break;
 			
-			case 2:	// Sendmail
+			default:
+			case 'sendmail':
 				try 
 				{
-					$this->mail_transport = new Zend_Mail_Transport_Sendmail(get_setting('from_email'));
+					$this->transport = new Zend_Mail_Transport_Sendmail(get_setting('from_email'));
 				}
 				catch (Exception $e)
 				{
-					return $e->getMessage();
+					$this->transport_error = $e->getMessage();
 				}
 			break;
 		}
-				
-		return $this->mail_transport;
 	}
 	
-	public function send_mail($from_name, $to_email, $to_name, $title, $body)
-	{		
-		if (!$this->mail_transport)
+	public function send($address, $title, $body, $from_name = '', $to_name = '')
+	{
+		if ($this->transport_error)
 		{
-			$this->connect();
+			return $this->transport_error;
 		}
 		
-		if (!$from_email = get_setting('from_email'))
+		if (strtoupper($this->config['charset']) != 'UTF-8')
 		{
-			$from_email = 'localhost';
+			$from_name = convert_encoding($from_name, 'UTF-8', $this->config['charset']);
+			$to_name = convert_encoding($to_name, 'UTF-8', $this->config['charset']);
+			$title = convert_encoding($title, 'UTF-8', $this->config['charset']);
+			$body = convert_encoding($body, 'UTF-8', $this->config['charset']);
 		}
+		
+		$zend_mail = new Zend_Mail($this->config['charset']);
+		$zend_mail->setBodyHtml($body);
+		$zend_mail->setFrom(get_setting('from_email'), $from_name);
+		$zend_mail->addTo($address, $to_name);
+		$zend_mail->setSubject($title);
 		
 		try 
 		{
-			$mail = new Zend_Mail($this->charset);
-			$mail->setBodyHtml($body);
-			$mail->setFrom($from_email, $from_name);
-			$mail->addTo($to_email, $to_name);
-			$mail->setSubject("=?UTF-8?B?" . base64_encode($title) . "?=");
-				
-			$mail->send($this->mail_transport);
+			$zend_mail->send($this->transport);
 		}
 		catch (Exception $e)
 		{

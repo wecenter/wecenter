@@ -147,4 +147,16 @@ class tool extends AWS_CONTROLLER
 			H::redirect_msg(AWS_APP::lang()->_t('最新动态更新完成'));
 		}
 	}
+	
+	public function email_setting_test_action()
+	{
+		if ($error_message = AWS_APP::mail()->send($_POST['test_email'], get_setting('site_name') . ' - ' . AWS_APP::lang()->_t('邮件服务器配置测试'), AWS_APP::lang()->_t('这是一封测试邮件，收到邮件表示邮件服务器配置成功'), get_setting('site_name')))
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('测试邮件发送失败, 返回的信息: %s', strip_tags($error_message))));
+		}
+		else
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('测试邮件已发送, 请查收邮件测试配置是否正确')));
+		}
+	}
 }

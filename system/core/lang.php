@@ -23,6 +23,11 @@ class core_lang
 			return false;
 		}
 		
+		if (SYSTEM_LANG == '')
+		{
+			return false;
+		}
+		
 		$language_file = ROOT_PATH . 'language/' . SYSTEM_LANG . '.php';
 		
 		if (file_exists($language_file))
