@@ -59,7 +59,7 @@ class core_autoload
 		{
 			return require_once ROOT_PATH . 'models/' . str_replace(array('_class', '_'), array('', '/'), $class_name) . '.php';
 		}
-		// 查找 includes
+		// 查找 class
 		else if (file_exists(AWS_PATH . 'class/' . $class_name . '.inc.php'))
 		{
 			return require_once AWS_PATH . 'class/' . $class_name . '.inc.php';

@@ -98,23 +98,23 @@ class AWS_APP
 		// 判断使用白名单还是黑名单,默认使用黑名单
 		if ($access_rule)
 		{			
-			// 黑名单,黑名单中的检查  'white'白名单,白名单以外的检查(默认是黑名单检查)
-			if (isset($access_rule['rule_type']) && ($access_rule['rule_type'] == 'white')) // 白
+			// 黑名单,黑名单中的检查 'white'白名单,白名单以外的检查(默认是黑名单检查)
+			if (isset($access_rule['rule_type']) && $access_rule['rule_type'] == 'white')	// 白
 			{
 				if ((! $access_rule['actions']) || (! in_array($__action, $access_rule['actions'])))
 				{
-					self::login_check();
+					self::login();
 				}
 			}
-			else if (isset($access_rule['actions']) && in_array($__action, $access_rule['actions'])) // 非白就是黑名单
+			else if (isset($access_rule['actions']) && in_array($__action, $access_rule['actions']))	// 非白就是黑名单
 			{
-				self::login_check();
+				self::login();
 			}
 		
 		}
-		else // 没有设置就全部检查
+		else
 		{
-			self::login_check();
+			self::login();
 		}
 		
 		// 执行
@@ -126,7 +126,10 @@ class AWS_APP
 		self::$config = load_class('core_config');
 		self::$db = load_class('core_db');
 		
+		set_exception_handler(array('AWS_APP', 'exception_handle'));
+		
 		self::$plugins = load_class('core_plugins');
+		
 		self::$settings = self::model('setting')->get_settings();
 		 
 		if ((!defined('G_SESSION_SAVE') OR G_SESSION_SAVE == 'db') AND get_setting('db_version') > 20121123)
@@ -219,8 +222,12 @@ class AWS_APP
 		
 		return false;
 	}
-
 	
+	public static function exception_handle(Exception $exception)
+    {
+        show_error($exception->__toString());
+    }
+    
 	/**
    	* 格式化弹出信息组件返回值
    	* 
@@ -239,7 +246,7 @@ class AWS_APP
 		);
 	}
 		
-	public static function login_check()
+	public static function login()
 	{
 		if (! USER::get_client_uid())
 		{

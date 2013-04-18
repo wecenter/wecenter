@@ -358,13 +358,8 @@ function _show_error($errorMessage = '')
 	if ($errorMessage)
 	{
 		$errorMessage = htmlspecialchars($errorMessage);
-		$errorBlock = <<<EOF
-		<div class='database-error'>
-	    	<form name='mysql'>
-	    		<textarea rows="15" cols="60">{$errorMessage}</textarea>
-	    	</form>
-    	</div>
-EOF;
+		
+		$errorBlock = "<div class='system-error'><textarea rows='15' cols='60'>{$errorMessage}</textarea></div>";
 	}
 	
 	if (defined('IN_AJAX'))
@@ -373,135 +368,17 @@ EOF;
 	}
 	
 	return <<<EOF
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-		<meta http-equiv="Pragma" content="no-cache" />
-		<meta http-equiv="Cache-Control" content="no-cache" />
-		<meta http-equiv="Expires" content="Fri, 01 January 1999 01:00:00 GMT" />
-		<title>{$name} System Error</title>
-		<style type='text/css'>
-			body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td { margin:0; padding:0; } 
-			table {	border-collapse:collapse; border-spacing:0; }
-			fieldset,img { border:0; }
-			address,caption,cite,code,dfn,em,strong,th,var { font-style:normal; font-weight:normal; }
-			ol,ul { list-style:none; }
-			caption,th { text-align:left; }
-			h1,h2,h3,h4,h5,h6 { font-size:100%;	font-weight:normal; }
-			q:before,q:after { content:''; }
-			abbr,acronym { border:0; }
-			hr { display: none; }
-			address{ display: inline; }
-			body {
-				font-family: arial, tahoma, sans-serif;
-				font-size: 0.8em;
-				width: 100%;
-			}
-			
-			h1 {
-				font-family: arial, tahoma, "times new roman", serif;
-				font-size: 1.9em;
-				color: #fff;
-			}
-			h2 {
-				font-size: 1.6em;
-				font-weight: normal;
-				margin: 0 0 8px 0;
-				clear: both;
-			}
-			a {
-				color: #3e70a8;
-			}
-			
-				a:hover {
-					color: #3d8ce4;
-				}
-				
-				a.cancel {
-					color: #ad2930;
-				}
-			#branding {
-				background: #484848;
-				padding: 8px;
-			}
-			
-			#content {
-				clear: both;
-				overflow: hidden;
-				padding: 20px 15px 0px 15px;
-			}
-			
-			* #content {
-				height: 1%;
-			}
-			
-			.message {
-				border-width: 1px;
-				border-style: solid;
-				border-color: #d7d7d7;
-				background-color: #f5f5f5;
-				padding: 7px 7px 7px 30px;
-				margin: 0 0 10px 0;
-				clear: both;
-			}
-			
-				.message.error {
-					background-color: #f3dddd;
-					border-color: #deb7b7;
-					color: #281b1b;
-					font-size: 1.3em;
-					font-weight: bold;
-				}
-				
-				.message.unspecific {
-					background-color: #f3f3f3;
-					border-color: #d4d4d4;
-					color: #515151;
-				}
-			.footer {
-				text-align: center;
-				font-size: 1.5em;
-			}
-			
-			.database-error {
-				padding: 4px 0px 10px 80px;
-				margin: 10px 0px 10px 0px;
-			}
-			
-			textarea {
-				width: 700px;
-				height: 250px;
-			}
-		</style>
-	</head>
-	<body id='ipboard_body'>
-		<div id='header'>
-			<div id='branding'>
-				<h1>{$name} System Error</h1>
-			</div>
-		</div>
-		<div id='content'>
-			<div class='message error'>
-				There appears to be an error:
-				{$errorBlock}
-			</div>
-			
-			<p class='message unspecific'>
-				If you are seeing this page, it means there was a problem communicating with our database.  Sometimes this error is temporary and will go away when you refresh the page.  Sometimes the error will need to be fixed by an administrator before the site will become accessible again.
-				<br /><br />
-				You can try to refresh the page by clicking <a href="#" onclick="window.location=window.location; return false;">here</a>
-			</p>
-		</div>
-	</body>
-</html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="content-type" content="text/html; charset=UTF-8" /><meta http-equiv="Pragma" content="no-cache" /><meta http-equiv="Cache-Control" content="no-cache" /><meta http-equiv="Expires" content="Fri, 01 January 1999 01:00:00 GMT" /><title>{$name} System Error</title><style type='text/css'>body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td{margin:0;padding:0;}table{border-collapse:collapse;border-spacing:0;}address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:400;}ol,ul{list-style:none;}caption,th{text-align:left;}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:400;}q:before,q:after{content:'';}hr{display:none;}address{display:inline;}body{font-family:arial, tahoma, sans-serif;font-size:.8em;width:100%;}h1{font-family:arial, tahoma, "times new roman", serif;font-size:1.9em;color:#fff;}h2{font-size:1.6em;font-weight:400;clear:both;margin:0 0 8px;}a{color:#3e70a8;}a:hover{color:#3d8ce4;}#branding{background:#484848;padding:8px;}#content{clear:both;overflow:hidden;padding:20px 15px 0;}* #content{height:1%;}.message{background-color:#f5f5f5;clear:both;border-color:#d7d7d7;border-style:solid;border-width:1px;margin:0 0 10px;padding:7px 7px 7px 30px;}.message.error{background-color:#f3dddd;color:#281b1b;font-size:1.3em;font-weight:700;border-color:#deb7b7;}.message.unspecific{background-color:#f3f3f3;color:#515151;border-color:#d4d4d4;}.footer{text-align:center;font-size:1.5em;}.system-error{margin:10px 0;padding:4px 0 10px 80px;}textarea{width:90%;height:300px;font-size:0.8em;}fieldset,img,abbr,acronym{border:0;}</style></head><body><div id='header'><div id='branding'><h1>{$name} System Error</h1></div></div><div id='content'><div class='message error'>There appears to be an error:{$errorBlock}</div><p class='message unspecific'>If you are seeing this page, it means there was a problem communicating with our database.  Sometimes this error is temporary and will go away when you refresh the page.  Sometimes the error will need to be fixed by an administrator before the site will become accessible again.<br /><br />You can try to refresh the page by clicking <a href="#" onclick="window.location=window.location; return false;">here</a></p></div></body></html>
 EOF;
 }
 
 function show_error($errorMessage = '')
 {
+	@ob_end_clean();
+	
 	echo _show_error($errorMessage);
-	exit();
+	
+	exit;
 }
 
 function get_table($name)
@@ -875,7 +752,7 @@ function get_host_top_domain()
 		$host = $parse['host'];
 	}
 	
-	$top_level_domain_db = array('com', 'edu', 'gov', 'int', 'mil', 'net', 'org', 'biz', 'info', 'pro', 'name', 'museum', 'coop', 'aero', 'xxx', 'idv', 'mobi', 'cc', 'me', 'jp', 'uk', 'ws', 'eu');
+	$top_level_domain_db = array('com', 'edu', 'gov', 'int', 'mil', 'net', 'org', 'biz', 'info', 'pro', 'name', 'coop', 'aero', 'xxx', 'idv', 'mobi', 'cc', 'me', 'jp', 'uk', 'ws', 'eu', 'pw', 'kr');
 	
 	foreach ($top_level_domain_db as $v)
 	{
@@ -919,7 +796,7 @@ function parse_link_callback($matches)
 
 function is_inside_url($url)
 {
-	if(!$url)
+	if (!$url)
 	{
 		return false;
 	}

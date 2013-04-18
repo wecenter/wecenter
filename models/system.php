@@ -370,28 +370,24 @@ class system_class extends AWS_MODEL
 		$analysis->SetSource(strtolower($string));
 		$analysis->StartAnalysis();
 		
-		$final_result = $analysis->GetFinallyResult(',');
-		
-		$final_result = explode(',', $final_result);
-		
-		if (is_array($final_result))
+		if ($result = explode(',', $analysis->GetFinallyResult(',')))
 		{			
-			$final_result = array_unique($final_result);
+			$result = array_unique($result);
 			
-			foreach ($final_result as $key => $keyword)
+			foreach ($result as $key => $keyword)
 			{			
 				if (!$this->check_stop_keyword($keyword))
 				{
-					unset($final_result[$key]);
+					unset($result[$key]);
 				}
 				else
 				{
-					$final_result[$key] = trim($keyword);
+					$result[$key] = trim($keyword);
 				}
 			}
 		}
 		
-		return $final_result;
+		return $result;
 	}
 	
 	public function update_associate_fresh_action($page, $limit = 100)

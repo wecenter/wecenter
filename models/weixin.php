@@ -211,7 +211,7 @@ class weixin_class extends AWS_MODEL
 							
 							foreach ($user_actions AS $key => $val)
 							{
-								$response_message .= "\n" . '• ' . $val['last_action_str'] . ', <a href="' . get_js_url('/question/' . $val['question_id']) . '">' . $val['question_content'] . '</a> (' . date_friendly($val['add_time']) . ')' . "\n";
+								$response_message .= "\n" . '• ' . strip_tags($val['last_action_str']) . ', <a href="' . get_js_url('/question/' . $val['question_id']) . '">' . $val['question_content'] . '</a> (' . date_friendly($val['add_time']) . ')' . "\n";
 							}
 						}
 					}
@@ -224,6 +224,16 @@ class weixin_class extends AWS_MODEL
 						}
 						
 						$response_message .= strip_tags($topic_info['topic_description']);
+						
+						if ($topic_questions = $this->model('question')->get_questions_list(1, 5, $topic_info['topic_id']))
+						{
+							$response_message .= "\n\n" . $topic_info['topic_title'] . " 话题下的问题: \n";
+							
+							foreach ($topic_questions AS $key => $val)
+							{
+								$response_message .= "\n" . '• <a href="' . get_js_url('/question/' . $val['question_id']) . '">' . $val['question_content'] . '</a> (' . date_friendly($val['add_time']) . ')' . "\n";
+							}
+						}
 					}
 				}
 			break;
