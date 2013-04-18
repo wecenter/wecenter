@@ -21,7 +21,7 @@
 			<link><?php echo get_js_url('/question/' . $val['question_id']); ?></link>
 			<description><![CDATA[<?php echo nl2br(cjk_substr($val['question_detail'], 0, 150, 'UTF-8', '...')); ?>]]></description>
 			<pubDate><?php echo date('r', $val['add_time']); ?></pubDate>
-			<guid isPermaLink="false"><?php echo get_js_url('/question/' . $val['question_id']); ?></guid>
+			<guid><?php echo get_js_url('/question/' . $val['question_id']); ?></guid>
 		</item>
 		<?php } ?>
 	</channel>
