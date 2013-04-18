@@ -225,7 +225,7 @@ class AWS_APP
 	
 	public static function exception_handle(Exception $exception)
     {
-        show_error($exception->__toString());
+        show_error("Application error\n------\nBuild: " . G_VERSION . " " . G_VERSION_BUILD . "\nPHP Version: " . PHP_VERSION . "\nUser Agent: " . $_SERVER['HTTP_USER_AGENT'] . "\n------\n\n" . $exception->__toString());
     }
     
 	/**
