@@ -14,7 +14,7 @@
 
 class core_autoload
 {
-	private static $_gz_class = array(
+	private static $aliases = array(
 		'TPL'				=> 'class/cls_template.inc.php',	
 		'FORMAT'			=> 'class/cls_format.inc.php',
 		'HTTP'				=> 'class/cls_http.inc.php',
@@ -27,9 +27,9 @@ class core_autoload
 	{
 		set_include_path(AWS_PATH);
 		
-		foreach (self::$_gz_class AS $key => $val)
+		foreach (self::$aliases AS $key => $val)
 		{
-			self::$_gz_class[$key] = AWS_PATH . $val;
+			self::$aliases[$key] = AWS_PATH . $val;
 		}
 		
 		spl_autoload_register(array($this, 'loader'));
@@ -46,13 +46,12 @@ class core_autoload
 		
 		if (class_exists('AWS_APP', false))
 		{
-			self::$_gz_class = array_merge(self::$_gz_class, AWS_APP::plugins()->model());
+			self::$aliases = array_merge(self::$aliases, AWS_APP::plugins()->model());
 		}
 		
-		// 如果内置有显示就读内置的
-		if (isset(self::$_gz_class[$class_name]))
+		if (isset(self::$aliases[$class_name]))
 		{
-			return require_once self::$_gz_class[$class_name];
+			return require_once self::$aliases[$class_name];
 		}
 		// 查找 models 目录
 		else if (file_exists(ROOT_PATH . 'models/' . str_replace(array('_class', '_'), array('', '/'), $class_name) . '.php'))

@@ -123,10 +123,10 @@ class AWS_APP
 
 	private static function init()
 	{
+		set_exception_handler(array('AWS_APP', 'exception_handle'));
+		
 		self::$config = load_class('core_config');
 		self::$db = load_class('core_db');
-		
-		set_exception_handler(array('AWS_APP', 'exception_handle'));
 		
 		self::$plugins = load_class('core_plugins');
 		
@@ -168,7 +168,6 @@ class AWS_APP
 		}
 
 		$img_url = get_setting('img_url');
-		
 		$base_url = get_setting('base_url');
 		
 		! empty($img_url) ? define('G_STATIC_URL', $img_url) : define('G_STATIC_URL', $base_url . '/static');
@@ -225,7 +224,7 @@ class AWS_APP
 	
 	public static function exception_handle(Exception $exception)
     {
-        show_error("Application error\n------\nBuild: " . G_VERSION . " " . G_VERSION_BUILD . "\nPHP Version: " . PHP_VERSION . "\nUser Agent: " . $_SERVER['HTTP_USER_AGENT'] . "\n------\n\n" . $exception->__toString());
+        show_error("Application error\n------\nMessage: " . $exception->getMessage() . "\n------\nBuild: " . G_VERSION . " " . G_VERSION_BUILD . "\nPHP Version: " . PHP_VERSION . "\nUser Agent: " . $_SERVER['HTTP_USER_AGENT'] . "\n------\n" . $exception->__toString());
     }
     
 	/**
