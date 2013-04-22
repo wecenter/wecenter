@@ -1,48 +1,1 @@
-<?php TPL::output('global/header.tpl.htm'); ?>
-
-<div class="i_bd mainElem i_clear i_allbg">
-	<div class="i_left L_sidebar">
-		<div class="b_restrain">
-			<h3 class="latest_trendst_h3  i_prl q_content_h3 ">
-        		<p class="i_right p_sx"><a href="inbox/"><?php _e('返回私信列表'); ?> »</a></p>
-        		<?php _e('私信对话'); ?>：<?php echo $this->recipient_user['user_name']; ?>
-        	</h3>
-        	
-        	<ul class="pri_letter p_talks">
-        	<li class="p_isMe">
-		        <a class="add_user_f" href="people/<?php echo $this->user_info['url_token']; ?>"><img title="<?php echo $this->user_info['user_name']; ?>" alt="<?php echo $this->user_info['user_name']; ?>" src="<?php echo get_avatar_url($this->user_info['uid'], 'mid');?>"></a>
-		        <form action="inbox/ajax/send/" method="post" id="recipient_form">
-		        	<input type="hidden" name="post_hash" value="<?php echo new_post_hash(); ?>" />
-		        	<input type="hidden" name="recipient" value="<?php echo $this->recipient_user['user_name']; ?>" />
-		        	<div class="p_txtarea ">
-			        	<textarea class="i_glotxtClass" onFocus="$.focus(this,'<?php _e('想要对ta说点什么'); ?>?',$.I.privateLetter(this));" maxlength="500" name="message"><?php _e('想要对ta说点什么'); ?>?</textarea>
-			        	<p class="p_fx i_cl_02"><?php _e('您还可以输入'); ?> <big id="msg_num">500</big> <?php _e('字符'); ?> <a href="javascript:;" class="i_green_bt2" id="msg_but2" onclick="ajax_post($('#recipient_form'));"><?php _e('发送'); ?></a></p>
-			        </div>
-			     </form>
-			     <a name="contents"></a>
-			</li>
-			<?php if ($this->list) { ?>
-            <?php foreach($this->list AS $key => $val) { ?>
-          	<li<?php if ($val['sender_uid'] == $this->user_id) { ?> class="p_isMe"<?php } ?>>
-            	<a class="add_user_f user_msg" href="people/<?php echo $val['url_token']; ?>" data-message="&uid=<?php echo $val['sender_uid']; ?>&card=user" ><img src="<?php echo get_avatar_url($val['sender_uid'], 'mid'); ?>" alt="" /></a>
-                <div class="p_bg i_prl">
-                	<p class="p_txt"> 
-	                	<a href="people/<?php echo $val['url_token']; ?>"><?php if ($val['sender_uid'] == $this->user_id) { ?><?php _e('我'); ?><?php } else { ?><?php echo $val['user_name']; ?><?php } ?></a>: <?php echo nl2br($val['notice_content']); ?></p>
-	                	<p class="p_time"><span class="i_right"><?php if ($val['sender_uid'] != $this->user_id) { ?><a href="javascript:" onclick="$.scrollTo(($('#recipient_form').offset()['top']) - 20, 600, {queue:true});"><?php _e('回复'); ?></a><?php } ?></span><?php echo date('Y-m-d H:i:s', $val['add_time']); ?>
-	                </p>
-	                
-	                <em class="q_arr i_pas i_small"><?php _e('小箭头'); ?></em>
-                </div>
-     	     </li>
-     	     <?php } ?>
-     	     <?php } ?>
-     	     </ul>
-        </div>
-    </div>
-
-	<div class="R_sidebar"> 
-		<?php TPL::output('block/sidebar_menu.tpl.htm'); ?>	
-	</div>
-</div>
-
-<?php TPL::output('global/footer.tpl.htm'); ?>
+<?php TPL::output('global/header.tpl.htm'); ?><div class="i_bd mainElem i_clear i_allbg">	<div class="i_left L_sidebar">		<div class="b_restrain">			<h3 class="latest_trendst_h3  i_prl q_content_h3 ">        		<p class="i_right p_sx"><a href="inbox/"><?php _e('返回私信列表'); ?> »</a></p>        		<?php _e('私信对话'); ?>：<?php echo $this->recipient_user['user_name']; ?>        	</h3>        	        	<ul class="pri_letter p_talks">        	<li class="p_isMe">		        <a class="add_user_f" href="people/<?php echo $this->user_info['url_token']; ?>"><img title="<?php echo $this->user_info['user_name']; ?>" alt="<?php echo $this->user_info['user_name']; ?>" src="<?php echo get_avatar_url($this->user_info['uid'], 'mid');?>"></a>		        <form action="inbox/ajax/send/" method="post" id="recipient_form">		        	<input type="hidden" name="post_hash" value="<?php echo new_post_hash(); ?>" />		        	<input type="hidden" name="recipient" value="<?php echo $this->recipient_user['user_name']; ?>" />		        	<div class="p_txtarea ">			        	<textarea class="i_glotxtClass" onFocus="$.focus(this,'<?php _e('想要对ta说点什么'); ?>?',$.I.privateLetter(this));" maxlength="500" name="message"><?php _e('想要对ta说点什么'); ?>?</textarea>			        	<p class="p_fx i_cl_02"> <a href="javascript:;" class="i_green_bt2" id="msg_but2" onclick="ajax_post($('#recipient_form'));"><?php _e('发送'); ?></a></p>			        </div>			     </form>			     <a name="contents"></a>			</li>			<?php if ($this->list) { ?>            <?php foreach($this->list AS $key => $val) { ?>          	<li<?php if ($val['sender_uid'] == $this->user_id) { ?> class="p_isMe"<?php } ?>>            	<a class="add_user_f user_msg" href="people/<?php echo $val['url_token']; ?>" data-message="&uid=<?php echo $val['sender_uid']; ?>&card=user" ><img src="<?php echo get_avatar_url($val['sender_uid'], 'mid'); ?>" alt="" /></a>                <div class="p_bg i_prl">                	<p class="p_txt"> 	                	<a href="people/<?php echo $val['url_token']; ?>"><?php if ($val['sender_uid'] == $this->user_id) { ?><?php _e('我'); ?><?php } else { ?><?php echo $val['user_name']; ?><?php } ?></a>: <?php echo nl2br($val['notice_content']); ?></p>	                	<p class="p_time"><span class="i_right"><?php if ($val['sender_uid'] != $this->user_id) { ?><a href="javascript:" onclick="$.scrollTo(($('#recipient_form').offset()['top']) - 20, 600, {queue:true});"><?php _e('回复'); ?></a><?php } ?></span><?php echo date('Y-m-d H:i:s', $val['add_time']); ?>	                </p>	                	                <em class="q_arr i_pas i_small"><?php _e('小箭头'); ?></em>                </div>     	     </li>     	     <?php } ?>     	     <?php } ?>     	     </ul>        </div>    </div>	<div class="R_sidebar"> 		<?php TPL::output('block/sidebar_menu.tpl.htm'); ?>		</div></div><?php TPL::output('global/footer.tpl.htm'); ?>
