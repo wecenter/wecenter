@@ -225,7 +225,7 @@ class weixin_class extends AWS_MODEL
 						
 						$response_message .= strip_tags($topic_info['topic_description']);
 						
-						if ($topic_questions = $this->model('question')->get_questions_list(1, 5, $topic_info['topic_id']))
+						if ($topic_questions = $this->model('question')->get_questions_list(1, 5, 'new', $topic_info['topic_id']))
 						{
 							$response_message .= "\n\n" . $topic_info['topic_title'] . " 话题下的问题: \n";
 							
