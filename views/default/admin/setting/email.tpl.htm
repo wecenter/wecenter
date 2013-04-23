@@ -22,7 +22,7 @@
 				<form id="_save_form" action="admin/setting/sys_save_ajax/" method="post">
 					<fieldset>
 					<p groupid="7" name="transport">
-						<label><?php _e('系统邮件发送方式'); ?>:</label>
+						<label><?php _e('系统邮件发送方式'); ?>: <span style="font-weight:normal">(<?php _e('商业服务推荐:'); ?> <a href="http://sendcloud.sohu.com/?r=anwsion" target="_blank">SendCloud</a>, <a href="http://mailgun.com/?r=anwsion" target="_blank">Mailgun</a>, <a href="http://www.anwsion.com/services/ses/" target="_blank">Amazion SES</a>)</span></label>
 						<select class="small-input" name="mail_config[transport]" style="width:500px;">
 							<option value="sendmail"<?php if ($this->setting['mail_config']['transport'] == 'sendmail') { ?> selected="selected"<?php } ?>><?php _e('通过 PHP 的 Sendmail 发送'); ?></option>
 							<option value="smtp"<?php if ($this->setting['mail_config']['transport'] == 'smtp') { ?> selected="selected"<?php } ?>><?php _e('通过 SOCKET 连接 SMTP 服务器发送'); ?></option>
