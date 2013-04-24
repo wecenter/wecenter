@@ -27,7 +27,7 @@ class follow_class extends AWS_MODEL
 			return false;
 		}
 		
-		if (! $this->model('account')->check_uid($fans_uid) || ! $this->model('account')->check_uid($friend_uid))
+		if (! $this->model('account')->check_uid($fans_uid) OR ! $this->model('account')->check_uid($friend_uid))
 		{
 			return false;
 		}
@@ -163,21 +163,11 @@ class follow_class extends AWS_MODEL
 		return $friend_uids;
 	}
 	
-	public function get_fans_count($friend_uid)
-	{
-		return $this->count('user_follow', 'friend_uid = ' . intval($friend_uid));
-	}
-
-	public function get_friends_count($fans_uid)
-	{
-		return $this->count('user_follow', 'fans_uid = ' . intval($fans_uid));
-	}
-	
 	public function update_user_count($uid)
 	{	
 		return $this->update('users', array(
-			'fans_count' => $this->get_fans_count($uid),
-			'friend_count' => $this->get_friends_count($uid)
+			'fans_count' => $this->count('user_follow', 'friend_uid = ' . intval($uid)),
+			'friend_count' => $this->count('user_follow', 'fans_uid = ' . intval($uid))
 		), 'uid = ' . intval($uid));
 	}
 }

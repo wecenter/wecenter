@@ -44,7 +44,7 @@ class topic_class extends AWS_MODEL
 		return $topic_list;
 	}
 	
-	public function get_topic_search_list($count = false, $query_data = null)
+	public function get_topic_search_list($query_data = null)
 	{
 		$sort_key = 'topic_id';
 		$order = 'DESC';
@@ -94,11 +94,6 @@ class topic_class extends AWS_MODEL
 			{
 				$where[] = "topic_description = ''";
 			}
-		}
-		
-		if ($count)
-		{
-			return $this->count('topic', implode(' AND ', $where));
 		}
 		
 		if ($topic_list = $this->fetch_page('topic', implode(' AND ', $where), $sort_key . ' ' . $order, $page, $per_page))
