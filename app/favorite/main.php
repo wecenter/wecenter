@@ -60,6 +60,13 @@ class main extends AWS_CONTROLLER
 			
 			TPL::assign('list', $action_list);
 		}
+		else
+		{
+			if (!$_GET['page'] OR $_GET['page'] == 1)
+			{
+				$this->model('favorite')->remove_favorite_tag(null, $_GET['tag'], $this->user_id);
+			}
+		}
 		
 		if ($answer_ids)
 		{

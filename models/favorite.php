@@ -65,12 +65,19 @@ class favorite_class extends AWS_MODEL
 	
 	public function remove_favorite_tag($answer_id, $tag, $uid)
 	{
-		if (!$answer_id OR !$tag)
+		if ($tag)
 		{
-			return false;
+			$where[] = "title = '" . $this->quote($tag) . "'";
 		}
 		
-		return $this->delete('favorite_tag', 'title = \'' . $this->quote($tag) . '\' AND answer_id = ' . intval($answer_id) . ' AND uid = ' . intval($uid));
+		if ($answer_id)
+		{
+			$where[] = "answer_id = " . intval($answer_id);
+		}
+		
+		$where[] = 'uid = ' . intval($uid);
+		
+		return $this->delete('favorite_tag', implode(' AND ', $where));
 	}
 	
 	public function remove_favorite_item($answer_id, $uid)
