@@ -8,7 +8,7 @@
 
 .default_setup{ width:960px; margin:100px auto 0; border:1px solid #ccc; border-radius:10px; padding:1px; color:#333;}
 .default_setup .default_head{background:url(img/default.png) 0 -237px  repeat-x;height:60px; border-top-left-radius:10px;border-top-right-radius:10px;}
-.default_setup .default_head .default_logo{ background:url(img/logo_small102x25.png) center center no-repeat; height:60px; width:128px; display:block; margin-left:15px;}
+.default_setup .default_head .default_logo{ background:url(img/logo_small.png) center center no-repeat; height:60px; width:128px; display:block; }
 
 .default_setup .default_contents{ padding:20px 60px;}
 .default_setup .default_contents .dedault_hx{ font-size:16px; padding-top:20px;}

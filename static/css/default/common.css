@@ -123,8 +123,8 @@ body .i_line{ display:inline-block;}
 /* 页头 */
 .x_brs{*z-index:99;}
 .i_header{ background-color:#86c5e3;}
-.i_header .logo{ width:450px; height:25px; line-height:25px; padding-top:10px; margin-bottom:16px;}
-.i_header .logo .img{ vertical-align:text-bottom; margin-right:15px;}
+.i_header .logo{ width:450px; height:25px; height:25px; padding: 22px 0 0 70px; background: url(img/logo.png) no-repeat 0 3px; cursor: pointer; }
+.i_header .logo .img{ vertical-align:text-bottom; margin-right:5px;}
 .i_header .i_message{ right:0; top:15px; font-weight:bold; z-index:99;width:400px;text-align:right;}
 .i_header .i_message a{ margin-left:14px;}
 .i_header .i_message span,.i_header .i_message a{text-align:left;}
