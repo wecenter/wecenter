@@ -33,17 +33,17 @@ $(document).ready(function()
 	
 	bp_more_inner_o = $('#bp_more').html();
 	
-	$('#i_tabs a').click(function () {
+	$('.aw-side-bar-mod-nav a').click(function () {
 		if ($('#c_title').attr('id') != null && $(this).attr('rel'))
 		{
-			$('#i_tabs a, #i_tabs li').removeClass('cur');
+			$('.aw-side-bar-mod-nav a, .aw-side-bar-mod-nav li').removeClass('active');
 			
 			window.location.hash = $(this).attr('rel');
 			
 			$('#c_title').html($(this).html());
 			
-			$(this).addClass('cur');
-			$(this).parents('li').addClass('cur');
+			$(this).addClass('active');
+			$(this).parents('li').addClass('active');
 			
 			reload_list();
 			
@@ -54,7 +54,6 @@ $(document).ready(function()
 	$('#bp_more').click(function()
 	{
 		var _this = this;
-		var index_all = false;	// 首页最新动态
 		
 		$("#delete_draft").hide();
 		$("#c_list").removeClass();
@@ -92,14 +91,11 @@ $(document).ready(function()
 					{
 						cur_uid = 0;
 					}
-					
-					index_all = false;
 				}
 				else
 				{
 					cur_filter = '';
 					cur_uid = 0;
-					index_all = true;
 				}
 				
 				var request_url = G_BASE_URL + '/home/ajax/index_actions/page-' + cur_page + '__type-all__uid-' + cur_uid + '__filter-' + cur_filter;
@@ -153,22 +149,19 @@ $(document).ready(function()
 				$(_this).find('a').html('没有更多了');
 			}
 			
-			$(_this).removeClass('loading');
-			
-			index_all ? $('#c_list >.S_module').addClass('index_module') : '';
-			
+			$(_this).removeClass('loading');		
 		})
 		
 		return false;
 	});
 	
-	if ($('#i_tabs a[rel=' + window.location.hash.replace(/#/g, '') + ']').attr('href'))
+	if ($('.aw-side-bar-mod-nav a[rel=' + window.location.hash.replace(/#/g, '') + ']').attr('href'))
 	{
-		$('#i_tabs a[rel=' + window.location.hash.replace(/#/g, '') + ']').click();
+		$('.aw-side-bar-mod-nav a[rel=' + window.location.hash.replace(/#/g, '') + ']').click();
 	}
 	else
 	{
-		$('#i_tabs a[rel=all]').click();
+		$('.aw-side-bar-mod-nav a[rel=all]').click();
 	}
 });
 

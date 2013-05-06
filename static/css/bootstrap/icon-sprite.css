@@ -1,0 +1,158 @@
+/*
+  anwsion icon sprite
+
+*/
+.aw-icon{display:inline-block;background-image: url(img/aw-icon-sprite.png);background-repeat: no-repeat;}
+.bds{display:inline-block;width:16px;height:16px;background-image: url(img/bds-icon-sprite.png);background-repeat: no-repeat;}
+
+
+/*第一排*/
+.i-start-large{width:44px;height: 47px;background-position: 0px -310px;}
+.i-user-post{width:14px;height: 15px;background-position: 0 0;}
+.i-user-locate{width:13px;height: 18px;background-position: -20px 0;}
+.i-user-visits{width:16px;height: 10px;background-position: -40px 0;}
+.i-user-bind{width:16px;height: 17px;background-position: -60px 0;}
+.i-lock{width:11px;height: 14px;background-position: -80px 0;}
+.i-site{width:14px;height: 14px;background-position: -100px 0;}
+.i-close{width:9px;height: 9px;background-position: -120px 0;position: relative;top:2px;}
+.i-close-disabled{width:9px;height: 9px;background-position: -135px 0;position: relative;top:2px;}
+.i-close-hover{width:9px;height: 9px;background-position: -150px 0;*position: relative;*top:-5px;*left:5px;}
+.i-followed{width:12px;height: 12px;background-position: -165px 0;}
+.i-follow{width:12px;height: 12px;background-position: -180px 0;*position:relative;*top:-2px;}
+.i-follow.active{background-position: -165px 0;*position:relative;*top:-2px;}
+.i-yes{width:19px;height: 15px;background-position: -200px 0;}
+.i-no{width:16px;height: 16px;background-position: -225px 0;}
+.i-key{width:16px;height: 8px;background-position: -250px 0;}
+.i-logout{width:12px;height: 13px;background-position: -275px 0;}
+.i-share-user{width:16px;height: 16px;background-position: -295px 0;position:relative;top:3px;}
+.i-v{width:15px;height: 12px;background-position: -320px 0;}
+.i-star-mini{width:12px;height: 13px;background-position: -360px 0;}
+.i-new-user{width:20px;height: 20px;background-position: -460px 0;}
+.i-nav-hover-triangle{width:12px;height: 6px;background-position: -485px 0;}
+.i-open-new-tab{width: 12px;height: 14px;background-position: -498px 0;}
+.i-private-replay-triangle{width: 8px;height: 10px;background-position: -450px 0;}
+.i-dropdown-triangle{width:13px;height:6px;background-position: -420px 0;}
+.i-comment-triangle{width:15px;height: 7px;background-position: -515px 0;}
+
+/*第二排*/
+.i-user-integral{width:14px;height: 11px;background-position: 0 -30px;*position:relative;*top:-2px;}
+.i-user-prestige{width:12px;height: 16px;background-position: -20px -30px;position:relative;top:4px;*top:0;}
+.i-user-thank{width:13px;height: 12px;background-position: -40px -30px;position:relative;top:2px;*top:-2px;}
+.i-user-approve{width:13px;height: 12px;background-position: -60px -30px;position:relative;top:1px;*top:-4px;}
+.i-user-ask{width:14px;height: 14px;background-position: -80px -30px;position:relative;top:2px;*top:-2px;}
+.i-share-sina{width:16px;height: 15px;background-position: -100px -30px;position:relative;top: 3px;*top:-2px;}
+.i-share-weibo{width:16px;height: 15px;background-position: -120px -30px;position: relative;top:3px;*top:0;}
+.i-sina{width:17px;height: 13px;background-position: -140px -30px;}
+.i-qq{width:15px;height: 16px;background-position: -160px -30px;position: relative;top:3px;*top:0px;}
+.i-weixin{width:16px;height: 16px;background-position: -219px -30px;position: relative;top:3px;*top:0;}
+.i-message{width:15px;height: 10px;background-position: -180px -30px;}
+.i-email{width:14px;height: 13px;background-position: -200px -30px;}
+.i-err{width: 14px;height: 14px;background-position: -241px -31px;}
+
+/*第三排*/
+.i-remark{width:10px;height: 9px;background-position: 0 -60px;*position:relative;*top:-5px;}
+.i-remark:hover{background-position: 0 -80px;}
+.i-share{width:9px;height: 10px;background-position: -20px -60px;*position:relative;*top:-4px;}
+.i-share:hover{background-position: -20px -80px;}
+.i-no-help{width:10px;height: 10px;background-position: -40px -60px;*position: relative;*top:-4px;}
+.i-no-help:hover{background-position: -40px -80px;}
+.i-edit{width:10px;height: 10px;background-position: -60px -60px;*position: relative;*top:-5px;}
+.i-edit:hover{background-position: -60px -80px;}
+.i-collect{width:7px;height: 9px;background-position: -80px -60px;*position: relative;*top:-4px;}
+.i-collect:hover{background-position: -80px -80px;}
+.i-delete{width:9px;height: 10px;background-position: -100px -60px;}
+.i-delete:hover{background-position: -100px -80px;}
+.i-question-edit{width:10px;height: 10px;background-position: -120px -59px;*position:relative;*top:-4px;}
+.i-question-edit:hover{background-position: -120px -79px;}
+.i-thank{width:10px;height: 9px;background-position: -140px -60px;*position: relative;*top:-4px;}
+.i-thank:hover{background-position: -140px -80px;}
+.i-locate{width:7px;height: 11px;background-position: -160px -60px;*position:relative;*top:-2px;}
+.i-locate:hover{background-position: -160px -80px;}
+
+/*第四排*/
+.i-index{width:12px;height: 10px;background-position: 0 -110px;}
+.i-index:hover{background-position: 0 -130px;}
+.i-index-hover{width:12px;height: 10px;background-position: 0 -130px;}
+.i-index-no-hover{width:12px;height: 10px;background-position: 0 -110px;}
+.i-question{width:13px;height: 15px;background-position: -30px -110px;}
+.i-question:hover{background-position: -30px -130px;}
+.i-question-hover{width:13px;height: 15px;background-position: -30px -130px;}
+.i-question-no-hover{width:13px;height: 15px;background-position: -30px -110px;}
+.i-topic{width:15px;height: 13px;background-position: -60px -110px;}
+.i-topic:hover{background-position: -60px -130px;}
+.i-topic-hover{width:15px;height: 13px;background-position: -60px -130px;}
+.i-topic-no-hover{width:15px;height: 13px;background-position: -60px -110px;}
+.i-login-user{width:12px;height: 14px;background-position: -90px -110px;}
+.i-login-user:hover{background-position: -90px -130px;}
+.i-login-user-hover{width:12px;height: 14px;background-position: -90px -130px;}
+.i-login-user-no-hover{width:12px;height: 14px;background-position: -90px -110px;}
+.i-reader{width:16px;height: 13px;background-position: -120px -110px;}
+.i-reader:hover{background-position: -120px -130px;}
+.i-reader-hover{width:16px;height: 13px;background-position: -120px -130px;}
+.i-start-question-mini{width:14px;height: 14px;background-position: -150px -110px;}
+.i-start-question-mini:hover{background-position: -150px -130px;}
+.i-start-question-mini-hover{width:14px;height: 14px;background-position: -150px -130px;}
+.i-setting{width:12px;height: 12px;background-position: -180px -110px;position: relative;top: 2px;*top:-2px;}
+.i-setting:hover{background-position: -180px -130px;}
+.i-setting-hover{width:12px;height: 12px;background-position: -180px -130px;position: relative;top: 2px;*top:-2px;}
+.i-triangle-up{width:15px;height: 10px;background-position: -210px -110px;}
+.i-triangle-up.active{background-position: -210px -130px;}
+.i-triangle-down{width:15px;height: 10px;background-position: -210px -130px;}
+.i-triangle-left{width:10px;height: 15px;background-position: -240px -110px;}
+.i-triangle-right{width:10px;height: 15px;background-position: -240px -130px;}
+.i-up{width:13px;height: 12px;background-position: -270px -110px;}
+.i-down{width:13px;height: 12px;background-position: -270px -130px;}
+
+/*第五排*/
+.i-add-disabled{width:23px;height: 23px;background-position: 0 -160px;}
+.i-minus-disabled{width:23px;height: 23px;background-position: 0 -195px;}
+.i-add{width:23px;height: 23px;background-position: -30px -160px;}
+.i-minus{width:23px;height: 23px;background-position: -30px -195px;}
+.i-add-hover{width:23px;height: 23px;background-position: -60px -160px;}
+.i-minus-hover{width:23px;height: 23px;background-position: -60px -195px;}
+.i-start-question{width:31px;height: 29px;background-position: -90px -160px;}
+.i-start-question:hover{background-position: -90px -195px;}
+.i-start-question-hover{width:31px;height: 29px;background-position: -90px -195px;}
+
+/*第六排*/
+.i-login-qq{width:28px;height: 28px;background-position: 0 -235px;}
+.i-login-sina{width:28px;height: 28px;background-position: -30px -235px;}
+.i-login-weibo{width:28px;height: 28px;background-position: -60px -235px;}
+.i-warmming{width: 32px;height: 29px;background-position: -95px -235px;}
+
+/*第七排*/
+.i-user-level{width:31px;height: 13px;background-position: 0 -280px;}
+.i-level-1{background-position: 0 -280px;}
+.i-level-2{background-position: -40px -280px;}
+.i-level-3{background-position: -80px -280px;}
+.i-level-4{background-position: -120px -280px;}
+.i-level-5{background-position: -160px -280px;}
+.i-level-6{background-position: -200px -280px;}
+.i-level-7{background-position: -240px -280px;}
+.i-level-8{background-position: -280px -280px;}
+.i-level-9{background-position: -320px -280px;}
+.i-triangle-up-mini{width:6px;height: 4px;background-position: -400px 0;}
+.i-triangle-down-mini{width:6px;height: 4px;background-position: -410px 0;}
+.i-login-step-triangle{width: 16px;height: 46px;background-position: -80px -310px;}
+.i-login-step-triangle.active{background-position: -59px -310px;}
+
+
+.bds-qzone{background-position: -4px -80px;}
+.bds-tsina{background-position: -4px -120px;}
+.bds-tqq{background-position: -4px -240px;}
+.bds-baidu-zone{background-position: -4px -360px;}
+.bds-t163{background-position: -4px -720px;}
+.bds-tqf{background-position: -4px -320px;}
+.bds-kaixin{background-position: -4px -280px;}
+.bds-renren{background-position: -4px -200px;}
+.bds-douban{background-position: -4px -400px;}
+.bds-taobao{background-position: -4px -560px;}
+.bds-fbook{background-position: -4px -1120px;}
+.bds-twi{background-position: -4px -1160px;}
+.bds-ms{background-position: -4px -1200px;}
+.bds-deli{background-position: -4px -1240px;}
+.bds-linkedin{background-position: -4px -1359px;}
+
+
+
+

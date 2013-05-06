@@ -27,7 +27,7 @@
 		h3 a{text-decoration:none;}
 		a{color:#284b72;}
 		a:hover{color:#528f6c;text-decoration:underline;}
-		#ipboard_body.redirector{width:500px;margin:150px auto 0;}
+		#aws_body.redirector{width:500px;margin:150px auto 0;}
 		.message{border-radius:3px;background:#f1f6ec;border:1px solid #b0ce94;color:#3e4934;line-height:150%;padding:10px 10px 10px 30px;}
 		.message h3{color:#323232;padding:0;}
 		.message.error{background-color:#f3dddd;color:#281b1b;font-size:15px;border-color:#deb7b7;}
@@ -51,12 +51,12 @@
 		{
 			navstring = navigator.userAgent.toLowerCase();
 			geckonum  = navstring.replace( /.*gecko\/(\d+)/, "$1" );
+			
 			setTimeout("moz_redirect()", 5000);
 		}
 		
 		function moz_redirect()
 		{
-			
 			var url_bit     = "<?php echo $this->url_bit; ?>";
 			
 			window.location = url_bit.replace( new RegExp( "&amp;", "g" ) , '&' );
@@ -65,8 +65,8 @@
 		</script>
 		<?php } ?>
 	</head>
-	<body id='ipboard_body' class='redirector'>
-		<div id='ipbwrapper'>
+	<body id='aws_body' class='redirector'>
+		<div id='aws_wrapper'>
 			<h1></h1>
 			<h2><?php _e('提示信息'); ?></h2>
 			<p class='message'>

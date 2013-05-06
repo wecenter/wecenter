@@ -1,0 +1,12 @@
+<div class="aw-side-bar-mod aw-side-bar-mod-nav">
+	<div class="aw-side-bar-mod-body">
+		<ul>
+			<li><a href="home/#all" rel="all">最新动态</a></li>
+			<li><a href="home/#draft_list__draft" rel="draft_list__draft">我的草稿<?php if ($this->user_info['draft_count']) { ?><em class="aw-message-tooltip"><?php echo $this->user_info['draft_count']; ?></em><?php } ?></a></li>
+			<li><a href="favorite/"<?php if ($_GET['app'] == 'favorite') { ?> class="active"<?php } ?>>我的收藏</a></li>
+			<li><a href="home/#all__focus__<?php echo $this->user_id; ?>" rel="all__focus__<?php echo $this->user_id; ?>">我关注的问题</a></li>
+			<li><a href="home/#all____public" rel="all____public">所有问题</a></li>
+			<li><a href="home/#invite_list__invite" rel="invite_list__invite">邀请我回答的问题<?php if ($this->user_info['invite_count']) { ?><em class="aw-message-tooltip"><?php echo $this->user_info['invite_count']; ?></em><?php } ?></a></li>
+		</ul>
+	</div>
+</div>

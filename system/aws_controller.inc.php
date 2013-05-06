@@ -64,7 +64,9 @@ class AWS_CONTROLLER
 		}
 		
 		TPL::import_css(array(
-			'css/global.css',
+			'css/common.css',
+			'css/btn-sprite.css',
+			'css/icon-sprite.css',
 			'js/plug_module/style.css', 
 		));
 		
@@ -76,6 +78,8 @@ class AWS_CONTROLLER
 		TPL::import_js(array(
 			'js/jquery.js',
 			'js/jquery.form.js',
+			'js/bootstrap.js',
+			'js/aw_template.js',
 			'js/plug_module/plug-in_module.js',
 			'js/common.js',
 			'js/global.js',
