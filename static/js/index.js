@@ -34,6 +34,8 @@ $(document).ready(function()
 	bp_more_inner_o = $('#bp_more').html();
 	
 	$('.aw-side-bar-mod-nav a').click(function () {
+		$("#delete-draft").remove();
+		
 		if ($('#c_title').attr('id') != null && $(this).attr('rel'))
 		{
 			$('.aw-side-bar-mod-nav a, .aw-side-bar-mod-nav li').removeClass('active');
@@ -55,9 +57,7 @@ $(document).ready(function()
 	{
 		var _this = this;
 		
-		$("#delete_draft").hide();
-		$("#c_list").removeClass();
-		
+		$("#delete-draft").remove();		
 		
 		switch (window.location.hash)
 		{
@@ -104,20 +104,16 @@ $(document).ready(function()
 			case '#draft_list__draft':
 				var request_url = G_BASE_URL + '/home/ajax/draft/page-' + cur_page;
 				
-				$("#c_list").addClass("default_draft");
-				
-				$("#delete_draft").show();
+				$('.aw-mod-head').prepend('<a class="pull-right btn btn-mini btn-success" id="delete-draft" onclick="$.each($(\'.delete-draft\'), function (i, e) { $(e).click();">清空所有</a>');
 			break;
 
 			case '#invite_list__invite':
 				var request_url = G_BASE_URL + '/home/ajax/invite/page-' + cur_page;
-				
-				$("#c_list").addClass("default_draft");
 			break;
 		}
 		
 		$(this).addClass('loading');
-		$(this).find('a').html('正在载入...');
+		$(this).find('a').html('Loading...');
 		
 		$.get(request_url, function (response)
 		{
