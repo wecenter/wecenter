@@ -7,7 +7,7 @@
 				<input type="hidden" name="agreement_chk" value="agree" />
 				
 				<?php if ($_GET['weixin_id']) { ?>
-					<input type="hidden" name="weixin_id" value="<?php echo $_GET['weixin_id']; ?>" />
+					<input type="hidden" name="weixin_id" value="<?php echo base64_decode($_GET['weixin_id']); ?>" />
 				<?php } ?>
 				
 				<?php if ($this->icode) { ?>

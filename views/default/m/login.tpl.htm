@@ -5,7 +5,7 @@
 		<div class="content-primary">
 			<form id="login_form" method="post" onsubmit="ajax_post($('#login_form')); return false;" action="<?php echo get_setting('base_url');?>/<?php echo G_INDEX_SCRIPT; ?>account/ajax/login_process/" data-ajax="false" id="login_form">
 				<?php if ($_GET['weixin_id']) { ?>
-				<input type="hidden" name="weixin_id" value="<?php echo $_GET['weixin_id']; ?>" />
+				<input type="hidden" name="weixin_id" value="<?php echo base64_decode($_GET['weixin_id']); ?>" />
 				<?php } ?>
 				<input type="hidden" name="return_url" value="<?php echo $this->return_url; ?>" />
 				<input type="hidden" name="post_hash" value="<?php echo new_post_hash(); ?>" />
