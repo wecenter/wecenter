@@ -19,7 +19,7 @@
 <?php foreach ($this->list AS $key => $val) { ?>
 <div class="aw-item">
 	<div class="aw-mod-head">
-		<a class="aw-user-img aw-border-radius-5 pull-right" href="people/<?php echo $val['user_info']['url_token']; ?>"><img alt="<?php echo $val['user_info']['user_name']; ?>" src="<?php echo get_avatar_url($val['user_info']['uid'], 'mid'); ?>" /></a>
+		<?php if ($val['anonymous'] == 0) { ?><a class="aw-user-img aw-border-radius-5 pull-right" href="people/<?php echo $val['user_info']['url_token']; ?>"><img src="<?php echo get_avatar_url($val['user_info']['uid'], 'mid'); ?>" alt="<?php echo $val['user_info']['user_name']; ?>" /></a><?php } else { ?><a href="javascript:;" class="aw-user-img aw-border-radius-5 pull-right"><img src="<?php echo G_STATIC_URL; ?>/common/avatar-mid-img.jpg" alt="<?php _e('匿名用户'); ?>" /></a><?php } ?>
 		
 		<h4><a href="question/<?php echo $val['question_id']; ?>"><?php echo $val['question_content']; ?></a></h4>
 		
@@ -28,8 +28,12 @@
 			<a class="aw-text-color-999"><?php _e('%s 个回复', $val['answer_count']); ?></a>
 			 • 
 			<?php if ($this->user_id) { ?><a href="javascript:;" class="aw-text-color-999<?php if ($val['has_focus']) { ?> cur<?php } ?>" onclick="focus_question($(this), $(this), <?php echo $val['question_id']; ?>);"><?php if ($val['has_focus']) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?></a><?php } ?>
-			<?php if ($_GET['filter'] != 'focus') { ?> • 
-			<a class="aw-text-color-999" href="javascript:;" onClick="question_uninterested($(this).parents('div.aw-item'), <?php echo $val['question_id']; ?>);"><?php _e('不感兴趣'); ?></a><?php } ?>
+			 • 
+			<?php if ($_GET['filter'] == 'focus') { ?>
+				<?php if ($val['topics']) { ?><?php _e('已添加到'); ?> 
+				<?php foreach($val['topics'] as $t_key => $t_val) { if ($t_key > 2) { break; } ?><a href="topic/<?php echo $t_val['url_token']; ?>" class="aw-topic-name"><?php echo $t_val['topic_title']; ?></a> <?php } ?><?php if (sizeof($val['topics']) > 3) { ?> <?php _e('等'); ?> <?php _e('%s 个话题', sizeof($val['topics'])); ?><?php } else { ?><?php _e('话题'); ?><?php } ?>
+				<?php } else { ?><a href="question/<?php echo $val['question_id']; ?>" class="aw-text-color-999"><?php _e('添加话题'); ?></a><?php } ?>
+			<?php } else { ?><a class="aw-text-color-999" href="javascript:;" onClick="question_uninterested($(this).parents('div.aw-item'), <?php echo $val['question_id']; ?>);"><?php _e('不感兴趣'); ?></a><?php } ?>
 		</p>
 	</div>
 	<?php if ($val['associate_action'] == ACTION_LOG::ANSWER_QUESTION OR $val['associate_action'] == ACTION_LOG::ADD_AGREE) { ?>
@@ -37,17 +41,17 @@
 		<!-- 投票栏 -->
 		<div class="aw-vote-bar pull-left">
 			<a class="aw-border-radius-5 active">
-				<i data-placement="right" title="" data-toggle="tooltip" class="aw-icon i-up active" data-original-title="赞同回复"></i>
+				<i data-placement="right" title="" data-toggle="tooltip" class="aw-icon i-up active" data-original-title="<?php _e('赞同回复'); ?>"></i>
 			</a>
-			<em class="aw-border-radius-5 aw-vote-bar-count active">10</em>
+			<em class="aw-border-radius-5 aw-vote-bar-count active"><?php echo $val['answer_info']['agree_count']; ?></em>
 			<a class="aw-border-radius-5">
-				<i data-placement="right" title="" data-toggle="tooltip" class="aw-icon i-down" data-original-title="对回复持反对意见"></i>
+				<i data-placement="right" title="" data-toggle="tooltip" class="aw-icon i-down" data-original-title="<?php _e('对回复持反对意见'); ?>"></i>
 			</a>
 		</div>
 		<!-- end 投票栏 -->
 		<div class="pull-left">
 			<p class="aw-text-color-999 aw-comment-zantong<?php if (count($val['answer_info']['agree_users']) == 0) { ?> hide<?php } ?>">
-				赞同来自:
+				<?php _e('赞同来自'); ?>:
 				<?php if ($val['answer_info']['agree_users']) { $count = 0; ?>
 				<?php foreach ($val['answer_info']['agree_users'] as $uid => $user) { ?>
 					<a href="people/<?php echo $user['url_token']; ?>" class="aw-user-name"><?php echo $user['user_name']; ?></a><?php if (count($val['answer_info']['agree_users'])!= ++$count) { ?><em>、</em><?php } ?>
@@ -111,14 +115,14 @@
 			<div class="aw-dynamic-topic-meta">
 				<a class="aw-add-comment" href="javascript:;"><i class="aw-icon i-remark"></i><?php _e('%s 条评论', $val['answer_info']['comment_count']); ?></a>
 				<div class="aw-share-dropdown pull-left">
-					<a data-toggle="dropdown" class="aw-text-color-999 dropdown-toggle"><i class="aw-icon i-share"></i>分享</a>
+					<a data-toggle="dropdown" class="aw-text-color-999 dropdown-toggle"><i class="aw-icon i-share"></i><?php _e('分享'); ?></a>
 					<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
 						<i class="aw-icon i-dropdown-triangle"></i>
 						<li>
-							<a href=".aw-share-box-outside" class="alert-share-box-outside" role="button" data-toggle="modal" tabindex="-1"><i class="aw-icon i-share-user"></i>站外</a>
+							<a href=".aw-share-box-outside" class="alert-share-box-outside" role="button" data-toggle="modal" tabindex="-1"><i class="aw-icon i-share-user"></i><?php _e('站外'); ?></a>
 						</li>
 						<li class="aw-no-border-bottom">
-							<a href=".aw-share-box-message" class="alert-share-box-message"  role="button" data-toggle="modal" tabindex="-2"><i class="aw-icon i-message"></i>私信</a>
+							<a href=".aw-share-box-message" class="alert-share-box-message"  role="button" data-toggle="modal" tabindex="-2"><i class="aw-icon i-message"></i><?php _e('私信'); ?></a>
 						</li>
 					</ul>
 				</div>

@@ -7,7 +7,7 @@ function reload_list()
 {	
 	cur_page = 0;
 	
-	$('#c_list').html('<p style="padding: 15px 0" align="center"><img src="' + G_STATIC_URL + '/common/loading_b.gif" alt="" /></p>');
+	$('#main_contents').html('<p style="padding: 15px 0" align="center"><img src="' + G_STATIC_URL + '/common/loading_b.gif" alt="" /></p>');
 	
 	$('#bp_more').html(bp_more_inner_o);
 	
@@ -36,13 +36,13 @@ $(document).ready(function()
 	$('.aw-side-bar-mod-nav a').click(function () {
 		$("#delete-draft").remove();
 		
-		if ($('#c_title').attr('id') != null && $(this).attr('rel'))
+		if ($('#main_title').attr('id') != null && $(this).attr('rel'))
 		{
 			$('.aw-side-bar-mod-nav a, .aw-side-bar-mod-nav li').removeClass('active');
 			
 			window.location.hash = $(this).attr('rel');
 			
-			$('#c_title').html($(this).html());
+			$('#main_title').html($(this).html());
 			
 			$(this).addClass('active');
 			$(this).parents('li').addClass('active');
@@ -121,11 +121,11 @@ $(document).ready(function()
 			{
 				if (cur_page == 0)
 				{
-					$('#c_list').html(response);
+					$('#main_contents').html(response);
 				}
 				else
 				{
-					$('#c_list').append(response);
+					$('#main_contents').append(response);
 				}
 					
 				cur_page++;
@@ -137,7 +137,7 @@ $(document).ready(function()
 			{
 				if (cur_page == 0)
 				{
-					$('#c_list').html('<p style="padding: 15px 0" align="center">没有内容</p>');
+					$('#main_contents').html('<p style="padding: 15px 0" align="center">没有内容</p>');
 				}
 					
 				$(_this).addClass('disabled');
