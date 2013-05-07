@@ -25,10 +25,27 @@
 									<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
 										<i class="aw-icon i-dropdown-triangle"></i>
 										<li>
-									    	<a href="#">修改记录</a>
+									    	<?php if ($_GET['column'] == 'log') { ?>
+									    		<a href="question/<?php echo $this->question_id; ?>"><?php _e('问题讨论'); ?></a>
+									    	<?php } else { ?>
+									    		<a href="question/<?php echo $this->question_id; ?>?column=log&rf=false"><?php _e('修改记录'); ?></a>
+									    	<?php } ?>
 									    </li>
+									    <?php if ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?>
+										<li>
+											<a href="javascript:;" onclick="ajax_request(G_BASE_URL + '/question/ajax/lock/', 'question_id=<?php echo $this->question_id; ?>');"><?php if ($this->question_info['lock']) { ?><?php _e('解除锁定'); ?><?php } else { ?><?php _e('锁定问题'); ?><?php } ?></a>
+										</li>
+										
+										<li>
+											<a href="javascript:;" onclick="if (confirm('<?php _e('确认删除?'); ?>')) { ajax_request(G_BASE_URL + '/question/ajax/remove_question/', 'question_id=<?php echo $this->question_id; ?>'); } "><?php _e('删除问题'); ?></a>
+										</li>
+										<?php } ?>
 										<li class="aw-no-border-bottom">
-								    		<a href=".aw-question-redirect-box" class="alert-question-redirect-box" role="button" data-toggle="modal" tabindex="-1">问题重定向</a>
+								    	<?php if ($this->question_info['redirect']) { ?>
+											<a href="javascript:;" onclick="ajax_request(G_BASE_URL + '/question/ajax/redirect/', 'item_id=<?php echo $this->question_id; ?>');"><?php _e('撤消重定向'); ?></a>
+										<?php } else { ?>
+											<a href=".aw-question-redirect-box" class="alert-question-redirect-box" role="button" data-toggle="modal" tabindex="-1"><?php _e('问题重定向'); ?></a>
+										<?php } ?>
 								    	</li>
 									</ul>
 									
@@ -37,58 +54,81 @@
 							</div>
 						</h2>
 						<div>
-							<a class="aw-topic-name"><span>前端开发</span></a>
-							<a class="aw-user-name"><span>前端开发</span></a>
-							<a class="aw-user-name"><span>前端开发</span></a>
-							<span class="aw-edit-topic"><i class="aw-icon i-edit"></i>编辑话题</span>
+							<?php foreach($this->question_topics as $key => $val) { ?>
+							<a href="topic/<?php echo $val['url_token']; ?>" class="aw-topic-name"><span><?php echo $val['topic_title']; ?></span></a>
+							<?php } ?>
+							<?php if ($this->user_id AND !$this->question_info['lock'] AND sizeof($this->question_topics) > 0) { ?><span class="aw-edit-topic"><i class="aw-icon i-edit"></i><?php _e('编辑话题'); ?></span><?php } ?>
 						</div>
+						
+						<?php if (sizeof($this->question_topics) == 0 AND $this->user_id) { ?>
+						<div class="aw-notopic-sort">
+						<?php if ($this->related_topics) { ?>
+						<?php _e('可能属于这些话题'); ?>:
+						<?php foreach ($this->related_topics AS $key => $topic_title) { ?><a href="javascript:;" onclick="one_click_add_topic(this, '<?php echo $topic_title; ?>', <?php echo $this->question_id;?>);" class="aw-topic-name"><?php echo $topic_title; ?></a><?php } ?>, <?php _e('都不是'); ?>? <a href="javascript:;"><?php _e('点此添加话题'); ?></a>
+						<?php } else { ?>
+						<?php _e('没有归属话题, 请帮问题添加话题'); ?>, <a href="javascript:;"><?php _e('点此添加话题'); ?></a>
+						<?php } ?>
+						</div>
+						<?php } ?>
 					</div>
 					<div class="aw-mod-body">
 						<p class="aw-question-detail-txt">
-							如果分类“A”的正下方还有一个分类“B”，且“A”和“B”下面都有子分类，那么这时候点“A”下面的子分类就怎么都点不到，鼠标点到“A”上确实会出现子分类列表，但是向下移动鼠标到子分类上，子分类就会消失，就是点不到。如果“B”中没有子分类，那么可以点到。<br>还有就是如果“B”的正下面没有其他分类，且“B”中有子分类，这时候“B”的子分类也点不到。 
+							<?php echo $this->question_info['question_detail']; ?> 
 						</p>
 						<div class="aw-question-detail-meta">
-							<span class="pull-left aw-text-color-999">2012-05-25 15:41</span>
+							<span class="pull-left aw-text-color-999"><?php echo date_friendly($this->question_info['add_time']); ?></span>
 
-							<a class="aw-add-comment"><i class="aw-icon i-remark"></i>添加评论</a>
+							<a class="aw-add-comment"><i class="aw-icon i-remark"></i><?php if ($this->question_info['comment_count']) { ?><?php _e('%s 条评论', $this->question_info['comment_count']); ?><?php } else { ?><?php _e('添加评论'); ?><?php } ?></a>
 							<div class="aw-share-dropdown pull-left">
 								<a class="aw-text-color-999 dropdown-toggle" data-toggle="dropdown"><i class="aw-icon i-share"></i>分享</a>
 								<ul aria-labelledby="dropdownMenu" role="menu" class="dropdown-menu">
 									<i class="aw-icon i-dropdown-triangle"></i>
 									<li>
-										<a tabindex="-1" data-toggle="modal" role="button" class="alert-share-box-outside" href=".aw-share-box-outside"><i class="aw-icon i-share-user"></i>站外</a>
+										<a tabindex="-1" data-toggle="modal" role="button" class="alert-share-box-outside" href=".aw-share-box-outside"><i class="aw-icon i-share-user"></i><?php _e('站外'); ?></a>
 									</li>
 									<li class="aw-no-border-bottom">
-										<a tabindex="-2" data-toggle="modal" role="button" class="alert-share-box-message" href=".aw-share-box-message"><i class="aw-icon i-message"></i>私信</a>
+										<a tabindex="-2" data-toggle="modal" role="button" class="alert-share-box-message" href=".aw-share-box-message"><i class="aw-icon i-message"></i><?php _e('私信'); ?></a>
 									</li>
 								</ul>
 							</div>
-							<a class="aw-text-color-999"><i class="aw-icon i-edit"></i>编辑</a>
-							<a class="aw-text-color-999 aw-question-wait-edit"><i class="aw-icon i-question-edit"></i>待确认修改<em class="aw-message-tooltip">1</em></a>
-							<a class="aw-text-color-999"><i class="aw-icon i-locate"></i>ip地址</a>
-							<a class="aw-text-color-999"><i class="aw-icon i-no-help"></i>举报问题</a>
-							<a data-placement="bottom" title="" data-toggle="tooltip" data-original-title="感谢提问者" class="aw-icon-thank-tips aw-text-color-999"><i class="aw-icon i-thank"></i>感谢</a>
+							<?php if ((!$this->question_info['lock'] AND ($this->question_info['published_uid'] == $this->user_id OR $this->user_info['permission']['edit_question'])) OR $this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?><a class="aw-text-color-999" href="publish/question_id-<?php echo $this->question_id; ?>#question"><i class="aw-icon i-edit"></i><?php _e('编辑'); ?></a><?php } ?>
+							<?php if ($this->question_info['unverified_modify_count']) { ?><a href="question/<?php echo $this->question_id; ?>?column=log&rf=false" class="aw-text-color-999 aw-question-wait-edit"><i class="aw-icon i-question-edit"></i><?php _e('待确认修改'); ?><em class="aw-message-tooltip"><?php echo $this->question_info['unverified_modify_count']; ?></em></a><?php } ?>
+							<?php if (($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) AND $this->question_info['ip']) { ?><a href="javascript:;" title="<?php echo long2ip($this->question_info['ip']); ?>" onclick="alert('<?php _e('系统记录的 IP 地址为'); ?>: <?php echo long2ip($this->question_info['ip']); ?>');" class="aw-text-color-999"><i class="aw-icon i-locate"></i><?php _e('IP 地址'); ?></a><?php } ?>
+							<?php if ($this->user_id) { ?><a href="javascript:;" class="aw-text-color-999"><i class="aw-icon i-no-help"></i>举报问题</a><?php } ?>
+							<?php if ($this->user_id != $this->question_info['published_uid'] AND $this->user_id) { ?>
+							<a <?php if (!$this->question_thanks) { ?>data-placement="bottom" title="" data-toggle="tooltip" data-original-title="感谢提问者" onclick="question_thanks(<?php echo $this->question_info['question_id']; ?>, this);"<?php } ?> class="aw-icon-thank-tips aw-text-color-999"><i class="aw-icon i-thank"></i><?php if ($this->question_thanks) { ?><?php _e('已感谢'); ?><?php } else { ?><?php _e('感谢'); ?><?php } ?></a>
+							<?php } ?>
 			
 						</div>
 					</div>
 				</div>
 				<!-- 问题详细模块 -->
 				<ul class="nav nav-tabs aw-reset-nav-tabs">
-					<li><a href="#">关注的人</a></li>
-					<li><a href="#">时间<i class="aw-icon i-triangle-up-mini"></i></a></li>
-					<li class="active"><a href="#">票数</a></li>
-					<h3>14 个问题</h3>
+					<?php if ($_GET['single']) { ?>
+					<li><a href="question/<?php echo $this->question_id; ?>"><?php _e('全部回答'); ?></a></li>
+					<?php } else if (($this->answer_count OR $_GET['uid']) AND $this->user_id) { ?>
+					<li<?php if ($_GET['uid'] == 'focus') { ?> class="active"<?php } ?>><a href="question/<?php echo $this->question_id; ?>?uid=focus"><?php _e('关注的人'); ?></a></li>
+					<li<?php if ($_GET['sort_key'] == 'add_time') { ?> class="active"<?php } ?>><a href="question/<?php echo $this->question_id; ?>?sort_key=add_time&sort=<?php if (($_GET['sort_key'] == 'add_time') && $_GET['sort'] == 'ASC') { ?>DESC<?php } else { ?>ASC<?php } ?>"><?php _e('时间'); ?><?php if (($_GET['sort_key'] == 'add_time') && $_GET['sort'] == 'DESC') { ?><i class="aw-icon i-triangle-down-mini"></i><?php } else { ?><i class="aw-icon i-triangle-up-mini"></i><?php } ?></a></li>
+					<li<?php if ((!$_GET['uid'] && !$_GET['sort_key']) || $_GET['sort_key'] == 'agree_count') { ?> class="active"<?php } ?>><a href="question/<?php echo $this->question_id; ?>&sort_key=agree_count&sort=DESC"><?php _e('票数'); ?></a></li>
+					<?php } ?>
+					
+					<h3><?php if ($_GET['single']) { ?><?php _e('查看单个回答'); ?><?php } else { ?><?php _e('%s 个回复', $this->answer_count); ?><?php } ?></h3>
 				</ul>
 				<div class="aw-mod aw-dynamic-topic">
+					<?php if ($this->answers) { foreach ($this->answers AS $key => $val) { ?>
+					
+					<?php if ($this->question_info['best_answer'] == $val['answer_id']) { ?>
 					<!-- 最佳回答 -->
 					<p class="aw-winner-replay">
 						<i class="aw-icon i-start-large"></i>
 						最佳回复
 					</p>
 					<!-- end 最佳回答 -->
+					<?php } ?>
+					
 					<div class="aw-item">
 						<!-- 用户头像 -->
-						<a class="aw-user-img aw-border-radius-5 pull-right"><img src="img/user-img.jpg" alt="" title=""/></a>
+						<?php if ($val['anonymous'] == 0) { ?><a class="aw-user-img aw-border-radius-5 pull-right" href="people/<?php echo $val['url_token']; ?>"><img src="<?php echo get_avatar_url($val['uid'], 'mid'); ?>" alt="" /></a><?php } else { ?><a class="aw-user-img aw-border-radius-5 pull-right" href="javascript:;"><img src="<?php echo G_STATIC_URL; ?>/common/avatar-mid-img.jpg" alt="<?php _e('匿名用户'); ?>" /></a><?php } ?>
 						<!-- end 用户头像 -->
 						<div class="aw-mod-body clearfix">
 							<!-- 投票栏 -->
@@ -106,70 +146,64 @@
 								<!-- 评论内容 -->
 								<div class="aw-dynamic-topic-content">
 									<p><a class="aw-user-name">AWSupport</a> <i class="aw-icon i-v"></i> - 常用名: explon</p>   
-									<p class="aw-text-color-999 aw-comment-zantong">
-										赞同来自:
-										<a class="aw-user-name">tongsizhou</a>
-										<em>、</em>
-										<a class="aw-user-name">tongsizhou</a>
-										<em>、</em>
-										<a class="aw-user-name">tongsizhou</a>
-										<em>、</em>
-										<a class="aw-user-name">tongsizhou</a>
-										<em>、</em>
-										<a class="aw-user-name">tongsizhou</a>
-										<em class="hide">、</em>
-										<a class="aw-user-name hide">tongsizhou</a>
-										<em class="hide">、</em>
-										<a class="aw-user-name hide">tongsizhou</a>
-										<em class="hide">、</em>
-										<a class="aw-user-name hide">tongsizhou</a>
-										<em class="hide">、</em>
-										<a class="aw-user-name hide">tongsizhou</a>
-										<em class="hide">、</em>
-										<a class="aw-user-name hide">tongsizhou</a>
-										<a class="aw-comment-zantong-show">更多 »</a>
+									<p class="aw-text-color-999 aw-comment-zantong<?php if (!$val['agree_users']) { ?> hide<?php } ?>">
+										<?php _e('赞同来自'); ?>:
+										
+										<?php if ($val['agree_users']) { ?>
+										<?php $count = 0; foreach($val['agree_users'] AS $uid => $user) { ?>
+										<em<?php if ($count >= 5) { ?> class="hide"<?php } ?>>、</em> <a href="people/<?php echo $user['url_token']; ?>" class="aw-user-name<?php if ($count >= 5) { ?> hide<?php } ?>"><?php echo $user['user_name']; ?></a><?php if (count($val['agree_users']) != ++$count && $count < 5) { ?><em>、</em><?php } ?><?php } ?><?php } ?><?php if (count($val['agree_users']) >= 5) { ?><a href="javascrit:;" class="aw-comment-zantong-show"><?php _e('更多'); ?> »</a>
+										<?php } ?>
 									</p>
-									<p class="aw-comment-txt">目前微信绑定是回复一个连接，你可以修改这个提示，把连接加在后面</p>
+									
+									<p class="aw-comment-txt">
+										<?php echo $val['answer_content']; ?>
+									</p>
+									
+									<?php if ($val['attachs']) {  ?>
 									<div class="aw-comment-upload-img-list">
-											<a>
-												<img class="img-polaroid" src="img/upload1.jpg" alt="" title=""/>
-											</a>
-											<a>
-												<img class="img-polaroid" src="img/upload2.jpg" alt="" title=""/>
-											</a>
-											<a>
-												<img class="img-polaroid" src="img/upload1.jpg" alt="" title=""/>
-											</a>
-											<a>
-												<img class="img-polaroid" src="img/upload1.jpg" alt="" title=""/>
-											</a>
-											<a>
-												<img class="img-polaroid" src="img/upload2.jpg" alt="" title=""/>
-											</a>
-											<a>
-												<img class="img-polaroid" src="img/upload1.jpg" alt="" title=""/>
-											</a>
+									<?php foreach ($val['attachs'] AS $attach) { ?>
+									<?php if ($attach['is_image'] AND !in_array($attach['id'], $val['insert_attach_ids'])) { ?>
+										<a href="<?php echo $attach['attachment']; ?>" target="_blank" data-fancybox-group="thumb" rel="lightbox"><img src="<?php echo $attach['attachment']; ?>" class="img-polaroid" alt="<?php echo $attach['attach_name']; ?>" /></a>
+									<?php } ?>
+									<?php } ?>
 									</div>
+									<?php } ?>
+									
+									<?php if ($val['attachs']) {  ?>
 									<ul class="aw-comment-upload-file-list">
-										<li><a><em class="aw-icon i-upload-file"></em>aws_external.zip</a></li>
-										<li><a><em class="aw-icon i-upload-file"></em>aws_external.zip</a></li>
-										<li><a><em class="aw-icon i-upload-file"></em>aws_external.zip</a></li>
-										<li><a><em class="aw-icon i-upload-file"></em>aws_external.zip</a></li>
+										<?php foreach ($val['attachs'] AS $attach) { ?>
+										<?php if (!$attach['is_image']) { ?>
+											<li><a href="<?php echo download_url($attach['file_name'], $attach['attachment']); ?>"><em class="aw-icon i-upload-file"></em><?php echo $attach['file_name']; ?></a></li>
+										<?php } ?>
+										<?php } ?>
 									</ul>
+									<?php } ?>
 								</div>
 								<!-- end 评论内容 -->
 								<!-- 社交操作 -->
 								<div class="aw-dynamic-topic-meta">
-									<span class="pull-left aw-text-color-999">2012-05-25 15:41</span>
-									<a class="aw-add-comment"><i class="aw-icon i-remark"></i>添加评论</a>
+									<span class="pull-left aw-text-color-999"><?php echo date_friendly($val['add_time']); ?></span>
+									<a class="aw-add-comment"><i class="aw-icon i-remark"></i><?php if ($val['comment_count']) { ?> <?php _e('%s 条评论', $val['comment_count']); ?><?php } else { ?><?php _e('添加评论'); ?><?php } ?></a>
 									<!-- 可显示/隐藏的操作box -->
 									<div class="aw-dynamic-topic-more-operate pull-left">
-										<a href=".aw-share-box-outside" class="alert-share-box-outside aw-text-color-999" role="button" data-toggle="modal" tabindex="-1"><i class="aw-icon i-share"></i>分享</a>
-										<a class="aw-text-color-999 aw-alert-edit-comment-box" href=".aw-edit-comment-box" role="button" data-toggle="modal"><i class="aw-icon i-edit"></i>编辑</a>
-										<a class="aw-icon-thank-tips aw-text-color-999" data-original-title="这是一个没有价值的回复" data-toggle="tooltip" title="" data-placement="bottom"><i class="aw-icon i-no-help"></i>没有帮助</a>
-										<a class="aw-text-color-999"><i class="aw-icon i-no-help"></i>折叠</a>
-										<a class="aw-text-color-999"><i class="aw-icon i-collect"></i>收藏</a>
-										<a class="aw-icon-thank-tips aw-text-color-999" data-original-title="感谢热心的回复者" data-toggle="tooltip" title="" data-placement="bottom"><i class="aw-icon i-thank"></i>感谢</a>
+										<a href=".aw-share-box-outside" class="alert-share-box-outside aw-text-color-999" role="button" data-toggle="modal" tabindex="-1"><i class="aw-icon i-share"></i><?php _e('分享'); ?></a>
+										
+										<?php if ($this->user_id) { ?>	
+											<?php if (($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) OR ($val['uid'] == $this->user_id AND ((time() - $val['add_time']) < (get_setting('answer_edit_time') * 60) OR (!get_setting('answer_edit_time'))))) { ?>
+											<a class="aw-text-color-999 aw-alert-edit-comment-box" href=".aw-edit-comment-box" role="button" data-toggle="modal"><i class="aw-icon i-edit"></i><?php _e('编辑'); ?></a>
+											<?php } ?>							
+											<?php if ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?>
+											<a href="javascript:;" onclick="answer_force_fold(<?php echo $val['answer_id']; ?>, this);" class="aw-text-color-999"><i class="aw-icon i-no-help"></i><?php if ($val['force_fold']) { ?><?php _e('撤消折叠'); ?><?php } else { ?><?php _e('折叠'); ?><?php } ?></a>
+											<?php } else { ?>
+											<a class="aw-icon-thank-tips aw-text-color-999" data-original-title="<?php _e('这是一个没有价值的回复'); ?>" data-toggle="tooltip" title="" data-placement="bottom" onclick="answer_user_rate(<?php echo $val['answer_id']; ?>, 'uninterested', this);"><i class="aw-icon i-no-help"></i><?php if ($val['user_rated_uninterested']) { ?><?php _e('撤消没有帮助'); ?><?php } else { ?><?php _e('没有帮助'); ?><?php } ?></a>
+											<?php } ?>
+											
+											<a href="javascript:;" class="aw-text-color-999"><i class="aw-icon i-collect"></i>收藏</a>
+										<?php } ?>
+										
+										<?php if ($this->user_id != $val['uid'] AND $this->user_id) { ?>
+										<a href="javascript:;"<?php if (!$val['user_rated_thanks']) { ?> onclick="answer_user_rate(<?php echo $val['answer_id']; ?>, 'thanks', this);"<?php } ?> class="aw-icon-thank-tips aw-text-color-999" data-original-title="感谢热心的回复者" data-toggle="tooltip" title="" data-placement="bottom"><i class="aw-icon i-thank"></i><?php if ($val['user_rated_thanks']) { ?><?php _e('已感谢'); ?><?php } else { ?><?php _e('感谢'); ?><?php } ?></a>
+										<?php } ?>	
 									</div>
 									<!-- end 可显示/隐藏的操作box -->
 									
@@ -178,248 +212,17 @@
 							</div>
 						</div>
 					</div>
-					<div class="aw-item">
-						<!-- 用户头像 -->
-						<a class="aw-user-img aw-border-radius-5 pull-right"><img src="img/user-img.jpg" alt="" title=""/></a>
-						<!-- end 用户头像 -->
-						<div class="aw-mod-body clearfix">
-							<!-- 投票栏 -->
-							<div class="aw-vote-bar pull-left">
-								<a class="aw-border-radius-5 enable-up">
-									<i data-original-title="赞同回复" class="aw-icon i-up active" data-toggle="tooltip" title="" data-placement="right"></i>
-								</a>
-								<em class="aw-border-radius-5 aw-vote-bar-count">10</em>
-								<a class="aw-border-radius-5 enable-down">
-									<i data-original-title="对回复持反对意见" class="aw-icon i-down" data-toggle="tooltip" title="" data-placement="right"></i>
-								</a>
-							</div>
-							<!-- end 投票栏 -->
-							<div class="pull-left">
-								<!-- 评论内容 -->
-								<div class="aw-dynamic-topic-content">
-									<p><a class="aw-user-name">AWSupport</a> <i class="aw-icon i-v"></i> - 常用名: explon</p>   
-									<p class="aw-text-color-999 aw-comment-zantong">
-										赞同来自:
-										<a class="aw-user-name">tongsizhou</a>
-										<em>、</em>
-										<a class="aw-user-name">tongsizhou</a>
-										<em>、</em>
-										<a class="aw-user-name">tongsizhou</a>
-										<em>、</em>
-										<a class="aw-user-name">tongsizhou</a>
-										<em>、</em>
-										<a class="aw-user-name">tongsizhou</a>
-										<em class="hide">、</em>
-										<a class="aw-user-name hide">tongsizhou</a>
-										<em class="hide">、</em>
-										<a class="aw-user-name hide">tongsizhou</a>
-										<em class="hide">、</em>
-										<a class="aw-user-name hide">tongsizhou</a>
-										<em class="hide">、</em>
-										<a class="aw-user-name hide">tongsizhou</a>
-										<em class="hide">、</em>
-										<a class="aw-user-name hide">tongsizhou</a>
-										<a class="aw-comment-zantong-show">更多 »</a>
-									</p>
-									<p class="aw-comment-txt">目前微信绑定是回复一个连接，你可以修改这个提示，把连接加在后面</p>
-								</div>
-								<!-- end 评论内容 -->
-								<!-- 社交操作 -->
-								<div class="aw-dynamic-topic-meta">
-									<span class="pull-left aw-text-color-999">2012-05-25 15:41</span>
-									<a class="aw-add-comment"><i class="aw-icon i-remark"></i>添加评论</a>
-									<!-- 可显示/隐藏的操作box -->
-									<div class="aw-dynamic-topic-more-operate pull-left">
-										<a href=".aw-share-box-outside" class="alert-share-box-outside aw-text-color-999" role="button" data-toggle="modal" tabindex="-1"><i class="aw-icon i-share"></i>分享</a>
-										<a class="aw-text-color-999 aw-alert-edit-comment-box" href=".aw-edit-comment-box" role="button" data-toggle="modal"><i class="aw-icon i-edit"></i>编辑</a>
-										<a class="aw-icon-thank-tips aw-text-color-999" data-original-title="这是一个没有价值的回复" data-toggle="tooltip" title="" data-placement="bottom"><i class="aw-icon i-no-help"></i>没有帮助</a>
-										<a class="aw-text-color-999"><i class="aw-icon i-no-help"></i>折叠</a>
-										<a class="aw-text-color-999"><i class="aw-icon i-collect"></i>收藏</a>
-										<a class="aw-icon-thank-tips aw-text-color-999" data-original-title="感谢热心的回复者" data-toggle="tooltip" title="" data-placement="bottom"><i class="aw-icon i-thank"></i>感谢</a>
-									</div>
-									<!-- end 可显示/隐藏的操作box -->
-									
-								</div>
-								<!-- end 社交操作 -->		 
-								<div class="aw-comment-box">
-									<div class="aw-comment-list">
-										<ul>
-											<li>
-												<a class="aw-user-name"><img src="img/user-img.jpg" alt="" title=""/></a>
-												<p>
-													<span class="pull-right"><a>删除</a> <a>回复</a></span>
-													<a class="aw-user-name">im3e</a>
-												</p>
-												<p>
-													banner位置放一块广告；<br>
-													内容页位置放一块广告；<br>
-													sidebar位置放多块广告；
-												</p>
-											</li>
-											<li>
-												<a class="aw-user-name"><img src="img/user-img.jpg" alt="" title=""/></a>
-												<p>
-													<span class="pull-right"><a>删除</a> <a>回复</a></span>
-													<a class="aw-user-name">im3e</a>
-												</p>
-												<p>
-													banner位置放一块广告；<br>
-													内容页位置放一块广告；<br>
-													sidebar位置放多块广告；
-												</p>
-											</li>
-											<li class="aw-no-border-bottom">
-												<a class="aw-user-name"><img src="img/user-img.jpg" alt="" title=""/></a>
-												<p>
-													<span class="pull-right"><a>删除</a> <a>回复</a></span>
-													<a class="aw-user-name">im3e</a>
-												</p>
-												<p>
-													banner位置放一块广告；<br>
-													内容页位置放一块广告；<br>
-													sidebar位置放多块广告；
-												</p>
-											</li>
-										</ul>
-									</div>
-									<form><div class="aw-comment-box-main"><textarea placeholder="评论一下..." class="aw-comment-txt"></textarea><div class="aw-comment-box-btn"><span class="pull-right"><a class="btn btn-mini btn-success">评论</a><a class="btn btn-mini close-comment-box">取消</a></span></div></div></form><i class="aw-icon i-comment-triangle"></i></div>       	
-								</div>
-							</div>
-					</div>
-					<div class="aw-item active">
-						<!-- 用户头像 -->
-						<a class="aw-user-img aw-border-radius-5 pull-right"><img src="img/user-img.jpg" alt="" title=""/></a>
-						<!-- end 用户头像 -->
-						<div class="aw-mod-body clearfix">
-							<!-- 投票栏 -->
-							<div class="aw-vote-bar pull-left">
-								<a class="aw-border-radius-5 active">
-									<i data-original-title="赞同回复" class="aw-icon i-up active" data-toggle="tooltip" title="" data-placement="right"></i>
-								</a>
-								<em class="aw-border-radius-5 aw-vote-bar-count active">10</em>
-								<a class="aw-border-radius-5">
-									<i data-original-title="对回复持反对意见" class="aw-icon i-down" data-toggle="tooltip" title="" data-placement="right"></i>
-								</a>
-							</div>
-							<!-- end 投票栏 -->
-							<div class="pull-left">
-								<!-- 评论内容 -->
-								<div class="aw-dynamic-topic-content">
-									<p><a class="aw-user-name">AWSupport</a> <i class="aw-icon i-v"></i> - 常用名: explon</p>   
-									<p class="aw-comment-txt">目前微信绑定是回复一个连接，你可以修改这个提示，把连接加在后面</p>
-								</div>
-								<!-- end 评论内容 -->
-								<!-- 社交操作 -->
-								<div class="aw-dynamic-topic-meta">
-									<span class="pull-left aw-text-color-999">2012-05-25 15:41</span>
-									<a class="aw-add-comment"><i class="aw-icon i-remark"></i>添加评论</a>
-									<!-- 可显示/隐藏的操作box -->
-									<div class="aw-dynamic-topic-more-operate pull-left">
-										<a href=".aw-share-box-outside" class="alert-share-box-outside aw-text-color-999" role="button" data-toggle="modal" tabindex="-1"><i class="aw-icon i-share"></i>分享</a>
-										<a class="aw-text-color-999 aw-alert-edit-comment-box" href=".aw-edit-comment-box" role="button" data-toggle="modal"><i class="aw-icon i-edit"></i>编辑</a>
-										<a class="aw-icon-thank-tips aw-text-color-999" data-original-title="这是一个没有价值的回复" data-toggle="tooltip" title="" data-placement="bottom"><i class="aw-icon i-no-help"></i>没有帮助</a>
-										<a class="aw-text-color-999"><i class="aw-icon i-no-help"></i>折叠</a>
-										<a class="aw-text-color-999"><i class="aw-icon i-collect"></i>收藏</a>
-										<a class="aw-icon-thank-tips aw-text-color-999" data-original-title="感谢热心的回复者" data-toggle="tooltip" title="" data-placement="bottom"><i class="aw-icon i-thank"></i>感谢</a>
-									</div>
-									<!-- end 可显示/隐藏的操作box -->
-									
-								</div>
-								<!-- end 社交操作 -->		 	
-							</div>
-						</div>
-					</div>
-					<div class="aw-item">
-						<!-- 用户头像 -->
-						<a class="aw-user-img aw-border-radius-5 pull-right"><img src="img/user-img.jpg" alt="" title=""/></a>
-						<!-- end 用户头像 -->
-						<div class="aw-mod-body clearfix">
-							<!-- 投票栏 -->
-							<div class="aw-vote-bar pull-left">
-								<a class="aw-border-radius-5 active">
-									<i data-original-title="赞同回复" class="aw-icon i-up active" data-toggle="tooltip" title="" data-placement="right"></i>
-								</a>
-								<em class="aw-border-radius-5 aw-vote-bar-count active">10</em>
-								<a class="aw-border-radius-5">
-									<i data-original-title="对回复持反对意见" class="aw-icon i-down" data-toggle="tooltip" title="" data-placement="right"></i>
-								</a>
-							</div>
-							<!-- end 投票栏 -->
-							<div class="pull-left">
-								<!-- 评论内容 -->
-								<div class="aw-dynamic-topic-content">
-									<p><a class="aw-user-name">AWSupport</a> <i class="aw-icon i-v"></i> - 常用名: explon</p>   
-									<p class="aw-comment-txt">目前微信绑定是回复一个连接，你可以修改这个提示，把连接加在后面</p>
-								</div>
-								<!-- end 评论内容 -->
-								<!-- 社交操作 -->
-								<div class="aw-dynamic-topic-meta">
-									<span class="pull-left aw-text-color-999">2012-05-25 15:41</span>
-									<a class="aw-add-comment"><i class="aw-icon i-remark"></i>添加评论</a>
-									<!-- 可显示/隐藏的操作box -->
-									<div class="aw-dynamic-topic-more-operate pull-left">
-										<a href=".aw-share-box-outside" class="alert-share-box-outside aw-text-color-999" role="button" data-toggle="modal" tabindex="-1"><i class="aw-icon i-share"></i>分享</a>
-										<a class="aw-text-color-999 aw-alert-edit-comment-box" href=".aw-edit-comment-box" role="button" data-toggle="modal"><i class="aw-icon i-edit"></i>编辑</a>
-										<a class="aw-icon-thank-tips aw-text-color-999" data-original-title="这是一个没有价值的回复" data-toggle="tooltip" title="" data-placement="bottom"><i class="aw-icon i-no-help"></i>没有帮助</a>
-										<a class="aw-text-color-999"><i class="aw-icon i-no-help"></i>折叠</a>
-										<a class="aw-text-color-999"><i class="aw-icon i-collect"></i>收藏</a>
-										<a class="aw-icon-thank-tips aw-text-color-999" data-original-title="感谢热心的回复者" data-toggle="tooltip" title="" data-placement="bottom"><i class="aw-icon i-thank"></i>感谢</a>
-									</div>
-									<!-- end 可显示/隐藏的操作box -->
-									
-								</div>
-								<!-- end 社交操作 -->	   	
-							</div>
-						</div>
-					</div>
-					<div class="aw-item">
-						<!-- 用户头像 -->
-						<a class="aw-user-img aw-border-radius-5 pull-right"><img src="img/user-img.jpg" alt="" title=""/></a>
-						<!-- end 用户头像 -->
-						<div class="aw-mod-body clearfix">
-							<!-- 投票栏 -->
-							<div class="aw-vote-bar pull-left">
-								<a class="aw-border-radius-5 enable-up">
-									<i data-original-title="赞同回复" class="aw-icon i-up active" data-toggle="tooltip" title="" data-placement="right"></i>
-								</a>
-								<em class="aw-border-radius-5 aw-vote-bar-count">10</em>
-								<a class="aw-border-radius-5 enable-down">
-									<i data-original-title="对回复持反对意见" class="aw-icon i-down" data-toggle="tooltip" title="" data-placement="right"></i>
-								</a>
-							</div>
-							<!-- end 投票栏 -->
-							<div class="pull-left">
-								<!-- 评论内容 -->
-								<div class="aw-dynamic-topic-content">
-									<p><a class="aw-user-name">AWSupport</a> <i class="aw-icon i-v"></i> - 常用名: explon</p>   
-									<p class="aw-comment-txt">目前微信绑定是回复一个连接，你可以修改这个提示，把连接加在后面</p>
-								</div>
-								<!-- end 评论内容 -->
-								<!-- 社交操作 -->
-								<div class="aw-dynamic-topic-meta">
-									<span class="pull-left aw-text-color-999">2012-05-25 15:41</span>
-									<a class="aw-add-comment"><i class="aw-icon i-remark"></i>添加评论</a>
-									<!-- 可显示/隐藏的操作box -->
-									<div class="aw-dynamic-topic-more-operate pull-left">
-										<a href=".aw-share-box-outside" class="alert-share-box-outside aw-text-color-999" role="button" data-toggle="modal" tabindex="-1"><i class="aw-icon i-share"></i>分享</a>
-										<a class="aw-text-color-999 aw-alert-edit-comment-box" href=".aw-edit-comment-box" role="button" data-toggle="modal"><i class="aw-icon i-edit"></i>编辑</a>
-										<a class="aw-icon-thank-tips aw-text-color-999" data-original-title="这是一个没有价值的回复" data-toggle="tooltip" title="" data-placement="bottom"><i class="aw-icon i-no-help"></i>没有帮助</a>
-										<a class="aw-text-color-999"><i class="aw-icon i-no-help"></i>折叠</a>
-										<a class="aw-text-color-999"><i class="aw-icon i-collect"></i>收藏</a>
-										<a class="aw-icon-thank-tips aw-text-color-999" data-original-title="感谢热心的回复者" data-toggle="tooltip" title="" data-placement="bottom"><i class="aw-icon i-thank"></i>感谢</a>
-									</div>
-									<!-- end 可显示/隐藏的操作box -->
-									
-								</div>
-								<!-- end 社交操作 -->	     	
-							</div>
-						</div>
-					</div>
+					<?php } ?>
+					<?php } ?>
+					
 					<!-- 加载更多内容 -->
-					<a class="aw-load-more-content">
-						<span>3 个回复被折叠</span>
-						<span class="pull-right aw-text-color-999 aw-alert-box aw-text-color-999" href=".aw-tips-box" role="button" data-toggle="modal" tabindex="-1">为什么被折叠?</span>
+					<a class="aw-load-more-content hide" id="load_uninterested_answers" href="javascript:;" onclick="$('#uninterested_answers_list').toggle();">
+						<span><?php _e('%s 个回复被折叠', '<span class="hide_answers_count">0</span>'); ?></span>
+						<span class="pull-right aw-text-color-999 aw-alert-box aw-text-color-999" href=".aw-tips-box" role="button" data-toggle="modal" tabindex="-1" onclick="alert('<?php _e('被折叠的回复是被大多数用户认为没有帮助的回复'); ?>');"><?php _e('为什么被折叠?'); ?></span>
 					</a>
+					
+					<div class="hide" id="uninterested_answers_list"></div>
+					
 					<!-- end 加载更多内容 -->
 				<!-- 新消息通知 -->
 				</div>
@@ -430,16 +233,16 @@
 				<!-- 发起人 -->
 				<div class="aw-side-bar-mod">
 					<div class="aw-side-bar-mod-head">
-						<h3>发起人</h3>
+						<h3><?php _e('发起人'); ?></h3>
 					</div>
 					<div class="aw-side-bar-mod-body">
 						<dl>
 							<dt class="pull-left aw-border-radius-5">
-								<img src="img/1.jpg" alt="" title=""/>
+								<a href="people/<?php echo $this->question_info['user_info']['url_token']; ?>"><img alt="<?php echo $this->question_info['user_info']['user_name'];?>" src="<?php echo get_avatar_url($this->question_info['published_uid'], 'mid'); ?>" /></a>
 							</dt>
 							<dd class="pull-left">
-								<a class="aw-user-name">anwsion</a><i data-placement="bottom" title="" data-toggle="tooltip" class="aw-icon i-follow active" data-original-title="添加关注"></i>
-								<p>anwsion</p>
+								<a class="aw-user-name"><?php echo $this->question_info['user_info']['user_name'];?></a><i data-placement="bottom" title="" data-toggle="tooltip" class="aw-icon i-follow active" data-original-title="<?php _e('添加关注'); ?>"></i>
+								<p><?php echo $this->question_info['user_info']['signature']; ?></p>
 							</dd>
 						</dl>
 					</div>
@@ -449,120 +252,89 @@
 				<!-- 邀请别人回复 -->
 				<div class="aw-side-bar-mod aw-side-bar-invite-replay">
 					<div class="aw-side-bar-mod-head">
-						<h3>邀请别人回复</h3>
+						<h3><?php _e('邀请别人回复'); ?></h3>
 					</div>
 					<div class="aw-side-bar-mod-body">
-						<p><a class="aw-website-invite">站内邀请<em class="aw-message-tooltip">2</em></a> • <a class="aw-email-invite">邮件邀请</a></p>
+						<p><a class="aw-website-invite"><?php _e('站内邀请'); ?><em class="aw-message-tooltip">2</em></a> • <a class="aw-email-invite"><?php _e('邮件邀请'); ?></a></p>
 						<!-- 侧边栏邀请box -->
 						<div class="aw-side-bar-invite-box">
 							<div class="aw-item">
-								<input type="text" placeholder="仅限邀请站内用户..."/>
+								<input type="text" placeholder="<?php _e('仅限邀请站内用户...'); ?>"/>
+								
+								<?php if ($this->invite_users) { ?>
 								<ul>
+									<?php foreach($this->invite_users as $key => $val){ ?>
 									<li>
-										<a class="pull-right btn btn-mini">取消邀请</a>
+										<a class="pull-right btn btn-mini"><?php _e('取消邀请'); ?></a>
 										<a class="aw-user-name">
-											<img src="img/user-img.jpg" alt="" title=""/>
+											<a href="people/<?php echo $val['url_token']; ?>"><img src="<?php echo get_avatar_url($val['uid'], 'mid'); ?>" alt="" title=""/></a>
 										</a>
-										<span class="aw-text-color-666" title="platoer">platoer</span>
+										
+										<span class="aw-text-color-666"><?php echo $val['user_name']; ?></span>
 									</li>
-									<li>
-										<a class="pull-right btn btn-mini">取消邀请</a>
-										<a class="aw-user-name">
-											<img src="img/user-img.jpg" alt="" title=""/>
-										</a>
-										<span class="aw-text-color-666" title="platoer">platoer</span>
-									</li>
+									<?php } ?>
 								</ul>
+								<?php } ?>
 							</div>
 							<div class="aw-item">
-								<input type="text" placeholder="邮件邀请回复..."/>
-								<a class="pull-right btn btn-mini btn-success">邀请 »</a>
+								<input type="text" placeholder="<?php _e('邮件邀请回复...'); ?>"/>
+								<a class="pull-right btn btn-mini btn-success"><?php _e('邀请'); ?> »</a>
 							</div>
 						</div>
 						<!-- end 侧边栏邀请box -->
+						
+						<?php if ($this->helpful_users) { ?>
 						<div class="aw-side-bar-invite-replay-box">
-							<p>可能帮助到你的人</p>
+							<p><?php _e('可能帮助到你的人'); ?></p>
+							<?php foreach ($this->helpful_users AS $key => $val) { ?>
 							<dl>
 								<dt class="pull-left aw-border-radius-5">
-									<img title="" alt="" src="img/1.jpg">
+									<a href="people/<?php echo $val['url_token']; ?>"><img title="" alt="" src="<?php echo get_avatar_url($val['uid'], 'mid'); ?>"></a>
 								</dt>
 								<dd class="pull-left">
-									<a class="aw-user-name">zhengiang</a>
-									<a class="pull-right">邀请</a>
+									<a class="aw-user-name"><?php echo $val['user_name']; ?></a>
+									<a class="pull-right"><?php _e('邀请'); ?></a>
 									<p>
-										anwsion产品经理
+										<?php echo cjk_substr($val['signature'], 0, 12, 'UTF-8', '...'); ?>
 									</p>
 								</dd>
 							</dl>
-							<dl>
-								<dt class="pull-left aw-border-radius-5">
-									<img title="" alt="" src="img/1.jpg">
-								</dt>
-								<dd class="pull-left">
-									<a class="aw-user-name">zhengiang</a>
-									<a class="pull-right">邀请</a>
-									<p>
-										anwsion产品经理
-									</p>
-								</dd>
-							</dl>
-							<dl>
-								<dt class="pull-left aw-border-radius-5">
-									<img title="" alt="" src="img/1.jpg">
-								</dt>
-								<dd class="pull-left">
-									<a class="aw-user-name">zhengiang</a>
-									<a class="pull-right">邀请</a>
-									<p>
-										anwsion产品经理
-									</p>
-								</dd>
-							</dl>
+							<?php } ?>
 						</div>
+						<?php } ?>
 					</div>
 				</div>
 				<!-- end 邀请别人回复 -->
 
+				<?php if ($this->question_related_list) { ?>
 				<!-- 相关问题 -->
 				<div class="aw-side-bar-mod aw-text-align-justify">
 					<div class="aw-side-bar-mod-head">
-						<h3>相关问题</h3>
+						<h3><?php _e('相关问题'); ?></h3>
 					</div>
 					<div class="aw-side-bar-mod-body">
 						<ul class="aw-li-border-bottom">
-							<li><a href="#">大家期望anwsion程序补充哪些功能？</a></li>
-							<li><a href="#">大家期望anwsion程序补充哪些功能？</a></li>
-							<li><a href="#">大家期望anwsion程序补充哪些功能？</a></li>
-							<li><a href="#">大家期望anwsion程序补充哪些功能？</a></li>
-							<li><a href="#">大家期望anwsion程序补充哪些功能？</a></li>
-							<li><a href="#">大家期望anwsion程序补充哪些功能？</a></li>
-							<li><a href="#">大家期望anwsion程序补充哪些功能？</a></li>
-							<li class="aw-no-border-bottom"><a href="#">大家期望anwsion程序补充哪些功能？</a></li>
+							<?php foreach($this->question_related_list AS $key => $val) { ?>
+							<li><a href="question/<?php echo $val['question_id']; ?>"><?php echo $val['question_content']; ?></a></li>
+							<?php } ?>
 						</ul>
 					</div>
 				</div>
 				<!-- end 相关问题 -->
+				<?php } ?>
 
 				<!-- 问题状态 -->
 				<div class="aw-side-bar-mod aw-no-border-bottom">
 					<div class="aw-side-bar-mod-head">
-						<h3>问题状态</h3>
+						<h3><?php _e('问题状态'); ?></h3>
 					</div>
 					<div class="aw-side-bar-mod-body">
 						<ul>
-							<li>最新活动: <span class="aw-text-color-blue">13 分钟前</a></li>
-							<li>浏览: <span class="aw-text-color-blue">15</a></li>
-							<li>关注: <span class="aw-text-color-blue">1 人</a></li>
-							<li class="aw-side-bar-user-list aw-border-radius-5">
-								<a href="#"><img src="img/user-img.jpg" alt="" title=""/></a>
-								<a href="#"><img src="img/user-img.jpg" alt="" title=""/></a>
-								<a href="#"><img src="img/user-img.jpg" alt="" title=""/></a>
-								<a href="#"><img src="img/user-img.jpg" alt="" title=""/></a>
-								<a href="#"><img src="img/user-img.jpg" alt="" title=""/></a>
-								<a href="#"><img src="img/user-img.jpg" alt="" title=""/></a>
-								<a href="#"><img src="img/user-img.jpg" alt="" title=""/></a>
-								<a href="#"><img src="img/user-img.jpg" alt="" title=""/></a>
-							</li>
+							<li><?php _e('最新活动'); ?>: <span class="aw-text-color-blue"><?php echo date_friendly($this->question_info['update_time']); ?></span></li>
+							<li><?php _e('浏览'); ?>: <span class="aw-text-color-blue"><?php echo $this->question_info['view_count']; ?></span></li>
+							<li><?php _e('关注'); ?>: <span class="aw-text-color-blue"><?php echo $this->question_info['focus_count']; ?></span> <?php _e('人'); ?></li>
+							
+							<li class="aw-side-bar-user-list aw-border-radius-5" id="focus_users"></li>
 						</ul>
 					</div>
 				</div>
@@ -580,8 +352,6 @@ ITEM_IDS = '<?php echo addslashes($_GET['item_id']); ?>';
 COMMENT_UNFOLD = '<?php echo addslashes($_GET['comment']); ?>';
 QUESTION_ID = <?php echo $this->question_id;?>;
 UNINTERESTED_COUNT = <?php echo get_setting('uninterested_fold'); ?>;
-
-$.exit_operate('#i_tabs');
 </script>
 
 <script type="text/javascript" src="<?php echo G_STATIC_URL; ?>/js/app/question_detail.js"></script>
