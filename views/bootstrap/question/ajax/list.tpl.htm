@@ -2,18 +2,23 @@
 <div class="aw-item">
 	<!-- 回复数据 -->
 	<span class="aw-question-replay-count aw-border-radius-5<?php if ($val['answer_count'] > 0) { ?> active<?php } ?>">
-		<em><?php echo $val['answer_count']; ?></em>回复
+		<em><?php echo $val['answer_count']; ?></em>
+		<?php if ($val['best_answer']) { ?>
+		<i class="aw-icon i-star-mini"></i>
+		<?php } ?>
+		
+		回复
 	</span>
 	<!-- end 回复数据 -->
-
 	
 	<div class="aw-questoin-content">
 		<!-- 问题标题 -->
 		<h4>
 			<a href="question/<?php echo $val['question_id']; ?>"><?php echo $val['question_content']; ?></a>
-			<?php foreach ($val['topics'] AS $t_key => $t_val) { ?><a href="topic/<?php echo $t_val['url_token']; ?>" class="aw-topic-name"><?php echo $t_val['topic_title']; ?></a><?php } ?></h4>
+			<?php foreach ($val['topics'] AS $t_key => $t_val) { ?><a href="topic/<?php echo $t_val['url_token']; ?>" class="aw-topic-name"><span><?php echo $t_val['topic_title']; ?></span></a><?php } ?></h4>
 		</h4>
 		<!-- end 问题标题 -->
+		
 		<p class="aw-text-color-999">
 			<?php if ($_GET['category'] != $val['category_id'] AND $val['category_info']['title']) { ?><span class="aw-question-tags">
 				<a href="home/explore/category-<?php echo $val['category_info']['url_token']; ?>"><?php echo $val['category_info']['title']; ?></a>
@@ -28,9 +33,9 @@
 	</div>
 	
 	<?php if ($val['answer_count'] > 0) { ?>
-    <?php if ($val['answer']['anonymous'] == 0) { ?><a class="aw-user-img" href="people/<?php echo $val['answer']['user_info']['url_token']; ?>"><img src="<?php echo get_avatar_url($val['answer']['user_info']['uid'], 'mid'); ?>" alt="" /></a><?php } else { ?><a class="aw-user-img" href="javascript:;"><img src="<?php echo G_STATIC_URL; ?>/common/avatar-mid-img.jpg" alt="<?php _e('匿名用户'); ?>" /></a><?php } ?>
+    <?php if ($val['answer']['anonymous'] == 0) { ?><a class="aw-user-name" href="people/<?php echo $val['answer']['user_info']['url_token']; ?>"><img src="<?php echo get_avatar_url($val['answer']['user_info']['uid'], 'mid'); ?>" alt="" /></a><?php } else { ?><a class="aw-user-name" href="javascript:;"><img src="<?php echo G_STATIC_URL; ?>/common/avatar-mid-img.jpg" alt="<?php _e('匿名用户'); ?>" /></a><?php } ?>
     <?php } else { ?>
-    <?php if ($val['anonymous'] == 0) { ?><a class="q_user i_alpHover i_pas" href="people/<?php echo $val['user_info']['url_token']; ?>"><img src="<?php echo get_avatar_url($val['user_info']['uid'], 'mid'); ?>" alt="" /></a><?php } else { ?><a class="q_user i_alpHover i_pas" href="javascript:;"><img src="<?php echo G_STATIC_URL; ?>/common/avatar-mid-img.jpg" alt="<?php _e('匿名用户'); ?>" title="<?php _e('匿名用户'); ?>" /></a><?php } ?>
+    <?php if ($val['anonymous'] == 0) { ?><a class="aw-user-name" href="people/<?php echo $val['user_info']['url_token']; ?>"><img src="<?php echo get_avatar_url($val['user_info']['uid'], 'mid'); ?>" alt="" /></a><?php } else { ?><a class="aw-user-name" href="javascript:;"><img src="<?php echo G_STATIC_URL; ?>/common/avatar-mid-img.jpg" alt="<?php _e('匿名用户'); ?>" title="<?php _e('匿名用户'); ?>" /></a><?php } ?>
     <?php } ?>
 </div>
 <?php } ?>
