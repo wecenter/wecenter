@@ -80,10 +80,10 @@ select, input[type="file"]{*height: 26px;*line-height: 26px;height: 26px\0;line-
 .dropdown-menu{min-width: 0px;top:140%;border:1px solid #c4cdd6;}
 .dropdown-menu img{width: 25px;height: 25px;margin-right: 5px;border-radius: 5px;}
 .dropdown-menu li{position: relative;border-top:1px dotted #C1CAD4;}
-.dropdown-menu li:first-child{border-top:none;}
+.dropdown-menu li.first{border-top:none;}
 .dropdown-menu .i-dropdown-triangle{position: absolute;top:-6px;left:22px;}
 .dropdown-menu .i-dropdown-triangle.active{left:none;left:63px;}
-.modal-backdrop, .modal-backdrop.fade.in{opacity: 0.2;}
+.modal-backdrop, .modal-backdrop.fade.in{filter:alpha(opacity=20);opacity: 0.2; }
 .modal{margin-left:0;left:30%;}
 button.close{width: 20px;height: 20px;}
 .tooltip{z-index: 9999;}
@@ -271,6 +271,10 @@ select, input[type="file"]{height: 28px;line-height: 28px;}
 .aw-question-detail-box .aw-mod-head > div{margin-bottom: 10px;}
 .aw-question-detail-box .aw-mod-head h2{font-size:20px;line-height: 30px;}
 .aw-question-detail-box .aw-mod-head .aw-question-follow{position: absolute;right: 0;top: 0;}
+.aw-question-detail-box .aw-mod-head .aw-question-follow > a{margin-top:0px;}
+@media screen and (-webkit-min-device-pixel-ratio:0){
+	.aw-question-detail-box .aw-mod-head .aw-question-follow > a{margin-top:-5px;}
+}
 .aw-question-detail-box .aw-mod-head .aw-notopic-sort{margin:5px 0 15px 0;padding:5px 10px;background: #E0E2E1;color: #999;border-radius: 5px;}
 .aw-question-detail-box .aw-question-detail-meta{min-height: 20px;}
 .aw-question-detail-box .aw-question-detail-meta > span, .aw-question-detail-box .aw-question-detail-meta > div{margin-right:15px;}
@@ -287,6 +291,7 @@ select, input[type="file"]{height: 28px;line-height: 28px;}
 .aw-comment-list li > .aw-user-name{display:inline-block;position: absolute;left: 0;top: 15px;width: 32px;height: 32px;}
 .aw-comment-list li p{margin:0;}
 /*问题修改日志*/
+.aw-question-edit{padding-bottom:30px;}
 .aw-question-edit .aw-mod-head h2{font-size: 20px;}
 .aw-question-edit .aw-mod-head h2 span{font-size: 13px;font-weight: normal;}
 .aw-question-edit .aw-mod-body{color: #666;}
@@ -730,14 +735,14 @@ select, input[type="file"]{height: 28px;line-height: 28px;}
 .aw-mod-replay-box .aw-mod-head p label{display: inline;font-size: 13px;color: #666;}
 .aw-mod-replay-box .aw-mod-head p label input{margin-right: 5px;position: relative;top:-2px;*top:0;}
 .aw-mod-replay-box .aw-mod-body{padding:15px;background: #E7EFF2;border: 1px solid #C2CACD;border-radius: 5px;}
-#advanced_editor{width: 608px;height:20px;min-height: 110px;}
+#advanced_editor{width: 614px;height:20px;min-height: 110px;}
 .aw-upload-box{height: auto;overflow: hidden;margin:10px 0;}
 .markItUpPreviewFrame {margin-top: 15px;padding: 10px;background: none repeat scroll 0 0 #FAFAFA;border: 1px solid #CCCCCC;border-radius:10px;color: #666666;font-size: 12px;}
 .markItUpPreviewFrame .title{margin:0 0 10px 0;padding-bottom:5px;font-size: 14px;border-bottom: 1px solid #C1CAD4;color:#333;}
 .markItUpFooter {-moz-border-bottom-colors: none;-moz-border-left-colors: none;-moz-border-right-colors: none;-moz-border-top-colors: none;border-color: #CCCCCC;border-image: none;border-style: solid;border-width: 0 1px;cursor: n-resize;}
 .markItUpResizeHandle {background-image: url("img/handle.png");cursor: n-resize;height: 5px;margin-left: auto;margin-right: auto;overflow: hidden;width: 22px;}
 .markItUpHeader{height: auto;overflow: hidden;}
-.markItUpHeader ul li {float: left;list-style: none outside none;margin-bottom: 5px;max-width: 22px;position: relative;}
+.markItUpHeader ul li {float: left;margin-bottom: 5px;}
 .markItUpHeader ul li ul {display: none;}
 .markItUpHeader ul li:hover > ul {display: block;}
 .markItUpHeader ul .markItUpDropMenu {background: url("images/menu.png") no-repeat scroll 115% 50% transparent;margin-right: 5px;}

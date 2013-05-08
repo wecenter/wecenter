@@ -25,7 +25,10 @@
 						</a>
 						<ul aria-labelledby="dropdownMenu" role="menu" class="dropdown-menu">
 							<i class="aw-icon i-dropdown-triangle active"></i>
-							<li><a href="people/<?php echo $this->user_info['url_token']; ?>" tabindex="-1"><?php _e('主页'); ?> <i class="aw-icon i-user-post"></i></a></li>
+							<li class="first"><a href="people/<?php echo $this->user_info['url_token']; ?>" tabindex="-1"><?php _e('主页'); ?> <i class="aw-icon i-user-post"></i></a></li>
+							<?php if ($this->user_info['permission']['is_administortar'] ) { ?>
+							<li><a href="<?php echo get_setting('base_url') . G_INDEX_SCRIPT; ?>admin/" tabindex="-2"><?php _e('管理'); ?> <i class="aw-icon i-site"></i></a></li>
+							<?php } ?>
 							<li><a href="account/setting/profile/" tabindex="-2"><?php _e('设置'); ?> <i class="aw-icon i-setting-hover"></i></a></li>
 							<li class="aw-no-border-bottom"><a href="account/logout/" tabindex="-2"><?php _e('退出'); ?> <i class="aw-icon i-logout"></i></a></li>
 						</ul>
