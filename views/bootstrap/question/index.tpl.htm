@@ -53,10 +53,14 @@
 								<!-- end 下拉菜单 -->
 							</div>
 						</h2>
+						
 						<div>
+							<span id="question_topics">
 							<?php foreach($this->question_topics as $key => $val) { ?>
 							<a href="topic/<?php echo $val['url_token']; ?>" class="aw-topic-name"><span><?php echo $val['topic_title']; ?></span></a>
 							<?php } ?>
+							</span>
+							
 							<?php if ($this->user_id AND !$this->question_info['lock'] AND sizeof($this->question_topics) > 0) { ?><span class="aw-edit-topic"><i class="aw-icon i-edit"></i><?php _e('编辑话题'); ?></span><?php } ?>
 						</div>
 						
@@ -102,7 +106,22 @@
 						</div>
 					</div>
 				</div>
-				<!-- 问题详细模块 -->
+				
+				<?php if ($_GET['column'] == 'log') { ?>
+				<div class="aw-mod aw-question-edit">
+					<div class="aw-mod-head">
+						<h2><span class="pull-right"><a href="question/<?php echo $this->question_id; ?>"><?php _e('返回问题'); ?> »</a></span><?php _e('问题修改日志'); ?></h2>
+					</div>
+					<div class="aw-mod-body">
+						<ul id="c_log_list"></ul>
+						<!-- 加载更多内容 -->
+						<a class="aw-load-more-content" id="bp_log_more">
+							<span><?php _e('更多'); ?>...</span>
+						</a>
+						<!-- end 加载更多内容 -->
+					</div>
+				</div>
+				<?php } else { ?>
 				<ul class="nav nav-tabs aw-reset-nav-tabs">
 					<?php if ($_GET['single']) { ?>
 					<li><a href="question/<?php echo $this->question_id; ?>"><?php _e('全部回答'); ?></a></li>
@@ -121,12 +140,12 @@
 					<!-- 最佳回答 -->
 					<p class="aw-winner-replay">
 						<i class="aw-icon i-start-large"></i>
-						最佳回复
+						<?php _e('最佳回复'); ?>
 					</p>
 					<!-- end 最佳回答 -->
 					<?php } ?>
 					
-					<div class="aw-item">
+					<div class="aw-item" uninterested_count="<?php echo $val['uninterested_count']; ?>" force_fold="<?php echo $val['force_fold']; ?>" id="answer_list_<?php echo $val['answer_id']; ?>"><a name="answer_<?php echo $val['answer_id']; ?>"></a>
 						<!-- 用户头像 -->
 						<?php if ($val['anonymous'] == 0) { ?><a class="aw-user-img aw-border-radius-5 pull-right" href="people/<?php echo $val['url_token']; ?>"><img src="<?php echo get_avatar_url($val['uid'], 'mid'); ?>" alt="" /></a><?php } else { ?><a class="aw-user-img aw-border-radius-5 pull-right" href="javascript:;"><img src="<?php echo G_STATIC_URL; ?>/common/avatar-mid-img.jpg" alt="<?php _e('匿名用户'); ?>" /></a><?php } ?>
 						<!-- end 用户头像 -->
@@ -134,18 +153,18 @@
 							<!-- 投票栏 -->
 							<div class="aw-vote-bar pull-left">
 								<a class="aw-border-radius-5 enable-up">
-									<i data-original-title="赞同回复" class="aw-icon i-up active" data-toggle="tooltip" title="" data-placement="right"></i>
+									<i data-original-title="<?php _e('赞同回复'); ?>" class="aw-icon i-up active" data-toggle="tooltip" title="" data-placement="right"></i>
 								</a>
-								<em class="aw-border-radius-5 aw-vote-bar-count">10</em>
+								<em class="aw-border-radius-5 aw-vote-bar-count"><?php echo $val['agree_count']; ?></em>
 								<a class="aw-border-radius-5 enable-down">
-									<i data-original-title="对回复持反对意见" class="aw-icon i-down" data-toggle="tooltip" title="" data-placement="right"></i>
+									<i data-original-title="<?php _e('对回复持反对意见'); ?>" class="aw-icon i-down" data-toggle="tooltip" title="" data-placement="right"></i>
 								</a>
 							</div>
 							<!-- end 投票栏 -->
 							<div class="pull-left">
 								<!-- 评论内容 -->
 								<div class="aw-dynamic-topic-content">
-									<p><a class="aw-user-name">AWSupport</a> <i class="aw-icon i-v"></i> - 常用名: explon</p>   
+									<p><a class="aw-user-name"><?php echo $val['user_name']; ?></a><?php if ($val['verified']) { ?> <i class="aw-icon i-v"></i><?php } ?><?php if ($val['signature']) { ?> - <?php echo $val['signature']; ?><?php } ?></p>   
 									<p class="aw-text-color-999 aw-comment-zantong<?php if (!$val['agree_users']) { ?> hide<?php } ?>">
 										<?php _e('赞同来自'); ?>:
 										
@@ -198,11 +217,11 @@
 											<a class="aw-icon-thank-tips aw-text-color-999" data-original-title="<?php _e('这是一个没有价值的回复'); ?>" data-toggle="tooltip" title="" data-placement="bottom" onclick="answer_user_rate(<?php echo $val['answer_id']; ?>, 'uninterested', this);"><i class="aw-icon i-no-help"></i><?php if ($val['user_rated_uninterested']) { ?><?php _e('撤消没有帮助'); ?><?php } else { ?><?php _e('没有帮助'); ?><?php } ?></a>
 											<?php } ?>
 											
-											<a href="javascript:;" class="aw-text-color-999"><i class="aw-icon i-collect"></i>收藏</a>
+											<a href="javascript:;" class="aw-text-color-999"><i class="aw-icon i-collect"></i><?php _e('收藏'); ?></a>
 										<?php } ?>
 										
 										<?php if ($this->user_id != $val['uid'] AND $this->user_id) { ?>
-										<a href="javascript:;"<?php if (!$val['user_rated_thanks']) { ?> onclick="answer_user_rate(<?php echo $val['answer_id']; ?>, 'thanks', this);"<?php } ?> class="aw-icon-thank-tips aw-text-color-999" data-original-title="感谢热心的回复者" data-toggle="tooltip" title="" data-placement="bottom"><i class="aw-icon i-thank"></i><?php if ($val['user_rated_thanks']) { ?><?php _e('已感谢'); ?><?php } else { ?><?php _e('感谢'); ?><?php } ?></a>
+										<a href="javascript:;"<?php if (!$val['user_rated_thanks']) { ?> onclick="answer_user_rate(<?php echo $val['answer_id']; ?>, 'thanks', this);"<?php } ?> class="aw-icon-thank-tips aw-text-color-999" data-original-title="<?php _e('感谢热心的回复者'); ?>" data-toggle="tooltip" title="" data-placement="bottom"><i class="aw-icon i-thank"></i><?php if ($val['user_rated_thanks']) { ?><?php _e('已感谢'); ?><?php } else { ?><?php _e('感谢'); ?><?php } ?></a>
 										<?php } ?>	
 									</div>
 									<!-- end 可显示/隐藏的操作box -->
@@ -218,14 +237,16 @@
 					<!-- 加载更多内容 -->
 					<a class="aw-load-more-content hide" id="load_uninterested_answers" href="javascript:;" onclick="$('#uninterested_answers_list').toggle();">
 						<span><?php _e('%s 个回复被折叠', '<span class="hide_answers_count">0</span>'); ?></span>
-						<span class="pull-right aw-text-color-999 aw-alert-box aw-text-color-999" href=".aw-tips-box" role="button" data-toggle="modal" tabindex="-1" onclick="alert('<?php _e('被折叠的回复是被大多数用户认为没有帮助的回复'); ?>');"><?php _e('为什么被折叠?'); ?></span>
+						<span class="pull-right aw-text-color-999 aw-alert-box aw-text-color-999" href="javascript:;" role="button" data-toggle="modal" tabindex="-1" onclick="$.alert('<?php _e('被折叠的回复是被大多数用户认为没有帮助的回复'); ?>');"><?php _e('为什么被折叠?'); ?></span>
 					</a>
 					
 					<div class="hide" id="uninterested_answers_list"></div>
 					
 					<!-- end 加载更多内容 -->
+					
 				<!-- 新消息通知 -->
 				</div>
+				<?php } ?>
 				<!-- end 问题详细模块 -->
 			</div>
 			<!-- 侧边栏 -->
@@ -347,11 +368,11 @@
 </div>
 
 <script type="text/javascript">
-ATTACH_ACCESS_KEY = '<?php echo $this->attach_access_key; ?>';
-ITEM_IDS = '<?php echo addslashes($_GET['item_id']); ?>';
-COMMENT_UNFOLD = '<?php echo addslashes($_GET['comment']); ?>';
-QUESTION_ID = <?php echo $this->question_id;?>;
-UNINTERESTED_COUNT = <?php echo get_setting('uninterested_fold'); ?>;
+	ATTACH_ACCESS_KEY = '<?php echo $this->attach_access_key; ?>';
+	ITEM_IDS = '<?php echo addslashes($_GET['item_id']); ?>';
+	COMMENT_UNFOLD = '<?php echo addslashes($_GET['comment']); ?>';
+	QUESTION_ID = <?php echo $this->question_id;?>;
+	UNINTERESTED_COUNT = <?php echo get_setting('uninterested_fold'); ?>;
 </script>
 
 <script type="text/javascript" src="<?php echo G_STATIC_URL; ?>/js/app/question_detail.js"></script>

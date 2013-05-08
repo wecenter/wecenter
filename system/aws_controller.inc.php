@@ -80,6 +80,7 @@ class AWS_CONTROLLER
 			'js/jquery.form.js',
 			'js/bootstrap.js',
 			'js/aw_template.js',
+			'js/hogan.js',
 			'js/plug_module/plug-in_module.js',
 			'js/common.js',
 			'js/global.js',

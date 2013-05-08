@@ -52,11 +52,12 @@
 						<div class="aw-nav-main pull-left">
 							<ul class="aw-top-nav">
 								<?php if ($this->user_id) { ?>
-								<li><a href="<?php echo get_setting('base_url'); ?>" <?php if (!$_GET['app'] OR ($_GET['app'] == 'home' AND $_GET['act'] != 'explore')) { ?>class="aw-nav-first"<?php } ?>><i class="aw-icon i-index-no-hover"></i><?php _e('首页'); ?></a></li>
+								<li><a href="<?php echo get_setting('base_url'); ?>" <?php if (!$_GET['app'] OR ($_GET['app'] == 'home' AND $_GET['act'] != 'explore')) { ?>class="active"<?php } ?>><i class="aw-icon i-index-no-hover"></i><?php _e('首页'); ?><i class="aw-icon i-nav-hover-triangle"></i></a></li>
 								<?php } ?>
-								<li><a href="home/explore/" <?php if ($_GET['app'] == 'question' OR $_GET['act'] == 'explore') { ?>class="active"<?php } ?>><i class="aw-icon i-question-no-hover<?php if (!$this->user_id) { ?> aw-nav-first<?php } ?>"></i><?php _e('问题'); ?></a></li>
-								<li><a href="topic/" <?php if ($_GET['app'] == 'topic') { ?>class="active"<?php } ?>><i class="aw-icon i-topic-no-hover"></i><?php _e('话题'); ?></a></li>
-								<li><a href="people/list/" <?php if ($_GET['app'] == 'people') { ?>class="active"<?php } ?>><i class="aw-icon i-login-user-no-hover"></i><?php _e('用户'); ?></a></li>
+								
+								<li><a href="home/explore/" class="<?php if ($_GET['app'] == 'question' OR $_GET['act'] == 'explore') { ?>active<?php } ?>"><i class="aw-icon i-question-no-hover"></i><?php _e('问题'); ?><i class="aw-icon i-nav-hover-triangle"></i></a></li>
+								<li><a href="topic/" <?php if ($_GET['app'] == 'topic') { ?>class="active"<?php } ?>><i class="aw-icon i-topic-no-hover"></i><?php _e('话题'); ?><i class="aw-icon i-nav-hover-triangle"></i></a></li>
+								<li><a href="people/list/" <?php if ($_GET['app'] == 'people') { ?>class="active"<?php } ?>><i class="aw-icon i-login-user-no-hover"></i><?php _e('用户'); ?><i class="aw-icon i-nav-hover-triangle"></i></a></li>
 							</ul>
 						</div>
 						<!-- end 导航条 -->

@@ -1,8 +1,6 @@
 $(document).ready(function() {
-	if ($('#v_Elem').attr('id'))
-	{
-		$.tabs('#v_Elem');	// tabs切换
-		
+	if ($('.tabbable').length)
+	{		
 		bp_more_load(G_BASE_URL + '/question/ajax/discuss/sort_type-new__topic_id-' + CONTENTS_TOPIC_ID, $('#c_question_more'), $('#c_question_list'), 2);
 		
 		bp_more_load(G_BASE_URL + '/topic/ajax/question_list/type-best__topic_id-' + CONTENTS_TOPIC_ID, $('#bp_best_question_more'), $('#c_best_question_list'), 2);
@@ -15,7 +13,7 @@ $(document).ready(function() {
 	{
 		$.get(G_BASE_URL + '/topic/ajax/get_focus_users/topic_id-' + TOPIC_ID, function (data) {
 			$.each(data, function (i, d) {		
-				$('#focus_users').append('<a href="' + d['url'] + '" class="i_imgforUser"><img src="' + d['avatar_file'] + '" class="user_msg" data-message="&uid='+d['uid']+'&card=user"  /></a>');
+				$('#focus_users').append('<a href="' + d['url'] + '"><img src="' + d['avatar_file'] + '" alt="' + d['user_name'] + '" /></a> ');
 			});
 		}, 'json');
 	}
@@ -28,7 +26,7 @@ $(document).ready(function() {
 });
 
 
-$.editor_topic_x = function(flg){
+/*$.editor_topic_x = function(flg){
 	$(flg).hide();
 	$('#editor_input_handle').removeClass('i_hide');
 	$('#i_PublicTopic >a').each(function(index, element) {
@@ -110,4 +108,4 @@ $.exit_topic = function(){
 			flg.removeClass('i_prl pd').find('em').hide();
 		}
 	})
-}
+}*/

@@ -27,7 +27,8 @@ input , textarea{font-family: '微软雅黑',tahoma,arial !important;}
 .aw-gototop{position: fixed;display:none;left: 1000px;bottom:140px;}
 .aw-text-align-justify{text-align: justify;}
 .aw-border-radius-5, .aw-border-radius-5 img{border-radius:5px;}
-.aw-li-border-bottom li{border-bottom:1px dotted #C1CAD4;}
+.aw-li-border-bottom li{border-top:1px dotted #C1CAD4;}
+.aw-li-border-bottom li:first-child{border-top:none;}
 .aw-no-border-bottom{border-bottom:none !important;}
 .aw-no-border-all{border:none !important;}
 .aw-no-padding-top{padding-top:0 !important;}
@@ -71,7 +72,7 @@ input[type="radio"], input[type="checkbox"]{margin:0;}
 label{margin:0;}
 form{margin:0;}
 select, input[type="file"]{*height: 26px;*line-height: 26px;height: 26px\0;line-height: 26px\0;}
-.dropdown-menu > li > a, .dropdown-menu > li > p{min-height:24px;padding:8px 20px 8px 13px;margin:0;color: #666;}
+.dropdown-menu > li > a, .dropdown-menu > li > p{*min-width:117px;min-height:24px;padding:8px 20px 8px 13px;margin:0;color: #666;}
 .dropdown-menu > li > a:hover,
 .dropdown-menu > li > a:focus,
 .dropdown-submenu:hover > a,
@@ -109,7 +110,7 @@ select, input[type="file"]{height: 28px;line-height: 28px;}
 .btn-success:hover, .btn-success:focus, .btn-success:active, .btn-success.active, .btn-success.disabled, .btn-success[disabled] {color: #406A24;background-color: #cee591;}
 .btn:hover, .btn:focus {background-position: 0 -40px;}
 /*tabs切换样式重载*/
-.aw-reset-nav-tabs{position:relative;z-index:1;margin:0;}
+.aw-reset-nav-tabs{position:relative;z-index:1;margin:0;min-height: 30px;}
 .aw-reset-nav-tabs > li{float:right;margin:0 4px;}
 .aw-reset-nav-tabs > li > a{line-height:30px;padding:0 13px;color: #6B94AC;cursor: pointer !important;background-color: #F5FAFF;border: 1px solid #ddd;border-bottom-color: transparent;}
 .aw-reset-nav-tabs > li > a:hover{color:#085D9B;background-color: #F5FAFF;border: 1px solid #ddd;border-bottom-color: transparent;}
@@ -143,10 +144,10 @@ select, input[type="file"]{height: 28px;line-height: 28px;}
 .category{height:auto;padding:0 10px;}
 .category dl, .category dl dt, .category dl dd{float:left;}
 .category dl{margin-right:12px;padding:15px;border-radius:10px;}
-.category dl:hover{position:relative;z-index:9999;background:#ebebeb;}
 .category dl .dropdown-menu, .category ul .dropdown-menu{top:0;z-index:999;min-width: 150px;max-height:193px;overflow: auto;text-align: left;}
 .category dl:hover .category-dropdown, .category dl:hover .dropdown-menu{display:block;}
-.category dl img{border-radius:3px;}
+.category dl dt{width: 50px;}
+.category dl dt img{width:50px;height:50px;border-radius:3px;}
 .category dl dd{width:130px;}
 .category .span12 > .active{background:#ebebeb;}
 .category .first{margin-left:0px;}
@@ -156,7 +157,7 @@ select, input[type="file"]{height: 28px;line-height: 28px;}
 .category-dropdown a.active{font-weight: bold;}
 .category .span12 > ul > li{float: left;width: 100px;height: 30px;line-height: 30px;margin:10px 20px;padding:0 5px;font-size:12px;text-align: center;border-radius: 5px;}
 .category .span12 > ul > li.active{background: #EBEBEB;}
-.category .span12 > ul > li:hover{position:relative;z-index:9999;background: #EBEBEB;}
+.category .span12 > ul > li:hover, .category dl:hover{position:relative;z-index:9999;background: #EBEBEB;}
 .category .span12 > ul > li:hover .category-dropdown, .category ul li:hover .dropdown-menu{display: block;}
 
 /*
@@ -265,8 +266,9 @@ select, input[type="file"]{height: 28px;line-height: 28px;}
 .aw-question-detail-box{height: auto;margin-bottom:30px;}
 .aw-question-detail-box .aw-mod-head{position: relative;border-bottom:1px dotted #C1CAD4;}
 .aw-question-detail-box .aw-mod-head > div{margin-bottom: 10px;}
-.aw-question-detail-box .aw-mod-head h2{font-size:20px;}
+.aw-question-detail-box .aw-mod-head h2{font-size:20px;line-height: 30px;}
 .aw-question-detail-box .aw-mod-head .aw-question-follow{position: absolute;right: 0;top: 0;}
+.aw-question-detail-box .aw-mod-head .aw-notopic-sort{margin:5px 0 15px 0;padding:5px 10px;background: #E0E2E1;color: #999;border-radius: 5px;}
 .aw-question-detail-box .aw-question-detail-meta{min-height: 20px;}
 .aw-question-detail-box .aw-question-detail-meta > span, .aw-question-detail-box .aw-question-detail-meta > div{margin-right:15px;}
 
@@ -620,8 +622,9 @@ select, input[type="file"]{height: 28px;line-height: 28px;}
 /*bs弹窗*/
 .aw-share-box, .aw-publish-box, .aw-message-box, .aw-question-redirect-box{width: 450px;}
 /*警告提示box*/
-.aw-tips-box{width: 350px;}
+.aw-tips-box, .aw-image-box{width: 350px;}
 .aw-tips-box .i-warmming{margin-right:10px;vertical-align: middle;}
+.aw-image-box input{width: 306px;height: 24px;line-height: 24px;margin-bottom: 15px;}
 /*分享box*/
 .aw-share-box .aw-share-box-tabs{position: absolute;top:18px;right: 33px;}
 .aw-share-box .aw-share-box-tabs a{display: inline-block;height: 30px;line-height: 30px;margin:0 0 0 5px;padding:0 10px 0 10px;background: #fff;border-radius: 5px 5px 0 0;}
@@ -631,7 +634,7 @@ select, input[type="file"]{height: 28px;line-height: 28px;}
 .aw-share-box .aw-share-box-tabs-content li a{display:inline-block;width: 80px;line-height: 16px;margin-bottom: 15px;font-size:12px;}
 .aw-share-box .aw-share-box-tabs-content li a .bds{position: relative;top:3px;margin-right: 5px;}
 .aw-share-box .aw-share-box-tabs-content input, .aw-message-box input, .aw-question-redirect-box input{width: 406px;height:30px;line-height: 30px;}
-.aw-share-box .aw-share-box-tabs-content .btn, .aw-message-box .btn, .aw-publish-box .modal-footer .btn, .aw-edit-comment-box .modal-footer .btn{margin-left:10px;}
+.aw-share-box .aw-share-box-tabs-content .btn, .aw-message-box .btn, .aw-publish-box .modal-footer .btn, .aw-edit-comment-box .modal-footer .btn, .aw-image-box .modal-footer .btn{margin-left:10px;}
 .aw-publish-box .modal-footer a{margin:0 0 0 5px;}
 .aw-publish-box .modal-footer a.pull-left{margin-top:2px;}
 /*发起box*/
@@ -681,4 +684,55 @@ select, input[type="file"]{height: 28px;line-height: 28px;}
 .aw-first-login .aw-complete-data-follow-topic li p{margin:10px 0 0 0;}
 .aw-first-login .aw-complete-data-follow-topic li .i-user-prestige{margin-right: 5px;}
 
+/*
+**	回复编辑器
+*/
+.aw-mod-replay-box{padding-bottom: 30px;}
+.aw-mod-replay-box .aw-mod-head{position: relative;height:auto;overflow:hidden;margin-bottom:5px;padding-left: 40px;}
+.aw-mod-replay-box .aw-mod-head > .aw-user-name{position: absolute;left: 0;top:0;width: 32px;height: 32px;}
+.aw-mod-replay-box p{height: auto;overflow: hidden;margin:0;}
+.aw-mod-replay-box .aw-mod-head p label{display: inline;font-size: 13px;color: #666;}
+.aw-mod-replay-box .aw-mod-head p label input{margin-right: 5px;position: relative;top:-2px;*top:0;}
+.aw-mod-replay-box .aw-mod-body{padding:15px;background: #E7EFF2;border: 1px solid #C2CACD;border-radius: 5px;}
+.aw-mod-replay-box #advanced_editor{width: 608px;height:20px;min-height: 110px;}
+.aw-mod-replay-box .aw-upload-box{height: auto;overflow: hidden;margin:10px 0;}
+.markItUpPreviewFrame {margin-top: 15px;padding: 10px;background: none repeat scroll 0 0 #FAFAFA;border: 1px solid #CCCCCC;border-radius:10px;color: #666666;font-size: 12px;}
+.markItUpPreviewFrame .title{margin:0 0 10px 0;padding-bottom:5px;font-size: 14px;border-bottom: 1px solid #C1CAD4;color:#333;}
+.markItUpFooter {-moz-border-bottom-colors: none;-moz-border-left-colors: none;-moz-border-right-colors: none;-moz-border-top-colors: none;border-color: #CCCCCC;border-image: none;border-style: solid;border-width: 0 1px;cursor: n-resize;}
+.markItUpResizeHandle {background-image: url("img/handle.png");cursor: n-resize;height: 5px;margin-left: auto;margin-right: auto;overflow: hidden;width: 22px;}
+.markItUpHeader{height: auto;overflow: hidden;}
+.markItUpHeader ul li {float: left;list-style: none outside none;margin-bottom: 5px;max-width: 22px;position: relative;}
+.markItUpHeader ul li ul {display: none;}
+.markItUpHeader ul li:hover > ul {display: block;}
+.markItUpHeader ul .markItUpDropMenu {background: url("images/menu.png") no-repeat scroll 115% 50% transparent;margin-right: 5px;}
+.markItUpHeader ul .markItUpDropMenu li {margin-right: 0;}
+.markItUpHeader ul .markItUpSeparator {background-color: #CCCCCC;height: 16px;margin: 0 10px;overflow: hidden;width: 1px;}
+.markItUpHeader ul ul .markItUpSeparator {height: 1px;margin: 0;width: auto;}
+.markItUpHeader ul ul {background: none repeat scroll 0 0 #F5F5F5;border: 1px solid #3C769D;display: none;height: inherit;left: 0;position: absolute;top: 18px;}
+.markItUpHeader ul ul li {border-bottom: 1px solid #3C769D;float: none;}
+.markItUpHeader ul ul .markItUpDropMenu {background: url("images/submenu.png") no-repeat scroll 100% 50% #F5F5F5;}
+.markItUpHeader ul ul ul {left: 150px;position: absolute;top: -1px;}
+.markItUpHeader ul ul ul li {float: none;}
+.markItUpHeader ul a {background-repeat: no-repeat;display: block;height: 16px;margin: 0;padding: 3px;text-indent: -10000px;width: 16px;}
+.markItUpHeader ul ul a {background-position: 2px 50%;display: block;padding: 5px 5px 5px 25px;text-indent: 0;width: 120px;}
+.markItUpHeader ul ul a:hover {background-color: #3C769D;color: #FFFFFF;}
+.markItUp .markItUpButton > a {background: url("img/markItUp_editor.png") no-repeat scroll 0 0 transparent;}
+.markItUp .markItUpButton > a:hover {opacity: 0.6;}
+.markItUp .preview a {background-image: url("images/preview.png");}
+.markItUp ul {position: relative;}
+.markItUp .markItUpButton1 a {background-position: -4px -6px;}
+.markItUp .markItUpButton2 a {background-position: -35px -6px;}
+.markItUp .markItUpButton3 a {background-position: -97px -6px;}
+.markItUp .markItUpButton4 a {background-position: -124px -6px;}
+.markItUp .markItUpButton5 a {background-position: -217px -6px;}
+.markItUp .markItUpButton6 a {background-position: -247px -6px;}
+.markItUp .markItUpButton7 a {background-position: -307px -6px;}
+.markItUp .markItUpButton8 a {background-position: -337px -6px;}
+.markItUp .markItUpButton9 a {background-position: -427px -7px;}
+.markItUp .markItUpButton10 a {background-position: -454px -7px;}
+.markItUp .markItUpButton11 a {background-position: -492px -6px;float: right;height: 18px;margin-top: -1px;}
+.markItUp .markItUpButton11 a.cur {background-position: -534px -6px;}
+.markItUp .markItUpButton12 a {background-position: -570px -6px;}
+.markItUp .markItUpButton13 a {background-position: -277px -6px;margin-left: 5px;}
+.markItUp .markItUpButton11 {position: absolute;right: 0;}
 
