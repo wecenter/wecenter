@@ -10,7 +10,7 @@
 .i-start-large{width:44px;height: 47px;background-position: 0px -310px;}
 .i-user-post{width:14px;height: 15px;background-position: 0 0;}
 .i-user-locate{width:13px;height: 18px;background-position: -20px 0;}
-.i-user-visits{width:16px;height: 10px;background-position: -40px 0;}
+.i-user-visits{width:16px;height: 10px;background-position: -40px 0;*position: relative;*top:-2px;}
 .i-user-bind{width:16px;height: 17px;background-position: -60px 0;}
 .i-lock{width:11px;height: 14px;background-position: -80px 0;}
 .i-site{width:14px;height: 14px;background-position: -100px 0;}
@@ -40,14 +40,15 @@
 .i-user-thank{width:13px;height: 12px;background-position: -40px -30px;position:relative;top:2px;*top:-2px;}
 .i-user-approve{width:13px;height: 12px;background-position: -60px -30px;position:relative;top:1px;*top:-4px;}
 .i-user-ask{width:14px;height: 14px;background-position: -80px -30px;position:relative;top:2px;*top:-2px;}
-.i-share-sina{width:16px;height: 15px;background-position: -100px -30px;position:relative;top: 3px;*top:-2px;}
-.i-share-weibo{width:16px;height: 15px;background-position: -120px -30px;position: relative;top:3px;*top:0;}
+.i-share-sina{width:16px;height: 15px;background-position: -100px -30px;}
+.i-share-weibo{width:16px;height: 15px;background-position: -120px -30px;}
 .i-sina{width:17px;height: 13px;background-position: -140px -30px;}
-.i-qq{width:15px;height: 16px;background-position: -160px -30px;position: relative;top:3px;*top:0px;}
-.i-weixin{width:16px;height: 16px;background-position: -219px -30px;position: relative;top:3px;*top:0;}
+.i-qq{width:15px;height: 16px;background-position: -160px -30px;}
+.i-weixin{width:16px;height: 16px;background-position: -219px -30px;}
 .i-message{width:15px;height: 10px;background-position: -180px -30px;}
 .i-email{width:14px;height: 13px;background-position: -200px -30px;}
 .i-err{width: 14px;height: 14px;background-position: -241px -31px;}
+.i-upload-file{width: 14px;height: 14px;background-position: -340px 0;position: relative;top:2px;}
 
 /*第三排*/
 .i-remark{width:10px;height: 9px;background-position: 0 -60px;*position:relative;*top:-5px;}

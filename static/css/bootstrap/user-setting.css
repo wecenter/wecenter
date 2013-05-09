@@ -6,6 +6,9 @@
 .aw-user-setting h4{height:40px;line-height:40px;background: #F7F7F7;margin:0;padding-left: 20px;font-size:13px !important;font-weight: bold;}
 .aw-user-setting-bind input{height:26px;line-height: 26px;}
 .aw-user-setting-bind .aw-icon{*margin-right: 5px;}
+.aw-user-setting-bind .i-qq, .aw-user-setting-bind .i-share-sina, .aw-user-setting-bind .i-share-weibo, .aw-user-setting-bind .i-weixin{position: relative;top: 3px;}
+
+
 .aw-user-setting .aw-user-setting-save{margin:20px 100px 0 0;}
 /*基本资料*/
 .aw-user-setting-base{position: relative;}

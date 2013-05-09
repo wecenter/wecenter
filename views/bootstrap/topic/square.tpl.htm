@@ -7,12 +7,15 @@
 				<!-- tab切换 -->
 				<div class="tabbable">
 					<ul class="nav nav-tabs aw-reset-nav-tabs">
+					<?php if ($this->user_id) { ?>
 						<li><a data-toggle="tab" href="#focus">已关注</a></li>
 						<li class="active"><a data-toggle="tab" href="#square">广场</a></li>
+					<?php } ?>
 						<h3 class="pull-left">话题</h3>
 					</ul>
 				</div>
 				<!-- end tab切换 -->
+				
 				<!-- tab 切换内容 -->
 				<div class="tab-content">
 					<div class="tab-pane active" id="square">
@@ -117,6 +120,7 @@
 						</div>
 						<!-- end 全部话题 -->
 					</div>
+					<?php if ($this->user_id) { ?>
 					<div class="tab-pane" id="focus">
 						<!-- 今日话题 -->
 						<div class="aw-mod aw-topic-daily aw-topic-follow">
@@ -139,6 +143,7 @@
 						</div>
 						<!-- end 今日话题 -->
 					</div>
+					<?php } ?>
 				</div>
 				<!-- end tab 切换内容 -->
 			</div>

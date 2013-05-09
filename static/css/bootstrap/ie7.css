@@ -18,6 +18,7 @@
 **	category
 */
 .category{*margin-top:15px;*margin-bottom:15px;}
+.category .span12 > ul > li{*margin:5px 20px;}
 
 /*
 **	导航条
@@ -45,10 +46,21 @@
 */
 .aw-question-detail-box .aw-mod-head h2{*margin-top:20px;}
 .aw-question-detail-box .aw-question-detail-meta .aw-question-wait-edit{margin-top:-1px\0;*margin-top:0px;}
+
+/*
+**	话题页面公共模块
+*/
+.aw-topic-content-wrap .aw-topic-all-list .span6 .i-follow{*position: relative;*top:-4px;}
 /*
 **	话题详细页
 */
 .aw-topic-detail-title{*margin-top:20px;}
+.aw-side-bar-topic-edit .aw-edit-topic-box input{*margin-bottom:10px;}
+
+/*
+**	发起box
+*/
+.aw-publish-box .modal-footer a.pull-left{*margin-top:10px;}
 
 /*
 **	话题编辑box
@@ -68,6 +80,21 @@
 .aw-mod-private-replay-list li .aw-user-img{*top:35px;}
 /*已邀请的好友*/
 .aw-mod-invited ul li{*padding:0 0 25px 42px;}
+
+/*
+**	用户页面
+*/
+.aw-user-detail-box .aw-mod-body .aw-user-flag .i-user-locate{*top:0;}
+
+/*
+**	用户设置页面
+*/
+.aw-user-setting-bind .i-qq, .aw-user-setting-bind .i-share-sina, .aw-user-setting-bind .i-share-weibo, .aw-user-setting-bind .i-weixin{*top:0;}
+
+/*
+**	注册页面
+*/
+.aw-register-open-tabs i{*position: relative;*top:-2px;}
 
 
 

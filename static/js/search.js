@@ -1,5 +1,5 @@
 var cur_page = 0;
-var bp_more_inner_o = '';
+var search_result_more_inner_o = '';
 var search_query = '';
 var split_query = '';
 
@@ -9,30 +9,24 @@ function reload_list()
 	
 	$('#search_result').html('<p style="padding: 15px 0" align="center"><img src="' + G_STATIC_URL + '/common/loading_b.gif" alt="" /></p>');
 	
-	$('#bp_more').html(bp_more_inner_o);
+	$('#search_result_more').html(search_result_more_inner_o);
 	
-	$('#bp_more').click();
+	$('#search_result_more').click();
 }
 
 $(document).ready(function()
 {
-	$('#list_nav a').click(function () {
-		$('#list_nav a').removeClass('cur');
-		
-		$(this).addClass('cur');
-		
+	$('#list_nav a').click(function () {		
 		window.location.hash = $(this).attr('href').replace(/#/g, '');
 		
-		$('#search_type').html($(this).text());
+		$('#aw-search-type').html($(this).text());
 		
 		reload_list();
-		
-		return false;
 	});
 	
-	bp_more_inner_o = $('#bp_more').html();
+	search_result_more_inner_o = $('#search_result_more').html();
 	
-	$('#bp_more').click(function()
+	$('#search_result_more').click(function()
 	{
 		var _this = this;
 		
@@ -65,26 +59,11 @@ $(document).ready(function()
 					$('#search_result').append(response);
 				}
 				
-				$('#search_result li p.keyword a').highText(split_query, 'span', 'i_red');
-				
-				/*$.each($('#search_result li'), function (i, e) {
-					if ($(this).attr('focus') == 'true')
-					{
-						$('#hide_items_list').append('<li class="' + e.className + '">' + $(e).html() + '</li>');
-			
-						$(e).remove();
-					}
-				});
-				
-				if ($('#hide_items_list li').length > 0)
-				{
-					$('#hide_items_control span.items_count').html($('#hide_items_list li').length);
-					$('#hide_items_control').fadeIn();
-				}*/
+				$('#search_result p.aw-title a').highText(split_query, 'span', 'aw-text-color-red');
 					
 				cur_page++;
 				
-				$(_this).html(bp_more_inner_o);
+				$(_this).html(search_result_more_inner_o);
 			}
 			else
 			{
@@ -117,6 +96,4 @@ $(document).ready(function()
 			$("#list_nav a[href='" + window.location.hash + "']").click();
 		break;
 	}
-	
-	//$('#bp_more').click();
 });
