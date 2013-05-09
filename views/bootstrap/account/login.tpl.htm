@@ -1,0 +1,172 @@
+<?php TPL::output('global/header_landing_blank.tpl.htm'); ?>
+
+<div id="wrapper">
+	<div class="aw-login-wrap">
+		<!-- 左侧文字介绍部分 -->
+		<h1>
+			<img src="<?php echo G_STATIC_URL; ?>/css/<?php echo $this->template_name; ?>/img/login_logo.png" alt="<?php echo get_setting('site_name'); ?>" />
+			<p><?php echo get_setting('description'); ?></p>
+		</h1>
+		<p class="aw-login-state">
+			<?php _e('欢迎来到'); ?> <?php echo get_setting('site_name'); ?>,<br /><?php _e('你想知道的一切, 或许答案都在这里'); ?></span>
+		</p>
+		<!-- end 左侧文字介绍部分 -->
+		<!-- 登陆框 -->
+		<div class="aw-login-box">
+			<div class="aw-mod">
+				<div class="aw-mod-head">
+					<i class="aw-icon i-login-user-no-hover"></i>
+					<?php _e('登录'); ?>
+					
+					<?php if (get_setting('invite_reg_only') == 'N') { ?><a href="account/register/" class="aw-btn b-new-user"><?php _e('注册新用户'); ?></a><?php } ?>
+				</div>
+				<div class="aw-mod-body">
+					<form id="login_form" method="post" onsubmit="return false" action="account/ajax/login_process/">
+						<input type="hidden" name="return_url" value="<?php echo $this->return_url; ?>" />
+						<ul>
+							<li>
+								<label class="aw-label-icon pull-left" for="aw-login-user-name"><i class="aw-icon i-login-user-no-hover"></i></label>
+								<input type="text" id="aw-login-user-name" placeholder="<?php _e('邮箱'); ?>/<?php _e('用户名'); ?>" name="user_name" value="<?php echo $this->r_uname; ?>" />
+							</li>
+							<li>
+								<label class="aw-label-icon pull-left" for="aw-login-user-password"><i class="aw-icon i-key"></i></label>
+								<input type="password" id="aw-login-user-password" placeholder="<?php _e('密码'); ?>" name="password" />
+							</li>
+							<li class="error error-message hide">
+								<p><i class="aw-icon i-no"></i><em></em></p>
+							</li>
+							<li class="last">
+								<a href="javascript:;" onclick="ajax_post($('#login_form'), _login_form_processer);" id="login_submit" class="pull-right btn btn-large btn-success"><?php _e('登录'); ?></a>
+								<input id="login-radio" type="checkbox" value="1" name="net-auto-login" />
+								<label for="login-radio"><?php _e('记住我'); ?></label>
+								<a href="account/find_password/"><?php _e('忘记密码'); ?></a>
+							</li>
+						</ul>
+					</form>
+				</div>
+				<div class="aw-mod-footer">
+					<a href="reader/" class="pull-right"><?php _e('问答阅读'); ?><i class="aw-icon i-triangle-right"></i></a>
+					
+					<?php if (get_setting('site_close') != 'Y' && (get_setting('sina_weibo_enabled') == 'Y' OR get_setting('qq_t_enabled') == 'Y' OR get_setting('qq_login_enabled') == 'Y')) { ?>
+					<?php _e('第三方登录'); ?>:
+					<?php if (get_setting('sina_weibo_enabled') == 'Y') { ?><a href="account/openid/qq/" class="aw-icon i-login-sina"></a><?php } ?>
+					<?php if (get_setting('qq_t_enabled') == 'Y') { ?><a href="account/openid/qq/" class="aw-icon i-login-weibo"></a><?php } ?>
+					<?php if (get_setting('qq_login_enabled') == 'Y') { ?><a href="account/openid/qq_login/" class="aw-icon i-login-qq"></a><?php } ?>
+					<?php } ?>
+				</div>
+			</div>
+		</div>
+		<!-- end 登陆框 -->
+		<div class="aw-login-box-bg">
+		</div>
+	</div>
+	<!-- 背景切换 -->
+	<div class="aw-bg-wrap">
+		<ul id="aw-bg-loading">
+			<li style="height: 824px;background-image: url(<?php echo G_STATIC_URL; ?>/css/<?php echo $this->template_name; ?>/img/login_01.jpg);"></li>
+			<li style="height: 824px;background-image: url(<?php echo G_STATIC_URL; ?>/css/<?php echo $this->template_name; ?>/img/login_02.jpg);"></li>
+			<li style="height: 824px;background-image: url(<?php echo G_STATIC_URL; ?>/css/<?php echo $this->template_name; ?>/img/login_03.jpg);"></li>
+		</ul>
+	</div>
+	<!-- end 背景切换 -->
+</div>
+
+<script type="text/javascript">
+$(document).ready(function () {
+	$('#login_form input').focus(function () {
+		$('.error-message').hide();
+	});
+	
+	$('#login_form input').keydown(function (e) {
+		if (e.keyCode == 13)
+		{
+			$('#login_submit').click();
+		}
+	});
+	
+	login_lunbo('#aw-bg-loading li');
+});
+
+function _login_form_processer(result)
+{
+	if (typeof(result.errno) == 'undefined')
+	{
+		alert(result);
+		
+		if ($('#aw-login-user-password').length)
+		{
+			$('#aw-login-user-password').attr('value', '');
+		}
+	}
+	else if (result.errno != 1)
+	{
+		if ($('#aw-login-user-password').length)
+		{
+			$('#aw-login-user-password').attr('value', '');
+		}
+		
+		$('.error-message em').html(result.err);
+		
+		$('.error-message').fadeIn();
+	}
+	else
+	{
+		if (result.rsm && result.rsm.url)
+		{
+			window.location = decodeURIComponent(result.rsm.url);
+		}
+		else
+		{
+			window.location.reload();
+		}
+	}
+}
+
+function login_lunbo(selecter)
+{
+	//初始化样式
+	function _init(){
+		$(selecter).eq(0).css(
+		{
+			'opacity' : 1,
+			'z-index' : 2
+		}).siblings().css(
+		{
+			'opacity' : 0,
+			'z-index' : 1
+		});
+	}
+
+	//轮播动作
+	function _run(){
+		var num,
+			arr = ['欢迎来到 WeCenter 问答社区，<br>你想知道的一切，或许答案都在这里。<br><span>1.1 正式版发布！</span>','庆祝 WeCenter 2.0 正式发布','WeCenter 是一个新型的社区建站程序，包括了问答，维基，以及社交等丰富而又轻量化的功能。<br/><span>这将是您的最好选择！</span>'];
+		//获取当前轮播图的index
+		$(selecter).each(function(){
+			if ($(this).css('opacity') == 1){
+				num = $(this).index();
+			}
+		});
+		//隐藏当前那张轮播图
+		$(selecter).eq(num).animate({opacity:'0'},500);
+		//判断如果当前是最后一张的话跳会第一张
+		if (num+1 >= $(selecter).length){
+			$(selecter).eq(0).animate({opacity:'1'},500);
+			$('.aw-login-state').html(arr[0]);
+			
+		}else
+		{
+			$(selecter).eq(num+1).animate({opacity:'1'},500);
+			$('.aw-login-state').html(arr[num+1]);
+		}
+	}
+
+	//初始化样式
+	_init();
+	//轮播
+	setInterval(_run,7000);
+
+}
+</script>
+
+<?php TPL::output('global/footer_blank.tpl.htm'); ?>

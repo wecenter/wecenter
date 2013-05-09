@@ -278,11 +278,11 @@ _ajax_uploader.FileUploaderBasic = function(o){
         onCancel: function(id, fileName){},
         // messages                
         messages: {
-            typeError: "{file} 是个无效文件. 只接受下列文件: {extensions}",
-            sizeError: "{file} 文件尺寸太大, 最大文件尺寸为: {sizeLimit}.",
-            minSizeError: "{file} 文件尺寸太小, 最小文件尺寸为:  {minSizeLimit}.",
-            emptyError: "{file} 是个空文件, 请重新选择.",
-            onLeave: "文件正在上传, 是否中断继续."            
+            typeError: _t('{file} 是个无效文件, 只接受下列文件: {extensions}'),
+            sizeError: _t('{file} 文件尺寸太大, 最大文件尺寸为: {sizeLimit}'),
+            minSizeError: _t('{file} 文件尺寸太小, 最小文件尺寸为:  {minSizeLimit}'),
+            emptyError: _t('{file} 是个空文件, 请重新选择'),
+            onLeave: _t('文件正在上传, 是否中断继续')          
         },
         showMessage: function(message){
             $.alert(message);
@@ -499,16 +499,18 @@ _ajax_uploader.FileUploader = function(o){
         listElement: null,
                 
         template: //'<div class="_ajax_upload-drop-area"><span>拖拽文件到这里上传</span></div>' +
-                '<div class="_ajax_upload-button i_upload_but" style="float:left;margin-right:10px;"></div>' +
-                '<ul id="upload-ul" class="_ajax_upload-list i_upload i_clear" style="clear:both;"></ul>',
+                '<a href="javascript:;" class="_ajax_upload-button aw-btn b-up-load"></a>' +
+                '<div class="aw-file-uploader _ajax_upload-list" id="upload-ul"></div>',
 
         // template for one item in file list
-        fileTemplate: '<li>' +
-        		'<span class="loading file_icon"></span>' +
-                '<p class="_ajax_upload-file  i_loadname"></p>' +
-                '<p class="_ajax_upload-size  i_loadkb"></p>' +
-				'<p class="_ajax_upload-inset"><a href="javascript:;" class="fr delect_file"  onclick="if (confirm(\'' + _t('确认删除?') + '\')) { _ajax_uploader_delete_attach(this.href, $(this).parent().parent()) } return false;">' + _t('删除') + '</a></p>' +
-            '</li>',        
+        fileTemplate: '<dl>' +
+        		'<dt class="upload-loading aw-icon"></dt>' +
+        		'<dd>' + 
+                '<p class="_ajax_upload-file aw-file-uploader-name"></p>' +
+                '<p class="_ajax_upload-size aw-text-color-999"></p>' +
+				'<p class="_ajax_upload-inset"><a href="javascript:;" class="_ajax_upload_delete_file" onclick="if (confirm(\'' + _t('确认删除?') + '\')) { _ajax_uploader_delete_attach(this.href, $(this).parent().parent()) }">' + _t('删除') + '</a></p>' +
+				'</dd>' +
+            '</dl>',        
         
         classes: {
             // used to get elements from templates
@@ -518,14 +520,14 @@ _ajax_uploader.FileUploader = function(o){
             list: '_ajax_upload-list',
                         
             file: '_ajax_upload-file',
-            spinner: 'loading',
+            spinner: 'upload-loading',
             size: '_ajax_upload-size',
             //cancel: '_ajax_upload-cancel',
 
             // added to list item when upload completes
             // used in css to hide progress spinner
             success: '_ajax_upload-success',
-            fail: 'error_border',
+            fail: 'error',
 			inset:'_ajax_upload-inset'
         }
     });
@@ -667,7 +669,7 @@ _ajax_uploader.extend(_ajax_uploader.FileUploader.prototype, {
         if (result.success) {
         	if (typeof(result.delete_url) != 'undefined')
         	{
-				_ajax_uploader.getByClass(item, 'delect_file')[0].href = result.delete_url.replace(/&amp;/g, '&');				
+				_ajax_uploader.getByClass(item, '_ajax_upload_delete_file')[0].href = result.delete_url.replace(/&amp;/g, '&');				
         	}
         	
         	if (typeof(result.thumb) != 'undefined')
@@ -688,13 +690,13 @@ _ajax_uploader.extend(_ajax_uploader.FileUploader.prototype, {
         } else {
         	if (!$.browser.msie)
         	{
-        		_ajax_uploader.getByClass(item, 'delect_file')[0].style.display = 'none';
+        		_ajax_uploader.getByClass(item, '_ajax_upload_delete_file')[0].style.display = 'none';
         	}
         	
-        	_ajax_uploader.addClass(this._find(item, 'spinner'), 'error');
+        	_ajax_uploader.addClass(this._find(item, 'spinner'), 'upload-error');
         	
             _ajax_uploader.addClass(item, this._classes.fail);
-			_ajax_uploader.getByClass(item, 'delect_file')[0].style.display = 'none';
+			_ajax_uploader.getByClass(item, '_ajax_upload_delete_file')[0].style.display = 'none';
         }
         
         _ajax_uploader.removeClass(this._find(item, 'spinner'), this._classes.spinner); 
@@ -1363,20 +1365,19 @@ function _ajax_uploader_append_file(selecter, v)
     		url = v['thumb'];
     	}
     }
-    
-    var html = '<li>' +
-        '<span class="file_icon ' + v['class_name'] + '" '+(url==null || url=='' ? '' : 'style="background-image:url('+url+')"')+'></span>' +
-        '<p class="_ajax_upload-file i_loadname" title="' + v['file_name'] + '">' + (v['file_name']).substring(0,10) + '...</p>' +
-        '<p class="_ajax_upload-inset "><a href="' + v['delete_link'] + '" onclick="if (confirm(\'' + _t('确认删除?') + '\')) { _ajax_uploader_delete_attach(this.href, $(this).parent().parent()) } return false;" class="delect_file fr">' + _t('删除') + '</a>';
+        
+    var html = '<dl>' +
+        '<dt class="aw-icon upload-' + v['class_name'] + '" '+ (url==null || url=='' ? '' : 'style="background-image:url('+url+')"')+'></dt>' +
+        '<dd>' + 
+        '<p class="_ajax_upload-file aw-file-uploader-name" title="' + v['file_name'] + '">' + (v['file_name']).substring(0, 10) + '...</p>' +
+        '<p class="_ajax_upload-inset"><a href="' + v['delete_link'] + '" class="_ajax_upload_delete_file" onclick="if (confirm(\'' + _t('确认删除?') + '\')) { _ajax_uploader_delete_attach(this.href, $(this).parent().parent()) };">' + _t('删除') + '</a> ';
         
         if (typeof(v['thumb']) != 'undefined' && typeof(v['attach_id']) != 'undefined')
         {
-	        html += '<a href="javascript:;" onclick="insert_attach(this, ' + v['attach_id'] + ',\'' + v['attach_tag'] + '\')">' + _t('插入') + '</a></p>';
-        }else{
-			html += '</p>';
-		}
+	        html += '&nbsp; <a href="javascript:;" onclick="insert_attach(this, ' + v['attach_id'] + ',\'' + v['attach_tag'] + '\')">' + _t('插入') + '</a>';
+        }
        
-        html += '</li>';
+        html += '</p></dd></dl>';
 	
 	
 	$(selecter).append(html);
