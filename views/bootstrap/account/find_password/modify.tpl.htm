@@ -2,25 +2,29 @@
 
 <script type="text/javascript">
 	$(document).ready(function () {
-		$('#header_action').append('<?php _e('密码找回'); ?>');
+		$('#header_action').append('<?php _e('密码重置'); ?>');
 	});
 </script>
 
 <div class="aw-register-box">
-	<form class="aw-register-form" id="fpw_form" method="post" action="account/ajax/request_find_password/">
+	<form class="aw-register-form" id="fpw_form" method="post" action="account/ajax/find_password_modify/">
 		<ul>
 			<li class="error error-message hide">
 				<p><i class="aw-icon i-no"></i><em></em></p>
 			</li>
 			<li>
-				<input class="aw-register-email" type="text" placeholder="<?php _e('邮箱'); ?>" name="email" />
-			</li>
-			<li class="aw-register-verify">
-				<em class="auth-img pull-right"><img id="seccode" onclick="this.src = G_BASE_URL + '/account/captcha/' + Math.floor(Math.random() * 10000);" src=""></em>
-				<input type="text" name="seccode_verify" placeholder="<?php _e('验证码'); ?>"/>
+				<input class="aw-register-email" name="password" type="password" placeholder="<?php _e('密码'); ?>" />
 			</li>
 			<li>
-				<button class="pull-right btn btn-large btn-success" onclick="ajax_post($('#fpw_form'), _login_form_processer); return false;"><?php _e('下一步'); ?></button>
+				<input class="aw-register-email" name="re_password" type="text" placeholder="<?php _e('再次输入密码'); ?>" />
+			</li>
+			
+			<li class="aw-register-verify">
+				<em class="auth-img pull-right"><img id="seccode" onclick="this.src = G_BASE_URL + '/account/captcha/' + Math.floor(Math.random() * 10000);" src="" /></em>
+				<input type="text" name="seccode_verify" placeholder="<?php _e('验证码'); ?>" />
+			</li>
+			<li>
+				<button class="pull-right btn btn-large btn-success" onclick="ajax_post($('#fpw_form'), _login_form_processer); return false;"><?php _e('重置密码'); ?></button>
 			</li>
 		</ul>
 	</form>
@@ -61,7 +65,6 @@ function _login_form_processer(result)
 		}
 	}
 }
-
 </script>
 
 <?php TPL::output('global/footer_blank.tpl.htm'); ?>

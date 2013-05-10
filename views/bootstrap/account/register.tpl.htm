@@ -110,11 +110,6 @@ $(function(){
 <script type="text/javascript">
 	$(document).ready(function () {
 		$.get(G_BASE_URL + '/account/ajax/register_agreement/', function (result) { $('#register_agreement').html(result.err); }, 'json');
-		
-		if ($('#seccode').length)
-		{
-			$('#seccode').click();
-		}
 	});
 </script>
 

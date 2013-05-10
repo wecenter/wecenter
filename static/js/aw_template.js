@@ -6,7 +6,7 @@ var AW_TEMPLATE = {
 						'<a class="aw-user-img">'+
 							'<img src="img/user-img.jpg" alt="" title=""/>'+
 						'</a>'+
-						'<p>'+
+						'<p class="title">'+
 							'<a href="#">{{username}}</a>'+
 							'<i class="aw-icon i-v"></i>'+
 						'</p>'+
@@ -26,9 +26,32 @@ var AW_TEMPLATE = {
 					'</div>'+
 				'</div>'+
 			'</div>',
+	
+	'topicCard' : 
+			'<div id="aw-card-tips" class="aw-card-tips">'+
+				'<div class="aw-mod">'+
+					'<div class="aw-mod-head">'+
+						'<a class="aw-user-img">'+
+							'<img src="img/user-img.jpg" alt="" title=""/>'+
+						'</a>'+
+						'<p class="title">'+
+							'<a href="#">{{topicName}}</a>'+
+						'</p>'+
+						'<p>'+
+							'{{topicTitle}}'+
+						'</p>'+
+					'</div>'+
+					'<div class="aw-mod-footer">'+
+						'<span class="pull-right">'+
+							'问题数{{questionNum}} • 关注者{{followNum}}'+
+						'</span>'+
+						'<a class="btn btn-mini btn-success">关注</a>'+
+					'</div>'+
+				'</div>'+
+			'</div>',
 
 	'alertBox' : 
-			'<div id="aw-alert-box" class="modal hide fade aw-alert-box aw-tips-box" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'+
+			'<div class="modal hide fade alert-box aw-tips-box" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'+
 				'<div class="modal-header">'+
 					'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
 					'<h3 id="myModalLabel">提示信息</h3>'+
@@ -37,8 +60,30 @@ var AW_TEMPLATE = {
 					'<p><i class="aw-icon i-warmming"></i>{{message}}</p>'+
 				'</div>'+
 			'</div>',
+
+	'imagevideoBox' : 
+			'<div id="aw-image-box" class="modal alert-box aw-image-box" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">'+
+				'<div class="modal-header">'+
+					'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
+					'<h3 id="myModalLabel">{{title}}</h3>'+
+				'</div>'+
+				'<div class="modal-body">'+
+					'<form id="addTxtForms">'+
+						'<p>图片连接地址</p>'+
+						'<input type="text" value="http://" name="{{url}}" />'+
+						'<p>图片说明:</p>'+
+						'<input type="text" name="{{tips}}"/>'+
+					'</form>'+
+				'</div>'+
+				'<div class="modal-footer">'+
+					'<a data-dismiss="modal" aria-hidden="true" class="closeBox">取消</a>'+
+					'<button class="btn btn-large btn-success">确定</button>'+
+				'</div>'+
+			'</div>'+
+			'<div class="modal-backdrop fade in"></div>',
+
 	'editCommentBox' : 
-				'<div id="aw-edit-comment-box" class="modal hide fade aw-alert-box aw-edit-comment-box" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'+
+				'<div class="modal hide fade alert-box aw-edit-comment-box" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'+
 				'<div class="modal-header">'+
 					'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
 					'<h3 id="myModalLabel">编辑回复</h3>'+
@@ -49,7 +94,7 @@ var AW_TEMPLATE = {
 					'</form>'+
 					'<div class="aw-file-upload-box">'+
 						'<a class="aw-btn b-up-load"></a>'+
-						'<input type="file" class="aw-hide"/>'+
+						'<input type="file" class="hide"/>'+
 						'<!-- 上传附件模块 -->'+
 						'<div class="aw-file-uploader">'+
 							'<dl>'+
@@ -92,8 +137,26 @@ var AW_TEMPLATE = {
 				'</div>'+
 			'</div>',
 
+	'favoriteBox' : 
+			'<div class="modal hide fade alert-box aw-favorite-box" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'+
+				'<div class="modal-header">'+
+					'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
+					'<h3 id="myModalLabel">收藏</h3>'+
+				'</div>'+
+				'<div class="modal-body">'+
+					'<form>'+
+						'<p>添加话题标签: <input type="text" placeholder="搜索问题"/></p>'+
+						'<p>常用标签:</p>'+
+					'</form>'+
+				'</div>'+
+				'<div class="modal-footer">'+
+					'<a data-dismiss="modal" aria-hidden="true">取消</a>'+
+					'<button class="btn btn-large btn-success">发起</button>'+
+				'</div>'+
+			'</div>',
+
 	'questionRedirect' : 
-			'<div id="aw-question-redirect-box" class="modal hide fade aw-alert-box aw-question-redirect-box" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'+
+			'<div  class="modal hide fade alert-box aw-question-redirect-box" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'+
 				'<div class="modal-header">'+
 					'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
 					'<h3 id="myModalLabel">问题重定向至</h3>'+
@@ -108,7 +171,7 @@ var AW_TEMPLATE = {
 			'</div>',
 
 	'publishBox' : 
-			'<div id="aw-publish-box" class="modal hide fade aw-alert-box aw-publish-box" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'+
+			'<div class="modal hide fade alert-box aw-publish-box" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'+
 				'<div class="modal-header">'+
 					'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
 					'<h3 id="myModalLabel">发起问题</h3>'+
@@ -117,7 +180,7 @@ var AW_TEMPLATE = {
 					'<form>'+
 						'<textarea></textarea>'+
 						'<p><span class="aw-publish-box-supplement"><i class="aw-icon i-edit"></i>补充说明 »</span></p>'+
-						'<textarea class="aw-publish-box-supplement-content aw-hide"></textarea>'+
+						'<textarea class="aw-publish-box-supplement-content hide"></textarea>'+
 						'<div class="aw-publish-title-dropdown">'+
 							'<p class="dropdown-toggle" data-toggle="dropdown">'+
 								'<span id="aw-topic-tags-select">选择分类</span>'+
@@ -154,7 +217,7 @@ var AW_TEMPLATE = {
 			'</div>',
 
 	'shareBoxOutside' :
-			'<div class="modal hide fade aw-alert-box aw-share-box aw-share-box-outside" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'+
+			'<div class="modal hide fade alert-box aw-share-box aw-share-box-outside" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'+
 				'<div class="modal-header">'+
 					'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
 					'<h3 id="myModalLabel">分享答案</h3>'+
@@ -178,7 +241,7 @@ var AW_TEMPLATE = {
 								'</div>'+
 							'</div>'+
 							'<!-- end 站外 -->'+
-							'<div class="aw-item aw-hide">'+
+							'<div class="aw-item hide">'+
 								'<div class="modal-body">'+
 									'<form>'+
 										'<input type="text" placeholder="搜索用户"/>'+
@@ -195,7 +258,7 @@ var AW_TEMPLATE = {
 			'</div>',
 
 	'shareBoxMessage' : 
-			'<div class="modal hide fade aw-alert-box aw-share-box aw-share-box-message" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'+
+			'<div class="modal hide fade alert-box aw-share-box aw-share-box-message" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'+
 				'<div class="modal-header">'+
 					'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
 					'<h3 id="myModalLabel">分享答案</h3>'+
@@ -209,7 +272,7 @@ var AW_TEMPLATE = {
 					'<!-- tab切换内容 -->'+
 						'<div class="aw-share-box-tabs-content">'+
 							'<!-- 站外 -->'+
-							'<div class="aw-item aw-hide">'+
+							'<div class="aw-item hide">'+
 								'<div class="modal-body">'+
 									'<ul>'+
 									'{{#items}}'+
@@ -290,12 +353,14 @@ var AW_TEMPLATE = {
 			'</ul>',
 
 	'dropdownList' : 
-		'<ul aria-labelledby="dropdownMenu" role="menu" class="dropdown-menu">'+
-		'{{#items}}'+
-			'<li><a>{{name}}</a></li>'+
-		'{{/items}}'+
-		'<i class="aw-icon i-dropdown-triangle active"></i>'+
-		'</ul>',
+		'<div aria-labelledby="dropdownMenu" role="menu" class="dropdown-menu aw-dropdown-menu">'+
+			'<span><i class="aw-icon i-dropdown-triangle active"></i></span>'+
+			'<ul>'+
+			'{{#items}}'+
+				'<li><a>{{name}}</a></li>'+
+			'{{/items}}'+
+			'</ul>'+
+		'</div>',
 
 	'searchDropdownList' : 
 		'<ul aria-labelledby="dropdownMenu" role="menu" class="dropdown-menu aw-search-dropdown-list">'+
@@ -307,11 +372,11 @@ var AW_TEMPLATE = {
 
 	'voteBar' : 
 		'<div class="aw-vote-bar pull-left">'+
-			'<a class="aw-border-radius-5">'+
+			'<a class="aw-border-radius-5 {{up_active}}">'+
 				'<i data-original-title="赞同回复" class="aw-icon i-up active" data-toggle="tooltip" title="" data-placement="right"></i>'+
 			'</a>'+
 			'<em class="aw-border-radius-5 aw-vote-bar-count aw-hide-txt active">{{count}}</em>'+
-			'<a class="aw-border-radius-5">'+
+			'<a class="aw-border-radius-5 {{down_active}}">'+
 				'<i data-original-title="对回复持反对意见" class="aw-icon i-down" data-toggle="tooltip" title="" data-placement="right"></i>'+
 			'</a>'+
 		'</div>'
