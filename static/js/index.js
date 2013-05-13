@@ -203,30 +203,31 @@ function welcome_step_1_load()
 		dataUrl: G_BASE_URL + '/account/ajax/areas_json_data/'
 	});
 		
-	init_avatar_uploader($('#welcome_avatar_uploader'), $('#welcome_avatar_uploading_status'), $("#welcome_avatar_src"));
+	init_avatar_uploader($('#welcome_avatar_uploader'), $('#aw-img-uploading'), $("#aw-upload-img"));
+
 }
 
 function welcome_step_2_load()
 {
-	document.getElementById('xd_data').innerHTML = $('#welcome_step2').html();
+
+document.getElementById('xd_data').innerHTML = $('#welcome_step2').html();
 	
-	$('#welcome_step2').remove();
 	
 	$('#welcome_topics_list').html('<p style="padding: 15px 0" align="center"><img src="' + G_STATIC_URL + '/common/loading_b.gif" alt="" /></p>');
-		
-	$.get(G_BASE_URL + '/account/ajax/welcome_get_topics/', function (result) {
+	$('.aw-first-login').hide();
+	$('.aw-first-login').eq(1).show();
+		$.get(G_BASE_URL + '/account/ajax/welcome_get_topics/', function (result) {
 		$('#welcome_topics_list').html(result);
 	});
+
+
 }
 
 function welcome_step_3_load()
 {
-	document.getElementById('xd_data').innerHTML = $('#welcome_step3').html();
-	
-	$('#welcome_step3').remove();
-	
 	$('#welcome_users_list').html('<p style="padding: 15px 0" align="center"><img src="' + G_STATIC_URL + '/common/loading_b.gif" alt="" /></p>');
-		
+	$('.aw-first-login').hide();
+	$('.aw-first-login').eq(2).show();
 	$.get(G_BASE_URL + '/account/ajax/welcome_get_users/', function (result) {
 		$('#welcome_users_list').html(result);
 	});
@@ -235,6 +236,9 @@ function welcome_step_3_load()
 function welcome_step_finish()
 {
 	$('#xd_data, #xd_mask').remove();
+	$('#aw-ajax-box').html('');
+	$('.modal-backdrop').detach();
+	
 	
 	$.get(G_BASE_URL + '/account/ajax/clean_first_login/', function (result)
 	{
