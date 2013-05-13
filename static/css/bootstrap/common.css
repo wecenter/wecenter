@@ -772,7 +772,7 @@ select, input[type="file"]{height: 28px;line-height: 28px;}
 /*
 **	用户初次登陆提示box
 */
-.aw-first-login{width:594px;padding: 40px;background: #F5F5F5;}
+.aw-first-login{position:absolute;left:247px;width:594px;padding: 40px;background: #F5F5F5;}
 .aw-first-login .aw-mod-head h2{font-size: 20px;line-height: 20px;padding-bottom: 40px;}
 .aw-first-login .aw-mod-head ul{height: auto;overflow: hidden;background: #fff;border:1px solid #E3E3E3;border-radius: 10px;}
 .aw-first-login .aw-mod-head ul.active{background: #E7EFF3;}
@@ -782,6 +782,7 @@ select, input[type="file"]{height: 28px;line-height: 28px;}
 .aw-first-login .aw-mod-head ul li.active em{background: #fff;color: #999;}
 .aw-first-login .aw-complete-data{height: auto;overflow: hidden;margin:15px 0;padding:40px;background:#fff;border:1px solid #E3E3E3;border-radius:10px;font-size: 12px;}
 .aw-first-login .aw-complete-data .aw-complete-data-img{width: 100px;margin-right: 20px;}
+.aw-first-login .aw-complete-data .aw-complete-data-img p{height: auto;overflow: hidden;}
 .aw-first-login .aw-complete-data .aw-complete-data-img span{display:block;margin:5px 0 20px;text-align: right;color:#999;}
 .aw-first-login .aw-complete-data .aw-complete-data-img img{border-radius: 5px;}
 .aw-first-login .aw-complete-data label{display: inline;}
