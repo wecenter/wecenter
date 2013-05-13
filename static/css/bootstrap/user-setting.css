@@ -18,19 +18,27 @@
 .aw-user-setting-base .aw-user-setting-upload-img-box dd{width: 250px;}
 .aw-user-setting-base .aw-user-setting-upload-img-box h5{margin:0;}
 .aw-user-setting-base .aw-user-setting-upload-img-box p{margin-bottom:20px;}
-.aw-user-setting-base-contact li{display:inline-block;margin:0 18px 20px 0;color:#666;}
+.aw-user-setting-base .aw-user-setting-upload-img-box span {margin-left:10px;}
+.aw-user-setting-base .aw-user-setting-upload-img-box span .aw-loading{position:relative;top:4px;margin-right: 5px;}
+.aw-user-setting-base-contact li{display:inline-block;float:left;margin:0 6px 20px 0;color:#666;}
 .aw-user-setting-base-contact li input{width: 280px;margin:0;height:20px;line-height: 20px;}
 .aw-user-setting-base-contact label{display:inline-block;width: 80px;line-height: 30px;text-align: right;}
 /*账号绑定*/
 .aw-user-setting-bind .aw-mod-body{padding:30px 60px;border-bottom:1px dotted #C1CAD4;}
-.aw-user-setting-bind ul li{line-height: 36px;min-height: 36px;margin-bottom:10px;padding-bottom:10px;border-bottom:1px dotted #C1CAD4;color:#666;}
+.aw-user-setting-bind ul li{line-height: 36px;min-height: 36px;margin-bottom:10px;padding-top:10px;border-top:1px dotted #C1CAD4;color:#666;}
+.aw-user-setting-bind ul li:first-child{border-top: none;}
 /*我的积分*/
 .aw-user-setting-points table{margin:20px 0;font-size:13px;}
+.aw-user-setting-points table .info{background: #F5FAFE;}
+.aw-user-setting-points table .info th{border-top: none;}
+
 /*隐私*/
 .aw-user-setting-layout{padding:30px 60px;border-bottom:1px dotted #DFDFDF;}
 .aw-user-setting-layout label{display:inline-block;margin-right: 5px;}
 .aw-user-setting-layout p{width:520px;}
 .aw-user-setting-layout p > span{display: inline-block;width: 250px;line-height: 20px;padding-bottom: 15px;}
+.aw-user-setting-layout .work{width: 110px;}
+
 /*基本设置*/
 .aw-user-setting-base dl{height:auto;line-height: 25px;overflow:hidden;margin:0;padding-bottom: 15px;}
 .aw-user-setting-base dl dt, .aw-user-setting-base dl dd{float: left;line-height: 30px;}

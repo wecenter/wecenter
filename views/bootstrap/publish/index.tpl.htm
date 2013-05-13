@@ -118,7 +118,8 @@
 		});
 		
 		add_dropdown_list('.aw-publish-title-dropdown', eval('[' + category_data + ']'));
-		$(document).on('click','.aw-publish-title-dropdown li a',function(){
+		
+		$('.aw-publish-title-dropdown li a').click(function() {
 			$('#category_id').val($(this).attr('data-value'));
 		});
 	});
