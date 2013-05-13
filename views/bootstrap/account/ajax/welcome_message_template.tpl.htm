@@ -1,4 +1,4 @@
-<div class="modal aw-first-login hide">
+<div class="modal aw-first-login">
 	<div class="modal-body">
 		<div class="aw-mod">
 			<div class="aw-mod-head">
@@ -23,9 +23,11 @@
 				<form id="welcome_step_1_form" action="account/ajax/profile_setting/" method="post" onsubmit="return false">
 				<div class="aw-complete-data">
 					<div class="pull-left aw-complete-data-img">
-						<img src="<?php echo get_avatar_url($this->user_id, 'max'); ?>" title="" alt=""/>
+						<img id="aw-upload-img" src="<?php echo get_avatar_url($this->user_id, 'max'); ?>" title="" alt=""/>
 						<span><?php _e('支持 jpg、gif、png 等格式的图片'); ?></span>
-						<a class="btn btn-mini btn-success pull-right" id="welcome_avatar_uploader"><?php _e('上传头像'); ?></a> <span id="avatar_uploading_status" class="hide"><i class="aw-loading"></i> <?php _e('文件上传中...'); ?></span>
+						<p><a class="btn btn-mini btn-success pull-right clearfix" id="welcome_avatar_uploader"><?php _e('上传头像'); ?></a> </p>
+						<p id="aw-img-uploading" class="hide"><i class="aw-loading"></i><?php _e('文件上传中...'); ?></p>
+						
 					</div>
 					<div class="pull-left">
 						<ul>
@@ -70,18 +72,18 @@
 	</div>
 </div>
 
-<div class="modal aw-first-login">
+<div class="modal aw-first-login hide">
 	<div class="modal-body">
 		<div class="aw-mod">
 			<div class="aw-mod-head">
 				<h2>Hi，<?php echo $this->user_info['user_name']; ?>, <?php _e('欢迎来到'); ?> <?php echo get_setting('site_name'); ?></h2>
 				<ul>
 					<li class="active">
-						<i class="aw-icon i-login-step-triangle pull-right"></i>
 						<em>1</em>
 						<?php _e('完善基本资料'); ?>
 					</li>
 					<li class="active">
+						<i class="aw-icon i-login-step-triangle pull-right"></i>
 						<em>2</em>
 						<?php _e('关注热门话题'); ?>
 					</li>
@@ -111,7 +113,6 @@
 				<h2>Hi，<?php echo $this->user_info['user_name']; ?>, <?php _e('欢迎来到'); ?> <?php echo get_setting('site_name'); ?></h2>
 				<ul>
 					<li class="active">
-						<i class="aw-icon i-login-step-triangle pull-right"></i>
 						<em>1</em>
 						<?php _e('完善基本资料'); ?>
 					</li>
@@ -137,4 +138,5 @@
 		</div>
 	</div>
 </div>
+<div class="modal-backdrop fade in"></div>
 
