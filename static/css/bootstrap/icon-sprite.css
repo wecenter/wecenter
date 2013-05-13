@@ -2,8 +2,10 @@
   anwsion icon sprite
 
 */
+
 .aw-icon{display:inline-block;background-image: url(img/aw-icon-sprite.png);background-repeat: no-repeat;}
 .bds{display:inline-block;width:16px;height:16px;background-image: url(img/bds-icon-sprite.png);background-repeat: no-repeat;}
+.aw-loading{display:inline-block;width:16px;height:16px;background: url(img/ajax-loader.gif) no-repeat;}
 
 
 /*第一排*/
@@ -24,7 +26,7 @@
 .i-no{width:16px;height: 16px;background-position: -225px 0;}
 .i-key{width:16px;height: 8px;background-position: -250px 0;}
 .i-logout{width:12px;height: 13px;background-position: -275px 0;}
-.i-share-user{width:16px;height: 16px;background-position: -295px 0;position:relative;top:3px;}
+.i-share-user{width:16px;height: 16px;background-position: -295px 0;position:relative;top:3px;*top:0;}
 .i-v{width:15px;height: 12px;background-position: -320px 0;}
 .i-star-mini{width:12px;height: 13px;background-position: -360px 0;}
 .i-new-user{width:20px;height: 20px;background-position: -460px 0;}
@@ -33,6 +35,7 @@
 .i-private-replay-triangle{width: 8px;height: 10px;background-position: -450px 0;}
 .i-dropdown-triangle{width:13px;height:6px;background-position: -420px 0;}
 .i-comment-triangle{width:15px;height: 7px;background-position: -515px 0;}
+.i-register-triangle{width: 13px;height: 6px;background-position: -534px 0;}
 
 /*第二排*/
 .i-user-integral{width:14px;height: 11px;background-position: 0 -30px;*position:relative;*top:-2px;}
@@ -45,7 +48,7 @@
 .i-sina{width:17px;height: 13px;background-position: -140px -30px;}
 .i-qq{width:15px;height: 16px;background-position: -160px -30px;}
 .i-weixin{width:16px;height: 16px;background-position: -219px -30px;}
-.i-message{width:15px;height: 10px;background-position: -180px -30px;}
+.i-message{width:15px;height: 10px;background-position: -180px -30px;*position: relative;*top:-2px;}
 .i-email{width:14px;height: 13px;background-position: -200px -30px;}
 .i-err{width: 14px;height: 14px;background-position: -241px -31px;}
 .i-upload-file{width: 14px;height: 14px;background-position: -340px 0;position: relative;top:2px;}
@@ -136,6 +139,7 @@
 .i-triangle-down-mini{width:6px;height: 4px;background-position: -410px 0;}
 .i-login-step-triangle{width: 16px;height: 46px;background-position: -80px -310px;}
 .i-login-step-triangle.active{background-position: -59px -310px;}
+
 
 
 .bds-qzone{background-position: -4px -80px;}

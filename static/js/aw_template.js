@@ -216,6 +216,24 @@ var AW_TEMPLATE = {
 				'</div>'+
 			'</div>',
 
+	'inbox' :
+			'<div class="modal hide fade alert-box aw-inbox" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'+
+				'<div class="modal-header">'+
+					'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
+					'<h3 id="myModalLabel">新私信</h3>'+
+				'</div>'+
+				'<div class="modal-body">'+
+					'<form>'+
+						'<input type="text" placeholder="搜索用户"/>'+
+						'<textarea></textarea>'+
+					'</form>'+
+				'</div>'+
+				'<div class="modal-footer">'+
+					'<a data-dismiss="modal" aria-hidden="true">取消</a>'+
+					'<button class="btn btn-large btn-success">发送</button>'+
+				'</div>'+
+			'</div>',
+
 	'shareBoxOutside' :
 			'<div class="modal hide fade alert-box aw-share-box aw-share-box-outside" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'+
 				'<div class="modal-header">'+
@@ -323,22 +341,22 @@ var AW_TEMPLATE = {
 			'</div>',
 
 	'commentBox' : 
-			'<div class="aw-comment-box">'+
-				'<div class="aw-comment-list"></div>'+
-				'<form>'+
+			'<div class="aw-comment-box" id="{{comment_form_id}}">'+
+				'<div class="aw-comment-list"><p align="center" class="aw-padding10"><i class="aw-loading"></i></p></div>'+
+				'<form action="{{comment_form_action}}" method="post" onsubmit="return false">'+
 					'<div class="aw-comment-box-main">'+
-						'<textarea class="aw-comment-txt" placeholder="评论一下..."></textarea>'+
+						'<textarea class="aw-comment-txt" name="message" placeholder="' + _t('评论一下') + '..."></textarea>'+
 						'<div class="aw-comment-box-btn">'+
 							'<span class="pull-right">'+
-								'<a class="btn btn-mini btn-success">评论</a>'+
-								'<a class="btn btn-mini close-comment-box">取消</a>'+
+								'<a href="javascript:;" class="btn btn-mini btn-success" onclick="save_comment(this);">' + _t('评论') + '</a>'+
+								'<a href="javascript:;" class="btn btn-mini close-comment-box">' + _t('取消') + '</a>'+
 							'</span>'+
 						'</div>'+
 					'</div>'+
 				'</form>'+
 				'<i class="aw-icon i-comment-triangle"></i>'+
 			'</div>',
-	'commentList' : 
+	/*'commentList' : 
 			'<ul>'+
 				'{{#items}}'+
 					'<li>'+
@@ -350,7 +368,7 @@ var AW_TEMPLATE = {
 						'<p>{{commentTxt}}</p>'+
 					'</li>'+
 				'{{/items}}'+
-			'</ul>',
+			'</ul>',*/
 
 	'dropdownList' : 
 		'<div aria-labelledby="dropdownMenu" role="menu" class="dropdown-menu aw-dropdown-menu">'+
@@ -379,7 +397,51 @@ var AW_TEMPLATE = {
 			'<a class="aw-border-radius-5 {{down_active}}">'+
 				'<i data-original-title="对回复持反对意见" class="aw-icon i-down" data-toggle="tooltip" title="" data-placement="right"></i>'+
 			'</a>'+
-		'</div>'
+		'</div>',
+
+	'educateInsert' :
+			'<td class="e1" data-txt="{{school}}">{{school}}</td>'+
+			'<td class="e2" data-txt="{{college}}">{{college}}</td>'+
+			'<td class="e3" data-txt="{{year}}">{{year}}年</td>'+
+			'<td><a class="delete-educate">删除</a>&nbsp;&nbsp;<a class="edit-educate">编辑</a></td>',
+
+	'educateEdit' : 
+			'<td><input type="text" value="{{school}}" class="school"></td>'+
+			'<td><input type="text" value="{{college}}" class="college"></td>'+
+			'<td><select class="edityear">'+
+					'<option value="1991">1991</option>'+
+					'<option value="1992">1992</option>'+
+					'<option value="1993">1993</option>'+
+				'</select> 年</td>'+
+			'<td><a class="delete-educate">删除</a>&nbsp;&nbsp;<a class="save-educate">保存</a></td>',
+
+	'workInsert' : 
+			'<td class="w1" data-txt="{{company}}">{{company}}</td>'+
+			'<td class="w2" data-txt="{{work}}">{{work}}</td>'+
+			'<td class="w3" data-s-val="{{syear}}" data-e-val="{{eyear}}">{{syear}} 年 至 {{eyear}}</td>'+
+			'<td><a class="delete-work">删除</a>&nbsp;&nbsp;<a class="edit-work">编辑</a></td>',
+
+	'workEidt' : 
+			'<td><input type="text" value="{{company}}" class="company"></td>'+
+			'<td>'+
+				'<select class="work editwork">'+
+					'<option value="前端工程师">前端工程师</option>'+
+					'<option value="ui">ui</option>'+
+					'<option value="ai">ai</option>'+
+				'</select>'+
+			'</td>'+
+			'<td><select class="editsyear">'+
+					'<option value="1991">1991</option>'+
+					'<option value="1992">1992</option>'+
+					'<option value="1993">1993</option>'+
+				'</select>&nbsp;&nbsp;年 &nbsp;&nbsp; 至&nbsp;&nbsp;&nbsp;&nbsp;'+
+				'<select class="editeyear">'+
+					'<option value="1991">1991</option>'+
+					'<option value="1992">1992</option>'+
+					'<option value="1993">1993</option>'+
+				'</select> 年'+
+			'</td>'+
+			'<td><a class="delete-work">删除</a>&nbsp;&nbsp;<a class="save-work">保存</a></td>'
 
 
 }

@@ -506,11 +506,20 @@ select, input[type="file"]{height: 28px;line-height: 28px;}
 /*邀请我回答的话题*/
 .aw-my-question-invite .aw-item:hover .aw-new-message-tips-close{display: block;}
 /*私信*/
-.aw-my-inbox .aw-setting-inbox{;margin-right: 10px;padding:3px 0;font-size: 13px;font-weight: normal;color:#999;}
+.aw-my-inbox .aw-mod-head h2 span, .aw-my-notifications .aw-mod-head h2 span{margin-right: 10px;padding:3px 0;font-size: 13px;font-weight: normal;color:#999;}
 .aw-my-inbox .aw-mod-body{padding:0;}
 .aw-my-inbox .aw-item{position: relative;padding:15px 0 15px 40px;}
+.aw-my-inbox .aw-item.active{width:640px;margin-left:-20px;padding:15px 0 15px 60px;background: #FEFAB1;}
+.aw-my-inbox .aw-item.active .aw-user-img{left:20px;}
+.aw-my-inbox .aw-item.active  .aw-text-color-999 .pull-right{margin-right: 20px;}
 .aw-my-inbox .aw-item .aw-user-img{position: absolute;left: 0;top: 0;margin-top:15px;width: 32px;height: 32px;}
 .aw-my-inbox .aw-item p{margin:0;}
+/*通知*/
+.aw-my-notifications .aw-mod-body ul{padding: 0 20px;}
+.aw-my-notifications .aw-mod-body ul li{padding: 15px 0;line-height: 15px;border-top: 1px dotted #C1CAD4;}
+.aw-my-notifications .aw-mod-body ul li:first-child{border-top: none;}
+.aw-my-notifications .aw-mod-body ul li.active{font-weight: bold;}
+.aw-my-notifications .aw-mod-body ul li.active span{color: #999;font-weight: normal;}
 /*私信对话*/
 .aw-my-private-letter h2 a{font-size: 13px;font-weight: normal;}
 .aw-mod-private-replay-box{position: relative;padding:15px 42px 15px 52px;}
@@ -522,14 +531,14 @@ select, input[type="file"]{height: 28px;line-height: 28px;}
 .aw-mod-private-replay-list li{position: relative;padding:15px 52px;}
 .aw-mod-private-replay-list li p{margin:0;}
 .aw-mod-private-replay-list li .aw-item{position:relative;padding:12px 15px;background: #FAFAFA;border:1px solid #E6E6E6;border-radius: 5px;}
+.aw-mod-private-replay-list li .aw-item p:first-child{margin-bottom: 10px;}
 .aw-mod-private-replay-list li .aw-user-img{position: absolute;right: 0;top: 15px;}
 .aw-mod-private-replay-list li .aw-user-img img{border-radius: 5px;}
 .aw-mod-private-replay-list li .i-private-replay-triangle{position: absolute;right: -9px;top: 10px;border-left:1px solid #FAFAFA;}
-.aw-mod-private-replay-list li .aw-replay{display: none;}
 .aw-mod-private-replay-list li.active .aw-item{background: #F5FAFE;border:1px solid #DCECF9;}
 .aw-mod-private-replay-list li.active .aw-user-img{left:0;}
 .aw-mod-private-replay-list li.active .i-private-replay-triangle{background-position: -439px 0;left:-9px;border-left:none;border-right: 1px solid #F5FAFE;}
-.aw-mod-private-replay-list li.active .aw-replay{display: block;}
+
 /*邀请好友加入社区*/
 .aw-mod-invite-friend .aw-invite-box{width: 400px;margin:0 auto;padding:40px 0;}
 .aw-mod-invite-friend .aw-invite-box p{line-height:26px;text-align: right;color:#666;}
@@ -707,7 +716,7 @@ select, input[type="file"]{height: 28px;line-height: 28px;}
 
 
 /*bs弹窗*/
-.aw-share-box, .aw-publish-box, .aw-message-box, .aw-question-redirect-box{width: 450px;}
+.aw-share-box, .aw-publish-box, .aw-message-box, .aw-question-redirect-box, .aw-inbox{width: 450px;}
 /*警告提示box*/
 .aw-tips-box, .aw-image-box{width: 350px;}
 .aw-tips-box .i-warmming{margin-right:10px;vertical-align: middle;}
@@ -720,13 +729,13 @@ select, input[type="file"]{height: 28px;line-height: 28px;}
 .aw-share-box .aw-share-box-tabs-content li{display: inline-block;float:left;}
 .aw-share-box .aw-share-box-tabs-content li a{display:inline-block;width: 80px;line-height: 16px;margin-bottom: 15px;font-size:12px;}
 .aw-share-box .aw-share-box-tabs-content li a .bds{position: relative;top:3px;margin-right: 5px;}
-.aw-share-box .aw-share-box-tabs-content input, .aw-message-box input, .aw-question-redirect-box input{width: 406px;height:30px;line-height: 30px;}
-.aw-share-box .aw-share-box-tabs-content .btn, .aw-message-box .btn, .aw-publish-box .modal-footer .btn, .aw-edit-comment-box .modal-footer .btn, .aw-image-box .modal-footer .btn{margin-left:10px;}
+.aw-share-box .aw-share-box-tabs-content input, .aw-message-box input, .aw-question-redirect-box input, .aw-inbox input{width: 406px;height:30px;line-height: 30px;}
+.aw-share-box .aw-share-box-tabs-content .btn, .aw-message-box .btn, .aw-publish-box .modal-footer .btn, .aw-edit-comment-box .modal-footer .btn, .aw-image-box .modal-footer .btn, .aw-inbox .modal-footer .btn{margin-left:10px;}
 .aw-publish-box .modal-footer a{margin:0 0 0 5px;}
 .aw-publish-box .modal-footer a.pull-left{margin-top:2px;}
 /*发起box*/
 .aw-publish-box .modal-body{overflow-y:visible;}
-.aw-publish-box textarea, .aw-share-box textarea, .aw-message-box textarea{width:406px;height:60px;min-height: 60px;color:#999;}
+.aw-publish-box textarea, .aw-share-box textarea, .aw-message-box textarea, .aw-inbox textarea{width:406px;height:60px;min-height: 60px;color:#999;}
 .aw-publish-box .aw-publish-box-supplement{font-size:12px;color:#999;cursor: pointer;}
 .aw-publish-box .aw-publish-box-supplement .i-edit{margin-right: 5px;}
 .aw-publish-box .aw-publish-box-supplement-content{min-height: 100px;}
