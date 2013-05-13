@@ -375,7 +375,7 @@ var AW_TEMPLATE = {
 			'<span><i class="aw-icon i-dropdown-triangle active"></i></span>'+
 			'<ul>'+
 			'{{#items}}'+
-				'<li><a>{{name}}</a></li>'+
+				'<li><a data-value="{{value}}">{{name}}</a></li>'+
 			'{{/items}}'+
 			'</ul>'+
 		'</div>',
