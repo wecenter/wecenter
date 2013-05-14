@@ -1,28 +1,1 @@
-<div class="aw-side-bar-mod aw-text-align-justify aw-no-border-bottom">
-	<div class="aw-side-bar-mod-head">
-		<h3><?php _e('热门用户'); ?></h3>
-	</div>
-	<div class="aw-side-bar-mod-body">
-		<?php if (is_array($this->sidebar_hot_users)) { ?>
-		<?php foreach($this->sidebar_hot_users AS $key => $val) {?>		
-		<dl>
-			<dt class="pull-left aw-border-radius-5">
-				<a href="people/<?php echo $val['url_token']; ?>"><img alt="" src="<?php echo get_avatar_url($val['uid'], 'mid'); ?>" /></a>
-			</dt>
-			<dd class="pull-left">
-				<a href="people/<?php echo $val['url_token']; ?>" class="aw-user-name"><?php echo $val['user_name']; ?></a><i data-placement="bottom" title="" data-toggle="tooltip" class="aw-icon i-follow" data-original-title="加关注"></i>
-				<p><?php _e('回复了'); ?> <?php _e('%s 个问题', '<b>' . $val['answer_count'] . '</b>'); ?>, <?php _e('获得'); ?> <?php _e('%s 次赞同', '<b>' . $val['agree_count'] . '</b>'); ?></p>
-			</dd>
-		</dl>
-		<?php } ?>
-		<?php } ?>
-		<dl>
-			<dt class="pull-left aw-border-radius-5">
-				
-			</dt>
-			<dd class="pull-left">
-				<a href="people/list/" class="btn btn-small btn-success"><?php _e('更多用户'); ?></a>
-			</dd>
-		</dl>
-	</div>
-</div>
+<div class="aw-side-bar-mod aw-text-align-justify aw-no-border-bottom">	<div class="aw-side-bar-mod-head">		<h3><?php _e('热门用户'); ?></h3>	</div>	<div class="aw-side-bar-mod-body">		<?php if (is_array($this->sidebar_hot_users)) { ?>		<?php foreach($this->sidebar_hot_users AS $key => $val) {?>				<dl>			<dt class="pull-left aw-border-radius-5">				<a href="people/<?php echo $val['url_token']; ?>"><img alt="" src="<?php echo get_avatar_url($val['uid'], 'mid'); ?>" /></a>			</dt>			<dd class="pull-left">				<a href="people/<?php echo $val['url_token']; ?>" class="aw-user-name"><?php echo $val['user_name']; ?></a>				<p><?php _e('回复了'); ?> <?php _e('%s 个问题', '<b>' . $val['answer_count'] . '</b>'); ?>, <?php _e('获得'); ?> <?php _e('%s 次赞同', '<b>' . $val['agree_count'] . '</b>'); ?></p>			</dd>		</dl>		<?php } ?>		<?php } ?>		<dl>			<dt class="pull-left aw-border-radius-5">							</dt>			<dd class="pull-left">				<a href="people/list/" class="btn btn-small btn-success"><?php _e('更多用户'); ?></a>			</dd>		</dl>	</div></div>

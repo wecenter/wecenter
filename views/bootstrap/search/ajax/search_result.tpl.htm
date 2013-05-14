@@ -1,26 +1,1 @@
-<?php if ($this->search_result) { ?>
-<?php foreach ($this->search_result AS $key => $val) { ?>
-<div class="aw-item<?php if ($val['type'] == 1) { ?> active<?php } ?>">
-	<?php if ($val['type'] == 2) { ?>
-	<a href="<?php echo $val['url']; ?>" class="aw-user-img"><img src="<?php echo $val['detail']['topic_pic']; ?>" alt="" /></a>
-	<?php } else if ($val['type'] == 3) { ?>
-	<a href="<?php echo $val['url']; ?>" class="aw-user-img"><img src="<?php echo get_avatar_url($val['sno'], 'mid'); ?>" alt="" /></a>
-	<?php } ?>
-	<p class="aw-title">
-		<a href="<?php echo $val['url']; ?>" target="_blank"><?php if ($val['detail']['best_answer'] > 0 AND $val['type'] == 1) { ?><i class="aw-icon i-star-mini"></i> <?php } ?><?php echo $val['name']; ?></a>
-	</p>
-	<p class="aw-hide-text aw-text-color-666">
-		<?php if ($val['type'] == 1) { ?>
-		<a class="aw-search-result-tags"><?php _e('问题'); ?></a> <?php _e('%s 个回复', $val['detail']['answer_count']); ?> • <?php _e('%s 人关注', $val['detail']['focus_count']); ?>
-		<?php } else if ($val['type'] == 2) { ?>
-		<a class="aw-search-result-tags"><?php _e('话题'); ?></a> <?php _e('%s 个问题', $val['detail']['discuss_count']); ?> • <?php _e('%s 人关注', $val['detail']['focus_count']); ?>
-		<?php } else if ($val['type'] == 3) { ?>
-		<a class="aw-search-result-tags"><?php _e('用户'); ?></a> <?php echo $val['detail']['reputation']; ?> <?php _e('威望'); ?> • <?php _e('%s 次赞同', $val['detail']['agree_count']); ?> • <?php echo $val['detail']['thanks_count']; ?> <?php _e('感谢'); ?> • <?php echo $val['detail']['focus_count']; ?> <?php _e('关注'); ?>
-		<?php } ?>
-	</p>
-	<?php if ($this->user_id) { ?>
-		<a class="btn btn-mini aw-btn-follow<?php if (!$val['focus']) { ?> btn-success<?php } ?>"><?php if ($val['focus']) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?></a>
-	<?php } ?>
-</div>
-<?php } ?>
-<?php } ?>
+<?php if ($this->search_result) { ?><?php foreach ($this->search_result AS $key => $val) { ?><div class="aw-item<?php if ($val['type'] == 1) { ?> active<?php } ?>">	<?php if ($val['type'] == 2) { ?>	<a href="<?php echo $val['url']; ?>" class="aw-user-img"><img src="<?php echo $val['detail']['topic_pic']; ?>" alt="" /></a>	<?php } else if ($val['type'] == 3) { ?>	<a href="<?php echo $val['url']; ?>" class="aw-user-img"><img src="<?php echo get_avatar_url($val['sno'], 'mid'); ?>" alt="" /></a>	<?php } ?>	<p class="aw-title">		<a href="<?php echo $val['url']; ?>" target="_blank"><?php if ($val['detail']['best_answer'] > 0 AND $val['type'] == 1) { ?><i class="aw-icon i-star-mini"></i> <?php } ?><?php echo $val['name']; ?></a>	</p>	<p class="aw-hide-text aw-text-color-666">		<?php if ($val['type'] == 1) { ?>		<a class="aw-search-result-tags"><?php _e('问题'); ?></a> <?php _e('%s 个回复', $val['detail']['answer_count']); ?> • <?php _e('%s 人关注', $val['detail']['focus_count']); ?>		<?php } else if ($val['type'] == 2) { ?>		<a class="aw-search-result-tags"><?php _e('话题'); ?></a> <?php _e('%s 个问题', $val['detail']['discuss_count']); ?> • <?php _e('%s 人关注', $val['detail']['focus_count']); ?>		<?php } else if ($val['type'] == 3) { ?>		<a class="aw-search-result-tags"><?php _e('用户'); ?></a> <?php echo $val['detail']['reputation']; ?> <?php _e('威望'); ?> • <?php _e('%s 次赞同', $val['detail']['agree_count']); ?> • <?php echo $val['detail']['thanks_count']; ?> <?php _e('感谢'); ?> • <?php echo $val['detail']['focus_count']; ?> <?php _e('关注'); ?>		<?php } ?>	</p>	<?php if ($this->user_id) { ?>		<a href="javascript" onclick="<?php if ($val['type'] == 1) { ?>focus_question<?php } else if ($val['type'] == 2) { ?>focus_topic<?php } else { ?>follow_people<?php } ?>($(this), <?php echo $val['sno']; ?>);" class="btn btn-mini aw-btn-follow<?php if (!$val['focus']) { ?> active<?php } ?>"><?php if ($val['focus']) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?></a>	<?php } ?></div><?php } ?><?php } ?>

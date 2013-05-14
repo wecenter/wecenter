@@ -363,8 +363,6 @@ class system_class extends AWS_MODEL
 	
 	public function analysis_keyword($string)
 	{
-		$string = str_replace(array("~", "!", "@", "#", "$", "%", "^", "&", "*", ",", ".", "?", ";", ":", "'", '"', "[", "]", "{", "}", "！", " ￥", "……", "…", "、", "，", "。", "？", "；", "：", "‘", "“", "”", "’", "【", "】", "～", "！", "＠", "＃", "＄", "％", "＾", "＆", "＊", "，", "．", " ＜", "＞", "；", "：", "＇", "＂", "［", "］", "｛", "｝", "／", "＼"), '', $string);
-		
 		$analysis = load_class('Services_Phpanalysis_Phpanalysis');
 		
 		$analysis->SetSource(strtolower($string));

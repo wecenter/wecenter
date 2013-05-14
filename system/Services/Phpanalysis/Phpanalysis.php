@@ -473,77 +473,7 @@ class Services_Phpanalysis_Phpanalysis
 							$this->_deep_analysis($onstr, $lastc, $s, $optimize);
 						$s ++;
 					}
-					
-					//检测书名
-					if ($cn == 0x300A)
-					{
-						$tmpw = '';
-						$n = 1;
-						$isok = false;
-						$ew = chr(0x30) . chr(0x0B);
-						while (true)
-						{
-							$w = $this->sourceString[$i + $n] . $this->sourceString[$i + $n + 1];
-							if ($w == $ew)
-							{
-								$this->simpleResult[$s]['w'] = $c;
-								$this->simpleResult[$s]['t'] = 5;
-								$s ++;
-								
-								$this->simpleResult[$s]['w'] = $tmpw;
-								$this->newWords[$tmpw] = 1;
-								if (! isset($this->newWords[$tmpw]))
-								{
-									$this->foundWordStr .= $this->_out_string_encoding($tmpw) . '/nb, ';
-									$this->SetWordInfos($tmpw, array(
-										'c' => 1, 
-										'm' => 'nb'
-									));
-								}
-								$this->simpleResult[$s]['t'] = 13;
-								
-								$s ++;
-								
-								//最大切分模式对书名继续分词
-								if ($this->differMax)
-								{
-									$this->simpleResult[$s]['w'] = $tmpw;
-									$this->simpleResult[$s]['t'] = 21;
-									$this->_deep_analysis($tmpw, $lastc, $s, $optimize);
-									$s ++;
-								}
-								
-								$this->simpleResult[$s]['w'] = $ew;
-								$this->simpleResult[$s]['t'] = 5;
-								$s ++;
-								
-								$i = $i + $n + 1;
-								$isok = true;
-								$onstr = '';
-								$lastc = 5;
-								break;
-							}
-							else
-							{
-								$n = $n + 2;
-								$tmpw .= $w;
-								if (strlen($tmpw) > 60)
-								{
-									break;
-								}
-							}
-						} //while
-						if (! $isok)
-						{
-							$this->simpleResult[$s]['w'] = $c;
-							$this->simpleResult[$s]['t'] = 5;
-							$s ++;
-							$onstr = '';
-							$lastc = 5;
-						}
-						continue;
-					}
-					
+										
 					$onstr = '';
 					$lastc = 5;
 					if ($cn == 0x3000)
