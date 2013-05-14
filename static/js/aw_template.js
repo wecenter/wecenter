@@ -356,19 +356,6 @@ var AW_TEMPLATE = {
 				'</form>'+
 				'<i class="aw-icon i-comment-triangle"></i>'+
 			'</div>',
-	/*'commentList' : 
-			'<ul>'+
-				'{{#items}}'+
-					'<li>'+
-						'<a class="aw-user-name"><img src="img/user-img.jpg" alt="" title=""/></a>'+
-						'<p>'+
-							'<span class="pull-right"><a>删除</a> <a>回复</a></span>'+
-							'<a class="aw-user-name">im3e</a>'+
-						'</p>'+
-						'<p>{{commentTxt}}</p>'+
-					'</li>'+
-				'{{/items}}'+
-			'</ul>',*/
 
 	'dropdownList' : 
 		'<div aria-labelledby="dropdownMenu" role="menu" class="dropdown-menu aw-dropdown-menu">'+
