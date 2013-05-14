@@ -175,22 +175,6 @@ function _welcome_step_1_form_processer(result)
 
 function welcome_step_1_load()
 {
-	var elem_mask = document.createElement('div');
-	var height = Math.max(document.body.clientHeight,document.documentElement.scrollHeight,document.body.scrollHeight);
-	var width =  Math.max(document.body.clientWidth,document.documentElement.scrollWidth,document.body.scrollWidth);
-	elem_mask.style.cssText = 'width:'+width+'px;height:'+height+'px';
-	elem_mask.className = 'i_mask i_pas i_alpha_login';
-	elem_mask.id = 'xd_mask';
-	document.body.appendChild(elem_mask);
-	
-	var elem_data = document.createElement('div');
-	elem_data.id = 'xd_data';
-	document.body.appendChild(elem_data);
-	
-	document.getElementById('xd_data').innerHTML = $('#welcome_step1').html();
-	
-	$('#welcome_step1').remove();
-	
 	$(".select_area").LocationSelect({
         labels: ["请选择省份或直辖市", "请选择城市"],
         
@@ -209,14 +193,9 @@ function welcome_step_1_load()
 
 function welcome_step_2_load()
 {
-
-document.getElementById('xd_data').innerHTML = $('#welcome_step2').html();
-	
-	
 	$('#welcome_topics_list').html('<p style="padding: 15px 0" align="center"><img src="' + G_STATIC_URL + '/common/loading_b.gif" alt="" /></p>');
-	$('.aw-first-login').hide();
-	$('.aw-first-login').eq(1).show();
-		$.get(G_BASE_URL + '/account/ajax/welcome_get_topics/', function (result) {
+	$('.aw-first-login').hide().siblings().eq(1).show();
+	$.get(G_BASE_URL + '/account/ajax/welcome_get_topics/', function (result) {
 		$('#welcome_topics_list').html(result);
 	});
 
@@ -226,8 +205,7 @@ document.getElementById('xd_data').innerHTML = $('#welcome_step2').html();
 function welcome_step_3_load()
 {
 	$('#welcome_users_list').html('<p style="padding: 15px 0" align="center"><img src="' + G_STATIC_URL + '/common/loading_b.gif" alt="" /></p>');
-	$('.aw-first-login').hide();
-	$('.aw-first-login').eq(2).show();
+		$('.aw-first-login').hide().siblings().eq(2).show();
 	$.get(G_BASE_URL + '/account/ajax/welcome_get_users/', function (result) {
 		$('#welcome_users_list').html(result);
 	});
@@ -235,11 +213,8 @@ function welcome_step_3_load()
 
 function welcome_step_finish()
 {
-	$('#xd_data, #xd_mask').remove();
 	$('#aw-ajax-box').html('');
 	$('.modal-backdrop').detach();
-	
-	
 	$.get(G_BASE_URL + '/account/ajax/clean_first_login/', function (result)
 	{
 		//window.location = G_BASE_URL + '/home/';
