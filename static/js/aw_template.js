@@ -390,11 +390,11 @@ var AW_TEMPLATE = {
 
 	'voteBar' : 
 		'<div class="aw-vote-bar pull-left">'+
-			'<a class="aw-border-radius-5 {{up_active}}">'+
+			'<a class="aw-border-radius-5 {{up_class}}" href="javascript:;" onclick="agreeVote(this, \'{{user_name}}\', {{answer_id}})">'+
 				'<i data-original-title="赞同回复" class="aw-icon i-up active" data-toggle="tooltip" title="" data-placement="right"></i>'+
 			'</a>'+
-			'<em class="aw-border-radius-5 aw-vote-bar-count aw-hide-txt active">{{count}}</em>'+
-			'<a class="aw-border-radius-5 {{down_active}}">'+
+			'<em class="aw-border-radius-5 aw-vote-bar-count aw-hide-txt active">{{agree_count}}</em>'+
+			'<a class="aw-border-radius-5 {{down_class}}" onclick="disagreeVote(this, \'{{user_name}}\', {{answer_id}})">'+
 				'<i data-original-title="对回复持反对意见" class="aw-icon i-down" data-toggle="tooltip" title="" data-placement="right"></i>'+
 			'</a>'+
 		'</div>',
