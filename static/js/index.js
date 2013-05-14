@@ -188,6 +188,11 @@ function welcome_step_1_load()
 	});
 		
 	init_avatar_uploader($('#welcome_avatar_uploader'), $('#aw-img-uploading'), $("#aw-upload-img"));
+	
+	//给box定位
+	$('.aw-first-login').css({
+		left : $(window).width()/2 - ($('.aw-first-login').width()+42)/2
+	});
 
 }
 
