@@ -86,6 +86,7 @@ input[type="radio"], input[type="checkbox"]{margin:0;}
 label{margin:0;}
 form{margin:0;}
 select, input[type="file"]{*height: 26px;*line-height: 26px;height: 26px\0;line-height: 26px\0;}
+select{width:auto;}
 .modal-backdrop, .modal-backdrop.fade.in{filter:alpha(opacity=20);opacity: 0.2; }
 .modal{margin-left:0;left:30%;}
 button.close{width: 20px;height: 20px;}
@@ -772,11 +773,11 @@ select, input[type="file"]{height: 28px;line-height: 28px;}
 /*
 **	用户初次登陆提示box
 */
-.aw-first-login{position:absolute;left:247px;width:594px;padding: 40px;background: #F5F5F5;}
+.aw-first-login{position:absolute;left:247px;width:596px;padding: 40px;background: #F5F5F5;}
 .aw-first-login .aw-mod-head h2{font-size: 20px;line-height: 20px;padding-bottom: 40px;}
 .aw-first-login .aw-mod-head ul{height: auto;overflow: hidden;background: #fff;border:1px solid #E3E3E3;border-radius: 10px;}
 .aw-first-login .aw-mod-head ul.active{background: #E7EFF3;}
-.aw-first-login .aw-mod-head ul li{display: inline;float: left;width: 167px;height:46px;line-height:46px;padding-left:20px;}
+.aw-first-login .aw-mod-head ul li{display: inline;float: left;width: 168px;height:46px;line-height:46px;padding-left:20px;}
 .aw-first-login .aw-mod-head ul li em{display:inline-block;width: 25px;height: 25px;line-height: 25px;margin-right:10px;background: #E6E6E6;color:#fff;border-radius: 30px;text-align: center;}
 .aw-first-login .aw-mod-head ul li.active{background: #E7EFF3;}
 .aw-first-login .aw-mod-head ul li.active em{background: #fff;color: #999;}
@@ -786,12 +787,11 @@ select, input[type="file"]{height: 28px;line-height: 28px;}
 .aw-first-login .aw-complete-data .aw-complete-data-img span{display:block;margin:5px 0 20px;text-align: right;color:#999;}
 .aw-first-login .aw-complete-data .aw-complete-data-img img{border-radius: 5px;}
 .aw-first-login .aw-complete-data label{display: inline;}
-.aw-first-login .aw-complete-data select{max-width: 120px;}
 .aw-first-login .aw-complete-data ul li{padding-bottom: 20px;}
 .aw-first-login .aw-complete-data input, .aw-first-login .aw-complete-data select{margin: 0;}
 .aw-first-login .aw-complete-data input[type="text"]{width: 300px;margin-top:5px;}
 .aw-first-login .aw-complete-data-follow-topic li{position: relative;float:left;width:180px;margin:0 20px 20px 0;padding:15px 15px 15px 75px;background:#fff;border:1px solid #E3E3E3;border-radius: 10px;font-size: 12px;}
-.aw-first-login .aw-complete-data-follow-topic .aw-topic-img{position: absolute;left: 15px;top: 15px;}
+.aw-first-login .aw-complete-data-follow-topic .aw-topic-img, .aw-first-login .aw-complete-data-follow-topic .aw-user-img{position: absolute;left: 15px;top: 15px;}
 .aw-first-login .aw-complete-data-follow-topic .aw-topic-img img{border-radius: 5px;}
 .aw-first-login .aw-complete-data-follow-topic ul{margin-top:20px;}
 .aw-first-login .aw-complete-data-follow-topic li > span{display:inline-block;padding:0 6px;background:#D4F2FF;border-radius:5px;}
