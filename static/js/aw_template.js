@@ -3,11 +3,11 @@ var AW_TEMPLATE = {
 			'<div id="aw-card-tips" class="aw-card-tips">'+
 				'<div class="aw-mod">'+
 					'<div class="aw-mod-head">'+
-						'<a class="aw-user-img">'+
-							'<img src="img/user-img.jpg" alt="" title=""/>'+
+						'<a class="aw-head-img">'+
+							'<img src="{{img}}" alt="" title=""/>'+
 						'</a>'+
 						'<p class="title">'+
-							'<a href="#">{{username}}</a>'+
+							'<a href="#" cashid="{{uid}}">{{username}}</a>'+
 							'<i class="aw-icon i-v"></i>'+
 						'</p>'+
 						'<p class="aw-user-center-follow-meta">'+
@@ -22,7 +22,7 @@ var AW_TEMPLATE = {
 						'<span class="pull-right">'+
 							'<a>私信</a>&nbsp;&nbsp;&nbsp;&nbsp;<a>问Ta</a>'+
 						'</span>'+
-						'<a class="btn btn-mini">取消关注</a>'+
+						'<a class="btn btn-mini {{focus}}" onclick="follow_people($(this), {{uid}});">{{focusTxt}}</a>'+
 					'</div>'+
 				'</div>'+
 			'</div>',
@@ -31,11 +31,11 @@ var AW_TEMPLATE = {
 			'<div id="aw-card-tips" class="aw-card-tips">'+
 				'<div class="aw-mod">'+
 					'<div class="aw-mod-head">'+
-						'<a class="aw-user-img">'+
-							'<img src="img/user-img.jpg" alt="" title=""/>'+
+						'<a class="aw-head-img">'+
+							'<img src="{{img}}" alt="" title=""/>'+
 						'</a>'+
 						'<p class="title">'+
-							'<a href="#">{{topicName}}</a>'+
+							'<a href="#" cashid="{{topicid}}">{{topicName}}</a>'+
 						'</p>'+
 						'<p>'+
 							'{{topicTitle}}'+
@@ -45,7 +45,7 @@ var AW_TEMPLATE = {
 						'<span class="pull-right">'+
 							'问题数{{questionNum}} • 关注者{{followNum}}'+
 						'</span>'+
-						'<a class="btn btn-mini btn-success">关注</a>'+
+						'<a class="btn btn-mini {{focus}}" onclick="focus_topic($(this), {{topicid}});">{{focusTxt}}</a>'+
 					'</div>'+
 				'</div>'+
 			'</div>',
