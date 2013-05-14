@@ -234,6 +234,7 @@ select{width: auto;}
 .aw-search-dropdown-list li:hover{background: #F5FAFF;}
 .aw-search-dropdown-box p{height: 45px;line-height: 45px;margin:0;padding:0 10px;font-weight: normal;}
 .aw-search-dropdown-box p.title, .aw-search-dropdown-box p.search{border-bottom: 1px dotted #C1CAD4;}
+.aw-search-dropdown-box p.search{display: none;}
 .aw-search-dropdown-box .txt{font-weight: bold;}
 .aw-search-dropdown-box .btn-success{margin-top:10px;}
 
