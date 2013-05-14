@@ -111,7 +111,7 @@ select{width: auto;}
 .btn-small{min-width: 80px;padding:2px 6px;}
 .btn-normal{padding:2px 10px;*position: relative;}
 .btn-large{min-width:92px;padding:7px 0;font-size:14px;}
-.btn-success, .aw-follow-question, .aw-follow-question.aw-active{color: #406A24;text-shadow:none;background-color: #e0f4ad;background-image: -moz-linear-gradient(top, #eafbbe, #d3ea94);background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#eafbbe), to(#d3ea94));background-image: -webkit-linear-gradient(top, #eafbbe, #d3ea94);background-image: -o-linear-gradient(top, #eafbbe, #d3ea94);background-image: linear-gradient(to bottom, #eafbbe, #d3ea94);background-repeat: repeat-x;border-color: #8cb332;border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffeafbbe', endColorstr='#ffd3ea94', GradientType=0);filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);}
+.btn-success, .btn.aw-active{color: #406A24;text-shadow:none;background-color: #e0f4ad;background-image: -moz-linear-gradient(top, #eafbbe, #d3ea94);background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#eafbbe), to(#d3ea94));background-image: -webkit-linear-gradient(top, #eafbbe, #d3ea94);background-image: -o-linear-gradient(top, #eafbbe, #d3ea94);background-image: linear-gradient(to bottom, #eafbbe, #d3ea94);background-repeat: repeat-x;border-color: #8cb332;border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffeafbbe', endColorstr='#ffd3ea94', GradientType=0);filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);}
 .btn-success:hover, .btn-success:focus, .btn-success:active, .btn-success.active, .btn-success.disabled, .btn-success[disabled] {color: #406A24;background-color: #cee591;}
 .btn:hover, .btn:focus {background-position: 0 -40px;}
 /*tabs切换样式重载*/
@@ -737,8 +737,8 @@ select{width: auto;}
 .aw-card-tips .title{font-weight: bold;}
 .aw-card-tips .aw-mod-head{position: relative;min-height:60px;padding-left: 60px;}
 .aw-card-tips .aw-mod-head p{margin: 0 0 5px;}
-.aw-card-tips .aw-mod-head .aw-user-img{position: absolute;left: 0;top: 0;}
-.aw-card-tips .aw-mod-head .aw-user-img img{border-radius: 5px;}
+.aw-card-tips .aw-mod-head .aw-head-img{position: absolute;left: 0;top: 0;}
+.aw-card-tips .aw-mod-head .aw-head-img img{border-radius: 5px;}
 .aw-card-tips .aw-mod-body{border-bottom: 1px dotted #C1CAD4;margin-bottom: 10px;}
 .aw-card-tips .aw-mod-footer{line-height: 26px;}
 
