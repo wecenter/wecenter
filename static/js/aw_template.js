@@ -368,13 +368,11 @@ var AW_TEMPLATE = {
 		'</div>',
 
 	'searchDropdownList' : 
-		'<ul aria-labelledby="dropdownMenu" role="menu" class="dropdown-menu aw-search-dropdown-list">'+
-			'<li><p>输入关键字进行搜索</p></li>'+
-			'<li><a>123</a></li>'+
-			'<li class="aw-no-border-bottom"><p><a class="pull-right btn btn-mini btn-success">发起问题</a></p></li>'+
-		'<i class="aw-icon i-dropdown-triangle active"></i>'+
-		'</ul>',
-
+		'<li><a><img src="img/user-img.jpg" /></a><a>123</a><span>暂无介绍</span></li>'+
+		'<li><a>123</a> <span>0个回复</span></li>'+
+		'<li><i class="aw-icon i-star-mini"></i><a>123</a> <span>0个回复</span></li>'+
+		'<li><a class="aw-topic-name"><span>123</span></a> <span>3个问题</span></li>',
+	
 	'voteBar' : 
 		'<div class="aw-vote-bar pull-left">'+
 			'<a class="aw-border-radius-5 {{up_class}}" href="javascript:;" onclick="agreeVote(this, \'{{user_name}}\', {{answer_id}})">'+
