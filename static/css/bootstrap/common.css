@@ -237,6 +237,7 @@ select{width: auto;}
 .aw-search-dropdown-list li.active .i-star-mini{display: inline-block;}
 .aw-search-dropdown-list li.question a{display: block;}
 .aw-search-dropdown-list li.question a span{margin-left:5px;color: #999;}
+.aw-search-dropdown-list li.question a span.active{font-weight: bold;color: #666;}
 .aw-search-dropdown-box p{height: 45px;line-height: 45px;margin:0;padding:0 10px;font-weight: normal;}
 .aw-search-dropdown-box p.title, .aw-search-dropdown-box p.search{border-bottom: 1px dotted #C1CAD4;}
 .aw-search-dropdown-box p.search{display: none;}
@@ -739,7 +740,7 @@ select{width: auto;}
 /*
 **	用户头像提示box
 */
-.aw-card-tips{position:absolute;z-index:9999;width: 270px;padding:15px;background: #FFF;border: 1px solid #999;border-radius:5px;box-shadow: 0 2px 3px #DFDFDF;color:#666;}
+.aw-card-tips{display:none;position:absolute;z-index:9999;width: 270px;padding:15px;background: #FFF;border: 1px solid #999;border-radius:5px;box-shadow: 0 2px 3px #DFDFDF;color:#666;}
 .aw-card-tips .title{font-weight: bold;}
 .aw-card-tips .aw-mod-head{position: relative;min-height:60px;padding-left: 60px;}
 .aw-card-tips .aw-mod-head p{margin: 0 0 5px;}
