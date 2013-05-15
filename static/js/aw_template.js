@@ -335,8 +335,8 @@ var AW_TEMPLATE = {
 
 	'editTopicBox' : 
 			'<div class="aw-edit-topic-box">'+
-				'<input type="text" placeholder="创建或搜索添加新话题...">'+
-				'<a class="btn btn-mini btn-success">添加 »</a>'+
+				'<input type="text" id="aw_edit_topic_title" placeholder="创建或搜索添加新话题...">'+
+				'<a class="btn btn-mini btn-success submit-edit">添加 »</a>'+
 				'<a class="btn btn-mini close-edit">取消</a>'+
 			'</div>',
 
