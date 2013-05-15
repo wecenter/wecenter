@@ -7,7 +7,7 @@
 			<div class="span9 aw-main-content">
 				<div class="aw-mod aw-mod-topic-edit-box">
 					<div class="aw-mod-head">
-						<a href="javascript:;" class="aw-topic-img" <?php if ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator'] OR ($this->topic_info['topic_lock'] == 0 && $this->user_info['permission']['edit_topic'])) { ?>id="topic_pic_uploader"<?php } ?>><img src="<?php echo get_topic_pic_url('mid', $this->topic_info['topic_pic']);?>" alt="" /></a>
+						<a href="javascript:;" class="aw-topic-img" <?php if ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator'] OR ($this->topic_info['topic_lock'] == 0 && $this->user_info['permission']['edit_topic'])) { ?>id="topic_pic_uploader"<?php } ?>><img src="<?php echo get_topic_pic_url('mid', $this->topic_info['topic_pic']);?>" alt="" id="topic_pic" /></a>
 						<h3><?php _e('最佳答案'); ?></h3>
 						
 						
