@@ -368,11 +368,11 @@ var AW_TEMPLATE = {
 		'</div>',
 
 	'searchDropdownList1' : 
-		'<li  class="{{active}} question"><a href="{{url}}"><i class="aw-icon i-star-mini"></i>{{content}} <span>{{discuss_count}} 个回复</span></a></li>',
+		'<li  class="{{active}} question clearfix"><a href="{{url}}"><i class="aw-icon i-star-mini"></i>{{content}} <span>{{discuss_count}} 个回复</span></a></li>',
 	'searchDropdownList2' : 
-		'<li><a href="{{url}}" class="aw-topic-name" data-id="{{topicid}}"><span>{{name}}</span></a> <span>{{discuss_count}} 个问题</span></li>',
+		'<li class="clearfix"><a href="{{url}}" class="aw-topic-name" data-id="{{topicid}}"><span>{{name}}</span></a> <span>{{discuss_count}} 个问题</span></li>',
 	'searchDropdownList3' : 
-		'<li><a class="aw-user-name" data-id="{{uid}}"><img src="{{img}}}" /></a><a href="{{url}}">{{name}}</a><span>{{intro}}</span></li>',
+		'<li class="clearfix"><a class="aw-user-name aw-inline-block" data-id="{{uid}}"><img src="{{img}}" /></a><a class="aw-inline-block" href="{{url}}">{{name}}</a><span class="aw-hide-txt aw-inline-block">{{intro}}</span></li>',
 	
 	'voteBar' : 
 		'<div class="aw-vote-bar pull-left">'+
