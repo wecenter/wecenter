@@ -76,10 +76,8 @@ class setting_class extends AWS_MODEL
 		{
 			$this->update('system_setting', array(
 				'value' => serialize($val)
-			), "varname = '" . $this->quote($key) . "'");
+			), "`varname` = '" . $this->quote($key) . "'");
 		}
-		
-		AWS_APP::cache()->delete('system_settings');
 		
 		return true;
 	}

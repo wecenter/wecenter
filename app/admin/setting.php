@@ -70,7 +70,7 @@ class setting extends AWS_CONTROLLER
 		
 		TPL::import_js('admin/js/setting.js');
 		
-		TPL::assign('setting', get_setting());
+		TPL::assign('setting', get_setting(null, false));
 		
 		TPL::assign('menu_list', $this->model('admin_group')->get_menu_list($this->user_info['group_id'], array_search($_GET['type'], $settings_menu)));
 		
