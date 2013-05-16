@@ -77,7 +77,7 @@ var AW_TEMPLATE = {
 				'</div>'+
 				'<div class="modal-footer">'+
 					'<a data-dismiss="modal" aria-hidden="true" class="closeBox">取消</a>'+
-					'<button class="btn btn-large btn-success" onclick="$.{{add_func}}($.{{add_func}});">确定</button>'+
+					'<button class="btn btn-large btn-success" data-dismiss="modal" aria-hidden="true" onclick="$.{{add_func}}($.{{add_func}});">确定</button>'+
 				'</div>'+
 			'</div>',
 
@@ -142,16 +142,17 @@ var AW_TEMPLATE = {
 					'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
 					'<h3 id="myModalLabel">收藏</h3>'+
 				'</div>'+
+				'<form action="' + G_BASE_URL + '/favorite/ajax/update_favorite_tag/" method="post" onsubmit="return false;">'+
+				'<input type="hidden" name="answer_id" value="{{answer_id}}" />'+
 				'<div class="modal-body">'+
-					'<form>'+
-						'<p>添加话题标签: <input type="text" placeholder="搜索问题"/></p>'+
-						'<p>常用标签:</p>'+
-					'</form>'+
+					'<p>添加话题标签: <input type="text" name="tags" id="add_favorite_tags" /></p>'+
+					'<p id="add_favorite_my_tags">常用标签: </p>'+
 				'</div>'+
 				'<div class="modal-footer">'+
-					'<a data-dismiss="modal" aria-hidden="true">取消</a>'+
-					'<button class="btn btn-large btn-success">发起</button>'+
+					'<a href="javascript:;" data-dismiss="modal" aria-hidden="true">取消</a>'+
+					'<a href="javascript:;" class="btn btn-large btn-success" onclick="ajax_post($(this).parents(\'form\'), _ajax_post_modal_processer);">确认</a>'+
 				'</div>'+
+				'</form>'+
 			'</div>',
 
 	'questionRedirect' : 
@@ -164,7 +165,7 @@ var AW_TEMPLATE = {
 					'<form>'+
 						'<p>将问题重定向至</p>'+
 						'<p><input type="text" data-id="{{data_id}}" placeholder="搜索问题"/></p>'+
-						'<p><a href="javascript:;" class="btn btn-mini pull-right" onclick="$(\'.alert-box\').modal(\'hide\');">放弃操作</a></p>'+
+						'<p><a href="javascript:;" class="btn btn-mini pull-right" data-dismiss="modal" aria-hidden="true">放弃操作</a></p>'+
 					'</form>'+
 				'</div>'+
 			'</div>',
