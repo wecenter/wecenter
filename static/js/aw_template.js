@@ -69,15 +69,15 @@ var AW_TEMPLATE = {
 				'</div>'+
 				'<div class="modal-body">'+
 					'<form id="addTxtForms">'+
-						'<p>图片连接地址</p>'+
+						'<p>链接地址</p>'+
 						'<input type="text" value="http://" name="{{url}}" />'+
-						'<p>图片说明:</p>'+
+						'<p>文字说明:</p>'+
 						'<input type="text" name="{{tips}}"/>'+
 					'</form>'+
 				'</div>'+
 				'<div class="modal-footer">'+
 					'<a data-dismiss="modal" aria-hidden="true" class="closeBox">取消</a>'+
-					'<button class="btn btn-large btn-success">确定</button>'+
+					'<button class="btn btn-large btn-success" onclick="$.{{add_func}}($.{{add_func}});">确定</button>'+
 				'</div>'+
 			'</div>'+
 			'<div class="modal-backdrop fade in"></div>',
@@ -156,7 +156,7 @@ var AW_TEMPLATE = {
 			'</div>',
 
 	'questionRedirect' : 
-			'<div  class="modal hide fade alert-box aw-question-redirect-box" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'+
+			'<div class="modal hide fade alert-box aw-question-redirect-box" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'+
 				'<div class="modal-header">'+
 					'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
 					'<h3 id="myModalLabel">问题重定向至</h3>'+
@@ -164,8 +164,8 @@ var AW_TEMPLATE = {
 				'<div class="modal-body">'+
 					'<form>'+
 						'<p>将问题重定向至</p>'+
-						'<p><input type="text" placeholder="搜索问题"/></p>'+
-						'<p><a class="btn btn-mini pull-right">放弃操作</a></p>'+
+						'<p><input type="text" data-id="{{data_id}}" placeholder="搜索问题"/></p>'+
+						'<p><a href="javascript:;" class="btn btn-mini pull-right" onclick="$(\'.alert-box\').modal(\'hide\');">放弃操作</a></p>'+
 					'</form>'+
 				'</div>'+
 			'</div>',
