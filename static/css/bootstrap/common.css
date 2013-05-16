@@ -3,6 +3,7 @@
 */
 body{font:13px/1.5 "微软雅黑",tahoma,arial;}
 h1, h2, h3, h4, h5, h6{font-size:100%;}
+ul,ol,li{list-style-type: none;}
 a{cursor: pointer;}
 a:hover{text-decoration: none;}
 textarea{resize:none;}
@@ -227,7 +228,6 @@ select{width: auto;}
 .aw-dropdown{display:none;position:absolute;right:0;z-index:9999;background: #fff;border:1px solid rgba(0, 0, 0, 0.2);border-radius: 4px;box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);}
 .aw-search-dropdown-box{width: 360px;}
 .aw-search-dropdown-box .i-dropdown-triangle{position: absolute;top:-6px;}
-.aw-search-dropdown-list{list-style-type: none;}
 .aw-search-dropdown-list li{height:32px;line-height:32px;padding:10px;border-bottom: 1px dotted #C1CAD4;}
 .aw-search-dropdown-list li .i-star-mini{display: none;}
 .aw-search-dropdown-list li > span{margin-left:10px;font-weight: normal;color: #999;}
