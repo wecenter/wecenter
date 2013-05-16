@@ -323,6 +323,7 @@ select{width: auto;}
 
 /*话题编辑*/
 .aw-topic-editor .aw-topic-dropdown{top:40px;}
+.aw-topic-editor .aw-topic-name{display:inline-block;margin:0 3px 5px;}
 
 
 /*
@@ -463,7 +464,6 @@ select{width: auto;}
 .aw-mod-topic-edit-box .aw-mod-head .aw-topic-img span{display: block;width: 20px;height: 20px;margin:20px 0 0 25px;background: #fff;border-radius: 5px;opacity: 0.8;filter:alpha(opacity=80);}
 .aw-mod-topic-edit-box .aw-mod-head .aw-topic-img .i-site{position: relative;top: 4px;}
 .aw-mod-topic-edit-box .aw-mod-head b{margin-right: 5px;}
-.aw-mod-topic-edit-box .aw-mod-head .aw-topic-name{margin: 0 3px;}
 .aw-side-bar-topic-edit{padding-top:0px;}
 .aw-side-bar-topic-edit .aw-topic-name{display: inline-block;margin: 0 4px 8px 0;}
 .aw-side-bar-mod-topic-edit .aw-side-bar-mod-head{margin:15px 0 0 0;}
@@ -556,7 +556,8 @@ select{width: auto;}
 .aw-my-favorite .aw-mod-head .aw-user-name{margin:0 5px;}
 .aw-my-favorite .aw-item{position: relative;}
 .aw-my-favorite .aw-item .aw-user-img{position: absolute;right: 0;top: 0;width: 32px;height: 32px;}
-.aw-my-favorite .aw-my-favorite-meta{min-height: 30px;margin:0 0 10px 0;}
+.aw-my-favorite .aw-my-favorite-meta{min-height: 30px;margin:10px 0;}
+#add_favorite_my_tags .aw-topic-name{display:inline-block;margin:0 3px 5px 3px;}
 /*邀请我回答的话题*/
 .aw-my-question-invite .aw-item:hover .aw-new-message-tips-close{display: block;}
 /*私信*/
@@ -787,7 +788,7 @@ select{width: auto;}
 .aw-share-box .aw-share-box-tabs-content li a{display:inline-block;width: 80px;line-height: 16px;margin-bottom: 15px;font-size:12px;}
 .aw-share-box .aw-share-box-tabs-content li a .bds{position: relative;top:3px;margin-right: 5px;}
 .aw-share-box .aw-share-box-tabs-content input, .aw-message-box input, .aw-question-redirect-box input, .aw-inbox input{width: 406px;height:30px;line-height: 30px;}
-.aw-share-box .aw-share-box-tabs-content .btn, .aw-message-box .btn, .aw-publish-box .modal-footer .btn, .aw-edit-comment-box .modal-footer .btn, .aw-image-box .modal-footer .btn, .aw-inbox .modal-footer .btn{margin-left:10px;}
+.aw-share-box .aw-share-box-tabs-content .btn, .aw-message-box .btn, .aw-publish-box .modal-footer .btn, .aw-edit-comment-box .modal-footer .btn, .aw-image-box .modal-footer .btn, .aw-inbox .modal-footer .btn, .aw-favorite-box .modal-footer .btn{margin-left:10px;}
 .aw-publish-box .modal-footer a{margin:0 0 0 5px;}
 .aw-publish-box .modal-footer a.pull-left{margin-top:2px;}
 /*发起box*/

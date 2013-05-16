@@ -165,7 +165,7 @@ var AW_TEMPLATE = {
 					'<form>'+
 						'<p>将问题重定向至</p>'+
 						'<div style="position:relative;">'+
-							'<input id="question-input" type="text" data-id="{{data_id}}" onkeyup="get_question_list_data()" placeholder="搜索问题"/>'+
+							'<input id="question-input" type="text" data-id="{{data_id}}" onkeyup="get_question_list_data($(this).val())" placeholder="搜索问题"/>'+
 							'<div class="aw-dropdown aw-topic-dropdown"><i class="aw-icon i-dropdown-triangle active"></i><ul class="aw-question-dropdown-list"></ul></div>'+
 						'</div>'+
 						'<p class="clearfix"><a href="javascript:;" class="btn btn-mini pull-right" onclick="$(\'.alert-box\').modal(\'hide\');">放弃操作</a></p>'+
@@ -338,7 +338,7 @@ var AW_TEMPLATE = {
 
 	'editTopicBox' : 
 			'<div class="aw-edit-topic-box">'+
-				'<input type="text" id="aw_edit_topic_title" onkeyup="get_topic_list_data()" onblur="hide_topic_list()"  placeholder="创建或搜索添加新话题...">'+
+				'<input type="text" id="aw_edit_topic_title" onkeyup="get_topic_list_data($(this).val())" onblur="hide_topic_list()"  placeholder="创建或搜索添加新话题...">'+
 				'<a class="btn btn-mini btn-success submit-edit">添加 »</a>'+
 				'<a class="btn btn-mini close-edit">取消</a>'+
 				'<div class="aw-dropdown aw-topic-dropdown">'+
