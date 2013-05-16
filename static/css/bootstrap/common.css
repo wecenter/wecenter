@@ -239,6 +239,7 @@ select{width: auto;}
 .aw-search-dropdown-list li.question a{display: block;}
 .aw-search-dropdown-list li.question a span{margin-left:5px;color: #999;}
 .aw-search-dropdown-list li.question a span.active{font-weight: bold;color: #666;}
+.aw-search-dropdown-list li.question .aw-hide-txt{width: 250px;}
 .aw-search-dropdown-list .aw-hide-txt{width: 150px;}
 .aw-search-dropdown-box p{height: 45px;line-height: 45px;margin:0;padding:0 10px;font-weight: normal;}
 .aw-search-dropdown-box p.title, .aw-search-dropdown-box p.search{border-bottom: 1px dotted #C1CAD4;}
