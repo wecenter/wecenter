@@ -55,7 +55,7 @@
 						<dt><?php _e('加入专题'); ?>:</dt>
 						<dd>
 							<a class="btn btn-large btn-success pull-right" href="javascript:;" onclick="ajax_post($('#feature_topic_form'));"><?php _e('保存'); ?></a>
-							<div>
+							<div class="topic-list">
 								<?php foreach($this->feature_list AS $key => $val) { ?>
 								<label><input type="checkbox" name="feature_ids[]" value="<?php echo $val['id']; ?>"<?php if (in_array($val['id'], $this->topic_in_features)) { ?> checked="checked"<?php } ?> /> <?php echo $val['title']; ?></label>
 								<?php } ?>	
