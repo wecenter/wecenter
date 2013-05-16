@@ -177,18 +177,21 @@
 			<tbody>
 				<tr>
 					<td>
-						<input type="text" placeholder="如:xx大学...">
+						<input type="text" class="school" placeholder="如:xx大学...">
 					</td>
 					<td>
-						<input type="text" placeholder="如:工程学院计算机系...">
+						<input type="text" class="college" placeholder="如:工程学院计算机系...">
 					</td>
 					<td>
-						<select>
+						<select class="year">
 							<option></option>
+							<option value="1991">1991</option>
+							<option value="1992">1992</option>
+							<option value="1993">1993</option>
 						</select>
 						年
 					</td>
-					<td><a>添加</a></td>
+					<td><a class="add-educate">添加</a></td>
 				</tr>
 	    	</tbody>
 		</table>
@@ -205,40 +208,44 @@
 		<table class="table table-bordered">
 			<thead>
 				<tr>
-					<th>公司名称</th>
-					<th width="30%">所在职位</th>
+					<th width="30%">公司名称</th>
+					<th>所在职位</th>
 					<th>工作时间</th>
+					<th width="15%">操作</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
 					<td>
-						<input type="text" placeholder="xx上市公司...">
+						<input type="text" class="company" placeholder="xx上市公司...">
 					</td>
 					<td>
-						<select>
+						<select class="work">
 							<option></option>
+							<option>前端工程师</option>
+							<option>ui</option>
+							<option>ai</option>
 						</select>
 					</td>
 					<td>
-						<select>
+						<select class="syear">
 							<option></option>
+							<option>1991</option>
+							<option>1992</option>
+							<option>1993</option>
 						</select>
 						&nbsp;&nbsp;年 &nbsp;&nbsp; 至&nbsp;&nbsp; 
-						<select>
+						<select class="eyear">
 							<option></option>
+							<option>1991</option>
+							<option>1992</option>
+							<option>1993</option>
 						</select>
 						年
 					</td>
+					<td><a class="add-work">添加</a></td>
 				</tr>
 	    	</tbody>
-	    	<tfoot>
-	    		<tr>
-	    			<td colspan="3">
-	    				<span class="pull-right">操作:&nbsp;&nbsp;&nbsp;&nbsp;<a>添加</a>&nbsp;&nbsp;&nbsp;</span>
-	    			</td>
-	    		<tr>
-	    	</tfoot>
 		</table>
 	</div>
 </div>

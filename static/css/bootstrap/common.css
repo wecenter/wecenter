@@ -99,6 +99,7 @@ select{width: auto;}
 .alert{margin-bottom:0px;background: #FCFDDB;border: 1px solid #F9F2A7;color:#666;}
 .tab-content{padding-bottom:30px;}
 .form-horizontal .control-label, .form-horizontal .controls{height: 30px;line-height: 30px;padding-top:0px;}
+.table th, .table td{border-top: 1px solid #DCEDFA;}
 /*
 **	重载bootstrap进度条
 */
