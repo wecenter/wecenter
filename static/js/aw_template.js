@@ -379,6 +379,24 @@ var AW_TEMPLATE = {
 			'</ul>'+
 		'</div>',
 
+	'reportBox' :
+			'<div class="modal hide fade alert-box aw-share-box aw-share-box-message" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'+
+				'<div class="modal-header">'+
+					'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
+					'<h3 id="myModalLabel">举报问题</h3>'+
+				'</div>'+
+				'<form>'+
+					'<div class="modal-body">'+
+							'<input type="text" placeholder="搜索用户"/>'+
+							'<textarea>{{textareaContent}}</textarea>'+
+					'</div>'+
+					'<div class="modal-footer">'+
+						'<a data-dismiss="modal" aria-hidden="true">取消</a>'+
+						'<button class="btn btn-large btn-success">提交</button>'+
+					'</div>'+
+				'</form>'+
+			'</div>',
+
 	'searchDropdownList1' : 
 		'<li  class="{{active}} question clearfix"><a class="aw-hide-txt aw-inline-block" href="{{url}}"><i class="aw-icon i-star-mini"></i>{{content}} </a><span class="aw-inline-block">{{discuss_count}} 个回复</span></li>',
 	'searchDropdownList2' : 
