@@ -256,6 +256,7 @@ select{width: auto;}
 .aw-topic-dropdown ul li a{display: block;height: 20px;line-height: 20px;margin:0;padding: 10px;}
 .aw-topic-dropdown ul li a:hover{background: #F5FAFF}
 .aw-topic-dropdown ul li:first-child{border-top: none;}
+.aw-topic-dropdown p{height: 20px;line-height: 20px;margin:0;padding: 10px;}
 .aw-topic-dropdown .aw-topic-dropdown-list li{padding: 0;}
 
 /*

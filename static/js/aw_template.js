@@ -166,7 +166,7 @@ var AW_TEMPLATE = {
 						'<p>将问题重定向至</p>'+
 						'<div style="position:relative;">'+
 							'<input id="question-input" type="text" data-id="{{data_id}}" onkeyup="get_question_list_data($(this).val())" placeholder="搜索问题"/>'+
-							'<div class="aw-dropdown aw-topic-dropdown"><i class="aw-icon i-dropdown-triangle active"></i><ul class="aw-question-dropdown-list"></ul></div>'+
+							'<div class="aw-dropdown aw-topic-dropdown"><i class="aw-icon i-dropdown-triangle active"></i><p class="title">没有找到相关结果</p><ul class="aw-question-dropdown-list"></ul></div>'+
 						'</div>'+
 						'<p class="clearfix"><a href="javascript:;" class="btn btn-mini pull-right" onclick="$(\'.alert-box\').modal(\'hide\');">放弃操作</a></p>'+
 					'</form>'+
@@ -343,6 +343,7 @@ var AW_TEMPLATE = {
 				'<a class="btn btn-mini close-edit">取消</a>'+
 				'<div class="aw-dropdown aw-topic-dropdown">'+
 					'<i class="aw-icon i-dropdown-triangle active"></i>'+
+					'<p class="title">没有找到相关结果</p>'+
 					'<ul class="aw-topic-dropdown-list">'+
 					'</ul>'+
 				'</div>'+
