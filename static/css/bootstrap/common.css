@@ -3,7 +3,6 @@
 */
 body{font:13px/1.5 "微软雅黑",tahoma,arial;}
 h1, h2, h3, h4, h5, h6{font-size:100%;}
-ul,ol,li{list-style-type:none;}
 a{cursor: pointer;}
 a:hover{text-decoration: none;}
 textarea{resize:none;}
@@ -875,7 +874,23 @@ select{width: auto;}
 .markItUp .markItUpButton12 a {background-position: -570px -6px;}
 .markItUp .markItUpButton13 a {background-position: -277px -6px;margin-left: 5px;}
 .markItUp .markItUpButton11 {position: absolute;right: 0;}
+/*编辑器回复样式*/
+.markitup-replay-box {font-size: 13px !important;line-height: 22px;word-wrap: break-word !important;}
+.markitup-replay-box h2, .preview_div h2, .tags_Mark h3, .preview_div h3 {font-weight: bold;margin: 10px 0;}
+.markitup-replay-box h2, .preview_div h2 {font-size: 1.5em;}
+.markitup-replay-box h3, .preview_div h3 {font-size: 1.7em;}
+.markitup-replay-box em, .preview_div em {font-style: italic;}
+.markitup-replay-box ul, .markitup-replay-box ol, .preview_div ul, .preview_div ol {margin-left: 15px;padding: 5px 0 5px 20px;}
+.markitup-replay-box ul, .preview_div ul {list-style-type: square;}
+.markitup-replay-box ol, .preview_div ol {list-style: decimal;padding-left: 23px;}
+.markitup-replay-box p, .preview_div p {padding: 5px;}
+.markitup-replay-box ol p, .markitup-replay-box ul p, .preview_div ol p, .preview_div ol p {display: inline !important;padding: 0 !important;}
+.markitup-replay-box code, .preview_div code {background-color: #EDEAD5;border-radius: 4px 4px 4px 4px;display: block;font-family: "Courier New",Courier,monospace;margin: 5px 0;padding: 5px;}
+.markitup-replay-box img {max-width: 570px !important;}
+.markitup-replay-box blockquote {background-color: #FBFBFB;border-left: 5px solid #C1CAD4;line-height: 22px;margin: 5px 0;padding: 5px 15px;}
 
+
+/*404页面*/
 .aw-404{background:#f4f4f4;/*background:#dad8d9;*/}
 .aw-404-wrap{width: 500px;height: 300px;margin:150px auto 0;text-align: center;}
 .aw-404-wrap p{font-size: 18px;color: #666;}
