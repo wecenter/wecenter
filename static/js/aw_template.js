@@ -79,8 +79,7 @@ var AW_TEMPLATE = {
 					'<a data-dismiss="modal" aria-hidden="true" class="closeBox">取消</a>'+
 					'<button class="btn btn-large btn-success" onclick="$.{{add_func}}($.{{add_func}});">确定</button>'+
 				'</div>'+
-			'</div>'+
-			'<div class="modal-backdrop fade in"></div>',
+			'</div>',
 
 	'editCommentBox' : 
 				'<div class="modal hide fade alert-box aw-edit-comment-box" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'+
