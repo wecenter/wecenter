@@ -380,15 +380,21 @@ var AW_TEMPLATE = {
 		'</div>',
 
 	'reportBox' :
-			'<div class="modal hide fade alert-box aw-share-box aw-share-box-message" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'+
+			'<div class="modal hide fade alert-box aw-share-box aw-share-box-message aw-report-box" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'+
 				'<div class="modal-header">'+
 					'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
 					'<h3 id="myModalLabel">举报问题</h3>'+
 				'</div>'+
 				'<form>'+
 					'<div class="modal-body">'+
-							'<input type="text" placeholder="搜索用户"/>'+
-							'<textarea>{{textareaContent}}</textarea>'+
+						'<p>举报理由:</p>'+
+						'<select>'+
+							'<option>请选择</option>'+
+							'{{#items}}'+
+								'<option value="{{value}}">{{value}}</option>'+
+							'{{/items}}'+
+						'</select>'+
+						'<textarea>{{textareaContent}}</textarea>'+
 					'</div>'+
 					'<div class="modal-footer">'+
 						'<a data-dismiss="modal" aria-hidden="true">取消</a>'+
