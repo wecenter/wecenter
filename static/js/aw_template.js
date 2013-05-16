@@ -146,7 +146,7 @@ var AW_TEMPLATE = {
 				'<input type="hidden" name="answer_id" value="{{answer_id}}" />'+
 				'<div class="modal-body">'+
 					'<p>添加话题标签: <input type="text" name="tags" id="add_favorite_tags" /></p>'+
-					'<p id="add_favorite_my_tags">常用标签: </p>'+
+					'<p id="add_favorite_my_tags" class="hide">常用标签: </p>'+
 				'</div>'+
 				'<div class="modal-footer">'+
 					'<a href="javascript:;" data-dismiss="modal" aria-hidden="true">取消</a>'+
