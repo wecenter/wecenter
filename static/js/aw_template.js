@@ -368,7 +368,7 @@ var AW_TEMPLATE = {
 		'</div>',
 
 	'searchDropdownList1' : 
-		'<li  class="{{active}} question clearfix"><a href="{{url}}"><i class="aw-icon i-star-mini"></i>{{content}} <span>{{discuss_count}} 个回复</span></a></li>',
+		'<li  class="{{active}} question clearfix"><a class="aw-hide-txt aw-inline-block" href="{{url}}"><i class="aw-icon i-star-mini"></i>{{content}} </a><span class="aw-inline-block">{{discuss_count}} 个回复</span></li>',
 	'searchDropdownList2' : 
 		'<li class="clearfix"><a href="{{url}}" class="aw-topic-name" data-id="{{topicid}}"><span>{{name}}</span></a> <span>{{discuss_count}} 个问题</span></li>',
 	'searchDropdownList3' : 
