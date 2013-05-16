@@ -800,6 +800,9 @@ select{width: auto;}
 .aw-publish-box .aw-publish-title-dropdown .dropdown-toggle{border-radius: 4px;}
 .aw-publish-box .aw-publish-title-dropdown span{width: 370px;}
 
+/*问题重定向*/
+.aw-question-redirect-box .modal-body{overflow: visible;}
+
 
 /*评论修改box*/
 .aw-edit-comment-box{width: 680px;}
