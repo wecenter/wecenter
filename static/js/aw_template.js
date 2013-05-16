@@ -423,13 +423,13 @@ var AW_TEMPLATE = {
 
 	'educateInsert' :
 			'<td class="e1" data-txt="{{school}}">{{school}}</td>'+
-			'<td class="e2" data-txt="{{college}}">{{college}}</td>'+
+			'<td class="e2" data-txt="{{departments}}">{{departments}}</td>'+
 			'<td class="e3" data-txt="{{year}}">{{year}}年</td>'+
 			'<td><a class="delete-educate">删除</a>&nbsp;&nbsp;<a class="edit-educate">编辑</a></td>',
 
 	'educateEdit' : 
 			'<td><input type="text" value="{{school}}" class="school"></td>'+
-			'<td><input type="text" value="{{college}}" class="college"></td>'+
+			'<td><input type="text" value="{{departments}}" class="departments"></td>'+
 			'<td><select class="edityear">'+
 					'<option value="1991">1991</option>'+
 					'<option value="1992">1992</option>'+
