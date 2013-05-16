@@ -475,15 +475,14 @@ select{width: auto;}
 */
 .aw-mod-topic-manage{margin-top: 20px;}
 .aw-mod-topic-manage dl{height: auto;overflow: hidden;margin-bottom:40px;}
-.aw-mod-topic-manage dl dt, .aw-mod-topic-manage dl dd{float:left;}
-.aw-mod-topic-manage dl dt{width: 80px;height:32px;line-height:32px;text-align: right;}
+.aw-mod-topic-manage dl dt, .aw-mod-topic-manage dl dd{float:left;line-height: 30px;}
+.aw-mod-topic-manage dl dt{width: 80px;text-align: right;}
 .aw-mod-topic-manage dl dd{width: 570px;}
 .aw-mod-topic-manage dl dd input[type="text"]{width:440px;height: 26px;line-height: 26px;margin:0;}
-.aw-mod-topic-manage dl:first-child dd input{width: 223px;}
-.aw-mod-topic-manage dl.last dt{width: 120px;}
-.aw-mod-topic-manage dl.last dd{width: 530px;padding-top:5px;}
-.aw-mod-topic-manage dl.last dd div{width: 400px;}
-.aw-mod-topic-manage dl.last dd label{float: left;margin:0 14px 10px 0;margin:0 13px 10px 0\0;*margin:0 10px 10px 0;}
+.aw-mod-topic-manage .aw-topic-name{display:inline-block;margin:0 3px 5px 3px;}
+.aw-mod-topic-manage dl:first-child dd input{width: 150px;}
+.aw-mod-topic-manage dl .topic-list{width: 470px;}
+.aw-mod-topic-manage dl .topic-list label{float: left;margin:4px 14px 6px 0;}
 
 /*
 **	话题编辑box
@@ -541,8 +540,7 @@ select{width: auto;}
 **动态首页右侧导航页模块
 */
 .aw-dynamic-index .aw-mod-head{margin-bottom:10px;border-bottom:1px solid #C1CAD4;}
-.aw-dynamic-index .aw-item{border-top: 1px dotted #C1CAD4;}
-.aw-dynamic-index .aw-item:first-child{border-top: none;}
+.aw-dynamic-index .aw-item{border-bottom: 1px dotted #C1CAD4;}
 .aw-dynamic-index .aw-mod-head h2{font-size:20px;*margin-top:20px;font-weight: normal;}
 .aw-dynamic-index .aw-item h4{font-size:14px;}
 .aw-dynamic-index .aw-mod-body h4 a{margin-right: 5px;}
@@ -554,6 +552,7 @@ select{width: auto;}
 .aw-my-follow-question .aw-user-img{position: absolute;right: 0;top: 0;}
 .aw-my-follow-question .aw-user-img img{width: 32px;height: 32px;}
 /*我的收藏*/
+.aw-my-favorite{padding-bottom: 30px;}
 .aw-my-favorite .aw-mod-head h2{padding-bottom:10px;font-size:20px;}
 .aw-my-favorite .aw-mod-head .aw-user-name{margin:0 5px;}
 .aw-my-favorite .aw-item{position: relative;}
@@ -790,7 +789,7 @@ select{width: auto;}
 .aw-share-box .aw-share-box-tabs-content li a{display:inline-block;width: 80px;line-height: 16px;margin-bottom: 15px;font-size:12px;}
 .aw-share-box .aw-share-box-tabs-content li a .bds{position: relative;top:3px;margin-right: 5px;}
 .aw-share-box .aw-share-box-tabs-content input, .aw-message-box input, .aw-question-redirect-box input, .aw-inbox input{width: 406px;height:30px;line-height: 30px;}
-.aw-share-box .aw-share-box-tabs-content .btn, .aw-message-box .btn, .aw-publish-box .modal-footer .btn, .aw-edit-comment-box .modal-footer .btn, .aw-image-box .modal-footer .btn, .aw-inbox .modal-footer .btn, .aw-favorite-box .modal-footer .btn{margin-left:10px;}
+.aw-share-box .aw-share-box-tabs-content .btn, .aw-message-box .btn, .aw-publish-box .modal-footer .btn, .aw-edit-comment-box .modal-footer .btn, .aw-image-box .modal-footer .btn, .aw-inbox .modal-footer .btn, .aw-favorite-box .modal-footer .btn, .aw-share-box-message .modal-footer .btn{margin-left:10px;}
 .aw-publish-box .modal-footer a{margin:0 0 0 5px;}
 .aw-publish-box .modal-footer a.pull-left{margin-top:2px;}
 /*发起box*/
