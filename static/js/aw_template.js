@@ -335,10 +335,16 @@ var AW_TEMPLATE = {
 
 	'editTopicBox' : 
 			'<div class="aw-edit-topic-box">'+
-				'<input type="text" id="aw_edit_topic_title" placeholder="创建或搜索添加新话题...">'+
+				'<input type="text" id="aw_edit_topic_title"  placeholder="创建或搜索添加新话题...">'+
 				'<a class="btn btn-mini btn-success submit-edit">添加 »</a>'+
 				'<a class="btn btn-mini close-edit">取消</a>'+
+				'<div class="aw-dropdown aw-topic-dropdown">'+
+					'<i class="aw-icon i-dropdown-triangle active"></i>'+
+					'<ul class="aw-topic-dropdown-list">'+
+					'</ul>'+
+				'</div>'+
 			'</div>',
+	'editTopicDorpdownList' : '<li><a>{{name}}</a></li>',
 
 	'commentBox' : 
 			'<div class="aw-comment-box" id="{{comment_form_id}}">'+
