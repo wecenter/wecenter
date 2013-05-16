@@ -164,8 +164,11 @@ var AW_TEMPLATE = {
 				'<div class="modal-body">'+
 					'<form>'+
 						'<p>将问题重定向至</p>'+
-						'<p><input type="text" data-id="{{data_id}}" placeholder="搜索问题"/></p>'+
-						'<p><a href="javascript:;" class="btn btn-mini pull-right" data-dismiss="modal" aria-hidden="true">放弃操作</a></p>'+
+						'<div style="position:relative;">'+
+							'<input id="question-input" type="text" data-id="{{data_id}}" onkeyup="get_question_list_data()" placeholder="搜索问题"/>'+
+							'<div class="aw-dropdown aw-topic-dropdown"><i class="aw-icon i-dropdown-triangle active"></i><ul class="aw-question-dropdown-list"></ul></div>'+
+						'</div>'+
+						'<p class="clearfix"><a href="javascript:;" class="btn btn-mini pull-right" onclick="$(\'.alert-box\').modal(\'hide\');">放弃操作</a></p>'+
 					'</form>'+
 				'</div>'+
 			'</div>',
@@ -345,6 +348,8 @@ var AW_TEMPLATE = {
 				'</div>'+
 			'</div>',
 	'editTopicDorpdownList' : '<li><a>{{name}}</a></li>',
+	'questionRedirectList' : '<li><a class="aw-hide-txt" onclick="ajax_request({{url}});">{{name}}</a></li>',
+
 
 	'commentBox' : 
 			'<div class="aw-comment-box" id="{{comment_form_id}}">'+
