@@ -16,7 +16,7 @@
 .i-user-bind{width:16px;height: 17px;background-position: -60px 0;}
 .i-lock{width:11px;height: 14px;background-position: -80px 0;}
 .i-site{width:14px;height: 14px;background-position: -100px 0;}
-.i-close{width:9px;height: 9px;background-position: -120px 0;position: relative;top:2px;}
+.i-close{width:9px;height: 9px;background-position: -120px 0;position: relative;top:2px;*position:static;}
 .i-close-disabled{width:9px;height: 9px;background-position: -135px 0;position: relative;top:2px;}
 .i-close-hover{width:9px;height: 9px;background-position: -150px 0;*position: relative;*top:-5px;*left:5px;}
 .i-followed{width:12px;height: 12px;background-position: -165px 0;}

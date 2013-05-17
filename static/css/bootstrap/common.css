@@ -130,7 +130,7 @@ select{width: auto;}
 **	top-menu
 */
 .aw-top-menu-wrap{width:100%;background:#86C5E3;font-weight: bold;}
-.aw-top-menu{padding-bottom:10px;overflow: visible;}
+.aw-top-menu{padding-bottom:10px;overflow: visible;position: relative;z-index: 1001;}
 .aw-logo{height:40px;margin:14px 0 0 20px;color: #CFF1FF;}
 .aw-logo h1{height:25px;line-height:25px;margin:-2px 0 2px 0;font-size:13px;}
 .aw-logo span{position:relative;top:5px;margin-left:10px;font-weight:normal;}
@@ -154,7 +154,7 @@ select{width: auto;}
 .aw-logined-nav .aw-message-dropdown p, .aw-logined-nav .aw-message-dropdown a{margin: 0;}
 .aw-logined-nav .aw-message-dropdown .i-close-disabled{top: 0;}
 .aw-logined-nav .aw-message-dropdown .aw-message-dropdown-more{font-size: 12px;}
-.aw-nav{overflow: visible;}
+.aw-nav{overflow: visible;position: relative;z-index: 1000;}
 
 /*
 **	category
@@ -196,8 +196,11 @@ select{width: auto;}
 .aw-nav-right{width:13px;height:50px;background:url(img/nav-right.png) no-repeat;}
 /*导航内容*/
 .aw-nav-main{position:absolute;top:0;left:0;}
-.aw-nav-main li{display:inline-block;}
+.aw-nav-main li{display:inline-block;float:left;}
 .aw-nav-main li a{position:relative;display:inline-block;width:120px;height:50px;line-height:50px;color:#fff;text-decoration: none;text-align: center;font-size: 14px;}
+.aw-nav-main li a .i-index-no-hover{*top:-3px;}
+.aw-nav-main li a .i-question-no-hover{*top:-1px;}
+.aw-nav-main li a .i-topic-no-hover, .aw-nav-main li a .i-login-user-no-hover{*top:-2px;}
 .aw-nav-main li a:hover{color:#93E2F3;}
 .aw-nav-main li a.active{background:url(img/nav-hover.png) repeat-x;}
 .aw-nav-main li a.active .i-nav-hover-triangle{display: block;}
@@ -212,7 +215,7 @@ select{width: auto;}
 /*导航用户头像下拉*/
 .aw-user-nav-dropdown:hover > .dropdown-menu{display: block;}
 .aw-user-nav-dropdown > a{min-width:50px;display: inline-block;}
-.aw-user-nav-dropdown .aw-dropdown-menu{top:30px;}
+.aw-user-nav-dropdown .aw-dropdown-menu{top:30px;z-index: 9999;}
 .aw-user-nav-dropdown .aw-dropdown-menu  li > a{width:75px;line-height:24px;margin:0;padding:6px 8px 6px 15px;text-align: left;color:#666;}
 .aw-user-nav-dropdown .aw-dropdown-menu span i.active{left: -25px;}
 .aw-user-nav-dropdown .aw-dropdown-menu .i-user-post{position: absolute;right:15px;top:10px;}
@@ -223,10 +226,10 @@ select{width: auto;}
 /*搜索框*/
 .aw-search-box{margin-right:10px;}
 .aw-search-box form{margin-top:10px;}
-.aw-search-box .search-query{line-height:20px;border-radius:5px 0 0 5px;}
+.aw-search-box .search-query{line-height:20px;border-radius:5px 0 0 5px;*margin-top:-1px;}
 /*搜索下拉菜单*/
 /*搜索下拉菜单*/
-.aw-dropdown{display:none;position:absolute;right:0;z-index:9999;background: #fff;border:1px solid rgba(0, 0, 0, 0.2);border-radius: 4px;box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);}
+.aw-dropdown{display:none;position:absolute;right:0;z-index:9999;background: #fff;border:1px solid #ccc;border-radius: 4px;box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);}
 .aw-search-dropdown-box{width: 360px;}
 .aw-search-dropdown-box .i-dropdown-triangle{position: absolute;top:-6px;}
 .aw-search-dropdown-list li{height:32px;line-height:32px;padding:10px;border-bottom: 1px dotted #C1CAD4;}
@@ -266,7 +269,7 @@ select{width: auto;}
 .aw-side-bar{width:187px;height:auto;overflow:hidden;margin:0;padding:0 25px 15px;background:#F5FAFF;}
 .aw-side-bar-mod{height:auto;padding-bottom:10px;border-top:1px solid #ccc;}
 .aw-side-bar-mod .i-follow{position: relative;top:1px;}
-.aw-side-bar-mod:first-child{border-top: none;}
+.aw-side-bar .aw-side-bar-mod:first-child{border-top: none;}
 .aw-side-bar-mod dl{height:auto;overflow:hidden;margin:0;padding-top:10px;}
 .aw-side-bar-topic-detail h3{padding-bottom:10px;}
 .aw-side-bar-topic{background:#fff;padding-top:22px;}
@@ -287,7 +290,7 @@ select{width: auto;}
 /*侧边栏公告*/
 .aw-side-bar-mod-new-message{margin:20px 0 0 0;padding:10px;background: #FCFDDB;border: 1px solid #F9F2A7 !important;border-radius: 10px;}
 .aw-side-bar-mod-new-message .aw-side-bar-mod-head h3{margin:0;}
-.aw-side-bar-mod-new-message .aw-side-bar-mod-head h3 .i-close{top:-5px;*top:0;}
+.aw-side-bar-mod-new-message .aw-side-bar-mod-head h3 .i-close{top:-5px;*top:0;*z-index:0;}
 
 /*侧边栏导航条*/
 .aw-side-bar-mod-nav{padding-top:20px;}
