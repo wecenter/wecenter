@@ -262,6 +262,8 @@ select{width: auto;}
 .aw-topic-dropdown ul li:first-child{border-top: none;}
 .aw-topic-dropdown p{height: 20px;line-height: 20px;margin:0;padding: 10px;}
 .aw-topic-dropdown .aw-topic-dropdown-list li{padding: 0;}
+.aw-topic-dropdown .aw-topic-dropdown-list li a{color:#999;}
+.aw-topic-dropdown .aw-topic-dropdown-list li a .active{font-weight: bold;}
 
 /*
 **	侧边栏公共部分
