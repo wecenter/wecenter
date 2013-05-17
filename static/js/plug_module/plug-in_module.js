@@ -508,7 +508,7 @@ _ajax_uploader.FileUploader = function(o){
         		'<dd>' + 
                 '<p class="_ajax_upload-file aw-file-uploader-name"></p>' +
                 '<p class="_ajax_upload-size aw-text-color-999"></p>' +
-				'<p class="_ajax_upload-inset"><a href="javascript:;" class="_ajax_upload_delete_file" onclick="if (confirm(\'' + _t('确认删除?') + '\')) { _ajax_uploader_delete_attach(this.href, $(this).parent().parent()) }">' + _t('删除') + '</a></p>' +
+				'<p class="_ajax_upload-inset"><a href="javascript:;" class="_ajax_upload_delete_file" onclick="if (confirm(\'' + _t('确认删除?') + '\')) { _ajax_uploader_delete_attach(this.href, $(this).parent().parent()) }">' + _t('删除') + '</a> </p>' +
 				'</dd>' +
             '</dl>',        
         
@@ -675,7 +675,7 @@ _ajax_uploader.extend(_ajax_uploader.FileUploader.prototype, {
         	if (typeof(result.thumb) != 'undefined')
         	{
         		$(this._find(item, 'spinner')).css('background-image','url('+result.thumb+')').attr('rel', result.thumb);
-				if(typeof(result.attach_id) != 'undefined'){
+				if (typeof(result.attach_id) != 'undefined'){
 					$('<a/>').attr('href','javascript:;').attr('onclick','insert_attach(this,'+result.attach_id+',\''+result.attach_tag+'\')').html('插入').appendTo($(this._find(item, 'inset')));
 				}
         	}
@@ -1370,11 +1370,11 @@ function _ajax_uploader_append_file(selecter, v)
         '<dt class="aw-icon upload-' + v['class_name'] + '" '+ (url==null || url=='' ? '' : 'style="background-image:url('+url+')"')+'></dt>' +
         '<dd>' + 
         '<p class="_ajax_upload-file aw-file-uploader-name" title="' + v['file_name'] + '">' + (v['file_name']).substring(0, 10) + '...</p>' +
-        '<p class="_ajax_upload-inset"><a href="' + v['delete_link'] + '" class="_ajax_upload_delete_file" onclick="if (confirm(\'' + _t('确认删除?') + '\')) { _ajax_uploader_delete_attach(this.href, $(this).parent().parent()) };">' + _t('删除') + '</a> ';
+        '<p class="_ajax_upload-inset"><a href="' + v['delete_link'] + '" class="_ajax_upload_delete_file" onclick="if (confirm(\'' + _t('确认删除?') + '\')) { _ajax_uploader_delete_attach(this.href, $(this).parent().parent()) };return false;">' + _t('删除') + '</a> ';
         
         if (typeof(v['thumb']) != 'undefined' && typeof(v['attach_id']) != 'undefined')
         {
-	        html += '&nbsp; <a href="javascript:;" onclick="insert_attach(this, ' + v['attach_id'] + ',\'' + v['attach_tag'] + '\')">' + _t('插入') + '</a>';
+	        html += '<a href="javascript:;" onclick="insert_attach(this, ' + v['attach_id'] + ',\'' + v['attach_tag'] + '\')">' + _t('插入') + '</a>';
         }
        
         html += '</p></dd></dl>';

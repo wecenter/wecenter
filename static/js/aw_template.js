@@ -180,7 +180,7 @@ var AW_TEMPLATE = {
 					'<h3 id="myModalLabel">发起问题</h3>'+
 				'</div>'+
 				'<div class="modal-body">'+
-					'<form>'+
+					'<form action="' + G_BASE_URL + '/publish/ajax/publish_question/" method="post" id="quick_publish" onsubmit="return false">'+
 						'<textarea>{{message}}</textarea>'+
 						'<p><span class="aw-publish-box-supplement"><i class="aw-icon i-edit"></i>补充说明 »</span></p>'+
 						'<textarea class="aw-publish-box-supplement-content hide"></textarea>'+
@@ -366,6 +366,12 @@ var AW_TEMPLATE = {
 						'</div>'+
 					'</div>'+
 				'</form>'+
+				'<i class="aw-icon i-comment-triangle"></i>'+
+			'</div>',
+			
+	'commentBoxClose' : 
+			'<div class="aw-comment-box" id="{{comment_form_id}}">'+
+				'<div class="aw-comment-list"><p align="center" class="aw-padding10"><i class="aw-loading"></i></p></div>'+
 				'<i class="aw-icon i-comment-triangle"></i>'+
 			'</div>',
 
