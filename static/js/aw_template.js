@@ -164,7 +164,7 @@ var AW_TEMPLATE = {
 				'<div class="modal-body">'+
 					'<form>'+
 						'<p>将问题重定向至</p>'+
-						'<div style="position:relative;">'+
+						'<div class="aw-question-drodpwon">'+
 							'<input id="question-input" type="text" data-id="{{data_id}}" onkeyup="get_question_list_data($(this).val())" placeholder="搜索问题"/>'+
 							'<div class="aw-dropdown aw-topic-dropdown"><i class="aw-icon i-dropdown-triangle active"></i><p class="title">没有找到相关结果</p><ul class="aw-question-dropdown-list"></ul></div>'+
 						'</div>'+
@@ -349,7 +349,7 @@ var AW_TEMPLATE = {
 				'</div>'+
 			'</div>',
 	'editTopicDorpdownList' : '<li><a>{{name}}</a></li>',
-	'questionRedirectList' : '<li><a class="aw-hide-txt" onclick="ajax_request({{url}});">{{name}}</a></li>',
+	'questionRedirectList' : '<li><a class="aw-hide-txt" href="{{url}}">{{name}}</a></li>',
 
 
 	'commentBox' : 
