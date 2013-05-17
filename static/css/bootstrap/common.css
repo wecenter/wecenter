@@ -754,7 +754,7 @@ select{width: auto;}
 /*
 **	上传附件模块
 */
-.aw-file-uploader{width: 638px;height: auto;overflow: hidden;}
+.aw-file-uploader{width: 638px;height: 280px;overflow-y: scroll;}
 .aw-file-uploader dl, .aw-file-uploader dt, .aw-file-uploader dd{float:left;}
 .aw-file-uploader dl{padding:10px 0 10px 10px;margin:15px 20px 0 0;background: #F5FAFF;border:1px solid #DCEDFA;border-radius: 5px;}
 .aw-file-uploader dl.error{border: 1px solid red;}
@@ -921,7 +921,7 @@ select{width: auto;}
 .markitup-box code, #markItUpPreviewFrames code {background-color: #EDEAD5;border-radius: 4px 4px 4px 4px;display: block;font-family: "Courier New",Courier,monospace;margin: 5px 0;padding: 5px;}
 .markitup-box img {max-width: 570px !important;}
 .markitup-box blockquote {margin:0 0 10px;background-color: #FBFBFB;border-left: 5px solid #C1CAD4;line-height: 22px;margin: 5px 0;padding: 5px 15px;}
-
+.markitup-box .aw-comment-upload-img-list a{display:block;margin:15px 0;}
 
 /*404页面*/
 .aw-404{background:#f4f4f4;/*background:#dad8d9;*/}
