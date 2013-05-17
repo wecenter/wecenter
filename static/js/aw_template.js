@@ -7,7 +7,7 @@ var AW_TEMPLATE = {
 							'<img src="{{img}}" alt="" title=""/>'+
 						'</a>'+
 						'<p class="title">'+
-							'<a href="#" class="name" cashid="{{uid}}">{{username}}</a>'+
+							'<a href="#" class="name" data-id="{{uid}}">{{username}}</a>'+
 							'<i class="aw-icon i-v"></i>'+
 						'</p>'+
 						'<p class="aw-user-center-follow-meta">'+
@@ -35,7 +35,7 @@ var AW_TEMPLATE = {
 							'<img src="{{img}}" alt="" title=""/>'+
 						'</a>'+
 						'<p class="title">'+
-							'<a href="#" class="name" cashid="{{topicid}}">{{topicName}}</a>'+
+							'<a href="#" class="name" data-id="{{topicid}}">{{topicName}}</a>'+
 						'</p>'+
 						'<p>'+
 							'{{topicTitle}}'+

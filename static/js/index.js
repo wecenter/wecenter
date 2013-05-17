@@ -16,17 +16,14 @@ function reload_list()
 
 $(document).ready(function()
 {
-	if (Number($("#announce_num").html()) > 0)
+	if (Number($('#announce_num').html()) > 0)
 	{
-		request_url = G_BASE_URL + '/notifications/ajax/list/flag-0__page-0';
-		
-		$.get(request_url, function (response)
-		{
+		$.get(G_BASE_URL + '/notifications/ajax/list/flag-0__page-0', function (response) {
 			if (response.length)
 			{
 				$("#notification_list").html(response);
 				
-				notification_show(5)
+				notification_show(5);
 			}
 		});
 	}
@@ -104,7 +101,7 @@ $(document).ready(function()
 			case '#draft_list__draft':
 				var request_url = G_BASE_URL + '/home/ajax/draft/page-' + cur_page;
 				
-				$('.aw-mod-head').prepend('<a class="pull-right btn btn-mini btn-success" id="delete-draft" onclick="$.each($(\'.delete-draft\'), function (i, e) { $(e).click();">清空所有</a>');
+				$('.aw-mod-head').prepend('<a class="pull-right btn btn-mini btn-success" id="delete-draft" onclick="$.each($(\'a.delete-draft\'), function (i, e) { $(e).click(); });">清空所有</a>');
 			break;
 
 			case '#invite_list__invite':
@@ -137,12 +134,12 @@ $(document).ready(function()
 			{
 				if (cur_page == 0)
 				{
-					$('#main_contents').html('<p style="padding: 15px 0" align="center">没有内容</p>');
+					$('#main_contents').html('<p style="padding: 15px 0" align="center">' + _t('没有内容') + '</p>');
 				}
 					
 				$(_this).addClass('disabled');
 				
-				$(_this).find('a').html('没有更多了');
+				$(_this).find('a').html(_t('没有更多了'));
 			}
 			
 			$(_this).removeClass('loading');		
@@ -175,13 +172,13 @@ function _welcome_step_1_form_processer(result)
 
 function welcome_step_1_load()
 {
-	$(".select_area").LocationSelect({
-        labels: ["请选择省份或直辖市", "请选择城市"],
+	$('.select_area').LocationSelect({
+        labels: [_t('请选择省份或直辖市'), _t('请选择城市')],
         
-        elements: document.getElementsByTagName("select"),
+        elements: document.getElementsByTagName('select'),
         
         detector: function () {
-	  		this.selectID(["", ""]);
+	  		this.selectID(['', '']);
    		},	// 默认显示的城市
         
 		dataUrl: G_BASE_URL + '/account/ajax/areas_json_data/'
@@ -189,9 +186,8 @@ function welcome_step_1_load()
 		
 	init_avatar_uploader($('#welcome_avatar_uploader'), $('#aw-img-uploading'), $("#aw-upload-img"));
 	
-	//给box定位
 	$('.aw-first-login').css({
-		left : $(window).width()/2 - ($('.aw-first-login').width()+42)/2
+		left : $(window).width() / 2 - ($('.aw-first-login').width() + 42) / 2
 	});
 
 }
@@ -199,7 +195,9 @@ function welcome_step_1_load()
 function welcome_step_2_load()
 {
 	$('#welcome_topics_list').html('<p style="padding: 15px 0" align="center"><img src="' + G_STATIC_URL + '/common/loading_b.gif" alt="" /></p>');
+	
 	$('.aw-first-login').hide().siblings().eq(1).show();
+	
 	$.get(G_BASE_URL + '/account/ajax/welcome_get_topics/', function (result) {
 		$('#welcome_topics_list').html(result);
 	});
@@ -210,7 +208,8 @@ function welcome_step_2_load()
 function welcome_step_3_load()
 {
 	$('#welcome_users_list').html('<p style="padding: 15px 0" align="center"><img src="' + G_STATIC_URL + '/common/loading_b.gif" alt="" /></p>');
-		$('.aw-first-login').hide().siblings().eq(2).show();
+	$('.aw-first-login').hide().siblings().eq(2).show();
+	
 	$.get(G_BASE_URL + '/account/ajax/welcome_get_users/', function (result) {
 		$('#welcome_users_list').html(result);
 	});
@@ -220,6 +219,7 @@ function welcome_step_finish()
 {
 	$('#aw-ajax-box').html('');
 	$('.modal-backdrop').detach();
+	
 	$.get(G_BASE_URL + '/account/ajax/clean_first_login/', function (result)
 	{
 		//window.location = G_BASE_URL + '/home/';
@@ -228,20 +228,18 @@ function welcome_step_finish()
 
 function check_actions_new(uid, time)
 {
-	var url = G_BASE_URL + "/home/ajax/check_actions_new/uid-" + uid + "__time-" + time;
-
-	$.get(url, function (result) 
+	$.get(G_BASE_URL + '/home/ajax/check_actions_new/uid-' + uid + '__time-' + time, function (result) 
 	{
 		if (result.errno == 1)
 		{
 			if (result.rsm.new_count > 0)
 			{
-				if ($("#new_actions_tip").is(":hidden"))
+				if ($('#new_actions_tip').is(':hidden'))
 				{
-					$("#new_actions_tip").fadeIn();
+					$('#new_actions_tips').fadeIn();
 				}
 				
-				$("#new_action_num").html(result.rsm.new_count);
+				$('#new_action_num').html(result.rsm.new_count);
 			}
 		}
 	}, 'json');

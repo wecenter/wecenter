@@ -1,6 +1,6 @@
 <?php foreach ($this->drafts AS $key => $val) { ?>
 <div class="aw-item">
-	<a class="pull-right aw-new-message-tips-close delete-draft" onclick="delete_draft(<?php echo $val['item_id']; ?>, 'answer'); $(this).parents('div.S_module').fadeOut(); return false;"><i class="aw-icon i-close"></i></a>
+	<a class="pull-right aw-new-message-tips-close delete-draft" href="javascript:;" onclick="delete_draft(<?php echo $val['item_id']; ?>, 'answer'); $(this).parents('.aw-item').fadeOut();"><i class="aw-icon i-close"></i></a>
 	
 	<h4><a href="question/<?php echo $val['item_id']; ?>#!answer_form"><?php echo $val['question_info']['question_content']; ?></a></h4>
 	<p><?php echo nl2br(htmlspecialchars($val['data']['message'])); ?></p>
