@@ -778,8 +778,8 @@ select{width: auto;}
 .aw-card-tips .aw-mod-head p{margin: 0 0 5px;}
 .aw-card-tips .aw-mod-head .aw-head-img{position: absolute;left: 0;top: 0;}
 .aw-card-tips .aw-mod-head .aw-head-img img{border-radius: 5px;}
-.aw-card-tips .aw-mod-body{border-bottom: 1px dotted #C1CAD4;margin-bottom: 10px;}
-.aw-card-tips .aw-mod-footer{line-height: 26px;}
+.aw-card-tips .aw-mod-body{margin-bottom: 10px;}
+.aw-card-tips .aw-mod-footer{line-height: 26px;padding-top:10px;border-top: 1px dotted #C1CAD4;}
 
 
 
