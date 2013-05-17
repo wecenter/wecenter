@@ -8,7 +8,7 @@
 <meta name="description" content="<?php echo $this->_meta_description; ?>"  />
 <base href="<?php echo get_setting('base_url');?>/<?php if (get_setting('url_rewrite_enable') != 'Y') { ?><?php echo G_INDEX_SCRIPT; ?><?php } ?>" />
 
-<link rel="shortcut icon" href="<?php echo G_STATIC_URL; ?>/css/<?php echo $this->template_name; ?>/img/favicon.png?v=<?php echo G_VERSION_BUILD; ?>" type="image/x-icon" />
+<link href="<?php echo G_STATIC_URL; ?>/css/<?php echo $this->template_name; ?>/img/favicon.png?v=<?php echo G_VERSION_BUILD; ?>" rel="shortcut icon" type="image/x-icon" />
 
 <link href="<?php echo G_STATIC_URL; ?>/css/bootstrap.css" rel="stylesheet" type="text/css" />
 
@@ -45,7 +45,9 @@
 <?php } ?>
 <?php } ?>
 <!--[if IE 6]>
-<script src="<?php echo G_STATIC_URL; ?>/js/isIE6.js" defer="true"></script> 
+<script type="text/javascript" src="<?php echo G_STATIC_URL; ?>/js/isIE6.js"></script> 
 <![endif]-->
-
+<!--[if IE 7]>
+<link href="<?php echo G_STATIC_URL; ?>/css/<?php echo $this->template_name; ?>/ie7.css?v=<?php echo G_VERSION_BUILD; ?>" rel="stylesheet" type="text/css" />
+<![endif]-->
 </head>
