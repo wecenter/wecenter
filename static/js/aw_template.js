@@ -431,15 +431,12 @@ var AW_TEMPLATE = {
 			'<td><input type="text" value="{{school}}" class="school"></td>'+
 			'<td><input type="text" value="{{departments}}" class="departments"></td>'+
 			'<td><select class="edityear">'+
-					'<option value="1991">1991</option>'+
-					'<option value="1992">1992</option>'+
-					'<option value="1993">1993</option>'+
 				'</select> 年</td>'+
 			'<td><a class="delete-educate">删除</a>&nbsp;&nbsp;<a class="save-educate">保存</a></td>',
 
 	'workInsert' : 
 			'<td class="w1" data-txt="{{company}}">{{company}}</td>'+
-			'<td class="w2" data-txt="{{work}}">{{work}}</td>'+
+			'<td class="w2" data-txt="{{workid}}">{{work}}</td>'+
 			'<td class="w3" data-s-val="{{syear}}" data-e-val="{{eyear}}">{{syear}} 年 至 {{eyear}}</td>'+
 			'<td><a class="delete-work">删除</a>&nbsp;&nbsp;<a class="edit-work">编辑</a></td>',
 
@@ -447,20 +444,11 @@ var AW_TEMPLATE = {
 			'<td><input type="text" value="{{company}}" class="company"></td>'+
 			'<td>'+
 				'<select class="work editwork">'+
-					'<option value="前端工程师">前端工程师</option>'+
-					'<option value="ui">ui</option>'+
-					'<option value="ai">ai</option>'+
 				'</select>'+
 			'</td>'+
 			'<td><select class="editsyear">'+
-					'<option value="1991">1991</option>'+
-					'<option value="1992">1992</option>'+
-					'<option value="1993">1993</option>'+
 				'</select>&nbsp;&nbsp;年 &nbsp;&nbsp; 至&nbsp;&nbsp;&nbsp;&nbsp;'+
 				'<select class="editeyear">'+
-					'<option value="1991">1991</option>'+
-					'<option value="1992">1992</option>'+
-					'<option value="1993">1993</option>'+
 				'</select> 年'+
 			'</td>'+
 			'<td><a class="delete-work">删除</a>&nbsp;&nbsp;<a class="save-work">保存</a></td>'

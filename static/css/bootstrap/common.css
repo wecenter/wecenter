@@ -537,6 +537,7 @@ select{width: auto;}
 .aw-dynamic-topic .aw-comment-upload-file-list a:hover{color: #0088CC;}
 .aw-dynamic-topic .aw-comment-upload-img-list.active img{width: auto;height: auto;display:block;}
 .aw-dynamic-topic .aw-comment-upload-img-list.width-auto img{width: auto;}
+.aw-agree-by{width: 560px;}
 .aw-agree-by .aw-agree-by-show{color: #999;}
 .aw-agree-by .aw-user-name{margin:0 3px;color: #999 !important;}
 
