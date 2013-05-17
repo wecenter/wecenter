@@ -20,12 +20,12 @@
 				<dt><?php _e('性别'); ?>:</dt>
 				<dd>
 					<label>
-						<input name="sex" id="sex" value="1" checked="checked" type="radio"<?php if ($this->user_info['sex'] == 1) { ?> checked="checked"<?php } ?> /> 男 
+						<input name="sex" id="sex" value="1" checked="checked" type="radio"<?php if ($this->user_info['sex'] == 1) { ?> checked="checked"<?php } ?> /> <?php _e('男'); ?>
 					</label>&nbsp; 
 					<label>
-						<input name="sex" id="sex" value="2" type="radio"<?php if ($this->user_info['sex'] == 2) { ?> checked="checked"<?php } ?> /> 女 </label>&nbsp; 
+						<input name="sex" id="sex" value="2" type="radio"<?php if ($this->user_info['sex'] == 2) { ?> checked="checked"<?php } ?> /> <?php _e('女'); ?> </label>&nbsp; 
 					<label>
-						<input name="sex" id="sex" value="3" type="radio"<?php if (!$this->user_info['sex'] OR $this->user_info['sex'] == 3) { ?> checked="checked"<?php } ?> /> 保密
+						<input name="sex" id="sex" value="3" type="radio"<?php if (!$this->user_info['sex'] OR $this->user_info['sex'] == 3) { ?> checked="checked"<?php } ?> /> <?php _e('保密'); ?>
 					</label> 
 				</dd>
 		</dl>
@@ -133,25 +133,25 @@
 <!-- 联系方式 -->
 <div class="aw-mod aw-user-setting-base-contact">
 	<div class="aw-mod-head">
-		<h4>联系方式</h4>
+		<h4><?php _e('联系方式'); ?></h4>
 	</div>
 	<div class="aw-mod-body aw-user-setting-layout clearfix">
 		<ul>
 			<li>
 				<label for="input-qq">QQ:</label>
-			    <input type="text" name="qq" value="<?php echo $this->user_info['qq']; ?>" />
+			    <input type="text" id="input-qq" name="qq" value="<?php echo $this->user_info['qq']; ?>" />
 			</li>
 			<li>
-				<label for="input-qq">手机号码:</label>
-			    <input type="text" name="mobile" value="<?php echo $this->user_info['mobile']; ?>" />
+				<label for="input-mobile"><?php _e('手机号码'); ?>:</label>
+			    <input type="text" id="input-mobile" name="mobile" value="<?php echo $this->user_info['mobile']; ?>" />
 			</li>
 			<li>
-				<label for="input-qq">常用邮箱:</label>
-			    <input type="text" name="common_email" value="<?php echo $this->user_info['common_email']; ?>" />
+				<label for="input-common-email"><?php _e('常用邮箱'); ?>:</label>
+			    <input type="text" id="input-common-email" name="common_email" value="<?php echo $this->user_info['common_email']; ?>" />
 			</li>
 			<li>
-				<label for="input-qq">网站:</label>
-			    <input type="text" name="homepage" value="<?php echo $this->user_info['homepage']; ?>" />
+				<label for="input-homepage"><?php _e('网站'); ?>:</label>
+			    <input type="text" id="input-homepage" name="homepage" value="<?php echo $this->user_info['homepage']; ?>" />
 			</li>
 		</ul>
 	</div>
@@ -162,36 +162,34 @@
 <!-- 教育经历 -->
 <div class="aw-mod">
 	<div class="aw-mod-head">
-		<h4>教育经历</h4>
+		<h4><?php _e('教育经历'); ?></h4>
 	</div>
 	<div class="aw-mod-body aw-user-setting-layout aw-user-setting-reset-table">
 		<table class="table table-bordered">
 			<thead>
 				<tr>
-					<th>学校名称</th>
-					<th>所在院系</th>
-					<th width="20%">入学年份</th>
-					<th width="20%">操作</th>
+					<th><?php _e('学校名称'); ?></th>
+					<th><?php _e('所在院系'); ?></th>
+					<th width="20%"><?php _e('入学年份'); ?></th>
+					<th width="20%"><?php _e('操作'); ?></th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
 					<td>
-						<input type="text" class="school" placeholder="如:xx大学...">
+						<input type="text" class="school" placeholder="<?php _e('如:xx大学'); ?>...">
 					</td>
 					<td>
-						<input type="text" class="departments" placeholder="如:工程学院计算机系...">
+						<input type="text" class="departments" placeholder="<?php _e('如:工程学院计算机系'); ?>...">
 					</td>
 					<td>
 						<select class="year">
-							<option></option>
-							<option value="1991">1991</option>
-							<option value="1992">1992</option>
-							<option value="1993">1993</option>
+							<option value=""></option>
+							<?php echo H::display_options($this->birthday_y); ?>
 						</select>
 						年
 					</td>
-					<td><a class="add-educate">添加</a></td>
+					<td><a class="add-educate"><?php _e('添加'); ?></a></td>
 				</tr>
 	    	</tbody>
 		</table>
@@ -202,54 +200,58 @@
 <!-- 工作经历 -->
 <div class="aw-mod">
 	<div class="aw-mod-head">
-		<h4>工作经历</h4>
+		<h4><?php _e('工作经历'); ?></h4>
 	</div>
 	<div class="aw-mod-body aw-user-setting-layout aw-user-setting-reset-table">
 		<table class="table table-bordered">
 			<thead>
 				<tr>
-					<th width="30%">公司名称</th>
-					<th>所在职位</th>
-					<th>工作时间</th>
-					<th width="15%">操作</th>
+					<th width="30%"><?php _e('公司名称'); ?></th>
+					<th><?php _e('所在职位'); ?></th>
+					<th><?php _e('工作时间'); ?></th>
+					<th width="15%"><?php _e('操作'); ?></th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
 					<td>
-						<input type="text" class="company" placeholder="xx上市公司...">
+						<input type="text" class="company" placeholder="<?php _e('xx上市公司'); ?>...">
 					</td>
 					<td>
 						<select class="work">
-							<option></option>
-							<option value="1">前端工程师</option>
-							<option value="2">ui</option>
-							<option value="3">ai</option>
+							<option value=""></option>
+							<?php echo H::display_options($this->job_list); ?>
 						</select>
 					</td>
 					<td>
 						<select class="syear">
-							<option></option>
-							<option value="1991">1991</option>
-							<option value="1992">1992</option>
-							<option value="1993">1993</option>
+							<option value=""></option>
+							<?php echo H::display_options($this->birthday_y); ?>
 						</select>
-						&nbsp;&nbsp;年 &nbsp;&nbsp; 至&nbsp;&nbsp; 
+						&nbsp;&nbsp;<?php _e('年'); ?> &nbsp;&nbsp; <?php _e('至'); ?>&nbsp;&nbsp; 
 						<select class="eyear">
-							<option></option>
-							<option value="1991">1991</option>
-							<option value="1992">1992</option>
-							<option value="1993">1993</option>
+							<option value=""></option>
+							<?php echo H::display_options($this->birthday_y); ?>
 						</select>
-						年
+						<?php _e('年'); ?>
 					</td>
-					<td><a class="add-work">添加</a></td>
+					<td><a class="add-work"><?php _e('添加'); ?></a></td>
 				</tr>
 	    	</tbody>
 		</table>
 	</div>
 </div>
 <!-- end 工作经历 -->
+
+<script type="text/javascript">
+<?php if ($this->education_experience_list) { ?>
+var education_experience_list = <?php echo json_encode($this->education_experience_list); ?>
+<?php } ?>
+
+<?php if ($this->work_experience_list) { ?>
+var work_experience_list = <?php echo json_encode($this->work_experience_list); ?>
+<?php } ?>
+</script>
 
 <a href="javascript:;" class="btn btn-large btn-success pull-right aw-user-setting-save" onclick="ajax_post($('#setting_form'));"><?php _e('保存'); ?></a>
 
