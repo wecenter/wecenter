@@ -63,7 +63,7 @@ a.aw-load-more-content{display:block;position:relative;overflow: hidden;height: 
 /*下拉菜单*/
 .aw-dropdown-menu ul  a{display:block;*min-width:70px;min-height:24px;line-height:24px;padding:4px 20px 4px 13px;color: #666;font-weight: normal;}
 .aw-dropdown-menu ul  a:hover{color: #3887d2;background-color: #f5faff;background-image: none;filter : none;}
-.aw-dropdown-menu span{position: absolute;width:100%;top:-6px;}
+.aw-dropdown-menu span{position: absolute;width:100%;top:-6px;right: 0;}
 .aw-dropdown-menu span i{display: block;position:relative;left:22px;}
 .aw-dropdown-menu span i.active{left:63px;}
 .aw-dropdown-menu li.active a{font-weight: bold;}
@@ -217,7 +217,7 @@ select{width: auto;}
 .aw-user-nav-dropdown > a{min-width:50px;display: inline-block;}
 .aw-user-nav-dropdown .aw-dropdown-menu{top:30px;z-index: 9999;}
 .aw-user-nav-dropdown .aw-dropdown-menu  li > a{width:75px;line-height:24px;margin:0;padding:6px 8px 6px 15px;text-align: left;color:#666;}
-.aw-user-nav-dropdown .aw-dropdown-menu span i.active{left: -25px;}
+
 .aw-user-nav-dropdown .aw-dropdown-menu .i-user-post{position: absolute;right:15px;top:10px;}
 .aw-user-nav-dropdown .aw-dropdown-menu .i-setting-hover{position:absolute;right: 17px;top:12px;}
 .aw-user-nav-dropdown .aw-dropdown-menu .i-logout{position:absolute;right: 17px;top:11px;}
@@ -505,7 +505,7 @@ select{width: auto;}
 */
 .aw-dynamic-topic{padding-bottom:30px;}
 .aw-dynamic-topic > .aw-mod-head{padding-bottom: 10px;border-bottom: 1px solid #C1CAD4;}
-.aw-dynamic-topic .aw-mod-head h2{font-size: 20px;margin-bottom: 0;}
+.aw-dynamic-topic .aw-mod-head h2{font-size: 20px;margin: 10px 0 0;}
 .aw-dynamic-topic .aw-mod-head p{margin:0;}
 .aw-dynamic-topic .aw-mod-body{}
 .aw-dynamic-topic .aw-item{position:;padding-bottom:10px;border-bottom:1px dotted #C1CAD4;}
@@ -901,18 +901,18 @@ select{width: auto;}
 .markItUp .markItUpButton11 {position: absolute;right: 0;}
 /*编辑器回复样式*/
 .markitup-box {font-size: 13px !important;line-height: 22px;word-wrap: break-word !important;}
-.markitup-box h2, .preview_div h2, .tags_Mark h3, .preview_div h3 {font-weight: bold;margin: 10px 0;}
-.markitup-box h2, .preview_div h2 {font-size: 1.5em;}
-.markitup-box h3, .preview_div h3 {font-size: 1.7em;}
-.markitup-box em, .preview_div em {font-style: italic;}
-.markitup-box ul, .markitup-replay-box ol, .preview_div ul, .preview_div ol {margin-left: 15px;padding: 5px 0 5px 20px;}
-.markitup-box ul, .preview_div ul {list-style-type: square;}
-.markitup-box ol, .preview_div ol {list-style: decimal;padding-left: 23px;}
-.markitup-box p, .preview_div p {padding: 5px;}
-.markitup-box ol p, .markitup-replay-box ul p, .preview_div ol p, .preview_div ol p {display: inline !important;padding: 0 !important;}
-.markitup-box code, .preview_div code {background-color: #EDEAD5;border-radius: 4px 4px 4px 4px;display: block;font-family: "Courier New",Courier,monospace;margin: 5px 0;padding: 5px;}
+.markitup-box h2, #markItUpPreviewFrames h2, .markitup-box h3, #markItUpPreviewFrames h3 {font-weight: bold;margin: 10px 0;}
+.markitup-box h2, #markItUpPreviewFrames h2 {font-size: 1.5em;}
+.markitup-box h3, #markItUpPreviewFrames h3 {font-size: 1.17em;}
+.markitup-box em, #markItUpPreviewFrames em {font-style: italic;}
+.markitup-box ul, .markitup-box ol, #markItUpPreviewFrames ul, #markItUpPreviewFrames ol {margin-left: 15px;padding: 5px 0 5px 20px;}
+.markitup-box ul, #markItUpPreviewFrames ul {list-style-type: square;}
+.markitup-box ol, #markItUpPreviewFrames ol {list-style: decimal;padding-left: 23px;}
+.markitup-box p, #markItUpPreviewFrames p {padding: 5px;}
+.markitup-box ol p, .markitup-box ul p, #markItUpPreviewFrames ol p, #markItUpPreviewFrames ol p {display: inline !important;padding: 0 !important;}
+.markitup-box code, #markItUpPreviewFrames code {background-color: #EDEAD5;border-radius: 4px 4px 4px 4px;display: block;font-family: "Courier New",Courier,monospace;margin: 5px 0;padding: 5px;}
 .markitup-box img {max-width: 570px !important;}
-.markitup-box blockquote {background-color: #FBFBFB;border-left: 5px solid #C1CAD4;line-height: 22px;margin: 5px 0;padding: 5px 15px;}
+.markitup-box blockquote {margin:0 0 10px;background-color: #FBFBFB;border-left: 5px solid #C1CAD4;line-height: 22px;margin: 5px 0;padding: 5px 15px;}
 
 
 /*404页面*/
