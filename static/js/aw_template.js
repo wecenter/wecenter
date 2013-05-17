@@ -87,53 +87,19 @@ var AW_TEMPLATE = {
 					'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
 					'<h3 id="myModalLabel">编辑回复</h3>'+
 				'</div>'+
+				'<form action="' + G_BASE_URL + '/question/ajax/update_answer/answer_id-{{answer_id}}" method="post" onsubmit="return false" id="answer_edit">'+
 				'<div class="modal-body">'+
-					'<form>'+
-						'<textarea>{{message}}</textarea>'+
-					'</form>'+
+					'<input type="hidden" name="attach_access_key" value="{{attach_access_key}}" />'+
+					'<textarea name="answer_content" id="editor_reply"></textarea>'+
 					'<div class="aw-file-upload-box">'+
-						'<a class="aw-btn b-up-load"></a>'+
-						'<input type="file" class="hide"/>'+
-						'<!-- 上传附件模块 -->'+
-						'<div class="aw-file-uploader">'+
-							'<dl>'+
-								'<dt>'+
-									'<img src="img/user-img-max.jpg" width="90" height="90" alt="" title=""/>'+
-								'</dt>'+
-								'<dd>'+
-									'<p class="aw-file-uploader-name">aw-btn-sprite.png</p>'+
-									'<p class="aw-text-color-999">11.1kB</p>'+
-									'<p><a>删除</a>&nbsp;&nbsp;&nbsp;<a>插入</a></p>'+
-								'</dd>'+
-							'</dl>'+
-							'<dl>'+
-								'<dt>'+
-									'<img src="img/user-img-max.jpg" width="90" height="90" alt="" title=""/>'+
-								'</dt>'+
-								'<dd>'+
-									'<p class="aw-file-uploader-name">aw-btn-sprite.png</p>'+
-									'<p class="aw-text-color-999">11.1kB</p>'+
-									'<p><a>删除</a>&nbsp;&nbsp;&nbsp;<a>插入</a></p>'+
-								'</dd>'+
-							'</dl>'+
-							'<dl>'+
-								'<dt>'+
-									'<img src="img/user-img-max.jpg" width="90" height="90" alt="" title=""/>'+
-								'</dt>'+
-								'<dd>'+
-									'<p class="aw-file-uploader-name">aw-btn-sprite.png</p>'+
-									'<p class="aw-text-color-999">11.1kB</p>'+
-									'<p><a>删除</a>&nbsp;&nbsp;&nbsp;<a>插入</a></p>'+
-								'</dd>'+
-							'</dl>'+
-						'</div>'+
-						'<!-- end 上传附件模块 -->'+
+						'<span id="file_uploader_answer_edit"></span>'+
 					'</div>'+
 				'</div>'+
 				'<div class="modal-footer">'+
-					'<span><input id="aw-do-delete" type="checkbox" value="1" name="do_delete"><label for="aw-do-delete">删除回复</label></span>'+
-					'<button class="btn btn-large btn-success">确定</button>'+
+					'<span><input id="aw-do-delete" type="checkbox" value="1" name="do_delete" /><label for="aw-do-delete">删除回复</label></span>'+
+					'<button class="btn btn-large btn-success" onclick="ajax_post($(\'#answer_edit\'), _ajax_post_alert_processer);return false;">确定</button>'+
 				'</div>'+
+				'</form>'+
 			'</div>',
 
 	'favoriteBox' : 
