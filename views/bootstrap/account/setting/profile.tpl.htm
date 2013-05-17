@@ -243,6 +243,8 @@
 </div>
 <!-- end 工作经历 -->
 
+<a href="javascript:;" class="btn btn-large btn-success pull-right aw-user-setting-save" onclick="ajax_post($('#setting_form'));"><?php _e('保存'); ?></a>
+
 <script type="text/javascript">
 <?php if ($this->education_experience_list) { ?>
 var education_experience_list = <?php echo json_encode($this->education_experience_list); ?>
@@ -253,7 +255,7 @@ var work_experience_list = <?php echo json_encode($this->work_experience_list); 
 <?php } ?>
 </script>
 
-<a href="javascript:;" class="btn btn-large btn-success pull-right aw-user-setting-save" onclick="ajax_post($('#setting_form'));"><?php _e('保存'); ?></a>
+<script type="text/javascript" src="<?php echo G_STATIC_URL; ?>/js/app/settings.js"></script>
 
 <?php TPL::output('account/setting/setting_footer.tpl.htm'); ?>
 <?php TPL::output('global/footer.tpl.htm'); ?>
