@@ -146,9 +146,11 @@ var AW_TEMPLATE = {
 					'<h3 id="myModalLabel">发起问题</h3>'+
 				'</div>'+
 				'<div class="modal-body">'+
+					'<div id="quick_publish_error" class="error-message hide"><em></em></div>'+
 					'<form action="' + G_BASE_URL + '/publish/ajax/publish_question/" method="post" id="quick_publish" onsubmit="return false">'+
-						'<textarea>{{message}}</textarea>'+
-						'<p><span class="aw-publish-box-supplement"><i class="aw-icon i-edit"></i>补充说明 »</span></p>'+
+						'<input type="hidden" id="quick_publish_category_id" name="category_id" />'+
+						'<textarea placeholder="写下你的问题..." name="question_content"></textarea>'+
+						'<p onclick="$(this).parents(\'form\').find(\'.aw-publish-box-supplement-content\').fadeIn().focus();$(this).hide();"><span class="aw-publish-box-supplement"><i class="aw-icon i-edit"></i>补充说明 »</span></p>'+
 						'<textarea class="aw-publish-box-supplement-content hide"></textarea>'+
 						'<div class="aw-publish-title-dropdown">'+
 							'<p class="dropdown-toggle" data-toggle="dropdown">'+
@@ -159,11 +161,9 @@ var AW_TEMPLATE = {
 					'</form>'+
 				'</div>'+
 				'<div class="modal-footer">'+
-					'<span class="pull-left">分享到</span>'+
-					'<a class="pull-left"><i class="aw-icon i-share-sina"></i></a>'+
-					'<a class="pull-left"><i class="aw-icon i-share-weibo"></i></a>'+
+					'<a href="javascript:;" onclick="$(\'form#quick_publish\').attr(\'action\', \'' + G_BASE_URL + '/publish/\');document.getElementById(\'quick_publish\').submit();" class="pull-left">高级模式</a>'+
 					'<a data-dismiss="modal" aria-hidden="true">取消</a>'+
-					'<button class="btn btn-large btn-success">发起</button>'+
+					'<button class="btn btn-large btn-success" onclick="ajax_post($(\'#quick_publish\'), _quick_publish_processer);">发起</button>'+
 				'</div>'+
 			'</div>',
 
@@ -346,7 +346,7 @@ var AW_TEMPLATE = {
 			'<span><i class="aw-icon i-dropdown-triangle active"></i></span>'+
 			'<ul>'+
 			'{{#items}}'+
-				'<li><a data-value="{{value}}">{{name}}</a></li>'+
+				'<li><a data-value="{{id}}">{{title}}</a></li>'+
 			'{{/items}}'+
 			'</ul>'+
 		'</div>',
