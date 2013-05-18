@@ -151,7 +151,7 @@ var AW_TEMPLATE = {
 						'<input type="hidden" id="quick_publish_category_id" name="category_id" />'+
 						'<textarea placeholder="写下你的问题..." name="question_content"></textarea>'+
 						'<p onclick="$(this).parents(\'form\').find(\'.aw-publish-box-supplement-content\').fadeIn().focus();$(this).hide();"><span class="aw-publish-box-supplement"><i class="aw-icon i-edit"></i>补充说明 »</span></p>'+
-						'<textarea class="aw-publish-box-supplement-content hide"></textarea>'+
+						'<textarea name="question_detail" class="aw-publish-box-supplement-content hide"></textarea>'+
 						'<div class="aw-publish-title-dropdown">'+
 							'<p class="dropdown-toggle" data-toggle="dropdown">'+
 								'<span id="aw-topic-tags-select">选择分类</span>'+
