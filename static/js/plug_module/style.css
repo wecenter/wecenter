@@ -69,7 +69,7 @@
 #fancybox-buttons a.btnDisabled{opacity:0.4;cursor:default;}
 
 /*for fileuploader css */
-._ajax_upload-list { list-style:none; margin:0; padding:0; }
+._ajax_upload-list { list-style:none;  }
 ._ajax_upload-list li { margin:5px 5px 5px 0; }
 ._ajax_upload-list li ._ajax_upload-spinner { background: url(loading.gif) center center no-repeat; }
 ._ajax_upload-list li._ajax_upload-fail { border:1px solid red; background-image:none; }

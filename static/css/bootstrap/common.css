@@ -88,7 +88,7 @@ label{margin:0;}
 form{margin:0;}
 select, input[type="file"]{*height: 26px;*line-height: 26px;height: 26px\0;line-height: 26px\0;}
 .modal-backdrop, .modal-backdrop.fade.in{filter:alpha(opacity=20);opacity: 0.2; }
-.modal{margin-left:0;left:30%;}
+.modal{position:absolute;margin-left:0;left:30%;}
 button.close{width: 20px;height: 20px;}
 .tooltip{z-index: 9999;}
 .modal-footer{line-height: 36px;}
@@ -750,13 +750,12 @@ select{width: auto;}
 .aw-mod-search-result .aw-search-result-tags:hover{color:#085D9B}
 .aw-mod-search-result .i-star-mini{margin-right: 5px;position: relative;top: 2px;*top:-2px;}
 
-
 /*
 **	上传附件模块
 */
-.aw-file-uploader{width: 638px;height: 280px;overflow-y: scroll;}
+.aw-file-uploader{width: 638px;margin-top:20px;}
 .aw-file-uploader dl, .aw-file-uploader dt, .aw-file-uploader dd{float:left;}
-.aw-file-uploader dl{padding:10px 0 10px 10px;margin:15px 20px 0 0;background: #F5FAFF;border:1px solid #DCEDFA;border-radius: 5px;}
+.aw-file-uploader dl{padding:10px 0 10px 10px;margin:15px 15px 0 0;background: #F5FAFF;border:1px solid #DCEDFA;border-radius: 5px;}
 .aw-file-uploader dl.error{border: 1px solid red;}
 .aw-file-uploader dt{width: 90px;height: 90px;background-image: url(img/user-img-max.jpg);background-position: center;}
 .aw-file-uploader dd{width: 80px;}
@@ -813,7 +812,7 @@ select{width: auto;}
 .aw-publish-box .aw-publish-box-supplement-content{min-height: 100px;}
 .aw-publish-box .aw-publish-title-dropdown{position: relative;}
 .aw-publish-box .aw-publish-title-dropdown .dropdown-toggle{border-radius: 4px;}
-.aw-publish-box .aw-publish-title-dropdown span{width: 370px;}
+.aw-publish-box .aw-publish-title-dropdown .dropdown-toggle span{width: 370px;}
 
 /*问题重定向*/
 .aw-question-drodpwon{position: relative;}

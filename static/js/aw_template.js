@@ -343,7 +343,7 @@ var AW_TEMPLATE = {
 
 	'dropdownList' : 
 		'<div aria-labelledby="dropdownMenu" role="menu" class="dropdown-menu aw-dropdown-menu">'+
-			'<span><i class="aw-icon i-dropdown-triangle active"></i></span>'+
+			'<span><i class="aw-icon i-dropdown-triangle"></i></span>'+
 			'<ul>'+
 			'{{#items}}'+
 				'<li><a data-value="{{id}}">{{title}}</a></li>'+
