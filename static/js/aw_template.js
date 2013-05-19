@@ -315,7 +315,7 @@ var AW_TEMPLATE = {
 				'</div>'+
 			'</div>',
 	'editTopicDorpdownList' : '<li><a>{{name}}</a></li>',
-	'questionRedirectList' : '<li><a class="aw-hide-txt" href="{{url}}">{{name}}</a></li>',
+	'questionRedirectList' : '<li><a class="aw-hide-txt" onclick="ajax_request({{url}})">{{name}}</a></li>',
 
 
 	'commentBox' : 
