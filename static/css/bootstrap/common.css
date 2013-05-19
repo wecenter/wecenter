@@ -805,6 +805,7 @@ select{width: auto;}
 .aw-publish-box .modal-footer a{margin:0 0 0 5px;}
 .aw-publish-box .modal-footer a.pull-left{margin-top:2px;}
 /*发起box*/
+#quick_publish_error{margin-bottom: 10px;}
 .aw-publish-box .modal-body{overflow-y:visible;}
 .aw-publish-box textarea, .aw-share-box textarea, .aw-message-box textarea, .aw-inbox textarea{width:406px;height:60px;min-height: 60px;color:#999;}
 .aw-publish-box .aw-publish-box-supplement{font-size:12px;color:#999;cursor: pointer;}
