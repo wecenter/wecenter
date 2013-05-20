@@ -203,87 +203,44 @@ var AW_TEMPLATE = {
 				'</div>'+
 			'</div>',
 
-	'shareBoxOutside' :
-			'<div class="modal hide fade alert-box aw-share-box aw-share-box-outside" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'+
-				'<div class="modal-header">'+
-					'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
-					'<h3 id="myModalLabel">分享答案</h3>'+
-					'<!-- tab切换 -->'+
-					'<p class="aw-share-box-tabs">'+
-						'<a class="active"><i class="aw-icon i-share-user"></i>站外</a>'+
-						'<a><i class="aw-icon i-message"></i>私信</a>'+
-					'</p>'+
-					'<!-- end tab切换 -->'+
-				'</div>'+
-					'<!-- tab切换内容 -->'+
-						'<div class="aw-share-box-tabs-content">'+
-							'<!-- 站外 -->'+
-							'<div class="aw-item">'+
-								'<div class="modal-body">'+
-									'<ul>'+
-									'{{#items}}'+
-										'<li><a title="分享到{{title}}"><i class="bds {{className}}"></i>{{name}}</a></li>'+
-									'{{/items}}'+
-									'</ul>'+
-								'</div>'+
-							'</div>'+
-							'<!-- end 站外 -->'+
-							'<div class="aw-item hide">'+
-								'<div class="modal-body">'+
-									'<form>'+
-										'<input type="text" placeholder="搜索用户"/>'+
-										'<textarea>{{textareaContent}}</textarea>'+
-									'</form>'+
-								'</div>'+
-								'<div class="modal-footer">'+
-									'<a data-dismiss="modal" aria-hidden="true">取消</a>'+
-									'<button class="btn btn-large btn-success">发送</button>'+
-								'</div>'+
-							'</div>'+
-						'</div>'+
-						'<!-- end tab切换内容 -->'+
-			'</div>',
-
-	'shareBoxMessage' : 
+	'shareBox' : 
 			'<div class="modal hide fade alert-box aw-share-box aw-share-box-message" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'+
 				'<div class="modal-header">'+
 					'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
 					'<h3 id="myModalLabel">分享答案</h3>'+
-					'<!-- tab切换 -->'+
 					'<p class="aw-share-box-tabs">'+
-						'<a><i class="aw-icon i-share-user"></i>站外</a>'+
-						'<a class="active"><i class="aw-icon i-message"></i>私信</a>'+
+						'<a class="shareOut"><i class="aw-icon i-share-user"></i>站外</a>'+
+						'<a class="shareIn"><i class="aw-icon i-message"></i>私信</a>'+
 					'</p>'+
-					'<!-- end tab切换 -->'+
 				'</div>'+
-					'<!-- tab切换内容 -->'+
-						'<div class="aw-share-box-tabs-content">'+
-							'<!-- 站外 -->'+
-							'<div class="aw-item hide">'+
-								'<div class="modal-body">'+
-									'<ul>'+
-									'{{#items}}'+
-										'<li><a title="分享到{{title}}"><i class="bds {{className}}"></i>{{name}}</a></li>'+
-									'{{/items}}'+
-									'</ul>'+
-								'</div>'+
-							'</div>'+
-							'<!-- end 站外 -->'+
-							'<div class="aw-item">'+
-								'<div class="modal-body">'+
-									'<form>'+
-										'<input type="text" placeholder="搜索用户"/>'+
-										'<textarea>{{textareaContent}}</textarea>'+
-									'</form>'+
-								'</div>'+
-								'<div class="modal-footer">'+
-									'<a data-dismiss="modal" aria-hidden="true">取消</a>'+
-									'<button class="btn btn-large btn-success">发送</button>'+
-								'</div>'+
-							'</div>'+
+				
+				'<div class="aw-share-box-tabs-content">'+
+					'<div class="aw-item hide">'+
+						'<div class="modal-body">'+
+							'<ul id="bdshare" class="bdshare_t bds_tools get-codes-bdshare">'+
+							'{{#items}}'+
+								'<li><a title="分享到{{title}}"><i class="bds {{className}}"></i>{{name}}</a></li>'+
+							'{{/items}}'+
+							'</ul>'+
+							'<script type="text/javascript" src="http://bdimg.share.baidu.com/static/js/bds_s_v2.js?cdnversion=' + new Date().getHours() + '"></script>'+
 						'</div>'+
-						'<!-- end tab切换内容 -->'+
+					'</div>'+
+					'<div class="aw-item hide">'+
+						'<div class="modal-body">'+
+							'<div id="quick_publish_error" class="error-message alert  alert-error hide"><em></em></div>'+
+							'<form onsubmit="return false" id="quick_publish" method="post" action="' + G_BASE_URL +'/inbox/ajax/send/">'+
+								'<input type="text" name="recipient" placeholder="搜索用户" />'+
+								'<textarea name="message" id="share_out_content"></textarea>'+
+							'</form>'+
+						'</div>'+
+						'<div class="modal-footer">'+
+							'<a data-dismiss="modal" aria-hidden="true">取消</a>'+
+							'<button class="btn btn-large btn-success" onclick="ajax_post($(\'#quick_publish\'), _quick_publish_processer); return false;">发送</button>'+
+						'</div>'+
+					'</div>'+
+				'</div>'+
 			'</div>',
+		
 	'shareList' : [ //分享外网icon列表
 		{'className':'bds-qzone','name':'QQ空间','title':'QQ空间'},
 		{'className':'bds-tsina','name':'新浪微博','title':'新浪微博'},
