@@ -500,7 +500,7 @@ _ajax_uploader.FileUploader = function(o){
                 
         template: //'<div class="_ajax_upload-drop-area"><span>拖拽文件到这里上传</span></div>' +
                 '<a href="javascript:;" class="_ajax_upload-button aw-btn b-up-load"></a>' +
-                '<div class="aw-file-uploader _ajax_upload-list" id="upload-ul"></div>',
+                '<div class="aw-file-uploader _ajax_upload-list clearfix" id="upload-ul"></div>',
 
         // template for one item in file list
         fileTemplate: '<dl>' +
