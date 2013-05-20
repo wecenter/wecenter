@@ -15,7 +15,7 @@
 		<?php } ?>
 		<ul>
 			<li>
-				<input class="aw-register-name" type="text" name="user_name" placeholder="<?php _e('用户名'); ?>" tips="<?php _e('请输入一个 2-14 位的用户名');?>" errortips="" value="" />
+				<input class="aw-register-name" type="text" name="user_name" placeholder="<?php _e('用户名'); ?>" tips="<?php _e('请输入一个 2-14 位的用户名');?>" errortips="<?php _e('用户名已被注册');?>" value="" />
 			</li>
 			<li>
 				<input class="aw-register-email" type="text" placeholder="<?php _e('邮箱'); ?>" name="email" tips="<?php _e('请输入你常用的电子邮箱作为你的账号'); ?>" errortips="<?php _e('邮箱格式不正确'); ?>" />
@@ -25,7 +25,7 @@
 			</li>
 			<li class="aw-register-verify">
 				<em class="auth-img pull-right"><img id="seccode" onclick="this.src = G_BASE_URL + '/account/captcha/' + Math.floor(Math.random() * 10000);" src=""></em>
-				<input type="text" placeholder="<?php _e('验证码'); ?>" tips="<?php _e('验证码不区分大小写,点击图片可换一张'); ?>" errortips="" />
+				<input type="text" name="seccode_verify" placeholder="<?php _e('验证码'); ?>" tips="<?php _e('验证码不区分大小写,点击图片可换一张'); ?>" errortips="" />
 			</li>
 			<li class="last">
 				<label><input type="checkbox" checked="checked" value="agree" name="agreement_chk" /> <?php _e('我同意'); ?></label> <a href="javascript:;" onclick="$('.aw-regiter-agreement').toggle();"><?php _e('用户协议'); ?></a>
@@ -51,8 +51,9 @@ $(function(){
 		},
 		blur : function()
 		{
+			var _this = $(this);
 			$(this).parent().find('.aw-reg-tips').detach();
-			if ($(this).val().length > 0 && $(this).val().length < 3)
+			if ($(this).val().length >= 0 && $(this).val().length < 3)
 			{
 				$(this).parent().find('.aw-reg-tips').detach();
 				$(this).parent().append('<span class="aw-reg-err"><i class="aw-icon i-err"></i>'+$(this).attr('errortips')+'</span>');
@@ -63,6 +64,18 @@ $(function(){
 				$(this).parent().find('.aw-reg-tips').detach();
 				$(this).parent().append('<span class="aw-reg-err"><i class="aw-icon i-err"></i>'+$(this).attr('errortips')+'</span>');
 				return;
+			}else
+			{
+				$.get(G_BASE_URL + '/account/ajax/check_username/username'+'-'+$(this).val(),function(result){
+					if (result.errno == -1)
+					{
+						_this.parent().find('.aw-reg-tips').detach();
+						_this.parent().append('<span class="aw-reg-tips aw-reg-err"><i class="aw-icon i-err"></i>'+ _this.attr('errortips') +'</span>');
+					}else{
+						_this.parent().find('.aw-reg-tips').detach();
+						_this.parent().append('<span class="aw-reg-tips aw-reg-right"><i class="aw-icon i-followed"></i></span>');
+					}
+				},'json');
 			}
 		}
 	});
