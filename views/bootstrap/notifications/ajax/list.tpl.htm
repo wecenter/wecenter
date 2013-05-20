@@ -1,14 +1,11 @@
 <?php if ($this->list) { ?>
 <?php foreach($this->list AS $key => $val) { ?>
-<li id="notification_<?php echo $val['notification_id']; ?>"<?php if ($val['read_flag'] == 0) { ?> class="active"<?php } ?>><a>yangker2010</a> 回复了问题 <a><?php echo $val['message']; ?></a> <span>(<?php echo date_friendly($val['add_time']); ?>)</span></li>
-
-<!--<li id="notification_<?php echo $val['notification_id']; ?>"<?php if ($val['read_flag'] == 0) { ?> class="i_bold"<?php } ?>><p class="ex_hs i_right"><?php if ($val['extend_count'] > 1) { ?><span onClick="$.I.msg(this,'li');"><?php _e('展开'); ?></span><?php } ?><?php if ($_GET['flag'] == 0) { ?><em class="x i_small" title="<?php _e('删除'); ?>" onClick="read_notification(<?php echo $val['notification_id']; ?>, $(this).parents('li'), false);">X</em><?php } ?></p>
-	<?php echo $val['message']; ?> <span>（<?php echo date_friendly($val['add_time']); ?>）</span>
-	<div class="ex_more i_hide">
-		<?php if ($val['extend_message']) { ?>
-		<p><?php echo implode('</p></p>', $val['extend_message']); ?></p>
-		<?php } ?>
-	</div>
-</li>-->
+<li id="notification_<?php echo $val['notification_id']; ?>"<?php if ($val['read_flag'] == 0) { ?> class="active"<?php } ?>>
+	<span class="pull-right aw-new-message-tips-close"><?php if ($val['extend_message']) { ?><a href="javascript:;" onclick="$(this).parents('li').find('.moreContent').toggle();">展开</a><?php } ?> <?php if ($val['read_flag'] == 0) { ?><a href="javascript:;" onclick="read_notification(<?php echo $val['notification_id']; ?>, $(this).parents('li'), false);"><i class="aw-icon i-close"></i></a><?php } ?></span>
+	<?php echo $val['message']; ?></a> <span>(<?php echo date_friendly($val['add_time']); ?>)</span>
+	<?php if ($val['extend_message']) { ?>
+	<p class="moreContent hide"><?php echo implode('</p><p class="moreContent hide">', $val['extend_message']); ?></p>
+	<?php } ?>
+</li>
 <?php } ?>
 <?php } ?>

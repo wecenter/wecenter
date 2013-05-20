@@ -232,7 +232,7 @@ var AW_TEMPLATE = {
 					'</div>'+
 					'<div class="aw-item hide">'+
 						'<div class="modal-body">'+
-							'<div id="quick_publish_error" class="error-message alert  alert-error hide"><em></em></div>'+
+							'<div id="quick_publish_error" class="error-message alert alert-error hide"><em></em></div>'+
 							'<form onsubmit="return false" id="quick_publish" method="post" action="' + G_BASE_URL +'/inbox/ajax/send/">'+
 								'<input type="text" name="recipient" placeholder="搜索用户" />'+
 								'<textarea name="message" id="share_out_content"></textarea>'+
@@ -319,20 +319,16 @@ var AW_TEMPLATE = {
 					'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
 					'<h3 id="myModalLabel">举报问题</h3>'+
 				'</div>'+
-				'<form>'+
+				'<form id="quick_publish" method="post" action="' + G_BASE_URL + '/question/ajax/save_report/">'+
+					'<input type="hidden" name="type" value="{{item_type}}" />'+
+					'<input type="hidden" name="target_id" value="{{item_id}}" />'+
 					'<div class="modal-body">'+
-						'<p>举报理由:</p>'+
-						'<select>'+
-							'<option>请选择</option>'+
-							'{{#items}}'+
-								'<option value="{{value}}">{{value}}</option>'+
-							'{{/items}}'+
-						'</select>'+
-						'<textarea>{{textareaContent}}</textarea>'+
+						'<div id="quick_publish_error" class="error-message alert  alert-error hide"><em></em></div>'+
+						'<textarea name="reason" placeholder="请填写举报理由..."></textarea>'+
 					'</div>'+
 					'<div class="modal-footer">'+
 						'<a data-dismiss="modal" aria-hidden="true">取消</a>'+
-						'<button class="btn btn-large btn-success">提交</button>'+
+						'<button class="btn btn-large btn-success" onclick="ajax_post($(\'#quick_publish\'), _quick_publish_processer);return false;">提交</button>'+
 					'</div>'+
 				'</form>'+
 			'</div>',
