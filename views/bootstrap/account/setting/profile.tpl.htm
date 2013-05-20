@@ -117,7 +117,7 @@
 		<!-- 上传头像 -->
 		<div class="aw-user-setting-upload-img-box">
 			<dl>
-				<dt class="pull-left"><img class="aw-border-radius-5" src="<?php echo get_avatar_url($this->user_id, 'max'); ?>?rand=<?php echo rand(1, 999); ?>" alt="" /></dt>
+				<dt class="pull-left"><img class="aw-border-radius-5" src="<?php echo get_avatar_url($this->user_id, 'max'); ?>?rand=<?php echo rand(1, 999); ?>" alt="" id="avatar_src" /></dt>
 				<dd class="pull-left">
 					<h5><?php _e('头像设置'); ?></h5>
 					<p><?php _e('支持 jpg、gif、png 等格式的图片'); ?></p>
@@ -246,6 +246,19 @@
 <a href="javascript:;" class="btn btn-large btn-success pull-right aw-user-setting-save" onclick="ajax_post($('#setting_form'));"><?php _e('保存'); ?></a>
 
 <script type="text/javascript">
+$(document).ready(function () {
+	$('.select_area').LocationSelect({
+        labels: ["<?php _e('请选择省份或直辖市'); ?>", "<?php _e('请选择城市'); ?>"],
+        elements: document.getElementsByTagName("select"),
+        detector: function () {
+            this.select(["<?php echo $this->user_info['province']; ?>", "<?php echo $this->user_info['city']; ?>"]);
+        },
+		dataUrl: G_BASE_URL + '/account/ajax/areas_json_data/'
+    });
+	
+    init_avatar_uploader($('#avatar_uploader'), $('#avatar_uploading_status'), $("#avatar_src"));
+});
+
 <?php if ($this->education_experience_list) { ?>
 var education_experience_list = <?php echo json_encode($this->education_experience_list); ?>
 <?php } ?>
