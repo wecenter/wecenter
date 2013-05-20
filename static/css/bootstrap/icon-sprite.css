@@ -98,6 +98,7 @@
 .i-start-question-mini-hover{width:14px;height: 14px;background-position: -150px -130px;}
 .i-setting{width:12px;height: 12px;background-position: -180px -110px;position: relative;top: 2px;*top:-2px;}
 .i-setting:hover{background-position: -180px -130px;}
+.i-setting-no-hover{width:12px;height: 12px;background-position: -180px -110px;position: relative;top: 2px;*top:-2px;}
 .i-setting-hover{width:12px;height: 12px;background-position: -180px -130px;position: relative;top: 2px;*top:-2px;}
 .i-triangle-up{width:15px;height: 10px;background-position: -210px -110px;}
 .i-triangle-up.active{background-position: -210px -130px;}
