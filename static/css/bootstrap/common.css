@@ -88,7 +88,7 @@ label{margin:0;}
 form{margin:0;}
 select, input[type="file"]{*height: 26px;*line-height: 26px;height: 26px\0;line-height: 26px\0;}
 .modal-backdrop, .modal-backdrop.fade.in{filter:alpha(opacity=20);opacity: 0.2; }
-.modal{position:absolute;margin-left:0;left:30%;}
+.modal{margin-left:0;left:30%;}
 button.close{width: 20px;height: 20px;}
 .tooltip{z-index: 9999;}
 .modal-footer{line-height: 36px;}
@@ -97,6 +97,7 @@ select, input[type="file"]{height: 28px;line-height: 28px;}
 select{width: auto;}
 .modal-header h3{cursor: move;}
 .alert{margin-bottom:0px;background: #FCFDDB;border: 1px solid #F9F2A7;color:#666;}
+.alert-danger, .alert-error{background: #F2DEDE;border: 1px solid #EED3D7;color:#B94A48;}
 .tab-content{padding-bottom:30px;}
 .form-horizontal .control-label, .form-horizontal .controls{height: 30px;line-height: 30px;padding-top:0px;}
 
@@ -821,7 +822,7 @@ select{width: auto;}
 
 
 /*评论修改box*/
-.aw-edit-comment-box{width: 680px;}
+.aw-edit-comment-box{position:absolute;width: 680px;}
 .aw-edit-comment-box .modal-body textarea{width: 638px;min-height:100px;margin:0;padding:5px;overflow:hidden;clear: left;border-radius: 10px 10px 0 0}
 .aw-edit-comment-box .modal-footer input{margin: -3px 5px 0 0;}
 .aw-edit-comment-box .modal-footer label{display: inline;font-size: 13px;}
