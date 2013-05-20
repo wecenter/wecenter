@@ -148,12 +148,15 @@ select{width: auto;}
 .aw-top-menu-wrap .aw-pulish a{width:57px;line-height:50px;padding-left:70px;color:#fff;text-align:left;font-size:14px;}
 .aw-logined-nav > ul > li{position: relative;float:left;}
 .aw-logined-nav ul li:hover .aw-message-dropdown{display: block;}
+.aw-logined-nav #header_notification_list li{padding:5px 0;border-top:1px dotted #C1CAD4;}
+.aw-logined-nav #header_notification_list li:first-child{border-top:none;}
 .aw-logined-nav .aw-message-dropdown{display:none;position:absolute;left:-100px;z-index: 9999;min-width:245px;height: auto;margin:2px 0 0;padding: 5px 0;background-color: #fff;border: 1px solid #C4CDD6;border-radius: 6px 6px 6px 6px;box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);text-align: left;}
 .aw-logined-nav .aw-message-dropdown:hover{background: #F5FAFF;}
 .aw-logined-nav .aw-message-dropdown > span{position: absolute;top:-15px;width: 245px;height: 6px;}
 .aw-logined-nav .aw-message-dropdown > span .i-dropdown-triangle{position: relative;left: 122px;}
 .aw-logined-nav .aw-message-dropdown ul{padding:0 10px;font-size: 13px;font-weight: normal;}
 .aw-logined-nav .aw-message-dropdown ul a{font-size:12px;font-weight: normal;}
+.aw-logined-nav .aw-message-dropdown .aw-message-dropdown-more a{color:#999;}
 .aw-logined-nav .aw-message-dropdown p, .aw-logined-nav .aw-message-dropdown a{margin: 0;}
 .aw-logined-nav .aw-message-dropdown .i-close-disabled{top: 0;}
 .aw-logined-nav .aw-message-dropdown .aw-message-dropdown-more{font-size: 12px;}
@@ -595,7 +598,6 @@ select{width: auto;}
 .aw-my-inbox .aw-item .aw-user-img{position: absolute;left: 0;top: 0;margin-top:15px;width: 32px;height: 32px;}
 .aw-my-inbox .aw-item p{margin:0;}
 /*通知*/
-.aw-my-notifications .aw-mod-body ul{padding: 0 20px;}
 .aw-my-notifications .aw-mod-body ul li{padding: 15px 0;line-height: 15px;border-top: 1px dotted #C1CAD4;}
 .aw-my-notifications .aw-mod-body ul li:first-child{border-top: none;}
 .aw-my-notifications .aw-mod-body ul li.active{font-weight: bold;}
@@ -720,10 +722,10 @@ select{width: auto;}
 .aw-new-message-tips .aw-mod-body ul li{line-height: 15px;padding:15px 0;font-weight: bold;border-bottom:1px dotted #C1CAD4;}
 .aw-new-message-tips .aw-mod-body p{height: auto;overflow: hidden;margin:10px 0 0;}
 .aw-new-message-tips-close{display: none;}
+.aw-new-message-tips-close a{font-size: 12px;font-weight: normal;}
 .aw-new-message-tips li:hover .aw-new-message-tips-close, .aw-my-notifications li:hover .aw-new-message-tips-close{display:block;}
 .aw-new-message-tips-close span{font-size: 12px;color: #999;font-weight: normal;}
 .aw-new-message-tips-close .i-close{top:0px;}
-.aw-new-message-tips .moreContent{display:none;font-size: 12px;color: #666;font-weight: normal;}
 /*
 **	专题页面
 */
