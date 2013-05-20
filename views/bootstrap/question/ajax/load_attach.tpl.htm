@@ -1,0 +1,17 @@
+<?php if ($this->attach) {  ?>
+<?php if ($this->attach['is_image']) { ?>
+<div class="aw-comment-upload-img-list active">
+<?php } else { ?>
+<ul class="aw-comment-upload-file-list">
+<?php } ?>
+<?php if ($this->attach['is_image']) { ?>
+	<a href="<?php echo $attach['attachment']; ?>" target="_blank" data-fancybox-group="thumb" rel="lightbox"><img src="<?php echo $attach['attachment']; ?>" class="img-polaroid" alt="<?php echo $attach['attach_name']; ?>" /></a>
+<?php } else { ?>
+	<li><a href="<?php echo download_url($attach['file_name'], $attach['attachment']); ?>"><em class="aw-icon i-upload-file"></em><?php echo $attach['file_name']; ?></a></li>
+<?php } ?>
+<?php if ($this->attach['is_image']) { ?>
+</div>
+<?php } else { ?>
+</ul>
+<?php } ?>
+<?php } ?>
