@@ -16,7 +16,7 @@ var AW_TEMPLATE = {
 						'</p>'+
 					'</div>'+
 					'<div class="aw-mod-body">'+
-						'<p title="anwsion产品经理">{{title}}</p>'+
+						'<p>{{title}}</p>'+
 					'</div>'+
 					'<div class="aw-mod-footer">'+
 						'<span class="pull-right">'+
@@ -158,6 +158,11 @@ var AW_TEMPLATE = {
 								'<a><i class="aw-icon i-triangle-down"></i></a>'+
 							'</p>'+
 						'</div>'+
+						'<p>'+
+							'<span class="aw-topic-editor" data-type="publish">'+
+							'<span class="aw-edit-topic"><i class="aw-icon i-edit"></i>编辑话题</span>'+
+							'</span>'+
+						'</p>'+
 					'</form>'+
 				'</div>'+
 				'<div class="modal-footer">'+
