@@ -5,9 +5,9 @@
 		<p><?php echo $val['message']; ?></p>
 		<p class="aw-message-dropdown-more">
 			<span class="pull-right">
-				<a class="aw-text-color-999" onclick="$(this).parents('li').find('.aw-message-extend-message').toggle();">展开</a>
+				<a class="aw-text-color-999" onclick="$(this).parents('li').find('.aw-message-extend-message').toggle();$(this).find('i').hide();"><i class="icon-plus"></i></a>
 			</span>
-			<span class="aw-text-color-999"><?php echo date_friendly($val['add_time']); ?></span>
+			<span class="aw-text-color-999"><small><?php echo date_friendly($val['add_time']); ?></small></span>
 		</p>
 		<div class="aw-message-extend-message hide">
 			<small><?php if ($val['extend_message']) { ?>
