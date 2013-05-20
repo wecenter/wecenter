@@ -343,6 +343,16 @@ var AW_TEMPLATE = {
 		'<li class="clearfix"><a href="{{url}}" class="aw-topic-name" data-id="{{topicid}}"><span>{{name}}</span></a> <span>{{discuss_count}} 个问题</span></li>',
 	'searchDropdownList3' : 
 		'<li class="clearfix"><a class="aw-user-name aw-inline-block" data-id="{{uid}}"><img src="{{img}}" /></a><a class="aw-inline-block" href="{{url}}">{{name}}</a><span class="aw-hide-txt aw-inline-block">{{intro}}</span></li>',
+	'inviteDropdownList' :
+		'<li><a class="aw-user-img" data-id="{{uid}}" data-value="{{name}}"><img class="img" src="{{img}}" />{{name}}</a></li>',
+	'inviteUserList' : 
+		'<li>'+
+			'<a class="pull-right btn btn-mini" onclick="disinvite_user($(this),{{uid}})">取消邀请</a>'+
+			'<a class="aw-user-name" data-id="{{uid}}">'+
+				'<img src="{{img}}" alt="" />'+
+			'</a>'+
+			'<span class="aw-text-color-666">{{name}}</span>'+
+		'</li>',
 	
 	'voteBar' : 
 		'<div class="aw-vote-bar pull-left">'+
