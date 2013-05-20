@@ -146,7 +146,7 @@ var AW_TEMPLATE = {
 					'<h3 id="myModalLabel">发起问题</h3>'+
 				'</div>'+
 				'<div class="modal-body">'+
-					'<input type="hidden" name="post_hash" value="' + G_POST_HASH + '" />'
+					'<input type="hidden" name="post_hash" value="' + G_POST_HASH + '" />'+
 					'<div id="quick_publish_error" class="error-message alert  alert-error hide"><em></em></div>'+
 					'<form action="' + G_BASE_URL + '/publish/ajax/publish_question/" method="post" id="quick_publish" onsubmit="return false">'+
 						'<input type="hidden" id="quick_publish_category_id" name="category_id" />'+
