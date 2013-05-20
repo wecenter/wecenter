@@ -1,0 +1,74 @@
+<?php TPL::output('install/header.tpl.htm'); ?>
+
+<p class="default_head"><span class="default_logo"></span> </p>
+<div class="default_contents">
+  <h2 class="dedault_hx"> • <?php _e('配置系统'); ?></h2>
+  <p class="default_txt"><?php _e('需要您提供必要的系统配置信息'); ?></p>
+  
+  <?php if ($this->error_messages) { ?>
+  <div class="default_error">
+  	<h3><?php _e('请修正问题后继续'); ?></h3>
+  	<p>
+  		<?php foreach ($this->error_messages AS $error_message) { ?>
+  			<?php echo $error_message; ?><br />
+  		<?php } ?>
+  		</p>
+  </div>
+  <?php } else { ?>
+  <form action="" method="post" id="installer">
+  <input type="hidden" name="step" value="3" />
+  <ul class="default_ul">
+  	<li style="display:none">
+  	  <label class="label"><?php _e('数据库驱动'); ?></label>
+  	  <select name="db_driver">
+		<?php if ($this->mysqi_support) { ?>
+		<option value="MySQLi" selected="selected">MySQLi (<?php _e('内存占用较低'); ?>)</option>
+		<?php } ?>
+		<?php if ($this->pdo_support) { ?>
+  	  	<option value="PDO_MYSQL">PDO (<?php _e('性能更强'); ?>)</option>
+		<?php } ?>
+  	  </select>
+  	  <span class="txt_color"><?php _e('请根据服务器状态选择数据库驱动'); ?></span>
+  	</li>
+    <li>
+      <label class="label"><?php _e('数据库主机'); ?></label>
+      <input type="text" name="db_host" value="localhost" class="default_text"/>
+      <span class="txt_color"><?php _e('通常为 localhos'); ?></span>
+    </li>
+    <li>
+      <label class="label"><?php _e('数据库帐号'); ?></label>
+      <input type="text" name="db_username" value="" class="default_text"/>
+    </li>
+    <li>
+      <label class="label"><?php _e('数据库密码'); ?></label>
+      <input type="text" name="db_password" class="default_text"/>
+    </li>
+    <li>
+      <label class="label"><?php _e('数据库端口'); ?></label>
+      <input type="text" name="db_port" value="" class="default_text"/>
+      <span class="txt_color"><?php _e('一般情况下不需要填写'); ?></span>
+    </li>
+    <li>
+      <label class="label"><?php _e('数据库名称'); ?></label>
+      <input type="text" name="db_dbname" class="default_text"/>
+    </li>
+    <li>
+      <label class="label"><?php _e('数据表前缀'); ?></label>
+      <input type="text" name="db_prefix" value="aws_" class="default_text"/>
+      <span class="txt_color"><?php _e('同数据库安装多个本程序时需要更改'); ?></span>
+    </li>
+    <li>
+  	  <label class="label"><?php _e('数据表类型'); ?></label>
+  	  <select name="db_engine">
+		<option value="MyISAM">MyISAM</option>
+		<option value="InnoDB">InnoDB</option>
+  	  </select>
+  	  <span class="txt_color"><?php _e('请根据服务器状态选择数据表类型'); ?></span>
+  	</li>
+    <li class="default_setup_n" id="setup_control"><a href="#" class="i_green_but" onclick="document.getElementById('installer').submit(); document.getElementById('setup_control').style.display = 'none'; return false;"><?php _e('开始安装'); ?></a></li>
+  </ul>
+  </form>
+  <?php } ?>
+</div>
+
+<?php TPL::output('install/footer.tpl.htm'); ?>

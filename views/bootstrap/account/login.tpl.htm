@@ -49,7 +49,7 @@
 					
 					<?php if (get_setting('site_close') != 'Y' && (get_setting('sina_weibo_enabled') == 'Y' OR get_setting('qq_t_enabled') == 'Y' OR get_setting('qq_login_enabled') == 'Y')) { ?>
 					<?php _e('第三方登录'); ?>:
-					<?php if (get_setting('sina_weibo_enabled') == 'Y') { ?><a href="account/openid/qq/" class="aw-icon i-login-sina"></a><?php } ?>
+					<?php if (get_setting('sina_weibo_enabled') == 'Y') { ?><a href="account/openid/sina/" class="aw-icon i-login-sina"></a><?php } ?>
 					<?php if (get_setting('qq_t_enabled') == 'Y') { ?><a href="account/openid/qq/" class="aw-icon i-login-weibo"></a><?php } ?>
 					<?php if (get_setting('qq_login_enabled') == 'Y') { ?><a href="account/openid/qq_login/" class="aw-icon i-login-qq"></a><?php } ?>
 					<?php } ?>

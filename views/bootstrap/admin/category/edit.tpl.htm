@@ -1,0 +1,62 @@
+<?php TPL::output('admin/global/header.tpl.htm'); ?>
+
+<!--left-->
+<?php TPL::output('admin/global/left.tpl.htm'); ?>
+<!--left-->
+
+<!-- main -->
+<div id="main-content">
+	<div class="clear"></div>
+	<div class="content-box">
+		<div class="content-box-header">
+			<h3><?php echo $this->crumb['last']['name']; ?></h3>
+			<ul class="content-box-tabs">
+			</ul>
+			<div class="clear"></div>
+		</div>
+		<div class="content-box-content">
+			<div class="tab-content default-tab" id="tab1">
+				<form id="_save_form" action="admin/category/save_ajax/category_id-<?php echo $this->category['id']; ?>" method="post">
+					<fieldset>
+					<p>
+						<label><?php _e('分类标题'); ?>:</label>
+						<input type="text" name="title" class="text-input small-input" value="<?php echo $this->category['title']; ?>">
+					</p>
+					<p>
+						<label><?php _e('别名'); ?>:</label>
+						<?php echo get_js_url('/'); ?>category/ <input type="text" name="url_token" class="text-input" style="width:120px;" value="<?php echo $this->category['url_token']; ?>">
+					</p>
+					<p>
+						<label><?php _e('父级分类'); ?>:</label>
+						<select style="width:200px;" name="parent_id">
+							<option value="0"><?php _e('无'); ?></option>
+							<?php echo $this->category_option; ?>
+						</select>
+					</p>
+					<?php if (!$this->menu_category_ids || !in_array($this->category['id'], $this->menu_category_ids)){ ?>
+					<p>
+						<label><input name="add_nav_menu" type="checkbox"><?php _e('添加到导航菜单'); ?></label>
+					</p>
+					<?php } ?>
+					<p>
+						<input class="button" type="button" onClick="ajax_post($('#_save_form'), _form_process);" value="<?php _e('保存'); ?>" />
+					</p>
+					</fieldset>
+					<div class="clear"></div>
+				</form>
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+
+<!-- footer -->
+<?php TPL::output('admin/global/footer.tpl.htm'); ?>
+<!-- footer -->
+
+</div>
+<!-- main -->
+
+</div>
+
+</body>
+</html>

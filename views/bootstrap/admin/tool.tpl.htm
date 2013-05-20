@@ -1,0 +1,105 @@
+<?php TPL::output('admin/global/header.tpl.htm'); ?>
+
+<!--left-->
+<?php TPL::output('admin/global/left.tpl.htm'); ?>
+<!--left-->
+
+<!-- main -->
+<div id="main-content">
+	<div class="content-box">
+		<div class="content-box-header">
+			<h3><?php echo $this->crumb['last']['name']; ?></h3>
+		</div>
+		
+		<div class="content-box-content">
+			<form action="admin/tool/init/" method="post">
+			<input type="hidden" name="action" value="cache_clean" />
+			<p>
+				<label><?php _e('缓存清理'); ?>:</label>
+				<p style="color:#999;"><?php _e('当站点进行了数据恢复、升级或者工作出现异常的时候, 你可以使用本功能清除缓存'); ?></p>
+				<p>
+					<input class="button" type="submit" value="<?php _e('开始处理'); ?>" />
+				</p>
+			</p>
+			</form>
+			
+			<form action="admin/tool/email_setting_test/" method="post" id="email_setting_test_form" onsubmit="return false">
+			<p>
+				<label><?php _e('邮件系统测试'); ?>:</label>
+				<p style="color:#999;"><?php _e('使用此功能测试邮件系统配置是否正确'); ?></p>
+				<p>
+					<?php _e('收件人地址'); ?>: <input type="text" name="test_email" class="text-input small-int" />
+				</p>
+				<p>
+					<input class="button" type="button" onclick="ajax_post($('#email_setting_test_form'), _ajax_post_alert_processer);" value="<?php _e('发送邮件'); ?>" />
+				</p>
+			</p>
+			</form>
+			
+			<form action="admin/tool/init/" method="post" target="_blank">
+			<input type="hidden" name="action" value="update_search_index" />
+			<p>
+				<label><?php _e('更新搜索索引'); ?>:</label>
+				<p style="color:#999;"><?php _e('如果站点搜索功能有问题可以使用此功能修正'); ?></p>
+				<p>
+					<?php _e('每次处理数量'); ?>: <input type="text" value="300" name="per_page" class="text-input small-int" />
+				</p>
+				<p>
+					<input class="button" type="submit" value="<?php _e('开始处理'); ?>" />
+				</p>
+			</p>
+			</form>
+			
+			<form action="admin/tool/init/" method="post" target="_blank">
+			<input type="hidden" name="action" value="update_fresh_actions" />
+			<p>
+				<label><?php _e('更新最新动态'); ?>:</label>
+				<p style="color:#999;"><?php _e('如果站点最新动态数据有问题可以使用此功能修正'); ?></p>
+				<p>
+					<?php _e('每次处理数量'); ?>: <input type="text" value="2000" name="per_page" class="text-input small-int" />
+				</p>
+				<p>
+					<input class="button" type="submit" value="<?php _e('开始处理'); ?>" />
+				</p>
+			</p>
+			</form>
+			
+			<form action="admin/tool/init/" method="post" target="_blank">
+			<input type="hidden" name="action" value="update_users_reputation" />
+			<p>
+				<label><?php _e('更新用户威望'); ?>:</label>
+				<p style="color:#999;"><?php _e('威望数据一般情况下会自动更新, 如果更改了威望设置需要立即生效可以使用此工具'); ?></p>
+				<p>
+					<?php _e('每次处理数量'); ?>: <input type="text" value="500" name="per_page" class="text-input small-int" />
+				</p>
+				<p>
+					<input class="button" type="submit" value="<?php _e('开始处理'); ?>" />
+				</p>
+			</p>
+			</form>
+			
+			<form action="admin/tool/init/" method="post" target="_blank">
+			<input type="hidden" name="action" value="bbcode_to_markdown" />
+			<p>
+				<label><?php _e('BBCode 转换'); ?>:</label>
+				<p style="color:#999;"><?php _e('此工具可以将系统内容中的 BBcode 语法转换为 Markdown 语法'); ?></p>
+				<p>
+					<?php _e('每次处理数量'); ?>: <input type="text" value="500" name="per_page" class="text-input small-int" />
+				</p>
+				<p>
+					<input class="button" type="submit" value="<?php _e('开始处理'); ?>" />
+				</p>
+			</p>
+			</form>
+		</div>
+	</div>
+
+<!-- footer -->
+<?php TPL::output('admin/global/footer.tpl.htm'); ?>
+<!-- footer -->
+
+</div>
+<!-- main -->
+
+</body>
+</html>

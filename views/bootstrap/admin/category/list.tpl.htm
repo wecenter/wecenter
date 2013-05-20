@@ -1,0 +1,136 @@
+<?php TPL::output('admin/global/header.tpl.htm'); ?>
+<!--left-->
+<?php TPL::output('admin/global/left.tpl.htm'); ?>
+<!--left-->
+<!-- main -->
+
+<div id="body-wrapper">
+	<div id="main-content">
+		<div class="clear"></div>
+		<div class="content-box">
+			<div class="content-box-header">
+				<h3><?php echo $this->crumb['last']['name']; ?></h3>
+				<ul class="content-box-tabs">
+				</ul>
+				<div class="clear"></div>
+			</div>
+			<div style="width:950px;">
+				<form id="category_form" action="admin/category/sort_ajax/" method="post">
+				<div class="content-box-content" style="padding-bottom:3px; padding-top:12px;">
+					<p groupid="11" name="category_enable" style="height:20px;">
+						<span style="float:left;"><?php _e('是否使用分类功能'); ?>:</span>
+						<label style="float:left;">
+						<input type="radio" name="category_enable" value="Y" <?php if ($this->setting['category_enable'] == 'Y'){ ?> checked="checked"<?php } ?>/>
+						<?php _e('是'); ?>
+						</label>
+						<label style=" float:left;">
+						<input type="radio" name="category_enable" value="N" <?php if ($this->setting['category_enable'] == 'N'){ ?> checked="checked"<?php } ?>/>
+						<?php _e('否'); ?>
+						</label>
+					<span style="color:#999; float:left; margin-left:16px;">(<?php _e('不使用分类功能, 问题将会被保存在 默认分类 下'); ?>)</span>
+					</p>
+				</div>
+				<div style="clear:both"></div>
+				<div class="content-box-content" style="width:500px;float:left;padding-top:0;margin-top:5px;">
+					<?php if ($this->category_position){ ?>
+					<p>
+						<label><b><?php _e('分类导航'); ?>:</b></label>
+						<?php foreach($this->category_position as $key => $val){ ?>
+						<a href="admin/category/list/parent_id-<?php echo $val['id'];?>"><?php echo $val['title']; ?></a> >
+						<?php } ?>
+						</label>
+					</p>
+					<?php } ?>
+					<?php if (!$this->list){ ?>
+					<div class="notification attention png_bg">
+						<div><?php _e('没有分类'); ?></div>
+					</div>
+					<?php }else{ ?>
+						<table class="list">
+							<thead>
+								<tr>
+									<th style="width:34px;"><?php _e('排序'); ?></th>
+									<th align="center"><?php _e('分类标题'); ?></th>
+									<th align="center"><?php _e('子分类'); ?></th>
+									<th align="center"><?php _e('操作'); ?></th>
+								</tr>
+							</thead>
+							<tbody style="border-bottom: 1px solid #ddd;">
+								<?php foreach ($this->list AS $key => $val) { ?>
+								<tr valign="middle">
+									<td style="width:100px;"><input type="text" value="<?php echo $val['sort']; ?>" class="text-input medium-input" maxlength="3" style="width:60px;" name="category[<?php echo $val['id']; ?>][sort]"></td>
+									<td style="width:200px;"><a href="admin/category/edit/category_id-<?php echo $val['id']; ?>"><?php echo $val['title']; ?></a></td>
+									<td><?php if ($val['child_count'] > 0){ ?>
+										<a href="admin/category/list/parent_id-<?php echo $val['id']; ?>"><?php _e('%s 个子分类', $val['child_count']); ?></a>
+										<?php } else { ?>
+										<?php _e('无'); ?>
+										<?php } ?></td>
+									<td><a href="admin/category/edit/category_id-<?php echo $val['id']; ?>" title="<?php _e('编辑'); ?>"><img src="<?php echo G_STATIC_URL;?>/admin/images/icons/page_edit.png" alt="" /></a> &nbsp; <a href="javascript:;" onClick="category_remove(<?php echo $val['id'];?>)" title="<?php _e('删除'); ?>"><img src="<?php echo G_STATIC_URL;?>/admin/images/icons/page_delete.png" alt="" /></a> &nbsp; <a href="admin/category/question_move/category_id-<?php echo $val['id']; ?>" title="<?php _e('批量移动'); ?>"><img src="<?php echo G_STATIC_URL;?>/admin/images/icons/table_go.png" alt="" /></a></td>
+								</tr>
+								<?php } ?>
+							</tbody>
+						</table>
+						<p style="margin-top:10px;">
+							<input type="button" value="<?php _e('保存设置'); ?>" onClick="ajax_post($('#category_form'), _form_process);" class="button">
+						</p>
+					<?php } ?>
+					</div>
+					</form>
+				<div style="border:1px solid rgb(204, 204, 204); margin-left:10px; padding-top:0; width:350px; float:left;margin-top:5px;">
+				<div style="width: 100%; cursor: s-resize;" class="content-tgbox-header">
+					<h4><?php _e('添加分类'); ?></h4>
+				</div>
+				
+					<div class="tab-content default-tab" style="padding:10px;<?php if ($this->setting['category_enable'] == 'N'){ ?>display:none;<?php } ?>" id="tab1">
+						<form id="_save_form" action="admin/category/save_ajax/" method="post">
+							<p>
+								<label><?php _e('分类标题'); ?>:</label>
+								<input type="text" value="" class="text-input medium-input" name="title">
+							</p>
+							<p>
+								<label><?php _e('父级分类'); ?>:</label>
+								<select name="parent_id" style="width:200px;">
+									<option value="0"><?php _e('无'); ?></option>
+									<?php echo $this->category_option; ?>
+								</select>
+							</p>
+							<p>
+								<label>
+								<input name="add_nav_menu" type="checkbox" checked="checked"> <?php _e('添加到导航菜单'); ?></label>
+								</label>
+							</p>
+							<p>
+								<input class="button" type="button" onClick="ajax_post($('#_save_form'), _form_process);" value="<?php _e('添加新分类'); ?>" />
+							</p>
+						</form>
+					</div>
+				</div>
+			</div>
+			<!-- footer -->
+			<?php TPL::output('admin/global/footer.tpl.htm'); ?>
+			<!-- footer -->
+		</div>
+	</div>
+	<div class="clear"></div>
+</div>
+<!-- main -->
+</div>
+
+<script type="text/javascript">
+
+$('#_save_form').find('select[name=parent_id]').change(function (i)
+{
+	if ($(this).val() != 0)
+	{
+		$(':input[name=add_nav_menu]').removeAttr('checked');
+	}
+	else
+	{
+		$(':input[name=add_nav_menu]').attr('checked', 'checked');
+	}
+});
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,55 @@
+<?php TPL::output('admin/global/header.tpl.htm'); ?>
+<!--left-->
+<?php TPL::output('admin/global/left.tpl.htm'); ?>
+<!--left-->
+
+<div id="main-content" style="margin:0 0 0 200px;">
+	<div class="clear"></div>
+	<div class="content-box">
+		<div class="content-box-header">
+			<h3><?php _e('性能优化'); ?></h3>
+			<ul class="content-box-tabs">
+			</ul>
+			<div class="clear"></div>
+		</div>
+		<div class="content-box-content">
+			<div id="notification_box" class="notification success png_bg" style="display:none;"> <a class="close" href="javascript:;"></a>
+				<div name="notification_content"></div>
+			</div>
+			<div class="tab-content default-tab" id="tab1">
+				<form id="_save_form" action="admin/setting/sys_save_ajax/" method="post">
+					<fieldset>
+					<!--<p name="cache_level_high">
+						<label><?php _e('缓存文件存放目录'); ?>: <span style="font-weight:normal">(<?php _e('不设置则使用程序下的 cache 目录'); ?>)</span></label>
+						<input name="cache_dir" class="text-input small-int" type="text" value="<?php echo $this->setting['cache_dir']; ?>"/>
+					</p>-->
+					<p name="cache_level_high">
+						<label><?php _e('高级别缓存时间 (单位:秒)'); ?>:</label>
+						<input name="cache_level_high" class="text-input small-int" type="text" value="<?php echo $this->setting['cache_level_high']; ?>"/>
+					</p>
+					<p name="cache_level_normal">
+						<label><?php _e('普通级别缓存时间 (单位:秒)'); ?>:</label>
+						<input name="cache_level_normal" class="text-input small-int" type="text" value="<?php echo $this->setting['cache_level_normal']; ?>"/>
+					</p>
+					<p name="cache_level_low">
+						<label><?php _e('低级别缓存时间 (单位:秒)'); ?>:</label>
+						<input name="cache_level_low" class="text-input small-int" type="text" value="<?php echo $this->setting['cache_level_low']; ?>"/>
+					</p>
+					<p>
+						<input class="button" type="button" onclick="ajax_post($('#_save_form'), _form_process);" value="<?php _e('保存'); ?>" />
+					</p>
+					</fieldset>
+					<div class="clear"></div>
+				</form>
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<!-- footer -->
+	<?php TPL::output('admin/global/footer.tpl.htm'); ?>
+	<!-- footer -->
+</div>
+<!-- main -->
+</div>
+</body>
+</html>

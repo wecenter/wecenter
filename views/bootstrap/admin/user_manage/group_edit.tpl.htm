@@ -1,0 +1,214 @@
+<?php TPL::output('admin/global/header.tpl.htm'); ?>
+
+<!--left-->
+<?php TPL::output('admin/global/left.tpl.htm'); ?>
+<!--left-->
+
+<!-- main -->
+<div id="main-content">
+	<div class="clear"></div>
+	<div class="content-box">
+		<div class="content-box-header">
+			<h3><?php echo $this->crumb['last']['name']; ?> - <?php echo $this->group['group_name']; ?></h3>
+			<ul class="content-box-tabs">
+			</ul>
+			<div class="clear"></div>
+		</div>
+		<div class="content-box-content">
+			<div id="notification_box" class="notification success png_bg" style="display:none;"> <a class="close" href="javascript:;"></a>
+				<div name="notification_content"></div>
+			</div>
+			<?php if ($this->group['group_id'] == 4) { ?>
+			<div class="notification information png_bg">
+				<div name="notification_content"><?php _e('注意: 这个用户组的权限会被会员组覆盖, 除非用户的威望不在会员组范围内才会使用此用户组权限'); ?></div>
+			</div>
+			<?php } ?>
+			<div id="tab1" class="tab-content default-tab" style="display: block;">
+				<form method="post" action="admin/user_manage/group_edit_process/group_id-<?php echo $this->group['group_id']; ?>" id="_save_form">
+					<fieldset>
+					<?php if ($this->group['group_id'] != 99) { ?>
+					<p>
+						<label><?php _e('系统管理员'); ?>:</label>
+						<input type="radio" value="1" name="is_administortar"<?php if ($this->group_pms['is_administortar']) { ?> checked="checked"<?php } ?>>
+						<?php _e('是'); ?>
+						<input type="radio" value="0" name="is_administortar"<?php if (!$this->group_pms['is_administortar']) { ?> checked="checked"<?php } ?>>
+						<?php _e('否'); ?>
+					</p>
+					<p>
+						<label><?php _e('前台管理员'); ?>:</label>
+						<input type="radio" value="1" name="is_moderator"<?php if ($this->group_pms['is_moderator']) { ?> checked="checked"<?php } ?>>
+						<?php _e('是'); ?>
+						<input type="radio" value="0" name="is_moderator"<?php if (!$this->group_pms['is_moderator']) { ?> checked="checked"<?php } ?>>
+						<?php _e('否'); ?>
+					</p>
+					<p>
+						<label><?php _e('允许发布问题'); ?>:</label>
+						<input type="radio" value="1" name="publish_question"<?php if ($this->group_pms['publish_question']) { ?> checked="checked"<?php } ?>>
+						<?php _e('是'); ?>
+						<input type="radio" value="0" name="publish_question"<?php if (!$this->group_pms['publish_question']) { ?> checked="checked"<?php } ?>>
+						<?php _e('否'); ?>
+					</p>
+					<p>
+						<label><?php _e('发布的问题与回答需要审核'); ?>:</label>
+						<input type="radio" value="1" name="publish_approval"<?php if ($this->group_pms['publish_approval']) { ?> checked="checked"<?php } ?>>
+						<?php _e('是'); ?>
+						<input type="radio" value="0" name="publish_approval"<?php if (!$this->group_pms['publish_approval']) { ?> checked="checked"<?php } ?>>
+						<?php _e('否'); ?>
+					</p>
+					<p rel="publish_approval">
+						<label><?php _e('需要审核内容的时间段 (24 小时制全部审核请设置 0 小时 - 23 小时或不设置)'); ?>:</label>
+						<input type="text" size="2" value="<?php echo $this->group_pms['publish_approval_time']['start']; ?>" name="publish_approval_time[start]" />
+						<?php _e('小时'); ?> - 
+						<input type="text" size="2" value="<?php echo $this->group_pms['publish_approval_time']['end']; ?>" name="publish_approval_time[end]" />
+						<?php _e('小时'); ?>
+					</p>
+					<p>
+						<label><?php _e('允许编辑所有问题'); ?>:</label>
+						<input type="radio" value="1" name="edit_question"<?php if ($this->group_pms['edit_question']) { ?> checked="checked"<?php } ?>>
+						<?php _e('是'); ?>
+						<input type="radio" value="0" name="edit_question"<?php if (!$this->group_pms['edit_question']) { ?> checked="checked"<?php } ?>>
+						<?php _e('否'); ?>
+					</p>
+					<p>
+						<label><?php _e('允许编辑所有话题'); ?>:</label>
+						<input type="radio" value="1" name="edit_topic"<?php if ($this->group_pms['edit_topic']) { ?> checked="checked"<?php } ?>>
+						<?php _e('是'); ?>
+						<input type="radio" value="0" name="edit_topic"<?php if (!$this->group_pms['edit_topic']) { ?> checked="checked"<?php } ?>>
+						<?php _e('否'); ?>
+					</p>
+					<p>
+						<label><?php _e('允许管理所有话题'); ?>:</label>
+						<input type="radio" value="1" name="manage_topic"<?php if ($this->group_pms['manage_topic']) { ?> checked="checked"<?php } ?>>
+						<?php _e('是'); ?>
+						<input type="radio" value="0" name="manage_topic"<?php if (!$this->group_pms['manage_topic']) { ?> checked="checked"<?php } ?>>
+						<?php _e('否'); ?>
+					</p>
+					<p>
+						<label><?php _e('允许创建话题'); ?>:</label>
+						<input type="radio" value="1" name="create_topic"<?php if ($this->group_pms['create_topic']) { ?> checked="checked"<?php } ?>>
+						<?php _e('是'); ?>
+						<input type="radio" value="0" name="create_topic"<?php if (!$this->group_pms['create_topic']) { ?> checked="checked"<?php } ?>>
+						<?php _e('否'); ?>
+					</p>
+					<p>
+						<label><?php _e('允许使用问题重定向'); ?>:</label>
+						<input type="radio" value="1" name="redirect_question"<?php if ($this->group_pms['redirect_question']) { ?> checked="checked"<?php } ?>>
+						<?php _e('是'); ?>
+						<input type="radio" value="0" name="redirect_question"<?php if (!$this->group_pms['redirect_question']) { ?> checked="checked"<?php } ?>>
+						<?php _e('否'); ?>
+					</p>
+					<p>
+						<label><?php _e('允许使用附件功能'); ?>:</label>
+						<input type="radio" value="1" name="upload_attach"<?php if ($this->group_pms['upload_attach']) { ?> checked="checked"<?php } ?>>
+						<?php _e('是'); ?>
+						<input type="radio" value="0" name="upload_attach"<?php if (!$this->group_pms['upload_attach']) { ?> checked="checked"<?php } ?>>
+						<?php _e('否'); ?>
+					</p>
+					<p>
+						<label><?php _e('允许发布站外链接'); ?>:</label>
+						<input type="radio" value="1" name="publish_url"<?php if ($this->group_pms['publish_url']) { ?> checked="checked"<?php } ?>>
+						<?php _e('是'); ?>
+						<input type="radio" value="0" name="publish_url"<?php if (!$this->group_pms['publish_url']) { ?> checked="checked"<?php } ?>>
+						<?php _e('否'); ?>
+					</p>
+					<p>
+						<label><?php _e('开启发文验证码限制'); ?>:</label>
+						<input type="radio" value="1" name="human_valid"<?php if ($this->group_pms['human_valid']) { ?> checked="checked"<?php } ?>>
+						<?php _e('是'); ?>
+						<input type="radio" value="0" name="human_valid"<?php if (!$this->group_pms['human_valid']) { ?> checked="checked"<?php } ?>>
+						<?php _e('否'); ?>
+					</p>
+					<p rel="human_valid">
+						<label><?php _e('一小时内发布问题超过规定条数需要验证码 (设置 0 为不限制)'); ?>:</label>
+						<input type="text" name="question_valid_hour" class="text-input small-int" value="<?php echo intval($this->group_pms['question_valid_hour']); ?>">
+					</p>
+					<p rel="human_valid">
+						<label><?php _e('一小时内发表回复超过规定条数需要验证码 (设置 0 为不限制)'); ?>:</label>
+						<input type="text" name="answer_valid_hour" class="text-input small-int" value="<?php echo intval($this->group_pms['answer_valid_hour']); ?>">
+					</p>
+					<p>
+						<label><?php _e('编辑话题 / 添加话题 / 话题重定向功能使用间隔限制 (单位: 秒, 设置 0 为不限制, 对管理员无效)'); ?>:</label>						
+						<input type="text" name="function_interval" class="text-input small-int" value="<?php echo intval($this->group_pms['function_interval']); ?>">
+					</p>
+					<?php } else { ?>
+					<p>
+						<label><?php _e('允许浏览网站'); ?>:</label>
+						<input type="radio" value="1" name="visit_site"<?php if ($this->group_pms['visit_site']) { ?> checked="checked"<?php } ?>>
+						<?php _e('是'); ?>
+						<input type="radio" value="0" name="visit_site"<?php if (!$this->group_pms['visit_site']) { ?> checked="checked"<?php } ?>>
+						<?php _e('否'); ?>
+					</p>
+					<p>
+						<label><?php _e('允许浏览问题列表'); ?>:</label>
+						<input type="radio" value="1" name="visit_explore"<?php if ($this->group_pms['visit_explore']) { ?> checked="checked"<?php } ?>>
+						<?php _e('是'); ?>
+						<input type="radio" value="0" name="visit_explore"<?php if (!$this->group_pms['visit_explore']) { ?> checked="checked"<?php } ?>>
+						<?php _e('否'); ?>
+					</p>
+					<p>
+						<label><?php _e('允许浏览问题内容'); ?>:</label>
+						<input type="radio" value="1" name="visit_question"<?php if ($this->group_pms['visit_question']) { ?> checked="checked"<?php } ?>>
+						<?php _e('是'); ?>
+						<input type="radio" value="0" name="visit_question"<?php if (!$this->group_pms['visit_question']) { ?> checked="checked"<?php } ?>>
+						<?php _e('否'); ?>
+					</p>
+					<p>
+						<label><?php _e('访问回复权限') ?>:</label>
+						<label style="font-weight:normal;"><input type="radio" value="0" name="answer_show"<?php if (!$this->group_pms['answer_show']) { ?> checked="checked"<?php } ?>>
+						<?php _e('显示一个回复 (最佳回复或赞同最多的回复)'); ?></label>
+						<label style="font-weight:normal;"><input type="radio" value="1" name="answer_show"<?php if ($this->group_pms['answer_show']) { ?> checked="checked"<?php } ?>>
+						<?php _e('显示所有回复'); ?>
+						</label>
+					</p>
+					<p>
+						<label><?php _e('允许浏览话题'); ?>:</label>
+						<input type="radio" value="1" name="visit_topic"<?php if ($this->group_pms['visit_topic']) { ?> checked="checked"<?php } ?>>
+						<?php _e('是'); ?>
+						<input type="radio" value="0" name="visit_topic"<?php if (!$this->group_pms['visit_topic']) { ?> checked="checked"<?php } ?>>
+						<?php _e('否'); ?>
+					</p>
+					<p>
+						<label><?php _e('允许浏览专题'); ?>:</label>
+						<input type="radio" value="1" name="visit_feature"<?php if ($this->group_pms['visit_feature']) { ?> checked="checked"<?php } ?>>
+						<?php _e('是'); ?>
+						<input type="radio" value="0" name="visit_feature"<?php if (!$this->group_pms['visit_feature']) { ?> checked="checked"<?php } ?>>
+						<?php _e('否'); ?>
+					</p>
+					<p>
+						<label><?php _e('允许浏览用户'); ?>:</label>
+						<input type="radio" value="1" name="visit_people"<?php if ($this->group_pms['visit_people']) { ?> checked="checked"<?php } ?>>
+						<?php _e('是'); ?>
+						<input type="radio" value="0" name="visit_people"<?php if (!$this->group_pms['visit_people']) { ?> checked="checked"<?php } ?>>
+						<?php _e('否'); ?>
+					</p>
+					<p>
+						<label><?php _e('允许使用搜索'); ?>:</label>
+						<input type="radio" value="1" name="search_avail"<?php if ($this->group_pms['search_avail']) { ?> checked="checked"<?php } ?>>
+						<?php _e('是'); ?>
+						<input type="radio" value="0" name="search_avail"<?php if (!$this->group_pms['search_avail']) { ?> checked="checked"<?php } ?>>
+						<?php _e('否'); ?>
+					</p>
+					<?php } ?>
+					<p>
+						<input type="button" value="<?php _e('保存'); ?>" onClick="ajax_post($('#_save_form'), _form_process);" class="button">
+					</p>
+					</fieldset>
+					<div class="clear"></div>
+				</form>
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+
+<!-- footer -->
+<?php TPL::output('admin/global/footer.tpl.htm'); ?>
+<!-- footer -->
+
+</div>
+<!-- main -->
+
+</div>
+
+<script type="text/javascript" src="<?php echo G_STATIC_URL; ?>/admin/js/group.js"></script>
+</body>
+</html>

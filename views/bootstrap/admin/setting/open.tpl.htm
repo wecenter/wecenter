@@ -1,0 +1,96 @@
+<?php TPL::output('admin/global/header.tpl.htm'); ?>
+<!--left-->
+<?php TPL::output('admin/global/left.tpl.htm'); ?>
+<!--left-->
+
+<div id="main-content" style="margin:0 0 0 200px;">
+	<div class="clear"></div>
+	<div class="content-box">
+		<div class="content-box-header">
+			<h3><?php _e('开放平台'); ?></h3>
+			<ul class="content-box-tabs">
+			</ul>
+			<div class="clear"></div>
+		</div>
+		<div class="content-box-content">
+			<div id="notification_box" class="notification success png_bg" style="display:none;"> <a class="close" href="javascript:;"></a>
+				<div name="notification_content"></div>
+			</div>
+			<div class="tab-content default-tab" id="tab1">
+				<form id="_save_form" action="admin/setting/sys_save_ajax/" method="post">
+					<fieldset>
+					<p groupid="8" name="qq_login_enabled">
+						<label><?php _e('开启 QQ 登录功能'); ?>:</label>
+						<input type="radio" name="qq_login_enabled" value="Y" <?php if ($this->setting['qq_login_enabled'] == 'Y') { ?> checked="checked"<?php } ?>/>
+						<?php _e('是'); ?>
+						<input type="radio" name="qq_login_enabled" value="N" <?php if ($this->setting['qq_login_enabled'] == 'N') { ?> checked="checked"<?php } ?>/>
+						<?php _e('否'); ?>
+					</p>
+					<p style="color:#999;" name="qq_login_enabled" groupid="8"><?php _e('AppID 与 APPKey 需要到 <a href="http://connect.qq.com/" target="_blank">QQ 互联开放平台</a> 申请 (注意: 请申请网站不要申请应用)'); ?></p>
+					<p groupid="8" name="qq_login_app_id">
+						<label><?php _e('QQ 登录 AppID'); ?>:</label>
+						<input name="qq_login_app_id" class="text-input small-input" type="text" value="<?php echo $this->setting['qq_login_app_id']; ?>"/>
+					</p>
+					<p groupid="8" name="qq_login_app_key">
+						<label><?php _e('QQ 登录 AppKey'); ?>:</label>
+						<input name="qq_login_app_key" class="text-input small-input" type="text" value="<?php echo $this->setting['qq_login_app_key']; ?>"/>
+					</p>
+					
+					<p groupid="8" name="sina_weibo_enabled">
+						<label><?php _e('开启新浪微博登录功能'); ?>:</label>
+						<input type="radio" name="sina_weibo_enabled" value="Y" <?php if ($this->setting['sina_weibo_enabled'] == 'Y') { ?> checked="checked"<?php } ?>/>
+						<?php _e('是'); ?>
+						<input type="radio" name="sina_weibo_enabled" value="N" <?php if ($this->setting['sina_weibo_enabled'] == 'N') { ?> checked="checked"<?php } ?>/>
+						<?php _e('否'); ?>
+					</p>
+					
+					<p groupid="8" name="sina_akey">
+						<label><?php _e('新浪微博 AppKey(akey)'); ?>: <span style="font-weight:normal;">(<?php _e('对应分享的来源网站'); ?>)</span></label>
+						<input name="sina_akey" class="text-input small-input" type="text" value="<?php echo $this->setting['sina_akey']; ?>"/>
+					</p>
+					<p style="color:#999;" name="sina_weibo_enabled" groupid="8"><?php _e('AppKey 需要到 <a href="http://open.weibo.com/" target="_blank">新浪微博开放平台</a> 申请 (注意: 请申请网站不要申请应用)'); ?></p>
+					<p groupid="8" name="sina_skey">
+						<label><?php _e('新浪微博 AppKey(skey)'); ?>:</label>
+						<input name="sina_skey" class="text-input small-input" type="text" value="<?php echo $this->setting['sina_skey']; ?>"/>
+					</p>
+					
+					<p groupid="8" name="qq_t_enabled">
+						<label><?php _e('开启腾讯微博登录功能'); ?>:</label>
+						<input type="radio" name="qq_t_enabled" value="Y" <?php if ($this->setting['qq_t_enabled'] == 'Y') { ?> checked="checked"<?php } ?>/>
+						<?php _e('是'); ?>
+						<input type="radio" name="qq_t_enabled" value="N" <?php if ($this->setting['qq_t_enabled'] == 'N') { ?> checked="checked"<?php } ?>/>
+						<?php _e('否'); ?>
+					</p>
+					
+					<p groupid="8" name="qq_app_key">
+						<label><?php _e('腾讯微博 AppKey(app_key)'); ?>：<span style="font-weight:normal;">(<?php _e('对应分享的来源网站'); ?>)</span></label>
+						<input name="qq_app_key" class="text-input small-input" type="text" value="<?php echo $this->setting['qq_app_key']; ?>"/>
+					</p>
+					<p style="color:#999;" name="qq_t_enabled" groupid="8"><?php _e('AppKey 需要到 <a href="http://open.t.qq.com/" target="_blank">腾讯微博开放平台</a> 申请 (注意: 请申请网站不要申请应用)'); ?></p>
+					<p groupid="8" name="qq_app_secret">
+						<label><?php _e('腾讯微博 AppKey(app_secret)'); ?>:</label>
+						<input name="qq_app_secret" class="text-input small-input" type="text" value="<?php echo $this->setting['qq_app_secret']; ?>"/>
+					</p>
+					
+					<p groupid="8" name="weixin_mp_token">
+						<label><?php _e('微信公众平台接口 Token'); ?>: <span style=" font-weight:normal;">(<?php _e('请与微信公众平台后台设置一致'); ?>)</label>
+						<input name="weixin_mp_token" class="text-input small-int" type="text" value="<?php echo $this->setting['weixin_mp_token']; ?>"/>
+					</p>
+					
+					<p>
+						<input class="button" type="button" onclick="ajax_post($('#_save_form'), _form_process);" value="<?php _e('保存'); ?>" />
+					</p>
+					</fieldset>
+					<div class="clear"></div>
+				</form>
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<!-- footer -->
+	<?php TPL::output('admin/global/footer.tpl.htm'); ?>
+	<!-- footer -->
+</div>
+<!-- main -->
+</div>
+</body></html>

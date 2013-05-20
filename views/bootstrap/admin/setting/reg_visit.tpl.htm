@@ -1,0 +1,171 @@
+<?php TPL::output('admin/global/header.tpl.htm'); ?>
+<!--left-->
+<?php TPL::output('admin/global/left.tpl.htm'); ?>
+<!--left-->
+
+<div id="main-content" style="margin:0 0 0 200px;">
+	<div class="clear"></div>
+	<div class="content-box">
+		<div class="content-box-header">
+			<h3><?php _e('注册与访问'); ?></h3>
+			<ul class="content-box-tabs">
+			</ul>
+			<div class="clear"></div>
+		</div>
+		<div class="content-box-content">
+			<div id="notification_box" class="notification success png_bg" style="display:none;"> <a class="close" href="javascript:;"></a>
+				<div name="notification_content"></div>
+			</div>
+			<div class="tab-content default-tab" id="tab1">
+				<form id="_save_form" action="admin/setting/sys_save_ajax/" method="post">
+					<fieldset>
+					<p>
+						<label><?php _e('默认时区'); ?>:</label>
+						<select name="default_timezone">
+							<option value='Etc/GMT+12'<?php if ($this->setting['default_timezone'] == 'Etc/GMT+12') { ?> selected="selected"<?php } ?>><?php _e('(GMT - 12:00 小时) 安尼威托克岛，卡瓦加兰'); ?></option>
+							<option value='Etc/GMT+11'<?php if ($this->setting['default_timezone'] == 'Etc/GMT+11') { ?> selected="selected"<?php } ?>><?php _e('(GMT - 11:00 小时) 中途岛，萨摩亚'); ?></option>
+							<option value='Etc/GMT+10'<?php if ($this->setting['default_timezone'] == 'Etc/GMT+10') { ?> selected="selected"<?php } ?>><?php _e('(GMT - 10:00 小时) 夏威夷'); ?></option>
+							<option value='Etc/GMT+9'<?php if ($this->setting['default_timezone'] == 'Etc/GMT+9') { ?> selected="selected"<?php } ?>><?php _e('(GMT - 9:00 小时) 阿拉斯加'); ?></option>
+							<option value='Etc/GMT+8'<?php if ($this->setting['default_timezone'] == 'Etc/GMT+8') { ?> selected="selected"<?php } ?>><?php _e('(GMT - 8:00 小时) 太平洋时间'); ?></option>
+							<option value='Etc/GMT+7'<?php if ($this->setting['default_timezone'] == 'Etc/GMT+7') { ?> selected="selected"<?php } ?>><?php _e('(GMT - 7:00 小时) 美国山区时间'); ?></option>
+							<option value='Etc/GMT+6'<?php if ($this->setting['default_timezone'] == 'Etc/GMT+6') { ?> selected="selected"<?php } ?>><?php _e('(GMT - 6:00 小时) 美国中部时间，墨西哥市'); ?></option>
+							<option value='Etc/GMT+5'<?php if ($this->setting['default_timezone'] == 'Etc/GMT+5') { ?> selected="selected"<?php } ?>><?php _e('(GMT - 5:00 小时) 美国东部时间，波哥大，利马'); ?></option>
+							<option value='Etc/GMT+4'<?php if ($this->setting['default_timezone'] == 'Etc/GMT+4') { ?> selected="selected"<?php } ?>><?php _e('(GMT - 4:00 小时) 大西洋时间（加拿大），加拉加斯，拉巴斯'); ?></option>
+							<option value='Canada/Newfoundland'<?php if ($this->setting['default_timezone'] == 'Canada/Newfoundland') { ?> selected="selected"<?php } ?>><?php _e('(GMT - 3:30 小时) 纽芬兰'); ?></option>
+							<option value='Etc/GMT+3'<?php if ($this->setting['default_timezone'] == 'Etc/GMT+3') { ?> selected="selected"<?php } ?>><?php _e('(GMT - 3:00 小时) 巴西，布宜诺斯艾利斯，福克兰群岛'); ?></option>
+							<option value='Etc/GMT+2'<?php if ($this->setting['default_timezone'] == 'Etc/GMT+2') { ?> selected="selected"<?php } ?>><?php _e('(GMT - 2:00 小时) 大西洋中部，亚森欣，圣赫勒拿岛'); ?></option>
+							<option value='Etc/GMT+1'<?php if ($this->setting['default_timezone'] == 'Etc/GMT+1') { ?> selected="selected"<?php } ?>><?php _e('(GMT - 1:00 小时) 亚速群岛，佛得角群岛'); ?></option>
+							<option value='Etc/GMT'<?php if ($this->setting['default_timezone'] == 'Etc/GMT') { ?> selected="selected"<?php } ?>><?php _e('(GMT) 卡萨布兰卡，都柏林，伦敦，里斯本，蒙罗维亚'); ?></option>
+							<option value='Etc/GMT-1'<?php if ($this->setting['default_timezone'] == 'Etc/GMT-1') { ?> selected="selected"<?php } ?>><?php _e('(GMT + 1:00 小时) 布鲁塞尔，哥本哈根，马德里，巴黎'); ?></option>
+							<option value='Etc/GMT-2'<?php if ($this->setting['default_timezone'] == 'Etc/GMT-2') { ?> selected="selected"<?php } ?>><?php _e('(GMT + 2:00 小时) 加里宁格勒，南非'); ?></option>
+							<option value='Etc/GMT-3'<?php if ($this->setting['default_timezone'] == 'Etc/GMT-3') { ?> selected="selected"<?php } ?>><?php _e('(GMT + 3:00 小时) 巴格达，利雅德，莫斯科，奈洛比'); ?></option>
+							<option value='Iran'<?php if ($this->setting['default_timezone'] == 'Iran') { ?> selected="selected"<?php } ?>><?php _e('(GMT + 3:30 小时) 德黑兰'); ?></option>
+							<option value='Etc/GMT-4'<?php if ($this->setting['default_timezone'] == 'Etc/GMT-4') { ?> selected="selected"<?php } ?>><?php _e('(GMT + 4:00 小时) 阿布达比，巴库，马斯喀特，第比利斯'); ?></option>
+							<option value='Asia/Kabul'<?php if ($this->setting['default_timezone'] == 'Asia/Kabul') { ?> selected="selected"<?php } ?>><?php _e('(GMT + 4:30 小时) 喀布尔'); ?></option>
+							<option value='Etc/GMT-5'<?php if ($this->setting['default_timezone'] == 'Etc/GMT-5') { ?> selected="selected"<?php } ?>><?php _e('(GMT + 5:00 小时) 凯萨琳堡，克拉嗤，塔什干'); ?></option>
+							<option value='Asia/Kolkata'<?php if ($this->setting['default_timezone'] == 'Asia/Kolkata') { ?> selected="selected"<?php } ?>><?php _e('(GMT + 5:30 小时) 孟买，加尔各答，马德拉斯，新德里'); ?></option>
+							<option value='Etc/GMT-6'<?php if ($this->setting['default_timezone'] == 'Etc/GMT-6') { ?> selected="selected"<?php } ?>><?php _e('(GMT + 6:00 小时) 阿拉木图，科隆巴，达卡'); ?></option>
+							<option value='Etc/GMT-7'<?php if ($this->setting['default_timezone'] == 'Etc/GMT-7') { ?> selected="selected"<?php } ?>><?php _e('(GMT + 7:00 小时) 曼谷，河内，雅加达'); ?></option>
+							<option value='Etc/GMT-8'<?php if (!$this->setting['default_timezone'] OR $this->setting['default_timezone'] == 'Etc/GMT-8') { ?> selected="selected"<?php } ?>><?php _e('(GMT + 8:00 小时) 北京，香港，澳洲伯斯，新加坡，台北'); ?></option>
+							<option value='Etc/GMT-9'<?php if ($this->setting['default_timezone'] == 'Etc/GMT-9') { ?> selected="selected"<?php } ?>><?php _e('(GMT + 9:00 小时) 大阪，札幌，首尔，东京，亚库次克'); ?></option>
+							<option value='Etc/GMT-10'<?php if ($this->setting['default_timezone'] == 'Etc/GMT-10') { ?> selected="selected"<?php } ?>><?php _e('(GMT + 10:00 小时) 墨尔本，巴布亚新几内亚，雪梨'); ?></option>
+							<option value='Etc/GMT-11'<?php if ($this->setting['default_timezone'] == 'Etc/GMT-11') { ?> selected="selected"<?php } ?>><?php _e('(GMT + 11:00 小时) 马加丹，新喀里多尼亚，所罗门群岛'); ?></option>
+							<option value='Etc/GMT-12'<?php if ($this->setting['default_timezone'] == 'Etc/GMT-12') { ?> selected="selected"<?php } ?>><?php _e('(GMT + 12:00 小时) 新西兰，斐济，马绍尔群岛'); ?></option>
+							<option value='Etc/GMT-13'<?php if ($this->setting['default_timezone'] == 'Etc/GMT-13') { ?> selected="selected"<?php } ?>><?php _e('(GMT + 13:00 小时) 堪察加半岛，阿那底河'); ?></option>
+							<option value='Etc/GMT-14'<?php if ($this->setting['default_timezone'] == 'Etc/GMT-14') { ?> selected="selected"<?php } ?>><?php _e('(GMT + 14:00 小时) 圣诞岛'); ?></option>
+						</select>
+					</p>
+					<p groupid="2" name="site_close">
+						<label><?php _e('站点关闭'); ?>:</label>
+						<input type="radio" name="site_close" value="Y" <?php if ($this->setting['site_close'] == 'Y') { ?> checked="checked"<?php } ?>/>
+						<?php _e('是'); ?>
+						<input type="radio" name="site_close" value="N" <?php if ($this->setting['site_close'] == 'N') { ?> checked="checked"<?php } ?>/>
+						<?php _e('否'); ?>
+					</p>
+					<p groupid="2" name="close_notice">
+						<label><?php _e('站点关闭的提示'); ?>:</label>
+						<textarea name="close_notice" cols="100" rows="3" id="close_notice"><?php echo $this->setting['close_notice']; ?></textarea>
+					</p>
+					<p groupid="2" name="register_seccode">
+						<label><?php _e('新用户注册显示验证码'); ?>:</label>
+						<input type="radio" name="register_seccode" value="Y" <?php if ($this->setting['register_seccode'] == 'Y') { ?> checked="checked"<?php } ?>/>
+						<?php _e('是'); ?>
+						<input type="radio" name="register_seccode" value="N" <?php if ($this->setting['register_seccode'] == 'N') { ?> checked="checked"<?php } ?>/>
+						<?php _e('否'); ?>
+					</p>
+					<p groupid="2" name="register_email_reqire">
+						<label><?php _e('新用户注册需要邮件验证'); ?>:</label>
+						<input type="radio" name="register_email_reqire" value="Y" <?php if ($this->setting['register_email_reqire'] == 'Y') { ?> checked="checked"<?php } ?>/>
+						<?php _e('是'); ?>
+						<input type="radio" name="register_email_reqire" value="N" <?php if ($this->setting['register_email_reqire'] == 'N') { ?> checked="checked"<?php } ?>/>
+						<?php _e('否'); ?>
+					</p>
+					<p groupid="2" name="invite_reg_only">
+						<label><?php _e('只允许通过邀请注册成为会员'); ?>:</label>
+						<input type="radio" name="invite_reg_only" value="Y" <?php if ($this->setting['invite_reg_only'] == 'Y') { ?> checked="checked"<?php } ?>/>
+						<?php _e('是'); ?>
+						<input type="radio" name="invite_reg_only" value="N" <?php if ($this->setting['invite_reg_only'] == 'N') { ?> checked="checked"<?php } ?>/>
+						<?php _e('否'); ?>
+					</p>
+					<p groupid="2" name="username_rule">
+						<label><?php _e('用户名规则'); ?>:</label>
+						<label><input type="radio" value="0" name="username_rule"<?php if ($this->setting['username_rule'] == 0) { ?> checked="checked"<?php } ?> />
+						<?php _e('不限制'); ?></label>
+						<label><input type="radio" value="1" name="username_rule"<?php if ($this->setting['username_rule'] == 1) { ?> checked="checked"<?php } ?> />
+						<?php _e('汉字/字母/数字/下划线'); ?></label>
+						<label><input type="radio" value="2" name="username_rule"<?php if ($this->setting['username_rule'] == 2) { ?> checked="checked"<?php } ?> />
+						<?php _e('字母/数字/下划线'); ?></label>
+						<label><input type="radio" value="3" name="username_rule"<?php if ($this->setting['username_rule'] == 3) { ?> checked="checked"<?php } ?> />
+						<?php _e('汉字'); ?></label>
+					</p>
+					<p>
+						<label><?php _e('用户名最少字符数'); ?>: 
+						<input name="username_length_min" class="text-input small-int" type="text" value="<?php echo $this->setting['username_length_min']; ?>"/></label>
+						<label><?php _e('用户名最多字符数'); ?>: 
+						<input name="username_length_max" class="text-input small-int" type="text" value="<?php echo $this->setting['username_length_max']; ?>"/></label>
+					</p>
+					<p style="color:#999;" name="v" groupid="2"><?php _e('注: 一个汉字等于 2 个字符'); ?></p>
+					<p groupid="2" name="register_agreement">
+						<label><?php _e('用户注册协议'); ?>:</label>
+						<textarea name="register_agreement" cols="100" rows="3" id="register_agreement"><?php echo $this->setting['register_agreement']; ?></textarea>
+					</p>
+					<p groupid="2" name="censoruser">
+						<label><?php _e('用户注册名不允许出现以下关键字'); ?>: <span style=" font-weight:normal;">(<?php _e('每行填写一个关键字, 如: admin, 管理员等'); ?>)</span></label>
+						<textarea name="censoruser" cols="100" rows="3" id="censoruser"><?php echo $this->setting['censoruser']; ?></textarea>
+					</p>
+					<p groupid="2" name="def_focus_uids">
+						<label><?php _e('用户注册后默认关注的用户 ID'); ?>: <span style=" font-weight:normal;">(<?php _e('多个用户 ID 请用 , 隔开'); ?>)</span></label>
+						<input name="def_focus_uids" class="text-input small-input" type="text" value="<?php echo $this->setting['def_focus_uids']; ?>"/>
+					</p>
+					<p groupid="2" name="welcome_recommend_users">
+						<label><?php _e('首次登录推荐用户列表'); ?>: <span style=" font-weight:normal;">(<?php _e('填写用户名, 若有多个用户名请用 , 隔开, 留空系统自动推荐'); ?>)</span></label>
+						<input name="welcome_recommend_users" class="text-input small-input" type="text" value="<?php echo $this->setting['welcome_recommend_users']; ?>"/>
+					</p>
+					<p groupid="2" name="newer_invitation_num">
+						<label><?php _e('新用户注册获得邀请数量'); ?>:</label>
+						<input name="newer_invitation_num" class="text-input small-int" type="text" value="<?php echo $this->setting['newer_invitation_num']; ?>"/>
+					</p>
+					<p groupid="2" name="newer_invitation_num">
+						<label><?php _e('新用户注册系统发送的欢迎内容'); ?>:</label>
+						<label><?php _e('私信'); ?>:</label>
+						<textarea id="welcome_message_pm" rows="3" cols="100" name="welcome_message_pm"><?php echo $this->setting['welcome_message_pm']; ?></textarea>
+						<label><?php _e('邮件'); ?>:</label>
+						<textarea id="welcome_message_email" rows="3" cols="100" name="welcome_message_email"><?php echo $this->setting['welcome_message_email']; ?></textarea>
+					</p>
+					<p><?php _e('新用户注册欢迎内容, 以下变量可作为内容替换: <br />{username}: 用户名<br />{time}: 发送时间<br />{sitename}: 网站名称'); ?></p>
+					<p groupid="2" name="new_user_email_setting">
+					<input type="hidden" name="set_email_settings" value="1" />
+						<label><?php _e('新用户默认邮件提醒设置'); ?>:</label>
+						<span><input type="checkbox" name="new_user_email_setting[]" value="FOLLOW_ME"<?php if ($this->setting['new_user_email_setting']['FOLLOW_ME'] != 'N') { ?> checked="checked"<?php } ?> /> <?php _e('当有人关注我'); ?></span> &nbsp;
+                        <span><input type="checkbox" name="new_user_email_setting[]" value="QUESTION_INVITE"<?php if ($this->setting['new_user_email_setting']['QUESTION_INVITE'] != 'N') { ?> checked="checked"<?php } ?> /> <?php _e('有人邀请我回答问题'); ?></span> &nbsp;
+                        <span><input type="checkbox" name="new_user_email_setting[]" value="NEW_ANSWER"<?php if ($this->setting['new_user_email_setting']['NEW_ANSWER'] != 'N') { ?> checked="checked"<?php } ?> /> <?php _e('我关注的问题有了新回复'); ?></span> &nbsp;
+                        <span><input type="checkbox" name="new_user_email_setting[]" value="NEW_MESSAGE"<?php if ($this->setting['new_user_email_setting']['NEW_MESSAGE'] != 'N') { ?> checked="checked"<?php } ?> /> <?php _e('有人向我发送私信'); ?></span> &nbsp;
+                        <span><input type="checkbox" name="new_user_email_setting[]" value="QUESTION_MOD"<?php if ($this->setting['new_user_email_setting']['QUESTION_MOD'] != 'N') { ?> checked="checked"<?php } ?> /> <?php _e('我的问题被编辑'); ?></span>
+					</p>
+					<p groupid="2" name="new_user_email_setting">
+					<input type="hidden" name="set_notification_settings" value="1" />
+						<label><?php _e('新用户默认通知设置'); ?>:</label>
+						<?php foreach($this->notify_actions as $key => $val) { ?>
+                        <?php if ($val['user_setting']) { ?>
+                        <span><input name="new_user_notification_setting[<?php echo $key;?>]" type="checkbox" value="1"<?php if (!in_array($key, $this->notification_settings)) { ?> checked="checked"<?php } ?> /> <?php _e($val['desc']); ?></span>  &nbsp;
+                        <?php } ?>
+                        <?php } ?>
+					</p>
+					<p>
+						<input class="button" type="button" onClick="ajax_post($('#_save_form'), _form_process);" value="<?php _e('保存'); ?>" />
+					</p>
+					</fieldset>
+					<div class="clear"></div>
+				</form>
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<!-- footer -->
+	<?php TPL::output('admin/global/footer.tpl.htm'); ?>
+	<!-- footer -->
+</div>
+<!-- main -->
+</div>
+</body>
+</html>

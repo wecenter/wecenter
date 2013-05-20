@@ -1,0 +1,101 @@
+<?php TPL::output('admin/global/header.tpl.htm'); ?>
+<!--left-->
+<?php TPL::output('admin/global/left.tpl.htm'); ?>
+<!--left-->
+<!-- main -->
+
+<div id="main-content">
+	<div class="clear"></div>
+	<div class="content-box">
+		<div class="content-box-header">
+			<h3><?php echo $this->crumb['last']['name']; ?></h3>
+			<ul class="content-box-tabs">
+				<li><a href="#tab1" class="default-tab current"><?php _e('专题列表'); ?></a></li>
+				<li><a class="" href="#tab2"><?php _e('添加专题'); ?></a></li>
+			</ul>
+			<div class="clear"></div>
+		</div>
+		<div class="content-box-content">
+			<div class="tab-content default-tab" id="tab1">
+				<?php if ($this->list){ ?>
+				<table class="list">
+					<thead>
+						<tr>
+							<th style="width:40px;" align="center">ID</th>
+							<th><?php _e('专题标题'); ?></th>
+							<th><?php _e('描述'); ?></th>
+							<th><?php _e('是否领域'); ?></th>
+							<th align="center"><?php _e('话题'); ?></th>
+							<th><?php _e('操作'); ?></th>
+						</tr>
+					</thead>
+					<tfoot>
+						<tr>
+							<td colspan="6"><div class="pagination"> <?php echo $this->pagination; ?></div>
+								<div class="clear"></div></td>
+						</tr>
+					</tfoot>
+					<tbody style="border-bottom: 1px solid #ddd;">
+						<?php foreach ($this->list AS $key => $val) { ?>
+						<tr style="vertical-align:middle;">
+							<td align="center"><?php echo $val['id']; ?></td>
+							<td><a href="feature/<?php echo $val['id']; ?>" target="_blank"><?php echo $val['title']; ?></a></td>
+							<td><?php echo $val['description']; ?></td>
+							<td align="center"><?php if ($val['is_scope']) { ?>是<?php } else { ?>否<?php } ?></td>
+							<td align="center"><a href="admin/feature/topic_list/feature_id-<?php echo $val['id']; ?>"><?php if ($val['topic_count']) { ?><?php _e('%s 个话题', $val['topic_count']); ?><?php } else { ?><?php _e('添加话题'); ?><?php } ?></a></td>
+							<td><a href="admin/feature/edit/feature_id-<?php echo $val['id']; ?>" title="<?php _e('编辑专题'); ?>"><img src="<?php echo G_STATIC_URL;?>/admin/images/icons/page_edit.png"/></a> &nbsp; <a href="javascript:void(0);" onClick="ajax_request(G_BASE_URL + '/admin/feature/delete_feature_ajax/', 'feature_id=<?php echo $val['id']; ?>');" title="<?php _e('删除专题'); ?>"><img src="<?php echo G_STATIC_URL;?>/admin/images/icons/page_delete.png" /></a> &nbsp; <a href="admin/feature/topic_list/feature_id-<?php echo $val['id']; ?>" title="<?php _e('话题管理'); ?>"><img src="<?php echo G_STATIC_URL;?>/admin/images/icons/page_link.png" /></a></td>
+						</tr>
+						<?php } ?>
+					</tbody>
+				</table>
+				<?php } ?>
+			</div>
+			<div class="tab-content" id="tab2" style="display: none;">
+				<div id="notification_box" class="notification success png_bg" style="display:none;"> <a class="close" href="javascript:;"></a>
+					<div name="notification_content"></div>
+				</div>
+				<h3><?php _e('添加专题'); ?></h3>
+				<form id="_save_form" action="admin/feature/save_ajax/" method="post" enctype="multipart/form-data">
+					<p>
+						<label><?php _e('专题标题'); ?>:</label>
+						<input type="text" value="" class="text-input medium-input" name="title">
+					</p>
+					<p>
+						<label><?php _e('别名'); ?>:</label>
+						<?php echo get_js_url('/'); ?>feature/ <input type="text" name="url_token" class="text-input" style="width:120px;" value="<?php echo $this->feature['url_token']; ?>">
+					</p>
+					<p>
+						<label><?php _e('专题描述'); ?>:</label>
+						<input id="description" type="text" value="" class="text-input medium-input" name="description">
+					</p>
+					<p>
+						<label><?php _e('专题图标'); ?> (<?php _e('规格'); ?>: 900x240px)：
+					<input name="icon" class="upload-input" type="file" style="margin-top:10px;">
+					<br />
+					<small>(<?php _e('支持上传图片类型'); ?>: jpg,jpeg,gif,png)</small>
+					</p>
+					<p>
+						<label><?php _e('自定义页面样式(CSS)'); ?>:</label>
+						<textarea id="css" rows="3" cols="100" name="css"><?php echo $this->feature['css']; ?></textarea>
+					</p>
+					<p>
+						<label><input name="add_nav_menu" type="checkbox" checked="checked" value="1" /> <?php _e('添加到导航菜单'); ?></label>
+					</p>
+					<p>
+						<label><input name="is_scope" value="1" type="checkbox" /> <?php _e('设为领域'); ?></label>
+					</p>
+					<p>
+						<input class="button" type="button" onClick="ajax_post($('#_save_form'), _form_process);" value="<?php _e('添加新专题'); ?>" />
+					</p>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- footer -->
+	<?php TPL::output('admin/global/footer.tpl.htm'); ?>
+	<!-- footer -->
+</div>
+<!-- main -->
+</div>
+</body>
+</html>

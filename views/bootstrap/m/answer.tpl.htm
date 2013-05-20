@@ -1,0 +1,67 @@
+<?php TPL::output('m/header.tpl.htm'); ?>
+
+<div data-role="page">
+	<?php TPL::output('m/panel.tpl.htm'); ?>
+	
+	<div data-role="header" data-theme="b" role="banner" class="aw-header">
+		<a href="#panel" data-inline="true" data-icon="bars" data-iconpos="notext"><?php _e('导航'); ?></a>
+		
+		<h1><?php echo $this->question_info['question_content']; ?></h1>
+		
+		<a href="m/question/<?php echo $this->answer_info['question_id']; ?>" data-inline="true" data-icon="forward" data-iconpos="notext"><?php _e('查看问题'); ?></a>
+	</div><!-- /header -->
+
+	<div data-role="content" class="m_answer">	
+		<div class="content-primary" data-theme="d">
+			<div class="ui-grid-b user_info">
+				<div class="ui-block-a">
+					<?php if ($this->answer_info['anonymous']) { ?>
+						<a href="javascript:;"><img src="<?php echo G_STATIC_URL; ?>/common/avatar-mid-img.jpg" alt="" /></a>
+					<?php } else { ?>
+						<a href="m/people/<?php echo $this->answer_info['user_info']['url_token']; ?>"><img src="<?php echo get_avatar_url($this->answer_info['user_info']['uid'], 'mid'); ?>" alt="" /></a>
+					<?php } ?>
+				</div>
+				
+				<div class="ui-block-b">
+					<h4 class="user_name"><?php if ($this->answer_info['anonymous']) { ?>匿名用户<?php } else { ?><?php echo $this->answer_info['user_info']['user_name']; ?><?php } ?></h4>
+					<p><?php if (!$this->answer_info['anonymous']) { ?><?php echo $this->answer_info['user_info']['signature']; ?><?php } ?></p>
+				</div>
+				
+				<div class="ui-block-c">
+					<?php if ($this->user_id) { ?><a href="m/answer_vote/<?php echo $this->answer_info['answer_id']; ?>?r=<?php echo rand(1, 99999); ?>" data-rel="dialog" id="answer_vote_button" data-role="button" data-transition="slidedown" data-icon="star" data-iconpos="right" data-mini="true" data-inline="true" data-theme="<?php if ($this->answer_info['agree_status']['vote_value']) { ?>b<?php } else { ?>d<?php } ?>"><?php echo $this->answer_info['agree_count']; ?></a><?php } ?>
+				</div>
+			</div>
+			
+			<div class="answer_content">
+				<?php echo $this->answer_info['answer_content']; ?>
+				
+				<?php if ($this->answer_info['attachs']) {  ?>
+					<?php foreach ($this->answer_info['attachs'] AS $key => $attach) { ?>
+					<?php if ($attach['is_image'] AND !in_array($attach['id'], FORMAT::parse_attachs($this->answer_info['answer_content'], true))) { ?>
+					<p class="imgScroll">
+						<a href="<?php echo $attach['attachment']; ?>" target="_blank"><img src="<?php echo $attach['attachment']; ?>" alt="<?php echo $attach['attach_name']; ?>" /></a>
+					</p>
+					<?php } ?>
+					<?php } ?>
+				<?php } ?>
+			</div>
+
+		</div>
+	</div><!-- /content -->
+	
+	<?php if ($this->user_id) { ?>
+	<div data-role="footer" data-position="fixed" data-theme="d"> 
+		<div data-role="navbar" class="icon_nav icon_tool" data-grid="b">
+			<ul>
+				<li><a href="javascript:;" id="thanks" data-icon="custom"<?php if (!$this->answer_info['user_rated_thanks']) { ?> onclick="answer_user_rate(<?php echo $this->answer_info['answer_id']; ?>, 'thanks', this);"<?php } ?>><?php if ($this->answer_info['user_rated_thanks']) { ?><?php _e('已感谢'); ?><?php } else { ?><?php _e('感谢'); ?><?php } ?></a></li>
+				<li><a href="javascript:;" onclick="answer_user_rate(<?php echo $this->answer_info['answer_id']; ?>, 'uninterested', this);" id="disagree" data-icon="custom"><?php if ($this->answer_info['user_rated_uninterested']) { ?><?php _e('撤消没有帮助'); ?><?php } else { ?><?php _e('没有帮助'); ?><?php } ?></a></li>
+				<!--<li><a href="#" id="favorite" data-icon="custom">收藏</a></li>-->
+				<li><a href="m/comments_list/answer_id-<?php echo $this->answer_info['answer_id']; ?>" id="comments" data-icon="custom"><?php _e('评论'); ?> (<?php echo $this->answer_info['comment_count']; ?>)</a></li>
+			</ul>
+		</div><!-- /navbar -->
+	</div> 
+	<?php } ?>
+</div><!-- /page -->
+
+</body>
+</html>

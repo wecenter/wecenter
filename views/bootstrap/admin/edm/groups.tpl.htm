@@ -1,0 +1,162 @@
+<?php TPL::output('admin/global/header.tpl.htm'); ?>
+
+<!--left-->
+<?php TPL::output('admin/global/left.tpl.htm'); ?>
+<!--left-->
+
+<!-- main -->
+<div id="main-content">
+	<div class="clear"></div>
+	<div class="content-box">
+		<div class="content-box-header">
+			<h3><?php _e('用户群管理'); ?></h3>
+			<ul class="content-box-tabs">
+				<li><a href="#tab1" class="default-tab current"><?php _e('用户群列表'); ?></a></li>
+				<li><a href="#tab2" class=""><?php _e('新建用户群'); ?></a></li>
+			</ul>
+			<div class="clear"></div>
+		</div>
+		<div class="content-box-content">
+			<div class="tab-content default-tab" id="tab1">				
+				<?php if ($this->groups_list) { ?>
+				<table class="list">
+					<thead>
+						<tr>
+							<th width="60%"><?php _e('用户群名称'); ?></th>
+							<th><?php _e('用户数量'); ?></th>
+							<th><?php _e('建立时间'); ?></th>
+							<th><?php _e('操作'); ?></th>
+						</tr>
+					</thead>
+					<tbody style="border-bottom: 1px solid #ddd;">
+						<?php foreach ($this->groups_list AS $key => $val) { ?>
+						<tr>
+							<td><?php echo $val['title']; ?></td>
+							<td><?php echo $val['users']; ?></td>
+							<td><?php echo date_friendly($val['time']); ?></a>
+							<td><a href="admin/edm/remove_group/<?php echo $val['id']; ?>" onclick="if (confirm('<?php _e('确认删除这个用户群?'); ?>')) { window.location = this.href; } return false;"><?php _e('删除'); ?></a></td>
+						</tr>
+						<?php } ?>
+					</tbody>
+					<tfoot>
+						<tr>
+							<td colspan="4">
+								<div class="pagination"><?php echo $this->pagination; ?></div>
+								<div class="clear"></div>
+							</td>
+						</tr>
+					</tfoot>
+				</table>
+				<?php } ?>
+			</div>
+			
+			<div class="tab-content" id="tab2" style="display:none;">
+				<form action="admin/edm/add_group/" method="post">
+				
+				<fieldset>
+					<p>
+						<label><?php _e('用户群名称'); ?></label>
+							<input class="text-input small-input" type="text" name="title" />
+					</p>
+					
+					<p>
+						<label><?php _e('导入方式'); ?></label>              
+						<select name="import_type" id="import_type" class="small-input" onchange="set_import_type(this.value)">
+							<option value="text"><?php _e('文本'); ?></option>
+							<option value="system_group"><?php _e('系统用户组'); ?></option>
+							<option value="reputation_group"><?php _e('声望用户组'); ?></option>
+							<!--<option value="last_active"><?php _e('最后活跃时间'); ?></option>-->
+							<option value="last_login"><?php _e('最后登录时间'); ?></option>
+						</select> 
+					</p>
+					
+					<div id="option_text" class="hidden_option" style="display:none">
+						<p>
+							<label><?php _e('邮件列表'); ?></label>
+							<small><?php _e('一行一个邮件地址'); ?></small><br />
+							<textarea class="text-input textarea" name="email" cols="79" rows="15"></textarea>
+						</p>
+					</div>
+					
+					<div id="option_system_group" class="hidden_option" style="display:none">
+						<p>
+							<label><?php _e('系统用户组'); ?></label><br />
+							
+							<?php foreach ($this->system_user_group AS $key => $val) { ?>
+							<input type="checkbox" name="user_groups[]" value="<?php echo $val['group_id']; ?>" /> <?php echo $val['group_name']; ?> &nbsp; 
+							<?php } ?>
+						</p>
+					</div>
+					
+					<div id="option_reputation_group" class="hidden_option" style="display:none">
+						<p>
+							<label><?php _e('声望用户组'); ?></label><br />
+							
+							<?php foreach ($this->reputation_user_group AS $key => $val) { ?>
+							<input type="checkbox" name="user_groups[]" value="<?php echo $val['group_id']; ?>" /> <?php echo $val['group_name']; ?> &nbsp; 
+							<?php } ?>
+						</p>
+					</div>
+					
+					
+					
+					<div id="option_last_active" class="hidden_option" style="display:none">
+						<p>
+							<label><?php _e('最后活跃时间'); ?></label><br />
+
+							<input type="radio" name="last_active" value="7776000" checked="checked" /> <?php _e('最近三个月'); ?> &nbsp; 
+							<input type="radio" name="last_active" value="15552000" /> <?php _e('最近半年'); ?> &nbsp; 
+							<input type="radio" name="last_active" value="31104000" /> <?php _e('最近一年'); ?> &nbsp; 
+						</p>
+					</div>
+					
+					<div id="option_last_login" class="hidden_option" style="display:none">
+						<p>
+							<label><?php _e('最后活跃时间'); ?></label><br />
+
+							<input type="radio" name="last_login" value="7776000" checked="checked" /> <?php _e('三个月前'); ?> &nbsp; 
+							<input type="radio" name="last_login" value="15552000" /> <?php _e('半年前'); ?> &nbsp; 
+							<input type="radio" name="last_login" value="31104000" /> <?php _e('一年前'); ?> &nbsp; 
+						</p>
+					</div>
+					
+					<p>
+						<input class="button" type="submit" value="创建" />
+					</p>
+					
+				</fieldset>
+				
+				<div class="clear"></div><!-- End .clear -->
+				
+			</form>
+				
+			</div>
+			
+		</div>
+		<div class="clear"></div>
+	</div>
+
+<!-- footer -->
+<?php TPL::output('admin/global/footer.tpl.htm'); ?>
+<!-- footer -->
+
+</div>
+<!-- main -->
+
+</div>
+
+<script type="text/javascript">
+	function set_import_type(item_name)
+	{
+		$('.hidden_option').css('display', 'none');
+		
+		$('#option_' + item_name).css('display', '');
+	}
+	
+	$(document).ready(function () {
+		set_import_type($('#import_type').val());
+	});
+</script>
+
+</body>
+</html>
