@@ -27,6 +27,7 @@
 .aw-reg-tips{line-height:15px;background: #EEF7FD;border: 1px solid #CFDDE6;color:#999;}
 .aw-reg-err{line-height: 28px;background: #FFEAEA;border:1px solid #E5C3C4;color:#CC0000;}
 .aw-reg-err .i-err{position:relative;top:2px;*top:-2px;margin-right: 5px;}
+.aw-reg-right{background: none;border: none;}
 .aw-reg-right .i-followed{position: relative;top:5px;}
 
 /*开放接口注册页面*/
