@@ -1,5 +1,6 @@
 $(document).ready(function () {
     QUESTION_ID = document.getElementById('question_id').value;
+    
     if (ATTACH_ACCESS_KEY != '')
     {
 	    init_fileuploader('file_uploader_question', G_BASE_URL + '/publish/ajax/attach_upload/id-question__attach_access_key-' + ATTACH_ACCESS_KEY);
