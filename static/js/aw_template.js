@@ -154,13 +154,13 @@ var AW_TEMPLATE = {
 						'<textarea placeholder="写下你的问题..." name="question_content"></textarea>'+
 						'<p onclick="$(this).parents(\'form\').find(\'.aw-publish-box-supplement-content\').fadeIn().focus();$(this).hide();"><span class="aw-publish-box-supplement"><i class="aw-icon i-edit"></i>补充说明 »</span></p>'+
 						'<textarea name="question_detail" class="aw-publish-box-supplement-content hide"></textarea>'+
-						'<div class="aw-publish-title-dropdown">'+
+						'<div class="aw-publish-title-dropdown" id="quick_publish_category_chooser">'+
 							'<p class="dropdown-toggle" data-toggle="dropdown">'+
 								'<span id="aw-topic-tags-select">选择分类</span>'+
 								'<a><i class="aw-icon i-triangle-down"></i></a>'+
 							'</p>'+
 						'</div>'+
-						'<p>'+
+						'<p id="quick_publish_topic_chooser">'+
 							'<span class="aw-topic-editor" data-type="publish">'+
 							'<span class="aw-edit-topic"><i class="aw-icon i-edit"></i>编辑话题</span>'+
 							'</span>'+
