@@ -160,6 +160,10 @@ var AW_TEMPLATE = {
 								'<a><i class="aw-icon i-triangle-down"></i></a>'+
 							'</p>'+
 						'</div>'+
+						'<div class="clearfix">'+
+							'<input type="text" class="pull-left" name="" value="123" />'+
+							'<img id="captcha" class="pull-left" onclick="this.src = \'' +G_BASE_URL + '/account/captcha/\' + Math.floor(Math.random() * 10000);" src="" />'+
+						'</div>'+
 						'<p id="quick_publish_topic_chooser">'+
 							'<span class="aw-topic-editor" data-type="publish">'+
 							'<span class="aw-edit-topic"><i class="aw-icon i-edit"></i>编辑话题</span>'+

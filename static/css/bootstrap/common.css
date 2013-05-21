@@ -459,7 +459,7 @@ select{width: auto;}
 */
 .aw-topic-detail-title{min-height: 70px;margin-top:10px;}
 .aw-topic-detail-title .aw-mod-body{position: relative;padding:0 0 0 80px;}
-.aw-topic-detail-title .aw-mod-body img{position: absolute;left: 0;top: 0;}
+.aw-topic-detail-title .aw-mod-body img{position: absolute;left: 0;top: 0;border-radius: 5px;}
 .aw-topic-detail-title h2{margin:0;font-size:20px;}
 .aw-topic-detail-title .aw-topic-detail-title-follow{position:absolute;right:0;top:0;text-align: right;}
 .aw-topic-detail-title .i-lock{margin-left: 5px;}
@@ -815,6 +815,8 @@ select{width: auto;}
 .aw-share-box .aw-share-box-tabs-content li a .bds{position: relative;top:3px;margin-right: 5px;}
 .aw-share-box .aw-share-box-tabs-content input, .aw-message-box input, .aw-question-redirect-box input, .aw-inbox input{width: 406px;height:30px;line-height: 30px;}
 .aw-share-box .aw-share-box-tabs-content .btn, .aw-message-box .btn, .aw-publish-box .modal-footer .btn, .aw-edit-comment-box .modal-footer .btn, .aw-image-box .modal-footer .btn, .aw-inbox .modal-footer .btn, .aw-favorite-box .modal-footer .btn, .aw-share-box-message .modal-footer .btn{margin-left:10px;}
+.aw-publish-box input{width:100px;height: 26px;line-height: 26px;}
+.aw-publish-box #captcha{height: 36px;margin-left: 10px;}
 .aw-publish-box .modal-footer a{margin:0 0 0 5px;}
 .aw-publish-box .modal-footer a.pull-left{margin-top:2px;}
 /*发起box*/
