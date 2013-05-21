@@ -102,6 +102,7 @@ select{width: auto;}
 .alert-danger, .alert-error{background: #F2DEDE;border: 1px solid #EED3D7;color:#B94A48;}
 .tab-content{padding-bottom:30px;}
 .form-horizontal .control-label, .form-horizontal .controls{height: 30px;line-height: 30px;padding-top:0px;}
+.modal-body{overflow-y: visible;}
 
 /*
 **	重载bootstrap进度条
@@ -379,21 +380,23 @@ select{width: auto;}
 .aw-side-bar-invite-box input{width: 173px;}
 .aw-side-bar-invite-box .aw-item{display:none;position:relative;height: auto;margin:10px 0;}
 .aw-side-bar-invite-box .aw-item .aw-user-dropdown-list li{padding: 0px;}
-.aw-side-bar-invite-box .aw-item ul li{border-top: 1px dotted #C1CAD4;}
-.aw-side-bar-invite-box .aw-item ul li:first-child{border-top: none;}
-.aw-side-bar-invite-box .aw-item ul li:hover{background: #F5FAFF;}
-.aw-side-bar-invite-box .aw-item .aw-user-dropdown-list a{display:block;padding:10px;}
 .aw-side-bar-invite-box .aw-item .aw-user-name img{width: 32px;height: 32px;margin-right:5px;border-radius: 5px;}
 .aw-side-bar-invite-box .aw-item .btn{margin-top:3px;}
-.aw-side-bar-invite-box  .aw-user-dropdown .i-dropdown-triangle{position: absolute;top:-6px;left:15px;}
-.aw-side-bar-invite-box  .aw-user-dropdown p{padding:10px;}
-.aw-side-bar-invite-box  .aw-user-dropdown .aw-user-dropdown-list .aw-user-img img{width: 25px;height: 25px;margin-right:5px;border-radius: 5px;}
 .aw-side-bar-invite-replay .aw-side-bar-mod-body > p{margin-top:10px;}
 .aw-side-bar-invite-replay-box{margin:10px 0;padding:10px;background: #EBF5FF;border:1px solid #C1D5DC;}
 .aw-side-bar-invite-replay-box dl dd{width:120px;}
 .aw-side-bar-invite-box .aw-side-bar-invite-list li{padding-bottom:10px;}
 .aw-side-bar-invite-box .aw-side-bar-invite-list .btn-mini{min-width: 50px;}
 
+/*用户下拉列表*/
+.aw-user-dropdown-list{max-height: 409px;overflow-y:scroll;}
+.aw-user-dropdown-list li{border-top: 1px dotted #C1CAD4;}
+.aw-user-dropdown-list li:first-child{border-top: none;}
+.aw-user-dropdown-list li:hover{background: #F5FAFF;}
+.aw-user-dropdown-list a{display:block;padding:10px;}
+.aw-user-dropdown .i-dropdown-triangle{position: absolute;top:-6px;left:15px;}
+.aw-user-dropdown p{padding:10px;}
+.aw-user-dropdown .aw-user-dropdown-list a img{width: 25px;height: 25px;margin-right:5px;border-radius: 5px;}
 
 /*
 **	问题列表公共模块 .aw-question-list
@@ -810,17 +813,19 @@ select{width: auto;}
 .aw-share-box .aw-share-box-tabs a{display: inline-block;height: 30px;line-height: 30px;margin:0 0 0 5px;padding:0 10px 0 10px;background: #fff;border-radius: 5px 5px 0 0;}
 .aw-share-box .aw-share-box-tabs a.active{background: #f5f5f5;}
 .aw-share-box .aw-share-box-tabs .aw-icon{margin-right: 5px;}
-.aw-share-box .aw-share-box-tabs-content li{display: inline-block;float:left;}
-.aw-share-box .aw-share-box-tabs-content li a{display:inline-block;width: 80px;line-height: 16px;margin-bottom: 15px;font-size:12px;}
-.aw-share-box .aw-share-box-tabs-content li a .bds{position: relative;top:3px;margin-right: 5px;}
+.aw-share-box .aw-share-box-tabs-content > li{display: inline-block;float:left;}
+.aw-share-box .aw-share-box-tabs-content > li a{display:inline-block;width: 80px;line-height: 16px;margin-bottom: 15px;font-size:12px;}
+.aw-share-box .aw-share-box-tabs-content > li a .bds{position: relative;top:3px;margin-right: 5px;}
 .aw-share-box .aw-share-box-tabs-content input, .aw-message-box input, .aw-question-redirect-box input, .aw-inbox input{width: 406px;height:30px;line-height: 30px;}
 .aw-share-box .aw-share-box-tabs-content .btn, .aw-message-box .btn, .aw-publish-box .modal-footer .btn, .aw-edit-comment-box .modal-footer .btn, .aw-image-box .modal-footer .btn, .aw-inbox .modal-footer .btn, .aw-favorite-box .modal-footer .btn, .aw-share-box-message .modal-footer .btn{margin-left:10px;}
+.aw-share-box .aw-share-box-tabs-content .aw-user-dropdown, .aw-inbox .aw-user-dropdown{left: 15px;}
+
+/*发起box*/
+#quick_publish_error{margin-bottom: 10px;}
 .aw-publish-box input{width:100px;height: 26px;line-height: 26px;}
 .aw-publish-box #captcha{height: 36px;margin-left: 10px;}
 .aw-publish-box .modal-footer a{margin:0 0 0 5px;}
 .aw-publish-box .modal-footer a.pull-left{margin-top:2px;}
-/*发起box*/
-#quick_publish_error{margin-bottom: 10px;}
 .aw-publish-box .modal-body{overflow-y:visible;}
 .aw-publish-box textarea, .aw-share-box textarea, .aw-message-box textarea, .aw-inbox textarea{width:406px;height:60px;min-height: 60px;color:#999;}
 .aw-publish-box .aw-publish-box-supplement{font-size:12px;color:#999;cursor: pointer;}

@@ -205,7 +205,13 @@ var AW_TEMPLATE = {
 				'<div class="modal-body">'+
 					'<div id="quick_publish_error" class="error-message alert  alert-error hide"><em></em></div>'+
 					'<form action="' + G_BASE_URL + '/inbox/ajax/send/" method="post" id="quick_publish" onsubmit="return false">'+
-						'<input type="text" placeholder="搜索用户" name="recipient" value="{{recipient}}" />'+
+						'<input class="input" type="text" onkeyup="get_user_list_data($(this),$(this).val())" onblur="hide_user_list($(this))" placeholder="搜索用户" name="recipient" value="{{recipient}}" />'+
+						'<div class="aw-dropdown aw-user-dropdown">'+
+							'<i class="aw-icon i-dropdown-triangle"></i>'+
+							'<p class="title">没有找到相关结果</p>'+
+							'<ul class="aw-user-dropdown-list">'+
+							'</ul>'+
+						'</div>'+
 						'<textarea name="message"></textarea>'+
 					'</form>'+
 				'</div>'+
@@ -241,7 +247,7 @@ var AW_TEMPLATE = {
 						'<div class="modal-body">'+
 							'<div id="quick_publish_error" class="error-message alert alert-error hide"><em></em></div>'+
 							'<form onsubmit="return false" id="quick_publish" method="post" action="' + G_BASE_URL +'/inbox/ajax/send/">'+
-								'<input type="text" name="recipient" onkeyup="get_user_list_data($(this).val())" onblur="hide_user_list()" placeholder="搜索用户" />'+
+								'<input type="text" class="input" name="recipient" onkeyup="get_user_list_data($(this),$(this).val())" onblur="hide_user_list($(this))" placeholder="搜索用户" />'+
 								'<div class="aw-dropdown aw-user-dropdown">'+
 									'<i class="aw-icon i-dropdown-triangle"></i>'+
 									'<p class="title">没有找到相关结果</p>'+
@@ -353,7 +359,7 @@ var AW_TEMPLATE = {
 	'searchDropdownList3' : 
 		'<li class="clearfix"><a class="aw-user-name aw-inline-block" data-id="{{uid}}"><img src="{{img}}" /></a><a class="aw-inline-block" href="{{url}}">{{name}}</a><span class="aw-hide-txt aw-inline-block">{{intro}}</span></li>',
 	'inviteDropdownList' :
-		'<li><a class="aw-user-img" data-id="{{uid}}" data-value="{{name}}"><img class="img" src="{{img}}" />{{name}}</a></li>',
+		'<li><a data-id="{{uid}}" data-value="{{name}}"><img class="img" src="{{img}}" />{{name}}</a></li>',
 	'inviteUserList' : 
 		'<li>'+
 			'<a class="pull-right btn btn-mini" onclick="disinvite_user($(this),{{uid}});$(this).parent().detach();">取消邀请</a>'+
