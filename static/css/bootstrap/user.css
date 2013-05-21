@@ -3,7 +3,7 @@
 */
 .aw-user-center{padding:20px;}
 .aw-user-detail-box .aw-mod-body{position: relative;margin-bottom:30px;padding:0 0 20px 115px;}
-.aw-user-detail-box .aw-mod-body .aw-user-img{position: absolute;left:0;top:0;}
+.aw-user-detail-box .aw-mod-body img{position: absolute;left:0;top:0;border-radius: 5px;}
 .aw-user-detail-box .aw-mod-body .aw-user-title{margin:0;}
 .aw-user-detail-box .aw-mod-body .aw-user-title b{font-size:20px;}
 .aw-user-detail-box .aw-mod-body .aw-user-flag{min-height: 25px;padding:5px 0 10px;border-bottom:1px dotted #C1CAD4;}

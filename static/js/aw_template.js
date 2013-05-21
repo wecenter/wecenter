@@ -237,7 +237,13 @@ var AW_TEMPLATE = {
 						'<div class="modal-body">'+
 							'<div id="quick_publish_error" class="error-message alert alert-error hide"><em></em></div>'+
 							'<form onsubmit="return false" id="quick_publish" method="post" action="' + G_BASE_URL +'/inbox/ajax/send/">'+
-								'<input type="text" name="recipient" placeholder="搜索用户" />'+
+								'<input type="text" name="recipient" onkeyup="get_user_list_data($(this).val())" onblur="hide_user_list()" placeholder="搜索用户" />'+
+								'<div class="aw-dropdown aw-user-dropdown">'+
+									'<i class="aw-icon i-dropdown-triangle"></i>'+
+									'<p class="title">没有找到相关结果</p>'+
+									'<ul class="aw-user-dropdown-list">'+
+									'</ul>'+
+								'</div>'+
 								'<textarea name="message" id="share_out_content"></textarea>'+
 							'</form>'+
 						'</div>'+
@@ -346,7 +352,7 @@ var AW_TEMPLATE = {
 		'<li><a class="aw-user-img" data-id="{{uid}}" data-value="{{name}}"><img class="img" src="{{img}}" />{{name}}</a></li>',
 	'inviteUserList' : 
 		'<li>'+
-			'<a class="pull-right btn btn-mini" onclick="disinvite_user($(this),{{uid}})">取消邀请</a>'+
+			'<a class="pull-right btn btn-mini" onclick="disinvite_user($(this),{{uid}});$(this).parent().detach();">取消邀请</a>'+
 			'<a class="aw-user-name" data-id="{{uid}}">'+
 				'<img src="{{img}}" alt="" />'+
 			'</a>'+

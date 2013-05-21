@@ -459,7 +459,7 @@ select{width: auto;}
 */
 .aw-topic-detail-title{min-height: 70px;margin-top:10px;}
 .aw-topic-detail-title .aw-mod-body{position: relative;padding:0 0 0 80px;}
-.aw-topic-detail-title .aw-mod-body .aw-topic-img{position: absolute;left: 0;top: 0;}
+.aw-topic-detail-title .aw-mod-body img{position: absolute;left: 0;top: 0;}
 .aw-topic-detail-title h2{margin:0;font-size:20px;}
 .aw-topic-detail-title .aw-topic-detail-title-follow{position:absolute;right:0;top:0;text-align: right;}
 .aw-topic-detail-title .i-lock{margin-left: 5px;}
@@ -544,7 +544,7 @@ select{width: auto;}
 .aw-dynamic-topic .aw-share-dropdown, .aw-question-detail-meta .aw-share-dropdown{position: relative;margin-right: 15px;font-size:12px;}
 .aw-dynamic-topic .aw-share-dropdown i, .aw-question-detail-meta i{margin-right:10px !important;}
 .aw-share-dropdown .aw-dropdown-menu li{min-width: 90px;}
-.aw-dynamic-topic .aw-vote-count{display:block;min-width:16px;height:25px;line-height:25px;margin:0 13px 0 10px;padding:0 3px;background:#E9F5FF;font-size:14px;text-align:center;color:#2586CD;cursor: pointer;}
+.aw-dynamic-topic .aw-vote-count{display:block;min-width:19px;height:25px;line-height:25px;margin:0 13px 0 10px;padding:0 3px;background:#E9F5FF;font-size:14px;text-align:center;color:#2586CD;cursor: pointer;}
 .aw-dynamic-topic .aw-vote-count.disable{background: #F2F2F2;color: #A7A7A7;}
 .aw-dynamic-topic .aw-vote-bar{margin:0 10px;}
 .aw-dynamic-topic .aw-dynamic-topic-content{width: 580px;}
@@ -756,8 +756,8 @@ select{width: auto;}
 .aw-mod-search-result{padding:30px;}
 .aw-mod-search-result .aw-item{position: relative;padding:25px 106px 15px 65px;border-bottom: 1px dotted #C1CAD4;}
 .aw-mod-search-result .aw-item.active{padding:25px 106px 15px 0;}
-.aw-mod-search-result .aw-item .aw-user-img{position: absolute;left: 0;top: 25px;}
-.aw-mod-search-result .aw-item .aw-user-img img{border-radius: 5px;}
+.aw-mod-search-result .aw-item .aw-user-img, .aw-mod-search-result .aw-item .aw-topic-img{position: absolute;left: 0;top: 25px;}
+.aw-mod-search-result .aw-item .aw-user-img img, .aw-mod-search-result .aw-item .aw-topic-img img{border-radius: 5px;}
 .aw-mod-search-result .aw-item .aw-btn-follow{position: absolute;right: 0;top: 30px;}
 .aw-mod-search-result .aw-search-result-tags{display: inline-block;padding:0 2px;background: #F0F0F0;color:#999;border-radius: 5px;}
 .aw-mod-search-result .aw-search-result-tags:hover{color:#085D9B}
