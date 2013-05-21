@@ -189,7 +189,7 @@ select{width: auto;}
 /*
 **	mainContent
 */
-.aw-main-content{width:660px;padding:10px 20px 99999px 30px;margin:0 0 -99999px;background:#fff;border-right:1px solid #dbedf9;}
+.aw-main-content{width:660px;padding:10px 20px 0 30px;margin:0;background:#fff;border-right:1px solid #dbedf9;}
 
 /*
 **	导航条
