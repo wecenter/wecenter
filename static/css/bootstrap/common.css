@@ -550,7 +550,7 @@ select{width: auto;}
 .aw-dynamic-topic .aw-dynamic-topic-content{width: 580px;}
 .aw-dynamic-topic .aw-comment-zantong a, .aw-dynamic-topic .aw-comment-zantong .aw-user-name{color: #999 !important;}
 .aw-dynamic-topic .aw-comment-zantong{width:550px;}
-.aw-dynamic-topic .aw-comment-upload-img-list{height: auto;overflow: hidden;margin:10px 0 20px;}
+.aw-dynamic-topic .aw-comment-upload-img-list{height: auto;overflow: hidden;margin:10px 0 20px;margin-bottom:20px;}
 .aw-dynamic-topic .aw-comment-upload-img-list img{width: 175px;margin:0 5px 5px 0;}
 .aw-dynamic-topic .aw-comment-upload-file-list{margin-top:10px;}
 .aw-dynamic-topic .aw-comment-upload-file-list li{margin:3px 0;}
