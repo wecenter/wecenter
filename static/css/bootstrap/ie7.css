@@ -12,7 +12,9 @@
 
 /*tabs切换样式重载*/
 .aw-reset-nav-tabs .i-triangle-up-mini{*top:-6px;*left:5px;margin-left:5px;}
-.modal-header #myModalLabel{*margin-top:-10px;*position: relative;*top:-8px;}
+.modal-header{*padding: 9px 15px;*height: 30px;*line-height: 30px;}
+.modal-header #myModalLabel{*position: relative;*top:10px;*margin-top:-10px;}
+#question_topic_editor .aw-edit-topic{*position: relative;*top:-5px;}
 
 /*
 **	category
