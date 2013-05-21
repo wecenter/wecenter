@@ -54,14 +54,15 @@
 .aw-user-center-dynamic ul li p{margin:0;}
 /*关注*/
 .aw-user-center-follow-mod h4{padding:25px 0 15px 0;font-size:18px;}
-.aw-user-center-follow-mod ul li{position: relative;min-height:94px;margin-left:0;margin-right: 30px;}
-.aw-user-center-follow-mod ul .span5{width:434px;padding:10px 0;border-bottom:1px dotted #C1CAD4;}
+.aw-user-center-follow-mod ul li{position: relative;min-height:94px;margin:0 14px;}
+.aw-user-center-follow-mod ul .span5{width:420px;padding:10px 0;border-bottom:1px dotted #C1CAD4;}
 .aw-user-center-follow-mod .aw-item{position:relative;min-height:60px;padding-left:60px;}
 .aw-user-center-follow-mod .aw-user-img, .aw-user-center-follow-mod .aw-topic-img{position: absolute;left: 0;top: 0;}
 .aw-user-center-follow-mod  p{margin:0;}
 .aw-user-center-follow-meta span{margin-right:10px;}
 .aw-user-center-follow-meta .aw-icon{margin-right:5px;}
 .aw-user-center-follow-meta .aw-text-color-green, .aw-user-center-follow-meta .aw-text-color-oragne{font-size:13px;font-weight: bold;}
+.aw-user-center-follow-mod #contents_user_topics .aw-text-color-999{height: 40px;overflow: hidden;}
 /*详细资料*/
 .aw-user-center-details .i-share-sina, .aw-user-center-details .i-share-weibo, .aw-user-center-details .i-qq{position: relative;top:2px;margin-right: 5px;}
 .aw-user-center-details{padding:0 60px;}
