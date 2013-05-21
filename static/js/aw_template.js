@@ -146,10 +146,11 @@ var AW_TEMPLATE = {
 					'<h3 id="myModalLabel">发起问题</h3>'+
 				'</div>'+
 				'<div class="modal-body">'+
-					'<input type="hidden" name="post_hash" value="' + G_POST_HASH + '" />'+
 					'<div id="quick_publish_error" class="error-message alert  alert-error hide"><em></em></div>'+
 					'<form action="' + G_BASE_URL + '/publish/ajax/publish_question/" method="post" id="quick_publish" onsubmit="return false">'+
-						'<input type="hidden" id="quick_publish_category_id" name="category_id" />'+
+						'<input type="hidden" id="quick_publish_category_id" name="category_id" value="{{category_id}}" />'+
+						'<input type="hidden" name="post_hash" value="' + G_POST_HASH + '" />'+
+						'<input type="hidden" name="ask_user_id" value="{{ask_user_id}}" />'+
 						'<textarea placeholder="写下你的问题..." name="question_content"></textarea>'+
 						'<p onclick="$(this).parents(\'form\').find(\'.aw-publish-box-supplement-content\').fadeIn().focus();$(this).hide();"><span class="aw-publish-box-supplement"><i class="aw-icon i-edit"></i>补充说明 »</span></p>'+
 						'<textarea name="question_detail" class="aw-publish-box-supplement-content hide"></textarea>'+
@@ -198,14 +199,15 @@ var AW_TEMPLATE = {
 					'<h3 id="myModalLabel">新私信</h3>'+
 				'</div>'+
 				'<div class="modal-body">'+
-					'<form>'+
-						'<input type="text" placeholder="搜索用户"/>'+
-						'<textarea></textarea>'+
+					'<div id="quick_publish_error" class="error-message alert  alert-error hide"><em></em></div>'+
+					'<form action="' + G_BASE_URL + '/inbox/ajax/send/" method="post" id="quick_publish" onsubmit="return false">'+
+						'<input type="text" placeholder="搜索用户" name="recipient" value="{{recipient}}" />'+
+						'<textarea name="message"></textarea>'+
 					'</form>'+
 				'</div>'+
 				'<div class="modal-footer">'+
 					'<a data-dismiss="modal" aria-hidden="true">取消</a>'+
-					'<button class="btn btn-large btn-success">发送</button>'+
+					'<button class="btn btn-large btn-success" onclick="ajax_post($(\'#quick_publish\'), _quick_publish_processer);">发送</button>'+
 				'</div>'+
 			'</div>',
 
