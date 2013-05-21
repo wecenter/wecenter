@@ -806,7 +806,7 @@ select{width: auto;}
 
 
 /*bs弹窗*/
-.aw-share-box, .aw-publish-box, .aw-message-box, .aw-question-redirect-box, .aw-inbox{width: 450px;}
+.aw-share-box, .aw-publish-box, .aw-message-box, .aw-question-redirect-box, .aw-inbox, .aw-topic-edit-note-box{width: 450px;}
 /*警告提示box*/
 .aw-tips-box, .aw-image-box{width: 350px;}
 .aw-tips-box .i-warmming{margin-right:10px;vertical-align: middle;}

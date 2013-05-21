@@ -130,7 +130,7 @@ var AW_TEMPLATE = {
 				'<div class="modal-body">'+
 					'<p>' + _t('将问题重定向至') + '</p>'+
 					'<div class="aw-question-drodpwon">'+
-						'<input id="question-input" type="text" data-id="{{data_id}}" onkeyup="get_question_list_data($(this).val())" placeholder="' + _t('搜索问题') + '" />'+
+						'<input id="question-input" type="text" data-id="{{data_id}}" onkeyup="get_question_list_data($(this).val())" onblur="hide_question_list($(this))" placeholder="' + _t('搜索问题') + '" />'+
 						'<div class="aw-dropdown aw-topic-dropdown"><i class="aw-icon i-dropdown-triangle active"></i><p class="title">' + _t('没有找到相关结果') + '</p><ul class="aw-question-dropdown-list"></ul></div>'+
 					'</div>'+
 					'<p class="clearfix"><a href="javascript:;" class="btn btn-mini pull-right" onclick="$(\'.alert-box\').modal(\'hide\');">' + _t('放弃操作') + '</a></p>'+
@@ -274,6 +274,17 @@ var AW_TEMPLATE = {
 					'</ul>'+
 				'</div>'+
 			'</div>',
+	'topicEditNote'
+		'<div class="modal hide fade alert-box aw-topic-edit-note-box" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'+
+				'<div class="modal-header">'+
+					'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
+					'<h3 id="myModalLabel">' + _t('提示信息') + '</h3>'+
+				'</div>'+
+				'<div class="modal-body">'+
+					'<p><i class="aw-icon i-warmming"></i>{{message}}</p>'+
+				'</div>'+
+			'</div>',
+
 	'editTopicDorpdownList' : '<li><a>{{name}}</a></li>',
 	'questionRedirectList' : '<li><a class="aw-hide-txt" onclick="ajax_request({{url}})">{{name}}</a></li>',
 	'questionDropdownList' : '<li><a class="aw-hide-txt" href="{{url}}">{{name}}</a></li>',

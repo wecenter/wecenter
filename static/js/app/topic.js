@@ -23,4 +23,16 @@ $(document).ready(function() {
 	{
 		init_img_uploader(G_BASE_URL + '/topic/ajax/upload_topic_pic/topic_id-' + TOPIC_ID, 'topic_pic', $('#topic_pic_uploader'), $('#uploading_status'), $('#topic_pic'));
 	}
+
+	//侧边栏话题编辑记录收缩
+	$('.aw-side-bar-topic-edit-notes .i-triangle-up').click(function(){
+		$(this).parents('.aw-side-bar-topic-edit-notes').find('.aw-side-bar-body').toggle();
+		if ($(this).hasClass('active'))
+		{
+			$(this).removeClass('active');
+		}else
+		{
+			$(this).addClass('active');
+		}
+	});
 });
