@@ -153,8 +153,8 @@ select{width: auto;}
 .aw-logined-nav #header_notification_list li:first-child{border-top:none;}
 .aw-logined-nav .aw-message-dropdown{display:none;position:absolute;left:-100px;z-index: 9999;min-width:245px;height: auto;margin:2px 0 0;padding: 5px 0;background-color: #fff;border: 1px solid #C4CDD6;border-radius: 6px 6px 6px 6px;box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);text-align: left;}
 .aw-logined-nav .aw-message-dropdown:hover{background: #F5FAFF;}
-.aw-logined-nav .aw-message-dropdown > span{position: absolute;top:-15px;width: 245px;height: 6px;}
-.aw-logined-nav .aw-message-dropdown > span .i-dropdown-triangle{position: relative;left: 122px;}
+.aw-logined-nav .aw-message-dropdown > span{position: absolute;top:0;width: 245px;height: 6px;}
+.aw-logined-nav .aw-message-dropdown > span .i-dropdown-triangle{position: relative;left: 122px;top:-15px;}
 .aw-logined-nav .aw-message-dropdown ul{padding:0 10px;font-size: 13px;font-weight: normal;}
 .aw-logined-nav .aw-message-dropdown ul a{font-size:12px;font-weight: normal;}
 .aw-logined-nav .aw-message-dropdown .aw-message-dropdown-more a{color:#999;}
