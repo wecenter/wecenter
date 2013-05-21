@@ -4,7 +4,7 @@
 */
 
 .aw-icon{display:inline-block;background-image: url(img/aw-icon-sprite.png);background-repeat: no-repeat;}
-.bds{display:inline-block;width:16px;height:16px;background-image: url(img/bds-icon-sprite.png);background-repeat: no-repeat;}
+.bds{position:relative;top:3px;display:inline-block;width:16px;height:16px;margin-right:5px;background-image: url(img/bds-icon-sprite.png);background-repeat: no-repeat;}
 .aw-loading{display:inline-block;width:16px;height:16px;background: url(img/ajax-loader.gif) no-repeat;}
 
 

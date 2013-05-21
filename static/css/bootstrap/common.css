@@ -7,7 +7,7 @@ ul,ol,li{list-style-type: none;}
 a{cursor: pointer;}
 a:hover{text-decoration: none;}
 textarea{resize:none;}
-input , textarea{font-family: '微软雅黑',tahoma,arial !important;}
+input , textarea, span.bds_more, .bds_tools a{font-family: '微软雅黑',tahoma,arial !important;}
 .clear{clear:both;}
 .aw-padding10{padding:10px;}
 .aw-margin-top-10{margin-top:10px;}
@@ -50,6 +50,7 @@ a.aw-load-more-content{display: block;}
 .aw-inline-block{display: inline-block;float: left;}
 .aw-placeholder{color: #999 !important;}
 .bds_tools a{padding:0px !important;background: none !important;}
+
 /*分类小标签*/
 .aw-user-name, .aw-topic-name{line-height:20px;color:#2586CD !important;font-weight:normal;}
 .aw-user-name img, .aw-topic-name img{width: 32px;height: 32px;border-radius: 5px;}
@@ -361,8 +362,9 @@ select{width: auto;}
 .aw-comment-list{padding:0 10px;color: #666;}
 .aw-comment-list li{position: relative;padding:15px 0 15px 42px;border-top:1px dotted #C1CAD4;}
 .aw-comment-list li:first-child{border-top:none;}
-.aw-comment-list li > .aw-user-name{display:inline-block;position: absolute;left: 0;top: 15px;width: 32px;height: 32px;}
-.aw-comment-list li p{margin:0;}
+.aw-comment-list li > .aw-user-name{position: absolute;left: 0;top: 15px;width: 32px;height: 32px;}
+.aw-comment-list li div{*margin-top:-10px;}
+.aw-comment-list li p{margin:0;padding: 0;}
 /*问题修改日志*/
 .aw-question-edit{padding-bottom:30px;}
 .aw-question-edit .aw-mod-head h2{font-size: 20px;}
@@ -819,6 +821,8 @@ select{width: auto;}
 .aw-share-box .aw-share-box-tabs-content input, .aw-message-box input, .aw-question-redirect-box input, .aw-inbox input{width: 406px;height:30px;line-height: 30px;}
 .aw-share-box .aw-share-box-tabs-content .btn, .aw-message-box .btn, .aw-publish-box .modal-footer .btn, .aw-edit-comment-box .modal-footer .btn, .aw-image-box .modal-footer .btn, .aw-inbox .modal-footer .btn, .aw-favorite-box .modal-footer .btn, .aw-share-box-message .modal-footer .btn{margin-left:10px;}
 .aw-share-box .aw-share-box-tabs-content .aw-user-dropdown, .aw-inbox .aw-user-dropdown{left: 15px;}
+.aw-share-box .aw-share-box-tabs-content #bdshare li{float: left;}
+.aw-share-box .aw-share-box-tabs-content #bdshare li a{display: inline-block;width: 84px;height:24px;line-height:24px;margin-bottom: 25px;padding:6px 0 3px 22px;}
 
 /*发起box*/
 #quick_publish_error{margin-bottom: 10px;}
