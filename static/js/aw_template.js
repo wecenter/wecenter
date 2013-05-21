@@ -159,7 +159,7 @@ var AW_TEMPLATE = {
 							'</p>'+
 						'</div>'+
 						'<div class="clearfix hide" id="quick_publish_captcha">'+
-							'<input type="text" class="pull-left" name="" placeholder="' + _t('验证码') + '..." />'+
+							'<input type="text" class="pull-left" name="" placeholder="' + _t('验证码') + '" />'+
 							'<img id="captcha" name="seccode_verify" class="pull-left" onclick="this.src = \'' +G_BASE_URL + '/account/captcha/\' + Math.floor(Math.random() * 10000);" src="" />'+
 						'</div>'+
 						'<p id="quick_publish_topic_chooser">'+
