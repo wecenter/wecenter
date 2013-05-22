@@ -276,13 +276,13 @@ var AW_TEMPLATE = {
 			'</div>',
 			
 	'topicEditHistory' :
-		'<div class="modal hide fade alert-box aw-topic-edit-note-box" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'+
+		'<div class="modal hide fade alert-box aw-topic-edit-note-box aw-question-edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'+
 				'<div class="modal-header">'+
 					'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
 					'<h3 id="myModalLabel">' + _t('编辑记录') + '</h3>'+
 				'</div>'+
 				'<div class="modal-body">'+
-					'<p><i class="aw-icon i-warmming"></i>{{data}}</p>'+
+					'<p>{{data}}</p>'+
 				'</div>'+
 			'</div>',
 

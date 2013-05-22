@@ -374,8 +374,8 @@ select{width: auto;}
 .aw-question-edit .aw-mod-body .pull-right{color: #999;}
 .aw-question-edit .aw-mod-body .pull-right .btn{margin-left: 10px;}
 .aw-question-edit .aw-mod-body .pull-right a{font-size: 12px;}
-.aw-question-edit .aw-mod-body ins{background: #EDFCE5;text-decoration: none;}
-.aw-question-edit .aw-mod-body del{background: #F7D3D3;}
+.aw-question-edit ins{background: #EDFCE5;text-decoration: none;}
+.aw-question-edit del{background: #F7D3D3;}
 
 /*侧边栏邀请回复*/
 .aw-side-bar-invite-box input{width: 173px;}
