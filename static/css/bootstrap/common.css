@@ -128,7 +128,7 @@ select{width: auto;}
 .aw-reset-nav-tabs > li.active{margin:0 4px -1px;}
 .aw-reset-nav-tabs > li.active a{line-height:31px;background-color: #fff;color:#666;}
 .aw-reset-nav-tabs h3{position:absolute;top:0;left:0;margin:0;font-size:20px;}
-.aw-reset-nav-tabs .i-triangle-up-mini{position: relative;top: -2px;margin-left:5px;}
+.aw-reset-nav-tabs .i-triangle-up-mini, .aw-reset-nav-tabs .i-triangle-down-mini{position: relative;top: -2px;margin-left:5px;}
 
 /*
 **	top-menu
