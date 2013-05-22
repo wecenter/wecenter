@@ -8,7 +8,7 @@ var AW_TEMPLATE = {
 						'</a>'+
 						'<p class="title">'+
 							'<a href="{{url}}" class="name" data-id="{{uid}}">{{user_name}}</a>'+
-							'<i class="aw-icon i-v"></i>'+
+							// '<i class="aw-icon i-v"></i>'+
 						'</p>'+
 						'<p class="aw-user-center-follow-meta">'+
 							'<span>' + _t('威望') + ': <em class="aw-text-color-green">{{reputation}}</em></span>'+
