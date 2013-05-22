@@ -832,7 +832,8 @@ select{width: auto;}
 .aw-publish-box .modal-footer a{margin:0 0 0 5px;}
 .aw-publish-box .modal-footer a.pull-left{margin-top:2px;}
 .aw-publish-box .modal-body{overflow-y:visible;}
-.aw-publish-box textarea, .aw-share-box textarea, .aw-message-box textarea, .aw-inbox textarea{width:406px;height:60px;min-height: 60px;color:#999;}
+.aw-publish-box textarea{width: 406px;height: 40px;}
+.aw-share-box textarea, .aw-message-box textarea, .aw-inbox textarea{width:406px;height:60px;min-height: 60px;color:#999;}
 .aw-publish-box .aw-publish-box-supplement{font-size:12px;color:#999;cursor: pointer;}
 .aw-publish-box .aw-publish-box-supplement .i-edit{margin-right: 5px;}
 .aw-publish-box .aw-publish-box-supplement-content{min-height: 100px;}
@@ -840,6 +841,8 @@ select{width: auto;}
 .aw-publish-box .aw-publish-title-dropdown .dropdown-toggle{border-radius: 4px;}
 .aw-publish-box .aw-publish-title-dropdown .dropdown-toggle span{width: 370px;}
 .aw-publish-box .aw-topic-dropdown-list{max-height: 245px;overflow-y:scroll;}
+.aw-publish-box #quick_publish{position: relative;}
+.aw-publish-box .aw-topic-dropdown{top:60px;}
 
 /*问题重定向*/
 .aw-question-drodpwon{position: relative;}
