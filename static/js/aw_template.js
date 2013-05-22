@@ -217,9 +217,9 @@ var AW_TEMPLATE = {
 					'</p>'+
 				'</div>'+
 				
-				'<div class="aw-share-box-tabs-content">'+
+				'<div class="aw-share-box-tabs-content  clearfix">'+
 					'<div class="aw-item hide">'+
-						'<div class="modal-body">'+
+						'<div class="modal-body  clearfix">'+
 							'<ul id="bdshare" class="bdshare_t bds_tools get-codes-bdshare">'+
 							'{{#items}}'+
 								'<li><a title="' + _t('分享到') + ' {{title}}"><i class="bds {{className}}"></i>{{name}}</a></li>'+
@@ -229,7 +229,7 @@ var AW_TEMPLATE = {
 						'</div>'+
 					'</div>'+
 					'<div class="aw-item hide">'+
-						'<div class="modal-body">'+
+						'<div class="modal-body  clearfix">'+
 							'<div id="quick_publish_error" class="error-message alert alert-error hide"><em></em></div>'+
 							'<form onsubmit="return false" id="quick_publish" method="post" action="' + G_BASE_URL +'/inbox/ajax/send/">'+
 								'<input type="text" class="input" name="recipient" onkeyup="get_user_list_data($(this),$(this).val())" onblur="hide_user_list($(this))" placeholder="' + _t('搜索用户') + '" />'+

@@ -53,11 +53,17 @@
 **	话题页面公共模块
 */
 .aw-topic-content-wrap .aw-topic-all-list .span6 .i-follow{*position: relative;*top:-4px;}
+
 /*
 **	话题详细页
 */
 .aw-topic-detail-title{*margin-top:20px;}
 .aw-side-bar-topic-edit .aw-edit-topic-box input{*margin-bottom:10px;}
+
+/*
+**	分享box
+*/
+.aw-share-box .aw-share-box-tabs .i-message{*position: relative;*top:-5px;}
 
 /*
 **	发起box

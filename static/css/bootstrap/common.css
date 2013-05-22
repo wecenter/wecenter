@@ -812,7 +812,7 @@ select{width: auto;}
 .aw-tips-box .i-warmming{margin-right:10px;vertical-align: middle;}
 .aw-image-box input{width: 306px;height: 24px;line-height: 24px;margin-bottom: 15px;}
 /*分享box*/
-.aw-share-box .aw-share-box-tabs{position: absolute;top:18px;right: 33px;}
+.aw-share-box .aw-share-box-tabs{position: absolute;top:18px;right: 50px;}
 .aw-share-box .aw-share-box-tabs a{display: inline-block;height: 30px;line-height: 30px;margin:0 0 0 5px;padding:0 10px 0 10px;background: #fff;border-radius: 5px 5px 0 0;}
 .aw-share-box .aw-share-box-tabs a.active{background: #f5f5f5;}
 .aw-share-box .aw-share-box-tabs .aw-icon{margin-right: 5px;}
@@ -822,8 +822,8 @@ select{width: auto;}
 .aw-share-box .aw-share-box-tabs-content input, .aw-message-box input, .aw-question-redirect-box input, .aw-inbox input{width: 406px;height:30px;line-height: 30px;}
 .aw-share-box .aw-share-box-tabs-content .btn, .aw-message-box .btn, .aw-publish-box .modal-footer .btn, .aw-edit-comment-box .modal-footer .btn, .aw-image-box .modal-footer .btn, .aw-inbox .modal-footer .btn, .aw-favorite-box .modal-footer .btn, .aw-share-box-message .modal-footer .btn{margin-left:10px;}
 .aw-share-box .aw-share-box-tabs-content .aw-user-dropdown, .aw-inbox .aw-user-dropdown{left: 15px;top:65px;}
-.aw-share-box .aw-share-box-tabs-content #bdshare li{float: left;}
-.aw-share-box .aw-share-box-tabs-content #bdshare li a{display: inline-block;width: 84px;height:24px;line-height:24px;margin-bottom: 25px;padding:6px 0 3px 22px;}
+.aw-share-box .aw-share-box-tabs-content #bdshare li{float: left;display:inline-block;margin: 10px 0;}
+.aw-share-box .aw-share-box-tabs-content #bdshare li a{display: block;width: 84px;height:24px;line-height:24px;padding:6px 0 3px 22px;}
 
 /*发起box*/
 #quick_publish_error{margin-bottom: 10px;}
