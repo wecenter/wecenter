@@ -156,7 +156,7 @@ class main extends AWS_CONTROLLER
 	
 	public function views_action()
 	{
-		$files_list = fetch_file_lists(ROOT_PATH . 'views/default/', 'htm');
+		$files_list = fetch_file_lists(ROOT_PATH . 'views/bootstrap/', 'htm');
 			    
 	    foreach ($files_list AS $search_file)
 	    {
@@ -205,7 +205,7 @@ class main extends AWS_CONTROLLER
 	
 	public function js_views_action()
 	{
-		$files_list = fetch_file_lists(ROOT_PATH . 'views/default/', 'htm');
+		$files_list = fetch_file_lists(ROOT_PATH . 'views/bootstrap/', 'htm');
 			    
 	    foreach ($files_list AS $search_file)
 	    {

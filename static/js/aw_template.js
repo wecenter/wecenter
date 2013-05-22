@@ -150,8 +150,8 @@ var AW_TEMPLATE = {
 						'<input type="hidden" name="post_hash" value="' + G_POST_HASH + '" />'+
 						'<input type="hidden" name="ask_user_id" value="{{ask_user_id}}" />'+
 						'<textarea placeholder="' + _t('写下你的问题') + '..." name="question_content" onkeydown="if (event.keyCode == 13) { return false; }"></textarea>'+
-						'<p onclick="$(this).parents(\'form\').find(\'.aw-publish-box-supplement-content\').fadeIn().focus();$(this).hide();"><span class="aw-publish-box-supplement"><i class="aw-icon i-edit"></i>' + _t('补充说明') + ' »</span></p>'+
-						'<textarea name="question_detail" class="aw-publish-box-supplement-content hide"></textarea>'+
+						//'<p onclick="$(this).parents(\'form\').find(\'.aw-publish-box-supplement-content\').fadeIn().focus();$(this).hide();"><span class="aw-publish-box-supplement"><i class="aw-icon i-edit"></i>' + _t('补充说明') + ' »</span></p>'+
+						'<textarea name="question_detail" class="aw-publish-box-supplement-content" placeholder="' + _t('问题背景、条件等详细信息') + '..."></textarea>'+
 						'<div class="aw-publish-title-dropdown" id="quick_publish_category_chooser">'+
 							'<p class="dropdown-toggle" data-toggle="dropdown">'+
 								'<span id="aw-topic-tags-select">' + _t('选择分类') + '</span>'+
