@@ -93,7 +93,6 @@ select, input[type="file"]{*height: 26px;*line-height: 26px;height: 26px\0;line-
 .modal{margin-left:0;left:30%;}
 button.close{width: 20px;height: 20px;}
 .tooltip{z-index: 9999;}
-.modal-footer{line-height: 36px;}
 .modal-body{max-height: none;}
 select, input[type="file"]{height: 28px;line-height: 28px;}
 select{width: auto;}
@@ -830,7 +829,6 @@ select{width: auto;}
 .aw-publish-box input{width:100px;height: 26px;line-height: 26px;}
 .aw-publish-box #captcha{height: 36px;margin-left: 10px;}
 .aw-publish-box .modal-footer a{margin:0 0 0 5px;}
-.aw-publish-box .modal-footer a.pull-left{margin-top:2px;}
 .aw-publish-box .modal-body{overflow-y:visible;}
 .aw-publish-box textarea{width: 406px;height: 40px;}
 .aw-share-box textarea, .aw-message-box textarea, .aw-inbox textarea{width:406px;height:60px;min-height: 60px;color:#999;}

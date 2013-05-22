@@ -175,9 +175,11 @@ var AW_TEMPLATE = {
 					'</form>'+
 				'</div>'+
 				'<div class="modal-footer">'+
+					'<span class="pull-right">'+
+						'<a data-dismiss="modal" aria-hidden="true">' + _t('取消') + '</a>'+
+						'<button class="btn btn-large btn-success" onclick="ajax_post($(\'#quick_publish\'), _quick_publish_processer);">' + _t('发起') + '</button>'+
+					'</span>'+
 					'<a href="javascript:;" tabindex="-1" onclick="$(\'form#quick_publish\').attr(\'action\', \'' + G_BASE_URL + '/publish/\');document.getElementById(\'quick_publish\').submit();" class="pull-left">' + _t('高级模式') + '</a>'+
-					'<a data-dismiss="modal" aria-hidden="true">' + _t('取消') + '</a>'+
-					'<button class="btn btn-large btn-success" onclick="ajax_post($(\'#quick_publish\'), _quick_publish_processer);">' + _t('发起') + '</button>'+
 				'</div>'+
 			'</div>',
 
