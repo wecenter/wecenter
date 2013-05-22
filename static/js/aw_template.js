@@ -4,7 +4,7 @@ var AW_TEMPLATE = {
 				'<div class="aw-mod">'+
 					'<div class="aw-mod-head">'+
 						'<a href="{{url}}" class="aw-head-img">'+
-							'<img src="{{img}}" alt="" />'+
+							'<img src="{{avatar_file}}" alt="" />'+
 						'</a>'+
 						'<p class="title">'+
 							'<a href="{{url}}" class="name" data-id="{{uid}}">{{user_name}}</a>'+
