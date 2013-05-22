@@ -274,7 +274,7 @@ var AW_TEMPLATE = {
 					'</ul>'+
 				'</div>'+
 			'</div>',
-	'topicEditNote'
+	'topicEditNote' :
 		'<div class="modal hide fade alert-box aw-topic-edit-note-box" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'+
 				'<div class="modal-header">'+
 					'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
