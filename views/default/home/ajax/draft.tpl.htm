@@ -1,8 +1,0 @@
-<?php foreach ($this->drafts AS $key => $val) { ?>
-<div class="S_module" style="padding-right:0; padding-left:0;">
-	<h4 class="new_ls" style="margin:0;"><a href="javascript:;"> <em class="x i_small delete_draft i_right" onclick="delete_draft(<?php echo $val['item_id']; ?>, 'answer'); $(this).parents('div.S_module').fadeOut(); return false;" title="<?php _e('删除草稿'); ?>">x</em> </a>
-	<a href="question/<?php echo $val['item_id']; ?>#!answer_form" class="default_title_txt"><?php echo $val['question_info']['question_content']; ?></a></h4>
-	<p style="padding:10px 0;"><?php echo nl2br(htmlspecialchars($val['data']['message'])); ?></p>
-	<p class="default_edit"><a href="question/<?php echo $val['item_id']; ?>#!answer_form"><?php _e('编辑草稿'); ?></a> • <?php echo date_friendly($val['time']); ?></p>
-</div>
-<?php } ?>

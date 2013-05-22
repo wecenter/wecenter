@@ -1,5 +1,0 @@
-<?php if (is_array($this->list)) { ?>
-<?php foreach ($this->list AS $key => $val) { ?>
-	<li id="history_<?php echo $val['history_id']; ?>"><span class="time i_right"><?php echo date_friendly($val['add_time']); ?></span><?php echo $val['last_action_str']; ?>, <a href="question/<?php echo $val['question_id']; ?>"><?php echo $val['question_content']; ?></a></li>
-<?php } ?>
-<?php } ?>

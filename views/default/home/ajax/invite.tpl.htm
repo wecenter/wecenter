@@ -1,8 +1,0 @@
-<?php if ($this->list) { ?>
-<?php foreach($this->list as $key => $val) { ?>
-	<div class="S_module" style="padding-right:0; padding-left:0;">
-    	<h4 class="new_ls" style="margin:0;"> <a href="javascript:;"> <em class="x i_small i_right" onclick="question_invite_delete($(this).parent(), <?php echo $val['question_invite_id']; ?>)" title="?php _e('删除草稿'); ?>">x</em></a><a class="default_title_txt" href="question/<?php echo $val['question_id']; ?>"><?php echo $val['question_content']; ?></a></h4>
-		<p><a href="people/<?php echo $val['user']['url_token']; ?>"><?php echo $val['user']['user_name']; ?></a><?php _e('邀请你回复这个问题'); ?></p>
-	</div>
-<?php } ?>
-<?php } ?>

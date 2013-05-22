@@ -1,1 +1,0 @@
-<?php if (is_array($this->list)) { ?><?php foreach ($this->list AS $key => $val) { ?>	<li id="history_<?php echo $val['history_id']; ?>">		<a href="m/question/<?php echo $val['question_id']; ?>">			<span class="actions"><?php echo strip_tags($val['last_action_str']); ?></span>			<h3><?php echo $val['question_content']; ?></h3>		</a>	</li><?php } ?><?php } ?>

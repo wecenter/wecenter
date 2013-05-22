@@ -1,6 +1,0 @@
-<?php foreach ($this->topics_list AS $key => $val) { ?>
-<li><a href="javascript:;" class="xd_head"><img src="<?php echo get_topic_pic_url('mid', $val['topic_pic']); ?>" alt="<?php echo $val['topic_title']; ?>" title="<?php echo $val['topic_title']; ?>" /></a>
-	<span class="i_glotopic"><?php echo $val['topic_title']; ?></span>
-	<p><a class="i_green_bt2 i_right<?php if ($val['has_focus']) { ?> cur<?php } ?>" onclick="focus_topic($(this), $(this), <?php echo $val['topic_id']; ?>);" href="javascript:;"><?php if ($val['has_focus']) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?></a><span class="i_gltxtHide"><?php _e('该话题有 %s 个问题', $val['discuss_count']); ?></span></p>
-</li>
-<?php } ?>

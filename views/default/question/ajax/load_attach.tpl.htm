@@ -1,7 +1,0 @@
-<?php if ($this->attach) {  ?>
-	<?php if ($this->attach['is_image']) { ?>
-    <p class="imgScroll"><a href="<?php echo $this->attach['attachment']; ?>" target="_blank" rel="lightbox"><img src="<?php echo $this->attach['attachment']; ?>" alt="<?php echo $this->attach['attach_name']; ?>" /></a></p>
-    <?php } else { ?>
-    <p><a class="file_ico" href="<?php echo download_url($this->attach['file_name'], $this->attach['attachment']); ?>"><?php echo $this->attach['file_name']; ?></a></p>
-    <?php } ?>
-<?php } ?>
