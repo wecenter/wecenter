@@ -508,7 +508,7 @@ _ajax_uploader.FileUploader = function(o){
         		'<dd>' + 
                 '<p class="_ajax_upload-file aw-file-uploader-name"></p>' +
                 '<p class="_ajax_upload-size aw-text-color-999"></p>' +
-				'<p class="_ajax_upload-inset"><a href="javascript:;" class="_ajax_upload_delete_file" onclick="if (confirm(\'' + _t('确认删除?') + '\')) { _ajax_uploader_delete_attach(this.href, $(this).parent().parent()) }">' + _t('删除') + '</a> </p>' +
+				'<p class="_ajax_upload-inset"><a href="javascript:;" class="_ajax_upload_delete_file" onclick="if (confirm(\'' + _t('确认删除?') + '\')) { _ajax_uploader_delete_attach(this.href, $(this).parents(\'dl\')) } return false;">' + _t('删除') + '</a> </p>' +
 				'</dd>' +
             '</dl>',        
         
@@ -1370,7 +1370,7 @@ function _ajax_uploader_append_file(selecter, v)
         '<dt class="aw-icon upload-' + v['class_name'] + '" '+ (url==null || url=='' ? '' : 'style="background-image:url('+url+')"')+'></dt>' +
         '<dd>' + 
         '<p class="_ajax_upload-file aw-file-uploader-name" title="' + v['file_name'] + '">' + (v['file_name']).substring(0, 10) + '...</p>' +
-        '<p class="_ajax_upload-inset"><a href="' + v['delete_link'] + '" class="_ajax_upload_delete_file" onclick="if (confirm(\'' + _t('确认删除?') + '\')) { _ajax_uploader_delete_attach(this.href, $(this).parent().parent()) };return false;">' + _t('删除') + '</a> ';
+        '<p class="_ajax_upload-inset"><a href="' + v['delete_link'] + '" class="_ajax_upload_delete_file" onclick="if (confirm(\'' + _t('确认删除?') + '\')) { _ajax_uploader_delete_attach(this.href, $(this).parents(\'dl\')) } return false;">' + _t('删除') + '</a> ';
         
         if (typeof(v['thumb']) != 'undefined' && typeof(v['attach_id']) != 'undefined')
         {
