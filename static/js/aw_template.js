@@ -201,8 +201,8 @@ var AW_TEMPLATE = {
 					'</form>'+
 				'</div>'+
 				'<div class="modal-footer">'+
-					'<a data-dismiss="modal" aria-hidden="true">' +  + _t('取消') + '</a>'+
-					'<button class="btn btn-large btn-success" onclick="ajax_post($(\'#quick_publish\'), _quick_publish_processer);">' +  + _t('发送') + '</button>'+
+					'<a data-dismiss="modal" aria-hidden="true">' + _t('取消') + '</a>'+
+					'<button class="btn btn-large btn-success" onclick="ajax_post($(\'#quick_publish\'), _quick_publish_processer);">' + _t('发送') + '</button>'+
 				'</div>'+
 			'</div>',
 
