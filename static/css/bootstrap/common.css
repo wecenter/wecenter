@@ -365,7 +365,7 @@ select{width: auto;}
 .aw-comment-list li div{*margin-top:-10px;}
 .aw-comment-list li p{margin:0;padding: 0;}
 /*问题修改日志*/
-.aw-question-edit{padding-bottom:30px;}
+.aw-question-detail-box .aw-question-edit{padding-bottom:30px;}
 .aw-question-edit .aw-mod-head h2{font-size: 20px;}
 .aw-question-edit .aw-mod-head h2 span{font-size: 13px;font-weight: normal;}
 .aw-question-edit .aw-mod-body{color: #666;}
@@ -522,7 +522,7 @@ select{width: auto;}
 .aw-edit-topic .i-edit{margin-right: 5px;}
 .aw-edit-topic-box{display:none;position:relative;line-height: 35px;margin:10px 0;}
 .aw-edit-topic-box input{margin:0 5px 0 0;}
-.aw-edit-topic-box a{margin:0 0 0 5px;}
+.aw-edit-topic-box a{margin:0 5px 0 0;}
 .aw-side-bar-topic-edit .aw-edit-topic-box{text-align: right;}
 .aw-side-bar-topic-edit .aw-edit-topic-box input{width:173px;}
 
