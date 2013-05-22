@@ -419,6 +419,7 @@ select{width: auto;}
 .aw-question-list .aw-questoin-content .aw-user-name{position: relative;right: 0;top: 0;}
 /*问题列表问题标签*/
 .aw-question-tags{margin-right:10px;padding:0 5px 0 10px;background:url(img/aw-btn-sprite.png) no-repeat 0 -372px;border-radius:0 5px 5px 0;cursor:pointer;}
+.aw-question-tags a{color: #999;}
 .aw-question-tags:hover{background-position: 0 -397px;}
 
 
@@ -725,7 +726,10 @@ select{width: auto;}
 .aw-new-message-tips .aw-mod-head .pull-right{color:#999;font-size: 12px;}
 .aw-new-message-tips .aw-mod-head h3{font-weight: normal;margin:0;}
 .aw-new-message-tips .aw-mod-body ul li{line-height: 15px;padding:15px 0;font-weight: bold;border-bottom:1px dotted #C1CAD4;}
-.aw-new-message-tips .aw-mod-body p{height: auto;overflow: hidden;margin:10px 0 0;}
+.aw-new-message-tips .aw-mod-body ul li span{font-weight: normal;}
+.aw-new-message-tips .aw-mod-body #notification_list{margin-bottom: 10px;}
+.aw-new-message-tips .aw-mod-body #notification_list p{max-width: 600px;}
+.aw-new-message-tips .aw-mod-body p{height: auto;overflow: hidden;margin:0;}
 .aw-new-message-tips-close{display: none;}
 .aw-new-message-tips-close a{font-size: 12px;font-weight: normal;}
 .aw-new-message-tips li:hover .aw-new-message-tips-close, .aw-my-notifications li:hover .aw-new-message-tips-close{display:block;}

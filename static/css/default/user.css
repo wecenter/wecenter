@@ -55,7 +55,7 @@
 /*关注*/
 .aw-user-center-follow-mod h4{padding:25px 0 15px 0;font-size:18px;}
 .aw-user-center-follow-mod ul li{position: relative;min-height:94px;margin:0 14px;}
-.aw-user-center-follow-mod ul .span5{width:420px;padding:10px 0;border-bottom:1px dotted #C1CAD4;}
+.aw-user-center-follow-mod ul .span5{width:420px;margin-bottom:10px;padding:10px 0;border-bottom:1px dotted #C1CAD4;}
 .aw-user-center-follow-mod .aw-item{position:relative;min-height:60px;padding-left:60px;}
 .aw-user-center-follow-mod .aw-user-img, .aw-user-center-follow-mod .aw-topic-img{position: absolute;left: 0;top: 0;}
 .aw-user-center-follow-mod  p{margin:0;}
