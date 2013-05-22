@@ -843,6 +843,7 @@ select{width: auto;}
 .aw-publish-box .aw-topic-dropdown-list{max-height: 245px;overflow-y:scroll;}
 .aw-publish-box #quick_publish{position: relative;}
 .aw-publish-box .aw-topic-dropdown{top:60px;}
+.aw-publish-box .aw-topic-dropdown .aw-question-dropdown-list{max-height: 409px;overflow-y:scroll; }
 
 /*问题重定向*/
 .aw-question-drodpwon{position: relative;}
