@@ -57,7 +57,7 @@ var AW_TEMPLATE = {
 					'<h3 id="myModalLabel">' + _t('提示信息') + '</h3>'+
 				'</div>'+
 				'<div class="modal-body">'+
-					'<p><i class="aw-icon i-warmming"></i>{{message}}</p>'+
+					'<p><i class="aw-icon i-warmming pull-left"></i>{{message}}</p>'+
 				'</div>'+
 			'</div>',
 
