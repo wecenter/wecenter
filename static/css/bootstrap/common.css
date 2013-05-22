@@ -139,7 +139,7 @@ select{width: auto;}
 .aw-logo h1{height:25px;line-height:25px;margin:-2px 0 2px 0;font-size:13px;}
 .aw-logo span{position:relative;top:5px;margin-left:10px;font-weight:normal;}
 .aw-logo a:hover{text-decoration:none;}
-.aw-login-register{position:relative;top:15px;text-align:right;}
+.aw-login-register{position:relative;top:15px;}
 .aw-login-register a{margin-left:10px;color:#2D648F;font-weight:bold;}
 .aw-login-register a img{width: 25px;height: 25px;margin:-3px 0 0 5px;border-radius: 5px;}
 .aw-login-register a:hover{color:#3071A3;}
