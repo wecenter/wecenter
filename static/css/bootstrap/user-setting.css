@@ -20,7 +20,7 @@
 .aw-user-setting-base .aw-user-setting-upload-img-box p{margin-bottom:20px;}
 .aw-user-setting-base .aw-user-setting-upload-img-box span {margin-left:10px;}
 .aw-user-setting-base .aw-user-setting-upload-img-box span .aw-loading{position:relative;top:4px;margin-right: 5px;}
-.aw-user-setting-base-contact li{display:inline-block;float:left;margin:0 6px 20px 0;color:#666;}
+.aw-user-setting-base-contact li{display:inline;float:left;margin:0 6px 20px 0;color:#666;}
 .aw-user-setting-base-contact li input{width: 280px;margin:0;height:20px;line-height: 20px;}
 .aw-user-setting-base-contact label{display:inline-block;width: 80px;line-height: 30px;text-align: right;}
 /*账号绑定*/

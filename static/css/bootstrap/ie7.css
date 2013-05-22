@@ -69,6 +69,11 @@
 */
 .aw-side-bar-topic-edit .aw-edit-topic{*position:relative;*top:-10px;}
 
+/*
+**	话题修改记录
+*/
+.aw-side-bar-topic-edit-notes li{*margin-left:-15px;}
+
 /*评论box*/
 .aw-comment-list li{*padding:0 0 15px 42px;}
 .aw-comment-list li p:fitst-child{*margin-top:-10px;}
@@ -93,7 +98,7 @@
 **	用户设置页面
 */
 .aw-user-setting-bind .i-qq, .aw-user-setting-bind .i-share-sina, .aw-user-setting-bind .i-share-weibo, .aw-user-setting-bind .i-weixin{*top:0;}
-
+.aw-user-setting-base-contact li input{*width:250px;}
 /*
 **	注册页面
 */
