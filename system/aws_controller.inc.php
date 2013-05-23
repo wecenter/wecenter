@@ -84,7 +84,6 @@ class AWS_CONTROLLER
 			'js/hogan.js',
 			'js/plug_module/plug-in_module.js',
 			'js/common.js',
-			'js/global.js',
 			'js/app.js',
 		));
 		
