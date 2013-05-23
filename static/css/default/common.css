@@ -1,13 +1,12 @@
 /*
 ***********************************************************	公共部分
 */
-body{font:13px/1.5 "微软雅黑",tahoma,arial;}
+body{font:13px/1.5;}
 h1, h2, h3, h4, h5, h6{font-size:100%;}
 ul,ol,li{list-style-type: none;}
 a{cursor: pointer;}
 a:hover{text-decoration: none;}
 textarea{resize:none;}
-input , textarea, span.bds_more, .bds_tools a{font-family: '微软雅黑',tahoma,arial !important;}
 .clear{clear:both;}
 .aw-padding10{padding:10px;}
 .aw-margin-top-10{margin-top:10px;}
