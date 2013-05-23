@@ -798,7 +798,7 @@ select{width: auto;}
 .aw-card-tips .title{font-weight: bold;}
 .aw-card-tips .aw-mod-head{position: relative;min-height:60px;padding-left: 60px;}
 .aw-card-tips .aw-mod-head p{margin: 0 0 5px;}
-.aw-card-tips .aw-mod-head .title .i-v{display: none;}
+.aw-card-tips .aw-mod-head .title .i-v{display: none;margin-left: 5px;}
 .aw-card-tips .aw-mod-head .title.active .i-v{display: inline-block;}
 .aw-card-tips .aw-mod-head .aw-head-img{position: absolute;left: 0;top: 0;}
 .aw-card-tips .aw-mod-head .aw-head-img img{border-radius: 5px;}
