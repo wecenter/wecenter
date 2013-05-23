@@ -1,8 +1,8 @@
 <?php TPL::output('install/header.tpl.htm'); ?>
 
+<div class="aw-mod-body">
 <form action="" method="post" id="installer">
 <input type="hidden" name="step" value="2" />
-<div class="aw-mod-body">
 	<dl>
 		<dt>• <?php _e('欢迎使用'); ?></dt>
 		<dd><?php _e('欢迎使用 WeCenter 安装程序, WeCenter 是中国首个基于 PHP + MYSQL 开发的开源化社交问答社区'); ?></dd>
@@ -11,6 +11,15 @@
 		<dt>• <?php _e('服务器环境检查'); ?></dt>
 		<dd><?php _e('为了确保程序安装顺利, 您的服务器需要满足以下系统需求的运行环境'); ?></dd>
 	</dl>
+	<?php if ($this->error_messages) { ?>
+	<div class="error">
+		<h3><?php _e('网络限制'); ?></h3>
+		
+		<?php foreach ($this->error_messages AS $error_message) { ?>
+		<p><?php echo $error_message; ?></p>
+		<?php } ?>
+	</div>
+	<?php } ?>
 	<ul>
 		<li>
 			<b><?php _e('PHP 版本'); ?></b><span><?php echo PHP_VERSION; ?></span><?php if (!$this->system_require['php']) { ?><span class="red">× <?php _e('WeCenter 需要最低 %s 版本的 PHP, 并且运行于非安全模式下, 我们推荐使用 PHP 5.3', ENVIRONMENT_PHP_VERSION); ?></span><?php } else { ?><span class="green">√</span><?php } ?>
@@ -45,7 +54,7 @@
 			<b><?php _e('目录权限'); ?></b><span><?php echo AWS_PATH; ?>config/</span><?php if (!$this->system_require['config_writable_config']) { ?><span class="red">×</span><?php } else { ?><span class="green">√</span><?php } ?>
 		</li>
 	</ul>
-	<a id="setup_control" class="btn btn-success pull-right"<?php if (sizeof($this->system_require) != 10) { ?> onclick="alert('<?php _e('抱歉, 您的服务器需要满足系统的运行需求才能安装'); ?>'); return false;"<?php } else { ?> onclick="document.getElementById('installer').submit(); document.getElementById('setup_control').style.display = 'none'; return false;"<?php } ?>><?php _e('下一步'); ?></a>
+	<a class="btn btn-success pull-right"<?php if (sizeof($this->system_require) != 10) { ?> onclick="alert('<?php _e('抱歉, 您的服务器需要满足系统的运行需求才能安装'); ?>');"<?php } else { ?> onclick="document.getElementById('installer').submit(); this.className='btn btn-success disabled pull-right'; this.onclick='';"<?php } ?>><?php _e('下一步'); ?></a>
 	 </form>
 </div>
 
