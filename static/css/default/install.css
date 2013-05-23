@@ -1,0 +1,18 @@
+body, button, input, select, textarea, option{color:#333;font: 13px/1.5 "微软雅黑",tahoma,arial;}
+.aw-install{width: 960px;height:auto;overflow: hidden;margin:100px auto 0;padding:1px;border: 1px solid #CCCCCC;border-radius: 10px;color: #333333;}
+.aw-install .aw-mod-head{height: 50px;background: #397EAD;border-radius: 10px 10px 0 0;}
+.aw-install .aw-mod-body{padding: 20px 60px 50px;}
+.aw-install dl{margin:0;padding-top:10px;border-top: 1px dotted #CCCCCC;}
+.aw-install dl:first-child{border-top: none;}
+.aw-install dl dt{font-size: 16px;font-weight: normal;}
+.aw-install dl dd{padding: 10px 0 20px;}
+.aw-install ul{margin:20px 0 0 0;list-style-type: none;}
+.aw-install ul li{line-height: 30px;margin-bottom: 20px;padding:10px 20px;background: #F7F7F7;text-shadow:0 1px 0 #FFFFFF;border-radius: 10px 10px 10px 10px; }
+.aw-install ul li span{margin-left: 20px;color:#999;}
+.aw-install .green{color: green !important;}
+.aw-install-footer{width: 960px;margin:10px auto 100px;text-align: right;color: #999;}
+.aw-install-footer a{color: #999;}
+.aw-install .default_text{margin:0 0 0 20px;}
+
+
+
