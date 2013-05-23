@@ -79,10 +79,9 @@ class AWS_CONTROLLER
 			'js/jquery.js',
 			'js/jquery.form.js',
 			'js/bootstrap.js',
+			'js/plug_module/plug-in_module.js',
 			'js/functions.js',
 			'js/aw_template.js',
-			'js/hogan.js',
-			'js/plug_module/plug-in_module.js',
 			'js/common.js',
 			'js/app.js',
 		));
