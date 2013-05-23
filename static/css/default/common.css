@@ -93,6 +93,7 @@ select, input[type="file"]{*height: 26px;*line-height: 26px;height: 26px\0;line-
 button.close{width: 20px;height: 20px;}
 .tooltip{z-index: 9999;}
 .modal-body{max-height: none;}
+.modal-footer{height: 36px;line-height: 36px;}
 select, input[type="file"]{height: 28px;line-height: 28px;}
 select{width: auto;}
 .modal-header h3{cursor: move;}

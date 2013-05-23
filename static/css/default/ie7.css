@@ -48,6 +48,7 @@
 */
 .aw-question-detail-box .aw-mod-head h2{*margin-top:20px;}
 .aw-question-detail-box .aw-question-detail-meta .aw-question-wait-edit{margin-top:-1px\0;*margin-top:0px;}
+.aw-question-detail-box .aw-mod-head .aw-question-follow .aw-dropdown-menu li a{*min-width: 110px;}
 
 /*
 **	话题页面公共模块
@@ -57,6 +58,7 @@
 /*
 **	话题详细页
 */
+.aw-edit-topic .i-edit{*position: relative;*top:-2px;}
 .aw-topic-detail-title{*margin-top:20px;}
 .aw-side-bar-topic-edit .aw-edit-topic-box input{*margin-bottom:10px;}
 
