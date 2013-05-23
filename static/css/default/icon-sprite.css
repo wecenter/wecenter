@@ -20,8 +20,8 @@
 .i-close-disabled{width:9px;height: 9px;background-position: -135px 0;position: relative;top:2px;}
 .i-close-hover{width:9px;height: 9px;background-position: -150px 0;*position: relative;*top:-5px;*left:5px;}
 .i-followed{width:12px;height: 12px;background-position: -165px 0;}
-.i-follow{width:12px;height: 12px;background-position: -180px 0;*position:relative;*top:-2px;}
-.i-follow.aw-active{background-position: -165px 0;*position:relative;*top:-2px;}
+.i-follow{width:12px;height: 12px;background-position: -165px 0;*position:relative;*top:-2px;}
+.i-follow.aw-active{background-position: -180px 0;*position:relative;*top:-2px;}
 .i-yes{width:19px;height: 15px;background-position: -200px 0;}
 .i-no{width:16px;height: 16px;background-position: -225px 0;}
 .i-key{width:16px;height: 8px;background-position: -250px 0;}
