@@ -958,6 +958,7 @@ $language['%s 人关注该话题'] = '%s  followed ';
 $language['精华'] = 'Popular';
 $language['关于话题'] = 'About the topic';
 $language['加载'] = 'Loading';
+$language['搜索...'] = 'Search...';
 $language['最佳回复者'] = 'Best replier';
 $language['%s 次感谢'] = '%s thank you';
 $language['话题修改记录'] = 'Topic edit log';
