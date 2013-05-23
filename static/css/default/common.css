@@ -1,7 +1,7 @@
 /*
 ***********************************************************	公共部分
 */
-body{font:13px/1.5}
+body{font-size:13px; line-height:150%;}
 h1, h2, h3, h4, h5, h6{font-size:100%;}
 ul,ol,li{list-style-type: none;}
 a{cursor: pointer;}
