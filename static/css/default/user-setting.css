@@ -28,7 +28,7 @@
 .aw-user-setting-bind ul li{line-height: 36px;min-height: 36px;margin-bottom:10px;padding-top:10px;border-top:1px dotted #C1CAD4;color:#666;}
 .aw-user-setting-bind ul li:first-child{border-top: none;}
 /*我的积分*/
-.aw-user-setting-points table{margin:20px 0;font-size:13px;border:1px solid #DCEDFA;color: #666;}
+.aw-user-setting-points table{margin:20px 0;font-size:13px;color: #666;}
 .aw-user-setting-points table .info{background: #F5FAFE;}
 .aw-user-setting-points table .info th{border-top: none;}
 .aw-user-setting-points .table th, .aw-user-setting-points .table td{border-top: 1px solid #DCEDFA;}
