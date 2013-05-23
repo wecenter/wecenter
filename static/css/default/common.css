@@ -53,6 +53,7 @@ a.aw-load-more-content{display: block;}
 .aw-user-name, .aw-topic-name{line-height:20px;color:#2586CD !important;font-weight:normal;}
 .aw-user-name img, .aw-topic-name img{width: 32px;height: 32px;border-radius: 5px;}
 .aw-user-name .i-close-hover, .aw-topic-name .i-close-hover{margin-left:5px;}
+.aw-topic-img img{border-radius: 5px;}
 .aw-topic-name span{display:inline-block;padding:0 6px;background:#D4F2FF;border-radius:5px;}
 .aw-topic-name span:hover{background:#C1E8F9;color:#085D9B;text-decoration:none;}
 /*最佳回答*/
@@ -184,7 +185,7 @@ select{width: auto;}
 .category .span12 > ul > li{float: left;width: 100px;height: 30px;line-height: 30px;margin:10px 20px;padding:0 5px;font-size:12px;text-align: center;border-radius: 5px;}
 .category .span12 > ul > li .aw-dropdown-menu{text-align: left;}
 .category .span12 > ul > li.active{background: #EBEBEB;}
-.category .span12 > ul > li:hover, .category dl:hover{position:relative;z-index:9999;background: #EBEBEB;}
+.category .span12 > ul > li:hover, .category dl:hover{position:relative;z-index:999;background: #EBEBEB;}
 .category .span12 > ul > li:hover .category-dropdown, .category ul li:hover .dropdown-menu{display: block;}
 
 /*
