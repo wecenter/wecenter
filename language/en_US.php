@@ -960,6 +960,7 @@ $language['关于话题'] = 'About the topic';
 $language['加载'] = 'Loading';
 $language['最佳回复者'] = 'Best replier';
 $language['%s 次感谢'] = '%s thank you';
+$language['话题修改记录'] = 'Topic edit log';
 $language['管理话题'] = 'Manage topic';
 $language['话题别名'] = 'Topic nickname';
 $language['页面标题'] = 'Title';
