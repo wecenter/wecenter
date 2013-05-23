@@ -149,7 +149,7 @@ var AW_TEMPLATE = {
 						'<input type="hidden" id="quick_publish_category_id" name="category_id" value="{{category_id}}" />'+
 						'<input type="hidden" name="post_hash" value="' + G_POST_HASH + '" />'+
 						'<input type="hidden" name="ask_user_id" value="{{ask_user_id}}" />'+
-						'<textarea placeholder="' + _t('写下你的问题') + '..." name="question_content" onkeydown="if (event.keyCode == 13) { return false; }" onkeyup="get_quick_publich_question_list($(this),$(this).val());" onblur="hide_quick_publish_question_list($(this));">{{value}}</textarea>'+
+						'<textarea placeholder="' + _t('写下你的问题') + '..." name="question_content" onkeydown="if (event.keyCode == 13) { return false; }" onkeyup="get_quick_publich_question_list($(this),$(this).val());" onblur="hide_quick_publish_question_list($(this));"></textarea>'+
 						'<div class="aw-dropdown aw-topic-dropdown">'+
 							'<i class="aw-icon i-dropdown-triangle active"></i>'+
 							'<p class="title">没有找到相关结果</p>'+
