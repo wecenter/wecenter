@@ -1,18 +1,9 @@
 <?php TPL::output('global/header_landing_blank.tpl.htm'); ?>
 
-<div id="wrapper">
+<div id="wrapper" class="clearfix">
 	<div class="aw-login-wrap">
-		<!-- 左侧文字介绍部分 -->
-		<h1>
-			<img src="<?php echo G_STATIC_URL; ?>/css/<?php echo $this->template_name; ?>/img/login_logo.png" alt="<?php echo get_setting('site_name'); ?>" />
-			<p><?php echo get_setting('description'); ?></p>
-		</h1>
-		<p class="aw-login-state">
-			<?php _e('欢迎来到'); ?> <?php echo get_setting('site_name'); ?>,<br /><?php _e('你想知道的一切, 或许答案都在这里'); ?></span>
-		</p>
-		<!-- end 左侧文字介绍部分 -->
 		<!-- 登陆框 -->
-		<div class="aw-login-box">
+		<div class="aw-login-box pull-right">
 			<div class="aw-mod">
 				<div class="aw-mod-head">
 					<i class="aw-icon i-login-user-no-hover"></i>
@@ -57,6 +48,16 @@
 			</div>
 		</div>
 		<!-- end 登陆框 -->
+		<!-- 左侧文字介绍部分 -->
+		<h1>
+			<img src="<?php echo G_STATIC_URL; ?>/css/<?php echo $this->template_name; ?>/img/login_logo.png" alt="<?php echo get_setting('site_name'); ?>" />
+			<p><?php echo get_setting('description'); ?></p>
+		</h1>
+		<p class="aw-login-state">
+			<?php _e('欢迎来到'); ?> <?php echo get_setting('site_name'); ?>,<br /><?php _e('你想知道的一切, 或许答案都在这里'); ?></span>
+		</p>
+		<!-- end 左侧文字介绍部分 -->
+		
 		<div class="aw-login-box-bg">
 		</div>
 	</div>

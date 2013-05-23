@@ -10,7 +10,6 @@
 .aw-login-wrap .aw-login-state{max-width: 330px;margin:75px 0 0 40px;font-size: 14px;font-weight: bold;color:#fff;}
 .aw-login-wrap .aw-login-state span{color:#FFA01F;}
 .aw-login-box-bg{position:absolute;left:0;top:0;z-index:-1;width: 700px;height: 376px;background: #000000;border-radius: 10px;opacity: 0.2;filter:alpha(opacity=20);}
-.aw-login-box{position: absolute;right: 0;top: 0;}
 .aw-mod-head{width:244px;height: 76px;line-height: 76px;padding:0 40px;background:url(img/login-nav.png) no-repeat;font-size: 16px;font-weight: bold;color: #fff;}
 .aw-mod-head .b-new-user{width:144px;margin-top:15px;padding-left:20px;font-size: 14px;font-weight: bold;color:#fff;text-align: center;text-decoration: none;}
 .aw-mod-head .i-login-user-no-hover{*position: relative;*top:-5px;*right:5px;}
