@@ -1,4 +1,4 @@
-body, button, input, select, textarea, option{color:#333;font: 13px/1.5 "微软雅黑",tahoma,arial;}
+body, button, input, select, textarea, option{color:#333;font-size:13px;line-height:150%;}
 .aw-install{width: 960px;height:auto;overflow: hidden;margin:100px auto 0;padding:1px;border: 1px solid #CCCCCC;border-radius: 10px;color: #333333;}
 .aw-install .aw-mod-head{height: 50px;background: #397EAD;border-radius: 10px 10px 0 0;}
 .aw-install .aw-mod-head img{margin:5px 0 0 40px;}
