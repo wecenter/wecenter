@@ -23,6 +23,7 @@ a.aw-load-more-content{display: block;}
 .aw-load-more-content.loading img{opacity: 1;}
 .aw-load-more-content.warmming{background:#fcfddb;border:1px solid #f9f2a7;color:#d4a639;}
 .aw-load-more-content .aw-alert-box{position: absolute;right: 10px;}
+.aw-load-more-content.disabled{background-color: #f6f6f6;border:1px solid #dfdfdf;}
 .aw-mod .aw-mod-head h4, .aw-mod .aw-mod-head h4 a{font-size:14px;}
 .i-follow{margin-left:5px;}
 .i-follow.loading{width:16px;height:16px;background:url(img/ajax-loader.gif) no-repeat !important;top: 4px !important;}
@@ -173,6 +174,7 @@ select{width: auto;}
 .category dl dt{width: 50px;}
 .category dl dt img{width:50px;height:50px;border-radius:3px;}
 .category dl dd{width:130px;}
+.category dl dd span{color: #999;}
 .category .span12 > .active{background:#ebebeb;}
 .category .first{margin-left:0px;}
 .category .last{margin-right:0px;}
@@ -366,7 +368,7 @@ select{width: auto;}
 .aw-comment-list li div{*margin-top:-10px;}
 .aw-comment-list li p{margin:0;padding: 0;}
 /*问题修改日志*/
-.aw-question-detail-box .aw-question-edit{padding-bottom:30px;}
+.aw-question-edit{padding-bottom:30px;}
 .aw-question-edit .aw-mod-head h2{font-size: 20px;}
 .aw-question-edit .aw-mod-head h2 span{font-size: 13px;font-weight: normal;}
 .aw-question-edit .aw-mod-body{color: #666;}
@@ -947,6 +949,7 @@ select{width: auto;}
 .markItUp .markItUpButton12 a {background-position: -570px -6px;}
 .markItUp .markItUpButton13 a {background-position: -277px -6px;margin-left: 5px;}
 .markItUp .markItUpButton11 {position: absolute;right: 0;}
+
 /*编辑器回复样式*/
 .markitup-box {font-size: 13px !important;line-height: 22px;word-wrap: break-word !important;}
 .markitup-box h2, #markItUpPreviewFrames h2, .markitup-box h3, #markItUpPreviewFrames h3 {font-weight: bold;margin: 10px 0;}
