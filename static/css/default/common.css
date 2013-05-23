@@ -407,7 +407,7 @@ select{width: auto;}
 **	问题列表公共模块 .aw-question-list
 */
 .aw-question-box-mod .aw-item{position:relative;z-index:0;height:auto;min-height:45px;overflow:hidden;padding:15px 40px 15px 65px;}
-.aw-question-list{height:auto;overflow: hidden;}
+.aw-question-list{width:100%;height:auto;overflow: hidden;}
 .aw-question-list .aw-item{border-bottom:1px dotted #C1CAD4;;}
 /*问题列表回复统计*/
 .aw-question-list .aw-question-replay-count{position:absolute;left:0;top: 15px;display:block;width:50px;height: 45px;background-color:#D7D7D7;text-align: center;color: #999;}
