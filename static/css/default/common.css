@@ -908,12 +908,11 @@ select{width: auto;}
 .aw-mod-replay-box .aw-mod-body .aw-text-color-999{margin-bottom:10px;}
 #advanced_editor{width: 604px;height:20px;min-height: 110px;margin:0;}
 .aw-upload-box{height: auto;overflow: hidden;margin:10px 0;}
-.markItUpPreviewFrame {margin-top: 15px;padding: 10px;background: none repeat scroll 0 0 #FAFAFA;border: 1px solid #CCCCCC;border-radius:10px;color: #666666;font-size: 12px;}
+.markItUpPreviewFrame {background: none repeat scroll 0 0 #FAFAFA;border: 1px solid #CCCCCC;color: #666666;font-size: 12px;margin-top: 15px;padding: 10px;}
 .markItUpPreviewFrame .title{margin:0 0 10px 0;padding-bottom:5px;font-size: 14px;border-bottom: 1px solid #C1CAD4;color:#333;}
 .markItUpFooter {border-image: none;cursor: n-resize;}
 .markItUpResizeHandle {background-image: url("img/handle.png");cursor: n-resize;height: 5px;margin-left: auto;margin-right: auto;overflow: hidden;width: 22px;}
-.markItUpHeader{height: auto;overflow: hidden;}
-.markItUpHeader ul li {float: left;margin-bottom: 5px;}
+.markItUpHeader ul li {float: left;list-style: none outside none;margin-bottom: 5px;max-width: 22px;position: relative;}
 .markItUpHeader ul li ul {display: none;}
 .markItUpHeader ul li:hover > ul {display: block;}
 .markItUpHeader ul .markItUpDropMenu {background: url("images/menu.png") no-repeat scroll 115% 50% transparent;margin-right: 5px;}
@@ -929,7 +928,7 @@ select{width: auto;}
 .markItUpHeader ul ul a {background-position: 2px 50%;display: block;padding: 5px 5px 5px 25px;text-indent: 0;width: 120px;}
 .markItUpHeader ul ul a:hover {background-color: #3C769D;color: #FFFFFF;}
 .markItUp .markItUpButton > a {background: url("img/markItUp_editor.png") no-repeat scroll 0 0 transparent;}
-.markItUp .markItUpButton > a:hover {opacity: 0.6;}
+.markItUp .markItUpButton > a:hover {opacity: 0.6;filter:alpha(opacity=60)}
 .markItUp .preview a {background-image: url("images/preview.png");}
 .markItUp ul {position: relative;}
 .markItUp .markItUpButton1 a {background-position: -4px -6px;}
