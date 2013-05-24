@@ -47,7 +47,7 @@ a.aw-load-more-content{display: block;}
 .aw-dropdown-menu li:first-child, .dropdown-menu li.first, .aw-logined-nav #header_notification_list li:first-child, .aw-comment-list li:first-child, .aw-edit-comment-box .aw-file-upload-box, .aw-li-border-bottom li:first-child{border-top:none;}
 
 /*分类小标签*/
-.aw-user-name, .aw-topic-name{font-size:13px;line-height:20px;font-weight:normal;}
+.aw-user-name, .aw-topic-name{font-size:12px;line-height:20px;font-weight:normal;}
 .aw-user-name img, .aw-topic-name img{width: 32px;height: 32px;border-radius: 5px;}
 .aw-user-name .i-close-hover, .aw-topic-name .i-close-hover{margin-left:5px;}
 .aw-topic-img img{border-radius: 5px;}
