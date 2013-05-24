@@ -31,7 +31,7 @@
 .aw-dynamic-topic{padding:1px 1px 15px 1px;border: 1px solid #DFDFDF;border-radius: 5px;}
 .aw-dynamic-topic > .aw-mod-head{padding: 0 20px;background: #F8F8F8;border:none;}
 .aw-dynamic-topic > .aw-mod-head h2{height: 45px;line-height: 45px;margin:0;}
-.aw-dynamic-topic .aw-mod-body{padding:10px 20px 0;}
+.aw-dynamic-topic > .aw-mod-body{padding:10px 20px 0;}
 .aw-side-bar{background: #fff;padding:0 20px 15px;}
 
 .aw-load-more-content{margin:15px 20px 0 20px;}
