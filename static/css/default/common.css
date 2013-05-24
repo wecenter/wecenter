@@ -615,6 +615,7 @@ select{width: auto;}
 **	发起问题页面
 */
 .aw-mod-publish{padding-bottom: 30px;}
+.aw-mod-publish .aw-topic-dropdown{height: 80px;overflow-y:scroll;}
 .aw-mod-publish h3{font-size: 100%;margin-top:30px;padding-bottom: 5px;}
 .aw-publish-title{position: relative;}
 .aw-publish-title input{width:497px;height: 26px;line-height: 26px;border-right: none;border-radius: 4px 0 0 4px;}
