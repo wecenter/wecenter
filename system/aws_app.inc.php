@@ -249,7 +249,14 @@ class AWS_APP
 	{
 		if (! USER::get_client_uid())
 		{
-			HTTP::redirect('/account/login/url-' . base64_encode($_SERVER['REQUEST_URI']));
+			if ($_POST['_post_type'] == 'ajax')
+			{
+				H::ajax_json_output(self::RSM(null, -1, AWS_APP::lang()->_t('会话超时, 请重新登录')));
+			}
+			else
+			{
+				HTTP::redirect('/account/login/url-' . base64_encode($_SERVER['REQUEST_URI']));
+			}
 		}
 	}
 

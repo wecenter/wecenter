@@ -1300,3 +1300,4 @@ $language['关注话题'] = 'Follow topic';
 $language['取消话题关注'] = 'Unfollow topic';
 $language['插入的附件'] = 'Insert attachment';
 $language['添加评论'] = 'Add comment';
+$language['会话超时, 请重新登录'] = 'Session timeout, please re-login';
