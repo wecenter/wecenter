@@ -26,6 +26,12 @@
 .aw-nav-main li a{*display:block;*float:left;}
 .aw-top-nav .aw-icon{*top:0;}
 .aw-top-nav .i-index-no-hover{top:0;*top:0;}
+.aw-nav-main li a .i-index-no-hover{*top:-3px;}
+.aw-nav-main li a .i-question-no-hover{*top:-1px;}
+.aw-nav-main li a .i-topic-no-hover, .aw-nav-main li a .i-login-user-no-hover{*top:-2px;}
+
+/*搜索框*/
+.aw-search-box .search-query{*margin-top:-1px;}
 
 /*侧边栏公共部分*/
 .aw-side-bar-mod .i-follow{*top:-2px;}
