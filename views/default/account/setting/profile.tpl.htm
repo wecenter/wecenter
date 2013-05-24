@@ -71,7 +71,7 @@
 		<dl>
 				<dt><label><?php _e('个性网址'); ?>:</label></dt>
 				<dd>
-					<script type="text/javascript">document.write(G_BASE_URL);</script>/people/ <input type="text" value="kk" maxlength="32" name="url_token" style="margin-bottom:0;"<?php if ($this->user_info['url_token_update'] AND $this->user_info['url_token_update'] > (time() - 3600 * 24 * 30)) { ?> disabled="disabled"<?php } ?> /><br />
+					<script type="text/javascript">document.write(G_BASE_URL);</script>/people/ <input type="text" value="<?php echo $this->user_info['url_token']; ?>" maxlength="32" name="url_token" style="margin-bottom:0;"<?php if ($this->user_info['url_token_update'] AND $this->user_info['url_token_update'] > (time() - 3600 * 24 * 30)) { ?> disabled="disabled"<?php } ?> /><br />
 					<p class="aw-text-color-666"><?php _e('可输入 4~20 位的英文或数字, 30 天内只能修改一次'); ?></p>
 				</dd>
 		</dl>
