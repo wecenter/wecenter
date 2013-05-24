@@ -32,6 +32,8 @@
 
 /*搜索框*/
 .aw-search-box .search-query{*margin-top:-1px;}
+.aw-topic-search .search-query{*margin:3px 0;}
+.aw-topic-search .icon-search{*margin:0 4px 4px 4px;}
 
 /*侧边栏公共部分*/
 .aw-side-bar-mod .i-follow{*top:-2px;}
@@ -65,14 +67,15 @@
 /*话题编辑box*/
 .aw-side-bar-topic-edit .aw-edit-topic{*position:relative;*top:-10px;}
 
-/*话题修改记录*/
-.aw-side-bar-topic-edit-notes li{*margin-left:-15px;}
 
 /*评论box*/
 .aw-comment-list li{*padding:0 0 15px 42px;}
 .aw-comment-list li p:fitst-child{*margin-top:-10px;}
 .aw-comment-list li div{*margin-top:-10px;}
 
+/*相关话题*/
+.aw-side-bar-topic-about .aw-edit-topic-box input{*margin-bottom: 10px;}
+.aw-side-bar-topic-about .aw-edit-topic{*position: relative;*top:-4px;}
 
 /*动态首页右侧导航页模块*/
 /*我的草稿*/
