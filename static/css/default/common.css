@@ -129,7 +129,7 @@ select{width: auto;}
 **	top-menu
 */
 .aw-top-menu-wrap{width:100%;background:#86C5E3;font-weight: bold;}
-.aw-top-menu{padding-bottom:5px;overflow: visible;position: relative;z-index: 1001;}
+.aw-top-menu{padding-bottom:5px;overflow: visible;position: relative;z-index: 1002;}
 .aw-logo{height:40px;margin:5px 0 0 20px;}
 .aw-logo h1{height:25px;line-height:25px;margin:-2px 0 2px 0;font-size:13px;}
 .aw-logo span{position:relative;top:5px;margin-left:10px;font-weight:normal;}
