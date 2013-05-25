@@ -37,7 +37,7 @@
 				
 				<?php if ($this->answer_info['attachs']) {  ?>
 					<?php foreach ($this->answer_info['attachs'] AS $key => $attach) { ?>
-					<?php if ($attach['is_image'] AND !in_array($attach['id'], FORMAT::parse_attachs($this->answer_info['answer_content'], true))) { ?>
+					<?php if ($attach['is_image'] AND !in_array($attach['id'], $this->answer_info['insert_attach_ids'])) { ?>
 					<p class="imgScroll">
 						<a href="<?php echo $attach['attachment']; ?>" target="_blank"><img src="<?php echo $attach['attachment']; ?>" alt="<?php echo $attach['attach_name']; ?>" /></a>
 					</p>
