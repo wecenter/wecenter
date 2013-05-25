@@ -66,7 +66,8 @@ class weixin_class extends AWS_MODEL
 				switch ($input_message['event'])
 				{
 					case 'subscribe':
-						$response_message = '您已经成功关注 ' . get_setting('site_name') . ', 请问需要什么帮助吗? 您可以通过输入 "help, 帮助" 获得更多支持!';
+						$response_message = get_setting('weixin_subscribe_message');
+						//$response_message = '您已经成功关注 ' . get_setting('site_name') . ', 请问需要什么帮助吗? 您可以通过输入 "help, 帮助" 获得更多支持!';
 					break;
 				}
 			break;

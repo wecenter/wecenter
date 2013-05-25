@@ -74,7 +74,12 @@
 					
 					<p groupid="8" name="weixin_mp_token">
 						<label><?php _e('微信公众平台接口 Token'); ?>: <span style=" font-weight:normal;">(<?php _e('请与微信公众平台后台设置一致'); ?>)</label>
-						<input name="weixin_mp_token" class="text-input small-int" type="text" value="<?php echo $this->setting['weixin_mp_token']; ?>"/>
+						<input name="weixin_mp_token" class="text-input small-input" type="text" value="<?php echo $this->setting['weixin_mp_token']; ?>"/>
+					</p>
+					
+					<p groupid="8" name="weixin_subscribe_message">
+						<label><?php _e('微信公众平台欢迎信息'); ?>:</label>
+						<input name="weixin_subscribe_message" class="text-input small-input" type="text" value="<?php echo $this->setting['weixin_subscribe_message']; ?>"/>
 					</p>
 					
 					<p>
