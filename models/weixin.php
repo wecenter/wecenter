@@ -141,9 +141,16 @@ class weixin_class extends AWS_MODEL
 					}
 					else
 					{
-						$response_message = '您的问题没有人提到过, 需要帮忙么?';
+						if (cjk_strlen($input_message['content']) < 5)
+						{
+							$response_message = $this->help_message;
+						}
+						else
+						{
+							$response_message = '您的问题没有人提到过, 需要帮忙么?';
 						
-						$action = 'publish';
+							$action = 'publish';
+						}
 					}
 				}
 			break;
@@ -537,8 +544,11 @@ class weixin_class extends AWS_MODEL
 					}
 					else
 					{
-						$this->model('publish')->publish_question($last_action['content'], '', 1, $user_info['uid']);
-						
+						if (trim($last_action['content'] != ''))
+						{
+							$this->model('publish')->publish_question($last_action['content'], '', 1, $user_info['uid']);
+						}
+												
 						$response_message = '您的问题已提交，晚点您可以输入 "我的问题" 查看';
 					}
 				}
