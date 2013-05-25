@@ -1,0 +1,1 @@
+DELETE FROM `[#DB_PREFIX#]system_setting` WHERE `varname` = 'online_interval';
