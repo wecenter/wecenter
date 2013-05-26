@@ -245,14 +245,14 @@ select{width: auto;}
 .category .span12 > ul > li:hover .category-dropdown, .category ul li:hover .dropdown-menu{display: block;}
 
 /*话题编辑下拉*/
-.aw-topic-dropdown{left: 0;}
-.aw-topic-dropdown .i-dropdown-triangle{position: absolute;top:-6px;left: 15px;}
-.aw-topic-dropdown ul{list-style:none;}
-.aw-topic-dropdown ul li{border-top: 1px dotted #C1CAD4;}
-.aw-topic-dropdown ul li a{display: block;height: 20px;line-height: 20px;margin:0;padding: 10px;}
-.aw-topic-dropdown ul li a:hover{background: #F5FAFF}
-.aw-topic-dropdown ul li:first-child{border-top: none;}
-.aw-topic-dropdown p{height: 20px;line-height: 20px;margin:0;padding: 10px;}
+.aw-topic-dropdown, .aw-question-dropdown{left: 0;}
+.aw-topic-dropdown .i-dropdown-triangle, .aw-question-dropdown .i-dropdown-triangle{position: absolute;top:-6px;left: 15px;}
+.aw-topic-dropdown ul, .aw-question-dropdown ul{list-style:none;}
+.aw-topic-dropdown ul li, .aw-question-dropdown ul li{border-top: 1px dotted #C1CAD4;}
+.aw-topic-dropdown ul li a, .aw-question-dropdown ul li a{display: block;height: 20px;line-height: 20px;margin:0;padding: 10px;}
+.aw-topic-dropdown ul li a:hover, .aw-question-dropdown ul li a:hover{background: #F5FAFF}
+.aw-topic-dropdown ul li:first-child, .aw-question-dropdown ul li:first-child{border-top: none;}
+.aw-topic-dropdown p, .aw-question-dropdown p{height: 20px;line-height: 20px;margin:0;padding: 10px;}
 .aw-topic-dropdown .aw-topic-dropdown-list li{padding: 0;}
 .aw-topic-dropdown .aw-topic-dropdown-list li a .active, .aw-topic-dropdown ul li a .active{font-weight: bold;}
 
