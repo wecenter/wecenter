@@ -29,7 +29,7 @@
 .aw-publish{width:103px;margin-top:5px;}
 .aw-publish-btn{display:inline-block;width:57px;height:32px;line-height:32px;padding-left:50px;background: url("img/main_default.png") no-repeat 0 -10px;color:#fff;}
 .aw-publish-btn:hover{background-position: -110px -10px;color: #fff;}
-.aw-user-nav{width: 90px;height: 45px;line-height: 45px;font-weight:normal;text-align: right;}
+.aw-user-nav{width: 90px;height: 45px;line-height: 45px;margin-left:27px;font-weight:normal;text-align: right;}
 .aw-user-nav > p > a, .aw-user-nav > a{height: 45px;line-height: 45px;color: #fff;}
 .aw-user-nav > a img{width: 25px;height: 25px;border-radius: 5px;}
 .aw-user-nav:hover .aw-user-nav-dropdown-list{display: block;}
@@ -117,8 +117,29 @@
 /*
 ** 发起页面
 */
-.aw-mod-publish .aw-mod-footer{padding:0 20px 20px;}
+.aw-mod-publish .aw-mod-footer{padding:0 20px 30px;}
 
-
+/*
+**	用户主页
+*/
 .aw-user-center{padding: 0px;}
-.aw-user-detail-box{padding:20px;border:1px solid #DFDFDF;border-radius: 5px;}
+.aw-user-detail-box{margin-bottom:30px;padding:20px 20px 0;border:1px solid #DFDFDF;border-radius: 5px;}
+.aw-user-center-tab{padding:1px;border:1px solid #DFDFDF;border-radius: 5px;}
+.aw-user-center-tab .tab-content{padding: 0 20px 30px;}
+.aw-reset-sp .span6{width:427px;}
+
+/*
+**	用户设置
+*/
+.aw-user-setting{padding: 1px;border:1px solid #DFDFDF;border-radius: 5px;}
+.aw-user-setting h4{background: #F7FCFF;}
+.aw-user-setting .tab-content{padding: 0 0 30px;}
+
+/*
+**	底部
+*/
+.aw-footer-wrap{height: 40px;line-height: 40px;background: #333333;}
+.aw-footer{padding: 0;color: #fff;}
+.aw-footer a{color: #fff;}
+
+
