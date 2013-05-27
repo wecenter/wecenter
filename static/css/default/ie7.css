@@ -4,6 +4,7 @@
 .i-follow.loading{*top:-1px !important;}
 
 /*重载bootstrap按钮*/
+.btn{*border:1px solid #b3b3b3;}
 .btn-normal{*top:-2px;}
 .btn-success{*background-color: #e0f4ad;}
 .btn-success:hover, .btn-success:focus, .btn-success:active, .btn-success.active, .btn-success.disabled, .btn-success[disabled] {*background-color: #cee591;}
@@ -47,7 +48,7 @@
 
 /*问题详情页*/
 .aw-question-detail-box .aw-mod-head h2{*margin-top:20px;}
-.aw-question-detail-box .aw-question-detail-meta .aw-question-wait-edit{margin-top:-1px\0;*margin-top:0px;}
+.aw-question-detail-box .aw-question-detail-meta .aw-question-wait-edit{*margin-top:0px;}
 .aw-question-detail-box .aw-mod-head .aw-question-follow .aw-dropdown-menu li a{*min-width: 110px;}
 
 /*话题页面公共模块*/
