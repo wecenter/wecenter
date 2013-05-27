@@ -578,6 +578,10 @@ str_repeat('
 			$title = $this->encodeAttribute($title);
 			$result .= " title=\"$title\""; # $title already quoted
 		}
+		else
+		{
+			$result .= " title=\"$alt_text\"";
+		}
 		$result .= $this->empty_element_suffix;
 		
 		return $this->hashPart($result);
