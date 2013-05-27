@@ -23,7 +23,7 @@ a.aw-load-more-content{display: block;}
 .aw-load-more-content.loading span{font-size: 0px;}
 .aw-load-more-content.loading img{opacity: 1;}
 .aw-load-more-content.warmming{background:#fcfddb;border:1px solid #f9f2a7;}
-.aw-load-more-content .aw-alert-box{position: absolute;right: 10px;}
+.aw-load-more-content .aw-alert-box{position: absolute;right: 10px;top:0;}
 .aw-load-more-content.disabled{background-color: #f6f6f6;border:1px solid #dfdfdf;}
 .aw-mod .aw-mod-head h4, .aw-mod .aw-mod-head h4 a{font-size:14px;}
 .i-follow{margin-left:5px;}
@@ -289,7 +289,7 @@ select{width: auto;}
 /*侧边栏导航条*/
 .aw-side-bar-mod-nav{padding-top:20px;}
 .aw-side-bar-mod-nav ul li a{display: block;width:170px;height:30px;line-height: 30px;padding-left:10px;border-radius: 5px;}
-.aw-side-bar-mod-nav ul li a:hover, .aw-side-bar-mod-nav ul li a.active{background:#397dac;}
+.aw-side-bar-mod-nav ul li a:hover, .aw-side-bar-mod-nav ul li a.active{background-color:#397dac;}
 .aw-side-bar-mod-nav ul li a.active .aw-message-tooltip{background:#46cded;}
 
 /*侧边栏用户列表*/

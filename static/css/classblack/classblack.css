@@ -78,7 +78,10 @@
 */
 .aw-side-bar{width: 200px;margin-left:10px;background: #fff;}
 .aw-side-bar-mod-new-message{margin:0;}
-
+.aw-side-bar-mod-nav{padding-top: 0;}
+.aw-side-bar-mod-nav ul li a{width: 186px;}
+.aw-side-bar-mod-nav ul li a:hover, .aw-side-bar-mod-nav ul li a.active{background: url("img/main_default.png") no-repeat -231px -11px;color: #333;}
+.aw-side-bar-mod-nav ul li a.active .aw-message-tooltip{background: #449BDB;}
 /*
 **	自定义tab切换
 */
@@ -139,6 +142,12 @@
 .aw-user-setting{padding: 1px;border:1px solid #DFDFDF;border-radius: 5px;}
 .aw-user-setting h4{background: #F7FCFF;}
 .aw-user-setting .tab-content{padding: 0 0 30px;}
+
+/*
+**	登陆&注册页面
+*/
+.aw-login-box .aw-mod-head{background: url("img/login_default.png") no-repeat 0 -1px;}
+.aw-register-bg .aw-register-head-title{background:url("img/login_default.png") no-repeat -2px -86px;}
 
 /*
 **	底部
