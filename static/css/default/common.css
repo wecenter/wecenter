@@ -180,7 +180,7 @@ select{width: auto;}
 
 /*导航用户头像下拉*/
 .aw-user-nav-dropdown:hover > .dropdown-menu{display: block;}
-.aw-user-nav-dropdown > a{min-width:50px;display: inline-block;}
+.aw-user-nav-dropdown > a{min-width:70px;display: inline-block;}
 .aw-user-nav-dropdown .aw-dropdown-menu{top:30px;z-index: 9999;}
 .aw-user-nav-dropdown .aw-dropdown-menu  li > a{width:75px;line-height:24px;margin:0;padding:6px 8px 6px 15px;text-align: left;}
 .aw-user-nav-dropdown .aw-dropdown-menu .i-user-post{position: absolute;right:15px;top:10px;}
