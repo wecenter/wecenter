@@ -161,7 +161,7 @@ class TPL
 		return self::$view->$name;
 	}
 	
-	public static function import_css($path, $apply_style = true)
+	public static function import_css($path)
 	{
 		self::init();
 		
@@ -169,36 +169,32 @@ class TPL
 		{
 			foreach ($path AS $key => $val)
 			{
+				if (substr($val, 0, 4) == 'css/')
+				{
+					$val = str_replace('css/', 'css/default/', $val);
+				}
+				
 				if (substr($val, 0, 4) != 'http')
 				{
 					$val = G_STATIC_URL . '/' . $val;
 				}
 				
-				if ($apply_style)
-				{
-					self::$view->_import_css_files[] = str_replace('css/', 'css/' . get_setting('ui_style') . '/', $val);
-				}
-				else
-				{
-					self::$view->_import_css_files[] = $val;
-				}
+				self::$view->_import_css_files[] = $val;
 			}
 		}
 		else
 		{
+			if (substr($path, 0, 4) == 'css/')
+			{
+				$path = str_replace('css/', 'css/default/', $path);
+			}
+			
 			if (substr($path, 0, 4) != 'http')
 			{
 				$path = G_STATIC_URL . '/' . $path;
 			}
-			
-			if ($apply_style)
-			{
-				self::$view->_import_css_files[] = str_replace('css/', 'css/' . get_setting('ui_style') . '/', $path);
-			}
-			else
-			{
-				self::$view->_import_css_files[] = $path;
-			}
+				
+			self::$view->_import_css_files[] = $path;
 		}
 	}
 	
