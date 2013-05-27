@@ -9,6 +9,8 @@
 .aw-reset-nav-tabs > li > a:hover{background: #F8F8F8;border: none;}
 .aw-reset-nav-tabs > li.active > a{border: none;}
 .aw-reset-nav-tabs > li.active > a:hover{border: none;}
+.tab-content{padding:20px 20px 30px 20px;}
+.alert{margin-bottom: 20px;}
 /*
 **	top-menu
 */
@@ -58,8 +60,7 @@
 .aw-index .aw-dynamic-topic #delete-draft{margin:10px 20px 0 0;}
 .aw-index .aw-dynamic-topic > .aw-mod-body, .aw-dynamic-index > .aw-mod-body{padding:0 20px;}
 .aw-index .aw-dynamic-topic .aw-dynamic-topic-content{width: 560px;}
-.aw-dynamic-topic .aw-item{position:;padding-bottom:10px;border-top:1px dotted #C1CAD4;}
-.aw-dynamic-topic .aw-item:first-child{border-top: none;}
+.aw-dynamic-topic .aw-item{padding-bottom:10px;border-bottom:1px dotted #C1CAD4;}
 
 /*
 **	全部问题
@@ -95,3 +96,21 @@
 .aw-my-inbox .aw-mod-head h2 span, .aw-my-notifications .aw-mod-head h2 span{padding: 0;}
 .aw-my-favorite > .aw-mod-head p{margin: 10px 20px 0;padding-bottom:10px;border-bottom: 1px solid #C1CAD4;}
 
+/*
+**	话题页面
+*/
+.aw-topic-content-wrap .aw-main-content{padding-top: 0px;}
+.aw-side-bar-topic{padding-top:0px;}
+.aw-topic-content{padding:1px;border:1px solid #DFDFDF;border-radius: 5px;}
+.aw-topic-content-wrap .aw-topic-all-list .span6{width: 238px;}
+
+/*
+**	话题详情页
+*/
+.aw-topic-detail-title{margin-bottom:30px;padding: 20px 20px 0 20px;border:1px solid #DFDFDF;border-radius: 5px;}
+.aw-topic-detail-tabs .aw-search-box{right: 20px;top:5px;background: #fff;}
+
+/*
+** 发起页面
+*/
+.aw-mod-publish .aw-mod-footer{padding:0 20px 20px;}
