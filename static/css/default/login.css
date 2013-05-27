@@ -12,7 +12,7 @@
 .aw-login-box-bg{position:absolute;left:0;top:0;z-index:-1;width: 700px;height: 376px;background: #000000;border-radius: 10px;opacity: 0.2;filter:alpha(opacity=20);}
 .aw-mod-head{width:244px;height: 76px;line-height: 76px;padding:0 40px;background:url(img/login-nav.png) no-repeat;font-size: 16px;font-weight: bold;color: #fff;}
 .aw-mod-head .b-new-user{width:144px;margin-top:15px;padding-left:20px;font-size: 14px;font-weight: bold;color:#fff;text-align: center;text-decoration: none;}
-.aw-mod-head .i-login-user-no-hover{*position: relative;*top:-5px;*right:5px;}
+.aw-mod-head .i-login-user-no-hover{*position: relative;*top:-3px;*right:5px;}
 .aw-mod-body{width:242px;padding:40px;background:#F5F5F5;border-left:1px solid #C9C9C9;border-right: 1px solid #C9C9C9;}
 .aw-mod-body ul li{margin-bottom:20px;}
 .aw-mod-body ul li.last{line-height:38px;margin-bottom:0;}
