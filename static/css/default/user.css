@@ -36,7 +36,7 @@
 .aw-reset-sp .span6{width:429px;}
 .aw-reset-sp h3{padding:25px 0 10px;border-bottom:1px solid #ccc;}
 .aw-reset-sp h3 .aw-more-content{font-size:13px;font-weight: normal;}
-.aw-user-center-mini-mod .aw-item .aw-mod-body{margin-top:-5px;padding:0 0 10px 60px;}
+.aw-user-center-mini-mod .aw-item .aw-mod-body{min-height:30px;margin-top:-5px;padding:0 0 10px 60px;}
 .aw-user-center-mini-mod  .aw-user-center-count{padding:3px 4px;}
 .aw-user-center-dynamic-mini-mod p{line-height: 18px;padding-bottom: 10px;}
 .aw-user-center-dynamic-mini-mod .aw-mod-body{padding-top: 10px;}

@@ -252,7 +252,7 @@ select{width: auto;}
 .aw-topic-dropdown ul li a, .aw-question-dropdown ul li a{display: block;height: 20px;line-height: 20px;margin:0;padding: 10px;}
 .aw-topic-dropdown ul li a:hover, .aw-question-dropdown ul li a:hover{background: #F5FAFF}
 .aw-topic-dropdown ul li:first-child, .aw-question-dropdown ul li:first-child{border-top: none;}
-.aw-topic-dropdown p, .aw-question-dropdown p{height: 20px;line-height: 20px;margin:0;padding: 10px;}
+.aw-topic-dropdown p, .aw-question-dropdown p{height: 20px;line-height: 20px;margin:0;padding: 10px;font-weight: normal;}
 .aw-topic-dropdown .aw-topic-dropdown-list li{padding: 0;}
 .aw-topic-dropdown .aw-topic-dropdown-list li a .active, .aw-topic-dropdown ul li a .active{font-weight: bold;}
 
@@ -368,7 +368,7 @@ select{width: auto;}
 .aw-side-bar-invite-box .aw-side-bar-invite-list .btn-mini{min-width: 50px;}
 
 /*用户下拉列表*/
-.aw-user-dropdown-list{max-height: 409px;overflow-y:scroll;}
+.aw-user-dropdown-list{max-height: 409px;overflow-y:auto;}
 .aw-user-dropdown-list li{border-top: 1px dotted #C1CAD4;}
 .aw-user-dropdown-list li:first-child{border-top: none;}
 .aw-user-dropdown-list li:hover{background: #F5FAFF;}
@@ -615,7 +615,7 @@ select{width: auto;}
 **	发起问题页面
 */
 .aw-mod-publish{padding-bottom: 30px;}
-.aw-mod-publish .aw-topic-dropdown{height: 80px;overflow-y:scroll;}
+.aw-mod-publish .aw-topic-dropdown{max-height: 80px;overflow:auto;}
 .aw-mod-publish h3{font-size: 100%;margin-top:30px;padding-bottom: 5px;}
 .aw-publish-title{position: relative;}
 .aw-publish-title input{width:497px;height: 26px;line-height: 26px;border-right: none;border-radius: 4px 0 0 4px;}
@@ -816,16 +816,16 @@ select{width: auto;}
 .aw-publish-box .aw-publish-title-dropdown{position: relative;margin-bottom: 20px;}
 .aw-publish-box .aw-publish-title-dropdown .dropdown-toggle{border-radius: 4px;}
 .aw-publish-box .aw-publish-title-dropdown .dropdown-toggle span{width: 370px;}
-.aw-publish-box .aw-topic-dropdown-list{max-height: 245px;overflow-y:scroll;}
+.aw-publish-box .aw-topic-dropdown-list{max-height: 245px;overflow-y:auto;}
 .aw-publish-box #quick_publish{position: relative;}
 .aw-publish-box .aw-topic-dropdown{top:60px;}
-.aw-publish-box .aw-topic-dropdown .aw-question-dropdown-list{max-height: 409px;overflow-y:scroll; }
+.aw-publish-box .aw-topic-dropdown .aw-question-dropdown-list{max-height: 409px;overflow-y:auto; }
 
 /*问题重定向*/
 .aw-question-drodpwon{position: relative;}
 .aw-question-redirect-box .modal-body{overflow: visible;}
 .aw-question-redirect-box .aw-topic-dropdown{top:50px;}
-.aw-question-redirect-box .aw-question-dropdown-list{max-height: 409px;overflow-y:scroll;}
+.aw-question-redirect-box .aw-question-dropdown-list{max-height: 409px;overflow-y:auto;}
 
 
 /*评论修改box*/
