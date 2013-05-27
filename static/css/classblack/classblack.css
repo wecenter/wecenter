@@ -64,7 +64,6 @@
 .aw-index .aw-dynamic-topic #delete-draft{margin:10px 20px 0 0;}
 .aw-index .aw-dynamic-topic > .aw-mod-body, .aw-dynamic-index > .aw-mod-body{padding:0 20px;}
 .aw-index .aw-dynamic-topic .aw-dynamic-topic-content{width: 560px;}
-.aw-dynamic-topic .aw-item{padding-bottom:10px;border-bottom:1px dotted #C1CAD4;}
 
 /*
 **	全部问题
@@ -79,6 +78,11 @@
 */
 .aw-side-bar{width: 200px;margin-left:10px;background: #fff;}
 .aw-side-bar-mod-new-message{margin:0;}
+
+/*
+**	自定义tab切换
+*/
+.aw-tabs{background:#F7FCFF;}
 
 /*
 **	问题详情页
@@ -107,6 +111,7 @@
 .aw-side-bar-topic{padding-top:0px;}
 .aw-topic-content{padding:1px;border:1px solid #DFDFDF;border-radius: 5px;}
 .aw-topic-content-wrap .aw-topic-all-list .span6{width: 238px;}
+.aw-topic-daily .aw-mod-head h3{padding: 0;}
 
 /*
 **	话题详情页
