@@ -82,3 +82,9 @@
 .aw-question-detail-box .aw-dynamic-topic .aw-vote-bar, .aw-question-detail-box .aw-dynamic-topic .aw-vote-count{margin:0 10px 0 0;}
 .aw-question-detail-box .aw-dynamic-topic .aw-dynamic-topic-content{width: 540px;}
 
+/*
+** 动态首页右侧页面
+*/
+.aw-dynamic-index{padding:1px;border:1px solid #DFDFDF;border-radius: 5px;}
+.aw-dynamic-index .aw-mod-head h2{height:45px;line-height:45px;background: #F8F8F8;}
+
