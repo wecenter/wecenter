@@ -330,7 +330,7 @@ select{width: auto;}
 .aw-question-detail-title .aw-mod-head .aw-question-follow > a{margin:0 5px 0 0;}
 .aw-question-follow .btn-group{line-height: 20px;}
 .aw-question-detail-title .aw-mod-head .aw-notopic-sort{margin:5px 0 15px 0;padding:5px 10px;background: #E0E2E1;border-radius: 5px;}
-.aw-question-detail-title .aw-question-detail-meta{min-height: 20px;}
+.aw-question-detail-title .aw-question-detail-meta{min-height: 20px;line-height: 20px;}
 .aw-question-detail-title .aw-question-detail-meta > span, .aw-question-detail-title .aw-question-detail-meta > div{margin-right:15px;}
 .aw-question-detail-box .aw-question-detail-meta .aw-question-wait-edit{margin-top:-1px\0;}
 
@@ -525,7 +525,7 @@ select{width: auto;}
 .aw-dynamic-topic .aw-dynamic-topic-meta > a{display:inline-block;float:left;margin-right: 10px;}
 .aw-dynamic-topic .aw-dynamic-topic-meta .aw-icon, .aw-question-detail-meta .aw-icon{margin-right:5px;}
 .aw-dynamic-topic .aw-share-dropdown, .aw-question-detail-meta .aw-share-dropdown{position: relative;margin-right: 15px;font-size:12px;}
-.aw-dynamic-topic .aw-share-dropdown i, .aw-question-detail-meta i{margin-right:10px !important;}
+.aw-dynamic-topic .aw-share-dropdown i, .aw-question-detail-meta i{margin-right:5px !important;}
 .aw-share-dropdown .aw-dropdown-menu li{min-width: 90px;}
 .aw-dynamic-topic .aw-vote-count{display:block;min-width:19px;height:25px;line-height:25px;margin:0 13px 0 10px;padding:0 3px;background:#E9F5FF;font-size:14px;text-align:center;cursor: pointer;}
 .aw-dynamic-topic .aw-vote-count.disable{background: #F2F2F2;}
@@ -644,7 +644,7 @@ select{width: auto;}
 **	可显示/隐藏的操作box
 */
 .aw-dynamic-topic-more-operate{display:none;margin-left:10px;}
-.aw-dynamic-topic-more-operate > a, .aw-question-detail-meta > a{display:inline-block;float:left;margin-right:15px;font-size:12px;}
+.aw-dynamic-topic-more-operate > a, .aw-question-detail-meta > a{display:inline-block;float:left;height:20px;line-height:20px;margin-right:15px;font-size:12px;}
 .aw-dynamic-topic-meta a:hover i.i-share, .aw-question-detail-meta a:hover i.i-share{background-position: -20px -80px;}
 .aw-dynamic-topic-meta a:hover i.i-no-help, .aw-question-detail-meta a:hover i.i-no-help{background-position: -40px -80px;}
 .aw-dynamic-topic-meta a:hover i.i-collect, .aw-question-detail-meta a:hover i.i-collect{background-position: -80px -80px;}

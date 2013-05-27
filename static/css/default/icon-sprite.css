@@ -41,7 +41,7 @@
 .i-user-integral{width:14px;height: 11px;background-position: 0 -30px;*position:relative;*top:-2px;}
 .i-user-prestige{width:12px;height: 16px;background-position: -20px -30px;position:relative;top:4px;*top:0;}
 .i-user-thank{width:13px;height: 12px;background-position: -40px -30px;position:relative;top:2px;*top:-2px;}
-.i-user-approve{width:13px;height: 12px;background-position: -60px -30px;position:relative;top:1px;*top:-4px;}
+.i-user-approve{width:13px;height: 12px;background-position: -60px -30px;position:relative;top:1px;*top:-3px;}
 .i-user-ask{width:14px;height: 14px;background-position: -80px -30px;position:relative;top:2px;*top:-2px;}
 .i-share-sina{width:16px;height: 15px;background-position: -100px -30px;}
 .i-share-weibo{width:16px;height: 15px;background-position: -120px -30px;}
@@ -54,13 +54,13 @@
 .i-upload-file{width: 14px;height: 14px;background-position: -340px 0;position: relative;top:2px;}
 
 /*第三排*/
-.i-remark{width:10px;height: 9px;background-position: 0 -60px;*position:relative;*top:-5px;}
+.i-remark{width:10px;height: 9px;background-position: 0 -60px;*position:relative;*top:-4px;}
 .i-remark:hover{background-position: 0 -80px;}
-.i-share{width:9px;height: 10px;background-position: -20px -60px;*position:relative;*top:-4px;}
+.i-share{width:9px;height: 10px;background-position: -20px -60px;*position:relative;*top:-2px;}
 .i-share:hover{background-position: -20px -80px;}
-.i-no-help{width:10px;height: 10px;background-position: -40px -60px;*position: relative;*top:-4px;}
+.i-no-help{width:10px;height: 10px;background-position: -40px -60px;*position: relative;*top:-2px;}
 .i-no-help:hover{background-position: -40px -80px;}
-.i-edit{width:10px;height: 10px;background-position: -60px -60px;*position: relative;*top:-5px;}
+.i-edit{width:10px;height: 10px;background-position: -60px -60px;*position: relative;*top:-3px;}
 .i-edit:hover{background-position: -60px -80px;}
 .i-collect{width:7px;height: 9px;background-position: -80px -60px;*position: relative;*top:-4px;}
 .i-collect:hover{background-position: -80px -80px;}

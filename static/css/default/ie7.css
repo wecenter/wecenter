@@ -32,7 +32,6 @@
 .aw-nav-main li a .i-topic-no-hover, .aw-nav-main li a .i-login-user-no-hover{*top:-2px;}
 
 /*搜索框*/
-.aw-search-box .search-query{*margin-top:-1px;}
 .aw-topic-search .search-query{*margin:3px 0;}
 .aw-topic-search .icon-search{*margin:0 4px 4px 4px;}
 
@@ -48,6 +47,8 @@
 
 /*问题详情页*/
 .aw-question-detail-box .aw-mod-head h2{*margin-top:20px;}
+.aw-question-follow .btn-group{*margin-top:2px;}
+.aw-question-follow .btn-group a{*height: 20px;}
 .aw-question-detail-box .aw-question-detail-meta .aw-question-wait-edit{*margin-top:0px;}
 .aw-question-detail-box .aw-mod-head .aw-question-follow .aw-dropdown-menu li a{*min-width: 110px;}
 
@@ -87,7 +88,7 @@
 .aw-mod-invited ul li{*padding:0 0 25px 42px;}
 
 /*用户页面*/
-.aw-user-detail-box .aw-mod-body .aw-user-flag .i-user-locate{*top:0;}
+.aw-user-detail-box .aw-mod-body .aw-user-flag .i-user-locate{*top:1px;}
 .aw-user-detail-box .aw-mod-body .aw-user-flag .i-user-post{*top:0;}
 
 /*用户设置页面*/

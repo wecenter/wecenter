@@ -9,8 +9,12 @@
 .aw-reset-nav-tabs > li.active > a{border: none;}
 .aw-reset-nav-tabs > li.active > a:hover{border: none;}
 .tab-content{padding:20px 20px 30px 20px;}
+/*
+**	重载bootstrap按钮
+*/
 .alert{margin-bottom: 20px;}
-
+.btn-success, .btn.aw-active{text-shadow:none;background-color: #363636;background-image: -moz-linear-gradient(top, #444, #222);background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#444), to(#222));background-image: -webkit-linear-gradient(top, #444, #222);background-image: -o-linear-gradient(top, #444, #222);background-image: linear-gradient(to bottom, #444, #222);background-repeat: repeat-x;border-color: #8cb332;border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff444444', endColorstr='#ff222222', GradientType=0);filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);color: #fff;}
+.btn-success:hover, .btn-success:focus, .btn-success:active, .btn-success.active, .btn-success.disabled, .btn-success[disabled] {background-color: #222;color: #fff;}
 /*
 **	链接部分
 */
@@ -155,5 +159,10 @@
 .aw-footer-wrap{height: 40px;line-height: 40px;background: #333333;}
 .aw-footer{padding: 0;color: #fff;}
 .aw-footer a{color: #fff;}
+
+/*
+**	编辑器
+*/
+.i_commentElem .i_subBg, .i_relayHandle{background: #F7F7F7;}
 
 
