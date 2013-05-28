@@ -72,7 +72,7 @@ a.aw-load-more-content{display: block;}
 /*下拉菜单*/
 .aw-dropdown-menu ul a{display:block;min-height:24px;line-height:24px;padding:4px 20px 4px 13px;font-weight: normal;}
 .aw-dropdown-menu ul a:hover{background-color: #f5faff;background-image: none;filter : none;}
-.aw-dropdown-menu span{position: absolute;width:100%;top:-6px;right: 0;}
+.aw-dropdown-menu span{position: absolute;width:100%;top:-16px;right: 0;padding-top: 10px;}
 .aw-dropdown-menu span i{display: block;position:relative;left:22px;}
 .aw-dropdown-menu span i.active{left:63px;}
 .aw-dropdown-menu li.active a{font-weight: bold;}
@@ -237,12 +237,13 @@ select{width: auto;}
 */
 .category{height:auto;padding:0 10px;}
 .category dl, .category dl dt, .category dl dd{float:left;}
-.category dl{margin-right:12px;padding:15px;}
+.category dl{margin:0 12px 0 0;padding:15px;}
 .category dl:hover .category-dropdown, .category dl:hover .dropdown-menu{display:block;}
 .category dl dt{width: 50px;}
 .category dl dt img{width:50px;height:50px;}
 .category dl dd{width:130px;}
 .category dl dd span{font-size: 12px;}
+.category .span12{padding: 10px 0;}
 .category .span12 > .active{background:#ebebeb;}
 .category .title a{font-weight: bold;}
 .category-dropdown{position: absolute;display:none;left:0;top:100%;width: 200px;padding-top:10px;}
@@ -276,11 +277,11 @@ select{width: auto;}
 **	侧边栏公共部分
 */
 .aw-side-bar{width:187px;height:auto;overflow:hidden;margin:0;padding:0 25px 15px;}
-.aw-side-bar-mod{height:auto;padding-bottom:10px;border-top:1px solid #ccc;}
+.aw-side-bar .aw-side-bar-mod{height:auto;padding-bottom:10px;border-bottom: 1px solid #C1CAD4;}
+.aw-side-bar-topic .aw-side-bar-mod{border-bottom: none;}
 .aw-side-bar-mod .i-follow{position: relative;top:1px;}
 .aw-side-bar-mod ul li{font-size: 12px;}
 .aw-side-bar-mod-question-status ul li, .aw-side-bar-mod ul li a{font-size: 13px;}
-.aw-side-bar .aw-side-bar-mod:first-child{border-top: none;}
 .aw-side-bar-mod dl{height:auto;overflow:hidden;margin:0;padding-top:10px;}
 .aw-side-bar-topic-detail h3{padding-bottom:10px;}
 .aw-side-bar-topic{padding-top:22px;}
