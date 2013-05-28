@@ -242,10 +242,13 @@ select{width: auto;}
 .category-dropdown a.active{font-weight: bold;}
 .category .span12 .dropdown-menu{top:105%;min-width: 130px;max-height:200px;margin:0;*overflow: scroll;}
 .category .span12 .dropdown-menu ul{width:130px;max-height:200px;overflow:auto;}
-.category .span12 > ul > li{float: left;width: 100px;height: 30px;line-height: 30px;margin:10px 20px;padding:0 5px;font-size:12px;text-align: center;border-radius: 5px;}
+.category .span12 > ul > li{float: left;height: 30px;line-height: 30px;margin:10px 5px;padding:0 7px;font-size:13px;text-align: center;border-radius: 5px;}
 .category .span12 > ul > li .aw-dropdown-menu{text-align: left;}
-.category .span12 > ul > li.active{background: #EBEBEB;}
-.category .span12 > ul > li:hover, .category dl:hover{position:relative;z-index:999;background: #EBEBEB;}
+.category .span12 > ul > li a{color:#17344A;}
+.category .span12 > ul > li.active{background: #494a4b;}
+.category .span12 > ul > li.active a{color: #fff;}
+.category .span12 > ul > li:hover, .category dl:hover{position:relative;z-index:999;background: #494a4b;}
+.category .span12 > ul > li:hover a{color: #fff;}
 .category .span12 > ul > li:hover .category-dropdown, .category ul li:hover .dropdown-menu{display: block;}
 
 /*话题编辑下拉*/
