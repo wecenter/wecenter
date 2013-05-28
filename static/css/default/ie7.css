@@ -19,8 +19,8 @@
 
 .aw-dropdown-menu ul a{*min-width: 70px;}
 /*category*/
-.category{*margin-top:15px;*margin-bottom:15px;}
-.category .span12 > ul > li{*margin:5px 20px;}
+.category{*margin:0 0 7px;}
+.category .span12{*margin-left: 0px;}
 
 /*导航内容*/
 .aw-nav-main li{*float:left;}
