@@ -1,20 +1,1 @@
-<?php if ($this->list) { ?>
-	<?php $unread_num = count($this->list); $this->list = array_slice($this->list, 0, 5); ?>
-	<?php foreach($this->list AS $key => $val) { ?>
-	<li>
-		<p><?php echo $val['message']; ?></p>
-		<p class="aw-message-dropdown-more">
-			<?php if ($val['extend_message']) { ?><span class="pull-right">
-				<a class="aw-text-color-999" onclick="$('#extend_message_<?php echo $val['notification_id']; ?>').toggle();$(this).hide();"><i class="icon-plus"></i></a>
-			</span><?php } ?>
-			
-			<span class="aw-text-color-999"><small><?php echo date_friendly($val['add_time']); ?></small></span>
-		</p>
-		<div class="hide" id="extend_message_<?php echo $val['notification_id']; ?>">
-			<small><?php if ($val['extend_message']) { ?>
-			<p><?php echo implode('</p><p>', $val['extend_message']); ?></p>
-			<?php } ?></small>
-		</div>
-	</li>
-	<?php } ?>
-<?php } ?>
+<?php if ($this->list) { ?>	<?php $unread_num = count($this->list); $this->list = array_slice($this->list, 0, 5); ?>	<?php foreach($this->list AS $key => $val) { ?>	<li>		<p><?php echo $val['message']; ?></p>		<p class="aw-message-dropdown-more">			<?php if ($val['extend_message']) { ?><span class="pull-right">				<a class="aw-text-color-999" onclick="$('#extend_message_<?php echo $val['notification_id']; ?>').fadeIn();$(this).hide();"><i class="icon-plus"></i></a>			</span><?php } ?>						<span class="aw-text-color-999"><small><?php echo date_friendly($val['add_time']); ?></small></span>		</p>		<div class="hide" id="extend_message_<?php echo $val['notification_id']; ?>">			<small><?php if ($val['extend_message']) { ?>			<p><?php echo implode('</p><p>', $val['extend_message']); ?></p>			<?php } ?></small>		</div>	</li>	<?php } ?><?php } ?>
