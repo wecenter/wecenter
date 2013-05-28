@@ -1,6 +1,8 @@
 /*
 **	公共部分
 */
+html{height: 100%;}
+body{margin: 0px;height: 100%;}
 body{font-size:13px; line-height:150%;font-family: "Helvetica Neue",Helvetica,Arial,'Microsoft YaHei',sans-serif;color: #666;}
 input, button, select, textarea{font-family: "Helvetica Neue",Helvetica,Arial,'Microsoft YaHei',sans-serif;}
 ul, ol{margin:0;list-style:none;}
@@ -135,11 +137,11 @@ select{width: auto;}
 .aw-logo h1{height:25px;line-height:25px;margin:-2px 0 2px 0;font-size:13px;}
 .aw-logo span{position:relative;top:5px;margin-left:10px;font-weight:normal;}
 .aw-logo a:hover{text-decoration:none;}
-.aw-logined-nav{margin-top:1px;margin-top:2px\0;}
+.aw-logined-nav{margin-top:4px;margin-top:2px\0;}
 .aw-login-register{position:relative;top:15px;height: 27px;list-style-type: 27px;}
 .aw-login-register a{margin-left:10px;font-weight:bold;}
 .aw-login-register a img{width: 25px;height: 25px;position:absolute;right:0;border-radius: 5px;}
-.aw-login-register .aw-user-nav-dropdown{max-width:141px;height:27px;margin-left:20px;}
+.aw-login-register .aw-user-nav-dropdown{max-width:141px;height:27px;line-height:27px;margin-left:20px;}
 .aw-login-register .aw-user-head img{width: 25px;height: 25px;margin:-3px 0 0 5px;border-radius: 5px;}
 .aw-top-menu-wrap .aw-pulish{width:127px;text-align: right;}
 .aw-top-menu-wrap .aw-pulish a{width:57px;line-height:50px;padding-left:70px;text-align:left;font-size:14px;}
@@ -220,7 +222,7 @@ select{width: auto;}
 /*
 **	mainContent
 */
-.aw-main-content{width:660px;padding:10px 20px 99999px 30px;margin:0 0 -99999px;border-right:1px solid #dbedf9;}
+.aw-main-content{width:660px;height:100%;padding:10px 20px 30px 30px;margin:0;border-right:1px solid #F7F7F7;}
 
 /*
 **	category
