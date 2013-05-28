@@ -24,16 +24,17 @@
 */
 .aw-top-menu-wrap{height:45px;background: url("img/main_default.png") repeat-x 0 -53px;box-shadow: 0 0 4px #000;}
 .aw-top-menu h1{margin:0;}
+.aw-top-nav{width: 240px;}
 .aw-top-nav ul li{float: left;}
 .aw-top-nav ul li a{display:inline-block;height:45px;line-height: 45px;padding: 0 15px;font-size: 14px;font-weight: bold;color: #fff;}
 .aw-top-nav ul li a:hover{background: #404040;}
 .aw-top-nav ul li a.active{background:#515151}
 .aw-logo, .aw-search-box{margin-top: 6px;margin-right:0px;height: 30px;}
 .aw-search-box form{margin-top: 0px;}
-.aw-publish{width:103px;margin-top:5px;}
+.aw-publish{width:103px;margin:5px 0 0 30px;}
 .aw-publish-btn{display:inline-block;width:57px;height:32px;line-height:32px;padding-left:50px;background: url("img/main_default.png") no-repeat 0 -10px;color:#fff;}
 .aw-publish-btn:hover{background-position: -110px -10px;color: #fff;}
-.aw-user-nav{width: 90px;height: 45px;line-height: 45px;margin-left:27px;font-weight:normal;text-align: right;}
+.aw-user-nav{width: 147px;height: 45px;line-height: 45px;font-weight:normal;text-align: right;}
 .aw-user-nav > p > a, .aw-user-nav > a{height: 45px;line-height: 45px;color: #fff;}
 .aw-user-nav > a img{width: 25px;height: 25px;border-radius: 5px;}
 .aw-user-nav:hover .aw-user-nav-dropdown-list{display: block;}

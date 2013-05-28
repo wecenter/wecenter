@@ -513,12 +513,11 @@ select{width: auto;}
 .aw-dynamic-topic .aw-mod-head h2{font-size: 20px;margin: 10px 0 0;}
 .aw-dynamic-topic .aw-mod-head p{margin:0;}
 .aw-index .aw-dynamic-topic .aw-item{padding-bottom:10px;border-bottom:1px dotted #C1CAD4;}
-.aw-question-detail-box .aw-dynamic-topic .aw-item{padding-bottom:10px;border-top:1px dotted #C1CAD4;}
-.aw-question-detail-box .aw-dynamic-topic .aw-item:first-child{border-top: none;}
+.aw-question-detail-box .aw-dynamic-topic .aw-item{padding-bottom:10px;border-bottom:1px dotted #C1CAD4;}
 .aw-dynamic-topic .aw-item.active{width:660px;padding:0 20px 10px;margin-left:-20px;background: #FEFAB1;}
 .aw-dynamic-topic .aw-item:hover .aw-dynamic-topic-more-operate{display:block;}
 .aw-dynamic-topic .aw-item:hover .aw-new-message-tips-close{display: block;}
-.aw-dynamic-topic .aw-mod-head h4{position: relative;}
+.aw-dynamic-topic .aw-mod-head h4{position: relative;max-width: 600px;}
 .aw-dynamic-topic .aw-user-img{margin-top:15px;}
 .aw-dynamic-topic .aw-user-img img, .aw-dynamic-index .aw-user-img img{width: 32px;height: 32px;}
 .aw-dynamic-topic .aw-mod-body{padding:10px 0 0 0;}
