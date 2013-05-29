@@ -232,6 +232,7 @@ select{width: auto;}
 **	mainContent
 */
 .aw-main-content{width:660px;height:100%;padding:10px 20px 30px 30px;margin:0;border-right:1px solid #F7F7F7;}
+.aw-main-content .aw-all-question .pagination{margin:20px 0 0;}
 
 /*
 **	category
