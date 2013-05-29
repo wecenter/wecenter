@@ -32,13 +32,14 @@
 <script type="text/javascript" id="bdshare_js" data="type=tools" ></script>
 <script type="text/javascript">
 	$(function(){
-		//自动扩展高度
-	    setTimeout(function(){
-	        if ($('.aw-side-bar').innerHeight() > $('.aw-main-content').innerHeight())
-	        {
-	            $('.aw-main-content').css('height',$('.aw-side-bar').innerHeight());
-	        }
-	    },1000);
+		$(window).scroll(function(){
+			if ($(window).scrollTop() > 0)
+			{
+				$('.aw-top-menu-wrap').css({'position':'fixed','top':0,'z-index':1000});
+			}else{
+				$('.aw-top-menu-wrap').removeAttr('style');
+			}
+		});
 	});
 </script>
 <!-- / DO NOT REMOVE -->

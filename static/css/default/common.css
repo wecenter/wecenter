@@ -283,7 +283,7 @@ select{width: auto;}
 .aw-side-bar-mod .i-follow{position: relative;top:1px;}
 .aw-side-bar-mod ul li{font-size: 12px;}
 .aw-side-bar-mod-question-status ul li, .aw-side-bar-mod ul li a{font-size: 13px;}
-.aw-side-bar-mod dl{height:auto;overflow:hidden;margin:0;padding-top:10px;}
+.aw-side-bar-mod dl{height:auto;overflow:hidden;margin:0;padding:10px 0 5px;}
 .aw-side-bar-topic-detail h3{padding-bottom:10px;}
 .aw-side-bar-topic{padding-top:22px;}
 .aw-side-bar-topic .aw-side-bar-mod-head{margin-bottom:10px;}
