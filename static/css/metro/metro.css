@@ -19,14 +19,15 @@
 .aw-question-list .aw-question-replay-count{background: #9A9A9A;color: #fff;}
 .aw-question-list .aw-question-replay-count.active{background: #92D6FD;}
 .aw-question-list .aw-question-replay-count.active em{background: #EFEFEF;}
+.aw-comment-list .aw-user-name img{width: 32px;height: 32px;}
 
 /*
 **	重载bootstrap按钮
 */
 .alert{margin-bottom: 20px;}
-.btn.btn-mini, .btn.btn-normal{background: #BBB;background-image: none;border:none;color: #fff;text-shadow:none;}
+.btn.btn-mini, .btn.btn-normal{background-color: #BBB;background-image: none;border:none;color: #fff;text-shadow:none;}
 .btn.btn-normal{background: #ddd;}
-.btn-success, .btn.aw-active{text-shadow:none;background-color: #13A3D9;background-image: none;border:none;filter: none;color: #fff;border-radius: 0px;}
+.btn-success, .btn.aw-active{text-shadow:none;background-color: #13A3D9 !important;background-image: none;border:none;filter: none;color: #fff;border-radius: 0px;}
 .btn-success:hover, .btn-success:focus, .btn-success:active, .btn-success.active, .btn-success.disabled, .btn-success[disabled] {background-color: #13A3D9;color: #fff;}
 /*
 **	链接部分
@@ -37,7 +38,7 @@
 */
 .aw-top-menu-wrap{height:55px;background:#0185C9;}
 .aw-top-menu h1{margin:0;}
-.aw-top-nav{width: 300px;}
+.aw-top-nav{width: 290px;}
 .aw-top-nav ul li{float: left;}
 .aw-top-nav ul li a{display:inline-block;height:55px;line-height: 55px;padding: 0 15px;font-size: 14px;font-weight: bold;color: #fff;}
 .aw-top-nav ul li a:hover{background: #0C7BB5;}
@@ -47,17 +48,21 @@
 .aw-search-box form{margin-top: 0px;}
 .aw-search-box .search-query{padding: 6px 14px;}
 .aw-search-box #global_search_btns{padding:6px 5px;}
-.aw-publish{width:103px;margin:12px 0 0 30px;}
+.aw-publish{width:100px;margin:12px 0 0 30px;}
 .aw-publish-btn{display:inline-block;width:50px;height:32px;line-height:32px;padding-left:50px;background-image: url("img/main_default.png");background-repeat:no-repeat;background-position:-33px -124px;background-color: #5FC2FF;color:#fff;font-size: 14px;}
 .aw-publish-btn:hover{background-color: #4FBAFC;color: #fff;}
-.aw-user-nav{width: 90px;margin:4px 0 0 0;font-weight:normal;text-align: right;}
-.aw-user-nav > a{font-size: 14px;font-weight: bold;}
-.aw-user-nav > p > a, .aw-user-nav > a{height: 50px;line-height: 50px;color: #fff;}
+.aw-user-nav{width: 120px;margin-left:0px;font-weight:normal;}
+.aw-user-nav p{margin: 0;}
+.aw-user-nav > p > a{display: inline-block;height: 55px;line-height: 55px;padding:0 14px;color: #fff;font-size: 14px;font-weight: bold;}
+.aw-user-nav > p > a:hover{background:#0C7BB5;}
+.aw-user-nav > a{height: 53px;line-height: 50px;margin-top:2px;color: #fff;font-size: 14px;font-weight: bold;}
 .aw-user-nav > a img{width: 32px;height: 32px;}
 .aw-user-nav:hover .aw-user-nav-dropdown-list{display: block;}
 .aw-user-nav-dropdown{display: block;height: 45px;}
 .aw-user-nav-dropdown img{margin-left: 10px;}
 .aw-user-nav-dropdown-list{display:none;position:absolute;right:0;top:55px;width: 110px;background: #0185C9;text-align: left;opacity: 0.8;filter:alpha(opacity=80);}
+.aw-user-nav-dropdown-list li{border-top: 1px dotted #333;}
+.aw-user-nav-dropdown-list li:first-child{border-top:none;}
 .aw-user-nav-dropdown-list a{display:block;height:35px;line-height:35px;padding-left:15px;color: #fff;font-weight: normal;}
 .aw-user-nav-dropdown-list a:hover{background: #016AA1;}
 
@@ -157,6 +162,11 @@
 .aw-mod-publish .aw-mod-footer{padding:0 20px 30px;}
 
 /*
+**	问题编辑页面
+*/
+.aw-mod-publish-box #advanced_editor{width: 604px;}
+
+/*
 **	用户主页
 */
 .aw-user-center{padding: 0px;}
@@ -176,7 +186,6 @@
 **	登陆&注册页面
 */
 .aw-login-box .aw-mod-head{background: url("img/login_default.png") no-repeat 0 -1px;}
-.aw-register-bg .aw-register-head-title{background:url("img/login_default.png") no-repeat -2px -86px;}
 
 /*
 **	底部
@@ -189,5 +198,16 @@
 **	编辑器
 */
 .aw-mod-replay-box .aw-mod-body{background: #F7F7F7;}
+
+/*
+**	登陆&注册页面
+*/
+.aw-mod-body ul li.last .btn{color: #fff;}
+.aw-register-bg{background: #ccc;}
+.aw-register-head h1{color: #fff;}
+.aw-register-bg .aw-register-head-title{background: #0185C9;}
+.aw-register-bg .aw-register-head-title .aw-icon{display: none;}
+.aw-register-box .btn-success{width: 256px;height: 50px;line-height: 50px;margin-top:20px;padding:0px;background: #5FC2FF !important;font-weight: bold;font-size: 20px;}
+.aw-register-box .btn-success:hover{background: #0283C9 !important;}
 
 
