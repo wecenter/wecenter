@@ -93,6 +93,7 @@ em{font-style: normal;}
 input[type="radio"], input[type="checkbox"]{margin:0;}
 label{margin:0;}
 form{margin:0;}
+img{max-width: none;}
 select, input[type="file"]{*height: 26px;*line-height: 26px;height: 26px\0;line-height: 26px\0;}
 .modal-backdrop, .modal-backdrop.fade.in{filter:alpha(opacity=20);opacity: 0.2; }
 .modal{margin-left:0;left:30%;}
