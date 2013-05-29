@@ -20,7 +20,7 @@
 .aw-dropdown-menu ul a{*min-width: 70px;}
 /*category*/
 .category{*margin:0;}
-.category .span12{*margin-left: 0px;}
+.category .span12{*margin: 0 0 7px;}
 
 /*导航内容*/
 .aw-nav-main li{*float:left;}

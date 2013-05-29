@@ -244,7 +244,6 @@ select{width: auto;}
 .category dl dt img{width:50px;height:50px;}
 .category dl dd{width:130px;}
 .category dl dd span{font-size: 12px;}
-.category .span12{padding: 10px 0;}
 .category .span12 > .active{background:#ebebeb;}
 .category .title a{font-weight: bold;}
 .category-dropdown{position: absolute;display:none;left:0;top:100%;width: 200px;padding-top:10px;}
@@ -394,7 +393,7 @@ select{width: auto;}
 .aw-user-dropdown-list li:hover{background: #F5FAFF;}
 .aw-user-dropdown-list a{display:block;padding:10px;}
 .aw-user-dropdown .i-dropdown-triangle{position: absolute;top:-6px;left:15px;}
-.aw-user-dropdown p{padding:10px;}
+.aw-user-dropdown p{margin:0;padding:10px;}
 .aw-user-dropdown .aw-user-dropdown-list a img{width: 25px;height: 25px;margin-right:5px;}
 
 /*问题列表公共模块 .aw-question-list*/
@@ -800,7 +799,7 @@ select{width: auto;}
 .aw-image-box input{width: 306px;height: 24px;line-height: 24px;margin-bottom: 15px;}
 /*分享box*/
 .aw-share-box .aw-share-box-tabs{position: absolute;top:18px;right: 50px;}
-.aw-share-box .aw-share-box-tabs a{display: inline-block;height: 30px;line-height: 30px;margin:0 0 0 5px;padding:0 10px 0 10px;background: #fff;}
+.aw-share-box .aw-share-box-tabs a{display: inline-block;height: 30px;line-height: 30px;margin:0 0 0 5px;padding:0 10px 0 10px;}
 .aw-share-box .aw-share-box-tabs a.active{background: #f5f5f5;}
 .aw-share-box .aw-share-box-tabs .aw-icon{margin-right: 5px;}
 .aw-share-box .aw-share-box-tabs-content > li{display: inline-block;float:left;}
