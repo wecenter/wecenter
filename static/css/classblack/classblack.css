@@ -134,6 +134,7 @@
 ** 发起页面
 */
 .aw-mod-publish .aw-mod-footer{padding:0 20px 30px;}
+.aw-publish-title.active input, .aw-mod-publish-box #advanced_editor{width: 600px;}
 
 /*
 **	用户主页
@@ -156,6 +157,7 @@
 */
 .aw-login-box .aw-mod-head{background: url("img/login_default.png") no-repeat 0 -1px;}
 .aw-register-bg .aw-register-head-title{background:url("img/login_default.png") no-repeat -2px -86px;}
+.aw-mod-body ul li.last .btn{color: #fff;}
 
 /*
 **	底部

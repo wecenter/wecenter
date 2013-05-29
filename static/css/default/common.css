@@ -204,7 +204,7 @@ select{width: auto;}
 /*搜索框*/
 .aw-search-box{margin-right:10px;}
 .aw-search-box form{margin-top:10px;}
-.aw-search-box .search-query{line-height:20px;}
+.aw-search-box .search-query{line-height:20px;font-family: "Helvetica Neue",Helvetica,Arial,'Microsoft YaHei',sans-serif;}
 /*搜索下拉菜单*/
 .aw-dropdown{display:none;position:absolute;right:0;z-index:9999;background: #fff;border:1px solid #ccc;box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);}
 .aw-search-dropdown-box{width: 360px;}

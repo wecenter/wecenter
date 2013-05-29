@@ -20,6 +20,11 @@
 .aw-question-list .aw-question-replay-count.active{background: #92D6FD;}
 .aw-question-list .aw-question-replay-count.active em{background: #EFEFEF;}
 .aw-comment-list .aw-user-name img{width: 32px;height: 32px;}
+.aw-message-tooltip{padding-left:10px;background:url("img/main_default.png") no-repeat 0 -60px;}
+.aw-all-question .aw-question-list .aw-user-name{left:0;width:50px;height: 50px;}
+.aw-all-question .aw-question-list .aw-question-replay-count{left: 570px;background: none;}
+.aw-all-question .aw-question-list .aw-question-replay-count em{line-height:25px;padding:0 10px;background: url("img/main_default.png") no-repeat -24px -166px;color: #999;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;}
+.aw-question-box-mod .aw-item{padding:15px 50px 15px 65px; }
 
 /*
 **	重载bootstrap按钮
@@ -106,7 +111,8 @@
 .aw-side-bar-mod-new-message{margin:0;}
 .aw-side-bar-mod-nav{padding-top: 0;}
 .aw-side-bar-mod-nav ul li a{width: 186px;}
-.aw-side-bar-mod-nav ul li a:hover, .aw-side-bar-mod-nav ul li a.active{background: url("img/main_default.png") no-repeat -231px -11px;color: #333;}
+.aw-side-bar-mod-nav ul li a.active, .aw-side-bar-mod-nav ul li a.active:hover{background: url("img/main_default.png") no-repeat 0 -79px #A9B8C5;color: #fff;}
+.aw-side-bar-mod-nav ul li a:hover{background: none;color: #0088CC;}
 .aw-side-bar-mod-nav ul li a.active .aw-message-tooltip{background: #449BDB;}
 /*
 **	自定义tab切换
@@ -160,6 +166,7 @@
 ** 发起页面
 */
 .aw-mod-publish .aw-mod-footer{padding:0 20px 30px;}
+.aw-publish-title.active input, .aw-mod-publish-box #advanced_editor{width: 600px;}
 
 /*
 **	问题编辑页面
