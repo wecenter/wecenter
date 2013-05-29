@@ -210,8 +210,8 @@
 .aw-register-head h1{color: #fff;}
 .aw-register-bg .aw-register-head-title{background: #0185C9;}
 .aw-register-bg .aw-register-head-title .aw-icon{display: none;}
-.aw-register-box .btn-success{width: 256px;height: 50px;line-height: 50px;margin-top:20px;padding:0px;background: #5FC2FF !important;font-weight: bold;font-size: 20px;}
-.aw-register-box .btn-success:hover{background: #0283C9 !important;}
+.aw-register-box .btn-success{width: 256px;height: 50px;line-height: 50px;margin-top:20px;padding:0px;background: url("img/i_default_button.png") no-repeat 6% -312px #5FC2FF !important;font-weight: bold;font-size: 20px;}
+.aw-register-box .btn-success:hover{background: url("img/i_default_button.png") no-repeat 6% -312px #0283C9 !important;}
 #wrapper{padding:0;background: url("img/msn_login.jpg") no-repeat scroll center top;}
 .aw-login-wrap-head{padding-top:220px;}
 .aw-login-wrap{width: 100%;min-height: 450px;background: url("img/msn_v2bg.png") repeat;}
