@@ -58,7 +58,7 @@
 .aw-publish-btn:hover{background-color: #4FBAFC;color: #fff;}
 .aw-user-nav{width: 120px;margin-left:0px;font-weight:normal;}
 .aw-user-nav p{margin: 0;}
-.aw-user-nav > p > a{display: inline-block;height: 55px;line-height: 55px;padding:0 14px;color: #fff;font-size: 14px;font-weight: bold;}
+.aw-user-nav > p > a{display: inline-block;float:left;height: 55px;line-height: 55px;padding:0 14px;color: #fff;font-size: 14px;font-weight: bold;}
 .aw-user-nav > p > a:hover{background:#0C7BB5;}
 .aw-user-nav > a{height: 53px;line-height: 50px;margin-top:2px;color: #fff;font-size: 14px;font-weight: bold;}
 .aw-user-nav > a img{width: 32px;height: 32px;}
@@ -75,7 +75,7 @@
 **	category
 */
 .category{margin:0 0 30px 0;background:#F7F7F7;border:1px solid #DFDFDF;}
-.category .span12{margin-left: 0px;}
+.category .span12{margin-left: 0px;*margin-bottom: 7px;}
 
 /*
 **	aw-container-wrap
@@ -189,10 +189,6 @@
 .aw-user-setting h4{background: #CFECFA;}
 .aw-user-setting .tab-content{padding: 0 0 30px;}
 
-/*
-**	登陆&注册页面
-*/
-.aw-login-box .aw-mod-head{background: url("img/login_default.png") no-repeat 0 -1px;}
 
 /*
 **	底部
@@ -216,5 +212,16 @@
 .aw-register-bg .aw-register-head-title .aw-icon{display: none;}
 .aw-register-box .btn-success{width: 256px;height: 50px;line-height: 50px;margin-top:20px;padding:0px;background: #5FC2FF !important;font-weight: bold;font-size: 20px;}
 .aw-register-box .btn-success:hover{background: #0283C9 !important;}
-
-
+#wrapper{padding:0;background: url("img/msn_login.jpg") no-repeat scroll center top;}
+.aw-login-wrap-head{padding-top:220px;}
+.aw-login-wrap{width: 100%;min-height: 450px;background: url("img/msn_v2bg.png") repeat;}
+.aw-login-wrap-head, .aw-login-box{width: 400px;margin:0 auto;}
+.aw-login-wrap-head .aw-mod-head{width:350px;padding:0 25px;background: url("img/login_logo.png") no-repeat 20px 10px #238FCA;}
+.aw-login-wrap-head .aw-mod-head .b-new-user{width:79px;height:44px;background: url("img/i_default_button.png") no-repeat -101px 0;}
+.aw-login-wrap .aw-mod-body ul li.last{margin-bottom: 20px;}
+.aw-login-box .aw-mod-body{width: 350px;border: none;padding:25px 25px 5px;}
+.aw-login-box .aw-mod-body #login_submit{width:350px;height: 50px;line-height:50px;background: url("img/i_default_button.png") no-repeat 6% -312px #5FC2FF !important;padding:0;font-size: 20px;font-weight: bold;}
+.aw-login-box .aw-mod-body #login_submit:hover{background: url("img/i_default_button.png") no-repeat 6% -312px #0283C9 !important;color: #fff;}
+.aw-login-box .aw-mod-body .aw-label-icon.name, .aw-login-box .aw-mod-body .aw-label-icon.pwd{height:38px;line-height:38px;background: url("img/i_default_button.png") no-repeat -167px -55px #fff;border:1px solid #EBEBEB;border-right:none;border-radius: 0px;}
+.aw-login-box .aw-mod-body .aw-label-icon.pwd{background-position: -167px -101px;}
+.aw-mod-body #aw-login-user-name, .aw-mod-body #aw-login-user-password{width:293px;box-shadow: none;border-radius: 0px;}
