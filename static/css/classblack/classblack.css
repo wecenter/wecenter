@@ -99,6 +99,7 @@
 .aw-question-detail-title .aw-comment-box{margin:10px 0;}
 .aw-question-detail-box{margin-bottom:20px;padding:1px;border:1px solid #DFDFDF;border-radius: 5px;}
 .aw-question-detail-box .aw-dynamic-topic{padding:0 20px;}
+.aw-dynamic-topic .aw-item.active{width: 617px;}
 .aw-question-detail-box .aw-dynamic-topic .aw-item{border-top: 1px dotted #C1CAD4;border-bottom: none;}
 .aw-question-detail-box .aw-dynamic-topic .aw-item:first-child{border-top: none;}
 .aw-question-detail-box .aw-dynamic-topic .aw-vote-bar, .aw-question-detail-box .aw-dynamic-topic .aw-vote-count{margin:0 10px 0 0;}
@@ -170,5 +171,13 @@
 **	编辑器
 */
 .aw-mod-replay-box .aw-mod-body{background: #F7F7F7;}
+
+/*
+**	私信对话框
+*/
+.aw-mod-private-replay-list{padding: 0 20px;}
+.aw-mod-private-replay-box textarea{width: 520px;}
+.aw-mod-private-replay-box p{width: 534px;}
+.aw-mod-private-replay-box .aw-user-img{right: 20px;}
 
 

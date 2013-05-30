@@ -564,7 +564,7 @@ select{width: auto;}
 **动态首页右侧导航页模块
 */
 .aw-dynamic-index .aw-mod-head{margin-bottom:10px;border-bottom:1px solid #C1CAD4;}
-.aw-dynamic-index .aw-item{border-bottom: 1px dotted #C1CAD4;}
+.aw-dynamic-index .aw-item + div{border-top: 1px dotted #C1CAD4;}
 .aw-dynamic-index .aw-mod-head h2{font-size:20px;*margin-top:20px;font-weight: normal;}
 .aw-dynamic-index .aw-item h4{font-size:14px;}
 .aw-dynamic-index .aw-mod-body h4 a{margin-right: 5px;}
