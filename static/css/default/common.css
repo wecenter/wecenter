@@ -7,7 +7,6 @@ body{font-size:13px; line-height:150%;font-family: "Helvetica Neue",Helvetica,Ar
 input, button, select, textarea{font-family: "Helvetica Neue",Helvetica,Arial,'Microsoft YaHei',sans-serif;}
 ul, ol{margin:0;padding:0;list-style:none;}
 h1, h2, h3, h4, h5, h6{font-size:100%;}
-p{text-align: justify;}
 a{cursor: pointer;}
 a:hover{text-decoration: none;}
 textarea{resize:none;}
@@ -232,7 +231,7 @@ select{width: auto;}
 /*
 **	mainContent
 */
-.aw-main-content{width:660px;height:100%;padding:10px 20px 30px 30px;margin:0;border-right:1px solid #F7F7F7;}
+.aw-main-content{width:660px;height:100%;padding:10px 20px 99999px 30px;margin:0 0 -99999px;border-right:1px solid #F7F7F7;}
 .aw-main-content .aw-all-question .pagination{margin:20px 0 0;}
 
 /*
@@ -530,7 +529,7 @@ select{width: auto;}
 .aw-dynamic-topic .aw-mod-head p{margin:0;}
 .aw-index .aw-dynamic-topic .aw-item{padding-bottom:10px;border-bottom:1px dotted #C1CAD4;}
 .aw-question-detail-box .aw-dynamic-topic .aw-item{padding-bottom:10px;border-bottom:1px dotted #C1CAD4;}
-.aw-dynamic-topic .aw-item.active{width:660px;padding:0 20px 10px;margin-left:-20px;background: #FEFAB1;}
+.aw-dynamic-topic .aw-item.active{width:660px;padding:10px 20px 10px;margin-left:-20px !important;background: #FEFAB1;}
 .aw-dynamic-topic .aw-item:hover .aw-dynamic-topic-more-operate{display:block;}
 .aw-dynamic-topic .aw-item:hover .aw-new-message-tips-close{display: block;}
 .aw-dynamic-topic .aw-mod-head h4{position: relative;max-width: 600px;}
