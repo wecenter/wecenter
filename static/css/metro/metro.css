@@ -30,10 +30,12 @@
 **	重载bootstrap按钮
 */
 .alert{margin-bottom: 20px;}
+.btn-mini{padding: 5px 6px;}
 .btn.btn-mini, .btn.btn-normal{background-color: #BBB;background-image: none;border:none;color: #fff;text-shadow:none;}
 .btn.btn-normal{background: #ddd;}
 .btn-success, .btn.aw-active{text-shadow:none;background-color: #13A3D9 !important;background-image: none;border:none;filter: none;color: #fff;border-radius: 0px;}
 .btn-success:hover, .btn-success:focus, .btn-success:active, .btn-success.active, .btn-success.disabled, .btn-success[disabled] {background-color: #13A3D9;color: #fff;}
+.btn-group.open .dropdown-toggle{box-shadow: none;}
 /*
 **	链接部分
 */
@@ -112,10 +114,13 @@
 .aw-side-bar{width: 200px;margin-left:10px;background: #fff;}
 .aw-side-bar-mod-new-message{margin:0;}
 .aw-side-bar-mod-nav{padding-top: 0;}
-.aw-side-bar-mod-nav ul li a{width: 186px;}
+.aw-side-bar-mod-nav ul li a{width: 180px;padding-left: 15px;}
 .aw-side-bar-mod-nav ul li a.active, .aw-side-bar-mod-nav ul li a.active:hover{background: url("img/main_default.png") no-repeat 0 -79px #A9B8C5;color: #fff;}
 .aw-side-bar-mod-nav ul li a:hover{background: none;color: #0088CC;}
-.aw-side-bar-mod-nav ul li a.active .aw-message-tooltip{background: #449BDB;}
+.aw-side-bar-mod-nav ul li a.active .aw-message-tooltip{background: url("img/main_default.png") no-repeat 0 -60px;}
+
+@meida
+
 /*
 **	自定义tab切换
 */

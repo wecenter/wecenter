@@ -83,6 +83,11 @@ a.aw-load-more-content{display: block;}
 **	end 公共部分
 */
 
+/*ipad兼容*/
+@media only screen and (device-width:768px){
+	.aw-dynamic-topic .aw-item .aw-dynamic-topic-more-operate{display:block;}
+}
+
 
 /*
 **	重载bootstrap部分
