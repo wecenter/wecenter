@@ -7,6 +7,7 @@ body{font-size:13px; line-height:150%;font-family: "Helvetica Neue",Helvetica,Ar
 input, button, select, textarea{font-family: "Helvetica Neue",Helvetica,Arial,'Microsoft YaHei',sans-serif;}
 ul, ol{margin:0;padding:0;list-style:none;}
 h1, h2, h3, h4, h5, h6{font-size:100%;}
+p{text-align: justify;}
 a{cursor: pointer;}
 a:hover{text-decoration: none;}
 textarea{resize:none;}
@@ -426,8 +427,8 @@ select{width: auto;}
 .aw-topic-content-wrap .aw-topic-daily{margin-bottom:20px;}
 .aw-topic-content-wrap .aw-topic-all-list .span6{width:260px;min-height:80px;margin:0 5px;}
 .aw-topic-content-wrap .aw-mod-head h3{margin:20px 0;font-size: 16px;}
-.aw-topic-descript{margin:10px 0;padding-bottom:10px;border-bottom:1px dotted #C1CAD4;}
-.aw-topic-descript .aw-topic-title{margin-bottom:5px;}
+.aw-topic-descript{margin:10px 0;padding-bottom:10px;border-bottom:1px dotted #C1CAD4;text-align: justify;}
+.aw-topic-descript .aw-topic-title{margin-bottom:5px;text-align: justify;}
 /*今日话题*/
 .aw-topic-daily .aw-mod-head h3{padding:22px 0;}
 .aw-topic-daily .aw-item{position:relative;padding:0 0 15px 85px;}
@@ -925,7 +926,7 @@ select{width: auto;}
 .markItUp .markItUpButton11 {position: absolute;right: 0;}
 
 /*编辑器回复样式*/
-.markitup-box {font-size: 13px !important;line-height: 22px;word-wrap: break-word !important;}
+.markitup-box {font-size: 13px !important;line-height: 22px;word-wrap: break-word !important;text-align: justify;}
 .markitup-box h2, #markItUpPreviewFrames h2, .markitup-box h3, #markItUpPreviewFrames h3 {font-weight: bold;margin: 10px 0;}
 .markitup-box h2, #markItUpPreviewFrames h2 {font-size: 1.5em;}
 .markitup-box h3, #markItUpPreviewFrames h3 {font-size: 1.17em;}

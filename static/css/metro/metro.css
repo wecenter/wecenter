@@ -148,13 +148,13 @@
 .aw-topic-content-wrap .aw-main-content{padding-top: 0px;}
 .aw-side-bar-topic{padding-top:0px;}
 .aw-topic-content{border:1px solid #DFDFDF;}
-.aw-topic-content .tab-content{padding: 0 20px;}
 .aw-topic-content-wrap .aw-topic-all-list .span6{width: 238px;}
 .aw-topic-daily .aw-mod-head h3{padding: 0;}
 .aw-topic-daily, .aw-suggest-topic, .aw-topic-all .aw-mod-body{padding:0 20px;}
 .aw-topic-all .aw-mod-head{padding: 10px 20px;}
 .aw-suggest-topic .aw-mod-head h3, .aw-topic-all .aw-mod-head h3{position:relative;left:-20px;max-width: 150px;height: 35px;line-height: 35px;text-indent: 15px;background:#F3C69C;font-size:18px;font-weight: bold;color: #fff;}
 .aw-topic-all .aw-mod-head h3{background: #9EDBF5;}
+.aw-question-box-mod .aw-mod-body{padding: 0 20px;}
 
 /*
 **	话题详情页
