@@ -31,6 +31,7 @@
 */
 .alert{margin-bottom: 20px;}
 .btn-mini{padding: 5px 6px;}
+.btn-normal{padding: 5px 10px;}
 .btn.btn-mini, .btn.btn-normal{background-color: #BBB;background-image: none;border:none;color: #fff;text-shadow:none;}
 .btn.btn-normal{background: #ddd;}
 .btn-success, .btn.aw-active{text-shadow:none;background-color: #13A3D9 !important;background-image: none;border:none;filter: none;color: #fff;border-radius: 0px;}
