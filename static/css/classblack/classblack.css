@@ -35,7 +35,7 @@
 .aw-publish-btn{display:inline-block;width:57px;height:32px;line-height:32px;padding-left:50px;background: url("img/main_default.png") no-repeat 0 -10px;color:#fff;}
 .aw-publish-btn:hover{background-position: -110px -10px;color: #fff;}
 .aw-user-nav{width: 147px;height: 45px;line-height: 45px;font-weight:normal;text-align: right;}
-.aw-user-nav > p > a, .aw-user-nav > a{height: 45px;line-height: 45px;color: #fff;}
+.aw-user-nav > p > a, .aw-user-nav > a{height: 45px;line-height: 45px;margin:0 5px;color: #fff;}
 .aw-user-nav > a img{width: 25px;height: 25px;border-radius: 5px;}
 .aw-user-nav:hover .aw-user-nav-dropdown-list{display: block;}
 .aw-user-nav-dropdown img{width: 25px;height: 25px;border-radius: 5px;}
