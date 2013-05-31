@@ -133,6 +133,8 @@ class TPL
 		if ($display)
 		{
 			echo $output;
+			
+			flush();
 		}
 		else
 		{
