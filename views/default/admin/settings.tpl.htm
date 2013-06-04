@@ -457,58 +457,59 @@
 			</dl>
 			<dl>
 				<dt><h3><?php _e('积分单位'); ?>:</h3></dt>
-				<input name="integral_unit" class="text-input small-int" type="text" value="<?php echo $this->setting['integral_unit']; ?>"/>
-			</p>
-			<p groupid="14" name="integral_system_config_register">
-				<label><?php _e('新用户注册默认拥有积分'); ?>:</label>
-				<input name="integral_system_config_register" class="text-input small-int" type="text" value="<?php echo $this->setting['integral_system_config_register']; ?>"/>
-			</p>
-			<p groupid="14" name="integral_system_config_profile">
-				<label><?php _e('用户完善资料获得积分'); ?>:</label>
-				<input name="integral_system_config_profile" class="text-input small-int" type="text" value="<?php echo $this->setting['integral_system_config_profile']; ?>"/>
-			</p>
-			<p groupid="14" name="integral_system_config_invite">
-				<label><?php _e('用户邀请注册并成功邀请'); ?>:</label>
-				<input name="integral_system_config_invite" class="text-input small-int" type="text" value="<?php echo $this->setting['integral_system_config_invite']; ?>"/>
-			</p>
-			<p groupid="14" name="integral_system_config_best_answer">
-				<label><?php _e('最佳回复'); ?>:</label>
-				<input name="integral_system_config_best_answer" class="text-input small-int" type="text" value="<?php echo $this->setting['integral_system_config_best_answer']; ?>"/>
-			</p>
-			<p groupid="14" name="integral_system_config_answer_fold">
-				<label><?php _e('回复被折叠'); ?>:</label>
-				<input name="integral_system_config_answer_fold" class="text-input small-int" type="text" value="<?php echo $this->setting['integral_system_config_answer_fold']; ?>"/>
-			</p>
-			<p groupid="14" name="integral_system_config_new_question">
-				<label><?php _e('发起问题'); ?>:</label>
-				<input name="integral_system_config_new_question" class="text-input small-int" type="text" value="<?php echo $this->setting['integral_system_config_new_question']; ?>"/>
-			</p>
-			<p groupid="14" name="integral_system_config_new_answer">
-				<label><?php _e('回复问题'); ?>:</label>
-				<input name="integral_system_config_new_answer" class="text-input small-int" type="text" value="<?php echo $this->setting['integral_system_config_new_answer']; ?>"/>
-			</p>
-			<p groupid="14" name="integral_system_config_thanks">
-				<label><?php _e('感谢回复'); ?>:</label>
-				<input name="integral_system_config_thanks" class="text-input small-int" type="text" value="<?php echo $this->setting['integral_system_config_thanks']; ?>"/>
-			</p>
-			<p groupid="14" name="integral_system_config_invite_answer">
-				<label><?php _e('发起者邀请别人回答问题并回答'); ?>:</label>
-				<input name="integral_system_config_invite_answer" class="text-input small-int" type="text" value="<?php echo $this->setting['integral_system_config_invite_answer']; ?>"/>
-			</p>
-			<p groupid="4">
-				<label><?php _e('威望公式：log((((用户组威望系数 x 赞同数 - 用户组威望系数 x 反对数) + 发起者赞同反对威望系数 + 最佳回复威望系数) + 0.5), 对数底值)');?></label>
-			</p>
-			<p groupid="4" name="publisher_reputation_factor">
-				<label><?php _e('发起者赞同反对威望系数'); ?></label>
-				<input name="publisher_reputation_factor" class="text-input small-int" type="text" value="<?php echo get_setting('publisher_reputation_factor'); ?>"/>
-			</p>
-			<p groupid="4" name="best_answer_reput">
-				<label><?php _e('最佳回复威望系数'); ?></label>
-				<input name="best_answer_reput" class="text-input small-int" type="text" value="<?php echo get_setting('best_answer_reput'); ?>"/>
-			</p>
-			<p groupid="4" name="reputation_log_factor">
-				<label><?php _e('对数底值'); ?>: <span style="font-weight:normal">(<?php _e('控制显示的威望值大小，底数越小威望值越大，底数越大威望值越小，系统默认数值是 3'); ?>)</span></label>
-				<input name="reputation_log_factor" class="text-input small-int" type="text" value="<?php echo get_setting('reputation_log_factor'); ?>"/>
+				<dd><input name="integral_unit" type="text" value="<?php echo $this->setting['integral_unit']; ?>"/></dd>
+			</dl>
+			<dl>
+				<dt><h3><?php _e('新用户注册默认拥有积分'); ?>:</h3></dt>
+				<dd><input name="integral_system_config_register" type="text" value="<?php echo $this->setting['integral_system_config_register']; ?>"/></dd>
+			</dl>
+			<dl>
+				<dt><h3><?php _e('用户完善资料获得积分'); ?>:</h3></dt>
+				<dd><input name="integral_system_config_profile" type="text" value="<?php echo $this->setting['integral_system_config_profile']; ?>"/></dd>
+			</dl>
+			<dl>
+				<dt><h3><?php _e('用户邀请注册并成功邀请'); ?>:</h3></dt>
+				<dd><input name="integral_system_config_invite" type="text" value="<?php echo $this->setting['integral_system_config_invite']; ?>"/></dd>
+			</dl>
+			<dl>
+				<dt><h3><?php _e('最佳回复'); ?>:</h3></dt>
+				<dd><input name="integral_system_config_best_answer" type="text" value="<?php echo $this->setting['integral_system_config_best_answer']; ?>"/></dd>
+			</dl>
+			<dl>
+				<dt><h3><?php _e('回复被折叠'); ?>:</h3></dt>
+				<dd><input name="integral_system_config_answer_fold" type="text" value="<?php echo $this->setting['integral_system_config_answer_fold']; ?>"/></dd>
+			</dl>
+			<dl>
+				<dt><h3><?php _e('发起问题'); ?>:</h3></dt>
+				<dd><input name="integral_system_config_new_question" type="text" value="<?php echo $this->setting['integral_system_config_new_question']; ?>"/></dd>
+			</dl>
+			<dl>
+				<dt><h3><?php _e('回复问题'); ?>:</h3></dt>
+				<dd><input name="integral_system_config_new_answer" type="text" value="<?php echo $this->setting['integral_system_config_new_answer']; ?>"/></dd>
+			</dl>
+			<dl>
+				<dt><h3><?php _e('感谢回复'); ?>:</h3></dt>
+				<dd><input name="integral_system_config_thanks" type="text" value="<?php echo $this->setting['integral_system_config_thanks']; ?>"/></dd>
+			</dl>
+			<dl>
+				<dt><h3><?php _e('发起者邀请别人回答问题并回答'); ?>:</h3></dt>
+				<dd><input name="integral_system_config_invite_answer" type="text" value="<?php echo $this->setting['integral_system_config_invite_answer']; ?>"/></dd>
+			</dl>
+
+			<dl>
+				<dt><h3><?php _e('发起者赞同反对威望系数'); ?></h3></dt>
+				<dd><input name="publisher_reputation_factor" type="text" value="<?php echo get_setting('publisher_reputation_factor'); ?>"/></dd>
+			</dl>
+			<dl>
+				<dt><h3><?php _e('最佳回复威望系数'); ?></h3></dt>
+				<dd><input name="best_answer_reput" type="text" value="<?php echo get_setting('best_answer_reput'); ?>"/></dd>
+			</dl>
+			<dl>
+				<dt><h3><?php _e('对数底值'); ?>:</h3></dt>
+				<dd><input name="reputation_log_factor" type="text" value="<?php echo get_setting('reputation_log_factor'); ?>"/>
+				
+				<p class="aw-text-color-999"><?php _e('控制显示的威望值大小，底数越小威望值越大，底数越大威望值越小，系统默认数值是 3'); ?><br /><?php _e('威望公式：log((((用户组威望系数 x 赞同数 - 用户组威望系数 x 反对数) + 发起者赞同反对威望系数 + 最佳回复威望系数) + 0.5), 对数底值)'); ?></p>
+				</dd>
 			</p>
 		</div>
 		<div class="aw-mod-footer">
