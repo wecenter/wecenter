@@ -210,18 +210,18 @@
 			<dl>
 				<input type="hidden" name="set_email_settings" value="1" />
 				<dt><h3><?php _e('新用户默认邮件提醒设置'); ?>:</h3></dt>
-				<dd><span class="_label"><input type="checkbox" name="new_user_email_setting[]" value="FOLLOW_ME"<?php if ($this->setting['new_user_email_setting']['FOLLOW_ME'] != 'N') { ?> checked="checked"<?php } ?> /> <?php _e('当有人关注我'); ?></span> &nbsp;
-	            <span class="_label"><input type="checkbox" name="new_user_email_setting[]" value="QUESTION_INVITE"<?php if ($this->setting['new_user_email_setting']['QUESTION_INVITE'] != 'N') { ?> checked="checked"<?php } ?> /> <?php _e('有人邀请我回答问题'); ?></span> &nbsp;
-	            <span class="_label"><input type="checkbox" name="new_user_email_setting[]" value="NEW_ANSWER"<?php if ($this->setting['new_user_email_setting']['NEW_ANSWER'] != 'N') { ?> checked="checked"<?php } ?> /> <?php _e('我关注的问题有了新回复'); ?></span> &nbsp;
-	            <span class="_label"><input type="checkbox" name="new_user_email_setting[]" value="NEW_MESSAGE"<?php if ($this->setting['new_user_email_setting']['NEW_MESSAGE'] != 'N') { ?> checked="checked"<?php } ?> /> <?php _e('有人向我发送私信'); ?></span> &nbsp;
-	            <span class="_label"><input type="checkbox" name="new_user_email_setting[]" value="QUESTION_MOD"<?php if ($this->setting['new_user_email_setting']['QUESTION_MOD'] != 'N') { ?> checked="checked"<?php } ?> /> <?php _e('我的问题被编辑'); ?></span></dd>
+				<dd><span class="label"><input type="checkbox" name="new_user_email_setting[]" value="FOLLOW_ME"<?php if ($this->setting['new_user_email_setting']['FOLLOW_ME'] != 'N') { ?> checked="checked"<?php } ?> /> <?php _e('当有人关注我'); ?></span> &nbsp;
+	            <span class="label"><input type="checkbox" name="new_user_email_setting[]" value="QUESTION_INVITE"<?php if ($this->setting['new_user_email_setting']['QUESTION_INVITE'] != 'N') { ?> checked="checked"<?php } ?> /> <?php _e('有人邀请我回答问题'); ?></span> &nbsp;
+	            <span class="label"><input type="checkbox" name="new_user_email_setting[]" value="NEW_ANSWER"<?php if ($this->setting['new_user_email_setting']['NEW_ANSWER'] != 'N') { ?> checked="checked"<?php } ?> /> <?php _e('我关注的问题有了新回复'); ?></span> &nbsp;
+	            <span class="label"><input type="checkbox" name="new_user_email_setting[]" value="NEW_MESSAGE"<?php if ($this->setting['new_user_email_setting']['NEW_MESSAGE'] != 'N') { ?> checked="checked"<?php } ?> /> <?php _e('有人向我发送私信'); ?></span> &nbsp;
+	            <span class="label"><input type="checkbox" name="new_user_email_setting[]" value="QUESTION_MOD"<?php if ($this->setting['new_user_email_setting']['QUESTION_MOD'] != 'N') { ?> checked="checked"<?php } ?> /> <?php _e('我的问题被编辑'); ?></span></dd>
 			</dl>
 			<dl>
 				<input type="hidden" name="set_notification_settings" value="1" />
 				<dt><h3><?php _e('新用户默认通知设置'); ?>:</h3></dt>
 				<dd><?php foreach($this->notify_actions as $key => $val) { ?>
 	            <?php if ($val['user_setting']) { ?>
-	            <span class="_label"><input name="new_user_notification_setting[<?php echo $key;?>]" type="checkbox" value="1"<?php if (!in_array($key, $this->notification_settings)) { ?> checked="checked"<?php } ?> /> <?php _e($val['desc']); ?></span>  &nbsp;
+	            <span class="label"><input name="new_user_notification_setting[<?php echo $key;?>]" type="checkbox" value="1"<?php if (!in_array($key, $this->notification_settings)) { ?> checked="checked"<?php } ?> /> <?php _e($val['desc']); ?></span>  &nbsp;
 	            <?php } ?>
 	            <?php } ?></dd>
 			</dl>
@@ -233,7 +233,7 @@
 		<div class="aw-mod-body">
 			<dl>
 				<dt><h3><?php _e('网站公告'); ?>: </h3></dt>
-				<dl><textarea name="site_announce"><?php echo $this->setting['site_announce']; ?></textarea></dl>
+				<dd><textarea name="site_announce"><?php echo $this->setting['site_announce']; ?></textarea></dd>
 			</dl>
 			<dl>
 				<dt><h3><?php _e('开启 Rewrite 伪静态'); ?>: </h3></dt>
