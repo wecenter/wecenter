@@ -22,7 +22,7 @@
 <body>
 
 <div class="login-box">
-	<h1><img src="<?php echo G_STATIC_URL; ?>/admin/img/logo.png" alt="" /></h1>
+	<h1><img src="<?php echo G_STATIC_URL; ?>/admin/img/logo.png" alt="" /> WeCenter Admin Control</h1>
 	<form id="login_form" onsubmit="return false" action="admin/login_process_ajax/" method="post">
 	<?php if ($_GET['url']){ ?>
 		<input type="hidden" name="url" value="<?php echo htmlspecialchars($_GET['url']); ?>">
