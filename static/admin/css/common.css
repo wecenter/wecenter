@@ -13,6 +13,8 @@ table{width: 100%;}
 input[type="radio"], input[type="checkbox"]{margin:0;}
 select, input[type="file"]{line-height: 0px;font-size: 13px;}
 .aw-text-color-999{margin:10px 0 0 0;color: #999;font-size: 11px;}
+.modal{margin-left: 0px;}
+.modal-backdrop, .modal-backdrop.fade.in{opacity:0.2;filter:alpha(opacity=20);}
 
 /*全局input定义*/
 .mini-width{width: 40px !important;}
