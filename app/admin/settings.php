@@ -18,7 +18,7 @@ if (!defined('IN_ANWSION'))
 	die;
 }
 
-class setting extends AWS_CONTROLLER
+class settings extends AWS_CONTROLLER
 {
 	public function setup()
 	{
@@ -27,56 +27,18 @@ class setting extends AWS_CONTROLLER
 
 	public function index_action()
 	{
-		$this->setting_action();
-	}
-
-	public function setting_action()
-	{
-		$settings_menu = array(
-			101 => 'site_info',
-			102 => 'reg_visit',
-			103 => 'site_func',
-			104 => 'content',
-			106 => 'integral_reputation', 
-			107 => 'email', 
-			108 => 'open', 
-			109 => 'cache', 
-			110 => 'sys_info', 
-			201 => 'view_set', 
-			305 => 'sensitive_words', 
-			404 => 'user_reputation', 
-			111 => 'user_privilege',
-			203 => 'editor',
-			603 => 'today_topics',
-		);
+		TPL::assign('styles', $this->model('setting')->get_ui_styles());
+		TPL::assign('notification_settings', get_setting('new_user_notification_setting'));
+		TPL::assign('notify_actions', $this->model('notify')->notify_action_details);
 		
-		if (!in_array($_GET['type'], $settings_menu))
-		{
-			HTTP::redirect('?/admin/main/');
-		}
-		
-		if ($_GET['type'] == 'view_set')
-		{
-			TPL::assign('styles', $this->model('setting')->get_ui_styles());
-		}
-		
-		if ($_GET['type'] == 'reg_visit')
-		{			
-			TPL::assign('notification_settings', get_setting('new_user_notification_setting'));
-			TPL::assign('notify_actions', $this->model('notify')->notify_action_details);
-		}
-		
-		$this->crumb(AWS_APP::lang()->_t('系统设置'), 'admin/setting/type-' . $_GET['type']);
-		
-		TPL::import_js('admin/js/setting.js');
+		$this->crumb(AWS_APP::lang()->_t('系统设置'), 'admin/settings');
 		
 		TPL::assign('setting', get_setting(null, false));
 		
-		TPL::assign('menu_list', $this->model('admin_group')->get_menu_list($this->user_info['group_id'], array_search($_GET['type'], $settings_menu)));
+		TPL::assign('menu_list', $this->model('admin_group')->get_menu_list($this->user_info['group_id'], 100));
 		
-		TPL::output('admin/setting/' . $_GET['type']);
+		TPL::output('admin/settings');
 	}
-	
 	
 	public function sys_save_ajax_action()
 	{		

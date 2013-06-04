@@ -14,48 +14,48 @@ $config[1] = array(
 		array(
 			'id' => 101,
 			'title' => '站点信息',
-			'url' => 'admin/setting/type-site_info',
+			'url' => 'admin/settings/#!site_info',
 		),
 		array(
 			'id' => 102,
 			'title' => '注册与访问',
-			'url' => 'admin/setting/type-reg_visit',
+			'url' => 'admin/settings/#!register_viste',
 		),
 		array(
 			'id' => 103,
 			'title' => '站点功能',
-			'url' => 'admin/setting/type-site_func',
+			'url' => 'admin/settings/#!functions',
 		),
 		array(
 			'id' => 104,
 			'title' => '内容设置',
-			'url' => 'admin/setting/type-content',
+			'url' => 'admin/settings/#!contents',
 		),
 		array(
 			'id' => 106,
 			'title' => '积分与威望设置',
-			'url' => 'admin/setting/type-integral_reputation',
+			'url' => 'admin/settings/#!integral',
 		),
 		array(
 			'id' => 111,
 			'title' => '用户权限',
-			'url' => 'admin/setting/type-user_privilege',
+			'url' => 'admin/settings/#!permissions',
 		),
 		array(
 			'id' => 107,
 			'title' => '邮件设置',
-			'url' => 'admin/setting/type-email',
+			'url' => 'admin/settings/#!email',
 		),
 		array(
 			'id' => 108,
 			'title' => '开放平台',
-			'url' => 'admin/setting/type-open',
+			'url' => 'admin/settings/#!openid',
 		),
 
 		array(
 			'id' => 109,
 			'title' => '性能优化',
-			'url' => 'admin/setting/type-cache',
+			'url' => 'admin/settings/#!cache',
 		),
 	)
 );
@@ -68,7 +68,7 @@ $config[2] = array(
 		array(
 			'id' => 201,
 			'title' => '界面设置',
-			'url' => 'admin/setting/type-view_set',
+			'url' => 'admin/settings/#!look_feel',
 		),
 		array(
 			'id' => 202,
@@ -78,7 +78,7 @@ $config[2] = array(
 		array(
 			'id' => 203,
 			'title' => '编辑器',
-			'url' => 'admin/setting/type-editor',
+			'url' => 'admin/settings/#!editor',
 		)
 	)
 );
@@ -122,7 +122,7 @@ $config[3] = array(
 		array(
 			'id' => 305,
 			'title' => '词语过滤',
-			'url' => 'admin/setting/type-sensitive_words',
+			'url' => 'admin/settings/#!sensitive_words',
 		),
 	)
 );
@@ -184,7 +184,7 @@ $config[6] = array(
 		array(
 			'id' => 603,
 			'title' => '今日话题',
-			'url' => 'admin/setting/type-today_topics',
+			'url' => 'admin/settings/#!today_topics',
 		),
 	)
 );

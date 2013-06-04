@@ -1,0 +1,21 @@
+html{height: 100%;}
+body{font:13px/1.5 "微软雅黑",tahoma,arial;padding: 0px;color: #666;background-image: -moz-linear-gradient(center top, #687586, #323A45);background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#687586), to(#323A45));background-image: -webkit-linear-gradient(top, #687586, #323A45);background-image: -o-linear-gradient(top, #687586, #323A45);background-image: linear-gradient(to bottom, #687586, #323A45);background-repeat: repeat;filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff687586', endColorstr='#ff323A45', GradientType=0);filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);}
+h1, h2, h3, h4, h5, h6{font-size:100%;color: #333;}
+a{cursor: pointer;}
+a:hover{text-decoration: none;}
+ul, ol{list-style: none;}
+ul{margin:0;}
+input , textarea{font-family: '微软雅黑',tahoma,arial !important;}
+.btn-normal.btn-inverse{padding:4px 40px;box-shadow: none;}
+
+.login-box{position:relative;width:450px;margin:10% auto 0;background: #fff;border-radius:4px;box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);}
+.login-box h1{position: absolute;top:-65px;}
+.login-box .aw-mod-body{padding: 40px 70px;}
+.login-box .aw-mod-body ul li{margin-bottom: 30px;}
+.login-box .aw-mod-body span{display:inline-block;width: 50px;margin-right:10px;text-align: right;}
+.login-box .aw-mod-body input{margin:0;}
+.login-box .aw-mod-footer{padding:20px 10px;background: #E7EDF2;border-top:1px solid #d0dce6;border-radius: 0 0 4px 4px;text-align: center;}
+.login-box .vercode{margin-bottom: 0px !important;}
+.login-box .vercode input{width: 40px;}
+.login-box .vercode img{width: 100px;height: 30px;}
+.login-box .vercode a{font-size: 12px;color: #999;}
