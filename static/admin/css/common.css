@@ -121,6 +121,9 @@ select, input[type="file"]{line-height: 0px;font-size: 13px;}
 .aw-mod-nav-setting .aw-nav-menu input{margin-top:3px;}
 .aw-mod-nav-setting .aw-nav-menu .normal-width{width: 300px !important;}
 
+/*alert-box*/
+.aw-tips-box{width: 350px;}
+
 /*footer*/
 .footer{width: 900px;margin:10px auto 0;padding:20px;text-align: center;}
 
@@ -143,6 +146,8 @@ select, input[type="file"]{line-height: 0px;font-size: 13px;}
 .page-attach{width: 16px;height: 16px;background: url('../img/page_attach.png') no-repeat;}
 .table-go{width: 16px;height: 16px;background: url('../img/table_go.png') no-repeat;}
 .lock{width: 16px;height: 16px;background: url('../img/lock_open.png') no-repeat;}
+.i-warmming{width: 30px;height: 28px;background: url('../img/warmming.png') no-repeat;}
+.aw-tips-box .aw-mod-body{background: url('../img/warmming.png') no-repeat;}
 
 /*日期选择控件*/
 .date_selector, .date_selector * {width: auto;height: auto;border: none;background: none;margin: 0;padding: 0;text-align: left;text-decoration: none;cursor: pointer;}
