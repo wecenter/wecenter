@@ -14,7 +14,7 @@ $config[1] = array(
 		array(
 			'id' => 101,
 			'title' => '站点信息',
-			'url' => 'admin/settings/#!site_info',
+			'url' => 'admin/settings/',
 		),
 		array(
 			'id' => 102,
@@ -33,7 +33,7 @@ $config[1] = array(
 		),
 		array(
 			'id' => 106,
-			'title' => '积分与威望设置',
+			'title' => '积分与威望',
 			'url' => 'admin/settings/#!integral',
 		),
 		array(
@@ -63,7 +63,7 @@ $config[1] = array(
 $config[2] = array(
 	'id' => 2,
 	'title' => '界面',
-	'cname' => 'topic',
+	'cname' => 'topics',
 	'children' => array(
 		array(
 			'id' => 201,
@@ -86,7 +86,7 @@ $config[2] = array(
 $config[3] = array(
 	'id' => 3,
 	'title' => '内容',
-	'cname' => 'question',
+	'cname' => 'questions',
 	'children' => array(
 		array(
 			'id' => 300,
@@ -130,7 +130,7 @@ $config[3] = array(
 $config[4] = array(
 	'id' => 4,
 	'title' => '用户',
-	'cname' => 'user',
+	'cname' => 'users',
 	'children' => array(
 		array(
 			'id' => 401,
@@ -174,7 +174,7 @@ $config[4] = array(
 $config[6] = array(
 	'id' => 6,
 	'title' => '运营',
-	'cname' => 'question',
+	'cname' => 'maintain',
 	'children' => array(
 		array(
 			'id' => 602,
@@ -192,7 +192,7 @@ $config[6] = array(
 $config[7] = array(
 	'id' => 7,
 	'title' => '邮件群发',
-	'cname' => 'question',
+	'cname' => 'edm',
 	'children' => array(
 		array(
 			'id' => 701,
@@ -210,7 +210,7 @@ $config[7] = array(
 $config[5] = array(
 	'id' => 5,
 	'title' => '工具',
-	'cname' => 'maintain',
+	'cname' => 'tools',
 	'children' => array(
 		array(
 			'id' => 501,
