@@ -625,10 +625,7 @@ str_repeat('
 		$video_text = $matches[2];
 		$url = $matches[3] == '' ? $matches[4] : $matches[3];
 		
-		$Video_Parser = load_class('Services_VideoUrlParser');
-		$video_content = $Video_Parser->parse($url);
-		
-		return $this->hashPart($video_content['object']);
+		return $this->hashPart(load_class('Services_VideoUrlParser')->parse($url));
 	}
 
 	function doHeaders($text)

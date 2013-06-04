@@ -1,6 +1,6 @@
 <?php
 /**
- * Video
+ * Video Parser
  *
  * @package
  * @version 1.2
@@ -17,6 +17,7 @@
  * $urls[] = "http://www.56.com/u68/v_NjI2NTkxMzc.html";
  * $urls[] = "http://www.letv.com/ptv/vplay/1168109.html";
  * $urls[] = "http://video.sina.com.cn/v/b/46909166-1290055681.html";
+ * $urls[] = "http://www.youtube.com/watch?v=n6NLtldvGCk";
  *
  * foreach($urls as $url){
  * $info = VideoUrlParser::parse($url);
@@ -52,32 +53,40 @@
  * //乐视
  * http://www.letv.com/ptv/vplay/1168109.html
  * <embed src="http://i3.imgs.letv.com/player/swfPlayer.swf?id=1168109&host=app.letv.com&vstatus=1&AP=1&logoMask=0&isShowP2p=0&autoplay=true" quality="high" scale="NO_SCALE" wmode="opaque" bgcolor="#000000" width="480" height="388" name="FLV_player" align="middle" allowscriptaccess="always" allowfullscreen="true" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer">
+ *
+ * //youtube
+ * http://www.youtube.com/watch?v=n6NLtldvGCk
+ * <embed src="http://www.youtube.com/v/n6NLtldvGCk?version=3&hl=th_TH" type="application/x-shockwave-flash" width="560" height="315" allowscriptaccess="always" allowfullscreen="true"></embed>
  */
+ 
 
 class Services_VideoUrlParser
 {
-	const USER_AGENT = "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US) AppleWebKit/534.10 (KHTML, like Gecko)
-        Chrome/8.0.552.224 Safari/534.10";
-	const CHECK_URL_VALID = "/(youku\.com|tudou\.com|ku6\.com|56\.com|letv\.com|video\.sina\.com\.cn|(my\.)?tv\.sohu\.com|v\.qq\.com)/";
+	const USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.93 Safari/537.36";
+	const CHECK_URL_VALID = "/(youku\.com|tudou\.com|ku6\.com|56\.com|letv\.com|video\.sina\.com\.cn|(my\.)?tv\.sohu\.com|v\.qq\.com|youtube\.com)/";
 	
 	/**
 	 * parse
 	 *
 	 * @param string $url
-	 * @param mixed $createObject
 	 * @static
 	 * @access public
 	 * @return void
 	 */
-	static public function parse($url = '', $createObject = true)
+	static public function parse($url = '')
 	{
 		$lowerurl = strtolower($url);
+		
+		if (strstr($lowerurl, '.swf'))
+		{
+			return '<p><embed src="' . $url . '" quality="high" width="560" height="360" align="middle" allowNetworking="all" allowFullScreen="true" allowScriptAccess="always" type="application/x-shockwave-flash" wmode="transparent"></embed></p>';
+		}
 		
 		preg_match(self::CHECK_URL_VALID, $lowerurl, $matches);
 		
 		if (!$matches)
 		{
-			return false;
+			return '<p><img src="' . G_STATIC_URL .  '/common/video_parser_unsupport.png" alt="" /></p>';
 		}
 		
 		if (!$data = AWS_APP::cache()->get('video_parse_' . md5($url)))
@@ -110,6 +119,9 @@ class Services_VideoUrlParser
 				case 'v.qq.com' :
 					$data = self::_parseQq($url);
 					break;
+				case 'youtube.com' :
+					$data = self::_parseYoutube($url);
+					break;
 				default :
 					return $url;
 			}
@@ -121,13 +133,21 @@ class Services_VideoUrlParser
 			
 		}
 		
-		if ($data && $createObject)
+		if ($data)
 		{
-			$data['object'] = "<p><embed src=\"{$data['swf']}\" quality=\"high\" width=\"480\" height=\"400\" align=\"middle\" allowNetworking=\"all\" allowFullScreen=\"true\" allowScriptAccess=\"always\" type=\"application/x-shockwave-flash\" wmode=\"transparent\"></embed></p>";
+			if ($data['iframe'])
+			{
+				return '<p><iframe width="560" height="360" src="' . $data['iframe'] . '" frameborder="0" allowfullscreen="allowfullscreen"></iframe></p>';
+			}
+			else
+			{
+				return '<p><embed src="' . $data['swf'] . '" quality="high" width="560" height="360" align="middle" allowNetworking="all" allowFullScreen="true" allowScriptAccess="always" type="application/x-shockwave-flash" wmode="transparent"></embed></p>';
+			}
 		}
 		
-		return $data;
+		return '<p><img src="' . G_STATIC_URL .  '/common/video_parser_unsupport.png" alt="" /></p>';
 	}
+	
 	/**
 	 * 腾讯视频
 	 * http://v.qq.com/cover/o/o9tab7nuu0q3esh.html?vid=97abu74o4w3_0
@@ -192,6 +212,7 @@ class Services_VideoUrlParser
 		$link = "http://v.youku.com/player/getPlayList/VideoIDS/{$matches[1]}/timezone/+08/version/5/source/out?password=&ran=2513&n=3";
 		
 		$retval = self::_cget($link);
+		
 		if ($retval)
 		{
 			$json = json_decode($retval, true);
@@ -199,7 +220,7 @@ class Services_VideoUrlParser
 			$data['img'] = $json['data'][0]['logo'];
 			$data['title'] = $json['data'][0]['title'];
 			$data['url'] = $url;
-			$data['swf'] = "http://player.youku.com/player.php/sid/{$matches[1]}/v.swf";
+			$data['iframe'] = "http://player.youku.com/embed/{$matches[1]}";
 			
 			return $data;
 		}
@@ -433,9 +454,12 @@ class Services_VideoUrlParser
 	private function _parseSina($url)
 	{
 		preg_match("/(\d+)(?:\-|\_)(\d+)/", $url, $matches);
+		
 		$url = "http://video.sina.com.cn/v/b/{$matches[1]}-{$matches[2]}.html";
 		$html = self::_fget($url);
+		
 		preg_match("/video\s?:\s?([^<]+)}/", $html, $matches);
+		
 		$find = array(
 			"/\n/", 
 			"/\s*/", 
@@ -461,6 +485,33 @@ class Services_VideoUrlParser
 		$data['swf'] = $arr['swfOutsideUrl'];
 		
 		return $data;
+	}
+	
+	private function _parseYoutube($url)
+	{
+		preg_match("#\?v=([0-9a-zA-Z_\-]+)#", $url, $matches);
+
+		$link = "http://www.youtube.com/v/{$matches[1]}?version=3&hl=th_TH";
+
+		$retval = self::_cget($link);
+		
+		if ($retval)
+		{
+			$contents = self::_fget($url);
+			
+			preg_match_all("#<title>([^<]+)<\/title>#", $contents, $contentMatches);
+
+			$data['img'] = "http://img.youtube.com/vi/{$matches[1]}/0.jpg";
+			$data['title'] = $contentMatches[1][0];
+			$data['url'] = $url;
+			$data['iframe'] = "http://www.youtube-nocookie.com/embed/{$matches[1]}";
+
+			return $data;
+		}
+		else
+		{
+			return false;
+		}
 	}
 	
 	/*
