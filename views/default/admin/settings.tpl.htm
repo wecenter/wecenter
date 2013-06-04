@@ -2,7 +2,7 @@
 <?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
 
 <div class="pull-left right-side">
-	<form action="admin/setting/sys_save_ajax/" id="settings_form" method="post">
+	<form action="admin/settings/save/" id="settings_form" method="post">
 	<div class="aw-box">
 		<a name="site_info"></a>
 		<div class="aw-mod-head">
@@ -513,7 +513,7 @@
 			</p>
 		</div>
 		<div class="aw-mod-footer">
-			<a href="javascript:;" class="btn btn-inverse btn-normal" onclick="ajax_post($('#settings_form');"><?php _e('保存'); ?></a>
+			<a href="javascript:;" class="btn btn-inverse btn-normal" onclick="ajax_post($('#settings_form'));"><?php _e('保存'); ?></a>
 		</div>
 	</div>
 	</form>
