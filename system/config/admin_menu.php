@@ -63,7 +63,7 @@ $config[1] = array(
 $config[2] = array(
 	'id' => 2,
 	'title' => '界面',
-	'cname' => 'topics',
+	'cname' => 'look_feel',
 	'children' => array(
 		array(
 			'id' => 201,
@@ -86,7 +86,7 @@ $config[2] = array(
 $config[3] = array(
 	'id' => 3,
 	'title' => '内容',
-	'cname' => 'questions',
+	'cname' => 'contents',
 	'children' => array(
 		array(
 			'id' => 300,

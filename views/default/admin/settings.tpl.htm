@@ -444,11 +444,17 @@
 		<div class="aw-mod-body">
 			<dl>
 				<dt><h3><?php _e('使用积分系统'); ?>:</h3></dt>
-				<input type="radio" name="integral_system_enabled" value="Y" <?php if ($this->setting['integral_system_enabled'] == 'Y') { ?> checked="checked"<?php } ?>/>
-				<?php _e('是'); ?>
-				<input type="radio" name="integral_system_enabled" value="N" <?php if ($this->setting['integral_system_enabled'] == 'N') { ?> checked="checked"<?php } ?>/>
-				<?php _e('否'); ?>
-			</p>
+				
+				<dd>
+					<span class="yesno_yes">
+						<label><input type="radio" name="integral_system_enabled" value="Y" <?php if ($this->setting['integral_system_enabled'] == 'Y') { ?> checked="checked"<?php } ?>/><?php _e('是'); ?></label>
+					</span>
+					
+					<span class="yesno_no">
+						<label><input type="radio" name="integral_system_enabled" value="N" <?php if ($this->setting['integral_system_enabled'] == 'N') { ?> checked="checked"<?php } ?>/><?php _e('否'); ?></label>
+					</span>
+				</dd>
+			</dl>
 			<p groupid="14" name="integral_unit">
 				<label><?php _e('积分单位'); ?>:</label>
 				<input name="integral_unit" class="text-input small-int" type="text" value="<?php echo $this->setting['integral_unit']; ?>"/>
