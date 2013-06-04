@@ -66,6 +66,10 @@ select, input[type="file"]{line-height: 0px;font-size: 13px;}
 .right-side .yesno_yes label, .right-side .yesno_no label{font-size: 13px;}
 .right-side .yesno_yes{background: #E3F6E5;border:1px solid #B4E3B9;border-right: none;border-radius: 6px 0 0 6px;}
 .right-side .yesno_no{background: #F6E3E3;border:1px solid #E3B4B4;border-left: none;border-radius: 0 6px 6px 0;}
+.right-side .aw-box-row dt{margin-top:2px;}
+.right-side .aw-box-row dl dd{width: auto;}
+.right-side .aw-box-row .aw-box-row-dd{width: 500px;}
+.right-side .aw-box-row span{font-size: 13px;}
 
 /*表格*/
 .aw-table{margin:10px 0;border:1px solid #D7E6F0;color: #666;}
@@ -120,12 +124,12 @@ select, input[type="file"]{line-height: 0px;font-size: 13px;}
 /*icon*/
 .aw-icon{display: inline-block;}
 .icon_system{width: 20px;height: 20px;background: url('../img/icon1.png') no-repeat;position: relative;top: 4px;}
-.icon_topic{width: 20px;height: 16px;background: url('../img/icon2.png') no-repeat;position: relative;top: 3px;}
-.icon_question{width: 20px;height: 20px;background: url('../img/icon3.png') no-repeat;position: relative;top: 5px;}
-.icon_user{width: 20px;height: 18px;background: url('../img/icon4.png') no-repeat;position: relative;top: 4px;}
-.icon5{width: 20px;height: 20px;background: url('../img/icon5.png') no-repeat;position: relative;top: 4px;}
-.icon6{width: 20px;height: 12px;background: url('../img/icon6.png') no-repeat;position: relative;top: 1px;}
-.icon_maintain{width: 20px;height: 18px;background: url('../img/icon7.png') no-repeat;position: relative;top: 4px;}
+.icon_interface{width: 20px;height: 16px;background: url('../img/icon2.png') no-repeat;position: relative;top: 3px;}
+.icon_contents{width: 20px;height: 20px;background: url('../img/icon3.png') no-repeat;position: relative;top: 5px;}
+.icon_users{width: 20px;height: 18px;background: url('../img/icon4.png') no-repeat;position: relative;top: 4px;}
+.icon_maintain{width: 20px;height: 20px;background: url('../img/icon5.png') no-repeat;position: relative;top: 4px;}
+.icon_edm{width: 20px;height: 12px;background: url('../img/icon6.png') no-repeat;position: relative;top: 1px;}
+.icon_tools{width: 20px;height: 18px;background: url('../img/icon7.png') no-repeat;position: relative;top: 4px;}
 .user-edit{width: 16px;height: 16px;background: url('../img/user_edit.png') no-repeat;}
 .user-delete{width: 16px;height: 16px;background: url('../img/user_delete.png') no-repeat;}
 .user-add{width: 16px;height: 16px;background: url('../img/user_add.png') no-repeat;}
