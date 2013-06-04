@@ -40,7 +40,7 @@ class settings extends AWS_CONTROLLER
 		TPL::output('admin/settings');
 	}
 	
-	public function sys_save_ajax_action()
+	public function save_action()
 	{		
 		define('IN_AJAX', TRUE);
 		
@@ -156,6 +156,6 @@ class settings extends AWS_CONTROLLER
 		
 		$this->model('setting')->set_vars($this->model('setting')->check_vars($_POST));
 		
-		H::ajax_json_output(AWS_APP::RSM(null, 1, AWS_APP::lang()->_t('系统设置修改成功')));
+		H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('系统设置修改成功')));
 	}
 }
