@@ -63,12 +63,12 @@ $config[1] = array(
 $config[2] = array(
 	'id' => 2,
 	'title' => '界面',
-	'cname' => 'look_feel',
+	'cname' => 'interface',
 	'children' => array(
 		array(
 			'id' => 201,
 			'title' => '界面设置',
-			'url' => 'admin/settings/#!look_feel',
+			'url' => 'admin/settings/#!interface',
 		),
 		array(
 			'id' => 202,
