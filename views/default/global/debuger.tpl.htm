@@ -1,5 +1,5 @@
 <?php if (AWS_APP::config()->get('system')->debug) { ?>
-<div class="well" style="margin: 15px;">
+<div class="well clearfix" style="margin: 20px;">
 	<b style="font-weight: bold; color: red;">Debug messages:</b><br >
 	<br /><p><b style="font-weight: bold;">Template:</b> <?php echo $this->template_name; ?></p>
 	<br /><p><b style="font-weight: bold;">Session:</b></p>
@@ -20,6 +20,4 @@
 	<br />
 	<p style="color: #666;">Escape time: <?php echo (microtime(TRUE) - START_TIME); ?>, <?php echo count(AWS_APP::$_debug['database']); ?> queries<?php if (defined('MEMORY_USAGE_START')) { ?>, PHP Memory usage: <?php echo ((memory_get_usage() - MEMORY_USAGE_START) / 1024); ?> KB<?php } ?>, Server time: <?php echo date('Y-m-d H:i:s', time()); ?></p>
 </div>
-<?php } else if (!defined('IN_AJAX')) { ?>
-<!-- Escape time: <?php echo (microtime(TRUE) - START_TIME); ?> -->
-<?php } ?>
+<?php } else if (!defined('IN_AJAX')) { ?><!-- Escape time: <?php echo (microtime(TRUE) - START_TIME); ?> --><?php } ?>
