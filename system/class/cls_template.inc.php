@@ -186,7 +186,7 @@ class TPL
 		}
 		else
 		{
-			if (substr($val, 0, 4) == 'css/' AND !strstr($val, '/admin/'))
+			if (substr($path, 0, 4) == 'css/' AND !strstr($path, '/admin/'))
 			{
 				$path = str_replace('css/', 'css/default/', $path);
 			}
