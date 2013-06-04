@@ -171,7 +171,7 @@ class TPL
 		{
 			foreach ($path AS $key => $val)
 			{
-				if (substr($val, 0, 4) == 'css/')
+				if (substr($val, 0, 4) == 'css/' AND !strstr($val, '/admin/'))
 				{
 					$val = str_replace('css/', 'css/default/', $val);
 				}
@@ -186,7 +186,7 @@ class TPL
 		}
 		else
 		{
-			if (substr($path, 0, 4) == 'css/')
+			if (substr($val, 0, 4) == 'css/' AND !strstr($val, '/admin/'))
 			{
 				$path = str_replace('css/', 'css/default/', $path);
 			}
