@@ -139,7 +139,7 @@ select{width: auto;}
 .aw-reset-nav-tabs > li > a:hover{background-color: #F5FAFF;border: 1px solid #ddd;border-bottom-color: transparent;}
 .aw-reset-nav-tabs > li.active{margin:0 4px -1px;}
 .aw-reset-nav-tabs > li.active a{line-height:31px;background-color: #fff;}
-.aw-reset-nav-tabs h3{position:absolute;top:0;left:0;margin:0;font-size:20px;}
+.aw-reset-nav-tabs h2{position:absolute;top:0;left:0;margin:0;font-size:20px;}
 .aw-reset-nav-tabs .i-triangle-up-mini, .aw-reset-nav-tabs .i-triangle-down-mini{position: relative;top: -2px;margin-left:5px;}
 
 /*
