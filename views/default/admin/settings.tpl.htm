@@ -715,6 +715,62 @@
 				<dd><input name="weixin_subscribe_message" type="text" value="<?php echo htmlspecialchars($this->setting['weixin_subscribe_message']); ?>"/></dd>
 			</dl>
 		</div>
+		<a name="cache"></a>
+		<div class="aw-mod-head">
+			<h2><a href="javascript:;" onclick="ajax_post($('#settings_form'));" class="label label-inverse pull-right"><?php _e('快速保存'); ?></a><?php _e('性能优化'); ?></h2>
+		</div>
+		<div class="aw-mod-body">
+			<dl>
+				<dt><h3><?php _e('高级别缓存时间 (单位:秒)'); ?>:</h3></dt>
+				<dd><input name="cache_level_high" type="text" value="<?php echo $this->setting['cache_level_high']; ?>"/></dd>
+			</dl>
+			<dl>
+				<dt><h3><?php _e('普通级别缓存时间 (单位:秒)'); ?>:</h3></dt>
+				<dd><input name="cache_level_normal" type="text" value="<?php echo $this->setting['cache_level_normal']; ?>"/></dd>
+			</dl>
+			<dl>
+				<dt><h3><?php _e('低级别缓存时间 (单位:秒)'); ?>:</h3></dt>
+				<dd><input name="cache_level_low" type="text" value="<?php echo $this->setting['cache_level_low']; ?>"/></dd>
+			</dl>
+		</div>
+		<a name="interface"></a>
+		<div class="aw-mod-head">
+			<h2><a href="javascript:;" onclick="ajax_post($('#settings_form'));" class="label label-inverse pull-right"><?php _e('快速保存'); ?></a><?php _e('界面设置'); ?></h2>
+		</div>
+		<div class="aw-mod-body">
+			<dl>
+				<dt><h3><?php _e('用户界面风格'); ?>:</h3></dt>
+				<dd><select class="small-input" name="ui_style">
+				<?php foreach($this->styles as $skey => $val) { ?>
+					<option value="<?php echo $val['id']; ?>"<?php if ($this->setting['ui_style'] == $val['id']) { ?> selected="selected"<?php } ?>><?php echo $val['title']; ?></option>
+					<?php } ?>
+				</select></dd>
+			</dl>
+			<dl>
+				<dt><h3><?php _e('最新动态显示条数'); ?>:</h3></dt>
+				<dd><input name="index_per_page" class="text-input small-int" type="text" value="<?php echo $this->setting['index_per_page']; ?>"/></dd>
+			</dl>
+			<dl>
+				<dt><h3><?php _e('通知显示条数'); ?>:</h3></dt>
+				<dd><input name="notifications_per_page" class="text-input small-int" type="text" value="<?php echo $this->setting['notifications_per_page']; ?>"/></dd>
+			</dl>
+			<dl>
+				<dt><h3><?php _e('问题和用户列表页显示条数'); ?>:</h3></dt>
+				<dd><input name="contents_per_page" class="text-input small-int" type="text" value="<?php echo $this->setting['contents_per_page']; ?>"/></dd>
+			</dl>
+			<dl>
+				<dt><h3><?php _e('首页推荐用户和话题数量'); ?>:</h3></dt>
+				<dd><input name="recommend_users_number" class="text-input small-int" type="text" value="<?php echo $this->setting['recommend_users_number']; ?>"/></dd>
+			</dl>
+			<dl>
+				<dt><h3><?php _e('话题页面推荐话题数'); ?>:</h3></dt>
+				<dd><input name="recommend_topics_number" class="text-input small-int" type="text" value="<?php echo $this->setting['recommend_topics_number']; ?>"/></dd>
+			</dl>
+			<dl>
+				<dt><h3><?php _e('话题页面我关注的话题数'); ?>:</h3></dt>
+				<dd><input name="focus_topics_list_per_page" class="text-input small-int" type="text" value="<?php echo $this->setting['focus_topics_list_per_page']; ?>"/></dd>
+			</dl>
+		</div>
 		<div class="aw-mod-footer">
 			<a href="javascript:;" class="btn btn-inverse btn-normal" onclick="ajax_post($('#settings_form'));"><?php _e('保存'); ?></a>
 		</div>

@@ -57,24 +57,18 @@ $config[] = array(
 			'title' => '性能优化',
 			'url' => 'admin/settings/#!cache',
 		),
-	)
-);
-
-$config[] = array(
-	'id' => 2,
-	'title' => '界面',
-	'cname' => 'interface',
-	'children' => array(
+		
 		array(
-			'id' => 201,
+			'id' => 110,
 			'title' => '界面设置',
 			'url' => 'admin/settings/#!interface',
 		),
+		
 		array(
-			'id' => 202,
-			'title' => '导航设置',
-			'url' => 'admin/nav_menu/',
-		)
+			'id' => 111,
+			'title' => '词语过滤',
+			'url' => 'admin/settings/#!sensitive_words',
+		),
 	)
 );
 
@@ -83,6 +77,12 @@ $config[] = array(
 	'title' => '内容',
 	'cname' => 'contents',
 	'children' => array(
+		array(
+			'id' => 306,
+			'title' => '导航设置',
+			'url' => 'admin/nav_menu/',
+		),
+		
 		array(
 			'id' => 300,
 			'title' => '内容审核',
@@ -113,11 +113,6 @@ $config[] = array(
 			'id' => 306,
 			'title' => '用户举报',
 			'url' => 'admin/question/report_list/',
-		),
-		array(
-			'id' => 305,
-			'title' => '词语过滤',
-			'url' => 'admin/settings/#!sensitive_words',
 		),
 	)
 );
