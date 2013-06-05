@@ -50,8 +50,3 @@ $config['feature_thumbnail'] = array(
 		"h" => 240
 	)
 );
-
-
-
-
-
