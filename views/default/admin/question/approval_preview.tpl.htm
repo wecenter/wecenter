@@ -1,28 +1,25 @@
-<p align="center"><a class="btn btn-success" onclick="$('#batchs_form input.check-all').click(); if ($('#batchs_form input.check-all').attr('checked')) { $('#batchs_form input.check-all').click(); } $('input.approval_ids[value=<?php echo $this->approval_item['id']; ?>]').attr('checked', true); $('#batch_approval').click();" href="javascript:;"><?php _e('通过审核'); ?></a> &nbsp; <a class="btn btn-danger" onclick="$('#batchs_form input.check-all').click(); if ($('#batchs_form input.check-all').attr('checked')) { $('#batchs_form input.check-all').click(); } $('input.approval_ids[value=<?php echo $this->approval_item['id']; ?>]').attr('checked', true); $('#batch_decline').click();" href="javascript:;"><?php _e('拒绝审核'); ?></a></p>
-
-<h3><?php _e('内容'); ?></h3>
-<p><?php echo $this->approval_item['content']; ?></p>
+<p><strong><?php _e('内容'); ?></strong></p>
+<blockquote><?php echo $this->approval_item['content']; ?></blockquote>
 
 <?php if ($this->approval_item['data']['topics']) {  ?>
-<h3><?php _e('话题'); ?></h3>
-<p><?php echo htmlspecialchars(implode(', ', $this->approval_item['data']['topics'])); ?></p>
+<p><strong><?php _e('话题'); ?></strong></p>
+<blockquote><?php echo htmlspecialchars(implode(', ', $this->approval_item['data']['topics'])); ?></blockquote>
 <?php } ?>
 
 <?php if ($this->approval_item['attachs']) {  ?>
-<h3><?php _e('附件'); ?></h3>
-
+<p><strong><?php _e('附件'); ?></strong></p>
 <?php if ($this->approval_item['attachs']) {  ?>
-<div class="aw-comment-upload-img-list">
+<blockquote class="aw-comment-upload-img-list">
 <?php foreach ($this->approval_item['attachs'] AS $attach) { ?>
 <?php if ($attach['is_image']) { ?>
 	<p><a href="<?php echo $attach['attachment']; ?>" target="_blank" data-fancybox-group="thumb" rel="lightbox"><img src="<?php echo $attach['attachment']; ?>" class="img-polaroid" alt="<?php echo $attach['attach_name']; ?>" /></a></p>
 <?php } ?>
 <?php } ?>
-</div>
+</blockquote>
 <?php } ?>
 
 <?php if ($this->approval_item['attachs']) {  ?>
-<p>
+<blockquote>
 	<ul class="aw-comment-upload-file-list">
 		<?php foreach ($this->approval_item['attachs'] AS $attach) { ?>
 		<?php if (!$attach['is_image']) { ?>
@@ -30,9 +27,9 @@
 		<?php } ?>
 		<?php } ?>
 	</ul>
-</p>
+</blockquote>
 <?php } ?>
 
 <?php } ?>
 
-<p align="center"><a class="btn btn-success" onclick="$('#batchs_form input.check-all').click(); if ($('#batchs_form input.check-all').attr('checked')) { $('#batchs_form input.check-all').click(); } $('input.approval_ids[value=<?php echo $this->approval_item['id']; ?>]').attr('checked', true); $('#batch_approval').click();" href="javascript:;"><?php _e('通过审核'); ?></a> &nbsp; <a class="btn btn-danger" onclick="$('#batchs_form input.check-all').click(); if ($('#batchs_form input.check-all').attr('checked')) { $('#batchs_form input.check-all').click(); } $('input.approval_ids[value=<?php echo $this->approval_item['id']; ?>]').attr('checked', true); $('#batch_decline').click();" href="javascript:;"><?php _e('拒绝审核'); ?></a></p>
+<p align="center"><a class="btn btn-success" onclick="$('#batchs_form input.check-all').click(); if ($('#batchs_form input.check-all').attr('checked')) { $('#batchs_form input.check-all').click(); } $('input.approval_ids[value=<?php echo $this->approval_item['id']; ?>]').attr('checked', true); $('#batch_approval').click();" href="javascript:;"><?php _e('通过审核'); ?></a> &nbsp; <a class="btn btn-danger" onclick="$('#batchs_form input.check-all').click(); if ($('#batchs_form input.check-all').attr('checked')) { $('#batchs_form input.check-all').click(); } $('input.approval_ids[value=<?php echo $this->approval_item['id']; ?>]').attr('checked', true); $('#batch_decline').click();" href="javascript:;"><?php _e('拒绝审核'); ?></a></blockquote>
