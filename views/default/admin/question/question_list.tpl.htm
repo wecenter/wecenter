@@ -15,7 +15,7 @@
 	<div class="aw-mod-body tab-content">
 		<div class="tab-pane active" id="list">
 			<?php if ($_GET['action'] == 'search') { ?>
-			<div class="alert alert-info"><?php _e('找到 %s 条符合条件的内容', intval($this->question_num)); ?></div>
+			<div class="alert alert-info" style="margin:10px 0"><?php _e('找到 %s 条符合条件的内容', intval($this->question_num)); ?></div>
 			<?php } ?>
 			
 			<?php if ($this->list) { ?>
