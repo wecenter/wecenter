@@ -771,6 +771,32 @@
 				<dd><input name="focus_topics_list_per_page" class="text-input small-int" type="text" value="<?php echo $this->setting['focus_topics_list_per_page']; ?>"/></dd>
 			</dl>
 		</div>
+		
+		<a name="sensitive_words"></a>
+		<div class="aw-mod-head">
+			<h2><a href="javascript:;" onclick="ajax_post($('#settings_form'));" class="label label-inverse pull-right"><?php _e('快速保存'); ?></a><?php _e('词语过滤'); ?></h2>
+		</div>
+		<div class="aw-mod-body">
+			<dl>
+				<dt><h3><?php _e('敏感词列表'); ?>: </h3></dt>
+				<dd><textarea name="sensitive_words"><?php echo $this->setting['sensitive_words']; ?></textarea>
+				<p class="aw-text-color-999"><?php _e('内容中出现敏感词将被替换成 * , 每行填写一个词'); ?></p>
+				</dd>
+			</p>
+		</div>
+		
+		<a name="topic_settings"></a>
+		<div class="aw-mod-head">
+			<h2><a href="javascript:;" onclick="ajax_post($('#settings_form'));" class="label label-inverse pull-right"><?php _e('快速保存'); ?></a><?php _e('话题设置'); ?></h2>
+		</div>
+		<div class="aw-mod-body">
+			<dl>
+				<dt><h3><?php _e('今日话题'); ?>: </h3></dt>
+				<dd><input type="text" name="today_topics" value="<?php echo $this->setting['today_topics']; ?>" />
+				<p class="aw-text-color-999"><?php _e('填写话题名称, 系统每天随机选出一个作为今日话题, 留空则不显示今日话题, 可填写一个或多个话题, 多个话题请用 , 分隔'); ?></p>
+				</dd>
+			</p>
+		</div>
 		<div class="aw-mod-footer">
 			<a href="javascript:;" class="btn btn-inverse btn-normal" onclick="ajax_post($('#settings_form'));"><?php _e('保存'); ?></a>
 		</div>

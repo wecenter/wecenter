@@ -69,6 +69,12 @@ $config[] = array(
 			'title' => '词语过滤',
 			'url' => 'admin/settings/#!sensitive_words',
 		),
+		
+		array(
+			'id' => 112,
+			'title' => '话题设置',
+			'url' => 'admin/settings/#!topic_settings',
+		),
 	)
 );
 
@@ -170,11 +176,6 @@ $config[] = array(
 			'id' => 602,
 			'title' => '数据统计',
 			'url' => 'admin/statistic/',
-		),
-		array(
-			'id' => 603,
-			'title' => '今日话题',
-			'url' => 'admin/settings/#!today_topics',
 		),
 	)
 );
