@@ -98,6 +98,8 @@ select, input[type="file"]{line-height: 0px;font-size: 13px;}
 .aw-message-box .aw-mod-body{padding: 10px;}
 .aw-message-box .aw-mod-body ul{padding:0 10px;list-style: square;}
 .aw-message-box .aw-mod-body ul li a{font-size: 12px;color: #666;}
+.aw-right-side-box{width: 100%;margin-top:0px !important;}
+.aw-right-side-box .aw-message-box{width: auto !important;}
 
 /*自定义连接*/
 .define-link p{margin-bottom: 5px;}
@@ -106,7 +108,7 @@ select, input[type="file"]{line-height: 0px;font-size: 13px;}
 .topic .btn{margin-top:5px;}
 
 /*导航菜单设置*/
-.aw-mod-nav-setting{width: 45%;padding:15px;border:1px solid #D7E6F0;}
+.aw-mod-nav-setting{padding:15px;border:1px solid #D7E6F0;}
 .aw-mod-nav-setting .aw-mod-head h3{height:30px;line-height:14px;margin:0 0 10px;font-size: 17px;font-weight: normal;}
 .aw-mod-nav-setting .aw-mod-head h3 span{margin-left:10px;font-size: 13px;color: #999;}
 .aw-mod-nav-setting > .aw-mod-body > label{display: inline-block;margin:3px 0 0 20px;}
