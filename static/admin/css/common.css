@@ -123,6 +123,8 @@ select, input[type="file"]{line-height: 0px;font-size: 13px;}
 
 /*alert-box*/
 .aw-tips-box{width: 350px;}
+.aw-tips-box .modal-body{background: url('../img/warmming.png') no-repeat right 5px;}
+.aw-tips-box .modal-body p{margin: 10px 0;}
 
 /*footer*/
 .footer{width: 900px;margin:10px auto 0;padding:20px;text-align: center;}

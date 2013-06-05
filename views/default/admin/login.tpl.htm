@@ -52,9 +52,10 @@
 						<label>
 							<span><?php _e('验证码'); ?>:</span>
 							<input type="text" name="seccode_verify" onkeydown="if (event.keyCode == 13) { document.getElementById('login_submit').click(); };" />
-							<img style="vertical-align:middle" id="captcha" onclick="this.src = G_BASE_URL + '/account/captcha/?' + Math.floor(Math.random() * 10000);" src="">
-							<a onclick="$('#captcha').click();" href="javascript:;"><?php _e('换一张'); ?></a>
+							
 						</label>
+						<img style="vertical-align:middle" id="captcha" onclick="this.src = G_BASE_URL + '/account/captcha/?' + Math.floor(Math.random() * 10000);" src="">
+							<a onclick="$('#captcha').click();" href="javascript:;"><?php _e('换一张'); ?></a>
 					</li>
 					<?php } ?>
 				</ul>

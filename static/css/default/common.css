@@ -803,7 +803,8 @@ select{width: auto;}
 .aw-share-box, .aw-publish-box, .aw-message-box, .aw-question-redirect-box, .aw-inbox, .aw-topic-edit-note-box{width: 450px;}
 /*警告提示box*/
 .aw-tips-box, .aw-image-box{width: 350px;}
-.aw-tips-box .i-warmming{margin-right:10px;vertical-align: middle;}
+.aw-tips-box .modal-body{background: url(img/warmming.png) no-repeat right 5px;}
+.aw-tips-box .modal-body p{margin: 10px 0;}
 .aw-image-box input{width: 306px;height: 24px;line-height: 24px;margin-bottom: 15px;}
 /*分享box*/
 .aw-share-box .aw-share-box-tabs{position: absolute;top:18px;right: 50px;}
