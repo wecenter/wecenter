@@ -36,6 +36,9 @@
 .ht-product-list ul li .aw-mod-footer span{margin-right: 10px;font-size:12px;color: #999999;}
 .ht-product-list ul li .aw-mod-footer span.pull-right{margin-right: 0px;}
 
+/*底部*/
+.aw-footer{height:30px;line-height:30px;padding: 0;}
+
 /*icon*/
 .ht-icon{display: inline-block;}
 .ht-icon.search{width: 17px;height: 17px;background: url('img/search.png') no-repeat;}

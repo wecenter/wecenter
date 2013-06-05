@@ -1,0 +1,37 @@
+<div class="aw-footer-wrap">
+	<div class="aw-footer aw-wecenter">
+		<div class="row">
+			<div class="span9 aw-copyright">
+				© copyright 2010-2012 极客海淘. All rights reserved. 京ICP备12048526号-1 京公网安备11010602100083
+			</div>
+			<div class="span3">
+				关注微博 • 反馈意见 • 联系我们
+			</div>
+			
+		</div>
+	</div>
+</div>
+
+<a href="javascript:;" onclick="$.scrollTo(1, 600, {queue:true});" class="aw-back-top"><i class="aw-btn b-go-to-top"></i></a>
+
+<?php echo get_setting('statistic_code'); ?>
+
+<!-- DO NOT REMOVE -->
+<div id="aw-ajax-box" class="aw-ajax-box"></div>
+
+<div style="display:none;" id="__crond">
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$('#__crond').html(unescape('%3Cimg%20src%3D%22' + G_BASE_URL + '/crond/run/<?php echo time(); ?>%22%20width%3D%221%22%20height%3D%221%22%20/%3E'));
+		});
+
+	</script>
+</div>
+
+<?php TPL::output('global/debuger.tpl.htm'); ?>
+
+<script type="text/javascript" id="bdshare_js" data="type=tools" ></script>
+<!-- / DO NOT REMOVE -->
+
+</body>
+</html>
