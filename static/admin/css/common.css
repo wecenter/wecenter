@@ -124,7 +124,8 @@ select, input[type="file"]{line-height: 0px;font-size: 13px;}
 .aw-mod-nav-setting .aw-nav-menu .aw-mod-body{padding: 10px;}
 .aw-mod-nav-setting .aw-nav-menu .aw-nav-menu-tag .aw-nav-menu-img{width: 50px;height: 50px;margin:0 0 0 15px;border:1px dashed #999;}
 .aw-mod-nav-setting .aw-nav-menu .aw-nav-menu-tag .btn-small{margin:24px 0 0 10px;padding:3px 10px;}
-.aw-mod-nav-setting .aw-nav-menu .aw-nav-menu-tag input{width: 190px;}
+.aw-mod-nav-setting .aw-nav-menu .aw-nav-menu-tag input{width: 390px;}
+.aw-mod-nav-setting .aw-nav-menu .aw-nav-menu-descrip input{width: 500px;}
 .aw-mod-nav-setting .aw-nav-menu label, .aw-mod-nav-setting .aw-nav-menu input{font-size: 13px;}
 .aw-mod-nav-setting .aw-nav-menu input{margin-top:3px;}
 .aw-mod-nav-setting .aw-nav-menu .normal-width{width: 300px !important;}

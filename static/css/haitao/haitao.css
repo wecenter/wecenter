@@ -37,7 +37,9 @@
 .ht-product-list ul li .aw-mod-footer span.pull-right{margin-right: 0px;}
 
 /*底部*/
-.aw-footer{height:30px;line-height:30px;padding: 0;}
+.aw-footer-wrap{background: #e6e8e9;}
+.aw-footer{height:60px;line-height:60px;padding: 0;}
+.aw-copyright{text-align: left;}
 
 /*icon*/
 .ht-icon{display: inline-block;}
