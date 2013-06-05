@@ -42,6 +42,7 @@ select, input[type="file"]{line-height: 0px;font-size: 13px;}
 .left-side .side-nav a:hover{text-decoration: underline;}
 .left-side .side-nav > ul > li > ul{border-right: 1px solid #EAEDF1;}
 .left-side .side-nav > ul > li > ul a{display: block;height:40px;line-height:40px;padding-left:45px;color: #8792a0;border-bottom: 1px solid #eaedf1;}
+.left-side .side-nav > ul > li > ul a.active{background:#F5F8FA;color: #246594;}
 .left-side .side-nav .aw-icon{margin-right: 10px;}
 
 /*右侧内容*/

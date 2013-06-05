@@ -1,0 +1,30 @@
+/*全局*/
+.aw-wecenter{width: 980px;}
+
+/*nav*/
+.aw-top-menu-wrap{background: #5f6871;}
+.aw-top-menu{padding: 0px;}
+.aw-logo{width:99px;height:60px;margin:0 0 0 20px;}
+.aw-logo h1{height: 60px;margin:0;}
+.aw-top-nav{margin: 0;}
+.aw-top-nav ul li{float: left;}
+.aw-top-nav ul li a{display:block;width: 90px;height: 57px;line-height: 57px;color: #fff;text-align: center;}
+.aw-top-nav ul li a:hover{background:#586169;border-bottom:3px solid #fa7759;}
+.aw-top-nav ul li a.active{background:#586169;border-bottom:3px solid #fa7759;}
+.aw-search-box{width: 178px;margin:5px 0 0 0;}
+.aw-search-box .input-append{width: 176px;background: #fff;border:1px solid #e6e6e6;border-radius: 3px;}
+.aw-search-box .ht-icon.search{margin:6px 0 0 6px;}
+.aw-search-box #aw-search-query{width: 140px;border: none;box-shadow: none;}
+.aw-publish-btn{display:inline-block;width: 110px;height: 34px;margin-right:20px;background:url('img/share.png') no-repeat;font-size: 0px;}
+.aw-user-nav{height: 40px;line-height: 40px;padding: 10px 0;color: #fff;}
+
+.aw-user-nav-login{width: 180px;height: 40px;line-height: 40px;padding:10px 20px;background: #4c5158;}
+.aw-user-nav-login .aw-user-nav-dropdown img{width: 32px;height: 32px;} 
+.aw-user-nav-dropdown-list{display: none;}
+
+.aw-container-wrap{background: #f2f2f2;}
+.aw-container{border:none;background: #f2f2f2;}
+
+/*icon*/
+.ht-icon{display: inline-block;}
+.ht-icon.search{width: 17px;height: 17px;background: url('img/search.png') no-repeat;}
