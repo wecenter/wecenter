@@ -29,7 +29,7 @@
 			</dl>
 			<dl>
 				<dt><h3><?php _e('网站首页'); ?>: </h3></dt>
-				<dd><input name="base_url" class="text-input small-input" type="text" value="<?php echo $this->setting['base_url']; ?>"/>
+				<dd><input name="base_url" type="text" value="<?php echo $this->setting['base_url']; ?>"/>
 				<p class="aw-text-color-999"><?php _e('末尾不带 /'); ?></p>
 				</dd>
 			</dl>
@@ -42,9 +42,10 @@
 				<dd><input name="upload_dir" type="text" value="<?php echo $this->setting['upload_dir']; ?>"/>
 				<p class="aw-text-color-999"><?php _e('目前网站根目录绝对路径'); ?>: <?php echo ROOT_PATH; ?></p>
 				</dd>
+			</dl>
 			<dl>
 				<dt><h3><?php _e('static 目录资源 URL 地址'); ?>: </h3></dt>
-				<dd><input name="img_url" class="text-input small-input" type="text" value="<?php echo $this->setting['img_url']; ?>"/>
+				<dd><input name="img_url" type="text" value="<?php echo $this->setting['img_url']; ?>"/>
 				<p class="aw-text-color-999"><?php _e('末尾不带 /, 留空使用根目录下的 static 资源'); ?></p>
 				</dd>
 			</dl>
@@ -126,7 +127,7 @@
 					<label><input type="radio" name="register_email_reqire" value="Y" <?php if ($this->setting['register_email_reqire'] == 'Y') { ?> checked="checked"<?php } ?> /><?php _e('是'); ?></label>
 				</span>
 				<span class="yesno_no">
-					<label><input type="radio" name="register_email_reqire" value="N" <?php if ($this->setting['register_email_reqire'] == 'N') { ?> checked="checked"<?php } ?>/><?php _e('否'); ?></label>
+					<label><input type="radio" name="register_email_reqire" value="N" <?php if ($this->setting['register_email_reqire'] == 'N') { ?> checked="checked"<?php } ?> /><?php _e('否'); ?></label>
 				</span>
 				</dd>
 			</dl>
@@ -135,11 +136,11 @@
 				
 				<dd>
 				<span class="yesno_yes">
-					<label><input type="radio" name="invite_reg_only" value="Y" <?php if ($this->setting['invite_reg_only'] == 'Y') { ?> checked="checked"<?php } ?>/><?php _e('是'); ?></label>
+					<label><input type="radio" name="invite_reg_only" value="Y" <?php if ($this->setting['invite_reg_only'] == 'Y') { ?> checked="checked"<?php } ?> /><?php _e('是'); ?></label>
 				</span>
 				
 				<span class="yesno_no">
-					<label><input type="radio" name="invite_reg_only" value="N" <?php if ($this->setting['invite_reg_only'] == 'N') { ?> checked="checked"<?php } ?>/><?php _e('否'); ?></label>
+					<label><input type="radio" name="invite_reg_only" value="N" <?php if ($this->setting['invite_reg_only'] == 'N') { ?> checked="checked"<?php } ?> /><?php _e('否'); ?></label>
 				</span>
 				</dd>
 			</dl>
@@ -233,16 +234,16 @@
 		<div class="aw-mod-body">
 			<dl>
 				<dt><h3><?php _e('网站公告'); ?>: </h3></dt>
-				<dd><textarea name="site_announce"><?php echo $this->setting['site_announce']; ?></textarea></dd>
+				<dd><textarea name="site_announce"><?php echo htmlspecialchars($this->setting['site_announce']); ?></textarea></dd>
 			</dl>
 			<dl>
 				<dt><h3><?php _e('开启 Rewrite 伪静态'); ?>: </h3></dt>
 				<dd>
 				<span class="yesno_yes">
-					<label><input type="radio" name="url_rewrite_enable" value="Y" <?php if ($this->setting['url_rewrite_enable'] == 'Y') { ?> checked="checked"<?php } ?>/><?php _e('是'); ?></label>
+					<label><input type="radio" name="url_rewrite_enable" value="Y" <?php if ($this->setting['url_rewrite_enable'] == 'Y') { ?> checked="checked"<?php } ?> /><?php _e('是'); ?></label>
 				</span>
 				<span class="yesno_no">
-					<label><input type="radio" name="url_rewrite_enable" value="N" <?php if ($this->setting['url_rewrite_enable'] == 'N') { ?> checked="checked"<?php } ?>/><?php _e('否'); ?></label>
+					<label><input type="radio" name="url_rewrite_enable" value="N" <?php if ($this->setting['url_rewrite_enable'] == 'N') { ?> checked="checked"<?php } ?> /><?php _e('否'); ?></label>
 				</span> &nbsp; 
 				<span class="aw-text-color-999">(<?php _e('Rewrite 开启方法请见 ReadMe 说明文件'); ?>)</span>
 				</dd>
@@ -294,11 +295,11 @@
 				<dt><h3><?php _e('开启 Ucenter 用户对接'); ?>:</h3></dt>
 				<dd>
 				<span class="yesno_yes">
-					<label><input type="radio" name="ucenter_enabled" value="Y" <?php if ($this->setting['ucenter_enabled'] == 'Y') { ?> checked="checked"<?php } ?>/><?php _e('是'); ?></label>
+					<label><input type="radio" name="ucenter_enabled" value="Y" <?php if ($this->setting['ucenter_enabled'] == 'Y') { ?> checked="checked"<?php } ?> /><?php _e('是'); ?></label>
 				</span>
 				
 				<span class="yesno_no">
-					<label><input type="radio" name="ucenter_enabled" value="N" <?php if ($this->setting['ucenter_enabled'] == 'N') { ?> checked="checked"<?php } ?>/><?php _e('否'); ?></label>
+					<label><input type="radio" name="ucenter_enabled" value="N" <?php if ($this->setting['ucenter_enabled'] == 'N') { ?> checked="checked"<?php } ?> /><?php _e('否'); ?></label>
 				</span>
 				</dd>
 			</dl>
@@ -332,18 +333,18 @@
 			</dl>
 			<dl>
 				<dt><h3><?php _e('系统时间显示格式'); ?>:</h3></dt>
-				<dd><label><input type="radio" name="time_style" value="Y"<?php if ($this->setting['time_style'] == 'Y') { ?> checked="checked"<?php } ?>/> <?php _e('xx 分钟前形式'); ?></label>
-				<label><input type="radio" name="time_style" value="N"<?php if ($this->setting['time_style'] == 'N') { ?> checked="checked"<?php } ?>/> <?php _e('完整日期形式'); ?></label></dd>
+				<dd><label><input type="radio" name="time_style" value="Y"<?php if ($this->setting['time_style'] == 'Y') { ?> checked="checked"<?php } ?> /> <?php _e('xx 分钟前形式'); ?></label>
+				<label><input type="radio" name="time_style" value="N"<?php if ($this->setting['time_style'] == 'N') { ?> checked="checked"<?php } ?> /> <?php _e('完整日期形式'); ?></label></dd>
 			</dl>
 			<dl>
 				<dt><h3><?php _e('管理员后台登录是否需要验证码'); ?>:</h3></dt>
 				<dd>
 				<span class="yesno_yes">
-					<label><input type="radio" name="admin_login_seccode" value="Y" <?php if ($this->setting['admin_login_seccode'] == 'Y') { ?> checked="checked"<?php } ?>/><?php _e('是'); ?></label>
+					<label><input type="radio" name="admin_login_seccode" value="Y" <?php if ($this->setting['admin_login_seccode'] == 'Y') { ?> checked="checked"<?php } ?> /><?php _e('是'); ?></label>
 				</span>
 				
 				<span class="yesno_no">
-					<label><input type="radio" name="admin_login_seccode" value="N" <?php if ($this->setting['admin_login_seccode'] == 'N') { ?> checked="checked"<?php } ?>/><?php _e('否'); ?></label>
+					<label><input type="radio" name="admin_login_seccode" value="N" <?php if ($this->setting['admin_login_seccode'] == 'N') { ?> checked="checked"<?php } ?> /><?php _e('否'); ?></label>
 				</span>
 				</dd>
 			</dl>
@@ -357,8 +358,16 @@
 				<dt><h3><?php _e('发起问题模式'); ?>:</h3></dt>
 				
 				<dd>
-					<label><input type="radio" name="quick_publish" value="Y" <?php if ($this->setting['quick_publish'] == 'Y') { ?> checked="checked"<?php } ?>/><?php _e('快捷模式'); ?></label>
-					<label><input type="radio" name="quick_publish" value="N" <?php if ($this->setting['quick_publish'] == 'N') { ?> checked="checked"<?php } ?>/><?php _e('高级模式'); ?></label>
+					<label><input type="radio" name="quick_publish" value="Y" <?php if ($this->setting['quick_publish'] == 'Y') { ?> checked="checked"<?php } ?> /><?php _e('快捷模式'); ?></label>
+					<label><input type="radio" name="quick_publish" value="N" <?php if ($this->setting['quick_publish'] == 'N') { ?> checked="checked"<?php } ?> /><?php _e('高级模式'); ?></label>
+				</dd>
+			</dl>
+			<dl>
+				<dt><h3><?php _e('编辑器设置'); ?>:</h3></dt>
+				
+				<dd>
+					<label><input type="radio" name="advanced_editor_enable" value="Y"<?php if ($this->setting['advanced_editor_enable'] == 'Y') { ?> checked="checked"<?php } ?> /> <?php _e('Markdown 编辑器'); ?></label>
+					<label><input type="radio" name="advanced_editor_enable" value="N"<?php if ($this->setting['advanced_editor_enable'] == 'N') { ?> checked="checked"<?php } ?> /> <?php _e('纯文本编辑器'); ?></label>
 				</dd>
 			</dl>
 			<dl>
@@ -366,10 +375,10 @@
 				
 				<dd>
 					<span class="yesno_yes">
-						<label><input type="radio" name="upload_enable" value="Y" <?php if ($this->setting['upload_enable'] == 'Y') { ?> checked="checked"<?php } ?>/><?php _e('是'); ?></label>
+						<label><input type="radio" name="upload_enable" value="Y" <?php if ($this->setting['upload_enable'] == 'Y') { ?> checked="checked"<?php } ?> /><?php _e('是'); ?></label>
 					</span>
 					<span class="yesno_no">
-						<label><input type="radio" name="upload_enable" value="N" <?php if ($this->setting['upload_enable'] == 'N') { ?> checked="checked"<?php } ?>/><?php _e('否'); ?></label>
+						<label><input type="radio" name="upload_enable" value="N" <?php if ($this->setting['upload_enable'] == 'N') { ?> checked="checked"<?php } ?> /><?php _e('否'); ?></label>
 					</span>
 				</dd>
 			</dl>
@@ -398,7 +407,7 @@
 				<dd><input name="comment_limit" type="text" value="<?php echo $this->setting['comment_limit']; ?>"/></dd>
 			</dl>
 			<dl>
-				<dt><h3><?php _e('话题标题最大字符数限制'); ?> >(<?php _e('填写 0 则不限制'); ?>): </h3></dt>
+				<dt><h3><?php _e('话题标题最大字符数限制'); ?> (<?php _e('填写 0 则不限制'); ?>): </h3></dt>
 				<dd><input name="topic_title_limit" type="text" value="<?php echo $this->setting['topic_title_limit']; ?>"/></dd>
 			</dl>
 			<dl>
@@ -447,11 +456,11 @@
 				
 				<dd>
 					<span class="yesno_yes">
-						<label><input type="radio" name="integral_system_enabled" value="Y" <?php if ($this->setting['integral_system_enabled'] == 'Y') { ?> checked="checked"<?php } ?>/><?php _e('是'); ?></label>
+						<label><input type="radio" name="integral_system_enabled" value="Y" <?php if ($this->setting['integral_system_enabled'] == 'Y') { ?> checked="checked"<?php } ?> /><?php _e('是'); ?></label>
 					</span>
 					
 					<span class="yesno_no">
-						<label><input type="radio" name="integral_system_enabled" value="N" <?php if ($this->setting['integral_system_enabled'] == 'N') { ?> checked="checked"<?php } ?>/><?php _e('否'); ?></label>
+						<label><input type="radio" name="integral_system_enabled" value="N" <?php if ($this->setting['integral_system_enabled'] == 'N') { ?> checked="checked"<?php } ?> /><?php _e('否'); ?></label>
 					</span>
 				</dd>
 			</dl>
@@ -511,6 +520,200 @@
 				<p class="aw-text-color-999"><?php _e('控制显示的威望值大小，底数越小威望值越大，底数越大威望值越小，系统默认数值是 3'); ?><br /><?php _e('威望公式：log((((用户组威望系数 x 赞同数 - 用户组威望系数 x 反对数) + 发起者赞同反对威望系数 + 最佳回复威望系数) + 0.5), 对数底值)'); ?></p>
 				</dd>
 			</p>
+		</div>
+		<a name="permissions"></a>
+		<div class="aw-mod-head">
+			<h2><a href="javascript:;" onclick="ajax_post($('#settings_form'));" class="label label-inverse pull-right"><?php _e('快速保存'); ?></a><?php _e('用户权限'); ?></h2>
+		</div>
+		<div class="aw-mod-body">
+			<dl>
+				<dt><h3><?php _e('用户对每个问题的回复限制'); ?>:</h3></dt>
+				<dd>
+					<label><input type="radio" name="answer_unique" value="Y" <?php if ($this->setting['answer_unique'] == 'Y') { ?> checked="checked"<?php } ?> /><?php _e('只允许回复一次'); ?></label>
+					<label><input type="radio" name="answer_unique" value="N" <?php if ($this->setting['answer_unique'] == 'N') { ?> checked="checked"<?php } ?> /><?php _e('不限制'); ?></label>
+			</dl>
+			<dl>
+				<dt><h3><?php _e('允许用户回复自己发起的问题'); ?>:</h3></dt>
+				
+				<dd>
+					<span class="yesno_yes">
+						<label><input type="radio" name="answer_self_question" value="Y"<?php if ($this->setting['answer_self_question'] == 'Y') { ?> checked="checked"<?php } ?> /><?php _e('是'); ?></label>
+					</span>
+					<span class="yesno_no">
+						<label><input type="radio" name="answer_self_question" value="N"<?php if ($this->setting['answer_self_question'] == 'N') { ?> checked="checked"<?php } ?> /><?php _e('否'); ?></label>
+					</span>
+				</dd>
+			</dl>
+			<dl>
+				<dt><h3><?php _e('允许匿名发起或回复'); ?>:</h3></dt>
+				
+				<dd>
+					<span class="yesno_yes">
+						<label><input type="radio" name="anonymous_enable" value="Y"<?php if ($this->setting['anonymous_enable'] == 'Y') { ?> checked="checked"<?php } ?> /><?php _e('是'); ?></label>
+					</span>
+
+					<span class="yesno_no">
+						<label><input type="radio" name="anonymous_enable" value="N"<?php if ($this->setting['anonymous_enable'] == 'N') { ?> checked="checked"<?php } ?> /><?php _e('否'); ?></label>
+					</span>
+				</dd>
+			</dl>
+		</div>
+		<a name="email"></a>
+		<div class="aw-mod-head">
+			<h2><a href="javascript:;" onclick="ajax_post($('#settings_form'));" class="label label-inverse pull-right"><?php _e('快速保存'); ?></a><?php _e('邮件设置'); ?></h2>
+		</div>
+		<div class="aw-mod-body">
+			<dl>
+				<dt><h3><?php _e('系统邮件发送方式'); ?>: </h3></dt>
+				<dd>
+					<select class="small-input" name="mail_config[transport]" style="width:500px;">
+						<option value="sendmail"<?php if ($this->setting['mail_config']['transport'] == 'sendmail') { ?> selected="selected"<?php } ?>><?php _e('通过 PHP 的 Sendmail 发送'); ?></option>
+						<option value="smtp"<?php if ($this->setting['mail_config']['transport'] == 'smtp') { ?> selected="selected"<?php } ?>><?php _e('通过 SOCKET 连接 SMTP 服务器发送'); ?></option>
+					</select>
+					
+					<p class="aw-text-color-999"><?php _e('若选择 SendMail 方式, 下面的 SMTP 选项无效'); ?>, <?php _e('商业服务推荐:'); ?> <a href="http://sendcloud.sohu.com/?r=anwsion" target="_blank">SendCloud</a>, <a href="http://mailgun.com/?r=anwsion" target="_blank">Mailgun</a>, <a href="http://www.wecenter.com/services/ses/" target="_blank">Amazion SES</a></p>
+				</dd>
+			</dl>
+			<dl>
+				<dt><h3><?php _e('邮件编码'); ?>: </h3></dt>
+				<dd><input name="mail_config[charset]" type="text" value="<?php echo $this->setting['mail_config']['charset']; ?>" />
+				
+				<p class="aw-text-color-999"><?php _e('非 UTF-8 编码会被自动转码'); ?></p>
+				</dd>
+			</dl>
+			<dl>
+				<dt><h3><?php _e('SMTP 服务器'); ?>: </h3></dt>
+				<dd><input name="mail_config[server]" type="text" value="<?php echo $this->setting['mail_config']['server']; ?>" /></dd>
+			</dl>
+			<dl>
+				<dt><h3><?php _e('使用安全链接(SSL)连接服务器'); ?>: </h3></dt>
+				
+				<dd>
+					<span class="yesno_yes">
+						<label><input type="radio" name="mail_config[ssl]" value="1"<?php if ($this->setting['mail_config']['ssl'] == 1) { ?> checked="checked"<?php } ?> /><?php _e('是'); ?></label>
+					</span>
+					<span class="yesno_no">
+						<label><input type="radio" name="mail_config[ssl]" value="0"<?php if ($this->setting['mail_config']['ssl'] == 0) { ?> checked="checked"<?php } ?> /><?php _e('否'); ?></label>
+					</span>
+				</dd>
+			</dl>
+			<dl>
+				<dt><h3><?php _e('SMTP 端口'); ?>: </h3></dt>
+				
+				<dd><input name="mail_config[port]" type="text" value="<?php echo $this->setting['mail_config']['port']; ?>" />
+				<p class="aw-text-color-999"><?php _e('留空时默认服务器端口为 25，使用 SSL 协议默认端口为 465，详细参数请询问邮箱服务商'); ?></p>
+				</dd>
+			</dl>
+			<dl>
+				<dt><h3><?php _e('SMTP 帐户'); ?>:</h3></dt>
+				<dd><input name="mail_config[username]" type="text" value="<?php echo $this->setting['mail_config']['username']; ?>"/></dd>
+			</dl>
+			<dl>
+				<dt><h3><?php _e('SMTP 密码'); ?></h3></dt>
+				<dd><input name="mail_config[password]" type="password" value="<?php echo $this->setting['mail_config']['password']; ?>"/></dd>
+			</dl>
+			<dl>
+				<dt><h3><?php _e('系统邮件来源邮箱地址'); ?></h3></dt>
+				<dd><input name="from_email" type="text" value="<?php echo $this->setting['from_email']; ?>"/></dd>
+			</dl>
+		</div>
+		<a name="openid"></a>
+		<div class="aw-mod-head">
+			<h2><a href="javascript:;" onclick="ajax_post($('#settings_form'));" class="label label-inverse pull-right"><?php _e('快速保存'); ?></a><?php _e('开放平台'); ?></h2>
+		</div>
+		<div class="aw-mod-body">
+			<dl>
+				<dt><h3><?php _e('开启 QQ 登录功能'); ?>:</h3></dt>
+				
+				<dd>
+					<span class="yesno_yes">
+						<label><input type="radio" name="qq_login_enabled" value="Y" <?php if ($this->setting['qq_login_enabled'] == 'Y') { ?> checked="checked"<?php } ?>/><?php _e('是'); ?></label>
+					</span>
+				
+					<span class="yesno_no">
+						<label><input type="radio" name="qq_login_enabled" value="N" <?php if ($this->setting['qq_login_enabled'] == 'N') { ?> checked="checked"<?php } ?>/><?php _e('否'); ?></label>
+					</span>
+				</dd>
+			</dl>
+
+			<dl>
+				<dt><h3><?php _e('QQ 登录 AppID'); ?>:</h3></dt>
+				<dd><input name="qq_login_app_id" type="text" value="<?php echo $this->setting['qq_login_app_id']; ?>"/>
+				<p class="aw-text-color-999"><?php _e('AppID 与 APPKey 需要到 <a href="http://connect.qq.com/" target="_blank">QQ 互联开放平台</a> 申请 (注意: 请申请网站不要申请应用)'); ?></p>
+				</dd>
+			</dl>
+			
+			<dl>
+				<dt><h3><?php _e('QQ 登录 AppKey'); ?>:</h3></dt>
+				<dd><input name="qq_login_app_key" type="text" value="<?php echo $this->setting['qq_login_app_key']; ?>"/></dd>
+			</dl>
+			
+			<dl>
+				<dt><h3><?php _e('开启新浪微博登录功能'); ?>:</h3></dt>
+				
+				<dd>
+					<span class="yesno_yes">
+						<label><input type="radio" name="sina_weibo_enabled" value="Y" <?php if ($this->setting['sina_weibo_enabled'] == 'Y') { ?> checked="checked"<?php } ?>/><?php _e('是'); ?></label>
+					</span>
+				
+					<span class="yesno_no">
+						<label><input type="radio" name="sina_weibo_enabled" value="N" <?php if ($this->setting['sina_weibo_enabled'] == 'N') { ?> checked="checked"<?php } ?>/><?php _e('否'); ?></label>
+					</span>
+				</dd>
+			</dl>
+			
+			<dl>
+				<dt><h3><?php _e('新浪微博 AppKey(akey)'); ?>:</h3></dt>
+				
+				<dd><input name="sina_akey" type="text" value="<?php echo $this->setting['sina_akey']; ?>"/>
+				<p class="aw-text-color-999"><?php _e('AppKey 需要到 <a href="http://open.weibo.com/" target="_blank">新浪微博开放平台</a> 申请 (注意: 请申请网站不要申请应用)'); ?></p>
+				</dd>
+			</dl>
+			
+			<dl>
+				<dt><h3><?php _e('新浪微博 AppKey(skey)'); ?>:</h3></dt>
+				<dd><input name="sina_skey" type="text" value="<?php echo $this->setting['sina_skey']; ?>"/></dd>
+			</dl>
+			
+			<dl>
+				<dt><h3><?php _e('开启腾讯微博登录功能'); ?>:</h3></dt>
+				
+				<dd>
+					<span class="yesno_yes">
+						<label><input type="radio" name="qq_t_enabled" value="Y" <?php if ($this->setting['qq_t_enabled'] == 'Y') { ?> checked="checked"<?php } ?>/><?php _e('是'); ?></label>
+					</span>
+					
+					<span class="yesno_no">
+						<label><input type="radio" name="qq_t_enabled" value="N" <?php if ($this->setting['qq_t_enabled'] == 'N') { ?> checked="checked"<?php } ?>/><?php _e('否'); ?></label>
+					</span>
+				</dd>
+			</dl>
+			
+			<dl>
+				<dt><h3><?php _e('腾讯微博 AppKey(app_key)'); ?>:</h3></dt>
+				
+				<dd><input name="qq_app_key" type="text" value="<?php echo $this->setting['qq_app_key']; ?>"/>
+				<p class="aw-text-color-999"><?php _e('AppKey 需要到 <a href="http://open.t.qq.com/" target="_blank">腾讯微博开放平台</a> 申请 (注意: 请申请网站不要申请应用)'); ?></p>
+				</dd>
+			</dl>
+			
+			<dl>
+				<dt><h3><?php _e('腾讯微博 AppKey(app_secret)'); ?>:</h3></dt>
+				<dd><input name="qq_app_secret" type="text" value="<?php echo $this->setting['qq_app_secret']; ?>"/></dd>
+			</dl>
+			
+			<dl>
+				<dt><h3><?php _e('微信公众平台接口 Token'); ?>: </h3></dt>
+				
+				<dd><input name="weixin_mp_token" type="text" value="<?php echo $this->setting['weixin_mp_token']; ?>"/>
+				<p class="aw-text-color-999"><?php _e('请与微信公众平台后台设置一致'); ?></p>
+				</dd>
+			</dl>
+			
+			<dl>
+				<dt><h3><?php _e('微信公众平台欢迎信息'); ?>:</h3></dt>
+				<dd><input name="weixin_subscribe_message" type="text" value="<?php echo htmlspecialchars($this->setting['weixin_subscribe_message']); ?>"/></dd>
+			</dl>
 		</div>
 		<div class="aw-mod-footer">
 			<a href="javascript:;" class="btn btn-inverse btn-normal" onclick="ajax_post($('#settings_form'));"><?php _e('保存'); ?></a>

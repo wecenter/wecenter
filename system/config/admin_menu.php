@@ -1,6 +1,6 @@
 <?php
 
-$config[1] = array(
+$config[] = array(
 	'id' => 1,
 	'title' => '全局',
 	'cname' => 'system',
@@ -60,7 +60,7 @@ $config[1] = array(
 	)
 );
 
-$config[2] = array(
+$config[] = array(
 	'id' => 2,
 	'title' => '界面',
 	'cname' => 'interface',
@@ -74,16 +74,11 @@ $config[2] = array(
 			'id' => 202,
 			'title' => '导航设置',
 			'url' => 'admin/nav_menu/',
-		),
-		array(
-			'id' => 203,
-			'title' => '编辑器',
-			'url' => 'admin/settings/#!editor',
 		)
 	)
 );
 
-$config[3] = array(
+$config[] = array(
 	'id' => 3,
 	'title' => '内容',
 	'cname' => 'contents',
@@ -127,7 +122,7 @@ $config[3] = array(
 	)
 );
 
-$config[4] = array(
+$config[] = array(
 	'id' => 4,
 	'title' => '用户',
 	'cname' => 'users',
@@ -171,7 +166,7 @@ $config[4] = array(
 );
 
 
-$config[6] = array(
+$config[] = array(
 	'id' => 6,
 	'title' => '运营',
 	'cname' => 'maintain',
@@ -189,7 +184,7 @@ $config[6] = array(
 	)
 );
 
-$config[7] = array(
+$config[] = array(
 	'id' => 7,
 	'title' => '邮件群发',
 	'cname' => 'edm',
@@ -207,7 +202,7 @@ $config[7] = array(
 	)
 );
 
-$config[5] = array(
+$config[] = array(
 	'id' => 5,
 	'title' => '工具',
 	'cname' => 'tools',
@@ -219,4 +214,3 @@ $config[5] = array(
 		),
 	)
 );
-
