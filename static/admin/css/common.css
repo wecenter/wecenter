@@ -49,12 +49,12 @@ select, input[type="file"]{line-height: 0px;font-size: 13px;}
 .right-side{width: 79.8%;min-height:780px;margin-left:245px;padding: 15px 0;}
 .right-side .aw-box{border:1px solid #D7E6F0;}
 .right-side .aw-box .date_picker{padding-left:30px;background: url('../img/calendar.png') no-repeat 5px 6px #fff;}
-.right-side .aw-box .aw-mod-head h2{height:auto;overflow:hidden;padding:0 10px;margin:0;background: #D6E4F1;color: #246594;font-weight: normal;font-weight: bold; }
-.right-side .aw-box .aw-mod-head h2 .nav-tabs{margin:8px 0 0 30px;border-bottom: none;}
-.right-side .aw-box .aw-mod-head h2 .nav-tabs > li > a{line-height: 14px;padding: 8px 12px;border-radius: 0px;color: #666;font-weight: normal;}
-.right-side .aw-box .aw-mod-head h2 .nav > li > a:hover, .nav > li > a:focus{color:#;background: none;border:1px solid #F2F8FF;}
-.right-side .aw-box .aw-mod-head h2 .nav-tabs > li.active > a:hover{color:#;background: #fff;border:1px solid #DDD;border-bottom: 1px solid #fff;}
-.right-side .aw-box .aw-mod-head h2 a.label{margin-top:12px;font-weight: normal;}
+.right-side .aw-mod-head h2{height:auto;overflow:hidden;padding:0 10px;margin:0;background: #D6E4F1;color: #246594;font-weight: normal;font-weight: bold; }
+.right-side .aw-mod-head h2 .nav-tabs{margin:8px 0 0 30px;border-bottom: none;}
+.right-side .aw-mod-head h2 .nav-tabs > li > a{line-height: 14px;padding: 8px 12px;border-radius: 0px;color: #666;font-weight: normal;}
+.right-side .aw-mod-head h2 .nav > li > a:hover, .nav > li > a:focus{color:#;background: none;border:1px solid #F2F8FF;}
+.right-side .aw-mod-head h2 .nav-tabs > li.active > a:hover{color:#;background: #fff;border:1px solid #DDD;border-bottom: 1px solid #fff;}
+.right-side .aw-mod-head h2 a.label{margin-top:12px;font-weight: normal;}
 .right-side .aw-box input, .right-side .aw-box h3, .right-side .aw-box textarea{margin: 0;}
 .right-side .aw-box input[type="text"]{width: 350px;}
 .right-side .aw-box input[type="radio"]{margin:0 10px;}
@@ -108,7 +108,7 @@ select, input[type="file"]{line-height: 0px;font-size: 13px;}
 .topic .btn{margin-top:5px;}
 
 /*导航菜单设置*/
-.nav-menu{width: 63%;}
+.nav-menu{width: 60%;}
 .nav-menu form{width: 100%;}
 .aw-mod-nav-setting{width:94%;padding:15px;border:1px solid #D7E6F0;}
 .aw-mod-nav-setting .aw-mod-head h3{height:30px;line-height:14px;margin:0 0 10px;font-size: 17px;font-weight: normal;}
