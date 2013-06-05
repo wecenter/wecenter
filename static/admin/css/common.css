@@ -25,7 +25,9 @@ select, input[type="file"]{line-height: 0px;font-size: 13px;}
 
 /*顶部*/
 .aw-manage-menu{padding:7px 0 7px 30px;background: #323a45;font-size: 13px;color: #fff;}
-.aw-manage-menu h1{display:inline-block;margin-right: 30px;}
+.aw-manage-menu .span12{height: 63px;line-height: 63px;}
+.aw-manage-menu h1{display:inline-block;float:left;margin-right: 30px;}
+.aw-manage-menu span{display: inline-block;}
 .aw-manage-menu a{color: #fff;}
 .aw-manage-menu a:hover{text-decoration: underline;}
 
@@ -45,6 +47,7 @@ select, input[type="file"]{line-height: 0px;font-size: 13px;}
 /*右侧内容*/
 .right-side{width: 79.8%;min-height:780px;margin-left:245px;padding: 15px 0;}
 .right-side .aw-box{border:1px solid #D7E6F0;}
+.right-side .aw-box .date_picker{padding-left:30px;background: url('../img/calendar.png') no-repeat 5px 6px #fff;}
 .right-side .aw-box .aw-mod-head h2{height:auto;overflow:hidden;padding:0 10px;margin:0;background: #D6E4F1;color: #246594;font-weight: normal;font-weight: bold; }
 .right-side .aw-box .aw-mod-head h2 .nav-tabs{margin:8px 0 0 30px;border-bottom: none;}
 .right-side .aw-box .aw-mod-head h2 .nav-tabs > li > a{line-height: 14px;padding: 8px 12px;border-radius: 0px;color: #666;font-weight: normal;}
