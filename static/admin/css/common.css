@@ -157,6 +157,8 @@ select, input[type="file"]{line-height: 0px;font-size: 13px;}
 .lock{width: 16px;height: 16px;background: url('../img/lock_open.png') no-repeat;}
 .i-warmming{width: 30px;height: 28px;background: url('../img/warmming.png') no-repeat;}
 .aw-tips-box .aw-mod-body{background: url('../img/warmming.png') no-repeat;}
+.triangle_up{width: 15px;height: 10px;background: url('../img/triangle_up.png') no-repeat;}
+.triangle_down{width: 15px;height: 10px;background: url('../img/triangle_down.png') no-repeat;
 
 /*日期选择控件*/
 .date_selector, .date_selector * {width: auto;height: auto;border: none;background: none;margin: 0;padding: 0;text-align: left;text-decoration: none;cursor: pointer;}
