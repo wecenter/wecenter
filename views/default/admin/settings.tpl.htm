@@ -371,6 +371,18 @@
 				</dd>
 			</dl>
 			<dl>
+				<dt><h3><?php _e('启用分类功能'); ?>:</h3></dt>
+				
+				<dd>
+					<span class="yesno_yes">
+						<label><input type="radio" name="category_enable" value="Y"<?php if ($this->setting['category_enable'] == 'Y') { ?> checked="checked"<?php } ?> /><?php _e('是'); ?></label>
+					</span>
+					<span class="yesno_no">
+						<label><input type="radio" name="category_enable" value="N"<?php if ($this->setting['category_enable'] == 'N') { ?> checked="checked"<?php } ?> /><?php _e('否'); ?></label>
+					</span>
+				</dd>
+			</dl>
+			<dl>
 				<dt><h3><?php _e('允许上传附件'); ?>:</h3></dt>
 				
 				<dd>
@@ -795,7 +807,7 @@
 				<dd><input type="text" name="today_topics" value="<?php echo $this->setting['today_topics']; ?>" />
 				<p class="aw-text-color-999"><?php _e('填写话题名称, 系统每天随机选出一个作为今日话题, 留空则不显示今日话题, 可填写一个或多个话题, 多个话题请用 , 分隔'); ?></p>
 				</dd>
-			</p>
+			</dl>
 		</div>
 		<div class="aw-mod-footer">
 			<a href="javascript:;" class="btn btn-inverse btn-normal" onclick="ajax_post($('#settings_form'));"><?php _e('保存'); ?></a>

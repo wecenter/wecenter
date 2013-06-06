@@ -53,7 +53,7 @@ class main extends AWS_CONTROLLER
 		
 		TPL::import_js('admin/js/amcharts/amcharts.js');
 		
-		TPL::assign('statistic_list', $this->model('statistic')->get_user_register_list_by_day(strtotime('-300 days'), time()));
+		TPL::assign('statistic_list', $this->model('statistic')->get_user_register_list_by_day(strtotime('-12 months'), time()));
 		
 		TPL::output("admin/index");
 	}

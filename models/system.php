@@ -78,7 +78,9 @@ class system_class extends AWS_MODEL
 				'title' => $val['title'],
 				'icon' => $val['icon'],
 				'description' => $val['description'],
-				'parent_id' => $val['parent_id']
+				'parent_id' => $val['parent_id'],
+				'sort' => $val['sort'],
+				'url_token' => $val['url_token']
 			);
 			
 			if ($child_list = $this->fetch_category($type, $val['id']))
@@ -134,9 +136,7 @@ class system_class extends AWS_MODEL
 	/* 获取分类 JSON 数据 */
 	public function build_category_json($type, $parent_id = 0, $prefix = '')
 	{
-		$category_list = $this->fetch_category($type, $parent_id);
-		
-		if (empty($category_list))
+		if (!$category_list = $this->fetch_category($type, $parent_id))
 		{
 			return false;
 		}
@@ -151,7 +151,10 @@ class system_class extends AWS_MODEL
 			$data[] = array(
 				'id' => $category_id,
 				'title' => $_prefix . $val['title'],
-				'description' => $val['description']
+				'description' => $val['description'],
+				'sort' => $val['sort'],
+				'parent_id' => $val['parent_id'],
+				'url_token' => $val['url_token']
 			);
 			
 			if ($val['child'])
