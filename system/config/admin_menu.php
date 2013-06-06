@@ -97,7 +97,7 @@ $config[] = array(
 		
 		array(
 			'id' => 301,
-			'title' => '问题列表',
+			'title' => '问题管理',
 			'url' => 'admin/question/question_list/',
 		),
 		array(
@@ -107,7 +107,7 @@ $config[] = array(
 		),
 		array(
 			'id' => 303,
-			'title' => '话题列表',
+			'title' => '话题管理',
 			'url' => 'admin/topic/list/',
 		),
 		array(

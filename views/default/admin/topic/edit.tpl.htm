@@ -1,62 +1,53 @@
 <?php TPL::output('admin/global/header.tpl.htm'); ?>
+<?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
 
-<!--left-->
-<?php TPL::output('admin/global/left.tpl.htm'); ?>
-<!--left-->
-
-<!-- main -->
-<div id="main-content">
-	<div class="clear"></div>
-	<div class="content-box">
-		<div class="content-box-header">
-			<h3><?php echo $this->crumb['last']['name']; ?></h3>
-			<ul class="content-box-tabs">
-			</ul>
-			<div class="clear"></div>
+<div class="pull-left right-side">	
+	<div class="aw-box">
+		<div class="aw-mod-head">
+			<h2><?php _e('话题编辑'); ?></h2>
 		</div>
-		<div class="content-box-content">
-			<div class="tab-content default-tab" id="tab1">
-				<form id="_save_form" action="admin/topic/save_ajax/topic_id-<?php echo $this->topic['topic_id']; ?>" method="post" enctype="multipart/form-data">
-					<input type="hidden" name="refer" value="<?php echo $this->refer;?>" />
-					<fieldset>
-					<p>
-						<label><?php _e('话题标题'); ?>:</label>
-						<input class="text-input small-input" type="text" name="topic_title" id="topic_title" value="<?php echo $this->topic['topic_title']; ?>" name="small-input" />
-					</p>
-					<p>
-						<label><?php _e('话题描述'); ?>:</label>
-						<textarea name="topic_description" id="topic_description" cols="100" rows="3"><?php echo $this->topic['topic_description']; ?></textarea>
-					</p>
-					<p>
-						<label><?php _e('缩略图'); ?>:</label>
-						<p><img src="<?php echo $this->topic['topic_pic_max']; ?>" id="topic_pic"/></p>
-						<input name="topic_pic" class="upload-input" type="file">
-					</p>
-					<p>
-						<label><?php _e('锁定状态'); ?></label>
-						<input type="radio" name="topic_lock" id="topic_lock" value="1"<?php if ($this->topic['topic_lock'] == 1) { ?> checked="checked"<?php } ?>/>
-						<?php _e('是'); ?> &nbsp;
-						<input type="radio" name="topic_lock" id="topic_lock" value="0"<?php if ($this->topic['topic_lock'] == 0) { ?> checked="checked"<?php } ?>/>
-						<?php _e('否'); ?>
-					</p>
-					<p>
-						<input class="button" type="button" onClick="ajax_post($('#_save_form'), _form_process);" value="<?php _e('保存'); ?>" />
-					</p>
-					</fieldset>
+		<div class="aw-mod-body">	
+			<dl>
+				<dt><h3><?php _e('缩略图'); ?>:</h3></dt>
+				<dd><a href="javascript:;" id="topic_pic_uploader"><img src="<?php echo get_topic_pic_url('mid', $this->topic_info['topic_pic']); ?>" alt="" id="topic_pic" class="img-polaroid" /></a></dd>
+			</dl>
+			<form action="admin/topic/save_ajax/topic_id-<?php echo $this->topic_info['topic_id']; ?>" id="settings_form" method="post">
+	<input type="hidden" name="referer_url" value="<?php echo $_SERVER['HTTP_REFERER']; ?>" />
+			<dl>
+				<dt><h3><?php _e('话题标题'); ?>:</h3></dt>
+				<dd><input type="text" name="topic_title" value="<?php echo $this->topic_info['topic_title']; ?>" /></dd>
+			</dl>
+			<dl>
+				<dt><h3><?php _e('话题描述'); ?>:</h3></dt>
+				<dd><textarea name="topic_description"><?php echo $this->topic_info['topic_description']; ?></textarea></dd>
+			</dl>
+			<dl>
+				<dt><h3><?php _e('锁定状态'); ?></h3></dt>
+				<dd>
+					<span class="yesno_yes">
+						<label><input type="radio" name="topic_lock" value="1"<?php if ($this->topic_info['topic_lock'] == 1) { ?> checked="checked"<?php } ?> /><?php _e('是'); ?></label>
+					</span>
+					
+					<span class="yesno_no">
+						<label><input type="radio" name="topic_lock" value="0"<?php if ($this->topic_info['topic_lock'] == 0) { ?> checked="checked"<?php } ?> /><?php _e('否'); ?></label>
+					</span>
+				</dd>
 				</form>
-			</div>
+			</dl>
 		</div>
-		<div class="clear"></div>
+		<div class="aw-mod-footer">
+			<a href="javascript:;" class="btn btn-inverse btn-normal" onclick="ajax_post($('#settings_form'));"><?php _e('保存'); ?></a>
+		</div>
 	</div>
+</div>
 
-<!-- footer -->
+<script type="text/javascript">
+	$(document).ready(function () {
+		if ($('#topic_pic_uploader').length)
+		{
+			init_img_uploader(G_BASE_URL + '/topic/ajax/upload_topic_pic/topic_id-<?php echo $this->topic_info['topic_id']; ?>', 'topic_pic', $('#topic_pic_uploader'), null, $('#topic_pic'));
+		}
+	});
+</script>
+
 <?php TPL::output('admin/global/footer.tpl.htm'); ?>
-<!-- footer -->
-
-</div>
-<!-- main -->
-
-</div>
-
-</body>
-</html>
