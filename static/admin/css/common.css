@@ -88,7 +88,7 @@ select, input[type="file"]{line-height: 0px;font-size: 13px;}
 .aw-table tbody a{color: #666;}
 .aw-table tfoot td{background: #fff;padding: 10px;}
 .aw-table tfoot .pagination{height: 30px;margin:0;}
-.aw-table .aw-icon{margin:0 3px;}
+.aw-table .aw-icon{margin:0 3px;vertical-align: middle;}
 .aw-table .database-point{position: relative;top:2px;}
 .table-row tr th{width:20%;padding-left:10px;border-right: 1px solid #D7E6F0;text-align: left;}
 .aw-table input, .aw-table select, .aw-table form{margin:0;}
