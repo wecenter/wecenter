@@ -18,7 +18,14 @@
 				<tr>
 					<td><a href="admin/category/edit/category_id-<?php echo $val['id']; ?>"><?php echo $val['title']; ?></a></td>
 					<td align="center"><input type="text" value="<?php echo $val['sort']; ?>" class="input-mini sort-action" name="category[<?php echo $val['id']; ?>][sort]" /></td>
-					<td align="center"><a href="admin/category/edit/category_id-<?php echo $val['id']; ?>" title="<?php _e('编辑'); ?>"><img src="<?php echo G_STATIC_URL;?>/admin/img/page_edit.png" alt="" /></a> &nbsp; <a href="javascript:;" onclick="ajax_request(G_BASE_URL + '/admin/category/category_remove/category_id-<?php echo $val['id'];?>');" title="<?php _e('删除'); ?>"><img src="<?php echo G_STATIC_URL;?>/admin/img/page_delete.png" alt="" /></a> &nbsp; <a href="admin/category/question_move/category_id-<?php echo $val['id']; ?>" title="<?php _e('批量移动'); ?>"><img src="<?php echo G_STATIC_URL;?>/admin/img/table_go.png" alt="" /></a></td>
+					<td align="center">
+						<a href="admin/category/edit/category_id-<?php echo $val['id']; ?>" title="<?php _e('编辑'); ?>">
+							<img src="<?php echo G_STATIC_URL;?>/admin/img/page_edit.png" alt="" />
+						</a> &nbsp; 
+						<a href="javascript:;" onclick="ajax_request(G_BASE_URL + '/admin/category/category_remove/category_id-<?php echo $val['id'];?>');" title="<?php _e('删除'); ?>">
+							<img src="<?php echo G_STATIC_URL;?>/admin/img/page_delete.png" alt="" />
+						</a> &nbsp; 
+						<a href="admin/category/question_move/category_id-<?php echo $val['id']; ?>" title="<?php _e('批量移动'); ?>"><img src="<?php echo G_STATIC_URL;?>/admin/img/table_go.png" alt="" /></a></td>
 				</tr>
 				<?php } ?>
 			</form>
