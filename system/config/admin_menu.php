@@ -13,7 +13,7 @@ $config[] = array(
 		
 		array(
 			'id' => 101,
-			'title' => '站点信息',
+			'title' => '系统设置',
 			'url' => 'admin/settings/',
 		),
 		array(
