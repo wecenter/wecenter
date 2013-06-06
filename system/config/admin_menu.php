@@ -84,7 +84,7 @@ $config[] = array(
 	'cname' => 'contents',
 	'children' => array(
 		array(
-			'id' => 306,
+			'id' => 307,
 			'title' => '导航设置',
 			'url' => 'admin/nav_menu/',
 		),

@@ -26,12 +26,11 @@ class statistic extends AWS_CONTROLLER
 		
 		$this->crumb(AWS_APP::lang()->_t('数据统计'), 'admin/statistic/');
 		
-		TPL::import_css('admin/js/amcharts/style.css');
-		TPL::import_js('admin/js/amcharts/amcharts.js');
+		TPL::import_js('js/chart.js');
 		
 		if (!$_POST['start_time'])
 		{
-			$_POST['start_time'] = date('Y-m-d', strtotime('Last week'));
+			$_POST['start_time'] = date('Y-m-d', strtotime('-6 months'));
 		}
 		
 		if (!$_POST['end_time'])
@@ -47,7 +46,7 @@ class statistic extends AWS_CONTROLLER
 	
 	public function register_action()
 	{
-		$statistic_list = $this->model('statistic')->get_user_register_list_by_day(strtotime($_POST['start_time']), strtotime($_POST['end_time']));
+		$statistic_list = $this->model('statistic')->get_user_register_list_by_month(strtotime($_POST['start_time']), strtotime($_POST['end_time']));
 		
 		TPL::assign('statistic_list', $statistic_list);
 		TPL::assign('total_count', $this->model('account')->count('users'));
@@ -63,9 +62,10 @@ class statistic extends AWS_CONTROLLER
 	
 	public function question_action()
 	{
-		$statistic_list = $this->model('statistic')->get_new_question_by_day(strtotime($_POST['start_time']), strtotime($_POST['end_time']));
+		$statistic_list = $this->model('statistic')->get_new_question_by_month(strtotime($_POST['start_time']), strtotime($_POST['end_time']));
 		
 		TPL::assign('statistic_list', $statistic_list);
+		
 		TPL::assign('total_count', $this->model('question')->count('question'));
 		TPL::assign('question_with_answer_count', $this->model('question')->count('question', 'answer_count > 0'));
 		TPL::assign('today_count', $this->model('question')->count('question', 'add_time > ' . strtotime(date('Y-m-d'))));
@@ -79,7 +79,7 @@ class statistic extends AWS_CONTROLLER
 	
 	public function answer_action()
 	{
-		$statistic_list = $this->model('statistic')->get_new_answer_by_day(strtotime($_POST['start_time']), strtotime($_POST['end_time']));
+		$statistic_list = $this->model('statistic')->get_new_answer_by_month(strtotime($_POST['start_time']), strtotime($_POST['end_time']));
 		
 		TPL::assign('statistic_list', $statistic_list);
 		TPL::assign('total_count', $this->model('question')->count('answer'));
@@ -94,7 +94,7 @@ class statistic extends AWS_CONTROLLER
 	
 	public function topic_action()
 	{
-		$statistic_list = $this->model('statistic')->get_new_topic_by_day(strtotime($_POST['start_time']), strtotime($_POST['end_time']));
+		$statistic_list = $this->model('statistic')->get_new_topic_by_month(strtotime($_POST['start_time']), strtotime($_POST['end_time']));
 		
 		TPL::assign('statistic_list', $statistic_list);
 		TPL::assign('total_count', $this->model('question')->count('answer'));
