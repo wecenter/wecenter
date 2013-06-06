@@ -22,12 +22,13 @@ span.price{font-size: 24px;font-weight: bold;color: #4c5259;}
 .aw-search-box .ht-icon.search{margin:6px 0 0 6px;}
 .aw-search-box #aw-search-query{width: 140px;border: none;box-shadow: none;}
 .aw-publish-btn{display:inline-block;width: 110px;height: 34px;margin-right:20px;background:url('img/share.png') no-repeat;font-size: 0px;}
-.aw-user-nav{height: 40px;line-height: 40px;padding: 10px 0;color: #fff;}
+.aw-user-nav{position: relative;}
+.aw-user-nav:hover .aw-user-nav-dropdown-list{display: block;}
 .aw-user-nav span{display: inline-block;float:left;height: 40px;line-height: 40px;margin-right:10px;}
 .aw-user-nav .ht-icon{margin-left: 17px;}
-.aw-user-nav-login{width: 180px;height: 40px;line-height: 40px;padding:10px 20px;background: #4c5158;}
+.aw-user-nav-login{width: 180px;height: 32px;padding:14px 20px;background: #4c5158;}
 .aw-user-nav-login .aw-user-nav-dropdown img{width: 32px;height: 32px;} 
-.aw-user-nav-dropdown-list{display: none;}
+.aw-user-nav-dropdown-list{position:absolute;right:0;display: none;width: 100px;background: #4C5158;}
 
 /*category*/
 .category .span12 > ul > li:first-child{margin-left: 0px;}
@@ -51,13 +52,16 @@ span.price{font-size: 24px;font-weight: bold;color: #4c5259;}
 
 /*产品详情页*/
 .aw-product-detail-content{margin-top:20px;background: #e6e9ed;border:1px solid #e6e6e6;border-radius: 3px;}
+.aw-product-detail-content h2{margin:0 0 20px;font-size: 22px;}
 
 /*侧边栏*/
 .aw-side-bar{width: 159px;padding: 0 30px;}
 .aw-side-bar dd{width: auto;}
 .aw-side-bar .aw-side-bar-mod{border-bottom: none;}
+.aw-side-bar-mod .aw-side-bar-mod-head{padding-bottom: 5px;}
 .aw-side-bar-mod .aw-side-bar-mod-head, .aw-side-bar-mod .aw-side-bar-mod-body{border-bottom: 1px dashed #cbced1;}
-.aw-side-bar-mod .aw-side-bar-mod-body{padding-bottom: 10px;margin-bottom: 10px;}
+.aw-side-bar-mod .aw-side-bar-mod-body{padding:10px 0 10px;margin-bottom: 10px;}
+.aw-side-bar-mod .aw-side-bar-mod-body ul{margin-bottom: 10px;}
 .aw-side-bar-mod .aw-side-bar-mod-footer span{display: inline-block;width: 55px;height: 28px;line-height: 28px;padding:0 10px;background: #d8dbde;border-radius: 2px;font-size: 14px;font-weight:bold;color: #999999;}
 .aw-side-bar-mod .aw-side-bar-mod-footer span:first-child{margin-right: 5px;}
 .aw-side-bar-mod .aw-side-bar-mod-footer span .ht-icon{margin-right: 20px;}

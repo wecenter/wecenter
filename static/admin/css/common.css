@@ -157,7 +157,8 @@ select, input[type="file"]{line-height: 0px;font-size: 13px;}
 .page-link{width: 16px;height: 16px;background: url('../img/page_link.png') no-repeat;}
 .page-attach{width: 16px;height: 16px;background: url('../img/page_attach.png') no-repeat;}
 .table-go{width: 16px;height: 16px;background: url('../img/table_go.png') no-repeat;}
-.lock{width: 16px;height: 16px;background: url('../img/lock_open.png') no-repeat;}
+.lock{width: 16px;height: 16px;background: url('../img/lock.png') no-repeat;}
+.lock-open{width: 16px;height: 16px;background: url('../img/lock_open.png') no-repeat;}
 .i-warmming{width: 30px;height: 28px;background: url('../img/warmming.png') no-repeat;}
 .aw-tips-box .aw-mod-body{background: url('../img/warmming.png') no-repeat;}
 .triangle_up{width: 15px;height: 10px;background: url('../img/triangle_up.png') no-repeat;}
