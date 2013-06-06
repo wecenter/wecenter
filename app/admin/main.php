@@ -51,9 +51,9 @@ class main extends AWS_CONTROLLER
 		
 		TPL::assign('menu_list', $this->model('admin_group')->get_menu_list($this->user_info['group_id'], 100));
 		
-		TPL::import_js('admin/js/amcharts/amcharts.js');
+		TPL::import_js('js/chart.js');
 		
-		TPL::assign('statistic_list', $this->model('statistic')->get_user_register_list_by_day(strtotime('-12 months'), time()));
+		TPL::assign('statistic_list', $this->model('statistic')->get_user_register_list_by_month(strtotime('-12 months'), time()));
 		
 		TPL::output("admin/index");
 	}

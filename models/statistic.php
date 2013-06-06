@@ -48,6 +48,34 @@ class statistic_class extends AWS_MODEL
 		return $data;
 	}
 	
+	public function get_user_register_list_by_month($start_time = null, $end_time = null, $valid_email = false)
+	{
+		if (!$start_time)
+		{
+			$start_time = strtotime('-12 months');
+		}
+		
+		if (!$end_time)
+		{
+			$end_time = strtotime('Today');
+		}		
+		
+		$data = array();
+		
+		if ($result = $this->query_all("SELECT COUNT(uid) AS num, FROM_UNIXTIME(reg_time, '%Y-%m') AS reg_month FROM " . get_table('users') . " WHERE reg_time BETWEEN " . $start_time . " AND " . $end_time . " GROUP BY reg_month ASC"))
+		{
+			foreach ($result AS $key => $val)
+			{
+				$data[$val['reg_month']] = array(
+					'num' => $val['num'],
+					'date' => $val['reg_month']
+				);
+			}
+		}
+		
+		return $data;
+	}
+	
 	public function get_new_question_by_day($start_time = null, $end_time = null)
 	{		
 		if (!$start_time)
