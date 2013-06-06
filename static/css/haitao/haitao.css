@@ -21,11 +21,12 @@ span.price{font-size: 24px;font-weight: bold;color: #4c5259;}
 .aw-search-box .input-append{width: 176px;background: #fff;border:1px solid #e6e6e6;border-radius: 3px;}
 .aw-search-box .ht-icon.search{margin:6px 0 0 6px;}
 .aw-search-box #aw-search-query{width: 140px;border: none;box-shadow: none;}
+.aw-user-login{height: 20px;line-height: 20px;padding: 10px 0;}
+.aw-user-login .ht-icon{margin-left: 17px;}
 .aw-publish-btn{display:inline-block;width: 110px;height: 34px;margin-right:20px;background:url('img/share.png') no-repeat;font-size: 0px;}
 .aw-user-nav{position: relative;}
 .aw-user-nav:hover .aw-user-nav-dropdown-list{display: block;}
 .aw-user-nav span{display: inline-block;float:left;height: 40px;line-height: 40px;margin-right:10px;}
-.aw-user-nav .ht-icon{margin-left: 17px;}
 .aw-user-nav-login{width: 180px;height: 32px;padding:14px 20px;background: #4c5158;}
 .aw-user-nav-login .aw-user-nav-dropdown img{width: 32px;height: 32px;} 
 .aw-user-nav-dropdown-list{position:absolute;right:0;display: none;width: 100px;background: #4C5158;}
