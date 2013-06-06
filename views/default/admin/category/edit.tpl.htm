@@ -1,48 +1,1 @@
-<?php TPL::output('admin/global/header.tpl.htm'); ?>
-<?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
-
-<div class="pull-left right-side">
-	<form action="admin/category/save/category_id-<?php echo $this->category['id']; ?>" id="settings_form" method="post">
-	<div class="aw-box">
-		<div class="aw-mod-head">
-			<h2><?php _e('分类编辑'); ?></h2>
-		</div>
-		<div class="aw-mod-body">			
-			<dl>
-				<dt><h3><?php _e('分类标题'); ?>:</h3></dt>
-				<dd><input type="text" name="title" value="<?php echo $this->category['title']; ?>" /></dd>
-			</dl>
-			<dl>
-				<dt><h3><?php _e('别名'); ?>:</h3></dt>
-				<dd><?php echo get_js_url('/'); ?>category/ <input type="text" name="url_token" class="small-width" value="<?php echo $this->category['url_token']; ?>" /></dd>
-			</dl>
-			<dl>
-				<dt><h3><?php _e('父级分类'); ?>:</h3></dt>
-				<dd><select name="parent_id">
-					<option value="0"><?php _e('无'); ?></option>
-					<?php echo $this->category_option; ?>
-				</select></dd>
-			</dl>
-			<?php if (!$this->menu_category_ids OR !in_array($this->category['id'], $this->menu_category_ids)) { ?>
-			<dl>
-				<dt><h3><?php _e('添加到导航菜单'); ?></h3></dt>
-				<dd>
-				<span class="yesno_yes">
-					<label><input type="radio" name="add_nav_menu" value="1"<?php if ($this->setting['site_close'] == 1) { ?> checked="checked"<?php } ?> /><?php _e('是'); ?></label>
-				</span>
-				
-				<span class="yesno_no">
-					<label><input type="radio" name="add_nav_menu" value="0"<?php if ($this->setting['site_close'] == 0) { ?> checked="checked"<?php } ?> /><?php _e('否'); ?></label>
-				</span>	
-				</dd>
-			</dl>
-			<?php } ?>
-		</div>
-		<div class="aw-mod-footer">
-			<a href="javascript:;" class="btn btn-inverse btn-normal" onclick="ajax_post($('#settings_form'));"><?php _e('保存'); ?></a>
-		</div>
-	</div>
-	</form>
-</div>
-
-<?php TPL::output('admin/global/footer.tpl.htm'); ?>
+<?php TPL::output('admin/global/header.tpl.htm'); ?><?php TPL::output('admin/global/nav_menu.tpl.htm'); ?><div class="pull-left right-side">	<form action="admin/category/save/category_id-<?php echo $this->category['id']; ?>" id="settings_form" method="post">	<div class="aw-box">		<div class="aw-mod-head">			<h2><?php _e('分类编辑'); ?></h2>		</div>		<div class="aw-mod-body">						<dl>				<dt><h3><?php _e('分类标题'); ?>:</h3></dt>				<dd><input type="text" name="title" value="<?php echo $this->category['title']; ?>" /></dd>			</dl>			<dl>				<dt><h3><?php _e('别名'); ?>:</h3></dt>				<dd><?php echo get_js_url('/'); ?>category/ <input type="text" name="url_token" class="input-small" value="<?php echo $this->category['url_token']; ?>" /></dd>			</dl>			<dl>				<dt><h3><?php _e('父级分类'); ?>:</h3></dt>				<dd><select name="parent_id">					<option value="0"><?php _e('无'); ?></option>					<?php echo $this->category_option; ?>				</select></dd>			</dl>			<?php if (!$this->menu_category_ids OR !in_array($this->category['id'], $this->menu_category_ids)) { ?>			<dl>				<dt><h3><?php _e('添加到导航菜单'); ?></h3></dt>				<dd>				<span class="yesno_yes">					<label><input type="radio" name="add_nav_menu" value="1"<?php if ($this->setting['site_close'] == 1) { ?> checked="checked"<?php } ?> /><?php _e('是'); ?></label>				</span>								<span class="yesno_no">					<label><input type="radio" name="add_nav_menu" value="0"<?php if ($this->setting['site_close'] == 0) { ?> checked="checked"<?php } ?> /><?php _e('否'); ?></label>				</span>					</dd>			</dl>			<?php } ?>		</div>		<div class="aw-mod-footer">			<a href="javascript:;" class="btn btn-inverse btn-normal" onclick="ajax_post($('#settings_form'));"><?php _e('保存'); ?></a>		</div>	</div>	</form></div><?php TPL::output('admin/global/footer.tpl.htm'); ?>
