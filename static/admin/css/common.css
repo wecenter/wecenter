@@ -185,4 +185,3 @@ select, input[type="file"]{line-height: 0px;font-size: 13px;}
 .date_selector td.selectable_day {cursor: pointer;}
 .date_selector td.selected {background: #4B85D2;color: #fff;font-weight: bold;}
 .date_selector td.selectable_day:hover, .date_selector td.selectable_day.hover {background: #F2F8FF;color: #246594;}
->>>>>>> .r5382
