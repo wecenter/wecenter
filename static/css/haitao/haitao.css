@@ -21,12 +21,21 @@
 .aw-publish-btn{display:inline-block;width: 110px;height: 34px;margin-right:20px;background:url('img/share.png') no-repeat;font-size: 0px;}
 .aw-user-nav{height: 40px;line-height: 40px;padding: 10px 0;color: #fff;}
 .aw-user-nav span{display: inline-block;float:left;height: 40px;line-height: 40px;margin-right:10px;}
+.aw-user-nav .ht-icon{margin-left: 17px;}
 .aw-user-nav-login{width: 180px;height: 40px;line-height: 40px;padding:10px 20px;background: #4c5158;}
 .aw-user-nav-login .aw-user-nav-dropdown img{width: 32px;height: 32px;} 
 .aw-user-nav-dropdown-list{display: none;}
 
+/*category*/
+.category .span12 > ul > li:first-child{margin-left: 0px;}
+.category .span12{width: 980px;margin-left: 10px;}
+.ht-date-select{margin:8px 0;padding:0 10px 0 0;border: 1px solid #dbdbdb;border-radius: 2px;box-shadow: 0 1px 0 #ececed,0 1px 0 #fff inset;}
+.ht-date-select span a{padding:0 13px;}
+.ht-date-select a{display:inline-block;height: 26px;line-height: 26px;color: #666666;font-size: 12px;}
+.ht-date-select a.active{background: #ff8266;color: #fff;border: 1px solid #eb6c50;border-top:none;box-shadow: 0 1px 0 #fff, 0 -1px 0 #EB6C50;}
+
 /*海淘列表*/
-.ht-product-list ul li{float: left;width: 315px;height: 375px;margin:0 8px 16px 0;background: #fff;border: 1px solid #e6e6e6;border-radius: 3px;box-shadow: 0 1px 0 #d4d4d4;}
+.ht-product-list ul li{float: left;width: 315px;height: 375px;margin:0 14px 16px 0;background: #fff;border: 1px solid #e6e6e6;border-radius: 3px;box-shadow: 0 1px 0 #d4d4d4;}
 .ht-product-list ul li .aw-mod-head{padding: 5px;}
 .ht-product-list ul li .aw-mod-body{padding:0 14px 16px;}
 .ht-product-list ul li .aw-mod-body h2{font-size: 16px;font-weight: normal;}
@@ -36,6 +45,14 @@
 .ht-product-list ul li .aw-mod-footer .ht-icon{margin-right: 5px;}
 .ht-product-list ul li .aw-mod-footer span{margin-right: 10px;font-size:12px;color: #999999;}
 .ht-product-list ul li .aw-mod-footer span.pull-right{margin-right: 0px;}
+
+/*侧边栏*/
+.aw-side-bar .aw-side-bar-mod{border-bottom: none;}
+.aw-side-bar-mod .aw-side-bar-mod-head, .aw-side-bar-mod .aw-side-bar-mod-body{border-bottom: 1px dashed #cbced1;}
+.aw-side-bar-mod .aw-side-bar-mod-body{padding-bottom: 10px;margin-bottom: 10px;}
+.aw-side-bar-mod .aw-side-bar-mod-footer span{display: inline-block;width: 57px;height: 28px;line-height: 28px;padding:0 10px;background: #d8dbde;border-radius: 2px;font-size: 14px;color: #999999;}
+.aw-side-bar-mod .aw-side-bar-mod-footer span .ht-icon{margin-right: 20px;}
+.aw-side-bar-mod .aw-side-bar-mod-footer span .unlike{position: relative;top: 1px;}
 
 /*底部*/
 .aw-footer-wrap{background: #e6e8e9;}
@@ -48,9 +65,10 @@
 .ht-icon{display: inline-block;}
 .ht-icon.search{width: 17px;height: 17px;background: url('img/search.png') no-repeat;}
 .ht-icon.login-sina{width: 32px;height: 29px;background: url('img/login-sina.png') no-repeat;}
-.ht-icon.login-qq{width: 38px;height: 30px;background: url('img/login-qq.png') no-repeat;}
+.ht-icon.login-qq{width: 28px;height: 30px;background: url('img/login-qq.png') no-repeat;}
 .ht-icon.like{width: 12px;height: 11px;background: url('img/like.png') no-repeat;}
+.ht-icon.unlike{width: 12px;height: 13px;background: url('img/unlike.png') no-repeat;}
 .ht-icon.message{width: 13px;height: 12px;background: url('img/message.png') no-repeat;}
 .ht-icon.lock{width: 19px;height: 8px;background: url('img/lock.png') no-repeat;}
-
+.ht-icon.buy{width: 92px;height:40px;line-height: 40px;padding-left:68px;background: url('img/buy.png') no-repeat;color: #fff;font-size: 16px;}
 
