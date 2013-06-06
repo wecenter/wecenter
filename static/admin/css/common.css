@@ -18,6 +18,7 @@ select, input[type="file"]{line-height: 0px;font-size: 13px;}
 .aw-no-border-top{border-top:none !important;}
 .aw-no-border-bottom{border-bottom: none !important;}
 .aw-no-margin-top{margin-top:0px !important;}
+.inline-block{display: inline-block;}
 
 /*全局input定义*/
 .normal-box{width: 35% !important;}
