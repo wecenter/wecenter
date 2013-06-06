@@ -14,9 +14,6 @@
 		var G_USER_ID = <?php echo $this->user_id; ?>;
 		var G_POST_HASH = '';
 	</script>
-	<!--[if lte IE 8]>
-		<script type="text/javascript" src="<?php echo G_STATIC_URL; ?>/js/excanvas.js"></script>
-	<![endif]-->
 	<?php if (is_array($this->_import_css_files)) { ?>
 	<?php foreach ($this->_import_css_files AS $import_css) { ?>
 	<link href="<?php echo $import_css; ?>?v=<?php echo G_VERSION_BUILD; ?>" rel="stylesheet" type="text/css" />
@@ -27,6 +24,9 @@
 	<script src="<?php echo $import_js; ?>?v=<?php echo G_VERSION_BUILD; ?>" type="text/javascript"></script>
 	<?php } ?>
 	<?php } ?>
+	<!--[if lte IE 8]>
+		<script type="text/javascript" src="<?php echo G_STATIC_URL; ?>/js/excanvas.js"></script>
+	<![endif]-->
 </head>
 <body>
 	<div class="row aw-manage-menu">
