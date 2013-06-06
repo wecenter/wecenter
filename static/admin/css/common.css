@@ -16,6 +16,8 @@ select, input[type="file"]{line-height: 0px;font-size: 13px;}
 .modal{margin-left: 0px;}
 .modal-backdrop, .modal-backdrop.fade.in{opacity:0.2;filter:alpha(opacity=20);}
 .aw-no-border-top{border-top:none !important;}
+.aw-no-border-bottom{border-bottom: none !important;}
+.aw-no-margin-top{margin-top:0px !important;}
 
 /*全局input定义*/
 .mini-width{width: 40px !important;}
