@@ -3,6 +3,9 @@
 .aw-container-wrap{background: #f2f2f2;}
 .aw-container{border:none;background: #f2f2f2;}
 .aw-content-wrap{background: none;margin-left: 0;padding:0;}
+.aw-main-content{width:auto;padding:30px 30px 99999px;background:#fff;border:none;}
+.aw-user-name{color: #ff6d24;font-size: 13px;}
+span.price{font-size: 24px;font-weight: bold;color: #4c5259;}
 
 /*顶部菜单条*/
 .aw-top-menu-wrap{background: #5f6871;}
@@ -46,13 +49,20 @@
 .ht-product-list ul li .aw-mod-footer span{margin-right: 10px;font-size:12px;color: #999999;}
 .ht-product-list ul li .aw-mod-footer span.pull-right{margin-right: 0px;}
 
+/*产品详情页*/
+.aw-product-detail-content{margin-top:20px;background: #e6e9ed;border:1px solid #e6e6e6;border-radius: 3px;}
+
 /*侧边栏*/
+.aw-side-bar{width: 159px;padding: 0 30px;}
+.aw-side-bar dd{width: auto;}
 .aw-side-bar .aw-side-bar-mod{border-bottom: none;}
 .aw-side-bar-mod .aw-side-bar-mod-head, .aw-side-bar-mod .aw-side-bar-mod-body{border-bottom: 1px dashed #cbced1;}
 .aw-side-bar-mod .aw-side-bar-mod-body{padding-bottom: 10px;margin-bottom: 10px;}
-.aw-side-bar-mod .aw-side-bar-mod-footer span{display: inline-block;width: 57px;height: 28px;line-height: 28px;padding:0 10px;background: #d8dbde;border-radius: 2px;font-size: 14px;color: #999999;}
+.aw-side-bar-mod .aw-side-bar-mod-footer span{display: inline-block;width: 55px;height: 28px;line-height: 28px;padding:0 10px;background: #d8dbde;border-radius: 2px;font-size: 14px;font-weight:bold;color: #999999;}
+.aw-side-bar-mod .aw-side-bar-mod-footer span:first-child{margin-right: 5px;}
 .aw-side-bar-mod .aw-side-bar-mod-footer span .ht-icon{margin-right: 20px;}
 .aw-side-bar-mod .aw-side-bar-mod-footer span .unlike{position: relative;top: 1px;}
+.aw-side-bar-mod ul li{font-size: 13px;}
 
 /*底部*/
 .aw-footer-wrap{background: #e6e8e9;}
@@ -67,6 +77,7 @@
 .ht-icon.login-sina{width: 32px;height: 29px;background: url('img/login-sina.png') no-repeat;}
 .ht-icon.login-qq{width: 28px;height: 30px;background: url('img/login-qq.png') no-repeat;}
 .ht-icon.like{width: 12px;height: 11px;background: url('img/like.png') no-repeat;}
+.ht-icon.like.active{background: url('img/like-active.png') no-repeat;}
 .ht-icon.unlike{width: 12px;height: 13px;background: url('img/unlike.png') no-repeat;}
 .ht-icon.message{width: 13px;height: 12px;background: url('img/message.png') no-repeat;}
 .ht-icon.lock{width: 19px;height: 8px;background: url('img/lock.png') no-repeat;}

@@ -17,7 +17,7 @@
 				<?php foreach ($this->list AS $key => $val) { ?>
 				<tr>
 					<td><a href="admin/category/edit/category_id-<?php echo $val['id']; ?>"><?php echo $val['title']; ?></a></td>
-					<td align="center"><input type="text" value="<?php echo $val['sort']; ?>" class="mini-width sort-action" name="category[<?php echo $val['id']; ?>][sort]" /></td>
+					<td align="center"><input type="text" value="<?php echo $val['sort']; ?>" class="input-mini sort-action" name="category[<?php echo $val['id']; ?>][sort]" /></td>
 					<td align="center"><a href="admin/category/edit/category_id-<?php echo $val['id']; ?>" title="<?php _e('编辑'); ?>"><img src="<?php echo G_STATIC_URL;?>/admin/img/page_edit.png" alt="" /></a> &nbsp; <a href="javascript:;" onclick="ajax_request(G_BASE_URL + '/admin/category/category_remove/category_id-<?php echo $val['id'];?>');" title="<?php _e('删除'); ?>"><img src="<?php echo G_STATIC_URL;?>/admin/img/page_delete.png" alt="" /></a> &nbsp; <a href="admin/category/question_move/category_id-<?php echo $val['id']; ?>" title="<?php _e('批量移动'); ?>"><img src="<?php echo G_STATIC_URL;?>/admin/images/icons/table_go.png" alt="" /></a></td>
 				</tr>
 				<?php } ?>
@@ -27,7 +27,16 @@
 				<tr>
 					<td colspan="3">
 						<form id="add_category_form" action="admin/category/save/" method="post">
-						<?php _e('分类标题'); ?>: <input type="text" name="title" /> &nbsp; <?php _e('父级分类'); ?>: <select name="parent_id"><option value="0"><?php _e('无'); ?></option><?php echo $this->category_option; ?></select> &nbsp; <label><input name="add_nav_menu" type="checkbox" checked="checked" /> <?php _e('添加到导航菜单'); ?></label> &nbsp; <a class="btn btn-inverse" onclick="ajax_post($('#add_category_form'));" href="javascript:;"><?php _e('添加分类'); ?></a>
+						<?php _e('分类标题'); ?>: <input type="text" name="title" /> &nbsp; 
+						<?php _e('父级分类'); ?>: 
+						<select name="parent_id">
+							<option value="0"><?php _e('无'); ?></option>
+							<?php echo $this->category_option; ?>
+						</select> &nbsp;
+						<label class="inline-block">
+							<input name="add_nav_menu" type="checkbox" checked="checked" /> <?php _e('添加到导航菜单'); ?>
+						</label> &nbsp; 
+						<a class="btn btn-inverse inline-block" onclick="ajax_post($('#add_category_form'));" href="javascript:;"><?php _e('添加分类'); ?></a>
 						</form>
 					</td>
 				</tr>
