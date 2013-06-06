@@ -65,6 +65,7 @@
 
 /*发起box*/
 .aw-publish-box .modal-footer a.pull-left{*margin-top:10px;}
+.aw-publish-box .i-edit{*top:4px;}
 
 /*话题编辑box*/
 .aw-side-bar-topic-edit .aw-edit-topic{*position:relative;*top:-10px;}

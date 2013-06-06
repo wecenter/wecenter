@@ -42,7 +42,8 @@
 .aw-user-center-dynamic-mini-mod .aw-mod-body{padding-top: 10px;}
 .aw-user-center-dynamic-mini-mod .aw-mod-body a{max-width: 160px;}
 .aw-user-center-dynamic-mini-mod .aw-mod-body .aw-hide-txt{display:inline-block;vertical-align: top;}
-.aw-user-center-follow-mini-mod{width:180px;margin:10px 34px 20px 0;}
+.aw-user-center-follow-mini-mod{width:190px;margin:10px 0 20px 34px;}
+.aw-user-center-follow-mini-mod:first-child{margin-left: 0px;}
 .aw-user-center-follow-mini-mod p{margin-top: 5px;}
 .aw-user-center-follow-mini-mod .aw-user-img img{width: 25px;height: 25px;}
 .aw-reset-sp .aw-user-list .aw-topic-name{display:inline-block;margin:4px 2px 4px 0;}

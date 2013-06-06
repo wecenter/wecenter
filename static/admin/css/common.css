@@ -164,6 +164,8 @@ select, input[type="file"]{line-height: 0px;font-size: 13px;}
 .triangle_up{width: 15px;height: 10px;background: url('../img/triangle_up.png') no-repeat;}
 .triangle_down{width: 15px;height: 10px;background: url('../img/triangle_down.png') no-repeat;}
 .zoom{width: 16px;height: 16px;background: url('../img/zoom.png') no-repeat;}
+.accept{width: 16px;height: 16px;background: url('../img/accept.png') no-repeat;}
+.folder_page{width: 16px;height: 16px;background: url('../img/folder_page.png') no-repeat;}
 
 /*日期选择控件*/
 .date_selector, .date_selector * {width: auto;height: auto;border: none;background: none;margin: 0;padding: 0;text-align: left;text-decoration: none;cursor: pointer;}
