@@ -42,7 +42,7 @@
 						<td><a href="people/<?php echo $this->users_info[$val['uid']]['url_token']; ?>" target="_blank"><?php echo $this->users_info[$val['uid']]['user_name']; ?></a></td>
 						
 						<?php if ($_GET['type'] != 'answer') { ?>
-						<td><a href="javascript:;" onclick="$.dialog('ajaxData', {'title':'<?php _e('内容审核'); ?>', 'url':G_BASE_URL + '/admin/question/approval_preview/<?php echo $val['id']; ?>'});"><img src="<?php echo G_STATIC_URL;?>/admin/img/zoom.png" style="vertical-align:middle" alt="" /></a> &nbsp; <?php echo htmlspecialchars($val['data']['question_content']); ?></td>
+						<td><a href="javascript:;" onclick="$.dialog('ajaxData', {'title':'<?php _e('内容审核'); ?>', 'url':G_BASE_URL + '/admin/question/approval_preview/<?php echo $val['id']; ?>'});"><i class="aw-icon zoom"></i></a> &nbsp; <?php echo htmlspecialchars($val['data']['question_content']); ?></td>
 						<?php } ?>
 						
 						<td><a href="javascript:;" onclick="$.dialog('ajaxData', {'title':'<?php _e('内容审核'); ?>', 'url':G_BASE_URL + '/admin/question/approval_preview/<?php echo $val['id']; ?>'});"><?php if ($_GET['type'] == 'answer') { echo cjk_substr(htmlspecialchars($val['data']['answer_content']), 0, 128, 'UTF-8', '...'); } else { echo cjk_substr(htmlspecialchars($val['data']['question_detail']), 0, 128, 'UTF-8', '...'); } ?></a></td>
