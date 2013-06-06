@@ -66,7 +66,7 @@ class statistic_class extends AWS_MODEL
 		{
 			foreach ($result AS $key => $val)
 			{
-				$data[$val['reg_month']] = array(
+				$data[] = array(
 					'num' => $val['num'],
 					'date' => $val['reg_month']
 				);
