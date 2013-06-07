@@ -166,20 +166,6 @@ $config[] = array(
 	)
 );
 
-
-$config[] = array(
-	'id' => 6,
-	'title' => '运营',
-	'cname' => 'maintain',
-	'children' => array(
-		array(
-			'id' => 602,
-			'title' => '数据统计',
-			'url' => 'admin/statistic/',
-		),
-	)
-);
-
 $config[] = array(
 	'id' => 7,
 	'title' => '邮件群发',
@@ -203,6 +189,12 @@ $config[] = array(
 	'title' => '工具',
 	'cname' => 'tools',
 	'children' => array(
+		array(
+			'id' => 502,
+			'title' => '数据统计',
+			'url' => 'admin/statistic/',
+		),
+		
 		array(
 			'id' => 501,
 			'title' => '系统维护',

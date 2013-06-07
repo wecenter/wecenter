@@ -37,6 +37,8 @@ class statistic extends AWS_CONTROLLER
 		{
 			$_POST['end_time'] = date('Y-m-d', strtotime('Today'));
 		}
+		
+		TPL::assign('menu_list', $this->model('admin_group')->get_menu_list($this->user_info['group_id'], 502));
 	}
 
 	public function index_action()
@@ -55,8 +57,6 @@ class statistic extends AWS_CONTROLLER
 		TPL::assign('week_count', $this->model('account')->count('users', 'reg_time > ' . strtotime('last Monday')));
 		TPL::assign('month_count', $this->model('account')->count('users', 'reg_time > ' . strtotime(date('Y-m'))));
 		
-		TPL::assign('menu_list', $this->model('admin_group')->get_menu_list($this->user_info['group_id'], 602));
-		
 		TPL::output('admin/statistic');
 	}
 	
@@ -72,8 +72,6 @@ class statistic extends AWS_CONTROLLER
 		TPL::assign('week_count', $this->model('question')->count('question', 'add_time > ' . strtotime('last Monday')));
 		TPL::assign('month_count', $this->model('question')->count('question', 'add_time > ' . strtotime(date('Y-m'))));
 		
-		TPL::assign('menu_list', $this->model('admin_group')->get_menu_list($this->user_info['group_id'], 602));
-		
 		TPL::output('admin/statistic');
 	}
 	
@@ -87,8 +85,6 @@ class statistic extends AWS_CONTROLLER
 		TPL::assign('week_count', $this->model('answer')->count('question', 'add_time > ' . strtotime('last Monday')));
 		TPL::assign('month_count', $this->model('answer')->count('question', 'add_time > ' . strtotime(date('Y-m'))));
 		
-		TPL::assign('menu_list', $this->model('admin_group')->get_menu_list($this->user_info['group_id'], 602));
-		
 		TPL::output('admin/statistic');
 	}
 	
@@ -101,8 +97,6 @@ class statistic extends AWS_CONTROLLER
 		TPL::assign('today_count', $this->model('answer')->count('question', 'add_time > ' . strtotime(date('Y-m-d'))));
 		TPL::assign('week_count', $this->model('answer')->count('question', 'add_time > ' . strtotime('last Monday')));
 		TPL::assign('month_count', $this->model('answer')->count('question', 'add_time > ' . strtotime(date('Y-m'))));
-		
-		TPL::assign('menu_list', $this->model('admin_group')->get_menu_list($this->user_info['group_id'], 602));
 		
 		TPL::output('admin/statistic');
 	}

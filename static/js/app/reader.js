@@ -8,7 +8,7 @@ var stop_load = false;
 $(document).ready(function () {
 	$('#left_panel .nav_container ul').css('height', ($(window).height() - $('#left_panel .nav_container').offset()['top']));
 	
-	$('a.show_answer').live('click', function () {
+	$(document).on('click', 'a.show_answer', function () {
 		$('a.show_answer').removeClass('current');
 		
 		$(this).addClass('current');
