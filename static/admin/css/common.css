@@ -18,6 +18,7 @@ select, input[type="file"]{line-height: 0px;font-size: 13px;}
 .aw-no-border-top{border-top:none !important;}
 .aw-no-border-bottom{border-bottom: none !important;}
 .aw-no-margin-top{margin-top:0px !important;}
+.aw-padding10{padding: 10px;}
 .inline-block{display: inline-block;}
 
 /*全局input定义*/
@@ -56,7 +57,7 @@ select, input[type="file"]{line-height: 0px;font-size: 13px;}
 .right-side .aw-mod-head h2 .nav > li > a:hover, .nav > li > a:focus{background: none;border:1px solid #D6E4F1;}
 .right-side .aw-mod-head h2 .nav-tabs > li.active > a:hover{color:#;background: #fff;border:1px solid #DDD;border-bottom: 1px solid #fff;}
 .right-side .aw-mod-head h2 a.label{margin-top:12px;font-weight: normal;}
-.right-side .aw-box input, .right-side .aw-box h3, .right-side .aw-box textarea{margin: 0;}
+.right-side .aw-box input, .right-side .aw-box h3, .right-side .aw-box textarea, .right-side .aw-box form{margin: 0;}
 .right-side .aw-box input[type="radio"]{margin:0 10px;}
 .right-side textarea{width: 80%;min-height: 80px;margin: 0;}
 .right-side .aw-box dl{height: auto;overflow: hidden;margin:0;padding:10px 20px;border-top: 1px solid #eaedf1;}
