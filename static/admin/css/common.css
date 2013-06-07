@@ -69,6 +69,7 @@ select, input[type="file"]{line-height: 0px;font-size: 13px;}
 .right-side .aw-box dl:nth-child(n){background: #ffffff;}
 .right-side .aw-box dl:nth-child(even){background: #F5F8FA;}
 .right-side .aw-box .aw-mod-footer{padding: 10px;background: #F5F5F5;border-top: 1px solid #D7D7D7;text-align: center;}
+.right-side .aw-box dl dd .label{margin-bottom: 5px;}
 .right-side .aw-user-message-setting label{display: inline-block;margin-right: 10px;}
 .right-side .yesno_yes, .right-side .yesno_no{display: inline-block;float:left;min-width:50px;max-width:60px;height: 20px;padding:3px;text-align: center;}
 .right-side .yesno_yes label, .right-side .yesno_no label{font-size: 13px;}
@@ -152,7 +153,6 @@ select, input[type="file"]{line-height: 0px;font-size: 13px;}
 .user-edit{width: 16px;height: 16px;background: url('../img/user_edit.png') no-repeat;}
 .user-delete{width: 16px;height: 16px;background: url('../img/user_delete.png') no-repeat;}
 .user-add{width: 16px;height: 16px;background: url('../img/user_add.png') no-repeat;}
-.database-point{width: 16px;height: 16px;background: url('../img/database_table.png') no-repeat;}
 .page-edit{width: 16px;height: 16px;background: url('../img/page_edit.png') no-repeat;}
 .page-delete{width: 16px;height: 16px;background: url('../img/page_delete.png') no-repeat;}
 .page-link{width: 16px;height: 16px;background: url('../img/page_link.png') no-repeat;}
@@ -167,6 +167,7 @@ select, input[type="file"]{line-height: 0px;font-size: 13px;}
 .zoom{width: 16px;height: 16px;background: url('../img/zoom.png') no-repeat;}
 .accept{width: 16px;height: 16px;background: url('../img/accept.png') no-repeat;}
 .folder_page{width: 16px;height: 16px;background: url('../img/folder_page.png') no-repeat;}
+.database-table{width: 16px;height: 16px;background: url('../img/database-table.png') no-repeat;}
 
 /*日期选择控件*/
 .date_selector, .date_selector * {width: auto;height: auto;border: none;background: none;margin: 0;padding: 0;text-align: left;text-decoration: none;cursor: pointer;}

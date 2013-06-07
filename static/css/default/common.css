@@ -743,9 +743,10 @@ select{width: auto;}
 .aw-feature-wrap .aw-side-bar-mod-feature h3{margin:0;}
 .aw-feature-title{width: 900px;margin:10px 0 10px 30px;}
 .aw-feature-title .img{width:900px;height:240px;background: url(img/feature.jpg) no-repeat center;}
-.aw-feature-title h3{padding-bottom: 10px;border-bottom: 1px solid #C1CAD4;}
+.aw-feature-title h2{padding-bottom: 10px;border-bottom: 1px solid #C1CAD4;font-size: 20px;}
 .aw-feature-content{padding-bottom: 30px;}
-.aw-feature-content > h3{margin-top:30px;}
+.aw-feature-content h2{font-size: 20px;}
+.aw-feature-content .aw-mod{margin-bottom: 30px;}
 .aw-feature-wrap .aw-side-bar{background: #fff;}
 
 

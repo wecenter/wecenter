@@ -9,7 +9,7 @@
 .aw-reset-nav-tabs > li.active > a{border: none;}
 .aw-reset-nav-tabs > li.active > a:hover{border: none;}
 .tab-content{padding:20px 20px 30px 20px;}
-.aw-reset-nav-tabs h2{left: 20px;top: 10px;}
+.aw-reset-nav-tabs h2{top: 10px;left: 20px;}
 /*
 **	重载bootstrap按钮
 */
@@ -172,6 +172,19 @@
 **	编辑器
 */
 .aw-mod-replay-box .aw-mod-body{background: #F7F7F7;}
+
+/*
+**	专题
+*/
+.aw-feature-title{margin:10px 0 10px 10px;}
+.aw-feature-content .aw-mod{border:1px solid #DFDFDF;border-radius:5px;}
+.aw-feature-content > .aw-mod{margin-bottom: 30px;}
+.aw-feature-content > .aw-mod > .aw-mod-head{height:43px;line-height:43px;margin:0;padding:0 20px;background: #F8F8F8;}
+.aw-feature-content > .aw-mod > .aw-mod-head h2{left:0;height: 43px;line-height: 43px;margin: 0;}
+.aw-feature-content > .aw-mod > .aw-mod-body{padding:0 20px;}
+.aw-side-bar-mod-feature{background: none;border:none !important;border-radius: none;}
+.aw-feature-content .aw-reset-nav-tabs h2{height:20px !important;line-height:20px !important;padding-left:0;}
+.aw-feature-content .aw-dynamic-topic{padding-bottom: 20px !important;}
 
 /*
 **	私信对话框
