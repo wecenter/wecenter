@@ -20,7 +20,7 @@
 				<?php if ($this->approval_list) { ?>
 				<?php foreach ($this->approval_list AS $key => $val) { ?>
 				<tr>
-					<td><input type="checkbox" class="approval_ids" name="approval_ids[]" value="<?php echo $val['id']; ?>"></td>
+					<td align="center"><input type="checkbox" class="approval_ids" name="approval_ids[]" value="<?php echo $val['id']; ?>"></td>
 					<td><a href="people/<?php echo $this->users_info[$val['uid']]['url_token']; ?>" target="_blank"><?php echo $this->users_info[$val['uid']]['user_name']; ?></a></td>
 					<td><?php echo $val['reason']; ?></td>
 					<td><?php echo $this->job_list[$this->users_info[$val['uid']]['job_id']]; ?></td>
