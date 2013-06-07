@@ -12,7 +12,7 @@ table{width: 100%;}
 .error{color: #FF0000;}
 input[type="radio"], input[type="checkbox"]{margin:0;}
 select, input[type="file"]{line-height: 0px;font-size: 13px;}
-.aw-text-color-999{margin:10px 0 0 0;color: #999;font-size: 11px;}
+.aw-text-color-999{margin:2px 0 0 0;color: #999;font-size: 11px;}
 .modal{margin-left: 0px;}
 .modal-backdrop, .modal-backdrop.fade.in{opacity:0.2;filter:alpha(opacity=20);}
 .aw-no-border-top{border-top:none !important;}
@@ -49,7 +49,7 @@ select, input[type="file"]{line-height: 0px;font-size: 13px;}
 .left-side .side-nav .aw-icon{margin-right: 10px;}
 
 /*右侧内容*/
-.right-side{width: 79.8%;min-height:780px;margin-left:245px;padding: 15px 0;}
+.right-side{width: 79.8%;min-height:350px;margin-left:245px;padding: 15px 0;}
 .right-side .aw-box{border:1px solid #D7E6F0;}
 .right-side .aw-box .date_picker{padding-left:30px;background: url('../img/calendar.png') no-repeat 5px 6px #fff;}
 .right-side .aw-mod-head h2{height:auto;overflow:hidden;padding:0 10px;margin:0;background: #D6E4F1;color: #246594;font-weight: normal;font-weight: bold; }
@@ -81,6 +81,7 @@ select, input[type="file"]{line-height: 0px;font-size: 13px;}
 .right-side .aw-box-row .aw-box-row-dd{width: 500px;}
 .right-side .aw-box-row span{font-size: 13px;}
 .right-side .aw-box p.aw-text-color-999{*margin-left: 10px;}
+.right-side .tools p.aw-text-color-999{margin-bottom: 10px;}
 
 /*表格*/
 .aw-table{margin:10px 0;border:1px solid #D7E6F0;color: #666;}
