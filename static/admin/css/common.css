@@ -102,7 +102,7 @@ select, input[type="file"]{line-height: 0px;font-size: 13px;}
 .aw-message-box{width:30%;margin:10px;border:1px solid #D7E6F0;}
 .aw-message-box h3{height:35px;line-height:35px;margin:0;padding-left:10px;background:#F2F8FF;color:#246594;font-size: 12px;font-weight: normal;cursor: s-resize;}
 .aw-message-box .aw-mod-body{padding: 10px;}
-.aw-message-box .aw-mod-body ul{padding:0 10px;list-style: square;}
+.aw-message-box .aw-mod-body ul{padding:0 10px 0 15px;list-style: square;}
 .aw-message-box .aw-mod-body ul li a{font-size: 12px;color: #666;}
 .aw-right-side-box{width: 100%;margin-top:-10px !important;border:none;}
 .aw-right-side-box .aw-message-box{width: auto !important;}
