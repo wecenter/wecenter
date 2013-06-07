@@ -6,7 +6,7 @@ ul, ol{list-style: none;}
 ul{margin:0;}
 input , textarea{font-family: '微软雅黑',tahoma,arial !important;}
 .btn-normal.btn-inverse{padding:4px 40px;box-shadow: none;}
-select{width: auto;min-width: 220px;}
+select{width: auto;min-width: 220px;*margin-left:10px;}
 select, input[type="file"]{height: auto;}
 table{width: 100%;}
 .error{color: #FF0000;}
@@ -58,7 +58,7 @@ select, input[type="file"]{line-height: 0px;font-size: 13px;}
 .right-side .aw-mod-head h2 .nav-tabs > li.active > a:hover{color:#;background: #fff;border:1px solid #DDD;border-bottom: 1px solid #fff;}
 .right-side .aw-mod-head h2 a.label{margin-top:12px;font-weight: normal;}
 .right-side .aw-box input, .right-side .aw-box h3, .right-side .aw-box textarea, .right-side .aw-box form{margin: 0;}
-.right-side .aw-box input[type="radio"]{margin:0 10px;}
+.right-side .aw-box input[type="radio"]{margin:0 5px;}
 .right-side textarea{width: 80%;min-height: 80px;margin: 0;}
 .right-side .aw-box dl{height: auto;overflow: hidden;margin:0;padding:10px 20px;border-top: 1px solid #eaedf1;}
 .right-side .aw-box dl:first-child{border-top: none;}
@@ -73,12 +73,13 @@ select, input[type="file"]{line-height: 0px;font-size: 13px;}
 .right-side .aw-user-message-setting label{display: inline-block;margin-right: 10px;}
 .right-side .yesno_yes, .right-side .yesno_no{display: inline-block;float:left;min-width:50px;max-width:60px;height: 20px;padding:3px;text-align: center;}
 .right-side .yesno_yes label, .right-side .yesno_no label{font-size: 13px;}
-.right-side .yesno_yes{background: #E3F6E5;border:1px solid #B4E3B9;border-right: none;border-radius: 6px 0 0 6px;}
+.right-side .yesno_yes{*margin-left:10px;background: #E3F6E5;border:1px solid #B4E3B9;border-right: none;border-radius: 6px 0 0 6px;}
 .right-side .yesno_no{background: #F6E3E3;border:1px solid #E3B4B4;border-left: none;border-radius: 0 6px 6px 0;}
 .right-side .aw-box-row dt{margin-top:2px;}
 .right-side .aw-box-row dl dd{width: auto;}
 .right-side .aw-box-row .aw-box-row-dd{width: 500px;}
 .right-side .aw-box-row span{font-size: 13px;}
+.right-side .aw-box p.aw-text-color-999{*margin-left: 10px;}
 
 /*表格*/
 .aw-table{margin:10px 0;border:1px solid #D7E6F0;color: #666;}
