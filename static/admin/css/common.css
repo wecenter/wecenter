@@ -20,6 +20,7 @@ select, input[type="file"]{line-height: 0px;font-size: 13px;}
 .aw-no-margin-top{margin-top:0px !important;}
 .aw-padding10{padding: 10px;}
 .inline-block{display: inline-block;}
+.error-message{position: relative;}
 
 /*全局input定义*/
 .normal-box{width: 35% !important;}
