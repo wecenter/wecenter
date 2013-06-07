@@ -198,7 +198,7 @@ $config[] = array(
 		array(
 			'id' => 501,
 			'title' => '系统维护',
-			'url' => 'admin/tool/',
+			'url' => 'admin/tools/',
 		),
 	)
 );
