@@ -1,5 +1,5 @@
 html{height: 100%;}
-body{*height:100%;height:100%\0;height:100%\9;font:13px/1.5 "微软雅黑",tahoma,arial;padding: 0px;color: #666;background-image: -moz-linear-gradient(center top, #687586, #323A45);background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#687586), to(#323A45));background-image: -webkit-linear-gradient(top, #687586, #323A45);background-image: -o-linear-gradient(top, #687586, #323A45);background-image: linear-gradient(to bottom, #687586, #323A45);background-repeat: repeat;filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#687586', endColorstr='#323A45', GradientType='0');}
+body{*height:100%;height:100%\0;height:100%\9;font:13px/1.5 "Helvetica Neue",Helvetica,Arial,'Microsoft YaHei',sans-serif;padding: 0px;color: #666;background-image: -moz-linear-gradient(center top, #687586, #323A45);background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#687586), to(#323A45));background-image: -webkit-linear-gradient(top, #687586, #323A45);background-image: -o-linear-gradient(top, #687586, #323A45);background-image: linear-gradient(to bottom, #687586, #323A45);background-repeat: repeat;filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#687586', endColorstr='#323A45', GradientType='0');}
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {  
    /* IE10-specific styles go here */ 
    body{height: auto;}
@@ -9,11 +9,11 @@ a{cursor: pointer;}
 a:hover{text-decoration: none;}
 ul, ol{list-style: none;}
 ul{margin:0;}
-input , textarea{font-family: '微软雅黑',tahoma,arial !important;}
+input, textarea{font-family: "Helvetica Neue",Helvetica,Arial,'Microsoft YaHei',sans-serif !important;}
 .btn-normal.btn-inverse{padding:4px 40px;box-shadow: none;}
 
 .login-box{position:relative;width:450px;margin:10% auto 0;background: #fff;border-radius:4px;box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);}
-.login-box h1{position: absolute;top:-65px;color: #fff;}
+.login-box h1{position: absolute;top:-65px;color: #fff;font-size: 22px;font-family: sans-serif; }
 .login-box h1 img{margin-right: 20px;}
 .login-box form{margin: 0;}
 .login-box .aw-mod-body{padding: 40px 70px;}

@@ -1,10 +1,10 @@
-body{font:13px/1.5 "微软雅黑",tahoma,arial;padding: 0px;color: #666;}
+body{font:13px/1.5 "Helvetica Neue",Helvetica,Arial,'Microsoft YaHei',sans-serif;padding: 0px;color: #666;}
 h1, h2, h3, h4, h5, h6{font-size:100%;color: #333;}
 a{cursor: pointer;}
 a:hover{text-decoration: none;}
 ul, ol{list-style: none;}
 ul{margin:0;}
-input , textarea{font-family: '微软雅黑',tahoma,arial !important;}
+input , textarea{font-family: "Helvetica Neue",Helvetica,Arial,'Microsoft YaHei',sans-serif !important;}
 .btn-normal.btn-inverse{padding:4px 40px;box-shadow: none;}
 select{width: auto;min-width: 220px;*margin-left:10px;}
 select, input[type="file"]{height: auto;}
