@@ -17,7 +17,8 @@ input, textarea{font-family: "Helvetica Neue",Helvetica,Arial,'Microsoft YaHei',
 .login-box h1 img{margin-right: 20px;}
 .login-box form{margin: 0;}
 .login-box .aw-mod-body{padding: 40px 70px;}
-.login-box .aw-mod-body ul li{margin-bottom: 30px;}
+.login-box .aw-mod-body ul li{margin-top: 30px;}
+.login-box .aw-mod-body ul li:first-child{margin-top:0px;}
 .login-box .aw-mod-body span{display:inline-block;width: 60px;margin-right:10px;text-align: right;}
 .login-box .aw-mod-body input{margin:0;}
 .login-box .aw-mod-footer{padding:20px 10px;background: #E7EDF2;border-top:1px solid #d0dce6;border-radius: 0 0 4px 4px;text-align: center;}
