@@ -234,6 +234,8 @@
 .aw-login-box .aw-mod-body .aw-label-icon.name, .aw-login-box .aw-mod-body .aw-label-icon.pwd{height:38px;line-height:38px;background: url("img/i_default_button.png") no-repeat -167px -55px #fff;border:1px solid #EBEBEB;border-right:none;border-radius: 0px;}
 .aw-login-box .aw-mod-body .aw-label-icon.pwd{background-position: -167px -101px;}
 .aw-mod-body #aw-login-user-name, .aw-mod-body #aw-login-user-password{width:293px;box-shadow: none;border-radius: 0px;}
+.open_login{color: #999;}
+.open_login .aw-icon{position: relative;top:9px;margin-left: 5px;}
 
 /*
 **	专题
