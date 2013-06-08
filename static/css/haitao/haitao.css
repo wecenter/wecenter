@@ -40,6 +40,7 @@ span.price{font-size: 24px;font-weight: bold;color: #4c5259;}
 .ht-date-select a.active{background: #ff8266;color: #fff;border: 1px solid #eb6c50;border-top:none;box-shadow: 0 1px 0 #fff, 0 -1px 0 #EB6C50;}
 
 /*海淘列表*/
+.ht-product-list{width: 1000px;}
 .ht-product-list ul li{float: left;width: 315px;height: 375px;margin:0 14px 16px 0;background: #fff;border: 1px solid #e6e6e6;border-radius: 3px;box-shadow: 0 1px 0 #d4d4d4;}
 .ht-product-list ul li .aw-mod-head{padding: 5px;}
 .ht-product-list ul li .aw-mod-body{padding:0 14px 16px;}
