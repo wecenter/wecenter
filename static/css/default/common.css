@@ -245,7 +245,7 @@ select{width: auto;}
 */
 .category{height:auto;padding:0 10px;}
 .category dl, .category dl dt, .category dl dd{float:left;}
-.category dl{margin:0 12px 0 0;padding:15px;}
+.category dl{margin:10px 12px 10px 0;padding:15px;}
 .category dl:hover .category-dropdown, .category dl:hover .dropdown-menu{display:block;}
 .category dl dt{width: 50px;}
 .category dl dt img{width:50px;height:50px;}
