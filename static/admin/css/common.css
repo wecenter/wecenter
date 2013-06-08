@@ -21,6 +21,7 @@ select, input[type="file"]{line-height: 0px;font-size: 13px;}
 .aw-padding10{padding: 10px;}
 .inline-block{display: inline-block;}
 .error-message{position: relative;}
+.aw-back-top{display: block;position: fixed;right: 1px;bottom: 5px;}
 
 /*全局input定义*/
 .normal-box{width: 35% !important;}
@@ -146,7 +147,7 @@ select, input[type="file"]{line-height: 0px;font-size: 13px;}
 .footer{width: 900px;margin:10px auto 0;padding:20px;text-align: center;}
 
 /*icon*/
-.aw-icon{display: inline-block;}
+.aw-icon, .aw-btn{display: inline-block;}
 .icon_system{width: 20px;height: 20px;background: url('../img/icon1.png') no-repeat;position: relative;top: 4px;}
 .icon_interface{width: 20px;height: 16px;background: url('../img/icon2.png') no-repeat;position: relative;top: 3px;}
 .icon_contents{width: 20px;height: 20px;background: url('../img/icon3.png') no-repeat;position: relative;top: 5px;}
@@ -172,6 +173,8 @@ select, input[type="file"]{line-height: 0px;font-size: 13px;}
 .accept{width: 16px;height: 16px;background: url('../img/accept.png') no-repeat;}
 .folder_page{width: 16px;height: 16px;background: url('../img/folder_page.png') no-repeat;}
 .database-table{width: 16px;height: 16px;background: url('../img/database-table.png') no-repeat;}
+.b-go-to-top{width:43px;height:43px;background: url('../img/aw-btn-sprite.png') no-repeat 0 -430px;}
+
 
 /*日期选择控件*/
 .date_selector, .date_selector * {width: auto;height: auto;border: none;background: none;margin: 0;padding: 0;text-align: left;text-decoration: none;cursor: pointer;}
