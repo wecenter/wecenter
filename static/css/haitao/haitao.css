@@ -59,6 +59,7 @@ span.price{font-size: 24px;font-weight: bold;color: #4c5259;}
 .aw-product-detail-content .ht-product-show ul{height:auto;overflow:hidden;margin: 20px 0;}
 .aw-product-detail-content .ht-product-show ul li{float: left;margin-left: 19px;}
 .aw-product-detail-content .ht-product-show ul li:first-child{margin-left: 0px;}
+.aw-product-detail-content img{margin-bottom: 10px;}
 .aw-product-detail-content p{font-size: 13px;line-height: 22px;text-align: justify;}
 
 /*侧边栏*/
