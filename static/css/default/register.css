@@ -42,7 +42,7 @@
 .aw-find-pwd .aw-mod-body{margin:0 0 100px;}
 .aw-find-pwd .aw-mod-body h3{margin:0 0 30px;font-size: 20px;color:#1A9F00;}
 .aw-find-pwd p{margin:0;color:#666;}
-.aw-find-pwd .aw-mod-footer{margin-bottom:-40px;padding:25px 30px 30px;background: #EBEBEB;border-radius:0 0 10px 10px;text-align: left;}
+.aw-find-pwd .aw-mod-footer{padding:25px 30px 30px;background: #EBEBEB;border-radius:0 0 10px 10px;text-align: left;}
 
 .aw-register-box ul li.error p {
     background: none repeat scroll 0 0 #FFF480;
