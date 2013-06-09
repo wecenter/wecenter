@@ -25,6 +25,7 @@
 .aw-all-question .aw-question-list .aw-question-replay-count{left: 570px;background: none;}
 .aw-all-question .aw-question-list .aw-question-replay-count em{line-height:25px;padding:0 10px;background: url("img/main_default.png") no-repeat -24px -166px;color: #999;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;}
 .aw-question-box-mod .aw-item{padding:15px 50px 15px 65px; }
+.aw-topic-search .search-query{padding: 3px 14px !important;}
 
 /*
 **	重载bootstrap按钮
@@ -120,7 +121,6 @@
 .aw-side-bar-mod-nav ul li a:hover{background: none;color: #0088CC;}
 .aw-side-bar-mod-nav ul li a.active .aw-message-tooltip{background: url("img/main_default.png") no-repeat 0 -60px;}
 
-@meida
 
 /*
 **	自定义tab切换
@@ -170,6 +170,11 @@
 */
 .aw-topic-detail-title{margin-bottom:30px;padding: 20px 20px 0 20px;border:1px solid #DFDFDF;}
 .aw-topic-detail-tabs .aw-search-box{right: 20px;top:5px;background: #fff;}
+
+/*
+**	话题编辑
+*/
+.aw-topic-edit h4{margin:30px 30px 0 10px;}
 
 /*
 ** 发起页面
