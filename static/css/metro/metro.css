@@ -21,6 +21,7 @@
 .aw-question-list .aw-question-replay-count.active em{background: #EFEFEF;}
 .aw-comment-list .aw-user-name img{width: 32px;height: 32px;}
 .aw-message-tooltip{padding-left:10px;background:url("img/main_default.png") no-repeat 0 -60px;}
+.aw-message-tooltip.error{padding-left:10px;background:url("img/main_default.png") no-repeat 0 -42px;}
 .aw-all-question .aw-question-list .aw-user-name{left:0;width:50px;height: 50px;}
 .aw-all-question .aw-question-list .aw-question-replay-count{left: 570px;background: none;}
 .aw-all-question .aw-question-list .aw-question-replay-count em{line-height:25px;padding:0 10px;background: url("img/main_default.png") no-repeat -24px -166px;color: #999;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;}
@@ -49,7 +50,7 @@
 .aw-top-menu h1{margin:0;}
 .aw-top-nav{width: 290px;}
 .aw-top-nav ul li{float: left;}
-.aw-top-nav ul li a{display:inline-block;height:55px;line-height: 55px;padding: 0 15px;font-size: 14px;font-weight: bold;color: #fff;}
+.aw-top-nav > ul > li > a{display:inline-block;height:55px;line-height: 55px;padding: 0 15px;font-size: 14px;font-weight: bold;color: #fff;}
 .aw-top-nav ul li a:hover{background: #0C7BB5;}
 .aw-top-nav ul li a.active{background:#016AA1}
 .aw-logo, .aw-search-box{margin-top: 6px;margin-right:0px;height: 30px;}
@@ -67,13 +68,15 @@
 .aw-user-nav > a{height: 53px;line-height: 50px;margin-top:2px;color: #fff;font-size: 14px;font-weight: bold;}
 .aw-user-nav > a img{width: 32px;height: 32px;}
 .aw-user-nav:hover .aw-user-nav-dropdown-list{display: block;}
-.aw-user-nav-dropdown{display: block;height: 45px;}
+.aw-logined-nav .aw-message-dropdown{top: 52px;}
+.aw-user-nav-dropdown{display: block;position:relative;height: 45px;}
 .aw-user-nav-dropdown img{margin-left: 10px;}
 .aw-user-nav-dropdown-list{display:none;position:absolute;right:0;top:55px;width: 110px;background: #0185C9;text-align: left;opacity: 0.8;filter:alpha(opacity=80);}
 .aw-user-nav-dropdown-list li{border-top: 1px dotted #333;}
 .aw-user-nav-dropdown-list li:first-child{border-top:none;}
 .aw-user-nav-dropdown-list a{display:block;height:35px;line-height:35px;padding-left:15px;color: #fff;font-weight: normal;}
 .aw-user-nav-dropdown-list a:hover{background: #016AA1;}
+.aw-user-nav-dropdown > .aw-message-tooltip{position: absolute;left: 22px;top: 5px;}
 
 /*
 **	category
