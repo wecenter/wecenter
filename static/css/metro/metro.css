@@ -51,8 +51,8 @@
 .aw-top-nav{width: 290px;}
 .aw-top-nav ul li{float: left;}
 .aw-top-nav > ul > li > a{display:inline-block;height:55px;line-height: 55px;padding: 0 15px;font-size: 14px;font-weight: bold;color: #fff;}
-.aw-top-nav ul li a:hover{background: #0C7BB5;}
-.aw-top-nav ul li a.active{background:#016AA1}
+.aw-top-nav > ul > li > a:hover{background: #0C7BB5;}
+.aw-top-nav > ul > li > a.active{background:#016AA1}
 .aw-logo, .aw-search-box{margin-top: 6px;margin-right:0px;height: 30px;}
 .aw-search-box{margin-top:13px;}
 .aw-search-box form{margin-top: 0px;}
