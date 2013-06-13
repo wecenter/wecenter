@@ -851,7 +851,7 @@ select{width: auto;}
 
 /*评论修改box*/
 .aw-edit-comment-box{position:absolute;width: 680px;}
-.aw-edit-comment-box .modal-body textarea{width: 638px;min-height:100px;margin:0;padding:5px;overflow:hidden;clear: left;}
+.aw-edit-comment-box .modal-body textarea{width: 638px;margin:0;padding:5px;overflow:hidden;clear: left;}
 .aw-edit-comment-box .modal-footer input{margin: -3px 5px 0 0;}
 .aw-edit-comment-box .modal-footer label{display: inline;font-size: 13px;}
 .aw-edit-comment-box .aw-file-upload-box{padding:20px;border:1px solid #ccc;}
