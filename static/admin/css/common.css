@@ -21,7 +21,7 @@ select, input[type="file"]{line-height: 0px;font-size: 13px;}
 .aw-padding10{padding: 10px;}
 .inline-block{display: inline-block;}
 .error-message{position: relative;}
-.aw-back-top{display: block;position: fixed;right: 1px;bottom: 5px;}
+.aw-back-top{display: none; position: fixed;right: 5px; bottom: 5px;}
 
 /*全局input定义*/
 .normal-box{width: 35% !important;}
