@@ -26,7 +26,7 @@
 .aw-top-menu-wrap{height:45px;background: url("img/main_default.png") repeat-x 0 -53px;box-shadow: 0 0 4px #000;}
 .aw-top-menu h1{margin:0;}
 .aw-top-nav{width: 270px;}
-.aw-top-nav ul li{float: left;}
+.aw-top-nav > ul > li{float: left;}
 .aw-top-nav > ul > li > a{display:inline-block;height:45px;line-height: 45px;padding: 0 15px;font-size: 14px;font-weight: bold;color: #fff;}
 .aw-top-nav > ul > li > a:hover{background: #404040;}
 .aw-top-nav > ul > li > a.active{background:#515151}
