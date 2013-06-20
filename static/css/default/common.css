@@ -244,7 +244,7 @@ select{width: auto;}
 /*
 **	category
 */
-.category{height:auto;padding:0 10px;}
+.category{height:auto;padding:10px;}
 .category dl, .category dl dt, .category dl dd{float:left;}
 .category dl{margin:10px 12px 10px 0;padding:15px;}
 .category dl:hover .category-dropdown, .category dl:hover .dropdown-menu{display:block;}
