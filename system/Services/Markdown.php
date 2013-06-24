@@ -166,8 +166,10 @@ class Services_Markdown {
 		
 		$text = str_replace(array(
 			"</ol>\n\n",
+			"</ul>\n\n",
 		), array(
-			"</ol>\n"
+			"</ol>\n",
+			"</ul>\n",
 		), $text);
 		
 		$this->teardown();
@@ -871,7 +873,7 @@ class Services_Markdown {
 		
 		$result = $this->processListItems($list, $marker_any_re);
 		
-		return $this->hashBlock("<$list_type>" . $result . "</$list_type>");
+		return $this->hashBlock("<$list_type>" . $result . "</$list_type>") . "\n\n";
 	}
 
 	protected $list_level = 0;
@@ -976,9 +978,11 @@ class Services_Markdown {
 		$codeblock = preg_replace('/\A\n+|\n+\z/', '', $codeblock);
 		
 		$codeblock = str_replace(array(
+			'&amp;',
 			"\t", 
 			' '
 		), array(
+			'&',
 			'&nbsp;&nbsp;&nbsp;&nbsp;',
 			'&nbsp;'
 		), $codeblock);
