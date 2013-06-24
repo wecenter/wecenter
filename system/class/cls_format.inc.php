@@ -74,7 +74,7 @@ class FORMAT
 		}
 	}
 	
-	public static function parse_markdown($str)
+	public static function parse_markdown($text)
 	{
 		if (!$text)
 		{

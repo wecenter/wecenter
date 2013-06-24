@@ -29,7 +29,7 @@ class Services_Markdown {
 	# This will work fine for derived classes too.
 	#
 		# Take parser class on which this function was called.
-		$parser_class = \get_called_class();
+		$parser_class = get_called_class();
 
 		# try to take parser from the static parser list
 		static $parser_list;
@@ -138,7 +138,7 @@ class Services_Markdown {
 	# and pass it through the document gamut.
 	#
 		$this->setup();
-	
+		
 		# Remove UTF-8 BOM and marker character in input, if present.
 		$text = preg_replace('{^\xEF\xBB\xBF|\x1A}', '', $text);
 
@@ -151,7 +151,7 @@ class Services_Markdown {
 
 		# Convert all tabs to spaces.
 		$text = $this->detab($text);
-
+		
 		# Turn block-level HTML blocks into hash entries
 		$text = $this->hashHTMLBlocks($text);
 		
@@ -413,7 +413,7 @@ class Services_Markdown {
 	# tags like paragraphs, headers, and list items.
 	#
 		"doHeaders"         => 10,
-		"doHorizontalRules" => 20,
+		//"doHorizontalRules" => 20,
 		
 		"doLists"           => 40,
 		"doCodeBlocks"      => 50,
@@ -429,7 +429,7 @@ class Services_Markdown {
 		# begining in the Markdown function since hashed blocks can be part of
 		# list items and could have been indented. Indented blocks would have 
 		# been seen as a code block in a previous pass of hashHTMLBlocks.
-		$text = $this->hashHTMLBlocks($text);
+		//$text = $this->hashHTMLBlocks($text);
 		
 		return $this->runBasicBlockGamut($text);
 	}
@@ -863,6 +863,7 @@ class Services_Markdown {
 		return $text;
 	}
 	protected function _doLists_callback($matches) {
+	
 		# Re-usable patterns to match list item bullets and number markers:
 		$marker_ul_re  = '[*+-]';
 		$marker_ol_re  = '\d+[\.]';
