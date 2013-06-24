@@ -620,7 +620,7 @@ select{width: auto;}
 .aw-mod-private-replay-list li p{margin:0;}
 .aw-mod-private-replay-list li .aw-item{position:relative;padding:12px 15px;background: #FAFAFA;border:1px solid #E6E6E6;}
 .aw-mod-private-replay-list li .aw-item p:first-child{margin-bottom: 10px;}
-.aw-mod-private-replay-list li .aw-user-img{position: absolute;right: 0;top: 15px;}
+.aw-mod-private-replay-list li .aw-user-img{position: absolute;right: 0;top: 15px;width: 32px;height: 32px;}
 .aw-mod-private-replay-list li .i-private-replay-triangle{position: absolute;right: -9px;top: 10px;border-left:1px solid #FAFAFA;}
 .aw-mod-private-replay-list li.active .aw-item{background: #F5FAFE;border:1px solid #DCECF9;}
 .aw-mod-private-replay-list li.active .aw-user-img{left:0;}
