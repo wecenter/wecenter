@@ -76,9 +76,6 @@ class FORMAT
 	
 	public static function parse_markdown($str)
 	{
-		// Modify by wecenter
-		return $str;
-		
 		if (!$str)
 		{
 			return false;
