@@ -81,8 +81,6 @@ class FORMAT
 			return false;
 		}
 		
-		$text = preg_replace('/((^|[ \n]+)(?:&gt;)[ ]?)/is', "\n > ", $text);
-		
 		return load_class('Services_Markdown')->transform($text);
 	}
 	
