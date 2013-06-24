@@ -94,6 +94,8 @@ class Services_Markdown {
 		asort($this->document_gamut);
 		asort($this->block_gamut);
 		asort($this->span_gamut);
+		
+		return $this;
 	}
 
 
@@ -152,7 +154,7 @@ class Services_Markdown {
 
 		# Turn block-level HTML blocks into hash entries
 		$text = $this->hashHTMLBlocks($text);
-
+		
 		# Strip any lines consisting only of spaces and tabs.
 		# This makes subsequent regexen easier to write, because we can
 		# match consecutive blank lines with /\n+/ instead of something

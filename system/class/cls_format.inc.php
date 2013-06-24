@@ -76,18 +76,14 @@ class FORMAT
 	
 	public static function parse_markdown($str)
 	{
-		if (!$str)
+		if (!$text)
 		{
 			return false;
 		}
 		
-		$str = preg_replace('/((^|[ \n]+)(?:&gt;)[ ]?)/is', "\n > ", $str);
+		$text = preg_replace('/((^|[ \n]+)(?:&gt;)[ ]?)/is', "\n > ", $text);
 		
-		$Markdown_Parser = load_class('Services_Markdown');
-	
-		$str = $Markdown_Parser->transform(trim($str));
-		
-		return $str;
+		return load_class('Services_Markdown')->transform($text);
 	}
 	
 	public static function bbcode_2_markdown($text)
