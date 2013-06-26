@@ -19,13 +19,13 @@
 			<?php } ?>
 			<dl>
 				<dt><h3><?php _e('关键词'); ?>:</h3></dt>
-				<dd><input type="text" name="keyword" value="<?php echo $this->rule_info['keyword']; ?>" /></dd>
+				<dd><?php if ($this->rule_info['id']) { ?><?php echo $this->rule_info['keyword']; ?><?php } else { ?><input type="text" name="keyword" value="" /><?php } ?></dd>
 			</dl>
 			<dl>
 				<dt><h3><?php _e('回应内容'); ?>:</h3></dt>
 				<dd><input type="text" name="title" value="<?php echo $this->rule_info['title']; ?>" /></dd>
 			</dl>
-			<?php if ($this->rule_info['is_image'] OR !$this->rule_info) { ?>
+			<?php if ($this->rule_info['image_file'] OR !$this->rule_info) { ?>
 			<dl>
 				<dt><h3><?php _e('图片'); ?>:</h3></dt>
 				<dd>
@@ -36,7 +36,7 @@
 			<dl>
 				<dt><h3><?php _e('图片简介'); ?></h3></dt>
 				<dd>
-					<textarea name="topic_description"><?php echo $this->rule_info['description']; ?></textarea>
+					<textarea name="description"><?php echo $this->rule_info['description']; ?></textarea>
 					<p class="aw-text-color-999"><?php _e('文字消息忽略此选项'); ?></p>
 				</dd>
 			</dl>

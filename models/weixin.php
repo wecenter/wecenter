@@ -611,9 +611,23 @@ class weixin_class extends AWS_MODEL
 		));
 	}
 	
+	public function update_reply_rule($id, $title, $description = '', $image_file = null)
+	{
+		return $this->update('weixin_reply_rule', array(
+			'title' => $title,
+			'description' => $description,
+			'image_file' => $image_file
+		), 'id = ' . $id);
+	}
+	
 	public function get_reply_rule_by_id($id)
 	{
 		return $this->fetch_row('weixin_reply_rule', 'id = ' . intval($id));
+	}
+	
+	public function get_reply_rule_by_keyword($keyword)
+	{
+		return $this->fetch_row('weixin_reply_rule', "`keyword` = '" . $this->quote($keyword) . "'");
 	}
 	
 	public function remove_reply_rule($id)
