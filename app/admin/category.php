@@ -27,11 +27,6 @@ class category extends AWS_CONTROLLER
 		TPL::assign('menu_list', $this->model('admin_group')->get_menu_list($this->user_info['group_id'], 302));
 	}
 
-	public function index_action()
-	{
-		$this->list_action();
-	}
-
 	public function list_action()
 	{
 		$this->crumb(AWS_APP::lang()->_t('分类设置'), "admin/category/list/");

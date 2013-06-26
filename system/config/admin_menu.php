@@ -1,7 +1,6 @@
 <?php
 
 $config[] = array(
-	'id' => 1,
 	'title' => '全局',
 	'cname' => 'system',
 	'children' => array(
@@ -79,7 +78,6 @@ $config[] = array(
 );
 
 $config[] = array(
-	'id' => 3,
 	'title' => '内容',
 	'cname' => 'contents',
 	'children' => array(
@@ -124,7 +122,6 @@ $config[] = array(
 );
 
 $config[] = array(
-	'id' => 4,
 	'title' => '用户',
 	'cname' => 'users',
 	'children' => array(
@@ -167,7 +164,6 @@ $config[] = array(
 );
 
 $config[] = array(
-	'id' => 7,
 	'title' => '邮件群发',
 	'cname' => 'edm',
 	'children' => array(
@@ -184,8 +180,22 @@ $config[] = array(
 	)
 );
 
+if (get_setting('weixin_mp_token'))
+{
+	$config[] = array(
+		'title' => '微信',
+		'cname' => 'weixin',
+		'children' => array(
+			array(
+				'id' => 801,
+				'title' => '自动回复',
+				'url' => 'admin/weixin/reply/',
+			),
+		)
+	);
+}
+
 $config[] = array(
-	'id' => 5,
 	'title' => '工具',
 	'cname' => 'tools',
 	'children' => array(
