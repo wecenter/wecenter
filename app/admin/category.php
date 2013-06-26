@@ -24,13 +24,13 @@ class category extends AWS_CONTROLLER
 	{
 		$this->model('admin_session')->init();
 		
+		$this->crumb(AWS_APP::lang()->_t('分类设置'), "admin/category/list/");
+		
 		TPL::assign('menu_list', $this->model('admin_group')->get_menu_list($this->user_info['group_id'], 302));
 	}
 
 	public function list_action()
 	{
-		$this->crumb(AWS_APP::lang()->_t('分类设置'), "admin/category/list/");
-		
 		TPL::assign('list', json_decode($this->model('system')->build_category_json('question'), true));
 		TPL::assign('category_option', $this->model('system')->build_category_html('question'));
 		
@@ -42,8 +42,6 @@ class category extends AWS_CONTROLLER
 		$category = $this->model('system')->get_category_info($_GET['category_id']);
 		
 		$nav_menu = $this->model('menu')->get_nav_menu_list(null, false, true);
-		
-		$this->crumb(AWS_APP::lang()->_t('分类设置'), "admin/category/list/");
 		
 		TPL::assign('category', $category);
 		TPL::assign('menu_category_ids', $nav_menu['category_ids']);

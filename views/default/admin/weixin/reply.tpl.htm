@@ -1,0 +1,43 @@
+<?php TPL::output('admin/global/header.tpl.htm'); ?>
+<?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
+
+<div class="pull-left right-side">
+	<div class="alert alert-success hide error-message"></div>
+	<div class="aw-mod-body">
+		<table class="aw-table">
+			<thead>
+				<tr>
+					<th style="width:20%;"><?php _e('关键词'); ?></th>
+					<th align="center"><?php _e('回应内容'); ?></th>
+					<th style="width:15%;" align="center"><?php _e('操作'); ?></th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php foreach ($this->rule_list AS $key => $val) { ?>
+				<tr>
+					<td align="center"><?php echo $val['keyword']; ?></td>
+					<td><?php if ($val['image_file']) { ?><span class="label label-info">图文</span> <?php } ?><?php echo $val['title']; ?></td>
+					<td align="center">
+						<a href="admin/weixin/reply_edit/id-<?php echo $val['id']; ?>" title="<?php _e('编辑'); ?>">
+							<i class="aw-icon page-edit"></i>
+						</a> &nbsp; 
+						<a href="javascript:;" onclick="ajax_request(G_BASE_URL + '/admin/weixin/reply_remove/id-<?php echo $val['id'];?>');" title="<?php _e('删除'); ?>">
+							<i class="aw-icon page-delete"></i>
+						</a>
+					</td>
+				</tr>
+				<?php } ?>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="3">
+						<a class="btn btn-inverse inline-block" href="admin/weixin/reply_add/"><?php _e('添加规则'); ?></a>
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+		
+	</div>
+</div>
+
+<?php TPL::output('admin/global/footer.tpl.htm'); ?>

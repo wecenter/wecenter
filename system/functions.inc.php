@@ -145,7 +145,7 @@
  * @param  string $size     三种图片尺寸 max(100px)|mid(50px)|min(32px)
  * @param  string $pic_file 某一尺寸的图片文件名
  * @return string           取出主题图片或主题默认图片的完整url地址
- */function get_topic_pic_url($size = null, $pic_file = null){	$sized_file = AWS_APP::model('topic')->get_sized_file($size, $pic_file);		if ($sized_file)	{		return get_setting('upload_url') . '/topic/' . $sized_file;	}	else	{		if (! $size)		{			return G_STATIC_URL . '/common/topic-max-img.jpg';		}				return G_STATIC_URL . '/common/topic-' . $size . '-img.jpg';	}}
+ */function get_topic_pic_url($size = null, $pic_file = null){	if ($sized_file = AWS_APP::model('topic')->get_sized_file($size, $pic_file))	{		return get_setting('upload_url') . '/topic/' . $sized_file;	}	else	{		if (! $size)		{			return G_STATIC_URL . '/common/topic-max-img.jpg';		}				return G_STATIC_URL . '/common/topic-' . $size . '-img.jpg';	}}
 
 /**
  * 获取专题图片指定尺寸的完整url地址
@@ -194,3 +194,8 @@
  * 判断是否是合格的手机客户端
  * @return boolean
  */function is_mobile(){	$user_agent = strtolower($_SERVER['HTTP_USER_AGENT']);		if (preg_match('/playstation/i', $user_agent) OR preg_match('/ipad/i', $user_agent) OR preg_match('/ucweb/i', $user_agent) OR preg_match('/ucbrowser/i', $user_agent))	{		return false;	}		if (preg_match('/iemobile/i', $user_agent) OR preg_match('/mobile\ssafari/i', $user_agent) OR preg_match('/iphone\sos/i', $user_agent))	{		return true;	}		return false;}
+
+function get_weixin_reply_rule_image($image_file)
+{
+	return AWS_APP::model('weixin')->get_reply_rule_image($image_file);
+}

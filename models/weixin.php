@@ -21,6 +21,8 @@ class weixin_class extends AWS_MODEL
 {
 	var $text_tpl = '<xml><ToUserName><![CDATA[%s]]></ToUserName><FromUserName><![CDATA[%s]]></FromUserName><CreateTime>%s</CreateTime><MsgType><![CDATA[%s]]></MsgType><Content><![CDATA[%s]]></Content><FuncFlag>0</FuncFlag></xml>';
 	
+	var $image_tpl = '<xml><ToUserName><![CDATA[%s]]></ToUserName><FromUserName><![CDATA[$%s]]></FromUserName><CreateTime>%s</CreateTime><MsgType><![CDATA[%s]]></MsgType><ArticleCount>2</ArticleCount><Articles><item><Title><![CDATA[title1]]></Title><Description><![CDATA[description1]]></Description><PicUrl><![CDATA[picurl]]></PicUrl><Url><![CDATA[url]]></Url></item></Articles><FuncFlag>1</FuncFlag></xml>';
+	
 	var $language_characteristic = array(
 		'ok' => array(
 			'好', '好的', '是', '是的', '恩', '可', '可以', '行', '行啊', '中', '要', '哦', '嗯', '确认', '确定', 'yes', '更多'
@@ -590,5 +592,42 @@ class weixin_class extends AWS_MODEL
 	public function get_last_message($weixin_id)
 	{
 		return $this->fetch_row('weixin_message', "weixin_id = '" . $this->quote($weixin_id) . "'");
+	}
+	
+	public function fetch_reply_rule_list()
+	{
+		return $this->fetch_all('weixin_reply_rule', null, 'id DESC');
+	}
+	
+	public function add_reply_rule($keyword, $title, $description = '', $image_file = null)
+	{
+		$this->delete('weixin_reply_rule', "`keyword` = '" . trim($keyword) . "'");
+		
+		return $this->insert('weixin_reply_rule', array(
+			'keyword' => trim($keyword),
+			'title' => $title,
+			'description' => $description,
+			'image_file' => $image_file
+		));
+	}
+	
+	public function get_reply_rule_by_id($id)
+	{
+		return $this->fetch_row('weixin_reply_rule', 'id = ' . intval($id));
+	}
+	
+	public function remove_reply_rule($id)
+	{
+		if ($reply_rule = $this->get_reply_rule_by_id($id))
+		{
+			unlink(get_setting('upload_dir') . '/weixin/reply/' . $reply_rule['image_file']);
+			
+			return $this->delete('weixin_reply_rule', 'id = ' . intval($id));
+		}
+	}
+	
+	public function get_reply_rule_image($image_file)
+	{
+		return get_setting('upload_url') . '/weixin/reply/' . $image_file;
 	}
 }
