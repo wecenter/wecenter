@@ -219,6 +219,8 @@ class weixin_class extends AWS_MODEL
 			return false;
 		}
 		
+		//AWS_APP::mail()->send('explon@gmail.com', 'DEBUG', htmlspecialchars(sprintf($this->image_tpl, $input_message['fromUsername'], $input_message['toUsername'], $input_message['time'], 'news', sizeof($image_data), $article_tpl)));
+		
 		return sprintf($this->image_tpl, $input_message['fromUsername'], $input_message['toUsername'], $input_message['time'], 'news', sizeof($image_data), $article_tpl);
 	}
 	
