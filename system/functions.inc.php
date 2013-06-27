@@ -195,7 +195,7 @@
  * @return boolean
  */function is_mobile(){	$user_agent = strtolower($_SERVER['HTTP_USER_AGENT']);		if (preg_match('/playstation/i', $user_agent) OR preg_match('/ipad/i', $user_agent) OR preg_match('/ucweb/i', $user_agent) OR preg_match('/ucbrowser/i', $user_agent))	{		return false;	}		if (preg_match('/iemobile/i', $user_agent) OR preg_match('/mobile\ssafari/i', $user_agent) OR preg_match('/iphone\sos/i', $user_agent))	{		return true;	}		return false;}
 
-function get_weixin_reply_rule_image($image_file)
+function get_weixin_reply_rule_image($image_file, $size = '')
 {
-	return AWS_APP::model('weixin')->get_reply_rule_image($image_file);
+	return AWS_APP::model('weixin')->get_reply_rule_image($image_file, $size);
 }

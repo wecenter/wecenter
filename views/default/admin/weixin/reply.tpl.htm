@@ -16,7 +16,7 @@
 				<?php foreach ($this->rule_list AS $key => $val) { ?>
 				<tr>
 					<td align="center"><?php echo $val['keyword']; ?></td>
-					<td><?php if ($val['image_file']) { ?><span class="label label-info">图文</span> <?php } ?><?php echo $val['title']; ?></td>
+					<td><?php if ($val['image_file']) { ?><span class="label label-info"><?php _e('图文消息'); ?></span> <?php } ?><?php echo $val['title']; ?></td>
 					<td align="center">
 						<a href="admin/weixin/reply_edit/id-<?php echo $val['id']; ?>" title="<?php _e('编辑'); ?>">
 							<i class="aw-icon page-edit"></i>

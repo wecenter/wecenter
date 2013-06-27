@@ -457,6 +457,18 @@
 				<dt><h3><?php _e('阅读器热门问题赞同数需大于或等于'); ?>:</h3></dt>
 				<dd><input name="reader_questions_agree_count" type="text" class="input-xlarge" value="<?php echo $this->setting['reader_questions_agree_count']; ?>"/></dd>
 			</dl>
+			
+			<dl>
+				<dt><h3><?php _e('自动建立地区/职业/公司话题'); ?>:</h3></dt>				
+				<dd>
+					<span class="yesno_yes">
+						<label><input type="radio" name="auto_create_social_topics" value="Y"<?php if ($this->setting['auto_create_social_topics'] == 'Y') { ?> checked="checked"<?php } ?> /><?php _e('是'); ?></label>
+					</span>
+					<span class="yesno_no">
+						<label><input type="radio" name="auto_create_social_topics" value="N"<?php if ($this->setting['auto_create_social_topics'] == 'N') { ?> checked="checked"<?php } ?> /><?php _e('否'); ?></label>
+					</span>
+				</dd>
+			</dl>
 		</div>
 		<a name="integral"></a>
 		<div class="aw-mod-head">

@@ -114,7 +114,7 @@ class weixin extends AWS_CONTROLLER
 				$rule_info['image_file'] = basename($upload_data['full_path']);
 			}
 			
-			$this->model('weixin')->update_reply_rule($_POST['id'], $_POST['title'], $_POST['description'], $rule_info['image_file']);
+			$this->model('weixin')->update_reply_rule($_POST['id'], $_POST['title'], $_POST['description'], $_POST['link'], $rule_info['image_file']);
 		
 			H::ajax_json_output(AWS_APP::RSM(array(
 			'url' => get_setting('base_url') . '/' . G_INDEX_SCRIPT . '/admin/weixin/reply/'), 1, null));
@@ -163,6 +163,14 @@ class weixin extends AWS_CONTROLLER
 					'quality' => 90,
 					'source_image' => $upload_data['full_path'],
 					'new_image' => $upload_data['full_path'],
+					'width' => 640,
+					'height' => 320
+				))->resize();	
+				
+				AWS_APP::image()->initialize(array(
+					'quality' => 90,
+					'source_image' => $upload_data['full_path'],
+					'new_image' => get_setting('upload_dir') . '/weixin/reply/square_' . basename($upload_data['full_path']),
 					'width' => 80,
 					'height' => 80
 				))->resize();	
@@ -170,7 +178,7 @@ class weixin extends AWS_CONTROLLER
 				$image_file = basename($upload_data['full_path']);
 			}
 			
-			$this->model('weixin')->add_reply_rule($_POST['keyword'], $_POST['title'], $_POST['description'], $image_file);
+			$this->model('weixin')->add_reply_rule($_POST['keyword'], $_POST['title'], $_POST['description'], $_POST['link'], $image_file);
 		}
 		
 		H::ajax_json_output(AWS_APP::RSM(array(

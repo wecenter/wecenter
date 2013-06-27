@@ -21,7 +21,9 @@ class weixin_class extends AWS_MODEL
 {
 	var $text_tpl = '<xml><ToUserName><![CDATA[%s]]></ToUserName><FromUserName><![CDATA[%s]]></FromUserName><CreateTime>%s</CreateTime><MsgType><![CDATA[%s]]></MsgType><Content><![CDATA[%s]]></Content><FuncFlag>0</FuncFlag></xml>';
 	
-	var $image_tpl = '<xml><ToUserName><![CDATA[%s]]></ToUserName><FromUserName><![CDATA[$%s]]></FromUserName><CreateTime>%s</CreateTime><MsgType><![CDATA[%s]]></MsgType><ArticleCount>2</ArticleCount><Articles><item><Title><![CDATA[title1]]></Title><Description><![CDATA[description1]]></Description><PicUrl><![CDATA[picurl]]></PicUrl><Url><![CDATA[url]]></Url></item></Articles><FuncFlag>1</FuncFlag></xml>';
+	var $image_tpl = '<xml><ToUserName><![CDATA[%s]]></ToUserName><FromUserName><![CDATA[$%s]]></FromUserName><CreateTime>%s</CreateTime><MsgType><![CDATA[%s]]></MsgType><ArticleCount>%s</ArticleCount>%s<FuncFlag>1</FuncFlag></xml>';
+	
+	var $image_article_tpl = '<Articles><item><Title><![CDATA[%s]]></Title><Description><![CDATA[%s]]></Description><PicUrl><![CDATA[%s]]></PicUrl><Url><![CDATA[%s]]></Url></item></Articles>';
 	
 	var $language_characteristic = array(
 		'ok' => array(
@@ -33,7 +35,7 @@ class weixin_class extends AWS_MODEL
 		),
 		
 		'bad' => array(
-			'fuck', 'shit', '狗屎', '婊子', '贱', '你妈', '你娘', '你祖宗', '滚', '你妹'
+			'fuck', 'shit', '狗屎', '婊子', '贱', '你妈', '你娘', '你祖宗', '滚', '你妹', '日', '操', '靠', '干'
 		),
 	);
 	
@@ -98,6 +100,10 @@ class weixin_class extends AWS_MODEL
 				{
 					$response_message = '说脏话都不是好孩子!';
 				}
+				else if ($response_message = $this->create_response_by_reply_rule_keyword($input_message['content']))
+				{
+					// response by reply rule keyword...
+				}
 				else if ($search_result = $this->model('search')->search_questions($input_message['content'], null, 6))
 				{
 					$response_message = '下列内容可以帮到您么:' . "\n";
@@ -158,8 +164,16 @@ class weixin_class extends AWS_MODEL
 				}
 			break;
 		}
-			
-		echo $this->create_response($input_message, $response_message, $action);
+		
+		if (is_array($response_message))
+		{
+			echo $this->create_image_response($input_message, $response_message);
+		}
+		else
+		{
+			echo $this->create_response($input_message, $response_message, $action);
+		}
+		
 		die;
 	}
 	
@@ -178,6 +192,30 @@ class weixin_class extends AWS_MODEL
 		}
 		
 		return sprintf($this->text_tpl, $input_message['fromUsername'], $input_message['toUsername'], $input_message['time'], 'text', $response_message);
+	}
+	
+	public function create_image_response($response_message, $image_data = array())
+	{
+		foreach ($image_data AS $key => $val)
+		{
+			if (!$article_tpl)
+			{
+				$image_size = 'square';
+			}
+			else
+			{
+				unset($image_size);
+			}
+			
+			$article_tpl .= sprintf($this->image_article_tpl, $val['title'], $val['description'], $this->get_reply_rule_image($this->rule_info['image_file'], $image_size), $val['link']);
+		}
+		
+		if (!$article_tpl)
+		{
+			return false;
+		}
+		
+		return sprintf($this->image_tpl, $input_message['fromUsername'], $input_message['toUsername'], $input_message['time'], 'news', sizeof($image_data), $article_tpl);
 	}
 	
 	public function message_parser($input_message, $param = null)
@@ -607,16 +645,18 @@ class weixin_class extends AWS_MODEL
 			'keyword' => trim($keyword),
 			'title' => $title,
 			'description' => $description,
-			'image_file' => $image_file
+			'image_file' => $image_file,
+			'link' => $link
 		));
 	}
 	
-	public function update_reply_rule($id, $title, $description = '', $image_file = null)
+	public function update_reply_rule($id, $title, $description = '', $link = '', $image_file = null)
 	{
 		return $this->update('weixin_reply_rule', array(
 			'title' => $title,
 			'description' => $description,
-			'image_file' => $image_file
+			'image_file' => $image_file,
+			'link' => $link
 		), 'id = ' . $id);
 	}
 	
@@ -627,7 +667,21 @@ class weixin_class extends AWS_MODEL
 	
 	public function get_reply_rule_by_keyword($keyword)
 	{
-		return $this->fetch_row('weixin_reply_rule', "`keyword` = '" . $this->quote($keyword) . "'");
+		return $this->fetch_row('weixin_reply_rule', "`keyword` = '" . trim($this->quote($keyword)) . "'");
+	}
+	
+	public function create_response_by_reply_rule_keyword($keyword)
+	{
+		// is text message
+		if ($reply_rule = $this->fetch_row('weixin_reply_rule', "`keyword` = '" . trim($this->quote($keyword)) . "' AND image_file = ''"))
+		{
+			return $reply_rule['title'];
+		}
+		
+		if ($reply_rule = $this->fetch_all('weixin_reply_rule', "`keyword` = '" . trim($this->quote($keyword)) . "' AND image_file != ''"))
+		{
+			return $reply_rule;
+		}
 	}
 	
 	public function remove_reply_rule($id)
@@ -640,8 +694,13 @@ class weixin_class extends AWS_MODEL
 		}
 	}
 	
-	public function get_reply_rule_image($image_file)
+	public function get_reply_rule_image($image_file, $size = '')
 	{
-		return get_setting('upload_url') . '/weixin/reply/' . $image_file;
+		if ($size)
+		{
+			$size .= '_';
+		}
+		
+		return get_setting('upload_url') . '/weixin/reply/' . $size . $image_file;
 	}
 }
