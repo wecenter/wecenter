@@ -795,6 +795,11 @@ class weixin_class extends AWS_MODEL
 							return AWS_APP::lang()->_t('你没有权限发布问题');
 						}
 						
+						if (get_setting('question_title_limit') > 0 && cjk_strlen(substr($keyword, strlen($val['keyword']))) > get_setting('question_title_limit'))
+						{
+							return AWS_APP::lang()->_t('问题标题字数不得大于') . ' ' . get_setting('question_title_limit') . ' ' . AWS_APP::lang()->_t('字节');
+						}
+						
 						if (! $user_group['permission']['publish_url'] && FORMAT::outside_url_exists($keyword))
 						{
 							return AWS_APP::lang()->_t('你所在的用户组不允许发布站外链接');
