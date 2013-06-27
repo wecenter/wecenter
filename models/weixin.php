@@ -646,8 +646,16 @@ class weixin_class extends AWS_MODEL
 			'title' => $title,
 			'description' => $description,
 			'image_file' => $image_file,
-			'link' => $link
+			'link' => $link,
+			'enabled' => 1
 		));
+	}
+	
+	public function update_reply_rule_enabled($id, $status)
+	{
+		return $this->update('weixin_reply_rule', array(
+			'enabled' => intval($status)
+		), 'id = ' . $id);
 	}
 	
 	public function update_reply_rule($id, $title, $description = '', $link = '', $image_file = '')
@@ -673,12 +681,12 @@ class weixin_class extends AWS_MODEL
 	public function create_response_by_reply_rule_keyword($keyword)
 	{
 		// is text message
-		if ($reply_rule = $this->fetch_row('weixin_reply_rule', "`keyword` = '" . trim($this->quote($keyword)) . "' AND (`image_file` = '' OR `image_file` IS NULL)"))
+		if ($reply_rule = $this->fetch_row('weixin_reply_rule', "`keyword` = '" . trim($this->quote($keyword)) . "' AND (`image_file` = '' OR `image_file` IS NULL) AND `enabled` = 1"))
 		{
 			return $reply_rule['title'];
 		}
 		
-		if ($reply_rule = $this->fetch_all('weixin_reply_rule', "`keyword` = '" . trim($this->quote($keyword)) . "' AND `image_file` <> ''", 'id DESC', 10))
+		if ($reply_rule = $this->fetch_all('weixin_reply_rule', "`keyword` = '" . trim($this->quote($keyword)) . "' AND `image_file` <> '' AND `enabled` = 1", 'id DESC', 10))
 		{
 			return $reply_rule;
 		}

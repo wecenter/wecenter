@@ -193,6 +193,22 @@ class weixin extends AWS_CONTROLLER
 			'url' => get_setting('base_url') . '/' . G_INDEX_SCRIPT . '/admin/weixin/reply/'), 1, null));
 	}
 	
+	public function save_reply_rule_enabled_action()
+	{
+		if ($_POST['rule_ids'])
+		{
+			foreach ($_POST['rule_ids'] AS $rule_id => $val)
+			{
+				if ($val != $_POST['enabled_status'][$rule_id])
+				{
+					$this->model('weixin')->update_reply_rule_enabled($rule_id, $_POST['enabled_status'][$rule_id]);
+				}
+			}
+		}
+		
+		H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('启用状态已自动保存')));
+	}
+	
 	public function reply_remove_action()
 	{
 		$this->model('weixin')->remove_reply_rule($_GET['id']);

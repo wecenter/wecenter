@@ -5,8 +5,10 @@ CREATE TABLE IF NOT EXISTS `[#DB_PREFIX#]weixin_reply_rule` (
   `image_file` varchar(255) COLLATE utf8_unicode_ci DEFAULT '',
   `description` text COLLATE utf8_unicode_ci,
   `link` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `enabled` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`),
-  KEY `keyword` (`keyword`)
+  KEY `keyword` (`keyword`),
+  KEY `enabled` (`enabled`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
 
 INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES ('auto_create_social_topics', 's:1:"N";');
