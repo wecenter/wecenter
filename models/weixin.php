@@ -637,7 +637,7 @@ class weixin_class extends AWS_MODEL
 		return $this->fetch_all('weixin_reply_rule', null, 'id DESC');
 	}
 	
-	public function add_reply_rule($keyword, $title, $description = '', $link = '', $image_file = null)
+	public function add_reply_rule($keyword, $title, $description = '', $link = '', $image_file = '')
 	{
 		$this->delete('weixin_reply_rule', "`keyword` = '" . trim($keyword) . "' AND image_file = ''");
 		
@@ -650,7 +650,7 @@ class weixin_class extends AWS_MODEL
 		));
 	}
 	
-	public function update_reply_rule($id, $title, $description = '', $link = '', $image_file = null)
+	public function update_reply_rule($id, $title, $description = '', $link = '', $image_file = '')
 	{
 		return $this->update('weixin_reply_rule', array(
 			'title' => $title,
@@ -671,9 +671,9 @@ class weixin_class extends AWS_MODEL
 	}
 	
 	public function create_response_by_reply_rule_keyword($keyword)
-	{		
+	{
 		// is text message
-		if ($reply_rule = $this->fetch_row('weixin_reply_rule', "`keyword` = '" . trim($this->quote($keyword)) . "' AND `image_file` = ''"))
+		if ($reply_rule = $this->fetch_row('weixin_reply_rule', "`keyword` = '" . trim($this->quote($keyword)) . "' AND (`image_file` = '' OR `image_file` IS NULL)"))
 		{
 			return $reply_rule['title'];
 		}
