@@ -52,7 +52,7 @@
 .i-email{width:14px;height: 13px;background-position: -200px -30px;}
 .i-err{width: 14px;height: 14px;background-position: -241px -31px;}
 .i-upload-file{width: 14px;height: 14px;background-position: -340px 0;position: relative;top:2px;}
-.i-phone{width:13px;height: 18px;background-position: -290px -30px;position: relative;top: 4px;}
+.i-phone{width:13px;height: 15px;background-position: -303px -31px;position: relative;top: 3px;}
 
 /*第三排*/
 .i-remark{width:10px;height: 9px;background-position: 0 -60px;*position:relative;*top:-4px;}
