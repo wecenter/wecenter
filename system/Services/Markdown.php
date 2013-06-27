@@ -1101,7 +1101,11 @@ class Services_Markdown {
 				}
 				$tree_char_em = false;
 			} else if ($token_len == 3) {
-				if ($em) {
+				if ($token == '___')
+				{
+					$text_stack[0] .= $token;
+				}
+				else if ($em) {
 					# Reached closing marker for both em and strong.
 					# Closing strong marker:
 					for ($i = 0; $i < 2; ++$i) {
@@ -1123,7 +1127,11 @@ class Services_Markdown {
 					$tree_char_em = true;
 				}
 			} else if ($token_len == 2) {
-				if ($strong) {
+				if ($token == '__')
+				{
+					$text_stack[0] .= $token;
+				}
+				else if ($strong) {
 					# Unwind any dangling emphasis marker:
 					if (strlen($token_stack[0]) == 1) {
 						$text_stack[1] .= array_shift($token_stack);
@@ -1142,8 +1150,13 @@ class Services_Markdown {
 					$strong = $token;
 				}
 			} else {
+				if ($token == '_')
+				{
+					$text_stack[0] .= $token;
+				}
+				
 				# Here $token_len == 1
-				if ($em) {
+				else if ($em) {
 					if (strlen($token_stack[0]) == 1) {
 						# Closing emphasis marker:
 						array_shift($token_stack);
