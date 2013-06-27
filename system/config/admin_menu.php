@@ -191,6 +191,12 @@ if (get_setting('weixin_mp_token'))
 				'title' => '自动回复',
 				'url' => 'admin/weixin/reply/',
 			),
+			
+			array(
+				'id' => 802,
+				'title' => '发文指令',
+				'url' => 'admin/weixin/publish/',
+			),
 		)
 	);
 }
