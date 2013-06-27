@@ -105,9 +105,17 @@ class weixin extends AWS_CONTROLLER
 					'quality' => 90,
 					'source_image' => $upload_data['full_path'],
 					'new_image' => $upload_data['full_path'],
+					'width' => 640,
+					'height' => 320
+				))->resize();	
+				
+				AWS_APP::image()->initialize(array(
+					'quality' => 90,
+					'source_image' => $upload_data['full_path'],
+					'new_image' => get_setting('upload_dir') . '/weixin/reply/square_' . basename($upload_data['full_path']),
 					'width' => 80,
 					'height' => 80
-				))->resize();	
+				))->resize();
 				
 				unlink(get_setting('upload_dir') . '/weixin/reply/' . $rule_info['image_file']);
 				

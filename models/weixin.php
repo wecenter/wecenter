@@ -21,9 +21,9 @@ class weixin_class extends AWS_MODEL
 {
 	var $text_tpl = '<xml><ToUserName><![CDATA[%s]]></ToUserName><FromUserName><![CDATA[%s]]></FromUserName><CreateTime>%s</CreateTime><MsgType><![CDATA[%s]]></MsgType><Content><![CDATA[%s]]></Content><FuncFlag>0</FuncFlag></xml>';
 	
-	var $image_tpl = '<xml><ToUserName><![CDATA[%s]]></ToUserName><FromUserName><![CDATA[$%s]]></FromUserName><CreateTime>%s</CreateTime><MsgType><![CDATA[%s]]></MsgType><ArticleCount>%s</ArticleCount>%s<FuncFlag>1</FuncFlag></xml>';
+	var $image_tpl = '<xml><ToUserName><![CDATA[%s]]></ToUserName><FromUserName><![CDATA[%s]]></FromUserName><CreateTime>%s</CreateTime><MsgType><![CDATA[%s]]></MsgType><ArticleCount>%s</ArticleCount><Articles>%s</Articles><FuncFlag>1</FuncFlag></xml>';
 	
-	var $image_article_tpl = '<Articles><item><Title><![CDATA[%s]]></Title><Description><![CDATA[%s]]></Description><PicUrl><![CDATA[%s]]></PicUrl><Url><![CDATA[%s]]></Url></item></Articles>';
+	var $image_article_tpl = '<item><Title><![CDATA[%s]]></Title><Description><![CDATA[%s]]></Description><PicUrl><![CDATA[%s]]></PicUrl><Url><![CDATA[%s]]></Url></item>';
 	
 	var $language_characteristic = array(
 		'ok' => array(
@@ -77,7 +77,11 @@ class weixin_class extends AWS_MODEL
 			break;
 			
 			default:
-				if ($response = $this->message_parser($input_message))
+				if ($response_message = $this->create_response_by_reply_rule_keyword($input_message['content']))
+				{
+					// response by reply rule keyword...
+				}
+				else if ($response = $this->message_parser($input_message))
 				{
 					// Success...
 					$response_message = $response['message'];
@@ -99,10 +103,6 @@ class weixin_class extends AWS_MODEL
 				else if ($this->is_language($input_message['content'], 'bad'))
 				{
 					$response_message = '说脏话都不是好孩子!';
-				}
-				else if ($response_message = $this->create_response_by_reply_rule_keyword($input_message['content']))
-				{
-					// response by reply rule keyword...
 				}
 				else if ($search_result = $this->model('search')->search_questions($input_message['content'], null, 6))
 				{
@@ -194,7 +194,7 @@ class weixin_class extends AWS_MODEL
 		return sprintf($this->text_tpl, $input_message['fromUsername'], $input_message['toUsername'], $input_message['time'], 'text', $response_message);
 	}
 	
-	public function create_image_response($response_message, $image_data = array())
+	public function create_image_response($input_message, $image_data = array())
 	{
 		foreach ($image_data AS $key => $val)
 		{
@@ -207,7 +207,7 @@ class weixin_class extends AWS_MODEL
 				unset($image_size);
 			}
 			
-			$article_tpl .= sprintf($this->image_article_tpl, $val['title'], $val['description'], $this->get_reply_rule_image($this->rule_info['image_file'], $image_size), $val['link']);
+			$article_tpl .= sprintf($this->image_article_tpl, $val['title'], $val['description'], $this->get_reply_rule_image($val['image_file'], $image_size), $val['link']);
 		}
 		
 		if (!$article_tpl)
@@ -637,9 +637,9 @@ class weixin_class extends AWS_MODEL
 		return $this->fetch_all('weixin_reply_rule', null, 'id DESC');
 	}
 	
-	public function add_reply_rule($keyword, $title, $description = '', $image_file = null)
+	public function add_reply_rule($keyword, $title, $description = '', $link = '', $image_file = null)
 	{
-		$this->delete('weixin_reply_rule', "`keyword` = '" . trim($keyword) . "'");
+		$this->delete('weixin_reply_rule', "`keyword` = '" . trim($keyword) . "' AND image_file = ''");
 		
 		return $this->insert('weixin_reply_rule', array(
 			'keyword' => trim($keyword),
@@ -671,14 +671,14 @@ class weixin_class extends AWS_MODEL
 	}
 	
 	public function create_response_by_reply_rule_keyword($keyword)
-	{
+	{		
 		// is text message
-		if ($reply_rule = $this->fetch_row('weixin_reply_rule', "`keyword` = '" . trim($this->quote($keyword)) . "' AND image_file = ''"))
+		if ($reply_rule = $this->fetch_row('weixin_reply_rule', "`keyword` = '" . trim($this->quote($keyword)) . "' AND `image_file` = ''"))
 		{
 			return $reply_rule['title'];
 		}
 		
-		if ($reply_rule = $this->fetch_all('weixin_reply_rule', "`keyword` = '" . trim($this->quote($keyword)) . "' AND image_file != ''"))
+		if ($reply_rule = $this->fetch_all('weixin_reply_rule', "`keyword` = '" . trim($this->quote($keyword)) . "' AND `image_file` <> ''", 'id DESC', 10))
 		{
 			return $reply_rule;
 		}
@@ -689,6 +689,7 @@ class weixin_class extends AWS_MODEL
 		if ($reply_rule = $this->get_reply_rule_by_id($id))
 		{
 			unlink(get_setting('upload_dir') . '/weixin/reply/' . $reply_rule['image_file']);
+			unlink(get_setting('upload_dir') . '/weixin/reply/square_' . $reply_rule['image_file']);
 			
 			return $this->delete('weixin_reply_rule', 'id = ' . intval($id));
 		}
