@@ -2,8 +2,8 @@
 			<dl>
 				<dt><h3><?php _e('发文类型'); ?>:</h3></dt>
 				<dd>
-					<label><input type="radio" name="publish_type" value="question"<?php if ($this->setting['publish_type'] == 'question') { ?> checked="checked"<?php } ?> /> <?php _e('发问'); ?></label>
-					<label><input type="radio" name="publish_type" value="answer"<?php if ($this->setting['publish_type'] == 'answer' OR !$this->setting['publish_type']) { ?> checked="checked"<?php } ?> /> <?php _e('回答'); ?></label>
+					<label><input type="radio" name="publish_type" value="question"<?php if ($this->rule_info['publish_type'] == 'question') { ?> checked="checked"<?php } ?> /> <?php _e('发问'); ?></label>
+					<label><input type="radio" name="publish_type" value="answer"<?php if ($this->rule_info['publish_type'] == 'answer' OR !$this->rule_info['publish_type']) { ?> checked="checked"<?php } ?> /> <?php _e('回答'); ?></label>
 				</dd>
 			</dl>
 			<dl>
