@@ -335,7 +335,8 @@ select{width: auto;}
 /*话题修改记录*/
 .aw-side-bar-topic-edit-notes .i-triangle-up{position:relative;top:5px;cursor:pointer;}
 .aw-side-bar-topic-edit-notes .aw-side-bar-body{margin-top:10px;}
-.aw-side-bar-topic-edit-notes li{width:177px;height:auto;overflow:hidden;margin:3px 0;padding:5px;cursor: pointer;}
+.aw-side-bar-topic-edit-notes ul{margin-top: 10px;}
+.aw-side-bar-topic-edit-notes li{width:177px;height:auto;overflow:hidden;margin:3px 0;padding:5px !important;cursor: pointer;}
 .aw-side-bar-topic-edit-notes li:hover{background: #EBEBEB;}
 
 /*话题编辑*/
