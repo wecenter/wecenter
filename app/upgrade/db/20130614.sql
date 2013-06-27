@@ -13,4 +13,4 @@ CREATE TABLE IF NOT EXISTS `[#DB_PREFIX#]weixin_reply_rule` (
 
 INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES ('auto_create_social_topics', 's:1:"N";');
 
-ALTER TABLE `[#DB_PREFIX#]answer` ADD `publich_source` VARCHAR( 16 ) NULL, ADD INDEX ( `publich_source` );
+ALTER TABLE `[#DB_PREFIX#]answer` ADD `publish_source` VARCHAR( 16 ) NULL, ADD INDEX ( `publish_source` );
