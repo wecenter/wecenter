@@ -155,7 +155,7 @@ select, input[type="file"]{line-height: 0px;font-size: 13px;}
 .icon_maintain{width: 20px;height: 20px;background: url('../img/icon5.png') no-repeat;position: relative;top: 4px;}
 .icon_edm{width: 20px;height: 12px;background: url('../img/icon6.png') no-repeat;position: relative;top: 1px;}
 .icon_tools{width: 20px;height: 18px;background: url('../img/icon7.png') no-repeat;position: relative;top: 4px;}
-.icon_weixin{width: 21px;height: 22px;background: url('../img/icon8.png') no-repeat;position: relative;top: 4px;}
+.icon_weixin{width: 22px;height: 22px;background: url('../img/icon8.png') no-repeat;position: relative;top: 4px;}
 .user-edit{width: 16px;height: 16px;background: url('../img/user_edit.png') no-repeat;}
 .user-delete{width: 16px;height: 16px;background: url('../img/user_delete.png') no-repeat;}
 .user-add{width: 16px;height: 16px;background: url('../img/user_add.png') no-repeat;}
