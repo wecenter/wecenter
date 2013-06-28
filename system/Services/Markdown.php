@@ -148,7 +148,9 @@ class Services_Markdown {
 
 		# Make sure $text ends with a couple of newlines:
 		$text .= "\n";
-
+		
+		$text = str_replace('&gt;', '>', $text);
+		
 		# Convert all tabs to spaces.
 		$text = $this->detab($text);
 		
@@ -168,10 +170,10 @@ class Services_Markdown {
 		
 		$text = str_replace(array(
 			"</ol>\n\n",
-			"</ul>\n\n",
+			"</ul>\n\n"
 		), array(
 			"</ol>\n",
-			"</ul>\n",
+			"</ul>\n"
 		), $text);
 		
 		$this->teardown();
@@ -252,7 +254,7 @@ class Services_Markdown {
 		$block_tags_b_re = 'p|div|h[1-6]|blockquote|pre|table|dl|ol|ul|address|'.
 						   'script|noscript|form|fieldset|iframe|math|svg|'.
 						   'article|section|nav|aside|hgroup|header|footer|'.
-						   'figure' . 'script|noscript|form|fieldset|iframe|math';
+						   'figure';
 
 		# Regular expression for the content of a block tag.
 		$nested_tags_level = 4;
@@ -1313,7 +1315,7 @@ class Services_Markdown {
 		}
 		# Encode remaining <'s
 		$text = str_replace('<', '&lt;', $text);
-
+		
 		return $text;
 	}
 
