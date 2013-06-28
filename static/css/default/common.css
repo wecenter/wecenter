@@ -924,19 +924,20 @@ select{width: auto;}
 .markItUp ul {position: relative;}
 .markItUp .markItUpButton1 a {background-position: -4px -6px;}
 .markItUp .markItUpButton2 a {background-position: -35px -6px;}
-.markItUp .markItUpButton3 a {background-position: -97px -6px;}
-.markItUp .markItUpButton4 a {background-position: -124px -6px;}
-.markItUp .markItUpButton5 a {background-position: -217px -6px;}
-.markItUp .markItUpButton6 a {background-position: -247px -6px;}
-.markItUp .markItUpButton7 a {background-position: -307px -6px;}
-.markItUp .markItUpButton8 a {background-position: -337px -6px;}
-.markItUp .markItUpButton9 a {background-position: -427px -7px;}
-.markItUp .markItUpButton10 a {background-position: -454px -7px;}
-.markItUp .markItUpButton11 a {background-position: -492px -6px;float: right;height: 18px;margin-top: -1px;}
-.markItUp .markItUpButton11 a.cur {background-position: -534px -6px;}
-.markItUp .markItUpButton12 a {background-position: -570px -6px;}
-.markItUp .markItUpButton13 a {background-position: -277px -6px;margin-left: 5px;}
-.markItUp .markItUpButton11 {position: absolute;right: 0;}
+.markItUp .markItUpButton3 a {background-position: -273px -6px;}
+.markItUp .markItUpButton4 a {background-position: -94px -6px;}
+.markItUp .markItUpButton5 a {background-position: -124px -6px;}
+.markItUp .markItUpButton6 a {background-position: -217px -6px;}
+.markItUp .markItUpButton7 a {background-position: -247px -6px;}
+.markItUp .markItUpButton8 a {background-position: -307px -6px;}
+.markItUp .markItUpButton9 a {background-position: -337px -6px;}
+.markItUp .markItUpButton10 a {background-position: -426px -6px;}
+.markItUp .markItUpButton11 a {background-position: -454px -6px;}
+.markItUp .markItUpButton12 a {background-position: -492px -6px;float: right;height: 18px;margin-top: -1px;}
+.markItUp .markItUpButton12 a.cur {background-position: -534px -6px;}
+.markItUp .markItUpButton12 {position: absolute;right: 0;}
+.markItUp .markItUpButton13 a {background-position: -573px -6px;}
+.markItUp .markItUpButton14 a {background-position: -600px -6px;margin-left: 5px;}
 
 /*编辑器回复样式*/
 .markitup-box {font-size: 13px !important;line-height: 22px;word-wrap: break-word !important;text-align: justify;}
