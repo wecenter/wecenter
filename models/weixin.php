@@ -784,7 +784,7 @@ class weixin_class extends AWS_MODEL
 			{
 				if (!$user_info = $this->model('account')->get_user_info_by_weixin_id($input_message['fromUsername']))
 				{
-					$response_message = '你的微信帐号没有绑定 ' . get_setting('site_name') . ' 的帐号, 请<a href="' . get_js_url('/m/login/?weixin_id=' . base64_encode($weixin_id)) . '">点此绑定</a>或<a href="' . get_js_url('/m/register/?weixin_id=' . base64_encode($weixin_id)) . '">注册新账户</a>';
+					 return '你的微信帐号没有绑定 ' . get_setting('site_name') . ' 的帐号, 请<a href="' . get_js_url('/m/login/?weixin_id=' . base64_encode($weixin_id)) . '">点此绑定</a>或<a href="' . get_js_url('/m/register/?weixin_id=' . base64_encode($weixin_id)) . '">注册新账户</a>';
 				}
 				
 				$user_group = $this->model('account')->get_user_group($user_info['group_id'], $user_info['reputation_group']);
