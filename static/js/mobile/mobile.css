@@ -121,6 +121,10 @@ span.desc_text {
 	padding: 5px 10px;
 }
 
+.m_contents .question_content img {
+	max-width: 95%;
+}
+
 .m_contents .question_meta .ui-block-a a {
 	text-decoration: none;
 	color: #999;
