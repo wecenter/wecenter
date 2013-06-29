@@ -28,6 +28,7 @@
 					</tr>
 				</thead>
 				<tbody>
+					<?php if ($this->mem_group) { ?>
 					<?php foreach ($this->mem_group AS $key => $val) { ?>
 					<tr>
 						<td align="center"><input type="checkbox" value="<?php echo $val['group_id'];?>" name="group_ids[]"></td>
@@ -39,6 +40,7 @@
 						<td><input type="text" name="group[<?php echo $val['group_id'];?>][reputation_factor]" class="input-small" value="<?php echo $val[reputation_factor]; ?>" /></td>
 						<td><a href="admin/user_manage/group_edit/group_id-<?php echo $val['group_id']; ?>"><?php _e('权限编辑'); ?></a></td>
 					</tr>
+					<?php } ?>
 					<?php } ?>
 					<tr id="members_add_form" class="hide">
 						<td></td>
@@ -94,6 +96,7 @@
 					</tr>
 				</thead>
 				<tbody>
+					<?php if ($this->custom_group) { ?>
 					<?php foreach ($this->custom_group AS $key => $val) { ?>
 					<tr>
 						<td align="center"><input type="checkbox" value="<?php echo $val['group_id'];?>" name="group_ids[]"></td>
@@ -101,6 +104,7 @@
 						<td><input type="text" class="input-xlarge" name="group[<?php echo $val['group_id'];?>][group_name]" value="<?php echo $val['group_name'];?>" /></td>
 						<td><a href="admin/user_manage/group_edit/group_id-<?php echo $val['group_id']; ?>"><?php _e('权限编辑'); ?></a></td>
 					</tr>
+					<?php } ?>
 					<?php } ?>
 					<tr id="custom_add_form" class="hide">
 						<td></td>
