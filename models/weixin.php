@@ -202,7 +202,7 @@ class weixin_class extends AWS_MODEL
 	{
 		foreach ($image_data AS $key => $val)
 		{
-			if (!$article_tpl)
+			if ($article_tpl)
 			{
 				$image_size = 'square';
 			}
