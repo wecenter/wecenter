@@ -91,7 +91,8 @@ class main extends AWS_CONTROLLER
 			20130419,
 			20130426,
 			20130607,
-			20130614
+			20130614,
+			20130628
 		);
 		
 		if (!$this->db_version = get_setting('db_version', false))
@@ -124,10 +125,8 @@ class main extends AWS_CONTROLLER
 		}
 		
 		TPL::assign('static_url', G_STATIC_URL);
-		
-		$this->db_engine = get_setting('db_engine');
-		
-		if (!$this->db_engine)
+				
+		if (!$this->db_engine = get_setting('db_engine'))
 		{
 			$this->db_engine = 'MyISAM';
 		}
