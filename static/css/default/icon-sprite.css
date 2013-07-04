@@ -1,12 +1,10 @@
 /*
-  anwsion icon sprite
-
+**	wecenter icon sprite
 */
 
 .aw-icon{display:inline-block;background-image: url(img/aw-icon-sprite.png);background-repeat: no-repeat;}
 .bds{position:relative;top:3px;*top:0;display:inline-block;width:16px;height:16px;margin-right:5px;background-image: url(img/bds-icon-sprite.png);background-repeat: no-repeat;}
 .aw-loading{display:inline-block;width:16px;height:16px;background: url(img/ajax-loader.gif) no-repeat;}
-
 
 /*第一排*/
 .i-start-large{width:44px;height: 47px;background-position: 0px -310px;}
@@ -144,8 +142,7 @@
 .i-login-step-triangle{width: 16px;height: 46px;background-position: -80px -310px;}
 .i-login-step-triangle.active{background-position: -59px -310px;}
 
-
-
+/*分享icon*/
 .bds_qzone i{background-position: -4px -80px;}
 .bds_tsina i{background-position: -4px -120px;}
 .bds_tqq i{background-position: -4px -240px;}
@@ -161,7 +158,3 @@
 .bds_ms i{background-position: -4px -1200px;}
 .bds_deli i{background-position: -4px -1240px;}
 .bds_linkedin i{background-position: -4px -1359px;}
-
-
-
-
