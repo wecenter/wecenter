@@ -1,23 +1,14 @@
 /*
-  anwsion btn sprite
-
+**	wecenter btn sprite
 */
 .aw-btn{display:inline-block;background-image: url(img/aw-btn-sprite.png);background-repeat: no-repeat;}
 .b-new-user{width:164px;height:46px;line-height:46px;background-position: 0 -140px;}
 .b-new-user:hover{background-position: 0 -190px;}
 .b-new-user-hover{width:164px;height:46px;line-height:46px;background-position: 0 -190px;}
-
 .b-start-question{height:50px;background-position: 0 -251px;}
 .b-start-question.active{background-position: 0 -306px;}
 .b-start-question:hover{background-position: 0 -306px;}
-
 .b-go-to-top{width:43px;height:43px;background-position: 0 -430px;}
 .b-go-to-top:hover{background-position: 0 -480px;}
-
 .b-up-load{width:83px;height:25px;background-position: 0 -536px;}
 .b-up-load:hover{opacity: 0.8;}
-
-
-
-
-
