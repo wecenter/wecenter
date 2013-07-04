@@ -34,3 +34,12 @@ ALTER TABLE `[#DB_PREFIX#]users` CHANGE `reputation` `reputation` INT( 10 ) NULL
 ALTER TABLE `[#DB_PREFIX#]users` CHANGE `reputation_update_time` `reputation_update_time` INT( 10 ) NULL DEFAULT '0' COMMENT '威望更新';
 ALTER TABLE `[#DB_PREFIX#]users` CHANGE `integral` `integral` INT( 10 ) NULL DEFAULT '0';
 ALTER TABLE `[#DB_PREFIX#]users` CHANGE `inbox_recv` `inbox_recv` TINYINT( 1 ) NOT NULL DEFAULT '0' COMMENT '0-所有人可以发给我,1-我关注的人';
+
+CREATE TABLE IF NOT EXISTS `[#DB_PREFIX#]weixin_fake_id` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `type` varchar(16) NOT NULL,
+  `fake_id` int(10) NOT NULL,
+  `item_id` int(10) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `type` (`type`,`item_id`)
+) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;

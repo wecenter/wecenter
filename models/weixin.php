@@ -605,7 +605,10 @@ class weixin_class extends AWS_MODEL
 					{
 						if (trim($last_action['content'] != ''))
 						{
-							$this->model('publish')->publish_question($last_action['content'], '', 1, $user_info['uid']);
+							if ($question_id = $this->model('publish')->publish_question($last_action['content'], '', 1, $user_info['uid']))
+							{
+								$this->model('wecenter')->set_wechat_fake_id_by_question($last_action['content'], $question_id);
+							}
 						}
 												
 						$response_message = '您的问题已提交，晚点您可以输入 "我的问题" 查看';
@@ -807,7 +810,10 @@ class weixin_class extends AWS_MODEL
 							return AWS_APP::lang()->_t('你所在的用户组不允许发布站外链接');
 						}
 						
-						$this->model('publish')->publish_question(substr($keyword, strlen($val['keyword'])), '', 1, $user_info['uid'], explode(',', $val['topics']), null, null, null, true);
+						if ($question_id = $this->model('publish')->publish_question(substr($keyword, strlen($val['keyword'])), '', 1, $user_info['uid'], explode(',', $val['topics']), null, null, null, true))
+						{
+							$this->model('wecenter')->set_wechat_fake_id_by_question($keyword, $question_id);
+						}
 					break;
 					
 					case 'answer':						
