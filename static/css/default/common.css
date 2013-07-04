@@ -29,7 +29,6 @@ a.aw-load-more-content{display: block;}
 .aw-load-more-content.disabled{background-color: #f6f6f6;border:1px solid #dfdfdf;}
 .aw-mod .aw-mod-head h4, .aw-mod .aw-mod-head h4 a{font-size:14px;}
 .i-follow{margin-left:5px;}
-.i-follow.loading{width:16px;height:16px;background:url(img/ajax-loader.gif) no-repeat !important;top: 4px !important;}
 .aw-back-top{position:fixed;display:none;right:10px;bottom:5px;}
 .aw-text-align-justify{text-align: justify;}
 .aw-li-border-bottom li{border-top:1px dotted #C1CAD4;}

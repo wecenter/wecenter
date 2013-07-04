@@ -21,6 +21,7 @@
 .i-close-hover{width:9px;height: 9px;background-position: -150px 0;*position: relative;*top:-5px;*left:5px;}
 .i-followed{width:12px;height: 12px;background-position: -165px 0;}
 .i-follow{width:12px;height: 12px;background-position: -165px 0;*position:relative;*top:-2px;}
+.i-follow.loading{width:16px;height:16px;background:url(img/ajax-loader.gif) no-repeat !important;top: 4px !important;}
 .i-follow.aw-active{background-position: -180px 0;*position:relative;*top:-2px;}
 .i-yes{width:19px;height: 15px;background-position: -200px 0;}
 .i-no{width:16px;height: 16px;background-position: -225px 0;}
