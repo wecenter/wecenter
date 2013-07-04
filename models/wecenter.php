@@ -35,8 +35,8 @@ class wecenter_class extends AWS_MODEL
 			return false;
 		}
 		
-		$_post_data['access_token'] = AWS_APP::config()->get('wecenter')->mp_access_token;
-		$_post_data['version'] = '1';
+		$_post_data[] = 'access_token=' . AWS_APP::config()->get('wecenter')->mp_access_token;
+		$_post_data[] = 'version=1';
 		
 		$curl = curl_init();
 		
