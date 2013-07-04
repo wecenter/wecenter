@@ -51,7 +51,7 @@ class wecenter_class extends AWS_MODEL
 		
 		curl_close($curl);
 		
-		return json_decode($content, true);
+		return json_decode(trim($content), true);
 	}
 	
 	public function set_wechat_fake_id($type, $fake_id, $item_id)
@@ -86,6 +86,7 @@ class wecenter_class extends AWS_MODEL
 	public function send_wechat_message($fake_id, $message)
 	{
 		$result = $this->mp_server_query('send_wechat_message', array(
+			'fake_id' => $fake_id,
 			'message' => $message
 		));
 		
