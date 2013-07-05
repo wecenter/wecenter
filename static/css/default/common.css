@@ -542,6 +542,7 @@ select{width: auto;}
 .aw-dynamic-topic .aw-mod-head h2{font-size: 20px;margin: 10px 0 0;}
 .aw-dynamic-topic .aw-mod-head p{margin:0;}
 .aw-dynamic-topic .aw-item, .aw-question-detail-box .aw-dynamic-topic .aw-item{padding-bottom:10px;border-bottom: 1px dotted #C1CAD4;}
+.aw-question-detail-box .aw-dynamic-topic .aw-item .aw-user-img{position: relative;top: 10px;}
 .aw-dynamic-topic .aw-item.active{width:660px;padding:0 20px 10px;margin-left:-20px !important;background: #FEFAB1;}
 .aw-dynamic-topic .aw-item .aw-mod-body, .aw-dynamic-topic .aw-mod-body > .aw-item + div{padding-top:10px;}
 .aw-dynamic-topic .aw-item:hover .aw-dynamic-topic-more-operate, .aw-dynamic-topic .aw-item:hover .aw-new-message-tips-close{display:block;}
