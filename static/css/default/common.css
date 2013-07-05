@@ -426,7 +426,8 @@ select{width: auto;}
 .aw-question-list .aw-question-replay-count.active em{background-color:#EBF5FF;}
 .aw-question-list .aw-question-replay-count .i-star-mini{position: relative;top:2px;right: 3px;*top:-2px;}
 .aw-question-list .aw-questoin-content h4{font-size:14px;margin:0 0 5px;}/*new*/
-.aw-question-list .aw-questoin-content h4 span{font-size: 12px;font-weight: normal;color: #999;}/*new*/
+.aw-question-list .aw-questoin-content > span{font-size: 12px;font-weight: normal;color: #999;}/*new*/
+.aw-question-list .aw-questoin-content .aw-user-name img{max-width: 24px;}
 .aw-question-list .aw-questoin-content p{margin:0;}/*new*/
 .aw-question-list .aw-questoin-content .aw-topic-name{display:inline-block;margin:0 2px 3px;}
 /*问题列表用户头像*/
