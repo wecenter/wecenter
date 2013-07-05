@@ -38,7 +38,7 @@ ALTER TABLE `[#DB_PREFIX#]users` CHANGE `inbox_recv` `inbox_recv` TINYINT( 1 ) N
 CREATE TABLE IF NOT EXISTS `[#DB_PREFIX#]weixin_fake_id` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `type` varchar(16) NOT NULL,
-  `fake_id` int(10) NOT NULL,
+  `fake_id` bigint(10) NOT NULL,
   `item_id` int(10) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `type` (`type`,`item_id`)
