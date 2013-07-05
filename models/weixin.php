@@ -114,27 +114,7 @@ class weixin_class extends AWS_MODEL
 						
 					foreach ($search_result AS $key => $val)
 					{
-						if ($this->model('search')->is_hight_similar($input_message['content'], $val['question_content']))
-						{
-							if ($val['best_answer'])
-							{
-								if ($answer_list = $this->model('answer')->get_answer_by_id($val['best_answer']))
-								{
-									$response_message = $answer_list['answer_content'];
-								}		
-							}
-							else
-							{
-								if ($answer_list = $this->model('answer')->get_answer_list_by_question_id($val['question_id'], 1, null, 'agree_count DESC'))
-								{
-									$response_message = $answer_list[0]['answer_content'];
-								}
-							}
-						}
-						else if (!$answer_list)
-						{
-							$response_message .= "\n" . '• <a href="' . get_js_url('/m/question/' . $val['question_id']) . '">' . $val['question_content'] . '</a>' . "\n";
-						}
+						$response_message .= "\n" . '• <a href="' . get_js_url('/m/question/' . $val['question_id']) . '">' . $val['question_content'] . '</a>' . "\n";
 					}
 					
 					if (!$answer_list)
