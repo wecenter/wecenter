@@ -528,7 +528,7 @@ select{width: auto;}
 **	话题编辑box
 */
 .aw-edit-topic{display:inline-block;font-size: 12px;cursor: pointer;font-weight: normal;}
-.aw-edit-topic .i-edit, .aw-edit-topic-box input, .aw-edit-topic-box a{margin-right: 5px;}
+.aw-edit-topic .i-edit, .aw-edit-topic-box input, .aw-edit-topic-box a{margin:0 5px 0 0;}
 .aw-edit-topic-box{display:none;position:relative;line-height: 35px;margin:10px 0;}
 .aw-side-bar-topic-edit .aw-edit-topic-box{text-align: right;}
 .aw-side-bar-topic-edit .aw-edit-topic-box input{width:173px;}

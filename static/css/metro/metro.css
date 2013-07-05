@@ -104,6 +104,7 @@
 .aw-index .aw-dynamic-topic .aw-dynamic-topic-content{width: 560px;}
 .aw-question-detail-box .aw-dynamic-topic .aw-item{border-bottom: none;}
 .aw-question-detail-box .aw-dynamic-topic .aw-item + div{border-top: 1px dotted #C1CAD4;}
+.aw-question-list .aw-questoin-content h4 span{color: #fff;}
 
 /*
 **	全部问题
