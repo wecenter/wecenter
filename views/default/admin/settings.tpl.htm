@@ -740,7 +740,7 @@
 			
 			<dl>
 				<dt><h3><?php _e('微信公众平台欢迎信息'); ?>:</h3></dt>
-				<dd><input name="weixin_subscribe_message" type="text" class="input-xlarge" value="<?php echo htmlspecialchars($this->setting['weixin_subscribe_message']); ?>"/></dd>
+				<dd><textarea name="weixin_subscribe_message"><?php echo htmlspecialchars($this->setting['weixin_subscribe_message']); ?></textarea></dd>
 			</dl>
 		</div>
 		<a name="cache"></a>
