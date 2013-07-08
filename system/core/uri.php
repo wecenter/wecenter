@@ -28,6 +28,9 @@ class core_uri
 	);
 	
 	var $app_dir = '';
+	var $controller = '';
+	var $action = '';
+	
 	var $request_main = '';
 	var $index_script = '';
 
@@ -126,8 +129,6 @@ class core_uri
 	
 	public function set_rewrite()
 	{
-		global $__app_dir, $__controller, $__action;
-		
 		if (!defined('G_INDEX_SCRIPT'))
 		{
 			return false;
@@ -137,8 +138,8 @@ class core_uri
 		
 		if (empty($request_main) or $this->index_script == $request_main)
 		{
-			$__controller = 'main';
-			$__action = 'index';
+			$this->controller = 'main';
+			$this->action = 'index';
 			
 			return $this;
 		}
@@ -176,8 +177,8 @@ class core_uri
 		);
 		
 		$__app_dir = $this->default_vars['app_dir'];	// 应用目录
-		$__controller = $this->default_vars['controller'];	// 控制器
-		$__action = $this->default_vars['action'];	// 动作
+		$this->controller = $this->default_vars['controller'];	// 控制器
+		$this->action = $this->default_vars['action'];	// 动作
 		
 		$args_var_str = '';
 		
@@ -219,27 +220,27 @@ class core_uri
 				
 				if (file_exists(ROOT_PATH . 'app/' . $__app_dir . '/' . $uri['first']['args'][1] . '.php'))
 				{
-					$__controller = $uri['first']['args'][1];	// 控制器
+					$this->controller = $uri['first']['args'][1];	// 控制器
 				}
 				else
 				{
-					$__controller = $this->default_vars['controller'];	// 控制器
-					$__action = $uri['first']['args'][1];	// 动作
+					$this->controller = $this->default_vars['controller'];	// 控制器
+					$this->action = $uri['first']['args'][1];	// 动作
 				}
 			break;
 			
 			case 4:
 				$args_var_str = $uri['first']['args'][3];
 				$__app_dir = $uri['first']['args'][0] ? $uri['first']['args'][0] : $this->default_vars['app_dir'];	// 应用目录
-				$__controller = $uri['first']['args'][1] ? $uri['first']['args'][1] : $this->default_vars['controller'];	// 控制器
-				$__action = $uri['first']['args'][2] ? $uri['first']['args'][2] : $this->default_vars['action'];	// 动作
+				$this->controller = $uri['first']['args'][1] ? $uri['first']['args'][1] : $this->default_vars['controller'];	// 控制器
+				$this->action = $uri['first']['args'][2] ? $uri['first']['args'][2] : $this->default_vars['action'];	// 动作
 			break;
 		}
 		
 		$this->app_dir = ROOT_PATH . 'app/' . $__app_dir . '/';
 		
-		$_GET['c'] = $__controller;
-		$_GET['act'] = $__action;
+		$_GET['c'] = $this->controller;
+		$_GET['act'] = $this->action;
 		$_GET['app'] = $__app_dir;
 		
 		if (! empty($args_var_str))

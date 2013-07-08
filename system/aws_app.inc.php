@@ -41,47 +41,19 @@ class AWS_APP
 	*/
 	public static function run()
 	{
-		// 全局变量
-		global $__controller, $__action, $__default_controller, $__default_action;
-		
 		self::init();
 		
-		if (!$app_dir = load_class('core_uri')->set_rewrite()->app_dir)
+		load_class('core_uri')->set_rewrite();
+		
+		if (!$app_dir = load_class('core_uri')->app_dir)
 		{
 			$app_dir = ROOT_PATH . 'app/home/';
 		}
-		
-		// 控制器操作进行选择
-		if (! $__controller)
-		{
-			if (isset($_GET['c']))
-			{
-				$__controller = $_GET['c']; // 有传入控制器字段名
-			}
-			else
-			{
-				$__controller = $__default_controller ? $__default_controller : 'main'; // 读取默认控制器字段名
-			}
-		}
-		
-		if (! $__action)
-		{
-			// 动作		
-			if (isset($_GET['act']))
-			{
-				$__action = $_GET['act']; // 有传入动作字段名
-			}
-			else
-			{
-				$__action = $__default_action ? $__default_action : 'act'; // 读取默认动作字段名
-			}
-		}
 
 		// 传入应用目录,返回控制器路径
+		$handle_controller = self::create_controller(load_class('core_uri')->controller, $app_dir);
 		
-		$handle_controller = self::create_controller($__controller, $app_dir);
-		
-		$action_method = $__action . '_action';
+		$action_method = load_class('core_uri')->action . '_action';
 		
 		// 判断
 		if (! is_object($handle_controller) || ! method_exists($handle_controller, $action_method))
@@ -101,12 +73,12 @@ class AWS_APP
 			// 黑名单,黑名单中的检查 'white'白名单,白名单以外的检查(默认是黑名单检查)
 			if (isset($access_rule['rule_type']) && $access_rule['rule_type'] == 'white')	// 白
 			{
-				if ((! $access_rule['actions']) || (! in_array($__action, $access_rule['actions'])))
+				if ((! $access_rule['actions']) || (! in_array(load_class('core_uri')->action, $access_rule['actions'])))
 				{
 					self::login();
 				}
 			}
-			else if (isset($access_rule['actions']) && in_array($__action, $access_rule['actions']))	// 非白就是黑名单
+			else if (isset($access_rule['actions']) && in_array(load_class('core_uri')->action, $access_rule['actions']))	// 非白就是黑名单
 			{
 				self::login();
 			}
@@ -194,29 +166,21 @@ class AWS_APP
 	 */
 	public static function create_controller($controller, $app_dir)
 	{
-		if (trim($app_dir) == '')
+		if (trim($app_dir) == '' OR trim($controller, '/') === '')
 		{
-			return false; // 没有应用目录,返回错误
-		}
-		
-		if (($controller = trim($controller, '/')) === '')
-		{
-			$controller = 'main';
+			return false;
 		}
 		
 		$class_file = $app_dir . $controller . '.php';
 		
-		if (is_file($class_file))
+		if (! class_exists($controller, false))
 		{
-			if (! class_exists($controller, false))
-			{
-				require_once ($class_file);
-			}
-			
-			if (class_exists($controller, false))
-			{
-				return new $controller();
-			}
+			require_once ($class_file);
+		}
+		
+		if (class_exists($controller, false))
+		{
+			return new $controller();
 		}
 		
 		return false;
