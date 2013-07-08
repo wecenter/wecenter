@@ -884,19 +884,19 @@ select{width: auto;}
 .markItUp .markItUpButton > a:hover {opacity: 0.6;filter:alpha(opacity=60)}
 .markItUp .preview a {background-image: url("images/preview.png");}
 .markItUp ul {position: relative;}
-.markItUp .markItUpButton1 a {background-position: -4px -6px;}
-.markItUp .markItUpButton2 a {background-position: -35px -6px;}
-.markItUp .markItUpButton3 a {background-position: -273px -6px;}
-.markItUp .markItUpButton4 a {background-position: -94px -6px;}
-.markItUp .markItUpButton5 a {background-position: -124px -6px;}
-.markItUp .markItUpButton6 a {background-position: -217px -6px;}
-.markItUp .markItUpButton7 a {background-position: -247px -6px;}
-.markItUp .markItUpButton8 a {background-position: -307px -6px;}
-.markItUp .markItUpButton9 a {background-position: -337px -6px;}
-.markItUp .markItUpButton10 a {background-position: -426px -6px;}
-.markItUp .markItUpButton11 a {background-position: -454px -6px;}
-.markItUp .markItUpButton12 a {background-position: -492px -6px;float: right;height: 18px;margin-top: -1px;}
-.markItUp .markItUpButton12 a.cur {background-position: -534px -6px;}
+.markItUp .markItUpButton1 a {background-position: -4px -7px;}
+.markItUp .markItUpButton2 a {background-position: -35px -7px;}
+.markItUp .markItUpButton3 a {background-position: -97px -7px;}/*background-position: -273px -6px;*/
+.markItUp .markItUpButton4 a {background-position: -123px -7px;}
+.markItUp .markItUpButton5 a {background-position: -217px -7px;}
+.markItUp .markItUpButton6 a {background-position: -241px -7px;}
+.markItUp .markItUpButton7 a {background-position: -278px -7px;}
+.markItUp .markItUpButton8 a {background-position: -307px -7px;}
+.markItUp .markItUpButton9 a {background-position: -337px -7px;}
+.markItUp .markItUpButton10 a {background-position: -426px -8px;}
+.markItUp .markItUpButton11 a {background-position: -454px -8px;}
+.markItUp .markItUpButton12 a {background-position: -492px -7px;float: right;height: 18px;margin-top: -1px;}
+.markItUp .markItUpButton12 a.cur {background-position: -534px -7px;}
 .markItUp .markItUpButton12 {position: absolute;right: 0;}
 .markItUp .markItUpButton13 a {background-position: -573px -6px;}
 .markItUp .markItUpButton14 a {background-position: -600px -6px;margin-left: 5px;}
