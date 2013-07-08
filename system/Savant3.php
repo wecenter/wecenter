@@ -59,7 +59,7 @@ class Savant3 {
 	protected $__config = array(
 		'template_path' => array(),
 		'resource_path' => array(),
-		'error_text'    => "\n\ntemplate error, examine fetch() result\n\n",
+		'error_text'    => "\n\nTemplate error, template file not found\n\n",
 		'exceptions'    => false,
 		'autoload'      => false,
 		'compiler'      => null,
