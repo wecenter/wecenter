@@ -56,12 +56,11 @@ class AWS_APP
 		$action_method = load_class('core_uri')->action . '_action';
 		
 		// 判断
-		if (! is_object($handle_controller) || ! method_exists($handle_controller, $action_method))
+		if (! is_object($handle_controller) OR ! method_exists($handle_controller, $action_method))
 		{
 			HTTP::error_404();
 		}
 		
-		// 判断 ACTION
 		if (method_exists($handle_controller, 'get_access_rule'))
 		{
 			$access_rule = $handle_controller->get_access_rule();
@@ -70,15 +69,15 @@ class AWS_APP
 		// 判断使用白名单还是黑名单,默认使用黑名单
 		if ($access_rule)
 		{			
-			// 黑名单,黑名单中的检查 'white'白名单,白名单以外的检查(默认是黑名单检查)
-			if (isset($access_rule['rule_type']) && $access_rule['rule_type'] == 'white')	// 白
+			// 黑名单,黑名单中的检查 'white'白名单,白名单以外的检查 (默认是黑名单检查)
+			if (isset($access_rule['rule_type']) AND $access_rule['rule_type'] == 'white')
 			{
-				if ((! $access_rule['actions']) || (! in_array(load_class('core_uri')->action, $access_rule['actions'])))
+				if ((! $access_rule['actions']) OR (! in_array(load_class('core_uri')->action, $access_rule['actions'])))
 				{
 					self::login();
 				}
 			}
-			else if (isset($access_rule['actions']) && in_array(load_class('core_uri')->action, $access_rule['actions']))	// 非白就是黑名单
+			else if (isset($access_rule['actions']) AND in_array(load_class('core_uri')->action, $access_rule['actions']))	// 非白就是黑名单
 			{
 				self::login();
 			}
