@@ -119,12 +119,14 @@ class Services_Phpanalysis_Phpanalysis
 	{
 		$l = strlen($key);
 		$h = 0x238f13af;
-		while ($l --)
+		
+		while ($l--)
 		{
 			$h += ($h << 5);
 			$h ^= ord($key[$l]);
 			$h &= 0x7fffffff;
 		}
+		
 		return ($h % $this->mask_value);
 	}
 
@@ -901,20 +903,7 @@ class Services_Phpanalysis_Phpanalysis
      */
 	private function _out_string_encoding(&$str)
 	{
-		$rsc = $this->_source_result_charset();
-		if ($rsc == 1)
-		{
-			$rsstr = iconv(UCS2, 'utf-8', $str);
-		}
-		else if ($rsc == 2)
-		{
-			$rsstr = iconv('utf-8', 'gb18030', iconv(UCS2, 'utf-8', $str));
-		}
-		else
-		{
-			$rsstr = iconv('utf-8', 'big5', iconv(UCS2, 'utf-8', $str));
-		}
-		return $rsstr;
+		return iconv(UCS2, 'utf-8', $str);
 	}
 
 	/**
@@ -995,6 +984,7 @@ class Services_Phpanalysis_Phpanalysis
 	public function GetFinallyIndex()
 	{
 		$rearr = array();
+		
 		foreach ($this->finallyResult as $v)
 		{
 			if ($this->resultType == 2 && ($v['t'] == 3 || $v['t'] == 5))
@@ -1017,32 +1007,7 @@ class Services_Phpanalysis_Phpanalysis
 		}
 		return $rearr;
 	}
-
-	/**
-     * 获得保存目标编码
-     * @return int
-     */
-	private function _source_result_charset()
-	{
-		if (preg_match("/^utf/", $this->targetCharSet))
-		{
-			$rs = 1;
-		}
-		else if (preg_match("/^gb/", $this->targetCharSet))
-		{
-			$rs = 2;
-		}
-		else if (preg_match("/^big/", $this->targetCharSet))
-		{
-			$rs = 3;
-		}
-		else
-		{
-			$rs = 4;
-		}
-		return $rs;
-	}
-
+	
 	/**
      * 编译词典
      * @parem $sourcefile utf-8编码的文本词典数据文件<参见范例dict/not-build/base_dic_full.txt>
@@ -1054,30 +1019,41 @@ class Services_Phpanalysis_Phpanalysis
 		$target_file = ($target_file == '' ? $this->mainDicFile : $target_file);
 		$allk = array();
 		$fp = fopen($source_file, 'r');
+		
 		while ($line = fgets($fp, 512))
 		{
 			if ($line[0] == '@')
+			{
 				continue;
+			}
+			
 			list($w, $r, $a) = explode(',', $line);
 			$a = trim($a);
 			$w = iconv('utf-8', UCS2, $w);
 			$k = $this->_get_index($w);
+			
 			if (isset($allk[$k]))
+			{
 				$allk[$k][$w] = array(
 					$r, 
 					$a
 				);
+			}
 			else
+			{
 				$allk[$k][$w] = array(
 					$r, 
 					$a
 				);
+			}
 		}
+		
 		fclose($fp);
 		$fp = fopen($target_file, 'w');
 		$heade_rarr = array();
 		$alldat = '';
 		$start_pos = $this->mask_value * 8;
+		
 		foreach ($allk as $k => $v)
 		{
 			$dat = serialize($v);
@@ -1090,7 +1066,9 @@ class Services_Phpanalysis_Phpanalysis
 			
 			$start_pos += $dlen;
 		}
+		
 		unset($allk);
+		
 		for ($i = 0; $i < $this->mask_value; $i ++)
 		{
 			if (! isset($heade_rarr[$i]))
@@ -1118,7 +1096,9 @@ class Services_Phpanalysis_Phpanalysis
 		{
 			$this->mainDicHand = fopen($this->mainDicFile, 'r');
 		}
+		
 		$fp = fopen($targetfile, 'w');
+		
 		for ($i = 0; $i <= $this->mask_value; $i ++)
 		{
 			$move_pos = $i * 8;
@@ -1139,6 +1119,7 @@ class Services_Phpanalysis_Phpanalysis
 				fwrite($fp, "{$w},{$v[0]},{$v[1]}\n");
 			}
 		}
+		
 		fclose($fp);
 		return true;
 	}
