@@ -368,7 +368,7 @@ select{width: auto;}
 .aw-comment-list{padding:0 10px;}
 .aw-comment-list li{position: relative;padding:15px 0 15px 42px;border-top:1px dotted #C1CAD4;}
 .aw-comment-list li > .aw-user-name{position: absolute;left: 0;top: 15px;width: 32px;height: 32px;}
-.aw-comment-list li p{margin:0;padding: 0;}
+.aw-comment-list li p{margin:0;padding: 0;word-break:break-all;}
 /*评论内容隐藏box*/
 .aw-dynamic-topic-more-operate{display:none;margin-left:10px;}
 .aw-dynamic-topic-more-operate > a, .aw-question-detail-meta > a{display:inline-block;float:left;height:20px;line-height:20px;margin-right:15px;font-size:12px;}
