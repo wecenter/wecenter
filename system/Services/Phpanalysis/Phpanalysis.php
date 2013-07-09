@@ -2,27 +2,20 @@
 /*
  * 居于 Unicode 编码词典的 php 分词器
  *  1、只适用于php5，必要函数 iconv
- *  2、本程序是使用RMM逆向匹配算法进行分词的，词库需要特别编译，本类里提供了 MakeDict() 方法
+ *  2、本程序是使用 RMM 逆向匹配算法进行分词的，词库需要特别编译，本类里提供了 MakeDict() 方法
  *  3、简单操作流程： SetSource -> StartAnalysis -> Get***Result
  *  4、对主词典使用特殊格式进行编码, 不需要载入词典到内存操作
  *
  * Copyright IT柏拉图  QQ: 2500875 Email: 2500875#qq.com
  *
- * @version 2.0
- *
  */
 
 define('_SP_', chr(0xFF) . chr(0xFE));
-define('UCS2', 'ucs-2be');
 
 class Services_Phpanalysis_Phpanalysis
 {
 	// hash 算法选项
 	public $mask_value = 0xFFFF;
-	
-	// 输入和输出的字符编码（只允许 utf-8、gbk/gb2312/gb18030、big5 三种类型）  
-	public $sourceCharSet = 'utf-8';
-	public $targetCharSet = 'utf-8';
 	
 	// 生成的分词结果数据类型 1 为全部，2 为词典词汇及单个中日韩简繁字符及英文， 3 为词典词汇及英文
 	public $resultType = 1;
@@ -39,12 +32,6 @@ class Services_Phpanalysis_Phpanalysis
 	// 尝试合并单字
 	public $unitWord = true;
 	
-	// 初始化类时直接加载词典
-	public $loadInit = false;
-	
-	// 使用热门词优先模式进行消岐
-	public $differFreq = false;
-	
 	// 被转换为 unicode 的源字符串
 	public $sourceString = '';
 	
@@ -58,9 +45,6 @@ class Services_Phpanalysis_Phpanalysis
 	public $mainDicHand = false;
 	public $mainDicInfos = array();
 	public $mainDicFile = 'dict/base_dic_full.dic';
-	
-	// 是否直接载入词典（选是载入速度较慢，但解析较快；选否载入较快，但解析较慢，需要时才会载入特定的词条）
-	public $isLoadAll = false;
 	
 	// 主词典词语最大长度 x / 2
 	public $dicWordMax = 14;
@@ -80,29 +64,13 @@ class Services_Phpanalysis_Phpanalysis
 	
 	// 词库载入时间
 	public $loadTime = 0;
-
-	/**
-     * 构造函数
-     * @param $source_charset
-     * @param $target_charset
-     * @param $load_alldic 
-     * @param $source
-     *
-     * @return void
-     */
-	public function __construct($source_charset = 'utf-8', $target_charset = 'utf-8', $load_all = false, $source = '')
+	
+	public function __construct($source = null)
 	{
-		$this->SetSource($source, $source_charset, $target_charset);
-		
-		$this->isLoadAll = $load_all;
-		
-		if ($this->loadInit)
-		{
-			$this->LoadDict();
-		}
+		$this->SetSource($source);
 	}
 	
-	function __destruct()
+	public function __destruct()
 	{
 		if ($this->mainDicHand !== false)
 		{
@@ -180,46 +148,23 @@ class Services_Phpanalysis_Phpanalysis
 	/**
      * 设置源字符串
      * @param $source
-     * @param $source_charset
-     * @param $target_charset
      *
      * @return bool
      */
-	public function SetSource($source, $source_charset = 'utf-8', $target_charset = 'utf-8')
+	public function SetSource($source)
 	{
-		$this->sourceCharSet = strtolower($source_charset);
-		$this->targetCharSet = strtolower($target_charset);
 		$this->simpleResult = array();
 		$this->finallyResult = array();
 		$this->finallyIndex = array();
 		
-		if ($source != '')
+		if ($source)
 		{
-			$rs = true;
+			$this->sourceString = iconv('utf-8', 'ucs-2be', $source);
 			
-			if (preg_match("/^utf/", $source_charset))
-			{
-				$this->sourceString = iconv('utf-8', UCS2, $source);
-			}
-			else if (preg_match("/^gb/", $source_charset))
-			{
-				$this->sourceString = iconv('utf-8', UCS2, iconv('gb18030', 'utf-8', $source));
-			}
-			else if (preg_match("/^big/", $source_charset))
-			{
-				$this->sourceString = iconv('utf-8', UCS2, iconv('big5', 'utf-8', $source));
-			}
-			else
-			{
-				$rs = false;
-			}
-		}
-		else
-		{
-			$rs = false;
+			return true;
 		}
 		
-		return $rs;
+		return false;
 	}
 
 	/**
@@ -280,9 +225,9 @@ class Services_Phpanalysis_Phpanalysis
 			else
 			{
 				$spstr = _SP_;
-				$spstr = iconv(UCS2, 'utf-8', $spstr);
+				$spstr = iconv('ucs-2be', 'utf-8', $spstr);
 				$ws = explode(',', $d);
-				$wall = iconv('utf-8', UCS2, join($spstr, $ws));
+				$wall = iconv('utf-8', 'ucs-2be', join($spstr, $ws));
 				$ws = explode(_SP_, $wall);
 				
 				foreach ($ws as $estr)
@@ -411,7 +356,7 @@ class Services_Phpanalysis_Phpanalysis
 						$this->simpleResult[$s]['w'] = $onstr;
 						if ($lastc == 2)
 						{
-							if (! preg_match('/' . $notNumberMatch . '/i', iconv(UCS2, 'utf-8', $onstr)))
+							if (! preg_match('/' . $notNumberMatch . '/i', iconv('ucs-2be', 'utf-8', $onstr)))
 								$lastc = 4;
 						}
 						$this->simpleResult[$s]['t'] = $lastc;
@@ -446,7 +391,7 @@ class Services_Phpanalysis_Phpanalysis
 						$this->simpleResult[$s]['w'] = $onstr;
 						if ($lastc == 2)
 						{
-							if (! preg_match('/' . $notNumberMatch . '/i', iconv(UCS2, 'utf-8', $onstr)))
+							if (! preg_match('/' . $notNumberMatch . '/i', iconv('ucs-2be', 'utf-8', $onstr)))
 								$lastc = 4;
 						}
 						$this->simpleResult[$s]['t'] = $lastc;
@@ -467,7 +412,7 @@ class Services_Phpanalysis_Phpanalysis
 						$this->simpleResult[$s]['w'] = $onstr;
 						if ($lastc == 2)
 						{
-							if (! preg_match('/' . $notNumberMatch . '/i', iconv(UCS2, 'utf-8', $onstr)))
+							if (! preg_match('/' . $notNumberMatch . '/i', iconv('ucs-2be', 'utf-8', $onstr)))
 								$lastc = 4;
 						}
 						$this->simpleResult[$s]['t'] = $lastc;
@@ -523,7 +468,7 @@ class Services_Phpanalysis_Phpanalysis
 					$lastType = $this->simpleResult[$spos - 1]['t'];
 				if ($slen < 5)
 				{
-					//echo iconv(UCS2, 'utf-8', $str).'<br/>';
+					//echo iconv('ucs-2be', 'utf-8', $str).'<br/>';
 					if ($lastType == 4 && (isset($this->addonDic['u'][$str]) || isset($this->addonDic['u'][substr($str, 0, 2)])))
 					{
 						$str2 = '';
@@ -744,7 +689,7 @@ class Services_Phpanalysis_Phpanalysis
 				if (! isset($this->addonDic['s'][$nw]) && strlen($nw) < 5 && ! $is_rs)
 				{
 					$newarr[$j] = $cw . $nw;
-					//echo iconv(UCS2, 'utf-8', $newarr[$j])."<br />";
+					//echo iconv('ucs-2be', 'utf-8', $newarr[$j])."<br />";
 					//尝试检测第三个词
 					if (strlen($nw) == 2 && isset($smarr[$i + 2]) && strlen($smarr[$i + 2]) == 2 && ! isset($this->addonDic['s'][$smarr[$i + 2]]))
 					{
@@ -903,7 +848,7 @@ class Services_Phpanalysis_Phpanalysis
      */
 	private function _out_string_encoding(&$str)
 	{
-		return iconv(UCS2, 'utf-8', $str);
+		return iconv('ucs-2be', 'utf-8', $str);
 	}
 
 	/**
@@ -984,7 +929,6 @@ class Services_Phpanalysis_Phpanalysis
 	public function GetFinallyIndex()
 	{
 		$rearr = array();
-		
 		foreach ($this->finallyResult as $v)
 		{
 			if ($this->resultType == 2 && ($v['t'] == 3 || $v['t'] == 5))
@@ -1007,7 +951,7 @@ class Services_Phpanalysis_Phpanalysis
 		}
 		return $rearr;
 	}
-	
+
 	/**
      * 编译词典
      * @parem $sourcefile utf-8编码的文本词典数据文件<参见范例dict/not-build/base_dic_full.txt>
@@ -1019,41 +963,30 @@ class Services_Phpanalysis_Phpanalysis
 		$target_file = ($target_file == '' ? $this->mainDicFile : $target_file);
 		$allk = array();
 		$fp = fopen($source_file, 'r');
-		
 		while ($line = fgets($fp, 512))
 		{
 			if ($line[0] == '@')
-			{
 				continue;
-			}
-			
 			list($w, $r, $a) = explode(',', $line);
 			$a = trim($a);
-			$w = iconv('utf-8', UCS2, $w);
+			$w = iconv('utf-8', 'ucs-2be', $w);
 			$k = $this->_get_index($w);
-			
 			if (isset($allk[$k]))
-			{
 				$allk[$k][$w] = array(
 					$r, 
 					$a
 				);
-			}
 			else
-			{
 				$allk[$k][$w] = array(
 					$r, 
 					$a
 				);
-			}
 		}
-		
 		fclose($fp);
 		$fp = fopen($target_file, 'w');
 		$heade_rarr = array();
 		$alldat = '';
 		$start_pos = $this->mask_value * 8;
-		
 		foreach ($allk as $k => $v)
 		{
 			$dat = serialize($v);
@@ -1066,9 +999,7 @@ class Services_Phpanalysis_Phpanalysis
 			
 			$start_pos += $dlen;
 		}
-		
 		unset($allk);
-		
 		for ($i = 0; $i < $this->mask_value; $i ++)
 		{
 			if (! isset($heade_rarr[$i]))
@@ -1096,9 +1027,7 @@ class Services_Phpanalysis_Phpanalysis
 		{
 			$this->mainDicHand = fopen($this->mainDicFile, 'r');
 		}
-		
 		$fp = fopen($targetfile, 'w');
-		
 		for ($i = 0; $i <= $this->mask_value; $i ++)
 		{
 			$move_pos = $i * 8;
@@ -1115,11 +1044,10 @@ class Services_Phpanalysis_Phpanalysis
 				continue;
 			foreach ($data as $k => $v)
 			{
-				$w = iconv(UCS2, 'utf-8', $k);
+				$w = iconv('ucs-2be', 'utf-8', $k);
 				fwrite($fp, "{$w},{$v[0]},{$v[1]}\n");
 			}
 		}
-		
 		fclose($fp);
 		return true;
 	}
