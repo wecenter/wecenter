@@ -34,7 +34,7 @@ class statistic_class extends AWS_MODEL
 		
 		$data = array();
 		
-		if ($result = $this->query_all("SELECT COUNT(uid) AS count, FROM_UNIXTIME(reg_time, '%Y-%m') AS reg_month FROM " . get_table('users') . " WHERE reg_time BETWEEN " . $start_time . " AND " . $end_time . " GROUP BY reg_month ASC"))
+		if ($result = $this->query_all("SELECT COUNT(uid) AS count, FROM_UNIXTIME(reg_time, '%y-%m') AS reg_month FROM " . get_table('users') . " WHERE reg_time BETWEEN " . $start_time . " AND " . $end_time . " GROUP BY reg_month ASC"))
 		{
 			foreach ($result AS $key => $val)
 			{
@@ -62,7 +62,7 @@ class statistic_class extends AWS_MODEL
 		
 		$data = array();
 		
-		if ($result = $this->query_all("SELECT COUNT(question_id) AS count, FROM_UNIXTIME(add_time, '%Y-%m') AS add_date FROM " . get_table('question') . " WHERE add_time BETWEEN " . $start_time . " AND " . $end_time . " GROUP BY add_date ASC"))
+		if ($result = $this->query_all("SELECT COUNT(question_id) AS count, FROM_UNIXTIME(add_time, '%y-%m') AS add_date FROM " . get_table('question') . " WHERE add_time BETWEEN " . $start_time . " AND " . $end_time . " GROUP BY add_date ASC"))
 		{
 			foreach ($result AS $key => $val)
 			{
@@ -90,7 +90,7 @@ class statistic_class extends AWS_MODEL
 		
 		$data = array();
 		
-		if ($result = $this->query_all("SELECT COUNT(answer_id) AS count, FROM_UNIXTIME(add_time, '%Y-%m') AS add_date FROM " . get_table('answer') . " WHERE add_time BETWEEN " . $start_time . " AND " . $end_time . " GROUP BY add_date ASC"))
+		if ($result = $this->query_all("SELECT COUNT(answer_id) AS count, FROM_UNIXTIME(add_time, '%y-%m') AS add_date FROM " . get_table('answer') . " WHERE add_time BETWEEN " . $start_time . " AND " . $end_time . " GROUP BY add_date ASC"))
 		{
 			foreach ($result AS $key => $val)
 			{
@@ -118,7 +118,7 @@ class statistic_class extends AWS_MODEL
 		
 		$data = array();
 		
-		if ($result = $this->query_all("SELECT COUNT(topic_id) AS count, FROM_UNIXTIME(add_time, '%Y-%m') AS add_date FROM " . get_table('topic') . " WHERE add_time BETWEEN " . $start_time . " AND " . $end_time . " GROUP BY add_date ASC"))
+		if ($result = $this->query_all("SELECT COUNT(topic_id) AS count, FROM_UNIXTIME(add_time, '%y-%m') AS add_date FROM " . get_table('topic') . " WHERE add_time BETWEEN " . $start_time . " AND " . $end_time . " GROUP BY add_date ASC"))
 		{
 			foreach ($result AS $key => $val)
 			{
