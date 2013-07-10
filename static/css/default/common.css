@@ -932,3 +932,6 @@ select{width: auto;}
 .aw-ie6 .pull-right p{line-height: 24px;}
 .aw-ie6 .pull-right ul{margin:0;}
 .aw-ie6 .pull-right ul li{line-height: 24px;}
+
+#aw-loading { background: #000; width: 40px; height: 40px; padding: 5px; -webkit-border-radius: 5px; border-radius: 5px; position: fixed; top: 50%;	left: 50%; margin: -20px 0 0 -20px; z-index: 10001; -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=75)"; filter: alpha(opacity=75); opacity: 0.75; }
+#aw-loading-box { width: 40px; height: 40px; background-image: url('../../common/loading.png'); }
