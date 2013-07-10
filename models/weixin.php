@@ -25,22 +25,6 @@ class weixin_class extends AWS_MODEL
 	
 	var $image_article_tpl = '<item><Title><![CDATA[%s]]></Title><Description><![CDATA[%s]]></Description><PicUrl><![CDATA[%s]]></PicUrl><Url><![CDATA[%s]]></Url></item>';
 	
-	var $language_characteristic = array(
-		'ok' => array(
-			'好', '好的', '是', '是的', '恩', '可', '可以', '行', '行啊', '中', '要', '哦', '嗯', '确认', '确定', 'yes', '更多'
-		),
-		
-		'cancel' => array(
-			'不', '不要', '别', '算了', '取消', 'no', '否', "don't"
-		),
-		
-		'bad' => array(
-			'fuck', 'shit', '狗屎', '婊子', '贱', '你妈', '你娘', '你祖宗', '滚', '你妹', '日', '操', '靠', '干'
-		),
-	);
-	
-	var $help_message = "以下指令可以帮助您更好的利用微信公众号:\n\n绑定状态 - 查询微信绑定状态\n解除绑定 - 解除微信绑定\n我的问题 - 显示我的提问\n最新问题 - 显示最新提问\n最新通知 - 显示最新通知";
-	
 	public function fetch_message()
 	{
 		$post_data = file_get_contents('php://input');
@@ -71,7 +55,6 @@ class weixin_class extends AWS_MODEL
 				{
 					case 'subscribe':
 						$response_message = get_setting('weixin_subscribe_message');
-						//$response_message = '您已经成功关注 ' . get_setting('site_name') . ', 请问需要什么帮助吗? 您可以通过输入 "help, 帮助" 获得更多支持!';
 					break;
 				}
 			break;
@@ -117,12 +100,9 @@ class weixin_class extends AWS_MODEL
 						$response_message .= "\n" . '• <a href="' . get_js_url('/m/question/' . $val['question_id']) . '">' . $val['question_content'] . '</a>' . "\n";
 					}
 					
-					if (!$answer_list)
-					{
-						$response_message .= "\n\n您的问题没有人提到过, 需要帮忙么? 回复 '是' 提交问题到社区!";
+					$response_message .= "\n\n" . AWS_APP::config()->get('weixin')->publish_message;
 						
-						$action = 'publish';
-					}
+					$action = 'publish';
 				}
 				else
 				{
@@ -136,11 +116,11 @@ class weixin_class extends AWS_MODEL
 					{
 						if (cjk_strlen($input_message['content']) < 5)
 						{
-							$response_message = $this->help_message;
+							$response_message = AWS_APP::config()->get('weixin')->help_message;
 						}
 						else
 						{
-							$response_message = '您的问题没有人提到过, 需要帮忙么?';
+							$response_message =  AWS_APP::config()->get('weixin')->publish_message;
 						
 							$action = 'publish';
 						}
@@ -198,8 +178,6 @@ class weixin_class extends AWS_MODEL
 		{
 			return false;
 		}
-		
-		//AWS_APP::mail()->send('explon@gmail.com', 'DEBUG', htmlspecialchars(sprintf($this->image_tpl, $input_message['fromUsername'], $input_message['toUsername'], $input_message['time'], 'news', sizeof($image_data), $article_tpl)));
 		
 		return sprintf($this->image_tpl, $input_message['fromUsername'], $input_message['toUsername'], $input_message['time'], 'news', sizeof($image_data), $article_tpl);
 	}
@@ -274,10 +252,10 @@ class weixin_class extends AWS_MODEL
 			
 			case '帮助':
 			case 'HELP':
-				$response_message = $this->help_message;
+				$response_message = AWS_APP::config()->get('weixin')->help_message;
 			break;
 			
-			case '最新问题':
+			case AWS_APP::config()->get('weixin')->command_new:
 				if ($question_list = $this->model('question')->get_questions_list(1, 10))
 				{
 					$response_message .= "最新问题: \n";
@@ -289,7 +267,7 @@ class weixin_class extends AWS_MODEL
 				}
 			break;
 			
-			case '最新通知':
+			case AWS_APP::config()->get('weixin')->command_notifications:
 				if ($user_info = $this->model('account')->get_user_info_by_weixin_id($input_message['fromUsername']))
 				{
 					if ($notifications = $this->model('notify')->list_notification($user_info['uid'], 0, calc_page_limit($param, 5)))
@@ -330,7 +308,7 @@ class weixin_class extends AWS_MODEL
 				}
 			break;
 			
-			case '我的问题':
+			case AWS_APP::config()->get('weixin')->command_my:
 				if ($user_info = $this->model('account')->get_user_info_by_weixin_id($input_message['fromUsername']))
 				{
 					if ($user_actions = $this->model('account')->get_user_actions($user_info['uid'], calc_page_limit($param, 5), 101))
@@ -393,7 +371,7 @@ class weixin_class extends AWS_MODEL
 				}
 			break;
 			
-			case '绑定状态':
+			case AWS_APP::config()->get('weixin')->command_bind_info:
 				if ($user_info = $this->model('account')->get_user_info_by_weixin_id($input_message['fromUsername']))
 				{
 					$response_message = '你的微信帐号绑定社区帐号: ' . $user_info['user_name'];
@@ -404,7 +382,7 @@ class weixin_class extends AWS_MODEL
 				}
 			break;
 			
-			case '解除绑定':
+			case AWS_APP::config()->get('weixin')->command_unbind:
 				$response_message = $this->weixin_unbind($input_message['fromUsername']);
 			break;
 		}
@@ -525,7 +503,7 @@ class weixin_class extends AWS_MODEL
 	
 	public function is_language($string, $type)
 	{
-		if (!$characteristic = $this->language_characteristic[$type])
+		if (!$characteristic = AWS_APP::config()->get('weixin')->language_characteristic[$type])
 		{
 			return false;
 		}
@@ -591,28 +569,28 @@ class weixin_class extends AWS_MODEL
 							}
 						}
 												
-						$response_message = '您的问题已提交，晚点您可以输入 "我的问题" 查看';
+						$response_message = AWS_APP::config()->get('weixin')->publish_success_message;
 					}
 				}
 			break;
 			
 			case 'unbind':
 				return $this->message_parser(array(
-					'content' => '解除绑定',
+					'content' => AWS_APP::config()->get('weixin')->command_unbind,
 					'fromUsername' => $weixin_id
 				));
 			break;
 			
 			case 'my_questions':
 				return $this->message_parser(array(
-					'content' => '我的问题',
+					'content' => AWS_APP::config()->get('weixin')->command_my,
 					'fromUsername' => $weixin_id
 				), $last_action_param);
 			break;
 			
 			case 'notification':
 				return $this->message_parser(array(
-					'content' => '最新通知',
+					'content' => AWS_APP::config()->get('weixin')->command_notifications,
 					'fromUsername' => $weixin_id
 				), $last_action_param);
 			break;
