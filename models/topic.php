@@ -20,9 +20,9 @@ if (!defined('IN_ANWSION'))
 
 class topic_class extends AWS_MODEL
 {
-	public function get_topic_list($where = null, $limit = 10, $order = 'topic_id DESC')
+	public function get_topic_list($where = null, $order = 'topic_id DESC', $limit = 10, $page = 1)
 	{
-		if ($topic_list = $this->fetch_all('topic', $where, $order, $limit))
+		if ($topic_list = $this->fetch_page('topic', $where, $order, $page, $limit))
 		{
 			foreach ($topic_list AS $key => $val)
 			{
@@ -624,7 +624,7 @@ class topic_class extends AWS_MODEL
 		
 		if (! $follow_uids)
 		{
-			return $this->get_topic_list("topic_id NOT IN(" . implode($topic_focus_ids, ',') . ")", $limit, 'topic_id DESC');
+			return $this->get_topic_list("topic_id NOT IN(" . implode($topic_focus_ids, ',') . ")", 'topic_id DESC', $limit);
 		}
 		
 		if ($topic_focus = $this->query_all("SELECT DISTINCT topic_id, uid FROM " . $this->get_table("topic_focus") . " WHERE uid IN(" . implode($follow_uids, ',') . ") AND topic_id NOT IN (" . implode($topic_focus_ids, ',') . ") ORDER BY focus_id DESC LIMIT " . $limit))
@@ -639,11 +639,11 @@ class topic_class extends AWS_MODEL
 		{
 			if ($topic_focus_ids)
 			{
-				return $this->get_topic_list("topic_id NOT IN (" . implode($topic_focus_ids, ',') . ")", $limit, 'topic_id DESC');
+				return $this->get_topic_list("topic_id NOT IN (" . implode($topic_focus_ids, ',') . ")", 'topic_id DESC', $limit);
 			}
 			else
 			{
-				return $this->get_topic_list(null, $limit, 'topic_id DESC');
+				return $this->get_topic_list(null, 'topic_id DESC', $limit);
 			}
 		}
 		

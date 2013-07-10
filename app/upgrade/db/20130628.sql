@@ -45,3 +45,6 @@ CREATE TABLE IF NOT EXISTS `[#DB_PREFIX#]weixin_fake_id` (
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
 
 DROP TABLE `[#DB_PREFIX#]admin_group`;
+
+DELETE FROM `[#DB_PREFIX#]system_setting` WHERE `varname` = 'recommend_topics_number';
+DELETE FROM `[#DB_PREFIX#]system_setting` WHERE `varname` = 'focus_topics_list_per_page';
