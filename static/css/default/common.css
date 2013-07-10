@@ -445,24 +445,28 @@ select{width: auto;}
 .aw-topic-content-wrap{background: #fff;}
 .aw-topic-content-wrap .aw-main-content{padding-top:30px;}
 .aw-topic-content-wrap .aw-topic-daily{margin-bottom:20px;}
+.aw-topic-content-wrap .aw-topic-daily .aw-side-bar-mod-body h4{font-weight: normal;}
+.aw-topic-content-wrap .aw-topic-daily .aw-side-bar-mod-body p{margin-top:10px;}
+.aw-topic-content-wrap .aw-topic-daily .aw-side-bar-mod-body p span{height:30px;overflow: hidden;}
 .aw-topic-content-wrap .aw-topic-all-list .span6{width:260px;min-height:82px;margin:0 5px;}
 .aw-topic-content-wrap .aw-mod-head h3{margin:20px 0;font-size: 16px;}
 .aw-topic-descript{margin:10px 0;padding-bottom:10px;border-bottom:1px dotted #C1CAD4;text-align: justify;}
 .aw-topic-descript .aw-topic-title{margin-bottom:5px;text-align: justify;}
-.aw-topic-options span{margin:0 5px;font-size: 12px;color: #999;}
+.aw-topic-options span{margin-left:5px;font-size: 12px;color: #999;}
 /*侧边栏导航*/
 .aw-side-bar-topic-nav ul > li > a{display:block;padding:5px 0 5px 10px;color: #666;font-size: 14px;}
 .aw-side-bar-topic-nav ul > li > span{display:block;padding:5px 0 5px 10px;font-size: 14px;}
 .aw-side-bar-topic-nav ul > li > a:hover, .aw-side-bar-topic-nav ul > li > a.active{background: #2b77a8;color: #fff;}
 .aw-side-bar-topic-nav ul > li > ol{margin-top:10px;padding:10px;border:1px solid #ccc;}
 .aw-side-bar-topic-nav ul > li > ol li{float: left;}
-.aw-topic-daily .aw-side-bar-mod-body p span{height:30px;overflow: hidden;}
+
 
 /*已关注话题*/
 .aw-topic-follow{margin-bottom: 20px;}
 .aw-topic-follow .aw-mod-head{margin-bottom: 30px;}
 .aw-topic-follow h2{font-size: 20px;}
-.aw-topic-follow .aw-item{position:relative;min-height:45px;padding:20px 0 20px 60px;border-bottom:1px dotted #C1CAD4;}
+.aw-topic-follow .aw-item{position:relative;min-height:45px;padding:20px 0 20px 60px;border-top:1px dotted #C1CAD4;}
+.aw-topic-follow .aw-item:first-child{border-top: none;}
 .aw-topic-follow .aw-item ul{margin-top:15px;}
 .aw-topic-follow .aw-item ul li{line-height: 24px;}
 .aw-topic-follow .aw-item .aw-topic-img{position: absolute;left: 0;top: 20px;}
