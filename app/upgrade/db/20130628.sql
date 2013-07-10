@@ -43,3 +43,5 @@ CREATE TABLE IF NOT EXISTS `[#DB_PREFIX#]weixin_fake_id` (
   PRIMARY KEY (`id`),
   KEY `type` (`type`,`item_id`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
+
+DROP TABLE `[#DB_PREFIX#]admin_group`;
