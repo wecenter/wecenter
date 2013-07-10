@@ -533,7 +533,7 @@ class weixin_class extends AWS_MODEL
 	{
 		if (!$last_action = $this->get_last_message($weixin_id))
 		{
-			return '这是地球语言么?';
+			return '您好, 请问需要什么帮助?';
 		}
 		
 		$this->delete('weixin_message', "weixin_id = '" . $this->quote($weixin_id) . "'");
@@ -608,7 +608,7 @@ class weixin_class extends AWS_MODEL
 	
 	public function get_last_message($weixin_id)
 	{
-		return $this->fetch_row('weixin_message', "weixin_id = '" . $this->quote($weixin_id) . "'");
+		return $this->fetch_row('weixin_message', "weixin_id = '" . $this->quote($weixin_id) . "' AND `time` > " . (time() - 3600));
 	}
 	
 	public function fetch_reply_rule_list()
