@@ -14,7 +14,7 @@
 					<?php _e('未认证'); ?>
 					<?php } else if ($this->verify_apply['status'] == 0) { ?>
 					<?php _e('正在审核'); ?>
-					<?php } else if ($this->verify_apply['status'] == 1) { ?>
+					<?php } else if ($this->verify_apply['status'] == 1 OR $this->user_info['verified']) { ?>
 					<?php _e('已认证'); ?>
 					<?php } else if ($this->verify_apply['status'] == -1) { ?>
 					<?php _e('认证被拒绝'); ?>
@@ -89,7 +89,7 @@
 		
 		$('input.apply-type:checked').click();
 		
-		<?php if (isset($this->verify_apply['status']) AND ($this->verify_apply['status'] == 1 OR $this->verify_apply['status'] == 0)) { ?>
+		<?php if ((isset($this->verify_apply['status']) AND ($this->verify_apply['status'] == 1 OR $this->verify_apply['status'] == 0)) OR $this->user_info['verified']) { ?>
 		$('#verify_form input').attr('disabled', true);
 		$('#upload-attach, #submit-form').hide();
 		<?php } ?>
