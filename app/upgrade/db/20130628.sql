@@ -48,3 +48,6 @@ DROP TABLE `[#DB_PREFIX#]admin_group`;
 
 DELETE FROM `[#DB_PREFIX#]system_setting` WHERE `varname` = 'recommend_topics_number';
 DELETE FROM `[#DB_PREFIX#]system_setting` WHERE `varname` = 'focus_topics_list_per_page';
+
+ALTER TABLE `[#DB_PREFIX#]verify_apply` ADD `name` VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL, ADD `data` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL, ADD  `status` TINYINT( 1 ) NULL DEFAULT '0', ADD INDEX ( `name` , `status` );
+ALTER TABLE `[#DB_PREFIX#]verify_apply` ADD `type` VARCHAR( 16 ) NULL DEFAULT '', ADD INDEX ( `type` ) ;
