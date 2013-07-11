@@ -10,11 +10,13 @@
 			<div class="control-group">
 				<label for="input-password-old" class="control-label"><?php _e('当前状态'); ?>:</label>
 				<div class="controls">
-					<?php if (!isset($this->verify_apply['status'])) { ?>
+					<?php if ($this->user_info['verified']) { ?>
+					<?php _e('已认证'); ?>
+					<?php } else if (!isset($this->verify_apply['status'])) { ?>
 					<?php _e('未认证'); ?>
 					<?php } else if ($this->verify_apply['status'] == 0) { ?>
 					<?php _e('正在审核'); ?>
-					<?php } else if ($this->verify_apply['status'] == 1 OR $this->user_info['verified']) { ?>
+					<?php } else if ($this->verify_apply['status'] == 1) { ?>
 					<?php _e('已认证'); ?>
 					<?php } else if ($this->verify_apply['status'] == -1) { ?>
 					<?php _e('认证被拒绝'); ?>
