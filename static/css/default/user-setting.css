@@ -26,7 +26,7 @@
 .aw-user-setting-base-contact li input{width: 280px;margin:0;height:20px;line-height: 20px;}
 .aw-user-setting-base-contact label{display:inline-block;width: 70px;line-height: 30px;text-align: right;}
 /*账号绑定*/
-.aw-user-setting-bind .aw-mod-body{padding:30px 60px;border-bottom:1px dotted #C1CAD4;}
+.aw-user-setting-bind .aw-mod-body{padding:30px 60px;overflow:hidden;border-bottom:1px dotted #C1CAD4;}
 .aw-user-setting-bind ul li{line-height: 36px;min-height: 36px;margin-bottom:10px;padding-top:10px;border-top:1px dotted #C1CAD4;color:#666;}
 .aw-user-setting-bind ul li:first-child{border-top: none;}
 /*我的积分*/
