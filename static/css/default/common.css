@@ -459,6 +459,8 @@ select{width: auto;}
 .aw-side-bar-topic-nav ul > li > a:hover, .aw-side-bar-topic-nav ul > li > a.active{background: #2b77a8;color: #fff;}
 .aw-side-bar-topic-nav ul > li > ol{margin-top:10px;padding:10px;border:1px solid #ccc;}
 .aw-side-bar-topic-nav ul > li > ol li{float: left;}
+.aw-side-bar-topic-nav ul > li > ol li a{display:block;padding: 3px 5px;}
+.aw-side-bar-topic-nav ul > li > ol li .active{background:#D4F2FF;}
 
 
 /*已关注话题*/
