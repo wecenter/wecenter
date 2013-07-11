@@ -240,6 +240,11 @@ class topic_class extends AWS_MODEL
 			return false;
 		}
 		
+		if (! sizeof($topic_ids) == 0)
+		{
+			return false;
+		}
+		
 		array_walk_recursive($topic_ids, 'intval_string');
 		
 		$topics = $this->fetch_all('topic', 'topic_id IN(' . implode(',', array_unique($topic_ids)) . ')');
