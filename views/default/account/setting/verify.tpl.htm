@@ -48,8 +48,10 @@
 			<div class="control-group">
 				<label for="input-password-new" class="control-label"><?php _e('附件'); ?>:</label>
 				<div class="controls">
-					<a class="btn btn-mini upload-btn">上传附件</a>  <span class="aw-text-color-999">请提交对应的身份证或者组织机构代码证件扫描</span>
-					<input name="attach" type="file" class="hide" id="upload-attach"/>
+					<a class="btn btn-mini">上传附件</a>
+					<input name="attach" type="file" class="upload-attach"/>
+					<span class="aw-text-color-999">请提交对应的身份证或者组织机构代码证件扫描</span>
+					
 				</div>
 			</div>  
 		</div>
@@ -71,10 +73,6 @@
 			$('.verify-code').html('组织机构代码:')
 		});
 
-		$('.upload-btn').click(function()
-		{
-			$('#upload-attach').click();
-		});
 	});
 </script>
 <?php TPL::output('account/setting/setting_footer.tpl.htm'); ?>

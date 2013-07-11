@@ -7,8 +7,8 @@
 .aw-user-setting-bind input{height:26px;line-height: 26px;}
 .aw-user-setting-bind .aw-icon{*margin-right: 5px;}
 .aw-user-setting-bind .i-qq, .aw-user-setting-bind .i-share-sina, .aw-user-setting-bind .i-share-weibo, .aw-user-setting-bind .i-weixin{position: relative;top: 3px;}
-
-
+.aw-user-setting .form-horizontal .control-group{position: relative;}
+.aw-user-setting .upload-attach{position:absolute; left:180px; top:4px;width: 75px; font-size:100px; opacity:0; filter:alpha(opacity=0);cursor:pointer;}
 .aw-user-setting .aw-user-setting-save{margin:20px 60px 0 0;}
 /*基本资料*/
 .aw-user-setting-base{position: relative;}
