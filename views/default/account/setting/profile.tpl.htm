@@ -58,7 +58,7 @@
 		<dl>
 				<dt><label><?php _e('职业'); ?>:</label></dt>
 				<dd>
-					<select name="job_id"<?php if ($this->user_info['verified']) { ?> disabled="disabled"<?php } ?>>
+					<select name="job_id">
 						<option value="">--</option>
 						<?php echo H::display_options($this->job_list, $this->user_info['job_id']); ?>
 					</select>
@@ -66,7 +66,7 @@
 		</dl>
 		<dl>
 				<dt><label><?php _e('介绍'); ?>:</label></dt>
-				<dd class="aw-user-setting-base-introduce"><input name="signature" maxlength="128" type="text" value="<?php echo $this->user_info['signature']; ?>"<?php if ($this->user_info['verified']) { ?> disabled="disabled"<?php } ?> /></dd>
+				<dd class="aw-user-setting-base-introduce"><input name="signature" maxlength="128" type="text" value="<?php echo $this->user_info['signature']; ?>" /></dd>
 		</dl>
 		<dl>
 				<dt><label><?php _e('个性网址'); ?>:</label></dt>

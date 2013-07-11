@@ -3,9 +3,7 @@
 		<div class="aw-user-setting">
 			<div class="tabbable">
 				<ul class="nav nav-tabs aw-reset-nav-tabs">
-					<?php if (!$this->user_info['verified']) { ?>
 					<li<?php if ($_GET['act'] == 'verify') { ?> class="active"<?php } ?>><a href="account/setting/verify/"><?php _e('申请认证'); ?></a></li>
-					<?php } ?>
 					<?php if (get_setting('integral_system_enabled') == 'Y') { ?>
 	            	<li<?php if ($_GET['act'] == 'integral') { ?> class="active"<?php } ?>><a href="account/setting/integral/"><?php _e('我的积分'); ?></a></li>
 	            	<?php } ?>
