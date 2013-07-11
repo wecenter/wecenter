@@ -49,9 +49,9 @@
 				<label for="input-password-new" class="control-label"><?php _e('附件'); ?>:</label>
 				<div class="controls">
 					<a class="btn btn-mini">上传附件</a>
-					<input name="attach" type="file" class="upload-attach"/>
+					<input name="attach" type="file" class="upload-attach" onchange="get_upload_url($(this))"/>
+					<span class="aw-text-color-999 upload-url"></span><br/>
 					<span class="aw-text-color-999">请提交对应的身份证或者组织机构代码证件扫描</span>
-					
 				</div>
 			</div>  
 		</div>
@@ -74,6 +74,10 @@
 		});
 
 	});
+	function get_upload_url(element)
+	{
+		$('.upload-url').html(element.val())
+	}
 </script>
 <?php TPL::output('account/setting/setting_footer.tpl.htm'); ?>
 <?php TPL::output('global/footer.tpl.htm'); ?>
