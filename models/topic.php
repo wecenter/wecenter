@@ -240,7 +240,7 @@ class topic_class extends AWS_MODEL
 			return false;
 		}
 		
-		if (! sizeof($topic_ids) == 0)
+		if (sizeof($topic_ids) == 0)
 		{
 			return false;
 		}
@@ -372,7 +372,7 @@ class topic_class extends AWS_MODEL
 		return true;
 	}
 	
-	public function update_topic($topic_id, $topic_title = '', $topic_description = '', $topic_pic = '', $topic_lock = 0)
+	public function update_topic($topic_id, $topic_title = null, $topic_description = null, $topic_pic = null, $topic_lock = 0)
 	{
 		$topic_title = htmlspecialchars(trim($topic_title));
 		$topic_description = htmlspecialchars($topic_description);
