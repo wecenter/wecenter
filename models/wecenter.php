@@ -22,6 +22,11 @@ class wecenter_class extends AWS_MODEL
 {
 	public function mp_server_query($node, $post_data = null)
 	{
+		if (!AWS_APP::config()->get('wecenter')->mp_access_token)
+		{
+			return false;
+		}
+		
 		if ($post_data)
 		{
 			foreach ($post_data AS $key => $val)
@@ -65,9 +70,12 @@ class wecenter_class extends AWS_MODEL
 	
 	public function get_wechat_fake_id_by_message($message)
 	{
-		$result = $this->mp_server_query('get_wechat_fake_id_by_message', array(
+		if (!$result = $this->mp_server_query('get_wechat_fake_id_by_message', array(
 			'message' => $message
-		));
+		)))
+		{
+			return false;
+		}
 		
 		if ($result['status'] == 'success')
 		{
