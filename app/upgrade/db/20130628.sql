@@ -24,7 +24,6 @@ ALTER TABLE `[#DB_PREFIX#]users` CHANGE `topic_focus_count` `topic_focus_count` 
 ALTER TABLE `[#DB_PREFIX#]users` CHANGE `invitation_available` `invitation_available` INT( 10 ) NOT NULL DEFAULT '0' COMMENT '邀请数量';
 ALTER TABLE `[#DB_PREFIX#]users` CHANGE `group_id` `group_id` INT( 10 ) NULL DEFAULT '0' COMMENT '用户组';
 ALTER TABLE `[#DB_PREFIX#]users` CHANGE `reputation_group` `reputation_group` INT( 10 ) NULL DEFAULT '0' COMMENT '威望对应组';
-ALTER TABLE `[#DB_PREFIX#]users` CHANGE `level` `level` INT( 10 ) NULL DEFAULT '0' COMMENT '用户声望级别';
 ALTER TABLE `[#DB_PREFIX#]users` CHANGE `forbidden` `forbidden` TINYINT( 1 ) NULL DEFAULT '0' COMMENT '是否禁止用户';
 ALTER TABLE `[#DB_PREFIX#]users` CHANGE `valid_email` `valid_email` TINYINT( 1 ) NULL DEFAULT '0' COMMENT '邮箱验证';
 ALTER TABLE `[#DB_PREFIX#]users` CHANGE `agree_count` `agree_count` INT( 10 ) NULL DEFAULT '0' COMMENT '赞同数量';
