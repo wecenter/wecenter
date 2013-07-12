@@ -566,7 +566,7 @@ select{width: auto;}
 .aw-dynamic-topic .aw-dynamic-topic-content .aw-icon.i-phone-replay, .aw-dynamic-topic .aw-dynamic-topic-content .aw-icon.i-weixin-replay{margin-left: 5px;}
 .aw-dynamic-topic .aw-comment-zantong{width:550px;}
 .aw-dynamic-topic .aw-comment-upload-img-list{height: auto;overflow: hidden;margin:10px 0 20px;margin-bottom:20px;}
-.aw-dynamic-topic .aw-comment-upload-img-list img{width: 175px;max-width:98% !important;margin:0 5px 5px 0;}
+.aw-dynamic-topic .aw-comment-upload-img-list img{max-width:98% !important;margin:0 5px 5px 0;}
 .aw-dynamic-topic .aw-comment-upload-file-list{margin-top:10px;}
 .aw-dynamic-topic .aw-comment-upload-file-list li{margin:3px 0;}
 .aw-dynamic-topic .aw-comment-upload-file-list .i-upload-file{position: relative;top:2px;margin-right: 5px;}
