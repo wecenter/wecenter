@@ -15,6 +15,8 @@ select, input[type="file"]{line-height: 0px;font-size: 13px;}
 .aw-text-color-999{margin:2px 0 0 0;color: #999;font-size: 11px;}
 .modal{margin-left: 0px;}
 .modal-backdrop, .modal-backdrop.fade.in{opacity:0.2;filter:alpha(opacity=20);}
+.modal-header{*padding: 9px 15px;*height: 30px;*line-height: 30px;}
+.modal-header #myModalLabel{*position: relative;*top:10px;*margin-top:-10px;}
 .aw-no-border-top{border-top:none !important;}
 .aw-no-border-bottom{border-bottom: none !important;}
 .aw-no-margin-top{margin-top:0px !important;}
