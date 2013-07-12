@@ -129,6 +129,8 @@
 .aw-topic-content-wrap .aw-topic-all-list .span6{width: 238px;}
 .aw-topic-daily .aw-mod-head h3{padding: 0;}
 .aw-topic-follow{margin:20px;}
+.aw-side-bar-topic-nav ul > li > a, .aw-side-bar-topic-nav ul > li > span{padding-left:20px;}
+.aw-side-bar-topic-nav ul > li > a:hover, .aw-side-bar-topic-nav ul > li > a.active{background:url("img/main_default.png") no-repeat -231px -11px;color: #333333;}
 
 /*
 **	话题详情页
