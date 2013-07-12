@@ -897,8 +897,8 @@ select{width: auto;}
 .markItUp .markItUpButton9 a {background-position: -337px -7px;}
 .markItUp .markItUpButton10 a {background-position: -426px -8px;}
 .markItUp .markItUpButton11 a {background-position: -454px -8px;}
-.markItUp .markItUpButton12 a {background-position: -492px -7px;float: right;height: 18px;margin-top: -1px;}
-.markItUp .markItUpButton12 a.cur {background-position: -534px -7px;}
+.markItUp .markItUpButton12 a {background-position: -534px -5px;float: right;height: 18px;margin-top: -1px;}
+.markItUp .markItUpButton12 a.cur {background-position: -492px -5px;}
 .markItUp .markItUpButton12 {position: absolute;right: 0;}
 .markItUp .markItUpButton13 a {background-position: -573px -6px;}
 .markItUp .markItUpButton14 a {background-position: -600px -6px;margin-left: 5px;}
