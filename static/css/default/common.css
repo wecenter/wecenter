@@ -459,7 +459,7 @@ select{width: auto;}
 .aw-side-bar-topic-nav ul > li > span{display:block;padding:5px 0 5px 10px;font-size: 14px;}
 .aw-side-bar-topic-nav ul > li > a:hover, .aw-side-bar-topic-nav ul > li > a.active{background: #2b77a8;color: #fff;}
 .aw-side-bar-topic-nav ul > li > p{height:auto;overflow:hidden;margin-top:10px;padding:10px;border:1px solid #ccc;}
-.aw-side-bar-topic-nav ul > li > p a{display:inline-block;margin:3px 2px;padding: 3px 5px;}
+.aw-side-bar-topic-nav ul > li > p a{display:inline-block;margin:3px 2px;padding: 1px 5px;}
 .aw-side-bar-topic-nav ul > li > p .active{background:#D4F2FF;}
 
 
