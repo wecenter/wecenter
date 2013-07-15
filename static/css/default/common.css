@@ -782,7 +782,6 @@ select{width: auto;}
 .aw-tips-box, .aw-image-box{width: 350px;}
 .aw-tips-box .modal-body{background: url(img/warmming.png) no-repeat right 5px;}
 .aw-tips-box .modal-body p{margin: 10px 0;}
-.aw-image-box input{width: 306px;height: 24px;line-height: 24px;margin-bottom: 15px;}
 /*分享box*/
 .aw-share-box .aw-share-box-tabs{position: absolute;top:18px;right: 50px;}
 .aw-share-box .aw-share-box-tabs a{display: inline-block;height: 30px;line-height: 30px;margin:0 0 0 5px;padding:0 10px 0 10px;}
@@ -824,6 +823,9 @@ select{width: auto;}
 .aw-edit-comment-box .modal-footer input{margin: -3px 5px 0 0;}
 .aw-edit-comment-box .modal-footer label{display: inline;font-size: 13px;}
 .aw-edit-comment-box .aw-file-upload-box{padding:20px;border:1px solid #ccc;}
+/*图片&视频插入box*/
+.aw-image-box input{width: 306px;height: 24px;line-height: 24px;margin-bottom: 15px;}
+.aw-image-box p{margin:0;}
 
 /*
 **	用户初次登陆提示box
