@@ -663,6 +663,7 @@ select{width: auto;}
 .aw-mod-publish-box .aw-mod-head{margin:0 !important;border-bottom: none !important;}
 .aw-mod-publish-box .aw-mod-body{padding:20px 0;}
 .aw-mod-publish-box #advanced_editor{width: 646px;}
+.aw-mod-publish-box #file_uploader_question span.aw-text-color-999, .aw-mod-replay-box #file_uploader_answer span.aw-text-color-999{height:25px;line-height:25px;margin-left:10px;}
 .aw-side-bar-mod-publish .aw-side-bar-mod-body p, .aw-side-bar-mod-topic-edit .aw-side-bar-mod-body p{line-height: 22px;padding:15px 0;}
 .aw-auth-img{margin-bottom: 10px !important;}
 .aw-auth-img input{width:80px;margin: 0 5px 0 0;}
