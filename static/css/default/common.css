@@ -161,6 +161,8 @@ select{width: auto;}
 .aw-logined-nav ul li:hover .aw-message-dropdown{display: block;}
 .aw-logined-nav #header_notification_list li{padding:5px 10px;border-top:1px dotted #C1CAD4;}
 .aw-logined-nav #header_notification_list li:hover{background: #F5FAFF;}
+.aw-logined-nav #header_notification_list li:hover .aw-new-message-tips-close{display: block;}
+.aw-logined-nav #header_notification_list li .message{display:inline-block;width: 210px;}
 .aw-logined-nav .aw-message-dropdown{display:none;position:absolute;left:-105px;top:23px;z-index: 9999;min-width:245px;height: auto;margin:2px 0 0;padding: 5px 0;background-color: #fff;border: 1px solid #C4CDD6;box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);}
 .aw-logined-nav .aw-message-dropdown > span{position: absolute;top:-10px;left:0;width: 245px;height: 6px;padding-top:10px;}
 .aw-logined-nav .aw-message-dropdown > span .i-dropdown-triangle{position: relative;left: 122px;top:-15px;*top:-6px;}
