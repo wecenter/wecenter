@@ -19,6 +19,7 @@
      is visible outside of the scrolling box. */
   position: relative;
   outline: none;
+  background:#fff;
 }
 
 /* Vertical scrollbar */

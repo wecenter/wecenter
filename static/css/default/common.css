@@ -251,7 +251,7 @@ select{width: auto;}
 .category dl dt{width: 50px;}
 .category dl dt img{width:50px;height:50px;}
 .category dl dd{width:130px;overflow: hidden;}
-.category dl dd span{display:block;height:20px;font-size: 12px;}
+.category dl dd span{display:block;height:40px;font-size: 12px;}
 .category .span12 > .active{background:#ebebeb;}
 .category .title a{font-weight: bold;}
 .category-dropdown{position: absolute;display:none;left:0;top:100%;width: 200px;padding-top:10px;}
