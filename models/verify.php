@@ -85,8 +85,17 @@ class verify_class extends AWS_MODEL
 			'status' => 1
 		), 'id = ' . intval($id));
 		
+		if ($verify_apply['type'])
+		{
+			$verified = $verify_apply['type'];
+		}
+		else
+		{
+			$verified = 'personal';
+		}
+		
 		return $this->update('users', array(
-			'verified' => 1
+			'verified' => $verified
 		), 'uid = ' . intval($verify_apply['uid']));
 	}
 	
