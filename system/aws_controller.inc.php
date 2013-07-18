@@ -226,7 +226,7 @@ class AWS_ADMIN_CONTROLLER extends AWS_CONTROLLER
 		
 		$admin_info = H::decode_hash(AWS_APP::session()->admin_login);
 		
-		if ($admin_info['uid'] != $this->user_id OR $admin_info['UA'] != $_SERVER['HTTP_USER_AGENT'] OR $admin_info['ip'] != $_SERVER['REMOTE_ADDR'] OR !AWS_APP::session()->permission['is_administortar'])
+		if ($admin_info['uid'] != $this->user_id OR $admin_info['UA'] != $_SERVER['HTTP_USER_AGENT'] OR $admin_info['ip'] != fetch_ip() OR !AWS_APP::session()->permission['is_administortar'])
 		{
 			unset(AWS_APP::session()->admin_login);
 			

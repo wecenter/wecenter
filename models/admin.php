@@ -46,7 +46,7 @@ class admin_class
 		AWS_APP::session()->admin_login = H::encode_hash(array(
 			'uid' => $uid,
 			'UA' => $_SERVER['HTTP_USER_AGENT'],
-			'ip' => $_SERVER['REMOTE_ADDR']
+			'ip' => fetch_ip()
 		));
 	}
 	
