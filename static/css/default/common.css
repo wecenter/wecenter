@@ -665,7 +665,8 @@ select{width: auto;}
 .aw-mod-publish-box .aw-mod-head{margin:0 !important;border-bottom: none !important;}
 .aw-mod-publish-box .aw-mod-body{position:relative;padding:20px 0;}
 .aw-mod-publish-box #advanced_editor{width: 646px;}
-.aw-mod-publish-box .aw-upload-tips{position: absolute;left: 100px;top: 23px;}
+.aw-mod-publish-box .aw-upload-tips, .aw-mod-replay-box .aw-upload-tips{position: absolute;left: 100px;top: 23px;}
+.aw-mod-replay-box .aw-upload-tips{top:1px;}
 .aw-side-bar-mod-publish .aw-side-bar-mod-body p, .aw-side-bar-mod-topic-edit .aw-side-bar-mod-body p{line-height: 22px;padding:15px 0;}
 .aw-auth-img{margin-bottom: 10px !important;}
 .aw-auth-img input{width:80px;margin: 0 5px 0 0;}
@@ -903,8 +904,8 @@ select{width: auto;}
 .markItUp .markItUpButton9 a {background-position: -337px -7px;}
 .markItUp .markItUpButton10 a {background-position: -426px -8px;}
 .markItUp .markItUpButton11 a {background-position: -454px -8px;}
-.markItUp .markItUpButton12 a {background-position: -534px -5px;float: right;height: 18px;margin-top: -1px;}
-.markItUp .markItUpButton12 a.cur {background-position: -492px -5px;}
+.markItUp .markItUpButton12 a {background-position: -492px -5px;float: right;height: 18px;margin-top: -1px;}
+.markItUp .markItUpButton12 a.cur {background-position: -534px -5px;}
 .markItUp .markItUpButton12 {position: absolute;right: 0;}
 .markItUp .markItUpButton13 a {background-position: -573px -6px;}
 .markItUp .markItUpButton14 a {background-position: -600px -6px;margin-left: 5px;}
