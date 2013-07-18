@@ -172,6 +172,11 @@ class AWS_APP
 		
 		$class_file = $app_dir . $controller . '.php';
 		
+		if (! file_exists($class_file))
+		{
+			return false;
+		}
+		
 		if (! class_exists($controller, false))
 		{
 			require_once ($class_file);
