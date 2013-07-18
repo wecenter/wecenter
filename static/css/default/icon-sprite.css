@@ -26,7 +26,8 @@
 .i-key{width:16px;height: 8px;background-position: -250px 0;}
 .i-logout{width:12px;height: 13px;background-position: -275px 0;}
 .i-share-user{width:16px;height: 16px;background-position: -295px 0;position:relative;top:3px;*top:0;}
-.i-v{width:15px;height: 12px;background-position: -320px 0;position: relative;top:2px;}
+.i-v{width:15px;height: 12px;background-position: -175px -59px;position: relative;top:2px;}
+.i-v.i-ve{background-position: -175px -79px;}
 .i-star-mini{width:12px;height: 13px;background-position: -360px 0;}
 .i-new-user{width:20px;height: 20px;background-position: -460px 0;}
 .i-nav-hover-triangle{width:12px;height: 6px;background-position: -485px 0;}
