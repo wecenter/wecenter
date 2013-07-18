@@ -92,7 +92,8 @@ class main extends AWS_CONTROLLER
 			20130426,
 			20130607,
 			20130614,
-			20130628
+			20130628,
+			20130704
 		);
 		
 		if (!$this->db_version = get_setting('db_version', false))
@@ -108,9 +109,7 @@ class main extends AWS_CONTROLLER
 		if (!in_array($this->db_version, $this->versions))
 		{
 			// is upgrade error version
-			
 			$this->db_version = $this->db_version - 1;
-			
 			$this->ignore_sql = true;
 		}
 		
