@@ -67,7 +67,7 @@ a.aw-load-more-content{display: block;}
 .aw-winner-replay{position:relative;height: 30px;line-height: 30px;margin:10px 0 12px;padding-left: 50px;background: #F7F7F6;font-size: 14px;font-weight: bold;}
 .aw-winner-replay .i-start-large{position: absolute;left: 0;top: 0;}
 /*消息数量提示*/
-.aw-message-tooltip{display:inline-block;height:18px;line-height:18px;margin-left:5px;padding:0 5px 0 6px;background:#449BDB;font-size:13px;font-style: normal;font-weight: normal;}
+.aw-message-tooltip{display:inline-block;height:18px;line-height:18px;margin-left:5px;padding:0 5px;background:#449BDB;font-size:13px;font-style: normal;font-weight: normal;}
 .aw-message-tooltip.error{background: #D90000;}
 /*下拉菜单*/
 .aw-dropdown-menu ul a{display:block;min-height:24px;line-height:24px;padding:4px 20px 4px 13px;font-weight: normal;}
