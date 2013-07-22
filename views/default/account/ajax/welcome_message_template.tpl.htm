@@ -33,7 +33,7 @@
 						<ul>
 							<li>
 								<?php _e('一句话介绍'); ?><br />
-								<input type="text" value="<?php _e('如：80后IT男..'); ?>" id="welcome_signature" value="<?php if ($this->user_info['signature']) { echo $this->user_info['signature']; } ?>" />
+								<input type="text" placeholder="<?php _e('如：80后IT男..'); ?>" id="welcome_signature" value="<?php if ($this->user_info['signature']) { echo $this->user_info['signature']; } ?>" name="signature" />
 							</li>
 							<li>
 								<?php _e('性别'); ?>:
