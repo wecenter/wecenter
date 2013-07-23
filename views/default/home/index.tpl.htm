@@ -9,7 +9,7 @@
 						<div class="aw-mod-head">
 							<h3>
 								<span class="pull-right"><a href="account/setting/privacy/#notifications" class="aw-text-color-999"><i class="aw-icon i-setting-hover"></i> <?php _e('通知设置'); ?></a></span>
-								<span><?php _e('新通知'); ?><em class="aw-message-tooltip error" name="notification_unread_num"><?php echo $this->user_info['notification_unread']; ?></em></span>
+								<span><?php _e('新通知'); ?></span><em class="badge badge-important" name="notification_unread_num"><?php echo $this->user_info['notification_unread']; ?></em>
 							</h3>
 						</div>
 						<div class="aw-mod-body">
@@ -45,7 +45,7 @@
 				
 				<div class="aw-side-bar-mod aw-side-bar-invite-join">
 					<div class="aw-side-bar-mod-head">
-						<h3><?php _e('邀请好友加入社区'); ?><?php if ($this->user_info['invitation_available']) { ?><em class="aw-message-tooltip"><?php echo $this->user_info['invitation_available']; ?></em><?php } ?></h3>
+						<h3><?php _e('邀请好友加入社区'); ?><?php if ($this->user_info['invitation_available']) { ?><em class="badge badge-info"><?php echo $this->user_info['invitation_available']; ?></em><?php } ?></h3>
 					</div>
 					<div class="aw-side-bar-mod-body">
 						<a href="invitation/" class="btn btn-mini btn-success"><?php _e('发送邀请'); ?></a>

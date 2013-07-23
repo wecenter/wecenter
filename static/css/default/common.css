@@ -50,12 +50,13 @@ a.aw-load-more-content{display: block;}
 .aw-search-box .search-query, .aw-publish-title input{border-radius:5px 0 0 5px;}
 .aw-question-list .aw-question-replay-count em, .aw-mod-publish-box #advanced_editor, .aw-share-box .aw-share-box-tabs a{border-radius: 5px 5px 0 0;}
 .aw-question-tags, .aw-publish-title-dropdown p, .aw-publish-title-dropdown p a{border-radius: 0 5px 5px 0;}
-.aw-message-tooltip{border-radius:20px;}
 .aw-nav-main li:first-child a.active{border-radius:10px 0 0 0;}
 .aw-edit-comment-box .modal-body textarea{border-radius: 10px 10px 0 0;}
 .aw-edit-comment-box .aw-file-upload-box{border-radius: 0 0 10px 10px;}
 .aw-first-login .aw-mod-head ul li em{border-radius: 30px;}
 .error-message{position: relative;}
+.badge{padding:2px 6px;margin-left: 5px;}
+.badge.badge-important{background: #D90000;}
 
 /*分类小标签*/
 .aw-user-name, .aw-topic-name{font-size:12px;line-height:20px;font-weight:normal;}
@@ -66,9 +67,6 @@ a.aw-load-more-content{display: block;}
 /*最佳回答*/
 .aw-winner-replay{position:relative;height: 30px;line-height: 30px;margin:10px 0 12px;padding-left: 50px;background: #F7F7F6;font-size: 14px;font-weight: bold;}
 .aw-winner-replay .i-start-large{position: absolute;left: 0;top: 0;}
-/*消息数量提示*/
-.aw-message-tooltip{display:inline-block;height:18px;line-height:19px;margin-left:5px;padding:0 5px;background:#449BDB;font-size:13px;font-style: normal;font-weight: normal;}
-.aw-message-tooltip.error{background: #D90000;}
 /*下拉菜单*/
 .aw-dropdown-menu ul a{display:block;min-height:24px;line-height:24px;padding:4px 20px 4px 13px;font-weight: normal;}
 .aw-dropdown-menu ul a:hover{background-color: #f5faff;background-image: none;filter : none;}
@@ -313,7 +311,7 @@ select{width: auto;}
 .aw-side-bar-mod-nav{padding-top:20px;}
 .aw-side-bar-mod-nav ul li a{display: block;width:170px;height:30px;line-height: 30px;padding-left:10px;}
 .aw-side-bar-mod-nav ul li a:hover, .aw-side-bar-mod-nav ul li a.active{background-color:#397dac;}
-.aw-side-bar-mod-nav ul li a.active .aw-message-tooltip{background-color:#46cded;}
+.aw-side-bar-mod-nav ul li a.active .badge-info{background: #46CDED;}
 /*侧边栏用户列表*/
 .aw-side-bar-user-list a img{width:25px;height:25px;margin-bottom:5px;}
 /*话题页面侧边栏 热门话题排名*/
@@ -608,8 +606,7 @@ select{width: auto;}
 .aw-my-inbox .aw-mod-head h2 span, .aw-my-notifications .aw-mod-head h2 span{margin-right: 10px;padding:3px 0;font-size: 13px;font-weight: normal;}
 .aw-my-inbox .aw-item{position: relative;padding:15px 0 15px 40px;}
 .aw-my-inbox .aw-item.active{width:640px;margin-left:-20px;padding:15px 0 15px 60px;background: #FEFAB1;}
-.aw-my-inbox .aw-item.active .aw-user-img{left:20px;}
-.aw-my-inbox .aw-item.active  .aw-text-color-999 .pull-right{margin-right: 20px;}
+.aw-my-inbox .aw-item.active .aw-user-img{right:20px;}
 .aw-my-inbox .aw-item .aw-user-img{margin-top:15px;}
 .aw-my-inbox .aw-item p, .aw-mod-private-replay-list li p{max-width:570px;margin:0;word-break:break-all;}
 /*通知*/

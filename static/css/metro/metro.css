@@ -20,13 +20,13 @@
 .aw-question-list .aw-question-replay-count.active{background: #92D6FD;}
 .aw-question-list .aw-question-replay-count.active em{background: #EFEFEF;}
 .aw-comment-list .aw-user-name img{width: 32px;height: 32px;}
-.aw-message-tooltip{padding-left:10px;background:url("img/main_default.png") no-repeat 0 -60px;}
-.aw-message-tooltip.error{padding-left:10px;background:url("img/main_default.png") no-repeat 0 -42px;}
+.aw-index .aw-new-message-tips .badge-important{padding-left:10px;background:url("img/main_default.png") no-repeat 0 -42px;border-radius: 0px;}
 .aw-all-question .aw-question-list .aw-user-name{left:0;width:50px;height: 50px;}
 .aw-all-question .aw-question-list .aw-question-replay-count{left: 570px;background: none;}
 .aw-all-question .aw-question-list .aw-question-replay-count em{line-height:25px;padding:0 10px;background: url("img/main_default.png") no-repeat -24px -166px;color: #999;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;}
 .aw-question-box-mod .aw-item{padding:15px 50px 15px 65px; }
 .aw-topic-search .search-query{padding: 3px 14px !important;}
+.aw-message-tooltip {background: none repeat scroll 0 0 #449BDB;display: inline-block;font-size: 13px;font-style: normal;font-weight: normal;height: 18px;line-height: 18px;margin-left: 5px;padding: 0 5px 0 6px;}
 
 /*
 **	重载bootstrap按钮
@@ -76,7 +76,7 @@
 .aw-user-nav-dropdown-list li:first-child{border-top:none;}
 .aw-user-nav-dropdown-list a{display:block;height:35px;line-height:35px;padding-left:15px;color: #fff;font-weight: normal;}
 .aw-user-nav-dropdown-list a:hover{background: #016AA1;}
-.aw-user-nav-dropdown > .aw-message-tooltip{position: absolute;left: 22px;top: 5px;}
+.aw-user-nav-dropdown > .badge-important{position: absolute;left: 22px;top: 5px;}
 
 /*
 **	category
