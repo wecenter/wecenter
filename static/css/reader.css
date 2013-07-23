@@ -121,6 +121,11 @@ input, select, textarea {
 	color: #999;
 }
 
+#left_panel #feature_selecter {
+	float: right;
+	margin-top: 9px;
+}
+
 #left_panel .nav_container {
 	height: 100%;
 }
@@ -286,6 +291,41 @@ input, select, textarea {
 	margin: 0 0 10px;
 	font: bold 20px/30px "Hiragino Sans GB", "Helvetica Neue", Helvetica, Arial, Sans-serif;
 	text-shadow: 0 1px 0 white;
+}
+
+#right_panel .question div.question_tags{
+	min-height: 22px;
+	margin-bottom: 10px;
+}
+
+#right_panel .question div.question_tags ul{
+	padding: 0;
+	list-style-type: none;
+}
+
+#right_panel .question div.question_tags ul li{
+	float: left;
+	margin-right: 5px;
+}
+
+#right_panel .question div.question_tags ul li a{
+	min-width: 20px;
+	color: #9E9E9E;
+	padding: 3px;
+	text-align: center;
+	border: 1px solid #BEC6CC;
+	font: 11px/12px Helvetica Neue, Helvetica, Arial, sans-serif;
+	border-radius: 5px;
+	-khtml-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	text-shadow: 0 1px 0 white;
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#F7F7F7), to(#E0E0E0));
+	background: -moz-linear-gradient(top, #F7F7F7, #E0E0E0);
+	background: linear-gradient(top, #F7F7F7, #E0E0E0);
+	-webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+	-moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+	box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 
 #right_panel .question div.question_description {
