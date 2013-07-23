@@ -17,7 +17,7 @@
 			<b><?php _e('上传文件存放绝对路径'); ?></b><input type="text" class="default_text" value="<?php echo $this->setting['upload_dir']; ?>" name="upload_dir" /><span><?php _e('目前网站根目录绝对路径'); ?>: <?php echo ROOT_PATH; ?></span>
 		</li>
 		<li>
-			<b><?php _e('上传目录外部访问 URL 地址'); ?></b><input type="text" class="default_text" value="<?php echo $this->setting['upload_url']; ?>" name="upload_dir" />
+			<b><?php _e('上传目录外部访问 URL 地址'); ?></b><input type="text" class="default_text" value="<?php echo $this->setting['upload_url']; ?>" name="upload_url" />
 		</li>
 	</ul>
 	<a href="javascript:;" onclick="document.getElementById('installer').submit(); this.className='btn btn-success disabled pull-right'; this.onclick=''; return false;" class="btn btn-success pull-right"><?php _e('保存设置'); ?></a>

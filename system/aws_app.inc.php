@@ -34,11 +34,6 @@ class AWS_APP
 	public static $settings = array();
 	public static $_debug = array();
 	
-	/**
-	 * 程序开始执行,查找控制器和动作
-	 * 
-	 * @param string $app_dir 应用的绝对目录如果没有,就是当前目录
-	*/
 	public static function run()
 	{
 		self::init();
@@ -157,12 +152,7 @@ class AWS_APP
 			}
 		}
 	}
-
-	/**
-	 * 建立控制器
-	 * 返回控制器类对象
-	 * @param string $route
-	 */
+	
 	public static function create_controller($controller, $app_dir)
 	{
 		if (trim($app_dir) == '' OR trim($controller, '/') === '')
