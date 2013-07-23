@@ -10,6 +10,7 @@ body, button, input, select, textarea, option{color:#333;font-size:13px;line-hei
 .aw-install ul{margin:20px 0 0 0;list-style-type: none;}
 .aw-install ul li{line-height: 30px;margin-bottom: 20px;padding:10px 20px;background: #F7F7F7;text-shadow:0 1px 0 #FFFFFF;border-radius: 10px 10px 10px 10px; }
 .aw-install ul li span{margin-left: 20px;color:#999;}
+.aw-install ul li b{display: inline-block; width: 100px;}
 .aw-install .green{color: green !important;}
 .aw-install .red{color: #D40004;}
 .aw-install-footer{width: 960px;margin:10px auto 100px;text-align: right;color: #999;}

@@ -50,13 +50,9 @@
 				<dt><h3><?php _e('认证用户'); ?>:</h3></dt>
 				
 				<dd>
-					<span class="yesno_yes">
-						<label><input type="radio" name="verified" value="1"<?php if ($this->user['verified'] == 1) { ?> checked="checked"<?php } ?> /><?php _e('是'); ?></label>
-					</span>
-				
-					<span class="yesno_no">
-						<label><input type="radio" name="verified" value="0"<?php if ($this->user['verified'] == 0) { ?> checked="checked"<?php } ?> /><?php _e('否'); ?></label>
-					</span>
+					<label><input type="radio" name="verified" value=""<?php if ($this->user['verified'] == '') { ?> checked="checked"<?php } ?> /><?php _e('无'); ?></label>
+					<label><input type="radio" name="verified" value="personal"<?php if ($this->user['verified'] == 'personal') { ?> checked="checked"<?php } ?> /><?php _e('个人认证'); ?></label>
+					<label><input type="radio" name="verified" value="enterprise"<?php if ($this->user['verified'] == 'enterprise') { ?> checked="checked"<?php } ?>/><?php _e('机构认证'); ?></label>
 			</dl>
 			<dl>
 				<dt><h3><?php _e('头像'); ?>:</h3></dt>
