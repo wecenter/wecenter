@@ -38,9 +38,23 @@ class ajax extends AWS_CONTROLLER
 	
 	public function questions_list_action()
 	{
+		if ($_GET['feature_id'])
+		{
+			$topic_ids = $this->model('feature')->get_topics_by_feature_id($_GET['feature_id']);
+			
+			if ($topic_ids)
+			{
+				$answers = $this->model('reader')->fetch_answers_list_by_topic_ids($topic_ids, $_GET['page'], 20);
+			}
+		}
+		else
+		{
+			$answers = $this->model('reader')->fetch_answers_list($_GET['page'], 20);
+		}
+		
 		$output = array();
 		
-		if ($answers = $this->model('reader')->fetch_answers_list($_GET['page'], 20))
+		if ($answers)
 		{
 			foreach ($answers AS $key => $val)
 			{

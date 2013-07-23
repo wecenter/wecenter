@@ -17,6 +17,10 @@ $(document).ready(function () {
 		
 		return false;
 	});
+	
+	$('#feature_selecter').change(function () {
+		reload_questions_list();
+	});
 		
 	$('#data_lister').scroll(function() {
 		 if (($(this)[0].scrollTop + $(this).height()) >= $(this)[0].scrollHeight && loading_data == false && stop_load == false)
@@ -32,13 +36,26 @@ $(window).resize(function(){
 	$('#left_panel .nav_container ul').css('height', ($(window).height() - $('#left_panel .nav_container').offset()['top']));
 });
 
+function reload_questions_list()
+{
+	cur_page = 1;
+	questions_list = new Array();
+	answers_list = new Array();
+	
+	$('#data_lister').empty();
+	
+	load_questions_list();
+}
+
 function load_questions_list()
 {
 	$('#data_lister').append('<li class="loading">Loading...</li>');
 			
 	loading_data = true;
+	
+	$('#feature_selecter').attr('disabled', true);
 			
- 	$.getJSON(G_BASE_URL + '/reader/ajax/questions_list/?page=' + cur_page, function(data) {
+ 	$.getJSON(G_BASE_URL + '/reader/ajax/questions_list/?page=' + cur_page + '&feature_id=' + $('#feature_selecter').val(), function(data) {
  		
  		if (data == '')
  		{
@@ -71,6 +88,8 @@ function load_questions_list()
 		});
 				
 		loading_data = false;
+		
+		$('#feature_selecter').attr('disabled', false);
 				
 		cur_page++;
 	});

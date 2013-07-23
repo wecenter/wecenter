@@ -38,6 +38,15 @@ var G_STATIC_URL = '<?php echo G_STATIC_URL; ?>';
 		
 		<div class="filter">
 			<?php _e('热门内容'); ?>
+			
+			<select id="feature_selecter"<?php if (sizeof($this->feature_list) == 0) { ?> class="hide"<?php } ?>>
+				<option value=""><?php _e('全部内容'); ?></option>
+				<?php if ($this->feature_list) { ?>
+				<?php foreach($this->feature_list AS $key => $val) { ?>
+					<option value="<?php echo $val['id']; ?>"><?php echo $val['title']; ?></option>
+				<?php } ?>
+				<?php } ?>
+			</select>
 		</div>
 		
 		<div class="nav_container">

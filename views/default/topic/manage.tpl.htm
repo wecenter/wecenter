@@ -48,7 +48,7 @@
 					</dl>
 					<?php } ?>
 					
-					<?php if ($this->feature_list) { ?>
+					<?php if (sizeof($this->feature_list) > 0) { ?>
 					<dl>
 						<form action="topic/ajax/feature_topic/" method="post" id="feature_topic_form">
 						<input type="hidden" name="topic_id" value="<?php echo $this->topic_info['topic_id']; ?>" />
