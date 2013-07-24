@@ -17,7 +17,7 @@ class AWS_CONTROLLER
 	public $user_id;
 	public $user_info;
 	
-	public function __construct()
+	public function __construct($pre_setup = true)
 	{		
 		$this->user_id = USER::get_client_uid();
 		
@@ -101,7 +101,10 @@ class AWS_CONTROLLER
 			H::redirect_msg(get_setting('close_notice'), '/account/login/');
 		}
 		
-		$this->setup();
+		if ($pre_setup)
+		{
+			$this->setup();
+		}
 	}
 
 	public function setup() {}
@@ -209,7 +212,7 @@ class AWS_ADMIN_CONTROLLER extends AWS_CONTROLLER
 {
 	public function __construct()
 	{
-		parent::__construct();
+		parent::__construct(false);
 		
 		if ($_GET['app'] != 'admin')
 		{
@@ -263,5 +266,7 @@ class AWS_ADMIN_CONTROLLER extends AWS_CONTROLLER
 			'admin/css/common.css',
 			'js/plug_module/style.css'
 		));
+		
+		$this->setup();
 	}
 }
