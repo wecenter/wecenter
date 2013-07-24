@@ -121,7 +121,88 @@ input, select, textarea {
 	color: #999;
 }
 
+#left_panel .filter .dropdown_list_wrap{
+	position: relative;
+	float: right;
+	width: 220px;
+	margin-top: 7px;
+}
+
+#left_panel .filter .dropdown_list_wrap span{
+	float: right;
+	min-width: 20px;
+	color: #758694;
+	padding: 6px 17px 6px 8px;
+	text-align: center;
+	border: 1px solid #BEC6CC;
+	font: 11px/12px Helvetica Neue, Helvetica, Arial, sans-serif;
+	border-radius: 3px;
+	-khtml-border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	text-shadow: 0 1px 0 white;
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#F7F7F7), to(#E0E0E0));
+	background: -moz-linear-gradient(top, #F7F7F7, #E0E0E0);
+	background: linear-gradient(top, #F7F7F7, #E0E0E0);
+	-webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+	-moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+	box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+	cursor: pointer;
+}
+
+#left_panel .filter .dropdown_list_wrap span.active{
+	background: #EEEEEE;
+	border: 1px solid #A7B1B8;
+	-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15) inset, 0 1px 0 rgba(255, 255, 255, 0.2);
+	-moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15) inset, 0 1px 0 rgba(255, 255, 255, 0.2);
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15) inset, 0 1px 0 rgba(255, 255, 255, 0.2);
+	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+
+#left_panel .filter .dropdown_list_wrap i{
+	position: absolute;
+	right: 5px;
+	top: 11px;
+	display: block;
+	height: 0;
+	width: 0;
+	border:4px solid #686868; 
+	border-color:#686868 transparent transparent transparent; 
+	border-style:solid dashed dashed dashed;
+}
+
+#left_panel .filter .dropdown_list{
+	width: 100%;
+	background: #fff;
+}
+
+#left_panel .filter .dropdown_list_wrap ul{
+	position: absolute;
+	top: 26px;
+	right: 0;
+	z-index: 9999;
+	display: none;
+	padding:0;
+	margin:0;
+	list-style-type: none;
+	border:1px solid #ccc;
+}
+
+#left_panel .filter .dropdown_list ul li
+{
+	height: 40px;
+	line-height: 40px;
+	background: none repeat scroll 0 0 #F4F4F4;
+    border-bottom: 1px solid #AEB7BF;
+    border-top: 1px solid white;
+    cursor: pointer;
+    padding: 0 10px;
+
+}
+
 #left_panel #feature_selecter {
+	display: none;
 	float: right;
 	margin-top: 9px;
 }

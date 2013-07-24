@@ -18,9 +18,9 @@ $(document).ready(function () {
 		return false;
 	});
 	
-	$('#feature_selecter').change(function () {
-		reload_questions_list();
-	});
+	// $('#feature_selecter').change(function () {
+	// 	reload_questions_list();
+	// });
 		
 	$('#data_lister').scroll(function() {
 		 if (($(this)[0].scrollTop + $(this).height()) >= $(this)[0].scrollHeight && loading_data == false && stop_load == false)
@@ -30,6 +30,27 @@ $(document).ready(function () {
 	});
 	
 	load_questions_list();
+
+	//模拟下拉列表
+	$('.dropdown_list_wrap span').click(function()
+	{
+		if ($(this).hasClass('active'))
+		{
+			$('.dropdown_list_wrap ul').hide();
+			$(this).removeClass('active');
+		}else
+		{
+			$('.dropdown_list_wrap ul').show();
+			$(this).addClass('active');
+		}
+	});
+	$('.dropdown_list_wrap ul li').click(function()
+	{
+		$('.dropdown_list_wrap span').removeClass('active').html($(this).find('a').text());
+		$('.dropdown_list_wrap ul').hide();
+		$('#feature_selecter').val($('#feature_selecter option').eq($(this).index()).val());
+		reload_questions_list();
+	});
 });
 
 $(window).resize(function(){
