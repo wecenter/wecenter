@@ -19,5 +19,18 @@ $(document).ready(function () {
                 }
             }, 'json');
         }
-    }   
+    }
+    
+    // 自动保存草稿
+	if ($('textarea#advanced_editor').length)
+	{
+		$('textarea#advanced_editor').bind('blur', function() {
+			if ($(this).val() != '')
+			{
+				$.post(G_BASE_URL + '/account/ajax/save_draft/item_id-1__type-question', 'message=' + $(this).val(), function (result) {
+					$('#question_detail_message').html(result.err + ' <a href="#" onclick="$(\'textarea#advanced_editor\').attr(\'value\', \'\'); delete_draft(1, \'question\'); $(this).parent().html(\' \'); return false;">' + _t('删除草稿') + '</a>');
+				}, 'json');
+			}
+		});
+	}
 });

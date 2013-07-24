@@ -1,6 +1,5 @@
 var cur_page = 0;
 var bp_more_inner_o = '';
-var cur_uid = 0;
 var cur_filter = '';
 
 function reload_list()
@@ -79,23 +78,13 @@ $(document).ready(function()
 					{
 						cur_filter = '';
 					}
-					
-					if (query_string[2])
-					{
-						cur_uid = query_string[2];
-					}
-					else
-					{
-						cur_uid = 0;
-					}
 				}
 				else
 				{
 					cur_filter = '';
-					cur_uid = 0;
 				}
 				
-				var request_url = G_BASE_URL + '/home/ajax/index_actions/page-' + cur_page + '__type-all__uid-' + cur_uid + '__filter-' + cur_filter;
+				var request_url = G_BASE_URL + '/home/ajax/index_actions/page-' + cur_page + '__type-all__filter-' + cur_filter;
 			break;
 
 			case '#draft_list__draft':
