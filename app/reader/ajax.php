@@ -63,6 +63,9 @@ class ajax extends AWS_CONTROLLER
 			}
 			
 			$questions_info = $this->model('question')->get_question_info_by_ids($question_ids);
+			
+			$question_topics = $this->model('question')->get_question_topic_by_question_ids($question_ids);
+			
 			$users_info = $this->model('account')->get_user_info_by_uids($uids, TRUE);
 			
 			foreach ($answers AS $key => $val)
@@ -89,7 +92,8 @@ class ajax extends AWS_CONTROLLER
 					'question_detail' => FORMAT::parse_attachs(nl2br(FORMAT::parse_markdown($val['question_detail']))),
 					'answer_users' => $val['answer_users'],
 					'focus_count' => $val['focus_count'],
-					'view_count' => $val['view_count']
+					'view_count' => $val['view_count'],
+					'topics' => $question_topics[$val['question_id']]
 				);
 			}
 		}

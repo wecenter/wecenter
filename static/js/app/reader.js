@@ -17,10 +17,6 @@ $(document).ready(function () {
 		
 		return false;
 	});
-	
-	// $('#feature_selecter').change(function () {
-	// 	reload_questions_list();
-	// });
 		
 	$('#data_lister').scroll(function() {
 		 if (($(this)[0].scrollTop + $(this).height()) >= $(this)[0].scrollHeight && loading_data == false && stop_load == false)
@@ -126,6 +122,15 @@ function view_answer(answer_id)
 	
 	$('#entry_title').html(questions_list[answers_list[answer_id]['question_id']]['question_content']);
 	$('#question_description').html(questions_list[answers_list[answer_id]['question_id']]['question_detail']);
+	
+	$('#question_topics').empty();
+	
+	if (questions_list[answers_list[answer_id]['question_id']]['topics'])
+	{
+		$.each(questions_list[answers_list[answer_id]['question_id']]['topics'], function (k, v) {
+			$('#question_topics').append('<li><a href="' + G_BASE_URL + '/topic/' + v['url_token'] + '">' + v['topic_title'] + '</a></li>');
+		});
+	}
 	
 	$('.answer_info a').attr('href', G_BASE_URL + '/people/' + answers_list[answer_id]['uid']);
 	$('#author_img').attr('src', answers_list[answer_id]['avatar']);
