@@ -692,6 +692,8 @@ select{width: auto;}
 .aw-user-sort .aw-follow{position: absolute;right: 30px;top: 25px;}
 .aw-user-center-follow-meta span{margin-right: 10px;}
 .aw-user-center-follow-meta .aw-icon{margin-right: 5px;}
+.aw-user-center-details-list .aw-topic-name, .aw-user-center-details .aw-topic-name{min-width: 70px;}
+.aw-user-center-details-list .aw-icon, .aw-user-center-details .aw-icon{margin-left: 5px;}
 
 /*
 **	动态首页新通知提示box

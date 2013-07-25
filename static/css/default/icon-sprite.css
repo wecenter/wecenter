@@ -71,6 +71,7 @@
 .i-question-edit{width:10px;height: 10px;background-position: -120px -59px;*position:relative;*top:-4px;}
 .i-question-edit:hover{background-position: -120px -79px;}
 .i-thank{width:10px;height: 9px;background-position: -140px -60px;*position: relative;*top:-4px;}
+.i-thank.active{background-position: -140px -80px;}
 .i-thank:hover{background-position: -140px -80px;}
 .i-locate{width:7px;height: 11px;background-position: -160px -60px;*position:relative;*top:-2px;}
 .i-locate:hover{background-position: -160px -80px;}
