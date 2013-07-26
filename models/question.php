@@ -25,8 +25,6 @@ class question_class extends AWS_MODEL
 	
 	public function get_questions_list($page = 1, $per_page = 10, $sort = null, $topic_id = null, $category_id = null, $answer_count = null, $day = 30, $is_recommend = false)
 	{
-		$uids = array();
-		
 		if (is_string($topic_id))
 		{
 			if (strstr($topic_id, ','))
@@ -88,6 +86,8 @@ class question_class extends AWS_MODEL
 		{
 			return array();
 		}
+		
+		$uids = array();
 		
 		foreach ($question_info_list as $key => $data)
 		{
