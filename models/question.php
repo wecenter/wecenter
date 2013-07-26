@@ -23,7 +23,7 @@ class question_class extends AWS_MODEL
 	var $questions_list_total = 0;
 	var $search_questions_total = 0;
 	
-	public function get_questions_list($page = 1, $per_page = 10, $sort = null, $topic_id = null, $category_id = null, $answer_count = null, $day = 30)
+	public function get_questions_list($page = 1, $per_page = 10, $sort = null, $topic_id = null, $category_id = null, $answer_count = null, $day = 30, $is_recommend = false)
 	{
 		$uids = array();
 		
@@ -34,55 +34,56 @@ class question_class extends AWS_MODEL
 				$topic_id = explode(',', $topic_id);
 			}
 		}
-		
-		if ($sort == 'hot')
+
+		if ($sort == 'unresponsive')
 		{
-			$question_info_list = $this->get_hot_question($category_id, $topic_id, $day, $page, $per_page);
+			$answer_count = 0;
+		}
+		
+		switch ($sort)
+		{
+			default :
+				$order_key = 'add_time DESC';
+				break;
 			
-			$this->questions_list_total = $this->found_rows();
+			case 'new' :
+				$order_key = 'update_time DESC';
+				break;
+		}
+		
+		if ($topic_id)
+		{
+			$question_info_list = $this->get_question_list_by_topic_ids($topic_id, $category_id, $answer_count, $order_key, $is_recommend, $page, $per_page);
 		}
 		else
 		{
-			if ($sort == 'unresponsive')
+			$where = array();
+			
+			if (isset($answer_count))
 			{
-				$answer_count = 0;
+				$where[] = 'answer_count = ' . intval($answer_count);
 			}
 			
-			switch ($sort)
+			if ($is_recommend)
 			{
-				default :
-					$order_key = 'add_time DESC';
-					break;
-				
-				case 'new' :
-					$order_key = 'update_time DESC';
-					break;
+				$where[] = 'is_recommend = 1';
 			}
+	
+			if ($category_id)
+			{
+				$where[] = 'category_id IN(' . implode(',', $this->model('system')->get_category_with_child_ids('question', $category_id)) . ')';
+			}
+	
+			$question_info_list = $this->fetch_page('question', implode(' AND ', $where), $order_key, $page, $per_page);
 			
-			if ($topic_id)
-			{
-				$question_info_list = $this->get_question_list_by_topic_ids($topic_id, $category_id, $answer_count, $order_key, $page, $per_page);
-			}
-			else
-			{
-				$where = array();
-				
-				if (isset($answer_count))
-				{
-					$where[] = 'answer_count = ' . intval($answer_count);
-				}
-		
-				if ($category_id)
-				{
-					$where[] = 'category_id IN(' . implode(',', $this->model('system')->get_category_with_child_ids('question', $category_id)) . ')';
-				}
-		
-				$question_info_list = $this->fetch_page('question', implode(' AND ', $where), $order_key, $page, $per_page);
-				
-				$this->questions_list_total = $this->found_rows();
-			}
+			$this->questions_list_total = $this->found_rows();
 		}
 		
+		return $this->format_list_data($question_info_list);
+	}
+	
+	public function format_list_data($question_info_list)
+	{
 		if (!$question_info_list)
 		{
 			return array();
@@ -104,7 +105,7 @@ class question_class extends AWS_MODEL
 			}
 		}
 		
-		foreach ($question_info_list as $keyx => $question_info)
+		foreach ($question_info_list as $key => $question_info)
 		{
 			if (! in_array($question_info['published_uid'], $uids))
 			{
@@ -194,7 +195,9 @@ class question_class extends AWS_MODEL
 			$question_all = $this->fetch_page('question', 'add_time > ' . $add_time, 'popular_value DESC', $page, $per_page);
 		}
 		
-		return $question_all;
+		$this->questions_list_total = $this->found_rows();
+		
+		return $this->format_list_data($question_all);
 	}
 	
 	public function get_focus_uid_by_question_id($question_id)
@@ -339,7 +342,7 @@ class question_class extends AWS_MODEL
 		
 		if (!$cache)
 		{
-			$questions[$question_id] = $this->fetch_row('question', "question_id = " . intval($question_id));
+			$questions[$question_id] = $this->fetch_row('question', 'question_id = ' . intval($question_id));
 		}
 		else
 		{
@@ -350,7 +353,7 @@ class question_class extends AWS_MODEL
 				return $questions[$question_id];
 			}
 			
-			$questions[$question_id] = $this->fetch_row('question', "question_id = " . intval($question_id));
+			$questions[$question_id] = $this->fetch_row('question', 'question_id = ' . intval($question_id));
 		}
 		
 		if ($questions[$question_id])
@@ -490,7 +493,7 @@ class question_class extends AWS_MODEL
 			
 			$this->model('search_index')->push_index('question', $question_content, $question_id);
 		
-			$this->update('question', $data, "question_id = " . $question_id);
+			$this->update('question', $data, 'question_id = ' . $question_id);
 		}
 		
 		$addon_data = array(
@@ -616,7 +619,7 @@ class question_class extends AWS_MODEL
 	{
 		return $this->update('question', array(
 			'unverified_modify' => serialize($unverified_modify)
-		), "question_id = " . $question_id);
+		), 'question_id = ' . $question_id);
 	}
 	
 	public function track_unverified_modify($question_id, $log_id, $type)
@@ -662,17 +665,17 @@ class question_class extends AWS_MODEL
 		$this->model('answer')->remove_answers_by_question_id($question_id); //删除关联的回复内容
 		
 		// 删除评论
-		$this->delete('question_comments', "question_id = " . intval($question_id));
+		$this->delete('question_comments', 'question_id = ' . intval($question_id));
 		
-		$this->delete('question_focus', "question_id = " . intval($question_id));
+		$this->delete('question_focus', 'question_id = ' . intval($question_id));
 		
-		$this->delete('question_thanks', "question_id = " . intval($question_id));
+		$this->delete('question_thanks', 'question_id = ' . intval($question_id));
 		
-		$this->delete('topic_question', "question_id = " . intval($question_id));	// 删除话题关联
+		$this->delete('topic_question', 'question_id = ' . intval($question_id));	// 删除话题关联
 		
-		$this->delete('question_invite', "question_id = " . intval($question_id));	// 删除邀请记录
+		$this->delete('question_invite', 'question_id = ' . intval($question_id));	// 删除邀请记录
 		
-		$this->delete('question_uninterested', "question_id = " . intval($question_id));	// 删除不感兴趣的
+		$this->delete('question_uninterested', 'question_id = ' . intval($question_id));	// 删除不感兴趣的
 		
 		ACTION_LOG::delete_action_history('associate_type = ' . ACTION_LOG::CATEGORY_QUESTION .  ' AND associate_id = ' . intval($question_id));	// 删除动作
 		
@@ -699,7 +702,7 @@ class question_class extends AWS_MODEL
 		
 		$this->delete('weixin_fake_id', "`type` = 'question' AND `item_id` = " . intval($question_id));
 		
-		return $this->delete('question', "question_id = " . intval($question_id));	// 删除问题
+		return $this->delete('question', 'question_id = ' . intval($question_id));	// 删除问题
 	}
 
 	public function remove_question_by_ids($question_ids)
@@ -775,7 +778,7 @@ class question_class extends AWS_MODEL
 		// 记录日志
 		ACTION_LOG::save_action($uid, $question_id, ACTION_LOG::CATEGORY_QUESTION, ACTION_LOG::DELETE_REQUESTION_FOCUS);
 		
-		return $this->delete('question_focus', "question_id = " . intval($question_id) . " AND uid = " . intval($uid));
+		return $this->delete('question_focus', 'question_id = ' . intval($question_id) . " AND uid = " . intval($uid));
 	}
 	
 	public function get_focus_question_ids_by_uid($uid)
@@ -813,7 +816,7 @@ class question_class extends AWS_MODEL
 			return false;
 		}
 		
-		return $this->count('question_focus', "question_id = " . intval($question_id) . " AND uid = " . intval($uid));
+		return $this->count('question_focus', 'question_id = ' . intval($question_id) . " AND uid = " . intval($uid));
 	}
 	
 	public function has_focus_questions($question_ids, $uid)
@@ -879,7 +882,7 @@ class question_class extends AWS_MODEL
 		}
 		
 		return $this->update('question', array(
-			'answer_count' => $this->count('answer', "question_id = " . intval($question_id))
+			'answer_count' => $this->count('answer', 'question_id = ' . intval($question_id))
 		), 'question_id = ' . intval($question_id));
 	}
 	
@@ -891,7 +894,7 @@ class question_class extends AWS_MODEL
 		}
 		
 		return $this->update('question', array(
-			'answer_users' => $this->count('answer', "question_id = " . intval($question_id))
+			'answer_users' => $this->count('answer', 'question_id = ' . intval($question_id))
 		), 'question_id = ' . intval($question_id));
 	}
 	
@@ -903,7 +906,7 @@ class question_class extends AWS_MODEL
 		}
 		
 		return $this->update('question', array(
-			'focus_count' => $this->count('question_focus', "question_id = " . intval($question_id))
+			'focus_count' => $this->count('question_focus', 'question_id = ' . intval($question_id))
 		), 'question_id = ' . intval($question_id));
 	}
 	
@@ -1032,12 +1035,12 @@ class question_class extends AWS_MODEL
 	 */
 	public function delete_question_uninterested($uid, $question_id)
 	{
-		return $this->delete('question_uninterested', "question_id = " . intval($question_id) . " AND uid = " . intval($uid));
+		return $this->delete('question_uninterested', 'question_id = ' . intval($question_id) . " AND uid = " . intval($uid));
 	}
 
 	public function has_question_uninterested($uid, $question_id)
 	{
-		return $this->fetch_row('question_uninterested', "question_id = " . intval($question_id) . " AND uid = " . intval($uid));
+		return $this->fetch_row('question_uninterested', 'question_id = ' . intval($question_id) . " AND uid = " . intval($uid));
 	}
 
 	public function add_invite($question_id, $sender_uid, $recipients_uid = 0, $email = null)
@@ -1266,11 +1269,25 @@ class question_class extends AWS_MODEL
 
 	public function update_question_comments_count($question_id)
 	{
-		$count = $this->count('question_comments', "question_id = " . intval($question_id));
+		$count = $this->count('question_comments', 'question_id = ' . intval($question_id));
 		
 		$this->shutdown_update('question', array(
 			'comment_count' => $count
-		), "question_id = " . intval($question_id));
+		), 'question_id = ' . intval($question_id));
+	}
+	
+	public function set_question_recommend($question_id)
+	{
+		$this->update('question', array(
+			'is_recommend' => 1
+		), 'question_id = ' . intval($question_id));
+	}
+	
+	public function unset_question_recommend($question_id)
+	{
+		$this->update('question', array(
+			'is_recommend' => 0
+		), 'question_id = ' . intval($question_id));
 	}
 
 	public function insert_question_comment($question_id, $uid, $message)
@@ -1324,7 +1341,7 @@ class question_class extends AWS_MODEL
 
 	public function get_question_comments($question_id)
 	{
-		return $this->fetch_all('question_comments', "question_id = " . intval($question_id), "time ASC");
+		return $this->fetch_all('question_comments', 'question_id = ' . intval($question_id), "time ASC");
 	}
 
 	public function get_comment_by_id($comment_id)
@@ -1524,7 +1541,7 @@ class question_class extends AWS_MODEL
 	{
 		if (!$answer_id)
 		{
-			if ($last_answer = $this->fetch_row('answer', "question_id = " . intval($question_id), 'add_time DESC'))
+			if ($last_answer = $this->fetch_row('answer', 'question_id = ' . intval($question_id), 'add_time DESC'))
 			{
 				$answer_id = $last_answer['answer_id'];
 			}
@@ -1565,7 +1582,7 @@ class question_class extends AWS_MODEL
 	
 	public function calc_popular_value($question_id)
 	{
-		if (!$question_info = $this->fetch_row('question', "question_id = " . intval($question_id)))
+		if (!$question_info = $this->fetch_row('question', 'question_id = ' . intval($question_id)))
 		{
 			return false;
 		}
@@ -1636,7 +1653,7 @@ class question_class extends AWS_MODEL
 		return $this->delete('report', 'id = ' . intval($report_id));
 	}
 	
-	public function get_question_list_by_topic_ids($topic_ids, $category_id = null, $answer_count = null, $order_by = 'question_id DESC', $page, $per_page)
+	public function get_question_list_by_topic_ids($topic_ids, $category_id = null, $answer_count = null, $order_by = 'question_id DESC', $is_recommend = false, $page, $per_page)
 	{
 		if (!$topic_ids)
 		{
@@ -1661,6 +1678,11 @@ class question_class extends AWS_MODEL
 		if ($answer_count !== null)
 		{
 			$where[] = "question.answer_count = " . intval($answer_count);
+		}
+		
+		if ($is_recommend)
+		{
+			$where[] = 'question.is_recommend = 1';
 		}
 				
 		if ($category_id)
@@ -1919,7 +1941,7 @@ class question_class extends AWS_MODEL
 			return false;
 		}
 		
-		return $this->fetch_row('question_thanks', "question_id = " . intval($question_id) . " AND uid = " . intval($uid));
+		return $this->fetch_row('question_thanks', 'question_id = ' . intval($question_id) . " AND uid = " . intval($uid));
 	}
 	
 	public function question_thanks($question_id, $uid, $user_name)
