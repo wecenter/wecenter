@@ -53,7 +53,7 @@ class main extends AWS_CONTROLLER
 			H::redirect_msg(AWS_APP::lang()->_t('专题不存在'), '/');
 		}
 		
-		if ($feature_info['url_token'] != $_GET['id'] AND !$_GET['sort_type'])
+		if ($feature_info['url_token'] != $_GET['id'] AND !$_GET['sort_type'] AND !$_GET['is_recommend'])
 		{
 			HTTP::redirect('/feature/' . $feature_info['url_token']);
 		}
