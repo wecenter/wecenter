@@ -26,7 +26,7 @@
 					<td align="center"><?php echo $val['name']; ?></td>
 					<td align="center"><?php if ($val['type'] == 'enterprise') { ?><?php _e('机构认证'); ?><?php } else { ?><?php _e('个人认证'); ?><?php } ?></td>
 					<td>
-						<?php if ($val['type'] == 'enterprise') { ?><?php _e('组织机构代码'); ?><?php } else { ?><?php _e('真实姓名'); ?><?php } ?>: <?php echo $val['data']['id_code']; ?><br />
+						<?php if ($val['type'] == 'enterprise') { ?><?php _e('组织机构代码'); ?><?php } else { ?><?php _e('身份证号码'); ?><?php } ?>: <?php echo $val['data']['id_code']; ?><br />
 						<?php _e('联系方式'); ?>: <?php echo $val['data']['contact']; ?>
 					</td>
 					<td><?php echo $val['reason']; ?></td>
