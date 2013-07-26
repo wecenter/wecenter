@@ -661,7 +661,8 @@ select{width: auto;}
 .aw-mod-publish .aw-anonymity label{float: left;margin-left: 10px;}
 .aw-mod-publish .aw-anonymity input{margin:4px 3px 0 0;}
 .aw-mod-publish-box{height: auto;overflow: hidden;}
-.aw-mod-publish-box .aw-mod-head{margin:0 !important;border-bottom: none !important;}
+.aw-mod-publish-box .aw-mod-head{position:relative;margin:0 !important;border-bottom: none !important;}
+.aw-mod-publish-box .aw-mod-head .content_cursor{position: absolute;top:33px;left: 7px;z-index:-1;font-size: 14px;font-family: "Helvetica Neue",Helvetica,Arial,'Microsoft YaHei',sans-serif;word-wrap: break-word;word-break: break-all;}
 .aw-mod-publish-box .aw-mod-body{position:relative;padding:20px 0;}
 .aw-mod-publish-box #advanced_editor{width: 646px;}
 .aw-mod-publish-box .aw-upload-tips, .aw-mod-replay-box .aw-upload-tips{position: absolute;left: 100px;top: 23px;}
@@ -910,6 +911,8 @@ select{width: auto;}
 .markItUp .markItUpButton12 {position: absolute;right: 0;}
 .markItUp .markItUpButton13 a {background-position: -573px -6px;}
 .markItUp .markItUpButton14 a {background-position: -600px -6px;margin-left: 5px;}
+/*@*/.aw-publish-dropdown{position:absolute;left:0;top:0;width:160px;padding-left:10px;background: #fff;border:1px solid #ccc;}
+.aw-publish-dropdown li{height: 24px;line-height: 24px;}
 
 /*编辑器回复样式*/
 .markitup-box {font-size: 13px !important;line-height: 22px;word-wrap: break-word !important;text-align: justify;}
