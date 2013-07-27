@@ -141,7 +141,7 @@ class main extends AWS_CONTROLLER
 				}
 				
 				TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
-					'base_url' => get_js_url('/feature/id-' . $feature_info['id'] . '__sort_type-' . preg_replace("/[\(\)\.;']/", '', $_GET['sort_type']) . '__day-' . intval($_GET['day']) . '__is_recommend-' . intval($_GET['is_recommend'])), 
+					'base_url' => get_js_url('/feature/id-' . $feature_info['id'] . '__sort_type-' . preg_replace("/[\(\)\.;']/", '', $_GET['sort_type']) . '__day-' . intval($_GET['day']) . '__is_recommend-' . $_GET['is_recommend']), 
 					'total_rows' => $this->model('question')->get_questions_list_total(),
 					'per_page' => get_setting('contents_per_page')
 				))->create_links());

@@ -1669,7 +1669,7 @@ class question_class extends AWS_MODEL
 
 		array_walk_recursive($topic_ids, 'intval_string');
 		
-		$result_cache_key = 'question_list_by_topic_ids_' . implode('_', $topic_ids) . '_' . md5($answer_count . $category_id . $order_by . $page . $per_page);
+		$result_cache_key = 'question_list_by_topic_ids_' . implode('_', $topic_ids) . '_' . md5($answer_count . $category_id . $order_by . $is_recommend . $page . $per_page);
 		
 		$found_rows_cache_key = 'question_list_by_topic_ids_found_rows_' . implode('_', $topic_ids) . '_' . md5($answer_count . $category_id . $per_page);
 			
