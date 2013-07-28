@@ -662,7 +662,6 @@ select{width: auto;}
 .aw-mod-publish .aw-anonymity input{margin:4px 3px 0 0;}
 .aw-mod-publish-box{height: auto;overflow: hidden;}
 .aw-mod-publish-box .aw-mod-head{position:relative;margin:0 !important;border-bottom: none !important;}
-.aw-mod-publish-box .aw-mod-head .content_cursor{position: absolute;top:33px;left: 7px;z-index:-1;font-size: 14px;font-family: "Helvetica Neue",Helvetica,Arial,'Microsoft YaHei',sans-serif;word-wrap: break-word;word-break: break-all;}
 .aw-mod-publish-box .aw-mod-body{position:relative;padding:20px 0;}
 .aw-mod-publish-box #advanced_editor{width: 646px;}
 .aw-mod-publish-box .aw-upload-tips, .aw-mod-replay-box .aw-upload-tips{position: absolute;left: 100px;top: 23px;}
@@ -868,8 +867,9 @@ select{width: auto;}
 .aw-mod-replay-box p{height: auto;overflow: hidden;margin:0;}
 .aw-mod-replay-box .aw-mod-head p label{display: inline;font-size: 13px;}
 .aw-mod-replay-box .aw-mod-head p label input{margin-right: 5px;position: relative;top:-2px;*top:0;}
-.aw-mod-replay-box .aw-mod-body{padding:20px;background: #E7EFF2;border: 1px solid #C2CACD;}
+.aw-mod-replay-box .aw-mod-body{position:relative;padding:20px;background: #E7EFF2;border: 1px solid #C2CACD;}
 .aw-mod-replay-box .aw-mod-body .aw-text-color-999{margin-bottom:10px;}
+.content_cursor{position: absolute;z-index:-1;font-size: 14px;font-family: "Helvetica Neue",Helvetica,Arial,'Microsoft YaHei',sans-serif;word-wrap: break-word;word-break: break-all;}
 #advanced_editor{width: 604px;margin:0;}
 .aw-upload-box{height: auto;overflow: hidden;margin:10px 0;}
 .markItUpPreviewFrame {background: none repeat scroll 0 0 #FAFAFA;border: 1px solid #CCCCCC;font-size: 12px;margin-top: 15px;padding: 10px;}
@@ -911,8 +911,10 @@ select{width: auto;}
 .markItUp .markItUpButton12 {position: absolute;right: 0;}
 .markItUp .markItUpButton13 a {background-position: -573px -6px;}
 .markItUp .markItUpButton14 a {background-position: -600px -6px;margin-left: 5px;}
-/*@*/.aw-publish-dropdown{position:absolute;left:0;top:0;width:160px;padding-left:10px;background: #fff;border:1px solid #ccc;}
-.aw-publish-dropdown li{height: 24px;line-height: 24px;}
+.aw-publish-dropdown{position:absolute;left:0;top:0;z-index:9999;width:160px;background: #fff;border-radius:2px;box-shadow: 0 0 30px #ccc;}
+.aw-publish-dropdown li a{display: block;height: 30px;line-height: 30px;padding-left:10px;cursor: pointer;}
+.aw-publish-dropdown li a:hover{background: #f0f0f0;}
+.aw-publish-dropdown p{height: 30px;line-height: 30px;padding-left: 10px;margin:0;}
 
 /*编辑器回复样式*/
 .markitup-box {font-size: 13px !important;line-height: 22px;word-wrap: break-word !important;text-align: justify;}
