@@ -911,10 +911,12 @@ select{width: auto;}
 .markItUp .markItUpButton12 {position: absolute;right: 0;}
 .markItUp .markItUpButton13 a {background-position: -573px -6px;}
 .markItUp .markItUpButton14 a {background-position: -600px -6px;margin-left: 5px;}
-.aw-publish-dropdown{position:absolute;left:0;top:0;width:160px;background: #fff;border-radius:2px;box-shadow: 0 0 30px #ccc;}
-.aw-publish-dropdown li a{display: block;height: 30px;line-height: 30px;padding-left:10px;cursor: pointer;}
-.aw-publish-dropdown li a:hover{background: #f0f0f0;}
-.aw-publish-dropdown p{height: 30px;line-height: 30px;padding-left: 10px;margin:0;}
+.aw-invite-dropdown{position:absolute;left:0;top:0;z-index:2000;width:160px;background: #fff;border-radius:2px;box-shadow: 0 0 30px #ccc;}
+.aw-invite-dropdown li a{display: block;height: 30px;line-height: 30px;padding-left:10px;cursor: pointer;}
+.aw-invite-dropdown li a:hover{background: #f0f0f0;}
+.aw-invite-dropdown p{height: 30px;line-height: 30px;padding-left: 10px;margin:0;}
+.i-invite-triangle{position: absolute;z-index: 2001;}
+.i-invite-triangle.hide{display: none;}
 
 /*编辑器回复样式*/
 .markitup-box {font-size: 13px !important;line-height: 22px;word-wrap: break-word !important;text-align: justify;}

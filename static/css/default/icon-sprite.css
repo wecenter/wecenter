@@ -36,6 +36,8 @@
 .i-dropdown-triangle{width:13px;height:6px;background-position: -420px 0;}
 .i-comment-triangle{width:15px;height: 7px;background-position: -515px 0;}
 .i-register-triangle{width: 13px;height: 6px;background-position: -534px 0;}
+.i-invite-triangle{width: 16px;height: 11px;background-position: -547px 0;}
+
 
 /*第二排*/
 .i-user-integral{width:14px;height: 11px;background-position: 0 -30px;*position:relative;*top:-2px;}
