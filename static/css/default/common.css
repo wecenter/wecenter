@@ -915,8 +915,6 @@ select{width: auto;}
 .aw-invite-dropdown li:hover, .aw-invite-dropdown li.active{background: #f0f0f0;}
 .aw-invite-dropdown li a{display: block;height: 30px;line-height: 30px;padding-left:10px;cursor: pointer;}
 .aw-invite-dropdown p{height: 26px;line-height: 26px;padding-left: 10px;margin:0;}
-.i-invite-triangle{position: absolute;z-index: 1011;}
-.i-invite-triangle.hide{display: none;}
 
 /*编辑器回复样式*/
 .markitup-box {font-size: 13px !important;line-height: 22px;word-wrap: break-word !important;text-align: justify;}
