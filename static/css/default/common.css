@@ -870,6 +870,7 @@ select{width: auto;}
 .aw-mod-replay-box .aw-mod-body{position:relative;padding:20px;background: #E7EFF2;border: 1px solid #C2CACD;}
 .aw-mod-replay-box .aw-mod-body .aw-text-color-999{margin-bottom:10px;}
 .content_cursor{position: absolute;z-index:-1;max-width:600px;font-size: 14px;font-family: "Helvetica Neue",Helvetica,Arial,'Microsoft YaHei',sans-serif;word-wrap: break-word;}
+.cursor_flag{display: inline-block;}
 #advanced_editor{width: 604px;margin:0;}
 .aw-upload-box{height: auto;overflow: hidden;margin:10px 0;}
 .markItUpPreviewFrame {background: none repeat scroll 0 0 #FAFAFA;border: 1px solid #CCCCCC;font-size: 12px;margin-top: 15px;padding: 10px;}
