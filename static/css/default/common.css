@@ -648,7 +648,7 @@ select{width: auto;}
 .aw-mod-publish .aw-topic-dropdown{max-height: 80px;overflow:auto;}
 .aw-mod-publish h3{font-size: 100%;margin-top:30px;}
 .aw-mod-publish .aw-edit-topic-box{margin:0 0 10px;}
-.aw-publish-title{position: relative;}
+.aw-publish-title{position: relative;z-index: 2000;}
 .aw-publish-title.active input{width: 646px;border:1px solid #ccc;}
 .aw-publish-title input{width:497px;height: 26px;line-height: 26px;border-right: none;}
 .aw-publish-title .aw-publish-title-dropdown{position: absolute;right: 0;top: 0;width: 150px;}
@@ -911,7 +911,7 @@ select{width: auto;}
 .markItUp .markItUpButton12 {position: absolute;right: 0;}
 .markItUp .markItUpButton13 a {background-position: -573px -6px;}
 .markItUp .markItUpButton14 a {background-position: -600px -6px;margin-left: 5px;}
-.aw-publish-dropdown{position:absolute;left:0;top:0;z-index:9999;width:160px;background: #fff;border-radius:2px;box-shadow: 0 0 30px #ccc;}
+.aw-publish-dropdown{position:absolute;left:0;top:0;width:160px;background: #fff;border-radius:2px;box-shadow: 0 0 30px #ccc;}
 .aw-publish-dropdown li a{display: block;height: 30px;line-height: 30px;padding-left:10px;cursor: pointer;}
 .aw-publish-dropdown li a:hover{background: #f0f0f0;}
 .aw-publish-dropdown p{height: 30px;line-height: 30px;padding-left: 10px;margin:0;}
