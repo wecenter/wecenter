@@ -30,7 +30,7 @@
 						<?php _e('联系方式'); ?>: <?php echo $val['data']['contact']; ?>
 					</td>
 					<td><?php echo $val['reason']; ?></td>
-					<td align="center"><?php if ($val['attach']) { ?><a href="<?php echo get_setting('upload_url'); ?>/verify/<?php echo $val['attach']; ?>"><i class="aw-icon page_attach"></i></a><?php } ?></td>
+					<td align="center"><?php if ($val['attach']) { ?><a href="<?php echo get_setting('upload_url'); ?>/verify/<?php echo $val['attach']; ?>" target="_blank"><i class="aw-icon page-attach"></i></a><?php } ?></td>
 				</tr>
 				<?php } ?>
 				<?php } ?>
