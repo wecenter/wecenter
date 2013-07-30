@@ -183,11 +183,11 @@ class main extends AWS_CONTROLLER
 			
 			if ($_GET['sort_type'] == 'hot')
 			{
-				$question_list = $this->model('question')->get_hot_question($_GET['category'], $_GET['topic_id'], $_GET['day'], $_GET['page'], get_setting('contents_per_page'));
+				$question_list = $this->model('question')->get_hot_question($category_info['id'], $_GET['topic_id'], $_GET['day'], $_GET['page'], get_setting('contents_per_page'));
 			}
 			else
 			{
-				$question_list = $this->model('question')->get_questions_list($_GET['page'], get_setting('contents_per_page'), $_GET['sort_type'], $_GET['topic_id'], $_GET['category'], $_GET['answer_count'], $_GET['day'], $_GET['is_recommend']);
+				$question_list = $this->model('question')->get_questions_list($_GET['page'], get_setting('contents_per_page'), $_GET['sort_type'], $_GET['topic_id'], $category_info['id'], $_GET['answer_count'], $_GET['day'], $_GET['is_recommend']);
 			}
 				
 			if ($question_list)
