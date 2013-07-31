@@ -31,17 +31,7 @@ class api extends AWS_CONTROLLER
 	}
 	
 	public function setup()
-	{
-		/*if (!$input = file_get_contents('php://input'))
-		{
-			die;
-		}
-		
-		if ($xml = new Zend_Config_Xml('<?xml version="1.0"?>' . $input))
-		{
-			$this->api_data = $xml->toArray();
-		}*/
-		
+	{		
 		if (!$this->model('weixin')->check_signature($_GET['signature'], $_GET['timestamp'], $_GET['nonce']))
 		{
 			die;

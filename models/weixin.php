@@ -60,7 +60,7 @@ class weixin_class extends AWS_MODEL
 			break;
 			
 			default:
-				if ($response_message = $this->create_response_by_register_keyword($input_message['content']))
+				if ($response_message = $this->create_response_by_register_keyword($input_message))
 				{
 					// resiter user
 				}
@@ -559,7 +559,13 @@ class weixin_class extends AWS_MODEL
 				}
 				else
 				{
-					if ($this->user_info['integral'] < 0 AND get_setting('integral_system_enabled') == 'Y')
+					$user_group = $this->model('account')->get_user_group($user_info['group_id'], $user_info['reputation_group']);
+					
+					if (!$user_group['permission']['publish_question'])
+					{
+						$response_message = AWS_APP::lang()->_t('你没有权限发布问题');
+					}
+					else if ($this->user_info['integral'] < 0 AND get_setting('integral_system_enabled') == 'Y')
 					{
 						$response_message = AWS_APP::lang()->_t('你的剩余积分已经不足以进行此操作');
 					}
