@@ -60,7 +60,11 @@ class weixin_class extends AWS_MODEL
 			break;
 			
 			default:
-				if ($response_message = $this->create_response_by_reply_rule_keyword($input_message['content']))
+				if ($response_message = $this->create_response_by_register_keyword($input_message['content']))
+				{
+					// resiter user
+				}
+				else if ($response_message = $this->create_response_by_reply_rule_keyword($input_message['content']))
 				{
 					// response by reply rule keyword...
 				}
@@ -717,7 +721,7 @@ class weixin_class extends AWS_MODEL
 			'publish_type' => $publish_type,
 			'item_id' => intval($item_id),
 			'topics' => $topics
-		), 'id = ' . $id);
+		), 'id = ' . intval($id));
 	}
 	
 	public function get_publish_rule_by_id($id)
@@ -728,6 +732,55 @@ class weixin_class extends AWS_MODEL
 	public function get_publish_rule_by_keyword($keyword)
 	{
 		return $this->fetch_row('weixin_publish_rule', "`keyword` = '" . trim($this->quote($keyword)) . "'");
+	}
+	
+	public function create_response_by_register_keyword($input_message)
+	{
+		$command_register_length = strlen(AWS_APP::config()->get('weixin')->command_register);
+		
+		if (strtolower(substr($input_message['content'], 0, $command_register_length)) == strtolower(AWS_APP::config()->get('weixin')->command_register))
+		{
+			if ($user_info = $this->model('account')->get_user_info_by_weixin_id($input_message['fromUsername']))
+			{
+				return '你的微信帐号已绑定社区帐号: ' . $user_info['user_name'];
+			}
+			
+			if (get_setting('invite_reg_only') == 'Y')
+			{
+				return AWS_APP::lang()->_t('本站只能通过邀请注册');
+			}
+			
+			$register_email = trim(substr($input_message['content'], $command_register_length));
+			
+			if ($this->model('account')->check_email($register_email))
+			{
+				return AWS_APP::lang()->_t('E-Mail 已经被使用, 或格式不正确');
+			}
+			
+			if (get_setting('ucenter_enabled') == 'Y')
+			{
+				$result = $this->model('ucenter')->register($register_email, rand(111111111, 999999999), $register_email, false);
+				
+				if (is_array($result))
+				{				
+					$uid = $result['user_info']['uid'];
+				}
+				else
+				{
+					return $result;
+				}
+			}
+			else
+			{
+				$uid = $this->model('account')->user_register($register_email, rand(111111111, 999999999), $register_email, false);
+			}
+			
+			$this->update('users', array(
+				'weixin_id' => $input_message['fromUsername']
+			), 'uid = ' . intval($uid));
+			
+			return '注册成功, 登录密码请登录网站使用 取回密码 功能获取';
+		}
 	}
 	
 	public function create_response_by_publish_rule_keyword($keyword, $input_message)
