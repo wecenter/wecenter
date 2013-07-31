@@ -53,6 +53,10 @@
 .aw-topic-detail-title{*margin-top:20px;}
 .aw-side-bar-topic-edit .aw-edit-topic-box input{*margin-bottom:10px;}
 
+
+/*发起页面*/
+.aw-mod-publish .aw-anonymity input{*margin:0 !important;}
+
 /*分享box*/
 .aw-share-box .aw-share-box-tabs .i-message{*position: relative;*top:-5px;}
 

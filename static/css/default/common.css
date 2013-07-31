@@ -486,6 +486,7 @@ select{width: auto;}
 .aw-topic-detail-title .i-lock{margin-left: 5px;}
 .aw-topic-detail-tabs{width:100%;}
 .aw-topic-detail-tabs ul{position: relative;}
+.aw-topic-detail-tabs .aw-question-dropdown-list{max-height: 409px;overflow-y:scroll;}
 .aw-topic-detail-tabs > li{float:left;}
 .aw-topic-detail-tabs .aw-search-box{position: absolute;right: 0;top: 0;margin:0;}
 .aw-topic-detail-tabs .aw-search-box .navbar-search{margin:0;}
@@ -648,7 +649,7 @@ select{width: auto;}
 .aw-mod-publish .aw-topic-dropdown{max-height: 80px;overflow:auto;}
 .aw-mod-publish h3{font-size: 100%;margin-top:30px;}
 .aw-mod-publish .aw-edit-topic-box{margin:0 0 10px;}
-.aw-publish-title{position: relative;z-index: 2000;}
+.aw-publish-title{position: relative;z-index: 1029;}
 .aw-publish-title.active input{width: 646px;border:1px solid #ccc;}
 .aw-publish-title input{width:497px;height: 26px;line-height: 26px;border-right: none;}
 .aw-publish-title .aw-publish-title-dropdown{position: absolute;right: 0;top: 0;width: 150px;}
@@ -659,7 +660,7 @@ select{width: auto;}
 .aw-publish-title-dropdown .dropdown-menu{width: 150px;}
 .aw-mod-publish .aw-anonymity{margin:5px 30px 0 0;}
 .aw-mod-publish .aw-anonymity label{float: left;margin-left: 10px;}
-.aw-mod-publish .aw-anonymity input{margin:4px 3px 0 0;}
+.aw-mod-publish .aw-anonymity input{margin:4px 3px 0 0;margin:0\0;}
 .aw-mod-publish-box{height: auto;overflow: hidden;}
 .aw-mod-publish-box .aw-mod-head{position:relative;margin:0 !important;border-bottom: none !important;}
 .aw-mod-publish-box .aw-mod-body{position:relative;padding:20px 0;}

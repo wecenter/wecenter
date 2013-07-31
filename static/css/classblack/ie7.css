@@ -28,6 +28,7 @@
 .aw-topic-search .search-query{*margin:3px 0;}
 .aw-topic-search .icon-search{*margin:0 4px 4px 4px;}
 
+
 /*侧边栏公共部分*/
 .aw-side-bar-mod .i-follow{*top:-2px;}
 
@@ -43,6 +44,9 @@
 .aw-question-follow .btn-group a{*height: 20px;}
 .aw-question-detail-box .aw-question-detail-meta .aw-question-wait-edit{*margin-top:0px;}
 .aw-question-detail-box .aw-mod-head .aw-question-follow .aw-dropdown-menu li a{*min-width: 110px;}
+
+/*发起页面*/
+.aw-mod-publish .aw-anonymity input{*margin:0 !important;}
 
 /*话题页面公共模块*/
 .aw-topic-content-wrap .aw-topic-all-list .span6 .i-follow{*position: relative;*top:-4px;}
