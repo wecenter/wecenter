@@ -25,6 +25,9 @@ class weixin_class extends AWS_MODEL
 	
 	var $image_article_tpl = '<item><Title><![CDATA[%s]]></Title><Description><![CDATA[%s]]></Description><PicUrl><![CDATA[%s]]></PicUrl><Url><![CDATA[%s]]></Url></item>';
 	
+	var $user_info;
+	var $user_id;
+	
 	public function fetch_message()
 	{
 		$post_data = file_get_contents('php://input');
@@ -34,7 +37,7 @@ class weixin_class extends AWS_MODEL
 		{
 			$post_object = (array)simplexml_load_string($post_data, 'SimpleXMLElement', LIBXML_NOCDATA);
 			
-			return array(
+			$input_message = array(
 				'fromUsername' => $post_object['FromUserName'],
 				'toUsername' => $post_object['ToUserName'],
 				'content' => trim($post_object['Content']),
@@ -43,7 +46,56 @@ class weixin_class extends AWS_MODEL
 				'event' => $post_object['Event'],
 				'eventKey' => $post_object['EventKey']
 			);
+			
+			if ($user_info = $this->model('account')->get_user_info_by_username($input_message['fromUsername']))
+			{
+				$this->user_info = $user_info;
+				$this->user_id = $user_info['id'];
+				
+				$user_group = $this->model('account')->get_user_group($user_info['group_id'], $user_info['reputation_group']);
+				
+				$this->user_info['permission'] = $user_group['permission'];
+			}
+			
+			return $input_message;
 		}
+	}
+	
+	public function publish_approval_valid()
+	{
+		if ($this->user_info['permission']['publish_approval'] == 1)
+		{
+			if (!$this->user_info['permission']['publish_approval_time']['start'] AND !$this->user_info['permission']['publish_approval_time']['end'])
+			{
+				return true;
+			}
+			
+			if ($this->user_info['permission']['publish_approval_time']['start'] < $this->user_info['permission']['publish_approval_time']['end'])
+			{
+				if (date('H') > $this->user_info['permission']['publish_approval_time']['start'] AND date('H') < $this->user_info['permission']['publish_approval_time']['end'])
+				{
+					return true;
+				}
+			}
+			
+			if ($this->user_info['permission']['publish_approval_time']['start'] > $this->user_info['permission']['publish_approval_time']['end'])
+			{
+				if (date('H') > $this->user_info['permission']['publish_approval_time']['start'] OR date('H') < $this->user_info['permission']['publish_approval_time']['end'])
+				{
+					return true;
+				}
+			}
+			
+			if ($this->user_info['permission']['publish_approval_time']['start'] == $this->user_info['permission']['publish_approval_time']['end'])
+			{
+				if (date('H') == $this->user_info['permission']['publish_approval_time']['start'])
+				{
+					return true;
+				}
+			}
+		}
+		
+		return false;
 	}
 	
 	public function response_message($input_message)
@@ -272,9 +324,9 @@ class weixin_class extends AWS_MODEL
 			break;
 			
 			case AWS_APP::config()->get('weixin')->command_notifications:
-				if ($user_info = $this->model('account')->get_user_info_by_weixin_id($input_message['fromUsername']))
+				if ($this->user_id)
 				{
-					if ($notifications = $this->model('notify')->list_notification($user_info['uid'], 0, calc_page_limit($param, 5)))
+					if ($notifications = $this->model('notify')->list_notification($this->user_id, 0, calc_page_limit($param, 5)))
 					{
 						$response_message = '最新通知:';
 						
@@ -313,9 +365,9 @@ class weixin_class extends AWS_MODEL
 			break;
 			
 			case AWS_APP::config()->get('weixin')->command_my:
-				if ($user_info = $this->model('account')->get_user_info_by_weixin_id($input_message['fromUsername']))
+				if ($this->user_id)
 				{
-					if ($user_actions = $this->model('account')->get_user_actions($user_info['uid'], calc_page_limit($param, 5), 101))
+					if ($user_actions = $this->model('account')->get_user_actions($this->user_id, calc_page_limit($param, 5), 101))
 					{
 						$response_message = "我的提问: \n";
 						
@@ -376,9 +428,9 @@ class weixin_class extends AWS_MODEL
 			break;
 			
 			case AWS_APP::config()->get('weixin')->command_bind_info:
-				if ($user_info = $this->model('account')->get_user_info_by_weixin_id($input_message['fromUsername']))
+				if ($this->user_id)
 				{
-					$response_message = '你的微信帐号绑定社区帐号: ' . $user_info['user_name'];
+					$response_message = '你的微信帐号绑定社区帐号: ' . $this->user_info['user_name'];
 				}
 				else
 				{
@@ -553,15 +605,13 @@ class weixin_class extends AWS_MODEL
 		switch ($last_action['action'])
 		{			
 			case 'publish':
-				if (!$user_info = $this->model('account')->get_user_info_by_weixin_id($weixin_id))
+				if (!$this->user_id)
 				{
 					$response_message = '你的微信帐号没有绑定 ' . get_setting('site_name') . ' 的帐号, 请<a href="' . get_js_url('/m/login/?weixin_id=' . base64_encode($weixin_id)) . '">点此绑定</a>或<a href="' . get_js_url('/m/register/?weixin_id=' . base64_encode($weixin_id)) . '">注册新账户</a>';
 				}
 				else
 				{
-					$user_group = $this->model('account')->get_user_group($user_info['group_id'], $user_info['reputation_group']);
-					
-					if (!$user_group['permission']['publish_question'])
+					if (!$this->user_info['permission']['publish_question'])
 					{
 						$response_message = AWS_APP::lang()->_t('你没有权限发布问题');
 					}
@@ -573,13 +623,28 @@ class weixin_class extends AWS_MODEL
 					{
 						if (trim($last_action['content'] != ''))
 						{
-							if ($question_id = $this->model('publish')->publish_question($last_action['content'], '', 1, $user_info['uid']))
+							if ($this->publish_approval_valid())
+							{			
+								$this->model('publish')->publish_approval('question', array(
+									'question_content' => $last_action['content']
+								), $this->user_id);
+								
+								$response_message = AWS_APP::lang()->_t('发布成功, 请等待管理员审核...');
+							}
+							else
 							{
-								$this->model('wecenter')->set_wechat_fake_id_by_question($last_action['content'], $question_id);
+								if ($question_id = $this->model('publish')->publish_question($last_action['content'], '', 1, $this->user_id))
+								{
+									$this->model('wecenter')->set_wechat_fake_id_by_question($last_action['content'], $question_id);
+								}
+								
+								$response_message = AWS_APP::config()->get('weixin')->publish_success_message;
 							}
 						}
-												
-						$response_message = AWS_APP::config()->get('weixin')->publish_success_message;
+						else
+						{
+							$response_message = AWS_APP::lang()->_t('请输入问题标题');
+						}
 					}
 				}
 			break;
@@ -746,9 +811,9 @@ class weixin_class extends AWS_MODEL
 		
 		if (strtolower(substr($input_message['content'], 0, $command_register_length)) == strtolower(AWS_APP::config()->get('weixin')->command_register))
 		{
-			if ($user_info = $this->model('account')->get_user_info_by_weixin_id($input_message['fromUsername']))
+			if ($this->user_id)
 			{
-				return '你的微信帐号已绑定社区帐号: ' . $user_info['user_name'];
+				return '你的微信帐号已绑定社区帐号: ' . $this->user_info['user_name'];
 			}
 			
 			if (get_setting('invite_reg_only') == 'Y')
@@ -802,17 +867,15 @@ class weixin_class extends AWS_MODEL
 		{
 			if (substr($keyword, 0, strlen($val['keyword'])) == $val['keyword'])
 			{
-				if (!$user_info = $this->model('account')->get_user_info_by_weixin_id($input_message['fromUsername']))
+				if (!$this->user_id)
 				{
 					 return '你的微信帐号没有绑定 ' . get_setting('site_name') . ' 的帐号, 请<a href="' . get_js_url('/m/login/?weixin_id=' . base64_encode($weixin_id)) . '">点此绑定</a>或<a href="' . get_js_url('/m/register/?weixin_id=' . base64_encode($weixin_id)) . '">注册新账户</a>';
 				}
 				
-				$user_group = $this->model('account')->get_user_group($user_info['group_id'], $user_info['reputation_group']);
-				
 				switch ($val['publish_type'])
 				{
 					case 'question':
-						if (!$user_group['permission']['publish_question'])
+						if (! $this->user_info['permission']['publish_question'])
 						{
 							return AWS_APP::lang()->_t('你没有权限发布问题');
 						}
@@ -822,14 +885,24 @@ class weixin_class extends AWS_MODEL
 							return AWS_APP::lang()->_t('问题标题字数不得大于') . ' ' . get_setting('question_title_limit') . ' ' . AWS_APP::lang()->_t('字节');
 						}
 						
-						if (! $user_group['permission']['publish_url'] && FORMAT::outside_url_exists($keyword))
+						if (! $this->user_info['permission']['publish_url'] && FORMAT::outside_url_exists($keyword))
 						{
 							return AWS_APP::lang()->_t('你所在的用户组不允许发布站外链接');
 						}
 						
-						if ($question_id = $this->model('publish')->publish_question(substr($keyword, strlen($val['keyword'])), '', 1, $user_info['uid'], explode(',', $val['topics']), null, null, null, true))
+						if ($this->publish_approval_valid())
 						{
-							$this->model('wecenter')->set_wechat_fake_id_by_question($keyword, $question_id);
+							$this->model('publish')->publish_approval('question', array(
+								'question_content' => substr($keyword, strlen($val['keyword'])),
+								'topics' => explode(',', $val['topics']),
+							), $this->user_id);
+						}
+						else
+						{
+							if ($question_id = $this->model('publish')->publish_question(substr($keyword, strlen($val['keyword'])), '', 1, $this->user_id, explode(',', $val['topics']), null, null, null, true))
+							{
+								$this->model('wecenter')->set_wechat_fake_id_by_question($keyword, $question_id);
+							}
 						}
 					break;
 					
@@ -839,13 +912,13 @@ class weixin_class extends AWS_MODEL
 							return AWS_APP::lang()->_t('问题不存在');
 						}
 						
-						if ($question_info['lock'] && ! ($user_group['permission']['is_administortar'] or $user_group['permission']['is_moderator']))
+						if ($question_info['lock'] && ! ($this->user_info['permission']['is_administortar'] or $this->user_info['permission']['is_moderator']))
 						{
 							return AWS_APP::lang()->_t('已经锁定的问题不能回复');
 						}
 						
 						// 判断是否是问题发起者
-						if (get_setting('answer_self_question') == 'N' and $question_info['published_uid'] == $user_info['uid'])
+						if (get_setting('answer_self_question') == 'N' and $question_info['published_uid'] == $this->user_id)
 						{
 							return AWS_APP::lang()->_t('不能回复自己发布的问题，你可以修改问题内容');
 						}
@@ -856,12 +929,12 @@ class weixin_class extends AWS_MODEL
 							return AWS_APP::lang()->_t('一个问题只能回复一次，你可以编辑回复过的回复');
 						}
 						
-						if (! $user_group['permission']['publish_url'] && FORMAT::outside_url_exists($keyword))
+						if (! $this->user_info['permission']['publish_url'] && FORMAT::outside_url_exists($keyword))
 						{
 							return AWS_APP::lang()->_t('你所在的用户组不允许发布站外链接');
 						}
 						
-						if ($answer_id = $this->model('publish')->publish_answer($val['item_id'], substr($keyword, strlen($val['keyword'])), $user_info['uid']))	
+						if ($answer_id = $this->model('publish')->publish_answer($val['item_id'], substr($keyword, strlen($val['keyword'])), $this->user_id))	
 						{
 							$this->model('answer')->set_answer_publish_source($answer_id, 'weixin');
 						}
