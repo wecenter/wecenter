@@ -493,7 +493,7 @@ select{width: auto;}
 .aw-topic-detail-about{padding:20px;line-height: 24px;}
 .aw-question-detail-txt{padding:10px 0;}
 .aw-topic-search{position:relative;height:28px;border:1px solid #CCCCCC;box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;}
-.aw-topic-search .icon-search{margin:4px 0 4px 4px;}
+.aw-topic-search .icon-search{margin:4px 0 4px 4px;vertical-align: middle;}
 .aw-topic-search .search-query{height:15px;line-height:15px;margin:3px 0;padding:3px 14px 3px 0;border:none;box-shadow: none;transition:none;}
 .aw-topic-search .search-query:focus{border: none;box-shadow: none;}
 .aw-topic-search .aw-topic-dropdown{top:35px;}
