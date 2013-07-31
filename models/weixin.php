@@ -47,10 +47,10 @@ class weixin_class extends AWS_MODEL
 				'eventKey' => $post_object['EventKey']
 			);
 			
-			if ($user_info = $this->model('account')->get_user_info_by_username($input_message['fromUsername']))
+			if ($user_info = $this->model('account')->get_user_info_by_weixin_id($input_message['fromUsername']))
 			{
 				$this->user_info = $user_info;
-				$this->user_id = $user_info['id'];
+				$this->user_id = $user_info['uid'];
 				
 				$user_group = $this->model('account')->get_user_group($user_info['group_id'], $user_info['reputation_group']);
 				
