@@ -913,8 +913,8 @@ select{width: auto;}
 .markItUp .markItUpButton12 {position: absolute;right: 0;}
 .markItUp .markItUpButton13 a {background-position: -573px -6px;}
 .markItUp .markItUpButton14 a {background-position: -600px -6px;margin-left: 5px;}
-.aw-invite-dropdown{position:absolute;left:0;top:0;z-index:1010;width:160px;background: #fff;border:1px solid #e6e6e6;border-radius:2px;}
-.aw-invite-dropdown li{padding:5px 0 5px 10px;cursor: pointer;}
+.aw-invite-dropdown{position:absolute;left:0;top:0;z-index:1010;min-width:160px;background: #fff;border:1px solid #e6e6e6;border-radius:2px;}
+.aw-invite-dropdown li{padding:5px 10px;cursor: pointer;}
 .aw-invite-dropdown li:hover, .aw-invite-dropdown li.active{background: #f0f0f0;}
 .aw-invite-dropdown li img{width: 30px;height: 30px;}
 .aw-invite-dropdown li a{display: inline-block;height: 30px;line-height: 30px;padding-left:10px;cursor: pointer;}
