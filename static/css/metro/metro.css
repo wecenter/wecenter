@@ -265,7 +265,11 @@
 /*
 **	私信对话框
 */
+.aw-my-inbox .aw-item.active{width: 598px;}
+.aw-my-inbox .aw-item.active .aw-user-img{left:20px;}
 .aw-mod-private-replay-list{padding: 0 20px;}
+.aw-mod-private-replay-list .aw-user-img{top:15px !important;}
+.aw-my-inbox .aw-user-img{left: 0;top: 5px;}
 .aw-mod-private-replay-box textarea{width: 520px;}
 .aw-mod-private-replay-box p{width: 534px;}
 .aw-mod-private-replay-box .aw-user-img{right: 20px;}
