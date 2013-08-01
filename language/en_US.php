@@ -1,4 +1,3 @@
-
 <?php
 
 $language['用户名不符合规则'] = 'Incorrect Username';
