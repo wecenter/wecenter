@@ -98,8 +98,10 @@
 
 /*注册页面*/
 .aw-register-open-tabs i{*position: relative;*top:-2px;}
-
 .aw-dynamic-topic .aw-mod-head h2{*margin-top:20px;}
+
+/*用户列表页面*/
+.aw-user-sort .i-user-approve{*top:-2px;}
 
 
 

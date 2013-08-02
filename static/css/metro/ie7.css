@@ -85,8 +85,10 @@
 .aw-mod-invited ul li{*padding:0 0 25px 42px;}
 
 /*用户页面*/
-.aw-user-detail-box .aw-mod-body .aw-user-flag .i-user-locate{*top:1px;}
-.aw-user-detail-box .aw-mod-body .aw-user-flag .i-user-post{*top:0;}
+.aw-user-detail-box .i-user-locate{*top:1px;}
+.aw-user-detail-box .aw-user-flag .i-user-post{*top:0;}
+.aw-user-detail-box .i-share-sina{*top:-1px !important;}
+.aw-user-detail-box .i-user-bind{*top:0px !important;}
 
 /*用户设置页面*/
 .aw-user-setting-bind .i-qq, .aw-user-setting-bind .i-share-sina, .aw-user-setting-bind .i-share-weibo, .aw-user-setting-bind .i-weixin{*top:0;}

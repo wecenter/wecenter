@@ -128,9 +128,6 @@
 .aw-side-bar-topic{padding-top:0px;}
 .aw-topic-content{padding:1px;border:1px solid #DFDFDF;border-radius: 5px;}
 .aw-topic-content-wrap .aw-topic-all-list .span6{width: 238px;}
-.aw-topic-content .tabbable{background: #F8F8F8;}
-.aw-topic-content .nav-tabs{width: auto;}
-.aw-topic-content .aw-topic-search{margin-right:20px;background: #fff;}
 .aw-topic-daily .aw-mod-head h3{padding: 0;}
 .aw-topic-follow{margin:20px;}
 .aw-side-bar-topic-nav ul > li > a, .aw-side-bar-topic-nav ul > li > span{padding-left:20px;}
@@ -146,7 +143,7 @@
 **	话题详情页
 */
 .aw-topic-detail-title{margin-bottom:30px;padding: 20px 20px 0 20px;border:1px solid #DFDFDF;border-radius: 5px;}
-.aw-topic-detail-tabs .aw-search-box{right: 20px;top:5px;background: #fff;}
+.aw-topic-detail-tabs .aw-search-box{right: 20px;top:5px;width:244px;background: #fff;}
 
 /*
 ** 发起页面

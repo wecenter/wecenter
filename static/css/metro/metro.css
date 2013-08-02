@@ -178,7 +178,8 @@
 **	话题详情页
 */
 .aw-topic-detail-title{margin-bottom:30px;padding: 20px 20px 0 20px;border:1px solid #DFDFDF;}
-.aw-topic-detail-tabs .aw-search-box{right: 20px;top:5px;background: #fff;}
+.aw-topic-detail-tabs{width:auto;padding-left: 20px;}
+.aw-topic-detail-tabs .aw-search-box{right: 20px;top:5px;width:258px;background: #fff;}
 
 /*
 **	话题编辑
