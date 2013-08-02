@@ -60,12 +60,10 @@
 			<div class="control-group" id="upload-attach">
 				<label for="input-password-new" class="control-label"><?php _e('附件'); ?>:</label>
 				<div class="controls">
-					<p>
-						<a class="btn btn-mini"><?php _e('上传附件'); ?></a>
-						<input name="attach" type="file" class="upload-attach" onchange="$('.upload-url').html($(this).val());"/>
-						<span class="aw-text-color-999 upload-url"></span>
-					</p>
-					<span class="aw-text-color-999"><?php _e('请提交对应的身份证或者组织机构代码证件扫描'); ?></span>
+					<a class="btn btn-mini"><?php _e('上传附件'); ?></a>
+					<span class="aw-text-color-999 upload-url"></span>
+					<p class="aw-text-color-999"><?php _e('请提交对应的身份证或者组织机构代码证件扫描'); ?></p>
+					<input name="attach" type="file" class="upload-attach" onchange="$('.upload-url').html($(this).val());"/>
 				</div>
 			</div>  
 		</div>
