@@ -88,6 +88,8 @@
 .aw-user-detail-box .aw-user-flag .i-user-post{*top:0;}
 .aw-user-detail-box .i-share-sina{*top:-1px !important;}
 .aw-user-detail-box .i-user-bind{*top:0px !important;}
+.aw-user-center-details-list .i-up{*position: relative;*top:-2px;*right:2px;}
+.aw-user-center-details-list  .i-thank{*position: relative;*right:2px;}
 
 /*用户设置页面*/
 .aw-user-setting-bind .i-qq, .aw-user-setting-bind .i-share-sina, .aw-user-setting-bind .i-share-weibo, .aw-user-setting-bind .i-weixin{*top:0;}

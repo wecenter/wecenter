@@ -91,6 +91,8 @@
 /*用户页面*/
 .aw-user-detail-box .aw-mod-body .aw-user-flag .i-user-locate{*top:1px;}
 .aw-user-detail-box .aw-mod-body .aw-user-flag .i-user-post{*top:0;}
+.aw-user-center-details-list .i-up{*position: relative;*top:-2px;*right:2px;}
+.aw-user-center-details-list  .i-thank{*position: relative;*right:2px;}
 
 /*用户设置页面*/
 .aw-user-setting-bind .i-qq, .aw-user-setting-bind .i-share-sina, .aw-user-setting-bind .i-share-weibo, .aw-user-setting-bind .i-weixin{*top:0;}
