@@ -828,9 +828,11 @@ class weixin_class extends AWS_MODEL
 				return AWS_APP::lang()->_t('E-Mail 已经被使用, 或格式不正确');
 			}
 			
+			$register_password = rand(111111111, 999999999);
+			
 			if (get_setting('ucenter_enabled') == 'Y')
 			{
-				$result = $this->model('ucenter')->register($register_email, rand(111111111, 999999999), $register_email, false);
+				$result = $this->model('ucenter')->register($register_email, $register_password, $register_email, false);
 				
 				if (is_array($result))
 				{				
@@ -843,14 +845,14 @@ class weixin_class extends AWS_MODEL
 			}
 			else
 			{
-				$uid = $this->model('account')->user_register($register_email, rand(111111111, 999999999), $register_email, false);
+				$uid = $this->model('account')->user_register($register_email, $register_password, $register_email, false);
 			}
 			
 			$this->update('users', array(
 				'weixin_id' => $input_message['fromUsername']
 			), 'uid = ' . intval($uid));
 			
-			return '注册成功, 登录密码请登录网站使用 取回密码 功能获取';
+			return '注册成功, 请妥善保存登录密码: ' . $register_password;
 		}
 	}
 	
