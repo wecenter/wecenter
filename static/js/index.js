@@ -97,7 +97,7 @@ $(document).ready(function()
 			case '#draft_list__draft':
 				var request_url = G_BASE_URL + '/home/ajax/draft/page-' + cur_page;
 
-				$('#main_title').parents('.aw-mod-head').prepend('<a class="pull-right btn btn-mini btn-success" id="delete-draft" onclick="$.each($(\'a.delete-draft\'), function (i, e) { $(e).click(); });">' + _t('清空所有') + '</a>');
+				$('#main_title').prepend('<a class="pull-right btn btn-mini btn-success" id="delete-draft" onclick="$.each($(\'a.delete-draft\'), function (i, e) { $(e).click(); });">' + _t('清空所有') + '</a>');
 			break;
 
 			case '#invite_list__invite':

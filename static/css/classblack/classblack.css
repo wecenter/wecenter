@@ -76,6 +76,7 @@
 /*
 **	全部问题
 */
+.aw-content-wrap .aw-all-question{padding-top:0;}
 .aw-all-question{margin-left:10px;padding:1px;border:1px solid #DFDFDF;border-radius: 5px;}
 .aw-all-question .aw-question-box-mod .aw-mod-body{padding:10px 20px 0 20px;}
 .aw-all-question .pagination{margin-right: 20px;}
@@ -85,7 +86,7 @@
 **	侧边栏
 */
 .aw-side-bar{width: 200px;margin-left:10px;background: #fff;}
-.aw-side-bar-mod-new-message{margin:0;}
+.aw-side-bar-mod-new-message{margin:0 0 10px;}
 .aw-side-bar-mod-nav{padding-top: 0;}
 .aw-side-bar-mod-nav ul li a{width: 175px;padding-left: 20px;}
 .aw-side-bar-mod-nav ul li a:hover, .aw-side-bar-mod-nav ul li a.active{background: url("img/main_default.png") no-repeat -231px -11px;color: #333;}
@@ -127,10 +128,19 @@
 .aw-side-bar-topic{padding-top:0px;}
 .aw-topic-content{padding:1px;border:1px solid #DFDFDF;border-radius: 5px;}
 .aw-topic-content-wrap .aw-topic-all-list .span6{width: 238px;}
+.aw-topic-content .tabbable{background: #F8F8F8;}
+.aw-topic-content .nav-tabs{width: auto;}
+.aw-topic-content .aw-topic-search{margin-right:20px;background: #fff;}
 .aw-topic-daily .aw-mod-head h3{padding: 0;}
 .aw-topic-follow{margin:20px;}
 .aw-side-bar-topic-nav ul > li > a, .aw-side-bar-topic-nav ul > li > span{padding-left:20px;}
 .aw-side-bar-topic-nav ul > li > a:hover, .aw-side-bar-topic-nav ul > li > a.active{background:url("img/main_default.png") no-repeat -231px -11px;color: #333333;}
+
+/*
+**	话题编辑
+*/
+.aw-topic-edit h4{margin:30px 30px 0 10px;}
+.aw-mod-topic-edit-box #advanced_editor{width: 660px;}
 
 /*
 **	话题详情页
