@@ -1978,6 +1978,8 @@ class question_class extends AWS_MODEL
 			
 			$this->model('integral')->process($question_info['published_uid'], 'THANKS_QUESTION', -get_setting('integral_system_config_thanks'), '问题被感谢 #' . $question_id, $question_id);
 			
+			$this->model('account')->update_thanks_count($question_info['published_uid']);
+			
 			return true;
 		}
 	}
