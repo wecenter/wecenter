@@ -2281,187 +2281,117 @@ function verify_register_form(element)
 var at_user_lists_flag = 0, at_user_lists_index = 0;
 
 function at_user_lists(selecter) {
-    $(selecter)
-        .keyup(function (e) {
-            init();
-            var _this = $(this),
-                flag = getCursorPosition($(this)[0])
-                    .start,
-                key = e.which,
-                cursor = $(this)
-                    .get(0);
-            if ($(this)
-                .val()
-                .charAt(flag - 1) == '@') {
-                $('.content_cursor')
-                    .html('')
-                    .append($(this)
-                        .val()
-                        .substring(0, cursor.selectionStart)
-                        .replace(/\n/g, '<br>') + '<b class="cursor_flag">flag</b>');
-                if (!$('.aw-invite-dropdown')[0]) {
-                    $('#aw-ajax-box')
-                        .append('<ul class="aw-invite-dropdown"></ul>');
-                }
-            } else {
-                switch (key) {
+    $(selecter).keyup(function (e) {
+        init();
+        var _this = $(this),
+             flag = getCursorPosition($(this)[0]).start,
+            key = e.which,
+            cursor = $(this).get(0);
+        if ($(this).val().charAt(flag - 1) == '@') {
+            $('.content_cursor').html('').append($(this).val().substring(0, cursor.selectionStart).replace(/\n/g, '<br>') + '<b class="cursor_flag">flag</b>');
+            if (!$('.aw-invite-dropdown')[0]) {
+                $('#aw-ajax-box').append('<ul class="aw-invite-dropdown"></ul>');
+            }
+        } else {
+            switch (key) {
                 case 38:
-                    if (at_user_lists_index == $('.aw-invite-dropdown li')
-                        .length) {
+                    if (at_user_lists_index == $('.aw-invite-dropdown li').length) {
                         at_user_lists_index--;
                     }
                     if (at_user_lists_index == 0) {
-                        $('.aw-invite-dropdown li:last')
-                            .addClass('active')
-                            .siblings()
-                            .removeClass('active');
-                        at_user_lists_index = $('.aw-invite-dropdown li')
-                            .length;
+                        $('.aw-invite-dropdown li:last').addClass('active').siblings().removeClass('active');
+                        at_user_lists_index = $('.aw-invite-dropdown li').length;
                     } else {
-                        $('.aw-invite-dropdown li')
-                            .eq(at_user_lists_index - 1)
-                            .addClass('active')
-                            .siblings()
-                            .removeClass('active');
+                        $('.aw-invite-dropdown li').eq(at_user_lists_index - 1).addClass('active').siblings().removeClass('active');
                         at_user_lists_index--;
                     }
                     break;
                 case 40:
                     if (at_user_lists_flag == 0) {
-                        $('.aw-invite-dropdown li:first')
-                            .addClass('active')
-                            .siblings()
-                            .removeClass('active');
+                        $('.aw-invite-dropdown li:first').addClass('active').siblings().removeClass('active');
                         at_user_lists_flag = 1;
                     } else {
-                        if (at_user_lists_index + 1 >= $('.aw-invite-dropdown li')
-                            .length) {
-                            $('.aw-invite-dropdown li:first')
-                                .addClass('active')
-                                .siblings()
-                                .removeClass('active');
+                        if (at_user_lists_index + 1 >= $('.aw-invite-dropdown li').length) {
+                            $('.aw-invite-dropdown li:first').addClass('active').siblings().removeClass('active');
                             at_user_lists_index = 0;
                         } else {
-                            $('.aw-invite-dropdown li')
-                                .eq(at_user_lists_index + 1)
-                                .addClass('active')
-                                .siblings()
-                                .removeClass('active');
+                            $('.aw-invite-dropdown li').eq(at_user_lists_index + 1).addClass('active').siblings().removeClass('active');
                             at_user_lists_index++;
                         }
                     }
                     break;
                 case 13:
-                    $('.aw-invite-dropdown li')
-                        .eq(at_user_lists_index)
-                        .click();
+                    $('.aw-invite-dropdown li').eq(at_user_lists_index).click();
                     break;
                 default:
                     var ti = 0;
                     for (var i = flag; i--;) {
-                        if ($(this)
-                            .val()
-                            .charAt(i) == "@") {
+                        if ($(this).val().charAt(i) == "@") {
                             ti = i;
                             break;
                         }
                     }
-                    if ($(this)
-                        .val()
-                        .substring(flag, ti)
-                        .replace('@', '')
-                        .match(/\s/)) {
-                        $('.aw-invite-dropdown, .i-invite-triangle')
-                            .addClass('hide');
+                    if ($(this).val().substring(flag, ti).replace('@', '').match(/\s/)) {
+                        $('.aw-invite-dropdown, .i-invite-triangle').addClass('hide');
                         return false;
                     }
-                    $.get(G_BASE_URL + '/search/ajax/search/?type-user__q-' + encodeURIComponent($(this)
-                        .val()
-                        .substring(flag, ti)
-                        .replace('@', '')) + '__limit-10', function (result) {
+                    $.get(G_BASE_URL + '/search/ajax/search/?type-user__q-' + encodeURIComponent($(this).val().substring(flag, ti).replace('@', '')) + '__limit-10', function (result) {
                         if ($('.aw-invite-dropdown')[0]) {
                             if (result.length != 0) {
-                                $('.aw-invite-dropdown')
-                                    .html('');
+                                $('.aw-invite-dropdown').html('');
                                 $.each(result, function (i, a) {
-                                    $('.aw-invite-dropdown')
-                                        .append('<li><img src="' + a.detail.avatar_file + '"/><a>' + a.name + '</a></li>')
+                                    $('.aw-invite-dropdown').append('<li><img src="' + a.detail.avatar_file + '"/><a>' + a.name + '</a></li>')
                                 });
                                 display();
-                                $('.aw-invite-dropdown')
-                                    .removeClass('hide');
-                                $('.aw-invite-dropdown li')
-                                    .click(function () {
-                                        $('.aw-invite-dropdown')
-                                            .addClass('hide');
-                                        _this.val(_this.val()
-                                            .substring(0, ti) + '@' + $(this)
-                                            .find('a')
-                                            .html() + " ")
-                                            .focus();
-                                        _fix_textarea_focus_cursor_position(_this);
-                                        at_user_lists_index = 0;
-                                        at_user_lists_flag = 0;
-                                    });
+                                $('.aw-invite-dropdown').removeClass('hide');
+                                $('.aw-invite-dropdown li').click(function () {
+                                    _this.val(_this.val().substring(0, ti) + '@' + $(this).find('a').html() + " ").focus();
+                                    _fix_textarea_focus_cursor_position(_this);
+                                    at_user_lists_index = 0;
+                                    at_user_lists_flag = 0;
+                                    $('.aw-invite-dropdown').detach();
+                                });
                             } else {
-                                $('.aw-invite-dropdown')
-                                    .addClass('hide');
+                                $('.aw-invite-dropdown').addClass('hide');
                             }
                         }
-                        if (_this.val()
-                            .length == 0) {
-                            $('.aw-invite-dropdown')
-                                .addClass('hide');
+                        if (_this.val().length == 0) {
+                            $('.aw-invite-dropdown').addClass('hide');
                         }
                     }, 'json');
                 }
             }
         });
 
-    $(selecter)
-        .keydown(function (e) {
-            var key = e.which;
-            if ($('.aw-invite-dropdown')
-                .is(':visible')) {
-                if (key == 38 || key == 40 || key == 13) {
-                    return false;
-                }
+    $(selecter).keydown(function (e) {
+        var key = e.which;
+        if ($('.aw-invite-dropdown').is(':visible')) {
+            if (key == 38 || key == 40 || key == 13) {
+                return false;
             }
-        });
+        }else
+        {
+            return true;
+        }
+    });
 
     //初始化插入定位符
-
     function init() {
         if (!$('.content_cursor')[0]) {
-            $('#aw-ajax-box')
-                .append('<span class="content_cursor"></span>');
+            $('#aw-ajax-box').append('<span class="content_cursor"></span>');
         }
-        $('#aw-ajax-box')
-            .find('.content_cursor')
-            .css({
-                'left': parseInt($(selecter)
-                    .offset()
-                    .left + parseInt($(selecter)
-                        .css('padding-left')) + 2),
-                'top': parseInt($(selecter)
-                    .offset()
-                    .top + parseInt($(selecter)
-                        .css('padding-left')))
-            });
+        $('#aw-ajax-box').find('.content_cursor').css({
+            'left': parseInt($(selecter).offset().left + parseInt($(selecter).css('padding-left')) + 2),
+            'top': parseInt($(selecter).offset().top + parseInt($(selecter).css('padding-left')))
+        });
     }
 
     //初始化列表和三角型
-
     function display() {
-        $('.aw-invite-dropdown')
-            .css({
-                'left': $('.cursor_flag')
-                    .offset()
-                    .left,
-                'top': $('.cursor_flag')
-                    .offset()
-                    .top + 20
-            });
+        $('.aw-invite-dropdown').css({
+            'left': $('.cursor_flag').offset().left,
+            'top': $('.cursor_flag').offset().top + 20
+        });
     }
 }
 
