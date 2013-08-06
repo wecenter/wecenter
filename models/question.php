@@ -1951,6 +1951,11 @@ class question_class extends AWS_MODEL
 			return false;
 		}
 		
+		if (!$question_info = $this->get_question_info_by_id($question_id))
+		{
+			return false;
+		}
+		
 		if ($question_thanks = $this->get_question_thanks($question_id, $uid))
 		{
 			//$this->delete('question_thanks', "id = " . $question_thanks['id']);
@@ -1971,7 +1976,7 @@ class question_class extends AWS_MODEL
 			
 			$this->model('integral')->process($uid, 'QUESTION_THANKS', get_setting('integral_system_config_thanks'), '感谢问题 #' . $question_id, $question_id);
 			
-			$this->model('integral')->process($answer_info['uid'], 'THANKS_QUESTION', -get_setting('integral_system_config_thanks'), '问题被感谢 #' . $question_id, $question_id);
+			$this->model('integral')->process($question_info['published_uid'], 'THANKS_QUESTION', -get_setting('integral_system_config_thanks'), '问题被感谢 #' . $question_id, $question_id);
 			
 			return true;
 		}
