@@ -980,12 +980,12 @@ function answer_user_rate(answer_id, type, element)
             case 'thanks':
                 if (result.rsm.action == 'add')
                 {
-                    $(element).html(_t('已感谢'));
+                    $(element).html($(element).html().replace(_t('感谢'), _t('已感谢')));
                     $(element).removeAttr('onclick');
                 }
                 else
                 {
-                    $(element).html(_t('感谢'));
+                    $(element).html($(element).html().replace(_t('已感谢'), _t('感谢')));
                 }
                 break;
 
