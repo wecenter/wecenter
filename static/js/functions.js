@@ -2327,44 +2327,47 @@ function at_user_lists(selecter) {
                     $('.aw-invite-dropdown li').eq(at_user_lists_index).click();
                     break;
                 default:
-                    var ti = 0;
-                    for (var i = flag; i--;) {
-                        if ($(this).val().charAt(i) == "@") {
-                            ti = i;
-                            break;
-                        }
-                    }
-                    if ($(this).val().substring(flag, ti).replace('@', '').match(/\s/)) {
-                        $('.aw-invite-dropdown, .i-invite-triangle').addClass('hide');
-                        return false;
-                    }
-                    $.get(G_BASE_URL + '/search/ajax/search/?type-user__q-' + encodeURIComponent($(this).val().substring(flag, ti).replace('@', '')) + '__limit-10', function (result) {
-                        if ($('.aw-invite-dropdown')[0]) {
-                            if (result.length != 0) {
-                                $('.aw-invite-dropdown').html('');
-                                $.each(result, function (i, a) {
-                                    $('.aw-invite-dropdown').append('<li><img src="' + a.detail.avatar_file + '"/><a>' + a.name + '</a></li>')
-                                });
-                                display();
-                                $('.aw-invite-dropdown').removeClass('hide');
-                                $('.aw-invite-dropdown li').click(function () {
-                                    _this.val(_this.val().substring(0, ti) + '@' + $(this).find('a').html() + " ").focus();
-                                    _fix_textarea_focus_cursor_position(_this);
-                                    at_user_lists_index = 0;
-                                    at_user_lists_flag = 0;
-                                    $('.aw-invite-dropdown').detach();
-                                });
-                            } else {
-                                $('.aw-invite-dropdown').addClass('hide');
+                    if ($('.aw-invite-dropdown')[0])
+                    {
+                        var ti = 0;
+                        for (var i = flag; i--;) {
+                            if ($(this).val().charAt(i) == "@") {
+                                ti = i;
+                                break;
                             }
                         }
-                        if (_this.val().length == 0) {
-                            $('.aw-invite-dropdown').addClass('hide');
+                        if ($(this).val().substring(flag, ti).replace('@', '').match(/\s/)) {
+                            $('.aw-invite-dropdown, .i-invite-triangle').addClass('hide');
+                            return false;
                         }
-                    }, 'json');
-                }
+                        $.get(G_BASE_URL + '/search/ajax/search/?type-user__q-' + encodeURIComponent($(this).val().substring(flag, ti).replace('@', '')) + '__limit-10', function (result) {
+                            if ($('.aw-invite-dropdown')[0]) {
+                                if (result.length != 0) {
+                                    $('.aw-invite-dropdown').html('');
+                                    $.each(result, function (i, a) {
+                                        $('.aw-invite-dropdown').append('<li><img src="' + a.detail.avatar_file + '"/><a>' + a.name + '</a></li>')
+                                    });
+                                    display();
+                                    $('.aw-invite-dropdown').removeClass('hide');
+                                    $('.aw-invite-dropdown li').click(function () {
+                                        _this.val(_this.val().substring(0, ti) + '@' + $(this).find('a').html() + " ").focus();
+                                        _fix_textarea_focus_cursor_position(_this);
+                                        at_user_lists_index = 0;
+                                        at_user_lists_flag = 0;
+                                        $('.aw-invite-dropdown').detach();
+                                    });
+                                } else {
+                                    $('.aw-invite-dropdown').addClass('hide');
+                                }
+                            }
+                            if (_this.val().length == 0) {
+                                $('.aw-invite-dropdown').addClass('hide');
+                            }
+                        }, 'json');
+                    }
             }
-        });
+        }
+    });
 
     $(selecter).keydown(function (e) {
         var key = e.which;
