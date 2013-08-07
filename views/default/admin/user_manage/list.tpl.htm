@@ -68,11 +68,6 @@
 						<dt><h3><?php _e('邮箱'); ?>:</h3></dt>
 						<dd><input type="text" value="<?php echo rawurldecode($_GET['email']); ?>" name="email" /></dd>
 					</dl>
-					
-					<dl>
-						<dt><h3><?php _e('注册时间'); ?>:</h3></dt>
-						<dd><input type="text" value="<?php echo base64_decode($_GET['reg_date']); ?>" name="reg_date" class="input-small date_picker" /></dd>
-					</dl>
 					<dl>
 						<dt><h3><?php _e('用户组'); ?>:</h3></dt>
 						<dd><select name="group_id">
@@ -81,10 +76,6 @@
 								<option value="<?php echo $sval['group_id']; ?>"<?php if ($_GET['group_id'] == $sval['group_id']) { ?> selected="selected"<?php } ?>><?php echo $sval['group_name']; ?></option>
 							<?php } ?>
 						</select></dd>
-					</dl>
-					<dl>
-						<dt><h3><?php _e('最后登录时间'); ?>:</h3></dt>
-						<dd><input type="text" value="<?php echo base64_decode($_GET['last_login_date']); ?>" name="last_login_date" class="input-small date_picker" /></dd>
 					</dl>
 					<dl>
 						<dt><h3><?php _e('最后登陆 IP 段'); ?>:</h3></dt>
@@ -113,10 +104,6 @@
 						<dt><h3><?php _e('居住地'); ?>:</h3></dt>
 						<dd><select name="province" class="select_area"></select>
 						<select name="city" class="select_area"></select></dd>
-					</dl>
-					<dl>
-						<dt><h3><?php _e('生日'); ?>:</h3></dt>
-						<dd><input type="text" value="<?php echo base64_decode($_GET['birthday']); ?>" name="birthday" class="input-small date_picker" /></dd>
 					</dl>
 					<div class="aw-mod-footer">
 						<a href="javascript:;" class="btn btn-inverse btn-normal" onclick="ajax_post($('#search_form'));"><?php _e('搜索'); ?></a>

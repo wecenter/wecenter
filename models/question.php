@@ -210,19 +210,8 @@ class question_class extends AWS_MODEL
 		return $this->query_all("SELECT uid FROM " . $this->get_table('answer') . " WHERE question_id = " . intval($question_id));
 	}
 	
-	public function search_questions_list($search_data = null)
+	public function search_questions_list($page, $per_page, $keyword = null, $category_id = null, $start_date = null, $end_date = null, $answer_count_min = null, $answer_count_max = null, $user_name = null, $best_answer = false)
 	{
-		$where = array();
-		
-		$sort_key = 'question_id';
-		$order = 'DESC';
-		$per_page = 15;
-		
-		if (is_array($search_data))
-		{
-			extract($search_data);
-		}
-		
 		if ($keyword)
 		{
 			$where[] = "(MATCH(question_content_fulltext) AGAINST('" . $this->quote($this->model('search_index')->encode_search_code($this->model('system')->analysis_keyword($keyword))) . "' IN BOOLEAN MODE))";
@@ -230,7 +219,7 @@ class question_class extends AWS_MODEL
 		
 		if ($category_id)
 		{
-			if ($category_child AND $category_ids = $this->model('system')->get_category_with_child_ids('question', $category_id))
+			if ($category_ids = $this->model('system')->get_category_with_child_ids('question', $category_id))
 			{
 				$where[] = 'category_id IN (' . implode(',', $category_ids) . ')';
 			}
@@ -240,12 +229,12 @@ class question_class extends AWS_MODEL
 			}
 		}
 		
-		if (strtotime($start_date))
+		if ($start_date)
 		{
 			$where[] = 'add_time >= ' . strtotime($start_date);
 		}
 		
-		if (strtotime($end_date))
+		if ($end_date)
 		{
 			$where[] = 'add_time <= ' . strtotime('+1 day', strtotime($end_date));
 		}
@@ -267,69 +256,16 @@ class question_class extends AWS_MODEL
 			$where[] = 'answer_count <= ' . intval($answer_count_max);
 		}
 		
-		if ($best_answer == 1)
+		if ($best_answer)
 		{
 			$where[] = 'best_answer > 0';
 		}
-		else if ($best_answer == 2)
-		{
-			$where[] = 'best_answer = 0';
-		}
 		
-		if ($topics)
-		{
-			$topic_words = preg_split("/[\s,]+/", $topics);
-			
-			if ($topic_list = $this->model('topic')->get_topic_by_title($topic_words))
-			{
-				$where[] = "question_id IN(SELECT question_id FROM " . $this->get_table('topic_question') . " WHERE topic_id IN (" . implode(',', fetch_array_value($topic_list, 'topic_id')) . "))";
-			}
-			else
-			{
-				return array();
-			}
-		}
-		
-		if ($question_info_list = $this->fetch_page('question', implode(' AND ', $where), $sort_key . ' ' . $order, $page, $per_page))
+		if ($question_info_list = $this->fetch_page('question', implode(' AND ', $where), 'question_id DESC', $page, $per_page))
 		{
 			$this->search_questions_total = $this->found_rows();
 			
-			if ($detail)
-			{
-				$question_list = array();
-				
-				$category_info_list = $this->model('system')->get_category_list('question');
-				$user_info_list = $this->model('account')->get_user_info_by_uids(fetch_array_value($question_info_list, 'published_uid'));
-				$topic_info_list = $this->get_question_topic_by_question_ids(fetch_array_value($question_info_list, 'question_id'));
-				
-				foreach($question_info_list as $key => $val)
-				{
-					$tmp = array();
-					$tmp['question_id'] = $val['question_id'];
-					$tmp['question_content'] = $val['question_content'];
-					$tmp['question_detail'] = $val['question_detail'];
-					$tmp['answer_count'] = $val['answer_count'];
-					$tmp['view_count'] = $val['view_count'];
-					$tmp['unverified_modify'] = $val['unverified_modify'];
-					$tmp['update_time'] = $val['update_time'];
-					$tmp['add_time'] = $val['add_time'];
-					$tmp['category'] = $category_info_list[$val['category_id']];
-					$tmp['topics'] = array_slice($topic_info_list[$val['question_id']], 0, 3);
-					$tmp['user'] = $user_info_list[$val['published_uid']];
-					
-					$question_list[] = $tmp;
-				}
-				
-				return $question_list;
-			}
-			else
-			{
-				return $question_info_list;
-			}
-		}
-		else
-		{
-			return array();
+			return $question_info_list;
 		}
 	}
 	

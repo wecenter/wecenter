@@ -36,18 +36,8 @@ class topic_class extends AWS_MODEL
 		return $topic_list;
 	}
 	
-	public function get_topic_search_list($query_data = null)
+	public function get_topic_search_list($page, $per_page, $keyword = null, $question_count_min = null, $question_count_max = null, $topic_pic = null, $topic_description = null)
 	{
-		$sort_key = 'topic_id';
-		$order = 'DESC';
-		$where = array();
-		$per_page = 15;
-
-		if (is_array($query_data))
-		{
-			extract($query_data);
-		}
-		
 		if ($keyword)
 		{			
 			$where[] = "topic_title LIKE '" . $this->quote($keyword) . "%'";
@@ -63,46 +53,26 @@ class topic_class extends AWS_MODEL
 			$where[] = 'discuss_count <= ' . intval($question_count_max);
 		}
 		
-		if ($topic_pic)
+
+		if ($topic_pic == 1)
 		{
-			if ($topic_pic == 1)
-			{
-				$where[] = "topic_pic <> ''";
-			}
-			else if ($topic_pic == 2)
-			{
-				$where[] = "topic_pic = ''";
-			}
+			$where[] = "topic_pic <> ''";
+		}
+		else if ($topic_pic == 2)
+		{
+			$where[] = "topic_pic = ''";
+		}
+
+		if ($topic_description == 1)
+		{
+			$where[] = "topic_description <> ''";
+		}
+		else if ($topic_description == 2)
+		{
+			$where[] = "topic_description = ''";
 		}
 		
-		if ($topic_description)
-		{
-			if ($topic_description == 1)
-			{
-				$where[] = "topic_description <> ''";
-			}
-			else if ($topic_description == 2)
-			{
-				$where[] = "topic_description = ''";
-			}
-		}
-		
-		if ($topic_list = $this->fetch_page('topic', implode(' AND ', $where), $sort_key . ' ' . $order, $page, $per_page))
-		{
-			foreach($topic_list as $key => $val)
-			{
-				if (!$val['url_token'])
-				{
-					$topic_list[$key]['url_token'] = rawurlencode($val['topic_title']);
-				}
-			}
-			
-			return $topic_list;
-		}
-		else
-		{
-			return array();
-		}
+		return $this->get_topic_list(implode(' AND ', $where), 'topic_id DESC', $per_page, $page);
 	}
 	
 	public function get_focus_topic_list($uid, $limit = 20)
