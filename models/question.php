@@ -1970,6 +1970,11 @@ class question_class extends AWS_MODEL
 	
 	public function get_answer_users_by_question_id($question_id, $limit = 5, $published_uid = null)
 	{
+		if ($result = AWS_APP::cache()->get('answer_users_by_question_id_' . md5($question_id . $limit . $published_uid)))
+		{
+			return $result;
+		}
+		
 		if (!$published_uid)
 		{
 			if (!$question_info = $this->get_question_info_by_id($question_id))
@@ -1987,7 +1992,11 @@ class question_class extends AWS_MODEL
 				$answer_uids[] = $val['uid'];
 			}
 			
-			return $this->model('account')->get_user_info_by_uids($answer_uids);
+			$result = $this->model('account')->get_user_info_by_uids($answer_uids);
+			
+			AWS_APP::cache()->set('answer_users_by_question_id_' . md5($question_id . $limit . $published_uid), $result, get_setting('cache_level_normal'));
 		}
+		
+		return $result;
 	}
 }
