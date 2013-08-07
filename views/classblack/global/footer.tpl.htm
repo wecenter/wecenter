@@ -28,6 +28,18 @@
 			$('#__crond').html(unescape('%3Cimg%20src%3D%22' + G_BASE_URL + '/crond/run/<?php echo time(); ?>%22%20width%3D%221%22%20height%3D%221%22%20/%3E'));
 		});
 
+		$(function()
+		{
+			$(window).scroll(function(){
+				if ($(window).scrollTop() > 0)
+				{
+					$('.aw-top-menu-wrap').css({'position':'fixed','top':0,'z-index':1030});
+				}else{
+					$('.aw-top-menu-wrap').removeAttr('style');
+				}
+			});
+		});
+
 	</script>
 </div>
 
