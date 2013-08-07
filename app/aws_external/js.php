@@ -51,7 +51,7 @@ class js extends AWS_CONTROLLER
 			$_GET['limit'] = 10;
 		}
 		
-		echo $this->model('aws_external')->format_js_question_ul_output($_GET['ul_class'], $this->model('question')->get_questions_list(1, intval($_GET['limit']), 'hot', $_GET['topic_ids'], $_GET['category_id'], null, $_GET['day']));
+		echo $this->model('aws_external')->format_js_question_ul_output($_GET['ul_class'], $this->model('question')->get_questions_list(1, intval($_GET['limit']), 'hot', $_GET['topic_ids'], $_GET['category_id'], null, $_GET['day'], $_GET['is_recommend']));
 	}
 	
 	public function unresponsive_questions_action()
@@ -61,7 +61,7 @@ class js extends AWS_CONTROLLER
 			$_GET['limit'] = 10;
 		}
 		
-		echo $this->model('aws_external')->format_js_question_ul_output($_GET['ul_class'], $this->model('question')->get_questions_list(1, intval($_GET['limit']), 'unresponsive', $_GET['topic_ids'], $_GET['category_id'], null, $_GET['day']));
+		echo $this->model('aws_external')->format_js_question_ul_output($_GET['ul_class'], $this->model('question')->get_hot_question($_GET['category_id'], $_GET['topic_ids'], $_GET['day']));
 	}
 	
 	public function related_questions_action()
@@ -72,5 +72,48 @@ class js extends AWS_CONTROLLER
 		}
 		
 		echo $this->model('aws_external')->format_js_question_ul_output($_GET['ul_class'], $this->model('search')->search_questions($_GET['q'], $_GET['topic_ids'], $_GET['limit']));
+	}
+	
+	public function new_users_action()
+	{
+		if (!$_GET['limit'] OR $_GET['limit'] > 100)
+		{
+			$_GET['limit'] = 10;
+		}
+		
+		echo $this->model('aws_external')->format_js_users_ul_output($_GET['ul_class'], $this->model('account')->get_users_list(null, $_GET['limit'], true, false, 'uid DESC'));
+	}
+	
+	public function hot_users_action()
+	{
+		if (!$_GET['limit'] OR $_GET['limit'] > 100)
+		{
+			$_GET['limit'] = 10;
+		}
+		
+		echo $this->model('aws_external')->format_js_users_ul_output($_GET['ul_class'], $this->model('account')->get_users_list(null, $_GET['limit'], true, false, 'answer_count DESC'));
+	}
+	
+	public function new_topics_action()
+	{
+		if (!$_GET['limit'] OR $_GET['limit'] > 100)
+		{
+			$_GET['limit'] = 10;
+		}
+		
+		echo $this->model('aws_external')->format_js_topics_ul_output($_GET['ul_class'], $this->model('topic')->get_topic_list(null, 'topic_id DESC', $_GET['limit']));
+	}
+	
+	public function hot_topics_action()
+	{
+		if (!$_GET['limit'] OR $_GET['limit'] > 100)
+		{
+			$_GET['limit'] = 10;
+		}
+		
+		if ($hot_topics = $this->model('topic')->get_hot_topics($_GET['category_id'], $_GET['limit']))
+		{
+			echo $this->model('aws_external')->format_js_topics_ul_output($_GET['ul_class'], $hot_topics['topics']);
+		}
 	}
 }

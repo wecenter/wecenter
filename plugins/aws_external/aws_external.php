@@ -62,4 +62,51 @@ class aws_external_class extends AWS_MODEL
 		
 		return "document.write('" . addcslashes($output, "'") . "');";
 	}
+	
+	public function format_js_users_ul_output($ul_class, $data)
+	{
+		$output = '<ul class="' . $ul_class . '">';
+		
+		if ($data)
+		{
+			foreach ($data AS $key => $val)
+			{	
+				/***
+					头像调用：get_avatar_url($val['uid'], 'mid')
+					
+					$val['signature'] - 个人介绍
+				***/
+				
+				$output .= '<li><a href="' . get_js_url('/people/' . $val['url_token']) . '" target="_blank">' . $val['user_name'] . '</a></li>';
+			}	
+		}
+		
+		$output .= '</ul>';
+		
+		return "document.write('" . addcslashes($output, "'") . "');";
+	}
+	
+	public function format_js_topics_ul_output($ul_class, $data)
+	{
+		$output = '<ul class="' . $ul_class . '">';
+		
+		if ($data)
+		{
+			foreach ($data AS $key => $val)
+			{				
+				/***
+					话题图片调用：get_topic_pic_url($val['uid'], $val['topic_pic'])
+					
+					$val['topic_description'] - 话题简介
+					$val['discuss_count'] - 讨论数量
+				***/
+				
+				$output .= '<li><a href="' . get_js_url('/topic/' . $val['url_token']) . '" target="_blank">' . $val['topic_title'] . '</a></li>';
+			}	
+		}
+		
+		$output .= '</ul>';
+		
+		return "document.write('" . addcslashes($output, "'") . "');";
+	}
 }
