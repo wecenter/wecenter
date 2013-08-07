@@ -1526,9 +1526,11 @@ function show_card_box(selecter, type, time) //selecter -> .aw-user-name/.aw-top
                             if (result.verified == 'enterprise')
                             {
                                 verified_enterprise = 'i-ve';
+                                verified_title = '企业认证';
                             }else
                             {
                                 verified_enterprise = '';
+                                verified_title = '个人认证';
                             }
                             
                             //动态插入盒子
@@ -1536,6 +1538,7 @@ function show_card_box(selecter, type, time) //selecter -> .aw-user-name/.aw-top
                             {
                                 'verified' : verified,
                                 'verified_enterprise' : verified_enterprise,
+                                'verified_title' : verified_title,
                                 'uid': result.uid,
                                 'avatar_file': result.avatar_file,
                                 'user_name': result.user_name,

@@ -66,7 +66,7 @@ select, input[type="file"]{line-height: 0px;font-size: 13px;}
 .right-side textarea{width: 80%;min-height: 80px;margin: 0;}
 .right-side .aw-box dl{height: auto;overflow: hidden;margin:0;padding:10px 20px;border-top: 1px solid #eaedf1;}
 .right-side .aw-box dl:first-child{border-top: none;}
-.right-side .aw-box dl dt{width: 20%;padding:3px;text-align: right;vertical-align: top;}
+.right-side .aw-box dl dt{width: 20%;text-align: right;vertical-align: top;}
 .right-side .aw-box dl dt h3{font-weight: normal;}
 .right-side .aw-box dl dt, .right-side .aw-box dl dd{float: left;}
 .right-side .aw-box dl dd{width:75%;max-width:700px;padding: 10px;}
