@@ -2367,6 +2367,13 @@ function at_user_lists(selecter) {
                     }
             }
         }
+        if (selecter == '#advanced_editor')
+        {
+            if ($(this).val() == '')
+            {
+                $('#markItUpPreviewFrames').html('');
+            }
+        }
     });
 
     $(selecter).keydown(function (e) {
