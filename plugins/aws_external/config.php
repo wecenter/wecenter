@@ -2,9 +2,9 @@
 
 $aws_plugin = array(
 	'title' => 'External for Anwsion',	// 插件标题
-	'version' => 20130107,	// 插件版本
+	'version' => 20130807,	// 插件版本
 	'description' => 'Anwsion 调用插件',	// 插件描述
-	'requirements' => '20120706',	// 最低 Build 要求
+	'requirements' => '20130802',	// 最低 Build 要求
 	
 	'contents' => array(
 		// 对控制器构造部署代码 (setup)
