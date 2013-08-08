@@ -804,11 +804,6 @@ class question_class extends AWS_MODEL
 			return $this->fetch_all('question', "question_id IN(" . implode(',', $question_ids) . ")", 'add_time DESC');
 		}
 	}
-
-	public function get_user_publish($uid, $limit = 10)
-	{
-		return $this->fetch_all('question', "published_uid = " . intval($uid), "add_time DESC", $limit);
-	}
 	
 	public function update_answer_count($question_id)
 	{
