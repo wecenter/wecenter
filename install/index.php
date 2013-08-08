@@ -352,15 +352,15 @@ switch ($_POST['step'])
 		
 		$insert_query = str_replace('[#DB_PREFIX#]', $db_prefix, $insert_query);
 		$insert_query = str_replace('[#BASE_URL#]', serialize($base_url), $insert_query);
-		
-		$insert_query = str_replace('[#UPLOAD_URL#]', serialize($base_url . "/uploads"), $insert_query);
 		 
 		if (defined('IN_SAE'))
 		{
+			$insert_query = str_replace('[#UPLOAD_URL#]', serialize($_POST['upload_url']), $insert_query);
 			$insert_query = str_replace('[#UPLOAD_DIR#]', serialize('saestor://uploads'), $insert_query);
 		}
 		else
 		{
+			$insert_query = str_replace('[#UPLOAD_URL#]', serialize($base_url . "/uploads"), $insert_query);
 			$insert_query = str_replace('[#UPLOAD_DIR#]', serialize(str_replace("\\", "/", ROOT_PATH) . "uploads"), $insert_query);
 		}
 		

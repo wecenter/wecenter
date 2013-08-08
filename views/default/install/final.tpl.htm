@@ -3,6 +3,7 @@
 <div class="aw-mod-body">
 	<form action="" method="post" id="installer">
 	<input type="hidden" name="step" value="4" />
+	<input type="hidden" name="upload_url" value="<?php echo $_POST['upload_url']; ?>" />
 	<dl>
 		<dt>• <?php _e('添加管理员'); ?></dt>
 		<dd><?php _e('数据库导入成功, 创建管理员账户'); ?></dd>
