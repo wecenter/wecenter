@@ -171,28 +171,42 @@ switch ($_POST['step'])
 		break;
 	
 	case 3 :
-		$db_config = array(
-			'charset' => 'utf8',
-			'host' => $_POST['db_host'], 
-			'username' => $_POST['db_username'], 
-			'password' => $_POST['db_password'], 
-			'dbname' => $_POST['db_dbname']
-		);
-		
-		if ($_POST['db_port'])
+		if (defined('IN_SAE'))
 		{
-			$db_config['db_port'] = $_POST['db_port'];
+			$db_config = array(
+			  'host' => SAE_MYSQL_HOST_M,
+			  'db_port' => SAE_MYSQL_PORT
+			  'username' =>  SAE_MYSQL_USER,
+			  'password' => SAE_MYSQL_PASS,
+			  'dbname' => SAE_MYSQL_DB,
+			  'charset' => 'utf8'
+			);
 		}
-		
-		if ($_POST['db_driver'])
+		else
 		{
-			$db_driver = $_POST['db_driver'];
-		}
-		else if (class_exists('PDO', false))
-		{
-			if (defined('PDO::MYSQL_ATTR_USE_BUFFERED_QUERY'))
+			$db_config = array(
+				'charset' => 'utf8',
+				'host' => $_POST['db_host'], 
+				'username' => $_POST['db_username'], 
+				'password' => $_POST['db_password'], 
+				'dbname' => $_POST['db_dbname']
+			);
+			
+			if ($_POST['db_port'])
 			{
-				$db_driver = 'PDO_MYSQL';
+				$db_config['db_port'] = $_POST['db_port'];
+			}
+			
+			if ($_POST['db_driver'])
+			{
+				$db_driver = $_POST['db_driver'];
+			}
+			else if (class_exists('PDO', false))
+			{
+				if (defined('PDO::MYSQL_ATTR_USE_BUFFERED_QUERY'))
+				{
+					$db_driver = 'PDO_MYSQL';
+				}
 			}
 		}
 		
@@ -252,20 +266,23 @@ switch ($_POST['step'])
 			}
 		}
 		
-		$config = array(
-			'charset' => 'utf8', 
-			'prefix' => $_POST['db_prefix'], 
-			'driver' => $db_driver, 
-			'master' => $db_config, 
-			'slave' => false
-		);
-		
-		if ($_POST['db_port'])
+		if (!defined('IN_SAE'))
 		{
-			$config['db_port'] = $_POST['db_port'];
+			$config = array(
+				'charset' => 'utf8', 
+				'prefix' => $_POST['db_prefix'], 
+				'driver' => $db_driver, 
+				'master' => $db_config, 
+				'slave' => false
+			);
+			
+			if ($_POST['db_port'])
+			{
+				$config['db_port'] = $_POST['db_port'];
+			}
+			
+			load_class('core_config')->set('database', $config);
 		}
-		
-		load_class('core_config')->set('database', $config);
 		
 		// 创建数据表
 		$db_table_querys = explode(";\r", str_replace(array('[#DB_PREFIX#]', '[#DB_ENGINE#]', "\n"), array($_POST['db_prefix'], $_POST['db_engine'], "\r"), file_get_contents(ROOT_PATH . 'install/db/mysql.sql')));

@@ -17,6 +17,7 @@
 	</div>
 	<?php } ?>
 	<ul>
+		<?php if (!defined('IN_SAE')) { ?>
 		<li class="hide">
 			<b><?php _e('数据库驱动'); ?></b> 
 			
@@ -49,6 +50,7 @@
 		<li>
 			<b><?php _e('数据表前缀'); ?></b><input type="text" class="default_text" value="aws_" name="db_prefix" /><span><?php _e('同数据库安装多个本程序时需要更改'); ?></span>
 		</li>
+		<?php } ?>
 		<li>
 			<b><?php _e('数据表类型'); ?></b><select name="db_engine" class="default_text"><option value="MyISAM">MyISAM</option><option value="InnoDB">InnoDB</option></select><span><?php _e('请根据服务器状态选择数据表类型'); ?></span></li>
 		</li>
