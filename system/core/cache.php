@@ -50,7 +50,24 @@ class core_cache
 		$this->groupPrefix = G_COOKIE_HASH_KEY . $this->groupPrefix;
 		$this->cachePrefix = G_COOKIE_HASH_KEY . $this->cachePrefix;
 		
-		if ($this->backendName == 'File')
+		if (defined('IN_SAE'))
+		{
+			$this->backendName = 'Memcached';
+			
+			$this->backendOptions = array(
+				'servers' => array(
+					array(
+						'host' => '127.0.0.1', 
+						'port' => 41111, 
+						'persistent' => true,
+						'timeout' => 5,
+						'compression' => false,	// 压缩
+						'compatibility' => false	// 兼容旧版 Memcache servers
+					)	
+				)
+			);
+		}
+		else if ($this->backendName == 'File')
 		{
 			$cache_dir = ROOT_PATH . 'cache/';
 			

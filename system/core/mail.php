@@ -22,6 +22,11 @@ class core_mail
 	{
 		$this->config = get_setting('mail_config');
 		
+		if (defined('IN_SAE'))
+		{
+			return false;
+		}
+		
 		switch ($this->config['transport'])
 		{
 			case 'smtp':
@@ -80,18 +85,30 @@ class core_mail
 			$body = convert_encoding($body, 'UTF-8', $this->config['charset']);
 		}
 		
-		try
+		if (defined('IN_SAE'))
 		{
-			$zend_mail = new Zend_Mail($this->config['charset']);
-			$zend_mail->setBodyHtml($body);
-			$zend_mail->setFrom(get_setting('from_email'), $from_name);
-			$zend_mail->addTo($address, $to_name);
-			$zend_mail->setSubject($title);
-			$zend_mail->send($this->transport);
+			$sae_mail = new SaeMail();
+			
+			if (!$sae_mail->quickSend($address, $title, $body, $this->config['username'], $this->config['password'], $this->config['server'], $this->config['port'], $this->config['ssl']))
+			{
+				return $sae_mail->errmsg();
+			}
 		}
-		catch (Exception $e)
+		else
 		{
-			return $e->getMessage();
+			try
+			{
+				$zend_mail = new Zend_Mail($this->config['charset']);
+				$zend_mail->setBodyHtml($body);
+				$zend_mail->setFrom(get_setting('from_email'), $from_name);
+				$zend_mail->addTo($address, $to_name);
+				$zend_mail->setSubject($title);
+				$zend_mail->send($this->transport);
+			}
+			catch (Exception $e)
+			{
+				return $e->getMessage();
+			}
 		}
 	}
 }
