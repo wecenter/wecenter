@@ -754,22 +754,25 @@ class core_upload {
 		{
 			$this->upload_path = str_replace("\\", "/", realpath($this->upload_path));
 		}
-
-		if ( ! is_dir($this->upload_path))
+		
+		if (!defined('IN_SAE'))
 		{
-			if (! make_dir($this->upload_path))
+			if ( ! is_dir($this->upload_path))
+			{
+				if (! make_dir($this->upload_path))
+				{
+					$this->set_error('upload_not_writable');
+					
+					return FALSE;
+				}
+			}
+			
+			if ( ! is_really_writable($this->upload_path))
 			{
 				$this->set_error('upload_not_writable');
 				
 				return FALSE;
 			}
-		}
-		
-		if ( ! is_really_writable($this->upload_path))
-		{
-			$this->set_error('upload_not_writable');
-			
-			return FALSE;
 		}
 
 		$this->upload_path = preg_replace("/(.+?)\/*$/", "\\1/",  $this->upload_path);
@@ -893,7 +896,7 @@ class core_upload {
 
 			$new_memory = number_format(ceil(filesize($file) + $current), 0, '.', '');
 
-			ini_set('memory_limit', $new_memory); // When an integer is used, the value is measured in bytes. - PHP.net
+			@ini_set('memory_limit', $new_memory); // When an integer is used, the value is measured in bytes. - PHP.net
 		}
 
 		// If the file being uploaded is an image, then we should have no problem with XSS attacks (in theory), but

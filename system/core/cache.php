@@ -50,40 +50,25 @@ class core_cache
 		$this->groupPrefix = G_COOKIE_HASH_KEY . $this->groupPrefix;
 		$this->cachePrefix = G_COOKIE_HASH_KEY . $this->cachePrefix;
 		
-		if (defined('IN_SAE'))
+		if ($this->backendName == 'File')
 		{
-			$this->backendName = 'Memcached';
-			
-			$this->backendOptions = array(
-				'servers' => array(
-					array(
-						'host' => '127.0.0.1', 
-						'port' => 41111, 
-						'persistent' => true,
-						'timeout' => 5,
-						'compression' => false,	// 压缩
-						'compatibility' => false	// 兼容旧版 Memcache servers
-					)	
-				)
-			);
-		}
-		else if ($this->backendName == 'File')
-		{
-			$cache_dir = ROOT_PATH . 'cache/';
-			
-			/*if (!$cache_dir = get_setting('cache_dir'))
+			if (defined('IN_SAE'))
+			{
+				$cache_dir = TEMP_PATH;
+			}
+			else
 			{
 				$cache_dir = ROOT_PATH . 'cache/';
-			}*/
+				
+				if (!file_exists($cache_dir . 'index.html'))
+				{
+					file_put_contents($cache_dir . 'index.html', '');
+				}
+			}
 			
 			$this->backendOptions = array(
 				'cache_dir' => realpath($cache_dir)
-			);
-			
-			if (!file_exists($cache_dir . 'index.html'))
-			{
-				file_put_contents($cache_dir . 'index.html', '');
-			}
+			);	
 		}
 			
 		$this->cache_factory = Zend_Cache::factory($this->frontendName, $this->backendName, $this->frontendOptions, $this->backendOptions);

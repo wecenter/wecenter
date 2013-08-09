@@ -89,13 +89,13 @@ switch ($_POST['step'])
 		}
 		
 		// 检测 AWS_PATH 是否有写权限
-		if (is_really_writable(AWS_PATH))
+		if (is_really_writable(AWS_PATH) OR defined('IN_SAE'))
 		{
 			$system_require['config_writable_core'] = TRUE;
 		}
 		
 		// 检测 AWS_PATH /config/ 是否有写权限
-		if (is_really_writable(AWS_PATH . 'config/'))
+		if (is_really_writable(AWS_PATH . 'config/') OR defined('IN_SAE'))
 		{
 			$system_require['config_writable_config'] = TRUE;
 		}
@@ -174,8 +174,7 @@ switch ($_POST['step'])
 		if (defined('IN_SAE'))
 		{
 			$db_config = array(
-			  'host' => SAE_MYSQL_HOST_M,
-			  'db_port' => SAE_MYSQL_PORT,
+			  'host' => SAE_MYSQL_HOST_M . ':' . SAE_MYSQL_PORT,
 			  'username' =>  SAE_MYSQL_USER,
 			  'password' => SAE_MYSQL_PASS,
 			  'dbname' => SAE_MYSQL_DB,
@@ -396,13 +395,16 @@ switch ($_POST['step'])
 			'value' => serialize(file_get_contents(ROOT_PATH . 'install/db/register_agreement.txt')),
 		));
 		
-		$config_file = file_get_contents(AWS_PATH . '/config.dist.php');
-		$config_file = str_replace('{G_COOKIE_PREFIX}', fetch_salt(3) . '_', $config_file);
-		$config_file = str_replace('{G_SECUKEY}', fetch_salt(12), $config_file);
-		$config_file = str_replace('{G_COOKIE_HASH_KEY}', fetch_salt(15), $config_file);
-		
-		file_put_contents(AWS_PATH . '/config.inc.php', $config_file);
-		file_put_contents(AWS_PATH . '/config/install.lock.php', time());
+		if (!defined('IN_SAE'))
+		{
+			$config_file = file_get_contents(AWS_PATH . 'config.dist.php');
+			$config_file = str_replace('{G_COOKIE_PREFIX}', fetch_salt(3) . '_', $config_file);
+			$config_file = str_replace('{G_SECUKEY}', fetch_salt(12), $config_file);
+			$config_file = str_replace('{G_COOKIE_HASH_KEY}', fetch_salt(15), $config_file);
+			
+			file_put_contents(AWS_PATH . 'config.inc.php', $config_file);
+			file_put_contents(AWS_PATH . 'config/install.lock.php', time());
+		}
 		
 		TPL::output('install/success');
 		break;

@@ -51,6 +51,7 @@
 			<b><?php _e('数据表前缀'); ?></b><input type="text" class="default_text" value="aws_" name="db_prefix" /><span><?php _e('同数据库安装多个本程序时需要更改'); ?></span>
 		</li>
 		<?php } else { ?>
+		<input type="hidden" name="db_prefix" value="aws_" />
 		<li>
 			<b><?php _e('上传目录地址'); ?></b><input type="text" class="default_text" value="" name="upload_url" /><span><?php _e('上传目录外部访问 URL 地址'); ?></span></li>
 		</li>

@@ -18,41 +18,55 @@ class core_mail
 	private $config;
 	private $transport_error;
 	
+	private $sae_option;
+	
 	public function __construct()
 	{
 		$this->config = get_setting('mail_config');
 		
-		if (defined('IN_SAE'))
-		{
-			return false;
-		}
-		
 		switch ($this->config['transport'])
 		{
 			case 'smtp':
-				$auth = array(
-					'auth' => 'login',
-					'username' => $this->config['username'],
-					'password' => $this->config['password']
-				);
+				if (defined('IN_SAE'))
+				{
+					$this->sae_option['smtp_username'] = $this->config['username'];
+					$this->sae_option['smtp_password'] = $this->config['password'];
 					
-				if ($this->config['port'])
-				{
-					$auth['port'] = $this->config['port'];
-				}
+					if ($this->config['port'])
+					{
+						$this->sae_option['smtp_port'] = $this->config['port'];
+					}
 					
-				if ($this->config['ssl'])
-				{
-					$auth['ssl'] = 'ssl';
+					$this->sae_option['smtp_host'] = $this->config['server'];
+					
+					$this->transport = new SaeMail();
 				}
-				
-				try 
+				else
 				{
-					$this->transport = new Zend_Mail_Transport_Smtp($this->config['server'], $auth);
-				}
-				catch (Exception $e)
-				{
-					$this->transport_error = $e->getMessage();
+					$auth = array(
+						'auth' => 'login',
+						'username' => $this->config['username'],
+						'password' => $this->config['password']
+					);
+						
+					if ($this->config['port'])
+					{
+						$auth['port'] = $this->config['port'];
+					}
+						
+					if ($this->config['ssl'])
+					{
+						$auth['ssl'] = 'ssl';
+					}
+					
+					try 
+					{
+						$this->transport = new Zend_Mail_Transport_Smtp($this->config['server'], $auth);
+					}
+					catch (Exception $e)
+					{
+						$this->transport_error = $e->getMessage();
+					}
 				}
 			break;
 			
@@ -87,11 +101,17 @@ class core_mail
 		
 		if (defined('IN_SAE'))
 		{
-			$sae_mail = new SaeMail();
+			$this->sae_option['from'] = get_setting('from_email');
+			$this->sae_option['to'] = $address;
+			$this->sae_option['subject'] = $title;
+			$this->sae_option['content_type'] = 'HTML';
+			$this->sae_option['content'] = $body;
 			
-			if (!$sae_mail->quickSend($address, $title, $body, $this->config['username'], $this->config['password'], $this->config['server'], $this->config['port'], $this->config['ssl']))
+			$this->transport->setOpt($this->sae_option);
+			
+			if (!$this->transport->send())
 			{
-				return $sae_mail->errmsg();
+				return $this->transport->errmsg();
 			}
 		}
 		else
