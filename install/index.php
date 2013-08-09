@@ -175,7 +175,7 @@ switch ($_POST['step'])
 		{
 			$db_config = array(
 			  'host' => SAE_MYSQL_HOST_M,
-			  'db_port' => SAE_MYSQL_PORT
+			  'db_port' => SAE_MYSQL_PORT,
 			  'username' =>  SAE_MYSQL_USER,
 			  'password' => SAE_MYSQL_PASS,
 			  'dbname' => SAE_MYSQL_DB,
