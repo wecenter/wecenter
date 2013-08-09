@@ -103,11 +103,21 @@ class weixin_class extends AWS_MODEL
 		switch ($input_message['msgType'])
 		{
 			case 'event':
-				switch ($input_message['event'])
+				if (substr($input_message['event'], 0, 8) == 'COMMAND_')
 				{
-					case 'subscribe':
-						$response_message = get_setting('weixin_subscribe_message');
-					break;
+					$this->message_parser(array(
+						'content' => substr($input_message['event'], 8),
+						'fromUsername' => $input_message['fromUsername']
+					))
+				}
+				else
+				{
+					switch ($input_message['event'])
+					{
+						case 'subscribe':
+							$response_message = get_setting('weixin_subscribe_message');
+						break;
+					}
 				}
 			break;
 			
@@ -974,5 +984,40 @@ class weixin_class extends AWS_MODEL
 		}
 		
 		return get_setting('upload_url') . '/weixin/' . $size . $image_file;
+	}
+	
+	public function get_access_token()
+	{
+		if ($access_token = AWS_APP::cache()->get('weixin_access_token'))
+		{
+			return $access_token;
+		}
+		
+		if ($result = curl_get_contents('https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=' . AWS_APP::config()->get('weixin')->app_id . '&secret=' . AWS_APP::config()->get('weixin')->app_secret))
+		{
+			$result = json_decode($result, true);
+			
+			if ($result['access_token'])
+			{
+				AWS_APP::cache()->set('weixin_access_token', $result['access_token'], $result['expires_in']);
+				
+				return $result['access_token'];
+			}
+		}
+	}
+	
+	public function update_menu()
+	{	
+		if ($result = HTTP::request('https://api.weixin.qq.com/cgi-bin/menu/create?access_token=' . $this->get_access_token(), 'POST', json_encode(AWS_APP::config()->get('weixin')->menu_items)))
+		{
+			$result = json_decode($result, true);
+			
+			if ($result['errcode'])
+			{
+				return $result['errmsg'];
+			}
+		}
+		
+		return '由于网络问题, 菜单更新失败';
 	}
 }

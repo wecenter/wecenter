@@ -45,7 +45,36 @@ $config['command_notifications'] = '最新通知';
 $config['command_my'] = '我的问题';
 
 // 绑定状态指令
-$config['command_bind_info']= '绑定状态';
+$config['command_bind_info'] = '绑定状态';
 
 // 解除绑定指令
-$config['command_unbind']= '解除绑定';
+$config['command_unbind'] = '解除绑定';
+
+
+/****** 微信自定义菜单选项 ******/
+
+$config['app_id'] = '';
+$config['app_secret'] = '';
+
+$config['menu_items'] = array(
+	'button' = array(
+		array(
+			'type' => 'click',
+			'name' => '最新问题',
+			'key' => 'COMMAND_NEW_QUESTION'
+		),
+		array(
+			'type' => 'click',
+			'name' => '我的问题',
+			'key' => 'COMMAND_MY_QUESTION'
+		),
+		array(
+			'name' => '其他',
+			'sub_button' => array(
+				'type' => 'click',
+				'name' => '最新通知',
+				'key' => 'COMMAND_NOTIFICATIONS'
+			)
+		)
+	)
+);

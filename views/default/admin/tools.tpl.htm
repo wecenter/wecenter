@@ -104,6 +104,20 @@
 				</dl>
 				<input type="hidden" name="action" value="bbcode_to_markdown" />
 				</form>
+				
+				<form action="admin/tools/init/" method="post" target="_blank">
+				<dl>
+					<dt><h3><?php _e('更新微信菜单'); ?>:</h3></dt>
+					
+					<dd class="aw-box-row-dd">
+						<p class="aw-text-color-999"><?php _e('此工具可以读取系统中的微信配置并提交给微信公众平台, 使用前请确认菜单已经配置好, 并且有菜单权限'); ?></p>
+					</dd>
+					<dd>
+						<input class="btn btn-inverse" type="submit" value="<?php _e('开始处理'); ?>" />
+					</dd>
+				</dl>
+				<input type="hidden" name="action" value="update_weixin_menu" />
+				</form>
 		</div>
 	</div>
 </div>
