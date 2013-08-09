@@ -59,22 +59,72 @@ $config['app_secret'] = '';
 $config['menu_items'] = array(
 	'button' => array(
 		array(
-			'type' => 'click',
-			'name' => '最新问题',
-			'key' => 'COMMAND_NEW_QUESTION'
+			'name' => '与我相关',
+			'sub_button' => array(
+				array(
+					'type' => 'click',
+					'name' => '最新动态',
+					'key' => 'COMMAND_COMING_SOON'
+				),
+				array(
+					'type' => 'click',
+					'name' => '我的提问',
+					'key' => 'COMMAND_MY_QUESTION'
+				),
+				array(
+					'type' => 'click',
+					'name' => '我的收藏',
+					'key' => 'COMMAND_COMING_SOON'
+				),
+				array(
+					'type' => 'click',
+					'name' => '我的通知',
+					'key' => 'COMMAND_NOTIFICATIONS'
+				),
+			)
 		),
 		array(
-			'type' => 'click',
-			'name' => '我的问题',
-			'key' => 'COMMAND_MY_QUESTION'
+			'name' => '全站内容',
+			'sub_button' => array(
+				array(
+					'type' => 'click',
+					'name' => '最新问题',
+					'key' => 'COMMAND_NEW_QUESTION'
+				),
+				array(
+					'type' => 'click',
+					'name' => '热门问题',
+					'key' => 'COMMAND_COMING_SOON'
+				),
+				array(
+					'type' => 'click',
+					'name' => '推荐问题',
+					'key' => 'COMMAND_COMING_SOON'
+				),
+				array(
+					'type' => 'click',
+					'name' => '内容导航',
+					'key' => 'COMMAND_COMING_SOON'
+				),
+				array(
+					'type' => 'click',
+					'name' => '话题广场',
+					'key' => 'COMMAND_COMING_SOON'
+				),
+			)
 		),
 		array(
 			'name' => '其他',
 			'sub_button' => array(
 				array(
 					'type' => 'click',
-					'name' => '最新通知',
-					'key' => 'COMMAND_NOTIFICATIONS'
+					'name' => '关于我们',
+					'key' => 'COMMAND_COMING_SOON'
+				),
+				array(
+					'type' => 'click',
+					'name' => '系统帮助',
+					'key' => 'COMMAND_HELP'
 				)
 			)
 		)
