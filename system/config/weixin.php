@@ -57,7 +57,7 @@ $config['app_id'] = '';
 $config['app_secret'] = '';
 
 $config['menu_items'] = array(
-	'button' = array(
+	'button' => array(
 		array(
 			'type' => 'click',
 			'name' => '最新问题',
@@ -71,9 +71,11 @@ $config['menu_items'] = array(
 		array(
 			'name' => '其他',
 			'sub_button' => array(
-				'type' => 'click',
-				'name' => '最新通知',
-				'key' => 'COMMAND_NOTIFICATIONS'
+				array(
+					'type' => 'click',
+					'name' => '最新通知',
+					'key' => 'COMMAND_NOTIFICATIONS'
+				)
 			)
 		)
 	)

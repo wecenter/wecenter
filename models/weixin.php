@@ -103,12 +103,16 @@ class weixin_class extends AWS_MODEL
 		switch ($input_message['msgType'])
 		{
 			case 'event':
-				if (substr($input_message['event'], 0, 8) == 'COMMAND_')
+				if (substr($input_message['eventKey'], 0, 8) == 'COMMAND_')
 				{
-					$this->message_parser(array(
-						'content' => substr($input_message['event'], 8),
+					if ($response = $this->message_parser(array(
+						'content' => substr($input_message['eventKey'], 8),
 						'fromUsername' => $input_message['fromUsername']
-					))
+					)))
+					{
+						$response_message = $response['message'];
+						$action = $response['action'];
+					}
 				}
 				else
 				{
@@ -322,6 +326,7 @@ class weixin_class extends AWS_MODEL
 			break;
 			
 			case AWS_APP::config()->get('weixin')->command_new:
+			case 'NEW_QUESTION':
 				if ($question_list = $this->model('question')->get_questions_list(1, 10))
 				{
 					$response_message .= "最新问题: \n";
@@ -334,6 +339,7 @@ class weixin_class extends AWS_MODEL
 			break;
 			
 			case AWS_APP::config()->get('weixin')->command_notifications:
+			case 'NOTIFICATIONS':
 				if ($this->user_id)
 				{
 					if ($notifications = $this->model('notify')->list_notification($this->user_id, 0, calc_page_limit($param, 5)))
@@ -375,6 +381,7 @@ class weixin_class extends AWS_MODEL
 			break;
 			
 			case AWS_APP::config()->get('weixin')->command_my:
+			case 'MY_QUESTION':
 				if ($this->user_id)
 				{
 					if ($user_actions = $this->model('account')->get_user_actions($this->user_id, calc_page_limit($param, 5), 101))
@@ -1007,8 +1014,8 @@ class weixin_class extends AWS_MODEL
 	}
 	
 	public function update_menu()
-	{	
-		if ($result = HTTP::request('https://api.weixin.qq.com/cgi-bin/menu/create?access_token=' . $this->get_access_token(), 'POST', json_encode(AWS_APP::config()->get('weixin')->menu_items)))
+	{
+		if ($result = HTTP::request('https://api.weixin.qq.com/cgi-bin/menu/create?access_token=' . $this->get_access_token(), 'POST', json_encode(AWS_APP::config()->get('weixin')->menu_items, JSON_UNESCAPED_UNICODE)))
 		{
 			$result = json_decode($result, true);
 			
@@ -1017,7 +1024,9 @@ class weixin_class extends AWS_MODEL
 				return $result['errmsg'];
 			}
 		}
-		
-		return '由于网络问题, 菜单更新失败';
+		else
+		{
+			return '由于网络问题, 菜单更新失败';
+		}
 	}
 }
