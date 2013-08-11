@@ -331,7 +331,7 @@ class weixin_class extends AWS_MODEL
 			
 			case AWS_APP::config()->get('weixin')->command_hot:
 			case 'HOT_QUESTION':
-				if ($question_list = $this->model('question')->get_hot_question(null, null, null, 1, 10))
+				if ($question_list = $this->model('question')->get_hot_question(null, null, 7, 1, 10))
 				{
 					$response_message .= "热门问题: \n";
 							
