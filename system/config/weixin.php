@@ -38,6 +38,12 @@ $config['command_register'] = 'reg';
 // 最新问题指令
 $config['command_new'] = '最新问题';
 
+// 热门问题指令
+$config['command_hot'] = '热门问题';
+
+// 推荐问题指令
+$config['command_recommend'] = '推荐问题';
+
 // 最新通知指令
 $config['command_notifications'] = '最新通知';
 
@@ -64,17 +70,12 @@ $config['menu_items'] = array(
 				array(
 					'type' => 'click',
 					'name' => '最新动态',
-					'key' => 'COMMAND_COMING_SOON'
+					'key' => 'COMMAND_HOME_ACTIONS'
 				),
 				array(
 					'type' => 'click',
 					'name' => '我的提问',
 					'key' => 'COMMAND_MY_QUESTION'
-				),
-				array(
-					'type' => 'click',
-					'name' => '我的收藏',
-					'key' => 'COMMAND_COMING_SOON'
 				),
 				array(
 					'type' => 'click',
@@ -94,12 +95,12 @@ $config['menu_items'] = array(
 				array(
 					'type' => 'click',
 					'name' => '热门问题',
-					'key' => 'COMMAND_COMING_SOON'
+					'key' => 'COMMAND_HOT_QUESTION'
 				),
 				array(
 					'type' => 'click',
 					'name' => '推荐问题',
-					'key' => 'COMMAND_COMING_SOON'
+					'key' => 'COMMAND_RECOMMEND_QUESTION'
 				),
 				array(
 					'type' => 'click',

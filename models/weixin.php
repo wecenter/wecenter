@@ -329,6 +329,23 @@ class weixin_class extends AWS_MODEL
 				$response_message = '功能开发中, 敬请期待...';
 			break;
 			
+			case AWS_APP::config()->get('weixin')->command_hot:
+			case 'HOT_QUESTION':
+				if ($question_list = $this->model('question')->get_hot_question(null, null, null, 1, 10))
+				{
+					$response_message .= "热门问题: \n";
+							
+					foreach ($question_list AS $key => $val)
+					{
+						$response_message .= "\n" . '• <a href="' . get_js_url('/question/' . $val['question_id']) . '">' . $val['question_content'] . '</a> (' . date_friendly($val['add_time']) . ')' . "\n";
+					}
+				}
+				else
+				{
+					$response_message = '暂无问题';
+				}
+			break;
+			
 			case AWS_APP::config()->get('weixin')->command_new:
 			case 'NEW_QUESTION':
 				if ($question_list = $this->model('question')->get_questions_list(1, 10))
@@ -339,6 +356,61 @@ class weixin_class extends AWS_MODEL
 					{
 						$response_message .= "\n" . '• <a href="' . get_js_url('/question/' . $val['question_id']) . '">' . $val['question_content'] . '</a> (' . date_friendly($val['add_time']) . ')' . "\n";
 					}
+				}
+				else
+				{
+					$response_message = '暂无问题';
+				}
+			break;
+			
+			case AWS_APP::config()->get('weixin')->command_recommend:
+			case 'RECOMMEND_QUESTION':
+				if ($question_list = $this->model('question')->get_questions_list(1, 10, null, null, null, null, null, true))
+				{
+					$response_message .= "推荐问题: \n";
+							
+					foreach ($question_list AS $key => $val)
+					{
+						$response_message .= "\n" . '• <a href="' . get_js_url('/question/' . $val['question_id']) . '">' . $val['question_content'] . '</a> (' . date_friendly($val['add_time']) . ')' . "\n";
+					}
+				}
+				else
+				{
+					$response_message = '暂无问题';
+				}
+			break;
+			
+			case '最新动态':
+			case 'HOME_ACTIONS':
+				if ($this->user_id)
+				{
+					if ($index_actions = $this->model('index')->get_index_focus($this->user_id, 10))
+					{
+						$response_message = '最新动态:';
+						
+						foreach ($index_actions AS $key => $val)
+						{
+							if ($val['associate_action'] == ACTION_LOG::ANSWER_QUESTION OR $val['associate_action'] == ACTION_LOG::ADD_AGREE)
+							{
+								$response_message .= "\n\n• " . '<a href="' . get_js_url('/m/answer/' . $val['answer_info']['answer_id']) . '">';
+							}
+							else
+							{
+								$response_message .= "\n\n• " . '<a href="' . get_js_url('/m/question/' . $val['answer_info']['answer_id']) . '">';
+							}
+							
+							$response_message .= $val['question_content'] . '</a>';
+							$response_message .= "\n" . strip_tags($val['last_action_str']);
+						}
+					}
+					else
+					{
+						$response_message = '暂时没有最新动态';
+					}
+				}
+				else
+				{
+					$response_message = '你的微信帐号没有绑定 ' . get_setting('site_name') . ' 的帐号, 请<a href="' . get_js_url('/m/login/?weixin_id=' . base64_encode($input_message['fromUsername'])) . '">点此绑定</a>或<a href="' . get_js_url('/m/register/?weixin_id=' . base64_encode($input_message['fromUsername'])) . '">注册新账户</a>';
 				}
 			break;
 			
