@@ -175,7 +175,7 @@ class weixin_class extends AWS_MODEL
 				else if ($search_result = $this->model('search')->search_questions($input_message['content'], null, 6))
 				{
 					$response_message = '下列内容可以帮到您么:' . "\n";
-						
+					
 					foreach ($search_result AS $key => $val)
 					{
 						$response_message .= "\n" . '• <a href="' . get_js_url('/m/question/' . $val['question_id']) . '">' . $val['question_content'] . '</a>' . "\n";
@@ -252,7 +252,16 @@ class weixin_class extends AWS_MODEL
 				unset($image_size);
 			}
 			
-			$article_tpl .= sprintf($this->image_article_tpl, $val['title'], $val['description'], $this->get_weixin_rule_image($val['image_file'], $image_size), $val['link']);
+			if (substr($val['image_file'], 0, 4) == 'http')
+			{
+				$image_file = $val['image_file'];
+			}
+			else
+			{
+				$image_file = $this->get_weixin_rule_image($val['image_file'], $image_size);
+			}
+			
+			$article_tpl .= sprintf($this->image_article_tpl, $val['title'], $val['description'], $image_file, $val['link']);
 		}
 		
 		if (!$article_tpl)
@@ -344,11 +353,29 @@ class weixin_class extends AWS_MODEL
 			case 'HOT_QUESTION':
 				if ($question_list = $this->model('question')->get_hot_question(null, null, 7, 1, 10))
 				{
-					$response_message .= "热门问题: \n";
+					/*response_message .= "热门问题: \n";
 							
 					foreach ($question_list AS $key => $val)
 					{
 						$response_message .= "\n" . '• <a href="' . get_js_url('/question/' . $val['question_id']) . '">' . $val['question_content'] . '</a> (' . date_friendly($val['add_time']) . ')' . "\n";
+					}*/
+					
+					foreach ($question_list AS $key => $val)
+					{
+						if (!$response_message)
+						{
+							$image_file = AWS_APP::config()->get('weixin')->default_image_file;
+						}
+						else
+						{
+							$image_file = get_avatar_url($val['published_uid'], 'max');
+						}
+						
+						$response_message[] = array(
+							'title' => $val['question_content'],
+							'link' => get_js_url('/question/' . $val['question_id']),
+							'image_file' => $image_file
+						);
 					}
 				}
 				else
@@ -361,11 +388,29 @@ class weixin_class extends AWS_MODEL
 			case 'NEW_QUESTION':
 				if ($question_list = $this->model('question')->get_questions_list(1, 10))
 				{
-					$response_message .= "最新问题: \n";
+					/*$response_message .= "最新问题: \n";
 							
 					foreach ($question_list AS $key => $val)
 					{
 						$response_message .= "\n" . '• <a href="' . get_js_url('/question/' . $val['question_id']) . '">' . $val['question_content'] . '</a> (' . date_friendly($val['add_time']) . ')' . "\n";
+					}*/
+					
+					foreach ($question_list AS $key => $val)
+					{
+						if (!$response_message)
+						{
+							$image_file = AWS_APP::config()->get('weixin')->default_image_file;
+						}
+						else
+						{
+							$image_file = get_avatar_url($val['published_uid'], 'max');
+						}
+						
+						$response_message[] = array(
+							'title' => $val['question_content'],
+							'link' => get_js_url('/question/' . $val['question_id']),
+							'image_file' => $image_file
+						);
 					}
 				}
 				else
@@ -378,11 +423,29 @@ class weixin_class extends AWS_MODEL
 			case 'RECOMMEND_QUESTION':
 				if ($question_list = $this->model('question')->get_questions_list(1, 10, null, null, null, null, null, true))
 				{
-					$response_message .= "推荐问题: \n";
+					/*$response_message .= "推荐问题: \n";
 							
 					foreach ($question_list AS $key => $val)
 					{
 						$response_message .= "\n" . '• <a href="' . get_js_url('/question/' . $val['question_id']) . '">' . $val['question_content'] . '</a> (' . date_friendly($val['add_time']) . ')' . "\n";
+					}*/
+					
+					foreach ($question_list AS $key => $val)
+					{
+						if (!$response_message)
+						{
+							$image_file = AWS_APP::config()->get('weixin')->default_image_file;
+						}
+						else
+						{
+							$image_file = get_avatar_url($val['published_uid'], 'max');
+						}
+						
+						$response_message[] = array(
+							'title' => $val['question_content'],
+							'link' => get_js_url('/question/' . $val['question_id']),
+							'image_file' => $image_file
+						);
 					}
 				}
 				else
