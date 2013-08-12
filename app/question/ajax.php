@@ -773,9 +773,9 @@ class ajax extends AWS_CONTROLLER
 			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('请输入话题标题')));
 		}
 		
-		if (preg_match('/\//i', $_POST['topic_title']))
+		if (strstr($_POST['topic_title'], '/') OR strstr($_POST['topic_title'], '-'))
 		{
-			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('话题标题不能包含 /')));
+			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('话题标题不能包含 / 与 -')));
 		}
 		
 		if (! $this->model('topic')->get_topic_id_by_title($_POST['topic_title']) AND get_setting('topic_title_limit') AND cjk_strlen($_POST['topic_title']) > get_setting('topic_title_limit'))
