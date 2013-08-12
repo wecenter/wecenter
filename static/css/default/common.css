@@ -658,6 +658,7 @@ select{width: auto;}
 .aw-publish-title-dropdown p a{display:inline-block;width:35px;height:34px;background: #f5f5f5;border-left:1px solid #C1CAD4;text-align: center;}
 .aw-publish-title-dropdown p a i{margin-top:13px;}
 .aw-publish-title-dropdown .dropdown-menu{width: 150px;}
+.aw-publish-title-dropdown .dropdown-menu ul{max-height: 324px;overflow-y:auto;}
 .aw-mod-publish .aw-anonymity{margin:5px 30px 0 0;}
 .aw-mod-publish .aw-anonymity label{float: left;margin-left: 10px;}
 .aw-mod-publish .aw-anonymity input{margin:4px 3px 0 0;margin:0\0;}
