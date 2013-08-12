@@ -41,7 +41,7 @@ class js extends AWS_CONTROLLER
 			$_GET['limit'] = 10;
 		}
 		
-		echo $this->model('aws_external')->format_js_question_ul_output($_GET['ul_class'], $this->model('question')->get_questions_list(1, intval($_GET['limit']), 'new', $_GET['topic_ids'], $_GET['category_id'], null, $_GET['day']));
+		echo $this->model('aws_external')->format_js_question_ul_output($_GET['ul_class'], $this->model('question')->get_questions_list(1, intval($_GET['limit']), 'new', $_GET['topic_ids'], $_GET['category_id'], null, $_GET['day'], $_GET['is_recommend']));
 	}
 	
 	public function hot_questions_action()
@@ -51,7 +51,8 @@ class js extends AWS_CONTROLLER
 			$_GET['limit'] = 10;
 		}
 		
-		echo $this->model('aws_external')->format_js_question_ul_output($_GET['ul_class'], $this->model('question')->get_questions_list(1, intval($_GET['limit']), 'hot', $_GET['topic_ids'], $_GET['category_id'], null, $_GET['day'], $_GET['is_recommend']));
+		echo $this->model('aws_external')->format_js_question_ul_output($_GET['ul_class'], $this->model('question')->get_hot_question($_GET['category_id'], $_GET['topic_ids'], $_GET['day'], 1, $_GET['limit']));
+		
 	}
 	
 	public function unresponsive_questions_action()
@@ -61,7 +62,7 @@ class js extends AWS_CONTROLLER
 			$_GET['limit'] = 10;
 		}
 		
-		echo $this->model('aws_external')->format_js_question_ul_output($_GET['ul_class'], $this->model('question')->get_hot_question($_GET['category_id'], $_GET['topic_ids'], $_GET['day']));
+		echo $this->model('aws_external')->format_js_question_ul_output($_GET['ul_class'], $this->model('question')->get_questions_list(1, intval($_GET['limit']), 'new', $_GET['topic_ids'], $_GET['category_id'], '0', $_GET['day'], $_GET['is_recommend']));
 	}
 	
 	public function related_questions_action()
