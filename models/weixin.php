@@ -329,7 +329,7 @@ class weixin_class extends AWS_MODEL
 						
 						if ($topic_questions = $this->model('question')->get_questions_list(1, 5, 'new', $topic_info['topic_id']))
 						{
-							$response_message .= "\n\n" . $topic_info['topic_title'] . " 话题下的问题: \n";
+							$response_message .= $topic_info['topic_title'] . " 话题下的问题: \n";
 							
 							foreach ($topic_questions AS $key => $val)
 							{
@@ -364,7 +364,7 @@ class weixin_class extends AWS_MODEL
 					{
 						if (!$response_message)
 						{
-							$image_file = AWS_APP::config()->get('weixin')->default_image_file;
+							$image_file = AWS_APP::config()->get('weixin')->default_list_image_hot;
 						}
 						else
 						{
@@ -399,7 +399,7 @@ class weixin_class extends AWS_MODEL
 					{
 						if (!$response_message)
 						{
-							$image_file = AWS_APP::config()->get('weixin')->default_image_file;
+							$image_file = AWS_APP::config()->get('weixin')->default_list_image_new;
 						}
 						else
 						{
@@ -434,7 +434,7 @@ class weixin_class extends AWS_MODEL
 					{
 						if (!$response_message)
 						{
-							$image_file = AWS_APP::config()->get('weixin')->default_image_file;
+							$image_file = AWS_APP::config()->get('weixin')->default_list_image_recommend;
 						}
 						else
 						{
