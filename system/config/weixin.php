@@ -59,7 +59,7 @@ $config['command_unbind'] = '解除绑定';
 
 /****** 微信自定义菜单选项 ******/
 
-$config['default_image_file'] = get_js_url('/static/common/weixin_default_image.jpg');
+$config['default_image_file'] = G_STATIC_URL . '/common/weixin_default_image.jpg';
 
 $config['app_id'] = '';
 $config['app_secret'] = '';
