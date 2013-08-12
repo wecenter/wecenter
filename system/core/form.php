@@ -1,13 +1,13 @@
 <?php
 /*
 +--------------------------------------------------------------------------
-|   Anwsion [#RELEASE_VERSION#]
+|   WeCenter [#RELEASE_VERSION#]
 |   ========================================
-|   by Anwsion dev team
-|   (c) 2011 - 2012 Anwsion Software
-|   http://www.anwsion.com
+|   by WeCenter Software
+|   © 2011 - 2013 WeCenter. All Rights Reserved
+|   http://www.wecenter.com
 |   ========================================
-|   Support: zhengqiang@gmail.com
+|   Support: WeCenter@qq.com
 |   
 +---------------------------------------------------------------------------
 */
