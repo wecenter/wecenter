@@ -102,16 +102,6 @@ $config['menu_items'] = array(
 					'name' => '推荐问题',
 					'key' => 'COMMAND_RECOMMEND_QUESTION'
 				),
-				array(
-					'type' => 'click',
-					'name' => '内容导航',
-					'key' => 'COMMAND_COMING_SOON'
-				),
-				array(
-					'type' => 'click',
-					'name' => '话题广场',
-					'key' => 'COMMAND_COMING_SOON'
-				),
 			)
 		),
 		array(
@@ -120,13 +110,13 @@ $config['menu_items'] = array(
 				array(
 					'type' => 'click',
 					'name' => '关于我们',
-					'key' => 'COMMAND_COMING_SOON'
+					'key' => 'RULE_ABOUT_US'
 				),
 				array(
 					'type' => 'click',
 					'name' => '系统帮助',
 					'key' => 'COMMAND_HELP'
-				)
+				),
 			)
 		)
 	)

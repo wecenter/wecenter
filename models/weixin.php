@@ -114,6 +114,17 @@ class weixin_class extends AWS_MODEL
 						$action = $response['action'];
 					}
 				}
+				else if (substr($input_message['eventKey'], 0, 5) == 'RULE_')
+				{
+					if ($reply_rule = $this->get_reply_rule_by_event_key(substr($input_message['eventKey'], 5)))
+					{
+						$response_message = $this->create_response_by_reply_rule_keyword($reply_rule['keyword']);
+					}
+					else
+					{
+						$response_message = '菜单指令错误';
+					}
+				}
 				else
 				{
 					switch ($input_message['event'])
@@ -784,10 +795,18 @@ class weixin_class extends AWS_MODEL
 		return $this->fetch_all('weixin_reply_rule', null, 'id DESC');
 	}
 	
-	public function add_reply_rule($keyword, $title, $description = '', $link = '', $image_file = '')
-	{		
+	public function add_reply_rule($keyword, $event_key, $title, $description = '', $link = '', $image_file = '')
+	{
+		if ($event_key)
+		{
+			$this->update('weixin_reply_rule', array(
+				'event_key' => trim($event_key)
+			), "keyword = '" . $this->quote($keyword) . "'");
+		}
+		
 		return $this->insert('weixin_reply_rule', array(
 			'keyword' => trim($keyword),
+			'event_key' => trim($event_key),
 			'title' => $title,
 			'description' => $description,
 			'image_file' => $image_file,
@@ -803,9 +822,20 @@ class weixin_class extends AWS_MODEL
 		), 'id = ' . $id);
 	}
 	
-	public function update_reply_rule($id, $title, $description = '', $link = '', $image_file = '')
+	public function update_reply_rule($id, $event_key, $title, $description = '', $link = '', $image_file = '')
 	{
+		if ($event_key)
+		{
+			if ($reply_rule = $this->get_reply_rule_by_id($id))
+			{
+				$this->update('weixin_reply_rule', array(
+					'event_key' => trim($event_key)
+				), "keyword = '" . $this->quote($reply_rule['keyword']) . "'");
+			}
+		}
+		
 		return $this->update('weixin_reply_rule', array(
+			'event_key' => trim($event_key),
 			'title' => $title,
 			'description' => $description,
 			'image_file' => $image_file,
@@ -821,6 +851,11 @@ class weixin_class extends AWS_MODEL
 	public function get_reply_rule_by_keyword($keyword)
 	{
 		return $this->fetch_row('weixin_reply_rule', "`keyword` = '" . trim($this->quote($keyword)) . "'");
+	}
+	
+	public function get_reply_rule_by_event_key($event_key)
+	{
+		return $this->fetch_row('weixin_reply_rule', "`event_key` = '" . trim($this->quote($event_key)) . "'");
 	}
 	
 	public function create_response_by_reply_rule_keyword($keyword)
@@ -1091,7 +1126,7 @@ class weixin_class extends AWS_MODEL
 	
 	public function update_menu()
 	{
-		if ($result = HTTP::request('https://api.weixin.qq.com/cgi-bin/menu/create?access_token=' . $this->get_access_token(), 'POST', json_encode(AWS_APP::config()->get('weixin')->menu_items, JSON_UNESCAPED_UNICODE)))
+		if ($result = HTTP::request('https://api.weixin.qq.com/cgi-bin/menu/create?access_token=' . $this->get_access_token(), 'POST', preg_replace("#\\\u([0-9a-f]+)#ie", "iconv('UCS-2', 'UTF-8', pack('H4', '\\1'))", json_encode(AWS_APP::config()->get('weixin')->menu_items))))
 		{
 			$result = json_decode($result, true);
 			
