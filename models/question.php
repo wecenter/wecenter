@@ -212,6 +212,8 @@ class question_class extends AWS_MODEL
 	
 	public function search_questions_list($page, $per_page, $keyword = null, $category_id = null, $start_date = null, $end_date = null, $answer_count_min = null, $answer_count_max = null, $user_name = null, $best_answer = false)
 	{
+		$where = array();
+		
 		if ($keyword)
 		{
 			$where[] = "(MATCH(question_content_fulltext) AGAINST('" . $this->quote($this->model('search_index')->encode_search_code($this->model('system')->analysis_keyword($keyword))) . "' IN BOOLEAN MODE))";
