@@ -95,7 +95,7 @@ class people_class extends AWS_MODEL
 	
 	public function search_users($page, $per_page, $user_name = null, $email = null, $group_id = null, $ip = null, $integral_min = null, $integral_max = null, $reputation_min = null, $reputation_max = null, $job_id = null, $province = null, $city = null)
 	{
-		$where[] = array();
+		$where = array();
 		
 		if ($user_name)
 		{

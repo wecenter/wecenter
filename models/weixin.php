@@ -105,9 +105,22 @@ class weixin_class extends AWS_MODEL
 			case 'event':
 				if (substr($input_message['eventKey'], 0, 8) == 'COMMAND_')
 				{
+					if (strstr($input_message['eventKey'], '__'))
+					{
+						$event_key = explode('__', substr($input_message['eventKey'], 8));
+						
+						$content = $event_key[0];
+						$param = $event_key[1];
+					}
+					else
+					{
+						$content = substr($input_message['eventKey'], 8);
+					}
+					
 					if ($response = $this->message_parser(array(
-						'content' => substr($input_message['eventKey'], 8),
-						'fromUsername' => $input_message['fromUsername']
+						'content' => $content,
+						'fromUsername' => $input_message['fromUsername'],
+						'param' => $param
 					)))
 					{
 						$response_message = $response['message'];
@@ -351,7 +364,21 @@ class weixin_class extends AWS_MODEL
 			
 			case AWS_APP::config()->get('weixin')->command_hot:
 			case 'HOT_QUESTION':
-				if ($question_list = $this->model('question')->get_hot_question(null, null, 7, 1, 10))
+				if ($input_message['param'])
+				{
+					switch (AWS_APP::config()->get('weixin')->key_param_type)
+					{
+						case 'CATEGORY':
+							$category_id = intval($input_message['param']);
+						break;
+						
+						case 'FEATURE':
+							$topics_id = $this->model('feature')->get_topics_by_feature_id($input_message['param']);
+						break;
+					}
+				}
+				
+				if ($question_list = $this->model('question')->get_hot_question($category_id, $topics_id, 7, 1, 10))
 				{
 					/*response_message .= "热门问题: \n";
 							
@@ -386,7 +413,21 @@ class weixin_class extends AWS_MODEL
 			
 			case AWS_APP::config()->get('weixin')->command_new:
 			case 'NEW_QUESTION':
-				if ($question_list = $this->model('question')->get_questions_list(1, 10))
+				if ($input_message['param'])
+				{
+					switch (AWS_APP::config()->get('weixin')->key_param_type)
+					{
+						case 'CATEGORY':
+							$category_id = intval($input_message['param']);
+						break;
+						
+						case 'FEATURE':
+							$topics_id = $this->model('feature')->get_topics_by_feature_id($input_message['param']);
+						break;
+					}
+				}
+				
+				if ($question_list = $this->model('question')->get_questions_list(1, 10, 'new', $topics_id, $category_id))
 				{
 					/*$response_message .= "最新问题: \n";
 							

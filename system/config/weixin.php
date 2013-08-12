@@ -59,6 +59,8 @@ $config['command_unbind'] = '解除绑定';
 
 /****** 微信自定义菜单选项 ******/
 
+$config['key_param_type'] = 'FEATURE';	// 菜单参数类型: CATEGORY - 分类 ID, FEATURE - 专题 ID
+
 // 热门问题图文列表封面图
 $config['default_list_image_hot'] = G_STATIC_URL . '/common/weixin_default_image.jpg';
 
@@ -116,6 +118,11 @@ $config['menu_items'] = array(
 		array(
 			'name' => '其他',
 			'sub_button' => array(
+				array(
+					'type' => 'click',
+					'name' => '新版本',
+					'key' => 'COMMAND_NEW_QUESTION__13'
+				),
 				array(
 					'type' => 'click',
 					'name' => '关于我们',
