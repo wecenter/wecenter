@@ -1125,8 +1125,8 @@ class weixin_class extends AWS_MODEL
 	}
 	
 	public function update_menu()
-	{
-		if ($result = HTTP::request('https://api.weixin.qq.com/cgi-bin/menu/create?access_token=' . $this->get_access_token(), 'POST', preg_replace("#\\\u([0-9a-f]+)#ie", "iconv('UCS-2', 'UTF-8', pack('H4', '\\1'))", json_encode(AWS_APP::config()->get('weixin')->menu_items))))
+	{		
+		if ($result = HTTP::request('https://api.weixin.qq.com/cgi-bin/menu/create?access_token=' . $this->get_access_token(), 'POST', preg_replace("#\\\u([0-9a-f]+)#ie", "convert_encoding(pack('H4', '\\1'), 'UCS-2', 'UTF-8')", json_encode(AWS_APP::config()->get('weixin')->menu_items))))
 		{
 			$result = json_decode($result, true);
 			
