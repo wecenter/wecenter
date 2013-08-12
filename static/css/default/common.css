@@ -106,7 +106,7 @@ select, input[type="file"]{height: 28px;line-height: 28px;}
 select{width: auto;}
 .modal-header h3{cursor: move;}
 .alert{margin-bottom:0px;padding:8px 14px;background: #FCFDDB;border: 1px solid #F9F2A7;}
-.alert-danger, .alert-error{background: #F2DEDE;border: 1px solid #EED3D7;}
+.alert-danger, .alert-error{margin-bottom:10px;background: #F2DEDE;border: 1px solid #EED3D7;}
 .tab-content{padding-bottom:30px;}
 .form-horizontal .control-label, .form-horizontal .controls{height: 30px;line-height: 30px;padding-top:0px;}
 .modal-body{overflow-y: visible;}
