@@ -921,7 +921,7 @@ select{width: auto;}
 .aw-invite-dropdown p{height: 26px;line-height: 26px;padding-left: 10px;margin:0;}
 
 /*编辑器回复样式*/
-.markitup-box {font-size: 13px !important;line-height: 22px;word-wrap: break-word !important;text-align: justify;}
+.markitup-box {font-size: 13px !important;line-height: 22px;word-wrap: break-word !important;}
 .markitup-box h2, #markItUpPreviewFrames h2, .markitup-box h3, #markItUpPreviewFrames h3 {font-weight: bold;margin: 10px 0;}
 .markitup-box h2, #markItUpPreviewFrames h2 {font-size: 1.5em;}
 .markitup-box h3, #markItUpPreviewFrames h3 {font-size: 1.17em;}
