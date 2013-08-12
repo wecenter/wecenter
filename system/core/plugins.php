@@ -110,9 +110,9 @@ class core_plugins
 	    	
 	   	closedir($dir_handle);
 	   	
-	   	file_put_contents($plugins_cache, serialize($this->plugins));
-	   	file_put_contents($plugins_table_cache, serialize($this->plugins_table));
-	   	file_put_contents($plugins_model_cache, serialize($this->plugins_model));
+	   	@file_put_contents($plugins_cache, serialize($this->plugins));
+	   	@file_put_contents($plugins_table_cache, serialize($this->plugins_table));
+	   	@file_put_contents($plugins_model_cache, serialize($this->plugins_model));
 	   	
 	   	return true;
 	}
