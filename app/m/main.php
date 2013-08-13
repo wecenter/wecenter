@@ -68,14 +68,12 @@ class main extends AWS_CONTROLLER
 		TPL::import_clean();
 		
 		TPL::import_css(array(
-			'js/mobile/jquery.mobile.css',
 			'js/mobile/mobile.css',
 		));
 		
 		TPL::import_js(array(
 			'js/jquery.js',
 			'js/jquery.form.js',
-			'js/mobile/jquery.mobile.js',
 			'js/mobile/mobile.js',
 		));
 	}
