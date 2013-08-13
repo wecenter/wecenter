@@ -161,8 +161,6 @@ class people_class extends AWS_MODEL
 			$where[] = "city = '" . $this->quote($city) . "'";
 		}
 		
-		$this->search_users_total = $this->model('account')->get_user_count(implode(' AND ', $where));
-		
-		return $this->model('account')->get_users_list(implode(' AND ', $where), calc_page_limit($page, $per_page), false, false);
+		return $this->fetch_page('users', implode(' AND ', $where), 'uid DESC', $page, $per_page);
 	}
 }

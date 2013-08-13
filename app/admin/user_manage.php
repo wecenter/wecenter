@@ -43,7 +43,7 @@ class user_manage extends AWS_ADMIN_CONTROLLER
 		
 		$user_list = $this->model('people')->search_users($_GET['page'], $this->per_page, $_GET['user_name'], $_GET['email'], $_GET['group_id'], $_GET['ip'], $_GET['integral_min'], $_GET['integral_max'], $_GET['reputation_min'], $_GET['reputation_max'], $_GET['job_id'], $_GET['province'], $_GET['city']);
 		
-		$total_rows = $this->model('people')->search_users_total;
+		$total_rows = $this->model('people')->found_rows();
 		
 		$url_param = array();
 		
