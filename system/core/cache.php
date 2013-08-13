@@ -50,22 +50,19 @@ class core_cache
 		$this->groupPrefix = G_COOKIE_HASH_KEY . $this->groupPrefix;
 		$this->cachePrefix = G_COOKIE_HASH_KEY . $this->cachePrefix;
 		
-		if ($this->backendName == 'File')
+		if (defined('IN_SAE'))
 		{
-			if (defined('IN_SAE'))
-			{
-				$cache_dir = TEMP_PATH;
-			}
-			else
-			{
-				$cache_dir = ROOT_PATH . 'cache/';
+			$this->backendName = 'Memcached';
+		}
+		else if ($this->backendName == 'File')
+		{
+			$cache_dir = ROOT_PATH . 'cache/';
 				
-				if (!file_exists($cache_dir . 'index.html'))
-				{
-					file_put_contents($cache_dir . 'index.html', '');
-				}
+			if (!file_exists($cache_dir . 'index.html'))
+			{
+				file_put_contents($cache_dir . 'index.html', '');
 			}
-			
+				
 			$this->backendOptions = array(
 				'cache_dir' => realpath($cache_dir)
 			);	
