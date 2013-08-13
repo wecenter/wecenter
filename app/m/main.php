@@ -409,7 +409,7 @@ class main extends AWS_CONTROLLER
 			$return_url = get_js_url('/m/');
 		}
 		
-		TPL::assign('r_uname', HTTP::get_cookie('r_uname'));
+		TPL::assign('body_class', 'explore-body');
 		TPL::assign('return_url', strip_tags($return_url));
 		
 		$this->crumb(AWS_APP::lang()->_t('登录'), '/m/login/');
@@ -419,6 +419,18 @@ class main extends AWS_CONTROLLER
 	
 	public function register_action()
 	{
+		if (($this->user_id AND !$_GET['weixin_id']) OR $this->user_info['weixin_id'])
+		{
+			if ($url)
+			{
+				header('Location: ' . $url); 
+			}
+			else
+			{
+				HTTP::redirect('/m/');
+			}
+		}
+		
 		if ($this->user_id AND $_GET['invite_question_id'])
 		{
 			if ($invite_question_id = intval($_GET['invite_question_id']))
@@ -445,6 +457,8 @@ class main extends AWS_CONTROLLER
 		}
 		
 		$this->crumb(AWS_APP::lang()->_t('注册'), '/m/register/');
+		
+		TPL::assign('body_class', 'explore-body');
 		
 		TPL::output('m/register');
 	}

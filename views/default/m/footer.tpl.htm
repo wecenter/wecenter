@@ -1,8 +1,85 @@
-<!-- public footer -->
-<div style="display:none">
-	<?php echo get_setting('statistic_code'); ?>
-</div>
-<!-- /public footer -->
+		<!-- 导航下拉内容 -->
+		<div class="wm-top-nav-wrap">
+			<!-- 导航下拉 消息 -->
+			<div class="wm-top-nav-popup wm-top-nav-notic hide">
+				<div class="wm-top-nav-notic-wrap">
+					<ul>
+						<li>
+							<a>kk</a> 在问题 <a>用户设置里面的我的积分页面在哪个文件改户设置里面的我的积分页面在哪个文件改？</a> 回答中的评论遇到你(16小时前)
+						</li>
+						<li>
+							<a>kk</a> 在问题 <a>用户设置里面的我的积分页面在哪个文件改？</a> 回答中的评论遇到你(16小时前)
+						</li>
+						<li>
+							<a>kk</a> 在问题 <a>用户设置里面的我的积分页面在哪个文件改？</a> 回答中的评论遇到你(16小时前)
+						</li>
+						<li>
+							<a>kk</a> 在问题 <a>用户设置里面的我的积分页面在哪个文件改？</a> 回答中的评论遇到你(16小时前)
+						</li>
+						
+					</ul>
+				</div>
+				<button class="slide-close"></button>
+			</div>
+			<!-- end 导航下拉 消息 -->
 
-</body>
+			<!-- 导航下拉 我 -->
+			<div class="wm-top-nav-popup wm-top-nav-profile hide">
+				<ul>
+					<li>
+						<a>我的主页</a>
+					</li>
+					<li>
+						<a>私信<span class="badge badge-info">3</span></a>
+					</li>
+					<li>
+						<a href="setting.html">设置</a>
+					</li>
+					<li>
+						<a>退出</a>
+					</li>
+				</ul>
+				<button class="slide-close"></button>
+			</div>
+			<!-- end 导航下拉 我 -->
+		</div>
+		<!-- end 导航下拉内容 -->
+
+	    <!-- 发起box -->
+	    <div id="publishModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		    <div class="modal-header">
+		    	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		    	<h3 id="myModalLabel">发起问题</h3>
+		    </div>
+		    <div class="modal-body">
+		    	<textarea placeholder="写下你的问题..." rows="2"></textarea>
+		    	<textarea placeholder="问题背景、条件等详细信息..." rows="4"></textarea>
+		    	<div class="wm-topic-box">
+		    		<a class="wm-topic-name">bug</a>
+		    	</div>
+		    	<div class="wm-topic-box-selector">
+		    		<input type="text" placeholder="创建或搜索添加新话题..." class="pull-left"><a class="btn btn-success pull-left">添加</a>
+		    	</div>
+		    </div>
+		    <div class="modal-footer">
+		    	<a data-dismiss="modal" aria-hidden="true">取消</a>
+		    	<button class="btn btn-primary">发起</button>
+		    </div>
+	    </div>
+		<!-- end 发起box -->
+
+		<!-- 底部 -->
+		<footer>
+			Copyright © <?php echo date('Y'); ?> - <?php echo get_setting('site_name'); ?>
+		</footer>
+		<!-- end 底部 -->
+		
+		<!-- DO NOT REMOVE -->
+		<div id="aw-ajax-box" class="aw-ajax-box"></div>
+
+		<div style="display:none">
+			<?php echo get_setting('statistic_code'); ?>
+		</div>
+		<!-- / DO NOT REMOVE -->
+	</body>
 </html>

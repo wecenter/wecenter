@@ -1,9 +1,15 @@
 <?php TPL::output('m/header.tpl.htm'); ?>
 
-<div data-role="page" class="m_login">
-	<div data-role="content">	
-		<div class="content-primary">
-			<form id="register_form" method="post" onsubmit="ajax_post($('#register_form')); return false;" action="<?php echo get_setting('base_url');?>/<?php echo G_INDEX_SCRIPT; ?>account/ajax/register_process/" data-ajax="false" id="register_form">
+<div class="explore-page">
+	<div class="explore-wrap">
+		<div class="aw-mod-header">
+			<img src="<?php echo G_STATIC_URL; ?>/js/mobile/img/login_logo.png">
+		</div>
+		<div class="aw-mod-body">
+			<h1><?php echo get_setting('site_name'); ?></h1>
+		</div>
+		<div class="aw-mod-footer">
+			<form id="register_form" method="post" onsubmit="ajax_post($('#register_form')); return false;" action="account/ajax/register_process/">
 				<input type="hidden" name="agreement_chk" value="agree" />
 				
 				<?php if ($_GET['weixin_id']) { ?>
@@ -22,24 +28,31 @@
 				  	<input type="hidden" name="invite_question_id" value="<?php echo htmlspecialchars($_GET['invite_question_id']); ?>"/> 
 				<?php } ?>
 				
-				<input type="text" id="user_name" name="user_name" placeholder="<?php _e('用户名'); ?>" value="<?php echo htmlspecialchars($_GET['user_name']); ?>" />
-				
-				<input type="text" id="email" name="email" placeholder="<?php _e('邮箱'); ?>" value="<?php echo htmlspecialchars(urldecode($_GET['email'])); ?>" />
-				
-				<input type="password" id="password" name="password" placeholder="<?php _e('密码'); ?>" />
-				
-				<?php if (!$this->fromuid AND !$this->icode AND get_setting('register_seccode') == 'Y') { ?>
-				<p data-role="fieldcontain">
-					<label for="seccode_verify"><img src="<?php echo get_setting('base_url');?>/<?php echo G_INDEX_SCRIPT; ?>account/captcha/" onclick="this.src = G_BASE_URL + '/account/captcha/rnd-' + Math.floor(Math.random() * 10000);" height="36" /></label>
+				<div class="register">
+					<div class="title clearfix">
+						<a class="pull-right btn-login" href="m/login/">登录<i class="icon-sign icon-sign-arrow"></i></a>
+					</div>
+					<div class="username">
+						<input type="text" id="user_name" name="user_name" placeholder="<?php _e('用户名'); ?>" value="<?php echo htmlspecialchars($_GET['user_name']); ?>" />
+					</div>
+					<div class="email">
+						<input type="text" id="email" name="email" placeholder="<?php _e('邮箱'); ?>" value="<?php echo htmlspecialchars(urldecode($_GET['email'])); ?>" />
+					</div>
+					<div class="password">
+						<input type="password" id="password" name="password" placeholder="<?php _e('密码'); ?>">
+					</div>
+					<?php if (!$this->fromuid AND !$this->icode AND get_setting('register_seccode') == 'Y') { ?>
+					<div class="verify clearfix">
+						<input type="text" id="seccode_verify" name="seccode_verify" placeholder="<?php _e('验证码'); ?>" />
+						<img class="pull-right" id="captcha" onclick="this.src = G_BASE_URL + '/account/captcha/' + Math.floor(Math.random() * 10000);" src="" />
+					</div>
+					<?php } ?>
 					
-					<input type="text" id="seccode_verify" name="seccode_verify" placeholder="<?php _e('验证码'); ?>" />
-				</p>
-				<?php } ?>
-				
-				<p><button type="submit" data-theme="b"><?php _e('注册'); ?></button></p>				
+					<a class="btn-submit" href="javascript:;" onclick="ajax_post($('#register_form'));">注册</a>
+				</div>
 			</form>
 		</div>
-	</div><!-- /content -->
-</div><!-- /page -->
+	</div>
+<div>
 
 <?php TPL::output('m/footer.tpl.htm'); ?>
