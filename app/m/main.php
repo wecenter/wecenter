@@ -273,6 +273,8 @@ class main extends AWS_CONTROLLER
 		
 		TPL::assign('answers_list', $answer_list);
 		
+		TPL::assign('question_related_list', $this->model('question')->get_related_question_list($question_info['question_id'], $question_info['question_content']));
+		
 		$total_page = $question_info['answer_count'] / 20;
 		
 		if ($total_page > intval($total_page))
@@ -466,6 +468,16 @@ class main extends AWS_CONTROLLER
 	public function explore_action()
 	{
 		$this->crumb(AWS_APP::lang()->_t('发现'), '/m/explore/');
+		
+		$nav_menu = $this->model('menu')->get_nav_menu_list(null, true);
+			
+		TPL::assign('feature_ids', $nav_menu['feature_ids']);
+		
+		unset($nav_menu['feature_ids']);
+		
+		TPL::assign('content_nav_menu', $nav_menu);
+		
+		TPL::assign('sidebar_hot_topics', $this->model('module')->sidebar_hot_topics($_GET['category']));
 			
 		TPL::output('m/explore');
 	}

@@ -39,69 +39,68 @@ class menu_class extends AWS_MODEL
 	
 	function get_nav_menu_list($where = null, $with_feature = false, $with_category = false)
 	{
-		//if (!$nav_menu = AWS_APP::cache()->get('nav_menu_' . md5($where . $with_feature . $with_category)))
+		if (!$nav_menu = AWS_APP::cache()->get('nav_menu_list_' . md5($where . $with_feature . $with_category)))
 		{
-			if ($nav_menu = $this->fetch_all('nav_menu', $where, 'sort ASC'))
+			$nav_menu = $this->fetch_all('nav_menu', $where, 'sort ASC');
+			
+			AWS_APP::cache()->set('nav_menu_list_' . md5($where . $with_feature . $with_category), $nav_menu, get_setting('cache_level_low'), 'nav_menu');
+		}
+		
+		if ($nav_menu)
+		{
+			foreach($nav_menu as $key => $val)
 			{
-				//print_r($nav_menu); die;
-				
-				$category_ids = array();
-				
-				foreach($nav_menu as $key => $val)
+				if ($val['type'] == 'feature')
 				{
-					if ($val['type'] == 'category')
-					{
-						$category_ids[] = $val['type_id'];
-					}
-					else if ($val['type'] == 'feature')
-					{
-						$feature_ids[] = $val['type_id'];
-					}
+					$feature_ids[] = $val['type_id'];
 				}
-				
-				$category_info = $this->model('system')->get_category_list('question');
-				
-				$feature_info = $this->model('feature')->get_feature_by_id($feature_ids);
-				
-				foreach($nav_menu as $key => $val)
+			}
+			
+			$category_info = $this->model('system')->get_category_list('question');
+			
+			$feature_info = $this->model('feature')->get_feature_by_id($feature_ids);
+			
+			foreach($nav_menu as $key => $val)
+			{
+				switch($val['type'])
 				{
-					switch($val['type'])
-					{
-						case 'category' :
-							
+					case 'category':
+						if (defined('IN_MOBILE'))
+						{
+							$nav_menu[$key]['link'] = 'm/explore/category-' . $category_info[$val['type_id']]['url_token'];
+						}
+						else
+						{
 							$nav_menu[$key]['link'] = 'home/explore/category-' . $category_info[$val['type_id']]['url_token'];
 							$nav_menu[$key]['child'] = $this->model('system')->fetch_category('question', $val['type_id']);
-						break;
-						
-						case 'feature' :
-							
+						}
+					break;
+					
+					case 'feature':
+						if (defined('IN_MOBILE'))
+						{
+							$nav_menu[$key]['link'] = 'm/explore/feature_id-' . $feature_info[$val['type_id']]['url_token'];
+						}
+						else
+						{
 							$nav_menu[$key]['link'] = 'feature/' . $feature_info[$val['type_id']]['url_token'];
-						break;
-					}
-					
-					if ($with_feature && ($val['type'] == 'feature'))
-					{
-						$nav_menu['feature_ids'][] = $val['type_id'];
-					}
-					
-					if ($with_category && ($val['type'] == 'category'))
-					{
-						$nav_menu['category_ids'][] = $val['type_id'];
-					}
+						}
+					break;
 				}
 				
-				AWS_APP::cache()->set('nav_menu_' . md5($where . $with_feature . $with_category), $nav_menu, get_setting('cache_level_low'), 'nav_menu');
+				if ($with_feature AND ($val['type'] == 'feature'))
+				{
+					$nav_menu['feature_ids'][] = $val['type_id'];
+				}
+				
+				if ($with_category AND ($val['type'] == 'category'))
+				{
+					$nav_menu['category_ids'][] = $val['type_id'];
+				}
 			}
 		}
 			
-		if ($nav_menu)
-		{
-			return $nav_menu;
-		}
-		else
-		{
-			return array();
-		}
+		return $nav_menu;
 	}
 	
 	function update_nav_menu($nav_menu_id, $data)
