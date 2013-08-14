@@ -67,7 +67,7 @@ class menu_class extends AWS_MODEL
 					case 'category':
 						if (defined('IN_MOBILE'))
 						{
-							$nav_menu[$key]['link'] = 'm/explore/category-' . $category_info[$val['type_id']]['url_token'];
+							$nav_menu[$key]['link'] = 'm/explore/category-' . $category_info[$val['type_id']]['id'];
 						}
 						else
 						{

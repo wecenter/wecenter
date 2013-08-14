@@ -512,6 +512,11 @@ class main extends AWS_CONTROLLER
 			TPL::assign('feature_info', $this->model('feature')->get_feature_by_id($_GET['feature_id']));
 		}
 		
+		if ($_GET['category'])
+		{
+			TPL::assign('category_info', $this->model('system')->get_category_info($_GET['category']));
+		}
+		
 		TPL::output('m/explore');
 	}
 	
@@ -735,6 +740,11 @@ class main extends AWS_CONTROLLER
 		$this->crumb(AWS_APP::lang()->_t('动态'), '/m/actions/');
 		
 		TPL::output('m/user_actions');
+	}
+	
+	public function topic_square_action()
+	{
+		
 	}
 	
 	public function topic_action()
