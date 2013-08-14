@@ -744,7 +744,29 @@ class main extends AWS_CONTROLLER
 	
 	public function topic_square_action()
 	{
+		$this->crumb(AWS_APP::lang()->_t('话题广场'), '/m/topic_square/');
 		
+		if ($topics_hot_list = $this->model('topic')->get_topic_list(null, 'discuss_count DESC', 5) AND $this->user_id)
+		{
+			foreach ($topics_hot_list AS $key => $val)
+			{
+				$topics_ids[] = $val['topic_id'];
+			}
+			
+			if ($topics_ids)
+			{
+				$has_focus_topics = $this->model('topic')->has_focus_topics($this->user_id, $topics_ids);
+			}
+			
+			foreach ($topics_hot_list AS $key => $val)
+			{
+				$topics_hot_list[$key]['has_focus'] = $has_focus_topics[$val['topic_id']];
+			}
+		}
+		
+		TPL::assign('topics_hot_list', $topics_hot_list);
+		
+		TPL::output('m/topic_square');
 	}
 	
 	public function topic_action()

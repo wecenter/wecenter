@@ -296,7 +296,7 @@ class ajax extends AWS_CONTROLLER
 	}
 	
 	public function focus_topic_action()
-	{		
+	{
 		H::ajax_json_output(AWS_APP::RSM(array(
 			'type' => $this->model('topic')->add_focus_topic($this->user_id, intval($_GET['topic_id']))
 		), '1', null));

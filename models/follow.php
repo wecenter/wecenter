@@ -64,7 +64,7 @@ class follow_class extends AWS_MODEL
 			return false;
 		}
 		
-		return $this->count('user_follow', "fans_uid = " . intval($fans_uid) . " AND friend_uid = " . intval($friend_uid));	
+		return $this->fetch_one('user_follow', 'follow_id', "fans_uid = " . intval($fans_uid) . " AND friend_uid = " . intval($friend_uid));	
 	}
 	
 	public function users_follow_check($fans_uid, $friend_uids)

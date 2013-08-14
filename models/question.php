@@ -754,7 +754,7 @@ class question_class extends AWS_MODEL
 			return false;
 		}
 		
-		return $this->count('question_focus', 'question_id = ' . intval($question_id) . " AND uid = " . intval($uid));
+		return $this->fetch_one('question_focus', 'focus_id', 'question_id = ' . intval($question_id) . " AND uid = " . intval($uid));
 	}
 	
 	public function has_focus_questions($question_ids, $uid)

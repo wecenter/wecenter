@@ -492,7 +492,7 @@ class topic_class extends AWS_MODEL
 	
 	public function has_focus_topic($uid, $topic_id)
 	{
-		return $this->count('topic_focus', "uid = " . intval($uid) . " AND topic_id = " . intval($topic_id));
+		return $this->fetch_one('topic_focus', 'focus_id', "uid = " . intval($uid) . " AND topic_id = " . intval($topic_id));
 	}
 
 	public function has_focus_topics($uid, $topic_ids)

@@ -282,7 +282,7 @@ class core_uri
 				unset($_GET[$key]);
 			}
 		}
-				
+		
 		return $this;
 	}
 }
