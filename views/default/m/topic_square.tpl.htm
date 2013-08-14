@@ -26,29 +26,22 @@
 	<?php if ($this->user_id) { ?>
 	<div class="aw-topic-hot">
 		<h2>我关注的话题</h2>
-		
-		
-		
-		<section>
-			<dl>
-				<dt class="pull-left"><a class="topic-avatar"><img src="img/film.jpg"></a></dt>
-				<dd class="pull-left">
-					<h3>银行</h3>
-					<p class="num">790 人感兴趣</p>
-				</dd>
-			</dl>
-			<ul>
-				<li><a href="">部分银行暂停贷款提高首套房商贷利率，「钱荒」是否要开始影响楼市了？</a></li>
-				<li><a href="">部分银行暂停贷款提高首套房商贷利率，「钱荒」是否要开始影响楼市了？</a></li>
-			</ul>
-		</section>
-		
-		<a class="aw-load-more">更多</a>
+		<div id="focus_topics_listview"></div>
+		<a class="aw-load-more" id="load_focus_topics">更多</a>
 	</div>
 	<?php } ?>
 	<!-- end 我关注的话题 -->
 
 </div>
 <!-- end 内容 -->
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		if ($('#focus_topics_listview').length)
+		{
+			load_list_view(G_BASE_URL + '/m/ajax/focus_topics_list/', $('#focus_topics_listview'), $('#load_focus_topics'));
+		}
+	});
+</script>
 
 <?php TPL::output('m/footer.tpl.htm'); ?>
