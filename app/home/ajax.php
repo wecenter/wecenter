@@ -114,18 +114,16 @@ class ajax extends AWS_CONTROLLER
 	}
 
 	public function check_actions_new_action()
-	{
-		$time = intval($_GET['time']);		
-		$data = $this->model('index')->get_index_focus($this->user_id, $this->per_page);		
+	{	
 		$new_count = 0;
 		
-		if($data)
+		if ($data = $this->model('index')->get_index_focus($this->user_id, $this->per_page))
 		{
 			foreach ($data as $key => $val)
 			{
-				if ($val['add_time'] > $time)
+				if ($val['add_time'] > intval($_GET['time']))
 				{
-					$new_count ++;
+					$new_count++;
 				}
 			}
 		}
@@ -136,24 +134,29 @@ class ajax extends AWS_CONTROLLER
 	
 	public function draft_action()
 	{
-		$page = intval($_GET['page']);
-
-		if($drafts = $this->model('draft')->get_all('answer', $this->user_id, $page * $this->per_page .', '. $this->per_page))
+		if ($drafts = $this->model('draft')->get_all('answer', $this->user_id, intval($_GET['page']) * $this->per_page .', '. $this->per_page))
 		{
 			foreach ($drafts AS $key => $val)
 			{
 				$drafts[$key]['question_info'] = $this->model("question")->get_question_info_by_id($val['item_id']);
 			}
 		}
+		
 		TPL::assign('drafts', $drafts);
-		TPL::output("home/ajax/draft");
+		
+		if ($_GET['template'] == 'm')
+		{
+			TPL::output('m/ajax/draft');
+		}
+		else
+		{
+			TPL::output('home/ajax/draft');
+		}
 	}
 	
 	public function invite_action()
 	{
-		$page = intval($_GET['page']);
-
-		if($list = $this->model('question')->get_invite_question_list($this->user_id, $page * $this->per_page .', '. $this->per_page))
+		if ($list = $this->model('question')->get_invite_question_list($this->user_id, intval($_GET['page']) * $this->per_page .', '. $this->per_page))
 		{
 			$uids = array();
 				
@@ -179,6 +182,13 @@ class ajax extends AWS_CONTROLLER
 		
 		TPL::assign('list', $list);
 		
-		TPL::output('home/ajax/invite');
+		if ($_GET['template'] == 'm')
+		{
+			TPL::output('m/ajax/invite');
+		}
+		else
+		{
+			TPL::output('home/ajax/invite');
+		}
 	}
 }

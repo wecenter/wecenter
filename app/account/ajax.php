@@ -474,7 +474,7 @@ class ajax extends AWS_CONTROLLER
 		
 		$this->model('draft')->save_draft($_GET['item_id'], $_GET['type'], $this->user_id, $_POST);
 		
-		H::ajax_json_output(AWS_APP::RSM(null, 1, AWS_APP::lang()->_t('已保存草稿, %s', date('Y-m-d H:i:s', time()))));
+		H::ajax_json_output(AWS_APP::RSM(null, 1, AWS_APP::lang()->_t('已保存草稿, %s', date('H:i:s', time()))));
 	}
 	
 	function send_valid_mail_action()

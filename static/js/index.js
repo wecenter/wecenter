@@ -91,7 +91,7 @@ $(document).ready(function()
 					cur_filter = '';
 				}
 
-				var request_url = G_BASE_URL + '/home/ajax/index_actions/page-' + cur_page + '__type-all__filter-' + cur_filter;
+				var request_url = G_BASE_URL + '/home/ajax/index_actions/page-' + cur_page + '__filter-' + cur_filter;
 			break;
 
 			case '#draft_list__draft':

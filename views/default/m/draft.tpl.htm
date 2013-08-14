@@ -1,0 +1,24 @@
+<?php TPL::output('m/header.tpl.htm'); ?>
+<?php TPL::output('m/global_header.tpl.htm'); ?>
+
+<!-- 内容 -->
+<div class="aw-content">
+	<div class="aw-title">
+		<h2>我的草稿</h2>
+	</div>
+	<div class="aw-draft-list">
+		<ul id="draft_listview"></ul>
+		<a href="javascript:;" id="load_draft" class="aw-load-more">更多</a>
+	</div>
+</div>
+<!-- end 内容 -->
+
+<?php TPL::output('m/nav_menu.tpl.htm'); ?>
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		load_list_view(G_BASE_URL + '/home/ajax/draft/template-m', $('#draft_listview'), $('#load_draft'));
+	});
+</script>
+
+<?php TPL::output('m/footer.tpl.htm'); ?>

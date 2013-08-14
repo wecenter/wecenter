@@ -79,7 +79,7 @@ class menu_class extends AWS_MODEL
 					case 'feature':
 						if (defined('IN_MOBILE'))
 						{
-							$nav_menu[$key]['link'] = 'm/explore/feature_id-' . $feature_info[$val['type_id']]['url_token'];
+							$nav_menu[$key]['link'] = 'm/explore/feature_id-' . $feature_info[$val['type_id']]['id'];
 						}
 						else
 						{

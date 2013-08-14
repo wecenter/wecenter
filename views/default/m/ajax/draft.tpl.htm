@@ -1,0 +1,18 @@
+<?php if ($this->drafts) { ?>
+<?php foreach ($this->drafts AS $key => $val) { ?>
+<li>
+	<a href="m/question/<?php echo $val['item_id']; ?>#!answer_form"><?php echo $val['question_info']['question_content']; ?></a>
+	<p>
+		<?php echo nl2br(htmlspecialchars($val['data']['message'])); ?>
+	</p>
+	
+	<p class="meta">
+		<a href="javascript:;" onclick="ajax_request(G_BASE_URL + '/account/ajax/delete_draft/', 'item_id=<?php echo $val['item_id']; ?>&type=answer')">删除草稿</a>
+		 • 
+		<a href="m/question/<?php echo $val['item_id']; ?>#!answer_form"><?php _e('编辑草稿'); ?></a>
+		 • 
+		<span class="num"><?php echo date_friendly($val['time']); ?></span>
+	</p>
+</li>
+<?php } ?>
+<?php } ?>

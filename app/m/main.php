@@ -85,6 +85,20 @@ class main extends AWS_CONTROLLER
 		TPL::output('m/index');
 	}
 	
+	public function focus_action()
+	{
+		$this->crumb(AWS_APP::lang()->_t('我关注的问题'), '/m/focus/');
+		
+		TPL::output('m/focus');
+	}
+	
+	public function invite_action()
+	{
+		$this->crumb(AWS_APP::lang()->_t('邀请我回答的问题'), '/m/invite/');
+		
+		TPL::output('m/invite');
+	}
+	
 	public function send_pm_action()
 	{
 		if (!$_GET['recipient'])
@@ -268,6 +282,20 @@ class main extends AWS_CONTROLLER
 		$this->crumb($question_info['question_content'], '/m/question/' . $question_id);
 		
 		TPL::assign('redirect_message', $redirect_message);
+		
+		if ($this->user_id)
+		{
+			TPL::assign('question_thanks', $this->model('question')->get_question_thanks($question_info['question_id'], $this->user_id));
+			
+			//TPL::assign('invite_users', $this->model('question')->get_invite_users($question_info['question_id'], array($question_info['published_uid'])));
+			
+			//TPL::assign('user_follow_check', $this->model("follow")->user_follow_check($this->user_id, $question_info['published_uid']));
+			
+			if ($this->user_info['draft_count'] > 0)
+			{
+				TPL::assign('draft_content', $this->model('draft')->get_data($question_info['question_id'], 'answer', $this->user_id));
+			}
+		}
 		
 		$answer_list = $this->model('answer')->get_answer_list_by_question_id($question_info['question_id'], calc_page_limit($_GET['page'], 20), null, 'agree_count DESC, against_count ASC, add_time ASC');
 		
@@ -471,14 +499,19 @@ class main extends AWS_CONTROLLER
 		
 		$nav_menu = $this->model('menu')->get_nav_menu_list(null, true);
 			
-		TPL::assign('feature_ids', $nav_menu['feature_ids']);
+		//TPL::assign('feature_ids', $nav_menu['feature_ids']);
 		
 		unset($nav_menu['feature_ids']);
 		
 		TPL::assign('content_nav_menu', $nav_menu);
 		
 		TPL::assign('sidebar_hot_topics', $this->model('module')->sidebar_hot_topics($_GET['category']));
-			
+		
+		if ($_GET['feature_id'])
+		{
+			TPL::assign('feature_info', $this->model('feature')->get_feature_by_id($_GET['feature_id']));
+		}
+		
 		TPL::output('m/explore');
 	}
 	
@@ -801,5 +834,12 @@ class main extends AWS_CONTROLLER
 	public function weixin_bind_success_action()
 	{
 		H::redirect_msg(AWS_APP::lang()->_t('微信绑定成功, 请返回'));
+	}
+	
+	public function draft_action()
+	{
+		$this->crumb(AWS_APP::lang()->_t('草稿'), '/m/draft/');
+		
+		TPL::output('m/draft');
 	}
 }
