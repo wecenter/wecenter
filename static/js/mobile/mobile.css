@@ -17,10 +17,11 @@ a{cursor: pointer;}
 .alert-info{color: #666;}
 .btn-mini{font-size: 12px;}
 .aw-text-color-red{color: red;}
+.aw-relative{position: relative;}
 
 /* 顶部 */
 header{height: 46px;min-width: 0;padding:0 10px;background: none repeat scroll 0 0 #0D7DCB;border-bottom: 1px solid #0055AC;border-top: 1px solid #0055AC;box-shadow: 0 1px 0 rgba(255, 255, 255, 0.15) inset, 0 1px 1px rgba(0, 0, 0, 0.15);}
-header img{position: absolute;left: 5px;top:3px;}
+header .logo img{position: absolute;left: 5px;top:3px;}
 header form{width: auto;height: 30px;max-width: 100%;margin:6px 55px 0 65px;background-color: #E6F3FA;border: 1px solid #0055AC;border-radius: 5px 5px 5px 5px;box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2) inset, 0 1px 0 rgba(255, 255, 255, 0.2);}
 header form input{background: none repeat scroll 0 0 transparent;border: 0 none;color: #999999;font-size: 14px;line-height: normal;outline: medium none;overflow: hidden;padding: 6px 8px;}
 header .aw-publish{background-image: -moz-linear-gradient(top, #1589E0, #0F71C6);background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#1589E0), to(#0F71C6));background-image: -webkit-linear-gradient(top, #1589E0, #0F71C6);background-image: -o-linear-gradient(top, #1589E0, #0F71C6);background-image: linear-gradient(to bottom, #1589E0, #0F71C6);border: 1px solid #065FB9;border-radius: 5px 5px 5px 5px;box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1) inset, 0 1px 1px rgba(0, 0, 0, 0.1);font-size: 15px;height: 32px;line-height: 32px;text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);width: 54px;color: #fff;position: absolute;right: 5px;top: 7px;}
@@ -166,10 +167,17 @@ nav ul li a{display:block;font-weight: bold;color: #222;}
 .aw-topic-tags ul li a:hover, .aw-topic-tags ul li.active a{background: #225599;border-color:#225599;color: #fff;}
 
 /* 弹窗box */
+.alert-publish input, .alert-redirect input, .alert-report input, .alert-message input{width: 95%;}
 .alert-publish form, .alert-redirect form, .alert-report form, .alert-message form{margin:0;}
 .alert-publish textarea, .alert-redirect textarea, .alert-report textarea, .alert-message textarea{display: block;width: 97%;}
 .alert-publish .aw-topic-box{margin-bottom: 10px;}
 .alert-publish .aw-topic-box-selector .btn-primary{margin-left: 10px;}
+
+/* 下拉菜单 */
+.dropdown-list{position:absolute;width:100%;background:#fff;z-index:9999;box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);}
+.dropdown-list ul li a{display: block;padding:8px;font-size: 13px;text-decoration: none;}
+.dropdown-list ul li a:hover{background: #D6E9F8;}
+.dropdown-list ul li img{width: 25px;height: 25px;margin-right: 10px;}
 
 /* 个人设置 */
 .aw-setting-page{padding-top:10px;}
