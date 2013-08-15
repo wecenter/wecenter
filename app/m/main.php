@@ -567,6 +567,14 @@ class main extends AWS_CONTROLLER
 		
 		TPL::assign('user_follow_check', $this->model('follow')->user_follow_check($this->user_id, $user['uid']));
 		
+		TPL::assign('reputation_topics', $this->model('people')->get_user_reputation_topic($user['uid'], $user['reputation'], 12));
+		TPL::assign('fans_list', $this->model('follow')->get_user_fans($user['uid'], 5));
+		TPL::assign('friends_list', $this->model('follow')->get_user_friends($user['uid'], 5));
+		TPL::assign('focus_topics', $this->model('topic')->get_focus_topic_list($user['uid'], 10));
+		
+		TPL::assign('user_actions_questions', $this->model('account')->get_user_actions($user['uid'], 5, ACTION_LOG::ADD_QUESTION, $this->user_id));
+		TPL::assign('user_actions_answers', $this->model('account')->get_user_actions($user['uid'], 5, ACTION_LOG::ANSWER_QUESTION, $this->user_id));
+		
 		$this->crumb(AWS_APP::lang()->_t('%s 的个人主页', $user['user_name']), '/m/people/' . $user['url_token']);
 		
 		TPL::output('m/people');
