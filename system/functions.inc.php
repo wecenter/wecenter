@@ -1031,7 +1031,7 @@ function is_mobile()
 {
 	$user_agent = strtolower($_SERVER['HTTP_USER_AGENT']);
 	
-	if (preg_match('/playstation/i', $user_agent) OR preg_match('/ipad/i', $user_agent) OR preg_match('/ucweb/i', $user_agent) OR preg_match('/ucbrowser/i', $user_agent))
+	if (preg_match('/playstation/i', $user_agent) OR preg_match('/ipad/i', $user_agent) OR preg_match('/ucweb/i', $user_agent))
 	{
 		return false;
 	}
