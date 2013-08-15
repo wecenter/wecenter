@@ -844,6 +844,8 @@ class main extends AWS_CONTROLLER
 		
 		TPL::assign('redirect_message', $redirect_message);
 		
+		TPL::assign('best_answer_users', $this->model('topic')->get_best_answer_users($topic_info['topic_id'], $this->user_id, 5));
+		
 		TPL::output('m/topic');
 	}
 	
