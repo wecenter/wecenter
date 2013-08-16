@@ -32,7 +32,7 @@ var AW_MOBILE_TEMPLATE = {
 			    '</div>'+
 			    '<div class="modal-body">'+
 			    	'<p>将问题跳转至</p>'+
-			    	'<input type="text">'+
+			    	'<input type="text" data-id="{{data-id}}">'+
 			    '</div>'+
 			    '<div class="modal-footer">'+
 			    	'<a data-dismiss="modal" aria-hidden="true" class="btn btn-primary">取消</a>'+

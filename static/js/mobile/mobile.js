@@ -32,10 +32,6 @@ $(function() {
 	{
 		alert_box('publish');
 	});
-	$('.aw-question-redirect').click(function()
-	{
-		alert_box('redirect');
-	});
 	$('.aw-message').click(function()
 	{
 		alert_box('message');
@@ -49,30 +45,36 @@ $(function() {
 });
 
 /* 弹窗 */
-function alert_box(type)
+function alert_box(type , data)
 {
 	var template;
 	switch (type)
 	{
 		case 'publish' : 
-			template = AW_MOBILE_TEMPLATE.publish;
+			template = Hogan.compile(AW_MOBILE_TEMPLATE.publish).render({
+		
+			});
 		break;
 
 		case 'redirect' : 
-			template = AW_MOBILE_TEMPLATE.redirect;
+			template = Hogan.compile(AW_MOBILE_TEMPLATE.redirect).render({
+				'data-id' : data
+			});
 		break;
 
 		case 'report' :
-			template = AW_MOBILE_TEMPLATE.report;
+			template = Hogan.compile(AW_MOBILE_TEMPLATE.report).render({
+		
+			});
 		break;
 
 		case 'message' :
-			template = AW_MOBILE_TEMPLATE.message;
+			template = Hogan.compile(AW_MOBILE_TEMPLATE.message).render({
+		
+			});
 		break;
 	}
-	$('#aw-ajax-box').html('').append(Hogan.compile(template).render({
-		
-	}));
+	$('#aw-ajax-box').html('').append(template);
 	$('.alert-' + type).modal('show');
 }
 
