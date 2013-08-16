@@ -19,6 +19,7 @@ a{cursor: pointer;}
 .aw-text-color-red{color: red;}
 .aw-relative{position: relative;}
 
+
 /* 顶部 */
 header{height: 46px;min-width: 0;padding:0 10px;background: none repeat scroll 0 0 #0D7DCB;border-bottom: 1px solid #0055AC;border-top: 1px solid #0055AC;box-shadow: 0 1px 0 rgba(255, 255, 255, 0.15) inset, 0 1px 1px rgba(0, 0, 0, 0.15);}
 header .logo img{position: absolute;left: 5px;top:3px;}
@@ -165,12 +166,14 @@ nav ul li a{display:block;font-weight: bold;color: #222;}
 .aw-topic-tags ul li a:hover, .aw-topic-tags ul li.active a{background: #225599;border-color:#225599;color: #fff;}
 
 /* 弹窗box */
-.alert-publish input, .alert-redirect input, .alert-report input, .alert-message input{width: 95%;}
+.alert-publish input, .alert-redirect input, .alert-report input, .alert-message input{width: 97%;}
 .alert-publish form, .alert-redirect form, .alert-report form, .alert-message form{margin:0;}
 .alert-publish textarea, .alert-redirect textarea, .alert-report textarea, .alert-message textarea{display: block;width: 97%;}
 .alert-publish .btn-primary, .alert-redirect .btn-primary, .alert-report .btn-primary, .alert-message .btn-primary{margin-left: 10px;}
 .alert-publish .aw-topic-box{margin-bottom: 10px;}
 .alert-publish .aw-topic-box-selector .btn-primary{margin-left: 10px;}
+.alert-message .modal-body{overflow-y:visible; }
+.alert-message .modal-body .dropdown-list{width: 94%;}
 
 /* 下拉菜单 */
 .dropdown-list{position:absolute;width:100%;background:#fff;z-index:9999;box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);}
@@ -196,9 +199,9 @@ nav ul li a{display:block;font-weight: bold;color: #222;}
 /* 个人页面 */
 .aw-people-page .aw-mod{margin-top:10px;border:1px solid #DDDDDD;border-radius: 4px;box-shadow: 0 1px 0 #F2F4F5;}
 .aw-people-page .aw-mod .aw-mod-head h2{padding: 7px 10px;}
-.aw-people-topic .aw-mod-body, .aw-people-replay .aw-mod-body, .aw-people-ask .aw-mod-body, .aw-people-follow .aw-mod-body{border-top: 1px solid #EEEEEE;padding:0px 10px !important;}
+.aw-people-topic .aw-mod-body, .aw-people-replay .aw-mod-body, .aw-people-ask .aw-mod-body, .aw-people-follow .aw-mod-body{border-top: 1px solid #EEEEEE;}
 .aw-people-page .aw-people-detail, .aw-people-page .aw-people-topic .aw-mod-body, .aw-people-page .aw-people-replay .aw-mod-body, .aw-people-page .aw-people-ask .aw-mod-body,  .aw-people-page .aw-people-follow .aw-mod-body{padding:10px;}
-.aw-people-page .aw-people-detail .aw-mod-body{position: relative;padding:10px 0 10px 60px;}
+.aw-people-page .aw-people-detail .aw-mod-body{position: relative;min-height:50px;padding:10px 0 10px 60px;}
 .aw-people-page .aw-people-detail .aw-mod-body img{position: absolute;left: 0;top: 10px;width: 50px;height: 50px;}
 .aw-people-page .aw-people-topic .aw-mod-body{padding-bottom: 0px;}
 .aw-people-page .aw-people-topic .aw-mod-body ul li, .aw-people-page .aw-people-follow .aw-mod-body ul li{float: left;margin:0 10px 10px 0;}

@@ -66,6 +66,14 @@ var AW_MOBILE_TEMPLATE = {
 			    '</div>'+
 			    '<div class="modal-body">'+
 			    	'<input type="text" placeholder="' + _t('搜索用户...') + '" value="{{data-name}}">'+
+			    	'<div class="dropdown-list">'+
+			    		'<ul>'+
+			    			'<li><a href="?/m/people/测试"><img src="http://192.168.1.248/anwsion/trunk/static/common/avatar-mid-img.jpg"><span>测试</span></a></li>'+
+			    			'<li><a href="?/m/people/测试"><img src="http://192.168.1.248/anwsion/trunk/static/common/avatar-mid-img.jpg"><span>测试</span></a></li>'+
+			    			'<li><a href="?/m/people/测试"><img src="http://192.168.1.248/anwsion/trunk/static/common/avatar-mid-img.jpg"><span>测试</span></a></li>'+
+			    			'<li><a href="?/m/people/测试"><img src="http://192.168.1.248/anwsion/trunk/static/common/avatar-mid-img.jpg"><span>测试</span></a></li>'+
+			    		'</ul>'+
+			    	'</div>'+
 			    	'<textarea placeholder="' + _t('私信内容...') + '" rows="4"></textarea>'+
 			    '</div>'+
 			    '<div class="modal-footer">'+
