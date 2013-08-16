@@ -58,10 +58,6 @@ $(function() {
 	{
 		alert_box('message');
 	});
-	$('.aw-report').click(function()
-	{
-		alert_box('report');
-	});
 
 	search_dropdown('.search-input');
 });
@@ -81,12 +77,6 @@ function alert_box(type , data)
 		case 'redirect' : 
 			template = Hogan.compile(AW_MOBILE_TEMPLATE.redirect).render({
 				'data-id' : data
-			});
-		break;
-
-		case 'report' :
-			template = Hogan.compile(AW_MOBILE_TEMPLATE.report).render({
-		
 			});
 		break;
 

@@ -277,8 +277,10 @@ nav ul li a{display:block;font-weight: bold;color: #222;}
 .search-page{padding-top:20px;}
 .search-page .tab-content ul li{padding: 10px 0;border-top: 1px dashed #eee;}
 .search-page .tab-content ul li:first-child{border-top: none;}
-.search-page .tab-content #search-topic li, .search-page .tab-content #search-user li{position: relative;padding-left: 60px;}
-.search-page .tab-content #search-topic li .topic, .search-page .tab-content #search-user .avatar{position: absolute;left: 0;top: 10px;}
+.search-page .tab-content #search_result li, .search-page .tab-content #search_result li{position: relative;padding-left: 60px;}
+.search-page .tab-content #search_result li .topic, .search-page .tab-content #search_result .avatar{position: absolute;left: 0;top: 10px;}
+.search-page .aw-title{margin:0;padding:0;line-height:26px;border:none;}
+.search-page .tab-content #search_result li.question{padding-left:0;}
 
 /* 编辑器回复样式 */
 .markitup-box {font-size: 13px !important;line-height: 22px;word-wrap: break-word !important;}

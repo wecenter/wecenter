@@ -40,22 +40,22 @@ var AW_MOBILE_TEMPLATE = {
 		    '</form>'+
 	    '</div>',
 
-	'report' : 
-		'<div class="modal hide fade alert-report" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'+
-		    '<form>'+
-		    	'<div class="modal-header">'+
-			    	'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
-			    	'<h3 id="myModalLabel">举报问题</h3>'+
-			    '</div>'+
-			    '<div class="modal-body">'+
-			    	'<textarea placeholder="请填写举报理由..." rows="3"></textarea>'+
-			    '</div>'+
-			    '<div class="modal-footer">'+
-			    	'<a data-dismiss="modal" aria-hidden="true">取消</a>'+
-			    	'<button class="btn btn-primary">发起</button>'+
-			    '</div>'+
-		    '</form>'+
-	    '</div>',
+	// 'report' : 
+	// 	'<div class="modal hide fade alert-report" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'+
+	// 	    '<form>'+
+	// 	    	'<div class="modal-header">'+
+	// 		    	'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
+	// 		    	'<h3 id="myModalLabel">举报问题</h3>'+
+	// 		    '</div>'+
+	// 		    '<div class="modal-body">'+
+	// 		    	'<textarea placeholder="请填写举报理由..." rows="3"></textarea>'+
+	// 		    '</div>'+
+	// 		    '<div class="modal-footer">'+
+	// 		    	'<a data-dismiss="modal" aria-hidden="true">取消</a>'+
+	// 		    	'<button class="btn btn-primary">发起</button>'+
+	// 		    '</div>'+
+	// 	    '</form>'+
+	//     '</div>',
 
 	'message' : 
 		'<div class="modal hide fade alert-message" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'+
