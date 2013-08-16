@@ -562,9 +562,10 @@ function get_js_url($url)
 		{
 			foreach ($request_routes as $key => $val)
 			{
-				if (preg_match('/^' . $val[0] . '$/', $url))
+				if (preg_match('/' . $val[0] . '/', $url))
 				{
-					$url = preg_replace('/^' . $val[0] . '$/', $val[1], $url);
+					$url = preg_replace('/' . $val[0] . '/', $val[1], $url);
+					
 					break;
 				}
 			}

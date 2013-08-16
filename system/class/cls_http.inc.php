@@ -81,14 +81,6 @@ class HTTP
 		else if (substr($url, 0, 1) == '/')
 		{
 			$url = get_js_url($url);
-			
-			if ($request_routes = get_request_route() AND get_setting('url_rewrite_enable') == 'Y')
-			{
-				foreach ($request_routes as $key => $val)
-				{
-					$url = preg_replace("/" . $val[0] . "/", $val[1], $url);
-				}
-			}
 		}
 		
 		return $url;
