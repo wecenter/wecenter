@@ -20,9 +20,9 @@ $(function(){
 	$(document).click(function(e)
 	{
 		var target = $(e.target);
-		if (target.closest('#aw-top-nav-notic, #aw-top-nav-profile, .aw-top-nav-popup').length == 0)
+		if (target.closest('#aw-top-nav-notic, #aw-top-nav-profile, .aw-top-nav-popup, .dropdown-list').length == 0)
 		{
-			$('.aw-top-nav-popup').hide();
+			$('.aw-top-nav-popup, .dropdown-list').hide();
 		}
 	});
 
@@ -75,54 +75,59 @@ function alert_box(type)
 	$('.alert-' + type).modal('show');
 }
 
-var auto_search;
+var aw_search_interval,aw_search_flag = 0;
 /* 搜索下拉 */
 function search_dropdown(element)
 {
 	$(element).keydown(function()
 	{
-		auto_search = setTimeout(function()
+		if (aw_search_flag == 0)
 		{
-			if ($(element).val().length >= 2)
+			aw_search_interval = setInterval(function()
 			{
-				$.get(G_BASE_URL + '/search/ajax/search/?q=' + encodeURIComponent($(element).val()) + '&limit=' + 5,function(result)
+				if ($(element).val().length >= 2)
 				{
-					if (result.length > 0)
+					$.get(G_BASE_URL + '/search/ajax/search/?q=' + encodeURIComponent($(element).val()) + '&limit=' + 5,function(result)
 					{
-						$(element).next().find('ul').html('');
-						// type1 : 问题 , type2 : 话题 best_answer最佳回答, type3 : 用户
-						for (var i=0; i < result.length; i++)
+						if (result.length > 0)
 						{
-							switch(parseInt(result[i].type))
+							$(element).next().find('ul').html('');
+							// type1 : 问题 , type2 : 话题 best_answer最佳回答, type3 : 用户
+							for (var i=0; i < result.length; i++)
 							{
-								case 1 :
-									$(element).next().find('ul').append('<li><a>' + result[i].name + '<span class="num">' + result[i].detail.answer_count + ' 个回答</span></a></li>');
-									break;
-								case 2 :
-									$(element).next().find('ul').append('<li><a class="aw-topic-name" href="' + result[i].url + '">' + result[i].name  + '</a><span class="num">' + result[i].detail.discuss_count + ' 个问题</span></li>');
-									break;
+								switch(parseInt(result[i].type))
+								{
+									case 1 :
+										$(element).next().find('ul').append('<li><a>' + result[i].name + '<span class="num">' + result[i].detail.answer_count + ' 个回答</span></a></li>');
+										break;
+									case 2 :
+										$(element).next().find('ul').append('<li><a class="aw-topic-name" href="' + result[i].url + '">' + result[i].name  + '</a><span class="num">' + result[i].detail.discuss_count + ' 个问题</span></li>');
+										break;
 
-								case 3 :
-									$(element).next().find('ul').append('<li><a><img src="' + result[i].detail.avatar_file + '"><span>' + result[i].name + '</span></a></li>');
-									break;
+									case 3 :
+										$(element).next().find('ul').append('<li><a><img src="' + result[i].detail.avatar_file + '"><span>' + result[i].name + '</span></a></li>');
+										break;
+								}
 							}
+							$(element).next().show();
+						}else
+						{
+							$(element).next().hide();
 						}
-						$(element).next().show();
-					}else
-					{
-						$(element).next().hide();
-					}
-					
-				},'json');
-			}
-			else
-			{
-				$(element).next().hide();
-			}
-		},500);
+					},'json');
+				}
+				else
+				{
+					$(element).next().hide();
+				}
+			},1000);
+			aw_search_flag = 1;
+			return aw_search_interval;
+		}
 	});
 	$(element).blur(function()
 	{
-		clearTimeout(auto_search);
+		clearInterval(aw_search_interval);
+		aw_search_flag = 0;
 	});
 }
