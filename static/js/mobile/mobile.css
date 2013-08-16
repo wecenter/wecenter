@@ -131,9 +131,7 @@ nav ul li a{display:block;font-weight: bold;color: #222;}
 .aw-topic-page .aw-topic-info .aw-topic-section, .aw-topic-page .aw-topic-info .aw-topic-topbar-nav, .aw-topic-page .aw-topic-info .aw-topic-section .aw-mod-body{margin:10px 0;}
 .aw-topic-page .aw-topic-info .aw-topic-section .num{margin-left: 10px;}
 .aw-topic-page .aw-topic-info .aw-topic-topbar-search form{margin:0;}
-.aw-topic-page .aw-topic-info .aw-topic-topbar-nav{padding-bottom:15px;border-bottom: 1px solid #eee;}
-.aw-topic-page .aw-topic-info .aw-topic-topbar-nav ul li{float: left;margin-right: 15px;padding-right: 15px;border-right:1px solid #eee;font-size: 16px;}
-.aw-topic-page .aw-topic-info .aw-topic-topbar-nav ul li:last-child{border-right: none;}
+.aw-topic-page .aw-topic-info .aw-topic-topbar-nav .nav-tabs{margin:0;}
 .aw-topic-side-section{margin-bottom:10px;padding:10px 0;border-top:1px solid #eee;}
 .aw-topic-side-section dl{height: auto;overflow: hidden;margin:10px 0;padding:5px 0;border-bottom:1px solid #eee;}
 .aw-topic-side-section p{margin:10px 0 0 0;}
@@ -151,9 +149,9 @@ nav ul li a{display:block;font-weight: bold;color: #222;}
 .aw-topic-page .aw-topic-hot li{padding:8px 0;border-top:1px dotted #EEEEEE;}
 
 /* 问题页面 */
-.aw-question-page .feed-list ul li, .aw-topic-page .feed-list  ul li{position: relative;padding:10px 0 10px 40px;border-bottom:1px dashed #eee;border-top: none;}
+.aw-question-page .feed-list ul li, .aw-topic-page .feed-list #questions  ul li{position: relative;padding:10px 0 10px 40px;border-bottom:1px dashed #eee;border-top: none;}
 .aw-question-page .more-topic{display:block;margin:10px 10px 0 0;}
-.aw-question-replay-count{position:absolute;left:0;top:5px;display:block;width:40px;background: #D7D7D7;text-align: center;font-size: 13px;}
+.aw-question-replay-count{position:absolute;left:0;top:15px;display:block;width:40px;background: #D7D7D7;text-align: center;font-size: 13px;}
 .aw-question-replay-count em{display: block;height: 20px;background: #F6F6F6;}
 .aw-question-replay-count.active{background: #9EAAB8;color: #fff;}
 .aw-question-replay-count.active em{background: #EBF5FF;color: #666;}
