@@ -25,7 +25,7 @@ $(function() {
 	
 	$('#aw-top-nav-profile').click(function(){
 		$('.aw-top-nav-popup').hide();
-		$('.aw-top-nav-profile').toggle();
+		$('.aw-top-nav-profile').show();
 	});
 
 	$('#aw-top-nav-notic').click(function()
@@ -82,7 +82,7 @@ function alert_box(type , data)
 
 		case 'message' :
 			template = Hogan.compile(AW_MOBILE_TEMPLATE.message).render({
-		
+				'data-name' : data
 			});
 		break;
 	}
