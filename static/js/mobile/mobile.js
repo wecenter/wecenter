@@ -113,14 +113,14 @@ function search_dropdown(element)
 								switch(parseInt(result[i].type))
 								{
 									case 1 :
-										$(element).next().find('ul').append('<li><a>' + result[i].name + '<span class="num">' + result[i].detail.answer_count + ' 个回答</span></a></li>');
+										$(element).next().find('ul').append('<li><a href="?/m/' + decodeURIComponent(result[i].url) + '">' + result[i].name + '<span class="num">' + result[i].detail.answer_count + ' 个回答</span></a></li>');
 										break;
 									case 2 :
-										$(element).next().find('ul').append('<li><a class="aw-topic-name" href="' + result[i].url + '">' + result[i].name  + '</a><span class="num">' + result[i].detail.discuss_count + ' 个问题</span></li>');
+										$(element).next().find('ul').append('<li><a class="aw-topic-name" href="?/m/' + decodeURIComponent(result[i].url) + '">' + result[i].name  + '</a><span class="num">' + result[i].detail.discuss_count + ' 个问题</span></li>');
 										break;
 
 									case 3 :
-										$(element).next().find('ul').append('<li><a><img src="' + result[i].detail.avatar_file + '"><span>' + result[i].name + '</span></a></li>');
+										$(element).next().find('ul').append('<li><a href="?/m/' + decodeURIComponent(result[i].url) + '"><img src="' + result[i].detail.avatar_file + '"><span>' + result[i].name + '</span></a></li>');
 										break;
 								}
 							}
