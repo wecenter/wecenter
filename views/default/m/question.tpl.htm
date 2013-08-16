@@ -43,7 +43,7 @@
 	<!-- 回复title -->
 	<div class="aw-answers-title">
 		<span class="pull-right">
-			<a class="btn btn-primary<?php if ($this->question_focus) { ?> aw-active<?php } ?>" onclick="focus_question($(this), $(this), <?php echo $this->question_info['question_id']; ?>);"><?php if ($this->question_focus) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?></a>
+			<a class="btn btn-primary btn-mini<?php if ($this->question_focus) { ?> aw-active<?php } ?>" onclick="focus_question($(this), $(this), <?php echo $this->question_info['question_id']; ?>);"><?php if ($this->question_focus) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?></a>
 			<div class="btn-group">
 				<a href="javascript:;" data-toggle="dropdown" class="btn btn-normal dropdown-toggle">
 				    <i class="icon-cog"></i>
