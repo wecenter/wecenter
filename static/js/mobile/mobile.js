@@ -365,23 +365,17 @@ function ajax_request(url, params)
 
 function focus_question(el, text_el, question_id)
 {
-	if (el.attr('data-theme') == 'b')
+	if (el.hasClass('aw-active'))
 	{
 		text_el.html(_t('取消关注'));
 		
-		el.removeClass('ui-btn-up-b').removeClass('ui-btn-hover-b');
-		
-		el.addClass('ui-btn-up-d');
-		el.attr('data-theme', 'd');
+		el.removeClass('aw-active');
 	}
 	else
 	{
 		text_el.html(_t('关注'));
 		
-		el.removeClass('ui-btn-up-d').removeClass('ui-btn-hover-d');
-		
-		el.addClass('ui-btn-up-b');
-		el.attr('data-theme', 'b');
+		el.addClass('aw-active');
 	}
 	
 	$.loading('show');
@@ -407,23 +401,17 @@ function focus_question(el, text_el, question_id)
 
 function focus_topic(el, text_el, topic_id)
 {
-	if (el.attr('data-theme') == 'b')
+	if (el.hasClass('aw-active'))
 	{
 		text_el.html(_t('取消关注'));
 		
-		el.removeClass('ui-btn-up-b').removeClass('ui-btn-hover-b');
-		
-		el.addClass('ui-btn-up-d');
-		el.attr('data-theme', 'd');
+		el.removeClass('aw-active');
 	}
 	else
 	{
 		text_el.html(_t('关注'));
 		
-		el.removeClass('ui-btn-up-d').removeClass('ui-btn-hover-d');
-		
-		el.addClass('ui-btn-up-b');
-		el.attr('data-theme', 'b');
+		el.addClass('aw-active');
 	}
 	
 	$.loading('show');
@@ -449,23 +437,17 @@ function focus_topic(el, text_el, topic_id)
 
 function follow_people(el, text_el, uid)
 {
-	if (el.attr('data-theme') == 'b')
+	if (el.hasClass('aw-active'))
 	{
 		text_el.html(_t('取消关注'));
 		
-		el.removeClass('ui-btn-up-b').removeClass('ui-btn-hover-b');
-		
-		el.addClass('ui-btn-up-d');
-		el.attr('data-theme', 'd');
+		el.removeClass('aw-active');
 	}
 	else
 	{
 		text_el.html(_t('关注'));
 		
-		el.removeClass('ui-btn-up-d').removeClass('ui-btn-hover-d');
-		
-		el.addClass('ui-btn-up-b');
-		el.attr('data-theme', 'b');
+		el.addClass('aw-active');
 	}
 	
 	$.loading('show');
