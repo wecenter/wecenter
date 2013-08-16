@@ -1,3 +1,25 @@
+jQuery.fn.extend({
+    highText: function (searchWords, htmlTag, tagClass)
+    {
+        return this.each(function ()
+        {
+            $(this).html(function high(replaced, search, htmlTag, tagClass)
+            {
+                var pattarn = search.replace(/\b(\w+)\b/g, "($1)").replace(/\s+/g, "|");
+
+                return replaced.replace(new RegExp(pattarn, "ig"), function (keyword)
+                {
+                    return $("<" + htmlTag + " class=" + tagClass + ">" + keyword + "</" + htmlTag + ">").outerHTML();
+                });
+            }($(this).text(), searchWords, htmlTag, tagClass));
+        });
+    },
+    outerHTML: function (s)
+    {
+        return (s) ? this.before(s).remove() : jQuery("<p>").append(this.eq(0).clone()).html();
+    }
+});
+
 $(function() {
 	$('img#captcha').attr('src', G_BASE_URL + '/account/captcha/');
 	

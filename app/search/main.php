@@ -45,7 +45,14 @@ class main extends AWS_CONTROLLER
 	{
 		if ($_POST['q'])
 		{
-			HTTP::redirect('/search/q-' . base64_encode($_POST['q']));
+			if ($_POST['_is_mobile'])
+			{
+				HTTP::redirect('/search/q-' . base64_encode($_POST['q']) . '__template-m');
+			}
+			else
+			{
+				HTTP::redirect('/search/q-' . base64_encode($_POST['q']));
+			}
 		}
 		
 		$keyword = htmlspecialchars(base64_decode($_GET['q']));
@@ -60,6 +67,13 @@ class main extends AWS_CONTROLLER
 		TPL::assign('keyword', $keyword);
 		TPL::assign('split_keyword', implode(' ', $this->model('system')->analysis_keyword($keyword)));
 		
-		TPL::output('search/index');
+		if ($_GET['template'] == 'm')
+		{
+			TPL::output('m/search');
+		}
+		else
+		{
+			TPL::output('search/index');
+		}
 	}
 }

@@ -1,8 +1,9 @@
 <!-- 顶部 -->
 <header>
 	<a href="m/" class="logo"><img src="<?php echo G_STATIC_URL; ?>/js/mobile/img/logo.png" /></a>
-	<form class="aw-relative">
-		<input placeholder="搜索话题、问题或人..." class="search-input" autocomplete="off"/>
+	<form class="aw-relative" action="search/" method="post">
+		<input type="hidden" name="_is_mobile" value="true" />
+		<input placeholder="搜索话题、问题或人..." class="search-input" name="q" autocomplete="off" />
 		<div class="dropdown-list"><ul></ul></div>
 	</form>
 	<button class="aw-publish" href="#publishModal" role="button" data-toggle="modal">发起</button>

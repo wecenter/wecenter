@@ -2,6 +2,7 @@ var cur_page = 0;
 var search_result_more_inner_o = '';
 var search_query = '';
 var split_query = '';
+var ajax_template = '';
 
 function reload_list()
 {
@@ -33,18 +34,18 @@ $(document).ready(function()
 		switch (window.location.hash)
 		{
 			default:
-				var request_url = G_BASE_URL + '/search/ajax/search_result/search_type-all__q-' + encodeURIComponent(search_query) + '__page-' + cur_page;
+				var request_url = G_BASE_URL + '/search/ajax/search_result/search_type-all__q-' + encodeURIComponent(search_query) + '__template-' + ajax_template + '__page-' + cur_page;
 			break;
 			
 			case '#questions':
 			case '#topics':
 			case '#users':
-				var request_url = G_BASE_URL + '/search/ajax/search_result/search_type-' +  window.location.hash.replace(/#/g, '') + '__q-' + encodeURIComponent(search_query) + '__page-' + cur_page;
+				var request_url = G_BASE_URL + '/search/ajax/search_result/search_type-' +  window.location.hash.replace(/#/g, '') + '__q-' + encodeURIComponent(search_query) + '__template-' + ajax_template + '__page-' + cur_page;
 			break;
 		}
 		
 		$(this).addClass('loading');
-		$(this).find('a').html(_t('正在载入') + '...');
+		$(this).find('span').html(_t('正在载入') + '...');
 		
 		$.get(request_url, function (response)
 		{
@@ -74,7 +75,7 @@ $(document).ready(function()
 					
 				$(_this).addClass('disabled');
 				
-				$(_this).find('a').html(_t('没有更多了'));
+				$(_this).find('span').html(_t('没有更多了'));
 			}
 			
 			$(_this).removeClass('loading');
