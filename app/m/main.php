@@ -74,9 +74,9 @@ class main extends AWS_CONTROLLER
 		TPL::import_js(array(
 			'js/jquery.js',
 			'js/jquery.form.js',
-			'js/mobile/framework.js',
+			'js/mobile/aw-mobile-template.js',
 			'js/mobile/mobile.js',
-			'js/mobile/aw-mobile-template.js'
+			'js/mobile/framework.js',
 		));
 	}
 	
