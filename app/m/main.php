@@ -582,7 +582,22 @@ class main extends AWS_CONTROLLER
 	
 	public function search_action()
 	{
-		$this->crumb(AWS_APP::lang()->_t('搜索'), '/m/search/');
+		if ($_POST['q'])
+		{
+			HTTP::redirect('/m/search/q-' . base64_encode($_POST['q']));
+		}
+		
+		$keyword = htmlspecialchars(base64_decode($_GET['q']));
+		
+		$this->crumb($keyword, 'm/search/q-' . urlencode($keyword));
+		
+		if (!$keyword)
+		{
+			HTTP::redirect('/m/');	
+		}
+		
+		TPL::assign('keyword', $keyword);
+		TPL::assign('split_keyword', implode(' ', $this->model('system')->analysis_keyword($keyword)));
 		
 		TPL::output('m/search');
 	}

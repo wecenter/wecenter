@@ -60,7 +60,7 @@ $(document).ready(function()
 					$('#search_result').append(response);
 				}
 				
-				$('#search_result p.aw-title a').highText(split_query, 'span', 'aw-text-color-red');
+				$('#search_result .aw-title a').highText(split_query, 'span', 'aw-text-color-red');
 					
 				cur_page++;
 				
