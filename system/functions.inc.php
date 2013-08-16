@@ -694,7 +694,10 @@ function set_human_valid($permission_tag)
  */
 function get_request_route($positive = true)
 {
-	$route_data = (get_setting('request_route') == 99) ? get_setting('request_route_custom') : get_setting('request_route_sys_' . get_setting('request_route'));
+	if (!$request_routes = get_setting('request_route_custom'))
+	{
+		return false;
+	}
 	
 	if ($request_routes = explode("\n", $route_data))
 	{
@@ -740,10 +743,6 @@ function get_request_route($positive = true)
 		}
 		
 		return $routes;
-	}
-	else
-	{
-		return false;
 	}
 }
 

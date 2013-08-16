@@ -726,39 +726,7 @@ $language['URL 链接显示样式'] = 'URL link display method';
 $language['默认'] = 'Default';
 $language['简短模式'] = 'Basic mode';
 $language['自定义路由'] = 'Customize route';
-$language['此模式只有开启 Rewrite 后有效, 请填写简略正则表达式, 每行一条规则, 中间使用 === 隔开, 左边为站点默认 URL 模式, 右边为替换后的 URL 模式, 链接以 / 开头, (:num) 代表数字, (:any) 代表任意字符<br />如替换问题规则与分类规则：<br />/question/(:any)===/q_(:any)<br />/home/explore/category-(:num)===/category/(:num)<br />默认规则:<br/>/home/explore/===/explore/<br />
-	/home/explore/category-(:num)===/category/(:num)<br />
-	/people/list/===/users/<br />
-	/account/login/===/login/<br />
-	/account/logout/===/logout/<br />
-	/account/setting/(:any)/===/setting/(:any)/<br />
-	简短规则：<br />
-	/question/(:any)===/q_(:any)<br />
-	/topic/(:any)===/t_(:any).html<br />
-	/people/(:any)===/p_(:any).html<br />
-	/home/explore/category-(:num)===/c_(:num).html<br />
-	/home/explore/===/explore/<br />
-	/people/list/===/users/<br />
-	/account/login/===/login/<br />
-	/account/logout/===/logout/<br />
-	/account/setting/(:any)/===/setting/(:any)/<br />
-	(!) 警告: 使用此功能之前请确定你对替换有所把握, 错误的规则将导致站点不能运行'] = '此模式只有开启 Rewrite 后有效, 请填写简略正则表达式, 每行一条规则, 中间使用 === 隔开, 左边为站点默认 URL 模式, 右边为替换后的 URL 模式, 链接以 / 开头, (:num) 代表数字, (:any) 代表任意字符<br />如替换问题规则与分类规则：<br />/question/(:any)===/q_(:any)<br />/home/explore/category-(:num)===/category/(:num)<br />默认规则:<br/>/home/explore/===/explore/<br />
-	/home/explore/category-(:num)===/category/(:num)<br />
-	/people/list/===/users/<br />
-	/account/login/===/login/<br />
-	/account/logout/===/logout/<br />
-	/account/setting/(:any)/===/setting/(:any)/<br />
-	简短规则：<br />
-	/question/(:any)===/q_(:any)<br />
-	/topic/(:any)===/t_(:any).html<br />
-	/people/(:any)===/p_(:any).html<br />
-	/home/explore/category-(:num)===/c_(:num).html<br />
-	/home/explore/===/explore/<br />
-	/people/list/===/users/<br />
-	/account/login/===/login/<br />
-	/account/logout/===/logout/<br />
-	/account/setting/(:any)/===/setting/(:any)/<br />
-	(!) 警告: 使用此功能之前请确定你对替换有所把握, 错误的规则将导致站点不能运行';
+$language['此模式只有开启 Rewrite 后有效, 请填写简略正则表达式, 每行一条规则, 中间使用 === 隔开, 左边为站点默认 URL 模式, 右边为替换后的 URL 模式, 链接以 / 开头, (:num) 代表数字, (:any) 代表任意字符<br />如替换问题规则与分类规则：<br />/question/(:any)===/q_(:any)<br />/home/explore/category-(:num)===/category/(:num)<br />(!) 警告: 使用此功能之前请确定你对替换有所把握, 错误的规则将导致站点不能运行'] = '此模式只有开启 Rewrite 后有效, 请填写简略正则表达式, 每行一条规则, 中间使用 === 隔开, 左边为站点默认 URL 模式, 右边为替换后的 URL 模式, 链接以 / 开头, (:num) 代表数字, (:any) 代表任意字符<br />如替换问题规则与分类规则：<br />/question/(:any)===/q_(:any)<br />/home/explore/category-(:num)===/category/(:num)<br />(!) 警告: 使用此功能之前请确定你对替换有所把握, 错误的规则将导致站点不能运行';
 $language['UCenter 系统字符编码'] = 'UCenter system character code';
 $language['开启 Ucenter 用户对接'] = 'Enable Ucenter user connect';
 $language['通知未读数刷新间隔时间'] = 'Notice unread refreshing time';
