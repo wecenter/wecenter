@@ -11,9 +11,12 @@
 			
 			<script type="text/javascript">
 				$(document).ready(function () {
-					$.get(G_BASE_URL + '/notifications/ajax/list/flag-0__limit-10', function (data) {
-						$('#notifications_list').html(data);
-					});
+					if (G_USER_ID)
+					{
+						$.get(G_BASE_URL + '/notifications/ajax/list/flag-0__limit-10', function (data) {
+							$('#notifications_list').html(data);
+						});
+					}					
 				});
 			</script>
 
