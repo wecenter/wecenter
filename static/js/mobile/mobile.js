@@ -60,7 +60,7 @@ $(function() {
 		alert_box('message');
 	});
 
-	search_dropdown('.aw-search-input');
+	dropdown_list('.aw-search-input','search');
 	
 });
 
@@ -94,13 +94,13 @@ function alert_box(type , data)
 		switch (type)
 		{
 			case 'message' :
-				message_dropdown('.aw-message-input');
+				dropdown_list('.aw-message-input','message');
 			break;
 			case 'redirect' : 
-				redirect_dropdown('.aw-redirect-input');
+				dropdown_list('.aw-redirect-input','redirect');
 			break;
 			case 'publish' :
-				publish_dropdown('.aw-topic-input');
+				dropdown_list('.aw-topic-input','topic');
 			break;
 		}
 	}
@@ -108,223 +108,130 @@ function alert_box(type , data)
 	$('.alert-' + type).modal('show');
 }
 
-/* 
-*	** 搜索下拉 ** 
-*	aw_search_interval 定时器
-*	aw_search_flag 是否已经开始发送请求标识
-*/
-var aw_search_interval,aw_search_flag = 0;
-function search_dropdown(element)
+var aw_dropdown_list_interval, aw_dropdown_list_flag = 0;
+function dropdown_list(element, type)
 {
 	var ul = $(element).next().find('ul');
 	$(element).keydown(function()
 	{
-		if (aw_search_flag == 0)
+		if (aw_dropdown_list_flag == 0)
 		{
-			aw_search_interval = setInterval(function()
+			aw_dropdown_list_interval = setInterval(function()
 			{
 				if ($(element).val().length >= 2)
 				{
-					$.get(G_BASE_URL + '/search/ajax/search/?q=' + encodeURIComponent($(element).val()) + '&limit=5',function(result)
+					switch (type)
 					{
-						if (result.length > 0)
-						{
-							ul.html('');
-							// type1 : 问题 , type2 : 话题 best_answer最佳回答, type3 : 用户
-							for (var i=0; i < result.length; i++)
+						case 'search' : 
+							$.get(G_BASE_URL + '/search/ajax/search/?q=' + encodeURIComponent($(element).val()) + '&limit=5',function(result)
 							{
-								switch(parseInt(result[i].type))
+								if (result.length > 0)
 								{
-									case 1 :
-										ul.append('<li><a href="?/m/' + decodeURIComponent(result[i].url) + '">' + result[i].name + '<span class="num">' + result[i].detail.answer_count + ' 个回答</span></a></li>');
-										break;
-									case 2 :
-										ul.append('<li><a class="aw-topic-name" href="?/m/' + decodeURIComponent(result[i].url) + '">' + result[i].name  + '</a><span class="num">' + result[i].detail.discuss_count + ' 个问题</span></li>');
-										break;
+									ul.html('');
+									// type1 : 问题 , type2 : 话题 best_answer最佳回答, type3 : 用户
+									for (var i=0; i < result.length; i++)
+									{
+										switch(parseInt(result[i].type))
+										{
+											case 1 :
+												ul.append('<li><a href="?/m/' + decodeURIComponent(result[i].url) + '">' + result[i].name + '<span class="num">' + result[i].detail.answer_count + ' 个回答</span></a></li>');
+												break;
+											case 2 :
+												ul.append('<li><a class="aw-topic-name" href="?/m/' + decodeURIComponent(result[i].url) + '">' + result[i].name  + '</a><span class="num">' + result[i].detail.discuss_count + ' 个问题</span></li>');
+												break;
 
-									case 3 :
-										ul.append('<li><a href="?/m/' + decodeURIComponent(result[i].url) + '"><img src="' + result[i].detail.avatar_file + '"><span>' + result[i].name + '</span></a></li>');
-										break;
+											case 3 :
+												ul.append('<li><a href="?/m/' + decodeURIComponent(result[i].url) + '"><img src="' + result[i].detail.avatar_file + '"><span>' + result[i].name + '</span></a></li>');
+												break;
+										}
+									}
+									$(element).next().show();
+								}else
+								{
+									$(element).next().hide();
 								}
-							}
-							$(element).next().show();
-						}else
-						{
-							$(element).next().hide();
-						}
-					},'json');
-				}
-				else
-				{
-					$(element).next().hide();
-				}
-			},1000);
-			aw_search_flag = 1;
-			return aw_search_interval;
-		}
-	});
-	$(element).blur(function()
-	{
-		clearInterval(aw_search_interval);
-		aw_search_flag = 0;
-	});
-}
+							},'json');
+						break;
 
-/* 
-*	** 私信用户下拉 ** 
-*	aw_message_interval 定时器
-*	aw_message_flag 是否已经开始发送请求标识
-*/
-var aw_message_interval,aw_message_flag = 0;
-function message_dropdown(element)
-{
-	var ul = $(element).next().find('ul');
-	$(element).keydown(function()
-	{
-		if (aw_message_flag == 0)
-		{
-			aw_message_interval = setInterval(function()
-			{
-				if ($(element).val().length >= 2)
-				{
-					$.get(G_BASE_URL + '/search/ajax/search/?type-user__q-' + encodeURIComponent($(element).val()) + '__limit-10',function(result)
-					{
-						if (result.length > 0)
-						{
-							ul.html('');
-							$.each(result ,function(i, e)
+						case 'message' :
+							$.get(G_BASE_URL + '/search/ajax/search/?type-user__q-' + encodeURIComponent($(element).val()) + '__limit-10',function(result)
 							{
-								ul.append('<li><a><img src="' + result[i].detail.avatar_file + '"><span>' + result[i].name + '</span></a></li>')
-							});	
-							$('.alert-message .dropdown-list ul li').click(function()
-							{
-								$(element).val($(this).find('span').html());
-								$(element).next().hide();
-							});		
-							$(element).next().show();
-						}else
-						{
-							$(element).next().hide();
-						}
-					},'json');
-				}
-				else
-				{
-					$(element).next().hide();
-				}
-			},1000);
-			aw_message_flag = 1;
-			return aw_message_interval;
-		}
-	});
-	$(element).blur(function()
-	{
-		clearInterval(aw_message_interval);
-		aw_message_flag = 0;
-	});
-}
+								if (result.length > 0)
+								{
+									ul.html('');
+									$.each(result ,function(i, e)
+									{
+										ul.append('<li><a><img src="' + result[i].detail.avatar_file + '"><span>' + result[i].name + '</span></a></li>')
+									});	
+									$('.alert-message .dropdown-list ul li').click(function()
+									{
+										$(element).val($(this).find('span').html());
+										$(element).next().hide();
+									});		
+									$(element).next().show();
+								}else
+								{
+									$(element).next().hide();
+								}
+							},'json');
+						break;
 
-/* 
-*	** 问题重定向下拉 ** 
-*	aw_redirect_interval 定时器
-*	aw_redirect_flag 是否已经开始发送请求标识
-*/
-var aw_redirect_interval,aw_redirect_flag = 0;
-function redirect_dropdown(element)
-{
-	var ul = $(element).next().find('ul');
-	$(element).keydown(function()
-	{
-		if (aw_redirect_flag == 0)
-		{
-			aw_redirect_interval = setInterval(function()
-			{
-				if ($(element).val().length >= 2)
-				{
-					$.get(G_BASE_URL + '/search/ajax/search/?q=' + encodeURIComponent($(element).val()) + '&type=question&limit-30',function(result)
-					{
-						if (result.length > 0)
-						{
-							ul.html('');
-							$.each(result ,function(i, e)
+						case 'redirect' :
+							$.get(G_BASE_URL + '/search/ajax/search/?q=' + encodeURIComponent($(element).val()) + '&type=question&limit-30',function(result)
 							{
-								ul.append('<li><a onclick="ajax_request(' + "'" + G_BASE_URL + "/question/ajax/redirect/', 'item_id=" + $(element).attr('data-id') + "&target_id=" + result['sno'] + "'" +')">' + result[i].name +'</a></li>')
-							});	
-							$(element).next().show();
-						}else
-						{
-							$(element).next().hide();
-						}
-					},'json');
-				}
-				else
-				{
-					$(element).next().hide();
-				}
-			},1000);
-			aw_redirect_flag = 1;
-			return aw_redirect_interval;
-		}
-	});
-	$(element).blur(function()
-	{
-		clearInterval(aw_redirect_interval);
-		aw_redirect_flag = 0;
-	});
-}
+								if (result.length > 0)
+								{
+									ul.html('');
+									$.each(result ,function(i, e)
+									{
+										ul.append('<li><a onclick="ajax_request(' + "'" + G_BASE_URL + "/question/ajax/redirect/', 'item_id=" + $(element).attr('data-id') + "&target_id=" + result['sno'] + "'" +')">' + result[i].name +'</a></li>')
+									});	
+									$(element).next().show();
+								}else
+								{
+									$(element).next().hide();
+								}
+							},'json');
+						break;
 
-/* 
-*	** 发起话题下拉 ** 
-*	aw_topic_interval 定时器
-*	aw_topic_flag 是否已经开始发送请求标识
-*/
-var aw_topic_interval,aw_topic_flag = 0;
-function publish_dropdown(element)
-{
-	var ul = $(element).next().find('ul');
-	$(element).keydown(function()
-	{
-		if (aw_topic_flag == 0)
-		{
-			aw_topic_interval = setInterval(function()
-			{
-				if ($(element).val().length >= 2)
-				{
-					$.get(G_BASE_URL + '/search/ajax/search/?type-topic__q-' + encodeURIComponent($(element).val()) + '__limit-10',function(result)
-					{
-						if (result.length > 0)
-						{
-							ul.html('');
-							$.each(result ,function(i, e)
+						case 'topic' :
+							$.get(G_BASE_URL + '/search/ajax/search/?type-topic__q-' + encodeURIComponent($(element).val()) + '__limit-10',function(result)
 							{
-								ul.append('<li><a>' + result[i].name +'</a></li>')
-							});	
-							$('.alert-publish .dropdown-list ul li').click(function()
-							{
-								$(element).parents('.alert-publish').find('.aw-topic-box').append('<a class="aw-topic-name">' + $(this).text() + '<i onclick="$(this).parents(\'.aw-topic-name\').detach();">X</i></a>');
-								$(element).val('');
-								$(element).next().hide();
-							});
-							$(element).next().show();
-						}else
-						{
-							$(element).next().hide();
-						}
-					},'json');
+								if (result.length > 0)
+								{
+									ul.html('');
+									$.each(result ,function(i, e)
+									{
+										ul.append('<li><a>' + result[i].name +'</a></li>')
+									});	
+									$('.alert-publish .dropdown-list ul li').click(function()
+									{
+										$(element).parents('.alert-publish').find('.aw-topic-box').append('<a class="aw-topic-name">' + $(this).text() + '<i onclick="$(this).parents(\'.aw-topic-name\').detach();">X</i></a>');
+										$(element).val('');
+										$(element).next().hide();
+									});
+									$(element).next().show();
+								}else
+								{
+									$(element).next().hide();
+								}
+							},'json');
+						break;
+					}
 				}
 				else
 				{
 					$(element).next().hide();
 				}
 			},1000);
-			aw_topic_flag = 1;
-			return aw_topic_interval;
+			aw_dropdown_list_flag = 1;
+			return aw_dropdown_list_interval;
 		}
 	});
 	$(element).blur(function()
 	{
-		clearInterval(aw_topic_interval);
-		aw_topic_flag = 0;
+		clearInterval(aw_dropdown_list_interval);
+		aw_dropdown_list_flag = 0;
 	});
 }
 
