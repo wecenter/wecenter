@@ -3,25 +3,19 @@
 			<!-- 导航下拉 消息 -->
 			<div class="aw-top-nav-popup aw-top-nav-notic hide">
 				<div class="aw-top-nav-notic-wrap">
-					<ul>
-						<li>
-							<a>kk</a> 在问题 <a>用户设置里面的我的积分页面在哪个文件改户设置里面的我的积分页面在哪个文件改？</a> 回答中的评论遇到你(16小时前)
-						</li>
-						<li>
-							<a>kk</a> 在问题 <a>用户设置里面的我的积分页面在哪个文件改？</a> 回答中的评论遇到你(16小时前)
-						</li>
-						<li>
-							<a>kk</a> 在问题 <a>用户设置里面的我的积分页面在哪个文件改？</a> 回答中的评论遇到你(16小时前)
-						</li>
-						<li>
-							<a>kk</a> 在问题 <a>用户设置里面的我的积分页面在哪个文件改？</a> 回答中的评论遇到你(16小时前)
-						</li>
-						
-					</ul>
+					<ul id="notifications_list"></ul>
 				</div>
 				<button class="slide-close"></button>
 			</div>
 			<!-- end 导航下拉 消息 -->
+			
+			<script type="text/javascript">
+				$(document).ready(function () {
+					$.get(G_BASE_URL + '/notifications/ajax/list/flag-0__limit-10', function (data) {
+						$('#notifications_list').html(data);
+					});
+				});
+			</script>
 
 			<!-- 导航下拉 我 -->
 			<div class="aw-top-nav-popup aw-top-nav-profile hide">

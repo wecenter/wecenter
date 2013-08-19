@@ -1,1 +1,1 @@
-<?php if ($this->list) { ?><?php foreach($this->list AS $key => $val) { ?><li>	<a href="m/<?php echo str_replace(get_setting('base_url') . '/', '', $val['key_url']); ?>">		<span class="actions"><?php echo strip_tags($val['message']); ?></span>					<h3><?php echo $val['title']; ?></h3>	</a></li><?php } ?><?php } ?>
+<?php if ($this->list) { ?><?php foreach($this->list AS $key => $val) { ?><li>	<?php echo strip_tags($val['message']); ?></li><?php } ?><?php } ?>
