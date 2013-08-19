@@ -569,8 +569,6 @@ function get_js_url($url)
 					break;
 				}
 			}
-			
-			echo $url; die;
 		}
 		
 		$url = get_setting('base_url') . '/' . ((get_setting('url_rewrite_enable') != 'Y' OR defined('IN_MOBILE')) ? G_INDEX_SCRIPT : '') . $url;
