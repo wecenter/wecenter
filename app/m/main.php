@@ -683,11 +683,4 @@ class main extends AWS_CONTROLLER
 		
 		TPL::output('m/settings');
 	}
-	
-	public function question_invite_action()
-	{
-		
-		
-		TPL::output('m/question_invite');
-	}
 }

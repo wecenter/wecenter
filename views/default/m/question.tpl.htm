@@ -37,6 +37,58 @@
 		</div>
 		<div class="aw-mod-footer">
 			<a><?php if ($this->question_info['comment_count']) { ?><?php _e('%s 条评论', $this->question_info['comment_count']); ?><?php } else { ?><?php _e('添加评论'); ?><?php } ?></a><a>感谢</a><a>分享</a><a href="m/question_invite/<?php echo $this->question_info['question_id']; ?>">邀请回答</a>
+			
+			<!-- 邀请回答 -->
+			<div class="aw-mod aw-invite-replay">
+				<div class="input-append aw-relative">
+					<input class="span2" id="inputIcon" type="text">
+					<span class="add-on"><i class="icon-search"></i></span>
+					<div class="dropdown-list">
+						<ul>
+							<li>
+								<a><img src="img/avatar.jpg"><span>KKKKK</span></a>
+							</li>
+							<li>
+								<a><img src="img/avatar.jpg"><span>KKKKK</span></a>
+							</li>
+							<li>
+								<a><img src="img/avatar.jpg"><span>KKKKK</span></a>
+							</li>
+							<li>
+								<a><img src="img/avatar.jpg"><span>KKKKK</span></a>
+							</li>
+							<li>
+								<a><img src="img/avatar.jpg"><span>KKKKK</span></a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="aw-invite-replay-list">
+					<ul>
+						<li>
+							<a class="avatar"><img src="img/avatar.jpg"></a>
+							<p>
+								<a class="btn btn-mini btn-primary pull-right">邀请回复</a>
+								<a>Jun Gu</a>
+							</p>
+						</li>
+						<li>
+							<a class="avatar"><img src="img/avatar.jpg"></a>
+							<p>
+								<a class="btn btn-mini btn-primary pull-right">邀请回复</a>
+								<a>Jun Gu</a>
+							</p>
+						</li>
+						<li>
+							<a class="avatar"><img src="img/avatar.jpg"></a>
+							<p>
+								<a class="btn btn-mini btn-primary pull-right">邀请回复</a>
+								<a>Jun Gu</a>
+							</p>
+						</li>
+					</ul>
+				</div>
+			</div>
 		</div>
 	</div>
 	<!-- end 问题内容详情 -->
