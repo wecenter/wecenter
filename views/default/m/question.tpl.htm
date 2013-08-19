@@ -175,6 +175,7 @@
 			<a class="avatar pull-right"><img src="<?php echo get_avatar_url($this->user_id, 'mid'); ?>" alt="" /></a>
 			<?php echo $this->user_info['user_name']; ?>
 		</div>
+		<a name="answer_form"></a>
 		<div class="aw-mod-body">
 			<form action="question/ajax/save_answer/" onsubmit="return false;" method="post" id="answer_form">
 				<input type="hidden" name="post_hash" value="<?php echo new_post_hash(); ?>" />

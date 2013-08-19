@@ -20,7 +20,17 @@ jQuery.fn.extend({
     }
 });
 
-$(function() {
+$(window).on('hashchange', function() {
+	if (window.location.hash.indexOf('#!') != -1)
+	{
+		if ($('a[name=' + window.location.hash.replace('#!', '') + ']').length)
+		{
+			$.scrollTo($('a[name=' + window.location.hash.replace('#!', '') + ']').offset()['top'] - 20, 600, {queue:true});
+		}
+	}
+});
+
+$(document).ready(function () {
 	$('img#captcha').attr('src', G_BASE_URL + '/account/captcha/');
 	
 	$('#aw-top-nav-profile').click(function(){
@@ -33,6 +43,14 @@ $(function() {
 		$('.aw-top-nav-popup').hide();
 		$('.aw-top-nav-notic').toggle();
 	})
+		
+	if (window.location.hash.indexOf('#!') != -1)
+	{		
+		if ($('a[name=' + window.location.hash.replace('#!', '') + ']').length)
+		{
+			$.scrollTo($('a[name=' + window.location.hash.replace('#!', '') + ']').offset()['top'] - 20, 600, {queue:true});
+		}
+	}
 
 	//关闭按钮
 	$('.slide-close').click(function()
