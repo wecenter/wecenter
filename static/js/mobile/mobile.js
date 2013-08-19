@@ -61,7 +61,7 @@ $(function() {
 	});
 
 	dropdown_list('.aw-search-input','search');
-	
+	dropdown_list('.aw-invite-input','invite');
 });
 
 /* 弹窗 */
@@ -129,13 +129,14 @@ function dropdown_list(element, type)
 								{
 									ul.html('');
 									// type1 : 问题 , type2 : 话题 best_answer最佳回答, type3 : 用户
-									for (var i=0; i < result.length; i++)
+									$.each(result, function(i, e)
 									{
 										switch(parseInt(result[i].type))
 										{
 											case 1 :
 												ul.append('<li><a href="?/m/' + decodeURIComponent(result[i].url) + '">' + result[i].name + '<span class="num">' + result[i].detail.answer_count + ' 个回答</span></a></li>');
 												break;
+
 											case 2 :
 												ul.append('<li><a class="aw-topic-name" href="?/m/' + decodeURIComponent(result[i].url) + '">' + result[i].name  + '</a><span class="num">' + result[i].detail.discuss_count + ' 个问题</span></li>');
 												break;
@@ -144,7 +145,7 @@ function dropdown_list(element, type)
 												ul.append('<li><a href="?/m/' + decodeURIComponent(result[i].url) + '"><img src="' + result[i].detail.avatar_file + '"><span>' + result[i].name + '</span></a></li>');
 												break;
 										}
-									}
+									});
 									$(element).next().show();
 								}else
 								{
@@ -154,6 +155,7 @@ function dropdown_list(element, type)
 						break;
 
 						case 'message' :
+						case 'invite' : 
 							$.get(G_BASE_URL + '/search/ajax/search/?type-user__q-' + encodeURIComponent($(element).val()) + '__limit-10',function(result)
 							{
 								if (result.length > 0)
@@ -163,11 +165,6 @@ function dropdown_list(element, type)
 									{
 										ul.append('<li><a><img src="' + result[i].detail.avatar_file + '"><span>' + result[i].name + '</span></a></li>')
 									});	
-									$('.alert-message .dropdown-list ul li').click(function()
-									{
-										$(element).val($(this).find('span').html());
-										$(element).next().hide();
-									});		
 									$(element).next().show();
 								}else
 								{
@@ -224,6 +221,20 @@ function dropdown_list(element, type)
 					$(element).next().hide();
 				}
 			},1000);
+
+			switch (type)
+			{
+				case 'message' :
+					$('.alert-message .dropdown-list ul li').click(function()
+					{
+						$(element).val($(this).find('span').html());
+						$(element).next().hide();
+					});
+				break;
+
+				case 'invite' : 
+				break;
+			}
 			aw_dropdown_list_flag = 1;
 			return aw_dropdown_list_interval;
 		}
