@@ -558,17 +558,19 @@ function get_js_url($url)
 	{
 		$url = substr($url, 1);
 		
-		if (get_setting('url_rewrite_enable') == 'Y' AND !defined('IN_MOBILE') AND $request_routes = get_request_route())
-		{
+		if (get_setting('url_rewrite_enable') == 'Y' AND !defined('IN_MOBILE') AND $request_routes = get_request_route())		
+		{			
 			foreach ($request_routes as $key => $val)
 			{
-				if (preg_match('/' . $val[0] . '/', $url))
+				if (preg_match('/^' . $val[0] . '$/', $url))
 				{
-					$url = preg_replace('/' . $val[0] . '/', $val[1], $url);
+					$url = preg_replace('/^' . $val[0] . '$/', $val[1], $url);
 					
 					break;
 				}
 			}
+			
+			echo $url; die;
 		}
 		
 		$url = get_setting('base_url') . '/' . ((get_setting('url_rewrite_enable') != 'Y' OR defined('IN_MOBILE')) ? G_INDEX_SCRIPT : '') . $url;
@@ -694,7 +696,7 @@ function set_human_valid($permission_tag)
  */
 function get_request_route($positive = true)
 {
-	if (!$request_routes = get_setting('request_route_custom'))
+	if (!$route_data = get_setting('request_route_custom'))
 	{
 		return false;
 	}
