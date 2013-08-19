@@ -163,34 +163,6 @@ class main extends AWS_CONTROLLER
 		}
 	}
 	
-	public function actions_action()
-	{
-		$this->crumb(AWS_APP::lang()->_t('动态'), '/m/');
-		
-		switch ($_GET['tag'])
-		{
-			case 'topics':
-				$request_uri = '/question/ajax/discuss/sort_type-new__topic_id-' . htmlspecialchars(addslashes($_GET['id'])) . '__template-m';
-			break;
-			
-			case 'topics_best':
-				$request_uri = '/topic/ajax/question_list/type-best__topic_id-' . htmlspecialchars(addslashes($_GET['id'])) . '__template-m';
-			break;
-			
-			case 'topics_discuss':
-				$request_uri = '/question/ajax/discuss/answer_count-' . intval($_GET['answer_count']) . '__topic_id-' . htmlspecialchars(addslashes($_GET['id'])) . '__template-m';
-			break;
-			
-			case 'related_topics':
-				$request_uri = '/m/ajax/related_topics/topic_id-' . intval($_GET['id']) . '__template-m';
-			break;
-		}
-		
-		TPL::assign('request_uri', $request_uri);
-		
-		TPL::output('m/actions');
-	}
-	
 	public function question_action()
 	{
 		if (! isset($_GET['id']))
@@ -325,91 +297,6 @@ class main extends AWS_CONTROLLER
 		}
 		
 		TPL::output('m/question');
-	}
-	
-	public function add_answer_action()
-	{
-		if (!$_GET['question_id'])
-		{
-			H::redirect_msg(AWS_APP::lang()->_t('问题不存在或已被删除'), '/m/explore/');
-		}
-		
-		TPL::assign('question_id', intval($_GET['question_id']));
-		
-		TPL::output('m/add_answer');
-	}
-	
-	public function answer_action()
-	{
-		if (!$_GET['id'])
-		{
-			H::redirect_msg(AWS_APP::lang()->_t('答案不存在或已被删除'), '/m/explore/');
-		}
-		
-		if (! $answer_info = $this->model('answer')->get_answer_by_id($_GET['id']))
-		{
-			H::redirect_msg(AWS_APP::lang()->_t('答案不存在或已被删除'), '/m/explore/');
-		}
-		
-		
-		if (! $question_info = $this->model("question")->get_question_info_by_id($answer_info['question_id']))
-		{
-			H::redirect_msg(AWS_APP::lang()->_t('问题不存在或已被删除'), '/m/explore/');
-		}
-		
-		$answer_info['user_info'] = $this->model('account')->get_user_info_by_uid($answer_info['uid'], true);
-		
-		if ($answer_info['has_attach'])
-		{
-			$answer_info['attachs'] = $this->model('publish')->get_attach('answer', $answer_info['answer_id'], 'min');
-		}
-				
-		$answer_info['user_rated_thanks'] = $this->model('answer')->user_rated('thanks', $answer_info['answer_id'], $this->user_id);
-		$answer_info['user_rated_uninterested'] = $this->model('answer')->user_rated('uninterested', $answer_info['answer_id'], $this->user_id);
-				
-		if ($answer_info['answer_content'])
-		{
-			$answer_info['insert_attach_ids'] = FORMAT::parse_attachs($answer_info['answer_content'], true);
-			$answer_info['answer_content'] = FORMAT::parse_attachs(nl2br(FORMAT::parse_markdown($answer_info['answer_content'])));
-		}
-		
-		$answer_info['agree_status'] = $this->model('answer')->get_answer_vote_status($answer_info['answer_id'], $this->user_id);
-		
-		$this->crumb(AWS_APP::lang()->_t('回复'), '/m/answer/' . $answer_info['answer_id']);
-		$this->crumb($question_info['question_content'], '/m/answer/' . $answer_info['answer_id']);
-		
-		TPL::assign('answer_info', $answer_info);
-		TPL::assign('question_info', $question_info);
-		
-		TPL::output('m/answer');
-	}
-	
-	public function add_comment_action()
-	{
-		if (!$_GET['question_id'] AND !$_GET['answer_id'])
-		{
-			H::redirect_msg(AWS_APP::lang()->_t('问题不存在或已被删除'), '/m/explore/');
-		}
-		
-		$this->crumb(AWS_APP::lang()->_t('评论'), '/m/add_comment/');
-		
-		TPL::output('m/add_comment');
-	}
-	
-	public function add_question_action()
-	{
-		if (cjk_strlen($_GET['question_content']) < 5)
-		{
-			H::redirect_msg(AWS_APP::lang()->_t('问题标题字数不得少于 5 个字'), '/m/search/');
-		}
-		
-		TPL::assign('question_content', htmlspecialchars($_GET['question_content']));
-		
-		TPL::assign('topics', $this->model('question')->get_related_topics($_GET['question_content']));
-		
-		$this->crumb(AWS_APP::lang()->_t('发布'), '/m/add_question/');
-		
-		TPL::output('m/add_question');
 	}
 	
 	public function login_action()
@@ -652,111 +539,7 @@ class main extends AWS_CONTROLLER
 		
 		TPL::output('m/comments_list');
 	}
-	
-	public function users_list_action()
-	{
-		switch ($_GET['tag'])
-		{
-			case 'follows':
-				$users_list = $this->model('follow')->get_user_friends($_GET['id'], calc_page_limit($_GET['page'], 50));
-				
-				$list_total = $this->user_info['friend_count'];
-			break;
-			
-			case 'fans':
-				$users_list = $this->model('follow')->get_user_fans($_GET['id'], calc_page_limit($_GET['page'], 50));
-				
-				$list_total = $this->user_info['fans_count'];
-			break;
-			
-			case 'topics_best_answer':
-				if ($users_list_raw = $this->model('topic')->get_best_answer_users($_GET['id'], $this->user_id, 50))
-				{
-					foreach ($users_list_raw AS $key => $val)
-					{
-						$users_list[] = $val['user_info'];
-					}
-					
-					$list_total = $this->model('topic')->found_rows();
-				}
-			break;
-		}
 		
-		if ($list_total)
-		{
-			$total_page = $list_total / 50;
-		
-			if ($total_page > intval($total_page))
-			{
-				$total_page = intval($total_page) + 1;
-			}
-			
-			if (!$_GET['page'])
-			{
-				$_GET['page'] = 1;
-			}
-			
-			if ($_GET['page'] < $total_page)
-			{
-				$_GET['page'] = $_GET['page'] + 1;
-				
-				TPL::assign('next_page', $_GET['page']);
-			}
-			
-			TPL::assign('users_list', $users_list);
-		}
-		
-		$this->crumb(AWS_APP::lang()->_t('用户列表'), '/m/users_list/');
-		
-		TPL::output('m/users_list');
-	}
-	
-	public function topics_list_action()
-	{
-		switch ($_GET['tag'])
-		{
-			case 'focus':
-				$topics_list = $this->model('topic')->get_focus_topic_list($_GET['id'], calc_page_limit($_GET['page'], 50));
-			break;
-			
-			case 'question':
-				$topics_list = $this->model('question')->get_question_topic_by_question_id($_GET['id']);
-			break;
-			
-			case 'related_topics':
-				$topics_list = $this->model('topic')->related_topics($_GET['id']);
-			break;
-		}
-		
-		if ($found_rows = $this->model('follow')->found_rows())
-		{
-			$total_page = $found_rows / 50;
-		
-			if ($total_page > intval($total_page))
-			{
-				$total_page = intval($total_page) + 1;
-			}
-			
-			if (!$_GET['page'])
-			{
-				$_GET['page'] = 1;
-			}
-			
-			if ($_GET['page'] < $total_page)
-			{
-				$_GET['page'] = $_GET['page'] + 1;
-				
-				TPL::assign('next_page', $_GET['page']);
-			}
-		}
-		
-		$this->crumb(AWS_APP::lang()->_t('话题列表'), '/m/topics_list/');
-		
-		TPL::assign('topics_list', $topics_list);
-		
-		TPL::output('m/topics_list');
-	}
-	
 	public function user_actions_action()
 	{
 		TPL::assign('uid', intval($_GET['uid']));
@@ -874,15 +657,6 @@ class main extends AWS_CONTROLLER
 		TPL::output('m/topic');
 	}
 	
-	public function answer_vote_action()
-	{
-		$agree_status = $this->model('answer')->get_answer_vote_status($_GET['id'], $this->user_id);
-		
-		TPL::assign('agree_status', $agree_status);
-		
-		TPL::output('m/answer_vote');
-	}
-	
 	public function notifications_action()
 	{
 		$this->crumb(AWS_APP::lang()->_t('通知'), '/m/notifications/');
@@ -908,5 +682,12 @@ class main extends AWS_CONTROLLER
 		TPL::assign('notify_actions', $this->model('notify')->notify_action_details);
 		
 		TPL::output('m/settings');
+	}
+	
+	public function question_invite_action()
+	{
+		
+		
+		TPL::output('m/question_invite');
 	}
 }
