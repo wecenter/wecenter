@@ -156,6 +156,15 @@ nav ul li a{display:block;font-weight: bold;color: #222;}
 .aw-question-detail-page .aw-invite-replay .aw-invite-replay-list li .avatar img{width: 25px;height: 25px;}
 .aw-question-detail-page .aw-invite-replay .aw-invite-replay-list li p{margin:0;}
 
+/* 问题评论box */
+.aw-comment-box .aw-comment-list li{position: relative;padding:10px 0 10px 35px;}
+.aw-comment-box .aw-comment-list li > .aw-user-name{position: absolute;left: 0;top: 10px;}
+.aw-comment-box .aw-comment-list li > .aw-user-name img{width: 25px;height: 25px;}
+.aw-comment-box .aw-comment-list li p{color: #666;}
+.aw-comment-box .aw-comment-list li p span{color: #999;}
+.aw-comment-box .aw-comment-box-main{padding:10px;}
+.aw-comment-box .aw-comment-box-main textarea{width: 97%;}
+
 /* 话题页面 */
 .aw-topic-page{margin-top: 10px;}
 .aw-topic-page .aw-topic-info .aw-topic-title{padding-bottom:10px;border-bottom: 1px solid #eee;}

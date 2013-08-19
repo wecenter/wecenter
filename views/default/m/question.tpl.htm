@@ -42,7 +42,7 @@
 			<a herf="javascript:;" data-id="<?php echo $this->question_info['question_id']; ?>" data-type="question" class="aw-add-comment"<?php if ($this->question_info['lock']) { ?> data-close="true"<?php } ?>><?php if ($this->question_info['comment_count']) { ?><?php _e('%s 条评论', $this->question_info['comment_count']); ?><?php } else { ?><?php _e('添加评论'); ?><?php } ?></a><a>感谢</a><a>分享</a><a href="m/question_invite/<?php echo $this->question_info['question_id']; ?>">邀请回答</a>
 			
 			<!-- 邀请回答 -->
-			<div class="aw-mod aw-invite-replay">
+			<!-- <div class="aw-mod aw-invite-replay">
 				<div class="input-append aw-relative">
 					<input class="span2 aw-invite-input" id="inputIcon" type="text">
 					<div class="dropdown-list"><ul></ul></div>
@@ -74,7 +74,7 @@
 						</li>
 					</ul>
 				</div>
-			</div>
+			</div> -->
 		</div>
 	</div>
 	<!-- end 问题内容详情 -->
