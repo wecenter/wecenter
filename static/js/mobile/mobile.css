@@ -183,22 +183,12 @@ nav ul li a{display:block;font-weight: bold;color: #222;}
 .aw-topic-tags ul li a{display:block;padding:0 10px;border:1px solid #DAECF5;border-radius: 30px;text-decoration: none;}
 .aw-topic-tags ul li a:hover, .aw-topic-tags ul li.active a{background: #225599;border-color:#225599;color: #fff;}
 
-/* 弹窗box */
-.alert-publish input, .alert-redirect input, .alert-report input, .alert-message input{width: 97%;}
-.alert-publish form, .alert-redirect form, .alert-report form, .alert-message form{margin:0;}
-.alert-publish textarea, .alert-redirect textarea, .alert-report textarea, .alert-message textarea{display: block;width: 97%;}
-.alert-publish .btn-primary, .alert-redirect .btn-primary, .alert-report .btn-primary, .alert-message .btn-primary{margin-left: 10px;}
-.alert-publish .aw-topic-box{margin-bottom: 10px;}
-.alert-publish .aw-topic-box-selector .btn-primary{margin-left: 10px;}
-.alert-publish .aw-topic-box-selector input{width: 70%;}
-.alert-message .modal-body{overflow-y:visible; }
-.alert-message .modal-body .dropdown-list{width: 94%;}
-
 /* 下拉菜单 */
 .dropdown-list{position:absolute;width:100%;background:#fff;z-index:9999;box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);}
 .dropdown-list ul li {display: block;padding:8px;font-size: 13px;}
 .dropdown-list ul li:hover{background: #D6E9F8;}
 .dropdown-list ul li img{width: 25px;height: 25px;margin-right: 10px;}
+.dropdown-list ul li a{text-decoration: none;}
 
 /* 个人设置 */
 .aw-setting-page{padding-top:10px;}
@@ -321,6 +311,17 @@ nav ul li a{display:block;font-weight: bold;color: #222;}
 .markitup-box img {max-width: 570px !important;}
 .markitup-box blockquote , #markItUpPreviewFrames blockquote{margin:0 0 10px;background-color: #FBFBFB;border-left: 5px solid #C1CAD4;line-height: 22px;margin: 5px 0;padding: 10px;}
 .markitup-box .aw-comment-upload-img-list a{display:block;margin:15px 0;}
+
+/* 弹窗box */
+.alert-publish input, .alert-redirect input, .alert-report input, .alert-message input{width: 97%;}
+.alert-publish form, .alert-redirect form, .alert-report form, .alert-message form{margin:0;}
+.alert-publish textarea, .alert-redirect textarea, .alert-report textarea, .alert-message textarea{display: block;width: 97%;}
+.alert-publish .btn-primary, .alert-redirect .btn-primary, .alert-report .btn-primary, .alert-message .btn-primary{margin-left: 10px;}
+.alert-publish .aw-topic-box{margin-bottom: 10px;}
+.alert-publish .aw-topic-box-selector .btn-primary{margin-left: 10px;}
+.alert-publish .aw-topic-box-selector input{width: 70%;}
+.alert-message .modal-body, .alert-redirect .modal-body{overflow-y:visible;}
+.alert-message .modal-body .dropdown-list{width: 94%;}
 
 /* icon */
 .icon-sign{display:inline-block;background-image: url("../img/signup.png");background-repeat: no-repeat;}

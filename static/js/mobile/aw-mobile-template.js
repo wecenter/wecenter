@@ -33,6 +33,11 @@ var AW_MOBILE_TEMPLATE = {
 			    '<div class="modal-body">'+
 			    	'<p>' + _t('将问题跳转至') + '</p>'+
 			    	'<input type="text" data-id="{{data-id}}">'+
+			    	'<div class="dropdown-list"><ul>'+
+			    		'<li><a>测试解析测试解析测试解析测试解析测试解析</a></li>'+
+			    		'<li><a>测试解析测试解析测试解析测试解析测试解析</a></li>'+
+			    		'<li><a>测试解析测试解析测试解析测试解析测试解析</a></li>'+
+			    	'</ul></div>'+
 			    '</div>'+
 			    '<div class="modal-footer">'+
 			    	'<a data-dismiss="modal" aria-hidden="true" class="btn btn-primary">' + _t('取消') + '</a>'+
@@ -65,15 +70,8 @@ var AW_MOBILE_TEMPLATE = {
 			    	'<h3 id="myModalLabel">' + _t('发送私信') + '</h3>'+
 			    '</div>'+
 			    '<div class="modal-body">'+
-			    	'<input type="text" placeholder="' + _t('搜索用户...') + '" value="{{data-name}}">'+
-			    	'<div class="dropdown-list">'+
-			    		'<ul>'+
-			    			'<li><a href="?/m/people/测试"><img src="http://192.168.1.248/anwsion/trunk/static/common/avatar-mid-img.jpg"><span>测试</span></a></li>'+
-			    			'<li><a href="?/m/people/测试"><img src="http://192.168.1.248/anwsion/trunk/static/common/avatar-mid-img.jpg"><span>测试</span></a></li>'+
-			    			'<li><a href="?/m/people/测试"><img src="http://192.168.1.248/anwsion/trunk/static/common/avatar-mid-img.jpg"><span>测试</span></a></li>'+
-			    			'<li><a href="?/m/people/测试"><img src="http://192.168.1.248/anwsion/trunk/static/common/avatar-mid-img.jpg"><span>测试</span></a></li>'+
-			    		'</ul>'+
-			    	'</div>'+
+			    	'<input type="text" class="aw-message-input" placeholder="' + _t('搜索用户...') + '" value="{{data-name}}">'+
+			    	'<div class="dropdown-list"><ul></ul></div>'+
 			    	'<textarea placeholder="' + _t('私信内容...') + '" rows="4"></textarea>'+
 			    '</div>'+
 			    '<div class="modal-footer">'+

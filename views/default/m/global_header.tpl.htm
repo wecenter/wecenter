@@ -1,11 +1,13 @@
 <!-- 顶部 -->
 <header>
 	<a href="m/" class="logo"><img src="<?php echo G_STATIC_URL; ?>/js/mobile/img/logo.png" /></a>
-	<form class="aw-relative" action="m/search/" method="post">
-		<input type="hidden" name="_is_mobile" value="true" />
-		<input placeholder="搜索话题、问题或人..." class="search-input" name="q" autocomplete="off" />
-		<div class="dropdown-list"><ul></ul></div>
-	</form>
+	<div class="aw-search-bar">
+		<form class="aw-relative" action="m/search/" method="post">
+			<input type="hidden" name="_is_mobile" value="true" />
+			<input placeholder="搜索话题、问题或人..." class="aw-search-input" name="q" autocomplete="off" />
+			<div class="dropdown-list"><ul></ul></div>
+		</form>
+	</div>
 	<button class="aw-publish" href="#publishModal" role="button" data-toggle="modal">发起</button>
 </header>
 <!-- end 顶部 -->

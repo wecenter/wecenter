@@ -59,7 +59,8 @@ $(function() {
 		alert_box('message');
 	});
 
-	search_dropdown('.search-input');
+	search_dropdown('.aw-search-input');
+	
 });
 
 /* 弹窗 */
@@ -86,14 +87,29 @@ function alert_box(type , data)
 			});
 		break;
 	}
-	$('#aw-ajax-box').html('').append(template);
+	if (template)
+	{
+		$('#aw-ajax-box').html('').append(template);
+		switch (type)
+		{
+			case 'message' :
+				message_dropdown('.aw-message-input');
+			break;
+		}
+	}
+	
 	$('.alert-' + type).modal('show');
 }
 
+/* 
+*	** 搜索下拉 ** 
+*	aw_search_interval 定时器
+*	aw_search_flag 是否已经开始发送请求标识
+*/
 var aw_search_interval,aw_search_flag = 0;
-/* 搜索下拉 */
 function search_dropdown(element)
 {
+	var ul = $(element).next().find('ul');
 	$(element).keydown(function()
 	{
 		if (aw_search_flag == 0)
@@ -102,25 +118,25 @@ function search_dropdown(element)
 			{
 				if ($(element).val().length >= 2)
 				{
-					$.get(G_BASE_URL + '/search/ajax/search/?q=' + encodeURIComponent($(element).val()) + '&limit=' + 5,function(result)
+					$.get(G_BASE_URL + '/search/ajax/search/?q=' + encodeURIComponent($(element).val()) + '&limit=5',function(result)
 					{
 						if (result.length > 0)
 						{
-							$(element).next().find('ul').html('');
+							ul.html('');
 							// type1 : 问题 , type2 : 话题 best_answer最佳回答, type3 : 用户
 							for (var i=0; i < result.length; i++)
 							{
 								switch(parseInt(result[i].type))
 								{
 									case 1 :
-										$(element).next().find('ul').append('<li><a href="?/m/' + decodeURIComponent(result[i].url) + '">' + result[i].name + '<span class="num">' + result[i].detail.answer_count + ' 个回答</span></a></li>');
+										ul.append('<li><a href="?/m/' + decodeURIComponent(result[i].url) + '">' + result[i].name + '<span class="num">' + result[i].detail.answer_count + ' 个回答</span></a></li>');
 										break;
 									case 2 :
-										$(element).next().find('ul').append('<li><a class="aw-topic-name" href="?/m/' + decodeURIComponent(result[i].url) + '">' + result[i].name  + '</a><span class="num">' + result[i].detail.discuss_count + ' 个问题</span></li>');
+										ul.append('<li><a class="aw-topic-name" href="?/m/' + decodeURIComponent(result[i].url) + '">' + result[i].name  + '</a><span class="num">' + result[i].detail.discuss_count + ' 个问题</span></li>');
 										break;
 
 									case 3 :
-										$(element).next().find('ul').append('<li><a href="?/m/' + decodeURIComponent(result[i].url) + '"><img src="' + result[i].detail.avatar_file + '"><span>' + result[i].name + '</span></a></li>');
+										ul.append('<li><a href="?/m/' + decodeURIComponent(result[i].url) + '"><img src="' + result[i].detail.avatar_file + '"><span>' + result[i].name + '</span></a></li>');
 										break;
 								}
 							}
@@ -146,6 +162,63 @@ function search_dropdown(element)
 		aw_search_flag = 0;
 	});
 }
+
+/* 
+*	** 私信用户下拉 ** 
+*	aw_message_interval 定时器
+*	aw_message_flag 是否已经开始发送请求标识
+*/
+var aw_message_interval,aw_message_flag = 0;
+function message_dropdown(element)
+{
+	var ul = $(element).next().find('ul');
+	$(element).keydown(function()
+	{
+		if (aw_message_flag == 0)
+		{
+			aw_message_interval = setInterval(function()
+			{
+				if ($(element).val().length >= 2)
+				{
+					$.get(G_BASE_URL + '/search/ajax/search/?type-user__q-' + encodeURIComponent($(element).val()) + '__limit-10',function(result)
+					{
+						if (result.length > 0)
+						{
+							ul.html('');
+							$.each(result ,function(i, e)
+							{
+								ul.append('<li><a><img src="' + result[i].detail.avatar_file + '"><span>' + result[i].name + '</span></a></li>')
+							});	
+							$('.alert-message .dropdown-list ul li').click(function()
+							{
+								$(element).val($(this).find('span').html());
+								$(element).next().hide();
+							});		
+							$(element).next().show();
+						}else
+						{
+							$(element).next().hide();
+						}
+					},'json');
+				}
+				else
+				{
+					$(element).next().hide();
+				}
+			},1000);
+			aw_message_flag = 1;
+			return aw_message_interval;
+		}
+	});
+	$(element).blur(function()
+	{
+		clearInterval(aw_message_interval);
+		aw_message_flag = 0;
+	});
+}
+
+
+
 
 var aw_loading_timer;
 var aw_loading_bg_count = 12;
