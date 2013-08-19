@@ -153,7 +153,7 @@ class main extends AWS_CONTROLLER
 			
 			TPL::assign('recipient_user', $recipient_user);
 			
-			TPL::output('m/inbox_read_message');
+			TPL::output('m/inbox_read');
 		}
 		else
 		{

@@ -119,16 +119,16 @@ class main extends AWS_CONTROLLER
 		}
 	}
 
-	public function read_message_action()
+	public function read_action()
 	{		
-		if (!$dialog = $this->model('message')->get_dialog_by_id($_GET['dialog_id']))
+		if (!$dialog = $this->model('message')->get_dialog_by_id($_GET['id']))
 		{
 			H::redirect_msg(AWS_APP::lang()->_t('指定的站内信不存在'), '/inbox/');
 		}
 		
-		$this->model('message')->read_message($_GET['dialog_id'], $this->user_id);
+		$this->model('message')->read_message($_GET['id'], $this->user_id);
 		
-		if ($list = $this->model('message')->get_message_by_dialog_id($_GET['dialog_id'], $this->user_id))
+		if ($list = $this->model('message')->get_message_by_dialog_id($_GET['id'], $this->user_id))
 		{
 			if ($dialog['sender_uid'] != $this->user_id)
 			{
@@ -142,6 +142,7 @@ class main extends AWS_CONTROLLER
 			foreach ($list as $key => $value)
 			{
 				$value['notice_content'] = FORMAT::parse_links($value['notice_content']);
+				
 				$value['user_name'] = $recipient_user['user_name'];
 				$value['url_token'] = $recipient_user['url_token'];
 					
@@ -149,11 +150,11 @@ class main extends AWS_CONTROLLER
 			}
 		}
 		
-		$this->crumb(AWS_APP::lang()->_t('私信对话') . ': ' . $recipient_user['user_name'], '/inbox/read_message/dialog_id-' . intval($_GET['dialog_id']));
+		$this->crumb(AWS_APP::lang()->_t('私信对话') . ': ' . $recipient_user['user_name'], '/inbox/read/' . intval($_GET['id']));
 		
 		TPL::assign('list', $list_data);
 		TPL::assign('recipient_user', $recipient_user);
 		
-		TPL::output("inbox/read_message");
+		TPL::output("inbox/read");
 	}
 }
