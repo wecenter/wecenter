@@ -6,14 +6,12 @@ var AW_MOBILE_TEMPLATE = {
 			    	'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
 			    	'<h3 id="myModalLabel">发起问题</h3>'+
 			    '</div>'+
-			    '<div class="modal-body">'+
-			    	'<textarea placeholder="写下你的问题..." rows="2"></textarea>'+
-			    	'<textarea placeholder="问题背景、条件等详细信息..." rows="4"></textarea>'+
-			    	'<div class="aw-topic-box">'+
-			    		'<a class="aw-topic-name">bug</a>'+
-			    	'</div>'+
+			    '<div class="modal-body clearfix">'+
+			    	'<textarea name="question_content" placeholder="写下你的问题..." rows="2"></textarea>'+
+			    	'<textarea name="question_detail" placeholder="问题背景、条件等详细信息..." rows="4"></textarea>'+
+			    	'<div class="aw-topic-box"></div>'+
 			    	'<div class="aw-topic-box-selector">'+
-			    		'<input type="text" placeholder="创建或搜索添加新话题..." class="pull-left"><a class="btn btn-primary pull-left">添加</a>'+
+			    		'<input type="text" placeholder="创建或搜索添加新话题..." class="aw-topic-input"><div class="dropdown-list"><ul></ul></div><a class="btn btn-primary">添加</a>'+
 			    	'</div>'+
 			   	'</div>'+
 			    '<div class="modal-footer">'+
@@ -60,19 +58,19 @@ var AW_MOBILE_TEMPLATE = {
 
 	'message' : 
 		'<div class="modal hide fade alert-message" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'+
-		   '<form action="" method="post" id="quick_publish" onsubmit="return false">'+
+		   '<form id="publish" action="' + G_BASE_URL + '/m/inbox/ajax/send/" method="post" id="quick_publish" onsubmit="return false">'+
 		    	'<div class="modal-header">'+
 			    	'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
 			    	'<h3 id="myModalLabel">' + _t('发送私信') + '</h3>'+
 			    '</div>'+
 			    '<div class="modal-body">'+
-			    	'<input type="text" class="aw-message-input" placeholder="' + _t('搜索用户...') + '" value="{{data-name}}">'+
+			    	'<input type="text" name="recipient" class="aw-message-input" placeholder="' + _t('搜索用户...') + '" value="{{data-name}}">'+
 			    	'<div class="dropdown-list"><ul></ul></div>'+
-			    	'<textarea placeholder="' + _t('私信内容...') + '" rows="4"></textarea>'+
+			    	'<textarea name="message" placeholder="' + _t('私信内容...') + '" rows="4"></textarea>'+
 			    '</div>'+
 			    '<div class="modal-footer">'+
 			    	'<a data-dismiss="modal" aria-hidden="true">' + _t('取消') + '</a>'+
-			    	'<button class="btn btn-primary">' + _t('发送') + '</button>'+
+			    	'<button class="btn btn-primary" onclick="ajax_post($(\'#publish\'))">' + _t('发送') + '</button>'+
 			    '</div>'+
 		    '</form>'+
 	    '</div>'

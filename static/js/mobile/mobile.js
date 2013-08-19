@@ -40,7 +40,7 @@ $(function() {
 		$(this).parents('.aw-top-nav-popup').hide();
 	});
 
-	//点击下拉菜单外得地方隐藏
+	/* 点击下拉菜单外得地方隐藏　*/
 	$(document).click(function(e)
 	{
 		var target = $(e.target);
@@ -49,6 +49,7 @@ $(function() {
 			$('.aw-top-nav-popup, .dropdown-list').hide();
 		}
 	});
+
 
 	$('.aw-publish').click(function()
 	{
@@ -97,6 +98,10 @@ function alert_box(type , data)
 			break;
 			case 'redirect' : 
 				redirect_dropdown('.aw-redirect-input');
+			break;
+			case 'publish' :
+				publish_dropdown('.aw-topic-input');
+			break;
 		}
 	}
 	
@@ -268,6 +273,84 @@ function redirect_dropdown(element)
 	});
 }
 
+/* 
+*	** 发起话题下拉 ** 
+*	aw_topic_interval 定时器
+*	aw_topic_flag 是否已经开始发送请求标识
+*/
+var aw_topic_interval,aw_topic_flag = 0;
+function publish_dropdown(element)
+{
+	var ul = $(element).next().find('ul');
+	$(element).keydown(function()
+	{
+		if (aw_topic_flag == 0)
+		{
+			aw_topic_interval = setInterval(function()
+			{
+				if ($(element).val().length >= 2)
+				{
+					$.get(G_BASE_URL + '/search/ajax/search/?type-topic__q-' + encodeURIComponent($(element).val()) + '__limit-10',function(result)
+					{
+						if (result.length > 0)
+						{
+							ul.html('');
+							$.each(result ,function(i, e)
+							{
+								ul.append('<li><a>' + result[i].name +'</a></li>')
+							});	
+							$('.alert-publish .dropdown-list ul li').click(function()
+							{
+								$(element).parents('.alert-publish').find('.aw-topic-box').append('<a class="aw-topic-name">' + $(this).text() + '<i onclick="$(this).parents(\'.aw-topic-name\').detach();">X</i></a>');
+								$(element).val('');
+								$(element).next().hide();
+							});
+							$(element).next().show();
+						}else
+						{
+							$(element).next().hide();
+						}
+					},'json');
+				}
+				else
+				{
+					$(element).next().hide();
+				}
+			},1000);
+			aw_topic_flag = 1;
+			return aw_topic_interval;
+		}
+	});
+	$(element).blur(function()
+	{
+		clearInterval(aw_topic_interval);
+		aw_topic_flag = 0;
+	});
+}
+
+function _quick_publish_processer(result)
+{
+    if (typeof (result.errno) == 'undefined')
+    {
+        alert(result);
+    }
+    else if (result.errno != 1)
+    {
+        $('#quick_publish_error em').html(result.err);
+        $('#quick_publish_error').fadeIn();
+    }
+    else
+    {
+        if (result.rsm && result.rsm.url)
+        {
+            window.location = decodeURIComponent(result.rsm.url);
+        }
+        else
+        {
+            window.location.reload();
+        }
+    }
+}
 
 
 var aw_loading_timer;

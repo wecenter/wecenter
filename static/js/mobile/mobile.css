@@ -6,6 +6,8 @@ article, aside, dialog, footer, header, section, footer, nav, figure, menu {disp
 h1,h2,h3,h4,h5,h6{margin:0;font-size: 16px;line-height: 30px;}
 a{cursor: pointer;}
 .aw-topic-name{display: inline-block;line-height:22px;margin-right:5px;padding: 1px 7px;background:#D4F2FF;}
+.aw-topic-name:hover{text-decoration: none;}
+.aw-topic-name i{margin:-1px 0 0 10px;font-size: 12px;font-style: normal;}
 .dropdown-menu{min-width: 0px;}
 .num{color: #999;}
 .aw-arrow{border-color: #C1C1C1 transparent transparent;border-image: none;border-right: 4px solid transparent;border-style: solid;border-width: 4px;}
@@ -317,11 +319,12 @@ nav ul li a{display:block;font-weight: bold;color: #222;}
 .alert-publish form, .alert-redirect form, .alert-report form, .alert-message form{margin:0;}
 .alert-publish textarea, .alert-redirect textarea, .alert-report textarea, .alert-message textarea{display: block;width: 97%;}
 .alert-publish .btn-primary, .alert-redirect .btn-primary, .alert-report .btn-primary, .alert-message .btn-primary{margin-left: 10px;}
-.alert-publish .aw-topic-box{margin-bottom: 10px;}
+.alert-publish .aw-topic-box, .alert-publish .aw-topic-box-selector .btn-primary{margin-bottom: 10px;}
 .alert-publish .aw-topic-box-selector .btn-primary{margin-left: 10px;}
 .alert-publish .aw-topic-box-selector input{width: 70%;}
-.alert-message .modal-body, .alert-redirect .modal-body{overflow-y:visible;}
-.alert-message .modal-body .dropdown-list, .alert-redirect .modal-body .dropdown-list{width: 94%;}
+.alert-publish .modal-body, .alert-message .modal-body, .alert-redirect .modal-body{overflow-y:visible;}
+.alert-publish .modal-body .dropdown-list, .alert-message .modal-body .dropdown-list, .alert-redirect .modal-body .dropdown-list{width: 94%;}
+.alert-redirect .modal-body .dropdown-list{max-height: 288px;overflow-y:scroll;}
 
 /* icon */
 .icon-sign{display:inline-block;background-image: url("../img/signup.png");background-repeat: no-repeat;}
