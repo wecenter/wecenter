@@ -36,7 +36,7 @@
 			<?php } ?>
 		</div>
 		<div class="aw-mod-footer">
-			<a><?php if ($this->question_info['comment_count']) { ?><?php _e('%s 条评论', $this->question_info['comment_count']); ?><?php } else { ?><?php _e('添加评论'); ?><?php } ?></a><a>感谢</a><a>分享</a><a href="m/question_invite/<?php echo $this->question_info['question_id']; ?>">邀请回答</a>
+			<a herf="javascript:;" data-id="<?php echo $this->question_info['question_id']; ?>" data-type="question" class="aw-add-comment"<?php if ($this->question_info['lock']) { ?> data-close="true"<?php } ?>><?php if ($this->question_info['comment_count']) { ?><?php _e('%s 条评论', $this->question_info['comment_count']); ?><?php } else { ?><?php _e('添加评论'); ?><?php } ?></a><a>感谢</a><a>分享</a><a href="m/question_invite/<?php echo $this->question_info['question_id']; ?>">邀请回答</a>
 			
 			<!-- 邀请回答 -->
 			<div class="aw-mod aw-invite-replay">
@@ -148,14 +148,14 @@
 				<?php } ?>
 			</div>
 			<div class="aw-mod-footer">
-				<a><span class="num"><i class="icon-arrow-up"></i> 30</span></a><a><span class="num"><i class="icon-arrow-down"></i> 5</span></a><a>09:50</a><a>6 条评论</a><a>感谢</a><a>分享</a>
+				<a><span class="num"><i class="icon-arrow-up"></i> 30</span></a><a><span class="num"><i class="icon-arrow-down"></i> 5</span></a><a>09:50</a><a class="aw-add-comment" data-id="<?php echo $val['answer_id']; ?>" data-type="answer" href="javascript:;"><?php if ($val['comment_count']) { ?> <?php _e('%s 条评论', $val['comment_count']); ?><?php } else { ?><?php _e('添加评论'); ?><?php } ?></a><a>感谢</a><a>分享</a>
 			</div>
 		</section>
 		<?php } ?>
 	</div>
 	<?php } ?>
 	<!-- end 评论列表 -->
-	
+	<a name="answer_form"></a>
 	<?php if ($this->next_page) { ?>
 	<a href="m/question/<?php echo $this->question_info['question_id']; ?>?page-<?php echo $this->next_page; ?>" class="aw-load-more">下一页</a>
 	<?php } ?>
@@ -175,7 +175,6 @@
 			<a class="avatar pull-right"><img src="<?php echo get_avatar_url($this->user_id, 'mid'); ?>" alt="" /></a>
 			<?php echo $this->user_info['user_name']; ?>
 		</div>
-		<a name="answer_form"></a>
 		<div class="aw-mod-body">
 			<form action="question/ajax/save_answer/" onsubmit="return false;" method="post" id="answer_form">
 				<input type="hidden" name="post_hash" value="<?php echo new_post_hash(); ?>" />

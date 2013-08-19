@@ -404,19 +404,10 @@ class ajax extends AWS_CONTROLLER
 		
 		$this->model('answer')->insert_answer_comment($_GET['answer_id'], $this->user_id, $_POST['message']);
 		
-		if ($_POST['_is_mobile'])
-		{
-			H::ajax_json_output(AWS_APP::RSM(array(
-				'url' => get_js_url('/m/comments_list/answer_id-' . intval($_GET['answer_id']))
-			), 1, null));
-		}
-		else
-		{
-			H::ajax_json_output(AWS_APP::RSM(array(
-				'item_id' => intval($_GET['answer_id']), 
-				'type_name' => 'answer'
-			), 1, null));
-		}
+		H::ajax_json_output(AWS_APP::RSM(array(
+			'item_id' => intval($_GET['answer_id']), 
+			'type_name' => 'answer'
+		), 1, null));
 	}
 
 	public function get_answer_comments_action()
@@ -467,19 +458,10 @@ class ajax extends AWS_CONTROLLER
 
 		$this->model('question')->insert_question_comment($_GET['question_id'], $this->user_id, $_POST['message']);
 		
-		if ($_POST['_is_mobile'])
-		{
-			H::ajax_json_output(AWS_APP::RSM(array(
-				'url' => get_js_url('/m/comments_list/question_id-' . intval($_GET['question_id']))
-			), 1, null));
-		}
-		else
-		{
-			H::ajax_json_output(AWS_APP::RSM(array(
-				'item_id' => intval($_GET['question_id']), 
-				'type_name' => 'question'
-			), 1, null));
-		}
+		H::ajax_json_output(AWS_APP::RSM(array(
+			'item_id' => intval($_GET['question_id']), 
+			'type_name' => 'question'
+		), 1, null));
 	}
 
 	public function get_question_comments_action()

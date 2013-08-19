@@ -73,5 +73,22 @@ var AW_MOBILE_TEMPLATE = {
 			    	'<button class="btn btn-primary" onclick="ajax_post($(\'#publish\'))">' + _t('发送') + '</button>'+
 			    '</div>'+
 		    '</form>'+
-	    '</div>'
+	    '</div>',
+	    
+	'commentBox' : 
+			'<div class="aw-comment-box" id="{{comment_form_id}}">'+
+				'<div class="aw-comment-list"><p align="center" class="aw-padding10"><i class="aw-loading"></i></p></div>'+
+				'<form action="{{comment_form_action}}" method="post" onsubmit="return false">'+
+					'<div class="aw-comment-box-main">'+
+						'<textarea class="aw-comment-txt" name="message" placeholder="' + _t('评论一下') + '..."></textarea>'+
+						'<div class="aw-comment-box-btn">'+
+							'<span class="pull-right">'+
+								'<a href="javascript:;" class="btn btn-mini btn-success" onclick="save_comment(this);">' + _t('评论') + '</a>'+
+								'<a href="javascript:;" class="btn btn-mini close-comment-box">' + _t('取消') + '</a>'+
+							'</span>'+
+						'</div>'+
+					'</div>'+
+				'</form>'+
+				'<i class="aw-icon i-comment-triangle"></i>'+
+			'</div>',
 }

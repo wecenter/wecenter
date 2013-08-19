@@ -31,6 +31,16 @@ $(window).on('hashchange', function() {
 });
 
 $(document).ready(function () {
+	if (window.location.hash.indexOf('#!') != -1)
+	{
+		if ($('a[name=' + window.location.hash.replace('#!', '') + ']').length)
+		{
+			$.scrollTo($('a[name=' + window.location.hash.replace('#!', '') + ']').offset()['top'] - 20, 600, {queue:true});
+		}
+	}
+	
+	init_comment_box('.aw-add-comment');
+	
 	$('img#captcha').attr('src', G_BASE_URL + '/account/captcha/');
 	
 	$('#aw-top-nav-profile').click(function(){
@@ -43,14 +53,6 @@ $(document).ready(function () {
 		$('.aw-top-nav-popup').hide();
 		$('.aw-top-nav-notic').toggle();
 	})
-		
-	if (window.location.hash.indexOf('#!') != -1)
-	{		
-		if ($('a[name=' + window.location.hash.replace('#!', '') + ']').length)
-		{
-			$.scrollTo($('a[name=' + window.location.hash.replace('#!', '') + ']').offset()['top'] - 20, 600, {queue:true});
-		}
-	}
 
 	//关闭按钮
 	$('.slide-close').click(function()
@@ -719,4 +721,151 @@ function answer_vote(element, answer_id, val)
 			}
 		}
 	});
+}
+
+function init_comment_box(selecter)
+{
+    $(document).on('click', selecter, function ()
+    {
+        if (!$(this).attr('data-type') || !$(this).attr('data-id'))
+        {
+            return true;
+        }
+
+        var comment_box_id = '#aw-comment-box-' + $(this).attr('data-type') + '-' + 　$(this).attr('data-id');
+		
+        if ($(comment_box_id).length > 0)
+        {
+            if ($(comment_box_id).css('display') == 'none')
+            {
+                $(comment_box_id).fadeIn();
+            }
+            else
+            {
+                $(comment_box_id).fadeOut();
+            }
+        }
+        else
+        {
+            // 动态插入commentBox
+            switch ($(this).attr('data-type'))
+            {
+	            case 'question':
+	                var comment_form_action = G_BASE_URL + '/question/ajax/save_question_comment/question_id-' + $(this).attr('data-id');
+	                var comment_data_url = G_BASE_URL + '/question/ajax/get_question_comments/question_id-' + $(this).attr('data-id');
+	                break;
+	
+	            case 'answer':
+	                var comment_form_action = G_BASE_URL + '/question/ajax/save_answer_comment/answer_id-' + $(this).attr('data-id');
+	                var comment_data_url = G_BASE_URL + '/question/ajax/get_answer_comments/answer_id-' + $(this).attr('data-id');
+	                break;
+            }
+
+            if (G_USER_ID && $(this).attr('data-close') != 'true')
+            {
+                $(this).parents('.aw-mod-footer').append(Hogan.compile(AW_MOBILE_TEMPLATE.commentBox).render(
+                {
+                    'comment_form_id': comment_box_id.replace('#', ''),
+                    'comment_form_action': comment_form_action
+                }));
+				
+                $(comment_box_id).find('.aw-comment-txt').bind(
+                {
+                    focus: function ()
+                    {
+                        $(this).css('height', parseInt($(this).css('line-height')) * 5);
+
+                        $(comment_box_id).find('.aw-comment-box-btn').show();
+                    },
+
+                    blur: function ()
+                    {
+                        if ($(this).val() == '')
+                        {
+                            $(this).css('height', parseInt($(this).css('line-height')));
+
+                            $(comment_box_id).find('.aw-comment-box-btn').hide();
+                        }
+                    }
+                });
+
+                $(comment_box_id).find('.close-comment-box').click(function ()
+                {
+                    $(comment_box_id).fadeOut();
+                    $(comment_box_id).find('.aw-comment-txt').css('height', $(this).css('line-height'));
+                });
+            }
+            else
+            {
+                $(this).parent().parent().append(Hogan.compile(AW_TEMPLATE.commentBoxClose).render(
+                {
+                    'comment_form_id': comment_box_id.replace('#', ''),
+                    'comment_form_action': comment_form_action
+                }));
+            }
+
+            //判断是否有评论数据
+            $.get(comment_data_url, function (result)
+            {
+                if (!result)
+                {
+                    result = '<div align="center" class="aw-padding10">' + _t('暂无评论') + '</div>';
+                }
+
+                $(comment_box_id).find('.aw-comment-list').html(result);
+            });
+
+            var left = $(this).width()/2 + $(this).prev().width();
+            /*给三角形定位*/
+            $(comment_box_id).find('.i-comment-triangle').css('left', $(this).width() / 2 + $(this).prev().width() + 15);
+        }
+    });
+}
+
+function save_comment(save_button_el)
+{
+    $(save_button_el).attr('_onclick', $(save_button_el).attr('onclick')).addClass('disabled').removeAttr('onclick').addClass('_save_comment');
+
+    ajax_post($(save_button_el).parents('form'), _comments_form_processer);
+}
+
+function _comments_form_processer(result)
+{
+    $.each($('a._save_comment.disabled'), function (i, e)
+    {
+
+        $(e).attr('onclick', $(this).attr('_onclick')).removeAttr('_onclick').removeClass('disabled').removeClass('_save_comment');
+    });
+
+    if (result.errno != 1)
+    {
+        $.alert(result.err);
+    }
+    else
+    {
+        reload_comments_list(result.rsm.item_id, result.rsm.item_id, result.rsm.type_name);
+
+        $('#aw-comment-box-' + result.rsm.type_name + '-' + result.rsm.item_id + ' form input').val('');
+        $('#aw-comment-box-' + result.rsm.type_name + '-' + result.rsm.item_id + ' form').fadeOut();
+    }
+}
+
+function remove_comment(el, type, comment_id)
+{
+    $(el).parents('li').fadeOut('slow', function ()
+    {
+        $(this).remove();
+
+        $.get(G_BASE_URL + '/question/ajax/remove_comment/type-' + type + '__comment_id-' + comment_id);
+    });
+}
+
+function reload_comments_list(item_id, element_id, type_name)
+{
+    $('#aw-comment-box-' + type_name + '-' + element_id + ' .aw-comment-list').html('<p align="center" class="aw-padding10"><i class="aw-loading"></i></p>');
+
+    $.get(G_BASE_URL + '/question/ajax/get_' + type_name + '_comments/' + type_name + '_id-' + item_id, function (data)
+    {
+        $('#aw-comment-box-' + type_name + '-' + element_id + ' .aw-comment-list').html(data);
+    });
 }
