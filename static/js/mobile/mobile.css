@@ -1,7 +1,7 @@
 *{margin:0;padding:0;}
 body{padding:0 0 20px 0 !important;}
 input, textarea, select{font-family: "Helvetica Neue",Helvetica,Arial,'Microsoft YaHei',sans-serif;color: #666;}
-ul,ol{margin:0;list-style-type: none;}
+ul,ol{margin:0;list-style: none;}
 article, aside, dialog, footer, header, section, footer, nav, figure, menu {display: block;}
 h1,h2,h3,h4,h5,h6{margin:0;font-size: 16px;line-height: 30px;}
 a{cursor: pointer;}
@@ -59,7 +59,7 @@ nav ul li a{display:block;font-weight: bold;color: #222;}
 .aw-content{padding:0 10px;}
 .aw-title{line-height: 36px;margin:10px 0;padding-bottom:5px;font-size: 16px;color: #666;border-bottom: 1px solid #CCCCCC;}
 .aw-title p{margin:0;}
-.feed-list ul li{position: relative;padding:10px 0;border-top: 1px solid #EEEEEE;}
+.feed-list ul li{position: relative;padding:10px 0;border-top: 1px dashed #EEEEEE;}
 .feed-list ul li:first-child{border-top: none;}
 .feed-list ul li .avatar{position: absolute;right: 0;top: 10px;}
 .feed-list ul li .avatar img{width: 25px;height: 25px;border-radius: 2px;}
@@ -294,6 +294,7 @@ nav ul li a{display:block;font-weight: bold;color: #222;}
 .aw-focus-question li .avatar{position: absolute;right: 0;top: 10px}
 .aw-focus-question li .avatar img{width: 25px;height: 25px;}
 .aw-focus-question li p{margin:0;color: #999;}
+.aw-focus-question li .aw-topic-name{color: #0088CC !important;}
 
 /* 邀请朋友 */
 .aw-invite-people input{max-width:60%;margin:0;}
