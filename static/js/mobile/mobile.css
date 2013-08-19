@@ -321,7 +321,7 @@ nav ul li a{display:block;font-weight: bold;color: #222;}
 .alert-publish .aw-topic-box-selector .btn-primary{margin-left: 10px;}
 .alert-publish .aw-topic-box-selector input{width: 70%;}
 .alert-message .modal-body, .alert-redirect .modal-body{overflow-y:visible;}
-.alert-message .modal-body .dropdown-list{width: 94%;}
+.alert-message .modal-body .dropdown-list, .alert-redirect .modal-body .dropdown-list{width: 94%;}
 
 /* icon */
 .icon-sign{display:inline-block;background-image: url("../img/signup.png");background-repeat: no-repeat;}

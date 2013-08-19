@@ -29,7 +29,7 @@
 			<span>感谢: <em><?php echo $this->user['thanks_count']; ?></em></span>
 		</div>
 		<?php if ($this->user['uid'] != $this->user_id AND $this->user_id) { ?>
-		<a class="btn btn-primary btn-mini<?php if ($this->user_follow_check) { ?> aw-active<?php } ?>" onclick="follow_people($(this), <?php echo $this->user['uid']; ?>);"><?php if ($this->user_follow_check) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?></a>
+		<a class="btn btn-primary btn-mini<?php if ($this->user_follow_check) { ?> aw-active<?php } ?>" onclick="follow_people($(this), $(this), <?php echo $this->user['uid']; ?>);"><?php if ($this->user_follow_check) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?></a>
 		<a class="btn btn-primary btn-mini" onclick="alert_box('message','<?php echo $this->user['user_name']; ?>')">私信</a>
 		<?php } ?>
 	</div>

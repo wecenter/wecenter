@@ -32,12 +32,8 @@ var AW_MOBILE_TEMPLATE = {
 			    '</div>'+
 			    '<div class="modal-body">'+
 			    	'<p>' + _t('将问题跳转至') + '</p>'+
-			    	'<input type="text" data-id="{{data-id}}">'+
-			    	'<div class="dropdown-list"><ul>'+
-			    		'<li><a>测试解析测试解析测试解析测试解析测试解析</a></li>'+
-			    		'<li><a>测试解析测试解析测试解析测试解析测试解析</a></li>'+
-			    		'<li><a>测试解析测试解析测试解析测试解析测试解析</a></li>'+
-			    	'</ul></div>'+
+			    	'<input type="text" class="aw-redirect-input" data-id="{{data-id}}">'+
+			    	'<div class="dropdown-list"><ul></ul></div>'+
 			    '</div>'+
 			    '<div class="modal-footer">'+
 			    	'<a data-dismiss="modal" aria-hidden="true" class="btn btn-primary">' + _t('取消') + '</a>'+

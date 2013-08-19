@@ -95,6 +95,8 @@ function alert_box(type , data)
 			case 'message' :
 				message_dropdown('.aw-message-input');
 			break;
+			case 'redirect' : 
+				redirect_dropdown('.aw-redirect-input');
 		}
 	}
 	
@@ -217,6 +219,54 @@ function message_dropdown(element)
 	});
 }
 
+/* 
+*	** 问题重定向下拉 ** 
+*	aw_redirect_interval 定时器
+*	aw_redirect_flag 是否已经开始发送请求标识
+*/
+var aw_redirect_interval,aw_redirect_flag = 0;
+function redirect_dropdown(element)
+{
+	var ul = $(element).next().find('ul');
+	$(element).keydown(function()
+	{
+		if (aw_redirect_flag == 0)
+		{
+			aw_redirect_interval = setInterval(function()
+			{
+				if ($(element).val().length >= 2)
+				{
+					$.get(G_BASE_URL + '/search/ajax/search/?q=' + encodeURIComponent($(element).val()) + '&type=question&limit-30',function(result)
+					{
+						if (result.length > 0)
+						{
+							ul.html('');
+							$.each(result ,function(i, e)
+							{
+								ul.append('<li><a onclick="ajax_request(' + "'" + G_BASE_URL + "/question/ajax/redirect/', 'item_id=" + $(element).attr('data-id') + "&target_id=" + result['sno'] + "'" +')">' + result[i].name +'</a></li>')
+							});	
+							$(element).next().show();
+						}else
+						{
+							$(element).next().hide();
+						}
+					},'json');
+				}
+				else
+				{
+					$(element).next().hide();
+				}
+			},1000);
+			aw_redirect_flag = 1;
+			return aw_redirect_interval;
+		}
+	});
+	$(element).blur(function()
+	{
+		clearInterval(aw_redirect_interval);
+		aw_redirect_flag = 0;
+	});
+}
 
 
 
@@ -477,13 +527,11 @@ function focus_topic(el, text_el, topic_id)
 	if (el.hasClass('aw-active'))
 	{
 		text_el.html(_t('关注'));
-		
 		el.removeClass('aw-active');
 	}
 	else
 	{
 		text_el.html(_t('取消关注'));
-		
 		el.addClass('aw-active');
 	}
 	
@@ -510,23 +558,15 @@ function focus_topic(el, text_el, topic_id)
 
 function follow_people(el, text_el, uid)
 {
-	if (el.attr('data-theme') == 'b')
+	if (el.hasClass('aw-active'))
 	{
-		text_el.html(_t('取消关注'));
-		
-		el.removeClass('ui-btn-up-b').removeClass('ui-btn-hover-b');
-		
-		el.addClass('ui-btn-up-d');
-		el.attr('data-theme', 'd');
+		text_el.html(_t('关注'));
+		el.removeClass('aw-active');
 	}
 	else
 	{
-		text_el.html(_t('关注'));
-		
-		el.removeClass('ui-btn-up-d').removeClass('ui-btn-hover-d');
-		
-		el.addClass('ui-btn-up-b');
-		el.attr('data-theme', 'b');
+		text_el.html(_t('取消关注'));
+		el.addClass('aw-active');
 	}
 	
 	$.loading('show');
