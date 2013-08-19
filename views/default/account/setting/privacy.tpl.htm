@@ -9,8 +9,8 @@
 		</div>
 		<div class="aw-mod-body aw-user-setting-layout">
 			<span><?php _e('是否允许别人访问我的微博'); ?>: </span>
-			<label><input type="radio" value="1" name="weibo-visit"<?php if ($this->user_info['weibo_visit'] == 1) { ?> checked="checked"<?php } ?> /> <?php _e('是'); ?></label>
-			<label><input type="radio" value="0" name="weibo-visit"<?php if (!$this->user_info['weibo_visit']) { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?></label>
+			<label><input type="radio" value="1" name="weibo_visit"<?php if ($this->user_info['weibo_visit'] == 1) { ?> checked="checked"<?php } ?> /> <?php _e('是'); ?></label>
+			<label><input type="radio" value="0" name="weibo_visit"<?php if (!$this->user_info['weibo_visit']) { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?></label>
 		</div>
 	</div>
 	<!-- end 微博设置 -->
@@ -34,7 +34,7 @@
 			<h4><?php _e('邮件设置'); ?></h4>
 		</div>
 		<div class="aw-mod-body aw-user-setting-layout">
-			<h5><?php _e('什么情况下给我发邮件'); ?>: </h5>
+			<h5><?php _e('什么情况下给我发邮件'); ?>:</h5>
 			<p>
 				<span>
 					<label>
@@ -72,7 +72,7 @@
 			<h4><?php _e('通知设置'); ?></h4>
 		</div>
 		<div class="aw-mod-body aw-user-setting-layout">
-			<h5><?php _e('什么情况下给我发送通知'); ?>: </h5>
+			<h5><?php _e('什么情况下给我发送通知'); ?>:</h5>
 			<p>
 				<?php foreach($this->notify_actions as $key => $val) { ?>
                     <?php if ($val['user_setting']) { ?>
