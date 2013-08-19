@@ -82,6 +82,22 @@ $(document).ready(function () {
 
 	dropdown_list('.aw-search-input','search');
 	dropdown_list('.aw-invite-input','invite');
+	add_topic_box('.aw-add-topic-box');
+
+	/* 话题编辑取消按钮 */
+	$(document).on('click','.aw-topic-edit-box .cancel',function()
+	{
+		$(this).parents('.aw-topic-edit-box').find('.aw-add-topic-box').show();
+		$.each($(this).parents('.aw-topic-edit-box').find('.aw-topic-name'), function(i, e)
+		{
+			if ($(e).has('i')[0])
+			{
+				$(e).find('i').detach();
+			}
+		});
+		$(this).parents('.aw-topic-box-selector').detach();
+	});
+
 });
 
 /* 弹窗 */
@@ -91,9 +107,7 @@ function alert_box(type , data)
 	switch (type)
 	{
 		case 'publish' : 
-			template = Hogan.compile(AW_MOBILE_TEMPLATE.publish).render({
-		
-			});
+			template = Hogan.compile(AW_MOBILE_TEMPLATE.publish).render({});
 		break;
 
 		case 'redirect' : 
@@ -116,11 +130,13 @@ function alert_box(type , data)
 			case 'message' :
 				dropdown_list('.aw-message-input','message');
 			break;
+			
 			case 'redirect' : 
 				dropdown_list('.aw-redirect-input','redirect');
 			break;
+
 			case 'publish' :
-				dropdown_list('.aw-topic-input','topic');
+				add_topic_box('.alert-publish .aw-topic-edit-box .aw-add-topic-box');
 			break;
 		}
 	}
@@ -221,9 +237,9 @@ function dropdown_list(element, type)
 									{
 										ul.append('<li><a>' + result[i].name +'</a></li>')
 									});	
-									$('.alert-publish .dropdown-list ul li').click(function()
+									$('.aw-topic-edit-box .dropdown-list ul li').click(function()
 									{
-										$(element).parents('.alert-publish').find('.aw-topic-box').append('<a class="aw-topic-name">' + $(this).text() + '<i onclick="$(this).parents(\'.aw-topic-name\').detach();">X</i></a>');
+										$(element).parents('.aw-topic-edit-box').find('.aw-topic-box').prepend('<a class="aw-topic-name">' + $(this).text() + '<i onclick="$(this).parents(\'.aw-topic-name\').detach();">X</i></a>');
 										$(element).val('');
 										$(element).next().hide();
 									});
@@ -263,6 +279,24 @@ function dropdown_list(element, type)
 	{
 		clearInterval(aw_dropdown_list_interval);
 		aw_dropdown_list_flag = 0;
+	});
+}
+
+function add_topic_box(element)
+{
+	$(element).click(function()
+	{
+		$(element).hide();
+		$(element).parents('.aw-topic-edit-box').append(AW_MOBILE_TEMPLATE.topic_edit_box);
+		$.each($(element).parents('.aw-topic-edit-box').find('.aw-topic-name'), function(i, e)
+		{
+			if (!$(e).has('i')[0])
+			{
+
+				$(e).append('<i onclick="$(this).parents(\'.aw-topic-name\').detach();">X</i>');
+			}
+		});
+		dropdown_list('.aw-topic-box-selector .aw-topic-input','topic');
 	});
 }
 

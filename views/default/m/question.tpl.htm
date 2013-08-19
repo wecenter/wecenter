@@ -13,12 +13,15 @@
 	<div class="aw-mod aw-question-detail">
 		<div class="aw-mod-head">
 			<h1><?php echo $this->question_info['question_content']; ?></h1>
-			<div class="aw-topic-editor">
-				<?php if ($this->question_topics) { ?>
-					<?php foreach($this->question_topics as $key => $val) { if ($key > 2) { break; } ?>
-						<a class="aw-topic-name" href="m/topic/<?php echo $val['url_token']; ?>"><?php echo $val['topic_title']; ?></a>
+			<div class="aw-topic-edit-box">
+				<div class="aw-topic-box">
+					<?php if ($this->question_topics) { ?>
+						<?php foreach($this->question_topics as $key => $val) { if ($key > 2) { break; } ?>
+							<a class="aw-topic-name" href="m/topic/<?php echo $val['url_token']; ?>"><?php echo $val['topic_title']; ?></a>
+						<?php } ?>
 					<?php } ?>
-				<?php } ?>
+					<a class="aw-add-topic-box">编辑话题</a>
+				</div>
 			</div>
 		</div>
 		<div class="aw-mod-body">
@@ -42,11 +45,7 @@
 			<div class="aw-mod aw-invite-replay">
 				<div class="input-append aw-relative">
 					<input class="span2 aw-invite-input" id="inputIcon" type="text">
-					<div class="dropdown-list">
-						<ul>
-							
-						</ul>
-					</div>
+					<div class="dropdown-list"><ul></ul></div>
 					<span class="add-on"><i class="icon-search"></i></span>
 					
 				</div>
