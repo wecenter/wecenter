@@ -249,6 +249,11 @@ function dropdown_list(element, type)
 									{
 										ul.append('<li><a><img src="' + result[i].detail.avatar_file + '"><span>' + result[i].name + '</span></a></li>')
 									});	
+									$('.alert-message .dropdown-list ul li a').click(function()
+									{
+										$(element).val($(this).text());
+										$(element).next().hide();
+									});
 									$(element).next().show();
 								}else
 								{
