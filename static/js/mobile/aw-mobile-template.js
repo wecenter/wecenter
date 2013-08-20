@@ -25,11 +25,6 @@ var AW_MOBILE_TEMPLATE = {
 					    		'<i class="pull-left"></i>'+
 					    	'</p>'+
 						    '<ul class="dropdown-menu">'+
-						    	'<li>'+
-						    		'<a>123</a>'+
-						    		'<a>123</a>'+
-						    		'<a>123</a>'+
-						    	'</li>'+
 						    '</ul>'+
 					    '</div>'+
 			    	'</div>'+

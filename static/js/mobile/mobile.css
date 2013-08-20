@@ -116,6 +116,7 @@ nav ul li a{display:block;font-weight: bold;color: #222;}
 .aw-publish-title .aw-publish-dropdown i{display:inline-block;margin:10px 10px 0 0;border-color: #C1C1C1 transparent transparent;border-image: none;border-style: solid;border-width: 7px;}
 .alert-publish .aw-publish-title .aw-publish-dropdown p{width:100%;border-radius: 4px;}
 .alert-publish .aw-publish-title .aw-publish-dropdown p i{position: absolute;right: 0;top:0;}
+.alert-publish .aw-publish-title .dropdown-menu{width: 100%;}
 
 /* 快速回复 */
 .aw-comment-box{position: relative;max-width: 540px;margin:10px 0 35px;border:1px solid #DDDDDD;background: #fff;border-radius: 4px;}

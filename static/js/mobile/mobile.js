@@ -150,7 +150,7 @@ function alert_box(type , data)
 	        	{
 		        	$.get(G_BASE_URL + '/publish/ajax/fetch_question_category/', function (result)
 		            {
-		                add_dropdown_list('.aw-publish-title-dropdown', eval(result), data.category_id);
+		                add_dropdown_list('.alert-publish .aw-publish-dropdown', eval(result), data.category_id);
 		
 		                $('.aw-publish-title-dropdown li a').click(function ()
 		                {
