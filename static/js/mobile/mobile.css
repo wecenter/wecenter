@@ -363,5 +363,11 @@ nav ul li a{display:block;font-weight: bold;color: #222;}
 .icon-sign-arrow, .icon-sign-arrow-l{height: 19px;width: 18px;background-position: -1px -1px;margin-left: 8px;vertical-align: -5px;}
 .icon-sign-arrow-l{margin: 0 8px 0 0;background-position:-70px -1px;}
 
+.aw-icon{display: inline-block;;background-image:url('img/m-icon.png');background-repeat: no-repeat; }
+.aw-icon.agree{width: 13px;height: 12px;background-position: -17px 0;}
+.aw-icon.disagree{width: 13px;height: 12px;background-position: -17px -20px;}
+.aw-icon.agree.active{background-position: 0 0;}
+.aw-icon.disagree.active{background-position: 0 -20px;}
+
 /* 底部 */
 footer{margin-top:20px;font-size: 12px;text-align: center;}

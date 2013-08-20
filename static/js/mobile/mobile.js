@@ -442,6 +442,25 @@ function disinvite_user(obj, uid)
     $.get(G_BASE_URL + '/question/ajax/cancel_question_invite/question_id-' + QUESTION_ID + "__recipients_uid-" + uid);
 }
 
+/*动态插入下拉菜单模板*/
+function add_dropdown_list(selecter, data, selected)
+{
+    $(selecter).append(Hogan.compile(AW_TEMPLATE.dropdownList).render(
+    {
+        'items': data
+    }));
+
+    $(selecter + ' .dropdown-menu li a').click(function ()
+    {
+        $('#aw-topic-tags-select').html($(this).text());
+    });
+
+    if (selected)
+    {
+        $(selecter + " .dropdown-menu li a[data-value='" + selected + "']").click();
+    }
+}
+
 function _quick_publish_processer(result)
 {
     if (typeof (result.errno) == 'undefined')

@@ -96,5 +96,15 @@ var AW_MOBILE_TEMPLATE = {
 			'<input type="text" placeholder="' + _t('创建或搜索添加新话题...') + '" class="aw-topic-input">'+
 			'<div class="dropdown-list"><ul></ul></div>'+
 			'<a class="btn add">' + _t('添加') + '</a><a class="btn cancel">' + _t('取消') + '</a>'+
-		'</div> '
+		'</div> ',
+
+	'dropdownList' : 
+		'<div aria-labelledby="dropdownMenu" role="menu" class="dropdown-menu aw-dropdown-menu">'+
+			'<span><i class="aw-icon i-dropdown-triangle"></i></span>'+
+			'<ul>'+
+			'{{#items}}'+
+				'<li><a data-value="{{id}}">{{title}}</a></li>'+
+			'{{/items}}'+
+			'</ul>'+
+		'</div>'
 }
