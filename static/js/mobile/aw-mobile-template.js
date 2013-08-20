@@ -36,7 +36,7 @@ var AW_MOBILE_TEMPLATE = {
 				'</div>'+
 			    '<div class="modal-footer">'+
 			    	'<a data-dismiss="modal" aria-hidden="true">' + _t('取消') + '</a>'+
-			    	'<button class="btn btn-primary btn-success" onclick="ajax_post($(\'#quick_publish\'), _quick_publish_processer); return false;">' + _t('发起') + '</button>'+
+			    	'<button class="btn btn-primary btn-primary" onclick="ajax_post($(\'#quick_publish\'), _quick_publish_processer); return false;">' + _t('发起') + '</button>'+
 			    '</div>'+
 		    '</form>'+
 	    '</div>',
