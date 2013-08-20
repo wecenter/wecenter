@@ -21,7 +21,7 @@ a{cursor: pointer;}
 .btn-mini{font-size: 12px;}
 .aw-text-color-red{color: red;}
 .aw-relative{position: relative;}
-.btn-mini{min-width: 60px;padding:4px 6px;font-size:14px;font-weight: normal;}
+.btn-mini{min-width: 60px;padding:2px 3px;font-size:14px;font-weight: normal;}
 .btn-primary.aw-active{
 	color: #333333;
 	background-color: #f5f5f5;
@@ -114,6 +114,8 @@ nav ul li a{display:block;font-weight: bold;color: #222;}
 .aw-publish-title .aw-publish-dropdown p{margin: 0;height: 28px;line-height: 28px;border: 1px solid #C1CAD4;box-shadow: 0 2px 1px #F3F3F3 inset;cursor: pointer;border-radius: 0 4px 4px 0;}
 .aw-publish-title .aw-publish-dropdown span{display: inline-block;padding:0 12px;}
 .aw-publish-title .aw-publish-dropdown i{display:inline-block;margin:10px 10px 0 0;border-color: #C1C1C1 transparent transparent;border-image: none;border-style: solid;border-width: 7px;}
+.alert-publish .aw-publish-title .aw-publish-dropdown p{width:100%;border-radius: 4px;}
+.alert-publish .aw-publish-title .aw-publish-dropdown p i{position: absolute;right: 0;top:0;}
 
 /* 快速回复 */
 .aw-comment-box{position: relative;max-width: 540px;margin:10px 0 35px;border:1px solid #DDDDDD;background: #fff;border-radius: 4px;}

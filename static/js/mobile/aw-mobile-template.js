@@ -19,8 +19,7 @@ var AW_MOBILE_TEMPLATE = {
 				    '</div>'+
 				    
 				    '<div class="aw-publish-title clearfix" id="quick_publish_category_chooser">'+
-			    		'<input type="text" class="pull-left">'+
-					    '<div class="aw-publish-dropdown pull-left">'+
+					    '<div class="aw-publish-dropdown">'+
 					    	'<p data-toggle="dropdown" class="dropdown-toggle">'+
 					    		'<span class="pull-left num">' + _t('选择分类') + '</span>'+
 					    		'<i class="pull-left"></i>'+
