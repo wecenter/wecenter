@@ -49,6 +49,7 @@ var AW_MOBILE_TEMPLATE = {
 			    	'<input type="text" name="recipient" class="aw-message-input" placeholder="' + _t('搜索用户...') + '" value="{{data-name}}">'+
 			    	'<div class="dropdown-list"><ul></ul></div>'+
 			    	'<textarea name="message" placeholder="' + _t('私信内容...') + '" rows="4"></textarea>'+
+			    	'<input type="hidden" name="return_url" value="/m/inbox/" />'+
 			    '</div>'+
 			    '<div class="modal-footer">'+
 			    	'<a data-dismiss="modal" aria-hidden="true">' + _t('取消') + '</a>'+
