@@ -301,7 +301,7 @@ class main extends AWS_CONTROLLER
 			
 			TPL::assign('invite_users', $this->model('question')->get_invite_users($question_info['question_id'], array($question_info['published_uid'])));
 			
-			TPL::assign('user_follow_check', $this->model("follow")->user_follow_check($this->user_id, $question_info['published_uid']));
+			TPL::assign('user_follow_check', $this->model('follow')->user_follow_check($this->user_id, $question_info['published_uid']));
 			
 			if ($this->user_info['draft_count'] > 0)
 			{

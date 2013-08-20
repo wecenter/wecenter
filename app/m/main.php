@@ -273,7 +273,85 @@ class main extends AWS_CONTROLLER
 		
 		$answer_list = $this->model('answer')->get_answer_list_by_question_id($question_info['question_id'], calc_page_limit($_GET['page'], 20), null, 'agree_count DESC, against_count ASC, add_time ASC');
 		
-		TPL::assign('answers_list', $answer_list);
+		// 最佳回复预留
+		$answers[0] = '';
+
+		if (! is_array($answer_list))
+		{
+			$answer_list = array();
+		}
+		
+		$answer_ids = array();
+		$answer_uids = array();
+		
+		foreach ($answer_list as $answer)
+		{
+			$answer_ids[] = $answer['answer_id'];
+			$answer_uids[] = $answer['uid'];
+			
+			if ($answer['has_attach'])
+			{
+				$has_attach_answer_ids[] = $answer['answer_id'];
+			}
+		}
+		
+		if (!in_array($question_info['best_answer'], $answer_ids) AND intval($_GET['page']) < 2)
+		{
+			$answer_list = array_merge($this->model('answer')->get_answer_list_by_question_id($question_info['question_id'], 1, 'answer_id = ' . $question_info['best_answer']), $answer_list);
+		}
+		
+		if ($answer_ids)
+		{
+			$answer_agree_users = $this->model('answer')->get_vote_user_by_answer_ids($answer_ids);
+			
+			$answer_vote_status = $this->model('answer')->get_answer_vote_status($answer_ids, $this->user_id);
+			
+			$answer_users_rated_thanks = $this->model('answer')->users_rated('thanks', $answer_ids, $this->user_id);
+			$answer_users_rated_uninterested = $this->model('answer')->users_rated('uninterested', $answer_ids, $this->user_id);
+			$answer_attachs = $this->model('publish')->get_attachs('answer', $has_attach_answer_ids, 'min');
+		}
+		
+		foreach ($answer_list as $answer)
+		{
+			if ($answer['has_attach'])
+			{
+				$answer['attachs'] = $answer_attachs[$answer['answer_id']];
+				
+				$answer['insert_attach_ids'] = FORMAT::parse_attachs($answer['answer_content'], true);
+			}
+			
+			$answer['user_rated_thanks'] = $answer_users_rated_thanks[$answer['answer_id']];
+			$answer['user_rated_uninterested'] = $answer_users_rated_uninterested[$answer['answer_id']];
+			
+			$answer['answer_content'] = $this->model('question')->parse_at_user(FORMAT::parse_attachs(nl2br(FORMAT::parse_markdown($answer['answer_content']))));
+			
+			$answer['agree_users'] = $answer_agree_users[$answer['answer_id']];
+			$answer['agree_status'] = $answer_vote_status[$answer['answer_id']];
+			
+			if ($question_info['best_answer'] == $answer['answer_id'] AND intval($_GET['page']) < 2)
+			{
+				$answers[0] = $answer;
+			}
+			else
+			{
+				$answers[] = $answer;
+			}
+		}
+		
+		if (! $answers[0])
+		{
+			unset($answers[0]);
+		}
+		
+		if (get_setting('answer_unique') == 'Y')
+		{
+			if ($this->model('answer')->has_answer_by_uid($question_info['question_id'], $this->user_id))
+			{
+				TPL::assign('user_answered', TRUE);
+			}
+		}
+		
+		TPL::assign('answers_list', $answers);
 		
 		TPL::assign('question_related_list', $this->model('question')->get_related_question_list($question_info['question_id'], $question_info['question_content']));
 		

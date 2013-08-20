@@ -1097,16 +1097,22 @@ function agreeVote(element, answer_id)
 {
 	$.post(G_BASE_URL + '/question/ajax/answer_vote/', 'answer_id=' + answer_id + '&value=1', function (result) {});
 	
-	$(element).parents('.aw-mod-footer').find('a.answer_vote .aw-icon').removeClass('active');
-	
-    //判断是否投票过
-    if ($(element).hasClass('active'))
+    //判断是否投票过   
+    if ($(element).find('.aw-icon').hasClass('active'))
     {
+    	$(element).parents('.aw-mod-footer').find('a.answer_vote .aw-icon').removeClass('active');
+    	
         $(element).find('.aw-icon').removeClass('active');
+        
+        $(element).find('em').html(parseInt($(element).find('em').html()) - 1);
     }
     else
     {
+    	$(element).parents('.aw-mod-footer').find('a.answer_vote .aw-icon').removeClass('active');
+    	
     	$(element).find('.aw-icon').addClass('active');
+    	
+    	$(element).find('em').html(parseInt($(element).find('em').html()) + 1);
     }
 }
 
@@ -1115,16 +1121,20 @@ function disagreeVote(element, answer_id)
 {
     $.post(G_BASE_URL + '/question/ajax/answer_vote/', 'answer_id=' + answer_id + '&value=-1', function (result) {});
     
-    $(element).parents('.aw-mod-footer').find('a.answer_vote .aw-icon').removeClass('active');
-	
     //判断是否投票过
-    if ($(element).hasClass('active'))
+    if ($(element).find('.aw-icon').hasClass('active'))
     {
+    	$(element).parents('.aw-mod-footer').find('a.answer_vote .aw-icon').removeClass('active');
+    	
         $(element).find('.aw-icon').removeClass('active');
     }
     else
     {
+    	$(element).parents('.aw-mod-footer').find('a.answer_vote .aw-icon').removeClass('active');
+    	
     	$(element).find('.aw-icon').addClass('active');
+    	
+    	//$(element).parents('.aw-mod-footer').find('a.answer_vote em').html(parseInt($(element).parents('.aw-mod-footer').find('a.answer_vote em').html()) - 1);
     }
 }
 
