@@ -134,7 +134,7 @@ nav ul li a{display:block;font-weight: bold;color: #222;}
 .aw-question-detail-page .aw-question-detail .aw-mod-footer a, .aw-question-detail-page .aw-answers-list .aw-mod-footer a{margin-right: 10px;color: #999;}
 .aw-question-detail-page .aw-answers-title{line-height:24px;margin-top:15px;padding:10px 0;border-top: 1px solid #EEEEEE;}
 .aw-question-detail-page .aw-answers-title .dropdown-menu{left: -60px;}
-.aw-question-detail-page .aw-answers-list section{padding:10px 0;border-top:1px solid #EEEEEE;}
+.aw-question-detail-page .aw-answers-list ul li{padding:10px 0;border-top:1px solid #EEEEEE;}
 .aw-question-detail-page .aw-answers-list .avatar{width: 25px;height: 25px;border-radius: 2px;}
 .aw-question-detail-page .aw-answers-list h3{min-height:26px;font-size: 15px;}
 .aw-question-detail-page .aw-answers-list h3 strong{margin-left: 10px;}

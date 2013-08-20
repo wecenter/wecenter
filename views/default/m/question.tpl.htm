@@ -122,8 +122,9 @@
 	<!-- 评论列表 -->
 	<?php if ($this->answers_list) { ?>
 	<div class="aw-answers-list">
+		<ul>
 		<?php foreach ($this->answers_list AS $key => $val) { ?>
-		<section>
+		<li>
 			<div class="aw-mod-head">
 				<h3>
 					<a class="avatar pull-right" href="<?php if ($val['anonymous']) { ?>javascript:;<?php } else { ?>m/people/<?php echo $val['uid']; ?><?php } ?>"><img src="<?php if ($val['anonymous']) { ?><?php echo G_STATIC_URL; ?>/common/avatar-mid-img.jpg<?php } else { ?><?php echo get_avatar_url($val['uid'], 'mid'); ?><?php } ?>" alt="" /></a>
@@ -152,10 +153,11 @@
 				<?php } ?>
 			</div>
 			<div class="aw-mod-footer">
-				<?php echo date_friendly($val['add_time']); ?> <a onclick="agreeVote(this, <?php echo $val['answer_id']; ?>)" class="answer_vote"><span class="num"><i class="aw-icon agree"></i> <?php echo $val['agree_count']; ?></span></a><a class="answer_vote" onclick="disagreeVote(this, <?php echo $val['answer_id']; ?>)"><span class="num"><i class="aw-icon disagree"></i></span></a><a class="aw-add-comment" data-id="<?php echo $val['answer_id']; ?>" data-type="answer" href="javascript:;"><?php if ($val['comment_count']) { ?> <?php _e('%s 条评论', $val['comment_count']); ?><?php } else { ?><?php _e('添加评论'); ?><?php } ?></a><a onclick="answer_user_rate(<?php echo $val['answer_id']; ?>, 'uninterested', this);"><?php if ($val['user_rated_uninterested']) { ?><?php _e('撤消没有帮助'); ?><?php } else { ?><?php _e('没有帮助'); ?><?php } ?></a><?php if ($this->user_id != $val['uid'] AND $this->user_id) { ?><a href="javascript:;"<?php if (!$val['user_rated_thanks']) { ?> onclick="answer_user_rate(<?php echo $val['answer_id']; ?>, 'thanks', this);"<?php } ?>><?php if ($val['user_rated_thanks']) { ?><?php _e('已感谢'); ?><?php } else { ?><?php _e('感谢'); ?><?php } ?></a><?php } ?>
+				<span class="num"><?php echo date_friendly($val['add_time']); ?></span> <a onclick="agreeVote(this, <?php echo $val['answer_id']; ?>)" class="answer_vote"><span class="num"><i class="aw-icon agree"></i> <?php echo $val['agree_count']; ?></span></a><a class="answer_vote" onclick="disagreeVote(this, <?php echo $val['answer_id']; ?>)"><span class="num"><i class="aw-icon disagree"></i></span></a><a class="aw-add-comment" data-id="<?php echo $val['answer_id']; ?>" data-type="answer" href="javascript:;"><?php if ($val['comment_count']) { ?> <?php _e('%s 条评论', $val['comment_count']); ?><?php } else { ?><?php _e('添加评论'); ?><?php } ?></a><a onclick="answer_user_rate(<?php echo $val['answer_id']; ?>, 'uninterested', this);"><?php if ($val['user_rated_uninterested']) { ?><?php _e('撤消没有帮助'); ?><?php } else { ?><?php _e('没有帮助'); ?><?php } ?></a><?php if ($this->user_id != $val['uid'] AND $this->user_id) { ?><a href="javascript:;"<?php if (!$val['user_rated_thanks']) { ?> onclick="answer_user_rate(<?php echo $val['answer_id']; ?>, 'thanks', this);"<?php } ?>><?php if ($val['user_rated_thanks']) { ?><?php _e('已感谢'); ?><?php } else { ?><?php _e('感谢'); ?><?php } ?></a><?php } ?>
 			</div>
-		</section>
+		</li>
 		<?php } ?>
+		</ul>
 	</div>
 	<?php } ?>
 	<!-- end 评论列表 -->
