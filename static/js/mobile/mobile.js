@@ -89,7 +89,7 @@ $(document).ready(function () {
 	});
 
 	/* 话题编辑删除按钮 */
-	$(document).on('click', '.aw-topic-edit-box .aw-topic-box i', function()
+	$(document).on('click', '.aw-question-detail .aw-topic-edit-box .aw-topic-box i', function()
 	{
 		var _this = $(this);
 		$.post(G_BASE_URL + '/question/ajax/delete_topic/?question_id', {'question_id' : $(this).parents('.aw-topic-edit-box').attr('data-id'), 'topic_id' : $(this).parents('.aw-topic-name').attr('data-id')} , function(result)
@@ -107,7 +107,7 @@ $(document).ready(function () {
 
 	dropdown_list('.aw-search-input','search');
 	dropdown_list('.aw-invite-input','invite');
-	add_topic_box('.aw-add-topic-box');
+	add_topic_box('.aw-add-topic-box','question');
 
 });
 
@@ -184,7 +184,7 @@ function alert_box(type , data)
 		            $('#captcha').click();
 	            }
 				
-				add_topic_box('.alert-publish .aw-topic-edit-box .aw-add-topic-box');
+				add_topic_box('.alert-publish .aw-topic-edit-box .aw-add-topic-box', 'publish');
 			break;
 		}
 	}
@@ -376,7 +376,7 @@ function dropdown_list(element, type)
 }
 
 /* 话题编辑 */
-function add_topic_box(element)
+function add_topic_box(element, type)
 {
 	$(element).click(function()
 	{
@@ -395,24 +395,35 @@ function add_topic_box(element)
 		/* 话题编辑添加按钮 */
 		$('.aw-topic-box-selector .add').click(function()
 		{
-			var _this = $(this);
-			$.post(G_BASE_URL + '/question/ajax/save_topic/question_id-' + data_id, 'topic_title=' + $(this).parents('.aw-topic-box-selector').find('.aw-topic-input').val(), function(result)
+			switch (type)
 			{
-				if (result.errno == 1)
-				{
-					_this.parents('.aw-topic-edit-box').find('.aw-topic-box').prepend('<a class="aw-topic-name" data-id="'+ result.rsm.topic_id +'">' + _this.parents('.aw-topic-box-selector').find('.aw-topic-input').val() + '<i>X</i></a>');
-					_this.parents('.aw-topic-edit-box').find('.aw-topic-input').val('');
-					_this.parents('.aw-topic-edit-box').find('.dropdown-list').hide();
-				}else
-				{
-					alert(result.err);
-				}
-			}, 'json');
+				case 'publish' :
+					$(this).parents('.aw-topic-edit-box').find('.aw-topic-box').prepend('<a class="aw-topic-name">' + $(this).parents('.aw-topic-box-selector').find('.aw-topic-input').val() + '<i onclick="$(this).parents(\'.aw-topic-name\').detach();">X</i></a>');
+					$(this).parents('.aw-topic-edit-box').find('.aw-topic-input').val('');
+					$(this).parents('.aw-topic-edit-box').find('.dropdown-list').hide();
+				break;
+				case 'question' :
+					var _this = $(this);
+					$.post(G_BASE_URL + '/question/ajax/save_topic/question_id-' + data_id, 'topic_title=' + $(this).parents('.aw-topic-box-selector').find('.aw-topic-input').val(), function(result)
+					{
+						if (result.errno == 1)
+						{
+							_this.parents('.aw-topic-edit-box').find('.aw-topic-box').prepend('<a class="aw-topic-name" data-id="'+ result.rsm.topic_id +'">' + _this.parents('.aw-topic-box-selector').find('.aw-topic-input').val() + '<i>X</i></a>');
+							_this.parents('.aw-topic-edit-box').find('.aw-topic-input').val('');
+							_this.parents('.aw-topic-edit-box').find('.dropdown-list').hide();
+						}else
+						{
+							alert(result.err);
+						}
+					}, 'json');
+				break;
+			}
+			
 		});
 		/* 话题编辑取消按钮 */
 		$('.aw-topic-box-selector .cancel').click(function()
 		{
-			$(this).parents('.aw-topic-box-selector').find('.aw-add-topic-box').show();
+			$(this).parents('.aw-topic-edit-box').find('.aw-add-topic-box').show();
 			$.each($(this).parents('.aw-topic-edit-box').find('.aw-topic-name'), function(i, e)
 			{
 				if ($(e).has('i')[0])

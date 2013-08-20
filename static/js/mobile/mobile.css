@@ -108,7 +108,7 @@ nav ul li a{display:block;font-weight: bold;color: #222;}
 .aw-mod-publish .aw-mod-body{margin-bottom:10px;border-bottom: 1px solid #eee;}
 .aw-mod-publish textarea{width: 95%;}
 .aw-mod-publish .aw-topic-box-selector .btn{margin:0 0 10px 10px;}
-.aw-publish-title{position: relative;}
+.aw-publish-title .aw-publish-dropdown{position: relative;}
 .aw-publish-title input{border-radius: 4px 0 0 4px;border-right: none;}
 .aw-publish-title.open .dropdown-menu{display: block;}
 .aw-publish-title .aw-publish-dropdown p{margin: 0;height: 28px;line-height: 28px;border: 1px solid #C1CAD4;box-shadow: 0 2px 1px #F3F3F3 inset;cursor: pointer;border-radius: 0 4px 4px 0;}
@@ -346,11 +346,13 @@ nav ul li a{display:block;font-weight: bold;color: #222;}
 .aw-topic-box-selector .dropdown-list ul li{cursor: pointer;}
 
 /* 弹窗box */
-.alert-publish input, .alert-redirect input, .alert-report input, .alert-message input{width: 97%;}
+.alert-publish input{width: 200px;}
+.alert-redirect input, .alert-report input, .alert-message input{width: 97%;}
 .alert-publish form, .alert-redirect form, .alert-report form, .alert-message form{margin:0;}
 .alert-publish textarea, .alert-redirect textarea, .alert-report textarea, .alert-message textarea{display: block;width: 97%;}
 .alert-publish .btn, .alert-redirect .btn-primary, .alert-report .btn-primary, .alert-message .btn-primary{margin-left: 10px;}
 .alert-publish .aw-topic-box, .aw-topic-box-selector .btn{margin-bottom: 10px;}
+.alert-publish .verify_code{height: 28px;margin:0 0 10px 10px;}
 .alert-publish .modal-body, .alert-message .modal-body, .alert-redirect .modal-body{overflow-y:visible;}
 .alert-publish .modal-body .dropdown-list, .alert-message .modal-body .dropdown-list, .alert-redirect .modal-body .dropdown-list{width: 94%;}
 .alert-redirect .modal-body .dropdown-list{max-height: 288px;overflow-y:scroll;}

@@ -12,6 +12,26 @@ var AW_MOBILE_TEMPLATE = {
 			    	'<div class="aw-topic-edit-box">'+
 			    		'<div class="aw-topic-box"><a class="aw-add-topic-box">编辑话题</a></div>'+
 				    '</div>'+
+				    '<div class="aw-publish-title clearfix">'+
+			    		'<input type="text" class="pull-left">'+
+					    '<div class="aw-publish-dropdown pull-left">'+
+					    	'<p data-toggle="dropdown" class="dropdown-toggle">'+
+					    		'<span class="pull-left num">分类</span>'+
+					    		'<i class="pull-left"></i>'+
+					    	'</p>'+
+						    '<ul class="dropdown-menu">'+
+						    	'<li>'+
+						    		'<a>123</a>'+
+						    		'<a>123</a>'+
+						    		'<a>123</a>'+
+						    	'</li>'+
+						    '</ul>'+
+					    '</div>'+
+			    	'</div>'+
+				    '<div class="aw-verify">'+
+						'<input id="seccode_verify" name="seccode_verify" placeholder="验证码" type="text">'+
+						'<img id="captcha" class="verify_code" name="seccode_verify"  onclick="this.src = \'' +G_BASE_URL + '/account/captcha/\' + Math.floor(Math.random() * 10000);" src="'+ G_BASE_URL +'/account/captcha/" />'+
+				    '</div>'+
 				'</div>'+
 			    '<div class="modal-footer">'+
 			    	'<a data-dismiss="modal" aria-hidden="true">取消</a>'+
