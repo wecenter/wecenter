@@ -346,7 +346,7 @@ nav ul li a{display:block;font-weight: bold;color: #222;}
 .aw-topic-box-selector .dropdown-list ul li{cursor: pointer;}
 
 /* 弹窗box */
-.alert-publish input{width: 200px;}
+.alert-publish input{width: 160px;}
 .alert-redirect input, .alert-report input, .alert-message input{width: 97%;}
 .alert-publish form, .alert-redirect form, .alert-report form, .alert-message form{margin:0;}
 .alert-publish textarea, .alert-redirect textarea, .alert-report textarea, .alert-message textarea{display: block;width: 97%;}
