@@ -1084,3 +1084,78 @@ function question_thanks(question_id, element)
         }
     }, 'json');
 }
+
+//赞成投票
+function agreeVote(element, answer_id)
+{
+	$.post(G_BASE_URL + '/question/ajax/answer_vote/', 'answer_id=' + answer_id + '&value=1', function (result) {});
+	
+	$(element).parents('.aw-mod-footer').find('a.answer_vote .aw-icon').removeClass('active');
+	
+    //判断是否投票过
+    if ($(element).hasClass('active'))
+    {
+        $(element).find('.aw-icon').removeClass('active');
+    }
+    else
+    {
+    	$(element).find('.aw-icon').addClass('active');
+    }
+}
+
+//反对投票
+function disagreeVote(element, answer_id)
+{
+    $.post(G_BASE_URL + '/question/ajax/answer_vote/', 'answer_id=' + answer_id + '&value=-1', function (result) {});
+    
+    $(element).parents('.aw-mod-footer').find('a.answer_vote .aw-icon').removeClass('active');
+	
+    //判断是否投票过
+    if ($(element).hasClass('active'))
+    {
+        $(element).find('.aw-icon').removeClass('active');
+    }
+    else
+    {
+    	$(element).find('.aw-icon').addClass('active');
+    }
+}
+
+function answer_user_rate(answer_id, type, element)
+{
+    $.post(G_BASE_URL + '/question/ajax/question_answer_rate/', 'type=' + type + '&answer_id=' + answer_id, function (result)
+    {
+        if (result.errno != 1)
+        {
+            $.alert(result.err);
+        }
+        else if (result.errno == 1)
+        {
+            switch (type)
+            {
+            case 'thanks':
+                if (result.rsm.action == 'add')
+                {
+                    $(element).html($(element).html().replace(_t('感谢'), _t('已感谢')));
+                    $(element).removeAttr('onclick');
+                }
+                else
+                {
+                    $(element).html($(element).html().replace(_t('已感谢'), _t('感谢')));
+                }
+                break;
+
+            case 'uninterested':
+                if (result.rsm.action == 'add')
+                {
+                    $(element).html(_t('撤消没有帮助'));
+                }
+                else
+                {
+                    $(element).html(_t('没有帮助'));
+                }
+                break;
+            }
+        }
+    }, 'json');
+}
