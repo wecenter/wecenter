@@ -1,7 +1,7 @@
 *{margin:0;padding:0;}
 body{padding:0 0 20px 0 !important;}
 input, textarea, select{font-family: "Helvetica Neue",Helvetica,Arial,'Microsoft YaHei',sans-serif;color: #666;}
-ul,ol{margin:0;list-style: none;}
+ul,li,ol{margin:0;list-style: none;}
 article, aside, dialog, footer, header, section, footer, nav, figure, menu {display: block;}
 h1,h2,h3,h4,h5,h6{margin:0;font-size: 16px;line-height: 30px;}
 a{cursor: pointer;}
