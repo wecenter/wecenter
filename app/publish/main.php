@@ -38,7 +38,7 @@ class main extends AWS_CONTROLLER
 		{
 			if (!$question_info = $this->model('question')->get_question_info_by_id($_GET['id']))
 			{
-				H::redirect_msg(AWS_APP::lang()->_t('指定问题不存在'), '/question/' . $_GET['id']);
+				H::redirect_msg(AWS_APP::lang()->_t('指定问题不存在'));
 			}
 			
 			if (!$this->user_info['permission']['is_administortar'] AND !$this->user_info['permission']['is_moderator'] AND !$this->user_info['permission']['edit_question'])

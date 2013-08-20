@@ -1,0 +1,51 @@
+<?php TPL::output('m/header.tpl.htm'); ?>
+<?php TPL::output('m/global_header.tpl.htm'); ?>
+
+<!-- 内容 -->
+<div class="aw-content">
+	<div class="aw-title">
+		<h2>发起问题</h2>
+	</div>
+	<div class="aw-mod aw-mod-publish clearfix">
+		<form action="publish/ajax/<?php if ($this->question_info['question_id']) { ?>modify<?php } else { ?>publish<?php } ?>_question/" method="post" id="question_form" onsubmit="return false;">
+			<div class="aw-mod-head clearfix">
+		    	<h3><?php _e('问题标题'); ?>:</h3>
+		    	<div class="aw-publish-title">
+		    		<input type="text" class="pull-left">
+				    <div class="aw-publish-dropdown pull-left">
+				    	<p class="dropdown-toggle"  data-toggle="dropdown">
+				    		<span class="pull-left num">分类</span>
+				    		<i class="pull-left"></i>
+				    	</p>
+					    <ul class="dropdown-menu">
+					    	<li>
+					    		<a>123</a>
+					    		<a>123</a>
+					    		<a>123</a>
+					    	</li>
+					    </ul>
+				    </div>
+		    	</div>
+			</div>
+		    <div class="aw-mod-body clearfix">
+		    	<h3>问题补充 (选填) : </h3>
+		    	<textarea name="question_detail" placeholder="问题背景、条件等详细信息..." rows="4"></textarea>
+		    	<div class="aw-topic-edit-box">
+		    		<div class="aw-topic-box"></div>
+			    	<div class="aw-topic-box-selector">
+			    		<input type="text" placeholder="创建或搜索添加新话题..." class="aw-topic-input">
+			    		<div class="dropdown-list"><ul></ul></div>
+			    		<a class="btn">添加</a>
+			    	</div>
+			    </div>
+			</div>
+		    <div class="aw-mod-footer">
+		    	<button class="btn btn-primary pull-right">发起</button>
+		    </div>
+	    </form>
+	</div>
+	
+</div>
+<!-- end 内容 -->
+		
+<?php TPL::output('m/footer.tpl.htm'); ?>

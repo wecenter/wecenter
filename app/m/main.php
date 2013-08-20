@@ -683,4 +683,67 @@ class main extends AWS_CONTROLLER
 		
 		TPL::output('m/settings');
 	}
+	
+	public function publish_action()
+	{
+		if ($_GET['id'])
+		{
+			if (!$question_info = $this->model('question')->get_question_info_by_id($_GET['id']))
+			{
+				H::redirect_msg(AWS_APP::lang()->_t('指定问题不存在'));
+			}
+			
+			if (!$this->user_info['permission']['is_administortar'] AND !$this->user_info['permission']['is_moderator'] AND !$this->user_info['permission']['edit_question'])
+			{
+				if ($question_info['published_uid'] != $this->user_id)
+				{
+					H::redirect_msg(AWS_APP::lang()->_t('你没有权限编辑这个问题'), '/m/question/' . $_GET['id']);
+				}
+			}
+			
+			TPL::assign('question_info', $question_info);
+		}
+		else if (!$this->user_info['permission']['publish_question'])
+		{
+			H::redirect_msg(AWS_APP::lang()->_t('你所在用户组没有权限发布问题'));
+		}
+		else if ($this->is_post() AND $_POST['question_detail'])
+		{
+			TPL::assign('question_info', array(
+				'question_content' => $_POST['question_content'],
+				'question_detail' => $_POST['question_detail']
+			));
+			
+			$question_info['category_id'] = $_POST['category_id'];
+		}
+		else
+		{
+			$draft_content = $this->model('draft')->get_data(1, 'question', $this->user_id);
+			
+			TPL::assign('question_info', array(
+				'question_content' => $_POST['question_content'],
+				'question_detail' => $draft_content['message']
+			));
+		}
+		
+		
+		if ($this->user_info['integral'] < 0 AND get_setting('integral_system_enabled') == 'Y' AND !$_GET['id'])
+		{
+			H::redirect_msg(AWS_APP::lang()->_t('你的剩余积分已经不足以进行此操作'));
+		}
+		
+		if (!$question_info['category_id'] AND $_GET['category_id'])
+		{
+			$question_info['category_id'] = $_GET['category_id'];
+		}
+		
+		if (get_setting('category_enable') == 'Y')
+		{
+			TPL::assign('question_category_list', $this->model('system')->build_category_html('question', 0, $question_info['category_id']));
+		}
+		
+		TPL::assign('human_valid', human_valid('question_valid_hour'));
+		
+		TPL::output('m/publish');
+	}
 }
