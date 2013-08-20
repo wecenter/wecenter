@@ -81,12 +81,6 @@ $(document).ready(function () {
 			$('.aw-top-nav-popup, .dropdown-list').hide();
 		}
 	});
-	
-	/* 私信 */
-	$('.aw-message').click(function()
-	{
-		alert_box('message');
-	});
 
 	/* 话题编辑删除按钮 */
 	$(document).on('click', '.aw-question-detail .aw-topic-edit-box .aw-topic-box i', function()
