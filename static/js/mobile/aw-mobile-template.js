@@ -40,7 +40,7 @@ var AW_MOBILE_TEMPLATE = {
 
 	'message' : 
 		'<div class="modal hide fade alert-message" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'+
-		   '<form id="publish" action="' + G_BASE_URL + '/m/inbox/ajax/send/" method="post" id="quick_publish" onsubmit="return false">'+
+		   '<form id="publish" action="' + G_BASE_URL + '/inbox/ajax/send/" method="post" id="quick_publish" onsubmit="return false">'+
 		    	'<div class="modal-header">'+
 			    	'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
 			    	'<h3 id="myModalLabel">' + _t('发送私信') + '</h3>'+

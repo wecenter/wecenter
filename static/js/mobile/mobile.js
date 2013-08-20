@@ -176,6 +176,7 @@ function alert_box(type , data)
 	$('.alert-' + type).modal('show');
 }
 
+/* 下拉列表 */
 var aw_dropdown_list_interval, aw_dropdown_list_flag = 0;
 function dropdown_list(element, type)
 {
@@ -348,6 +349,7 @@ function dropdown_list(element, type)
 	});
 }
 
+/* 话题编辑 */
 function add_topic_box(element)
 {
 	$(element).click(function()
@@ -364,6 +366,12 @@ function add_topic_box(element)
 		});
 		dropdown_list('.aw-topic-box-selector .aw-topic-input','topic');
 	});
+}
+
+/*取消邀请*/
+function disinvite_user(obj, uid)
+{
+    $.get(G_BASE_URL + '/question/ajax/cancel_question_invite/question_id-' + QUESTION_ID + "__recipients_uid-" + uid);
 }
 
 function _quick_publish_processer(result)

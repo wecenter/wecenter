@@ -150,7 +150,7 @@ nav ul li a{display:block;font-weight: bold;color: #222;}
 .aw-question-detail-page .aw-related-questions h3{margin:10px 0;}
 .aw-question-detail-page .aw-related-questions ul li{margin-bottom: 8px;}
 .aw-question-detail-page .aw-invite-replay{margin-top:10px;padding:12px;border:1px solid #DDDDDD;box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);border-radius: 4px;}
-.aw-question-detail-page .aw-invite-replay .aw-invite-replay-list li{position: relative;min-height:24px;line-height:22px;padding:10px 0 10px 35px;border-top: 1px dashed #eee;}
+.aw-question-detail-page .aw-invite-replay .aw-invite-replay-list li{position: relative;min-height:30px;line-height:30px;padding:10px 0 10px 35px;border-top: 1px dashed #eee;}
 .aw-question-detail-page .aw-invite-replay .aw-invite-replay-list li:first-child{border-top: none;}
 .aw-question-detail-page .aw-invite-replay .aw-invite-replay-list li .avatar{position: absolute;left: 0;top: 10px;}
 .aw-question-detail-page .aw-invite-replay .aw-invite-replay-list li .avatar img{width: 25px;height: 25px;}
