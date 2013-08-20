@@ -155,6 +155,8 @@ nav ul li a{display:block;font-weight: bold;color: #222;}
 .aw-question-detail-page .aw-invite-replay .aw-invite-replay-list li .avatar{position: absolute;left: 0;top: 10px;}
 .aw-question-detail-page .aw-invite-replay .aw-invite-replay-list li .avatar img{width: 25px;height: 25px;}
 .aw-question-detail-page .aw-invite-replay .aw-invite-replay-list li p{margin:0;}
+.aw-question-detail-page .aw-winner-replay{position:relative;height: 30px;line-height: 30px;margin:10px 0 12px;padding-left: 10px;background: #F7F7F6;font-size: 14px;font-weight: bold;}
+.aw-question-detail-page .aw-winner-replay i{margin-right: 5px;vertical-align: -2px;}
 
 /* 问题评论box */
 .aw-comment-box .aw-comment-list li{position: relative;padding:10px 0 10px 35px;}
