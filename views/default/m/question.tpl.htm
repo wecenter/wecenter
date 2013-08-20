@@ -13,11 +13,11 @@
 	<div class="aw-mod aw-question-detail">
 		<div class="aw-mod-head">
 			<h1><?php echo $this->question_info['question_content']; ?></h1>
-			<div class="aw-topic-edit-box">
+			<div class="aw-topic-edit-box" data-id="<?php echo $this->question_info['question_id']?>">
 				<div class="aw-topic-box">
 					<?php if ($this->question_topics) { ?>
 						<?php foreach($this->question_topics as $key => $val) { if ($key > 2) { break; } ?>
-							<a class="aw-topic-name" href="m/topic/<?php echo $val['url_token']; ?>"><?php echo $val['topic_title']; ?></a>
+							<a class="aw-topic-name" data-id="<?php echo $val['topic_id']?>" href="m/topic/<?php echo $val['url_token']; ?>"><?php echo $val['topic_title']; ?></a>
 						<?php } ?>
 					<?php } ?>
 					<a class="aw-add-topic-box">编辑话题</a>
@@ -39,7 +39,7 @@
 			<?php } ?>
 		</div>
 		<div class="aw-mod-footer">
-			<a herf="javascript:;" data-id="<?php echo $this->question_info['question_id']; ?>" data-type="question" class="aw-add-comment"<?php if ($this->question_info['lock']) { ?> data-close="true"<?php } ?>><?php if ($this->question_info['comment_count']) { ?><?php _e('%s 条评论', $this->question_info['comment_count']); ?><?php } else { ?><?php _e('添加评论'); ?><?php } ?></a><?php if ((!$this->question_info['lock'] AND ($this->question_info['published_uid'] == $this->user_id OR $this->user_info['permission']['edit_question'])) OR $this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?><a href="m/publish/<?php echo $this->question_info['question_id']; ?>"><?php _e('编辑'); ?></a><?php } ?><a>感谢</a><a>分享</a><a onclick="$(this).parents('.aw-question-detail').find('.aw-invite-replay').toggle();">邀请回答</a>
+			<a herf="javascript:;" data-id="<?php echo $this->question_info['question_id']; ?>" data-type="question" class="aw-add-comment"<?php if ($this->question_info['lock']) { ?> data-close="true"<?php } ?>><?php if ($this->question_info['comment_count']) { ?><?php _e('%s 条评论', $this->question_info['comment_count']); ?><?php } else { ?><?php _e('添加评论'); ?><?php } ?></a><?php if ((!$this->question_info['lock'] AND ($this->question_info['published_uid'] == $this->user_id OR $this->user_info['permission']['edit_question'])) OR $this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?><a href="m/publish/question_id-<?php echo $this->question_info['question_id']; ?>"><?php _e('编辑'); ?></a><?php } ?><a>感谢</a><a>分享</a><a class="aw-invite-replay-btn">邀请回答</a>
 			
 			<!-- 邀请回答 -->
 			<div class="aw-mod aw-invite-replay hide">
