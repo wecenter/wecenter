@@ -16,7 +16,7 @@
 				<div class="aw-topic-box">
 					<?php if ($this->question_topics) { ?>
 						<?php foreach($this->question_topics as $key => $val) { if ($key > 2) { break; } ?>
-							<a class="aw-topic-name" data-id="<?php echo $val['topic_id']?>" href="m/topic/<?php echo $val['url_token']; ?>"><?php echo $val['topic_title']; ?></a>
+							<span class="aw-topic-name" data-id="<?php echo $val['topic_id']?>"><a href="m/topic/<?php echo $val['url_token']; ?>"><?php echo $val['topic_title']; ?></a></span>
 						<?php } ?>
 					<?php } ?>
 					<a class="aw-add-topic-box">编辑话题</a>

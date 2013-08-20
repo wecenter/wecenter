@@ -320,14 +320,14 @@ function dropdown_list(element, type)
 									{
 										ul.append('<li><a>' + result[i].name +'</a></li>')
 									});	
-									$('.aw-topic-edit-box .dropdown-list ul li').click(function()
+									$('.aw-question-detail .aw-topic-edit-box .dropdown-list ul li').click(function()
 									{
 										var _this = $(this);
 										$.post(G_BASE_URL + '/question/ajax/save_topic/question_id-' + $(this).parents('.aw-topic-edit-box').attr('data-id'), 'topic_title=' + $(this).text(), function(result)
 										{
 											if (result.errno == 1)
 											{
-												$(element).parents('.aw-topic-edit-box').find('.aw-topic-box').prepend('<a class="aw-topic-name" data-id="' + result.rsm.topic_id + '">' + _this.text() + '<i>X</i></a>');
+												$(element).parents('.aw-topic-edit-box').find('.aw-topic-box').prepend('<span class="aw-topic-name" data-id="' + result.rsm.topic_id + '"><a>' + _this.text() + '</a><a href="#"><i>X</i></a></span>');
 												$(element).val('');
 												$(element).next().hide();
 											}else
@@ -335,6 +335,12 @@ function dropdown_list(element, type)
 												alert(result.err);
 											}
 										}, 'json');
+									});
+									$('.alert-publish .aw-topic-edit-box .dropdown-list ul li').click(function()
+									{
+										$(element).parents('.aw-topic-edit-box').find('.aw-topic-box').prepend('<span class="aw-topic-name"><a>' + $(this).text() + '</a><a href="#"><i onclick="$(this).parents(\'.aw-topic-name\').detach();">X</i></a></span>');
+										$(element).val('');
+										$('.alert-publish .aw-topic-edit-box .dropdown-list').hide();
 									});
 									$(element).next().show();
 								}else
@@ -388,7 +394,7 @@ function add_topic_box(element, type)
 			if (!$(e).has('i')[0])
 			{
 
-				$(e).append('<i>X</i>');
+				$(e).append('<a href="#"><i>X</i></a>');
 			}
 		});
 		dropdown_list('.aw-topic-box-selector .aw-topic-input','topic');
@@ -398,7 +404,7 @@ function add_topic_box(element, type)
 			switch (type)
 			{
 				case 'publish' :
-					$(this).parents('.aw-topic-edit-box').find('.aw-topic-box').prepend('<a class="aw-topic-name">' + $(this).parents('.aw-topic-box-selector').find('.aw-topic-input').val() + '<i onclick="$(this).parents(\'.aw-topic-name\').detach();">X</i></a>');
+					$(this).parents('.aw-topic-edit-box').find('.aw-topic-box').prepend('<span class="aw-topic-name"><a>' + $(this).parents('.aw-topic-box-selector').find('.aw-topic-input').val() + '</a><a><i onclick="$(this).parents(\'.aw-topic-name\').detach();">X</i></a></span>');
 					$(this).parents('.aw-topic-edit-box').find('.aw-topic-input').val('');
 					$(this).parents('.aw-topic-edit-box').find('.dropdown-list').hide();
 				break;
@@ -408,12 +414,13 @@ function add_topic_box(element, type)
 					{
 						if (result.errno == 1)
 						{
-							_this.parents('.aw-topic-edit-box').find('.aw-topic-box').prepend('<a class="aw-topic-name" data-id="'+ result.rsm.topic_id +'">' + _this.parents('.aw-topic-box-selector').find('.aw-topic-input').val() + '<i>X</i></a>');
+							_this.parents('.aw-topic-edit-box').find('.aw-topic-box').prepend('<span class="aw-topic-name" data-id="'+ result.rsm.topic_id +'"><a>' + _this.parents('.aw-topic-box-selector').find('.aw-topic-input').val() + '</a><a><i>X</i></a></span>');
 							_this.parents('.aw-topic-edit-box').find('.aw-topic-input').val('');
 							_this.parents('.aw-topic-edit-box').find('.dropdown-list').hide();
 						}else
 						{
 							alert(result.err);
+							_this.parents('.aw-topic-edit-box').find('.dropdown-list').hide();
 						}
 					}, 'json');
 				break;
@@ -1010,9 +1017,9 @@ function init_comment_box(selecter)
                 $(comment_box_id).find('.aw-comment-list').html(result);
             });
 
-            var left = $(this).width()/2 + $(this).prev().width();
+            //var left = $(this).width()/2 + $(this).prev().width();
             /*给三角形定位*/
-            $(comment_box_id).find('.i-comment-triangle').css('left', $(this).width() / 2 + $(this).prev().width() + 15);
+            //$(comment_box_id).find('.i-comment-triangle').css('left', $(this).width() / 2 + $(this).prev().width() + 15);
         }
     });
 }
