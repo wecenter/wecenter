@@ -742,7 +742,7 @@ class main extends AWS_CONTROLLER
 			TPL::assign('question_category_list', $this->model('system')->build_category_html('question', 0, $question_info['category_id']));
 		}
 				
-		TPL::assign('human_valid', human_valid('question_valid_hour'));
+		//TPL::assign('human_valid', human_valid('question_valid_hour'));
 		
 		TPL::output('m/publish');
 	}
