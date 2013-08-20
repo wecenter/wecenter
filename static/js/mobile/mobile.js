@@ -151,7 +151,7 @@ function alert_box(type , data)
 		        	$.get(G_BASE_URL + '/publish/ajax/fetch_question_category/', function (result)
 		            {
 		                add_dropdown_list('.alert-publish .aw-publish-dropdown', eval(result), data.category_id);
-						
+
 		                $('.alert-publish .aw-publish-dropdown li a').click(function ()
 		                {
 		                    $('#quick_publish_category_id').val($(this).attr('data-value'));
@@ -337,7 +337,7 @@ function dropdown_list(element, type)
 									});
 									$('.alert-publish .aw-topic-edit-box .dropdown-list ul li').click(function()
 									{
-										$(element).parents('.aw-topic-edit-box').find('.aw-topic-box').prepend('<span class="aw-topic-name"><a>' + $(this).text() + '</a><a href="#"><i onclick="$(this).parents(\'.aw-topic-name\').detach();">X</i></a></span>');
+										$(element).parents('.aw-topic-edit-box').find('.aw-topic-box').prepend('<span class="aw-topic-name"><a>' + $(this).text() + '</a><input type="hidden" name="topics[]" value="' + $(this).text() + '"><a href="#"><i onclick="$(this).parents(\'.aw-topic-name\').detach();">X</i></a></span>');
 										$(element).val('');
 										$('.alert-publish .aw-topic-edit-box .dropdown-list').hide();
 									});
@@ -403,7 +403,7 @@ function add_topic_box(element, type)
 			switch (type)
 			{
 				case 'publish' :
-					$(this).parents('.aw-topic-edit-box').find('.aw-topic-box').prepend('<span class="aw-topic-name"><a>' + $(this).parents('.aw-topic-box-selector').find('.aw-topic-input').val() + '</a><a><i onclick="$(this).parents(\'.aw-topic-name\').detach();">X</i></a></span>');
+					$(this).parents('.aw-topic-edit-box').find('.aw-topic-box').prepend('<span class="aw-topic-name"><a>' + $(this).parents('.aw-topic-box-selector').find('.aw-topic-input').val() + '</a><input type="hidden" name="topics[]" value="' + $(this).parents('.aw-topic-box-selector').find('.aw-topic-input').val() + '"><a><i onclick="$(this).parents(\'.aw-topic-name\').detach();">X</i></a></span>');
 					$(this).parents('.aw-topic-edit-box').find('.aw-topic-input').val('');
 					$(this).parents('.aw-topic-edit-box').find('.dropdown-list').hide();
 				break;
