@@ -4,11 +4,11 @@
 	<div class="aw-search-bar">
 		<form class="aw-relative" action="m/search/" method="post">
 			<input type="hidden" name="_is_mobile" value="true" />
-			<input placeholder="搜索话题、问题或人..." class="aw-search-input" name="q" autocomplete="off" />
+			<input placeholder="搜索话题、问题或人..." class="aw-search-input" id="aw-search-query" name="q" autocomplete="off" />
 			<div class="dropdown-list"><ul></ul></div>
 		</form>
 	</div>
-	<button class="aw-publish" href="#publishModal" role="button" data-toggle="modal">发起</button>
+	<button class="aw-publish" onclick="alert_box('publish', {'category_enable':'<?php echo (get_setting('category_enable') == 'Y') ? '1' : '0'; ?>', 'category_id':'<?php echo intval($_GET['category']); ?>'});">发起</button>
 </header>
 <!-- end 顶部 -->
 

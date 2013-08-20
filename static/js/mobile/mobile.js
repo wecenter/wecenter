@@ -69,12 +69,7 @@ $(document).ready(function () {
 			$('.aw-top-nav-popup, .dropdown-list').hide();
 		}
 	});
-
-
-	$('.aw-publish').click(function()
-	{
-		alert_box('publish');
-	});
+	
 	$('.aw-message').click(function()
 	{
 		alert_box('message');
@@ -104,10 +99,14 @@ $(document).ready(function () {
 function alert_box(type , data)
 {
 	var template;
+	
 	switch (type)
 	{
 		case 'publish' : 
-			template = Hogan.compile(AW_MOBILE_TEMPLATE.publish).render({});
+			template = Hogan.compile(AW_MOBILE_TEMPLATE.publish).render({
+	            'category_id': data.category_id,
+	            'ask_user_id': data.ask_user_id
+	        });
 		break;
 
 		case 'redirect' : 
@@ -124,7 +123,8 @@ function alert_box(type , data)
 	}
 	if (template)
 	{
-		$('#aw-ajax-box').html('').append(template);
+		$('#aw-ajax-box').empty().append(template);
+		
 		switch (type)
 		{
 			case 'message' :
@@ -136,6 +136,38 @@ function alert_box(type , data)
 			break;
 
 			case 'publish' :
+				if (parseInt(data.category_enable) == 1)
+	        	{
+		        	$.get(G_BASE_URL + '/publish/ajax/fetch_question_category/', function (result)
+		            {
+		                add_dropdown_list('.aw-publish-title-dropdown', eval(result), data.category_id);
+		
+		                $('.aw-publish-title-dropdown li a').click(function ()
+		                {
+		                    $('#quick_publish_category_id').val($(this).attr('data-value'));
+		                });
+		            });
+		            
+		            $('#quick_publish_topic_chooser').hide();
+	        	}
+	        	else
+	        	{
+		        	$('#quick_publish_category_chooser').hide();
+	        	}
+	
+	            if ($('#aw-search-query').val() && $('#aw-search-query').val() != $('#aw-search-query').attr('placeholder'))
+	            {
+		            $('#quick_publish_question_content').val($('#aw-search-query').val());
+	            }
+				
+	            $('#quick_publish .aw-edit-topic').click();
+	            
+	            if (G_QUICK_PUBLISH_HUMAN_VALID)
+	            {
+		            $('#quick_publish_captcha').show();
+		            $('#captcha').click();
+	            }
+				
 				add_topic_box('.alert-publish .aw-topic-edit-box .aw-add-topic-box');
 			break;
 		}
