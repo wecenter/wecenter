@@ -223,7 +223,6 @@ function dropdown_list(element, type)
 						break;
 
 						case 'message' :
-						case 'invite' : 
 							$.get(G_BASE_URL + '/search/ajax/search/?type-user__q-' + encodeURIComponent($(element).val()) + '__limit-10',function(result)
 							{
 								if (result.length > 0)
@@ -233,6 +232,41 @@ function dropdown_list(element, type)
 									{
 										ul.append('<li><a><img src="' + result[i].detail.avatar_file + '"><span>' + result[i].name + '</span></a></li>')
 									});	
+									$(element).next().show();
+								}else
+								{
+									$(element).next().hide();
+								}
+							},'json');
+						break;
+
+						case 'invite' : 
+							$.get(G_BASE_URL + '/search/ajax/search/?type-user__q-' + encodeURIComponent($(element).val()) + '__limit-10',function(result)
+							{
+								if (result.length > 0)
+								{
+									ul.html('');
+									$.each(result ,function(i, e)
+									{
+										ul.append('<li><a data-id="' + result[i].uid + '"><img src="' + result[i].detail.avatar_file + '"><span>' + result[i].name + '</span></a></li>')
+									});	
+									$('.aw-invite-replay .dropdown-list ul li a').click(function()
+									{
+										$.post(G_BASE_URL + '/question/ajax/save_invite/',
+									    {
+									        'question_id': QUESTION_ID,
+									        'uid': $(this).attr('data-id')
+									    },function(result)
+									    {
+									    	if (result.errno == -1)
+									    	{
+									    		alert(result.err);
+									    	}else
+									    	{
+									    		location.reload();
+									    	}
+									    }, 'json');
+									});
 									$(element).next().show();
 								}else
 								{
