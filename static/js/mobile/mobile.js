@@ -1175,3 +1175,27 @@ function answer_user_rate(answer_id, type, element)
         }
     }, 'json');
 }
+
+function _quick_publish_processer(result)
+{
+    if (typeof (result.errno) == 'undefined')
+    {
+        alert(result);
+    }
+    else if (result.errno != 1)
+    {
+        $('#quick_publish_error em').html(result.err);
+        $('#quick_publish_error').fadeIn();
+    }
+    else
+    {
+        if (result.rsm && result.rsm.url)
+        {
+            window.location = decodeURIComponent(result.rsm.url);
+        }
+        else
+        {
+            window.location.reload();
+        }
+    }
+}
