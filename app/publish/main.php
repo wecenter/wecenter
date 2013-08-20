@@ -34,18 +34,18 @@ class main extends AWS_CONTROLLER
 
 	public function index_action()
 	{
-		if ($_GET['question_id'])
+		if ($_GET['id'])
 		{
-			if (!$question_info = $this->model('question')->get_question_info_by_id(intval($_GET['question_id'])))
+			if (!$question_info = $this->model('question')->get_question_info_by_id($_GET['id']))
 			{
-				H::redirect_msg(AWS_APP::lang()->_t('指定问题不存在'), '/question/' . $_GET['question_id']);
+				H::redirect_msg(AWS_APP::lang()->_t('指定问题不存在'), '/question/' . $_GET['id']);
 			}
 			
 			if (!$this->user_info['permission']['is_administortar'] AND !$this->user_info['permission']['is_moderator'] AND !$this->user_info['permission']['edit_question'])
 			{
 				if ($question_info['published_uid'] != $this->user_id)
 				{
-					H::redirect_msg(AWS_APP::lang()->_t('你没有权限编辑这个问题'), '/question/' . $_GET['question_id']);
+					H::redirect_msg(AWS_APP::lang()->_t('你没有权限编辑这个问题'), '/question/' . $_GET['id']);
 				}
 			}
 			
@@ -75,12 +75,12 @@ class main extends AWS_CONTROLLER
 		}
 		
 		
-		if ($this->user_info['integral'] < 0 AND get_setting('integral_system_enabled') == 'Y' AND !$_GET['question_id'])
+		if ($this->user_info['integral'] < 0 AND get_setting('integral_system_enabled') == 'Y' AND !$_GET['id'])
 		{
 			H::redirect_msg(AWS_APP::lang()->_t('你的剩余积分已经不足以进行此操作'));
 		}
 		
-		if (($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator'] OR $question_info['published_uid'] == $this->user_id AND $_GET['question_id']) OR !$_GET['question_id'])
+		if (($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator'] OR $question_info['published_uid'] == $this->user_id AND $_GET['id']) OR !$_GET['id'])
 		{
 			TPL::assign('attach_access_key', md5($this->user_id . time()));
 		}
