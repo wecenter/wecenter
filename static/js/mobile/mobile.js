@@ -1045,3 +1045,23 @@ function reload_comments_list(item_id, element_id, type_name)
         $('#aw-comment-box-' + type_name + '-' + element_id + ' .aw-comment-list').html(data);
     });
 }
+
+function question_thanks(question_id, element)
+{
+    $.post(G_BASE_URL + '/question/ajax/question_thanks/', 'question_id=' + question_id, function (result)
+    {
+        if (result.errno != 1)
+        {
+            $.alert(result.err);
+        }
+        else if (result.rsm.action == 'add')
+        {
+            $(element).html($(element).html().replace(_t('感谢'), _t('已感谢')));
+            $(element).removeAttr('onclick');
+        }
+        else
+        {
+            $(element).html($(element).html().replace(_t('已感谢'), _t('感谢')));
+        }
+    }, 'json');
+}
