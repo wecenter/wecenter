@@ -261,7 +261,7 @@ class main extends AWS_CONTROLLER
 		{
 			TPL::assign('question_thanks', $this->model('question')->get_question_thanks($question_info['question_id'], $this->user_id));
 			
-			//TPL::assign('invite_users', $this->model('question')->get_invite_users($question_info['question_id'], array($question_info['published_uid'])));
+			TPL::assign('invite_users', $this->model('question')->get_invite_users($question_info['question_id'], array($question_info['published_uid'])));
 			
 			//TPL::assign('user_follow_check', $this->model("follow")->user_follow_check($this->user_id, $question_info['published_uid']));
 			

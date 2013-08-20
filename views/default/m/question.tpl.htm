@@ -39,7 +39,7 @@
 			<?php } ?>
 		</div>
 		<div class="aw-mod-footer">
-			<a herf="javascript:;" data-id="<?php echo $this->question_info['question_id']; ?>" data-type="question" class="aw-add-comment"<?php if ($this->question_info['lock']) { ?> data-close="true"<?php } ?>><?php if ($this->question_info['comment_count']) { ?><?php _e('%s 条评论', $this->question_info['comment_count']); ?><?php } else { ?><?php _e('添加评论'); ?><?php } ?></a><a>感谢</a><a>分享</a><a href="m/question_invite/<?php echo $this->question_info['question_id']; ?>">邀请回答</a>
+			<a herf="javascript:;" data-id="<?php echo $this->question_info['question_id']; ?>" data-type="question" class="aw-add-comment"<?php if ($this->question_info['lock']) { ?> data-close="true"<?php } ?>><?php if ($this->question_info['comment_count']) { ?><?php _e('%s 条评论', $this->question_info['comment_count']); ?><?php } else { ?><?php _e('添加评论'); ?><?php } ?></a><a>感谢</a><a>分享</a><a href="javascript:;">邀请回答</a>
 			
 			<!-- 邀请回答 -->
 			<div class="aw-mod aw-invite-replay">
@@ -47,33 +47,39 @@
 					<input class="span2 aw-invite-input" id="inputIcon" type="text">
 					<div class="dropdown-list"><ul></ul></div>
 					<span class="add-on"><i class="icon-search"></i></span>
-					
 				</div>
+				
+				<?php if ($this->invite_users) { ?>
 				<div class="aw-invite-replay-list">
 					<ul>
+						<?php foreach($this->invite_users as $key => $val) { ?>
 						<li>
-							<a class="avatar"><img src="img/avatar.jpg"></a>
+							<?php if ($val['sender_uid'] == $this->user_id) { ?><a class="pull-right btn btn-mini" onclick="disinvite_user($(this),<?php echo $val['uid']; ?>);$(this).parent().detach();"><?php _e('取消邀请'); ?></a><?php } ?>
+							<a href="people/<?php echo $val['url_token']; ?>" class="aw-user-name" data-id="<?php echo $val['uid']; ?>">
+								<img src="<?php echo get_avatar_url($val['uid'], 'mid'); ?>" alt="" />
+							</a>
+							
+							<span class="aw-text-color-666"><?php echo $val['user_name']; ?></span>
+						</li>
+						<?php } ?>
+					</div>
+				<?php } ?>
+				
+				<?php if ($this->helpful_users) { ?>
+				<div class="aw-invite-replay-list">
+					<ul>
+						<?php foreach ($this->helpful_users AS $key => $val) { ?>
+						<li>
+							<a href="m/people/<?php echo $val['url_token']; ?>" class="avatar"><img src="<?php echo get_avatar_url($val['uid'], 'mid'); ?>" alt="" /></a>
 							<p>
 								<a class="btn btn-mini btn-primary pull-right">邀请回复</a>
-								<a>Jun Gu</a>
+								<a><?php echo $val['user_name']; ?></a>
 							</p>
 						</li>
-						<li>
-							<a class="avatar"><img src="img/avatar.jpg"></a>
-							<p>
-								<a class="btn btn-mini btn-primary pull-right">邀请回复</a>
-								<a>Jun Gu</a>
-							</p>
-						</li>
-						<li>
-							<a class="avatar"><img src="img/avatar.jpg"></a>
-							<p>
-								<a class="btn btn-mini btn-primary pull-right">邀请回复</a>
-								<a>Jun Gu</a>
-							</p>
-						</li>
+						<?php } ?>
 					</ul>
 				</div>
+				<?php } ?>
 			</div>
 		</div>
 	</div>
