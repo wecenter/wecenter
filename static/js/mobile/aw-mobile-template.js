@@ -99,12 +99,9 @@ var AW_MOBILE_TEMPLATE = {
 		'</div> ',
 
 	'dropdownList' : 
-		'<div aria-labelledby="dropdownMenu" role="menu" class="dropdown-menu aw-dropdown-menu">'+
-			'<span><i class="aw-icon i-dropdown-triangle"></i></span>'+
-			'<ul>'+
+		'<ul class="dropdown-menu">'+
 			'{{#items}}'+
 				'<li><a data-value="{{id}}">{{title}}</a></li>'+
 			'{{/items}}'+
-			'</ul>'+
-		'</div>'
+		'</ul>'
 }

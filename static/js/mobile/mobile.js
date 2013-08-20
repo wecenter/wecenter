@@ -445,14 +445,14 @@ function disinvite_user(obj, uid)
 /*动态插入下拉菜单模板*/
 function add_dropdown_list(selecter, data, selected)
 {
-    $(selecter).append(Hogan.compile(AW_TEMPLATE.dropdownList).render(
+    $(selecter).append(Hogan.compile(AW_MOBILE_TEMPLATE.dropdownList).render(
     {
         'items': data
     }));
 
     $(selecter + ' .dropdown-menu li a').click(function ()
     {
-        $('#aw-topic-tags-select').html($(this).text());
+        $('.aw-publish-dropdown span').html($(this).text());
     });
 
     if (selected)

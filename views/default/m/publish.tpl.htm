@@ -28,11 +28,6 @@
 				    		<span class="pull-left num"><?php _e('选择分类'); ?></span>
 				    		<i class="pull-left"></i>
 				    	</p>
-				    	<?php if ($this->question_category_list) { ?>
-				    	<ul class="dropdown-menu">
-					    	<li><a></a></li>
-					    </ul>
-					    <?php } ?>
 				    </div>
 		    	</div>
 			</div>
@@ -53,5 +48,54 @@
 	</div>
 </div>
 <!-- end 内容 -->
+
+<script type="text/javascript">
+	var ATTACH_ACCESS_KEY = '<?php echo $this->attach_access_key; ?>';
+	var CATEGORY_ID = <?php echo intval($_POST['category_id']); ?>;
+	
+	$(document).ready(function () {
+		
+		if ($('#category_id').length)
+		{
+			var category_data = '';
+			
+			$.each($('#category_id option').toArray(), function (i, field) {
+				if (i > 0)
+				{
+					if (i > 1)
+					{
+						category_data += ',';
+					}
+					
+					category_data += "{'title':'" + $(field).text() + "', 'id':'" + $(field).val() + "'}";
+				}
+			});
+			add_dropdown_list('.aw-publish-dropdown', eval('[' + category_data + ']'), CATEGORY_ID);
+			
+			$('.aw-publish-dropdown .dropdown-menu li a').click(function() {
+				$('#category_id').val($(this).attr('data-value'));
+			});
+			
+			// if (CATEGORY_ID)
+			// {
+			// 	$('#quick_publish_category_id').val(CATEGORY_ID);
+			// }
+		}
+
+		if ($('.aw-publish-dropdown')[0])
+		{
+			$.each($('.aw-publish-dropdown .dropdown-menu li a'),function(i, e)
+			{
+				if ($(e).attr('data-value') == $('#category_id').val())
+				{
+					$('.aw-publish-dropdown span').html($(e).html());
+					return;
+				}
+			});
+		}
+		
+		
+	});
+</script>
 		
 <?php TPL::output('m/footer.tpl.htm'); ?>
