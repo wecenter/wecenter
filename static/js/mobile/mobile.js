@@ -617,7 +617,7 @@ function load_list_view(url, list_view, ul_button, start_page, callback_func)
 				$(_this).unbind('click').bind('click', function () { return false; });
 			}
 				
-			$.loading('hide');
+			//$.loading('hide');
 			
 			if (callback_func != null)
 			{
