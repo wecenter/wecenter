@@ -41,6 +41,11 @@ class main extends AWS_CONTROLLER
 			$this->model('notify')->read_notification($_GET['notification_id'], $this->user_id);
 		}
 		
+		if (is_mobile() AND HTTP::get_cookie('_ignore_ua_check') != 'TRUE')
+		{
+			HTTP::redirect('/m/people/' . $_GET['id']);
+		}
+		
 		if ($this->user_id AND !$_GET['id'])
 		{
 			$user = $this->user_info;

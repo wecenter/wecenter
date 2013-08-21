@@ -157,6 +157,11 @@ class main extends AWS_CONTROLLER
 	
 	public function _topic()
 	{
+		if (is_mobile() AND HTTP::get_cookie('_ignore_ua_check') != 'TRUE')
+		{
+			HTTP::redirect('/m/topic/' . $_GET['id']);
+		}
+		
 		if (is_numeric($_GET['id']))
 		{
 			if (!$topic_info = $this->model('topic')->get_topic_by_id($_GET['id']))
@@ -179,7 +184,7 @@ class main extends AWS_CONTROLLER
 			HTTP::redirect('/topic/' . $topic_info['merged_id'] . '?rf=' . $topic_info['topic_id']);
 		}
 		
-		if (urldecode($topic_info['url_token']) != $_GET['id'])
+		if ($topic_info['url_token'] != $_GET['id'])
 		{
 			HTTP::redirect('/topic/' . $topic_info['url_token'] . '?rf=' . $_GET['rf']);
 		}
