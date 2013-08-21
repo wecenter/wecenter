@@ -22,24 +22,8 @@ a{cursor: pointer;}
 .aw-text-color-red{color: red;}
 .aw-relative{position: relative;}
 .btn-mini{min-width: 60px;padding:2px 3px;font-size:14px;font-weight: normal;}
-.btn-primary.aw-active{
-	color: #333333;
-	background-color: #f5f5f5;
-  *background-color: #e6e6e6;
-  background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6));
-  background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6);
-  background-image: -o-linear-gradient(top, #ffffff, #e6e6e6);
-  background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
-  background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffe6e6e6', GradientType=0);
-  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
-  text-shadow:none;
-}
-.btn-primary.aw-active:hover{
-	background-position: 0 -30px;
-}
-
+.btn-primary.aw-active{color: #333333;background-color: #f5f5f5;*background-color: #e6e6e6;background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6);background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6));background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6);background-image: -o-linear-gradient(top, #ffffff, #e6e6e6);background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);background-repeat: repeat-x;filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffe6e6e6', GradientType=0);filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);text-shadow:none;}
+.btn-primary.aw-active:hover{background-position: 0 -30px;}
 
 /* 顶部 */
 header{height: 46px;min-width: 0;padding:0 10px;background: none repeat scroll 0 0 #0D7DCB;border-bottom: 1px solid #0055AC;border-top: 1px solid #0055AC;box-shadow: 0 1px 0 rgba(255, 255, 255, 0.15) inset, 0 1px 1px rgba(0, 0, 0, 0.15);}
@@ -59,7 +43,6 @@ nav ul li a span{margin-left: 10px;}
 /* 内容 */
 .aw-content{padding:0 10px;}
 .aw-title{line-height: 36px;margin:10px 0;padding-bottom:5px;font-size: 16px;color: #666;border-bottom: 1px solid #CCCCCC;}
-.aw-title p{margin:0;}
 .feed-list ul li{position: relative;padding:10px 0;border-top: 1px dashed #EEEEEE;}
 .feed-list ul li:first-child{border-top: none;}
 .feed-list ul li .avatar{position: absolute;right: 0;top: 10px;}
@@ -70,10 +53,11 @@ nav ul li a span{margin-left: 10px;}
 .feed-list ul li .aw-mod-head p a.aw-topic-name{color: #0088CC;}
 .feed-list ul li .aw-mod-head span{font-size: 13px;}
 .feed-list ul li h2{font-size: 16px;}
-.feed-list ul li p{margin:0;}
+.feed-list ul li p, .aw-title p{margin:0;}
 .feed-list ul li .aw-mod-body p.content{line-height: 24px;font-size: 15px;}
 .feed-list ul li .aw-mod-footer{margin-top: 5px;}
 .feed-list ul li .aw-mod-footer > a{margin-right:10px;color: #999;}
+.feed-list ul li .aw-mod-footer .answer_vote em{font-style: normal;}
 .feed-list ul li .over-hidden{max-height: 80px;overflow: hidden;}
 .aw-load-more{display: block;height: 22px;line-height: 22px;margin:20px 0;padding:5px 1px;background: -webkit-linear-gradient(top,#f8f8f9,#e6e6e8) #F1F1F2;background: -moz-linear-gradient(top,#f8f8f9,#e6e6e8) #F1F1F2;border: 1px solid #BBBBBB;box-shadow: 0 1px 0 #FFFFFF inset, 0 1px 0 rgba(0, 0, 0, 0.1);color: #666666;text-shadow: 0 1px 0 #FFFFFF;text-align: center;}
 .aw-load-more.disabled{background:#F6F6F6;box-shadow: none;color: #999;text-decoration: none;}
@@ -156,7 +140,7 @@ nav ul li a span{margin-left: 10px;}
 .aw-question-detail-page .aw-anwser-box .aw-mod-footer label input{margin:0;}
 .aw-question-detail-page .aw-related-questions{margin-top: 40px;border-top:1px solid #EEEEEE;}
 .aw-question-detail-page .aw-related-questions h3{margin:10px 0;}
-.aw-question-detail-page .aw-related-questions ul li{margin-bottom: 8px;}
+.aw-question-detail-page .aw-related-questions ul li{margin-bottom: 10px;}
 .aw-question-detail-page .aw-invite-replay{margin-top:10px;padding:12px;border:1px solid #DDDDDD;box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);border-radius: 4px;}
 .aw-question-detail-page .aw-invite-replay .aw-invite-replay-list li{position: relative;min-height:30px;line-height:30px;padding:10px 0 10px 35px;border-top: 1px dashed #eee;}
 .aw-question-detail-page .aw-invite-replay .aw-invite-replay-list li:first-child{border-top: none;}
@@ -200,7 +184,7 @@ nav ul li a span{margin-left: 10px;}
 .aw-topic-page .aw-topic-hot h2{margin-bottom: 10px;}
 .aw-topic-page .aw-topic-hot section{margin:0 0 10px;padding:10px;border:1px solid #D5D5D5;border-radius: 4px;box-shadow: 0 1px 0 #F2F2F2;}
 .aw-topic-page .aw-topic-hot dl{height: auto;overflow: hidden;margin:0 0 5px;}
-.aw-topic-page .aw-topic-hot li{padding:8px 0;border-top:1px dotted #EEEEEE;}
+.aw-topic-page .aw-topic-hot li{padding:10px 0;border-top:1px dotted #EEEEEE;}
 
 /* 问题页面 */
 .aw-question-page .feed-list ul li, .aw-topic-page .feed-list #questions  ul li{position: relative;padding:10px 0 10px 40px;border-bottom:1px dashed #eee;border-top: none;}
@@ -350,7 +334,7 @@ nav ul li a span{margin-left: 10px;}
 .alert-redirect .modal-body .dropdown-list{max-height: 288px;overflow-y:scroll;}
 
 /* icon */
-.icon-sign{display:inline-block;background-image: url("../img/signup.png");background-repeat: no-repeat;}
+.icon-sign{display:inline-block;background-image: url("img/signup.png");background-repeat: no-repeat;}
 .icon-sign-sina{background-position: -17px -1px;height: 19px;margin-right: 8px;vertical-align: -4px;width: 21px;}
 .icon-sign-arrow, .icon-sign-arrow-l{height: 19px;width: 18px;background-position: -1px -1px;margin-left: 8px;vertical-align: -5px;}
 .icon-sign-arrow-l{margin: 0 8px 0 0;background-position:-70px -1px;}
