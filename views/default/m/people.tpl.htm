@@ -21,12 +21,12 @@
 			</div>
 		</div>
 		<div class="aw-mod-footer">
-			<span>威望: <em><?php echo $this->user['reputation']; ?></em></span>
+			<span><i class="aw-icon prestige"></i> 威望: <em><?php echo $this->user['reputation']; ?></em></span>
 			<?php if (get_setting('integral_system_enabled') == 'Y') { ?>
-			<span>积分: <em><?php echo $this->user['integral']; ?></em></span>
+			<span><i class="aw-icon point"></i> 积分: <em><?php echo $this->user['integral']; ?></em></span>
 			<?php } ?>
-			<span><i class="aw-icon agree"></i> 赞同: <em><?php echo $this->user['agree_count']; ?></em></span>
-			<span><i class="aw-icon thanks"></i> 感谢: <em><?php echo $this->user['thanks_count']; ?></em></span>
+			<span><i class="aw-icon agree active"></i> 赞同: <em><?php echo $this->user['agree_count']; ?></em></span>
+			<span><i class="aw-icon thanks active"></i> 感谢: <em><?php echo $this->user['thanks_count']; ?></em></span>
 		</div>
 		<?php if ($this->user['uid'] != $this->user_id AND $this->user_id) { ?>
 		<a class="btn btn-primary btn-mini<?php if ($this->user_follow_check) { ?> aw-active<?php } ?>" onclick="follow_people($(this), $(this), <?php echo $this->user['uid']; ?>);"><?php if ($this->user_follow_check) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?></a>

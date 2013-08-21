@@ -146,6 +146,7 @@ nav ul li a{display:block;font-weight: bold;color: #222;}
 .aw-question-detail-page .aw-answers-list .aw-vote-info, .aw-question-detail-page .aw-answers-list .aw-vote-info a{font-size: 14px;color: #999;}
 .aw-question-detail-page .aw-answers-list .aw-mod-body{margin:5px 0;line-height: 22px;}
 .aw-question-detail-page .aw-answers-list .aw-mod-footer > span{margin-right: 10px;}
+.aw-question-detail-page .aw-answers-list .aw-mod-footer em{font-style: normal;}
 .aw-question-detail-page .aw-anwser-box .aw-mod-head{min-height: 25px;line-height: 25px;}
 .aw-question-detail-page .aw-anwser-box .aw-mod-body{margin-top:10px;}
 .aw-question-detail-page .aw-anwser-box .avatar{width: 25px;height: 25px;border-radius: 2px;}
@@ -235,6 +236,8 @@ nav ul li a{display:block;font-weight: bold;color: #222;}
 .aw-people-page .aw-people-detail, .aw-people-page .aw-people-topic .aw-mod-body, .aw-people-page .aw-people-replay .aw-mod-body, .aw-people-page .aw-people-ask .aw-mod-body,  .aw-people-page .aw-people-follow .aw-mod-body{padding:10px;}
 .aw-people-page .aw-people-detail .aw-mod-body{position: relative;min-height:50px;padding:10px 0 10px 60px;}
 .aw-people-page .aw-people-detail .aw-mod-body img{position: absolute;left: 0;top: 10px;width: 50px;height: 50px;}
+.aw-people-page .aw-people-detail .aw-mod-footer em{font-style: normal;}
+.aw-people-page .aw-people-detail .aw-mod-footer span{margin-right: 10px;}
 .aw-people-page .aw-people-topic .aw-mod-body{padding-bottom: 0px;}
 .aw-people-page .aw-people-topic .aw-mod-body ul li, .aw-people-page .aw-people-follow .aw-mod-body ul li{float: left;margin:0 10px 10px 0;}
 .aw-people-page .aw-people-follow .aw-mod-body img{width: 25px;height: 25px;}
@@ -360,6 +363,8 @@ nav ul li a{display:block;font-weight: bold;color: #222;}
 .aw-icon.thanks{width: 14px;height: 12px;background-position: -48px -0;}
 .aw-icon.thanks.active{background-position: -48px -16px;}
 .aw-icon.flag{width: 13px;height: 10px;background-position: -90px -2px;}
+.aw-icon.prestige{width: 12px;height: 16px;background-position:  0 -29px;vertical-align: -3px;}
+.aw-icon.point{width: 14px;height: 11px;background-position: -14px -32px;vertical-align: -1px;}
 
 /* 底部 */
 footer{margin-top:20px;font-size: 12px;text-align: center;}
