@@ -122,7 +122,7 @@ nav ul li a span{margin-left: 10px;}
 .aw-question-detail-page .aw-question-detail .aw-mod-footer a, .aw-question-detail-page .aw-answers-list .aw-mod-footer > a{margin-right: 10px;color: #999;}
 .aw-question-detail-page .aw-answers-title{line-height:24px;margin:15px 0;padding:10px 0;border-top: 1px solid #EEEEEE;}
 .aw-question-detail-page .aw-answers-title .dropdown-menu{left: -60px;}
-.aw-question-detail-page .aw-answers-list ul li{border-top:1px solid #EEEEEE;}
+.aw-question-detail-page .aw-answers-list ul li{padding:10px 0;border-top:1px solid #EEEEEE;}
 .aw-question-detail-page .aw-answers-list ul li:first-child{border-top: none;}
 .aw-question-detail-page .aw-answers-list .avatar{width: 25px;height: 25px;border-radius: 2px;}
 .aw-question-detail-page .aw-answers-list h3{min-height:26px;font-size: 15px;}
@@ -151,7 +151,7 @@ nav ul li a span{margin-left: 10px;}
 .aw-question-detail-page .aw-share-iframe{position: relative;top: 2px;width: 36px;}
 
 /* 问题评论box */
-.aw-comment-box .aw-comment-list li{position: relative;padding:15px 0 15px 35px;}
+.aw-comment-box .aw-comment-list li{position: relative;padding:10px 0 10px 35px !important;}
 .aw-comment-box .aw-comment-list li > .aw-user-name{position: absolute;left: 0;top: 15px;}
 .aw-comment-box .aw-comment-list li > .aw-user-name img{width: 25px;height: 25px;}
 .aw-comment-box .aw-comment-list li p{color: #666;}
