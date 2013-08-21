@@ -113,12 +113,13 @@ nav ul li a span{margin-left: 10px;}
 .aw-comment-box .aw-comment-form textarea{width:96%;box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) inset;}
 .aw-comment-box .aw-comment-form p{height: 28px;line-height: 28px;}
 .aw-comment-box .aw-comment-form .btn-primary{margin:0 !important;color: #fff;}
+.aw-comment-box form{margin:0;}
 
 /* 问题详情页 */
 .aw-question-detail-page .aw-question-detail h1{margin-top:10px;font-size: 18px;line-height: 22px;}
 .aw-question-detail-page .aw-question-detail .aw-topic-box{margin: 10px 0;}
 .aw-question-detail-page .aw-question-detail .aw-mod-body{margin:10px 0;line-height: 22px;}
-.aw-question-detail-page .aw-question-detail .aw-mod-footer a, .aw-question-detail-page .aw-answers-list .aw-mod-footer a{margin-right: 10px;color: #999;}
+.aw-question-detail-page .aw-question-detail .aw-mod-footer a, .aw-question-detail-page .aw-answers-list .aw-mod-footer > a{margin-right: 10px;color: #999;}
 .aw-question-detail-page .aw-answers-title{line-height:24px;margin:15px 0;padding:10px 0;border-top: 1px solid #EEEEEE;}
 .aw-question-detail-page .aw-answers-title .dropdown-menu{left: -60px;}
 .aw-question-detail-page .aw-answers-list ul li{padding:10px 0;border-top:1px solid #EEEEEE;}
@@ -218,8 +219,10 @@ nav ul li a span{margin-left: 10px;}
 .aw-people-page .aw-people-detail, .aw-people-page .aw-people-topic .aw-mod-body, .aw-people-page .aw-people-replay .aw-mod-body, .aw-people-page .aw-people-ask .aw-mod-body,  .aw-people-page .aw-people-follow .aw-mod-body{padding:10px;}
 .aw-people-page .aw-people-detail .aw-mod-body{position: relative;min-height:50px;padding:10px 0 10px 60px;}
 .aw-people-page .aw-people-detail .aw-mod-body img{position: absolute;left: 0;top: 10px;width: 50px;height: 50px;}
+.aw-people-page .aw-people-detail .aw-mod-footer{margin-bottom: 10px;}
 .aw-people-page .aw-people-detail .aw-mod-footer em{font-style: normal;}
 .aw-people-page .aw-people-detail .aw-mod-footer span{margin-right: 10px;}
+.aw-people-page .aw-people-detail h2{padding: 0 10px !important;}
 .aw-people-page .aw-people-topic .aw-mod-body{padding-bottom: 0px;}
 .aw-people-page .aw-people-topic .aw-mod-body ul li, .aw-people-page .aw-people-follow .aw-mod-body ul li{float: left;margin:0 10px 10px 0;}
 .aw-people-page .aw-people-follow .aw-mod-body img{width: 25px;height: 25px;}

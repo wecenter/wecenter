@@ -89,7 +89,6 @@ var AW_MOBILE_TEMPLATE = {
 						'<a href="javascript:;" class="btn btn-mini btn-primary pull-right" onclick="save_comment(this);">' + _t('评论') + '</a>'+
 					'</div>'+
 				'</form>'+
-				'<i class="aw-icon i-comment-triangle"></i>'+
 			'</div>',
 
 	'topic_edit_box' :
