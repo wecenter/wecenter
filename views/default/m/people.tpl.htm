@@ -42,7 +42,7 @@
 		<div class="aw-mod-body clearfix">
 			<ul>
 				<?php foreach ($this->reputation_topics AS $key => $val) { ?>
-				<li><a href="topic/<?php echo $val['url_token']; ?>" class="aw-topic-name"><?php echo $val['topic_title']; ?></a></li>
+				<li><a href="m/topic/<?php echo $val['url_token']; ?>" class="aw-topic-name"><?php echo $val['topic_title']; ?></a></li>
 				<?php } ?>
 			</ul>
 		</div>
@@ -102,7 +102,7 @@
 			<h3>关注 <?php echo $this->user['topic_focus_count']; ?> 话题</h3>
 				<ul>
 				<?php foreach ($this->focus_topics AS $key => $val) { ?>
-					<li><a class="aw-topic-name" href="topic/<?php echo $val['url_token']; ?>"><?php echo $val['topic_title']; ?></a></li>
+					<li><a class="aw-topic-name" href="m/topic/<?php echo $val['url_token']; ?>"><?php echo $val['topic_title']; ?></a></li>
 				<?php } ?>
 				</ul>
 			</ul>
