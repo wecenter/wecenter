@@ -932,12 +932,9 @@ function _comments_form_processer(result)
 
 function remove_comment(el, type, comment_id)
 {
-    $(el).parents('li').fadeOut('slow', function ()
-    {
-        $(this).remove();
-
-        $.get(G_BASE_URL + '/question/ajax/remove_comment/type-' + type + '__comment_id-' + comment_id);
-    });
+	$.get(G_BASE_URL + '/question/ajax/remove_comment/type-' + type + '__comment_id-' + comment_id);
+	
+	$(el).parents('.aw-comment-box li').fadeOut();
 }
 
 function insert_attach(element, attach_id, attach_tag)

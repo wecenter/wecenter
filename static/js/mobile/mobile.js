@@ -1042,9 +1042,10 @@ function save_comment(save_button_el)
 
 function _comments_form_processer(result)
 {
+	$.loading('hide');
+	
     $.each($('a._save_comment.disabled'), function (i, e)
     {
-
         $(e).attr('onclick', $(this).attr('_onclick')).removeAttr('_onclick').removeClass('disabled').removeClass('_save_comment');
     });
 
@@ -1063,12 +1064,9 @@ function _comments_form_processer(result)
 
 function remove_comment(el, type, comment_id)
 {
-    $(el).parents('li').fadeOut('slow', function ()
-    {
-        $(this).remove();
-
-        $.get(G_BASE_URL + '/question/ajax/remove_comment/type-' + type + '__comment_id-' + comment_id);
-    });
+	$.get(G_BASE_URL + '/question/ajax/remove_comment/type-' + type + '__comment_id-' + comment_id);
+	
+	$(el).parents('.aw-comment-box li').fadeOut();
 }
 
 function reload_comments_list(item_id, element_id, type_name)
