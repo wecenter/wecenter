@@ -54,6 +54,7 @@ nav ul{box-shadow: 0 0 1px rgba(0, 0, 0, 0.04);line-height: 36px;margin: 0;paddi
 nav ul li{position:relative;float: left;width: 20%;height: 36px;line-height: 36px;text-align: center;cursor: pointer;}
 nav ul li .aw-arrow{position: absolute;right: 7px;top: 16px;}
 nav ul li a{display:block;font-weight: bold;color: #222;}
+nav ul li a span{margin-left: 10px;}
 
 /* 内容 */
 .aw-content{padding:0 10px;}
@@ -100,7 +101,7 @@ nav ul li a{display:block;font-weight: bold;color: #222;}
 .aw-top-nav-profile li a{padding-left: 10px;}
 .aw-top-nav-profile li .badge-info{margin-left: 10px;}
 .aw-top-nav-notic{left: 0;top: 84px;width: 100%;}
-.aw-top-nav-notic-wrap{max-height: 322px;overflow-y: scroll;background: #fff;}
+.aw-top-nav-notic-wrap{max-height: 322px;overflow-y: scroll;overflow-x:hidden;background: #fff;}
 .aw-top-nav-notic li{float: none;width: auto;height:auto;padding:10px 0 10px 10px;overflow:visible;background: #FFFFFF;}
 .aw-top-nav-notic li:hover{background: #E4E4E4;}
 .aw-top-nav-notic li a{display: inline;width: auto;line-height:22px;background: none;color: #0088CC;}
@@ -360,7 +361,7 @@ nav ul li a{display:block;font-weight: bold;color: #222;}
 .aw-icon.agree.active{background-position: -2px 0;}
 .aw-icon.disagree.active{background-position: -2px -13px;}
 .aw-icon.comment{width:13px;height:11px;background-position: -36px -2px;}
-.aw-icon.thanks{width: 14px;height: 12px;background-position: -48px -0;}
+.aw-icon.thanks{width: 11px;height: 12px;background-position: -48px -0;}
 .aw-icon.thanks.active{background-position: -48px -16px;}
 .aw-icon.flag{width: 13px;height: 10px;background-position: -90px -2px;}
 .aw-icon.prestige{width: 12px;height: 16px;background-position:  0 -29px;vertical-align: -3px;}
