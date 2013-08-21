@@ -467,6 +467,22 @@ function add_dropdown_list(selecter, data, selected)
     }
 }
 
+/*修复focus时光标位置*/
+function _fix_textarea_focus_cursor_position(elTextarea)
+{
+    if (/MSIE/.test(navigator.userAgent) || /Opera/.test(navigator.userAgent))
+    {
+        var rng = elTextarea.createTextRange();
+        rng.text = elTextarea.value;
+        rng.collapse(false);
+    }
+    else if (/WebKit/.test(navigator.userAgent))
+    {
+        elTextarea.select();
+        window.getSelection().collapseToEnd();
+    }
+}
+
 function _quick_publish_processer(result)
 {
     if (typeof (result.errno) == 'undefined')

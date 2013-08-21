@@ -17,7 +17,7 @@
 		</div>
 		<div class="aw-topic-section">
 			<div class="aw-mod-head">
-				<a class="btn btn-success btn-large<?php if ($this->topic_info['has_focus']) { ?> aw-active<?php } ?>" onclick="focus_topic($(this), $(this), <?php echo $this->topic_info['topic_id']; ?>);"><?php if ($this->topic_info['has_focus']) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?></a>
+				<a class="btn btn-primary <?php if ($this->topic_info['has_focus']) { ?> aw-active<?php } ?>" onclick="focus_topic($(this), $(this), <?php echo $this->topic_info['topic_id']; ?>);"><?php if ($this->topic_info['has_focus']) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?></a>
 				<span class="num"><a><?php echo $this->topic_info['focus_count']; ?></a> 人关注</span>
 			</div>
 		</div>
@@ -72,7 +72,7 @@
 			</dt>
 			<dd class="pull-left">
 				<a class="aw-user-name" href="m/people/<?php echo $val['user_info']['url_token']; ?>"><?php echo $val['user_info']['user_name']; ?></a>
-				<p><?php _e('获得'); ?> <?php _e('%s 次赞同', '<b>' . $val['agree_count'] . '</b>'); ?>, <?php _e('%s 次感谢', '<b>' . $val['thanks_count'] . '</b>'); ?></p>
+				<p class="num"><?php _e('获得'); ?> <?php _e('%s 次赞同', '<b>' . $val['agree_count'] . '</b>'); ?>, <?php _e('%s 次感谢', '<b>' . $val['thanks_count'] . '</b>'); ?></p>
 			</dd>
 		</dl>
 		<?php } ?>
