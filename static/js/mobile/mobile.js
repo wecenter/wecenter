@@ -54,12 +54,6 @@ $(document).ready(function () {
 		$('.aw-top-nav-notic').toggle();
 	})
 
-	//关闭按钮
-	$('.slide-close').click(function()
-	{
-		$(this).parents('.aw-top-nav-popup').hide();
-	});
-
 	//邀请回答按钮
 	$('.aw-invite-replay-btn').click(function()
 	{
