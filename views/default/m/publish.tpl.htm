@@ -33,7 +33,7 @@
 			</div>
 		    <div class="aw-mod-body clearfix">
 		    	<h3><?php _e('问题补充 (选填)'); ?>:</h3>
-		    	<textarea name="question_detail" rows="4"><?php echo $this->question_info['question_detail']; ?></textarea>
+		    	<textarea name="question_detail" id="question_detail" rows="4"><?php echo $this->question_info['question_detail']; ?></textarea>
 			</div>
 		    <div class="aw-mod-footer">
 		    	<button class="btn btn-primary pull-right" onclick="ajax_post($('#question_form')); return false;"><?php _e('确认发起'); ?></button>
@@ -50,11 +50,9 @@
 <!-- end 内容 -->
 
 <script type="text/javascript">
-	var ATTACH_ACCESS_KEY = '<?php echo $this->attach_access_key; ?>';
 	var CATEGORY_ID = <?php echo intval($_POST['category_id']); ?>;
 	
 	$(document).ready(function () {
-		
 		if ($('#category_id').length)
 		{
 			var category_data = '';
@@ -70,16 +68,12 @@
 					category_data += "{'title':'" + $(field).text() + "', 'id':'" + $(field).val() + "'}";
 				}
 			});
+			
 			add_dropdown_list('.aw-publish-dropdown', eval('[' + category_data + ']'), CATEGORY_ID);
 			
 			$('.aw-publish-dropdown .dropdown-menu li a').click(function() {
 				$('#category_id').val($(this).attr('data-value'));
 			});
-			
-			// if (CATEGORY_ID)
-			// {
-			// 	$('#quick_publish_category_id').val(CATEGORY_ID);
-			// }
 		}
 
 		if ($('.aw-publish-dropdown')[0])
@@ -93,8 +87,6 @@
 				}
 			});
 		}
-		
-		
 	});
 </script>
 		

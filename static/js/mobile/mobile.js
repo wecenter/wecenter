@@ -611,7 +611,7 @@ function load_list_view(url, list_view, ul_button, start_page, callback_func)
 			{
 				if ($.trim(list_view.html()) == '')
 				{
-					list_view.append('<p class="empty_message">没有相关内容</p>');
+					list_view.append('<p align="center">没有相关内容</p>');
 				}
 							
 				$(_this).unbind('click').bind('click', function () { return false; });
@@ -1056,7 +1056,7 @@ function _comments_form_processer(result)
 
     if (result.errno != 1)
     {
-        $.alert(result.err);
+        alert(result.err);
     }
     else
     {
@@ -1093,7 +1093,7 @@ function question_thanks(question_id, element)
     {
         if (result.errno != 1)
         {
-            $.alert(result.err);
+            alert(result.err);
         }
         else if (result.rsm.action == 'add')
         {
@@ -1159,7 +1159,7 @@ function answer_user_rate(answer_id, type, element)
     {
         if (result.errno != 1)
         {
-            $.alert(result.err);
+            alert(result.err);
         }
         else if (result.errno == 1)
         {

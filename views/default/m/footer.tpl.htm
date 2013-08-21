@@ -14,7 +14,14 @@
 					if (G_USER_ID)
 					{
 						$.get(G_BASE_URL + '/notifications/ajax/list/flag-0__limit-10', function (data) {
-							$('#notifications_list').html(data);
+							if (data)
+							{
+								$('#notifications_list').html(data);
+							}
+							else
+							{
+								$('#notifications_list').html('<li><p align="center">暂无新通知</p></li>');
+							}
 						});
 					}					
 				});
