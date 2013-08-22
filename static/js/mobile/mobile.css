@@ -92,7 +92,7 @@ nav ul li a span{margin-left: 10px;}
 .aw-top-nav-notic li:hover{background: #E4E4E4;}
 .aw-top-nav-notic li a{display: inline;width: auto;line-height:22px;background: none;color: #0088CC;}
 .aw-top-nav-notic li a:hover{background: none;}
-.aw-top-nav-notic li p{margin:0;}
+.aw-top-nav-notic li p{margin:0;max-width: 290px;}
 
 /* 发起页面 */
 .aw-mod-publish .aw-mod-body{margin-bottom:10px;border-bottom: 1px solid #eee;}
