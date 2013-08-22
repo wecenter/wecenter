@@ -1153,9 +1153,18 @@ function disagreeVote(element, answer_id)
     }
     else
     {
+    	if ($(element).parents('.aw-mod-footer').find('.agree').hasClass('active'))
+    	{
+    		if (parseInt($(element).parents('.aw-mod-footer').find('.agree').next().html()) > 0)
+	    	{
+	    		$(element).parents('.aw-mod-footer').find('.agree').next().html(parseInt($(element).parents('.aw-mod-footer').find('.agree').next().html()) - 1);
+	    	}
+    	}
+
     	$(element).parents('.aw-mod-footer').find('a.answer_vote .aw-icon').removeClass('active');
     	
     	$(element).find('.aw-icon').addClass('active');
+    	
     	
        	//$(element).parents('.aw-mod-footer').find('a.answer_vote em').html(parseInt($(element).parents('.aw-mod-footer').find('a.answer_vote em').html()) - 1);
     }
