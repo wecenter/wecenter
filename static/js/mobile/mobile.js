@@ -1157,7 +1157,7 @@ function disagreeVote(element, answer_id)
     	
     	$(element).find('.aw-icon').addClass('active');
     	
-    	//$(element).parents('.aw-mod-footer').find('a.answer_vote em').html(parseInt($(element).parents('.aw-mod-footer').find('a.answer_vote em').html()) - 1);
+       	//$(element).parents('.aw-mod-footer').find('a.answer_vote em').html(parseInt($(element).parents('.aw-mod-footer').find('a.answer_vote em').html()) - 1);
     }
 }
 
