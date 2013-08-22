@@ -30,7 +30,7 @@ var AW_MOBILE_TEMPLATE = {
 			    	'</div>'+
 			    	
 				    '<div class="aw-verify hide" id="quick_publish_captcha">'+
-						'<input id="seccode_verify" name="seccode_verify" placeholder="' + _t('验证码') + " type="text" />'+
+						'<input id="seccode_verify" name="seccode_verify" placeholder="' + _t('验证码') + '" type="text" />'+
 						'<img id="captcha" class="verify_code" onclick="this.src = \'' +G_BASE_URL + '/account/captcha/\' + Math.floor(Math.random() * 10000);" src="'+ G_BASE_URL +'/account/captcha/" />'+
 				    '</div>'+
 				'</div>'+

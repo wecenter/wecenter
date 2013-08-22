@@ -148,7 +148,7 @@ nav ul li a span{margin-left: 10px;}
 .aw-question-detail-page .aw-invite-replay .aw-invite-replay-list li p{margin:0;}
 .aw-question-detail-page .aw-winner-replay{position:relative;height: 30px;line-height: 30px;margin:10px 0 12px;padding-left: 10px;background: #eeeeee;font-size: 14px;font-weight: bold;}
 .aw-question-detail-page .aw-winner-replay i{margin-right: 5px;vertical-align: -2px;}
-.aw-question-detail-page .aw-share-iframe{position: relative;top: 2px;width: 36px;}
+.aw-question-detail-page .aw-share-iframe{position: relative;top: 2px;max-width: 57px;}
 
 /* 问题评论box */
 .aw-comment-box .aw-comment-list li{position: relative;padding:10px 0 10px 35px !important;}
@@ -334,7 +334,7 @@ nav ul li a span{margin-left: 10px;}
 .alert-publish .aw-publish-title .aw-publish-dropdown p{width:100%;border-radius: 4px;}
 .alert-publish .aw-publish-title .aw-publish-dropdown p i{position: absolute;right: 0;top:0;}
 .alert-publish .aw-publish-title .dropdown-menu{width: 100%;}
-.alert-publish .alert{margin-bottom: 10px;}
+.alert-publish .alert{margin-bottom: 10px;border:1px solid #EED3D7;}
 .alert-redirect .modal-body .dropdown-list{max-height: 288px;overflow-y:scroll;}
 
 /* icon */
@@ -344,10 +344,10 @@ nav ul li a span{margin-left: 10px;}
 .icon-sign-arrow-l{margin: 0 8px 0 0;background-position:-70px -1px;}
 
 .aw-icon{display: inline-block;;background-image:url('img/aw-icon.png');background-repeat: no-repeat; background-size: 100px 45px;}
-.aw-icon.agree{width: 13px;height: 12px;background-position: -17px 0;}
+.aw-icon.agree{width: 13px;height: 12px;background-position: -18px 0;}
 .aw-icon.disagree{width: 13px;height: 12px;background-position: -17px -13px;vertical-align: -1px;}
 .aw-icon.agree.active{background-position: -2px 0;}
-.aw-icon.disagree.active{background-position: -2px -13px;}
+.aw-icon.disagree.active{background-position: -1px -13px;}
 .aw-icon.comment{width:13px;height:11px;background-position: -36px -2px;}
 .aw-icon.thanks{width: 14px;height: 12px;background-position: -48px -0;}
 .aw-icon.thanks.active{background-position: -48px -16px;}
