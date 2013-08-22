@@ -60,7 +60,7 @@ nav ul li a span{margin-left: 10px;}
 .feed-list ul li .aw-mod-footer > a{margin-right:10px;color: #999;}
 .feed-list ul li .aw-mod-footer .answer_vote em{font-style: normal;}
 .feed-list ul li .over-hidden{max-height: 80px;overflow: hidden;}
-.aw-load-more{display: block;height: 22px;line-height: 22px;margin:20px 0;padding:5px 1px;background: -webkit-linear-gradient(top,#F8F8F9,#F2F2F2) #F1F1F2;background: -moz-linear-gradient(top,#F8F8F9,#F2F2F2) #F1F1F2;border: 1px solid #D2D2D2;color: #666666;text-shadow: 0 1px 0 #FFFFFF;text-align: center;}
+.aw-load-more{display: block;height: 22px;line-height: 22px;margin:20px 0;padding:5px 1px;background: -webkit-linear-gradient(top,#F8F8F9,#EAEAEA) #F1F1F2;background: -moz-linear-gradient(top,#F8F8F9,#EAEAEA) #F1F1F2;border: 1px solid #D2D2D2;color: #666666;text-shadow: 0 1px 0 #FFFFFF;text-align: center;}
 .aw-load-more.disabled{background:#F6F6F6;box-shadow: none;color: #999;text-decoration: none;}
 .aw-load-more.loading{background-image:url("img/ajax-loader.gif");background-repeat: no-repeat;background-position: center center;font-size: 0px;text-decoration: none;}
 
