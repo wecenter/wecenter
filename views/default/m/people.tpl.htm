@@ -11,6 +11,7 @@
 		<div class="aw-mod-body">
 			<img src="<?php echo get_avatar_url($this->user['uid'], 'max'); ?>" alt="" />
 			<?php echo $this->user['user_name']; ?>
+			<?php if ($this->user['verified']) { ?><i class="aw-icon i-v<?php if ($this->user['verified'] == 'enterprise') { ?> i-ve<?php } ?>" title="<?php if ($this->user['verified'] == 'enterprise') { ?>企业认证<?php } else { ?>个人认证<?php } ?>"></i><?php } ?>
 			<?php if ($this->user['signature']) { ?>
 			<div>
 				<span class="num"><?php echo $this->user['signature']; ?></span>
