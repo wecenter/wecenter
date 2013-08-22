@@ -143,7 +143,12 @@ class weixin_class extends AWS_MODEL
 					switch ($input_message['event'])
 					{
 						case 'subscribe':
-							$response_message = get_setting('weixin_subscribe_message');
+							//$response_message = get_setting('weixin_subscribe_message');
+							
+							if ($reply_rule = $this->get_subscribe_message())
+							{
+								$response_message = $this->create_response_by_reply_rule_keyword($reply_rule['keyword']);
+							}
 						break;
 					}
 				}
@@ -283,6 +288,11 @@ class weixin_class extends AWS_MODEL
 		}
 		
 		return sprintf($this->image_tpl, $input_message['fromUsername'], $input_message['toUsername'], $input_message['time'], 'news', sizeof($image_data), $article_tpl);
+	}
+	
+	public function get_subscribe_message()
+	{
+		return $this->fetch_row('weixin_reply_rule', '`enabled` = 1 AND is_subscribe = 1');
 	}
 	
 	public function message_parser($input_message, $param = null)
@@ -1243,5 +1253,16 @@ class weixin_class extends AWS_MODEL
 		{
 			return '由于网络问题, 菜单更新失败';
 		}
+	}
+	
+	public function set_subscribe_message($rule_id)
+	{
+		$this->update('weixin_reply_rule', array(
+			'is_subscribe' => 0
+		), 'is_subscribe = 1');
+		
+		return $this->update('weixin_reply_rule', array(
+			'is_subscribe' => 1
+		), 'id = ' . intval($rule_id));
 	}
 }

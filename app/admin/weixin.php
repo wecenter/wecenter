@@ -202,6 +202,11 @@ class weixin extends AWS_ADMIN_CONTROLLER
 					$this->model('weixin')->update_reply_rule_enabled($rule_id, $_POST['enabled_status'][$rule_id]);
 				}
 			}
+			
+			if ($_POST['is_subscribe'])
+			{
+				$this->model('weixin')->set_subscribe_message($_POST['is_subscribe']);
+			}
 		}
 		
 		H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('启用状态已自动保存')));
