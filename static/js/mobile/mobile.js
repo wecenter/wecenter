@@ -182,9 +182,11 @@ function alert_box(type , data)
 
 /* 下拉列表 */
 var aw_dropdown_list_interval, aw_dropdown_list_flag = 0;
+
 function dropdown_list(element, type)
 {
 	var ul = $(element).next().find('ul');
+	
 	$(element).keydown(function()
 	{
 		if (aw_dropdown_list_flag == 0)
@@ -219,6 +221,7 @@ function dropdown_list(element, type)
 												break;
 										}
 									});
+									
 									$(element).next().show();
 								}else
 								{
@@ -242,6 +245,7 @@ function dropdown_list(element, type)
 										$(element).val($(this).text());
 										$(element).next().hide();
 									});
+									
 									$(element).next().show();
 								}else
 								{
@@ -256,10 +260,12 @@ function dropdown_list(element, type)
 								if (result.length > 0)
 								{
 									ul.html('');
+									
 									$.each(result ,function(i, e)
 									{
 										ul.append('<li><a data-id="' + result[i].uid + '"><img src="' + result[i].detail.avatar_file + '"><span>' + result[i].name + '</span></a></li>')
-									});	
+									});
+									
 									$('.aw-invite-replay .dropdown-list ul li a').click(function()
 									{
 										$.post(G_BASE_URL + '/question/ajax/save_invite/',
@@ -277,6 +283,7 @@ function dropdown_list(element, type)
 									    	}
 									    }, 'json');
 									});
+									
 									$(element).next().show();
 								}else
 								{
@@ -291,10 +298,12 @@ function dropdown_list(element, type)
 								if (result.length > 0)
 								{
 									ul.html('');
+									
 									$.each(result ,function(i, e)
 									{
 										ul.append('<li><a onclick="ajax_request(' + "'" + G_BASE_URL + "/question/ajax/redirect/', 'item_id=" + $(element).attr('data-id') + "&target_id=" + result[i].sno + "'" +')">' + result[i].name +'</a></li>')
 									});	
+									
 									$(element).next().show();
 								}else
 								{
@@ -309,13 +318,16 @@ function dropdown_list(element, type)
 								if (result.length > 0)
 								{
 									ul.html('');
+									
 									$.each(result ,function(i, e)
 									{
 										ul.append('<li><a>' + result[i].name +'</a></li>')
 									});	
+									
 									$('.aw-question-detail .aw-topic-edit-box .dropdown-list ul li').click(function()
 									{
 										var _this = $(this);
+										
 										$.post(G_BASE_URL + '/question/ajax/save_topic/question_id-' + $(this).parents('.aw-topic-edit-box').attr('data-id'), 'topic_title=' + $(this).text(), function(result)
 										{
 											if (result.errno == 1)
@@ -329,12 +341,14 @@ function dropdown_list(element, type)
 											}
 										}, 'json');
 									});
+									
 									$('.alert-publish .aw-topic-edit-box .dropdown-list ul li').click(function()
 									{
 										$(element).parents('.aw-topic-edit-box').find('.aw-topic-box').prepend('<span class="aw-topic-name"><a>' + $(this).text() + '</a><input type="hidden" name="topics[]" value="' + $(this).text() + '"><a href="#"><i onclick="$(this).parents(\'.aw-topic-name\').detach();">X</i></a></span>');
 										$(element).val('');
 										$('.alert-publish .aw-topic-edit-box .dropdown-list').hide();
 									});
+									
 									$(element).next().show();
 								}else
 								{
@@ -367,9 +381,11 @@ function dropdown_list(element, type)
 			return aw_dropdown_list_interval;
 		}
 	});
+	
 	$(element).blur(function()
 	{
 		clearInterval(aw_dropdown_list_interval);
+		
 		aw_dropdown_list_flag = 0;
 	});
 }
@@ -1182,28 +1198,4 @@ function answer_user_rate(answer_id, type, element)
             }
         }
     }, 'json');
-}
-
-function _quick_publish_processer(result)
-{
-    if (typeof (result.errno) == 'undefined')
-    {
-        alert(result);
-    }
-    else if (result.errno != 1)
-    {
-        $('#quick_publish_error em').html(result.err);
-        $('#quick_publish_error').fadeIn();
-    }
-    else
-    {
-        if (result.rsm && result.rsm.url)
-        {
-            window.location = decodeURIComponent(result.rsm.url);
-        }
-        else
-        {
-            window.location.reload();
-        }
-    }
 }
