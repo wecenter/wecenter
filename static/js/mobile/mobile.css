@@ -276,11 +276,13 @@ nav #aw-top-nav-notic .badge{position: absolute;right: 15px;top:1;}
 .inbox .replay-box .aw-mod-head span{color: #666;}
 .inbox .replay-box textarea{width:100%;padding: 0;}
 .inbox .replay-list li{position: relative;min-height:50px;padding:10px 35px;}
+.inbox .replay-list li .aw-item p{white-space:normal; word-break:break-all;}
+.inbox .replay-list li.active .inbox-arrow{background-position: -84px -32px;left: -6px !important;}
+.inbox .replay-list li.active .aw-item{background: #F5FAFE;border:1px solid #DCECF9;}
+.inbox .replay-list li.active .avatar{left: 0 !important;}
 .inbox .replay-list .avatar{position: absolute;right: 0;top: 10px;}
 .inbox .replay-list .avatar img{width: 25px;height: 25px;}
 .inbox .replay-list .aw-item{position: relative;padding: 12px 15px;background: #FAFAFA;border: 1px solid #E6E6E6;}
-.inbox .replay-list li.active .aw-item{background: #F5FAFE;border:1px solid #DCECF9;}
-.inbox .replay-list li.active .avatar{left: 0 !important;}
 
 /* 我的草稿 & 我的收藏 & 我关注的问题 */
 .aw-draft-list li, .aw-favorite-list li, .aw-focus-question li{position: relative;padding: 10px 0;border-top: 1px dashed #eee;}
@@ -365,6 +367,8 @@ nav #aw-top-nav-notic .badge{position: absolute;right: 15px;top:1;}
 .aw-icon.point{width: 14px;height: 11px;background-position: -14px -32px;vertical-align: -1px;}
 .aw-icon.i-v{width: 15px;height: 12px;background-position: -49px -32px;}
 .aw-icon.i-v.i-ve{background-position: -68px -32px;}
+.aw-icon.inbox-arrow{position:absolute;top:7px;right:-6px;width: 6px;height: 11px;background-position: -93px -32px;}
+
 
 /* 底部 */
 footer{margin-top:20px;font-size: 12px;text-align: center;}
