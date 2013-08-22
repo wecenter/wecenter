@@ -19,6 +19,7 @@ a{cursor: pointer;}
 .alert a{text-decoration: underline;}
 .alert-info{color: #666;}
 .btn-mini{font-size: 12px;}
+.btn-group > .btn{padding:2px 12px;}
 .aw-text-color-red{color: red;}
 .aw-relative{position: relative;}
 .btn-mini{min-width: 60px;padding:2px 3px;font-size:14px;font-weight: normal;}
