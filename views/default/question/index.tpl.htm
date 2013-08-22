@@ -427,7 +427,7 @@
 								</dt>
 								<dd class="pull-left">
 									<a class="pull-right" data-id="<?php echo $val['uid']; ?>" onclick="invite_user($(this),$(this).next().text(),$(this).parents('dl').find('.img').attr('src'));$('.aw-side-bar-invite-box .aw-item').eq(0).show();"><?php _e('邀请'); ?></a>
-									<a class="aw-user-name"><?php echo $val['user_name']; ?></a>
+									<a class="aw-user-name"><?php echo $val['user_name']; ?><?php if ($val['verified']) { ?><i class="aw-icon i-v<?php if ($val['verified'] == 'enterprise') { ?> i-ve<?php } ?>" title="<?php if ($val['verified'] == 'enterprise') { ?>企业认证<?php } else { ?>个人认证<?php } ?>"></i><?php } ?></a>
 									<p>
 										<?php echo cjk_substr($val['signature'], 0, 12, 'UTF-8', '...'); ?>
 									</p>
