@@ -148,7 +148,7 @@ nav ul li a span{margin-left: 10px;}
 .aw-question-detail-page .aw-invite-replay .aw-invite-replay-list li p{margin:0;}
 .aw-question-detail-page .aw-winner-replay{position:relative;height: 30px;line-height: 30px;margin:10px 0 12px;padding-left: 10px;background: #eeeeee;font-size: 14px;font-weight: bold;}
 .aw-question-detail-page .aw-winner-replay i{margin-right: 5px;vertical-align: -2px;}
-.aw-question-detail-page .aw-share-iframe{position: relative;top: 2px;max-width: 57px;}
+.aw-question-detail-page .aw-share-iframe{position: relative;top: 2px;max-width: 50px;}
 
 /* 问题评论box */
 .aw-comment-box .aw-comment-list li{position: relative;padding:10px 0 10px 35px !important;}
