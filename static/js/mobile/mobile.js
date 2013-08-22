@@ -495,6 +495,8 @@ function _fix_textarea_focus_cursor_position(elTextarea)
 
 function _quick_publish_processer(result)
 {
+	$.loading('hide');
+	
     if (typeof (result.errno) == 'undefined')
     {
         alert(result);
