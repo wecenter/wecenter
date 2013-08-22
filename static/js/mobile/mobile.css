@@ -115,7 +115,7 @@ nav ul li a span{margin-left: 10px;}
 .aw-comment-list li .aw-mod-footer{font-size: 13px;}
 .aw-comment-list li .aw-mod-footer span{margin-right: 10px;color: #999;}
 .aw-comment-list li span.pull-right a{margin-left: -5px;}
-.aw-comment-list p{margin-top: 10px;}
+.aw-comment-list p{margin-top: 10px !important;}
 .aw-comment-box .aw-comment-form{padding:15px;background: #FBFBFB;border-top:1px solid #EEEEEE;border-radius: 0 0 4px 4px;}
 .aw-comment-box .aw-comment-form textarea{width:96%;box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) inset;}
 .aw-comment-box .aw-comment-form p{height: 28px;line-height: 28px;}
