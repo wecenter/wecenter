@@ -1036,7 +1036,7 @@ function init_comment_box(selecter)
             {
                 if (!result)
                 {
-                    result = '<div align="center" class="aw-padding10">' + _t('暂无评论') + '</div>';
+                    result = '<p align="center">' + _t('暂无评论') + '</p>';
                 }
 
                 $(comment_box_id).find('.aw-comment-list').html(result);
