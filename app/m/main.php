@@ -590,44 +590,6 @@ class main extends AWS_CONTROLLER
 		TPL::output('m/search_result');
 	}
 	
-	public function comments_list_action()
-	{
-		if ($_GET['question_id'])
-		{
-			$comments_list = $this->model('question')->get_question_comments($_GET['question_id']);
-		}
-		else
-		{
-			$comments_list = $this->model('answer')->get_answer_comments($_GET['answer_id']);
-		}
-		
-		$user_infos = $this->model('account')->get_user_info_by_uids(fetch_array_value($comments_list, 'uid'));
-		
-		foreach ($comments_list as $key => $val)
-		{
-			$comments_list[$key]['message'] = FORMAT::parse_links($this->model('question')->parse_at_user($comments_list[$key]['message']));
-			
-			$comments_list[$key]['user_name'] = $user_infos[$val['uid']]['user_name'];
-			$comments_list[$key]['url_token'] = $user_infos[$val['uid']]['url_token'];
-		}
-		
-		$this->crumb(AWS_APP::lang()->_t('评论'), '/m/comments_list/');
-		
-		TPL::assign('comments_list', $comments_list);
-		
-		TPL::output('m/comments_list');
-	}
-		
-	public function user_actions_action()
-	{
-		TPL::assign('uid', intval($_GET['uid']));
-		TPL::assign('actions', htmlspecialchars(addslashes($_GET['actions'])));
-		
-		$this->crumb(AWS_APP::lang()->_t('动态'), '/m/actions/');
-		
-		TPL::output('m/user_actions');
-	}
-	
 	public function topic_square_action()
 	{
 		$this->crumb(AWS_APP::lang()->_t('话题广场'), '/m/topic_square/');

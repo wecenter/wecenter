@@ -31,16 +31,16 @@
 			<div class="aw-top-nav-popup aw-top-nav-profile hide">
 				<ul>
 					<li>
-						<a href="m/people/">我的主页</a>
+						<a href="m/people/"><?php _e('我的主页'); ?></a>
 					</li>
 					<li>
-						<a href="m/inbox/">私信<?php if ($this->user_info['notice_unread']) { ?><span class="badge badge-info"><?php echo $this->user_info['notice_unread']; ?></span><?php } ?></a>
+						<a href="m/inbox/"><?php _e('私信'); ?><?php if ($this->user_info['notice_unread']) { ?><span class="badge badge-info"><?php echo $this->user_info['notice_unread']; ?></span><?php } ?></a>
 					</li>
 					<li>
-						<a href="m/settings/">设置</a>
+						<a href="m/settings/"><?php _e('设置'); ?></a>
 					</li>
 					<li>
-						<a href="account/logout/">退出</a>
+						<a href="account/logout/"><?php _e('退出'); ?></a>
 					</li>
 				</ul>
 				<i class="slide-close" onclick="$(this).parents('.aw-top-nav-popup').hide();"></i>

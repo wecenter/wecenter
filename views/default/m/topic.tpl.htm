@@ -32,8 +32,8 @@
 			</div>-->
 			<div class="aw-topic-topbar-nav clearfix">
 				<ul class="nav nav-tabs">
-					<li class="active"><a href="#questions" data-toggle="tab">全部问题</a></li>
-					<li><a href="#best_answers" data-toggle="tab">精华</a></li>
+					<li class="active"><a href="#questions" data-toggle="tab"><?php _e('全部问题'); ?></a></li>
+					<li><a href="#best_answers" data-toggle="tab"><?php _e('精华'); ?></a></li>
 				</ul>
 			</div>
 		</div>
@@ -45,19 +45,19 @@
 			<div class="tab-pane active" id="questions">
 				<ul id="all_question_listview">
 				</ul>
-				<a class="aw-load-more" id="load_all_question">更多</a>
+				<a class="aw-load-more" id="load_all_question"><?php _e('更多'); ?></a>
 			</div>
 			
 			<div class="tab-pane" id="best_answers">
 				<ul id="best_answers_listview"></ul>
-				<a class="aw-load-more" id="load_best_answers">更多</a>
+				<a class="aw-load-more" id="load_best_answers"><?php _e('更多'); ?></a>
 			</div>
 		</div>
 	</div>
 	<!-- end 内容列表 -->
 	<!-- 话题描述 -->
 	<div class="aw-topic-side-section aw-topic-descript">
-		<h3>话题描述</h3>
+		<h3><?php _e('话题描述'); ?></h3>
 		<p><?php echo $this->topic_info['topic_description']; ?></p>
 	</div>
 	<!-- end 话题描述 -->

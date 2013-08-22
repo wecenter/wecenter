@@ -3,7 +3,7 @@
 <!-- 内容 -->
 <div class="aw-content">
 	<div class="aw-title">
-		<h2>发起问题</h2>
+		<h2><?php _e('发起问题'); ?></h2>
 	</div>
 	<div class="aw-mod aw-mod-publish clearfix">
 		<form action="publish/ajax/<?php if ($this->question_info['question_id']) { ?>modify<?php } else { ?>publish<?php } ?>_question/" method="post" id="question_form" onsubmit="return false;">

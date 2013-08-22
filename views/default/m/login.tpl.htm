@@ -18,7 +18,7 @@
 					
 					<?php if (get_setting('invite_reg_only') == 'N') { ?>
 					<div class="title clearfix">
-						<a class="pull-right btn-register" href="m/register/">注册<i class="icon-sign icon-sign-arrow"></i></a>
+						<a class="pull-right btn-register" href="m/register/"><?php _e('注册'); ?><i class="icon-sign icon-sign-arrow"></i></a>
 					</div>
 					<?php } ?>
 					<div class="email">
@@ -27,7 +27,7 @@
 					<div class="password">
 						<input type="password" id="password" name="password" placeholder="<?php _e('密码'); ?>" onkeydown="if (event.keyCode == 13) { ajax_post($('#login_form')); }" />
 					</div>
-					<a class="btn-submit" href="javascript:;" onclick="ajax_post($('#login_form'));">登录</a>
+					<a class="btn-submit" href="javascript:;" onclick="ajax_post($('#login_form'));"><?php _e('登录'); ?></a>
 					<div class="login-misc">
 						<p>
 							<?php if (get_setting('sina_weibo_enabled') == 'Y') { ?><a href="account/openid/sina/" data-ajax="false"><?php _e('新浪微博'); ?></a><?php } ?> &nbsp; 

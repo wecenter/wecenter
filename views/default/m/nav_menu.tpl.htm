@@ -1,7 +1,7 @@
 <div class="aw-content aw-side-bar">
 	<ul class="aw-side-nav">
-		<li<?php if ($_GET['act'] == 'draft') { ?> class="active"<?php } ?>><a href="m/draft/">我的草稿<?php if ($this->user_info['draft_count']) { ?><span class="badge badge-info"><?php echo $this->user_info['draft_count']; ?></span><?php } ?></a></li>
-		<li<?php if ($_GET['act'] == 'focus') { ?> class="active"<?php } ?>><a href="m/focus/">我关注的问题</a></li>
-		<li<?php if ($_GET['act'] == 'invite') { ?> class="active"<?php } ?>><a href="m/invite/">邀请我回答的问题</a></li>
+		<li<?php if ($_GET['act'] == 'draft') { ?> class="active"<?php } ?>><a href="m/draft/"><?php _e('我的草稿'); ?><?php if ($this->user_info['draft_count']) { ?><span class="badge badge-info"><?php echo $this->user_info['draft_count']; ?></span><?php } ?></a></li>
+		<li<?php if ($_GET['act'] == 'focus') { ?> class="active"<?php } ?>><a href="m/focus/"><?php _e('我关注的问题'); ?></a></li>
+		<li<?php if ($_GET['act'] == 'invite') { ?> class="active"<?php } ?>><a href="m/invite/"><?php _e('邀请我回答的问题'); ?></a></li>
 	</ul>
 </div>

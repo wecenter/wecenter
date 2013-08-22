@@ -21,12 +21,12 @@
 			</div>
 		</div>
 		<div class="aw-mod-footer">
-			<span><i class="aw-icon prestige"></i> 威望: <em><?php echo $this->user['reputation']; ?></em></span>
+			<span><i class="aw-icon prestige"></i> <?php _e('威望'); ?>: <em><?php echo $this->user['reputation']; ?></em></span>
 			<?php if (get_setting('integral_system_enabled') == 'Y') { ?>
-			<span><i class="aw-icon point"></i> 积分: <em><?php echo $this->user['integral']; ?></em></span>
+			<span><i class="aw-icon point"></i> <?php _e('积分'); ?>: <em><?php echo $this->user['integral']; ?></em></span>
 			<?php } ?>
-			<span><i class="aw-icon agree active"></i> 赞同: <em><?php echo $this->user['agree_count']; ?></em></span>
-			<span><i class="aw-icon thanks active"></i> 感谢: <em><?php echo $this->user['thanks_count']; ?></em></span>
+			<span><i class="aw-icon agree active"></i> <?php _e('赞同'); ?>: <em><?php echo $this->user['agree_count']; ?></em></span>
+			<span><i class="aw-icon thanks active"></i> <?php _e('感谢'); ?>: <em><?php echo $this->user['thanks_count']; ?></em></span>
 		</div>
 		<?php if ($this->user['uid'] != $this->user_id AND $this->user_id) { ?>
 		<a class="btn btn-primary btn-mini<?php if ($this->user_follow_check) { ?> aw-active<?php } ?>" onclick="follow_people($(this), $(this), <?php echo $this->user['uid']; ?>);"><?php if ($this->user_follow_check) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?></a>
@@ -89,17 +89,17 @@
 		</div>
 		<div class="aw-mod-body clearfix">
 			<?php if ($this->friends_list) { ?>
-			<h3>关注 <?php echo $this->user['friend_count']; ?> 人</h3>
+			<h3><?php _e('关注 %s 人', $this->user['friend_count']); ?></h3>
 				<?php foreach ($this->friends_list AS $key => $val) { ?>
                 	<a href="people/<?php echo $val['url_token']; ?>"><img src="<?php echo get_avatar_url($val['uid'], 'mid'); ?>" alt="<?php echo $val['user_name']; ?>" /></a>
                 <?php } ?>
 			<?php } ?>
-			<h3>关注者 <?php echo $this->user['fans_count']; ?> 人</h3>
+			<h3><?php _e('关注者'); ?> <?php echo $this->user['fans_count']; ?> 人</h3>
 			
 			<?php foreach ($this->fans_list AS $key => $val) { ?>
             	<a href="people/<?php echo $val['url_token']; ?>"><img src="<?php echo get_avatar_url($val['uid'], 'mid'); ?>" alt="<?php echo $val['user_name']; ?>"></a>
             <?php } ?>
-			<h3>关注 <?php echo $this->user['topic_focus_count']; ?> 话题</h3>
+			<h3><?php _e('关注 %s 话题', $this->user['topic_focus_count']); ?></h3>
 				<ul>
 				<?php foreach ($this->focus_topics AS $key => $val) { ?>
 					<li><a class="aw-topic-name" href="m/topic/<?php echo $val['url_token']; ?>"><?php echo $val['topic_title']; ?></a></li>
