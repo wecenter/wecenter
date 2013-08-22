@@ -21,7 +21,7 @@
 			<div class="aw-mod-head clearfix">
 		    	<h3><?php _e('问题标题'); ?>:</h3>
 		    	<div class="aw-publish-title">
-		    		<input type="text" class="pull-left<?php if (!$this->question_category_list) { ?> active<?php } ?>" placeholder="<?php _e('问题标题'); ?>..." value="<?php echo $this->question_info['question_content']; ?>" />
+		    		<input type="text" class="pull-left<?php if (!$this->question_category_list) { ?> active<?php } ?>" placeholder="<?php _e('问题标题'); ?>..." name="question_content" value="<?php echo $this->question_info['question_content']; ?>" />
 		    		<?php if ($this->question_category_list) { ?>
 				    <div class="aw-publish-dropdown pull-left">
 				    	<p class="dropdown-toggle" data-toggle="dropdown">
