@@ -184,7 +184,7 @@ class main extends AWS_CONTROLLER
 			HTTP::redirect('/topic/' . $topic_info['merged_id'] . '?rf=' . $topic_info['topic_id']);
 		}
 		
-		if ($topic_info['url_token'] != $_GET['id'])
+		if (urldecode($topic_info['url_token']) != $_GET['id'])
 		{
 			HTTP::redirect('/topic/' . $topic_info['url_token'] . '?rf=' . $_GET['rf']);
 		}
