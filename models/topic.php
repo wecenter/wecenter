@@ -38,6 +38,8 @@ class topic_class extends AWS_MODEL
 	
 	public function get_topic_search_list($page, $per_page, $keyword = null, $question_count_min = null, $question_count_max = null, $topic_pic = null, $topic_description = null)
 	{
+		$where = array();
+		
 		if ($keyword)
 		{			
 			$where[] = "topic_title LIKE '" . $this->quote($keyword) . "%'";
