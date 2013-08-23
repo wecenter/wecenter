@@ -187,16 +187,16 @@ function alert_box(type , data)
 	            {
 		            $('#quick_publish_question_content').val($('#aw-search-query').val());
 	            }
+	            
+	            add_topic_box('.alert-publish .aw-topic-edit-box .aw-add-topic-box', 'publish');
 				
-	            $('#quick_publish .aw-edit-topic').click();
+	            $('#quick_publish .aw-add-topic-box').click();
 	            
 	            if (G_QUICK_PUBLISH_HUMAN_VALID)
 	            {
 		            $('#quick_publish_captcha').show();
 		            $('#captcha').click();
 	            }
-				
-				add_topic_box('.alert-publish .aw-topic-edit-box .aw-add-topic-box', 'publish');
 			break;
 		}
 	}
