@@ -569,27 +569,6 @@ class main extends AWS_CONTROLLER
 		TPL::output('m/search');
 	}
 	
-	public function search_result_action()
-	{
-		$keyword = htmlspecialchars($_POST['q']);
-		
-		$this->crumb(AWS_APP::lang()->_t('搜索'), '/m/search/');
-		
-		$this->crumb($keyword, '/m/search/');
-		
-		if (!$keyword)
-		{
-			HTTP::redirect('/m/search/');	
-		}
-		
-		TPL::assign('search_type', htmlspecialchars($_POST['search_type']));
-		
-		TPL::assign('keyword', $keyword);
-		TPL::assign('split_keyword', implode(' ', $this->model('system')->analysis_keyword($keyword)));
-		
-		TPL::output('m/search_result');
-	}
-	
 	public function topic_square_action()
 	{
 		$this->crumb(AWS_APP::lang()->_t('话题广场'), '/m/topic_square/');
