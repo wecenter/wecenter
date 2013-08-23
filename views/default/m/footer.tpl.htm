@@ -52,6 +52,7 @@
 		<!-- 底部 -->
 		<footer>
 			Copyright © <?php echo date('Y'); ?> - <?php echo get_setting('site_name'); ?>
+			<p><a href="<?php echo get_setting('base_url'); ?>/<?php if (get_setting('url_rewrite_enable') != 'Y') { ?><?php echo G_INDEX_SCRIPT; ?><?php } ?>ignore_ua_check-TRUE"><?php _e('访问桌面版网站'); ?></a></p>
 		</footer>
 		<!-- end 底部 -->
 		

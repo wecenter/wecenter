@@ -27,6 +27,7 @@ a{cursor: pointer;}
 .btn-primary.aw-active:hover{background-position: 0 -30px;}
 .btn-primary:focus, .btn-primary:active, .btn-primary:visited{background: none;}
 .img-polaroid{max-width: 90%;}
+.aw-loading{display:inline-block;width:16px;height:16px;background: url(img/ajax-loader.gif) no-repeat;}
 
 /* 顶部 */
 header{height: 46px;min-width: 0;padding:0 10px;background: none repeat scroll 0 0 #0D7DCB;border-bottom: 1px solid #0055AC;border-top: 1px solid #0055AC;box-shadow: 0 1px 0 rgba(255, 255, 255, 0.15) inset, 0 1px 1px rgba(0, 0, 0, 0.15);}
