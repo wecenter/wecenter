@@ -39,6 +39,30 @@ $(document).ready(function () {
 		}
 	}
 	
+	$('a[rel=lightbox]').fancybox(
+    {
+        openEffect: 'none',
+        closeEffect: 'none',
+
+        prevEffect: 'none',
+        nextEffect: 'none',
+
+        closeBtn: false,
+
+        helpers:
+        {
+            buttons:
+            {
+                position: 'bottom'
+            }
+        },
+
+        afterLoad: function ()
+        {
+            this.title = '第 ' + (this.index + 1) + ' 张, 共 ' + this.group.length + ' 张' + (this.title ? ' - ' + this.title : '');
+        }
+    });
+	
 	init_comment_box('.aw-add-comment');
 	
 	$('img#captcha').attr('src', G_BASE_URL + '/account/captcha/');
