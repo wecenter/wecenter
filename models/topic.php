@@ -1144,7 +1144,7 @@ class topic_class extends AWS_MODEL
 			
 			foreach ($questions_info AS $key => $val)
 			{	
-				$questions_info[$key]['user_info'] = $action_list_users_info[$val['uid']];
+				$questions_info[$key]['user_info'] = $action_list_users_info[$val['published_uid']];
 				
 				if ($val['has_attach'])
 				{
@@ -1158,9 +1158,9 @@ class topic_class extends AWS_MODEL
 					$questions_info[$key]['answer_info']['attachs'] = $answer_attachs[$val['best_answer']];
 				}
 							
-				$questions_info[$key]['answer_info']['user_name'] = $action_list_users_info[$val['uid']]['user_name'];
-				$questions_info[$key]['answer_info']['url_token'] = $action_list_users_info[$val['uid']]['url_token'];
-				$questions_info[$key]['answer_info']['signature'] = $action_list_users_info[$val['uid']]['signature'];
+				$questions_info[$key]['answer_info']['user_name'] = $action_list_users_info[$val['published_uid']]['user_name'];
+				$questions_info[$key]['answer_info']['url_token'] = $action_list_users_info[$val['published_uid']]['url_token'];
+				$questions_info[$key]['answer_info']['signature'] = $action_list_users_info[$val['published_uid']]['signature'];
 				
 				$questions_info[$key]['answer_info']['agree_users'] = $answers_info_vote_user[$val['best_answer']];
 			}
