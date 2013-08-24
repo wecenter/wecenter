@@ -25,7 +25,6 @@ a{cursor: pointer;}
 .btn-mini{min-width: 60px;padding:2px 3px;font-size:14px;font-weight: normal;}
 .btn-primary.aw-active{color: #333333;background-color: #f5f5f5;*background-color: #e6e6e6;background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6);background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6));background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6);background-image: -o-linear-gradient(top, #ffffff, #e6e6e6);background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);background-repeat: repeat-x;filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffe6e6e6', GradientType=0);filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);text-shadow:none;}
 .btn-primary.aw-active:hover{background-position: 0 -30px;}
-.btn-primary:focus, .btn-primary:active, .btn-primary:visited{background: none;}
 .img-polaroid{max-width: 90%;}
 .aw-loading{display:inline-block;width:16px;height:16px;background: url(img/ajax-loader.gif) no-repeat;}
 
