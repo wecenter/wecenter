@@ -215,6 +215,13 @@ class publish_class extends AWS_MODEL
 					'from_uid' => $uid,
 					'question_id' => $question_id,
 				));
+				
+				$user_info = $this->model('account')->get_user_info_by_uid($uid);
+				
+				$this->model('email')->action_email('QUESTION_INVITE', $ask_user_id, get_js_url('/question/' . $question_id)), array(
+					'user_name' => $user_info['user_name'], 
+					'question_title' => $question_content
+				));
 			}
 			
 			// 自动关注该问题
