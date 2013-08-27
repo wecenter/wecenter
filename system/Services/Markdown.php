@@ -414,10 +414,10 @@ class Services_Markdown {
 	# These are all the transformations that form block-level
 	# tags like paragraphs, headers, and list items.
 	#
-		"doHeaders"         => 10,
+		"doHeaders"         => 20,
 		//"doHorizontalRules" => 20,
 		
-		"doLists"           => 40,
+		"doLists"           => 10,
 		"doCodeBlocks"      => 50,
 		"doBlockQuotes"     => 60,
 		);
@@ -779,7 +779,7 @@ class Services_Markdown {
 				\n+
 			}xm',
 			array(&$this, '_doHeaders_callback_atx'), $text);
-
+		
 		return $text;
 	}
 	protected function _doHeaders_callback_setext($matches) {
@@ -794,6 +794,7 @@ class Services_Markdown {
 	protected function _doHeaders_callback_atx($matches) {
 		$level = strlen($matches[1]);
 		$block = "<h$level>".$this->runSpanGamut($matches[2])."</h$level>";
+		
 		return $this->hashBlock($block);
 	}
 
@@ -801,7 +802,7 @@ class Services_Markdown {
 	protected function doLists($text) {
 	#
 	# Form HTML ordered (numbered) and unordered (bulleted) lists.
-	#
+	#		
 		$less_than_tab = $this->tab_width - 1;
 
 		# Re-usable patterns to match list item bullets and number markers:
