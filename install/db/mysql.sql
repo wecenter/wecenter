@@ -646,7 +646,7 @@ CREATE TABLE `[#DB_PREFIX#]users_attrib` (
   `uid` int(11) DEFAULT NULL COMMENT '用户UID',
   `introduction` varchar(255) DEFAULT NULL COMMENT '个人简介',
   `signature` varchar(255) DEFAULT NULL COMMENT '个人签名',
-  `qq` int(10) DEFAULT NULL,
+  `qq` bigint(15) DEFAULT NULL,
   `homepage` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `uid` (`uid`)
