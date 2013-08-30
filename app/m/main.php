@@ -42,11 +42,6 @@ class main extends AWS_CONTROLLER
 			HTTP::set_cookie('_ignore_ua_check', 'FALSE');
 		}
 		
-		if ($_SERVER['REQUEST_URI'] AND !strstr($_SERVER['REQUEST_URI'], '?/'))
-		{
-			HTTP::redirect(get_setting('base_url') . str_replace('/m/', '/?/m/', $_SERVER['REQUEST_URI']));
-		}
-		
 		switch ($_GET['act'])
 		{
 			default:

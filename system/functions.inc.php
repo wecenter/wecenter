@@ -558,7 +558,7 @@ function get_js_url($url)
 	{
 		$url = substr($url, 1);
 		
-		if (get_setting('url_rewrite_enable') == 'Y' AND !defined('IN_MOBILE') AND $request_routes = get_request_route())		
+		if (get_setting('url_rewrite_enable') == 'Y' AND $request_routes = get_request_route())		
 		{			
 			foreach ($request_routes as $key => $val)
 			{
@@ -571,7 +571,7 @@ function get_js_url($url)
 			}
 		}
 		
-		$url = get_setting('base_url') . '/' . ((get_setting('url_rewrite_enable') != 'Y' OR defined('IN_MOBILE')) ? G_INDEX_SCRIPT : '') . $url;
+		$url = get_setting('base_url') . '/' . ((get_setting('url_rewrite_enable') != 'Y') ? G_INDEX_SCRIPT : '') . $url;
 	}
 	
 	return $url;
