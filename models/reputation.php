@@ -253,8 +253,6 @@ class reputation_class extends AWS_MODEL
 				'reputation' => round($user_reputation), 
 				'reputation_update_time' => time()
 			), $uid);
-					
-			$this->model('account')->update_user_reputation_group($uid);
 		}
 		else
 		{
@@ -262,9 +260,9 @@ class reputation_class extends AWS_MODEL
 				'reputation' => 0, 
 				'reputation_update_time' => time()
 			), $uid);
-						
-			$this->model('account')->update_user_reputation_group($uid);
 		}
+		
+		$this->model('account')->update_user_reputation_group($uid);
 	}
 
 	public function calculate($start = 0, $limit = 100)
