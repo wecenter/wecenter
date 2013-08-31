@@ -19,7 +19,7 @@
 							<span class="aw-topic-name" data-id="<?php echo $val['topic_id']?>"><a href="m/topic/<?php echo $val['url_token']; ?>"><?php echo $val['topic_title']; ?></a></span>
 						<?php } ?>
 					<?php } ?>
-					<a class="aw-add-topic-box"><?php _e('编辑话题'); ?></a>
+					<?php if ($this->user_id AND !$this->question_info['lock']) { ?><a class="aw-add-topic-box"<?php if (sizeof($this->question_topics) == 0) { ?> style="display:none"<?php } ?>><?php _e('编辑话题'); ?></a><?php } ?>
 				</div>
 			</div>
 		</div>
