@@ -624,6 +624,7 @@ CREATE TABLE `[#DB_PREFIX#]users` (
   `default_timezone` varchar(32) DEFAULT NULL,
   `email_settings` varchar(255) DEFAULT '',
   `weixin_id` varchar(32) DEFAULT NULL,
+  `recent_topics` text,
   PRIMARY KEY (`uid`),
   KEY `user_name` (`user_name`),
   KEY `email` (`email`),
