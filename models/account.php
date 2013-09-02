@@ -1495,4 +1495,43 @@ class account_class extends AWS_MODEL
 		
 		return true;
 	}
+	
+	public function save_recent_topics($uid, $topic_title)
+	{
+		if (!$user_info = $this->get_user_info_by_uid($uid))
+		{
+			return false;
+		}
+		
+		if ($user_info['recent_topics'])
+		{
+			$recent_topics = unserialize($user_info['recent_topics']);
+		}
+		
+		if (!$recent_topics)
+		{
+			$recent_topics = array();
+		}
+		
+		foreach ($recent_topics AS $key => $val)
+		{
+			if ($val == $topic_title)
+			{
+				return false;
+			}
+		}
+		
+		$recent_topics[] = $topic_title;
+		
+		rsort($recent_topics);
+		
+		if (count($recent_topics) > 10)
+		{
+			array_slice($recent_topics, 0, 10);
+		}
+		
+		return $this->update('users', array(
+			'recent_topics' => serialize($recent_topics)
+		), 'uid = ' . intval($uid));
+	}
 }

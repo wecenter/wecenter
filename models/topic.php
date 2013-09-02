@@ -258,7 +258,7 @@ class topic_class extends AWS_MODEL
 	}
 	
 	public function save_topic($question_id, $topic_title, $uid = null, $topic_lock = 0, $topic_type = null, $auto_create = true)
-	{		
+	{
 		if (!$topic_id = $this->get_topic_id_by_title($topic_title) AND $auto_create)
 		{
 			$topic_id = $this->insert('topic', array(
@@ -278,6 +278,8 @@ class topic_class extends AWS_MODEL
 		if ($question_id AND $uid)
 		{
 			ACTION_LOG::save_action($uid, $question_id, ACTION_LOG::CATEGORY_QUESTION, ACTION_LOG::ADD_TOPIC, $topic_title, $topic_id);
+			
+			$this->model('account')->save_recent_topics($uid, $topic_title);
 			
 			return $topic_id;
 		}

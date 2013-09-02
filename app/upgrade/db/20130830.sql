@@ -1,0 +1,1 @@
+ALTER TABLE `[#DB_PREFIX#]users` ADD `recent_topics` TEXT NULL;

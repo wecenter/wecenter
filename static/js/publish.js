@@ -32,5 +32,9 @@ $(document).ready(function () {
 				}, 'json');
 			}
 		});
+		
+		$('#publish_submit').onclick(function () {
+			$('textarea#advanced_editor').unbind('blur');
+		});
 	}
 });

@@ -119,9 +119,7 @@ class main extends AWS_CONTROLLER
 			TPL::import_js('js/editor/sets/default/set.js');
 		}
 		
-		$hot_topics = $this->model('topic')->get_hot_topics(null, 10);
-		
-		TPL::assign('hot_topics', $hot_topics['topics']);
+		TPL::assign('recent_topics', @unserialize($this->user_info['recent_topics']));
 		
 		TPL::output('publish/index');
 	}

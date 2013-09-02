@@ -209,19 +209,10 @@ class ajax extends AWS_CONTROLLER
 				
 				$this->model('account')->setcookie_login($user_info['uid'], $user_info['user_name'], $_POST['password'], $user_info['salt']);
 				
-				if ($_POST['_is_mobile'])
-				{
-					$url = get_js_url('/m/');
-				}
-				else
-				{
-					$url = get_js_url('/home/first_login-TRUE');
-				}
-				
 				if (!$_POST['_is_mobile'])
 				{
 					H::ajax_json_output(AWS_APP::RSM(array(
-						'url' => $url
+						'url' => get_js_url('/home/first_login-TRUE')
 					), 1, null));
 				}
 			}
@@ -231,12 +222,9 @@ class ajax extends AWS_CONTROLLER
 				
 				$this->model('active')->new_valid_email($uid);
 				
-				if (!$_POST['_is_mobile'])
-				{
-					H::ajax_json_output(AWS_APP::RSM(array(
-						'url' => get_js_url('/account/valid_email/')
-					), 1, null));
-				}
+				H::ajax_json_output(AWS_APP::RSM(array(
+					'url' => get_js_url('/account/valid_email/')
+				), 1, null));
 			}
 			
 			if ($_POST['weixin_id'] AND $_POST['_is_mobile'])
@@ -250,6 +238,14 @@ class ajax extends AWS_CONTROLLER
 				
 				H::ajax_json_output(AWS_APP::RSM(array(
 					'url' => get_js_url('/m/weixin_bind_success/')
+				), 1, null));
+			}
+			
+			
+			if ($_POST['_is_mobile'])
+			{
+				H::ajax_json_output(AWS_APP::RSM(array(
+					'url' => get_js_url('/m/')
 				), 1, null));
 			}
 		}
