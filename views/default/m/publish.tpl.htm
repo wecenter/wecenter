@@ -85,20 +85,23 @@
 			});
 		}
 
-		if ($('.aw-publish-dropdown')[0])
+		if ($('.aw-publish-dropdown').length)
 		{
 			$.each($('.aw-publish-dropdown .dropdown-menu li a'),function(i, e)
 			{
 				if ($(e).attr('data-value') == $('#category_id').val())
 				{
 					$('.aw-publish-dropdown span').html($(e).html());
+					
 					return;
 				}
 			});
 		}
-
-		$('.aw-mod-publish .aw-add-topic-box').click();
-
+		
+		if ($('#quick_publish_topic_chooser').length)
+		{
+			$('#quick_publish_topic_chooser').click();
+		}
 	});
 </script>
 		
