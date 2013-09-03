@@ -41,11 +41,13 @@
 			<h2><?php _e('擅长话题'); ?></h2>
 		</div>
 		<div class="aw-mod-body clearfix">
+			<?php if ($this->reputation_topics) { ?>
 			<ul>
 				<?php foreach ($this->reputation_topics AS $key => $val) { ?>
 				<li><a href="m/topic/<?php echo $val['url_token']; ?>" class="aw-topic-name"><?php echo $val['topic_title']; ?></a></li>
 				<?php } ?>
 			</ul>
+			<?php } ?>
 		</div>
 	</div>
 	<!-- end 擅长话题 -->
@@ -99,13 +101,16 @@
 			</section>
 
 			<section>
+				<?php if ($this->fans_list) { ?>
 				<h3><?php _e('关注者'); ?> <?php echo $this->user['fans_count']; ?> 人</h3>
 				<?php foreach ($this->fans_list AS $key => $val) { ?>
 	            	<a href="people/<?php echo $val['url_token']; ?>"><img src="<?php echo get_avatar_url($val['uid'], 'mid'); ?>" alt="<?php echo $val['user_name']; ?>"></a>
 	            <?php } ?>
+	            <?php } ?>
 			</section>
 			
 			<section>
+				<?php if (focus_topics) { ?>
 				<h3><?php _e('关注 %s 话题', $this->user['topic_focus_count']); ?></h3>
 					<ul>
 					<?php foreach ($this->focus_topics AS $key => $val) { ?>
@@ -113,6 +118,7 @@
 					<?php } ?>
 					</ul>
 				</ul>
+				<?php } ?>
 			</section>
 			
 		</div>
