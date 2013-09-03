@@ -128,7 +128,6 @@ nav #aw-top-nav-notic .badge{position: absolute;right: 15px;top:1;}
 
 /* 问题详情页 */
 .aw-question-detail-page .aw-question-detail h1{margin-top:10px;font-size: 18px;line-height: 22px;}
-.aw-question-detail-page .aw-question-detail .aw-topic-box{margin: 10px 0;}
 .aw-question-detail-page .aw-question-detail .aw-mod-body{margin:10px 0;line-height: 22px;}
 .aw-question-detail-page .aw-question-detail .aw-mod-footer a, .aw-question-detail-page .aw-answers-list .aw-mod-footer > a{margin-right: 10px;color: #999;}
 .aw-question-detail-page .aw-answers-title{line-height:24px;margin:15px 0;padding:10px 0;border-top: 1px solid #EEEEEE;}
@@ -333,6 +332,7 @@ nav #aw-top-nav-notic .badge{position: absolute;right: 15px;top:1;}
 .markitup-box .aw-comment-upload-img-list a{display:block;margin:15px 0;}
 
 /* 话题编辑box */
+.aw-topic-edit-box .aw-topic-box{margin: 10px 0;}
 .aw-topic-box-selector{position:relative;max-width: 500px;}
 .aw-topic-box-selector .aw-topic-input{width: 150px;}
 .aw-topic-box-selector .btn{margin-left: 10px;}

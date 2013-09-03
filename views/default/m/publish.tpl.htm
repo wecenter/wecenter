@@ -35,6 +35,11 @@
 		    <div class="aw-mod-body clearfix">
 		    	<h3><?php _e('问题补充 (选填)'); ?>:</h3>
 		    	<textarea name="question_detail" id="question_detail" rows="4"><?php echo $this->question_info['question_detail']; ?></textarea>
+	    		<div class="aw-topic-edit-box" id="quick_publish_topic_chooser">
+					<div class="aw-topic-box">
+						<a class="aw-add-topic-box">编辑话题</a>				
+					</div>
+				</div>
 			</div>
 		    <div class="aw-mod-footer">
 		    	<button class="btn btn-primary pull-right" onclick="ajax_post($('#question_form')); return false;"><?php _e('确认发起'); ?></button>

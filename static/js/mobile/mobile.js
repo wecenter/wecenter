@@ -119,7 +119,8 @@ $(document).ready(function () {
 
 	dropdown_list('.aw-search-input','search');
 	dropdown_list('.aw-invite-input','invite');
-	add_topic_box('.aw-add-topic-box','question');
+	add_topic_box('.aw-question-detail .aw-add-topic-box','question');
+	add_topic_box('.aw-mod-publish .aw-add-topic-box','publish');
 
 });
 
@@ -366,11 +367,11 @@ function dropdown_list(element, type)
 										}, 'json');
 									});
 									
-									$('.alert-publish .aw-topic-edit-box .dropdown-list ul li').click(function()
+									$('.alert-publish .aw-topic-edit-box .dropdown-list ul li, .aw-mod-publish .aw-topic-edit-box .dropdown-list ul li').click(function()
 									{
 										$(element).parents('.aw-topic-edit-box').find('.aw-topic-box').prepend('<span class="aw-topic-name"><a>' + $(this).text() + '</a><input type="hidden" name="topics[]" value="' + $(this).text() + '"><a href="#"><i onclick="$(this).parents(\'.aw-topic-name\').detach();">X</i></a></span>');
 										$(element).val('');
-										$('.alert-publish .aw-topic-edit-box .dropdown-list').hide();
+										$('.alert-publish .aw-topic-edit-box .dropdown-list, .aw-mod-publish .aw-topic-edit-box .dropdown-list').hide();
 									});
 									
 									$(element).next().show();
