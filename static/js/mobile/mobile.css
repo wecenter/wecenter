@@ -98,6 +98,7 @@ nav #aw-top-nav-notic .badge{position: absolute;right: 15px;top:1;}
 
 /* 发起页面 */
 .aw-mod-publish .aw-mod-body{margin-bottom:10px;border-bottom: 1px solid #eee;}
+.aw-mod-publish h3{font-size: 14px;color: #666;}
 .aw-mod-publish textarea{width: 95%;}
 .aw-mod-publish .aw-topic-box-selector .btn{margin:0 0 10px 10px;}
 .aw-mod-publish .aw-anonymity input{margin-right: 5px;}
@@ -333,6 +334,7 @@ nav #aw-top-nav-notic .badge{position: absolute;right: 15px;top:1;}
 
 /* 话题编辑box */
 .aw-topic-box-selector{position:relative;max-width: 500px;}
+.aw-topic-box-selector .aw-topic-input{width: 150px;}
 .aw-topic-box-selector .btn{margin-left: 10px;}
 .aw-topic-box-selector .dropdown-list{width: 50%;}
 .aw-topic-box-selector .dropdown-list ul li{cursor: pointer;}
