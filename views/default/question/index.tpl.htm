@@ -11,7 +11,7 @@
 		<?php } ?>
 		<div class="row aw-content-wrap">
 			<div class="span9 aw-main-content">
-				<div class="aw-mod aw-item aw-question-detail-title">
+				<div class="aw-mod aw-question-detail-title">
 					<div class="aw-mod-head">
 						<h1>
 							<?php echo $this->question_info['question_content']; ?>
@@ -153,132 +153,131 @@
 					</div>
 				</div>
 				<?php } else { ?>
-				<div class="aw-question-detail-box">
-					<ul class="nav nav-tabs aw-reset-nav-tabs">
-						<?php if ($_GET['single']) { ?>
-						<!--<li><a href="question/<?php echo $this->question_info['question_id']; ?>"><?php _e('全部回答'); ?></a></li>-->
-						<?php } else if (($this->answer_count OR $_GET['uid']) AND $this->user_id) { ?>
-						<li<?php if ($_GET['uid'] == 'focus') { ?> class="active"<?php } ?>><a href="question/<?php echo $this->question_info['question_id']; ?>?uid=focus"><?php _e('关注的人'); ?></a></li>
-						<li<?php if ($_GET['sort_key'] == 'add_time') { ?> class="active"<?php } ?>><a href="question/<?php echo $this->question_info['question_id']; ?>?sort_key=add_time&sort=<?php if (($_GET['sort_key'] == 'add_time') && $_GET['sort'] == 'ASC') { ?>DESC<?php } else { ?>ASC<?php } ?>"><?php _e('时间'); ?><?php if (($_GET['sort_key'] == 'add_time') && $_GET['sort'] == 'DESC') { ?><i class="aw-icon i-triangle-down-mini"></i><?php } else { ?><i class="aw-icon i-triangle-up-mini"></i><?php } ?></a></li>
-						<li<?php if ((!$_GET['uid'] && !$_GET['sort_key']) || $_GET['sort_key'] == 'agree_count') { ?> class="active"<?php } ?>><a href="question/<?php echo $this->question_info['question_id']; ?>&sort_key=agree_count&sort=DESC"><?php _e('票数'); ?></a></li>
-						<?php } ?>
-						
-						<h2><?php if ($_GET['single']) { ?><?php _e('查看单个回答'); ?><?php } else { ?><?php _e('%s 个回复', $this->answer_count); ?><?php } ?></h2>
-					</ul>
-					<div class="aw-mod aw-dynamic-topic">
-						<div class="aw-mod-body">
+				<div class="aw-mod aw-question-detail-box">
+					<div class="aw-mod-head">
+						<ul class="nav nav-tabs aw-reset-nav-tabs">
+							<?php if ($_GET['single']) { ?>
+							<!--<li><a href="question/<?php echo $this->question_info['question_id']; ?>"><?php _e('全部回答'); ?></a></li>-->
+							<?php } else if (($this->answer_count OR $_GET['uid']) AND $this->user_id) { ?>
+							<li<?php if ($_GET['uid'] == 'focus') { ?> class="active"<?php } ?>><a href="question/<?php echo $this->question_info['question_id']; ?>?uid=focus"><?php _e('关注的人'); ?></a></li>
+							<li<?php if ($_GET['sort_key'] == 'add_time') { ?> class="active"<?php } ?>><a href="question/<?php echo $this->question_info['question_id']; ?>?sort_key=add_time&sort=<?php if (($_GET['sort_key'] == 'add_time') && $_GET['sort'] == 'ASC') { ?>DESC<?php } else { ?>ASC<?php } ?>"><?php _e('时间'); ?><?php if (($_GET['sort_key'] == 'add_time') && $_GET['sort'] == 'DESC') { ?><i class="aw-icon i-triangle-down-mini"></i><?php } else { ?><i class="aw-icon i-triangle-up-mini"></i><?php } ?></a></li>
+							<li<?php if ((!$_GET['uid'] && !$_GET['sort_key']) || $_GET['sort_key'] == 'agree_count') { ?> class="active"<?php } ?>><a href="question/<?php echo $this->question_info['question_id']; ?>&sort_key=agree_count&sort=DESC"><?php _e('票数'); ?></a></li>
+							<?php } ?>
+							
+							<h2><?php if ($_GET['single']) { ?><?php _e('查看单个回答'); ?><?php } else { ?><?php _e('%s 个回复', $this->answer_count); ?><?php } ?></h2>
+						</ul>
+					</div>
+					<div class="aw-mod-body aw-dynamic-topic">
 						<?php if ($this->answers) { foreach ($this->answers AS $key => $val) { ?>
 						
-						<div class="aw-item" uninterested_count="<?php echo $val['uninterested_count']; ?>" force_fold="<?php if ($val['user_rated_uninterested']) { ?>1<?php } else { ?><?php echo $val['force_fold']; ?><?php } ?>" id="answer_list_<?php echo $val['answer_id']; ?>">
-							<?php if ($this->question_info['best_answer'] == $val['answer_id']) { ?>
-							<!-- 最佳回答 -->
-							<p class="aw-winner-replay">
-								<i class="aw-icon i-start-large"></i>
-								<?php _e('最佳回复'); ?>
-							</p>
-							<!-- end 最佳回答 -->
-							<?php } ?>
-							<a name="answer_<?php echo $val['answer_id']; ?>"></a>
-							<!-- 用户头像 -->
-							<?php if ($val['anonymous'] == 0) { ?><a class="aw-user-img aw-border-radius-5 pull-right" href="people/<?php echo $val['url_token']; ?>" data-id="<?php echo $val['uid']; ?>"><img src="<?php echo get_avatar_url($val['uid'], 'mid'); ?>" alt="" /></a><?php } else { ?><a class="aw-user-img aw-border-radius-5 pull-right" href="javascript:;"><img src="<?php echo G_STATIC_URL; ?>/common/avatar-mid-img.jpg" alt="<?php _e('匿名用户'); ?>" /></a><?php } ?>
-							<!-- end 用户头像 -->
-							<div class="aw-mod-body clearfix">
-								<!-- 投票栏 -->
-								<em class="aw-border-radius-5 aw-vote-count pull-left<?php if (!$this->user_id OR $val['uid'] == $this->user_id) { ?> disable<?php } ?>"<?php if ($this->user_id AND $val['uid'] != $this->user_id) { ?> onclick="insertVoteBar({element:this,agree_count:<?php echo $val['agree_count']; ?>,flag:<?php echo $val['agree_status']; ?>,user_name:G_USER_NAME,answer_id:<?php echo $val['answer_id']; ?>})"<?php } ?>><?php echo $val['agree_count']; ?></em>
-								<!-- end 投票栏 -->
-								<div class="pull-left aw-dynamic-topic-content">
-									<!-- 评论内容 -->
-									<div>
-										<p><?php if ($val['anonymous'] == 0) { ?><a class="aw-user-name" href="people/<?php echo $val['url_token']; ?>" data-id="<?php echo $val['uid']; ?>"><?php echo $val['user_name']; ?></a><?php } else { ?><a class="aw-user-name" href="javascript:;"><?php _e('匿名用户'); ?></a><?php } ?><?php if ($val['anonymous'] == 0) { ?><?php if ($val['verified']) { ?> <i class="aw-icon i-v<?php if ($val['verified'] == 'enterprise') { ?> i-ve<?php } ?>" title="<?php if ($this->user['verified'] == 'enterprise') { ?>个人认证<?php } else { ?>企业认证<?php } ?>"></i><?php } ?><?php if ($val['signature']) { ?> - <span class="aw-text-color-999"><?php echo $val['signature']; ?></span><?php } ?><?php } ?> <?php if ($val['publish_source'] == 'mobile') { ?><i class="aw-icon i-phone-replay"></i><?php } else if ($val['publish_source'] == 'weixin') { ?><i class="aw-icon i-weixin-replay"></i><?php } ?></p>   
-										<p class="aw-text-color-999 aw-agree-by<?php if (sizeof($val['agree_users']) == 0) { ?> hide<?php } ?>">
-											<?php _e('赞同来自'); ?>:
+							<div class="aw-item" uninterested_count="<?php echo $val['uninterested_count']; ?>" force_fold="<?php if ($val['user_rated_uninterested']) { ?>1<?php } else { ?><?php echo $val['force_fold']; ?><?php } ?>" id="answer_list_<?php echo $val['answer_id']; ?>">
+								<?php if ($this->question_info['best_answer'] == $val['answer_id']) { ?>
+								<!-- 最佳回答 -->
+								<p class="aw-winner-replay">
+									<i class="aw-icon i-start-large"></i>
+									<?php _e('最佳回复'); ?>
+								</p>
+								<!-- end 最佳回答 -->
+								<?php } ?>
+								<a name="answer_<?php echo $val['answer_id']; ?>"></a>
+								<!-- 用户头像 -->
+								<?php if ($val['anonymous'] == 0) { ?><a class="aw-user-img aw-border-radius-5 pull-right" href="people/<?php echo $val['url_token']; ?>" data-id="<?php echo $val['uid']; ?>"><img src="<?php echo get_avatar_url($val['uid'], 'mid'); ?>" alt="" /></a><?php } else { ?><a class="aw-user-img aw-border-radius-5 pull-right" href="javascript:;"><img src="<?php echo G_STATIC_URL; ?>/common/avatar-mid-img.jpg" alt="<?php _e('匿名用户'); ?>" /></a><?php } ?>
+								<!-- end 用户头像 -->
+								<div class="aw-mod-body clearfix">
+									<!-- 投票栏 -->
+									<em class="aw-border-radius-5 aw-vote-count pull-left<?php if (!$this->user_id OR $val['uid'] == $this->user_id) { ?> disable<?php } ?>"<?php if ($this->user_id AND $val['uid'] != $this->user_id) { ?> onclick="insertVoteBar({element:this,agree_count:<?php echo $val['agree_count']; ?>,flag:<?php echo $val['agree_status']; ?>,user_name:G_USER_NAME,answer_id:<?php echo $val['answer_id']; ?>})"<?php } ?>><?php echo $val['agree_count']; ?></em>
+									<!-- end 投票栏 -->
+									<div class="pull-left aw-dynamic-topic-content">
+										<!-- 评论内容 -->
+										<div>
+											<p><?php if ($val['anonymous'] == 0) { ?><a class="aw-user-name" href="people/<?php echo $val['url_token']; ?>" data-id="<?php echo $val['uid']; ?>"><?php echo $val['user_name']; ?></a><?php } else { ?><a class="aw-user-name" href="javascript:;"><?php _e('匿名用户'); ?></a><?php } ?><?php if ($val['anonymous'] == 0) { ?><?php if ($val['verified']) { ?> <i class="aw-icon i-v<?php if ($val['verified'] == 'enterprise') { ?> i-ve<?php } ?>" title="<?php if ($this->user['verified'] == 'enterprise') { ?>个人认证<?php } else { ?>企业认证<?php } ?>"></i><?php } ?><?php if ($val['signature']) { ?> - <span class="aw-text-color-999"><?php echo $val['signature']; ?></span><?php } ?><?php } ?> <?php if ($val['publish_source'] == 'mobile') { ?><i class="aw-icon i-phone-replay"></i><?php } else if ($val['publish_source'] == 'weixin') { ?><i class="aw-icon i-weixin-replay"></i><?php } ?></p>   
+											<p class="aw-text-color-999 aw-agree-by<?php if (sizeof($val['agree_users']) == 0) { ?> hide<?php } ?>">
+												<?php _e('赞同来自'); ?>:
+												
+												<?php if ($val['agree_users']) { ?>
+												<?php $count = 0; foreach($val['agree_users'] AS $uid => $user) { ?>
+												<?php if ($count > 0) { ?><em<?php if ($count >= 5) { ?> class="hide"<?php } ?>>、</em><?php } ?><a href="people/<?php echo $user['url_token']; ?>" data-id="<?php echo $user['uid']; ?>" class="aw-user-name<?php if ($count >= 5) { ?> hide<?php } ?>"><?php echo $user['user_name']; ?></a><?php $count++; } ?><?php } ?><?php if (count($val['agree_users']) >= 5) { ?><a href="javascript:;" class="aw-agree-by-show" onclick="$(this).parents('.aw-agree-by').find('em,a').removeClass('hide'); $(this).remove();"><?php _e('更多'); ?> »</a>
+												<?php } ?>
+											</p>
 											
-											<?php if ($val['agree_users']) { ?>
-											<?php $count = 0; foreach($val['agree_users'] AS $uid => $user) { ?>
-											<?php if ($count > 0) { ?><em<?php if ($count >= 5) { ?> class="hide"<?php } ?>>、</em><?php } ?><a href="people/<?php echo $user['url_token']; ?>" data-id="<?php echo $user['uid']; ?>" class="aw-user-name<?php if ($count >= 5) { ?> hide<?php } ?>"><?php echo $user['user_name']; ?></a><?php $count++; } ?><?php } ?><?php if (count($val['agree_users']) >= 5) { ?><a href="javascript:;" class="aw-agree-by-show" onclick="$(this).parents('.aw-agree-by').find('em,a').removeClass('hide'); $(this).remove();"><?php _e('更多'); ?> »</a>
-											<?php } ?>
-										</p>
-										
-										<div class="markitup-box">
-											<?php echo $val['answer_content']; ?>
-										</div>
-										
-										<?php if ($val['attachs']) {  ?>
-										<div class="aw-comment-upload-img-list">
-										<?php foreach ($val['attachs'] AS $attach) { ?>
-										<?php if ($attach['is_image'] AND !in_array($attach['id'], $val['insert_attach_ids'])) { ?>
-											<a href="<?php echo $attach['attachment']; ?>" target="_blank" data-fancybox-group="thumb" rel="lightbox"><img src="<?php echo $attach['attachment']; ?>" class="img-polaroid" alt="<?php echo $attach['attach_name']; ?>" /></a>
-										<?php } ?>
-										<?php } ?>
-										</div>
-										<?php } ?>
-										
-										<?php if ($val['attachs']) {  ?>
-										<ul class="aw-comment-upload-file-list">
+											<div class="markitup-box">
+												<?php echo $val['answer_content']; ?>
+											</div>
+											
+											<?php if ($val['attachs']) {  ?>
+											<div class="aw-comment-upload-img-list">
 											<?php foreach ($val['attachs'] AS $attach) { ?>
-											<?php if (!$attach['is_image'] AND !in_array($attach['id'], $val['insert_attach_ids'])) { ?>
-												<li><a href="<?php echo download_url($attach['file_name'], $attach['attachment']); ?>"><em class="aw-icon i-upload-file"></em><?php echo $attach['file_name']; ?></a></li>
+											<?php if ($attach['is_image'] AND !in_array($attach['id'], $val['insert_attach_ids'])) { ?>
+												<a href="<?php echo $attach['attachment']; ?>" target="_blank" data-fancybox-group="thumb" rel="lightbox"><img src="<?php echo $attach['attachment']; ?>" class="img-polaroid" alt="<?php echo $attach['attach_name']; ?>" /></a>
 											<?php } ?>
 											<?php } ?>
-										</ul>
-										<?php } ?>
-									</div>
-									<!-- end 评论内容 -->
-									<!-- 社交操作 -->
-									<div class="aw-dynamic-topic-meta">
-										<span class="pull-left aw-text-color-999"><?php echo date_friendly($val['add_time']); ?></span>
-										<a class="aw-add-comment" data-id="<?php echo $val['answer_id']; ?>" data-type="answer" href="javascript:;"><i class="aw-icon i-remark"></i><?php if ($val['comment_count']) { ?> <?php _e('%s 条评论', $val['comment_count']); ?><?php } else { ?><?php _e('添加评论'); ?><?php } ?></a>
-										<!-- 可显示/隐藏的操作box -->
-										<div class="aw-dynamic-topic-more-operate pull-left">
-											<a href="javascript:;" onclick="$.dialog('shareOut', {item_type:'answer', item_id:<?php echo $val['answer_id']; ?>});" class="aw-text-color-999"><i class="aw-icon i-share"></i><?php _e('分享'); ?></a>
+											</div>
+											<?php } ?>
 											
-											<?php if ($this->user_id) { ?>	
-												<?php if (($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) OR ($val['uid'] == $this->user_id AND ((time() - $val['add_time']) < (get_setting('answer_edit_time') * 60) OR (!get_setting('answer_edit_time'))))) { ?>
-												<a class="aw-text-color-999" href="javascript:;" onclick="$.dialog('commentEdit', {answer_id:<?php echo $val['answer_id']; ?>,attach_access_key:'<?php echo $this->attach_access_key; ?>'});"><i class="aw-icon i-edit"></i><?php _e('编辑'); ?></a>
-												<?php } ?>							
-												<?php if ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?>
-												<a href="javascript:;" onclick="answer_force_fold(<?php echo $val['answer_id']; ?>, this);" class="aw-text-color-999"><i class="aw-icon i-no-help"></i><?php if ($val['force_fold']) { ?><?php _e('撤消折叠'); ?><?php } else { ?><?php _e('折叠'); ?><?php } ?></a>
-												<?php } else { ?>
-												<a class="aw-icon-thank-tips aw-text-color-999" data-original-title="<?php _e('这是一个没有价值的回复'); ?>" data-toggle="tooltip" title="" data-placement="bottom" onclick="answer_user_rate(<?php echo $val['answer_id']; ?>, 'uninterested', this);"><i class="aw-icon i-no-help"></i><?php if ($val['user_rated_uninterested']) { ?><?php _e('撤消没有帮助'); ?><?php } else { ?><?php _e('没有帮助'); ?><?php } ?></a>
+											<?php if ($val['attachs']) {  ?>
+											<ul class="aw-comment-upload-file-list">
+												<?php foreach ($val['attachs'] AS $attach) { ?>
+												<?php if (!$attach['is_image'] AND !in_array($attach['id'], $val['insert_attach_ids'])) { ?>
+													<li><a href="<?php echo download_url($attach['file_name'], $attach['attachment']); ?>"><em class="aw-icon i-upload-file"></em><?php echo $attach['file_name']; ?></a></li>
+												<?php } ?>
+												<?php } ?>
+											</ul>
+											<?php } ?>
+										</div>
+										<!-- end 评论内容 -->
+										<!-- 社交操作 -->
+										<div class="aw-dynamic-topic-meta">
+											<span class="pull-left aw-text-color-999"><?php echo date_friendly($val['add_time']); ?></span>
+											<a class="aw-add-comment" data-id="<?php echo $val['answer_id']; ?>" data-type="answer" href="javascript:;"><i class="aw-icon i-remark"></i><?php if ($val['comment_count']) { ?> <?php _e('%s 条评论', $val['comment_count']); ?><?php } else { ?><?php _e('添加评论'); ?><?php } ?></a>
+											<!-- 可显示/隐藏的操作box -->
+											<div class="aw-dynamic-topic-more-operate pull-left">
+												<a href="javascript:;" onclick="$.dialog('shareOut', {item_type:'answer', item_id:<?php echo $val['answer_id']; ?>});" class="aw-text-color-999"><i class="aw-icon i-share"></i><?php _e('分享'); ?></a>
+												
+												<?php if ($this->user_id) { ?>	
+													<?php if (($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) OR ($val['uid'] == $this->user_id AND ((time() - $val['add_time']) < (get_setting('answer_edit_time') * 60) OR (!get_setting('answer_edit_time'))))) { ?>
+													<a class="aw-text-color-999" href="javascript:;" onclick="$.dialog('commentEdit', {answer_id:<?php echo $val['answer_id']; ?>,attach_access_key:'<?php echo $this->attach_access_key; ?>'});"><i class="aw-icon i-edit"></i><?php _e('编辑'); ?></a>
+													<?php } ?>							
+													<?php if ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?>
+													<a href="javascript:;" onclick="answer_force_fold(<?php echo $val['answer_id']; ?>, this);" class="aw-text-color-999"><i class="aw-icon i-no-help"></i><?php if ($val['force_fold']) { ?><?php _e('撤消折叠'); ?><?php } else { ?><?php _e('折叠'); ?><?php } ?></a>
+													<?php } else { ?>
+													<a class="aw-icon-thank-tips aw-text-color-999" data-original-title="<?php _e('这是一个没有价值的回复'); ?>" data-toggle="tooltip" title="" data-placement="bottom" onclick="answer_user_rate(<?php echo $val['answer_id']; ?>, 'uninterested', this);"><i class="aw-icon i-no-help"></i><?php if ($val['user_rated_uninterested']) { ?><?php _e('撤消没有帮助'); ?><?php } else { ?><?php _e('没有帮助'); ?><?php } ?></a>
+													<?php } ?>
+													
+													<a href="javascript:;" onclick="$.dialog('favorite', <?php echo $val['answer_id']; ?>);" class="aw-text-color-999"><i class="aw-icon i-collect"></i><?php _e('收藏'); ?></a>
 												<?php } ?>
 												
-												<a href="javascript:;" onclick="$.dialog('favorite', <?php echo $val['answer_id']; ?>);" class="aw-text-color-999"><i class="aw-icon i-collect"></i><?php _e('收藏'); ?></a>
-											<?php } ?>
+												<?php if ($this->user_id != $val['uid'] AND $this->user_id) { ?>
+												<a href="javascript:;"<?php if (!$val['user_rated_thanks']) { ?> onclick="answer_user_rate(<?php echo $val['answer_id']; ?>, 'thanks', this);"<?php } ?> class="aw-icon-thank-tips aw-text-color-999" data-original-title="<?php _e('感谢热心的回复者'); ?>" data-toggle="tooltip" title="" data-placement="bottom"><i class="aw-icon i-thank"></i><?php if ($val['user_rated_thanks']) { ?><?php _e('已感谢'); ?><?php } else { ?><?php _e('感谢'); ?><?php } ?></a>
+												<?php } ?>	
+											</div>
+											<!-- end 可显示/隐藏的操作box -->
 											
-											<?php if ($this->user_id != $val['uid'] AND $this->user_id) { ?>
-											<a href="javascript:;"<?php if (!$val['user_rated_thanks']) { ?> onclick="answer_user_rate(<?php echo $val['answer_id']; ?>, 'thanks', this);"<?php } ?> class="aw-icon-thank-tips aw-text-color-999" data-original-title="<?php _e('感谢热心的回复者'); ?>" data-toggle="tooltip" title="" data-placement="bottom"><i class="aw-icon i-thank"></i><?php if ($val['user_rated_thanks']) { ?><?php _e('已感谢'); ?><?php } else { ?><?php _e('感谢'); ?><?php } ?></a>
-											<?php } ?>	
 										</div>
-										<!-- end 可显示/隐藏的操作box -->
-										
+										<!-- end 社交操作 -->		      	
 									</div>
-									<!-- end 社交操作 -->		      	
 								</div>
 							</div>
-						</div>
-						<?php } ?>
-						<?php } ?>
-						</div>
-						
-						<div class="aw-mod-footer">
-							<?php if ($_GET['single']) { ?>
-								<a href="question/<?php echo $this->question_info['question_id']; ?>" class="aw-load-more-content">
-									<span><?php _e('查看全部回答'); ?></span>
-								</a>
-							<?php } else { ?>
-								<div class="aw-load-more-content hide" id="load_uninterested_answers">
-									<span class="aw-text-color-999 aw-alert-box aw-text-color-999" href="javascript:;" tabindex="-1" onclick="$.alert('<?php _e('被折叠的回复是被你或者被大多数用户认为没有帮助的回复'); ?>');"><?php _e('为什么被折叠?'); ?></span>
-									<a href="javascript:;" onclick="$('#uninterested_answers_list').show();"><?php _e('%s 个回复被折叠', '<span class="hide_answers_count">0</span>'); ?></a>
-								</div>
-								
-								<div class="hide" id="uninterested_answers_list"></div>
 							<?php } ?>
-						</div>
-						
-						<?php if ($this->pagination) { ?>
-							<div class="clearfix"><?php echo $this->pagination; ?></div>
 						<?php } ?>
 					</div>
+					<div class="aw-mod-footer">
+						<?php if ($_GET['single']) { ?>
+							<a href="question/<?php echo $this->question_info['question_id']; ?>" class="aw-load-more-content">
+								<span><?php _e('查看全部回答'); ?></span>
+							</a>
+						<?php } else { ?>
+							<div class="aw-load-more-content hide" id="load_uninterested_answers">
+								<span class="aw-text-color-999 aw-alert-box aw-text-color-999" href="javascript:;" tabindex="-1" onclick="$.alert('<?php _e('被折叠的回复是被你或者被大多数用户认为没有帮助的回复'); ?>');"><?php _e('为什么被折叠?'); ?></span>
+								<a href="javascript:;" onclick="$('#uninterested_answers_list').show();"><?php _e('%s 个回复被折叠', '<span class="hide_answers_count">0</span>'); ?></a>
+							</div>
+							
+							<div class="hide" id="uninterested_answers_list"></div>
+						<?php } ?>
+					</div>
+					
+					<?php if ($this->pagination) { ?>
+						<div class="clearfix"><?php echo $this->pagination; ?></div>
+					<?php } ?>
 				</div>
 				<?php } ?>
 				<!-- end 问题详细模块 -->
