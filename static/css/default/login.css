@@ -1,6 +1,4 @@
-/*
-**	登陆页面
-*/
+/* 登陆页面 */
 #wrapper{position: relative;padding-top:214px;;z-index: 999;}
 .aw-bg-wrap{position:absolute;top:0;left:0;z-index:-1;width:100%;height:824px;overflow:hidden;background-position: center 0;background-repeat: no-repeat;}
 .aw-bg-wrap li{position:absolute;left:0;top:0;width:100%;background-position: center 0;background-repeat: no-repeat;}

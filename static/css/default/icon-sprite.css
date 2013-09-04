@@ -1,6 +1,4 @@
-/*
-**	wecenter icon sprite
-*/
+/* wecenter icon sprite */
 
 .aw-icon{display:inline-block;background-image: url(img/aw-icon-sprite.png);background-repeat: no-repeat;}
 .bds{position:relative;top:3px;*top:0;display:inline-block;width:16px;height:16px;margin-right:5px;background-image: url(img/bds-icon-sprite.png);background-repeat: no-repeat;}

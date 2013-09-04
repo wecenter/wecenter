@@ -1,7 +1,4 @@
-
-/*
-**	用户设置页面
-*/
+/* 用户设置页面 */
 .aw-user-setting{padding:20px;}
 .aw-user-setting h4{height:40px;line-height:40px;background: #F7F7F7;margin:0;padding-left: 20px;font-size:13px !important;font-weight: bold;}
 .aw-user-setting-bind input{height:26px;line-height: 26px;}
@@ -12,7 +9,7 @@
 .aw-user-setting .form-horizontal p span{margin-left: 10px;}
 .aw-user-setting .upload-attach{position:absolute; left:180px; top:4px;width: 75px; font-size:100px; opacity:0; filter:alpha(opacity=0);cursor:pointer;}
 .aw-user-setting .aw-user-setting-save{margin:20px 60px 0 0;}
-/*基本资料*/
+/* 基本资料 */
 .aw-user-setting-base{position: relative;}
 .aw-user-setting-base input{height:20px;line-height: 20px;}
 .aw-user-setting-base .aw-user-setting-upload-img-box{position: absolute;right: 0;top: 30px;}
@@ -25,24 +22,22 @@
 .aw-user-setting-base-contact li{float: left;margin:0 15px 20px 0;min-height: 32px;}
 .aw-user-setting-base-contact li input{width: 280px;margin:0;height:20px;line-height: 20px;}
 .aw-user-setting-base-contact label{display:inline-block;width: 70px;line-height: 30px;text-align: right;}
-/*账号绑定*/
+/* 账号绑定 */
 .aw-user-setting-bind .aw-mod-body{padding:30px 60px;overflow:hidden;border-bottom:1px dotted #C1CAD4;}
 .aw-user-setting-bind ul li{line-height: 36px;min-height: 36px;margin-bottom:10px;padding-top:10px;border-top:1px dotted #C1CAD4;color:#666;}
 .aw-user-setting-bind ul li:first-child{border-top: none;}
-/*我的积分*/
+/* 我的积分 */
 .aw-user-setting-points table{margin:20px 0;font-size:13px;color: #666;}
 .aw-user-setting-points table .info{background: #F5FAFE;}
 .aw-user-setting-points table .info th{border-top: none;}
 .aw-user-setting-points .table th, .aw-user-setting-points .table td{border-top: 1px solid #DCEDFA;}
-
-/*隐私*/
+/* 隐私 */
 .aw-user-setting-layout{padding:30px 60px;border-bottom:1px dotted #DFDFDF;}
 .aw-user-setting-layout label{display:inline-block;margin-right: 5px;}
 .aw-user-setting-layout p{width:520px;}
 .aw-user-setting-layout p > span{display: inline-block;width: 250px;line-height: 20px;padding-bottom: 15px;}
 .aw-user-setting-layout .work{width: 110px;}
-
-/*基本设置*/
+/* 基本设置 */
 .aw-user-setting-base dl{height:auto;line-height: 25px;overflow:hidden;margin:0;padding-bottom: 15px;}
 .aw-user-setting-base dl dt, .aw-user-setting-base dl dd{float: left;line-height: 30px;}
 .aw-user-setting-base dl dt{width: 80px;text-align: right;font-weight: normal;}

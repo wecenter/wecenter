@@ -1,6 +1,4 @@
-/*
-**	wecenter btn sprite
-*/
+/* wecenter btn sprite */
 .aw-btn{display:inline-block;background-image: url(img/aw-btn-sprite.png);background-repeat: no-repeat;}
 .b-new-user{width:164px;height:46px;line-height:46px;background-position: 0 -140px;}
 .b-new-user:hover{background-position: 0 -190px;}
