@@ -605,11 +605,12 @@ select{width: auto;}
 .aw-my-question-invite .aw-item:hover .aw-new-message-tips-close{display: block;}
 /*私信*/
 .aw-my-inbox .aw-mod-head h2 span, .aw-my-notifications .aw-mod-head h2 span{margin-right: 10px;padding:3px 0;font-size: 13px;font-weight: normal;}
-.aw-my-inbox .aw-item{position: relative;padding:15px 0 15px 40px;}
+.aw-my-inbox .aw-item{position: relative;padding:15px 0;}
 .aw-my-inbox .aw-item.active{width:640px;margin-left:-20px;padding:15px 0 15px 60px;background: #FEFAB1;}
 .aw-my-inbox .aw-item.active .aw-user-img{right:20px;}
 .aw-my-inbox .aw-item .aw-user-img{margin-top:15px;}
 .aw-my-inbox .aw-item p, .aw-mod-private-replay-list li p{max-width:570px;margin:0;word-break:break-all;}
+.aw-my-inbox .aw-item p.aw-text-color-999{max-width: none;}
 /*通知*/
 .aw-my-notifications{padding-bottom: 30px;}
 .aw-my-notifications .aw-mod-body ul li{padding: 15px 0;line-height: 15px;border-top: 1px dotted #C1CAD4;}
