@@ -33,7 +33,7 @@ $(document).ready(function () {
 			}
 		});
 		
-		$('#publish_submit').onclick(function () {
+		$('#publish_submit').click(function () {
 			$('textarea#advanced_editor').unbind('blur');
 		});
 	}
