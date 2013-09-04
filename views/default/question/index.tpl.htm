@@ -284,8 +284,8 @@
 				
 				<?php if ($_GET['column'] != 'log') { ?>
 				<!-- 回复编辑器 -->
-				<a name="answer_form"></a>
 				<div class="aw-mod aw-mod-replay-box">
+					<a name="answer_form"></a>
 					<?php if ($this->question_info['lock']) { ?>
 					<p align="center"><?php _e('该问题目前已经被锁定, 无法添加新回复'); ?></p>
 					<?php } else if (!$this->user_id) { ?>
