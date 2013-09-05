@@ -1249,8 +1249,31 @@ class weixin_class extends AWS_MODEL
 	}
 	
 	public function update_menu()
-	{		
-		if ($result = HTTP::request('https://api.weixin.qq.com/cgi-bin/menu/create?access_token=' . $this->get_access_token(), 'POST', preg_replace("#\\\u([0-9a-f]+)#ie", "convert_encoding(pack('H4', '\\1'), 'UCS-2', 'UTF-8')", json_encode(get_setting('weixin_mp_menu')))))
+	{
+		$mp_menu = get_setting('weixin_mp_menu');
+		
+		foreach ($mp_menu AS $key => $val)
+		{
+			if ($val['sub_button'])
+			{
+				foreach ($val['sub_button'] AS $sub_key => $sub_val)
+				{
+					unset($sub_val['sort']);
+					
+					$val['sub_button_no_key'][] = $sub_val;
+				}
+				
+				$val['sub_button'] = $val['sub_button_no_key'];
+				
+				unset($val['sub_button_no_key']);
+			}
+			
+			unset($val['sort']);
+			
+			$mp_menu_no_key[] = $val;
+		}
+		
+		if ($result = HTTP::request('https://api.weixin.qq.com/cgi-bin/menu/create?access_token=' . $this->get_access_token(), 'POST', preg_replace("#\\\u([0-9a-f]+)#ie", "convert_encoding(pack('H4', '\\1'), 'UCS-2', 'UTF-8')", json_encode(array('button' => $mp_menu_no_key)))))
 		{
 			$result = json_decode($result, true);
 			
