@@ -199,9 +199,12 @@ class weixin_class extends AWS_MODEL
 						$response_message .= "\n" . '• <a href="' . get_js_url('/m/question/' . $val['question_id']) . '">' . $val['question_content'] . '</a>' . "\n";
 					}
 					
-					$response_message .= "\n\n" . AWS_APP::config()->get('weixin')->publish_message;
+					if (cjk_strlen($input_message['content']) > 5)
+					{
+						$response_message .= "\n\n" . AWS_APP::config()->get('weixin')->publish_message;
 						
-					$action = 'publish';
+						$action = 'publish';
+					}
 				}
 				else
 				{
