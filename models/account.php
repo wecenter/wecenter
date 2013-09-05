@@ -403,31 +403,10 @@ class account_class extends AWS_MODEL
 	 * 更新邀请名额
 	 * 
 	 * @param int $uid
-	 * @param int $value 正数为加 负数为减
 	 */
-	function update_invitation_available($uid, $value)
+	function consume_invitation_available($uid)
 	{
-		$value = intval($value);
-		
-		if (! $uid OR !$value)
-		{
-			return false;
-		}
-		
-		if ($value >= 1)
-		{
-			return $this->query("UPDATE " . $this->get_table('users') . " SET invitation_available = invitation_available + " . $value . " WHERE uid = " . intval($uid));
-		}
-		else if ($value < 1)
-		{
-			$value = $value * - 1;
-			
-			return $this->query("UPDATE " . $this->get_table('users') . " SET invitation_available = invitation_available - " . $value . " WHERE uid = " . intval($uid));
-		}
-		else
-		{
-			return false;
-		}
+		return $this->query("UPDATE " . $this->get_table('users') . " SET invitation_available = invitation_available - 1 WHERE uid = " . intval($uid));
 	}
 	
 	function insert_user($user_name, $password, $email, $sex = 0, $mobile = null)

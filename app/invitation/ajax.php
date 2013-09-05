@@ -113,7 +113,7 @@ class ajax extends AWS_CONTROLLER
 		
 		if ($invitation_id = $this->model('invitation')->add_invitation($this->user_id, $invitation_code, $email, time(), ip2long($_SERVER['REMOTE_ADDR'])))
 		{
-			$this->model('account')->update_invitation_available($this->user_id, -1);
+			$this->model('account')->consume_invitation_available($this->user_id);
 			
 			$this->model('invitation')->send_invitation_email($invitation_id);
 			
@@ -142,8 +142,6 @@ class ajax extends AWS_CONTROLLER
 		}
 		
 		$this->model('invitation')->cancel_invitation_by_id($_GET['invitation_id']);
-		
-		$this->model('account')->update_invitation_available($this->user_id, 1);
 		
 		H::ajax_json_output(AWS_APP::RSM(null, 1, null));
 	}
