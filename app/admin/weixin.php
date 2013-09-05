@@ -451,13 +451,21 @@ class weixin extends AWS_ADMIN_CONTROLLER
 				
 				foreach ($_POST['button'][$key]['sub_button'] AS $sub_key => $sub_value)
 				{
-					//unset($_POST['button'][$key]['sub_button'][$sub_key]['sort']);
-					
-					$_POST['button'][$key]['sub_button'][$sub_key]['type'] = 'click';
-					
 					if ($_POST['button'][$key]['sub_button'][$sub_key]['name'] == '' OR $_POST['button'][$key]['sub_button'][$sub_key]['key'] == '')
 					{
 						unset($_POST['button'][$key]['sub_button'][$sub_key]);
+						
+						continue;
+					}
+					
+					if (substr($_POST['button'][$key]['sub_button'][$sub_key]['key'], 0, 7) == 'http://' OR substr($_POST['button'][$key]['sub_button'][$sub_key]['key'], 0, 8) == 'https://')
+					{
+						$_POST['button'][$key]['sub_button'][$sub_key]['type'] = 'view';
+						$_POST['button'][$key]['sub_button'][$sub_key]['url'] = $_POST['button'][$key]['sub_button'][$sub_key]['key'];
+					}
+					else
+					{
+						$_POST['button'][$key]['sub_button'][$sub_key]['type'] = 'click';
 					}
 				}
 			}
@@ -466,11 +474,15 @@ class weixin extends AWS_ADMIN_CONTROLLER
 				$_POST['button'][$key]['type'] = 'click';
 			}
 			
-			//unset($_POST['button'][$key]['sort']);
-			
 			if ($_POST['button'][$key]['name'] == '')
 			{
 				unset($_POST['button'][$key]);
+			}
+			
+			if (substr($_POST['button'][$key]['key'], 0, 7) == 'http://' OR substr($_POST['button'][$key]['key'], 0, 8) == 'https://')
+			{
+				$_POST['button'][$key]['type'] = 'view';
+				$_POST['button'][$key]['url'] = $_POST['button'][$key]['key'];
 			}
 		}
 				

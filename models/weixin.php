@@ -1260,6 +1260,11 @@ class weixin_class extends AWS_MODEL
 				{
 					unset($sub_val['sort']);
 					
+					if ($sub_val['type'] == 'view')
+					{
+						unset($sub_val['key']);
+					}
+					
 					$val['sub_button_no_key'][] = $sub_val;
 				}
 				
@@ -1269,6 +1274,11 @@ class weixin_class extends AWS_MODEL
 			}
 			
 			unset($val['sort']);
+			
+			if ($val['type'] == 'view')
+			{
+				unset($val['key']);
+			}
 			
 			$mp_menu_no_key[] = $val;
 		}
