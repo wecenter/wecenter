@@ -221,14 +221,14 @@ class weixin extends AWS_ADMIN_CONTROLLER
 			if ($_POST['is_subscribe'])
 			{
 				$this->model('setting')->set_vars(array(
-					'weixin_subscribe_message_key' => intval($_POST['is_subscribe'])
+					'weixin_subscribe_message_key' => $_POST['is_subscribe']
 				));
 			}
 			
 			if ($_POST['is_no_result'])
 			{
 				$this->model('setting')->set_vars(array(
-					'weixin_no_result_message_key' => intval($_POST['is_no_result'])
+					'weixin_no_result_message_key' => $_POST['is_no_result']
 				));
 			}
 		}
