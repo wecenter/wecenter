@@ -330,6 +330,7 @@ nav #aw-top-nav-notic .badge{position: absolute;right: 15px;top:1;}
 .markitup-box img {max-width: 570px !important;}
 .markitup-box blockquote , #markItUpPreviewFrames blockquote{margin:0 0 10px;background-color: #FBFBFB;border-left: 5px solid #C1CAD4;line-height: 22px;margin: 5px 0;padding: 10px;}
 .markitup-box .aw-comment-upload-img-list a{display:block;margin:15px 0;}
+.markitup-box iframe{width: 100%;}
 
 /* 话题编辑box */
 .aw-topic-edit-box .aw-topic-box{margin: 10px 0;}
