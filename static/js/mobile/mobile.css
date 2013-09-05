@@ -255,7 +255,7 @@ nav #aw-top-nav-notic .badge{position: absolute;right: 15px;top:1;}
 .explore-wrap .aw-mod-body, .explore-wrap h1, .explore-wrap .aw-mod-footer .title{margin:0 0 20px;}
 .explore-wrap h1{color: #fff;text-shadow:0px 3px 1px rgba(0, 0, 0, 0.1);}
 .explore-wrap .aw-mod-footer{margin:20px 0 0;}
-.explore-wrap .aw-mod-footer a, .explore-body footer{color: #fff;}
+.explore-wrap .aw-mod-footer a, .explore-body footer, .explore-body footer a{color: #fff;}
 .explore-wrap .aw-mod-footer .dot{margin:0 8px;color: #fff;}
 .explore-wrap .aw-mod-footer .username, .explore-wrap .aw-mod-footer .email, .explore-wrap .aw-mod-footer .password{margin-bottom: 10px;}
 .explore-wrap .aw-mod-footer .username input, .explore-wrap .aw-mod-footer .email input, .explore-wrap .aw-mod-footer .password input{width: 95%;padding:7px 6px;}
