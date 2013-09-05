@@ -185,7 +185,7 @@ if (get_setting('weixin_mp_token'))
 	$config[] = array(
 		'title' => '微信',
 		'cname' => 'weixin',
-		'children' => array(
+		'children' => array(			
 			array(
 				'id' => 801,
 				'title' => '自动回复',
@@ -196,6 +196,12 @@ if (get_setting('weixin_mp_token'))
 				'id' => 802,
 				'title' => '发文指令',
 				'url' => 'admin/weixin/publish/',
+			),
+			
+			array(
+				'id' => 803,
+				'title' => '菜单管理',
+				'url' => 'admin/weixin/mp_menu/',
 			),
 		)
 	);

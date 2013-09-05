@@ -386,7 +386,7 @@ class AWS_MODEL
 	}
 	
 	// 获取查询全部数据
-	public function query_all($sql, $limit = null, $offset = null, $where = null)
+	public function query_all($sql, $limit = null, $offset = null, $where = null, $group_by = null)
 	{
 		$this->slave();
 		
@@ -398,6 +398,11 @@ class AWS_MODEL
 		if ($where)
 		{
 			$sql .= ' WHERE ' . $where;
+		}
+		
+		if ($group_by)
+		{
+			$sql .= " GROUP BY `" . $this->quote($group_by) . "`";
 		}
 		
 		if ($limit)

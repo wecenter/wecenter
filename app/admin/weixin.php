@@ -57,6 +57,21 @@ class weixin extends AWS_ADMIN_CONTROLLER
 		TPL::output('admin/weixin/reply_edit');
 	}
 	
+	public function mp_menu_action()
+	{
+		if (!AWS_APP::config()->get('weixin')->app_id OR !AWS_APP::config()->get('weixin')->app_secret)
+		{
+			H::redirect_msg(AWS_APP::lang()->_t('请先在 system/config/weixin.php 中配置 App Id'));
+		}
+		
+		$this->crumb(AWS_APP::lang()->_t('菜单管理'), "admin/weixin/mp_menu/");
+		
+		TPL::assign('mp_menu', get_setting('weixin_mp_menu'));
+		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(803));
+		
+		TPL::output('admin/weixin/mp_menu');
+	}
+	
 	public function rule_save_action()
 	{
 		if (!$_POST['title'])
@@ -191,25 +206,34 @@ class weixin extends AWS_ADMIN_CONTROLLER
 			'url' => get_setting('base_url') . '/' . G_INDEX_SCRIPT . '/admin/weixin/reply/'), 1, null));
 	}
 	
-	public function save_reply_rule_enabled_action()
+	public function save_reply_rule_status_action()
 	{
+		define('IN_AJAX', true);
+		
 		if ($_POST['rule_ids'])
 		{
 			foreach ($_POST['rule_ids'] AS $rule_id => $val)
 			{
-				if ($val != $_POST['enabled_status'][$rule_id])
-				{
-					$this->model('weixin')->update_reply_rule_enabled($rule_id, $_POST['enabled_status'][$rule_id]);
-				}
+				$this->model('weixin')->update_reply_rule_enabled($rule_id, $_POST['enabled_status'][$rule_id]);
+				$this->model('weixin')->update_reply_rule_sort($rule_id, $_POST['sort_status'][$rule_id]);
 			}
 			
 			if ($_POST['is_subscribe'])
 			{
-				$this->model('weixin')->set_subscribe_message($_POST['is_subscribe']);
+				$this->model('setting')->set_vars(array(
+					'weixin_subscribe_message_key' => intval($_POST['is_subscribe'])
+				));
+			}
+			
+			if ($_POST['is_no_result'])
+			{
+				$this->model('setting')->set_vars(array(
+					'weixin_no_result_message_key' => intval($_POST['is_no_result'])
+				));
 			}
 		}
 		
-		H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('启用状态已自动保存')));
+		H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('规则状态已自动保存')));
 	}
 	
 	public function reply_remove_action()
@@ -405,6 +429,55 @@ class weixin extends AWS_ADMIN_CONTROLLER
 	{
 		$this->model('weixin')->remove_publish_rule($_GET['id']);
 			
+		H::ajax_json_output(AWS_APP::RSM(null, 1, null));
+	}
+	
+	public function save_mp_menu_action()
+	{
+		if (!$_POST['button'])
+		{
+			$_POST['button'] = array();
+		}
+		
+		uasort($_POST['button'], 'array_key_sort_asc_callback');
+		
+		foreach ($_POST['button'] AS $key => $val)
+		{
+			if ($val['sub_button'])
+			{
+				unset($_POST['button'][$key]['key']);
+				
+				uasort($_POST['button'][$key]['sub_button'], 'array_key_sort_asc_callback');
+				
+				foreach ($_POST['button'][$key]['sub_button'] AS $sub_key => $sub_value)
+				{
+					//unset($_POST['button'][$key]['sub_button'][$sub_key]['sort']);
+					
+					$_POST['button'][$key]['sub_button'][$sub_key]['type'] = 'click';
+					
+					if ($_POST['button'][$key]['sub_button'][$sub_key]['name'] == '' OR $_POST['button'][$key]['sub_button'][$sub_key]['key'] == '')
+					{
+						unset($_POST['button'][$key]['sub_button'][$sub_key]);
+					}
+				}
+			}
+			else
+			{
+				$_POST['button'][$key]['type'] = 'click';
+			}
+			
+			//unset($_POST['button'][$key]['sort']);
+			
+			if ($_POST['button'][$key]['name'] == '')
+			{
+				unset($_POST['button'][$key]);
+			}
+		}
+				
+		$this->model('setting')->set_vars(array(
+			'weixin_mp_menu' => $_POST['button']
+		));
+		
 		H::ajax_json_output(AWS_APP::RSM(null, 1, null));
 	}
 }

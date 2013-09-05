@@ -915,12 +915,12 @@ CREATE TABLE `[#DB_PREFIX#]weixin_reply_rule` (
   `link` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `enabled` tinyint(1) DEFAULT '0',
   `event_key` varchar(32) COLLATE utf8_unicode_ci DEFAULT '',
-  `is_subscribe` tinyint(1) DEFAULT '0',
+  `sort_status` int(10) DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `keyword` (`keyword`),
   KEY `enabled` (`enabled`),
   KEY `event_key` (`event_key`),
-  KEY `is_subscribe` (`is_subscribe`)
+  KEY `sort_status` (`sort_status`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]weixin_publish_rule` (

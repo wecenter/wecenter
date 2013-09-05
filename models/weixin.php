@@ -145,9 +145,9 @@ class weixin_class extends AWS_MODEL
 						case 'subscribe':
 							//$response_message = get_setting('weixin_subscribe_message');
 							
-							if ($reply_rule = $this->get_subscribe_message())
+							if (get_setting('weixin_subscribe_message_key'))
 							{
-								$response_message = $this->create_response_by_reply_rule_keyword($reply_rule['keyword']);
+								$response_message = $this->create_response_by_reply_rule_keyword(get_setting('weixin_subscribe_message_key'));
 							}
 						break;
 					}
@@ -219,7 +219,10 @@ class weixin_class extends AWS_MODEL
 						}
 						else
 						{
-							$response_message =  AWS_APP::config()->get('weixin')->publish_message;
+							if (!$response_message = $this->create_response_by_reply_rule_keyword(get_setting('weixin_no_result_message_key')))
+							{
+								$response_message = AWS_APP::config()->get('weixin')->publish_message;
+							}
 						
 							$action = 'publish';
 						}
@@ -288,11 +291,6 @@ class weixin_class extends AWS_MODEL
 		}
 		
 		return sprintf($this->image_tpl, $input_message['fromUsername'], $input_message['toUsername'], $input_message['time'], 'news', sizeof($image_data), $article_tpl);
-	}
-	
-	public function get_subscribe_message()
-	{
-		return $this->fetch_row('weixin_reply_rule', '`enabled` = 1 AND is_subscribe = 1');
 	}
 	
 	public function message_parser($input_message, $param = null)
@@ -904,9 +902,9 @@ class weixin_class extends AWS_MODEL
 		return $this->fetch_row('weixin_message', "weixin_id = '" . $this->quote($weixin_id) . "' AND `time` > " . (time() - 3600));
 	}
 	
-	public function fetch_reply_rule_list()
+	public function fetch_reply_rule_list($where = null)
 	{
-		return $this->fetch_all('weixin_reply_rule', null, 'id DESC');
+		return $this->fetch_all('weixin_reply_rule', $where, 'keyword ASC');
 	}
 	
 	public function add_reply_rule($keyword, $event_key, $title, $description = '', $link = '', $image_file = '')
@@ -933,6 +931,13 @@ class weixin_class extends AWS_MODEL
 	{
 		return $this->update('weixin_reply_rule', array(
 			'enabled' => intval($status)
+		), 'id = ' . $id);
+	}
+	
+	public function update_reply_rule_sort($id, $status)
+	{
+		return $this->update('weixin_reply_rule', array(
+			'sort_status' => intval($status)
 		), 'id = ' . $id);
 	}
 	
@@ -974,13 +979,18 @@ class weixin_class extends AWS_MODEL
 	
 	public function create_response_by_reply_rule_keyword($keyword)
 	{
+		if (!$keyword)
+		{
+			return false;
+		}
+		
 		// is text message
 		if ($reply_rule = $this->fetch_row('weixin_reply_rule', "`keyword` = '" . trim($this->quote($keyword)) . "' AND (`image_file` = '' OR `image_file` IS NULL) AND `enabled` = 1"))
 		{
 			return $reply_rule['title'];
 		}
 		
-		if ($reply_rule = $this->fetch_all('weixin_reply_rule', "`keyword` = '" . trim($this->quote($keyword)) . "' AND `image_file` <> '' AND `enabled` = 1", 'id DESC', 10))
+		if ($reply_rule = $this->fetch_all('weixin_reply_rule', "`keyword` = '" . trim($this->quote($keyword)) . "' AND `image_file` <> '' AND `enabled` = 1", 'sort_status ASC', 10))
 		{
 			return $reply_rule;
 		}
@@ -1240,7 +1250,7 @@ class weixin_class extends AWS_MODEL
 	
 	public function update_menu()
 	{		
-		if ($result = HTTP::request('https://api.weixin.qq.com/cgi-bin/menu/create?access_token=' . $this->get_access_token(), 'POST', preg_replace("#\\\u([0-9a-f]+)#ie", "convert_encoding(pack('H4', '\\1'), 'UCS-2', 'UTF-8')", json_encode(AWS_APP::config()->get('weixin')->menu_items))))
+		if ($result = HTTP::request('https://api.weixin.qq.com/cgi-bin/menu/create?access_token=' . $this->get_access_token(), 'POST', preg_replace("#\\\u([0-9a-f]+)#ie", "convert_encoding(pack('H4', '\\1'), 'UCS-2', 'UTF-8')", json_encode(get_setting('weixin_mp_menu')))))
 		{
 			$result = json_decode($result, true);
 			
@@ -1253,16 +1263,5 @@ class weixin_class extends AWS_MODEL
 		{
 			return '由于网络问题, 菜单更新失败';
 		}
-	}
-	
-	public function set_subscribe_message($rule_id)
-	{
-		$this->update('weixin_reply_rule', array(
-			'is_subscribe' => 0
-		), 'is_subscribe = 1');
-		
-		return $this->update('weixin_reply_rule', array(
-			'is_subscribe' => 1
-		), 'id = ' . intval($rule_id));
 	}
 }

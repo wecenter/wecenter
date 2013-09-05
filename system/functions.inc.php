@@ -1068,3 +1068,13 @@ function curl_get_contents($url, $timeout = 10)
 	
 	return $result;
 }
+
+function array_key_sort_asc_callback($a, $b)
+{
+    if ($a['sort'] == $b['sort'])
+    {
+        return 0;
+    }
+    
+    return ($a['sort'] < $b['sort']) ? -1 : 1;
+}
