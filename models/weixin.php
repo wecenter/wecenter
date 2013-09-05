@@ -213,19 +213,12 @@ class weixin_class extends AWS_MODEL
 					}
 					else
 					{
-						if (cjk_strlen($input_message['content']) < 5)
+						if (!$response_message = $this->create_response_by_reply_rule_keyword(get_setting('weixin_no_result_message_key')))
 						{
-							$response_message = AWS_APP::config()->get('weixin')->help_message;
+							$response_message = AWS_APP::config()->get('weixin')->publish_message;
 						}
-						else
-						{
-							if (!$response_message = $this->create_response_by_reply_rule_keyword(get_setting('weixin_no_result_message_key')))
-							{
-								$response_message = AWS_APP::config()->get('weixin')->publish_message;
-							}
-						
-							$action = 'publish';
-						}
+					
+						$action = 'publish';
 					}
 				}
 			break;
