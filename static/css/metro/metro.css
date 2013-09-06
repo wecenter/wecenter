@@ -27,6 +27,7 @@
 .aw-question-box-mod .aw-item{padding:15px 50px 15px 65px; }
 .aw-topic-search .search-query{padding: 3px 14px !important;}
 .aw-message-tooltip {background: none repeat scroll 0 0 #449BDB;display: inline-block;font-size: 13px;font-style: normal;font-weight: normal;height: 18px;line-height: 18px;margin-left: 5px;padding: 0 5px 0 6px;}
+.aw-content-wrap .aw-all-question{padding-top: 0px;}
 
 /*
 **	重载bootstrap按钮
@@ -106,6 +107,7 @@
 .aw-question-detail-box .aw-dynamic-topic .aw-item + div{border-top: 1px dotted #C1CAD4;}
 .aw-question-list .aw-questoin-content h4{width: 500px;}
 .aw-question-list .aw-questoin-content h4 span{color: #fff;}
+
 
 /*
 **	全部问题
