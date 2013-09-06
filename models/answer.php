@@ -487,10 +487,8 @@ class answer_class extends AWS_MODEL
 	}
 	
 	public function update_question_vote_count($question_id)
-	{
-		$answers = $this->get_answer_list_by_question_id($question_id, null);
-		
-		if (empty($answers))
+	{		
+		if (!$answers = $this->get_answer_list_by_question_id($question_id, null))
 		{
 			return false;
 		}
@@ -502,11 +500,14 @@ class answer_class extends AWS_MODEL
 			$answer_ids[] = $val['answer_id'];
 		}
 		
-		$agree_count = $this->count('answer_vote', 'answer_id IN (' . implode(',', $answer_ids) . ') AND vote_value = 1');
+		$agree_count = $this->count('answer_vote', 'answer_id IN(' . implode(',', $answer_ids) . ') AND vote_value = 1');
 		
-		$against_count = $this->count('answer_vote', 'answer_id IN (' . implode(',', $answer_ids) . ') AND vote_value = -1');
+		$against_count = $this->count('answer_vote', 'answer_id IN(' . implode(',', $answer_ids) . ') AND vote_value = -1');
 		
-		return $this->query("UPDATE " . $this->get_table('question') . " SET agree_count = {$agree_count}, against_count = {$against_count} WHERE question_id = " . $question_id);
+		return $this->update('question', array(
+			'agree_count' => $agree_count,
+			'against_count' => $against_count
+		), 'question_id = ' . intval($question_id));
 	}
 	
 	function set_answer_vote_status($voter_id, $vote_value)
