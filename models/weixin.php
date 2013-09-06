@@ -1226,7 +1226,9 @@ class weixin_class extends AWS_MODEL
 	
 	public function get_access_token()
 	{
-		if ($access_token = AWS_APP::cache()->get('weixin_access_token'))
+		$token_cache_key = 'weixin_access_token_' . md5(AWS_APP::config()->get('weixin')->app_id . AWS_APP::config()->get('weixin')->app_secret);
+		
+		if ($access_token = AWS_APP::cache()->get($token_cache_key))
 		{
 			return $access_token;
 		}
@@ -1237,7 +1239,7 @@ class weixin_class extends AWS_MODEL
 			
 			if ($result['access_token'])
 			{
-				AWS_APP::cache()->set('weixin_access_token', $result['access_token'], $result['expires_in']);
+				AWS_APP::cache()->set($token_cache_key, $result['access_token'], $result['expires_in']);
 				
 				return $result['access_token'];
 			}
