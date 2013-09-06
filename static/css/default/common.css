@@ -795,7 +795,7 @@ select{width: auto;}
 .aw-first-login .aw-complete-data-follow-topic li .i-user-prestige{margin-right: 5px;}
 
 /* 回复编辑器 */
-.aw-mod-replay-box{padding-bottom: 30px;}
+.aw-mod-replay-box{margin-top:20px;padding-bottom: 30px;}
 .aw-mod-replay-box .aw-mod-head{position: relative;height:auto;overflow:hidden;margin-bottom:5px;padding-left: 40px;}
 .aw-mod-replay-box .aw-mod-head > .aw-user-name{position: absolute;left: 0;top:0;width: 32px;height: 32px;}
 .aw-mod-replay-box p{height: auto;overflow: hidden;margin:0;}
