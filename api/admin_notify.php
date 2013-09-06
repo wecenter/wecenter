@@ -9,3 +9,4 @@ $notify = str_replace(array("\n", "\r", "\t"), '', $notify);
 echo $_GET['jsoncallback'] . '({
 	"notify" : "' . addslashes($notify) . '",
 })';
+
