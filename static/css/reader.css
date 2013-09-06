@@ -187,10 +187,13 @@ input, select, textarea {
 	margin:0;
 	list-style-type: none;
 	border:1px solid #ccc;
+	max-height: 401px;
+	overflow-y:scroll;
 }
 
 #left_panel .filter .dropdown_list ul li
 {
+	min-width: 100px;
 	height: 40px;
 	line-height: 40px;
 	background: none repeat scroll 0 0 #F4F4F4;
@@ -198,7 +201,6 @@ input, select, textarea {
     border-top: 1px solid white;
     cursor: pointer;
     padding: 0 10px;
-
 }
 
 #left_panel #feature_selecter {
