@@ -44,7 +44,7 @@ nav ul li{position:relative;float: left;width: 20%;height: 36px;line-height: 36p
 nav ul li .aw-arrow{position: absolute;right: 7px;top: 16px;}
 nav ul li a{display:block;font-weight: bold;color: #222;}
 nav ul li a span{margin-left: 10px;}
-nav #aw-top-nav-notic .badge{position: absolute;right: 15px;top:1;}
+nav #aw-top-nav-notic .badge{position: absolute;right: 0;top:1px;z-index:100;padding:2px 6px;}
 
 /* 内容 */
 .aw-content{padding:0 10px;}
