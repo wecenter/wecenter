@@ -464,7 +464,7 @@ class ACTION_LOG
 			$where[] = 'associate_action IN(' . $action_id . ')';
 		}
 		
-		return AWS_APP::model()->query_all("SELECT DISTINCT associate_id, associate_type FROM " . get_table('user_action_history') . " " . implode(' AND ', $where) . " ORDER BY add_time DESC", $limit);
+		return AWS_APP::model()->query_all('SELECT DISTINCT associate_id, associate_type FROM ' . get_table('user_action_history') . ' ' . implode(' AND ', $where) . ' ORDER BY add_time DESC', $limit);
 	}
 
 	/**

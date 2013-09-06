@@ -820,7 +820,7 @@ class account_class extends AWS_MODEL
 		
 		array_walk_recursive($topic_ids, 'intval_string');
 		
-		return $this->query_all("SELECT DISTINCT uid, topic_id FROM " . $this->get_table('topic_focus') . " WHERE topic_id IN(" . implode(",", $topic_ids) . ")");
+		return $this->query_all("SELECT DISTINCT uid, topic_id FROM " . $this->get_table('topic_focus') . " WHERE topic_id IN(" . implode(',', $topic_ids) . ")");
 	}
 
 	/**

@@ -638,11 +638,11 @@ class topic_class extends AWS_MODEL
 		
 		if ($topic_focus_ids)
 		{
-			$topics = $this->query_all("SELECT * FROM " . $this->get_table('topic') . " WHERE topic_id IN(" . implode($topic_ids, ',') . ") AND topic_id NOT IN (" . implode($topic_focus_ids, ',') . ") ORDER BY topic_id DESC LIMIT " . $limit);
+			$topics = $this->fetch_all('topic', 'topic_id IN(' . implode($topic_ids, ',') . ') AND topic_id NOT IN(' . implode($topic_focus_ids, ',') . ')', 'topic_id DESC', $limit);
 		}
 		else
 		{
-			$topics = $this->query_all("SELECT * FROM " . $this->get_table('topic') . " WHERE topic_id IN(" . implode($topic_ids, ',') . ") ORDER BY topic_id DESC LIMIT " . $limit);
+			$topics = $this->fetch_all('topic', 'topic_id IN(' . implode($topic_ids, ',') . ')', 'topic_id DESC', $limit);
 		}
 		
 		foreach ($topics as $key => $val)
@@ -662,10 +662,8 @@ class topic_class extends AWS_MODEL
 	{
 		if ($uids = $this->query_all("SELECT DISTINCT uid FROM " . $this->get_table('topic_focus') . " WHERE topic_id = " . intval($topic_id), $limit))
 		{
-			$users_list = $this->model('account')->get_user_info_by_uids(fetch_array_value($uids, 'uid'));
+			return $this->model('account')->get_user_info_by_uids(fetch_array_value($uids, 'uid'));
 		}
-		
-		return $users_list;
 	}
 	
 	function get_question_best_ids_by_topics_ids($topic_ids, $limit = null)

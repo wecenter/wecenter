@@ -46,7 +46,7 @@ class reputation_class extends AWS_MODEL
 			return false;
 		}
 		
-		if ($users_anwsers = $this->query_all("SELECT answer_id, question_id, agree_count, thanks_count FROM " . get_table('answer') . " WHERE uid = " . $uid))
+		if ($users_anwsers = $this->query_all('SELECT answer_id, question_id, agree_count, thanks_count FROM ' . get_table('answer') . ' WHERE uid = ' . $user_info['uid']))
 		{				
 			foreach ($users_anwsers as $anwsers_key => $answers_val)
 			{
@@ -56,7 +56,7 @@ class reputation_class extends AWS_MODEL
 						
 			if ($question_ids)
 			{
-				if ($questions_info_query = $this->query_all("SELECT question_id, best_answer, published_uid, category_id FROM " . get_table('question') . " WHERE question_id IN (" . implode(',', $question_ids) . ")"))
+				if ($questions_info_query = $this->query_all('SELECT question_id, best_answer, published_uid, category_id FROM ' . get_table('question') . ' WHERE question_id IN (' . implode(',', $question_ids) . ')'))
 				{
 					foreach ($questions_info_query AS $questions_info_key => $questions_info_val)
 					{
@@ -66,7 +66,7 @@ class reputation_class extends AWS_MODEL
 					unset($questions_info_query);
 				}
 							
-				if ($question_topics_query = $this->query_all("SELECT question_id, topic_id FROM " . get_table('topic_question') . " WHERE question_id IN (" . implode(',', $question_ids) . ")"))
+				if ($question_topics_query = $this->query_all('SELECT question_id, topic_id FROM ' . get_table('topic_question') . ' WHERE question_id IN (' . implode(',', $question_ids) . ')'))
 				{
 					foreach ($question_topics_query AS $question_topics_key => $question_topics_val)
 					{
@@ -267,7 +267,7 @@ class reputation_class extends AWS_MODEL
 
 	public function calculate($start = 0, $limit = 100)
 	{
-		if ($users_list = $this->query_all("SELECT uid FROM " . get_table('users') . " ORDER BY uid ASC", $start . ',' . $limit))
+		if ($users_list = $this->query_all('SELECT uid FROM ' . get_table('users') . ' ORDER BY uid ASC', $start . ',' . $limit))
 		{
 			foreach ($users_list as $key => $val)
 			{

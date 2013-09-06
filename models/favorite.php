@@ -93,7 +93,7 @@ class favorite_class extends AWS_MODEL
 	
 	public function get_favorite_tags($uid, $limit = null)
 	{
-		return $this->query_all("SELECT DISTINCT title FROM " . $this->get_table('favorite_tag') . " WHERE uid = " . intval($uid) . ' ORDER BY id DESC', $limit);
+		return $this->query_all('SELECT DISTINCT title FROM ' . $this->get_table('favorite_tag') . ' WHERE uid = ' . intval($uid) . ' ORDER BY id DESC', $limit);
 	}
 	
 	public function get_favorite_items_tags_by_answer_id($uid, $answer_ids)
@@ -120,7 +120,7 @@ class favorite_class extends AWS_MODEL
 	{
 		if ($tag)
 		{
-			$favorite_items = $this->query_all("SELECT DISTINCT answer_id FROM " . get_table('favorite_tag') . " WHERE uid = " . intval($uid) . " AND title = '" . $this->quote($tag) . "'");
+			$favorite_items = $this->query_all('SELECT DISTINCT answer_id FROM ' . get_table('favorite_tag') . ' WHERE uid = ' . intval($uid) . " AND title = '" . $this->quote($tag) . "'");
 			
 			return sizeof($favorite_items);
 		}

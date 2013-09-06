@@ -102,9 +102,7 @@ class answer_class extends AWS_MODEL
 			return array();
 		}
 		
-		$sql = "SELECT vote_uid FROM " . $this->get_table('answer_vote') . " WHERE answer_id = " . intval($answer_id) . " AND vote_value = 1";
-		
-		if ($users = $this->query_all($sql))
+		if ($users = $this->query_all("SELECT vote_uid FROM " . $this->get_table('answer_vote') . " WHERE answer_id = " . intval($answer_id) . " AND vote_value = 1"))
 		{
 			foreach ($users as $key => $val)
 			{
@@ -130,10 +128,8 @@ class answer_class extends AWS_MODEL
 		}
 		
 		array_walk_recursive($answer_ids, 'intval_string');
-	
-		$sql = "SELECT vote_uid, answer_id FROM " . $this->get_table('answer_vote') . " WHERE answer_id IN(" . implode(',', $answer_ids) . ") AND vote_value = 1";
-	
-		if ($users = $this->query_all($sql))
+		
+		if ($users = $this->query_all("SELECT vote_uid, answer_id FROM " . $this->get_table('answer_vote') . " WHERE answer_id IN(" . implode(',', $answer_ids) . ") AND vote_value = 1"))
 		{
 			foreach ($users as $key => $val)
 			{
@@ -185,9 +181,7 @@ class answer_class extends AWS_MODEL
 			return array();
 		}
 		
-		$sql = "SELECT vote_uid FROM " . $this->get_table('answer_vote') . " WHERE answer_id = " . intval($answer_id) . " AND vote_value = -1";
-		
-		if ($users = $this->query_all($sql))
+		if ($users = $this->query_all("SELECT vote_uid FROM " . $this->get_table('answer_vote') . " WHERE answer_id = " . intval($answer_id) . " AND vote_value = -1"))
 		{
 			foreach ($users as $key => $val)
 			{
@@ -220,10 +214,8 @@ class answer_class extends AWS_MODEL
 		}
 		
 		array_walk_recursive($answer_ids, 'intval_string');
-	
-		$sql = "SELECT vote_uid, answer_id FROM " . $this->get_table('answer_vote') . " WHERE answer_id IN(" . implode(',', $answer_ids) . ") AND vote_value = -1";
-	
-		if ($users = $this->query_all($sql))
+		
+		if ($users = $this->query_all("SELECT vote_uid, answer_id FROM " . $this->get_table('answer_vote') . " WHERE answer_id IN(" . implode(',', $answer_ids) . ") AND vote_value = -1"))
 		{
 			foreach ($users as $key => $val)
 			{

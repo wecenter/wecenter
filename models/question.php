@@ -202,12 +202,12 @@ class question_class extends AWS_MODEL
 	
 	public function get_focus_uid_by_question_id($question_id)
 	{
-		return $this->query_all("SELECT uid FROM " . $this->get_table('question_focus') . " WHERE question_id = " . intval($question_id));
+		return $this->query_all('SELECT uid FROM ' . $this->get_table('question_focus') . ' WHERE question_id = ' . intval($question_id));
 	}
 	
 	public function get_answers_uid_by_question_id($question_id)
 	{
-		return $this->query_all("SELECT uid FROM " . $this->get_table('answer') . " WHERE question_id = " . intval($question_id));
+		return $this->query_all('SELECT uid FROM ' . $this->get_table('answer') . ' WHERE question_id = ' . intval($question_id));
 	}
 	
 	public function search_questions_list($page, $per_page, $keyword = null, $category_id = null, $start_date = null, $end_date = null, $answer_count_min = null, $answer_count_max = null, $user_name = null, $best_answer = false)
@@ -783,7 +783,7 @@ class question_class extends AWS_MODEL
 
 	function get_focus_users_by_question($question_id, $limit = 10)
 	{	
-		if ($uids = $this->query_all("SELECT DISTINCT uid FROM " . $this->get_table('question_focus') . " WHERE question_id = " . intval($question_id) . ' ORDER BY focus_id DESC', intval($limit)))
+		if ($uids = $this->query_all('SELECT DISTINCT uid FROM ' . $this->get_table('question_focus') . ' WHERE question_id = ' . intval($question_id) . ' ORDER BY focus_id DESC', intval($limit)))
 		{
 			$users_list = $this->model('account')->get_user_info_by_uids(fetch_array_value($uids, 'uid'));
 		}
