@@ -14,7 +14,7 @@
 
 class FORMAT
 {
-	public static function parse_links($str, $popup = TRUE)
+	public static function parse_links($str)
 	{
 		$str = @preg_replace_callback('/(?<!["|\'|\)|>])(http[s]?:\/\/[-a-zA-Z0-9@:;%_\+.~#?\&\/\/=!]+)(?!["|\'|\)|>])/i', 'parse_link_callback', $str);
 		
@@ -23,8 +23,8 @@ class FORMAT
 			$str = @preg_replace_callback('/(www\.[-a-zA-Z0-9@:;%_\+\.~#?&\/\/=]+)/i', 'parse_link_callback', $str);
 		}
 		
-		$str = @preg_replace('/([a-z0-9\+_\-]+[\.]?[a-z0-9\+_\-]+@[a-z0-9\-]+\.+[a-z]{2,6})/is', '<a href="mailto:\1">\1</a>', $str); // 解析EMAIL地址
-		
+		$str = @preg_replace('/([a-z0-9\+_\-]+[\.]?[a-z0-9\+_\-]+@[a-z0-9\-]+\.+[a-z]{2,6}+(\.+[a-z]{2,6})?)/is', '<a href="mailto:\1">\1</a>', $str);
+				
 		return $str;
 	}
 

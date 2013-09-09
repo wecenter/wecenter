@@ -108,7 +108,7 @@ class TPL
 			
 			if (get_setting('url_rewrite_enable') != 'Y' OR $template_dirs[0] == 'admin')
 			{
-				$output = preg_replace('/(href|action)=([\"|\'])(?!http)(?!javascript)(?![\/|\#])(?!\.\/)([^\"\']+)([\"|\'])/is','\1=\2' . get_setting('base_url') . '/' . G_INDEX_SCRIPT . '\3\4', $output);
+				$output = preg_replace('/(href|action)=([\"|\'])(?!http)(?!mailto)(?!javascript)(?![\/|\#])(?!\.\/)([^\"\']+)([\"|\'])/is','\1=\2' . get_setting('base_url') . '/' . G_INDEX_SCRIPT . '\3\4', $output);
 			}
 		
 			if ($request_routes = get_request_route() AND $template_dirs[0] != 'admin' AND get_setting('url_rewrite_enable') == 'Y')
@@ -122,7 +122,7 @@ class TPL
 			
 			if (get_setting('url_rewrite_enable') == 'Y' AND $template_dirs[0] != 'admin')
 			{
-				$output = preg_replace('/(href|action)=([\"|\'])(?!http)(?!javascript)(?![\/|\#])(?!\.\/)([^\"\']+)([\"|\'])/is','\1=\2' . get_setting('base_url') . '/' . '\3\4', $output);
+				$output = preg_replace('/(href|action)=([\"|\'])(?!mailto)(?!http)(?!javascript)(?![\/|\#])(?!\.\/)([^\"\']+)([\"|\'])/is','\1=\2' . get_setting('base_url') . '/' . '\3\4', $output);
 			}
 			
 			//$output = preg_replace("/([a-zA-Z0-9]+_?[a-zA-Z0-9]+)-__|(__[a-zA-Z0-9]+_?[a-zA-Z0-9]+)-$/i", '', $output);
