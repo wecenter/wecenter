@@ -9,7 +9,8 @@
 <base href="<?php echo get_setting('base_url');?>/<?php if (get_setting('url_rewrite_enable') != 'Y') { ?><?php echo G_INDEX_SCRIPT; ?><?php } ?>" /><!--[if IE]></base><![endif]-->
 <link href="<?php echo G_STATIC_URL; ?>/css/<?php echo $this->template_name; ?>/img/favicon.png?v=<?php echo G_VERSION_BUILD; ?>" rel="shortcut icon" type="image/x-icon" />
 
-<link href="<?php echo G_STATIC_URL; ?>/css/bootstrap.css" rel="stylesheet" type="text/css" />
+<!-- <link href="<?php echo G_STATIC_URL; ?>/css/bootstrap.css" rel="stylesheet" type="text/css" /> -->
+<link rel="stylesheet" type="text/css" href="<?php echo G_STATIC_URL; ?>/css/bs3/bootstrap.min.css" />
 
 <?php if (is_array($this->_import_css_files)) { ?>
 <?php foreach ($this->_import_css_files AS $import_css) { ?>
@@ -20,6 +21,7 @@
 <?php if ($this->template_name != 'default') { ?>
 <link href="<?php echo G_STATIC_URL; ?>/css/<?php echo $this->template_name; ?>/<?php echo $this->template_name; ?>.css" rel="stylesheet" type="text/css" />
 <?php } ?>
+
 
 <?php $post_hash_var_name = strtoupper(md5(time() . $this->userinfo['salt'])); ?>
 <script type="text/javascript">
