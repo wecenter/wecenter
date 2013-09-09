@@ -182,7 +182,7 @@ class search_class extends AWS_MODEL
 				
 			$name = $user_info['user_name'];
 			
-			$url = 'people/' . $user_info['url_token'];
+			$url = get_js_url('/people/' . $user_info['url_token']);
 			
 			$detail = array(
 				'avatar_file' => get_avatar_url($user_info['uid'], 'mid'),	// 头像
@@ -198,7 +198,7 @@ class search_class extends AWS_MODEL
 			
 			$sno = $result_info['topic_id'];
 			
-			$url = 'topic/' . $result_info['url_token'];
+			$url = get_js_url('/topic/' . $result_info['url_token']);
 			
 			$name = $result_info['topic_title'];
 			
@@ -216,7 +216,7 @@ class search_class extends AWS_MODEL
 			
 			$sno = $result_info['question_id'];
 			
-			$url = 'question/' . $result_info['question_id'];
+			$url = get_js_url('/question/' . $result_info['question_id']);
 			
 			$name = $result_info['question_content'];
 			
