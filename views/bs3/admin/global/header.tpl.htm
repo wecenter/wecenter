@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="<?php echo X_UA_COMPATIBLE; ?>" />
+	<title><?php echo $this->page_title; ?></title>
+	<base href="<?php echo get_setting('base_url');?>/<?php echo G_INDEX_SCRIPT; ?>" />
+	<link href="<?php echo G_STATIC_URL; ?>/css/bootstrap.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript">
+		var G_INDEX_SCRIPT = '<?php echo G_INDEX_SCRIPT; ?>';
+		var G_BASE_URL = '<?php echo get_setting('base_url'); ?>/<?php echo rtrim(G_INDEX_SCRIPT, '/'); ?>';
+		var G_STATIC_URL = '<?php echo G_STATIC_URL; ?>';
+		var G_UPLOAD_URL = '<?php echo get_setting('upload_url'); ?>';
+		var G_USER_ID = <?php echo $this->user_id; ?>;
+		var G_POST_HASH = '';
+	</script>
+	<?php if (is_array($this->_import_css_files)) { ?>
+	<?php foreach ($this->_import_css_files AS $import_css) { ?>
+	<link href="<?php echo $import_css; ?>?v=<?php echo G_VERSION_BUILD; ?>" rel="stylesheet" type="text/css" />
+	<?php } ?>
+	<?php } ?>
+	<?php if (is_array($this->_import_js_files)) { ?>
+	<?php foreach ($this->_import_js_files AS $import_js) { ?>
+	<script src="<?php echo $import_js; ?>?v=<?php echo G_VERSION_BUILD; ?>" type="text/javascript"></script>
+	<?php } ?>
+	<?php } ?>
+	<!--[if lte IE 8]>
+		<script type="text/javascript" src="<?php echo G_STATIC_URL; ?>/js/excanvas.js"></script>
+	<![endif]-->
+</head>
+<body>
+	<div class="row aw-manage-menu">
+		<div class="span12">
+			<h1><img src="<?php echo G_STATIC_URL; ?>/admin/img/logo.png" alt="" /></h1>
+			<span><?php _e('你好'); ?>, <?php echo $this->user_info['user_name']; ?></span> -
+			<a href="<?php echo get_setting('base_url'); ?>" target="_blank"><?php _e('访问网站首页'); ?></a> - <a href="admin/logout/"><?php _e('退出'); ?></a>
+		</div>
+	</div>
+	<div class="content">

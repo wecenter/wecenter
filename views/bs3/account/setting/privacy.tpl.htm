@@ -1,0 +1,95 @@
+<?php TPL::output('global/header.tpl.htm'); ?>
+<?php TPL::output('account/setting/setting_header.tpl.htm'); ?>
+
+<form id="setting_form" method="post" action="account/ajax/privacy_setting/">
+	<!-- 微博设置 -->
+	<div class="aw-mod">
+		<div class="aw-mod-head">
+			<h4><?php _e('微博设置'); ?></h4>
+		</div>
+		<div class="aw-mod-body aw-user-setting-layout">
+			<span><?php _e('是否允许别人访问我的微博'); ?>: </span>
+			<label><input type="radio" value="1" name="weibo_visit"<?php if ($this->user_info['weibo_visit'] == 1) { ?> checked="checked"<?php } ?> /> <?php _e('是'); ?></label>
+			<label><input type="radio" value="0" name="weibo_visit"<?php if (!$this->user_info['weibo_visit']) { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?></label>
+		</div>
+	</div>
+	<!-- end 微博设置 -->
+
+	<!-- 私信设置 -->
+	<div class="aw-mod">
+		<div class="aw-mod-head">
+			<h4><?php _e('私信设置'); ?></h4>
+		</div>
+		<div class="aw-mod-body aw-user-setting-layout">
+			<span><?php _e('谁可以给我发私信'); ?>:</span>
+			<label><input type="radio"value="0" name="inbox_recv"<?php if (!$this->user_info['inbox_recv']) { ?> checked="checked"<?php } ?> /> <?php _e('所有人'); ?></label>
+			<label><input type="radio"value="1" name="inbox_recv"<?php if ($this->user_info['inbox_recv'] == 1) { ?> checked="checked"<?php } ?> /> <?php _e('我关注的人'); ?></label>
+		</div>
+	</div>
+	<!-- end 私信设置 -->
+
+	<!-- 邮件设置 -->
+	<div class="aw-mod">
+		<div class="aw-mod-head">
+			<h4><?php _e('邮件设置'); ?></h4>
+		</div>
+		<div class="aw-mod-body aw-user-setting-layout">
+			<h5><?php _e('什么情况下给我发邮件'); ?>:</h5>
+			<p>
+				<span>
+					<label>
+						<input name="email_settings[]" value="FOLLOW_ME" type="checkbox"<?php if ($this->user_info['email_settings']['FOLLOW_ME'] != 'N') { ?> checked="checked"<?php } ?> /> <?php _e('当有人关注我'); ?>
+					</label>
+				</span>
+				<span>
+					<label>
+						<input name="email_settings[]" value="QUESTION_INVITE" type="checkbox"<?php if ($this->user_info['email_settings']['QUESTION_INVITE'] != 'N') { ?> checked="checked"<?php } ?> /> <?php _e('有人邀请我回答问题'); ?>
+					</label>
+				</span>
+				<span>
+					<label>
+						<input name="email_settings[]" value="NEW_ANSWER" type="checkbox"<?php if ($this->user_info['email_settings']['NEW_ANSWER'] != 'N') { ?> checked="checked"<?php } ?> /> <?php _e('我关注的问题有了新回复'); ?>
+					</label>
+				</span>
+				<span>
+					<label>
+						<input name="email_settings[]" value="NEW_MESSAGE" type="checkbox"<?php if ($this->user_info['email_settings']['NEW_MESSAGE'] != 'N') { ?> checked="checked"<?php } ?> /> <?php _e('有人向我发送私信'); ?>
+					</label>
+				</span>
+				<span>
+					<label>
+						<input name="email_settings[]" value="QUESTION_MOD" type="checkbox"<?php if ($this->user_info['email_settings']['QUESTION_MOD'] != 'N') { ?> checked="checked"<?php } ?> /> <?php _e('我的问题被编辑'); ?>
+					</label>
+				</span>
+			</p>
+		</div>
+	</div>
+	<!-- end 邮件设置 -->
+
+	<!-- 通知设置 -->
+	<div class="aw-mod">
+		<div class="aw-mod-head">
+			<h4><?php _e('通知设置'); ?></h4>
+		</div>
+		<div class="aw-mod-body aw-user-setting-layout">
+			<h5><?php _e('什么情况下给我发送通知'); ?>:</h5>
+			<p>
+				<?php foreach($this->notify_actions as $key => $val) { ?>
+                    <?php if ($val['user_setting']) { ?>
+                    <span>
+                    	<label>
+                    		<input name="notification_settings[<?php echo $key;?>]" type="checkbox" value="1"<?php if (!in_array($key, $this->notification_settings['data']) OR !$this->notification_settings['data']) { ?> checked="checked"<?php } ?> /> <?php _e($val['desc']); ?>
+                    		</label>
+                    </span>
+                    <?php } ?>
+                <?php } ?>
+			</p>
+		</div>
+	</div>
+	<!-- end 通知设置 -->
+</form>
+
+<a href="javascript:;" class="btn btn-large btn-success pull-right aw-user-setting-save" onclick="ajax_post($('#setting_form'));"><?php _e('保存'); ?></a>
+
+<?php TPL::output('account/setting/setting_footer.tpl.htm'); ?>
+<?php TPL::output('global/footer.tpl.htm'); ?>

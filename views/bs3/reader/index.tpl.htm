@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="<?php echo X_UA_COMPATIBLE; ?>" />
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?php echo G_STATIC_URL; ?>/common/apple_touch_icon.png" />
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?php echo G_STATIC_URL; ?>/common/apple_touch_icon_114x114.png" />
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?php echo G_STATIC_URL; ?>/common/apple_touch_icon_72x72.png" />
+<link rel="apple-touch-icon-precomposed" href="<?php echo G_STATIC_URL; ?>/common/apple_touch_icon_57x57.png" />
+<link href="<?php echo G_STATIC_URL; ?>/css/reader.css" rel="stylesheet" type="text/css" />
+<title><?php echo $this->page_title; ?></title>
+<base target="_blank" />
+<script type="text/javascript">
+var G_BASE_URL = '<?php echo get_setting('base_url'); ?><?php if (get_setting('url_rewrite_enable') != 'Y') { ?>/<?php echo rtrim(G_INDEX_SCRIPT, '/'); ?><?php } ?>';
+var G_STATIC_URL = '<?php echo G_STATIC_URL; ?>';
+</script>
+<script src="<?php echo G_STATIC_URL; ?>/js/jquery.js?v=<?php echo G_VERSION_BUILD; ?>" type="text/javascript"></script>
+<script src="<?php echo G_STATIC_URL; ?>/js/app/reader.js?v=<?php echo G_VERSION_BUILD; ?>" type="text/javascript"></script>
+<!--[if lte IE 6]>
+<script type="text/javascript">
+	$(document).ready(function () {
+		$('#left_panel').addClass('hide');
+	});
+</script>
+<![endif]-->
+</head>
+
+<body>
+	<!--[if lte IE 6]>
+	<div style="color:red;font-size:18px"><?php _e('你正在使用的浏览器版本太低, 将不能正常浏览本站的所有功能. 请升级 <a href="http://windows.microsoft.com/zh-CN/internet-explorer/downloads/ie">Internet Explorer</a> 或使用 <a href="http://www.google.com/chrome/">Google Chrome</a> 浏览器'); ?></div>
+	<![endif]-->
+	
+	<div id="left_panel">
+		<div class="header">
+			<a href="<?php echo get_setting('base_url'); ?>" target="_top" class="back">返回网站</a>
+			<h1 class="logo"><?php _e('问答阅读'); ?></h1>
+		</div>
+		
+		<div class="filter">
+			<?php _e('热门内容'); ?>
+			
+			<div class="dropdown_list_wrap" <?php if (sizeof($this->feature_list) == 0) { ?> class="hide"<?php } ?>>
+				<span>全部内容</span>
+				<div class="dropdown_list">
+					<ul>
+						<li><a>全部内容</a></li>
+						<?php if ($this->feature_list) { ?>
+						<?php foreach($this->feature_list AS $key => $val) { ?>
+							<li ><a><?php echo $val['title']; ?></a></li>
+						<?php } ?>
+						<?php } ?>
+					</ul>
+				</div>
+				<i></i>
+			</div>
+
+			<select id="feature_selecter"<?php if (sizeof($this->feature_list) == 0) { ?> class="hide"<?php } ?>>
+				<option value=""><?php _e('全部内容'); ?></option>
+				<?php if ($this->feature_list) { ?>
+				<?php foreach($this->feature_list AS $key => $val) { ?>
+					<option value="<?php echo $val['id']; ?>"><?php echo $val['title']; ?></option>
+				<?php } ?>
+				<?php } ?>
+			</select>
+		</div>
+		
+		<div class="nav_container">
+			<ul id="data_lister"></ul>
+		</div>
+	</div>
+	
+	<div id="right_panel" class="hide">
+		<div class="header">
+			<a href="#" class="top_actions" id="top_actions"><?php _e('查看该问题'); ?></a>
+			
+			<?php _e('%s 个回答', '<span id="answer_users">0</span>'); ?> <span class="middot">·</span>
+			<?php _e('%s 人关注', '<span id="focus_count">0</span>'); ?> <span class="middot">·</span>
+			<?php _e('%s 次浏览', '<span id="view_count">0</span>'); ?>
+		</div>
+		
+		<div class="question">
+			<h1 class="entry_title" id="entry_title"></h1>
+			<div class="question_tags">
+				<ul id="question_topics"></ul>
+			</div>
+			<div class="question_description" id="question_description"></div>
+			
+			<div class="answer">
+				<div class="answer_info">
+					<a href="#"><img src="" class="author_img" id="author_img" /></a>
+					<a href="#"><span class="author_name" id="author_name"></span></a>
+					<span class="author_intro" id="author_intro"></span>
+				</div>
+				
+				<div class="answer_body">
+					<div class="answer_vote_info hide" id="answer_vote_info">
+						<span class="vote_info_num"><span id="vote_info_num">0</span> <?php _e('投票'); ?>, <?php _e('来自'); ?> </span>
+						
+						<ul class="vote_info_users_list" id="vote_info_users_list"></ul>
+							
+						<ul class="vote_info_users_list hide" id="vote_info_users_list_more"></ul>
+							
+						<span><a class="vote_info_more_link" id="vote_info_more_link" onclick="$(this).hide(); $('#vote_info_users_list_more').show(); return false;" href="javascript:;"><?php _e('更多'); ?></a></span>
+					</div>
+					
+					<div class="entry_content answer_text" id="answer_content">
+						
+					</div>
+					
+					<div class="answer_meta">
+						<span id="add_time"></span> <!--<span class="middot">·</span> 分享答案 <span class="middot">·</span> 收藏到 Evernote-->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

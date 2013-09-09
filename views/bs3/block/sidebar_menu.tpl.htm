@@ -1,0 +1,12 @@
+<div class="aw-side-bar-mod aw-side-bar-mod-nav aw-no-border-top">
+	<div class="aw-mod-body">
+		<ul>
+			<li><a href="home/#all" rel="all"><?php _e('最新动态'); ?></a></li>
+			<li><a href="home/#draft_list__draft" rel="draft_list__draft"><?php _e('我的草稿'); ?><?php if ($this->user_info['draft_count']) { ?><span class="badge badge-info"><?php echo $this->user_info['draft_count']; ?></span><?php } ?></a></li>
+			<li><a href="favorite/"<?php if ($_GET['app'] == 'favorite') { ?> class="active"<?php } ?>><?php _e('我的收藏'); ?></a></li>
+			<li><a href="home/#all__focus" rel="all__focus"><?php _e('我关注的问题'); ?></a></li>
+			<li><a href="home/#all__public" rel="all__public"><?php _e('所有问题'); ?></a></li>
+			<li><a href="home/#invite_list__invite" rel="invite_list__invite"><?php _e('邀请我回答的问题'); ?><?php if ($this->user_info['invite_count']) { ?><span class="badge badge-info"><?php echo $this->user_info['invite_count']; ?></span><?php } ?></a></li>
+		</ul>
+	</div>
+</div>

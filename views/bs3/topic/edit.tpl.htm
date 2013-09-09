@@ -1,0 +1,74 @@
+<?php TPL::output('global/header.tpl.htm'); ?>
+
+<div class="aw-container-wrap">
+	<div class="aw-container aw-wecenter aw-topic-edit">
+		<div class="row aw-content-wrap aw-topic-content-wrap">
+			<h4><a class="btn btn-mini pull-right" href="topic/<?php echo $this->topic_info['url_token']; ?>"><?php _e('返回话题'); ?> »</a><?php _e('话题编辑'); ?></h4>
+			<div class="span9 aw-main-content">
+				<div class="aw-mod aw-mod-topic-edit-box">
+					<div class="aw-mod-head">
+						<a href="javascript:;" class="aw-topic-img" style="background:url('<?php echo get_topic_pic_url('mid', $this->topic_info['topic_pic']); ?>') no-repeat;" <?php if ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator'] OR ($this->topic_info['topic_lock'] == 0 && $this->user_info['permission']['edit_topic'])) { ?> id="topic_pic_uploader"<?php } ?>><span><i class="aw-icon i-site"></i></span></a>
+						<h3><?php echo $this->topic_info['topic_title']; ?></h3>
+						
+						
+						<div>
+							<b><?php _e('相关话题'); ?>: </b>
+							<span class="aw-topic-editor" data-type="topic" data-id="<?php echo $this->topic_info['topic_id']; ?>">
+							<?php if ($this->related_topics) { ?>
+							<?php foreach($this->related_topics as $key => $val){ ?>
+							<a class="aw-topic-name" href="topic/<?php echo $val['url_token']; ?>"><span><?php echo $val['topic_title']; ?></span></a>
+							<?php } ?>
+		                    <?php } ?> 
+		                    
+		                    <?php if ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator'] OR ($this->topic_info['topic_lock'] == 0 && $this->user_info['permission']['edit_topic'])) { ?>
+							<span class="aw-edit-topic"><i class="aw-icon i-edit"></i><?php _e('编辑话题'); ?></span>
+							<?php } ?>
+							</span>
+						</div>
+					</div>
+					<div class="aw-mod-body">
+						<form id="topic_form" action="topic/ajax/edit_topic/" method="post" onsubmit="return false">
+						<input type="hidden" name="topic_id" value="<?php echo $this->topic_info['topic_id']; ?>" />
+						<textarea name="topic_description" id="advanced_editor" rows="15"><?php echo $this->topic_info['topic_description']; ?></textarea>
+						<div id="markItUpPreviewFrame" class="markItUpPreviewFrame">
+							<h2 class="title">
+								<?php _e('预览模式'); ?>:
+							</h2>
+							<div id="markItUpPreviewFrames"></div>
+						</div>
+						</form>
+					</div>
+					<div class="aw-mod-footer">
+						<a class="btn btn-large btn-success pull-right" href="javascript:;" onclick="ajax_post($('#topic_form'));"><?php _e('完成'); ?></a>
+					</div>
+				</div>
+				
+			</div>
+			<!-- 侧边栏 -->
+			<div class="span3 aw-side-bar aw-side-bar-topic aw-side-bar-topic-edit">
+					<div class="aw-side-bar-mod aw-side-bar-mod-topic-edit">
+					<div class="aw-side-bar-mod-head">
+						<h3><?php _e('话题编辑指南'); ?></h3>
+					</div>
+					<div class="aw-side-bar-mod-body">
+						 <p><b>● <?php _e('相关话题'); ?>:</b> <?php _e('添加和该话题词义相近或者相似的话题'); ?></p>
+						 <p><b>● <?php _e('话题内容'); ?>:</b> <?php _e('话题是 WeCenter 系统用来组织内容的一个节点, 也是根据内容提炼出来的知识点. 话题是构成 WeCenter 系统讨论内容的基本单元, 是对各种事物、现象等概念的解释. 如果您针对本话题的定义非常清晰, 请帮忙完善该话题并帮助社区用户对该话题的理解, 谢谢您的分享和贡献'); ?></p>
+					</div>
+				</div>
+				
+			</div>
+			<!-- end 侧边栏 -->
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		if ($('#topic_pic_uploader').length)
+		{
+			init_img_uploader(G_BASE_URL + '/topic/ajax/upload_topic_pic/topic_id-<?php echo $this->topic_info['topic_id']; ?>', 'topic_pic', $('#topic_pic_uploader'), $('#uploading_status'), $('#topic_pic_uploader'));
+		}
+	});
+</script>
+
+<?php TPL::output('global/footer.tpl.htm'); ?>
