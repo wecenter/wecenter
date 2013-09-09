@@ -12,7 +12,7 @@ textarea{resize:none;}
 .clear{clear:both;}
 .aw-padding10{padding:10px;}
 .aw-margin-top-10{margin-top:10px;}
-.aw-wecenter{width:940px;height:auto;overflow:hidden;margin:0 auto;}
+.aw-wecenter{max-width:940px;height:auto;overflow:hidden;margin:0 auto;}
 .aw-container-wrap{padding-bottom:30px;background:#E7EFF3;}
 .aw-content-wrap{overflow:hidden;padding:0 0 0 10px;background:#fff;}
 .aw-container{background:#f7f7f7;border:1px solid #c9c9c9;border-top:none;}
@@ -200,7 +200,7 @@ select{width: auto;}
 .aw-dropdown{display:none;position:absolute;right:0;z-index:9999;background: #fff;border:1px solid #ccc;box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);}
 .aw-search-dropdown-box{width: 360px;}
 .aw-search-dropdown-box .i-dropdown-triangle{position: absolute;top:-6px;}
-.aw-search-dropdown-list li{height:32px;line-height:32px;padding:10px;border-bottom: 1px dotted #C1CAD4;}
+.aw-search-dropdown-list li{line-height:32px;padding:10px;border-bottom: 1px dotted #C1CAD4;}
 .aw-search-dropdown-list li .i-star-mini{display: none;}
 .aw-search-dropdown-list li > span{margin-left:10px;font-weight: normal;}
 .aw-search-dropdown-list li a{font-weight: normal;}
@@ -228,6 +228,7 @@ select{width: auto;}
 
 /* category */
 .category{height:auto;padding:0 10px;}
+.category .col-sm-12{padding: 0 0 0 15px;}
 .category dl, .category dl dt, .category dl dd{float:left;}
 .category dl{margin:10px 12px 10px 0;padding:15px;}
 .category dl:hover .category-dropdown, .category dl:hover .dropdown-menu{display:block;}
@@ -344,7 +345,7 @@ select{width: auto;}
 .aw-comment-box{position:relative;width: 576px;margin:10px auto;padding:1px;border:1px solid #C1CAD4;}
 .aw-comment-box .i-comment-triangle{position: absolute;top:-7px;left: 100px;}
 .aw-comment-box-main{height:auto;overflow:hidden;padding:15px;background:#E7EFF3;text-align: center;}
-.aw-comment-box-main textarea{width:530px;height: 20px;margin:0;line-height: 20px;}
+.aw-comment-box-main textarea{width:530px;height: 32px;margin:0;}
 .aw-comment-box-main .aw-comment-box-btn{display:none;height:auto;overflow:hidden;margin-top:10px;}
 .aw-comment-box-main .aw-comment-box-btn .btn{margin-left:10px;}
 .aw-comment-list{padding:0 10px;}
