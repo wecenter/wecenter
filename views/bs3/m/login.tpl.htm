@@ -15,7 +15,7 @@
 					<input type="hidden" name="weixin_id" value="<?php echo base64_decode($_GET['weixin_id']); ?>" />
 					<?php } ?>
 					<input type="hidden" name="return_url" value="<?php echo $this->return_url; ?>" />
-					
+					<input type="hidden" value="1" name="net_auto_login" />
 					<?php if (get_setting('invite_reg_only') == 'N') { ?>
 					<div class="title clearfix">
 						<a class="pull-right btn-register" href="m/register/"><?php _e('注册'); ?><i class="icon-sign icon-sign-arrow"></i></a>
