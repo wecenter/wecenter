@@ -1061,6 +1061,12 @@ function curl_get_contents($url, $timeout = 10)
 	curl_setopt($curl, CURLOPT_URL, $url);
 	curl_setopt($curl, CURLOPT_TIMEOUT, $timeout);
 	curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
+
+	if (substr($url, 0, 8) == 'https://')
+	{
+		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
+		curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, FALSE);
+	}
 	
 	$result = curl_exec($curl);
 	
