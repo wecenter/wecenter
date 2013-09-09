@@ -67,7 +67,7 @@
 					<td colspan="4">
 						<a class="btn btn-inverse inline-block pull-right" href="javascript:;" onclick="$('#form_update_weixin_menu').submit();"><?php _e('提交菜单至微信'); ?></a>
 						
-						<a class="btn btn-inverse inline-block" href="javascript:;" onclick="if ($('#mp_menu_table tbody tr.top_menu').length > 3) { alert('<?php _e('最多只能创建 4 个菜单'); ?>') } else { if ($('#mp_menu_table tbody tr.top_menu:last').length) { $('#mp_menu_table tbody').append($('#top_menu_template').html().replace(/{MENU_ID}/g, parseInt($('#mp_menu_table tbody tr.top_menu:last').attr('data-id')) + 1)); } else { $('#mp_menu_table tbody').append($('#top_menu_template').html().replace(/{MENU_ID}/g, 1)); } }"><?php _e('添加菜单'); ?></a>
+						<a class="btn btn-inverse inline-block" href="javascript:;" onclick="if ($('#mp_menu_table tbody tr.top_menu').length > 2) { alert('<?php _e('最多只能创建 3 个菜单'); ?>') } else { if ($('#mp_menu_table tbody tr.top_menu:last').length) { $('#mp_menu_table tbody').append($('#top_menu_template').html().replace(/{MENU_ID}/g, parseInt($('#mp_menu_table tbody tr.top_menu:last').attr('data-id')) + 1)); } else { $('#mp_menu_table tbody').append($('#top_menu_template').html().replace(/{MENU_ID}/g, 1)); } }"><?php _e('添加菜单'); ?></a>
 						
 						<a class="btn btn-inverse inline-block" href="javascript:;" onclick="ajax_post($('#mp_menu_form'));"><?php _e('保存设置'); ?></a>
 					</td>
