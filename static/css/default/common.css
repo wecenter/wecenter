@@ -9,6 +9,7 @@ dd{margin-left: 10px;}
 a{cursor: pointer;}
 a:hover{text-decoration: none;}
 textarea{resize:none;}
+table td{vertical-align: middle !important;}
 .clear{clear:both;}
 .aw-padding10{padding:10px;}
 .aw-margin-top-10{margin-top:10px;}
@@ -92,7 +93,7 @@ h1, h2, h3{line-height: 20px;}
 h3{font-size:20px;}
 em{font-style: normal;}
 input[type="radio"], input[type="checkbox"]{margin:0;}
-label{margin:0;}
+label{margin:0;font-weight: normal;}
 form{margin:0;}
 select, input[type="file"]{*height: 26px;*line-height: 26px;height: 26px\0;line-height: 26px\0;}
 .modal-backdrop, .modal-backdrop.fade.in{filter:alpha(opacity=20);opacity: 0.2; }
@@ -101,7 +102,7 @@ button.close{width: 20px;height: 20px;}
 .tooltip{z-index: 9999;}
 .modal-body{max-height: none;}
 .modal-footer{height: 36px;line-height: 36px;}
-select, input[type="file"]{height: 28px;line-height: 28px;}
+select, input[type="file"]{line-height: 28px;}
 select{width: auto;}
 .modal-header h3{cursor: move;}
 .alert{margin-bottom:0px;padding:8px 14px;background: #FCFDDB;border: 1px solid #F9F2A7;}
@@ -110,6 +111,7 @@ select{width: auto;}
 .form-horizontal .control-label, .form-horizontal .controls{height: 30px;line-height: 30px;padding-top:0px;}
 .modal-body{overflow-y: visible;}
 .badge.badge-info{background: #3A87AD;}
+.table-bordered > thead > tr > th, .table-bordered > thead > tr > td{border-bottom-width:1px;}
 /* 重载bootstrap进度条 */
 .aw-progress{width:103px;line-height:10px;margin:-2px 0 0 10px;text-align: center;font-size: 12px;vertical-align: middle;}
 .aw-progress .progress{width:103px;height:8px;margin:2px 0 0 0;*margin:4px 0 0 0;background:#f0ffe1;border:1px solid #bce391;}

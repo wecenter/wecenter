@@ -66,12 +66,12 @@
 		</dl>
 		<dl>
 				<dt><label><?php _e('介绍'); ?>:</label></dt>
-				<dd class="aw-user-setting-base-introduce"><input name="signature" maxlength="128" type="text" value="<?php echo $this->user_info['signature']; ?>" /></dd>
+				<dd class="aw-user-setting-base-introduce"><input class="form-control" name="signature" maxlength="128" type="text" value="<?php echo $this->user_info['signature']; ?>" /></dd>
 		</dl>
-		<dl>
+		<dl class="form-horizontal">
 				<dt><label><?php _e('个性网址'); ?>:</label></dt>
 				<dd>
-					<script type="text/javascript">document.write(G_BASE_URL);</script>/people/ <input type="text" value="<?php echo $this->user_info['url_token']; ?>" maxlength="32" name="url_token" style="margin-bottom:0;"<?php if ($this->user_info['url_token_update'] AND $this->user_info['url_token_update'] > (time() - 3600 * 24 * 30)) { ?> disabled="disabled"<?php } ?> /><br />
+					<script type="text/javascript">document.write(G_BASE_URL);</script>/people/ <input type="text" class="form-control" value="<?php echo $this->user_info['url_token']; ?>" maxlength="32" name="url_token" style="display:inline;width:30%;margin-bottom:0;"<?php if ($this->user_info['url_token_update'] AND $this->user_info['url_token_update'] > (time() - 3600 * 24 * 30)) { ?> disabled="disabled"<?php } ?> />
 					<p class="aw-text-color-666"><?php _e('可输入 4~20 位的英文或数字, 30 天内只能修改一次'); ?></p>
 				</dd>
 		</dl>
@@ -139,19 +139,19 @@
 		<ul>
 			<li>
 				<label for="input-qq">QQ:</label>
-			    <input type="text" id="input-qq" name="qq" value="<?php echo $this->user_info['qq']; ?>" />
+			    <input class="form-control" type="text" id="input-qq" name="qq" value="<?php echo $this->user_info['qq']; ?>" />
 			</li>
 			<li>
 				<label for="input-mobile"><?php _e('手机号码'); ?>:</label>
-			    <input type="text" id="input-mobile" name="mobile" value="<?php echo $this->user_info['mobile']; ?>" />
+			    <input class="form-control" type="text" id="input-mobile" name="mobile" value="<?php echo $this->user_info['mobile']; ?>" />
 			</li>
 			<li>
 				<label for="input-common-email"><?php _e('常用邮箱'); ?>:</label>
-			    <input type="text" id="input-common-email" name="common_email" value="<?php echo $this->user_info['common_email']; ?>" />
+			    <input class="form-control" type="text" id="input-common-email" name="common_email" value="<?php echo $this->user_info['common_email']; ?>" />
 			</li>
 			<li>
 				<label for="input-homepage"><?php _e('网站'); ?>:</label>
-			    <input type="text" id="input-homepage" name="homepage" value="<?php echo $this->user_info['homepage']; ?>" />
+			    <input class="form-control" type="text" id="input-homepage" name="homepage" value="<?php echo $this->user_info['homepage']; ?>" />
 			</li>
 		</ul>
 	</div>
@@ -177,10 +177,10 @@
 			<tbody>
 				<tr>
 					<td>
-						<input type="text" class="school" placeholder="<?php _e('如:xx大学'); ?>...">
+						<input type="text" class="school form-control" placeholder="<?php _e('如:xx大学'); ?>...">
 					</td>
 					<td>
-						<input type="text" class="departments" placeholder="<?php _e('如:工程学院计算机系'); ?>...">
+						<input type="text" class="departments form-control" placeholder="<?php _e('如:工程学院计算机系'); ?>...">
 					</td>
 					<td>
 						<select class="year">
@@ -215,7 +215,7 @@
 			<tbody>
 				<tr>
 					<td>
-						<input type="text" class="company" placeholder="<?php _e('xx上市公司'); ?>...">
+						<input type="text" class="company form-control" placeholder="<?php _e('xx上市公司'); ?>...">
 					</td>
 					<td>
 						<select class="work">

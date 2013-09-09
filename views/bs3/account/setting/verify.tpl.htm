@@ -7,9 +7,9 @@
 	</div>
 	<form id="verify_form" method="post" action="account/ajax/verify/" enctype="multipart/form-data" class="form-horizontal">
 		<div class="aw-mod-body">
-			<div class="control-group">
-				<label for="input-password-old" class="control-label"><?php _e('当前状态'); ?>:</label>
-				<div class="controls">
+			<div class="form-group">
+				<label class="col-lg-2 control-label"><?php _e('当前状态'); ?>:</label>
+				<div class="col-lg-10">
 					<?php if ($this->user_info['verified']) { ?>
 					<?php _e('已认证'); ?>
 					<?php } else if (!isset($this->verify_apply['status'])) { ?>
@@ -23,47 +23,47 @@
 					<?php } ?>
 				</div>
 			</div>
-			<div class="control-group">
-				<label for="input-password-new" class="control-label"><?php _e('认证类型'); ?>:</label>
-				<div class="controls">
+			<div class="form-group">
+				<label class="col-lg-2 control-label"><?php _e('认证类型'); ?>:</label>
+				<div class="col-lg-10">
 				    <input name="type" class="apply-type" type="radio" value="personal" id="type_personal"<?php if (!$this->verify_apply['type'] OR $this->verify_apply['type'] == 'personal') { ?> checked="checked"<?php } ?> /> <?php _e('个人认证'); ?> &nbsp;
 				    <input name="type" class="apply-type" type="radio" value="enterprise" id="type_enterprise"<?php if ($this->verify_apply['type'] == 'enterprise') { ?> checked="checked"<?php } ?> /> <?php _e('机构认证'); ?>
 				</div>
 			</div>
-			<div class="control-group">
-				<label for="input-password-new" class="control-label verify-name"><span><?php _e('真实姓名'); ?></span>:</label>
-				<div class="controls">
-				    <input name="name" type="text" value="<?php echo $this->verify_apply['name']; ?>" />
+			<div class="form-group">
+				<label class="col-lg-2 control-label verify-name"><span><?php _e('真实姓名'); ?></span>:</label>
+				<div class="col-lg-4">
+				    <input class="form-control" name="name" type="text" value="<?php echo $this->verify_apply['name']; ?>" />
 				</div>
 			</div>
 			
-			<div class="control-group">
-				<label for="input-password-new" class="control-label verify-code">
+			<div class="form-group">
+				<label class="col-lg-2 control-label verify-code">
 					<span><?php _e('身份证号码'); ?></span>:</label>
-				<div class="controls">
-				    <input name="id_code" type="text" value="<?php echo $this->verify_apply['data']['id_code']; ?>" />
+				<div class="col-lg-4">
+				    <input class="form-control" name="id_code" type="text" value="<?php echo $this->verify_apply['data']['id_code']; ?>" />
 				</div>
 			</div>
 			
-			<div class="control-group">
-				<label for="input-password-new" class="control-label"><?php _e('联系方式'); ?>:</label>
-				<div class="controls">
-				    <input class="input-xxlarge" name="contact" type="text" value="<?php echo $this->verify_apply['data']['contact']; ?>" />
+			<div class="form-group">
+				<label class="col-lg-2 control-label"><?php _e('联系方式'); ?>:</label>
+				<div class="col-lg-8">
+				    <input class="form-control input-xxlarge" name="contact" type="text" value="<?php echo $this->verify_apply['data']['contact']; ?>" />
 				</div>
 			</div>   
-			<div class="control-group">
-				<label for="input-password-new" class="control-label"><?php _e('认证说明'); ?>:</label>
-				<div class="controls">
-				    <input class="input-xxlarge" name="reason" type="text" value="<?php echo $this->verify_apply['reason']; ?>" />
+			<div class="form-group">
+				<label class="col-lg-2 control-label"><?php _e('认证说明'); ?>:</label>
+				<div class="col-lg-8">
+				    <input class="form-control input-xxlarge" name="reason" type="text" value="<?php echo $this->verify_apply['reason']; ?>" />
 				</div>
 			</div> 
-			<div class="control-group" id="upload-attach">
-				<label for="input-password-new" class="control-label"><?php _e('附件'); ?>:</label>
-				<div class="controls">
+			<div class="form-group" id="upload-attach">
+				<label class="col-lg-2 control-label"><?php _e('附件'); ?>:</label>
+				<div class="col-lg-8">
 					<a class="btn btn-mini"><?php _e('上传附件'); ?></a>
 					<span class="aw-text-color-999 upload-url"></span>
 					<p class="aw-text-color-999"><?php _e('请提交对应的身份证或者组织机构代码证件扫描'); ?></p>
-					<input name="attach" type="file" class="upload-attach" onchange="$('.upload-url').html($(this).val());"/>
+					<input class="form-control" name="attach" type="file" class="upload-attach" onchange="$('.upload-url').html($(this).val());"/>
 				</div>
 			</div>  
 		</div>

@@ -7,22 +7,28 @@
 	</div>
 	<form class="form-horizontal" action="account/ajax/modify_password/" method="post" id="setting_form">
 		<div class="aw-mod-body">
-			<div class="control-group">
+			<div class="form-group">
 				<label class="control-label" for="input-password-old"><?php _e('当前密码'); ?></label>
 				<div class="controls">
-				    <input type="password" id="input-password-old" name="old_password" />
-				    </div>
+					<div class="col-lg-4">
+						<input type="password" class="form-control" id="input-password-old" name="old_password" />
+					</div>
+				</div>
 			</div>
-			<div class="control-group">
+			<div class="form-group">
 				<label class="control-label" for="input-password-new"><?php _e('新的密码'); ?></label>
 				<div class="controls">
-				    <input type="password" id="input-password-new" name="password" />
+					<div class="col-lg-4">
+					    <input type="password" class="form-control" id="input-password-new" name="password" />
+					</div>
 				</div>
 			</div> 
-			<div class="control-group">
+			<div class="form-group">
 				<label class="control-label" for="input-password-re-new"><?php _e('确认密码'); ?></label>
 				<div class="controls">
-				    <input type="password" id="input-password-re-new" name="re_password" />
+					<div class="col-lg-4">
+					    <input type="password" class="form-control" id="input-password-re-new" name="re_password" />
+					</div>
 				</div>
 			</div>      
 		</div>
