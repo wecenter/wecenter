@@ -3,7 +3,7 @@
 <div class="aw-container-wrap">
 	<div class="aw-container aw-wecenter">
 		<div class="row aw-content-wrap">
-			<div class="span9 aw-main-content">
+			<div class="col-sm-9 aw-main-content">
 				<div class="aw-mod aw-dynamic-index aw-mod-invite-friend">
 					<div class="aw-mod-head">
 						<h2><?php _e('邀请好友加入社区'); ?></h2>
@@ -11,7 +11,7 @@
 					<div class="aw-mod-body">
 						<form id="invitation_form" method="post" action="invitation/ajax/invite/" onsubmit="return false">
 							<div class="aw-invite-box">
-								<input type="text" name="email" placeholder="<?php _e('请输入好友邮箱'); ?>..." />
+								<input class="form-control" type="text" name="email" placeholder="<?php _e('请输入好友邮箱'); ?>..." />
 								<p>
 									<a class="pull-right btn btn-mini btn-success" onclick="ajax_post($('#invitation_form')); return false;"><?php _e('发送邀请'); ?></a>
 									<?php _e('你还有'); ?> <?php _e('%s 个邀请名额', '<span class="aw-text-color-blue">' . $this->user_info['invitation_available'] . '</span>'); ?>
@@ -36,7 +36,7 @@
 				</div>
 			</div>
 			<!-- 侧边栏 -->
-			<div class="span3 aw-side-bar">
+			<div class="col-sm-3 aw-side-bar">
 				<?php TPL::output('block/sidebar_menu.tpl.htm'); ?>	
 			</div>
 			<!-- end 侧边栏 -->

@@ -27,7 +27,7 @@
 .aw-user-center-details-list li{float:left;width:209px;margin:0 10px 15px 0;}
 .aw-user-center-details-mini{height: auto;overflow: hidden;}
 .aw-user-center-details h4, .aw-user-center-details-mini h4{padding:25px 0 15px 0;font-size:20px !important;font-weight: normal;}
-.aw-reset-sp .col-sm-6{width:454px;}
+.aw-reset-sp .span6{width:429px;}
 .aw-reset-sp h3{padding:25px 0 10px;border-bottom:1px solid #ccc;}
 .aw-reset-sp h3 .aw-more-content{font-size:13px;font-weight: normal;}
 .aw-user-center-mini-mod .aw-item .aw-mod-body{min-height:30px;margin-top:-5px;padding:0 0 10px 60px;}
@@ -49,7 +49,7 @@
 /* 关注 */
 .aw-user-center-follow-mod h4{padding:25px 0 15px 0;font-size:18px;}
 .aw-user-center-follow-mod ul li{position: relative;min-height:94px;margin:0 14px;}
-.aw-user-center-follow-mod ul .col-sm-5{width:420px;margin-bottom:10px;padding:10px 0;border-bottom:1px dotted #C1CAD4;}
+.aw-user-center-follow-mod ul .span5{width:420px;margin-bottom:10px;padding:10px 0;border-bottom:1px dotted #C1CAD4;}
 .aw-user-center-follow-mod .aw-item{position:relative;min-height:60px;padding-left:60px;}
 .aw-user-center-follow-mod .aw-user-img, .aw-user-center-follow-mod .aw-topic-img{position: absolute;left: 0;top: 0;}
 .aw-user-center-follow-mod  p{margin:0;}
