@@ -7,13 +7,13 @@
 			<div class="col-sm-9 aw-main-content">
 				<div class="aw-mod-topic-manage">
 					<dl>
-					<form action="topic/ajax/save_url_token/" method="post" id="url_token_form">
+					<form class="form-inline" action="topic/ajax/save_url_token/" method="post" id="url_token_form">
 						<input type="hidden" name="topic_id" value="<?php echo $this->topic_info['topic_id']; ?>" />
 						<dt><?php _e('话题别名'); ?>:</dt>
 						<dd>
 							<a class="btn btn-large btn-success pull-right" href="javascript:;" onclick="ajax_post($('#url_token_form'));" /><?php _e('保存'); ?></a>
 							<script type="text/javascript">document.write(G_BASE_URL);</script>/topic/ 
-							<input type="text" name="url_token" value="<?php echo $this->topic_info['url_token']; ?>" />
+							<input type="text" class="form-control" name="url_token" value="<?php echo $this->topic_info['url_token']; ?>" />
 						</dd>
 					</form>
 					</dl>
@@ -23,7 +23,7 @@
 						<dt><?php _e('页面标题'); ?>:</dt>
 						<dd>
 							<a class="btn btn-large btn-success pull-right" href="javascript:;" onclick="ajax_post($('#seo_title_form'));"><?php _e('保存'); ?></a>
-							<input type="text" name="seo_title" value="<?php echo $this->topic_info['seo_title']; ?>" />
+							<input type="text"  class="form-control" name="seo_title" value="<?php echo $this->topic_info['seo_title']; ?>" />
 						</dd>
 					</form>
 					</dl>
@@ -33,7 +33,7 @@
 						<dt><?php _e('话题合并'); ?>:</dt>
 						<dd>
 							<a class="btn btn-large btn-success pull-right" onclick="ajax_post($('#merge_topic_form'));"><?php _e('话题合并'); ?></a>
-							<input type="text" name="topic_title" placeholder="<?php _e('在此输入要与该话题合并的话题'); ?>..."/>
+							<input type="text" class="form-control" name="topic_title" placeholder="<?php _e('在此输入要与该话题合并的话题'); ?>..."/>
 						</dd>
 					</form>
 					</dl>

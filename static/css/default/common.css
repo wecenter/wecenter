@@ -109,6 +109,7 @@ select{width: auto;}
 .tab-content{padding-bottom:30px;}
 .form-horizontal .control-label, .form-horizontal .controls{height: 30px;line-height: 30px;padding-top:0px;}
 .modal-body{overflow-y: visible;}
+.badge.badge-info{background: #3A87AD;}
 /* 重载bootstrap进度条 */
 .aw-progress{width:103px;line-height:10px;margin:-2px 0 0 10px;text-align: center;font-size: 12px;vertical-align: middle;}
 .aw-progress .progress{width:103px;height:8px;margin:2px 0 0 0;*margin:4px 0 0 0;background:#f0ffe1;border:1px solid #bce391;}
@@ -466,8 +467,8 @@ select{width: auto;}
 .aw-topic-detail-about{padding:20px;line-height: 24px;}
 .aw-question-detail-txt{padding:10px 0;}
 .aw-topic-search{position:relative;height:28px;border:1px solid #CCCCCC;box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;}
-.aw-topic-search .icon-search{margin:4px 0 4px 4px;vertical-align: middle;}
-.aw-topic-search .search-query{height:15px;line-height:15px;margin:3px 0;padding:3px 14px 3px 0;border:none;box-shadow: none;transition:none;}
+.aw-topic-search .glyphicon-search{margin:-2px 0 4px 4px;vertical-align: middle;}
+.aw-topic-search .search-query{margin:3px 0;padding:3px 14px 3px 0;border:none;box-shadow: none;transition:none;}
 .aw-topic-search .search-query:focus{border: none;box-shadow: none;}
 .aw-topic-search .aw-topic-dropdown{top:35px;}
 
@@ -476,7 +477,7 @@ select{width: auto;}
 .aw-topic-edit h4{height:auto;overflow:hidden;margin:30px 30px 0;padding-bottom:15px;background: #fff;border-bottom: 1px solid #ccc;font-size: 20px;line-height: 20px;font-weight: normal;}
 .aw-mod-topic-edit-box{padding-bottom: 30px;}
 .aw-mod-topic-edit-box p{height: auto;overflow: hidden;}
-.aw-mod-topic-edit-box #advanced_editor{width: 646px;}
+.aw-mod-topic-edit-box #advanced_editor{width: 672px;}
 .aw-mod-topic-edit-box .aw-mod-footer{height:auto;overflow:hidden;margin-top:20px;}
 .aw-mod-topic-edit-box .aw-mod-head{position: relative;margin:0 0 30px 0;padding:0 0 0 90px;}
 .aw-mod-topic-edit-box .aw-mod-head .aw-topic-img{position: absolute;left: 0;top: 0;width:50px;height:50px;background: url(http://127.0.0.1/anwsion/trunk/static/common/topic-mid-img.jpg) no-repeat;text-align: center;}
@@ -493,7 +494,7 @@ select{width: auto;}
 .aw-mod-topic-manage dl dt, .aw-mod-topic-manage dl dd{float:left;line-height: 30px;}
 .aw-mod-topic-manage dl dt{width: 80px;text-align: right;}
 .aw-mod-topic-manage dl dd{width: 570px;}
-.aw-mod-topic-manage dl dd input[type="text"]{width:440px;height: 26px;line-height: 26px;margin:0;}
+.aw-mod-topic-manage dl dd input[type="text"]{width:440px;}
 .aw-mod-topic-manage .aw-topic-name{display:inline-block;margin:0 3px 5px 3px;}
 .aw-mod-topic-manage dl:first-child dd input{width: 150px;}
 .aw-mod-topic-manage dl .topic-list{width: 470px;}
