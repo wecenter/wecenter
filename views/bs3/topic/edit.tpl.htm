@@ -4,7 +4,7 @@
 	<div class="aw-container aw-wecenter aw-topic-edit">
 		<div class="row aw-content-wrap aw-topic-content-wrap">
 			<h4><a class="btn btn-mini pull-right" href="topic/<?php echo $this->topic_info['url_token']; ?>"><?php _e('返回话题'); ?> »</a><?php _e('话题编辑'); ?></h4>
-			<div class="span9 aw-main-content">
+			<div class="col-sm-9 aw-main-content">
 				<div class="aw-mod aw-mod-topic-edit-box">
 					<div class="aw-mod-head">
 						<a href="javascript:;" class="aw-topic-img" style="background:url('<?php echo get_topic_pic_url('mid', $this->topic_info['topic_pic']); ?>') no-repeat;" <?php if ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator'] OR ($this->topic_info['topic_lock'] == 0 && $this->user_info['permission']['edit_topic'])) { ?> id="topic_pic_uploader"<?php } ?>><span><i class="aw-icon i-site"></i></span></a>
@@ -45,7 +45,7 @@
 				
 			</div>
 			<!-- 侧边栏 -->
-			<div class="span3 aw-side-bar aw-side-bar-topic aw-side-bar-topic-edit">
+			<div class="col-sm-3 aw-side-bar aw-side-bar-topic aw-side-bar-topic-edit">
 					<div class="aw-side-bar-mod aw-side-bar-mod-topic-edit">
 					<div class="aw-side-bar-mod-head">
 						<h3><?php _e('话题编辑指南'); ?></h3>

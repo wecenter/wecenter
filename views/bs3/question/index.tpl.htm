@@ -10,7 +10,7 @@
 		<?php } ?>
 		<?php } ?>
 		<div class="row aw-content-wrap">
-			<div class="span9 aw-main-content">
+			<div class="col-sm-9 aw-main-content">
 				<div class="aw-mod aw-item aw-question-detail-title">
 					<div class="aw-mod-head">
 						<h1>
@@ -18,11 +18,11 @@
 						</h1>
 						<?php if ($this->user_id) { ?>
 						<div class="aw-question-follow">
-							<a href="javascript:;" onclick="focus_question($(this), <?php echo $this->question_info['question_id']; ?>);" class="btn btn-mini pull-left aw-follow-question<?php if (!$this->question_focus) { ?> aw-active<?php } ?>"><?php if ($this->question_focus) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?></a>
+							<a href="javascript:;" onclick="focus_question($(this), <?php echo $this->question_info['question_id']; ?>);" class="btn btn-mini btn-default pull-left aw-follow-question<?php if (!$this->question_focus) { ?> aw-active<?php } ?>"><?php if ($this->question_focus) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?></a>
 							<!-- 下拉菜单 -->
 							<div class="btn-group pull-left">
-								<a class="btn btn-normal dropdown-toggle" data-toggle="dropdown" href="javascript:;">
-								    <i class="icon-cog"></i>
+								<a class="btn btn-mini btn-default dropdown-toggle" data-toggle="dropdown" href="javascript:;">
+								    <i class="glyphicon glyphicon-cog"></i>
 								    <span class="caret"></span>
 								</a>
 								<div class="dropdown-menu aw-dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
@@ -350,7 +350,7 @@
 				<?php } ?>
 			</div>
 			<!-- 侧边栏 -->
-			<div class="span3 aw-side-bar">
+			<div class="col-sm-3 aw-side-bar">
 				<!-- 发起人 -->
 				<?php if ($this->question_info['anonymous'] == 0) { ?>
 				<div class="aw-side-bar-mod">
