@@ -133,17 +133,14 @@ class work_class extends AWS_MODEL
 	 * @param  $education_id
 	 * @param  $uid
 	 */
-	function update_work_experience($update_arr, $work_id, $uid)
+	function update_work_experience($update_data, $work_id, $uid)
 	{
-		$uid = intval($uid);
-		$work_id = intval($work_id);
-		
-		if ((! $uid) || (! $work_id))
+		if (! $uid OR ! $work_id)
 		{
 			return false;
 		}
 		
-		return $this->update('work_experience', $update_arr, "uid = {$uid} AND work_id = {$work_id}");
+		return $this->update('work_experience', $update_data, 'uid = ' . intval($uid) . ' AND work_id = ' . intval($work_id));
 	}
 
 	function remove_job($job_id)
