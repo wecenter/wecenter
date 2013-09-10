@@ -873,6 +873,7 @@ class ajax extends AWS_CONTROLLER
 		H::ajax_json_output(AWS_APP::RSM(null, 1, null));
 	}
 	
+	//修改工作经历
 	function edit_work_action()
 	{
 		if (!$_POST['company_name'])
