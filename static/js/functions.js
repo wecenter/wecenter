@@ -1784,7 +1784,7 @@ function add_search_dropdown_list(selecter, type, json, keyword)
 
         $(selecter).append(Hogan.compile(AW_TEMPLATE.searchDropdownList1).render(
         {
-            'url': G_BASE_URL + '/' + json.url,
+            'url': json.url,
             'active': active,
             'content': json.name,
             'discuss_count': json.detail.answer_count
@@ -1795,7 +1795,7 @@ function add_search_dropdown_list(selecter, type, json, keyword)
     case 2:
         $(selecter).append(Hogan.compile(AW_TEMPLATE.searchDropdownList2).render(
         {
-            'url': G_BASE_URL + '/' + json.url,
+            'url': json.url,
             'name': json.name,
             'discuss_count': json.detail.discuss_count,
             'topic_id': json.detail.topic_id
@@ -1813,7 +1813,7 @@ function add_search_dropdown_list(selecter, type, json, keyword)
         
         $(selecter).append(Hogan.compile(AW_TEMPLATE.searchDropdownList3).render(
         {
-            'url': G_BASE_URL + '/' + json.url,
+            'url': json.url,
             'uid': json.uid,
             'img': json.detail.avatar_file,
             'name': json.name,
