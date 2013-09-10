@@ -20,120 +20,52 @@ if (!defined('IN_ANWSION'))
 
 class work_class extends AWS_MODEL
 {
-
-	/**
-	 * 添加工作经历
-	 */
-	function add_work_experience($uid, $start_year, $end_year, $company_name, $job_id)
+	public function add_work_experience($uid, $start_year, $end_year, $company_name, $job_id)
 	{
-		$insert_arr['uid'] = intval($uid);
-		$insert_arr['start_year'] = intval($start_year);
-		$insert_arr['end_year'] = intval($end_year);
-		$insert_arr['company_name'] = htmlspecialchars($company_name);
-		$insert_arr['job_id'] = intval($job_id);
-		$insert_arr['add_time'] = time();
+		$insert_data['uid'] = intval($uid);
+		$insert_data['start_year'] = intval($start_year);
+		$insert_data['end_year'] = intval($end_year);
+		$insert_data['company_name'] = htmlspecialchars($company_name);
+		$insert_data['job_id'] = intval($job_id);
+		$insert_data['add_time'] = time();
 		
-		//插入获取用户ID
-		return $this->insert('work_experience', $insert_arr);
+		return $this->insert('work_experience', $insert_data);
 	}
-
-	/**
-	  * 获取职位信息
-	  */
-	function get_jobs_list()
+	
+	public function get_jobs_list()
 	{
-		if ($rs = $this->fetch_all('jobs', null, 'id ASC'))
+		if ($jobs = $this->fetch_all('jobs', null, 'id ASC'))
 		{
-			$job_list = array();
-			
-			foreach ($rs as $key => $val)
+			foreach ($jobs as $key => $val)
 			{
 				$job_list[$val['id']] = $val['job_name'];
 			}
-			
-			return $job_list;
 		}
-		else
-		{
-			return false;
-		}
+		
+		return $job_list;
 	}
-
-	/**
-	  * 根据职位ID获取职位信息
-	  */
-	function get_jobs_by_id($id)
+	
+	public function get_work_experience_list($uid)
 	{
-		return $this->fetch_row('jobs', 'id = ' . intval($id));
+		return $this->fetch_all('work_experience', "uid = " . intval($uid), 'start_year DESC');
 	}
-
-	/**
-	  * 通过用户ID 获取 教育经历
-	  * 
-	  * @param $uid
-	  * 
-	  * @return array
-	  */
-	function get_work_experience_list($uid)
-	{
-		return $this->fetch_all('work_experience', "uid = " . intval($uid), ' start_year DESC');
-	}
-
-	/**
-	  * 通过用户ID 获取 教育经历
-	  * 
-	  * @param $uid
-	  * 
-	  * @return array
-	  */
-	function get_education_experience_row($education_id, $uid)
+	
+	public function get_education_experience_row($education_id, $uid)
 	{
 		return $this->fetch_row('work_experience', 'education_id = ' . intval($education_id) . ' AND uid = ' . intval($uid));
 	}
-
-	/**
-	 * 更新学校经历
-	 * 
-	 * @param  $update_arr
-	 * @param  $education_id
-	 * @param  $uid
-	 */
-	function update_education_experience($update_arr, $education_id, $uid)
+	
+	public function update_education_experience($update_data, $education_id, $uid)
 	{
-		return $this->update('work_experience', $update_arr, 'education_id = ' . intval($education_id) . ' AND uid = ' . intval($uid));
+		return $this->update('work_experience', $update_data, 'education_id = ' . intval($education_id) . ' AND uid = ' . intval($uid));
 	}
-
-	/**
-	  * 删除学校经历
-	  * 
-	  * @param  $education_id
-	  * @param  $uid
-	  */
-	function del_work_experience($work_id, $uid)
+	
+	public function del_work_experience($work_id, $uid)
 	{
 		return $this->delete('work_experience', 'uid = ' . intval($uid) . ' AND work_id = ' . intval($work_id));
 	}
-
-	/**
-	  * 通过用户ID 获取 工作经历
-	  * 
-	  * @param $uid
-	  * 
-	  * @return array
-	  */
-	function get_work_experience_row($work_id, $uid)
-	{
-		return $this->fetch_row('work_experience', 'work_id = ' . intval($work_id) . ' AND uid =' . intval($uid));
-	}
-
-	/**
-	 * 更新学校经历
-	 * 
-	 * @param  $update_arr
-	 * @param  $education_id
-	 * @param  $uid
-	 */
-	function update_work_experience($update_data, $work_id, $uid)
+	
+	public function update_work_experience($update_data, $work_id, $uid)
 	{
 		if (! $uid OR ! $work_id)
 		{
@@ -143,19 +75,19 @@ class work_class extends AWS_MODEL
 		return $this->update('work_experience', $update_data, 'uid = ' . intval($uid) . ' AND work_id = ' . intval($work_id));
 	}
 
-	function remove_job($job_id)
+	public function remove_job($job_id)
 	{
 		return $this->delete('jobs', 'id = ' . intval($job_id));
 	}
 
-	function add_job($job_name)
+	public function add_job($job_name)
 	{
 		return $this->insert('jobs', array(
 			'job_name' => htmlspecialchars($job_name)
 		));
 	}
 	
-	function update_job($id, $data)
+	public function update_job($id, $data)
 	{
 		return $this->update('jobs', $data, 'id = ' . intval($id));
 	}

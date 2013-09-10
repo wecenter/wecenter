@@ -1125,7 +1125,7 @@ class account_class extends AWS_MODEL
 	/**
 	 * 根据职位ID获取职位信息
 	 */
-	function get_jobs_by_id($id)
+	public function get_jobs_by_id($id)
 	{
 		if (!$id)
 		{
