@@ -15,12 +15,14 @@
 			<a class="pull-left"><img src="<?php echo get_topic_pic_url('max', $this->topic_info['topic_pic']); ?>" alt="" /></a>
 			<h1 class="pull-left"><?php echo $this->topic_info['topic_title']; ?></h1>
 		</div>
+		<?php if ($this->user_id) { ?>
 		<div class="aw-topic-section">
 			<div class="aw-mod-head">
 				<a class="btn btn-primary <?php if ($this->topic_info['has_focus']) { ?> aw-active<?php } ?>" onclick="focus_topic($(this), $(this), <?php echo $this->topic_info['topic_id']; ?>);"><?php if ($this->topic_info['has_focus']) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?></a>
 				<span class="num"><a><?php echo $this->topic_info['focus_count']; ?></a> 人关注</span>
 			</div>
 		</div>
+		<?php } ?>
 		<div class="aw-topic-topbar">
 			<!--<div class="aw-topic-topbar-search">
 				<form>

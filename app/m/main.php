@@ -51,11 +51,14 @@ class main extends AWS_CONTROLLER
 				}
 			break;
 			
+			case 'explore':
 			case 'login':
 			case 'question':
-			case 'answer':
 			case 'register':
 			case 'weixin_bind_success':
+			case 'topic':
+			case 'search':
+			case 'people':
 				// Public page..
 			break;
 		}
@@ -318,7 +321,7 @@ class main extends AWS_CONTROLLER
 			$answer['user_rated_thanks'] = $answer_users_rated_thanks[$answer['answer_id']];
 			$answer['user_rated_uninterested'] = $answer_users_rated_uninterested[$answer['answer_id']];
 			
-			$answer['answer_content'] = $this->model('question')->parse_at_user(FORMAT::parse_attachs(nl2br(FORMAT::parse_markdown($answer['answer_content']))));
+			$answer['answer_content'] = $this->model('question')->parse_at_user(FORMAT::parse_attachs(FORMAT::parse_markdown($answer['answer_content'])));
 			
 			$answer['agree_users'] = $answer_agree_users[$answer['answer_id']];
 			$answer['agree_status'] = $answer_vote_status[$answer['answer_id']];
