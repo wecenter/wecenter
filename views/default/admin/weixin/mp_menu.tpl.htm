@@ -10,14 +10,14 @@
 				<td align="center"><input type="text" value="" class="input-mini sort-action" name="button[{MENU_ID}][sort]" /></td>
 				<td align="center"><input type="text" value="" class="input-small sort-action" name="button[{MENU_ID}][key]" /></td>
 				<td align="center">
-					<a href="javascript:;" onclick="if ($('#mp_menu_table tbody tr.sub_button_{MENU_ID}').length > 4) { alert('<?php _e('最多只能创建 5 个子菜单'); ?>') } else { if ($('#mp_menu_table tbody tr.sub_button_{MENU_ID}:last').length) { $('tr#menu_id_{MENU_ID}').after($('#sub_button_template').html().replace(/{MENU_TOP_ID}/g, {MENU_ID}).replace(/{MENU_SUB_ID}/g, parseInt($('#mp_menu_table tbody tr.sub_button_{MENU_ID}:first').attr('data-id')) + 1)); } else { $('tr#menu_id_{MENU_ID}').after($('#sub_button_template').html().replace(/{MENU_TOP_ID}/g, {MENU_ID}).replace(/{MENU_SUB_ID}/g, 1)); } }"><?php _e('添加子菜单'); ?></a> | 
+					<a href="javascript:;" onclick="if ($('#mp_menu_table tbody tr.sub_button_{MENU_ID}').length > 4) { alert('<?php _e('最多只能创建 5 个子菜单'); ?>') } else { var menu_sub_id = 1; while($('#sub_button_{MENU_ID}_' + menu_sub_id).length) { menu_sub_id++; } $('tr#menu_id_{MENU_ID}').after($('#sub_button_template').html().replace(/{MENU_TOP_ID}/g, {MENU_ID}).replace(/{MENU_SUB_ID}/g, menu_sub_id)); }"><?php _e('添加子菜单'); ?></a> | 
 					<a href="javascript:;" onclick="$(this).parents('tr').remove(); $('.sub_button_{MENU_ID}').remove();"><?php _e('删除'); ?></a>
 				</td>
 			</tr>
 		</script>
 		
 		<script type="text/x-template" id="sub_button_template">
-			<tr class="sub_button_{MENU_TOP_ID}" data-id="{MENU_SUB_ID}">
+			<tr class="sub_button_{MENU_TOP_ID}" data-id="{MENU_SUB_ID}" id="sub_button_{MENU_TOP_ID}_{MENU_SUB_ID}">
 				<td> -- <input type="text" value="" name="button[{MENU_TOP_ID}][sub_button][{MENU_SUB_ID}][name]" /></td>
 				<td align="center"><input type="text" value="" class="input-mini sort-action" name="button[{MENU_TOP_ID}][sub_button][{MENU_SUB_ID}][sort]" /></td>
 				<td align="center"><input type="text" value="" class="input-small sort-action" name="button[{MENU_TOP_ID}][sub_button][{MENU_SUB_ID}][key]" /></td>
@@ -44,13 +44,13 @@
 					<td align="center"><input type="text" value="<?php echo $val['sort']; ?>" class="input-mini sort-action" name="button[<?php echo $key; ?>][sort]" /></td>
 					<td align="center"><input type="text" value="<?php echo $val['key']; ?>" class="input-small sort-action" name="button[<?php echo $key; ?>][key]" /></td>
 					<td align="center">
-						<a href="javascript:;" onclick="if ($('#mp_menu_table tbody tr.sub_button_<?php echo $key; ?>').length > 4) { alert('<?php _e('最多只能创建 5 个子菜单'); ?>') } else { if ($('#mp_menu_table tbody tr.sub_button_<?php echo $key; ?>:last').length) { $('tr#menu_id_<?php echo $key; ?>').after($('#sub_button_template').html().replace(/{MENU_TOP_ID}/g, <?php echo $key; ?>).replace(/{MENU_SUB_ID}/g, parseInt($('#mp_menu_table tbody tr.sub_button_<?php echo $key; ?>:last').attr('data-id')) + 1)); } else { $('tr#menu_id_<?php echo $key; ?>').after($('#sub_button_template').html().replace(/{MENU_TOP_ID}/g, <?php echo $key; ?>).replace(/{MENU_SUB_ID}/g, 1)); } }"><?php _e('添加子菜单'); ?></a> | 
+						<a href="javascript:;" onclick="if ($('#mp_menu_table tbody tr.sub_button_<?php echo $key; ?>').length > 4) { alert('<?php _e('最多只能创建 5 个子菜单'); ?>') } else { var menu_sub_id = 1; while($('#sub_button_<?php echo $key; ?>_' + menu_sub_id).length) { menu_sub_id++; } $('tr#menu_id_<?php echo $key; ?>').after($('#sub_button_template').html().replace(/{MENU_TOP_ID}/g, <?php echo $key; ?>).replace(/{MENU_SUB_ID}/g, menu_sub_id)); }"><?php _e('添加子菜单'); ?></a> | 
 						<a href="javascript:;" onclick="$(this).parents('tr').remove(); $('.sub_button_<?php echo $key; ?>').remove();"><?php _e('删除'); ?></a>
 					</td>
 				</tr>
 				<?php if ($val['sub_button']) { ?>
 				<?php foreach ($val['sub_button'] AS $sub_key => $sub_val) { ?>				
-				<tr class="sub_button_<?php echo $key; ?>" data-id="<?php echo $sub_key; ?>">
+				<tr class="sub_button_<?php echo $key; ?>" id="sub_button_<?php echo $key; ?>_<?php echo $sub_key; ?>" data-id="<?php echo $sub_key; ?>">
 					<td> -- <input type="text" value="<?php echo $sub_val['name']; ?>" name="button[<?php echo $key; ?>][sub_button][<?php echo $sub_key; ?>][name]" /></td>
 					<td align="center"><input type="text" value="<?php echo $sub_val['sort']; ?>" class="input-mini sort-action" name="button[<?php echo $key; ?>][sub_button][<?php echo $sub_key; ?>][sort]" /></td>
 					<td align="center"><input type="text" value="<?php echo $sub_val['key']; ?>" class="input-small sort-action" name="button[<?php echo $key; ?>][sub_button][<?php echo $sub_key; ?>][key]" /></td>
