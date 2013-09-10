@@ -6,12 +6,12 @@
 .aw-register-head-title{width:658px;height: 76px;line-height: 76px;margin:0;background:url(img/register-nav.png) no-repeat;text-align: center;color:#fff;font-size: 20px;font-weight: bold;}
 .aw-register-head-title .i-new-user{position: relative;right: 5px;top:3px;*top:-3px;}
 .aw-register-box{width: 656px;height: auto;margin:0 auto;background:#F5F5F5;border:1px solid #C9C9C9;border-top:none;border-radius: 0 0 10px 10px;text-align: center;}
-.aw-register-box ul{width: 242px;margin:0 auto;padding: 40px;}
+.aw-register-box ul{width: 322px;margin:0 auto;padding: 40px;}
 .aw-register-box ul li{position:relative;width:256px;margin-bottom: 10px;}
-.aw-register-box ul li input{width:242px;height: 28px;line-height: 28px;}
+.aw-register-box ul li input{width:257px;height: 40px;}
 .aw-register-box ul li.last{text-align: left;color:#666;}
 .aw-register-box ul li.last a{font-size: 14px;}
-.aw-register-box ul li.last input{width: 13px;}
+.aw-register-box ul li.last input{width: 13px;height: auto;}
 .aw-register-box ul li.last label{display: inline-block;}
 .aw-register-box ul .aw-register-verify{text-align: left;}
 .aw-register-box ul .aw-register-verify input{width: 130px;}
@@ -21,7 +21,7 @@
 .aw-register-agreement-txt{max-height: 100px;overflow-x:hidden;overflow-y:auto;}
 
 /* 注册提示 */
-.aw-register-box li span{position:absolute;top:0;right:-145px;width: 115px;height:26px;padding:5px;font-size:12px;border-radius: 5px;overflow: hidden;text-align: left;}
+.aw-register-box li span{position:absolute;top:0;right:-145px;width: 130px;padding:5px;font-size:12px;border-radius: 5px;overflow: hidden;text-align: left;}
 .aw-reg-tips{line-height:15px;background: #EEF7FD;border: 1px solid #CFDDE6;color:#999;}
 .aw-reg-err{line-height: 28px;background: #FFEAEA;border:1px solid #E5C3C4;color:#CC0000;}
 .aw-reg-err .i-err{position:relative;top:2px;*top:-2px;margin-right: 5px;}
