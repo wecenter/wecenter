@@ -362,10 +362,6 @@ class weixin_class extends AWS_MODEL
 				$response_message = AWS_APP::config()->get('weixin')->help_message;
 			break;
 			
-			case 'COMING_SOON':
-				$response_message = '功能开发中, 敬请期待...';
-			break;
-			
 			case AWS_APP::config()->get('weixin')->command_hot:
 			case 'HOT_QUESTION':
 				if ($input_message['param'])
@@ -640,6 +636,7 @@ class weixin_class extends AWS_MODEL
 			break;
 			
 			case AWS_APP::config()->get('weixin')->command_bind_info:
+			case 'BIND_INDO':
 				if ($this->user_id)
 				{
 					$response_message = '你的微信帐号绑定社区帐号: ' . $this->user_info['user_name'];
