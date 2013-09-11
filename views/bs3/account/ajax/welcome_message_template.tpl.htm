@@ -1,4 +1,5 @@
-<div class="modal aw-first-login">
+<div class="modal aw-first-login show">
+	
 	<div class="modal-body">
 		<div class="aw-mod">
 			<div class="aw-mod-head">
@@ -33,7 +34,7 @@
 						<ul>
 							<li>
 								<?php _e('一句话介绍'); ?><br />
-								<input type="text" placeholder="<?php _e('如：80后IT男..'); ?>" id="welcome_signature" value="<?php if ($this->user_info['signature']) { echo $this->user_info['signature']; } ?>" name="signature" />
+								<input type="text" class="form-control" placeholder="<?php _e('如：80后IT男..'); ?>" id="welcome_signature" value="<?php if ($this->user_info['signature']) { echo $this->user_info['signature']; } ?>" name="signature" />
 							</li>
 							<li>
 								<?php _e('性别'); ?>:
