@@ -3,7 +3,7 @@ h1, h2, h3, h4, h5, h6{font-size:100%;color: #333;}
 a{cursor: pointer;}
 a:hover{text-decoration: none;}
 ul, ol{list-style: none;}
-ul{margin:0;}
+ul{margin:0;padding:0;}
 input , textarea{font-family: "Helvetica Neue",Helvetica,Arial,'Microsoft YaHei',sans-serif !important;}
 .btn-normal.btn-inverse{padding:4px 40px;box-shadow: none;}
 select{width: auto;min-width: 220px;*margin-left:10px;}
@@ -55,7 +55,7 @@ select, input[type="file"]{line-height: 0px;font-size: 13px;}
 .right-side{width: 79.8%;min-height:350px;margin-left:245px;padding: 15px 0;}
 .right-side .aw-box{border:1px solid #D7E6F0;}
 .right-side .aw-box .date_picker{padding-left:30px;background: url('../img/calendar.png') no-repeat 5px 6px #fff;}
-.right-side .aw-mod-head h2{height:auto;overflow:hidden;padding:0 10px;margin:0;background: #D6E4F1;color: #246594;font-weight: normal;font-weight: bold; }
+.right-side .aw-mod-head h2{height:36px;line-height:36px;overflow:hidden;padding:0 10px;margin:0;background: #D6E4F1;color: #246594;font-weight: normal;font-weight: bold; }
 .right-side .aw-mod-head h2 .nav-tabs{margin:8px 0 0 30px;border-bottom: none;}
 .right-side .aw-mod-head h2 .nav-tabs > li > a{line-height: 14px;padding: 8px 12px;border-radius: 0px;color: #666;font-weight: normal;}
 .right-side .aw-mod-head h2 .nav > li > a:hover, .nav > li > a:focus{background: none;border:1px solid #D6E4F1;}
@@ -66,7 +66,7 @@ select, input[type="file"]{line-height: 0px;font-size: 13px;}
 .right-side textarea{width: 80%;min-height: 80px;margin: 0;}
 .right-side .aw-box dl{height: auto;overflow: hidden;margin:0;padding:10px 20px;border-top: 1px solid #eaedf1;}
 .right-side .aw-box dl:first-child{border-top: none;}
-.right-side .aw-box dl dt{width: 20%;text-align: right;vertical-align: top;}
+.right-side .aw-box dl dt{width: 20%;padding:10px;text-align: right;vertical-align: top;}
 .right-side .aw-box dl dt h3{font-weight: normal;}
 .right-side .aw-box dl dt, .right-side .aw-box dl dd{float: left;}
 .right-side .aw-box dl dd{width:75%;max-width:700px;padding: 10px;}
@@ -75,7 +75,7 @@ select, input[type="file"]{line-height: 0px;font-size: 13px;}
 .right-side .aw-box .aw-mod-footer{padding: 10px;background: #F5F5F5;border-top: 1px solid #D7D7D7;text-align: center;}
 .right-side .aw-box dl dd .label{margin-bottom: 5px;}
 .right-side .aw-user-message-setting label{display: inline-block;margin-right: 10px;}
-.right-side .yesno_yes, .right-side .yesno_no{display: inline-block;float:left;min-width:50px;max-width:60px;height: 20px;padding:3px;text-align: center;}
+.right-side .yesno_yes, .right-side .yesno_no{display: inline-block;float:left;min-width:50px;max-width:60px;padding:3px;text-align: center;}
 .right-side .yesno_yes label, .right-side .yesno_no label{font-size: 13px;}
 .right-side .yesno_yes{*margin-left:10px;background: #E3F6E5;border:1px solid #B4E3B9;border-right: none;border-radius: 6px 0 0 6px;}
 .right-side .yesno_no{background: #F6E3E3;border:1px solid #E3B4B4;border-left: none;border-radius: 0 6px 6px 0;}

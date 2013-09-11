@@ -383,7 +383,7 @@
 						<!-- 侧边栏邀请box -->
 						<div class="aw-side-bar-invite-box">
 							<div class="aw-item clearfix">
-								<input type="text" onkeyup="get_user_list_data($(this),$(this).val())" onblur="setTimeout(function(){$('.aw-side-bar-invite-box .aw-user-dropdown').hide();},300);" placeholder="<?php _e('仅限邀请站内用户...'); ?>"/>
+								<input class="form-control" type="text" onkeyup="get_user_list_data($(this),$(this).val())" onblur="setTimeout(function(){$('.aw-side-bar-invite-box .aw-user-dropdown').hide();},300);" placeholder="<?php _e('仅限邀请站内用户...'); ?>"/>
 								<div class="aw-dropdown aw-user-dropdown">
 									<i class="aw-icon i-dropdown-triangle"></i>
 									<p class="title"><?php _e('没有找到相关结果'); ?></p>
@@ -408,7 +408,7 @@
 							</div>
 							<div class="aw-item clearfix">
 								<form method="post" action="question/ajax/email_invite/question_id-<?php echo $this->question_info['question_id']; ?>" onsubmit="return false;" id="email_invite_form">
-									<input type="text" name="email" placeholder="<?php _e('邮件邀请回复...'); ?>"/>
+									<input class="form-control" type="text" name="email" placeholder="<?php _e('邮件邀请回复...'); ?>"/>
 									<a class="pull-right btn btn-mini btn-success" onclick="ajax_post($('#email_invite_form'));"><?php _e('邀请'); ?> »</a>
 								</form>
 								

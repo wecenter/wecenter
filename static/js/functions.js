@@ -2001,7 +2001,7 @@ function get_quick_publich_question_list(obj,data)
     
     var _obj = obj;
     
-    obj.next().css('width', obj.width() + 12);
+    obj.next().css('width', obj.width() + 26);
     
     if (data.length >= 2)
     {
@@ -2054,7 +2054,7 @@ function get_user_list_data(obj,data)
        obj.next().css({'top':obj.offset().top - obj.parents('.alert-box').offset().top});
     }
     
-    obj.next().css({'width': obj.width() + 12});
+    obj.next().css({'width': obj.width() + 26});
 
     if (data.length >= 2)
     {
