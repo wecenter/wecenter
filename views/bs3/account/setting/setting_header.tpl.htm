@@ -1,0 +1,19 @@
+<div class="aw-container-wrap">
+	<div class="aw-container aw-wecenter aw-user">
+		<div class="aw-user-setting">
+			<div class="tabbable">
+				<ul class="nav nav-tabs aw-reset-nav-tabs">
+					<li<?php if ($_GET['act'] == 'verify') { ?> class="active"<?php } ?>><a href="account/setting/verify/"><?php _e('申请认证'); ?></a></li>
+					<?php if (get_setting('integral_system_enabled') == 'Y') { ?>
+	            	<li<?php if ($_GET['act'] == 'integral') { ?> class="active"<?php } ?>><a href="account/setting/integral/"><?php _e('我的积分'); ?></a></li>
+	            	<?php } ?>
+					<li<?php if ($_GET['act'] == 'security') { ?> class="active"<?php } ?>><a href="account/setting/security/"><?php _e('安全设置'); ?></a></li>
+					<li<?php if ($_GET['act'] == 'openid') { ?> class="active"<?php } ?>><a href="account/setting/openid/"><?php _e('账号绑定'); ?></a></li>
+					<li<?php if ($_GET['act'] == 'privacy') { ?> class="active"<?php } ?>><a href="account/setting/privacy/"><?php _e('隐私/提醒'); ?></a></li>
+					<li<?php if (!$_GET['act'] OR $_GET['act'] == 'profile') { ?> class="active"<?php } ?>><a href="account/setting/profile/"><?php _e('基本资料'); ?></a></li>
+					
+					<h2><?php _e('用户设置'); ?></h2>
+				</ul>
+			</div>
+			
+			<div class="tab-content clearfix">

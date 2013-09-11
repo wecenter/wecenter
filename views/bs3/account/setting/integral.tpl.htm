@@ -1,0 +1,37 @@
+<?php TPL::output('global/header.tpl.htm'); ?>
+<?php TPL::output('account/setting/setting_header.tpl.htm'); ?>
+
+<div class="aw-mod aw-user-setting-points">
+	<div class="aw-mod-head">
+		<h4><?php _e('当前积分'); ?>:<span class="aw-text-color-oragne"><?php echo $this->user_info['integral']; ?></span></h4>
+	</div>
+	<div class="aw-mod-body">
+		<table class="table table-hover">
+			<thead>
+				<tr class="info">
+					<th width="19%"><?php _e('时间'); ?></th> 
+                    <th width="11%"><?php _e('数额'); ?></th>
+                    <th width="13%"><?php _e('余额'); ?></th>
+                    <th width="17%"><?php _e('描述'); ?></th>
+                    <th width="40%"><?php _e('相关信息'); ?></th>
+				</tr>
+			</thead>
+            <tbody id="contents_integral_log">
+            </tbody>
+	    </table>
+	    <!-- 加载更多内容 -->
+		<a class="aw-load-more-content" id="integral_log_more">
+			<span><?php _e('更多'); ?>...</span>
+		</a>
+		<!-- end 加载更多内容 -->
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		bp_more_load(G_BASE_URL + '/account/ajax/integral_log/', $('#integral_log_more'), $('#contents_integral_log'));
+	});
+</script>
+
+<?php TPL::output('account/setting/setting_footer.tpl.htm'); ?>
+<?php TPL::output('global/footer.tpl.htm'); ?>

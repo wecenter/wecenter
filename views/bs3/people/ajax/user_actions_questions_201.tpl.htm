@@ -1,0 +1,18 @@
+<?php if (is_array($this->list)) { ?>
+<?php foreach ($this->list AS $key => $val) { ?>	
+<div class="aw-item">
+	<div class="aw-mod">
+		<div class="aw-mod-head">
+			<h4 class="aw-hide-txt">
+				<a href="question/<?php echo $val['question_id']; ?>"><?php echo $val['question_content']; ?></a>
+			</h4>
+		</div>
+		<div class="aw-mod-body">
+			<a href="question/<?php echo $val['question_id']; ?>" class="aw-border-radius-5 aw-user-center-count"><?php echo $val['answer_info']['agree_count']; ?></a>
+			<p class="aw-hide-txt"><?php echo cjk_substr($val['answer_info']['answer_content'], 0, 130, 'UTF-8', '...'); ?></p>
+			<p class="aw-text-color-999"><?php echo date_friendly($val['answer_info']['add_time']); ?></p>
+		</div>
+	</div>
+</div>
+<?php } ?>
+<?php } ?>

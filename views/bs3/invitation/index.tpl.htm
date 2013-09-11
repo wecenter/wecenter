@@ -1,0 +1,53 @@
+<?php TPL::output('global/header.tpl.htm'); ?>
+
+<div class="aw-container-wrap">
+	<div class="aw-container aw-wecenter">
+		<div class="row aw-content-wrap">
+			<div class="col-sm-9 aw-main-content">
+				<div class="aw-mod aw-dynamic-index aw-mod-invite-friend">
+					<div class="aw-mod-head">
+						<h2><?php _e('邀请好友加入社区'); ?></h2>
+					</div>
+					<div class="aw-mod-body">
+						<form id="invitation_form" method="post" action="invitation/ajax/invite/" onsubmit="return false">
+							<div class="aw-invite-box">
+								<input class="form-control" type="text" name="email" placeholder="<?php _e('请输入好友邮箱'); ?>..." />
+								<p>
+									<a class="pull-right btn btn-mini btn-success" onclick="ajax_post($('#invitation_form')); return false;"><?php _e('发送邀请'); ?></a>
+									<?php _e('你还有'); ?> <?php _e('%s 个邀请名额', '<span class="aw-text-color-blue">' . $this->user_info['invitation_available'] . '</span>'); ?>
+								</p>
+							</div>
+						</form>
+					</div>
+				</div>
+				<div class="aw-mod aw-dynamic-index aw-mod-invited">
+					<div class="aw-mod-head">
+						<h2><?php _e('已邀请好友'); ?></h2>
+					</div>
+					<div class="aw-mod-body">
+						<ul id="invitation_list"></ul>
+						
+						<!-- 加载更多内容 -->
+						<a class="aw-load-more-content" id="invitation_more">
+							<span><?php _e('更多'); ?>...</span>
+						</a>
+						<!-- end 加载更多内容 -->
+					</div>
+				</div>
+			</div>
+			<!-- 侧边栏 -->
+			<div class="col-sm-3 aw-side-bar">
+				<?php TPL::output('block/sidebar_menu.tpl.htm'); ?>	
+			</div>
+			<!-- end 侧边栏 -->
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	bp_more_load(G_BASE_URL + '/invitation/ajax/invitation_list/', $('#invitation_more'),  $('#invitation_list'));
+});
+</script>
+
+<?php TPL::output('global/footer.tpl.htm'); ?>

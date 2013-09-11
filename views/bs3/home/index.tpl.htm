@@ -1,0 +1,75 @@
+<?php TPL::output('global/header.tpl.htm'); ?>
+
+<div class="aw-container-wrap">
+	<div class="aw-container aw-wecenter">
+		<div class="row aw-content-wrap">
+			<div class="col-sm-12 col-md-9 aw-main-content">
+				<!-- 新消息通知 -->
+				<div class="aw-mod aw-new-message-tips aw-border-radius-5 hide" id="index_notification">
+						<div class="aw-mod-head">
+							<h3>
+								<span class="pull-right"><a href="account/setting/privacy/#notifications" class="aw-text-color-999"><i class="aw-icon i-setting-hover"></i> <?php _e('通知设置'); ?></a></span>
+								<span><?php _e('新通知'); ?></span><em class="badge badge-important" name="notification_unread_num"><?php echo $this->user_info['notification_unread']; ?></em>
+							</h3>
+						</div>
+						<div class="aw-mod-body">
+							<ul id="notification_list"></ul>
+							<p>
+								<a href="javascript:;" onclick="read_notification(0, false, false);" class="pull-left btn btn-mini"><?php _e('我知道了'); ?></a>
+								<a href="notifications/" class="pull-right btn btn-mini btn-success"><?php _e('查看所有'); ?></a>
+							</p>
+						</div>
+				</div>
+				<!-- end 新消息通知 -->
+				
+				<a name="c_contents"></a>
+				<div class="aw-mod aw-dynamic-topic clearfix">
+					<div class="aw-mod-head">
+						<h2 id="main_title"><?php _e('最新动态'); ?></h2>
+					</div>
+					
+					<div class="aw-mod-body" id="main_contents"></div>
+					
+					<!-- 加载更多内容 -->
+					<a id="bp_more" class="aw-load-more-content">
+						<span><?php _e('更多'); ?>...</span>
+					</a>
+					<!-- end 加载更多内容 -->
+				</div>
+			</div>
+			<!-- 侧边栏 -->
+			<div class="col-sm-12 col-md-3 aw-side-bar">
+				<?php TPL::output('block/sidebar_announce.tpl.htm'); ?>
+				
+				<?php TPL::output('block/sidebar_menu.tpl.htm'); ?>	
+				
+				<div class="aw-side-bar-mod invite-join">
+					<div class="aw-mod-head">
+						<h3><?php _e('邀请好友加入社区'); ?><?php if ($this->user_info['invitation_available']) { ?><em class="badge badge-info"><?php echo $this->user_info['invitation_available']; ?></em><?php } ?></h3>
+					</div>
+					<div class="aw-mod-body">
+						<a href="invitation/" class="btn btn-mini btn-success"><?php _e('发送邀请'); ?></a>
+					</div>
+				</div>
+				
+				<!-- 可能感兴趣的人/或话题 -->
+				<?php TPL::output('block/sidebar_recommend_users_topics.tpl.htm'); ?>
+			</div>
+			<!-- end 侧边栏 -->
+		</div>
+	</div>
+</div>
+
+<?php if ($_GET['first_login']) { ?>
+<script type="text/javascript">
+$(document).ready(function () {
+	$.get(G_BASE_URL+'/account/ajax/welcome_message_template/', function (template) {
+		$('#aw-ajax-box').html(template);
+		
+		welcome_step_1_load();
+	});
+});
+</script>
+<?php } ?>
+
+<?php TPL::output('global/footer.tpl.htm'); ?>

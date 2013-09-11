@@ -1,0 +1,27 @@
+<?php TPL::output('install/header.tpl.htm'); ?>
+
+<style type="text/css">
+	.aw-install ul li b {width:180px;}
+</style>
+
+<div class="aw-mod-body">
+	<form action="" method="post" id="installer">
+	<ul>
+		<li>
+			<b><?php _e('网站地址'); ?></b><input type="text" class="default_text" value="<?php echo $this->setting['base_url']; ?>" name="base_url" /><span><?php _e('末尾不带 /'); ?></span>
+		</li>
+		<li>
+			<b><?php _e('static 目录资源 URL 地址'); ?></b><input type="text" class="default_text" value="<?php echo $this->setting['img_url']; ?>" name="img_url" /><span><?php _e('末尾不带 /, 留空使用根目录下的 static 资源'); ?></span>
+		</li>
+		<li>
+			<b><?php _e('上传文件存放绝对路径'); ?></b><input type="text" class="default_text" value="<?php echo $this->setting['upload_dir']; ?>" name="upload_dir" /><span><?php _e('目前网站根目录绝对路径'); ?>: <?php echo ROOT_PATH; ?></span>
+		</li>
+		<li>
+			<b><?php _e('上传目录外部访问 URL 地址'); ?></b><input type="text" class="default_text" value="<?php echo $this->setting['upload_url']; ?>" name="upload_url" />
+		</li>
+	</ul>
+	<a href="javascript:;" onclick="document.getElementById('installer').submit(); this.className='btn btn-success disabled pull-right'; this.onclick=''; return false;" class="btn btn-success pull-right"><?php _e('保存设置'); ?></a>
+	</form>
+</div>
+
+<?php TPL::output('install/footer.tpl.htm'); ?>

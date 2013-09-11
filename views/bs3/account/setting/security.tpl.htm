@@ -1,0 +1,40 @@
+<?php TPL::output('global/header.tpl.htm'); ?>
+<?php TPL::output('account/setting/setting_header.tpl.htm'); ?>
+
+<div class="aw-mod aw-user-setting-bind">
+	<div class="aw-mod-head">
+		<h4><?php _e('修改密码'); ?></h4>
+	</div>
+	<form class="form-horizontal" action="account/ajax/modify_password/" method="post" id="setting_form">
+		<div class="aw-mod-body">
+			<div class="form-group">
+				<label class="control-label" for="input-password-old"><?php _e('当前密码'); ?></label>
+				<div class="controls">
+					<div class="col-lg-4">
+						<input type="password" class="form-control" id="input-password-old" name="old_password" />
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="control-label" for="input-password-new"><?php _e('新的密码'); ?></label>
+				<div class="controls">
+					<div class="col-lg-4">
+					    <input type="password" class="form-control" id="input-password-new" name="password" />
+					</div>
+				</div>
+			</div> 
+			<div class="form-group">
+				<label class="control-label" for="input-password-re-new"><?php _e('确认密码'); ?></label>
+				<div class="controls">
+					<div class="col-lg-4">
+					    <input type="password" class="form-control" id="input-password-re-new" name="re_password" />
+					</div>
+				</div>
+			</div>      
+		</div>
+		<a href="javascript:;" class="btn btn-large btn-success pull-right aw-user-setting-save" onclick="ajax_post($('#setting_form'));"><?php _e('保存'); ?></a>
+	</form>
+</div>
+
+<?php TPL::output('account/setting/setting_footer.tpl.htm'); ?>
+<?php TPL::output('global/footer.tpl.htm'); ?>

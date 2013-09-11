@@ -1,0 +1,16 @@
+<?php if (sizeof($this->feature_list) > 0) { ?>
+<div class="aw-side-bar-mod">
+	<div class="aw-side-bar-mod-head">
+		<h3><?php _e('专题'); ?></h3>
+	</div>
+	<div class="aw-side-bar-mod-body">
+		<ul>
+			<?php foreach($this->feature_list as $key => $val){ ?>
+			<?php if (!$this->feature_ids OR !in_array($val['id'], $this->feature_ids)) { ?>
+				<li><a href="feature/<?php echo $val['url_token']; ?>"><?php echo $val['title']; ?></a></li>
+			<?php } ?>
+			<?php } ?>
+		</ul>
+	</div>
+</div>
+<?php } ?>

@@ -1,0 +1,40 @@
+<?php TPL::output('admin/global/header.tpl.htm'); ?>
+<?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
+
+<div class="pull-left right-side">	
+	<div class="aw-box">
+		<div class="aw-mod-head">
+			<h2><?php _e('添加用户'); ?></h2>
+		</div>
+		<div class="aw-mod-body">	
+			<form action="admin/user_manage/user_save_ajax/" id="settings_form" method="post">
+				<dl>
+					<dt><h3><?php _e('用户名'); ?>:</h3></dt>
+					<dd><input name="user_name" type="text" value="<?php echo $this->user['user_name']; ?>" /></dd>
+				</dl>
+				<dl>
+					<dt><h3><?php _e('邮箱'); ?></h3></dt>
+					<dd><input name="email" type="text" value="<?php echo $this->user['email']; ?>" /></dd>
+				</dl>
+				<dl>
+					<dt><h3><?php _e('密码'); ?></h3></dt>
+					<dd><input name="password" type="password" /></dd>
+				</dl>
+			</form>
+		</div>
+		<div class="aw-mod-footer">
+			<a href="javascript:;" class="btn btn-inverse btn-normal" onclick="ajax_post($('#settings_form'));"><?php _e('保存'); ?></a>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		if ($('#topic_pic_uploader').length)
+		{
+			init_img_uploader(G_BASE_URL + '/topic/ajax/upload_topic_pic/topic_id-<?php echo $this->topic_info['topic_id']; ?>', 'topic_pic', $('#topic_pic_uploader'), null, $('#topic_pic'));
+		}
+	});
+</script>
+
+<?php TPL::output('admin/global/footer.tpl.htm'); ?>

@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xml:lang="zh-cn" lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml"> 
+	<head>
+	    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0" />
+		<title><?php if ($this->url_bit) { ?><?php _e('请稍候'); ?>...<?php } else { ?><?php _e('提示信息'); ?><?php } ?></title>
+		<?php if ($this->url_bit) { ?>
+		<meta http-equiv="refresh" content="<?php echo $this->interval; ?>; url=<?php echo $this->url_bit; ?>" />
+		<?php } ?>
+		
+		<style type="text/css">
+		body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td{margin:0;padding:0;}
+		ol,ul{list-style:none;}
+		caption,th{text-align:left;}
+		h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:400;}
+		q:before,q:after{content:'';}
+		address{display:inline;}
+		body{background:#fff;color:#1c2837;font:normal 15px arial, verdana, tahoma, sans-serif;position:relative;}
+		h3,h4,h5,h6,strong{font-weight:700;}
+		em{font-style:italic;}
+		img,.input_check,.input_radio{vertical-align:middle;}
+		td{padding:3px;}
+		h2{font-size:15px;font-weight:400;clear:both;margin:0 0 8px;}
+		body h3{font-weight:700;font-size:15px;color:#1d3652;padding:5px 8px 3px;}
+		h3 img{margin-top:-2px;}
+		h3 a{text-decoration:none;}
+		a{color:#284b72;}
+		a:hover{color:#528f6c;text-decoration:underline;}
+		#aws_body.redirector{width:500px;margin:150px auto 0;max-width:90%;}
+		.message{border-radius:3px;background:#f1f6ec;border:1px solid #b0ce94;color:#3e4934;line-height:150%;padding:10px 10px 10px 30px;}
+		.message h3{color:#323232;padding:0;}
+		.message.error{background-color:#f3dddd;color:#281b1b;font-size:15px;border-color:#deb7b7;}
+		fieldset,img,abbr,acronym{border:0;}
+		hr,legend{display:none;}
+		</style>
+		
+		<!--/CSS-->
+		
+		<?php if ($this->url_bit) { ?>
+		<script type='text/javascript'>
+		//<![CDATA[
+		// Fix Mozilla bug: 209020
+		if ( navigator.product == 'Gecko' )
+		{
+			navstring = navigator.userAgent.toLowerCase();
+			geckonum  = navstring.replace( /.*gecko\/(\d+)/, "$1" );
+			
+			setTimeout("moz_redirect()", 5000);
+		}
+		
+		function moz_redirect()
+		{
+			var url_bit     = "<?php echo $this->url_bit; ?>";
+			
+			window.location = url_bit.replace( new RegExp( "&amp;", "g" ) , '&' );
+		}
+		//>
+		</script>
+		<?php } ?>
+	</head>
+	<body id='aws_body' class='redirector'>
+		<div id='aws_wrapper'>
+			<h1></h1>
+			<h2><?php _e('提示信息'); ?></h2>
+			<p class='message'>
+				<strong><?php echo $this->message; ?></strong>
+				<br />
+				<?php if ($this->url_bit) { ?>
+				<br />
+				<span class='desc'>(<a href="<?php echo $this->url_bit; ?>"><?php _e('如果不想等待, 请点击这里'); ?></a>)</span>
+				<?php } ?>
+			</p>
+		</div>
+	</body>
+</html>

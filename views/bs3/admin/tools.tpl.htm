@@ -1,0 +1,125 @@
+<?php TPL::output('admin/global/header.tpl.htm'); ?>
+<?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
+
+<div class="right-side">
+	<div class="aw-box aw-box-row tools">
+		<div class="aw-mod-head"><h2>系统维护</h2></div>
+		<div class="aw-mod-body">			
+			<form action="admin/tools/init/" method="post">
+				<input type="hidden" name="action" value="cache_clean" />
+				<dl>
+					<dt><h3><?php _e('缓存清理'); ?>:</h3></dt>
+					
+					<dd class="aw-box-row-dd">
+						<p class="aw-text-color-999"><?php _e('当站点进行了数据恢复、升级或者工作出现异常的时候, 你可以使用本功能清除缓存'); ?></p>
+					</dd>
+					<dd>
+						<input class="btn btn-inverse" type="submit" value="<?php _e('开始处理'); ?>" />
+					</dd>
+				</dl>
+				</form>
+				
+				<form action="admin/tools/email_setting_test/" method="post" id="email_setting_test_form" onsubmit="return false">
+				<dl>
+					<dt><h3><?php _e('邮件系统测试'); ?>:</h3></dt>
+					
+					<dd class="aw-box-row-dd">
+						<p class="aw-text-color-999"><?php _e('使用此功能测试邮件系统配置是否正确'); ?></p>
+						<p>
+						<?php _e('收件人地址'); ?>: <input type="text" name="test_email" />
+						</p>
+					</dd>
+					
+					<dd>
+						<input class="btn btn-inverse" type="button" onclick="ajax_post($('#email_setting_test_form'));" value="<?php _e('发送邮件'); ?>" />
+					</dd>
+				</dl>
+				</form>
+				
+				<form action="admin/tools/init/" method="post" target="_blank">
+				<input type="hidden" name="action" value="update_search_index" />
+				<dl>
+					<dt><h3><?php _e('更新搜索索引'); ?>:</h3></dt>
+					
+					<dd class="aw-box-row-dd">
+						<p class="aw-text-color-999"><?php _e('如果站点搜索功能有问题可以使用此功能修正'); ?></p>
+						<p>
+							<?php _e('每次处理数量'); ?>: <input type="text" value="300" name="per_page" class="input-small" />
+						</p>
+					</dd>
+					
+					<dd>
+						<input class="btn btn-inverse" type="submit" value="<?php _e('开始处理'); ?>" />
+					</dd>
+				</dl>
+				</form>
+				
+				<form action="admin/tools/init/" method="post" target="_blank">
+				<dl>
+					<dt><h3><?php _e('更新最新动态'); ?>:</h3></dt>
+					
+					<dd class="aw-box-row-dd">
+						<p class="aw-text-color-999"><?php _e('如果站点最新动态数据有问题可以使用此功能修正'); ?></p>
+						<p>
+							<?php _e('每次处理数量'); ?>: <input type="text" value="2000" name="per_page" class="input-small" />
+						</p>
+					</dd>
+					<dd>
+						<input class="btn btn-inverse" type="submit" value="<?php _e('开始处理'); ?>" />
+					</dd>
+				</dl>
+				<input type="hidden" name="action" value="update_fresh_actions" />
+				</form>
+				
+				<form action="admin/tools/init/" method="post" target="_blank">
+				<input type="hidden" name="action" value="update_users_reputation" />
+				<dl>
+					<dt><h3><?php _e('更新用户威望'); ?>:</h3></dt>
+					
+					<dd class="aw-box-row-dd">
+						<p class="aw-text-color-999"><?php _e('威望数据一般情况下会自动更新, 如果更改了威望设置需要立即生效可以使用此工具'); ?></p>
+						<p>
+							<?php _e('每次处理数量'); ?>: <input type="text" value="500" name="per_page" class="input-small" />
+						</p>
+					</dd>
+					<dd>
+						<input class="btn btn-inverse" type="submit" value="<?php _e('开始处理'); ?>" />
+					</dd>
+				</dl>
+				</form>
+				
+				<form action="admin/tools/init/" method="post" target="_blank">
+				<dl>
+					<dt><h3><?php _e('BBCode 转换'); ?>:</h3></dt>
+					
+					<dd class="aw-box-row-dd">
+						<p class="aw-text-color-999"><?php _e('此工具可以将系统内容中的 BBcode 语法转换为 Markdown 语法'); ?></p>
+						<p>
+							<?php _e('每次处理数量'); ?>: <input type="text" value="500" name="per_page" class="input-small" />
+						</p>
+					</dd>
+					<dd>
+						<input class="btn btn-inverse" type="submit" value="<?php _e('开始处理'); ?>" />
+					</dd>
+				</dl>
+				<input type="hidden" name="action" value="bbcode_to_markdown" />
+				</form>
+				
+				<form action="admin/tools/init/" method="post" target="_blank">
+				<dl>
+					<dt><h3><?php _e('更新微信菜单'); ?>:</h3></dt>
+					
+					<dd class="aw-box-row-dd">
+						<p class="aw-text-color-999"><?php _e('此工具可以读取系统中的微信配置并提交给微信公众平台, 使用前请确认菜单已经配置好, 并且有菜单权限'); ?></p>
+					</dd>
+					<dd>
+						<input class="btn btn-inverse" type="submit" value="<?php _e('开始处理'); ?>" />
+					</dd>
+				</dl>
+				<input type="hidden" name="action" value="update_weixin_menu" />
+				</form>
+		</div>
+	</div>
+</div>
+
+<?php TPL::output('admin/global/footer.tpl.htm'); ?>

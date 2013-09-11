@@ -1,0 +1,274 @@
+<?php TPL::output('global/header.tpl.htm'); ?>
+<?php TPL::output('account/setting/setting_header.tpl.htm'); ?>
+
+<!-- 基本信息 -->
+<div class="aw-mod">
+	<div class="aw-mod-head">
+		<h4><?php _e('基本信息'); ?></h4>
+	</div>
+	<form id="setting_form" method="post" action="account/ajax/profile_setting/">
+	<div class="aw-mod-body aw-user-setting-layout aw-user-setting-base">
+		<dl>
+				<dt><?php _e('账号'); ?>:</dt>
+				<dd><?php echo $this->user_info['email']; ?><?php if ($this->user_info['valid_email'] == 0) { ?> &nbsp; (<a href="javascript:;" onclick="ajax_request(G_BASE_URL + '/account/ajax/send_valid_mail/');"><?php _e('你的邮件地址还未验证, 请点击这里发送验证邮件'); ?></a>)<?php } ?></dd>
+		</dl>
+		<dl>
+				<dt><?php _e('真实姓名'); ?>:</dt>
+				<dd><?php if ($this->user_info['user_name'] AND $this->user_info['user_name'] != $this->user_info['email']) { ?><?php echo $this->user_info['user_name']; ?><?php } else { ?><input type="text" name="user_name" value="<?php echo $this->user_info['user_name']; ?>" /><?php } ?></dd>
+		</dl>
+		<dl>
+				<dt><?php _e('性别'); ?>:</dt>
+				<dd>
+					<label>
+						<input name="sex" id="sex" value="1" type="radio"<?php if ($this->user_info['sex'] == 1) { ?> checked="checked"<?php } ?> /> <?php _e('男'); ?>
+					</label>&nbsp; 
+					<label>
+						<input name="sex" id="sex" value="2" type="radio"<?php if ($this->user_info['sex'] == 2) { ?> checked="checked"<?php } ?> /> <?php _e('女'); ?> </label>&nbsp; 
+					<label>
+						<input name="sex" id="sex" value="3" type="radio"<?php if (!$this->user_info['sex'] OR $this->user_info['sex'] == 3) { ?> checked="checked"<?php } ?> /> <?php _e('保密'); ?>
+					</label> 
+				</dd>
+		</dl>
+		<dl>
+				<dt><?php _e('生日'); ?>:</dt>
+				<dd>
+					<select name="birthday_y">
+						<option value=""></option>
+						<?php echo H::display_options($this->birthday_y, $this->birthday_y_s); ?>
+					</select>
+					<?php _e('年'); ?>
+					<select name="birthday_m">
+						<option value=""></option>
+						<?php echo H::display_options($this->birthday_m, $this->birthday_m_s); ?>
+					</select>
+					<?php _e('月'); ?>
+					<select name="birthday_d">
+						<option value=""></option>
+						<?php echo H::display_options($this->birthday_d, $this->birthday_d_s); ?>
+					</select>
+					<?php _e('日'); ?>
+				</dd>
+		</dl>
+		<dl>
+				<dt><label><?php _e('现居'); ?>:</label></dt>
+				<dd>
+					<select name="province" class="select_area"></select> <select name="city" class="select_area"></select>
+				</dd>
+		</dl>
+		<dl>
+				<dt><label><?php _e('职业'); ?>:</label></dt>
+				<dd>
+					<select name="job_id">
+						<option value="">--</option>
+						<?php echo H::display_options($this->job_list, $this->user_info['job_id']); ?>
+					</select>
+				</dd>
+		</dl>
+		<dl>
+				<dt><label><?php _e('介绍'); ?>:</label></dt>
+				<dd class="aw-user-setting-base-introduce"><input class="form-control" name="signature" maxlength="128" type="text" value="<?php echo $this->user_info['signature']; ?>" /></dd>
+		</dl>
+		<dl class="form-horizontal">
+				<dt><label><?php _e('个性网址'); ?>:</label></dt>
+				<dd>
+					<script type="text/javascript">document.write(G_BASE_URL);</script>/people/ <input type="text" class="form-control" value="<?php echo $this->user_info['url_token']; ?>" maxlength="32" name="url_token" style="display:inline;width:30%;margin-bottom:0;"<?php if ($this->user_info['url_token_update'] AND $this->user_info['url_token_update'] > (time() - 3600 * 24 * 30)) { ?> disabled="disabled"<?php } ?> />
+					<p class="aw-text-color-666"><?php _e('可输入 4~20 位的英文或数字, 30 天内只能修改一次'); ?></p>
+				</dd>
+		</dl>
+		<dl>
+				<dt><label><?php _e('时区'); ?>:</label></dt>
+				<dd>
+					<select class="aw-user-setting-base-time" name="default_timezone">
+						<option value=''><?php _e('使用系统默认时区'); ?></option>
+						<option value='Etc/GMT+12'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT+12') { ?> selected="selected"<?php } ?>><?php _e('(GMT - 12:00 小时) 安尼威托克岛，卡瓦加兰'); ?></option>
+						<option value='Etc/GMT+11'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT+11') { ?> selected="selected"<?php } ?>><?php _e('(GMT - 11:00 小时) 中途岛，萨摩亚'); ?></option>
+						<option value='Etc/GMT+10'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT+10') { ?> selected="selected"<?php } ?>><?php _e('(GMT - 10:00 小时) 夏威夷'); ?></option>
+						<option value='Etc/GMT+9'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT+9') { ?> selected="selected"<?php } ?>><?php _e('(GMT - 9:00 小时) 阿拉斯加'); ?></option>
+						<option value='Etc/GMT+8'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT+8') { ?> selected="selected"<?php } ?>><?php _e('(GMT - 8:00 小时) 太平洋时间'); ?></option>
+						<option value='Etc/GMT+7'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT+7') { ?> selected="selected"<?php } ?>><?php _e('(GMT - 7:00 小时) 美国山区时间'); ?></option>
+						<option value='Etc/GMT+6'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT+6') { ?> selected="selected"<?php } ?>><?php _e('(GMT - 6:00 小时) 美国中部时间，墨西哥市'); ?></option>
+						<option value='Etc/GMT+5'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT+5') { ?> selected="selected"<?php } ?>><?php _e('(GMT - 5:00 小时) 美国东部时间，波哥大，利马'); ?></option>
+						<option value='Etc/GMT+4'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT+4') { ?> selected="selected"<?php } ?>><?php _e('(GMT - 4:00 小时) 大西洋时间（加拿大），加拉加斯，拉巴斯'); ?></option>
+						<option value='Canada/Newfoundland'<?php if ($this->user_info['default_timezone'] == 'Canada/Newfoundland') { ?> selected="selected"<?php } ?>><?php _e('(GMT - 3:30 小时) 纽芬兰'); ?></option>
+						<option value='Etc/GMT+3'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT+3') { ?> selected="selected"<?php } ?>><?php _e('(GMT - 3:00 小时) 巴西，布宜诺斯艾利斯，福克兰群岛'); ?></option>
+						<option value='Etc/GMT+2'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT+2') { ?> selected="selected"<?php } ?>><?php _e('(GMT - 2:00 小时) 大西洋中部，亚森欣，圣赫勒拿岛'); ?></option>
+						<option value='Etc/GMT+1'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT+1') { ?> selected="selected"<?php } ?>><?php _e('(GMT - 1:00 小时) 亚速群岛，佛得角群岛'); ?></option>
+						<option value='Etc/GMT'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT') { ?> selected="selected"<?php } ?>><?php _e('(GMT) 卡萨布兰卡，都柏林，伦敦，里斯本，蒙罗维亚'); ?></option>
+						<option value='Etc/GMT-1'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT-1') { ?> selected="selected"<?php } ?>><?php _e('(GMT + 1:00 小时) 布鲁塞尔，哥本哈根，马德里，巴黎'); ?></option>
+						<option value='Etc/GMT-2'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT-2') { ?> selected="selected"<?php } ?>><?php _e('(GMT + 2:00 小时) 加里宁格勒，南非'); ?></option>
+						<option value='Etc/GMT-3'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT-3') { ?> selected="selected"<?php } ?>><?php _e('(GMT + 3:00 小时) 巴格达，利雅德，莫斯科，奈洛比'); ?></option>
+						<option value='Iran'<?php if ($this->user_info['default_timezone'] == 'Iran') { ?> selected="selected"<?php } ?>><?php _e('(GMT + 3:30 小时) 德黑兰'); ?></option>
+						<option value='Etc/GMT-4'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT-4') { ?> selected="selected"<?php } ?>><?php _e('(GMT + 4:00 小时) 阿布达比，巴库，马斯喀特，第比利斯'); ?></option>
+						<option value='Asia/Kabul'<?php if ($this->user_info['default_timezone'] == 'Asia/Kabul') { ?> selected="selected"<?php } ?>><?php _e('(GMT + 4:30 小时) 喀布尔'); ?></option>
+						<option value='Etc/GMT-5'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT-5') { ?> selected="selected"<?php } ?>><?php _e('(GMT + 5:00 小时) 凯萨琳堡，克拉嗤，塔什干'); ?></option>
+						<option value='Asia/Kolkata'<?php if ($this->user_info['default_timezone'] == 'Asia/Kolkata') { ?> selected="selected"<?php } ?>><?php _e('(GMT + 5:30 小时) 孟买，加尔各答，马德拉斯，新德里'); ?></option>
+						<option value='Etc/GMT-6'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT-6') { ?> selected="selected"<?php } ?>><?php _e('(GMT + 6:00 小时) 阿拉木图，科隆巴，达卡'); ?></option>
+						<option value='Etc/GMT-7'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT-7') { ?> selected="selected"<?php } ?>><?php _e('(GMT + 7:00 小时) 曼谷，河内，雅加达'); ?></option>
+						<option value='Etc/GMT-8'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT-8') { ?> selected="selected"<?php } ?>><?php _e('(GMT + 8:00 小时) 北京，香港，澳洲伯斯，新加坡，台北'); ?></option>
+						<option value='Etc/GMT-9'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT-9') { ?> selected="selected"<?php } ?>><?php _e('(GMT + 9:00 小时) 大阪，札幌，首尔，东京，亚库次克'); ?></option>
+						<option value='Etc/GMT-10'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT-10') { ?> selected="selected"<?php } ?>><?php _e('(GMT + 10:00 小时) 墨尔本，巴布亚新几内亚，雪梨'); ?></option>
+						<option value='Etc/GMT-11'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT-11') { ?> selected="selected"<?php } ?>><?php _e('(GMT + 11:00 小时) 马加丹，新喀里多尼亚，所罗门群岛'); ?></option>
+						<option value='Etc/GMT-12'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT-12') { ?> selected="selected"<?php } ?>><?php _e('(GMT + 12:00 小时) 新西兰，斐济，马绍尔群岛'); ?></option>
+						<option value='Etc/GMT-13'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT-13') { ?> selected="selected"<?php } ?>><?php _e('(GMT + 13:00 小时) 堪察加半岛，阿那底河'); ?></option>
+						<option value='Etc/GMT-14'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT-14') { ?> selected="selected"<?php } ?>><?php _e('(GMT + 14:00 小时) 圣诞岛'); ?></option>
+					</select>
+				</dd>
+		</dl>
+		<!-- 上传头像 -->
+		<div class="aw-user-setting-upload-img-box">
+			<dl>
+				<dt class="pull-left"><img class="aw-border-radius-5" src="<?php echo get_avatar_url($this->user_id, 'max'); ?>?rand=<?php echo rand(1, 999); ?>" alt="" id="avatar_src" /></dt>
+				<dd class="pull-left">
+					<h5><?php _e('头像设置'); ?></h5>
+					<p><?php _e('支持 jpg、gif、png 等格式的图片'); ?></p>
+					<a class="btn btn-mini btn-success" id="avatar_uploader" href="javascript:;"><?php _e('上传头像'); ?></a> <span id="avatar_uploading_status" class="hide"><i class="aw-loading"></i> <?php _e('文件上传中...'); ?></span>
+				</dd>
+			</dl>
+		</div>
+		<!-- end 上传头像 -->
+	</div>
+</div>
+<!-- end 基本信息 -->
+
+<!-- 联系方式 -->
+<div class="aw-mod aw-user-setting-base-contact">
+	<div class="aw-mod-head">
+		<h4><?php _e('联系方式'); ?></h4>
+	</div>
+	<div class="aw-mod-body aw-user-setting-layout clearfix">
+		<ul>
+			<li>
+				<label for="input-qq">QQ:</label>
+			    <input class="form-control" type="text" id="input-qq" name="qq" value="<?php echo $this->user_info['qq']; ?>" />
+			</li>
+			<li>
+				<label for="input-mobile"><?php _e('手机号码'); ?>:</label>
+			    <input class="form-control" type="text" id="input-mobile" name="mobile" value="<?php echo $this->user_info['mobile']; ?>" />
+			</li>
+			<li>
+				<label for="input-common-email"><?php _e('常用邮箱'); ?>:</label>
+			    <input class="form-control" type="text" id="input-common-email" name="common_email" value="<?php echo $this->user_info['common_email']; ?>" />
+			</li>
+			<li>
+				<label for="input-homepage"><?php _e('网站'); ?>:</label>
+			    <input class="form-control" type="text" id="input-homepage" name="homepage" value="<?php echo $this->user_info['homepage']; ?>" />
+			</li>
+		</ul>
+	</div>
+</div>
+<!-- end 联系方式 -->
+</form>
+
+<!-- 教育经历 -->
+<div class="aw-mod">
+	<div class="aw-mod-head">
+		<h4><?php _e('教育经历'); ?></h4>
+	</div>
+	<div class="aw-mod-body aw-user-educate aw-user-setting-layout aw-user-setting-reset-table">
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th><?php _e('学校名称'); ?></th>
+					<th><?php _e('所在院系'); ?></th>
+					<th width="20%"><?php _e('入学年份'); ?></th>
+					<th width="20%"><?php _e('操作'); ?></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>
+						<input type="text" class="school form-control" placeholder="<?php _e('如:xx大学'); ?>...">
+					</td>
+					<td>
+						<input type="text" class="departments form-control" placeholder="<?php _e('如:工程学院计算机系'); ?>...">
+					</td>
+					<td>
+						<select class="year">
+							<option value=""></option>
+							<?php echo H::display_options($this->birthday_y); ?>
+						</select>
+						<?php _e('年'); ?>
+					</td>
+					<td><a class="add-educate"><?php _e('添加'); ?></a></td>
+				</tr>
+	    	</tbody>
+		</table>
+	</div>
+</div>
+<!-- end 教育经历 -->
+
+<!-- 工作经历 -->
+<div class="aw-mod">
+	<div class="aw-mod-head">
+		<h4><?php _e('工作经历'); ?></h4>
+	</div>
+	<div class="aw-mod-body aw-user-work aw-user-setting-layout aw-user-setting-reset-table">
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th width="30%"><?php _e('公司名称'); ?></th>
+					<th><?php _e('所在职位'); ?></th>
+					<th><?php _e('工作时间'); ?></th>
+					<th width="15%"><?php _e('操作'); ?></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>
+						<input type="text" class="company form-control" placeholder="<?php _e('xx上市公司'); ?>...">
+					</td>
+					<td>
+						<select class="work">
+							<option value=""></option>
+							<?php echo H::display_options($this->job_list); ?>
+						</select>
+					</td>
+					<td>
+						<select class="syear">
+							<option value=""></option>
+							<?php echo H::display_options($this->birthday_y); ?>
+						</select>
+						&nbsp;&nbsp;<?php _e('年'); ?> &nbsp;&nbsp; <?php _e('至'); ?>&nbsp;&nbsp; 
+						<select class="eyear">
+							<option value=""></option>
+							<?php echo H::display_options($this->birthday_y); ?>
+						</select>
+						<?php _e('年'); ?>
+					</td>
+					<td><a class="add-work"><?php _e('添加'); ?></a></td>
+				</tr>
+	    	</tbody>
+		</table>
+	</div>
+</div>
+<!-- end 工作经历 -->
+
+<a href="javascript:;" class="btn btn-large btn-success pull-right aw-user-setting-save" onclick="ajax_post($('#setting_form'));"><?php _e('保存'); ?></a>
+
+<script type="text/javascript">
+$(document).ready(function () {
+	$('.select_area').LocationSelect({
+        labels: ["<?php _e('请选择省份或直辖市'); ?>", "<?php _e('请选择城市'); ?>"],
+        elements: document.getElementsByTagName("select"),
+        detector: function () {
+            this.select(["<?php echo $this->user_info['province']; ?>", "<?php echo $this->user_info['city']; ?>"]);
+        },
+		dataUrl: G_BASE_URL + '/account/ajax/areas_json_data/'
+    });
+	
+    init_avatar_uploader($('#avatar_uploader'), $('#avatar_uploading_status'), $("#avatar_src"));
+});
+
+<?php if ($this->education_experience_list) { ?>
+var education_experience_list = <?php echo json_encode($this->education_experience_list); ?>
+<?php } ?>
+
+<?php if ($this->work_experience_list) { ?>
+var work_experience_list = <?php echo json_encode($this->work_experience_list); ?>
+<?php } ?>
+</script>
+
+<script type="text/javascript" src="<?php echo G_STATIC_URL; ?>/js/app/setting.js"></script>
+
+<?php TPL::output('account/setting/setting_footer.tpl.htm'); ?>
+<?php TPL::output('global/footer.tpl.htm'); ?>

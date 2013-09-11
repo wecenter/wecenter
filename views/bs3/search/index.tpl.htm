@@ -1,0 +1,44 @@
+<?php TPL::output('global/header.tpl.htm'); ?>
+
+<div class="aw-container-wrap">
+	<div class="aw-container aw-wecenter aw-serch-result">
+		<div class="aw-mod aw-mod-search-result">
+			<div class="aw-mod-head">
+				<div class="tabbable">
+					<ul class="nav nav-tabs aw-reset-nav-tabs" id="list_nav">
+						<li><a href="#users" data-toggle="tab"><?php _e('用户'); ?></a></li>
+						<li><a href="#topics" data-toggle="tab"><?php _e('话题'); ?></a></li>
+						<li><a href="#questions" data-toggle="tab"><?php _e('问题'); ?></a></li>
+						<li class="active"><a href="#all" data-toggle="tab"><?php _e('全部'); ?></a></li>
+						<h2>
+							<p><?php _e('搜索'); ?> - <span id="aw-search-type"></span>
+							</p>
+						</h2>
+					</ul>
+				</div>
+			</div>
+			<div class="aw-mod-body">
+				<div class="tab-content">
+					<div class="tab-pane active">
+						<div id="search_result"></div>
+						
+						<!-- 加载更多内容 -->
+						<a class="aw-load-more-content" id="search_result_more">
+							<span><?php _e('更多'); ?>...</span>
+						</a>
+						<!-- end 加载更多内容 -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript" src="<?php echo G_STATIC_URL; ?>/js/search.js"></script>
+
+<script type="text/javascript">
+	search_query = '<?php echo addslashes($this->keyword); ?>';
+	split_query = '<?php echo addslashes($this->split_keyword); ?>';
+</script>
+
+<?php TPL::output('global/footer.tpl.htm'); ?>
