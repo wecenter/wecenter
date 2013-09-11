@@ -30,7 +30,12 @@ class main extends AWS_CONTROLLER
 	
 	public function index_action()
 	{
+		/*if (!$page_info = $this->model('page')->get_page_by_url_token($_GET['id']))
+		{
+			HTTP::error_404();
+		}*/
 		
+		TPL::assign('page_info', $page_info);
 		
 		TPL::output('page/index');
 	}
