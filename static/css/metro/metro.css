@@ -11,7 +11,7 @@
 .aw-reset-nav-tabs > li.active > a{border: none;}
 .aw-reset-nav-tabs > li.active > a:hover{border: none;background: #BBB;color: #fff;}
 .tab-content{padding:0;}
-.aw-side-bar-topic-nav ul > li > a, .btn, .btn-group > .btn:last-child, .btn-group > .dropdown-toggle, .btn-group > .btn:first-child, .aw-dropdown-menu li:first-child, .dropdown-menu li.first, .aw-logined-nav #header_notification_list li:first-child, .aw-comment-list li:first-child, .aw-edit-comment-box .aw-file-upload-box, .aw-li-border-bottom li:first-child, .aw-border-radius-5, .aw-border-radius-5 img, .aw-load-more-content, .aw-user-name img, .aw-topic-name img, .aw-topic-name span, .aw-topic-img img, .aw-dropdown-menu img, .aw-login-register a img, .aw-login-register .aw-user-head img, .aw-logined-nav .aw-message-dropdown, .aw-dropdown, .aw-search-dropdown-list li img, .category dl dt img, .category .span12 > ul > li, .aw-side-bar-mod-feature, .aw-side-bar-mod-nav ul li a, .aw-side-bar-hot-topic-list em, .aw-side-bar-topic-edit-notes li, .aw-question-detail-title .aw-mod-head .aw-notopic-sort, .aw-comment-box, .aw-side-bar-invite-box .aw-item .aw-user-name img, .aw-user-dropdown .aw-user-dropdown-list a img, .aw-topic-detail-title .aw-mod-body img, .aw-topic-search, .aw-mod-topic-edit-box .aw-mod-head .aw-topic-img, .aw-mod-topic-edit-box .aw-mod-head .aw-topic-img span, .aw-mod-private-replay-list li .aw-item, .aw-mod-private-replay-list li .aw-user-img img, .aw-mod-invited ul li .aw-user-img img, .aw-mod-search-result .aw-item .aw-user-img img, .aw-mod-search-result .aw-item .aw-topic-img img, .aw-mod-search-result .aw-search-result-tags, .aw-file-uploader dl, .aw-card-tips, .aw-card-tips .aw-mod-head .aw-head-img img, .aw-first-login .aw-complete-data .aw-complete-data-img img, .aw-first-login .aw-complete-data-follow-topic .aw-topic-img img, .aw-first-login .aw-complete-data-follow-topic .aw-user-img img, .aw-first-login .aw-complete-data-follow-topic li > span, .aw-mod-replay-box .aw-mod-body, .aw-publish-box .aw-publish-title-dropdown .dropdown-toggle, .markitup-box code, #markItUpPreviewFrames code, .category dl, .aw-side-bar-mod-new-message, .aw-first-login .aw-mod-head ul, .aw-first-login .aw-complete-data, .aw-first-login .aw-complete-data-follow-topic li, .aw-search-box .search-query, .aw-publish-title input, .aw-question-list .aw-question-replay-count em, .aw-mod-publish-box #advanced_editor, .aw-share-box .aw-share-box-tabs a, .aw-question-tags, .aw-publish-title-dropdown p, .aw-publish-title-dropdown p a, .aw-message-tooltip, .aw-nav-main li:first-child a.active, .aw-edit-comment-box .modal-body textarea, .aw-edit-comment-box .aw-file-upload-box, .aw-first-login .aw-mod-head ul li em, .aw-search-box #global_search_btns{border-radius: 0px;}
+.aw-side-bar-topic-nav ul > li > a, .btn, .btn-group > .btn:last-child, .btn-group > .dropdown-toggle, .btn-group > .btn:first-child, .aw-dropdown-menu li:first-child, .dropdown-menu li.first, .aw-logined-nav #header_notification_list li:first-child, .aw-comment-list li:first-child, .aw-edit-comment-box .aw-file-upload-box, .aw-li-border-bottom li:first-child, .aw-border-radius-5, .aw-border-radius-5 img, .aw-load-more-content, .aw-user-name img, .aw-topic-name img, .aw-topic-name span, .aw-topic-img img, .aw-dropdown-menu img, .aw-login-register a img, .aw-login-register .aw-user-head img, .aw-logined-nav .aw-message-dropdown, .aw-dropdown, .aw-search-dropdown-list li img, .category dl dt img, .category .col-sm-12 > ul > li, .aw-side-bar-mod-feature, .aw-side-bar-mod-nav ul li a, .aw-side-bar-hot-topic-list em, .aw-side-bar-topic-edit-notes li, .aw-question-detail-title .aw-mod-head .aw-notopic-sort, .aw-comment-box, .aw-side-bar-invite-box .aw-item .aw-user-name img, .aw-user-dropdown .aw-user-dropdown-list a img, .aw-topic-detail-title .aw-mod-body img, .aw-topic-search, .aw-mod-topic-edit-box .aw-mod-head .aw-topic-img, .aw-mod-topic-edit-box .aw-mod-head .aw-topic-img span, .aw-mod-private-replay-list li .aw-item, .aw-mod-private-replay-list li .aw-user-img img, .aw-mod-invited ul li .aw-user-img img, .aw-mod-search-result .aw-item .aw-user-img img, .aw-mod-search-result .aw-item .aw-topic-img img, .aw-mod-search-result .aw-search-result-tags, .aw-file-uploader dl, .aw-card-tips, .aw-card-tips .aw-mod-head .aw-head-img img, .aw-first-login .aw-complete-data .aw-complete-data-img img, .aw-first-login .aw-complete-data-follow-topic .aw-topic-img img, .aw-first-login .aw-complete-data-follow-topic .aw-user-img img, .aw-first-login .aw-complete-data-follow-topic li > span, .aw-mod-replay-box .aw-mod-body, .aw-publish-box .aw-publish-title-dropdown .dropdown-toggle, .markitup-box code, #markItUpPreviewFrames code, .category dl, .aw-side-bar-mod-new-message, .aw-first-login .aw-mod-head ul, .aw-first-login .aw-complete-data, .aw-first-login .aw-complete-data-follow-topic li, .aw-search-box .search-query, .aw-publish-title input, .aw-question-list .aw-question-replay-count em, .aw-mod-publish-box #advanced_editor, .aw-share-box .aw-share-box-tabs a, .aw-question-tags, .aw-publish-title-dropdown p, .aw-publish-title-dropdown p a, .aw-message-tooltip, .aw-nav-main li:first-child a.active, .aw-edit-comment-box .modal-body textarea, .aw-edit-comment-box .aw-file-upload-box, .aw-first-login .aw-mod-head ul li em, .aw-search-box #global_search_btns{border-radius: 0px;}
 .aw-topic-name span{background: #A9B8C5;color: #fff;}
 .aw-topic-name span:hover{background: #99ADBE;color: #fff;}
 .aw-question-list .aw-user-name img{width: 50px;height: 50px;}
@@ -21,7 +21,7 @@
 .aw-comment-list .aw-user-name img{width: 32px;height: 32px;}
 .aw-index .aw-new-message-tips .badge-important{padding-left:10px;background:url("img/main_default.png") no-repeat 0 -42px;border-radius: 0px;}
 .aw-all-question .aw-question-list .aw-user-name{left:0;width:50px;height: 50px;}
-.aw-all-question .aw-question-list .aw-question-replay-count{left: 570px;background: none;}
+.aw-all-question .aw-question-list .aw-question-replay-count{left: 590px;background: none;}
 .aw-all-question .aw-question-list .aw-question-replay-count em{line-height:25px;padding:0 10px;background: url("img/main_default.png") no-repeat -24px -166px;color: #999;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;}
 .aw-question-box-mod .aw-item{margin:0 10px;padding:15px 50px 15px 65px; }
 .aw-topic-search .search-query{padding: 3px 14px !important;}
@@ -73,7 +73,8 @@
 
 /* category */
 .category{margin:0 0 30px 0;background:#F7F7F7;border:1px solid #DFDFDF;}
-.category .span12{margin-left: 0px;*margin-bottom: 7px;}
+.category .col-sm-12{margin-left: 0px;padding:0 0 0 2px;*margin-bottom: 7px;}
+.category dl{margin:10px 9px 10px 0;}
 
 /* aw-container-wrap */
 .aw-container-wrap{margin-top:75px;background: #fff;}
@@ -95,8 +96,8 @@
 .aw-question-detail-box .aw-dynamic-topic .aw-item{margin:0 20px;}
 
 /* 全部问题 */
-.aw-all-question{margin-left:10px;border:1px solid #DFDFDF;}
-.aw-all-question .aw-question-box-mod .aw-mod-body{padding:10px 20px 0 20px;}
+.aw-all-question{margin-left:5px;border:1px solid #DFDFDF;}
+.aw-all-question .aw-question-box-mod .aw-mod-body{padding:10px 10px 0;}
 .aw-all-question .pagination{margin-right: 20px;}
 
 /* 侧边栏 */
@@ -137,7 +138,7 @@
 .aw-side-bar-topic{padding-top:0px;}
 .aw-topic-content{border:1px solid #DFDFDF;}
 .aw-topic-detail-content .aw-topic-list-mod{border:1px solid #DFDFDF;}
-.aw-topic-content-wrap .aw-topic-all-list .span6{width: 238px;}
+.aw-topic-content-wrap .aw-topic-all-list .col-sm-6{width: 238px;}
 .aw-topic-daily .aw-mod-head h3{padding: 0;}
 .aw-topic-all .aw-mod-head{padding: 10px 20px;}
 .aw-suggest-topic .aw-mod-head h3, .aw-topic-all .aw-mod-head h3{position:relative;left:-20px;max-width: 150px;height: 35px;line-height: 35px;text-indent: 15px;background:#F3C69C;font-size:18px;font-weight: bold;color: #fff;}
@@ -166,7 +167,7 @@
 .aw-user-detail-box{margin-bottom:30px;padding:20px 20px 0;border:1px solid #DFDFDF;}
 .aw-user-center-tab{border:1px solid #DFDFDF;}
 .aw-user-center-tab .tab-content{padding: 0 20px 30px;}
-.aw-reset-sp .span6{width:427px;}
+.aw-reset-sp .col-sm-6{width:454px;}
 
 /* 私信页面 */
 .aw-mod-private-replay-list{margin:0 20px;}
