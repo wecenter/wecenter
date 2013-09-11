@@ -1,0 +1,57 @@
+<?php TPL::output('admin/global/header.tpl.htm'); ?>
+<?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
+
+<div class="pull-left right-side">
+	<div class="alert alert-success hide error-message"></div>
+	<div class="aw-mod-body">
+		<form action="admin/page/save_enabled_status/" method="post" id="page_list_form">
+		<table class="aw-table">
+			<thead>
+				<tr>
+					<th style="width:5%;" align="center"><?php _e('启用'); ?></th>
+					<th style="width:40%;"><?php _e('页面标题'); ?></th>
+					<th style="width:40%;"><?php _e('页面描述'); ?></th>
+					<th align="center"><?php _e('操作'); ?></th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php foreach ($this->page_list AS $key => $val) { ?>
+				<input type="hidden" name="page_ids[<?php echo $val['id']; ?>]" value="<?php echo $val['id']; ?>" />
+				
+				<tr>
+					<td align="center"><input type="checkbox" class="enabled-status" name="enabled_status[<?php echo $val['id']; ?>]" value="1"<?php if ($val['enabled']) { ?> checked="checked"<?php } ?> /></td>
+					<td><a href="page/<?php echo $val['url_token']; ?>" target="_blank"><?php echo $val['title']; ?></a></td>
+					<td><?php echo $val['description']; ?></td>
+					<td align="center">
+						<a href="admin/page/edit/id-<?php echo $val['id']; ?>" title="<?php _e('编辑'); ?>">
+							<i class="aw-icon page-edit"></i>
+						</a> &nbsp; 
+						<a href="javascript:;" onclick="ajax_request(G_BASE_URL + '/admin/page/remove/id-<?php echo $val['id']; ?>');" title="<?php _e('删除'); ?>">
+							<i class="aw-icon page-delete"></i>
+						</a>
+					</td>
+				</tr>
+				<?php } ?>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="4">
+						<span class="pull-right"><?php echo $this->pagination; ?></span>
+						<a class="btn btn-inverse inline-block" href="admin/page/add/"><?php _e('添加页面'); ?></a>
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+		</form>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		$('input.enabled-status').change(function () {
+			ajax_post($('#page_list_form'), _error_message_form_processer);
+		});
+	});
+</script>
+
+<?php TPL::output('admin/global/footer.tpl.htm'); ?>

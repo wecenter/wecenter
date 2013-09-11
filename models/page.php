@@ -30,7 +30,7 @@ class page_class extends AWS_MODEL
 		return $this->fetch_row('pages', 'id = ' . intval($id));
 	}
 	
-	public function add_page($title, $keywords, $description, $content, $url_token)
+	public function add_page($title, $keywords, $description, $contents, $url_token)
 	{
 		return $this->insert('pages', array(
 			'title' => $title,
@@ -41,13 +41,26 @@ class page_class extends AWS_MODEL
 		));
 	}
 	
-	public function update_page($id, $title, $keywords, $description, $content)
+	public function update_page($id, $title, $keywords, $description, $contents, $url_token)
 	{
 		return $this->update('pages', array(
 			'title' => $title,
 			'keywords' => $keywords,
 			'description' => $description,
-			'contents' => $contents
+			'contents' => $contents,
+			'url_token' => $url_token
 		), 'id = ' . intval($id));
+	}
+	
+	public function fetch_page_list($page, $limit = 10)
+	{
+		return $this->fetch_page('pages', null, 'id DESC', $page, $limit);
+	}
+	
+	public function update_page_enabled($page_id, $enabled)
+	{
+		return $this->update('pages', array(
+			'enabled' => intval($enabled)
+		), 'id = ' . intval($page_id));
 	}
 }

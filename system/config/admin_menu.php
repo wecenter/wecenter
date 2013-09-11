@@ -114,6 +114,11 @@ $config[] = array(
 			'url' => 'admin/feature/list/',
 		),
 		array(
+			'id' => 308,
+			'title' => '页面管理',
+			'url' => 'admin/page/',
+		),
+		array(
 			'id' => 306,
 			'title' => '用户举报',
 			'url' => 'admin/question/report_list/',

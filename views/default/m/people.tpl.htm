@@ -110,7 +110,7 @@
 			</section>
 			
 			<section>
-				<?php if (focus_topics) { ?>
+				<?php if ($this->focus_topics) { ?>
 				<h3><?php _e('关注 %s 话题', $this->user['topic_focus_count']); ?></h3>
 					<ul>
 					<?php foreach ($this->focus_topics AS $key => $val) { ?>
