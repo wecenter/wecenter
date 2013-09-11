@@ -15,9 +15,8 @@
 .aw-mod-body ul li{margin-bottom:20px;}
 .aw-mod-body ul li.last{line-height:38px;margin-bottom:0;}
 .aw-mod-body ul li.last a, .aw-mod-body ul li.last label{font-size: 13px;color:#999;}
-.aw-mod-body ul li.last a:hover{color:#085D9B;}
 .aw-mod-body ul li.last label{margin-right: 5px;}
-.aw-mod-body ul li.last .btn{font-size:14px;color:#406A24;}
+.aw-mod-body ul li.last .btn{font-size:14px;color:#fff;}
 .aw-mod-body ul li.error p{height:40px;line-height:40px;padding-left:12px;background: #FFF480;border: 1px solid #EBEBEB;border-radius: 5px;color:#666;}
 .aw-mod-body ul li.error p .i-no{position:relative;top:4px;*top:0;margin-right: 20px;}
 .aw-mod-body label{display: inline-block;}
