@@ -11,8 +11,10 @@ ul, ol{list-style: none;}
 ul{margin:0;padding:0;}
 input, textarea{font-family: "Helvetica Neue",Helvetica,Arial,'Microsoft YaHei',sans-serif !important;}
 .btn-inverse{background: #444444;color: #fff;}
-.btn-inverse:hover{background: #333333;color: #fff;}
+.btn-inverse:hover, .label-inverse:hover, .btn-inverse:focus,  .label-inverse:focus{background: #333333;color: #fff;}
 .btn-normal.btn-inverse{padding:4px 40px;box-shadow: none;}
+.alert{padding:8px 35px 8px 14px;}
+.alert-error{background: #F2DEDE;border:1px solid #EED3D7;color: #B94A48;}
 
 .login-box{position:relative;width:450px;margin:10% auto 0;background: #fff;border-radius:4px;box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);}
 .login-box h1{position: absolute;top:-65px;color: #fff;font-size: 22px;font-family: sans-serif; }

@@ -35,7 +35,7 @@ select, input[type="file"]{line-height: 0px;font-size: 13px;}
 th{text-align: center;}
 .form-control{margin-bottom: 10px;}
 .btn-inverse, .label-inverse{background: #444444;color: #fff;}
-.btn-inverse:hover, .label-inverse:hover{background: #333333;color: #fff;}
+.btn-inverse:hover, .label-inverse:hover, .btn-inverse:focus,  .label-inverse:focus{background: #333333;color: #fff;}
 .btn-normal.btn-inverse{padding:4px 40px;box-shadow: none;}
 .error{color: #FF0000;}
 .aw-text-color-999{margin:2px 0 0 0;color: #999;font-size: 11px;}
@@ -51,8 +51,8 @@ th{text-align: center;}
 .inline-block{display: inline-block;}
 .error-message{position: relative;}
 .aw-back-top{display: none; position: fixed;right: 5px; bottom: 5px;}
-
-/*全局input定义*/
+.alert{padding:8px 35px 8px 14px;}
+.alert-error{background: #F2DEDE;border:1px solid #EED3D7;color: #B94A48;}
 .normal-box{width: 35% !important;}
 .normal-box .aw-mod-body{padding: 20px !important;}
 
