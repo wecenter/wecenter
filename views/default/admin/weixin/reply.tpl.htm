@@ -23,7 +23,13 @@
 				<tr>
 					<td align="center"><input type="checkbox" class="enabled-status" name="enabled_status[<?php echo $val['id']; ?>]" value="1"<?php if ($val['enabled']) { ?> checked="checked"<?php } ?> /></td>
 					<td align="center"><?php echo $val['keyword']; ?></td>
-					<td align="center"><?php if ($val['image_file']) { ?><input type="text" class="sort-action sort-status input-mini" name="sort_status[<?php echo $val['id']; ?>]" value="<?php echo $val['sort_status']; ?>" /><?php } else { ?> - <?php } ?></td>
+					<td align="center"><?php if ($val['image_file']) { ?>
+						<div class="row">
+							<div class="col-sm-2">
+								<input type="text" class="sort-action sort-status input-mini" name="sort_status[<?php echo $val['id']; ?>]" value="<?php echo $val['sort_status']; ?>" />
+							</div>
+						</div>
+						<?php } else { ?> - <?php } ?></td>
 					<td><?php if ($val['image_file']) { ?><span class="label label-info"><?php _e('图文消息'); ?></span> <?php } ?><?php echo $val['title']; ?></td>
 					<td align="center"><?php if (!$this->echo_rule_list[$val['keyword']]) { ?><input class="flag-action" type="radio" value="<?php echo $val['keyword']; ?>" name="is_subscribe"<?php if (get_setting('weixin_subscribe_message_key') == $val['keyword']) { ?> checked="checked"<?php } ?> /><?php } else { ?>-<?php } ?></td>
 					<td align="center"><?php if (!$this->echo_rule_list[$val['keyword']]) { ?><input class="flag-action" type="radio" value="<?php echo $val['keyword']; ?>" name="is_no_result"<?php if (get_setting('weixin_no_result_message_key') == $val['keyword']) { ?> checked="checked"<?php } ?> /><?php } else { ?>-<?php } ?></td>
