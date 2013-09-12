@@ -44,14 +44,14 @@
 					<li>
 						<label>
 							<span><?php _e('密码'); ?>:</span>
-							<input type="password" name="password" onkeydown="if (event.keyCode == 13) { document.getElementById('login_submit').click(); };" />
+							<input class="form-control" type="password" name="password" onkeydown="if (event.keyCode == 13) { document.getElementById('login_submit').click(); };" />
 						</label>
 					</li>
 					<?php if (get_setting('admin_login_seccode') == 'Y') { ?>
 					<li class="vercode">
 						<label>
 							<span><?php _e('验证码'); ?>:</span>
-							<input type="text" name="seccode_verify" onkeydown="if (event.keyCode == 13) { document.getElementById('login_submit').click(); };" />
+							<input class="form-control" type="text" name="seccode_verify" onkeydown="if (event.keyCode == 13) { document.getElementById('login_submit').click(); };" />
 							
 						</label>
 						<img style="vertical-align:middle" id="captcha" onclick="this.src = G_BASE_URL + '/account/captcha/?' + Math.floor(Math.random() * 10000);" src="">

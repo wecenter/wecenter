@@ -8,8 +8,10 @@ h1, h2, h3, h4, h5, h6{font-size:100%;color: #333;}
 a{cursor: pointer;}
 a:hover{text-decoration: none;}
 ul, ol{list-style: none;}
-ul{margin:0;}
+ul{margin:0;padding:0;}
 input, textarea{font-family: "Helvetica Neue",Helvetica,Arial,'Microsoft YaHei',sans-serif !important;}
+.btn-inverse{background: #444444;color: #fff;}
+.btn-inverse:hover{background: #333333;color: #fff;}
 .btn-normal.btn-inverse{padding:4px 40px;box-shadow: none;}
 
 .login-box{position:relative;width:450px;margin:10% auto 0;background: #fff;border-radius:4px;box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);}
@@ -20,7 +22,7 @@ input, textarea{font-family: "Helvetica Neue",Helvetica,Arial,'Microsoft YaHei',
 .login-box .aw-mod-body ul li{margin-top: 30px;}
 .login-box .aw-mod-body ul li:first-child{margin-top:0px;}
 .login-box .aw-mod-body span{display:inline-block;width: 60px;margin-right:10px;text-align: right;}
-.login-box .aw-mod-body input{margin:0;}
+.login-box .aw-mod-body input{display:inline;width:200px;margin:0;}
 .login-box .aw-mod-footer{padding:20px 10px;background: #E7EDF2;border-top:1px solid #d0dce6;border-radius: 0 0 4px 4px;text-align: center;}
 .login-box .vercode{margin-bottom: 0px !important;}
 .login-box .vercode label{float: left;width: 130px;}

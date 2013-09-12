@@ -1,5 +1,5 @@
 body{font:13px/1.5 "Helvetica Neue",Helvetica,Arial,'Microsoft YaHei',sans-serif;padding: 0px;color: #666;}
-h1, h2, h3, h4, h5, h6{font-size:100%;color: #333;}
+h1, h2, h3, h4, h5, h6{font-family: "Helvetica Neue",Helvetica,Arial,'Microsoft YaHei',sans-serif;font-size:100%;color: #333;}
 a{cursor: pointer;}
 a:hover{text-decoration: none;}
 ul, ol{list-style: none;}
@@ -55,7 +55,7 @@ select, input[type="file"]{line-height: 0px;font-size: 13px;}
 .right-side{width: 79.8%;min-height:350px;margin-left:245px;padding: 15px 0;}
 .right-side .aw-box{border:1px solid #D7E6F0;}
 .right-side .aw-box .date_picker{padding-left:30px;background: url('../img/calendar.png') no-repeat 5px 6px #fff;}
-.right-side .aw-mod-head h2{height:36px;line-height:36px;overflow:hidden;padding:0 10px;margin:0;background: #D6E4F1;color: #246594;font-weight: normal;font-weight: bold; }
+.right-side .aw-mod-head h2{height:36px;line-height:36px;overflow:hidden;padding:0 10px;margin:0;background: #D6E4F1;color: #246594;font-weight: normal; }
 .right-side .aw-mod-head h2 .nav-tabs{margin:8px 0 0 30px;border-bottom: none;}
 .right-side .aw-mod-head h2 .nav-tabs > li > a{line-height: 14px;padding: 8px 12px;border-radius: 0px;color: #666;font-weight: normal;}
 .right-side .aw-mod-head h2 .nav > li > a:hover, .nav > li > a:focus{background: none;border:1px solid #D6E4F1;}
