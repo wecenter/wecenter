@@ -13,7 +13,7 @@
 				<dt><h3><?php _e('网站名称'); ?>:</h3></dt>
 				<dd>
 					<div class="row">
-						<div class="col-sm-6">
+						<div class="col-sm-7">
 							<input type="text" class="form-control" name="site_name" value="<?php echo $this->setting['site_name']; ?>">
 						</div>
 					</div>
@@ -31,28 +31,55 @@
 			</dl>
 			<dl>
 				<dt><h3><?php _e('网站 ICP 备案号'); ?>:</h3></dt>
-				<dd><input name="icp_beian" class="form-control" type="text" value="<?php echo $this->setting['icp_beian']; ?>"/></dd>
+				<dd>
+					<div class="row">
+						<div class="col-sm-7">
+							<input name="icp_beian" class="form-control" type="text" value="<?php echo $this->setting['icp_beian']; ?>"/>
+						</div>
+					</div>
+				</dd>
 			</dl>
 			<dl>
 				<dt><h3><?php _e('网站地址'); ?>: </h3></dt>
-				<dd><input name="base_url" class="form-control" type="text" value="<?php echo $this->setting['base_url']; ?>"/>
-				<p class="aw-text-color-999"><?php _e('末尾不带 /'); ?></p>
+				<dd>
+					<div class="row">
+						<div class="col-sm-7">
+							<input name="base_url" class="form-control" type="text" value="<?php echo $this->setting['base_url']; ?>"/>
+							<p class="aw-text-color-999"><?php _e('末尾不带 /'); ?></p>
+						</div>
+					</div>
 				</dd>
 			</dl>
 			<dl>
 				<dt><h3><?php _e('上传目录外部访问 URL 地址'); ?>:</h3></dt>
-				<dd><input name="upload_url" class="form-control" type="text" value="<?php echo $this->setting['upload_url']; ?>"/></dd>
+				<dd>
+					<div class="row">
+						<div class="col-sm-7">
+							<input name="upload_url" class="form-control" type="text" value="<?php echo $this->setting['upload_url']; ?>"/>
+						</div>
+					</div>
+				</dd>
 			</dl>
 			<dl>
 				<dt><h3><?php _e('上传文件存放绝对路径'); ?>: </h3></dt>
-				<dd><input name="upload_dir" class="form-control" type="text" value="<?php echo $this->setting['upload_dir']; ?>"/>
-				<p class="aw-text-color-999"><?php _e('目前网站根目录绝对路径'); ?>: <?php echo ROOT_PATH; ?></p>
+				<dd>
+					<div class="row">
+						<div class="col-sm-7">
+							<input name="upload_dir" class="form-control" type="text" value="<?php echo $this->setting['upload_dir']; ?>"/>
+							<p class="aw-text-color-999"><?php _e('目前网站根目录绝对路径'); ?>: <?php echo ROOT_PATH; ?></p>
+						</div>
+					</div>
 				</dd>
 			</dl>
 			<dl>
 				<dt><h3><?php _e('static 目录资源 URL 地址'); ?>: </h3></dt>
-				<dd><input name="img_url" class="form-control" type="text" value="<?php echo $this->setting['img_url']; ?>"/>
-				<p class="aw-text-color-999"><?php _e('末尾不带 /, 留空使用根目录下的 static 资源'); ?></p>
+				<dd>
+					<div class="row">
+						<div class="col-sm-7">
+							<input name="img_url" class="form-control" type="text" value="<?php echo $this->setting['img_url']; ?>"/>
+							<p class="aw-text-color-999"><?php _e('末尾不带 /, 留空使用根目录下的 static 资源'); ?></p>
+						</div>
+					</div>
 				</dd>
 			</dl>
 		</div>
@@ -112,7 +139,13 @@
 			</dl>
 			<dl>
 				<dt><h3><?php _e('站点关闭的提示'); ?>:</h3></dt>
-				<dd><input type="text" class="form-control" name="close_notice" value="<?php echo $this->setting['close_notice']; ?>" /></dd>
+				<dd>
+					<div class="row">
+						<div class="col-sm-7">
+							<input type="text" class="form-control" name="close_notice" value="<?php echo $this->setting['close_notice']; ?>" />
+						</div>
+					</div>
+				</dd>
 			</dl>
 			<dl>
 				<dt><h3><?php _e('新用户注册显示验证码'); ?>:</h3></dt>
@@ -163,14 +196,24 @@
 			</dl>
 			<dl>
 				<dt><h3><?php _e('用户名最少字符数'); ?>: </h3></dt>
-				<dd><input name="username_length_min" class="form-control" type="text" value="<?php echo $this->setting['username_length_min']; ?>"/>
-				<p class="aw-text-color-999"><?php _e('注: 一个汉字等于 2 个字符'); ?></p>
+				<dd>
+					<div class="row">
+						<div class="col-sm-7">
+							<input name="username_length_min" class="form-control" type="text" value="<?php echo $this->setting['username_length_min']; ?>"/>
+							<p class="aw-text-color-999"><?php _e('注: 一个汉字等于 2 个字符'); ?></p>
+						</div>
+					</div>
 				</dd>
 			</dl>
 			<dl>
 				<dt><h3><?php _e('用户名最多字符数'); ?>: </h3></dt>
-				<dd><input name="username_length_max" class="form-control" type="text" value="<?php echo $this->setting['username_length_max']; ?>"/></label>
-				<p class="aw-text-color-999"><?php _e('注: 一个汉字等于 2 个字符'); ?></p>
+				<dd>
+					<div class="row">
+						<div class="col-sm-7">
+							<input name="username_length_max" class="form-control" type="text" value="<?php echo $this->setting['username_length_max']; ?>"/></label>
+							<p class="aw-text-color-999"><?php _e('注: 一个汉字等于 2 个字符'); ?></p>
+						</div>
+					</div>
 				</dd>
 			</dl>
 			
@@ -186,21 +229,35 @@
 			</dl>
 			<dl>
 				<dt><h3><?php _e('用户注册后默认关注的用户 ID'); ?>: </h3></dt>
-				<dd><input name="def_focus_uids" class="form-control" type="text" value="<?php echo $this->setting['def_focus_uids']; ?>"/>
-				
-				<p class="aw-text-color-999"><?php _e('多个用户 ID 请用 , 隔开'); ?></p>
+				<dd>
+					<div class="row">
+						<div class="col-sm-7">
+							<input name="def_focus_uids" class="form-control" type="text" value="<?php echo $this->setting['def_focus_uids']; ?>"/>
+							<p class="aw-text-color-999"><?php _e('多个用户 ID 请用 , 隔开'); ?></p>
+						</div>
+					</div>
 				</dd>
 			</dl>
 			<dl>
 				<dt><h3><?php _e('首次登录推荐用户列表'); ?>: </h3></dt>
-				<dd><input name="welcome_recommend_users" class="form-control" type="text" value="<?php echo $this->setting['welcome_recommend_users']; ?>"/>
-				
-				<p class="aw-text-color-999"><?php _e('填写用户名, 若有多个用户名请用 , 隔开, 留空系统自动推荐'); ?></p>
+				<dd>
+					<div class="row">
+						<div class="col-sm-7">
+							<input name="welcome_recommend_users" class="form-control" type="text" value="<?php echo $this->setting['welcome_recommend_users']; ?>"/>
+							<p class="aw-text-color-999"><?php _e('填写用户名, 若有多个用户名请用 , 隔开, 留空系统自动推荐'); ?></p>
+						</div>
+					</div>
 				</dd>
 			</dl>
 			<dl>
 				<dt><h3><?php _e('新用户注册获得邀请数量'); ?>:</h3></dt>
-				<dd><input name="newer_invitation_num" type="text" class="form-control" value="<?php echo $this->setting['newer_invitation_num']; ?>"/></dd>
+				<dd>
+					<div class="row">
+						<div class="col-sm-7">
+							<input name="newer_invitation_num" type="text" class="form-control" value="<?php echo $this->setting['newer_invitation_num']; ?>"/>
+						</div>
+					</div>
+				</dd>
 			</dl>
 			<dl>
 				<dt><h3><?php _e('新用户注册系统发送的欢迎内容'); ?> (<?php _e('私信'); ?>):</h3></dt>
@@ -278,7 +335,13 @@
 			<?php if (is_dir(ROOT_PATH . 'uc_client/')) { ?>
 			<dl>
 				<dt><h3><?php _e('UCenter 系统字符编码'); ?>:</h3></dt>
-				<dd><input name="ucenter_charset" class="form-control" type="text" value="<?php echo $this->setting['ucenter_charset']; ?>" /></dd>
+				<dd>
+					<div class="row">
+						<div class="col-sm-7">
+							<input name="ucenter_charset" class="form-control" type="text" value="<?php echo $this->setting['ucenter_charset']; ?>" />
+						</div>
+					</div>
+				</dd>
 			</dl>
 			
 			<dl>
@@ -297,12 +360,23 @@
 			
 			<dl>
 				<dt><h3><?php _e('通知未读数刷新间隔时间'); ?> (<?php _e('单位'); ?>: <?php _e('秒'); ?>):</h3></dt>
-				<dd><input name="unread_flush_interval" class="form-control" type="text" value="<?php echo $this->setting['unread_flush_interval']; ?>"/></dd>
+				<dd>
+					<div class="row">
+						<div class="col-sm-7">
+							<input name="unread_flush_interval" class="form-control" type="text" value="<?php echo $this->setting['unread_flush_interval']; ?>"/>
+						</div>
+					</div>
+				</dd>
 			</dl>
 			<dl>
 				<dt><h3><?php _e('问题自动锁定时间'); ?>:</h3></dt>
-				<dd><input name="auto_question_lock_day" class="form-control" type="text" value="<?php echo $this->setting['auto_question_lock_day']; ?>"/>
-				<p class="aw-text-color-999"><?php _e('单位'); ?>: <?php _e('天'); ?>, <?php _e('问题超过设定天数没有动作,系统则会自动锁定该问题, 设置为 0 则关闭自动锁定'); ?></p>
+				<dd>
+					<div class="row">
+						<div class="col-sm-7">
+							<input name="auto_question_lock_day" class="form-control" type="text" value="<?php echo $this->setting['auto_question_lock_day']; ?>"/>
+							<p class="aw-text-color-999"><?php _e('单位'); ?>: <?php _e('天'); ?>, <?php _e('问题超过设定天数没有动作,系统则会自动锁定该问题, 设置为 0 则关闭自动锁定'); ?></p>
+						</div>
+					</div>
 				</dd>
 			</dl>
 			<dl>
@@ -317,8 +391,13 @@
 			</dl>
 			<dl>
 				<dt><h3><?php _e('有新举报与认证申请私信提醒用户 ID'); ?>: </h3></dt>
-				<dd><input name="report_message_uid" class="form-control" type="text" value="<?php echo $this->setting['report_message_uid']; ?>"/>
-				<p class="aw-text-color-999"><?php _e('留空则发送到 ID 为 1 的用户'); ?></p>
+				<dd>
+					<div class="row">
+						<div class="col-sm-7">
+							<input name="report_message_uid" class="form-control" type="text" value="<?php echo $this->setting['report_message_uid']; ?>"/>
+							<p class="aw-text-color-999"><?php _e('留空则发送到 ID 为 1 的用户'); ?></p>
+						</div>
+					</div>
 				</dd>
 			</dl>
 			<dl>
@@ -386,70 +465,166 @@
 			</dl>
 			<dl>
 				<dt><h3><?php _e('允许的附件文件类型'); ?>:</h3></dt>
-				<dd><input name="allowed_upload_types" class="form-control" type="text" value="<?php echo $this->setting['allowed_upload_types']; ?>"/></dd>
+				<dd>
+					<div class="row">
+						<div class="col-sm-7">
+							<input name="allowed_upload_types" class="form-control" type="text" value="<?php echo $this->setting['allowed_upload_types']; ?>"/>
+						</div>
+					</div>
+				</dd>
 			</dl>
 			<dl>
 				<dt><h3><?php _e('允许上传最大附件大小'); ?> (<?php _e('单位'); ?>: KB): </h3></dt>
-				<dd><input name="upload_size_limit" class="form-control" type="text" value="<?php echo $this->setting['upload_size_limit']; ?>"/></dd>
+				<dd>
+					<div class="row">
+						<div class="col-sm-7">
+							<input name="upload_size_limit" class="form-control" type="text" value="<?php echo $this->setting['upload_size_limit']; ?>"/>
+						</div>
+					</div>
+				</dd>
 			</dl>
 			<dl>
 				<dt><h3><?php _e('回复内容最小字符数限制'); ?> (<?php _e('填写 0 则不限制'); ?>): </h3></dt>
-				<dd><input name="answer_length_lower" class="form-control" type="text" value="<?php echo $this->setting['answer_length_lower']; ?>"/></dd>
+				<dd>
+					<div class="row">
+						<div class="col-sm-7">
+							<input name="answer_length_lower" class="form-control" type="text" value="<?php echo $this->setting['answer_length_lower']; ?>"/>
+						</div>
+					</div>
+				</dd>
 			</dl>
 			<dl>
 				<dt><h3><?php _e('问题标题最大字符数限制'); ?> (<?php _e('填写 0 则不限制'); ?>):</h3></dt>
-				<dd><input name="question_title_limit" class="form-control" type="text" value="<?php echo $this->setting['question_title_limit']; ?>"/></dd>
+				<dd>
+					<div class="row">
+						<div class="col-sm-7">
+							<input name="question_title_limit" class="form-control" type="text" value="<?php echo $this->setting['question_title_limit']; ?>"/>
+						</div>
+					</div>
+				</dd>
 			</dl>
 			<dl>
 				<dt><h3><?php _e('问题话题数量限制'); ?> (<?php _e('填写 0 则不限制'); ?>):</h3></dt>
-				<dd><input name="question_topics_limit" class="form-control" type="text" value="<?php echo $this->setting['question_topics_limit']; ?>"/></dd>
+				<dd>
+					<div class="row">
+						<div class="col-sm-7">
+							<input name="question_topics_limit" class="form-control" type="text" value="<?php echo $this->setting['question_topics_limit']; ?>"/>
+						</div>
+					</div>
+				</dd>
 			</dl>
 			<dl>
 				<dt><h3><?php _e('评论内容最大字符数限制'); ?> (<?php _e('填写 0 则不限制'); ?>):</h3></dt>
-				<dd><input name="comment_limit" type="text" class="form-control" value="<?php echo $this->setting['comment_limit']; ?>"/></dd>
+				<dd>
+					<div class="row">
+						<div class="col-sm-7">
+							<input name="comment_limit" type="text" class="form-control" value="<?php echo $this->setting['comment_limit']; ?>"/>
+						</div>
+					</div>
+				</dd>
 			</dl>
 			<dl>
 				<dt><h3><?php _e('话题标题最大字符数限制'); ?> (<?php _e('填写 0 则不限制'); ?>): </h3></dt>
-				<dd><input name="topic_title_limit" type="text" class="form-control" value="<?php echo $this->setting['topic_title_limit']; ?>"/></dd>
+				<dd>
+					<div class="row">
+						<div class="col-sm-7">
+							<input name="topic_title_limit" type="text" class="form-control" value="<?php echo $this->setting['topic_title_limit']; ?>"/>
+						</div>
+					</div>
+				</dd>
 			</dl>
 			<dl>
 				<dt><h3><?php _e('允许上传最大头像/话题图片大小'); ?> (<?php _e('单位'); ?>: KB):</h3></dt>
-				<dd><input name="upload_avatar_size_limit" type="text" class="form-control" value="<?php echo $this->setting['upload_avatar_size_limit']; ?>"/></dd>
+				<dd>
+					<div class="row">
+						<div class="col-sm-7">
+							<input name="upload_avatar_size_limit" type="text" class="form-control" value="<?php echo $this->setting['upload_avatar_size_limit']; ?>"/>
+						</div>
+					</div>
+				</dd>
 			</dl>
 			<dl>
 				<dt><h3><?php _e('回复编辑/删除有效时间'); ?> (<?php _e('单位'); ?>: <?php _e('分钟'); ?>): </h3></dt>
-				<dd><input name="answer_edit_time" type="text" class="form-control" value="<?php echo $this->setting['answer_edit_time']; ?>"/></dd>
+				<dd>
+					<div class="row">
+						<div class="col-sm-7">
+							<input name="answer_edit_time" type="text" class="form-control" value="<?php echo $this->setting['answer_edit_time']; ?>"/>
+						</div>
+					</div>
+				</dd>
 			</dl>
 			<dl>
 				<dt><h3><?php _e('“可能帮到你的人”推荐数量'); ?>: </h3></dt>
-				<dd><input name="question_helpful_users_limit" type="text" class="form-control" value="<?php echo $this->setting['question_helpful_users_limit']; ?>"/></dd>
+				<dd>
+					<div class="row">
+						<div class="col-sm-7">
+							<input name="question_helpful_users_limit" type="text" class="form-control" value="<?php echo $this->setting['question_helpful_users_limit']; ?>"/>
+						</div>
+					</div>
+				</dd>
 			</dl>
 			<dl>
 				<dt><h3><?php _e('“没有帮助”数量达到多少个时折叠回复');?>:</h3></dt>
-				<dd><input name="uninterested_fold" type="text" class="form-control" value="<?php echo $this->setting['uninterested_fold']; ?>"/></dd>
+				<dd>
+					<div class="row">
+						<div class="col-sm-7">
+							<input name="uninterested_fold" type="text" class="form-control" value="<?php echo $this->setting['uninterested_fold']; ?>"/>
+						</div>
+					</div>
+				</dd>
 			</dl>
 			<dl>
 				<dt><h3><?php _e('系统自动选出最佳回复时间'); ?> (<?php _e('单位'); ?>: 天, <?php _e('填写 0 则不启用'); ?>):</h3></dt>
-				<dd><input name="best_answer_day" type="text" class="form-control" value="<?php echo $this->setting['best_answer_day']; ?>"/></dd>
+				<dd>
+					<div class="row">
+						<div class="col-sm-7">
+							<input name="best_answer_day" type="text" class="form-control" value="<?php echo $this->setting['best_answer_day']; ?>"/>
+						</div>
+					</div>
+				</dd>
 			</dl>
 			<dl>
 				<dt><h3><?php _e('参与自动选出最佳回复的问题最小回复数'); ?>:</h3></dt>
-				<dd><input name="best_answer_min_count" type="text" class="form-control" value="<?php echo $this->setting['best_answer_min_count']; ?>"/></dd>
+				<dd>
+					<div class="row">
+						<div class="col-sm-7">
+							<input name="best_answer_min_count" type="text" class="form-control" value="<?php echo $this->setting['best_answer_min_count']; ?>"/>
+						</div>
+					</div>
+				</dd>
 			</dl>
 			
 			<dl>
 				<dt><h3><?php _e('参与自动选出最佳回复的最小赞同数'); ?>:</h3></dt>
-				<dd><input name="best_agree_min_count" type="text" class="form-control" value="<?php echo $this->setting['best_agree_min_count']; ?>"/></dd>
+				<dd>
+					<div class="row">
+						<div class="col-sm-7">
+							<input name="best_agree_min_count" type="text" class="form-control" value="<?php echo $this->setting['best_agree_min_count']; ?>"/>
+						</div>
+					</div>
+				</dd>
 			</dl>
 			
 			<dl>
 				<dt><h3><?php _e('阅读器获取最近多少天的热门问题'); ?>:</h3></dt>
-				<dd><input name="reader_questions_last_days" type="text" class="form-control" value="<?php echo $this->setting['reader_questions_last_days']; ?>"/></dd>
+				<dd>
+					<div class="row">
+						<div class="col-sm-7">
+							<input name="reader_questions_last_days" type="text" class="form-control" value="<?php echo $this->setting['reader_questions_last_days']; ?>"/>
+						</div>
+					</div>
+				</dd>
 			</dl>
 			
 			<dl>
 				<dt><h3><?php _e('阅读器热门问题赞同数需大于或等于'); ?>:</h3></dt>
-				<dd><input name="reader_questions_agree_count" type="text" class="form-control" value="<?php echo $this->setting['reader_questions_agree_count']; ?>"/></dd>
+				<dd>
+					<div class="row">
+						<div class="col-sm-7">
+							<input name="reader_questions_agree_count" type="text" class="form-control" value="<?php echo $this->setting['reader_questions_agree_count']; ?>"/>
+						</div>
+					</div>
+				</dd>
 			</dl>
 			
 			<dl>
@@ -484,58 +659,134 @@
 			</dl>
 			<dl>
 				<dt><h3><?php _e('积分单位'); ?>:</h3></dt>
-				<dd><input name="integral_unit" type="text" class="form-control" value="<?php echo $this->setting['integral_unit']; ?>"/></dd>
+				<dd>
+					<div class="row">
+						<div class="col-sm-7">
+							<input name="integral_unit" type="text" class="form-control" value="<?php echo $this->setting['integral_unit']; ?>"/>
+						</div>
+					</div>
+				</dd>
 			</dl>
 			<dl>
 				<dt><h3><?php _e('新用户注册默认拥有积分'); ?>:</h3></dt>
-				<dd><input name="integral_system_config_register" type="text" class="form-control" value="<?php echo $this->setting['integral_system_config_register']; ?>"/></dd>
+				<dd>
+					<div class="row">
+						<div class="col-sm-7">
+							<input name="integral_system_config_register" type="text" class="form-control" value="<?php echo $this->setting['integral_system_config_register']; ?>"/>
+						</div>
+					</div>
+				</dd>
 			</dl>
 			<dl>
 				<dt><h3><?php _e('用户完善资料获得积分'); ?>:</h3></dt>
-				<dd><input name="integral_system_config_profile" type="text" class="form-control" value="<?php echo $this->setting['integral_system_config_profile']; ?>"/></dd>
+				<dd>
+					<div class="row">
+						<div class="col-sm-7">
+							<input name="integral_system_config_profile" type="text" class="form-control" value="<?php echo $this->setting['integral_system_config_profile']; ?>"/>
+						</div>
+					</div>
+				</dd>
 			</dl>
 			<dl>
 				<dt><h3><?php _e('用户邀请注册并成功邀请'); ?>:</h3></dt>
-				<dd><input name="integral_system_config_invite" type="text" class="form-control" value="<?php echo $this->setting['integral_system_config_invite']; ?>"/></dd>
+				<dd>
+					<div class="row">
+						<div class="col-sm-7">
+							<input name="integral_system_config_invite" type="text" class="form-control" value="<?php echo $this->setting['integral_system_config_invite']; ?>"/>
+						</div>
+					</div>
+				</dd>
 			</dl>
 			<dl>
 				<dt><h3><?php _e('最佳回复'); ?>:</h3></dt>
-				<dd><input name="integral_system_config_best_answer" type="text" class="form-control" value="<?php echo $this->setting['integral_system_config_best_answer']; ?>"/></dd>
+				<dd>
+					<div class="row">
+						<div class="col-sm-7">
+							<input name="integral_system_config_best_answer" type="text" class="form-control" value="<?php echo $this->setting['integral_system_config_best_answer']; ?>"/>
+						</div>
+					</div>
+				</dd>
 			</dl>
 			<dl>
 				<dt><h3><?php _e('回复被折叠'); ?>:</h3></dt>
-				<dd><input name="integral_system_config_answer_fold" type="text" class="form-control" value="<?php echo $this->setting['integral_system_config_answer_fold']; ?>"/></dd>
+				<dd>
+					<div class="row">
+						<div class="col-sm-7">
+							<input name="integral_system_config_answer_fold" type="text" class="form-control" value="<?php echo $this->setting['integral_system_config_answer_fold']; ?>"/>
+						</div>
+					</div>
+				</dd>
 			</dl>
 			<dl>
 				<dt><h3><?php _e('发起问题'); ?>:</h3></dt>
-				<dd><input name="integral_system_config_new_question" type="text" class="form-control" value="<?php echo $this->setting['integral_system_config_new_question']; ?>"/></dd>
+				<dd>
+					<div class="row">
+						<div class="col-sm-7">
+							<input name="integral_system_config_new_question" type="text" class="form-control" value="<?php echo $this->setting['integral_system_config_new_question']; ?>"/>
+						</div>
+					</div>
+				</dd>
 			</dl>
 			<dl>
 				<dt><h3><?php _e('回复问题'); ?>:</h3></dt>
-				<dd><input name="integral_system_config_new_answer" type="text" class="form-control" value="<?php echo $this->setting['integral_system_config_new_answer']; ?>"/></dd>
+				<dd>
+					<div class="row">
+						<div class="col-sm-7">
+							<input name="integral_system_config_new_answer" type="text" class="form-control" value="<?php echo $this->setting['integral_system_config_new_answer']; ?>"/>
+						</div>
+					</div>
+				</dd>
 			</dl>
 			<dl>
 				<dt><h3><?php _e('感谢回复'); ?>:</h3></dt>
-				<dd><input name="integral_system_config_thanks" type="text" class="form-control" value="<?php echo $this->setting['integral_system_config_thanks']; ?>"/></dd>
+				<dd>
+					<div class="row">
+						<div class="col-sm-7">
+							<input name="integral_system_config_thanks" type="text" class="form-control" value="<?php echo $this->setting['integral_system_config_thanks']; ?>"/>
+						</div>
+					</div>
+				</dd>
 			</dl>
 			<dl>
 				<dt><h3><?php _e('发起者邀请别人回答问题并回答'); ?>:</h3></dt>
-				<dd><input name="integral_system_config_invite_answer" type="text" class="form-control" value="<?php echo $this->setting['integral_system_config_invite_answer']; ?>"/></dd>
+				<dd>
+					<div class="row">
+						<div class="col-sm-7">
+							<input name="integral_system_config_invite_answer" type="text" class="form-control" value="<?php echo $this->setting['integral_system_config_invite_answer']; ?>"/>
+						</div>
+					</div>
+				</dd>
 			</dl>
 
 			<dl>
 				<dt><h3><?php _e('发起者赞同反对威望系数'); ?></h3></dt>
-				<dd><input name="publisher_reputation_factor" type="text" class="form-control" value="<?php echo get_setting('publisher_reputation_factor'); ?>"/></dd>
+				<dd>
+					<div class="row">
+						<div class="col-sm-7">
+							<input name="publisher_reputation_factor" type="text" class="form-control" value="<?php echo get_setting('publisher_reputation_factor'); ?>"/>
+						</div>
+					</div>
+				</dd>
 			</dl>
 			<dl>
 				<dt><h3><?php _e('最佳回复威望系数'); ?></h3></dt>
-				<dd><input name="best_answer_reput" type="text" class="form-control" value="<?php echo get_setting('best_answer_reput'); ?>"/></dd>
+				<dd>
+					<div class="row">
+						<div class="col-sm-7">
+							<input name="best_answer_reput" type="text" class="form-control" value="<?php echo get_setting('best_answer_reput'); ?>"/>
+						</div>
+					</div>
+				</dd>
 			</dl>
 			<dl>
 				<dt><h3><?php _e('对数底值'); ?>:</h3></dt>
-				<dd><input name="reputation_log_factor" type="text" class="form-control" value="<?php echo get_setting('reputation_log_factor'); ?>"/>
-				
-				<p class="aw-text-color-999"><?php _e('控制显示的威望值大小，底数越小威望值越大，底数越大威望值越小，系统默认数值是 3'); ?><br /><?php _e('威望公式：log((((用户组威望系数 x 赞同数 - 用户组威望系数 x 反对数) + 发起者赞同反对威望系数 + 最佳回复威望系数) + 0.5), 对数底值)'); ?></p>
+				<dd>
+					<div class="row">
+						<div class="col-sm-7">
+							<input name="reputation_log_factor" type="text" class="form-control" value="<?php echo get_setting('reputation_log_factor'); ?>"/>
+							<p class="aw-text-color-999"><?php _e('控制显示的威望值大小，底数越小威望值越大，底数越大威望值越小，系统默认数值是 3'); ?><br /><?php _e('威望公式：log((((用户组威望系数 x 赞同数 - 用户组威望系数 x 反对数) + 发起者赞同反对威望系数 + 最佳回复威望系数) + 0.5), 对数底值)'); ?></p>
+						</div>
+					</div>
 				</dd>
 			</p>
 		</div>
@@ -594,14 +845,24 @@
 			</dl>
 			<dl>
 				<dt><h3><?php _e('邮件编码'); ?>: </h3></dt>
-				<dd><input name="mail_config[charset]" type="text" class="form-control" value="<?php echo $this->setting['mail_config']['charset']; ?>" />
-				
-				<p class="aw-text-color-999"><?php _e('非 UTF-8 编码会被自动转码'); ?></p>
+				<dd>
+					<div class="row">
+						<div class="col-sm-7">
+							<input name="mail_config[charset]" type="text" class="form-control" value="<?php echo $this->setting['mail_config']['charset']; ?>" />
+							<p class="aw-text-color-999"><?php _e('非 UTF-8 编码会被自动转码'); ?></p>
+						</div>
+					</div>
 				</dd>
 			</dl>
 			<dl>
 				<dt><h3><?php _e('SMTP 服务器'); ?>: </h3></dt>
-				<dd><input name="mail_config[server]" type="text" class="form-control" value="<?php echo $this->setting['mail_config']['server']; ?>" /></dd>
+				<dd>
+					<div class="row">
+						<div class="col-sm-7">
+							<input name="mail_config[server]" type="text" class="form-control" value="<?php echo $this->setting['mail_config']['server']; ?>" />
+						</div>
+					</div>
+				</dd>
 			</dl>
 			<dl>
 				<dt><h3><?php _e('使用安全链接(SSL)连接服务器'); ?>: </h3></dt>
@@ -618,21 +879,44 @@
 			<dl>
 				<dt><h3><?php _e('SMTP 端口'); ?>: </h3></dt>
 				
-				<dd><input name="mail_config[port]" type="text" class="form-control" value="<?php echo $this->setting['mail_config']['port']; ?>" />
-				<p class="aw-text-color-999"><?php _e('留空时默认服务器端口为 25，使用 SSL 协议默认端口为 465，详细参数请询问邮箱服务商'); ?></p>
+				<dd>
+					<div class="row">
+						<div class="col-sm-7">
+							<input name="mail_config[port]" type="text" class="form-control" value="<?php echo $this->setting['mail_config']['port']; ?>" />
+							<p class="aw-text-color-999"><?php _e('留空时默认服务器端口为 25，使用 SSL 协议默认端口为 465，详细参数请询问邮箱服务商'); ?></p>
+						</div>
+					</div>
 				</dd>
 			</dl>
 			<dl>
 				<dt><h3><?php _e('SMTP 帐户'); ?>:</h3></dt>
-				<dd><input name="mail_config[username]" type="text" class="form-control" value="<?php echo $this->setting['mail_config']['username']; ?>"/></dd>
+				<dd>
+					<div class="row">
+						<div class="col-sm-7">
+							<input name="mail_config[username]" type="text" class="form-control" value="<?php echo $this->setting['mail_config']['username']; ?>"/>
+						</div>
+					</div>
+				</dd>
 			</dl>
 			<dl>
 				<dt><h3><?php _e('SMTP 密码'); ?></h3></dt>
-				<dd><input name="mail_config[password]" type="password" class="form-control" value="<?php echo $this->setting['mail_config']['password']; ?>"/></dd>
+				<dd>
+					<div class="row">
+						<div class="col-sm-7">
+							<input name="mail_config[password]" type="password" class="form-control" value="<?php echo $this->setting['mail_config']['password']; ?>"/>
+						</div>
+					</div>
+				</dd>
 			</dl>
 			<dl>
 				<dt><h3><?php _e('系统邮件来源邮箱地址'); ?></h3></dt>
-				<dd><input name="from_email" type="text" class="form-control" value="<?php echo $this->setting['from_email']; ?>"/></dd>
+				<dd>
+					<div class="row">
+						<div class="col-sm-7">
+							<input name="from_email" type="text" class="form-control" value="<?php echo $this->setting['from_email']; ?>"/>
+						</div>
+					</div>
+				</dd>
 			</dl>
 		</div>
 		<a name="openid"></a>
@@ -656,14 +940,25 @@
 
 			<dl>
 				<dt><h3><?php _e('QQ 登录 AppID'); ?>:</h3></dt>
-				<dd><input name="qq_login_app_id" type="text" class="form-control" value="<?php echo $this->setting['qq_login_app_id']; ?>"/>
-				<p class="aw-text-color-999"><?php _e('AppID 与 APPKey 需要到 <a href="http://connect.qq.com/" target="_blank">QQ 互联开放平台</a> 申请 (注意: 请申请网站不要申请应用)'); ?></p>
+				<dd>
+					<div class="row">
+						<div class="col-sm-7">
+							<input name="qq_login_app_id" type="text" class="form-control" value="<?php echo $this->setting['qq_login_app_id']; ?>"/>
+							<p class="aw-text-color-999"><?php _e('AppID 与 APPKey 需要到 <a href="http://connect.qq.com/" target="_blank">QQ 互联开放平台</a> 申请 (注意: 请申请网站不要申请应用)'); ?></p>
+						</div>
+					</div>
 				</dd>
 			</dl>
 			
 			<dl>
 				<dt><h3><?php _e('QQ 登录 AppKey'); ?>:</h3></dt>
-				<dd><input name="qq_login_app_key" type="text" class="form-control" value="<?php echo $this->setting['qq_login_app_key']; ?>"/></dd>
+				<dd>
+					<div class="row">
+						<div class="col-sm-7">
+							<input name="qq_login_app_key" type="text" class="form-control" value="<?php echo $this->setting['qq_login_app_key']; ?>"/>
+						</div>
+					</div>
+				</dd>
 			</dl>
 			
 			<dl>
@@ -683,14 +978,25 @@
 			<dl>
 				<dt><h3><?php _e('新浪微博 AppKey(akey)'); ?>:</h3></dt>
 				
-				<dd><input name="sina_akey" type="text" class="form-control" value="<?php echo $this->setting['sina_akey']; ?>"/>
-				<p class="aw-text-color-999"><?php _e('AppKey 需要到 <a href="http://open.weibo.com/" target="_blank">新浪微博开放平台</a> 申请 (注意: 请申请网站不要申请应用)'); ?></p>
+				<dd>
+					<div class="row">
+						<div class="col-sm-7">
+							<input name="sina_akey" type="text" class="form-control" value="<?php echo $this->setting['sina_akey']; ?>"/>
+							<p class="aw-text-color-999"><?php _e('AppKey 需要到 <a href="http://open.weibo.com/" target="_blank">新浪微博开放平台</a> 申请 (注意: 请申请网站不要申请应用)'); ?></p>
+						</div>
+					</div>
 				</dd>
 			</dl>
 			
 			<dl>
 				<dt><h3><?php _e('新浪微博 AppKey(skey)'); ?>:</h3></dt>
-				<dd><input name="sina_skey" type="text" class="form-control" value="<?php echo $this->setting['sina_skey']; ?>"/></dd>
+				<dd>
+					<div class="row">
+						<div class="col-sm-7">
+							<input name="sina_skey" type="text" class="form-control" value="<?php echo $this->setting['sina_skey']; ?>"/>
+						</div>
+					</div>
+				</dd>
 			</dl>
 			
 			<dl>
@@ -710,21 +1016,37 @@
 			<dl>
 				<dt><h3><?php _e('腾讯微博 AppKey(app_key)'); ?>:</h3></dt>
 				
-				<dd><input name="qq_app_key" type="text" class="form-control" value="<?php echo $this->setting['qq_app_key']; ?>"/>
-				<p class="aw-text-color-999"><?php _e('AppKey 需要到 <a href="http://open.t.qq.com/" target="_blank">腾讯微博开放平台</a> 申请 (注意: 请申请网站不要申请应用)'); ?></p>
+				<dd>
+					<div class="row">
+						<div class="col-sm-7">
+							<input name="qq_app_key" type="text" class="form-control" value="<?php echo $this->setting['qq_app_key']; ?>"/>
+							<p class="aw-text-color-999"><?php _e('AppKey 需要到 <a href="http://open.t.qq.com/" target="_blank">腾讯微博开放平台</a> 申请 (注意: 请申请网站不要申请应用)'); ?></p>
+						</div>
+					</div>
 				</dd>
 			</dl>
 			
 			<dl>
 				<dt><h3><?php _e('腾讯微博 AppKey(app_secret)'); ?>:</h3></dt>
-				<dd><input name="qq_app_secret" type="text" class="form-control" value="<?php echo $this->setting['qq_app_secret']; ?>"/></dd>
+				<dd>
+					<div class="row">
+						<div class="col-sm-7">
+							<input name="qq_app_secret" type="text" class="form-control" value="<?php echo $this->setting['qq_app_secret']; ?>"/>
+						</div>
+					</div>
+				</dd>
 			</dl>
 			
 			<dl>
 				<dt><h3><?php _e('微信公众平台接口 Token'); ?>: </h3></dt>
 				
-				<dd><input name="weixin_mp_token" type="text" class="form-control" value="<?php echo $this->setting['weixin_mp_token']; ?>"/>
-				<p class="aw-text-color-999"><?php _e('请与微信公众平台后台设置一致'); ?></p>
+				<dd>
+					<div class="row">
+						<div class="col-sm-7">
+							<input name="weixin_mp_token" type="text" class="form-control" value="<?php echo $this->setting['weixin_mp_token']; ?>"/>
+							<p class="aw-text-color-999"><?php _e('请与微信公众平台后台设置一致'); ?></p>
+						</div>
+					</div>
 				</dd>
 			</dl>
 		</div>
@@ -735,15 +1057,33 @@
 		<div class="aw-mod-body">
 			<dl>
 				<dt><h3><?php _e('高级别缓存时间 (单位:秒)'); ?>:</h3></dt>
-				<dd><input name="cache_level_high" type="text" class="form-control" value="<?php echo $this->setting['cache_level_high']; ?>"/></dd>
+				<dd>
+					<div class="row">
+						<div class="col-sm-7">
+							<input name="cache_level_high" type="text" class="form-control" value="<?php echo $this->setting['cache_level_high']; ?>"/>
+						</div>
+					</div>
+				</dd>
 			</dl>
 			<dl>
 				<dt><h3><?php _e('普通级别缓存时间 (单位:秒)'); ?>:</h3></dt>
-				<dd><input name="cache_level_normal" type="text" class="form-control" value="<?php echo $this->setting['cache_level_normal']; ?>"/></dd>
+				<dd>
+					<div class="row">
+						<div class="col-sm-7">
+							<input name="cache_level_normal" type="text" class="form-control" value="<?php echo $this->setting['cache_level_normal']; ?>"/>
+						</div>
+					</div>
+				</dd>
 			</dl>
 			<dl>
 				<dt><h3><?php _e('低级别缓存时间 (单位:秒)'); ?>:</h3></dt>
-				<dd><input name="cache_level_low" type="text" class="form-control" value="<?php echo $this->setting['cache_level_low']; ?>"/></dd>
+				<dd>
+					<div class="row">
+						<div class="col-sm-7">
+							<input name="cache_level_low" type="text" class="form-control" value="<?php echo $this->setting['cache_level_low']; ?>"/>
+						</div>
+					</div>
+				</dd>
 			</dl>
 		</div>
 		<a name="interface"></a>
@@ -761,19 +1101,43 @@
 			</dl>
 			<dl>
 				<dt><h3><?php _e('最新动态显示条数'); ?>:</h3></dt>
-				<dd><input name="index_per_page" class="form-control" type="text" value="<?php echo $this->setting['index_per_page']; ?>"/></dd>
+				<dd>
+					<div class="row">
+						<div class="col-sm-7">
+							<input name="index_per_page" class="form-control" type="text" value="<?php echo $this->setting['index_per_page']; ?>"/>
+						</div>
+					</div>
+				</dd>
 			</dl>
 			<dl>
 				<dt><h3><?php _e('通知显示条数'); ?>:</h3></dt>
-				<dd><input name="notifications_per_page" class="form-control" type="text" value="<?php echo $this->setting['notifications_per_page']; ?>"/></dd>
+				<dd>
+					<div class="row">
+						<div class="col-sm-7">
+							<input name="notifications_per_page" class="form-control" type="text" value="<?php echo $this->setting['notifications_per_page']; ?>"/>
+						</div>
+					</div>
+				</dd>
 			</dl>
 			<dl>
 				<dt><h3><?php _e('内容列表页显示条数'); ?>:</h3></dt>
-				<dd><input name="contents_per_page" class="form-control" type="text" value="<?php echo $this->setting['contents_per_page']; ?>"/></dd>
+				<dd>
+					<div class="row">
+						<div class="col-sm-7">
+							<input name="contents_per_page" class="form-control" type="text" value="<?php echo $this->setting['contents_per_page']; ?>"/>
+						</div>
+					</div>
+				</dd>
 			</dl>
 			<dl>
 				<dt><h3><?php _e('首页推荐用户和话题数量'); ?>:</h3></dt>
-				<dd><input name="recommend_users_number" class="form-control" type="text" value="<?php echo $this->setting['recommend_users_number']; ?>"/></dd>
+				<dd>	
+					<div class="row">
+						<div class="col-sm-7">
+							<input name="recommend_users_number" class="form-control" type="text" value="<?php echo $this->setting['recommend_users_number']; ?>"/>
+						</div>
+					</div>
+				</dd>
 			</dl>
 		</div>
 		
@@ -797,8 +1161,13 @@
 		<div class="aw-mod-body">
 			<dl>
 				<dt><h3><?php _e('今日话题'); ?>: </h3></dt>
-				<dd><input type="text" name="today_topics" class="form-control" value="<?php echo $this->setting['today_topics']; ?>" />
-				<p class="aw-text-color-999"><?php _e('填写话题名称, 系统每天随机选出一个作为今日话题, 留空则不显示今日话题, 可填写一个或多个话题, 多个话题请用 , 分隔'); ?></p>
+				<dd>
+					<div class="row">
+						<div class="col-sm-7">
+							<input type="text" name="today_topics" class="form-control" value="<?php echo $this->setting['today_topics']; ?>" />
+							<p class="aw-text-color-999"><?php _e('填写话题名称, 系统每天随机选出一个作为今日话题, 留空则不显示今日话题, 可填写一个或多个话题, 多个话题请用 , 分隔'); ?></p>
+						</div>
+					</div>
 				</dd>
 			</dl>
 		</div>
