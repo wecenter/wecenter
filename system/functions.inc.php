@@ -50,37 +50,57 @@ function aasort($source_array, $order_field, $sort_type)
  */
 function fetch_ip()
 {
-	if ($_SERVER['HTTP_X_FORWARDED_FOR'] and valid_ip($_SERVER['HTTP_X_FORWARDED_FOR']))
+	if ($_SERVER['HTTP_X_FORWARDED_FOR'] and valid_ip($_SERVER['HTTP_X_FORWARDED_FOR']) and valid_internal_ip($_SERVER['REMOTE_ADDR']))
 	{
 		$ip_address = $_SERVER['HTTP_X_FORWARDED_FOR'];
-	}
-	else if ($_SERVER['REMOTE_ADDR'] and $_SERVER['HTTP_CLIENT_IP'])
-	{
-		$ip_address = $_SERVER['HTTP_CLIENT_IP'];
 	}
 	else if ($_SERVER['REMOTE_ADDR'])
 	{
 		$ip_address = $_SERVER['REMOTE_ADDR'];
 	}
-	else if ($_SERVER['HTTP_CLIENT_IP'])
+	
+	if ($ip_address)
 	{
-		$ip_address = $_SERVER['HTTP_CLIENT_IP'];
+		if (strstr($ip_address, ','))
+		{
+			$x = explode(',', $ip_address);
+			$ip_address = end($x);
+		}
 	}
 	
-	if ($ip_address === FALSE)
+	if (!valid_ip($ip_address))
 	{
 		$ip_address = '0.0.0.0';
-		
-		return $ip_address;
-	}
-	
-	if (strstr($ip_address, ','))
-	{
-		$x = explode(',', $ip_address);
-		$ip_address = end($x);
 	}
 	
 	return $ip_address;
+}
+
+function valid_internal_ip($ip)
+{ 
+	if (!valid_ip($ip))
+	{
+		return false;
+	}
+	
+	$ip_address = explode('.', $ip);
+	
+	if ($ip_address[0] == 10)
+	{
+		return true;
+	}
+	
+	if ($ip_address[0] == 172 and $ip_address[1] > 15 and $ip_address[1] < 32)
+	{
+		return true;
+	}
+	
+	if ($ip_address[0] == 192 and $ip_address[1] == 168)
+	{
+		return true;
+	} 
+	
+	return false;
 }
 
 /**
