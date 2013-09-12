@@ -12,22 +12,44 @@
 			
 			<dl>
 				<dt><h3><?php _e('用户名'); ?>:</h3></dt>
-				<dd><input name="user_name" type="text" value="<?php echo $this->user['user_name']; ?>" /></dd>
+				<dd>
+					<div class="row">
+						<div class="col-sm-3">
+							<input class="form-control" name="user_name" type="text" value="<?php echo $this->user['user_name']; ?>" />
+						</div>
+					</div>
+				</dd>
 			</dl>
 			<dl>
 				<dt><h3><?php _e('密码'); ?>:</h3></dt>
-				<dd><input name="password" type="text" value="" />
-				
-				<p class="aw-text-color-999"><?php _e('不更改请留空'); ?></p>
+				<dd>
+					<div class="row">
+						<div class="col-sm-3">
+							<input class="form-control" name="password" type="text" value="" />
+							<p class="aw-text-color-999"><?php _e('不更改请留空'); ?></p>
+						</div>
+					</div>
 				</dd>
 			</dl>
 			<dl>
 				<dt><h3><?php _e('邮箱'); ?>:</h3></dt>
-				<dd><input name="email" type="text" value="<?php echo $this->user['email']; ?>" /></dd>
+				<dd>
+					<div class="row">
+						<div class="col-sm-3">
+							<input class="form-control" name="email" type="text" value="<?php echo $this->user['email']; ?>" />
+						</div>
+					</div>
+				</dd>
 			</dl>
 			<dl>
 				<dt><h3><?php _e('一句话介绍'); ?>:</h3></dt>
-				<dd><input name="signature" type="text" value="<?php echo $this->user['signature']; ?>" /></dd>
+				<dd>
+					<div class="row">
+						<div class="col-sm-3">
+							<input class="form-control" name="signature" type="text" value="<?php echo $this->user['signature']; ?>" />
+						</div>
+					</div>
+				</dd>
 			</dl>
 			<dl>
 				<dt><h3><?php _e('积分'); ?>: </h3></dt>
@@ -120,7 +142,13 @@
 
 			<dl>
 				<dt><h3><?php _e('可用邀请名额'); ?>:</h3></dt>
-				<dd><input name="invitation_available" type="text" value="<?php echo $this->user['invitation_available']; ?>"/></dd>
+				<dd>
+					<div class="row">
+						<div class="col-sm-3">
+							<input class="form-control" name="invitation_available" type="text" value="<?php echo $this->user['invitation_available']; ?>"/>
+						</div>
+					</div>
+				</dd>
 			</dl>
 			</form>
 		</div>

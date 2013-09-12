@@ -10,15 +10,33 @@
 			<form action="admin/user_manage/user_save_ajax/" id="settings_form" method="post">
 				<dl>
 					<dt><h3><?php _e('用户名'); ?>:</h3></dt>
-					<dd><input name="user_name" type="text" value="<?php echo $this->user['user_name']; ?>" /></dd>
+					<dd>
+						<div class="row">
+							<div class="col-sm-3">
+								<input class="form-control" name="user_name" type="text" value="<?php echo $this->user['user_name']; ?>" />
+							</div>
+						</div>
+					</dd>
 				</dl>
 				<dl>
 					<dt><h3><?php _e('邮箱'); ?></h3></dt>
-					<dd><input name="email" type="text" value="<?php echo $this->user['email']; ?>" /></dd>
+					<dd>
+						<div class="row">
+							<div class="col-sm-3">
+								<input class="form-control" name="email" type="text" value="<?php echo $this->user['email']; ?>" />text" value="<?php echo $this->user['user_name']; ?>" />
+							</div>
+						</div>
+					</dd>
 				</dl>
 				<dl>
 					<dt><h3><?php _e('密码'); ?></h3></dt>
-					<dd><input name="password" type="password" /></dd>
+					<dd>
+						<div class="row">
+							<div class="col-sm-3">
+								<input class="form-control" name="password" type="password" />
+							</div>
+						</div>
+					</dd>
 				</dl>
 			</form>
 		</div>

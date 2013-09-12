@@ -15,14 +15,20 @@
 	<input type="hidden" name="referer_url" value="<?php echo $_SERVER['HTTP_REFERER']; ?>" />
 			<dl>
 				<dt><h3><?php _e('话题标题'); ?>:</h3></dt>
-				<dd><input type="text" name="topic_title" value="<?php echo $this->topic_info['topic_title']; ?>" class="input-xlarge" /></dd>
+				<dd>
+					<div class="row">
+						<div class="col-sm-3">
+							<input type="text" name="topic_title" value="<?php echo $this->topic_info['topic_title']; ?>" class="form-control" />
+						</div>
+					</div>
+				</dd>
 			</dl>
 			<dl>
 				<dt><h3><?php _e('话题描述'); ?>:</h3></dt>
-				<dd><textarea name="topic_description"><?php echo $this->topic_info['topic_description']; ?></textarea></dd>
+				<dd><textarea class="form-control" name="topic_description"><?php echo $this->topic_info['topic_description']; ?></textarea></dd>
 			</dl>
 			<dl>
-				<dt><h3><?php _e('锁定状态'); ?></h3></dt>
+				<dt><h3><?php _e('锁定状态'); ?>:</h3></dt>
 				<dd>
 					<span class="yesno_yes">
 						<label><input type="radio" name="topic_lock" value="1"<?php if ($this->topic_info['topic_lock'] == 1) { ?> checked="checked"<?php } ?> /><?php _e('是'); ?></label>

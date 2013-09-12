@@ -17,7 +17,7 @@
 				<?php foreach ($this->list AS $key => $val) { ?>
 				<tr>
 					<td><a href="admin/category/edit/category_id-<?php echo $val['id']; ?>"><?php echo $val['title']; ?></a></td>
-					<td align="center"><input type="text" value="<?php echo $val['sort']; ?>" class="input-mini sort-action" name="category[<?php echo $val['id']; ?>][sort]" /></td>
+					<td align="center"><input type="text" value="<?php echo $val['sort']; ?>" class="form-control sort-action" name="category[<?php echo $val['id']; ?>][sort]" /></td>
 					<td align="center">
 						<a href="admin/category/edit/category_id-<?php echo $val['id']; ?>" title="<?php _e('编辑'); ?>">
 							<i class="aw-icon page-edit"></i>

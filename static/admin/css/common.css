@@ -5,18 +5,21 @@ a:hover{text-decoration: none;}
 ul, ol{list-style: none;}
 ul{margin:0;padding:0;}
 input , textarea{font-family: "Helvetica Neue",Helvetica,Arial,'Microsoft YaHei',sans-serif !important;}
-label{font-weight: normal;}
-select{width: auto;min-width: 220px;*margin-left:10px;}
+label{margin:0;font-weight: normal;}
+select{width: auto;min-width: 220px;padding:3px;margin-bottom: 10px;*margin-left:10px;background: #FFFFFF;border:1px solid #CCCCCC;border-radius: 4px 4px 4px 4px;color: #555;}
 select, input[type="file"]{height: auto;}
 table{width: 100%;}
 input[type="radio"], input[type="checkbox"]{margin:0;}
 select, input[type="file"]{line-height: 0px;font-size: 13px;}
+th{text-align: center;}
+.form-control{margin-bottom: 10px;}
 .btn-inverse, .label-inverse{background: #444444;color: #fff;}
 .btn-inverse:hover, .label-inverse:hover{background: #333333;color: #fff;}
 .btn-normal.btn-inverse{padding:4px 40px;box-shadow: none;}
 .error{color: #FF0000;}
 .aw-text-color-999{margin:2px 0 0 0;color: #999;font-size: 11px;}
 .modal{margin-left: 0px;}
+.modal h3{font-size: 24px !important;}
 .modal-backdrop, .modal-backdrop.fade.in{opacity:0.2;filter:alpha(opacity=20);}
 .modal-header{*padding: 9px 15px;*height: 30px;*line-height: 30px;}
 .modal-header #myModalLabel{*position: relative;*top:10px;*margin-top:-10px;}
@@ -57,7 +60,7 @@ select, input[type="file"]{line-height: 0px;font-size: 13px;}
 /*右侧内容*/
 .right-side{width: 79.8%;min-height:350px;margin-left:245px;padding: 15px 0;}
 .right-side .aw-box{border:1px solid #D7E6F0;}
-.right-side .aw-box .date_picker{padding-left:30px;background: url('../img/calendar.png') no-repeat 5px 6px #fff;}
+.right-side .aw-box .date_picker{padding-left:30px;background: url('../img/calendar.png') no-repeat 7px 9px #fff;}
 .right-side .aw-mod-head h2{height:36px;line-height:36px;overflow:hidden;padding:0 10px;margin:0;background: #D6E4F1;color: #246594;font-weight: normal; }
 .right-side .aw-mod-head h2 .nav-tabs{margin:8px 0 0 30px;border-bottom: none;}
 .right-side .aw-mod-head h2 .nav-tabs > li > a{line-height: 14px;padding: 8px 12px;border-radius: 0px;color: #666;font-weight: normal;}
@@ -70,9 +73,9 @@ select, input[type="file"]{line-height: 0px;font-size: 13px;}
 .right-side .aw-box dl{height: auto;overflow: hidden;margin:0;padding:10px 20px;border-top: 1px solid #eaedf1;}
 .right-side .aw-box dl:first-child{border-top: none;}
 .right-side .aw-box dl dt{width: 20%;padding:10px;text-align: right;vertical-align: top;}
-.right-side .aw-box dl dt h3{line-height:30px;font-weight: normal;}
+.right-side .aw-box dl dt h3{line-height:26px;font-weight: normal;}
 .right-side .aw-box dl dt, .right-side .aw-box dl dd{float: left;}
-.right-side .aw-box dl dd{width:75%;max-width:700px;padding: 10px;}
+.right-side .aw-box dl dd{width:75%;max-width:700px;line-height:26px;padding: 10px;}
 .right-side .aw-box dl:nth-child(n){background: #ffffff;}
 .right-side .aw-box dl:nth-child(even){background: #F5F8FA;}
 .right-side .aw-box .aw-mod-footer{padding: 10px;background: #F5F5F5;border-top: 1px solid #D7D7D7;text-align: center;}
@@ -95,14 +98,15 @@ select, input[type="file"]{line-height: 0px;font-size: 13px;}
 .aw-table tr th{padding:10px 5px;font-weight: normal;background: #F2F8FF;border-bottom:1px solid #D7E6F0}
 .aw-table tbody tr:nth-child(n){background: #ffffff;}
 .aw-table tbody tr:nth-child(even){background: #F5F8FA;}
-.aw-table tbody td{padding: 10px;border-bottom: 1px solid #D7E6F0;vertical-align: baseline;font-size: 13px;}
+.aw-table tbody td{padding: 10px;border-bottom: 1px solid #D7E6F0;vertical-align: middle;font-size: 13px;}
 .aw-table tbody a{color: #666;}
 .aw-table tfoot td{background: #fff;padding: 10px;}
 .aw-table tfoot .pagination{height: 30px;margin:0;}
 .aw-table .aw-icon{margin:0 3px;vertical-align: middle;}
 .aw-table .database-point{position: relative;top:2px;}
-.table-row tr th{width:20%;padding-left:10px;border-right: 1px solid #D7E6F0;text-align: left;}
 .aw-table input, .aw-table select, .aw-table form{margin:0;}
+.table-row tr th{width:20%;padding-left:10px;border-right: 1px solid #D7E6F0;text-align: left;}
+#members_table .form-group input{width: 100px;}
 
 /*信息box*/
 .aw-message-box{width:30%;margin:10px;border:1px solid #D7E6F0;}
@@ -128,13 +132,13 @@ select, input[type="file"]{line-height: 0px;font-size: 13px;}
 .aw-mod-nav-setting .aw-mod-head h3 span{margin-left:10px;font-size: 13px;color: #999;}
 .aw-mod-nav-setting > .aw-mod-body > label{display: inline-block;margin:3px 0 0 20px;}
 .aw-mod-nav-setting > .aw-mod-body > p > label{display: inline-block;margin:3px 0 0 20px;}
-.aw-mod-nav-setting .aw-mod-body p{height: 30px;line-height: 30px;margin:0;}
+.aw-mod-nav-setting .aw-mod-body p{height: 30px;margin:0;}
 .aw-mod-nav-setting .aw-nav-menu li{margin-top:10px;border:1px solid #D7E6F0;}
 .aw-mod-nav-setting .aw-nav-menu .aw-mod-head{height: 40px;line-height: 40px;padding:0 10px;background: #F2F8FF;cursor: s-resize;font-size: 12px;}
 .aw-mod-nav-setting .aw-nav-menu .aw-mod-head h4{height: 40px;line-height: 40px;margin:0;font-weight: normal;}
 .aw-mod-nav-setting .aw-nav-menu .aw-mod-head span{color: #999;}
 .aw-mod-nav-setting .aw-nav-menu .aw-mod-body{padding: 10px;}
-.aw-mod-nav-setting .aw-nav-menu .aw-nav-menu-tag .aw-nav-menu-img{width: 50px;height: 50px;margin:0 0 0 15px;border:1px dashed #999;}
+.aw-mod-nav-setting .aw-nav-menu .aw-nav-menu-tag .aw-nav-menu-img{width: 50px;height: 50px;margin:5px 0 0 15px;border:1px dashed #999;}
 .aw-mod-nav-setting .aw-nav-menu .aw-nav-menu-tag .btn-small{margin:24px 0 0 10px;padding:3px 10px;}
 .aw-mod-nav-setting .aw-nav-menu .aw-nav-menu-tag input{width: 390px;}
 .aw-mod-nav-setting .aw-nav-menu .aw-nav-menu-descrip{width: 100%;}
@@ -144,9 +148,11 @@ select, input[type="file"]{line-height: 0px;font-size: 13px;}
 .aw-mod-nav-setting .aw-nav-menu .normal-width{width: 300px !important;}
 
 /*alert-box*/
-.aw-tips-box{width: 350px;}
+.alert-box{outline: none;}
+.aw-tips-box, .aw-tips-box .modal-dialog{width: 350px;}
 .aw-tips-box .modal-body{background: url('../img/warmming.png') no-repeat right 5px;}
 .aw-tips-box .modal-body p{margin: 10px 0;}
+.aw-question-edit{width: 600px;}
 
 /*footer*/
 .footer{width: 900px;margin:10px auto 0;padding:20px;text-align: center;}
@@ -183,6 +189,8 @@ select, input[type="file"]{line-height: 0px;font-size: 13px;}
 
 
 /*日期选择控件*/
+.aw-input-horizontal .col-sm-3{position: static;}
+.aw-input-horizontal .col-sm-1{min-width: 20px;line-height: 30px;padding:0;text-align: center;}
 .date_selector, .date_selector * {width: auto;height: auto;border: none;background: none;margin: 0;padding: 0;text-align: left;text-decoration: none;cursor: pointer;}
 .date_selector {background: #fbfbfb;border: 1px solid #ccc;padding: 10px;margin: 0;margin-top: -1px;position: absolute;z-index: 100000;display: none;box-shadow: 0 0 5px #aaa;-moz-box-shadow: 0 0 5px #aaa;-webkit-box-shadow: 0 0 5px #aaa;}
 .date_selector_ieframe {position: absolute;z-index: 99999;display: none;}
