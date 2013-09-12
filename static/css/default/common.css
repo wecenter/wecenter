@@ -875,6 +875,20 @@ select{width: auto;}
 .markitup-box blockquote , #markItUpPreviewFrames blockquote{margin:0 0 10px;background-color: #FBFBFB;border-left: 5px solid #C1CAD4;line-height: 22px;margin: 5px 0;padding: 10px;}
 .markitup-box .aw-comment-upload-img-list a{display:block;margin:15px 0;}
 
+/* 自定义页面 */
+.aw-custom-page{padding: 20px;background: #fff;}
+.aw-custom-page h1{font-size: 26px;}
+.aw-custom-page h2{font-size: 22px}
+.aw-custom-page h3{font-size: 18px;}
+.aw-custom-page h4{font-size: 16px;}
+.aw-custom-page h5{font-size: 14px;}
+.aw-custom-page h6{font-size: 12px;}
+.aw-custom-page p{line-height: 24px;}
+.aw-custom-page ul, .aw-custom-page ol{padding:0 0 0 20px;}
+.aw-custom-page ul{list-style-type: square;}
+.aw-custom-page ol{list-style-type: decimal;}
+.aw-custom-page img{margin:10px 0;}
+
 /* 404页面 */
 .aw-404{background:#f4f4f4;}
 .aw-404-wrap{width: 500px;height: 300px;margin:150px auto 0;text-align: center;}
