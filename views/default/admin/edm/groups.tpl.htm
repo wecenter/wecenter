@@ -45,7 +45,13 @@
 				<div class="aw-box aw-no-border-top">
 					<dl>
 						<dt><h3><?php _e('用户群名称'); ?></h3></dt>
-						<dd><input type="text" name="title" /></dd>
+						<dd>
+							<div class="row">
+								<div class="col-sm-3">
+									<input class="form-control" type="text" name="title" />
+								</div>
+							</div>
+						</dd>	
 					</dl>
 					
 					<dl>
@@ -62,7 +68,7 @@
 					<div id="option_text" class="hidden_option" style="display:none">
 						<dl>
 							<dt><h3><?php _e('邮件列表'); ?></h3></dt>
-							<dd><textarea name="email"></textarea>
+							<dd><textarea class="form-control" name="email"></textarea>
 							<p class="aw-text-color-999"><?php _e('一行一个邮件地址'); ?></p>
 							</dd>
 						</dl>
