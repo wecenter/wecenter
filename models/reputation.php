@@ -41,10 +41,10 @@ class reputation_class extends AWS_MODEL
 			return false;
 		}
 		
-		if ($user_info['reputation_update_time'] > time() - 1800)
+		/*if ($user_info['reputation_update_time'] > (time() - 1800))
 		{
 			return false;
-		}
+		}*/
 		
 		if ($users_anwsers = $this->query_all('SELECT answer_id, question_id, agree_count, thanks_count FROM ' . get_table('answer') . ' WHERE uid = ' . $user_info['uid']))
 		{				
@@ -56,7 +56,7 @@ class reputation_class extends AWS_MODEL
 						
 			if ($question_ids)
 			{
-				if ($questions_info_query = $this->query_all('SELECT question_id, best_answer, published_uid, category_id FROM ' . get_table('question') . ' WHERE question_id IN (' . implode(',', $question_ids) . ')'))
+				if ($questions_info_query = $this->query_all('SELECT question_id, best_answer, published_uid, category_id FROM ' . get_table('question') . ' WHERE question_id IN(' . implode(',', $question_ids) . ')'))
 				{
 					foreach ($questions_info_query AS $questions_info_key => $questions_info_val)
 					{
@@ -66,7 +66,7 @@ class reputation_class extends AWS_MODEL
 					unset($questions_info_query);
 				}
 							
-				if ($question_topics_query = $this->query_all('SELECT question_id, topic_id FROM ' . get_table('topic_question') . ' WHERE question_id IN (' . implode(',', $question_ids) . ')'))
+				if ($question_topics_query = $this->query_all('SELECT question_id, topic_id FROM ' . get_table('topic_question') . ' WHERE question_id IN(' . implode(',', $question_ids) . ')'))
 				{
 					foreach ($question_topics_query AS $question_topics_key => $question_topics_val)
 					{
@@ -236,10 +236,10 @@ class reputation_class extends AWS_MODEL
 			{
 				foreach ($user_reputation_category as $t_key => $t_val)
 				{
-					$this->delete('reputation_category', 'uid = ' . $uid . ' AND category_id = ' . $t_key);
+					$this->delete('reputation_category', 'uid = ' . intval($uid) . ' AND category_id = ' . $t_key);
 		
 					$this->insert('reputation_category', array(
-						'uid' => $uid,
+						'uid' => intval($uid),
 						'update_time' => time(),
 						'category_id' => $t_key,
 						'reputation' => round($t_val['reputation']),
@@ -267,7 +267,7 @@ class reputation_class extends AWS_MODEL
 
 	public function calculate($start = 0, $limit = 100)
 	{
-		if ($users_list = $this->query_all('SELECT uid FROM ' . get_table('users') . ' ORDER BY uid ASC', $start . ',' . $limit))
+		if ($users_list = $this->query_all('SELECT uid FROM ' . get_table('users') . ' ORDER BY uid ASC', intval($start) . ',' . intval($limit)))
 		{
 			foreach ($users_list as $key => $val)
 			{
