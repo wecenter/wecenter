@@ -19,8 +19,8 @@
 .aw-user-center-mod .aw-item{border-bottom:1px dotted #C1CAD4;}
 .aw-user-center-mod .aw-item .aw-mod-body{position:relative;padding:0 0 10px 35px;}
 .aw-user-center-mod .aw-item .aw-mod-body .aw-vote-bar{top:0;}
-.aw-user-center-count{position:absolute;left:0;top:0;min-width: 17px;max-width:50px;height:23px;line-height: 23px;padding:0 3px;background-color: #E9F5FF;text-align: center;}
-.aw-user-center-count .i-user-approve, .aw-user-center-count .i-user-ask{margin-right:10px;}
+.aw-user-center-count{position:absolute;left:0;top:0;min-width: 17px;max-width:50px;padding:0 3px;background-color: #E9F5FF;text-align: center;}
+.aw-user-center-count .icon-thumbs-up-alt, .aw-user-center-count .icon-reply{color: #428BCA;}
 
 /* tab切换 */
 /* 概述 */
