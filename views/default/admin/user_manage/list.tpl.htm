@@ -62,11 +62,23 @@
 				<div class="aw-box aw-no-border-top">
 					<dl>
 						<dt><h3><?php _e('用户名'); ?>:</h3></dt>
-						<dd><input type="text" value="<?php echo rawurldecode($_GET['user_name']); ?>" name="user_name" /></dd>
+						<dd>
+							<div class="row">
+								<div class="col-sm-3">
+									<input class="form-control" type="text" value="<?php echo rawurldecode($_GET['user_name']); ?>" name="user_name" />
+								</div>
+							</div>
+						</dd>
 					</dl>
 					<dl>
 						<dt><h3><?php _e('邮箱'); ?>:</h3></dt>
-						<dd><input type="text" value="<?php echo rawurldecode($_GET['email']); ?>" name="email" /></dd>
+						<dd>
+							<div class="row">
+								<div class="col-sm-3">
+									<input class="form-control" type="text" value="<?php echo rawurldecode($_GET['email']); ?>" name="email" />
+								</div>
+							</div>
+						</dd>
 					</dl>
 					<dl>
 						<dt><h3><?php _e('用户组'); ?>:</h3></dt>
@@ -79,8 +91,13 @@
 					</dl>
 					<dl>
 						<dt><h3><?php _e('最后登陆 IP 段'); ?>:</h3></dt>
-						<dd><input type="text" value="<?php echo $_GET['ip']; ?>" name="ip" />
-						<p class="aw-text-color-999"><?php _e('限 C 段, 如: 203.31.42.*'); ?></p>
+						<dd>
+							<div class="row">
+								<div class="col-sm-3">
+									<input class="form-control" type="text" value="<?php echo $_GET['ip']; ?>" name="ip" />
+								</div>
+							</div>
+							<p class="aw-text-color-999"><?php _e('限 C 段, 如: 203.31.42.*'); ?></p>
 						</dd>
 					</dl>
 					<dl>

@@ -25,8 +25,9 @@
 			</dl>
 			<dl>
 				<dt><h3><?php _e('网站关键词'); ?>:</h3></dt>
-				<dd><textarea class="form-control" name="keywords"><?php echo $this->setting['keywords']; ?></textarea>
-				<p class="aw-text-color-999"><?php _e('多个关键词以 , 隔开'); ?></p>
+				<dd>
+					<textarea class="form-control" name="keywords"><?php echo $this->setting['keywords']; ?></textarea>
+					<p class="aw-text-color-999"><?php _e('多个关键词以 , 隔开'); ?></p>
 				</dd>
 			</dl>
 			<dl>
@@ -45,9 +46,9 @@
 					<div class="row">
 						<div class="col-sm-7">
 							<input name="base_url" class="form-control" type="text" value="<?php echo $this->setting['base_url']; ?>"/>
-							<p class="aw-text-color-999"><?php _e('末尾不带 /'); ?></p>
 						</div>
 					</div>
+					<p class="aw-text-color-999"><?php _e('末尾不带 /'); ?></p>
 				</dd>
 			</dl>
 			<dl>
@@ -66,9 +67,9 @@
 					<div class="row">
 						<div class="col-sm-7">
 							<input name="upload_dir" class="form-control" type="text" value="<?php echo $this->setting['upload_dir']; ?>"/>
-							<p class="aw-text-color-999"><?php _e('目前网站根目录绝对路径'); ?>: <?php echo ROOT_PATH; ?></p>
 						</div>
 					</div>
+					<p class="aw-text-color-999"><?php _e('目前网站根目录绝对路径'); ?>: <?php echo ROOT_PATH; ?></p>
 				</dd>
 			</dl>
 			<dl>
@@ -77,9 +78,9 @@
 					<div class="row">
 						<div class="col-sm-7">
 							<input name="img_url" class="form-control" type="text" value="<?php echo $this->setting['img_url']; ?>"/>
-							<p class="aw-text-color-999"><?php _e('末尾不带 /, 留空使用根目录下的 static 资源'); ?></p>
 						</div>
 					</div>
+					<p class="aw-text-color-999"><?php _e('末尾不带 /, 留空使用根目录下的 static 资源'); ?></p>
 				</dd>
 			</dl>
 		</div>
@@ -200,9 +201,9 @@
 					<div class="row">
 						<div class="col-sm-7">
 							<input name="username_length_min" class="form-control" type="text" value="<?php echo $this->setting['username_length_min']; ?>"/>
-							<p class="aw-text-color-999"><?php _e('注: 一个汉字等于 2 个字符'); ?></p>
 						</div>
 					</div>
+					<p class="aw-text-color-999"><?php _e('注: 一个汉字等于 2 个字符'); ?></p>
 				</dd>
 			</dl>
 			<dl>
@@ -211,9 +212,9 @@
 					<div class="row">
 						<div class="col-sm-7">
 							<input name="username_length_max" class="form-control" type="text" value="<?php echo $this->setting['username_length_max']; ?>"/></label>
-							<p class="aw-text-color-999"><?php _e('注: 一个汉字等于 2 个字符'); ?></p>
 						</div>
 					</div>
+					<p class="aw-text-color-999"><?php _e('注: 一个汉字等于 2 个字符'); ?></p>
 				</dd>
 			</dl>
 			
@@ -223,8 +224,9 @@
 			</dl>
 			<dl>
 				<dt><h3><?php _e('用户注册名不允许出现以下关键字'); ?>: </h3></dt>
-				<dd><textarea class="form-control" name="censoruser" cols="100" rows="4" id="censoruser"><?php echo $this->setting['censoruser']; ?></textarea>
-				<p class="aw-text-color-999"><?php _e('每行填写一个关键字, 如: admin, 管理员等'); ?></p>
+				<dd>
+					<textarea class="form-control" name="censoruser" cols="100" rows="4" id="censoruser"><?php echo $this->setting['censoruser']; ?></textarea>
+					<p class="aw-text-color-999"><?php _e('每行填写一个关键字, 如: admin, 管理员等'); ?></p>
 				</dd>
 			</dl>
 			<dl>
@@ -233,9 +235,9 @@
 					<div class="row">
 						<div class="col-sm-7">
 							<input name="def_focus_uids" class="form-control" type="text" value="<?php echo $this->setting['def_focus_uids']; ?>"/>
-							<p class="aw-text-color-999"><?php _e('多个用户 ID 请用 , 隔开'); ?></p>
 						</div>
 					</div>
+					<p class="aw-text-color-999"><?php _e('多个用户 ID 请用 , 隔开'); ?></p>
 				</dd>
 			</dl>
 			<dl>
@@ -244,9 +246,9 @@
 					<div class="row">
 						<div class="col-sm-7">
 							<input name="welcome_recommend_users" class="form-control" type="text" value="<?php echo $this->setting['welcome_recommend_users']; ?>"/>
-							<p class="aw-text-color-999"><?php _e('填写用户名, 若有多个用户名请用 , 隔开, 留空系统自动推荐'); ?></p>
 						</div>
 					</div>
+					<p class="aw-text-color-999"><?php _e('填写用户名, 若有多个用户名请用 , 隔开, 留空系统自动推荐'); ?></p>
 				</dd>
 			</dl>
 			<dl>
@@ -261,14 +263,16 @@
 			</dl>
 			<dl>
 				<dt><h3><?php _e('新用户注册系统发送的欢迎内容'); ?> (<?php _e('私信'); ?>):</h3></dt>
-				<dd><textarea class="form-control" name="welcome_message_pm"><?php echo $this->setting['welcome_message_pm']; ?></textarea>
-				<p class="aw-text-color-999"><?php _e('新用户注册欢迎内容, 以下变量可作为内容替换: <br />{username}: 用户名<br />{time}: 发送时间<br />{sitename}: 网站名称'); ?></p>
+				<dd>
+					<textarea class="form-control" name="welcome_message_pm"><?php echo $this->setting['welcome_message_pm']; ?></textarea>
+					<p class="aw-text-color-999"><?php _e('新用户注册欢迎内容, 以下变量可作为内容替换: <br />{username}: 用户名<br />{time}: 发送时间<br />{sitename}: 网站名称'); ?></p>
 				</dd>
 			</dl>
 			<dl>
 				<dt><h3><?php _e('新用户注册系统发送的欢迎内容'); ?> (<?php _e('邮件'); ?>):</h3></dt>
-				<dd><textarea class="form-control" name="welcome_message_email"><?php echo $this->setting['welcome_message_email']; ?></textarea>
-				<p class="aw-text-color-999"><?php _e('新用户注册欢迎内容, 以下变量可作为内容替换: <br />{username}: 用户名<br />{time}: 发送时间<br />{sitename}: 网站名称'); ?></p>
+				<dd>
+					<textarea class="form-control" name="welcome_message_email"><?php echo $this->setting['welcome_message_email']; ?></textarea>
+					<p class="aw-text-color-999"><?php _e('新用户注册欢迎内容, 以下变量可作为内容替换: <br />{username}: 用户名<br />{time}: 发送时间<br />{sitename}: 网站名称'); ?></p>
 				</dd>
 			</dl>
 			<dl>
@@ -374,9 +378,9 @@
 					<div class="row">
 						<div class="col-sm-7">
 							<input name="auto_question_lock_day" class="form-control" type="text" value="<?php echo $this->setting['auto_question_lock_day']; ?>"/>
-							<p class="aw-text-color-999"><?php _e('单位'); ?>: <?php _e('天'); ?>, <?php _e('问题超过设定天数没有动作,系统则会自动锁定该问题, 设置为 0 则关闭自动锁定'); ?></p>
 						</div>
 					</div>
+					<p class="aw-text-color-999"><?php _e('单位'); ?>: <?php _e('天'); ?>, <?php _e('问题超过设定天数没有动作,系统则会自动锁定该问题, 设置为 0 则关闭自动锁定'); ?></p>
 				</dd>
 			</dl>
 			<dl>
@@ -385,8 +389,9 @@
 			</dl>
 			<dl>
 				<dt><h3><?php _e('问题举报理由选项'); ?>:</h3></dt>
-				<dd><textarea class="form-control" name="report_reason"><?php echo get_setting('report_reason'); ?></textarea>
-				<p class="aw-text-color-999"><?php _e('每行填写一个举报理由'); ?></p>
+				<dd>
+					<textarea class="form-control" name="report_reason"><?php echo get_setting('report_reason'); ?></textarea>
+					<p class="aw-text-color-999"><?php _e('每行填写一个举报理由'); ?></p>
 				</dd>
 			</dl>
 			<dl>
@@ -395,9 +400,9 @@
 					<div class="row">
 						<div class="col-sm-7">
 							<input name="report_message_uid" class="form-control" type="text" value="<?php echo $this->setting['report_message_uid']; ?>"/>
-							<p class="aw-text-color-999"><?php _e('留空则发送到 ID 为 1 的用户'); ?></p>
 						</div>
 					</div>
+					<p class="aw-text-color-999"><?php _e('留空则发送到 ID 为 1 的用户'); ?></p>
 				</dd>
 			</dl>
 			<dl>
@@ -441,7 +446,6 @@
 			</dl>
 			<dl>
 				<dt><h3><?php _e('启用分类功能'); ?>:</h3></dt>
-				
 				<dd>
 					<span class="yesno_yes">
 						<label><input type="radio" name="category_enable" value="Y"<?php if ($this->setting['category_enable'] == 'Y') { ?> checked="checked"<?php } ?> /><?php _e('是'); ?></label>
@@ -453,7 +457,6 @@
 			</dl>
 			<dl>
 				<dt><h3><?php _e('允许上传附件'); ?>:</h3></dt>
-				
 				<dd>
 					<span class="yesno_yes">
 						<label><input type="radio" name="upload_enable" value="Y"<?php if ($this->setting['upload_enable'] == 'Y') { ?> checked="checked"<?php } ?> /><?php _e('是'); ?></label>
@@ -784,9 +787,9 @@
 					<div class="row">
 						<div class="col-sm-7">
 							<input name="reputation_log_factor" type="text" class="form-control" value="<?php echo get_setting('reputation_log_factor'); ?>"/>
-							<p class="aw-text-color-999"><?php _e('控制显示的威望值大小，底数越小威望值越大，底数越大威望值越小，系统默认数值是 3'); ?><br /><?php _e('威望公式：log((((用户组威望系数 x 赞同数 - 用户组威望系数 x 反对数) + 发起者赞同反对威望系数 + 最佳回复威望系数) + 0.5), 对数底值)'); ?></p>
 						</div>
 					</div>
+					<p class="aw-text-color-999"><?php _e('控制显示的威望值大小，底数越小威望值越大，底数越大威望值越小，系统默认数值是 3'); ?><br /><?php _e('威望公式：log((((用户组威望系数 x 赞同数 - 用户组威望系数 x 反对数) + 发起者赞同反对威望系数 + 最佳回复威望系数) + 0.5), 对数底值)'); ?></p>
 				</dd>
 			</p>
 		</div>
@@ -849,9 +852,9 @@
 					<div class="row">
 						<div class="col-sm-7">
 							<input name="mail_config[charset]" type="text" class="form-control" value="<?php echo $this->setting['mail_config']['charset']; ?>" />
-							<p class="aw-text-color-999"><?php _e('非 UTF-8 编码会被自动转码'); ?></p>
 						</div>
 					</div>
+					<p class="aw-text-color-999"><?php _e('非 UTF-8 编码会被自动转码'); ?></p>
 				</dd>
 			</dl>
 			<dl>
@@ -883,9 +886,9 @@
 					<div class="row">
 						<div class="col-sm-7">
 							<input name="mail_config[port]" type="text" class="form-control" value="<?php echo $this->setting['mail_config']['port']; ?>" />
-							<p class="aw-text-color-999"><?php _e('留空时默认服务器端口为 25，使用 SSL 协议默认端口为 465，详细参数请询问邮箱服务商'); ?></p>
 						</div>
 					</div>
+					<p class="aw-text-color-999"><?php _e('留空时默认服务器端口为 25，使用 SSL 协议默认端口为 465，详细参数请询问邮箱服务商'); ?></p>
 				</dd>
 			</dl>
 			<dl>
@@ -944,9 +947,9 @@
 					<div class="row">
 						<div class="col-sm-7">
 							<input name="qq_login_app_id" type="text" class="form-control" value="<?php echo $this->setting['qq_login_app_id']; ?>"/>
-							<p class="aw-text-color-999"><?php _e('AppID 与 APPKey 需要到 <a href="http://connect.qq.com/" target="_blank">QQ 互联开放平台</a> 申请 (注意: 请申请网站不要申请应用)'); ?></p>
 						</div>
 					</div>
+					<p class="aw-text-color-999"><?php _e('AppID 与 APPKey 需要到 <a href="http://connect.qq.com/" target="_blank">QQ 互联开放平台</a> 申请 (注意: 请申请网站不要申请应用)'); ?></p>
 				</dd>
 			</dl>
 			
@@ -982,9 +985,9 @@
 					<div class="row">
 						<div class="col-sm-7">
 							<input name="sina_akey" type="text" class="form-control" value="<?php echo $this->setting['sina_akey']; ?>"/>
-							<p class="aw-text-color-999"><?php _e('AppKey 需要到 <a href="http://open.weibo.com/" target="_blank">新浪微博开放平台</a> 申请 (注意: 请申请网站不要申请应用)'); ?></p>
 						</div>
 					</div>
+					<p class="aw-text-color-999"><?php _e('AppKey 需要到 <a href="http://open.weibo.com/" target="_blank">新浪微博开放平台</a> 申请 (注意: 请申请网站不要申请应用)'); ?></p>
 				</dd>
 			</dl>
 			
@@ -1020,9 +1023,9 @@
 					<div class="row">
 						<div class="col-sm-7">
 							<input name="qq_app_key" type="text" class="form-control" value="<?php echo $this->setting['qq_app_key']; ?>"/>
-							<p class="aw-text-color-999"><?php _e('AppKey 需要到 <a href="http://open.t.qq.com/" target="_blank">腾讯微博开放平台</a> 申请 (注意: 请申请网站不要申请应用)'); ?></p>
 						</div>
 					</div>
+					<p class="aw-text-color-999"><?php _e('AppKey 需要到 <a href="http://open.t.qq.com/" target="_blank">腾讯微博开放平台</a> 申请 (注意: 请申请网站不要申请应用)'); ?></p>
 				</dd>
 			</dl>
 			
@@ -1044,9 +1047,9 @@
 					<div class="row">
 						<div class="col-sm-7">
 							<input name="weixin_mp_token" type="text" class="form-control" value="<?php echo $this->setting['weixin_mp_token']; ?>"/>
-							<p class="aw-text-color-999"><?php _e('请与微信公众平台后台设置一致'); ?></p>
 						</div>
 					</div>
+					<p class="aw-text-color-999"><?php _e('请与微信公众平台后台设置一致'); ?></p>
 				</dd>
 			</dl>
 		</div>
@@ -1165,9 +1168,9 @@
 					<div class="row">
 						<div class="col-sm-7">
 							<input type="text" name="today_topics" class="form-control" value="<?php echo $this->setting['today_topics']; ?>" />
-							<p class="aw-text-color-999"><?php _e('填写话题名称, 系统每天随机选出一个作为今日话题, 留空则不显示今日话题, 可填写一个或多个话题, 多个话题请用 , 分隔'); ?></p>
 						</div>
 					</div>
+					<p class="aw-text-color-999"><?php _e('填写话题名称, 系统每天随机选出一个作为今日话题, 留空则不显示今日话题, 可填写一个或多个话题, 多个话题请用 , 分隔'); ?></p>
 				</dd>
 			</dl>
 		</div>
