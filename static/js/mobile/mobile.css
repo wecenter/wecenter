@@ -27,8 +27,29 @@ a{cursor: pointer;}
 .btn-primary.aw-active:hover{background: #EBEBEB;border-color:#ADADAD;color: #333333;}
 .img-polaroid{max-width: 90%;}
 .aw-loading{display:inline-block;width:16px;height:16px;background: url(img/ajax-loader.gif) no-repeat;}
-#aw-loading { background: #000; width: 40px; height: 40px; padding: 5px; -webkit-border-radius: 5px; border-radius: 5px; position: fixed; top: 50%;	left: 50%; margin: -20px 0 0 -20px; z-index: 10001; -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=75)"; filter: alpha(opacity=75); opacity: 0.75; }
+#aw-loading { background: #000; width: 40px; height: 40px;  -webkit-border-radius: 5px; border-radius: 5px; position: fixed; top: 50%;	left: 50%; margin: -20px 0 0 -20px; z-index: 10001; -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=75)"; filter: alpha(opacity=75); opacity: 0.75; }
 #aw-loading-box { width: 40px; height: 40px; background-image: url('img/loading.png'); }
+input[type="text"], input[type="password"]{
+  height: 34px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.428571429;
+  color: #555555;
+  vertical-align: middle;
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+          transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+}
+input[type="text"]:focus, input[type="password"]:focus {
+  border-color: #66afe9;
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+}
 
 /* 顶部 */
 header{height: 46px;min-width: 0;padding:0 10px;background: none repeat scroll 0 0 #0D7DCB;border-bottom: 1px solid #0055AC;border-top: 1px solid #0055AC;box-shadow: 0 1px 0 rgba(255, 255, 255, 0.15) inset, 0 1px 1px rgba(0, 0, 0, 0.15);}
@@ -258,7 +279,7 @@ nav #aw-top-nav-notic .badge{position: absolute;right: 0;top:1px;z-index:100;pad
 .explore-wrap .aw-mod-footer a, .explore-body footer, .explore-body footer a{color: #fff;}
 .explore-wrap .aw-mod-footer .dot{margin:0 8px;color: #fff;}
 .explore-wrap .aw-mod-footer .username, .explore-wrap .aw-mod-footer .email, .explore-wrap .aw-mod-footer .password{margin-bottom: 10px;}
-.explore-wrap .aw-mod-footer .username input, .explore-wrap .aw-mod-footer .email input, .explore-wrap .aw-mod-footer .password input{width: 95%;padding:7px 6px;}
+.explore-wrap .aw-mod-footer .username input, .explore-wrap .aw-mod-footer .email input, .explore-wrap .aw-mod-footer .password input{width:100%;padding:7px 6px;}
 .explore-wrap .aw-mod-footer .verify input, .explore-wrap .aw-mod-footer .verify img{float: left;}
 .explore-wrap .aw-mod-footer .verify input{width: 54%;padding:7px 6px;}
 .explore-wrap .aw-mod-footer .verify img{margin-left: 10px;height: 36px;}
