@@ -149,14 +149,14 @@ class ajax extends AWS_CONTROLLER
 		
 		$this->model('account')->update_question_invite_count($_POST['uid']);
 
-		$this->model('notify')->send($this->user_id, $_POST['uid'], notify_class::TYPE_INVITE_QUESTION, notify_class::CATEGORY_QUESTION, intval($_POST['question_id']), array(
+		$notification_id = $this->model('notify')->send($this->user_id, $_POST['uid'], notify_class::TYPE_INVITE_QUESTION, notify_class::CATEGORY_QUESTION, intval($_POST['question_id']), array(
 			'from_uid' => $this->user_id, 
 			'question_id' => intval($_POST['question_id'])
 		));
 			
-		$this->model('email')->action_email('QUESTION_INVITE', $_POST['uid'], get_js_url('/question/' . intval($_POST['question_id'])), array(
+		$this->model('email')->action_email('QUESTION_INVITE', $_POST['uid'], get_js_url('/question/' . $question_info['question_id'] . '?notification_id-' . $notification_id), array(
 			'user_name' => $this->user_info['user_name'], 
-			'question_title' => $question_info['question_content']
+			'question_title' => $question_info['question_content'],
 		));
 			
 		H::ajax_json_output(AWS_APP::RSM(null, 1, null));

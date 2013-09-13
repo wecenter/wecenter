@@ -73,8 +73,6 @@ class notify_class extends AWS_MODEL
 	 */
 	public function send($sender_uid, $recipient_uid, $action_type, $model_type = 0, $source_id = 0, $data = array())
 	{		
-		$recipient_uid = intval($recipient_uid);
-		
 		if (!$recipient_uid)
 		{
 			return false;
@@ -92,7 +90,7 @@ class notify_class extends AWS_MODEL
 		
 		if ($notification_id = $this->insert('notification', array(
 			'sender_uid' => $sender_uid, 
-			'recipient_uid' => $recipient_uid, 
+			'recipient_uid' => intval($recipient_uid), 
 			'action_type' => intval($action_type), 
 			'model_type' => intval($model_type), 
 			'source_id' => intval($source_id), 
@@ -195,9 +193,7 @@ class notify_class extends AWS_MODEL
 		
 		foreach ($notify_list as $key => $notify)
 		{
-			$data = $notify['data'];
-			
-			if (empty($data))
+			if (!$data = $notify['data'])
 			{
 				continue;
 			}
@@ -218,7 +214,7 @@ class notify_class extends AWS_MODEL
 				$tmp['p_url'] = get_js_url('/people/' . $userinfo['url_token']);
 			}
 			
-			$token = "notification_id-" . $notify['notification_id'];
+			$token = 'notification_id-' . $notify['notification_id'];
 			
 			switch ($notify['model_type'])
 			{
@@ -227,9 +223,10 @@ class notify_class extends AWS_MODEL
 					switch ($notify['action_type'])
 					{
 						default :
-							if (empty($question_list[$data['question_id']]))
+							if (!$question_list[$data['question_id']])
 							{
 								unset($tmp);
+								
 								continue;
 							}
 							
@@ -352,14 +349,14 @@ class notify_class extends AWS_MODEL
 				
 				case self::CATEGORY_PEOPLE :
 					
-					if (empty($userinfo))
+					if (!$userinfo)
 					{
 						unset($tmp);
+						
 						continue;
 					}
 					
 					$tmp['key_url'] = $tmp['p_url'] . '?' . $token;
-					
 					break;
 				
 				case self::CATEGORY_CONTEXT :
@@ -494,7 +491,7 @@ class notify_class extends AWS_MODEL
 				}
 				
 				$tmp['users'][$uid] = array(
-					'username' => $anonymous ? '匿名用户' : $user_infos[$uid]['user_name'], 
+					'username' => $anonymous ? AWS_APP::lang()->_t('匿名用户') : $user_infos[$uid]['user_name'], 
 					'url' => 'question/' . $val[0]['data']['question_id'] . '?' . implode('__', $querys)
 				);
 			}
@@ -595,7 +592,7 @@ class notify_class extends AWS_MODEL
 			
 			$this->update('notification', array(
 				'read_flag' => 1
-			), "recipient_uid = " . intval($uid) . " AND notification_id IN (" . implode(',', $notification_ids) . ")");
+			), 'recipient_uid = ' . intval($uid) . ' AND notification_id IN (' . implode(',', $notification_ids) . ')');
 			
 			$this->model('account')->update_notification_unread($uid);
 			
