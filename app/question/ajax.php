@@ -108,12 +108,17 @@ class ajax extends AWS_CONTROLLER
 
 	public function save_invite_action()
 	{		
-		if (!$_POST['question_id'] || !$_POST['uid'])
+		if (!$question_info = $this->model('question')->get_question_info_by_id($_POST['question_id']))
 		{
-			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('问题或用户不存在')));
+			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('问题不存在或已被删除')));
 		}
 		
-		if ($_POST['uid'] == $this->user_id)
+		if (!$invite_user_info = $this->model('account')->get_user_info_by_uid($_POST['uid']))
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('用户不存在')));
+		}
+		
+		if ($invite_user_info['uid'] == $this->user_id)
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('不能邀请自己回复问题')));
 		}
@@ -123,33 +128,31 @@ class ajax extends AWS_CONTROLLER
 			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('你的剩余积分已经不足以进行此操作')));
 		}
 		
-		if ($this->model('answer')->has_answer_by_uid($_POST['question_id'], $_POST['uid']))
+		if ($this->model('answer')->has_answer_by_uid($_POST['question_id'], $invite_user_info['uid']))
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('该用户已经回答过该问题')));
 		}
 		
-		$question_info = $this->model('question')->get_question_info_by_id($_POST['question_id']);
-		
-		if ($question_info['published_uid'] == $_POST['uid'])
+		if ($question_info['published_uid'] == $invite_user_info['uid'])
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('不能邀请问题的发起者回答问题')));
 		}
 		
-		if ($this->model('question')->check_question_invite($_POST['question_id'], 0, $_POST['uid']))
+		if ($this->model('question')->check_question_invite($_POST['question_id'], 0, $invite_user_info['uid']))
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('该用户已接受过邀请')));
 		}
 		
-		if ($this->model('question')->check_question_invite($_POST['question_id'], $this->user_id, $_POST['uid']))
+		if ($this->model('question')->check_question_invite($_POST['question_id'], $this->user_id, $invite_user_info['uid']))
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('已邀请过该用户')));
 		}
 		
-		$this->model('question')->add_invite($_POST['question_id'], $this->user_id, $_POST['uid']);
+		$this->model('question')->add_invite($_POST['question_id'], $this->user_id, $invite_user_info['uid']);
 		
-		$this->model('account')->update_question_invite_count($_POST['uid']);
+		$this->model('account')->update_question_invite_count($invite_user_info['uid']);
 
-		$notification_id = $this->model('notify')->send($this->user_id, $_POST['uid'], notify_class::TYPE_INVITE_QUESTION, notify_class::CATEGORY_QUESTION, intval($_POST['question_id']), array(
+		$notification_id = $this->model('notify')->send($this->user_id, $invite_user_info['uid'], notify_class::TYPE_INVITE_QUESTION, notify_class::CATEGORY_QUESTION, intval($_POST['question_id']), array(
 			'from_uid' => $this->user_id, 
 			'question_id' => intval($_POST['question_id'])
 		));
