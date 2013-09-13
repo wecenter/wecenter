@@ -134,7 +134,7 @@ select{width: auto;}
 .aw-reset-nav-tabs > li.active{margin:0 4px -1px;}
 .aw-reset-nav-tabs > li.active a{line-height:31px;background-color: #fff;}
 .aw-reset-nav-tabs h2{position:absolute;top:0;left:0;margin:0;font-size:20px;}
-.aw-reset-nav-tabs .i-triangle-up-mini, .aw-reset-nav-tabs .i-triangle-down-mini{position: relative;top: -2px;margin-left:5px;}
+.aw-reset-nav-tabs .icon-caret-up, .aw-reset-nav-tabs .i-triangle-down-mini{position: relative;top: -2px;margin-left:5px;}
 
 /* top-menu */
 .aw-top-menu-wrap{width:100%;background:#86C5E3;font-weight: bold;}
@@ -469,7 +469,7 @@ select{width: auto;}
 .aw-topic-detail-about{padding:20px;line-height: 24px;}
 .aw-question-detail-txt{padding:10px 0;}
 .aw-topic-search{position:relative;height:28px;border:1px solid #CCCCCC;box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;}
-.aw-topic-search .glyphicon-search{margin:-2px 0 4px 4px;vertical-align: middle;}
+.aw-topic-search .icon-search{margin:-2px 0 4px 4px;vertical-align: middle;}
 .aw-topic-search .search-query{width:221px;margin:3px 0;padding:3px 14px 3px 0;border:none;box-shadow: none;transition:none;}
 .aw-topic-search .search-query:focus{border: none;box-shadow: none;}
 .aw-topic-search .aw-topic-dropdown{top:35px;}
@@ -891,7 +891,7 @@ select{width: auto;}
 .aw-404-wrap p a{font-size:14px;}
 
 /* 字体icon */
-.icon-comment-alt, .icon-share-alt, .icon-edit, .icon-map-marker, .icon-flag, .icon-heart, .icon-user, .icon-home, .icon-thumbs-up-alt, .icon-reply, .icon-signal, .icon-tag, .icon-wrench, .icon-cog, .icon-off, .icon-bookmark, .icon-chevron-down, .icon-mobile-phone{margin-right: 5px;color: #B7B7B7;cursor: pointer;}
+.icon-comment-alt, .icon-share-alt, .icon-edit, .icon-map-marker, .icon-flag, .icon-heart, .icon-user, .icon-home, .icon-thumbs-up-alt, .icon-reply, .icon-signal, .icon-tag, .icon-wrench, .icon-cog, .icon-off, .icon-bookmark, .icon-chevron-down, .icon-mobile-phone, .icon-external-link{margin-right: 5px;color: #B7B7B7;cursor: pointer;}
 .icon-ok-sign{margin-left:5px;color: #4bbe00;font-size: 14px;cursor: pointer;}
 .icon-ok-sign.aw-active:before{content:"\f055";color: #43b3ff;}
 .icon-comment-alt{font-size: 12px;}
