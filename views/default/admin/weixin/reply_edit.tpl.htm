@@ -21,7 +21,7 @@
 				<dt><h3><?php _e('关键词'); ?>:</h3></dt>
 				<dd><?php if ($this->rule_info['id']) { ?><?php echo $this->rule_info['keyword']; ?><?php } else { ?>
 					<div class="row">
-						<div class="col-sm-3">
+						<div class="col-sm-7">
 							<input type="text" name="keyword" class="form-control" value="" />
 						</div>
 					</div>
@@ -41,7 +41,7 @@
 				<dt><h3><?php _e('回应内容'); ?>:</h3></dt>
 				<dd>
 					<div class="row">
-						<div class="col-sm-3">
+						<div class="col-sm-7">
 							<input type="text" name="title" value="<?php echo htmlspecialchars($this->rule_info['title']); ?>" class="form-control" />
 						</div>
 					</div>
@@ -59,7 +59,7 @@
 				<dt><h3><?php _e('图片简介'); ?></h3></dt>
 				<dd>
 					<div class="row">
-						<div class="col-sm-3">
+						<div class="col-sm-7">
 							<input type="text" name="description" value="<?php echo htmlspecialchars($this->rule_info['description']); ?>" class="form-control" />
 						</div>
 					</div>
@@ -70,7 +70,7 @@
 				<dt><h3><?php _e('图片链接'); ?></h3></dt>
 				<dd>
 					<div class="row">
-						<div class="col-sm-3">
+						<div class="col-sm-7">
 							<input type="text" name="link" value="<?php echo $this->rule_info['link']; ?>" class="form-control" />
 						</div>
 					</div>

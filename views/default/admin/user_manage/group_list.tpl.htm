@@ -111,7 +111,7 @@
 					<tr>
 						<td align="center"><input type="checkbox" value="<?php echo $val['group_id'];?>" name="group_ids[]"></td>
 						<td align="center"><?php echo $val['group_id']; ?></td>
-						<td><input type="text" class="input-xlarge" name="group[<?php echo $val['group_id'];?>][group_name]" value="<?php echo $val['group_name'];?>" /></td>
+						<td><input type="text" class="form-control" name="group[<?php echo $val['group_id'];?>][group_name]" value="<?php echo $val['group_name'];?>" /></td>
 						<td><a href="admin/user_manage/group_edit/group_id-<?php echo $val['group_id']; ?>"><?php _e('权限编辑'); ?></a></td>
 					</tr>
 					<?php } ?>
@@ -119,7 +119,7 @@
 					<tr id="custom_add_form" class="hide">
 						<td></td>
 						<td></td>
-						<td><input type="text" class="input-xlarge" name="group_new[group_name][]" placeholder="<?php _e('用户组名称'); ?>" /></td>
+						<td><input type="text" class="form-control" name="group_new[group_name][]" placeholder="<?php _e('用户组名称'); ?>" /></td>
 						<td></td>
 					</tr>
 				</tbody>
