@@ -556,6 +556,11 @@ $.loading = function (s) {
     
 	if (s == 'show')
 	{
+		if ($('#aw-loading').css('display') == 'block')
+	    {
+		    return false;
+	    }
+		
 		$('#aw-loading').fadeIn();
 	
 		aw_loading_timer = setInterval(function () {
