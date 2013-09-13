@@ -891,11 +891,12 @@ select{width: auto;}
 .aw-404-wrap p a{font-size:14px;}
 
 /* 字体icon */
+.icon-comment-alt, .icon-share-alt, .icon-edit, .icon-map-marker, .icon-flag, .icon-heart, .icon-user, .icon-home, .icon-thumbs-up-alt, .icon-reply, .icon-signal, .icon-tag, .icon-wrench, .icon-cog, .icon-off, .icon-bookmark, .icon-chevron-down, .icon-mobile-phone{margin-right: 5px;color: #B7B7B7;cursor: pointer;}
 .icon-ok-sign{margin-left:5px;color: #4bbe00;font-size: 14px;cursor: pointer;}
 .icon-ok-sign.aw-active:before{content:"\f055";color: #43b3ff;}
-.icon-comment{font-size: 12px;}
+.icon-comment-alt{font-size: 12px;}
 .icon-share-alt{font-size: 12px;}
-.icon-comment, .icon-share-alt, .icon-edit, .icon-map-marker, .icon-flag, .icon-heart, .icon-user, .icon-home, .icon-thumbs-up-alt, .icon-reply, .icon-signal, .icon-tag, .icon-wrench, .icon-cog, .icon-off, .icon-bookmark, .icon-chevron-down{margin-right: 5px;color: #B7B7B7;cursor: pointer;}
+.icon-mobile-phone{margin-left:5px;font-size: 21px;color:#9d9c9c;vertical-align: -2px;}
 .icon-star-empty{color: #B2EC03;}
 
 /* ie6页面 */
