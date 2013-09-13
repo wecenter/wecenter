@@ -160,7 +160,7 @@ class main extends AWS_CONTROLLER
 				
 				$answer_list_where[] = 'uid IN(' . implode($follow_uids, ',') . ')';
 				$answer_count_where = 'uid IN(' . implode($follow_uids, ',') . ')';
-				$answer_order_by = "add_time ASC";
+				$answer_order_by = 'add_time ASC';
 			}
 			else if ($_GET['sort_key'] == 'add_time')
 			{
