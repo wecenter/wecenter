@@ -35,6 +35,18 @@
 <?php TPL::output('global/debuger.tpl.htm'); ?>
 
 <script type="text/javascript" id="bdshare_js" data="type=tools" ></script>
+<script type="text/javascript">
+	$(function(){
+		$(window).scroll(function(){
+			if ($(window).scrollTop() > 0)
+			{
+				$('.aw-top-menu-wrap').css({'position':'fixed','top':0,'z-index':1030});
+			}else{
+				$('.aw-top-menu-wrap').removeAttr('style');
+			}
+		});
+	});
+</script>
 <!-- / DO NOT REMOVE -->
 
 </body>
