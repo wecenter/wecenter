@@ -132,7 +132,7 @@ nav #aw-top-nav-notic .badge{position: absolute;right: 0;top:1px;z-index:100;pad
 .aw-publish-title .aw-publish-dropdown p{margin: 0;height: 28px;line-height: 28px;border: 1px solid #C1CAD4;box-shadow: 0 2px 1px #F3F3F3 inset;cursor: pointer;border-radius: 0 4px 4px 0;}
 .aw-publish-title .aw-publish-dropdown span{display: inline-block;padding:0 12px;}
 .aw-publish-title .aw-publish-dropdown i{display:inline-block;margin:10px 10px 0 0;border-color: #C1C1C1 transparent transparent;border-image: none;border-style: solid;border-width: 7px;}
-.aw-publish-title .aw-publish-dropdown .dropdown-menu{max-height: 240px;overflow-y:auto;}
+.aw-publish-title .aw-publish-dropdown .dropdown-menu{max-height: 140px;overflow-y:auto;}
 
 /* 快速回复 */
 .aw-comment-box{position: relative;max-width: 540px;margin:10px 0 35px;border:1px solid #DDDDDD;background: #fff;border-radius: 4px;}
@@ -364,10 +364,11 @@ nav #aw-top-nav-notic .badge{position: absolute;right: 0;top:1px;z-index:100;pad
 .aw-topic-box-selector .dropdown-list ul li{cursor: pointer;}
 
 /* 弹窗box */
+.modal{outline: none;}
+.alert-publish, .alert-redirect, .alert-message{max-width: 600px;margin:0 auto;}
 .alert-publish input{width: 125px;}
-.alert-redirect input, .alert-report input, .alert-message input{width: 97%;}
 .alert-publish form, .alert-redirect form, .alert-report form, .alert-message form{margin:0;}
-.alert-publish textarea, .alert-redirect textarea, .alert-report textarea, .alert-message textarea{display: block;width: 97%;}
+.alert-publish textarea, .alert-redirect textarea, .alert-report textarea, .alert-message textarea{display: block;}
 .alert-publish .btn, .alert-redirect .btn-primary, .alert-report .btn-primary, .alert-message .btn-primary{margin-left: 10px;}
 .alert-publish .aw-topic-box, .aw-topic-box-selector .btn{margin-bottom: 10px;}
 .alert-publish .verify_code{height: 28px;margin:0 0 10px 10px;}

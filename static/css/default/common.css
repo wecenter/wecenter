@@ -55,6 +55,7 @@ a.aw-load-more-content{display: block;}
 .error-message{position: relative;}
 .badge{padding:2px 6px;margin-left: 5px;}
 .badge.badge-important{background: #D90000;}
+.aw-close{font-size: 16px;}
 /* 分类小标签 */
 .aw-user-name, .aw-topic-name{font-size:12px;line-height:20px;font-weight:normal;}
 .aw-user-name img, .aw-topic-name img{width: 32px;height: 32px;}
@@ -94,7 +95,6 @@ input[type="radio"], input[type="checkbox"]{margin:0;}
 label{margin:0;font-weight: normal;}
 form{margin:0;}
 select, input[type="file"]{*height: 26px;*line-height: 26px;height: 26px\0;line-height: 26px\0;}
-button.close{width: 20px;height: 20px;}
 select, input[type="file"]{line-height: 28px;}
 select{width: auto;}
 .hide{display: none;}
@@ -135,7 +135,7 @@ select{width: auto;}
 .aw-reset-nav-tabs .icon-caret-up, .aw-reset-nav-tabs .i-triangle-down-mini{position: relative;top: -2px;margin-left:5px;}
 
 /* top-menu */
-.aw-top-menu-wrap{position:relative;z-index:1001;width:100%;height:54px;background:#3579a6;font-weight: bold;}
+.aw-top-menu-wrap{position:relative;z-index:1001;width:100%;height:54px;margin-bottom:10px;background:#3579a6;font-weight: bold;}
 .aw-top-menu{width:960px;overflow: visible;}
 .aw-logo{width:100px;height:40px;margin:9px 0 0 0;}
 .aw-logo h1{height:25px;line-height:25px;margin:-2px 0 2px 0;font-size:13px;}
@@ -184,7 +184,7 @@ select{width: auto;}
 .aw-search-box #aw-search-query{width: 212px;}
 .aw-search-box form{margin-top:10px;}
 /* 搜索下拉菜单 */
-.aw-dropdown{display:none;position:absolute;right:0;z-index:9999;background: #fff;border:1px solid #ccc;box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);}
+.aw-dropdown{display:none;position:absolute;z-index:9999;background: #fff;border:1px solid #ccc;box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);}
 .aw-search-dropdown-box{width: 360px;}
 .aw-search-dropdown-box .i-dropdown-triangle{position: absolute;top:-6px;}
 .aw-search-dropdown-list li{line-height:32px;padding:10px;border-bottom: 1px dotted #C1CAD4;}
@@ -279,7 +279,7 @@ select{width: auto;}
 .aw-side-bar-mod.new-message .aw-mod-head h3 .i-close{top:-5px;*top:0;*z-index:0;}
 /* 侧边栏导航条 */
 .aw-side-bar-mod-nav{padding-top:20px;}
-.aw-side-bar-mod-nav ul li a{display: block;width:170px;height:30px;line-height: 30px;padding-left:10px;}
+.aw-side-bar-mod-nav ul li a{display: block;line-height: 30px;padding-left:10px;}
 .aw-side-bar-mod-nav ul li a:hover, .aw-side-bar-mod-nav ul li a.active{background-color:#397dac;}
 .aw-side-bar-mod-nav ul li a.active .badge-info{background: #46CDED;}
 /* 侧边栏用户列表 */
@@ -510,7 +510,7 @@ select{width: auto;}
 .aw-dynamic-topic .aw-dynamic-topic-meta > a{display:inline-block;float:left;margin-right: 10px;}
 .aw-dynamic-topic .aw-share-dropdown, .aw-question-detail-meta .aw-share-dropdown{position: relative;margin-right: 15px;font-size:12px;}
 .aw-share-dropdown .aw-dropdown-menu li{min-width: 90px;}
-.aw-dynamic-topic .aw-vote-count{display:block;min-width:19px;height:25px;line-height:25px;margin:0 13px 0 10px;padding:0 3px;background:#E9F5FF;font-size:14px;text-align:center;cursor: pointer;}
+.aw-dynamic-topic .aw-vote-count{display:block;min-width:19px;height:25px;line-height:25px;padding:0 3px;background:#E9F5FF;font-size:14px;text-align:center;cursor: pointer;}
 .aw-dynamic-topic .aw-vote-count.disable{background: #F2F2F2;}
 .aw-dynamic-topic .aw-dynamic-topic-content{width: 565px;margin-left:10px;word-break:break-all;}
 .aw-dynamic-topic .aw-dynamic-topic-content .aw-icon.i-phone-replay, .aw-dynamic-topic .aw-dynamic-topic-content .aw-icon.i-weixin-replay{margin-left: 5px;}
@@ -746,11 +746,11 @@ select{width: auto;}
 .aw-edit-comment-box .modal-footer label{display: inline;font-size: 13px;}
 .aw-edit-comment-box .modal-footer .btn-success{margin-left: 10px;}
 .aw-edit-comment-box .aw-file-upload-box{padding:20px;border:1px solid #ccc;}
-
+/* 私信box */
+.aw-inbox .modal-body{position: static;}
 /* 图片&视频插入box */
 .aw-image-box input{width: 306px;margin-bottom: 15px;}
 .aw-image-box p{margin:0;}
-
 /* 用户初次登陆提示box */
 .aw-first-login{position:absolute;top:5%;width:626px;padding: 40px;background: #F5F5F5;}
 .aw-first-login .aw-mod-head h2{font-size: 20px;line-height: 20px;padding-bottom: 40px;}

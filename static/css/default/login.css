@@ -28,5 +28,7 @@
 .aw-mod-footer .i-login-qq, .aw-mod-footer .i-login-sina, .aw-mod-footer .i-login-weibo{position:relative;top:9px;*top:5px;margin-right:5px;}
 .aw-mod-footer .icon-chevron-right{margin-left: 10px;color: #B7B7B7;}
 .aw-mod-footer .pull-right{*margin-top:3px;}
+.aw-mod-footer .icon-sina, .aw-mod-footer .icon-weibo, .aw-mod-footer .icon-qq{font-size: 24px;color: #B7B7B7;vertical-align: middle;margin-left: 5px;}
+.aw-mod-footer .icon-sina:hover, .aw-mod-footer .icon-weibo:hover, .aw-mod-footer .icon-qq:hover{color: #2A6496; }
 .error-message{position: relative;}
 

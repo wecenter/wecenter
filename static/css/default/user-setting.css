@@ -1,5 +1,5 @@
 /* 用户设置页面 */
-.aw-user-setting{padding:20px;}
+.aw-user-setting{padding:20px 0;}
 .aw-user-setting h4{height:40px;line-height:40px;background: #F7F7F7;margin:0;padding-left: 20px;font-size:13px !important;font-weight: bold;}
 .aw-user-setting .form-horizontal .control-group{position: relative;}
 .aw-user-setting .form-horizontal p{margin: 0;}
@@ -21,10 +21,12 @@
 /* 账号绑定 */
 .aw-user-setting-bind .aw-icon{*margin-right: 5px;}
 .aw-user-setting-bind .i-qq, .aw-user-setting-bind .i-share-sina, .aw-user-setting-bind .i-share-weibo, .aw-user-setting-bind .i-weixin{position: relative;top: 3px;}
-.aw-user-setting-bind .aw-mod-body{padding:30px 60px;overflow:hidden;border-bottom:1px dotted #C1CAD4;}
+.aw-user-setting-bind .aw-mod-body{padding:20px 30px;overflow:hidden;border-bottom:1px dotted #C1CAD4;}
 .aw-user-setting-bind ul li{line-height: 36px;min-height: 36px;margin-bottom:10px;padding-top:10px;border-top:1px dotted #C1CAD4;color:#666;}
 .aw-user-setting-bind ul li:first-child{border-top: none;}
+.aw-user-setting-bind .form-group{height: 36px;line-height: 36px;}
 .aw-user-setting-bind .form-group .col-lg-4, .aw-user-setting-bind .form-group .col-lg-8{padding-left: 0px;}
+.aw-user-setting-bind i{font-size: 20px;}
 /* 我的积分 */
 .aw-user-setting-points table{margin:20px 0;font-size:13px;color: #666;}
 .aw-user-setting-points table .info{background: #F5FAFE;}
