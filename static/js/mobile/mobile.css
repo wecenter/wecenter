@@ -101,12 +101,12 @@ nav #aw-top-nav-notic .badge{position: absolute;right: 0;top:1px;z-index:100;pad
 
 /* 导航下拉 */
 .aw-top-nav-popup{position: absolute;border-radius: 0 0 6px 6px;border-top: 1px solid #DDDDDD;box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);}
-.aw-top-nav-popup li{background-color: #E4E4E4;border-color: #EEEEEE;border-image: none; border-style: solid;border-width: 0 1px 1px 0;float: left;height: 45px;overflow: hidden;position: relative; width: 49.91%;}
-.aw-top-nav-popup li:last-child:nth-child(2n+1) { width: 100%;}
+.aw-top-nav-popup li, .aw-top-nav-popup .slide-close{border-top: 1px solid #eee;}
+.aw-top-nav-popup li:first-child{border-top: none;}
 .aw-top-nav-popup li a{display: block;background-color: #F4F4F4;border: 0 none !important;border-radius: 0 0 0 0 !important;box-shadow: none;color: #000000;height: 45px;line-height: 45px;text-shadow: none; width: 100%;}
 .aw-top-nav-popup li a:hover{background-color: #E4E4E4;}
 .aw-top-nav-popup li img{ margin:0 10px;border-radius: 2px;box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);}
-.aw-top-nav-popup .slide-close{background: url("img/arrow-icon.png") no-repeat scroll center center #F4F4F4;border: 0 none;border-radius: 0 0 6px 6px;display: block;height: 36px;width: 100%;cursor: pointer;}
+.aw-top-nav-popup .slide-close{background-color:#F4F4F4;display: block;height: 36px;line-height:36px;color:#999;width: 100%;border-radius: 0 0 6px 6px;cursor: pointer;text-align: center;}
 .aw-top-nav-profile{right: 0;top: 81px;}
 .aw-top-nav-profile li{width: 140px;float: none;}
 .aw-top-nav-profile li a{padding-left: 10px;}
@@ -380,26 +380,9 @@ nav #aw-top-nav-notic .badge{position: absolute;right: 0;top:1px;z-index:100;pad
 .alert-publish .alert{margin-bottom: 10px;border:1px solid #EED3D7;}
 .alert-redirect .modal-body .dropdown-list{max-height: 288px;overflow-y:scroll;}
 
-/* icon */
-.icon-sign{display:inline-block;background-image: url("img/signup.png");background-repeat: no-repeat;}
-.icon-sign-sina{background-position: -17px -1px;height: 19px;margin-right: 8px;vertical-align: -4px;width: 21px;}
-.icon-sign-arrow, .icon-sign-arrow-l{height: 19px;width: 18px;background-position: -1px -1px;margin-left: 8px;vertical-align: -5px;}
-.icon-sign-arrow-l{margin: 0 8px 0 0;background-position:-70px -1px;}
-
-.aw-icon{display: inline-block;;background-image:url('img/aw-icon.png');background-repeat: no-repeat; background-size: 100px 45px;}
-.aw-icon.agree{width: 13px;height: 12px;background-position: -18px 0;}
-.aw-icon.disagree{width: 13px;height: 12px;background-position: -17px -13px;vertical-align: -1px;}
-.aw-icon.agree.active{background-position: -2px 0;}
-.aw-icon.disagree.active{background-position: -1px -13px;}
-.aw-icon.comment{width:13px;height:11px;background-position: -36px -2px;}
-.aw-icon.thanks{width: 14px;height: 12px;background-position: -48px -0;}
-.aw-icon.thanks.active{background-position: -48px -15px;}
-.aw-icon.flag{width: 13px;height: 10px;background-position: -90px -2px;}
-.aw-icon.prestige{width: 12px;height: 16px;background-position:  0 -29px;vertical-align: -3px;}
-.aw-icon.point{width: 14px;height: 11px;background-position: -14px -32px;vertical-align: -1px;}
-.aw-icon.i-v{width: 15px;height: 12px;background-position: -49px -32px;}
-.aw-icon.i-v.i-ve{background-position: -68px -32px;}
-.aw-icon.inbox-arrow{position:absolute;top:7px;right:-6px;width: 6px;height: 11px;background-position: -93px -32px;}
+/* 字体icon */
+.icon-v{font-size: 18px;color: #a5d300;}
+.icon-v.i-ve{color: #fce568;}
 
 /* 底部 */
 footer{margin-top:20px;font-size: 12px;text-align: center;}

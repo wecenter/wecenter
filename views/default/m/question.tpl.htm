@@ -38,7 +38,7 @@
 			<?php } ?>
 		</div>
 		<div class="aw-mod-footer">
-			<?php if ($this->user_id) { ?><a herf="javascript:;" data-id="<?php echo $this->question_info['question_id']; ?>" data-type="question" class="aw-add-comment"<?php if ($this->question_info['lock']) { ?> data-close="true"<?php } ?>><i class="aw-icon comment"></i><?php if ($this->question_info['comment_count']) { ?><?php _e('%s 条评论', $this->question_info['comment_count']); ?><?php } else { ?><?php _e('添加评论'); ?><?php } ?></a><?php if ((!$this->question_info['lock'] AND ($this->question_info['published_uid'] == $this->user_id OR $this->user_info['permission']['edit_question'])) OR $this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?><a href="m/publish/<?php echo $this->question_info['question_id']; ?>"><?php _e('编辑'); ?></a><?php } ?><a <?php if (!$this->question_thanks) { ?>onclick="question_thanks(<?php echo $this->question_info['question_id']; ?>, this);"<?php } ?>><i class="aw-icon thanks"></i><?php if ($this->question_thanks) { ?><?php _e('已感谢'); ?><?php } else { ?><?php _e('感谢'); ?><?php } ?></a><a class="aw-invite-replay-btn">邀请回答</a><?php } ?> <script type="text/javascript" charset="utf-8">
+			<?php if ($this->user_id) { ?><a herf="javascript:;" data-id="<?php echo $this->question_info['question_id']; ?>" data-type="question" class="aw-add-comment"<?php if ($this->question_info['lock']) { ?> data-close="true"<?php } ?>><i class="icon-comment-alt"></i><?php if ($this->question_info['comment_count']) { ?><?php _e('%s 条评论', $this->question_info['comment_count']); ?><?php } else { ?><?php _e('添加评论'); ?><?php } ?></a><?php if ((!$this->question_info['lock'] AND ($this->question_info['published_uid'] == $this->user_id OR $this->user_info['permission']['edit_question'])) OR $this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?><a href="m/publish/<?php echo $this->question_info['question_id']; ?>"><i class="icon-edit"></i><?php _e('编辑'); ?></a><?php } ?><a <?php if (!$this->question_thanks) { ?>onclick="question_thanks(<?php echo $this->question_info['question_id']; ?>, this);"<?php } ?>><i class="icon-heart"></i><?php if ($this->question_thanks) { ?><?php _e('已感谢'); ?><?php } else { ?><?php _e('感谢'); ?><?php } ?></a><a class="aw-invite-replay-btn">邀请回答</a><?php } ?> <script type="text/javascript" charset="utf-8">
 (function(){
   var _w = 72 , _h = 16;
   var param = {
@@ -109,7 +109,7 @@
 		<span class="pull-right">
 			<a class="btn btn-primary btn-mini<?php if ($this->question_focus) { ?> aw-active<?php } ?>" onclick="focus_question($(this), $(this), <?php echo $this->question_info['question_id']; ?>);"><?php if ($this->question_focus) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?></a>
 			<div class="btn-group">
-				<a href="javascript:;" data-toggle="dropdown" class="btn btn-normal dropdown-toggle">
+				<a href="javascript:;" data-toggle="dropdown" class="btn btn-default btn-normal dropdown-toggle">
 				    <i class="icon-cog"></i>
 				    <span class="caret"></span>
 				</a>
