@@ -22,9 +22,9 @@
 .aw-user-setting-bind .aw-icon{*margin-right: 5px;}
 .aw-user-setting-bind .i-qq, .aw-user-setting-bind .i-share-sina, .aw-user-setting-bind .i-share-weibo, .aw-user-setting-bind .i-weixin{position: relative;top: 3px;}
 .aw-user-setting-bind .aw-mod-body{padding:20px 30px;overflow:hidden;border-bottom:1px dotted #C1CAD4;}
-.aw-user-setting-bind ul li{line-height: 36px;min-height: 36px;margin-bottom:10px;padding-top:10px;border-top:1px dotted #C1CAD4;color:#666;}
+.aw-user-setting-bind ul li{min-height: 36px;padding:20px 0;border-top:1px dotted #C1CAD4;color:#666;}
 .aw-user-setting-bind ul li:first-child{border-top: none;}
-.aw-user-setting-bind .form-group{height: 36px;line-height: 36px;}
+.aw-user-setting-bind .form-group{line-height: 36px;}
 .aw-user-setting-bind .form-group .col-lg-4, .aw-user-setting-bind .form-group .col-lg-8{padding-left: 0px;}
 .aw-user-setting-bind i{font-size: 20px;}
 /* 我的积分 */
