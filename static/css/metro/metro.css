@@ -65,7 +65,7 @@
 .aw-logined-nav .aw-message-dropdown{top: 52px;}
 .aw-user-nav-dropdown{display: block;position:relative;height: 45px;}
 .aw-user-nav-dropdown img{margin-left: 25px;}
-.aw-user-nav-dropdown-list{display:none;position:absolute;right:0;top:55px;width: 110px;background: #0185C9;text-align: left;opacity: 0.8;filter:alpha(opacity=80);}
+.aw-user-nav-dropdown-list{display:none;position:absolute;right:0;top:55px;background: #0185C9;text-align: left;opacity: 0.8;filter:alpha(opacity=80);}
 .aw-user-nav-dropdown-list li{border-top: 1px dotted #333;}
 .aw-user-nav-dropdown-list li:first-child{border-top:none;}
 .aw-user-nav-dropdown-list a{display:block;height:35px;line-height:35px;padding-left:15px;color: #fff;font-weight: normal;}

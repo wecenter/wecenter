@@ -8,10 +8,10 @@
 .aw-login-wrap .aw-login-state{max-width: 330px;margin:75px 0 0 40px;font-size: 14px;font-weight: bold;color:#fff;}
 .aw-login-wrap .aw-login-state span{color:#FFA01F;}
 .aw-login-box-bg{position:absolute;left:0;top:0;z-index:-1;width: 700px;height: 376px;background: #000000;border-radius: 10px;opacity: 0.2;filter:alpha(opacity=20);}
-.aw-mod-head{width:324px;height: 76px;line-height: 76px;padding:0 40px;background:url(img/login-nav.png) no-repeat;font-size: 16px;font-weight: bold;color: #fff;}
-.aw-mod-head .b-new-user{width:164px;margin-top:15px;padding-left:20px;font-size: 14px;font-weight: bold;color:#fff;text-align: center;text-decoration: none;}
-.aw-mod-head .i-login-user-no-hover{*position: relative;*top:-3px;*right:5px;}
-.aw-mod-body{width:322px;padding:40px;background:#F5F5F5;border-left:1px solid #C9C9C9;border-right: 1px solid #C9C9C9;}
+.aw-mod-head{width:324px;height: 76px;line-height: 76px;padding:0 40px;background:#3579A6;font-size: 16px;font-weight: bold;color: #fff;border-radius: 10px 10px 0 0;}
+.aw-mod-head .b-new-user{width:164px;margin-top:15px;padding-left:20px;font-size: 14px;font-weight: bold;color:#fff;text-align: center;text-decoration: none; }
+.aw-mod-head .icon-user{color: #fff;}
+.aw-mod-body{width:324px;padding:40px;background:#F5F5F5;border-left:1px solid #C9C9C9;border-right: 1px solid #C9C9C9;}
 .aw-mod-body ul li{margin-bottom:20px;}
 .aw-mod-body ul li.last{line-height:38px;margin-bottom:0;}
 .aw-mod-body ul li.last a, .aw-mod-body ul li.last label{font-size: 13px;color:#999;}
@@ -24,9 +24,9 @@
 .aw-mod-body .aw-label-icon{display:inline-block;width:43px;height:40px;line-height:40px;background: #C2E5F3;text-align: center;border-radius: 5px 0 0 5px;}
 .aw-mod-body .aw-label-icon .i-login-user-no-hover{margin-top:12px;}
 .aw-mod-body .aw-label-icon .i-key{margin-top:16px;}
-.aw-mod-footer{width:322px;height: 71px;line-height: 71px;*line-height:60px;padding:0 20px 0 40px;background:#E6E6E6;border:1px solid #C9C9C9;border-top:none;border-radius: 0 0 10px 10px;}
+.aw-mod-footer{width:324px;height: 71px;line-height: 71px;*line-height:60px;padding:0 20px 0 40px;background:#E6E6E6;border:1px solid #C9C9C9;border-top:none;border-radius: 0 0 10px 10px;}
 .aw-mod-footer .i-login-qq, .aw-mod-footer .i-login-sina, .aw-mod-footer .i-login-weibo{position:relative;top:9px;*top:5px;margin-right:5px;}
-.aw-mod-footer .i-triangle-right{position: relative;left:5px;top:3px;*top:-2px;}
+.aw-mod-footer .icon-chevron-right{margin-left: 10px;color: #B7B7B7;}
 .aw-mod-footer .pull-right{*margin-top:3px;}
 .error-message{position: relative;}
 

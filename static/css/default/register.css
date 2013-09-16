@@ -3,7 +3,7 @@
 .aw-register-head{position:relative;width: 658px;margin:0 auto;}
 .aw-register-head h1{line-height: 20px;margin:0;padding: 0 0 15px;text-align: justify;color: #CFF1FF;font-size: 100%;font-weight: 500;}
 .aw-register-head h1 img{margin-right: 15px;vertical-align: text-bottom;}
-.aw-register-head-title{width:658px;height: 76px;line-height: 76px;margin:0;background:url(img/register-nav.png) no-repeat;text-align: center;color:#fff;font-size: 20px;font-weight: bold;}
+.aw-register-head-title{width:658px;height: 76px;line-height: 76px;margin:0;background:#3579A6;text-align: center;color:#fff;font-size: 20px;font-weight: bold;border-radius: 10px 10px 0 0;}
 .aw-register-head-title .i-new-user{position: relative;right: 5px;top:3px;*top:-3px;}
 .aw-register-box{width: 656px;height: auto;margin:0 auto;background:#F5F5F5;border:1px solid #C9C9C9;border-top:none;border-radius: 0 0 10px 10px;text-align: center;}
 .aw-register-box ul{width: 322px;margin:0 auto;padding: 40px;}
