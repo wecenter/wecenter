@@ -169,7 +169,6 @@
 					</div>
 					<div class="aw-mod-body aw-dynamic-topic">
 						<?php if ($this->answers) { foreach ($this->answers AS $key => $val) { ?>
-						
 							<div class="aw-item" uninterested_count="<?php echo $val['uninterested_count']; ?>" force_fold="<?php if ($val['user_rated_uninterested']) { ?>1<?php } else { ?><?php echo $val['force_fold']; ?><?php } ?>" id="answer_list_<?php echo $val['answer_id']; ?>">
 								<?php if ($this->question_info['best_answer'] == $val['answer_id']) { ?>
 								<!-- 最佳回答 -->
