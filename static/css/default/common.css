@@ -138,7 +138,7 @@ select{width: auto;}
 
 /* top-menu */
 .aw-top-menu-wrap{position:relative;z-index:1001;width:100%;height:54px;margin-bottom:10px;background:#3579a6;font-weight: bold;}
-.aw-top-menu{width:960px;overflow: visible;}
+.aw-top-menu{max-width:940px;overflow: visible;}
 .aw-logo{width:100px;height:40px;margin:9px 0 0 0;}
 .aw-logo h1{height:25px;line-height:25px;margin:-2px 0 2px 0;font-size:13px;}
 .aw-login-register{position:relative;top:15px;height: 27px;}
@@ -146,10 +146,11 @@ select{width: auto;}
 .aw-login-register a img{width: 25px;height: 25px;position:absolute;right:15px;}
 .aw-login-register .aw-user-nav-dropdown{max-width:141px;height:27px;line-height:27px;margin-left:20px;}
 .aw-login-register .aw-user-head img{width: 25px;height: 25px;margin:-3px 0 0 5px;}
-.aw-publish{width:105px;margin:10px 0 0 0;padding:0px;}
+.aw-publish{width:90px;margin:10px 0 0 0;padding:0px;}
 .aw-publish a{display:block;width:80px;height: 32px;line-height: 32px;font-size: 14px;background-color: #42c8e7;text-align: center;color: #fff;border-radius: 3px;}
 .aw-publish a:hover{background-color: #2abde9;}
 .aw-publish .icon-edit{margin-right:10px;vertical-align:-1px;font-size: 15px;color: #fff;}
+.aw-logined-nav{width: 375px;}
 .aw-logined-nav > ul > li{position: relative;float:left;}
 .aw-logined-nav > ul >li > a{display:block;height:54px;line-height:54px;padding:0 20px;color: #fff;}
 .aw-logined-nav > ul >li > a.active, .aw-logined-nav > ul >li a.active:hover{background: #2c618d;}
@@ -168,11 +169,11 @@ select{width: auto;}
 .aw-logined-nav #header_notification_list li:hover{background: #F5FAFF;}
 .aw-logined-nav #header_notification_list li:hover .aw-new-message-tips-close{display: block;}
 .aw-logined-nav #header_notification_list li .message{display:inline-block;width: 210px;}
-.aw-user-nav{position:relative;height:54px;line-height: 48px;}
+.aw-user-nav{position:relative;width:145px;height:54px;line-height: 48px;}
 .aw-user-nav:hover .aw-user-nav-dropdown-list{display: block;}
 .aw-user-nav > a{display:block;height:54px;color: #fff;}
 .aw-user-nav > a img{width: 32px;height: 32px;border-radius: 5px;}
-.aw-user-nav > span > a{display:inline-block;height:54px;line-height:54px;padding:0 15px;color: #fff;}
+.aw-user-nav > span > a{display:inline-block;height:54px;line-height:54px;padding:0 14px;color: #fff;}
 .aw-user-nav > span > a:hover{background-color: #24659a;}
 .aw-user-nav .aw-user-nav-dropdown .badge{position: absolute;top: 8px;}
 .aw-user-nav-dropdown-list{display: none;position:absolute;width:100px;border:1px solid #285f8c;border-top: none;}
@@ -182,8 +183,8 @@ select{width: auto;}
 .aw-user-nav-dropdown-list ul li a:hover{background: #24659a;}
 
 /* 搜索框 */
-.aw-search-box{width:280px;}
-.aw-search-box #aw-search-query{width: 212px;}
+.aw-search-box{width:260px;padding-left: 10px;}
+.aw-search-box #aw-search-query{width: 200px;}
 .aw-search-box form{margin-top:10px;}
 /* 搜索下拉菜单 */
 .aw-dropdown{display:none;position:absolute;z-index:9999;background: #fff;border:1px solid #ccc;box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);}
@@ -211,7 +212,7 @@ select{width: auto;}
 .aw-search-dropdown-box .btn-success{margin-top:10px;*margin-top: 10px;}
 
 /* mainContent */
-.aw-main-content{height:100%;padding:10px 20px 0 25px;margin:0;}
+.aw-main-content{height:100%;padding:10px 20px;margin:0;}
 .aw-content-wrap .aw-all-question{padding-top:20px;}
 .aw-main-content .aw-all-question .pagination{margin:20px 0 0;}
 
@@ -620,7 +621,7 @@ select{width: auto;}
 /* 用户列表页面 */
 .aw-user{background: #fff;}
 /* 用户排名 */
-.aw-user-sort{padding:30px;}
+.aw-user-sort{padding:20px 0;}
 .aw-user-sort .aw-item{position: relative;padding:25px 106px 25px 175px;border-bottom:1px dotted #C1CAD4;}
 .aw-user-sort .aw-user-sort-count{position:absolute;left:30px;top:30px;width: 50px;height: 50px;line-height: 50px;background:#F5F5F5;font-size: 24px;text-align: center;}
 .aw-user-sort .aw-user-sort-count.active{background:#FFF4DE;}
@@ -883,7 +884,7 @@ select{width: auto;}
 .icon-share-alt{font-size: 12px;}
 .icon-mobile-phone{margin-left:5px;font-size: 21px;color:#9d9c9c;vertical-align: -2px;}
 .icon-star-empty{color: #B2EC03;}
-.icon-v{font-size: 17px;color: #a5d300;}
+.icon-v{font-size: 18px;color: #a5d300;}
 .icon-v.i-ve{color: #fce568;}
 .icon-add-alt{font-size: 18px;margin-right: 10px;}
 
