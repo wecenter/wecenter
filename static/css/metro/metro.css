@@ -53,7 +53,7 @@
 .aw-search-box .search-query{padding: 6px 14px;}
 .aw-search-box #global_search_btns{padding:6px 5px;}
 .aw-publish{width:100px;margin:12px 0 0 10px;}
-.aw-publish-btn{display:inline-block;width:100px !important;height:32px;line-height:32px;padding-left:50px;background-image: url("img/main_default.png");background-repeat:no-repeat;background-position:-33px -124px;background-color: #5FC2FF !important;color:#fff;font-size: 14px;}
+.aw-publish-btn{width:100px !important;padding-left:30px;background-image: url("img/main_default.png");background-repeat:no-repeat;background-position:-33px -124px;background-color: #5FC2FF !important;color:#fff;font-size: 14px;}
 .aw-publish-btn:hover{background-color: #4FBAFC !important;color: #fff;}
 .aw-user-nav p{margin: 0;}
 .aw-user-nav > p > a{display: inline-block;float:left;height: 55px;line-height: 55px;padding:0 14px;color: #fff;font-size: 14px;font-weight: bold;}
