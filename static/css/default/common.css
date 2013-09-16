@@ -27,7 +27,9 @@ a.aw-load-more-content{display: block;}
 .aw-load-more-content.disabled{background-color: #f6f6f6;border:1px solid #dfdfdf;color: #999;}
 .aw-mod .aw-mod-head h4, .aw-mod .aw-mod-head h4 a{font-size:14px;}
 .i-follow{margin-left:5px;}
-.aw-back-top{position:fixed;display:none;right:10px;bottom:5px;}
+.aw-back-top{position:fixed;display:none;padding:10px 5px;right:10px;bottom:20px;background-color: #d9d9d9;border-radius: 3px;}
+.aw-back-top .icon-arrow-up{padding:10px;color: #a6a6a6;font-size: 20px;}
+.aw-back-top:hover{background-color: #d0d0d0;}
 .aw-text-align-justify{text-align: justify;}
 .aw-li-border-bottom li{border-top:1px dotted #C1CAD4;}
 .aw-no-border-bottom{border-bottom:none !important;}
@@ -592,7 +594,7 @@ select{width: auto;}
 .aw-mod-publish .aw-edit-topic-box{margin:0 0 10px;}
 .aw-publish-title{position: relative;z-index: 1;}
 .aw-publish-title.active input{width: 646px;border:1px solid #ccc;}
-.aw-publish-title input{width:523px;border-right: none;}
+.aw-publish-title input{width:533px;border-right: none;}
 .aw-publish-title .aw-publish-title-dropdown{position: absolute;right: 0;top: 0;width: 150px;}
 .aw-publish-title-dropdown p{height:34px;line-height:34px;margin:0;border: 1px solid #C1CAD4;box-shadow: 0 2px 1px #F3F3F3 inset;cursor: pointer;}
 .aw-publish-title-dropdown p span{display: inline-block;float: left;width: 113px;padding-left: 12px;}
@@ -606,7 +608,7 @@ select{width: auto;}
 .aw-mod-publish-box{height: auto;overflow: hidden;}
 .aw-mod-publish-box .aw-mod-head{position:relative;margin:0 !important;border-bottom: none !important;}
 .aw-mod-publish-box .aw-mod-body{position:relative;padding:20px 0;}
-.aw-mod-publish-box #advanced_editor{width: 672px;}
+.aw-mod-publish-box #advanced_editor{width: 682px;}
 .aw-mod-publish-box .aw-upload-tips, .aw-mod-replay-box .aw-upload-tips{position: absolute;left: 100px;top: 23px;}
 .aw-mod-replay-box .aw-upload-tips{top:1px;}
 .aw-side-bar-mod-publish .aw-side-bar-mod-body p, .aw-side-bar-mod-topic-edit .aw-side-bar-mod-body p{line-height: 22px;padding:15px 0;}
@@ -689,6 +691,8 @@ select{width: auto;}
 .aw-file-uploader dt.upload-zip{background:url(img/aw-icon-sprite.png) no-repeat -300px -360px;}
 .aw-file-uploader dt.upload-gif{background:url(img/aw-icon-sprite.png) no-repeat -100px -360px;}
 .aw-file-uploader dt.upload-3ds{background:url(img/aw-icon-sprite.png) no-repeat -200px -360px;}
+._ajax_upload-button{color: #666;}
+._ajax_upload-button i{margin-right: 5px;}
 
 /* 小卡片提示box */
 .aw-card-tips{display:none;position:absolute;z-index:9999;width: 270px;padding:15px;background: #FFF;border: 1px solid #999;box-shadow: 0 2px 3px #DFDFDF;}
@@ -879,6 +883,8 @@ select{width: auto;}
 .icon-share-alt{font-size: 12px;}
 .icon-mobile-phone{margin-left:5px;font-size: 21px;color:#9d9c9c;vertical-align: -2px;}
 .icon-star-empty{color: #B2EC03;}
+.icon-v{font-size: 17px;color: #a5d300;}
+.icon-v.i-ve{color: #fce568;}
 
 /* ie6页面 */
 .aw-ie6{width:550px;height:300px;margin:100px auto 0;padding:20px;background:#f4f4f4;border:1px solid #ccc;}
