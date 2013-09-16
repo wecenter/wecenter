@@ -16,12 +16,12 @@
 /* top-menu */
 .aw-top-menu-wrap{height:45px;background: url("img/main_default.png") repeat-x 0 -53px;box-shadow: 0 0 4px #000;}
 .aw-top-menu h1{margin:0;}
-.aw-top-nav{width: 270px;}
+.aw-top-nav{width: 325px;}
 .aw-top-nav > ul > li{float: left;}
 .aw-top-nav > ul > li > a{display:inline-block;height:45px;line-height: 45px;padding: 0 15px;font-size: 14px;font-weight: bold;color: #fff;}
 .aw-top-nav > ul > li > a:hover{background: #404040;}
-.aw-top-nav > ul > li > a.active{background:#515151}
-.aw-logo, .aw-search-box{margin-top: 6px;margin-right:0px;height: 30px;}
+.aw-top-nav > ul > li > a.active{background:#515151 !important;}
+.aw-logo, .aw-search-box{margin-top: 6px;}
 .aw-search-box form{margin-top: 0px;}
 .aw-publish{width:103px;margin:5px 0 0 20px;}
 .aw-publish-btn{display:inline-block;width:101px !important;height:32px;line-height:32px;padding-left:50px;background: url("img/main_default.png") no-repeat 0 -10px;color:#fff;}
@@ -46,9 +46,9 @@
 
 /* aw-container-wrap */
 .aw-container-wrap{margin-top:20px;background: #fff;}
-.aw-container{border:none;background: #fff;}
+.aw-container{margin-bottom:30px;border:none;background: #fff;}
 .aw-content-wrap{background: #fff;}
-.aw-main-content{width:674px;margin:0 0 0 10px;padding:0;border-right: none;}
+.aw-main-content{width:674px;margin:0 0 0 15px;padding:0;border-right: none;}
 
 /* 动态首页&话题精华模块 */
 .aw-dynamic-topic{padding: 0;}
@@ -61,13 +61,12 @@
 .aw-new-message-tips{margin: 0 0 25px;}
 
 /* 全部问题 */
-.aw-content-wrap .aw-all-question{padding-top:0;}
-.aw-all-question{margin-left:10px;padding:1px;border:1px solid #DFDFDF;border-radius: 5px;}
+.aw-all-question{margin-left:15px;padding:1px;padding-top:0 !important;border:1px solid #DFDFDF;border-radius: 5px;}
 .aw-all-question .aw-question-box-mod .aw-mod-body{padding:10px 20px 0 20px;}
 .aw-all-question .pagination{margin-right: 20px;}
 
 /* 侧边栏 */
-.aw-side-bar{margin-left:30px;background: #fff;}
+.aw-side-bar{margin-left:20px;background: #fff;}
 .aw-side-bar-mod.new-message{margin:0 0 10px;}
 .aw-side-bar-mod-nav{padding-top: 0;}
 .aw-side-bar-mod-nav ul li a{width: 175px;padding-left: 20px;}

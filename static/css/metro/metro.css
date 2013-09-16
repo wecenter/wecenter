@@ -41,21 +41,20 @@
 /* top-menu */
 .aw-top-menu-wrap{position:fixed;top:0;z-index:1030;height:55px;background:#0185C9;}
 .aw-top-menu h1{margin:0;}
-.aw-top-nav{width: 290px;}
+.aw-top-nav{width: 325px;}
 .aw-top-nav ul li{float: left;}
 .aw-top-nav > ul > li > a{display:inline-block;height:55px;line-height: 55px;padding: 0 15px;font-size: 14px;font-weight: bold;color: #fff;}
 .aw-top-nav > ul > li > a:hover{background: #0C7BB5;}
 .aw-top-nav > ul > li > a.active{background:#016AA1}
 .aw-logo{width: 110px;}
-.aw-logo, .aw-search-box{margin-top: 6px;margin-right:0px;height: 30px;}
+.aw-logo, .aw-search-box{margin-top: 6px;}
 .aw-search-box{margin-top:13px;}
 .aw-search-box form{margin-top: 0px;}
 .aw-search-box .search-query{padding: 6px 14px;}
 .aw-search-box #global_search_btns{padding:6px 5px;}
-.aw-publish{width:100px;margin:12px 0 0 30px;}
+.aw-publish{width:100px;margin:12px 0 0 10px;}
 .aw-publish-btn{display:inline-block;width:100px !important;height:32px;line-height:32px;padding-left:50px;background-image: url("img/main_default.png");background-repeat:no-repeat;background-position:-33px -124px;background-color: #5FC2FF !important;color:#fff;font-size: 14px;}
 .aw-publish-btn:hover{background-color: #4FBAFC !important;color: #fff;}
-.aw-user-nav{width: 150px;margin-left:0px;font-weight:normal;}
 .aw-user-nav p{margin: 0;}
 .aw-user-nav > p > a{display: inline-block;float:left;height: 55px;line-height: 55px;padding:0 14px;color: #fff;font-size: 14px;font-weight: bold;}
 .aw-user-nav > p > a:hover{background:#0C7BB5;}
@@ -79,9 +78,9 @@
 
 /* aw-container-wrap */
 .aw-container-wrap{margin-top:75px;background: #fff;}
-.aw-container{border:none;background: #fff;}
+.aw-container{margin-bottom:20px;border:none;background: #fff;}
 .aw-content-wrap{background: #fff;}
-.aw-main-content{width:674px;margin:0 0 0 10px;padding:0;border-right: none;}
+.aw-main-content{width:674px;margin:0 0 0 15px;padding:0;border-right: none;}
 
 .aw-dynamic-topic{padding: 0;}
 .aw-index .aw-dynamic-topic{border:1px solid #DFDFDF;}
@@ -97,7 +96,7 @@
 .aw-question-detail-box .aw-dynamic-topic .aw-item{margin:0 20px;}
 
 /* 全部问题 */
-.aw-all-question{margin-left:5px;border:1px solid #DFDFDF;}
+.aw-all-question{border:1px solid #DFDFDF;}
 .aw-all-question .aw-question-box-mod .aw-mod-body{padding:10px 10px 0;}
 .aw-all-question .pagination{margin-right: 20px;}
 

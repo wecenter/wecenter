@@ -57,7 +57,7 @@ th{text-align: center;}
 .normal-box .aw-mod-body{padding: 20px !important;}
 
 /*顶部*/
-.aw-manage-menu{padding:7px 0 7px 30px;background: #323a45;font-size: 13px;color: #fff;}
+.aw-manage-menu{margin:0;padding:7px 0 7px 30px;background: #323a45;font-size: 13px;color: #fff;}
 .aw-manage-menu .span12{height: 63px;line-height: 63px;}
 .aw-manage-menu h1{display:inline-block;float:left;margin-right: 30px;}
 .aw-manage-menu span{display: inline-block;}
