@@ -9,7 +9,8 @@
 .aw-login-wrap .aw-login-state span{color:#FFA01F;}
 .aw-login-box-bg{position:absolute;left:0;top:0;z-index:-1;width: 700px;height: 376px;background: #000000;border-radius: 10px;opacity: 0.2;filter:alpha(opacity=20);}
 .aw-mod-head{width:324px;height: 76px;line-height: 76px;padding:0 40px;background:#3579A6;font-size: 16px;font-weight: bold;color: #fff;border-radius: 10px 10px 0 0;}
-.aw-mod-head .b-new-user{width:164px;margin-top:15px;padding-left:20px;font-size: 14px;font-weight: bold;color:#fff;text-align: center;text-decoration: none; }
+.aw-mod-head .b-new-user{width:164px;height:46px;line-height:46px;margin-top:15px;font-size: 14px;font-weight: bold;background-color:#4bc7ea;color:#fff;text-align: center;text-decoration: none;border: 1px solid #295477;border-radius: 10px; }
+.aw-mod-head .b-new-user:hover{background-color: #4fd6fa;}
 .aw-mod-head .icon-user{color: #fff;}
 .aw-mod-body{width:324px;padding:40px;background:#F5F5F5;border-left:1px solid #C9C9C9;border-right: 1px solid #C9C9C9;}
 .aw-mod-body ul li{margin-bottom:20px;}
