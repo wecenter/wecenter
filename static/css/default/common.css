@@ -214,7 +214,7 @@ select{width: auto;}
 .aw-main-content .aw-all-question .pagination{margin:20px 0 0;}
 
 /* category */
-.category{height:auto;padding:0 10px;}
+.category{height:auto;margin-top:10px;padding:0 10px;}
 .category dl, .category dl dt, .category dl dd{float:left;}
 .category dl{margin:10px 12px 10px 0;padding:15px;}
 .category dl:hover .category-dropdown, .category dl:hover .dropdown-menu{display:block;}
@@ -499,7 +499,7 @@ select{width: auto;}
 .aw-dynamic-topic .aw-mod-head p{margin:0;}
 .aw-dynamic-topic .aw-item, .aw-question-detail-box .aw-dynamic-topic .aw-item{padding-bottom:10px;border-bottom: 1px dotted #C1CAD4;}
 .aw-dynamic-topic .aw-item .aw-user-img{width: 32px;height: 32px;*margin-top:10px;}
-.aw-dynamic-topic .aw-item.active{width:675px;background: #FEFAB1;}
+.aw-dynamic-topic .aw-item.active{width:683px;background: #FEFAB1;}
 .aw-dynamic-topic .aw-item .aw-mod-body, .aw-dynamic-topic .aw-mod-body > .aw-item + div{padding-top:10px;}
 .aw-dynamic-topic .aw-item:hover .aw-dynamic-topic-more-operate, .aw-dynamic-topic .aw-item:hover .aw-new-message-tips-close{display:block;}
 .aw-dynamic-topic .aw-mod-head h4{position: relative;max-width: 600px;}
@@ -535,7 +535,7 @@ select{width: auto;}
 .aw-my-draft .aw-mod-body, .aw-my-follow-question .aw-mod-body, .aw-my-question-invite .aw-mod-body, .aw-my-favorite .aw-mod-body, .aw-my-inbox .aw-mod-body{padding:0;}
 .aw-my-follow-question .aw-item{position: relative;}
 .aw-my-favorite{padding-bottom: 30px;}
-.aw-my-favorite .aw-mod-head h2{padding-bottom:10px;font-size:20px;}
+.aw-my-favorite .aw-mod-head h2{margin-top:10px;padding-bottom:10px;font-size:20px;}
 .aw-my-favorite .aw-mod-head .aw-user-name{margin:0 5px;}
 .aw-my-favorite .aw-item{position: relative;z-index:1;padding-top:10px;}
 .aw-my-favorite .aw-item h4{margin:0 0 10px;}
@@ -548,8 +548,7 @@ select{width: auto;}
 /* 私信 */
 .aw-my-inbox .aw-mod-head h2 span, .aw-my-notifications .aw-mod-head h2 span{margin-right: 10px;font-size: 13px;font-weight: normal;}
 .aw-my-inbox .aw-item{position: relative;padding:15px 0;}
-.aw-my-inbox .aw-item.active{width:660px;margin-left:-20px;padding:15px 20px;background: #FEFAB1;}
-.aw-my-inbox .aw-item.active .aw-user-img{right:20px;}
+.aw-my-inbox .aw-item.active{width:683px;background: #FEFAB1;}
 .aw-my-inbox .aw-item .aw-user-img{margin-top:15px;}
 .aw-my-inbox .aw-item p, .aw-mod-private-replay-list li p{max-width:570px;margin:0;word-break:break-all;}
 .aw-my-inbox .aw-item p.aw-text-color-999{max-width: none;}
