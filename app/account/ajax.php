@@ -302,9 +302,6 @@ class ajax extends AWS_CONTROLLER
 			$this->model('account')->update_user_last_login($user_info['uid']);
 			$this->model('account')->setcookie_logout();
 			
-			// 默认记住用户名
-			HTTP::set_cookie('r_uname', $_POST['user_name'], time() + 60 * 60 * 24 * 30);
-			
 			$this->model('account')->setcookie_login($user_info['uid'], $_POST['user_name'], $_POST['password'], $user_info['salt'], $expire);
 			
 			if ($_POST['weixin_id'] AND $_POST['_is_mobile'])
@@ -552,8 +549,6 @@ class ajax extends AWS_CONTROLLER
 			$this->model('account')->setcookie_logout();
 			
 			$this->model('account')->update_user_last_login($user_info['uid']);
-				
-			HTTP::set_cookie('r_uname', $user_info['email'], time() + 60 * 60 * 24 * 30);
 				
 			$this->model('account')->setcookie_login($user_info['uid'], $user_info['user_name'], $user_info['password'], $user_info['salt'], null, false);
 			

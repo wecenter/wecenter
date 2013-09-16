@@ -104,8 +104,6 @@ class main extends AWS_CONTROLLER
 			TPL::import_js('js/md5.js');
 		}
 		
-		TPL::assign('r_uname', HTTP::get_cookie('r_uname'));
-		
 		TPL::assign('return_url', strip_tags($_SERVER['HTTP_REFERER']));
 		
 		TPL::output("account/login");

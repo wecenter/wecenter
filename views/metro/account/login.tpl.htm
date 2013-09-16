@@ -1,1 +1,71 @@
-<?php TPL::output('global/header_landing_blank.tpl.htm'); ?><div id="wrapper" class="clearfix">	<div class="aw-login-wrap-head">		<div class="aw-mod-head">			<?php if (get_setting('invite_reg_only') == 'N') { ?><a href="account/register/" class="aw-btn b-new-user pull-right"></a><?php } ?>		</div>	</div>	<div class="aw-login-wrap clearfix">		<!-- 登陆框 -->		<div class="aw-login-box">			<div class="aw-mod">								<div class="aw-mod-body">					<form id="login_form" method="post" onsubmit="return false" action="account/ajax/login_process/">						<input type="hidden" name="return_url" value="<?php echo $this->return_url; ?>" />						<ul>							<li>								<label class="aw-label-icon name pull-left" for="aw-login-user-name"></label>								<input type="text" id="aw-login-user-name" placeholder="<?php _e('邮箱'); ?>/<?php _e('用户名'); ?>" name="user_name" value="<?php echo $this->r_uname; ?>" />							</li>							<li>								<label class="aw-label-icon pwd pull-left" for="aw-login-user-password"></label>								<input type="password" id="aw-login-user-password" placeholder="<?php _e('密码'); ?>" name="password" />							</li>							<li class="error error-message hide">								<p><i class="aw-icon i-no"></i><em></em></p>							</li>							<li class="last">								<input id="login-radio" type="checkbox" value="1" name="net_auto_login" />								<label for="login-radio"><?php _e('记住我'); ?></label>								<a href="account/find_password/"><?php _e('忘记密码'); ?></a>							</li>							<li>								<a href="javascript:;" onclick="ajax_post($('#login_form'), _error_message_form_processer);" id="login_submit" class="btn btn-large btn-success"><?php _e('登录'); ?></a>							</li>							<li class="open_login">								<?php if (get_setting('site_close') != 'Y' && (get_setting('sina_weibo_enabled') == 'Y' OR get_setting('qq_t_enabled') == 'Y' OR get_setting('qq_login_enabled') == 'Y')) { ?>								<?php _e('第三方登录'); ?>:								<?php if (get_setting('sina_weibo_enabled') == 'Y') { ?><a href="account/openid/sina/" class="aw-icon i-login-sina"></a><?php } ?>								<?php if (get_setting('qq_t_enabled') == 'Y') { ?><a href="account/openid/qq/" class="aw-icon i-login-weibo"></a><?php } ?>								<?php if (get_setting('qq_login_enabled') == 'Y') { ?><a href="account/openid/qq_login/" class="aw-icon i-login-qq"></a><?php } ?>								<?php } ?>							</li>						</ul>					</form>				</div>							</div>		</div>		<!-- end 登陆框 -->			</div></div><script type="text/javascript" src="<?php echo G_STATIC_URL; ?>/js/app/login.js"></script><script type="text/javascript">$(document).ready(function () {		$('#login_form input').keydown(function (e) {		if (e.keyCode == 13)		{			$('#login_submit').click();		}	});		login_slide('#aw-bg-loading li');});</script><?php TPL::output('global/footer_blank.tpl.htm'); ?>
+<?php TPL::output('global/header_landing_blank.tpl.htm'); ?>
+
+<div id="wrapper" class="clearfix">
+	<div class="aw-login-wrap-head">
+		<div class="aw-mod-head">
+			<?php if (get_setting('invite_reg_only') == 'N') { ?><a href="account/register/" class="aw-btn b-new-user pull-right"></a><?php } ?>
+		</div>
+	</div>
+	<div class="aw-login-wrap clearfix">
+		<!-- 登陆框 -->
+		<div class="aw-login-box">
+			<div class="aw-mod">
+				
+				<div class="aw-mod-body">
+					<form id="login_form" method="post" onsubmit="return false" action="account/ajax/login_process/">
+						<input type="hidden" name="return_url" value="<?php echo $this->return_url; ?>" />
+						<ul>
+							<li>
+								<label class="aw-label-icon name pull-left" for="aw-login-user-name"></label>
+								<input type="text" id="aw-login-user-name" placeholder="<?php _e('邮箱'); ?>/<?php _e('用户名'); ?>" name="user_name" />
+							</li>
+							<li>
+								<label class="aw-label-icon pwd pull-left" for="aw-login-user-password"></label>
+								<input type="password" id="aw-login-user-password" placeholder="<?php _e('密码'); ?>" name="password" />
+							</li>
+							<li class="error error-message hide">
+								<p><i class="aw-icon i-no"></i><em></em></p>
+							</li>
+							<li class="last">
+								<input id="login-radio" type="checkbox" value="1" name="net_auto_login" />
+								<label for="login-radio"><?php _e('记住我'); ?></label>
+								<a href="account/find_password/"><?php _e('忘记密码'); ?></a>
+							</li>
+							<li>
+								<a href="javascript:;" onclick="ajax_post($('#login_form'), _error_message_form_processer);" id="login_submit" class="btn btn-large btn-success"><?php _e('登录'); ?></a>
+							</li>
+							<li class="open_login">
+								<?php if (get_setting('site_close') != 'Y' && (get_setting('sina_weibo_enabled') == 'Y' OR get_setting('qq_t_enabled') == 'Y' OR get_setting('qq_login_enabled') == 'Y')) { ?>
+								<?php _e('第三方登录'); ?>:
+								<?php if (get_setting('sina_weibo_enabled') == 'Y') { ?><a href="account/openid/sina/" class="aw-icon i-login-sina"></a><?php } ?>
+								<?php if (get_setting('qq_t_enabled') == 'Y') { ?><a href="account/openid/qq/" class="aw-icon i-login-weibo"></a><?php } ?>
+								<?php if (get_setting('qq_login_enabled') == 'Y') { ?><a href="account/openid/qq_login/" class="aw-icon i-login-qq"></a><?php } ?>
+								<?php } ?>
+							</li>
+						</ul>
+					</form>
+				</div>
+				
+			</div>
+		</div>
+		<!-- end 登陆框 -->
+		
+	</div>
+</div>
+
+<script type="text/javascript" src="<?php echo G_STATIC_URL; ?>/js/app/login.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function () {	
+	$('#login_form input').keydown(function (e) {
+		if (e.keyCode == 13)
+		{
+			$('#login_submit').click();
+		}
+	});
+	
+	login_slide('#aw-bg-loading li');
+});
+</script>
+
+<?php TPL::output('global/footer_blank.tpl.htm'); ?>
