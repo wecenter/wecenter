@@ -94,8 +94,8 @@ var AW_MOBILE_TEMPLATE = {
 				'<div class="aw-comment-list"><p align="center" class="aw-padding10"><i class="aw-loading"></i></p></div>'+
 				'<form action="{{comment_form_action}}" method="post" onsubmit="return false">'+
 					'<div class="aw-comment-box-main clearfix">'+
-						'<textarea class="aw-comment-txt" name="message" placeholder="' + _t('评论一下') + '..."></textarea>'+
-						'<a href="javascript:;" class="btn btn-mini close-comment-box pull-right">' + _t('取消') + '</a>'+
+						'<textarea class="aw-comment-txt form-control" name="message" placeholder="' + _t('评论一下') + '..."></textarea>'+
+						'<a href="javascript:;" class="btn btn-mini btn-default close-comment-box pull-right">' + _t('取消') + '</a>'+
 						'<a href="javascript:;" class="btn btn-mini btn-primary pull-right" onclick="save_comment(this);">' + _t('评论') + '</a>'+
 					'</div>'+
 				'</form>'+

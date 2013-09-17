@@ -5,6 +5,7 @@ ul,li,ol{margin:0;list-style: none;}
 article, aside, dialog, footer, header, section, footer, nav, figure, menu {display: block;}
 h1,h2,h3,h4,h5,h6{margin:0;font-size: 16px;line-height: 30px;}
 a{cursor: pointer;}
+dd{margin-left: 10px;}
 .aw-topic-name{display: inline-block;line-height:22px;margin-right:5px;padding: 1px 7px;background:#D4F2FF;}
 .aw-topic-name:hover{text-decoration: none;}
 .aw-topic-name i{margin:-1px 0 0 10px;font-size: 14px;font-style: normal;cursor: pointer;}
@@ -26,6 +27,7 @@ a{cursor: pointer;}
 .btn-primary.aw-active{background:#FFFFFF;border:1px solid #CCCCCC;color: #333333;}
 .btn-primary.aw-active:hover{background: #EBEBEB;border-color:#ADADAD;color: #333333;}
 .img-polaroid{max-width: 90%;}
+.badge.badge-info{background: #3A87AD;}
 .aw-loading{display:inline-block;width:16px;height:16px;background: url(img/ajax-loader.gif) no-repeat;}
 #aw-loading { background: #000; width: 40px; height: 40px;  -webkit-border-radius: 5px; border-radius: 5px; position: fixed; top: 50%;	left: 50%; margin: -20px 0 0 -20px; z-index: 10001; -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=75)"; filter: alpha(opacity=75); opacity: 0.75; }
 #aw-loading-box { width: 40px; height: 40px; background-image: url('img/loading.png'); }
@@ -111,13 +113,14 @@ nav #aw-top-nav-notic .badge{position: absolute;right: 0;top:1px;z-index:100;pad
 .aw-top-nav-profile li{width: 140px;float: none;}
 .aw-top-nav-profile li a{padding-left: 10px;}
 .aw-top-nav-profile li .badge-info{margin-left: 10px;}
-.aw-top-nav-notic{left: 0;top: 81px;width: 100%;}
 .aw-top-nav-notic-wrap{max-height: 322px;overflow-y: scroll;overflow-x:hidden;background: #fff;}
+.aw-top-nav-notic{left: 0;top: 81px;width: 100%;}
 .aw-top-nav-notic li{float: none;width: auto;height:auto;padding:10px 0 10px 10px;overflow:visible;background: #FFFFFF;}
 .aw-top-nav-notic li:hover{background: #E4E4E4;}
 .aw-top-nav-notic li a{display: inline;width: auto;line-height:22px;background: none;color: #0088CC;}
 .aw-top-nav-notic li a:hover{background: none;}
-.aw-top-nav-notic li p{margin:0;max-width: 290px;}
+.aw-top-nav-notic li p{margin:0;max-width: 300px;}
+.aw-top-nav-notic .aw-new-message-tips-close{display:none;margin-right: 10px;}
 
 /* 发起页面 */
 .aw-mod-publish .aw-mod-body{margin-bottom:10px;border-bottom: 1px solid #eee;}
@@ -168,7 +171,7 @@ nav #aw-top-nav-notic .badge{position: absolute;right: 0;top:1px;z-index:100;pad
 .aw-question-detail-page .aw-anwser-box .aw-mod-body{margin-top:10px;}
 .aw-question-detail-page .aw-anwser-box .avatar img{width: 25px;height: 25px;border-radius: 2px;}
 .aw-question-detail-page .aw-anwser-box textarea{width: 100%;padding:0;}
-.aw-question-detail-page .aw-anwser-box .aw-mod-footer label{margin:4px 10px 0 0;}
+.aw-question-detail-page .aw-anwser-box .aw-mod-footer label{margin:7px 10px 0 0;}
 .aw-question-detail-page .aw-anwser-box .aw-mod-footer label input{margin:0;vertical-align: 1px;}
 .aw-question-detail-page .aw-related-questions{margin-top: 40px;border-top:1px solid #EEEEEE;}
 .aw-question-detail-page .aw-related-questions h3{margin:10px 0;}
@@ -190,7 +193,6 @@ nav #aw-top-nav-notic .badge{position: absolute;right: 0;top:1px;z-index:100;pad
 .aw-comment-box .aw-comment-list li p{color: #666;}
 .aw-comment-box .aw-comment-list li p span{color: #999;}
 .aw-comment-box .aw-comment-box-main{padding:10px;}
-.aw-comment-box .aw-comment-box-main textarea{width: 97%;}
 .aw-comment-box .aw-comment-box-main a.btn{margin-left:10px;color: #333 !important;}
 .aw-comment-box .aw-comment-box-main a.btn-primary{color: #fff !important;}
 
@@ -255,7 +257,7 @@ nav #aw-top-nav-notic .badge{position: absolute;right: 0;top:1px;z-index:100;pad
 .aw-people-page .aw-people-detail, .aw-people-page .aw-people-topic .aw-mod-body, .aw-people-page .aw-people-replay .aw-mod-body, .aw-people-page .aw-people-ask .aw-mod-body,  .aw-people-page .aw-people-follow .aw-mod-body{padding:10px;}
 .aw-people-page .aw-people-detail .aw-mod-body{position: relative;min-height:50px;padding:10px 0 10px 60px;}
 .aw-people-page .aw-people-detail .aw-mod-body img{position: absolute;left: 0;top: 10px;width: 50px;height: 50px;}
-.aw-people-page .aw-people-detail .aw-mod-footer{margin-bottom: 10px;}
+.aw-people-page .aw-people-detail .aw-mod-footer{margin: 10px 0;}
 .aw-people-page .aw-people-detail .aw-mod-footer em{font-style: normal;}
 .aw-people-page .aw-people-detail .aw-mod-footer span{margin-right: 12px;}
 .aw-people-page .aw-people-detail h2{padding: 0 10px !important;}
@@ -381,6 +383,7 @@ nav #aw-top-nav-notic .badge{position: absolute;right: 0;top:1px;z-index:100;pad
 .alert-redirect .modal-body .dropdown-list{max-height: 288px;overflow-y:scroll;}
 
 /* 字体icon */
+.icon-tag, .icon-signal, .icon-thumbs-up-alt, .icon-heart, .icon-edit, .icon-heart{color: #999;}
 .icon-v{font-size: 18px;color: #a5d300;}
 .icon-v.i-ve{color: #fce568;}
 
