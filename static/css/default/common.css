@@ -14,7 +14,7 @@ table td{vertical-align: middle !important;}
 .aw-padding10{padding:10px;}
 .aw-margin-top-10{margin-top:10px;}
 .aw-wecenter{max-width:940px;height:auto;overflow:hidden;margin:0 auto;}
-.aw-content-wrap{overflow:hidden;background:#fff;}
+.aw-content-wrap{padding-bottom:30px;overflow:hidden;background:#fff;}
 .aw-load-more-content{position:relative;overflow: hidden;height: 34px;line-height: 34px;margin: 15px auto 0;padding:0 10px;background-color: #E1F0F7;border:1px solid #D1E6ED;text-align: center;cursor: pointer;}
 a.aw-load-more-content{display: block;}
 .aw-load-more-content > a{display: inline;}
@@ -875,7 +875,7 @@ select{width: auto;}
 .aw-404-wrap p a{font-size:14px;}
 
 /* 字体icon & icon */
-.icon-comment-alt, .icon-share-alt, .icon-edit, .icon-map-marker, .icon-flag, .icon-heart, .icon-user, .icon-home, .icon-thumbs-up-alt, .icon-reply, .icon-signal, .icon-tag, .icon-wrench, .icon-cog, .icon-off, .icon-bookmark, .icon-chevron-down, .icon-mobile-phone, .icon-external-link{margin-right: 5px;color: #B7B7B7;cursor: pointer;}
+.icon-comment-alt, .icon-share-alt, .icon-edit, .icon-map-marker, .icon-flag, .icon-heart, .icon-user, .icon-home, .icon-thumbs-up-alt, .icon-reply, .icon-signal, .icon-tag, .icon-wrench, .icon-cog, .icon-off, .icon-bookmark, .icon-chevron-down, .icon-mobile-phone, .icon-external-link, .icon-envelope{margin-right: 5px;color: #B7B7B7;cursor: pointer;}
 .icon-ok-sign{margin-left:5px;color: #4bbe00;font-size: 14px;cursor: pointer;}
 .icon-ok-sign.aw-active:before{content:"\f055";color: #43b3ff;}
 .icon-comment-alt{font-size: 12px;}
@@ -890,6 +890,7 @@ select{width: auto;}
 .i-private-replay-triangle{width: 8px;height: 10px;background: url('img/icon-angle-right.png') no-repeat;}
 
 /*分享icon*/
+.bds{position:relative;top:3px;display:inline-block;width:16px;height:16px;margin-right:5px;background-image: url(img/bds-icon-sprite.png);background-repeat: no-repeat;}
 .bds_qzone i{background-position: -4px -80px;}
 .bds_tsina i{background-position: -4px -120px;}
 .bds_tqq i{background-position: -4px -240px;}

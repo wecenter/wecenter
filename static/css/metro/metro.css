@@ -41,7 +41,7 @@
 /* top-menu */
 .aw-top-menu-wrap{position:fixed;top:0;z-index:1030;height:55px;background:#0185C9;}
 .aw-top-menu h1{margin:0;}
-.aw-top-nav{width: 325px;}
+.aw-top-nav{width: 325px !important;}
 .aw-top-nav ul li{float: left;}
 .aw-top-nav > ul > li > a{display:inline-block;height:55px;line-height: 55px;padding: 0 15px;font-size: 14px;font-weight: bold;color: #fff;}
 .aw-top-nav > ul > li > a:hover{background: #0C7BB5;}
@@ -104,8 +104,8 @@
 .aw-side-bar{margin-left:20px;background: #fff;}
 .aw-side-bar-mod-new-message{margin:0 0 10px;}
 .aw-side-bar-mod-nav{padding-top: 0;}
-.aw-side-bar-mod-nav ul li a{width: 180px;padding-left: 20px;}
-.aw-side-bar-mod-nav ul li a.active, .aw-side-bar-mod-nav ul li a.active:hover{background: url("img/main_default.png") no-repeat 0 -79px #A9B8C5;color: #fff;}
+.aw-side-bar-mod-nav ul li a{padding-left: 20px;}
+.aw-side-bar-mod-nav ul li a.active, .aw-side-bar-mod-nav ul li a.active:hover{background: #aab8c6;color: #fff;}
 .aw-side-bar-mod-nav ul li a:hover{background: none;color: #0088CC;}
 .aw-side-bar-mod-nav ul li a.active .aw-message-tooltip{background: url("img/main_default.png") no-repeat 0 -60px;}
 
@@ -157,10 +157,7 @@
 
 /* 发起页面 */
 .aw-mod-publish .aw-mod-footer{padding:0 20px 30px;}
-.aw-publish-title.active input, .aw-mod-publish-box #advanced_editor{width: 600px;}
 
-/* 问题编辑页面 */
-.aw-mod-publish-box #advanced_editor{width: 604px;}
 
 /* 用户主页 */
 .aw-user-center{padding: 0px;}
