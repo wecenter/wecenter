@@ -1,5 +1,4 @@
 /* 用户页面 */
-.aw-user-center{padding:20px;}
 .aw-user-detail-box .aw-mod-body{position: relative;margin-bottom:30px;padding:0 0 20px 115px;}
 .aw-user-detail-box .aw-mod-body img{position: absolute;left:0;top:0;border-radius: 5px;}
 .aw-user-detail-box .aw-mod-body .aw-user-title{margin:0;}
@@ -12,11 +11,10 @@
 .aw-user-detail-box .aw-mod-body .aw-user-flag .i-share-sina, .aw-user-detail-box .aw-mod-body .aw-user-flag .i-share-weibo, .aw-user-detail-box .aw-mod-body .aw-user-flag .i-qq{position: relative;top:2px;}
 .aw-user-detail-box .aw-mod-body .aw-user-follow-box{margin:0 !important;}
 .aw-user-detail-box .aw-mod-body .aw-user-follow-box a{margin-left:10px;}
-.aw-user-center-margin, .aw-user-center-dynamic-mini-mod{margin-right:20px;}
 
 /* 用户页面公共模块 */
 .aw-user-center-tab h3{min-height:20px;line-height:20px;margin-bottom:0px;padding:25px 0 15px;font-size:20px;}
-.aw-user-center-mod .aw-item{border-bottom:1px dotted #C1CAD4;}
+.aw-user-center-mod .aw-item{padding-top:10px;border-bottom:1px dotted #C1CAD4;}
 .aw-user-center-mod .aw-item .aw-mod-body{position:relative;padding:0 0 10px 35px;}
 .aw-user-center-mod .aw-item .aw-mod-body .aw-vote-bar{top:0;}
 .aw-user-center-count{position:absolute;left:0;top:0;min-width: 17px;max-width:50px;padding:0 3px;background-color: #E9F5FF;text-align: center;}
@@ -27,7 +25,7 @@
 .aw-user-center-details-list li{float:left;width:209px;margin:0 10px 15px 0;}
 .aw-user-center-details-mini{height: auto;overflow: hidden;}
 .aw-user-center-details h4, .aw-user-center-details-mini h4{padding:25px 0 15px 0;font-size:20px !important;font-weight: normal;}
-.aw-reset-sp .col-sm-6{width:454px;}
+.aw-reset-sp{margin-top: 20px;}
 .aw-reset-sp h3{padding:25px 0 10px;border-bottom:1px solid #ccc;}
 .aw-reset-sp h3 .aw-more-content{font-size:13px;font-weight: normal;}
 .aw-user-center-mini-mod .aw-item .aw-mod-body{min-height:30px;margin-top:-5px;padding:0 0 10px 60px;}
@@ -36,7 +34,7 @@
 .aw-user-center-dynamic-mini-mod .aw-mod-body{padding-top: 10px;}
 .aw-user-center-dynamic-mini-mod .aw-mod-body a{max-width: 160px;}
 .aw-user-center-dynamic-mini-mod .aw-mod-body .aw-hide-txt{display:inline-block;vertical-align: top;}
-.aw-user-center-follow-mini-mod{width:190px;margin:10px 0 20px 34px;}
+.aw-user-center-follow-mini-mod{margin:10px 0 30px;}
 .aw-user-center-follow-mini-mod:first-child{margin-left: 0px;}
 .aw-user-center-follow-mini-mod p{margin-top: 5px;}
 .aw-user-center-follow-mini-mod .aw-user-img img{width: 25px;height: 25px;}
@@ -49,7 +47,7 @@
 /* 关注 */
 .aw-user-center-follow-mod h4{padding:25px 0 15px 0;font-size:18px;}
 .aw-user-center-follow-mod ul li{position: relative;min-height:94px;margin:0 14px;}
-.aw-user-center-follow-mod ul .col-sm-5{width:420px;margin-bottom:10px;padding:10px 0;border-bottom:1px dotted #C1CAD4;}
+.aw-user-center-follow-mod ul .col-sm-6{width:420px;margin-bottom:10px;padding:10px 0;border-bottom:1px dotted #C1CAD4;}
 .aw-user-center-follow-mod .aw-item{position:relative;min-height:60px;padding-left:60px;}
 .aw-user-center-follow-mod .aw-user-img, .aw-user-center-follow-mod .aw-topic-img{position: absolute;left: 0;top: 0;}
 .aw-user-center-follow-mod  p{margin:0;}
@@ -60,7 +58,7 @@
 /* 详细资料 */
 .aw-user-center-details .i-share-sina, .aw-user-center-details .i-share-weibo, .aw-user-center-details .i-qq{position: relative;top:2px;margin-right: 5px;}
 .aw-user-center-details{padding:0 60px;}
-.aw-user-center-details dl{height: auto;overflow: hidden;line-height: 22px;margin:0;padding:13px 0 13px 10px;border-bottom:1px dotted #C1CAD4;}
+.aw-user-center-details dl{height: auto;overflow: hidden;line-height: 22px;margin:0;padding:15px 0 15px 10px;border-bottom:1px dotted #C1CAD4;}
 .aw-user-center-details dl dt, .aw-user-center-details dl dd{float:left;}
 .aw-user-center-details dl dt{margin-right:20px;font-weight: normal;color: #333;}
 .aw-user-center-details dl dd{color:#666;}
