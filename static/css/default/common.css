@@ -153,7 +153,7 @@ select{width: auto;}
 .aw-top-nav{width: 375px !important;}
 .aw-top-nav > ul > li{position: relative;float:left;}
 .aw-top-nav > ul > li > a{display:block;height:54px;line-height:54px;padding:0 20px;color: #fff;}
-.aw-top-nav > ul > li > a.active, .aw-logined-nav > ul > li a.active:hover{background: #2c618d !important;}
+.aw-top-nav > ul > li > a.active, .aw-logined-nav > ul > li a.active:hover{background: #2c618d;}
 .aw-top-nav > ul > li > a:hover{background: #24659a;}
 .aw-top-nav .badge{position: absolute;top: 8px;right: 8px;}
 .aw-top-nav ul li:hover .aw-message-dropdown{display: block;}

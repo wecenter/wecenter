@@ -14,9 +14,9 @@
 .btn-success:hover, .btn-success:focus, .btn-success:active, .btn-success.active, .btn-success.disabled, .btn-success[disabled] {background-color: #222;color: #fff;}
 
 /* top-menu */
-.aw-top-menu-wrap{height:45px;background: url("img/main_default.png") repeat-x 0 -53px;box-shadow: 0 0 4px #000;}
+.aw-top-menu-wrap{height:45px;min-height:45px;background: url("img/main_default.png") repeat-x 0 -53px;box-shadow: 0 0 4px #000;}
 .aw-top-menu h1{margin:0;}
-.aw-top-nav{width: 325px;}
+.aw-top-nav{width: 325px !important;}
 .aw-top-nav > ul > li{float: left;}
 .aw-top-nav > ul > li > a{display:inline-block;height:45px;line-height: 45px;padding: 0 15px;font-size: 14px;font-weight: bold;color: #fff;}
 .aw-top-nav > ul > li > a:hover{background: #404040;}
@@ -45,7 +45,7 @@
 .category dl{margin:10px 9px 10px 0;}
 
 /* aw-container-wrap */
-.aw-container-wrap{margin-top:20px;background: #fff;}
+.aw-container-wrap{margin-top:30px;background: #fff;}
 .aw-container{margin-bottom:30px;border:none;background: #fff;}
 .aw-content-wrap{background: #fff;}
 .aw-main-content{width:674px;margin:0 0 0 15px;padding:0;border-right: none;}
@@ -120,7 +120,6 @@
 
 /* 发起页面 */
 .aw-mod-publish .aw-mod-footer{padding:0 20px 30px;}
-.aw-publish-title.active input, .aw-mod-publish-box #advanced_editor{width: 616px;}
 
 /* 用户主页 */
 .aw-user-center{padding: 0px;}
