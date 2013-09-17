@@ -62,13 +62,13 @@ $config['command_unbind'] = '解除绑定';
 $config['key_param_type'] = 'FEATURE';	// 菜单参数类型: CATEGORY - 分类 ID, FEATURE - 专题 ID
 
 // 热门问题图文列表封面图
-$config['default_list_image_hot'] = G_STATIC_URL . '/common/weixin_default_image.jpg';
+$config['default_list_image_hot'] = G_STATIC_URL . '/common/weixin_default_image.png';
 
 // 最新问题图文列表封面图
-$config['default_list_image_new'] = G_STATIC_URL . '/common/weixin_default_image.jpg';
+$config['default_list_image_new'] = G_STATIC_URL . '/common/weixin_default_image.png';
 
 // 推荐问题图文列表封面图
-$config['default_list_image_recommend'] = G_STATIC_URL . '/common/weixin_default_image.jpg';
+$config['default_list_image_recommend'] = G_STATIC_URL . '/common/weixin_default_image.png';
 
 // 公众平台 App ID
 $config['app_id'] = '';
