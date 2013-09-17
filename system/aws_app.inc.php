@@ -45,7 +45,7 @@ class AWS_APP
 			$app_dir = ROOT_PATH . 'app/home/';
 		}
 
-		// 传入应用目录,返回控制器路径
+		// 传入应用目录,返回控制器对象
 		$handle_controller = self::create_controller(load_class('core_uri')->controller, $app_dir);
 		
 		$action_method = load_class('core_uri')->action . '_action';

@@ -299,7 +299,7 @@ class ajax extends AWS_CONTROLLER
 			"\t"
 		), ' ', $answer_info['answer_content']);
 		
-		$url = get_js_url('/question/' . $answer_info['question_id'] . '?fromuid=' . $this->user_id . '&item_id=' . $_GET['answer_id'] . '#!answer_' . $_GET['answer_id']);
+		$url = get_js_url('/question/' . $answer_info['question_id'] . '?fromuid=' . $this->user_id . '&answer_id=' . $_GET['answer_id'] . '&single=true');
 		
 		$user_name = $this->user_info['user_name'] ? $this->user_info['user_name'] : AWS_APP::lang()->_t('我');
 		
