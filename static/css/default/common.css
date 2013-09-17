@@ -886,7 +886,7 @@ select{width: auto;}
 .icon-v.i-ve{color: #fce568;}
 .icon-add-alt{font-size: 18px;margin-right: 10px;}
 .icon-register-arrow{display: inline-block;width: 20px;height: 48px;background-image: url('img/register-triangle.png');background-color:#fff;background-repeat: no-repeat;}
-.i-dropdown-triangle{width:13px;height:6px;background: url('img/icon-angle-up.png') no-repeat;}
+.i-dropdown-triangle{display:inline-block;width:13px;height:6px;background: url('img/icon-angle-up.png') no-repeat;}
 .i-private-replay-triangle{width: 8px;height: 10px;background: url('img/icon-angle-right.png') no-repeat;}
 
 /*分享icon*/
