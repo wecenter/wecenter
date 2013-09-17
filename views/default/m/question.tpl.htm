@@ -217,7 +217,7 @@
 			<?php echo $this->user_info['user_name']; ?>
 		</div>
 		<div class="aw-mod-body">
-			<form action="question/ajax/save_answer/" onsubmit="return false;" method="post" id="answer_form">
+			<form action="question/ajax/save_answer/" onsubmit="return false;" method="post" id="answer_form" class="form-inline">
 				<input type="hidden" name="post_hash" value="<?php echo new_post_hash(); ?>" />
 		        <input type="hidden" name="question_id" value="<?php echo $this->question_info['question_id']; ?>" />
 				<textarea class="form-control" rows="5" name="answer_content"><?php echo htmlspecialchars($this->draft_content['message']); ?></textarea>
