@@ -108,7 +108,8 @@ select{width: auto;}
 .badge.badge-info{background: #3A87AD;}
 .table-bordered > thead > tr > th, .table-bordered > thead > tr > td{border-bottom-width:1px;}
 /* modal */
-.modal{left:auto;right:auto;bottom:auto;overflow-x:visible;overflow-y:visible; }
+.modal{left:auto;top:10%;right:auto;bottom:auto;overflow-x:visible;overflow-y:visible; }
+.modal .modal-dialog{padding:0;}
 .modal-body{overflow-y: visible;}
 .modal-backdrop, .modal-backdrop.fade.in{filter:alpha(opacity=20);opacity: 0.2; }
 .modal-body{max-height: none;}
@@ -728,13 +729,13 @@ select{width: auto;}
 .aw-publish-box #captcha{height: 36px;margin-left: 10px;}
 .aw-publish-box .modal-footer a{margin:0 0 0 5px;}
 .aw-publish-box .modal-body{overflow-y:visible;}
-.aw-publish-box textarea{width: 406px;height: 34px;}
-.aw-share-box textarea, .aw-message-box textarea, .aw-inbox textarea{width:406px;min-height: 60px;}
+.aw-publish-box textarea{height: 34px;}
+.aw-share-box textarea, .aw-message-box textarea, .aw-inbox textarea{min-height: 60px;}
 .aw-publish-box .aw-publish-box-supplement{font-size:12px;cursor: pointer;}
 .aw-publish-box .aw-publish-box-supplement .i-edit{margin-right: 5px;}
 .aw-publish-box .aw-publish-box-supplement-content{min-height: 100px;}
 .aw-publish-box .aw-publish-title-dropdown{position: relative;margin-bottom: 20px;}
-.aw-publish-box .aw-publish-title-dropdown .dropdown-toggle span{width: 370px;}
+.aw-publish-box .aw-publish-title-dropdown .dropdown-toggle span{width: 391px;}
 .aw-publish-box #quick_publish{position: relative;}
 .aw-publish-box .aw-topic-dropdown{top:45px;}
 .aw-publish-box .aw-topic-dropdown .aw-question-dropdown-list, .aw-question-redirect-box .aw-question-dropdown-list{max-height: 409px;overflow-y:auto; }
@@ -745,7 +746,7 @@ select{width: auto;}
 .aw-question-redirect-box .aw-topic-dropdown{top:50px;}
 /* 评论修改box */
 .aw-edit-comment-box{position:absolute;width: 680px;}
-.aw-edit-comment-box .modal-body textarea{width: 538px;margin:0;padding:5px;overflow-y:scroll;clear: left;}
+.aw-edit-comment-box .modal-body textarea{margin:0;padding:5px;overflow-y:scroll;clear: left;}
 .aw-edit-comment-box .modal-footer input{margin: -3px 5px 0 0;}
 .aw-edit-comment-box .modal-footer label{display: inline;font-size: 13px;}
 .aw-edit-comment-box .modal-footer .btn-success{margin-left: 10px;}
@@ -875,10 +876,10 @@ select{width: auto;}
 .aw-404-wrap p a{font-size:14px;}
 
 /* 字体icon & icon */
-.icon-comment-alt, .icon-share-alt, .icon-edit, .icon-map-marker, .icon-flag, .icon-heart, .icon-user, .icon-home, .icon-thumbs-up-alt, .icon-reply, .icon-signal, .icon-tag, .icon-wrench, .icon-cog, .icon-off, .icon-bookmark, .icon-chevron-down, .icon-mobile-phone, .icon-external-link, .icon-envelope{margin-right: 5px;color: #B7B7B7;cursor: pointer;}
+.icon-comment, .icon-share-alt, .icon-edit, .icon-map-marker, .icon-flag, .icon-heart, .icon-user, .icon-home, .icon-thumbs-up-alt, .icon-reply, .icon-signal, .icon-tag, .icon-wrench, .icon-cog, .icon-off, .icon-bookmark, .icon-chevron-down, .icon-mobile-phone, .icon-external-link, .icon-envelope{margin-right: 5px;color: #B7B7B7;cursor: pointer;}
 .icon-ok-sign{margin-left:5px;color: #4bbe00;font-size: 14px;cursor: pointer;}
 .icon-ok-sign.aw-active:before{content:"\f055";color: #43b3ff;}
-.icon-comment-alt{font-size: 12px;}
+.icon-comment{font-size: 12px;}
 .icon-share-alt{font-size: 12px;}
 .icon-mobile-phone{margin-left:5px;font-size: 21px;color:#9d9c9c;vertical-align: -2px;}
 .icon-star-empty{color: #B2EC03;}
