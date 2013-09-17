@@ -1253,11 +1253,11 @@ function init_topic_edit_box(selecter) //selecter -> .aw-edit-topic
         var data_id = _aw_topic_editor_element.attr('data-id');
         var data_type = _aw_topic_editor_element.attr('data-type');
 
-        if (!_aw_topic_editor_element.find('.aw-topic-name').children().hasClass('i-close-hover'))
+        if (!_aw_topic_editor_element.find('.aw-topic-name').children().children().hasClass('aw-close'))
         {
-            _aw_topic_editor_element.find('.aw-topic-name').children().append('<i class="aw-icon i-close-hover"></i>');
+            _aw_topic_editor_element.find('.aw-topic-name').children().append('<button type="button" class="close aw-close">×</button>');
 
-            $.each(_aw_topic_editor_element.find('.i-close-hover'), function (i, e)
+            $.each(_aw_topic_editor_element.find('.aw-close'), function (i, e)
             {
                 $(e).click(function ()
                 {
@@ -1287,7 +1287,7 @@ function init_topic_edit_box(selecter) //selecter -> .aw-edit-topic
         }
         else
         {
-            _aw_topic_editor_element.find('.i-close-hover').show();
+            _aw_topic_editor_element.find('.aw-close').show();
         }
 
         /*判断插入编辑box*/
@@ -1299,7 +1299,7 @@ function init_topic_edit_box(selecter) //selecter -> .aw-edit-topic
             _aw_topic_editor_element.find('.close-edit').click(function ()
             {
                 _aw_topic_editor_element.find('.aw-edit-topic-box').hide();
-                _aw_topic_editor_element.find('.i-close-hover').hide();
+                _aw_topic_editor_element.find('.aw-close').hide();
                 _aw_topic_editor_element.find('.aw-edit-topic').show();
                 $(this).parents('.aw-item').attr('style','');
             });
@@ -1310,7 +1310,7 @@ function init_topic_edit_box(selecter) //selecter -> .aw-edit-topic
                     switch (data_type)
                     {
                     case 'publish':
-                        _aw_topic_editor_element.prepend('<a href="javascript:;" class="aw-topic-name"><span>' + _aw_topic_editor_element.find('#aw_edit_topic_title').val() + '<i class="aw-icon i-close-hover" onclick="$(this).parents(\'.aw-topic-name\').remove();"></i></span><input type="hidden" value="' + _aw_topic_editor_element.find('#aw_edit_topic_title').val() + '" name="topics[]" /></a>').hide().fadeIn();
+                        _aw_topic_editor_element.prepend('<a href="javascript:;" class="aw-topic-name"><span>' + _aw_topic_editor_element.find('#aw_edit_topic_title').val() + '<button class="close aw-close" type="button" onclick="$(this).parents(\'.aw-topic-name\').remove();">x</button></span><input type="hidden" value="' + _aw_topic_editor_element.find('#aw_edit_topic_title').val() + '" name="topics[]" /></a>').hide().fadeIn();
 
                         _aw_topic_editor_element.find('#aw_edit_topic_title').val('');
                         break;
@@ -1325,7 +1325,7 @@ function init_topic_edit_box(selecter) //selecter -> .aw-edit-topic
                                 return false;
                             }
 
-                            _aw_topic_editor_element.prepend('<a href="' + G_BASE_URL + '/topic/' + result.rsm.topic_id + '" class="aw-topic-name"><span>' + _aw_topic_editor_element.find('#aw_edit_topic_title').val() + '<i class="aw-icon i-close-hover" onclick="$.post(G_BASE_URL + \'/question/ajax/delete_topic/\', \'question_id=' + data_id + '&topic_id=\' + $(this).parents(\'.aw-topic-name\').attr(\'data-id\'));$(this).parents(\'.aw-topic-name\').remove();return false;"></i></span></a>').hide().fadeIn();
+                            _aw_topic_editor_element.prepend('<a href="' + G_BASE_URL + '/topic/' + result.rsm.topic_id + '" class="aw-topic-name"><span>' + _aw_topic_editor_element.find('#aw_edit_topic_title').val() + '<button class="close aw-close" onclick="$.post(G_BASE_URL + \'/question/ajax/delete_topic/\', \'question_id=' + data_id + '&topic_id=\' + $(this).parents(\'.aw-topic-name\').attr(\'data-id\'));$(this).parents(\'.aw-topic-name\').remove();return false;">x</button></span></a>').hide().fadeIn();
 
                             _aw_topic_editor_element.find('#aw_edit_topic_title').val('');
                         }, 'json');
@@ -1341,7 +1341,7 @@ function init_topic_edit_box(selecter) //selecter -> .aw-edit-topic
                                 return false;
                             }
 
-                            _aw_topic_editor_element.prepend('<a href="' + G_BASE_URL + '/favorite/tag-' + encodeURIComponent(_aw_topic_editor_element.find('#aw_edit_topic_title').val()) + '" class="aw-topic-name"><span>' + _aw_topic_editor_element.find('#aw_edit_topic_title').val() + '<i class="aw-icon i-close-hover" onclick="$.post(G_BASE_URL + \'/topic/ajax/remove_related_topic/related_id-\' + $(this).parents(\'.aw-topic-name\').text() + \'&topic_id=' + data_id + '\');$(this).parents(\'.aw-topic-name\').remove();return false;"></i></span></a>').hide().fadeIn();
+                            _aw_topic_editor_element.prepend('<a href="' + G_BASE_URL + '/favorite/tag-' + encodeURIComponent(_aw_topic_editor_element.find('#aw_edit_topic_title').val()) + '" class="aw-topic-name"><span>' + _aw_topic_editor_element.find('#aw_edit_topic_title').val() + '<button class="close aw-close" onclick="$.post(G_BASE_URL + \'/topic/ajax/remove_related_topic/related_id-\' + $(this).parents(\'.aw-topic-name\').text() + \'&topic_id=' + data_id + '\');$(this).parents(\'.aw-topic-name\').remove();return false;">x</button></span></a>').hide().fadeIn();
 
                             _aw_topic_editor_element.find('#aw_edit_topic_title').val('');
                         }, 'json');
@@ -1357,7 +1357,7 @@ function init_topic_edit_box(selecter) //selecter -> .aw-edit-topic
                                 return false;
                             }
 
-                            _aw_topic_editor_element.prepend('<a href="' + G_BASE_URL + '/favorite/tag-' + encodeURIComponent(_aw_topic_editor_element.find('#aw_edit_topic_title').val()) + '" class="aw-topic-name"><span>' + _aw_topic_editor_element.find('#aw_edit_topic_title').val() + '<i class="aw-icon i-close-hover" onclick="$.post(G_BASE_URL + \'/favorite/ajax/remove_favorite_tag/\', \'answer_id=' + data_id + '&topic_id=\' + $(this).parents(\'.aw-topic-name\').text());$(this).parents(\'.aw-topic-name\').remove();return false;"></i></span></a>').hide().fadeIn();
+                            _aw_topic_editor_element.prepend('<a href="' + G_BASE_URL + '/favorite/tag-' + encodeURIComponent(_aw_topic_editor_element.find('#aw_edit_topic_title').val()) + '" class="aw-topic-name"><span>' + _aw_topic_editor_element.find('#aw_edit_topic_title').val() + '<button class="close aw-close" onclick="$.post(G_BASE_URL + \'/favorite/ajax/remove_favorite_tag/\', \'answer_id=' + data_id + '&topic_id=\' + $(this).parents(\'.aw-topic-name\').text());$(this).parents(\'.aw-topic-name\').remove();return false;">x</button></span></a>').hide().fadeIn();
                             
                             _aw_topic_editor_element.find('#aw_edit_topic_title').val('');
                         }, 'json');
