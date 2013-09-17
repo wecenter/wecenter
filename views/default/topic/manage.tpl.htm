@@ -50,15 +50,18 @@
 					
 					<?php if (sizeof($this->feature_list) > 0) { ?>
 					<dl>
-						<form action="topic/ajax/feature_topic/" method="post" id="feature_topic_form">
+						<form class="form-inline" action="topic/ajax/feature_topic/" method="post" id="feature_topic_form">
 						<input type="hidden" name="topic_id" value="<?php echo $this->topic_info['topic_id']; ?>" />
 						<dt><?php _e('加入专题'); ?>:</dt>
 						<dd>
 							<a class="btn btn-large btn-success pull-right" href="javascript:;" onclick="ajax_post($('#feature_topic_form'));"><?php _e('保存'); ?></a>
 							<div class="topic-list">
-								<?php foreach($this->feature_list AS $key => $val) { ?>
+								<div class="checkbox">
+							    <?php foreach($this->feature_list AS $key => $val) { ?>
 								<label><input type="checkbox" name="feature_ids[]" value="<?php echo $val['id']; ?>"<?php if (in_array($val['id'], $this->topic_in_features)) { ?> checked="checked"<?php } ?> /> <?php echo $val['title']; ?></label>
 								<?php } ?>	
+							  </div>
+								
 							</div>
 						</dd>
 						</form>

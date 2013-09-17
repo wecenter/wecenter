@@ -71,8 +71,8 @@
 .aw-side-bar{margin-left:20px;background: #fff;}
 .aw-side-bar-mod.new-message{margin:0 0 10px;}
 .aw-side-bar-mod-nav{padding-top: 0;}
-.aw-side-bar-mod-nav ul li a{width: 175px;padding-left: 20px;}
-.aw-side-bar-mod-nav ul li a:hover, .aw-side-bar-mod-nav ul li a.active{background: url("img/main_default.png") no-repeat -231px -11px;color: #333;}
+.aw-side-bar-mod-nav ul li a{padding-left: 20px;}
+.aw-side-bar-mod-nav ul li a:hover, .aw-side-bar-mod-nav ul li a.active{background: #E1F1FF;color: #333;}
 .aw-side-bar-mod-nav ul li a.active .aw-message-tooltip{background: #449BDB;}
 
 /* 自定义tab切换 */
