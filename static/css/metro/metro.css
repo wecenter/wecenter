@@ -1,7 +1,7 @@
 /* 公共部分 */
 .aw-load-more-content{height:50px;line-height:50px;background: #F4F4F4;border:none;color: #666;}
 .aw-load-more-content.loading, .aw-load-more-content.disabled{border:none;}
-.aw-load-more-content:hover{background:#ECEAEA;color: #666;}
+.aw-load-more-content:hover{background-color:#ECEAEA;color: #666;}
 .aw-reset-nav-tabs{height:45px;background:#F8F8F8;border-bottom: none;}
 .aw-reset-nav-tabs h2{height: 45px;line-height: 45px;margin: 0;padding-left: 20px;}
 .aw-reset-nav-tabs > li, .aw-reset-nav-tabs > li.active{margin-top:10px;}
