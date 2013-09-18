@@ -28,8 +28,8 @@ input{padding:6px !important;}
 .login-box .aw-mod-body input{display:inline;width:215px;margin:0;}
 .login-box .aw-mod-footer{padding:20px 10px;background: #E7EDF2;border-top:1px solid #d0dce6;border-radius: 0 0 4px 4px;text-align: center;}
 .login-box .vercode{margin-bottom: 0px !important;}
-.login-box .vercode label{float: left;width: 130px;}
-.login-box .vercode img{float:left;width: 120px;height: 30px;}
-.login-box .vercode input{width: 50px;}
+.login-box .vercode label{float: left;width: 150px;}
+.login-box .vercode img{float:left;width: 100px;height: 30px;cursor: pointer;}
+.login-box .vercode input{width: 70px;}
 .login-box .vercode a{display:inline-block;margin-top:5px;font-size: 12px;color: #999;}
 .login-box .error-message{position: relative;}

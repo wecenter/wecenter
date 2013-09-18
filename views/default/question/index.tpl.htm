@@ -2,13 +2,15 @@
 
 <div class="aw-container-wrap">
 	<div class="aw-container aw-wecenter">
-		<?php if ($this->redirect_message) { ?>
-		<?php foreach ($this->redirect_message AS $key => $message) { ?>
-		<div class="alert fade in">
-			<?php echo $message; ?>
+		<div class="aw-redirect-message">
+			<?php if ($this->redirect_message) { ?>
+			<?php foreach ($this->redirect_message AS $key => $message) { ?>
+			<div class="alert fade in">
+				<?php echo $message; ?>
+			</div>
+			<?php } ?>
+			<?php } ?>
 		</div>
-		<?php } ?>
-		<?php } ?>
 		<div class="row aw-content-wrap">
 			<div class="col-sm-12 col-md-9 aw-main-content">
 				<div class="aw-mod aw-item aw-question-detail-title">
@@ -160,7 +162,7 @@
 							<!--<li><a href="question/<?php echo $this->question_info['question_id']; ?>"><?php _e('全部回答'); ?></a></li>-->
 							<?php } else if (($this->answer_count OR $_GET['uid']) AND $this->user_id) { ?>
 							<li<?php if ($_GET['uid'] == 'focus') { ?> class="active"<?php } ?>><a href="question/<?php echo $this->question_info['question_id']; ?>?uid=focus"><?php _e('关注的人'); ?></a></li>
-							<li<?php if ($_GET['sort_key'] == 'add_time') { ?> class="active"<?php } ?>><a href="question/<?php echo $this->question_info['question_id']; ?>?sort_key=add_time&sort=<?php if (($_GET['sort_key'] == 'add_time') && $_GET['sort'] == 'ASC') { ?>DESC<?php } else { ?>ASC<?php } ?>"><?php _e('时间'); ?><?php if (($_GET['sort_key'] == 'add_time') && $_GET['sort'] == 'DESC') { ?><i class="aw-icon i-triangle-down-mini"></i><?php } else { ?><i class="icon-caret-up"></i><?php } ?></a></li>
+							<li<?php if ($_GET['sort_key'] == 'add_time') { ?> class="active"<?php } ?>><a href="question/<?php echo $this->question_info['question_id']; ?>?sort_key=add_time&sort=<?php if (($_GET['sort_key'] == 'add_time') && $_GET['sort'] == 'ASC') { ?>DESC<?php } else { ?>ASC<?php } ?>"><?php _e('时间'); ?><?php if (($_GET['sort_key'] == 'add_time') && $_GET['sort'] == 'DESC') { ?><i class="icon-caret-down"></i><?php } else { ?><i class="icon-caret-up"></i><?php } ?></a></li>
 							<li<?php if ((!$_GET['uid'] && !$_GET['sort_key']) || $_GET['sort_key'] == 'agree_count') { ?> class="active"<?php } ?>><a href="question/<?php echo $this->question_info['question_id']; ?>&sort_key=agree_count&sort=DESC"><?php _e('票数'); ?></a></li>
 							<?php } ?>
 							
