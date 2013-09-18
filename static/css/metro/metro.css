@@ -39,7 +39,7 @@
 .btn-group.open .dropdown-toggle{box-shadow: none;}
 
 /* top-menu */
-.aw-top-menu-wrap{position:fixed;top:0;z-index:1030;height:55px;background:#0185C9;}
+.aw-top-menu-wrap{position:fixed;top:0;z-index:1030;min-height:55px;background:#0185C9;}
 .aw-top-menu h1{margin:0;}
 .aw-top-nav{width: 325px !important;}
 .aw-top-nav ul li{float: left;}
@@ -173,7 +173,7 @@
 
 /* 用户设置 */
 .aw-user-setting{padding: 1px;border:1px solid #DFDFDF;}
-.aw-user-setting h4{background: #CFECFA;}
+.aw-user-setting h4{background: #F7FCFF;color: #999;font-weight: normal;}
 .aw-user-setting .tab-content{padding: 0 0 30px;}
 
 /* 底部 */

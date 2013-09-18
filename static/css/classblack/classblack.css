@@ -14,7 +14,7 @@
 .btn-success:hover, .btn-success:focus, .btn-success:active, .btn-success.active, .btn-success.disabled, .btn-success[disabled] {background-color: #222;color: #fff;}
 
 /* top-menu */
-.aw-top-menu-wrap{height:45px;min-height:45px;background: #383838;}
+.aw-top-menu-wrap{min-height:45px;background: #383838;}
 .aw-top-menu h1{margin:0;}
 .aw-top-nav{width: 325px !important;}
 .aw-top-nav > ul > li{float: left;}
