@@ -177,7 +177,7 @@ select{width: auto;}
 .aw-user-nav:hover .aw-user-nav-dropdown-list{display: block;}
 .aw-user-nav > a{display:block;height:54px;color: #fff;}
 .aw-user-nav > a img{width: 32px;height: 32px;border-radius: 5px;}
-.aw-user-nav > span > a{display:inline-block;height:54px;line-height:54px;padding:0 13px;color: #fff;}
+.aw-user-nav > span > a{display:inline-block;height:54px;line-height:54px;padding:0 12px;color: #fff;}
 .aw-user-nav > span > a:hover{background-color: #24659a;}
 .aw-user-nav .aw-user-nav-dropdown .badge{position: absolute;top: 8px;}
 .aw-user-nav-dropdown-list{display: none;position:absolute;width:100px;border:1px solid #285f8c;border-top: none;}
@@ -341,7 +341,8 @@ select{width: auto;}
 .aw-comment-box-main .aw-comment-box-btn .btn{margin-left:10px;}
 .aw-comment-list{padding:0 10px;}
 .aw-comment-list li{position: relative;padding:15px 0 15px 42px;border-top:1px dotted #C1CAD4;}
-.aw-comment-list li > .aw-user-name{position: absolute;left: 0;top: 15px;width: 32px;height: 32px;}
+.aw-comment-list li > .aw-user-name{position: absolute;left: 0;top: 20px;}
+.aw-comment-list li > .aw-user-name img{width: 32px;height: 32px;}
 .aw-comment-list li p{margin:0;padding: 0;word-break:break-all;}
 /* 评论内容隐藏box */
 .aw-dynamic-topic-more-operate{display:none;margin:1px 0 0 10px;margin:2px 0 0 10px\0;}
