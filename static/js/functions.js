@@ -267,7 +267,7 @@ function _error_message_form_processer(result)
 
 function shake(element)
 {
-    element.css({'width':element.width(),'margin-left':element.css('margin-left')});
+    element.css('margin-left',element.css('margin-left'));
     for (var i = 1; i <= 3; i++)
     {
         element.animate({ 'left': (30 - 10 * i) }, 20);
