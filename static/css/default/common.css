@@ -777,7 +777,8 @@ select{width: auto;}
 /* 回复编辑器 */
 .aw-mod-replay-box{margin-top:20px;padding-bottom: 30px;}
 .aw-mod-replay-box .aw-mod-head{position: relative;height:auto;overflow:hidden;margin-bottom:5px;padding-left: 40px;}
-.aw-mod-replay-box .aw-mod-head > .aw-user-name{position: absolute;left: 0;top:0;width: 32px;height: 32px;}
+.aw-mod-replay-box .aw-mod-head > .aw-user-name{position: absolute;left: 0;top:0;}
+.aw-mod-replay-box .aw-mod-head > .aw-user-name img{width: 32px;height: 32px;}
 .aw-mod-replay-box p{height: auto;overflow: hidden;margin:0;}
 .aw-mod-replay-box .aw-mod-head p label{display: inline;font-size: 14px;}
 .aw-mod-replay-box .aw-mod-head p label input{margin-right: 5px;position: relative;top:-2px;*top:0;}
