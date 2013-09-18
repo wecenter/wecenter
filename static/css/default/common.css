@@ -150,11 +150,11 @@ select{width: auto;}
 .aw-login-register a img{width: 25px;height: 25px;position:absolute;right:15px;}
 .aw-login-register .aw-user-nav-dropdown{max-width:141px;height:27px;line-height:27px;margin-left:20px;}
 .aw-login-register .aw-user-head img{width: 25px;height: 25px;margin:-3px 0 0 5px;}
-.aw-publish{width:90px;margin:10px 0 0 0;padding:0px;}
+.aw-publish{width:80px;margin:10px 0 0 0;padding:0px;}
 .aw-publish a{display:block;width:80px;height: 32px;line-height: 32px;font-size: 14px;background-color: #42c8e7;text-align: center;color: #fff;border-radius: 3px;}
 .aw-publish a:hover{background-color: #2abde9;}
 .aw-publish .icon-edit{margin-right:10px;vertical-align:-1px;font-size: 15px;color: #fff;}
-.aw-top-nav{width: 375px !important;}
+.aw-top-nav{width: 380px !important;}
 .aw-top-nav > ul > li{position: relative;float:left;}
 .aw-top-nav > ul > li > a{display:block;height:54px;line-height:54px;padding:0 20px;color: #fff;}
 .aw-top-nav > ul > li > a.active, .aw-logined-nav > ul > li a.active:hover{background: #2c618d;}
@@ -186,7 +186,7 @@ select{width: auto;}
 .aw-user-nav-dropdown-list ul li a{display:block;width:100%;height: 36px;line-height: 36px;padding:0 10px;background: #3579A6;color: #fff;font-weight: normal;}
 .aw-user-nav-dropdown-list ul li a:hover{background: #24659a;}
 /* 搜索框 */
-.aw-search-box{width:260px !important;padding-left: 10px;}
+.aw-search-box{width:264px !important;padding-left: 10px;}
 .aw-search-box #aw-search-query{width: 200px;}
 .aw-search-box form{margin-top:10px;}
 /* 搜索下拉菜单 */
@@ -881,7 +881,7 @@ select{width: auto;}
 .icon-v.i-ve{color: #fce568;}
 .icon-add-alt{font-size: 18px;margin-right: 10px;}
 .icon-register-arrow{display: inline-block;width: 20px;height: 48px;background-image: url('img/register-triangle.png');background-color:#fff;background-repeat: no-repeat;}
-.i-dropdown-triangle{display:inline-block;width:13px;height:6px;background: url('img/icon-angle-up.png') no-repeat;}
+.i-dropdown-triangle{display:inline-block;width:13px;height:7px;background: url('img/icon-angle-up.png') no-repeat;}
 .i-private-replay-triangle{width: 8px;height: 10px;background: url('img/icon-angle-right.png') no-repeat;}
 
 /*分享icon*/
