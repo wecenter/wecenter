@@ -19,6 +19,7 @@
 .aw-regiter-agreement{position:relative;width:591px;margin:10px 0 0 -187px;padding: 20px 5px 20px 20px;background:#DEDEDE;border-radius: 10px;}
 .aw-regiter-agreement .i-register-triangle{position: absolute;top:-6px;left: 280px;}
 .aw-register-agreement-txt{max-height: 100px;overflow-x:hidden;overflow-y:auto;}
+.error-message .icon-remove{margin-right:5px;color: #c30100;font-size: 16px;vertical-align: middle;}
 
 /* 注册提示 */
 .aw-register-box li span{position:absolute;top:0;right:-145px;width: 130px;padding:5px;font-size:12px;border-radius: 5px;overflow: hidden;text-align: left;}
