@@ -10,9 +10,8 @@
 <base href="<?php echo get_setting('base_url');?>/<?php if (get_setting('url_rewrite_enable') != 'Y') { ?><?php echo G_INDEX_SCRIPT; ?><?php } ?>" /><!--[if IE]></base><![endif]-->
 <link href="<?php echo G_STATIC_URL; ?>/css/<?php echo $this->template_name; ?>/img/favicon.png?v=<?php echo G_VERSION_BUILD; ?>" rel="shortcut icon" type="image/x-icon" />
 
-<!-- <link href="<?php echo G_STATIC_URL; ?>/css/bootstrap.css" rel="stylesheet" type="text/css" /> -->
 <link rel="stylesheet" type="text/css" href="<?php echo G_STATIC_URL; ?>/css/bootstrap.css" />
-<link rel="stylesheet" type="text/css" href="<?php echo G_STATIC_URL; ?>/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="<?php echo G_STATIC_URL; ?>/css/font-awesome.css" />
 <link rel="stylesheet" type="text/css" href="<?php echo G_STATIC_URL; ?>/css/aw-font.css" />
 
 <?php if (is_array($this->_import_css_files)) { ?>
@@ -24,7 +23,6 @@
 <?php if ($this->template_name != 'default') { ?>
 <link href="<?php echo G_STATIC_URL; ?>/css/<?php echo $this->template_name; ?>/<?php echo $this->template_name; ?>.css" rel="stylesheet" type="text/css" />
 <?php } ?>
-
 
 <?php $post_hash_var_name = strtoupper(md5(time() . $this->userinfo['salt'])); ?>
 <script type="text/javascript">
@@ -43,6 +41,7 @@
 	var G_NOTIFICATION_INTERVAL = <?php echo intval(get_setting('unread_flush_interval')) * 1000; ?>;
 	var G_CAN_CREATE_TOPIC = '<?php echo $this->user_info['permission']['create_topic']; ?>';
 </script>
+<script type="text/javascript" src="<?php echo G_STATIC_URL; ?>/js/compatibility.js"></script>
 <?php if (is_array($this->_import_js_files)) { ?>
 <?php foreach ($this->_import_js_files AS $import_js) { ?>
 <script src="<?php echo $import_js; ?>?v=<?php echo G_VERSION_BUILD; ?>" type="text/javascript"></script>
@@ -50,8 +49,5 @@
 <?php } ?>
 <!--[if IE 8]>
 <script src="<?php echo G_STATIC_URL; ?>/js/respond.min.js" type="text/javascript"></script>
-<![endif]-->
-<!--[if IE 6]>
-<script type="text/javascript" src="<?php echo G_STATIC_URL; ?>/js/isIE6.js"></script> 
 <![endif]-->
 </head>
