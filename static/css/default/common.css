@@ -4,7 +4,7 @@ body{margin: 0px;height: 100%;}
 body{font-size:14px; line-height:160%;font-family: "Helvetica Neue",Helvetica,Arial,'Microsoft YaHei',sans-serif;color: #666;}
 input, button, select, textarea{font-family: "Helvetica Neue",Helvetica,Arial,'Microsoft YaHei',sans-serif;}
 ul, ol{margin:0;padding:0;list-style:none;}
-h1, h2, h3, h4, h5, h6{margin-top:0px;font-family: "Helvetica Neue",Helvetica,Arial,'Microsoft YaHei',sans-serif;font-size:100%;}
+h1, h2, h3, h4, h5, h6{margin-top:0px;font-family: "Helvetica Neue",Helvetica,Arial,'Microsoft YaHei',sans-serif;font-size:100%;line-height: 1.6;}
 dd{margin-left: 10px;}
 a{cursor: pointer;}
 a:hover{text-decoration: none;}
@@ -446,7 +446,7 @@ select{width: auto;}
 .aw-question-detail-txt{padding:10px 0;}
 .aw-topic-search{position:relative;height:28px;border:1px solid #CCCCCC;box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;}
 .aw-topic-search .icon-search{margin:9px 3px 4px 4px;}
-.aw-topic-search .search-query{width:170px;margin:3px 0;padding:3px 14px 3px 0 !important;border:none;box-shadow: none;transition:none;}
+.aw-topic-search .search-query{width:170px;height:20px;margin:3px 0;padding:0px !important;border:none;box-shadow: none;transition:none;}
 .aw-topic-search .search-query:focus{border: none;box-shadow: none;}
 .aw-topic-search .aw-topic-dropdown{top:35px;}
 
@@ -651,7 +651,7 @@ select{width: auto;}
 .aw-feature-content .aw-mod{margin-bottom: 30px;}
 
 /* 底部版权 */
-.aw-footer{padding:30px 0;}
+.aw-footer{padding:30px 0;font-size: 12px;}
 .aw-copyright{text-align:right;}
 .aw-copyright a img{position: relative;top: -2px;}
 .aw-login-footer{position:relative;z-index:9999;line-height: 22px;margin:95px auto;text-align: center;font-size: 12px;}
