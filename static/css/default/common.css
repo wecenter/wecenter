@@ -867,6 +867,7 @@ select{width: auto;}
 
 /* 字体icon & icon */
 .icon-comment, .icon-share-alt, .icon-edit, .icon-map-marker, .icon-flag, .icon-heart, .icon-user, .icon-home, .icon-thumbs-up-alt, .icon-reply, .icon-signal, .icon-tag, .icon-wrench, .icon-cog, .icon-off, .icon-bookmark, .icon-chevron-down, .icon-mobile-phone, .icon-external-link, .icon-envelope{margin-right: 5px;color: #B7B7B7;cursor: pointer;}
+.icon-cog{margin:0;}
 .icon-edit{margin-top:10px\0;}
 .icon-ok-sign{margin-left:5px;color: #4bbe00;font-size: 14px;cursor: pointer;}
 .icon-ok-sign.aw-active:before{content:"\f055";color: #43b3ff;}
