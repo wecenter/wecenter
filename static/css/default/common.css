@@ -346,13 +346,8 @@ select{width: auto;}
 /* 评论内容隐藏box */
 .aw-dynamic-topic-more-operate{display:none;margin-left:10px;}
 .aw-dynamic-topic-more-operate > a, .aw-question-detail-meta > a{display:inline-block;float:left;height:20px;line-height:20px;margin-right:15px;font-size:12px;}
-.aw-dynamic-topic-meta a:hover i.i-share, .aw-question-detail-meta a:hover i.i-share{background-position: -20px -80px;}
-.aw-dynamic-topic-meta a:hover i.i-no-help, .aw-question-detail-meta a:hover i.i-no-help{background-position: -40px -80px;}
-.aw-dynamic-topic-meta a:hover i.i-collect, .aw-question-detail-meta a:hover i.i-collect{background-position: -80px -80px;}
-.aw-dynamic-topic-meta a:hover i.i-thank, .aw-question-detail-meta a:hover i.i-thank{background-position: -140px -80px;}
-.aw-dynamic-topic-meta a:hover i.i-question-edit, .aw-question-detail-meta a:hover i.i-question-edit{background-position: -120px -79px;}
-.aw-dynamic-topic-meta a:hover i.i-locate, .aw-question-detail-meta a:hover i.i-locate{background-position: -160px -80px;}
-.aw-question-detail-meta a:hover i.i-edit, .aw-dynamic-topic-more-operate a:hover i.i-edit{background-position: -60px -80px}
+.aw-question-detail-meta a:hover i, .aw-dynamic-topic-meta a:hover i{color: #2A6496;}
+
 /* 评论投票栏 */
 .aw-vote-bar a{display:block;width:24px;height:24px;line-height:24px;background:#e9f5ff;text-align: center;}
 .aw-vote-bar a:hover{background:#c6e3fc;}
