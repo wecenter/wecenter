@@ -15,7 +15,7 @@
 .aw-register-box ul li.last label{display: inline-block;}
 .aw-register-box ul .aw-register-verify{text-align: left;}
 .aw-register-box ul .aw-register-verify input{width: 130px;}
-.aw-register-box ul .aw-register-verify .auth-img img{width: 88px;height: 38px;}
+.aw-register-box ul .aw-register-verify .auth-img{width: 93px;height: 38px;}
 .aw-regiter-agreement{position:relative;width:591px;margin:10px 0 0 -187px;padding: 20px 5px 20px 20px;background:#DEDEDE;border-radius: 10px;}
 .aw-regiter-agreement .i-register-triangle{position: absolute;top:-6px;left: 280px;}
 .aw-register-agreement-txt{max-height: 100px;overflow-x:hidden;overflow-y:auto;}

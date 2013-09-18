@@ -187,7 +187,7 @@ select{width: auto;}
 .aw-user-nav-dropdown-list ul li a:hover{background: #24659a;}
 /* 搜索框 */
 .aw-search-box{width:264px !important;padding-left: 10px;}
-.aw-search-box #aw-search-query{width: 200px;}
+.aw-search-box #aw-search-query{width: 206px;}
 .aw-search-box form{margin-top:10px;}
 /* 搜索下拉菜单 */
 .aw-dropdown{display:none;position:absolute;z-index:9999;width:100%;background: #fff;border:1px solid #ccc;box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);}
