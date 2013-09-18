@@ -27,6 +27,10 @@
 .aw-user-setting-bind .form-group{line-height: 36px;}
 .aw-user-setting-bind .form-group .col-lg-4, .aw-user-setting-bind .form-group .col-lg-8{padding-left: 0px;}
 .aw-user-setting-bind i{font-size: 20px;}
+.aw-user-setting-bind .icon-sina{color: #da2420;}
+.aw-user-setting-bind .icon-weibo{color: #44b8e8;}
+.aw-user-setting-bind .icon-qq{color: #5caada;}
+.aw-user-setting-bind .icon-wechat{color: #32b800;}
 /* 我的积分 */
 .aw-user-setting-points table{margin:20px 0;font-size:13px;color: #666;}
 .aw-user-setting-points table .info{background: #F5FAFE;}

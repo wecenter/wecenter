@@ -133,7 +133,7 @@ select{width: auto;}
 /* tabs切换样式重载 */
 .aw-reset-nav-tabs{position:relative;z-index:1;margin:0;min-height: 30px;}
 .aw-reset-nav-tabs > li{float:right;margin:0 4px;font-size: 14px;}
-.aw-reset-nav-tabs > li > a{line-height:30px;padding:0 13px;cursor: pointer !important;background-color: #F5FAFF;border: 1px solid #ddd;border-bottom-color: transparent;}
+.aw-reset-nav-tabs > li > a{line-height:30px;padding:0 13px;cursor: pointer !important;background-color: #FCFDFF;border: 1px solid #ddd;border-bottom-color: transparent;}
 .aw-reset-nav-tabs > li > a:hover{background-color: #F5FAFF;border: 1px solid #ddd;border-bottom-color: transparent;}
 .aw-reset-nav-tabs > li.active{margin:0 4px -1px;}
 .aw-reset-nav-tabs > li.active a{line-height:31px;background-color: #fff;}
