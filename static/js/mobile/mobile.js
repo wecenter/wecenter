@@ -1041,7 +1041,7 @@ function init_comment_box(selecter)
                     {
                         if ($(this).val() == '')
                         {
-                            $(this).css('height', parseInt($(this).css('line-height')));
+                            $(this).css('height', '');
 
                             $(comment_box_id).find('.aw-comment-box-btn').hide();
                         }
