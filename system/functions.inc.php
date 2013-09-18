@@ -245,7 +245,7 @@ function get_avatar_url($uid, $size = 'min')
 	
 	if (!$uid)
 	{
-		return G_STATIC_URL . '/common/avatar-' . $size . '-img.jpg';
+		return G_STATIC_URL . '/common/avatar-' . $size . '-img.png';
 	}
 	
 	foreach (AWS_APP::config()->get('image')->avatar_thumbnail as $key => $val)
@@ -266,7 +266,7 @@ function get_avatar_url($uid, $size = 'min')
 	}
 	else
 	{
-		return G_STATIC_URL . '/common/avatar-' . $size . '-img.jpg';
+		return G_STATIC_URL . '/common/avatar-' . $size . '-img.png';
 	}
 }
 
@@ -810,10 +810,10 @@ function get_topic_pic_url($size = null, $pic_file = null)
 	{
 		if (! $size)
 		{
-			return G_STATIC_URL . '/common/topic-max-img.jpg';
+			return G_STATIC_URL . '/common/topic-max-img.png';
 		}
 		
-		return G_STATIC_URL . '/common/topic-' . $size . '-img.jpg';
+		return G_STATIC_URL . '/common/topic-' . $size . '-img.png';
 	}
 }
 

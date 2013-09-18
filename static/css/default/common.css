@@ -454,7 +454,7 @@ select{width: auto;}
 .aw-mod-topic-edit-box p{height: auto;overflow: hidden;}
 .aw-mod-topic-edit-box .aw-mod-footer{height:auto;overflow:hidden;margin-top:20px;}
 .aw-mod-topic-edit-box .aw-mod-head{position: relative;margin:0 0 30px 0;padding:0 0 0 90px;}
-.aw-mod-topic-edit-box .aw-mod-head .aw-topic-img{position: absolute;left: 0;top: 0;width:50px;height:50px;background: url(http://127.0.0.1/anwsion/trunk/static/common/topic-mid-img.jpg) no-repeat;text-align: center;}
+.aw-mod-topic-edit-box .aw-mod-head .aw-topic-img{position: absolute;left: 0;top: 0;width:50px;height:50px;background: url(http://127.0.0.1/anwsion/trunk/static/common/topic-mid-img.png) no-repeat;text-align: center;}
 .aw-mod-topic-edit-box .aw-mod-head .aw-topic-img span{display: block;width: 20px;height: 20px;margin:20px 0 0 25px;background: #fff;opacity: 0.8;filter:alpha(opacity=80);}
 .aw-mod-topic-edit-box .aw-mod-head .aw-topic-img .icon-wrench{position: relative;top: 4px;}
 .aw-mod-topic-edit-box .aw-mod-head b{margin-right: 5px;}

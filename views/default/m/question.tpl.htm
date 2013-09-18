@@ -155,7 +155,7 @@
 					<?php } ?>
 					
 					<h3>
-						<a class="avatar pull-right" href="<?php if ($val['anonymous']) { ?>javascript:;<?php } else { ?>m/people/<?php echo $val['uid']; ?><?php } ?>"><img src="<?php if ($val['anonymous']) { ?><?php echo G_STATIC_URL; ?>/common/avatar-mid-img.jpg<?php } else { ?><?php echo get_avatar_url($val['uid'], 'mid'); ?><?php } ?>" alt="" /></a>
+						<a class="avatar pull-right" href="<?php if ($val['anonymous']) { ?>javascript:;<?php } else { ?>m/people/<?php echo $val['uid']; ?><?php } ?>"><img src="<?php if ($val['anonymous']) { ?><?php echo G_STATIC_URL; ?>/common/avatar-mid-img.png<?php } else { ?><?php echo get_avatar_url($val['uid'], 'mid'); ?><?php } ?>" alt="" /></a>
 						<a href="<?php if ($val['anonymous']) { ?>javascript:;<?php } else { ?>m/people/<?php echo $val['uid']; ?><?php } ?>"><?php if ($val['anonymous']) { ?><?php _e('匿名用户'); ?><?php } else { ?><?php echo $val['user_name']; ?><?php } ?></a><?php if (!$val['anonymous']) { ?>
 						<?php if ($val['verified']) { ?> <i class="aw-icon i-v<?php if ($val['verified'] == 'enterprise') { ?> i-ve<?php } ?>" title="<?php if ($this->user['verified'] == 'enterprise') { ?>个人认证<?php } else { ?>企业认证<?php } ?>"></i><?php } ?>
 						<strong><?php echo $val['signature']; ?></strong><?php } ?>
