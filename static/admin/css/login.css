@@ -10,6 +10,7 @@ a:hover{text-decoration: none;}
 ul, ol{list-style: none;}
 ul{margin:0;padding:0;}
 input, textarea{font-family: "Helvetica Neue",Helvetica,Arial,'Microsoft YaHei',sans-serif !important;}
+input{padding:6px !important;}
 .btn-inverse{background: #444444;color: #fff;}
 .btn-inverse:hover, .label-inverse:hover, .btn-inverse:focus,  .label-inverse:focus{background: #333333;color: #fff;}
 .btn-normal.btn-inverse{padding:4px 40px;box-shadow: none;}
@@ -24,11 +25,11 @@ input, textarea{font-family: "Helvetica Neue",Helvetica,Arial,'Microsoft YaHei',
 .login-box .aw-mod-body ul li{margin-top: 30px;}
 .login-box .aw-mod-body ul li:first-child{margin-top:0px;}
 .login-box .aw-mod-body span{display:inline-block;width: 60px;margin-right:10px;text-align: right;}
-.login-box .aw-mod-body input{display:inline;width:200px;margin:0;}
+.login-box .aw-mod-body input{display:inline;width:215px;margin:0;}
 .login-box .aw-mod-footer{padding:20px 10px;background: #E7EDF2;border-top:1px solid #d0dce6;border-radius: 0 0 4px 4px;text-align: center;}
 .login-box .vercode{margin-bottom: 0px !important;}
 .login-box .vercode label{float: left;width: 130px;}
 .login-box .vercode img{float:left;width: 120px;height: 30px;}
-.login-box .vercode input{width: 40px;}
+.login-box .vercode input{width: 50px;}
 .login-box .vercode a{display:inline-block;margin-top:5px;font-size: 12px;color: #999;}
 .login-box .error-message{position: relative;}

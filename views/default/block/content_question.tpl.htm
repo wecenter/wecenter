@@ -1,4 +1,4 @@
-<div class="col-sm-9 aw-main-content aw-all-question">
+<div class="col-sm-12 col-md-9 aw-main-content aw-all-question">
 	<!-- tab切换 -->
 	<ul class="nav nav-tabs aw-reset-nav-tabs">
 		<li<?php if ($_GET['sort_type'] == 'unresponsive') { ?> class="active"<?php } ?>><a href="<?php if ($this->feature_info) { ?>feature/id-<?php echo $this->feature_info['id']; ?><?php } else { ?>home/explore/category-<?php echo $this->category_info['id']; ?><?php } ?>__sort_type-unresponsive"><?php _e('等待回复'); ?></a></li>

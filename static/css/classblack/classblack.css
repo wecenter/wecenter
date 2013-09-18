@@ -16,7 +16,7 @@
 /* top-menu */
 .aw-top-menu-wrap{min-height:45px;background: #383838;}
 .aw-top-menu h1{margin:0;}
-.aw-top-nav{width: 325px !important;}
+.aw-top-nav{width: 330px !important;}
 .aw-top-nav > ul > li{float: left;}
 .aw-top-nav > ul > li > a{display:inline-block;height:45px;line-height: 45px;padding: 0 15px;font-size: 14px;font-weight: bold;color: #fff;}
 .aw-top-nav > ul > li > a:hover{background: #404040;}
@@ -50,7 +50,7 @@
 .aw-container-wrap{margin-top:30px;background: #fff;}
 .aw-container{margin-bottom:30px;border:none;background: #fff;}
 .aw-content-wrap{background: #fff;}
-.aw-main-content{width:674px;margin:0 0 0 15px;padding:0;border-right: none;}
+.aw-main-content{width:674px !important;margin:0 0 0 15px;padding:0;border-right: none;}
 
 /* 动态首页&话题精华模块 */
 .aw-dynamic-topic{padding: 0;}
@@ -120,7 +120,7 @@
 
 /* 话题详情页 */
 .aw-topic-detail-title{margin-bottom:30px;padding: 20px 20px 0 20px;border:1px solid #DFDFDF;border-radius: 5px;}
-.aw-topic-detail-tabs .aw-search-box{right: 20px;top:5px;width:244px;height:28px;background: #fff;}
+.aw-topic-detail-tabs .aw-search-bar{top:6px;right: 20px;}
 
 /* 发起页面 */
 .aw-mod-publish .aw-mod-footer{padding:0 20px 30px;}
