@@ -636,11 +636,14 @@ select{width: auto;}
 .aw-new-message-tips .badge{vertical-align: 2px;}
 
 /* 专题页面 */
+.aw-feature-wrap{width: 930px;}
 .aw-feature-wrap, .aw-feature-wrap .aw-side-bar{background: #fff;}
 .aw-feature-wrap .aw-side-bar{width:237px;padding:0 0 15px;}
 .aw-feature-wrap .aw-side-bar-mod-feature{margin:0 15px;padding:10px;}
 .aw-feature-wrap .aw-side-bar-mod-feature h3{margin:0;}
-.aw-feature-title{width: 900px;margin:10px 0 10px 30px;}
+.aw-feature-wrap .aw-main-content{width: 693px;}
+.aw-feature-wrap .aw-side-bar-mod-feature{padding-top: 10px !important;}
+.aw-feature-title{width: 930px;margin-bottom: 20px;}
 .aw-feature-title .img{width:900px;height:240px;background: url(img/feature.jpg) no-repeat center;}
 .aw-feature-title h2{padding-bottom: 10px;border-bottom: 1px solid #C1CAD4;font-size: 20px;}
 .aw-feature-content{padding-bottom: 30px;}
