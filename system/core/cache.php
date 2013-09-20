@@ -23,10 +23,10 @@ class core_cache
 	);
 	
 	// 支持 File, Memcached, APC, Xcache, 手册参考: http://framework.zend.com/manual/zh/zend.cache.html
-	private $backendName = 'Memcached';
+	private $backendName = 'File';
 	
 	private $backendOptions = array(
-		
+		/*
 		// Memcache 配置
 		'servers' => array(
 			array(
@@ -38,7 +38,7 @@ class core_cache
 				'compatibility' => false	// 兼容旧版 Memcache servers
 			)	
 		)
-					
+		*/			
 	);
 	
 	private $groupPrefix = '_group_';
