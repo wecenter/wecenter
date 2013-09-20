@@ -35,7 +35,7 @@ class core_captcha
 		$this->captcha = new Zend_Captcha_Image(array(
 			'font' => $this->get_font(),
 			'imgdir' => $img_dir,
-			'fontsize' => rand(20, 26),
+			'fontsize' => rand(20, 22),
 			'width' => 100,
 			'height' => 40,
 			'wordlen' => 4,
@@ -43,8 +43,8 @@ class core_captcha
 			'timeout' => 600
 		));
 		
-		$this->captcha->setDotNoiseLevel(rand(10, 15));
-		$this->captcha->setLineNoiseLevel(rand(2, 3));
+		$this->captcha->setDotNoiseLevel(rand(3, 6));
+		$this->captcha->setLineNoiseLevel(rand(1, 2));
 	}
 	
 	public function get_font()
