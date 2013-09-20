@@ -64,11 +64,15 @@ class core_cache
 			}
 				
 			$this->backendOptions = array(
-				'cache_dir' => realpath($cache_dir)
+				'cache_dir' => realpath($cache_dir),
+				'hashed_directory_level' => 1,
+				'read_control_type' => 'adler32'
 			);	
 		}
 			
 		$this->cache_factory = Zend_Cache::factory($this->frontendName, $this->backendName, $this->frontendOptions, $this->backendOptions);
+		
+		AWS_APP::debug_log('cache', null, 'Backend: ' . $this->backendName);
 		
 		return true;
 	}
