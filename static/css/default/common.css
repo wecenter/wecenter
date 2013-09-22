@@ -11,7 +11,6 @@ a:hover{text-decoration: none;}
 textarea{resize:none;}
 input, textarea{padding: 6px !important;}
 table td{vertical-align: middle !important;}
-.clear{clear:both;}
 .aw-padding10{padding:10px;}
 .aw-margin-top-10{margin-top:10px;}
 .aw-wecenter{max-width:940px;height:auto;overflow:hidden;margin:0 auto;}
@@ -27,7 +26,6 @@ a.aw-load-more-content{display: block;}
 .aw-load-more-content .aw-alert-box{position: absolute;right: 10px;top:0;}
 .aw-load-more-content.disabled{background-color: #f6f6f6;border:1px solid #dfdfdf;color: #999;}
 .aw-mod .aw-mod-head h4, .aw-mod .aw-mod-head h4 a{font-size:14px;}
-.i-follow{margin-left:5px;}
 .aw-back-top{position:fixed;display:none;padding:10px 5px;right:10px;bottom:20px;background-color: #d9d9d9;border-radius: 3px;}
 .aw-back-top .icon-arrow-up{padding:10px;color: #a6a6a6;font-size: 20px;}
 .aw-back-top:hover{background-color: #d0d0d0;}
@@ -62,7 +60,6 @@ a.aw-load-more-content{display: block;}
 /* 分类小标签 */
 .aw-user-name, .aw-topic-name{font-size:12px;line-height:20px;font-weight:normal;}
 .aw-user-name img, .aw-topic-name img{width: 50px;height: 50px;}
-.aw-user-name .i-close-hover, .aw-topic-name .i-close-hover{margin-left:5px;}
 .aw-topic-name span{display:inline-block;padding:0 6px;background:#D4F2FF;}
 .aw-topic-name span:hover{background:#C1E8F9;text-decoration:none;}
 .aw-topic-name .aw-close{margin-left:5px;color: #295477;opacity: 1;}
@@ -144,6 +141,7 @@ select{width: auto;}
 .aw-top-menu-wrap{position:relative;z-index:1001;width:100%;min-height:54px;margin-bottom:30px;background:#3579a6;font-weight: bold;}
 .aw-top-menu{max-width:940px;overflow: visible;}
 .aw-logo{width:100px;height:40px;margin:9px 0 0 0;}
+.aw-logo a{display:block;width: 57px;height: 36px;background:url('img/logo.png') no-repeat;}
 .aw-logo h1{height:25px;line-height:25px;margin:-2px 0 2px 0;font-size:14px;}
 .aw-login-register{position:relative;top:15px;height: 27px;}
 .aw-login-register a{margin-left:10px;font-weight:bold;}
@@ -345,7 +343,6 @@ select{width: auto;}
 .aw-dynamic-topic-more-operate{display:none;margin:1px 0 0 10px;margin:2px 0 0 10px\0;}
 .aw-dynamic-topic-more-operate > a, .aw-question-detail-meta > a{display:inline-block;float:left;height:20px;line-height:20px;margin-right:15px;font-size:12px;}
 .aw-question-detail-meta a:hover i, .aw-dynamic-topic-meta a:hover i{color: #2A6496;}
-
 /* 评论投票栏 */
 .aw-vote-bar a{display:block;width:24px;height:24px;line-height:24px;background:#e9f5ff;text-align: center;}
 .aw-vote-bar a:hover{background:#c6e3fc;}
@@ -379,12 +376,12 @@ select{width: auto;}
 .aw-user-dropdown .aw-user-dropdown-list a img{width: 25px;height: 25px;margin-right:5px;}
 
 /* 问题列表公共模块 .aw-question-list */
-.aw-question-box-mod .aw-item{position:relative;z-index:0;height:auto;min-height:45px;overflow:hidden;padding:15px 0 15px 65px;}/*new*/
+.aw-question-box-mod .aw-item{position:relative;z-index:0;height:auto;min-height:45px;overflow:hidden;padding:15px 0 15px 65px;}
 .aw-question-list{width:100%;height:auto;overflow: hidden;}
 .aw-question-list > div + div{border-top:1px dotted #C1CAD4;}
 /* 问题列表回复统计 */
 .aw-question-list .aw-questoin-content h4{margin:0 0 8px;font-size:14px;}
-.aw-question-list .aw-questoin-content > span, .aw-question-list .aw-questoin-content p span{font-size: 12px;font-weight: normal;color: #999;}/*new*/
+.aw-question-list .aw-questoin-content > span, .aw-question-list .aw-questoin-content p span{font-size: 12px;font-weight: normal;color: #999;}
 .aw-question-list .aw-questoin-content .aw-user-name img{max-width: 24px;}
 .aw-question-list .aw-questoin-content p{margin:0;}
 .aw-question-list .aw-questoin-content .aw-topic-name{display:inline-block;margin:0 2px 3px;}
@@ -675,12 +672,13 @@ select{width: auto;}
 .aw-file-uploader dd p{margin: 0;}
 .aw-file-uploader dd .aw-text-color-999{margin:5px 0;}
 .aw-file-uploader dd .aw-file-uploader-name{height:42px;line-height:20px;overflow:hidden;font-size: 12px;word-wrap:break-word;}
-.aw-file-uploader dt.upload-error{background:url(img/aw-icon-sprite.png) no-repeat 0 0;}
-.aw-file-uploader dt.upload-loading{background: url(img/ajax-loader.gif) no-repeat center center;}
-.aw-file-uploader dt.upload-txt{background:url(img/aw-icon-sprite.png) no-repeat -400px 0;}
-.aw-file-uploader dt.upload-zip{background:url(img/aw-icon-sprite.png) no-repeat -300px 0;}
-.aw-file-uploader dt.upload-gif{background:url(img/aw-icon-sprite.png) no-repeat -100px 0;}
-.aw-file-uploader dt.upload-3ds{background:url(img/aw-icon-sprite.png) no-repeat -200px 0;}
+.aw-file-uploader dt{background-image: url(img/aw-icon-sprite.png);background-repeat: no-repeat;}
+.aw-file-uploader dt.upload-error{background-position: 0 0;}
+.aw-file-uploader dt.upload-loading{background-image: url(img/ajax-loader.gif);background-position: center center;}
+.aw-file-uploader dt.upload-txt{background-position: -400px 0;}
+.aw-file-uploader dt.upload-zip{background-position: -300px 0;}
+.aw-file-uploader dt.upload-gif{background-position: -100px 0;}
+.aw-file-uploader dt.upload-3ds{background-position: -200px 0;}
 ._ajax_upload-button{color: #666;}
 ._ajax_upload-button i{margin-right: 5px;}
 
@@ -694,7 +692,6 @@ select{width: auto;}
 .aw-card-tips .aw-mod-head .aw-head-img{position: absolute;left: 0;top: 0;}
 .aw-card-tips .aw-mod-body{margin-bottom: 10px;}
 .aw-card-tips .aw-mod-footer{line-height: 26px;padding-top:10px;border-top: 1px dotted #C1CAD4;}
-
 /* bs弹窗 */
 .alert-box{outline: none;}
 .modal-dialog textarea, .modal-dialog input{margin-bottom: 10px;}
@@ -710,7 +707,6 @@ select{width: auto;}
 .aw-share-box .aw-share-box-tabs a.active{background: #f5f5f5;}
 .aw-share-box .aw-share-box-tabs .aw-icon, .aw-share-box .aw-share-box-tabs-content > li a .bds{margin-right: 5px;}
 .aw-share-box .aw-share-box-tabs-content ul li{float: left;min-width: 70px;margin:0 32px 20px 0;}
-
 /* 发起box */
 .aw-share-box textarea, .aw-message-box textarea, .aw-inbox textarea{min-height: 60px;}
 #quick_publish_error{margin-bottom: 10px;}
@@ -811,7 +807,7 @@ select{width: auto;}
 .markItUp ul {position: relative;}
 .markItUp .markItUpButton1 a {background-position: -4px -7px;}
 .markItUp .markItUpButton2 a {background-position: -35px -7px;}
-.markItUp .markItUpButton3 a {background-position: -97px -7px;}/*background-position: -273px -6px;*/
+.markItUp .markItUpButton3 a {background-position: -97px -7px;}
 .markItUp .markItUpButton4 a {background-position: -123px -7px;}
 .markItUp .markItUpButton5 a {background-position: -217px -7px;}
 .markItUp .markItUpButton6 a {background-position: -241px -7px;}
