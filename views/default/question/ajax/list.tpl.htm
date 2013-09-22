@@ -1,5 +1,5 @@
 <?php foreach($this->question_list as $key => $val) { ?>
-<div class="aw-item<?php if ($val['answer_count'] == 0) { ?> active<?php } ?>">
+<div class="aw-item">
 	
 	
 	<?php if ($val['anonymous'] == 0) { ?><a class="aw-user-name" data-id="<?php echo $val['user_info']['uid']; ?>" href="people/<?php echo $val['user_info']['url_token']; ?>" rel="nofollow"><img src="<?php echo get_avatar_url($val['user_info']['uid'], 'max'); ?>" alt="" /></a><?php } else { ?><a class="aw-user-name" href="javascript:;"><img src="<?php echo G_STATIC_URL; ?>/common/avatar-max-img.png" alt="<?php _e('匿名用户'); ?>" title="<?php _e('匿名用户'); ?>" /></a><?php } ?>
