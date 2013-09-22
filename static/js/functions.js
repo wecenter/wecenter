@@ -1406,8 +1406,8 @@ function dragBox(selecter, parent)
 
 /*
  **	功能: 用户头像提示box效果
- **
- *   type : user/topic
+ *
+ *  type : user/topic
  *	nTop    : 焦点到浏览器上边距
  *	nRight  : 焦点到浏览器右边距
  *	nBottom : 焦点到浏览器下边距
@@ -1569,7 +1569,7 @@ function show_card_box(selecter, type, time) //selecter -> .aw-user-name/.aw-top
                         {
                             var focus = result.focus,
                                 focusTxt;
-                            if (focus == 1)
+                            if (focus > 0)
                             {
                                 focus = '';
                                 focusTxt = _t('取消关注');

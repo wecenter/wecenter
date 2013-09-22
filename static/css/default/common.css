@@ -122,7 +122,7 @@ select{width: auto;}
 /* 重载bootstrap按钮 */
 .btn.aw-active{background: #5CB85C;border-color:#4CAE4C;color: #FFFFFF;}
 .btn:active, .btn.active{box-shadow: none;}
-.btn-mini{min-width: 60px;padding:3px 10px;font-size:12px;font-weight: normal;}
+.btn-mini{min-width: 70px;padding:3px 10px;font-size:12px;font-weight: normal;}
 .btn-small{min-width: 80px;padding:2px 6px;}
 .btn-normal{padding:2px 10px;}
 .btn-large{min-width:92px;font-size:14px;}
