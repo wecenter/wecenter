@@ -1,4 +1,25 @@
 body, button, input, select, textarea, option{color:#333;font-size:13px;line-height:150%;}
+input[type="text"]{
+  height: 34px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.428571429;
+  color: #555555;
+  vertical-align: middle;
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+          transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+}
+input[type="text"]:focus {
+  border-color: #66afe9;
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+}
 .aw-install{width: 960px;height:auto;overflow: hidden;margin:100px auto 0;padding:1px;border: 1px solid #CCCCCC;border-radius: 10px;color: #333333;}
 .aw-install .aw-mod-head{height: 50px;background: #397EAD;border-radius: 10px 10px 0 0;}
 .aw-install .aw-mod-head img{margin:5px 0 0 40px;}
