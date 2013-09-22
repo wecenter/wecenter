@@ -116,7 +116,7 @@ select{width: auto;}
 .modal-body{overflow-y: visible;}
 .modal-backdrop, .modal-backdrop.fade.in{filter:alpha(opacity=20);opacity: 0.2; }
 .modal-body{max-height: none;}
-.modal-footer{height:76px;line-height: 36px;}
+.modal-footer{line-height: 38px;padding:15px 20px;}
 .modal-header h3{cursor: move;}
 /* 重载bootstrap进度条 */
 .aw-progress{width:103px;line-height:10px;margin:-2px 0 0 10px;text-align: center;font-size: 12px;vertical-align: middle;}
@@ -197,9 +197,9 @@ select{width: auto;}
 .aw-search-dropdown-list li .icon-g-replay{display: none;}
 .aw-search-dropdown-list li > span{margin-left:10px;font-weight: normal;}
 .aw-search-dropdown-list li a{font-weight: normal;}
-.aw-search-dropdown-list li .aw-user-name{width: 32px;height: 32px;margin-right: 10px;}
+.aw-search-dropdown-list li .aw-user-name{margin-right: 10px;}
+.aw-search-dropdown-list li .aw-user-name img{width: 32px;height: 32px;}
 .aw-search-dropdown-list li .icon-g-replay{margin-right: 5px;}
-.aw-search-dropdown-list li img{margin-right: 10px;}
 .aw-search-dropdown-list li:hover{background: #F5FAFF;}
 .aw-search-dropdown-list li.question a{display: block;}
 .aw-search-dropdown-list li.question a span{margin-left:5px;}
@@ -230,20 +230,17 @@ select{width: auto;}
 .category dl dd span{display:block;height:38px;font-size: 12px;word-wrap:break-word;}
 .category .col-sm-12{padding: 0 0 0 15px;}
 .category .col-sm-12 > .active{background:#ebebeb;}
-.category .col-sm-12 .dropdown-menu{top:115%;*top:100%;min-width: 130px;max-height:200px;margin:0;*overflow:scroll;}
+.category .col-sm-12 .dropdown-menu{top:115%;min-width: 130px;max-height:200px;margin:0;}
 .category .col-sm-12 .dropdown-menu ul{width:130px;max-height:200px;overflow:auto;}
-.category .col-sm-12 > ul > li{float: left;*display:inline;height: 30px;line-height: 30px;margin:7px 5px;padding:0 7px;font-size:14px;text-align: center;cursor: pointer;border-radius: 5px;}
+.category .col-sm-12 > ul > li{float: left;position:relative;height: 30px;line-height: 30px;margin:7px 5px;padding:0 7px;font-size:14px;text-align: center;cursor: pointer;border-radius: 5px;}
 .category .col-sm-12 > ul > li .aw-dropdown-menu{text-align: left;}
 .category .col-sm-12 > ul > li > a{color:#17344A;}
-.category .col-sm-12 > ul > li.active{background: #494a4b;}
-.category .col-sm-12 > ul > li.active a{color: #fff;}
-.category .col-sm-12 > ul > li:hover{position:relative;z-index:999;background: #494a4b;}
-.category .col-sm-12 > ul > li:hover > a{color: #fff;}
+.category .col-sm-12 > ul > li.active, .category .col-sm-12 > ul > li:hover{background: #494a4b;}
+.category .col-sm-12 > ul > li.active a, .category .col-sm-12 > ul > li:hover > a{color: #fff;}
 .category .col-sm-12 > ul > li:hover .category-dropdown, .category ul li:hover .dropdown-menu{display: block;}
-.category .title a{font-weight: bold;}
+.category .title a, .category-dropdown a.active{font-weight: bold;}
 .category-dropdown{position: absolute;display:none;left:0;top:100%;width: 200px;padding-top:10px;}
 .category-dropdown .i-dropdown-triangle{position:absolute;left: 30px;top:-6px;z-index: 9999;}
-.category-dropdown a.active{font-weight: bold;}
 
 /* 话题编辑下拉 */
 .aw-topic-dropdown, .aw-question-dropdown{left: 0;}
@@ -665,7 +662,7 @@ select{width: auto;}
 .aw-mod-search-result .aw-item .aw-user-img, .aw-mod-search-result .aw-item .aw-topic-img{position: absolute;left: 0;top: 25px;}
 .aw-mod-search-result .aw-item .aw-btn-follow{position: absolute;right: 0;top: 30px;}
 .aw-mod-search-result .aw-search-result-tags{display: inline-block;padding:0 2px;background: #F0F0F0;}
-.aw-mod-search-result .i-star-mini{position: relative;top: 2px;*top:-2px;margin-right: 5px;}
+.aw-mod-search-result .aw-text-color-666{font-size: 12px;}
 
 /* 上传附件模块 */
 .aw-file-uploader{width: 638px;margin-top:20px;}
@@ -674,6 +671,7 @@ select{width: auto;}
 .aw-file-uploader dl.error{border: 1px solid red;}
 .aw-file-uploader dt{width: 90px;height: 90px;background-image: url(img/user-img-max.jpg);background-position: center;}
 .aw-file-uploader dd{width: 80px;}
+.aw-file-uploader dd a{font-size: 12px;}
 .aw-file-uploader dd p{margin: 0;}
 .aw-file-uploader dd .aw-text-color-999{margin:5px 0;}
 .aw-file-uploader dd .aw-file-uploader-name{height:42px;line-height:20px;overflow:hidden;font-size: 12px;word-wrap:break-word;}
