@@ -37,7 +37,7 @@
 .aw-user-center-follow-mini-mod{margin:10px 0 30px;}
 .aw-user-center-follow-mini-mod:first-child{margin-left: 0px;}
 .aw-user-center-follow-mini-mod p{margin-top: 5px;}
-.aw-user-center-follow-mini-mod .aw-user-img img{width: 25px;height: 25px;}
+.aw-user-center-follow-mini-mod .aw-user-name img{width: 25px;height: 25px;}
 .aw-reset-sp .aw-user-list .aw-topic-name{display:inline-block;margin:4px 2px 4px 0;}
 /* 发问 */
 .aw-user-center-ask .aw-mod-body{padding:0 !important;}

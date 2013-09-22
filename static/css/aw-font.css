@@ -1,5 +1,5 @@
 @font-face {
-	font-family: 'aw-webfont';
+	font-family: '../aw-webfont';
 	src:url('../fonts/aw-webfont.eot');
 	src:url('../fonts/aw-webfont.eot?#iefix') format('embedded-opentype'),
 		url('../fonts/aw-webfont.woff') format('woff'),
@@ -28,7 +28,7 @@ Instead of a list of all class selectors,
 you can use the generic selector below, but it's slower:
 [class*="icon-"] {
 */
-.icon-qq-alt, .icon-qq, .icon-sina-alt, .icon-sina, .icon-wechat-alt, .icon-wechat, .icon-weibo-alt, .icon-weibo, .icon-v, .icon-add-alt, .icon-g-replay {
+.icon-qq-alt, .icon-qq, .icon-sina-alt, .icon-sina, .icon-wechat-alt, .icon-wechat, .icon-weibo-alt, .icon-weibo, .icon-v, .icon-add-alt, .icon-g-replay, .icon-h2, .icon-h1, .icon-code {
 	font-family: 'aw-webfont';
 	speak: none;
 	font-style: normal;
@@ -71,4 +71,13 @@ you can use the generic selector below, but it's slower:
 }
 .icon-g-replay:before {
 	content: "\e00a";
+}
+.icon-h2:before {
+	content: "\e00b";
+}
+.icon-h1:before {
+	content: "\e00c";
+}
+.icon-code:before {
+	content: "\e00d";
 }
