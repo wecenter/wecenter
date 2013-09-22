@@ -876,7 +876,7 @@ select{width: auto;}
 .icon-share-alt{font-size: 12px;}
 .icon-mobile-phone{margin-left:5px;font-size: 21px;color:#9d9c9c;vertical-align: -2px;}
 .icon-star-empty{color: #B2EC03;}
-.icon-v{font-size: 18px;color: #a5d300;}
+.icon-v{font-size: 18px;color: #a5d300;vertical-align: -2px;}
 .icon-v.i-ve{color: #fce568;}
 .icon-add-alt{font-size: 18px;margin-right: 10px;}
 .icon-register-arrow{display: inline-block;width: 20px;height: 48px;background-image: url('img/register-triangle.png');background-color:#fff;background-repeat: no-repeat;}

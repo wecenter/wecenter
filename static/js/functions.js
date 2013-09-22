@@ -1524,10 +1524,13 @@ function show_card_box(selecter, type, time) //selecter -> .aw-user-name/.aw-top
                             {
                                 verified_enterprise = 'i-ve';
                                 verified_title = '企业认证';
+                            }else if(result.verified == 'personal')
+                            {
+                                verified_enterprise = 'icon-v';
+                                verified_title = '个人认证';
                             }else
                             {
-                                verified_enterprise = '';
-                                verified_title = '个人认证';
+                                verified_enterprise = verified_title = '';
                             }
                             
                             //动态插入盒子
