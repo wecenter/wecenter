@@ -125,7 +125,7 @@ select{width: auto;}
 .btn-mini{min-width: 70px;padding:3px 10px;font-size:12px;font-weight: normal;}
 .btn-small{min-width: 80px;padding:2px 6px;}
 .btn-normal{padding:2px 10px;}
-.btn-large{min-width:92px;font-size:14px;}
+.btn-large{min-width:92px;min-width:62px\0;font-size:14px;}
 
 /* tabs切换样式重载 */
 .aw-reset-nav-tabs{position:relative;z-index:1;margin:0;min-height: 30px;}

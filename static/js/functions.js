@@ -2001,8 +2001,6 @@ function get_quick_publich_question_list(obj,data)
     
     var _obj = obj;
     
-    obj.next().css('width', obj.width() + 26);
-    
     if (data.length >= 2)
     {
         $.get(G_BASE_URL + '/search/ajax/search/?type=question&q=' + encodeURIComponent(data) + '&limit-10', function (result)
