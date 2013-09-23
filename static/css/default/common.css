@@ -109,8 +109,8 @@ select{width: auto;}
 .badge.badge-info{background: #3A87AD;}
 .table-bordered > thead > tr > th, .table-bordered > thead > tr > td{border-bottom-width:1px;}
 /* modal */
-.modal{left:auto;top:10%;right:auto;bottom:auto;overflow-x:visible;overflow-y:visible; }
-.modal .modal-dialog{padding:0;}
+.modal{top:10%; }
+.modal .modal-dialog{position:fixed;padding:0;}
 .modal-body{overflow-y: visible;}
 .modal-backdrop, .modal-backdrop.fade.in{filter:alpha(opacity=20);opacity: 0.2; }
 .modal-body{max-height: none;}

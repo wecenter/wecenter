@@ -1376,7 +1376,7 @@ function init_topic_edit_box(selecter) //selecter -> .aw-edit-topic
 
 /*box拖拽*/
 
-function dragBox(selecter, parent)
+function dragBox(selecter)
 {
     $(selecter).mousedown(function (e)
     {
@@ -1389,7 +1389,7 @@ function dragBox(selecter, parent)
             {
                 var left = e.clientX - dragX,
                     top = e.clientY - dragY;
-                _this.parents(parent).css(
+                _this.parents('.modal-dialog').css(
                 {
                     'left': left,
                     'top': top
