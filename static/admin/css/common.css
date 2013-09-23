@@ -4,27 +4,8 @@ a{cursor: pointer;}
 a:hover{text-decoration: none;}
 ul, ol{list-style: none;}
 ul{margin:0;padding:0;}
-input[type="text"]{
-  height: 34px;
-  padding: 6px 12px;
-  font-size: 14px;
-  line-height: 1.428571429;
-  color: #555555;
-  vertical-align: middle;
-  background-color: #ffffff;
-  border: 1px solid #cccccc;
-  border-radius: 4px;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-          transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-}
-input[type="text"]:focus {
-  border-color: #66afe9;
-  outline: 0;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
-          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
-}
+input[type="text"]{height: 34px;padding: 6px 12px;font-size: 14px;line-height: 1.428571429;color: #555555;vertical-align: middle;background-color: #ffffff;border: 1px solid #cccccc;border-radius: 4px;-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);-webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;}
+input[type="text"]:focus {border-color: #66afe9;outline: 0;-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);}
 input, textarea{font-family: "Helvetica Neue",Helvetica,Arial,'Microsoft YaHei',sans-serif !important;}
 input, textarea{padding:6px !important;}
 label{margin:0;font-weight: normal;}
@@ -43,8 +24,7 @@ th{text-align: center;}
 .modal{top:10%;}
 .modal h3{font-size: 24px !important;}
 .modal-backdrop, .modal-backdrop.fade.in{opacity:0.2;filter:alpha(opacity=20);}
-.modal-header{*padding: 9px 15px;*height: 30px;*line-height: 30px;}
-.modal-header #myModalLabel{*position: relative;*top:10px;*margin-top:-10px;}
+.modal-header{*padding: 9px 15px;}
 .aw-no-border-top{border-top:none !important;}
 .aw-no-border-bottom{border-bottom: none !important;}
 .aw-no-margin-top{margin-top:0px !important;}
@@ -111,7 +91,6 @@ th{text-align: center;}
 .right-side .aw-box-row dl dd{width: auto;}
 .right-side .aw-box-row .aw-box-row-dd{width: 500px;}
 .right-side .aw-box-row span{font-size: 13px;}
-.right-side .aw-box p.aw-text-color-999{*margin-left: 10px;}
 .right-side .tools p.aw-text-color-999{margin-bottom: 10px;}
 
 /*表格*/
