@@ -576,7 +576,7 @@ select{width: auto;}
 .aw-mod-publish .aw-topic-dropdown{max-height: 80px;overflow:auto;}
 .aw-mod-publish h3{font-size: 100%;margin-top:30px;}
 .aw-mod-publish .aw-edit-topic-box{margin:0 0 10px;}
-.aw-publish-title{position: relative;z-index: 1;}
+.aw-publish-title{position: relative;}
 .aw-publish-title.active input{width: 100%;border:1px solid #ccc;}
 .aw-publish-title input{width:538px;border-right: none;}
 .aw-publish-title .aw-publish-title-dropdown{position: absolute;right: 0;top: 0;width: 150px;}
