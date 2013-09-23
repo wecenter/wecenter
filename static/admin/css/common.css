@@ -40,7 +40,7 @@ th{text-align: center;}
 .btn-normal.btn-inverse{padding:4px 40px;box-shadow: none;}
 .error{color: #FF0000;}
 .aw-text-color-999{margin:2px 0 0 0;color: #999;font-size: 11px;}
-.modal{margin-left: 0px;}
+.modal{left:auto;top:10%;right:auto;bottom:auto;overflow-x:visible;overflow-y:visible; }
 .modal h3{font-size: 24px !important;}
 .modal-backdrop, .modal-backdrop.fade.in{opacity:0.2;filter:alpha(opacity=20);}
 .modal-header{*padding: 9px 15px;*height: 30px;*line-height: 30px;}
