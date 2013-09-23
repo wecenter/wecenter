@@ -64,8 +64,6 @@ class AWS_CONTROLLER
 		TPL::import_css(array(
 			'css/common.css',
 			'css/link.css',
-			'css/btn-sprite.css',
-			'css/icon-sprite.css',
 			'js/plug_module/style.css', 
 		));
 		
