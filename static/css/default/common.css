@@ -378,7 +378,6 @@ select{width: auto;}
 /* 问题列表公共模块 .aw-question-list */
 .aw-question-box-mod .aw-item{position:relative;z-index:0;height:auto;min-height:45px;overflow:hidden;padding:15px 5px 15px 65px;}
 .aw-question-box-mod .aw-item.active{background-color: #f8fbfd;}
-.aw-question-box-mod .aw-item .aw-user-name img{border-radius: 25px;}
 .aw-question-list{width:100%;height:auto;overflow: hidden;}
 .aw-question-list > div + div{border-top:1px dotted #C1CAD4;}
 /* 问题列表回复统计 */
