@@ -1,10 +1,10 @@
 @font-face {
 	font-family: 'aw-webfont';
-	src:url('../fonts/aw-webfont.eot');
-	src:url('../fonts/aw-webfont.eot?#iefix') format('embedded-opentype'),
-		url('../fonts/aw-webfont.woff') format('woff'),
-		url('../fonts/aw-webfont.ttf') format('truetype'),
-		url('../fonts/aw-webfont.svg#aw-webfont') format('svg');
+	src:url('fonts/aw-webfont.eot');
+	src:url('fonts/aw-webfont.eot?#iefix') format('embedded-opentype'),
+		url('fonts/aw-webfont.woff') format('woff'),
+		url('fonts/aw-webfont.ttf') format('truetype'),
+		url('fonts/aw-webfont.svg#aw-webfont') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
