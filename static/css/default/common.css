@@ -43,11 +43,11 @@ a.aw-load-more-content{display: block;}
 .aw-placeholder{color: #999 !important;}
 .bds_tools a{padding:0px !important;background: none !important;}
 .aw-dropdown-menu li:first-child, .dropdown-menu li.first, .aw-logined-nav #header_notification_list li:first-child, .aw-comment-list li:first-child, .aw-edit-comment-box .aw-file-upload-box, .aw-li-border-bottom li:first-child{border-top:none;}
-.aw-side-bar-topic-nav ul > li > p a, .aw-side-bar-topic-nav ul > li > a, .aw-border-radius-5, .aw-border-radius-5 img, .aw-load-more-content, .aw-user-name img, .aw-topic-name img, .aw-topic-name span, .aw-topic-img img, .aw-dropdown-menu img, .aw-login-register a img, .aw-login-register .aw-user-head img, .aw-logined-nav .aw-message-dropdown, .aw-dropdown, .aw-search-dropdown-list li img, .category dl dt img, .category .span12 > ul > li, .aw-side-bar-mod-feature, .aw-side-bar-mod-nav ul li a, .aw-side-bar-hot-topic-list em, .aw-side-bar-topic-edit-notes li, .aw-notopic-sort, .aw-comment-box, .aw-side-bar-invite-box .aw-item .aw-user-name img, .aw-user-dropdown .aw-user-dropdown-list a img, .aw-topic-detail-title .aw-mod-body img, .aw-topic-search, .aw-mod-topic-edit-box .aw-mod-head .aw-topic-img, .aw-mod-topic-edit-box .aw-mod-head .aw-topic-img span, .aw-mod-private-replay-list li .aw-item, .aw-mod-private-replay-list li .aw-user-img img, .aw-mod-invited ul li .aw-user-img img, .aw-mod-search-result .aw-item .aw-user-img img, .aw-mod-search-result .aw-item .aw-topic-img img, .aw-mod-search-result .aw-search-result-tags, .aw-file-uploader dl, .aw-card-tips, .aw-card-tips .aw-mod-head .aw-head-img img, .aw-first-login .aw-complete-data .aw-complete-data-img img, .aw-first-login .aw-complete-data-follow-topic .aw-topic-img img, .aw-first-login .aw-complete-data-follow-topic .aw-user-img img, .aw-first-login .aw-complete-data-follow-topic li > span, .aw-mod-replay-box .aw-mod-body, .aw-publish-box .aw-publish-title-dropdown .dropdown-toggle, .markitup-box code, #markItUpPreviewFrames code, .aw-publish-title.active input{border-radius: 5px;}
+.aw-question-tags, .aw-side-bar-topic-nav ul > li > p a, .aw-side-bar-topic-nav ul > li > a, .aw-border-radius-5, .aw-border-radius-5 img, .aw-load-more-content, .aw-user-name img, .aw-topic-name img, .aw-topic-name span, .aw-topic-img img, .aw-dropdown-menu img, .aw-login-register a img, .aw-login-register .aw-user-head img, .aw-logined-nav .aw-message-dropdown, .aw-dropdown, .aw-search-dropdown-list li img, .category dl dt img, .category .span12 > ul > li, .aw-side-bar-mod-feature, .aw-side-bar-mod-nav ul li a, .aw-side-bar-hot-topic-list em, .aw-side-bar-topic-edit-notes li, .aw-notopic-sort, .aw-comment-box, .aw-side-bar-invite-box .aw-item .aw-user-name img, .aw-user-dropdown .aw-user-dropdown-list a img, .aw-topic-detail-title .aw-mod-body img, .aw-topic-search, .aw-mod-topic-edit-box .aw-mod-head .aw-topic-img, .aw-mod-topic-edit-box .aw-mod-head .aw-topic-img span, .aw-mod-private-replay-list li .aw-item, .aw-mod-private-replay-list li .aw-user-img img, .aw-mod-invited ul li .aw-user-img img, .aw-mod-search-result .aw-item .aw-user-img img, .aw-mod-search-result .aw-item .aw-topic-img img, .aw-mod-search-result .aw-search-result-tags, .aw-file-uploader dl, .aw-card-tips, .aw-card-tips .aw-mod-head .aw-head-img img, .aw-first-login .aw-complete-data .aw-complete-data-img img, .aw-first-login .aw-complete-data-follow-topic .aw-topic-img img, .aw-first-login .aw-complete-data-follow-topic .aw-user-img img, .aw-first-login .aw-complete-data-follow-topic li > span, .aw-mod-replay-box .aw-mod-body, .aw-publish-box .aw-publish-title-dropdown .dropdown-toggle, .markitup-box code, #markItUpPreviewFrames code, .aw-publish-title.active input{border-radius: 5px;}
 .category dl, .aw-side-bar-mod.new-message, .aw-first-login .aw-mod-head ul, .aw-first-login .aw-complete-data, .aw-first-login .aw-complete-data-follow-topic li{border-radius: 10px;}
 .aw-search-box .search-query, .aw-publish-title input{border-radius:5px 0 0 5px;}
 .aw-mod-publish-box #advanced_editor, .aw-share-box .aw-share-box-tabs a{border-radius: 5px 5px 0 0;}
-.aw-question-tags, .aw-publish-title-dropdown p, .aw-publish-title-dropdown p a{border-radius: 0 5px 5px 0;}
+.aw-publish-title-dropdown p, .aw-publish-title-dropdown p a{border-radius: 0 5px 5px 0;}
 .aw-nav-main li:first-child a.active{border-radius:10px 0 0 0;}
 .aw-edit-comment-box .modal-body textarea{border-radius: 10px 10px 0 0;}
 .aw-edit-comment-box .aw-file-upload-box{border-radius: 0 0 10px 10px;}
@@ -387,12 +387,11 @@ select{width: auto;}
 .aw-question-list .aw-questoin-content p{margin:0;}
 .aw-question-list .aw-questoin-content .aw-topic-name{display:inline-block;margin:0 2px 3px;}
 /* 问题列表用户头像 */
-.aw-question-list .aw-user-name{position:absolute;left:5px;top:15px;}
-.aw-question-list .aw-questoin-content .aw-user-name{position: relative;right: 0;top: 0;}
+.aw-question-list .aw-item > .aw-user-name{position:absolute;left:5px;top:15px;}
 .aw-question-list .aw-questoin-content .aw-user-name img{width: 24px;height: 24px;}
 /* 问题列表问题标签 */
-.aw-question-tags{margin-right:10px;padding:0 5px 0 10px;background:url(img/aw-btn-sprite.png) no-repeat 0 -372px;cursor:pointer;font-size: 14px;}
-.aw-question-tags:hover{background-position: 0 -397px;}
+.aw-question-tags{margin-right:10px;padding:0 5px 0 10px;background-color:#f2f2f2;cursor:pointer;font-size: 14px;}
+.aw-question-tags:hover{background-color:#dddddd;}
 
 /* 话题页面公共模块 */
 .aw-topic-content-wrap{background: #fff;}
@@ -622,12 +621,13 @@ select{width: auto;}
 .aw-new-message-tips .aw-mod-head .pull-right{font-size: 12px;}
 .aw-new-message-tips .aw-mod-head h3{font-weight: normal;margin:0;}
 .aw-new-message-tips .aw-mod-body ul li{line-height: 15px;padding:15px 0;border-bottom:1px dotted #C1CAD4;}
-.aw-new-message-tips .aw-mod-body ul li span{font-weight: normal;}
+.aw-new-message-tips .aw-mod-body ul li span{min-width:40px;font-weight: normal;font-size: 12px;}
+.aw-new-message-tips .aw-mod-body ul li .aw-close{float:left;margin:-2px 0 0 5px;}
 .aw-new-message-tips .aw-mod-body #notification_list{margin-bottom: 10px;}
 .aw-new-message-tips .aw-mod-body #notification_list p{max-width: 600px;}
 .aw-new-message-tips .aw-mod-body p{height: auto;overflow: hidden;margin:0;}
 .aw-new-message-tips-close{display: none;}
-.aw-new-message-tips-close a, .aw-new-message-tips-close span{font-size: 12px;font-weight: normal;}
+.aw-new-message-tips-close a{float: left;}
 .aw-new-message-tips li:hover .aw-new-message-tips-close, .aw-my-notifications li:hover .aw-new-message-tips-close{display:block;}
 .aw-new-message-tips .badge{vertical-align: 2px;}
 
