@@ -640,7 +640,7 @@ select{width: auto;}
 .aw-feature-wrap .aw-main-content{width: 693px;}
 .aw-feature-wrap .aw-side-bar-mod-feature{padding-top: 10px !important;}
 .aw-feature-title{width: 930px;margin-bottom: 20px;}
-.aw-feature-title .img{width:900px;height:240px;background: url(img/feature.jpg) no-repeat center;}
+.aw-feature-title .img{width:900px;height:240px;}
 .aw-feature-title h2{padding-bottom: 10px;border-bottom: 1px solid #C1CAD4;font-size: 20px;}
 .aw-feature-content{padding-bottom: 30px;}
 .aw-feature-content h2{font-size: 20px;}
@@ -789,13 +789,10 @@ select{width: auto;}
 .markItUpHeader ul li {float: left;list-style: none outside none;margin-bottom: 5px;max-width: 22px;position: relative;}
 .markItUpHeader ul li ul {display: none;}
 .markItUpHeader ul li:hover > ul {display: block;}
-.markItUpHeader ul .markItUpDropMenu {background: url("images/menu.png") no-repeat scroll 115% 50% transparent;margin-right: 5px;}
-.markItUpHeader ul .markItUpDropMenu li {margin-right: 0;}
 .markItUpHeader ul .markItUpSeparator {background-color: #CCCCCC;height: 16px;margin: 0 10px;overflow: hidden;width: 1px;}
 .markItUpHeader ul ul .markItUpSeparator {height: 1px;margin: 0;width: auto;}
 .markItUpHeader ul ul {background: none repeat scroll 0 0 #F5F5F5;border: 1px solid #3C769D;display: none;height: inherit;left: 0;position: absolute;top: 18px;}
 .markItUpHeader ul ul li {border-bottom: 1px solid #3C769D;float: none;}
-.markItUpHeader ul ul .markItUpDropMenu {background: url("images/submenu.png") no-repeat scroll 100% 50% #F5F5F5;}
 .markItUpHeader ul ul ul {left: 150px;position: absolute;top: -1px;}
 .markItUpHeader ul ul ul li {float: none;}
 .markItUpHeader ul a {background-repeat: no-repeat;display: block;height: 16px;margin: 0;padding: 3px;text-indent: -10000px;width: 22px;}
@@ -803,7 +800,6 @@ select{width: auto;}
 .markItUpHeader ul ul a:hover {background-color: #3C769D;}
 .markItUp .markItUpButton > a {background: url("img/markItUp_editor.png") no-repeat scroll 0 0 transparent;}
 .markItUp .markItUpButton > a:hover {opacity: 0.6;filter:alpha(opacity=60)}
-.markItUp .preview a {background-image: url("images/preview.png");}
 .markItUp ul {position: relative;}
 .markItUp .markItUpButton1 a {background-position: -4px -7px;}
 .markItUp .markItUpButton2 a {background-position: -35px -7px;}
