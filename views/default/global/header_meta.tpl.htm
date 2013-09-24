@@ -11,8 +11,8 @@
 <link href="<?php echo G_STATIC_URL; ?>/css/<?php echo $this->template_name; ?>/img/favicon.png?v=<?php echo G_VERSION_BUILD; ?>" rel="shortcut icon" type="image/x-icon" />
 
 <link rel="stylesheet" type="text/css" href="<?php echo G_STATIC_URL; ?>/css/bootstrap.css" />
-<link rel="stylesheet" type="text/css" href="http://static.wecenter.com/css/font-awesome.css" />
-<link rel="stylesheet" type="text/css" href="http://static.wecenter.com/css/aw-font.css" />
+<link rel="stylesheet" type="text/css" href="<?php echo G_STATIC_URL; ?>/css/font-awesome.css" />
+<link rel="stylesheet" type="text/css" href="<?php echo G_STATIC_URL; ?>/css/aw-font.css" />
 
 <?php if (is_array($this->_import_css_files)) { ?>
 <?php foreach ($this->_import_css_files AS $import_css) { ?>
@@ -49,8 +49,7 @@
 <?php } ?>
 
 
-
 <!--[if IE 8]>
-<script type="text/javascript" src="http://static.wecenter.com/js/respond.min.js"></script>
+<script src="<?php echo G_STATIC_URL; ?>/js/respond.js" type="text/javascript"></script>
 <![endif]-->
 </head>
