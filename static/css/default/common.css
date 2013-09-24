@@ -1,10 +1,9 @@
 /* 公共部分 */
 html{height: 100%;}
-body{margin: 0px;height: 100%;}
-body{font-size:14px; line-height:160%;font-family: "Helvetica Neue",Helvetica,Arial,'Microsoft YaHei',sans-serif;color: #666;}
-input, button, select, textarea{font-family: "Helvetica Neue",Helvetica,Arial,'Microsoft YaHei',sans-serif;}
+body{margin: 0px;height: 100%;font-size:14px; line-height:160%;color: #666;}
+body, input, button, select, textarea, h1, h2, h3, h4, h5, h6{font-family: "Helvetica Neue",Helvetica,Arial,'Microsoft YaHei',sans-serif;}
 ul, ol{margin:0;padding:0;list-style:none;}
-h1, h2, h3, h4, h5, h6{margin-top:0px;font-family: "Helvetica Neue",Helvetica,Arial,'Microsoft YaHei',sans-serif;font-size:100%;line-height: 1.6;}
+h1, h2, h3, h4, h5, h6{margin-top:0px;font-size:100%;line-height: 1.6;}
 dd{margin-left: 10px;}
 a{cursor: pointer;}
 a:hover{text-decoration: none;}
@@ -105,11 +104,12 @@ select{width: auto;}
 .alert-danger, .alert-error{margin-bottom:10px;background: #F2DEDE;border: 1px solid #EED3D7;}
 .tab-content{padding-bottom:30px;}
 .form-horizontal .control-label, .form-horizontal .controls{height: 30px;line-height: 30px;padding-top:0px;}
+.form-control{line-height: 20px;}
 .badge.badge-info{background: #3A87AD;}
 .table-bordered > thead > tr > th, .table-bordered > thead > tr > td{border-bottom-width:1px;}
 /* modal */
-.modal{left:auto;top:10%;right:auto;bottom:auto;overflow-x:visible;overflow-y:visible; }
-.modal .modal-dialog{padding:0;}
+.modal{top:10%; }
+.modal .modal-dialog{position:fixed;padding:0;}
 .modal-body{overflow-y: visible;}
 .modal-backdrop, .modal-backdrop.fade.in{filter:alpha(opacity=20);opacity: 0.2; }
 .modal-body{max-height: none;}
@@ -122,10 +122,10 @@ select{width: auto;}
 /* 重载bootstrap按钮 */
 .btn.aw-active{background: #5CB85C;border-color:#4CAE4C;color: #FFFFFF;}
 .btn:active, .btn.active{box-shadow: none;}
-.btn-mini{min-width: 60px;padding:3px 10px;font-size:12px;font-weight: normal;}
+.btn-mini{min-width: 70px;padding:3px 10px;font-size:12px;font-weight: normal;}
 .btn-small{min-width: 80px;padding:2px 6px;}
 .btn-normal{padding:2px 10px;}
-.btn-large{min-width:92px;font-size:14px;}
+.btn-large{min-width:92px;min-width:62px\0;font-size:14px;}
 
 /* tabs切换样式重载 */
 .aw-reset-nav-tabs{position:relative;z-index:1;margin:0;min-height: 30px;}
@@ -376,7 +376,8 @@ select{width: auto;}
 .aw-user-dropdown .aw-user-dropdown-list a img{width: 25px;height: 25px;margin-right:5px;}
 
 /* 问题列表公共模块 .aw-question-list */
-.aw-question-box-mod .aw-item{position:relative;z-index:0;height:auto;min-height:45px;overflow:hidden;padding:15px 0 15px 65px;}
+.aw-question-box-mod .aw-item{position:relative;z-index:0;height:auto;min-height:45px;overflow:hidden;padding:15px 5px 15px 65px;}
+.aw-question-box-mod .aw-item.active{background-color: #f8fbfd;}
 .aw-question-list{width:100%;height:auto;overflow: hidden;}
 .aw-question-list > div + div{border-top:1px dotted #C1CAD4;}
 /* 问题列表回复统计 */
@@ -386,7 +387,7 @@ select{width: auto;}
 .aw-question-list .aw-questoin-content p{margin:0;}
 .aw-question-list .aw-questoin-content .aw-topic-name{display:inline-block;margin:0 2px 3px;}
 /* 问题列表用户头像 */
-.aw-question-list .aw-user-name{position:absolute;left:0;top:15px;}
+.aw-question-list .aw-user-name{position:absolute;left:5px;top:15px;}
 .aw-question-list .aw-questoin-content .aw-user-name{position: relative;right: 0;top: 0;}
 .aw-question-list .aw-questoin-content .aw-user-name img{width: 24px;height: 24px;}
 /* 问题列表问题标签 */
@@ -417,11 +418,11 @@ select{width: auto;}
 .aw-topic-follow{margin-bottom: 20px;}
 .aw-topic-follow .aw-mod-head{margin-bottom: 20px;}
 .aw-topic-follow h2{margin-top:0px;font-size: 20px;}
-.aw-topic-follow .aw-item{position:relative;min-height:45px;padding:20px 0 20px 60px;border-top:1px dotted #C1CAD4;}
+.aw-topic-follow .aw-item{position:relative;min-height:45px;padding:20px 5px 20px 65px;border-top:1px dotted #C1CAD4;}
 .aw-topic-follow .aw-item:first-child{border-top: none;}
 .aw-topic-follow .aw-item ul{margin-top:10px;}
 .aw-topic-follow .aw-item ul li{line-height: 28px;}
-.aw-topic-follow .aw-item .aw-topic-img{position: absolute;left: 0;top: 20px;}
+.aw-topic-follow .aw-item .aw-topic-img{position: absolute;left: 5px;top: 20px;}
 
 /* 话题详细页 */
 .aw-topic-detail-title{min-height: 90px;margin-top:10px;}
@@ -482,7 +483,7 @@ select{width: auto;}
 .aw-dynamic-topic > .aw-mod-head{padding-bottom: 10px;border-bottom: 1px solid #C1CAD4;}
 .aw-dynamic-topic .aw-mod-head h2{font-size: 20px;margin: 10px 0 0;}
 .aw-dynamic-topic .aw-mod-head p{margin:0;}
-.aw-dynamic-topic .aw-item, .aw-question-detail-box .aw-dynamic-topic .aw-item{padding:10px 0;border-bottom: 1px dotted #C1CAD4;}
+.aw-dynamic-topic .aw-item, .aw-question-detail-box .aw-dynamic-topic .aw-item{padding:10px 5px;border-bottom: 1px dotted #C1CAD4;}
 .aw-dynamic-topic .aw-item .aw-user-img{width: 32px;height: 32px;}
 .aw-dynamic-topic .aw-item.active{background: #FEFAB1;}
 .aw-dynamic-topic .aw-item .aw-mod-body, .aw-dynamic-topic .aw-mod-body > .aw-item + div{padding-top:10px;}
@@ -575,7 +576,7 @@ select{width: auto;}
 .aw-mod-publish .aw-topic-dropdown{max-height: 80px;overflow:auto;}
 .aw-mod-publish h3{font-size: 100%;margin-top:30px;}
 .aw-mod-publish .aw-edit-topic-box{margin:0 0 10px;}
-.aw-publish-title{position: relative;z-index: 1;}
+.aw-publish-title{position: relative;}
 .aw-publish-title.active input{width: 100%;border:1px solid #ccc;}
 .aw-publish-title input{width:538px;border-right: none;}
 .aw-publish-title .aw-publish-title-dropdown{position: absolute;right: 0;top: 0;width: 150px;}
@@ -875,7 +876,7 @@ select{width: auto;}
 .icon-share-alt{font-size: 12px;}
 .icon-mobile-phone{margin-left:5px;font-size: 21px;color:#9d9c9c;vertical-align: -2px;}
 .icon-star-empty{color: #B2EC03;}
-.icon-v{font-size: 18px;color: #a5d300;}
+.icon-v{font-size: 18px;color: #a5d300;vertical-align: -2px;}
 .icon-v.i-ve{color: #fce568;}
 .icon-add-alt{font-size: 18px;margin-right: 10px;}
 .icon-register-arrow{display: inline-block;width: 20px;height: 48px;background-image: url('img/register-triangle.png');background-color:#fff;background-repeat: no-repeat;}
