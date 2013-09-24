@@ -1,0 +1,22 @@
+body, button, input, select, textarea, option{color:#333;font-size:13px;line-height:150%;}
+.aw-install{width: 960px;height:auto;overflow: hidden;margin:100px auto 0;padding:1px;border: 1px solid #CCCCCC;border-radius: 10px;color: #333333;}
+.aw-install .aw-mod-head{height: 50px;background: #397EAD;border-radius: 10px 10px 0 0;}
+.aw-install .aw-mod-head img{margin:5px 0 0 40px;}
+.aw-install .aw-mod-body{padding: 20px 60px 50px;}
+.aw-install dl{margin:0;padding-top:10px;border-top: 1px dotted #CCCCCC;}
+.aw-install dl:first-child{border-top: none;}
+.aw-install dl dt{font-size: 16px;font-weight: normal;}
+.aw-install dl dd{padding: 10px 0 20px;}
+.aw-install ul{margin:20px 0 0 0;list-style-type: none;}
+.aw-install ul li{line-height: 30px;margin-bottom: 20px;padding:10px 20px;background: #F7F7F7;text-shadow:0 1px 0 #FFFFFF;border-radius: 10px 10px 10px 10px; }
+.aw-install ul li span{margin-left: 20px;color:#999;}
+.aw-install ul li b{display: inline-block; width: 100px;}
+.aw-install .green{color: green !important;}
+.aw-install .red{color: #D40004;}
+.aw-install-footer{width: 960px;margin:10px auto 100px;text-align: right;color: #999;}
+.aw-install-footer a{color: #999;}
+.aw-install .default_text{margin:0 0 0 20px;}
+.aw-install .error{padding:20px 30px;background: #FDEAE6;border:1px solid #4D1514;border-radius: 10px;}
+.aw-install .error h2{margin-top:0px;font-size: 14px;color: #D40004;}
+.aw-install .error h2 .i-no{position: relative;top:3px;margin-right: 5px;}
+
