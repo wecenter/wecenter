@@ -43,8 +43,6 @@ th{text-align: center;}
 .modal{margin-left: 0px;}
 .modal h3{font-size: 24px !important;}
 .modal-backdrop, .modal-backdrop.fade.in{opacity:0.2;filter:alpha(opacity=20);}
-.modal-header{*padding: 9px 15px;*height: 30px;*line-height: 30px;}
-.modal-header #myModalLabel{*position: relative;*top:10px;*margin-top:-10px;}
 .aw-no-border-top{border-top:none !important;}
 .aw-no-border-bottom{border-bottom: none !important;}
 .aw-no-margin-top{margin-top:0px !important;}
@@ -56,6 +54,8 @@ th{text-align: center;}
 .alert-error{background: #F2DEDE;border:1px solid #EED3D7;color: #B94A48;}
 .normal-box{width: 35% !important;}
 .normal-box .aw-mod-body{padding: 20px !important;}
+.label{background-color: #999999;color: #fff;font-weight: normal;}
+.label.label-info{background-color: #3A87AD;}
 
 /*顶部*/
 .aw-manage-menu{margin:0;padding:7px 0 7px 30px;background: #323a45;font-size: 13px;color: #fff;}
@@ -170,7 +170,7 @@ th{text-align: center;}
 
 /*alert-box*/
 .alert-box{outline: none;}
-.aw-tips-box, .aw-tips-box .modal-dialog{width: 350px;}
+.aw-tips-box, .aw-tips-box .modal-dialog{width: 350px;position: fixed;}
 .aw-tips-box .modal-body{background: url('../img/warmming.png') no-repeat right 5px;}
 .aw-tips-box .modal-body p{margin: 10px 0;}
 .aw-question-edit{width: 600px;}
