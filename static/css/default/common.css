@@ -827,7 +827,7 @@ select{width: auto;}
 /* 编辑器回复样式 */
 .markitup-box {line-height: 23px;word-wrap: break-word !important;}
 .markitup-box h2, #markItUpPreviewFrames h2, .markitup-box h3, #markItUpPreviewFrames h3 {font-weight: bold;margin: 10px 0;}
-.markitup-box h2, #markItUpPreviewFrames h2 {font-size: 1.5em;}
+.markitup-box h2, #markItUpPreviewFrames h2 {font-size: 1.5em;line-height: 30px;}
 .markitup-box h3, #markItUpPreviewFrames h3 {font-size: 1.17em;}
 .markitup-box em, #markItUpPreviewFrames em {font-style: italic;}
 .markitup-box ul, .markitup-box ol, #markItUpPreviewFrames ul, #markItUpPreviewFrames ol {margin-left: 15px;padding: 5px 0 5px 20px;}
@@ -861,7 +861,7 @@ select{width: auto;}
 .aw-404-wrap p a{font-size:14px;}
 
 /* 字体icon & icon */
-.icon-comment, .icon-share-alt, .icon-edit, .icon-map-marker, .icon-flag, .icon-heart, .icon-user, .icon-home, .icon-thumbs-up-alt, .icon-reply, .icon-signal, .icon-tag, .icon-wrench, .icon-cog, .icon-off, .icon-bookmark, .icon-chevron-down, .icon-mobile-phone, .icon-external-link, .icon-envelope{margin-right: 5px;color: #B7B7B7;cursor: pointer;}
+.icon-comment, .icon-share-alt, .icon-edit, .icon-map-marker, .icon-flag, .icon-heart, .icon-user, .icon-home, .icon-thumbs-up-alt, .icon-reply, .icon-signal, .icon-tag, .icon-wrench, .icon-cog, .icon-off, .icon-bookmark, .icon-chevron-down, .icon-mobile-phone, .icon-external-link, .icon-envelope, .icon-check{margin-right: 5px;color: #B7B7B7;cursor: pointer;}
 .icon-cog{margin:0;}
 .icon-edit{margin-top:10px\0;}
 .icon-ok-sign{margin-left:5px;color: #4bbe00;font-size: 14px;cursor: pointer;}
