@@ -121,7 +121,7 @@ class HTTP
 		$filename = preg_replace('#[\r\n]#', '', $filename);
 		
 		// Opera and IE have not a clue about this, mozilla puts on incorrect extensions.
-		if (self::IsBrowser('mozilla'))
+		if (self::is_browser('mozilla'))
 		{
 			$filename = "filename*=" . $filename_charset . "''" . rawurlencode($filename);
 			//$filename = "filename==?'utf-8'?B?" . base64_encode($filename) . "?=";
@@ -139,12 +139,12 @@ class HTTP
 				}
 			}
 		
-			if (self::IsBrowser('opera') OR self::IsBrowser('konqueror') OR self::IsBrowser('safari'))
+			if (self::is_browser('opera') OR self::is_browser('konqueror') OR self::is_browser('safari'))
 			{
 				// Opera / Konqueror does not support encoded file names
 				$filename = 'filename="' . str_replace('"', '', $filename) . '"';
 			}
-			else if (self::IsBrowser('ie'))
+			else if (self::is_browser('ie'))
 			{
 				$filename = 'filename="' . str_replace('+', ' ', urlencode($filename)) . '"';
 			}
@@ -200,7 +200,7 @@ class HTTP
 	 *
 	 * @return	boolean
 	 */
-	public static function IsBrowser($browser, $version = 0)
+	public static function is_browser($browser, $version = 0)
 	{
 		static $is;
 		
@@ -401,6 +401,12 @@ class HTTP
 		}
 		
 		curl_setopt($curl, CURLINFO_HEADER_OUT, TRUE);
+		
+		if (substr($url, 0, 8) == 'https://')
+		{
+			curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
+			curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, FALSE);
+		}
 		
 		$response = curl_exec($curl);
 		
