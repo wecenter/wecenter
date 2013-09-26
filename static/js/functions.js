@@ -2001,7 +2001,7 @@ function get_quick_publich_question_list(obj,data)
     
     var _obj = obj;
     
-    obj.next().css('width', obj.width() + 26);
+    obj.next().css('width', obj.width() + 16);
     
     if (data.length >= 2)
     {
@@ -2049,12 +2049,8 @@ function get_quick_publich_question_list(obj,data)
 /*邀请回复下拉菜单*/
 function get_user_list_data(obj,data)
 {
-    if (obj.parents('.alert-box')[0])
-    {
-       obj.next().css({'top':obj.offset().top - obj.parents('.alert-box').offset().top});
-    }
     
-    obj.next().css({'width': obj.width() + 26});
+    obj.next().css({'width': obj.width() + 16});
 
     if (data.length >= 2)
     {

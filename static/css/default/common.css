@@ -366,7 +366,7 @@ select{width: auto;}
 .aw-question-edit del{background: #F7D3D3;}
 
 /* 用户下拉列表 */
-.aw-user-dropdown-list{max-height: 409px;overflow-y:auto;}
+.aw-user-dropdown-list{max-height: 418px;overflow-y:auto;}
 .aw-user-dropdown-list li{border-top: 1px dotted #C1CAD4;}
 .aw-user-dropdown-list li:first-child{border-top: none;}
 .aw-user-dropdown-list li:hover{background: #F5FAFF;}
