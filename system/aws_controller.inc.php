@@ -256,8 +256,16 @@ class AWS_ADMIN_CONTROLLER extends AWS_CONTROLLER
 			TPL::import_js(get_setting('base_url') . '/language/' . SYSTEM_LANG . '.js');
 		}
 		
+		if (HTTP::is_browser('ie', 8))
+		{
+			TPL::import_js('js/jquery.js');
+		}
+		else
+		{
+			TPL::import_js('js/jquery.2.js');
+		}
+		
 		TPL::import_js(array(
-			'js/jquery.js',
 			'js/jquery.form.js',
 			'js/common.js',
 			'js/functions.js',
