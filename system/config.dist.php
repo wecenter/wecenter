@@ -24,7 +24,7 @@ define('G_COOKIE_HASH_KEY', '{G_COOKIE_HASH_KEY}');
 
 define('G_INDEX_SCRIPT', '?/');
 
-define('X_UA_COMPATIBLE', 'Chrome=1,IE=edge');
+define('X_UA_COMPATIBLE', 'IE=edge,Chrome=1');
 
 // GZIP 压缩输出页面
 define('G_GZIP_COMPRESS', FALSE);
