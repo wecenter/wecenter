@@ -75,6 +75,7 @@ class AWS_CONTROLLER
 		if (HTTP::is_browser('ie', 8))
 		{
 			TPL::import_js('js/jquery.js');
+			TPL::import_js('js/respond.js');
 		}
 		else
 		{
