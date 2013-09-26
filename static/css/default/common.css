@@ -698,7 +698,7 @@ select{width: auto;}
 .modal-dialog textarea, .modal-dialog input{margin-bottom: 10px;}
 .aw-share-box .modal-dialog, .aw-publish-box .modal-dialog, .aw-message-box .modal-dialog, .aw-question-redirect-box .modal-dialog, .aw-inbox .modal-dialog, .aw-topic-edit-note-box .modal-dialog{width: 470px;}
 /* 警告提示box */
-.aw-tips-box .modal-dialog, .aw-image-box .modal-dialog{width: 370px;}
+.aw-tips-box .modal-dialog, .aw-image-box .modal-dialog, .aw-link-box .modal-dialog{width: 370px;}
 .aw-tips-box .modal-body{background: url(img/warmming.png) no-repeat right 5px;}
 .aw-tips-box .modal-body p{margin: 10px 0;}
 /* 分享box */
