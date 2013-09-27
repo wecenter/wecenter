@@ -88,7 +88,18 @@ a.aw-load-more-content{display: block;}
 /* ipad兼容 */
 @media only screen and (device-width:768px){.aw-dynamic-topic .aw-item .aw-dynamic-topic-more-operate{display:block;}}
 
-/* 小屏幕兼容 */
+
+/* iphone竖屏幕兼容 */
+@media only screen and (device-width:320px){
+	.aw-user-nav{display: none;}
+}
+/* 横屏幕兼容 */
+@media screen and (orientation:landscape) {  
+    .aw-user-nav{display: block !important;}
+} 
+
+
+/* ipad屏幕兼容 */
 @media (max-width: 768px) {
 	.aw-container-wrap{padding: 0 10px !important;}	
 	.aw-copyright{text-align: center !important;}
