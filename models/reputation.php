@@ -110,50 +110,40 @@ class reputation_class extends AWS_MODEL
 				{
 					$s_best_answer = 0;
 				}
-							
+				
 				// 赞同的用户
 				if ($vote_agree_users[$answer_id])
-				{
-					// 排除发起者
-					if ($questions_info[$question_id]['published_uid'] == $vote_agree_users[$answer_id]['answer_uid'])
+				{					
+					foreach ($vote_agree_users[$answer_id] AS $key => $val)
 					{
-						continue;
-					}
-					
-					if ($vote_agree_users[$answer_id])
-					{
-						foreach ($vote_agree_users[$answer_id] AS $key => $val)
+						// 排除发起者
+						if ($questions_info[$question_id]['published_uid'] != $val['answer_uid'])
 						{
 							$s_agree_value = $s_agree_value + $val['reputation_factor'];
+						
+							if ($questions_info[$question_id]['published_uid'] == $val['vote_uid'] AND !$s_publisher_agree)
+							{
+								$s_publisher_agree = 1;
+							}
 						}
-					}
-									
-					if ($questions_info[$question_id]['published_uid'] == $vote_agree_users[$answer_id]['vote_uid'])
-					{
-						$s_publisher_agree = 1;
 					}
 				}
 							
 				// 反对的用户
 				if ($vote_against_users[$answer_id])
 				{
-					// 排除发起者
-					if ($questions_info[$question_id]['published_uid'] == $vote_against_users[$answer_id]['answer_uid'])
+					foreach ($vote_against_users[$answer_id] AS $key => $val)
 					{
-						continue;
-					}
-					
-					if ($vote_against_users[$answer_id])
-					{
-						foreach ($vote_against_users[$answer_id] AS $key => $val)
+						// 排除发起者
+						if ($questions_info[$question_id]['published_uid'] != $val['answer_uid'])
 						{
 							$s_against_value = $s_against_value + $val['reputation_factor'];
-						}
-					}
-									
-					if ($questions_info[$question_id]['published_uid'] == $vote_against_users[$answer_id]['vote_uid'])
-					{
-						$s_publisher_against = 1;
+						
+							if ($questions_info[$question_id]['published_uid'] == $val['vote_uid'] AND !$s_publisher_against)
+							{
+								$s_publisher_against = 1;
+							}
+						}	
 					}
 				}
 							
@@ -173,9 +163,9 @@ class reputation_class extends AWS_MODEL
 				
 				//（用户组威望系数x赞同数量-用户组威望系数x反对数量）+ 发起者赞同反对系数 + 最佳答案系数
 				$answer_reputation = $s_agree_value - $s_against_value + ($s_publisher_agree * $publisher_reputation_factor) - ($s_publisher_against * $publisher_reputation_factor) + ($s_best_answer * $best_answer_reput);
-							
-				if ($answer_reputation < 1)
-				{
+				
+				if ($answer_reputation < 0)
+				{					
 					$answer_reputation = (0 - $answer_reputation) - 0.5;
 					
 					if ($reputation_log_factor > 1)
@@ -183,7 +173,7 @@ class reputation_class extends AWS_MODEL
 						$answer_reputation = (0 - log($answer_reputation, $reputation_log_factor));
 					}
 				}
-				else
+				else if ($answer_reputation > 0)
 				{
 					$answer_reputation = $answer_reputation + 0.5;
 					
@@ -239,7 +229,6 @@ class reputation_class extends AWS_MODEL
 				foreach ($user_topics as $t_key => $t_val)
 				{
 					$this->delete('reputation_topic', 'uid = ' . $uid . ' AND topic_id = ' . $t_val['topic_id']);
-								
 					$this->insert('reputation_topic', array(
 						'uid' => $uid,
 						'topic_id' => $t_val['topic_id'],
@@ -258,11 +247,10 @@ class reputation_class extends AWS_MODEL
 				foreach ($user_reputation_category as $t_key => $t_val)
 				{
 					$this->delete('reputation_category', 'uid = ' . intval($uid) . ' AND category_id = ' . $t_key);
-		
 					$this->insert('reputation_category', array(
 						'uid' => intval($uid),
-						'update_time' => time(),
 						'category_id' => $t_key,
+						'update_time' => time(),
 						'reputation' => round($t_val['reputation']),
 						'agree_count' => $t_val['agree_count'],
 						'question_count' => count($t_val['questions'])

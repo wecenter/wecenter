@@ -146,26 +146,7 @@ class answer_class extends AWS_MODEL
 	
 		return $data;
 	}	
-
-	public function get_vote_agree_by_answer_ids($answer_ids)
-	{
-		if (!is_array($answer_ids))
-		{
-			return array();
-		}
-		
-		array_walk_recursive($answer_ids, 'intval_string');
-		
-		if ($users = $this->fetch_all('answer_vote', "answer_id IN(" . implode(',', $answer_ids) . ") AND vote_value = 1"))
-		{				
-			foreach ($users as $key => $val)
-			{
-				$data[$val['answer_id']] = $val;				
-			}
-		}
-		
-		return $data;
-	}	
+	
 	
 	/**
 	 *
@@ -198,6 +179,46 @@ class answer_class extends AWS_MODEL
 		
 		return $data;
 	}	
+	
+	public function get_vote_agree_by_answer_ids($answer_ids)
+	{
+		if (!is_array($answer_ids))
+		{
+			return false;
+		}
+		
+		array_walk_recursive($answer_ids, 'intval_string');
+		
+		if ($votes = $this->fetch_all('answer_vote', 'answer_id IN(' . implode(',', $answer_ids) . ') AND vote_value = 1'))
+		{				
+			foreach ($votes as $key => $val)
+			{
+				$data[$val['answer_id']][] = $val;				
+			}
+		}
+		
+		return $data;
+	}
+	
+	public function get_vote_against_by_answer_ids($answer_ids)
+	{
+		if (!is_array($answer_ids))
+		{
+			return false;
+		}
+		
+		array_walk_recursive($answer_ids, 'intval_string');
+		
+		if ($votes = $this->fetch_all('answer_vote', 'answer_id IN(' . implode(',', $answer_ids) . ') AND vote_value = -1'))
+		{
+			foreach ($votes as $key => $val)
+			{
+				$data[$val['answer_id']][] = $val;				
+			}
+		}
+	
+		return $data;
+	}
 	
 	/**
 	 *
@@ -233,26 +254,6 @@ class answer_class extends AWS_MODEL
 		return $data;
 	}
 	
-	public function get_vote_against_by_answer_ids($answer_ids)
-	{
-		if (!is_array($answer_ids))
-		{
-			return array();
-		}
-		
-		array_walk_recursive($answer_ids, 'intval_string');
-		
-		if ($users = $this->fetch_all('answer_vote', "answer_id IN(" . implode(',',$answer_ids) . ") AND vote_value = -1"))
-		{
-			foreach ($users as $key => $val)
-			{
-				$data[$val['answer_id']] = $val;				
-			}
-		}
-	
-		return $data;
-	}
-		
 	/**
 	 * 
 	 * 保存问题回复内容
