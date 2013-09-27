@@ -112,7 +112,9 @@ select{width: auto;}
 .form-control{line-height: 20px;}
 .badge.badge-info{background: #3A87AD;}
 .table-bordered > thead > tr > th, .table-bordered > thead > tr > td{border-bottom-width:1px;}
+
 /* modal */
+body.modal-open, .modal-open .navbar-fixed-top, .modal-open .navbar-fixed-bottom{margin:0;}
 .modal{top:10%; }
 .modal .modal-dialog{position:fixed;padding:0;}
 .modal-body{overflow-y: visible;}
