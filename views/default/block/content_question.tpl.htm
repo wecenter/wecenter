@@ -6,7 +6,7 @@
 		<li<?php if ($_GET['is_recommend']) { ?> class="active"<?php } ?>><a href="<?php if ($this->feature_info) { ?>feature/id-<?php echo $this->feature_info['id']; ?><?php } else { ?>home/explore/category-<?php echo $this->category_info['id']; ?><?php } ?>__is_recommend-1"><?php _e('推荐'); ?></a></li>
 		<li<?php if ((!$_GET['sort_type'] OR $_GET['sort_type'] == 'new') AND !$_GET['is_recommend']) { ?> class="active"<?php } ?>><a href="<?php if ($this->feature_info) { ?>feature/id-<?php echo $this->feature_info['id']; ?><?php } else { ?>home/explore/<?php if ($this->category_info['id']) { ?>category-<?php echo $this->category_info['id']; ?><?php } ?><?php } ?>"><?php _e('最新'); ?></a></li>
 		
-		<h2><?php if ($this->category_info) { ?><?php echo $this->category_info['title']; ?><?php } else if ($this->feature_info) { ?><?php echo $this->feature_info['title']; ?><?php } else { ?><?php _e('全部问题'); ?><?php } ?></h2>
+		<h2 class="hidden-xs"><?php if ($this->category_info) { ?><?php echo $this->category_info['title']; ?><?php } else if ($this->feature_info) { ?><?php echo $this->feature_info['title']; ?><?php } else { ?><?php _e('全部问题'); ?><?php } ?></h2>
 	</ul>
 	<!-- end tab切换 -->
 
