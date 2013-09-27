@@ -119,8 +119,14 @@ class reputation_class extends AWS_MODEL
 					{
 						continue;
 					}
-									
-					$s_agree_value = $s_agree_value + $vote_agree_users[$answer_id]['reputation_factor'];
+					
+					if ($vote_agree_users[$answer_id])
+					{
+						foreach ($vote_agree_users[$answer_id] AS $key => $val)
+						{
+							$s_agree_value = $s_agree_value + $val['reputation_factor'];
+						}
+					}
 									
 					if ($questions_info[$question_id]['published_uid'] == $vote_agree_users[$answer_id]['vote_uid'])
 					{
@@ -136,8 +142,14 @@ class reputation_class extends AWS_MODEL
 					{
 						continue;
 					}
-									
-					$s_against_value = $s_against_value + $vote_against_users[$answer_id]['reputation_factor'];
+					
+					if ($vote_against_users[$answer_id])
+					{
+						foreach ($vote_against_users[$answer_id] AS $key => $val)
+						{
+							$s_against_value = $s_against_value + $val['reputation_factor'];
+						}
+					}
 									
 					if ($questions_info[$question_id]['published_uid'] == $vote_against_users[$answer_id]['vote_uid'])
 					{
@@ -164,12 +176,21 @@ class reputation_class extends AWS_MODEL
 							
 				if ($answer_reputation < 1)
 				{
-					$answer_reputation = 0;
+					$answer_reputation = (0 - $answer_reputation) - 0.5;
+					
+					if ($reputation_log_factor > 1)
+					{
+						$answer_reputation = (0 - log($answer_reputation, $reputation_log_factor));
+					}
 				}
 				else
 				{
 					$answer_reputation = $answer_reputation + 0.5;
-					$answer_reputation = log($answer_reputation, $reputation_log_factor);
+					
+					if ($reputation_log_factor > 1)
+					{
+						$answer_reputation = log($answer_reputation, $reputation_log_factor);
+					}
 				}
 							
 				// 计算在话题中的威望
