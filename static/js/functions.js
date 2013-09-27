@@ -1569,7 +1569,7 @@ function show_card_box(selecter, type, time) //selecter -> .aw-user-name/.aw-top
                         {
                             var focus = result.focus,
                                 focusTxt;
-                            if (focus == 1)
+                            if (focus > 0)
                             {
                                 focus = '';
                                 focusTxt = _t('取消关注');
