@@ -87,6 +87,9 @@ a.aw-load-more-content{display: block;}
 
 /* ipad兼容 */
 @media only screen and (device-width:768px){.aw-dynamic-topic .aw-item .aw-dynamic-topic-more-operate{display:block;}}
+@media (max-width: 768px) {
+	.aw-container-wrap{padding: 0 10px !important;}	
+}
 
 /* 重载bootstrap部分 */
 h1, h2, h3{line-height: 20px;}
