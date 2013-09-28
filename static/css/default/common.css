@@ -30,9 +30,6 @@ a.aw-load-more-content{display: block;}
 .aw-back-top:hover{background-color: #d0d0d0;}
 .aw-text-align-justify{text-align: justify;}
 .aw-li-border-bottom li{border-top:1px dotted #C1CAD4;}
-.aw-no-border-bottom{border-bottom:none !important;}
-.aw-no-border-top{border-top:none !important;}
-.aw-no-border-all{border:none !important;}
 .aw-no-padding-top{padding-top:0 !important;}
 .aw-no-padding-bottom{padding-bottom:0 !important;}
 .aw-no-margin-bottom{margin-bottom:0 !important;}
