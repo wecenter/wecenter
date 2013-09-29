@@ -1506,7 +1506,7 @@ class account_class extends AWS_MODEL
 		
 		if (count($recent_topics) > 10)
 		{
-			array_slice($recent_topics, 0, 10);
+			$recent_topics = array_slice($recent_topics, 0, 10);
 		}
 		
 		return $this->update('users', array(
