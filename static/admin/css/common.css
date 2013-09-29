@@ -4,7 +4,7 @@ a{cursor: pointer;}
 a:hover{text-decoration: none;}
 ul, ol{list-style: none;}
 ul{margin:0;padding:0;}
-input[type="text"]{
+input[type="text"], input[type="password"]{
   height: 34px;
   padding: 6px 12px;
   font-size: 14px;

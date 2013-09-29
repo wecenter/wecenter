@@ -106,11 +106,11 @@
 				
 				<?php TPL::output('block/sidebar_menu.tpl.htm'); ?>	
 				
-				<div class="aw-side-bar-mod aw-side-bar-invite-join">
-					<div class="aw-side-bar-mod-head">
-						<h3><?php _e('邀请好友加入社区'); ?><?php if ($this->user_info['invitation_available']) { ?><em class="aw-message-tooltip"><?php echo $this->user_info['invitation_available']; ?></em><?php } ?></h3>
+				<div class="aw-side-bar-mod invite-join">
+					<div class="aw-mod-head">
+						<h3><?php _e('邀请好友加入社区'); ?><?php if ($this->user_info['invitation_available']) { ?><em class="badge badge-info"><?php echo $this->user_info['invitation_available']; ?></em><?php } ?></h3>
 					</div>
-					<div class="aw-side-bar-mod-body">
+					<div class="aw-mod-body">
 						<a href="invitation/" class="btn btn-mini btn-success"><?php _e('发送邀请'); ?></a>
 					</div>
 				</div>
