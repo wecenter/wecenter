@@ -240,7 +240,6 @@ class user_manage extends AWS_ADMIN_CONTROLLER
 			'human_valid',
 			'question_valid_hour',
 			'answer_valid_hour',
-			'visit_site',
 			'visit_explore',
 			'search_avail',
 			'visit_question',

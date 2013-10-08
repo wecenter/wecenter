@@ -24,7 +24,7 @@ class main extends AWS_CONTROLLER
 	{
 		$rule_action['rule_type'] = "white"; //黑名单,黑名单中的检查  'white'白名单,白名单以外的检查
 		
-		if ($this->user_info['permission']['visit_topic'] AND $this->user_info['permission']['visit_site'])
+		if ($this->user_info['permission']['visit_topic'])
 		{
 			$rule_action['actions'][] = 'square';
 			$rule_action['actions'][] = 'index';
