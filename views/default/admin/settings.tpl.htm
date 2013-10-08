@@ -507,6 +507,17 @@
 				</dd>
 			</dl>
 			<dl>
+				<dt><h3><?php _e('新问题强制要求添加话题'); ?>:</h3></dt>
+				<dd>
+					<span class="yesno_yes">
+						<label><input type="radio" name="new_question_force_add_topic" value="Y"<?php if ($this->setting['new_question_force_add_topic'] == 'Y') { ?> checked="checked"<?php } ?> /><?php _e('是'); ?></label>
+					</span>
+					<span class="yesno_no">
+						<label><input type="radio" name="new_question_force_add_topic" value="N"<?php if ($this->setting['new_question_force_add_topic'] == 'N') { ?> checked="checked"<?php } ?> /><?php _e('否'); ?></label>
+					</span>
+				</dd>
+			</dl>
+			<dl>
 				<dt><h3><?php _e('问题话题数量限制'); ?> (<?php _e('填写 0 则不限制'); ?>):</h3></dt>
 				<dd>
 					<div class="row">

@@ -419,6 +419,11 @@ class ajax extends AWS_CONTROLLER
 			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('单个问题话题数量最多为 %s 个, 请调整话题数量', get_setting('question_topics_limit'))));
 		}
 		
+		if (get_setting('new_question_force_add_topic') == 'Y' AND !$_POST['topics'])
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('请为问题添加话题')));
+		}
+		
 		// !注: 来路检测后面不能再放报错提示
 		if (!valid_post_hash($_POST['post_hash']))
 		{
