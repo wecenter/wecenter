@@ -484,7 +484,8 @@
 <script type="text/javascript">
 	ATTACH_ACCESS_KEY = '<?php echo $this->attach_access_key; ?>';
 	ITEM_IDS = '<?php echo addslashes($_GET['item_id']); ?>';
-	COMMENT_UNFOLD = '<?php echo addslashes($_GET['comment']); ?>';
+	COMMENT_UNFOLD = '<?php echo addslashes($_GET['comment_unfold']); ?>';
+	
 	QUESTION_ID = <?php echo $this->question_info['question_id'];?>;
 	UNINTERESTED_COUNT = <?php echo get_setting('uninterested_fold'); ?>;
 </script>

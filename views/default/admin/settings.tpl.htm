@@ -528,6 +528,17 @@
 				</dd>
 			</dl>
 			<dl>
+				<dt><h3><?php _e('自动展开评论'); ?>:</h3></dt>
+				<dd>
+					<span class="yesno_yes">
+						<label><input type="radio" name="unfold_question_comments" value="Y"<?php if ($this->setting['unfold_question_comments'] == 'Y') { ?> checked="checked"<?php } ?> /><?php _e('是'); ?></label>
+					</span>
+					<span class="yesno_no">
+						<label><input type="radio" name="unfold_question_comments" value="N"<?php if ($this->setting['unfold_question_comments'] == 'N') { ?> checked="checked"<?php } ?> /><?php _e('否'); ?></label>
+					</span>
+				</dd>
+			</dl>
+			<dl>
 				<dt><h3><?php _e('评论内容最大字符数限制'); ?> (<?php _e('填写 0 则不限制'); ?>):</h3></dt>
 				<dd>
 					<div class="row">

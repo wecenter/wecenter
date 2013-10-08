@@ -57,7 +57,11 @@ $(document).ready(function () {
 			});
 		}
 		
-		if (COMMENT_UNFOLD == 1 || COMMENT_UNFOLD == 'all')
+		if (COMMENT_UNFOLD == 'all')
+		{
+			$('.aw-add-comment').click();
+		}
+		else if (COMMENT_UNFOLD == 'question')
 		{
 			$('.aw-question-detail-meta .aw-add-comment').click();
 		}
@@ -66,7 +70,7 @@ $(document).ready(function () {
 		$.each(ITEM_IDS, function (i, answer_id) {
 			if ($('#answer_list_' + answer_id).attr('id'))
 			{
-				if (COMMENT_UNFOLD == 2 || COMMENT_UNFOLD == 'all')
+				if (COMMENT_UNFOLD == 'answer')
 				{
 					$('#answer_list_' + answer_id).find('.aw-add-comment').click();
 				}

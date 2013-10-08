@@ -255,12 +255,12 @@ class notify_class extends AWS_MODEL
 									
 									if ($ex_notify['action_type'] == 106 OR ($ex_notify['action_type'] == 103 AND $ex_notify['data']['comment_type'] == 1))
 									{
-										$comment_type[] = '1';
+										$comment_type[] = 'question';
 									}
 									
 									if ($ex_notify['action_type'] == 105 OR ($ex_notify['action_type'] == 103 AND $ex_notify['data']['comment_type'] == 2))
 									{
-										$comment_type[] = '2';
+										$comment_type[] = 'answer';
 									}
 									
 									if ($ex_notify['data']['item_id'])
@@ -288,11 +288,11 @@ class notify_class extends AWS_MODEL
 								{
 									if (count(array_unique($comment_type)) == 1)
 									{
-										$querys[] = 'comment-' . array_pop($comment_type);
+										$querys[] = 'comment_unfold-' . array_pop($comment_type);
 									}
 									else if (count(array_unique($comment_type)) == 2)
 									{
-										$querys[] = 'comment-all';
+										$querys[] = 'comment_unfold-all';
 									}
 								}
 								
@@ -326,12 +326,12 @@ class notify_class extends AWS_MODEL
 								
 								if ($notify['action_type'] == 106 OR ($notify['action_type'] == 103 AND $data['comment_type'] == 1))
 								{
-									$querys[] = 'comment-1';
+									$querys[] = 'comment_unfold-question';
 								}
 								
 								if ($notify['action_type'] == 105 OR $notify['action_type'] == 115 OR $notify['action_type'] == 116 OR ($notify['action_type'] == 103 AND $data['comment_type'] == 2))
 								{
-									$querys[] = 'comment-2';
+									$querys[] = 'comment_unfold-answer';
 								}
 								
 								if ($data['item_id'])
@@ -426,12 +426,12 @@ class notify_class extends AWS_MODEL
 					
 					if ($ex_notify['action_type'] == 106 OR  ($ex_notify['action_type'] == 103 AND $ex_notify['data']['comment_type'] == 1))
 					{
-						$comment_type[] = '1';
+						$comment_type[] = 'question';
 					}
 					
 					if ($ex_notify['action_type'] == 105 OR $ex_notify['action_type'] == 115 OR $ex_notify['action_type'] == 116 OR ($ex_notify['action_type'] == 103 AND $ex_notify['data']['comment_type'] == 2))
 					{
-						$comment_type[] = '2';
+						$comment_type[] = 'answer';
 					}
 					
 					if ($ex_notify['data']['item_id'])
@@ -473,11 +473,11 @@ class notify_class extends AWS_MODEL
 				{
 					if (count(array_unique($comment_type)) == 1)
 					{
-						$querys[] = 'comment-' . array_pop($comment_type);
+						$querys[] = 'comment_unfold-' . array_pop($comment_type);
 					}
 					else if (count(array_unique($comment_type)) == 2)
 					{
-						$querys[] = 'comment-all';
+						$querys[] = 'comment_unfold-all';
 					}
 				}
 				

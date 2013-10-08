@@ -70,6 +70,11 @@ class main extends AWS_CONTROLLER
 			$_GET['sort'] = 'ASC';
 		}
 		
+		if (get_setting('unfold_question_comments'))
+		{
+			$_GET['comment_unfold'] = 'all';
+		}
+		
 		if (!$question_info['question_content_fulltext'])
 		{
 			$this->model('search_index')->push_index('question', $question_info['question_content'], $question_info['question_id']);
