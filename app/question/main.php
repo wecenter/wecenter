@@ -24,7 +24,7 @@ class main extends AWS_CONTROLLER
 	{
 		$rule_action['rule_type'] = 'white';
 		
-		if ($this->user_info['permission']['visit_question'])
+		if ($this->user_info['permission']['visit_question'] AND $this->user_info['permission']['visit_site'])
 		{
 			$rule_action['actions'] = array(
 				'index'

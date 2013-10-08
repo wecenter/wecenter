@@ -22,7 +22,7 @@ class main extends AWS_CONTROLLER
 {
 	public function get_access_rule()
 	{
-		if ($this->user_info['permission']['visit_people'])
+		if ($this->user_info['permission']['visit_people'] AND $this->user_info['permission']['visit_site'])
 		{
 			$rule_action['rule_type'] = 'black';
 		}

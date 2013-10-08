@@ -919,6 +919,7 @@ $language['回答验证码'] = 'Answer verification code';
 $language['一小时内发表回复超过规定条数需要验证码'] = 'Need verification code if the number of questions replied exceeded maximum number';
 $language['频率限制'] = 'Rate limit';
 $language['编辑话题 / 添加话题 / 话题重定向功能使用间隔限制 (单位: 秒, 设置 0 为不限制, 对管理员无效)'] = 'Time limit on edit topic / add topic / topic redirect function (unit: second, set 0 then no restriction, not valid to admin)';
+$language['允许浏览网站'] = 'Allow review website';
 $language['允许浏览问题列表'] = 'Allow review question list';
 $language['允许浏览问题内容'] = 'Allow review question content';
 $language['访问回复权限'] = 'Permission to visit reply';
