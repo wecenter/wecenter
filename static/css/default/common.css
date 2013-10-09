@@ -501,7 +501,7 @@ a.aw-load-more-content{display: block;}
 .aw-topic-follow{margin-bottom: 20px;}
 .aw-topic-follow .aw-mod-head{margin-bottom: 20px;}
 .aw-topic-follow h2{margin-top:0px;font-size: 20px;}
-.aw-topic-follow .aw-item{position:relative;min-height:45px;padding:20px 5px 20px 65px;border-top:1px dotted #C1CAD4;}
+.aw-topic-follow .aw-item{position:relative;min-height:90px;padding:20px 5px 20px 65px;border-top:1px dotted #C1CAD4;}
 .aw-topic-follow .aw-item:first-child{border-top: none;}
 .aw-topic-follow .aw-item ul{margin-top:10px;}
 .aw-topic-follow .aw-item ul li{line-height: 28px;}
