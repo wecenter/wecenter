@@ -16,8 +16,7 @@ select{width: auto;}
 .table-bordered > thead > tr > th, .table-bordered > thead > tr > td{border-bottom-width:1px;}
 /* modal */
 body.modal-open, .modal-open .navbar-fixed-top, .modal-open .navbar-fixed-bottom{margin:0;}
-.modal{top:10%; }
-.modal .modal-dialog{position:fixed;padding:0;}
+.modal .modal-dialog{position:fixed;top:10%;padding:0;}
 .modal-body{overflow-y: visible;}
 .modal-backdrop, .modal-backdrop.fade.in{filter:alpha(opacity=20);opacity: 0.2; }
 .modal-body{max-height: none;}
