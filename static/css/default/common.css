@@ -27,7 +27,8 @@ body.modal-open, .modal-open .navbar-fixed-top, .modal-open .navbar-fixed-bottom
 .aw-progress .progress{width:103px;height:8px;margin:2px 0 0 0;background:#f0ffe1;border:1px solid #bce391;}
 .aw-progress .progress .bar{background-color:#c9f297;background-image:-moz-linear-gradient(top,#c9f297,#c9f297);background-image:-webkit-gradient(linear,0 0,0 100%,from(#c9f297),to(#c9f297));background-image:-webkit-linear-gradient(top,#c9f297,#c9f297);background-image:-o-linear-gradient(top,#c9f297,#c9f297);background-image:linear-gradient(to bottom,#c9f297,#c9f297);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#c9f297',endColorstr='#c9f297',GradientType=0);box-shadow:none;}
 /* 重载bootstrap按钮 */
-.btn.aw-active{background: #5CB85C;border-color:#4CAE4C;color: #FFFFFF;}
+.btn.aw-active{background-color: #5CB85C;border-color:#4CAE4C;color: #FFFFFF;}
+.btn.aw-active:hover{background-color: #47A447; border-color: #398439; }
 .btn:active, .btn.active{box-shadow: none;}
 .btn-mini{min-width: 70px;padding:3px 10px;font-size:12px;font-weight: normal;}
 .btn-small{min-width: 80px;padding:2px 6px;}
@@ -325,6 +326,7 @@ a.aw-load-more-content{display: block;}
 .aw-side-bar dd{width:141px;font-size:12px;}
 .aw-side-bar p{margin-bottom:0;}
 .aw-side-bar ul li{padding:5px 0;}
+.aw-side-bar .user-detail ul li{padding:3px 0;}
 .aw-side-bar-mod.invite-join .aw-mod-body{margin: 10px 0;}
 /* 专题页面侧边栏 */
 .aw-side-bar-mod-feature{background: #F4FAFE;border: 1px solid #D9EEFB !important;}
@@ -863,7 +865,7 @@ a.aw-load-more-content{display: block;}
 .aw-404-wrap p a{font-size:14px;}
 
 /* 字体icon & icon */
-.icon-comment, .icon-share-alt, .icon-edit, .icon-map-marker, .icon-flag, .icon-heart, .icon-user, .icon-home, .icon-thumbs-up-alt, .icon-reply, .icon-signal, .icon-tag, .icon-wrench, .icon-cog, .icon-off, .icon-bookmark, .icon-chevron-down, .icon-mobile-phone, .icon-external-link, .icon-envelope, .icon-check{margin-right: 5px;color: #B7B7B7;cursor: pointer;}
+.icon-comment, .icon-share-alt, .icon-edit, .icon-map-marker, .icon-flag, .icon-heart, .icon-user, .icon-home, .icon-thumbs-up-alt, .icon-reply, .icon-signal, .icon-tag, .icon-wrench, .icon-cog, .icon-off, .icon-bookmark, .icon-chevron-down, .icon-mobile-phone, .icon-external-link, .icon-envelope, .icon-check, .icon-thumbs-down-alt{margin-right: 5px;color: #B7B7B7;cursor: pointer;}
 .icon-cog{margin:0;}
 .icon-edit{margin-top:10px\0;}
 .icon-ok-sign{margin-left:5px;color: #4bbe00;font-size: 14px;cursor: pointer;}

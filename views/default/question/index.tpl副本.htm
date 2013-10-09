@@ -20,6 +20,7 @@
 						</h1>
 						<?php if ($this->user_id) { ?>
 						<div class="aw-question-follow">
+							<a href="javascript:;" onclick="focus_question($(this), <?php echo $this->question_info['question_id']; ?>);" class="btn btn-normal btn-default pull-left aw-follow-question<?php if (!$this->question_focus) { ?> aw-active<?php } ?>"><?php if ($this->question_focus) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?></a>
 							<!-- 下拉菜单 -->
 							<div class="btn-group pull-left">
 								<a class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" href="javascript:;">
@@ -112,8 +113,6 @@
 						<div class="aw-question-detail-meta">
 							<span class="pull-left aw-text-color-999"><?php echo date_friendly($this->question_info['add_time']); ?></span>
 
-							<a class="aw-text-color-999" href="javascript:;"><i class="icon-thumbs-up-alt"></i>赞同</a>
-							<a class="aw-text-color-999" href="javascript:;"><i class="icon-thumbs-down-alt"></i>反对</a>
 							<a herf="javascript:;" data-id="<?php echo $this->question_info['question_id']; ?>" data-type="question" class="aw-add-comment aw-text-color-999"<?php if ($this->question_info['lock']) { ?> data-close="true"<?php } ?>><i class="icon-comment"></i><?php if ($this->question_info['comment_count']) { ?><?php _e('%s 条评论', $this->question_info['comment_count']); ?><?php } else { ?><?php _e('添加评论'); ?><?php } ?></a>
 							<div class="aw-share-dropdown pull-left">
 								<a class="aw-text-color-999 dropdown-toggle" data-toggle="dropdown"><i class="icon-share-alt"></i><?php _e('分享'); ?></a>
@@ -130,6 +129,13 @@
 								</div>
 							</div>
 							<?php if ((!$this->question_info['lock'] AND ($this->question_info['published_uid'] == $this->user_id OR $this->user_info['permission']['edit_question'])) OR $this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?><a class="aw-text-color-999" href="publish/<?php echo $this->question_info['question_id']; ?>"><i class="icon-edit"></i><?php _e('编辑'); ?></a><?php } ?>
+							<?php if ($this->question_info['unverified_modify_count']) { ?><a href="question/<?php echo $this->question_info['question_id']; ?>?column=log&rf=false" class="aw-text-color-999 aw-question-wait-edit"><i class="icon-check"></i><?php _e('待确认修改'); ?><em class="badge badge-info"><?php echo $this->question_info['unverified_modify_count']; ?></em></a><?php } ?>
+							<?php if (($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) AND $this->question_info['ip']) { ?><a href="javascript:;" title="<?php echo long2ip($this->question_info['ip']); ?>" onclick="$.alert('<?php _e('系统记录的 IP 地址为'); ?>: <?php echo long2ip($this->question_info['ip']); ?>');" class="aw-text-color-999"><i class="icon-map-marker"></i><?php _e('IP 地址'); ?></a><?php } ?>
+							<?php if ($this->user_id) { ?><a href="javascript:;" class="aw-text-color-999" onclick="$.dialog('report', {item_type:'question', item_id:<?php echo $this->question_info['question_id']; ?>})"><i class="icon-flag"></i><?php _e('举报'); ?></a><?php } ?>
+							<?php if ($this->user_id != $this->question_info['published_uid'] AND $this->user_id) { ?>
+							<a <?php if (!$this->question_thanks) { ?>data-placement="bottom" title="" data-toggle="tooltip" data-original-title="<?php _e('感谢提问者'); ?>" onclick="question_thanks(<?php echo $this->question_info['question_id']; ?>, this);"<?php } ?> class="aw-icon-thank-tips aw-text-color-999"><i class="icon-heart"></i><?php if ($this->question_thanks) { ?><?php _e('已感谢'); ?><?php } else { ?><?php _e('感谢'); ?><?php } ?></a>
+							<?php } ?>
+			
 						</div>
 					</div>
 				</div>
@@ -348,7 +354,7 @@
 			<div class="col-sm-12 col-md-3 aw-side-bar">
 				<!-- 发起人 -->
 				<?php if ($this->question_info['anonymous'] == 0) { ?>
-				<div class="aw-side-bar-mod user-detail">
+				<div class="aw-side-bar-mod">
 					<div class="aw-side-bar-mod-head">
 						<h3><?php _e('发起人'); ?></h3>
 					</div>
@@ -362,26 +368,6 @@
 								<p><?php echo $this->question_info['user_info']['signature']; ?></p>
 							</dd>
 						</dl>
-					</div>
-					<div class="aw-side-bar-mod-footer">
-						<ul class="aw-text-color-999">
-							<li>
-								积分 : <span>123</span>
-							</li>
-							<li>
-								威望 : <span>123</span>
-							</li>
-							<li>
-								用户组 : <span>123</span>
-							</li>
-							<li>
-								擅长话题 : <span>anwsion , wecenter , 设计 , 模板 , 开发</span>
-							</li>
-						</ul>
-						<?php if ($this->user['uid'] != $this->user_id AND $this->user_id) { ?>
-						<a href="javascript:;" class="btn btn-mini btn-default<?php if (!$this->user_follow_check) { ?> aw-active<?php } ?>" onclick="follow_people($(this), <?php echo $this->user['uid']; ?>);"><?php if ($this->user_follow_check) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?></a>
-						<a class="btn btn-primary btn-mini" href="javascript:;" onclick="$.dialog('inbox', '<?php echo $this->user['user_name']; ?>');">发私信</a>
-						<?php } ?>
 					</div>
 				</div>
 				<?php } ?>
