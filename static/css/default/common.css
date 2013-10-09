@@ -330,7 +330,7 @@ a.aw-load-more-content{display: block;}
 /* 专题页面侧边栏 */
 .aw-side-bar-mod-feature{background: #F4FAFE;border: 1px solid #D9EEFB !important;}
 /* 侧边栏公告 */
-.aw-side-bar-mod.new-message{padding:10px;background: #FCFDDB;border: 1px solid #F9F2A7 !important;}
+.aw-side-bar-mod.new-message{margin-bottom:20px;padding:10px;background: #FCFDDB;border: 1px solid #F9F2A7 !important;}
 .aw-side-bar-mod.new-message .aw-mod-head h3{margin:0;}
 /* 侧边栏导航条 */
 .aw-side-bar-mod-nav{padding-top:20px;}
