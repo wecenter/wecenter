@@ -1606,7 +1606,7 @@ class question_class extends AWS_MODEL
 		
 		$found_rows_cache_key = 'question_list_by_topic_ids_found_rows_' . implode('_', $topic_ids) . '_' . md5($answer_count . $category_id . $is_recommend . $per_page);
 			
-		$where[] = 'topic_question.topic_id IN(' . implode(',', $topic_ids) . ')';
+		$where[] = 'topic_relation.topic_id IN(' . implode(',', $topic_ids) . ')';
 			
 		if ($answer_count !== null)
 		{
