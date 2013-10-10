@@ -196,7 +196,7 @@ class publish_class extends AWS_MODEL
 			{
 				foreach ($topics as $key => $topic_title)
 				{
-					$topic_id = $this->model('topic')->save_topic($question_id, $topic_title, $uid, 0, null, $create_topic);
+					$topic_id = $this->model('topic')->save_topic($question_id, $topic_title, $uid, null, $create_topic);
 					
 					$this->model('question')->save_link($topic_id, $question_id);
 				}

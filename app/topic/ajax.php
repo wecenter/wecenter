@@ -181,7 +181,7 @@ class ajax extends AWS_CONTROLLER
 			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('话题标题字数不得超过 %s 字节', get_setting('topic_title_limit'))));
 		}
 		
-		if (! $related_id = $this->model('topic')->save_topic(0, $topic_title, $this->user_id, 0, null, $this->user_info['permission']['create_topic']))
+		if (! $related_id = $this->model('topic')->save_topic(0, $topic_title, $this->user_id, null, $this->user_info['permission']['create_topic']))
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('话题已锁定或没有创建话题权限')));
 		}

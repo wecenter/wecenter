@@ -257,7 +257,7 @@ class topic_class extends AWS_MODEL
 		return $this->fetch_one('topic', 'topic_id', "topic_title = '" . $this->quote($topic_title) . "'");
 	}
 	
-	public function save_topic($question_id, $topic_title, $uid = null, $topic_lock = 0, $topic_type = null, $auto_create = true)
+	public function save_topic($question_id, $topic_title, $uid = null, $topic_type = null, $auto_create = true)
 	{
 		if (!$topic_id = $this->get_topic_id_by_title($topic_title) AND $auto_create)
 		{
@@ -265,7 +265,7 @@ class topic_class extends AWS_MODEL
 				'topic_title' => htmlspecialchars($topic_title), 
 				'add_time' => time(), 
 				'topic_description' => htmlspecialchars($topic_description), 
-				'topic_lock' => intval($topic_lock)
+				'topic_lock' => 0
 			));
 		
 			//$this->model('search_index')->push_index('topic', $topic_title, $topic_id);	
