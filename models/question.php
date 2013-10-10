@@ -600,7 +600,7 @@ class question_class extends AWS_MODEL
 			return false;
 		}
 		
-		$this->model('answer')->remove_answers_by_question_id($question_id); //删除关联的回复内容
+		$this->model('answer')->remove_answers_by_question_id($question_id); // 删除关联的回复内容
 		
 		// 删除评论
 		$this->delete('question_comments', 'question_id = ' . intval($question_id));
@@ -609,7 +609,7 @@ class question_class extends AWS_MODEL
 		
 		$this->delete('question_thanks', 'question_id = ' . intval($question_id));
 		
-		$this->delete('topic_question', 'question_id = ' . intval($question_id));	// 删除话题关联
+		$this->delete('topic_relation', "`type` = 'question' AND item_id = " . intval($question_id));		// 删除话题关联
 		
 		$this->delete('question_invite', 'question_id = ' . intval($question_id));	// 删除邀请记录
 		
@@ -1625,7 +1625,7 @@ class question_class extends AWS_MODEL
 		
 		if (!$found_rows = AWS_APP::cache()->get($found_rows_cache_key))
 		{
-			$_found_rows = $this->query_row('SELECT COUNT(DISTINCT question.question_id) AS count FROM ' . $this->get_table('question') . ' AS question LEFT JOIN ' . $this->get_table('topic_question') . ' AS topic_question ON question.question_id = topic_question.question_id WHERE ' . implode(' AND ', $where));
+			$_found_rows = $this->query_row('SELECT COUNT(DISTINCT question.question_id) AS count FROM ' . $this->get_table('question') . ' AS question LEFT JOIN ' . $this->get_table('topic_relation') . " AS topic_relation ON question.question_id = topic_relation.item_id AND topic_relation.type = 'question' WHERE " . implode(' AND ', $where));
 			
 			$found_rows = $_found_rows['count'];
 			
@@ -1636,7 +1636,7 @@ class question_class extends AWS_MODEL
 		
 		if (!$result = AWS_APP::cache()->get($result_cache_key))
 		{
-			$result = $this->query_all('SELECT question.* FROM ' . $this->get_table('question') . ' AS question LEFT JOIN ' . $this->get_table('topic_question') . ' AS topic_question ON question.question_id = topic_question.question_id WHERE ' . implode(' AND ', $where) . ' GROUP BY question.question_id ORDER BY question.' . $order_by, calc_page_limit($page, $per_page));
+			$result = $this->query_all('SELECT question.* FROM ' . $this->get_table('question') . ' AS question LEFT JOIN ' . $this->get_table('topic_relation') . " AS topic_relation ON question.question_id = topic_relation.item_id AND topic_relation.type = 'question' WHERE " . implode(' AND ', $where) . ' GROUP BY question.question_id ORDER BY question.' . $order_by, calc_page_limit($page, $per_page));
 			
 			AWS_APP::cache()->set($result_cache_key, $result, get_setting('cache_level_high'));
 		}
@@ -1670,7 +1670,7 @@ class question_class extends AWS_MODEL
 		
 		array_walk_recursive($question_ids, 'intval_string');
 		
-		if (!$question_topic = $this->fetch_all('topic_question', "question_id IN (" . implode(',', $question_ids) . ")"))
+		if (!$question_topic = $this->fetch_all('topic_relation', "item_id IN(" . implode(',', $question_ids) . ") AND `type` = 'question'"))
 		{
 			foreach ($question_ids AS $question_id)
 			{
@@ -1721,7 +1721,7 @@ class question_class extends AWS_MODEL
 			return false;
 		}
 		
-		if (!$topic_ids_query = $this->query_all("SELECT DISTINCT topic_id FROM " . $this->get_table('topic_question') . " WHERE question_id IN(" . implode(',', $question_ids) . ")"))
+		if (!$topic_ids_query = $this->query_all("SELECT DISTINCT topic_id FROM " . $this->get_table('topic_relation') . " WHERE item_id IN(" . implode(',', $question_ids) . ") AND `type` = 'question'"))
 		{
 			return false;	
 		}
@@ -1754,7 +1754,7 @@ class question_class extends AWS_MODEL
 		
 		$topics = $this->model('topic')->get_topics_by_ids($topic_ids);
 		
-		if ($topic_question = $this->fetch_all('topic_question', 'question_id IN(' . implode(',', $question_ids) . ') AND topic_id IN (' . implode(',', $topic_ids) . ')'))
+		if ($topic_question = $this->fetch_all('topic_relation', 'item_id IN(' . implode(',', $question_ids) . ') AND topic_id IN(' . implode(',', $topic_ids) . ") AND `type` = 'question'"))
 		{
 			foreach ($topic_question AS $key => $val)
 			{			
@@ -1793,14 +1793,13 @@ class question_class extends AWS_MODEL
 			return $flag;
 		}
 		
-		$data = array(
+		$insert_id = $this->insert('topic_relation', array(
 			'topic_id' => $topic_id, 
-			'question_id' => $question_id, 
+			'item_id' => $question_id, 
 			'add_time' => (intval($add_time) == 0) ? time() : $add_time, 
-			'uid' => USER::get_client_uid()
-		);
-		
-		$insert_id = $this->insert('topic_question', $data);
+			'uid' => USER::get_client_uid(),
+			'type' => 'question'
+		));
 		
 		$this->model('topic')->update_discuss_count($topic_id);
 		
@@ -1809,43 +1808,23 @@ class question_class extends AWS_MODEL
 
 	/**
 	 * 
-	 * 删除话题与问题想关联
-	 * @param int $topic_question_id
-	 * 
-	 * @return boolean true|false
-	 */
-	public function delete_link($topic_question_id)
-	{
-		return $this->delete('topic_question', 'topic_question_id = ' . intval($topic_question_id));
-	}
-
-	/**
-	 * 
 	 * 判断是否话题与问题已经相关联
 	 * @param int $topic_id
 	 * @param int $question_id
 	 * 
-	 * @return int topic_question_id
+	 * @return int
 	 */
 	public function has_link_by_question_topic($topic_id, $question_id)
 	{
-		$where = "topic_id = " . intval($topic_id);
+		$where[] = 'topic_id = ' . intval($topic_id);
+		$where[] = "`type` = 'question'";
 		
 		if ($question_id)
 		{
-			$where .= " AND question_id = " . $question_id;
+			$where[] = 'item_id = ' . $question_id;
 		}
 		
-		$result = $this->fetch_row('topic_question', $where);
-		
-		if ($result['topic_question_id'])
-		{
-			return $result['topic_question_id'];
-		}
-		else
-		{
-			return 0;
-		}
+		return $this->fetch_one('topic_relation', 'id', implode(' AND ', $where));
 	}
 	
 	public function lock_question($question_id, $lock = true)

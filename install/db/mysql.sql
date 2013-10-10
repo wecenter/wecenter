@@ -586,18 +586,20 @@ CREATE TABLE `[#DB_PREFIX#]topic_merge` (
   KEY `source_id` (`source_id`),
   KEY `target_id` (`target_id`),
   KEY `uid` (`uid`)
-) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8 ;
+) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
 
-CREATE TABLE `[#DB_PREFIX#]topic_question` (
-  `topic_question_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增ID',
+CREATE TABLE `[#DB_PREFIX#]topic_relation` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增 ID',
   `topic_id` int(11) DEFAULT '0' COMMENT '话题id',
-  `question_id` int(11) DEFAULT '0' COMMENT '问题ID',
+  `item_id` int(11) DEFAULT '0',
   `add_time` int(10) DEFAULT '0' COMMENT '添加时间',
   `uid` int(11) DEFAULT '0' COMMENT '用户ID',
-  PRIMARY KEY (`topic_question_id`),
-  KEY `topic_id` ( `topic_id` ),
-  KEY `question_id` ( `question_id` ),
-  KEY `uid` ( `uid` )
+  `type` varchar(16) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `topic_id` (`topic_id`),
+  KEY `uid` (`uid`),
+  KEY `type` (`type`),
+  KEY `item_id` (`item_id`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]users` (

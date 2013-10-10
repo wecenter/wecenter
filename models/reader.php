@@ -38,7 +38,7 @@ class reader_class extends AWS_MODEL
 		
 		if (!$result = AWS_APP::cache()->get($result_cache_key))
 		{
-			$result = $this->query_all('SELECT * FROM ' . $this->get_table('answer') . ' WHERE question_id IN(SELECT question.question_id FROM ' . $this->get_table('question') . ' AS question LEFT JOIN ' . $this->get_table('topic_question') . ' AS topic_question ON question.question_id = topic_question.question_id WHERE topic_question.topic_id IN(' . implode(',', $topic_ids) . ')) AND add_time > ' . (time() - 86400 * intval(get_setting('reader_questions_last_days'))) . ' AND agree_count >= ' . intval(get_setting('reader_questions_agree_count')) . ' ORDER BY add_time DESC', calc_page_limit($page, $limit));
+			$result = $this->query_all('SELECT * FROM ' . $this->get_table('answer') . ' WHERE question_id IN(SELECT question.question_id FROM ' . $this->get_table('question') . ' AS question LEFT JOIN ' . $this->get_table('topic_relation') . " AS topic_relation ON question.question_id = topic_relation.item_id AND topic_relation.type = 'question' WHERE topic_question.topic_id IN(" . implode(',', $topic_ids) . ')) AND add_time > ' . (time() - 86400 * intval(get_setting('reader_questions_last_days'))) . ' AND agree_count >= ' . intval(get_setting('reader_questions_agree_count')) . ' ORDER BY add_time DESC', calc_page_limit($page, $limit));
 			
 			AWS_APP::cache()->set($result_cache_key, $result, get_setting('cache_level_low'));
 		}

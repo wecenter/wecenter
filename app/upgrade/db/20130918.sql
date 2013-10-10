@@ -12,3 +12,13 @@ CREATE TABLE `[#DB_PREFIX#]article` (
   PRIMARY KEY (`id`),
   KEY `uid` (`uid`,`comments`,`views`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
+
+ALTER TABLE `[#DB_PREFIX#]topic_question` CHANGE `topic_question_id` `id` INT( 11 ) NOT NULL AUTO_INCREMENT COMMENT '自增 ID';
+
+ALTER TABLE `[#DB_PREFIX#]topic_question` CHANGE `question_id`  `item_id` INT( 11 ) NULL DEFAULT '0';
+
+ALTER TABLE `[#DB_PREFIX#]topic_question` ADD `type` VARCHAR( 16 ) NULL, ADD INDEX ( `type` );
+
+RENAME TABLE `[#DB_PREFIX#]topic_question` TO `[#DB_PREFIX#]topic_relation`;
+
+UPDATE `[#DB_PREFIX#]topic_relation` SET `type` = 'question';

@@ -159,6 +159,11 @@ class ACTION_LOG
 	 */
 	const CATEGORY_TOPIC = 4;
 	
+	/** 
+	 * 添加文章
+	 */
+	const ADD_ARTICLE = 501;
+	
 	/**
 	 * 
 	 * 类型定义对应数组
@@ -188,7 +193,8 @@ class ACTION_LOG
 		self::ADD_TOPIC_FOCUS => '关注话题', 
 		self::DELETE_TOPIC_FOCUS => '取消话题关注', 
 		self::ADD_TOPIC_PARENT => '增加话题分类', 
-		self::DELETE_TOPIC_PARENT => '删除话题分类'
+		self::DELETE_TOPIC_PARENT => '删除话题分类',
+		self::ADD_ARTICLE => '添加文章'
 	);
 	
 	public static function associate_fresh_action($history_id, $associate_id, $associate_type, $associate_action, $uid, $anonymous, $add_time)

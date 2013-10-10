@@ -236,6 +236,29 @@ class publish_class extends AWS_MODEL
 		return $question_id;
 	}
 	
+	public function publish_article($title, $message, $uid, $topics = null, $attach_access_key = null)
+	{
+		if ($article_id = $this->insert('article', array(
+			'uid' => intval($uid),
+			'title' => htmlspecialchars($title),
+			'message' => htmlspecialchars($message),
+			'add_time' => time()
+		)))
+		{
+			set_human_valid('question_valid_hour');
+			
+			if ($attach_access_key)
+			{
+				$this->model('publish')->update_attach('article', $article_id, $attach_access_key);
+			}
+			
+			// 记录日志
+			ACTION_LOG::save_action($uid, $article_id, ACTION_LOG::CATEGORY_QUESTION, ACTION_LOG::ADD_ARTICLE, htmlspecialchars($title), htmlspecialchars($message), 0);
+		}
+		
+		return $article_id;
+	}
+	
 	public function update_attach($item_type, $item_id, $attach_access_key)
 	{
 		if (! $attach_access_key)

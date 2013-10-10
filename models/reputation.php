@@ -66,11 +66,11 @@ class reputation_class extends AWS_MODEL
 					unset($questions_info_query);
 				}
 							
-				if ($question_topics_query = $this->query_all('SELECT question_id, topic_id FROM ' . get_table('topic_question') . ' WHERE question_id IN(' . implode(',', $question_ids) . ')'))
+				if ($question_topics_query = $this->query_all('SELECT item_id, topic_id FROM ' . get_table('topic_relation') . ' WHERE item_id IN(' . implode(',', $question_ids) . ") AND `type` = 'question'"))
 				{
 					foreach ($question_topics_query AS $question_topics_key => $question_topics_val)
 					{
-						$question_topics[$question_topics_val['question_id']][] = $question_topics_val;
+						$question_topics[$question_topics_val['item_id']][] = $question_topics_val;
 					}
 							
 					unset($question_topics_query);

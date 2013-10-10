@@ -329,7 +329,7 @@ class topic_class extends AWS_MODEL
 		
 		if ($question_id)
 		{
-			$this->delete('topic_question', ' topic_id = ' . intval($topic_id) . ' AND question_id = ' . intval($question_id));
+			$this->delete('topic_relation', 'topic_id = ' . intval($topic_id) . ' AND item_id = ' . intval($question_id) . " AND `type` = 'question'");
 			
 			if ($action_log)
 			{
@@ -526,7 +526,7 @@ class topic_class extends AWS_MODEL
 			return false;
 		}
 		
-		$this->shutdown_query("UPDATE " . $this->get_table('topic') . " SET discuss_count = (SELECT COUNT(*) FROM " . $this->get_table('topic_question') . " WHERE topic_id = " . intval($topic_id) . ") WHERE topic_id = " . intval($topic_id));
+		$this->shutdown_query("UPDATE " . $this->get_table('topic') . " SET discuss_count = (SELECT COUNT(*) FROM " . $this->get_table('topic_relation') . " WHERE topic_id = " . intval($topic_id) . ") WHERE topic_id = " . intval($topic_id));
 		
 		return true;
 	}
@@ -577,7 +577,7 @@ class topic_class extends AWS_MODEL
 			ACTION_LOG::delete_action_history('associate_type = ' . ACTION_LOG::CATEGORY_QUESTION . ' AND associate_action = ' . ACTION_LOG::ADD_TOPIC . ' AND associate_attached = ' . intval($topic_id));
 			
 			$this->delete('topic_focus', 'topic_id = ' . intval($topic_id));
-			$this->delete('topic_question', 'topic_id = ' . intval($topic_id));
+			$this->delete('topic_relation', 'topic_id = ' . intval($topic_id));
 			$this->delete('feature_topic', 'topic_id = ' . intval($topic_id));
 			$this->delete('related_topic', 'topic_id = ' . intval($topic_id) . ' OR related_id = ' . intval($topic_id));
 			$this->delete('reputation_topic', ' topic_id = ' . intval($topic_id));
@@ -677,11 +677,11 @@ class topic_class extends AWS_MODEL
 		
 		if (!$result = AWS_APP::cache()->get('best_question_ids_by_topics_ids_' . implode('', $topic_ids)))
 		{
-			if ($question_ids_query = $this->query_all("SELECT question_id FROM " . $this->get_table('topic_question') . " WHERE topic_id IN (" . implode(',', $topic_ids) . ")"))
+			if ($question_ids_query = $this->query_all("SELECT item_id FROM " . $this->get_table('topic_relation') . " WHERE topic_id IN (" . implode(',', $topic_ids) . ") AND `type` = 'question'"))
 			{
 				foreach ($question_ids_query AS $key => $val)
 				{
-					$question_ids[] = $val['question_id'];	
+					$question_ids[] = $val['item_id'];	
 				}
 					
 				unset($question_ids_query);
@@ -734,11 +734,11 @@ class topic_class extends AWS_MODEL
 		
 		array_walk_recursive($topic_ids, 'intval_string');
 		
-		if ($result = $this->query_all("SELECT question_id FROM " . $this->get_table('topic_question') . " WHERE topic_id IN (" . implode(',', $topic_ids) . ") ORDER BY question_id DESC", $limit))
+		if ($result = $this->query_all("SELECT item_id FROM " . $this->get_table('topic_relation') . " WHERE topic_id IN(" . implode(',', $topic_ids) . ") AND `type` = 'question' ORDER BY item_id DESC", $limit))
 		{
 			foreach ($result AS $key => $val)
 			{
-				$question_ids[] = $val['question_id'];	
+				$question_ids[] = $val['item_id'];	
 			}
 		}
 		
@@ -813,7 +813,7 @@ class topic_class extends AWS_MODEL
 			return false;
 		}
 		
-		if (!$topic_ids_query = $this->fetch_all('topic_question', 'question_id IN (' . implode(',', $question_ids) . ')'))
+		if (!$topic_ids_query = $this->fetch_all('topic_relation', 'item_id IN(' . implode(',', $question_ids) . ") AND `type` = 'question'"))
 		{
 			return false;
 		}
@@ -822,7 +822,7 @@ class topic_class extends AWS_MODEL
 		{
 			$topic_ids[] = $val['topic_id'];
 				
-			$topic_question[$val['topic_id']][$val['question_id']] = $val['question_id'];
+			$topic_question[$val['topic_id']][$val['item_id']] = $val['item_id'];
 		}
 		
 		if ($result = $this->get_topics_by_ids($topic_ids))
