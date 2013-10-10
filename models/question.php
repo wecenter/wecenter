@@ -1774,15 +1774,11 @@ class question_class extends AWS_MODEL
 	 * 生成问题与话题相关联
 	 * @param int $data $topic_id //话题id
 	 * @param int $question_id    //问题ID
-	 * @param int $add_time       //添加时间
 	 * 
-	 * @return boolean true|false
+	 * @return int
 	 */
-	public function save_link($topic_id, $question_id, $add_time = '')
+	public function save_link($topic_id, $question_id)
 	{
-		$topic_id = intval($topic_id);
-		$question_id = intval($question_id);
-		
 		if (!$topic_id OR !$question_id)
 		{
 			return false;
@@ -1794,9 +1790,9 @@ class question_class extends AWS_MODEL
 		}
 		
 		$insert_id = $this->insert('topic_relation', array(
-			'topic_id' => $topic_id, 
-			'item_id' => $question_id, 
-			'add_time' => (intval($add_time) == 0) ? time() : $add_time, 
+			'topic_id' => intval($topic_id), 
+			'item_id' => intval($question_id), 
+			'add_time' => time(), 
 			'uid' => USER::get_client_uid(),
 			'type' => 'question'
 		));
