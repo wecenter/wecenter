@@ -1701,65 +1701,6 @@ function show_card_box(selecter, type, time) //selecter -> .aw-user-name/.aw-top
     });
 }
 
-/*话题编辑下拉菜单*/
-function get_topic_list_data(e,data)
-{
-    //按,号自动添加话题
-    if (e.which == 188)
-    {
-        if ($('.aw-edit-topic-box #aw_edit_topic_title').val() != ',')
-        {
-            $('.aw-edit-topic-box #aw_edit_topic_title').val( $('.aw-edit-topic-box #aw_edit_topic_title').val().substring(0,$('.aw-edit-topic-box #aw_edit_topic_title').val().length-1));
-            $('.aw-edit-topic-box .aw-topic-dropdown').hide();
-            $('.aw-edit-topic-box .submit-edit').click(); 
-        }else
-        {
-            $('.aw-edit-topic-box #aw_edit_topic_title').val('');
-        }
-    }else
-    {
-         $('.aw-edit-topic-box .aw-topic-dropdown').css('width', $('.aw-edit-topic-box #aw_edit_topic_title').width() + 12);
-        if (data.length >= 2)
-        {
-            $.get(G_BASE_URL + '/search/ajax/search/?type-topic__q-' + encodeURIComponent(data) + '__limit-10', function (result)
-            {
-                if (result.length != 0)
-                {
-                    $('.aw-edit-topic-box .aw-topic-dropdown-list').empty();
-
-                    $.each(result, function (i, a)
-                    {
-                        $('.aw-edit-topic-box .aw-topic-dropdown .aw-topic-dropdown-list').append(Hogan.compile(AW_TEMPLATE.editTopicDorpdownList).render(
-                        {
-                            'name': a['name']
-                        }));
-                    });
-                    $('.aw-edit-topic-box .aw-topic-dropdown').show().children().show();
-                    $('.aw-edit-topic-box .aw-topic-dropdown .title').hide();
-                    //关键词高亮
-                    $('.aw-edit-topic-box .aw-topic-dropdown-list li a').highText(data, 'span', 'active');
-
-                }
-                else
-                {
-                    $('.aw-edit-topic-box .aw-topic-dropdown').show().children('.title').html(_t('没有找到相关结果')).show();
-                    $('.aw-edit-topic-box .aw-topic-dropdown-list').hide();
-                }
-            }, 'json');
-        }
-        else if (data.length > 0 && data.length < 2)
-        {
-            $('.aw-edit-topic-box .aw-topic-dropdown-list').hide();
-            $('.aw-edit-topic-box .aw-topic-dropdown').show().children('.title').html(_t('请输入两个以上关键字...')).show();
-        }
-        else
-        {
-            $('.aw-edit-topic-box .aw-topic-dropdown').hide();
-        }
-    }
-   
-}
-
 /*邀请*/
 function invite_user(obj, name, img)
 {
@@ -1820,13 +1761,24 @@ function add_dropdown_list(selecter, data, selected)
 }
 
 /* 下拉菜单功能绑定 */
-/*
-    type : search, publish, redirect, invite, inbox, topic_question, topic
-*/
 function bind_dropdown_list(selector, type)
 {
-    $(selector).keyup(function()
+    $(selector).keyup(function(e)
     {
+        //话题插入按,号自动插入
+        if (type == 'topic')
+        {
+            if (e.which == 188)
+            {
+                if ($('.aw-edit-topic-box #aw_edit_topic_title').val() != ',')
+                {
+                    $('.aw-edit-topic-box #aw_edit_topic_title').val( $('.aw-edit-topic-box #aw_edit_topic_title').val().substring(0,$('.aw-edit-topic-box #aw_edit_topic_title').val().length-1));
+                    $('.aw-edit-topic-box .aw-topic-dropdown').hide();
+                    $('.aw-edit-topic-box .submit-edit').click(); 
+                }
+                return false;
+            }
+        }
         if ($(selector).val().length >= 2)
         {
            get_dropdown_list(selector, type, $(selector).val());
