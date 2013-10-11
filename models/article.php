@@ -25,5 +25,23 @@ class article_class extends AWS_MODEL
 		return $this->fetch_row('article', 'id = ' . intval($article_id));
 	}
 	
-	
+	public function get_article_info_by_ids($article_ids)
+	{
+		if (!is_array($article_ids) OR sizeof($article_ids) == 0)
+		{
+			return false;
+		}
+		
+		array_walk_recursive($article_ids, 'intval_string');
+		
+	    if ($articles_list = $this->fetch_all('article', "id IN(" . implode(',', $article_ids) . ")"))
+	    {
+		    foreach ($articles_list AS $key => $val)
+		    {
+		    	$result[$val['id']] = $val;
+		    }
+	    }
+	    
+	    return $result;
+	}
 }
