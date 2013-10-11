@@ -66,7 +66,7 @@ class ajax extends AWS_CONTROLLER
 					$has_focus_questions = $this->model('question')->has_focus_questions($question_ids, $this->user_id);
 				}*/
 				
-				$topics_questions = $this->model('question')->get_question_topic_by_question_ids($question_ids);
+				$topics_questions = $this->model('topic')->get_topics_by_item_ids($question_ids, 'question');
 				
 				foreach ($data as $key => $val)
 				{

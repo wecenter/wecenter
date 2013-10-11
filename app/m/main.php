@@ -249,7 +249,7 @@ class main extends AWS_CONTROLLER
 		TPL::assign('question_id', $question_id);
 		TPL::assign('question_info', $question_info);
 		TPL::assign('question_focus', $this->model("question")->has_focus_question($question_id, $this->user_id));
-		TPL::assign('question_topics', $this->model('question')->get_question_topic_by_question_id($question_id));
+		TPL::assign('question_topics', $this->model('topic')->get_topics_by_item_id($question_id, 'question'));
 		
 		$this->crumb($question_info['question_content'], '/m/question/' . $question_id);
 		

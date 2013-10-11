@@ -126,6 +126,68 @@ class main extends AWS_CONTROLLER
 	
 	public function article_action()
 	{
+		if ($_GET['id'])
+		{
+			if (!$article_info = $this->model('article')->get_article_info_by_id($_GET['id']))
+			{
+				H::redirect_msg(AWS_APP::lang()->_t('指定文章不存在'));
+			}
+			
+			if (!$this->user_info['permission']['is_administortar'] AND !$this->user_info['permission']['is_moderator'] AND !$this->user_info['permission']['edit_question'])
+			{
+				if ($question_info['published_uid'] != $this->user_id)
+				{
+					H::redirect_msg(AWS_APP::lang()->_t('你没有权限编辑这个文章'), '/article/' . $_GET['id']);
+				}
+			}
+			
+			TPL::assign('article_info', $article_info);
+		}
+		else if (!$this->user_info['permission']['publish_question'])
+		{
+			H::redirect_msg(AWS_APP::lang()->_t('你所在用户组没有权限发布文章'));
+		}
+		else if ($this->is_post() AND $_POST['message'])
+		{
+			TPL::assign('article_info', array(
+				'title' => $_POST['title'],
+				'message' => $_POST['message']
+			));
+		}
+		else
+		{
+			$draft_content = $this->model('draft')->get_data(1, 'article', $this->user_id);
+			
+			TPL::assign('article_info', array(
+				'title' => $_POST['title'],
+				'message' => $draft_content['message']
+			));
+		}
+		
+		if (($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator'] OR $article_info['uid'] == $this->user_id AND $_GET['id']) OR !$_GET['id'])
+		{
+			TPL::assign('attach_access_key', md5($this->user_id . time()));
+		}
+		
+		TPL::assign('human_valid', human_valid('question_valid_hour'));
+		
+		TPL::import_js('js/publish.js');
+		
+		if (get_setting('advanced_editor_enable') == 'Y')
+		{
+			// codemirror
+			TPL::import_css('js/editor/codemirror/lib/codemirror.css');
+			TPL::import_js('js/editor/codemirror/lib/codemirror.js');
+			TPL::import_js('js/editor/codemirror/lib/util/continuelist.js');
+			TPL::import_js('js/editor/codemirror/mode/xml/xml.js');
+			TPL::import_js('js/editor/codemirror/mode/markdown/markdown.js');
+
+			// editor
+			TPL::import_js('js/editor/jquery.markitup.js');
+			TPL::import_js('js/editor/markdown.js');
+			TPL::import_js('js/editor/sets/default/set.js');
+		}
+		
 		TPL::output('publish/article');
 	}
 	

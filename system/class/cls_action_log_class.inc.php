@@ -707,6 +707,10 @@ class ACTION_LOG
 			case ACTION_LOG::DELETE_TOPIC_FOCUS : // '取消话题关注',
 				$action_str = '<a href="' . $user_url . '" ' . $user_tip . '>' . $user_name . '</a> ' . AWS_APP::lang()->_t('取消话题关注');
 				break;
+				
+			case ACTION_LOG::ADD_ARTICLE :
+				$action_str = '<a href="' . $user_url . '" ' . $user_tip . '>' . $user_name . '</a> ' . AWS_APP::lang()->_t('发表了文章');
+				break;
 		}
 		
 		return $action_str;

@@ -1212,4 +1212,96 @@ class topic_class extends AWS_MODEL
 			'seo_title' => htmlspecialchars($seo_title)
 		), 'topic_id = ' . intval($topic_id));
 	}
+	
+	public function save_topic_relation($uid, $topic_id, $item_id, $type)
+	{
+		if (!$topic_id OR !$item_id OR !$type)
+		{
+			return false;
+		}
+		
+		if ($flag = $this->check_topic_relation($topic_id, $item_id, $type))
+		{
+			return $flag;
+		}
+		
+		$insert_id = $this->insert('topic_relation', array(
+			'topic_id' => intval($topic_id), 
+			'item_id' => intval($question_id), 
+			'add_time' => time(), 
+			'uid' => intval($uid),
+			'type' => 'question'
+		));
+		
+		$this->model('topic')->update_discuss_count($topic_id);
+		
+		return $insert_id;
+	}
+	
+	public function check_topic_relation($topic_id, $item_id, $type)
+	{
+		$where[] = 'topic_id = ' . intval($topic_id);
+		$where[] = "`type` = '" . $this->quote($type) . "'";
+		
+		if ($item_id)
+		{
+			$where[] = 'item_id = ' . intval($item_id);
+		}
+		
+		return $this->fetch_one('topic_relation', 'id', implode(' AND ', $where));
+	}
+	
+	public function get_topics_by_item_id($item_id, $type)
+	{
+		$result = $this->get_topics_by_item_ids(array(
+			$item_id
+		), $type);
+		
+		return $result[$item_id];
+	}
+	
+	public function get_topics_by_item_ids($item_ids, $type)
+	{		
+		if (!is_array($item_ids) OR sizeof($item_ids) == 0)
+		{
+			return false;
+		}
+		
+		array_walk_recursive($item_ids, 'intval_string');
+		
+		if (!$item_topics = $this->fetch_all('topic_relation', "item_id IN(" . implode(',', $item_ids) . ") AND `type` = '" . $this->quote($type) . "'"))
+		{
+			foreach ($item_ids AS $item_id)
+			{
+				if (!$result[$item_id])
+				{
+					$result[$item_id] = array();	
+				}
+			}
+			
+			return $result;	
+		}
+		
+		foreach ($item_topics AS $key => $val)
+		{
+			$topic_ids[] = $val['topic_id'];
+		}
+		
+		$topics_info = $this->model('topic')->get_topics_by_ids($topic_ids);
+		
+		foreach ($item_topics AS $key => $val)
+		{
+			$result[$val['item_id']][] = $topics_info[$val['topic_id']];
+		}
+		
+		foreach ($item_ids AS $item_id)
+		{
+			if (!$result[$item_id])
+			{
+				$result[$item_id] = array();	
+			}
+		}
+		
+		return $result;
+	}
 }

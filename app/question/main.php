@@ -137,7 +137,7 @@ class main extends AWS_CONTROLLER
 			$question_info['category_info'] = $this->model('system')->get_category_info($question_info['category_id']);
 		}
 		
-		$question_info['user_info'] = $this->model("account")->get_user_info_by_uid($question_info['published_uid'], true);
+		$question_info['user_info'] = $this->model('account')->get_user_info_by_uid($question_info['published_uid'], true);
 		
 		if ($_GET['column'] != 'log')
 		{
@@ -319,7 +319,7 @@ class main extends AWS_CONTROLLER
 		TPL::assign('question_info', $question_info);
 		TPL::assign('question_focus', $this->model('question')->has_focus_question($question_info['question_id'], $this->user_id));
 		
-		$question_topics = $this->model('question')->get_question_topic_by_question_id($question_info['question_id']);
+		$question_topics = $this->model('topic')->get_topics_by_item_id($question_info['question_id'], 'question');
 		
 		if (sizeof($question_topics) == 0 AND $this->user_id)
 		{

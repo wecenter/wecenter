@@ -778,7 +778,7 @@ class ajax extends AWS_CONTROLLER
 			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('锁定问题不能添加话题')));
 		}
 		
-		if (sizeof($this->model('question')->get_question_topic_by_question_id($question_info['question_id'])) >= get_setting('question_topics_limit') AND get_setting('question_topics_limit'))
+		if (sizeof($this->model('topic')->get_topics_by_item_id($question_info['question_id'], 'question')) >= get_setting('question_topics_limit') AND get_setting('question_topics_limit'))
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('单个问题话题数量最多为 %s 个, 请调整话题数量', get_setting('question_topics_limit'))));
 		}
@@ -793,7 +793,7 @@ class ajax extends AWS_CONTROLLER
 			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('话题已锁定或没有创建话题权限, 不能添加话题')));
 		}
 		
-		$this->model('question')->save_link($topic_id, $_GET['question_id']);
+		$this->model('topic')->save_topic_relation($this->user_id, $topic_id, $_GET['question_id'], 'question');
 		
 		if (!($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']))
 		{

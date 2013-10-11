@@ -64,7 +64,7 @@ class ajax extends AWS_CONTROLLER
 			
 			$questions_info = $this->model('question')->get_question_info_by_ids($question_ids);
 			
-			$question_topics = $this->model('question')->get_question_topic_by_question_ids($question_ids);
+			$question_topics = $this->model('topic')->get_topics_by_item_ids($question_ids, 'question');
 			
 			$users_info = $this->model('account')->get_user_info_by_uids($uids, TRUE);
 			

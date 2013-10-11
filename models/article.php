@@ -20,5 +20,10 @@ if (!defined('IN_ANWSION'))
 
 class article_class extends AWS_MODEL
 {
+	public function get_article_info_by_id($article_id)
+	{
+		return $this->fetch_row('article', 'id = ' . intval($article_id));
+	}
+	
 	
 }
