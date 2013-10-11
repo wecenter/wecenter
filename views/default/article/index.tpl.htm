@@ -78,7 +78,55 @@
 							<h2><?php if ($_GET['single']) { ?><?php _e('查看单个回答'); ?><?php } else { ?><?php _e('%s 个回复', $this->answer_count); ?><?php } ?></h2>
 						</ul>
 					</div>
-					<div class="aw-mod-body aw-dynamic-topic">
+					<div class="aw-mod-body aw-dynamic-topic aw-article-detail">
+						<div class="aw-item">
+							<a class="aw-user-name">
+								<img src="http://192.168.1.248/anwsion/trunk/uploads/avatar/000/00/00/01_avatar_mid.jpg" alt="admin">
+							</a>
+							<div class="aw-item-content">
+								<a>kk</a>
+								<div class="markitup-box">
+									不说别的，世人都说蒋介石杀了李大钊，再没比这更扯的了，吊死李大剑的，是爱国将军张学良他老子，张作霖。
+								</div>
+								<div class="aw-item-meta">
+									<span>2 小时前</span>
+									<a><i class="icon-share-alt"></i> 回复</a>
+									<a><i class="icon-thumbs-up-alt"></i> 赞</a>
+								</div>
+							</div>
+						</div>
+						<div class="aw-item">
+							<a class="aw-user-name">
+								<img src="http://192.168.1.248/anwsion/trunk/uploads/avatar/000/00/00/01_avatar_mid.jpg" alt="admin">
+							</a>
+							<div class="aw-item-content">
+								<a>kk</a>
+								<div class="markitup-box">
+									不说别的，世人都说蒋介石杀了李大钊，再没比这更扯的了，吊死李大剑的，是爱国将军张学良他老子，张作霖。
+								</div>
+								<div class="aw-item-meta">
+									<span>2 小时前</span>
+									<a><i class="icon-share-alt"></i> 回复</a>
+									<a><i class="icon-thumbs-up-alt"></i> 赞</a>
+								</div>
+							</div>
+						</div>
+						<div class="aw-item">
+							<a class="aw-user-name">
+								<img src="http://192.168.1.248/anwsion/trunk/uploads/avatar/000/00/00/01_avatar_mid.jpg" alt="admin">
+							</a>
+							<div class="aw-item-content">
+								<a>kk</a>
+								<div class="markitup-box">
+									不说别的，世人都说蒋介石杀了李大钊，再没比这更扯的了，吊死李大剑的，是爱国将军张学良他老子，张作霖。
+								</div>
+								<div class="aw-item-meta">
+									<span>2 小时前</span>
+									<a><i class="icon-share-alt"></i> 回复</a>
+									<a><i class="icon-thumbs-up-alt"></i> 赞</a>
+								</div>
+							</div>
+						</div>
 						<?php if ($this->answers) { foreach ($this->answers AS $key => $val) { ?>
 							<div class="aw-item" uninterested_count="<?php echo $val['uninterested_count']; ?>" force_fold="<?php if ($val['user_rated_uninterested']) { ?>1<?php } else { ?><?php echo $val['force_fold']; ?><?php } ?>" id="answer_list_<?php echo $val['answer_id']; ?>">
 								<?php if ($this->article_info['best_answer'] == $val['answer_id']) { ?>
@@ -164,7 +212,7 @@
 						<p><a class="aw-user-name"><?php echo $this->user_info['user_name']; ?></a></p>
 					</div>
 					<div class="aw-mod-body">
-						<textarea name="answer_content" id="advanced_editor" rows="15" style="width:100%;"><?php echo htmlspecialchars($this->draft_content['message']); ?></textarea>
+						<textarea name="answer_content" id="advanced_editor" class="form-control" rows="15" style="width:100%;"><?php echo htmlspecialchars($this->draft_content['message']); ?></textarea>
 						<p class="aw-text-color-999"><span class="pull-right" id="answer_content_message">&nbsp;</span></p>
 						<?php if ($this->human_valid) { ?>
 						<p class="aw-auth-img clearfix">

@@ -11,7 +11,7 @@
 				</ul>
 			<!-- end tab 切换 -->
 
-			<div class="col-sm-12 col-md-9 aw-main-content">
+			<div class="col-sm-12 col-md-12 aw-main-content">
 				<form action="publish/ajax/<?php if ($this->article_info['question_id']) { ?>modify<?php } else { ?>publish<?php } ?>_article/" method="post" id="question_form" onsubmit="return false;">
 					<input type="hidden" name="post_hash" value="<?php echo new_post_hash(); ?>" />
 					<input type="hidden" name="attach_access_key" value="<?php echo $this->attach_access_key; ?>" />
