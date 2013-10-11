@@ -90,9 +90,9 @@ class index_class extends AWS_MODEL
 			/*$where_in[] = "(uid IN (" . implode(',', $user_follow_uids) . ")
 			AND associate_action IN(" . ACTION_LOG::ADD_QUESTION . ',' . ACTION_LOG::ANSWER_QUESTION . ',' . ACTION_LOG::ADD_AGREE . ',' . ACTION_LOG::ADD_TOPIC ."))";*/
 			
-			// 添加问题, 回复问题, 添加话题
+			// 添加问题, 回复问题, 添加话题, 添加文章
 			$where_in[] = "(uid IN (" . implode(',', $user_follow_uids) . ")
-			AND associate_action IN(" . ACTION_LOG::ADD_QUESTION . ',' . ACTION_LOG::ANSWER_QUESTION . ',' . ACTION_LOG::ADD_TOPIC . "))";
+			AND associate_action IN(" . ACTION_LOG::ADD_QUESTION . ',' . ACTION_LOG::ANSWER_QUESTION . ',' . ACTION_LOG::ADD_TOPIC . ',' . ACTION_LOG::ADD_ARTICLE . '))';
 			
 			// 增加赞同
 			$where_in[] = "(uid IN (" . implode(',', $user_follow_uids) . ")
@@ -288,6 +288,8 @@ class index_class extends AWS_MODEL
 				}
 			}
 		}
+		
+		print_r($action_list); die;
 		
 		return $action_list;
 	}
