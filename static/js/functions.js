@@ -1310,7 +1310,7 @@ function init_topic_edit_box(selecter) //selecter -> .aw-edit-topic
                     switch (data_type)
                     {
                     case 'publish':
-                        _aw_topic_editor_element.prepend('<a href="javascript:;" class="aw-topic-name"><span>' + _aw_topic_editor_element.find('#aw_edit_topic_title').val() + '<button class="close aw-close" type="button" onclick="$(this).parents(\'.aw-topic-name\').remove();">x</button></span><input type="hidden" value="' + _aw_topic_editor_element.find('#aw_edit_topic_title').val() + '" name="topics[]" /></a>').hide().fadeIn();
+                        _aw_topic_editor_element.prepend('<a href="javascript:;" class="aw-topic-name"><span>' + _aw_topic_editor_element.find('#aw_edit_topic_title').val() + '<button class="close aw-close" type="button" onclick="$(this).parents(\'.aw-topic-name\').remove();">×</button></span><input type="hidden" value="' + _aw_topic_editor_element.find('#aw_edit_topic_title').val() + '" name="topics[]" /></a>').hide().fadeIn();
 
                         _aw_topic_editor_element.find('#aw_edit_topic_title').val('');
                         break;
@@ -1366,6 +1366,8 @@ function init_topic_edit_box(selecter) //selecter -> .aw-edit-topic
                 }
             });
         }
+
+        bind_dropdown_list('.aw-edit-topic-box #aw_edit_topic_title','topic');
 
         $(this).parent().find('.aw-edit-topic-box').fadeIn();
 
@@ -1936,12 +1938,12 @@ function get_question_list_data(data)
     }
 }
 
-function hide_question_list(obj)
-{
-	setTimeout(function() {
-		obj.next().hide();
-	},300);
-}
+// function hide_question_list(obj)
+// {
+// 	setTimeout(function() {
+// 		obj.next().hide();
+// 	},300);
+// }
 
 /*话题页面搜索下拉*/
 function get_topic_question_list_data(data)
@@ -1995,56 +1997,56 @@ function hide_topic_question_list()
 var qDropdownTimeout;
 
 /*快速发起问题搜索列表*/
-function get_quick_publich_question_list(obj,data)
-{
-    clearTimeout(qDropdownTimeout);
+// function get_quick_publich_question_list(obj,data)
+// {
+//     clearTimeout(qDropdownTimeout);
     
-    var _obj = obj;
+//     var _obj = obj;
     
-    obj.next().css('width', obj.width() + 16);
+//     obj.next().css('width', obj.width() + 16);
     
-    if (data.length >= 2)
-    {
-        $.get(G_BASE_URL + '/search/ajax/search/?type=question&q=' + encodeURIComponent(data) + '&limit-10', function (result)
-        {
-            if (result.length != 0)
-            {
-                obj.next().find('.aw-question-dropdown-list').html('');
-                $.each(result, function (i, a)
-                {
-                    obj.next().find('.aw-question-dropdown-list').append(Hogan.compile(AW_TEMPLATE.questionDropdownList).render(
-                    {
-                        'url': G_BASE_URL + "/" + a.url,
-                        'name': a.name
-                    }));
-                });
-                obj.next().show().children().show();
-                obj.next().find('.title').hide();
-                //关键词高亮
-                $('.aw-publish-box .aw-question-dropdown-list li a').highText(data, 'span', 'active');
+//     if (data.length >= 2)
+//     {
+//         $.get(G_BASE_URL + '/search/ajax/search/?type=question&q=' + encodeURIComponent(data) + '&limit-10', function (result)
+//         {
+//             if (result.length != 0)
+//             {
+//                 obj.next().find('.aw-question-dropdown-list').html('');
+//                 $.each(result, function (i, a)
+//                 {
+//                     obj.next().find('.aw-question-dropdown-list').append(Hogan.compile(AW_TEMPLATE.questionDropdownList).render(
+//                     {
+//                         'url': G_BASE_URL + "/" + a.url,
+//                         'name': a.name
+//                     }));
+//                 });
+//                 obj.next().show().children().show();
+//                 obj.next().find('.title').hide();
+//                 //关键词高亮
+//                 $('.aw-publish-box .aw-question-dropdown-list li a').highText(data, 'span', 'active');
                 
-            }
-            else
-            {
-                obj.next().show().children('.title').html(_t('没有找到相关结果')).show();
-                obj.next().find('.aw-question-dropdown-list').hide();
-            }
-            //两秒后自动隐藏
-            qDropdownTimeout = setTimeout(function(){
-                _obj.next().hide();
-            },2000);
-        }, 'json');
-    }
-    else if (data.length > 0 && data.length < 2)
-    {
-        obj.next().find('.aw-question-dropdown-list').hide();
-        obj.next().show().children('.title').html(_t('请输入两个以上关键字...')).show();
-    }
-    else
-    {
-       obj.next().hide();
-    }
-}
+//             }
+//             else
+//             {
+//                 obj.next().show().children('.title').html(_t('没有找到相关结果')).show();
+//                 obj.next().find('.aw-question-dropdown-list').hide();
+//             }
+//             //两秒后自动隐藏
+//             qDropdownTimeout = setTimeout(function(){
+//                 _obj.next().hide();
+//             },2000);
+//         }, 'json');
+//     }
+//     else if (data.length > 0 && data.length < 2)
+//     {
+//         obj.next().find('.aw-question-dropdown-list').hide();
+//         obj.next().show().children('.title').html(_t('请输入两个以上关键字...')).show();
+//     }
+//     else
+//     {
+//        obj.next().hide();
+//     }
+// }
 
 /*邀请回复下拉菜单*/
 function get_user_list_data(obj,data)
@@ -2090,7 +2092,7 @@ function get_user_list_data(obj,data)
 }
 
 /*邀请*/
-function invite_user(obj,name,img)
+function invite_user(obj, name, img)
 {
 	var _this = obj;
 	
@@ -2108,8 +2110,11 @@ function invite_user(obj,name,img)
                 'img': img,
                 'name': name
             }));
-            $('.aw-side-bar-invite-replay .aw-message-tooltip').text(parseInt($('.aw-side-bar-invite-replay .aw-message-tooltip').text()) + 1);
+            $('.aw-side-bar-invite-box #invite-input').val('');
+            $('.aw-side-bar-invite-replay .badge-info').text(parseInt($('.aw-side-bar-invite-replay .badge-info').text()) + 1);
             $('.aw-side-bar-invite-replay .aw-side-bar-invite-box div').eq(0).show();
+            $('.aw-side-bar-invite-replay .aw-dropdown').hide();
+
         }
         else if (result.errno == -1)
         {
@@ -2123,7 +2128,7 @@ function disinvite_user(obj, uid)
 {
     $.get(G_BASE_URL + '/question/ajax/cancel_question_invite/question_id-' + QUESTION_ID + "__recipients_uid-" + uid);
 
-    $('.aw-side-bar-invite-replay .aw-message-tooltip').text(parseInt($('.aw-side-bar-invite-replay .aw-message-tooltip').text()) - 1);
+    $('.aw-side-bar-invite-replay .badge-info').text(parseInt($('.aw-side-bar-invite-replay .badge-info').text()) - 1);
 }
 
 /*动态插入下拉菜单模板*/
@@ -2142,6 +2147,249 @@ function add_dropdown_list(selecter, data, selected)
     if (selected)
     {
         $(selecter + " .dropdown-menu li a[data-value='" + selected + "']").click();
+    }
+}
+
+/* 下拉菜单功能绑定 */
+/*
+    type : search, publish, redirect, invite, inbox, topic_question, topic
+*/
+function bind_dropdown_list(selector, type)
+{
+    $(selector).keyup(function()
+    {
+        if ($(selector).val().length >= 2)
+        {
+           get_dropdown_list(selector, type, $(selector).val());
+        }
+        else if ($(selector).val().length > 0 && $(selector).val().length < 2)
+        {
+            $(selector).parent().find('.aw-dropdown-list').hide();
+            $(selector).parent().find('.aw-dropdown').show().children('.title').html(_t('请输入两个以上关键字...')).show();
+        }
+        else
+        {
+           $(selector).parent().find('.aw-dropdown-list').hide();
+        }
+    });
+
+    $(selector).blur(function()
+    {
+        $(selector).parent().find('.aw-dropdown').delay(500).fadeOut(300);
+    });
+}
+
+/* 下拉菜单数据获取 */
+/*
+    type : search, publish, redirect, invite, inbox, topic_question, topic
+*/
+function get_dropdown_list(selector, type, data)
+{
+    var url;
+    switch (type)
+    {
+        case 'search' :
+            url = G_BASE_URL + '/search/ajax/search/?q=' + encodeURIComponent(data) + '&limit=5';
+        break;
+
+        case 'publish' :
+            url = G_BASE_URL + '/search/ajax/search/?type=question&q=' + encodeURIComponent(data) + '&limit-10';
+        break;
+
+        case 'redirect' :
+            url = G_BASE_URL + '/search/ajax/search/?q=' + encodeURIComponent(data) + '&type=question&limit-30';
+        break;
+
+        case 'invite' :
+        case 'inbox' :
+            url = G_BASE_URL + '/search/ajax/search/?type-user__q-' + encodeURIComponent(data) + '__limit-10';
+        break;
+
+        case 'topic_question' :
+            url = G_BASE_URL + '/search/ajax/search/?type=question&q=' + encodeURIComponent(data) + '&topic_ids=' + CONTENTS_TOPIC_ID;
+        break;
+
+        case 'topic' :
+            url = G_BASE_URL + '/search/ajax/search/?type-topic__q-' + encodeURIComponent(data) + '__limit-10';
+        break;
+    }
+    switch (type)
+    {
+        case 'search' :
+            $.get(url, function(result)
+            {
+                $(selector).parents('#global_search_form').find('.aw-dropdown-list').html('');
+                $.each(result, function(i, a)
+                {
+                    switch (a.type) // type1 : 问题 , type2 : 话题 best_answer最佳回答, type3 : 用户
+                    {
+                        case '1':
+                            if (a.detail.best_answer > 0)
+                            {
+                                var active = 'active';
+                            }
+                            else
+                            {
+                                var active = ''
+                            }
+
+                            $(selector).parent().find('.aw-dropdown-list').append(Hogan.compile(AW_TEMPLATE.searchDropdownList1).render(
+                            {
+                                'url': a.url,
+                                'active': active,
+                                'content': a.name,
+                                'discuss_count': a.detail.answer_count
+                            }));
+                            //高亮显示
+                            //$('.aw-search-dropdown-list .question a').highText(keyword, 'span', 'active');
+                            break;
+                        case '2':
+                            $(selector).parent().find('.aw-dropdown-list').append(Hogan.compile(AW_TEMPLATE.searchDropdownList2).render(
+                            {
+                                'url': a.url,
+                                'name': a.name,
+                                'discuss_count': a.detail.discuss_count,
+                                'topic_id': a.detail.topic_id
+                            }));
+                            break;
+                        case '3':
+                            if (a.detail.signature == '')
+                            {
+                                var signature = _t('暂无介绍');
+                            }
+                            else
+                            {
+                                var signature = a.detail.signature;
+                            }
+                            
+                            $(selector).parent().find('.aw-dropdown-list').append(Hogan.compile(AW_TEMPLATE.searchDropdownList3).render(
+                            {
+                                'url': a.url,
+                                'img': a.detail.avatar_file,
+                                'name': a.name,
+                                'intro': signature
+                            }));
+                            break;
+                    }
+                });
+            }, 'json');
+            $(selector).parent().find('.aw-dropdown, .aw-dropdown-list').show();
+            $(selector).parent().find('.search').show().children('a').text($(selector).val());
+            $(selector).parent().find('.title').hide();
+        break;
+
+        case 'publish' : 
+        case 'topic_question' : 
+            $.get(url, function (result)
+            {
+                if (result.length != 0)
+                {
+                    $(selector).parent().find('.aw-dropdown-list').html('');
+                    $.each(result, function (i, a)
+                    {
+                        $(selector).parent().find('.aw-dropdown-list').append(Hogan.compile(AW_TEMPLATE.questionDropdownList).render(
+                        {
+                            'url': a.url,
+                            'name': a.name
+                        }));
+                    });
+                    $(selector).parent().find('.aw-dropdown').show().children().show();
+                    $(selector).parent().find('.title').hide();
+                    //关键词高亮
+                    //$('.aw-publish-box .aw-question-dropdown-list li a').highText(data, 'span', 'active');
+                }
+                else
+                {
+                    $(selector).parent().find('.aw-dropdown').show().children('.title').html(_t('没有找到相关结果')).show();
+                    $(selector).parent().find('.aw-dropdown-list').hide();
+                }
+            }, 'json');
+        break;
+
+        case 'topic' :
+            $.get(G_BASE_URL + '/search/ajax/search/?type-topic__q-' + encodeURIComponent(data) + '__limit-10', function (result)
+            {
+                if (result.length != 0)
+                {
+                    $(selector).parent().find('.aw-dropdown-list').empty();
+
+                    $.each(result, function (i, a)
+                    {
+                        $(selector).parent().find('.aw-dropdown-list').append(Hogan.compile(AW_TEMPLATE.editTopicDorpdownList).render(
+                        {
+                            'name': a['name']
+                        }));
+                    });
+                    $(selector).parent().find('.aw-dropdown').show().children().show();
+                    $(selector).parent().find('.aw-dropdown').find('.title').hide();
+                    //关键词高亮
+                    $(selector).parent().find('.aw-dropdown-list li a').highText(data, 'span', 'active');
+
+                }
+                else
+                {
+                    $(selector).parent().find('.aw-dropdown').show().children('.title').html(_t('没有找到相关结果')).show();
+                    $(selector).parent().find('.aw-dropdown-list').hide();
+                }
+            }, 'json');
+        break;
+
+        case 'redirect' :
+            $.get(url, function(result)
+            {
+                if (result.length != 0)
+                {
+                    $(selector).parent().find('.aw-dropdown-list').empty();
+                    
+                    $.each(result, function (i, a)
+                    {
+                        $(selector).parent().find('.aw-dropdown-list').append(Hogan.compile(AW_TEMPLATE.questionRedirectList).render(
+                        {
+                            'url': "'" + G_BASE_URL + "/question/ajax/redirect/', 'item_id=" + $(selector).attr('data-id') + "&target_id=" + a['sno'] + "'",
+                            'name': a['name']
+                        }));
+                    });
+                    $('.aw-question-redirect-box .aw-dropdown').show().children().show();
+                    $('.aw-question-redirect-box .aw-dropdown .title').hide();
+                    //关键词高亮
+                    $('.aw-question-redirect-box .aw-dropdown-list li a').highText(data, 'span', 'active');
+
+                }
+                else
+                {
+                    $('.aw-question-drodpwon .aw-topic-dropdown').show().children('.title').html(_t('没有找到相关结果')).show();
+                    $('.aw-question-drodpwon .aw-topic-dropdown .aw-question-dropdown-list').hide();
+                }
+                
+            }, 'json');
+        break;
+
+        case 'inbox' :
+        case 'invite' :
+            $.get(url, function(result)
+            {
+                if (result.length != 0)
+                {
+                    $(selector).parent().find('.aw-dropdown-list').html('');
+                    $.each(result, function (i, a)
+                    {
+                        $(selector).parent().find('.aw-dropdown-list').append(Hogan.compile(AW_TEMPLATE.inviteDropdownList).render(
+                        {
+                            'uid': a.uid,
+                            'name': a.name,
+                            'img': a.detail.avatar_file
+                        }));
+                    });
+                    $(selector).parent().find('.aw-dropdown').show().children().show();
+                    $(selector).parent().find('.aw-dropdown').find('.title').hide();
+                }
+                else
+                {
+                    $(selector).parent().find('.aw-dropdown').show().children('.title').html(_t('没有找到相关结果')).show();
+                    $(selector).parent().find('.aw-dropdown-list').hide();
+                }
+            }, 'json');
+        break;
     }
 }
 
@@ -2185,6 +2433,7 @@ function _fix_textarea_focus_cursor_position(elTextarea)
     }
 }
 
+/* 注册页面验证 */
 function verify_register_form(element)
 {
     $(element).find(':text, :input').on({

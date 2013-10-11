@@ -380,15 +380,15 @@
 						<h3><?php _e('邀请别人回复'); ?></h3>
 					</div>
 					<div class="aw-side-bar-mod-body">
-						<p><a class="aw-website-invite"><?php _e('站内邀请'); ?><?php if ($this->invite_users) { ?><em class="aw-message-tooltip"><?php echo count($this->invite_users); ?></em><?php } ?></a> • <a class="aw-email-invite"><?php _e('邮件邀请'); ?></a></p>
+						<p><a class="aw-website-invite"><?php _e('站内邀请'); ?><em class="badge badge-info"><?php echo count($this->invite_users); ?></em></a> • <a class="aw-email-invite"><?php _e('邮件邀请'); ?></a></p>
 						<!-- 侧边栏邀请box -->
 						<div class="aw-side-bar-invite-box">
 							<div class="aw-item clearfix">
-								<input class="form-control" type="text" onkeyup="get_user_list_data($(this),$(this).val())" onblur="setTimeout(function(){$('.aw-side-bar-invite-box .aw-user-dropdown').hide();},300);" placeholder="<?php _e('仅限邀请站内用户...'); ?>"/>
-								<div class="aw-dropdown aw-user-dropdown">
+								<input id="invite-input" class="form-control" type="text"  placeholder="<?php _e('仅限邀请站内用户...'); ?>"/>
+								<div class="aw-dropdown">
 									<i class="aw-icon i-dropdown-triangle"></i>
 									<p class="title"><?php _e('没有找到相关结果'); ?></p>
-									<ul class="aw-user-dropdown-list"></ul>
+									<ul class="aw-dropdown-list"></ul>
 								</div>
 								<div class="error-message alert  alert-error hide"></div>
 								<ul class="aw-side-bar-invite-list">

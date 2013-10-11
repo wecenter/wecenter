@@ -108,6 +108,9 @@ $(document).ready(function () {
         }
     });
 
+    //邀请用户下拉绑定
+    bind_dropdown_list($('.aw-side-bar-invite-replay #invite-input'), 'invite');
+
     /* 回复内容超链接新窗口打开 */
     $('.markitup-box a').attr('target','_blank');
 
@@ -153,6 +156,6 @@ function one_click_add_topic(click_element, topic_title, question_id)
 }
 
 //邀请请回答问题点击事件
-$(document).on('click', '.aw-side-bar-invite-box .aw-user-dropdown-list a', function () {
+$(document).on('click', '.aw-side-bar-invite-box .aw-dropdown-list a', function () {
     invite_user($(this),$(this).text(),$(this).find('.img').attr('src'));
 });
