@@ -1842,9 +1842,9 @@ function get_dropdown_list(selector, type, data)
                 $(selector).parents('#global_search_form').find('.aw-dropdown-list').html('');
                 $.each(result, function(i, a)
                 {
-                    switch (a.type) // type1 : 问题 , type2 : 话题 best_answer最佳回答, type3 : 用户
+                    switch (parseInt(a.type)) // type1 : 问题 , type2 : 话题 best_answer最佳回答, type3 : 用户
                     {
-                        case '1':
+                        case 1:
                             if (a.detail.best_answer > 0)
                             {
                                 var active = 'active';
@@ -1864,7 +1864,7 @@ function get_dropdown_list(selector, type, data)
                             //高亮显示
                             //$('.aw-search-dropdown-list .question a').highText(keyword, 'span', 'active');
                             break;
-                        case '2':
+                        case 2:
                             $(selector).parent().find('.aw-dropdown-list').append(Hogan.compile(AW_TEMPLATE.searchDropdownList2).render(
                             {
                                 'url': a.url,
@@ -1873,7 +1873,7 @@ function get_dropdown_list(selector, type, data)
                                 'topic_id': a.detail.topic_id
                             }));
                             break;
-                        case '3':
+                        case 3:
                             if (a.detail.signature == '')
                             {
                                 var signature = _t('暂无介绍');

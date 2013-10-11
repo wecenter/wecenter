@@ -136,7 +136,7 @@ a.aw-load-more-content{display: block;}
 .aw-dropdown .aw-dropdown-list li:hover{background-color: #F5FAFF;}
 .aw-dropdown .aw-dropdown-list li.topic{padding:10px;}
 .aw-dropdown .aw-dropdown-list li.question{line-height: 40px;}
-.aw-dropdown .aw-dropdown-list li.question.active .icon-g-replay{display: inline-block;color: #ccc;}
+.aw-dropdown .aw-dropdown-list li.question.active .icon-g-replay{display: inline-block;color: #309C04;}
 .aw-dropdown .aw-dropdown-list li.question .icon-g-replay{display: none;}
 .aw-dropdown .aw-dropdown-list li.question a{display: block;line-height: 20px;padding: 10px;}
 .aw-dropdown .aw-dropdown-list li.user a{display: block;padding: 10px;}
