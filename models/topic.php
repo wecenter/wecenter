@@ -1221,16 +1221,16 @@ class topic_class extends AWS_MODEL
 		}
 		
 		if ($flag = $this->check_topic_relation($topic_id, $item_id, $type))
-		{
+		{			
 			return $flag;
 		}
 		
 		$insert_id = $this->insert('topic_relation', array(
 			'topic_id' => intval($topic_id), 
-			'item_id' => intval($question_id), 
+			'item_id' => intval($item_id), 
 			'add_time' => time(), 
 			'uid' => intval($uid),
-			'type' => 'question'
+			'type' => $type
 		));
 		
 		$this->model('topic')->update_discuss_count($topic_id);
