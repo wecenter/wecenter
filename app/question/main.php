@@ -70,7 +70,7 @@ class main extends AWS_CONTROLLER
 			$_GET['sort'] = 'ASC';
 		}
 		
-		if (get_setting('unfold_question_comments'))
+		if (get_setting('unfold_question_comments') == 'Y')
 		{
 			$_GET['comment_unfold'] = 'all';
 		}
