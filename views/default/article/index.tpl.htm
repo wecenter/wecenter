@@ -163,7 +163,6 @@
 										<!-- end 评论内容 -->
 										<!-- 社交操作 -->
 										<div class="aw-dynamic-topic-meta">
-											<span class="pull-left aw-text-color-999"><?php echo date_friendly($val['add_time']); ?></span>
 											<a class="aw-add-comment aw-text-color-999" data-id="<?php echo $val['answer_id']; ?>" data-type="answer" href="javascript:;"><i class="icon-comment"></i><?php if ($val['comment_count']) { ?> <?php _e('%s 条评论', $val['comment_count']); ?><?php } else { ?><?php _e('添加评论'); ?><?php } ?></a>
 											<!-- 可显示/隐藏的操作box -->
 											<div class="aw-dynamic-topic-more-operate pull-left">
@@ -247,10 +246,10 @@
 					<div class="aw-side-bar-mod-body">
 						<dl>
 							<dt class="pull-left aw-border-radius-5">
-								<a href="people/<?php echo $this->article_info['user_info']['url_token']; ?>"><img alt="<?php echo $this->article_info['user_info']['user_name'];?>" src="<?php echo get_avatar_url($this->article_info['published_uid'], 'mid'); ?>" /></a>
+								<a href="people/<?php echo $this->article_info['user_info']['url_token']; ?>"><img alt="<?php echo $this->article_info['user_info']['user_name']; ?>" src="<?php echo get_avatar_url($this->article_info['published_uid'], 'mid'); ?>" /></a>
 							</dt>
 							<dd class="pull-left">
-								<a class="aw-user-name" href="people/<?php echo $this->article_info['user_info']['url_token']; ?>" data-id="<?php echo $this->article_info['user_info']['uid']; ?>"><?php echo $this->article_info['user_info']['user_name'];?></a><?php if ($this->article_info['user_info']['verified']) { ?><i class="icon-v<?php if ($this->article_info['user_info']['verified'] == 'enterprise') { ?> i-ve<?php } ?>" title="<?php if ($this->user['verified'] == 'enterprise') { ?>企业认证<?php } else { ?>个人认证<?php } ?>"></i><?php } ?><?php if ($this->user['uid'] != $this->user_id AND $this->user_id) { ?><i data-placement="bottom" title="" onclick="follow_people($(this), <?php echo $this->article_info['user_info']['uid'];?>);" data-toggle="tooltip" class="icon-ok-sign<?php if (!$this->user_follow_check) { ?> aw-active<?php } ?>" data-original-title="<?php if ($this->user_follow_check) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?>"></i><?php } ?>
+								<a class="aw-user-name" href="people/<?php echo $this->article_info['user_info']['url_token']; ?>" data-id="<?php echo $this->article_info['user_info']['uid']; ?>"><?php echo $this->article_info['user_info']['user_name'];?></a><?php if ($this->article_info['user_info']['verified']) { ?><i class="icon-v<?php if ($this->article_info['user_info']['verified'] == 'enterprise') { ?> i-ve<?php } ?>" title="<?php if ($this->user['verified'] == 'enterprise') { ?>企业认证<?php } else { ?>个人认证<?php } ?>"></i><?php } ?><?php if ($this->user['uid'] != $this->user_id AND $this->user_id) { ?><i data-placement="bottom" title="" onclick="follow_people($(this), <?php echo $this->article_info['user_info']['uid']; ?>);" data-toggle="tooltip" class="icon-ok-sign<?php if (!$this->user_follow_check) { ?> aw-active<?php } ?>" data-original-title="<?php if ($this->user_follow_check) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?>"></i><?php } ?>
 								<p><?php echo $this->article_info['user_info']['signature']; ?></p>
 							</dd>
 						</dl>
@@ -258,16 +257,16 @@
 					<div class="aw-side-bar-mod-footer">
 						<ul class="aw-text-color-999">
 							<li>
-								积分 : <span>123</span>
+								积分 : <span><?php echo $this->article_info['user_info']['integral']; ?></span>
 							</li>
 							<li>
-								威望 : <span>123</span>
-							</li>
-							<li>
-								用户组 : <span>123</span>
+								威望 : <span><?php echo $this->article_info['user_info']['reputation']; ?></span>
 							</li>
 							<li>
 								擅长话题 : <span>anwsion , wecenter , 设计 , 模板 , 开发</span>
+							</li>
+							<li>
+								发布时间 : <?php echo date_friendly($val['add_time']); ?>
 							</li>
 						</ul>
 					</div>

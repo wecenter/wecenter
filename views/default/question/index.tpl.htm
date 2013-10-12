@@ -361,7 +361,7 @@
 					<div class="aw-side-bar-mod-body">
 						<dl>
 							<dt class="pull-left aw-border-radius-5">
-								<a href="people/<?php echo $this->question_info['user_info']['url_token']; ?>"><img alt="<?php echo $this->question_info['user_info']['user_name'];?>" src="<?php echo get_avatar_url($this->question_info['published_uid'], 'mid'); ?>" /></a>
+								<a href="people/<?php echo $this->question_info['user_info']['url_token']; ?>"><img alt="<?php echo $this->question_info['user_info']['user_name']; ?>" src="<?php echo get_avatar_url($this->question_info['published_uid'], 'mid'); ?>" /></a>
 							</dt>
 							<dd class="pull-left">
 								<a class="aw-user-name" href="people/<?php echo $this->question_info['user_info']['url_token']; ?>" data-id="<?php echo $this->question_info['user_info']['uid']; ?>"><?php echo $this->question_info['user_info']['user_name'];?></a><?php if ($this->question_info['user_info']['verified']) { ?><i class="icon-v<?php if ($this->question_info['user_info']['verified'] == 'enterprise') { ?> i-ve<?php } ?>" title="<?php if ($this->user['verified'] == 'enterprise') { ?>企业认证<?php } else { ?>个人认证<?php } ?>"></i><?php } ?><?php if ($this->user['uid'] != $this->user_id AND $this->user_id) { ?><i data-placement="bottom" title="" onclick="follow_people($(this), <?php echo $this->question_info['user_info']['uid'];?>);" data-toggle="tooltip" class="icon-ok-sign<?php if (!$this->user_follow_check) { ?> aw-active<?php } ?>" data-original-title="<?php if ($this->user_follow_check) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?>"></i><?php } ?>
