@@ -91,7 +91,7 @@
 								</div>
 								<div class="aw-item-meta">
 									<span><?php echo date_friendly($val['add_time']); ?></span>
-									<a><i class="icon-share-alt"></i> 回复</a>
+									<a><i class="icon-comment"></i> 回复</a>
 									<a><i class="icon-thumbs-up-alt"></i> 赞</a>
 								</div>
 							</div>
@@ -121,16 +121,13 @@
 					</div>
 					<div class="aw-mod-body">
 						<textarea rows="2" name="message" id="comment_editor" class="form-control" placeholder="写下你的评论..."  /></textarea>
-						
-						<?php if ($this->human_valid) { ?>
-						<p class="aw-auth-img clearfix">
-							<em class="auth-img pull-right"><img src="" onclick="this.src = G_BASE_URL + '/account/captcha/' + Math.floor(Math.random() * 10000);" id="captcha" /></em>
-							<input class="pull-right" type="text" name="seccode_verify" placeholder="<?php _e('验证码'); ?>" />
-						</p>
-						<?php } ?>
 					</div>
 					<div class="aw-mod-footer hide">
 						<a href="javascript:;" onclick="ajax_post($('#answer_form'));" class="btn btn-large btn-success pull-right btn-submit"><?php _e('回复'); ?></a>
+						<?php if ($this->human_valid) { ?>
+						<em class="auth-img pull-right"><img src="" onclick="this.src = G_BASE_URL + '/account/captcha/' + Math.floor(Math.random() * 10000);" id="captcha" /></em>
+						<input class="pull-right form-control" type="text" name="seccode_verify" placeholder="<?php _e('验证码'); ?>" />
+						<?php } ?>
 					</div>
 					</form>
 					<?php } ?>
