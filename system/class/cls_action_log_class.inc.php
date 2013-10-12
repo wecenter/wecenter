@@ -164,6 +164,11 @@ class ACTION_LOG
 	 */
 	const ADD_ARTICLE = 501;
 	
+	/** 
+	 * 评论文章
+	 */
+	const COMMENT_ARTICLE = 601;
+	
 	/**
 	 * 
 	 * 类型定义对应数组

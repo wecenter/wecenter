@@ -79,7 +79,7 @@
 					
 					<?php if ($this->comments) { ?>
 					<div class="aw-mod-body aw-dynamic-topic aw-article-detail">
-						<?php foreach ($this->comments) { ?>
+						<?php foreach ($this->comments AS $key => $val) { ?>
 						<div class="aw-item">
 							<a class="aw-user-name" href="people/<?php echo $val['user_info']['url_token']; ?>">
 								<img src="<?php echo get_avatar_url($val['uid'], 'mid'); ?>" alt="<?php echo $val['user_info']['user_name']; ?>" />
@@ -98,6 +98,7 @@
 						</div>
 						<?php } ?>
 					</div>
+					<?php } ?>
 					
 					<?php if ($this->pagination) { ?>
 						<div class="clearfix"><?php echo $this->pagination; ?></div>
@@ -112,15 +113,14 @@
 					<?php } else if (!$this->user_id) { ?>
 					<p align="center"><?php _e('要回复文章请先<a href="account/login/">登录</a>或<a href="account/register/">注册</a>'); ?></p>
 					<?php } else { ?>
-					<form action="question/ajax/save_answer/" onsubmit="return false;" method="post" id="answer_form">
+					<form action="article/ajax/save_comment/" onsubmit="return false;" method="post" id="answer_form">
 		        	<input type="hidden" name="post_hash" value="<?php echo new_post_hash(); ?>" />
-		        	<input type="hidden" name="question_id" value="<?php echo $this->article_info['question_id']; ?>" />
-		        	<input type="hidden" name="attach_access_key" value="<?php echo $this->attach_access_key; ?>" />
+		        	<input type="hidden" name="article_id" value="<?php echo $this->article_info['id']; ?>" />
 					<div class="aw-mod-head">
 						<a href="people/" class="aw-user-name"><img alt="<?php echo $this->user_info['user_name']; ?>" src="<?php echo get_avatar_url($this->user_info['uid'], 'mid'); ?>" /></a>
 					</div>
 					<div class="aw-mod-body">
-						<textarea rows="2" name="answer_content" id="advanced_editor" class="form-control" placeholder="写下你的评论..."  /></textarea>
+						<textarea rows="2" name="message" id="comment_editor" class="form-control" placeholder="写下你的评论..."  /></textarea>
 						
 						<?php if ($this->human_valid) { ?>
 						<p class="aw-auth-img clearfix">
@@ -186,9 +186,9 @@
 <script type="text/javascript">
 	$(function()
 	{
-		$('.aw-mod-article-replay-box #advanced_editor').autosize();
+		$('.aw-mod-article-replay-box #comment_editor').autosize();
 
-		$('.aw-mod-article-replay-box #advanced_editor').bind({
+		$('.aw-mod-article-replay-box #comment_editor').bind({
 			focus : function()
 			{
 				$(this).parents('.aw-mod-article-replay-box').find('.aw-mod-footer').show();

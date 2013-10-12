@@ -75,7 +75,7 @@ class ajax extends AWS_CONTROLLER
 		
 		$comment_id = $this->model('article')->save_comment($_POST['article_id'], $message, $this->user_id, $_POST['at_uid']);
 			
-		$url = get_js_url('/article/' . intval($_POST['article_id']) . '#comment_' . $$comment_id);
+		$url = get_js_url('/article/' . intval($_POST['article_id']) . '?comment_id=' . $comment_id);
 		
 		H::ajax_json_output(AWS_APP::RSM(array(
 			'url' => $url
