@@ -70,6 +70,8 @@ class main extends AWS_CONTROLLER
 		TPL::assign('article_info', $article_info);
 		
 		TPL::assign('article_topics', $this->model('topic')->get_topics_by_item_id($article_info['id'], 'article'));
+		
+		TPL::assign('reputation_topics', $this->model('people')->get_user_reputation_topic($article_info['user_info']['uid'], $user['reputation'], 5));
 				
 		$this->crumb($article_info['title'], '/article/' . $article_info['id']);
 		

@@ -41,8 +41,6 @@
 							<?php } ?>
 						</div>
 						<div class="aw-question-detail-meta">
-							<span class="pull-left aw-text-color-999"><?php echo date_friendly($this->article_info['add_time']); ?></span>
-
 							<a class="aw-text-color-999" href="javascript:;"><i class="icon-thumbs-up-alt"></i>赞同</a>
 							<a class="aw-text-color-999" href="javascript:;"><i class="icon-thumbs-down-alt"></i>反对</a>
 							<div class="aw-share-dropdown pull-left">
@@ -262,120 +260,19 @@
 							<li>
 								威望 : <span><?php echo $this->article_info['user_info']['reputation']; ?></span>
 							</li>
+							<?php if ($this->reputation_topics) { ?>
 							<li>
-								擅长话题 : <span>anwsion , wecenter , 设计 , 模板 , 开发</span>
+								擅长话题 : <span><?php foreach ($this->reputation_topics AS $key => $val) { ?><a href="topic/<?php echo $val['url_token']; ?>" data-id="<?php echo $val['topic_id']; ?>"><?php echo $val['topic_title']; ?></a> <?php } ?></span>
 							</li>
+							<?php } ?>
 							<li>
-								发布时间 : <?php echo date_friendly($val['add_time']); ?>
+								发布时间 : <?php echo date_friendly($this->article_info['add_time']); ?>
 							</li>
 						</ul>
 					</div>
 				</div>
 				<?php } ?>
 				<!-- end 发起人 -->
-				
-				<?php if ($this->user_id) { ?>
-				<!-- 邀请别人回复 -->
-				<div class="aw-side-bar-mod aw-side-bar-invite-replay">
-					<div class="aw-side-bar-mod-head">
-						<h3><?php _e('邀请别人回复'); ?></h3>
-					</div>
-					<div class="aw-side-bar-mod-body">
-						<p><a class="aw-website-invite"><?php _e('站内邀请'); ?><em class="badge badge-info"><?php echo count($this->invite_users); ?></em></a> • <a class="aw-email-invite"><?php _e('邮件邀请'); ?></a></p>
-						<!-- 侧边栏邀请box -->
-						<div class="aw-side-bar-invite-box">
-							<div class="aw-item clearfix">
-								<input id="invite-input" class="form-control" type="text" placeholder="<?php _e('仅限邀请站内用户...'); ?>"/>
-								<div class="aw-dropdown">
-									<i class="aw-icon i-dropdown-triangle"></i>
-									<p class="title"><?php _e('没有找到相关结果'); ?></p>
-									<ul class="aw-dropdown-list"></ul>
-								</div>
-								<div class="error-message alert  alert-error hide"></div>
-								<ul class="aw-side-bar-invite-list">
-								<?php if ($this->invite_users) { ?>
-									<p>已邀请过的用户 : </p>
-									<?php foreach($this->invite_users as $key => $val) { ?>
-									<li>
-										<?php if ($val['sender_uid'] == $this->user_id) { ?><a class="pull-right btn btn-mini btn-default" onclick="disinvite_user($(this),<?php echo $val['uid']; ?>);$(this).parent().detach();"><?php _e('取消邀请'); ?></a><?php } ?>
-										<a href="people/<?php echo $val['url_token']; ?>" class="aw-user-name" data-id="<?php echo $val['uid']; ?>">
-											<img src="<?php echo get_avatar_url($val['uid'], 'mid'); ?>" alt="" />
-										</a>
-										
-										<span class="aw-text-color-666"><?php echo $val['user_name']; ?></span>
-									</li>
-									<?php } ?>
-								<?php } ?>
-								</ul>
-							</div>
-							<div class="aw-item clearfix">
-								<form method="post" action="question/ajax/email_invite/question_id-<?php echo $this->article_info['question_id']; ?>" onsubmit="return false;" id="email_invite_form">
-									<input class="form-control" type="text" name="email" placeholder="<?php _e('邮件邀请回复...'); ?>"/>
-									<a class="pull-right btn btn-mini btn-success" onclick="ajax_post($('#email_invite_form'));"><?php _e('邀请'); ?> »</a>
-								</form>
-								
-							</div>
-						</div>
-						<!-- end 侧边栏邀请box -->
-						
-						<?php if ($this->helpful_users) { ?>
-						<div class="aw-side-bar-invite-replay-box">
-							<p><?php _e('可能帮助到你的人'); ?></p>
-							<?php foreach ($this->helpful_users AS $key => $val) { ?>
-							<dl>
-								<dt class="pull-left aw-border-radius-5">
-									<a class="aw-user-img" data-id="<?php echo $val['uid']; ?>" href="people/<?php echo $val['url_token']; ?>" data-id="<?php echo $val['uid']; ?>"><img class="img" alt="" src="<?php echo get_avatar_url($val['uid'], 'mid'); ?>" /></a>
-								</dt>
-								<dd class="pull-left">
-									<a class="pull-right" data-id="<?php echo $val['uid']; ?>" onclick="invite_user($(this),$(this).next().text(),$(this).parents('dl').find('.img').attr('src'));$('.aw-side-bar-invite-box .aw-item').eq(0).show();"><?php _e('邀请'); ?></a>
-									<a class="aw-user-name"><?php echo $val['user_name']; ?><?php if ($val['verified']) { ?><i class="icon-v<?php if ($val['verified'] == 'enterprise') { ?> i-ve<?php } ?>" title="<?php if ($val['verified'] == 'enterprise') { ?>企业认证<?php } else { ?>个人认证<?php } ?>"></i><?php } ?></a>
-									<p>
-										<?php echo cjk_substr($val['signature'], 0, 12, 'UTF-8', '...'); ?>
-									</p>
-								</dd>
-							</dl>
-							<?php } ?>
-						</div>
-						<?php } ?>
-					</div>
-				</div>
-				<!-- end 邀请别人回复 -->
-				<?php } ?>
-
-				<?php if ($this->question_related_list) { ?>
-				<!-- 相关问题 -->
-				<div class="aw-side-bar-mod aw-text-align-justify">
-					<div class="aw-side-bar-mod-head">
-						<h3><?php _e('相关问题'); ?></h3>
-					</div>
-					<div class="aw-side-bar-mod-body">
-						<ul class="aw-li-border-bottom">
-							<?php foreach($this->question_related_list AS $key => $val) { ?>
-							<li><a href="question/<?php echo $val['question_id']; ?>"><?php echo $val['question_content']; ?></a></li>
-							<?php } ?>
-						</ul>
-					</div>
-				</div>
-				<!-- end 相关问题 -->
-				<?php } ?>
-
-				<!-- 问题状态 -->
-				<div class="aw-side-bar-mod aw-side-bar-mod-question-status">
-					<div class="aw-side-bar-mod-head">
-						<h3><?php _e('问题状态'); ?></h3>
-					</div>
-					<div class="aw-side-bar-mod-body">
-						<ul>
-							<li><?php _e('最新活动'); ?>: <span class="aw-text-color-blue"><?php echo date_friendly($this->article_info['update_time']); ?></span></li>
-							<li><?php _e('浏览'); ?>: <span class="aw-text-color-blue"><?php echo $this->article_info['view_count']; ?></span></li>
-							<li><?php _e('关注'); ?>: <span class="aw-text-color-blue"><?php echo $this->article_info['focus_count']; ?></span> <?php _e('人'); ?></li>
-							
-							<li class="aw-side-bar-user-list aw-border-radius-5" id="focus_users"></li>
-						</ul>
-					</div>
-				</div>
-				<!-- end 问题状态 -->
-				
 			</div>
 			<!-- end 侧边栏 -->
 		</div>
