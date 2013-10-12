@@ -1051,8 +1051,6 @@ function init_comment_box(selecter)
                 {
                     focus: function ()
                     {
-                        $(this).css('height', parseInt($(this).css('line-height')) * 5);
-
                         $(comment_box_id).find('.aw-comment-box-btn').show();
                     },
 
@@ -1060,8 +1058,6 @@ function init_comment_box(selecter)
                     {
                         if ($(this).val() == '')
                         {
-                            $(this).css('height', '');
-
                             $(comment_box_id).find('.aw-comment-box-btn').hide();
                         }
                     }
@@ -1096,6 +1092,8 @@ function init_comment_box(selecter)
             var left = $(this).width()/2 + $(this).prev().width();
             /*给三角形定位*/
             $(comment_box_id).find('.i-comment-triangle').css('left', $(this).width() / 2 + $(this).prev().width() + 15);
+            //textarae自动增高
+            $(comment_box_id).find('.aw-comment-txt').autosize();
         }
 
         at_user_lists($(this).parents('.aw-item').find('.aw-comment-txt'));

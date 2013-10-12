@@ -89,6 +89,11 @@
 <script type="text/javascript">
 	var ATTACH_ACCESS_KEY = '<?php echo $this->attach_access_key; ?>';
 	var PUBLISH_TYPE = 'article';
+
+	$(function()
+	{
+		$('#advanced_editor').autosize();
+	});
 </script>
 
 <?php TPL::output('global/footer.tpl.htm'); ?>

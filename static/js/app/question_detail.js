@@ -111,10 +111,13 @@ $(document).ready(function () {
     //邀请用户下拉绑定
     bind_dropdown_list($('.aw-side-bar-invite-replay #invite-input'), 'invite');
 
-    /* 回复内容超链接新窗口打开 */
+    //回复内容超链接新窗口打开
     $('.markitup-box a').attr('target','_blank');
 
+    //textarea自动增高
+    $('#advanced_editor').autosize();
     at_user_lists('#advanced_editor');
+
 
 });
 
