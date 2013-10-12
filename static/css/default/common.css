@@ -16,12 +16,8 @@ select{width: auto;}
 .table-bordered > thead > tr > th, .table-bordered > thead > tr > td{border-bottom-width:1px;}
 /* modal */
 body.modal-open, .modal-open .navbar-fixed-top, .modal-open .navbar-fixed-bottom{margin:0;}
-.modal .modal-dialog{position:fixed;top:10%;padding:0;}
-.modal-body{overflow-y: visible;}
 .modal-backdrop, .modal-backdrop.fade.in{filter:alpha(opacity=20);opacity: 0.2; }
-.modal-body{max-height: none;}
 .modal-footer{line-height: 38px;padding:15px 20px;}
-.modal-header h3{cursor: move;}
 /* 重载bootstrap进度条 */
 .aw-progress{width:103px;line-height:10px;margin:-2px 0 0 10px;text-align: center;font-size: 12px;vertical-align: middle;}
 .aw-progress .progress{width:103px;height:8px;margin:2px 0 0 0;background:#f0ffe1;border:1px solid #bce391;}
@@ -92,8 +88,6 @@ a.aw-load-more-content{display: block;}
 .aw-mod-publish-box #advanced_editor, .aw-share-box .aw-share-box-tabs a{border-radius: 5px 5px 0 0;}
 .aw-publish-title-dropdown p, .aw-publish-title-dropdown p a{border-radius: 0 5px 5px 0;}
 .aw-nav-main li:first-child a.active{border-radius:10px 0 0 0;}
-.aw-edit-comment-box .modal-body textarea{border-radius: 10px 10px 0 0;}
-.aw-edit-comment-box .aw-file-upload-box{border-radius: 0 0 10px 10px;}
 .aw-first-login .aw-mod-head ul li em{border-radius: 30px;}
 .error-message{position: relative;}
 .badge{padding:2px 6px;margin-left: 5px;}
@@ -659,7 +653,7 @@ a.aw-load-more-content{display: block;}
 .aw-mod-search-result .aw-text-color-666{font-size: 12px;}
 
 /* 上传附件模块 */
-.aw-file-uploader{width: 638px;margin-top:20px;}
+.aw-file-uploader{width: 638px;}
 .aw-file-uploader dl, .aw-file-uploader dt, .aw-file-uploader dd{float:left;}
 .aw-file-uploader dl{padding:10px 0 10px 10px;margin:15px 15px 0 0;background: #F5FAFF;border:1px solid #DCEDFA;}
 .aw-file-uploader dl.error{border: 1px solid red;}
@@ -727,11 +721,13 @@ a.aw-load-more-content{display: block;}
 .aw-question-redirect-box .modal-body{overflow: visible;}
 .aw-question-redirect-box .aw-topic-dropdown{top:50px;}
 /* 评论修改box */
-.aw-edit-comment-box .modal-body textarea{margin:0;padding:5px;overflow-y:scroll;clear: left;}
+.aw-edit-comment-box .modal-dialog{width: 710px;}
+.aw-edit-comment-box .modal-body textarea{margin:0;padding:5px;overflow-y:scroll;clear: left;border-radius: 10px 10px 0 0;}
+.aw-edit-comment-box .aw-file-upload-box{border-radius: 0 0 10px 10px;}
 .aw-edit-comment-box .modal-footer input{margin: -3px 5px 0 0;}
 .aw-edit-comment-box .modal-footer label{display: inline;font-size: 14px;}
 .aw-edit-comment-box .modal-footer .btn-success{margin-left: 10px;}
-.aw-edit-comment-box .aw-file-upload-box{padding:20px;border:1px solid #ccc;}
+.aw-edit-comment-box .aw-file-upload-box{padding:20px;border:1px solid #ccc;border-top: none;}
 /* 私信box */
 .aw-inbox .aw-dropdown, .aw-share-box .aw-dropdown{width: 428px;}
 /* 图片&视频插入box */
