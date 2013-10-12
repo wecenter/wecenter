@@ -143,7 +143,7 @@ a.aw-load-more-content{display: block;}
 .aw-dropdown .aw-dropdown-list li.user a img{width: 25px;height: 25px;margin-right: 5px;}
 .aw-dropdown .aw-dropdown-list li.user a span{margin-left:10px;color: #999;}
 .aw-publish-box .aw-dropdown .aw-dropdown-list, .aw-question-redirect-box .aw-dropdown .aw-dropdown-list{max-height: 329px;overflow-y:auto;}
-
+.aw-mod-publish .aw-dropdown{max-height: 165px;overflow-y: auto;}
 
 /* ipad兼容 */
 @media only screen and (device-width:768px){
@@ -174,10 +174,10 @@ a.aw-load-more-content{display: block;}
 .aw-login-register a img{width: 25px;height: 25px;position:absolute;right:15px;}
 .aw-login-register .aw-user-nav-dropdown{max-width:141px;height:27px;line-height:27px;margin-left:20px;}
 .aw-login-register .aw-user-head img{width: 25px;height: 25px;margin:-3px 0 0 5px;}
-.aw-publish{width:80px;margin:9px 0 0 0;padding:0px;}
-.aw-publish a{display:block;width:80px;height: 32px;line-height: 32px;font-size: 14px;background-color: #42c8e7;text-align: center;color: #fff;border-radius: 3px;}
-.aw-publish a:hover{background-color: #2abde9;}
-.aw-publish .icon-edit{margin-right:10px;vertical-align:-1px;font-size: 15px;color: #fff;}
+.aw-publish-btn{width:80px;margin:9px 0 0 0;padding:0px;}
+.aw-publish-btn a{display:block;width:80px;height: 32px;line-height: 32px;font-size: 14px;background-color: #42c8e7;text-align: center;color: #fff;border-radius: 3px;}
+.aw-publish-btn a:hover{background-color: #2abde9;}
+.aw-publish-btn .icon-edit{margin-right:10px;vertical-align:-1px;font-size: 15px;color: #fff;}
 .aw-top-nav{width: 380px !important;}
 .aw-top-nav > ul > li{position: relative;float:left;}
 .aw-top-nav > ul > li > a{display:block;height:54px;line-height:54px;padding:0 20px;color: #fff;}
@@ -220,6 +220,7 @@ a.aw-load-more-content{display: block;}
 .aw-search-box .aw-dropdown .i-dropdown-triangle{position: absolute;top:-6px;}
 .aw-search-box .aw-dropdown p{height: 45px;line-height: 45px;margin:0;padding:0 10px;font-weight: normal;border-top: 1px dotted #C1CAD4;}
 .aw-search-box .aw-dropdown p.search{display: none;}
+.aw-search-box .aw-dropdown p.title{border-top: none;}
 .aw-search-box .aw-dropdown .btn-success{margin-top:10px;}
 .aw-search-box .aw-dropdown .aw-dropdown-list li.question .aw-hide-txt{width: 250px;}
 
@@ -441,6 +442,7 @@ a.aw-load-more-content{display: block;}
 .aw-article-detail .aw-item .aw-item-meta a{margin-left: 10px;color: #999;}
 
 /* 发起问题页面 */
+.aw-publish, .aw-publish .aw-content-wrap{overflow: visible;}
 .aw-publish-tabs{margin:0 20px;}
 .aw-publish-tabs li{float: left;}
 .aw-mod-publish{padding-bottom: 30px;}

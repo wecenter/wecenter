@@ -1763,6 +1763,13 @@ function add_dropdown_list(selecter, data, selected)
 /* 下拉菜单功能绑定 */
 function bind_dropdown_list(selector, type)
 {
+    if (type == 'search')
+    {
+        $(selector).focus(function()
+        {
+            $(selector).parent().find('.aw-dropdown').show();
+        });
+    }
     $(selector).keyup(function(e)
     {
         //话题插入按,号自动插入
