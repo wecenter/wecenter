@@ -45,6 +45,11 @@ class article_class extends AWS_MODEL
 	    return $result;
 	}
 	
+	public function get_comments($article_id, $page, $per_page)
+	{
+		return $this->fetch_page('article_comments', 'article_id = ' . intval($article_id), 'add_time ASC', $page, $per_page);
+	}
+	
 	public function save_comment($article_id, $message, $uid, $at_uid = null)
 	{
 		if (!$article_info = $this->get_article_info_by_id($article_id))

@@ -76,10 +76,19 @@ class main extends AWS_CONTROLLER
 		$this->crumb($article_info['title'], '/article/' . $article_info['id']);
 		
 		TPL::assign('human_valid', human_valid('answer_valid_hour'));
-			
+		
+		$comments = $this->model('article')->get_comments($article_info['id'], $_GET['page'], 100);
+		
+		$comments_count = $this->model('article')->found_rows();
+		
+		TPL::assign('comments', $comments);
+		TPL::assign('comments_count', $comments_count);
+		
+		TPL::assign('human_valid', human_valid('answer_valid_hour'));
+		
 		TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
 			'base_url' => get_js_url('/article/id-' . $article_info['id']), 
-			'total_rows' => $answer_count,
+			'total_rows' => $comments_count,
 			'per_page' => 100
 		))->create_links());
 

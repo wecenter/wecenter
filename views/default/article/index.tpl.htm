@@ -73,117 +73,29 @@
 							<li<?php if ((!$_GET['uid'] && !$_GET['sort_key']) || $_GET['sort_key'] == 'agree_count') { ?> class="active"<?php } ?>><a href="question/<?php echo $this->article_info['question_id']; ?>&sort_key=agree_count&sort=DESC"><?php _e('票数'); ?></a></li>
 							<?php } ?>
 							
-							<h2><?php if ($_GET['single']) { ?><?php _e('查看单个回答'); ?><?php } else { ?><?php _e('%s 个回复', $this->answer_count); ?><?php } ?></h2>
+							<h2><?php _e('%s 个评论', $this->comments_count); ?></h2>
 						</ul>
 					</div>
+					
+					<?php if ($this->comments) { ?>
 					<div class="aw-mod-body aw-dynamic-topic aw-article-detail">
+						<?php foreach ($this->comments) { ?>
 						<div class="aw-item">
-							<a class="aw-user-name">
-								<img src="http://192.168.1.248/anwsion/trunk/uploads/avatar/000/00/00/01_avatar_mid.jpg" alt="admin">
+							<a class="aw-user-name" href="people/<?php echo $val['user_info']['url_token']; ?>">
+								<img src="<?php echo get_avatar_url($val['uid'], 'mid'); ?>" alt="<?php echo $val['user_info']['user_name']; ?>" />
 							</a>
 							<div class="aw-item-content">
-								<a>kk</a>
+								<a><?php echo $val['user_info']['user_name']; ?></a>
 								<div class="markitup-box">
-									不说别的，世人都说蒋介石杀了李大钊，再没比这更扯的了，吊死李大剑的，是爱国将军张学良他老子，张作霖。
+									<?php echo nl2br($val['message']); ?>
 								</div>
 								<div class="aw-item-meta">
-									<span>2 小时前</span>
+									<span><?php echo date_friendly($val['add_time']); ?></span>
 									<a><i class="icon-share-alt"></i> 回复</a>
 									<a><i class="icon-thumbs-up-alt"></i> 赞</a>
 								</div>
 							</div>
 						</div>
-						<div class="aw-item">
-							<a class="aw-user-name">
-								<img src="http://192.168.1.248/anwsion/trunk/uploads/avatar/000/00/00/01_avatar_mid.jpg" alt="admin">
-							</a>
-							<div class="aw-item-content">
-								<a>kk</a>
-								<div class="markitup-box">
-									不说别的，世人都说蒋介石杀了李大钊，再没比这更扯的了，吊死李大剑的，是爱国将军张学良他老子，张作霖。
-								</div>
-								<div class="aw-item-meta">
-									<span>2 小时前</span>
-									<a><i class="icon-share-alt"></i> 回复</a>
-									<a><i class="icon-thumbs-up-alt"></i> 赞</a>
-								</div>
-							</div>
-						</div>
-						<div class="aw-item">
-							<a class="aw-user-name">
-								<img src="http://192.168.1.248/anwsion/trunk/uploads/avatar/000/00/00/01_avatar_mid.jpg" alt="admin">
-							</a>
-							<div class="aw-item-content">
-								<a>kk</a>
-								<div class="markitup-box">
-									不说别的，世人都说蒋介石杀了李大钊，再没比这更扯的了，吊死李大剑的，是爱国将军张学良他老子，张作霖。
-								</div>
-								<div class="aw-item-meta">
-									<span>2 小时前</span>
-									<a><i class="icon-share-alt"></i> 回复</a>
-									<a><i class="icon-thumbs-up-alt"></i> 赞</a>
-								</div>
-							</div>
-						</div>
-						<?php if ($this->answers) { foreach ($this->answers AS $key => $val) { ?>
-							<div class="aw-item" uninterested_count="<?php echo $val['uninterested_count']; ?>" force_fold="<?php if ($val['user_rated_uninterested']) { ?>1<?php } else { ?><?php echo $val['force_fold']; ?><?php } ?>" id="answer_list_<?php echo $val['answer_id']; ?>">
-								<?php if ($this->article_info['best_answer'] == $val['answer_id']) { ?>
-								<!-- 最佳回答 -->
-								<p class="aw-winner-replay">
-									<i class="icon-g-replay"></i>
-									<?php _e('最佳回复'); ?>
-								</p>
-								<!-- end 最佳回答 -->
-								<?php } ?>
-								<a name="answer_<?php echo $val['answer_id']; ?>"></a>
-								<!-- 用户头像 -->
-								<?php if ($val['anonymous'] == 0) { ?><a class="aw-user-img aw-border-radius-5 pull-right" href="people/<?php echo $val['url_token']; ?>" data-id="<?php echo $val['uid']; ?>"><img src="<?php echo get_avatar_url($val['uid'], 'mid'); ?>" alt="" /></a><?php } else { ?><a class="aw-user-img aw-border-radius-5 pull-right" href="javascript:;"><img src="<?php echo G_STATIC_URL; ?>/common/avatar-mid-img.png" alt="<?php _e('匿名用户'); ?>" /></a><?php } ?>
-								<!-- end 用户头像 -->
-								<div class="aw-mod-body clearfix">
-
-									<div class="pull-left aw-dynamic-topic-content">
-										<!-- 评论内容 -->
-										<div>
-											<p><?php if ($val['anonymous'] == 0) { ?><a class="aw-user-name" href="people/<?php echo $val['url_token']; ?>" data-id="<?php echo $val['uid']; ?>"><?php echo $val['user_name']; ?></a><?php } else { ?><a class="aw-user-name" href="javascript:;"><?php _e('匿名用户'); ?></a><?php } ?><?php if ($val['anonymous'] == 0) { ?><?php if ($val['verified']) { ?> <i class="icon-v<?php if ($val['verified'] == 'enterprise') { ?> i-ve<?php } ?>" title="<?php if ($this->user['verified'] == 'enterprise') { ?>个人认证<?php } else { ?>企业认证<?php } ?>"></i><?php } ?><?php if ($val['signature']) { ?> - <span class="aw-text-color-999"><?php echo $val['signature']; ?></span><?php } ?><?php } ?> <?php if ($val['publish_source'] == 'mobile') { ?><i class="icon-mobile-phone"></i><?php } else if ($val['publish_source'] == 'weixin') { ?><i class="icon-wechat"></i><?php } ?></p>   
-											<p class="aw-text-color-999 aw-agree-by<?php if (sizeof($val['agree_users']) == 0) { ?> hide<?php } ?>">
-												<?php _e('赞同来自'); ?>:
-												
-												<?php if ($val['agree_users']) { ?>
-												<?php $count = 0; foreach($val['agree_users'] AS $uid => $user) { ?>
-												<?php if ($count > 0) { ?><em<?php if ($count >= 5) { ?> class="hide"<?php } ?>>、</em><?php } ?><a href="people/<?php echo $user['url_token']; ?>" data-id="<?php echo $user['uid']; ?>" class="aw-user-name<?php if ($count >= 5) { ?> hide<?php } ?>"><?php echo $user['user_name']; ?></a><?php $count++; } ?><?php } ?><?php if (count($val['agree_users']) >= 5) { ?><a href="javascript:;" class="aw-agree-by-show" onclick="$(this).parents('.aw-agree-by').find('em,a').removeClass('hide'); $(this).remove();"><?php _e('更多'); ?> »</a>
-												<?php } ?>
-											</p>
-											
-											<div class="markitup-box">
-												<?php echo $val['answer_content']; ?>
-											</div>
-										</div>
-										<!-- end 评论内容 -->
-										<!-- 社交操作 -->
-										<div class="aw-dynamic-topic-meta">
-											<a class="aw-add-comment aw-text-color-999" data-id="<?php echo $val['answer_id']; ?>" data-type="answer" href="javascript:;"><i class="icon-comment"></i><?php if ($val['comment_count']) { ?> <?php _e('%s 条评论', $val['comment_count']); ?><?php } else { ?><?php _e('添加评论'); ?><?php } ?></a>
-											<!-- 可显示/隐藏的操作box -->
-											<div class="aw-dynamic-topic-more-operate pull-left">
-												<a href="javascript:;" onclick="$.dialog('shareOut', {item_type:'answer', item_id:<?php echo $val['answer_id']; ?>});" class="aw-text-color-999"><i class="icon-share-alt"></i><?php _e('分享'); ?></a>
-												<?php if ($this->user_id != $val['uid'] AND $this->user_id) { ?>
-												<a href="javascript:;"<?php if (!$val['user_rated_thanks']) { ?> onclick="answer_user_rate(<?php echo $val['answer_id']; ?>, 'thanks', this);"<?php } ?> class="aw-icon-thank-tips aw-text-color-999" data-original-title="<?php _e('感谢热心的回复者'); ?>" data-toggle="tooltip" title="" data-placement="bottom"><i class="icon-heart"></i><?php if ($val['user_rated_thanks']) { ?><?php _e('已感谢'); ?><?php } else { ?><?php _e('感谢'); ?><?php } ?></a>
-												<?php } ?>	
-											</div>
-											<!-- end 可显示/隐藏的操作box -->
-											
-										</div>
-										<!-- end 社交操作 -->		      	
-									</div>
-								</div>
-							</div>
-							<?php } ?>
-						<?php } ?>
-					</div>
-					<div class="aw-mod-footer">
-						<?php if ($_GET['single']) { ?>
-							<a href="question/<?php echo $this->article_info['question_id']; ?>" class="aw-load-more-content">
-								<span><?php _e('查看全部回答'); ?></span>
-							</a>
 						<?php } ?>
 					</div>
 					
@@ -196,9 +108,9 @@
 				<div class="aw-mod aw-mod-article-replay-box">
 					<a name="answer_form"></a>
 					<?php if ($this->article_info['lock']) { ?>
-					<p align="center"><?php _e('该问题目前已经被锁定, 无法添加新回复'); ?></p>
+					<p align="center"><?php _e('该文章目前已经被锁定, 无法添加新评论'); ?></p>
 					<?php } else if (!$this->user_id) { ?>
-					<p align="center"><?php _e('要回复问题请先<a href="account/login/">登录</a>或<a href="account/register/">注册</a>'); ?></p>
+					<p align="center"><?php _e('要回复文章请先<a href="account/login/">登录</a>或<a href="account/register/">注册</a>'); ?></p>
 					<?php } else { ?>
 					<form action="question/ajax/save_answer/" onsubmit="return false;" method="post" id="answer_form">
 		        	<input type="hidden" name="post_hash" value="<?php echo new_post_hash(); ?>" />
@@ -209,13 +121,13 @@
 					</div>
 					<div class="aw-mod-body">
 						<textarea rows="2" name="answer_content" id="advanced_editor" class="form-control" placeholder="写下你的评论..."  /></textarea>
+						
 						<?php if ($this->human_valid) { ?>
 						<p class="aw-auth-img clearfix">
 							<em class="auth-img pull-right"><img src="" onclick="this.src = G_BASE_URL + '/account/captcha/' + Math.floor(Math.random() * 10000);" id="captcha" /></em>
 							<input class="pull-right" type="text" name="seccode_verify" placeholder="<?php _e('验证码'); ?>" />
 						</p>
 						<?php } ?>
-						
 					</div>
 					<div class="aw-mod-footer hide">
 						<a href="javascript:;" onclick="ajax_post($('#answer_form'));" class="btn btn-large btn-success pull-right btn-submit"><?php _e('回复'); ?></a>
