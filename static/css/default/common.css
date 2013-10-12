@@ -517,7 +517,7 @@ a.aw-load-more-content{display: block;}
 .aw-question-detail-txt{padding:10px 0;}
 .aw-topic-search{position:relative;display:block;height:28px;border:1px solid #CCCCCC;box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;}
 .aw-topic-search .icon-search{margin:9px 3px 4px 4px;}
-.aw-topic-search .search-query{width:170px;height:20px;margin:3px 0;padding:0px !important;border:none;box-shadow: none;transition:none;}
+.aw-topic-search .search-query{width:170px;height:20px;margin:3px 0 10px;padding:0px !important;border:none;box-shadow: none;transition:none;}
 .aw-topic-search .search-query:focus{border: none;box-shadow: none;}
 /* 话题编辑页面 */
 .aw-topic-edit .aw-main-content, .aw-side-bar-topic-edit{padding-top:0;}

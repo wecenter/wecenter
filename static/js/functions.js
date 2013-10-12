@@ -1841,78 +1841,72 @@ function get_dropdown_list(selector, type, data)
             url = G_BASE_URL + '/search/ajax/search/?type-topic__q-' + encodeURIComponent(data) + '__limit-10';
         break;
     }
-    switch (type)
+
+    $.get(url, function(result)
     {
-        case 'search' :
-            $.get(url, function(result)
+        if (result.length != 0)
+        {
+            $(selector).parent().find('.aw-dropdown-list').html(''); //清空内容
+            switch (type)
             {
-                $(selector).parents('#global_search_form').find('.aw-dropdown-list').html('');
-                $.each(result, function(i, a)
-                {
-                    switch (parseInt(a.type)) // type1 : 问题 , type2 : 话题 best_answer最佳回答, type3 : 用户
+                case 'search' :
+                    $.each(result, function(i, a)
                     {
-                        case 1:
-                            if (a.detail.best_answer > 0)
-                            {
-                                var active = 'active';
-                            }
-                            else
-                            {
-                                var active = ''
-                            }
+                        switch (parseInt(a.type)) // type1 : 问题 , type2 : 话题 best_answer最佳回答, type3 : 用户
+                        {
+                            case 1:
+                                if (a.detail.best_answer > 0)
+                                {
+                                    var active = 'active';
+                                }
+                                else
+                                {
+                                    var active = ''
+                                }
 
-                            $(selector).parent().find('.aw-dropdown-list').append(Hogan.compile(AW_TEMPLATE.searchDropdownList1).render(
-                            {
-                                'url': a.url,
-                                'active': active,
-                                'content': a.name,
-                                'discuss_count': a.detail.answer_count
-                            }));
-                            //高亮显示
-                            //$('.aw-search-dropdown-list .question a').highText(keyword, 'span', 'active');
-                            break;
-                        case 2:
-                            $(selector).parent().find('.aw-dropdown-list').append(Hogan.compile(AW_TEMPLATE.searchDropdownList2).render(
-                            {
-                                'url': a.url,
-                                'name': a.name,
-                                'discuss_count': a.detail.discuss_count,
-                                'topic_id': a.detail.topic_id
-                            }));
-                            break;
-                        case 3:
-                            if (a.detail.signature == '')
-                            {
-                                var signature = _t('暂无介绍');
-                            }
-                            else
-                            {
-                                var signature = a.detail.signature;
-                            }
-                            
-                            $(selector).parent().find('.aw-dropdown-list').append(Hogan.compile(AW_TEMPLATE.searchDropdownList3).render(
-                            {
-                                'url': a.url,
-                                'img': a.detail.avatar_file,
-                                'name': a.name,
-                                'intro': signature
-                            }));
-                            break;
-                    }
-                });
-            }, 'json');
-            $(selector).parent().find('.aw-dropdown, .aw-dropdown-list').show();
-            $(selector).parent().find('.search').show().children('a').text($(selector).val());
-            $(selector).parent().find('.title').hide();
-        break;
+                                $(selector).parent().find('.aw-dropdown-list').append(Hogan.compile(AW_TEMPLATE.searchDropdownList1).render(
+                                {
+                                    'url': a.url,
+                                    'active': active,
+                                    'content': a.name,
+                                    'discuss_count': a.detail.answer_count
+                                }));
+                                //高亮显示
+                                //$('.aw-search-dropdown-list .question a').highText(keyword, 'span', 'active');
+                                break;
+                            case 2:
+                                $(selector).parent().find('.aw-dropdown-list').append(Hogan.compile(AW_TEMPLATE.searchDropdownList2).render(
+                                {
+                                    'url': a.url,
+                                    'name': a.name,
+                                    'discuss_count': a.detail.discuss_count,
+                                    'topic_id': a.detail.topic_id
+                                }));
+                                break;
+                            case 3:
+                                if (a.detail.signature == '')
+                                {
+                                    var signature = _t('暂无介绍');
+                                }
+                                else
+                                {
+                                    var signature = a.detail.signature;
+                                }
+                                
+                                $(selector).parent().find('.aw-dropdown-list').append(Hogan.compile(AW_TEMPLATE.searchDropdownList3).render(
+                                {
+                                    'url': a.url,
+                                    'img': a.detail.avatar_file,
+                                    'name': a.name,
+                                    'intro': signature
+                                }));
+                                break;
+                        }
+                    });
+                break;
 
-        case 'publish' : 
-        case 'topic_question' : 
-            $.get(url, function (result)
-            {
-                if (result.length != 0)
-                {
-                    $(selector).parent().find('.aw-dropdown-list').html('');
+                case 'publish' :
+                case 'topic_question' :
                     $.each(result, function (i, a)
                     {
                         $(selector).parent().find('.aw-dropdown-list').append(Hogan.compile(AW_TEMPLATE.questionDropdownList).render(
@@ -1921,26 +1915,9 @@ function get_dropdown_list(selector, type, data)
                             'name': a.name
                         }));
                     });
-                    $(selector).parent().find('.aw-dropdown').show().children().show();
-                    $(selector).parent().find('.title').hide();
-                    //关键词高亮
-                    //$('.aw-publish-box .aw-question-dropdown-list li a').highText(data, 'span', 'active');
-                }
-                else
-                {
-                    $(selector).parent().find('.aw-dropdown').show().children('.title').html(_t('没有找到相关结果')).show();
-                    $(selector).parent().find('.aw-dropdown-list').hide();
-                }
-            }, 'json');
-        break;
+                break;
 
-        case 'topic' :
-            $.get(G_BASE_URL + '/search/ajax/search/?type-topic__q-' + encodeURIComponent(data) + '__limit-10', function (result)
-            {
-                if (result.length != 0)
-                {
-                    $(selector).parent().find('.aw-dropdown-list').empty();
-
+                case 'topic' :
                     $.each(result, function (i, a)
                     {
                         $(selector).parent().find('.aw-dropdown-list').append(Hogan.compile(AW_TEMPLATE.editTopicDorpdownList).render(
@@ -1948,27 +1925,9 @@ function get_dropdown_list(selector, type, data)
                             'name': a['name']
                         }));
                     });
-                    $(selector).parent().find('.aw-dropdown').show().children().show();
-                    $(selector).parent().find('.aw-dropdown').find('.title').hide();
-                    //关键词高亮
-                    $(selector).parent().find('.aw-dropdown-list li a').highText(data, 'span', 'active');
+                break;
 
-                }
-                else
-                {
-                    $(selector).parent().find('.aw-dropdown').show().children('.title').html(_t('没有找到相关结果')).show();
-                    $(selector).parent().find('.aw-dropdown-list').hide();
-                }
-            }, 'json');
-        break;
-
-        case 'redirect' :
-            $.get(url, function(result)
-            {
-                if (result.length != 0)
-                {
-                    $(selector).parent().find('.aw-dropdown-list').empty();
-                    
+                case 'redirect' :
                     $.each(result, function (i, a)
                     {
                         $(selector).parent().find('.aw-dropdown-list').append(Hogan.compile(AW_TEMPLATE.questionRedirectList).render(
@@ -1977,28 +1936,10 @@ function get_dropdown_list(selector, type, data)
                             'name': a['name']
                         }));
                     });
-                    $('.aw-question-redirect-box .aw-dropdown').show().children().show();
-                    $('.aw-question-redirect-box .aw-dropdown .title').hide();
-                    //关键词高亮
-                    $('.aw-question-redirect-box .aw-dropdown-list li a').highText(data, 'span', 'active');
+                break;
 
-                }
-                else
-                {
-                    $('.aw-question-drodpwon .aw-topic-dropdown').show().children('.title').html(_t('没有找到相关结果')).show();
-                    $('.aw-question-drodpwon .aw-topic-dropdown .aw-question-dropdown-list').hide();
-                }
-                
-            }, 'json');
-        break;
-
-        case 'inbox' :
-        case 'invite' :
-            $.get(url, function(result)
-            {
-                if (result.length != 0)
-                {
-                    $(selector).parent().find('.aw-dropdown-list').html('');
+                case 'inbox' :
+                case 'invite' :
                     $.each(result, function (i, a)
                     {
                         $(selector).parent().find('.aw-dropdown-list').append(Hogan.compile(AW_TEMPLATE.inviteDropdownList).render(
@@ -2008,17 +1949,20 @@ function get_dropdown_list(selector, type, data)
                             'img': a.detail.avatar_file
                         }));
                     });
-                    $(selector).parent().find('.aw-dropdown').show().children().show();
-                    $(selector).parent().find('.aw-dropdown').find('.title').hide();
-                }
-                else
-                {
-                    $(selector).parent().find('.aw-dropdown').show().children('.title').html(_t('没有找到相关结果')).show();
-                    $(selector).parent().find('.aw-dropdown-list').hide();
-                }
-            }, 'json');
-        break;
-    }
+                break;
+
+            }
+            $(selector).parent().find('.aw-dropdown').show().children().show();
+            $(selector).parent().find('.search').show().children('a').text($(selector).val());
+            $(selector).parent().find('.title').hide();
+            //关键词高亮
+            $(selector).parent().find('.aw-dropdown-list li.question a').highText(data, 'b', 'active');
+        }else
+        {
+            $(selector).parent().find('.aw-dropdown').show().children('.title').html(_t('没有找到相关结果')).show();
+            $(selector).parent().find('.aw-dropdown-list').hide();
+        }
+    }, 'json');
 }
 
 function _quick_publish_processer(result)
