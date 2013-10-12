@@ -1001,9 +1001,9 @@ function answer_user_rate(answer_id, type, element)
     }, 'json');
 }
 
-function init_comment_box(selecter)
+function init_comment_box(selector)
 {
-    $(document).on('click', selecter, function ()
+    $(document).on('click', selector, function ()
     {
         if (!$(this).attr('data-type') || !$(this).attr('data-id'))
         {
@@ -1097,6 +1097,32 @@ function init_comment_box(selecter)
         }
 
         at_user_lists($(this).parents('.aw-item').find('.aw-comment-txt'));
+    });
+}
+
+function init_article_comment_box(selector)
+{
+    $(document).on('click', selector, function ()
+    {
+        if ($(this).parents('.aw-item-content').find('.aw-article-comment-box')[0])
+        {
+            if ($(this).parents('.aw-item-content').find('.aw-article-comment-box').css('display') == 'block')
+            {
+               $(this).parents('.aw-item-content').find('.aw-article-comment-box').fadeOut();
+            }
+            else
+            {
+                $(this).parents('.aw-item-content').find('.aw-article-comment-box').fadeIn();
+            }
+        }
+        else
+        {
+            $(this).parents('.aw-item-content').append(Hogan.compile(AW_TEMPLATE.articleCommentBox).render(
+            {
+                'at_uid' : $(this).attr('data-id'),
+                'article_id' : $('.aw-mod-article-replay-box input[name="article_id"]').val()
+            }));
+        }
     });
 }
 
