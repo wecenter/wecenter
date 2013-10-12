@@ -212,15 +212,14 @@
 						<p><a class="aw-user-name"><?php echo $this->user_info['user_name']; ?></a></p>
 					</div>
 					<div class="aw-mod-body">
-						<textarea name="answer_content" id="advanced_editor" class="form-control" rows="15" style="width:100%;"><?php echo htmlspecialchars($this->draft_content['message']); ?></textarea>
-						<p class="aw-text-color-999"><span class="pull-right" id="answer_content_message">&nbsp;</span></p>
+						<textarea name="answer_content" id="advanced_editor" class="form-control" rows="3" style="width:100%;"><?php echo htmlspecialchars($this->draft_content['message']); ?></textarea>
 						<?php if ($this->human_valid) { ?>
 						<p class="aw-auth-img clearfix">
 							<em class="auth-img pull-right"><img src="" onclick="this.src = G_BASE_URL + '/account/captcha/' + Math.floor(Math.random() * 10000);" id="captcha" /></em>
 							<input class="pull-right" type="text" name="seccode_verify" placeholder="<?php _e('验证码'); ?>" />
 						</p>
 						<?php } ?>
-						<div style="position:relative;" class="clearfix">
+						<div style="position:relative;margin-top:10px;" class="clearfix">
 							<a href="javascript:;" onclick="ajax_post($('#answer_form'));" class="btn btn-large btn-success pull-right btn-submit"><?php _e('回复'); ?></a>
 						</div>
 						

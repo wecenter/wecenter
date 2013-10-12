@@ -374,7 +374,7 @@ a.aw-load-more-content{display: block;}
 .aw-question-detail-title .aw-mod-head .aw-question-follow .btn-group .icon-cog{margin-right: 0px;color: #666;}
 .aw-question-detail-title .aw-question-detail-meta{min-height: 20px;line-height: 20px;}
 .aw-question-detail-title .aw-question-detail-meta > span, .aw-question-detail-title .aw-question-detail-meta > div{margin-right:15px;}
-.aw-question-detail-title .aw-dropdown{width: 300px;}
+.aw-question-detail-title .aw-dropdown, .aw-mod-publish .aw-dropdown{width: 300px;}
 .aw-notopic-sort{margin:5px 0 15px 0;padding:5px 10px;background: #E0E2E1;}
 .aw-question-detail-box .aw-dynamic-topic .aw-item .aw-user-img{position: relative;top: 10px;width: 32px;height: 32px;}
 /* 问题修改日志 */
@@ -761,7 +761,7 @@ a.aw-load-more-content{display: block;}
 
 /* 回复编辑器 */
 .aw-mod-replay-box{margin-top:20px;padding-bottom: 30px;}
-.aw-mod-replay-box .aw-mod-head{position: relative;height:auto;overflow:hidden;margin-bottom:5px;padding-left: 40px;}
+.aw-mod-replay-box .aw-mod-head{position: relative;height:auto;overflow:hidden;min-height:32px;margin-bottom:5px;padding-left: 40px;}
 .aw-mod-replay-box .aw-mod-head > .aw-user-name{position: absolute;left: 0;top:0;}
 .aw-mod-replay-box .aw-mod-head > .aw-user-name img{width: 32px;height: 32px;}
 .aw-mod-replay-box p{height: auto;overflow: hidden;margin:0;}
