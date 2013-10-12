@@ -22,3 +22,16 @@ ALTER TABLE `[#DB_PREFIX#]topic_question` ADD `type` VARCHAR( 16 ) NULL, ADD IND
 RENAME TABLE `[#DB_PREFIX#]topic_question` TO `[#DB_PREFIX#]topic_relation`;
 
 UPDATE `[#DB_PREFIX#]topic_relation` SET `type` = 'question';
+
+CREATE TABLE `[#DB_PREFIX#]article_comments` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `uid` int(10) NOT NULL,
+  `article_id` int(10) NOT NULL,
+  `message` text NOT NULL,
+  `add_time` int(10) NOT NULL,
+  `at_uid` int(10) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`),
+  KEY `article_id` (`article_id`),
+  KEY `add_time` (`add_time`)
+) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;

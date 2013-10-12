@@ -44,4 +44,38 @@ class article_class extends AWS_MODEL
 	    
 	    return $result;
 	}
+	
+	public function save_comment($article_id, $message, $uid, $at_uid = null)
+	{
+		if (!$article_info = $this->get_article_info_by_id($article_id))
+		{
+			return false;
+		}
+		
+		$comment_id = $this->insert('article_comments', array(
+			'uid' => intval($uid),
+			'article_id' => intval($article_id),
+			'message' => htmlspecialchars($message),
+			'add_time' => time(),
+			'at_uid' => intval($at_uid)
+		));
+		
+		if ($at_uid AND $at_uid != $uid)
+		{
+			$this->model('notify')->send($uid, $at_uid, notify_class::TYPE_ARTICLE_COMMENT_AT_ME, notify_class::CATEGORY_QUESTION, $article_info['article_id'], array(
+				'from_uid' => $uid, 
+				'article_id' => $article_info['article_id'], 
+				'item_id' => $comment_id
+			));
+		}
+		
+		set_human_valid('answer_valid_hour');
+		
+		// 记录日志
+		ACTION_LOG::save_action($uid, $comment_id, ACTION_LOG::CATEGORY_ANSWER, ACTION_LOG::COMMENT_ARTICLE, htmlspecialchars($message), $article_info['article_id']);
+			
+		ACTION_LOG::save_action($uid, $article_info['article_id'], ACTION_LOG::CATEGORY_QUESTION, ACTION_LOG::COMMENT_ARTICLE, htmlspecialchars($message), $comment_id, 0);
+				
+		return $comment_id;
+	}
 }

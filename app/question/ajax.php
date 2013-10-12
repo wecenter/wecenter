@@ -633,17 +633,17 @@ class ajax extends AWS_CONTROLLER
 			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('你的剩余积分已经不足以进行此操作')));
 		}
 		
-		$answer_content = trim($_POST['answer_content'], "\r\n\t");
-		
 		if (!$question_info = $this->model('question')->get_question_info_by_id($_POST['question_id']))
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('问题不存在')));
 		}
 		
-		if ($question_info['lock'] && ! ($this->user_info['permission']['is_administortar'] or $this->user_info['permission']['is_moderator']))
+		if ($question_info['lock'] AND ! ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']))
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('已经锁定的问题不能回复')));
 		}
+		
+		$answer_content = trim($_POST['answer_content'], "\r\n\t");
 		
 		if (! $answer_content)
 		{

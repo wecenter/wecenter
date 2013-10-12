@@ -69,6 +69,19 @@ CREATE TABLE `[#DB_PREFIX#]article` (
   KEY `uid` (`uid`,`comments`,`views`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
 
+CREATE TABLE `[#DB_PREFIX#]article_comments` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `uid` int(10) NOT NULL,
+  `article_id` int(10) NOT NULL,
+  `message` text NOT NULL,
+  `add_time` int(10) NOT NULL,
+  `at_uid` int(10) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`),
+  KEY `article_id` (`article_id`),
+  KEY `add_time` (`add_time`)
+) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
+
 CREATE TABLE `[#DB_PREFIX#]attach` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `file_name` varchar(255) DEFAULT NULL COMMENT '附件名称',

@@ -258,18 +258,13 @@ class answer_class extends AWS_MODEL
 	 * 
 	 * 保存问题回复内容
 	 */
-	public function save_answer($question_id, $answer_content, $uid, $anonymous = 0, $ip_address = null)
+	public function save_answer($question_id, $answer_content, $uid, $anonymous = 0)
 	{
 		if (!$question_info = $this->model('question')->get_question_info_by_id($question_id))
 		{
 			return false;
 		}
-		
-		if (!$ip_address)
-		{
-			$ip_address = fetch_ip();
-		}
-		
+				
 		if (!$answer_id = $this->insert('answer', array(
 			'question_id' => $question_info['question_id'], 
 			'answer_content' => htmlspecialchars($answer_content), 
@@ -277,7 +272,7 @@ class answer_class extends AWS_MODEL
 			'uid' => intval($uid),
 			'category_id' => $question_info['category_id'],
 			'anonymous' => intval($anonymous),
-			'ip' => ip2long($ip_address)
+			'ip' => ip2long(fetch_ip())
 		)))
 		{
 			return false;
@@ -286,20 +281,17 @@ class answer_class extends AWS_MODEL
 		// 更新问题最后时间
 		$this->shutdown_update('question', array(
 			'update_time' => time(),
-		), "question_id = " . intval($question_id));
+		), 'question_id = ' . intval($question_id));
 		
-		// 更新问题回复数量,及时间
-		if ($answer_id)
-		{
-			// 更新问题回复计数
-			$this->model('question')->update_answer_count($question_id);
-			$this->model('question')->update_answer_users_count($question_id);
+
+		// 更新问题回复计数
+		$this->model('question')->update_answer_count($question_id);
+		$this->model('question')->update_answer_users_count($question_id);
 			
-			// 更新用户回复计数
-			$this->shutdown_update('users', array(
-				'answer_count' => $this->count('answer', 'uid = ' . intval($uid))
-			), 'uid = ' . intval($uid));
-		}
+		// 更新用户回复计数
+		$this->shutdown_update('users', array(
+			'answer_count' => $this->count('answer', 'uid = ' . intval($uid))
+		), 'uid = ' . intval($uid));
 		
 		return $answer_id;
 	}
