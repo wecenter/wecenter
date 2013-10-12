@@ -193,7 +193,7 @@
 				</div>
 				
 				<!-- 回复编辑器 -->
-				<div class="aw-mod aw-mod-replay-box">
+				<div class="aw-mod aw-mod-article-replay-box">
 					<a name="answer_form"></a>
 					<?php if ($this->article_info['lock']) { ?>
 					<p align="center"><?php _e('该问题目前已经被锁定, 无法添加新回复'); ?></p>
@@ -206,27 +206,19 @@
 		        	<input type="hidden" name="attach_access_key" value="<?php echo $this->attach_access_key; ?>" />
 					<div class="aw-mod-head">
 						<a href="people/" class="aw-user-name"><img alt="<?php echo $this->user_info['user_name']; ?>" src="<?php echo get_avatar_url($this->user_info['uid'], 'mid'); ?>" /></a>
-						<p><a class="aw-user-name"><?php echo $this->user_info['user_name']; ?></a></p>
 					</div>
 					<div class="aw-mod-body">
-						<textarea name="answer_content" id="advanced_editor" class="form-control" rows="3" style="width:100%;"><?php echo htmlspecialchars($this->draft_content['message']); ?></textarea>
+						<textarea rows="2" name="answer_content" id="advanced_editor" class="form-control" placeholder="写下你的评论..."  /></textarea>
 						<?php if ($this->human_valid) { ?>
 						<p class="aw-auth-img clearfix">
 							<em class="auth-img pull-right"><img src="" onclick="this.src = G_BASE_URL + '/account/captcha/' + Math.floor(Math.random() * 10000);" id="captcha" /></em>
 							<input class="pull-right" type="text" name="seccode_verify" placeholder="<?php _e('验证码'); ?>" />
 						</p>
 						<?php } ?>
-						<div style="position:relative;margin-top:10px;" class="clearfix">
-							<a href="javascript:;" onclick="ajax_post($('#answer_form'));" class="btn btn-large btn-success pull-right btn-submit"><?php _e('回复'); ?></a>
-						</div>
 						
-						<div id="markItUpPreviewFrame" class="markItUpPreviewFrame">
-							<h2 class="title">
-								<?php _e('预览模式'); ?>:
-							</h2>
-							
-							<div id="markItUpPreviewFrames"></div>
-						</div>
+					</div>
+					<div class="aw-mod-footer hide">
+						<a href="javascript:;" onclick="ajax_post($('#answer_form'));" class="btn btn-large btn-success pull-right btn-submit"><?php _e('回复'); ?></a>
 					</div>
 					</form>
 					<?php } ?>
@@ -278,5 +270,23 @@
 		</div>
 	</div>
 </div>
+
+<script type="text/javascript">
+	$(function()
+	{
+		$('.aw-mod-article-replay-box #advanced_editor').autosize();
+
+		$('.aw-mod-article-replay-box #advanced_editor').bind({
+			focus : function()
+			{
+				$(this).parents('.aw-mod-article-replay-box').find('.aw-mod-footer').show();
+			},
+			blur : function()
+			{
+				$(this).parents('.aw-mod-article-replay-box').find('.aw-mod-footer').delay(300).fadeOut(300);
+			}
+		})
+	});
+</script>
 
 <?php TPL::output('global/footer.tpl.htm'); ?>

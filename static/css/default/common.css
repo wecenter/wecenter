@@ -771,6 +771,10 @@ a.aw-load-more-content{display: block;}
 .aw-mod-replay-box .aw-mod-head p label input{margin-right: 5px;position: relative;top:-1px;top:1px\0;}
 .aw-mod-replay-box .aw-mod-body{position:relative;padding:20px;background: #E7EFF2;border: 1px solid #C2CACD;}
 .aw-mod-replay-box .aw-mod-body .aw-text-color-999{margin-bottom:10px;}
+.aw-mod-article-replay-box{position:relative;margin-top:20px;padding-left: 40px;}
+.aw-mod-article-replay-box .aw-mod-head{position:absolute;left:0;}
+.aw-mod-article-replay-box .aw-mod-head img{width: 32px;height: 32px;}
+.aw-mod-article-replay-box .aw-mod-body{margin-bottom:10px;}
 .content_cursor{position: absolute;z-index:-1;max-width:600px;font-size: 14px;font-family: "Helvetica Neue",Helvetica,Arial,'Microsoft YaHei',sans-serif;word-wrap: break-word;}
 .cursor_flag{display: inline-block;}
 .aw-upload-box{height: auto;overflow: hidden;margin:10px 0;}
