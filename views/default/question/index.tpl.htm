@@ -115,18 +115,7 @@
 
 							<a herf="javascript:;" data-id="<?php echo $this->question_info['question_id']; ?>" data-type="question" class="aw-add-comment aw-text-color-999"<?php if ($this->question_info['lock']) { ?> data-close="true"<?php } ?>><i class="icon-comment"></i><?php if ($this->question_info['comment_count']) { ?><?php _e('%s 条评论', $this->question_info['comment_count']); ?><?php } else { ?><?php _e('添加评论'); ?><?php } ?></a>
 							<div class="aw-share-dropdown pull-left">
-								<a class="aw-text-color-999 dropdown-toggle" data-toggle="dropdown"><i class="icon-share-alt"></i><?php _e('分享'); ?></a>
-								<div class="dropdown-menu aw-dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
-									<span><i class="aw-icon i-dropdown-triangle"></i></span>
-									<ul>
-										<li>
-											<a href="javascript:;" onclick="$.dialog('shareOut', {item_type:'question', item_id:<?php echo $this->question_info['question_id']; ?>});" class="aw-text-color-999"><i class="icon-user"></i><?php _e('站外'); ?></a>
-										</li>
-										<li>
-											<a href="javascript:;" onclick="$.dialog('shareIn', {item_type:'question', item_id:<?php echo $this->question_info['question_id']; ?>});" class="aw-text-color-999"><i class="icon-envelope"></i><?php _e('私信'); ?></a>
-										</li>
-									</ul>
-								</div>
+								<a class="aw-text-color-999" onclick="$.dialog('shareOut', {item_type:'question', item_id:<?php echo $this->question_info['question_id']; ?>});"><i class="icon-share-alt"></i><?php _e('分享'); ?></a>
 							</div>
 							<?php if ((!$this->question_info['lock'] AND ($this->question_info['published_uid'] == $this->user_id OR $this->user_info['permission']['edit_question'])) OR $this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?><a class="aw-text-color-999" href="publish/<?php echo $this->question_info['question_id']; ?>"><i class="icon-edit"></i><?php _e('编辑'); ?></a><?php } ?>
 							<?php if ($this->question_info['unverified_modify_count']) { ?><a href="question/<?php echo $this->question_info['question_id']; ?>?column=log&rf=false" class="aw-text-color-999 aw-question-wait-edit"><i class="icon-check"></i><?php _e('待确认修改'); ?><em class="badge badge-info"><?php echo $this->question_info['unverified_modify_count']; ?></em></a><?php } ?>
