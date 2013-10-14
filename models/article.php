@@ -85,19 +85,20 @@ class article_class extends AWS_MODEL
 		
 		if ($at_uid AND $at_uid != $uid)
 		{
-			$this->model('notify')->send($uid, $at_uid, notify_class::TYPE_ARTICLE_COMMENT_AT_ME, notify_class::CATEGORY_QUESTION, $article_info['article_id'], array(
+			$this->model('notify')->send($uid, $at_uid, notify_class::TYPE_ARTICLE_COMMENT_AT_ME, notify_class::CATEGORY_ARTICLE, $article_info['id'], array(
 				'from_uid' => $uid, 
-				'article_id' => $article_info['article_id'], 
+				'article_id' => $article_info['id'], 
 				'item_id' => $comment_id
 			));
 		}
 		
 		set_human_valid('answer_valid_hour');
-		
-		// 记录日志
-		ACTION_LOG::save_action($uid, $comment_id, ACTION_LOG::CATEGORY_ANSWER, ACTION_LOG::COMMENT_ARTICLE, htmlspecialchars($message), $article_info['article_id']);
-			
-		ACTION_LOG::save_action($uid, $article_info['article_id'], ACTION_LOG::CATEGORY_QUESTION, ACTION_LOG::COMMENT_ARTICLE, htmlspecialchars($message), $comment_id, 0);
+				
+		$this->model('notify')->send($uid, $article_info['uid'], notify_class::TYPE_ARTICLE_NEW_COMMENT, notify_class::CATEGORY_ARTICLE, $article_info['id'], array(
+			'from_uid' => $uid, 
+			'article_id' => $article_info['id'], 
+			'item_id' => $comment_id
+		));
 				
 		return $comment_id;
 	}

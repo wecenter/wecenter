@@ -26,14 +26,17 @@
 		<p class="aw-text-color-999">
 			<?php if ($val['last_action_str']) { ?><?php echo $val['last_action_str']; ?> • <?php echo date_friendly($val['add_time']); ?> • <?php } ?>
 			
-			<a class="aw-text-color-999"><?php _e('%s 个回复', $val['question_info']['answer_count']); ?></a>
-			
-			<?php if ($this->user_id AND !$_GET['filter']) { ?> • <a href="javascript:;" class="aw-text-color-999<?php if ($val['has_focus']) { ?> aw-active<?php } ?>" onclick="focus_question($(this), <?php echo $val['question_info']['question_id']; ?>);"><?php if ($val['has_focus']) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?></a><?php } ?>
-			<?php if ($_GET['filter'] == 'focus') { ?>
-				 • <?php if ($val['topics']) { ?><?php _e('已添加到'); ?> 
-				<?php foreach($val['topics'] as $t_key => $t_val) { if ($t_key > 2) { break; } ?><a href="topic/<?php echo $t_val['url_token']; ?>" class="aw-topic-name" data-id="<?php echo $t_val['topic_id']; ?>"><?php echo $t_val['topic_title']; ?></a> <?php } ?><?php if (sizeof($val['topics']) > 3) { ?> <?php _e('等'); ?> <?php _e('%s 个话题', sizeof($val['topics'])); ?><?php } else { ?><?php _e('话题'); ?><?php } ?>
-				<?php } else { ?><a href="question/<?php echo $val['question_info']['question_id']; ?>" class="aw-text-color-999"><?php _e('添加话题'); ?></a><?php } ?>
-			<?php } else if (!$_GET['filter']) { ?> • <a class="aw-text-color-999" href="javascript:;" onClick="question_uninterested($(this).parents('div.aw-item'), <?php echo $val['question_info']['question_id']; ?>);"><?php _e('不感兴趣'); ?></a><?php } ?>
+			<?php if (isset($val['article_info']['comments'])) { ?>
+			<a href="<?php echo $val['link']; ?>" class="aw-text-color-999"><?php _e('%s 个评论', $val['article_info']['comments']); ?></a>
+			<?php } else { ?>
+			<a href="<?php echo $val['link']; ?>" class="aw-text-color-999"><?php _e('%s 个回复', $val['question_info']['answer_count']); ?></a>
+				<?php if ($this->user_id AND !$_GET['filter']) { ?> • <a href="javascript:;" class="aw-text-color-999<?php if ($val['has_focus']) { ?> aw-active<?php } ?>" onclick="focus_question($(this), <?php echo $val['question_info']['question_id']; ?>);"><?php if ($val['has_focus']) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?></a><?php } ?>
+				<?php if ($_GET['filter'] == 'focus') { ?>
+					 • <?php if ($val['topics']) { ?><?php _e('已添加到'); ?> 
+					<?php foreach($val['topics'] as $t_key => $t_val) { if ($t_key > 2) { break; } ?><a href="topic/<?php echo $t_val['url_token']; ?>" class="aw-topic-name" data-id="<?php echo $t_val['topic_id']; ?>"><?php echo $t_val['topic_title']; ?></a> <?php } ?><?php if (sizeof($val['topics']) > 3) { ?> <?php _e('等'); ?> <?php _e('%s 个话题', sizeof($val['topics'])); ?><?php } else { ?><?php _e('话题'); ?><?php } ?>
+					<?php } else { ?><a href="question/<?php echo $val['question_info']['question_id']; ?>" class="aw-text-color-999"><?php _e('添加话题'); ?></a><?php } ?>
+				<?php } else if (!$_GET['filter']) { ?> • <a class="aw-text-color-999" href="javascript:;" onClick="question_uninterested($(this).parents('div.aw-item'), <?php echo $val['question_info']['question_id']; ?>);"><?php _e('不感兴趣'); ?></a><?php } ?>
+			<?php } ?>
 		</p>
 	</div>
 	<?php if ($val['associate_action'] == ACTION_LOG::ANSWER_QUESTION OR $val['associate_action'] == ACTION_LOG::ADD_AGREE) { ?>

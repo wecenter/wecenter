@@ -208,6 +208,8 @@ class index_class extends AWS_MODEL
 					
 					$action_list[$key]['title'] = $article_info['title'];
 					$action_list[$key]['link'] = get_js_url('/article/' . $article_info['id']);
+					
+					$action_list[$key]['article_info'] = $article_info;
 				break;
 				
 				default:

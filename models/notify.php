@@ -27,6 +27,8 @@ class notify_class extends AWS_MODEL
 	const CATEGORY_PEOPLE = 4;	// 人物
 	const CATEGORY_CONTEXT = 7;	// 文字
 	
+	const CATEGORY_ARTICLE = 8;	// 文章
+	
 
 	//=========操作标示:action_type==================================================
 	
@@ -48,6 +50,9 @@ class notify_class extends AWS_MODEL
 	
 	const TYPE_ANSWER_AT_ME = 115;	// 有回答 @ 提到我
 	const TYPE_ANSWER_COMMENT_AT_ME = 116;	// 有回答评论 @ 提到我
+	
+	const TYPE_ARTICLE_NEW_COMMENT = 117; // 文章有新评论
+	const TYPE_ARTICLE_COMMENT_AT_ME = 118; // 文章评论提到我
 	
 	public $notify_actions = array();
 	public $notify_action_details;
@@ -80,12 +85,12 @@ class notify_class extends AWS_MODEL
 		
 		if (! in_array($action_type, $this->notify_actions) AND $action_type > 0)
 		{
-			return false;
+			//return false;
 		}
 		
 		if (! $this->check_notification_setting($recipient_uid, $action_type))
 		{
-			return false;
+			//return false;
 		}
 		
 		if ($notification_id = $this->insert('notification', array(
@@ -169,6 +174,11 @@ class notify_class extends AWS_MODEL
 				$question_ids[] = $val['data']['question_id'];
 			}
 			
+			if ($val['data']['article_id'])
+			{				
+				$article_ids[] = $val['data']['article_id'];
+			}
+			
 			if ($val['data']['from_uid'])
 			{
 				$uids[] = intval($val['data']['from_uid']);
@@ -184,6 +194,11 @@ class notify_class extends AWS_MODEL
 		if ($question_ids)
 		{
 			$question_list = $this->model('question')->get_question_info_by_ids($question_ids);
+		}
+		
+		if ($article_ids)
+		{
+			$article_list = $this->model('article')->get_article_info_by_ids($article_ids);
 		}
 		
 		if ($uids)
@@ -209,17 +224,23 @@ class notify_class extends AWS_MODEL
 			
 			if ($data['from_uid'])
 			{
-				$userinfo = $user_infos[$data['from_uid']];
-				$tmp['p_username'] = $userinfo['user_name'];
-				$tmp['p_url'] = get_js_url('/people/' . $userinfo['url_token']);
+				$user_info = $user_infos[$data['from_uid']];
+				
+				$tmp['p_user_name'] = $user_info['user_name'];
+				
+				$tmp['p_url'] = get_js_url('/people/' . $user_info['url_token']);
 			}
 			
 			$token = 'notification_id-' . $notify['notification_id'];
 			
 			switch ($notify['model_type'])
 			{
+				case self::CATEGORY_ARTICLE :
+					$tmp['key_url'] = get_js_url('/article/' . $data['article_id'] . '?' . $token . '__item_id-' . $data['item_id']);
+					$tmp['title'] = $article_list[$data['article_id']]['title'];
+				break;
+				
 				case self::CATEGORY_QUESTION :
-					
 					switch ($notify['action_type'])
 					{
 						default :
@@ -349,7 +370,7 @@ class notify_class extends AWS_MODEL
 				
 				case self::CATEGORY_PEOPLE :
 					
-					if (!$userinfo)
+					if (!$user_info)
 					{
 						unset($tmp);
 						
@@ -782,7 +803,7 @@ class notify_class extends AWS_MODEL
 			{
 				if ($val['action_type'] == self::TYPE_PEOPLE_FOCUS)
 				{
-					$data[$key]['message'] = '<a href="' . $val['key_url'] . '">' . $val['p_username'] . '</a> ' . AWS_APP::lang()->_t('关注了你');
+					$data[$key]['message'] = '<a href="' . $val['key_url'] . '">' . $val['p_user_name'] . '</a> ' . AWS_APP::lang()->_t('关注了你');
 				}
 				else if ($val['action_type'] == self::TYPE_NEW_ANSWER)
 				{
@@ -792,18 +813,26 @@ class notify_class extends AWS_MODEL
 					}
 					else
 					{
-						$data[$key]['message'] = '<a href="' . $val['p_url'] . '">' . $val['p_username'] . '</a>';
+						$data[$key]['message'] = '<a href="' . $val['p_url'] . '">' . $val['p_user_name'] . '</a>';
 					}
 					
 					$data[$key]['message'] .= ' ' . AWS_APP::lang()->_t('回复了问题') . ' <a href="' . $val['key_url'] . '">' . $val['title'] . '</a>';
 				}
+				else if ($val['action_type'] == self::TYPE_ARTICLE_NEW_COMMENT)
+				{
+					$data[$key]['message'] = '<a href="' . $val['p_url'] . '">' . $val['p_user_name'] . '</a> ' . AWS_APP::lang()->_t('评论了文章') . ' <a href="' . $val['key_url'] . '">' . $val['title'] . '</a>';
+				}
 				else if ($val['action_type'] == self::TYPE_COMMENT_AT_ME)
 				{
-					$data[$key]['message'] = '<a href="' . $val['p_url'] . '">' . $val['p_username'] . '</a> ' . AWS_APP::lang()->_t('在问题') . ' <a href="' . $val['key_url'] . '">' . $val['title'] . '</a> ' . AWS_APP::lang()->_t('中的评论提到了你');
+					$data[$key]['message'] = '<a href="' . $val['p_url'] . '">' . $val['p_user_name'] . '</a> ' . AWS_APP::lang()->_t('在问题') . ' <a href="' . $val['key_url'] . '">' . $val['title'] . '</a> ' . AWS_APP::lang()->_t('中的评论提到了你');
 				}
 				else if ($val['action_type'] == self::TYPE_ANSWER_COMMENT_AT_ME)
 				{
-					$data[$key]['message'] = '<a href="' . $val['p_url'] . '">' . $val['p_username'] . '</a> ' . AWS_APP::lang()->_t('在问题') . ' <a href="' . $val['key_url'] . '">' . $val['title'] . '</a> ' . AWS_APP::lang()->_t('回答中的评论提到了你');
+					$data[$key]['message'] = '<a href="' . $val['p_url'] . '">' . $val['p_user_name'] . '</a> ' . AWS_APP::lang()->_t('在问题') . ' <a href="' . $val['key_url'] . '">' . $val['title'] . '</a> ' . AWS_APP::lang()->_t('回答中的评论提到了你');
+				}
+				else if ($val['action_type'] == self::TYPE_ARTICLE_COMMENT_AT_ME)
+				{
+					$data[$key]['message'] = '<a href="' . $val['p_url'] . '">' . $val['p_user_name'] . '</a> ' . AWS_APP::lang()->_t('在文章') . ' <a href="' . $val['key_url'] . '">' . $val['title'] . '</a> ' . AWS_APP::lang()->_t('评论中回复了你');
 				}
 				else if ($val['action_type'] == self::TYPE_ANSWER_AT_ME)
 				{
@@ -813,46 +842,46 @@ class notify_class extends AWS_MODEL
 					}
 					else
 					{
-						$data[$key]['message'] = '<a href="' . $val['p_url'] . '">' . $val['p_username'] . '</a>';
+						$data[$key]['message'] = '<a href="' . $val['p_url'] . '">' . $val['p_user_name'] . '</a>';
 					}
 					
 					$data[$key]['message'] .= ' ' . AWS_APP::lang()->_t('在问题') . ' <a href="' . $val['key_url'] . '">' . $val['title'] . '</a> ' . AWS_APP::lang()->_t('中的回答提到了你');
 				}
 				else if ($val['action_type'] == self::TYPE_INVITE_QUESTION)
 				{
-					$data[$key]['message'] = '<a href="' . $val['p_url'] . '">' . $val['p_username'] . '</a> ' . AWS_APP::lang()->_t('邀请你参与问题') . ' <a href="' . $val['key_url'] . '">' . $val['title'] . '</a>';
+					$data[$key]['message'] = '<a href="' . $val['p_url'] . '">' . $val['p_user_name'] . '</a> ' . AWS_APP::lang()->_t('邀请你参与问题') . ' <a href="' . $val['key_url'] . '">' . $val['title'] . '</a>';
 				}
 				else if ($val['action_type'] == self::TYPE_ANSWER_COMMENT)
 				{
-					$data[$key]['message'] = '<a href="' . $val['p_url'] . '">' . $val['p_username'] . '</a> ' . AWS_APP::lang()->_t('评论了你在问题') . ' <a href="' . $val['key_url'] . '">' . $val['title'] . '</a> ' . AWS_APP::lang()->_t('中的回复');
+					$data[$key]['message'] = '<a href="' . $val['p_url'] . '">' . $val['p_user_name'] . '</a> ' . AWS_APP::lang()->_t('评论了你在问题') . ' <a href="' . $val['key_url'] . '">' . $val['title'] . '</a> ' . AWS_APP::lang()->_t('中的回复');
 				}
 				else if ($val['action_type'] == self::TYPE_QUESTION_COMMENT)
 				{
-					$data[$key]['message'] = '<a href="' . $val['p_url'] . '">' . $val['p_username'] . '</a> ' . AWS_APP::lang()->_t('评论了你发起的问题') . ' <a href="' . $val['key_url'] . '">' . $val['title'] . '</a>';
+					$data[$key]['message'] = '<a href="' . $val['p_url'] . '">' . $val['p_user_name'] . '</a> ' . AWS_APP::lang()->_t('评论了你发起的问题') . ' <a href="' . $val['key_url'] . '">' . $val['title'] . '</a>';
 				}
 				else if ($val['action_type'] == self::TYPE_ANSWER_AGREE)
 				{
-					$data[$key]['message'] = '<a href="' . $val['p_url'] . '">' . $val['p_username'] . '</a> ' . AWS_APP::lang()->_t('赞同了你在问题') . ' <a href="' . $val['key_url'] . '">' . $val['title'] . '</a> ' . AWS_APP::lang()->_t('中的回复');
+					$data[$key]['message'] = '<a href="' . $val['p_url'] . '">' . $val['p_user_name'] . '</a> ' . AWS_APP::lang()->_t('赞同了你在问题') . ' <a href="' . $val['key_url'] . '">' . $val['title'] . '</a> ' . AWS_APP::lang()->_t('中的回复');
 				}
 				else if ($val['action_type'] == self::TYPE_ANSWER_THANK)
 				{
-					$data[$key]['message'] = '<a href="' . $val['p_url'] . '">' . $val['p_username'] . '</a> ' . AWS_APP::lang()->_t('感谢了你在问题') . ' <a href="' . $val['key_url'] . '">' . $val['title'] . '</a> ' . AWS_APP::lang()->_t('中的回复');
+					$data[$key]['message'] = '<a href="' . $val['p_url'] . '">' . $val['p_user_name'] . '</a> ' . AWS_APP::lang()->_t('感谢了你在问题') . ' <a href="' . $val['key_url'] . '">' . $val['title'] . '</a> ' . AWS_APP::lang()->_t('中的回复');
 				}
 				else if ($val['action_type'] == self::TYPE_MOD_QUESTION)
 				{
-					$data[$key]['message'] = '<a href="' . $val['p_url'] . '">' . $val['p_username'] . '</a> ' . AWS_APP::lang()->_t('编辑了你发布的问题') . ' <a href="' . $val['key_url'] . '">' . $val['title'] . '</a>';
+					$data[$key]['message'] = '<a href="' . $val['p_url'] . '">' . $val['p_user_name'] . '</a> ' . AWS_APP::lang()->_t('编辑了你发布的问题') . ' <a href="' . $val['key_url'] . '">' . $val['title'] . '</a>';
 				}
 				else if ($val['action_type'] == self::TYPE_REMOVE_ANSWER)
 				{
-					$data[$key]['message'] = '<a href="' . $val['p_url'] . '">' . $val['p_username'] . '</a> ' . AWS_APP::lang()->_t('删除了你在问题') . ' <a href="' . $val['key_url'] . '">' . $val['title'] . '</a> ' . AWS_APP::lang()->_t('中的回复');
+					$data[$key]['message'] = '<a href="' . $val['p_url'] . '">' . $val['p_user_name'] . '</a> ' . AWS_APP::lang()->_t('删除了你在问题') . ' <a href="' . $val['key_url'] . '">' . $val['title'] . '</a> ' . AWS_APP::lang()->_t('中的回复');
 				}
 				else if ($val['action_type'] == self::TYPE_REDIRECT_QUESTION)
 				{
-					$data[$key]['message'] = '<a href="' . $val['p_url'] . '">' . $val['p_username'] . '</a> ' . AWS_APP::lang()->_t('重定向了你发起的问题') . ' <a href="' . $val['key_url'] . '">' . $val['title'] . '</a>';
+					$data[$key]['message'] = '<a href="' . $val['p_url'] . '">' . $val['p_user_name'] . '</a> ' . AWS_APP::lang()->_t('重定向了你发起的问题') . ' <a href="' . $val['key_url'] . '">' . $val['title'] . '</a>';
 				}
 				else if ($val['action_type'] == self::TYPE_QUESTION_THANK)
 				{
-					$data[$key]['message'] = '<a href="' . $val['p_url'] . '">' . $val['p_username'] . '</a> ' . AWS_APP::lang()->_t('感谢了你发起的问题') . ' <a href="' . $val['key_url'] . '">' . $val['title'] . '</a>';
+					$data[$key]['message'] = '<a href="' . $val['p_url'] . '">' . $val['p_user_name'] . '</a> ' . AWS_APP::lang()->_t('感谢了你发起的问题') . ' <a href="' . $val['key_url'] . '">' . $val['title'] . '</a>';
 				}
 				else if ($val['action_type'] == self::TYPE_CONTEXT)
 				{
