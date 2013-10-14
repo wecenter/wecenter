@@ -85,12 +85,12 @@ class notify_class extends AWS_MODEL
 		
 		if (! in_array($action_type, $this->notify_actions) AND $action_type > 0)
 		{
-			//return false;
+			return false;
 		}
 		
 		if (! $this->check_notification_setting($recipient_uid, $action_type))
 		{
-			//return false;
+			return false;
 		}
 		
 		if ($notification_id = $this->insert('notification', array(

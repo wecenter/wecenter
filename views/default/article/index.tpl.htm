@@ -57,7 +57,7 @@
 									</ul>
 								</div>
 							</div>
-							<?php if ((!$this->article_info['lock'] AND ($this->article_info['published_uid'] == $this->user_id OR $this->user_info['permission']['edit_question'])) OR $this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?><a class="aw-text-color-999" href="publish/<?php echo $this->article_info['question_id']; ?>"><i class="icon-edit"></i><?php _e('编辑'); ?></a><?php } ?>
+							<?php if ((!$this->article_info['lock'] AND ($this->article_info['published_uid'] == $this->user_id OR $this->user_info['permission']['edit_question'])) OR $this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?><a class="aw-text-color-999" href="publish/article/<?php echo $this->article_info['id']; ?>"><i class="icon-edit"></i><?php _e('编辑'); ?></a><?php } ?>
 						</div>
 					</div>
 				</div>

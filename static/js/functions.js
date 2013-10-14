@@ -1104,7 +1104,7 @@ function init_article_comment_box(selector)
 {
     $(document).on('click', selector, function ()
     {
-        if ($(this).parents('.aw-item-content').find('.aw-article-comment-box')[0])
+        if ($(this).parents('.aw-item-content').find('.aw-article-comment-box').length)
         {
             if ($(this).parents('.aw-item-content').find('.aw-article-comment-box').css('display') == 'block')
             {

@@ -12,7 +12,7 @@
 			<!-- end tab 切换 -->
 
 			<div class="col-sm-12 col-md-12 aw-main-content">
-				<form action="publish/ajax/<?php if ($this->article_info['question_id']) { ?>modify<?php } else { ?>publish<?php } ?>_article/" method="post" id="question_form" onsubmit="return false;">
+				<form action="publish/ajax/<?php if ($this->article_info['id']) { ?>modify<?php } else { ?>publish<?php } ?>_article/" method="post" id="question_form" onsubmit="return false;">
 					<input type="hidden" name="post_hash" value="<?php echo new_post_hash(); ?>" />
 					<input type="hidden" name="attach_access_key" value="<?php echo $this->attach_access_key; ?>" />
 					<input type="hidden" name="article_id" id="article_id" value="<?php echo $this->article_info['id']; ?>" />
@@ -72,7 +72,7 @@
 						<div class="aw-mod-footer clearfix">
 							<a class="pull-right btn btn-large btn-success" id="publish_submit" onclick="ajax_post($('#question_form')); return false;"><?php _e('确认发起'); ?></a>
 							<span class="aw-anonymity pull-right">
-								<?php if ($this->article_info['question_id'] AND ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator'])) { ?>
+								<?php if ($this->article_info['id'] AND ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator'])) { ?>
 								<label><input type="checkbox" class="pull-left" value="1" name="do_delete" />
 									<?php _e('删除文章'); ?></label>
 								<?php } ?>
