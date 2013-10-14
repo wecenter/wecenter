@@ -159,6 +159,9 @@ class article_class extends AWS_MODEL
 	
 	public function update_article($article_id, $title, $message)
 	{
-		
+		return $this->update('article', array(
+			'title' => htmlspecialchars($title),
+			'message' => htmlspecialchars($message)
+		), 'id = ' . intval($article_id));
 	}
 }
