@@ -129,4 +129,36 @@ class article_class extends AWS_MODEL
 				
 		return $comment_id;
 	}
+	
+	public function remove_article($article_id)
+	{
+		if (!$article_info = $this->get_article_info_by_id($article_id))
+		{
+			return false;
+		}
+		
+		$this->delete('article_comments', "article_id = " . intval($article_id)); // 删除关联的回复内容
+
+		$this->delete('topic_relation', "`type` = 'article' AND item_id = " . intval($article_id));		// 删除话题关联
+				
+		ACTION_LOG::delete_action_history('associate_type = ' . ACTION_LOG::CATEGORY_ARTICLE .  ' AND associate_id = ' . intval($article_id));	// 删除动作
+		
+		// 删除附件
+		if ($attachs = $this->model('publish')->get_attach('article', $article_id))
+		{
+			foreach ($attachs as $key => $val)
+			{
+				$this->model('publish')->remove_attach($val['id'], $val['access_key']);
+			}
+		}
+		
+		$this->model('notify')->delete_notify('model_type = 8 AND source_id = ' . intval($article_id));	// 删除相关的通知
+		
+		return $this->delete('article', 'id = ' . intval($article_info));	// 删除问题
+	}
+	
+	public function update_article($article_id, $title, $message)
+	{
+		
+	}
 }

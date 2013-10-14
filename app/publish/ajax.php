@@ -582,15 +582,15 @@ class ajax extends AWS_CONTROLLER
 			), 1, null));
 		}
 		
-		$this->model('article')->update_article($article_info['article_id'], $_POST['title'], $_POST['message'], $this->user_id);
+		$this->model('article')->update_article($article_info['id'], $_POST['title'], $_POST['message']);
 		
 		if ($_POST['attach_access_key'])
 		{
-			$this->model('publish')->update_attach('article', $article_info['article_id'], $_POST['attach_access_key']);
+			$this->model('publish')->update_attach('article', $article_info['id'], $_POST['attach_access_key']);
 		}
 		
 		H::ajax_json_output(AWS_APP::RSM(array(
-			'url' => get_js_url('/article/' . $article_info['article'])
+			'url' => get_js_url('/article/' . $article_info['article_id'])
 		), 1, null));
 	
 	}
