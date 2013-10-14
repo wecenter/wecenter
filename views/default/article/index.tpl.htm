@@ -130,7 +130,7 @@
 					<div class="aw-mod-body">
 						<textarea rows="2" name="message" id="comment_editor" class="form-control" placeholder="写下你的评论..."  /></textarea>
 					</div>
-					<div class="aw-mod-footer hide">
+					<div class="aw-mod-footer">
 						<a href="javascript:;" onclick="ajax_post($('#answer_form'));" class="btn btn-large btn-success pull-right btn-submit"><?php _e('回复'); ?></a>
 						<?php if ($this->human_valid) { ?>
 						<em class="auth-img pull-right"><img src="" onclick="this.src = G_BASE_URL + '/account/captcha/' + Math.floor(Math.random() * 10000);" id="captcha" /></em>
@@ -189,20 +189,8 @@
 </div>
 
 <script type="text/javascript">
-	$(function()
-	{
+	$(function() {
 		$('.aw-mod-article-replay-box #comment_editor').autosize();
-
-		$('.aw-mod-article-replay-box #comment_editor').bind({
-			focus : function()
-			{
-				$(this).parents('.aw-mod-article-replay-box').find('.aw-mod-footer').show();
-			},
-			blur : function()
-			{
-				$(this).parents('.aw-mod-article-replay-box').find('.aw-mod-footer').delay(300).fadeOut(300);
-			}
-		})
 	});
 </script>
 

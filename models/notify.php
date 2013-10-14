@@ -43,7 +43,7 @@ class notify_class extends AWS_MODEL
 	const TYPE_ANSWER_THANK = 108;	// 我的回复收到感谢
 	const TYPE_MOD_QUESTION = 110;	// 我发布的问题被编辑
 	const TYPE_REMOVE_ANSWER = 111;	// 我发表的回复被删除
-	//const TYPE_REMOVE_QUESTION = 112;	// 我发布的问题被删除
+	
 	const TYPE_REDIRECT_QUESTION = 113;	// 我发布的问题被重定向
 	const TYPE_QUESTION_THANK = 114;	// 我发布的问题收到感谢
 	const TYPE_CONTEXT = 100;	// 纯文本通知
@@ -72,8 +72,8 @@ class notify_class extends AWS_MODEL
 	 * 发送通知
 	 * @param $action_type	操作类型，使用notify_class调用TYPE
 	 * @param $uid			接收用户id
-	 * @param $data		附加数据
-	 * @param $model_type	可选，合并类别，使用notify_class调用CATEGORY
+	 * @param $data			附加数据
+	 * @param $model_type	可选，合并类别，使用 notify_class 调用 CATEGORY
 	 * @param $source_id	可选，合并子ID
 	 */
 	public function send($sender_uid, $recipient_uid, $action_type, $model_type = 0, $source_id = 0, $data = array())
@@ -112,10 +112,6 @@ class notify_class extends AWS_MODEL
 			
 			return $notification_id;
 		}
-		else
-		{
-			return false;
-		}
 	}
 
 	/**
@@ -142,7 +138,7 @@ class notify_class extends AWS_MODEL
 			
 			foreach ($unread_notifys as $key => $val)
 			{
-				if ($val['model_type'] == self::CATEGORY_QUESTION)
+				if ($val['model_type'] == self::CATEGORY_QUESTION OR $val['model_type'] == self::CATEGORY_ARTICLE)
 				{
 					if (isset($unique_people[$val['source_id']][$val['action_type']][$val['data']['from_uid']]))
 					{
@@ -184,7 +180,7 @@ class notify_class extends AWS_MODEL
 				$uids[] = intval($val['data']['from_uid']);
 			}
 			
-			if ($read_status == 0 AND count($unread_extends[$val['model_type']][$val['source_id']]) > 1 AND $this->notify_action_details[$val['action_type']]['combine'] == 1)
+			if ($read_status == 0 AND count($unread_extends[$val['model_type']][$val['source_id']]) AND $this->notify_action_details[$val['action_type']]['combine'] == 1)
 			{
 				$notify_list[$key]['extends'] = $unread_extends[$val['model_type']][$val['source_id']];
 				$notify_list[$key]['extend_details'] = $action_ex_details[$val['source_id']];
@@ -236,8 +232,37 @@ class notify_class extends AWS_MODEL
 			switch ($notify['model_type'])
 			{
 				case self::CATEGORY_ARTICLE :
-					$tmp['key_url'] = get_js_url('/article/' . $data['article_id'] . '?' . $token . '__item_id-' . $data['item_id']);
 					$tmp['title'] = $article_list[$data['article_id']]['title'];
+					
+					if ($notify['extends'])
+					{
+						$tmp['extend_count'] = count($notify['extends']);
+						
+						foreach ($notify['extends'] as $ex_key => $ex_notify)
+						{
+							$from_uid = $ex_notify['data']['from_uid'];
+							
+							if ($ex_notify['data']['item_id'])
+							{
+								$item_ids[] = $ex_notify['data']['item_id'];
+							}
+						}
+						
+						if ($item_ids)
+						{
+							$item_ids = array_unique($item_ids);
+							
+							asort($answer_ids);
+							
+							$querys[] = 'item_id-' . implode(',', $item_ids);
+						}
+						
+						$tmp['extend_details'] = $this->format_extend_detail($notify['extend_details'], $user_infos);
+					}
+					else
+					{
+						$tmp['key_url'] = get_js_url('/article/' . $data['article_id'] . '?' . $token . '__item_id-' . $data['item_id']);
+					}
 				break;
 				
 				case self::CATEGORY_QUESTION :
@@ -330,27 +355,27 @@ class notify_class extends AWS_MODEL
 							}
 							else
 							{
-								if ($notify['action_type'] != 113)
+								if ($notify['action_type'] != self::TYPE_REDIRECT_QUESTION)
 								{
 									$querys[] = 'rf-false';
 								}
 								
-								if ($notify['action_type'] == 110)
+								if ($notify['action_type'] == self::TYPE_MOD_QUESTION)
 								{
 									$querys[] = 'column-log';
 								}
 								
-								if ($notify['action_type'] == 104)
+								if ($notify['action_type'] == self::TYPE_INVITE_QUESTION)
 								{
 									$querys[] = 'source-' . base64_encode($data['from_uid']);
 								}
 								
-								if ($notify['action_type'] == 106 OR ($notify['action_type'] == 103 AND $data['comment_type'] == 1))
+								if ($notify['action_type'] == self::TYPE_QUESTION_COMMENT OR ($notify['action_type'] == self::TYPE_COMMENT_AT_ME AND $data['comment_type'] == 1))
 								{
 									$querys[] = 'comment_unfold-question';
 								}
 								
-								if ($notify['action_type'] == 105 OR $notify['action_type'] == 115 OR $notify['action_type'] == 116 OR ($notify['action_type'] == 103 AND $data['comment_type'] == 2))
+								if ($notify['action_type'] == self::TYPE_ANSWER_COMMENT OR $notify['action_type'] == self::TYPE_ANSWER_AT_ME OR $notify['action_type'] == self::TYPE_ANSWER_COMMENT_AT_ME OR ($notify['action_type'] == self::TYPE_COMMENT_AT_ME AND $data['comment_type'] == 2))
 								{
 									$querys[] = 'comment_unfold-answer';
 								}
@@ -437,7 +462,7 @@ class notify_class extends AWS_MODEL
 				
 				$rf = false;
 				
-				$show_log = false;
+				$column_log = false;
 				
 				$notification_ids = array();
 				
@@ -445,14 +470,19 @@ class notify_class extends AWS_MODEL
 				{
 					$notification_ids[] = $ex_notify['notification_id'];
 					
-					if ($ex_notify['action_type'] == 106 OR  ($ex_notify['action_type'] == 103 AND $ex_notify['data']['comment_type'] == 1))
+					if ($ex_notify['action_type'] == self::TYPE_QUESTION_COMMENT OR  ($ex_notify['action_type'] == self::TYPE_COMMENT_AT_ME AND $ex_notify['data']['comment_type'] == 1))
 					{
 						$comment_type[] = 'question';
 					}
 					
-					if ($ex_notify['action_type'] == 105 OR $ex_notify['action_type'] == 115 OR $ex_notify['action_type'] == 116 OR ($ex_notify['action_type'] == 103 AND $ex_notify['data']['comment_type'] == 2))
+					if ($ex_notify['action_type'] == self::TYPE_ANSWER_COMMENT OR $ex_notify['action_type'] == self::TYPE_ANSWER_AT_ME OR $ex_notify['action_type'] == self::TYPE_ANSWER_COMMENT_AT_ME OR ($ex_notify['action_type'] == self::TYPE_COMMENT_AT_ME AND $ex_notify['data']['comment_type'] == 2))
 					{
 						$comment_type[] = 'answer';
+					}
+					
+					if ($ex_notify['action_type'] == self::TYPE_ARTICLE_NEW_COMMENT OR $ex_notify['action_type'] == self::TYPE_ARTICLE_COMMENT_AT_ME)
+					{
+						$comment_type[] = 'article';
 					}
 					
 					if ($ex_notify['data']['item_id'])
@@ -460,14 +490,14 @@ class notify_class extends AWS_MODEL
 						$answer_ids[] = $ex_notify['data']['item_id'];
 					}
 					
-					if ($ex_notify['action_type'] == 113)
+					if ($ex_notify['action_type'] == self::TYPE_REDIRECT_QUESTION)
 					{
 						$rf = true;
 					}
 					
-					if ($ex_notify['action_type'] == 110)
+					if ($ex_notify['action_type'] == self::TYPE_MOD_QUESTION)
 					{
-						$show_log = true;
+						$column_log = true;
 					}
 					
 					if ($ex_notify['data']['anonymous'])
@@ -483,14 +513,12 @@ class notify_class extends AWS_MODEL
 				
 				$querys[] = 'notification_id-' . implode(',', $notification_ids);
 				
-				$querys[] = 'ori-1';
-				
-				if ($show_log)
+				if ($column_log)
 				{
 					$querys[] = 'column-log';
 				}
 				
-				if ($comment_type)
+				if (!($ex_notify['action_type'] == self::TYPE_ARTICLE_NEW_COMMENT OR $ex_notify['action_type'] == self::TYPE_ARTICLE_COMMENT_AT_ME) AND $comment_type)
 				{
 					if (count(array_unique($comment_type)) == 1)
 					{
@@ -511,9 +539,18 @@ class notify_class extends AWS_MODEL
 					$querys[] = 'item_id-' . implode(',', $answer_ids) . '#!answer_' . array_pop($answer_ids);
 				}
 				
+				if ($ex_notify['action_type'] == self::TYPE_ARTICLE_NEW_COMMENT OR $ex_notify['action_type'] == self::TYPE_ARTICLE_COMMENT_AT_ME)
+				{
+					$url = 'article/' . $val[0]['data']['article_id'] . '?' . implode('__', $querys);
+				}
+				else
+				{
+					$url = 'question/' . $val[0]['data']['question_id'] . '?' . implode('__', $querys);
+				}
+				
 				$tmp['users'][$uid] = array(
 					'username' => $anonymous ? AWS_APP::lang()->_t('匿名用户') : $user_infos[$uid]['user_name'], 
-					'url' => 'question/' . $val[0]['data']['question_id'] . '?' . implode('__', $querys)
+					'url' => $url
 				);
 			}
 			
@@ -558,13 +595,13 @@ class notify_class extends AWS_MODEL
 	 * 
 	 * @return array信息内容数组
 	 */
-	public function read_notification($notification_id, $uid = null, $only_read_id = false)
+	public function read_notification($notification_id, $uid = null)
 	{
 		$notification_ids = explode(',', $notification_id);
 		
 		array_walk_recursive($notification_ids, 'intval_string');
 		
-		if (! $only_read_id AND count($notification_ids) == 1 AND intval($notification_id) > 0)
+		if (count($notification_ids) == 1 AND intval($notification_id) > 0)
 		{
 			$notify_info = $this->get_notification_by_ids($notification_id, $uid);
 			
@@ -618,10 +655,6 @@ class notify_class extends AWS_MODEL
 			$this->model('account')->update_notification_unread($uid);
 			
 			return true;
-		}
-		else
-		{
-			return false;
 		}
 	}
 	
@@ -789,7 +822,7 @@ class notify_class extends AWS_MODEL
 	}
 	
 	public function format_notification($data)
-	{		
+	{
 		foreach ($data AS $key => $val)
 		{
 			if ($val['extend_count'])
@@ -797,6 +830,10 @@ class notify_class extends AWS_MODEL
 				if ($val['model_type'] == self::CATEGORY_QUESTION)
 				{
 					$data[$key]['message'] = $val['extend_count'] . ' ' . AWS_APP::lang()->_t('项关于问题') . ' <a href="' . $val['key_url'] . '">' . $val['title'] . '</a>';
+				}
+				else if ($val['model_type'] == self::CATEGORY_ARTICLE)
+				{
+					$data[$key]['message'] = $val['extend_count'] . ' ' . AWS_APP::lang()->_t('项关于文章') . ' <a href="' . $val['key_url'] . '">' . $val['title'] . '</a>';
 				}
 			}
 			else
@@ -916,6 +953,14 @@ class notify_class extends AWS_MODEL
 					else if ($action_type == self::TYPE_ANSWER_COMMENT_AT_ME)
 					{
 						$data[$key]['extend_message'][] = AWS_APP::lang()->_t('他们在回答中的评论提到了你') . ': ' . $users_list;
+					}
+					else if ($action_type == self::TYPE_ARTICLE_COMMENT_AT_ME)
+					{
+						$data[$key]['extend_message'][] = AWS_APP::lang()->_t('他们在文章中的评论回复了你') . ': ' . $users_list;
+					}
+					else if ($action_type == self::TYPE_ARTICLE_NEW_COMMENT)
+					{
+						$data[$key]['extend_message'][] = AWS_APP::lang()->_t('%s 个新回复, 按评论人查看', $extend['count']) . ': ' . $users_list;
 					}
 					else if ($action_type == self::TYPE_NEW_ANSWER)
 					{
