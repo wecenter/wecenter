@@ -47,14 +47,19 @@ class article_class extends AWS_MODEL
 	
 	public function get_comment_by_id($comment_id)
 	{
-		if ($comments = $this->fetch_row('article_comments', 'id = ' . intval($comment_id)))
+		if ($comment = $this->fetch_row('article_comments', 'id = ' . intval($comment_id)))
 		{
-			$comments['user_info'] = $this->model('account')->get_user_info_by_uids($comments['uid']);
+			$comment_user_infos = $this->model('account')->get_user_info_by_uids(array(
+				$comment['uid'],
+				$comment['at_uid']
+			));
 			
-			$comments['at_user_info'] = $this->model('account')->get_user_info_by_uids($comments['at_uid']);
+			$comment['user_info'] = $this->model('account')->get_user_info_by_uid($comment_user_infos[$comment['uid']]);
+			
+			$comment['at_user_info'] = $this->model('account')->get_user_info_by_uid($comment_user_infos[$comment['at_uid']]);
 		}
 		
-		return $comments;
+		return $comment;
 	}
 	
 	public function get_comments($article_id, $page, $per_page)
