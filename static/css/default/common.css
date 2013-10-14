@@ -792,10 +792,11 @@ a.aw-load-more-content{display: block;}
 .markItUpHeader ul a {background-repeat: no-repeat;display: block;height: 16px;margin: 0;padding: 3px;text-indent: -10000px;width: 22px;}
 .markItUpHeader ul ul a {background-position: 2px 50%;display: block;padding: 5px 5px 5px 25px;text-indent: 0;width: 120px;}
 .markItUpHeader ul ul a:hover{background-color: #3C769D;}
-.markItUpHelper{background-color: #D8DFE2;border:1px dashed #ccc;}
-.markItUpHelper{margin-bottom: 10px;}
+.markItUpHelper{margin-bottom: 10px;background-color: #F3F5F4;border:1px solid #ccc;border-radius: 5px;}
 .markItUpHelper ul li{float: left;padding:3px 10px;cursor: pointer;}
-.markItUpHelper ul li:hover, .markItUpHelper ul li.active, .markItUpHelper .content{background-color: #f3f9fd;}
+.markItUpHelper ul li:first-child:hover{border-radius: 5px 0 0 5px;}
+.markItUpHelper ul li:hover, .markItUpHelper ul li.active, .markItUpHelper .content{background-color: #fffce7;}
+.markItUpHelper .content{border-radius: 0 0 5px 5px;}
 .markItUpHelper .content .tab-pane{display: none;padding:10px;}
 .markItUp .markItUpButton > a {background: url("img/markItUp_editor.png") no-repeat scroll 0 0 transparent;}
 .markItUp .markItUpButton > a:hover {opacity: 0.6;filter:alpha(opacity=60)}
