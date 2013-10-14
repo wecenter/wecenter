@@ -85,7 +85,7 @@
 								<img src="<?php echo get_avatar_url($val['uid'], 'mid'); ?>" alt="<?php echo $val['user_info']['user_name']; ?>" />
 							</a>
 							<div class="aw-item-content">
-								<a><?php echo $val['user_info']['user_name']; ?></a>
+								<a href="people/<?php echo $val['user_info']['url_token']; ?>"><?php echo $val['user_info']['user_name']; ?></a><?php if ($val['at_user_info']) { ?> 回复 <a href="people/<?php echo $val['at_user_info']['url_token']; ?>"><?php echo $val['at_user_info']['user_name']; ?></a><?php } ?>
 								<div class="markitup-box">
 									<?php echo nl2br($val['message']); ?>
 								</div>
@@ -97,6 +97,14 @@
 							</div>
 						</div>
 						<?php } ?>
+					</div>
+					<?php } ?>
+					
+					<?php if ($_GET['item_id']) { ?>
+					<div class="aw-mod-footer">
+							<a href="article/<?php echo $this->article_info['id']; ?>" class="aw-load-more-content">
+								<span><?php _e('查看全部评论'); ?></span>
+							</a>
 					</div>
 					<?php } ?>
 					
