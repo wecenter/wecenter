@@ -611,7 +611,7 @@ a.aw-load-more-content{display: block;}
 .aw-new-message-tips .aw-mod-head .pull-right{font-size: 12px;}
 .aw-new-message-tips .aw-mod-head h3{font-weight: normal;margin:0;}
 .aw-new-message-tips .aw-mod-body ul li{line-height: 15px;padding:15px 0;border-bottom:1px dotted #C1CAD4;}
-.aw-new-message-tips .aw-mod-body ul li span{min-width:40px;font-weight: normal;font-size: 12px;}
+.aw-new-message-tips .aw-mod-body ul li span{max-width:40px;font-weight: normal;font-size: 12px;}
 .aw-new-message-tips .aw-mod-body ul li .aw-close{float:left;margin:-2px 0 0 5px;}
 .aw-new-message-tips .aw-mod-body #notification_list{margin-bottom: 10px;}
 .aw-new-message-tips .aw-mod-body #notification_list p{max-width: 600px;}
@@ -791,7 +791,12 @@ a.aw-load-more-content{display: block;}
 .markItUpHeader ul ul ul li {float: none;}
 .markItUpHeader ul a {background-repeat: no-repeat;display: block;height: 16px;margin: 0;padding: 3px;text-indent: -10000px;width: 22px;}
 .markItUpHeader ul ul a {background-position: 2px 50%;display: block;padding: 5px 5px 5px 25px;text-indent: 0;width: 120px;}
-.markItUpHeader ul ul a:hover {background-color: #3C769D;}
+.markItUpHeader ul ul a:hover{background-color: #3C769D;}
+.markItUpHelper{background-color: #D8DFE2;border:1px dashed #ccc;}
+.markItUpHelper{margin-bottom: 10px;}
+.markItUpHelper ul li{float: left;padding:3px 10px;cursor: pointer;}
+.markItUpHelper ul li:hover, .markItUpHelper ul li.active, .markItUpHelper .content{background-color: #f3f9fd;}
+.markItUpHelper .content .tab-pane{display: none;padding:10px;}
 .markItUp .markItUpButton > a {background: url("img/markItUp_editor.png") no-repeat scroll 0 0 transparent;}
 .markItUp .markItUpButton > a:hover {opacity: 0.6;filter:alpha(opacity=60)}
 .markItUp ul {position: relative;}
@@ -811,6 +816,8 @@ a.aw-load-more-content{display: block;}
 .markItUp .markItUpButton12 {position: absolute;right: 0;}
 .markItUp .markItUpButton13 a {background-position: -573px -6px;}
 .markItUp .markItUpButton14 a {background-position: -600px -6px;margin-left: 5px;}
+.markItUp .markItUpButton15{position: absolute;right: 30px;}
+.markItUp .markItUpButton15 a {background-position: -619px -6px;}
 .aw-invite-dropdown{position:absolute;left:0;top:0;z-index:1010;min-width:160px;background: #fff;border:1px solid #e6e6e6;border-radius:2px;}
 .aw-invite-dropdown li{padding:5px 10px;cursor: pointer;}
 .aw-invite-dropdown li:hover, .aw-invite-dropdown li.active{background: #f0f0f0;}
