@@ -34,12 +34,12 @@
 			</div>
 		    <div class="aw-mod-body clearfix">
 		    	<h3><?php _e('问题补充 (选填)'); ?>:</h3>
-		    	<textarea name="question_detail" id="question_detail" rows="4"><?php echo $this->question_info['question_detail']; ?></textarea>
+		    	<textarea name="question_detail" class="form-control" id="question_detail" rows="4"><?php echo $this->question_info['question_detail']; ?></textarea>
 		    	
 		    	<?php if (!$this->question_info['question_id']) { ?>
 	    		<div class="aw-topic-edit-box" id="quick_publish_topic_chooser">
 					<div class="aw-topic-box">
-						<a class="aw-add-topic-box"><?php _e('编辑话题'); ?></a>				
+						<a class="aw-add-topic-box"><i class="icon-edit"></i><?php _e('编辑话题'); ?></a>				
 					</div>
 				</div>
 				<?php } ?>
