@@ -105,7 +105,7 @@ var AW_MOBILE_TEMPLATE = {
 		'<div class="aw-topic-box-selector">'+
 			'<input type="text" placeholder="' + _t('创建或搜索添加新话题...') + '" class="aw-topic-input">'+
 			'<div class="dropdown-list"><ul></ul></div>'+
-			'<a class="btn add">' + _t('添加') + '</a><a class="btn cancel">' + _t('取消') + '</a>'+
+			'<a class="btn add btn-success">' + _t('添加') + '</a><a class="btn cancel btn-default">' + _t('取消') + '</a>'+
 		'</div> ',
 
 	'dropdownList' : 

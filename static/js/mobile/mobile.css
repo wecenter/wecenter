@@ -6,7 +6,7 @@ article, aside, dialog, footer, header, section, footer, nav, figure, menu {disp
 h1,h2,h3,h4,h5,h6{margin:0;font-size: 16px;line-height: 30px;}
 a{cursor: pointer;}
 dd{margin-left: 10px;}
-.aw-topic-name{display: inline-block;line-height:22px;margin-right:5px;padding: 1px 7px;background:#D4F2FF;}
+.aw-topic-name{display: inline-block;line-height:22px;margin-right:5px;padding: 1px 7px;background:#D4F2FF;color: #428BCA;}
 .aw-topic-name:hover{text-decoration: none;}
 .aw-topic-name i{margin:-1px 0 0 10px;font-size: 14px;font-style: normal;cursor: pointer;}
 .modal-backdrop, .modal-backdrop.fade.in{opacity: 0.2;}
@@ -31,9 +31,10 @@ dd{margin-left: 10px;}
 .aw-loading{display:inline-block;width:16px;height:16px;background: url(img/ajax-loader.gif) no-repeat;}
 #aw-loading { background: #000; width: 40px; height: 40px;  -webkit-border-radius: 5px; border-radius: 5px; position: fixed; top: 50%;	left: 50%; margin: -20px 0 0 -20px; z-index: 10001; -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=75)"; filter: alpha(opacity=75); opacity: 0.75; }
 #aw-loading-box { width: 40px; height: 40px; background-image: url('img/loading.png'); }
+.form-control{padding:3px 6px;}
 input[type="text"], input[type="password"]{
   height: 34px;
-  padding: 6px 12px;
+  padding: 3px 6px;
   font-size: 14px;
   line-height: 1.428571429;
   color: #555555;
@@ -125,12 +126,11 @@ nav #aw-top-nav-notic .badge{position: absolute;right: 0;top:1px;z-index:100;pad
 /* 发起页面 */
 .aw-mod-publish .aw-mod-body{margin-bottom:10px;border-bottom: 1px solid #eee;}
 .aw-mod-publish h3{font-size: 14px;color: #666;}
-.aw-mod-publish textarea{width: 95%;}
 .aw-mod-publish .aw-topic-box-selector .btn{margin:0 0 10px 10px;}
 .aw-mod-publish .aw-anonymity input{margin-right: 5px;}
 .aw-publish-title .aw-publish-dropdown{position: relative;}
 .aw-publish-title input{width:180px;border-radius: 4px 0 0 4px;border-right: none;}
-.aw-publish-title input.active{width:285px;border:1px solid #CCCCCC;border-radius: 4px;}
+.aw-publish-title input.active{width:100%;border:1px solid #CCCCCC;border-radius: 4px;}
 .aw-publish-title.open .dropdown-menu{display: block;}
 .aw-publish-title .aw-publish-dropdown p{margin: 0;height: 28px;line-height: 28px;border: 1px solid #C1CAD4;box-shadow: 0 2px 1px #F3F3F3 inset;cursor: pointer;border-radius: 0 4px 4px 0;}
 .aw-publish-title .aw-publish-dropdown span{display: inline-block;padding:0 12px;}
@@ -361,7 +361,6 @@ nav #aw-top-nav-notic .badge{position: absolute;right: 0;top:1px;z-index:100;pad
 /* 话题编辑box */
 .aw-topic-edit-box .aw-topic-box{margin: 10px 0;}
 .aw-topic-box-selector{position:relative;max-width: 500px;}
-.aw-topic-box-selector .aw-topic-input{width: 150px;}
 .aw-topic-box-selector .btn{margin-left: 10px;}
 .aw-topic-box-selector .dropdown-list{width: 50%;}
 .aw-topic-box-selector .dropdown-list ul li{cursor: pointer;}
@@ -388,6 +387,7 @@ nav #aw-top-nav-notic .badge{position: absolute;right: 0;top:1px;z-index:100;pad
 .icon-v{font-size: 18px;color: #a5d300;}
 .icon-v.i-ve{color: #fce568;}
 .icon-circle-arrow-right{margin-left: 5px;font-size: 16px;}
+.icon-edit{margin-right: 5px;}
 
 /* 底部 */
 footer{margin-top:20px;font-size: 12px;text-align: center;}
