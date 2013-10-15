@@ -575,14 +575,14 @@ class ajax extends AWS_CONTROLLER
 				//$this->model('account')->send_delete_message($question_info['published_uid'], $question_info['question_content'], $question_info['question_detail']);
 			}
 				
-			$this->model('article')->remove_article($article_info['article_id']);
+			$this->model('article')->remove_article($article_info['id']);
 			
 			H::ajax_json_output(AWS_APP::RSM(array(
 				'url' => get_js_url('/home/explore/')
 			), 1, null));
 		}
 		
-		$this->model('article')->update_article($article_info['id'], $_POST['title'], $_POST['message']);
+		$this->model('article')->update_article($article_info['id'], $_POST['title'], $_POST['message'], $_POST['topics'], $this->user_info['permission']['create_topic']);
 		
 		if ($_POST['attach_access_key'])
 		{

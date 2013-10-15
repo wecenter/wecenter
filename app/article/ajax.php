@@ -24,6 +24,10 @@ class ajax extends AWS_CONTROLLER
 	public function get_access_rule()
 	{
 		$rule_action['rule_type'] = 'white';
+		
+		$rule_action['actions'] = array(
+			'list'
+		);
 				
 		return $rule_action;
 	}
@@ -80,5 +84,21 @@ class ajax extends AWS_CONTROLLER
 		H::ajax_json_output(AWS_APP::RSM(array(
 			'url' => $url
 		), 1, null));
-	}	
+	}
+	
+	public function list_action()
+	{
+		if ($_GET['topic_ids'])
+		{
+			$topic_ids = explode(',', $_GET['topic_ids']);
+			
+			$article_list = $this->model('article')->get_articles_list_by_topic_ids(1, get_setting('contents_per_page'), 'add_time DESC', $topic_ids);
+		}
+		
+		
+		
+		TPL::assign('article_list', $article_list);
+		
+		TPL::output('article/ajax/list');
+	}
 }

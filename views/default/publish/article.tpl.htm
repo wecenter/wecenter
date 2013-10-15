@@ -45,7 +45,6 @@
 									</div>
 								</div>
 							</div>
-							
 
 							<h3><?php _e('添加话题'); ?>:</h3>
 							<span class="aw-topic-editor" data-type="publish">
@@ -56,6 +55,10 @@
 								<?php if ($_POST['topics']) { ?>
 								<?php foreach ($_POST['topics'] AS $key => $val) { ?>
 								<a href="javascript:;" class="aw-topic-name"><span><?php echo $val; ?></span><input type="hidden" value="<?php echo $val; ?>" name="topics[]" /></a>
+								<?php } ?>
+								<?php } else if ($this->article_topics) { ?>
+								<?php foreach ($this->article_topics AS $key => $val) { ?>
+								<a href="javascript:;" class="aw-topic-name"><span><?php echo $val['topic_title']; ?></span><input type="hidden" value="<?php echo $val['topic_title']; ?>" name="topics[]" /></a>
 								<?php } ?>
 								<?php } ?>
 								

@@ -198,7 +198,7 @@ class publish_class extends AWS_MODEL
 				{
 					$topic_id = $this->model('topic')->save_topic($question_id, $topic_title, $uid, null, $create_topic);
 					
-					$this->model('topic')->save_topic_relation($this->user_id, $topic_id, $question_id, 'question');
+					$this->model('topic')->save_topic_relation($uid, $topic_id, $question_id, 'question');
 				}
 			}
 			
@@ -253,7 +253,7 @@ class publish_class extends AWS_MODEL
 				{
 					$topic_id = $this->model('topic')->save_topic(null, $topic_title, $uid, null, $create_topic);
 					
-					$this->model('topic')->save_topic_relation($this->user_id, $topic_id, $article_id, 'article');
+					$this->model('topic')->save_topic_relation($uid, $topic_id, $article_id, 'article');
 				}
 			}
 			

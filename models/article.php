@@ -141,7 +141,7 @@ class article_class extends AWS_MODEL
 
 		$this->delete('topic_relation', "`type` = 'article' AND item_id = " . intval($article_id));		// 删除话题关联
 				
-		ACTION_LOG::delete_action_history('associate_type = ' . ACTION_LOG::CATEGORY_ARTICLE .  ' AND associate_id = ' . intval($article_id));	// 删除动作
+		ACTION_LOG::delete_action_history('associate_type = ' . ACTION_LOG::CATEGORY_QUESTION . ' AND associate_action = ' . ACTION_LOG::ADD_ARTICLE .  ' AND associate_id = ' . intval($article_id));	// 删除动作
 		
 		// 删除附件
 		if ($attachs = $this->model('publish')->get_attach('article', $article_id))
@@ -154,14 +154,69 @@ class article_class extends AWS_MODEL
 		
 		$this->model('notify')->delete_notify('model_type = 8 AND source_id = ' . intval($article_id));	// 删除相关的通知
 		
-		return $this->delete('article', 'id = ' . intval($article_info));	// 删除问题
+		return $this->delete('article', 'id = ' . intval($article_id));	// 删除问题
 	}
 	
-	public function update_article($article_id, $title, $message)
+	public function update_article($article_id, $title, $message, $topics, $create_topic)
 	{
+		$this->delete('topic_relation', 'item_id = ' . intval($article_id) . " AND `type` = 'article'");
+		
+		if (is_array($topics))
+		{
+			foreach ($topics as $key => $topic_title)
+			{
+				$topic_id = $this->model('topic')->save_topic(null, $topic_title, $uid, null, $create_topic);
+				
+				$this->model('topic')->save_topic_relation($this->user_id, $topic_id, $article_id, 'article');
+			}
+		}
+		
 		return $this->update('article', array(
 			'title' => htmlspecialchars($title),
 			'message' => htmlspecialchars($message)
 		), 'id = ' . intval($article_id));
+	}
+	
+	public function get_articles_list_by_topic_ids($page, $per_page, $order_by, $topic_ids)
+	{
+		if (!$topic_ids)
+		{
+			return false;
+		}
+		
+		if (!is_array($topic_ids))
+		{
+			$topic_ids = array(
+				$topic_ids
+			);
+		}
+
+		array_walk_recursive($topic_ids, 'intval_string');
+		
+		$result_cache_key = 'article_list_by_topic_ids_' . implode('_', $topic_ids) . '_' . md5($order_by . $page . $per_page);
+		
+		$found_rows_cache_key = 'article_list_by_topic_ids_found_rows_' . implode('_', $topic_ids) . '_' . md5($order_by . $page . $per_page);
+			
+		$where[] = 'topic_relation.topic_id IN(' . implode(',', $topic_ids) . ')';
+
+		if (!$found_rows = AWS_APP::cache()->get($found_rows_cache_key))
+		{
+			$_found_rows = $this->query_row('SELECT COUNT(DISTINCT article.id) AS count FROM ' . $this->get_table('article') . ' AS article LEFT JOIN ' . $this->get_table('topic_relation') . " AS topic_relation ON article.id = topic_relation.item_id AND topic_relation.type = 'article' WHERE " . implode(' AND ', $where));
+			
+			$found_rows = $_found_rows['count'];
+			
+			AWS_APP::cache()->set($found_rows_cache_key, $found_rows, get_setting('cache_level_high'));
+		}
+		
+		$this->questions_list_total = $found_rows;
+		
+		if (!$result = AWS_APP::cache()->get($result_cache_key))
+		{
+			$result = $this->query_all('SELECT article.* FROM ' . $this->get_table('article') . ' AS article LEFT JOIN ' . $this->get_table('topic_relation') . " AS topic_relation ON article.id = topic_relation.item_id AND topic_relation.type = 'article' WHERE " . implode(' AND ', $where) . ' GROUP BY article.id ORDER BY article.' . $order_by, calc_page_limit($page, $per_page));
+			
+			AWS_APP::cache()->set($result_cache_key, $result, get_setting('cache_level_high'));
+		}
+		
+		return $result;
 	}
 }
