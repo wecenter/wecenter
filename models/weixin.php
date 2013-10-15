@@ -330,7 +330,7 @@ class weixin_class extends AWS_MODEL
 							
 							foreach ($user_actions AS $key => $val)
 							{
-								$response_message .= "\n" . '• ' . strip_tags($val['last_action_str']) . ', <a href="' . get_js_url('/question/' . $val['question_id']) . '">' . $val['question_content'] . '</a> (' . date_friendly($val['add_time']) . ')' . "\n";
+								$response_message .= "\n" . '• ' . strip_tags($val['last_action_str']) . ', <a href="' . get_js_url('/question/' . $val['question_info']['question_id']) . '">' . $val['question_info']['question_content'] . '</a> (' . date_friendly($val['add_time']) . ')' . "\n";
 							}
 						}
 					}

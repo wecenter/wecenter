@@ -827,9 +827,8 @@ class account_class extends AWS_MODEL
 	 * 
 	 * 根据where条件获取用户数量
 	 * @param string $where
-	 * @param int    $limit
 	 * 
-	 * @return array
+	 * @return int
 	 */
 	public function get_user_count($where = null)
 	{
@@ -845,7 +844,7 @@ class account_class extends AWS_MODEL
 		
 		if ($user_actions = AWS_APP::cache()->get($cache_key))
 		{
-			return $user_actions;
+			//return $user_actions;
 		}
 		
 		$action_question = ACTION_LOG::ADD_QUESTION;
@@ -887,7 +886,14 @@ class account_class extends AWS_MODEL
 			switch ($val['associate_type'])
 			{
 				case ACTION_LOG::CATEGORY_QUESTION:
-					$question_ids[] = $val['associate_id'];
+					if ($val['associate_action'] == ACTION_LOG::ADD_ARTICLE)
+					{
+						$article_ids[] = $val['associate_id'];
+					}
+					else
+					{
+						$question_ids[] = $val['associate_id'];
+					}
 					
 					if (in_array($val['associate_action'], array(
 						ACTION_LOG::ADD_TOPIC,
@@ -903,13 +909,6 @@ class account_class extends AWS_MODEL
 					{
 						$associate_topic_ids[] = $val['associate_attached'];
 					}
-					
-					/*if (in_array($val['associate_action'], array(
-						ACTION_LOG::ADD_QUESTION
-					)) AND $question_info['has_attach'])
-					{
-						$has_attach_question_ids[] = $question_info['question_id'];
-					}*/
 				break;	
 			}
 		}
@@ -922,15 +921,6 @@ class account_class extends AWS_MODEL
 		if ($question_ids)
 		{
 			$action_questions_info = $this->model('question')->get_question_info_by_ids($question_ids);
-			
-			/*if ($this_uid)
-			{
-				$action_questions_focus = $this->model('question')->has_focus_questions($question_ids, $this_uid);
-			}
-			else if ($uid)
-			{
-				$action_questions_focus = $this->model('question')->has_focus_questions($question_ids, $uid);
-			}*/
 		}
 		
 		if ($associate_topic_ids)
@@ -938,10 +928,10 @@ class account_class extends AWS_MODEL
 			$associate_topics = $this->model('topic')->get_topics_by_ids($associate_topic_ids);
 		}
 		
-		/*if ($has_attach_question_ids)
+		if ($article_ids)
 		{
-			$question_attachs = $this->model('publish')->get_attachs('question', $has_attach_question_ids, 'min');
-		}*/
+			$action_articles_info = $this->model('article')->get_article_info_by_ids($article_ids);
+		}
 		
 		foreach ($action_list as $key => $val)
 		{
@@ -950,84 +940,84 @@ class account_class extends AWS_MODEL
 			switch ($val['associate_type'])
 			{
 				case ACTION_LOG::CATEGORY_QUESTION :
-					$question_info = $action_questions_info[$val['associate_id']];
-					
-					if (in_array($val['associate_action'], array(
-						ACTION_LOG::ADD_TOPIC,
-						ACTION_LOG::MOD_TOPIC,
-						ACTION_LOG::MOD_TOPIC_DESCRI,
-						ACTION_LOG::MOD_TOPIC_PIC,
-						ACTION_LOG::DELETE_TOPIC,
-						ACTION_LOG::ADD_TOPIC_FOCUS,
-						ACTION_LOG::DELETE_TOPIC_FOCUS,
-						ACTION_LOG::ADD_TOPIC_PARENT,
-						ACTION_LOG::DELETE_TOPIC_PARENT
-					)) AND $val['associate_attached'])
+					switch ($val['associate_action'])
 					{
-						$topic_info = $associate_topics[$val['associate_attached']];
-					}
-					else
-					{
-						unset($topic_info);
-					}
+						case ACTION_LOG::ADD_ARTICLE:
+							$article_info = $action_articles_info[$val['associate_id']];
+							
+							$action_list[$key]['title'] = $article_info['title'];
+							$action_list[$key]['link'] = get_js_url('/article/' . $article_info['id']);
+							
+							$action_list[$key]['article_info'] = $article_info;
+							
+							$action_list[$key]['last_action_str'] = ACTION_LOG::format_action_str($val['associate_action'], $val['uid'], $action_list_users[$val['uid']]['user_name']);
+						break;
 					
-					if (in_array($val['associate_action'], array(
-						ACTION_LOG::ADD_QUESTION
-					)) AND $question_info['has_attach'])
-					{
-						$question_info['attachs'] = $question_attachs[$question_info['question_id']];
-					}
-					
-					if ($val['uid'])
-					{			
-						$question_info['last_action_str'] = ACTION_LOG::format_action_str($val['associate_action'], $val['uid'], $action_list_users[$val['uid']]['user_name'], $question_info, $topic_info);
-					}
-					
-					if (in_array($val['associate_action'], array(
-						ACTION_LOG::ANSWER_QUESTION
-					)) AND $question_info['answer_count'] > 0)
-					{
-						$answer_list = $this->model('answer')->get_answer_by_id($val['associate_attached']);
-					}
-					else
-					{
-						$answer_list = null;
-					}
-					
-					if (! empty($answer_list))
-					{
-						$user_info = $this->get_user_info_by_uid($answer_list['uid'], true);
-						
-						$answer_list['user_name'] = $user_info['user_name'];
-						$answer_list['url_token'] = $user_info['url_token'];
-						$answer_list['signature'] = $user_info['signature'];
-						$answer_list['answer_content'] = strip_ubb($answer_list['answer_content']);
-						$question_info['answer_info'] = $answer_list;
-						
-						/*if ($answer_list['has_attach'])
-						{
-							$answer_list['attachs'] = $this->model('publish')->get_attach('answer', $val['associate_attached'], 'min');
-						}*/
-					}
-					
-					//$action_list[$key]['has_focus'] = $action_questions_focus[$question_info['question_id']];
-					
-					// 还原到单个数组ROW里面
-					if ($question_info)
-					{
-						foreach ($question_info as $qkey => $qval)
-						{
-							if ($qkey == 'add_time')
+						default:
+							$question_info = $action_questions_info[$val['associate_id']];
+							
+							$action_list[$key]['title'] = $question_info['question_content'];
+							$action_list[$key]['link'] = get_js_url('/question/' . $question_info['question_id']);
+							
+							if (in_array($val['associate_action'], array(
+								ACTION_LOG::ADD_TOPIC,
+								ACTION_LOG::MOD_TOPIC,
+								ACTION_LOG::MOD_TOPIC_DESCRI,
+								ACTION_LOG::MOD_TOPIC_PIC,
+								ACTION_LOG::DELETE_TOPIC,
+								ACTION_LOG::ADD_TOPIC_FOCUS,
+								ACTION_LOG::DELETE_TOPIC_FOCUS,
+								ACTION_LOG::ADD_TOPIC_PARENT,
+								ACTION_LOG::DELETE_TOPIC_PARENT
+							)) AND $val['associate_attached'])
 							{
-								continue;
+								$topic_info = $associate_topics[$val['associate_attached']];
+							}
+							else
+							{
+								unset($topic_info);
 							}
 							
-							$action_list[$key][$qkey] = $qval;
-						}
+							if (in_array($val['associate_action'], array(
+								ACTION_LOG::ADD_QUESTION
+							)) AND $question_info['has_attach'])
+							{
+								$question_info['attachs'] = $question_attachs[$question_info['question_id']];
+							}
+							
+							if ($val['uid'])
+							{			
+								$action_list[$key]['last_action_str'] = ACTION_LOG::format_action_str($val['associate_action'], $val['uid'], $action_list_users[$val['uid']]['user_name'], $question_info, $topic_info);
+							}
+							
+							if (in_array($val['associate_action'], array(
+								ACTION_LOG::ANSWER_QUESTION
+							)) AND $question_info['answer_count'])
+							{
+								$answer_list = $this->model('answer')->get_answer_by_id($val['associate_attached']);
+							}
+							else
+							{
+								$answer_list = null;
+							}
+							
+							if ($answer_list)
+							{
+								$user_info = $this->get_user_info_by_uid($answer_list['uid'], true);
+								
+								$answer_list['user_name'] = $user_info['user_name'];
+								$answer_list['url_token'] = $user_info['url_token'];
+								$answer_list['signature'] = $user_info['signature'];
+								
+								$answer_list['answer_content'] = strip_ubb($answer_list['answer_content']);
+								
+								$action_list[$key]['answer_info'] = $answer_list;
+							}
+							
+							$action_list[$key]['question_info'] = $question_info;			
+						break;
 					}
-					
-					//$action_list[$key]['topics'] = $action_questions_topics[$question_info['question_id']];
-					break;
+				break;
 			}
 		}
 		

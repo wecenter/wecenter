@@ -376,7 +376,7 @@ class ACTION_LOG
 	 * 
 	 * @return array
 	 */
-	public static function get_action_by_where($where = '', $limit = 20, $show_anonymous = false, $order = 'add_time DESC')
+	public static function get_action_by_where($where = null, $limit = 20, $show_anonymous = false, $order = 'add_time DESC')
 	{
 		if (! $where)
 		{
@@ -391,7 +391,7 @@ class ACTION_LOG
 		}
 		
 		if ($user_action_history = AWS_APP::model()->fetch_all('user_action_history', $where, $order, $limit))
-		{
+		{			
 			foreach ($user_action_history AS $key => $val)
 			{
 				$history_ids[] = $val['history_id'];

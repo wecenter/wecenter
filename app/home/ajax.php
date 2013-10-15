@@ -54,25 +54,17 @@ class ajax extends AWS_CONTROLLER
 		//if ($_GET['filter'] == 'publish')
 		if ($_GET['filter'] == 'focus')
 		{			
-			if ($data = $this->model('question')->get_user_focus($this->user_id, (intval($_GET['page']) * $this->per_page) . ", {$this->per_page}"))
+			if ($result = $this->model('question')->get_user_focus($this->user_id, (intval($_GET['page']) * $this->per_page) . ", {$this->per_page}"))
 			{				
-				foreach ($data as $key => $val)
+				foreach ($result as $key => $val)
 				{
 					$question_ids[] = $val['question_id'];
 				}
 				
-				/*if ($this->user_id)
-				{
-					$has_focus_questions = $this->model('question')->has_focus_questions($question_ids, $this->user_id);
-				}*/
-				
 				$topics_questions = $this->model('topic')->get_topics_by_item_ids($question_ids, 'question');
 				
-				foreach ($data as $key => $val)
+				foreach ($result as $key => $val)
 				{
-					$data[$key]['add_time'] = $val['add_time'];
-					$data[$key]['update_time'] = $val['update_time'];
-					
 					if (! $user_info_list[$val['published_uid']])
 					{
 						$user_info_list[$val['published_uid']] = $this->model('account')->get_user_info_by_uid($val['published_uid'], true);
@@ -83,7 +75,12 @@ class ajax extends AWS_CONTROLLER
 					$data[$key]['associate_type'] = 1;	
 										
 					$data[$key]['topics'] = $topics_questions[$val['question_id']];
-					$data[$key]['anonymous'] = $val['anonymous'];
+					
+					
+					$data[$key]['link'] = get_js_url('/question/' . $val['question_id']);
+					$data[$key]['title'] = $val['question_content'];
+					
+					$data[$key]['question_info'] = $val;
 				}
 			}
 		}
