@@ -1707,10 +1707,10 @@ class question_class extends AWS_MODEL
 		return $topics_by_questions_ids;
 	}
 	
-	public function lock_question($question_id, $lock = true)
+	public function lock_question($question_id, $lock_status = true)
 	{
 		return $this->update('question', array(
-			'lock' => $lock
+			'lock' => intval($lock_status)
 		), 'question_id = ' . intval($question_id));
 	}
 	

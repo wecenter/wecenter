@@ -95,10 +95,47 @@ class ajax extends AWS_CONTROLLER
 			$article_list = $this->model('article')->get_articles_list_by_topic_ids(1, get_setting('contents_per_page'), 'add_time DESC', $topic_ids);
 		}
 		
-		
-		
 		TPL::assign('article_list', $article_list);
 		
 		TPL::output('article/ajax/list');
+	}
+	
+	public function lock_action()
+	{
+		if (! $this->user_info['permission']['is_moderator'] && ! $this->user_info['permission']['is_administortar'])
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, - 1, AWS_APP::lang()->_t('你没有权限进行此操作')));
+		}
+		
+		if (! $article_info = $this->model('article')->get_article_info_by_id($_POST['article_id']))
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, - 1, AWS_APP::lang()->_t('文章不存在')));
+		}
+		
+		$this->model('article')->lock_article($_POST['article_id'], !$article_info['lock']);
+		
+		H::ajax_json_output(AWS_APP::RSM(null, 1, null));
+	}
+	
+	public function remove_article_action()
+	{
+		if (!$this->user_info['permission']['is_administortar'] AND !$this->user_info['permission']['is_moderator'])
+		{				
+			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('对不起, 你没有删除文章的权限')));
+		}
+		
+		if ($article_info = $this->model('question')->get_article_info_by_id($_POST['article_id']))
+		{
+			if ($this->user_id != $article_info['uid'])
+			{
+				$this->model('account')->send_delete_message($article_info['uid'], $article_info['title'], $$article_info['message']);
+			}
+					
+			$this->model('article')->remove_article($article_info['id']);
+		}
+			
+		H::ajax_json_output(AWS_APP::RSM(array(
+			'url' => get_js_url('/home/explore/')
+		), 1, null));
 	}
 }

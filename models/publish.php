@@ -280,7 +280,20 @@ class publish_class extends AWS_MODEL
 			'item_id' => intval($item_id)
 		), "item_type = '" . $this->quote($item_type) . "' AND item_id = 0 AND access_key = '" . $this->quote($attach_access_key) . "'"))
 		{
-			return $this->shutdown_update($item_type, array('has_attach' => 1), $item_type . '_id = ' . intval($item_id));
+			switch ($item_type)
+			{
+				default:
+					$update_key = $item_type . '_id';
+				break;
+				
+				case 'article':
+					$update_key = 'id';
+				break;
+			}
+			
+			return $this->shutdown_update($item_type, array(
+				'has_attach' => 1
+			), $update_key . ' = ' . intval($item_id));
 		}
 	}
 

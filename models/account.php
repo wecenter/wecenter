@@ -1458,20 +1458,18 @@ class account_class extends AWS_MODEL
 		), 'uid = ' . intval($uid));
 	}
 	
-	public function send_delete_message($published_uid, $question_content, $question_detail)
+	public function send_delete_message($uid, $title, $message)
 	{
-		$message = AWS_APP::lang()->_t('你发表的问题 %s 已被管理员删除', $question_content);
-		$meesage .= "\r\n----- " . AWS_APP::lang()->_t('问题内容') . " -----\r\n" . $question_detail;
-		$meesage .= "\r\n-----------------------------\r\n";
-		$meesage .= AWS_APP::lang()->_t('如有疑问, 请联系管理员');
-
-		$this->model('message')->send_message($this->user_id, $question_info['published_uid'], null, $message, 0, 0);
-				
-		$this->model('email')->action_email('QUESTION_DEL', $published_uid, get_js_url('/inbox/'), array(
-			'question_title' => $question_content,
-			'question_detail' => $question_detail,
+		$delete_message = AWS_APP::lang()->_t('你发表的内容 %s 已被管理员删除', $title);
+		$delete_message .= "\r\n----- " . AWS_APP::lang()->_t('内容') . " -----\r\n" . $message;
+		$delete_message .= "\r\n-----------------------------\r\n";
+		$delete_message .= AWS_APP::lang()->_t('如有疑问, 请联系管理员');
+			
+		$this->model('email')->action_email('QUESTION_DEL', $uid, get_js_url('/inbox/'), array(
+			'question_title' => $title,
+			'question_detail' => $delete_message
 		));
-		
+	
 		return true;
 	}
 	

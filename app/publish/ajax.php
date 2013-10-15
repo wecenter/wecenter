@@ -64,6 +64,10 @@ class ajax extends AWS_CONTROLLER
 				$item_type = 'questions';
 			break;
 			
+			case 'article':
+				$item_type = 'article';
+			break;
+			
 			default:
 				$item_type = 'answer';
 				
@@ -155,6 +159,39 @@ class ajax extends AWS_CONTROLLER
 		}
 		
 		echo htmlspecialchars(json_encode($output), ENT_NOQUOTES);
+	}
+	
+	public function article_attach_edit_list_action()
+	{
+		if (! $article_info = $this->model('article')->get_article_info_by_id($_POST['article_id']))
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('无法获取附件列表')));
+		}
+		
+		if ($article_info['uid'] != $this->user_id AND !$this->user_info['permission']['is_administortar'] AND !$this->user_info['permission']['is_moderator'])
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('你没有权限编辑这个附件列表')));
+		}
+		
+		if ($article_attach = $this->model('publish')->get_attach('article', $_POST['article_id']))
+		{
+			foreach ($article_attach as $attach_id => $val)
+			{
+				$article_attach[$attach_id]['class_name'] = $this->model('publish')->get_file_class($val['file_name']);
+				
+				$article_attach[$attach_id]['delete_link'] = get_js_url('/publish/ajax/remove_attach/attach_id-' . base64_encode(H::encode_hash(array(
+					'attach_id' => $attach_id, 
+					'access_key' => $val['access_key']
+				))));
+				
+				$article_attach[$attach_id]['attach_id'] = $attach_id;
+				$article_attach[$attach_id]['attach_tag'] = 'attach';
+			}
+		}
+		
+		H::ajax_json_output(AWS_APP::RSM(array(
+			'attachs' => $article_attach
+		), 1, null));
 	}
 	
 	public function question_attach_edit_list_action()

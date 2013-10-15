@@ -219,4 +219,11 @@ class article_class extends AWS_MODEL
 		
 		return $result;
 	}
+	
+	public function lock_article($article_id, $lock_status = true)
+	{
+		return $this->update('article', array(
+			'lock' => intval($lock_status)
+		), 'id = ' . intval($article_id));
+	}
 }

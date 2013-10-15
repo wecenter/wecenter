@@ -26,12 +26,18 @@ UPDATE `[#DB_PREFIX#]topic_relation` SET `type` = 'question';
 CREATE TABLE `[#DB_PREFIX#]article_comments` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `uid` int(10) NOT NULL,
-  `article_id` int(10) NOT NULL,
-  `message` text NOT NULL,
-  `add_time` int(10) NOT NULL,
-  `at_uid` int(10) DEFAULT NULL,
+  `title` varchar(255) NOT NULL,
+  `message` text,
+  `comments` int(10) DEFAULT '0',
+  `views` int(10) DEFAULT '0',
+  `add_time` int(10) DEFAULT NULL,
+  `has_attach` tinyint(1) NOT NULL DEFAULT '0',
+  `lock` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
+  KEY `has_attach` (`has_attach`),
   KEY `uid` (`uid`),
-  KEY `article_id` (`article_id`),
-  KEY `add_time` (`add_time`)
+  KEY `comments` (`comments`),
+  KEY `views` (`views`),
+  KEY `add_time` (`add_time`),
+  KEY `lock` (`lock`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;

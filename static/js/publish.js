@@ -18,7 +18,7 @@ $(document).ready(function () {
     if (ITEM_ID && G_UPLOAD_ENABLE == 'Y' && ATTACH_ACCESS_KEY != '')
     {
         if ($("#file_uploader_question ._ajax_upload-list").length) {
-            $.post(G_BASE_URL + '/publish/ajax/question_attach_edit_list/', PUBLISH_TYPE + '=' + ITEM_ID, function (data) {
+            $.post(G_BASE_URL + '/publish/ajax/' + PUBLISH_TYPE + '_attach_edit_list/', PUBLISH_TYPE + '_id=' + ITEM_ID, function (data) {
                 if (data['err']) {
                     return false;
                 } else {

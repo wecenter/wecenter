@@ -65,8 +65,15 @@ CREATE TABLE `[#DB_PREFIX#]article` (
   `comments` int(10) DEFAULT '0',
   `views` int(10) DEFAULT '0',
   `add_time` int(10) DEFAULT NULL,
+  `has_attach` tinyint(1) NOT NULL DEFAULT '0',
+  `lock` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
-  KEY `uid` (`uid`,`comments`,`views`)
+  KEY `has_attach` (`has_attach`),
+  KEY `uid` (`uid`),
+  KEY `comments` (`comments`),
+  KEY `views` (`views`),
+  KEY `add_time` (`add_time`),
+  KEY `lock` (`lock`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]article_comments` (
