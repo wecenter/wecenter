@@ -1091,7 +1091,7 @@ function init_comment_box(selector)
 
             var left = $(this).width()/2 + $(this).prev().width();
             /*给三角形定位*/
-            $(comment_box_id).find('.i-comment-triangle').css('left', $(this).width() / 2 + $(this).prev().width() + 15);
+            $(comment_box_id).find('.i-dropdown-triangle').css('left', $(this).width() / 2 + $(this).prev().width() + 15);
             //textarae自动增高
             $(comment_box_id).find('.aw-comment-txt').autosize();
         }
