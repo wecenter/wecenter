@@ -1267,9 +1267,9 @@ function disagreeVote(element, user_name, answer_id)
 }
 
 //插入话题编辑box
-function init_topic_edit_box(selecter) //selecter -> .aw-edit-topic
+function init_topic_edit_box(selector) //selector -> .aw-edit-topic
 {
-    $(selecter).click(function ()
+    $(selector).click(function ()
     {
     	$(this).parents('.aw-item').css('z-index',1000);
         var _aw_topic_editor_element = $(this).parents('.aw-topic-editor');
@@ -1415,7 +1415,7 @@ var cashUserData = [],
     cashTopicData = [],
     cardBoxTimeout;
 
-function show_card_box(selecter, type, time) //selecter -> .aw-user-name/.aw-topic-name
+function show_card_box(selector, type, time) //selector -> .aw-user-name/.aw-topic-name
 {
     if (time)
     {
@@ -1425,7 +1425,7 @@ function show_card_box(selecter, type, time) //selecter -> .aw-user-name/.aw-top
     {
         var time = 300;
     }
-    $(document).on('mouseover', selecter, function ()
+    $(document).on('mouseover', selector, function ()
     {
         clearTimeout(cardBoxTimeout);
         var _this = $(this),
@@ -1664,7 +1664,7 @@ function show_card_box(selecter, type, time) //selecter -> .aw-user-name/.aw-top
         }, time);
     });
 
-    $(document).on('mouseout', selecter, function ()
+    $(document).on('mouseout', selector, function ()
     {
         clearTimeout(card_box_show);
         cardBoxTimeout = setTimeout(function ()
@@ -1715,21 +1715,21 @@ function disinvite_user(obj, uid)
 }
 
 /*动态插入下拉菜单模板*/
-function add_dropdown_list(selecter, data, selected)
+function add_dropdown_list(selector, data, selected)
 {
-    $(selecter).append(Hogan.compile(AW_TEMPLATE.dropdownList).render(
+    $(selector).append(Hogan.compile(AW_TEMPLATE.dropdownList).render(
     {
         'items': data
     }));
 
-    $(selecter + ' .dropdown-menu li a').click(function ()
+    $(selector + ' .dropdown-menu li a').click(function ()
     {
         $('#aw-topic-tags-select').html($(this).text());
     });
 
     if (selected)
     {
-        $(selecter + " .dropdown-menu li a[data-value='" + selected + "']").click();
+        $(selector + " .dropdown-menu li a[data-value='" + selected + "']").click();
     }
 }
 
@@ -2070,8 +2070,8 @@ function verify_register_form(element)
 
 var at_user_lists_flag = 0, at_user_lists_index = 0;
 
-function at_user_lists(selecter) {
-    $(selecter).keyup(function (e) {
+function at_user_lists(selector) {
+    $(selector).keyup(function (e) {
         init();
         var _this = $(this),
              flag = getCursorPosition($(this)[0]).start,
@@ -2154,7 +2154,7 @@ function at_user_lists(selecter) {
                     }
             }
         }
-        if (selecter == '#advanced_editor')
+        if (selector == '#advanced_editor')
         {
             if ($(this).val() == '')
             {
@@ -2163,7 +2163,7 @@ function at_user_lists(selecter) {
         }
     });
 
-    $(selecter).keydown(function (e) {
+    $(selector).keydown(function (e) {
         var key = e.which;
         if ($('.aw-invite-dropdown').is(':visible')) {
             if (key == 38 || key == 40 || key == 13) {
@@ -2181,8 +2181,8 @@ function at_user_lists(selecter) {
             $('#aw-ajax-box').append('<span class="content_cursor"></span>');
         }
         $('#aw-ajax-box').find('.content_cursor').css({
-            'left': parseInt($(selecter).offset().left + parseInt($(selecter).css('padding-left')) + 2),
-            'top': parseInt($(selecter).offset().top + parseInt($(selecter).css('padding-left')))
+            'left': parseInt($(selector).offset().left + parseInt($(selector).css('padding-left')) + 2),
+            'top': parseInt($(selector).offset().top + parseInt($(selector).css('padding-left')))
         });
     }
 
