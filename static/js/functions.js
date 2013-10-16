@@ -1511,25 +1511,22 @@ function show_card_box(selecter, type, time) //selecter -> .aw-user-name/.aw-top
                                 focusTxt = '关注';
                             }
                             
-                            if (verified)
+                            if(result.verified == 'enterprise')
                             {
-                                verified = 'active';
-                            }
-                            
-                            if (result.verified == 'enterprise')
-                            {
-                                verified_enterprise = 'i-ve';
+                                verified_enterprise = 'icon-v i-ve';
                                 verified_title = '企业认证';
+                            }else if(result.verified == 'personal')
+                            {
+                                verified_enterprise = 'icon-v';
+                                verified_title = '个人认证';
                             }else
                             {
-                                verified_enterprise = '';
-                                verified_title = '个人认证';
+                                verified_enterprise = verified_title = '';
                             }
                             
                             //动态插入盒子
                             $('#aw-ajax-box').html(Hogan.compile(AW_TEMPLATE.userCard).render(
                             {
-                                'verified' : verified,
                                 'verified_enterprise' : verified_enterprise,
                                 'verified_title' : verified_title,
                                 'uid': result.uid,
