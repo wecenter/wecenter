@@ -204,6 +204,12 @@
 								发布时间 : <?php echo date_friendly($this->article_info['add_time']); ?>
 							</li>
 						</ul>
+						<?php if ($this->article_info['user_info']['uid'] != $this->user_id AND $this->user_id) { ?>
+							<a href="javascript:;" class="btn btn-mini btn-default<?php if (!$this->user_follow_check) { ?> aw-active<?php } ?>" onclick="follow_people($(this), <?php echo $this->article_info['user_info']['uid']; ?>);"><?php if ($this->user_follow_check) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?>
+							</a>
+							<a class="btn btn-mini btn-primary" href="javascript:;" onclick="$.dialog('inbox', '<?php echo $this->article_info['user_info']['user_name']; ?>');">发私信</a>
+
+						<?php } ?>
 					</div>
 				</div>
 				<?php } ?>
