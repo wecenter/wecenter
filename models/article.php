@@ -261,7 +261,7 @@ class article_class extends AWS_MODEL
 			break;
 			
 			case 'comment':
-				$this->update('article_comment', array(
+				$this->update('article_comments', array(
 					'votes' => $this->count('article_vote', "`type` = '" . $this->quote($type) . "' AND item_id = " . intval($item_id) . " AND rating = 1")
 				), 'id = ' . intval($item_id));
 			break;

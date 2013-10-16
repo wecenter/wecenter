@@ -93,6 +93,19 @@ class main extends AWS_CONTROLLER
 			$comments = $this->model('article')->get_comments($article_info['id'], $_GET['page'], 100);
 		}
 		
+		if ($comments AND $this->user_id)
+		{
+			foreach ($comments AS $key => $val)
+			{
+				$comments[$key]['vote_info'] = $this->model('article')->get_article_vote_by_id('comment', $val['id'], $this->user_id);
+			}
+		}
+		
+		if ($this->user_id)
+		{
+			TPL::assign('user_follow_check', $this->model('follow')->user_follow_check($this->user_id, $article_info['uid']));
+		}
+		
 		TPL::assign('comments', $comments);
 		TPL::assign('comments_count', $article_info['comments']);
 		

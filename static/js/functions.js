@@ -2226,6 +2226,38 @@ function article_vote(element, article_id, rating)
 	}, 'json');
 }
 
+function comment_vote(element, comment_id, rating)
+{
+	$.loading('show');
+	
+	if ($(element).hasClass('active'))
+	{
+		rating = 0;
+	}
+	
+	$.post(G_BASE_URL + '/article/ajax/article_vote/', 'type=comment&item_id=' + comment_id + '&rating=' + rating, function (result) {
+		$.loading('hide');
+		
+		if (result.errno != 1)
+	    {
+	        $.alert(result.err);
+	    }
+	    else
+	    {
+			if (rating == 0)
+			{
+				$(element).removeClass('active');
+				$(element).html($(element).html().replace(_t('我已赞'), _t('赞')));
+			}
+			else
+			{
+				$(element).addClass('active');
+				$(element).html($(element).html().replace(_t('赞'), _t('我已赞')));
+			}
+	    }
+	}, 'json');
+}
+
 function getCursorPosition(textarea)
 {
     var rangeData = {

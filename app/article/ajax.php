@@ -147,7 +147,7 @@ class ajax extends AWS_CONTROLLER
 				$item_info = $this->model('article')->get_article_info_by_id($_POST['item_id']);
 			break;
 			
-			case 'comments':
+			case 'comment':
 				$item_info = $this->model('article')->get_comment_by_id($_POST['item_id']);
 			break;
 			
