@@ -19,10 +19,10 @@
 .aw-top-nav{width: 330px !important;}
 .aw-top-nav > ul > li{float: left;}
 .aw-top-nav > ul > li > a{display:inline-block;height:54px;line-height: 54px;padding: 0 15px;font-size: 14px;font-weight: bold;color: #fff;}
-.aw-top-nav > ul > li > a:hover{background: #404040;}
+.aw-top-nav > ul > li > a:hover, .aw-user-nav > span > a:hover{background: #404040;}
 .aw-top-nav > ul > li > a.active{background:#515151 !important;}
 .aw-publish{width:103px !important;margin:9px 0 0 20px;}
-.aw-publish-btn{display:inline-block;width:101px !important;height:32px;line-height:32px;padding-left:50px;background: url("img/main_default.png") no-repeat 0 -10px;color:#fff;}
+.aw-publish-btn{display:inline-block;height:32px;line-height:32px;color:#fff;}
 .aw-publish-btn:hover{background-position: -110px -10px;color: #fff;}
 .aw-publish a{width: 90px;background-color: #37aaff;}
 .aw-publish a:hover{background-color: #3ebcff;}
