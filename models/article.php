@@ -226,4 +226,61 @@ class article_class extends AWS_MODEL
 			'lock' => intval($lock_status)
 		), 'id = ' . intval($article_id));
 	}
+	
+	public function article_vote($type, $item_id, $rating)
+	{
+		if (!$rating)
+		{
+			return $this->delete('article_vote', "`type` = '" . $this->quote($type) . "' AND item_id = " . intval($item_id));
+		}
+		
+		if ($article_vote = $this->fetch_row('article_vote', "`type` = '" . $this->quote($type) . "' AND item_id = " . intval($item_id) . " AND rating = " . intval($rating)))
+		{
+			return $this->update('article_vote', array(
+				'rating' => intval($rating),
+				'time' => time()
+			), 'id = ' . intval($article_vote['id']));
+		}
+		
+		return $this->insert('article_vote', array(
+			'type' => $type,
+			'item_id' => intval($item_id),
+			'rating' => intval($rating),
+			'time' => time()
+		));
+	}
+	
+	public function get_article_vote_by_id($type, $item_id)
+	{
+		$article_vote = get_article_vote_by_ids($type, array(
+			$item_id
+		));
+		
+		return $article_vote[$item_id];
+	}
+	
+	public function get_article_vote_by_ids($type, $item_ids)
+	{
+		if (! is_array($item_ids))
+		{
+			return false;
+		}
+		
+		if (sizeof($item_ids) == 0)
+		{
+			return false;
+		}
+		
+		array_walk_recursive($item_ids, 'intval_string');
+		
+		if ($article_vote = $this->fetch_all('article_vote', "`type` = '" . $this->quote($type) . "' AND item_id IN(" . implode(',', array_unique($item_ids)) . ")"))
+		{
+			foreach ($article_vote AS $key => $val)
+			{
+				$result[$key['item_id']] = $val;
+			}
+		}
+		
+		return $result;
+	}
 }
