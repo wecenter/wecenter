@@ -23,10 +23,10 @@
 									<span><i class="aw-icon i-dropdown-triangle"></i></span>
 									<ul>
 										<li>
-											<a href="javascript:;" onclick="ajax_request(G_BASE_URL + '/article/ajax/lock/', 'article_id=<?php echo $this->article_info['id']; ?>');"><?php if ($this->article_info['lock']) { ?><?php _e('解除锁定'); ?><?php } else { ?><?php _e('锁定问题'); ?><?php } ?></a>
+											<a href="javascript:;" onclick="ajax_request(G_BASE_URL + '/article/ajax/lock/', 'article_id=<?php echo $this->article_info['id']; ?>');"><?php if ($this->article_info['lock']) { ?><?php _e('解除锁定'); ?><?php } else { ?><?php _e('锁定文章'); ?><?php } ?></a>
 										</li>
 										<li>
-											<a href="javascript:;" onclick="if (confirm('<?php _e('确认删除?'); ?>')) { ajax_request(G_BASE_URL + '/article/ajax/remove_article/', 'article_id=<?php echo $this->article_info['id']; ?>'); } "><?php _e('删除问题'); ?></a>
+											<a href="javascript:;" onclick="if (confirm('<?php _e('确认删除?'); ?>')) { ajax_request(G_BASE_URL + '/article/ajax/remove_article/', 'article_id=<?php echo $this->article_info['id']; ?>'); } "><?php _e('删除文章'); ?></a>
 										</li>
 									</ul>
 								</div>
@@ -65,11 +65,24 @@
 							</ul>
 							<?php } ?>
 						</div>
-						<div class="aw-question-detail-meta">
-							<a class="aw-text-color-999" href="javascript:;"><i class="icon-thumbs-up-alt"></i>赞同</a>
-							<a class="aw-text-color-999" href="javascript:;"><i class="icon-thumbs-down-alt"></i>反对</a>
-							<a class="aw-text-color-999" onclick="$.dialog('shareOut', {item_type:'question', item_id:<?php echo $this->article_info['id']; ?>});"><i class="icon-share-alt"></i><?php _e('分享'); ?></a>
-							<?php if ((!$this->article_info['lock'] AND ($this->article_info['published_uid'] == $this->user_id OR $this->user_info['permission']['edit_question'])) OR $this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?><a class="aw-text-color-999" href="publish/article/<?php echo $this->article_info['id']; ?>"><i class="icon-edit"></i><?php _e('编辑'); ?></a><?php } ?>
+						<div class="aw-question-detail-meta aw-article-detail-meta">
+							<span class="aw-article-vote">
+								<a href="" class="agree"><i class="icon-thumbs-up-alt"></i> 50 赞</a>
+								<a href="" class="disagree"><i class="icon-thumbs-down-alt"></i></a>
+							</span>
+							
+							<a class="aw-text-color-999 pull-right" onclick="$.dialog('shareOut', {item_type:'question', item_id:<?php echo $this->article_info['id']; ?>});"><i class="icon-share-alt"></i><?php _e('分享'); ?></a>
+							<?php if ((!$this->article_info['lock'] AND ($this->article_info['published_uid'] == $this->user_id OR $this->user_info['permission']['edit_question'])) OR $this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?>
+							<a class="aw-text-color-999 pull-right" href="publish/article/<?php echo $this->article_info['id']; ?>"><i class="icon-edit"></i> <?php _e('编辑'); ?></a>
+							<?php } ?>
+						</div>
+						<div class="aw-article-voter">
+							<a class="voter" data-toggle="tooltip" data-placement="right" data-original-title="kk"><img src="http://192.168.1.248/anwsion/trunk/static/common/avatar-mid-img.png"></a>
+							<a class="voter" data-toggle="tooltip" data-placement="right" data-original-title="kk"><img src="http://192.168.1.248/anwsion/trunk/static/common/avatar-mid-img.png"></a>
+							<a class="voter" data-toggle="tooltip" data-placement="right" data-original-title="kk"><img src="http://192.168.1.248/anwsion/trunk/static/common/avatar-mid-img.png"></a>
+							<a class="voter" data-toggle="tooltip" data-placement="right" data-original-title="kk"><img src="http://192.168.1.248/anwsion/trunk/static/common/avatar-mid-img.png"></a>
+							<a class="voter" data-toggle="tooltip" data-placement="right" data-original-title="kk"><img src="http://192.168.1.248/anwsion/trunk/static/common/avatar-mid-img.png"></a>
+							<a class="more-voters">...</a>
 						</div>
 					</div>
 				</div>
