@@ -67,6 +67,13 @@ class main extends AWS_CONTROLLER
 		
 		$article_info['message'] = FORMAT::parse_attachs(nl2br(FORMAT::parse_markdown($article_info['message'])));
 		
+		if ($this->user_id)
+		{
+			$article_info['vote_info'] = $this->model('article')->get_article_vote_by_id('article', $article_info['id'], $this->user_id);
+		}
+		
+		$article_info['vote_users'] = $this->model('article')->get_article_vote_users_by_id('article', $article_info['id'], 10);
+		
 		TPL::assign('article_info', $article_info);
 		
 		TPL::assign('article_topics', $this->model('topic')->get_topics_by_item_id($article_info['id'], 'article'));

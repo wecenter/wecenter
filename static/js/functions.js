@@ -2195,13 +2195,47 @@ function at_user_lists(selecter) {
     }
 }
 
-function getCursorPosition(textarea) {
+function article_vote(element, article_id, rating)
+{
+	$.loading('show');
+	
+	if ($(element).hasClass('active'))
+	{
+		rating = 0;
+	}
+	
+	$.post(G_BASE_URL + '/article/ajax/article_vote/', 'type=article&item_id=' + article_id + '&rating=' + rating, function (result) {
+		$.loading('hide');
+		
+		if (result.errno != 1)
+	    {
+	        $.alert(result.err);
+	    }
+	    else
+	    {
+			if (rating == 0)
+			{
+				$(element).removeClass('active');
+			}
+			else
+			{
+				$(element).parents('.aw-article-vote').find('a').removeClass('active');
+				$(element).addClass('active');
+			}
+	    }
+	}, 'json');
+}
+
+function getCursorPosition(textarea)
+{
     var rangeData = {
         text: "",
         start: 0,
         end: 0
     };
+    
     textarea.focus();
+    
     if (textarea.setSelectionRange) { // W3C
         rangeData.start = textarea.selectionStart;
         rangeData.end = textarea.selectionEnd;

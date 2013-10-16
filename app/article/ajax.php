@@ -104,12 +104,12 @@ class ajax extends AWS_CONTROLLER
 	{
 		if (! $this->user_info['permission']['is_moderator'] && ! $this->user_info['permission']['is_administortar'])
 		{
-			H::ajax_json_output(AWS_APP::RSM(null, - 1, AWS_APP::lang()->_t('你没有权限进行此操作')));
+			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('你没有权限进行此操作')));
 		}
 		
 		if (! $article_info = $this->model('article')->get_article_info_by_id($_POST['article_id']))
 		{
-			H::ajax_json_output(AWS_APP::RSM(null, - 1, AWS_APP::lang()->_t('文章不存在')));
+			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('文章不存在')));
 		}
 		
 		$this->model('article')->lock_article($_POST['article_id'], !$article_info['lock']);
@@ -137,5 +137,34 @@ class ajax extends AWS_CONTROLLER
 		H::ajax_json_output(AWS_APP::RSM(array(
 			'url' => get_js_url('/home/explore/')
 		), 1, null));
+	}
+	
+	public function article_vote_action()
+	{
+		switch ($_POST['type'])
+		{
+			case 'article':
+				$item_info = $this->model('article')->get_article_info_by_id($_POST['item_id']);
+			break;
+			
+			case 'comments':
+				$item_info = $this->model('article')->get_comment_by_id($_POST['item_id']);
+			break;
+			
+		}
+		
+		if (!$item_info)
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('内容不存在')));
+		}
+		
+		if ($item_info['uid'] == $this->user_id)
+		{
+			//H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('不能对自己发表的内容进行投票')));
+		}
+		
+		$this->model('article')->article_vote($_POST['type'], $_POST['item_id'], $_POST['rating'], $this->user_id);
+		
+		H::ajax_json_output(AWS_APP::RSM(null, 1, null));
 	}
 }

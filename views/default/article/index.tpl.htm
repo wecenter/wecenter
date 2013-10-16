@@ -12,7 +12,6 @@
 						
 						<?php if ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?>
 						<div class="aw-question-follow">
-							
 							<!-- 下拉菜单 -->
 							<div class="btn-group pull-left">
 								<a class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" href="javascript:;">
@@ -66,9 +65,9 @@
 							<?php } ?>
 						</div>
 						<div class="aw-question-detail-meta aw-article-detail-meta">
-							<span class="aw-article-vote">
-								<a href="" class="agree"><i class="icon-thumbs-up-alt"></i> 50 赞</a>
-								<a href="" class="disagree"><i class="icon-thumbs-down-alt"></i></a>
+							<span class="aw-article-vote<?php if (!$this->user_id) { ?> disabled<?php } ?>">
+								<a href="javascript:;" class="agree<?php if ($this->article_info['vote_info']['rating'] == 1) { ?> active<?php } ?>" onclick="article_vote(this, <?php echo $this->article_info['id']; ?>, 1);"><i class="icon-thumbs-up-alt"></i> <?php echo $this->article_info['votes']; ?> 赞</a>
+								<a href="javascript:;" class="disagree<?php if ($this->article_info['vote_info']['rating'] == -1) { ?> active<?php } ?>" onclick="article_vote(this, <?php echo $this->article_info['id']; ?>, -1);"><i class="icon-thumbs-down-alt"></i></a>
 							</span>
 							
 							<a class="aw-text-color-999 pull-right" onclick="$.dialog('shareOut', {item_type:'question', item_id:<?php echo $this->article_info['id']; ?>});"><i class="icon-share-alt"></i><?php _e('分享'); ?></a>
@@ -76,14 +75,15 @@
 							<a class="aw-text-color-999 pull-right" href="publish/article/<?php echo $this->article_info['id']; ?>"><i class="icon-edit"></i> <?php _e('编辑'); ?></a>
 							<?php } ?>
 						</div>
+						
+						<?php if ($this->article_info['vote_users']) { ?>
 						<div class="aw-article-voter">
-							<a class="voter" data-toggle="tooltip" data-placement="right" data-original-title="kk"><img src="http://192.168.1.248/anwsion/trunk/static/common/avatar-mid-img.png"></a>
-							<a class="voter" data-toggle="tooltip" data-placement="right" data-original-title="kk"><img src="http://192.168.1.248/anwsion/trunk/static/common/avatar-mid-img.png"></a>
-							<a class="voter" data-toggle="tooltip" data-placement="right" data-original-title="kk"><img src="http://192.168.1.248/anwsion/trunk/static/common/avatar-mid-img.png"></a>
-							<a class="voter" data-toggle="tooltip" data-placement="right" data-original-title="kk"><img src="http://192.168.1.248/anwsion/trunk/static/common/avatar-mid-img.png"></a>
-							<a class="voter" data-toggle="tooltip" data-placement="right" data-original-title="kk"><img src="http://192.168.1.248/anwsion/trunk/static/common/avatar-mid-img.png"></a>
-							<a class="more-voters">...</a>
+							<?php foreach ($this->article_info['vote_users'] AS $key => $val) { ?>
+							<a href="people/<?php echo $val['url_token']; ?>" class="voter" data-toggle="tooltip" data-placement="right" data-original-title="<?php echo $val['user_name']; ?>"><img alt="<?php echo $val['user_name']; ?>" src="<?php echo get_avatar_url($val['uid'], 'mid'); ?>" /></a>
+							<?php } ?>
+							<!--<a class="more-voters">...</a>-->
 						</div>
+						<?php } ?>
 					</div>
 				</div>
 				
@@ -115,6 +115,7 @@
 									<?php echo nl2br($val['message']); ?>
 								</div>
 								<div class="aw-item-meta">
+									<span class="pull-right"><?php echo $val['votes']; ?> 赞</span>
 									<span><?php echo date_friendly($val['add_time']); ?></span>
 									<a class="aw-article-comment" data-id="<?php echo $val['user_info']['uid']; ?>"><i class="icon-comment"></i> 回复</a>
 									<a onclick="agreeVote(this, '<?php echo $this->user_info['user_name']?>', <?php echo $this->article_info['id']?>)"><i class="icon-thumbs-up-alt"></i> 赞</a>
@@ -214,7 +215,12 @@
 </div>
 
 <script type="text/javascript">
-	$(function() {
+	$(document).ready(function () {
+		if ($('.aw-article-vote.disabled').length)
+		{
+			$('.aw-article-vote.disabled a').attr('onclick', '');
+		}
+		
 		$('.aw-mod-article-replay-box #comment_editor').autosize();
 	});
 </script>
