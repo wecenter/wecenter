@@ -1267,7 +1267,6 @@ function disagreeVote(element, user_name, answer_id)
 }
 
 //插入话题编辑box
-
 function init_topic_edit_box(selecter) //selecter -> .aw-edit-topic
 {
     $(selecter).click(function ()
@@ -1403,7 +1402,8 @@ function init_topic_edit_box(selecter) //selecter -> .aw-edit-topic
 /*
  **	功能: 用户头像提示box效果
  **
- *   type : user/topic
+ *  @param
+ *  type : user/topic
  *	nTop    : 焦点到浏览器上边距
  *	nRight  : 焦点到浏览器右边距
  *	nBottom : 焦点到浏览器下边距
@@ -1434,134 +1434,117 @@ function show_card_box(selecter, type, time) //selecter -> .aw-user-name/.aw-top
             nBottom = $(window).height() - _this.height() - nTop;
         card_box_show = setTimeout(function ()
         {
-            //用户头像box
-            if (type == 'user')
+            //判断用户id or 话题id 是否存在
+            if (_this.attr('data-id'))
             {
-                //判断用户id是否存在
-                if (_this.attr('data-id'))
+                 switch (type)
                 {
-                    //检查是否有缓存
-                    if (cashUserData.length == 0)
-                    {
-                        //发送请求
-                        _getdata('user', '/people/ajax/user_info/uid-');
-
-                    }
-                    else
-                    {
-                        var flag = 0;
-                        //遍历缓存中是否含有此id的数据
-                        _checkcash('user');
-                        if (flag == 0)
+                    case 'user' : 
+                        //检查是否有缓存
+                        if (cashUserData.length == 0)
                         {
+                            //发送请求
                             _getdata('user', '/people/ajax/user_info/uid-');
                         }
-                    }
-                }
-            }
-            //话题box
-            if (type == 'topic')
-            {
-                //存在topic_id
-                if (_this.attr('data-id'))
-                {
-                    //检查是否有缓存
-                    if (cashTopicData.length == 0)
-                    {
-                        _getdata('topic', '/topic/ajax/topic_info/topic_id-');
-                    }
-                    else
-                    {
-                        var flag = 0;
-                        //遍历缓存中是否含有此id的数据
-                        _checkcash('topic');
-                        if (flag == 0)
+                        else
+                        {
+                            var flag = 0;
+                            //遍历缓存中是否含有此id的数据
+                            _checkcash('user');
+                            if (flag == 0)
+                            {
+                                _getdata('user', '/people/ajax/user_info/uid-');
+                            }
+                        }
+                    break;
+
+                    case 'topic' :
+                        //检查是否有缓存
+                        if (cashTopicData.length == 0)
                         {
                             _getdata('topic', '/topic/ajax/topic_info/topic_id-');
                         }
-                    }
+                        else
+                        {
+                            var flag = 0;
+                            //遍历缓存中是否含有此id的数据
+                            _checkcash('topic');
+                            if (flag == 0)
+                            {
+                                _getdata('topic', '/topic/ajax/topic_info/topic_id-');
+                            }
+                        }
+                    break;
                 }
             }
 
             //通用获取数据
-
             function _getdata(type, url)
             {
                 if (type == 'user')
                 {
-                    $.ajax(
+                    $.get(G_BASE_URL + url + _this.attr('data-id'), function(result)
                     {
-                        type: 'GET',
-                        url: G_BASE_URL + url + _this.attr('data-id'),
-                        dataType: 'json',
-                        success: function (result)
-                        {
-                            var focus = result.focus,
-                                focusTxt,
-                                verified = result.verified;
+                        var focus = result.focus,
+                            focusTxt,
+                            verified = result.verified;
                            
-                            if (focus == 1)
-                            {
-                                focus = '';
-                                focusTxt = '取消关注';
-                            }
-                            else
-                            {
-                                focus = 'aw-active';
-                                focusTxt = '关注';
-                            }
-                            
-                            if(result.verified == 'enterprise')
-                            {
-                                verified_enterprise = 'icon-v i-ve';
-                                verified_title = '企业认证';
-                            }else if(result.verified == 'personal')
-                            {
-                                verified_enterprise = 'icon-v';
-                                verified_title = '个人认证';
-                            }else
-                            {
-                                verified_enterprise = verified_title = '';
-                            }
-                            
-                            //动态插入盒子
-                            $('#aw-ajax-box').html(Hogan.compile(AW_TEMPLATE.userCard).render(
-                            {
-                                'verified_enterprise' : verified_enterprise,
-                                'verified_title' : verified_title,
-                                'uid': result.uid,
-                                'avatar_file': result.avatar_file,
-                                'user_name': result.user_name,
-                                'reputation': result.reputation,
-                                'agree_count': result.agree_count,
-                                'signature': result.signature,
-                                'url' : result.url,
-                                'category_enable' : result.category_enable,
-                                'focus': focus,
-                                'focusTxt': focusTxt
-                            }));
-                            //判断是否为游客or自己
-                            if (G_USER_ID == 0 || G_USER_ID == result.uid)
-                            {
-                                $('#aw-card-tips .aw-mod-footer').hide();
-                            }
-                            _init();
-                            //缓存
-                            cashUserData.push($('#aw-ajax-box').html());
+                        if (focus == 1)
+                        {
+                            focus = '';
+                            focusTxt = '取消关注';
                         }
-                    });
+                        else
+                        {
+                            focus = 'aw-active';
+                            focusTxt = '关注';
+                        }
+                        
+                        if(result.verified == 'enterprise')
+                        {
+                            verified_enterprise = 'icon-v i-ve';
+                            verified_title = '企业认证';
+                        }else if(result.verified == 'personal')
+                        {
+                            verified_enterprise = 'icon-v';
+                            verified_title = '个人认证';
+                        }else
+                        {
+                            verified_enterprise = verified_title = '';
+                        }
+                        
+                        //动态插入盒子
+                        $('#aw-ajax-box').html(Hogan.compile(AW_TEMPLATE.userCard).render(
+                        {
+                            'verified_enterprise' : verified_enterprise,
+                            'verified_title' : verified_title,
+                            'uid': result.uid,
+                            'avatar_file': result.avatar_file,
+                            'user_name': result.user_name,
+                            'reputation': result.reputation,
+                            'agree_count': result.agree_count,
+                            'signature': result.signature,
+                            'url' : result.url,
+                            'category_enable' : result.category_enable,
+                            'focus': focus,
+                            'focusTxt': focusTxt
+                        }));
+                        //判断是否为游客or自己
+                        if (G_USER_ID == 0 || G_USER_ID == result.uid)
+                        {
+                            $('#aw-card-tips .aw-mod-footer').hide();
+                        }
+                        _init();
+                        //缓存
+                        cashUserData.push($('#aw-ajax-box').html());
+                    }, 'json');
                 }
                 if (type == 'topic')
                 {
-                    $.ajax(
+                    $.get(G_BASE_URL + url + _this.attr('data-id'), function(result)
                     {
-                        type: 'GET',
-                        url: G_BASE_URL + url + _this.attr('data-id'),
-                        dataType: 'json',
-                        success: function (result)
-                        {
-                            var focus = result.focus,
-                                focusTxt;
+                        var focus = result.focus,
+                            focusTxt;
                             if (focus > 0)
                             {
                                 focus = '';
@@ -1593,8 +1576,7 @@ function show_card_box(selecter, type, time) //selecter -> .aw-user-name/.aw-top
                             _init();
                             //缓存
                             cashTopicData.push($('#aw-ajax-box').html());
-                        }
-                    });
+                    }, 'json');
                 }
             }
             //检测缓存
@@ -1800,7 +1782,7 @@ function bind_dropdown_list(selector, type)
 
 /* 下拉菜单数据获取 */
 /*
-    type : search, publish, redirect, invite, inbox, topic_question, topic
+*    type : search, publish, redirect, invite, inbox, topic_question, topic
 */
 function get_dropdown_list(selector, type, data)
 {
