@@ -65,7 +65,7 @@
 							<?php } ?>
 						</div>
 						<div class="aw-question-detail-meta aw-article-detail-meta">
-							<span class="aw-article-vote<?php if (!$this->user_id OR this->user_id == $this->article_info['uid']) { ?> disabled<?php } ?>">
+							<span class="aw-article-vote<?php if (!$this->user_id OR $this->user_id == $this->article_info['uid']) { ?> disabled<?php } ?>">
 								<a href="javascript:;" class="agree<?php if ($this->article_info['vote_info']['rating'] == 1) { ?> active<?php } ?>" onclick="article_vote(this, <?php echo $this->article_info['id']; ?>, 1);"><i class="icon-thumbs-up-alt"></i> <?php echo $this->article_info['votes']; ?> 赞</a>
 								<a href="javascript:;" class="disagree<?php if ($this->article_info['vote_info']['rating'] == -1) { ?> active<?php } ?>" onclick="article_vote(this, <?php echo $this->article_info['id']; ?>, -1);"><i class="icon-thumbs-down-alt"></i></a>
 							</span>
