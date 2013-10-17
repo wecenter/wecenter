@@ -54,9 +54,8 @@ class article_class extends AWS_MODEL
 				$comment['at_uid']
 			));
 			
-			$comment['user_info'] = $this->model('account')->get_user_info_by_uid($comment_user_infos[$comment['uid']]);
-			
-			$comment['at_user_info'] = $this->model('account')->get_user_info_by_uid($comment_user_infos[$comment['at_uid']]);
+			$comment['user_info'] = $comment_user_infos[$comment['uid']];
+			$comment['at_user_info'] = $comment_user_infos[$comment['at_uid']];
 		}
 		
 		return $comment;
