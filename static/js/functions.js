@@ -2028,7 +2028,7 @@ function verify_register_form(element)
 
                 case 'email' : 
                     $(this).parent().find('.aw-reg-tips').detach();
-                    var emailreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+                    var emailreg = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
                     if (!emailreg.test($(this).val()))
                     {
                         $(this).parent().find('.aw-reg-tips').detach();
