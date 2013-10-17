@@ -119,12 +119,15 @@ class article_class extends AWS_MODEL
 		}
 		
 		set_human_valid('answer_valid_hour');
-				
-		$this->model('notify')->send($uid, $article_info['uid'], notify_class::TYPE_ARTICLE_NEW_COMMENT, notify_class::CATEGORY_ARTICLE, $article_info['id'], array(
-			'from_uid' => $uid, 
-			'article_id' => $article_info['id'], 
-			'item_id' => $comment_id
-		));
+		
+		if ($article_info['uid'] != $uid)
+		{
+			$this->model('notify')->send($uid, $article_info['uid'], notify_class::TYPE_ARTICLE_NEW_COMMENT, notify_class::CATEGORY_ARTICLE, $article_info['id'], array(
+				'from_uid' => $uid, 
+				'article_id' => $article_info['id'], 
+				'item_id' => $comment_id
+			));
+		}
 				
 		return $comment_id;
 	}
