@@ -700,7 +700,7 @@ a.aw-load-more-content{display: block;}
 .aw-tips-box .modal-body p{margin: 10px 0;}
 /* 分享box */
 .aw-share-box .modal-body{padding: 10px;}
-.aw-share-box  #bdshare li{float: left;min-width: 70px;margin:0 32px 20px 0;}
+.aw-share-box  #bdshare li{float: left;min-width: 70px;margin:0 30px 20px 0;}
 /* 发起box */
 .aw-message-box textarea, .aw-inbox textarea{min-height: 60px;}
 #quick_publish_error{margin-bottom: 10px;}
