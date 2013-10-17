@@ -258,6 +258,7 @@ class notify_class extends AWS_MODEL
 						}
 						
 						$tmp['extend_details'] = $this->format_extend_detail($notify['extend_details'], $user_infos);
+						$tmp['key_url'] = get_js_url('/article/' . $data['article_id'] . '?' . $token);
 					}
 					else
 					{

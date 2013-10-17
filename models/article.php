@@ -157,6 +157,20 @@ class article_class extends AWS_MODEL
 		return $this->delete('article', 'id = ' . intval($article_id));	// 删除问题
 	}
 	
+	public function remove_comment($comment_id)
+	{
+		if ($comment_info = $this->get_comment_by_id($comment_id))
+		{
+			$this->delete('article_comments', 'id = ' . intval($comment_id));
+			
+			$this->update('article', array(
+				'comments' => $this->count('article_comments', 'article_id = ' . intval($article_id))
+			), 'id = ' . $comment_info['id']);
+			
+			return true;
+		}
+	}
+	
 	public function update_article($article_id, $title, $message, $topics, $create_topic)
 	{
 		$this->delete('topic_relation', 'item_id = ' . intval($article_id) . " AND `type` = 'article'");

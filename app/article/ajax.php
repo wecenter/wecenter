@@ -124,7 +124,7 @@ class ajax extends AWS_CONTROLLER
 			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('对不起, 你没有删除文章的权限')));
 		}
 		
-		if ($article_info = $this->model('question')->get_article_info_by_id($_POST['article_id']))
+		if ($article_info = $this->model('article')->get_article_info_by_id($_POST['article_id']))
 		{
 			if ($this->user_id != $article_info['uid'])
 			{
@@ -136,6 +136,23 @@ class ajax extends AWS_CONTROLLER
 			
 		H::ajax_json_output(AWS_APP::RSM(array(
 			'url' => get_js_url('/home/explore/')
+		), 1, null));
+	}
+	
+	public function remove_comment_action()
+	{
+		if (!$this->user_info['permission']['is_administortar'] AND !$this->user_info['permission']['is_moderator'])
+		{				
+			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('对不起, 你没有删除评论的权限')));
+		}
+		
+		if ($comment_info = $this->model('article')->get_comment_by_id($_POST['comment_id']))
+		{
+			$this->model('article')->remove_comment($comment_info['id']);
+		}
+			
+		H::ajax_json_output(AWS_APP::RSM(array(
+			'url' => get_js_url('/article/' . $comment_info['article_id'])
 		), 1, null));
 	}
 	
@@ -160,7 +177,7 @@ class ajax extends AWS_CONTROLLER
 		
 		if ($item_info['uid'] == $this->user_id)
 		{
-			//H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('不能对自己发表的内容进行投票')));
+			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('不能对自己发表的内容进行投票')));
 		}
 		
 		$this->model('article')->article_vote($_POST['type'], $_POST['item_id'], $_POST['rating'], $this->user_id);
