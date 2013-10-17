@@ -280,35 +280,25 @@ class topic_class extends AWS_MODEL
 			ACTION_LOG::save_action($uid, $question_id, ACTION_LOG::CATEGORY_QUESTION, ACTION_LOG::ADD_TOPIC, $topic_title, $topic_id);
 			
 			$this->model('account')->save_recent_topics($uid, $topic_title);
-			
-			return $topic_id;
 		}
 		
-		// 判断话题是否锁定
-		if ($this->has_lock_topic($topic_id))
+		if ($uid)
 		{
-			return false;
-		}
-		
-		if (!$uid)
-		{
-			return $topic_id;
-		}
-		
-		switch ($topic_type)
-		{
-			case 1:
-				// 添加问题添加到话题的动作
-				ACTION_LOG::save_action($uid, $question_id, ACTION_LOG::CATEGORY_QUESTION, ACTION_LOG::ADD_TOPIC, $topic_title, $topic_id);
+			switch ($topic_type)
+			{
+				case 1:
+					// 添加问题添加到话题的动作
+					ACTION_LOG::save_action($uid, $question_id, ACTION_LOG::CATEGORY_QUESTION, ACTION_LOG::ADD_TOPIC, $topic_title, $topic_id);
+						
+					ACTION_LOG::save_action($uid, $topic_id, ACTION_LOG::CATEGORY_TOPIC, ACTION_LOG::ADD_TOPIC, $topic_title, $question_id);
+				break;
 					
-				ACTION_LOG::save_action($uid, $topic_id, ACTION_LOG::CATEGORY_TOPIC, ACTION_LOG::ADD_TOPIC, $topic_title, $question_id);
-			break;
-				
-			case 3:
-				ACTION_LOG::save_action($uid, $topic_id, ACTION_LOG::CATEGORY_TOPIC, ACTION_LOG::ADD_TOPIC, $topic_title, '');
-			break;
+				case 3:
+					ACTION_LOG::save_action($uid, $topic_id, ACTION_LOG::CATEGORY_TOPIC, ACTION_LOG::ADD_TOPIC, $topic_title, '');
+				break;
+			}
 		}
-
+		
 		return $topic_id;
 	}
 
