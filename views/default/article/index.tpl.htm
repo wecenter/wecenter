@@ -71,7 +71,7 @@
 							</span>
 							
 							<a class="aw-text-color-999 pull-right" onclick="$.dialog('shareOut', {item_type:'question', item_id:<?php echo $this->article_info['id']; ?>});"><i class="icon-share-alt"></i><?php _e('分享'); ?></a>
-							<?php if ((!$this->article_info['lock'] AND ($this->article_info['uid'] == $this->user_id OR $this->user_info['permission']['edit_question'])) OR $this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?>
+							<?php if ((!$this->article_info['lock'] AND $this->article_info['uid'] == $this->user_id) OR $this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?>
 							<a class="aw-text-color-999 pull-right" href="publish/article/<?php echo $this->article_info['id']; ?>"><i class="icon-edit"></i> <?php _e('编辑'); ?></a>
 							<?php } ?>
 						</div>

@@ -133,7 +133,7 @@ class main extends AWS_CONTROLLER
 				H::redirect_msg(AWS_APP::lang()->_t('指定文章不存在'));
 			}
 			
-			if (!$this->user_info['permission']['is_administortar'] AND !$this->user_info['permission']['is_moderator'] AND !$this->user_info['permission']['edit_question'])
+			if (!$this->user_info['permission']['is_administortar'] AND !$this->user_info['permission']['is_moderator'])
 			{
 				if ($question_info['published_uid'] != $this->user_id)
 				{
