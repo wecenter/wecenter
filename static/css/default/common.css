@@ -440,7 +440,7 @@ a.aw-load-more-content{display: block;}
 .aw-article-detail .aw-item{position: relative;padding-left: 40px !important;}
 .aw-article-detail .aw-item .aw-user-name{position: absolute;left: 0;top: 10px;}
 .aw-article-detail .aw-item .aw-user-name img{width: 32px;height: 32px;}
-.aw-article-detail .aw-item .aw-item-meta{font-size: 12px;color: #999;}
+.aw-article-detail .aw-item .aw-item-meta{margin-top:10px;font-size: 12px;color: #999;}
 .aw-article-detail .aw-item .aw-item-meta a{margin-left: 15px;color: #999;}
 
 /* 发起问题页面 */
