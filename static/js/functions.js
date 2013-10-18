@@ -1005,6 +1005,11 @@ function init_comment_box(selector)
 {
     $(document).on('click', selector, function ()
     {
+         if (COMMENT_UNFOLD == 'all' && $(this).attr('data-comment-count') == 0)
+        {
+            return false;
+        }
+
         if (!$(this).attr('data-type') || !$(this).attr('data-id'))
         {
             return true;
@@ -1085,8 +1090,11 @@ function init_comment_box(selector)
                 {
                     result = '<div align="center" class="aw-padding10">' + _t('暂无评论') + '</div>';
                 }
+                else
+                {
+                    $(comment_box_id).find('.aw-comment-list').html(result);
+                }
 
-                $(comment_box_id).find('.aw-comment-list').html(result);
             });
 
             var left = $(this).width()/2 + $(this).prev().width();

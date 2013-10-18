@@ -218,7 +218,7 @@
 										<!-- 社交操作 -->
 										<div class="aw-dynamic-topic-meta">
 											<span class="pull-left aw-text-color-999"><?php echo date_friendly($val['add_time']); ?></span>
-											<a class="aw-add-comment aw-text-color-999" data-id="<?php echo $val['answer_id']; ?>" data-type="answer" href="javascript:;"><i class="icon-comment"></i><?php if ($val['comment_count']) { ?><?php _e('%s 条评论', $val['comment_count']); ?><?php } else { ?><?php _e('添加评论'); ?><?php } ?></a>
+											<a class="aw-add-comment aw-text-color-999" data-id="<?php echo $val['answer_id']; ?>" data-type="answer" data-comment-count="<?php _e('%s', $val['comment_count']); ?>" href="javascript:;"><i class="icon-comment"></i><?php if ($val['comment_count']) { ?><?php _e('%s 条评论', $val['comment_count']); ?><?php } else { ?><?php _e('添加评论'); ?><?php } ?></a>
 											<!-- 可显示/隐藏的操作box -->
 											<div class="aw-dynamic-topic-more-operate pull-left">
 												<a href="javascript:;" onclick="$.dialog('shareOut', {item_type:'answer', item_id:<?php echo $val['answer_id']; ?>});" class="aw-text-color-999"><i class="icon-share-alt"></i><?php _e('分享'); ?></a>
