@@ -90,16 +90,30 @@ var AW_MOBILE_TEMPLATE = {
 	    '</div>',
 	    
 	'commentBox' : 
-			'<div class="aw-comment-box" id="{{comment_form_id}}">'+
-				'<div class="aw-comment-list"><p align="center" class="aw-padding10"><i class="aw-loading"></i></p></div>'+
-				'<form action="{{comment_form_action}}" method="post" onsubmit="return false">'+
-					'<div class="aw-comment-box-main clearfix">'+
-						'<textarea class="aw-comment-txt form-control" name="message" placeholder="' + _t('评论一下') + '..."></textarea>'+
-						'<a href="javascript:;" class="btn btn-mini btn-default close-comment-box pull-right">' + _t('取消') + '</a>'+
-						'<a href="javascript:;" class="btn btn-mini btn-primary pull-right" onclick="save_comment(this);">' + _t('评论') + '</a>'+
-					'</div>'+
-				'</form>'+
-			'</div>',
+		'<div class="aw-comment-box" id="{{comment_form_id}}">'+
+			'<div class="aw-comment-list"><p align="center" class="aw-padding10"><i class="aw-loading"></i></p></div>'+
+			'<form action="{{comment_form_action}}" method="post" onsubmit="return false">'+
+				'<div class="aw-comment-box-main clearfix">'+
+					'<textarea class="aw-comment-txt form-control" name="message" placeholder="' + _t('评论一下') + '..."></textarea>'+
+					'<a href="javascript:;" class="btn btn-mini btn-default close-comment-box pull-right">' + _t('取消') + '</a>'+
+					'<a href="javascript:;" class="btn btn-mini btn-primary pull-right" onclick="save_comment(this);">' + _t('评论') + '</a>'+
+				'</div>'+
+			'</form>'+
+		'</div>',
+
+	'articleCommentBox' :
+		'<div class="aw-comment-box" id="{{comment_form_id}}">'+
+			'<form action="'+ G_BASE_URL +'/article/ajax/save_comment/" method="post" onsubmit="return false">'+
+				'<div class="aw-comment-box-main clearfix">'+
+					'<input type="hidden" name="at_uid" value="{{at_uid}}">'+
+					'<input type="hidden" name="post_hash" value="' + G_POST_HASH + '" />'+
+					'<input type="hidden" name="article_id" value="{{article_id}}" />'+
+					'<textarea class="aw-comment-txt form-control" name="message" placeholder="' + _t('评论一下') + '..."></textarea>'+
+					'<a href="javascript:;" class="btn btn-mini btn-default close-comment-box pull-right">' + _t('取消') + '</a>'+
+					'<a href="javascript:;" class="btn btn-mini btn-primary pull-right" onclick="ajax_post($(this).parents(\'form\'));">' + _t('评论') + '</a>'+
+				'</div>'+
+			'</form>'+
+		'</div>',
 
 	'topic_edit_box' :
 		'<div class="aw-topic-box-selector">'+

@@ -64,6 +64,7 @@ $(document).ready(function () {
     });
 	
 	init_comment_box('.aw-add-comment');
+	init_article_comment_box('.aw-article-comment');
 	
 	$('img#captcha').attr('src', G_BASE_URL + '/account/captcha/');
 	
@@ -1028,35 +1029,17 @@ function init_comment_box(selecter)
                     'comment_form_action': comment_form_action
                 }));
 				
-                $(comment_box_id).find('.aw-comment-txt').bind(
-                {
-                    focus: function ()
-                    {
-                        $(this).css('height', parseInt($(this).css('line-height')) * 5);
-
-                        $(comment_box_id).find('.aw-comment-box-btn').show();
-                    },
-
-                    blur: function ()
-                    {
-                        if ($(this).val() == '')
-                        {
-                            $(this).css('height', '');
-
-                            $(comment_box_id).find('.aw-comment-box-btn').hide();
-                        }
-                    }
-                });
-
                 $(comment_box_id).find('.close-comment-box').click(function ()
                 {
                     $(comment_box_id).fadeOut();
                     $(comment_box_id).find('.aw-comment-txt').css('height', $(this).css('line-height'));
                 });
+
+                $(comment_box_id).find('.aw-comment-txt').autosize();
             }
             else
             {
-                $(this).parent().parent().append(Hogan.compile(AW_TEMPLATE.commentBoxClose).render(
+                $(this).parent().parent().append(Hogan.compile(AW_MOBILE_TEMPLATE.commentBoxClose).render(
                 {
                     'comment_form_id': comment_box_id.replace('#', ''),
                     'comment_form_action': comment_form_action
@@ -1077,6 +1060,33 @@ function init_comment_box(selecter)
             //var left = $(this).width()/2 + $(this).prev().width();
             /*给三角形定位*/
             //$(comment_box_id).find('.i-comment-triangle').css('left', $(this).width() / 2 + $(this).prev().width() + 15);
+        }
+    });
+}
+
+function init_article_comment_box(selecter)
+{
+	$(document).on('click', selecter, function ()
+    {
+        if ($(this).parents('.aw-item').find('.aw-comment-box').length)
+        {
+            if ($(this).parents('.aw-item').find('.aw-comment-box').css('display') == 'block')
+            {
+               $(this).parents('.aw-item').find('.aw-comment-box').fadeOut();
+            }
+            else
+            {
+                $(this).parents('.aw-item').find('.aw-comment-box').fadeIn();
+            }
+        }
+        else
+        {
+            $(this).parents('.aw-mod-footer').append(Hogan.compile(AW_MOBILE_TEMPLATE.articleCommentBox).render(
+            {
+                'at_uid' : $(this).attr('data-id'),
+                'article_id' : $('.aw-anwser-box input[name="article_id"]').val()
+            }));
+            $(this).parents('.aw-mod-footer').find('.aw-comment-txt').autosize();
         }
     });
 }

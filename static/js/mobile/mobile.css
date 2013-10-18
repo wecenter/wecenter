@@ -11,7 +11,7 @@ dd{margin-left: 10px;}
 .aw-topic-name i{margin:-1px 0 0 10px;font-size: 14px;font-style: normal;cursor: pointer;}
 .modal-backdrop, .modal-backdrop.fade.in{opacity: 0.2;}
 .dropdown-menu{min-width: 0px;}
-.num{color: #999;}
+.num, .aw-text-color-999{color: #999;}
 .aw-arrow{border-color: #C1C1C1 transparent transparent;border-image: none;border-right: 4px solid transparent;border-style: solid;border-width: 4px;}
 .aw-arrow.normal{border-width: 7px;}
 .btn-submit{margin:0 auto 15px;background:#80C3F7;border: 1px solid #1D80CF;border-radius: 5px 5px 5px 5px;box-shadow: 0 1px 0 rgba(255, 255, 255, 0.3) inset, 0 1px 1px rgba(50, 50, 50, 0.05);color: #FFFFFF;cursor: pointer;display: block;font-size: 16px;line-height: 37px;text-align: center;text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);width: 100%;font-weight: bold;}
@@ -207,6 +207,9 @@ nav #aw-top-nav-notic .badge{position: absolute;right: 0;top:1px;z-index:100;pad
 .aw-comment-box .aw-comment-box-main{padding:10px;}
 .aw-comment-box .aw-comment-box-main a.btn{margin:0 0 0 10px;color: #333 !important;}
 .aw-comment-box .aw-comment-box-main a.btn-primary{color: #fff !important;}
+
+/* 文章详情页 */
+.aw-article-detail-page .aw-anwser-box .avatar, .aw-article-detail-page .aw-anwser-box .btn-success{margin:0 !important;color: #fff !important;}
 
 /* 话题页面 */
 .aw-topic-page{margin-top: 10px;}

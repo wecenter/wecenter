@@ -770,6 +770,8 @@ a.aw-load-more-content{display: block;}
 .aw-mod-replay-box .aw-mod-head p label input{margin-right: 5px;position: relative;top:-1px;top:1px\0;}
 .aw-mod-replay-box .aw-mod-body{position:relative;padding:20px;background: #E7EFF2;border: 1px solid #C2CACD;}
 .aw-mod-replay-box .aw-mod-body .aw-text-color-999{margin-bottom:10px;}
+.aw-mod-replay-box .aw-replay-box-control{position: relative;height: 34px;line-height: 34px;}
+.aw-mod-replay-box .aw-replay-box-control .btn-submit{margin-left: 10px;}
 .aw-mod-article-replay-box{position:relative;margin-top:20px;padding-left: 40px;}
 .aw-mod-article-replay-box .aw-mod-head{position:absolute;left:0;}
 .aw-mod-article-replay-box .aw-mod-head img{width: 32px;height: 32px;}
