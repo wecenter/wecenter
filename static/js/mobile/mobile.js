@@ -1032,7 +1032,6 @@ function init_comment_box(selecter)
                 $(comment_box_id).find('.close-comment-box').click(function ()
                 {
                     $(comment_box_id).fadeOut();
-                    $(comment_box_id).find('.aw-comment-txt').css('height', $(this).css('line-height'));
                 });
 
                 $(comment_box_id).find('.aw-comment-txt').autosize();
@@ -1081,12 +1080,16 @@ function init_article_comment_box(selecter)
         }
         else
         {
-            $(this).parents('.aw-mod-footer').append(Hogan.compile(AW_MOBILE_TEMPLATE.articleCommentBox).render(
+            $(this).parents('.aw-item').append(Hogan.compile(AW_MOBILE_TEMPLATE.articleCommentBox).render(
             {
                 'at_uid' : $(this).attr('data-id'),
                 'article_id' : $('.aw-anwser-box input[name="article_id"]').val()
             }));
-            $(this).parents('.aw-mod-footer').find('.aw-comment-txt').autosize();
+            $(this).parents('.aw-item').find('.close-comment-box').click(function ()
+            {
+                $(this).parents('.aw-item').find('.aw-comment-box').fadeOut();
+            });
+            $(this).parents('.aw-item').find('.aw-comment-txt').autosize();
         }
     });
 }

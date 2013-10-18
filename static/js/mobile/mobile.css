@@ -210,6 +210,7 @@ nav #aw-top-nav-notic .badge{position: absolute;right: 0;top:1px;z-index:100;pad
 
 /* 文章详情页 */
 .aw-article-detail-page .aw-anwser-box .avatar, .aw-article-detail-page .aw-anwser-box .btn-success{margin:0 !important;color: #fff !important;}
+.aw-article-detail-page .aw-answers-list .aw-item .aw-mod-head a{margin:0px !important;}
 
 /* 话题页面 */
 .aw-topic-page{margin-top: 10px;}
