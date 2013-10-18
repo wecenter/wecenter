@@ -54,6 +54,15 @@ input[type="text"]:focus, input[type="password"]:focus {
           box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
 }
 
+/* tabs切换样式重载 */
+.aw-reset-nav-tabs{position:relative;z-index:1;margin:0;min-height: 30px;}
+.aw-reset-nav-tabs > li{margin:0 4px 0 0;font-size: 14px;}
+.aw-reset-nav-tabs > li > a{line-height:30px;padding:0 13px;cursor: pointer !important;background-color: #FCFDFF;border: 1px solid #ddd;border-bottom-color: transparent;border-radius: 3px 3px 0 0;}
+.aw-reset-nav-tabs > li > a:hover{background-color: #F5FAFF;border: 1px solid #ddd;border-bottom-color: transparent;}
+.aw-reset-nav-tabs > li.active{margin:0 4px -1px 0;}
+.aw-reset-nav-tabs > li.active a{line-height:31px;background-color: #fff;}
+
+
 /* 顶部 */
 header{height: 46px;min-width: 0;padding:0 10px;background: none repeat scroll 0 0 #0D7DCB;border-bottom: 1px solid #0055AC;border-top: 1px solid #0055AC;}
 header .logo img{position: absolute;left: 5px;top:5px;}
@@ -132,10 +141,11 @@ nav #aw-top-nav-notic .badge{position: absolute;right: 0;top:1px;z-index:100;pad
 .aw-publish-title input{width:180px;border-radius: 4px 0 0 4px;border-right: none;}
 .aw-publish-title input.active{width:100%;border:1px solid #CCCCCC;border-radius: 4px;}
 .aw-publish-title.open .dropdown-menu{display: block;}
-.aw-publish-title .aw-publish-dropdown p{margin: 0;height: 28px;line-height: 28px;border: 1px solid #C1CAD4;box-shadow: 0 2px 1px #F3F3F3 inset;cursor: pointer;border-radius: 0 4px 4px 0;}
+.aw-publish-title .aw-publish-dropdown p{margin: 0;height: 34px;line-height: 34px;border: 1px solid #C1CAD4;box-shadow: 0 2px 1px #F3F3F3 inset;cursor: pointer;border-radius: 0 4px 4px 0;}
 .aw-publish-title .aw-publish-dropdown span{display: inline-block;padding:0 12px;}
-.aw-publish-title .aw-publish-dropdown i{display:inline-block;margin:10px 10px 0 0;border-color: #C1C1C1 transparent transparent;border-image: none;border-style: solid;border-width: 7px;}
+.aw-publish-title .aw-publish-dropdown i{display:inline-block;margin:14px 10px 0 0;border-color: #C1C1C1 transparent transparent;border-image: none;border-style: solid;border-width: 7px;}
 .aw-publish-title .aw-publish-dropdown .dropdown-menu{max-height: 140px;overflow-y:auto;}
+.aw-publish .aw-publish-tabs{margin-top: 20px;}
 
 /* 快速回复 */
 .aw-comment-box{position: relative;max-width: 540px;margin:10px 0 35px;border:1px solid #DDDDDD;background: #fff;border-radius: 4px;}
