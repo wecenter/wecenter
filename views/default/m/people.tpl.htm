@@ -60,7 +60,7 @@
 			<ul>
 				<?php foreach ($this->user_actions_answers AS $key => $val) { ?>
 				<li>
-					<a href="question/<?php echo $val['question_id']; ?>"><?php echo $val['question_content']; ?></a>
+					<a href="<?php echo $val['link']; ?>"><?php echo $val['title']; ?></a>
 					<p><?php echo cjk_substr($val['answer_info']['answer_content'], 0, 130, 'UTF-8', '...'); ?></p>
 				</li>
 				<?php } ?>
@@ -77,8 +77,8 @@
 			<ul>
 				<?php foreach ($this->user_actions_questions AS $key => $val) { ?>
 				<li>
-					<a href="question/<?php echo $val['question_id']; ?>"><?php echo $val['question_content']; ?></a>
-					<p class="num"><?php _e('%s 个关注', $val['focus_count']); ?> • <?php echo date_friendly($val['add_time']); ?></p>
+					<a href="<?php echo $val['link']; ?>"><?php echo $val['title']; ?></a>
+					<p class="num"><?php _e('%s 个关注', $val['question_info']['focus_count']); ?> • <?php echo date_friendly($val['add_time']); ?></p>
 				</li>
 				<?php } ?>
 			</ul>

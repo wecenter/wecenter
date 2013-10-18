@@ -252,7 +252,7 @@ class notify_class extends AWS_MODEL
 						{
 							$item_ids = array_unique($item_ids);
 							
-							asort($answer_ids);
+							asort($item_ids);
 							
 							$querys[] = 'item_id-' . implode(',', $item_ids);
 						}
