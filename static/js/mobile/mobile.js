@@ -1255,7 +1255,7 @@ function comment_vote(element, comment_id, rating)
 		
 		if (result.errno != 1)
 	    {
-	        $.alert(result.err);
+	        alert(result.err);
 	    }
 	    else
 	    {
