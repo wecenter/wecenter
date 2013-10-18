@@ -133,7 +133,8 @@ class main extends AWS_CONTROLLER
 			ACTION_LOG::ADD_REQUESTION_FOCUS,
 			ACTION_LOG::ADD_AGREE,
 			ACTION_LOG::ADD_TOPIC,
-			ACTION_LOG::ADD_TOPIC_FOCUS
+			ACTION_LOG::ADD_TOPIC_FOCUS,
+			ACTION_LOG::ADD_ARTICLE
 		)), $this->user_id));
 				
 		TPL::output('people/index');

@@ -133,7 +133,7 @@ class main extends AWS_CONTROLLER
 				H::redirect_msg(AWS_APP::lang()->_t('指定文章不存在'));
 			}
 			
-			if (!$this->user_info['permission']['is_administortar'] AND !$this->user_info['permission']['is_moderator'])
+			if (!$this->user_info['permission']['is_administortar'] AND !$this->user_info['permission']['is_moderator'] AND !$this->user_info['permission']['edit_article'])
 			{
 				if ($question_info['published_uid'] != $this->user_id)
 				{
@@ -144,7 +144,7 @@ class main extends AWS_CONTROLLER
 			TPL::assign('article_info', $article_info);
 			TPL::assign('article_topics', $this->model('topic')->get_topics_by_item_id($article_info['id'], 'article'));
 		}
-		else if (!$this->user_info['permission']['publish_question'])
+		else if (!$this->user_info['permission']['publish_article'])
 		{
 			H::redirect_msg(AWS_APP::lang()->_t('你所在用户组没有权限发布文章'));
 		}
