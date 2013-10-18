@@ -2076,8 +2076,8 @@ function verify_register_form(element)
     });
 }
 
+/*回复,评论@人功能*/
 var at_user_lists_flag = 0, at_user_lists_index = 0;
-
 function at_user_lists(selector) {
     $(selector).keyup(function (e) {
         init();
