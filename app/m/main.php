@@ -763,4 +763,11 @@ class main extends AWS_CONTROLLER
 		
 		TPL::output('m/publish');
 	}
+
+	public function article_action()
+	{
+
+		TPL::output('m/article');
+	}
+
 }
