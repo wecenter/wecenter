@@ -766,7 +766,6 @@ class main extends AWS_CONTROLLER
 
 	public function article_action()
 	{
-
 		TPL::output('m/article');
 	}
 
