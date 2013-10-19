@@ -73,13 +73,14 @@
 							<?php } ?>
 						</div>
 						<div class="aw-mod-footer clearfix">
-							<a class="pull-right btn btn-large btn-success" id="publish_submit" onclick="ajax_post($('#question_form')); return false;"><?php _e('确认发起'); ?></a>
-							<span class="aw-anonymity pull-right">
+							<a href="page/integral">[积分规则]</a>
+							<span class="aw-anonymity">
 								<?php if ($this->article_info['id'] AND ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator'])) { ?>
 								<label><input type="checkbox" class="pull-left" value="1" name="do_delete" />
 									<?php _e('删除文章'); ?></label>
 								<?php } ?>
 							</span>
+							<a class="btn btn-large btn-success" id="publish_submit" onclick="ajax_post($('#question_form')); return false;"><?php _e('确认发起'); ?></a>
 						</div>
 					</div>
 				</form>
