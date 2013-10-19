@@ -868,6 +868,8 @@ a.aw-load-more-content{display: block;}
 .aw-point-rule dt, .aw-point-rule dd{float: left;height: 30px;line-height: 30px;}
 .aw-point-rule dt{width: 500px;font-weight: normal;}
 .aw-point-rule dd{width: 370px;text-align: right;}
+.aw-point-rule .green{color: #388202;}
+.aw-point-rule .red{color: #ff5d61;}
 
 /* 404页面 */
 .aw-404{background:#f4f4f4;}
