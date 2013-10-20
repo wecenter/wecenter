@@ -826,7 +826,7 @@ class notify_class extends AWS_MODEL
 	{
 		foreach ($data AS $key => $val)
 		{
-			if ($val['extend_count'])
+			if ($val['extend_count'] > 1)
 			{
 				if ($val['model_type'] == self::CATEGORY_QUESTION)
 				{
@@ -927,7 +927,7 @@ class notify_class extends AWS_MODEL
 				}
 			}
 			
-			if ($val['extend_count'])
+			if ($val['extend_count'] > 1)
 			{
 				foreach($val['extend_details'] as $action_type => $extend)
 				{					
