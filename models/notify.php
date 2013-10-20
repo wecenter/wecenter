@@ -300,12 +300,12 @@ class notify_class extends AWS_MODEL
 										$from_uid = $ex_notify['data']['from_uid'];
 									}
 									
-									if ($ex_notify['action_type'] == 106 OR ($ex_notify['action_type'] == 103 AND $ex_notify['data']['comment_type'] == 1))
+									if ($ex_notify['action_type'] == 106 OR $ex_notify['action_type'] == 103)
 									{
 										$comment_type[] = 'question';
 									}
 									
-									if ($ex_notify['action_type'] == 105 OR ($ex_notify['action_type'] == 103 AND $ex_notify['data']['comment_type'] == 2))
+									if ($ex_notify['action_type'] == 105 OR $ex_notify['action_type'] == 103)
 									{
 										$comment_type[] = 'answer';
 									}
@@ -332,7 +332,7 @@ class notify_class extends AWS_MODEL
 								}
 								
 								if ($comment_type)
-								{
+								{									
 									if (count(array_unique($comment_type)) == 1)
 									{
 										$querys[] = 'comment_unfold-' . array_pop($comment_type);
@@ -371,12 +371,12 @@ class notify_class extends AWS_MODEL
 									$querys[] = 'source-' . base64_encode($data['from_uid']);
 								}
 								
-								if ($notify['action_type'] == self::TYPE_QUESTION_COMMENT OR ($notify['action_type'] == self::TYPE_COMMENT_AT_ME AND $data['comment_type'] == 1))
+								if ($notify['action_type'] == self::TYPE_QUESTION_COMMENT OR ($notify['action_type'] == self::TYPE_COMMENT_AT_ME))
 								{
 									$querys[] = 'comment_unfold-question';
 								}
 								
-								if ($notify['action_type'] == self::TYPE_ANSWER_COMMENT OR $notify['action_type'] == self::TYPE_ANSWER_AT_ME OR $notify['action_type'] == self::TYPE_ANSWER_COMMENT_AT_ME OR ($notify['action_type'] == self::TYPE_COMMENT_AT_ME AND $data['comment_type'] == 2))
+								if ($notify['action_type'] == self::TYPE_ANSWER_COMMENT OR $notify['action_type'] == self::TYPE_ANSWER_AT_ME OR $notify['action_type'] == self::TYPE_ANSWER_COMMENT_AT_ME OR $notify['action_type'] == self::TYPE_COMMENT_AT_ME)
 								{
 									$querys[] = 'comment_unfold-answer';
 								}
@@ -476,7 +476,7 @@ class notify_class extends AWS_MODEL
 						$comment_type[] = 'question';
 					}
 					
-					if ($ex_notify['action_type'] == self::TYPE_ANSWER_COMMENT OR $ex_notify['action_type'] == self::TYPE_ANSWER_AT_ME OR $ex_notify['action_type'] == self::TYPE_ANSWER_COMMENT_AT_ME OR ($ex_notify['action_type'] == self::TYPE_COMMENT_AT_ME AND $ex_notify['data']['comment_type'] == 2))
+					if ($ex_notify['action_type'] == self::TYPE_ANSWER_COMMENT OR $ex_notify['action_type'] == self::TYPE_ANSWER_AT_ME OR $ex_notify['action_type'] == self::TYPE_ANSWER_COMMENT_AT_ME OR $ex_notify['action_type'] == self::TYPE_COMMENT_AT_ME)
 					{
 						$comment_type[] = 'answer';
 					}

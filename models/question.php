@@ -1242,7 +1242,6 @@ class question_class extends AWS_MODEL
 		if ($question_info['published_uid'] != $uid)
 		{
 			$this->model('notify')->send($uid, $question_info['published_uid'], notify_class::TYPE_QUESTION_COMMENT, notify_class::CATEGORY_QUESTION, $question_info['question_id'], array(
-				'comment_type' => 1, 
 				'from_uid' => $uid, 
 				'question_id' => $question_info['question_id'], 
 				'comment_id' => $comment_id
@@ -1259,7 +1258,6 @@ class question_class extends AWS_MODEL
 				}
 					
 				$this->model('notify')->send($uid, $user_id, notify_class::TYPE_COMMENT_AT_ME, notify_class::CATEGORY_QUESTION, $question_info['question_id'], array(
-					'comment_type' => 1, 
 					'from_uid' => $uid, 
 					'question_id' => $question_info['question_id'], 
 					'comment_id' => $comment_id

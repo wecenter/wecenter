@@ -717,7 +717,6 @@ class answer_class extends AWS_MODEL
 		if ($answer_info['uid'] != $uid)
 		{
 			$this->model('notify')->send($uid, $answer_info['uid'], notify_class::TYPE_ANSWER_COMMENT_AT_ME, notify_class::CATEGORY_QUESTION, $answer_info['question_id'], array(
-				'comment_type' => 2, 
 				'from_uid' => $uid, 
 				'question_id' => $answer_info['question_id'], 
 				'item_id' => $answer_info['answer_id'], 
@@ -732,7 +731,6 @@ class answer_class extends AWS_MODEL
 				if ($user_id != $uid)
 				{
 					$this->model('notify')->send($uid, $user_id, notify_class::TYPE_ANSWER_COMMENT_AT_ME, notify_class::CATEGORY_QUESTION, $answer_info['question_id'], array(
-						'comment_type' => 2, 
 						'from_uid' => $uid, 
 						'question_id' => $answer_info['question_id'], 
 						'item_id' => $answer_info['answer_id'], 
