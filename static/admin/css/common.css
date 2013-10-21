@@ -92,8 +92,8 @@ th{text-align: center;}
 .right-side .aw-box-row dl dd{width: auto;}
 .right-side .aw-box-row .aw-box-row-dd{width: 500px;}
 .right-side .aw-box-row span{font-size: 13px;}
-.right-side .aw-box p.aw-text-color-999{*margin-left: 10px;}
 .right-side .tools p.aw-text-color-999{margin-bottom: 10px;}
+.aw-input-horizontal .col-sm-1{width: 65px;}
 
 /*表格*/
 .aw-table{margin:10px 0;border:1px solid #D7E6F0;color: #666;}
