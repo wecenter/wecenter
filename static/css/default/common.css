@@ -346,7 +346,8 @@ a.aw-load-more-content{display: block;}
 .aw-side-bar-invite-box .aw-dropdown .aw-dropdown-list li{padding:0 !important;}
 .aw-side-bar-invite-box .aw-side-bar-invite-list li{padding-bottom:10px;}
 .aw-side-bar-invite-box .aw-side-bar-invite-list .btn-mini{min-width: 50px;}
-.aw-side-bar-invite-replay .aw-side-bar-mod-body > p{margin-top:10px;}
+.aw-side-bar-invite-replay .aw-side-bar-mod-body{margin-top:10px;}
+.aw-side-bar-invite-replay .aw-side-bar-mod-body .badge{line-height: 13px;}
 .aw-side-bar-invite-replay-box{margin:10px 0;padding:10px;background: #EBF5FF;border:1px solid #C1D5DC;}
 .aw-side-bar-invite-replay-box dl + dl{border-top: 1px dotted #C1CAD4;}
 .aw-side-bar-invite-replay-box dl dd{width:120px;}
