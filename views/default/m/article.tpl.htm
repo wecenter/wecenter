@@ -17,7 +17,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="aw-mod-body">
+		<div class="aw-mod-body markitup-box">
 			<?php echo $this->article_info['message']; ?>
 							
 			<?php if ($this->article_info['attachs']) {  ?>
@@ -79,7 +79,7 @@
 						<?php if ($val['at_user_info']) { ?> 回复 <a href="people/<?php echo $val['at_user_info']['url_token']; ?>"><?php echo $val['at_user_info']['user_name']; ?></a><?php } ?>
 					</h3>
 				</div>
-				<div class="aw-mod-body"><?php echo nl2br($val['message']); ?></div>
+				<div class="aw-mod-body markitup-box"><?php echo nl2br($val['message']); ?></div>
 				<div class="aw-mod-footer">
 					<span class="num"><?php echo date_friendly($val['add_time']); ?></span> 
 					

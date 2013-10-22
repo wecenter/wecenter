@@ -358,7 +358,7 @@ nav #aw-top-nav-notic .badge{position: absolute;right: 0;top:1px;z-index:100;pad
 .search-page .tab-content #search_result li.question{padding-left:0;}
 
 /* 编辑器回复样式 */
-.markitup-box {font-size: 13px !important;line-height: 22px;word-wrap: break-word !important;}
+.markitup-box {font-size: 14;line-height: 22px;word-wrap: break-word !important;}
 .markitup-box h2, #markItUpPreviewFrames h2, .markitup-box h3, #markItUpPreviewFrames h3 {font-weight: bold;margin: 10px 0;}
 .markitup-box h2, #markItUpPreviewFrames h2 {font-size: 1.5em;}
 .markitup-box h3, #markItUpPreviewFrames h3 {font-size: 1.17em;}
