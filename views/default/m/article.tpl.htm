@@ -41,7 +41,7 @@
 			<?php } ?>
 		</div>
 		<div class="aw-mod-footer">
-			<?php if ((!$this->article_info['lock'] AND ($this->article_info['uid'] == $this->user_id OR $this->user_info['permission']['edit_article'])) OR $this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?><a href="m/publish/type-article__id-<?php echo $this->question_info['question_id']; ?>"><i class="icon-edit"></i> <?php _e('编辑'); ?></a><?php } ?> <script type="text/javascript" charset="utf-8">
+			<script type="text/javascript" charset="utf-8">
 (function(){
   var _w = 72 , _h = 16;
   var param = {
