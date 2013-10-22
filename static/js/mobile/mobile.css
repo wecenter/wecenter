@@ -168,6 +168,7 @@ nav #aw-top-nav-notic .badge{position: absolute;right: 0;top:1px;z-index:100;pad
 .aw-question-detail-page .aw-question-detail .aw-mod-footer a, .aw-question-detail-page .aw-answers-list .aw-mod-footer > a{margin-right: 15px;color: #999;}
 .aw-question-detail-page .aw-question-detail .aw-mod-footer .aw-invite-replay-btn{margin:0;}
 .aw-question-detail-page .aw-question-detail iframe{width: 100%;}
+.aw-question-detail-page .aw-question-detail .bshare-custom{display: inline-block;width:20px;vertical-align: 1px;}
 .aw-question-detail-page .aw-answers-title{line-height:24px;margin:15px 0;padding:10px 0;border-top: 1px solid #EEEEEE;}
 .aw-question-detail-page .aw-answers-title .dropdown-menu{left: -60px;}
 .aw-question-detail-page .aw-answers-list ul li{padding:10px 0;border-top:1px solid #EEEEEE;}
