@@ -29,9 +29,8 @@
 			<?php if ($this->question_info['attachs']) {  ?>
 				<div class="aw-comment-upload-img-list">
 				<?php foreach ($this->question_info['attachs'] AS $key => $attach) { ?>
-				<?php if ($attach['is_image'] AND !in_array($attach['id'], $this->question_info['attachs_ids'])) { ?>				<p>
+				<?php if ($attach['is_image'] AND !in_array($attach['id'], $this->question_info['attachs_ids'])) { ?>
 					<a href="<?php echo $attach['attachment']; ?>" target="_blank"><img src="<?php echo $attach['attachment']; ?>" alt="<?php echo $attach['attach_name']; ?>" class="img-polaroid" /></a>
-				</p>
 				<?php } ?>
 				<?php } ?>
 				</div>
