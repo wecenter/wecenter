@@ -541,20 +541,36 @@ class ajax extends AWS_CONTROLLER
 		
 		$this->model('draft')->delete_draft(1, 'article', $this->user_id);
 		
-		$article_id = $this->model('publish')->publish_article($_POST['title'], $_POST['message'], $this->user_id, $_POST['topics'], $_POST['attach_access_key'], $this->user_info['permission']['create_topic']);
-		
-		if ($_POST['_is_mobile'])
-		{
-			$url = get_js_url('/m/article/' . $article_id);
+		if ($this->publish_approval_valid())
+		{			
+			$this->model('publish')->publish_approval('article', array(
+				'title' => $_POST['title'],
+				'message' => $_POST['message'],
+				'topics' => $_POST['topics'],
+				'permission_create_topic' => $this->user_info['permission']['create_topic']
+			), $this->user_id, $_POST['attach_access_key']);
+				
+			H::ajax_json_output(AWS_APP::RSM(array(
+				'url' => get_js_url('/publish/wait_approval/')
+			), 1, null));
 		}
 		else
 		{
-			$url = get_js_url('/article/' . $article_id);
+			$article_id = $this->model('publish')->publish_article($_POST['title'], $_POST['message'], $this->user_id, $_POST['topics'], $_POST['attach_access_key'], $this->user_info['permission']['create_topic']);
+		
+			if ($_POST['_is_mobile'])
+			{
+				$url = get_js_url('/m/article/' . $article_id);
+			}
+			else
+			{
+				$url = get_js_url('/article/' . $article_id);
+			}
+				
+			H::ajax_json_output(AWS_APP::RSM(array(
+				'url' => $url
+			), 1, null));
 		}
-			
-		H::ajax_json_output(AWS_APP::RSM(array(
-			'url' => $url
-		), 1, null));
 	}
 	
 	function modify_article_action()
