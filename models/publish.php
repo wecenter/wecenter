@@ -36,6 +36,14 @@ class publish_class extends AWS_MODEL
 			case 'answer':
 				$this->publish_answer($approval_item['data']['question_id'], $approval_item['data']['answer_content'], $approval_item['uid'], $approval_item['data']['anonymous'], $approval_item['data']['attach_access_key'], $approval_item['data']['auto_focus']);
 			break;
+			
+			case 'article':
+				$this->publish_article($approval_item['data']['title'], $approval_item['data']['message'], $approval_item['uid'], $approval_item['data']['topics'], $approval_item['data']['attach_access_key'], $approval_item['data']['permission_create_topic']);
+			break;
+			
+			case 'article_comment':
+				$this->publish_article_comment($approval_item['data']['article_id'], $approval_item['data']['message'], $approval_item['uid'], $approval_item['data']['at_uid']);
+			break;
 		}
 		
 		$this->delete('approval', 'id = ' . intval($id));
@@ -267,6 +275,48 @@ class publish_class extends AWS_MODEL
 		}
 		
 		return $article_id;
+	}
+	
+	public function publish_article_comment($article_id, $message, $uid, $at_uid = null)
+	{
+		if (!$article_info = $this->get_article_info_by_id($article_id))
+		{
+			return false;
+		}
+		
+		$comment_id = $this->insert('article_comments', array(
+			'uid' => intval($uid),
+			'article_id' => intval($article_id),
+			'message' => htmlspecialchars($message),
+			'add_time' => time(),
+			'at_uid' => intval($at_uid)
+		));
+		
+		$this->update('article', array(
+			'comments' => $this->count('article_comments', 'article_id = ' . intval($article_id))
+		), 'id = ' . intval($article_id));
+		
+		if ($at_uid AND $at_uid != $uid)
+		{
+			$this->model('notify')->send($uid, $at_uid, notify_class::TYPE_ARTICLE_COMMENT_AT_ME, notify_class::CATEGORY_ARTICLE, $article_info['id'], array(
+				'from_uid' => $uid, 
+				'article_id' => $article_info['id'], 
+				'item_id' => $comment_id
+			));
+		}
+		
+		set_human_valid('answer_valid_hour');
+		
+		if ($article_info['uid'] != $uid)
+		{
+			$this->model('notify')->send($uid, $article_info['uid'], notify_class::TYPE_ARTICLE_NEW_COMMENT, notify_class::CATEGORY_ARTICLE, $article_info['id'], array(
+				'from_uid' => $uid, 
+				'article_id' => $article_info['id'], 
+				'item_id' => $comment_id
+			));
+		}
+				
+		return $comment_id;
 	}
 	
 	public function update_attach($item_type, $item_id, $attach_access_key)

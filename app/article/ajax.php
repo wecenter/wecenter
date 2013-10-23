@@ -77,13 +77,28 @@ class ajax extends AWS_CONTROLLER
 			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('表单来路不正确或内容已提交, 请刷新页面重试')));
 		}
 		
-		$comment_id = $this->model('article')->save_comment($_POST['article_id'], $message, $this->user_id, $_POST['at_uid']);
+		if ($this->publish_approval_valid())
+		{
+			$this->model('publish')->publish_approval('article_comment', array(
+				'article_id' => intval($_POST['article_id']),
+				'message' => $message,
+				'at_uid' => intval($_POST['at_uid'])
+			), $this->user_id);
+				
+			H::ajax_json_output(AWS_APP::RSM(array(
+				'url' => get_js_url('/publish/wait_approval/article_id-' . intval($_POST['article_id']) . '__is_mobile-' . $_POST['_is_mobile'])
+			), 1, null));
+		}
+		else
+		{
+			$comment_id = $this->model('publish')->publish_article_comment($_POST['article_id'], $message, $this->user_id, $_POST['at_uid']);
 			
-		$url = get_js_url('/article/' . intval($_POST['article_id']) . '?item_id=' . $comment_id);
-		
-		H::ajax_json_output(AWS_APP::RSM(array(
-			'url' => $url
+			$url = get_js_url('/article/' . intval($_POST['article_id']) . '?item_id=' . $comment_id);
+			
+			H::ajax_json_output(AWS_APP::RSM(array(
+				'url' => $url
 		), 1, null));
+		}
 	}
 	
 	public function list_action()

@@ -89,49 +89,7 @@ class article_class extends AWS_MODEL
 		
 		return $comments;
 	}
-	
-	public function save_comment($article_id, $message, $uid, $at_uid = null)
-	{
-		if (!$article_info = $this->get_article_info_by_id($article_id))
-		{
-			return false;
-		}
 		
-		$comment_id = $this->insert('article_comments', array(
-			'uid' => intval($uid),
-			'article_id' => intval($article_id),
-			'message' => htmlspecialchars($message),
-			'add_time' => time(),
-			'at_uid' => intval($at_uid)
-		));
-		
-		$this->update('article', array(
-			'comments' => $this->count('article_comments', 'article_id = ' . intval($article_id))
-		), 'id = ' . intval($article_id));
-		
-		if ($at_uid AND $at_uid != $uid)
-		{
-			$this->model('notify')->send($uid, $at_uid, notify_class::TYPE_ARTICLE_COMMENT_AT_ME, notify_class::CATEGORY_ARTICLE, $article_info['id'], array(
-				'from_uid' => $uid, 
-				'article_id' => $article_info['id'], 
-				'item_id' => $comment_id
-			));
-		}
-		
-		set_human_valid('answer_valid_hour');
-		
-		if ($article_info['uid'] != $uid)
-		{
-			$this->model('notify')->send($uid, $article_info['uid'], notify_class::TYPE_ARTICLE_NEW_COMMENT, notify_class::CATEGORY_ARTICLE, $article_info['id'], array(
-				'from_uid' => $uid, 
-				'article_id' => $article_info['id'], 
-				'item_id' => $comment_id
-			));
-		}
-				
-		return $comment_id;
-	}
-	
 	public function remove_article($article_id)
 	{
 		if (!$article_info = $this->get_article_info_by_id($article_id))
