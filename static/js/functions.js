@@ -1005,9 +1005,12 @@ function init_comment_box(selector)
 {
     $(document).on('click', selector, function ()
     {
-         if (COMMENT_UNFOLD == 'all' && $(this).attr('data-comment-count') == 0)
+        if (typeof COMMENT_UNFOLD != 'undefined')
         {
-            return false;
+            if (COMMENT_UNFOLD == 'all' && $(this).attr('data-comment-count') == 0)
+            {
+                return false;
+            }
         }
 
         if (!$(this).attr('data-type') || !$(this).attr('data-id'))

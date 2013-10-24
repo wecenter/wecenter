@@ -7,7 +7,7 @@
 			<div class="col-sm-9 aw-main-content">
 				<div class="aw-mod aw-mod-topic-edit-box">
 					<div class="aw-mod-head">
-						<a href="javascript:;" class="aw-topic-img" style="background:url('<?php echo get_topic_pic_url('mid', $this->topic_info['topic_pic']); ?>') no-repeat;" <?php if ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator'] OR ($this->topic_info['topic_lock'] == 0 && $this->user_info['permission']['edit_topic'])) { ?> id="topic_pic_uploader"<?php } ?>><span><i class="icon-wrench"></i></span></a>
+						<a href="javascript:;" class="aw-topic-img" style="background:url('<?php echo get_topic_pic_url('mid', $this->topic_info['topic_pic']); ?>') no-repeat;" <?php if ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator'] OR ($this->topic_info['topic_lock'] == 0 && $this->user_info['permission']['edit_topic'])) { ?> id="topic_pic_uploader"<?php } ?>><span><i class="fa fa-wrench"></i></span></a>
 						<h3><?php echo $this->topic_info['topic_title']; ?></h3>
 						
 						
@@ -21,7 +21,7 @@
 		                    <?php } ?> 
 		                    
 		                    <?php if ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator'] OR ($this->topic_info['topic_lock'] == 0 && $this->user_info['permission']['edit_topic'])) { ?>
-							<span class="aw-edit-topic"><i class="icon-edit"></i><?php _e('编辑话题'); ?></span>
+							<span class="aw-edit-topic"><i class="fa fa-edit"></i><?php _e('编辑话题'); ?></span>
 							<?php } ?>
 							</span>
 						</div>

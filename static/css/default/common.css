@@ -63,8 +63,8 @@ a.aw-load-more-content{display: block;}
 .aw-load-more-content .aw-alert-box{position: absolute;right: 10px;top:0;}
 .aw-load-more-content.disabled{background-color: #f6f6f6;border:1px solid #dfdfdf;color: #999;}
 .aw-mod .aw-mod-head h4, .aw-mod .aw-mod-head h4 a{font-size:14px;}
-.aw-back-top{position:fixed;display:none;padding:10px 5px;right:10px;bottom:20px;background-color: #d9d9d9;border-radius: 3px;}
-.aw-back-top .icon-arrow-up{padding:10px;color: #a6a6a6;font-size: 20px;}
+.aw-back-top{position:fixed;display:none;padding:0 5px;right:10px;bottom:20px;background-color: #d9d9d9;border-radius: 3px;}
+.aw-back-top .fa-arrow-up{padding:10px;color: #a6a6a6;font-size: 20px;}
 .aw-back-top:hover{background-color: #d0d0d0;}
 .aw-text-align-justify{text-align: justify;}
 .aw-li-border-bottom li{border-top:1px dotted #C1CAD4;}
@@ -167,7 +167,7 @@ a.aw-load-more-content{display: block;}
 .aw-publish-btn{width:80px;margin:9px 0 0 0;padding:0px;}
 .aw-publish-btn a{display:block;width:80px;height: 32px;line-height: 32px;font-size: 14px;background-color: #42c8e7;text-align: center;color: #fff;border-radius: 3px;}
 .aw-publish-btn a:hover{background-color: #2abde9;}
-.aw-publish-btn .icon-edit{margin-right:10px;vertical-align:-1px;font-size: 15px;color: #fff;}
+.aw-publish-btn .fa-edit{margin-right:10px;vertical-align:-1px;font-size: 15px;color: #fff;}
 .aw-top-nav{width: 380px !important;}
 .aw-top-nav > ul > li{position: relative;float:left;}
 .aw-top-nav > ul > li > a{display:block;height:54px;line-height:54px;padding:0 20px;color: #fff;}
@@ -336,6 +336,7 @@ a.aw-load-more-content{display: block;}
 .aw-side-bar-topic-edit-notes li{height:auto;overflow:hidden;margin:3px 0;padding:5px !important;cursor: pointer;}
 .aw-side-bar-topic-edit-notes li:first-child{margin-top: 0px;}
 .aw-side-bar-topic-edit-notes li:hover{background: #EBEBEB;}
+.aw-side-bar-topic-edit-notes .fa-chevron-down{margin-top: 2px;}
 /* 话题编辑 */
 .aw-topic-editor .aw-topic-name{display:inline-block;margin:0 3px 5px;}
 /* 邀请回复 */
@@ -521,7 +522,7 @@ a.aw-load-more-content{display: block;}
 .aw-topic-detail-about{padding:20px;line-height: 24px;}
 .aw-question-detail-txt{padding:10px 0;}
 .aw-topic-search{position:relative;display:block;height:28px;border:1px solid #CCCCCC;box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;}
-.aw-topic-search .icon-search{margin:9px 3px 4px 4px;}
+.aw-topic-search .fa-search{margin:6px 4px 4px 6px;}
 .aw-topic-search .search-query{width:170px;height:20px;margin:3px 0 10px;padding:0px !important;border:none;box-shadow: none;transition:none;}
 .aw-topic-search .search-query:focus{border: none;box-shadow: none;}
 /* 话题编辑页面 */
@@ -880,14 +881,14 @@ a.aw-load-more-content{display: block;}
 .aw-404-wrap p a{font-size:14px;}
 
 /* 字体icon & icon */
-.icon-comment, .icon-share-alt, .icon-edit, .icon-map-marker, .icon-flag, .icon-heart, .icon-user, .icon-home, .icon-thumbs-up-alt, .icon-reply, .icon-signal, .icon-tag, .icon-wrench, .icon-cog, .icon-off, .icon-bookmark, .icon-chevron-down, .icon-mobile-phone, .icon-external-link, .icon-envelope, .icon-check, .icon-thumbs-down-alt, .icon-trash{margin-right: 3px;color: #B7B7B7;cursor: pointer;}
+.fa-comment, .fa-share, .fa-edit, .fa-map-marker, .fa-flag, .fa-heart, .icon-user, .icon-home, .icon-thumbs-up-alt, .icon-reply, .icon-signal, .icon-tag, .fa-wrench, .icon-cog, .icon-off, .fa-bookmark, .fa-chevron-down, .icon-mobile-phone, .icon-external-link, .icon-envelope, .icon-check, .icon-thumbs-down-alt, .icon-trash{margin-right: 3px;color: #B7B7B7;cursor: pointer;}
 .icon-cog{margin:0;}
-.icon-edit{margin-top:10px\0;}
-.icon-ok-sign{margin-left:5px;color: #4bbe00;font-size: 14px;cursor: pointer;}
-.icon-ok-sign.aw-active:before{content:"\f055";color: #43b3ff;}
-.icon-chevron-down.active:before{content:"\f077";}
-.icon-comment{font-size: 12px;}
-.icon-share-alt{font-size: 12px;}
+.fa-edit{margin-top:10px\0;}
+.fa-check-circle{margin-left:5px;color: #4bbe00;font-size: 14px;cursor: pointer;}
+.fa-check-circle.aw-active:before{content:"\f055";color: #43b3ff;}
+.fa-chevron-down.active:before{content:"\f077";}
+.fa-comment{font-size: 12px;}
+.icon-share{font-size: 12px;}
 .icon-mobile-phone{margin-left:5px;font-size: 21px;color:#9d9c9c;vertical-align: -2px;}
 .icon-star-empty{color: #B2EC03;}
 .icon-v{font-size: 18px;color: #a5d300;vertical-align: -2px;}
