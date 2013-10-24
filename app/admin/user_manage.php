@@ -248,7 +248,9 @@ class user_manage extends AWS_ADMIN_CONTROLLER
 			'visit_feature',
 			'visit_people',
 			'answer_show',
-			'function_interval'
+			'function_interval',
+			'publish_article',
+			'edit_article'
 		);
 		
 		$group_setting = array();

@@ -20,7 +20,7 @@
 		<input type="hidden" id="approval_id" name="approval_ids[]" value="" />
 			
 			<table class="aw-table">
-				<?php if ($_GET['type'] == 'answer') { ?>
+				<?php if ($_GET['type'] == 'answer' OR $_GET['type'] == 'article_comment') { ?>
 				<thead>
 					<tr>
 						<th style="width:20px;"><input type="checkbox" class="check-all"></th>
@@ -45,18 +45,20 @@
 						<td><input type="checkbox" name="approval_ids[]" value="<?php echo $val['id']; ?>"></td>
 						<td><a href="people/<?php echo $this->users_info[$val['uid']]['url_token']; ?>" target="_blank"><?php echo $this->users_info[$val['uid']]['user_name']; ?></a></td>
 						
-						<?php if ($_GET['type'] != 'answer') { ?>
+						<?php if ($_GET['type'] == 'question') { ?>
 						<td><a href="javascript:;" onclick="$.dialog('ajaxData', {'title':'<?php _e('内容审核'); ?>', 'url':G_BASE_URL + '/admin/approval/preview/<?php echo $val['id']; ?>'});"><i class="aw-icon zoom"></i></a> &nbsp; <?php echo htmlspecialchars($val['data']['question_content']); ?></td>
+						<?php } else if ($_GET['type'] == 'article') { ?>
+						<td><a href="javascript:;" onclick="$.dialog('ajaxData', {'title':'<?php _e('内容审核'); ?>', 'url':G_BASE_URL + '/admin/approval/preview/<?php echo $val['id']; ?>'});"><i class="aw-icon zoom"></i></a> &nbsp; <?php echo htmlspecialchars($val['data']['title']); ?></td>
 						<?php } ?>
 						
-						<td><a href="javascript:;" onclick="$.dialog('ajaxData', {'title':'<?php _e('内容审核'); ?>', 'url':G_BASE_URL + '/admin/approval/preview/<?php echo $val['id']; ?>'});"><?php if ($_GET['type'] == 'answer') { echo cjk_substr(htmlspecialchars($val['data']['answer_content']), 0, 128, 'UTF-8', '...'); } else { echo cjk_substr(htmlspecialchars($val['data']['question_detail']), 0, 128, 'UTF-8', '...'); } ?></a></td>
+						<td><a href="javascript:;" onclick="$.dialog('ajaxData', {'title':'<?php _e('内容审核'); ?>', 'url':G_BASE_URL + '/admin/approval/preview/<?php echo $val['id']; ?>'});"><?php if ($_GET['type'] == 'answer') { echo cjk_substr(htmlspecialchars($val['data']['answer_content']), 0, 128, 'UTF-8', '...'); } else if ($_GET['type'] == 'article' OR $_GET['type'] == 'article_comment') { echo cjk_substr(htmlspecialchars($val['data']['message']), 0, 128, 'UTF-8', '...'); } else { echo cjk_substr(htmlspecialchars($val['data']['question_detail']), 0, 128, 'UTF-8', '...'); } ?></a></td>
 					</tr>
 					<?php } ?>
 				</tbody>
 				<?php } ?>
 				<tfoot>
 					<tr>
-						<td colspan="<?php if ($_GET['type'] == 'answer') { ?>3<?php } else { ?>4<?php } ?>">
+						<td colspan="<?php if ($_GET['type'] == 'answer' OR $_GET['type'] == 'article_comment') { ?>3<?php } else { ?>4<?php } ?>">
 							<span class="pull-right"><?php echo $this->pagination; ?></span>
 							
 							<a class="btn btn-inverse" onClick="$('#batch_type').val('approval'); ajax_post($('#batchs_form'));" href="javascript:;" id="batch_approval"><?php _e('通过审核'); ?></a> <a class="btn btn-inverse" onClick="$('#batch_type').val('decline'); ajax_post($('#batchs_form'));" href="javascript:;" id="batch_decline"><?php _e('拒绝审核'); ?></a>
