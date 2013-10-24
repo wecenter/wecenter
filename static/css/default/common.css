@@ -807,9 +807,9 @@ a.aw-load-more-content{display: block;}
 .markItUpHelper .content{border-radius: 0 0 5px 5px;}
 .markItUpHelper .content .tab-pane{display: none;padding:10px;}
 .markItUp ul {position: relative;}
-.markItUp .fa-reorder{position: absolute;right: 0;top:1px;width:21px;margin:0;padding:3px 0;background-color: #d6dadb;border:1px solid #a2a6a7;border-radius:2px;color: #b8bcbd;font-size: 12px;}
+.markItUp .fa-reorder{position: absolute;right: 0;top:1px;width:21px;margin:0;padding:3px 0;background-color: #d6dadb;border:1px solid #a2a6a7;border-radius:2px;color: #9f9f9f;font-size: 12px;}
 .markItUp .fa-reorder.cur{background-color:#f0f0f0;border-color: #d9d9d9;color: #999;box-shadow: 0 1px 0 #fff inset;}
-.markItUp .fa-warning{position: absolute;right: 25px;}
+.markItUp .fa-question{position: absolute;right: 25px;}
 .aw-invite-dropdown{position:absolute;left:0;top:0;z-index:1010;min-width:160px;background: #fff;border:1px solid #e6e6e6;border-radius:2px;}
 .aw-invite-dropdown li{padding:5px 10px;cursor: pointer;}
 .aw-invite-dropdown li:hover, .aw-invite-dropdown li.active{background: #f0f0f0;}
