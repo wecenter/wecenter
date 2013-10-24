@@ -791,7 +791,7 @@ a.aw-load-more-content{display: block;}
 .markItUpHeader ul li {float: left;list-style: none outside none;margin-top: 3px;width: 26px;position: relative;font-size: 16px;text-shadow:0 1px 0 #fff;text-align: center;}
 .markItUpHeader ul li ul {display: none;}
 .markItUpHeader ul li:hover > ul {display: block;}
-.markItUpHeader ul .markItUpSeparator {background-color: #CCCCCC;height: 16px;margin: 0 10px;overflow: hidden;width: 1px;}
+.markItUpHeader ul .markItUpSeparator {background-color: #CCCCCC;height: 16px;margin: 3px 10px;overflow: hidden;width: 1px;}
 .markItUpHeader ul ul .markItUpSeparator {height: 1px;margin: 0;width: auto;}
 .markItUpHeader ul ul {background: none repeat scroll 0 0 #F5F5F5;border: 1px solid #3C769D;display: none;height: inherit;left: 0;position: absolute;top: 18px;}
 .markItUpHeader ul ul li {border-bottom: 1px solid #3C769D;float: none;}
@@ -865,12 +865,12 @@ a.aw-load-more-content{display: block;}
 
 /* 字体icon & icon */
 .fa-comment, .fa-share, .fa-edit, .fa-map-marker, .fa-flag, .fa-heart, .icon-user, .icon-home, .fa-thumbs-up, .fa-reply, .fa-signal, .fa-tag, .fa-wrench, .icon-cog, .icon-off, .fa-bookmark, .fa-chevron-down, .icon-mobile-phone, .icon-external-link, .icon-envelope, .icon-check, .icon-thumbs-down-alt, .icon-trash{margin-right: 3px;color: #B7B7B7;cursor: pointer;}
-.icon-cog{margin:0;}
 .fa-edit{margin-top:10px\0;}
+.icon-wechat{font-size:16px;color: #86C76D;}
 .fa-check-circle{margin-left:5px;color: #4bbe00;font-size: 14px;cursor: pointer;}
 .fa-check-circle.aw-active:before{content:"\f055";color: #43b3ff;}
 .fa-chevron-down.active:before{content:"\f077";}
-.icon-mobile-phone{margin-left:5px;font-size: 21px;color:#9d9c9c;vertical-align: -2px;}
+.fa-mobile-phone{margin-left:5px;font-size: 21px;color:#9d9c9c;vertical-align: -2px;}
 .icon-star-empty{color: #B2EC03;}
 .icon-v{font-size: 18px;color: #a5d300;vertical-align: -2px;}
 .icon-v.i-ve{color: #fce568;}
