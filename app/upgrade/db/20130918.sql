@@ -4,8 +4,8 @@ INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES ('unfold_q
 CREATE TABLE `[#DB_PREFIX#]article` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `uid` int(10) NOT NULL,
-  `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `message` text CHARACTER SET utf8 COLLATE utf8_unicode_ci,
+  `title` varchar(255) NOT NULL,
+  `message` text,
   `comments` int(10) DEFAULT '0',
   `views` int(10) DEFAULT '0',
   `add_time` int(10) DEFAULT NULL,

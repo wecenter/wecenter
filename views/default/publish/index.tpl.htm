@@ -7,7 +7,9 @@
 				<!-- tab 切换 -->
 				<ul class="nav nav-tabs aw-reset-nav-tabs aw-publish-tabs">
 					<li class="active"><a href="publish/"><?php _e('发起问题'); ?></a></li>
+					<?php if ($this->user_info['permission']['publish_article']) { ?>
 					<li><a href="publish/article/"><?php _e('发起文章'); ?></a></li>
+					<?php } ?>
 				</ul>
 				<!-- end tab 切换 -->
 

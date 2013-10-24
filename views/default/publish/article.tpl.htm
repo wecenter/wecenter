@@ -6,7 +6,9 @@
 			<div class="tabbable">
 				<!-- tab 切换 -->
 				<ul class="nav nav-tabs aw-reset-nav-tabs aw-publish-tabs">
+					<?php if ($this->user_info['permission']['publish_question']) { ?>
 					<li><a href="publish/"><?php _e('发起问题'); ?></a></li>
+					<?php } ?>
 					<li class="active"><a href="publish/article/"><?php _e('发起文章'); ?></a></li>
 				</ul>
 			<!-- end tab 切换 -->
