@@ -650,6 +650,7 @@ a.aw-load-more-content{display: block;}
 
 /* 底部版权 */
 .aw-footer{padding:30px 0;font-size: 12px;}
+.aw-footer .aw-copyright .fa-rss-square{font-size: 14px;color: #e6a244;}
 .aw-copyright{text-align:right;}
 .aw-copyright a img{position: relative;top: -2px;}
 .aw-login-footer{position:relative;z-index:9999;line-height: 22px;margin:95px auto;text-align: center;font-size: 12px;}
