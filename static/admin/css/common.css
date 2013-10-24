@@ -155,7 +155,6 @@ body.modal-open, .modal-open .navbar-fixed-top, .modal-open .navbar-fixed-bottom
 .aw-tips-box .modal-dialog{width: 350px;position: fixed;}
 .aw-tips-box .modal-body{background: url('../img/warmming.png') no-repeat right 5px;}
 .aw-tips-box .modal-body p{margin: 10px 0;}
-.aw-question-edit{width: 600px;}
 
 /*footer*/
 .footer{width: 900px;margin:10px auto 0;padding:20px;text-align: center;}
