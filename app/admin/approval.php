@@ -23,6 +23,8 @@ class approval extends AWS_ADMIN_CONTROLLER
 	public function setup()
 	{
 		$this->crumb(AWS_APP::lang()->_t('内容审核'), 'admin/approval/');
+		
+		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(300));
 	}
 	
 	public function list_action()
@@ -75,9 +77,8 @@ class approval extends AWS_ADMIN_CONTROLLER
 		TPL::assign($_GET['type'] . '_count', intval($found_rows));
 		
 		TPL::assign('approval_list', $approval_list);
-		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(300));
 		
-		TPL::output('admin/question/approval_list');
+		TPL::output('admin/approval/list');
 	}
 	
 	public function preview_action()
@@ -99,7 +100,7 @@ class approval extends AWS_ADMIN_CONTROLLER
 			
 			case 'article':
 			case 'article_comment':
-				
+				$approval_item['content'] = nl2br(FORMAT::parse_markdown(htmlspecialchars($approval_item['data']['message'])));
 			break;
 		}
 		
@@ -110,7 +111,7 @@ class approval extends AWS_ADMIN_CONTROLLER
 		
 		TPL::assign('approval_item', $approval_item);
 		
-		TPL::output('admin/question/approval_preview');
+		TPL::output('admin/approval/preview');
 	}
 	
 	public function batch_action()

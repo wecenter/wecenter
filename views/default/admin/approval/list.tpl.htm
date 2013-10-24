@@ -7,13 +7,13 @@
 			<span class="pull-left"><?php _e('内容审核'); ?></span>
 			
 			<ul class="nav nav-tabs pull-left">
-			    <li class="<?php if ($_GET['type'] == 'question') { ?> active<?php } ?>"><a href="admin/question/approval_list/"><?php _e('问题'); ?> (<?php echo $this->question_count; ?>)</a></li>
-			    <li class="<?php if ($_GET['type'] == 'answer') { ?> active<?php } ?>"><a href="admin/question/approval_list/type-answer"><?php _e('回答'); ?> (<?php echo $this->answer_count; ?>)</a></li>
+			    <li class="<?php if ($_GET['type'] == 'question') { ?> active<?php } ?>"><a href="admin/approval/list/"><?php _e('问题'); ?> (<?php echo $this->question_count; ?>)</a></li>
+			    <li class="<?php if ($_GET['type'] == 'answer') { ?> active<?php } ?>"><a href="admin/approval/list/type-answer"><?php _e('回答'); ?> (<?php echo $this->answer_count; ?>)</a></li>
 			</ul>
 		</h2>
 	</div>
 	<div class="aw-mod-body">				
-		<form id="batchs_form" action="admin/question/approval_batch/" method="post">
+		<form id="batchs_form" action="admin/approval/batch/" method="post">
 		<input type="hidden" id="batch_type" name="batch_type" value="approval" />
 		<input type="hidden" id="approval_id" name="approval_ids[]" value="" />
 			
@@ -44,10 +44,10 @@
 						<td><a href="people/<?php echo $this->users_info[$val['uid']]['url_token']; ?>" target="_blank"><?php echo $this->users_info[$val['uid']]['user_name']; ?></a></td>
 						
 						<?php if ($_GET['type'] != 'answer') { ?>
-						<td><a href="javascript:;" onclick="$.dialog('ajaxData', {'title':'<?php _e('内容审核'); ?>', 'url':G_BASE_URL + '/admin/question/approval_preview/<?php echo $val['id']; ?>'});"><i class="aw-icon zoom"></i></a> &nbsp; <?php echo htmlspecialchars($val['data']['question_content']); ?></td>
+						<td><a href="javascript:;" onclick="$.dialog('ajaxData', {'title':'<?php _e('内容审核'); ?>', 'url':G_BASE_URL + '/admin/approval/preview/<?php echo $val['id']; ?>'});"><i class="aw-icon zoom"></i></a> &nbsp; <?php echo htmlspecialchars($val['data']['question_content']); ?></td>
 						<?php } ?>
 						
-						<td><a href="javascript:;" onclick="$.dialog('ajaxData', {'title':'<?php _e('内容审核'); ?>', 'url':G_BASE_URL + '/admin/question/approval_preview/<?php echo $val['id']; ?>'});"><?php if ($_GET['type'] == 'answer') { echo cjk_substr(htmlspecialchars($val['data']['answer_content']), 0, 128, 'UTF-8', '...'); } else { echo cjk_substr(htmlspecialchars($val['data']['question_detail']), 0, 128, 'UTF-8', '...'); } ?></a></td>
+						<td><a href="javascript:;" onclick="$.dialog('ajaxData', {'title':'<?php _e('内容审核'); ?>', 'url':G_BASE_URL + '/admin/approval/preview/<?php echo $val['id']; ?>'});"><?php if ($_GET['type'] == 'answer') { echo cjk_substr(htmlspecialchars($val['data']['answer_content']), 0, 128, 'UTF-8', '...'); } else { echo cjk_substr(htmlspecialchars($val['data']['question_detail']), 0, 128, 'UTF-8', '...'); } ?></a></td>
 					</tr>
 					<?php } ?>
 				</tbody>

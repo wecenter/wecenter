@@ -90,7 +90,7 @@ $config[] = array(
 		array(
 			'id' => 300,
 			'title' => '内容审核',
-			'url' => 'admin/question/approval_list/',
+			'url' => 'admin/approval/list/',
 		),
 		
 		array(
