@@ -30,5 +30,5 @@
 .aw-mod-footer .icon-sina, .aw-mod-footer .icon-weibo, .aw-mod-footer .icon-qq{font-size: 24px;color: #B7B7B7;vertical-align: middle;margin-left: 5px;}
 .aw-mod-footer .icon-sina:hover, .aw-mod-footer .icon-weibo:hover, .aw-mod-footer .icon-qq:hover{color: #2A6496; }
 .error-message{position: relative;}
-.error-message .icon-remove{margin-right:5px;color: #c30100;font-size: 16px;vertical-align: middle;}
+.error-message .fa-times{margin-right:5px;color: #c30100;font-size: 16px;vertical-align: middle;}
 
