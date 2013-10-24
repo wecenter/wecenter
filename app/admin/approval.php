@@ -34,24 +34,13 @@ class approval extends AWS_ADMIN_CONTROLLER
 			$_GET['type'] = 'question';
 		}
 		
-		switch ($_GET['type'])
-		{
-			case 'question':
-				TPL::assign('answer_count', $this->model('publish')->count('approval', "type = 'answer'"));
-			break;
-			
-			case 'answer':
-				TPL::assign('question_count', $this->model('publish')->count('approval', "type = 'question'"));
-			break;
-			
-			case 'artice':
-				TPL::assign('artice_count', $this->model('publish')->count('approval', "type = 'artice'"));
-			break;
-			
-			case 'artice_comment':
-				TPL::assign('artice_comment_count', $this->model('publish')->count('approval', "type = 'artice_comment'"));
-			break;
-		}
+		TPL::assign('answer_count', $this->model('publish')->count('approval', "type = 'answer'"));
+
+		TPL::assign('question_count', $this->model('publish')->count('approval', "type = 'question'"));
+
+		TPL::assign('article_count', $this->model('publish')->count('approval', "type = 'article'"));
+
+		TPL::assign('article_comment_count', $this->model('publish')->count('approval', "type = 'article_comment'"));
 		
 		if ($approval_list = $this->model('publish')->get_approval_list($_GET['type'], $_GET['page'], $this->per_page))
 		{

@@ -9,6 +9,8 @@
 			<ul class="nav nav-tabs pull-left">
 			    <li class="<?php if ($_GET['type'] == 'question') { ?> active<?php } ?>"><a href="admin/approval/list/"><?php _e('问题'); ?> (<?php echo $this->question_count; ?>)</a></li>
 			    <li class="<?php if ($_GET['type'] == 'answer') { ?> active<?php } ?>"><a href="admin/approval/list/type-answer"><?php _e('回答'); ?> (<?php echo $this->answer_count; ?>)</a></li>
+			    <li class="<?php if ($_GET['type'] == 'article') { ?> active<?php } ?>"><a href="admin/approval/list/type-article"><?php _e('文章'); ?> (<?php echo $this->article_count; ?>)</a></li>
+			    <li class="<?php if ($_GET['type'] == 'article_comment') { ?> active<?php } ?>"><a href="admin/approval/list/type-article_comment"><?php _e('文章评论'); ?> (<?php echo $this->article_comment_count; ?>)</a></li>
 			</ul>
 		</h2>
 	</div>
