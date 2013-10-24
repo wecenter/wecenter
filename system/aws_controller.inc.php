@@ -179,8 +179,6 @@ class AWS_CONTROLLER
 	
 	public function publish_approval_valid()
 	{
-		return true;
-		
 		if ($this->user_info['permission']['publish_approval'] == 1)
 		{
 			if (!$this->user_info['permission']['publish_approval_time']['start'] AND !$this->user_info['permission']['publish_approval_time']['end'])

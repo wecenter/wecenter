@@ -279,7 +279,7 @@ class publish_class extends AWS_MODEL
 	
 	public function publish_article_comment($article_id, $message, $uid, $at_uid = null)
 	{
-		if (!$article_info = $this->get_article_info_by_id($article_id))
+		if (!$article_info = $this->model('article')->get_article_info_by_id($article_id))
 		{
 			return false;
 		}
