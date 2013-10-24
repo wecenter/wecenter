@@ -360,7 +360,7 @@ a.aw-load-more-content{display: block;}
 .aw-question-detail-title .aw-mod-head > div{margin-bottom: 10px;}
 .aw-question-detail-title .aw-mod-head h1{width:520px;font-size:20px;line-height: 30px;}
 .aw-question-detail-title .aw-mod-head .aw-question-follow{position: absolute;right: 0;top: 0;}
-.aw-question-detail-title .aw-mod-head .aw-question-follow > a{min-width:76px;margin:0 5px 0 0;}
+.aw-question-detail-title .aw-mod-head .aw-question-follow > a{min-width:76px;min-width:50px\0;margin:0 5px 0 0;}
 .aw-question-detail-title .aw-mod-head .aw-question-follow .btn-group .btn{height:26px;line-height: 13px;}
 .aw-question-detail-title .aw-mod-head .aw-question-follow .btn-group .icon-cog{margin-right: 0px;color: #666;}
 .aw-question-detail-title .aw-question-detail-meta{min-height: 20px;line-height: 20px;}
@@ -819,7 +819,7 @@ a.aw-load-more-content{display: block;}
 .aw-invite-dropdown p{height: 26px;line-height: 26px;padding-left: 10px;margin:0;}
 
 /* 编辑器回复样式 */
-.markitup-box {line-height: 23px;word-wrap: break-word !important;}
+.markitup-box {position:relative;z-index:1;line-height: 23px;word-wrap: break-word !important;}
 .markitup-box h2, #markItUpPreviewFrames h2, .markitup-box h3, #markItUpPreviewFrames h3 {font-weight: bold;margin: 10px 0;}
 .markitup-box h2, #markItUpPreviewFrames h2 {font-size: 1.5em;line-height: 30px;}
 .markitup-box h3, #markItUpPreviewFrames h3 {font-size: 1.17em;}
