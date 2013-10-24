@@ -29,7 +29,7 @@
 							<h3><?php _e('文章内容'); ?>:</h3>
 							<div class="aw-mod aw-mod-publish-box">
 								<div class="aw-mod-head">
-									<textarea name="message" id="advanced_editor" rows="20"  style="width:100%;"><?php echo $this->article_info['message']; ?></textarea>
+									<textarea name="message" id="advanced_editor" rows="20" style="width:100%;" class="autosize"><?php echo $this->article_info['message']; ?></textarea>
 									<p class="aw-text-color-999"><span class="pull-right" id="article_message">&nbsp;</span></p>
 								</div>
 								<div class="aw-mod-body">
@@ -93,11 +93,6 @@
 <script type="text/javascript">
 	var ATTACH_ACCESS_KEY = '<?php echo $this->attach_access_key; ?>';
 	var PUBLISH_TYPE = 'article';
-
-	$(function()
-	{
-		$('#advanced_editor').autosize();
-	});
 </script>
 
 <?php TPL::output('global/footer.tpl.htm'); ?>
