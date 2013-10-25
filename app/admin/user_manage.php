@@ -250,7 +250,8 @@ class user_manage extends AWS_ADMIN_CONTROLLER
 			'answer_show',
 			'function_interval',
 			'publish_article',
-			'edit_article'
+			'edit_article',
+			'edit_question_topic'
 		);
 		
 		$group_setting = array();

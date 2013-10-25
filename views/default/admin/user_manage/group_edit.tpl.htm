@@ -243,6 +243,18 @@
 					<p class="aw-text-color-999"><?php _e('编辑话题 / 添加话题 / 话题重定向功能使用间隔限制 (单位: 秒, 设置 0 为不限制, 对管理员无效)'); ?></p>
 				</dd>
 			</dl>
+			<dl>
+				<dt><h3><?php _e('允许编辑问题话题'); ?>:</h3></dt>						
+				<dd>
+					<span class="yesno_yes">
+						<label><input type="radio" value="1" name="edit_question_topic"<?php if ($this->group_pms['edit_question_topic']) { ?> checked="checked"<?php } ?>><?php _e('是'); ?></label>
+					</span>
+					
+					<span class="yesno_no">
+						<label><input type="radio" value="0" name="edit_question_topic"<?php if (!$this->group_pms['edit_question_topic']) { ?> checked="checked"<?php } ?>><?php _e('否'); ?></label>
+					</span>
+				</dd>
+			</dl>
 			<?php } else { ?>
 			<dl>
 				<dt><h3><?php _e('允许浏览网站'); ?>:</h3></dt>

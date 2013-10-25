@@ -68,12 +68,11 @@
 						<?php } ?>
 						
 						<div class="aw-topic-editor" id="question_topic_editor" data-type="question" data-id="<?php echo $this->question_info['question_id']; ?>">
-							
 							<?php foreach($this->question_topics as $key => $val) { ?>
 							<a href="topic/<?php echo $val['url_token']; ?>" class="aw-topic-name" data-id="<?php echo $val['topic_id']; ?>"><span><?php echo $val['topic_title']; ?></span></a>
 							<?php } ?>
 							
-							<?php if ($this->user_id AND !$this->question_info['lock']) { ?><span class="aw-edit-topic"<?php if (sizeof($this->question_topics) == 0) { ?> style="display:none"<?php } ?>><i class="fa fa-edit"></i><?php _e('编辑话题'); ?></span><?php } ?>
+							<?php if ($this->user_id AND ((!$this->question_info['lock'] AND $this->user_info['permission']['edit_question_topic']) OR $this->user_id == $this->question_info['published_uid'])) { ?><span class="aw-edit-topic"<?php if (sizeof($this->question_topics) == 0) { ?> style="display:none"<?php } ?>><i class="fa fa-edit"></i><?php _e('编辑话题'); ?></span><?php } ?>
 						</div>
 						
 						<?php if (sizeof($this->question_topics) == 0 AND $this->user_id AND !$this->question_info['lock']) { ?>

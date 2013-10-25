@@ -737,6 +737,16 @@ class ajax extends AWS_CONTROLLER
 	
 	public function save_topic_action()
 	{
+		if (!$question_info = $this->model('question')->get_question_info_by_id($_GET['question_id']))
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('问题不存在')));
+		}
+		
+		if (!$this->user_info['permission']['edit_question_topic'] AND $this->user_id != $question_info['published_uid'])
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('你没有权限进行此操作')));
+		}
+		
 		if (!($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']))
 		{
 			if ($this->user_info['permission']['function_interval'] AND AWS_APP::cache()->get('function_interval_timer_question_topic_last_edit_' . $this->user_id) == $_GET['question_id'])
@@ -762,11 +772,6 @@ class ajax extends AWS_CONTROLLER
 		if (! $this->model('topic')->get_topic_id_by_title($_POST['topic_title']) AND get_setting('topic_title_limit') AND cjk_strlen($_POST['topic_title']) > get_setting('topic_title_limit'))
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('话题标题字数不得超过 %s 字节', get_setting('topic_title_limit'))));
-		}
-		
-		if (!$question_info = $this->model('question')->get_question_info_by_id($_GET['question_id']))
-		{
-			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('问题不存在')));
 		}
 		
 		if ($question_info['lock'] AND ! ($this->user_info['permission']['is_administortar'] or $this->user_info['permission']['is_moderator']))
