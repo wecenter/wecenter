@@ -126,7 +126,7 @@ class AWS_CONTROLLER
 		return FALSE;
 	}
 
-	public function model($model)
+	public function model($model = null)
 	{
 		return AWS_APP::model($model);
 	}
