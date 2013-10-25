@@ -32,27 +32,8 @@ class main extends AWS_CONTROLLER
 		
 		return $rule_action;
 	}
-
-	public function index_action()
-	{
-		if ($_GET['id'] or $_GET['title'])
-		{
-			$this->_article();
-		}
-		else
-		{
-			$this->square_action();
-		}
-	}
-
-	public function square_action()
-	{
-
-		$this->crumb(AWS_APP::lang()->_t('文章广场'), '/article/');
-		TPL::output('article/square');
-	}
 	
-	public function _article()
+	public function index_action()
 	{
 		if (! isset($_GET['id']))
 		{
@@ -144,4 +125,46 @@ class main extends AWS_CONTROLLER
 		TPL::output('article/index');
 	}
 
+	public function square_action()
+	{
+		$this->crumb(AWS_APP::lang()->_t('文章广场'), '/article/square');
+		
+		if ($_GET['feature_id'])
+		{
+			$article_list = $this->model('article')->get_articles_list_by_topic_ids($_GET['page'], get_setting('contents_per_page'), 'add_time DESC', $this->model('feature')->get_topics_by_feature_id($_GET['feature_id']));
+			
+			$article_list_total = $this->model('article')->article_list_total;
+		}
+		else
+		{
+			$article_list = $this->model('article')->get_articles_list($_GET['page'], get_setting('contents_per_page'), 'add_time DESC');
+			
+			$article_list_total = $this->model()->found_rows();
+		}
+		
+		if ($article_list)
+		{
+			foreach ($article_list AS $key => $val)
+			{
+				$article_ids[] = $val['id'];
+				
+				$article_list[$key]['message'] = FORMAT::parse_attachs(nl2br(FORMAT::parse_markdown($val['message'])));
+			}
+			
+			$article_topics = $this->model('topic')->get_topics_by_item_ids($article_ids, 'article');
+		}
+		
+		TPL::assign('article_list', $article_list);
+		TPL::assign('article_topics', $article_topics);
+		
+		TPL::assign('feature_list', $this->model('feature')->get_feature_list());
+		
+		TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
+			'base_url' => get_js_url('/article/square/feature_id-' . $_GET['feature_id']), 
+			'total_rows' => $article_list_total,
+			'per_page' => get_setting('contents_per_page')
+		))->create_links());
+		
+		TPL::output('article/square');
+	}
 }

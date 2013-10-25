@@ -151,6 +151,11 @@ class article_class extends AWS_MODEL
 		), 'id = ' . intval($article_id));
 	}
 	
+	public function get_articles_list($page, $per_page, $order_by)
+	{
+		return $this->fetch_page('article', null, $order_by, $page, $per_page);
+	}
+	
 	public function get_articles_list_by_topic_ids($page, $per_page, $order_by, $topic_ids)
 	{
 		if (!$topic_ids)
@@ -182,7 +187,7 @@ class article_class extends AWS_MODEL
 			AWS_APP::cache()->set($found_rows_cache_key, $found_rows, get_setting('cache_level_high'));
 		}
 		
-		$this->questions_list_total = $found_rows;
+		$this->article_list_total = $found_rows;
 		
 		if (!$result = AWS_APP::cache()->get($result_cache_key))
 		{
