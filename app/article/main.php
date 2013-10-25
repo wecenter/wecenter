@@ -26,19 +26,18 @@ class main extends AWS_CONTROLLER
 		
 		if ($this->user_info['permission']['visit_question'] AND $this->user_info['permission']['visit_site'])
 		{
-			$rule_action['actions'] = array(
-				'index'
-			);
+			$rule_action['actions'][] = 'square';
+			$rule_action['actions'][] = 'index';
 		}
 		
 		return $rule_action;
 	}
-	
+
 	public function index_action()
 	{
 		if ($_GET['id'] or $_GET['title'])
 		{
-			$this->_square();
+			$this->_article();
 		}
 		else
 		{
@@ -64,15 +63,16 @@ class main extends AWS_CONTROLLER
 			
 			TPL::assign('today_topic', $today_topic);
 		}
-
+		
 		TPL::assign('feature_list', $this->model('feature')->get_feature_list());
 		
 		TPL::assign('new_topics', $this->model('topic')->get_topic_list(null, 'topic_id DESC', 10));
-		
+
+		$this->crumb(AWS_APP::lang()->_t('文章广场'), '/article/');
 		TPL::output('article/square');
 	}
-
-	public function _atricle()
+	
+	public function _article()
 	{
 		if (! isset($_GET['id']))
 		{
@@ -163,4 +163,5 @@ class main extends AWS_CONTROLLER
 		
 		TPL::output('article/index');
 	}
+
 }
