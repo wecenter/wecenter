@@ -36,6 +36,44 @@ class main extends AWS_CONTROLLER
 	
 	public function index_action()
 	{
+		if ($_GET['id'] or $_GET['title'])
+		{
+			$this->_square();
+		}
+		else
+		{
+			$this->square_action();
+		}
+	}
+
+	public function square_action()
+	{
+		if ($today_topics = rtrim(get_setting('today_topics'), ','))
+		{
+			if (!$today_topic = AWS_APP::cache()->get('square_today_topic_' . md5($today_topics)))
+			{
+				if ($today_topic = $this->model('topic')->get_topic_by_title(array_random(explode(',', $today_topics))))
+				{					
+					$today_topic['best_answer_users'] = $this->model('topic')->get_best_answer_users($today_topic['topic_id'], 0, 5);
+					
+					$today_topic['questions_list'] = $this->model('question')->get_questions_list(0, 3, 'new', $today_topic['topic_id']);
+					
+					AWS_APP::cache()->set('square_today_topic_' . md5($today_topics), $today_topic, (strtotime('Tomorrow') - time()));
+				}
+			}
+			
+			TPL::assign('today_topic', $today_topic);
+		}
+
+		TPL::assign('feature_list', $this->model('feature')->get_feature_list());
+		
+		TPL::assign('new_topics', $this->model('topic')->get_topic_list(null, 'topic_id DESC', 10));
+		
+		TPL::output('article/square');
+	}
+
+	public function _atricle()
+	{
 		if (! isset($_GET['id']))
 		{
 			HTTP::redirect('/home/explore/');
