@@ -404,7 +404,7 @@ nav #aw-top-nav-notic .badge{position: absolute;right: 0;top:1px;z-index:100;pad
 .fa-tag, .fa-signal, .fa-thumbs-up, .fa-heart, .fa-edit, .fa-heart{color: #999;}
 .icon-v{font-size: 18px;color: #a5d300;}
 .icon-v.i-ve{color: #fce568;}
-.icon-circle-arrow-right{margin-left: 5px;font-size: 16px;}
+.fa-arrow-circle-right{margin-left: 5px;font-size: 16px;}
 .icon-edit{margin-right: 5px;}
 
 /* 底部 */
