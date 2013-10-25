@@ -480,7 +480,7 @@ class question_class extends AWS_MODEL
 			$this->update(array(
 				'question_content' => $action_log['associate_content'],
 				'update_time' => time()
-			), 'question_id = ' . intval());
+			), 'question_id = ' . intval($question_id));
 			
 			$this->model('search_index')->push_index('question', $action_log['associate_content'], $question_id);
 			
