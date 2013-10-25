@@ -1630,7 +1630,7 @@ function show_card_box(selector, type, time) //selector -> .aw-user-name/.aw-top
                 $('#aw-card-tips').css(
                 {
                     left: _this.offset().left,
-                    top: _this.offset().top + _this.height() + 2
+                    top: _this.offset().top + _this.height() + 5
                 }).fadeIn();
                 //非正常状态下判断
                 if ($('#aw-card-tips').height() + 32 > nBottom) //判断下边距不足的情况

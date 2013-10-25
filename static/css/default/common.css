@@ -90,7 +90,7 @@ a.aw-load-more-content{display: block;}
 .badge.badge-important{background: #D90000;}
 .aw-close{font-size: 16px;}
 /* 分类小标签 */
-.aw-user-name, .aw-topic-name{font-size:12px;line-height:20px;font-weight:normal;}
+.aw-user-name, .aw-topic-name{display:inline-block;font-size:12px;line-height:20px;font-weight:normal;}
 .aw-user-name img, .aw-topic-name img{width: 50px;height: 50px;}
 .aw-topic-name span{display:inline-block;padding:0 6px;background:#D4F2FF;}
 .aw-topic-name span:hover{background:#C1E8F9;text-decoration:none;}
