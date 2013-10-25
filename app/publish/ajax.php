@@ -392,7 +392,7 @@ class ajax extends AWS_CONTROLLER
 	
 	public function publish_question_action()
 	{
-		if (!$this->user_info['permission']['publish_article'])
+		if (!$this->user_info['permission']['publish_question'])
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('你没有权限发布问题')));
 		}
