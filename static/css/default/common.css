@@ -533,10 +533,11 @@ a.aw-load-more-content{display: block;}
 .aw-topic-detail-title .aw-mod-body img{position: absolute;left: 0;top: 0;}
 .aw-topic-detail-title h2{margin:0;font-size:20px;}
 .aw-topic-detail-title .aw-topic-detail-title-follow{position:absolute;right:0;top:0;text-align: right;}
-.aw-topic-detail-tabs{width:100%;}
-.aw-topic-detail-tabs ul{position: relative;}
-.aw-topic-detail-tabs > li{float:left;}
-.aw-topic-detail-tabs .aw-search-bar{position: absolute;right: 0;background-color: #fff;border-radius: 5px;}
+.aw-topic-list-mod .aw-topic-detail-tabs{width:100%;}
+.aw-topic-list-mod .aw-topic-detail-tabs ul{position: relative;}
+.aw-topic-list-mod .aw-topic-detail-tabs > li{float:left;}
+.aw-topic-list-mod .aw-topic-detail-tabs .aw-search-bar{position: absolute;right: 0;background-color: #fff;border-radius: 5px;}
+.aw-topic-list-mod #articles .aw-question-list .aw-item{border-top: none;}
 .aw-topic-detail-about{padding:20px;line-height: 24px;}
 .aw-question-detail-txt{padding:10px 0;}
 .aw-topic-search{position:relative;display:block;height:28px;border:1px solid #CCCCCC;box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;}
