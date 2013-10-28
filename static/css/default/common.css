@@ -379,7 +379,7 @@ a.aw-load-more-content{display: block;}
 .aw-article-list .aw-item h2 a:hover, .aw-article-list .aw-item .aw-mod-footer span a:hover{color: #4d8bcd;}
 .aw-article-list .aw-item .aw-mod-body{margin:10px 0;line-height: 24px;}
 .aw-article-list .aw-item .aw-mod-body img{max-width:100%;margin-right: 10px;}
-.aw-article-list .aw-item .aw-mod-body .content-wrap{max-height: 300px;overflow: hidden;}
+.aw-article-list .aw-item .aw-mod-body .content-wrap{max-height: 500px;overflow: hidden;}
 .aw-article-list .aw-item .aw-mod-footer span a{margin-left:15px;color: #999;font-size: 12px;}
 .aw-article-list .aw-item .more{font-size: 12px;}
 .aw-article-square .aw-side-bar-hot-tags ul{margin-top: 10px;}
