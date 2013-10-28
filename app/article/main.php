@@ -148,10 +148,18 @@ class main extends AWS_CONTROLLER
 			{
 				$article_ids[] = $val['id'];
 				
+				$article_uids[$val['uid']] = $val['uid'];
+				
 				$article_list[$key]['message'] = FORMAT::parse_attachs(nl2br(FORMAT::parse_markdown($val['message'])));
 			}
 			
 			$article_topics = $this->model('topic')->get_topics_by_item_ids($article_ids, 'article');
+			$article_users_info = $this->model('account')->get_user_info_by_uids($article_uids);
+			
+			foreach ($article_list AS $key => $val)
+			{
+				$article_list[$key]['user_info'] = $article_users_info[$val['uid']];
+			}
 		}
 		
 		TPL::assign('article_list', $article_list);
@@ -160,7 +168,7 @@ class main extends AWS_CONTROLLER
 		TPL::assign('feature_list', $this->model('feature')->get_feature_list());
 		
 		TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
-			'base_url' => get_js_url('/article/square/feature_id-' . $_GET['feature_id']), 
+			'base_url' => get_js_url('/article/square/feature_id-' . intval($_GET['feature_id'])), 
 			'total_rows' => $article_list_total,
 			'per_page' => get_setting('contents_per_page')
 		))->create_links());
