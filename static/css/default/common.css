@@ -373,7 +373,7 @@ a.aw-load-more-content{display: block;}
 /* 文章广场 */
 .aw-article-square .aw-main-content{border-right: 1px solid #e1e1e1;}
 .aw-article-list .aw-item{position: relative;margin-bottom:20px;padding-left: 70px;padding-bottom:20px;border-bottom:1px solid #e1e1e1;}
-.aw-article-list .aw-item .aw-user-name{position: absolute;left: 0;top: 0;}
+.aw-article-list .aw-item > .aw-user-name{position: absolute;left: 0;top: 0;}
 .aw-article-list .aw-item h2{font-size: 20px;}
 .aw-article-list .aw-item h2 a{color: #333;}
 .aw-article-list .aw-item h2 a:hover, .aw-article-list .aw-item .aw-mod-footer span a:hover{color: #4d8bcd;}
