@@ -66,8 +66,8 @@
 						</div>
 						<div class="aw-question-detail-meta aw-article-detail-meta">
 							<span class="aw-article-vote<?php if (!$this->user_id OR $this->user_id == $this->article_info['uid']) { ?> disabled<?php } ?>">
-								<a href="javascript:;" class="agree<?php if ($this->article_info['vote_info']['rating'] == 1) { ?> active<?php } ?>" onclick="article_vote(this, <?php echo $this->article_info['id']; ?>, 1);"><i class="icon-thumbs-up-alt"></i> <?php echo $this->article_info['votes']; ?> 赞</a>
-								<a href="javascript:;" class="disagree<?php if ($this->article_info['vote_info']['rating'] == -1) { ?> active<?php } ?>" onclick="article_vote(this, <?php echo $this->article_info['id']; ?>, -1);"><i class="icon-thumbs-down-alt"></i></a>
+								<a href="javascript:;" class="agree<?php if ($this->article_info['vote_info']['rating'] == 1) { ?> active<?php } ?>" onclick="article_vote(this, <?php echo $this->article_info['id']; ?>, 1);"><i class="fa fa-thumbs-up"></i> <?php echo $this->article_info['votes']; ?> 赞</a>
+								<a href="javascript:;" class="disagree<?php if ($this->article_info['vote_info']['rating'] == -1) { ?> active<?php } ?>" onclick="article_vote(this, <?php echo $this->article_info['id']; ?>, -1);"><i class="fa fa-thumbs-down"></i></a>
 							</span>
 							
 							<a class="aw-text-color-999 pull-right" onclick="$.dialog('shareOut', {item_type:'article', item_id:<?php echo $this->article_info['id']; ?>});"><i class="fa fa-share"></i><?php _e('分享'); ?></a>
