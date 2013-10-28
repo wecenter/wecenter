@@ -1772,7 +1772,7 @@ function bind_dropdown_list(selector, type)
         }
         if ($(selector).val().length >= 2)
         {
-           get_dropdown_list(selector, type, $(selector).val());
+           get_dropdown_list($(this), type, $(selector).val());
         }
         else if ($(selector).val().length > 0 && $(selector).val().length < 2)
         {
