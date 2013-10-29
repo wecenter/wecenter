@@ -134,6 +134,7 @@ class crond_class extends AWS_MODEL
 		if (!get_setting('db_engine') OR get_setting('db_engine') == 'MyISAM')
 		{
 			$this->query('OPTIMIZE TABLE `' . get_table('sessions') . '`');
+			$this->query('REPAIR TABLE `' . get_table('sessions') . '`');
 		}
 	}
 }
