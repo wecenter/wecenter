@@ -1854,8 +1854,6 @@ function get_dropdown_list(selector, type, data)
                                     'content': a.name,
                                     'discuss_count': a.detail.answer_count
                                 }));
-                                //高亮显示
-                                //$('.aw-search-dropdown-list .question a').highText(keyword, 'span', 'active');
                                 break;
                             case 2:
                                 $(selector).parent().find('.aw-dropdown-list').append(Hogan.compile(AW_TEMPLATE.searchDropdownList2).render(

@@ -236,10 +236,6 @@ jQuery.fn.extend({
     }
 });
 
-// Test:
-/*$(document).ready(function () {
-	$('.footer a').highText('关于', 'span', 't');
-});*/
 
 $.alert = function (text)
 {
