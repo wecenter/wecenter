@@ -351,11 +351,7 @@ class answer_class extends AWS_MODEL
 	 */
 	public function change_answer_vote($answer_id, $vote_value = 1, $uid = 0,$reputation_factor=0)
 	{
-		$answer_id = intval($answer_id);
-		
-		$uid = (intval($uid) == 0) ? USER::get_client_uid() : $uid;
-		
-		if ($answer_id == 0)
+		if (!$answer_id)
 		{
 			return false;
 		}
@@ -374,20 +370,16 @@ class answer_class extends AWS_MODEL
 		$question_id = $answer_info['question_id'];
 		$answer_uid = $answer_info['uid'];
 		
-		$vote_info = $this->get_answer_vote_status($answer_id, $uid);
-		
-		if (empty($vote_info)) //添加记录
+		if (!$vote_info = $this->get_answer_vote_status($answer_id, $uid)) //添加记录
 		{
-			$data = array(
-				"answer_id" => $answer_id, 
-				"answer_uid" => $answer_uid, 
-				"vote_uid" => $uid, 
-				"add_time" => time(), 
-				"vote_value" => $vote_value,
-				"reputation_factor"=>$reputation_factor
-			);
-			
-			$this->insert('answer_vote', $data);
+			$this->insert('answer_vote', array(
+				'answer_id' => $answer_id, 
+				'answer_uid' => $answer_uid, 
+				'vote_uid' => $uid, 
+				'add_time' => time(), 
+				'vote_value' => $vote_value,
+				'reputation_factor' => $reputation_factor
+			));
 			
 			if ($vote_value == 1)
 			{
@@ -445,7 +437,6 @@ class answer_class extends AWS_MODEL
 		
 		return true;
 	}
-	
 	
 	public function user_agree_count($uid)
 	{

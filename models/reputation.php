@@ -39,6 +39,72 @@ class reputation_class extends AWS_MODEL
 			return false;
 		}
 		
+		if ($user_articles = $this->query_all('SELECT id FROM ' . get_table('article') . ' WHERE uid = ' . $user_info['uid']))
+		{
+			foreach ($user_articles as $articles_key => $articles_val)
+			{
+				$articles_ids[] = $articles_val['id'];
+			}
+			
+			if ($articles_ids)
+			{
+				$articles_vote_agree_users = $this->model('article')->get_article_vote_by_ids('article', $articles_ids, 1);
+				
+				$articles_vote_against_users = $this->model('article')->get_article_vote_by_ids('article', $$articles_ids, -1);
+			}
+			
+			foreach ($user_articles as $articles_key => $articles_val)
+			{
+				$article_reputation = 0;	// 文章威望系数
+				
+				$s_agree_value = 0;	// 赞同威望系数
+				$s_against_value = 0;	// 反对威望系数
+				
+				// 赞同的用户
+				if ($articles_vote_agree_users[$articles_val['id']])
+				{					
+					foreach ($articles_vote_agree_users[$articles_val['id']] AS $key => $val)
+					{
+						$s_agree_value = $s_agree_value + $val['reputation_factor'];
+					}
+				}
+				
+				// 反对的用户
+				if ($articles_vote_against_users[$articles_val['id']])
+				{					
+					foreach ($articles_vote_against_users[$articles_val['id']] AS $key => $val)
+					{
+						$s_against_value = $s_against_value + $val['reputation_factor'];
+					}
+				}
+			}
+			
+			$reputation_log_factor = get_setting('reputation_log_factor');
+			
+			$article_reputation = $s_agree_value - $s_against_value;
+				
+			if ($article_reputation < 0)
+			{					
+				$article_reputation = (0 - $article_reputation) - 0.5;
+				
+				if ($reputation_log_factor > 1)
+				{
+					$article_reputation = (0 - log($article_reputation, $reputation_log_factor));
+				}
+			}
+			else if ($article_reputation > 0)
+			{
+				$article_reputation = $article_reputation + 0.5;
+				
+				if ($reputation_log_factor > 1)
+				{
+					$article_reputation = log($article_reputation, $reputation_log_factor);
+				}
+			}
+			
+			$user_reputation = $user_reputation + $article_reputation;
+		}
+		
 		if ($users_anwsers = $this->query_all('SELECT answer_id, question_id, agree_count, thanks_count FROM ' . get_table('answer') . ' WHERE uid = ' . $user_info['uid']))
 		{				
 			foreach ($users_anwsers as $anwsers_key => $answers_val)
@@ -151,7 +217,7 @@ class reputation_class extends AWS_MODEL
 				$publisher_reputation_factor = get_setting('publisher_reputation_factor');	// 发起者赞同/反对威望系数
 				$reputation_log_factor = get_setting('reputation_log_factor');
 				
-				//（用户组威望系数x赞同数量-用户组威望系数x反对数量）+ 发起者赞同反对系数 + 最佳答案系数
+				//（用户组威望系数 x 赞同数量 - 用户组威望系数 x 反对数量）+ 发起者赞同反对系数 + 最佳答案系数
 				$answer_reputation = $s_agree_value - $s_against_value + ($s_publisher_agree * $publisher_reputation_factor) - ($s_publisher_against * $publisher_reputation_factor) + ($s_best_answer * $best_answer_reput);
 				
 				if ($answer_reputation < 0)

@@ -100,6 +100,7 @@ CREATE TABLE `[#DB_PREFIX#]article_vote` (
   `item_id` int(10) NOT NULL,
   `rating` tinyint(1) DEFAULT '0',
   `time` int(10) NOT NULL,
+  `reputation_factor` int(10) DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `uid` (`uid`),
   KEY `type` (`type`),
