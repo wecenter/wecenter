@@ -4,7 +4,7 @@ $(document).ready(function () {
 	{
 		if ($(this).innerHeight() > parseInt($(this).parents('.content-wrap').css('max-height')))
 		{
-			$(this).parents('.aw-mod-body').find('.more').show();
+			$(this).parents('.aw-content').find('.more').show();
 		}
 	});
 });
