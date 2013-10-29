@@ -132,8 +132,10 @@ a.aw-load-more-content{display: block;}
 .aw-dropdown .aw-dropdown-list li.user a{display: block;padding: 10px;}
 .aw-dropdown .aw-dropdown-list li.user a img{width: 25px;height: 25px;margin-right: 5px;}
 .aw-dropdown .aw-dropdown-list li.user a span{margin-left:10px;color: #999;}
-.aw-publish-box .aw-dropdown .aw-dropdown-list, .aw-question-redirect-box .aw-dropdown .aw-dropdown-list{max-height: 329px;overflow-y:auto;}
-.aw-mod-publish .aw-dropdown{max-height: 165px;overflow-y: auto;}
+.aw-question-redirect-box .aw-dropdown .aw-dropdown-list{max-height: 329px;overflow-y:auto;}
+.aw-publish-box .aw-dropdown .aw-dropdown-list{max-height: 248px;overflow-y:auto;}
+.aw-mod-publish .aw-dropdown .aw-dropdown-list{max-height: 165px;overflow-y: auto;}
+.aw-edit-topic-box .aw-dropdown .aw-dropdown-list{max-height: 292px;overflow-y: auto;}
 
 /* ipad兼容 */
 @media only screen and (device-width:768px){
@@ -574,9 +576,11 @@ a.aw-load-more-content{display: block;}
 .aw-edit-topic-box input, .aw-edit-topic-box > a{margin:0 5px 10px 0;}
 .aw-edit-topic-box{display:none;position:relative;line-height: 35px;margin:10px 0;}
 .aw-edit-topic-box input{width: 300px;}
+.aw-edit-topic-box .btn-large{min-width: 0px;}
+.aw-edit-topic-box .aw-dropdown-list li{padding:0;}
+.aw-edit-topic-box p{padding:0 10px;}
 .aw-side-bar-topic-edit .aw-edit-topic-box{text-align: right;}
 .aw-side-bar-topic-edit .aw-edit-topic-box input{width:173px;}
-.aw-edit-topic-box .btn-large{min-width: 0px;}
 
 /* 私信 */
 .aw-my-inbox .aw-mod-head h2 span, .aw-my-notifications .aw-mod-head h2 span{margin-right: 10px;font-size: 14px;font-weight: normal;}
