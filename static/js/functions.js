@@ -1401,8 +1401,7 @@ function init_topic_edit_box(selector) //selector -> .aw-edit-topic
             });
         }
 
-        //bind_dropdown_list('.aw-edit-topic-box #aw_edit_topic_title','topic');
-        bind_dropdown_list($(this).parent().parent().find('#aw_edit_topic_title'),'topic');
+        bind_dropdown_list($(this).parents('.aw-topic-editor').find('#aw_edit_topic_title'),'topic');
         $(this).parent().find('.aw-edit-topic-box').fadeIn();
 
         /*隐藏话题编辑按钮*/
