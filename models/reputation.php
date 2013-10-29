@@ -213,7 +213,7 @@ class reputation_class extends AWS_MODEL
 						
 				foreach ($user_topics as $t_key => $t_val)
 				{
-					if ($reputation_topic_id = $this->fetch_one('reputation_topic', 'id', 'uid = ' . $uid . ' AND topic_id = ' . $t_val['topic_id']))
+					if ($reputation_topic_id = $this->fetch_one('reputation_topic', 'auto_id', 'uid = ' . $uid . ' AND topic_id = ' . $t_val['topic_id']))
 					{
 						$this->update('reputation_topic', array(
 							'uid' => $uid,
@@ -224,7 +224,7 @@ class reputation_class extends AWS_MODEL
 							'thanks_count' => $t_val['thanks_count'],
 							'best_answer_count' => $t_val['best_answer_count'],
 							'reputation' => round($t_val['reputation'])
-						), 'id = ' . $reputation_topic_id);
+						), 'auto_id = ' . $reputation_topic_id);
 					}
 					else
 					{
@@ -246,7 +246,7 @@ class reputation_class extends AWS_MODEL
 			{
 				foreach ($user_reputation_category as $t_key => $t_val)
 				{
-					if ($user_reputation_category_id = $this->fetch_one('reputation_category', 'id', 'uid = ' . intval($uid) . ' AND category_id = ' . $t_key))
+					if ($user_reputation_category_id = $this->fetch_one('reputation_category', 'auto_id', 'uid = ' . intval($uid) . ' AND category_id = ' . $t_key))
 					{
 						$this->update('reputation_category', array(
 							'uid' => intval($uid),
@@ -255,7 +255,7 @@ class reputation_class extends AWS_MODEL
 							'reputation' => round($t_val['reputation']),
 							'agree_count' => $t_val['agree_count'],
 							'question_count' => count($t_val['questions'])
-						), 'id = ' . $user_reputation_category_id);
+						), 'auto_id = ' . $user_reputation_category_id);
 					}
 					else
 					{
