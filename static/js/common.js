@@ -308,7 +308,8 @@ $.dialog = function (type_id, data)
 	            'title': _t('插入图片'),
 	            'url': 'imgsUrl',
 	            'tips': 'imgsAlt',
-	            'add_func': 'addTextpicTure'
+	            'add_func': 'addTextpicTure',
+	            'upload' : ''
 	        });
 	        break;
 	
@@ -319,7 +320,8 @@ $.dialog = function (type_id, data)
 	            'url': 'videoUrl',
 	            'tips': 'videoTitle',
 	            'type_tips' : _t('我们目前支持: 优酷、酷六、土豆、56、新浪播客、乐视、Youtube 与 SWF 文件'),
-	            'add_func': 'addVideo'
+	            'add_func': 'addVideo',
+	            'upload' : 'hide'
 	        });
 	        break;
 
