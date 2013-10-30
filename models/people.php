@@ -36,7 +36,9 @@ class people_class extends AWS_MODEL
 	
 	public function get_user_reputation_topic($uid, $user_reputation, $limit = 10)
 	{
-		$reputation_topics = $this->get_users_reputation_topic($uid, array(
+		$reputation_topics = $this->get_users_reputation_topic(array(
+			$uid
+		), array(
 			$uid => $user_reputation
 		), $limit);
 		
