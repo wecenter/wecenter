@@ -22,37 +22,35 @@ class notify_class extends AWS_MODEL
 {
 	//=========模型类别:model_type===================================================
 	
-
-	const CATEGORY_QUESTION = 1;	// 问题
-	const CATEGORY_PEOPLE = 4;	// 人物
-	const CATEGORY_CONTEXT = 7;	// 文字
+	const CATEGORY_QUESTION	= 1;	// 问题
+	const CATEGORY_PEOPLE	= 4;	// 人物
+	const CATEGORY_CONTEXT	= 7;	// 文字
 	
-	const CATEGORY_ARTICLE = 8;	// 文章
+	const CATEGORY_ARTICLE	= 8;	// 文章
 	
 
 	//=========操作标示:action_type==================================================
 	
-
-	const TYPE_PEOPLE_FOCUS = 101;	// 被人关注
-	const TYPE_NEW_ANSWER = 102;	// 关注的问题增加了新回复
-	const TYPE_COMMENT_AT_ME = 103;	// 有评论@提到我
-	const TYPE_INVITE_QUESTION = 104;	// 被人邀请问题问题
-	const TYPE_ANSWER_COMMENT = 105;	// 我的回复被评论
-	const TYPE_QUESTION_COMMENT = 106;	// 我的问题被评论
-	const TYPE_ANSWER_AGREE = 107;	// 我的回复收到赞同
-	const TYPE_ANSWER_THANK = 108;	// 我的回复收到感谢
-	const TYPE_MOD_QUESTION = 110;	// 我发布的问题被编辑
-	const TYPE_REMOVE_ANSWER = 111;	// 我发表的回复被删除
+	const TYPE_PEOPLE_FOCUS	= 101;	// 被人关注
+	const TYPE_NEW_ANSWER	= 102;	// 关注的问题增加了新回复
+	const TYPE_COMMENT_AT_ME	= 103;	// 有评论@提到我
+	const TYPE_INVITE_QUESTION	= 104;	// 被人邀请问题问题
+	const TYPE_ANSWER_COMMENT	= 105;	// 我的回复被评论
+	const TYPE_QUESTION_COMMENT	= 106;	// 我的问题被评论
+	const TYPE_ANSWER_AGREE	= 107;	// 我的回复收到赞同
+	const TYPE_ANSWER_THANK	= 108;	// 我的回复收到感谢
+	const TYPE_MOD_QUESTION	= 110;	// 我发布的问题被编辑
+	const TYPE_REMOVE_ANSWER	= 111;	// 我发表的回复被删除
 	
-	const TYPE_REDIRECT_QUESTION = 113;	// 我发布的问题被重定向
-	const TYPE_QUESTION_THANK = 114;	// 我发布的问题收到感谢
-	const TYPE_CONTEXT = 100;	// 纯文本通知
+	const TYPE_REDIRECT_QUESTION	= 113;	// 我发布的问题被重定向
+	const TYPE_QUESTION_THANK	= 114;	// 我发布的问题收到感谢
+	const TYPE_CONTEXT	= 100;	// 纯文本通知
 	
-	const TYPE_ANSWER_AT_ME = 115;	// 有回答 @ 提到我
-	const TYPE_ANSWER_COMMENT_AT_ME = 116;	// 有回答评论 @ 提到我
+	const TYPE_ANSWER_AT_ME	= 115;	// 有回答 @ 提到我
+	const TYPE_ANSWER_COMMENT_AT_ME	= 116;	// 有回答评论 @ 提到我
 	
-	const TYPE_ARTICLE_NEW_COMMENT = 117; // 文章有新评论
-	const TYPE_ARTICLE_COMMENT_AT_ME = 118; // 文章评论提到我
+	const TYPE_ARTICLE_NEW_COMMENT	= 117; // 文章有新评论
+	const TYPE_ARTICLE_COMMENT_AT_ME	= 118; // 文章评论提到我
 	
 	public $notify_actions = array();
 	public $notify_action_details;
@@ -83,12 +81,7 @@ class notify_class extends AWS_MODEL
 			return false;
 		}
 		
-		if (! in_array($action_type, $this->notify_actions) AND $action_type > 0)
-		{
-			return false;
-		}
-		
-		if (! $this->check_notification_setting($recipient_uid, $action_type))
+		if ((!in_array($action_type, $this->notify_actions) AND $action_type) OR !$this->check_notification_setting($recipient_uid, $action_type))
 		{
 			return false;
 		}
@@ -250,11 +243,9 @@ class notify_class extends AWS_MODEL
 						
 						if ($item_ids)
 						{
-							$item_ids = array_unique($item_ids);
-							
 							asort($item_ids);
 							
-							$querys[] = 'item_id-' . implode(',', $item_ids);
+							$querys[] = 'item_id-' . implode(',', array_unique($item_ids));
 						}
 						
 						$tmp['extend_details'] = $this->format_extend_detail($notify['extend_details'], $user_infos);
@@ -295,17 +286,17 @@ class notify_class extends AWS_MODEL
 								
 								foreach ($notify['extends'] as $ex_key => $ex_notify)
 								{
-									if ($ex_notify['action_type'] == 104)
+									if ($ex_notify['action_type'] == self::TYPE_INVITE_QUESTION)
 									{
 										$from_uid = $ex_notify['data']['from_uid'];
 									}
 									
-									if ($ex_notify['action_type'] == 106 OR $ex_notify['action_type'] == 103)
+									if ($ex_notify['action_type'] == self::TYPE_QUESTION_COMMENT OR $ex_notify['action_type'] == self::TYPE_COMMENT_AT_ME)
 									{
 										$comment_type[] = 'question';
 									}
 									
-									if ($ex_notify['action_type'] == 105 OR $ex_notify['action_type'] == 103)
+									if ($ex_notify['action_type'] == self::TYPE_ANSWER_COMMENT OR $ex_notify['action_type'] == self::TYPE_COMMENT_AT_ME)
 									{
 										$comment_type[] = 'answer';
 									}
@@ -315,7 +306,7 @@ class notify_class extends AWS_MODEL
 										$answer_ids[] = $ex_notify['data']['item_id'];
 									}
 									
-									if ($ex_notify['action_type'] == 113)
+									if ($ex_notify['action_type'] == self::TYPE_REDIRECT_QUESTION)
 									{
 										$rf = true;
 									}
