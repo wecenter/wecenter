@@ -1,4 +1,3 @@
-
 $(document).ready(function () {
 	$.each($('.aw-article-list .aw-item .aw-mod-body .content'), function (i, e)
 	{

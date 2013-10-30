@@ -386,7 +386,6 @@ class notify_class extends AWS_MODEL
 					break;
 				
 				case self::CATEGORY_PEOPLE :
-					
 					if (!$user_info)
 					{
 						unset($tmp);
@@ -398,9 +397,7 @@ class notify_class extends AWS_MODEL
 					break;
 				
 				case self::CATEGORY_CONTEXT :
-					
 					$tmp['content'] = $data['content'];
-					
 					break;
 			}
 			
