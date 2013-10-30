@@ -13,7 +13,7 @@
 		
 		<?php if (is_array($val['answer_users'])) { ?>
 		<p class="pull-right">
-			<span><?php _e('贡献 :'); ?> </span>
+			<span><?php _e('贡献'); ?>:</span>
 		    
 		    <?php foreach ($val['answer_users'] AS $answer_user) { ?>
 		    <a class="aw-user-name" data-id="<?php echo $answer_user['uid']; ?>" href="people/<?php echo $answer_user['url_token']; ?>" rel="nofollow"><img src="<?php echo get_avatar_url($answer_user['uid'], 'mid'); ?>" alt="" /></a>

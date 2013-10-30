@@ -1093,7 +1093,7 @@ class topic_class extends AWS_MODEL
 
 	public function get_topic_best_answer_action_list($topic_ids, $uid, $limit)
 	{
-		if (!$questions_info = AWS_APP::cache()->get('topic_best_answer_list_' . md5($topic_ids) . '_' . intval($limit)))
+		if (!$result = AWS_APP::cache()->get('topic_best_answer_result_' . md5($topic_ids) . '_' . intval($limit)))
 		{
 			if (!$question_ids = $this->get_question_best_ids_by_topics_ids(explode(',', $topic_ids), $limit))
 			{
@@ -1133,40 +1133,42 @@ class topic_class extends AWS_MODEL
 			$answer_attachs = $this->model('publish')->get_attachs('answer', $answer_ids, 'min');
 			
 			foreach ($questions_info AS $key => $val)
-			{	
-				$questions_info[$key]['user_info'] = $action_list_users_info[$val['published_uid']];
+			{
+				
+				$result[$key]['question_info'] = $val;
+				$result[$key]['user_info'] = $action_list_users_info[$val['published_uid']];
 				
 				if ($val['has_attach'])
 				{
-					$questions_info[$key]['attachs'] = $question_attachs[$val['question_id']];
+					$result[$key]['question_info']['attachs'] = $question_attachs[$val['question_id']];
 				}
 				
-				$questions_info[$key]['answer_info'] = $answers_info[$val['best_answer']];
+				$result[$key]['answer_info'] = $answers_info[$val['best_answer']];
 							
-				if ($questions_info[$key]['answer_info']['has_attach'])
+				if ($val['answer_info']['has_attach'])
 				{
-					$questions_info[$key]['answer_info']['attachs'] = $answer_attachs[$val['best_answer']];
+					$result[$key]['answer_info']['attachs'] = $answer_attachs[$val['best_answer']];
 				}
 							
-				$questions_info[$key]['answer_info']['user_name'] = $action_list_users_info[$val['published_uid']]['user_name'];
-				$questions_info[$key]['answer_info']['url_token'] = $action_list_users_info[$val['published_uid']]['url_token'];
-				$questions_info[$key]['answer_info']['signature'] = $action_list_users_info[$val['published_uid']]['signature'];
+				$result[$key]['answer_info']['user_name'] = $action_list_users_info[$val['published_uid']]['user_name'];
+				$result[$key]['answer_info']['url_token'] = $action_list_users_info[$val['published_uid']]['url_token'];
+				$result[$key]['answer_info']['signature'] = $action_list_users_info[$val['published_uid']]['signature'];
 				
-				$questions_info[$key]['answer_info']['agree_users'] = $answers_info_vote_user[$val['best_answer']];
+				$result[$key]['answer_info']['agree_users'] = $answers_info_vote_user[$val['best_answer']];
 			}
 			
-			AWS_APP::cache()->set('topic_best_answer_list_' . md5($topic_ids) . '_' . intval($limit), $questions_info, get_setting('cache_level_low'));
+			AWS_APP::cache()->set('topic_best_answer_result_' . md5($topic_ids) . '_' . intval($limit), $result, get_setting('cache_level_low'));
 		}
 		
 		if ($uid)
 		{
-			foreach ($questions_info AS $key => $val)
+			foreach ($result AS $key => $val)
 			{
-				$question_ids[] = $val['question_id'];
+				$question_ids[] = $val['question_info']['question_id'];
 				
-				if ($val['best_answer'])
+				if ($val['question_info']['best_answer'])
 				{
-					$answer_ids[] = $val['best_answer'];
+					$answer_ids[] = $val['question_info']['best_answer'];
 				}
 			}
 			
@@ -1174,14 +1176,16 @@ class topic_class extends AWS_MODEL
 			$answers_info_vote_status = $this->model('answer')->get_answer_vote_status($answer_ids, $uid);
 		}
 		
-		foreach ($questions_info AS $key => $val)
+		foreach ($result AS $key => $val)
 		{
-			$questions_info[$key]['has_focus'] = $questions_focus[$val['question_id']];
-			$questions_info[$key]['answer_info']['agree_status'] = intval($answers_info_vote_status[$val['best_answer']]);
+			$result[$key]['question_info']['has_focus'] = $questions_focus[$val['question_info']['question_id']];
+			$result[$key]['answer_info']['agree_status'] = intval($answers_info_vote_status[$val['question_info']['best_answer']]);
+			
+			$result[$key]['title'] = $val['question_info']['question_content'];
+			$result[$key]['link'] = get_js_url('/question/' . $val['question_info']['question_id']);
 		}
 		
-		
-		return $questions_info;
+		return $result;
 	}
 	
 	function check_url_token($url_token, $topic_id)
