@@ -49,12 +49,10 @@ class index_class extends AWS_MODEL
 			AND associate_action IN (" . ACTION_LOG::ANSWER_QUESTION . ',' . ACTION_LOG::ADD_TOPIC . ") AND uid <> " . $uid . ")";*/
 			
 			// 回复问题
-			$where_in[] = "(associate_id IN (" . implode(',', $user_focus_questions_ids) . ")
-			AND associate_action = " . ACTION_LOG::ANSWER_QUESTION . " AND uid <> " . $uid . ")";
+			//$where_in[] = "(associate_id IN (" . implode(',', $user_focus_questions_ids) . ") AND associate_action = " . ACTION_LOG::ANSWER_QUESTION . " AND uid <> " . $uid . ")";
 			
 			// 添加问题
-			$where_in[] = "(associate_id IN (" . implode(',', $user_focus_questions_ids) . ")
-			AND associate_action = " . ACTION_LOG::ADD_QUESTION . " AND uid = " . $uid . ")";
+			$where_in[] = "(associate_id IN (" . implode(',', $user_focus_questions_ids) . ") AND associate_action = " . ACTION_LOG::ADD_QUESTION . " AND uid = " . $uid . ")";
 			
 			$where_in[] = "(associate_action = " . ACTION_LOG::ADD_ARTICLE . " AND uid = " . $uid . ")";
 		}
@@ -62,8 +60,7 @@ class index_class extends AWS_MODEL
 		if ($user_focus_topics_questions_ids)
 		{
 			// 回复问题
-			$where_in[] = "(associate_id IN (" . implode(',', $user_focus_topics_questions_ids) . ")
-			AND associate_action = " . ACTION_LOG::ANSWER_QUESTION . " AND uid <> " . $uid . ")";
+			$where_in[] = "(associate_id IN (" . implode(',', $user_focus_topics_questions_ids) . ") AND associate_action = " . ACTION_LOG::ANSWER_QUESTION . " AND uid <> " . $uid . ")";
 			
 			// 添加话题
 			/*if ($user_focus_topics_ids)

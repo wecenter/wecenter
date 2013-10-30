@@ -214,7 +214,7 @@ class ACTION_LOG
 	
 	public static function save_action($uid, $associate_id, $action_type, $action_id, $action_content = '', $action_attch = '', $add_time = 0, $anonymous = 0, $addon_data = null)
 	{
-		if (intval($uid) == 0 || intval($associate_id) == 0)
+		if (!$uid OR !$associate_id)
 		{
 			return false;
 		}
