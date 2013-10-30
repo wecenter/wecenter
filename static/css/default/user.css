@@ -5,10 +5,7 @@
 .aw-user-detail-box .aw-mod-body .aw-user-title b{font-size:20px;}
 .aw-user-detail-box .aw-mod-body .aw-user-flag{min-height: 25px;padding:5px 0 10px;border-bottom:1px dotted #C1CAD4;}
 .aw-user-detail-box .aw-mod-body .aw-user-flag span{margin-right:10px;}
-.aw-user-detail-box .aw-mod-body .aw-user-flag .i-user-locate{position: relative;top:5px;}
-.aw-user-detail-box .aw-mod-body .aw-user-flag .i-user-post{position: relative;top:3px;}
-.aw-user-detail-box .aw-mod-body .aw-user-flag .i-user-bind{position: relative;top:4px;}
-.aw-user-detail-box .aw-mod-body .aw-user-flag .i-share-sina, .aw-user-detail-box .aw-mod-body .aw-user-flag .i-share-weibo, .aw-user-detail-box .aw-mod-body .aw-user-flag .i-qq{position: relative;top:2px;}
+.aw-user-detail-box .aw-mod-body .aw-user-flag i{cursor: default;}
 .aw-user-detail-box .aw-mod-body .aw-user-follow-box{margin:0 !important;}
 .aw-user-detail-box .aw-mod-body .aw-user-follow-box a{margin-left:10px;}
 
