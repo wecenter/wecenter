@@ -178,8 +178,8 @@ a.aw-load-more-content{display: block;}
 .aw-top-nav .badge{position: absolute;top: 8px;right: 8px;}
 .aw-top-nav ul li:hover .aw-message-dropdown{display: block;}
 .aw-top-nav .aw-message-dropdown{display:none;position:absolute;left:-95px;top:57px;z-index: 9999;min-width:245px;height: auto;margin:2px 0 0;padding: 5px 0;background-color: #fff;border: 1px solid #C4CDD6;box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);}
-.aw-top-nav .aw-message-dropdown > span{position: absolute;top:-10px;left:0;width: 245px;height: 6px;padding-top:10px;}
-.aw-top-nav .aw-message-dropdown > span .i-dropdown-triangle{position: relative;left: 122px;top:-16px;}
+.aw-top-nav .aw-message-dropdown > span{position: absolute;top:-10px;left:0;width: 245px;height: 10px;}
+.aw-top-nav .aw-message-dropdown > span .i-dropdown-triangle{position: relative;left: 122px;top:-5px;}
 .aw-top-nav .aw-message-dropdown ul{font-size: 14px;font-weight: normal;}
 .aw-top-nav .aw-message-dropdown ul a{font-size:12px;font-weight: normal;}
 .aw-top-nav .aw-message-dropdown p, .aw-logined-nav .aw-message-dropdown a{margin: 0;}
