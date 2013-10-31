@@ -382,7 +382,7 @@ a.aw-load-more-content{display: block;}
 .aw-article-list .aw-item .aw-article-topics{margin-bottom: 10px;}
 .aw-article-list .aw-item .aw-mod-body{margin:10px 0;line-height: 24px;}
 .aw-article-list .aw-item .aw-mod-body img{max-width:100%;margin-right: 10px;}
-.aw-article-list .aw-item .aw-mod-body .content-wrap{max-height: 512px;overflow: hidden;}
+.aw-article-list .aw-item .aw-mod-body .content-wrap{max-height: 251px;overflow: hidden;}
 .aw-article-list .aw-item .aw-mod-body .content-wrap .markitup-box img{max-width: 100% !important;}
 .aw-article-list .aw-item .aw-mod-footer span a{margin-left:15px;color: #999;font-size: 12px;}
 .aw-article-list .aw-item .more{font-size: 12px;}
