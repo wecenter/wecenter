@@ -262,7 +262,7 @@ class article_class extends AWS_MODEL
 	
 	public function get_article_vote_by_ids($type, $item_ids, $rating = null, $uid = null)
 	{
-		if (! is_array($item_ids))
+		if (!is_array($item_ids))
 		{
 			return false;
 		}
