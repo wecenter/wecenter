@@ -127,7 +127,7 @@ class main extends AWS_CONTROLLER
 
 	public function square_action()
 	{
-		$this->crumb(AWS_APP::lang()->_t('文章广场'), '/article/square');
+		$this->crumb(AWS_APP::lang()->_t('经验'), '/article/square');
 		
 		if ($_GET['feature_id'])
 		{
