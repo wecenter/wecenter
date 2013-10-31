@@ -150,7 +150,7 @@ class main extends AWS_CONTROLLER
 				
 				$article_uids[$val['uid']] = $val['uid'];
 				
-				$article_list[$key]['message'] = FORMAT::parse_attachs(nl2br(FORMAT::parse_markdown($val['message'])));
+				$article_list[$key]['message'] = nl2br($val['message']);
 			}
 			
 			$article_topics = $this->model('topic')->get_topics_by_item_ids($article_ids, 'article');
