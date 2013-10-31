@@ -2224,11 +2224,13 @@ function article_vote(element, article_id, rating)
 			if (rating == 0)
 			{
 				$(element).removeClass('active');
+                $(element).find('b').html(parseInt($(element).find('b').html()) - 1);
 			}
 			else
 			{
 				$(element).parents('.aw-article-vote').find('a').removeClass('active');
 				$(element).addClass('active');
+                $(element).find('b').html(parseInt($(element).find('b').html()) + 1);
 			}
 	    }
 	}, 'json');
