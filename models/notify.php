@@ -663,7 +663,7 @@ class notify_class extends AWS_MODEL
 		return $this->delete('notification', $where);
 	}
 	
-	function get_notification_list($recipient_uid, $read_flag = 0, $limit = null)
+	function get_notification_list($recipient_uid, $read_flag = null, $limit = null)
 	{
 		if (!$recipient_uid)
 		{
@@ -671,7 +671,11 @@ class notify_class extends AWS_MODEL
 		}
 		
 		$where[] = 'recipient_uid = ' . intval($recipient_uid);
-		$where[] = 'read_flag = ' . intval($read_flag);
+		
+		if (isset($read_flag))
+		{
+			$where[] = 'read_flag = ' . intval($read_flag);
+		}
 		
 		if ($read_flag == 0)
 		{
