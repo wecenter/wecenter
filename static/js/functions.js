@@ -1989,7 +1989,7 @@ function _fix_textarea_focus_cursor_position(elTextarea)
 /* 注册页面验证 */
 function verify_register_form(element)
 {
-    $(element).find(':text, :input').on({
+    $(element).find('[type=text], [type=password]').on({
         focus : function()
         {
             if ($(this).attr('tips') != 'undefined' || $(this).attr('tips') != '')

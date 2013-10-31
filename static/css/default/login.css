@@ -22,7 +22,7 @@
 .aw-mod-body ul li.error p{height:40px;line-height:40px;padding-left:12px;background: #FFF480;border: 1px solid #EBEBEB;border-radius: 5px;color:#666;}
 .aw-mod-body ul li.error p .i-no{position:relative;top:4px;*top:0;margin-right: 20px;}
 .aw-mod-body label{display: inline-block;}
-.aw-mod-body #aw-login-user-name, .aw-mod-body #aw-login-user-password{width: 198px;height:40px;margin:0;border:1px solid #EBEBEB;border-left:none;border-radius: 0 5px 5px 0;}
+.aw-mod-body #aw-login-user-name, .aw-mod-body #aw-login-user-password{width: 198px;height:40px;line-height:28px\0;margin:0;border:1px solid #EBEBEB;border-left:none;border-radius: 0 5px 5px 0;}
 .aw-mod-body .aw-label-icon{display:inline-block;width:43px;height:40px;line-height:40px;background: #C2E5F3;text-align: center;border-radius: 5px 0 0 5px;}
 .aw-mod-body .aw-label-icon .i-login-user-no-hover{margin-top:12px;}
 .aw-mod-body .aw-label-icon i{margin:0;font-size:16px;color: #fff;}
