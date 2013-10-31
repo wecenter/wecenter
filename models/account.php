@@ -656,7 +656,7 @@ class account_class extends AWS_MODEL
 	}
 	
 	
-	function setcookie_login($uid, $user_name, $password, $salt, $expire = null, $hash_password = true)
+	public function setcookie_login($uid, $user_name, $password, $salt, $expire = null, $hash_password = true)
 	{
 		if (! $uid)
 		{
@@ -686,7 +686,7 @@ class account_class extends AWS_MODEL
 		$this->setsession_logout();
 	}
 
-	function setsession_logout()
+	public function setsession_logout()
 	{
 		if (isset(AWS_APP::session()->client_info))
 		{
@@ -844,31 +844,31 @@ class account_class extends AWS_MODEL
 		
 		if ($user_actions = AWS_APP::cache()->get($cache_key))
 		{
-			//return $user_actions;
+			return $user_actions;
 		}
 		
-		$action_question = ACTION_LOG::ADD_QUESTION;
+		$associate_action = ACTION_LOG::ADD_QUESTION;
 		
 		if (strstr($actions, ','))
 		{
-			$action_question = explode(',', $actions);
+			$associate_action = explode(',', $actions);
 			
-			array_walk_recursive($action_question, 'intval_string');
+			array_walk_recursive($associate_action, 'intval_string');
 			
-			$action_question = implode(',', $action_question);
+			$associate_action = implode(',', $associate_action);
 		}
 		else if ($actions)
 		{
-			$action_question = intval($actions);
+			$associate_action = intval($actions);
 		}
 			
 		if (!$uid)
 		{
-			$where[] = "(associate_type = " . ACTION_LOG::CATEGORY_QUESTION . " AND associate_action IN(" . $this->quote($action_question) . "))";
+			$where[] = "(associate_type = " . ACTION_LOG::CATEGORY_QUESTION . " AND associate_action IN(" . $this->quote($associate_action) . "))";
 		}
 		else
 		{
-			$where[] = "(associate_type = " . ACTION_LOG::CATEGORY_QUESTION . " AND uid = " . intval($uid) . " AND associate_action IN(" . $this->quote($action_question) . "))";
+			$where[] = "(associate_type = " . ACTION_LOG::CATEGORY_QUESTION . " AND uid = " . intval($uid) . " AND associate_action IN(" . $this->quote($associate_action) . "))";
 		}
 		
 		if ($this_uid == $uid)
@@ -902,9 +902,7 @@ class account_class extends AWS_MODEL
 						ACTION_LOG::MOD_TOPIC_PIC,
 						ACTION_LOG::DELETE_TOPIC,
 						ACTION_LOG::ADD_TOPIC_FOCUS,
-						ACTION_LOG::DELETE_TOPIC_FOCUS,
-						ACTION_LOG::ADD_TOPIC_PARENT,
-						ACTION_LOG::DELETE_TOPIC_PARENT
+						ACTION_LOG::DELETE_TOPIC_FOCUS
 					)) AND $val['associate_attached'])
 					{
 						$associate_topic_ids[] = $val['associate_attached'];
@@ -950,7 +948,7 @@ class account_class extends AWS_MODEL
 							
 							$action_list[$key]['article_info'] = $article_info;
 							
-							$action_list[$key]['last_action_str'] = ACTION_LOG::format_action_str($val['associate_action'], $val['uid'], $action_list_users[$val['uid']]['user_name']);
+							$action_list[$key]['last_action_str'] = ACTION_LOG::format_action_data($val['associate_action'], $val['uid'], $action_list_users[$val['uid']]['user_name']);
 						break;
 					
 						default:
@@ -966,9 +964,7 @@ class account_class extends AWS_MODEL
 								ACTION_LOG::MOD_TOPIC_PIC,
 								ACTION_LOG::DELETE_TOPIC,
 								ACTION_LOG::ADD_TOPIC_FOCUS,
-								ACTION_LOG::DELETE_TOPIC_FOCUS,
-								ACTION_LOG::ADD_TOPIC_PARENT,
-								ACTION_LOG::DELETE_TOPIC_PARENT
+								ACTION_LOG::DELETE_TOPIC_FOCUS
 							)) AND $val['associate_attached'])
 							{
 								$topic_info = $associate_topics[$val['associate_attached']];
@@ -987,7 +983,7 @@ class account_class extends AWS_MODEL
 							
 							if ($val['uid'])
 							{			
-								$action_list[$key]['last_action_str'] = ACTION_LOG::format_action_str($val['associate_action'], $val['uid'], $action_list_users[$val['uid']]['user_name'], $question_info, $topic_info);
+								$action_list[$key]['last_action_str'] = ACTION_LOG::format_action_data($val['associate_action'], $val['uid'], $action_list_users[$val['uid']]['user_name'], $question_info, $topic_info);
 							}
 							
 							if (in_array($val['associate_action'], array(

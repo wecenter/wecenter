@@ -575,7 +575,7 @@ function read_notification(notification_id, el, reload)
             $("#notifications_num").html(String(G_UNREAD_NOTIFICATION - 1));
         }
 
-        var url = G_BASE_URL + '/notifications/ajax/read_notification/notification_id-' + notification_id + '__read_type-1';
+        var url = G_BASE_URL + '/notifications/ajax/read_notification/notification_id-' + notification_id;
     }
     else
     {
@@ -584,7 +584,7 @@ function read_notification(notification_id, el, reload)
             $("#index_notification").fadeOut();
         }
 
-        var url = G_BASE_URL + '/notifications/ajax/read_notification/read_type-0';
+        var url = G_BASE_URL + '/notifications/ajax/read_notification/';
     }
 
     $.get(url, function (respose)

@@ -279,7 +279,7 @@ class index_class extends AWS_MODEL
 				break;
 			}
 			
-			$action_list[$key]['last_action_str'] = ACTION_LOG::format_action_str($val['associate_action'], $val['uid'], $user_info_lists[$val['uid']]['user_name'], $question_info, $topic_info);
+			$action_list[$key]['last_action_str'] = ACTION_LOG::format_action_data($val['associate_action'], $val['uid'], $user_info_lists[$val['uid']]['user_name'], $question_info, $topic_info);
 		}
 		
 		if ($answer_all_ids)

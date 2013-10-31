@@ -14,188 +14,77 @@
 
 class ACTION_LOG
 {
-	/** 
-	 * 添加问题
-	 */
-	const ADD_QUESTION = 101;
-	/** 
-	 * 修改问题标题
-	 */
-	const MOD_QUESTON_TITLE = 102;
-	/** 
-	 * 修改问题描述 
-	 */
-	const MOD_QUESTION_DESCRI = 103;
-	/**
-	 * 添加问题关注
-	 */
-	const ADD_REQUESTION_FOCUS = 105;
-	/**
-	 * 删除问题关注
-	 */
-	const DELETE_REQUESTION_FOCUS = 106;
-	/**
-	 * 问题重定向
-	 */
-	const REDIRECT_QUESTION = 107;
-	/**
-	 * 修改问题分类
-	 */
-	const MOD_QUESTION_CATEGORY = 108;
-	/**
-	 * 修改问题附件
-	 */
-	const MOD_QUESTION_ATTACH = 109;
-	/**
-	 * 删除问题重定向
-	 */
-	const DEL_REDIRECT_QUESTION = 110;
-	/**
-	 * 修改问题
-	 */
-	const MOD_QUESTION = 111;
-	/** 
-	 * 回复问题
-	 */
-	const ANSWER_QUESTION = 201;
-	/** 
-	 * 修改回复
-	 */
-	const MOD_ANSWER = 202;
-	/**
-	 * 删除回复 
-	 */
-	const DELETE_ANSWER = 203;
-	/**
-	 * 增加赞同
-	 */
-	const ADD_AGREE = 204;
-	/**
-	 * 增加反对投票
-	 */
-	const ADD_AGANIST = 205;
-	/**
-	 * 增加感谢作者
-	 */
-	const ADD_USEFUL = 206;
-	/**
-	 * 问题没有帮助
-	 */
-	const ADD_UNUSEFUL = 207;
-	/**
-	 * 取消赞成
-	 */
-	const DEL_AGREE = 208;
-	/**
-	 * 取消反对投票
-	 */
-	const DEL_AGANIST = 209;
-	/** 
-	 * 增加评论
-	 */
-	const ADD_COMMENT = 301;
-	/**
-	 * 删除评论
-	 */
-	const DELETE_COMMENT = 302;
-	/** 
-	 * 创建话题
-	 */
-	const ADD_TOPIC = 401;
-	/** 
-	 * 修改话题
-	 */
-	const MOD_TOPIC = 402;
-	/** 
-	 * 修改话题描述
-	 */
-	const MOD_TOPIC_DESCRI = 403;
-	/**
-	 * 修改话题缩图
-	 */
-	const MOD_TOPIC_PIC = 404;
-	/**
-	 * 删除话题
-	 */
-	const DELETE_TOPIC = 405;
-	/**
-	 * 添加话题关注
-	 */
-	const ADD_TOPIC_FOCUS = 406;
-	/**
-	 * 删除话题关注
-	 */
-	const DELETE_TOPIC_FOCUS = 407;
-	/**
-	 * 增加话题分类
-	 */
-	const ADD_TOPIC_PARENT = 408;
-	/**
-	 * 删除话题分类
-	 */
-	const DELETE_TOPIC_PARENT = 409;
-	/**
-	 * 添加相关话题
-	 */
-	const ADD_RELATED_TOPIC = 410;
-	/**
-	 * 删除相关话题
-	 */
-	const DELETE_RELATED_TOPIC = 411;
-	/**
-	 * 问题
-	 */
-	const CATEGORY_QUESTION = 1;
-	/**
-	 * 回复
-	 */
-	const CATEGORY_ANSWER = 2;
-	/**
-	 * 评论
-	 */
-	const CATEGORY_COMMENT = 3;
-	/**
-	 * 话题 
-	 */
-	const CATEGORY_TOPIC = 4;
+	const CATEGORY_QUESTION = 1;	// 问题
 	
-	/** 
-	 * 添加文章
-	 */
-	const ADD_ARTICLE = 501;
+	const CATEGORY_ANSWER = 2;	// 回答
 	
-	/**
-	 * 
-	 * 类型定义对应数组
-	 */
-	public static $ACTION_STRING_ARRAY = array(
-		self::ADD_QUESTION => '添加问题', 
-		self::MOD_QUESTON_TITLE => '修改问题标题', 
-		self::MOD_QUESTION_DESCRI => '修改问题描述', 
-		self::ADD_REQUESTION_FOCUS => '添加问题关注', 
-		self::DELETE_REQUESTION_FOCUS => '删除问题关注', 
-		self::REDIRECT_QUESTION => '问题重定向', 
-		self::DEL_REDIRECT_QUESTION => '删除问题重定向', 
-		self::ANSWER_QUESTION => '回复问题', 
-		self::MOD_ANSWER => '修改回复', 
-		self::DELETE_ANSWER => '删除回复', 
-		self::ADD_AGREE => '增加赞成', 
-		self::ADD_AGANIST => '增加反对 ', 
-		self::DEL_AGREE => '取消赞成', 
-		self::DEL_AGANIST => '取消反对 ', 
-		self::ADD_COMMENT => '增加评论', 
-		self::DELETE_COMMENT => '删除评论', 
-		self::ADD_TOPIC => '添加话题', 
-		self::MOD_TOPIC => '修改话题', 
-		self::MOD_TOPIC_DESCRI => '修改话题描述', 
-		self::MOD_TOPIC_PIC => '修改话题缩略图', 
-		self::DELETE_TOPIC => '删除话题', 
-		self::ADD_TOPIC_FOCUS => '关注话题', 
-		self::DELETE_TOPIC_FOCUS => '取消话题关注', 
-		self::ADD_TOPIC_PARENT => '增加话题分类', 
-		self::DELETE_TOPIC_PARENT => '删除话题分类',
-		self::ADD_ARTICLE => '添加文章'
-	);
+	const CATEGORY_COMMENT = 3;	// 评论
+
+	const CATEGORY_TOPIC = 4;	// 话题 
+	
+	
+	const ADD_QUESTION = 101;	// 添加问题
+	
+	const MOD_QUESTON_TITLE = 102;	// 修改问题标题
+	
+	const MOD_QUESTION_DESCRI = 103;	// 修改问题描述 
+	
+	const ADD_REQUESTION_FOCUS = 105;	// 添加问题关注
+	
+	const DELETE_REQUESTION_FOCUS = 106;	// 删除问题关注
+	
+	const REDIRECT_QUESTION = 107;	// 问题重定向
+	
+	const MOD_QUESTION_CATEGORY = 108;	// 修改问题分类
+	
+	const MOD_QUESTION_ATTACH = 109;	// 修改问题附件
+	
+	const DEL_REDIRECT_QUESTION = 110;	// 删除问题重定向
+	
+	const MOD_QUESTION = 111;	// 修改问题
+	
+	const ANSWER_QUESTION = 201;	// 回复问题
+	
+	const MOD_ANSWER = 202;	// 修改回复
+	
+	const DELETE_ANSWER = 203;	// 删除回复 
+	
+	const ADD_AGREE = 204;	// 增加赞同
+	
+	const ADD_AGANIST = 205;	// 增加反对投票
+	
+	const ADD_USEFUL = 206;	// 加感谢作者
+	
+	const ADD_UNUSEFUL = 207;	// 问题没有帮助
+	
+	const DEL_AGREE = 208;	// 取消赞成
+	
+	const DEL_AGANIST = 209;	// 取消反对投票
+	
+	const ADD_COMMENT = 301;	// 增加评论
+	
+	const DELETE_COMMENT = 302;	// 删除评论
+	
+	const ADD_TOPIC = 401;	// 创建话题
+	
+	const MOD_TOPIC = 402;	// 修改话题
+	
+	const MOD_TOPIC_DESCRI = 403;	// 修改话题描述
+	
+	const MOD_TOPIC_PIC = 404;	// 修改话题图片
+	
+	const DELETE_TOPIC = 405;	// 删除话题
+	
+	const ADD_TOPIC_FOCUS = 406;	// 添加话题关注
+	
+	const DELETE_TOPIC_FOCUS = 407;	// 删除话题关注
+
+	const ADD_RELATED_TOPIC = 410;	// 添加相关话题
+
+	const DELETE_RELATED_TOPIC = 411;	// 删除相关话题
+	
+	const ADD_ARTICLE = 501;	// 添加文章
+	
 	
 	public static function associate_fresh_action($history_id, $associate_id, $associate_type, $associate_action, $uid, $anonymous, $add_time)
 	{
@@ -212,7 +101,7 @@ class ACTION_LOG
 		));
 	}
 	
-	public static function save_action($uid, $associate_id, $action_type, $action_id, $action_content = '', $action_attch = '', $add_time = 0, $anonymous = 0, $addon_data = null)
+	public static function save_action($uid, $associate_id, $action_type, $action_id, $action_content = null, $action_attch = null, $add_time = 0, $anonymous = 0, $addon_data = null)
 	{
 		if (!$uid OR !$associate_id)
 		{
@@ -368,14 +257,7 @@ class ACTION_LOG
 			'add_time' => time()
 		), 'history_id = ' . intval($history_id));
 	}
-
-	/**
-	 * 
-	 * 根据条件,得到事件列表
-	 * @param int     $limit
-	 * 
-	 * @return array
-	 */
+	
 	public static function get_action_by_where($where = null, $limit = 20, $show_anonymous = false, $order = 'add_time DESC')
 	{
 		if (! $where)
@@ -444,95 +326,19 @@ class ACTION_LOG
 				return $last_history;
 			}	
 		}
-		
-		return array();
-	}
-
-	/**
-	 * 
-	 * 得到不重复的日志,以关联ID为唯一
-	 * @param int $uid
-	 * @param int $limit
-	 * @param int $action_type
-	 * @param int $action_id
-	 * 
-	 * @return array
-	 */
-	public static function get_action_distinct($uid = 0, $limit = null, $action_type = null, $action_id = null)
-	{
-		if ($action_type)
-		{
-			$where[] = 'associate_type IN(' . $action_type . ')';
-		}
-		
-		if ($action_id)
-		{
-			$where[] = 'associate_action IN(' . $action_id . ')';
-		}
-		
-		return AWS_APP::model()->query_all('SELECT DISTINCT associate_id, associate_type FROM ' . get_table('user_action_history') . ' ' . implode(' AND ', $where) . ' ORDER BY add_time DESC', $limit);
-	}
-
-	/**
-	 * 
-	 * 根据问题日志获取一个条日志相信信息
-	 * @param int $associate_id
-	 * @param int $action_type
-	 * @param int $limit
-	 * 
-	 * @return array
-	 */
-	public static function get_action_detail_by_action_type($associate_id = '', $action_type = '', $limit = 1, $action_id = '', $uid = null)
-	{
-		$where[] = 'associate_id = ' . intval($associate_id);
-		
-		if ($action_type)
-		{
-			$where[] = 'associate_type IN (' . $action_type . ')';
-		}
-		
-		if ($action_id)
-		{
-			$where[] = 'associate_action IN(' . $action_id . ')';
-		}
-		
-		if ($uid)
-		{
-			$where[] = 'uid = ' . intval($uid);
-		}
-		
-		if ($user_action_history = AWS_APP::model()->fetch_all('user_action_history', implode(' AND ', $where), 'add_time DESC, history_id DESC', $limit))
-		{
-			foreach ($user_action_history AS $key => $val)
-			{
-				$history_ids[] = $val['history_id'];
-			}
-				
-			if ($actions_data = self::get_action_data_by_history_ids($history_ids))
-			{
-				foreach ($user_action_history AS $key => $val)
-				{
-					$user_action_history[$key]['associate_content'] = $actions_data[$val['history_id']]['associate_content'];
-					
-					if ($user_action_history[$key]['associate_attached'] == -1)
-					{
-						$user_action_history[$key]['associate_attached'] = $actions_data[$val['history_id']]['associate_attached'];
-					}
-				}
-			}
-		}
-		
-		return $user_action_history;
 	}
 	
-	public static function format_action_str($action, $uid = 0, $user_name = null, $question_info = array(), $topic_info = array())
-	{
-		$user_tip = 'class="aw-user-name" data-id="' . $uid . '"';
-		$topic_tip = 'class="aw-topic-name" data-id="' . $topic_info['topic_id'] . '"';
-		
+	public static function format_action_data($action, $uid = 0, $user_name = null, $question_info = null, $topic_info = null)
+	{		
+		$user_attr = 'class="aw-user-name" data-id="' . $uid . '"';
 		$user_url = 'people/' . $uid;
 		
-		if ($topic_info['url_token'])
+		if ($topic_info)
+		{
+			$topic_attr = 'class="aw-topic-name" data-id="' . $topic_info['topic_id'] . '"';
+		}
+		
+		if ($topic_info AND $topic_info['url_token'])
 		{
 			$topic_url = 'topic/' . $topic_info['url_token'];
 		}
@@ -543,80 +349,80 @@ class ACTION_LOG
 		
 		switch ($action)
 		{
-			case ACTION_LOG::ADD_QUESTION : //'添加问题',
-				if ($question_info['anonymous'] == 1)
+			case ACTION_LOG::ADD_QUESTION : // '添加问题',
+				if ($question_info['anonymous'])
 				{
-					$action_str = AWS_APP::lang()->_t('匿名用户 发起了问题');
+					$action_string = AWS_APP::lang()->_t('匿名用户') . ' ' . AWS_APP::lang()->_t('发起了问题');
 				}
 				else
 				{
-					$action_str = '<a href="' . $user_url . '" ' . $user_tip . '>' . $user_name . '</a> ' . AWS_APP::lang()->_t('发起了问题');
+					$action_string = '<a href="' . $user_url . '" ' . $user_attr . '>' . $user_name . '</a> ' . AWS_APP::lang()->_t('发起了问题');
 				}
 				break;
 				
 			case ACTION_LOG::MOD_QUESTON_TITLE : //'修改问题标题',
-				$action_str = '<a href="' . $user_url . '" ' . $user_tip . '>' . $user_name . '</a> ' . AWS_APP::lang()->_t('修改了问题标题');
+				$action_string = '<a href="' . $user_url . '" ' . $user_attr . '>' . $user_name . '</a> ' . AWS_APP::lang()->_t('修改了问题标题');
 				break;
 				
 			case ACTION_LOG::MOD_QUESTION_DESCRI : // '修改问题描述',	
-				$action_str = '<a href="' . $user_url . '" ' . $user_tip . '>' . $user_name . '</a> ' . AWS_APP::lang()->_t('修改了问题');
+				$action_string = '<a href="' . $user_url . '" ' . $user_attr . '>' . $user_name . '</a> ' . AWS_APP::lang()->_t('修改了问题');
 				break;
 				
 			case ACTION_LOG::ADD_REQUESTION_FOCUS : // '添加问题关注',
-				$action_str = '<a href="' . $user_url . '" ' . $user_tip . '>' . $user_name . '</a> ' . AWS_APP::lang()->_t('关注了该问题');;
+				$action_string = '<a href="' . $user_url . '" ' . $user_attr . '>' . $user_name . '</a> ' . AWS_APP::lang()->_t('关注了该问题');;
 				break;
 				
 			case ACTION_LOG::DELETE_REQUESTION_FOCUS : // '删除问题关注',
-				$action_str = '<a href="' . $user_url . '" ' . $user_tip . '>' . $user_name . '</a> ' . AWS_APP::lang()->_t('取消关注了该问题');
+				$action_string = '<a href="' . $user_url . '" ' . $user_attr . '>' . $user_name . '</a> ' . AWS_APP::lang()->_t('取消关注了该问题');
 				break;
 				
 			case ACTION_LOG::ANSWER_QUESTION : // '回复问题',
 				if ($topic_info)
 				{
-					$action_str = '<a href="' . $topic_url . '" ' . $topic_tip . '>' . $topic_info['topic_title'] . '</a> ' . AWS_APP::lang()->_t('话题添加了一个问题回复');
+					$action_string = '<a href="' . $topic_url . '" ' . $topic_attr . '>' . $topic_info['topic_title'] . '</a> ' . AWS_APP::lang()->_t('话题添加了一个问题回复');
 				}
 				else if ($user_name)
 				{
-					$action_str = '<a href="' . $user_url . '" ' . $user_tip . '>' . $user_name . '</a> ' . AWS_APP::lang()->_t('回复了问题');
+					$action_string = '<a href="' . $user_url . '" ' . $user_attr . '>' . $user_name . '</a> ' . AWS_APP::lang()->_t('回复了问题');
 				}
 				else
 				{
-					$action_str = AWS_APP::lang()->_t('该问题增加了一个回复');
+					$action_string = AWS_APP::lang()->_t('该问题增加了一个回复');
 				}
 				break;
 			
 			case ACTION_LOG::MOD_ANSWER : // '修改回复',
-				$action_str = '<a href="' . $user_url . '" ' . $user_tip . '>' . $user_name . '</a> ' . AWS_APP::lang()->_t('修改了回复');
+				$action_string = '<a href="' . $user_url . '" ' . $user_attr . '>' . $user_name . '</a> ' . AWS_APP::lang()->_t('修改了回复');
 				break;
 				
-			case ACTION_LOG::ADD_AGREE : //'增加赞同',
-				$action_str = '<a href="' . $user_url . '" ' . $user_tip . '>' . $user_name . '</a> ' . AWS_APP::lang()->_t('赞同了该回复');
+			case ACTION_LOG::ADD_AGREE : // '增加赞同',
+				$action_string = '<a href="' . $user_url . '" ' . $user_attr . '>' . $user_name . '</a> ' . AWS_APP::lang()->_t('赞同了该回复');
 				break;
 			
 			case ACTION_LOG::ADD_COMMENT : // '增加评论',
-				$action_str = '<a href="' . $user_url . '" ' . $user_tip . '>' . $user_name . '</a> ' . AWS_APP::lang()->_t('发表了评论');
+				$action_string = '<a href="' . $user_url . '" ' . $user_attr . '>' . $user_name . '</a> ' . AWS_APP::lang()->_t('发表了评论');
 				break;
 				
-			case ACTION_LOG::DELETE_COMMENT : //'删除评论',
-				$action_str = '<a href="' . $user_url . '" ' . $user_tip . '>' . $user_name . '</a> ' . AWS_APP::lang()->_t('删除了评论');
+			case ACTION_LOG::DELETE_COMMENT : // '删除评论',
+				$action_string = '<a href="' . $user_url . '" ' . $user_attr . '>' . $user_name . '</a> ' . AWS_APP::lang()->_t('删除了评论');
 				break;
 			
-			case ACTION_LOG::ADD_TOPIC : //'添加话题',
+			case ACTION_LOG::ADD_TOPIC : // '添加话题',
 				if ($topic_info AND $user_name)
 				{
 					if (isset($topic_info[0]))
 					{
-						$action_str = '<a href="' . $user_url . '" ' . $user_tip . '>' . $user_name . '</a> ' . AWS_APP::lang()->_t('将该问题添加到');
+						$action_string = '<a href="' . $user_url . '" ' . $user_attr . '>' . $user_name . '</a> ' . AWS_APP::lang()->_t('将该问题添加到');
 						
 						foreach ($topic_info as $key => $val)
 						{
 							if ($val['url_token'])
 							{
-								$action_str .= ' <a href="topic/' . $val['url_token'] . '" ' . $topic_tip . '>' . $val['topic_title'] . '</a> ';
+								$action_string .= ' <a href="topic/' . $val['url_token'] . '" ' . $topic_attr . '>' . $val['topic_title'] . '</a> ';
 							}
 							else
 							{
-								$action_str .= ' <a href="topic/' . $val['topic_id'] . '" ' . $topic_tip . '>' . $val['topic_title'] . '</a> ';
+								$action_string .= ' <a href="topic/' . $val['topic_id'] . '" ' . $topic_attr . '>' . $val['topic_title'] . '</a> ';
 							}
 							
 							if ($key > 2)
@@ -627,14 +433,14 @@ class ACTION_LOG
 						
 						if (sizeof($topic_info) > 3)
 						{
-							$action_str .= AWS_APP::lang()->_t('等');
+							$action_string .= AWS_APP::lang()->_t('等') . ' ';
 						}
 						
-						$action_str .= AWS_APP::lang()->_t('话题');
+						$action_string .= AWS_APP::lang()->_t('话题');
 					}
 					else
 					{
-						$action_str = '<a href="' . $user_url . '" ' . $user_tip . '>' . $user_name . '</a> ' . AWS_APP::lang()->_t('将该问题添加到') . ' <a href="' . $topic_url . '" ' . $topic_tip . '>' . $topic_info['topic_title'] . '</a> ' . AWS_APP::lang()->_t('话题');
+						$action_string = '<a href="' . $user_url . '" ' . $user_attr . '>' . $user_name . '</a> ' . AWS_APP::lang()->_t('将该问题添加到') . ' <a href="' . $topic_url . '" ' . $topic_attr . '>' . $topic_info['topic_title'] . '</a> ' . AWS_APP::lang()->_t('话题');
 					
 					}
 				
@@ -643,17 +449,17 @@ class ACTION_LOG
 				{
 					if (isset($topic_info[0]))
 					{
-						$action_str = AWS_APP::lang()->_t('该问题被添加到');
+						$action_string = AWS_APP::lang()->_t('该问题被添加到');
 						
 						foreach ($topic_info as $key => $val)
 						{
 							if ($val['url_token'])
 							{
-								$action_str .= ' <a href="topic/' . $val['url_token'] . ' ' . $topic_tip . '>' . $val['topic_title'] . '</a> ';
+								$action_string .= ' <a href="topic/' . $val['url_token'] . ' ' . $topic_attr . '>' . $val['topic_title'] . '</a> ';
 							}
 							else
 							{
-								$action_str .= ' <a href="topic/' . $val['topic_id'] . ' ' . $topic_tip . '>' . $val['topic_title'] . '</a> ';
+								$action_string .= ' <a href="topic/' . $val['topic_id'] . ' ' . $topic_attr . '>' . $val['topic_title'] . '</a> ';
 							}
 							
 							if ($key > 2)
@@ -664,56 +470,56 @@ class ACTION_LOG
 						
 						if (sizeof($topic_info) > 3)
 						{
-							$action_str .= AWS_APP::lang()->_t('等');
+							$action_string .= AWS_APP::lang()->_t('等');
 						}
 						
-						$action_str .= AWS_APP::lang()->_t('话题');
+						$action_string .= AWS_APP::lang()->_t('话题');
 					}
 					else
 					{
-						$action_str = AWS_APP::lang()->_t('该问题被添加到') . ' <a href="' . $topic_url . '" ' . $topic_tip . '>' . $topic_info['topic_title'] . '</a> ' . AWS_APP::lang()->_t('话题');
+						$action_string = AWS_APP::lang()->_t('该问题被添加到') . ' <a href="' . $topic_url . '" ' . $topic_attr . '>' . $topic_info['topic_title'] . '</a> ' . AWS_APP::lang()->_t('话题');
 					}
 				}
 				else if ($user_name)
 				{
-					$action_str = '<a href="' . $user_url . '" ' . $user_tip . '>' . $user_name . '</a> ' . AWS_APP::lang()->_t('添加了一个话题');
+					$action_string = '<a href="' . $user_url . '" ' . $user_attr . '>' . $user_name . '</a> ' . AWS_APP::lang()->_t('添加了一个话题');
 				}
 				else
 				{
-					$action_str = AWS_APP::lang()->_t('该问题添加了一个话题');
+					$action_string = AWS_APP::lang()->_t('该问题添加了一个话题');
 				}
 				break;
 			
 			case ACTION_LOG::MOD_TOPIC : // '修改话题',
-				$action_str = '<a href="' . $user_url . '" ' . $user_tip . '>' . $user_name . '</a> ' . AWS_APP::lang()->_t('修改话题');
+				$action_string = '<a href="' . $user_url . '" ' . $user_attr . '>' . $user_name . '</a> ' . AWS_APP::lang()->_t('修改话题');
 				break;
 			
 			case ACTION_LOG::MOD_TOPIC_DESCRI : // '修改话题描述',
-				$action_str = '<a href="' . $user_url . '" ' . $user_tip . '>' . $user_name . '</a> ' . AWS_APP::lang()->_t('修改话题描述');
+				$action_string = '<a href="' . $user_url . '" ' . $user_attr . '>' . $user_name . '</a> ' . AWS_APP::lang()->_t('修改话题描述');
 				break;
 			
 			case ACTION_LOG::MOD_TOPIC_PIC : // '修改话题缩略图',
-				$action_str = '<a href="' . $user_url . '" ' . $user_tip . '>' . $user_name . '</a> ' . AWS_APP::lang()->_t('修改话题图片');
+				$action_string = '<a href="' . $user_url . '" ' . $user_attr . '>' . $user_name . '</a> ' . AWS_APP::lang()->_t('修改话题图片');
 				break;
 			
 			case ACTION_LOG::DELETE_TOPIC : // '删除话题',
-				$action_str = '<a href="' . $user_url . '" ' . $user_tip . '>' . $user_name . '</a> ' . AWS_APP::lang()->_t('删除话题');
+				$action_string = '<a href="' . $user_url . '" ' . $user_attr . '>' . $user_name . '</a> ' . AWS_APP::lang()->_t('删除话题');
 				break;
 			
 			case ACTION_LOG::ADD_TOPIC_FOCUS : // '关注话题',
-				$action_str = '<a href="' . $user_url . '" ' . $user_tip . '>' . $user_name . '</a> ' . AWS_APP::lang()->_t('关注话题');
+				$action_string = '<a href="' . $user_url . '" ' . $user_attr . '>' . $user_name . '</a> ' . AWS_APP::lang()->_t('关注话题');
 				break;
 			
 			case ACTION_LOG::DELETE_TOPIC_FOCUS : // '取消话题关注',
-				$action_str = '<a href="' . $user_url . '" ' . $user_tip . '>' . $user_name . '</a> ' . AWS_APP::lang()->_t('取消话题关注');
+				$action_string = '<a href="' . $user_url . '" ' . $user_attr . '>' . $user_name . '</a> ' . AWS_APP::lang()->_t('取消话题关注');
 				break;
 				
 			case ACTION_LOG::ADD_ARTICLE :
-				$action_str = '<a href="' . $user_url . '" ' . $user_tip . '>' . $user_name . '</a> ' . AWS_APP::lang()->_t('发表了文章');
+				$action_string = '<a href="' . $user_url . '" ' . $user_attr . '>' . $user_name . '</a> ' . AWS_APP::lang()->_t('发表了文章');
 				break;
 		}
 		
-		return $action_str;
+		return $action_string;
 	}
 	
 	public static function delete_action_history($where)

@@ -74,11 +74,11 @@ class ajax extends AWS_CONTROLLER
 	
 	public function read_notification_action()
 	{		
-		if ($_GET['read_type'] == 1)
+		if (isset($_GET['notification_id']))
 		{
 			$this->model('notify')->read_notification($_GET['notification_id'], $this->user_id);
 		}
-		else if ($_GET['read_type'] == 0)
+		else
 		{
 			$this->model('notify')->mark_read_all($this->user_id);
 		}

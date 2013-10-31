@@ -109,7 +109,7 @@ class notify_class extends AWS_MODEL
 
 	/**
 	 * 获得通知列表
-	 * read_status 0-未读 1-已读 other-所有
+	 * read_status 0 - 未读, 1 - 已读, other - 所有
 	 */
 	public function list_notification($recipient_uid, $read_status = 0, $limit = null)
 	{		
@@ -126,7 +126,6 @@ class notify_class extends AWS_MODEL
 		if ($unread_notifys = $this->get_unread_notification($recipient_uid))
 		{
 			$unread_extends = array();
-		
 			$unique_people = array();
 			
 			foreach ($unread_notifys as $key => $val)
@@ -202,22 +201,20 @@ class notify_class extends AWS_MODEL
 				continue;
 			}
 			
-			$tmp = array();
+			$tmp_data['notification_id'] = $notify['notification_id'];
+			$tmp_data['model_type'] = $notify['model_type'];
+			$tmp_data['action_type'] = $notify['action_type'];
+			$tmp_data['read_flag'] = $notify['read_flag'];
+			$tmp_data['add_time'] = $notify['add_time'];
 			
-			$tmp['notification_id'] = $notify['notification_id'];
-			$tmp['model_type'] = $notify['model_type'];
-			$tmp['action_type'] = $notify['action_type'];
-			$tmp['read_flag'] = $notify['read_flag'];
-			$tmp['add_time'] = $notify['add_time'];
-			$tmp['anonymous'] = $data['anonymous'];
+			$tmp_data['anonymous'] = $data['anonymous'];
 			
 			if ($data['from_uid'])
 			{
 				$user_info = $user_infos[$data['from_uid']];
 				
-				$tmp['p_user_name'] = $user_info['user_name'];
-				
-				$tmp['p_url'] = get_js_url('/people/' . $user_info['url_token']);
+				$tmp_data['p_user_name'] = $user_info['user_name'];
+				$tmp_data['p_url'] = get_js_url('/people/' . $user_info['url_token']);
 			}
 			
 			$token = 'notification_id-' . $notify['notification_id'];
@@ -225,11 +222,11 @@ class notify_class extends AWS_MODEL
 			switch ($notify['model_type'])
 			{
 				case self::CATEGORY_ARTICLE :
-					$tmp['title'] = $article_list[$data['article_id']]['title'];
+					$tmp_data['title'] = $article_list[$data['article_id']]['title'];
 					
 					if ($notify['extends'])
 					{
-						$tmp['extend_count'] = count($notify['extends']);
+						$tmp_data['extend_count'] = count($notify['extends']);
 						
 						foreach ($notify['extends'] as $ex_key => $ex_notify)
 						{
@@ -248,12 +245,12 @@ class notify_class extends AWS_MODEL
 							$querys[] = 'item_id-' . implode(',', array_unique($item_ids));
 						}
 						
-						$tmp['extend_details'] = $this->format_extend_detail($notify['extend_details'], $user_infos);
-						$tmp['key_url'] = get_js_url('/article/' . $data['article_id'] . '?' . $token);
+						$tmp_data['extend_details'] = $this->format_extend_detail($notify['extend_details'], $user_infos);
+						$tmp_data['key_url'] = get_js_url('/article/' . $data['article_id'] . '?' . $token);
 					}
 					else
 					{
-						$tmp['key_url'] = get_js_url('/article/' . $data['article_id'] . '?' . $token . '__item_id-' . $data['item_id']);
+						$tmp_data['key_url'] = get_js_url('/article/' . $data['article_id'] . '?' . $token . '__item_id-' . $data['item_id']);
 					}
 				break;
 				
@@ -268,7 +265,7 @@ class notify_class extends AWS_MODEL
 								continue;
 							}
 							
-							$tmp['title'] = $question_list[$data['question_id']]['question_content'];
+							$tmp_data['title'] = $question_list[$data['question_id']]['question_content'];
 							
 							$rf = false;
 							
@@ -278,7 +275,7 @@ class notify_class extends AWS_MODEL
 							
 							if ($notify['extends'])
 							{
-								$tmp['extend_count'] = count($notify['extends']);
+								$tmp_data['extend_count'] = count($notify['extends']);
 
 								$answer_ids = array();
 								
@@ -343,7 +340,7 @@ class notify_class extends AWS_MODEL
 									$querys[] = 'item_id-' . implode(',', $answer_ids) . '#!answer_' . array_pop($answer_ids);
 								}
 								
-								$tmp['extend_details'] = $this->format_extend_detail($notify['extend_details'], $user_infos);
+								$tmp_data['extend_details'] = $this->format_extend_detail($notify['extend_details'], $user_infos);
 							}
 							else
 							{
@@ -378,7 +375,7 @@ class notify_class extends AWS_MODEL
 								}
 							}
 							
-							$tmp['key_url'] = get_js_url('/question/' . $data['question_id'] . '?' . implode('__', $querys));
+							$tmp_data['key_url'] = get_js_url('/question/' . $data['question_id'] . '?' . implode('__', $querys));
 							
 							break;
 					}
@@ -393,17 +390,17 @@ class notify_class extends AWS_MODEL
 						continue;
 					}
 					
-					$tmp['key_url'] = $tmp['p_url'] . '?' . $token;
+					$tmp_data['key_url'] = $tmp_data['p_url'] . '?' . $token;
 					break;
 				
 				case self::CATEGORY_CONTEXT :
-					$tmp['content'] = $data['content'];
+					$tmp_data['content'] = $data['content'];
 					break;
 			}
 			
-			if ($tmp)
+			if ($tmp_data)
 			{
-				$list[] = $tmp;
+				$list[] = $tmp_data;
 			}
 			else
 			{
@@ -425,8 +422,6 @@ class notify_class extends AWS_MODEL
 		
 		foreach ($extends as $action_type => $val)
 		{
-			$tmp = array();
-			
 			$answer_ids = array();
 			$comment_type = array();
 			$action_users = array();
@@ -443,7 +438,7 @@ class notify_class extends AWS_MODEL
 				}
 			}
 			
-			$tmp['count'] = count($val);
+			$tmp_data['count'] = count($val);
 			
 			foreach ($action_users as $uid => $action)
 			{
@@ -459,7 +454,7 @@ class notify_class extends AWS_MODEL
 				{
 					$notification_ids[] = $ex_notify['notification_id'];
 					
-					if ($ex_notify['action_type'] == self::TYPE_QUESTION_COMMENT OR  ($ex_notify['action_type'] == self::TYPE_COMMENT_AT_ME AND $ex_notify['data']['comment_type'] == 1))
+					if ($ex_notify['action_type'] == self::TYPE_QUESTION_COMMENT OR ($ex_notify['action_type'] == self::TYPE_COMMENT_AT_ME AND $ex_notify['data']['comment_type'] == 1))
 					{
 						$comment_type[] = 'question';
 					}
@@ -537,13 +532,13 @@ class notify_class extends AWS_MODEL
 					$url = 'question/' . $val[0]['data']['question_id'] . '?' . implode('__', $querys);
 				}
 				
-				$tmp['users'][$uid] = array(
+				$tmp_data['users'][$uid] = array(
 					'username' => $anonymous ? AWS_APP::lang()->_t('匿名用户') : $user_infos[$uid]['user_name'], 
 					'url' => $url
 				);
 			}
 			
-			$ex_details[$action_type] = $tmp;
+			$ex_details[$action_type] = $tmp_data;
 		}
 		
 		return $ex_details;
@@ -571,10 +566,8 @@ class notify_class extends AWS_MODEL
 		{
 			return false;
 		}
-		else
-		{
-			return true;
-		}
+		
+		return true;
 	}
 
 	/**
@@ -592,7 +585,7 @@ class notify_class extends AWS_MODEL
 		
 		if (count($notification_ids) == 1 AND intval($notification_id) > 0)
 		{
-			$notify_info = $this->get_notification_by_ids($notification_id, $uid);
+			$notify_info = $this->get_notification_by_id($notification_id, $uid);
 			
 			$unread_notifys = $this->get_unread_notification($uid);
 			
@@ -660,14 +653,16 @@ class notify_class extends AWS_MODEL
 
 	public function delete_notify($where)
 	{
+		if (!$where)
+		{
+			return false;
+		}
+		
 		$this->query('DELETE FROM ' . get_table('notification_data') . ' WHERE notification_id IN (SELECT notification_id FROM ' . get_table('notification') . ' WHERE ' . $where . ')');
 		
 		return $this->delete('notification', $where);
 	}
-
-	/**
-	 * 获得用户通知列表
-	 */
+	
 	function get_notification_list($recipient_uid, $read_flag = 0, $limit = null)
 	{
 		if (!$recipient_uid)
@@ -676,19 +671,15 @@ class notify_class extends AWS_MODEL
 		}
 		
 		$where[] = 'recipient_uid = ' . intval($recipient_uid);
-		
-		if ($read_flag < 2)
-		{
-			$where[] = 'read_flag = ' . intval($read_flag);
-		}
+		$where[] = 'read_flag = ' . intval($read_flag);
 		
 		if ($read_flag == 0)
 		{
-			$sql = "SELECT MAX(notification_id) notification_id FROM " . get_table('notification') . " WHERE " . implode(' AND ', $where) . " GROUP BY model_type, source_id ORDER BY notification_id DESC";
+			$sql = "SELECT MAX(notification_id) AS notification_id FROM " . get_table('notification') . " WHERE " . implode(' AND ', $where) . " GROUP BY model_type, source_id ORDER BY notification_id DESC";
 		}
 		else
 		{
-			$sql = "SELECT MAX(notification_id) notification_id FROM " . get_table('notification') . " WHERE " . implode(' AND ', $where) . " GROUP BY model_type, source_id, sender_uid, action_type ORDER BY read_flag ASC, notification_id DESC";
+			$sql = "SELECT MAX(notification_id) AS notification_id FROM " . get_table('notification') . " WHERE " . implode(' AND ', $where) . " GROUP BY model_type, source_id, sender_uid, action_type ORDER BY read_flag ASC, notification_id DESC";
 		}
 		
 		if ($result = $this->query_all($sql, $limit))
@@ -704,11 +695,6 @@ class notify_class extends AWS_MODEL
 
 	/**
 	 * 获得用户未读合并通知
-	 * @param $count
-	 * @param $recipient_uid
-	 * @param $read_flag
-	 * @param $limit
-	 * @return multitype:|number
 	 */
 	function get_unread_notification($recipient_uid)
 	{
@@ -733,37 +719,24 @@ class notify_class extends AWS_MODEL
 			{
 				$notification[$key]['data'] = unserialize($nt_data[$val['notification_id']]);
 			}
-			
-			return $notification;
 		}
-		else
+		
+		return $notification;
+	}
+	
+	public function get_notification_by_id($notification_id, $recipient_uid = null)
+	{
+		if ($notification = $this->get_notification_by_ids(array(
+			$notification_id
+		), $recipient_uid))
 		{
-			return false;
+			return $notification[$notification_id];
 		}
 	}
-
-	/**
-	 * 根据通知ID集获得通知
-	 * @param $notifications_id
-	 */
-	function get_notification_by_ids($notification_id, $recipient_uid = 0)
+	
+	public function get_notification_by_ids($notification_ids, $recipient_uid = null)
 	{
-		$notification_ids = array();
-		
-		$where = array();
-		
-		$data = array();
-		
-		if (is_array($notification_id))
-		{
-			$notification_ids = $notification_id;
-		}
-		else
-		{
-			$notification_ids[] = $notification_id;
-		}
-		
-		if (empty($notification_ids))
+		if (!is_array($notification_ids))
 		{
 			return false;
 		}
@@ -774,7 +747,7 @@ class notify_class extends AWS_MODEL
 		
 		if ($recipient_uid)
 		{
-			$where[] = ' recipient_uid = ' . $recipient_uid;
+			$where[] = 'recipient_uid = ' . $recipient_uid;
 		}
 		
 		if (!$notification = $this->fetch_all('notification', implode(' AND ', $where)))
@@ -787,9 +760,9 @@ class notify_class extends AWS_MODEL
 			$notification_data[$val['notification_id']] = $val;
 		}
 		
-		if ($add_data = $this->fetch_all('notification_data', "notification_id IN (" . implode(",", $notification_ids) . ')'))
+		if ($extra_data = $this->fetch_all('notification_data', "notification_id IN (" . implode(",", $notification_ids) . ')'))
 		{
-			foreach($add_data as $key => $val)
+			foreach($extra_data as $key => $val)
 			{
 				$notification_data[$val['notification_id']]['data'] = unserialize($val['data']);
 			}
@@ -797,17 +770,10 @@ class notify_class extends AWS_MODEL
 		
 		foreach($notification_ids as $id)
 		{
-			$data[] = $notification_data[$id];
+			$data[$id] = $notification_data[$id];
 		}
 		
-		if (is_array($notification_id))
-		{
-			return $data;
-		}
-		else
-		{
-			return $data[0];
-		}
+		return $data;
 	}
 	
 	public function format_notification($data)
