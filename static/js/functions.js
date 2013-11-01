@@ -2223,9 +2223,19 @@ function article_vote(element, article_id, rating)
 	    {
 			if (rating == 0)
 			{
+
 				$(element).removeClass('active');
                 $(element).find('b').html(parseInt($(element).find('b').html()) - 1);
 			}
+            else if (rating == -1)
+            {
+                if ($(element).parents('.aw-article-vote').find('.agree').hasClass('active'))
+                {
+                    $(element).parents('.aw-article-vote').find('b').html(parseInt($(element).parents('.aw-article-vote').find('b').html()) - 1);
+                    $(element).parents('.aw-article-vote').find('a').removeClass('active');
+                }
+                $(element).addClass('active');
+            }
 			else
 			{
 				$(element).parents('.aw-article-vote').find('a').removeClass('active');
