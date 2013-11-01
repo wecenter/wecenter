@@ -19,8 +19,6 @@
 .aw-user-setting-base-contact li input{display:inline;width: 280px;margin:0;}
 .aw-user-setting-base-contact label{display:inline-block;width: 70px;line-height: 30px;text-align: right;}
 /* 账号绑定 */
-.aw-user-setting-bind .aw-icon{*margin-right: 5px;}
-.aw-user-setting-bind .i-qq, .aw-user-setting-bind .i-share-sina, .aw-user-setting-bind .i-share-weibo, .aw-user-setting-bind .i-weixin{position: relative;top: 3px;}
 .aw-user-setting-bind .aw-mod-body{padding:20px 30px;overflow:hidden;border-bottom:1px dotted #C1CAD4;}
 .aw-user-setting-bind ul li{min-height: 36px;padding:20px 0;border-top:1px dotted #C1CAD4;color:#666;}
 .aw-user-setting-bind ul li:first-child{border-top: none;}
