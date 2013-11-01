@@ -51,7 +51,7 @@ class people_class extends AWS_MODEL
 		{
 			foreach ($users_reputation_topics as $key => $val)
 			{
-				if ($val['reputation'] < 1 OR $val['agree_count'] < 1 OR $val['thanks_count'] < 1)
+				if ($val['reputation'] < 1 OR $val['agree_count'] < 1)
 				{
 					continue;
 				}
