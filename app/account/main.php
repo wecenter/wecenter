@@ -94,6 +94,11 @@ class main extends AWS_CONTROLLER
 			}
 		}
 		
+		if (is_mobile() AND HTTP::get_cookie('_ignore_ua_check') != 'TRUE')
+		{
+			HTTP::redirect('/m/login/url-' . $_GET['url']);
+		}
+		
 		$this->crumb(AWS_APP::lang()->_t('登录'), '/account/login/');
 		
 		TPL::import_css('css/login.css');
