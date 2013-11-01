@@ -63,19 +63,13 @@ class reputation_class extends AWS_MODEL
 				// 赞同的用户
 				if ($articles_vote_agree_users[$articles_val['id']])
 				{					
-					foreach ($articles_vote_agree_users[$articles_val['id']] AS $key => $val)
-					{
-						$s_agree_value = $s_agree_value + $val['reputation_factor'];
-					}
+					$s_agree_value = $s_agree_value + $articles_vote_agree_users[$articles_val['id']]['reputation_factor'];
 				}
 				
 				// 反对的用户
 				if ($articles_vote_against_users[$articles_val['id']])
-				{					
-					foreach ($articles_vote_against_users[$articles_val['id']] AS $key => $val)
-					{
-						$s_against_value = $s_against_value + $val['reputation_factor'];
-					}
+				{										
+					$s_against_value = $s_against_value + $articles_vote_against_users[$articles_val['id']]['reputation_factor'];
 				}
 			}
 			
