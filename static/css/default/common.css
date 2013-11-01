@@ -815,11 +815,10 @@ a.aw-load-more-content{display: block;}
 .markItUpFooter {border-image: none;cursor: n-resize;}
 .markItUpResizeHandle {background-image: url("img/handle.png");cursor: n-resize;height: 5px;margin-left: auto;margin-right: auto;overflow: hidden;width: 22px;}
 .markItUpHeader{height: 22px;overflow: hidden;margin-bottom: 10px;}
-.markItUpHeader ul li {float: left;list-style: none outside none;margin-top: 3px;width: 26px;position: relative;font-size: 16px;text-shadow:0 1px 0 #fff;text-align: center;}
+.markItUpHeader ul li {float: left;list-style: none outside none;margin-top: 3px;width: 25px;position: relative;font-size: 16px;text-shadow:0 1px 0 #fff;text-align: center;}
 .markItUpHeader ul li ul {display: none;}
 .markItUpHeader ul li:hover > ul {display: block;}
-.markItUpHeader ul .markItUpSeparator {background-color: #CCCCCC;height: 16px;margin: 3px 10px;overflow: hidden;width: 1px;}
-.markItUpHeader ul ul .markItUpSeparator {height: 1px;margin: 0;width: auto;}
+.markItUpHeader ul .markItUpSeparator {background-color: #CCCCCC;height: 16px;margin: 3px 12px;overflow: hidden;width: 1px;}
 .markItUpHeader ul ul {background: none repeat scroll 0 0 #F5F5F5;border: 1px solid #3C769D;display: none;height: inherit;left: 0;position: absolute;top: 18px;}
 .markItUpHeader ul ul li {border-bottom: 1px solid #3C769D;float: none;}
 .markItUpHeader ul ul ul {left: 150px;position: absolute;top: -1px;}
