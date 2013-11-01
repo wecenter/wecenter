@@ -214,10 +214,10 @@
 										<!-- end 评论内容 -->
 										<!-- 社交操作 -->
 										<div class="aw-dynamic-topic-meta">
-											<span class="pull-left aw-text-color-999"><?php echo date_friendly($val['add_time']); ?></span>
-											<a class="pull-left aw-add-comment aw-text-color-999" data-id="<?php echo $val['answer_id']; ?>" data-type="answer" data-comment-count="<?php _e('%s', $val['comment_count']); ?>" href="javascript:;"><i class="fa fa-comment"></i><?php if ($val['comment_count']) { ?><?php _e('%s 条评论', $val['comment_count']); ?><?php } else { ?><?php _e('添加评论'); ?><?php } ?></a>
+											<span class="aw-text-color-999"><?php echo date_friendly($val['add_time']); ?></span>
+											<a class="aw-add-comment aw-text-color-999" data-id="<?php echo $val['answer_id']; ?>" data-type="answer" data-comment-count="<?php _e('%s', $val['comment_count']); ?>" href="javascript:;"><i class="fa fa-comment"></i><?php if ($val['comment_count']) { ?><?php _e('%s 条评论', $val['comment_count']); ?><?php } else { ?><?php _e('添加评论'); ?><?php } ?></a>
 											<!-- 可显示/隐藏的操作box -->
-											<span class="aw-dynamic-topic-more-operate pull-left">
+											<span class="aw-dynamic-topic-more-operate">
 												<?php if ($this->user_id) { ?>	
 													<?php if (($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) OR ($val['uid'] == $this->user_id AND ((time() - $val['add_time']) < (get_setting('answer_edit_time') * 60) OR (!get_setting('answer_edit_time'))))) { ?>
 													<a class="aw-text-color-999" href="javascript:;" onclick="$.dialog('commentEdit', {answer_id:<?php echo $val['answer_id']; ?>,attach_access_key:'<?php echo $this->attach_access_key; ?>'});"><i class="fa fa-edit"></i><?php _e('编辑'); ?></a>
