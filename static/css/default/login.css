@@ -27,7 +27,7 @@
 .aw-mod-body .aw-label-icon .i-login-user-no-hover{margin-top:12px;}
 .aw-mod-body .aw-label-icon i{margin:0;font-size:16px;color: #fff;}
 .aw-mod-footer{width:324px;height: 71px;line-height: 71px;*line-height:60px;padding:0 20px 0 40px;background:#E6E6E6;border:1px solid #C9C9C9;border-top:none;border-radius: 0 0 10px 10px;}
-.aw-mod-footer .icon-chevron-right{margin-left: 10px;color: #B7B7B7;}
+.aw-mod-footer .fa-chevron-right{margin-left: 10px;color: #B7B7B7;}
 .aw-mod-footer .icon-sina, .aw-mod-footer .icon-weibo, .aw-mod-footer .icon-qq{font-size: 24px;color: #B7B7B7;vertical-align: middle;margin-left: 5px;}
 .aw-mod-footer .icon-sina:hover, .aw-mod-footer .icon-weibo:hover, .aw-mod-footer .icon-qq:hover{color: #2A6496; }
 .error-message{position: relative;}
