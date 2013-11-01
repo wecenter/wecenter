@@ -432,15 +432,10 @@ class answer_class extends AWS_MODEL
 		
 		$this->update_question_vote_count($question_id);
 		
-		//更新回复作者的被赞同数
-		$this->model('account')->update_users_fields(array('agree_count' => $this->user_agree_count($answer_uid)), $answer_uid);
+		// 更新回复作者的被赞同数
+		$this->model('account')->sum_user_agree_count($answer_uid);
 		
 		return true;
-	}
-	
-	public function user_agree_count($uid)
-	{
-		return $this->count('answer_vote', 'vote_value = 1 AND answer_uid = ' . intval($uid));
 	}
 
 	/**

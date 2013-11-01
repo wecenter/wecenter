@@ -248,6 +248,8 @@ class article_class extends AWS_MODEL
 			break;
 		}
 		
+		$this->model('account')->sum_user_agree_count($uid);
+		
 		return true;
 	}
 	

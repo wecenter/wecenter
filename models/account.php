@@ -1497,4 +1497,11 @@ class account_class extends AWS_MODEL
 			'recent_topics' => serialize($recent_topics)
 		), 'uid = ' . intval($uid));
 	}
+	
+	public function sum_user_agree_count($uid)
+	{
+		return $this->update('users', array(
+			'agree_count' => ($this->count('answer_vote', 'vote_value = 1 AND answer_uid = ' . intval($uid)) + $this->count('article_vote', 'rating = 1 AND uid = ' . intval($uid))) 
+		), 'uid = ' . intval($uid));
+	}
 }
