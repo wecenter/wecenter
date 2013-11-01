@@ -535,7 +535,6 @@ CREATE TABLE `[#DB_PREFIX#]reputation_topic` (
   `update_time` int(10) DEFAULT NULL COMMENT '更新时间',
   `agree_count` INT(10) DEFAULT '0' COMMENT '赞成',
   `thanks_count` INT(10) DEFAULT '0' COMMENT '感谢',
-  `best_answer_count` INT(10) DEFAULT '0' COMMENT '最佳回复',
   `reputation` INT(10) DEFAULT '0',
   PRIMARY KEY (`auto_id`),
   KEY `topic_count` (`topic_count`),

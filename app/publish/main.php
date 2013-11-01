@@ -135,7 +135,7 @@ class main extends AWS_CONTROLLER
 			
 			if (!$this->user_info['permission']['is_administortar'] AND !$this->user_info['permission']['is_moderator'] AND !$this->user_info['permission']['edit_article'])
 			{
-				if ($question_info['published_uid'] != $this->user_id)
+				if ($article_info['uid'] != $this->user_id)
 				{
 					H::redirect_msg(AWS_APP::lang()->_t('你没有权限编辑这个文章'), '/article/' . $_GET['id']);
 				}

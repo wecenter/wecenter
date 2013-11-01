@@ -51,6 +51,16 @@ class reputation_class extends AWS_MODEL
 				$articles_vote_agree_users = $this->model('article')->get_article_vote_by_ids('article', $articles_ids, 1);
 				
 				$articles_vote_against_users = $this->model('article')->get_article_vote_by_ids('article', $$articles_ids, -1);
+				
+				if ($article_topics_query = $this->query_all('SELECT item_id, topic_id FROM ' . get_table('topic_relation') . ' WHERE item_id IN(' . implode(',', $articles_ids) . ") AND `type` = 'article'"))
+				{
+					foreach ($article_topics_query AS $article_topics_key => $article_topics_val)
+					{
+						$article_topics[$article_topics_val['item_id']][] = $article_topics_val;
+					}
+							
+					unset($article_topics_query);
+				}
 			}
 			
 			foreach ($user_articles as $articles_key => $articles_val)
@@ -93,6 +103,24 @@ class reputation_class extends AWS_MODEL
 				if ($reputation_log_factor > 1)
 				{
 					$article_reputation = log($article_reputation, $reputation_log_factor);
+				}
+			}
+			
+			// 计算在话题中的威望
+			if ($article_reputation)
+			{
+				if ($article_topics[$articles_val['id']])
+				{
+					foreach ($article_topics[$articles_val['id']] as $key => $topic_info)
+					{
+						$user_topics[$topic_info['topic_id']] = array(
+							'topic_id' => $topic_info['topic_id'], 
+							'count' => (intval($user_topics[$topic_info['topic_id']]['count']) + 1), 
+							'agree_count' => (intval($user_topics[$topic_info['topic_id']]['agree_count']) + $articles_val['agree_count']), 
+							'thanks_count' => (intval($user_topics[$topic_info['topic_id']]['thanks_count']) + $articles_val['thanks_count']), 
+							'reputation' => ($user_topics[$topic_info['topic_id']]['reputation'] + $article_reputation)
+						);
+					}
 				}
 			}
 			
@@ -245,8 +273,7 @@ class reputation_class extends AWS_MODEL
 								'count' => (intval($user_topics[$topic_info['topic_id']]['count']) + 1), 
 								'agree_count' => (intval($user_topics[$topic_info['topic_id']]['agree_count']) + $answers_val['agree_count']), 
 								'thanks_count' => (intval($user_topics[$topic_info['topic_id']]['thanks_count']) + $answers_val['thanks_count']), 
-								'reputation' => ($user_topics[$topic_info['topic_id']]['reputation'] + $answer_reputation), 
-								'best_answer_count' => (intval($user_topics[$topic_info['topic_id']]['best_answer_count']) + intval($s_best_answer))
+								'reputation' => ($user_topics[$topic_info['topic_id']]['reputation'] + $answer_reputation)
 							);
 						}
 					}
@@ -282,7 +309,6 @@ class reputation_class extends AWS_MODEL
 							'update_time' => time(),
 							'agree_count' => $t_val['agree_count'],
 							'thanks_count' => $t_val['thanks_count'],
-							'best_answer_count' => $t_val['best_answer_count'],
 							'reputation' => round($t_val['reputation'])
 						), 'auto_id = ' . $reputation_topic_id);
 					}
@@ -295,7 +321,6 @@ class reputation_class extends AWS_MODEL
 							'update_time' => time(),
 							'agree_count' => $t_val['agree_count'],
 							'thanks_count' => $t_val['thanks_count'],
-							'best_answer_count' => $t_val['best_answer_count'],
 							'reputation' => round($t_val['reputation'])
 						));
 					}
