@@ -111,7 +111,7 @@
 							<?php } ?>
 						</div>
 						<div class="aw-question-detail-meta">
-							<span class="pull-left aw-text-color-999"><?php echo date_friendly($this->question_info['add_time']); ?></span>
+							<span class="aw-text-color-999"><?php echo date_friendly($this->question_info['add_time']); ?></span>
 
 							<a herf="javascript:;" data-id="<?php echo $this->question_info['question_id']; ?>" data-type="question" class="aw-add-comment aw-text-color-999"<?php if ($this->question_info['lock']) { ?> data-close="true"<?php } ?>><i class="fa fa-comment"></i><?php if ($this->question_info['comment_count']) { ?><?php _e('%s 条评论', $this->question_info['comment_count']); ?><?php } else { ?><?php _e('添加评论'); ?><?php } ?></a>
 							<?php if ((!$this->question_info['lock'] AND ($this->question_info['published_uid'] == $this->user_id OR $this->user_info['permission']['edit_question'])) OR $this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?><a class="aw-text-color-999" href="publish/<?php echo $this->question_info['question_id']; ?>"><i class="fa fa-edit"></i><?php _e('编辑'); ?></a><?php } ?>
@@ -215,9 +215,9 @@
 										<!-- 社交操作 -->
 										<div class="aw-dynamic-topic-meta">
 											<span class="pull-left aw-text-color-999"><?php echo date_friendly($val['add_time']); ?></span>
-											<a class="aw-add-comment aw-text-color-999" data-id="<?php echo $val['answer_id']; ?>" data-type="answer" data-comment-count="<?php _e('%s', $val['comment_count']); ?>" href="javascript:;"><i class="fa fa-comment"></i><?php if ($val['comment_count']) { ?><?php _e('%s 条评论', $val['comment_count']); ?><?php } else { ?><?php _e('添加评论'); ?><?php } ?></a>
+											<a class="pull-left aw-add-comment aw-text-color-999" data-id="<?php echo $val['answer_id']; ?>" data-type="answer" data-comment-count="<?php _e('%s', $val['comment_count']); ?>" href="javascript:;"><i class="fa fa-comment"></i><?php if ($val['comment_count']) { ?><?php _e('%s 条评论', $val['comment_count']); ?><?php } else { ?><?php _e('添加评论'); ?><?php } ?></a>
 											<!-- 可显示/隐藏的操作box -->
-											<div class="aw-dynamic-topic-more-operate pull-left">
+											<span class="aw-dynamic-topic-more-operate pull-left">
 												<?php if ($this->user_id) { ?>	
 													<?php if (($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) OR ($val['uid'] == $this->user_id AND ((time() - $val['add_time']) < (get_setting('answer_edit_time') * 60) OR (!get_setting('answer_edit_time'))))) { ?>
 													<a class="aw-text-color-999" href="javascript:;" onclick="$.dialog('commentEdit', {answer_id:<?php echo $val['answer_id']; ?>,attach_access_key:'<?php echo $this->attach_access_key; ?>'});"><i class="fa fa-edit"></i><?php _e('编辑'); ?></a>
@@ -235,7 +235,7 @@
 												<a href="javascript:;"<?php if (!$val['user_rated_thanks']) { ?> onclick="answer_user_rate(<?php echo $val['answer_id']; ?>, 'thanks', this);"<?php } ?> class="aw-icon-thank-tips aw-text-color-999" data-original-title="<?php _e('感谢热心的回复者'); ?>" data-toggle="tooltip" title="" data-placement="bottom"><i class="fa fa-heart"></i><?php if ($val['user_rated_thanks']) { ?><?php _e('已感谢'); ?><?php } else { ?><?php _e('感谢'); ?><?php } ?></a>
 												<?php } ?>	
 												<a href="javascript:;" onclick="$.dialog('shareOut', {item_type:'answer', item_id:<?php echo $val['answer_id']; ?>});" class="aw-text-color-999"><i class="fa fa-share"></i><?php _e('分享'); ?></a>
-											</div>
+											</span>
 											<!-- end 可显示/隐藏的操作box -->
 											
 										</div>

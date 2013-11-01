@@ -431,8 +431,8 @@ a.aw-load-more-content{display: block;}
 .aw-comment-list li > .aw-user-name img{width: 32px;height: 32px;}
 .aw-comment-list li p{margin:0;padding: 0;word-break:break-all;}
 /* 评论内容隐藏box */
-.aw-dynamic-topic-more-operate{display:none;margin:1px 0 0 10px;margin:3px 0 0 10px\0;}
-.aw-dynamic-topic-more-operate > a{display:inline-block;float:left;height:20px;line-height:20px;margin-right:15px;font-size:12px;}
+.aw-dynamic-topic-more-operate{display:none;margin:0 0 0 10px;margin:-5px 0 0 10px\0;}
+.aw-dynamic-topic-more-operate > a{height:20px;line-height:20px;margin-right:15px;font-size:12px;}
 /* 评论投票栏 */
 .aw-vote-bar a{display:block;width:24px;height:24px;line-height:24px;background:#e9f5ff;text-align: center;}
 .aw-vote-bar a:hover{background:#c6e3fc;}
