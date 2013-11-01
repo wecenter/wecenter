@@ -908,7 +908,6 @@ $language['发起文章'] = '发起文章';
 $language['文章标题'] = '文章标题';
 $language['文章内容'] = '文章内容';
 $language['预览模式'] = 'Preview mode';
-$language['积分规则'] = '积分规则';
 $language['没有找到相关结果'] = 'No relate result';
 $language['最近话题'] = '最近话题';
 $language['匿名'] = 'Anonymous';
