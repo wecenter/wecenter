@@ -1,141 +1,152 @@
 <div class="modal aw-first-login show">
-	
-	<div class="modal-body">
-		<div class="aw-mod">
-			<div class="aw-mod-head">
-				<h2>Hi，<?php echo $this->user_info['user_name']; ?>, <?php _e('欢迎来到'); ?> <?php echo get_setting('site_name'); ?></h2>
-				<ul>
-					<li class="active">
-						<i class="icon-register-arrow pull-right"></i>
-						<em>1</em>
-						<?php _e('完善基本资料'); ?>
-					</li>
-					<li>
-						<em>2</em>
-						<?php _e('关注热门话题'); ?>
-					</li>
-					<li>
-						<em>3</em>
-						<?php _e('关注热门用户'); ?>
-					</li>
-				</ul>
-			</div>
-			<div class="aw-mod-body">
-				<form id="welcome_step_1_form" action="account/ajax/profile_setting/" method="post" onsubmit="return false">
-				<div class="aw-complete-data">
-					<div class="pull-left aw-complete-data-img">
-						<img id="aw-upload-img" src="<?php echo get_avatar_url($this->user_id, 'max'); ?>" title="" alt=""/>
-						<span><?php _e('支持 jpg、gif、png 等格式的图片'); ?></span>
-						<p><a class="btn btn-mini btn-success pull-right clearfix" id="welcome_avatar_uploader"><?php _e('上传头像'); ?></a> </p>
-						<p id="aw-img-uploading" class="hide"><i class="aw-loading"></i><?php _e('文件上传中...'); ?></p>
-						
-					</div>
-					<div class="pull-left">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-body clearfix">
+				<div class="aw-mod">
+					<div class="aw-mod-head">
+						<h2>Hi，<?php echo $this->user_info['user_name']; ?>, <?php _e('欢迎来到'); ?> <?php echo get_setting('site_name'); ?></h2>
 						<ul>
-							<li>
-								<?php _e('一句话介绍'); ?><br />
-								<input type="text" class="form-control" placeholder="<?php _e('如：80后IT男..'); ?>" id="welcome_signature" value="<?php if ($this->user_info['signature']) { echo $this->user_info['signature']; } ?>" name="signature" />
+							<li class="active">
+								<i class="icon-register-arrow pull-right"></i>
+								<em>1</em>
+								<?php _e('完善基本资料'); ?>
 							</li>
 							<li>
-								<?php _e('性别'); ?>:
-								<label>
-									<input type="radio" name="sex" value="1"<?php if ($this->user_info['sex'] == 1) { ?> checked="checked"<?php } ?> />
-								<?php _e('男'); ?>
-								</label> &nbsp;
-								<label>
-								<input type="radio" name="sex" value="2"<?php if ($this->user_info['sex'] == 2) { ?> checked="checked"<?php } ?> />
-								<?php _e('女'); ?>
-								</label> &nbsp;
-								<label>
-								<input type="radio" name="sex" value="3"<?php if ($this->user_info['sex'] == 1 OR !$this->user_info['sex']) { ?> checked="checked"<?php } ?> />
-								<?php _e('保密'); ?>
-								</label>
+								<em>2</em>
+								<?php _e('关注热门话题'); ?>
 							</li>
 							<li>
-								<?php _e('现居'); ?>: 
-								<select name="province" class="select_area" style="display:inline-block"></select>
-								<select name="city" class="select_area"></select>
-							</li>
-							<li>
-								<?php _e('职业'); ?>:
-								<select class="select_job" name="job_id"><option value="">--</option><?php echo H::display_options($this->job_list, $this->user_info['job_id']); ?></select>
+								<em>3</em>
+								<?php _e('关注热门用户'); ?>
 							</li>
 						</ul>
 					</div>
+					<div class="aw-mod-body">
+						<form id="welcome_step_1_form" action="account/ajax/profile_setting/" method="post" onsubmit="return false">
+						<div class="aw-complete-data">
+							<div class="pull-left aw-complete-data-img">
+								<img id="aw-upload-img" src="<?php echo get_avatar_url($this->user_id, 'max'); ?>" title="" alt=""/>
+								<span><?php _e('支持 jpg、gif、png 等格式的图片'); ?></span>
+								<p><a class="btn btn-mini btn-success pull-right clearfix" id="welcome_avatar_uploader"><?php _e('上传头像'); ?></a> </p>
+								<p id="aw-img-uploading" class="hide"><i class="aw-loading"></i><?php _e('文件上传中...'); ?></p>
+								
+							</div>
+							<div class="pull-left">
+								<ul>
+									<li>
+										<?php _e('一句话介绍'); ?><br />
+										<input type="text" class="form-control" placeholder="<?php _e('如：80后IT男..'); ?>" id="welcome_signature" value="<?php if ($this->user_info['signature']) { echo $this->user_info['signature']; } ?>" name="signature" />
+									</li>
+									<li>
+										<?php _e('性别'); ?>:
+										<label>
+											<input type="radio" name="sex" value="1"<?php if ($this->user_info['sex'] == 1) { ?> checked="checked"<?php } ?> />
+										<?php _e('男'); ?>
+										</label> &nbsp;
+										<label>
+										<input type="radio" name="sex" value="2"<?php if ($this->user_info['sex'] == 2) { ?> checked="checked"<?php } ?> />
+										<?php _e('女'); ?>
+										</label> &nbsp;
+										<label>
+										<input type="radio" name="sex" value="3"<?php if ($this->user_info['sex'] == 1 OR !$this->user_info['sex']) { ?> checked="checked"<?php } ?> />
+										<?php _e('保密'); ?>
+										</label>
+									</li>
+									<li>
+										<?php _e('现居'); ?>: 
+										<select name="province" class="select_area" style="display:inline-block"></select>
+										<select name="city" class="select_area"></select>
+									</li>
+									<li>
+										<?php _e('职业'); ?>:
+										<select class="select_job" name="job_id"><option value="">--</option><?php echo H::display_options($this->job_list, $this->user_info['job_id']); ?></select>
+									</li>
+								</ul>
+							</div>
+						</div>
+						</form>
+					</div>
+					<div class="aw-mod-footer">
+						<a class="btn btn-large btn-success pull-right" onclick="ajax_post($('#welcome_step_1_form'), _welcome_step_1_form_processer);"><?php _e('下一步'); ?></a>
+					</div>
+					
 				</div>
-				</form>
 			</div>
-			<div class="aw-mod-footer">
-				<a class="btn btn-large btn-success pull-right" onclick="ajax_post($('#welcome_step_1_form'), _welcome_step_1_form_processer);"><?php _e('下一步'); ?></a>
-			</div>
-			
 		</div>
 	</div>
 </div>
 
 <div class="modal aw-first-login hide">
-	<div class="modal-body">
-		<div class="aw-mod">
-			<div class="aw-mod-head">
-				<h2>Hi，<?php echo $this->user_info['user_name']; ?>, <?php _e('欢迎来到'); ?> <?php echo get_setting('site_name'); ?></h2>
-				<ul>
-					<li class="active">
-						<em>1</em>
-						<?php _e('完善基本资料'); ?>
-					</li>
-					<li class="active">
-						<i class="icon-register-arrow pull-right"></i>
-						<em>2</em>
-						<?php _e('关注热门话题'); ?>
-					</li>
-					<li>
-						<em>3</em>
-						<?php _e('关注热门用户'); ?>
-					</li>
-				</ul>
-			</div>
-			<div class="aw-mod-body">
-				<div class="aw-complete-data-follow-topic">
-					<ul id="welcome_topics_list"></ul>
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-body clearfix">
+				<div class="aw-mod">
+					<div class="aw-mod-head">
+						<h2>Hi，<?php echo $this->user_info['user_name']; ?>, <?php _e('欢迎来到'); ?> <?php echo get_setting('site_name'); ?></h2>
+						<ul>
+							<li class="active">
+								<em>1</em>
+								<?php _e('完善基本资料'); ?>
+							</li>
+							<li class="active">
+								<i class="icon-register-arrow pull-right"></i>
+								<em>2</em>
+								<?php _e('关注热门话题'); ?>
+							</li>
+							<li>
+								<em>3</em>
+								<?php _e('关注热门用户'); ?>
+							</li>
+						</ul>
+					</div>
+					<div class="aw-mod-body">
+						<div class="aw-complete-data-follow-topic clearfix">
+							<ul id="welcome_topics_list"></ul>
+						</div>
+					</div>
+					<div class="aw-mod-footer">
+						<a class="btn btn-large btn-success pull-right" onclick="welcome_step_3_load();"><?php _e('下一步'); ?></a>
+					</div>
+					
 				</div>
 			</div>
-			<div class="aw-mod-footer">
-				<a class="btn btn-large btn-success pull-right" onclick="welcome_step_3_load();"><?php _e('下一步'); ?></a>
-			</div>
-			
 		</div>
 	</div>
 </div>
 
 <div class="modal aw-first-login hide">
-	<div class="modal-body">
-		<div class="aw-mod">
-			<div class="aw-mod-head">
-				<h2>Hi，<?php echo $this->user_info['user_name']; ?>, <?php _e('欢迎来到'); ?> <?php echo get_setting('site_name'); ?></h2>
-				<ul>
-					<li class="active">
-						<em>1</em>
-						<?php _e('完善基本资料'); ?>
-					</li>
-					<li class="active">
-						<em>2</em>
-						<?php _e('关注热门话题'); ?>
-					</li>
-					<li class="active">
-						<em>3</em>
-						<?php _e('关注热门用户'); ?>
-					</li>
-				</ul>
-			</div>
-			<div class="aw-mod-body">
-				<div class="aw-complete-data-follow-topic">
-					<ul id="welcome_users_list"></ul>
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-body clearfix">
+				<div class="aw-mod">
+					<div class="aw-mod-head">
+						<h2>Hi，<?php echo $this->user_info['user_name']; ?>, <?php _e('欢迎来到'); ?> <?php echo get_setting('site_name'); ?></h2>
+						<ul>
+							<li class="active">
+								<em>1</em>
+								<?php _e('完善基本资料'); ?>
+							</li>
+							<li class="active">
+								<em>2</em>
+								<?php _e('关注热门话题'); ?>
+							</li>
+							<li class="active">
+								<em>3</em>
+								<?php _e('关注热门用户'); ?>
+							</li>
+						</ul>
+					</div>
+					<div class="aw-mod-body">
+						<div class="aw-complete-data-follow-topic clearfix">
+							<ul id="welcome_users_list"></ul>
+						</div>
+					</div>
+					<div class="aw-mod-footer">
+						<a class="btn btn-large btn-success pull-right" onclick="welcome_step_finish();"><?php _e('完成'); ?></a>
+					</div>
+					
 				</div>
 			</div>
-			<div class="aw-mod-footer">
-				<a class="btn btn-large btn-success pull-right" onclick="welcome_step_finish();"><?php _e('完成'); ?></a>
-			</div>
-			
 		</div>
 	</div>
 </div>
