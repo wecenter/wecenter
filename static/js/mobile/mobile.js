@@ -1166,19 +1166,13 @@ function agreeVote(element, answer_id)
 	$.post(G_BASE_URL + '/question/ajax/answer_vote/', 'answer_id=' + answer_id + '&value=1', function (result) {});
 	
     //判断是否投票过   
-    if ($(element).find('.aw-icon').hasClass('active'))
+    if ($(element).find('i').hasClass('active'))
     {
-    	$(element).parents('.aw-mod-footer').find('a.answer_vote .aw-icon').removeClass('active');
-    	
-        $(element).find('.aw-icon').removeClass('active');
-        
-        $(element).find('em').html(parseInt($(element).find('em').html()) - 1);
+    	return false;
     }
     else
     {
-    	$(element).parents('.aw-mod-footer').find('a.answer_vote .aw-icon').removeClass('active');
-    	
-    	$(element).find('.aw-icon').addClass('active');
+    	$(element).find('i').addClass('active');
     	
     	$(element).find('em').html(parseInt($(element).find('em').html()) + 1);
     }

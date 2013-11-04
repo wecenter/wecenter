@@ -406,6 +406,7 @@ nav #aw-top-nav-notic .badge{position: absolute;right: 0;top:1px;z-index:100;pad
 .icon-v.i-ve{color: #fce568;}
 .fa-arrow-circle-right{margin-left: 5px;font-size: 16px;}
 .icon-edit{margin-right: 5px;}
+.fa-thumbs-up.active{color: #428BCA;}
 
 /* 底部 */
 footer{margin-top:20px;font-size: 12px;text-align: center;}
