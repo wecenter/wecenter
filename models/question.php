@@ -185,7 +185,7 @@ class question_class extends AWS_MODEL
 				$topic_ids[] = $topic_id;
 			}
 			
-			if ($question_ids = $this->model('topic')->get_question_ids_by_topics_ids($topic_ids, 10))
+			if ($question_ids = $this->model('topic')->get_item_ids_by_topics_ids($topic_ids, 'question', 10))
 			{				
 				$question_all = $this->fetch_page('question', "add_time > " . $add_time . " AND question_id IN(" . implode(',', $question_ids) . ')', 'popular_value DESC', $page, $per_page);
 			}

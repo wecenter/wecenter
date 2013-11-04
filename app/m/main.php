@@ -122,6 +122,11 @@ class main extends AWS_CONTROLLER
 				H::redirect_msg(AWS_APP::lang()->_t('指定的站内信不存在'), '/m/inbox/');
 			}
 			
+			if ($dialog['recipient_uid'] != $this->user_id AND $dialog['sender_uid'] != $this->user_id)
+			{
+				H::redirect_msg(AWS_APP::lang()->_t('指定的站内信不存在'), '/m/inbox/');
+			}
+			
 			$this->model('message')->read_message($_GET['dialog_id'], $this->user_id);
 			
 			if ($list = $this->model('message')->get_message_by_dialog_id($_GET['dialog_id'], $this->user_id))

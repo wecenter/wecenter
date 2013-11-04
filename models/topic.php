@@ -712,27 +712,32 @@ class topic_class extends AWS_MODEL
 		
 		return $question_ids;
 	}
+	
+	function get_item_ids_by_topics_id($topic_id, $type, $limit = null)
+	{
+		return $this->get_item_ids_by_topics_ids(array(
+			$topic_id
+		), $limit);
+	}
 
-	function get_question_ids_by_topics_ids($topic_ids, $limit = null)
+	function get_item_ids_by_topics_ids($topic_ids, $type, $limit = null)
 	{
 		if (!is_array($topic_ids))
 		{
-			$topic_ids = array(
-				$topic_ids
-			);
+			return false;
 		}
 		
 		array_walk_recursive($topic_ids, 'intval_string');
 		
-		if ($result = $this->query_all("SELECT item_id FROM " . $this->get_table('topic_relation') . " WHERE topic_id IN(" . implode(',', $topic_ids) . ") AND `type` = 'question' ORDER BY item_id DESC", $limit))
+		if ($result = $this->query_all("SELECT item_id FROM " . $this->get_table('topic_relation') . " WHERE topic_id IN(" . implode(',', $topic_ids) . ") AND `type` = '" . $this->quote($type) . "' ORDER BY item_id DESC", $limit))
 		{
 			foreach ($result AS $key => $val)
 			{
-				$question_ids[] = $val['item_id'];	
+				$item_ids[] = $val['item_id'];	
 			}
 		}
 		
-		return $question_ids;
+		return $item_ids;
 	}
 	
 	public function get_best_answer_users($topic_id, $uid, $limit)
@@ -1048,7 +1053,7 @@ class topic_class extends AWS_MODEL
 
 	public function get_auto_related_topics($topic_id)
 	{
-		if (! $question_ids = $this->get_question_ids_by_topics_ids($topic_id, 10))
+		if (! $question_ids = $this->get_item_ids_by_topics_id($topic_id, 'question', 10))
 		{
 			return false;
 		}

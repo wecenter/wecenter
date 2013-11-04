@@ -66,7 +66,7 @@
 		</dl>
 		<dl>
 				<dt><label><?php _e('介绍'); ?>:</label></dt>
-				<dd class="aw-user-setting-base-introduce"><input class="form-control" name="signature" maxlength="128" type="text" value="<?php echo $this->user_info['signature']; ?>" /></dd>
+				<dd class="aw-user-setting-base-introduce"><input class="form-control" name="signature" maxlength="128" type="text" value="<?php echo $this->user_info['signature']; ?>"<?php if ($this->user_info['verified']) { ?> disabled="disabled"<?php } ?> /></dd>
 		</dl>
 		<dl class="form-horizontal">
 				<dt><label><?php _e('个性网址'); ?>:</label></dt>

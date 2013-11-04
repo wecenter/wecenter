@@ -90,6 +90,8 @@ class ACTION_LOG
 	{
 		AWS_APP::model()->delete('user_action_history_fresh', 'associate_id = ' . intval($associate_id) . ' AND associate_type = ' . intval($associate_type) . ' AND uid = ' . intval($uid));
 		
+		self::clean_fresh_action($history_id, $associate_id, $associate_type, $associate_action, $uid);
+		
 		return AWS_APP::model()->insert('user_action_history_fresh', array(
 			'history_id' => intval($history_id),
 			'associate_id' => intval($associate_id),
@@ -99,6 +101,11 @@ class ACTION_LOG
 			'anonymous' => intval($anonymous),
 			'add_time' => $add_time
 		));
+	}
+	
+	public static function clean_fresh_action($history_id, $associate_id, $associate_type, $associate_action, $uid)
+	{
+		
 	}
 	
 	public static function save_action($uid, $associate_id, $action_type, $action_id, $action_content = null, $action_attch = null, $add_time = 0, $anonymous = 0, $addon_data = null)

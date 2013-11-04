@@ -1028,7 +1028,11 @@ class ajax extends AWS_CONTROLLER
 			$update_data['birthday'] = intval(strtotime(intval($_POST['birthday_y']) . '-' . intval($_POST['birthday_m']) . '-' . intval($_POST['birthday_d'])));
 		}
 		
-		$update_attrib_data['signature'] = htmlspecialchars($_POST['signature']);
+		if (!$this->user_info['verified'])
+		{
+			$update_attrib_data['signature'] = htmlspecialchars($_POST['signature']);
+		}
+		
 		$update_data['job_id'] = intval($_POST['job_id']);
 		
 		if ($_POST['signature'] AND !$this->model('integral')->fetch_log($this->user_id, 'UPDATE_SIGNATURE'))
