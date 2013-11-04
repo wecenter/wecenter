@@ -612,7 +612,7 @@ a.aw-load-more-content{display: block;}
 
 /* 通知 */
 .aw-my-notifications{padding-bottom: 30px;}
-.aw-my-notifications .aw-mod-body ul li{padding: 15px 0;line-height: 15px;border-top: 1px dotted #C1CAD4;}
+.aw-my-notifications .aw-mod-body ul li{padding: 15px 0;line-height: 20px;border-top: 1px dotted #C1CAD4;}
 .aw-my-notifications .aw-mod-body ul li:first-child{border-top: none;}
 .aw-my-notifications .aw-mod-body ul li.active{font-weight: bold;}
 .aw-my-notifications .aw-mod-body ul li.active span{font-weight: normal;}
