@@ -139,7 +139,7 @@ class main extends AWS_CONTROLLER
 		{
 			$article_list = $this->model('article')->get_articles_list($_GET['page'], get_setting('contents_per_page'), 'add_time DESC');
 			
-			$article_list_total = $this->model()->found_rows();
+			$article_list_total = $this->model('article')->found_rows();
 		}
 		
 		if ($article_list)
