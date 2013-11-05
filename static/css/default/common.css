@@ -626,10 +626,6 @@ a.aw-load-more-content{display: block;}
 .aw-mod-invited ul li .aw-user-img{position:absolute;left:0;top: 15px;}
 .aw-mod-invited ul li p input{width: 386px;height: 30px;line-height: 30px;margin:10px 0;}
 
-
-
-/* 用户列表页面 */
-.aw-user{background: #fff;}
 /* 用户排名 */
 .aw-user-sort{padding:20px 0;}
 .aw-user-sort .aw-item{position: relative;padding:25px 106px 25px 175px;border-bottom:1px dotted #C1CAD4;}
