@@ -347,7 +347,7 @@ class ajax extends AWS_CONTROLLER
 			$IS_MODIFY_VERIFIED = FALSE;
 		}
 		
-		$this->model('question')->update_question($question_info['question_id'], $_POST['question_content'], $_POST['question_detail'], $this->user_id, $IS_MODIFY_VERIFIED, $_POST['modify_reason']);
+		$this->model('question')->update_question($question_info['question_id'], $_POST['question_content'], $_POST['question_detail'], $this->user_id, $IS_MODIFY_VERIFIED, $_POST['modify_reason'], $question_info['anonymous']);
 		
 		if ($_POST['category_id'])
 		{

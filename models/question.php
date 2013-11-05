@@ -401,15 +401,9 @@ class question_class extends AWS_MODEL
 	}
 
 	/**
-	 * 
 	 * 修改问题内容
-	 * @param array $data 修改问题内容
-	 * @param int $question_id 问题ID
-	 * @param int $modfiy_type 0 标题 1 描述
-	 * 
-	 * @return boolean true|false
 	 */
-	public function update_question($question_id, $question_content, $question_detail, $uid, $verified = true, $modify_reason = '')
+	public function update_question($question_id, $question_content, $question_detail, $uid, $verified = true, $modify_reason = null, $anonymous = null)
 	{		
 		if (!$quesion_info = $this->get_question_info_by_id($question_id) OR !$uid)
 		{
@@ -422,9 +416,10 @@ class question_class extends AWS_MODEL
 		if ($verified)
 		{
 			//$data['update_time'] = time();
+			
 			$data['question_detail'] = $question_detail;
 		
-			if (! empty($question_content))
+			if ($question_content)
 			{
 				$data['question_content'] = $question_content;
 			}
@@ -440,7 +435,7 @@ class question_class extends AWS_MODEL
 		
 		if ($quesion_info['question_detail'] != $question_detail)
 		{
-			$log_id = ACTION_LOG::save_action($uid, $question_id, ACTION_LOG::CATEGORY_QUESTION, ACTION_LOG::MOD_QUESTION_DESCRI, htmlspecialchars($question_detail), $quesion_info['question_detail'], 0, 0, $addon_data);
+			$log_id = ACTION_LOG::save_action($uid, $question_id, ACTION_LOG::CATEGORY_QUESTION, ACTION_LOG::MOD_QUESTION_DESCRI, htmlspecialchars($question_detail), $quesion_info['question_detail'], null, $anonymous, $addon_data);
 			
 			if (!$verified)
 			{

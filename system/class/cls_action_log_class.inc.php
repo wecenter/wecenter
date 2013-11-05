@@ -108,7 +108,7 @@ class ACTION_LOG
 		
 	}
 	
-	public static function save_action($uid, $associate_id, $action_type, $action_id, $action_content = null, $action_attch = null, $add_time = 0, $anonymous = 0, $addon_data = null)
+	public static function save_action($uid, $associate_id, $action_type, $action_id, $action_content = null, $action_attch = null, $add_time = null, $anonymous = null, $addon_data = null)
 	{
 		if (!$uid OR !$associate_id)
 		{
