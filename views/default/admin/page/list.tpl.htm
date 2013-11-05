@@ -26,7 +26,7 @@
 						<a href="admin/page/edit/id-<?php echo $val['id']; ?>" title="<?php _e('编辑'); ?>">
 							<i class="aw-icon page-edit"></i>
 						</a> &nbsp; 
-						<a href="javascript:;" onclick="ajax_request(G_BASE_URL + '/admin/page/remove/id-<?php echo $val['id']; ?>');" title="<?php _e('删除'); ?>">
+						<a href="javascript:;" onclick="ajax_request(G_BASE_URL + '/admin/page/page_remove/', 'id=<?php echo $val['id']; ?>');" title="<?php _e('删除'); ?>">
 							<i class="aw-icon page-delete"></i>
 						</a>
 					</td>

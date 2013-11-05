@@ -41,6 +41,11 @@ class page_class extends AWS_MODEL
 		));
 	}
 	
+	public function remove_page($id)
+	{
+		return $this->delete('pages', 'id = ' . intval($id));
+	}
+	
 	public function update_page($id, $title, $keywords, $description, $contents, $url_token)
 	{
 		return $this->update('pages', array(

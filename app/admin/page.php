@@ -87,6 +87,15 @@ class page extends AWS_ADMIN_CONTROLLER
 		), 1, null));
 	}
 	
+	public function page_remove_action()
+	{
+		define('IN_AJAX', true);
+		
+		$this->model('page')->remove_page($_POST['id']);
+		
+		H::ajax_json_output(AWS_APP::RSM(null, 1, null));
+	}
+	
 	public function page_edit_action()
 	{
 		define('IN_AJAX', true);
