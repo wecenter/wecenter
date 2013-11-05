@@ -796,7 +796,7 @@ function parse_attachs_callback($matches)
 
 /**
  * 获取主题图片指定尺寸的完整url地址
- * @param  string $size     三种图片尺寸 max(100px)|mid(50px)|min(32px)
+ * @param  string $size
  * @param  string $pic_file 某一尺寸的图片文件名
  * @return string           取出主题图片或主题默认图片的完整url地址
  */
@@ -806,15 +806,13 @@ function get_topic_pic_url($size = null, $pic_file = null)
 	{
 		return get_setting('upload_url') . '/topic/' . $sized_file;
 	}
-	else
+	
+	if (! $size)
 	{
-		if (! $size)
-		{
-			return G_STATIC_URL . '/common/topic-max-img.png';
-		}
-		
-		return G_STATIC_URL . '/common/topic-' . $size . '-img.png';
+		return G_STATIC_URL . '/common/topic-max-img.png';
 	}
+	
+	return G_STATIC_URL . '/common/topic-' . $size . '-img.png';
 }
 
 /**

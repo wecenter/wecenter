@@ -134,15 +134,13 @@ class topic_class extends AWS_MODEL
 		{
 			return false;
 		}
-		else
+		
+		if (! $size)
 		{
-			if (!$size)
-			{
-				return str_replace('_' . AWS_APP::config()->get('image')->topic_thumbnail['min']['w'] . '_' . AWS_APP::config()->get('image')->topic_thumbnail['min']['h'], '', $pic_file);
-			}
-			
-			return str_replace(AWS_APP::config()->get('image')->topic_thumbnail['min']['w'] . '_' . AWS_APP::config()->get('image')->topic_thumbnail['min']['h'], AWS_APP::config()->get('image')->topic_thumbnail[$size]['w'] . '_' . AWS_APP::config()->get('image')->topic_thumbnail[$size]['h'], $pic_file);
+			return str_replace('_' . AWS_APP::config()->get('image')->topic_thumbnail['min']['w'] . '_' . AWS_APP::config()->get('image')->topic_thumbnail['min']['h'] . '.', '.', $pic_file);
 		}
+		
+		return str_replace(AWS_APP::config()->get('image')->topic_thumbnail['min']['w'] . '_' . AWS_APP::config()->get('image')->topic_thumbnail['min']['h'] . '.', AWS_APP::config()->get('image')->topic_thumbnail[$size]['w'] . '_' . AWS_APP::config()->get('image')->topic_thumbnail[$size]['h'] . '.', $pic_file);
 	}
 	
 	/**

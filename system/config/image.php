@@ -1,4 +1,5 @@
 <?php
+
 $config['avatar_thumbnail'] = array(
 	'min' => array(
 		"w" => 32, 
