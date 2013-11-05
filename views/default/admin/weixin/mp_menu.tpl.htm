@@ -6,7 +6,7 @@
 	<div class="aw-mod-body">
 		<script type="text/x-template" id="top_menu_template">
 			<tr data-id="{MENU_ID}" class="top_menu" id="menu_id_{MENU_ID}">
-				<td><input type="text" value="" name="button[{MENU_ID}][name]" /></td>
+				<td><input class="form-control" type="text" value="" name="button[{MENU_ID}][name]" /></td>
 				<td align="center"><input type="text" value="" class="form-control sort-action" name="button[{MENU_ID}][sort]" /></td>
 				<td align="center"><input type="text" value="" class="form-control sort-action" name="button[{MENU_ID}][key]" /></td>
 				<td align="center">
@@ -40,7 +40,7 @@
 			<tbody>
 				<?php foreach ($this->mp_menu AS $key => $val) { ?>
 				<tr data-id="<?php echo $key; ?>" class="top_menu" id="menu_id_<?php echo $key; ?>">
-					<td><input class="form-control" type="text" value="<?php echo $val['name']; ?>" name="button[<?php echo $key; ?>][name]" /></td>
+					<td><input type="text" value="<?php echo $val['name']; ?>" name="button[<?php echo $key; ?>][name]" /></td>
 					<td align="center"><input type="text" value="<?php echo $val['sort']; ?>" class="form-control sort-action" name="button[<?php echo $key; ?>][sort]" /></td>
 					<td align="center"><input type="text" value="<?php echo $val['key']; ?>" class="form-control sort-action" name="button[<?php echo $key; ?>][key]" /></td>
 					<td align="center">
