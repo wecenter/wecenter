@@ -32,4 +32,5 @@
 .aw-mod-footer .icon-sina:hover, .aw-mod-footer .icon-weibo:hover, .aw-mod-footer .icon-qq:hover{color: #2A6496; }
 .error-message{position: relative;}
 .error-message .fa-times{margin-right:5px;color: #c30100;font-size: 16px;vertical-align: middle;}
+.aw-login-footer{position:relative;z-index:9999;margin:95px auto;text-align: center;font-size: 12px;}
 
