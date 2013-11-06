@@ -1,4 +1,4 @@
-$(document).ready(function () {
+/*$(document).ready(function () {
 	$.each($('.aw-article-list .aw-item .aw-mod-body .content'), function (i, e)
 	{
 		if ($(this).innerHeight() > parseInt($(this).css('line-height'))*10)
@@ -7,5 +7,4 @@ $(document).ready(function () {
 			$(this).parents('.content-wrap').css('height',parseInt($(this).css('line-height'))*10);
 		}
 	});
-});
-
+});*/

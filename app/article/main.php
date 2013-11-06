@@ -149,8 +149,6 @@ class main extends AWS_CONTROLLER
 				$article_ids[] = $val['id'];
 				
 				$article_uids[$val['uid']] = $val['uid'];
-				
-				$article_list[$key]['message'] = nl2br($val['message']);
 			}
 			
 			$article_topics = $this->model('topic')->get_topics_by_item_ids($article_ids, 'article');
