@@ -45,7 +45,7 @@ class main extends AWS_CONTROLLER
 			H::redirect_msg(AWS_APP::lang()->_t('1.1 版本已不支持 Tinymce 插件, 请删除 plugins/aws_tinymce/ 目录'));
 		}
 		
-		if (!is_really_writable(AWS_PATH))
+		if (!is_really_writable(AWS_PATH) AND !defined('IN_SAE'))
 		{
 			H::redirect_msg(AWS_APP::lang()->_t('目录 %s 无法写入, 请修改目录权限', AWS_PATH));
 		}
