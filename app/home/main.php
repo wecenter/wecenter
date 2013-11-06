@@ -216,7 +216,7 @@ class main extends AWS_CONTROLLER
 	
 	public function browser_not_support_action()
 	{
-		if (!HTTP::is_browser('ie', 8) AND !HTTP::is_browser('ie', 7) AND !HTTP::is_browser('ie', 6))
+		if (!HTTP::is_browser('ie', 7) AND !HTTP::is_browser('ie', 6))
 		{
 			HTTP::redirect('/');
 		}
