@@ -637,24 +637,6 @@ class question_class extends AWS_MODEL
 		
 		return $this->delete('question', 'question_id = ' . intval($question_id));	// 删除问题
 	}
-
-	public function remove_question_by_ids($question_ids)
-	{
-		if (!is_array($question_ids))
-		{
-			return false;
-		}
-		
-		if ($question_ids = array_unique($question_ids))
-		{
-			foreach ($question_ids as $key => $val)
-			{
-				$this->remove_question($val);
-			}
-		}
-		
-		return true;
-	}
 	
 	public function add_focus_question($question_id, $uid, $anonymous = 0, $save_action = true)
 	{

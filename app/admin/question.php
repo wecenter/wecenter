@@ -29,12 +29,7 @@ class question extends AWS_ADMIN_CONTROLLER
 	public function question_list_action()
 	{
 		if ($this->is_post())
-		{
-			if ($_POST['user_name'] && (! $user_info = $this->model('account')->get_user_info_by_username($_POST['user_name'])))
-			{
-				H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('用户不存在')));
-			}
-			
+		{			
 			foreach ($_POST as $key => $val)
 			{
 				if ($key == 'start_date' OR $key == 'end_date')
@@ -55,7 +50,7 @@ class question extends AWS_ADMIN_CONTROLLER
 			), 1, null));
 		}
 		
-		if ($question_list = $this->model('question')->search_questions_list($_GET['page'], $this->per_page, $_GET['keyword'], $_GET['category_id'], base64_decode($_GET['start_date']), base64_decode($_GET['end_date']), $_GET['answer_count_min'], $_GET['answer_count_max'], rawurldecode($_GET['user_name']), $_GET['best_answer']))
+		if ($question_list = $this->model('question')->search_questions_list($_GET['page'], $this->per_page, $_GET['keyword'], $_GET['category_id'], base64_decode($_GET['start_date']), base64_decode($_GET['end_date']), $_GET['answer_count_min'], $_GET['answer_count_max'], $_GET['user_name'], $_GET['best_answer']))
 		{
 			foreach ($question_list AS $key => $val)
 			{
@@ -101,7 +96,8 @@ class question extends AWS_ADMIN_CONTROLLER
 		TPL::assign('category_list', $this->model('system')->build_category_html('question', 0, 0, null, true));
 		TPL::assign('keyword', $_GET['keyword']);
 		TPL::assign('list', $question_list);
-		TPL::output("admin/question/question_list");
+		
+		TPL::output('admin/question/question_list');
 	}
 
 	public function question_batch_action()
@@ -113,7 +109,10 @@ class question extends AWS_ADMIN_CONTROLLER
 			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择问题进行操作')));
 		}
 		
-		$this->model('question')->remove_question_by_ids($_POST['question_ids']);
+		foreach ($_POST['question_ids'] AS $key => $question_ids)
+		{
+			$this->model('question')->remove_question($question_ids);
+		}
 		
 		H::ajax_json_output(AWS_APP::RSM(null, 1, null));
 	}

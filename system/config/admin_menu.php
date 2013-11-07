@@ -98,6 +98,13 @@ $config[] = array(
 			'title' => '问题管理',
 			'url' => 'admin/question/question_list/',
 		),
+		
+		array(
+			'id' => 309,
+			'title' => '文章管理',
+			'url' => 'admin/article/list/',
+		),
+		
 		array(
 			'id' => 302,
 			'title' => '分类设置',

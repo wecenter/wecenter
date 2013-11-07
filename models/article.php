@@ -360,4 +360,38 @@ class article_class extends AWS_MODEL
 			return $vote_users;
 		}
 	}
+	
+	public function search_article_list($page, $per_page, $keyword = null, $start_date = null, $end_date = null, $user_name = null)
+	{
+		$where = array();
+		
+		if ($keyword)
+		{
+			$where[] = "(`title` LIKE '%" . $this->quote($keyword) . "%')";
+		}
+		
+		if ($start_date)
+		{
+			$where[] = 'add_time >= ' . strtotime($start_date);
+		}
+		
+		if ($end_date)
+		{
+			$where[] = 'add_time <= ' . strtotime('+1 day', strtotime($end_date));
+		}
+		
+		if ($user_name)
+		{
+			$user_info = $this->model('account')->get_user_info_by_username($user_name);
+			
+			$where[] = 'uid = ' . intval($user_info['uid']);
+		}
+		
+		if ($articles_list = $this->fetch_page('article', implode(' AND ', $where), 'id DESC', $page, $per_page))
+		{
+			$this->search_articles_total = $this->found_rows();
+			
+			return $articles_list;
+		}
+	}
 }

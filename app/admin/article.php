@@ -1,0 +1,114 @@
+<?php
+/*
++--------------------------------------------------------------------------
+|   WeCenter [#RELEASE_VERSION#]
+|   ========================================
+|   by WeCenter Software
+|   © 2011 - 2013 WeCenter. All Rights Reserved
+|   http://www.wecenter.com
+|   ========================================
+|   Support: WeCenter@qq.com
+|   
++---------------------------------------------------------------------------
+*/
+
+if (! defined('IN_ANWSION'))
+{
+	die();
+}
+
+class article extends AWS_ADMIN_CONTROLLER
+{
+	public function setup()
+	{
+		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(309));
+	}
+	
+	public function list_action()
+	{
+				if ($this->is_post())
+		{			
+			foreach ($_POST as $key => $val)
+			{
+				if ($key == 'start_date' OR $key == 'end_date')
+				{
+					$val = base64_encode($val);
+				}
+				
+				if ($key == 'keyword' OR $key == 'user_name')
+				{
+					$val = rawurlencode($val);
+				}
+				
+				$param[] = $key . '-' . $val;
+			}
+			
+			H::ajax_json_output(AWS_APP::RSM(array(
+				'url' => get_setting('base_url') . '/?/admin/article/list/' . implode('__', $param)
+			), 1, null));
+		}
+		
+		if ($articles_list = $this->model('article')->search_article_list($_GET['page'], $this->per_page, $_GET['keyword'], base64_decode($_GET['start_date']), base64_decode($_GET['end_date']), $_GET['user_name']))
+		{
+			foreach ($articles_list AS $key => $val)
+			{
+				$articles_list_uids[$val['uid']] = $val['uid'];
+			}
+			
+			if ($articles_list_uids)
+			{
+				$articles_list_user_infos = $this->model('account')->get_user_info_by_uids($articles_list_uids);
+			}
+			
+			foreach ($articles_list AS $key => $val)
+			{
+				$articles_list[$key]['user_info'] = $articles_list_user_infos[$val['uid']];
+			}
+		}
+		
+		$total_rows = $this->model('article')->search_articles_total;
+		
+		$url_param = array();
+		
+		foreach($_GET as $key => $val)
+		{
+			if ($key != 'page')
+			{
+				$url_param[] = $key . '-' . $val;
+			}
+		}
+		
+		$search_url = 'admin/article/list/' . implode('__', $url_param);
+		
+		TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
+			'base_url' => get_setting('base_url') . '/?/' . $search_url, 
+			'total_rows' => $total_rows, 
+			'per_page' => $this->per_page
+		))->create_links());
+		
+		$this->crumb(AWS_APP::lang()->_t('文章管理'), 'admin/question/question_list/');
+		
+		TPL::assign('articles_count', $total_rows);
+		TPL::assign('search_url', $search_url);
+		TPL::assign('list', $articles_list);
+		
+		TPL::output('admin/article/list');
+	}
+	
+	public function batch_action()
+	{
+		define('IN_AJAX', TRUE);
+		
+		if (! $_POST['article_ids'])
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择文章进行操作')));
+		}
+		
+		foreach ($_POST['article_ids'] AS $key => $article_id)
+		{
+			$this->model('article')->remove_article($article_id);
+		}
+		
+		H::ajax_json_output(AWS_APP::RSM(null, 1, null));
+	}
+}

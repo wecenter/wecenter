@@ -1,0 +1,103 @@
+<?php TPL::output('admin/global/header.tpl.htm'); ?>
+<?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
+
+<div class="pull-left right-side">
+	<div class="aw-mod-head">
+		<h2>
+			<span class="pull-left"><?php _e('文章管理'); ?></span>
+			
+			<ul class="nav nav-tabs pull-left">
+			    <li class="active"><a href="#list" data-toggle="tab"><?php _e('问题列表'); ?></a></li>
+			    <li><a href="#search" data-toggle="tab"><?php _e('搜索'); ?></a></li>
+			</ul>
+		</h2>
+	</div>
+	<div class="aw-mod-body tab-content">
+		<div class="tab-pane active" id="list">
+			<?php if ($_GET['action'] == 'search') { ?>
+			<div class="alert alert-info" style="margin:10px 0"><?php _e('找到 %s 条符合条件的内容', intval($this->articles_count)); ?></div>
+			<?php } ?>
+			
+			<?php if ($this->list) { ?>
+			<form id="batchs_form" action="admin/article/batch/" method="post">
+				<table class="aw-table">
+					<thead>
+						<tr>
+							<th align="center"><input type="checkbox" class="check-all"></th>
+							<th style="width:280px;"><?php _e('文章标题'); ?></th>
+							<th align="center"><a href="<?php echo $this->search_url; ?>__sort_key-comments__order-<?php if ($_GET['sort_key'] == 'comments' && $_GET['order'] == 'DESC') { ?>ASC<?php } else { ?>DESC<?php } ?>"><?php _e('评论'); ?><?php if ($_GET['sort_key'] == 'comments') { ?><?php if ($_GET['order'] == 'ASC') { ?><i class="aw-icon triangle_up"></i><?php } else { ?><i class="aw-icon triangle_down"></i><?php } ?><?php } ?></a></th>
+							<th align="center"><a href="<?php echo $this->search_url; ?>__sort_key-views__order-<?php if ($_GET['sort_key'] == 'views' && $_GET['order'] == 'DESC') { ?>ASC<?php } else { ?>DESC<?php } ?>"><?php _e('浏览'); ?><?php if ($_GET['sort_key'] == 'views') { ?><?php if ($_GET['order'] == 'ASC') { ?><i class="aw-icon triangle_up"></i><?php } else { ?><i class="aw-icon triangle_down"></i><?php } ?><?php } ?></a></th>
+							<th align="center"><?php _e('作者'); ?></th>
+							<th align="center"><a href="<?php echo $this->search_url; ?>__sort_key-add_time__order-<?php if ($_GET['sort_key'] == 'add_time' && $_GET['order'] == 'ASC') { ?>DESC<?php } else { ?>ASC<?php } ?>"><?php _e('发布时间'); ?><?php if ($_GET['sort_key'] == 'add_time') { ?><?php if ($_GET['order'] == 'ASC') { ?><i class="aw-icon triangle_up"></i><?php } else { ?><i class="aw-icon triangle_down"></i><?php } ?><?php } ?></a></th>
+							<th align="center"><?php _e('操作'); ?></th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php foreach ($this->list AS $key => $val) { ?>
+						<tr>
+							<td align="center"><input type="checkbox" name="article_ids[]" value="<?php echo $val['id']; ?>"></td>
+							<td><a href="article/<?php echo $val['id']; ?>" target="_blank"><?php echo $val['title']; ?></a></td>
+							<td align="center"><?php echo $val['comments']; ?></td>
+							<td align="center"><?php echo $val['views']; ?></td>
+							<td align="center"><a href="people/<?php echo $val['user_info']['url_token']; ?>" target="_blank"><?php echo $val['user_info']['user_name']; ?></a></td>
+							<td align="center"><?php echo date_friendly($val['add_time']); ?></td>
+							<td align="center"><a href="publish/article/<?php echo $val['id']; ?>" target="_blank"><i class="aw-icon page-edit"></i></a></td>
+						</tr>
+						<?php } ?>
+					</tbody>
+					<tfoot>
+						<tr>
+							<td colspan="7">
+								<span class="pull-right"><?php echo $this->pagination; ?></span>
+								
+								<a class="btn btn-inverse" onclick="ajax_post($('#batchs_form'));" href="javascript:;"><?php _e('删除所选'); ?></a>
+							</td>
+						</tr>
+					</tfoot>
+				</table>
+			</form>
+			<?php } ?>
+		</div>
+	
+		<div class="tab-pane" id="search">
+			<form method="post" action="admin/article/list/" onsubmit="return false;" id="search_form">
+				<input name="action" type="hidden" value="search" />
+				<div class="aw-box aw-no-border-top">
+					<dl>
+						<dt><h3><?php _e('关键词'); ?>:</h3></dt>
+						<dd>
+							<div class="row">
+								<div class="col-sm-7">
+									<input class="form-control" type="text" value="<?php echo rawurldecode($_GET['keyword']); ?>" name="keyword" />
+								</div>
+							</div>
+						</dd>
+					</dl>
+					<dl>
+						<dt><h3><?php _e('发起时间范围'); ?>:</h3></dt>
+						<dd>
+							<input type="text" value="<?php echo base64_decode($_GET['start_date']); ?>" name="start_date" class="date_picker">
+							-
+							<input type="text" value="<?php echo base64_decode($_GET['end_date']); ?>" name="end_date" class="date_picker" />
+						</dd>
+					</dl>
+					<dl>
+						<dt><h3><?php _e('作者'); ?>:</h3></dt>
+						<dd>
+							<div class="row">
+								<div class="col-sm-7">
+									<input class="form-control" type="text" value="<?php echo $_GET['user_name']; ?>" name="user_name" />
+								</div>
+							</div>
+						</dd>
+					</dl>
+					<div class="aw-mod-footer">
+						<a href="javascript:;" class="btn btn-inverse btn-normal" onclick="ajax_post($('#search_form'));"><?php _e('搜索'); ?></a>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<?php TPL::output('admin/global/footer.tpl.htm'); ?>
