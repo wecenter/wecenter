@@ -516,7 +516,7 @@ a.aw-load-more-content{display: block;}
 .aw-topic-content-wrap .aw-topic-daily{margin-bottom:20px;}
 .aw-topic-content-wrap .aw-topic-daily .aw-side-bar-mod-body h4{font-weight: normal;}
 .aw-topic-content-wrap .aw-topic-daily .aw-side-bar-mod-body p{margin-top:10px;}
-.aw-topic-content-wrap .aw-topic-daily .aw-side-bar-mod-body p span{display: inline-block;max-height: 90px;overflow: hidden;}
+.aw-topic-content-wrap .aw-topic-daily .aw-side-bar-mod-body p span{max-height: 90px;overflow: hidden;}
 .aw-topic-content-wrap .aw-topic-daily .aw-side-bar-mod-body p a{margin-left: 5px;}
 .aw-topic-content-wrap .aw-topic-all-list .span6{width:260px;min-height:82px;margin:0 5px;}
 .aw-topic-content-wrap .aw-mod-head h3{margin:20px 0;font-size: 16px;}

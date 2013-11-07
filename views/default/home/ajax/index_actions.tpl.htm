@@ -72,7 +72,7 @@
 							<?php foreach($val['answer_info']['attachs'] AS $t_key => $t_val) { ?>
 							<?php if ($t_val['is_image']): ?>
 								<a href="javascript:;" onclick="content_switcher($('#detail_<?php echo $val['history_id']; ?>'), $('#detail_more_<?php echo $val['history_id']; ?>'));">
-									<img class="img-polaroid" src="<?php echo $t_val[thumb]; ?>" alt="<?php echo $t_val['file_name']; ?>" />
+									<img class="img-thumbnail" src="<?php echo $t_val[thumb]; ?>" alt="<?php echo $t_val['file_name']; ?>" />
 								</a>
 							<?php endif; ?>
 						  <?php } ?>
@@ -95,7 +95,7 @@
 						<div class="aw-comment-upload-img-list active">
 							<?php foreach($val['answer_info']['attachs'] AS $t_key => $t_val) { ?>
 							<?php if ($t_val['is_image']): ?>								
-								<a href="<?php echo $t_val['attachment']; ?>" target="lightbox" data-fancybox-group="thumb" rel="lightbox"><img class="img-polaroid" src="<?php echo $t_val['attachment']; ?>" alt="" /></a>
+								<a href="<?php echo $t_val['attachment']; ?>" target="lightbox" data-fancybox-group="thumb" rel="lightbox"><img class="img-thumbnail" src="<?php echo $t_val['attachment']; ?>" alt="" /></a>
 							<?php endif; ?>
 						  <?php } ?>
 						</div>
