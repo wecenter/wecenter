@@ -12,12 +12,13 @@ select{width: auto;}
 .tab-content{padding-bottom:30px;}
 .form-control{line-height: 20px;}
 .form-horizontal .control-label, .form-horizontal .controls{height: 30px;line-height: 30px;padding-top:0;}
+.badge{padding:2px 6px;margin-left: 5px;}
 .badge.badge-info{background: #3A87AD;}
+.badge.badge-important{background: #D90000;}
 .table-bordered > thead > tr > th, .table-bordered > thead > tr > td{border-bottom-width:1px;}
 /* modal */
 body.modal-open, .modal-open .navbar-fixed-top, .modal-open .navbar-fixed-bottom{margin:0;}
 .modal-backdrop, .modal-backdrop.fade.in{filter:alpha(opacity=20);opacity: 0.2; }
-.modal-footer{line-height: 38px;padding:15px 20px;}
 /* 重载bootstrap按钮 */
 .btn.aw-active{background-color: #5CB85C;border-color:#4CAE4C;color: #FFFFFF;}
 .btn.aw-active:hover{background-color: #47A447; border-color: #398439; }
@@ -86,8 +87,6 @@ a.aw-load-more-content{display: block;}
 .aw-nav-main li:first-child a.active{border-radius:10px 0 0 0;}
 .aw-first-login .aw-mod-head ul li em{border-radius: 30px;}
 .error-message{position: relative;}
-.badge{padding:2px 6px;margin-left: 5px;}
-.badge.badge-important{background: #D90000;}
 .aw-close{font-size: 16px;}
 /* 分类小标签 */
 .aw-user-name, .aw-topic-name{display:inline-block;font-size:12px;line-height:20px;font-weight:normal;}
