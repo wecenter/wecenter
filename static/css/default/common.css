@@ -11,7 +11,7 @@ select{width: auto;}
 .alert-danger, .alert-error{margin-bottom:10px;background: #F2DEDE;border: 1px solid #EED3D7;}
 .tab-content{padding-bottom:30px;}
 .form-control{line-height: 20px;}
-.form-horizontal .control-label, .form-horizontal .controls{height: 30px;line-height: 30px;padding-top:0px;}
+.form-horizontal .control-label, .form-horizontal .controls{height: 30px;line-height: 30px;padding-top:0;}
 .badge.badge-info{background: #3A87AD;}
 .table-bordered > thead > tr > th, .table-bordered > thead > tr > td{border-bottom-width:1px;}
 /* modal */
@@ -38,10 +38,10 @@ body.modal-open, .modal-open .navbar-fixed-top, .modal-open .navbar-fixed-bottom
 
 /* 公共部分 */
 html{height: 100%;}
-body{margin: 0px;height: 100%;font-size:14px; line-height:160%;color: #666;}
+body{margin: 0;height: 100%;font-size:14px; line-height:160%;color: #666;}
 body, input, button, select, textarea, h1, h2, h3, h4, h5, h6{font-family: "Helvetica Neue",Helvetica,Arial,'Microsoft YaHei',sans-serif;}
 ul, ol{margin:0;padding:0;list-style:none;}
-h1, h2, h3, h4, h5, h6{margin-top:0px;font-size:100%;line-height: 20px;}
+h1, h2, h3, h4, h5, h6{margin-top:0;font-size:100%;line-height: 20px;}
 dd{margin-left: 10px;}
 a{cursor: pointer;}
 a:hover{text-decoration: none;}
@@ -695,7 +695,7 @@ a.aw-load-more-content{display: block;}
 .aw-file-uploader dt.upload-zip{background-position: -300px 0;}
 .aw-file-uploader dt.upload-gif{background-position: -100px 0;}
 .aw-file-uploader dt.upload-3ds{background-position: -200px 0;}
-._ajax_upload-button{color: #666;position: relative;z-index: 1030;}
+._ajax_upload-button{color: #666;}
 ._ajax_upload-button i{margin-right: 5px;}
 
 /* 小卡片提示box */
