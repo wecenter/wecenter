@@ -51,7 +51,7 @@ table td{vertical-align: middle !important;}
 .aw-padding10{padding:10px;}
 .aw-margin-top-10{margin-top:10px;}
 .aw-wecenter{max-width:940px;height:auto;overflow:hidden;margin:0 auto;}
-.aw-content-wrap{padding-bottom:30px;overflow:hidden;background:#fff;}
+.aw-content-wrap{padding-bottom:30px;overflow:hidden;}
 .aw-load-more-content{position:relative;overflow: hidden;height: 34px;line-height: 34px;margin: 15px auto 0;padding:0 10px;background-color: #E1F0F7;border:1px solid #D1E6ED;text-align: center;cursor: pointer;}
 a.aw-load-more-content{display: block;}
 .aw-load-more-content > a{display: inline;}
@@ -494,7 +494,7 @@ a.aw-load-more-content{display: block;}
 .aw-publish-title-dropdown p a i{margin:0;}
 .aw-publish-title-dropdown .dropdown-menu{width: 150px;}
 .aw-publish-title-dropdown .dropdown-menu ul{max-height: 324px;overflow-y:auto;}
-.aw-mod-publish .aw-mod-footer{margin-top:10px;text-align: right;}
+.aw-mod-publish .aw-mod-footer{margin-top:20px;text-align: right;}
 .aw-mod-publish .aw-mod-footer .aw-anonymity{margin:8px 30px 8px 0;}
 .aw-mod-publish .aw-mod-footer .aw-anonymity label{margin-left: 10px;}
 .aw-mod-publish .aw-mod-footer .aw-anonymity input{margin:4px 3px 0 0;margin:0\0;}
