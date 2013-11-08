@@ -69,8 +69,6 @@ a.aw-load-more-content{display: block;}
 .aw-back-top:hover{background-color: #d0d0d0;}
 .aw-text-align-justify{text-align: justify;}
 .aw-li-border-bottom li{border-top:1px dotted #C1CAD4;}
-.aw-no-padding-top{padding-top:0 !important;}
-.aw-no-padding-bottom{padding-bottom:0 !important;}
 .aw-no-margin-bottom{margin-bottom:0 !important;}
 .aw-text-color-999{font-size: 12px;}
 .aw-text-bold{font-weight: bold;}
@@ -308,6 +306,7 @@ a.aw-load-more-content{display: block;}
 .aw-side-bar-topic .aw-side-bar-mod{border-bottom: none;}
 .aw-side-bar-mod dl{height:auto;overflow:hidden;margin:0;padding:10px 0 5px;}
 .aw-side-bar-topic-detail h3{padding-bottom:10px;}
+.aw-side-bar-topic-detail dl{padding-top: 0;}
 .aw-side-bar-topic .aw-side-bar-mod-head{margin-bottom:10px;}
 .aw-side-bar-no-head-bottom{border-bottom:1px solid #C1CAD4;}
 .aw-side-bar h3{font-size: 100%;margin-bottom:0;}
@@ -339,6 +338,7 @@ a.aw-load-more-content{display: block;}
 .aw-side-bar-share a{margin-right:10px;}
 .aw-side-bar-share .aw-icon{position:relative;top:2px;margin-right:5px;}
 /* 话题修改记录 */
+.aw-side-bar-topic-edit-notes h3{padding-bottom: 0;}
 .aw-side-bar-topic-edit-notes .aw-side-bar-body, .aw-side-bar-topic-edit-notes ul{margin-top:10px;}
 .aw-side-bar-topic-edit-notes li{height:auto;overflow:hidden;margin:3px 0;padding:5px !important;cursor: pointer;}
 .aw-side-bar-topic-edit-notes li:first-child{margin-top: 0px;}
