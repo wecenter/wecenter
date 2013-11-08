@@ -1,4 +1,5 @@
 /* 注册页面 */
+.aw-login-footer{position:relative;z-index:9999;margin:95px auto;text-align: center;font-size: 12px;}
 .aw-register-bg{position:relative;padding-top: 120px;background:#82c2e1;}
 .aw-register-head{position:relative;width: 658px;margin:0 auto;}
 .aw-register-head h1{line-height: 20px;margin:0;padding: 0 0 15px;text-align: justify;color: #CFF1FF;font-size: 100%;font-weight: 500;}
@@ -19,7 +20,7 @@
 .aw-regiter-agreement{position:relative;width:615px;margin:10px 0 0 -187px;padding: 20px 5px 20px 20px;background:#DEDEDE;border-radius: 10px;}
 .aw-regiter-agreement .i-register-triangle{position: absolute;top:-6px;left: 280px;}
 .aw-register-agreement-txt{max-height: 110px;overflow-x:hidden;overflow-y:auto;}
-.error-message .icon-remove{margin-right:5px;color: #c30100;font-size: 16px;vertical-align: middle;}
+.error-message .fa-times{margin-right:5px;color: #c30100;font-size: 16px;vertical-align: middle;}
 
 /* 注册提示 */
 .aw-register-box li span{position:absolute;top:0;right:-145px;width: 130px;padding:5px;font-size:12px;border-radius: 5px;overflow: hidden;text-align: left;}
