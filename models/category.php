@@ -20,20 +20,18 @@ if (!defined('IN_ANWSION'))
 
 class category_class extends AWS_MODEL
 {
-	public function update_category($category_id, $update_arr)
+	public function update_category($category_id, $update_data)
 	{
-		return $this->update('category', $update_arr, 'id = ' . intval($category_id));
+		return $this->update('category', $update_data, 'id = ' . intval($category_id));
 	}
 	
 	public function add_category($type, $title, $parent_id)
 	{
-		$data = array(
+		return $this->insert('category', array(
 			'type' => $type,
 			'title' => $title,
 			'parent_id' => intval($parent_id),
-		);
-		
-		return $this->insert('category', $data);
+		));
 	}
 
 	public function delete_category($type, $category_id)
@@ -57,9 +55,7 @@ class category_class extends AWS_MODEL
 
 	public function question_exists($category_id)
 	{
-		$question_count = $this->model('question')->count('question', 'category_id = ' . intval($category_id));
-		
-		return $question_count;
+		return $this->model('question')->fetch_one('question', 'question_id', 'category_id = ' . intval($category_id));
 	}
 	
 	public function check_url_token($url_token, $category_id)
