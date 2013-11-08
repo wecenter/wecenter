@@ -136,7 +136,7 @@ a.aw-load-more-content{display: block;}
 
 /* ipad兼容 */
 @media only screen and (device-width:768px){
-	.aw-dynamic-topic .aw-item .aw-dynamic-topic-more-operate{display:block;}
+	.aw-dynamic-topic .aw-item .aw-dynamic-topic-more-operate{display:inline-block;}
 }
 /* iphone竖屏幕兼容 */
 @media only screen and (device-width:320px){
