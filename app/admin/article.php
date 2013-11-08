@@ -26,7 +26,7 @@ class article extends AWS_ADMIN_CONTROLLER
 	
 	public function list_action()
 	{
-				if ($this->is_post())
+		if ($this->is_post())
 		{			
 			foreach ($_POST as $key => $val)
 			{

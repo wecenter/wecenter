@@ -217,6 +217,8 @@ class AWS_CONTROLLER
 
 class AWS_ADMIN_CONTROLLER extends AWS_CONTROLLER
 {
+	var $per_page = 20;
+	
 	public function __construct()
 	{
 		parent::__construct(false);

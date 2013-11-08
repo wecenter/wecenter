@@ -19,8 +19,6 @@ if (! defined('IN_ANWSION'))
 
 class question extends AWS_ADMIN_CONTROLLER
 {
-	var $per_page = 20;
-	
 	public function setup()
 	{
 		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(301));

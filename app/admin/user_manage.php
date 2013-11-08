@@ -20,8 +20,6 @@ if (!defined('IN_ANWSION'))
 
 class user_manage extends AWS_ADMIN_CONTROLLER
 {
-	var $per_page = 20;
-
 	public function list_action()
 	{		
 		if ($_POST['action'] == 'search')

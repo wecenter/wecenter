@@ -20,8 +20,6 @@ if (!defined('IN_ANWSION'))
 
 class edm extends AWS_ADMIN_CONTROLLER
 {
-	var $per_page = 20;
-
 	public function setup()
 	{
 		$this->crumb(AWS_APP::lang()->_t('邮件群发'), "admin/edm/");
