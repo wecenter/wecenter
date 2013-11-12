@@ -107,7 +107,7 @@ class ajax extends AWS_CONTROLLER
 		{
 			$topic_ids = explode(',', $_GET['topic_ids']);
 			
-			$article_list = $this->model('article')->get_articles_list_by_topic_ids(1, get_setting('contents_per_page'), 'add_time DESC', $topic_ids);
+			$article_list = $this->model('article')->get_articles_list_by_topic_ids($_GET['page'], get_setting('contents_per_page'), 'add_time DESC', $topic_ids);
 		}
 		
 		TPL::assign('article_list', $article_list);
