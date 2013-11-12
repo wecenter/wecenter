@@ -50,13 +50,9 @@ function aasort($source_array, $order_field, $sort_type)
  */
 function fetch_ip()
 {
-	if ($_SERVER['HTTP_X_FORWARDED_FOR'] and valid_ip($_SERVER['HTTP_X_FORWARDED_FOR']) and valid_internal_ip($_SERVER['REMOTE_ADDR']))
+	if ($_SERVER['HTTP_X_FORWARDED_FOR'] and valid_internal_ip($_SERVER['REMOTE_ADDR']))
 	{
 		$ip_address = $_SERVER['HTTP_X_FORWARDED_FOR'];
-	}
-	else if ($_SERVER['REMOTE_ADDR'])
-	{
-		$ip_address = $_SERVER['REMOTE_ADDR'];
 	}
 	
 	if ($ip_address)
@@ -66,6 +62,11 @@ function fetch_ip()
 			$x = explode(',', $ip_address);
 			$ip_address = end($x);
 		}
+	}
+	
+	if (!valid_ip($ip_address) AND $_SERVER['REMOTE_ADDR'])
+	{
+		$ip_address = $_SERVER['REMOTE_ADDR'];
 	}
 	
 	if (!valid_ip($ip_address))
