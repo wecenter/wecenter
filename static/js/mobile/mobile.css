@@ -166,7 +166,8 @@ nav #aw-top-nav-notic .badge{position: absolute;right: 0;top:1px;z-index:100;pad
 /* 问题详情页 */
 .aw-question-detail-page .aw-question-detail h1{margin-top:10px;font-size: 18px;line-height: 22px;}
 .aw-question-detail-page .aw-question-detail .aw-mod-body{margin:10px 0;line-height: 22px;}
-.aw-question-detail-page .aw-question-detail .aw-mod-footer a, .aw-question-detail-page .aw-answers-list .aw-mod-footer > a{margin-right: 15px;color: #999;}
+.aw-question-detail-page .aw-question-detail .aw-mod-footer a, .aw-question-detail-page .aw-answers-list .aw-mod-footer > a{float:left;margin-right: 15px;color: #999;}
+.aw-question-detail-page .aw-question-detail .aw-mod-footer #ckepop a{margin: 2px 0 0 5px;}
 .aw-question-detail-page .aw-question-detail .aw-mod-footer .aw-invite-replay-btn{margin:0;}
 .aw-question-detail-page .aw-question-detail iframe{width: 100%;}
 .aw-question-detail-page .aw-question-detail .bshare-custom{display: inline-block;width:20px;vertical-align: 1px;}
