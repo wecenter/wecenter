@@ -216,7 +216,9 @@ class question_class extends AWS_MODEL
 		
 		if ($keyword)
 		{
-			$where[] = "(MATCH(question_content_fulltext) AGAINST('" . $this->quote($this->model('search_index')->encode_search_code($this->model('system')->analysis_keyword($keyword))) . "' IN BOOLEAN MODE))";
+			$analysis_keyword = $this->model('system')->analysis_keyword($keyword);
+				
+			$where[] = "(MATCH(question_content_fulltext) AGAINST('" . $this->quote($this->model('search_index')->encode_search_code($analysis_keyword)) . " " . implode(' ', $analysis_keyword) . "' IN BOOLEAN MODE))";
 		}
 		
 		if ($category_id)

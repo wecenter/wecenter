@@ -50,37 +50,44 @@ class ajax extends AWS_CONTROLLER
 		switch ($_GET['search_type'])
 		{	
 			case 'all':
-				$search_result = $this->model('search')->search($_GET['q'], 'all', $limit);
-			break;
+				$search_result = $this->model('search')->search($_GET['q'], null, $limit);
+			break; 
 				
 			case 'questions':
-				$search_result = $this->model('search')->search($_GET['q'], 'question', $limit);
+				$search_result = $this->model('search')->search($_GET['q'], 'questions', $limit);
 			break;
 			
 			case 'topics':
-				$search_result = $this->model('search')->search($_GET['q'], 'topic', $limit);
+				$search_result = $this->model('search')->search($_GET['q'], 'topics', $limit);
 			break;
 			
 			case 'users':
-				$search_result = $this->model('search')->search($_GET['q'], 'user', $limit);
+				$search_result = $this->model('search')->search($_GET['q'], 'users', $limit);
+			break;
+			
+			case 'articles':
+				$search_result = $this->model('search')->search($_GET['q'], 'articles', $limit);
 			break;
 		}
 		
-		foreach ($search_result AS $key => $val)
+		if ($this->user_id)
 		{
-			switch ($val['type'])
+			foreach ($search_result AS $key => $val)
 			{
-				case 1:
-					$search_result[$key]['focus'] = $this->model("question")->has_focus_question($val['sno'], $this->user_id);
-				break;
-				
-				case 2:
-					$search_result[$key]['focus'] = $this->model('topic')->has_focus_topic($this->user_id, $val['sno']);
-				break;
-				
-				case 3:
-					$search_result[$key]['focus'] = $this->model('follow')->user_follow_check($this->user_id, $val['sno']);
-				break;
+				switch ($val['type'])
+				{
+					case 'questions':
+						$search_result[$key]['focus'] = $this->model('question')->has_focus_question($val['search_id'], $this->user_id);
+					break;
+					
+					case 'topics':
+						$search_result[$key]['focus'] = $this->model('topic')->has_focus_topic($this->user_id, $val['search_id']);
+					break;
+					
+					case 'users':
+						$search_result[$key]['focus'] = $this->model('follow')->user_follow_check($this->user_id, $val['search_id']);
+					break;
+				}
 			}
 		}
 		

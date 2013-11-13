@@ -41,12 +41,23 @@ class search_class extends AWS_MODEL
 			$where = ' AND (' . $where . ')';
 		}
 		
-		return "SELECT *, MATCH(" . $column . "_fulltext) AGAINST('" . $this->quote($this->model('search_index')->encode_search_code($keyword)) . "' IN BOOLEAN MODE) AS score FROM " . $this->get_table($table) . " WHERE MATCH(" . $column . "_fulltext) AGAINST('" . $this->quote($this->model('search_index')->encode_search_code($keyword)) . "' IN BOOLEAN MODE) " . $where . " ORDER BY score DESC, agree_count DESC";
+		switch ($table)
+		{
+			default:
+				$order_key = 'agree_count DESC';
+			break;
+			
+			case 'article':
+				$order_key = 'votes DESC';
+			break;
+		}
+		
+		return "SELECT *, MATCH(" . $column . "_fulltext) AGAINST('" . $this->quote($this->model('search_index')->encode_search_code($keyword)) . " " . $keyword . "' IN BOOLEAN MODE) AS score FROM " . $this->get_table($table) . " WHERE MATCH(" . $column . "_fulltext) AGAINST('" . $this->quote($this->model('search_index')->encode_search_code($keyword)) . " " . $keyword . "' IN BOOLEAN MODE) " . $where . " ORDER BY score DESC, " . $order_key;
 	}
 	
 	public function get_all_result($q, $limit = 20)
 	{
-		$result = array_merge((array)$this->search_users($q, $limit), (array)$this->search_topics($q, $limit), (array)$this->search_questions($q, null, $limit));
+		$result = array_merge((array)$this->search_users($q, $limit), (array)$this->search_topics($q, $limit), (array)$this->search_questions($q, null, $limit), (array)$this->search_articles($q, null, $limit));
 		
 		return $result;
 	}
@@ -105,19 +116,22 @@ class search_class extends AWS_MODEL
 		return $this->query_all($this->bulid_query('question', 'question_content', $q, $where), $limit);
 	}
 	
-	public function search($q, $search_type, $limit = 20, $topic_ids = null)
-	{		
-		if (! in_array($search_type, array(
-			'all', 
-			'user', 
-			'topic', 
-			'topic_add', 
-			'question'
-		)))
+	public function search_articles($q, $topic_ids = '', $limit = 20)
+	{
+		if ($topic_ids)
 		{
-			$search_type = 'all';
+			$topic_ids = explode(',', $topic_ids);
+			
+			array_walk_recursive($topic_ids, 'intval_string');
+			
+			$where = "id IN(SELECT item_id FROM " . $this->get_table('topic_relation') . " WHERE topic_id IN(" . implode(',', $topic_ids) . ") AND `type` = 'article')";
 		}
 		
+		return $this->query_all($this->bulid_query('article', 'title', $q, $where), $limit);
+	}
+	
+	public function search($q, $search_type, $limit = 20, $topic_ids = null)
+	{		
 		$q = (array)explode(' ', str_replace('  ', ' ', trim($q)));
 		
 		foreach ($q AS $key => $val)
@@ -137,20 +151,24 @@ class search_class extends AWS_MODEL
 		
 		switch ($search_type)
 		{
-			case 'all' :
+			default :
 				$result_list = $this->get_all_result($q, $limit);
 				break;
 			
-			case 'user' :
+			case 'users' :
 				$result_list = $this->search_users($q, $limit);
 				break;
 			
-			case 'topic' :
+			case 'topics' :
 				$result_list = $this->search_topics($q, $limit);
 				break;
 			
-			case 'question' :
+			case 'questions' :
 				$result_list = $this->search_questions($q, $topic_ids, $limit);
+				break;
+				
+			case 'articles' :
+				$result_list = $this->search_articles($q, $topic_ids, $limit);
 				break;
 		}
 		
@@ -174,9 +192,9 @@ class search_class extends AWS_MODEL
 	{
 		if (isset($result_info['last_login']))
 		{
-			$result_type = 3;
+			$result_type = 'users';
 			
-			$sno = $result_info['uid'];
+			$search_id = $result_info['uid'];
 				
 			$user_info = $this->model('account')->get_user_info_by_uid($result_info['uid'], true);
 				
@@ -194,9 +212,9 @@ class search_class extends AWS_MODEL
 		}
 		else if ($result_info['topic_id'])
 		{
-			$result_type = 2;
+			$result_type = 'topics';
 			
-			$sno = $result_info['topic_id'];
+			$search_id = $result_info['topic_id'];
 			
 			$url = get_js_url('/topic/' . $result_info['url_token']);
 			
@@ -212,9 +230,9 @@ class search_class extends AWS_MODEL
 		}
 		else if ($result_info['question_id'])
 		{
-			$result_type = 1;
+			$result_type = 'questions';
 			
-			$sno = $result_info['question_id'];
+			$search_id = $result_info['question_id'];
 			
 			$url = get_js_url('/question/' . $result_info['question_id']);
 			
@@ -228,14 +246,29 @@ class search_class extends AWS_MODEL
 				'agree_count' => $result_info['agree_count']
 			);
 		}
+		else if ($result_info['id'])
+		{
+			$result_type = 'articles';
+			
+			$search_id = $result_info['id'];
+			
+			$url = get_js_url('/article/' . $result_info['id']);
+			
+			$name = $result_info['title'];
+			
+			$detail = array(
+				'comments' => $result_info['comments'],
+				'views' => $result_info['views']
+			);
+		}
 		
-		if ($name)
+		if ($result_type)
 		{
 			return array(
 				'uid' => $result_info['uid'], 
 				'type' => $result_type, 
 				'url' => $url, 
-				'sno' => $sno, 
+				'search_id' => $search_id, 
 				'name' => $name, 
 				'detail' => $detail
 			);

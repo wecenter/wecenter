@@ -30,19 +30,8 @@ $(document).ready(function()
 	$('#search_result_more').click(function()
 	{
 		var _this = this;
-		
-		switch (window.location.hash)
-		{
-			default:
-				var request_url = G_BASE_URL + '/search/ajax/search_result/search_type-all__q-' + encodeURIComponent(search_query) + '__template-' + ajax_template + '__page-' + cur_page;
-			break;
-			
-			case '#questions':
-			case '#topics':
-			case '#users':
-				var request_url = G_BASE_URL + '/search/ajax/search_result/search_type-' +  window.location.hash.replace(/#/g, '') + '__q-' + encodeURIComponent(search_query) + '__template-' + ajax_template + '__page-' + cur_page;
-			break;
-		}
+				
+		var request_url = G_BASE_URL + '/search/ajax/search_result/search_type-' +  window.location.hash.replace(/#/g, '') + '__q-' + encodeURIComponent(search_query) + '__template-' + ajax_template + '__page-' + cur_page;
 		
 		$(this).addClass('loading');
 		$(this).find('span').html(_t('正在载入') + '...');

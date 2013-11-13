@@ -1804,24 +1804,24 @@ function get_dropdown_list(selector, type, data)
         break;
 
         case 'publish' :
-            url = G_BASE_URL + '/search/ajax/search/?type=question&q=' + encodeURIComponent(data) + '&limit-10';
+            url = G_BASE_URL + '/search/ajax/search/?type=questions&q=' + encodeURIComponent(data) + '&limit-10';
         break;
 
         case 'redirect' :
-            url = G_BASE_URL + '/search/ajax/search/?q=' + encodeURIComponent(data) + '&type=question&limit-30';
+            url = G_BASE_URL + '/search/ajax/search/?q=' + encodeURIComponent(data) + '&type=questions&limit-30';
         break;
 
         case 'invite' :
         case 'inbox' :
-            url = G_BASE_URL + '/search/ajax/search/?type-user__q-' + encodeURIComponent(data) + '__limit-10';
+            url = G_BASE_URL + '/search/ajax/search/?type-users__q-' + encodeURIComponent(data) + '__limit-10';
         break;
 
         case 'topic_question' :
-            url = G_BASE_URL + '/search/ajax/search/?type=question&q=' + encodeURIComponent(data) + '&topic_ids=' + CONTENTS_TOPIC_ID;
+            url = G_BASE_URL + '/search/ajax/search/?type=questions&q=' + encodeURIComponent(data) + '&topic_ids=' + CONTENTS_TOPIC_ID;
         break;
 
         case 'topic' :
-            url = G_BASE_URL + '/search/ajax/search/?type-topic__q-' + encodeURIComponent(data) + '__limit-10';
+            url = G_BASE_URL + '/search/ajax/search/?type-topics__q-' + encodeURIComponent(data) + '__limit-10';
         break;
     }
 
@@ -1835,9 +1835,9 @@ function get_dropdown_list(selector, type, data)
                 case 'search' :
                     $.each(result, function(i, a)
                     {
-                        switch (parseInt(a.type)) // type1 : 问题 , type2 : 话题 best_answer最佳回答, type3 : 用户
+                        switch (parseInt(a.type))
                         {
-                            case 1:
+                            case 'questions':
                                 if (a.detail.best_answer > 0)
                                 {
                                     var active = 'active';
@@ -1855,7 +1855,17 @@ function get_dropdown_list(selector, type, data)
                                     'discuss_count': a.detail.answer_count
                                 }));
                                 break;
-                            case 2:
+								
+							case 'articles':
+                                $(selector).parent().find('.aw-dropdown-list').append(Hogan.compile(AW_TEMPLATE.searchDropdownList4).render(
+                                {
+                                    'url': a.url,
+                                    'content': a.name,
+                                    'comments': a.detail.comments
+                                }));
+                                break;
+								
+                            case 'topics':
                                 $(selector).parent().find('.aw-dropdown-list').append(Hogan.compile(AW_TEMPLATE.searchDropdownList2).render(
                                 {
                                     'url': a.url,
@@ -1864,7 +1874,8 @@ function get_dropdown_list(selector, type, data)
                                     'topic_id': a.detail.topic_id
                                 }));
                                 break;
-                            case 3:
+                            
+                            case 'users':
                                 if (a.detail.signature == '')
                                 {
                                     var signature = _t('暂无介绍');
@@ -1913,7 +1924,7 @@ function get_dropdown_list(selector, type, data)
                     {
                         $(selector).parent().find('.aw-dropdown-list').append(Hogan.compile(AW_TEMPLATE.questionRedirectList).render(
                         {
-                            'url': "'" + G_BASE_URL + "/question/ajax/redirect/', 'item_id=" + $(selector).attr('data-id') + "&target_id=" + a['sno'] + "'",
+                            'url': "'" + G_BASE_URL + "/question/ajax/redirect/', 'item_id=" + $(selector).attr('data-id') + "&target_id=" + a['search_id'] + "'",
                             'name': a['name']
                         }));
                     });

@@ -68,6 +68,7 @@ CREATE TABLE `[#DB_PREFIX#]article` (
   `has_attach` tinyint(1) NOT NULL DEFAULT '0',
   `lock` int(1) NOT NULL DEFAULT '0',
   `votes` int(10) DEFAULT '0',
+  `title_fulltext` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `has_attach` (`has_attach`),
   KEY `uid` (`uid`),
@@ -75,8 +76,9 @@ CREATE TABLE `[#DB_PREFIX#]article` (
   KEY `views` (`views`),
   KEY `add_time` (`add_time`),
   KEY `lock` (`lock`),
-  KEY `votes` (`votes`)
-) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
+  KEY `votes` (`votes`),
+  FULLTEXT KEY `title_fulltext` (`title_fulltext`)
+) ENGINE=MYISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]article_comments` (
   `id` int(10) NOT NULL AUTO_INCREMENT,

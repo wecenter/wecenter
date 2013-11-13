@@ -229,20 +229,24 @@ function dropdown_list(element, type)
 								if (result.length > 0)
 								{
 									ul.html('');
-									// type1 : 问题 , type2 : 话题 best_answer最佳回答, type3 : 用户
+									
 									$.each(result, function(i, e)
 									{
 										switch(parseInt(result[i].type))
 										{
-											case 1 :
+											case 'questions' :
 												ul.append('<li><a href="' + decodeURIComponent(result[i].url) + '">' + result[i].name + '<span class="num">' + result[i].detail.answer_count + ' 个回答</span></a></li>');
 												break;
+												
+											case 'articles' :
+												ul.append('<li><a href="' + decodeURIComponent(result[i].url) + '">' + result[i].name + '<span class="num">' + result[i].detail.comments + ' 个评论</span></a></li>');
+												break;
 
-											case 2 :
+											case 'topics' :
 												ul.append('<li><a class="aw-topic-name" href="' + decodeURIComponent(result[i].url) + '">' + result[i].name  + '</a><span class="num">' + result[i].detail.discuss_count + ' 个问题</span></li>');
 												break;
 
-											case 3 :
+											case 'users' :
 												ul.append('<li><a href="' + decodeURIComponent(result[i].url) + '"><img src="' + result[i].detail.avatar_file + '"><span>' + result[i].name + '</span></a></li>');
 												break;
 										}
@@ -257,7 +261,7 @@ function dropdown_list(element, type)
 						break;
 
 						case 'message' :
-							$.get(G_BASE_URL + '/search/ajax/search/?type-user__q-' + encodeURIComponent($(element).val()) + '__limit-10',function(result)
+							$.get(G_BASE_URL + '/search/ajax/search/?type-users__q-' + encodeURIComponent($(element).val()) + '__limit-10',function(result)
 							{
 								if (result.length > 0)
 								{
@@ -281,7 +285,7 @@ function dropdown_list(element, type)
 						break;
 
 						case 'invite' : 
-							$.get(G_BASE_URL + '/search/ajax/search/?type-user__q-' + encodeURIComponent($(element).val()) + '__limit-10',function(result)
+							$.get(G_BASE_URL + '/search/ajax/search/?type-users__q-' + encodeURIComponent($(element).val()) + '__limit-10',function(result)
 							{
 								if (result.length > 0)
 								{
@@ -319,7 +323,7 @@ function dropdown_list(element, type)
 						break;
 
 						case 'redirect' :
-							$.get(G_BASE_URL + '/search/ajax/search/?q=' + encodeURIComponent($(element).val()) + '&type=question&limit-30',function(result)
+							$.get(G_BASE_URL + '/search/ajax/search/?q=' + encodeURIComponent($(element).val()) + '&type=questions&limit-30',function(result)
 							{
 								if (result.length > 0)
 								{
@@ -327,7 +331,7 @@ function dropdown_list(element, type)
 									
 									$.each(result ,function(i, e)
 									{
-										ul.append('<li><a onclick="ajax_request(' + "'" + G_BASE_URL + "/question/ajax/redirect/', 'item_id=" + $(element).attr('data-id') + "&target_id=" + result[i].sno + "'" +')">' + result[i].name +'</a></li>')
+										ul.append('<li><a onclick="ajax_request(' + "'" + G_BASE_URL + "/question/ajax/redirect/', 'item_id=" + $(element).attr('data-id') + "&target_id=" + result[i].search_id + "'" +')">' + result[i].name +'</a></li>')
 									});	
 									
 									$(element).next().show();
@@ -339,7 +343,7 @@ function dropdown_list(element, type)
 						break;
 
 						case 'topic' :
-							$.get(G_BASE_URL + '/search/ajax/search/?type-topic__q-' + encodeURIComponent($(element).val()) + '__limit-10',function(result)
+							$.get(G_BASE_URL + '/search/ajax/search/?type-topics__q-' + encodeURIComponent($(element).val()) + '__limit-10',function(result)
 							{
 								if (result.length > 0)
 								{

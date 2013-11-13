@@ -53,35 +53,29 @@ class search_index_class extends AWS_MODEL
 	
 	public function push_index($type, $string, $item_id)
 	{
-		if ($keywords = $this->model('system')->analysis_keyword($string))
+		if (!$keywords = $this->model('system')->analysis_keyword($string))
 		{
-			if (sizeof($keywords) > 10)
-			{
-				$keywords = array_slice($keywords, 0, 10);
-			}
-			
-			$search_code = $this->encode_search_code($keywords);
+			return false;
+		}
+		
+		if (sizeof($keywords) > 10)
+		{
+			$keywords = array_slice($keywords, 0, 10);
 		}
 		
 		switch ($type)
 		{
 			case 'question':
 				return $this->shutdown_update('question', array(
-					'question_content_fulltext' => $search_code
+					'question_content_fulltext' => implode(' ', $keywords)
 				), 'question_id = ' . intval($item_id));
 			break;
 			
-			/*case 'topic':
-				return $this->update('topic', array(
-					'topic_title_fulltext' => $search_code
-				), 'topic_id = ' . intval($item_id));
+			case 'article':
+				return $this->update('article', array(
+					'title_fulltext' => implode(' ', $keywords)
+				), 'id = ' . intval($item_id));
 			break;
-			
-			case 'user':
-				return $this->update('users', array(
-					'user_name_fulltext' => $search_code
-				), 'uid = ' . intval($item_id));
-			break;*/
 		}
 	}
 }
