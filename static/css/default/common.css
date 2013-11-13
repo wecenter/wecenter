@@ -240,8 +240,8 @@ a.aw-load-more-content{display: block;}
 .category .title a, .category-dropdown a.active{font-weight: bold;}
 
 /* 动态首页&话题精华模块 */
-.aw-dynamic-topic > .aw-mod-head{padding-bottom: 10px;border-bottom: 1px solid #C1CAD4;}
-.aw-dynamic-topic .aw-mod-head h2{font-size: 20px;margin: 10px 0 0;}
+.aw-dynamic-topic > .aw-mod-head, .aw-dynamic-index > .aw-mod-head{padding-bottom: 10px;border-bottom: 1px solid #C1CAD4;}
+.aw-dynamic-topic .aw-mod-head h2, .aw-dynamic-index > .aw-mod-head h2{font-size: 20px;margin: 10px 0 0;}
 .aw-dynamic-topic .aw-mod-head p{margin:0;}
 .aw-dynamic-topic .aw-item, .aw-question-detail-box .aw-dynamic-topic .aw-item{padding:10px 5px;border-bottom: 1px dotted #C1CAD4;}
 .aw-dynamic-topic .aw-item .aw-user-img{width: 32px;height: 32px;}
@@ -600,20 +600,20 @@ a.aw-load-more-content{display: block;}
 .aw-my-inbox .aw-item p.aw-text-color-999{max-width: none;}
 /*私信对话*/
 .aw-my-private-letter h2 a{font-size: 14px;font-weight: normal;}
-.aw-mod-private-replay-box{position: relative;padding:15px 42px 15px 52px;}
+.aw-mod-private-replay-box{position: relative;padding:15px 45px;}
 .aw-mod-private-replay-box .aw-user-img{position: absolute;right: 0;top:15px;}
-.aw-mod-private-replay-box textarea{min-height: 100px;width: 570px;}
-.aw-mod-private-replay-box p{width:570px;margin-top:10px;text-align: right;}
+.aw-mod-private-replay-box textarea{min-height: 100px;}
+.aw-mod-private-replay-box p{margin-top:10px;text-align: right;}
 /*私信对话列表*/
 .aw-mod-private-replay-list{padding-bottom:30px;}
-.aw-mod-private-replay-list li{position: relative;padding:15px 52px;}
+.aw-mod-private-replay-list li{position: relative;padding:15px 45px;}
 .aw-mod-private-replay-list li .aw-item{position:relative;padding:12px 15px;background: #FAFAFA;border:1px solid #E6E6E6;}
 .aw-mod-private-replay-list li .aw-item p:first-child{margin-bottom: 10px;}
 .aw-mod-private-replay-list li .i-private-replay-triangle{position: absolute;right: -8px;top: 10px;border-left:1px solid #FAFAFA;}
 .aw-mod-private-replay-list li.active .aw-item{background: #F5FAFE;border:1px solid #DCECF9;}
 .aw-mod-private-replay-list li.active .aw-user-img{left:0;top:15px;}
 .aw-mod-private-replay-list li.active .i-private-replay-triangle{background: url('img/icon-angle-left.png') no-repeat;left:-8px;border-left:none;border-right: 1px solid #F5FAFE;}
-.aw-mod-private-replay-list li .aw-user-img{top:15px;}
+.aw-mod-private-replay-list li .aw-user-img{top:15px;right: 0;}
 
 /* 通知 */
 .aw-my-notifications{padding-bottom: 30px;}
