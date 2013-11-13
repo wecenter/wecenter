@@ -1835,7 +1835,7 @@ function get_dropdown_list(selector, type, data)
                 case 'search' :
                     $.each(result, function(i, a)
                     {
-                        switch (parseInt(a.type))
+                        switch (a.type)
                         {
                             case 'questions':
                                 if (a.detail.best_answer > 0)
@@ -1847,7 +1847,7 @@ function get_dropdown_list(selector, type, data)
                                     var active = ''
                                 }
 
-                                $(selector).parent().find('.aw-dropdown-list').append(Hogan.compile(AW_TEMPLATE.searchDropdownList1).render(
+                                $(selector).parent().find('.aw-dropdown-list').append(Hogan.compile(AW_TEMPLATE.searchDropdownListQuestions).render(
                                 {
                                     'url': a.url,
                                     'active': active,
@@ -1857,7 +1857,7 @@ function get_dropdown_list(selector, type, data)
                                 break;
 								
 							case 'articles':
-                                $(selector).parent().find('.aw-dropdown-list').append(Hogan.compile(AW_TEMPLATE.searchDropdownList4).render(
+                                $(selector).parent().find('.aw-dropdown-list').append(Hogan.compile(AW_TEMPLATE.searchDropdownListArticles).render(
                                 {
                                     'url': a.url,
                                     'content': a.name,
@@ -1866,7 +1866,7 @@ function get_dropdown_list(selector, type, data)
                                 break;
 								
                             case 'topics':
-                                $(selector).parent().find('.aw-dropdown-list').append(Hogan.compile(AW_TEMPLATE.searchDropdownList2).render(
+                                $(selector).parent().find('.aw-dropdown-list').append(Hogan.compile(AW_TEMPLATE.searchDropdownListTopics).render(
                                 {
                                     'url': a.url,
                                     'name': a.name,
@@ -1885,7 +1885,7 @@ function get_dropdown_list(selector, type, data)
                                     var signature = a.detail.signature;
                                 }
                                 
-                                $(selector).parent().find('.aw-dropdown-list').append(Hogan.compile(AW_TEMPLATE.searchDropdownList3).render(
+                                $(selector).parent().find('.aw-dropdown-list').append(Hogan.compile(AW_TEMPLATE.searchDropdownListUsers).render(
                                 {
                                     'url': a.url,
                                     'img': a.detail.avatar_file,

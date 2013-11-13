@@ -232,7 +232,7 @@ function dropdown_list(element, type)
 									
 									$.each(result, function(i, e)
 									{
-										switch(parseInt(result[i].type))
+										switch(result[i].type)
 										{
 											case 'questions' :
 												ul.append('<li><a href="' + decodeURIComponent(result[i].url) + '">' + result[i].name + '<span class="num">' + result[i].detail.answer_count + ' 个回答</span></a></li>');
