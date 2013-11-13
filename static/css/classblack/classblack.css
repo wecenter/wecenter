@@ -18,7 +18,7 @@
 .aw-top-menu h1{margin:0;}
 .aw-top-nav{width: 330px !important;}
 .aw-top-nav > ul > li{float: left;}
-.aw-top-nav > ul > li > a{display:inline-block;height:54px;line-height: 54px;padding: 0 15px;font-size: 14px;font-weight: bold;color: #fff;}
+.aw-top-nav > ul > li > a{display:inline-block;height:54px;line-height: 54px;padding: 0 15px;font-size: 14px;color: #fff;}
 .aw-top-nav > ul > li > a:hover, .aw-user-nav > span > a:hover{background: #404040;}
 .aw-top-nav > ul > li > a.active{background:#515151 !important;}
 .aw-publish-btn{display:inline-block;height:32px;line-height:32px;color:#fff;}
@@ -136,6 +136,8 @@
 .aw-user-setting{padding: 1px;border:1px solid #DFDFDF;border-radius: 5px;}
 .aw-user-setting h4{background: #F7FCFF;}
 .aw-user-setting .tab-content{padding: 0 0 30px;}
+.aw-user-setting-bind .form-group{margin: 0 0 15px -10px;}
+.aw-user-setting .aw-user-setting-save{margin:30px 30px 0;}
 
 /* 登陆&注册页面 */
 .aw-login-box .aw-mod-head{background: url("img/login_default.png") no-repeat 0 -1px;}
