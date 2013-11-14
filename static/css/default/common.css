@@ -354,6 +354,15 @@ a.aw-load-more-content{display: block;}
 .aw-side-bar-topic-edit-notes .fa-chevron-down{margin-top: 2px;}
 /* 话题编辑 */
 .aw-topic-editor .aw-topic-name{display:inline-block;margin:0 3px 5px;}
+/* 话题分类 */
+.aw-side-bar-mod.topic-sort{margin-bottom:10px;padding:0;border:1px solid #dcdcdc;border-radius: 5px;}
+.aw-side-bar-mod.topic-sort .aw-mod-head{padding:0 20px;background-color: #f5f5f5;border-bottom: 1px solid #dcdcdc;}
+.aw-side-bar-mod.topic-sort .aw-mod-head h3{height:40px;line-height:40px;}
+.aw-side-bar-mod.topic-sort .aw-mod-body{padding:10px;}
+.aw-side-bar-mod.topic-sort .aw-mod-body ul li{margin-top:5px;padding:0;}
+.aw-side-bar-mod.topic-sort .aw-mod-body ul li:first-child{margin-top: 0;}
+.aw-side-bar-mod.topic-sort .aw-mod-body ul li a{display:block;height: 34px;line-height: 34px;padding:0 10px;border-radius: 5px;}
+.aw-side-bar-mod.topic-sort .aw-mod-body ul li a:hover, .aw-side-bar-mod.topic-sort .aw-mod-body ul li a.active{background-color: #eeeeee;}
 /* 邀请回复 */
 .aw-side-bar-invite-box input{margin-bottom: 10px;}
 .aw-side-bar-invite-box .aw-item{display:none;position:relative;height: auto;margin:10px 0;}
@@ -532,6 +541,7 @@ a.aw-load-more-content{display: block;}
 .aw-side-bar-topic-nav ul > li > a{display:block;padding:5px 0 5px 10px;color: #666;font-size: 14px;}
 .aw-side-bar-topic-nav ul > li > span{display:block;padding:5px 0 5px 10px;font-size: 14px;}
 .aw-side-bar-topic-nav ul > li > a:hover, .aw-side-bar-topic-nav ul > li > a.active{background: #2b77a8;color: #fff;}
+.aw-side-bar-topic-nav ul > li > a:hover i, .aw-side-bar-topic-nav ul > li > a.active i{color: #fff;}
 .aw-side-bar-topic-nav ul > li > p{height:auto;overflow:hidden;margin-top:10px;padding:10px;border:1px solid #ccc;}
 .aw-side-bar-topic-nav ul > li > p a{display:inline-block;margin:3px 2px;padding: 1px 5px;}
 .aw-side-bar-topic-nav ul > li > p .active{background:#D4F2FF;}
@@ -869,6 +879,7 @@ a.aw-load-more-content{display: block;}
 .icon-register-arrow{display: inline-block;width: 20px;height: 48px;background-image: url('img/register-triangle.png');background-color:#fff;background-repeat: no-repeat;}
 .i-dropdown-triangle{display:inline-block;width:13px;height:7px;background: url('img/icon-angle-up.png') no-repeat;}
 .i-private-replay-triangle{width: 8px;height: 10px;background: url('img/icon-angle-right.png') no-repeat;}
+.fa-fire, .fa-tags{margin-right: 5px;}
 
 /*分享icon*/
 .bds{position:relative;top:3px;display:inline-block;width:16px;height:16px;margin-right:5px;background-image: url(img/bds-icon-sprite.png);background-repeat: no-repeat;}
