@@ -165,7 +165,6 @@
 /* Overlay helper */
 
 .fancybox-lock {
-    overflow: hidden !important;
     width: auto;
 }
 

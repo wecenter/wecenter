@@ -181,10 +181,10 @@
 				<!-- 发起人 -->
 				<?php if ($this->article_info['anonymous'] == 0) { ?>
 				<div class="aw-side-bar-mod user-detail">
-					<div class="aw-side-bar-mod-head">
+					<div class="aw-mod-head">
 						<h3><?php _e('发起人'); ?></h3>
 					</div>
-					<div class="aw-side-bar-mod-body">
+					<div class="aw-mod-body">
 						<dl>
 							<dt class="pull-left aw-border-radius-5">
 								<a href="people/<?php echo $this->article_info['user_info']['url_token']; ?>"><img alt="<?php echo $this->article_info['user_info']['user_name']; ?>" src="<?php echo get_avatar_url($this->article_info['uid'], 'mid'); ?>" /></a>
@@ -195,7 +195,7 @@
 							</dd>
 						</dl>
 					</div>
-					<div class="aw-side-bar-mod-footer">
+					<div class="aw-mod-footer">
 						<ul class="aw-text-color-999">
 							<li>
 								<?php _e('积分'); ?>: <span><?php echo $this->article_info['user_info']['integral']; ?></span>
