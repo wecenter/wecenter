@@ -337,16 +337,16 @@
 				<!-- 发起人 -->
 				<?php if ($this->question_info['anonymous'] == 0) { ?>
 				<div class="aw-side-bar-mod">
-					<div class="aw-side-bar-mod-head">
+					<div class="aw-mod-head">
 						<h3><?php _e('发起人'); ?></h3>
 					</div>
-					<div class="aw-side-bar-mod-body">
+					<div class="aw-mod-body">
 						<dl>
 							<dt class="pull-left aw-border-radius-5">
 								<a href="people/<?php echo $this->question_info['user_info']['url_token']; ?>"><img alt="<?php echo $this->question_info['user_info']['user_name']; ?>" src="<?php echo get_avatar_url($this->question_info['published_uid'], 'mid'); ?>" /></a>
 							</dt>
 							<dd class="pull-left">
-								<a class="aw-user-name" href="people/<?php echo $this->question_info['user_info']['url_token']; ?>" data-id="<?php echo $this->question_info['user_info']['uid']; ?>"><?php echo $this->question_info['user_info']['user_name'];?></a><?php if ($this->question_info['user_info']['verified']) { ?><i class="icon-v<?php if ($this->question_info['user_info']['verified'] == 'enterprise') { ?> i-ve<?php } ?>" title="<?php if ($this->user['verified'] == 'enterprise') { ?>企业认证<?php } else { ?>个人认证<?php } ?>"></i><?php } ?><?php if ($this->user['uid'] != $this->user_id AND $this->user_id) { ?><i data-placement="bottom" title="" onclick="follow_people($(this), <?php echo $this->question_info['user_info']['uid'];?>);" data-toggle="tooltip" class="fa fa-check-circle<?php if (!$this->user_follow_check) { ?> aw-active<?php } ?>" data-original-title="<?php if ($this->user_follow_check) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?>"></i><?php } ?>
+								<a class="aw-user-name" href="people/<?php echo $this->question_info['user_info']['url_token']; ?>" data-id="<?php echo $this->question_info['user_info']['uid']; ?>"><?php echo $this->question_info['user_info']['user_name'];?></a><?php if ($this->question_info['user_info']['verified']) { ?><i class="icon-v<?php if ($this->question_info['user_info']['verified'] == 'enterprise') { ?> i-ve<?php } ?>" title="<?php if ($this->user['verified'] == 'enterprise') { ?>企业认证<?php } else { ?>个人认证<?php } ?>"></i><?php } ?><?php if ($this->user['uid'] != $this->user_id AND $this->user_id) { ?><i data-placement="bottom" title="" onclick="follow_people($(this), <?php echo $this->question_info['user_info']['uid'];?>);" data-toggle="tooltip" class="fa fa-check<?php if (!$this->user_follow_check) { ?> aw-active<?php } ?>" data-original-title="<?php if ($this->user_follow_check) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?>"></i><?php } ?>
 								<p><?php echo $this->question_info['user_info']['signature']; ?></p>
 							</dd>
 						</dl>
@@ -358,10 +358,10 @@
 				<?php if ($this->user_id) { ?>
 				<!-- 邀请别人回复 -->
 				<div class="aw-side-bar-mod aw-side-bar-invite-replay">
-					<div class="aw-side-bar-mod-head">
+					<div class="aw-mod-head">
 						<h3><?php _e('邀请别人回复'); ?></h3>
 					</div>
-					<div class="aw-side-bar-mod-body">
+					<div class="aw-mod-body">
 						<a class="aw-website-invite"><?php _e('站内邀请'); ?><em class="badge badge-info"><?php echo count($this->invite_users); ?></em></a> • <a class="aw-email-invite"><?php _e('邮件邀请'); ?></a>
 						<!-- 侧边栏邀请box -->
 						<div class="aw-side-bar-invite-box">
@@ -426,10 +426,10 @@
 				<?php if ($this->question_related_list) { ?>
 				<!-- 相关问题 -->
 				<div class="aw-side-bar-mod aw-text-align-justify">
-					<div class="aw-side-bar-mod-head">
+					<div class="aw-mod-head">
 						<h3><?php _e('相关问题'); ?></h3>
 					</div>
-					<div class="aw-side-bar-mod-body">
+					<div class="aw-mod-body">
 						<ul class="aw-li-border-bottom">
 							<?php foreach($this->question_related_list AS $key => $val) { ?>
 							<li><a href="question/<?php echo $val['question_id']; ?>"><?php echo $val['question_content']; ?></a></li>
@@ -442,10 +442,10 @@
 
 				<!-- 问题状态 -->
 				<div class="aw-side-bar-mod aw-side-bar-mod-question-status">
-					<div class="aw-side-bar-mod-head">
+					<div class="aw-mod-head">
 						<h3><?php _e('问题状态'); ?></h3>
 					</div>
-					<div class="aw-side-bar-mod-body">
+					<div class="aw-mod-body">
 						<ul>
 							<li><?php _e('最新活动'); ?>: <span class="aw-text-color-blue"><?php echo date_friendly($this->question_info['update_time']); ?></span></li>
 							<li><?php _e('浏览'); ?>: <span class="aw-text-color-blue"><?php echo $this->question_info['view_count']; ?></span></li>

@@ -1,8 +1,8 @@
 <div class="aw-side-bar-mod aw-side-bar-topic-about">
-	<div class="aw-side-bar-mod-head">
+	<div class="aw-mod-head">
 		<h3><?php _e('相关话题'); ?></h3>
 	</div>
-	<div class="aw-side-bar-mod-body aw-topic-editor" data-type="topic" data-id="<?php echo $this->topic_info['topic_id']; ?>">
+	<div class="aw-mod-body aw-topic-editor" data-type="topic" data-id="<?php echo $this->topic_info['topic_id']; ?>">
 		<?php if ($this->related_topics) { ?>
 			<?php foreach($this->related_topics as $key => $val){ ?>
 			<a class="aw-topic-name" href="topic/<?php echo $val['url_token']; ?>" data-id="<?php echo $val['topic_id']; ?>"><span><?php echo $val['topic_title']; ?></span></a>
