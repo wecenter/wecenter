@@ -268,6 +268,7 @@ function _error_message_form_processer(result)
 function shake(element)
 {
     element.css('margin-left',element.css('margin-left'));
+    
     for (var i = 1; i <= 3; i++)
     {
         element.animate({ 'left': (30 - 10 * i) }, 20);
@@ -1142,20 +1143,20 @@ function insertVoteBar(data)
     // {element:this,agree_count:20,flag:0,user_name:G_USER_NAME,answer_id:1230};
     switch (data.flag)
     {
-    case 1:
-        up_class = 'active';
-        down_class = '';
-        break;
-
-    case -1:
-        up_class = '';
-        down_class = 'active';
-        break;
-
-    case 0:
-        up_class = '';
-        down_class = '';
-        break;
+	    case 1:
+	        up_class = 'active';
+	        down_class = '';
+	        break;
+	
+	    case -1:
+	        up_class = '';
+	        down_class = 'active';
+	        break;
+	
+	    case 0:
+	        up_class = '';
+	        down_class = '';
+	        break;
     }
 
     $(data.element).parent().prepend(Hogan.compile(AW_TEMPLATE.voteBar).render(
@@ -1999,9 +2000,11 @@ function _fix_textarea_focus_cursor_position(elTextarea)
 
 /*回复,评论@人功能*/
 var at_user_lists_flag = 0, at_user_lists_index = 0;
+
 function at_user_lists(selector) {
     $(selector).keyup(function (e) {
         init();
+        
         var _this = $(this),
              flag = getCursorPosition($(this)[0]).start,
             key = e.which,
