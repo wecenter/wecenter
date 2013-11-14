@@ -89,7 +89,7 @@ a.aw-load-more-content{display: block;}
 /* 分类小标签 */
 .aw-user-name, .aw-topic-name{display:inline-block;font-size:12px;line-height:20px;font-weight:normal;}
 .aw-user-name img, .aw-topic-name img{width: 50px;height: 50px;}
-.aw-topic-name span{display:inline-block;padding:0 6px;background:#D4F2FF;}
+.aw-topic-name span{display:inline-block;padding:0 6px;background-color:#e0f5ff;}
 .aw-topic-name span:hover{background:#C1E8F9;text-decoration:none;}
 .aw-topic-name .aw-close{margin-left:5px;color: #295477;opacity: 1;}
 /* 最佳回答 */
@@ -193,7 +193,7 @@ a.aw-load-more-content{display: block;}
 .aw-user-nav > span > a{display:inline-block;height:54px;line-height:54px;padding:0 12px;color: #fff;}
 .aw-user-nav > span > a:hover{background-color: #24659a;}
 .aw-user-nav .aw-user-nav-dropdown .badge{position: absolute;top: 8px;}
-.aw-user-nav-dropdown-list{display: none;position:absolute;width:100px;border:1px solid #285f8c;border-top: none;}
+.aw-user-nav-dropdown-list{display: none;position:absolute;width:100px;border:1px solid #285f8c;border: none;box-shadow: 0 1px 5px #828282;}
 .aw-user-nav-dropdown-list ul li{border-top: 1px solid #305f8e;}
 .aw-user-nav-dropdown-list ul li:first-child{border-top: none;}
 .aw-user-nav-dropdown-list ul li a{display:block;width:100%;height: 36px;line-height: 36px;padding:0 10px;background: #3579A6;color: #fff;font-weight: normal;}
@@ -293,7 +293,7 @@ a.aw-load-more-content{display: block;}
 .aw-new-message-tips .aw-mod-head{padding-bottom:10px;}
 .aw-new-message-tips .aw-mod-head h3{font-weight: normal;margin:0;}
 .aw-new-message-tips .aw-mod-head .pull-right{font-size: 12px;}
-.aw-new-message-tips .aw-mod-body ul{margin-bottom: 10px;padding:0 10px;background-color: #fff;border:1px solid #e2e2e2;}
+.aw-new-message-tips .aw-mod-body ul{margin-bottom: 10px;padding:0 10px;background-color: #fff;border:1px solid #F1EDE0}
 .aw-new-message-tips .aw-mod-body ul li{line-height: 15px;padding:15px 0;border-top:1px dotted #E2E2E2;}
 .aw-new-message-tips .aw-mod-body ul li:first-child{border-top: none;}
 .aw-new-message-tips .aw-mod-body ul li span{max-width:40px;font-weight: normal;font-size: 12px;}
@@ -458,7 +458,7 @@ a.aw-load-more-content{display: block;}
 .aw-dynamic-topic .aw-vote-count.disable, .aw-vote-bar .aw-vote-bar-count.enable, .aw-vote-count.enable{cursor: no-drop;}
 .aw-vote-bar i{margin:0 !important;color: #428BCA;}
 /* 问题列表公共模块 .aw-question-list */
-.aw-question-box-mod .aw-item{position:relative;z-index:0;height:auto;min-height:45px;overflow:hidden;padding:15px 5px 15px 65px;}
+.aw-question-box-mod .aw-item{position:relative;z-index:0;height:auto;min-height:45px;overflow:hidden;padding:15px 5px 15px 70px;}
 .aw-question-box-mod .aw-item .aw-user-name{display: inline;}
 .aw-question-box-mod .aw-item.active{background-color: #f8fbfd;}
 .aw-question-list{width:100%;height:auto;overflow: hidden;}
@@ -467,10 +467,10 @@ a.aw-load-more-content{display: block;}
 .aw-question-list .aw-questoin-content h4{margin:0 0 8px;font-size:14px;}
 .aw-question-list .aw-questoin-content > span, .aw-question-list .aw-questoin-content p span{font-size: 12px;font-weight: normal;color: #999;}
 .aw-question-list .aw-questoin-content .aw-user-name img{max-width: 24px;}
-.aw-question-list .aw-questoin-content p{margin:0;}
+.aw-question-list .aw-questoin-content p{margin:0;color: #999;}
 .aw-question-list .aw-questoin-content .aw-topic-name{display:inline-block;margin:0 2px 3px;}
 /* 问题列表用户头像 */
-.aw-question-list .aw-item > .aw-user-name{position:absolute;left:5px;top:15px;}
+.aw-question-list .aw-item > .aw-user-name{position:absolute;left:10px;top:15px;}
 .aw-question-list .aw-questoin-content .aw-user-name img{width: 24px;height: 24px;}
 /* 问题列表问题标签 */
 .aw-question-tags{margin-right:10px;padding:0 5px 0 10px;background-color:#f2f2f2;cursor:pointer;font-size: 14px;}
@@ -715,6 +715,7 @@ a.aw-load-more-content{display: block;}
 
 /* bs弹窗 */
 .alert-box{outline: none;}
+.alert-box .modal-footer{line-height: 34px;}
 .modal-dialog textarea, .modal-dialog input{margin-bottom: 10px;}
 .aw-share-box .modal-dialog, .aw-publish-box .modal-dialog, .aw-message-box .modal-dialog, .aw-question-redirect-box .modal-dialog, .aw-inbox .modal-dialog, .aw-topic-edit-note-box .modal-dialog{width: 470px;}
 /* 警告提示box */
