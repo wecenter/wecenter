@@ -30,7 +30,7 @@ class category extends AWS_ADMIN_CONTROLLER
 	public function list_action()
 	{
 		TPL::assign('list', json_decode($this->model('system')->build_category_json('question'), true));
-		TPL::assign('category_option', $this->model('system')->build_category_html('question'));
+		TPL::assign('category_option', $this->model('system')->build_category_html('question', 0, 0, null, false));
 		
 		TPL::output("admin/category/list");
 	}
