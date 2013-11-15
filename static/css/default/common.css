@@ -311,8 +311,7 @@ a.aw-load-more-content{display: block;}
 .aw-side-bar .aw-side-bar-mod .aw-mod-head{padding-bottom:5px;border-bottom: 1px solid #E2E2E2;}
 .aw-side-bar .aw-side-bar-mod .aw-mod-body{margin-top: 5px;}
 .aw-side-bar-topic .aw-side-bar-mod{border-bottom: none;}
-.aw-side-bar-mod dl{height:auto;overflow:hidden;margin:5px 0;}
-.aw-side-bar-mod dl:first-child{margin-top: 10px;}
+.aw-side-bar-mod dl{height:auto;overflow:hidden;margin:10px 0;}
 .aw-side-bar-topic-detail dl{padding-top: 0;}
 .aw-side-bar-topic .aw-side-bar-mod-head{margin-bottom:10px;}
 .aw-side-bar-no-head-bottom{border-bottom:1px solid #E2E2E2;}
