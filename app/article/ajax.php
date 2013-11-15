@@ -197,7 +197,7 @@ class ajax extends AWS_CONTROLLER
 		
 		$reputation_factor = $this->model('account')->get_user_group_by_id($this->user_info['reputation_group'], 'reputation_factor');
 		
-		$this->model('article')->article_vote($_POST['type'], $_POST['item_id'], $_POST['rating'], $this->user_id, $reputation_factor);
+		$this->model('article')->article_vote($_POST['type'], $_POST['item_id'], $_POST['rating'], $this->user_id, $reputation_factor, $item_info['uid']);
 		
 		H::ajax_json_output(AWS_APP::RSM(null, 1, null));
 	}

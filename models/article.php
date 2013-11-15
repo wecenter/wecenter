@@ -206,7 +206,7 @@ class article_class extends AWS_MODEL
 		), 'id = ' . intval($article_id));
 	}
 	
-	public function article_vote($type, $item_id, $rating, $uid, $reputation_factor)
+	public function article_vote($type, $item_id, $rating, $uid, $reputation_factor, $item_uid)
 	{
 		$this->delete('article_vote', "`type` = '" . $this->quote($type) . "' AND item_id = " . intval($item_id) . ' AND uid = ' . intval($uid));
 		
@@ -228,6 +228,7 @@ class article_class extends AWS_MODEL
 					'rating' => intval($rating),
 					'time' => time(),
 					'uid' => intval($uid),
+					'item_uid' => intval($item_uid),
 					'reputation_factor' => $reputation_factor
 				));
 			}
