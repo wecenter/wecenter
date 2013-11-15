@@ -66,7 +66,7 @@ $.loading = function (s) {
 
     $.extend(
     {
-        //插入操作
+        //编辑器插入图片
         addTextpicTure : function ()
         {
         	if($('#addTxtForms :input[name="imgsUrl"]').val() == '')
@@ -74,23 +74,45 @@ $.loading = function (s) {
         		return false;
         	}
             var textFeildValue = '\n![' + ($('#addTxtForms :input[name="imgsAlt"]').val()) + '](' + $('#addTxtForms :input[name="imgsUrl"]').val() + ')';
-            $('#advanced_editor') == null ? '' :
-                $('#advanced_editor').insertAtCaret(textFeildValue);
+            if ($('.aw-mod-replay-box .advanced_editor')[0])
+	        {
+	        	$('.aw-mod-replay-box .advanced_editor').insertAtCaret(textFeildValue);
+	        }
+	        if ($('.aw-mod-publish .advanced_editor')[0])
+	        {
+	        	$('.aw-mod-publish .advanced_editor').insertAtCaret(textFeildValue);
+	        }
+	        if ($('body').hasClass('aw-editing-free'))
+	        {
+	        	$('.aw-free-editor .advanced_editor').insertAtCaret(textFeildValue);
+	        }
         },
 
-        //插入视频操作
-        addVideo : function ()
-        {
-        	if ($('#addTxtForms :input[name="videoUrl"]').val() == '')
-        	{
-        		return false;
-        	}
-            var textFeildValue = '\n!![' + ($('#addTxtForms :input[name="videoTitle"]').val()) + '](' + $('#addTxtForms :input[name="videoUrl"]').val() + ')';
-            $('#advanced_editor') == null ? '' :
-                $('#advanced_editor').insertAtCaret(textFeildValue);
-        },
+        //编辑器插入视频
+	    addVideo: function ()
+	    {
+	        if ($('#addTxtForms :input[name="videoUrl"]').val().indexOf('.swf') != -1)
+	        {
+	            alert(_t('请输入视频网站页面地址, 不是播放器地址'));
 
-        //插入链接操作
+	            return false;
+	        }
+	        var textFeildValue = '\n!![' + ($('#addTxtForms :input[name="videoTitle"]').val()) + '](' + $('#addTxtForms :input[name="videoUrl"]').val() + ')';
+	        if ($('.aw-mod-replay-box .advanced_editor')[0])
+	        {
+	        	$('.aw-mod-replay-box .advanced_editor').insertAtCaret(textFeildValue);
+	        }
+	        if ($('.aw-mod-publish .advanced_editor')[0])
+	        {
+	        	$('.aw-mod-publish .advanced_editor').insertAtCaret(textFeildValue);
+	        }
+	        if ($('body').hasClass('aw-editing-free'))
+	        {
+	        	$('.aw-free-editor .advanced_editor').insertAtCaret(textFeildValue);
+	        }
+	    },
+
+        //编辑器插入链接
         addLink : function()
         {
         	if ($('#addTxtForms :input[name="linkUrl"]').val() == '')
@@ -98,8 +120,18 @@ $.loading = function (s) {
         		return false;
         	}
 			var textFeildValue = '[' + ($('#addTxtForms :input[name="linkText"]').val()) + '](' + $('#addTxtForms :input[name="linkUrl"]').val() + ')';
-			$('#advanced_editor') == null ? '' :
-                $('#advanced_editor').insertAtCaret(textFeildValue);
+			if ($('.aw-mod-replay-box .advanced_editor')[0])
+	        {
+	        	$('.aw-mod-replay-box .advanced_editor').insertAtCaret(textFeildValue);
+	        }
+	        if ($('.aw-mod-publish .advanced_editor')[0])
+	        {
+	        	$('.aw-mod-publish .advanced_editor').insertAtCaret(textFeildValue);
+	        }
+	        if ($('body').hasClass('aw-editing-free'))
+	        {
+	        	$('.aw-free-editor .advanced_editor').insertAtCaret(textFeildValue);
+	        }
         },
 
         // 设置编辑器预览状态
@@ -111,13 +143,13 @@ $.loading = function (s) {
             }
             else
             {
-				if ($('#markItUpPreviewFrame').css('display') == 'none')
+				if ($('.markItUpPreviewFrame').css('display') == 'none')
 				{
-					$('#markItUpPreviewFrame').fadeIn();
+					$('.markItUpPreviewFrame').fadeIn();
 				}
                 else
 				{
-					$('#markItUpPreviewFrame').fadeOut();	
+					$('.markItUpPreviewFrame').fadeOut();	
 				}
             }
         },
@@ -128,7 +160,7 @@ $.loading = function (s) {
             var flag = false;
             var pos = {};
             var cursor = 0;
-            var textarea = document.getElementById('advanced_editor');
+            var textarea = $('.advanced_editor');
             if (advanced_editor != null)
             {
 
@@ -213,26 +245,6 @@ jQuery.fn.extend({
     outerHTML: function (s)
     {
         return (s) ? this.before(s).remove() : jQuery("<p>").append(this.eq(0).clone()).html();
-    },
-    //图片插入操作
-    addTextpicTure: function ()
-    {
-        var textFeildValue = '\n![' + ($('#addTxtForms :input[name="imgsAlt"]').val()) + '](' + $('#addTxtForms :input[name="imgsUrl"]').val() + ')';
-        $('#advanced_editor') == null ? '' :
-            $('#advanced_editor').insertAtCaret(textFeildValue);
-    },
-    //插入视频操作
-    addVideo: function ()
-    {
-        if ($('#addTxtForms :input[name="videoUrl"]').val().indexOf('.swf') != -1)
-        {
-            alert(_t('请输入视频网站页面地址, 不是播放器地址'));
-
-            return false;
-        }
-        var textFeildValue = '\n!![' + ($('#addTxtForms :input[name="videoTitle"]').val()) + '](' + $('#addTxtForms :input[name="videoUrl"]').val() + ')';
-        $('#advanced_editor') == null ? '' :
-            $('#advanced_editor').insertAtCaret(textFeildValue);
     }
 });
 

@@ -2240,3 +2240,37 @@ function getCursorPosition(textarea)
 
     return rangeData;
 }
+
+/* 编辑器全屏模式切换 */
+function toggleFullScreen(type)
+{
+    switch (type)
+    {
+        case 'show' : 
+            $('body').addClass('aw-editing-free');
+            if ($('.aw-mod-publish .advanced_editor')[0])
+            {
+                $('.aw-free-editor .advanced_editor').val($('.aw-mod-publish .advanced_editor').val());
+            }
+            else
+            {
+                $('.aw-free-editor .advanced_editor').val($('.aw-mod-replay-box .advanced_editor').val());
+            }
+            $('.aw-free-editor').show();
+        break;
+
+        case 'hide' :
+            $('body').removeClass('aw-editing-free');
+            if ($('.aw-mod-publish .advanced_editor')[0])
+            {
+                $('.aw-mod-publish .advanced_editor').val($('.aw-free-editor .advanced_editor').val());
+            }
+            else
+            {
+                $('.aw-mod-replay-box .advanced_editor').val($('.aw-free-editor .advanced_editor').val());
+            }
+            $('.aw-free-editor').hide();
+
+        break;
+    }
+}
