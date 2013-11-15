@@ -1,9 +1,9 @@
 <?php if (sizeof($this->feature_list) > 0) { ?>
 <div class="aw-side-bar-mod">
-	<div class="aw-side-bar-mod-head">
+	<div class="aw-mod-head">
 		<h3><?php _e('专题'); ?></h3>
 	</div>
-	<div class="aw-side-bar-mod-body">
+	<div class="aw-mod-body">
 		<ul>
 			<?php foreach($this->feature_list as $key => $val){ ?>
 			<?php if (!$this->feature_ids OR !in_array($val['id'], $this->feature_ids)) { ?>

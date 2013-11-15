@@ -305,7 +305,7 @@
 						</p>
 					</div>
 					<div class="aw-mod-body">
-						<textarea name="answer_content" id="advanced_editor" rows="15" class="autosize" style="width:100%;"><?php echo htmlspecialchars($this->draft_content['message']); ?></textarea>
+						<textarea name="answer_content" id="advanced_editor" rows="15" class="autosize form-control advanced_editor"><?php echo htmlspecialchars($this->draft_content['message']); ?></textarea>
 						<p class="aw-text-color-999"><span class="pull-right" id="answer_content_message">&nbsp;</span></p>
 						<?php if ($this->human_valid) { ?>
 						<p class="aw-auth-img clearfix">
@@ -323,7 +323,7 @@
 								<?php _e('预览模式'); ?>:
 							</h2>
 							
-							<div id="markItUpPreviewFrames"></div>
+							<div id="markItUpPreviewFrames" class="markItUpPreviewFrames"></div>
 						</div>
 					</div>
 					</form>
@@ -346,7 +346,7 @@
 								<a href="people/<?php echo $this->question_info['user_info']['url_token']; ?>"><img alt="<?php echo $this->question_info['user_info']['user_name']; ?>" src="<?php echo get_avatar_url($this->question_info['published_uid'], 'mid'); ?>" /></a>
 							</dt>
 							<dd class="pull-left">
-								<a class="aw-user-name" href="people/<?php echo $this->question_info['user_info']['url_token']; ?>" data-id="<?php echo $this->question_info['user_info']['uid']; ?>"><?php echo $this->question_info['user_info']['user_name'];?></a><?php if ($this->question_info['user_info']['verified']) { ?><i class="icon-v<?php if ($this->question_info['user_info']['verified'] == 'enterprise') { ?> i-ve<?php } ?>" title="<?php if ($this->user['verified'] == 'enterprise') { ?>企业认证<?php } else { ?>个人认证<?php } ?>"></i><?php } ?><?php if ($this->user['uid'] != $this->user_id AND $this->user_id) { ?><i data-placement="bottom" title="" onclick="follow_people($(this), <?php echo $this->question_info['user_info']['uid'];?>);" data-toggle="tooltip" class="fa fa-check<?php if (!$this->user_follow_check) { ?> aw-active<?php } ?>" data-original-title="<?php if ($this->user_follow_check) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?>"></i><?php } ?>
+								<a class="aw-user-name" href="people/<?php echo $this->question_info['user_info']['url_token']; ?>" data-id="<?php echo $this->question_info['user_info']['uid']; ?>"><?php echo $this->question_info['user_info']['user_name'];?></a><?php if ($this->question_info['user_info']['verified']) { ?><i class="icon-v<?php if ($this->question_info['user_info']['verified'] == 'enterprise') { ?> i-ve<?php } ?>" title="<?php if ($this->question_info['user_info']['verified'] == 'enterprise') { ?>企业认证<?php } else { ?>个人认证<?php } ?>"></i><?php } ?><?php if ($this->user['uid'] != $this->user_id AND $this->user_id) { ?><i data-placement="bottom" title="" onclick="follow_people($(this), <?php echo $this->question_info['user_info']['uid'];?>);" data-toggle="tooltip" class="fa fa-check<?php if (!$this->user_follow_check) { ?> aw-active<?php } ?>" data-original-title="<?php if ($this->user_follow_check) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?>"></i><?php } ?>
 								<p><?php echo $this->question_info['user_info']['signature']; ?></p>
 							</dd>
 						</dl>
@@ -461,6 +461,30 @@
 			<!-- end 侧边栏 -->
 		</div>
 	</div>
+</div>
+<div class="aw-mod aw-free-editor hide">
+	<form action="question/ajax/save_answer/" onsubmit="return false;" method="post" id="answer_form">
+    	<input type="hidden" name="post_hash" value="<?php echo new_post_hash(); ?>" />
+    	<input type="hidden" name="question_id" value="<?php echo $this->question_info['question_id']; ?>" />
+    	<input type="hidden" name="attach_access_key" value="<?php echo $this->attach_access_key; ?>" />
+		<div class="aw-mod-head">
+			<div class="aw-wecenter">
+				<a href="#" class="btn btn-large btn-default pull-left" onclick="toggleFullScreen('hide');return false;">退出全屏模式</a>
+				全屏模式
+				<a href="#" class="btn btn-large btn-default pull-right" onclick="ajax_post($(this).parents('#answer_form'));return false;">回复</a>
+			</div>
+		</div>
+		<div class="aw-mod-body">
+			<div class="aw-mod-side-left pull-left">
+				<textarea name="answer_content" id="advanced_editor" rows="15" class="autosize advanced_editor"><?php echo htmlspecialchars($this->draft_content['message']); ?></textarea>
+			</div>
+			<div class="aw-mod-side-right pull-left">
+				<div id="markItUpPreviewFrame" class="markItUpPreviewFrame">
+					<div id="markItUpPreviewFrames" class="markItUpPreviewFrames"></div>
+				</div>
+			</div>
+		</div>
+	</form>
 </div>
 
 <script type="text/javascript">
