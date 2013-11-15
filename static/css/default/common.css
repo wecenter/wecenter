@@ -376,7 +376,7 @@ a.aw-load-more-content{display: block;}
 .aw-side-bar-invite-replay .aw-mod-body{margin-top:10px;}
 .aw-side-bar-invite-replay .aw-mod-body .badge{line-height: 13px;}
 .aw-side-bar-invite-replay-box{margin:10px 0;padding:10px;background: #EBF5FF;border:1px solid #C1D5DC;}
-.aw-side-bar-invite-replay-box dl + dl{border-top: 1px dotted #E2E2E2;}
+.aw-side-bar-invite-replay-box dl + dl{border-top: 1px dotted #E2E2E2;padding-top: 10px;}
 .aw-side-bar-invite-replay-box dl dd{width:120px;}
 
 /* 问题详情页 */

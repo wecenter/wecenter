@@ -95,7 +95,7 @@ $(document).ready(function () {
 	}, 'json');
 
 	/* 站内邀请回复操作 */
-    $('.aw-side-bar-invite-replay .aw-mod-body a').click(function ()
+    $('.aw-side-bar-invite-replay .aw-mod-body > a').click(function ()
     {
         if ($('.aw-side-bar-invite-box .aw-item').eq($(this).index()).is(':hidden'))
         {
