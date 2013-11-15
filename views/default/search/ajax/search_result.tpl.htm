@@ -1,6 +1,6 @@
 <?php if ($this->search_result) { ?>
 <?php foreach ($this->search_result AS $key => $val) { ?>
-<div class="aw-item<?php if ($val['type'] == 1) { ?> active<?php } ?>">
+<div class="aw-item<?php if ($val['type'] == 'questions') { ?> active<?php } ?>">
 	<?php if ($val['type'] == 'topics') { ?>
 	<a href="<?php echo $val['url']; ?>" class="aw-topic-img" data-id="<?php echo $val['search_id']; ?>"><img src="<?php echo $val['detail']['topic_pic']; ?>" alt="" /></a>
 	<?php } else if ($val['type'] == 'users') { ?>
