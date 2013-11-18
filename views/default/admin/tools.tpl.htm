@@ -38,9 +38,28 @@
 				</form>
 				
 				<form action="admin/tools/init/" method="post" target="_blank">
-				<input type="hidden" name="action" value="update_search_index" />
+				<input type="hidden" name="action" value="update_question_search_index" />
 				<dl class="form-inline">
-					<dt><h3><?php _e('更新搜索索引'); ?>:</h3></dt>
+					<dt><h3><?php _e('更新问题搜索索引'); ?>:</h3></dt>
+					
+					<dd class="aw-box-row-dd">
+						<p class="aw-text-color-999"><?php _e('如果站点搜索功能有问题可以使用此功能修正'); ?></p>
+						<?php _e('每次处理数量'); ?>: 
+						<div class="form-group">
+							<input type="text" value="300" name="per_page" class="form-control" />
+						</div>
+					</dd>
+					
+					<dd>
+						<input class="btn btn-inverse" type="submit" value="<?php _e('开始处理'); ?>" />
+					</dd>
+				</dl>
+				</form>
+				
+				<form action="admin/tools/init/" method="post" target="_blank">
+				<input type="hidden" name="action" value="update_article_search_index" />
+				<dl class="form-inline">
+					<dt><h3><?php _e('更新文章搜索索引'); ?>:</h3></dt>
 					
 					<dd class="aw-box-row-dd">
 						<p class="aw-text-color-999"><?php _e('如果站点搜索功能有问题可以使用此功能修正'); ?></p>
