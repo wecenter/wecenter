@@ -53,15 +53,22 @@ class main extends AWS_CONTROLLER
 			HTTP::set_cookie('_ignore_ua_check', 'TRUE', (time() + 3600 * 24 * 7));
 		}
 	}
-
-	public function index_action()
+	
+	public function lucene_action()
 	{
-		$indexPath = 'ZSL_Test'
+		$indexPath = 'ZSL_Test_';
 		
 		$index = Zend_Search_Lucene::create($indexPath);
 		
+		$doc = new Zend_Search_Lucene_Document();
+		$doc->addField(Zend_Search_Lucene_Field::Text('url', 'http://google.com'));
+		$doc->addField(Zend_Search_Lucene_Field::Text('title', '测试一下索引'));
 		
-		
+		echo $index->addDocument($doc);
+	}
+
+	public function index_action()
+	{		
 		if (! $this->user_id)
 		{
 			$this->explore_action();
