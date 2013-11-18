@@ -56,6 +56,12 @@ class main extends AWS_CONTROLLER
 
 	public function index_action()
 	{
+		$indexPath = 'ZSL_Test'
+		
+		$index = Zend_Search_Lucene::create($indexPath);
+		
+		
+		
 		if (! $this->user_id)
 		{
 			$this->explore_action();
