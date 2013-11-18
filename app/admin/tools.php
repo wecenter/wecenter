@@ -124,7 +124,20 @@ class tools extends AWS_ADMIN_CONTROLLER
 		{
 			foreach ($questions_list as $key => $val)
 			{
-				$this->model('search_index')->push_index('question', $val['question_content'], $val['question_id']);
+				if (defined('G_LUCENE_SUPPORT') AND G_LUCENE_SUPPORT)
+				{
+					$this->model('search_lucene')->push_index('question', $val['question_content'], $val['question_id'], array(
+						'best_answer' => $val['best_answer'],
+						'answer_count' => $val['answer_count'],
+						'comment_count' => $val['comment_count'],
+						'focus_count' => $val['focus_count'],
+						'agree_count' => $val['agree_count']
+				));
+				}
+				else
+				{
+					$this->model('search_fulltext')->push_index('question', $val['question_content'], $val['question_id']);
+				}
 			}
 			
 			H::redirect_msg(AWS_APP::lang()->_t('正在更新问题搜索索引') . ', ' . AWS_APP::lang()->_t('批次: %s', $_GET['page']), '?/admin/tools/update_question_search_index/page-' . ($_GET['page'] + 1) . '__per_page-' . $_GET['per_page']);
@@ -141,7 +154,17 @@ class tools extends AWS_ADMIN_CONTROLLER
 		{
 			foreach ($articles_list as $key => $val)
 			{
-				$this->model('search_index')->push_index('article', $val['title'], $val['id']);
+				if (defined('G_LUCENE_SUPPORT') AND G_LUCENE_SUPPORT)
+				{
+					$this->model('search_lucene')->push_index('article', $$val['title'], $val['id'], array(
+						'comments' => $article_info['comments'],
+						'views' => $article_info['views']
+					));
+				}
+				else
+				{
+					$this->model('search_fulltext')->push_index('article', $val['title'], $val['id']);
+				}
 			}
 			
 			H::redirect_msg(AWS_APP::lang()->_t('正在更新文章搜索索引') . ', ' . AWS_APP::lang()->_t('批次: %s', $_GET['page']), '?/admin/tools/update_article_search_index/page-' . ($_GET['page'] + 1) . '__per_page-' . $_GET['per_page']);

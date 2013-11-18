@@ -70,7 +70,7 @@ class ajax extends AWS_CONTROLLER
 			break;
 		}
 		
-		if ($this->user_id)
+		if ($this->user_id AND $search_result)
 		{
 			foreach ($search_result AS $key => $val)
 			{

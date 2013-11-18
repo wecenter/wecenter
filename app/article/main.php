@@ -34,7 +34,7 @@ class main extends AWS_CONTROLLER
 	}
 	
 	public function index_action()
-	{
+	{	
 		if (! isset($_GET['id']))
 		{
 			HTTP::redirect('/home/explore/');
@@ -55,10 +55,10 @@ class main extends AWS_CONTROLLER
 			H::redirect_msg(AWS_APP::lang()->_t('文章不存在或已被删除'), '/home/explore/');
 		}
 		
-		if (! $article_info['title_fulltext'])
+		/*if (! $article_info['title_fulltext'])
 		{
-			$this->model('search_index')->push_index('article', $article_info['title'], $article_info['id']);
-		}
+			$this->model('search_fulltext')->push_index('article', $article_info['title'], $article_info['id']);
+		}*/
 				
 		if ($article_info['has_attach'])
 		{

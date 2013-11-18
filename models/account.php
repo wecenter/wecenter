@@ -446,7 +446,7 @@ class account_class extends AWS_MODEL
 			
 			$this->update_notification_setting_fields(get_setting('new_user_notification_setting'), $uid);
 			
-			//$this->model('search_index')->push_index('user', $user_name, $uid);
+			//$this->model('search_fulltext')->push_index('user', $user_name, $uid);
 		}
 		
 		return $uid;
@@ -517,7 +517,7 @@ class account_class extends AWS_MODEL
 			'user_name' => htmlspecialchars($user_name),
 		), 'uid = ' . intval($uid));
 		
-		//return $this->model('search_index')->push_index('user', $user_name, $uid);
+		//return $this->model('search_fulltext')->push_index('user', $user_name, $uid);
 		
 		return true;
 	}

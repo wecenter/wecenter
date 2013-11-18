@@ -218,7 +218,7 @@ class question_class extends AWS_MODEL
 		{
 			$analysis_keyword = $this->model('system')->analysis_keyword($keyword);
 				
-			$where[] = "(MATCH(question_content_fulltext) AGAINST('" . $this->quote($this->model('search_index')->encode_search_code($analysis_keyword)) . " " . implode(' ', $analysis_keyword) . "' IN BOOLEAN MODE))";
+			$where[] = "(MATCH(question_content_fulltext) AGAINST('" . $this->quote($this->model('search_fulltext')->encode_search_code($analysis_keyword)) . " " . implode(' ', $analysis_keyword) . "' IN BOOLEAN MODE))";
 		}
 		
 		if ($category_id)
@@ -384,7 +384,7 @@ class question_class extends AWS_MODEL
 				'question_count' => $this->count('question', 'published_uid = ' . intval($published_uid))
 			), 'uid = ' . intval($published_uid));
 			
-			$this->model('search_index')->push_index('question', $question_content, $question_id);
+			$this->model('search_fulltext')->push_index('question', $question_content, $question_id);
 		}
 		
 		return $question_id;
@@ -426,7 +426,7 @@ class question_class extends AWS_MODEL
 				$data['question_content'] = $question_content;
 			}
 			
-			$this->model('search_index')->push_index('question', $question_content, $question_id);
+			$this->model('search_fulltext')->push_index('question', $question_content, $question_id);
 		
 			$this->update('question', $data, 'question_id = ' . $question_id);
 		}
@@ -479,7 +479,7 @@ class question_class extends AWS_MODEL
 				'update_time' => time()
 			), 'question_id = ' . intval($question_id));
 			
-			$this->model('search_index')->push_index('question', $action_log['associate_content'], $question_id);
+			$this->model('search_fulltext')->push_index('question', $action_log['associate_content'], $question_id);
 			
 			$this->clean_unverified_modify($question_id, 'content');
 			

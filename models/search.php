@@ -19,42 +19,7 @@ if (!defined('IN_ANWSION'))
 }
 
 class search_class extends AWS_MODEL
-{
-	public function bulid_query($table, $column, $q, $where = null)
-	{
-		if (is_array($q))
-		{
-			$q = implode(' ', $q);
-		}
-		
-		if ($analysis_keyword = $this->model('system')->analysis_keyword($q))
-		{
-			$keyword = implode(' ', $analysis_keyword);
-		}
-		else
-		{
-			$keyword = $q;
-		}
-		
-		if ($where)
-		{
-			$where = ' AND (' . $where . ')';
-		}
-		
-		switch ($table)
-		{
-			default:
-				$order_key = 'agree_count DESC';
-			break;
-			
-			case 'article':
-				$order_key = 'votes DESC';
-			break;
-		}
-		
-		return "SELECT *, MATCH(" . $column . "_fulltext) AGAINST('" . $this->quote($this->model('search_index')->encode_search_code($keyword)) . " " . $keyword . "' IN BOOLEAN MODE) AS score FROM " . $this->get_table($table) . " WHERE MATCH(" . $column . "_fulltext) AGAINST('" . $this->quote($this->model('search_index')->encode_search_code($keyword)) . " " . $keyword . "' IN BOOLEAN MODE) " . $where . " ORDER BY score DESC, " . $order_key;
-	}
-	
+{	
 	public function get_all_result($q, $limit = 20)
 	{
 		$result = array_merge((array)$this->search_users($q, $limit), (array)$this->search_topics($q, $limit), (array)$this->search_questions($q, null, $limit), (array)$this->search_articles($q, null, $limit));
@@ -102,32 +67,24 @@ class search_class extends AWS_MODEL
 		return $result;
 	}
 	
-	public function search_questions($q, $topic_ids = '', $limit = 20)
+	public function search_questions($q, $topic_ids = null, $limit = 20)
 	{
-		if ($topic_ids)
+		if ($topic_ids OR !defined('G_LUCENE_SUPPORT') OR !G_LUCENE_SUPPORT)
 		{
-			$topic_ids = explode(',', $topic_ids);
-			
-			array_walk_recursive($topic_ids, 'intval_string');
-			
-			$where = "question_id IN(SELECT item_id FROM " . $this->get_table('topic_relation') . " WHERE topic_id IN(" . implode(',', $topic_ids) . ") AND `type` = 'question')";
+			return $this->model('search_fulltext')->search_questions($q, $topic_ids, $limit);
 		}
 		
-		return $this->query_all($this->bulid_query('question', 'question_content', $q, $where), $limit);
+		return $this->model('search_lucene')->search($q, $limit, 'question');
 	}
 	
-	public function search_articles($q, $topic_ids = '', $limit = 20)
+	public function search_articles($q, $topic_ids = null, $limit = 20)
 	{
-		if ($topic_ids)
+		if ($topic_ids OR !defined('G_LUCENE_SUPPORT') OR !G_LUCENE_SUPPORT)
 		{
-			$topic_ids = explode(',', $topic_ids);
-			
-			array_walk_recursive($topic_ids, 'intval_string');
-			
-			$where = "id IN(SELECT item_id FROM " . $this->get_table('topic_relation') . " WHERE topic_id IN(" . implode(',', $topic_ids) . ") AND `type` = 'article')";
+			return $this->model('search_fulltext')->search_articles($q, $topic_ids, $limit);
 		}
 		
-		return $this->query_all($this->bulid_query('article', 'title', $q, $where), $limit);
+		return $this->model('search_lucene')->search($q, $limit, 'article');
 	}
 	
 	public function search($q, $search_type, $limit = 20, $topic_ids = null)
@@ -144,10 +101,8 @@ class search_class extends AWS_MODEL
 		
 		if (sizeof($q) == 0)
 		{
-			return array();
+			return false;
 		}
-		
-		$data = array();
 		
 		switch ($search_type)
 		{
