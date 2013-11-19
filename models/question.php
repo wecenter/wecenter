@@ -1768,7 +1768,7 @@ class question_class extends AWS_MODEL
 	{
 		$question_keywords = $this->model('system')->analysis_keyword($question_content);
 			
-		if ($question_related_list = $this->model('question')->get_related_question_list(null, $question_content, 3))
+		if ($question_related_list = $this->get_related_question_list(null, $question_content, 3))
 		{
 			foreach ($question_related_list AS $key => $val)
 			{
