@@ -352,7 +352,7 @@ class main extends AWS_CONTROLLER
 				}
 			}
 			
-			print_r($question_related_ids);
+			print_r($question_related_list); die;
 			
 			if ($question_related_ids)
 			{
