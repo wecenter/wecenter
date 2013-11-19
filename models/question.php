@@ -865,14 +865,13 @@ class question_class extends AWS_MODEL
 						if (! isset($question_lnk[$val['question_id']]))
 						{
 							$question_lnk[$val['question_id']] = $val['question_content'];
+							
 							$question_info[$val['question_id']] = $val;
 						}
 					}
 				}
 			}
 		}
-		
-		$question_lnk_list = array();
 		
 		if ($question_lnk)
 		{
@@ -1768,7 +1767,7 @@ class question_class extends AWS_MODEL
 	{
 		$question_keywords = $this->model('system')->analysis_keyword($question_content);
 			
-		if ($question_related_list = $this->model('question')->get_related_question_list(null, $question_content, 3))
+		if ($question_related_list = $this->get_related_question_list(null, $question_content, 3))
 		{
 			foreach ($question_related_list AS $key => $val)
 			{
