@@ -865,14 +865,13 @@ class question_class extends AWS_MODEL
 						if (! isset($question_lnk[$val['question_id']]))
 						{
 							$question_lnk[$val['question_id']] = $val['question_content'];
+							
 							$question_info[$val['question_id']] = $val;
 						}
 					}
 				}
 			}
 		}
-		
-		$question_lnk_list = array();
 		
 		if ($question_lnk)
 		{
