@@ -172,6 +172,17 @@ class publish_class extends AWS_MODEL
 			$this->model('wecenter')->send_wechat_message($fake_id, "您的问题 [" . $question_info['question_content'] . "] 收到了 " . $answer_user['user_name'] . " 的回答:\n\n" . strip_tags($answer_content) . "\n\n\n<a href=\"" . get_js_url('/question/' . $question_id) . "\">点击查看问题详情</a>");
 		}
 		
+		if (defined('G_LUCENE_SUPPORT') AND G_LUCENE_SUPPORT)
+		{
+			$this->model('search_lucene')->push_index('question', $question_info['question_content'], $question_info['question_id'], array(
+				'best_answer' => $question_info['best_answer'],
+				'answer_count' => $question_info['answer_count'],
+				'comment_count' => $question_info['comment_count'],
+				'focus_count' => $question_info['focus_count'],
+				'agree_count' => $question_info['agree_count']
+			));
+		}
+		
 		return $answer_id;
 	}
 	
@@ -241,6 +252,17 @@ class publish_class extends AWS_MODEL
 			$this->model('integral')->process($uid, 'NEW_QUESTION', get_setting('integral_system_config_new_question'), '发起问题 #' . $question_id, $question_id);
 		}
 		
+		if (defined('G_LUCENE_SUPPORT') AND G_LUCENE_SUPPORT)
+		{
+			$this->model('search_lucene')->push_index('question', $question_content, $question_id, array(
+				'best_answer' => 0,
+				'answer_count' => 0,
+				'comment_count' => 0,
+				'focus_count' => 1,
+				'agree_count' => 0
+			));
+		}
+		
 		return $question_id;
 	}
 	
@@ -272,6 +294,14 @@ class publish_class extends AWS_MODEL
 			
 			// 记录日志
 			ACTION_LOG::save_action($uid, $article_id, ACTION_LOG::CATEGORY_QUESTION, ACTION_LOG::ADD_ARTICLE, htmlspecialchars($title), htmlspecialchars($message), 0);
+			
+			if (defined('G_LUCENE_SUPPORT') AND G_LUCENE_SUPPORT)
+			{
+				$this->model('search_lucene')->push_index('article', $title, $article_id, array(
+					'comments' => 0,
+					'views' => 0
+				));
+			}
 		}
 		
 		return $article_id;
@@ -313,6 +343,14 @@ class publish_class extends AWS_MODEL
 				'from_uid' => $uid, 
 				'article_id' => $article_info['id'], 
 				'item_id' => $comment_id
+			));
+		}
+		
+		if (defined('G_LUCENE_SUPPORT') AND G_LUCENE_SUPPORT)
+		{
+			$this->model('search_lucene')->push_index('article', $article_info['title'], $article_info['id'], array(
+				'comments' => $article_info['comments'],
+				'views' => $article_info['views']
 			));
 		}
 				

@@ -48,7 +48,7 @@ class search_lucene_class extends AWS_MODEL
 		$document->addField(Zend_Search_Lucene_Field::Keyword('tag', $tag));
 		$document->addField(Zend_Search_Lucene_Field::Keyword('item_id', $item_id));
 		
-		$document->addField(Zend_Search_Lucene_Field::Text('title', $title));
+		$document->addField(Zend_Search_Lucene_Field::Text('title', htmlspecialchars($title)));
 		$document->addField(Zend_Search_Lucene_Field::Text('data', serialize($data)));
 		
 		return $this->lucene->addDocument($document);

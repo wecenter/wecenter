@@ -133,6 +133,11 @@ class article_class extends AWS_MODEL
 	
 	public function update_article($article_id, $title, $message, $topics, $create_topic)
 	{
+		if (!$article_info = $this->model('article')->get_article_info_by_id($article_id))
+		{
+			return false;
+		}
+		
 		$this->delete('topic_relation', 'item_id = ' . intval($article_id) . " AND `type` = 'article'");
 		
 		if (is_array($topics))
@@ -143,6 +148,14 @@ class article_class extends AWS_MODEL
 				
 				$this->model('topic')->save_topic_relation($this->user_id, $topic_id, $article_id, 'article');
 			}
+		}
+		
+		if (defined('G_LUCENE_SUPPORT') AND G_LUCENE_SUPPORT)
+		{
+			$this->model('search_lucene')->push_index('article', $title, intval($article_id), array(
+				'comments' => $article_info['comments'],
+				'views' => $article_info['views']
+			));
 		}
 		
 		return $this->update('article', array(

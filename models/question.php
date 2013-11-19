@@ -429,6 +429,17 @@ class question_class extends AWS_MODEL
 			$this->model('search_fulltext')->push_index('question', $question_content, $question_id);
 		
 			$this->update('question', $data, 'question_id = ' . $question_id);
+			
+			if (defined('G_LUCENE_SUPPORT') AND G_LUCENE_SUPPORT)
+			{
+				$this->model('search_lucene')->push_index('question', $question_content, $question_info['question_id'], array(
+					'best_answer' => $question_info['best_answer'],
+					'answer_count' => $question_info['answer_count'],
+					'comment_count' => $question_info['comment_count'],
+					'focus_count' => $question_info['focus_count'],
+					'agree_count' => $question_info['agree_count']
+				));
+			}
 		}
 		
 		$addon_data = array(

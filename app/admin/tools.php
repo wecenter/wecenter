@@ -132,7 +132,7 @@ class tools extends AWS_ADMIN_CONTROLLER
 						'comment_count' => $val['comment_count'],
 						'focus_count' => $val['focus_count'],
 						'agree_count' => $val['agree_count']
-				));
+					));
 				}
 				else
 				{
@@ -156,9 +156,9 @@ class tools extends AWS_ADMIN_CONTROLLER
 			{
 				if (defined('G_LUCENE_SUPPORT') AND G_LUCENE_SUPPORT)
 				{
-					$this->model('search_lucene')->push_index('article', $$val['title'], $val['id'], array(
-						'comments' => $article_info['comments'],
-						'views' => $article_info['views']
+					$this->model('search_lucene')->push_index('article', $val['title'], $val['id'], array(
+						'comments' => $val['comments'],
+						'views' => $val['views']
 					));
 				}
 				else
