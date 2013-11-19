@@ -35,8 +35,5 @@ define('G_SESSION_SAVE', 'db');
 // Session 文件存储路径
 define('G_SESSION_SAVE_PATH', '');
 
-// 专家组用户组 ID
-define('SPECIALIST_GROUP_ID', 10);
-
 // Lucene 支持
-define('G_LUCENE_SUPPORT', TRUE);
+define('G_LUCENE_SUPPORT', FALSE);
