@@ -105,6 +105,13 @@ class ajax extends AWS_CONTROLLER
 	
 	public function search_action()
 	{
-		H::ajax_json_output($this->model('search')->search($_GET['q'], $_GET['type'], intval($_GET['limit']), $_GET['topic_ids']));
+		if ($result = $this->model('search')->search($_GET['q'], $_GET['type'], intval($_GET['limit']), $_GET['topic_ids']))
+		{
+			H::ajax_json_output($this->model('search')->search($_GET['q'], $_GET['type'], intval($_GET['limit']), $_GET['topic_ids']));
+		}
+		else
+		{
+			H::ajax_json_output(array());	
+		}
 	}
 }
