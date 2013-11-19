@@ -25,7 +25,7 @@ class search_lucene_class extends AWS_MODEL
 	
 	public function setup()
 	{
-		$this->index_path = ROOT_PATH . '/cache/lucene/index/';
+		$this->index_path = ROOT_PATH . 'cache/lucene/index';
 		
 		Zend_Search_Lucene_Analysis_Analyzer::setDefault(new Zend_Search_Lucene_Analysis_Analyzer_Chinese()); 
 		

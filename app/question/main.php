@@ -352,7 +352,10 @@ class main extends AWS_CONTROLLER
 				}
 			}
 			
-			TPL::assign('helpful_users', $this->model('question')->get_helpful_users($question_related_ids, get_setting('question_helpful_users_limit'), $exclude_helpful_uids));
+			if ($get_helpful_users)
+			{
+				TPL::assign('helpful_users', $this->model('question')->get_helpful_users($question_related_ids, get_setting('question_helpful_users_limit'), $exclude_helpful_uids));
+			}
 		}
 		
 		$this->crumb($question_info['question_content'], '/question/' . $question_info['question_id']);
