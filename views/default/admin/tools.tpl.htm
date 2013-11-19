@@ -5,9 +5,9 @@
 	<div class="aw-box aw-box-row tools">
 		<div class="aw-mod-head"><h2>系统维护</h2></div>
 		<div class="aw-mod-body">			
-			<form action="admin/tools/init/" method="post">
-				<input type="hidden" name="action" value="cache_clean" />
-				<dl>
+			<dl>
+				<form action="admin/tools/init/" method="post">
+					<input type="hidden" name="action" value="cache_clean" />
 					<dt><h3><?php _e('缓存清理'); ?>:</h3></dt>
 					
 					<dd class="aw-box-row-dd">
@@ -16,11 +16,11 @@
 					<dd>
 						<input class="btn btn-inverse" type="submit" value="<?php _e('开始处理'); ?>" />
 					</dd>
-				</dl>
 				</form>
+			</dl>
 				
+			<dl class="form-inline">
 				<form action="admin/tools/email_setting_test/" method="post" id="email_setting_test_form" onsubmit="return false">
-				<dl class="form-inline">
 					<dt><h3><?php _e('邮件系统测试'); ?>:</h3></dt>
 					
 					<dd class="aw-box-row-dd">
@@ -34,12 +34,13 @@
 					<dd>
 						<input class="btn btn-inverse" type="button" onclick="ajax_post($('#email_setting_test_form'));" value="<?php _e('发送邮件'); ?>" />
 					</dd>
-				</dl>
 				</form>
+			</dl>
 				
+			<dl class="form-inline">
 				<form action="admin/tools/init/" method="post" target="_blank">
-				<input type="hidden" name="action" value="update_question_search_index" />
-				<dl>
+					<input type="hidden" name="action" value="update_question_search_index" />
+
 					<dt><h3><?php _e('更新问题搜索索引'); ?>:</h3></dt>
 					
 					<dd class="aw-box-row-dd">
@@ -53,12 +54,12 @@
 					<dd>
 						<input class="btn btn-inverse" type="submit" value="<?php _e('开始处理'); ?>" />
 					</dd>
-				</dl>
 				</form>
+			</dl>
 				
+			<dl class="form-inline">
 				<form action="admin/tools/init/" method="post" target="_blank">
 				<input type="hidden" name="action" value="update_article_search_index" />
-				<dl class="form-inline">
 					<dt><h3><?php _e('更新文章搜索索引'); ?>:</h3></dt>
 					
 					<dd class="aw-box-row-dd">
@@ -72,11 +73,11 @@
 					<dd>
 						<input class="btn btn-inverse" type="submit" value="<?php _e('开始处理'); ?>" />
 					</dd>
-				</dl>
 				</form>
+			</dl>
 				
+			<dl class="form-inline">
 				<form action="admin/tools/init/" method="post" target="_blank">
-				<dl>
 					<dt><h3><?php _e('更新最新动态'); ?>:</h3></dt>
 					
 					<dd class="aw-box-row-dd">
@@ -89,13 +90,13 @@
 					<dd>
 						<input class="btn btn-inverse" type="submit" value="<?php _e('开始处理'); ?>" />
 					</dd>
-				</dl>
-				<input type="hidden" name="action" value="update_fresh_actions" />
+					<input type="hidden" name="action" value="update_fresh_actions" />
 				</form>
+			</dl>
 				
+			<dl class="form-inline">
 				<form action="admin/tools/init/" method="post" target="_blank">
 				<input type="hidden" name="action" value="update_users_reputation" />
-				<dl class="form-inline">
 					<dt><h3><?php _e('更新用户威望'); ?>:</h3></dt>
 					
 					<dd class="aw-box-row-dd">
@@ -108,11 +109,11 @@
 					<dd>
 						<input class="btn btn-inverse" type="submit" value="<?php _e('开始处理'); ?>" />
 					</dd>
-				</dl>
 				</form>
+			</dl>
 				
+			<dl class="form-inline">
 				<form action="admin/tools/init/" method="post" target="_blank">
-				<dl>
 					<dt><h3><?php _e('BBCode 转换'); ?>:</h3></dt>
 					
 					<dd class="aw-box-row-dd">
@@ -125,12 +126,12 @@
 					<dd>
 						<input class="btn btn-inverse" type="submit" value="<?php _e('开始处理'); ?>" />
 					</dd>
-				</dl>
-				<input type="hidden" name="action" value="bbcode_to_markdown" />
+					<input type="hidden" name="action" value="bbcode_to_markdown" />
 				</form>
+			</dl>
 				
+			<dl>
 				<form action="admin/tools/init/" method="post" target="_blank">
-				<dl class="form-inline">
 					<dt><h3><?php _e('更新微信菜单'); ?>:</h3></dt>
 					
 					<dd class="aw-box-row-dd">
@@ -139,9 +140,9 @@
 					<dd>
 						<input class="btn btn-inverse" type="submit" value="<?php _e('开始处理'); ?>" />
 					</dd>
-				</dl>
-				<input type="hidden" name="action" value="update_weixin_menu" />
+					<input type="hidden" name="action" value="update_weixin_menu" />
 				</form>
+			</dl>
 		</div>
 	</div>
 </div>
