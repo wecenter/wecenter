@@ -34,3 +34,6 @@ define('G_SESSION_SAVE', 'db');
 
 // Session 文件存储路径
 define('G_SESSION_SAVE_PATH', '');
+
+// Lucene 支持
+define('G_LUCENE_SUPPORT', FALSE);

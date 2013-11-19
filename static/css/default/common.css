@@ -323,7 +323,6 @@ a.aw-load-more-content{display: block;}
 .aw-side-bar .user-detail ul li{padding:3px 0;}
 .aw-side-bar .user-detail ul li .aw-topic-name{display:inline-block;margin:0 5px 5px 0;}
 .aw-side-bar-mod.invite-join .aw-mod-body{margin: 10px 0;}
-.aw-side-bar-mod.interest_user i{vertical-align: -2px;}
 /* 专题页面侧边栏 */
 .aw-side-bar-mod-feature{background: #F4FAFE;border: 1px solid #D9EEFB !important;}
 /* 侧边栏公告 */
@@ -376,7 +375,7 @@ a.aw-load-more-content{display: block;}
 .aw-side-bar-invite-replay .aw-mod-body{margin-top:10px;}
 .aw-side-bar-invite-replay .aw-mod-body .badge{line-height: 13px;}
 .aw-side-bar-invite-replay-box{margin:10px 0;padding:10px;background: #EBF5FF;border:1px solid #C1D5DC;}
-.aw-side-bar-invite-replay-box dl + dl{border-top: 1px dotted #E2E2E2;}
+.aw-side-bar-invite-replay-box dl + dl{border-top: 1px dotted #E2E2E2;padding-top: 10px;}
 .aw-side-bar-invite-replay-box dl dd{width:120px;}
 
 /* 问题详情页 */

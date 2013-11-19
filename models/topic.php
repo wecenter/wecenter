@@ -266,7 +266,7 @@ class topic_class extends AWS_MODEL
 				'topic_lock' => 0
 			));
 		
-			//$this->model('search_index')->push_index('topic', $topic_title, $topic_id);	
+			//$this->model('search_fulltext')->push_index('topic', $topic_title, $topic_id);	
 		}
 		else
 		{
@@ -381,7 +381,7 @@ class topic_class extends AWS_MODEL
 			{
 				ACTION_LOG::save_action(USER::get_client_uid(), $topic_id, ACTION_LOG::CATEGORY_TOPIC, ACTION_LOG::MOD_TOPIC, $topic_title, $topic_info['topic_title']);
 				
-				//$this->model('search_index')->push_index('topic', $topic_title, $topic_id);
+				//$this->model('search_fulltext')->push_index('topic', $topic_title, $topic_id);
 			}
 			
 			if ($topic_description && $topic_description != $topic_info['topic_description'])

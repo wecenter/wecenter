@@ -133,6 +133,11 @@ class article_class extends AWS_MODEL
 	
 	public function update_article($article_id, $title, $message, $topics, $create_topic)
 	{
+		if (!$article_info = $this->model('article')->get_article_info_by_id($article_id))
+		{
+			return false;
+		}
+		
 		$this->delete('topic_relation', 'item_id = ' . intval($article_id) . " AND `type` = 'article'");
 		
 		if (is_array($topics))
@@ -143,6 +148,14 @@ class article_class extends AWS_MODEL
 				
 				$this->model('topic')->save_topic_relation($this->user_id, $topic_id, $article_id, 'article');
 			}
+		}
+		
+		if (defined('G_LUCENE_SUPPORT') AND G_LUCENE_SUPPORT)
+		{
+			$this->model('search_lucene')->push_index('article', $title, intval($article_id), array(
+				'comments' => $article_info['comments'],
+				'views' => $article_info['views']
+			));
 		}
 		
 		return $this->update('article', array(
@@ -206,7 +219,7 @@ class article_class extends AWS_MODEL
 		), 'id = ' . intval($article_id));
 	}
 	
-	public function article_vote($type, $item_id, $rating, $uid, $reputation_factor)
+	public function article_vote($type, $item_id, $rating, $uid, $reputation_factor, $item_uid)
 	{
 		$this->delete('article_vote', "`type` = '" . $this->quote($type) . "' AND item_id = " . intval($item_id) . ' AND uid = ' . intval($uid));
 		
@@ -228,6 +241,7 @@ class article_class extends AWS_MODEL
 					'rating' => intval($rating),
 					'time' => time(),
 					'uid' => intval($uid),
+					'item_uid' => intval($item_uid),
 					'reputation_factor' => $reputation_factor
 				));
 			}

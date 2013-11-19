@@ -75,10 +75,10 @@ class main extends AWS_CONTROLLER
 			$_GET['comment_unfold'] = 'all';
 		}
 		
-		if (!$question_info['question_content_fulltext'])
+		/*if (!$question_info['question_content_fulltext'])
 		{
-			$this->model('search_index')->push_index('question', $question_info['question_content'], $question_info['question_id']);
-		}
+			$this->model('search_fulltext')->push_index('question', $question_info['question_content'], $question_info['question_id']);
+		}*/
 		
 		$question_info['redirect'] = $this->model('question')->get_redirect($question_info['question_id']);
 		

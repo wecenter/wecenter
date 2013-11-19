@@ -53,9 +53,9 @@ class main extends AWS_CONTROLLER
 			HTTP::set_cookie('_ignore_ua_check', 'TRUE', (time() + 3600 * 24 * 7));
 		}
 	}
-
+	
 	public function index_action()
-	{
+	{		
 		if (! $this->user_id)
 		{
 			$this->explore_action();
