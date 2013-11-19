@@ -1471,7 +1471,7 @@ class question_class extends AWS_MODEL
 		return $this->shutdown_update('question', array('last_answer' => intval($answer_id)), 'question_id = ' . intval($question_id));
 	}
 	
-	public function ($related_question_ids, $limit, $exclude_uids = null)
+	public function get_helpful_users($related_question_ids, $limit, $exclude_uids = null)
 	{
 		if (!is_array($related_question_ids) OR sizeof($related_question_ids) == 0)
 		{
