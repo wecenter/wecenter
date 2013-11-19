@@ -250,17 +250,17 @@ class publish_class extends AWS_MODEL
 			ACTION_LOG::save_action($uid, $question_id, ACTION_LOG::CATEGORY_QUESTION, ACTION_LOG::ADD_QUESTION, htmlspecialchars($question_content), htmlspecialchars($question_detail), 0, intval($anonymous));
 			
 			$this->model('integral')->process($uid, 'NEW_QUESTION', get_setting('integral_system_config_new_question'), '发起问题 #' . $question_id, $question_id);
-		}
-		
-		if (defined('G_LUCENE_SUPPORT') AND G_LUCENE_SUPPORT)
-		{
-			$this->model('search_lucene')->push_index('question', $question_content, $question_id, array(
-				'best_answer' => 0,
-				'answer_count' => 0,
-				'comment_count' => 0,
-				'focus_count' => 1,
-				'agree_count' => 0
-			));
+			
+			if (defined('G_LUCENE_SUPPORT') AND G_LUCENE_SUPPORT)
+			{
+				$this->model('search_lucene')->push_index('question', $question_content, $question_id, array(
+					'best_answer' => 0,
+					'answer_count' => 0,
+					'comment_count' => 0,
+					'focus_count' => 1,
+					'agree_count' => 0
+				));
+			}
 		}
 		
 		return $question_id;
