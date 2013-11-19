@@ -122,10 +122,10 @@ a.aw-load-more-content{display: block;}
 .aw-dropdown .aw-dropdown-list li:first-child{border-top: none;}
 .aw-dropdown .aw-dropdown-list li:hover{background-color: #F5FAFF;}
 .aw-dropdown .aw-dropdown-list li.topic{padding:10px;}
-.aw-dropdown .aw-dropdown-list li.question{line-height: 40px;}
+.aw-dropdown .aw-dropdown-list li.question{padding:0 10px;line-height: 40px;}
 .aw-dropdown .aw-dropdown-list li.question.active .icon-g-replay{display: inline-block;color: #309C04;}
 .aw-dropdown .aw-dropdown-list li.question .icon-g-replay{display: none;}
-.aw-dropdown .aw-dropdown-list li.question a{display: block;line-height: 20px;padding: 10px;}
+.aw-dropdown .aw-dropdown-list li.question a{display: inline-block;line-height: 20px;padding: 10px 0;}
 .aw-dropdown .aw-dropdown-list li.user a{display: block;padding: 10px;}
 .aw-dropdown .aw-dropdown-list li.user a img{width: 25px;height: 25px;margin-right: 5px;}
 .aw-dropdown .aw-dropdown-list li.user a span{margin-left:10px;color: #999;}
