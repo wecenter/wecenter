@@ -77,7 +77,6 @@ class search_lucene_class extends AWS_MODEL
 					'tag' => $result->tag,
 					'item_id' => $result->item_id,
 					'title' => $result->title,
-					'url' => get_js_url($result->url),
 					'data' => unserialize($result->data)
 				);
 			}
