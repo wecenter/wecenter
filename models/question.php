@@ -1473,7 +1473,7 @@ class question_class extends AWS_MODEL
 	
 	public function get_helpful_users($related_question_ids, $limit, $exclude_uids = null)
 	{
-		if (!is_array($related_question_ids))
+		if (!is_array($related_question_ids) OR sizeof($related_question_ids) == 0)
 		{
 			return false;
 		}
@@ -1487,7 +1487,7 @@ class question_class extends AWS_MODEL
 		
 		array_walk_recursive($exclude_uids, 'intval_string');
 		
-		if ($related_answers = $this->fetch_all('answer', "question_id IN(" . implode($related_question_ids, ',') . ") AND agree_count > 0 AND uid NOT IN (" . implode(',', $exclude_uids) . ")", 'agree_count DESC', 3))
+		if ($related_answers = $this->fetch_all('answer', "question_id IN(" . implode(',', $related_question_ids) . ") AND agree_count > 0 AND uid NOT IN (" . implode(',', $exclude_uids) . ")", 'agree_count DESC', 3))
 		{
 			foreach ($related_answers AS $key => $val)
 			{
