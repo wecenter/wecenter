@@ -113,6 +113,11 @@ class search_lucene_class extends AWS_MODEL
 			
 			$limit = explode(',', $limit);
 			
+			if (intval($limit[0]) > sizeof($result))
+			{
+				return false;
+			}
+			
 			$result = array_slice($result, intval($limit[0]), intval($limit[1]));
 		}
 		
