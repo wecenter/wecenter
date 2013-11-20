@@ -289,7 +289,7 @@ a.aw-load-more-content{display: block;}
 .aw-my-question-invite .aw-item:hover .aw-new-message-tips-close{display: block;}
 
 /* 动态首页新通知提示box */
-.aw-new-message-tips{background-color:#fdfaeb;border:1px solid #F1EDE0;margin:0 0 25px;padding:15px;}
+.aw-new-message-tips{background-color:#fefdf8;border:1px solid #F1EDE0;margin:0 0 25px;padding:15px;}
 .aw-new-message-tips .aw-mod-head{padding-bottom:10px;}
 .aw-new-message-tips .aw-mod-head h3{font-weight: normal;margin:0;}
 .aw-new-message-tips .aw-mod-head .pull-right{font-size: 12px;}
