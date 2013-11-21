@@ -1052,7 +1052,7 @@ function init_comment_box(selecter)
             //判断是否有评论数据
             $.get(comment_data_url, function (result)
             {
-                if (!result)
+                if ($.trim(result) == '')
                 {
                     result = '<p align="center">' + _t('暂无评论') + '</p>';
                 }

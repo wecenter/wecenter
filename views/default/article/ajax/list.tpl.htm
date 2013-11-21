@@ -6,8 +6,10 @@
 	<div class="aw-questoin-content">
 		<h4>
 			<a href="article/<?php echo $val['id']; ?>"><?php echo $val['title']; ?></a>
+			<?php if ($val['topics']) { ?>
 			<?php foreach ($val['topics'] AS $t_key => $t_val) { ?>
 				<a href="topic/<?php echo $t_val['url_token']; ?>" class="aw-topic-name" data-id="<?php echo $t_val['topic_id']; ?>"><span><?php echo $t_val['topic_title']; ?></span></a><?php } ?>
+			<?php } ?>
 		</h4>
 		
 		<span class="aw-text-color-999">			

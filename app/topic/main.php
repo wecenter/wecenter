@@ -267,7 +267,24 @@ class main extends AWS_CONTROLLER
 		TPL::assign('question_list', $this->model('question')->get_questions_list(1, get_setting('contents_per_page'), 'new', $contents_topic_id));
 		TPL::assign('all_questions_list_bit', TPL::output('question/ajax/list', false));
 		
-		TPL::assign('article_list', $this->model('article')->get_articles_list_by_topic_ids(1, get_setting('contents_per_page'), 'add_time DESC', $contents_topic_id));
+		$article_list = $this->model('article')->get_articles_list_by_topic_ids(1, get_setting('contents_per_page'), 'add_time DESC', $contents_topic_id);
+				
+		if ($article_list)
+		{
+			foreach ($article_list AS $key => $val)
+			{
+				$article_ids[] = $val['id'];
+			}
+			
+			$article_topics = $this->model('topic')->get_topics_by_item_ids($article_ids, 'article');
+			
+			foreach ($article_list AS $key => $val)
+			{
+				$article_list[$key]['topics'] = $article_topics[$val['id']];
+			}
+		}
+		
+		TPL::assign('article_list', $article_list);
 		TPL::assign('articles_list_bit', TPL::output('article/ajax/list', false));
 		
 		TPL::assign('contents_topic_id', $contents_topic_id);
