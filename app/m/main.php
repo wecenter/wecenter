@@ -822,6 +822,8 @@ class main extends AWS_CONTROLLER
 			}
 		}
 		
+		$this->model('article')->update_views($article_info['id']);
+		
 		TPL::assign('comments', $comments);
 		TPL::assign('comments_count', $article_info['comments']);
 		
