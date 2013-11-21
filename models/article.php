@@ -408,4 +408,18 @@ class article_class extends AWS_MODEL
 			return $articles_list;
 		}
 	}
+	
+	public function update_views($article_id)
+	{
+		if (AWS_APP::cache()->get('update_views_article_' . md5(session_id()) . '_' . intval($article_id)))
+		{
+			return false;
+		}
+		
+		AWS_APP::cache()->set('update_views_article_' . md5(session_id()) . '_' . intval($article_id), time(), 60);
+		
+		$this->shutdown_query("UPDATE " . $this->get_table('article') . " SET views = views + 1 WHERE id = " . intval($article_id));
+		
+		return true;
+	}
 }

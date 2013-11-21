@@ -37,6 +37,8 @@ class search_lucene_class extends AWS_MODEL
 		{
 			$this->lucene = Zend_Search_Lucene::open($this->index_path);
 		}
+		
+		$this->lucene->setMergeFactor(5);
 	}
 	
 	public function push_index($tag, $title, $item_id, $data = null)
