@@ -28,6 +28,7 @@
 .aw-user-center-tab .tab-pane > .aw-mod .aw-load-more-content{margin:0 20px 20px;}
 .aw-user-center-tab .aw-mod .aw-item{padding-top:10px;border-top:1px dotted #C1CAD4;}
 .aw-user-center-tab .aw-mod .aw-item:first-child{padding-top:0;border-top: none;}
+.aw-user-center-tab .aw-mod .aw-item .aw-mod-head h4.aw-hide-txt{max-width: 645px;}
 .aw-user-center-tab .aw-mod .aw-item .aw-mod-body{position:relative;padding:0 0 0 40px;}
 .aw-user-center-tab .aw-mod .aw-item .aw-mod-body .aw-vote-bar{top:0;}
 .aw-user-center-tab .aw-mod .aw-item .aw-mod-body p.aw-hide-txt{max-width: 610px;}
