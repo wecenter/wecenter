@@ -110,6 +110,21 @@ class ajax extends AWS_CONTROLLER
 			$article_list = $this->model('article')->get_articles_list_by_topic_ids($_GET['page'], get_setting('contents_per_page'), 'add_time DESC', $topic_ids);
 		}
 		
+		if ($article_list)
+		{
+			foreach ($article_list AS $key => $val)
+			{
+				$article_ids[] = $val['id'];
+			}
+			
+			$article_topics = $this->model('topic')->get_topics_by_item_ids($article_ids, 'article');
+			
+			foreach ($article_list AS $key => $val)
+			{
+				$article_list[$key]['topics'] = $article_topics[$val['id']];
+			}
+		}
+		
 		TPL::assign('article_list', $article_list);
 		
 		TPL::output('article/ajax/list');

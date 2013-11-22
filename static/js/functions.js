@@ -1090,15 +1090,12 @@ function init_comment_box(selector)
             //判断是否有评论数据
             $.get(comment_data_url, function (result)
             {
-                if (!result)
+                if ($.trim(result) == '')
                 {
                     result = '<div align="center" class="aw-padding10">' + _t('暂无评论') + '</div>';
                 }
-                else
-                {
-                    $(comment_box_id).find('.aw-comment-list').html(result);
-                }
-
+				
+                $(comment_box_id).find('.aw-comment-list').html(result);
             });
 
             var left = $(this).width()/2 + $(this).prev().width();
