@@ -18,10 +18,8 @@ if (!defined('IN_ANWSION'))
 	die;
 }
 
-class api extends AWS_CONTROLLER
+class main extends AWS_CONTROLLER
 {
-	var $input_message;
-	
 	public function get_access_rule()
 	{
 		$rule_action['rule_type'] = 'black';
@@ -30,24 +28,11 @@ class api extends AWS_CONTROLLER
 		return $rule_action;
 	}
 	
-	public function setup()
-	{		
-		if (!$this->model('weixin')->check_signature($_GET['signature'], $_GET['timestamp'], $_GET['nonce']))
-		{
-			die;
-		}
-		
-		if ($_GET['echostr'])
-		{
-			echo htmlspecialchars($_GET['echostr']);
-			die;
-		}
-		
-		$this->input_message = $this->model('weixin')->fetch_message();
-	}
-	
 	public function index_action()
-	{		
-		$this->model('weixin')->response_message($this->input_message);
+	{
+		if ($_GET['code'])
+		{
+			print_r(json_decode(curl_get_contents('https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code')， true));
+		}
 	}
 }
