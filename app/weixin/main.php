@@ -32,7 +32,7 @@ class main extends AWS_CONTROLLER
 	{
 		if ($_GET['code'])
 		{
-			echo file_get_contents('https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=' . AWS_APP::config()->get('weixin')->app_secret . '&code=' . $_GET['code'] . '&grant_type=authorization_code');
+			print_r(json_decode(file_get_contents('https://api.weixin.qq.com/sns/oauth2/access_token?appid=' . AWS_APP::config()->get('weixin')->app_id . '&secret=' . AWS_APP::config()->get('weixin')->app_secret . '&code=' . $_GET['code'] . '&grant_type=authorization_code'), true));
 		}
 	}
 }
