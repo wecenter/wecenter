@@ -14,7 +14,7 @@
 
 if (! defined('IN_ANWSION'))
 {
-	die();
+	die;
 }
 
 class weixin_class extends AWS_MODEL
@@ -380,13 +380,6 @@ class weixin_class extends AWS_MODEL
 				
 				if ($question_list = $this->model('question')->get_hot_question($category_id, $topics_id, 7, 1, 10))
 				{
-					/*response_message .= "热门问题: \n";
-							
-					foreach ($question_list AS $key => $val)
-					{
-						$response_message .= "\n" . '• <a href="' . get_js_url('/question/' . $val['question_id']) . '">' . $val['question_content'] . '</a> (' . date_friendly($val['add_time']) . ')' . "\n";
-					}*/
-					
 					foreach ($question_list AS $key => $val)
 					{
 						if (!$response_message)
@@ -428,14 +421,7 @@ class weixin_class extends AWS_MODEL
 				}
 				
 				if ($question_list = $this->model('question')->get_questions_list(1, 10, 'new', $topics_id, $category_id))
-				{
-					/*$response_message .= "最新问题: \n";
-							
-					foreach ($question_list AS $key => $val)
-					{
-						$response_message .= "\n" . '• <a href="' . get_js_url('/question/' . $val['question_id']) . '">' . $val['question_content'] . '</a> (' . date_friendly($val['add_time']) . ')' . "\n";
-					}*/
-					
+				{					
 					foreach ($question_list AS $key => $val)
 					{
 						if (!$response_message)
@@ -464,13 +450,6 @@ class weixin_class extends AWS_MODEL
 			case 'RECOMMEND_QUESTION':
 				if ($question_list = $this->model('question')->get_questions_list(1, 10, null, null, null, null, null, true))
 				{
-					/*$response_message .= "推荐问题: \n";
-							
-					foreach ($question_list AS $key => $val)
-					{
-						$response_message .= "\n" . '• <a href="' . get_js_url('/question/' . $val['question_id']) . '">' . $val['question_content'] . '</a> (' . date_friendly($val['add_time']) . ')' . "\n";
-					}*/
-					
 					foreach ($question_list AS $key => $val)
 					{
 						if (!$response_message)
@@ -636,7 +615,7 @@ class weixin_class extends AWS_MODEL
 			break;
 			
 			case AWS_APP::config()->get('weixin')->command_bind_info:
-			case 'BIND_INDO':
+			case 'BIND_INFO':
 				if ($this->user_id)
 				{
 					$response_message = '你的微信帐号绑定社区帐号: ' . $this->user_info['user_name'];
