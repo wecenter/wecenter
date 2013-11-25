@@ -582,6 +582,7 @@ a.aw-load-more-content{display: block;}
 .aw-mod-topic-edit-box .aw-mod-head .aw-topic-img span{display: block;width: 20px;height: 20px;margin:20px 0 0 25px;background: #fff;opacity: 0.8;filter:alpha(opacity=80);}
 .aw-mod-topic-edit-box .aw-mod-head .aw-topic-img .fa-wrench{position: relative;top: 4px;margin:0;vertical-align: top;}
 .aw-mod-topic-edit-box .aw-mod-head b{margin-right: 5px;}
+.aw-mod-topic-edit-box .aw-mod-body .fa-fullscreen{display: none;}
 .aw-side-bar-topic-edit .aw-mod-body{margin-top: 10px;}
 .aw-side-bar-topic-edit .aw-topic-name{display: inline-block;margin: 0 4px 8px 0;}
 .aw-side-bar-mod-topic-edit .aw-mod-head{border:none !important;}
