@@ -50,4 +50,9 @@ class api extends AWS_CONTROLLER
 	{		
 		$this->model('weixin')->response_message($this->input_message);
 	}
+	
+	public function code_action()
+	{
+		print_r($_GET);
+	}
 }
