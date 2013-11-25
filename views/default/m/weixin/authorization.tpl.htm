@@ -1,0 +1,41 @@
+<?php TPL::output('m/header.tpl.htm'); ?>
+
+<div class="explore-page">
+	<div class="explore-wrap">
+		<div class="aw-mod-header">
+			<img src="<?php echo G_STATIC_URL; ?>/js/mobile/img/login_logo.png" alt="" />
+		</div>
+		<div class="aw-mod-body">
+			<h1><?php echo get_setting('site_name'); ?></h1>
+		</div>
+		<div class="aw-mod-footer">
+			<div class="login">
+				<form id="login_form" method="post" onsubmit="return false;" action="account/openid/weixin_binding/">
+					<input type="hidden" name="access_token" value="<?php echo $this->access_token['access_token']; ?>" />
+					<input type="hidden" name="expires_in" value="<?php echo $this->access_token['expires_in']; ?>" />
+					<input type="hidden" name="refresh_token" value="<?php echo $this->access_token['refresh_token']; ?>" />
+					<input type="hidden" name="openid" value="<?php echo $this->access_token['openid']; ?>" />
+					<input type="hidden" name="scope" value="<?php echo $this->access_token['scope']; ?>" />
+					
+					<input type="hidden" name="headimgurl" value="<?php echo $this->access_user['headimgurl']; ?>" />
+					<input type="hidden" name="nickname" value="<?php echo $this->access_user['nickname']; ?>" />
+					<input type="hidden" name="sex" value="<?php echo $this->access_user['sex']; ?>" />
+					<input type="hidden" name="province" value="<?php echo $this->access_user['province']; ?>" />
+					<input type="hidden" name="city" value="<?php echo $this->access_user['city']; ?>" />
+					<input type="hidden" name="country" value="<?php echo $this->access_user['country']; ?>" />
+					
+					
+					<div class="email">
+						<input type="text" id="user_name" name="user_name" placeholder="<?php _e('邮箱'); ?>/<?php _e('用户名'); ?>" />
+					</div>
+					<div class="password">
+						<input type="password" id="password" name="password" placeholder="<?php _e('密码'); ?>" onkeydown="if (event.keyCode == 13) { ajax_post($('#login_form')); }" />
+					</div>
+					<a class="btn-submit" href="javascript:;" onclick="ajax_post($('#login_form'));"><?php _e('绑定微信'); ?></a>					
+				</form>
+			</div>
+		</div>
+	</div>
+<div>
+
+<?php TPL::output('m/footer.tpl.htm'); ?>
