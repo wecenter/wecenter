@@ -631,7 +631,7 @@ class weixin_class extends AWS_MODEL
 			break;
 			
 			case 'BIND_TEST':
-				$response_message = '<a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=' . AWS_APP::config()->get('weixin')->app_id . '&redirect_uri=' . urlencode(get_js_url('/weixin/api/code/')) . '&response_type=code&scope=snsapi_userinfo&state=STATE">绑定</a>';
+				$response_message = '<a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=' . AWS_APP::config()->get('weixin')->app_id . '&redirect_uri=' . urlencode(get_js_url('/weixin/api/')) . '&response_type=code&scope=snsapi_userinfo&state=STATE">绑定</a>';
 			break;
 		}
 		
