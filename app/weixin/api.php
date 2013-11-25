@@ -53,6 +53,7 @@ class api extends AWS_CONTROLLER
 	
 	public function code_action()
 	{
+
 		print_r($_GET);
 	}
 }
