@@ -220,10 +220,10 @@ class index_class extends AWS_MODEL
 						unset($topic_info);
 					}
 					
-					if (isset($user_focus_topics_by_questions_ids[$val['associate_id']]) AND ! $topic_info)
+					/*if (isset($user_focus_topics_by_questions_ids[$val['associate_id']]) AND ! $topic_info)
 					{
 						$topic_info = $user_focus_topics_by_questions_ids[$val['associate_id']];
-					}
+					}*/
 					
 					// 是否关注
 					if ($user_focus_questions_ids)
