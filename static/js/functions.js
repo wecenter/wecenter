@@ -484,7 +484,7 @@ function check_notifications()
                 $("#index_notification").fadeOut();
             }
 
-            if (('#tab_all_notifications').length > 0)
+            if ($('#tab_all_notifications').length > 0)
             {
                 $('#tab_all_notifications').click();
             }
