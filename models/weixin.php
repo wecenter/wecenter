@@ -47,10 +47,10 @@ class weixin_class extends AWS_MODEL
 				'eventKey' => $post_object['EventKey']
 			);
 			
-			if ($user_info = $this->model('account')->get_user_info_by_weixin_id($input_message['fromUsername']))
+			if ($weixin_info = $this->model('openid_weixin')->get_user_info_by_openid($input_message['fromUsername']))
 			{
-				$this->user_info = $user_info;
-				$this->user_id = $user_info['uid'];
+				$this->user_info = $this->model('account')->get_user_info_by_uid($uid, true);
+				$this->user_id = $weixin_info['uid'];
 				
 				$user_group = $this->model('account')->get_user_group($user_info['group_id'], $user_info['reputation_group']);
 				
@@ -208,21 +208,12 @@ class weixin_class extends AWS_MODEL
 				}
 				else
 				{
-					if ($response = $this->func_parser($input_message['fromUsername'], $input_message['content']))
+					if (!$response_message = $this->create_response_by_reply_rule_keyword(get_setting('weixin_no_result_message_key')))
 					{
-						$response_message = $response['message'];
-						
-						$action = $response['action'];
+						$response_message = AWS_APP::config()->get('weixin')->publish_message;
 					}
-					else
-					{
-						if (!$response_message = $this->create_response_by_reply_rule_keyword(get_setting('weixin_no_result_message_key')))
-						{
-							$response_message = AWS_APP::config()->get('weixin')->publish_message;
-						}
-					
-						$action = 'publish';
-					}
+				
+					$action = 'publish';
 				}
 			break;
 		}
@@ -504,7 +495,7 @@ class weixin_class extends AWS_MODEL
 				}
 				else
 				{
-					$response_message = '你的微信帐号没有绑定 ' . get_setting('site_name') . ' 的帐号, 请<a href="' . get_js_url('/m/login/?weixin_id=' . base64_encode($input_message['fromUsername'])) . '">点此绑定</a>或<a href="' . get_js_url('/m/register/?weixin_id=' . base64_encode($input_message['fromUsername'])) . '">注册新账户</a>';
+					$response_message = '你的微信帐号没有绑定 ' . get_setting('site_name') . ' 的帐号, 请<a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=' . AWS_APP::config()->get('weixin')->app_id . '&redirect_uri=' . urlencode(get_js_url('/m/weixin/authorization/')) . '&response_type=code&scope=snsapi_userinfo&state=STATE">点此绑定</a>或<a href="' . get_js_url('/m/register/?weixin_id=' . base64_encode($input_message['fromUsername'])) . '">注册新账户</a>';
 				}
 			break;
 			
@@ -546,7 +537,7 @@ class weixin_class extends AWS_MODEL
 				}
 				else
 				{
-					$response_message = '你的微信帐号没有绑定 ' . get_setting('site_name') . ' 的帐号, 请<a href="' . get_js_url('/m/login/?weixin_id=' . base64_encode($input_message['fromUsername'])) . '">点此绑定</a>或<a href="' . get_js_url('/m/register/?weixin_id=' . base64_encode($input_message['fromUsername'])) . '">注册新账户</a>';
+					$response_message = '你的微信帐号没有绑定 ' . get_setting('site_name') . ' 的帐号, 请<a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=' . AWS_APP::config()->get('weixin')->app_id . '&redirect_uri=' . urlencode(get_js_url('/m/weixin/authorization/')) . '&response_type=code&scope=snsapi_userinfo&state=STATE">点此绑定</a>或<a href="' . get_js_url('/m/register/?weixin_id=' . base64_encode($input_message['fromUsername'])) . '">注册新账户</a>';
 				}
 			break;
 			
@@ -610,7 +601,7 @@ class weixin_class extends AWS_MODEL
 				}
 				else
 				{
-					$response_message = '你的微信帐号没有绑定 ' . get_setting('site_name') . ' 的帐号, 请<a href="' . get_js_url('/m/login/?weixin_id=' . base64_encode($input_message['fromUsername'])) . '">点此绑定</a>或<a href="' . get_js_url('/m/register/?weixin_id=' . base64_encode($input_message['fromUsername'])) . '">注册新账户</a>';
+					$response_message = '你的微信帐号没有绑定 ' . get_setting('site_name') . ' 的帐号, 请<a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=' . AWS_APP::config()->get('weixin')->app_id . '&redirect_uri=' . urlencode(get_js_url('/m/weixin/authorization/')) . '&response_type=code&scope=snsapi_userinfo&state=STATE">点此绑定</a>或<a href="' . get_js_url('/m/register/?weixin_id=' . base64_encode($input_message['fromUsername'])) . '">注册新账户</a>';
 				}
 			break;
 			
@@ -622,17 +613,13 @@ class weixin_class extends AWS_MODEL
 				}
 				else
 				{
-					$response_message = '你的微信帐号没有绑定 ' . get_setting('site_name') . ' 的帐号, 请<a href="' . get_js_url('/m/login/?weixin_id=' . base64_encode($input_message['fromUsername'])) . '">点此绑定</a>或<a href="' . get_js_url('/m/register/?weixin_id=' . ($input_message['fromUsername'])) . '">注册新账户</a>';
+					$response_message = '你的微信帐号没有绑定 ' . get_setting('site_name') . ' 的帐号, 请<a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=' . AWS_APP::config()->get('weixin')->app_id . '&redirect_uri=' . urlencode(get_js_url('/m/weixin/authorization/')) . '&response_type=code&scope=snsapi_userinfo&state=STATE">点此绑定</a>或<a href="' . get_js_url('/m/register/?weixin_id=' . ($input_message['fromUsername'])) . '">注册新账户</a>';
 				}
 			break;
 			
 			case AWS_APP::config()->get('weixin')->command_unbind:
 				$response_message = $this->weixin_unbind($input_message['fromUsername']);
 			break;
-			
-			case 'BIND_TEST':
-				$response_message = '<a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=' . AWS_APP::config()->get('weixin')->app_id . '&redirect_uri=' . urlencode(get_js_url('/m/weixin/authorization/')) . '&response_type=code&scope=snsapi_userinfo&state=STATE">绑定</a>';
-			break;
 		}
 		
 		if (!$response_message)
@@ -645,51 +632,7 @@ class weixin_class extends AWS_MODEL
 			'action' => $action
 		);
 	}
-	
-	public function func_parser($weixin_id, $message_content)
-	{
-		$func_code = strtoupper(substr($message_content, 0, 4));
-		$func_param_original = trim(substr($message_content, 4));
-		$func_param = strtoupper($func_param_original);
 		
-		switch ($func_code)
-		{			
-			// 绑定认证
-			case 'BIND':
-				if ($this->model('account')->get_user_info_by_weixin_id($weixin_id))
-				{
-					$response_message = '微信帐号已经与一个账户绑定, 是否解除绑定?';
-					
-					$action = 'unbind';
-				}
-				else if ($weixin_valid = $this->fetch_row('weixin_valid', "`code` = '" . $this->quote($func_param) . "'"))
-				{
-					$this->update('users', array(
-						'weixin_id' => $weixin_id
-					), 'uid = ' . intval($weixin_valid['uid']));
-					
-					$this->delete('weixin_valid', 'id = ' . intval($weixin_valid['id']));
-					
-					$response_message = '微信帐号绑定成功';
-				}
-				else
-				{
-					$response_message = '微信绑定代码无效';
-				}
-			break;
-		}
-		
-		if (!$response_message)
-		{
-			return false;
-		}
-		
-		return array(
-			'message' => $response_message,
-			'action' => $action
-		);
-	}
-	
 	public function create_weixin_valid($uid)
 	{
 		if ($weixin_valid = $this->fetch_row('weixin_valid', "uid = " . intval($uid)))
@@ -799,7 +742,7 @@ class weixin_class extends AWS_MODEL
 			case 'publish':
 				if (!$this->user_id)
 				{
-					$response_message = '你的微信帐号没有绑定 ' . get_setting('site_name') . ' 的帐号, 请<a href="' . get_js_url('/m/login/?weixin_id=' . base64_encode($weixin_id)) . '">点此绑定</a>或<a href="' . get_js_url('/m/register/?weixin_id=' . base64_encode($weixin_id)) . '">注册新账户</a>';
+					$response_message = '你的微信帐号没有绑定 ' . get_setting('site_name') . ' 的帐号, 请<a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=' . AWS_APP::config()->get('weixin')->app_id . '&redirect_uri=' . urlencode(get_js_url('/m/weixin/authorization/')) . '&response_type=code&scope=snsapi_userinfo&state=STATE">点此绑定</a>或<a href="' . get_js_url('/m/register/?weixin_id=' . base64_encode($weixin_id)) . '">注册新账户</a>';
 				}
 				else
 				{
@@ -1099,7 +1042,7 @@ class weixin_class extends AWS_MODEL
 			{
 				if (!$this->user_id)
 				{
-					 return '你的微信帐号没有绑定 ' . get_setting('site_name') . ' 的帐号, 请<a href="' . get_js_url('/m/login/?weixin_id=' . base64_encode($weixin_id)) . '">点此绑定</a>或<a href="' . get_js_url('/m/register/?weixin_id=' . base64_encode($weixin_id)) . '">注册新账户</a>';
+					 return '你的微信帐号没有绑定 ' . get_setting('site_name') . ' 的帐号, 请<a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=' . AWS_APP::config()->get('weixin')->app_id . '&redirect_uri=' . urlencode(get_js_url('/m/weixin/authorization/')) . '&response_type=code&scope=snsapi_userinfo&state=STATE">点此绑定</a>或<a href="' . get_js_url('/m/register/?weixin_id=' . base64_encode($weixin_id)) . '">注册新账户</a>';
 				}
 				
 				switch ($val['publish_type'])

@@ -218,13 +218,13 @@ class account_class extends AWS_MODEL
 		}
 	}
 	
-	function get_user_info_by_weixin_id($weixin_id, $attrb = false)
+	/*function get_user_info_by_weixin_id($weixin_id, $attrb = false)
 	{
 		if ($uid = $this->fetch_one('users', 'uid', "`weixin_id` = '" . $this->quote($weixin_id) . "'"))
 		{
 			return $this->get_user_info_by_uid($uid, $attrb);
 		}
-	}
+	}*/
 
 	/**
 	 * 通过用户 uid 获取用户信息
