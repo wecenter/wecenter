@@ -57,14 +57,14 @@ class weixin extends AWS_CONTROLLER
 	{
 		if ($_GET['code'])
 		{
-			//if ($access_token = json_decode(curl_get_contents('https://api.weixin.qq.com/sns/oauth2/access_token?appid=' . AWS_APP::config()->get('weixin')->app_id . '&secret=' . AWS_APP::config()->get('weixin')->app_secret . '&code=' . $_GET['code'] . '&grant_type=authorization_code'), true))
+			if ($access_token = json_decode(curl_get_contents('https://api.weixin.qq.com/sns/oauth2/access_token?appid=' . AWS_APP::config()->get('weixin')->app_id . '&secret=' . AWS_APP::config()->get('weixin')->app_secret . '&code=' . $_GET['code'] . '&grant_type=authorization_code'), true))
 			{
 				if ($access_token['errcode'])
 				{
 					H::redirect_msg('Error: ' . $access_token['errcode'] . ' ' . $access_token['errmsg']);
 				}
 				
-				//$access_user = json_decode(curl_get_contents('https://api.weixin.qq.com/sns/userinfo?access_token=' . $access_token['access_token'] . '&openid=' . $access_token['openid']));
+				$access_user = json_decode(curl_get_contents('https://api.weixin.qq.com/sns/userinfo?access_token=' . $access_token['access_token'] . '&openid=' . $access_token['openid']));
 				
 				AWS_APP::session()->WXConnect = array(
 					'access_token' => $access_token,
