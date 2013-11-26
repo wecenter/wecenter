@@ -104,7 +104,7 @@
 							<ul class="aw-comment-upload-file-list">
 								<?php foreach ($this->question_info['attachs'] AS $attach) { ?>
 								<?php if (!$attach['is_image'] AND !in_array($attach['id'], $this->question_info['attachs_ids'])) { ?>
-									<li><a href="<?php echo download_url($attach['file_name'], $attach['attachment']); ?>"><em class="aw-icon i-upload-file"></em><?php echo $attach['file_name']; ?></a></li>
+									<li><a href="<?php echo download_url($attach['file_name'], $attach['attachment']); ?>"><i class="fa fa-paperclip"></i> <?php echo $attach['file_name']; ?></a></li>
 								<?php } ?>
 								<?php } ?>
 							</ul>
