@@ -165,13 +165,6 @@ class publish_class extends AWS_MODEL
 			
 		$this->model('question')->delete_question_uninterested($uid, $question_id);
 		
-		if ($fake_id = $this->model('wecenter')->get_wechat_fake_id('question', $question_id))
-		{
-			$answer_user = $this->model('account')->get_user_info_by_uid($uid);
-			
-			$this->model('wecenter')->send_wechat_message($fake_id, "您的问题 [" . $question_info['question_content'] . "] 收到了 " . $answer_user['user_name'] . " 的回答:\n\n" . strip_tags($answer_content) . "\n\n\n<a href=\"" . get_js_url('/question/' . $question_id) . "\">点击查看问题详情</a>");
-		}
-		
 		if (defined('G_LUCENE_SUPPORT') AND G_LUCENE_SUPPORT)
 		{
 			$this->model('search_lucene')->push_index('question', $question_info['question_content'], $question_info['question_id'], array(

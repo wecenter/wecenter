@@ -692,7 +692,6 @@ CREATE TABLE `[#DB_PREFIX#]users` (
   `verified` varchar(32) DEFAULT NULL,
   `default_timezone` varchar(32) DEFAULT NULL,
   `email_settings` varchar(255) DEFAULT '',
-  `weixin_id` varchar(32) DEFAULT NULL,
   `recent_topics` text,
   PRIMARY KEY (`uid`),
   KEY `user_name` (`user_name`),
@@ -707,8 +706,7 @@ CREATE TABLE `[#DB_PREFIX#]users` (
   KEY `last_active` (`last_active`),
   KEY `integral` (`integral`),
   KEY `url_token` (`url_token`),
-  KEY `verified` (`verified`),
-  KEY `weixin_id` (`weixin_id`)
+  KEY `verified` (`verified`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]users_attrib` (
@@ -731,15 +729,6 @@ CREATE TABLE `[#DB_PREFIX#]weixin_message` (
   PRIMARY KEY (`id`),
   KEY `weixin_id` (`weixin_id`),
   KEY `time` (`time`)
-) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
-
-CREATE TABLE `[#DB_PREFIX#]weixin_valid` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
-  `uid` int(11) NOT NULL,
-  `code` varchar(16) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `uid` (`uid`),
-  KEY `code` (`code`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]redirect` (
@@ -1033,15 +1022,6 @@ CREATE TABLE `[#DB_PREFIX#]weixin_publish_rule` (
   PRIMARY KEY (`id`),
   KEY `keyword` (`keyword`),
   KEY `enabled` (`enabled`)
-) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
-
-CREATE TABLE `[#DB_PREFIX#]weixin_fake_id` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
-  `type` varchar(16) NOT NULL,
-  `fake_id` bigint(10) NOT NULL,
-  `item_id` int(10) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `type` (`type`,`item_id`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
 
 INSERT INTO `[#DB_PREFIX#]category`(`title`,`type`) VALUES

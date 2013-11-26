@@ -24,3 +24,7 @@ CREATE TABLE `[#DB_PREFIX#]users_weixin` (
   KEY `country` (`country`),
   KEY `add_time` (`add_time`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
+
+ALTER TABLE `[#DB_PREFIX#]users` DROP `weixin_id`;
+DROP TABLE `[#DB_PREFIX#]weixin_valid`;
+DROP TABLE `[#DB_PREFIX#]weixin_fake_id`;

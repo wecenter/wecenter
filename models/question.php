@@ -646,8 +646,6 @@ class question_class extends AWS_MODEL
 		
 		$this->delete('redirect', "item_id = " . intval($question_id) . " OR target_id = " . intval($question_id));
 		
-		$this->delete('weixin_fake_id', "`type` = 'question' AND `item_id` = " . intval($question_id));
-		
 		return $this->delete('question', 'question_id = ' . intval($question_id));	// 删除问题
 	}
 	

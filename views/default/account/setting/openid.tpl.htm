@@ -28,7 +28,7 @@
 			<?php } ?>
 			<?php if (!$this->user_info['weixin_id']) { ?>
 			<li>
-				<a onclick="ajax_request(G_BASE_URL + '/account/ajax/binding_weixin/');" href="javascript:;" class="btn btn-mini btn-success pull-right"><?php _e('绑定'); ?></a>
+				<a onclick="$.alert('<?php _e('请关注公众帐号进行绑定操作'); ?>');" href="javascript:;" class="btn btn-mini btn-success pull-right"><?php _e('绑定'); ?></a>
 				<span><i class="icon-wechat"></i> <?php _e('微信'); ?></span>
 			</li>
 			<?php } ?>

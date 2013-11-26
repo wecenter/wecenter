@@ -12,10 +12,6 @@
 			<form id="register_form" method="post" onsubmit="ajax_post($('#register_form')); return false;" action="account/ajax/register_process/">
 				<input type="hidden" name="agreement_chk" value="agree" />
 				
-				<?php if ($_GET['weixin_id']) { ?>
-					<input type="hidden" name="weixin_id" value="<?php echo base64_decode($_GET['weixin_id']); ?>" />
-				<?php } ?>
-				
 				<?php if ($this->icode) { ?>
 					<input type="hidden" name="icode" id="icode" value="<?php echo $this->icode; ?>" />
 				<?php } ?>
