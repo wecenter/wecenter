@@ -65,6 +65,7 @@ class openid_weixin_class extends AWS_MODEL
 	function add_user($uid, $access_user, $access_token)
 	{
 		return $this->insert('users_weixin', array(
+			'uid' => intval($uid),
 			'openid' => $access_token['openid'],
 			'expires_in' => (time() + $access_token['expires_in']),
 			'access_token' => $access_token['access_token'],
