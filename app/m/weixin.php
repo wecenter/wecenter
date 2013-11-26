@@ -74,6 +74,8 @@ class weixin extends AWS_CONTROLLER
 				TPL::assign('access_token', $access_token);
 				TPL::assign('access_user', $access_user);
 				
+				TPL::assign('body_class', 'explore-body');
+				
 				TPL::output('m/weixin/authorization');
 				die;
 			}
