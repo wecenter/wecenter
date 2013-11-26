@@ -64,7 +64,7 @@ class weixin extends AWS_CONTROLLER
 					H::redirect_msg('Error: ' . $access_token['errcode'] . ' ' . $access_token['errmsg']);
 				}
 				
-				$access_user = json_decode(curl_get_contents('https://api.weixin.qq.com/sns/userinfo?access_token=' . $access_token['access_token'] . '&openid=' . $access_token['openid']));
+				$access_user = json_decode(curl_get_contents('https://api.weixin.qq.com/sns/userinfo?access_token=' . $access_token['access_token'] . '&openid=' . $access_token['openid']), true);
 				
 				AWS_APP::session()->WXConnect = array(
 					'access_token' => $access_token,
