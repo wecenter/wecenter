@@ -403,7 +403,7 @@ class openid extends AWS_CONTROLLER
 			$user_info = $this->model('account')->get_user_info_by_uid($qq_user['uid']);
 				
 			HTTP::set_cookie('_user_login', get_login_cookie_hash($user_info['user_name'], $user_info['password'], $user_info['salt'], $user_info['uid'], false));
-				
+			
 			$this->model('openid_qq')->update_token($qq_user['name'], AWS_APP::session()->QQConnect['access_token']);
 				
 			if (get_setting('ucenter_enabled') == 'Y')
