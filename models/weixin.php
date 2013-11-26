@@ -44,7 +44,11 @@ class weixin_class extends AWS_MODEL
 				'time' => time(),
 				'msgType' => $post_object['MsgType'],
 				'event' => $post_object['Event'],
-				'eventKey' => $post_object['EventKey']
+				'eventKey' => $post_object['EventKey'],
+				'mediaID' => $post_object['MediaID'],
+				'format' => $post_object['Format'],
+				'recognition' => $post_object['Recognition'],
+				'msgID' => $post_object['MsgID']
 			);
 			
 			if ($weixin_info = $this->model('openid_weixin')->get_user_info_by_openid($input_message['fromUsername']))
@@ -152,6 +156,12 @@ class weixin_class extends AWS_MODEL
 						break;
 					}
 				}
+			break;
+			
+			case 'voice':
+				$input_message['content'] = $input_message['recognition'];
+				
+				return $this->response_message($input_message);
 			break;
 			
 			default:
@@ -633,30 +643,6 @@ class weixin_class extends AWS_MODEL
 		);
 	}
 		
-	public function create_weixin_valid($uid)
-	{
-		if ($weixin_valid = $this->fetch_row('weixin_valid', "uid = " . intval($uid)))
-		{
-			return $weixin_valid['code'];
-		}
-		else
-		{
-			$valid_code = strtoupper(fetch_salt(6));
-			
-			while($this->fetch_row('weixin_valid', "`code` = '" . $this->quote($valid_code) . "'"))
-			{
-				$valid_code = strtoupper(fetch_salt(6));
-			}
-			
-			$this->insert('weixin_valid', array(
-				'uid' => intval($uid),
-				'code' => $valid_code
-			));
-			
-			return $valid_code;
-		}
-	}
-	
 	public function weixin_unbind($weixin_id)
 	{
 		$this->update('users', array('weixin_id' => ''), "`weixin_id` = '" . $this->quote($weixin_id) . "'");
@@ -770,7 +756,7 @@ class weixin_class extends AWS_MODEL
 							{
 								if ($question_id = $this->model('publish')->publish_question($last_action['content'], '', 1, $this->user_id))
 								{
-									$this->model('wecenter')->set_wechat_fake_id_by_question($last_action['content'], $question_id);
+									//
 								}
 								
 								$response_message = AWS_APP::config()->get('weixin')->publish_success_message;
@@ -1074,7 +1060,7 @@ class weixin_class extends AWS_MODEL
 						{
 							if ($question_id = $this->model('publish')->publish_question(substr($keyword, strlen($val['keyword'])), '', 1, $this->user_id, explode(',', $val['topics']), null, null, null, true))
 							{
-								$this->model('wecenter')->set_wechat_fake_id_by_question($keyword, $question_id);
+								//
 							}
 						}
 					break;

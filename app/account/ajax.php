@@ -227,21 +227,6 @@ class ajax extends AWS_CONTROLLER
 				), 1, null));
 			}
 			
-			if ($_POST['weixin_id'] AND $_POST['_is_mobile'])
-			{
-				if (!$this->model('account')->get_user_info_by_weixin_id($_POST['weixin_id']))
-				{
-					$this->model('account')->update_users_fields(array(
-						'weixin_id' => $_POST['weixin_id'],
-					), $uid);
-				}
-				
-				H::ajax_json_output(AWS_APP::RSM(array(
-					'url' => get_js_url('/m/weixin_bind_success/')
-				), 1, null));
-			}
-			
-			
 			if ($_POST['_is_mobile'])
 			{
 				H::ajax_json_output(AWS_APP::RSM(array(
@@ -303,20 +288,6 @@ class ajax extends AWS_CONTROLLER
 			$this->model('account')->setcookie_logout();
 			
 			$this->model('account')->setcookie_login($user_info['uid'], $_POST['user_name'], $_POST['password'], $user_info['salt'], $expire);
-			
-			if ($_POST['weixin_id'] AND $_POST['_is_mobile'])
-			{
-				if (!$this->model('account')->get_user_info_by_weixin_id($_POST['weixin_id']))
-				{
-					$this->model('account')->update_users_fields(array(
-						'weixin_id' => $_POST['weixin_id'],
-					), $user_info['uid']);
-				}
-				
-				H::ajax_json_output(AWS_APP::RSM(array(
-					'url' => get_js_url('/m/weixin_bind_success/')
-				), 1, null));
-			}
 			
 			if ($user_info['is_first_login'] AND !$_POST['_is_mobile'])
 			{
@@ -1197,14 +1168,7 @@ class ajax extends AWS_CONTROLLER
 	{
 		AWS_APP::cache()->delete('user_recommend_' . $this->user_id);
 	}
-	
-	public function binding_weixin_action()
-	{
-		$valid_code = $this->model('weixin')->create_weixin_valid($this->user_id);
-		
-		H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('请发送 BIND%s 到微信公众帐号完成绑定', $valid_code)));
-	}
-	
+
 	public function unbinding_weixin_action()
 	{
 		$this->model('weixin')->weixin_unbind($this->user_info['weixin_id']);

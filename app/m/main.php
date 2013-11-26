@@ -384,7 +384,7 @@ class main extends AWS_CONTROLLER
 	{
 		$url = base64_decode($_GET['url']);
 		
-		if (($this->user_id AND !$_GET['weixin_id']) OR $this->user_info['weixin_id'])
+		if ($this->user_id)
 		{
 			if ($url)
 			{

@@ -71,7 +71,7 @@ class openid_weixin_class extends AWS_MODEL
 			'access_token' => $access_token['access_token'],
 			'refresh_token' => $access_token['refresh_token'],
 			'scope' => $access_token['scope'],
-			'headimgurl' => intval($uid),
+			'headimgurl' => $access_user['headimgurl'],
 			'nickname' => $access_user['nickname'],
 			'sex' => $access_user['sex'],
 			'province' => $access_user['province'],
