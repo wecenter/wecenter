@@ -44,7 +44,11 @@ class weixin_class extends AWS_MODEL
 				'time' => time(),
 				'msgType' => $post_object['MsgType'],
 				'event' => $post_object['Event'],
-				'eventKey' => $post_object['EventKey']
+				'eventKey' => $post_object['EventKey'],
+				'mediaID' => $post_object['MediaID'],
+				'format' => $post_object['Format'],
+				'recognition' => $post_object['Recognition'],
+				'msgID' => $post_object['MsgID']
 			);
 			
 			if ($weixin_info = $this->model('openid_weixin')->get_user_info_by_openid($input_message['fromUsername']))
@@ -152,6 +156,12 @@ class weixin_class extends AWS_MODEL
 						break;
 					}
 				}
+			break;
+			
+			case 'voice':
+				$input_message['content'] = $input_message['recognition'];
+				
+				return $this->response_message($input_message);
 			break;
 			
 			default:
