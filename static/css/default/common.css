@@ -95,16 +95,6 @@ a.aw-load-more-content{display: block;}
 /* 最佳回答 */
 .aw-winner-replay{position:relative;height: 30px;line-height: 30px;margin:10px 0 12px;padding-left: 50px;background: #F7F7F6;font-size: 14px;font-weight: bold;}
 .aw-winner-replay .icon-g-replay{position: absolute;left: -4px;top: -4px;font-size: 51px;}
-/* 下拉菜单 */
-.aw-dropdown-menu{min-width: 105px;top:120%;border:1px solid #c4cdd6;}
-.aw-dropdown-menu ul a{display:block;min-height:24px;line-height:24px;padding:4px 20px 4px 13px;font-weight: normal;}
-.aw-dropdown-menu ul a:hover{background-color: #f5faff;background-image: none;filter : none;}
-.aw-dropdown-menu span{position: absolute;width:100%;top:-16px;right: 0;padding-top: 10px;}
-.aw-dropdown-menu span i{display: block;position:relative;left:22px;}
-.aw-dropdown-menu span i.active{left:63px;}
-.aw-dropdown-menu li.active a{font-weight: bold;}
-.aw-dropdown-menu img{width: 25px;height: 25px;margin-right: 5px;}
-.aw-dropdown-menu li{position:relative;border-top:1px dotted #E2E2E2;}
 /* 自定义tab切换 */
 .aw-tabs{height:30px;line-height:30px;padding-left:20px;background:#F7F7F7;}
 .aw-tabs li.active{font-weight:bold;}
@@ -115,7 +105,7 @@ a.aw-load-more-content{display: block;}
 #aw-loading-box { width: 40px; height: 40px; background-image: url('../../common/loading.png'); }
 .aw-loading {display: inline-block;height: 16px;width: 16px;background: url("img/ajax-loader.gif") no-repeat;}
 /* 全局通用下拉列表 */
-.aw-dropdown{display:none;position:absolute;z-index:9999;width:100%;background: #fff;border:1px solid #ccc;box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);}
+.aw-dropdown{display:none;position:absolute;left:0;z-index:9999;width:100%;background: #fff;border:1px solid #ccc;box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);}
 .aw-dropdown .i-dropdown-triangle{position: absolute;top:-6px;left: 15px;}
 .aw-dropdown p{padding:5px 10px;margin:0;}
 .aw-dropdown .aw-dropdown-list li{border-top: 1px dotted #E2E2E2;}
@@ -131,7 +121,8 @@ a.aw-load-more-content{display: block;}
 .aw-dropdown .aw-dropdown-list li.user a span{margin-left:10px;color: #999;}
 .aw-question-redirect-box .aw-dropdown .aw-dropdown-list{max-height: 329px;overflow-y:auto;}
 .aw-publish-box .aw-dropdown .aw-dropdown-list{max-height: 335px;overflow-y:auto;}
-.aw-mod-publish .aw-dropdown .aw-dropdown-list{max-height: 165px;overflow-y: auto;}
+.aw-publish-box .aw-dropdown .aw-dropdown-list{max-height: 165px;overflow-y: auto;}
+.aw-publish .aw-dropdown .aw-dropdown-list{max-height:266px;overflow-y: auto;}
 .aw-edit-topic-box .aw-dropdown .aw-dropdown-list{max-height: 292px;overflow-y: auto;}
 
 /* ipad兼容 */
@@ -224,12 +215,17 @@ a.aw-load-more-content{display: block;}
 /* category */
 .category dl, .category dl dt, .category dl dd{float:left;}
 .category dl{position:relative;margin:10px 12px 10px 0;padding:15px;}
-.category dl:hover .category-dropdown, .category dl:hover .dropdown-menu{display:block;}
+.category dl:hover .aw-dropdown{display:block;}
 .category dl:hover{background: #ebebeb;}
 .category dl dt{width: 50px;}
 .category dl dt img{width: 50px;height: 50px;}
 .category dl dd{width:130px;overflow: hidden;}
 .category dl dd span{display:block;height:38px;font-size: 12px;word-wrap:break-word;}
+.category dl .aw-dropdown{top: 110%;left: 0;}
+.category dl .aw-dropdown span, .category ul li .aw-dropdown span{position:absolute;top:-10px;display: inline-block;width: 100%;height:10px;}
+.category dl .aw-dropdown span i, .category ul li .aw-dropdown span i{top: 4px;}
+.category dl .aw-dropdown ul li{padding: 10px;}
+.category dl .aw-dropdown ul li a{display: block;}
 .category .col-sm-12{padding: 0 0 0 15px;}
 .category .col-sm-12 > .active{background:#ebebeb;}
 .category .col-sm-12 .dropdown-menu{top:115%;min-width: 150px;max-height:200px;margin:0;}
@@ -239,7 +235,9 @@ a.aw-load-more-content{display: block;}
 .category .col-sm-12 > ul > li > a{color:#17344A;}
 .category .col-sm-12 > ul > li.active, .category .col-sm-12 > ul > li:hover{background: #494a4b;}
 .category .col-sm-12 > ul > li.active a, .category .col-sm-12 > ul > li:hover > a{color: #fff;}
-.category .col-sm-12 > ul > li:hover .category-dropdown, .category ul li:hover .dropdown-menu{display: block;}
+.category ul li .aw-dropdown{top:120%;width: 120px;text-align: left;}
+.category ul li .aw-dropdown ul li{padding:10px;line-height: 20px;}
+.category ul li:hover .aw-dropdown{display: block;}
 .category .title a, .category-dropdown a.active{font-weight: bold;}
 
 /* 动态首页&话题精华模块 */
@@ -506,6 +504,8 @@ a.aw-load-more-content{display: block;}
 .aw-publish-title-dropdown p a i{margin:0;}
 .aw-publish-title-dropdown .dropdown-menu{width: 150px;}
 .aw-publish-title-dropdown .dropdown-menu ul{max-height: 324px;overflow-y:auto;}
+.aw-publish-title-dropdown .dropdown-menu ul li{padding:5px 10px;}
+.aw-publish-title-dropdown .dropdown-menu ul li a{display: block;}
 .aw-mod-publish .aw-mod-footer{margin-top:20px;text-align: right;}
 .aw-mod-publish .aw-mod-footer .aw-anonymity{margin:8px 30px 8px 0;}
 .aw-mod-publish .aw-mod-footer .aw-anonymity label{margin-left: 10px;}
