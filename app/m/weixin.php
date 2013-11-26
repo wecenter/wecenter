@@ -77,11 +77,16 @@ class weixin extends AWS_CONTROLLER
 				TPL::assign('body_class', 'explore-body');
 				
 				TPL::output('m/weixin/authorization');
-				die;
+			}
+			else
+			{
+				H::redirect_msg(AWS_APP::lang()->_t('授权失败, 请返回重新操作'));
 			}
 		}
-		
-		H::redirect_msg(AWS_APP::lang()->_t('授权失败, 请返回重新操作'));
+		else
+		{
+			H::redirect_msg(AWS_APP::lang()->_t('授权失败, 请返回重新操作'));
+		}
 	}
 	
 	public function binding_action()
