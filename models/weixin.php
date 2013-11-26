@@ -160,6 +160,7 @@ class weixin_class extends AWS_MODEL
 			
 			case 'voice':
 				$input_message['content'] = $input_message['recognition'];
+				$input_message['msgType'] = 'text';
 				
 				$response_message = $this->response_message($input_message);
 			break;
