@@ -37,6 +37,20 @@ class weixin extends AWS_CONTROLLER
 	public function setup()
 	{
 		HTTP::no_cache_header();
+		
+		TPL::import_clean();
+		
+		TPL::import_css(array(
+			'js/mobile/mobile.css',
+		));
+		
+		TPL::import_js(array(
+			'js/jquery.2.js',
+			'js/jquery.form.js',
+			'js/mobile/framework.js',
+			'js/mobile/mobile.js',
+			'js/mobile/aw-mobile-template.js'
+		));
 	}
 	
 	public function authorization_action()
