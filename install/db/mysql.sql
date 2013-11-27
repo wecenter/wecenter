@@ -1008,22 +1008,6 @@ CREATE TABLE `[#DB_PREFIX#]weixin_reply_rule` (
   KEY `sort_status` (`sort_status`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
 
-CREATE TABLE `[#DB_PREFIX#]weixin_publish_rule` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
-  `keyword` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `image_file` varchar(255) COLLATE utf8_unicode_ci DEFAULT '',
-  `description` text COLLATE utf8_unicode_ci,
-  `link` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `topics` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `item_id` int(10) NOT NULL,
-  `publish_type` varchar(16) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `enabled` tinyint(1) DEFAULT '0',
-  PRIMARY KEY (`id`),
-  KEY `keyword` (`keyword`),
-  KEY `enabled` (`enabled`)
-) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
-
 INSERT INTO `[#DB_PREFIX#]category`(`title`,`type`) VALUES
 ('默认分类', 'question');
 

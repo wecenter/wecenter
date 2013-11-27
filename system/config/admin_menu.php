@@ -205,12 +205,6 @@ if (get_setting('weixin_mp_token'))
 			),
 			
 			array(
-				'id' => 802,
-				'title' => '发文指令',
-				'url' => 'admin/weixin/publish/',
-			),
-			
-			array(
 				'id' => 803,
 				'title' => '菜单管理',
 				'url' => 'admin/weixin/mp_menu/',
