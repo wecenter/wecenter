@@ -45,15 +45,20 @@
 					<td align="center">
 					
 						<!--<input type="text" value="<?php echo $val['key']; ?>" class="form-control sort-action" name="button[<?php echo $key; ?>][key]" />-->
-						
-						<select name="button[<?php echo $key; ?>][key]">
-							<option value="COMMAND_NEW_QUESTION"><?php _e('最新问题'); ?></option>
-							<option value="COMMAND_HOT_QUESTION"><?php _e('热门问题'); ?></option>
-							<option value="COMMAND_RECOMMEND_QUESTION"><?php _e('推荐问题'); ?></option>
-							<option value="COMMAND_HOME_ACTIONS"><?php _e('最新动态'); ?></option>
-							<option value="COMMAND_NOTIFICATIONS"><?php _e('最新通知'); ?></option>
-							<option value="COMMAND_MY_QUESTION"><?php _e('我的提问'); ?></option>
-						</select>
+						<div class="aw-wechat-dropdown-box">
+							<input type="text" name="COMMAND_NEW_QUESTION" />
+							<i class="fa fa-sort" data-toggle="dropdown"></i>
+							<ul class="dropdown-menu" role="menu">
+							    <li data-value="COMMAND_NEW_QUESTION"><a><?php _e('最新问题'); ?></a></li>
+							    <li data-value="COMMAND_HOT_QUESTION"><a><?php _e('热门问题'); ?></a></li>
+							    <li data-value="COMMAND_RECOMMEND_QUESTION"><a><?php _e('推荐问题'); ?></a></li>
+							    <li data-value="COMMAND_HOME_ACTIONS"><a><?php _e('最新动态'); ?></a></li>
+							    <li data-value="COMMAND_NOTIFICATIONS"><a><?php _e('最新通知'); ?></a></li>
+							    <li data-value="COMMAND_MY_QUESTION"><a><?php _e('我的提问'); ?></a></li>
+							    <li class="divider"></li>
+							    <li><a>Separated link</a></li>
+							  </ul>
+						</div>
 					</td>
 					<td align="center">
 						<a href="javascript:;" onclick="if ($('#mp_menu_table tbody tr.sub_button_<?php echo $key; ?>').length > 4) { alert('<?php _e('最多只能创建 5 个子菜单'); ?>') } else { if ($('#mp_menu_table tbody tr.sub_button_<?php echo $key; ?>:last').length) { $('tr#menu_id_<?php echo $key; ?>').after($('#sub_button_template').html().replace(/{MENU_TOP_ID}/g, <?php echo $key; ?>).replace(/{MENU_SUB_ID}/g, parseInt($('#mp_menu_table tbody tr.sub_button_<?php echo $key; ?>:first').attr('data-id')) + 1)); } else { $('tr#menu_id_<?php echo $key; ?>').after($('#sub_button_template').html().replace(/{MENU_TOP_ID}/g, <?php echo $key; ?>).replace(/{MENU_SUB_ID}/g, 1)); } }"><?php _e('添加子菜单'); ?></a> | 
@@ -92,5 +97,18 @@
 		</form>
 	</div>
 </div>
+
+<script type="text/javascript">
+	// 微信下拉菜单
+	$(function()
+	{
+		$('.aw-wechat-dropdown-box .dropdown-menu li').click(function ()
+		{
+			console.log($(this).attr('data-value'));
+			$(this).parents('.aw-wechat-dropdown-box').find('input').val($(this).attr('data-value'));
+		});
+	});
+
+</script>
 
 <?php TPL::output('admin/global/footer.tpl.htm'); ?>

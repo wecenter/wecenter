@@ -149,6 +149,12 @@ th{text-align: center;}
 .aw-mod-nav-setting .aw-nav-menu input{margin-top:3px;}
 .aw-mod-nav-setting .aw-nav-menu .normal-width{width: 300px !important;}
 
+/* 微信菜单 */
+.aw-wechat-dropdown-box{position: relative;width: 250px;}
+.aw-wechat-dropdown-box input{width: 250px;padding-right: 20px !important;}
+.aw-wechat-dropdown-box i{position: absolute;top: 10px;right: 5px;font-size: 16px;cursor: pointer;}
+.aw-wechat-dropdown-box .dropdown-menu{width:100%;text-align: left;}
+
 /*alert-box*/
 body.modal-open, .modal-open .navbar-fixed-top, .modal-open .navbar-fixed-bottom{margin:0px;}
 .alert-box{outline: none;}
