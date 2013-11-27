@@ -32,9 +32,6 @@ $config['bad_language_message'] = "说脏话都不是好孩子!";
 
 // 指令类默认设置，可以修改左侧中文指令，记得修改之后同时变更信息类提示里面的解释说明。
 
-// 注册指令, 不区分大小写
-$config['command_register'] = 'reg';
-
 // 最新问题指令
 $config['command_new'] = '最新问题';
 
