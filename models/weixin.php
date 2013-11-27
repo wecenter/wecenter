@@ -55,10 +55,6 @@ class weixin_class extends AWS_MODEL
 			{
 				$this->user_info = $this->model('account')->get_user_info_by_uid($uid, true);
 				$this->user_id = $weixin_info['uid'];
-				
-				$user_group = $this->model('account')->get_user_group($user_info['group_id'], $user_info['reputation_group']);
-				
-				$this->user_info['permission'] = $user_group['permission'];
 			}
 			
 			return $input_message;
@@ -110,8 +106,6 @@ class weixin_class extends AWS_MODEL
 					switch ($input_message['event'])
 					{
 						case 'subscribe':
-							//$response_message = get_setting('weixin_subscribe_message');
-							
 							if (get_setting('weixin_subscribe_message_key'))
 							{
 								$response_message = $this->create_response_by_reply_rule_keyword(get_setting('weixin_subscribe_message_key'));
@@ -168,8 +162,6 @@ class weixin_class extends AWS_MODEL
 					if (cjk_strlen($input_message['content']) > 5)
 					{
 						$response_message .= "\n\n" . AWS_APP::config()->get('weixin')->publish_message;
-						
-						$action = 'publish';
 					}
 				}
 				else
@@ -312,12 +304,10 @@ class weixin_class extends AWS_MODEL
 				}
 			break;
 			
-			case '帮助':
 			case 'HELP':
 				$response_message = AWS_APP::config()->get('weixin')->help_message;
 			break;
 			
-			case AWS_APP::config()->get('weixin')->command_hot:
 			case 'HOT_QUESTION':
 				if ($input_message['param'])
 				{
@@ -359,7 +349,6 @@ class weixin_class extends AWS_MODEL
 				}
 			break;
 			
-			case AWS_APP::config()->get('weixin')->command_new:
 			case 'NEW_QUESTION':
 				if ($input_message['param'])
 				{
@@ -401,7 +390,6 @@ class weixin_class extends AWS_MODEL
 				}
 			break;
 			
-			case AWS_APP::config()->get('weixin')->command_recommend:
 			case 'RECOMMEND_QUESTION':
 				if ($question_list = $this->model('question')->get_questions_list(1, 10, null, null, null, null, null, true))
 				{
@@ -429,7 +417,6 @@ class weixin_class extends AWS_MODEL
 				}
 			break;
 			
-			case '最新动态':
 			case 'HOME_ACTIONS':
 				if ($this->user_id)
 				{
@@ -463,7 +450,6 @@ class weixin_class extends AWS_MODEL
 				}
 			break;
 			
-			case AWS_APP::config()->get('weixin')->command_notifications:
 			case 'NOTIFICATIONS':
 				if ($this->user_id)
 				{
@@ -505,7 +491,6 @@ class weixin_class extends AWS_MODEL
 				}
 			break;
 			
-			case AWS_APP::config()->get('weixin')->command_my:
 			case 'MY_QUESTION':
 				if ($this->user_id)
 				{
