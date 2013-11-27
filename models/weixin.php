@@ -65,43 +65,6 @@ class weixin_class extends AWS_MODEL
 		}
 	}
 	
-	public function publish_approval_valid()
-	{
-		if ($this->user_info['permission']['publish_approval'] == 1)
-		{
-			if (!$this->user_info['permission']['publish_approval_time']['start'] AND !$this->user_info['permission']['publish_approval_time']['end'])
-			{
-				return true;
-			}
-			
-			if ($this->user_info['permission']['publish_approval_time']['start'] < $this->user_info['permission']['publish_approval_time']['end'])
-			{
-				if (date('H') > $this->user_info['permission']['publish_approval_time']['start'] AND date('H') < $this->user_info['permission']['publish_approval_time']['end'])
-				{
-					return true;
-				}
-			}
-			
-			if ($this->user_info['permission']['publish_approval_time']['start'] > $this->user_info['permission']['publish_approval_time']['end'])
-			{
-				if (date('H') > $this->user_info['permission']['publish_approval_time']['start'] OR date('H') < $this->user_info['permission']['publish_approval_time']['end'])
-				{
-					return true;
-				}
-			}
-			
-			if ($this->user_info['permission']['publish_approval_time']['start'] == $this->user_info['permission']['publish_approval_time']['end'])
-			{
-				if (date('H') == $this->user_info['permission']['publish_approval_time']['start'])
-				{
-					return true;
-				}
-			}
-		}
-		
-		return false;
-	}
-	
 	public function response_message($input_message)
 	{
 		switch ($input_message['msgType'])
@@ -215,8 +178,6 @@ class weixin_class extends AWS_MODEL
 					{
 						$response_message = AWS_APP::config()->get('weixin')->publish_message;
 					}
-				
-					$action = 'publish';
 				}
 			break;
 		}
@@ -607,22 +568,6 @@ class weixin_class extends AWS_MODEL
 					$response_message = '你的微信帐号没有绑定 ' . get_setting('site_name') . ' 的帐号, 请<a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=' . AWS_APP::config()->get('weixin')->app_id . '&redirect_uri=' . urlencode(get_js_url('/m/weixin/authorization/')) . '&response_type=code&scope=snsapi_userinfo&state=STATE">点此绑定</a>或<a href="' . get_js_url('/m/register/?weixin_id=' . base64_encode($input_message['fromUsername'])) . '">注册新账户</a>';
 				}
 			break;
-			
-			case AWS_APP::config()->get('weixin')->command_bind_info:
-			case 'BIND_INFO':
-				if ($this->user_id)
-				{
-					$response_message = '你的微信帐号绑定社区帐号: ' . $this->user_info['user_name'];
-				}
-				else
-				{
-					$response_message = '你的微信帐号没有绑定 ' . get_setting('site_name') . ' 的帐号, 请<a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=' . AWS_APP::config()->get('weixin')->app_id . '&redirect_uri=' . urlencode(get_js_url('/m/weixin/authorization/')) . '&response_type=code&scope=snsapi_userinfo&state=STATE">点此绑定</a>或<a href="' . get_js_url('/m/register/?weixin_id=' . ($input_message['fromUsername'])) . '">注册新账户</a>';
-				}
-			break;
-			
-			case AWS_APP::config()->get('weixin')->command_unbind:
-				$response_message = $this->weixin_unbind($input_message['fromUsername']);
-			break;
 		}
 		
 		if (!$response_message)
@@ -717,59 +662,7 @@ class weixin_class extends AWS_MODEL
 		}
 		
 		switch ($last_action['action'])
-		{			
-			case 'publish':
-				if (!$this->user_id)
-				{
-					$response_message = '你的微信帐号没有绑定 ' . get_setting('site_name') . ' 的帐号, 请<a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=' . AWS_APP::config()->get('weixin')->app_id . '&redirect_uri=' . urlencode(get_js_url('/m/weixin/authorization/')) . '&response_type=code&scope=snsapi_userinfo&state=STATE">点此绑定</a>或<a href="' . get_js_url('/m/register/?weixin_id=' . base64_encode($weixin_id)) . '">注册新账户</a>';
-				}
-				else
-				{
-					if (!$this->user_info['permission']['publish_question'])
-					{
-						$response_message = AWS_APP::lang()->_t('你没有权限发布问题');
-					}
-					else if ($this->user_info['integral'] < 0 AND get_setting('integral_system_enabled') == 'Y')
-					{
-						$response_message = AWS_APP::lang()->_t('你的剩余积分已经不足以进行此操作');
-					}
-					else
-					{
-						if (trim($last_action['content'] != ''))
-						{
-							if ($this->publish_approval_valid())
-							{			
-								$this->model('publish')->publish_approval('question', array(
-									'question_content' => $last_action['content']
-								), $this->user_id);
-								
-								$response_message = AWS_APP::lang()->_t('发布成功, 请等待管理员审核...');
-							}
-							else
-							{
-								if ($question_id = $this->model('publish')->publish_question($last_action['content'], '', 1, $this->user_id))
-								{
-									//
-								}
-								
-								$response_message = AWS_APP::config()->get('weixin')->publish_success_message;
-							}
-						}
-						else
-						{
-							$response_message = AWS_APP::lang()->_t('请输入问题标题');
-						}
-					}
-				}
-			break;
-			
-			case 'unbind':
-				return $this->message_parser(array(
-					'content' => AWS_APP::config()->get('weixin')->command_unbind,
-					'fromUsername' => $weixin_id
-				));
-			break;
-			
+		{						
 			case 'my_questions':
 				return $this->message_parser(array(
 					'content' => AWS_APP::config()->get('weixin')->command_my,
