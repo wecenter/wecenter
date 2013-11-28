@@ -51,9 +51,7 @@ class openid_weibo_class extends AWS_MODEL
 	}
 
 	function users_sina_add($id, $uid, $name, $location, $description, $url, $profile_image_url, $gender)
-	{
-		$uid = intval($uid);
-		
+	{		
 		if (! $uid or ! $id)
 		{
 			return false;
