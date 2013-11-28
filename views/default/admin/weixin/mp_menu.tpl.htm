@@ -184,16 +184,13 @@
 			{
 				$(this).parents('.aw-wechat-dropdown-box').append($('#drop_menu_template').html());
 			}
-			else
+			$.each($(this).parents('.aw-wechat-dropdown-box').find('.dropdown-menu ul li'), function (i, e)
 			{
-				$.each($(this).parents('.aw-wechat-dropdown-box').find('.dropdown-menu ul li'), function (i, e)
+				if ($(this).attr('data-value') == $(this).parents('.aw-wechat-dropdown-box').find('input').val())
 				{
-					if ($(this).attr('data-value') == $(this).parents('.aw-wechat-dropdown-box').find('input').val())
-					{
-						$(this).addClass('active');
-					}
-				});
-			}
+					$(this).addClass('active');
+				}
+			});
 		})
 		$(document).on('click', '.aw-wechat-dropdown-box .dropdown-menu ul li', function ()
 		{
