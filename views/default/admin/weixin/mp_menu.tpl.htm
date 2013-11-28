@@ -129,7 +129,7 @@
 	{
 		$('.aw-wechat-dropdown-box .dropdown-menu li').click(function ()
 		{
-			console.log($(this).attr('data-value'));
+			$(this).addClass('active').siblings().removeClass('active');
 			$(this).parents('.aw-wechat-dropdown-box').find('input').val($(this).attr('data-value'));
 		});
 	});
