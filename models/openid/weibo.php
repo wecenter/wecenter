@@ -39,7 +39,7 @@ class openid_weibo_class extends AWS_MODEL
 	function update_token($id, $access_token)
 	{
 		return $this->update('users_sina', array(
-			'access_token' => $this->quote($access_token),
+			'access_token' => serialize($this->quote($access_token)),
 			//'oauth_token' => $this->quote($access_token), 
 			//'oauth_token_secret' => $this->quote($oauth_token_secret)
 		), "id = '" . $this->quote($id) . "'");
@@ -51,9 +51,7 @@ class openid_weibo_class extends AWS_MODEL
 	}
 
 	function users_sina_add($id, $uid, $name, $location, $description, $url, $profile_image_url, $gender)
-	{
-		$uid = intval($uid);
-		
+	{		
 		if (! $uid or ! $id)
 		{
 			return false;
