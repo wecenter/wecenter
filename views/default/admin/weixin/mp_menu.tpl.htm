@@ -49,14 +49,39 @@
 							<input type="text" name="COMMAND_NEW_QUESTION" />
 							<i class="fa fa-sort" data-toggle="dropdown"></i>
 							<ul class="dropdown-menu" role="menu">
+								<li>常用指令</li>
+								<li class="divider"></li>
 							    <li data-value="COMMAND_NEW_QUESTION"><a><?php _e('最新问题'); ?></a></li>
 							    <li data-value="COMMAND_HOT_QUESTION"><a><?php _e('热门问题'); ?></a></li>
 							    <li data-value="COMMAND_RECOMMEND_QUESTION"><a><?php _e('推荐问题'); ?></a></li>
 							    <li data-value="COMMAND_HOME_ACTIONS"><a><?php _e('最新动态'); ?></a></li>
 							    <li data-value="COMMAND_NOTIFICATIONS"><a><?php _e('最新通知'); ?></a></li>
 							    <li data-value="COMMAND_MY_QUESTION"><a><?php _e('我的提问'); ?></a></li>
-							    <li class="divider"></li>
-							    <li><a>Separated link</a></li>
+							    <?php if ($this->category_data) { ?>
+							    <li><?php _e('分类热门问题'); ?></li>
+								<li class="divider"></li>
+								<?php foreach ($this->category_data AS $key => $val) { ?>
+							    <li data-value="COMMAND_HOT_QUESTION__CATEGORY_<?php echo $val['id']; ?>"><a><?php echo $val['title']; ?></a></li>
+							    <?php } ?>
+							    <li><?php _e('分类最新问题'); ?></li>
+								<li class="divider"></li>
+								<?php foreach ($this->category_data AS $key => $val) { ?>
+							    <li data-value="COMMAND_NEW_QUESTION__CATEGORY_<?php echo $val['id']; ?>"><a><?php echo $val['title']; ?></a></li>
+							    <?php } ?>
+							    <?php } ?>
+							    
+							    <?php if ($this->category_data) { ?>
+							    <li><?php _e('专题热门问题'); ?></li>
+								<li class="divider"></li>
+								<?php foreach ($this->category_data AS $key => $val) { ?>
+							    <li data-value="COMMAND_HOT_QUESTION__FEATURE_<?php echo $val['id']; ?>"><a><?php echo $val['title']; ?></a></li>
+							    <?php } ?>
+							    <li><?php _e('专题最新问题'); ?></li>
+								<li class="divider"></li>
+								<?php foreach ($this->category_data AS $key => $val) { ?>
+							    <li data-value="COMMAND_NEW_QUESTION__FEATURE_<?php echo $val['id']; ?>"><a><?php echo $val['title']; ?></a></li>
+							    <?php } ?>
+							    <?php } ?>
 							  </ul>
 						</div>
 					</td>

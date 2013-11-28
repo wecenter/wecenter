@@ -311,14 +311,16 @@ class weixin_class extends AWS_MODEL
 			case 'HOT_QUESTION':
 				if ($input_message['param'])
 				{
-					switch (AWS_APP::config()->get('weixin')->key_param_type)
+					$child_param = explode('_', $input_message['param']);
+					
+					switch ($child_param[0])
 					{
 						case 'CATEGORY':
-							$category_id = intval($input_message['param']);
+							$category_id = intval($child_param[1]);
 						break;
 						
 						case 'FEATURE':
-							$topics_id = $this->model('feature')->get_topics_by_feature_id($input_message['param']);
+							$topics_id = $this->model('feature')->get_topics_by_feature_id($child_param[1]);
 						break;
 					}
 				}
@@ -352,14 +354,16 @@ class weixin_class extends AWS_MODEL
 			case 'NEW_QUESTION':
 				if ($input_message['param'])
 				{
-					switch (AWS_APP::config()->get('weixin')->key_param_type)
+					$child_param = explode('_', $input_message['param']);
+					
+					switch ($child_param[0])
 					{
 						case 'CATEGORY':
-							$category_id = intval($input_message['param']);
+							$category_id = intval($child_param[1]);
 						break;
 						
 						case 'FEATURE':
-							$topics_id = $this->model('feature')->get_topics_by_feature_id($input_message['param']);
+							$topics_id = $this->model('feature')->get_topics_by_feature_id($child_param[1]);
 						break;
 					}
 				}
