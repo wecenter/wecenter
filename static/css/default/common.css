@@ -382,10 +382,12 @@ a.aw-load-more-content{display: block;}
 .aw-question-detail-title .aw-mod-head .aw-question-follow > a{min-width:76px;min-width:50px\0;margin:0 5px 0 0;}
 .aw-question-detail-title .aw-mod-head .aw-question-follow .btn-group .btn{height:26px;line-height: 13px;}
 .aw-question-detail-title .aw-mod-head .aw-question-follow .btn-group .icon-cog{margin-right: 0px;color: #666;}
+.aw-question-detail-title .aw-question-follow .dropdown-menu, .aw-question-detail-title .aw-mod-head .aw-question-follow .aw-dropdown-list{width: 110px;min-width: 110px;}
+.aw-question-detail-title .aw-mod-head .aw-question-follow .aw-dropdown-list li{width: 108px;}
 .aw-question-detail-title .aw-question-detail-meta{min-height: 20px;line-height: 20px;}
 .aw-question-detail-title .aw-question-detail-meta > span, .aw-question-detail-title .aw-question-detail-meta > a, .aw-question-detail-title .aw-question-detail-meta > div{margin-right:15px;}
 .aw-question-detail-meta a:hover i, .aw-dynamic-topic-meta a:hover i, .aw-article-list .aw-mod-footer a:hover i{color: #2A6496;}
-.aw-question-detail-title .aw-dropdown, .aw-mod-publish .aw-dropdown{width: 300px;}
+.aw-mod-publish .aw-dropdown{width: 300px;}
 .aw-notopic-sort{margin:5px 0 15px 0;padding:5px 10px;background: #E0E2E1;}
 .aw-question-detail-box .aw-dynamic-topic .aw-item .aw-user-img{position: relative;top: 10px;width: 32px;height: 32px;}
 
@@ -500,8 +502,8 @@ a.aw-load-more-content{display: block;}
 .aw-publish-title-dropdown p a i{margin:0;}
 .aw-publish-title-dropdown .dropdown-menu{width: 150px;}
 .aw-publish-title-dropdown .dropdown-menu ul{max-height: 324px;overflow-y:auto;}
-.aw-publish-title-dropdown .dropdown-menu ul li{padding:5px 10px;}
-.aw-publish-title-dropdown .dropdown-menu ul li a{display: block;}
+.aw-publish-title-dropdown .dropdown-menu ul li, .aw-question-follow .dropdown-menu ul li{padding:5px 10px;}
+.aw-publish-title-dropdown .dropdown-menu ul li a, .aw-question-follow .dropdown-menu ul li a{display: block;}
 .aw-mod-publish .aw-mod-footer{margin-top:20px;text-align: right;}
 .aw-mod-publish .aw-mod-footer .aw-anonymity{margin:8px 30px 8px 0;}
 .aw-mod-publish .aw-mod-footer .aw-anonymity label{margin-left: 10px;}
