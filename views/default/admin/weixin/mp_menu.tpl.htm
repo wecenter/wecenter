@@ -5,7 +5,7 @@
 	<div class="alert alert-success hide error-message"></div>
 	<div class="aw-mod-body">
 		<script type="text/x-template" id="drop_menu_template">
-			<div class="dropdown-menu pull-right">
+			<div class="dropdown-menu pull-right<?php if (!$this->category_data) { ?> subtract-two<?php } ?>">
 				<div class="mod-head clearfix">
 					<div class="mod">
 						<div class="mod-head"><?php _e('常用功能'); ?></div>
@@ -13,6 +13,7 @@
 						<div class="mod-footer">
 							<ul role="menu">
 							    <li data-value="COMMAND_NEW_QUESTION"><a><?php _e('最新问题'); ?></a></li>
+							    <li data-value="COMMAND_NEW_ARTICLE"><a><?php _e('最新文章'); ?></a></li>
 							    <li data-value="COMMAND_HOT_QUESTION"><a><?php _e('热门问题'); ?></a></li>
 							    <li data-value="COMMAND_RECOMMEND_QUESTION"><a><?php _e('推荐问题'); ?></a></li>
 							    <li data-value="COMMAND_HOME_ACTIONS"><a><?php _e('最新动态'); ?></a></li>
@@ -21,6 +22,7 @@
 							</ul>
 						</div>
 					</div>
+					
 					<?php if ($this->category_data) { ?>
 					<div class="mod">
 						<div class="mod-head"><?php _e('分类热门问题'); ?></div>
@@ -45,14 +47,17 @@
 						</div>
 					</div>
 					<?php } ?>
-					<?php if ($this->category_data) { ?>
+					
+
 					<div class="mod">
 						<div class="mod-head"><?php _e('专题热门问题'); ?></div>
 						<div class="divider"></div>
 						<div class="mod-footer">
 							<ul class="control-height">
-								<?php foreach ($this->category_data AS $val) { ?>
+								<?php if ($this->feature_list) { ?>
+								<?php foreach ($this->feature_list AS $val) { ?>
 							    <li data-value="COMMAND_HOT_QUESTION__FEATURE_<?php echo $val['id']; ?>"><a><?php echo $val['title']; ?></a></li>
+							    <?php } ?>
 							    <?php } ?>
 							</ul>
 						</div>
@@ -62,14 +67,41 @@
 						<div class="divider"></div>
 						<div class="mod-footer">
 							<ul class="control-height">
-								<?php foreach ($this->category_data AS $val) { ?>
+								<?php if ($this->feature_list) { ?>
+								<?php foreach ($this->feature_list AS $val) { ?>
 							    <li data-value="COMMAND_NEW_QUESTION__FEATURE_<?php echo $val['id']; ?>"><a><?php echo $val['title']; ?></a></li>
+							    <?php } ?>
+							    <?php } ?>
+							</ul>
+						</div>
+					</div>	
+					<div class="mod">
+						<div class="mod-head"><?php _e('经验专题'); ?></div>
+						<div class="divider"></div>
+						<div class="mod-footer">
+							<ul class="control-height">
+								<?php if ($this->reply_rule_list) { ?>
+								<?php foreach ($this->reply_rule_list AS $val) { ?>
+							    <li data-value="COMMAND_NEW_ARTICLE__FEATURE_<?php echo $val['id']; ?>"><a><?php echo $val['keyword']; ?></a></li>
+							    <?php } ?>
 							    <?php } ?>
 							</ul>
 						</div>
 					</div>
-					<?php } ?>
+					<div class="mod">
+						<div class="mod-head"><?php _e('回复规则'); ?></div>
+						<div class="divider"></div>
+						<div class="mod-footer">
+							<ul class="control-height">
+								<?php if ($this->reply_rule_list) { ?>
+								<?php foreach ($this->reply_rule_list AS $val) { ?>
+							    <li data-value="REPLY_RULE_<?php echo $val['id']; ?>"><a><?php echo $val['keyword']; ?></a></li>
+							    <?php } ?>
+							    <?php } ?>
+							</ul>
+						</div>
 					</div>
+				</div>
 				<div class="divider"></div>
 				<div class="mod-footer">
 					<a class="btn btn-inverse pull-left insert-url"><?php _e('URL 地址'); ?></a>
