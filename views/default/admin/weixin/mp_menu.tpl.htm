@@ -5,7 +5,6 @@
 	<div class="alert alert-success hide error-message"></div>
 	<div class="aw-mod-body">
 		<script type="text/x-template" id="drop_menu_template">
-			<a class="fa fa-sort" data-toggle="dropdown"></a>
 			<div class="dropdown-menu pull-right">
 				<div class="mod-head clearfix">
 					<div class="mod">
@@ -85,6 +84,7 @@
 				<td align="center">
 					<div class="aw-wechat-dropdown-box">
 						<input type="text" name="button[{MENU_ID}][key]" />
+						<a class="fa fa-sort" data-toggle="dropdown"></a>
 					</div>
 				</td>
 				<td align="center">
@@ -101,6 +101,7 @@
 				<td align="center">
 					<div class="aw-wechat-dropdown-box">
 						<input type="text" name="button[{MENU_TOP_ID}][sub_button][{MENU_SUB_ID}][key]" />
+						<a class="fa fa-sort" data-toggle="dropdown"></a>
 					</div>
 				</td>
 				<td align="center">
@@ -127,6 +128,7 @@
 					<td align="center">
 						<div class="aw-wechat-dropdown-box">
 							<input type="text" name="button[<?php echo $key; ?>][key]" value="<?php echo $val['key']; ?>" />
+							<a class="fa fa-sort" data-toggle="dropdown"></a>
 						</div>
 					</td>
 					<td align="center">
@@ -142,6 +144,7 @@
 					<td align="center">
 						<div class="aw-wechat-dropdown-box">
 							<input type="text" name="button[<?php echo $key; ?>][sub_button][<?php echo $sub_key; ?>][key]" value="<?php echo $sub_val['key']; ?>" />
+							<a class="fa fa-sort" data-toggle="dropdown"></a>
 						</div>
 					</td>
 					<td align="center">
@@ -177,13 +180,20 @@
 	{
 		$(document).on('click', '.aw-wechat-dropdown-box .fa-sort', function ()
 		{
-			$.each($(this).parents('.aw-wechat-dropdown-box').find('.dropdown-menu ul li'), function (i, e)
+			if ($(this).parents('.aw-wechat-dropdown-box').find('.dropdown-menu').length == 0)
 			{
-				if ($(this).attr('data-value') == $(this).parents('.aw-wechat-dropdown-box').find('input').val())
+				$(this).parents('.aw-wechat-dropdown-box').append($('#drop_menu_template').html());
+			}
+			else
+			{
+				$.each($(this).parents('.aw-wechat-dropdown-box').find('.dropdown-menu ul li'), function (i, e)
 				{
-					$(this).addClass('active');
-				}
-			});
+					if ($(this).attr('data-value') == $(this).parents('.aw-wechat-dropdown-box').find('input').val())
+					{
+						$(this).addClass('active');
+					}
+				});
+			}
 		})
 		$(document).on('click', '.aw-wechat-dropdown-box .dropdown-menu ul li', function ()
 		{
