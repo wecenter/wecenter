@@ -29,3 +29,4 @@ ALTER TABLE `[#DB_PREFIX#]users` DROP `weixin_id`;
 DROP TABLE `[#DB_PREFIX#]weixin_valid`;
 DROP TABLE `[#DB_PREFIX#]weixin_fake_id`;
 DROP TABLE `[#DB_PREFIX#]weixin_publish_rule`;
+ALTER TABLE `[#DB_PREFIX#]weixin_reply_rule` DROP `event_key`;
