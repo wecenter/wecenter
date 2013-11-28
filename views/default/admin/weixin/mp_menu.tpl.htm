@@ -221,6 +221,11 @@
 				if ($(this).attr('data-value') == $(this).parents('.aw-wechat-dropdown-box').find('input').val())
 				{
 					$(this).addClass('active');
+					if ($(this).index() > 5)
+					{
+						$(this).parents('ul').scrollTop((parseInt($(this).index() - 5)) * parseInt($(this).css('height')));
+					}
+
 				}
 			});
 		})
