@@ -47,42 +47,86 @@
 						<!--<input type="text" value="<?php echo $val['key']; ?>" class="form-control sort-action" name="button[<?php echo $key; ?>][key]" />-->
 						<div class="aw-wechat-dropdown-box">
 							<input type="text" name="COMMAND_NEW_QUESTION" />
-							<i class="fa fa-sort" data-toggle="dropdown"></i>
-							<ul class="dropdown-menu" role="menu">
-								<li>常用指令</li>
-								<li class="divider"></li>
-							    <li data-value="COMMAND_NEW_QUESTION"><a><?php _e('最新问题'); ?></a></li>
-							    <li data-value="COMMAND_HOT_QUESTION"><a><?php _e('热门问题'); ?></a></li>
-							    <li data-value="COMMAND_RECOMMEND_QUESTION"><a><?php _e('推荐问题'); ?></a></li>
-							    <li data-value="COMMAND_HOME_ACTIONS"><a><?php _e('最新动态'); ?></a></li>
-							    <li data-value="COMMAND_NOTIFICATIONS"><a><?php _e('最新通知'); ?></a></li>
-							    <li data-value="COMMAND_MY_QUESTION"><a><?php _e('我的提问'); ?></a></li>
-							    <?php if ($this->category_data) { ?>
-							    <li><?php _e('分类热门问题'); ?></li>
-								<li class="divider"></li>
-								<?php foreach ($this->category_data AS $key => $val) { ?>
-							    <li data-value="COMMAND_HOT_QUESTION__CATEGORY_<?php echo $val['id']; ?>"><a><?php echo $val['title']; ?></a></li>
-							    <?php } ?>
-							    <li><?php _e('分类最新问题'); ?></li>
-								<li class="divider"></li>
-								<?php foreach ($this->category_data AS $key => $val) { ?>
-							    <li data-value="COMMAND_NEW_QUESTION__CATEGORY_<?php echo $val['id']; ?>"><a><?php echo $val['title']; ?></a></li>
-							    <?php } ?>
-							    <?php } ?>
-							    
-							    <?php if ($this->category_data) { ?>
-							    <li><?php _e('专题热门问题'); ?></li>
-								<li class="divider"></li>
-								<?php foreach ($this->category_data AS $key => $val) { ?>
-							    <li data-value="COMMAND_HOT_QUESTION__FEATURE_<?php echo $val['id']; ?>"><a><?php echo $val['title']; ?></a></li>
-							    <?php } ?>
-							    <li><?php _e('专题最新问题'); ?></li>
-								<li class="divider"></li>
-								<?php foreach ($this->category_data AS $key => $val) { ?>
-							    <li data-value="COMMAND_NEW_QUESTION__FEATURE_<?php echo $val['id']; ?>"><a><?php echo $val['title']; ?></a></li>
-							    <?php } ?>
-							    <?php } ?>
-							  </ul>
+							<a class="fa fa-sort" data-toggle="dropdown"></a>
+							<div class="dropdown-menu pull-right">
+								<div class="mod">
+									<div class="mod-head">
+										常用指令
+									</div>
+									<div class="mod-body">
+										
+									</div>
+									<div class="mod-footer">
+										<ul class="main" role="menu">
+										    <li data-value="COMMAND_NEW_QUESTION"><a><?php _e('最新问题'); ?></a></li>
+										    <li data-value="COMMAND_HOT_QUESTION"><a><?php _e('热门问题'); ?></a></li>
+										    <li data-value="COMMAND_RECOMMEND_QUESTION"><a><?php _e('推荐问题'); ?></a></li>
+										    <li data-value="COMMAND_HOME_ACTIONS"><a><?php _e('最新动态'); ?></a></li>
+										    <li data-value="COMMAND_NOTIFICATIONS"><a><?php _e('最新通知'); ?></a></li>
+										    <li data-value="COMMAND_MY_QUESTION"><a><?php _e('我的提问'); ?></a></li>
+										</ul>
+									</div>
+								</div>
+								<?php if ($this->category_data) { ?>
+								<div class="mod">
+									<div class="mod-head"><?php _e('分类热门问题'); ?></div>
+									<div class="mod-body">
+										
+									</div>
+									<div class="mod-footer">
+										<ul class="control-height">
+											<?php foreach ($this->category_data AS $key => $val) { ?>
+								    		<li data-value="COMMAND_HOT_QUESTION__CATEGORY_<?php echo $val['id']; ?>"><a><?php echo $val['title']; ?></a></li>
+											<?php } ?>
+										</ul>	
+									</div>
+								</div>
+								<div class="mod">
+									<div class="mod-head"><?php _e('分类最新问题'); ?></div>
+									<div class="mod-body">
+										
+									</div>
+									<div class="mod-footer">
+										<ul class="control-height">
+											<?php foreach ($this->category_data AS $key => $val) { ?>
+										    <li data-value="COMMAND_NEW_QUESTION__CATEGORY_<?php echo $val['id']; ?>"><a><?php echo $val['title']; ?></a></li>
+										    <?php } ?>
+										</ul>  
+									</div>
+								</div>
+								<?php } ?>
+
+								<?php if ($this->category_data) { ?>
+								<div class="mod">
+									<div class="mod-head"><?php _e('专题热门问题'); ?></div>
+									<div class="mod-body">
+										
+									</div>
+									<div class="mod-footer">
+										<ul class="control-height">
+											<?php foreach ($this->category_data AS $key => $val) { ?>
+										    <li data-value="COMMAND_HOT_QUESTION__FEATURE_<?php echo $val['id']; ?>"><a><?php echo $val['title']; ?></a></li>
+										    <?php } ?>
+										</ul>
+									</div>
+								</div>
+								<div class="mod">
+									<div class="mod-head"><?php _e('专题最新问题'); ?></div>
+									<div class="mod-body">
+										
+									</div>
+									<div class="mod-footer">
+										<ul class="control-height">
+											<?php foreach ($this->category_data AS $key => $val) { ?>
+										    <li data-value="COMMAND_NEW_QUESTION__FEATURE_<?php echo $val['id']; ?>"><a><?php echo $val['title']; ?></a></li>
+										    <?php } ?>
+										</ul>
+									</div>
+								</div>
+								<?php } ?>
+							  </div>
+							</div>
+							
 						</div>
 					</td>
 					<td align="center">
@@ -127,7 +171,7 @@
 	// 微信下拉菜单
 	$(function()
 	{
-		$('.aw-wechat-dropdown-box .dropdown-menu li').click(function ()
+		$('.aw-wechat-dropdown-box .dropdown-menu .main li').click(function ()
 		{
 			$(this).addClass('active').siblings().removeClass('active');
 			$(this).parents('.aw-wechat-dropdown-box').find('input').val($(this).attr('data-value'));
