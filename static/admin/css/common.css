@@ -6,8 +6,8 @@ ul, ol{list-style: none;}
 ul{margin:0;padding:0;}
 input[type="text"], input[type="password"]{height: 34px;padding: 6px 12px;font-size: 14px;line-height: 1.428571429;color: #555555;vertical-align: middle;background-color: #ffffff;border: 1px solid #cccccc;border-radius: 4px;-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);-webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;}
 input[type="text"]:focus {border-color: #66afe9;outline: 0;-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);}
-input, textarea{font-family: "Helvetica Neue",Helvetica,Arial,'Microsoft YaHei',sans-serif !important;}
-input, textarea{padding:6px !important;}
+input, textarea{font-family: "Helvetica Neue",Helvetica,Arial,'Microsoft YaHei',sans-serif !important;padding:6px !important;}
+.input-xlarge{width: 340px;}
 label{margin:0;padding:0.3em .6em .3em;font-weight: normal;}
 select{width: auto;min-width: 220px;padding:3px;margin-bottom: 10px;*margin-left:10px;background: #FFFFFF;border:1px solid #CCCCCC;border-radius: 4px 4px 4px 4px;color: #555;}
 select, input[type="file"]{height: auto;}
@@ -16,7 +16,7 @@ input[type="radio"], input[type="checkbox"]{margin:0;}
 select, input[type="file"]{line-height: 0px;font-size: 13px;}
 th{text-align: center;}
 .form-control{margin-bottom: 10px;}
-.btn-inverse, .label-inverse{background: #444444;color: #fff;}
+.btn-inverse, .label-inverse{background: #444444;color: #fff !important;}
 .btn-inverse:hover, .label-inverse:hover, .btn-inverse:focus,  .label-inverse:focus{background: #333333;color: #fff;}
 .btn-normal.btn-inverse{padding:4px 40px;box-shadow: none;}
 .error{color: #FF0000;}
@@ -47,7 +47,7 @@ th{text-align: center;}
 .aw-manage-menu a:hover{text-decoration: underline;}
 
 
-.content{width: 100%;height:auto;overflow: hidden;}
+.content{width: 100%;height:auto;}
 /*左侧导航*/
 .left-side{width: 225px;position: absolute;left: 0;}
 .left-side h1{margin:10px 0 10px 30px;}
@@ -61,7 +61,7 @@ th{text-align: center;}
 .left-side .side-nav .aw-icon{margin-right: 10px;}
 
 /*右侧内容*/
-.right-side{width: 79.8%;min-height:350px;margin-left:245px;padding: 15px 0;}
+.right-side{width: 79.8%;min-height:400px;margin-left:245px;padding: 15px 0;}
 .right-side .aw-box{border:1px solid #D7E6F0;}
 .right-side .aw-box .date_picker{padding-left:30px !important;background: url('../img/calendar.png') no-repeat 7px 9px #fff;}
 .right-side .aw-mod-head h2{height:36px;line-height:36px;overflow:hidden;padding:0 10px;margin:0;background: #D6E4F1;color: #246594;font-weight: normal; }
@@ -148,6 +148,18 @@ th{text-align: center;}
 .aw-mod-nav-setting .aw-nav-menu label, .aw-mod-nav-setting .aw-nav-menu input{font-size: 13px;}
 .aw-mod-nav-setting .aw-nav-menu input{margin-top:3px;}
 .aw-mod-nav-setting .aw-nav-menu .normal-width{width: 300px !important;}
+
+/* 微信菜单 */
+.aw-wechat-dropdown-box{position: relative;width: 250px;}
+.aw-wechat-dropdown-box input{width: 250px;padding-right: 25px !important;}
+.aw-wechat-dropdown-box > a{position: absolute;top: 10px;right: 10px;font-size: 16px;cursor: pointer;}
+.aw-wechat-dropdown-box .dropdown-menu{width:357%;width:365%\0;padding:10px;}
+.aw-wechat-dropdown-box .dropdown-menu.subtract-two{width: 240%;}
+.aw-wechat-dropdown-box .dropdown-menu .mod{float: right;margin:0 10px;}
+.aw-wechat-dropdown-box .dropdown-menu .mod .divider, .aw-wechat-dropdown-box .dropdown-menu > .mod-body{height:1px;overflow:hidden;margin:9px 0;background-color: #E5E5E5;}
+.aw-wechat-dropdown-box .dropdown-menu ul.control-height{max-height: 155px;overflow-y:auto;}
+.aw-wechat-dropdown-box .dropdown-menu ul li a{clear: both;display: block;max-width:126px;overflow:hidden;text-overflow:ellipsis;padding: 3px 20px;color: #333333;font-weight: normal;line-height: 1.42857;white-space: nowrap;text-align: left;}
+.aw-wechat-dropdown-box .dropdown-menu ul li a:hover, .aw-wechat-dropdown-box .dropdown-menu ul li.active a{background-color: #428BCA;color: #FFFFFF;text-decoration: none;}
 
 /*alert-box*/
 body.modal-open, .modal-open .navbar-fixed-top, .modal-open .navbar-fixed-bottom{margin:0px;}

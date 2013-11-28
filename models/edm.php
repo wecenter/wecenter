@@ -141,7 +141,7 @@ class edm_class extends AWS_MODEL
 			
 			$message = $task_data[$item['taskid']]['message'] . '<p><center>为确保我们的邮件不被当做垃圾邮件处理，请把 ' . get_setting('from_email') . ' 添加为你的联系人。</center></p><p><center>如果内容显示不正确, 请<a href="' . get_js_url('/account/edm/mail/' . $item['taskid']) . '">点此查看在线版</a>。<img src="' . get_js_url('/account/edm/ping/' . urlencode(base64_encode($item['email'])) . '|' . md5($item['email'] . G_SECUKEY)) . '|' . $item['taskid'] . '" alt="" width="1" height="1" /></center></p>';
 			
-			$this->shutdown_update('edm_taskdata', array(
+			$this->update('edm_taskdata', array(
 				'sent_time' => time()
 			), 'id = ' . $item['id']);
 			

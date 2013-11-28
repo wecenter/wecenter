@@ -30,26 +30,7 @@ $config['publish_success_message'] = "您的问题已提交，晚点您可以输
 // 脏话提示信息
 $config['bad_language_message'] = "说脏话都不是好孩子!";
 
-// 指令类默认设置，可以修改左侧中文指令，记得修改之后同时变更信息类提示里面的解释说明。
-
-// 最新问题指令
-$config['command_new'] = '最新问题';
-
-// 热门问题指令
-$config['command_hot'] = '热门问题';
-
-// 推荐问题指令
-$config['command_recommend'] = '推荐问题';
-
-// 最新通知指令
-$config['command_notifications'] = '最新通知';
-
-// 我的问题指令
-$config['command_my'] = '我的问题';
-
 /****** 微信自定义菜单选项 ******/
-
-$config['key_param_type'] = 'FEATURE';	// 菜单参数类型: CATEGORY - 分类 ID, FEATURE - 专题 ID
 
 // 热门问题图文列表封面图
 $config['default_list_image_hot'] = G_STATIC_URL . '/common/weixin_default_image.png';
@@ -61,5 +42,7 @@ $config['default_list_image_new'] = G_STATIC_URL . '/common/weixin_default_image
 $config['default_list_image_recommend'] = G_STATIC_URL . '/common/weixin_default_image.png';
 
 // 公众平台 App ID
-$config['app_id'] = 'wxe6ab26eb9276d6e0';
-$config['app_secret'] = '748834e281e1dbd415466e59e6e8ad65';
+
+$config['app_id'] = 'APP_ID';
+$config['app_secret'] = 'APP_ID';
+

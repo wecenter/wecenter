@@ -55,10 +55,6 @@ class weixin_class extends AWS_MODEL
 			{
 				$this->user_info = $this->model('account')->get_user_info_by_uid($uid, true);
 				$this->user_id = $weixin_info['uid'];
-				
-				$user_group = $this->model('account')->get_user_group($user_info['group_id'], $user_info['reputation_group']);
-				
-				$this->user_info['permission'] = $user_group['permission'];
 			}
 			
 			return $input_message;
@@ -94,9 +90,9 @@ class weixin_class extends AWS_MODEL
 						$action = $response['action'];
 					}
 				}
-				else if (substr($input_message['eventKey'], 0, 5) == 'RULE_')
+				else if (substr($input_message['eventKey'], 0, 11) == 'REPLY_RULE_')
 				{
-					if ($reply_rule = $this->get_reply_rule_by_event_key(substr($input_message['eventKey'], 5)))
+					if ($reply_rule = $this->get_reply_rule_by_id(substr($input_message['eventKey'], 11)))
 					{
 						$response_message = $this->create_response_by_reply_rule_keyword($reply_rule['keyword']);
 					}
@@ -110,8 +106,6 @@ class weixin_class extends AWS_MODEL
 					switch ($input_message['event'])
 					{
 						case 'subscribe':
-							//$response_message = get_setting('weixin_subscribe_message');
-							
 							if (get_setting('weixin_subscribe_message_key'))
 							{
 								$response_message = $this->create_response_by_reply_rule_keyword(get_setting('weixin_subscribe_message_key'));
@@ -168,8 +162,6 @@ class weixin_class extends AWS_MODEL
 					if (cjk_strlen($input_message['content']) > 5)
 					{
 						$response_message .= "\n\n" . AWS_APP::config()->get('weixin')->publish_message;
-						
-						$action = 'publish';
 					}
 				}
 				else
@@ -312,23 +304,64 @@ class weixin_class extends AWS_MODEL
 				}
 			break;
 			
-			case '帮助':
 			case 'HELP':
 				$response_message = AWS_APP::config()->get('weixin')->help_message;
 			break;
 			
-			case AWS_APP::config()->get('weixin')->command_hot:
+			case 'NEW_ARTICLE':
+				if ($input_message['param'])
+				{
+					$child_param = explode('_', $input_message['param']);
+					
+					switch ($child_param[0])
+					{
+						case 'FEATURE':
+							$topics_id = $this->model('feature')->get_topics_by_feature_id($child_param[1]);
+						break;
+					}
+				}
+				
+				if ($topics_id)
+				{
+					$article_list = $this->model('article')->get_articles_list_by_topic_ids(1, 10, 'add_time DESC', $topics_id);
+				}
+				else
+				{
+					$article_list = $this->model('article')->get_articles_list(1, 10, 'add_time DESC');
+				}
+				
+				foreach ($article_list AS $key => $val)
+				{
+					if (!$response_message)
+					{
+						$image_file = AWS_APP::config()->get('weixin')->default_list_image_hot;
+					}
+					else
+					{
+						$image_file = get_avatar_url($val['uid'], 'max');
+					}
+					
+					$response_message[] = array(
+						'title' => $val['title'],
+						'link' => get_js_url('/article/' . $val['id']),
+						'image_file' => $image_file
+					);
+				}
+			break;
+			
 			case 'HOT_QUESTION':
 				if ($input_message['param'])
 				{
-					switch (AWS_APP::config()->get('weixin')->key_param_type)
+					$child_param = explode('_', $input_message['param']);
+					
+					switch ($child_param[0])
 					{
 						case 'CATEGORY':
-							$category_id = intval($input_message['param']);
+							$category_id = intval($child_param[1]);
 						break;
 						
 						case 'FEATURE':
-							$topics_id = $this->model('feature')->get_topics_by_feature_id($input_message['param']);
+							$topics_id = $this->model('feature')->get_topics_by_feature_id($child_param[1]);
 						break;
 					}
 				}
@@ -359,18 +392,19 @@ class weixin_class extends AWS_MODEL
 				}
 			break;
 			
-			case AWS_APP::config()->get('weixin')->command_new:
 			case 'NEW_QUESTION':
 				if ($input_message['param'])
 				{
-					switch (AWS_APP::config()->get('weixin')->key_param_type)
+					$child_param = explode('_', $input_message['param']);
+					
+					switch ($child_param[0])
 					{
 						case 'CATEGORY':
-							$category_id = intval($input_message['param']);
+							$category_id = intval($child_param[1]);
 						break;
 						
 						case 'FEATURE':
-							$topics_id = $this->model('feature')->get_topics_by_feature_id($input_message['param']);
+							$topics_id = $this->model('feature')->get_topics_by_feature_id($child_param[1]);
 						break;
 					}
 				}
@@ -401,7 +435,6 @@ class weixin_class extends AWS_MODEL
 				}
 			break;
 			
-			case AWS_APP::config()->get('weixin')->command_recommend:
 			case 'RECOMMEND_QUESTION':
 				if ($question_list = $this->model('question')->get_questions_list(1, 10, null, null, null, null, null, true))
 				{
@@ -429,7 +462,6 @@ class weixin_class extends AWS_MODEL
 				}
 			break;
 			
-			case '最新动态':
 			case 'HOME_ACTIONS':
 				if ($this->user_id)
 				{
@@ -463,7 +495,6 @@ class weixin_class extends AWS_MODEL
 				}
 			break;
 			
-			case AWS_APP::config()->get('weixin')->command_notifications:
 			case 'NOTIFICATIONS':
 				if ($this->user_id)
 				{
@@ -505,7 +536,6 @@ class weixin_class extends AWS_MODEL
 				}
 			break;
 			
-			case AWS_APP::config()->get('weixin')->command_my:
 			case 'MY_QUESTION':
 				if ($this->user_id)
 				{
@@ -698,18 +728,15 @@ class weixin_class extends AWS_MODEL
 		return $this->fetch_all('weixin_reply_rule', $where, 'keyword ASC');
 	}
 	
-	public function add_reply_rule($keyword, $event_key, $title, $description = '', $link = '', $image_file = '')
+	public function fetch_unique_reply_rule_list($where = null)
 	{
-		if ($event_key)
-		{
-			$this->update('weixin_reply_rule', array(
-				'event_key' => trim($event_key)
-			), "keyword = '" . $this->quote($keyword) . "'");
-		}
-		
+		return $this->query_all("SELECT * FROM `" . get_table('weixin_reply_rule') . "`", null, null, $where, 'keyword');
+	}
+	
+	public function add_reply_rule($keyword, $title, $description = '', $link = '', $image_file = '')
+	{		
 		return $this->insert('weixin_reply_rule', array(
 			'keyword' => trim($keyword),
-			'event_key' => trim($event_key),
 			'title' => $title,
 			'description' => $description,
 			'image_file' => $image_file,
@@ -732,20 +759,9 @@ class weixin_class extends AWS_MODEL
 		), 'id = ' . $id);
 	}
 	
-	public function update_reply_rule($id, $event_key, $title, $description = '', $link = '', $image_file = '')
-	{
-		if ($event_key)
-		{
-			if ($reply_rule = $this->get_reply_rule_by_id($id))
-			{
-				$this->update('weixin_reply_rule', array(
-					'event_key' => trim($event_key)
-				), "keyword = '" . $this->quote($reply_rule['keyword']) . "'");
-			}
-		}
-		
+	public function update_reply_rule($id, $title, $description = '', $link = '', $image_file = '')
+	{		
 		return $this->update('weixin_reply_rule', array(
-			'event_key' => trim($event_key),
 			'title' => $title,
 			'description' => $description,
 			'image_file' => $image_file,
@@ -761,11 +777,6 @@ class weixin_class extends AWS_MODEL
 	public function get_reply_rule_by_keyword($keyword)
 	{
 		return $this->fetch_row('weixin_reply_rule', "`keyword` = '" . trim($this->quote($keyword)) . "'");
-	}
-	
-	public function get_reply_rule_by_event_key($event_key)
-	{
-		return $this->fetch_row('weixin_reply_rule', "`event_key` = '" . trim($this->quote($event_key)) . "'");
 	}
 	
 	public function create_response_by_reply_rule_keyword($keyword)

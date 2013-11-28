@@ -4,13 +4,123 @@
 <div class="pull-left right-side">
 	<div class="alert alert-success hide error-message"></div>
 	<div class="aw-mod-body">
+		<script type="text/x-template" id="drop_menu_template">
+			<div class="dropdown-menu pull-right<?php if (!$this->category_data) { ?> subtract-two<?php } ?>">
+				<div class="mod-head clearfix">
+					<div class="mod">
+						<div class="mod-head"><?php _e('常用功能'); ?></div>
+						<div class="divider"></div>
+						<div class="mod-footer">
+							<ul role="menu">
+							    <li data-value="COMMAND_NEW_QUESTION"><a><?php _e('最新问题'); ?></a></li>
+							    <li data-value="COMMAND_NEW_ARTICLE"><a><?php _e('最新文章'); ?></a></li>
+							    <li data-value="COMMAND_HOT_QUESTION"><a><?php _e('热门问题'); ?></a></li>
+							    <li data-value="COMMAND_RECOMMEND_QUESTION"><a><?php _e('推荐问题'); ?></a></li>
+							    <li data-value="COMMAND_HOME_ACTIONS"><a><?php _e('最新动态'); ?></a></li>
+							    <li data-value="COMMAND_NOTIFICATIONS"><a><?php _e('最新通知'); ?></a></li>
+							    <li data-value="COMMAND_MY_QUESTION"><a><?php _e('我的提问'); ?></a></li>
+							</ul>
+						</div>
+					</div>
+					
+					<?php if ($this->category_data) { ?>
+					<div class="mod">
+						<div class="mod-head"><?php _e('分类热门问题'); ?></div>
+						<div class="divider"></div>
+						<div class="mod-footer">
+							<ul class="control-height">
+								<?php foreach ($this->category_data AS $val) { ?>
+					    		<li data-value="COMMAND_HOT_QUESTION__CATEGORY_<?php echo $val['id']; ?>"><a><?php echo $val['title']; ?></a></li>
+								<?php } ?>
+							</ul>	
+						</div>
+					</div>
+					<div class="mod">
+						<div class="mod-head"><?php _e('分类最新问题'); ?></div>
+						<div class="divider"></div>
+						<div class="mod-footer">
+							<ul class="control-height">
+								<?php foreach ($this->category_data AS $val) { ?>
+							    <li data-value="COMMAND_NEW_QUESTION__CATEGORY_<?php echo $val['id']; ?>"><a><?php echo $val['title']; ?></a></li>
+							    <?php } ?>
+							</ul>  
+						</div>
+					</div>
+					<?php } ?>
+					
+
+					<div class="mod">
+						<div class="mod-head"><?php _e('专题热门问题'); ?></div>
+						<div class="divider"></div>
+						<div class="mod-footer">
+							<ul class="control-height">
+								<?php if ($this->feature_list) { ?>
+								<?php foreach ($this->feature_list AS $val) { ?>
+							    <li data-value="COMMAND_HOT_QUESTION__FEATURE_<?php echo $val['id']; ?>"><a><?php echo $val['title']; ?></a></li>
+							    <?php } ?>
+							    <?php } ?>
+							</ul>
+						</div>
+					</div>
+					<div class="mod">
+						<div class="mod-head"><?php _e('专题最新问题'); ?></div>
+						<div class="divider"></div>
+						<div class="mod-footer">
+							<ul class="control-height">
+								<?php if ($this->feature_list) { ?>
+								<?php foreach ($this->feature_list AS $val) { ?>
+							    <li data-value="COMMAND_NEW_QUESTION__FEATURE_<?php echo $val['id']; ?>"><a><?php echo $val['title']; ?></a></li>
+							    <?php } ?>
+							    <?php } ?>
+							</ul>
+						</div>
+					</div>	
+					<div class="mod">
+						<div class="mod-head"><?php _e('经验专题'); ?></div>
+						<div class="divider"></div>
+						<div class="mod-footer">
+							<ul class="control-height">
+								<?php if ($this->reply_rule_list) { ?>
+								<?php foreach ($this->reply_rule_list AS $val) { ?>
+							    <li data-value="COMMAND_NEW_ARTICLE__FEATURE_<?php echo $val['id']; ?>"><a><?php echo $val['keyword']; ?></a></li>
+							    <?php } ?>
+							    <?php } ?>
+							</ul>
+						</div>
+					</div>
+					<div class="mod">
+						<div class="mod-head"><?php _e('回复规则'); ?></div>
+						<div class="divider"></div>
+						<div class="mod-footer">
+							<ul class="control-height">
+								<?php if ($this->reply_rule_list) { ?>
+								<?php foreach ($this->reply_rule_list AS $val) { ?>
+							    <li data-value="REPLY_RULE_<?php echo $val['id']; ?>"><a><?php echo $val['keyword']; ?></a></li>
+							    <?php } ?>
+							    <?php } ?>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="divider"></div>
+				<div class="mod-footer">
+					<a class="btn btn-inverse pull-left insert-url"><?php _e('URL 地址'); ?></a>
+				</div>
+			</div>
+		</script>
+		
 		<script type="text/x-template" id="top_menu_template">
 			<tr data-id="{MENU_ID}" class="top_menu" id="menu_id_{MENU_ID}">
-				<td><input class="form-control" type="text" value="" name="button[{MENU_ID}][name]" /></td>
+				<td><input class="form-control input-xlarge" type="text" value="" name="button[{MENU_ID}][name]" /></td>
 				<td align="center"><input type="text" value="" class="form-control sort-action" name="button[{MENU_ID}][sort]" /></td>
-				<td align="center"><input type="text" value="" class="form-control sort-action" name="button[{MENU_ID}][key]" /></td>
 				<td align="center">
-					<a href="javascript:;" onclick="if ($('#mp_menu_table tbody tr.sub_button_{MENU_ID}').length > 4) { alert('<?php _e('最多只能创建 5 个子菜单'); ?>') } else { if ($('#mp_menu_table tbody tr.sub_button_{MENU_ID}:last').length) { $('tr#menu_id_{MENU_ID}').after($('#sub_button_template').html().replace(/{MENU_TOP_ID}/g, {MENU_ID}).replace(/{MENU_SUB_ID}/g, parseInt($('#mp_menu_table tbody tr.sub_button_{MENU_ID}:first').attr('data-id')) + 1)); } else { $('tr#menu_id_{MENU_ID}').after($('#sub_button_template').html().replace(/{MENU_TOP_ID}/g, {MENU_ID}).replace(/{MENU_SUB_ID}/g, 1)); } }"><?php _e('添加子菜单'); ?></a> | 
+					<div class="aw-wechat-dropdown-box">
+						<input class="form-control" type="text" name="button[{MENU_ID}][key]" />
+						<a class="fa fa-sort" data-toggle="dropdown"></a>
+					</div>
+				</td>
+				<td align="center">
+					<a href="javascript:;" onclick="if ($('#mp_menu_table tbody tr.sub_button_{MENU_ID}').length > 4) { alert('<?php _e('最多只能创建 5 个子菜单'); ?>') } else { if ($('#mp_menu_table tbody tr.sub_button_{MENU_ID}:last').length) { $('tr#menu_id_{MENU_ID}').after($('#sub_button_template').html().replace(/{MENU_TOP_ID}/g, {MENU_ID}).replace(/{MENU_SUB_ID}/g, parseInt($('#mp_menu_table tbody tr.sub_button_{MENU_ID}:first').attr('data-id')) + 1)); } else { $('tr#menu_id_{MENU_ID}').after($('#sub_button_template').html().replace(/{MENU_TOP_ID}/g, {MENU_ID}).replace(/{MENU_SUB_ID}/g, 1));  } }"><?php _e('添加子菜单'); ?></a> | 
 					<a href="javascript:;" onclick="$(this).parents('tr').remove(); $('.sub_button_{MENU_ID}').remove();"><?php _e('删除'); ?></a>
 				</td>
 			</tr>
@@ -18,9 +128,14 @@
 		
 		<script type="text/x-template" id="sub_button_template">
 			<tr class="sub_button_{MENU_TOP_ID}" data-id="{MENU_SUB_ID}">
-				<td> -- <input class="form-control" type="text" value="" name="button[{MENU_TOP_ID}][sub_button][{MENU_SUB_ID}][name]" /></td>
+				<td> -- <input class="form-control input-xlarge inline-block" type="text" value="" name="button[{MENU_TOP_ID}][sub_button][{MENU_SUB_ID}][name]" /></td>
 				<td align="center"><input type="text" value="" class="form-control sort-action" name="button[{MENU_TOP_ID}][sub_button][{MENU_SUB_ID}][sort]" /></td>
-				<td align="center"><input type="text" value="" class="form-control sort-action" name="button[{MENU_TOP_ID}][sub_button][{MENU_SUB_ID}][key]" /></td>
+				<td align="center">
+					<div class="aw-wechat-dropdown-box">
+						<input class="form-control" type="text" name="button[{MENU_TOP_ID}][sub_button][{MENU_SUB_ID}][key]" />
+						<a class="fa fa-sort" data-toggle="dropdown"></a>
+					</div>
+				</td>
 				<td align="center">
 					<a href="javascript:;" onclick="$(this).parents('tr').remove();"><?php _e('删除'); ?></a>
 				</td>
@@ -40,9 +155,14 @@
 			<tbody>
 				<?php foreach ($this->mp_menu AS $key => $val) { ?>
 				<tr data-id="<?php echo $key; ?>" class="top_menu" id="menu_id_<?php echo $key; ?>">
-					<td><input type="text" value="<?php echo $val['name']; ?>" name="button[<?php echo $key; ?>][name]" /></td>
+					<td><input type="text" class="input-xlarge" value="<?php echo $val['name']; ?>" name="button[<?php echo $key; ?>][name]" /></td>
 					<td align="center"><input type="text" value="<?php echo $val['sort']; ?>" class="form-control sort-action" name="button[<?php echo $key; ?>][sort]" /></td>
-					<td align="center"><input type="text" value="<?php echo $val['key']; ?>" class="form-control sort-action" name="button[<?php echo $key; ?>][key]" /></td>
+					<td align="center">
+						<div class="aw-wechat-dropdown-box">
+							<input class="form-control" type="text" name="button[<?php echo $key; ?>][key]" value="<?php echo $val['key']; ?>" />
+							<a class="fa fa-sort" data-toggle="dropdown"></a>
+						</div>
+					</td>
 					<td align="center">
 						<a href="javascript:;" onclick="if ($('#mp_menu_table tbody tr.sub_button_<?php echo $key; ?>').length > 4) { alert('<?php _e('最多只能创建 5 个子菜单'); ?>') } else { if ($('#mp_menu_table tbody tr.sub_button_<?php echo $key; ?>:last').length) { $('tr#menu_id_<?php echo $key; ?>').after($('#sub_button_template').html().replace(/{MENU_TOP_ID}/g, <?php echo $key; ?>).replace(/{MENU_SUB_ID}/g, parseInt($('#mp_menu_table tbody tr.sub_button_<?php echo $key; ?>:first').attr('data-id')) + 1)); } else { $('tr#menu_id_<?php echo $key; ?>').after($('#sub_button_template').html().replace(/{MENU_TOP_ID}/g, <?php echo $key; ?>).replace(/{MENU_SUB_ID}/g, 1)); } }"><?php _e('添加子菜单'); ?></a> | 
 						<a href="javascript:;" onclick="$(this).parents('tr').remove(); $('.sub_button_<?php echo $key; ?>').remove();"><?php _e('删除'); ?></a>
@@ -51,9 +171,14 @@
 				<?php if ($val['sub_button']) { ?>
 				<?php foreach ($val['sub_button'] AS $sub_key => $sub_val) { ?>				
 				<tr class="sub_button_<?php echo $key; ?>" data-id="<?php echo $sub_key; ?>">
-					<td> -- <input class="form-control" type="text" value="<?php echo $sub_val['name']; ?>" name="button[<?php echo $key; ?>][sub_button][<?php echo $sub_key; ?>][name]" /></td>
+					<td> -- <input class="form-control input-xlarge inline-block" type="text" value="<?php echo $sub_val['name']; ?>" name="button[<?php echo $key; ?>][sub_button][<?php echo $sub_key; ?>][name]" /></td>
 					<td align="center"><input type="text" value="<?php echo $sub_val['sort']; ?>" class="form-control sort-action" name="button[<?php echo $key; ?>][sub_button][<?php echo $sub_key; ?>][sort]" /></td>
-					<td align="center"><input type="text" value="<?php echo $sub_val['key']; ?>" class="form-control sort-action" name="button[<?php echo $key; ?>][sub_button][<?php echo $sub_key; ?>][key]" /></td>
+					<td align="center">
+						<div class="aw-wechat-dropdown-box">
+							<input class="form-control" type="text" name="button[<?php echo $key; ?>][sub_button][<?php echo $sub_key; ?>][key]" value="<?php echo $sub_val['key']; ?>" />
+							<a class="fa fa-sort" data-toggle="dropdown"></a>
+						</div>
+					</td>
 					<td align="center">
 						<a href="javascript:;" onclick="$(this).parents('tr').remove();"><?php _e('删除'); ?></a>
 					</td>
@@ -80,5 +205,43 @@
 		</form>
 	</div>
 </div>
+
+<script type="text/javascript">
+	// 微信下拉菜单
+	$(function()
+	{
+		$(document).on('click', '.aw-wechat-dropdown-box .fa-sort', function ()
+		{
+			if ($(this).parents('.aw-wechat-dropdown-box').find('.dropdown-menu').length == 0)
+			{
+				$(this).parents('.aw-wechat-dropdown-box').append($('#drop_menu_template').html());
+			}
+			$.each($(this).parents('.aw-wechat-dropdown-box').find('.dropdown-menu ul li'), function (i, e)
+			{
+				if ($(this).attr('data-value') == $(this).parents('.aw-wechat-dropdown-box').find('input').val())
+				{
+					$(this).addClass('active');
+					if ($(this).index() > 5)
+					{
+						$(this).parents('ul').scrollTop((parseInt($(this).index() - 5)) * parseInt($(this).css('height')));
+					}
+
+				}
+			});
+		})
+		$(document).on('click', '.aw-wechat-dropdown-box .dropdown-menu ul li', function ()
+		{
+			$(this).parents('.aw-wechat-dropdown-box').find('li').removeClass('active');
+			$(this).addClass('active');
+			$(this).parents('.aw-wechat-dropdown-box').find('input').val($(this).attr('data-value'));
+		});
+
+		$(document).on('click', '.aw-wechat-dropdown-box .insert-url', function ()
+		{
+			$(this).parents('.aw-wechat-dropdown-box').find('input').val('http://');
+		});
+	});
+
+</script>
 
 <?php TPL::output('admin/global/footer.tpl.htm'); ?>

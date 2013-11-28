@@ -69,6 +69,15 @@ class weixin extends AWS_ADMIN_CONTROLLER
 		TPL::assign('mp_menu', get_setting('weixin_mp_menu'));
 		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(803));
 		
+		TPL::assign('feature_list', $this->model('feature')->get_feature_list(null, 'id DESC', null, null));
+		
+		if (get_setting('category_enable') == 'Y')
+		{
+			TPL::assign('category_data', json_decode($this->model('system')->build_category_json('question'), true));
+		}
+		
+		TPL::assign('reply_rule_list', $this->model('weixin')->fetch_unique_reply_rule_list());
+		
 		TPL::output('admin/weixin/mp_menu');
 	}
 	
@@ -135,7 +144,7 @@ class weixin extends AWS_ADMIN_CONTROLLER
 				$rule_info['image_file'] = basename($upload_data['full_path']);
 			}
 			
-			$this->model('weixin')->update_reply_rule($_POST['id'], $_POST['event_key'], $_POST['title'], $_POST['description'], $_POST['link'], $rule_info['image_file']);
+			$this->model('weixin')->update_reply_rule($_POST['id'], $_POST['title'], $_POST['description'], $_POST['link'], $rule_info['image_file']);
 		
 			H::ajax_json_output(AWS_APP::RSM(array(
 			'url' => get_setting('base_url') . '/' . G_INDEX_SCRIPT . '/admin/weixin/reply/'), 1, null));
@@ -199,7 +208,7 @@ class weixin extends AWS_ADMIN_CONTROLLER
 				$image_file = basename($upload_data['full_path']);
 			}
 			
-			$this->model('weixin')->add_reply_rule($_POST['keyword'], $_POST['event_key'], $_POST['title'], $_POST['description'], $_POST['link'], $image_file);
+			$this->model('weixin')->add_reply_rule($_POST['keyword'], $_POST['title'], $_POST['description'], $_POST['link'], $image_file);
 		}
 		
 		H::ajax_json_output(AWS_APP::RSM(array(
