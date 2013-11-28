@@ -48,16 +48,59 @@
 						<div class="aw-wechat-dropdown-box">
 							<input type="text" name="COMMAND_NEW_QUESTION" />
 							<i class="fa fa-sort" data-toggle="dropdown"></i>
-							<ul class="dropdown-menu" role="menu">
-							    <li data-value="COMMAND_NEW_QUESTION"><a><?php _e('最新问题'); ?></a></li>
-							    <li data-value="COMMAND_HOT_QUESTION"><a><?php _e('热门问题'); ?></a></li>
-							    <li data-value="COMMAND_RECOMMEND_QUESTION"><a><?php _e('推荐问题'); ?></a></li>
-							    <li data-value="COMMAND_HOME_ACTIONS"><a><?php _e('最新动态'); ?></a></li>
-							    <li data-value="COMMAND_NOTIFICATIONS"><a><?php _e('最新通知'); ?></a></li>
-							    <li data-value="COMMAND_MY_QUESTION"><a><?php _e('我的提问'); ?></a></li>
-							    <li class="divider"></li>
-							    <li><a>Separated link</a></li>
-							  </ul>
+							<div class="dropdown-menu pull-right">
+								<ul>
+									<li data-value="COMMAND_NEW_QUESTION"><a><?php _e('最新问题'); ?></a></li>
+									<li data-value="COMMAND_HOT_QUESTION"><a><?php _e('热门问题'); ?></a></li>
+								    <li data-value="COMMAND_RECOMMEND_QUESTION"><a><?php _e('推荐问题'); ?></a></li>
+								    <li data-value="COMMAND_HOME_ACTIONS"><a><?php _e('最新动态'); ?></a></li>
+								    <li data-value="COMMAND_NOTIFICATIONS"><a><?php _e('最新通知'); ?></a></li>
+								    <li data-value="COMMAND_MY_QUESTION"><a><?php _e('我的提问'); ?></a></li>
+								</ul>
+								<ul class="control-height">
+									<li class="dropdown-header">Separated link</li>
+								    <li class="dropdown-header">Separated link</li>
+								    <li class="dropdown-header">Separated link</li>
+								    <li class="dropdown-header">Separated link</li>
+								    <li class="dropdown-header">Separated link</li>
+								    <li class="dropdown-header">Separated link</li>
+								    <li class="dropdown-header">Separated link</li>
+								    <li class="dropdown-header">Separated link</li>
+								    <li class="dropdown-header">Separated link</li>
+								    <li class="dropdown-header">Separated link</li>
+								</ul>
+								<ul class="control-height">
+									<li class="dropdown-header">Separated link</li>
+								    <li class="dropdown-header">Separated link</li>
+								    <li class="dropdown-header">Separated link</li>
+								    <li class="dropdown-header">Separated link</li>
+								    <li class="dropdown-header">Separated link</li>
+								    <li class="dropdown-header">Separated link</li>
+								    <li class="dropdown-header">Separated link</li>
+								</ul>
+								<ul class="control-height">
+									<li class="dropdown-header">Separated link</li>
+								    <li class="dropdown-header">Separated link</li>
+								    <li class="dropdown-header">Separated link</li>
+								    <li class="dropdown-header">Separated link</li>
+								    <li class="dropdown-header">Separated link</li>
+								    <li class="dropdown-header">Separated link</li>
+								    <li class="dropdown-header">Separated link</li>
+								</ul>
+								<ul class="control-height">
+									<li class="dropdown-header">Separated link</li>
+								    <li class="dropdown-header">Separated link</li>
+								    <li class="dropdown-header">Separated link</li>
+								    <li class="dropdown-header">Separated link</li>
+								    <li class="dropdown-header">Separated link</li>
+								    <li class="dropdown-header">Separated link</li>
+								    <li class="dropdown-header">Separated link</li>
+								</ul>
+								
+								<div class="clearfix"></div>
+								<div class="divider"></div>
+								<div class="dropdown-header">Separated link</div>
+							</div>
 						</div>
 					</td>
 					<td align="center">
@@ -104,7 +147,7 @@
 	{
 		$('.aw-wechat-dropdown-box .dropdown-menu li').click(function ()
 		{
-			console.log($(this).attr('data-value'));
+			$(this).addClass('active').siblings().removeClass('active');
 			$(this).parents('.aw-wechat-dropdown-box').find('input').val($(this).attr('data-value'));
 		});
 	});

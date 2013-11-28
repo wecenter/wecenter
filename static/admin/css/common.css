@@ -153,7 +153,11 @@ th{text-align: center;}
 .aw-wechat-dropdown-box{position: relative;width: 250px;}
 .aw-wechat-dropdown-box input{width: 250px;padding-right: 20px !important;}
 .aw-wechat-dropdown-box i{position: absolute;top: 10px;right: 5px;font-size: 16px;cursor: pointer;}
-.aw-wechat-dropdown-box .dropdown-menu{width:100%;text-align: left;}
+.aw-wechat-dropdown-box .dropdown-menu{width:275%;padding:10px;}
+.aw-wechat-dropdown-box .dropdown-menu ul{float: right;margin:0 10px;}
+.aw-wechat-dropdown-box .dropdown-menu ul.control-height{max-height: 160px;overflow-y:scroll;}
+.aw-wechat-dropdown-box .dropdown-menu ul li a{clear: both;display: block;padding: 3px 20px;color: #333333;font-weight: normal;line-height: 1.42857;white-space: nowrap;}
+.aw-wechat-dropdown-box .dropdown-menu ul li a:hover, .aw-wechat-dropdown-box .dropdown-menu ul li.active a{background-color: #428BCA;color: #FFFFFF;text-decoration: none;}
 
 /*alert-box*/
 body.modal-open, .modal-open .navbar-fixed-top, .modal-open .navbar-fixed-bottom{margin:0px;}
