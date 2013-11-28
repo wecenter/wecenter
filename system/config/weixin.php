@@ -42,5 +42,5 @@ $config['default_list_image_new'] = G_STATIC_URL . '/common/weixin_default_image
 $config['default_list_image_recommend'] = G_STATIC_URL . '/common/weixin_default_image.png';
 
 // 公众平台 App ID
-$config['app_id'] = 'APP_ID';
-$config['app_secret'] = 'APP_ID';
+$config['app_id'] = 'wxe6ab26eb9276d6e0';
+$config['app_secret'] = '748834e281e1dbd415466e59e6e8ad65';
