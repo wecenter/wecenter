@@ -47,7 +47,7 @@ th{text-align: center;}
 .aw-manage-menu a:hover{text-decoration: underline;}
 
 
-.content{width: 100%;height:auto;overflow: hidden;}
+.content{width: 100%;height:auto;}
 /*左侧导航*/
 .left-side{width: 225px;position: absolute;left: 0;}
 .left-side h1{margin:10px 0 10px 30px;}

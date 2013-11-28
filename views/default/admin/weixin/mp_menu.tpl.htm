@@ -6,7 +6,7 @@
 	<div class="aw-mod-body">
 		<script type="text/x-template" id="top_menu_template">
 			<tr data-id="{MENU_ID}" class="top_menu" id="menu_id_{MENU_ID}">
-				<td><input class="form-control" type="text" value="" name="button[{MENU_ID}][name]" /></td>
+				<td><input class="form-control input-xlarge" type="text" value="" name="button[{MENU_ID}][name]" /></td>
 				<td align="center"><input type="text" value="" class="form-control sort-action" name="button[{MENU_ID}][sort]" /></td>
 				<td align="center">
 					<div class="aw-wechat-dropdown-box">
@@ -93,7 +93,7 @@
 		
 		<script type="text/x-template" id="sub_button_template">
 			<tr class="sub_button_{MENU_TOP_ID}" data-id="{MENU_SUB_ID}">
-				<td> -- <input class="form-control" type="text" value="" name="button[{MENU_TOP_ID}][sub_button][{MENU_SUB_ID}][name]" /></td>
+				<td> -- <input class="form-control input-xlarge inline-block" type="text" value="" name="button[{MENU_TOP_ID}][sub_button][{MENU_SUB_ID}][name]" /></td>
 				<td align="center"><input type="text" value="" class="form-control sort-action" name="button[{MENU_TOP_ID}][sub_button][{MENU_SUB_ID}][sort]" /></td>
 				<td align="center">
 					<div class="aw-wechat-dropdown-box">
@@ -310,16 +310,27 @@
 	// 微信下拉菜单
 	$(function()
 	{
-		$('.aw-wechat-dropdown-box .dropdown-menu ul li').click(function ()
+		$(document).on('click', '.aw-wechat-dropdown-box .fa-sort', function ()
 		{
-			$(this).addClass('active').siblings().removeClass('active');
+			$.each($(this).parents('.aw-wechat-dropdown-box').find('.dropdown-menu ul li'), function (i, e)
+			{
+				if ($(this).attr('data-value') == $(this).parents('.aw-wechat-dropdown-box').find('input').val())
+				{
+					$(this).addClass('active');
+				}
+			});
+		})
+		$(document).on('click', '.aw-wechat-dropdown-box .dropdown-menu ul li', function ()
+		{
+			$(this).parents('.aw-wechat-dropdown-box').find('li').removeClass('active');
+			$(this).addClass('active');
 			$(this).parents('.aw-wechat-dropdown-box').find('input').val($(this).attr('data-value'));
 		});
 
-		$('.aw-wechat-dropdown-box .insert-url').click(function ()
+		$(document).on('click', '.aw-wechat-dropdown-box .insert-url', function ()
 		{
 			$(this).parents('.aw-wechat-dropdown-box').find('input').val('http://');
-		})
+		});
 	});
 
 </script>
