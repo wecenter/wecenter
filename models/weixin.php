@@ -842,6 +842,17 @@ class weixin_class extends AWS_MODEL
 		}
 	}
 	
+	public function send_text_message($openid, $message)
+	{
+		HTTP::request('https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=' . $this->get_access_token(), 'POST', preg_replace("#\\\u([0-9a-f]+)#ie", "convert_encoding(pack('H4', '\\1'), 'UCS-2', 'UTF-8')", json_encode(array(
+			'touser' => $openid,
+			'msgtype' => 'text',
+			'text' => array(
+				'content' => $message
+			)
+		))));
+	}
+	
 	public function update_menu()
 	{
 		$mp_menu = get_setting('weixin_mp_menu');
