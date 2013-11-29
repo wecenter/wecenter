@@ -343,7 +343,7 @@ class weixin_class extends AWS_MODEL
 					
 					$response_message[] = array(
 						'title' => $val['title'],
-						'link' => get_js_url('/article/' . $val['id']),
+						'link' => $this->model('openid_weixin')->redirect_url('/article/' . $val['id']),
 						'image_file' => $image_file
 					);
 				}
@@ -381,7 +381,7 @@ class weixin_class extends AWS_MODEL
 						
 						$response_message[] = array(
 							'title' => $val['question_content'],
-							'link' => get_js_url('/question/' . $val['question_id']),
+							'link' => $this->model('openid_weixin')->redirect_url('/question/' . $val['question_id']),
 							'image_file' => $image_file
 						);
 					}
@@ -424,7 +424,7 @@ class weixin_class extends AWS_MODEL
 						
 						$response_message[] = array(
 							'title' => $val['question_content'],
-							'link' => get_js_url('/question/' . $val['question_id']),
+							'link' => $this->model('openid_weixin')->redirect_url('/question/' . $val['question_id']),
 							'image_file' => $image_file
 						);
 					}
@@ -451,7 +451,7 @@ class weixin_class extends AWS_MODEL
 						
 						$response_message[] = array(
 							'title' => $val['question_content'],
-							'link' => get_js_url('/question/' . $val['question_id']),
+							'link' => $this->model('openid_weixin')->redirect_url('/question/' . $val['question_id']),
 							'image_file' => $image_file
 						);
 					}
@@ -859,6 +859,10 @@ class weixin_class extends AWS_MODEL
 					{
 						unset($sub_val['key']);
 					}
+					else if (strstr($sub_val['key'], get_setting('base_url')))
+					{
+						$sub_val['key'] = $this->model('openid_weixin')->redirect_url($sub_val['key']);
+					}
 					
 					$val['sub_button_no_key'][] = $sub_val;
 				}
@@ -874,6 +878,10 @@ class weixin_class extends AWS_MODEL
 			if ($val['type'] == 'view')
 			{
 				unset($val['key']);
+			}
+			else if (strstr($sub_val['key'], get_setting('base_url')))
+			{
+				$sub_val['key'] = $this->model('openid_weixin')->redirect_url($sub_val['key']);
 			}
 			
 			$mp_menu_no_key[] = $val;
