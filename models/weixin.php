@@ -853,6 +853,7 @@ class weixin_class extends AWS_MODEL
 				foreach ($val['sub_button'] AS $sub_key => $sub_val)
 				{
 					unset($sub_val['sort']);
+					unset($sub_val['command_type']);
 					
 					if ($sub_val['type'] == 'view')
 					{
@@ -868,6 +869,7 @@ class weixin_class extends AWS_MODEL
 			}
 			
 			unset($val['sort']);
+			unset($val['command_type']);
 			
 			if ($val['type'] == 'view')
 			{
