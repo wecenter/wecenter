@@ -10,7 +10,7 @@
 			<div class="aw-topic-edit-box">
 				<div class="aw-topic-box">
 					<?php foreach($this->article_topics as $key => $val) { ?>
-						<?php foreach($this->question_topics as $key => $val) { if ($key > 2) { break; } ?>
+						<?php foreach($this->article_topics as $key => $val) { if ($key > 2) { break; } ?>
 							<span class="aw-topic-name" data-id="<?php echo $val['topic_id']?>"><a href="m/topic/<?php echo $val['url_token']; ?>"><?php echo $val['topic_title']; ?></a></span>
 						<?php } ?>
 					<?php } ?>
