@@ -74,7 +74,7 @@ class weixin extends AWS_CONTROLLER
 				}
 				else
 				{
-					HTTP::redirect($this->model('openid_weixin')->get_oauth_url('/m/weixin/authorization/redirect-' . urlencode($_GET['redirect'])));
+					HTTP::redirect($this->model('openid_weixin')->get_oauth_url('/m/weixin/authorization/?redirect=' . urlencode($_GET['redirect'])));
 				}
 			}
 			else
