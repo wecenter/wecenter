@@ -64,7 +64,7 @@ class weixin extends AWS_CONTROLLER
 					H::redirect_msg('Error: ' . $access_token['errcode'] . ' ' . $access_token['errmsg']);
 				}
 				
-				if ($weixin_user = $this->model('weixin_openid')->get_user_info_by_openid($access_token['openid']))
+				if ($weixin_user = $this->model('openid_weixin')->get_user_info_by_openid($access_token['openid']))
 				{
 					$user_info = $this->model('account')->get_user_info_by_uid($weixin_user['uid']);
 					
