@@ -93,7 +93,7 @@ class openid_weixin_class extends AWS_MODEL
 		return $this->delete('users_weixin', 'uid = ' . intval($uid));
 	}
 	
-	public function get_oauth_url($redirect_uri, $state = '', $scope = 'snsapi_base')
+	public function get_oauth_url($redirect_uri, $scope = 'snsapi_base', $state = 'STATE')
 	{
 		return 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' . AWS_APP::config()->get('weixin')->app_id . '&redirect_uri=' . urlencode(get_js_url($redirect_uri)) . '&response_type=code&scope=' . $scope . '&state=' . $state;
 	}
