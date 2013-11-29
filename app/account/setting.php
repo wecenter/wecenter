@@ -115,14 +115,11 @@ class setting extends AWS_CONTROLLER
 	}
 		
 	function openid_action()
-	{
-		$sina_weibo = $this->model('openid_weibo')->get_users_sina_by_uid($this->user_id);
-		$qq_weibo = $this->model('openid_qq_weibo')->get_users_qq_by_uid($this->user_id);
-		$qq = $this->model('openid_qq')->get_user_info_by_uid($this->user_id);
-		
-		TPL::assign('sina_weibo', $sina_weibo);
-		TPL::assign('qq_weibo', $qq_weibo);
-		TPL::assign('qq', $qq);
+	{		
+		TPL::assign('sina_weibo', $this->model('openid_weibo')->get_users_sina_by_uid($this->user_id));
+		TPL::assign('qq_weibo', $this->model('openid_qq_weibo')->get_users_qq_by_uid($this->user_id));
+		TPL::assign('qq', $this->model('openid_qq')->get_user_info_by_uid($this->user_id));
+		TPL::assign('weixin', $this->model('openid_weixin')->get_user_info_by_uid($this->user_id));
 		
 		$this->crumb(AWS_APP::lang()->_t('账号绑定'), '/account/setting/openid/');
 		
