@@ -70,7 +70,7 @@ class weixin extends AWS_CONTROLLER
 					
 					HTTP::set_cookie('_user_login', get_login_cookie_hash($user_info['user_name'], $user_info['password'], $user_info['salt'], $user_info['uid'], false));
 					
-					HTTP::redirect($_GET['redirect']);
+					HTTP::redirect(base64_decode($_GET['redirect']));
 				}
 				else
 				{
@@ -146,7 +146,7 @@ class weixin extends AWS_CONTROLLER
 			
 			if ($_GET['redirect'])
 			{
-				HTTP::redirect($_GET['redirect']);
+				HTTP::redirect(base64_decode($_GET['redirect']));
 			}
 			else
 			{
