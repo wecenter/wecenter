@@ -846,7 +846,7 @@ class weixin_class extends AWS_MODEL
 	{
 		HTTP::request('https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=' . $this->get_access_token(), 'POST', preg_replace("#\\\u([0-9a-f]+)#ie", "convert_encoding(pack('H4', '\\1'), 'UCS-2', 'UTF-8')", json_encode(array(
 			'touser' => $openid,
-			'msgtype' => $msgtype,
+			'msgtype' => 'text',
 			'text' => array(
 				'content' => $message
 			)
