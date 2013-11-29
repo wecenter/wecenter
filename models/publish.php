@@ -169,7 +169,7 @@ class publish_class extends AWS_MODEL
 		{
 			$answer_user = $this->model('account')->get_user_info_by_uid($uid);
 			
-			$this->model('wecenter')->send_wechat_message($weixin_user['openid'], "您的问题 [" . $question_info['question_content'] . "] 收到了 " . $answer_user['user_name'] . " 的回答:\n\n" . strip_tags($answer_content) . "\n\n\n<a href=\"" . $this->model('openid_weixin')->redirect_url('/question/' . $question_id) . "\">点击查看问题详情</a>");
+			$this->model('weixin')->send_text_message($weixin_user['openid'], "您的问题 [" . $question_info['question_content'] . "] 收到了 " . $answer_user['user_name'] . " 的回答:\n\n" . strip_tags($answer_content) . "\n\n\n<a href=\"" . $this->model('openid_weixin')->redirect_url('/question/' . $question_id) . "\">点击查看问题详情</a>");
 		}
 		
 		if (defined('G_LUCENE_SUPPORT') AND G_LUCENE_SUPPORT)
@@ -350,7 +350,7 @@ class publish_class extends AWS_MODEL
 		{
 			$comment_user = $this->model('account')->get_user_info_by_uid($uid);
 			
-			$this->model('wecenter')->send_wechat_message($weixin_user['openid'], "您的文章 [" . $article_info['title'] . "] 收到了 " . $comment_user['user_name'] . " 的评论:\n\n" . strip_tags($message) . "\n\n\n<a href=\"" . $this->model('openid_weixin')->redirect_url('/article/' . $article_info['id']) . "\">点击查看文章详情</a>");
+			$this->model('weixin')->send_text_message($weixin_user['openid'], "您的文章 [" . $article_info['title'] . "] 收到了 " . $comment_user['user_name'] . " 的评论:\n\n" . strip_tags($message) . "\n\n\n<a href=\"" . $this->model('openid_weixin')->redirect_url('/article/' . $article_info['id']) . "\">点击查看文章详情</a>");
 		}
 		
 		if (defined('G_LUCENE_SUPPORT') AND G_LUCENE_SUPPORT)
