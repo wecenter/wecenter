@@ -1,7 +1,7 @@
 <?php TPL::output('global/header.tpl.htm'); ?>
 <?php TPL::output('account/setting/setting_header.tpl.htm'); ?>
 
-<?php if ((!$this->sina_weibo && get_setting('sina_weibo_enabled') == 'Y') || (!$this->qq_weibo AND get_setting('qq_t_enabled') == 'Y') || (!$this->qq && get_setting('qq_login_enabled') == 'Y') || !$this->user_info['weixin_id']) { ?>
+<?php if ((!$this->sina_weibo AND get_setting('sina_weibo_enabled') == 'Y') OR (!$this->qq_weibo AND get_setting('qq_t_enabled') == 'Y') OR (!$this->qq AND get_setting('qq_login_enabled') == 'Y') OR !$this->weixin) { ?>
 <div class="aw-mod aw-user-setting-bind">
 	<div class="aw-mod-head">
 		<h4><?php _e('未绑定账号'); ?></h4>
@@ -26,7 +26,7 @@
 				<span><i class="icon-qq"></i> <?php _e('QQ 账号'); ?></span>
 			</li>
 			<?php } ?>
-			<?php if (!$this->user_info['weixin_id']) { ?>
+			<?php if (!$this->weixin) { ?>
 			<li>
 				<a onclick="$.alert('<?php _e('请关注公众帐号进行绑定操作'); ?>');" href="javascript:;" class="btn btn-mini btn-success pull-right"><?php _e('绑定'); ?></a>
 				<span><i class="icon-wechat"></i> <?php _e('微信'); ?></span>
@@ -64,10 +64,10 @@
 			</li>
 			<?php } ?>
 			
-			<?php if ($this->user_info['weixin_id']) { ?>
+			<?php if ($this->weixin) { ?>
 			<li>
 				<a href="javascript:;" onclick="ajax_request(G_BASE_URL + '/account/ajax/unbinding_weixin/');" class="btn btn-mini btn-default pull-right"><?php _e('取消绑定'); ?></a>
-				<span><i class="icon-wechat"></i> <?php _e('微信已绑定'); ?></span>
+				<span><i class="icon-wechat"></i> <?php echo $this->weixin['nickname']; ?></span>
 			</li>
 			<?php } ?>
 		</ul>

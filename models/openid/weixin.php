@@ -20,17 +20,17 @@ if (!defined('IN_ANWSION'))
 
 class openid_weixin_class extends AWS_MODEL
 {	
-	function get_user_info_by_openid($open_id)
+	public function get_user_info_by_openid($open_id)
 	{
 		return $this->fetch_row('users_weixin', "openid = '" . $this->quote($open_id) . "'");
 	}
 	
-	function get_user_info_by_uid($uid)
+	public function get_user_info_by_uid($uid)
 	{
 		return $this->fetch_row('users_weixin', 'uid = ' . intval($uid));
 	}
 	
-	function bind_account($access_user, $access_token, $uid, $is_ajax = false)
+	public function bind_account($access_user, $access_token, $uid, $is_ajax = false)
 	{
 		if (! $access_user['nickname'])
 		{
@@ -62,7 +62,7 @@ class openid_weixin_class extends AWS_MODEL
 		return $this->add_user($uid, $access_user, $access_token);
 	}
 	
-	function add_user($uid, $access_user, $access_token)
+	public function add_user($uid, $access_user, $access_token)
 	{
 		return $this->insert('users_weixin', array(
 			'uid' => intval($uid),
@@ -81,16 +81,26 @@ class openid_weixin_class extends AWS_MODEL
 		));
 	}
 	
-	function update_token($openid, $access_token)
+	public function update_token($openid, $access_token)
 	{
 		$this->update('users_weixin', array(
 			'access_token' => $access_token
 		), "openid = '" . $this->quote($openid) . "'");
 	}
 	
-	function del_user_by_uid($uid)
+	public function weixin_unbind($uid)
 	{
 		return $this->delete('users_weixin', 'uid = ' . intval($uid));
+	}
+	
+	public function get_oauth_url($redirect_uri, $scope = 'snsapi_base', $state = 'STATE')
+	{
+		return 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' . AWS_APP::config()->get('weixin')->app_id . '&redirect_uri=' . urlencode(get_js_url($redirect_uri)) . '&response_type=code&scope=' . $scope . '&state=' . $state;
+	}
+	
+	public function redirect_url($redirect_uri)
+	{
+		return $this->get_oauth_url(get_js_url('/m/weixin/redirect/?redirect=' . base64_encode(get_js_url($redirect_uri))));
 	}
 }
 	

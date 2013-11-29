@@ -999,12 +999,10 @@ CREATE TABLE `[#DB_PREFIX#]weixin_reply_rule` (
   `description` text COLLATE utf8_unicode_ci,
   `link` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `enabled` tinyint(1) DEFAULT '0',
-  `event_key` varchar(32) COLLATE utf8_unicode_ci DEFAULT '',
   `sort_status` int(10) DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `keyword` (`keyword`),
   KEY `enabled` (`enabled`),
-  KEY `event_key` (`event_key`),
   KEY `sort_status` (`sort_status`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
 
