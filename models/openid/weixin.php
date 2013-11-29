@@ -100,7 +100,7 @@ class openid_weixin_class extends AWS_MODEL
 	
 	public function redirect_url($redirect_uri)
 	{
-		return $this->get_oauth_url(get_js_url('/m/weixin/redirect/redirect-' . urlencode($redirect_uri)));
+		return $this->get_oauth_url(get_js_url('/m/weixin/redirect/redirect-' . urlencode(get_js_url($redirect_uri))));
 	}
 }
 	
