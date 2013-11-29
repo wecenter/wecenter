@@ -599,12 +599,12 @@ class weixin_class extends AWS_MODEL
 				}
 			break;
 			
-			case 'PULISH':
-				$response_message = '<a href="' . $this->model('openid_weixin')->redirect('/m/publish/') . '">发布</a>';
+			case 'PUBLISH':
+				$response_message = '<a href="' . $this->model('openid_weixin')->redirect_url('/m/publish/') . '">发布</a>';
 			break;
 			
 			case 'TEST':
-				$response_message = '<a href="' . $this->model('openid_weixin')->redirect('/m/weixin/bingding_test/') . '">测试</a>';
+				$response_message = '<a href="' . $this->model('openid_weixin')->redirect_url('/m/weixin/bingding_test/') . '">测试</a>';
 			break;
 		}
 		
