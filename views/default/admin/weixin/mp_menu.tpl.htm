@@ -127,7 +127,7 @@
 
 		<!-- 最新经验 -->
 		<script type="text/x-template" id="drop_menu_template_new_article">
-			<div class="dropdown-menu pull-right<?php if ($this->category_data) { ?> subtract-two<?php } ?>">
+			<div class="dropdown-menu pull-right">
 				<div class="mod-head clearfix">
 					<div class="mod">
 						<div class="mod-head"><?php _e('最新经验'); ?></div>
@@ -379,6 +379,99 @@
 			</div>
 		</script>
 		<!-- end 自动回复 -->
+
+		<!-- 全局命令 -->
+		<script type="text/x-template" id="drop_menu_template_all">
+			<div class="dropdown-menu all pull-right<?php if ($this->category_data) { ?> subtract-two<?php } ?>">
+				<div class="mod-head clearfix">
+					<?php if ($this->category_data) { ?>
+					<div class="mod">
+						<div class="mod-head"><?php _e('分类下最新问题'); ?></div>
+						<div class="divider"></div>
+						<div class="mod-footer">
+							<ul class="control-height">
+								<?php foreach ($this->category_data AS $val) { ?>
+							    <li data-value="COMMAND_NEW_QUESTION__CATEGORY_<?php echo $val['id']; ?>"><a><?php echo $val['title']; ?></a></li>
+							    <?php } ?>
+							</ul>  
+						</div>
+					</div>
+					<?php } ?>
+					
+					<div class="mod">
+						<div class="mod-head"><?php _e('专题下最新问题'); ?></div>
+						<div class="divider"></div>
+						<div class="mod-footer">
+							<ul class="control-height">
+								<?php if ($this->feature_list) { ?>
+								<?php foreach ($this->feature_list AS $val) { ?>
+							    <li data-value="COMMAND_NEW_QUESTION__FEATURE_<?php echo $val['id']; ?>"><a><?php echo $val['title']; ?></a></li>
+							    <?php } ?>
+							    <?php } ?>
+							</ul>
+						</div>
+					</div>	
+
+					<div class="mod">
+						<div class="mod-head"><?php _e('最新经验'); ?></div>
+						<div class="divider"></div>
+						<div class="mod-footer">
+							<ul class="control-height">
+								<?php if ($this->reply_rule_list) { ?>
+								<?php foreach ($this->reply_rule_list AS $val) { ?>
+							    <li data-value="COMMAND_NEW_ARTICLE__FEATURE_<?php echo $val['id']; ?>"><a><?php echo $val['keyword']; ?></a></li>
+							    <?php } ?>
+							    <?php } ?>
+							</ul>
+						</div>
+					</div>
+
+					<div class="mod">
+						<div class="mod-head"><?php _e('最新经验'); ?></div>
+						<div class="divider"></div>
+						<div class="mod-footer">
+							<ul class="control-height">
+								<?php if ($this->reply_rule_list) { ?>
+								<?php foreach ($this->reply_rule_list AS $val) { ?>
+							    <li data-value="COMMAND_NEW_ARTICLE__FEATURE_<?php echo $val['id']; ?>"><a><?php echo $val['keyword']; ?></a></li>
+							    <?php } ?>
+							    <?php } ?>
+							</ul>
+						</div>
+					</div>
+
+					<?php if ($this->category_data) { ?>
+					<div class="mod">
+						<div class="mod-head"><?php _e('分类下热门问题'); ?></div>
+						<div class="divider"></div>
+						<div class="mod-footer">
+							<ul class="control-height">
+								<?php foreach ($this->category_data AS $val) { ?>
+					    		<li data-value="COMMAND_HOT_QUESTION__CATEGORY_<?php echo $val['id']; ?>"><a><?php echo $val['title']; ?></a></li>
+								<?php } ?>
+							</ul>	
+						</div>
+					</div>
+					<?php } ?>
+					
+
+					<div class="mod">
+						<div class="mod-head"><?php _e('专题下热门问题'); ?></div>
+						<div class="divider"></div>
+						<div class="mod-footer">
+							<ul class="control-height">
+								<?php if ($this->feature_list) { ?>
+								<?php foreach ($this->feature_list AS $val) { ?>
+							    <li data-value="COMMAND_HOT_QUESTION__FEATURE_<?php echo $val['id']; ?>"><a><?php echo $val['title']; ?></a></li>
+							    <?php } ?>
+							    <?php } ?>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</script>
+		<!-- end 全局命令 -->
 		
 		<script type="text/x-template" id="top_menu_template">
 			<tr data-id="{MENU_ID}" class="top_menu" id="menu_id_{MENU_ID}">
@@ -394,11 +487,13 @@
 					    <option data-value="COMMAND_HOME_ACTIONS" data-name="等待回复"><?php _e('等待回复'); ?></option>
 					    <option data-name="自动回复"><?php _e('自动回复'); ?></option>
 					    <option data-name="自定义url"><?php _e('自定义url'); ?></option>
+					    <option data-name="全局命令"><?php _e('全局命令'); ?></option>
 					</select>
 				</td>
 				<td align="center">
 					<div class="aw-wechat-dropdown-box">
-						<span></span>
+						<span>&nbsp;</span>
+						<input type="button" value="" class="input-bg"  data-toggle="dropdown" />
 						<input class="form-control input-code hide" readonly="readonly" type="text" name="button[{MENU_ID}][key]" placeholder="点击右侧按钮选择命令" />
 						<a class="fa fa-sort" data-toggle="dropdown"></a>
 					</div>
@@ -424,11 +519,13 @@
 					    <option data-value="COMMAND_HOME_ACTIONS" data-name="等待回复"><?php _e('等待回复'); ?></option>
 					    <option data-name="自动回复"><?php _e('自动回复'); ?></option>
 					    <option data-name="自定义url"><?php _e('自定义url'); ?></option>
+					    <option data-name="全局命令"><?php _e('全局命令'); ?></option>
 					</select>
 				</td>
 				<td align="center">
 					<div class="aw-wechat-dropdown-box">
-						<span></span>
+						<span>&nbsp;</span>
+						<input type="button" value="" class="input-bg"  data-toggle="dropdown" />
 						<input class="form-control input-code hide" readonly="readonly" type="text" name="button[{MENU_TOP_ID}][sub_button][{MENU_SUB_ID}][key]" placeholder="点击右侧按钮选择命令" />
 						<a class="fa fa-sort" data-toggle="dropdown"></a>
 					</div>
@@ -465,11 +562,13 @@
 							    <option data-value="COMMAND_HOME_ACTIONS" data-name="等待回复"><?php _e('等待回复'); ?></option>
 							    <option data-name="自动回复"><?php _e('自动回复'); ?></option>
 							    <option data-name="自定义url"><?php _e('自定义url'); ?></option>
+							    <option data-name="全局命令"><?php _e('全局命令'); ?></option>
 							</select>
 						</td>
 						<td align="center">
 							<div class="aw-wechat-dropdown-box">
-								<span></span>
+								<span>&nbsp;</span>
+								<input type="button" value="" class="input-bg"  data-toggle="dropdown" />
 								<input class="form-control input-code hide" readonly="readonly" type="text" name="button[<?php echo $key; ?>][key]" value="<?php echo $val['key']; ?>" placeholder="点击右侧按钮选择命令" />
 								<a class="fa fa-sort" data-toggle="dropdown"></a>
 							</div>
@@ -494,11 +593,13 @@
 								    <option data-value="COMMAND_HOME_ACTIONS" data-name="等待回复"><?php _e('等待回复'); ?></option>
 								    <option data-name="自动回复"><?php _e('自动回复'); ?></option>
 								    <option data-name="自定义url"><?php _e('自定义url'); ?></option>
+								    <option data-name="全局命令"><?php _e('全局命令'); ?></option>
 								</select>
 							</td>
 							<td align="center">
 								<div class="aw-wechat-dropdown-box">
-									<span></span>
+									<span>&nbsp;</span>
+									<input type="button" value="" class="input-bg"  data-toggle="dropdown" />
 									<input class="form-control input-code hide" readonly="readonly" type="text" name="button[<?php echo $key; ?>][sub_button][<?php echo $sub_key; ?>][key]" value="<?php echo $sub_val['key']; ?>" placeholder="点击右侧按钮选择命令" />
 									<a class="fa fa-sort" data-toggle="dropdown"></a>
 								</div>
@@ -648,6 +749,7 @@
 				{
 					$('#menu_id_' + i).find('.aw-wechat-dropdown-box input.input-code').removeAttr('readonly').show();
 					$('#menu_id_' + i).find('.aw-wechat-dropdown-box .fa-sort').hide();
+					$('#menu_id_' + i).find('.aw-wechat-dropdown-box .input-bg').hide();
 				}
 				$.each($('#aw-admin-ajax-box ul li'), function (i, e)
 				{
@@ -657,6 +759,7 @@
 						$('#aw-admin-ajax-box').html('');
 					}
 				});
+				$('#menu_id_' + i).find('.aw-wechat-dropdown-box span').hide();
 				$('#menu_id_' + i).find('.aw-wechat-select').val(e.command_type);
 			}
 		});
@@ -722,9 +825,13 @@
 				case '自动回复' :
 					var template = $('#drop_menu_template_auto_replay').html();
 				break;
+				case '全局命令' :
+					var template = $('#drop_menu_template_all').html();
+				break;
 				case '自定义url' :
 					element.find('.aw-wechat-dropdown-box .dropdown-menu').detach();
 					element.find('.aw-wechat-dropdown-box .fa-sort, .aw-wechat-dropdown-box span').hide();
+					element.find('.aw-wechat-dropdown-box .fa-sort, .aw-wechat-dropdown-box input.input-bg').hide();
 					element.find('.aw-wechat-dropdown-box input.input-code').val('http://').removeAttr('readonly').show();
 				break;
 
