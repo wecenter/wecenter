@@ -152,7 +152,7 @@ th{text-align: center;}
 /* 微信菜单 */
 .aw-wechat-dropdown-box{position: relative;width: 250px;}
 .aw-wechat-dropdown-box input{width: 250px;padding-right: 25px !important;}
-.aw-wechat-dropdown-box > a{position:absolute;right:7px;top:7px;margin-top:3px;font-size: 16px;cursor: pointer;}
+.aw-wechat-dropdown-box > a{float:right;margin-top:3px;font-size: 16px;cursor: pointer;}
 .aw-wechat-dropdown-box .dropdown-menu{right:20px;width:64%;padding:10px;}
 .aw-wechat-dropdown-box .dropdown-menu.subtract-two{width: 126%;}
 .aw-wechat-dropdown-box .dropdown-menu .mod{float: right;width:126px;overflow:hidden;margin:0 10px;}
