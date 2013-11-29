@@ -165,6 +165,13 @@ class publish_class extends AWS_MODEL
 			
 		$this->model('question')->delete_question_uninterested($uid, $question_id);
 		
+		if ($weixin_user = $this->model('openid_weixin')->get_user_info_by_uid($question_info['published_uid']) AND $question_info['published_uid'] != $uid)
+		{
+			$answer_user = $this->model('account')->get_user_info_by_uid($uid);
+			
+			$this->model('weixin')->send_text_message($weixin_user['openid'], "您的问题 [" . $question_info['question_content'] . "] 收到了 " . $answer_user['user_name'] . " 的回答:\n\n" . strip_tags($answer_content) . "\n\n\n<a href=\"" . $this->model('openid_weixin')->redirect_url('/question/' . $question_id) . "\">点击查看问题详情</a>");
+		}
+		
 		if (defined('G_LUCENE_SUPPORT') AND G_LUCENE_SUPPORT)
 		{
 			$this->model('search_lucene')->push_index('question', $question_info['question_content'], $question_info['question_id'], array(
@@ -337,6 +344,13 @@ class publish_class extends AWS_MODEL
 				'article_id' => $article_info['id'], 
 				'item_id' => $comment_id
 			));
+		}
+		
+		if ($weixin_user = $this->model('openid_weixin')->get_user_info_by_uid($article_info['uid']) AND $article_info['uid'] != $uid)
+		{
+			$comment_user = $this->model('account')->get_user_info_by_uid($uid);
+			
+			$this->model('weixin')->send_text_message($weixin_user['openid'], "您的文章 [" . $article_info['title'] . "] 收到了 " . $comment_user['user_name'] . " 的评论:\n\n" . strip_tags($message) . "\n\n\n<a href=\"" . $this->model('openid_weixin')->redirect_url('/article/' . $article_info['id']) . "\">点击查看文章详情</a>");
 		}
 		
 		if (defined('G_LUCENE_SUPPORT') AND G_LUCENE_SUPPORT)
