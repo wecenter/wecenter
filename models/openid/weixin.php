@@ -88,7 +88,7 @@ class openid_weixin_class extends AWS_MODEL
 		), "openid = '" . $this->quote($openid) . "'");
 	}
 	
-	public function del_user_by_uid($uid)
+	public function weixin_unbind($uid)
 	{
 		return $this->delete('users_weixin', 'uid = ' . intval($uid));
 	}
