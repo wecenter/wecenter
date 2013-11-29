@@ -618,13 +618,6 @@ class weixin_class extends AWS_MODEL
 			'action' => $action
 		);
 	}
-		
-	public function weixin_unbind($weixin_id)
-	{
-		$this->update('users', array('weixin_id' => ''), "`weixin_id` = '" . $this->quote($weixin_id) . "'");
-		
-		return '微信绑定解除成功';
-	}
 
 	public function check_signature($signature, $timestamp, $nonce)
 	{

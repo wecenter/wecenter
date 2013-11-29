@@ -1171,7 +1171,7 @@ class ajax extends AWS_CONTROLLER
 
 	public function unbinding_weixin_action()
 	{
-		$this->model('weixin')->weixin_unbind($this->user_info['weixin_id']);
+		$this->model('openid_weixin')->weixin_unbind($this->user_id);
 		
 		H::ajax_json_output(AWS_APP::RSM(null, 1, null));
 	}
