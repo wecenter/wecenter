@@ -53,6 +53,41 @@ class weixin extends AWS_CONTROLLER
 		));
 	}
 	
+	public function redirect_action()
+	{
+		if ($_GET['code'])
+		{
+			if ($access_token = json_decode(curl_get_contents('https://api.weixin.qq.com/sns/oauth2/access_token?appid=' . AWS_APP::config()->get('weixin')->app_id . '&secret=' . AWS_APP::config()->get('weixin')->app_secret . '&code=' . $_GET['code'] . '&grant_type=authorization_code'), true))
+			{
+				if ($access_token['errcode'])
+				{
+					H::redirect_msg('Error: ' . $access_token['errcode'] . ' ' . $access_token['errmsg']);
+				}
+				
+				if ($weixin_user = $this->get_user_info_by_openid($access_token['openid']))
+				{
+					$user_info = $this->model('account')->get_user_info_by_uid($weixin_user['uid']);
+					
+					HTTP::set_cookie('_user_login', get_login_cookie_hash($user_info['user_name'], $user_info['password'], $user_info['salt'], $user_info['uid'], false));
+					
+					HTTP::redirect($_GET['redirect']);
+				}
+				else
+				{
+					HTTP::redirect($this->model('openid_weixin')->get_oauth_url('/m/weixin/authorization/redirect-' . urlencode($_GET['redirect'])));
+				}
+			}
+			else
+			{
+				H::redirect_msg(AWS_APP::lang()->_t('授权失败, 请返回重新操作'));
+			}
+		}
+		else
+		{
+			H::redirect_msg(AWS_APP::lang()->_t('授权失败, 请返回重新操作'));
+		}
+	}
+	
 	public function authorization_action()
 	{
 		if ($_GET['code'])
@@ -89,6 +124,12 @@ class weixin extends AWS_CONTROLLER
 		}
 	}
 	
+	public function bingding_test_action()
+	{
+		echo '欢迎回来:' . $this->user_info['user_name'];
+		die;
+	}
+	
 	public function binding_action()
 	{
 		if ($weixin_user = $this->model('openid_weixin')->get_user_info_by_openid(AWS_APP::session()->WXConnect['access_token']['openid']))
@@ -103,7 +144,14 @@ class weixin extends AWS_CONTROLLER
 		{
 			$this->model('openid_weixin')->bind_account(AWS_APP::session()->WXConnect['access_user'], AWS_APP::session()->WXConnect['access_token'], $this->user_id);
 			
-			H::redirect_msg(AWS_APP::lang()->_t('绑定微信成功'));
+			if ($_GET['redirect'])
+			{
+				HTTP::redirect($_GET['redirect']);
+			}
+			else
+			{
+				H::redirect_msg(AWS_APP::lang()->_t('绑定微信成功'));
+			}
 		}
 		else
 		{
