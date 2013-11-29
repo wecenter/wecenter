@@ -11,7 +11,7 @@
 		<div class="aw-mod-footer">
 			<div class="login">
 				<form id="login_form" method="post" onsubmit="return false;" action="account/ajax/login_process/">
-					<input type="hidden" name="return_url" value="<?php echo get_js_url('/m/weixin/binding/'); ?>" />
+					<input type="hidden" name="return_url" value="<?php echo get_js_url('/m/weixin/binding/redirect-' . urlencode($_GET['redirect'])); ?>" />
 					
 					<input type="hidden" name="access_token" value="<?php echo $this->access_token['access_token']; ?>" />
 					<input type="hidden" name="expires_in" value="<?php echo $this->access_token['expires_in']; ?>" />

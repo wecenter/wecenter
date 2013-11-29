@@ -153,9 +153,9 @@ th{text-align: center;}
 .aw-wechat-dropdown-box{position: relative;width: 250px;}
 .aw-wechat-dropdown-box input{width: 250px;padding-right: 25px !important;}
 .aw-wechat-dropdown-box > a{position: absolute;top: 10px;right: 10px;font-size: 16px;cursor: pointer;}
-.aw-wechat-dropdown-box .dropdown-menu{width:357%;width:365%\0;padding:10px;}
-.aw-wechat-dropdown-box .dropdown-menu.subtract-two{width: 265%;}
-.aw-wechat-dropdown-box .dropdown-menu .mod{float: right;margin:0 10px;}
+.aw-wechat-dropdown-box .dropdown-menu{width:418%;padding:10px;}
+.aw-wechat-dropdown-box .dropdown-menu.subtract-two{width: 301%;}
+.aw-wechat-dropdown-box .dropdown-menu .mod{float: right;width:126px;overflow:hidden;margin:0 10px;}
 .aw-wechat-dropdown-box .dropdown-menu .mod .divider, .aw-wechat-dropdown-box .dropdown-menu > .mod-body{height:1px;overflow:hidden;margin:9px 0;background-color: #E5E5E5;}
 .aw-wechat-dropdown-box .dropdown-menu ul.control-height{max-height: 155px;overflow-y:auto;}
 .aw-wechat-dropdown-box .dropdown-menu ul li a{clear: both;display: block;max-width:126px;overflow:hidden;text-overflow:ellipsis;padding: 3px 20px;color: #333333;font-weight: normal;line-height: 1.42857;white-space: nowrap;text-align: left;}
