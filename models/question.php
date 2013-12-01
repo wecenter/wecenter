@@ -485,7 +485,7 @@ class question_class extends AWS_MODEL
 		
 		if (@in_array($log_id, $unverified_modify['content']))
 		{
-			$this->update(array(
+			$this->update('question', array(
 				'question_content' => $action_log['associate_content'],
 				'update_time' => time()
 			), 'question_id = ' . intval($question_id));

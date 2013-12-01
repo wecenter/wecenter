@@ -598,14 +598,6 @@ class weixin_class extends AWS_MODEL
 					$response_message = '你的微信帐号没有绑定 ' . get_setting('site_name') . ' 的帐号, 请<a href="' . $this->model('openid_weixin')->get_oauth_url(get_js_url('/m/weixin/authorization/'), 'snsapi_userinfo') . '">点此绑定</a>或<a href="' . get_js_url('/m/register/') . '">注册新账户</a>';
 				}
 			break;
-			
-			case 'PUBLISH':
-				$response_message = '<a href="' . $this->model('openid_weixin')->redirect_url('/m/publish/') . '">发布</a>';
-			break;
-			
-			case 'TEST':
-				$response_message = '<a href="' . $this->model('openid_weixin')->redirect_url('/m/weixin/bingding_test/') . '">测试</a>';
-			break;
 		}
 		
 		if (!$response_message)
