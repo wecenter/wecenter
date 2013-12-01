@@ -357,7 +357,7 @@ a.aw-load-more-content{display: block;}
 .aw-side-bar-mod.side-sort .aw-mod-body ul li{margin-top:5px;padding:0;}
 .aw-side-bar-mod.side-sort .aw-mod-body ul li:first-child{margin-top: 0;}
 .aw-side-bar-mod.side-sort .aw-mod-body ul li a{display:block;height: 34px;line-height: 34px;padding:0 10px;border-radius: 5px;}
-.aw-side-bar-mod.side-sort .aw-mod-body ul li a:hover, .aw-side-bar-mod.topic-sort .aw-mod-body ul li a.active{background-color: #eeeeee;}
+.aw-side-bar-mod.side-sort .aw-mod-body ul li a:hover, .aw-side-bar-mod.side-sort .aw-mod-body ul li a.active{background-color: #eeeeee;}
 /* 邀请回复 */
 .aw-side-bar-invite-box input{margin-bottom: 10px;}
 .aw-side-bar-invite-box .aw-item{display:none;position:relative;height: auto;margin:10px 0;}
