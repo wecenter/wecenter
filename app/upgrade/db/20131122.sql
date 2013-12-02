@@ -30,11 +30,3 @@ DROP TABLE `[#DB_PREFIX#]weixin_valid`;
 DROP TABLE `[#DB_PREFIX#]weixin_fake_id`;
 DROP TABLE `[#DB_PREFIX#]weixin_publish_rule`;
 ALTER TABLE `[#DB_PREFIX#]weixin_reply_rule` DROP `event_key`;
-
-CREATE TABLE `[#DB_PREFIX#]weixin_list_image` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
-  `file_location` varchar(255) NOT NULL,
-  `access_key` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `access_key` (`access_key`)
-) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
