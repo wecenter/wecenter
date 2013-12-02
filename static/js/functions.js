@@ -798,13 +798,13 @@ function init_img_uploader(upload_url, upload_name, upload_element, upload_statu
             {
                 alert(response.err);
             }
-            else
+            else if (typeof (response.rsm != 'undefined'))
             {
-                if (typeof (perview_element.attr('src')) != 'undefined')
+                if (typeof (perview_element.attr('src')) != 'undefined' && response.rsm.preview)
                 {
                     perview_element.attr('src', response.rsm.preview + '?' + Math.floor(Math.random() * 10000));
                 }
-                else
+                else if (response.rsm.preview)
                 {
                     perview_element.css('background-image', 'url(' + response.rsm.preview + '?' + Math.floor(Math.random() * 10000) + ')');
                 }

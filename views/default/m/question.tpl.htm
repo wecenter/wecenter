@@ -167,7 +167,7 @@
 					</div>
 					<?php } ?>
 				</div>
-				<div class="aw-mod-footer">
+				<div class="aw-mod-footer clearfix">
 					<span class="num"><?php echo date_friendly($val['add_time']); ?></span> <?php if ($this->user_id) { ?><a onclick="agreeVote(this, <?php echo $val['answer_id']; ?>)" class="answer_vote"><span><i class="fa fa-thumbs-up<?php if ($val['agree_status'] == 1) { ?> active<?php } ?>"></i> <em><?php echo $val['agree_count']; ?></em></span></a><a class="answer_vote" onclick="disagreeVote(this, <?php echo $val['answer_id']; ?>)"><span><i class="icon-thumbs-down-alt<?php if ($val['agree_status'] == -1) { ?> active<?php } ?>"></i></span></a><?php } ?><?php if ($this->user_id) { ?><a class="aw-add-comment" data-id="<?php echo $val['answer_id']; ?>" data-type="answer" href="javascript:;"><i class="fa fa-comment"></i> <?php if ($val['comment_count']) { ?> <?php _e('%s 条评论', $val['comment_count']); ?><?php } else { ?><?php _e('添加评论'); ?><?php } ?></a><?php } ?><?php if ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?><a href="javascript:;" onclick="answer_force_fold(<?php echo $val['answer_id']; ?>, this);"><i class="fa fa-flag"></i> <?php if ($val['force_fold']) { ?> <?php _e('撤消折叠'); ?><?php } else { ?> <?php _e('折叠'); ?><?php } ?></a><?php } else { ?><a onclick="answer_user_rate(<?php echo $val['answer_id']; ?>, 'uninterested', this);"><i class="fa fa-flag"></i> <?php if ($val['user_rated_uninterested']) { ?><?php _e('撤消没有帮助'); ?><?php } else { ?><?php _e('没有帮助'); ?><?php } ?></a><?php } ?><?php if ($this->user_id != $val['uid'] AND $this->user_id) { ?><a href="javascript:;"<?php if (!$val['user_rated_thanks']) { ?> onclick="answer_user_rate(<?php echo $val['answer_id']; ?>, 'thanks', this);"<?php } ?>> <i class="fa fa-heart"></i> <?php if ($val['user_rated_thanks']) { ?><?php _e('已感谢'); ?><?php } else { ?><?php _e('感谢'); ?><?php } ?></a><?php } ?>
 				</div>
 			</li>
@@ -197,32 +197,34 @@
 	<?php } else { ?>
 	<!-- 评论box -->
 	<div class="aw-anwser-box">
-		<div class="aw-mod-head">
-			<a href="m/people/" class="avatar pull-right"><img src="<?php echo get_avatar_url($this->user_id, 'mid'); ?>" alt="" /></a>
-			<?php echo $this->user_info['user_name']; ?>
-		</div>
-		<div class="aw-mod-body">
-			<form action="question/ajax/save_answer/" onsubmit="return false;" method="post" id="answer_form" class="form-inline">
-				<input type="hidden" name="post_hash" value="<?php echo new_post_hash(); ?>" />
-		        <input type="hidden" name="question_id" value="<?php echo $this->question_info['question_id']; ?>" />
-				<textarea class="form-control" rows="5" name="answer_content"><?php echo htmlspecialchars($this->draft_content['message']); ?></textarea>
-			</form>
-		</div>
-		<div class="aw-mod-footer clearfix">
-			<span class="num" id="answer_content_message">&nbsp;</span>
-			<span class="pull-right">
-				<label class="pull-left">
-					<?php if (!$this->question_focus) { ?>
-					<input type="checkbox" checked="checked" value="1" name="auto_focus" /> <?php _e('关注问题'); ?>
-					<?php } ?>
-				</label>
-				<label class="pull-left">
-					<?php if (get_setting('anonymous_enable') == 'Y') { ?><input type="checkbox" value="1" name="anonymous" /> <?php _e('匿名回复'); ?><?php } ?>
-				</label>
-				
-				<a class="btn btn-success pull-left" onclick="ajax_post($('#answer_form'));"><?php _e('回复'); ?></a>
-			</span>
-		</div>
+		<form action="question/ajax/save_answer/" onsubmit="return false;" method="post" id="answer_form" class="form-inline">
+			<div class="aw-mod-head">
+				<a href="m/people/" class="avatar"><img src="<?php echo get_avatar_url($this->user_id, 'mid'); ?>" alt="" /></a>
+				<?php echo $this->user_info['user_name']; ?>
+				<span class="pull-right">
+					<label class="pull-left">
+						<?php if (!$this->question_focus) { ?>
+						<input type="checkbox" checked="checked" value="1" name="auto_focus" /> <?php _e('关注问题'); ?>
+						<?php } ?>
+					</label>
+					<label class="pull-left">
+						<?php if (get_setting('anonymous_enable') == 'Y') { ?><input type="checkbox" value="1" name="anonymous" /> <?php _e('匿名回复'); ?><?php } ?>
+					</label>
+				</span>
+			</div>
+			<div class="aw-mod-body">
+					<input type="hidden" name="post_hash" value="<?php echo new_post_hash(); ?>" />
+			        <input type="hidden" name="question_id" value="<?php echo $this->question_info['question_id']; ?>" />
+					<textarea class="form-control" rows="5" name="answer_content"><?php echo htmlspecialchars($this->draft_content['message']); ?></textarea>
+			</div>
+			<div class="aw-mod-footer clearfix">
+				<span class="pull-right">
+					<a class="btn btn-success pull-left" onclick="ajax_post($('#answer_form'));"><?php _e('回复'); ?></a>
+				</span>
+				<div id="file_uploader_answer"></div>
+				<span class="num" id="answer_content_message">&nbsp;</span>
+			</div>
+		</form>
 	</div>
 	<!-- end 评论box -->
 	<?php } ?>
@@ -245,8 +247,11 @@
 <script type="text/javascript">
 	var QUESTION_ID = <?php echo $this->question_info['question_id'];?>;
 	var UNINTERESTED_COUNT = <?php echo get_setting('uninterested_fold'); ?>;
+	var ATTACH_ACCESS_KEY = '<?php echo $this->attach_access_key; ?>';
 	
 	$(document).ready(function () {
+		init_fileuploader('file_uploader_answer', G_BASE_URL + '/publish/ajax/attach_upload/id-answer__attach_access_key-' + ATTACH_ACCESS_KEY);
+
 		// 自动保存草稿
 		if ($('#answer_form textarea').length)
 		{
@@ -297,6 +302,8 @@
 			}
 		}, 'json');
 	}
+
+	
 </script>
 
 <?php TPL::output('m/footer.tpl.htm'); ?>

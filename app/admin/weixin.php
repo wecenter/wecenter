@@ -78,7 +78,73 @@ class weixin extends AWS_ADMIN_CONTROLLER
 		
 		TPL::assign('reply_rule_list', $this->model('weixin')->fetch_unique_reply_rule_list());
 		
+		TPL::import_js('js/ajaxupload.js');
+		TPL::import_js('js/md5.js');
+		
+		$this->model('weixin')->list_image_clean();
+		
 		TPL::output('admin/weixin/mp_menu');
+	}
+	
+	public function save_mp_menu_action()
+	{
+		if (!$_POST['button'])
+		{
+			$_POST['button'] = array();
+		}
+		
+		uasort($_POST['button'], 'array_key_sort_asc_callback');
+		
+		foreach ($_POST['button'] AS $key => $val)
+		{
+			if ($val['sub_button'])
+			{
+				unset($_POST['button'][$key]['key']);
+				
+				uasort($_POST['button'][$key]['sub_button'], 'array_key_sort_asc_callback');
+				
+				foreach ($_POST['button'][$key]['sub_button'] AS $sub_key => $sub_value)
+				{
+					if ($_POST['button'][$key]['sub_button'][$sub_key]['name'] == '' OR $_POST['button'][$key]['sub_button'][$sub_key]['key'] == '')
+					{
+						unset($_POST['button'][$key]['sub_button'][$sub_key]);
+						
+						continue;
+					}
+					
+					if (substr($_POST['button'][$key]['sub_button'][$sub_key]['key'], 0, 7) == 'http://' OR substr($_POST['button'][$key]['sub_button'][$sub_key]['key'], 0, 8) == 'https://')
+					{
+						$_POST['button'][$key]['sub_button'][$sub_key]['type'] = 'view';
+						$_POST['button'][$key]['sub_button'][$sub_key]['url'] = $_POST['button'][$key]['sub_button'][$sub_key]['key'];
+					}
+					else
+					{
+						$_POST['button'][$key]['sub_button'][$sub_key]['type'] = 'click';
+					}
+				}
+			}
+			else
+			{
+				$_POST['button'][$key]['type'] = 'click';
+			}
+			
+			if ($_POST['button'][$key]['name'] == '')
+			{
+				unset($_POST['button'][$key]);
+			}
+			
+			if (substr($_POST['button'][$key]['key'], 0, 7) == 'http://' OR substr($_POST['button'][$key]['key'], 0, 8) == 'https://')
+			{
+				$_POST['button'][$key]['type'] = 'view';
+				$_POST['button'][$key]['url'] = $_POST['button'][$key]['key'];
+			}
+		}
+				
+		$this->model('setting')->set_vars(array(
+			'weixin_mp_menu' => $_POST['button']
+		));
+		
+		H::ajax_json_output(AWS_APP::RSM(null, 1, null));
 	}
 	
 	public function rule_save_action()
@@ -252,63 +318,66 @@ class weixin extends AWS_ADMIN_CONTROLLER
 		H::ajax_json_output(AWS_APP::RSM(null, 1, null));
 	}
 	
-	public function save_mp_menu_action()
+	public function list_image_upload_action()
 	{
-		if (!$_POST['button'])
-		{
-			$_POST['button'] = array();
-		}
-		
-		uasort($_POST['button'], 'array_key_sort_asc_callback');
-		
-		foreach ($_POST['button'] AS $key => $val)
-		{
-			if ($val['sub_button'])
-			{
-				unset($_POST['button'][$key]['key']);
-				
-				uasort($_POST['button'][$key]['sub_button'], 'array_key_sort_asc_callback');
-				
-				foreach ($_POST['button'][$key]['sub_button'] AS $sub_key => $sub_value)
-				{
-					if ($_POST['button'][$key]['sub_button'][$sub_key]['name'] == '' OR $_POST['button'][$key]['sub_button'][$sub_key]['key'] == '')
-					{
-						unset($_POST['button'][$key]['sub_button'][$sub_key]);
-						
-						continue;
-					}
-					
-					if (substr($_POST['button'][$key]['sub_button'][$sub_key]['key'], 0, 7) == 'http://' OR substr($_POST['button'][$key]['sub_button'][$sub_key]['key'], 0, 8) == 'https://')
-					{
-						$_POST['button'][$key]['sub_button'][$sub_key]['type'] = 'view';
-						$_POST['button'][$key]['sub_button'][$sub_key]['url'] = $_POST['button'][$key]['sub_button'][$sub_key]['key'];
-					}
-					else
-					{
-						$_POST['button'][$key]['sub_button'][$sub_key]['type'] = 'click';
-					}
-				}
-			}
-			else
-			{
-				$_POST['button'][$key]['type'] = 'click';
-			}
-			
-			if ($_POST['button'][$key]['name'] == '')
-			{
-				unset($_POST['button'][$key]);
-			}
-			
-			if (substr($_POST['button'][$key]['key'], 0, 7) == 'http://' OR substr($_POST['button'][$key]['key'], 0, 8) == 'https://')
-			{
-				$_POST['button'][$key]['type'] = 'view';
-				$_POST['button'][$key]['url'] = $_POST['button'][$key]['key'];
-			}
-		}
-				
-		$this->model('setting')->set_vars(array(
-			'weixin_mp_menu' => $_POST['button']
+		AWS_APP::upload()->initialize(array(
+			'allowed_types' => 'jpg,jpeg,png,gif',
+			'upload_path' => get_setting('upload_dir') . '/weixin/list_image/',
+			'is_image' => TRUE,
+			'file_name' => str_replace(array('/', '\\', '.'), '', $_GET['attach_access_key']) . '.jpg',
+			'encrypt_name' => FALSE
 		));
+		
+		if ($_GET['attach_access_key'])
+		{
+			AWS_APP::upload()->do_upload('list_image');
+		}
+		else
+		{
+			return false;
+		}
+				
+		if (AWS_APP::upload()->get_error())
+		{
+			switch (AWS_APP::upload()->get_error())
+			{
+				default:
+					die("{'error':'错误代码: " . AWS_APP::upload()->get_error() . "'}");
+				break;
+				
+				case 'upload_invalid_filetype':
+					die("{'error':'文件类型无效'}");
+				break;	
+				
+				case 'upload_invalid_filesize':
+					die("{'error':'文件尺寸过大, 最大允许尺寸为 " . get_setting('upload_size_limit') .  " KB'}");
+				break;
+			}
+		}
+		
+		if (! $upload_data = AWS_APP::upload()->data())
+		{
+			die("{'error':'上传失败, 请与管理员联系'}");
+		}
+		
+		if ($upload_data['is_image'] == 1)
+		{
+			AWS_APP::image()->initialize(array(
+				'quality' => 90,
+				'source_image' => $upload_data['full_path'],
+				'new_image' => $upload_data['full_path'],
+				'width' => 640,
+				'height' => 320
+			))->resize();	
+			
+			AWS_APP::image()->initialize(array(
+				'quality' => 90,
+				'source_image' => $upload_data['full_path'],
+				'new_image' => get_setting('upload_dir') . '/weixin/list_image/square_' . basename($upload_data['full_path']),
+				'width' => 80,
+				'height' => 80
+			))->resize();	
+		}
 		
 		H::ajax_json_output(AWS_APP::RSM(null, 1, null));
 	}

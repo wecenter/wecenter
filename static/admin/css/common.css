@@ -7,7 +7,7 @@ ul{margin:0;padding:0;}
 input[type="text"], input[type="password"]{height: 34px;padding: 6px 12px;font-size: 14px;line-height: 1.428571429;color: #555555;vertical-align: middle;background-color: #ffffff;border: 1px solid #cccccc;border-radius: 4px;-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);-webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;}
 input[type="text"]:focus {border-color: #66afe9;outline: 0;-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);}
 input, textarea{font-family: "Helvetica Neue",Helvetica,Arial,'Microsoft YaHei',sans-serif !important;padding:6px !important;}
-.input-xlarge{width: 230px;}
+.input-xlarge{width: 215px;}
 label{margin:0;padding:0.3em .6em .3em;font-weight: normal;}
 select{width: auto;min-width: 220px;padding:3px;margin-bottom: 10px;*margin-left:10px;background: #FFFFFF;border:1px solid #CCCCCC;border-radius: 4px 4px 4px 4px;color: #555;}
 select, input[type="file"]{height: auto;}
@@ -94,6 +94,7 @@ th{text-align: center;}
 .right-side .aw-box-row span{font-size: 13px;}
 .right-side .tools p.aw-text-color-999{margin-bottom: 10px;}
 .aw-input-horizontal .col-sm-1{width: 65px;}
+.right-side .aw-wechat-select{min-width: 120px;}
 
 /*表格*/
 .aw-table{margin:10px 0;border:1px solid #D7E6F0;color: #666;}
@@ -165,6 +166,8 @@ th{text-align: center;}
 .aw-wechat-dropdown-box .dropdown-menu ul.control-height{max-height: 182px;min-height:182px;overflow-y:auto;}
 .aw-wechat-dropdown-box .dropdown-menu ul li a{clear: both;display: block;max-width:126px;overflow:hidden;text-overflow:ellipsis;padding: 3px 20px;color: #333333;font-weight: normal;line-height: 1.42857;white-space: nowrap;text-align: left;}
 .aw-wechat-dropdown-box .dropdown-menu ul li a:hover, .aw-wechat-dropdown-box .dropdown-menu ul li.active a{background-color: #428BCA;color: #FFFFFF;text-decoration: none;}
+.aw-wechat-dropdown-box .ajax-upload, .aw-wechat-dropdown-box .ajax-look{position: absolute;top:0;right: -18px;}
+.aw-wechat-dropdown-box .ajax-look{right: -40px;}
 
 /*alert-box*/
 body.modal-open, .modal-open .navbar-fixed-top, .modal-open .navbar-fixed-bottom{margin:0px;}

@@ -304,10 +304,6 @@ class weixin_class extends AWS_MODEL
 				}
 			break;
 			
-			case 'HELP':
-				$response_message = AWS_APP::config()->get('weixin')->help_message;
-			break;
-			
 			case 'NEW_ARTICLE':
 				if ($input_message['param'])
 				{
@@ -334,7 +330,10 @@ class weixin_class extends AWS_MODEL
 				{
 					if (!$response_message)
 					{
-						$image_file = AWS_APP::config()->get('weixin')->default_list_image_hot;
+						if (!$image_file = $this->get_list_image_by_command('COMMAND_' . $message_code))
+						{
+							$image_file = AWS_APP::config()->get('weixin')->default_list_image;
+						}
 					}
 					else
 					{
@@ -372,7 +371,10 @@ class weixin_class extends AWS_MODEL
 					{
 						if (!$response_message)
 						{
-							$image_file = AWS_APP::config()->get('weixin')->default_list_image_hot;
+							if (!$image_file = $this->get_list_image_by_command('COMMAND_' . $message_code))
+							{
+								$image_file = AWS_APP::config()->get('weixin')->default_list_image;
+							}
 						}
 						else
 						{
@@ -415,7 +417,56 @@ class weixin_class extends AWS_MODEL
 					{
 						if (!$response_message)
 						{
-							$image_file = AWS_APP::config()->get('weixin')->default_list_image_new;
+							if (!$image_file = $this->get_list_image_by_command('COMMAND_' . $message_code))
+							{
+								$image_file = AWS_APP::config()->get('weixin')->default_list_image;
+							}
+						}
+						else
+						{
+							$image_file = get_avatar_url($val['published_uid'], 'max');
+						}
+						
+						$response_message[] = array(
+							'title' => $val['question_content'],
+							'link' => $this->model('openid_weixin')->redirect_url('/question/' . $val['question_id']),
+							'image_file' => $image_file
+						);
+					}
+				}
+				else
+				{
+					$response_message = '暂无问题';
+				}
+			break;
+			
+			case 'NO_ANSWER_QUESTION':
+				if ($input_message['param'])
+				{
+					$child_param = explode('_', $input_message['param']);
+					
+					switch ($child_param[0])
+					{
+						case 'CATEGORY':
+							$category_id = intval($child_param[1]);
+						break;
+						
+						case 'FEATURE':
+							$topics_id = $this->model('feature')->get_topics_by_feature_id($child_param[1]);
+						break;
+					}
+				}
+				
+				if ($question_list = $this->model('question')->get_questions_list(1, 10, 'unresponsive', $topics_id, $category_id))
+				{					
+					foreach ($question_list AS $key => $val)
+					{
+						if (!$response_message)
+						{
+							if (!$image_file = $this->get_list_image_by_command('COMMAND_' . $message_code))
+							{
+								$image_file = AWS_APP::config()->get('weixin')->default_list_image;
+							}
 						}
 						else
 						{
@@ -436,13 +487,32 @@ class weixin_class extends AWS_MODEL
 			break;
 			
 			case 'RECOMMEND_QUESTION':
-				if ($question_list = $this->model('question')->get_questions_list(1, 10, null, null, null, null, null, true))
+				if ($input_message['param'])
+				{
+					$child_param = explode('_', $input_message['param']);
+					
+					switch ($child_param[0])
+					{
+						case 'CATEGORY':
+							$category_id = intval($child_param[1]);
+						break;
+						
+						case 'FEATURE':
+							$topics_id = $this->model('feature')->get_topics_by_feature_id($child_param[1]);
+						break;
+					}
+				}
+				
+				if ($question_list = $this->model('question')->get_questions_list(1, 10, null, $topics_id, $category_id, null, null, true))
 				{
 					foreach ($question_list AS $key => $val)
 					{
 						if (!$response_message)
 						{
-							$image_file = AWS_APP::config()->get('weixin')->default_list_image_recommend;
+							if (!$image_file = $this->get_list_image_by_command('COMMAND_' . $message_code))
+							{
+								$image_file = AWS_APP::config()->get('weixin')->default_list_image;
+							}
 						}
 						else
 						{
@@ -857,6 +927,7 @@ class weixin_class extends AWS_MODEL
 				{
 					unset($sub_val['sort']);
 					unset($sub_val['command_type']);
+					unset($sub_val['attch_key']);
 					
 					if ($sub_val['type'] == 'view')
 					{
@@ -877,6 +948,7 @@ class weixin_class extends AWS_MODEL
 			
 			unset($val['sort']);
 			unset($val['command_type']);
+			unset($sub_val['attch_key']);
 			
 			if ($val['type'] == 'view')
 			{
@@ -904,5 +976,61 @@ class weixin_class extends AWS_MODEL
 			return '由于网络问题, 菜单更新失败';
 		}
 	}
-
+	
+	public function list_image_clean()
+	{
+		if (!is_dir())
+		{
+			return false;
+		}
+		
+		$mp_menu = get_setting('weixin_mp_menu');
+		
+		foreach ($mp_menu AS $key => $val)
+		{
+			if ($val['sub_button'])
+			{
+				foreach ($val['sub_button'] AS $sub_key => $sub_val)
+				{
+					$attach_list[] = $sub_val['attch_key'] . '.jpg';
+				}
+			}
+			
+			$attach_list[] = $val['attch_key'] . '.jpg';
+		}
+		
+		$files_list = fetch_file_lists(ROOT_PATH . 'models/', 'php');
+			    
+	    foreach ($files_list AS $search_file)
+	    {
+	    	if (!in_array(str_replace('square_', '', base_name($search_file))))
+	    	{
+		    	unlink($search_file);
+	    	}
+		}
+	}
+	
+	public function get_list_image_by_command($command)
+	{
+		$mp_menu = get_setting('weixin_mp_menu');
+		
+		foreach ($mp_menu AS $key => $val)
+		{
+			if ($val['sub_button'])
+			{
+				foreach ($val['sub_button'] AS $sub_key => $sub_val)
+				{
+					if ($sub_key == $command)
+					{
+						return $sub_val['attch_key'];
+					}
+				}
+			}
+			
+			if ($key == $command)
+			{
+				return $val['attch_key'];
+			}
+		}
+	}
 }
