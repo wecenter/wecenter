@@ -250,8 +250,8 @@
 						<a class="fa fa-sort" data-toggle="dropdown"></a>
 						
 						<input type="hidden" class="attach_key" name="button[{MENU_ID}][attach_key]" value="" />
-						<a class="ajax-upload">上传图片</a>
-						<a onclick="if ($(this).parent().find('input.attach_key').val() != '') { $.dialog('imagePreview', {'image':'<?php echo get_setting('upload_url'); ?>/weixin/list_image/' + $(this).parent().find('input.attach_key').val() + '.jpg'}); } else { alert('<?php _e('当前菜单没有上传图片'); ?>'); }">查看图片</a>
+						<a class="ajax-upload"><i class="fa fa-upload"></i></a>
+						<a class="ajax-look" onclick="if ($(this).parent().find('input.attach_key').val() != '') { $.dialog('imagePreview', {'image':'<?php echo get_setting('upload_url'); ?>/weixin/list_image/' + $(this).parent().find('input.attach_key').val() + '.jpg?'+ Math.random() }) } else { alert('<?php _e('当前菜单没有上传图片'); ?>'); }"><i class="fa fa-picture-o"></i></a>
 					</div>
 				</td>
 				<td align="center">
@@ -287,8 +287,8 @@
 						<a class="fa fa-sort" data-toggle="dropdown"></a>
 						
 						<input type="hidden" class="attach_key" name="button[{MENU_TOP_ID}][sub_button][{MENU_SUB_ID}][attach_key]" value="" />
-							<a class="ajax-upload">上传图片</a>
-							<a onclick="if ($(this).parent().find('input.attach_key').val() != '') { $.dialog('imagePreview', {'image':'<?php echo get_setting('upload_url'); ?>/weixin/list_image/' + $(this).parent().find('input.attach_key').val() + '.jpg'}); } else { alert('<?php _e('当前菜单没有上传图片'); ?>'); }">查看图片</a>
+						<a class="ajax-upload"><i class="fa fa-upload"></i></a>
+						<a class="ajax-look" onclick="if ($(this).parent().find('input.attach_key').val() != '') { $.dialog('imagePreview', {'image':'<?php echo get_setting('upload_url'); ?>/weixin/list_image/' + $(this).parent().find('input.attach_key').val() + '.jpg?'+ Math.random()}) } else { alert('<?php _e('当前菜单没有上传图片'); ?>'); }"><i class="fa fa-picture-o"></i></a>
 					</div>
 				</td>
 				<td align="center">
@@ -301,7 +301,7 @@
 		<table class="aw-table" id="mp_menu_table">
 			<thead>
 				<tr>
-					<th style="width:30%;"><?php _e('菜单标题'); ?></th>
+					<th style="width:25%;"><?php _e('菜单标题'); ?></th>
 					<th align="center" style="width:15%"><?php _e('排序'); ?></th>
 					<th align="center" style="width:10%"><?php _e('菜单选择'); ?></th>
 					<th align="center" style="width:15%;"><?php _e('菜单命令'); ?></th>
@@ -333,10 +333,11 @@
 								<input type="button" value="" class="input-bg"  data-toggle="dropdown" />
 								<input class="form-control input-code hide" readonly="readonly" type="text" name="button[<?php echo $key; ?>][key]" value="<?php echo $val['key']; ?>" placeholder="点击右侧按钮选择命令" />
 								<a class="fa fa-sort" data-toggle="dropdown"></a>
+								<input type="hidden" class="attach_key" name="button[<?php echo $key; ?>][attach_key]" value="<?php echo $val['attach_key']; ?>" />
+								<a class="ajax-upload"><i class="fa fa-upload"></i></a>
+								<a class="ajax-look" onclick="if ($(this).parent().find('input.attach_key').val() != '') { $.dialog('imagePreview', {'image':'<?php echo get_setting('upload_url'); ?>/weixin/list_image/' + $(this).parent().find('input.attach_key').val() + '.jpg?'+ Math.random()}) } else { alert('<?php _e('当前菜单没有上传图片'); ?>'); }"><i class="fa fa-picture-o"></i></a>
 							</div>
-							<input type="hidden" class="attach_key" name="button[<?php echo $key; ?>][attach_key]" value="<?php echo $val['attach_key']; ?>" />
-							<a class="ajax-upload">上传图片</a>
-							<a onclick="if ($(this).parent().find('input.attach_key').val() != '') { $.dialog('imagePreview', {'image':'<?php echo get_setting('upload_url'); ?>/weixin/list_image/' + $(this).parent().find('input.attach_key').val() + '.jpg'}); } else { alert('<?php _e('当前菜单没有上传图片'); ?>'); }">查看图片</a>
+
 						</td>
 						<td align="center">
 							<a href="javascript:;" onclick="if ($('#mp_menu_table tbody tr.sub_button_<?php echo $key; ?>').length > 4) { alert('<?php _e('最多只能创建 5 个子菜单'); ?>') } else { if ($('#mp_menu_table tbody tr.sub_button_<?php echo $key; ?>:last').length) { $('tr#menu_id_<?php echo $key; ?>').after($('#sub_button_template').html().replace(/{MENU_TOP_ID}/g, <?php echo $key; ?>).replace(/{MENU_SUB_ID}/g, parseInt($('#mp_menu_table tbody tr.sub_button_<?php echo $key; ?>:first').attr('data-id')) + 1)); } else { $('tr#menu_id_<?php echo $key; ?>').after($('#sub_button_template').html().replace(/{MENU_TOP_ID}/g, <?php echo $key; ?>).replace(/{MENU_SUB_ID}/g, 1)); } ajax_upload_reload(); }"><?php _e('添加子菜单'); ?></a> | 
@@ -370,8 +371,8 @@
 									<a class="fa fa-sort" data-toggle="dropdown"></a>
 									
 									<input type="hidden" class="attach_key" name="button[<?php echo $key; ?>][sub_button][<?php echo $sub_key; ?>][attach_key]" value="<?php echo $sub_val['attach_key']; ?>" />
-									<a class="ajax-upload">上传图片</a>
-									<a onclick="if ($(this).parent().find('input.attach_key').val() != '') { $.dialog('imagePreview', {'image':'<?php echo get_setting('upload_url'); ?>/weixin/list_image/' + $(this).parent().find('input.attach_key').val() + '.jpg'}); } else { alert('<?php _e('当前菜单没有上传图片'); ?>'); }">查看图片</a>
+									<a class="ajax-upload"><i class="fa fa-upload"></i></a>
+									<a class="ajax-look" onclick="if ($(this).parent().find('input.attach_key').val() != '') { $.dialog('imagePreview', {'image':'<?php echo get_setting('upload_url'); ?>/weixin/list_image/' + $(this).parent().find('input.attach_key').val() + '.jpg?'+ Math.random()}) } else { alert('<?php _e('当前菜单没有上传图片'); ?>'); }"><i class="fa fa-picture-o"></i></a>
 								</div>
 							</td>
 							<td align="center">
@@ -407,6 +408,8 @@
 	// 微信下拉菜单
 	$(function()
 	{
+		ajax_upload_reload();
+
 		$.each($("script[type='text/x-template']"), function (i, e) {
 			$('#aw-ajax-box').append($(e).html());
 		});
@@ -429,6 +432,11 @@
 							if ($(this).attr('data-value') == _e.key)
 							{
 								$('.sub_button_' + _i).find('.aw-wechat-dropdown-box span').html($(this).text());
+								$('.sub_button_' + _i).prev().find('.ajax-upload, .ajax-look').hide();
+							}
+							if ($(this).attr('data-upload') == 'false')
+							{
+								$('.sub_button_' + _i).find('.ajax-upload, .ajax-look ').hide();
 							}
 						});
 						addDropdownList(e.command_type, $('.sub_button_' + _i));
@@ -449,6 +457,10 @@
 						if ($(this).attr('data-value') == _e.key)
 						{
 							$('#menu_id_' + _i).find('.aw-wechat-dropdown-box span').html($(this).text());
+						}
+						if ($(this).attr('data-upload') == 'false')
+						{
+							$('#menu_id_' + _i).find('.ajax-upload, .ajax-look ').hide();
 						}
 					});
 
@@ -484,10 +496,18 @@
 		// 展开菜单点击事件
 		$(document).on('click', '.aw-wechat-dropdown-box .dropdown-menu ul li', function ()
 		{
-			$(this).parents('.aw-wechat-dropdown-box').find('li').removeClass('active');
+			console.log($(this).attr('data-upload'));
+			if ($(this).attr('data-upload') == 'false')
+			{
+				$(this).parents('.aw-wechat-dropdown-box').find('.ajax-upload, .ajax-look').hide();
+			}else{
+				$(this).parents('.aw-wechat-dropdown-box').find('.ajax-upload, .ajax-look').show();
+			}
 			$(this).addClass('active');
+			$(this).parents('.aw-wechat-dropdown-box').find('li').removeClass('active');
 			$(this).parents('.aw-wechat-dropdown-box').find('span').html($(this).text()).show();
 			$(this).parents('.aw-wechat-dropdown-box').find('input.input-code').val($(this).attr('data-value'));
+			$(this).parents('.aw-wechat-dropdown-box').find('input.attach_key').val('');
 		});
 	});
 
