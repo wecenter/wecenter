@@ -200,72 +200,7 @@
 							</ul>	
 						</div>
 					</div>
-					<div class="mod">
-						<div class="mod-head"><?php _e('分类最新问题'); ?></div>
-						<div class="divider"></div>
-						<div class="mod-footer">
-							<ul class="control-height">
-								<?php foreach ($this->category_data AS $val) { ?>
-							    <li data-value="COMMAND_NEW_QUESTION__CATEGORY_<?php echo $val['id']; ?>"><a><?php echo $val['title']; ?></a></li>
-							    <?php } ?>
-							</ul>  
-						</div>
-					</div>
 					<?php } ?>
-					
-
-					<div class="mod">
-						<div class="mod-head"><?php _e('专题热门问题'); ?></div>
-						<div class="divider"></div>
-						<div class="mod-footer">
-							<ul class="control-height">
-								<?php if ($this->feature_list) { ?>
-								<?php foreach ($this->feature_list AS $val) { ?>
-							    <li data-value="COMMAND_HOT_QUESTION__FEATURE_<?php echo $val['id']; ?>"><a><?php echo $val['title']; ?></a></li>
-							    <?php } ?>
-							    <?php } ?>
-							</ul>
-						</div>
-					</div>
-					<div class="mod">
-						<div class="mod-head"><?php _e('专题最新问题'); ?></div>
-						<div class="divider"></div>
-						<div class="mod-footer">
-							<ul class="control-height">
-								<?php if ($this->feature_list) { ?>
-								<?php foreach ($this->feature_list AS $val) { ?>
-							    <li data-value="COMMAND_NEW_QUESTION__FEATURE_<?php echo $val['id']; ?>"><a><?php echo $val['title']; ?></a></li>
-							    <?php } ?>
-							    <?php } ?>
-							</ul>
-						</div>
-					</div>	
-					<div class="mod">
-						<div class="mod-head"><?php _e('经验专题'); ?></div>
-						<div class="divider"></div>
-						<div class="mod-footer">
-							<ul class="control-height">
-								<?php if ($this->reply_rule_list) { ?>
-								<?php foreach ($this->reply_rule_list AS $val) { ?>
-							    <li data-value="COMMAND_NEW_ARTICLE__FEATURE_<?php echo $val['id']; ?>"><a><?php echo $val['keyword']; ?></a></li>
-							    <?php } ?>
-							    <?php } ?>
-							</ul>
-						</div>
-					</div>
-					<div class="mod">
-						<div class="mod-head"><?php _e('自动回复'); ?></div>
-						<div class="divider"></div>
-						<div class="mod-footer">
-							<ul class="control-height">
-								<?php if ($this->reply_rule_list) { ?>
-								<?php foreach ($this->reply_rule_list AS $val) { ?>
-							    <li data-value="REPLY_RULE_<?php echo $val['id']; ?>"><a><?php echo $val['keyword']; ?></a></li>
-							    <?php } ?>
-							    <?php } ?>
-							</ul>
-						</div>
-					</div>
 				</div>
 			</div>
 		</script>
@@ -299,60 +234,6 @@
 						</div>
 					</div>
 					<?php } ?>
-					
-
-					<div class="mod">
-						<div class="mod-head"><?php _e('专题热门问题'); ?></div>
-						<div class="divider"></div>
-						<div class="mod-footer">
-							<ul class="control-height">
-								<?php if ($this->feature_list) { ?>
-								<?php foreach ($this->feature_list AS $val) { ?>
-							    <li data-value="COMMAND_HOT_QUESTION__FEATURE_<?php echo $val['id']; ?>"><a><?php echo $val['title']; ?></a></li>
-							    <?php } ?>
-							    <?php } ?>
-							</ul>
-						</div>
-					</div>
-					<div class="mod">
-						<div class="mod-head"><?php _e('专题最新问题'); ?></div>
-						<div class="divider"></div>
-						<div class="mod-footer">
-							<ul class="control-height">
-								<?php if ($this->feature_list) { ?>
-								<?php foreach ($this->feature_list AS $val) { ?>
-							    <li data-value="COMMAND_NEW_QUESTION__FEATURE_<?php echo $val['id']; ?>"><a><?php echo $val['title']; ?></a></li>
-							    <?php } ?>
-							    <?php } ?>
-							</ul>
-						</div>
-					</div>	
-					<div class="mod">
-						<div class="mod-head"><?php _e('经验专题'); ?></div>
-						<div class="divider"></div>
-						<div class="mod-footer">
-							<ul class="control-height">
-								<?php if ($this->feature_list) { ?>
-								<?php foreach ($this->feature_list AS $val) { ?>
-							    <li data-value="COMMAND_NEW_ARTICLE__FEATURE_<?php echo $val['id']; ?>"><a><?php echo $val['keyword']; ?></a></li>
-							    <?php } ?>
-							    <?php } ?>
-							</ul>
-						</div>
-					</div>
-					<div class="mod">
-						<div class="mod-head"><?php _e('自动回复'); ?></div>
-						<div class="divider"></div>
-						<div class="mod-footer">
-							<ul class="control-height">
-								<?php if ($this->reply_rule_list) { ?>
-								<?php foreach ($this->reply_rule_list AS $val) { ?>
-							    <li data-value="REPLY_RULE_<?php echo $val['id']; ?>"><a><?php echo $val['keyword']; ?></a></li>
-							    <?php } ?>
-							    <?php } ?>
-							</ul>
-						</div>
-					</div>
 				</div>
 			</div>
 		</script>
@@ -660,7 +541,6 @@
 								$('#aw-ajax-box').html('');
 							}
 						});
-						
 						addDropdownList(e.command_type, $('.sub_button_' + _i));
 					});
 					
@@ -683,46 +563,39 @@
 							$('#aw-ajax-box').html('');
 						}
 					});
-					
-					$('#menu_id_' + i).find('.aw-wechat-dropdown-box span').hide();
 					$('#menu_id_' + i).find('.aw-wechat-select').val(e.command_type);
 				}
 			});
 		});
 
-		//菜单选择下拉时间绑定
+		// select菜单事件绑定
 		$(document).on('change', 'select.aw-wechat-select', function()
 		{
 			addDropdownList($(this).val(), $(this).parents('tr'));
 		});
 	
-		$(document).on('click', '.aw-wechat-dropdown-box .fa-sort', function ()
+		$(document).on('click', '.aw-wechat-dropdown-box input.input-bg', function ()
 		{
 			$.each($(this).parents('.aw-wechat-dropdown-box').find('.dropdown-menu ul li'), function (i, e)
 			{
-				if ($(this).attr('data-value') == $(this).parents('.aw-wechat-dropdown-box').find('input').val())
+				if ($(this).attr('data-value') == $(this).parents('.aw-wechat-dropdown-box').find('input.input-code').val())
 				{
 					$(this).addClass('active');
 					if ($(this).index() > 5)
 					{
 						$(this).parents('ul').scrollTop((parseInt($(this).index() - 5)) * parseInt($(this).css('height')));
 					}
-
 				}
 			});
 		});
 		
+		// 展开菜单点击事件
 		$(document).on('click', '.aw-wechat-dropdown-box .dropdown-menu ul li', function ()
 		{
 			$(this).parents('.aw-wechat-dropdown-box').find('li').removeClass('active');
 			$(this).addClass('active');
-			$(this).parents('.aw-wechat-dropdown-box').find('span').html($(this).text());
+			$(this).parents('.aw-wechat-dropdown-box').find('span').html($(this).text()).show();
 			$(this).parents('.aw-wechat-dropdown-box').find('input.input-code').val($(this).attr('data-value'));
-		});
-
-		$(document).on('click', '.aw-wechat-dropdown-box .insert-url', function ()
-		{
-			$(this).parents('.aw-wechat-dropdown-box').find('input.input-code').val($(this).parents('.mod-footer').find('input.input-insert').val());
 		});
 	});
 
@@ -757,7 +630,6 @@
 				element.find('.aw-wechat-dropdown-box .fa-sort, .aw-wechat-dropdown-box input.input-bg').hide();
 				element.find('.aw-wechat-dropdown-box input.input-code').val('http://').removeAttr('readonly').show();
 			break;
-
 		}
 		
 		if (template)
@@ -770,7 +642,7 @@
 			// 判断上一次选择自定义 URL选项
 			if (element.find('.aw-wechat-dropdown-box input.input-code').is(':visible'))
 			{
-				element.find('.aw-wechat-dropdown-box .fa-sort').show();
+				element.find('.aw-wechat-dropdown-box .fa-sort, .aw-wechat-dropdown-box input.input-bg').show();
 				element.find('.aw-wechat-dropdown-box input.input-code').val('').attr('readonly','readonly').hide();
 			}
 			element.find('.aw-wechat-dropdown-box').append(template);
