@@ -440,6 +440,20 @@
 							}
 						});
 						addDropdownList(e.command_type, $('.sub_button_' + _i));
+						$.each($('.sub_button_' + _i).find('.aw-wechat-dropdown-box ul li'), function (i, e)
+						{
+							if ($(this).attr('data-value') == _e.key)
+							{
+								if ($(this).attr('data-upload') == 'false')
+								{
+									$('.sub_button_' + _i).find('.ajax-upload, .ajax-look ').hide();
+								}
+								else
+								{
+									$('.sub_button_' + _i).find('.ajax-upload, .ajax-look ').show();
+								}
+							}
+						});
 					});
 				}
 				else
@@ -466,6 +480,20 @@
 
 					$('#menu_id_' + i).find('.aw-wechat-select').val(e.command_type);
 					addDropdownList(e.command_type, $('#menu_id_' + _i));
+					$.each($('#menu_id_' + _i).find('.aw-wechat-dropdown-box ul li'), function (i, e)
+					{
+						if ($(this).attr('data-value') == _e.key)
+						{
+							if ($(this).attr('data-upload') == 'false')
+							{
+								$('#menu_id_' + _i).find('.ajax-upload, .ajax-look ').hide();
+							}
+							else
+							{
+								$('#menu_id_' + _i).find('.ajax-upload, .ajax-look ').show();
+							}
+						}
+					});
 				}
 			});
 		});
@@ -496,11 +524,12 @@
 		// 展开菜单点击事件
 		$(document).on('click', '.aw-wechat-dropdown-box .dropdown-menu ul li', function ()
 		{
-			console.log($(this).attr('data-upload'));
 			if ($(this).attr('data-upload') == 'false')
 			{
 				$(this).parents('.aw-wechat-dropdown-box').find('.ajax-upload, .ajax-look').hide();
-			}else{
+			}
+			else
+			{
 				$(this).parents('.aw-wechat-dropdown-box').find('.ajax-upload, .ajax-look').show();
 			}
 			$(this).addClass('active');
