@@ -81,6 +81,8 @@ class weixin extends AWS_ADMIN_CONTROLLER
 		TPL::import_js('js/ajaxupload.js');
 		TPL::import_js('js/md5.js');
 		
+		$this->model('weixin')->list_image_clean();
+		
 		TPL::output('admin/weixin/mp_menu');
 	}
 	

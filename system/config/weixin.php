@@ -31,13 +31,7 @@ $config['bad_language_message'] = "说脏话都不是好孩子!";
 /****** 微信自定义菜单选项 ******/
 
 // 热门问题图文列表封面图
-$config['default_list_image_hot'] = G_STATIC_URL . '/common/weixin_default_image.png';
-
-// 最新问题图文列表封面图
-$config['default_list_image_new'] = G_STATIC_URL . '/common/weixin_default_image.png';
-
-// 推荐问题图文列表封面图
-$config['default_list_image_recommend'] = G_STATIC_URL . '/common/weixin_default_image.png';
+$config['default_list_image'] = G_STATIC_URL . '/common/weixin_default_image.png';
 
 // 公众平台 App ID
 $config['app_id'] = 'wxe6ab26eb9276d6e0';
