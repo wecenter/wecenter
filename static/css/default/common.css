@@ -288,12 +288,11 @@ a.aw-load-more-content{display: block;}
 .aw-new-message-tips .aw-mod-head h3{font-weight: normal;margin:0;}
 .aw-new-message-tips .aw-mod-head .pull-right{font-size: 12px;}
 .aw-new-message-tips .aw-mod-body ul{margin-bottom: 10px;padding:0 10px;background-color: #fff;border:1px solid #F1EDE0}
-.aw-new-message-tips .aw-mod-body ul li{line-height: 15px;padding:15px 0;border-top:1px dotted #E2E2E2;}
+.aw-new-message-tips .aw-mod-body ul li{line-height: 15px;padding:10px 0;border-top:1px dotted #E2E2E2;}
 .aw-new-message-tips .aw-mod-body ul li:first-child{border-top: none;}
-.aw-new-message-tips .aw-mod-body ul li span{max-width:40px;font-weight: normal;font-size: 12px;}
-.aw-new-message-tips .aw-mod-body ul li a{display: inline-block;}
+.aw-new-message-tips .aw-mod-body ul li span{margin-top:6px;font-weight: normal;font-size: 12px;}
 .aw-new-message-tips .aw-mod-body ul li .aw-close{float:left;margin:-2px 0 0 5px;}
-.aw-new-message-tips .aw-mod-body ul p{max-width: 620px;}
+.aw-new-message-tips .aw-mod-body ul li p{max-width: 620px;line-height: 25px;}
 .aw-new-message-tips .aw-mod-body p{height: auto;overflow: hidden;margin:0;}
 .aw-new-message-tips-close{display: none;}
 .aw-new-message-tips li:hover .aw-new-message-tips-close, .aw-my-notifications li:hover .aw-new-message-tips-close{display:block;}
