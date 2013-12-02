@@ -414,7 +414,7 @@
 		{
 			$.each(e, function(i, e)
 			{
-				var _i = i;
+				var _i = i, _e = e, sub_command_type = [];
 				// 判断是否有子菜单
 				if (e.sub_button)
 				{
@@ -422,7 +422,7 @@
 					$.each(e.sub_button, function(i, e)
 					{
 						var _e = e;
-						arr_select.push(e.command_type)
+						arr_select.push(e.command_type);
 						$.each($('#aw-ajax-box ul li'), function (i, e)
 						{
 							if ($(this).attr('data-value') == _e.key)
@@ -433,10 +433,6 @@
 							{
 								$('.sub_button_' + _i).find('.ajax-upload, .ajax-look').hide();
 							}
-						});
-						$.each(arr_code, function (i, e)
-						{
-							$('.sub_button_' + _i).eq(i).find('.aw-wechat-dropdown-box span').html(e);
 						});
 
 						if (e.command_type == '自定义 URL')
@@ -460,12 +456,12 @@
 								}
 							}
 						});
-
-						//插入菜单
-						addDropdownList(e.command_type, $('.sub_button_' + _i), false);
 					});
+					
 					$.each(arr_select, function (i, e)
 					{
+						//插入菜单
+						addDropdownList(e, $('.sub_button_' + _i).eq(i), false);
 						if (e == '自定义 URL')
 						{
 							$('.sub_button_' + _i).eq(i).find('.input-bg, .fa-sort, span').hide();
@@ -477,8 +473,35 @@
 							$('.sub_button_' + _i).eq(i).find('.aw-wechat-select').val(e);
 						}
 					});
+					$.each(arr_code, function (i, e)
+					{
+						$('.sub_button_' + _i).eq(i).find('.aw-wechat-dropdown-box span').html(e);
+						if ($('.sub_button_' + _i).eq(i).find('.aw-wechat-dropdown-box ul').length > 0)
+						{
+							$.each($('.sub_button_' + _i).eq(i).find('.aw-wechat-dropdown-box ul li'), function (i, e)
+							{
+
+								if ($(this).attr('data-value') == $(this).parents('.aw-wechat-dropdown-box').find('input.input-code').val())
+								{
+									console.log($(this).attr('data-value') + ' , ' +$(this).attr('data-upload'));
+									if ($(this).attr('data-upload') == 'false')
+									{
+										$(this).parents('.aw-wechat-dropdown-box').find('.ajax-upload, .ajax-look ').hide();
+									}
+									else
+									{
+										$(this).parents('.aw-wechat-dropdown-box').find('.ajax-upload, .ajax-look ').show();
+									}
+								}
+							});
+						}
+						else
+						{
+							$('.sub_button_' + _i).eq(i).find('.ajax-upload, .ajax-look ').hide();
+						}
+					});
 					//隐藏父节点的上传图片按钮
-					$('.sub_button_' + _i).prev().find('.ajax-upload, .ajax-look').hide();
+					$('.sub_button_' + _i).eq(0).prev().find('.ajax-upload, .ajax-look').hide();
 				}
 				else
 				{
@@ -496,27 +519,32 @@
 						{
 							$('#menu_id_' + _i).find('.aw-wechat-dropdown-box span').html($(this).text());
 						}
-						if ($(this).attr('data-upload') == 'false')
-						{
-							$('#menu_id_' + _i).find('.ajax-upload, .ajax-look ').hide();
-						}
+						
 					});
 
 					$('#menu_id_' + i).find('.aw-wechat-select').val(e.command_type);
-					$.each($('#menu_id_' + _i).find('.aw-wechat-dropdown-box ul li'), function (i, e)
+					if ($('#menu_id_' + _i).find('.aw-wechat-dropdown-box ul').length > 0)
 					{
-						if ($(this).attr('data-value') == _e.key)
+						$.each($('#menu_id_' + _i).find('.aw-wechat-dropdown-box ul li'), function (i, e)
 						{
-							if ($(this).attr('data-upload') == 'false')
+							if ($(this).attr('data-value') == _e.key)
 							{
-								$('#menu_id_' + _i).find('.ajax-upload, .ajax-look ').hide();
+								if ($(this).attr('data-upload') == 'false')
+								{
+									$('#menu_id_' + _i).find('.ajax-upload, .ajax-look ').hide();
+								}
+								else
+								{
+									$('#menu_id_' + _i).find('.ajax-upload, .ajax-look ').show();
+								}
 							}
-							else
-							{
-								$('#menu_id_' + _i).find('.ajax-upload, .ajax-look ').show();
-							}
-						}
-					});
+						});
+					}
+					else
+					{
+						$('#menu_id_' + _i).find('.ajax-upload, .ajax-look ').hide();
+					}
+					
 				}
 			});
 		});
