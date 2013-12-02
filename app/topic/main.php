@@ -236,6 +236,9 @@ class main extends AWS_CONTROLLER
 		
 		$log_list = $this->model('topic')->analysis_log($log_list);
 		
+		$contents_topic_id = $topic_info['topic_id'];
+		$contents_topic_title = $topic_info['topic_title'];
+		
 		if ($merged_topics = $this->model('topic')->get_merged_topic_ids($topic_info['topic_id']))
 		{
 			foreach ($merged_topics AS $key => $val)
@@ -243,7 +246,7 @@ class main extends AWS_CONTROLLER
 				$merged_topic_ids[] = $val['source_id'];
 			}
 			
-			$contents_topic_id = $topic_info['topic_id'] . ',' . implode(',', $merged_topic_ids);
+			$contents_topic_id .= ',' . implode(',', $merged_topic_ids);
 			
 			if ($merged_topics_info = $this->model('topic')->get_topics_by_ids($merged_topic_ids))
 			{
@@ -253,12 +256,10 @@ class main extends AWS_CONTROLLER
 				}
 			}
 			
-			$contents_topic_title = $topic_info['topic_title'] . ',' . implode(',', $contents_topic_title);
-		}
-		else
-		{
-			$contents_topic_id = $topic_info['topic_id'];
-			$contents_topic_title = $topic_info['topic_title'];
+			if ($contents_topic_title)
+			{
+				$contents_topic_title .= ',' . implode(',', $contents_topic_title);
+			}
 		}
 		
 		TPL::assign('list', $this->model('topic')->get_topic_best_answer_action_list($contents_topic_id, $this->user_id, get_setting('contents_per_page')));
