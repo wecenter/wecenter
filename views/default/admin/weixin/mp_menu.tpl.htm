@@ -538,12 +538,10 @@
 							if ($(this).attr('data-value') == _e.key)
 							{
 								$('.sub_button_' + _i).find('.aw-wechat-dropdown-box span').html($(this).text());
-								$('#aw-ajax-box').html('');
 							}
 						});
 						addDropdownList(e.command_type, $('.sub_button_' + _i));
 					});
-					
 				}
 				else
 				{
@@ -560,13 +558,16 @@
 						if ($(this).attr('data-value') == _e.key)
 						{
 							$('#menu_id_' + _i).find('.aw-wechat-dropdown-box span').html($(this).text());
-							$('#aw-ajax-box').html('');
 						}
 					});
+
 					$('#menu_id_' + i).find('.aw-wechat-select').val(e.command_type);
+					addDropdownList(e.command_type, $('#menu_id_' + _i));
 				}
 			});
 		});
+		$('#aw-ajax-box').html('');
+
 
 		// select菜单事件绑定
 		$(document).on('change', 'select.aw-wechat-select', function()
