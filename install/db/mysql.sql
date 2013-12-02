@@ -991,14 +991,6 @@ CREATE TABLE `[#DB_PREFIX#]verify_apply` (
   KEY `type` (`type`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
 
-CREATE TABLE `[#DB_PREFIX#]weixin_list_image` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
-  `file_location` varchar(255) NOT NULL,
-  `access_key` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `access_key` (`access_key`)
-) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
-
 CREATE TABLE `[#DB_PREFIX#]weixin_reply_rule` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `keyword` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
