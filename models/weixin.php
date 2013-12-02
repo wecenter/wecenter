@@ -304,10 +304,6 @@ class weixin_class extends AWS_MODEL
 				}
 			break;
 			
-			case 'HELP':
-				$response_message = AWS_APP::config()->get('weixin')->help_message;
-			break;
-			
 			case 'NEW_ARTICLE':
 				if ($input_message['param'])
 				{
@@ -435,8 +431,67 @@ class weixin_class extends AWS_MODEL
 				}
 			break;
 			
+			case 'NO_ANSWER_QUESTION':
+				if ($input_message['param'])
+				{
+					$child_param = explode('_', $input_message['param']);
+					
+					switch ($child_param[0])
+					{
+						case 'CATEGORY':
+							$category_id = intval($child_param[1]);
+						break;
+						
+						case 'FEATURE':
+							$topics_id = $this->model('feature')->get_topics_by_feature_id($child_param[1]);
+						break;
+					}
+				}
+				
+				if ($question_list = $this->model('question')->get_questions_list(1, 10, 'unresponsive', $topics_id, $category_id))
+				{					
+					foreach ($question_list AS $key => $val)
+					{
+						if (!$response_message)
+						{
+							$image_file = AWS_APP::config()->get('weixin')->default_list_image_new;
+						}
+						else
+						{
+							$image_file = get_avatar_url($val['published_uid'], 'max');
+						}
+						
+						$response_message[] = array(
+							'title' => $val['question_content'],
+							'link' => $this->model('openid_weixin')->redirect_url('/question/' . $val['question_id']),
+							'image_file' => $image_file
+						);
+					}
+				}
+				else
+				{
+					$response_message = '暂无问题';
+				}
+			break;
+			
 			case 'RECOMMEND_QUESTION':
-				if ($question_list = $this->model('question')->get_questions_list(1, 10, null, null, null, null, null, true))
+				if ($input_message['param'])
+				{
+					$child_param = explode('_', $input_message['param']);
+					
+					switch ($child_param[0])
+					{
+						case 'CATEGORY':
+							$category_id = intval($child_param[1]);
+						break;
+						
+						case 'FEATURE':
+							$topics_id = $this->model('feature')->get_topics_by_feature_id($child_param[1]);
+						break;
+					}
+				}
+				
+				if ($question_list = $this->model('question')->get_questions_list(1, 10, null, $topics_id, $category_id, null, null, true))
 				{
 					foreach ($question_list AS $key => $val)
 					{

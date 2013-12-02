@@ -384,6 +384,10 @@ $.dialog = function (type_id, data)
 		case 'ajaxData':
 			var template = AW_TEMPLATE.ajaxData.replace('{{title}}', data.title).replace('{{data}}', '<div id="aw_dialog_ajax_data"></div>');
 			break;
+			
+		case 'imagePreview':
+			var template = AW_TEMPLATE.ajaxData.replace('{{title}}', _t('图片预览')).replace('{{data}}', '<p align="center"><img src="' + data.image + '" alt="" style="max-width:520px" /></p>');
+			break;
     }
 
     if (template)
@@ -399,6 +403,7 @@ $.dialog = function (type_id, data)
         $(".alert-box .modal-dialog").css({
             left: $(window).width() / 2 - $(".alert-box .modal-dialog").width() / 2
         });
+        
         $(".alert-box").modal('show');
 
         switch (type_id)
