@@ -927,15 +927,16 @@ class weixin_class extends AWS_MODEL
 				{
 					unset($sub_val['sort']);
 					unset($sub_val['command_type']);
-					unset($sub_val['attch_key']);
+					unset($sub_val['attach_key']);
 					
 					if ($sub_val['type'] == 'view')
 					{
 						unset($sub_val['key']);
-					}
-					else if (strstr($sub_val['key'], get_setting('base_url')))
-					{
-						$sub_val['key'] = $this->model('openid_weixin')->redirect_url($sub_val['key']);
+						
+						if (strstr($sub_val['url'], get_setting('base_url')))
+						{
+							$sub_val['url'] = $this->model('openid_weixin')->redirect_url($sub_val['url']);
+						}
 					}
 					
 					$val['sub_button_no_key'][] = $sub_val;
@@ -948,15 +949,16 @@ class weixin_class extends AWS_MODEL
 			
 			unset($val['sort']);
 			unset($val['command_type']);
-			unset($sub_val['attch_key']);
+			unset($val['attach_key']);
 			
 			if ($val['type'] == 'view')
 			{
 				unset($val['key']);
-			}
-			else if (strstr($sub_val['key'], get_setting('base_url')))
-			{
-				$sub_val['key'] = $this->model('openid_weixin')->redirect_url($sub_val['key']);
+				
+				if (strstr($val['url'], get_setting('base_url')))
+				{
+					$val['url'] = $this->model('openid_weixin')->redirect_url($val['url']);
+				}
 			}
 			
 			$mp_menu_no_key[] = $val;
@@ -979,7 +981,7 @@ class weixin_class extends AWS_MODEL
 	
 	public function list_image_clean()
 	{
-		if (!is_dir())
+		if (!is_dir(ROOT_PATH . 'weixin/list_image/'))
 		{
 			return false;
 		}
@@ -999,7 +1001,7 @@ class weixin_class extends AWS_MODEL
 			$attach_list[] = $val['attch_key'] . '.jpg';
 		}
 		
-		$files_list = fetch_file_lists(ROOT_PATH . 'models/', 'php');
+		$files_list = fetch_file_lists(ROOT_PATH . 'weixin/list_image/', 'jpg');
 			    
 	    foreach ($files_list AS $search_file)
 	    {

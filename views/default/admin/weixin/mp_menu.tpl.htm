@@ -14,7 +14,7 @@
 						<div class="divider"></div>
 						<div class="mod-footer">
 							<ul class="control-height">
-								<li data-value="COMMAND_HOT_QUESTION"><a><?php _e('全部热门问题'); ?></a></li>
+								<li data-value="COMMAND_NEW_QUESTION"><a><?php _e('全部最新问题'); ?></a></li>
 								<?php foreach ($this->category_data AS $val) { ?>
 							    <li data-value="COMMAND_NEW_QUESTION__CATEGORY_<?php echo $val['id']; ?>"><a><?php echo $val['title']; ?></a></li>
 							    <?php } ?>
@@ -29,7 +29,7 @@
 						<div class="mod-footer">
 							<ul class="control-height">
 								<?php if ($this->feature_list) { ?>
-								<li data-value="COMMAND_HOT_QUESTION"><a><?php _e('全部热门问题'); ?></a></li>
+								<li data-value="COMMAND_NEW_QUESTION"><a><?php _e('全部最新问题'); ?></a></li>
 								<?php foreach ($this->feature_list AS $val) { ?>
 							    <li data-value="COMMAND_NEW_QUESTION__FEATURE_<?php echo $val['id']; ?>"><a><?php echo $val['title']; ?></a></li>
 							    <?php } ?>
@@ -51,9 +51,9 @@
 						<div class="divider"></div>
 						<div class="mod-footer">
 							<ul class="control-height">
-								<?php if ($this->reply_rule_list) { ?>
+								<?php if ($this->feature_list) { ?>
 								<li data-value="COMMAND_NEW_ARTICLE"><a><?php _e('全部文章'); ?></a></li>
-								<?php foreach ($this->reply_rule_list AS $val) { ?>
+								<?php foreach ($this->feature_list AS $val) { ?>
 							    <li data-value="COMMAND_NEW_ARTICLE__FEATURE_<?php echo $val['id']; ?>"><a><?php echo $val['keyword']; ?></a></li>
 							    <?php } ?>
 							    <?php } ?>
@@ -178,12 +178,12 @@
 		</script>
 		<!-- end 等待回复 -->
 
-		<!-- 自动回复 -->
+		<!-- 自定义回复 -->
 		<script type="text/x-template" id="drop_menu_template_auto_replay">
 			<div class="dropdown-menu pull-right<?php if ($this->category_data) { ?> subtract-two<?php } ?>">
 				<div class="mod-head clearfix">
 					<div class="mod">
-						<div class="mod-head"><?php _e('自动回复'); ?></div>
+						<div class="mod-head"><?php _e('自定义回复'); ?></div>
 						<div class="divider"></div>
 						<div class="mod-footer">
 							<ul class="control-height">
@@ -198,7 +198,7 @@
 				</div>
 			</div>
 		</script>
-		<!-- end 自动回复 -->
+		<!-- end 自定义回复 -->
 
 		<!-- 全局命令 -->
 		<script type="text/x-template" id="drop_menu_template_global">
@@ -209,14 +209,9 @@
 						<div class="divider"></div>
 						<div class="mod-footer">
 							<ul class="control-height">
-								<li data-value="NEW_ARTICLE"><a><?php _e('最新文章'); ?></a></li>
-								<li data-value="HOT_QUESTION"><a><?php _e('热门问题'); ?></a></li>
-								<li data-value="NEW_QUESTION"><a><?php _e('最新问题'); ?></a></li>
-								<li data-value="NO_ANSWER_QUESTION"><a><?php _e('等待回复'); ?></a></li>
-								<li data-value="RECOMMEND_QUESTION"><a><?php _e('推荐问题'); ?></a></li>
-								<li data-value="HOME_ACTIONS" data-upload="false"><a><?php _e('最新动态'); ?></a></li>
-								<li data-value="NOTIFICATIONS" data-upload="false"><a><?php _e('最新通知'); ?></a></li>
-								<li data-value="MY_QUESTION" data-upload="false"><a><?php _e('我的提问'); ?></a></li>
+								<li data-value="COMMAND_HOME_ACTIONS" data-upload="false"><a><?php _e('最新动态'); ?></a></li>
+								<li data-value="COMMAND_NOTIFICATIONS" data-upload="false"><a><?php _e('最新通知'); ?></a></li>
+								<li data-value="COMMAND_MY_QUESTION" data-upload="false"><a><?php _e('我的提问'); ?></a></li>
 							</ul>
 						</div>
 					</div>	
@@ -238,7 +233,7 @@
 					    <option data-value="COMMAND_HOT_QUESTION" data-name="热门问题"><?php _e('热门问题'); ?></option>
 					    <option data-value="COMMAND_RECOMMEND_QUESTION" data-name="推荐问题"><?php _e('推荐问题'); ?></option>
 					    <option data-value="COMMAND_HOME_ACTIONS" data-name="等待回复"><?php _e('等待回复'); ?></option>
-					    <option data-name="自动回复"><?php _e('自动回复'); ?></option>
+					    <option data-name="自定义回复"><?php _e('自定义回复'); ?></option>
 					    <option data-name="自定义 URL"><?php _e('自定义 URL'); ?></option>
 					</select>
 				</td>
@@ -274,7 +269,7 @@
 					    <option data-value="COMMAND_HOT_QUESTION" data-name="热门问题"><?php _e('热门问题'); ?></option>
 					    <option data-value="COMMAND_RECOMMEND_QUESTION" data-name="推荐问题"><?php _e('推荐问题'); ?></option>
 					    <option data-value="COMMAND_HOME_ACTIONS" data-name="等待回复"><?php _e('等待回复'); ?></option>
-					    <option data-name="自动回复"><?php _e('自动回复'); ?></option>
+					    <option data-name="自定义回复"><?php _e('自定义回复'); ?></option>
 					    <option data-name="自定义 URL"><?php _e('自定义 URL'); ?></option>
 					    
 					</select>
@@ -287,8 +282,8 @@
 						<a class="fa fa-sort" data-toggle="dropdown"></a>
 						
 						<input type="hidden" class="attach_key" name="button[{MENU_TOP_ID}][sub_button][{MENU_SUB_ID}][attach_key]" value="" />
-						<a class="ajax-upload"><i class="fa fa-upload"></i></a>
-						<a class="ajax-look" onclick="if ($(this).parent().find('input.attach_key').val() != '') { $.dialog('imagePreview', {'image':'<?php echo get_setting('upload_url'); ?>/weixin/list_image/' + $(this).parent().find('input.attach_key').val() + '.jpg?'+ Math.random()}) } else { alert('<?php _e('当前菜单没有上传图片'); ?>'); }"><i class="fa fa-picture-o"></i></a>
+						<a class="ajax-upload hide"><i class="fa fa-upload"></i></a>
+						<a class="ajax-look hide" onclick="if ($(this).parent().find('input.attach_key').val() != '') { $.dialog('imagePreview', {'image':'<?php echo get_setting('upload_url'); ?>/weixin/list_image/' + $(this).parent().find('input.attach_key').val() + '.jpg?'+ Math.random()}) } else { alert('<?php _e('当前菜单没有上传图片'); ?>'); }"><i class="fa fa-picture-o"></i></a>
 					</div>
 				</td>
 				<td align="center">
@@ -315,14 +310,14 @@
 						<td align="center"><input type="text" value="<?php echo $val['sort']; ?>" class="form-control sort-action" name="button[<?php echo $key; ?>][sort]" /></td>
 						<td aligin="center">
 							<select class="aw-wechat-select" name="button[<?php echo $key?>][command_type]">
-								<option><?php _e('请选择'); ?></option>
+								<option></option>
 								<option data-name="全局命令"><?php _e('全局命令'); ?></option>
 								<option data-value="COMMAND_NEW_QUESTION" data-name="最新问题"><?php _e('最新问题'); ?></option>
 							    <option data-value="COMMAND_NEW_ARTICLE" data-name="经验专题"><?php _e('经验专题'); ?></option>
 							    <option data-value="COMMAND_HOT_QUESTION" data-name="热门问题"><?php _e('热门问题'); ?></option>
 							    <option data-value="COMMAND_RECOMMEND_QUESTION" data-name="推荐问题"><?php _e('推荐问题'); ?></option>
 							    <option data-value="COMMAND_HOME_ACTIONS" data-name="等待回复"><?php _e('等待回复'); ?></option>
-							    <option data-name="自动回复"><?php _e('自动回复'); ?></option>
+							    <option data-name="自定义回复"><?php _e('自定义回复'); ?></option>
 							    <option data-name="自定义 URL"><?php _e('自定义 URL'); ?></option>
 							    
 							</select>
@@ -358,7 +353,7 @@
 								    <option data-value="COMMAND_HOT_QUESTION" data-name="热门问题"><?php _e('热门问题'); ?></option>
 								    <option data-value="COMMAND_RECOMMEND_QUESTION" data-name="推荐问题"><?php _e('推荐问题'); ?></option>
 								    <option data-value="COMMAND_HOME_ACTIONS" data-name="等待回复"><?php _e('等待回复'); ?></option>
-								    <option data-name="自动回复"><?php _e('自动回复'); ?></option>
+								    <option data-name="自定义回复"><?php _e('自定义回复'); ?></option>
 								    <option data-name="自定义 URL"><?php _e('自定义 URL'); ?></option>
 								    
 								</select>
@@ -423,28 +418,34 @@
 				// 判断是否有子菜单
 				if (e.sub_button)
 				{
-					var arr = [];
+					var arr_code = [], arr_select = [];
 					$.each(e.sub_button, function(i, e)
 					{
 						var _e = e;
-						$('.sub_button_' + _i).find('.aw-wechat-select').val(e.command_type);
+						arr_select.push(e.command_type)
 						$.each($('#aw-ajax-box ul li'), function (i, e)
 						{
 							if ($(this).attr('data-value') == _e.key)
 							{
-								arr.push($(this).text());
-								$('.sub_button_' + _i).prev().find('.ajax-upload, .ajax-look').hide();
+								arr_code.push($(this).text());
 							}
 							if ($(this).attr('data-upload') == 'false')
 							{
-								$('.sub_button_' + _i).find('.ajax-upload, .ajax-look ').hide();
+								$('.sub_button_' + _i).find('.ajax-upload, .ajax-look').hide();
 							}
 						});
-						$.each(arr, function (i, e)
+						$.each(arr_code, function (i, e)
 						{
 							$('.sub_button_' + _i).eq(i).find('.aw-wechat-dropdown-box span').html(e);
 						});
-						addDropdownList(e.command_type, $('.sub_button_' + _i));
+
+						if (e.command_type == '自定义 URL')
+						{
+							$('.sub_button_' + _i).eq(i).find('.aw-wechat-dropdown-box input.input-code').val(e.key).show();
+							$('.sub_button_' + _i).eq(i).find('.aw-wechat-dropdown-box .fa-sort').hide();
+							$('.sub_button_' + _i).eq(i).find('.aw-wechat-dropdown-box .input-bg').hide();
+						}
+						//判断菜单hover状态
 						$.each($('.sub_button_' + _i).find('.aw-wechat-dropdown-box ul li'), function (i, e)
 						{
 							if ($(this).attr('data-value') == _e.key)
@@ -459,16 +460,34 @@
 								}
 							}
 						});
+
+						//插入菜单
+						addDropdownList(e.command_type, $('.sub_button_' + _i), false);
 					});
+					$.each(arr_select, function (i, e)
+					{
+						if (e == '自定义 URL')
+						{
+							$('.sub_button_' + _i).eq(i).find('.input-bg, .fa-sort, span').hide();
+							$('.sub_button_' + _i).eq(i).find('.input-code').removeAttr('readonly').show();
+							$('.sub_button_' + _i).eq(i).find('.aw-wechat-select').val(e);
+						}
+						else
+						{
+							$('.sub_button_' + _i).eq(i).find('.aw-wechat-select').val(e);
+						}
+					});
+					//隐藏父节点的上传图片按钮
+					$('.sub_button_' + _i).prev().find('.ajax-upload, .ajax-look').hide();
 				}
 				else
 				{
 					var _e = e;
+					addDropdownList(e.command_type, $('#menu_id_' + _i), false);
 					if (e.command_type == '自定义 URL')
 					{
-						$('#menu_id_' + i).find('.aw-wechat-dropdown-box input.input-code').removeAttr('readonly').show();
-						$('#menu_id_' + i).find('.aw-wechat-dropdown-box .fa-sort').hide();
-						$('#menu_id_' + i).find('.aw-wechat-dropdown-box .input-bg').hide();
+						$('#menu_id_' + i).find('.aw-wechat-dropdown-box input.input-code').removeAttr('readonly').val(e.key).show();
+						$('#menu_id_' + i).find('.fa-sort, .input-bg, span').hide();
 					}
 					
 					$.each($('#aw-ajax-box ul li'), function (i, e)
@@ -484,7 +503,6 @@
 					});
 
 					$('#menu_id_' + i).find('.aw-wechat-select').val(e.command_type);
-					addDropdownList(e.command_type, $('#menu_id_' + _i));
 					$.each($('#menu_id_' + _i).find('.aw-wechat-dropdown-box ul li'), function (i, e)
 					{
 						if ($(this).attr('data-value') == _e.key)
@@ -508,7 +526,7 @@
 		// select菜单事件绑定
 		$(document).on('change', 'select.aw-wechat-select', function()
 		{
-			addDropdownList($(this).val(), $(this).parents('tr'));
+			addDropdownList($(this).val(), $(this).parents('tr'), true);
 		});
 	
 		$(document).on('click', '.aw-wechat-dropdown-box input.input-bg', function ()
@@ -545,7 +563,7 @@
 		});
 	});
 
-	function addDropdownList (data, element)
+	function addDropdownList (data, element, defined_url)
 	{
 		switch (data)
 		{
@@ -571,10 +589,13 @@
 				var template = $('#drop_menu_template_global').html();
 			break;
 			case '自定义 URL' :
-				element.find('.aw-wechat-dropdown-box .dropdown-menu').detach();
-				element.find('.aw-wechat-dropdown-box .fa-sort, .aw-wechat-dropdown-box span').hide();
-				element.find('.aw-wechat-dropdown-box .fa-sort, .aw-wechat-dropdown-box input.input-bg').hide();
-				element.find('.aw-wechat-dropdown-box input.input-code').val('http://').removeAttr('readonly').show();
+				if (defined_url == true)
+				{
+					element.find('.aw-wechat-dropdown-box .dropdown-menu').detach();
+					element.find('.aw-wechat-dropdown-box .fa-sort, .aw-wechat-dropdown-box span').hide();
+					element.find('.aw-wechat-dropdown-box .fa-sort, .aw-wechat-dropdown-box input.input-bg').hide();
+					element.find('.aw-wechat-dropdown-box input.input-code').val('http://').removeAttr('readonly').show();
+				}
 			break;
 		}
 		
