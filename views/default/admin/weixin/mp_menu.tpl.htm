@@ -423,6 +423,7 @@
 				// 判断是否有子菜单
 				if (e.sub_button)
 				{
+					var arr = [];
 					$.each(e.sub_button, function(i, e)
 					{
 						var _e = e;
@@ -431,13 +432,17 @@
 						{
 							if ($(this).attr('data-value') == _e.key)
 							{
-								$('.sub_button_' + _i).find('.aw-wechat-dropdown-box span').html($(this).text());
+								arr.push($(this).text());
 								$('.sub_button_' + _i).prev().find('.ajax-upload, .ajax-look').hide();
 							}
 							if ($(this).attr('data-upload') == 'false')
 							{
 								$('.sub_button_' + _i).find('.ajax-upload, .ajax-look ').hide();
 							}
+						});
+						$.each(arr, function (i, e)
+						{
+							$('.sub_button_' + _i).eq(i).find('.aw-wechat-dropdown-box span').html(e);
 						});
 						addDropdownList(e.command_type, $('.sub_button_' + _i));
 						$.each($('.sub_button_' + _i).find('.aw-wechat-dropdown-box ul li'), function (i, e)
