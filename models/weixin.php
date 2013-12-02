@@ -927,15 +927,16 @@ class weixin_class extends AWS_MODEL
 				{
 					unset($sub_val['sort']);
 					unset($sub_val['command_type']);
-					unset($sub_val['attch_key']);
+					unset($sub_val['attach_key']);
 					
 					if ($sub_val['type'] == 'view')
 					{
 						unset($sub_val['key']);
-					}
-					else if (strstr($sub_val['key'], get_setting('base_url')))
-					{
-						$sub_val['key'] = $this->model('openid_weixin')->redirect_url($sub_val['key']);
+						
+						if (strstr($sub_val['url'], get_setting('base_url')))
+						{
+							$sub_val['url'] = $this->model('openid_weixin')->redirect_url($sub_val['url']);
+						}
 					}
 					
 					$val['sub_button_no_key'][] = $sub_val;
@@ -948,19 +949,22 @@ class weixin_class extends AWS_MODEL
 			
 			unset($val['sort']);
 			unset($val['command_type']);
-			unset($sub_val['attch_key']);
+			unset($val['attach_key']);
 			
 			if ($val['type'] == 'view')
 			{
 				unset($val['key']);
-			}
-			else if (strstr($sub_val['key'], get_setting('base_url')))
-			{
-				$sub_val['key'] = $this->model('openid_weixin')->redirect_url($sub_val['key']);
+				
+				if (strstr($val['url'], get_setting('base_url')))
+				{
+					$val['url'] = $this->model('openid_weixin')->redirect_url($val['url']);
+				}
 			}
 			
 			$mp_menu_no_key[] = $val;
 		}
+		
+		print_r($mp_menu_no_key); die;
 		
 		if ($result = HTTP::request('https://api.weixin.qq.com/cgi-bin/menu/create?access_token=' . $this->get_access_token(), 'POST', preg_replace("#\\\u([0-9a-f]+)#ie", "convert_encoding(pack('H4', '\\1'), 'UCS-2', 'UTF-8')", json_encode(array('button' => $mp_menu_no_key)))))
 		{
