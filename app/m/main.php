@@ -355,6 +355,8 @@ class main extends AWS_CONTROLLER
 		}
 		
 		TPL::assign('answers_list', $answers);
+
+		TPL::assign('attach_access_key', md5($this->user_id . time()));
 		
 		TPL::assign('question_related_list', $this->model('question')->get_related_question_list($question_info['question_id'], $question_info['question_content']));
 		
@@ -763,7 +765,10 @@ class main extends AWS_CONTROLLER
 		{
 			TPL::assign('question_category_list', $this->model('system')->build_category_html('question', 0, $question_info['category_id']));
 		}
-				
+		if (($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator'] OR $question_info['published_uid'] == $this->user_id AND $_GET['id']) OR !$_GET['id'])
+		{
+			TPL::assign('attach_access_key', md5($this->user_id . time()));
+		}
 		//TPL::assign('human_valid', human_valid('question_valid_hour'));
 		
 		TPL::output('m/publish');
