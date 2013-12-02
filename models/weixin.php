@@ -979,7 +979,7 @@ class weixin_class extends AWS_MODEL
 	
 	public function list_image_clean()
 	{
-		if (!is_dir())
+		if (!is_dir(ROOT_PATH . 'weixin/list_image/'))
 		{
 			return false;
 		}
@@ -999,7 +999,7 @@ class weixin_class extends AWS_MODEL
 			$attach_list[] = $val['attch_key'] . '.jpg';
 		}
 		
-		$files_list = fetch_file_lists(ROOT_PATH . 'models/', 'php');
+		$files_list = fetch_file_lists(ROOT_PATH . 'weixin/list_image/', 'jpg');
 			    
 	    foreach ($files_list AS $search_file)
 	    {
