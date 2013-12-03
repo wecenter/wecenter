@@ -54,7 +54,7 @@
 								<?php if ($this->feature_list) { ?>
 								<li data-value="COMMAND_NEW_ARTICLE"><a><?php _e('全部文章'); ?></a></li>
 								<?php foreach ($this->feature_list AS $val) { ?>
-							    <li data-value="COMMAND_NEW_ARTICLE__FEATURE_<?php echo $val['id']; ?>"><a><?php echo $val['keyword']; ?></a></li>
+							    <li data-value="COMMAND_NEW_ARTICLE__FEATURE_<?php echo $val['id']; ?>"><a><?php echo $val['title']; ?></a></li>
 							    <?php } ?>
 							    <?php } ?>
 							</ul>
@@ -212,6 +212,7 @@
 								<li data-value="COMMAND_HOME_ACTIONS" data-upload="false"><a><?php _e('最新动态'); ?></a></li>
 								<li data-value="COMMAND_NOTIFICATIONS" data-upload="false"><a><?php _e('最新通知'); ?></a></li>
 								<li data-value="COMMAND_MY_QUESTION" data-upload="false"><a><?php _e('我的提问'); ?></a></li>
+								<li data-value="COMMAND_MORE" data-upload="false"><a><?php _e('载入更多'); ?></a></li>
 							</ul>
 						</div>
 					</div>	
@@ -400,11 +401,12 @@
 <script type="text/javascript">
 	var mp_menu_list = eval('[<?php echo json_encode($this->mp_menu); ?>]');
 	
-	// 微信下拉菜单
 	$(function()
 	{
+		// 初始化上传按钮
 		ajax_upload_reload();
 
+		// 遍历给ajaxbox插入模板
 		$.each($("script[type='text/x-template']"), function (i, e) {
 			$('#aw-ajax-box').append($(e).html());
 		});
@@ -418,27 +420,25 @@
 				// 判断是否有子菜单
 				if (e.sub_button)
 				{
+					// arr_code span内容数组, arr_select select内容
 					var arr_code = [], arr_select = [];
 					$.each(e.sub_button, function(i, e)
 					{
 						var _e = e;
 						arr_select.push(e.command_type);
+						// 判断如果是自定义url给arr_code插入空数组
 						if (_e.key.match('http'))
 						{
 							arr_code.push('');
 						}
 						else
 						{
+							// 遍历模板中li,找到相应的中文内容插入到arr_code内
 							$.each($('#aw-ajax-box ul li'), function (i, e)
 							{
-								
 								if ($(this).attr('data-value') == _e.key)
 								{
 									arr_code.push($(this).text());
-								}
-								if ($(this).attr('data-upload') == 'false')
-								{
-									$('.sub_button_' + _i).find('.ajax-upload, .ajax-look').hide();
 								}
 							});
 						}
@@ -466,7 +466,6 @@
 						});
 					});
 				
-					
 					$.each(arr_select, function (i, e)
 					{
 						//插入菜单
@@ -516,13 +515,17 @@
 				else
 				{
 					var _e = e;
+					// 插入下拉菜单
 					addDropdownList(e.command_type, $('#menu_id_' + _i), false);
+
+					//判断当前是自定义url
 					if (e.command_type == '自定义 URL')
 					{
 						$('#menu_id_' + i).find('.aw-wechat-dropdown-box input.input-code').removeAttr('readonly').val(e.key).show();
 						$('#menu_id_' + i).find('.fa-sort, .input-bg, span').hide();
 					}
 					
+					// 遍历下拉模板中的li,根据key找中文
 					$.each($('#aw-ajax-box ul li'), function (i, e)
 					{
 						if ($(this).attr('data-value') == _e.key)
@@ -532,7 +535,10 @@
 						
 					});
 
+					// 给select选中初始化
 					$('#menu_id_' + i).find('.aw-wechat-select').val(e.command_type);
+
+					// 判断当前下拉菜单是否有上传图片功能
 					if ($('#menu_id_' + _i).find('.aw-wechat-dropdown-box ul').length > 0)
 					{
 						$.each($('#menu_id_' + _i).find('.aw-wechat-dropdown-box ul li'), function (i, e)
@@ -542,10 +548,6 @@
 								if ($(this).attr('data-upload') == 'false')
 								{
 									$('#menu_id_' + _i).find('.ajax-upload, .ajax-look ').hide();
-								}
-								else
-								{
-									$('#menu_id_' + _i).find('.ajax-upload, .ajax-look ').show();
 								}
 							}
 						});
