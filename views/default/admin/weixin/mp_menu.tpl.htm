@@ -54,7 +54,7 @@
 								<?php if ($this->feature_list) { ?>
 								<li data-value="COMMAND_NEW_ARTICLE"><a><?php _e('全部文章'); ?></a></li>
 								<?php foreach ($this->feature_list AS $val) { ?>
-							    <li data-value="COMMAND_NEW_ARTICLE__FEATURE_<?php echo $val['id']; ?>"><a><?php echo $val['keyword']; ?></a></li>
+							    <li data-value="COMMAND_NEW_ARTICLE__FEATURE_<?php echo $val['id']; ?>"><a><?php echo $val['title']; ?></a></li>
 							    <?php } ?>
 							    <?php } ?>
 							</ul>
@@ -212,6 +212,7 @@
 								<li data-value="COMMAND_HOME_ACTIONS" data-upload="false"><a><?php _e('最新动态'); ?></a></li>
 								<li data-value="COMMAND_NOTIFICATIONS" data-upload="false"><a><?php _e('最新通知'); ?></a></li>
 								<li data-value="COMMAND_MY_QUESTION" data-upload="false"><a><?php _e('我的提问'); ?></a></li>
+								<li data-value="COMMAND_MORE" data-upload="false"><a><?php _e('载入更多'); ?></a></li>
 							</ul>
 						</div>
 					</div>	
