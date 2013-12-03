@@ -58,6 +58,12 @@ $(window).on('hashchange', function() {
 });
 
 $(document).ready(function () {
+	// 判断是否微信打开
+    if (typeof WeixinJSBridge != 'undefined')
+    {
+        $('header, nav, footer').hide();
+    }
+
 	if (window.location.hash.indexOf('#!') != -1)
 	{
 		if ($('a[name=' + window.location.hash.replace('#!', '') + ']').length)
