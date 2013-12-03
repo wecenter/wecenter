@@ -964,8 +964,6 @@ class weixin_class extends AWS_MODEL
 			$mp_menu_no_key[] = $val;
 		}
 		
-		print_r($mp_menu_no_key); die;
-		
 		if ($result = HTTP::request('https://api.weixin.qq.com/cgi-bin/menu/create?access_token=' . $this->get_access_token(), 'POST', preg_replace("#\\\u([0-9a-f]+)#ie", "convert_encoding(pack('H4', '\\1'), 'UCS-2', 'UTF-8')", json_encode(array('button' => $mp_menu_no_key)))))
 		{
 			$result = json_decode($result, true);
