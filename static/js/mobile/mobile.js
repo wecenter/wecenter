@@ -59,8 +59,10 @@ $(window).on('hashchange', function() {
 
 $(document).ready(function () {
 	// 判断是否微信打开
+	alert(WeixinJSBridge);
     if (typeof WeixinJSBridge != 'undefined')
     {
+    	alert(WeixinJSBridge);
         $('header, nav, footer').hide();
     }
 
