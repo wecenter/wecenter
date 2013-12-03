@@ -756,7 +756,7 @@ _ajax_uploader.extend(_ajax_uploader.FileUploader.prototype, {
         		_ajax_uploader.getByClass(item, '_ajax_upload_delete_file')[0].style.display = 'none';
         	}
         	
-        	_ajax_uploader.addClass(this._find(item, 'spinner'), 'upload-error');
+        	_ajax_uploader.addClass(this._find(item, 'spinner'), 'upload-error fa fa-times');
         	
             _ajax_uploader.addClass(item, this._classes.fail);
 			_ajax_uploader.getByClass(item, '_ajax_upload_delete_file')[0].style.display = 'none';

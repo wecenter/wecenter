@@ -175,6 +175,7 @@ nav #aw-top-nav-notic .badge{position: absolute;right: 0;top:1px;z-index:100;pad
 .aw-question-detail-page .aw-answers-title .dropdown-menu{left: -60px;}
 .aw-question-detail-page .aw-answers-list ul li{padding:10px 0;border-top:1px solid #EEEEEE;}
 .aw-question-detail-page .aw-answers-list ul li:first-child{border-top: none;}
+.aw-question-detail-page .aw-answers-list ul li .aw-mod-footer p{margin:5px 0 0 0;}
 .aw-question-detail-page .aw-answers-list .avatar img{width: 25px;height: 25px;border-radius: 2px;}
 .aw-question-detail-page .aw-answers-list h3{min-height:26px;font-size: 15px;}
 .aw-question-detail-page .aw-answers-list h3 strong{margin-left: 10px;}
@@ -206,11 +207,12 @@ nav #aw-top-nav-notic .badge{position: absolute;right: 0;top:1px;z-index:100;pad
 .aw-file-uploader{margin-top: 20px;}
 .aw-file-uploader dl{position:relative;margin:0 0 10px;padding-top:10px;border-top:1px dashed #E3E3E3;}
 .aw-file-uploader dl:first-child{border-top: none;}
-.aw-file-uploader dl dt div{width: 50px;height: 50px;background-position: center center;}
+.aw-file-uploader dl dt div{width: 50px;height: 50px;line-height:50px;background-position: center center;text-align: center;font-size: 26px;color: #C30100;}
+.aw-file-uploader dl dt div.fa-times{}
 .aw-file-uploader dl p{margin:0 0 5px;}
 .aw-file-uploader dl ._ajax_upload-inset{position: absolute;right: 0;top: 20px;font-size: 20px;}
 .aw-file-uploader dl ._ajax_upload-inset i{margin-left: 10px;}
-.aw-file-uploader dt.upload-loading{background-image: url(img/ajax-loader.gif);background-position: center center;background-repeat: no-repeat;}
+.aw-file-uploader dt div.upload-loading{background-image: url(img/ajax-loader.gif) !important;background-position: center center;background-repeat: no-repeat;}
 ._ajax_upload-button .fa-paperclip{font-size: 20px;vertical-align: -10px;}
 
 /* 问题评论box */
@@ -385,7 +387,7 @@ nav #aw-top-nav-notic .badge{position: absolute;right: 0;top:1px;z-index:100;pad
 .markitup-box code, #markItUpPreviewFrames code {background-color: #EDEAD5;display: block;font-family: "Courier New",Courier,monospace;margin: 5px 0;padding: 5px;white-space: normal;text-align: left;}
 .markitup-box img {max-width: 100%;}
 .markitup-box blockquote , #markItUpPreviewFrames blockquote{margin:0 0 10px;background-color: #FBFBFB;border-left: 5px solid #C1CAD4;line-height: 22px;margin: 5px 0;padding: 10px;}
-.markitup-box .aw-comment-upload-img-list a{display:block;margin:15px 0;}
+.markitup-box .aw-comment-upload-img-list a{display:block;}
 .markitup-box iframe{width: 100%;}
 
 /* 话题编辑box */
