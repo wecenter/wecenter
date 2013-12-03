@@ -158,4 +158,10 @@ class weixin extends AWS_CONTROLLER
 			H::redirect_msg(AWS_APP::lang()->_t('授权失败, 请返回重新操作'));
 		}
 	}
+	
+	public function oauth_redirect_action()
+	{
+		header('Location: https://open.weixin.qq.com/connect/oauth2/authorize?appid=' . AWS_APP::config()->get('weixin')->app_id . '&redirect_uri=' . urlencode(get_js_url($_GET['uri'])) . '&response_type=code&scope=' . urlencode($_GET['scope']) . '&state=' . urlencode($_GET['state']) . '#wechat_redirect');
+		die;
+	}
 }
