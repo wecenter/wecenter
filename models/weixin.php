@@ -66,7 +66,11 @@ class weixin_class extends AWS_MODEL
 		switch ($input_message['msgType'])
 		{
 			case 'event':
-				if (substr($input_message['eventKey'], 0, 8) == 'COMMAND_')
+				if ($input_message['event'] == 'LOCATION')
+				{
+					
+				}
+				else if (substr($input_message['eventKey'], 0, 8) == 'COMMAND_')
 				{
 					if (strstr($input_message['eventKey'], '__'))
 					{
@@ -100,6 +104,13 @@ class weixin_class extends AWS_MODEL
 					{
 						$response_message = '菜单指令错误';
 					}
+				}
+				else if (substr($input_message['eventKey'], 0, 11) == 'COMMAND_MORE')
+				{
+					$input_message['content'] = '更多';
+					$input_message['msgType'] = 'text';
+				
+					$response_message = $this->response_message($input_message);
 				}
 				else
 				{
@@ -537,21 +548,34 @@ class weixin_class extends AWS_MODEL
 				{
 					if ($index_actions = $this->model('index')->get_index_focus($this->user_id, 10))
 					{
-						$response_message = '最新动态:';
-						
 						foreach ($index_actions AS $key => $val)
 						{
-							if ($val['associate_action'] == ACTION_LOG::ANSWER_QUESTION OR $val['associate_action'] == ACTION_LOG::ADD_AGREE)
+							if (!$response_message)
 							{
-								$response_message .= "\n\n• " . '<a href="' . get_js_url('/m/answer/' . $val['answer_info']['answer_id']) . '">';
+								if (!$image_file = $this->get_list_image_by_command('COMMAND_' . $message_code))
+								{
+									$image_file = AWS_APP::config()->get('weixin')->default_list_image;
+								}
 							}
 							else
 							{
-								$response_message .= "\n\n• " . '<a href="' . get_js_url('/m/question/' . $val['answer_info']['answer_id']) . '">';
+								$image_file = get_avatar_url($val['question_info']['published_uid'], 'max');
 							}
 							
-							$response_message .= $val['question_info']['question_content'] . '</a>';
-							$response_message .= "\n" . strip_tags($val['last_action_str']);
+							if ($val['associate_action'] == ACTION_LOG::ANSWER_QUESTION OR $val['associate_action'] == ACTION_LOG::ADD_AGREE)
+							{
+								$link = $this->model('openid_weixin')->redirect_url('/m/answer/' . $val['answer_info']['answer_id']);
+							}
+							else
+							{
+								$link = $this->model('openid_weixin')->redirect_url('/m/question/' . $val['answer_info']['answer_id']);
+							}
+							
+							$response_message[] = array(
+								'title' => $val['question_info']['question_content'],
+								'link' => $link,
+								'image_file' => $image_file
+							);
 						}
 					}
 					else
@@ -584,7 +608,7 @@ class weixin_class extends AWS_MODEL
 							$param = 1;
 						}
 						
-						$action = 'notification-' . ($param + 1);
+						$action = 'NOTIFICATIONS-' . ($param + 1);
 					}
 					else
 					{
@@ -610,44 +634,34 @@ class weixin_class extends AWS_MODEL
 				if ($this->user_id)
 				{
 					if ($user_actions = $this->model('account')->get_user_actions($this->user_id, calc_page_limit($param, 5), 101))
-					{
-						$response_message = "我的提问: \n";
-						
+					{						
 						foreach ($user_actions AS $key => $val)
 						{
-							$response_message .= "\n" . '• <a href="' . get_js_url('/m/question/' . $val['question_info']['question_id']) . '">' . $val['question_info']['question_content'] . '</a> (' . $val['question_info']['answer_count'] . ' 个回答)' . "\n";
-							
-							if ($val['question_info']['answer_count'] > 0)
+							if (!$response_message)
 							{
-								$response_message .= "--------------------\n";
-									
-								if ($val['question_info']['best_answer'])
+								if (!$image_file = $this->get_list_image_by_command('COMMAND_' . $message_code))
 								{
-									if ($answer_list = $this->model('answer')->get_answer_by_id($val['question_info']['best_answer']))
-									{
-										$response_message .= "最新答案: \n\n" . cjk_substr($answer_list['answer_content'], 0, 128, 'UTF-8', '...') . "\n";
-									}	
+									$image_file = AWS_APP::config()->get('weixin')->default_list_image;
 								}
-								else
-								{
-									if ($answer_list = $this->model('answer')->get_answer_list_by_question_id($val['question_info']['question_id'], 1, 'uninterested_count < ' . get_setting('uninterested_fold') . ' AND force_fold = 0', 'add_time DESC'))
-									{
-										$response_message .= "最新答案: \n\n" . cjk_substr($answer_list[0]['answer_content'], 0, 128, 'UTF-8', '...') . "\n";
-									}
-								}
-								
-								$response_message .= "--------------------\n";
 							}
-						}
+							else
+							{
+								$image_file = get_avatar_url($val['question_info']['published_uid'], 'max');
+							}
 						
-						$response_message .= "\n\n请输入 '更多' 显示其他相关内容";
+							$response_message[] = array(
+								'title' => $val['question_info']['question_content'],
+								'link' => $this->model('openid_weixin')->redirect_url('/question/' . $val['question_id']),
+								'image_file' => $image_file
+							);
+						}
 						
 						if (!$param)
 						{
 							$param = 1;
 						}
 						
-						$action = 'my_questions-' . ($param + 1);
+						$action = 'MY_QUESTION-' . ($param + 1);
 					}
 					else
 					{
@@ -756,16 +770,16 @@ class weixin_class extends AWS_MODEL
 		
 		switch ($last_action['action'])
 		{						
-			case 'my_questions':
+			case 'MY_QUESTION':
 				return $this->message_parser(array(
-					'content' => AWS_APP::config()->get('weixin')->command_my,
+					'content' => 'MY_QUESTION',
 					'fromUsername' => $weixin_id
 				), $last_action_param);
 			break;
 			
-			case 'notification':
+			case 'NOTIFICATIONS':
 				return $this->message_parser(array(
-					'content' => AWS_APP::config()->get('weixin')->command_notifications,
+					'content' => 'NOTIFICATIONS',
 					'fromUsername' => $weixin_id
 				), $last_action_param);
 			break;
