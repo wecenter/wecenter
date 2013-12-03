@@ -180,7 +180,7 @@
 
 		<!-- 自定义回复 -->
 		<script type="text/x-template" id="drop_menu_template_auto_replay">
-			<div class="dropdown-menu pull-right<?php if ($this->category_data) { ?> subtract-two<?php } ?>">
+			<div class="dropdown-menu pull-right">
 				<div class="mod-head clearfix">
 					<div class="mod">
 						<div class="mod-head"><?php _e('自定义回复'); ?></div>
@@ -250,7 +250,7 @@
 					</div>
 				</td>
 				<td align="center">
-					<a href="javascript:;" onclick="if ($('#mp_menu_table tbody tr.sub_button_{MENU_ID}').length > 4) { alert('<?php _e('最多只能创建 5 个子菜单'); ?>') } else { if ($('#mp_menu_table tbody tr.sub_button_{MENU_ID}:last').length) { $('tr#menu_id_{MENU_ID}').after($('#sub_button_template').html().replace(/{MENU_TOP_ID}/g, {MENU_ID}).replace(/{MENU_SUB_ID}/g, parseInt($('#mp_menu_table tbody tr.sub_button_{MENU_ID}:first').attr('data-id')) + 1)); } else { $('tr#menu_id_{MENU_ID}').after($('#sub_button_template').html().replace(/{MENU_TOP_ID}/g, {MENU_ID}).replace(/{MENU_SUB_ID}/g, 1)); } ajax_upload_reload(); }"><?php _e('添加子菜单'); ?></a> | 
+					<a href="javascript:;" onclick="if ($('#mp_menu_table tbody tr.sub_button_{MENU_ID}').length > 4) { alert('<?php _e('最多只能创建 5 个子菜单'); ?>') } else { $('tr#menu_id_{MENU_ID}').after($('#sub_button_template').html().replace(/{MENU_TOP_ID}/g, '{MENU_ID}').replace(/{MENU_SUB_ID}/g, hex_md5(new Date().getTime() + '|' + Math.random()))); ajax_upload_reload(); }"><?php _e('添加子菜单'); ?></a> | 
 					<a href="javascript:;" onclick="$(this).parents('tr').remove(); $('.sub_button_{MENU_ID}').remove();"><?php _e('删除'); ?></a>
 				</td>
 			</tr>
@@ -335,7 +335,7 @@
 
 						</td>
 						<td align="center">
-							<a href="javascript:;" onclick="if ($('#mp_menu_table tbody tr.sub_button_<?php echo $key; ?>').length > 4) { alert('<?php _e('最多只能创建 5 个子菜单'); ?>') } else { if ($('#mp_menu_table tbody tr.sub_button_<?php echo $key; ?>:last').length) { $('tr#menu_id_<?php echo $key; ?>').after($('#sub_button_template').html().replace(/{MENU_TOP_ID}/g, <?php echo $key; ?>).replace(/{MENU_SUB_ID}/g, parseInt($('#mp_menu_table tbody tr.sub_button_<?php echo $key; ?>:first').attr('data-id')) + 1)); } else { $('tr#menu_id_<?php echo $key; ?>').after($('#sub_button_template').html().replace(/{MENU_TOP_ID}/g, <?php echo $key; ?>).replace(/{MENU_SUB_ID}/g, 1)); } ajax_upload_reload(); }"><?php _e('添加子菜单'); ?></a> | 
+							<a href="javascript:;" onclick="if ($('#mp_menu_table tbody tr.sub_button_<?php echo $key; ?>').length > 4) { alert('<?php _e('最多只能创建 5 个子菜单'); ?>') } else { $('tr#menu_id_<?php echo $key; ?>').after($('#sub_button_template').html().replace(/{MENU_TOP_ID}/g, '<?php echo $key; ?>').replace(/{MENU_SUB_ID}/g, hex_md5(new Date().getTime() + ' ' + Math.random()))); ajax_upload_reload(); }"><?php _e('添加子菜单'); ?></a> | 
 							<a href="javascript:;" onclick="$(this).parents('tr').remove(); $('.sub_button_<?php echo $key; ?>').remove();"><?php _e('删除'); ?></a>
 						</td>
 					</tr>
@@ -383,7 +383,7 @@
 					<td colspan="5">
 						<a class="btn btn-inverse inline-block pull-right" href="javascript:;" onclick="$('#form_update_weixin_menu').submit();"><?php _e('提交菜单至微信'); ?></a>
 						
-						<a class="btn btn-inverse inline-block" href="javascript:;" onclick="if ($('#mp_menu_table tbody tr.top_menu').length > 2) { alert('<?php _e('最多只能创建 3 个菜单'); ?>') } else { if ($('#mp_menu_table tbody tr.top_menu:last').length) { $('#mp_menu_table tbody').append($('#top_menu_template').html().replace(/{MENU_ID}/g, parseInt($('#mp_menu_table tbody tr.top_menu:last').attr('data-id')) + 1)); } else { $('#mp_menu_table tbody').append($('#top_menu_template').html().replace(/{MENU_ID}/g, 1)); } }"><?php _e('添加菜单'); ?></a>
+						<a class="btn btn-inverse inline-block" href="javascript:;" onclick="if ($('#mp_menu_table tbody tr.top_menu').length > 2) { alert('<?php _e('最多只能创建 3 个菜单'); ?>') } else { $('#mp_menu_table tbody').append($('#top_menu_template').html().replace(/{MENU_ID}/g, hex_md5(new Date().getTime() + '|' + Math.random()))); }"><?php _e('添加菜单'); ?></a>
 						
 						<a class="btn btn-inverse inline-block" href="javascript:;" onclick="ajax_post($('#mp_menu_form'));"><?php _e('保存设置'); ?></a>
 					</td>
