@@ -161,6 +161,7 @@ class weixin extends AWS_CONTROLLER
 	
 	public function oauth_redirect_action()
 	{
-		header('Location: https://open.weixin.qq.com/connect/oauth2/authorize?appid=' . AWS_APP::config()->get('weixin')->app_id . '&redirect_uri=' . urlencode(get_js_url($_GET['uri'])) . '&response_type=code&scope=' . $_GET['scope'] . '&state=' . $_GET['state'] . '#wechat_redirect';)
+		header('Location: https://open.weixin.qq.com/connect/oauth2/authorize?appid=' . AWS_APP::config()->get('weixin')->app_id . '&redirect_uri=' . urlencode(get_js_url($_GET['uri'])) . '&response_type=code&scope=' . urlencode($_GET['scope']) . '&state=' . urlencode($_GET['state']) . '#wechat_redirect');
+		die;
 	}
 }
