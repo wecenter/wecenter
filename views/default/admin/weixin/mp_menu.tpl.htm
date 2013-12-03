@@ -400,11 +400,12 @@
 <script type="text/javascript">
 	var mp_menu_list = eval('[<?php echo json_encode($this->mp_menu); ?>]');
 	
-	// 微信下拉菜单
 	$(function()
 	{
+		// 初始化上传按钮
 		ajax_upload_reload();
 
+		// 遍历给ajaxbox插入模板
 		$.each($("script[type='text/x-template']"), function (i, e) {
 			$('#aw-ajax-box').append($(e).html());
 		});
@@ -516,13 +517,17 @@
 				else
 				{
 					var _e = e;
+					// 插入下拉菜单
 					addDropdownList(e.command_type, $('#menu_id_' + _i), false);
+
+					//判断当前是自定义url
 					if (e.command_type == '自定义 URL')
 					{
 						$('#menu_id_' + i).find('.aw-wechat-dropdown-box input.input-code').removeAttr('readonly').val(e.key).show();
 						$('#menu_id_' + i).find('.fa-sort, .input-bg, span').hide();
 					}
 					
+					// 遍历下拉模板中的li,根据key找中文
 					$.each($('#aw-ajax-box ul li'), function (i, e)
 					{
 						if ($(this).attr('data-value') == _e.key)
@@ -532,7 +537,10 @@
 						
 					});
 
+					// 给select选中初始化
 					$('#menu_id_' + i).find('.aw-wechat-select').val(e.command_type);
+
+					// 判断当前下拉菜单是否有上传图片功能
 					if ($('#menu_id_' + _i).find('.aw-wechat-dropdown-box ul').length > 0)
 					{
 						$.each($('#menu_id_' + _i).find('.aw-wechat-dropdown-box ul li'), function (i, e)
@@ -542,10 +550,6 @@
 								if ($(this).attr('data-upload') == 'false')
 								{
 									$('#menu_id_' + _i).find('.ajax-upload, .ajax-look ').hide();
-								}
-								else
-								{
-									$('#menu_id_' + _i).find('.ajax-upload, .ajax-look ').show();
 								}
 							}
 						});
