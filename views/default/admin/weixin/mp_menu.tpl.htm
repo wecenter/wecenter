@@ -419,27 +419,25 @@
 				// 判断是否有子菜单
 				if (e.sub_button)
 				{
+					// arr_code span内容数组, arr_select select内容
 					var arr_code = [], arr_select = [];
 					$.each(e.sub_button, function(i, e)
 					{
 						var _e = e;
 						arr_select.push(e.command_type);
+						// 判断如果是自定义url给arr_code插入空数组
 						if (_e.key.match('http'))
 						{
 							arr_code.push('');
 						}
 						else
 						{
+							// 遍历模板中li,找到相应的中文内容插入到arr_code内
 							$.each($('#aw-ajax-box ul li'), function (i, e)
 							{
-								
 								if ($(this).attr('data-value') == _e.key)
 								{
 									arr_code.push($(this).text());
-								}
-								if ($(this).attr('data-upload') == 'false')
-								{
-									$('.sub_button_' + _i).find('.ajax-upload, .ajax-look').hide();
 								}
 							});
 						}
@@ -467,7 +465,6 @@
 						});
 					});
 				
-					
 					$.each(arr_select, function (i, e)
 					{
 						//插入菜单
