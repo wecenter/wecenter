@@ -423,17 +423,25 @@
 					{
 						var _e = e;
 						arr_select.push(e.command_type);
-						$.each($('#aw-ajax-box ul li'), function (i, e)
+						if (_e.key.match('http'))
 						{
-							if ($(this).attr('data-value') == _e.key)
+							arr_code.push('');
+						}
+						else
+						{
+							$.each($('#aw-ajax-box ul li'), function (i, e)
 							{
-								arr_code.push($(this).text());
-							}
-							if ($(this).attr('data-upload') == 'false')
-							{
-								$('.sub_button_' + _i).find('.ajax-upload, .ajax-look').hide();
-							}
-						});
+								
+								if ($(this).attr('data-value') == _e.key)
+								{
+									arr_code.push($(this).text());
+								}
+								if ($(this).attr('data-upload') == 'false')
+								{
+									$('.sub_button_' + _i).find('.ajax-upload, .ajax-look').hide();
+								}
+							});
+						}
 
 						if (e.command_type == '自定义 URL')
 						{
@@ -457,6 +465,7 @@
 							}
 						});
 					});
+				
 					
 					$.each(arr_select, function (i, e)
 					{
@@ -475,15 +484,16 @@
 					});
 					$.each(arr_code, function (i, e)
 					{
-						$('.sub_button_' + _i).eq(i).find('.aw-wechat-dropdown-box span').html(e);
+
 						if ($('.sub_button_' + _i).eq(i).find('.aw-wechat-dropdown-box ul').length > 0)
 						{
+							$('.sub_button_' + _i).eq(i).find('.aw-wechat-dropdown-box span').html(e);
+
 							$.each($('.sub_button_' + _i).eq(i).find('.aw-wechat-dropdown-box ul li'), function (i, e)
 							{
 
 								if ($(this).attr('data-value') == $(this).parents('.aw-wechat-dropdown-box').find('input.input-code').val())
 								{
-									console.log($(this).attr('data-value') + ' , ' +$(this).attr('data-upload'));
 									if ($(this).attr('data-upload') == 'false')
 									{
 										$(this).parents('.aw-wechat-dropdown-box').find('.ajax-upload, .ajax-look ').hide();
