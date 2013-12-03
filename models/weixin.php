@@ -550,7 +550,7 @@ class weixin_class extends AWS_MODEL
 								$response_message .= "\n\n• " . '<a href="' . get_js_url('/m/question/' . $val['answer_info']['answer_id']) . '">';
 							}
 							
-							$response_message .= $val['question_content'] . '</a>';
+							$response_message .= $val['question_info']['question_content'] . '</a>';
 							$response_message .= "\n" . strip_tags($val['last_action_str']);
 						}
 					}
