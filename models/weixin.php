@@ -271,7 +271,7 @@ class weixin_class extends AWS_MODEL
 			default:
 				if (cjk_strlen($input_message['content']) > 1 AND substr($input_message['content'], 0, 1) == '@')
 				{
-					if ($user_info = $this->model('account')->get_user_info_by_username(substr($input_message['content'], 1)))
+					if ($user_info = $this->model('account')->get_user_info_by_username(substr($input_message['content'], 1), true))
 					{
 						$response_message[] = array(
 							'title' => $user_info['signature'],
