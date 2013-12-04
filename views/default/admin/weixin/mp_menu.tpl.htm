@@ -545,6 +545,7 @@
 			addDropdownList($(this).val(), $(this).parents('tr'), true);
 		});
 	
+		// 点击显示下拉菜单时,将菜单默认选中的选项添加hover状态
 		$(document).on('click', '.aw-wechat-dropdown-box input.input-bg', function ()
 		{
 			$.each($(this).parents('.aw-wechat-dropdown-box').find('.dropdown-menu ul li'), function (i, e)
@@ -560,7 +561,7 @@
 			});
 		});
 		
-		// 展开菜单点击事件
+		// 展开菜单内列表点击事件
 		$(document).on('click', '.aw-wechat-dropdown-box .dropdown-menu ul li', function ()
 		{
 			if ($(this).attr('data-upload') == 'false')
@@ -579,9 +580,15 @@
 		});
 	});
 
-	function addDropdownList (data, element, defined_url)
+	/* 
+	*	插入下拉菜单
+	*	type:类型
+	*	element:容器
+	*	defined_url: 为true时给自定义url输入框添加绑定, false时不做任何处理
+	*/
+	function addDropdownList (type, element, defined_url)
 	{
-		switch (data)
+		switch (type)
 		{
 			case '最新问题' : 
 				var template = $('#drop_menu_template_new_question').html();
