@@ -220,6 +220,18 @@
 			</div>
 		</script>
 		<!-- end 全局命令 -->
+
+		<script type="text/x-template" id="select_option">
+			<option></option>
+			<option data-name="全局命令"><?php _e('全局命令'); ?></option>
+			<option data-value="COMMAND_NEW_QUESTION" data-name="最新问题"><?php _e('最新问题'); ?></option>
+		    <option data-value="COMMAND_NEW_ARTICLE" data-name="经验专题"><?php _e('经验专题'); ?></option>
+		    <option data-value="COMMAND_HOT_QUESTION" data-name="热门问题"><?php _e('热门问题'); ?></option>
+		    <option data-value="COMMAND_RECOMMEND_QUESTION" data-name="推荐问题"><?php _e('推荐问题'); ?></option>
+		    <option data-value="COMMAND_HOME_ACTIONS" data-name="等待回复"><?php _e('等待回复'); ?></option>
+		    <option data-name="自定义回复"><?php _e('自定义回复'); ?></option>
+		    <option data-name="自定义 URL"><?php _e('自定义 URL'); ?></option>
+		</script>
 		
 		<script type="text/x-template" id="top_menu_template">
 			<tr data-id="{MENU_ID}" class="top_menu" id="menu_id_{MENU_ID}">
@@ -227,15 +239,6 @@
 				<td align="center"><input type="text" value="" class="form-control sort-action" name="button[{MENU_ID}][sort]" /></td>
 				<td aligin="center">
 					<select class="aw-wechat-select" name="button[{MENU_ID}][command_type]">
-						<option></option>
-						<option data-name="全局命令"><?php _e('全局命令'); ?></option>
-						<option data-value="COMMAND_NEW_QUESTION" data-name="最新问题"><?php _e('最新问题'); ?></option>
-					    <option data-value="COMMAND_NEW_ARTICLE" data-name="经验专题"><?php _e('经验专题'); ?></option>
-					    <option data-value="COMMAND_HOT_QUESTION" data-name="热门问题"><?php _e('热门问题'); ?></option>
-					    <option data-value="COMMAND_RECOMMEND_QUESTION" data-name="推荐问题"><?php _e('推荐问题'); ?></option>
-					    <option data-value="COMMAND_HOME_ACTIONS" data-name="等待回复"><?php _e('等待回复'); ?></option>
-					    <option data-name="自定义回复"><?php _e('自定义回复'); ?></option>
-					    <option data-name="自定义 URL"><?php _e('自定义 URL'); ?></option>
 					</select>
 				</td>
 				<td align="center">
@@ -251,7 +254,7 @@
 					</div>
 				</td>
 				<td align="center">
-					<a href="javascript:;" onclick="if ($('#mp_menu_table tbody tr.sub_button_{MENU_ID}').length > 4) { alert('<?php _e('最多只能创建 5 个子菜单'); ?>') } else { $('tr#menu_id_{MENU_ID}').after($('#sub_button_template').html().replace(/{MENU_TOP_ID}/g, '{MENU_ID}').replace(/{MENU_SUB_ID}/g, hex_md5(new Date().getTime() + '|' + Math.random()))); ajax_upload_reload(); }"><?php _e('添加子菜单'); ?></a> | 
+					<a href="javascript:;" onclick="if ($('#mp_menu_table tbody tr.sub_button_{MENU_ID}').length > 4) { alert('<?php _e('最多只能创建 5 个子菜单'); ?>') } else { $('tr#menu_id_{MENU_ID}').after($('#sub_button_template').html().replace(/{MENU_TOP_ID}/g, '{MENU_ID}').replace(/{MENU_SUB_ID}/g, hex_md5(new Date().getTime() + '|' + Math.random()))); ajax_upload_reload();$('tr#menu_id_{MENU_ID}').next().find('.aw-wechat-select').append($('#select_option').html()); }"><?php _e('添加子菜单'); ?></a> | 
 					<a href="javascript:;" onclick="$(this).parents('tr').remove(); $('.sub_button_{MENU_ID}').remove();"><?php _e('删除'); ?></a>
 				</td>
 			</tr>
@@ -263,16 +266,6 @@
 				<td align="center"><input type="text" value="" class="form-control sort-action" name="button[{MENU_TOP_ID}][sub_button][{MENU_SUB_ID}][sort]" /></td>
 				<td aligin="center">
 					<select class="aw-wechat-select" name="button[{MENU_TOP_ID}][sub_button][{MENU_SUB_ID}][command_type]">
-						<option></option>
-						<option data-name="全局命令"><?php _e('全局命令'); ?></option>
-						<option data-value="COMMAND_NEW_QUESTION" data-name="最新问题"><?php _e('最新问题'); ?></option>
-					    <option data-value="COMMAND_NEW_ARTICLE" data-name="经验专题"><?php _e('经验专题'); ?></option>
-					    <option data-value="COMMAND_HOT_QUESTION" data-name="热门问题"><?php _e('热门问题'); ?></option>
-					    <option data-value="COMMAND_RECOMMEND_QUESTION" data-name="推荐问题"><?php _e('推荐问题'); ?></option>
-					    <option data-value="COMMAND_HOME_ACTIONS" data-name="等待回复"><?php _e('等待回复'); ?></option>
-					    <option data-name="自定义回复"><?php _e('自定义回复'); ?></option>
-					    <option data-name="自定义 URL"><?php _e('自定义 URL'); ?></option>
-					    
 					</select>
 				</td>
 				<td align="center">
@@ -311,16 +304,6 @@
 						<td align="center"><input type="text" value="<?php echo $val['sort']; ?>" class="form-control sort-action" name="button[<?php echo $key; ?>][sort]" /></td>
 						<td aligin="center">
 							<select class="aw-wechat-select" name="button[<?php echo $key?>][command_type]">
-								<option></option>
-								<option data-name="全局命令"><?php _e('全局命令'); ?></option>
-								<option data-value="COMMAND_NEW_QUESTION" data-name="最新问题"><?php _e('最新问题'); ?></option>
-							    <option data-value="COMMAND_NEW_ARTICLE" data-name="经验专题"><?php _e('经验专题'); ?></option>
-							    <option data-value="COMMAND_HOT_QUESTION" data-name="热门问题"><?php _e('热门问题'); ?></option>
-							    <option data-value="COMMAND_RECOMMEND_QUESTION" data-name="推荐问题"><?php _e('推荐问题'); ?></option>
-							    <option data-value="COMMAND_HOME_ACTIONS" data-name="等待回复"><?php _e('等待回复'); ?></option>
-							    <option data-name="自定义回复"><?php _e('自定义回复'); ?></option>
-							    <option data-name="自定义 URL"><?php _e('自定义 URL'); ?></option>
-							    
 							</select>
 						</td>
 						<td align="center">
@@ -336,7 +319,7 @@
 
 						</td>
 						<td align="center">
-							<a href="javascript:;" onclick="if ($('#mp_menu_table tbody tr.sub_button_<?php echo $key; ?>').length > 4) { alert('<?php _e('最多只能创建 5 个子菜单'); ?>') } else { $('tr#menu_id_<?php echo $key; ?>').after($('#sub_button_template').html().replace(/{MENU_TOP_ID}/g, '<?php echo $key; ?>').replace(/{MENU_SUB_ID}/g, hex_md5(new Date().getTime() + ' ' + Math.random()))); ajax_upload_reload(); }"><?php _e('添加子菜单'); ?></a> | 
+							<a href="javascript:;" onclick="if ($('#mp_menu_table tbody tr.sub_button_<?php echo $key; ?>').length > 4) { alert('<?php _e('最多只能创建 5 个子菜单'); ?>') } else { $('tr#menu_id_<?php echo $key; ?>').after($('#sub_button_template').html().replace(/{MENU_TOP_ID}/g, '<?php echo $key; ?>').replace(/{MENU_SUB_ID}/g, hex_md5(new Date().getTime() + ' ' + Math.random()))); ajax_upload_reload();$('tr#menu_id_<?php echo $key; ?>').next().find('.aw-wechat-select').append($('#select_option').html()); }"><?php _e('添加子菜单'); ?></a> | 
 							<a href="javascript:;" onclick="$(this).parents('tr').remove(); $('.sub_button_<?php echo $key; ?>').remove();"><?php _e('删除'); ?></a>
 						</td>
 					</tr>
@@ -347,16 +330,6 @@
 							<td align="center"><input type="text" value="<?php echo $sub_val['sort']; ?>" class="form-control sort-action" name="button[<?php echo $key; ?>][sub_button][<?php echo $sub_key; ?>][sort]" /></td>
 							<td align="center">
 								<select class="aw-wechat-select" name="button[<?php echo $key; ?>][sub_button][<?php echo $sub_key; ?>][command_type]">
-									<option></option>
-									<option data-name="全局命令"><?php _e('全局命令'); ?></option>
-									<option data-value="COMMAND_NEW_QUESTION" data-name="最新问题"><?php _e('最新问题'); ?></option>
-								    <option data-value="COMMAND_NEW_ARTICLE" data-name="经验专题"><?php _e('经验专题'); ?></option>
-								    <option data-value="COMMAND_HOT_QUESTION" data-name="热门问题"><?php _e('热门问题'); ?></option>
-								    <option data-value="COMMAND_RECOMMEND_QUESTION" data-name="推荐问题"><?php _e('推荐问题'); ?></option>
-								    <option data-value="COMMAND_HOME_ACTIONS" data-name="等待回复"><?php _e('等待回复'); ?></option>
-								    <option data-name="自定义回复"><?php _e('自定义回复'); ?></option>
-								    <option data-name="自定义 URL"><?php _e('自定义 URL'); ?></option>
-								    
 								</select>
 							</td>
 							<td align="center">
@@ -384,7 +357,7 @@
 					<td colspan="5">
 						<a class="btn btn-inverse inline-block pull-right" href="javascript:;" onclick="$('#form_update_weixin_menu').submit();"><?php _e('提交菜单至微信'); ?></a>
 						
-						<a class="btn btn-inverse inline-block" href="javascript:;" onclick="if ($('#mp_menu_table tbody tr.top_menu').length > 2) { alert('<?php _e('最多只能创建 3 个菜单'); ?>') } else { $('#mp_menu_table tbody').append($('#top_menu_template').html().replace(/{MENU_ID}/g, hex_md5(new Date().getTime() + '|' + Math.random()))); }"><?php _e('添加菜单'); ?></a>
+						<a class="btn btn-inverse inline-block" href="javascript:;" onclick="if ($('#mp_menu_table tbody tr.top_menu').length > 2) { alert('<?php _e('最多只能创建 3 个菜单'); ?>') } else { $('#mp_menu_table tbody').append($('#top_menu_template').html().replace(/{MENU_ID}/g, hex_md5(new Date().getTime() + '|' + Math.random())));$('#mp_menu_table tbody tr:last').find('.aw-wechat-select').append($('#select_option').html()); }"><?php _e('添加菜单'); ?></a>
 						
 						<a class="btn btn-inverse inline-block" href="javascript:;" onclick="ajax_post($('#mp_menu_form'));"><?php _e('保存设置'); ?></a>
 					</td>
@@ -410,6 +383,9 @@
 		$.each($("script[type='text/x-template']"), function (i, e) {
 			$('#aw-ajax-box').append($(e).html());
 		});
+
+		//动态插入select内的option
+		$('#mp_menu_table tr').find('.aw-wechat-select').append($('#select_option').html());
 		
 		//select初始化
 		$.each(mp_menu_list, function(i, e)
@@ -420,59 +396,53 @@
 				// 判断是否有子菜单
 				if (e.sub_button)
 				{
+					// arr_code span内容数组, arr_select select内容
 					var arr_code = [], arr_select = [];
+					// 遍历初始化子菜单
 					$.each(e.sub_button, function(i, e)
 					{
 						var _e = e;
 						arr_select.push(e.command_type);
+						// 判断如果是自定义url给arr_code插入空数组
 						if (_e.key.match('http'))
 						{
 							arr_code.push('');
 						}
 						else
 						{
+							// 遍历模板中li,找到相应的中文内容插入到arr_code内
 							$.each($('#aw-ajax-box ul li'), function (i, e)
 							{
-								
 								if ($(this).attr('data-value') == _e.key)
 								{
 									arr_code.push($(this).text());
 								}
-								if ($(this).attr('data-upload') == 'false')
-								{
-									$('.sub_button_' + _i).find('.ajax-upload, .ajax-look').hide();
-								}
 							});
 						}
 
-						if (e.command_type == '自定义 URL')
-						{
-							$('.sub_button_' + _i).eq(i).find('.aw-wechat-dropdown-box input.input-code').val(e.key).show();
-							$('.sub_button_' + _i).eq(i).find('.aw-wechat-dropdown-box .fa-sort').hide();
-							$('.sub_button_' + _i).eq(i).find('.aw-wechat-dropdown-box .input-bg').hide();
-						}
-						//判断菜单hover状态
+						//判断菜单上传图片按钮是否显示
 						$.each($('.sub_button_' + _i).find('.aw-wechat-dropdown-box ul li'), function (i, e)
 						{
 							if ($(this).attr('data-value') == _e.key)
 							{
 								if ($(this).attr('data-upload') == 'false')
 								{
-									$('.sub_button_' + _i).find('.ajax-upload, .ajax-look ').hide();
+									$('.sub_button_' + _i).find('.ajax-upload, .ajax-look').hide();
 								}
 								else
 								{
-									$('.sub_button_' + _i).find('.ajax-upload, .ajax-look ').show();
+									$('.sub_button_' + _i).find('.ajax-upload, .ajax-look').show();
 								}
 							}
 						});
 					});
 				
-					
+					// 遍历select菜单数组,设置select菜单默认值,动态插入下拉菜单
 					$.each(arr_select, function (i, e)
 					{
 						//插入菜单
 						addDropdownList(e, $('.sub_button_' + _i).eq(i), false);
+
 						if (e == '自定义 URL')
 						{
 							$('.sub_button_' + _i).eq(i).find('.input-bg, .fa-sort, span').hide();
@@ -484,9 +454,11 @@
 							$('.sub_button_' + _i).eq(i).find('.aw-wechat-select').val(e);
 						}
 					});
+
+					// 遍历arr_code数组,设置span默认值
 					$.each(arr_code, function (i, e)
 					{
-
+						// 判断子菜单里面是不是自定义url
 						if ($('.sub_button_' + _i).eq(i).find('.aw-wechat-dropdown-box ul').length > 0)
 						{
 							$('.sub_button_' + _i).eq(i).find('.aw-wechat-dropdown-box span').html(e);
@@ -563,6 +535,7 @@
 				}
 			});
 		});
+
 		$('#aw-ajax-box').html('');
 
 
@@ -572,6 +545,7 @@
 			addDropdownList($(this).val(), $(this).parents('tr'), true);
 		});
 	
+		// 点击显示下拉菜单时,将菜单默认选中的选项添加hover状态
 		$(document).on('click', '.aw-wechat-dropdown-box input.input-bg', function ()
 		{
 			$.each($(this).parents('.aw-wechat-dropdown-box').find('.dropdown-menu ul li'), function (i, e)
@@ -587,7 +561,7 @@
 			});
 		});
 		
-		// 展开菜单点击事件
+		// 展开菜单内列表点击事件
 		$(document).on('click', '.aw-wechat-dropdown-box .dropdown-menu ul li', function ()
 		{
 			if ($(this).attr('data-upload') == 'false')
@@ -606,9 +580,15 @@
 		});
 	});
 
-	function addDropdownList (data, element, defined_url)
+	/* 
+	*	插入下拉菜单
+	*	type:类型
+	*	element:容器
+	*	defined_url: 为true时给自定义url输入框添加绑定, false时不做任何处理
+	*/
+	function addDropdownList (type, element, defined_url)
 	{
-		switch (data)
+		switch (type)
 		{
 			case '最新问题' : 
 				var template = $('#drop_menu_template_new_question').html();
@@ -635,7 +615,7 @@
 				if (defined_url == true)
 				{
 					element.find('.aw-wechat-dropdown-box .dropdown-menu').detach();
-					element.find('.aw-wechat-dropdown-box .fa-sort, .aw-wechat-dropdown-box span').hide();
+					element.find('.aw-wechat-dropdown-box .fa-sort, .aw-wechat-dropdown-box span, .aw-wechat-dropdown-box .ajax-upload, .aw-wechat-dropdown-box .ajax-look').hide();
 					element.find('.aw-wechat-dropdown-box .fa-sort, .aw-wechat-dropdown-box input.input-bg').hide();
 					element.find('.aw-wechat-dropdown-box input.input-code').val('http://').removeAttr('readonly').show();
 				}

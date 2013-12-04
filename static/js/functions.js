@@ -1753,6 +1753,10 @@ function bind_dropdown_list(selector, type)
     }
     $(selector).keyup(function(e)
     {
+        if (type == 'search')
+        {
+            $(selector).parent().find('.search').show().children('a').text($(selector).val());
+        }
         //话题插入按,号自动插入
         if (type == 'topic')
         {
@@ -1943,7 +1947,6 @@ function get_dropdown_list(selector, type, data)
 
             }
             $(selector).parent().find('.aw-dropdown').show().children().show();
-            $(selector).parent().find('.search').show().children('a').text($(selector).val());
             $(selector).parent().find('.title').hide();
             //关键词高亮
             $(selector).parent().find('.aw-dropdown-list li.question a').highText(data, 'b', 'active');
