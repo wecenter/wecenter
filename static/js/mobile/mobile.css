@@ -504,6 +504,7 @@ footer{margin-top:20px;font-size: 12px;text-align: center;}
 .nearby-people ul li:first-child{border-top: none;}
 .nearby-people ul li:nth-of-type(even){background-color: #f3f3f3;}
 .nearby-people .user-img{position: absolute;left: 10px;top: 10px;}
+.nearby-people .user-img img{width:69px;}
 .nearby-people .btn{position: absolute;right: 10px;top: 34px;}
 .nearby-people h1{margin:0;line-height: 20px;font-size: 14px;}
 .nearby-people p, .nearby-question p{margin:8px 0 0;color:#b4b4b4;font-size: 12px;}
