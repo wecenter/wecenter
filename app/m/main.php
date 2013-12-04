@@ -843,4 +843,14 @@ class main extends AWS_CONTROLLER
 		TPL::output('m/article');
 	}
 
+	public function nearby_people_action()
+	{
+		TPL::output('m/nearby_people');
+	}
+
+	public function nearby_question_action()
+	{
+		TPL::output('m/nearby_question');
+	}
+
 }
