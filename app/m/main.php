@@ -688,11 +688,6 @@ class main extends AWS_CONTROLLER
 		TPL::output('m/notifications');
 	}
 	
-	public function weixin_bind_success_action()
-	{
-		H::redirect_msg(AWS_APP::lang()->_t('微信绑定成功, 请返回'));
-	}
-	
 	public function draft_action()
 	{
 		$this->crumb(AWS_APP::lang()->_t('草稿'), '/m/draft/');
@@ -845,6 +840,20 @@ class main extends AWS_CONTROLLER
 
 	public function nearby_people_action()
 	{
+		if ($weixin_user = $this->model('openid_weixin')->get_user_info_by_uid($this->user_id))
+		{
+			if (!$near_by_users = $this->model('people')->get_near_by_users($weixin_user['longitude'], $weixin_user['latitude'], $this->user_id, 20))
+			{
+				H::redirect_msg(AWS_APP::lang()->_t('你的附近暂时没有人'));
+			}
+		}
+		else
+		{
+			H::redirect_msg(AWS_APP::lang()->_t('请先绑定微信'));
+		}
+		
+		TPL::assign('near_by_users', $near_by_users);
+		
 		TPL::output('m/nearby_people');
 	}
 
@@ -852,5 +861,4 @@ class main extends AWS_CONTROLLER
 	{
 		TPL::output('m/nearby_question');
 	}
-
 }
