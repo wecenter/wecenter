@@ -71,7 +71,14 @@ class weixin_class extends AWS_MODEL
 			case 'event':
 				if ($input_message['event'] == 'LOCATION')
 				{
-					// 地理位置上报
+					if ($this->user_id)
+					{
+						$this->update('users_weixin', array(
+							'latitude' => $input_message['latitude'],
+							'longitude' => $input_message['longitude'],
+							'location_update' => time()
+						), 'uid = ' . $this->user_id);
+					}
 				}
 				else if (substr($input_message['eventKey'], 0, 8) == 'COMMAND_')
 				{
@@ -180,7 +187,7 @@ class weixin_class extends AWS_MODEL
 						
 						$response_message[] = array(
 							'title' => $val['question_content'],
-							'link' => $this->model('openid_weixin')->redirect_url('/question/' . $val['question_id']),
+							'link' => $this->model('openid_weixin')->redirect_url('/m/question/' . $val['question_id']),
 							'image_file' => $image_file
 						);
 					}
@@ -275,7 +282,7 @@ class weixin_class extends AWS_MODEL
 					{
 						$response_message[] = array(
 							'title' => $user_info['signature'],
-							'link' => $this->model('openid_weixin')->redirect_url('/people/' . $user_info['url_token']),
+							'link' => $this->model('openid_weixin')->redirect_url('/m/people/' . $user_info['url_token']),
 							'image_file' => get_avatar_url($user_info['uid'], '')
 						);
 						
@@ -285,7 +292,7 @@ class weixin_class extends AWS_MODEL
 							{								
 								$response_message[] = array(
 									'title' => $val['question_info']['question_content'],
-									'link' => $this->model('openid_weixin')->redirect_url('/question/' . $val['question_info']['question_id']),
+									'link' => $this->model('openid_weixin')->redirect_url('/m/question/' . $val['question_info']['question_id']),
 									'image_file' => get_avatar_url($val['question_info']['published_uid'], 'max')
 								);
 							}
@@ -298,7 +305,7 @@ class weixin_class extends AWS_MODEL
 					{						
 						$response_message[] = array(
 							'title' => $topic_info['topic_title'],
-							'link' => $this->model('openid_weixin')->redirect_url('/topic/' . $val['url_token']),
+							'link' => $this->model('openid_weixin')->redirect_url('/m/topic/' . $topic_info['url_token']),
 							'image_file' => get_topic_pic_url('', $topic_info['topic_pic'])
 						);
 						
@@ -308,7 +315,7 @@ class weixin_class extends AWS_MODEL
 							{
 								$response_message[] = array(
 									'title' => $val['question_content'],
-									'link' => $this->model('openid_weixin')->redirect_url('/question/' . $val['question_id']),
+									'link' => $this->model('openid_weixin')->redirect_url('/m/question/' . $val['question_id']),
 									'image_file' => get_avatar_url($val['published_uid'], 'max')
 								);
 							}
@@ -355,7 +362,7 @@ class weixin_class extends AWS_MODEL
 					
 					$response_message[] = array(
 						'title' => $val['title'],
-						'link' => $this->model('openid_weixin')->redirect_url('/article/' . $val['id']),
+						'link' => $this->model('openid_weixin')->redirect_url('/m/article/' . $val['id']),
 						'image_file' => $image_file
 					);
 				}
@@ -396,7 +403,7 @@ class weixin_class extends AWS_MODEL
 						
 						$response_message[] = array(
 							'title' => $val['question_content'],
-							'link' => $this->model('openid_weixin')->redirect_url('/question/' . $val['question_id']),
+							'link' => $this->model('openid_weixin')->redirect_url('/m/question/' . $val['question_id']),
 							'image_file' => $image_file
 						);
 					}
@@ -442,7 +449,7 @@ class weixin_class extends AWS_MODEL
 						
 						$response_message[] = array(
 							'title' => $val['question_content'],
-							'link' => $this->model('openid_weixin')->redirect_url('/question/' . $val['question_id']),
+							'link' => $this->model('openid_weixin')->redirect_url('/m/question/' . $val['question_id']),
 							'image_file' => $image_file
 						);
 					}
@@ -534,7 +541,7 @@ class weixin_class extends AWS_MODEL
 						
 						$response_message[] = array(
 							'title' => $val['question_content'],
-							'link' => $this->model('openid_weixin')->redirect_url('/question/' . $val['question_id']),
+							'link' => $this->model('openid_weixin')->redirect_url('/m/question/' . $val['question_id']),
 							'image_file' => $image_file
 						);
 					}
@@ -564,18 +571,9 @@ class weixin_class extends AWS_MODEL
 								$image_file = get_avatar_url($val['question_info']['published_uid'], 'max');
 							}
 							
-							if ($val['associate_action'] == ACTION_LOG::ANSWER_QUESTION OR $val['associate_action'] == ACTION_LOG::ADD_AGREE)
-							{
-								$link = $this->model('openid_weixin')->redirect_url('/m/answer/' . $val['answer_info']['answer_id']);
-							}
-							else
-							{
-								$link = $this->model('openid_weixin')->redirect_url('/m/question/' . $val['answer_info']['answer_id']);
-							}
-							
 							$response_message[] = array(
 								'title' => $val['question_info']['question_content'],
-								'link' => $link,
+								'link' => $this->model('openid_weixin')->redirect_url('/m/question/' . $val['question_info']['question_id']),
 								'image_file' => $image_file
 							);
 						}
@@ -653,7 +651,7 @@ class weixin_class extends AWS_MODEL
 						
 							$response_message[] = array(
 								'title' => $val['question_info']['question_content'],
-								'link' => $this->model('openid_weixin')->redirect_url('/question/' . $val['question_id']),
+								'link' => $this->model('openid_weixin')->redirect_url('/m/question/' . $val['question_id']),
 								'image_file' => $image_file
 							);
 						}
