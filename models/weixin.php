@@ -48,7 +48,10 @@ class weixin_class extends AWS_MODEL
 				'mediaID' => $post_object['MediaID'],
 				'format' => $post_object['Format'],
 				'recognition' => $post_object['Recognition'],
-				'msgID' => $post_object['MsgID']
+				'msgID' => $post_object['MsgID'],
+				'latitude' => $post_object['Latitude'],
+				'longitude' => $post_object['Longitude'],
+				'precision'=> $post_object['Precision']
 			);
 			
 			if ($weixin_info = $this->model('openid_weixin')->get_user_info_by_openid($input_message['fromUsername']))
@@ -68,7 +71,7 @@ class weixin_class extends AWS_MODEL
 			case 'event':
 				if ($input_message['event'] == 'LOCATION')
 				{
-					
+					// 地理位置上报
 				}
 				else if (substr($input_message['eventKey'], 0, 8) == 'COMMAND_')
 				{
@@ -159,27 +162,34 @@ class weixin_class extends AWS_MODEL
 				}
 				else if ($this->is_language($input_message['content'], 'bad'))
 				{
-					$response_message = AWS_APP::config()->get('weixin')->bad_language_message;
+					$response_message = '说脏话都不是好孩子!';
 				}
-				else if ($search_result = $this->model('search')->search_questions($input_message['content'], null, 6))
+				else if ($search_result = $this->model('search')->search_questions($input_message['content'], null, 10))
 				{
-					$response_message = '下列内容可以帮到您么:' . "\n";
-					
 					foreach ($search_result AS $key => $val)
 					{
-						$response_message .= "\n" . '• <a href="' . get_js_url('/m/question/' . $val['question_id']) . '">' . $val['question_content'] . '</a>' . "\n";
-					}
-					
-					if (cjk_strlen($input_message['content']) > 5)
-					{
-						$response_message .= "\n\n" . AWS_APP::config()->get('weixin')->publish_message;
+						if (!$response_message)
+						{
+							$image_file = AWS_APP::config()->get('weixin')->default_list_image;
+						}
+						else
+						{
+							$image_file = get_avatar_url($val['published_uid'], 'max');
+							
+						}
+						
+						$response_message[] = array(
+							'title' => $val['question_content'],
+							'link' => $this->model('openid_weixin')->redirect_url('/question/' . $val['question_id']),
+							'image_file' => $image_file
+						);
 					}
 				}
 				else
 				{
 					if (!$response_message = $this->create_response_by_reply_rule_keyword(get_setting('weixin_no_result_message_key')))
 					{
-						$response_message = AWS_APP::config()->get('weixin')->publish_message;
+						$response_message = '您的问题没有人提到过';
 					}
 				}
 			break;
@@ -259,56 +269,48 @@ class weixin_class extends AWS_MODEL
 		switch ($message_code)
 		{
 			default:
-				if (cjk_strlen($input_message['content']) > 1)
+				if (cjk_strlen($input_message['content']) > 1 AND substr($input_message['content'], 0, 1) == '@')
 				{
-					if ($user_info = $this->model('account')->get_user_info_by_username($input_message['content']))
+					if ($user_info = $this->model('account')->get_user_info_by_username(substr($input_message['content'], 1)))
 					{
-						$response_message = '用户 ' . $input_message['content'] . ' 的资料:';
+						$response_message[] = array(
+							'title' => $user_info['signature'],
+							'link' => $this->model('openid_weixin')->redirect_url('/people/' . $user_info['url_token']),
+							'image_file' => get_avatar_url($user_info['uid'], '')
+						);
 						
-						if ($user_info['signature'])
-						{
-							$response_message .= "\n\n介绍: " . $user_info['signature'];
-						}
-						
-						if ($user_info['province'])
-						{
-							$response_message .= "\n\n现居: " . $user_info['province'] . ', ' . $user_info['city'];
-						}
-						
-						if ($job_info = $this->model('account')->get_jobs_by_id($user_info['job_id']))
-						{
-							$response_message .= "\n\n职位: " . $job_info['job_name'];
-						}
-						
-						$response_message .= "\n\n威望: " . $user_info['reputation'] . "\n\n赞同: " . $user_info['agree_count'] . "\n\n感谢: " . $user_info['thanks_count'] . "\n\n最后活跃: " . date_friendly($user_info['last_active']);
-						
-						if ($user_actions = $this->model('account')->get_user_actions($user_info['uid'], 5, 101))
-						{
-							$response_message .= "\n\n" . $user_info['user_name'] . " 的动态: \n";
-							
+						if ($user_actions = $this->model('account')->get_user_actions($user_info['uid'], 9, 101))
+						{							
 							foreach ($user_actions AS $key => $val)
-							{
-								$response_message .= "\n" . '• ' . strip_tags($val['last_action_str']) . ', <a href="' . get_js_url('/question/' . $val['question_info']['question_id']) . '">' . $val['question_info']['question_content'] . '</a> (' . date_friendly($val['add_time']) . ')' . "\n";
+							{								
+								$response_message[] = array(
+									'title' => $val['question_info']['question_content'],
+									'link' => $this->model('openid_weixin')->redirect_url('/question/' . $val['question_info']['question_id']),
+									'image_file' => get_avatar_url($val['question_info']['published_uid'], 'max')
+								);
 							}
 						}
 					}
-					
+				}
+				else
+				{
 					if ($topic_info = $this->model('topic')->get_topic_by_title($input_message['content']))
-					{
-						if ($response_message)
-						{
-							$response_message .= "\n\n============\n\n关于 " . $input_message['content'] . " 的话题:\n\n";
-						}
+					{						
+						$response_message[] = array(
+							'title' => $topic_info['topic_title'],
+							'link' => $this->model('openid_weixin')->redirect_url('/topic/' . $val['url_token']),
+							'image_file' => get_topic_pic_url('', $topic_info['topic_pic'])
+						);
 						
-						$response_message .= strip_tags($topic_info['topic_description']);
-						
-						if ($topic_questions = $this->model('question')->get_questions_list(1, 5, 'new', $topic_info['topic_id']))
+						if ($topic_questions = $this->model('question')->get_questions_list(1, 9, 'new', $topic_info['topic_id']))
 						{
-							$response_message .= $topic_info['topic_title'] . " 话题下的问题: \n";
-							
 							foreach ($topic_questions AS $key => $val)
 							{
-								$response_message .= "\n" . '• <a href="' . get_js_url('/question/' . $val['question_id']) . '">' . $val['question_content'] . '</a> (' . date_friendly($val['add_time']) . ')' . "\n";
+								$response_message[] = array(
+									'title' => $val['question_content'],
+									'link' => $this->model('openid_weixin')->redirect_url('/question/' . $val['question_id']),
+									'image_file' => get_avatar_url($val['published_uid'], 'max')
+								);
 							}
 						}
 					}
@@ -1048,5 +1050,5 @@ class weixin_class extends AWS_MODEL
 				return $val['attch_key'];
 			}
 		}
-	}
+	}	
 }
