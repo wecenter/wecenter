@@ -75,7 +75,8 @@ class weixin_class extends AWS_MODEL
 					{
 						$this->update('users_weixin', array(
 							'latitude' => $input_message['latitude'],
-							'longitude' => $input_message['longitude']
+							'longitude' => $input_message['longitude'],
+							'location_update' => time()
 						), 'uid = ' . $this->user_id);
 					}
 				}
@@ -570,18 +571,9 @@ class weixin_class extends AWS_MODEL
 								$image_file = get_avatar_url($val['question_info']['published_uid'], 'max');
 							}
 							
-							if ($val['associate_action'] == ACTION_LOG::ANSWER_QUESTION OR $val['associate_action'] == ACTION_LOG::ADD_AGREE)
-							{
-								$link = $this->model('openid_weixin')->redirect_url('/m/answer/' . $val['answer_info']['answer_id']);
-							}
-							else
-							{
-								$link = $this->model('openid_weixin')->redirect_url('/m/question/' . $val['question_info']['question_id']);
-							}
-							
 							$response_message[] = array(
 								'title' => $val['question_info']['question_content'],
-								'link' => $link,
+								'link' => $this->model('openid_weixin')->redirect_url('/m/question/' . $val['question_info']['question_id']),
 								'image_file' => $image_file
 							);
 						}
