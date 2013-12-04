@@ -55,7 +55,6 @@ class main extends AWS_CONTROLLER
 			case 'login':
 			case 'question':
 			case 'register':
-			case 'weixin_bind_success':
 			case 'topic':
 			case 'search':
 			case 'people':
