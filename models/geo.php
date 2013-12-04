@@ -37,10 +37,10 @@ class geo_class extends AWS_MODEL
 		$target_latitude = rad2deg(($radius / GEO_EARTH_RADIUS));
 		
 		return array(
-			//'TL' => array('latitude' => $latitude + $target_latitude, 'longitude' => $longitude - $target_longitude),	// Top left point 
-			'TR' => array('latitude' => $latitude + $target_latitude, 'longitude' => $longitude + $target_longitude),	// Top right point 
-			'BL' => array('latitude' => $latitude - $target_latitude, 'longitude' => $longitude - $target_longitude),	// Bottom left point 
-			//'BR' => array('latitude' => $latitude - $target_latitude, 'longitude' => $longitude + $target_longitude)	// Bottom right point 
+			'TL' => array('latitude' => $latitude + $target_latitude, 'longitude' => $longitude - $target_longitude),	// Top left point 
+			//'TR' => array('latitude' => $latitude + $target_latitude, 'longitude' => $longitude + $target_longitude),	// Top right point 
+			//'BL' => array('latitude' => $latitude - $target_latitude, 'longitude' => $longitude - $target_longitude),	// Bottom left point 
+			'BR' => array('latitude' => $latitude - $target_latitude, 'longitude' => $longitude + $target_longitude)	// Bottom right point 
 		);
 	}
 	
