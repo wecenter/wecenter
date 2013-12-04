@@ -30,16 +30,16 @@ class geo_class extends AWS_MODEL
 	* @param radius float 该点所在圆的半径,该圆与此正方形内切, 单位: 千米
 	* @return array 正方形的四个点的经纬度坐标
 	*/
-	public function get_square_point($longitude, $latitude, $radius = 0.5)
+	public function get_square_point($longitude, $latitude, $radius = 1)
 	{
-		$target_longitude =  rad2deg((2 * asin(sin($radius / (2 * GEO_EARTH_RADIUS)) / cos(deg2rad($latitude)))));
+		$target_longitude = rad2deg((2 * asin(sin($radius / (2 * GEO_EARTH_RADIUS)) / cos(deg2rad($latitude)))));
 		
 		$target_latitude = rad2deg(($radius / GEO_EARTH_RADIUS));
 		
 		return array(
 			'TL' => array('latitude' => $latitude + $target_latitude, 'longitude' => $longitude - $target_longitude),	// Top left point 
-			'TR' => array('latitude' => $latitude + $target_latitude, 'longitude' => $longitude + $target_longitude),	// Top right point 
-			'BL' => array('latitude' => $latitude - $target_latitude, 'longitude' => $longitude - $target_longitude),	// Bottom left point 
+			//'TR' => array('latitude' => $latitude + $target_latitude, 'longitude' => $longitude + $target_longitude),	// Top right point 
+			//'BL' => array('latitude' => $latitude - $target_latitude, 'longitude' => $longitude - $target_longitude),	// Bottom left point 
 			'BR' => array('latitude' => $latitude - $target_latitude, 'longitude' => $longitude + $target_longitude)	// Bottom right point 
 		);
 	}

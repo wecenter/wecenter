@@ -305,7 +305,7 @@ class weixin_class extends AWS_MODEL
 					{						
 						$response_message[] = array(
 							'title' => $topic_info['topic_title'],
-							'link' => $this->model('openid_weixin')->redirect_url('/m/topic/' . $val['url_token']),
+							'link' => $this->model('openid_weixin')->redirect_url('/m/topic/' . $topic_info['url_token']),
 							'image_file' => get_topic_pic_url('', $topic_info['topic_pic'])
 						);
 						
