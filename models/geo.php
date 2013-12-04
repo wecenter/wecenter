@@ -18,10 +18,10 @@ if (!defined('IN_ANWSION'))
 	die;
 }
 
+define('GEO_EARTH_RADIUS', 6371);	// 地球半径, 平均半径为 6371km
+
 class geo_class extends AWS_MODEL
 {
-	define(GEO_EARTH_RADIUS, 6371);	// 地球半径, 平均半径为 6371km
-	
 	/**
 	* 计算某个经纬度的周围某段距离的正方形的四个点
 	*
