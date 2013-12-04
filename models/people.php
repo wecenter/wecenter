@@ -165,4 +165,19 @@ class people_class extends AWS_MODEL
 		
 		return $this->fetch_page('users', implode(' AND ', $where), 'uid DESC', $page, $per_page);
 	}
+	
+	public function get_near_by_users($longitude, $latitude, $uid, $limit = 10)
+	{
+		$squares = $this->model('geo')->get_square_point($longitude, $latitude);
+		
+		if ($weixin_users = $this->fetch_all('weixin_users', "`uid` != " . intval($uid) . " AND `latitude` != 0 AND `latitude` > " . $squares['BR']['latitude'] . " AND `latitude` < " . $squares['TL']['latitude'] . " AND `longitude` > " . $squares['TL']['longitude'] . " AND `longitude` < " . $squares['BR']['longitude']))
+		{
+			$near_by_uids[] = $val['uid'];
+		}
+		
+		if ($near_by_uids)
+		{
+			return $this->model('account')->get_user_info_by_uids($near_by_uids);
+		}
+	}
 }

@@ -71,7 +71,13 @@ class weixin_class extends AWS_MODEL
 			case 'event':
 				if ($input_message['event'] == 'LOCATION')
 				{
-					// 地理位置上报
+					if ($this->user_id)
+					{
+						$this->update('weixin_users', array(
+							'latitude' => $input_message['latitude'],
+							'longitude' => $input_message['longitude']
+						), 'uid = ' . $this->user_id);
+					}
 				}
 				else if (substr($input_message['eventKey'], 0, 8) == 'COMMAND_')
 				{
