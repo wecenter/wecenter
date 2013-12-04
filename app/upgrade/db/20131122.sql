@@ -30,6 +30,12 @@ CREATE TABLE `[#DB_PREFIX#]users_weixin` (
   KEY `location_update` (`location_update`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
 
+ALTER TABLE `[#DB_PREFIX#]users` DROP `weixin_id`;
+DROP TABLE `[#DB_PREFIX#]weixin_valid`;
+DROP TABLE `[#DB_PREFIX#]weixin_fake_id`;
+DROP TABLE `[#DB_PREFIX#]weixin_publish_rule`;
+ALTER TABLE `[#DB_PREFIX#]weixin_reply_rule` DROP `event_key`;
+
 CREATE TABLE `[#DB_PREFIX#]geo_location` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `item_type` varchar(32) NOT NULL,
@@ -43,12 +49,3 @@ CREATE TABLE `[#DB_PREFIX#]geo_location` (
   KEY `geo_location` (`latitude`,`longitude`),
   KEY `item_id` (`item_id`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
-
-ALTER TABLE `[#DB_PREFIX#]users` DROP `weixin_id`;
-DROP TABLE `[#DB_PREFIX#]weixin_valid`;
-DROP TABLE `[#DB_PREFIX#]weixin_fake_id`;
-DROP TABLE `[#DB_PREFIX#]weixin_publish_rule`;
-ALTER TABLE `[#DB_PREFIX#]weixin_reply_rule` DROP `event_key`;
-
-ALTER TABLE `[#DB_PREFIX#]users_weixin` ADD `latitude` FLOAT( 10 ) NULL, ADD `longitude` FLOAT( 10 ) NULL, ADD  `location_update` INT( 10 ) NULL DEFAULT '0', ADD INDEX ( `latitude`, `longitude`);
-ALTER TABLE `[#DB_PREFIX#]users_weixin` ADD INDEX ( `location_update` );
