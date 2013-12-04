@@ -481,6 +481,14 @@ class ajax extends AWS_CONTROLLER
 			
 			if ($_POST['_is_mobile'])
 			{
+				if ($weixin_user = $this->model('openid_weixin')->get_user_info_by_uid($this->user_id))
+				{
+					if ($weixin_user['location_update'] > time() - 7200)
+					{
+						$this->model('geo')->set_location('question', $question_id, $weixin_user['longitude'], $weixin_user['latitude']);
+					}	
+				}
+				
 				$url = get_js_url('/m/question/' . $question_id);
 			}
 			else

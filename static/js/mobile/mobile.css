@@ -414,6 +414,12 @@ nav #aw-top-nav-notic .badge{position: absolute;right: 0;top:1px;z-index:100;pad
 .alert-publish .alert{margin-bottom: 10px;border:1px solid #EED3D7;}
 .alert-redirect .modal-body .dropdown-list{max-height: 288px;overflow-y:scroll;}
 
+/* 全局提示 */
+.aw-global-tips{position: fixed;top: 0;width: 100%;height:45px;line-height:45px;z-index: 9999;background-color:#4f4f4f;opacity: 0.9;box-shadow:0px 2px 1px #434343;}
+.aw-global-tips a{display: block;width:90%;color:#fff;text-align: center;text-shadow:1px 1px 1px #242424;font-weight: bold;}
+.aw-global-tips a:hover{text-decoration: none;}
+.aw-global-tips .fa-times-circle-o{margin:13px 10px 0 0;font-size:20px;color: #fff;text-shadow:1px 1px 1px #242424;}
+
 /* 字体icon */
 .fa-tag, .fa-signal, .fa-thumbs-up, .fa-heart, .fa-edit, .fa-heart{color: #999;}
 .icon-v{font-size: 18px;color: #a5d300;}
@@ -492,3 +498,17 @@ footer{margin-top:20px;font-size: 12px;text-align: center;}
 #fancybox-buttons a.btnToggleOn {background-position: -27px -60px;}
 #fancybox-buttons a.btnClose {border-left: 1px solid #111;width: 35px;background-position: -56px 0px;}
 #fancybox-buttons a.btnDisabled {opacity : 0.4;cursor: default;}
+
+/* 附近的人 附近的问题 */
+.nearby-people ul li{position:relative;min-height:100px;padding:10px 10px 10px 100px;border-top: 1px solid #eeeeee;}
+.nearby-people ul li:first-child{border-top: none;}
+.nearby-people ul li:nth-of-type(even){background-color: #f3f3f3;}
+.nearby-people .user-img{position: absolute;left: 10px;top: 10px;}
+.nearby-people .btn{position: absolute;right: 10px;top: 34px;}
+.nearby-people h1{margin:0;line-height: 20px;font-size: 14px;}
+.nearby-people p, .nearby-question p{margin:8px 0 0;color:#b4b4b4;font-size: 12px;}
+.nearby-people p i, .nearby-question p i{color:#c51010}
+.nearby-question ul li{padding:15px 10px;}
+.nearby-question ul li:nth-of-type(odd){background-color: #f3f3f3;}
+.nearby-question h1{margin:0;font-size: 18px;color: #666;}
+.nearby-question p span{margin:0 15px;}
