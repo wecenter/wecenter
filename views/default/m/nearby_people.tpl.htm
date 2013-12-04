@@ -2,7 +2,7 @@
 
 	<div class="mod nearby-people">
 		<ul>
-			<?php if ($this->near_by_users AS $key => $val) { ?>
+			<?php foreach ($this->near_by_users AS $key => $val) { ?>
 			<li>
 				<a class="user-img img-thumbnail"><img src="<?php echo get_avatar_url($val['uid'], 'max'); ?>" /></a>
 				<h1><?php echo $this->user['user_name']; ?></h1>
