@@ -172,8 +172,12 @@ class people_class extends AWS_MODEL
 		
 		if ($weixin_users = $this->fetch_all('users_weixin', "`uid` != " . intval($uid) . " AND `location_update` > 0 AND `latitude` > " . $squares['BR']['latitude'] . " AND `latitude` < " . $squares['TL']['latitude'] . " AND `longitude` > " . $squares['TL']['longitude'] . " AND `longitude` < " . $squares['BR']['longitude']))
 		{
-			$near_by_uids[] = $val['uid'];
-			$near_by_location_update[$val['uid']] = $val['location_update'];
+			foreach ($weixin_users AS $key => $val)
+			{
+				$near_by_uids[] = $val['uid'];
+				$near_by_location_update[$val['uid']] = $val['location_update'];
+			}
+			
 		}
 		
 		if ($near_by_uids)

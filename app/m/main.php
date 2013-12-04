@@ -838,7 +838,7 @@ class main extends AWS_CONTROLLER
 	}
 
 	public function nearby_people_action()
-	{		
+	{
 		if ($weixin_user = $this->model('openid_weixin')->get_user_info_by_uid($this->user_id))
 		{
 			if (!$near_by_users = $this->model('people')->get_near_by_users($weixin_user['longitude'], $weixin_user['latitude'], $this->user_id, 20))
