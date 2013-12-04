@@ -74,6 +74,18 @@ class weixin extends AWS_CONTROLLER
 				}
 				else
 				{
+					$redirect_uri = str_replace(get_setting('base_url'), '', get_js_url(base64_decode($_GET['redirect'])));
+										
+					if ($this->user_info['permission']['visit_site'] AND substr($redirect_uri, 0, 1) == '/')
+					{
+						$uri_analyze = explode('/', substr($redirect_uri, 1));
+						
+						if (($uri_analyze[0] == 'question' AND $this->user_info['permission']['visit_question']) OR ($uri_analyze[0] == 'topic' AND $this->user_info['permission']['visit_topic']) OR ($uri_analyze[0] == 'feature' AND $this->user_info['permission']['visit_feature']) OR ($uri_analyze[0] == 'people' AND $this->user_info['permission']['visit_people']) OR ($uri_analyze[0] == 'home' AND $this->user_info['permission']['visit_explore']))
+						{
+							HTTP::redirect(base64_decode($_GET['redirect']));
+						}
+					}
+					
 					HTTP::redirect($this->model('openid_weixin')->get_oauth_url('/m/weixin/authorization/?redirect=' . urlencode($_GET['redirect'])));
 				}
 			}
@@ -124,12 +136,6 @@ class weixin extends AWS_CONTROLLER
 		}
 	}
 	
-	public function bingding_test_action()
-	{
-		echo '欢迎回来:' . $this->user_info['user_name'];
-		die;
-	}
-	
 	public function binding_action()
 	{
 		if ($weixin_user = $this->model('openid_weixin')->get_user_info_by_openid(AWS_APP::session()->WXConnect['access_token']['openid']))
@@ -161,7 +167,16 @@ class weixin extends AWS_CONTROLLER
 	
 	public function oauth_redirect_action()
 	{
-		header('Location: https://open.weixin.qq.com/connect/oauth2/authorize?appid=' . AWS_APP::config()->get('weixin')->app_id . '&redirect_uri=' . urlencode(get_js_url($_GET['uri'])) . '&response_type=code&scope=' . urlencode($_GET['scope']) . '&state=' . urlencode($_GET['state']) . '#wechat_redirect');
+		if (!$_GET['uri'])
+		{
+			$redirect_uri = $_SERVER['HTTP_REFERER'];
+		}
+		else
+		{
+			$redirect_uri = urlencode(get_js_url($_GET['uri']));
+		}
+		
+		header('Location: https://open.weixin.qq.com/connect/oauth2/authorize?appid=' . AWS_APP::config()->get('weixin')->app_id . '&redirect_uri=' . $redirect_uri . '&response_type=code&scope=' . urlencode($_GET['scope']) . '&state=' . urlencode($_GET['state']) . '#wechat_redirect');
 		die;
 	}
 }
