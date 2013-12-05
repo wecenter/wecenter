@@ -52,7 +52,7 @@ class search_fulltext_class extends AWS_MODEL
 			break;
 		}
 		
-		return "SELECT *, MATCH(" . $column . "_fulltext) AGAINST('" . $this->quote($this->encode_search_code($keyword)) . " " . $keyword . "' IN BOOLEAN MODE) AS score FROM " . $this->get_table($table) . " WHERE MATCH(" . $column . "_fulltext) AGAINST('" . $this->quote($this->encode_search_code($keyword)) . " " . $keyword . "' IN BOOLEAN MODE) " . $where . " ORDER BY score DESC, " . $order_key;
+		return "SELECT *, MATCH(" . $column . "_fulltext) AGAINST('" . $this->quote($this->encode_search_code($keyword)) . "' IN BOOLEAN MODE) AS score FROM " . $this->get_table($table) . " WHERE MATCH(" . $column . "_fulltext) AGAINST('" . $this->quote($this->encode_search_code($keyword)) . "' IN BOOLEAN MODE) " . $where . " ORDER BY score DESC, " . $order_key;
 	}
 	
 	public function search_questions($q, $topic_ids = null, $limit = 20)
@@ -126,17 +126,19 @@ class search_fulltext_class extends AWS_MODEL
 			$keywords = array_slice($keywords, 0, 10);
 		}
 		
+		$search_code = $this->encode_search_code($keywords);
+		
 		switch ($type)
 		{
 			case 'question':
 				return $this->shutdown_update('question', array(
-					'question_content_fulltext' => implode(' ', $keywords)
+					'question_content_fulltext' => $search_code
 				), 'question_id = ' . intval($item_id));
 			break;
 			
 			case 'article':
 				return $this->update('article', array(
-					'title_fulltext' => implode(' ', $keywords)
+					'title_fulltext' => $search_code
 				), 'id = ' . intval($item_id));
 			break;
 		}

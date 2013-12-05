@@ -56,4 +56,35 @@ class geo_class extends AWS_MODEL
 			'add_time' => time()
 		));
 	}
+	
+	public function get_distance($latitude_a, $longitude_a, $latitude_b, $longitude_b)
+	{
+		/*
+		Convert these degrees to radians
+		to work with the formula
+		*/
+		
+		$latitude_a = ($latitude_a * pi()) / 180;
+		$longitude_a = ($longitude_a * pi()) / 180;
+		
+		$latitude_b = ($latitude_b * pi()) / 180;
+		$longitude_b = ($longitude_b * pi()) / 180;
+		
+		/*
+		Using the
+		Haversine formula
+		
+		http://en.wikipedia.org/wiki/Haversine_formula
+		
+		calculate the distance
+		*/
+		
+		$calcLongitude = $longitude_b - $longitude_a;
+		$calcLatitude = $latitude_b - $latitude_a;
+		$stepOne = pow(sin($calcLatitude / 2), 2) + cos($latitude_a) * cos($latitude_b) * pow(sin($calcLongitude / 2), 2);  $stepTwo = 2 * asin(min(1, sqrt($stepOne)));
+		
+		$calculatedDistance = GEO_EARTH_RADIUS * $stepTwo;
+		
+		return round($calculate);
+	}
 }

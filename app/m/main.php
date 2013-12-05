@@ -848,7 +848,7 @@ class main extends AWS_CONTROLLER
 		}
 		else
 		{
-			H::redirect_msg(AWS_APP::lang()->_t('请先绑定微信'));
+			H::redirect_msg(AWS_APP::lang()->_t('请先绑定微信或打开地理位置分享'));
 		}
 		
 		TPL::assign('near_by_users', $near_by_users);
@@ -858,6 +858,20 @@ class main extends AWS_CONTROLLER
 
 	public function nearby_question_action()
 	{
+		if ($near_by_questions = $this->model('openid_weixin')->get_user_info_by_uid($this->user_id))
+		{
+			if (!$near_by_questions = $this->model('people')->get_near_by_users($weixin_user['longitude'], $weixin_user['latitude'], $this->user_id, 20))
+			{
+				H::redirect_msg(AWS_APP::lang()->_t('你的附近暂时没有问题'));
+			}
+		}
+		else
+		{
+			H::redirect_msg(AWS_APP::lang()->_t('请先绑定微信或打开地理位置分享'));
+		}
+		
+		TPL::assign('near_by_questions', $near_by_questions);
+		
 		TPL::output('m/nearby_question');
 	}
 }
