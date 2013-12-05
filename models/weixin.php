@@ -115,7 +115,7 @@ class weixin_class extends AWS_MODEL
 						$response_message = '菜单指令错误';
 					}
 				}
-				else if (substr($input_message['eventKey'], 0, 11) == 'COMMAND_MORE')
+				else if ($input_message['eventKey'] == 'COMMAND_MORE')
 				{
 					$input_message['content'] = '更多';
 					$input_message['msgType'] = 'text';
@@ -273,6 +273,11 @@ class weixin_class extends AWS_MODEL
 			return false;
 		}
 		
+		if (!$param)
+		{
+			$param = 1;
+		}
+		
 		switch ($message_code)
 		{
 			default:
@@ -286,7 +291,7 @@ class weixin_class extends AWS_MODEL
 							'image_file' => get_avatar_url($user_info['uid'], '')
 						);
 						
-						if ($user_actions = $this->model('account')->get_user_actions($user_info['uid'], 9, 101))
+						if ($user_actions = $this->model('account')->get_user_actions($user_info['uid'], calc_page_limit($param, 9), 101))
 						{							
 							foreach ($user_actions AS $key => $val)
 							{								
@@ -309,7 +314,7 @@ class weixin_class extends AWS_MODEL
 							'image_file' => get_topic_pic_url('', $topic_info['topic_pic'])
 						);
 						
-						if ($topic_questions = $this->model('question')->get_questions_list(1, 9, 'new', $topic_info['topic_id']))
+						if ($topic_questions = $this->model('question')->get_questions_list(1, calc_page_limit($param, 9), 'new', $topic_info['topic_id']))
 						{
 							foreach ($topic_questions AS $key => $val)
 							{
@@ -339,11 +344,11 @@ class weixin_class extends AWS_MODEL
 				
 				if ($topics_id)
 				{
-					$article_list = $this->model('article')->get_articles_list_by_topic_ids(1, 10, 'add_time DESC', $topics_id);
+					$article_list = $this->model('article')->get_articles_list_by_topic_ids($param, 10, 'add_time DESC', $topics_id);
 				}
 				else
 				{
-					$article_list = $this->model('article')->get_articles_list(1, 10, 'add_time DESC');
+					$article_list = $this->model('article')->get_articles_list($param, 10, 'add_time DESC');
 				}
 				
 				foreach ($article_list AS $key => $val)
@@ -385,7 +390,7 @@ class weixin_class extends AWS_MODEL
 					}
 				}
 				
-				if ($question_list = $this->model('question')->get_hot_question($category_id, $topics_id, 7, 1, 10))
+				if ($question_list = $this->model('question')->get_hot_question($category_id, $topics_id, 7, $param, 10))
 				{
 					foreach ($question_list AS $key => $val)
 					{
@@ -431,7 +436,7 @@ class weixin_class extends AWS_MODEL
 					}
 				}
 				
-				if ($question_list = $this->model('question')->get_questions_list(1, 10, 'new', $topics_id, $category_id))
+				if ($question_list = $this->model('question')->get_questions_list($param, 10, 'new', $topics_id, $category_id))
 				{					
 					foreach ($question_list AS $key => $val)
 					{
@@ -477,7 +482,7 @@ class weixin_class extends AWS_MODEL
 					}
 				}
 				
-				if ($question_list = $this->model('question')->get_questions_list(1, 10, 'unresponsive', $topics_id, $category_id))
+				if ($question_list = $this->model('question')->get_questions_list($param, 10, 'unresponsive', $topics_id, $category_id))
 				{					
 					foreach ($question_list AS $key => $val)
 					{
@@ -523,7 +528,7 @@ class weixin_class extends AWS_MODEL
 					}
 				}
 				
-				if ($question_list = $this->model('question')->get_questions_list(1, 10, null, $topics_id, $category_id, null, null, true))
+				if ($question_list = $this->model('question')->get_questions_list($param, 10, null, $topics_id, $category_id, null, null, true))
 				{
 					foreach ($question_list AS $key => $val)
 					{
@@ -555,7 +560,7 @@ class weixin_class extends AWS_MODEL
 			case 'HOME_ACTIONS':
 				if ($this->user_id)
 				{
-					if ($index_actions = $this->model('index')->get_index_focus($this->user_id, 10))
+					if ($index_actions = $this->model('index')->get_index_focus($this->user_id, calc_page_limit($param, 10)))
 					{
 						foreach ($index_actions AS $key => $val)
 						{
@@ -601,7 +606,7 @@ class weixin_class extends AWS_MODEL
 			case 'NOTIFICATIONS':
 				if ($this->user_id)
 				{
-					if ($notifications = $this->model('notify')->list_notification($this->user_id, 0, calc_page_limit($param, 5)))
+					if ($notifications = $this->model('notify')->list_notification($this->user_id, 0, calc_page_limit($param, 10)))
 					{
 						$response_message = '最新通知:';
 						
@@ -611,13 +616,6 @@ class weixin_class extends AWS_MODEL
 						}
 						
 						$response_message .= "\n\n请输入 '更多' 显示其他相关内容";
-						
-						if (!$param)
-						{
-							$param = 1;
-						}
-						
-						$action = 'NOTIFICATIONS-' . ($param + 1);
 					}
 					else
 					{
@@ -642,7 +640,7 @@ class weixin_class extends AWS_MODEL
 			case 'MY_QUESTION':
 				if ($this->user_id)
 				{
-					if ($user_actions = $this->model('account')->get_user_actions($this->user_id, calc_page_limit($param, 5), 101))
+					if ($user_actions = $this->model('account')->get_user_actions($this->user_id, calc_page_limit($param, 10), 101))
 					{						
 						foreach ($user_actions AS $key => $val)
 						{
@@ -664,13 +662,6 @@ class weixin_class extends AWS_MODEL
 								'image_file' => $image_file
 							);
 						}
-						
-						if (!$param)
-						{
-							$param = 1;
-						}
-						
-						$action = 'MY_QUESTION-' . ($param + 1);
 					}
 					else
 					{
@@ -700,7 +691,7 @@ class weixin_class extends AWS_MODEL
 		
 		return array(
 			'message' => $response_message,
-			'action' => $action
+			'action' => $message_code . '-' . ($param + 1)
 		);
 	}
 
@@ -777,25 +768,12 @@ class weixin_class extends AWS_MODEL
 			$last_action_param = $last_actions[1];
 		}
 		
-		switch ($last_action['action'])
-		{						
-			case 'MY_QUESTION':
-				return $this->message_parser(array(
-					'content' => 'MY_QUESTION',
-					'fromUsername' => $weixin_id
-				), $last_action_param);
-			break;
-			
-			case 'NOTIFICATIONS':
-				return $this->message_parser(array(
-					'content' => 'NOTIFICATIONS',
-					'fromUsername' => $weixin_id
-				), $last_action_param);
-			break;
-			
-			default:
-				$response_message = '您好, 请问需要什么帮助?';
-			break;
+		if (!$response_message = $this->message_parser(array(
+			'content' => $last_action['action'],
+			'fromUsername' => $weixin_id
+		), $last_action_param)
+		{
+			$response_message = '您好, 请问需要什么帮助?';
 		}
 		
 		return array(
