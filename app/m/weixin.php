@@ -147,6 +147,9 @@ class weixin extends AWS_CONTROLLER
 		{
 			$user_info = $this->model('account')->get_user_info_by_uid($weixin_user['uid']);
 			
+			$this->model('account')->setcookie_logout();	// 清除 COOKIE
+			$this->model('account')->setsession_logout();	// 清除 Session
+			
 			HTTP::set_cookie('_user_login', get_login_cookie_hash($user_info['user_name'], $user_info['password'], $user_info['salt'], $user_info['uid'], false));
 			
 			HTTP::redirect('/');
