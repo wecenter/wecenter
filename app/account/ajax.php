@@ -184,7 +184,7 @@ class ajax extends AWS_CONTROLLER
 				$url = get_js_url('/question/' . $_POST['invite_question_id']);
 					
 				$title = $follow_users['user_name'] . ' 邀请你来回复问题';
-				$content = $follow_users['user_name'] . "  邀请你来回复问题: " . $url . " \r\n\r\n 邀请你来回复问题期待您的回复";
+				$content = $follow_users['user_name'] . " 邀请你来回复问题: " . $url . " \r\n\r\n 邀请你来回复问题期待您的回复";
 				
 				$this->model('message')->send_message($follow_uid, $uid, $title, $content, 0, 0);
 			}
@@ -234,6 +234,8 @@ class ajax extends AWS_CONTROLLER
 			{
 				if ($_POST['return_url'])
 				{
+					$user_info = $this->model('account')->get_user_info_by_uid($uid);
+					
 					$this->model('account')->setcookie_login($user_info['uid'], $user_info['user_name'], $_POST['password'], $user_info['salt']);
 					
 					$return_url = strip_tags($_POST['return_url']);

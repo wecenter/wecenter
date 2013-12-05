@@ -27,7 +27,7 @@
 					<input type="hidden" name="return_url" value="<?php echo get_js_url('/m/weixin/binding/redirect-' . urlencode($_GET['redirect'])); ?>" />
 					
 					<div class="username">
-						<input type="text" id="user_name" name="user_name" placeholder="<?php _e('用户名'); ?>" />
+						<input type="text" id="user_name" name="user_name" placeholder="<?php _e('用户名'); ?>" value="<?php echo $this->access_user['nickname']; ?>" />
 					</div>
 					<div class="email">
 						<input type="text" id="email" name="email" placeholder="<?php _e('邮箱'); ?>" />
