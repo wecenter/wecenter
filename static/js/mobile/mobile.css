@@ -17,6 +17,7 @@ code{white-space: normal;}
 .aw-arrow.normal{border-width: 7px;}
 .btn-submit{margin:0 auto 15px;background:#80C3F7;border: 1px solid #1D80CF;border-radius: 5px 5px 5px 5px;box-shadow: 0 1px 0 rgba(255, 255, 255, 0.3) inset, 0 1px 1px rgba(50, 50, 50, 0.05);color: #FFFFFF;cursor: pointer;display: block;font-size: 16px;line-height: 37px;text-align: center;text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);width: 100%;font-weight: bold;}
 .btn-submit:hover{text-decoration: none;}
+.btn-green{background-color: #8aca02;}
 .alert{margin:0;padding:8px 14px;border-left: none;border-left: none;border-radius: 0px;}
 .alert a{text-decoration: underline;}
 .alert-info{color: #666;}
@@ -34,7 +35,7 @@ code{white-space: normal;}
 #aw-loading-box { width: 40px; height: 40px; background-image: url('img/loading.png'); }
 .form-control{padding:3px 6px;}
 input[type="text"], input[type="password"]{
-  height: 34px;
+  height: 38px;
   padding: 3px 6px;
   font-size: 14px;
   line-height: 1.428571429;
@@ -305,9 +306,9 @@ nav #aw-top-nav-notic .badge{position: absolute;right: 0;top:1px;z-index:100;pad
 
 /* 登陆页面 */
 .explore-body{padding:0 !important;}
-.explore-body .explore-page{height:auto;padding:40px 0 30px;background: #0078D8;box-shadow: 0 -1px 6px rgba(0, 0, 0, 0.1) inset;}
+.explore-body .explore-page{height:auto;padding:30px 0;background: #0078D8;box-shadow: 0 -1px 6px rgba(0, 0, 0, 0.1) inset;}
 .explore-wrap, .find-password .find-password-wrap{width: 250px;margin:0 auto;text-align: center;}
-.explore-wrap .aw-mod-header{margin:20px 0;}
+.explore-wrap .aw-mod-header img{width:200px;}
 .explore-wrap .aw-mod-body, .explore-wrap h1, .explore-wrap .aw-mod-footer .title{margin:0 0 20px;}
 .explore-wrap h1{color: #fff;text-shadow:0px 3px 1px rgba(0, 0, 0, 0.1);}
 .explore-wrap .aw-mod-footer{margin:20px 0 0;}
@@ -319,6 +320,11 @@ nav #aw-top-nav-notic .badge{position: absolute;right: 0;top:1px;z-index:100;pad
 .explore-wrap .aw-mod-footer .verify input{width: 54%;padding:7px 6px;}
 .explore-wrap .aw-mod-footer .verify img{margin-left: 10px;height: 36px;}
 .explore-wrap .aw-mod-footer .login-misc{font-size: 12px;}
+.explore-wrap .bind-confirm p, .explore-wrap .register-confirm p{color: #fff;text-align: left;}
+.explore-wrap .bind-form p, .explore-wrap .register-form p{text-align: left;color: #fff;}
+
+/* 微信绑定页面 */
+.wechat-bind-page h1{margin-bottom: 40px;}
 
 /* 找回密码 */
 .find-password{background: #0078D8;color: #fff;}
