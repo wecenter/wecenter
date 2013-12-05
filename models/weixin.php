@@ -84,7 +84,7 @@ class weixin_class extends AWS_MODEL
 				{
 					if ($input_message['eventKey'] == 'COMMAND_MORE')
 					{
-						$input_message['content'] = '更多';
+						$input_message['content'] = 'yes';
 						$input_message['msgType'] = 'text';
 					
 						$response_message = $this->response_message($input_message);
