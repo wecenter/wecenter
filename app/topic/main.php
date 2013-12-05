@@ -250,6 +250,10 @@ class main extends AWS_CONTROLLER
 			
 			if ($merged_topics_info = $this->model('topic')->get_topics_by_ids($merged_topic_ids))
 			{
+				$contents_topic_title = array(
+					$contents_topic_title
+				);
+				
 				foreach($merged_topics_info AS $key => $val)
 				{
 					$contents_topic_title[] = $val['topic_title'];
