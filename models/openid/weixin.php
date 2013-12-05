@@ -54,7 +54,7 @@ class openid_weixin_class extends AWS_MODEL
 				}
 				else
 				{
-					H::redirect_msg(AWS_APP::lang()->_t('微信账号已经被其他账号绑定'), '/account/logout/');
+					H::redirect_msg(AWS_APP::lang()->_t('微信账号已经被其他账号绑定'));
 				}
 			}
 		}
