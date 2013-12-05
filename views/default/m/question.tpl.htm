@@ -186,7 +186,7 @@
 	<a name="answer_form"></a>
 	<?php if ($_GET['single']) { ?>
 	<a href="question/<?php echo $this->question_info['question_id']; ?>" class="aw-load-more"><?php _e('查看全部回答'); ?></a>
-	<?php else if ($this->next_page) { ?>
+	<?php } else if ($this->next_page) { ?>
 	<a href="m/question/<?php echo $this->question_info['question_id']; ?>?page-<?php echo $this->next_page; ?>" class="aw-load-more"><?php _e('下一页'); ?></a>
 	<?php } ?>
 	

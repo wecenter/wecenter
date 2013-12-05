@@ -80,7 +80,16 @@ class weixin extends AWS_CONTROLLER
 					{
 						$uri_analyze = explode('/', substr($redirect_uri, 1));
 						
-						if (($uri_analyze[0] == 'question' AND $this->user_info['permission']['visit_question']) OR ($uri_analyze[0] == 'topic' AND $this->user_info['permission']['visit_topic']) OR ($uri_analyze[0] == 'feature' AND $this->user_info['permission']['visit_feature']) OR ($uri_analyze[0] == 'people' AND $this->user_info['permission']['visit_people']) OR ($uri_analyze[0] == 'home' AND $this->user_info['permission']['visit_explore']))
+						if ($uri_analyze[0] == 'm')
+						{
+							$current_controller = $uri_analyze[1];
+						}
+						else
+						{
+							$current_controller = $uri_analyze[0];
+						}
+						
+						if (($current_controller == 'question' AND $this->user_info['permission']['visit_question']) OR ($current_controller == 'topic' AND $this->user_info['permission']['visit_topic']) OR ($current_controller == 'feature' AND $this->user_info['permission']['visit_feature']) OR ($current_controller == 'people' AND $this->user_info['permission']['visit_people']) OR ($current_controller == 'home' AND $this->user_info['permission']['visit_explore']))
 						{
 							HTTP::redirect(base64_decode($_GET['redirect']));
 						}
@@ -118,7 +127,16 @@ class weixin extends AWS_CONTROLLER
 				
 				if ($access_user['errcode'])
 				{
-					H::redirect_msg('Get user info error: ' . $access_user['errcode'] . ' ' . $access_user['errmsg']);
+					if ($access_user['errcode'] == 48001)
+					{
+						$this->model('weixin')->send_text_message($access_token['openid'], '当前微信没有绑定社区帐号, 请<a href="' . $this->model('openid_weixin')->get_oauth_url(get_js_url('/m/weixin/authorization/'), 'snsapi_userinfo') . '">点此绑定</a>或<a href="' . get_js_url('/m/register/') . '">注册新账户</a>, 使用全部功能');
+						
+						H::redirect_msg('当前微信没有绑定社区帐号, 请返回进行绑定后访问本内容');
+					}
+					else
+					{
+						H::redirect_msg('Get user info error: ' . $access_user['errcode'] . ' ' . $access_user['errmsg']);
+					}
 				}
 				
 				AWS_APP::session()->WXConnect = array(
