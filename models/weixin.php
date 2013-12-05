@@ -879,8 +879,11 @@ class weixin_class extends AWS_MODEL
 	{
 		if ($reply_rule = $this->get_reply_rule_by_id($id))
 		{
-			unlink(get_setting('upload_dir') . '/weixin/' . $reply_rule['image_file']);
-			unlink(get_setting('upload_dir') . '/weixin/square_' . $reply_rule['image_file']);
+			if ($reply_rule['image_file'])
+			{
+				unlink(get_setting('upload_dir') . '/weixin/' . $reply_rule['image_file']);
+				unlink(get_setting('upload_dir') . '/weixin/square_' . $reply_rule['image_file']);
+			}
 			
 			return $this->delete('weixin_reply_rule', 'id = ' . intval($id));
 		}
