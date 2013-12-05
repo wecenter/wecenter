@@ -22,6 +22,8 @@
 			<div class="register-form hide">
 				<p><?php _e('请填写下列表单完成账号注册'); ?></p>
 				<form id="register_form" method="post" onsubmit="return false;" action="account/ajax/register_process/">
+					<input type="hidden" name="agreement_chk" value="agree" />
+					
 					<input type="hidden" name="return_url" value="<?php echo get_js_url('/m/weixin/binding/redirect-' . urlencode($_GET['redirect'])); ?>" />
 					
 					<div class="username">
@@ -43,7 +45,7 @@
 			</div>
 					
 			<div class="register-confirm hide">
-				<a href="javascript:;" class="btn-submit"  onclick="ajax_post($('#register_form')); return false;"><?php _e('注册')?></a>
+				<a href="javascript:;" class="btn-submit" onclick="ajax_post($('#register_form')); return false;"><?php _e('注册')?></a>
 				<a class="btn-submit btn-green" href="javascript:;" onclick="$('.register-confirm, .register-form').hide();$('.bind-confirm, .bind-form').show();"><?php _e('绑定微信'); ?></a>
 			</div>
 					
