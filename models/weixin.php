@@ -317,7 +317,7 @@ class weixin_class extends AWS_MODEL
 							'image_file' => get_topic_pic_url('', $topic_info['topic_pic'])
 						);
 						
-						if ($topic_questions = $this->model('question')->get_questions_list(1, calc_page_limit($param, 9), 'new', $topic_info['topic_id']))
+						if ($topic_questions = $this->model('question')->get_questions_list($param, 9, 'new', $topic_info['topic_id']))
 						{
 							foreach ($topic_questions AS $key => $val)
 							{
@@ -771,10 +771,15 @@ class weixin_class extends AWS_MODEL
 			$last_action_param = $last_actions[1];
 		}
 		
-		if (!$response_message = $this->message_parser(array(
+		if ($response = $this->message_parser(array(
 			'content' => $last_action['action'],
 			'fromUsername' => $weixin_id
 		), $last_action_param))
+		{
+			$response_message = $response['message'];
+			$action = $response['action'];
+		}
+		else
 		{
 			$response_message = '您好, 请问需要什么帮助?';
 		}
