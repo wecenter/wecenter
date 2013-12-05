@@ -82,26 +82,36 @@ class weixin_class extends AWS_MODEL
 				}
 				else if (substr($input_message['eventKey'], 0, 8) == 'COMMAND_')
 				{
-					if (strstr($input_message['eventKey'], '__'))
+					if ($input_message['eventKey'] == 'COMMAND_MORE')
 					{
-						$event_key = explode('__', substr($input_message['eventKey'], 8));
-						
-						$content = $event_key[0];
-						$param = $event_key[1];
+						$input_message['content'] = '更多';
+						$input_message['msgType'] = 'text';
+					
+						$response_message = $this->response_message($input_message);
 					}
 					else
 					{
-						$content = substr($input_message['eventKey'], 8);
-					}
-					
-					if ($response = $this->message_parser(array(
-						'content' => $content,
-						'fromUsername' => $input_message['fromUsername'],
-						'param' => $param
-					)))
-					{
-						$response_message = $response['message'];
-						$action = $response['action'];
+						if (strstr($input_message['eventKey'], '__'))
+						{
+							$event_key = explode('__', substr($input_message['eventKey'], 8));
+							
+							$content = $event_key[0];
+							$param = $event_key[1];
+						}
+						else
+						{
+							$content = substr($input_message['eventKey'], 8);
+						}
+						
+						if ($response = $this->message_parser(array(
+							'content' => $content,
+							'fromUsername' => $input_message['fromUsername'],
+							'param' => $param
+						)))
+						{
+							$response_message = $response['message'];
+							$action = $response['action'];
+						}
 					}
 				}
 				else if (substr($input_message['eventKey'], 0, 11) == 'REPLY_RULE_')
@@ -114,13 +124,6 @@ class weixin_class extends AWS_MODEL
 					{
 						$response_message = '菜单指令错误';
 					}
-				}
-				else if ($input_message['eventKey'] == 'COMMAND_MORE')
-				{
-					$input_message['content'] = '更多';
-					$input_message['msgType'] = 'text';
-				
-					$response_message = $this->response_message($input_message);
 				}
 				else
 				{
