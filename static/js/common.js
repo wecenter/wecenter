@@ -291,6 +291,15 @@ $.dialog = function (type_id, data)
 	            'message': data
 	        });
 	        break;
+
+	    case 'alertImg':
+	    	var template = Hogan.compile(AW_TEMPLATE.alertImg).render(
+	    	{
+	    		'hide': data.hide,
+	    		'url': data.url,
+	    		'message': data.message
+	    	});
+	    	break;
 	
 	    case 'publish':
 	        var template = Hogan.compile(AW_TEMPLATE.publishBox).render(
@@ -388,6 +397,8 @@ $.dialog = function (type_id, data)
 		case 'imagePreview':
 			var template = AW_TEMPLATE.ajaxData.replace('{{title}}', _t('图片预览')).replace('{{data}}', '<p align="center"><img src="' + data.image + '" alt="" style="max-width:520px" /></p>');
 			break;
+
+
     }
 
     if (template)

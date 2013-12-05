@@ -728,6 +728,9 @@ a.aw-load-more-content{display: block;}
 .aw-tips-box .modal-dialog, .aw-image-box .modal-dialog, .aw-link-box .modal-dialog{width: 370px;}
 .aw-tips-box .modal-body{background: url(img/warmming.png) no-repeat right 5px;}
 .aw-tips-box .modal-body p{margin: 10px 0;}
+/* 图片box */
+.aw-alert-img-box .modal-body{background:none;}
+.aw-alert-img-box .modal-body img{width: 305px;}
 /* 分享box */
 .aw-share-box .modal-body{padding: 10px;}
 .aw-share-box  #bdshare li{float: left;min-width: 70px;margin:0 30px 20px 0;}
