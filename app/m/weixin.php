@@ -102,6 +102,9 @@ class weixin extends AWS_CONTROLLER
 	
 	public function authorization_action()
 	{
+		$this->model('account')->setcookie_logout();	// 清除 COOKIE
+		$this->model('account')->setsession_logout();	// 清除 Session
+		
 		if ($_GET['code'])
 		{
 			if ($access_token = json_decode(curl_get_contents('https://api.weixin.qq.com/sns/oauth2/access_token?appid=' . AWS_APP::config()->get('weixin')->app_id . '&secret=' . AWS_APP::config()->get('weixin')->app_secret . '&code=' . $_GET['code'] . '&grant_type=authorization_code'), true))
@@ -146,9 +149,6 @@ class weixin extends AWS_CONTROLLER
 		if ($weixin_user = $this->model('openid_weixin')->get_user_info_by_openid(AWS_APP::session()->WXConnect['access_token']['openid']))
 		{
 			$user_info = $this->model('account')->get_user_info_by_uid($weixin_user['uid']);
-			
-			$this->model('account')->setcookie_logout();	// 清除 COOKIE
-			$this->model('account')->setsession_logout();	// 清除 Session
 			
 			HTTP::set_cookie('_user_login', get_login_cookie_hash($user_info['user_name'], $user_info['password'], $user_info['salt'], $user_info['uid'], false));
 			
