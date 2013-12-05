@@ -108,10 +108,15 @@ class weixin extends AWS_CONTROLLER
 			{
 				if ($access_token['errcode'])
 				{
-					H::redirect_msg('Error: ' . $access_token['errcode'] . ' ' . $access_token['errmsg']);
+					H::redirect_msg('Access error: ' . $access_token['errcode'] . ' ' . $access_token['errmsg']);
 				}
 				
 				$access_user = json_decode(curl_get_contents('https://api.weixin.qq.com/sns/userinfo?access_token=' . $access_token['access_token'] . '&openid=' . $access_token['openid']), true);
+				
+				if ($access_user['errcode'])
+				{
+					H::redirect_msg('Get user info error: ' . $access_user['errcode'] . ' ' . $access_user['errmsg']);
+				}
 				
 				AWS_APP::session()->WXConnect = array(
 					'access_token' => $access_token,
