@@ -1,35 +1,13 @@
 <?php TPL::output('m/header.tpl.htm'); ?>
 	<div class="mod nearby-question">
 		<ul>
+			<?php foreach ($this->near_by_users AS $key => $val) { ?>
 			<li>
-				<h1>测试内容</h1>
-				<p><i class="glyphicon glyphicon-map-marker"></i> 15米以内 <span>2013-11-16 15:38:32</span> ryon</p>
+				<h1><a href="m/question/<?php echo $val['question_id']; ?>"><?php echo $val['question_content']; ?></a></h1>
+				<p><i class="glyphicon glyphicon-map-marker"></i> <?php _e('%s 米以内', $val['distance']); ?> <span><?php echo date_friendly($val['add_time']); ?></span> <a href="m/people/<?php echo $val['user_info']['url_token']; ?>"><?php echo $val['user_info']['user_name']; ?></a></p>
 			</li>
-			<li>
-				<h1>测试内容</h1>
-				<p><i class="glyphicon glyphicon-map-marker"></i> 15米以内 <span>2013-11-16 15:38:32</span> ryon</p>
-			</li>
-			<li>
-				<h1>测试内容</h1>
-				<p><i class="glyphicon glyphicon-map-marker"></i> 15米以内 <span>2013-11-16 15:38:32</span> ryon</p>
-			</li>
-			<li>
-				<h1>测试内容</h1>
-				<p><i class="glyphicon glyphicon-map-marker"></i> 15米以内 <span>2013-11-16 15:38:32</span> ryon</p>
-			</li>
-			<li>
-				<h1>测试内容</h1>
-				<p><i class="glyphicon glyphicon-map-marker"></i> 15米以内 <span>2013-11-16 15:38:32</span> ryon</p>
-			</li>
-			<li>
-				<h1>测试内容</h1>
-				<p><i class="glyphicon glyphicon-map-marker"></i> 15米以内 <span>2013-11-16 15:38:32</span> ryon</p>
-			</li>
-			<li>
-				<h1>测试内容</h1>
-				<p><i class="glyphicon glyphicon-map-marker"></i> 15米以内 <span>2013-11-16 15:38:32</span> ryon</p>
-			</li>
+			<?php } ?>
 		</ul>
 	</div>
-	</body>
+</body>
 </html>

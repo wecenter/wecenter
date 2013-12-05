@@ -187,6 +187,8 @@ class people_class extends AWS_MODEL
 				foreach ($near_by_users AS $key => $val)
 				{
 					$near_by_users[$key]['location_update'] = $near_by_location_update[$val['uid']];
+					
+					$near_by_users[$key]['distance'] = $this->model('geo')->get_distance($longitude, $latitude, $val['longitude'], $val['latitude']);
 				}
 			}
 		}
