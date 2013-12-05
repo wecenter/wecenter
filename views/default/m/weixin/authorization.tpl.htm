@@ -7,23 +7,9 @@
 		</div>
 		<div class="aw-mod-footer">
 			<div class="bind-form">
-				<p>请填写下列表单完成与微信账号的绑定</p>
+				<p><?php _e('请填写下列表单完成与微信账号的绑定'); ?></p>
 				<form id="login_form" method="post" onsubmit="return false;" action="account/ajax/login_process/">
-					<input type="hidden" name="return_url" value="<?php echo get_js_url('/m/weixin/binding/redirect-' . urlencode($_GET['redirect'])); ?>" />
-					
-					<input type="hidden" name="access_token" value="<?php echo $this->access_token['access_token']; ?>" />
-					<input type="hidden" name="expires_in" value="<?php echo $this->access_token['expires_in']; ?>" />
-					<input type="hidden" name="refresh_token" value="<?php echo $this->access_token['refresh_token']; ?>" />
-					<input type="hidden" name="openid" value="<?php echo $this->access_token['openid']; ?>" />
-					<input type="hidden" name="scope" value="<?php echo $this->access_token['scope']; ?>" />
-					
-					<input type="hidden" name="headimgurl" value="<?php echo $this->access_user['headimgurl']; ?>" />
-					<input type="hidden" name="nickname" value="<?php echo $this->access_user['nickname']; ?>" />
-					<input type="hidden" name="sex" value="<?php echo $this->access_user['sex']; ?>" />
-					<input type="hidden" name="province" value="<?php echo $this->access_user['province']; ?>" />
-					<input type="hidden" name="city" value="<?php echo $this->access_user['city']; ?>" />
-					<input type="hidden" name="country" value="<?php echo $this->access_user['country']; ?>" />
-					
+					<input type="hidden" name="return_url" value="<?php echo get_js_url('/m/weixin/binding/redirect-' . urlencode($_GET['redirect'])); ?>" />					
 					
 					<div class="email">
 						<input type="text" id="user_name" name="user_name" placeholder="<?php _e('邮箱'); ?>/<?php _e('用户名'); ?>" />
@@ -34,23 +20,9 @@
 				</form>
 			</div>
 			<div class="register-form hide">
-				<p>请填写下列表单完成账号注册</p>
+				<p><?php _e('请填写下列表单完成账号注册'); ?></p>
 				<form id="register_form" method="post" onsubmit="return false;" action="account/ajax/register_process/">
 					<input type="hidden" name="return_url" value="<?php echo get_js_url('/m/weixin/binding/redirect-' . urlencode($_GET['redirect'])); ?>" />
-					
-					<input type="hidden" name="access_token" value="<?php echo $this->access_token['access_token']; ?>" />
-					<input type="hidden" name="expires_in" value="<?php echo $this->access_token['expires_in']; ?>" />
-					<input type="hidden" name="refresh_token" value="<?php echo $this->access_token['refresh_token']; ?>" />
-					<input type="hidden" name="openid" value="<?php echo $this->access_token['openid']; ?>" />
-					<input type="hidden" name="scope" value="<?php echo $this->access_token['scope']; ?>" />
-					
-					<input type="hidden" name="headimgurl" value="<?php echo $this->access_user['headimgurl']; ?>" />
-					<input type="hidden" name="nickname" value="<?php echo $this->access_user['nickname']; ?>" />
-					<input type="hidden" name="sex" value="<?php echo $this->access_user['sex']; ?>" />
-					<input type="hidden" name="province" value="<?php echo $this->access_user['province']; ?>" />
-					<input type="hidden" name="city" value="<?php echo $this->access_user['city']; ?>" />
-					<input type="hidden" name="country" value="<?php echo $this->access_user['country']; ?>" />
-					
 					
 					<div class="username">
 						<input type="text" id="user_name" name="user_name" placeholder="<?php _e('用户名'); ?>" />
@@ -59,14 +31,14 @@
 						<input type="text" id="email" name="email" placeholder="<?php _e('邮箱'); ?>" />
 					</div>
 					<div class="password">
-						<input type="password" id="password" name="password" placeholder="<?php _e('密码'); ?>" onkeydown="if (event.keyCode == 13) { ajax_post($('#login_form')); }" />
+						<input type="password" id="password" name="password" placeholder="<?php _e('密码'); ?>" onkeydown="if (event.keyCode == 13) { ajax_post($('#register_form')); }" />
 					</div>
 				</form>
 			</div>
 
 			<div class="bind-confirm">
 				<a class="btn-submit" href="javascript:;" onclick="ajax_post($('#login_form'));"><?php _e('绑定微信'); ?></a>	
-					<p>如果您还为注册, 请先注册问答账号</p>
+					<p><?php _e('如果您还未注册, 请先注册问答账号'); ?></p>
 					<a href="javascript:;" class="btn-submit btn-green" onclick="$('.bind-confirm, .bind-form').hide();$('.register-confirm, .register-form').show();"><?php _e('注册')?></a>
 			</div>
 					
