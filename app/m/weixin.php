@@ -74,7 +74,7 @@ class weixin extends AWS_CONTROLLER
 				}
 				else
 				{
-					$redirect_uri = str_replace(get_setting('base_url'), '', get_js_url(base64_decode($_GET['redirect'])));
+					$redirect_uri = str_replace(get_setting('base_url'), '/', base64_decode($_GET['redirect']));
 										
 					if ($this->user_info['permission']['visit_site'] AND substr($redirect_uri, 0, 1) == '/')
 					{

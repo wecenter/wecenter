@@ -398,7 +398,7 @@
 								<div class="error-message alert  alert-error hide"></div>
 								<ul class="aw-side-bar-invite-list">
 								<?php if ($this->invite_users) { ?>
-									<p>已邀请过的用户 : </p>
+									<p><?php _e('已邀请过的用户'); ?>: </p>
 									<?php foreach($this->invite_users as $key => $val) { ?>
 									<li>
 										<?php if ($val['sender_uid'] == $this->user_id) { ?><a class="pull-right btn btn-mini btn-default" onclick="disinvite_user($(this),<?php echo $val['uid']; ?>);$(this).parent().detach();"><?php _e('取消邀请'); ?></a><?php } ?>
@@ -492,9 +492,9 @@
     	<input type="hidden" name="attach_access_key" value="<?php echo $this->attach_access_key; ?>" />
 		<div class="aw-mod-head">
 			<div class="aw-wecenter">
-				<a href="#" class="btn btn-large btn-default pull-left" onclick="toggleFullScreen('hide');return false;">退出全屏模式</a>
-				全屏模式
-				<a href="#" class="btn btn-large btn-default pull-right" onclick="ajax_post($(this).parents('#answer_form'));return false;">回复</a>
+				<a href="#" class="btn btn-large btn-default pull-left" onclick="toggleFullScreen('hide');return false;"><?php _e('退出全屏模式'); ?></a>
+				<?php _e('全屏模式'); ?>
+				<a href="#" class="btn btn-large btn-default pull-right" onclick="ajax_post($(this).parents('#answer_form'));return false;"><?php _e('回复'); ?></a>
 			</div>
 		</div>
 		<div class="aw-mod-body">

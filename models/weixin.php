@@ -571,9 +571,18 @@ class weixin_class extends AWS_MODEL
 								$image_file = get_avatar_url($val['question_info']['published_uid'], 'max');
 							}
 							
+							if ($val['associate_action'] == ACTION_LOG::ANSWER_QUESTION OR $val['associate_action'] == ACTION_LOG::ADD_AGREE)
+							{
+								$link = $this->model('openid_weixin')->redirect_url('/m/question/' . $val['question_info']['question_id'] . '?answer_id=' . $val['answer_info']['answer_id'] . '&single=TRUE');
+							}
+							else
+							{
+								$link = $this->model('openid_weixin')->redirect_url('/m/question/' . $val['question_info']['question_id']);
+							}
+							
 							$response_message[] = array(
 								'title' => $val['question_info']['question_content'],
-								'link' => $this->model('openid_weixin')->redirect_url('/m/question/' . $val['question_info']['question_id']),
+								'link' => $link,
 								'image_file' => $image_file
 							);
 						}
