@@ -691,6 +691,11 @@ class answer_class extends AWS_MODEL
 			return false;
 		}
 		
+		if (!$question_info = $this->model('question')->get_question_info_by_id($answer_info['question_id']))
+		{
+			return false;
+		}
+		
 		$message = $this->model('question')->parse_at_user($message, false, false, true);
 		
 		$comment_id = $this->insert('answer_comments', array(
@@ -708,6 +713,13 @@ class answer_class extends AWS_MODEL
 				'item_id' => $answer_info['answer_id'], 
 				'comment_id' => $comment_id
 			));
+			
+			if ($weixin_user = $this->model('openid_weixin')->get_user_info_by_uid($answer_info['uid']))
+			{
+				$answer_user = $this->model('account')->get_user_info_by_uid($uid);
+				
+				$this->model('weixin')->send_text_message($weixin_user['openid'], "您在 [" . $question_info['question_content'] . "] 中的回答收到了 " . $answer_user['user_name'] . " 的评论:\n\n" . strip_tags($message) . "\n\n\n<a href=\"" . $this->model('openid_weixin')->redirect_url('/m/question/' . $question_id . '?answer_id=' . $answer_info['answer_id'] . '&single=TRUE') . "\">点击查看问题详情</a>");
+			}
 		}
 		
 		if ($at_users = $this->model('question')->parse_at_user($message, false, true))
@@ -722,6 +734,13 @@ class answer_class extends AWS_MODEL
 						'item_id' => $answer_info['answer_id'], 
 						'comment_id' => $comment_id
 					));
+					
+					if ($weixin_user = $this->model('openid_weixin')->get_user_info_by_uid($user_id))
+					{
+						$answer_user = $this->model('account')->get_user_info_by_uid($uid);
+						
+						$this->model('weixin')->send_text_message($weixin_user['openid'], $answer_user['user_name'] . " 在问题 [" . $question_info['question_content'] . "] 的答案评论中提到了您.\n\n\n<a href=\"" . $this->model('openid_weixin')->redirect_url('/m/question/' . $question_id . '?answer_id=' . $answer_info['answer_id'] . '&single=TRUE') . "\">点击查看问题详情</a>");
+					}
 				}
 			}
 		}

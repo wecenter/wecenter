@@ -123,7 +123,7 @@
 			</div>
 		</span>
 		<?php } ?>
-		<h2><?php _e('%s 个回答', $this->question_info['answer_count']); ?></h2>
+		<h2><?php if ($_GET['single']) { ?><?php _e('查看单个回答'); ?><?php } else { ?><?php _e('%s 个回复', $this->question_info['answer_count']); ?><?php } ?></h2>
 	</div>
 	<!-- end 回复title -->
 	<!-- 评论列表 -->
@@ -184,8 +184,10 @@
 	
 	<!-- end 评论列表 -->
 	<a name="answer_form"></a>
-	<?php if ($this->next_page) { ?>
-	<a href="m/question/<?php echo $this->question_info['question_id']; ?>?page-<?php echo $this->next_page; ?>" class="aw-load-more">下一页</a>
+	<?php if ($_GET['single']) { ?>
+	<a href="question/<?php echo $this->question_info['question_id']; ?>" class="aw-load-more"><?php _e('查看全部回答'); ?></a>
+	<?php else if ($this->next_page) { ?>
+	<a href="m/question/<?php echo $this->question_info['question_id']; ?>?page-<?php echo $this->next_page; ?>" class="aw-load-more"><?php _e('下一页'); ?></a>
 	<?php } ?>
 	
 	<?php if (!$this->user_id) { ?>
