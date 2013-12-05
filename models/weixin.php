@@ -87,7 +87,7 @@ class weixin_class extends AWS_MODEL
 						$input_message['content'] = 'yes';
 						$input_message['msgType'] = 'text';
 					
-						$response_message = $this->response_message($input_message);
+						$response = $this->response_message($input_message);
 					}
 					else
 					{
@@ -103,16 +103,15 @@ class weixin_class extends AWS_MODEL
 							$content = substr($input_message['eventKey'], 8);
 						}
 						
-						if ($response = $this->message_parser(array(
+						$response = $this->message_parser(array(
 							'content' => $content,
 							'fromUsername' => $input_message['fromUsername'],
 							'param' => $param
-						)))
-						{
-							$response_message = $response['message'];
-							$action = $response['action'];
-						}
+						));
 					}
+					
+					$response_message = $response['message'];
+					$action = $response['action'];
 				}
 				else if (substr($input_message['eventKey'], 0, 11) == 'REPLY_RULE_')
 				{
