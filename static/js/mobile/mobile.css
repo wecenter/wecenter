@@ -324,6 +324,8 @@ nav #aw-top-nav-notic .badge{position: absolute;right: 0;top:1px;z-index:100;pad
 .explore-wrap .bind-form p, .explore-wrap .register-form p{text-align: left;color: #fff;}
 
 /* 微信绑定页面 */
+.wechat-body{background: #0078D8;}
+.wechat-body .explore-page{box-shadow: none;}
 .wechat-bind-page h1{margin-bottom: 40px;}
 
 /* 找回密码 */
