@@ -771,7 +771,7 @@ class weixin_class extends AWS_MODEL
 		if (!$response_message = $this->message_parser(array(
 			'content' => $last_action['action'],
 			'fromUsername' => $weixin_id
-		), $last_action_param)
+		), $last_action_param))
 		{
 			$response_message = '您好, 请问需要什么帮助?';
 		}
