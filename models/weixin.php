@@ -206,7 +206,7 @@ class weixin_class extends AWS_MODEL
 		
 		if (is_array($response_message))
 		{
-			echo $this->create_image_response($input_message, $response_message);
+			echo $this->create_image_response($input_message, $response_message, $action);
 		}
 		else
 		{
@@ -233,8 +233,20 @@ class weixin_class extends AWS_MODEL
 		return sprintf($this->text_tpl, $input_message['fromUsername'], $input_message['toUsername'], $input_message['time'], 'text', $response_message);
 	}
 	
-	public function create_image_response($input_message, $image_data = array())
+	public function create_image_response($input_message, $image_data = array(), $action = null)
 	{
+		if ($action)
+		{
+			$this->delete('weixin_message', "weixin_id = '" . $this->quote($input_message['fromUsername']) . "'");
+		
+			$this->insert('weixin_message', array(
+				'weixin_id' => $input_message['fromUsername'],
+				'content' => $input_message['content'],
+				'action' => $action,
+				'time' => time()
+			));
+		}
+		
 		foreach ($image_data AS $key => $val)
 		{
 			if ($article_tpl)
