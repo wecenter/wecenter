@@ -62,10 +62,10 @@ $(document).ready(function () {
     if (G_IN_WECHAT == true)
     {
         $('header, nav, footer').hide();
-        if ($.cookie('wechat-tips-close') != 'true')
-        {
-        	$('.aw-global-tips').show();
-        }
+        // if ($.cookie('wechat-tips-close') != 'true')
+        // {
+        // 	$('.aw-global-tips').show();
+        // }
     }
 
 	if (window.location.hash.indexOf('#!') != -1)
