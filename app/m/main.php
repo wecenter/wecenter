@@ -273,7 +273,25 @@ class main extends AWS_CONTROLLER
 			}
 		}
 		
-		$answer_list = $this->model('answer')->get_answer_list_by_question_id($question_info['question_id'], calc_page_limit($_GET['page'], 20), null, 'agree_count DESC, against_count ASC, add_time ASC');
+		if (isset($_GET['answer_id']) and (! $this->user_id OR $_GET['single']))
+		{
+			$answer_list = $this->model('answer')->get_answer_list_by_question_id($question_info['question_id'], 1, 'answer_id = ' . intval($_GET['answer_id']));
+		}
+		else if (! $this->user_id && !$this->user_info['permission']['answer_show'])
+		{
+			if ($question_info['best_answer'])
+			{
+				$answer_list = $this->model('answer')->get_answer_list_by_question_id($question_info['question_id'], 1, 'answer_id = ' . intval($question_info['best_answer']));
+			}
+			else
+			{
+				$answer_list = $this->model('answer')->get_answer_list_by_question_id($question_info['question_id'], 1, null, 'agree_count DESC');
+			}
+		}
+		else
+		{
+			$answer_list = $this->model('answer')->get_answer_list_by_question_id($question_info['question_id'], calc_page_limit($_GET['page'], 20), null, 'agree_count DESC, against_count ASC, add_time ASC');
+		}
 		
 		// 最佳回复预留
 		$answers[0] = '';

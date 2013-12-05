@@ -51,7 +51,7 @@
 				<dd>
 					<div class="row">
 						<div class="col-sm-7">
-							<input type="text" name="description" value="<?php echo htmlspecialchars($this->rule_info['description']); ?>" class="form-control" />
+							<textarea name="description"><?php echo htmlspecialchars($this->rule_info['description']); ?></textarea>
 						</div>
 					</div>
 					<p class="aw-text-color-999"><?php _e('文字消息忽略此选项'); ?>, <?php _e('只在单条图片回应下显示'); ?></p>

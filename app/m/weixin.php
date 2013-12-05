@@ -74,7 +74,7 @@ class weixin extends AWS_CONTROLLER
 				}
 				else
 				{
-					$redirect_uri = str_replace(get_setting('base_url'), '', get_js_url(base64_decode($_GET['redirect'])));
+					$redirect_uri = str_replace(get_setting('base_url'), '/', base64_decode($_GET['redirect']));
 										
 					if ($this->user_info['permission']['visit_site'] AND substr($redirect_uri, 0, 1) == '/')
 					{
@@ -108,10 +108,15 @@ class weixin extends AWS_CONTROLLER
 			{
 				if ($access_token['errcode'])
 				{
-					H::redirect_msg('Error: ' . $access_token['errcode'] . ' ' . $access_token['errmsg']);
+					H::redirect_msg('Access error: ' . $access_token['errcode'] . ' ' . $access_token['errmsg']);
 				}
 				
 				$access_user = json_decode(curl_get_contents('https://api.weixin.qq.com/sns/userinfo?access_token=' . $access_token['access_token'] . '&openid=' . $access_token['openid']), true);
+				
+				if ($access_user['errcode'])
+				{
+					H::redirect_msg('Get user info error: ' . $access_user['errcode'] . ' ' . $access_user['errmsg']);
+				}
 				
 				AWS_APP::session()->WXConnect = array(
 					'access_token' => $access_token,
@@ -141,6 +146,9 @@ class weixin extends AWS_CONTROLLER
 		if ($weixin_user = $this->model('openid_weixin')->get_user_info_by_openid(AWS_APP::session()->WXConnect['access_token']['openid']))
 		{
 			$user_info = $this->model('account')->get_user_info_by_uid($weixin_user['uid']);
+			
+			$this->model('account')->setcookie_logout();	// 清除 COOKIE
+			$this->model('account')->setsession_logout();	// 清除 Session
 			
 			HTTP::set_cookie('_user_login', get_login_cookie_hash($user_info['user_name'], $user_info['password'], $user_info['salt'], $user_info['uid'], false));
 			

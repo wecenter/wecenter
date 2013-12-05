@@ -387,7 +387,6 @@ class ajax extends AWS_CONTROLLER
 		}
 		
 		$answer_info = $this->model('answer')->get_answer_by_id($_GET['answer_id']);
-		
 		$question_info = $this->model('question')->get_question_info_by_id($answer_info['question_id']);
 		
 		if ($question_info['lock'] AND ! ($this->user_info['permission']['is_administortar'] or $this->user_info['permission']['is_moderator']))
@@ -399,7 +398,6 @@ class ajax extends AWS_CONTROLLER
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('你所在的用户组不允许发布站外链接')));
 		}
-		
 		
 		$this->model('answer')->insert_answer_comment($_GET['answer_id'], $this->user_id, $_POST['message']);
 		
@@ -1076,14 +1074,12 @@ class ajax extends AWS_CONTROLLER
 
 	public function save_report_action()
 	{
-		$reason = trim($_POST['reason']);
-		
-		if (!$reason)
+		if (trim($_POST['reason']) == '')
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, - 1, AWS_APP::lang()->_t('请填写举报理由')));
 		}
 		
-		$this->model('question')->save_report($this->user_id, $_POST['type'], $_POST['target_id'], htmlspecialchars($reason), $_SERVER['HTTP_REFERER']);
+		$this->model('question')->save_report($this->user_id, $_POST['type'], $_POST['target_id'], htmlspecialchars($_POST['reason']), $_SERVER['HTTP_REFERER']);
 		
 		$recipient_uid = get_setting('report_message_uid') ? get_setting('report_message_uid') : 1;
 			
