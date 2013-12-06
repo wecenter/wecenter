@@ -32,8 +32,8 @@
 				<dt><h3><?php _e('回应内容'); ?>:</h3></dt>
 				<dd>
 					<div class="row">
-						<div class="col-sm-7">
-							<textarea name="title"><?php echo htmlspecialchars($this->rule_info['title']); ?></textarea>
+						<div class="col-sm-10">
+							<textarea class="form-control" name="title"><?php echo htmlspecialchars($this->rule_info['title']); ?></textarea>
 						</div>
 					</div>
 				</dd>
@@ -50,8 +50,8 @@
 				<dt><h3><?php _e('图片简介'); ?></h3></dt>
 				<dd>
 					<div class="row">
-						<div class="col-sm-7">
-							<textarea name="description"><?php echo htmlspecialchars($this->rule_info['description']); ?></textarea>
+						<div class="col-sm-10">
+							<textarea class="form-control" name="description"><?php echo htmlspecialchars($this->rule_info['description']); ?></textarea>
 						</div>
 					</div>
 					<p class="aw-text-color-999"><?php _e('文字消息忽略此选项'); ?>, <?php _e('只在单条图片回应下显示'); ?></p>

@@ -221,6 +221,27 @@
 		</script>
 		<!-- end 全局命令 -->
 
+		<!-- 自定义url -->
+		<script type="text/x-template" id="drop_menu_template_defined_url">
+			<div class="dropdown-menu pull-right">
+				<div class="mod-head clearfix">					
+					<div class="mod">
+						<div class="mod-head"><?php _e('自定义url'); ?></div>
+						<div class="divider"></div>
+						<div class="mod-footer">
+							<ul class="control-height">
+								<li data-value="http://www.baidu.com" data-upload="false"><a><?php _e('百度'); ?></a></li>
+								<li data-value="http://www.google.com" data-upload="false"><a><?php _e('谷歌'); ?></a></li>
+								<li data-value="http://www.sina.com.cn" data-upload="false"><a><?php _e('新浪'); ?></a></li>
+								<li data-value="http://wenda.baidu.com" data-upload="false"><a><?php _e('百度'); ?></a></li>
+							</ul>
+						</div>
+					</div>	
+				</div>
+			</div>
+		</script>
+		<!-- end 自定义url -->
+
 		<script type="text/x-template" id="select_option">
 			<option></option>
 			<option data-name="全局命令"><?php _e('全局命令'); ?></option>
@@ -420,21 +441,7 @@
 							});
 						}
 
-						//判断菜单上传图片按钮是否显示
-						$.each($('.sub_button_' + _i).find('.aw-wechat-dropdown-box ul li'), function (i, e)
-						{
-							if ($(this).attr('data-value') == _e.key)
-							{
-								if ($(this).attr('data-upload') == 'false')
-								{
-									$('.sub_button_' + _i).find('.ajax-upload, .ajax-look').hide();
-								}
-								else
-								{
-									$('.sub_button_' + _i).find('.ajax-upload, .ajax-look').show();
-								}
-							}
-						});
+
 					});
 				
 					// 遍历select菜单数组,设置select菜单默认值,动态插入下拉菜单
@@ -445,7 +452,7 @@
 
 						if (e == '自定义 URL')
 						{
-							$('.sub_button_' + _i).eq(i).find('.input-bg, .fa-sort, span').hide();
+							$('.sub_button_' + _i).eq(i).find('input.input-bg, span').hide();
 							$('.sub_button_' + _i).eq(i).find('.input-code').removeAttr('readonly').show();
 							$('.sub_button_' + _i).eq(i).find('.aw-wechat-select').val(e);
 						}
@@ -458,31 +465,30 @@
 					// 遍历arr_code数组,设置span默认值
 					$.each(arr_code, function (i, e)
 					{
-						// 判断子菜单里面是不是自定义url
-						if ($('.sub_button_' + _i).eq(i).find('.aw-wechat-dropdown-box ul').length > 0)
+						$('.sub_button_' + _i).eq(i).find('.aw-wechat-dropdown-box span').html(e);
+						$.each($('.sub_button_' + _i).eq(i).find('.aw-wechat-dropdown-box ul li'), function (i, e)
 						{
-							$('.sub_button_' + _i).eq(i).find('.aw-wechat-dropdown-box span').html(e);
 
-							$.each($('.sub_button_' + _i).eq(i).find('.aw-wechat-dropdown-box ul li'), function (i, e)
+							if ($(this).attr('data-value') == $(this).parents('.aw-wechat-dropdown-box').find('input.input-code').val())
 							{
-
-								if ($(this).attr('data-value') == $(this).parents('.aw-wechat-dropdown-box').find('input.input-code').val())
+								if ($(this).attr('data-value').match('http://'))
 								{
-									if ($(this).attr('data-upload') == 'false')
-									{
-										$(this).parents('.aw-wechat-dropdown-box').find('.ajax-upload, .ajax-look ').hide();
-									}
-									else
-									{
-										$(this).parents('.aw-wechat-dropdown-box').find('.ajax-upload, .ajax-look ').show();
-									}
+									$(this).parents('.aw-wechat-dropdown-box').find('.ajax-upload, .ajax-look ').hide();
 								}
-							});
-						}
-						else
-						{
-							$('.sub_button_' + _i).eq(i).find('.ajax-upload, .ajax-look ').hide();
-						}
+								else if ($(this).attr('data-upload') == 'false')
+								{
+									$(this).parents('.aw-wechat-dropdown-box').find('.ajax-upload, .ajax-look ').hide();
+								}
+								else
+								{
+									$(this).parents('.aw-wechat-dropdown-box').find('.ajax-upload, .ajax-look ').show();
+								}
+							}
+							else if ($(this).parents('.aw-wechat-dropdown-box').find('input.input-code').val().match('http://'))
+							{
+								$(this).parents('.aw-wechat-dropdown-box').find('.ajax-upload, .ajax-look ').hide();
+							}
+						});
 					});
 					//隐藏父节点的上传图片按钮
 					$('.sub_button_' + _i).eq(0).prev().find('.ajax-upload, .ajax-look').hide();
@@ -497,7 +503,7 @@
 					if (e.command_type == '自定义 URL')
 					{
 						$('#menu_id_' + i).find('.aw-wechat-dropdown-box input.input-code').removeAttr('readonly').val(e.key).show();
-						$('#menu_id_' + i).find('.fa-sort, .input-bg, span').hide();
+						$('#menu_id_' + i).find('.input-bg, span').hide();
 					}
 					
 					// 遍历下拉模板中的li,根据key找中文
@@ -574,7 +580,10 @@
 			}
 			$(this).addClass('active');
 			$(this).parents('.aw-wechat-dropdown-box').find('li').removeClass('active');
-			$(this).parents('.aw-wechat-dropdown-box').find('span').html($(this).text()).show();
+			if (!$(this).attr('data-value').match('http://'))
+			{
+				$(this).parents('.aw-wechat-dropdown-box').find('span').html($(this).text()).show();
+			}
 			$(this).parents('.aw-wechat-dropdown-box').find('input.input-code').val($(this).attr('data-value'));
 			$(this).parents('.aw-wechat-dropdown-box').find('input.attach_key').val('');
 		});
@@ -612,13 +621,7 @@
 				var template = $('#drop_menu_template_global').html();
 			break;
 			case '自定义 URL' :
-				if (defined_url == true)
-				{
-					element.find('.aw-wechat-dropdown-box .dropdown-menu').detach();
-					element.find('.aw-wechat-dropdown-box .fa-sort, .aw-wechat-dropdown-box span, .aw-wechat-dropdown-box .ajax-upload, .aw-wechat-dropdown-box .ajax-look').hide();
-					element.find('.aw-wechat-dropdown-box .fa-sort, .aw-wechat-dropdown-box input.input-bg').hide();
-					element.find('.aw-wechat-dropdown-box input.input-code').val('http://').removeAttr('readonly').show();
-				}
+				var template = $('#drop_menu_template_defined_url').html();
 			break;
 		}
 		
@@ -634,6 +637,12 @@
 			{
 				element.find('.aw-wechat-dropdown-box .fa-sort, .aw-wechat-dropdown-box input.input-bg').show();
 				element.find('.aw-wechat-dropdown-box input.input-code').val('').attr('readonly','readonly').hide();
+			}
+			if (type == '自定义 URL' && defined_url == true)
+			{
+				element.find('.aw-wechat-dropdown-box span, .aw-wechat-dropdown-box .ajax-upload, .aw-wechat-dropdown-box .ajax-look').hide();
+				element.find('.aw-wechat-dropdown-box input.input-bg').hide();
+				element.find('.aw-wechat-dropdown-box input.input-code').val('http://').removeAttr('readonly').show();
 			}
 			element.find('.aw-wechat-dropdown-box').append(template);
 		}
