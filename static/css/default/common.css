@@ -295,6 +295,7 @@ a.aw-load-more-content{display: block;}
 .aw-new-message-tips .aw-mod-body ul li p{max-width: 580px;line-height: 25px;}
 .aw-new-message-tips .aw-mod-body p{height: auto;overflow: hidden;margin:0;}
 .aw-new-message-tips-close{display: none;}
+.aw-new-message-tips-close a{font-size:12px;}
 .aw-new-message-tips li:hover .aw-new-message-tips-close, .aw-my-notifications li:hover .aw-new-message-tips-close{display:block;}
 
 /* 侧边栏公共部分 */
@@ -634,6 +635,7 @@ a.aw-load-more-content{display: block;}
 .aw-my-notifications .aw-mod-body ul li:first-child{border-top: none;}
 .aw-my-notifications .aw-mod-body ul li.active{font-weight: bold;}
 .aw-my-notifications .aw-mod-body ul li.active span{font-weight: normal;}
+.aw-my-notifications .aw-close{margin:2px 0 0 5px;}
 
 /* 邀请好友加入社区 */
 .aw-mod-invite-friend .aw-invite-box{width: 400px;margin:0 auto;padding:40px 0;}
