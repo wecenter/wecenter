@@ -29,7 +29,7 @@
 			<?php if (!$this->weixin) { ?>
 			<li>
 				<a onclick="
-					$.dialog('alertImg', {'hide' : 'show', 'url' : '<?php echo G_STATIC_URL; ?>/css/default/img/wechat_code.jpg', 'message' : '请关注公众帐号进行绑定操作'});" href="javascript:;" class="btn btn-mini btn-success pull-right"><?php _e('绑定'); ?></a>
+					$.dialog('alertImg', {'hide' : 'show', 'url' : '<?php echo G_STATIC_URL; ?>/css/<?php echo $this->template_name; ?>/img/wechat_code.jpg', 'message' : '请关注公众帐号进行绑定操作'});" href="javascript:;" class="btn btn-mini btn-success pull-right"><?php _e('绑定'); ?></a>
 				<span><i class="icon-wechat"></i> <?php _e('微信'); ?></span>
 			</li>
 			<?php } ?>
