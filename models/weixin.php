@@ -51,7 +51,10 @@ class weixin_class extends AWS_MODEL
 				'msgID' => $post_object['MsgID'],
 				'latitude' => $post_object['Latitude'],
 				'longitude' => $post_object['Longitude'],
-				'precision'=> $post_object['Precision']
+				'precision' => $post_object['Precision'],
+				'location_X' => $post_object['Location_X'],
+				'location_Y' => $post_object['Location_y'],
+				'label' => $post_object['Label'],
 			);
 			
 			if ($weixin_info = $this->model('openid_weixin')->get_user_info_by_openid($input_message['fromUsername']))
@@ -138,6 +141,33 @@ class weixin_class extends AWS_MODEL
 				}
 			break;
 			
+			case 'location'
+				if (!$near_by_questions = $this->model('people')->get_near_by_users($input_message['location_X'], $input_message['location_y'], $this->user_id, 10))
+				{
+					$response_message = '你的附近暂时没有问题';
+				}
+				else
+				{
+					foreach ($near_by_questions AS $key => $val)
+					{
+						if (!$response_message)
+						{
+							$image_file = AWS_APP::config()->get('weixin')->default_list_image;
+						}
+						else
+						{
+							$image_file = get_avatar_url($val['published_uid'], 'max');
+						}
+						
+						$response_message[] = array(
+							'title' => $val['question_content'],
+							'link' => $this->model('openid_weixin')->redirect_url('/m/question/' . $val['question_id']),
+							'image_file' => $image_file
+						);
+					}
+				}
+			break;
+						
 			case 'voice':
 				$input_message['content'] = $input_message['recognition'];
 				$input_message['msgType'] = 'text';
@@ -514,7 +544,7 @@ class weixin_class extends AWS_MODEL
 						
 						$response_message[] = array(
 							'title' => $val['question_content'],
-							'link' => $this->model('openid_weixin')->redirect_url('/question/' . $val['question_id']),
+							'link' => $this->model('openid_weixin')->redirect_url('/m/question/' . $val['question_id']),
 							'image_file' => $image_file
 						);
 					}

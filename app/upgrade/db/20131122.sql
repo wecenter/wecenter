@@ -49,3 +49,5 @@ CREATE TABLE `[#DB_PREFIX#]geo_location` (
   KEY `geo_location` (`latitude`,`longitude`),
   KEY `item_id` (`item_id`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
+
+ALTER TABLE `[#DB_PREFIX#]users` ADD `weixin_settings` VARCHAR( 255 ) NULL;

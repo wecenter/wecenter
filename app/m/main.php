@@ -892,4 +892,11 @@ class main extends AWS_CONTROLLER
 		
 		TPL::output('m/nearby_question');
 	}
+	
+	public function article_square_action()
+	{
+		
+		
+		TPL::output('m/article_square');
+	}
 }

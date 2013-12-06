@@ -692,6 +692,7 @@ CREATE TABLE `[#DB_PREFIX#]users` (
   `verified` varchar(32) DEFAULT NULL,
   `default_timezone` varchar(32) DEFAULT NULL,
   `email_settings` varchar(255) DEFAULT '',
+  `weixin_settings` varchar(255) DEFAULT '',
   `recent_topics` text,
   PRIMARY KEY (`uid`),
   KEY `user_name` (`user_name`),
