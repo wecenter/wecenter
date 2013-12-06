@@ -63,6 +63,36 @@
 			</div>
 		</div>
 		<!-- end 邮件设置 -->
+		<div class="aw-mod">
+			<div class="aw-mod-head">
+				<h4><?php _e('微信设置'); ?></h4>
+			</div>
+			<div class="aw-mod-body">
+				<h5><?php _e('什么情况下给我发通知'); ?>:</h5>
+				<p>
+					<span>
+						<label>
+							<input name="weixin_settings[]" value="AT_ME" type="checkbox"<?php if ($this->user_info['weixin_settings']['AT_ME'] != 'N') { ?> checked="checked"<?php } ?> /> <?php _e('当有人 @ 我'); ?>
+						</label>
+					</span>
+					<span>
+						<label>
+							<input name="weixin_settings[]" value="NEW_ANSWER" type="checkbox"<?php if ($this->user_info['weixin_settings']['NEW_ANSWER'] != 'N') { ?> checked="checked"<?php } ?> /> <?php _e('我的问题有了新回复'); ?>
+						</label>
+					</span>
+					<span>
+						<label>
+							<input name="weixin_settings[]" value="NEW_ARTICLE_ANSWER" type="checkbox"<?php if ($this->user_info['weixin_settings']['NEW_ARTICLE_ANSWER'] != 'N') { ?> checked="checked"<?php } ?> /> <?php _e('我的文章有了新评论'); ?>
+						</label>
+					</span>
+					<span>
+						<label>
+							<input name="weixin_settings[]" value="NEW_COMMENT" type="checkbox"<?php if ($this->user_info['weixin_settings']['NEW_COMMENT'] != 'N') { ?> checked="checked"<?php } ?> /> <?php _e('我的回复有了新评论'); ?>
+						</label>
+					</span>
+				</p>
+			</div>
+		</div>
 		<!-- 通知设置 -->
 		<div class="aw-mod">
 			<div class="aw-mod-head">

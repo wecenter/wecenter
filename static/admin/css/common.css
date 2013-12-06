@@ -151,11 +151,11 @@ th{text-align: center;}
 .aw-mod-nav-setting .aw-nav-menu .normal-width{width: 300px !important;}
 
 /* 微信菜单 */
-.aw-wechat-dropdown-box{position: relative;width: 250px;}
-.aw-wechat-dropdown-box input{width: 250px;padding-right: 10px !important;}
-.aw-wechat-dropdown-box .fa-sort{position:relative;z-index:2;right:5px;top:2px;float:right;font-size: 16px;cursor: pointer;}
+.aw-wechat-dropdown-box{position: relative;width: 250px;height:34px;line-height:34px;}
+.aw-wechat-dropdown-box input{width: 250px;padding-right: 20px !important;}
+.aw-wechat-dropdown-box .fa-sort{position:absolute;top:10px;right:5px;z-index:2;font-size: 16px;cursor: pointer;}
 .aw-wechat-dropdown-box span{position: relative;z-index: 3;}
-.aw-wechat-dropdown-box .input-bg{position:absolute;z-index:1;left:0;top:-6px;width:100%;height:30px;background-color: #fff;border: 1px solid #ccc;border-radius: 5px;}
+.aw-wechat-dropdown-box .input-bg{position:absolute;z-index:1;left:0;width:100%;height:34px;background-color: #fff;border: 1px solid #ccc;border-radius: 5px;}
 .aw-wechat-dropdown-box .dropdown-menu{right:20px;width:64%;padding:10px;}
 .aw-wechat-dropdown-box .dropdown-menu.subtract-two{width: 126%;}
 .aw-wechat-dropdown-box .dropdown-menu.all{width: 360%;}

@@ -611,6 +611,50 @@ function insert_attach(element, attach_id, attach_tag)
     $(element).parents('form').find('textarea').insertAtCaret("\n[" + attach_tag + "]" + attach_id + "[/" + attach_tag + "]\n");
 }
 
+/* 文章赞同反对 */
+function article_vote(element, article_id, rating)
+{
+	$.loading('show');
+	
+	if ($(element).hasClass('active'))
+	{
+		rating = 0;
+	}
+	
+	$.post(G_BASE_URL + '/article/ajax/article_vote/', 'type=article&item_id=' + article_id + '&rating=' + rating, function (result) {
+		$.loading('hide');
+		
+		if (result.errno != 1)
+	    {
+	        $.alert(result.err);
+	    }
+	    else
+	    {
+			if (rating == 0)
+			{
+
+				$(element).removeClass('active');
+                $(element).find('b').html(parseInt($(element).find('b').html()) - 1);
+			}
+            else if (rating == -1)
+            {
+                if ($(element).parents('.aw-article-vote').find('.agree').hasClass('active'))
+                {
+                    $(element).parents('.aw-article-vote').find('b').html(parseInt($(element).parents('.aw-article-vote').find('b').html()) - 1);
+                    $(element).parents('.aw-article-vote').find('a').removeClass('active');
+                }
+                $(element).addClass('active');
+            }
+			else
+			{
+				$(element).parents('.aw-article-vote').find('a').removeClass('active');
+				$(element).addClass('active');
+                $(element).find('b').html(parseInt($(element).find('b').html()) + 1);
+			}
+	    }
+	}, 'json');
+}
+
 
 var aw_loading_timer;
 var aw_loading_bg_count = 12;

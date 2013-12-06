@@ -855,6 +855,13 @@ class main extends AWS_CONTROLLER
 		TPL::output('m/article');
 	}
 
+	public function article_square_action()
+	{
+		TPL::assign('feature_list', $this->model('feature')->get_feature_list());
+		
+		TPL::output('m/article_square');
+	}
+
 	public function nearby_people_action()
 	{
 		if ($weixin_user = $this->model('openid_weixin')->get_user_info_by_uid($this->user_id))
