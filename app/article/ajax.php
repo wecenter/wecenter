@@ -109,25 +109,40 @@ class ajax extends AWS_CONTROLLER
 			
 			$article_list = $this->model('article')->get_articles_list_by_topic_ids($_GET['page'], get_setting('contents_per_page'), 'add_time DESC', $topic_ids);
 		}
+		else
+		{
+			$article_list = $this->model('article')->get_articles_list($_GET['page'], get_setting('contents_per_page'), 'add_time DESC');
+		}
 		
 		if ($article_list)
 		{
 			foreach ($article_list AS $key => $val)
 			{
 				$article_ids[] = $val['id'];
+				
+				$article_uids[$val['uid']] = $val['uid'];
 			}
 			
 			$article_topics = $this->model('topic')->get_topics_by_item_ids($article_ids, 'article');
+			$article_users_info = $this->model('account')->get_user_info_by_uids($article_uids);
 			
 			foreach ($article_list AS $key => $val)
 			{
 				$article_list[$key]['topics'] = $article_topics[$val['id']];
+				$article_list[$key]['user_info'] = $article_users_info[$val['uid']];
 			}
 		}
 		
 		TPL::assign('article_list', $article_list);
 		
-		TPL::output('article/ajax/list');
+		if ($_GET['template'] == 'm')
+		{
+			TPL::output('m/ajax/article_list');
+		}
+		else
+		{
+			TPL::output('article/ajax/list');
+		}
 	}
 	
 	public function lock_action()

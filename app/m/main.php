@@ -857,6 +857,8 @@ class main extends AWS_CONTROLLER
 
 	public function article_square_action()
 	{
+		TPL::assign('feature_list', $this->model('feature')->get_feature_list());
+		
 		TPL::output('m/article_square');
 	}
 
@@ -896,12 +898,5 @@ class main extends AWS_CONTROLLER
 		TPL::assign('near_by_questions', $near_by_questions);
 		
 		TPL::output('m/nearby_question');
-	}
-	
-	public function article_square_action()
-	{
-		
-		
-		TPL::output('m/article_square');
 	}
 }
