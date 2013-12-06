@@ -226,14 +226,12 @@
 			<div class="dropdown-menu pull-right">
 				<div class="mod-head clearfix">					
 					<div class="mod">
-						<div class="mod-head"><?php _e('自定义url'); ?></div>
+						<div class="mod-head"><?php _e('常用功能'); ?></div>
 						<div class="divider"></div>
 						<div class="mod-footer">
 							<ul class="control-height">
-								<li data-value="http://www.baidu.com" data-upload="false"><a><?php _e('百度'); ?></a></li>
-								<li data-value="http://www.google.com" data-upload="false"><a><?php _e('谷歌'); ?></a></li>
-								<li data-value="http://www.sina.com.cn" data-upload="false"><a><?php _e('新浪'); ?></a></li>
-								<li data-value="http://wenda.baidu.com" data-upload="false"><a><?php _e('百度'); ?></a></li>
+								<li data-value="<?php echo get_js_url('/m/nearby_people/'); ?>" data-upload="false"><a><?php _e('附近的人'); ?></a></li>
+								<li data-value="<?php echo get_js_url('/m/nearby_question/'); ?>" data-upload="false"><a><?php _e('附近的问题'); ?></a></li>
 							</ul>
 						</div>
 					</div>	

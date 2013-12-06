@@ -141,7 +141,7 @@ class weixin_class extends AWS_MODEL
 				}
 			break;
 			
-			case 'location'
+			case 'location':
 				if (!$near_by_questions = $this->model('people')->get_near_by_users($input_message['location_X'], $input_message['location_y'], $this->user_id, 10))
 				{
 					$response_message = '你的附近暂时没有问题';
