@@ -1,0 +1,42 @@
+<?php TPL::output('m/header.tpl.htm'); ?>
+<?php TPL::output('m/global_header.tpl.htm'); ?>
+
+<div class="aw-content verify-page">
+	<form id="verify_form" method="post" action="account/ajax/verify/" enctype="multipart/form-data" class="form-horizontal">
+		<dl>
+			<dt><?php _e('当前状态 : '); ?></dt>
+			<dd><?php _e('未认证'); ?></dd>
+		</dl>
+
+		<dl>
+			<dt><?php _e('认证类型 : '); ?></dt>
+			<dd><input type="radio" name="type" value="personal" /> 个人认证 <input type="radio" name="type" value="enterprise" /> 企业认证</dd>
+		</dl>
+
+		<dl>
+			<dt><?php _e('真实姓名 : '); ?></dt>
+			<dd><input type="text" class="form-control" name="name" /></dd>
+		</dl>
+
+		<dl>
+			<dt><?php _e('身份证号码 : '); ?></dt>
+			<dd><input type="text" class="form-control" name="id_code" /></dd>
+		</dl>
+
+		<dl>
+			<dt><?php _e('联系方式 : '); ?></dt>
+			<dd><input type="text" class="form-control" name="contact" /></dd>
+		</dl>
+
+		<dl>
+			<dt><?php _e('认证说明 : '); ?></dt>
+			<dd><input type="text" class="form-control" name="reason" /></dd>
+		</dl>
+	</form>
+	
+	<div class="aw-setting-save clearfix">
+		<a class="btn btn-primary pull-right" onclick="ajax_post($('#verify_form'))"><?php _e('提交认证'); ?></a>
+	</div>
+</div>
+
+<?php TPL::output('m/footer.tpl.htm'); ?>

@@ -899,4 +899,10 @@ class main extends AWS_CONTROLLER
 		
 		TPL::output('m/nearby_question');
 	}
+
+	public function verify_action()
+	{
+		TPL::output('m/verify');
+	}
+
 }
