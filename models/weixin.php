@@ -228,7 +228,7 @@ class weixin_class extends AWS_MODEL
 				{
 					if (!$response_message = $this->create_response_by_reply_rule_keyword(get_setting('weixin_no_result_message_key')))
 					{
-						$response_message = '您的问题没有人提到过';
+						$response_message = '您的问题: ' . $input_message['content'] . ', 目前没有人提到过';
 					}
 				}
 			break;
