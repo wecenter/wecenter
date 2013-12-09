@@ -526,5 +526,9 @@ footer{margin-top:20px;font-size: 12px;text-align: center;}
 .verify-page{padding-top:20px;}
 .verify-page dl{height:auto;overflow: hidden;}
 .verify-page dl dt, .verify-page dl dd{float:left;line-height:36px;}
-.verify-page dl dt{width: 80px;text-align: right;}
-.verify-page dl dd{width: 70%;}
+.verify-page dl dt{width: 92px;text-align: right;}
+.verify-page dl dd{width: 65%;}
+.verify-page dl dd input{margin:0;}
+.verify-page .verify-attach dd{line-height: 18px;}
+.verify-page .verify-attach dd input{vertical-align: 5px;margin:8px 0 10px;}
+.verify-page .verify-attach p{font-size: 12px;color: #999;}
