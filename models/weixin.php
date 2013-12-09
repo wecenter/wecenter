@@ -25,8 +25,22 @@ class weixin_class extends AWS_MODEL
 	
 	var $image_article_tpl = '<item><Title><![CDATA[%s]]></Title><Description><![CDATA[%s]]></Description><PicUrl><![CDATA[%s]]></PicUrl><Url><![CDATA[%s]]></Url></item>';
 	
+	var $bind_message;
+	
 	var $user_info;
 	var $user_id;
+	
+	public function setup()
+	{
+		if (AWS_APP::config()->get('weixin')->app_id)
+		{
+			$this->bind_message = '你的微信帐号没有绑定 ' . get_setting('site_name') . ' 的帐号, 请<a href="' . $this->model('openid_weixin')->get_oauth_url(get_js_url('/m/weixin/authorization/'), 'snsapi_userinfo') . '">点此绑定</a>';
+		}
+		else
+		{
+			$this->bind_message = '当前微信公众号暂不支持此功能';
+		}
+	}
 	
 	public function fetch_message()
 	{
@@ -643,7 +657,7 @@ class weixin_class extends AWS_MODEL
 				}
 				else
 				{
-					$response_message = '你的微信帐号没有绑定 ' . get_setting('site_name') . ' 的帐号, 请<a href="' . $this->model('openid_weixin')->get_oauth_url(get_js_url('/m/weixin/authorization/'), 'snsapi_userinfo') . '">点此绑定</a>或<a href="' . get_js_url('/m/register/') . '">注册新账户</a>';
+					$response_message = $this->bind_message;
 				}
 			break;
 			
@@ -677,7 +691,7 @@ class weixin_class extends AWS_MODEL
 				}
 				else
 				{
-					$response_message = '你的微信帐号没有绑定 ' . get_setting('site_name') . ' 的帐号, 请<a href="' . $this->model('openid_weixin')->get_oauth_url(get_js_url('/m/weixin/authorization/'), 'snsapi_userinfo') . '">点此绑定</a>或<a href="' . get_js_url('/m/register/') . '">注册新账户</a>';
+					$response_message = $this->bind_message;
 				}
 			break;
 			
@@ -723,7 +737,7 @@ class weixin_class extends AWS_MODEL
 				}
 				else
 				{
-					$response_message = '你的微信帐号没有绑定 ' . get_setting('site_name') . ' 的帐号, 请<a href="' . $this->model('openid_weixin')->get_oauth_url(get_js_url('/m/weixin/authorization/'), 'snsapi_userinfo') . '">点此绑定</a>或<a href="' . get_js_url('/m/register/') . '">注册新账户</a>';
+					$response_message = $this->bind_message;
 				}
 			break;
 		}
@@ -937,6 +951,11 @@ class weixin_class extends AWS_MODEL
 	
 	public function get_access_token()
 	{
+		if (!AWS_APP::config()->get('weixin')->app_id)
+		{
+			return false;
+		}
+		
 		$token_cache_key = 'weixin_access_token_' . md5(AWS_APP::config()->get('weixin')->app_id . AWS_APP::config()->get('weixin')->app_secret);
 		
 		if ($access_token = AWS_APP::cache()->get($token_cache_key))
@@ -959,6 +978,11 @@ class weixin_class extends AWS_MODEL
 	
 	public function send_text_message($openid, $message)
 	{
+		if (!AWS_APP::config()->get('weixin')->app_id)
+		{
+			return false;
+		}
+		
 		HTTP::request('https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=' . $this->get_access_token(), 'POST', preg_replace("#\\\u([0-9a-f]+)#ie", "convert_encoding(pack('H4', '\\1'), 'UCS-2', 'UTF-8')", json_encode(array(
 			'touser' => $openid,
 			'msgtype' => 'text',
@@ -970,6 +994,11 @@ class weixin_class extends AWS_MODEL
 	
 	public function update_menu()
 	{
+		if (!AWS_APP::config()->get('weixin')->app_id)
+		{
+			return false;
+		}
+		
 		$mp_menu = get_setting('weixin_mp_menu');
 		
 		foreach ($mp_menu AS $key => $val)
