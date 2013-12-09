@@ -937,6 +937,11 @@ class weixin_class extends AWS_MODEL
 	
 	public function get_access_token()
 	{
+		if (!AWS_APP::config()->get('weixin')->app_id)
+		{
+			return false;
+		}
+		
 		$token_cache_key = 'weixin_access_token_' . md5(AWS_APP::config()->get('weixin')->app_id . AWS_APP::config()->get('weixin')->app_secret);
 		
 		if ($access_token = AWS_APP::cache()->get($token_cache_key))
@@ -959,6 +964,11 @@ class weixin_class extends AWS_MODEL
 	
 	public function send_text_message($openid, $message)
 	{
+		if (!AWS_APP::config()->get('weixin')->app_id)
+		{
+			return false;
+		}
+		
 		HTTP::request('https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=' . $this->get_access_token(), 'POST', preg_replace("#\\\u([0-9a-f]+)#ie", "convert_encoding(pack('H4', '\\1'), 'UCS-2', 'UTF-8')", json_encode(array(
 			'touser' => $openid,
 			'msgtype' => 'text',
@@ -970,6 +980,11 @@ class weixin_class extends AWS_MODEL
 	
 	public function update_menu()
 	{
+		if (!AWS_APP::config()->get('weixin')->app_id)
+		{
+			return false;
+		}
+		
 		$mp_menu = get_setting('weixin_mp_menu');
 		
 		foreach ($mp_menu AS $key => $val)
