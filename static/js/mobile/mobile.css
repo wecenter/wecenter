@@ -521,3 +521,14 @@ footer{margin-top:20px;font-size: 12px;text-align: center;}
 .nearby-question ul li:nth-of-type(odd){background-color: #f3f3f3;}
 .nearby-question h1{margin:0;font-size: 18px;color: #666;}
 .nearby-question p span{margin:0 15px;}
+
+/* 认证页面 */
+.verify-page{padding-top:20px;}
+.verify-page dl{height:auto;overflow: hidden;}
+.verify-page dl dt, .verify-page dl dd{float:left;line-height:36px;}
+.verify-page dl dt{width: 92px;text-align: right;}
+.verify-page dl dd{width: 65%;}
+.verify-page dl dd input{margin:0;}
+.verify-page .verify-attach dd{line-height: 18px;}
+.verify-page .verify-attach dd input{vertical-align: 5px;margin:8px 0 10px;}
+.verify-page .verify-attach p{font-size: 12px;color: #999;}
