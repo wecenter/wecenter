@@ -25,8 +25,22 @@ class weixin_class extends AWS_MODEL
 	
 	var $image_article_tpl = '<item><Title><![CDATA[%s]]></Title><Description><![CDATA[%s]]></Description><PicUrl><![CDATA[%s]]></PicUrl><Url><![CDATA[%s]]></Url></item>';
 	
+	var $bind_message;
+	
 	var $user_info;
 	var $user_id;
+	
+	public function setup()
+	{
+		if (AWS_APP::config()->get('weixin')->app_id)
+		{
+			$this->bind_message = '你的微信帐号没有绑定 ' . get_setting('site_name') . ' 的帐号, 请<a href="' . $this->model('openid_weixin')->get_oauth_url(get_js_url('/m/weixin/authorization/'), 'snsapi_userinfo') . '">点此绑定</a>';
+		}
+		else
+		{
+			$this->bind_message = '当前微信公众号暂不支持此功能';
+		}
+	}
 	
 	public function fetch_message()
 	{
@@ -643,7 +657,7 @@ class weixin_class extends AWS_MODEL
 				}
 				else
 				{
-					$response_message = '你的微信帐号没有绑定 ' . get_setting('site_name') . ' 的帐号, 请<a href="' . $this->model('openid_weixin')->get_oauth_url(get_js_url('/m/weixin/authorization/'), 'snsapi_userinfo') . '">点此绑定</a>或<a href="' . get_js_url('/m/register/') . '">注册新账户</a>';
+					$response_message = $this->bind_message;
 				}
 			break;
 			
@@ -677,7 +691,7 @@ class weixin_class extends AWS_MODEL
 				}
 				else
 				{
-					$response_message = '你的微信帐号没有绑定 ' . get_setting('site_name') . ' 的帐号, 请<a href="' . $this->model('openid_weixin')->get_oauth_url(get_js_url('/m/weixin/authorization/'), 'snsapi_userinfo') . '">点此绑定</a>或<a href="' . get_js_url('/m/register/') . '">注册新账户</a>';
+					$response_message = $this->bind_message;
 				}
 			break;
 			
@@ -723,7 +737,7 @@ class weixin_class extends AWS_MODEL
 				}
 				else
 				{
-					$response_message = '你的微信帐号没有绑定 ' . get_setting('site_name') . ' 的帐号, 请<a href="' . $this->model('openid_weixin')->get_oauth_url(get_js_url('/m/weixin/authorization/'), 'snsapi_userinfo') . '">点此绑定</a>或<a href="' . get_js_url('/m/register/') . '">注册新账户</a>';
+					$response_message = $this->bind_message;
 				}
 			break;
 		}
