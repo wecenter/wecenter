@@ -132,7 +132,7 @@ $(document).ready(function () {
 	$(document).click(function(e)
 	{
 		var target = $(e.target);
-		if (target.closest('#aw-top-nav-notic, #aw-top-nav-profile, .aw-top-nav-popup, .dropdown-list').length == 0)
+		if (target.closest('#aw-top-nav-profile, #aw-top-nav-notic').length == 0)
 		{
 			$('.aw-top-nav-popup, .dropdown-list').hide();
 		}
