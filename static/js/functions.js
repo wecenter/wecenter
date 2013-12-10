@@ -1771,7 +1771,14 @@ function bind_dropdown_list(selector, type)
                 return false;
             }
         }
-        if ($(selector).val().length >= 2)
+        if ($(selector).val().match(/^\w/))
+        {
+            if ($(selector).val().length >= 2)
+            {
+                get_dropdown_list($(this), type, $(selector).val());
+            }
+        }
+        else if ($(selector).val().length >= 1)
         {
            get_dropdown_list($(this), type, $(selector).val());
         }
