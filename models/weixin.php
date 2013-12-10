@@ -183,10 +183,17 @@ class weixin_class extends AWS_MODEL
 			break;
 						
 			case 'voice':
-				$input_message['content'] = $input_message['recognition'];
-				$input_message['msgType'] = 'text';
-				
-				$response_message = $this->response_message($input_message);
+				if (!$input_message['recognition'])
+				{
+					$response_message = '无法识别语音或相关功能未启用';
+				}
+				else
+				{
+					$input_message['content'] = $input_message['recognition'];
+					$input_message['msgType'] = 'text';
+					
+					$response_message = $this->response_message($input_message);
+				}
 			break;
 			
 			default:
