@@ -69,6 +69,13 @@
 	var PUBLISH_TYPE = 'question';
 	
 	$(document).ready(function () {
+
+		// 判断是否微信打开
+		if (typeof window.WeixinJSBridge != 'undefined')
+	    {
+	    	$('header, nav, footer').hide();
+	    }
+    
 		if (ATTACH_ACCESS_KEY != '')
 		{
 			init_fileuploader('file_uploader_answer', G_BASE_URL + '/publish/ajax/attach_upload/id-answer__attach_access_key-' + ATTACH_ACCESS_KEY);
