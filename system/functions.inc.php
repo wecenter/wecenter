@@ -580,34 +580,33 @@ function get_js_url($url)
 		$url = substr($url, 1);
 		
 		if (get_setting('url_rewrite_enable') == 'Y' AND $request_routes = get_request_route())		
-		{			
-			foreach ($request_routes as $key => $val)
+		{
+			if (strstr($url, '?'))
 			{
-				if (strstr($val[0], '?'))
-				{
-					$request_uri = explode('?', $url);
-					
-					$query_string = $request_uri[1];
-					$request_uri = $request_uri[0];
-				}
-				else
-				{
-					unset($query_string);
-					
-					$request_uri = $val[0];
-				}
+				$request_uri = explode('?', $url);
 				
-				if (preg_match('/^' . $request_uri . '$/', $url))
+				$query_string = $request_uri[1];
+				
+				$url = $request_uri[0];
+			}
+			else
+			{
+				unset($query_string);
+			}
+			
+			foreach ($request_routes as $key => $val)
+			{				
+				if (preg_match('/^' . $val[0] . '$/', $url))
 				{
-					$url = preg_replace('/^' . $request_uri . '$/', $val[1], $url);
-					
-					if ($query_string)
-					{
-						$url .= '?' . $query_string;
-					}
-					
+					$url = preg_replace('/^' . $val[0] . '$/', $val[1], $url);
+										
 					break;
 				}
+			}
+			
+			if ($query_string)
+			{
+				$url .= '?' . $query_string;
 			}
 		}
 		
