@@ -181,7 +181,14 @@ class main extends AWS_CONTROLLER
 		
 		if ($topic_info['merged_id'] AND $topic_info['merged_id'] != $topic_info['topic_id'])
 		{
-			HTTP::redirect('/topic/' . $topic_info['merged_id'] . '?rf=' . $topic_info['topic_id']);
+			if ($this->model('topic')->get_topic_by_title($topic_info['merged_id']))
+			{
+				HTTP::redirect('/topic/' . $topic_info['merged_id'] . '?rf=' . $topic_info['topic_id']);
+			}
+			else
+			{
+				$this->model('topic')->remove_merge_topic($topic_info['topic_id'], $topic_info['merged_id']);
+			}
 		}
 		
 		if (urldecode($topic_info['url_token']) != $_GET['id'])

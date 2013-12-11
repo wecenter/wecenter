@@ -59,9 +59,9 @@ $(window).on('hashchange', function() {
 
 $(document).ready(function () {
 	// 判断是否微信打开
-    if (G_IN_WECHAT == true)
+	if (typeof window.WeixinJSBridge != 'undefined')
     {
-        $('header, nav, footer').hide();
+    	$('header, nav, footer').hide();
         // if ($.cookie('wechat-tips-close') != 'true')
         // {
         // 	$('.aw-global-tips').show();
@@ -132,7 +132,7 @@ $(document).ready(function () {
 	$(document).click(function(e)
 	{
 		var target = $(e.target);
-		if (target.closest('#aw-top-nav-notic, #aw-top-nav-profile, .aw-top-nav-popup, .dropdown-list').length == 0)
+		if (target.closest('#aw-top-nav-profile, #aw-top-nav-notic').length == 0)
 		{
 			$('.aw-top-nav-popup, .dropdown-list').hide();
 		}
@@ -480,9 +480,12 @@ function add_topic_box(element, type)
 			switch (type)
 			{
 				case 'publish' :
-					$(this).parents('.aw-topic-edit-box').find('.aw-topic-box').prepend('<span class="aw-topic-name"><a>' + $(this).parents('.aw-topic-box-selector').find('.aw-topic-input').val() + '</a><input type="hidden" name="topics[]" value="' + $(this).parents('.aw-topic-box-selector').find('.aw-topic-input').val() + '"><a><i onclick="$(this).parents(\'.aw-topic-name\').detach();">X</i></a></span>');
-					$(this).parents('.aw-topic-edit-box').find('.aw-topic-input').val('');
-					$(this).parents('.aw-topic-edit-box').find('.dropdown-list').hide();
+					if ($(this).parents('.aw-topic-box-selector').find('.aw-topic-input').val() != '')
+					{
+						$(this).parents('.aw-topic-edit-box').find('.aw-topic-box').prepend('<span class="aw-topic-name"><a>' + $(this).parents('.aw-topic-box-selector').find('.aw-topic-input').val() + '</a><input type="hidden" name="topics[]" value="' + $(this).parents('.aw-topic-box-selector').find('.aw-topic-input').val() + '"><a><i onclick="$(this).parents(\'.aw-topic-name\').detach();">X</i></a></span>');
+						$(this).parents('.aw-topic-edit-box').find('.aw-topic-input').val('');
+						$(this).parents('.aw-topic-edit-box').find('.dropdown-list').hide();
+					}
 				break;
 				case 'question' :
 					var _this = $(this);

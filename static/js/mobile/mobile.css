@@ -57,7 +57,7 @@ header .aw-publish{background-image: -moz-linear-gradient(top, #1589E0, #0F71C6)
 nav{background: #f2f2f2;border-bottom: 1px solid #E1E1E1;margin: 0;height: 36px;font-size: 15px;}
 nav ul{box-shadow: 0 0 1px rgba(0, 0, 0, 0.04);line-height: 36px;margin: 0;padding: 0;}
 nav ul li{position:relative;float: left;width: 16.665%;height: 36px;line-height: 36px;text-align: center;cursor: pointer;}
-nav ul li .fa-caret-down{position: absolute;right: 7px;top: 10px;}
+nav ul li .fa-caret-down{position: absolute;right: 3px;top: 10px;}
 nav ul li a{display:block;font-weight: bold;color: #222;}
 nav ul li a span{margin-left: 10px;}
 nav #aw-top-nav-notic .badge{position: absolute;right: 0;top:1px;z-index:100;padding:2px 6px;}
@@ -401,7 +401,7 @@ nav #aw-top-nav-notic .badge{position: absolute;right: 0;top:1px;z-index:100;pad
 /* 话题编辑box */
 .aw-topic-edit-box .aw-topic-box{margin: 10px 0;}
 .aw-topic-box-selector{position:relative;max-width: 500px;}
-.aw-topic-box-selector .btn{margin-left: 10px;}
+.aw-topic-box-selector .btn{margin-left: 5px;}
 .aw-topic-box-selector .dropdown-list{width: 50%;}
 .aw-topic-box-selector .dropdown-list ul li{cursor: pointer;}
 
