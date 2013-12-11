@@ -401,7 +401,7 @@ nav #aw-top-nav-notic .badge{position: absolute;right: 0;top:1px;z-index:100;pad
 /* 话题编辑box */
 .aw-topic-edit-box .aw-topic-box{margin: 10px 0;}
 .aw-topic-box-selector{position:relative;max-width: 500px;}
-.aw-topic-box-selector .btn{margin-left: 10px;}
+.aw-topic-box-selector .btn{margin-left: 5px;}
 .aw-topic-box-selector .dropdown-list{width: 50%;}
 .aw-topic-box-selector .dropdown-list ul li{cursor: pointer;}
 
