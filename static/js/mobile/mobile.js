@@ -59,9 +59,9 @@ $(window).on('hashchange', function() {
 
 $(document).ready(function () {
 	// 判断是否微信打开
-    if (G_IN_WECHAT == true)
+	if (typeof window.WeixinJSBridge != 'undefined')
     {
-        $('header, nav, footer').hide();
+    	$('header, nav, footer').hide();
         // if ($.cookie('wechat-tips-close') != 'true')
         // {
         // 	$('.aw-global-tips').show();
