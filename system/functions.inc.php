@@ -1081,6 +1081,18 @@ function is_mobile()
 	return false;
 }
 
+function in_weixin()
+{
+	$user_agent = strtolower($_SERVER['HTTP_USER_AGENT']);
+	
+	if (preg_match('/micromessenger/i', $user_agent))
+	{
+		return true;
+	}
+	
+	return false;
+}
+
 function get_weixin_rule_image($image_file, $size = '')
 {
 	return AWS_APP::model('weixin')->get_weixin_rule_image($image_file, $size);

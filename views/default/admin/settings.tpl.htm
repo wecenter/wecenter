@@ -172,16 +172,16 @@
 				</dd>
 			</dl>
 			<dl>
-				<dt><h3><?php _e('只允许通过邀请注册成为会员'); ?>:</h3></dt>
+				<dt><h3><?php _e('注册类型'); ?>:</h3></dt>
 				
 				<dd>
-				<span class="yesno_yes">
-					<label><input type="radio" name="invite_reg_only" value="Y"<?php if ($this->setting['invite_reg_only'] == 'Y') { ?> checked="checked"<?php } ?> /><?php _e('是'); ?></label>
-				</span>
+				<label><input type="radio" name="register_type" value="open"<?php if ($this->setting['register_type'] == 'open') { ?> checked="checked"<?php } ?> /> <?php _e('开放注册'); ?></label>
 				
-				<span class="yesno_no">
-					<label><input type="radio" name="invite_reg_only" value="N"<?php if ($this->setting['invite_reg_only'] == 'N') { ?> checked="checked"<?php } ?> /><?php _e('否'); ?></label>
-				</span>
+				<label><input type="radio" name="register_type" value="invite"<?php if ($this->setting['register_type'] == 'invite') { ?> checked="checked"<?php } ?> /> <?php _e('邀请注册'); ?></label>
+				
+				<label><input type="radio" name="register_type" value="weixin"<?php if ($this->setting['register_type'] == 'weixin') { ?> checked="checked"<?php } ?> /> <?php _e('微信一站式注册 (不支持 UCenter)'); ?></label>
+				
+				<label><input type="radio" name="register_type" value="close"<?php if ($this->setting['register_type'] == 'close') { ?> checked="checked"<?php } ?> /> <?php _e('关闭注册'); ?></label>
 				</dd>
 			</dl>
 			<dl>

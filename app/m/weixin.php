@@ -38,6 +38,11 @@ class weixin extends AWS_CONTROLLER
 	{
 		HTTP::no_cache_header();
 		
+		if (!in_weixin())
+		{
+			H::redirect_msg(AWS_APP::lang()->_t('请使用微信访问本页面'));
+		}
+		
 		TPL::import_clean();
 		
 		TPL::import_css(array(
@@ -139,17 +144,40 @@ class weixin extends AWS_CONTROLLER
 					}
 				}
 				
-				AWS_APP::session()->WXConnect = array(
-					'access_token' => $access_token,
-					'access_user' => $access_user
-				);
+				if ($access_user['subscribe'] == 0)
+				{
+					H::redirect_msg('您当前没有关注本公众号, 无法使用全部功能');
+				}
 				
-				TPL::assign('access_token', $access_token);
-				TPL::assign('access_user', $access_user);
-				
-				TPL::assign('body_class', 'explore-body');
-				
-				TPL::output('m/weixin/authorization');
+				if (get_setting('register_type') == 'weixin')
+				{
+					if ($user_info = $this->model('openid_weixin')->register($access_token, $access_user))
+					{
+						$this->model('openid_weixin')->bind_account($access_token, $access_user, $user_info['uid']);
+						
+						HTTP::set_cookie('_user_login', get_login_cookie_hash($user_info['user_name'], $user_info['password'], $user_info['salt'], $user_info['uid'], false));
+						
+						HTTP::redirect(base64_decode($_GET['redirect']));
+					}
+					else
+					{
+						H::redirect_msg(AWS_APP::lang()->_t('注册失败, 请返回重新操作'));
+					}
+				}
+				else
+				{
+					AWS_APP::session()->WXConnect = array(
+						'access_token' => $access_token,
+						'access_user' => $access_user
+					);
+					
+					TPL::assign('access_token', $access_token);
+					TPL::assign('access_user', $access_user);
+					
+					TPL::assign('body_class', 'explore-body');
+					
+					TPL::output('m/weixin/authorization');
+				}
 			}
 			else
 			{
