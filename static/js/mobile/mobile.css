@@ -305,7 +305,7 @@ nav #aw-top-nav-notic .badge{position: absolute;right: 0;top:1px;z-index:100;pad
 .aw-people-page .aw-people-replay ul li p, .aw-people-page .aw-people-ask ul li p{margin:0;}
 
 /* 登陆页面 */
-.explore-body{padding:0 !important;}
+.explore-body{padding:0 !important;background: #0078D8;}
 .explore-body .explore-page{height:auto;padding:30px 0;background: #0078D8;box-shadow: 0 -1px 6px rgba(0, 0, 0, 0.1) inset;}
 .explore-wrap, .find-password .find-password-wrap{width: 250px;margin:0 auto;text-align: center;}
 .explore-wrap .aw-mod-header img{width:200px;}
