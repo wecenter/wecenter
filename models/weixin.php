@@ -346,7 +346,7 @@ class weixin_class extends AWS_MODEL
 		switch ($message_code)
 		{
 			default:
-				if (substr(strtoupper($input_message['content'], 0, 4)) == 'AUTH')
+				if (substr(strtoupper($input_message['content']), 0, 4) == 'AUTH')
 				{
 					if (!$this->user_id)
 					{

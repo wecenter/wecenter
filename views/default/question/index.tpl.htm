@@ -232,7 +232,7 @@
 										<!-- 社交操作 -->
 										<div class="aw-dynamic-topic-meta">
 											<span class="aw-text-color-999"><?php echo date_friendly($val['add_time']); ?></span>
-											<a class="aw-add-comment aw-text-color-999" data-id="<?php echo $val['answer_id']; ?>" data-type="answer" data-comment-count="<?php _e('%s', $val['comment_count']); ?>" href="javascript:;"><i class="fa fa-comment"></i><?php if ($val['comment_count']) { ?><?php _e('%s 条评论', $val['comment_count']); ?><?php } else { ?><?php _e('添加评论'); ?><?php } ?></a>
+											<a class="aw-add-comment aw-text-color-999" data-id="<?php echo $val['answer_id']; ?>" data-type="answer" data-comment-count="<?php _e('%s', $val['comment_count']); ?>" data-first-click="<?php if ($val['comment_count'] == 0) {?>hide<?php }?>" href="javascript:;"><i class="fa fa-comment"></i><?php if ($val['comment_count']) { ?><?php _e('%s 条评论', $val['comment_count']); ?><?php } else { ?><?php _e('添加评论'); ?><?php } ?></a>
 											<!-- 可显示/隐藏的操作box -->
 											<span class="aw-dynamic-topic-more-operate">
 												<?php if ($this->user_id) { ?>	

@@ -1006,10 +1006,12 @@ function init_comment_box(selector)
 {
     $(document).on('click', selector, function ()
     {
+
         if (typeof COMMENT_UNFOLD != 'undefined')
         {
-            if (COMMENT_UNFOLD == 'all' && $(this).attr('data-comment-count') == 0)
+            if (COMMENT_UNFOLD == 'all' && $(this).attr('data-comment-count') == 0 && $(this).attr('data-first-click') == 'hide')
             {
+                $(this).removeAttr('data-first-click');
                 return false;
             }
         }
