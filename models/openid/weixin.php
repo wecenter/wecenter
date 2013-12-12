@@ -109,5 +109,65 @@ class openid_weixin_class extends AWS_MODEL
 	{
 		return $this->get_oauth_url(get_js_url('/m/weixin/redirect/?redirect=' . base64_encode(get_js_url($redirect_uri))));
 	}
+	
+	public function register($access_token, $access_user)
+	{
+		if (!$access_token OR !$access_user)
+		{
+			return false;
+		}
+		
+		$access_user['nickname'] = str_replace(array(
+			'?', '/', '&', '=', '#'
+		), '', $access_user['nickname']);
+		
+		if ($this->model('account')->check_username($access_user['nickname']))
+		{
+			$access_user['nickname'] .= '_' . rand(1, 999);
+		}
+		
+		if ($uid = $this->model('account')->user_register($access_user['nickname'], md5(rand(111111, 999999999))))
+		{
+			if ($access_user['headimgurl'])
+			{
+				if ($avatar_stream = curl_get_contents($access_user['headimgurl']))
+				{
+					$avatar_location = get_setting('upload_dir') . '/avatar/' . $this->model('account')->get_avatar($uid, '', 1) . '/' . $this->model('account')->get_avatar($uid, '', 2);
+					
+					$avatar_dir = str_replace(basename($avatar_location), '', $avatar_location);
+					
+					if ( ! is_dir($avatar_dir))
+					{
+						make_dir($avatar_dir);
+					}
+					
+					if (file_put_contents(get_setting('upload_dir') . '/avatar/' . $this->model('account')->get_avatar($uid, '', 1) . '/' . $this->model('account')->get_avatar($uid, '', 2), $avatar_stream))
+					{
+						foreach(AWS_APP::config()->get('image')->avatar_thumbnail AS $key => $val)
+						{			
+							$thumb_file[$key] = $avatar_dir . $this->model('account')->get_avatar($uid, $key, 2);
+							
+							AWS_APP::image()->initialize(array(
+								'quality' => 90,
+								'source_image' => $avatar_dir,
+								'new_image' => $thumb_file[$key],
+								'width' => $val['w'],
+								'height' => $val['h']
+							))->resize();	
+						}
+						
+						$avatar_file = $this->model('account')->get_avatar($uid, null, 1) . basename($thumb_file['min']);
+					}
+				}
+			}
+			
+			$this->model('account')->update_users_fields(array(
+				'sex' => $access_user['sex'],
+				'avatar_file' => $avatar_file
+			), $uid);
+			
+			return $this->model('account')->get_user_info_by_uid($uid);
+		}
+	}
 }
 	

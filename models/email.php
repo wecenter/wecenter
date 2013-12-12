@@ -48,6 +48,11 @@ class email_class extends AWS_MODEL
 			$email = $user_info['email'];
 		}
 		
+		if (!$email)
+		{
+			return false;
+		}
+		
 		$email_message = (array)AWS_APP::config()->get('email_message');
 		
 		foreach ($email_message[$action] as $key => $val)

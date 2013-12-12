@@ -69,6 +69,7 @@ $.loading = function (s) {
         //编辑器插入图片
         addTextpicTure : function ()
         {
+        	console.log($('#addTxtForms :input[name="imgsUrl"]').val());
         	if($('#addTxtForms :input[name="imgsUrl"]').val() == '')
         	{
         		return false;
@@ -81,6 +82,10 @@ $.loading = function (s) {
 	        if ($('.aw-mod-publish .advanced_editor')[0])
 	        {
 	        	$('.aw-mod-publish .advanced_editor').insertAtCaret(textFeildValue);
+	        }
+	        if ($('.aw-mod-topic-edit-box .advanced_editor')[0])
+	        {
+	        	$('.aw-mod-topic-edit-box .advanced_editor').insertAtCaret(textFeildValue);
 	        }
 	        if ($('body').hasClass('aw-editing-free'))
 	        {
@@ -105,6 +110,10 @@ $.loading = function (s) {
 	        if ($('.aw-mod-publish .advanced_editor')[0])
 	        {
 	        	$('.aw-mod-publish .advanced_editor').insertAtCaret(textFeildValue);
+	        }
+	        if ($('.aw-mod-topic-edit-box .advanced_editor')[0])
+	        {
+	        	$('.aw-mod-topic-edit-box .advanced_editor').insertAtCaret(textFeildValue);
 	        }
 	        if ($('body').hasClass('aw-editing-free'))
 	        {
