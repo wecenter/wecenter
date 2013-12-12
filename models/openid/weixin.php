@@ -169,5 +169,44 @@ class openid_weixin_class extends AWS_MODEL
 			return $this->model('account')->get_user_info_by_uid($uid);
 		}
 	}
+	
+	public function process_client_login($token, $uid)
+	{
+		return $this->update('weixin_login', array(
+			'uid' => $uid
+		), "token = '" . intval($token) . "'");
+	}
+	
+	public function request_client_login_token($session_id)
+	{
+		$this->delete('weixin_login', "session_id = '" . $this->quote($session_id) . "'");
+		
+		$token = rand(11111111, 99999999);
+		
+		while ($this->fetch_row('weixin_login', "token = " . $token))
+		{
+			$token = rand(11111111, 99999999);
+		}
+		
+		$this->insert('weixin_login', array(
+			'token' => $token,
+			'session_id' => $session_id,
+			'expire' => (time() + 300)
+		));
+		
+		return $token;
+	}
+	
+	public function weixin_login_process($session_id)
+	{
+		$weixin_login = $this->fetch_row('weixin_login', "session_id = '" . $this->quote($session_id) . "' AND expire >= " . time());
+		
+		if ($weixin_login['uid'])
+		{
+			$this->delete('weixin_login', "session_id = '" . $this->quote($session_id) . "'");
+			
+			return $this->model('account')->get_user_info_by_uid($weixin_login['uid']);
+		}
+	}
 }
 	
