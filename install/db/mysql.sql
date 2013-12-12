@@ -721,6 +721,18 @@ CREATE TABLE `[#DB_PREFIX#]users_attrib` (
   KEY `uid` (`uid`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8 COMMENT='用户附加属性表';
 
+CREATE TABLE `[#DB_PREFIX#]weixin_login` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `token` int(10) NOT NULL,
+  `uid` int(10) DEFAULT NULL,
+  `session_id` varchar(16) NOT NULL,
+  `expire` int(10) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `session_id` (`session_id`),
+  KEY `token` (`token`),
+  KEY `expire` (`expire`)
+) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
+
 CREATE TABLE `[#DB_PREFIX#]weixin_message` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `weixin_id` varchar(32) NOT NULL,

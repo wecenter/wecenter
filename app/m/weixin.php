@@ -144,7 +144,7 @@ class weixin extends AWS_CONTROLLER
 					}
 				}
 				
-				if ($access_user['subscribe'] == 0)
+				if (!$access_user['nickname'])
 				{
 					H::redirect_msg('您当前没有关注本公众号, 无法使用全部功能');
 				}

@@ -40,7 +40,7 @@ class openid_weixin_class extends AWS_MODEL
 			}
 			else
 			{
-				H::redirect_msg(AWS_APP::lang()->_t('与微信通信出错, 请重新登录'), '/account/logout/');
+				H::redirect_msg(AWS_APP::lang()->_t('与微信通信出错, 请重新登录'));
 			}
 		}
 		
@@ -112,7 +112,7 @@ class openid_weixin_class extends AWS_MODEL
 	
 	public function register($access_token, $access_user)
 	{
-		if (!$access_token OR !$access_user)
+		if (!$access_token OR !$access_user['nickname'])
 		{
 			return false;
 		}
@@ -132,7 +132,7 @@ class openid_weixin_class extends AWS_MODEL
 			{
 				if ($avatar_stream = curl_get_contents($access_user['headimgurl']))
 				{
-					$avatar_location = get_setting('upload_dir') . '/avatar/' . $this->model('account')->get_avatar($uid, '', 1) . '/' . $this->model('account')->get_avatar($uid, '', 2);
+					$avatar_location = get_setting('upload_dir') . '/avatar/' . $this->model('account')->get_avatar($uid, '', 1) . $this->model('account')->get_avatar($uid, '', 2);
 					
 					$avatar_dir = str_replace(basename($avatar_location), '', $avatar_location);
 					
@@ -141,7 +141,7 @@ class openid_weixin_class extends AWS_MODEL
 						make_dir($avatar_dir);
 					}
 					
-					if (file_put_contents(get_setting('upload_dir') . '/avatar/' . $this->model('account')->get_avatar($uid, '', 1) . '/' . $this->model('account')->get_avatar($uid, '', 2), $avatar_stream))
+					if (@file_put_contents($avatar_location, $avatar_stream))
 					{
 						foreach(AWS_APP::config()->get('image')->avatar_thumbnail AS $key => $val)
 						{			
@@ -149,7 +149,7 @@ class openid_weixin_class extends AWS_MODEL
 							
 							AWS_APP::image()->initialize(array(
 								'quality' => 90,
-								'source_image' => $avatar_dir,
+								'source_image' => $avatar_location,
 								'new_image' => $thumb_file[$key],
 								'width' => $val['w'],
 								'height' => $val['h']

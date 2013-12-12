@@ -346,13 +346,13 @@ class weixin_class extends AWS_MODEL
 		switch ($message_code)
 		{
 			default:
-				if (substr(strtoupper($input_message['content'], 0, 4)) == 'AUTH')
+				if (substr(strtoupper($input_message['content']), 0, 4) == 'AUTH')
 				{
 					if (!$this->user_id)
 					{
 						$response_message = $this->bind_message;
 					}
-					else if ($this->model('openid_weixin')->process_client_login(substr($input_message['content'], 4), $this->user_id))
+					else if ($this->model('openid_weixin')->process_client_login(trim(substr($input_message['content'], 4)), $this->user_id))
 					{
 						$response_message = '你已成功登录网站';
 					}
