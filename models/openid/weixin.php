@@ -132,7 +132,7 @@ class openid_weixin_class extends AWS_MODEL
 			{
 				if ($avatar_stream = curl_get_contents($access_user['headimgurl']))
 				{
-					$avatar_location = get_setting('upload_dir') . '/avatar/' . $this->model('account')->get_avatar($uid, '', 1) . '/' . $this->model('account')->get_avatar($uid, '', 2);
+					$avatar_location = get_setting('upload_dir') . '/avatar/' . $this->model('account')->get_avatar($uid, '', 1) . $this->model('account')->get_avatar($uid, '', 2);
 					
 					$avatar_dir = str_replace(basename($avatar_location), '', $avatar_location);
 					
@@ -149,7 +149,7 @@ class openid_weixin_class extends AWS_MODEL
 							
 							AWS_APP::image()->initialize(array(
 								'quality' => 90,
-								'source_image' => $avatar_dir,
+								'source_image' => $avatar_location,
 								'new_image' => $thumb_file[$key],
 								'width' => $val['w'],
 								'height' => $val['h']
