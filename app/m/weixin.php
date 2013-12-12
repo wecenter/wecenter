@@ -163,7 +163,7 @@ class weixin extends AWS_CONTROLLER
 						}
 						else
 						{
-							HTTP::redirect('/');
+							H::redirect_msg(AWS_APP::lang()->_t('绑定微信成功'));
 						}
 					}
 					else
