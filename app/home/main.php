@@ -62,6 +62,11 @@ class main extends AWS_CONTROLLER
 			exit;
 		}
 		
+		if (! $this->user_info['email'])
+		{
+			HTTP::redirect('/account/complete_profile/');
+		}
+		
 		//边栏可能感兴趣的人或话题
 		if (TPL::is_output('block/sidebar_recommend_users_topics.tpl.htm', 'home/index'))
 		{
