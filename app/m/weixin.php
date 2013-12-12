@@ -153,6 +153,8 @@ class weixin extends AWS_CONTROLLER
 				{
 					if ($user_info = $this->model('openid_weixin')->register($access_token, $access_user))
 					{
+						print_r($access_user); die;
+						
 						$this->model('openid_weixin')->bind_account($access_token, $access_user, $user_info['uid']);
 						
 						HTTP::set_cookie('_user_login', get_login_cookie_hash($user_info['user_name'], $user_info['password'], $user_info['salt'], $user_info['uid'], false));

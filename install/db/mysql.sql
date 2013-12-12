@@ -725,7 +725,7 @@ CREATE TABLE `[#DB_PREFIX#]weixin_login` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `token` int(10) NOT NULL,
   `uid` int(10) DEFAULT NULL,
-  `session_id` varchar(16) NOT NULL,
+  `session_id` varchar(32) NOT NULL,
   `expire` int(10) DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `session_id` (`session_id`),
