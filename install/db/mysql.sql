@@ -1,19 +1,17 @@
-CREATE TABLE `[#DB_PREFIX#]active_tbl` (
+CREATE TABLE `[#DB_PREFIX#]active_data` (
   `active_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `uid` int(11) DEFAULT '0',
   `expire_time` int(10) DEFAULT NULL,
   `active_code` varchar(32) DEFAULT NULL,
-  `active_type` tinyint(4) DEFAULT NULL COMMENT '1 邮件激活, 11 找回密码 1121 邮箱验证 22 手机验证',
   `active_type_code` varchar(16) DEFAULT NULL,
-  `active_values` text,
   `add_time` int(10) DEFAULT NULL,
   `add_ip` bigint(12) DEFAULT NULL,
-  `active_expire` tinyint(1) DEFAULT NULL,
   `active_time` int(10) DEFAULT NULL,
   `active_ip` bigint(12) DEFAULT NULL,
   PRIMARY KEY (`active_id`),
   KEY `active_code` (`active_code`),
-  KEY `active_type` (`active_type`)
+  KEY `active_type_code` (`active_type_code`),
+  KEY `uid` (`uid`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]answer` (
@@ -725,7 +723,7 @@ CREATE TABLE `[#DB_PREFIX#]weixin_login` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `token` int(10) NOT NULL,
   `uid` int(10) DEFAULT NULL,
-  `session_id` varchar(16) NOT NULL,
+  `session_id` varchar(32) NOT NULL,
   `expire` int(10) DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `session_id` (`session_id`),

@@ -149,15 +149,38 @@ class weixin extends AWS_CONTROLLER
 					H::redirect_msg('您当前没有关注本公众号, 无法使用全部功能');
 				}
 				
+				if ($weixin_user = $this->model('openid_weixin')->get_user_info_by_openid($access_token['openid']))
+				{
+					$user_info = $this->model('account')->get_user_info_by_uid($weixin_user['uid']);
+					
+					HTTP::set_cookie('_user_login', get_login_cookie_hash($user_info['user_name'], $user_info['password'], $user_info['salt'], $user_info['uid'], false));
+					
+					if ($_GET['redirect'])
+					{
+						HTTP::redirect(base64_decode($_GET['redirect']));
+					}
+					else
+					{
+						H::redirect_msg(AWS_APP::lang()->_t('绑定微信成功'));
+					}
+				}
+				
 				if (get_setting('register_type') == 'weixin')
 				{
 					if ($user_info = $this->model('openid_weixin')->register($access_token, $access_user))
 					{
-						$this->model('openid_weixin')->bind_account($access_token, $access_user, $user_info['uid']);
+						$this->model('openid_weixin')->bind_account($access_user, $access_token, $user_info['uid']);
 						
-						HTTP::set_cookie('_user_login', get_login_cookie_hash($user_info['user_name'], $user_info['password'], $user_info['salt'], $user_info['uid'], false));
+						HTTP::set_cookie('_user_login', get_login_cookie_hash($user_info['user_name'], $user_info['password'], $user_info['salt'], $user_info['uid'], null, false));
 						
-						HTTP::redirect(base64_decode($_GET['redirect']));
+						if ($_GET['redirect'])
+						{
+							HTTP::redirect(base64_decode($_GET['redirect']));
+						}
+						else
+						{
+							H::redirect_msg(AWS_APP::lang()->_t('绑定微信成功'));
+						}
 					}
 					else
 					{
