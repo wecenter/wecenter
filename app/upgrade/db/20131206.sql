@@ -20,3 +20,6 @@ ALTER TABLE `[#DB_PREFIX#]active_data` ADD INDEX ( `uid` );
 ALTER TABLE `[#DB_PREFIX#]active_data` DROP `active_type`;
 ALTER TABLE `[#DB_PREFIX#]active_data` DROP `active_values`;
 ALTER TABLE `[#DB_PREFIX#]active_data` DROP `active_expire`;
+
+ALTER TABLE `[#DB_PREFIX#]question` CHANGE `question_content_fulltext` `question_content_fulltext` TEXT NULL DEFAULT NULL;
+ALTER TABLE `[#DB_PREFIX#]article` CHANGE `title_fulltext` `title_fulltext` TEXT NULL DEFAULT NULL;

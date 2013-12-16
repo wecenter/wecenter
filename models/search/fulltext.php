@@ -121,11 +121,6 @@ class search_fulltext_class extends AWS_MODEL
 			return false;
 		}
 		
-		if (sizeof($keywords) > 10)
-		{
-			$keywords = array_slice($keywords, 0, 10);
-		}
-		
 		$search_code = $this->encode_search_code($keywords);
 		
 		switch ($type)

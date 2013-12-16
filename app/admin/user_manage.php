@@ -289,13 +289,9 @@ class user_manage extends AWS_ADMIN_CONTROLLER
 	{
 		define('IN_AJAX', TRUE);
 		
-		$user_id = intval($_POST['uid']);
-		
-		if ($user_id)
+		if ($_POST['uid'])
 		{
-			unset($_POST['uid']);
-			
-			if (!$user_info = $this->model('account')->get_user_info_by_uid($user_id))
+			if (!$user_info = $this->model('account')->get_user_info_by_uid($_POST['uid']))
 			{
 				H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('用户不存在')));
 			}
@@ -303,6 +299,59 @@ class user_manage extends AWS_ADMIN_CONTROLLER
 			if ($_POST['user_name'] != $user_info['user_name'] && $this->model('account')->get_user_info_by_username($_POST['user_name']))
 			{
 				H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('用户名已存在')));
+			}
+			
+			if ($_FILES['user_avatar'])
+			{
+				AWS_APP::upload()->initialize(array(
+					'allowed_types' => 'jpg,jpeg,png,gif',
+					'upload_path' => get_setting('upload_dir') . '/avatar/' . $this->model('account')->get_avatar($user_info['uid'], '', 1),
+					'is_image' => TRUE,
+					'max_size' => get_setting('upload_avatar_size_limit'),
+					'file_name' => $this->model('account')->get_avatar($user_info['uid'], '', 2),
+					'encrypt_name' => FALSE
+				))->do_upload('user_avatar');
+				
+				if (AWS_APP::upload()->get_error())
+				{
+					switch (AWS_APP::upload()->get_error())
+					{
+						default:
+							H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('错误代码') . ': ' . AWS_APP::upload()->get_error()));
+						break;
+						
+						case 'upload_invalid_filetype':
+							H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('文件类型无效')));
+						break;	
+						
+						case 'upload_invalid_filesize':
+							H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('文件尺寸过大, 最大允许尺寸为 %s KB', get_setting('upload_size_limit'))));
+						break;
+					}
+				}
+				
+				if (! $upload_data = AWS_APP::upload()->data())
+				{
+					H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('上传失败, 请与管理员联系')));
+				}
+				
+				if ($upload_data['is_image'] == 1)
+				{
+					foreach(AWS_APP::config()->get('image')->avatar_thumbnail AS $key => $val)
+					{			
+						$thumb_file[$key] = $upload_data['file_path'] . $this->model('account')->get_avatar($user_info['uid'], $key, 2);
+						
+						AWS_APP::image()->initialize(array(
+							'quality' => 90,
+							'source_image' => $upload_data['full_path'],
+							'new_image' => $thumb_file[$key],
+							'width' => $val['w'],
+							'height' => $val['h']
+						))->resize();	
+					}
+				}
+				
+				$update_data['avatar_file'] = $this->model('account')->get_avatar($user_info['uid'], null, 1) . basename($thumb_file['min']);
 			}
 			
 			if ($_POST['email'])
@@ -324,25 +373,25 @@ class user_manage extends AWS_ADMIN_CONTROLLER
 				$update_data['group_id'] = intval($_POST['group_id']);
 			}
 			
-			$this->model('account')->update_users_fields($update_data, $user_id);
+			$this->model('account')->update_users_fields($update_data, $user_info['uid']);
 			
 			if ($_POST['delete_avatar'])
 			{
-				$this->model('account')->delete_avatar($user_id);
+				$this->model('account')->delete_avatar($user_info['uid']);
 			}
 			
 			if ($_POST['password'])
 			{
-				$this->model('account')->update_user_password_ingore_oldpassword($_POST['password'], $user_id, fetch_salt(4));
+				$this->model('account')->update_user_password_ingore_oldpassword($_POST['password'], $user_info['uid'], fetch_salt(4));
 			}
 			
 			$this->model('account')->update_users_attrib_fields(array(
 				'signature' => htmlspecialchars($_POST['signature'])
-			), $user_id);
+			), $user_info['uid']);
 			
 			if ($_POST['user_name'] != $user_info['user_name'])
 			{
-				$this->model('account')->update_user_name($_POST['user_name'], $user_id);
+				$this->model('account')->update_user_name($_POST['user_name'], $user_info['uid']);
 			}
 			
 			H::ajax_json_output(AWS_APP::RSM(null, 1, AWS_APP::lang()->_t('用户资料更新成功')));
