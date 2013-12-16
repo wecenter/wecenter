@@ -140,30 +140,6 @@
 		</div>
 	</div>
 </div>
-<div class="aw-mod aw-free-editor hide">
-	<form action="question/ajax/save_answer/" onsubmit="return false;" method="post" id="answer_form">
-    	<input type="hidden" name="post_hash" value="<?php echo new_post_hash(); ?>" />
-    	<input type="hidden" name="question_id" value="<?php echo $this->question_info['question_id']; ?>" />
-    	<input type="hidden" name="attach_access_key" value="<?php echo $this->attach_access_key; ?>" />
-		<div class="aw-mod-head">
-			<div class="aw-wecenter">
-				<a href="#" class="btn btn-large btn-default pull-left" onclick="toggleFullScreen('hide');return false;">退出全屏模式</a>
-				全屏模式
-				<a href="#" class="btn btn-large btn-default pull-right" onclick="ajax_post($(this).parents('#answer_form'));return false;">回复</a>
-			</div>
-		</div>
-		<div class="aw-mod-body">
-			<div class="aw-mod-side-left pull-left">
-				<textarea name="answer_content" id="advanced_editor" rows="15" class="autosize advanced_editor"><?php echo htmlspecialchars($this->draft_content['message']); ?></textarea>
-			</div>
-			<div class="aw-mod-side-right pull-left">
-				<div id="markItUpPreviewFrame" class="markItUpPreviewFrame">
-					<div id="markItUpPreviewFrames" class="markItUpPreviewFrames"></div>
-				</div>
-			</div>
-		</div>
-	</form>
-</div>
 
 <script type="text/javascript">
 	var ATTACH_ACCESS_KEY = '<?php echo $this->attach_access_key; ?>';

@@ -513,6 +513,7 @@ a.aw-load-more-content{display: block;}
 .aw-mod-publish-box .aw-mod-head{position:relative;margin:0 !important;border-bottom: none !important;}
 .aw-mod-publish-box .aw-mod-body{position:relative;padding:20px 0;}
 .aw-mod-publish-box .aw-upload-tips, .aw-mod-replay-box .aw-upload-tips{position: absolute;left: 100px;top: 23px;}
+.aw-mod-publish-box .fa-fullscreen{display: none;}
 .aw-mod-replay-box .aw-upload-tips{top:1px;}
 .aw-side-bar-mod-publish{margin-top: 30px;}
 .aw-side-bar-mod-publish .aw-mod-body p, .aw-side-bar-mod-topic-edit .aw-mod-body p{line-height: 22px;padding:10px 0;color: #999;}
