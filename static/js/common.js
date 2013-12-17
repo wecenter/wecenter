@@ -419,9 +419,9 @@ $.dialog = function (type_id, data)
         $('#aw-ajax-box').html(template);
 
 
-        $(".alert-box .modal-dialog").css({
-            left: $(window).width() / 2 - $(".alert-box .modal-dialog").width() / 2
-        });
+        // $(".alert-box .modal-dialog").css({
+        //     left: $(window).width() / 2 - $(".alert-box .modal-dialog").width() / 2
+        // });
         
         $(".alert-box").modal('show');
 
