@@ -35,7 +35,7 @@ body.modal-open, .modal-open .navbar-fixed-top, .modal-open .navbar-fixed-bottom
 .aw-reset-nav-tabs > li.active{margin:0 4px -1px 0;}
 .aw-reset-nav-tabs > li.active a{line-height:31px;background-color: #fff;}
 .aw-reset-nav-tabs h2{position:absolute;top:0;left:0;margin:0;font-size:20px;}
-.aw-reset-nav-tabs .icon-caret-up, .aw-reset-nav-tabs .icon-caret-down{position: relative;top: -2px;margin-left:5px;}
+.aw-reset-nav-tabs .fa-caret-up, .aw-reset-nav-tabs .fa-caret-down{position: relative;top: -2px;margin-left:5px;}
 
 /* 公共部分 */
 html{height: 100%;}
@@ -272,7 +272,7 @@ a.aw-load-more-content{display: block;}
 .aw-my-follow-question .aw-item{position: relative;}
 .aw-my-favorite .aw-mod-head{border-bottom: 1px solid #E2E2E2;}
 .aw-my-favorite .aw-mod-head h2{margin-top:10px;padding-bottom:10px;font-size:20px;}
-.aw-my-favorite .aw-mod-head h2 i{color: #333;}
+.aw-my-favorite .aw-mod-head h2 i{display: none;}
 .aw-my-favorite .aw-mod-head .aw-user-name{margin:0 5px;}
 .aw-my-favorite .aw-item{position: relative;z-index:1;padding-top:10px;}
 .aw-my-favorite .aw-item h4{margin:0 0 10px;}
@@ -513,7 +513,7 @@ a.aw-load-more-content{display: block;}
 .aw-mod-publish-box .aw-mod-head{position:relative;margin:0 !important;border-bottom: none !important;}
 .aw-mod-publish-box .aw-mod-body{position:relative;padding:20px 0;}
 .aw-mod-publish-box .aw-upload-tips, .aw-mod-replay-box .aw-upload-tips{position: absolute;left: 100px;top: 23px;}
-.aw-mod-publish-box .fa-fullscreen{display: none;}
+.aw-mod-publish-box .fa-arrows-alt{display: none;}
 .aw-mod-replay-box .aw-upload-tips{top:1px;}
 .aw-side-bar-mod-publish{margin-top: 30px;}
 .aw-side-bar-mod-publish .aw-mod-body p, .aw-side-bar-mod-topic-edit .aw-mod-body p{line-height: 22px;padding:10px 0;color: #999;}
@@ -638,6 +638,7 @@ a.aw-load-more-content{display: block;}
 .aw-my-notifications .aw-mod-body ul li.active{font-weight: bold;}
 .aw-my-notifications .aw-mod-body ul li.active span{font-weight: normal;}
 .aw-my-notifications .aw-close{margin:2px 0 0 5px;}
+.aw-my-notifications ul li p{margin:0;}
 
 /* 邀请好友加入社区 */
 .aw-mod-invite-friend .aw-invite-box{width: 400px;margin:0 auto;padding:40px 0;}
@@ -743,7 +744,7 @@ a.aw-load-more-content{display: block;}
 .aw-tips-box .modal-body p{margin: 10px 0;}
 /* 图片box */
 .aw-alert-img-box .modal-body{background:none;}
-.aw-alert-img-box .modal-body img{max-width: 305px;}
+.aw-alert-img-box .modal-body img{max-width: 328px;}
 /* 分享box */
 .aw-share-box .modal-body{padding: 10px;}
 .aw-share-box  #bdshare li{float: left;min-width: 70px;margin:0 30px 20px 0;}
@@ -761,7 +762,7 @@ a.aw-load-more-content{display: block;}
 .aw-publish-box .aw-publish-box-supplement{font-size:12px;cursor: pointer;}
 .aw-publish-box .aw-publish-box-supplement-content{min-height: 100px;}
 .aw-publish-box .aw-publish-title-dropdown{position: relative;margin-bottom: 20px;}
-.aw-publish-box .aw-publish-title-dropdown .dropdown-toggle span{width: 371px;}
+.aw-publish-box .aw-publish-title-dropdown .dropdown-toggle span{width: 391px;}
 .aw-publish-box #quick_publish, .aw-question-drodpwon, .aw-inbox form{position: relative;}
 .aw-publish-box .aw-dropdown-list li a{max-width: 385px;}
 /* 问题重定向box */
@@ -820,8 +821,8 @@ a.aw-load-more-content{display: block;}
 .markItUpHeader ul li:hover{opacity: 0.7;}
 .markItUpHeader ul li a {position:absolute;left:0;top:0;background-repeat: no-repeat;display: block;height: 16px;margin: 0;padding: 3px;text-indent: -10000px;width: 22px;}
 .markItUpHeader ul li.markItUpSeparator {background-color: #CCCCCC;height: 16px;margin: 3px 14px;padding:0;overflow: hidden;width: 1px;}
-.markItUpHeader .fa-reorder{width:21px;top:1px;right:3px;margin:0;padding:3px 0;background-color: #d6dadb;border:1px solid #a2a6a7;border-radius:2px;color: #9f9f9f;font-size: 12px;}
-.markItUpHeader .fa-reorder.cur{background-color:#f0f0f0;border-color: #d9d9d9;color: #999;box-shadow: 0 1px 0 #fff inset;}
+.markItUpHeader .fa-bars{width:21px;top:1px;right:3px;margin:0;padding:3px 0;background-color: #d6dadb;border:1px solid #a2a6a7;border-radius:2px;color: #9f9f9f;font-size: 12px;}
+.markItUpHeader .fa-bars.cur{background-color:#f0f0f0;border-color: #d9d9d9;color: #999;box-shadow: 0 1px 0 #fff inset;}
 .markItUpHeader .fa-question{font-size: 20px;top:-2px;right:5px;}
 .markItUpHelper{margin-bottom: 10px;background-color: #F3F5F4;border:1px solid #ccc;border-radius: 5px;}
 .markItUpHelper ul li{float: left;padding:3px 10px;cursor: pointer;}
