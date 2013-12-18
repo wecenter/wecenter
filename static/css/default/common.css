@@ -764,6 +764,7 @@ a.aw-load-more-content{display: block;}
 .aw-publish-box .aw-publish-title-dropdown{position: relative;margin-bottom: 20px;}
 .aw-publish-box .aw-publish-title-dropdown .dropdown-toggle span{width: 391px;}
 .aw-publish-box #quick_publish, .aw-question-drodpwon, .aw-inbox form{position: relative;}
+.aw-question-drodpwon a{display: block !important;max-width: 405px;}
 .aw-publish-box .aw-dropdown-list li a{max-width: 385px;}
 /* 问题重定向box */
 .aw-question-redirect-box .modal-body{overflow: visible;}
