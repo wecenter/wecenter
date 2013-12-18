@@ -5,7 +5,7 @@
 		<div class="aw-global-tips">
 			<?php if ($this->redirect_message) { ?>
 			<?php foreach ($this->redirect_message AS $key => $message) { ?>
-			<div class="alert fade in">
+			<div class="alert alert-warning fade in">
 				<?php echo $message; ?>
 			</div>
 			<?php } ?>
@@ -395,7 +395,7 @@
 									<p class="title"><?php _e('没有找到相关结果'); ?></p>
 									<ul class="aw-dropdown-list"></ul>
 								</div>
-								<div class="error-message alert  alert-error hide"></div>
+								<div class="alert alert-danger hide"></div>
 								<ul class="aw-side-bar-invite-list">
 								<?php if ($this->invite_users) { ?>
 									<p><?php _e('已邀请过的用户'); ?>: </p>

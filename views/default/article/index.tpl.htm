@@ -20,7 +20,7 @@
 								</a>
 								<div class="dropdown-menu aw-dropdown" role="menu" aria-labelledby="dropdownMenu">
 									<span><i class="aw-icon i-dropdown-triangle"></i></span>
-									<ul>
+									<ul class="aw-dropdown-list">
 										<li>
 											<a href="javascript:;" onclick="ajax_request(G_BASE_URL + '/article/ajax/lock/', 'article_id=<?php echo $this->article_info['id']; ?>');"><?php if ($this->article_info['lock']) { ?><?php _e('解除锁定'); ?><?php } else { ?><?php _e('锁定文章'); ?><?php } ?></a>
 										</li>
