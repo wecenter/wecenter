@@ -147,7 +147,7 @@ $.loading = function (s) {
         {
             if ($.cookie('data_editor_preview') != 'false')
             {
-                $('.markItUpButton12 a').addClass('cur');
+                $('.markItUpButton11 a').addClass('cur');
             }
             else
             {

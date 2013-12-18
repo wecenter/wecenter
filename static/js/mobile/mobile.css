@@ -407,7 +407,6 @@ nav #aw-top-nav-notic .badge{position: absolute;right: 0;top:1px;z-index:100;pad
 
 /* 弹窗box */
 .modal{outline: none;}
-.alert-publish, .alert-redirect, .alert-message{max-width: 600px;margin:0 auto;}
 .alert-publish input{width: 125px;}
 .alert-publish form, .alert-redirect form, .alert-report form, .alert-message form{margin:0;}
 .alert-publish textarea, .alert-redirect textarea, .alert-report textarea, .alert-message textarea{display: block;}
