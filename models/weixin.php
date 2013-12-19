@@ -66,6 +66,7 @@ class weixin_class extends AWS_MODEL
 				'location_X' => $post_object['Location_X'],
 				'location_Y' => $post_object['Location_y'],
 				'label' => $post_object['Label'],
+				'ticket' => $post_object['Ticket']
 			);
 			
 			if ($weixin_info = $this->model('openid_weixin')->get_user_info_by_openid($input_message['fromUsername']))
@@ -150,6 +151,21 @@ class weixin_class extends AWS_MODEL
 							}
 						break;
 					}
+				}
+			break;
+			
+			case 'scan':
+				if (!$this->user_id)
+				{
+					$response_message = $this->bind_message;
+				}
+				else if ($this->model('openid_weixin')->process_client_login(trim($input_message['eventKey'])), $this->user_id))
+				{
+					$response_message = '你已成功登录网站';
+				}
+				else
+				{
+					$response_message = '登录失败, 二维码已过期';
 				}
 			break;
 			
@@ -344,22 +360,7 @@ class weixin_class extends AWS_MODEL
 		switch ($message_code)
 		{
 			default:
-				if (substr(strtoupper($input_message['content']), 0, 4) == 'AUTH')
-				{
-					if (!$this->user_id)
-					{
-						$response_message = $this->bind_message;
-					}
-					else if ($this->model('openid_weixin')->process_client_login(trim(substr($input_message['content'], 4)), $this->user_id))
-					{
-						$response_message = '你已成功登录网站';
-					}
-					else
-					{
-						$response_message = '登录失败, 登录代码错误';
-					}
-				}
-				else if (cjk_strlen($input_message['content']) > 1 AND substr($input_message['content'], 0, 1) == '@')
+				if (cjk_strlen($input_message['content']) > 1 AND substr($input_message['content'], 0, 1) == '@')
 				{
 					if ($user_info = $this->model('account')->get_user_info_by_username(substr($input_message['content'], 1), true))
 					{
