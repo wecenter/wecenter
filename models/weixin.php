@@ -85,18 +85,7 @@ class weixin_class extends AWS_MODEL
 		switch ($input_message['msgType'])
 		{
 			case 'event':
-				if ($input_message['event'] == 'LOCATION')
-				{
-					if ($this->user_id)
-					{
-						$this->update('users_weixin', array(
-							'latitude' => $input_message['latitude'],
-							'longitude' => $input_message['longitude'],
-							'location_update' => time()
-						), 'uid = ' . $this->user_id);
-					}
-				}
-				else if (substr($input_message['eventKey'], 0, 8) == 'COMMAND_')
+				if (substr($input_message['eventKey'], 0, 8) == 'COMMAND_')
 				{
 					if ($input_message['eventKey'] == 'COMMAND_MORE')
 					{
@@ -150,22 +139,33 @@ class weixin_class extends AWS_MODEL
 								$response_message = $this->create_response_by_reply_rule_keyword(get_setting('weixin_subscribe_message_key'));
 							}
 						break;
+						
+						case 'scan':
+							if (!$this->user_id)
+							{
+								$response_message = $this->bind_message;
+							}
+							else if ($this->model('openid_weixin')->process_client_login(str_replace('qrscene_', '', $input_message['eventKey']), $this->user_id))
+							{
+								$response_message = '你已成功登录网站';
+							}
+							else
+							{
+								$response_message = '登录失败, 二维码已过期';
+							}
+						break;
+						
+						case 'LOCATION':
+							if ($this->user_id)
+							{
+								$this->update('users_weixin', array(
+									'latitude' => $input_message['latitude'],
+									'longitude' => $input_message['longitude'],
+									'location_update' => time()
+								), 'uid = ' . $this->user_id);
+							}
+						break;
 					}
-				}
-			break;
-			
-			case 'scan':
-				if (!$this->user_id)
-				{
-					$response_message = $this->bind_message;
-				}
-				else if ($this->model('openid_weixin')->process_client_login(trim($input_message['eventKey']), $this->user_id))
-				{
-					$response_message = '你已成功登录网站';
-				}
-				else
-				{
-					$response_message = '登录失败, 二维码已过期';
 				}
 			break;
 			
