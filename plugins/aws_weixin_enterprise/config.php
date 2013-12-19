@@ -19,7 +19,7 @@ $aws_plugin = array(
 		
 		// 注册 Model, 用 $this->model('name') 访问
 		'model' => array(
-			'class_name' => 'aws_external_class',	// Model name, 以 _class 结尾
+			'class_name' => 'aws_weixin_enterprise',	// Model name, 以 _class 结尾
 			'include' => 'model.php',	// 引入代码文件位置
 		),
 	),
