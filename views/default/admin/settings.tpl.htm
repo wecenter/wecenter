@@ -179,7 +179,9 @@
 				
 				<label><input type="radio" name="register_type" value="invite"<?php if ($this->setting['register_type'] == 'invite') { ?> checked="checked"<?php } ?> /> <?php _e('邀请注册'); ?></label>
 				
+				<?php if (AWS_APP::plugins()->installed('aws_weixin_enterprise')) { ?>
 				<label><input type="radio" name="register_type" value="weixin"<?php if ($this->setting['register_type'] == 'weixin') { ?> checked="checked"<?php } ?> /> <?php _e('微信一站式注册 (不支持 UCenter)'); ?></label>
+				<?php } ?>
 				
 				<label><input type="radio" name="register_type" value="close"<?php if ($this->setting['register_type'] == 'close') { ?> checked="checked"<?php } ?> /> <?php _e('关闭注册'); ?></label>
 				</dd>
