@@ -311,7 +311,7 @@ class aws_weixin_enterprise_class extends AWS_MODEL
 			return false;
 		}
 		
-		if ($result = HTTP::request('https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=' . $this->get_access_token(), 'POST', preg_replace("#\\\u([0-9a-f]+)#ie", "convert_encoding(pack('H4', '\\1'), 'UCS-2', 'UTF-8')", json_encode(array(
+		if ($result = HTTP::request('https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=' . $this->get_access_token(), 'POST', json_encode(array(
 			'expire_seconds' => 300,
 			'action_name' => 'QR_SCENE',
 			'action_info' => array(
@@ -319,13 +319,13 @@ class aws_weixin_enterprise_class extends AWS_MODEL
 					'scene_id' => $scene_id
 				)
 			)
-		)))))
+		))))
 		{
 			$result = json_decode($result, true);
 			
 			if ($result['ticket'])
 			{
-				return 'https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=' . $result['ticket'];
+				return 'https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=' . urlencode($result['ticket']);
 			}
 		}
 	}
