@@ -234,22 +234,22 @@ function _error_message_form_processer(result)
     }
     else if (result.errno != 1)
     {
-    	if ($('.error-message em').length)
+    	if ($('.alert-danger em').length)
     	{
-	    	$('.error-message em').html(result.err);
+	    	$('.alert-danger em').html(result.err);
     	}
     	else
     	{
-	    	 $('.error-message').html(result.err);
+	    	 $('.alert-danger').html(result.err);
     	}
     	
-    	if ($('.error-message').css('display') != 'none')
+    	if ($('.alert-danger').css('display') != 'none')
     	{
-	    	shake($('.error-message'));
+	    	shake($('.alert-danger'));
     	}
     	else
     	{
-	    	$('.error-message').fadeIn();
+	    	$('.alert-danger').fadeIn();
     	}
     }
     else

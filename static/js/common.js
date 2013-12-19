@@ -69,7 +69,6 @@ $.loading = function (s) {
         //编辑器插入图片
         addTextpicTure : function ()
         {
-        	console.log($('#addTxtForms :input[name="imgsUrl"]').val());
         	if($('#addTxtForms :input[name="imgsUrl"]').val() == '')
         	{
         		return false;
@@ -80,13 +79,13 @@ $.loading = function (s) {
 	        	$('.aw-mod-replay-box .advanced_editor').insertAtCaret(textFeildValue);
 	        }
 	        if ($('.aw-mod-publish .advanced_editor')[0])
-	        {
-	        	$('.aw-mod-publish .advanced_editor').insertAtCaret(textFeildValue);
-	        }
-	        if ($('.aw-mod-topic-edit-box .advanced_editor')[0])
-	        {
-	        	$('.aw-mod-topic-edit-box .advanced_editor').insertAtCaret(textFeildValue);
-	        }
+			{
+				$('.aw-mod-publish .advanced_editor').insertAtCaret(textFeildValue);
+			}
+			if ($('.aw-mod-topic-edit-box .advanced_editor')[0])
+			{
+				$('.aw-mod-topic-edit-box .advanced_editor').insertAtCaret(textFeildValue);
+			} 
 	        if ($('body').hasClass('aw-editing-free'))
 	        {
 	        	$('.aw-free-editor .advanced_editor').insertAtCaret(textFeildValue);
@@ -108,13 +107,13 @@ $.loading = function (s) {
 	        	$('.aw-mod-replay-box .advanced_editor').insertAtCaret(textFeildValue);
 	        }
 	        if ($('.aw-mod-publish .advanced_editor')[0])
-	        {
-	        	$('.aw-mod-publish .advanced_editor').insertAtCaret(textFeildValue);
-	        }
-	        if ($('.aw-mod-topic-edit-box .advanced_editor')[0])
-	        {
-	        	$('.aw-mod-topic-edit-box .advanced_editor').insertAtCaret(textFeildValue);
-	        }
+			{
+				$('.aw-mod-publish .advanced_editor').insertAtCaret(textFeildValue);
+			}
+			if ($('.aw-mod-topic-edit-box .advanced_editor')[0])
+			{
+				$('.aw-mod-topic-edit-box .advanced_editor').insertAtCaret(textFeildValue);
+			} 
 	        if ($('body').hasClass('aw-editing-free'))
 	        {
 	        	$('.aw-free-editor .advanced_editor').insertAtCaret(textFeildValue);
@@ -148,7 +147,7 @@ $.loading = function (s) {
         {
             if ($.cookie('data_editor_preview') != 'false')
             {
-                $('.markItUpButton12 a').addClass('cur');
+                $('.markItUpButton11 a').addClass('cur');
             }
             else
             {
@@ -420,9 +419,9 @@ $.dialog = function (type_id, data)
         $('#aw-ajax-box').html(template);
 
 
-        $(".alert-box .modal-dialog").css({
-            left: $(window).width() / 2 - $(".alert-box .modal-dialog").width() / 2
-        });
+        // $(".alert-box .modal-dialog").css({
+        //     left: $(window).width() / 2 - $(".alert-box .modal-dialog").width() / 2
+        // });
         
         $(".alert-box").modal('show');
 

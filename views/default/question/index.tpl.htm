@@ -5,7 +5,7 @@
 		<div class="aw-global-tips">
 			<?php if ($this->redirect_message) { ?>
 			<?php foreach ($this->redirect_message AS $key => $message) { ?>
-			<div class="alert fade in">
+			<div class="alert alert-warning fade in">
 				<?php echo $message; ?>
 			</div>
 			<?php } ?>
@@ -148,7 +148,7 @@
 							<!--<li><a href="question/<?php echo $this->question_info['question_id']; ?>"><?php _e('全部回答'); ?></a></li>-->
 							<?php } else if (($this->answer_count OR $_GET['uid']) AND $this->user_id) { ?>
 							<li<?php if ($_GET['uid'] == 'focus') { ?> class="active"<?php } ?>><a href="question/<?php echo $this->question_info['question_id']; ?>?uid=focus"><?php _e('关注的人'); ?></a></li>
-							<li<?php if ($_GET['sort_key'] == 'add_time') { ?> class="active"<?php } ?>><a href="question/<?php echo $this->question_info['question_id']; ?>?sort_key=add_time&sort=<?php if (($_GET['sort_key'] == 'add_time') && $_GET['sort'] == 'ASC') { ?>DESC<?php } else { ?>ASC<?php } ?>"><?php _e('时间'); ?><?php if (($_GET['sort_key'] == 'add_time') && $_GET['sort'] == 'DESC') { ?><i class="icon-caret-down"></i><?php } else { ?><i class="icon-caret-up"></i><?php } ?></a></li>
+							<li<?php if ($_GET['sort_key'] == 'add_time') { ?> class="active"<?php } ?>><a href="question/<?php echo $this->question_info['question_id']; ?>?sort_key=add_time&sort=<?php if (($_GET['sort_key'] == 'add_time') && $_GET['sort'] == 'ASC') { ?>DESC<?php } else { ?>ASC<?php } ?>"><?php _e('时间'); ?><?php if (($_GET['sort_key'] == 'add_time') && $_GET['sort'] == 'DESC') { ?><i class="fa fa-caret-down"></i><?php } else { ?><i class="fa fa-caret-up"></i><?php } ?></a></li>
 							<li<?php if ((!$_GET['uid'] && !$_GET['sort_key']) || $_GET['sort_key'] == 'agree_count') { ?> class="active"<?php } ?>><a href="question/<?php echo $this->question_info['question_id']; ?>&sort_key=agree_count&sort=DESC"><?php _e('票数'); ?></a></li>
 							<?php } ?>
 							
@@ -395,7 +395,7 @@
 									<p class="title"><?php _e('没有找到相关结果'); ?></p>
 									<ul class="aw-dropdown-list"></ul>
 								</div>
-								<div class="error-message alert  alert-error hide"></div>
+								<div class="alert alert-danger hide"></div>
 								<ul class="aw-side-bar-invite-list">
 								<?php if ($this->invite_users) { ?>
 									<p><?php _e('已邀请过的用户'); ?>: </p>

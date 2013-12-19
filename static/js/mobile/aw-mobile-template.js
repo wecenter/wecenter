@@ -9,7 +9,7 @@ var AW_MOBILE_TEMPLATE = {
 					    	'<h3 class="modal-title" id="myModalLabel">' + _t('发起问题') + '</h3>'+
 					    '</div>'+
 					    '<div class="modal-body clearfix">'+
-					    	'<div id="quick_publish_error" class="error-message alert  alert-error hide"><em></em></div>'+
+					    	'<div id="quick_publish_error" class="alert alert-danger  alert-error hide"><em></em></div>'+
 					    	
 							'<input type="hidden" id="quick_publish_category_id" name="category_id" value="{{category_id}}" />'+
 							'<input type="hidden" name="post_hash" value="' + G_POST_HASH + '" />'+

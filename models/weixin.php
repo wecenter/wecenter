@@ -32,7 +32,7 @@ class weixin_class extends AWS_MODEL
 	
 	public function setup()
 	{
-		if (AWS_APP::config()->get('weixin')->app_id)
+		if (AWS_APP::plugins()->installed('aws_weixin_enterprise'))
 		{
 			$this->bind_message = '你的微信帐号没有绑定 ' . get_setting('site_name') . ' 的帐号, 请<a href="' . $this->model('openid_weixin')->get_oauth_url(get_js_url('/m/weixin/authorization/'), 'snsapi_userinfo') . '">点此绑定</a>';
 		}
@@ -44,10 +44,7 @@ class weixin_class extends AWS_MODEL
 	
 	public function fetch_message()
 	{
-		$post_data = file_get_contents('php://input');
-		
-		// extract post data
-		if (! empty($post_data))
+		if ($post_data = file_get_contents('php://input'))
 		{
 			$post_object = (array)simplexml_load_string($post_data, 'SimpleXMLElement', LIBXML_NOCDATA);
 			
@@ -69,11 +66,13 @@ class weixin_class extends AWS_MODEL
 				'location_X' => $post_object['Location_X'],
 				'location_Y' => $post_object['Location_y'],
 				'label' => $post_object['Label'],
+				'ticket' => $post_object['Ticket']
 			);
 			
 			if ($weixin_info = $this->model('openid_weixin')->get_user_info_by_openid($input_message['fromUsername']))
 			{
 				$this->user_info = $this->model('account')->get_user_info_by_uid($uid, true);
+				
 				$this->user_id = $weixin_info['uid'];
 			}
 			
@@ -152,6 +151,21 @@ class weixin_class extends AWS_MODEL
 							}
 						break;
 					}
+				}
+			break;
+			
+			case 'scan':
+				if (!$this->user_id)
+				{
+					$response_message = $this->bind_message;
+				}
+				else if ($this->model('openid_weixin')->process_client_login(trim($input_message['eventKey'])), $this->user_id))
+				{
+					$response_message = '你已成功登录网站';
+				}
+				else
+				{
+					$response_message = '登录失败, 二维码已过期';
 				}
 			break;
 			
@@ -346,22 +360,7 @@ class weixin_class extends AWS_MODEL
 		switch ($message_code)
 		{
 			default:
-				if (substr(strtoupper($input_message['content']), 0, 4) == 'AUTH')
-				{
-					if (!$this->user_id)
-					{
-						$response_message = $this->bind_message;
-					}
-					else if ($this->model('openid_weixin')->process_client_login(trim(substr($input_message['content'], 4)), $this->user_id))
-					{
-						$response_message = '你已成功登录网站';
-					}
-					else
-					{
-						$response_message = '登录失败, 登录代码错误';
-					}
-				}
-				else if (cjk_strlen($input_message['content']) > 1 AND substr($input_message['content'], 0, 1) == '@')
+				if (cjk_strlen($input_message['content']) > 1 AND substr($input_message['content'], 0, 1) == '@')
 				{
 					if ($user_info = $this->model('account')->get_user_info_by_username(substr($input_message['content'], 1), true))
 					{
@@ -435,7 +434,7 @@ class weixin_class extends AWS_MODEL
 				{
 					if (!$response_message)
 					{
-						if (!$image_file = $this->get_list_image_by_command('COMMAND_' . $message_code))
+						if (!$image_file = $this->get_client_list_image_by_command('COMMAND_' . $message_code))
 						{
 							$image_file = AWS_APP::config()->get('weixin')->default_list_image;
 						}
@@ -476,7 +475,7 @@ class weixin_class extends AWS_MODEL
 					{
 						if (!$response_message)
 						{
-							if (!$image_file = $this->get_list_image_by_command('COMMAND_' . $message_code))
+							if (!$image_file = $this->get_client_list_image_by_command('COMMAND_' . $message_code))
 							{
 								$image_file = AWS_APP::config()->get('weixin')->default_list_image;
 							}
@@ -522,7 +521,7 @@ class weixin_class extends AWS_MODEL
 					{
 						if (!$response_message)
 						{
-							if (!$image_file = $this->get_list_image_by_command('COMMAND_' . $message_code))
+							if (!$image_file = $this->get_client_list_image_by_command('COMMAND_' . $message_code))
 							{
 								$image_file = AWS_APP::config()->get('weixin')->default_list_image;
 							}
@@ -568,7 +567,7 @@ class weixin_class extends AWS_MODEL
 					{
 						if (!$response_message)
 						{
-							if (!$image_file = $this->get_list_image_by_command('COMMAND_' . $message_code))
+							if (!$image_file = $this->get_client_list_image_by_command('COMMAND_' . $message_code))
 							{
 								$image_file = AWS_APP::config()->get('weixin')->default_list_image;
 							}
@@ -614,7 +613,7 @@ class weixin_class extends AWS_MODEL
 					{
 						if (!$response_message)
 						{
-							if (!$image_file = $this->get_list_image_by_command('COMMAND_' . $message_code))
+							if (!$image_file = $this->get_client_list_image_by_command('COMMAND_' . $message_code))
 							{
 								$image_file = AWS_APP::config()->get('weixin')->default_list_image;
 							}
@@ -646,7 +645,7 @@ class weixin_class extends AWS_MODEL
 						{
 							if (!$response_message)
 							{
-								if (!$image_file = $this->get_list_image_by_command('COMMAND_' . $message_code))
+								if (!$image_file = $this->get_client_list_image_by_command('COMMAND_' . $message_code))
 								{
 									$image_file = AWS_APP::config()->get('weixin')->default_list_image;
 								}
@@ -726,7 +725,7 @@ class weixin_class extends AWS_MODEL
 						{
 							if (!$response_message)
 							{
-								if (!$image_file = $this->get_list_image_by_command('COMMAND_' . $message_code))
+								if (!$image_file = $this->get_client_list_image_by_command('COMMAND_' . $message_code))
 								{
 									$image_file = AWS_APP::config()->get('weixin')->default_list_image;
 								}
@@ -971,172 +970,33 @@ class weixin_class extends AWS_MODEL
 		return get_setting('upload_url') . '/weixin/' . $size . $image_file;
 	}
 	
-	public function get_access_token()
-	{
-		if (!AWS_APP::config()->get('weixin')->app_id)
-		{
-			return false;
-		}
-		
-		$token_cache_key = 'weixin_access_token_' . md5(AWS_APP::config()->get('weixin')->app_id . AWS_APP::config()->get('weixin')->app_secret);
-		
-		if ($access_token = AWS_APP::cache()->get($token_cache_key))
-		{
-			return $access_token;
-		}
-		
-		if ($result = curl_get_contents('https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=' . AWS_APP::config()->get('weixin')->app_id . '&secret=' . AWS_APP::config()->get('weixin')->app_secret))
-		{
-			$result = json_decode($result, true);
-			
-			if ($result['access_token'])
-			{
-				AWS_APP::cache()->set($token_cache_key, $result['access_token'], $result['expires_in']);
-				
-				return $result['access_token'];
-			}
-		}
-	}
-	
 	public function send_text_message($openid, $message)
 	{
-		if (!AWS_APP::config()->get('weixin')->app_id)
+		if (!AWS_APP::config()->get('weixin')->app_id OR !AWS_APP::plugins()->installed('aws_weixin_enterprise'))
 		{
 			return false;
 		}
 		
-		HTTP::request('https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=' . $this->get_access_token(), 'POST', preg_replace("#\\\u([0-9a-f]+)#ie", "convert_encoding(pack('H4', '\\1'), 'UCS-2', 'UTF-8')", json_encode(array(
-			'touser' => $openid,
-			'msgtype' => 'text',
-			'text' => array(
-				'content' => $message
-			)
-		))));
+		return $this->model('aws_weixin_enterprise')->send_text_message($openid, $message);
 	}
 	
-	public function update_menu()
+	public function update_client_menu($mp_menu)
 	{
-		if (!AWS_APP::config()->get('weixin')->app_id)
+		if (!AWS_APP::config()->get('weixin')->app_id OR !AWS_APP::plugins()->installed('aws_weixin_enterprise'))
 		{
 			return false;
 		}
 		
-		$mp_menu = get_setting('weixin_mp_menu');
-		
-		foreach ($mp_menu AS $key => $val)
-		{
-			if ($val['sub_button'])
-			{
-				foreach ($val['sub_button'] AS $sub_key => $sub_val)
-				{
-					unset($sub_val['sort']);
-					unset($sub_val['command_type']);
-					unset($sub_val['attach_key']);
-					
-					if ($sub_val['type'] == 'view')
-					{
-						unset($sub_val['key']);
-						
-						if (strstr($sub_val['url'], get_setting('base_url')))
-						{
-							$sub_val['url'] = $this->model('openid_weixin')->redirect_url($sub_val['url']);
-						}
-					}
-					
-					$val['sub_button_no_key'][] = $sub_val;
-				}
-				
-				$val['sub_button'] = $val['sub_button_no_key'];
-				
-				unset($val['sub_button_no_key']);
-			}
-			
-			unset($val['sort']);
-			unset($val['command_type']);
-			unset($val['attach_key']);
-			
-			if ($val['type'] == 'view')
-			{
-				unset($val['key']);
-				
-				if (strstr($val['url'], get_setting('base_url')))
-				{
-					$val['url'] = $this->model('openid_weixin')->redirect_url($val['url']);
-				}
-			}
-			
-			$mp_menu_no_key[] = $val;
-		}
-		
-		if ($result = HTTP::request('https://api.weixin.qq.com/cgi-bin/menu/create?access_token=' . $this->get_access_token(), 'POST', preg_replace("#\\\u([0-9a-f]+)#ie", "convert_encoding(pack('H4', '\\1'), 'UCS-2', 'UTF-8')", json_encode(array('button' => $mp_menu_no_key)))))
-		{
-			$result = json_decode($result, true);
-			
-			if ($result['errcode'])
-			{
-				return $result['errmsg'];
-			}
-		}
-		else
-		{
-			return '由于网络问题, 菜单更新失败';
-		}
+		return $this->model('aws_weixin_enterprise')->update_client_menu($mp_menu);
 	}
 	
-	public function list_image_clean()
+	public function get_client_list_image_by_command($command)
 	{
-		if (!is_dir(ROOT_PATH . 'weixin/list_image/'))
+		if (!AWS_APP::config()->get('weixin')->app_id OR !AWS_APP::plugins()->installed('aws_weixin_enterprise'))
 		{
 			return false;
 		}
 		
-		$mp_menu = get_setting('weixin_mp_menu');
-		
-		foreach ($mp_menu AS $key => $val)
-		{
-			if ($val['sub_button'])
-			{
-				foreach ($val['sub_button'] AS $sub_key => $sub_val)
-				{
-					$attach_list[] = $sub_val['attch_key'] . '.jpg';
-				}
-			}
-			
-			$attach_list[] = $val['attch_key'] . '.jpg';
-		}
-		
-		$files_list = fetch_file_lists(ROOT_PATH . 'weixin/list_image/', 'jpg');
-			    
-	    foreach ($files_list AS $search_file)
-	    {
-	    	if (!in_array(str_replace('square_', '', base_name($search_file))))
-	    	{
-		    	unlink($search_file);
-	    	}
-		}
-	}
-	
-	public function get_list_image_by_command($command)
-	{
-		$mp_menu = get_setting('weixin_mp_menu');
-		
-		foreach ($mp_menu AS $key => $val)
-		{
-			if ($val['sub_button'])
-			{
-				foreach ($val['sub_button'] AS $sub_key => $sub_val)
-				{
-					if ($sub_key == $command)
-					{
-						return $sub_val['attch_key'];
-					}
-				}
-			}
-			
-			if ($key == $command)
-			{
-				return $val['attch_key'];
-			}
-		}
+		return $this->model('aws_weixin_enterprise')->get_client_list_image_by_command($command);
 	}	
 }
