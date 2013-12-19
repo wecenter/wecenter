@@ -159,7 +159,7 @@ class weixin_class extends AWS_MODEL
 				{
 					$response_message = $this->bind_message;
 				}
-				else if ($this->model('openid_weixin')->process_client_login(trim($input_message['eventKey'])), $this->user_id))
+				else if ($this->model('openid_weixin')->process_client_login(trim($input_message['eventKey'])), $this->user_id)
 				{
 					$response_message = '你已成功登录网站';
 				}
