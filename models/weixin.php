@@ -166,6 +166,8 @@ class weixin_class extends AWS_MODEL
 							}
 						break;
 					}
+					
+					$response_message = $input_message['event'];
 				}
 			break;
 			
