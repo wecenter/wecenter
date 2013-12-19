@@ -131,7 +131,7 @@ class weixin_class extends AWS_MODEL
 				}
 				else
 				{
-					switch ($input_message['event'])
+					switch (strtolower($input_message['event']))
 					{
 						case 'subscribe':
 							if (get_setting('weixin_subscribe_message_key'))
@@ -155,7 +155,7 @@ class weixin_class extends AWS_MODEL
 							}
 						break;
 						
-						case 'LOCATION':
+						case 'location':
 							if ($this->user_id)
 							{
 								$this->update('users_weixin', array(
@@ -166,8 +166,6 @@ class weixin_class extends AWS_MODEL
 							}
 						break;
 					}
-					
-					$response_message = $input_message['event'];
 				}
 			break;
 			
