@@ -39,6 +39,17 @@ class core_plugins
 		return $plugins_list;
 	}
 	
+	public function installed($plugin_id)
+	{
+		foreach ($this->plugins AS $key => $data)
+		{
+			if ($key == $plugin_id)
+			{
+				return true;
+			}
+		}
+	}
+	
 	public function load_plugins()
 	{
 		$plugins_cache = TEMP_PATH . 'plugins.php';
@@ -133,8 +144,6 @@ class core_plugins
 		{
 			$controller = 'index';
 		}
-		
-		//echo "Called: $app - $controller - $action<br />";
 		
 		if ($this->plugins_table[$app][$controller][$action])
 		{		
