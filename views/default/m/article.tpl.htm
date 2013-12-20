@@ -76,13 +76,13 @@
 				</div>
 				<div class="aw-mod-body markitup-box"><?php echo nl2br($val['message']); ?></div>
 				<div class="aw-mod-footer">
-					<span class="num"><?php echo date_friendly($val['add_time']); ?></span> 
+					<span class="aw-text-color-999"><?php echo date_friendly($val['add_time']); ?></span> 
 					
 					<a class="aw-article-comment" data-id="<?php echo $val['user_info']['uid']; ?>"><i class="icon-comment"></i> 回复</a>
 					
 					<a onclick="comment_vote(this, <?php echo $val['id']; ?>, 1)"<?php if ($val['vote_info']['rating'] == 1) { ?> class="active"<?php } ?>><i class="icon-thumbs-up-alt"></i> <?php if ($val['vote_info']['rating'] == 1) { ?>我已赞<?php } else { ?>赞<?php } ?></a>
 					
-					<span class="pull-right num"><?php echo $val['votes']; ?> 赞</span>
+					<span class="pull-right aw-text-color-999"><?php echo $val['votes']; ?> 赞</span>
 				</div>
 			</li>
 			<?php } ?>

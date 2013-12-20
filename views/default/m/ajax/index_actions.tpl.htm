@@ -24,7 +24,7 @@
 	<?php } ?>
 	<div class="aw-mod-footer">
 	<?php if ($val['associate_action'] == ACTION_LOG::ANSWER_QUESTION OR $val['associate_action'] == ACTION_LOG::ADD_AGREE) { ?>
-		<a onclick="agreeVote(this, <?php echo $val['answer_info']['answer_id']; ?>)" class="answer_vote"><span class="num"><i class="fa fa-thumbs-up<?php if ($val['answer_info']['agree_status'] == 1) { ?> active<?php } ?>"></i> <em><?php echo $val['answer_info']['agree_count']; ?></em></span></a><a class="answer_vote" onclick="disagreeVote(this, <?php echo $val['answer_info']['answer_id']; ?>)"><span class="num"><i class="fa fa-thumbs-down<?php if ($val['answer_info']['agree_status'] == -1) { ?> active<?php } ?>"></i></span></a> <a class="aw-add-comment" href="javascript:;" data-id="<?php echo $val['answer_info']['answer_id']; ?>" data-type="answer"><i class="fa fa-comment-o"></i> <?php _e('%s 条评论', $val['answer_info']['comment_count']); ?></a>
+		<a onclick="agreeVote(this, <?php echo $val['answer_info']['answer_id']; ?>)" class="answer_vote"><span class="aw-text-color-999"><i class="fa fa-thumbs-up<?php if ($val['answer_info']['agree_status'] == 1) { ?> active<?php } ?>"></i> <em><?php echo $val['answer_info']['agree_count']; ?></em></span></a><a class="answer_vote" onclick="disagreeVote(this, <?php echo $val['answer_info']['answer_id']; ?>)"><span class="aw-text-color-999"><i class="fa fa-thumbs-down<?php if ($val['answer_info']['agree_status'] == -1) { ?> active<?php } ?>"></i></span></a> <a class="aw-add-comment" href="javascript:;" data-id="<?php echo $val['answer_info']['answer_id']; ?>" data-type="answer"><i class="fa fa-comment-o"></i> <?php _e('%s 条评论', $val['answer_info']['comment_count']); ?></a>
 	<?php } ?>
 	</div>
 </li>

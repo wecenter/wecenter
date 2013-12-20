@@ -14,10 +14,10 @@
 			<?php if ($this->user['verified']) { ?><i class="icon-v<?php if ($this->user['verified'] == 'enterprise') { ?> i-ve<?php } ?>" title="<?php if ($this->user['verified'] == 'enterprise') { ?>企业认证<?php } else { ?>个人认证<?php } ?>"></i><?php } ?>
 			<?php if ($this->user['signature']) { ?>
 			<div>
-				<span class="num"><?php echo $this->user['signature']; ?></span>
+				<span class="aw-text-color-999"><?php echo $this->user['signature']; ?></span>
 			</div>
 			<?php } ?>
-			<div class="num">
+			<div class="aw-text-color-999">
 				<?php _e('主页访问量'); ?>: <?php _e('%s 次访问', $this->user['views_count']); ?>
 			</div>
 		</div>
@@ -78,7 +78,7 @@
 				<?php foreach ($this->user_actions_questions AS $key => $val) { ?>
 				<li>
 					<a href="<?php echo $val['link']; ?>"><?php echo $val['title']; ?></a>
-					<p class="num"><?php _e('%s 个关注', $val['question_info']['focus_count']); ?> • <?php echo date_friendly($val['add_time']); ?></p>
+					<p class="aw-text-color-999"><?php _e('%s 个关注', $val['question_info']['focus_count']); ?> • <?php echo date_friendly($val['add_time']); ?></p>
 				</li>
 				<?php } ?>
 			</ul>
