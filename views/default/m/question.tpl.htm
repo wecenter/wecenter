@@ -198,11 +198,11 @@
 	<?php if ($_GET['single']) { ?>
 	<a href="question/<?php echo $this->question_info['question_id']; ?>" class="aw-load-more"><?php _e('查看全部回答'); ?></a>
 	<?php } else if ($this->next_page) { ?>
-	<a href="m/question/<?php echo $this->question_info['question_id']; ?>?page-<?php echo $this->next_page; ?>" class="aw-load-more"><?php _e('下一页'); ?></a>
+	<a href="m/question/<?php echo $this->question_info['question_id']; ?>?page=<?php echo $this->next_page; ?>" class="aw-load-more"><?php _e('下一页'); ?></a>
 	<?php } ?>
 	
 	<?php if (!$this->user_id) { ?>
-	<p align="center"><?php _e('要回复问题请先登录或注册'); ?></p>
+	<p align="center"><?php _e('要回复问题请先<a href="account/login/">登录</a>或<a href="account/register/">注册</a>'); ?></p>
 	<?php } else if ($this->question_info['lock']) { ?>
 	<p align="center"><?php _e('该问题目前已经被锁定, 无法添加新回复'); ?></p>
 	<?php } else if ($this->user_answered) { ?>

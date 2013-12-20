@@ -1,7 +1,7 @@
 <?php TPL::output('global/header.tpl.htm'); ?>
 <?php TPL::output('account/setting/setting_header.tpl.htm'); ?>
 
-<?php if ((!$this->sina_weibo AND get_setting('sina_weibo_enabled') == 'Y') OR (!$this->qq_weibo AND get_setting('qq_t_enabled') == 'Y') OR (!$this->qq AND get_setting('qq_login_enabled') == 'Y') OR !$this->weixin) { ?>
+<?php if ((!$this->sina_weibo AND get_setting('sina_weibo_enabled') == 'Y') OR (!$this->qq_weibo AND get_setting('qq_t_enabled') == 'Y') OR (!$this->qq AND get_setting('qq_login_enabled') == 'Y') OR (!$this->weixin AND AWS_APP::plugins()->installed('aws_weixin_enterprise'))) { ?>
 <div class="aw-mod aw-user-setting-bind">
 	<div class="aw-mod-head">
 		<h4><?php _e('未绑定账号'); ?></h4>
@@ -14,19 +14,22 @@
 				<span><i class="icon-sina"></i> <?php _e('新浪微博'); ?></span>
 			</li>
 			<?php } ?>
+			
 			<?php if (!$this->qq_weibo AND get_setting('qq_t_enabled') == 'Y') { ?>
 			<li>
 				<a href="account/qq/binding_weibo/" class="btn btn-mini btn-success pull-right"><?php _e('绑定'); ?></a>
 				<span><i class="icon-weibo"></i> <?php _e('腾讯微博'); ?></span>
 			</li>
 			<?php } ?>
+			
 			<?php if (!$this->qq AND get_setting('qq_login_enabled') == 'Y') { ?>
 			<li>
 				<a href="account/qq/binding_qq/" class="btn btn-mini btn-success pull-right"><?php _e('绑定'); ?></a>
 				<span><i class="icon-qq"></i> <?php _e('QQ 账号'); ?></span>
 			</li>
 			<?php } ?>
-			<?php if (!$this->weixin) { ?>
+			
+			<?php if (!$this->weixin AND AWS_APP::plugins()->installed('aws_weixin_enterprise')) { ?>
 			<li>
 				<a onclick="
 					$.dialog('alertImg', {'hide' : 'show', 'url' : '<?php echo G_STATIC_URL; ?>/css/<?php echo $this->template_name; ?>/img/wechat_code.jpg', 'message' : '请关注公众帐号进行绑定操作'});" href="javascript:;" class="btn btn-mini btn-success pull-right"><?php _e('绑定'); ?></a>

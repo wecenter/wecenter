@@ -20,7 +20,6 @@ if (!defined('IN_ANWSION'))
 
 class setting extends AWS_CONTROLLER
 {
-
 	public function get_access_rule()
 	{
 		$rule_action['rule_type'] = 'white'; //黑名单,黑名单中的检查  'white'白名单,白名单以外的检查
@@ -29,57 +28,35 @@ class setting extends AWS_CONTROLLER
 		return $rule_action;
 	}
 
-	function setup()
+	public function setup()
 	{
 		$this->crumb(AWS_APP::lang()->_t('设置'), '/account/setting/');
 		
 		TPL::import_css('css/user-setting.css');
 	}
 
-	function index_action()
+	public function index_action()
 	{
 		HTTP::redirect('/account/setting/profile/');
 	}
 
-	function profile_action()
-	{		
-		if ($this->user_info['birthday'] != 0)
+	public function profile_action()
+	{
+		$this->crumb(AWS_APP::lang()->_t('基本资料'), '/account/setting/profile/');
+		
+		for ($i = date('Y'); $i > 1900; $i--)
 		{
-			TPL::assign('birthday_y_s', date('Y', $this->user_info['birthday']));
-			TPL::assign('birthday_m_s', date('m', $this->user_info['birthday']));
-			TPL::assign('birthday_d_s', date('d', $this->user_info['birthday']));
-		}
-				
-		for ($i = date('Y'); $i > 1900; $i --)
-		{
-			$years[$i] = $i;
+			$birthday_y[$i] = $i;
 		}
 		
-		TPL::assign('birthday_y', $years);
-		
-		// 月符值
-		TPL::assign('birthday_m', array(
-			0 => '', 
-			1 => 1, 
-			2 => 2, 
-			3 => 3, 
-			4 => 4, 
-			5 => 5, 
-			6 => 6, 
-			7 => 7, 
-			8 => 8, 
-			9 => 9, 
-			10 => 10, 
-			11 => 11, 
-			12 => 12
-		));
+		TPL::assign('birthday_y', $birthday_y);
 		
 		for ($tmp_i = 1; $tmp_i <= 31; $tmp_i ++)
 		{
-			$day_array[$tmp_i] = $tmp_i;
+			$birthday_d[$tmp_i] = $tmp_i;
 		}
 		
-		TPL::assign('birthday_d', $day_array);
+		TPL::assign('birthday_d', $birthday_d);
 		
 		TPL::assign('job_list', $this->model('work')->get_jobs_list());
 		
@@ -97,54 +74,67 @@ class setting extends AWS_CONTROLLER
 		
 		TPL::assign('work_experience_list', $work_experience_list);
 		
-		$this->crumb(AWS_APP::lang()->_t('基本资料'), '/account/setting/profile/');
-		
 		TPL::import_js('js/ajaxupload.js');
 		
 		TPL::output('account/setting/profile');
 	}
 	
-	function privacy_action()
+	public function privacy_action()
 	{
+		$this->crumb(AWS_APP::lang()->_t('隐私/提醒'), '/account/setting/privacy');
+		
 		TPL::assign('notification_settings', $this->model('account')->get_notification_setting_by_uid($this->user_id));
 		TPL::assign('notify_actions', $this->model('notify')->notify_action_details);
-		
-		$this->crumb(AWS_APP::lang()->_t('隐私/提醒'), '/account/setting/privacy');
 		
 		TPL::output('account/setting/privacy');
 	}
 		
-	function openid_action()
-	{		
-		TPL::assign('sina_weibo', $this->model('openid_weibo')->get_users_sina_by_uid($this->user_id));
-		TPL::assign('qq_weibo', $this->model('openid_qq_weibo')->get_users_qq_by_uid($this->user_id));
-		TPL::assign('qq', $this->model('openid_qq')->get_user_info_by_uid($this->user_id));
-		TPL::assign('weixin', $this->model('openid_weixin')->get_user_info_by_uid($this->user_id));
-		
+	public function openid_action()
+	{
 		$this->crumb(AWS_APP::lang()->_t('账号绑定'), '/account/setting/openid/');
+		
+		if (get_setting('qq_login_enabled') == 'Y')
+		{
+			TPL::assign('qq', $this->model('openid_qq')->get_user_info_by_uid($this->user_id));
+		}
+		
+		if (get_setting('qq_t_enabled') == 'Y'))
+		{
+			TPL::assign('qq_weibo', $this->model('openid_qq_weibo')->get_users_qq_by_uid($this->user_id));
+		}
+		
+		if (get_setting('sina_weibo_enabled') == 'Y')
+		{
+			TPL::assign('sina_weibo', $this->model('openid_weibo')->get_users_sina_by_uid($this->user_id));
+		}
+		
+		if (AWS_APP::plugins()->installed('aws_weixin_enterprise'))
+		{
+			TPL::assign('weixin', $this->model('openid_weixin')->get_user_info_by_uid($this->user_id));
+		}
 		
 		TPL::output('account/setting/openid');
 	}
 	
-	function integral_action()
+	public function integral_action()
 	{
 		$this->crumb(AWS_APP::lang()->_t('我的积分'), '/account/setting/integral/');
 		
 		TPL::output('account/setting/integral');
 	}
 	
-	function security_action()
+	public function security_action()
 	{
 		$this->crumb(AWS_APP::lang()->_t('安全设置'), '/account/setting/security/');
 		
 		TPL::output('account/setting/security');
 	}
 	
-	function verify_action()
-	{		
-		TPL::assign('verify_apply', $this->model('verify')->fetch_apply($this->user_id));
-		
+	public function verify_action()
+	{
 		$this->crumb(AWS_APP::lang()->_t('申请认证'), '/account/setting/verify/');
+			
+		TPL::assign('verify_apply', $this->model('verify')->fetch_apply($this->user_id));
 		
 		TPL::output('account/setting/verify');
 	}
