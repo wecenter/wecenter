@@ -351,6 +351,7 @@ class aws_weixin_enterprise_class extends AWS_MODEL
 	public function request_client_login_token($session_id)
 	{
 		$this->delete('weixin_login', "session_id = '" . $this->quote($session_id) . "'");
+		$this->delete('weixin_login', 'expire <' . time());
 		
 		$token = rand(11111111, 99999999);
 		
@@ -394,7 +395,7 @@ class aws_weixin_enterprise_class extends AWS_MODEL
 			}
 		}
 		
-		if ($openid_info = $this->get_user_info_by_uid($uid))
+		if ($openid_info = $this->model('openid_weixin')->get_user_info_by_uid($uid))
 		{
 			if ($openid_info['opendid'] != $access_user['openid'])
 			{
