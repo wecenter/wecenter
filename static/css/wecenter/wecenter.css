@@ -8,3 +8,14 @@
 .aw-login-box .aw-mod-head .icon-sina, .aw-login-box .aw-mod-head .icon-weibo, .aw-login-box .aw-mod-head .icon-qq, .aw-login-box .aw-mod-head .icon-wechat{font-size: 24px;color: #B7B7B7;vertical-align: middle;margin-left: 5px;transition:.3s linear color;}
 .aw-login-box .aw-mod-head .icon-sina:hover, .aw-login-box .aw-mod-head .icon-weibo:hover, .aw-login-box .aw-mod-head .icon-qq:hover, .aw-login-box .aw-mod-head .icon-wechat:hover{color: #fff; }
 .aw-login-footer{margin:150px auto 0;}
+
+.aw-wechat-body .aw-others-login-btn, .aw-wechat-body .aw-register-btn{width: 250px;margin:15px auto;}
+.aw-wechat-body .aw-others-login-box{width: 250px;margin:50px auto 0;text-align: center;}
+.aw-wechat-body .aw-others-login-box .aw-open-login{margin-bottom: 20px;}
+.aw-wechat-body .aw-others-login-box .aw-open-login a{margin:0 10px;color: #ccc;font-size: 30px;transition:.2s linear color;}
+.aw-wechat-body .aw-others-login-box .aw-open-login a:hover{color: #fff;}
+.aw-wechat-body .aw-others-login-box img{margin-bottom: 30px;}
+.aw-wechat-body .aw-others-login-box ul li{margin-bottom: 20px;line-height: 34px;}
+.aw-wechat-body .aw-others-login-box ul li .form-control{height: 40px;line-height: 40px;}
+.aw-wechat-body .aw-others-login-box ul li.last{text-align: left;}
+.aw-wechat-body .aw-others-login-box ul li.last, .aw-wechat-body .aw-others-login-box ul li.last a{color: #fff;}
