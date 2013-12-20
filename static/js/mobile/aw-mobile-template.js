@@ -1,6 +1,6 @@
 var AW_MOBILE_TEMPLATE = {
 	'publish' : 
-		'<div class="modal fade alert-publish" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'+
+		'<div class="modal fade alert-publish">'+
 		    '<div class="modal-dialog">'+
 				'<div class="modal-content">'+
 				    '<form action="' + G_BASE_URL + '/publish/ajax/publish_question/" method="post" id="quick_publish" onsubmit="return false">'+
@@ -23,7 +23,7 @@ var AW_MOBILE_TEMPLATE = {
 						    '<div class="aw-publish-title clearfix" id="quick_publish_category_chooser">'+
 							    '<div class="aw-publish-dropdown">'+
 							    	'<p data-toggle="dropdown" class="dropdown-toggle">'+
-							    		'<span class="pull-left num">' + _t('选择分类') + '</span>'+
+							    		'<span class="pull-left aw-text-color-999">' + _t('选择分类') + '</span>'+
 							    		'<i class="pull-left"></i>'+
 							    	'</p>'+
 							    '</div>'+
@@ -45,7 +45,7 @@ var AW_MOBILE_TEMPLATE = {
 	    '</div>',
 
 	'redirect' : 
-		'<div class="modal fade alert-redirect" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'+
+		'<div class="modal fade alert-redirect">'+
 		    '<div class="modal-dialog">'+
 				'<div class="modal-content">'+
 				    '<form>'+
@@ -67,7 +67,7 @@ var AW_MOBILE_TEMPLATE = {
 	    '</div>',
 
 	'message' : 
-		'<div class="modal fade alert-message" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'+
+		'<div class="modal fade alert-message">'+
 		   '<div class="modal-dialog">'+
 				'<div class="modal-content">'+
 				   '<form id="publish" action="' + G_BASE_URL + '/inbox/ajax/send/" method="post" id="quick_publish" onsubmit="return false">'+

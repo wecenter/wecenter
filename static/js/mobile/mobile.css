@@ -3,7 +3,7 @@ body{padding:0 0 20px 0 !important;}
 input, textarea, select{margin-bottom:10px;font-family: "Helvetica Neue",Helvetica,Arial,'Microsoft YaHei',sans-serif;color: #666;}
 ul,li,ol{margin:0;list-style: none;}
 article, aside, dialog, footer, header, section, footer, nav, figure, menu {display: block;}
-h1,h2,h3,h4,h5,h6{margin:0;font-size: 16px;line-height: 30px;}
+h1,h2,h3,h4,h5,h6{margin:0;font-size: 16px;line-height: 30px;font-weight: 700;}
 a{cursor: pointer;}
 dd{margin-left: 10px;}
 code{white-space: normal;}
@@ -12,7 +12,7 @@ code{white-space: normal;}
 .aw-topic-name i{margin:-1px 0 0 10px;font-size: 14px;font-style: normal;cursor: pointer;}
 .modal-backdrop, .modal-backdrop.fade.in{opacity: 0.2;}
 .dropdown-menu{min-width: 0px;}
-.num, .aw-text-color-999{color: #999;}
+.aw-text-color-999{color: #999;}
 .aw-arrow{border-color: #C1C1C1 transparent transparent;border-image: none;border-right: 4px solid transparent;border-style: solid;border-width: 4px;}
 .aw-arrow.normal{border-width: 7px;}
 .btn-submit{margin:0 auto 15px;background:#80C3F7;border: 1px solid #1D80CF;border-radius: 5px 5px 5px 5px;box-shadow: 0 1px 0 rgba(255, 255, 255, 0.3) inset, 0 1px 1px rgba(50, 50, 50, 0.05);color: #FFFFFF;cursor: pointer;display: block;font-size: 16px;line-height: 37px;text-align: center;text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);width: 100%;font-weight: bold;}
@@ -148,7 +148,7 @@ nav #aw-top-nav-notic .badge{position: absolute;right: 0;top:1px;z-index:100;pad
 /* 问题详情页 */
 .aw-question-detail-page .aw-question-detail h1{margin-top:10px;font-size: 18px;line-height: 22px;}
 .aw-question-detail-page .aw-question-detail .aw-mod-body{margin:10px 0;line-height: 22px;}
-.aw-question-detail-page .aw-question-detail .aw-mod-footer a, .aw-question-detail-page .aw-answers-list .aw-mod-footer > a{float:left;margin-right: 15px;color: #999;}
+.aw-question-detail-page .aw-question-detail .aw-mod-footer .meta a, .aw-question-detail-page .aw-answers-list .aw-mod-footer .meta > a, .aw-question-detail-page .aw-answers-list .aw-mod-footer .meta > span{float:left;margin-right: 10px;color: #999;}
 .aw-question-detail-page .aw-question-detail .aw-mod-footer #ckepop a{margin: 2px 0 0 5px;}
 .aw-question-detail-page .aw-question-detail .aw-mod-footer .aw-invite-replay-btn{margin:0;}
 .aw-question-detail-page .aw-question-detail iframe{width: 100%;}
@@ -236,7 +236,7 @@ nav #aw-top-nav-notic .badge{position: absolute;right: 0;top:1px;z-index:100;pad
 .aw-topic-page .aw-topic-info .aw-topic-title img{width: 50px;height: 50px;border-radius: 4px;}
 .aw-topic-page .aw-topic-info .aw-topic-title h1{line-height: 50px;margin-left: 20px;}
 .aw-topic-page .aw-topic-info .aw-topic-section, .aw-topic-page .aw-topic-info .aw-topic-topbar-nav, .aw-topic-page .aw-topic-info .aw-topic-section .aw-mod-body{margin:10px 0;}
-.aw-topic-page .aw-topic-info .aw-topic-section .num{margin-left: 10px;}
+.aw-topic-page .aw-topic-info .aw-topic-section .aw-text-color-999{margin-left: 10px;}
 .aw-topic-page .aw-topic-info .aw-topic-topbar-search form, .aw-topic-page .aw-topic-info .aw-topic-topbar-nav .nav-tabs{margin:0;}
 .aw-topic-side-section{margin-bottom:10px;padding:10px 0;border-top:1px solid #eee;}
 .aw-topic-side-section dl{height: auto;overflow: hidden;margin:0;padding:10px 0;border-bottom:1px solid #eee;}
