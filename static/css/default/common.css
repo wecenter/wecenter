@@ -391,7 +391,7 @@ a.aw-load-more-content{display: block;}
 .aw-mod-publish .aw-dropdown{width: 300px;}
 .aw-notopic-sort{margin:5px 0 15px 0;padding:5px 10px;background: #E0E2E1;}
 .aw-question-detail-box .aw-dynamic-topic .aw-item .aw-user-img{position: relative;top: 10px;width: 32px;height: 32px;}
-.aw-question-detail-box .aw-vote-bar{position: absolute;left: -30px;}
+.aw-question-detail-box .aw-vote-bar{position: absolute;left: -30px;width: 150px;}
 .aw-question-detail-box .aw-vote-bar.fixed .vote-container{position: fixed;top: 25px;}
 
 /* 文章广场 */
