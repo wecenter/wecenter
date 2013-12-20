@@ -23,3 +23,9 @@ ALTER TABLE `[#DB_PREFIX#]active_data` DROP `active_expire`;
 
 ALTER TABLE `[#DB_PREFIX#]question` CHANGE `question_content_fulltext` `question_content_fulltext` TEXT NULL DEFAULT NULL;
 ALTER TABLE `[#DB_PREFIX#]article` CHANGE `title_fulltext` `title_fulltext` TEXT NULL DEFAULT NULL;
+
+ALTER TABLE `aws_users_weixin` CHANGE `expires_in` `expires_in` INT( 10 ) NULL;
+ALTER TABLE `aws_users_weixin` CHANGE `access_token` `access_token` VARCHAR( 255 ) NULL;
+ALTER TABLE `aws_users_weixin` CHANGE `refresh_token` `refresh_token` VARCHAR( 255 ) NULL;
+
+ALTER TABLE `aws_users_weixin` CHANGE `scope` `scope` VARCHAR( 64 ) NULL, CHANGE  `headimgurl`  `headimgurl` VARCHAR( 255 ) NULL, CHANGE `nickname` `nickname` VARCHAR( 64 ) NULL, CHANGE `sex` `sex` TINYINT( 1 ) NULL DEFAULT  '0', CHANGE `province` `province` VARCHAR( 32 ) NULL, CHANGE `city` `city` VARCHAR( 32 ) NULL, CHANGE `country` `country` VARCHAR( 32 ) NULL;

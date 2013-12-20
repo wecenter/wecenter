@@ -40,11 +40,22 @@ class aws_weixin_enterprise_class extends AWS_MODEL
 			
 			if ($result['access_token'])
 			{
-				AWS_APP::cache()->set($token_cache_key, $result['access_token'], $result['expires_in']);
+				AWS_APP::cache()->set($token_cache_key, $result['access_token'], ($result['expires_in'] / 2));
 				
 				return $result['access_token'];
 			}
+			else
+			{
+				AWS_APP::cache()->delete($token_cache_key);
+			}
 		}
+	}
+	
+	public function update_token($openid, $access_token)
+	{
+		$this->update('users_weixin', array(
+			'access_token' => $access_token
+		), "openid = '" . $this->quote($openid) . "'");
 	}
 	
 	public function send_text_message($openid, $message)
@@ -328,5 +339,90 @@ class aws_weixin_enterprise_class extends AWS_MODEL
 				return 'https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=' . urlencode($result['ticket']);
 			}
 		}
+	}
+	
+	public function process_client_login($token, $uid)
+	{
+		return $this->update('weixin_login', array(
+			'uid' => $uid
+		), "token = '" . intval($token) . "'");
+	}
+	
+	public function request_client_login_token($session_id)
+	{
+		$this->delete('weixin_login', "session_id = '" . $this->quote($session_id) . "'");
+		
+		$token = rand(11111111, 99999999);
+		
+		while ($this->fetch_row('weixin_login', "token = " . $token))
+		{
+			$token = rand(11111111, 99999999);
+		}
+		
+		$this->insert('weixin_login', array(
+			'token' => $token,
+			'session_id' => $session_id,
+			'expire' => (time() + 300)
+		));
+		
+		return $token;
+	}
+	
+	public function weixin_login_process($session_id)
+	{
+		$weixin_login = $this->fetch_row('weixin_login', "session_id = '" . $this->quote($session_id) . "' AND expire >= " . time());
+		
+		if ($weixin_login['uid'])
+		{
+			$this->delete('weixin_login', "session_id = '" . $this->quote($session_id) . "'");
+			
+			return $this->model('account')->get_user_info_by_uid($weixin_login['uid']);
+		}
+	}
+	
+	public function bind_account($access_user, $access_token, $uid, $is_ajax = false)
+	{
+		if (! $access_user['nickname'])
+		{
+			if ($is_ajax)
+			{
+				H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('与微信通信出错, 请重新登录')));
+			}
+			else
+			{
+				H::redirect_msg(AWS_APP::lang()->_t('与微信通信出错, 请重新登录'));
+			}
+		}
+		
+		if ($openid_info = $this->get_user_info_by_uid($uid))
+		{
+			if ($openid_info['opendid'] != $access_user['openid'])
+			{
+				if ($is_ajax)
+				{
+					H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('微信账号已经被其他账号绑定')));
+				}
+				else
+				{
+					H::redirect_msg(AWS_APP::lang()->_t('微信账号已经被其他账号绑定'));
+				}
+			}
+		}
+		
+		return $this->insert('users_weixin', array(
+			'uid' => intval($uid),
+			'openid' => $access_token['openid'],
+			'expires_in' => (time() + $access_token['expires_in']),
+			'access_token' => $access_token['access_token'],
+			'refresh_token' => $access_token['refresh_token'],
+			'scope' => $access_token['scope'],
+			'headimgurl' => $access_user['headimgurl'],
+			'nickname' => $access_user['nickname'],
+			'sex' => $access_user['sex'],
+			'province' => $access_user['province'],
+			'city' => $access_user['city'],
+			'country' => $access_user['country'],
+			'add_time' => time()
+		));
 	}
 }

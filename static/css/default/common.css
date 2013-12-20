@@ -887,10 +887,10 @@ a.aw-load-more-content{display: block;}
 
 /* 微信登陆页面 */
 .aw-wechat-body{background-image: url('img/wechat_login.png');background-repeat: repeat;}
-.aw-wechat-body .aw-wechat-login{width: 500px;margin:120px auto;text-shadow:0 1px 1px #333333;text-align: center;}
-.aw-wechat-body .aw-wechat-login h1{margin-bottom:50px;font-size: 24px;text-shadow:0 2px 0 #333;color:#fff;}
+.aw-wechat-body .aw-wechat-login{width: 500px;margin:50px auto;text-shadow:0 1px 1px #333333;text-align: center;}
+.aw-wechat-body .aw-wechat-login h1{margin-bottom:40px;font-size: 24px;text-shadow:0 2px 0 #333;color:#fff;}
 .aw-wechat-body .aw-wechat-login .icon-wechat{display:block;font-size: 200px;}
-.aw-wechat-body .aw-wechat-login .info{display:inline-block;height:40px;line-height:40px;margin:20px auto 0;padding:0 20px;border:1px solid #3d4145;border-bottom-color:#505359;box-shadow:0 1px 0px #383B41 inset;border-radius: 20px;color:#B4B7BC;}
+.aw-wechat-body .aw-wechat-login .info{display:inline-block;height:46px;line-height:46px;margin:20px auto 0;padding:0 40px;border:1px solid #3d4145;border-bottom-color:#505359;box-shadow:0 1px 0px #383B41 inset;border-radius: 20px;color:#B4B7BC;}
 .aw-wechat-body .aw-wechat-login .info b{color:#ffba61;}
 
 /* 404页面 */
