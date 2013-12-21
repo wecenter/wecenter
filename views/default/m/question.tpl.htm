@@ -213,6 +213,10 @@
 	<!-- 评论box -->
 	<div class="aw-anwser-box">
 		<form action="question/ajax/save_answer/" onsubmit="return false;" method="post" id="answer_form" class="form-inline">
+			<input type="hidden" name="attach_access_key" value="<?php echo $this->attach_access_key; ?>" />
+			<input type="hidden" name="post_hash" value="<?php echo new_post_hash(); ?>" />
+			<input type="hidden" name="question_id" value="<?php echo $this->question_info['question_id']; ?>" />
+			
 			<div class="aw-mod-head">
 				<a href="m/people/" class="avatar"><img src="<?php echo get_avatar_url($this->user_id, 'mid'); ?>" alt="" /></a>
 				<?php echo $this->user_info['user_name']; ?>
@@ -228,8 +232,6 @@
 				</span>
 			</div>
 			<div class="aw-mod-body">
-					<input type="hidden" name="post_hash" value="<?php echo new_post_hash(); ?>" />
-			        <input type="hidden" name="question_id" value="<?php echo $this->question_info['question_id']; ?>" />
 					<textarea class="form-control" rows="5" name="answer_content"><?php echo htmlspecialchars($this->draft_content['message']); ?></textarea>
 			</div>
 			<div class="aw-mod-footer clearfix">
