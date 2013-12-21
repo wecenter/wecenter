@@ -447,7 +447,6 @@ function show_error($errorMessage = '')
 	@ob_end_clean();
 	
 	echo _show_error($errorMessage);
-	
 	exit;
 }
 
