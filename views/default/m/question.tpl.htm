@@ -265,7 +265,7 @@
 	var ATTACH_ACCESS_KEY = '<?php echo $this->attach_access_key; ?>';
 	
 	$(document).ready(function () {
-		init_fileuploader('file_uploader_answer', G_BASE_URL + '/publish/ajax/attach_upload/id-answer__attach_access_key-' + ATTACH_ACCESS_KEY);
+		init_fileuploader('file_uploader_answer', G_BASE_URL + '/publish/ajax/attach_upload/id-answer__attach_access_key' + '-' + ATTACH_ACCESS_KEY);
 
 		// 自动保存草稿
 		if ($('#answer_form textarea').length)

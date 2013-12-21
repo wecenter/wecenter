@@ -566,8 +566,8 @@ _ajax_uploader.FileUploader = function(o){
         fileTemplate: '<dl class="clearfix">' +
         		'<dt class="pull-left img-thumbnail"><div class="upload-loading"></div></dt>' +
         		'<dd class="pull-left">' + 
-                '<p><span class="_ajax_upload-file aw-file-uploader-name"></span> <span class="_ajax_upload-size aw-text-color-999"></span></p>' +
-                '<p class="aw-text-color-999">已上传附件.</p>'+
+                '<p><span class="_ajax_upload-file aw-file-uploader-name"></span></p>' +
+                '<p class="_ajax_upload-size aw-text-color-999"></p>'+
 				'<span class="_ajax_upload-inset"><a href="javascript:;" class="_ajax_upload_delete_file fa fa-times" onclick="if (confirm(\'' + _t('确认删除?') + '\')) { _ajax_uploader_delete_attach(this.href, $(this).parents(\'dl\')) } return false;"></a> </span>' +
 				'</dd>' +
             '</dl>',        
