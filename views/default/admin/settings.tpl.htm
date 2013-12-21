@@ -436,6 +436,19 @@
 				</span>
 				</dd>
 			</dl>
+			
+			<dl>
+				<dt><h3><?php _e('发送诊断数据帮助改善产品'); ?>:</h3></dt>
+				<dd>
+				<span class="yesno_yes">
+					<label><input type="radio" name="report_diagnostics" value="Y"<?php if ($this->setting['report_diagnostics'] == 'Y') { ?> checked="checked"<?php } ?> /><?php _e('是'); ?></label>
+				</span>
+				
+				<span class="yesno_no">
+					<label><input type="radio" name="report_diagnostics" value="N"<?php if ($this->setting['report_diagnostics'] == 'N') { ?> checked="checked"<?php } ?> /><?php _e('否'); ?></label>
+				</span>
+				</dd>
+			</dl>
 		</div>
 		<a name="contents"></a>
 		<div class="aw-mod-head">
