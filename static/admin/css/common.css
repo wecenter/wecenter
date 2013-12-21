@@ -172,7 +172,7 @@ th{text-align: center;}
 /*alert-box*/
 body.modal-open, .modal-open .navbar-fixed-top, .modal-open .navbar-fixed-bottom{margin:0px;}
 .alert-box{outline: none;}
-.aw-tips-box .modal-dialog{width: 350px;position: fixed;}
+.aw-tips-box .modal-dialog{width: 350px;}
 .aw-tips-box .modal-body{background: url('../img/warmming.png') no-repeat right 5px;}
 .aw-tips-box .modal-body p{margin: 10px 0;}
 

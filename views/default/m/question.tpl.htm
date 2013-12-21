@@ -37,7 +37,7 @@
 			<?php } ?>
 		</div>
 		<div class="aw-mod-footer clearfix">
-			<div class="meta">
+			<div class="meta clearfix">
 				<?php if ($this->user_id) { ?><a herf="javascript:;" data-id="<?php echo $this->question_info['question_id']; ?>" data-type="question" class="aw-add-comment"<?php if ($this->question_info['lock']) { ?> data-close="true"<?php } ?>><i class="fa fa-comment"></i> <?php if ($this->question_info['comment_count']) { ?><?php _e('%s 条评论', $this->question_info['comment_count']); ?><?php } else { ?><?php _e('添加评论'); ?><?php } ?></a><?php if ((!$this->question_info['lock'] AND ($this->question_info['published_uid'] == $this->user_id OR $this->user_info['permission']['edit_question'])) OR $this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?><a href="m/publish/<?php echo $this->question_info['question_id']; ?>"><i class="fa fa-edit"></i> <?php _e('编辑'); ?></a><?php } ?><a <?php if (!$this->question_thanks) { ?>onclick="question_thanks(<?php echo $this->question_info['question_id']; ?>, this);"<?php } ?>><i class="fa fa-heart"></i><?php if ($this->question_thanks) { ?> <?php _e('已感谢'); ?><?php } else { ?> <?php _e('感谢'); ?><?php } ?></a><a class="aw-invite-replay-btn">邀请回答</a><?php } ?> 
 				<!-- JiaThis Button BEGIN -->
 				<span id="ckepop">
@@ -171,7 +171,7 @@
 					<?php } ?>
 				</div>
 				<div class="aw-mod-footer clearfix">
-					 <div class="meta">
+					 <div class="meta clearfix">
 					 	<?php if ($this->user_id) { ?>
 					 	<a onclick="agreeVote(this, <?php echo $val['answer_id']; ?>)" class="answer_vote"><span><i class="fa fa-thumbs-up<?php if ($val['agree_status'] == 1) { ?> active<?php } ?>"></i> <em><?php echo $val['agree_count']; ?></em></span></a>
 					 	<a class="answer_vote" onclick="disagreeVote(this, <?php echo $val['answer_id']; ?>)"><span><i class="fa fa-thumbs-down<?php if ($val['agree_status'] == -1) { ?> active<?php } ?>"></i></span></a>
@@ -236,6 +236,12 @@
 				<span class="pull-right">
 					<a class="btn btn-success pull-left" onclick="ajax_post($('#answer_form'));"><?php _e('回复'); ?></a>
 				</span>
+				<?php if ($this->human_valid) { ?>
+				<div class="aw-auth-img pull-right clearfix">
+					<em class="auth-img pull-left"><img src="" onclick="this.src = G_BASE_URL + '/account/captcha/' + Math.floor(Math.random() * 10000);" id="captcha" /></em>
+					<input class="pull-left" type="text" name="seccode_verify" placeholder="<?php _e('验证码'); ?>" />
+				</div>
+				<?php } ?>
 				<div id="file_uploader_answer"></div>
 				<span class="aw-text-color-999" id="answer_content_message">&nbsp;</span>
 			</div>
