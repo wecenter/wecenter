@@ -393,12 +393,7 @@ class HTTP
 		$headers[] = 'API-RemoteIP: ' . fetch_ip();
 		
 		curl_setopt($curl, CURLOPT_URL, $url);
-		
-		if ($headers)
-		{
-			curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
-		}
-		
+		curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
 		curl_setopt($curl, CURLINFO_HEADER_OUT, TRUE);
 		
 		if (substr($url, 0, 8) == 'https://')
