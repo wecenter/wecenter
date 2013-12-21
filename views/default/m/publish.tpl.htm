@@ -14,6 +14,7 @@
 			<input type="hidden" name="post_hash" value="<?php echo new_post_hash(); ?>" />
 			<input type="hidden" name="question_id" id="question_id" value="<?php echo $this->question_info['question_id']; ?>" />
 			<input type="hidden" name="ask_user_id" value="<?php echo $_POST['ask_user_id']; ?>" />
+			<input type="hidden" name="attach_access_key" value="<?php echo $this->attach_access_key; ?>" />
 			
 			<?php if ($this->question_category_list) { ?>
 			<select name="category_id" class="hide" id="category_id">
