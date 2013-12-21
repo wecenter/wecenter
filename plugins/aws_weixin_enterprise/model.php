@@ -245,8 +245,6 @@ class aws_weixin_enterprise_class extends AWS_MODEL
 		
 		if ($result = $this->access_request('https://api.weixin.qq.com/cgi-bin/menu/create?access_token=' . $this->get_access_token(), 'POST', preg_replace("#\\\u([0-9a-f]+)#ie", "convert_encoding(pack('H4', '\\1'), 'UCS-2', 'UTF-8')", json_encode(array('button' => $mp_menu_no_key)))))
 		{
-			$result = json_decode($result, true);
-			
 			if ($result['errcode'])
 			{
 				return $result['errmsg'];
@@ -358,9 +356,7 @@ class aws_weixin_enterprise_class extends AWS_MODEL
 				)
 			)
 		))))
-		{
-			$result = json_decode($result, true);
-			
+		{			
 			if ($result['ticket'])
 			{
 				return 'https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=' . urlencode($result['ticket']);
