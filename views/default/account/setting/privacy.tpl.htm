@@ -2,7 +2,6 @@
 <?php TPL::output('account/setting/setting_header.tpl.htm'); ?>
 
 <form id="setting_form" method="post" action="account/ajax/privacy_setting/">
-	<!-- 微博设置 -->
 	<div class="aw-mod">
 		<div class="aw-mod-head">
 			<h4><?php _e('微博设置'); ?></h4>
@@ -13,9 +12,7 @@
 			<label><input type="radio" value="0" name="weibo_visit"<?php if (!$this->user_info['weibo_visit']) { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?></label>
 		</div>
 	</div>
-	<!-- end 微博设置 -->
-
-	<!-- 私信设置 -->
+	
 	<div class="aw-mod">
 		<div class="aw-mod-head">
 			<h4><?php _e('私信设置'); ?></h4>
@@ -26,9 +23,7 @@
 			<label><input type="radio"value="1" name="inbox_recv"<?php if ($this->user_info['inbox_recv'] == 1) { ?> checked="checked"<?php } ?> /> <?php _e('我关注的人'); ?></label>
 		</div>
 	</div>
-	<!-- end 私信设置 -->
-
-	<!-- 邮件设置 -->
+	
 	<div class="aw-mod">
 		<div class="aw-mod-head">
 			<h4><?php _e('邮件设置'); ?></h4>
@@ -64,8 +59,8 @@
 			</p>
 		</div>
 	</div>
-	<!-- end 邮件设置 -->
 	
+	<?php if (AWS_APP::plugins()->installed('aws_weixin_enterprise')) { ?>
 	<div class="aw-mod">
 		<div class="aw-mod-head">
 			<h4><?php _e('微信设置'); ?></h4>
@@ -96,8 +91,8 @@
 			</p>
 		</div>
 	</div>
+	<?php } ?>
 
-	<!-- 通知设置 -->
 	<div class="aw-mod">
 		<div class="aw-mod-head">
 			<h4><?php _e('通知设置'); ?></h4>
@@ -117,7 +112,6 @@
 			</p>
 		</div>
 	</div>
-	<!-- end 通知设置 -->
 </form>
 
 <a href="javascript:;" class="btn btn-large btn-success pull-right aw-user-setting-save" onclick="ajax_post($('#setting_form'));"><?php _e('保存'); ?></a>
