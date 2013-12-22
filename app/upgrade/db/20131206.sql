@@ -1,6 +1,7 @@
 DELETE FROM `[#DB_PREFIX#]system_setting` WHERE `varname` = 'invite_reg_only';
 
 INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES ('register_type', 's:4:"open";');
+INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES ('report_diagnostics', 's:1:"Y";');
 
 CREATE TABLE `[#DB_PREFIX#]weixin_login` (
   `id` int(10) NOT NULL AUTO_INCREMENT,

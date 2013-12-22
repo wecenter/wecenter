@@ -40,7 +40,7 @@ class aws_weixin_enterprise_class extends AWS_MODEL
 			
 			if ($result['access_token'])
 			{
-				AWS_APP::cache()->set($token_cache_key, $result['access_token'], ($result['expires_in'] / 2));
+				AWS_APP::cache()->set($token_cache_key, $result['access_token'], $result['expires_in']);
 				
 				return $result['access_token'];
 			}
@@ -48,6 +48,33 @@ class aws_weixin_enterprise_class extends AWS_MODEL
 			{
 				AWS_APP::cache()->delete($token_cache_key);
 			}
+		}
+	}
+	
+	public function refresh_access_token()
+	{
+		if (!AWS_APP::config()->get('weixin')->app_id)
+		{
+			return false;
+		}
+		
+		AWS_APP::cache()->delete($token_cache_key);
+		
+		return $this->get_access_token();
+	}
+	
+	public function access_request($url, $method, $contents)
+	{
+		if ($result = HTTP::request($url, $method, $contents))
+		{
+			$result = json_decode($result, true);
+			
+			if ($result['errcode'] == 40001)
+			{
+				$this->refresh_access_token();
+			}
+			
+			return $result;
 		}
 	}
 	
@@ -65,7 +92,7 @@ class aws_weixin_enterprise_class extends AWS_MODEL
 			return false;
 		}
 		
-		HTTP::request('https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=' . $this->get_access_token(), 'POST', preg_replace("#\\\u([0-9a-f]+)#ie", "convert_encoding(pack('H4', '\\1'), 'UCS-2', 'UTF-8')", json_encode(array(
+		$this->access_request('https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=' . $this->get_access_token(), 'POST', preg_replace("#\\\u([0-9a-f]+)#ie", "convert_encoding(pack('H4', '\\1'), 'UCS-2', 'UTF-8')", json_encode(array(
 			'touser' => $openid,
 			'msgtype' => 'text',
 			'text' => array(
@@ -216,10 +243,8 @@ class aws_weixin_enterprise_class extends AWS_MODEL
 			$mp_menu_no_key[] = $val;
 		}
 		
-		if ($result = HTTP::request('https://api.weixin.qq.com/cgi-bin/menu/create?access_token=' . $this->get_access_token(), 'POST', preg_replace("#\\\u([0-9a-f]+)#ie", "convert_encoding(pack('H4', '\\1'), 'UCS-2', 'UTF-8')", json_encode(array('button' => $mp_menu_no_key)))))
+		if ($result = $this->access_request('https://api.weixin.qq.com/cgi-bin/menu/create?access_token=' . $this->get_access_token(), 'POST', preg_replace("#\\\u([0-9a-f]+)#ie", "convert_encoding(pack('H4', '\\1'), 'UCS-2', 'UTF-8')", json_encode(array('button' => $mp_menu_no_key)))))
 		{
-			$result = json_decode($result, true);
-			
 			if ($result['errcode'])
 			{
 				return $result['errmsg'];
@@ -322,7 +347,7 @@ class aws_weixin_enterprise_class extends AWS_MODEL
 			return false;
 		}
 		
-		if ($result = HTTP::request('https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=' . $this->get_access_token(), 'POST', json_encode(array(
+		if ($result = $this->access_request('https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=' . $this->get_access_token(), 'POST', json_encode(array(
 			'expire_seconds' => 300,
 			'action_name' => 'QR_SCENE',
 			'action_info' => array(
@@ -331,9 +356,7 @@ class aws_weixin_enterprise_class extends AWS_MODEL
 				)
 			)
 		))))
-		{
-			$result = json_decode($result, true);
-			
+		{			
 			if ($result['ticket'])
 			{
 				return 'https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=' . urlencode($result['ticket']);
