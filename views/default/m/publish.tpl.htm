@@ -51,6 +51,12 @@
 				<div id="file_uploader_answer"></div>
 			</div>
 		    <div class="aw-mod-footer">
+		    	<?php if ($this->human_valid) { ?>
+				<div class="aw-auth-img pull-left">
+					<em class="auth-img pull-left"><img src="" onclick="this.src = G_BASE_URL + '/account/captcha/' + Math.floor(Math.random() * 10000);" id="captcha"  /></em>
+					<input class="form-control pull-left" type="text" name="seccode_verify" placeholder="验证码" />
+				</div>
+				<?php } ?>
 		    	<button class="btn btn-primary pull-right" onclick="ajax_post($('#question_form')); return false;"><?php _e('确认发起'); ?></button>
 		    	
 		    	<span class="aw-anonymity">
