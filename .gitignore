@@ -2,8 +2,6 @@
 cache/
 tmp/
 uploads/
-system/config/weixin.php
 system/config/install.lock.php
 system/config/database.php
-system/config/system.php
 .DS_Store
