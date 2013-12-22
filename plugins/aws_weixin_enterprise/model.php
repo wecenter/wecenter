@@ -280,6 +280,46 @@ class aws_weixin_enterprise_class extends AWS_MODEL
 		}
 	}
 	
+	public function associate_avatar($uid, $headimgurl)
+	{
+		if ($headimgurl)
+		{
+			if ($avatar_stream = curl_get_contents($headimgurl))
+			{
+				$avatar_location = get_setting('upload_dir') . '/avatar/' . $this->model('account')->get_avatar($uid, '', 1) . $this->model('account')->get_avatar($uid, '', 2);
+				
+				$avatar_dir = str_replace(basename($avatar_location), '', $avatar_location);
+				
+				if ( ! is_dir($avatar_dir))
+				{
+					make_dir($avatar_dir);
+				}
+				
+				if (@file_put_contents($avatar_location, $avatar_stream))
+				{
+					foreach(AWS_APP::config()->get('image')->avatar_thumbnail AS $key => $val)
+					{			
+						$thumb_file[$key] = $avatar_dir . $this->model('account')->get_avatar($uid, $key, 2);
+						
+						AWS_APP::image()->initialize(array(
+							'quality' => 90,
+							'source_image' => $avatar_location,
+							'new_image' => $thumb_file[$key],
+							'width' => $val['w'],
+							'height' => $val['h']
+						))->resize();	
+					}
+					
+					$avatar_file = $this->model('account')->get_avatar($uid, null, 1) . basename($thumb_file['min']);
+				}
+			}
+		}
+		
+		return $this->model('account')->update_users_fields(array(
+			'avatar_file' => $avatar_file
+		), $uid);
+	}
+	
 	public function register_user($access_token, $access_user)
 	{
 		if (!$access_token OR !$access_user['nickname'])
@@ -298,42 +338,10 @@ class aws_weixin_enterprise_class extends AWS_MODEL
 		
 		if ($uid = $this->model('account')->user_register($access_user['nickname'], md5(rand(111111, 999999999))))
 		{
-			if ($access_user['headimgurl'])
-			{
-				if ($avatar_stream = curl_get_contents($access_user['headimgurl']))
-				{
-					$avatar_location = get_setting('upload_dir') . '/avatar/' . $this->model('account')->get_avatar($uid, '', 1) . $this->model('account')->get_avatar($uid, '', 2);
-					
-					$avatar_dir = str_replace(basename($avatar_location), '', $avatar_location);
-					
-					if ( ! is_dir($avatar_dir))
-					{
-						make_dir($avatar_dir);
-					}
-					
-					if (@file_put_contents($avatar_location, $avatar_stream))
-					{
-						foreach(AWS_APP::config()->get('image')->avatar_thumbnail AS $key => $val)
-						{			
-							$thumb_file[$key] = $avatar_dir . $this->model('account')->get_avatar($uid, $key, 2);
-							
-							AWS_APP::image()->initialize(array(
-								'quality' => 90,
-								'source_image' => $avatar_location,
-								'new_image' => $thumb_file[$key],
-								'width' => $val['w'],
-								'height' => $val['h']
-							))->resize();	
-						}
-						
-						$avatar_file = $this->model('account')->get_avatar($uid, null, 1) . basename($thumb_file['min']);
-					}
-				}
-			}
+			$this->associate_avatar($uid, $access_user['headimgurl']);
 			
 			$this->model('account')->update_users_fields(array(
-				'sex' => $access_user['sex'],
-				'avatar_file' => $avatar_file
+				'sex' => $access_user['sex']
 			), $uid);
 			
 			return $this->model('account')->get_user_info_by_uid($uid);
@@ -432,6 +440,8 @@ class aws_weixin_enterprise_class extends AWS_MODEL
 				}
 			}
 		}
+		
+		$this->associate_avatar($uid, $access_user['headimgurl']);
 		
 		return $this->insert('users_weixin', array(
 			'uid' => intval($uid),
