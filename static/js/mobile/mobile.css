@@ -120,6 +120,8 @@ nav #aw-top-nav-notic .badge{position: absolute;right: 0;top:1px;z-index:100;pad
 .aw-mod-publish h3{font-size: 14px;color: #666;}
 .aw-mod-publish .aw-topic-box-selector .btn{margin:0 0 10px 10px;}
 .aw-mod-publish .aw-anonymity input{margin-right: 5px;}
+.aw-mod-publish .aw-auth-img img{height: 36px;}
+.aw-mod-publish .aw-auth-img input{width: 56px;height:36px;margin-left: 5px;}
 .aw-publish-title .aw-publish-dropdown{position: relative;}
 .aw-publish-title input{width:180px;border-radius: 4px 0 0 4px;border-right: none;}
 .aw-publish-title input.active{width:100%;border:1px solid #CCCCCC;border-radius: 4px;}
@@ -171,6 +173,9 @@ nav #aw-top-nav-notic .badge{position: absolute;right: 0;top:1px;z-index:100;pad
 .aw-question-detail-page .aw-anwser-box .aw-mod-body{margin-top:10px;}
 .aw-question-detail-page .aw-anwser-box .avatar img{width: 25px;height: 25px;border-radius: 2px;}
 .aw-question-detail-page .aw-anwser-box textarea{width: 100%;padding:0;}
+.aw-question-detail-page .aw-anwser-box .aw-auth-img{margin-right: 10px;}
+.aw-question-detail-page .aw-anwser-box .aw-auth-img img{height: 36px;}
+.aw-question-detail-page .aw-anwser-box .aw-auth-img input{width:56px;height: 36px;}
 .aw-question-detail-page .aw-related-questions{margin-top: 40px;border-top:1px solid #EEEEEE;}
 .aw-question-detail-page .aw-related-questions h3{margin:10px 0;}
 .aw-question-detail-page .aw-related-questions ul li{margin-bottom: 10px;}
