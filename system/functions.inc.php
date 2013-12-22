@@ -421,20 +421,20 @@ function &load_class($class)
 	return $_classes[$class];
 }
 
-function _show_error($errorMessage = '')
+function _show_error($exception_message)
 {
 	$name = strtoupper($_SERVER['HTTP_HOST']);
 		
-	if ($errorMessage)
+	if ($exception_message)
 	{
-		$errorMessage = htmlspecialchars($errorMessage);
+		$exception_message = htmlspecialchars($exception_message);
 		
-		$errorBlock = "<div class='system-error'><textarea rows='15' cols='60' onfocus='this.select()'>{$errorMessage}</textarea></div>";
+		$errorBlock = "<div class='system-error'><textarea rows='15' cols='60' onfocus='this.select()'>{$exception_message}</textarea></div>";
 	}
 	
 	if (defined('IN_AJAX'))
 	{
-		return $errorMessage;
+		return $exception_message;
 	}
 	
 	return <<<EOF
@@ -442,11 +442,16 @@ function _show_error($errorMessage = '')
 EOF;
 }
 
-function show_error($errorMessage = '')
+function show_error($exception_message, $error_message = '')
 {
 	@ob_end_clean();
 	
-	echo _show_error($errorMessage);
+	if (get_setting('report_diagnostics') == 'Y' AND class_exists('AWS_APP', false))
+	{
+		AWS_APP::mail()->send('wecenter_report@outlook.com', '[' . G_VERSION . '][' . G_VERSION_BUILD . '][' . get_setting('base_url') . ']' . $error_message, $exception_message, get_setting('site_name'), 'WeCenter');
+	}
+	
+	echo _show_error($exception_message);
 	exit;
 }
 
