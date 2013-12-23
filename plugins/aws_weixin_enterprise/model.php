@@ -315,9 +315,12 @@ class aws_weixin_enterprise_class extends AWS_MODEL
 			}
 		}
 		
-		return $this->model('account')->update_users_fields(array(
-			'avatar_file' => $avatar_file
-		), $uid);
+		if ($avatar_file)
+		{
+			return $this->model('account')->update_users_fields(array(
+				'avatar_file' => $avatar_file
+			), $uid);
+		}
 	}
 	
 	public function register_user($access_token, $access_user)
