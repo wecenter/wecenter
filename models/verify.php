@@ -38,6 +38,15 @@ class verify_class extends AWS_MODEL
 		));
 	}
 	
+	public function update_apply($uid, $name, $reason, $data = array(), $attach = null)
+	{		
+		return $this->update('verify_apply', array(
+			'name' => htmlspecialchars($name),
+			'reason' => htmlspecialchars($reason),
+			'data' => serialize($data),
+		), 'uid = ' . intval($uid));
+	}
+	
 	public function fetch_apply($uid)
 	{
 		if ($verify_apply = $this->fetch_row('verify_apply', 'uid = ' . intval($uid)))
@@ -61,9 +70,9 @@ class verify_class extends AWS_MODEL
 		}
 	}
 	
-	public function approval_list($page, $limit)
+	public function approval_list($page, $status, $limit)
 	{
-		if ($approval_list = $this->fetch_page('verify_apply', '`status` = 0', 'time ASC', $page, $limit))
+		if ($approval_list = $this->fetch_page('verify_apply', '`status` = ' . intval($status), 'time ASC', $page, $limit))
 		{
 			foreach ($approval_list AS $key => $val)
 			{

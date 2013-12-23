@@ -448,7 +448,7 @@ function show_error($exception_message, $error_message = '')
 	
 	if (get_setting('report_diagnostics') == 'Y' AND class_exists('AWS_APP', false))
 	{
-		AWS_APP::mail()->send('wecenter_report@outlook.com', '[' . G_VERSION . '][' . G_VERSION_BUILD . '][' . get_setting('base_url') . ']' . $error_message, $exception_message, get_setting('site_name'), 'WeCenter');
+		AWS_APP::mail()->send('wecenter_report@outlook.com', '[' . G_VERSION . '][' . G_VERSION_BUILD . '][' . get_setting('base_url') . ']' . $error_message, nl2br($exception_message), get_setting('site_name'), 'WeCenter');
 	}
 	
 	echo _show_error($exception_message);

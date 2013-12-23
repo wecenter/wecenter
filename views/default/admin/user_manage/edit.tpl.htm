@@ -32,11 +32,70 @@
 				</dd>
 			</dl>
 			<dl>
+				<dt><label><?php _e('现居'); ?>:</label></dt>
+				<dd>
+					<select name="province" class="select_area"></select> <select name="city" class="select_area"></select>
+				</dd>
+			</dl>
+			<dl>
+				<dt><h3><?php _e('职业'); ?>:</h3></dt>
+				<dd>
+					<div class="row">
+						<div class="col-sm-7">
+							<select name="job_id">
+								<option value="">--</option>
+								<?php echo H::display_options($this->job_list, $this->user['job_id']); ?>
+							</select>
+						</div>
+					</div>
+				</dd>
+			</dl>
+			<dl>
 				<dt><h3><?php _e('邮箱'); ?>:</h3></dt>
 				<dd>
 					<div class="row">
 						<div class="col-sm-7">
 							<input class="form-control" name="email" type="text" value="<?php echo $this->user['email']; ?>" />
+						</div>
+					</div>
+				</dd>
+			</dl>
+			<dl>
+				<dt><h3><?php _e('手机号码'); ?>:</h3></dt>
+				<dd>
+					<div class="row">
+						<div class="col-sm-7">
+							<input class="form-control" name="mobile" type="text" value="<?php echo $this->user['mobile']; ?>" />
+						</div>
+					</div>
+				</dd>
+			</dl>
+			<dl>
+				<dt><h3>QQ:</h3></dt>
+				<dd>
+					<div class="row">
+						<div class="col-sm-7">
+							<input class="form-control" name="qq" type="text" value="<?php echo $this->user['qq']; ?>" />
+						</div>
+					</div>
+				</dd>
+			</dl>
+			<dl>
+				<dt><h3><?php _e('常用邮箱'); ?>:</h3></dt>
+				<dd>
+					<div class="row">
+						<div class="col-sm-7">
+							<input class="form-control" name="common_email" type="text" value="<?php echo $this->user['common_email']; ?>" />
+						</div>
+					</div>
+				</dd>
+			</dl>
+			<dl>
+				<dt><h3><?php _e('网站'); ?>:</h3></dt>
+				<dd>
+					<div class="row">
+						<div class="col-sm-7">
+							<input class="form-control" name="homepage" type="text" value="<?php echo $this->user['homepage']; ?>" />
 						</div>
 					</div>
 				</dd>
@@ -74,7 +133,8 @@
 				<dd>
 					<label><input type="radio" name="verified" value=""<?php if ($this->user['verified'] == '') { ?> checked="checked"<?php } ?> /><?php _e('无'); ?></label>
 					<label><input type="radio" name="verified" value="personal"<?php if ($this->user['verified'] == 'personal') { ?> checked="checked"<?php } ?> /><?php _e('个人认证'); ?></label>
-					<label><input type="radio" name="verified" value="enterprise"<?php if ($this->user['verified'] == 'enterprise') { ?> checked="checked"<?php } ?>/><?php _e('机构认证'); ?></label>
+					<label><input type="radio" name="verified" value="enterprise"<?php if ($this->user['verified'] == 'enterprise') { ?> checked="checked"<?php } ?>/><?php _e('机构认证'); ?></label> &nbsp; [ <a href="admin/user_manage/verify_approval_edit/<?php echo $this->user['uid']; ?>"><?php _e('编辑认证审核资料'); ?></a> ]
+				</dd>
 			</dl>
 			<dl>
 				<dt><h3><?php _e('头像'); ?>:</h3></dt>
@@ -84,7 +144,7 @@
 				</dd>
 			</dl>
 			
-			<?php if ($this->user_info['group_id'] == 1) { ?>
+			<?php if ($this->user['group_id'] == 1) { ?>
 			<dl>
 				<dt><h3><?php _e('用户组'); ?>:</h3></dt>
 				<dd><select name="group_id">
@@ -158,5 +218,18 @@
 		</div>
 	</div>
 </div>
+
+<script type="text/javascript">
+$(document).ready(function () {
+	$('.select_area').LocationSelect({
+        labels: ["<?php _e('请选择省份或直辖市'); ?>", "<?php _e('请选择城市'); ?>"],
+        elements: document.getElementsByTagName("select"),
+        detector: function () {
+            this.select(["<?php echo $this->user['province']; ?>", "<?php echo $this->user['city']; ?>"]);
+        },
+		dataUrl: G_BASE_URL + '/account/ajax/areas_json_data/'
+    });
+});
+</script>
 
 <?php TPL::output('admin/global/footer.tpl.htm'); ?>

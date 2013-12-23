@@ -2,6 +2,16 @@
 <?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
 
 <div class="pull-left right-side">
+	<div class="aw-mod-head">
+		<h2>
+			<span class="pull-left"><?php _e('认证审核'); ?></span>
+			
+			<ul class="nav nav-tabs pull-left">
+			    <li class="<?php if (!$_GET['status']) { ?> active<?php } ?>"><a href="admin/user_manage/verify_approval_list/"><?php _e('待审核'); ?></a></li>
+			    <li class="<?php if ($_GET['status'] == 1) { ?> active<?php } ?>"><a href="admin/user_manage/verify_approval_list/status-1"><?php _e('已审核'); ?></a></li>
+			</ul>
+		</h2>
+	</div>
 	<div class="aw-mod-body tab-content">
 		<form action="admin/user_manage/verify_approval_batch/" id="batchs_form" onsubmit="return false;" method="post">
 		<input type="hidden" id="batch_type" name="batch_type" value="approval" />
@@ -14,7 +24,7 @@
 					<th align="center" style="width:100px;"><?php _e('认证类型'); ?></th>
 					<th><?php _e('详细资料'); ?></th>
 					<th><?php _e('认证说明'); ?></th>
-					<th align="center"><?php _e('附件'); ?></th>
+					<th align="center"><?php _e('操作'); ?></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -30,7 +40,11 @@
 						<?php _e('联系方式'); ?>: <?php echo $val['data']['contact']; ?>
 					</td>
 					<td><?php echo $val['reason']; ?></td>
-					<td align="center"><?php if ($val['attach']) { ?><a href="<?php echo get_setting('upload_url'); ?>/verify/<?php echo $val['attach']; ?>" target="_blank"><i class="aw-icon page-attach"></i></a><?php } ?></td>
+					<td align="center">
+						<?php if ($val['attach']) { ?><a href="<?php echo get_setting('upload_url'); ?>/verify/<?php echo $val['attach']; ?>" target="_blank"><i class="aw-icon page-attach"></i></a><?php } ?>
+						
+						<a href="admin/user_manage/verify_approval_edit/<?php echo $val['uid']; ?>"><i class="aw-icon page-edit"></i></a>
+					</td>
 				</tr>
 				<?php } ?>
 				<?php } ?>
