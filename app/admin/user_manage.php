@@ -198,7 +198,7 @@ class user_manage extends AWS_ADMIN_CONTROLLER
 		if ($group_new OR $group_ids)
 		{
 			$rsm_array = array(
-				'url' => get_js_url('/admin/user_manage/group_list/r-' . rand(1, 999) . '#custom')
+				'url' => get_setting('base_url') . '/?/admin/user_manage/group_list/r-' . rand(1, 999) . '#custom'
 			);
 		}
 		
@@ -278,6 +278,7 @@ class user_manage extends AWS_ADMIN_CONTROLLER
 	{
 		$this->crumb(AWS_APP::lang()->_t('编辑用户资料'), "admin/user_manage/list/");
 		
+		TPL::assign('job_list', $this->model('work')->get_jobs_list());
 		TPL::assign('system_group', $this->model('account')->get_user_group_list(0));
 		TPL::assign('user', $this->model('account')->get_user_info_by_uid($_GET['uid'], TRUE));
 		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(402));
@@ -373,6 +374,12 @@ class user_manage extends AWS_ADMIN_CONTROLLER
 				$update_data['group_id'] = intval($_POST['group_id']);
 			}
 			
+			$update_data['province'] = htmlspecialchars($_POST['province']);
+			$update_data['city'] = htmlspecialchars($_POST['city']);
+			
+			$update_data['job_id'] = intval($_POST['job_id']);
+			$update_data['mobile'] = htmlspecialchars($_POST['mobile']);
+			
 			$this->model('account')->update_users_fields($update_data, $user_info['uid']);
 			
 			if ($_POST['delete_avatar'])
@@ -386,7 +393,9 @@ class user_manage extends AWS_ADMIN_CONTROLLER
 			}
 			
 			$this->model('account')->update_users_attrib_fields(array(
-				'signature' => htmlspecialchars($_POST['signature'])
+				'signature' => htmlspecialchars($_POST['signature']),
+				'qq' => htmlspecialchars($_POST['qq']),
+				'homepage' => htmlspecialchars($_POST['homepage'])
 			), $user_info['uid']);
 			
 			if ($_POST['user_name'] != $user_info['user_name'])
@@ -611,7 +620,41 @@ class user_manage extends AWS_ADMIN_CONTROLLER
 		TPL::assign('users_info', $this->model('account')->get_user_info_by_uids($uids));
 		TPL::assign('approval_list', $approval_list);
 		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(401));
+		
 		TPL::output('admin/user_manage/verify_approval_list');
+	}
+	
+	public function verify_approval_edit_action()
+	{
+		if (!$verify_apply = $this->model('verify')->fetch_apply($_GET['id']))
+		{
+			H::redirect_msg(AWS_APP::lang()->_t('审核认证不存在'));
+		}
+		
+		TPL::assign('verify_apply', $verify_apply);
+		TPL::assign('user', $this->model('account')->get_user_info_by_uid($_GET['id']));
+		
+		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(401));
+		
+		$this->crumb(AWS_APP::lang()->_t('认证审核'), 'admin/user_manage/verify_approval_list/');
+		$this->crumb($this->user['user_name'], 'admin/user_manage/verify_approval_edit/' . $_GET['id']);
+		
+		TPL::output('admin/user_manage/verify_approval_edit');
+	}
+	
+	public function verify_approval_save_action()
+	{
+		if ($_POST['uid'])
+		{
+			$this->model('verify')->update_apply($_POST['uid'], $_POST['name'], $_POST['reason'], array(
+				'id_code' => htmlspecialchars($_POST['id_code']),
+				'contact' => htmlspecialchars($_POST['contact'])
+			));
+		}
+				
+		H::ajax_json_output(AWS_APP::RSM(array(
+			'url' => get_setting('base_url') . '/?/admin/user_manage/verify_approval_list/'
+		), 1, null));
 	}
 	
 	public function verify_approval_batch_action()

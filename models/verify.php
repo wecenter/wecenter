@@ -38,6 +38,15 @@ class verify_class extends AWS_MODEL
 		));
 	}
 	
+	public function update_apply($uid, $name, $reason, $data = array(), $attach = null)
+	{		
+		return $this->update('verify_apply', array(
+			'name' => htmlspecialchars($name),
+			'reason' => htmlspecialchars($reason),
+			'data' => serialize($data),
+		), 'uid = ' . intval($uid));
+	}
+	
 	public function fetch_apply($uid)
 	{
 		if ($verify_apply = $this->fetch_row('verify_apply', 'uid = ' . intval($uid)))
