@@ -122,6 +122,12 @@
 			<span class="pull-right">
 				<a class="btn btn-success pull-left" onclick="ajax_post($('#answer_form'));"><?php _e('回复'); ?></a>
 			</span>
+			<?php if ($this->human_valid) { ?>
+				<div class="aw-auth-img pull-right clearfix">
+					<em class="auth-img pull-left"><img src="" onclick="this.src = G_BASE_URL + '/account/captcha/' + Math.floor(Math.random() * 10000);" id="captcha" /></em>
+					<input class="pull-left" type="text" name="seccode_verify" placeholder="<?php _e('验证码'); ?>" />
+				</div>
+			<?php } ?>
 		</div>
 	</div>
 	<!-- end 评论box -->
