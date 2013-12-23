@@ -70,9 +70,9 @@ class verify_class extends AWS_MODEL
 		}
 	}
 	
-	public function approval_list($page, $limit)
+	public function approval_list($page, $status, $limit)
 	{
-		if ($approval_list = $this->fetch_page('verify_apply', '`status` = 0', 'time ASC', $page, $limit))
+		if ($approval_list = $this->fetch_page('verify_apply', '`status` = ' . intval($status), 'time ASC', $page, $limit))
 		{
 			foreach ($approval_list AS $key => $val)
 			{

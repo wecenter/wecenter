@@ -7,8 +7,8 @@
 			<span class="pull-left"><?php _e('认证审核'); ?></span>
 			
 			<ul class="nav nav-tabs pull-left">
-			    <li class="<?php if (!$_GET['type']) { ?> active<?php } ?>"><a href="admin/user_manage/verify_approval_list/"><?php _e('待审核'); ?></a></li>
-			    <li class="<?php if ($_GET['type'] == 'archive') { ?> active<?php } ?>"><a href="admin/user_manage/verify_approval_list/type-archive"><?php _e('已审核'); ?></a></li>
+			    <li class="<?php if (!$_GET['status']) { ?> active<?php } ?>"><a href="admin/user_manage/verify_approval_list/"><?php _e('待审核'); ?></a></li>
+			    <li class="<?php if ($_GET['status'] == 1) { ?> active<?php } ?>"><a href="admin/user_manage/verify_approval_list/status-1"><?php _e('已审核'); ?></a></li>
 			</ul>
 		</h2>
 	</div>

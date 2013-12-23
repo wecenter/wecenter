@@ -597,7 +597,7 @@ class user_manage extends AWS_ADMIN_CONTROLLER
 	
 	public function verify_approval_list_action()
 	{
-		$approval_list = $this->model('verify')->approval_list($_GET['page'], $this->per_page);
+		$approval_list = $this->model('verify')->approval_list($_GET['page'], $_GET['status'], $this->per_page);
 		
 		$total_rows = $this->model('verify')->found_rows();
 		
@@ -610,7 +610,7 @@ class user_manage extends AWS_ADMIN_CONTROLLER
 		}
 		
 		TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
-			'base_url' => get_setting('base_url') . '/?/admin/user_manage/verify_approval_list/', 
+			'base_url' => get_setting('base_url') . '/?/admin/user_manage/verify_approval_list/status-' . $_GET['status'], 
 			'total_rows' => $total_rows, 
 			'per_page' => $this->per_page
 		))->create_links());
