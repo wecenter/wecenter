@@ -125,10 +125,16 @@ a.aw-load-more-content{display: block;}
 .aw-publish .aw-dropdown .aw-dropdown-list{max-height:266px;overflow-y: auto;}
 .aw-edit-topic-box .aw-dropdown .aw-dropdown-list{max-height: 292px;overflow-y: auto;}
 
-/* ipad兼容 */
-@media only screen and (device-width:768px){
+/* ipad屏幕兼容 */
+@media (max-width: 768px) {
 	.aw-dynamic-topic .aw-item .aw-dynamic-topic-more-operate{display:inline-block;}
 	.aw-copyright{text-align: center !important;}
+	.aw-container-wrap{padding: 0 10px !important;}	
+	.aw-copyright{text-align: center !important;}
+	.aw-dynamic-topic .aw-dynamic-topic-content{float: none !important;}
+}
+@media (max-width: 1024px) {
+	.aw-question-detail-box .aw-vote-bar{position: relative !important;left: 0 !important;}
 }
 /* iphone竖屏幕兼容 */
 @media only screen and (device-width:320px){
@@ -138,11 +144,6 @@ a.aw-load-more-content{display: block;}
 @media screen and (orientation:landscape) {  
     .aw-user-nav{display: block !important;}
 } 
-/* ipad屏幕兼容 */
-@media (max-width: 768px) {
-	.aw-container-wrap{padding: 0 10px !important;}	
-	.aw-copyright{text-align: center !important;}
-}
 
 /* top-menu */
 .aw-top-menu-wrap{position:relative;z-index:1001;width:100%;min-height:54px;margin-bottom:30px;background:#3579a6;}
