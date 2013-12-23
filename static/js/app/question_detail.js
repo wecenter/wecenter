@@ -128,22 +128,24 @@ $(document).ready(function () {
 
     $(window).scroll(function()
     {
-    	console.log($(window).scrollTop());
-    	$.each($('.anchor'), function (i, e)
+    	if ($('.aw-question-detail-box .aw-vote-bar').css('position') == 'absolute')
     	{
-    		if ($(this).attr('parent-height') > parseInt($(this).parents('.aw-item').find('.markitup-box').css('line-height')) * 10)
-    		{
-    			if ($(window).scrollTop() > $(this).attr('offset-top') && $(window).scrollTop() < $(this).attr('end-height'))
+    		$.each($('.anchor'), function (i, e)
+	    	{
+
+	    		if ($(this).attr('parent-height') > parseInt($(this).parents('.aw-item').find('.markitup-box').css('line-height')) * 10)
 	    		{
-	    			$(this).parents('.aw-item').find('.aw-vote-bar').addClass('fixed');
+	    			if ($(window).scrollTop() > $(this).attr('offset-top') && $(window).scrollTop() < $(this).attr('end-height'))
+		    		{
+		    			$(this).parents('.aw-item').find('.aw-vote-bar').addClass('fixed');
+		    		}
+		    		else 
+		    		{
+		    			$(this).parents('.aw-item').find('.aw-vote-bar').removeClass('fixed');
+		    		}
 	    		}
-	    		else 
-	    		{
-	    			$(this).parents('.aw-item').find('.aw-vote-bar').removeClass('fixed');
-	    		}
-    		}
-    	});
-    	
+	    	});
+    	}
     });
 
 
