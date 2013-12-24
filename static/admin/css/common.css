@@ -84,7 +84,7 @@ th{text-align: center;}
 .right-side .aw-box .aw-mod-footer{padding: 10px;background: #F5F5F5;border-top: 1px solid #D7D7D7;text-align: center;}
 .right-side .aw-box dl dd .label{margin-bottom: 5px;}
 .right-side .aw-user-message-setting label{display: inline-block;margin-right: 10px;}
-.right-side .yesno_yes, .right-side .yesno_no{display: inline-block;float:left;min-width:50px;max-width:60px;padding:1px 3px;text-align: center;}
+.right-side .yesno_yes, .right-side .yesno_no{display: inline-block;min-width:50px;margin-right:-4px;padding:1px 3px;text-align: center;}
 .right-side .yesno_yes label, .right-side .yesno_no label{font-size: 13px;}
 .right-side .yesno_yes{*margin-left:10px;background: #E3F6E5;border:1px solid #B4E3B9;border-right: none;border-radius: 6px 0 0 6px;}
 .right-side .yesno_no{background: #F6E3E3;border:1px solid #E3B4B4;border-left: none;border-radius: 0 6px 6px 0;}
