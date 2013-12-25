@@ -114,7 +114,7 @@
 							<span class="aw-text-color-999"><?php echo date_friendly($this->question_info['add_time']); ?></span>
 
 							<a herf="javascript:;" data-id="<?php echo $this->question_info['question_id']; ?>" data-type="question" class="aw-add-comment aw-text-color-999"<?php if ($this->question_info['lock']) { ?> data-close="true"<?php } ?>><i class="fa fa-comment"></i><?php if ($this->question_info['comment_count']) { ?><?php _e('%s 条评论', $this->question_info['comment_count']); ?><?php } else { ?><?php _e('添加评论'); ?><?php } ?></a>
-							<a class="aw-text-color-999 aw-invite-replay">邀请回答</a>
+							<a class="aw-text-color-999 aw-invite-replay"><i class="fa fa-retweet"></i>邀请回答 <em class="badge badge-info"><?php echo count($this->invite_users); ?></em></a>
 							<?php if ((!$this->question_info['lock'] AND ($this->question_info['published_uid'] == $this->user_id OR $this->user_info['permission']['edit_question'])) OR $this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?><a class="aw-text-color-999" href="publish/<?php echo $this->question_info['question_id']; ?>"><i class="fa fa-edit"></i><?php _e('编辑'); ?></a><?php } ?>
 							<?php if ($this->question_info['unverified_modify_count']) { ?><a href="question/<?php echo $this->question_info['question_id']; ?>?column=log&rf=false" class="aw-text-color-999 aw-question-wait-edit"><i class="icon-check"></i><?php _e('待确认修改'); ?><em class="badge badge-info"><?php echo $this->question_info['unverified_modify_count']; ?></em></a><?php } ?>
 							<?php if (($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) AND $this->question_info['ip']) { ?><a href="javascript:;" title="<?php echo long2ip($this->question_info['ip']); ?>" onclick="$.alert('<?php _e('系统记录的 IP 地址为'); ?>: <?php echo long2ip($this->question_info['ip']); ?>');" class="aw-text-color-999"><i class="fa fa-map-marker"></i><?php _e('IP 地址'); ?></a><?php } ?>
@@ -140,7 +140,6 @@
 								<?php _e('已邀请'); ?>:
 								<?php if ($this->invite_users) { ?>
 								<?php foreach($this->invite_users as $key => $val) { ?>
-									<!--<?php if ($val['sender_uid'] == $this->user_id) { ?><a class="pull-right btn btn-mini btn-default" onclick="disinvite_user($(this),<?php echo $val['uid']; ?>);$(this).parent().detach();"><?php _e('取消邀请'); ?></a><?php } ?>-->
 									<a class="aw-text-color-999" data-id="<?php echo $val['uid']; ?>" href="people/<?php echo $val['url_token']; ?>" data-id="<?php echo $val['uid']; ?>"><?php echo $val['user_name']; ?></a>
 								<?php } ?>
 								<?php } ?>
@@ -153,10 +152,10 @@
 									<li>
 										<a class="aw-user-img pull-left" data-id="<?php echo $val['uid']; ?>" href="people/<?php echo $val['url_token']; ?>"><img class="img" alt="" src="<?php echo get_avatar_url($val['uid'], 'mid'); ?>" /></a>
 										<div class="main">
-											<?php if ($this->has_invite) { ?>
-											<a class="pull-right btn btn-normal" data-id="<?php echo $val['uid']; ?>"><?php _e('取消邀请'); ?></a>
+											<?php if ($val['has_invite']) { ?>
+												<a class="pull-right btn btn-normal btn-default btn-default" data-value="<?php echo $val['user_name']; ?>" data-id="<?php echo $val['uid']; ?>" onclick="disinvite_user($(this))"><?php _e('取消邀请'); ?></a>
 											<?php } else { ?>
-											<a class="pull-right btn btn-normal btn-success" data-id="<?php echo $val['uid']; ?>" onclick="invite_user($(this),$(this).next().text(),$(this).parents('dl').find('.img').attr('src'));$('.aw-side-bar-invite-box .aw-item').eq(0).show();"><?php _e('邀请'); ?></a>
+												<a class="pull-right btn btn-normal btn-default btn-default aw-active" data-value="<?php echo $val['user_name']; ?>" data-id="<?php echo $val['uid']; ?>" onclick="invite_user($(this))"><?php _e('邀请'); ?></a>
 											<?php } ?>
 											
 											<a class="aw-user-name" data-id="<?php echo $val['uid']; ?>" href="people/<?php echo $val['url_token']; ?>"><?php echo $val['user_name']; ?><?php if ($val['verified']) { ?><i class="icon-v<?php if ($val['verified'] == 'enterprise') { ?> i-ve<?php } ?>" title="<?php if ($val['verified'] == 'enterprise') { ?>企业认证<?php } else { ?>个人认证<?php } ?>"></i><?php } ?></a>
@@ -488,7 +487,7 @@
 
 				<?php if ($this->question_related_list) { ?>
 				<!-- 相关问题 -->
-				<div class="aw-side-bar-mod aw-text-align-justify">
+				<div class="aw-side-bar-mod aw-text-align-justify question_related_list">
 					<div class="aw-mod-head">
 						<h3><?php _e('相关问题'); ?></h3>
 					</div>
