@@ -117,6 +117,11 @@ $(function()
     {
     	$('.aw-question-detail-title .aw-invite-box ul li').eq(i).show();
     }
+    //长度小于3翻页隐藏
+    if ($('.aw-question-detail-title .aw-invite-box ul li').length <=3 )
+    {
+    	$('.aw-question-detail-title .aw-invite-box .aw-mod-footer').hide();
+    }
     
     //邀请回答按钮操作
     $('.aw-question-detail-title .aw-invite-replay').click(function()
