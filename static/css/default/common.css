@@ -479,6 +479,7 @@ a.aw-load-more-content{display: block;}
 .aw-invite-box .aw-mod-body ul li img{width: 40px;height: 40px;}
 .aw-invite-box .aw-mod-footer{height:34px;line-height:34px;border-top: 1px solid #E2E2E2;text-align: center;font-size: 13px;}
 .aw-invite-box .aw-mod-footer a.active{color: #999;cursor: default;}
+.aw-invite-box .aw-dropdown{margin-top:10px;}
 /* 问题列表公共模块 .aw-question-list */
 .aw-question-box-mod .aw-item{position:relative;z-index:0;height:auto;min-height:45px;overflow:hidden;padding:15px 5px 15px 70px;}
 .aw-question-box-mod .aw-item .aw-user-name{display: inline;}

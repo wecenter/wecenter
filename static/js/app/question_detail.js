@@ -134,7 +134,7 @@ $(function()
     	else
     	{
     		/*给邀请三角形定位*/
-    		$('.aw-question-detail-title .aw-invite-box').find('.i-dropdown-triangle').css('left', $(this).width() / 2 + $(this).prev().width() + $(this).prev().prev().width() + 30);
+    		$('.aw-question-detail-title .aw-invite-box > .i-dropdown-triangle').css('left', $(this).width() / 2 + $(this).prev().width() + $(this).prev().prev().width() + 30);
     		$('.aw-question-detail-title .aw-invite-box').fadeIn();
     	}
     });
@@ -202,7 +202,7 @@ $(function()
     
     //邀请用户回答点击事件
 	$(document).on('click', '.aw-invite-box .aw-dropdown-list a', function () {
-	    invite_user($(this),$(this).text(),$(this).find('.img').attr('src'));
+	    invite_user($(this));
 	});
 
     //回复内容超链接新窗口打开
