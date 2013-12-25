@@ -207,26 +207,16 @@ $(function()
     at_user_lists('#advanced_editor');
 
     //赞同反对fixed滚动
-    $.each($('.anchor'), function (i, e)
-    {
-    	$(this).attr({
-    		'offset-top' : $(this).offset().top,
-    		'offset-left' : $(this).offset().left,
-    		'parent-height' : $(this).parents('.aw-item').height(),
-    		'end-height' : $(this).offset().top + $(this).parents('.aw-item').height() - $(this).parents('.aw-item').find('.aw-vote-bar').height()
-    	});
-    });
-
     $(window).scroll(function()
     {
     	if ($('.aw-question-detail-box .aw-vote-bar').css('position') == 'absolute')
     	{
+
     		$.each($('.anchor'), function (i, e)
 	    	{
-
-	    		if ($(this).attr('parent-height') > parseInt($(this).parents('.aw-item').find('.markitup-box').css('line-height')) * 10)
+	    		if ($(this).parents('.aw-item').height() > parseInt($(this).parents('.aw-item').find('.markitup-box').css('line-height')) * 10)
 	    		{
-	    			if ($(window).scrollTop() > $(this).attr('offset-top') && $(window).scrollTop() < $(this).attr('end-height'))
+	    			if ($(window).scrollTop() > $(this).offset().top && $(window).scrollTop() < $(this).offset().top + $(this).parents('.aw-item').height() - $(this).parents('.aw-item').find('.vote-container').height())
 		    		{
 		    			$(this).parents('.aw-item').find('.aw-vote-bar').addClass('fixed');
 		    		}

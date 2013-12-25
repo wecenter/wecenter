@@ -788,6 +788,7 @@ a.aw-load-more-content{display: block;}
 /* 问题重定向box */
 .aw-question-redirect-box .modal-body{overflow: visible;}
 /* 评论修改box */
+.aw-edit-comment-box .modal-dialog{width:690px; }
 .aw-edit-comment-box .modal-body textarea{margin:0;overflow-y:scroll;clear: left;border-radius: 10px 10px 0 0;}
 .aw-edit-comment-box .aw-file-upload-box{border-radius: 0 0 10px 10px;}
 .aw-edit-comment-box .modal-footer label{display: inline;margin-left:10px;font-size: 14px;}
