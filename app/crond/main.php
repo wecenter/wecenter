@@ -32,11 +32,6 @@ class main extends AWS_CONTROLLER
 		HTTP::no_cache_header();
 	}
 	
-	public function index_action()
-	{
-		$this->run();
-	}
-	
 	public function run_action()
 	{
 		header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');             // Date in the past

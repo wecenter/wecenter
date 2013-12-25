@@ -35,3 +35,5 @@ DELETE FROM `[#DB_PREFIX#]system_setting` WHERE `varname` = 'welcome_message_ema
 
 INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES ('weixin_app_id', 's:0:"";');
 INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES ('weixin_app_secret', 's:0:"";');
+
+DELETE FROM `[#DB_PREFIX#]system_setting` WHERE `varname` = 'question_helpful_users_limit';
