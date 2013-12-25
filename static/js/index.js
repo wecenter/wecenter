@@ -152,6 +152,9 @@ $(document).ready(function()
 	{
 		$('.aw-side-bar-mod.side-nav a[rel=all]').click();
 	}
+
+	//问题添加评论
+    init_comment_box('.aw-add-comment');
 });
 
 function _welcome_step_1_form_processer(result)
