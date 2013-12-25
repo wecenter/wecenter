@@ -30,3 +30,8 @@ ALTER TABLE `[#DB_PREFIX#]users_weixin` CHANGE `access_token` `access_token` VAR
 ALTER TABLE `[#DB_PREFIX#]users_weixin` CHANGE `refresh_token` `refresh_token` VARCHAR( 255 ) NULL;
 
 ALTER TABLE `[#DB_PREFIX#]users_weixin` CHANGE `scope` `scope` VARCHAR( 64 ) NULL, CHANGE  `headimgurl`  `headimgurl` VARCHAR( 255 ) NULL, CHANGE `nickname` `nickname` VARCHAR( 64 ) NULL, CHANGE `sex` `sex` TINYINT( 1 ) NULL DEFAULT  '0', CHANGE `province` `province` VARCHAR( 32 ) NULL, CHANGE `city` `city` VARCHAR( 32 ) NULL, CHANGE `country` `country` VARCHAR( 32 ) NULL;
+
+DELETE FROM `[#DB_PREFIX#]system_setting` WHERE `varname` = 'welcome_message_email';
+
+INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES ('weixin_app_id', 's:0:"";');
+INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES ('weixin_app_secret', 's:0:"";');

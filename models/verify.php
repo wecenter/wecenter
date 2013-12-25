@@ -39,7 +39,22 @@ class verify_class extends AWS_MODEL
 	}
 	
 	public function update_apply($uid, $name, $reason, $data = array(), $attach = null)
-	{		
+	{
+		if ($attach)
+		{
+			if ($verify_apply = $this->fetch_row('verify_apply', 'uid = ' . intval($uid)))
+			{
+				if ($verify_apply['attach'])
+				{
+					unlink(get_setting('upload_dir') . '/verify/' . $verify_apply['attach']);
+				}
+		
+				$this->update('verify_apply', array(
+					'attach' => $attach
+				), 'uid = ' . intval($uid));
+			}
+		}
+		
 		return $this->update('verify_apply', array(
 			'name' => htmlspecialchars($name),
 			'reason' => htmlspecialchars($reason),
