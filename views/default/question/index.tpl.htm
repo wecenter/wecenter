@@ -125,7 +125,7 @@
 							<a <?php if (!$this->question_thanks) { ?>data-placement="bottom" title="" data-toggle="tooltip" data-original-title="<?php _e('感谢提问者'); ?>" onclick="question_thanks(<?php echo $this->question_info['question_id']; ?>, this);"<?php } ?> class="aw-icon-thank-tips aw-text-color-999"><i class="fa fa-heart"></i><?php if ($this->question_thanks) { ?><?php _e('已感谢'); ?><?php } else { ?><?php _e('感谢'); ?><?php } ?></a>
 							<?php } ?>
 							<a class="aw-text-color-999" onclick="$.dialog('shareOut', {item_type:'question', item_id:<?php echo $this->question_info['question_id']; ?>});"><i class="fa fa-share"></i><?php _e('分享'); ?></a>
-							<a class="aw-text-color-999" href=""><i class="fa fa-chain"></i> 相关链接</a>
+							<!-- <a class="aw-text-color-999" href=""><i class="fa fa-chain"></i> 相关链接</a> -->
 						</div>
 					</div>
 					<div class="aw-invite-box hide">
@@ -393,7 +393,7 @@
 						</p>
 						<?php } ?>
 						<div class="aw-replay-box-control clearfix">
-							<a href="javascript:;" onclick="ajax_post($('#answer_form'));" class="btn btn-large btn-success pull-right btn-submit"><?php _e('回复'); ?></a>
+							<a href="javascript:;" onclick="ajax_post($('#answer_form'));" class="btn btn-large btn-success pull-right btn-submit btn-publish-submit"><?php _e('回复'); ?></a>
 							<div id="file_uploader_answer"></div>
 							<span class="aw-text-color-999 aw-upload-tips hide"><?php _e('允许的附件文件类型'); ?>: <?php echo get_setting('allowed_upload_types'); ?></span>
 						</div>
