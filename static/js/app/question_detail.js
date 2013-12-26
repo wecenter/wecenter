@@ -202,7 +202,7 @@ $(function()
     
     //邀请用户回答点击事件
 	$(document).on('click', '.aw-invite-box .aw-dropdown-list a', function () {
-	    invite_user($(this));
+	    invite_user($(this),$(this).find('img').attr('src'));
 	});
 
     //回复内容超链接新窗口打开
