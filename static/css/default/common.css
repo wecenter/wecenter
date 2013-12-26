@@ -361,18 +361,7 @@ a.aw-load-more-content{display: block;}
 .aw-side-bar-mod.side-sort .aw-mod-body ul li a{display:block;height: 34px;line-height: 34px;padding:0 10px;border-radius: 5px;}
 .aw-side-bar-mod.side-sort .aw-mod-body ul li a:hover, .aw-side-bar-mod.side-sort .aw-mod-body ul li a.active{background-color: #eeeeee;}
 /* 邀请回复 */
-.aw-side-bar-invite-box input{margin-bottom: 10px;}
-.aw-side-bar-invite-box .aw-item{display:none;position:relative;height: auto;margin:10px 0;}
-.aw-side-bar-invite-box .aw-item .aw-user-name img{width: 32px;height: 32px;margin-right:5px;}
-.aw-side-bar-invite-box .aw-item .btn{margin-top:3px;}
-.aw-side-bar-invite-box .aw-dropdown .aw-dropdown-list li{padding:0 !important;}
-.aw-side-bar-invite-box .aw-side-bar-invite-list li{padding-bottom:10px;}
-.aw-side-bar-invite-box .aw-side-bar-invite-list .btn-mini{min-width: 50px;}
-.aw-side-bar-invite-replay .aw-mod-body{margin-top:10px;}
-.aw-side-bar-invite-replay .aw-mod-body .badge{line-height: 13px;}
-.aw-side-bar-invite-replay-box{margin:10px 0;padding:10px;background: #EBF5FF;border:1px solid #C1D5DC;}
-.aw-side-bar-invite-replay-box dl + dl{border-top: 1px dotted #E2E2E2;padding-top: 10px;}
-.aw-side-bar-invite-replay-box dl dd{width:120px;}
+.aw-side-bar-mod.invite-replay .btn-success{margin-top:10px;}
 
 /* 问题详情页 */
 .aw-global-tips{margin-bottom: 20px;}
@@ -469,6 +458,7 @@ a.aw-load-more-content{display: block;}
 .aw-invite-box .aw-mod-head{padding: 10px;border-bottom:none;}
 .aw-invite-box .aw-mod-head .search-box{position:relative;width:220px;margin:0;}
 .aw-invite-box .aw-mod-head .invite-list{max-width:435px;height:32px;line-height: 32px;overflow:hidden;margin:0;font-size: 12px;}
+.aw-invite-box .aw-mod-head .invite-list img{width:25px;height: 25px;border-radius: 25px;}
 .aw-invite-box .aw-mod-head input{width: 200px;}
 .aw-invite-box .aw-mod-head .fa-search{position: absolute;right: 30px;top: 10px;}
 .aw-invite-box .aw-mod-body{padding:10px;border-top: 1px solid #E2E2E2;}
@@ -477,6 +467,7 @@ a.aw-load-more-content{display: block;}
 .aw-invite-box .aw-mod-body ul li .main{padding-left: 50px;}
 .aw-invite-box .aw-mod-body ul li p, .aw-invite-box .aw-mod-body ul li .signature{margin:0;font-size: 13px;color: #999;}
 .aw-invite-box .aw-mod-body ul li img{width: 40px;height: 40px;}
+.aw-invite-box .aw-mod-body .btn-normal{width:60px;padding:2px 0;font-size: 12px;}
 .aw-invite-box .aw-mod-footer{height:34px;line-height:34px;border-top: 1px solid #E2E2E2;text-align: center;font-size: 13px;}
 .aw-invite-box .aw-mod-footer a.active{color: #999;cursor: default;}
 .aw-invite-box .aw-dropdown{margin-top:10px;}
