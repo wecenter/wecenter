@@ -34,9 +34,12 @@
 						</div>
 						<?php } ?>
 						
-						<div class="aw-topic-editor">
+						<div class="aw-topic-editor" data-type="article" data-id="<?php echo $this->article_info['id']; ?>">
 							<?php foreach($this->article_topics as $key => $val) { ?>
 							<a href="topic/<?php echo $val['url_token']; ?>" class="aw-topic-name" data-id="<?php echo $val['topic_id']; ?>"><span><?php echo $val['topic_title']; ?></span></a>
+							<?php } ?>
+							<?php if ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?>
+								<span class="aw-edit-topic"<?php if (sizeof($this->article_topics) == 0) { ?> style="display:none"<?php } ?>><i class="fa fa-edit"></i><?php _e('编辑话题'); ?></span>
 							<?php } ?>
 						</div>
 					</div>
