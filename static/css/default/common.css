@@ -665,9 +665,9 @@ a.aw-load-more-content{display: block;}
 .aw-my-notifications ul li p{margin:0;}
 
 /* 邀请好友加入社区 */
-.aw-mod-invite-friend .aw-invite-box{width: 400px;margin:0 auto;padding:40px 0;}
-.aw-mod-invite-friend .aw-invite-box p{line-height:26px;margin-top:10px;text-align: right;}
-.aw-mod-invite-friend .aw-invite-box p .btn{margin-left:10px;}
+.aw-mod-invite-friend .aw-invite-friend-box{width: 400px;margin:0 auto;padding:40px 0;}
+.aw-mod-invite-friend .aw-invite-friend-box p{line-height:26px;margin-top:10px;text-align: right;}
+.aw-mod-invite-friend .aw-invite-friend-box p .btn{margin-left:10px;}
 .aw-mod-invited{padding-bottom: 30px;}
 .aw-mod-invited ul li{position: relative;padding:15px 0 25px 42px;border-bottom: 1px dotted #E2E2E2;}
 .aw-mod-invited ul li .aw-user-img{position:absolute;left:0;top: 15px;}
