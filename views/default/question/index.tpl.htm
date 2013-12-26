@@ -110,6 +110,18 @@
 							</ul>
 							<?php } ?>
 						</div>
+						<div class="aw-question-related-list">
+							<div class="aw-mod-head">
+								<h3><?php _e('相关链接'); ?> : </h3>
+							</div>
+							<div class="aw-mod-body">
+								<ul>
+									<li><a href="">http://192.168.1.248/wecenter/?/question/7028</a></li>
+									<li><a href="">http://192.168.1.248/wecenter/?/question/7028</a></li>
+									<li><a href="">http://192.168.1.248/wecenter/?/question/7028</a></li>
+								</ul>
+							</div>
+						</div>
 						<div class="aw-question-detail-meta">
 							<span class="aw-text-color-999"><?php echo date_friendly($this->question_info['add_time']); ?></span>
 
@@ -125,9 +137,10 @@
 							<a <?php if (!$this->question_thanks) { ?>data-placement="bottom" title="" data-toggle="tooltip" data-original-title="<?php _e('感谢提问者'); ?>" onclick="question_thanks(<?php echo $this->question_info['question_id']; ?>, this);"<?php } ?> class="aw-icon-thank-tips aw-text-color-999"><i class="fa fa-heart"></i><?php if ($this->question_thanks) { ?><?php _e('已感谢'); ?><?php } else { ?><?php _e('感谢'); ?><?php } ?></a>
 							<?php } ?>
 							<a class="aw-text-color-999" onclick="$.dialog('shareOut', {item_type:'question', item_id:<?php echo $this->question_info['question_id']; ?>});"><i class="fa fa-share"></i><?php _e('分享'); ?></a>
-							<!-- <a class="aw-text-color-999" href=""><i class="fa fa-chain"></i> 相关链接</a> -->
+							<a class="aw-text-color-999 aw-add-question-related"><i class="fa fa-chain"></i> 相关链接</a>
 						</div>
 					</div>
+					<!-- 站内邀请 -->
 					<div class="aw-invite-box hide">
 						<div class="aw-mod-head clearfix">
 							<div class="search-box pull-left">
@@ -186,6 +199,21 @@
 						<?php } ?>
 						<i class="i-dropdown-triangle"></i>
 					</div>
+					<!-- end 站内邀请 -->
+					<!-- 相关链接 -->
+					<div class="aw-question-related-box hide">
+						<form>
+							<div class="aw-mod-head">
+								<h2>填写与该问题的相关链接</h2>
+							</div>
+							<div class="aw-mod-body clearfix">
+								<input type="text" class="form-control pull-left" placeholder="请填写相关链接地址" />
+								<a href="" class="pull-left btn btn-success">提交</a>
+							</div>
+						</form>
+						<i class="i-dropdown-triangle"></i>
+					</div>
+					<!-- end 相关链接 -->
 				</div>
 				
 				<?php if ($_GET['column'] == 'log') { ?>
