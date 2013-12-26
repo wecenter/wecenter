@@ -24,7 +24,7 @@ class verify_class extends AWS_MODEL
 	{
 		if ($verify_apply = $this->fetch_apply($uid))
 		{
-			$this->remove_apply($verify_apply['id']);
+			$this->remove_apply($verify_apply['uid']);
 		}
 		
 		return $this->insert('verify_apply', array(
@@ -72,16 +72,16 @@ class verify_class extends AWS_MODEL
 		return $verify_apply;
 	}
 	
-	public function remove_apply($id)
+	public function remove_apply($uid)
 	{
-		if ($verify_apply = $this->fetch_row('verify_apply', 'id = ' . intval($id)))
+		if ($verify_apply = $this->fetch_row('verify_apply', 'uid = ' . intval($uid)))
 		{
 			if ($verify_apply['attach'])
 			{
 				unlink(get_setting('upload_dir') . '/verify/' . $verify_apply['attach']);
 			}
 			
-			return $this->delete('verify_apply', 'id = ' . intval($id));
+			return $this->delete('verify_apply', 'id = ' . intval($uid));
 		}
 	}
 	

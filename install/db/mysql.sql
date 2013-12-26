@@ -956,16 +956,6 @@ CREATE TABLE `[#DB_PREFIX#]reputation_category` (
   UNIQUE KEY `uid_category_id` (`uid`, `category_id`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
 
-CREATE TABLE `[#DB_PREFIX#]users_forbidden` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `uid` int(11) DEFAULT NULL,
-  `admin_uid` int(11) DEFAULT NULL,
-  `status` tinyint(1) DEFAULT NULL,
-  `add_time` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `uid` (`uid`)
-) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
-
 CREATE TABLE `[#DB_PREFIX#]edm_task` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(255) NOT NULL,
