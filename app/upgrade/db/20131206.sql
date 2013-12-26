@@ -39,3 +39,5 @@ INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES ('weixin_a
 DELETE FROM `[#DB_PREFIX#]system_setting` WHERE `varname` = 'question_helpful_users_limit';
 
 DROP TABLE `[#DB_PREFIX#]users_forbidden`;
+
+ALTER TABLE `[#DB_PREFIX#]article` ADD `category_id` INT(10) NULL DEFAULT '0' , ADD INDEX (`category_id`) ;
