@@ -391,4 +391,16 @@ class reputation_class extends AWS_MODEL
 		
 		return $this->sum('reputation_topic', 'agree_count', 'uid = ' . intval($uid) . ' AND topic_id IN(' . implode(',', $topic_ids) . ')');
 	}
+	
+	public function calculate_thanks_count($uid, $topic_ids)
+	{
+		if (!is_array($topic_ids))
+		{
+			return false;
+		}
+		
+		array_walk_recursive($topic_ids, 'intval_string');
+		
+		return $this->sum('reputation_topic', 'thanks_count', 'uid = ' . intval($uid) . ' AND topic_id IN(' . implode(',', $topic_ids) . ')');
+	}
 }
