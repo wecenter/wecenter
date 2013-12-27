@@ -250,7 +250,7 @@ a.aw-load-more-content{display: block;}
 .aw-dynamic-topic .aw-mod-head h4{position: relative;max-width: 600px;}
 .aw-dynamic-topic .aw-user-img img, .aw-dynamic-index .aw-user-img img{width: 32px;height: 32px;}
 .aw-dynamic-topic .aw-mod-body > .aw-item:first-child{margin:10px 0 0 0;}
-.aw-dynamic-topic .aw-dynamic-topic-meta{width:580px;min-height:20px;margin-top:10px;font-size: 12px;}
+.aw-dynamic-topic .aw-dynamic-topic-meta{width:597px;min-height:20px;margin-top:10px;font-size: 12px;}
 .aw-dynamic-topic .aw-dynamic-topic-meta > span{margin-right: 15px;}
 .aw-dynamic-topic .aw-dynamic-topic-meta > a{margin-right: 5px;}
 .aw-dynamic-topic .aw-vote-count{display:block;min-width:25px;height:25px;line-height:25px;margin-right:10px;padding:0 3px;padding:0\0;background:#E9F5FF;font-size:14px;text-align:center;cursor: pointer;}
@@ -930,7 +930,7 @@ a.aw-load-more-content{display: block;}
 .aw-404-wrap p a{font-size:14px;}
 
 /* 字体icon & icon */
-.fa-comment, .fa-share, .fa-edit, .fa-map-marker, .fa-flag, .fa-heart, .fa-user, .fa-home, .fa-thumbs-up, .fa-reply, .fa-signal, .fa-tag, .fa-wrench, .icon-cog, .icon-off, .fa-bookmark, .fa-chevron-down, .icon-mobile-phone, .fa-external-link, .icon-envelope, .icon-check, .fa-thumbs-down, .fa-trash-o, .fa-paperclip, .fa-retweet{margin-right: 3px;color: #B7B7B7;cursor: pointer;}
+.fa-comment, .fa-share, .fa-edit, .fa-map-marker, .fa-flag, .fa-heart, .fa-user, .fa-home, .fa-thumbs-up, .fa-reply, .fa-signal, .fa-tag, .fa-wrench, .icon-cog, .icon-off, .fa-bookmark, .fa-chevron-down, .icon-mobile-phone, .fa-external-link, .icon-envelope, .icon-check, .fa-thumbs-down, .fa-trash-o, .fa-paperclip, .fa-retweet, .fa-star{margin-right: 3px;color: #B7B7B7;cursor: pointer;}
 .fa-edit{margin-top:10px\0;}
 .fa-check{margin-left:5px;color: #4bbe00;font-size: 12px;cursor: pointer;}
 .fa-check.aw-active:before{content:"\f067";color: #43b3ff;}
