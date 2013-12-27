@@ -108,7 +108,7 @@ a.aw-load-more-content{display: block;}
 .aw-dropdown{display:none;position:absolute;left:0;z-index:9999;width:100%;background: #fff;border:1px solid #ccc;box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);}
 .aw-dropdown .i-dropdown-triangle{position: absolute;top:-6px;left: 15px;}
 .aw-dropdown p{padding:5px 10px;margin:0;}
-.aw-dropdown .aw-dropdown-list li{border-top: 1px dotted #E2E2E2;}
+.aw-dropdown .aw-dropdown-list li{border-top: 1px dotted #E2E2E2;cursor: pointer;}
 .aw-dropdown .aw-dropdown-list li:first-child{border-top: none;}
 .aw-dropdown .aw-dropdown-list li:hover{background-color: #F5FAFF;}
 .aw-dropdown .aw-dropdown-list li.topic{padding:10px;}
@@ -378,6 +378,7 @@ a.aw-load-more-content{display: block;}
 .aw-question-detail-title .aw-question-detail-meta{min-height: 20px;line-height: 20px;}
 .aw-question-detail-title .aw-question-detail-meta > span, .aw-question-detail-title .aw-question-detail-meta > a, .aw-question-detail-title .aw-question-detail-meta > div{margin-right:15px;}
 .aw-question-detail-title .aw-question-detail-meta .badge-info{margin:0;}
+.aw-question-detail-title .aw-edit-topic-box .aw-dropdown{width: 418px;}
 .aw-question-detail-meta a:hover i, .aw-dynamic-topic-meta a:hover i, .aw-article-list .aw-mod-footer a:hover i{color: #2A6496;}
 .aw-mod-publish .aw-dropdown{width: 300px;}
 .aw-notopic-sort{margin:5px 0 15px 0;padding:5px 10px;background: #E0E2E1;}
@@ -833,7 +834,7 @@ a.aw-load-more-content{display: block;}
 .aw-mod-replay-box p{height: auto;overflow: hidden;margin:0;}
 .aw-mod-replay-box .aw-mod-head p label{display: inline;font-size: 14px;}
 .aw-mod-replay-box .aw-mod-head p label input{margin-right: 5px;position: relative;top:-1px;top:1px\0;}
-.aw-mod-replay-box .aw-mod-body{position:relative;padding:20px;background: #E7EFF2;border: 1px solid #C2CACD;}
+.aw-mod-replay-box .aw-mod-body{position:relative;padding:20px;background: #f8f8f8;border: 1px solid #C2CACD;}
 .aw-mod-replay-box .aw-mod-body .aw-text-color-999{margin-bottom:10px;}
 .aw-mod-replay-box .aw-replay-box-control{position: relative;height: auto;line-height: 34px;}
 .aw-mod-replay-box .aw-replay-box-control .btn-submit{margin-left: 10px;}
