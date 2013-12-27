@@ -413,4 +413,152 @@ class system_class extends AWS_MODEL
 	{
 		return $this->delete('sessions', '`modified` < ' . (time() - 3600));
 	}
+	
+	public function remove_user_by_uid($uid, $remove_user_data = false)
+	{
+		$delete_tables = array(
+			'active_data',
+			'answer_uninterested',
+			'draft',
+			'education_experience',
+			'favorite',
+			'favorite_tag',
+			'integral_log',
+			'invitation',
+			'question_focus',
+			'question_uninterested',
+			'report',
+			'reputation_category',
+			'reputation_topic',
+			'topic_focus',
+			'weixin_login',
+			'work_experience',
+			'users_attrib',
+			'users_online',
+			'users_qq',
+			'users_sina',
+			'users_ucenter',
+			'users_weixin',
+			'users'
+		);
+		
+		$update_tables = array(
+			'redirect',
+			'topic_merge',
+			'topic_relation'
+		);
+		
+		if ($remove_user_data)
+		{
+			if ($user_answers = $this->query_all("SELECT answer_id FROM " . get_table('answer') . " WHERE uid = " . intval($uid)))
+			{
+				foreach ($user_answers AS $key => $val)
+				{
+					$answer_ids[] = $val['answer_id'];
+				}
+				
+				$this->update('attach', array(
+					'item_id' => 0
+				), "item_id IN (" . implode(',', $answer_ids) . ") AND item_type = 'answer'");
+			}
+			
+			if ($user_articles = $this->query_all("SELECT id FROM " . get_table('article') . " WHERE uid = " . intval($uid)))
+			{
+				foreach ($user_articles AS $key => $val)
+				{
+					$article_ids[] = $val['id'];
+				}
+				
+				$this->update('attach', array(
+					'item_id' => 0
+				), "item_id IN (" . implode(',', $article_ids) . ") AND item_type = 'article'");
+			}
+			
+			if ($user_questions = $this->query_all("SELECT question_id FROM " . get_table('question') . " WHERE published_uid = " . intval($uid)))
+			{
+				foreach ($user_questions AS $key => $val)
+				{
+					$question_ids[] = $val['question_id'];
+				}
+				
+				$this->update('attach', array(
+					'item_id' => 0
+				), "item_id IN (" . implode(',', $question_ids) . ") AND item_type = 'question'");
+			}
+			
+			$update_tables[] = 'answer';
+			$update_tables[] = 'article';
+			
+			$delete_tables[] = 'answer_comments';
+			$delete_tables[] = 'answer_thanks';
+			$delete_tables[] = 'article_comments';
+			$delete_tables[] = 'article_vote';
+			$delete_tables[] = 'question_comments';
+			$delete_tables[] = 'question_thanks';
+			
+			$this->delete('question', 'published_uid = ' . intval($uid));
+		}
+		else
+		{
+			$update_tables[] = 'answer';
+			$update_tables[] = 'answer_comments';
+			$update_tables[] = 'answer_thanks';
+			$update_tables[] = 'article';
+			$update_tables[] = 'article_comments';
+			$update_tables[] = 'article_vote';
+			$update_tables[] = 'question_comments';
+			$update_tables[] = 'question_thanks';
+			
+			$this->update('question', array(
+				'published_uid' => '-1'
+			), 'published_uid = ' . intval($uid));
+		}
+		
+		foreach ($delete_tables AS $key => $table)
+		{
+			$this->delete($table, 'uid = ' . intval($uid));
+		}
+		
+		foreach ($update_tables AS $key => $table)
+		{
+			$this->update($table, array(
+				'uid' => '-1'
+			), 'uid = ' . intval($uid));
+		}
+		
+		$this->update('answer_vote', array(
+			'vote_uid' => '-1'
+		), 'vote_uid = ' . intval($uid));
+		
+		$this->update('notice', array(
+			'sender_uid' => '-1'
+		), 'sender_uid = ' . intval($uid));
+		
+		$this->update('notice_dialog', array(
+			'sender_uid' => '-1'
+		), 'sender_uid = ' . intval($uid));
+		
+		$this->update('notice_dialog', array(
+			'recipient_uid' => '-1'
+		), 'recipient_uid = ' . intval($uid));
+		
+		$this->update('notice_recipient', array(
+			'sender_uid' => '-1'
+		), 'sender_uid = ' . intval($uid));
+		
+		$this->update('notice_recipient', array(
+			'recipient_uid' => '-1'
+		), 'recipient_uid = ' . intval($uid));
+		
+		$this->model('verify')->remove_apply($uid);
+		$this->model('notify')->delete_notify('sender_uid = ' . intval($uid) . ' OR recipient_uid = ' . intval($uid));
+		
+		$this->delete('question_invite', 'sender_uid = ' . intval($uid) . ' OR recipients_uid = ' . intval($uid));
+		
+		ACTION_LOG::delete_action_history('uid = ' . intval($uid));
+		
+		$this->delete('user_follow', 'fans_uid = ' . intval($uid) . ' OR friend_uid = ' . intval($uid));
+		
+		return true;
+	}
 }
