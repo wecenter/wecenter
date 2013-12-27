@@ -476,7 +476,7 @@ a.aw-load-more-content{display: block;}
 .aw-question-related-list{margin:30px 0;}
 .aw-question-related-list .aw-mod-head{border:none;}
 .aw-question-related-list .aw-mod-head h3{margin:0;color: #666;}
-.aw-question-related-list .aw-mod-body{padding-left: 80px;}
+.aw-question-related-list .aw-mod-body{padding-left: 30px;}
 .aw-question-related-list .aw-mod-body ul li{margin:5px 0;}
 .aw-question-related-list .aw-mod-body ul li a:hover{text-decoration: underline;}
 .aw-question-related-box{position:relative;padding:10px;border:1px solid #E2E2E2;border-radius: 5px;}
@@ -765,6 +765,7 @@ a.aw-load-more-content{display: block;}
 /* bs弹窗 */
 .alert-box{outline: none;}
 .alert-box .modal-footer{line-height: 34px;}
+.alert-box .modal-footer button{margin:0 0 0 20px;}
 .modal-dialog textarea, .modal-dialog input{margin-bottom: 10px;}
 .aw-share-box .modal-dialog, .aw-publish-box .modal-dialog, .aw-message-box .modal-dialog, .aw-question-redirect-box .modal-dialog, .aw-inbox .modal-dialog, .aw-topic-edit-note-box .modal-dialog{width: 470px;}
 /* 警告提示box */
@@ -784,7 +785,6 @@ a.aw-load-more-content{display: block;}
 .aw-publish-box .modal-body{padding-bottom: 0px;}
 .aw-publish-box .aw-edit-topic-box .btn{margin-bottom: 10px;}
 .aw-publish-box #captcha{height: 36px;margin-left: 10px;}
-.aw-publish-box .modal-footer a{margin:0 0 0 5px;}
 .aw-publish-box .modal-body{overflow-y:visible;}
 .aw-publish-box textarea{height: 34px;}
 .aw-publish-box .aw-dropdown-menu ul{max-height: 165px;}
