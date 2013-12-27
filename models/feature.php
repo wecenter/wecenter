@@ -97,8 +97,6 @@ class feature_class extends AWS_MODEL
 		
 		if ($features = $this->fetch_all('feature', 'id IN (' . implode(',', $feature_ids) . ')'))
 		{
-			$data = array();
-			
 			foreach($features as $key => $val)
 			{
 				if (!$val['url_token'])
