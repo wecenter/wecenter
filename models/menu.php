@@ -20,9 +20,11 @@ if (!defined('IN_ANWSION'))
 
 class menu_class extends AWS_MODEL
 {	
-	function add_nav_menu($title, $description, $type = 'custom', $type_id = 0, $link = null)
+	public function add_nav_menu($title, $description, $type = 'custom', $type_id = 0, $link = null)
 	{
-		$data = array(
+		AWS_APP::cache()->cleanGroup('nav_menu');
+		
+		return $this->insert('nav_menu', array(
 			'title' => $title, 
 			'description' => $description, 
 			'type' => $type, 
@@ -30,25 +32,58 @@ class menu_class extends AWS_MODEL
 			'link' => $link, 
 			'icon' => '', 
 			'sort' => 99, 
-		);
-		
-		AWS_APP::cache()->cleanGroup('nav_menu');
-		
-		return $this->insert('nav_menu', $data);
+		));
 	}
 	
-	function get_nav_menu_list($where = null, $with_feature = false, $with_category = false)
+	public function process_child_menu_links($data, $app)
 	{
-		if (!$nav_menu = AWS_APP::cache()->get('nav_menu_list_' . md5($where . $with_feature . $with_category)))
+		switch ($app)
 		{
-			$nav_menu = $this->fetch_all('nav_menu', $where, 'sort ASC');
+			case 'explore':
+				$url_prefix = 'home/explore/';
+				
+				$url_mobile_prefix = 'm/explore/';
+			break;
 			
-			AWS_APP::cache()->set('nav_menu_list_' . md5($where . $with_feature . $with_category), $nav_menu, get_setting('cache_level_low'), 'nav_menu');
+			case 'article':
+				$url_prefix = 'article/square/';
+				
+				$url_mobile_prefix = 'm/explore/';
+			break;
 		}
 		
-		if ($nav_menu)
+		foreach ($data AS $key => $val)
 		{
-			foreach($nav_menu as $key => $val)
+			if (!$val['url_token'])
+			{
+				$val['url_token'] = $val['id'];
+			}
+			
+			if (defined('IN_MOBILE'))
+			{
+				$data[$key]['link'] = $url_mobile_prefix . 'category-' . $val['id'];
+			}
+			else
+			{
+				$data[$key]['link'] = $url_prefix . 'category-' . $val['url_token'];
+			}
+		}
+		
+		return $data;
+	}
+	
+	public function get_nav_menu_list($app)
+	{
+		if (!$nav_menu_data = AWS_APP::cache()->get('nav_menu_list'))
+		{
+			$nav_menu_data = $this->fetch_all('nav_menu', null, 'sort ASC');
+			
+			AWS_APP::cache()->set('nav_menu_list', $nav_menu_data, get_setting('cache_level_low'), 'nav_menu');
+		}
+		
+		if ($nav_menu_data)
+		{
+			foreach ($nav_menu_data as $key => $val)
 			{
 				if ($val['type'] == 'feature')
 				{
@@ -57,67 +92,81 @@ class menu_class extends AWS_MODEL
 			}
 			
 			$category_info = $this->model('system')->get_category_list('question');
-			
 			$feature_info = $this->model('feature')->get_feature_by_id($feature_ids);
 			
-			foreach($nav_menu as $key => $val)
+			switch ($app)
 			{
-				switch($val['type'])
+				case 'explore':
+					$url_prefix = 'home/explore/';
+					
+					$url_mobile_prefix = 'm/explore/';
+				break;
+				
+				case 'article':
+					$url_prefix = 'article/square/';
+					
+					$url_mobile_prefix = 'm/explore/';
+				break;
+			}
+			
+			foreach ($nav_menu_data as $key => $val)
+			{
+				switch ($val['type'])
 				{
 					case 'category':
 						if (defined('IN_MOBILE'))
 						{
-							$nav_menu[$key]['link'] = 'm/explore/category-' . $category_info[$val['type_id']]['id'];
+							$nav_menu_data[$key]['link'] = $url_mobile_prefix . 'category-' . $category_info[$val['type_id']]['id'];
 						}
 						else
 						{
-							$nav_menu[$key]['link'] = 'home/explore/category-' . $category_info[$val['type_id']]['url_token'];
-							$nav_menu[$key]['child'] = $this->model('system')->fetch_category('question', $val['type_id']);
+							$nav_menu_data[$key]['link'] = $url_prefix . 'category-' . $category_info[$val['type_id']]['url_token'];
+							
+							$nav_menu_data[$key]['child'] = $this->process_child_menu_links($this->model('system')->fetch_category('question', $val['type_id']), $app);
 						}
 					break;
 					
 					case 'feature':
 						if (defined('IN_MOBILE'))
 						{
-							$nav_menu[$key]['link'] = 'm/explore/feature_id-' . $feature_info[$val['type_id']]['id'];
+							$nav_menu_data[$key]['link'] = $url_mobile_prefix . 'feature_id-' . $feature_info[$val['type_id']]['id'];
 						}
 						else
 						{
-							$nav_menu[$key]['link'] = 'feature/' . $feature_info[$val['type_id']]['url_token'];
+							$nav_menu_data[$key]['link'] = $url_prefix . 'feature_id-' . $feature_info[$val['type_id']]['id'];
 						}
 					break;
 				}
 				
-				if ($with_feature AND ($val['type'] == 'feature'))
-				{
-					$nav_menu['feature_ids'][] = $val['type_id'];
-				}
-				
-				if ($with_category AND ($val['type'] == 'category'))
-				{
-					$nav_menu['category_ids'][] = $val['type_id'];
-				}
+				$nav_menu_data['category_ids'][] = $val['type_id'];
+			}
+			
+			$nav_menu_data['feature_ids'] = $feature_ids;
+			
+			if (defined('IN_MOBILE'))
+			{
+				$nav_menu_data['base_link'] = $url_mobile_prefix;
+			}
+			else
+			{
+				$nav_menu_data['base_link'] = $url_prefix;
 			}
 		}
 			
-		return $nav_menu;
+		return $nav_menu_data;
 	}
 	
-	function update_nav_menu($nav_menu_id, $data)
+	public function update_nav_menu($nav_menu_id, $data)
 	{
-		$this->update('nav_menu', $data, 'id = ' . intval($nav_menu_id));
-		
 		AWS_APP::cache()->cleanGroup('nav_menu');
 		
-		return true;
+		return $this->update('nav_menu', $data, 'id = ' . intval($nav_menu_id));
 	}
 	
-	function remove_nav_menu($nav_menu_id)
+	public function remove_nav_menu($nav_menu_id)
 	{
-		$this->delete('nav_menu', 'id = ' . intval($nav_menu_id));
-		
 		AWS_APP::cache()->cleanGroup('nav_menu');
 		
-		return true;
+		return $this->delete('nav_menu', 'id = ' . intval($nav_menu_id));
 	}
 }
