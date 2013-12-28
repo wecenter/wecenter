@@ -145,11 +145,11 @@ class menu_class extends AWS_MODEL
 			
 			if (defined('IN_MOBILE'))
 			{
-				$nav_menu_data['base_link'] = $url_mobile_prefix;
+				$nav_menu_data['base']['link'] = $url_mobile_prefix;
 			}
 			else
 			{
-				$nav_menu_data['base_link'] = $url_prefix;
+				$nav_menu_data['base']['link'] = $url_prefix;
 			}
 		}
 			
