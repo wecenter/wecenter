@@ -72,7 +72,7 @@ class menu_class extends AWS_MODEL
 		return $data;
 	}
 	
-	public function get_nav_menu_list($app)
+	public function get_nav_menu_list($app = '')
 	{
 		if (!$nav_menu_data = AWS_APP::cache()->get('nav_menu_list'))
 		{
