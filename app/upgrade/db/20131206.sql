@@ -40,4 +40,18 @@ DELETE FROM `[#DB_PREFIX#]system_setting` WHERE `varname` = 'question_helpful_us
 
 DROP TABLE `[#DB_PREFIX#]users_forbidden`;
 
-ALTER TABLE `[#DB_PREFIX#]article` ADD `category_id` INT(10) NULL DEFAULT '0' , ADD INDEX (`category_id`) ;
+ALTER TABLE `[#DB_PREFIX#]article` ADD `category_id` INT(10) NULL DEFAULT '0' , ADD INDEX (`category_id`);
+
+CREATE TABLE `[#DB_PREFIX#]related_links` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `uid` int(10) NOT NULL,
+  `item_type` varchar(32) NOT NULL,
+  `item_id` int(10) NOT NULL,
+  `link` varchar(255) NOT NULL,
+  `add_time` int(10) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`),
+  KEY `item_type` (`item_type`),
+  KEY `item_id` (`item_id`),
+  KEY `add_time` (`add_time`)
+) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
