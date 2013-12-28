@@ -466,7 +466,7 @@ a.aw-load-more-content{display: block;}
 .aw-invite-box .aw-mod-body ul{width:103%;max-height: 65px;overflow: hidden;margin-left:-10px;}
 .aw-invite-box .aw-mod-body ul li{position:relative;float: left;width:30%;margin:0 10px;}
 .aw-invite-box .aw-mod-body ul li .main{padding-left: 50px;}
-.aw-invite-box .aw-mod-body ul li p, .aw-invite-box .aw-mod-body ul li .signature{margin:0;font-size: 13px;color: #999;}
+.aw-invite-box .aw-mod-body ul li p{margin:0;font-size: 13px;color: #999;}
 .aw-invite-box .aw-mod-body ul li img{width: 40px;height: 40px;}
 .aw-invite-box .aw-mod-body .btn-normal{width:60px;padding:2px 0;font-size: 12px;}
 .aw-invite-box .aw-mod-footer{height:34px;line-height:34px;border-top: 1px solid #E2E2E2;text-align: center;font-size: 13px;}

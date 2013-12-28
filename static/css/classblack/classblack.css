@@ -24,6 +24,7 @@
 .aw-publish-btn{display:inline-block;height:32px;line-height:32px;color:#fff;}
 .aw-publish-btn:hover{background-position: -110px -10px;color: #fff;}
 .aw-logo, .aw-search-box{margin-top: 10px;}
+.aw-logo a{background:url('img/logo.png') no-repeat;}
 .aw-search-box form{margin-top: 0px;}
 .aw-user-nav > a img{width: 25px;height: 25px;border-radius: 5px;}
 .aw-user-nav:hover .aw-user-nav-dropdown-list{display: block;}
