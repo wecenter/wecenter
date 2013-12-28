@@ -556,6 +556,20 @@ CREATE TABLE `[#DB_PREFIX#]related_topic` (
   KEY `related_id` (`related_id`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
 
+CREATE TABLE `[#DB_PREFIX#]related_links` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `uid` int(10) NOT NULL,
+  `item_type` varchar(32) NOT NULL,
+  `item_id` int(10) NOT NULL,
+  `link` varchar(255) NOT NULL,
+  `add_time` int(10) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`),
+  KEY `item_type` (`item_type`),
+  KEY `item_id` (`item_id`),
+  KEY `add_time` (`add_time`)
+) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
+
 CREATE TABLE `[#DB_PREFIX#]school` (
   `school_id` int(11) NOT NULL COMMENT '自增ID',
   `school_type` tinyint(4) DEFAULT NULL COMMENT '学校类型ID',
