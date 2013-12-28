@@ -18,14 +18,32 @@
 					<input type="hidden" name="post_hash" value="<?php echo new_post_hash(); ?>" />
 					<input type="hidden" name="attach_access_key" value="<?php echo $this->attach_access_key; ?>" />
 					<input type="hidden" name="article_id" id="article_id" value="<?php echo $this->article_info['id']; ?>" />
-					
+					<?php if ($this->article_category_list) { ?>
+						<select name="category_id" class="hide" id="category_id">
+							<option value="0">- <?php _e('请选择分类'); ?> -</option>
+							<?php echo $this->article_category_list; ?>
+						</select>
+						<?php } ?>
 					<div class="aw-mod aw-dynamic-index aw-mod-publish">
 						<div class="aw-mod-body">
 							<h3><?php _e('文章标题'); ?>:</h3>
 							<!-- 文章标题 -->
-							<div class="aw-publish-title active">
+							<div class="aw-publish-title<?php if (!$this->article_category_list) { ?> active<?php } ?>">
 								<input type="text" name="title" value="<?php echo $this->article_info['title']; ?>" class="form-control" />
-							</div>
+								<?php if ($this->article_category_list) { ?>
+								<div class="aw-dropdown aw-question-dropdown">
+									<i class="aw-icon i-dropdown-triangle active"></i>
+									<p class="title"><?php _e('没有找到相关结果'); ?></p>
+									<ul class="aw-question-dropdown-list"></ul>
+								</div>
+								<div class="aw-publish-title-dropdown">
+									<p class="dropdown-toggle" data-toggle="dropdown">
+										<span id="aw-topic-tags-select"><?php _e('选择分类'); ?></span>
+										<a href="javascript:;"><i class="fa fa-chevron-down"></i></a></a>
+									</p>
+								</div>
+								<?php } ?>
+						</div>
 							<!-- end 文章标题 -->
 
 							<h3><?php _e('文章内容'); ?>:</h3>
@@ -81,7 +99,7 @@
 									<?php _e('删除文章'); ?></label>
 								<?php } ?>
 							</span>
-							<a class="btn btn-large btn-success" id="publish_submit" onclick="ajax_post($('#question_form')); return false;"><?php _e('确认发起'); ?></a>
+							<a class="btn btn-large btn-success btn-publish-submit" id="publish_submit" onclick="ajax_post($('#question_form')); return false;"><?php _e('确认发起'); ?></a>
 						</div>
 					</div>
 				</form>
@@ -92,6 +110,7 @@
 
 <script type="text/javascript">
 	var ATTACH_ACCESS_KEY = '<?php echo $this->attach_access_key; ?>';
+	var CATEGORY_ID = <?php echo intval($_POST['category_id']); ?>;
 	var PUBLISH_TYPE = 'article';
 </script>
 

@@ -34,20 +34,6 @@
 					<?php echo $this->category_option; ?>
 				</select></dd>
 			</dl>
-			<?php if (!$this->menu_category_ids OR !in_array($this->category['id'], $this->menu_category_ids)) { ?>
-			<dl>
-				<dt><h3><?php _e('添加到导航菜单'); ?></h3></dt>
-				<dd>
-				<span class="yesno_yes">
-					<label><input type="radio" name="add_nav_menu" value="1"<?php if ($this->setting['site_close'] == 1) { ?> checked="checked"<?php } ?> /><?php _e('是'); ?></label>
-				</span>
-				
-				<span class="yesno_no">
-					<label><input type="radio" name="add_nav_menu" value="0"<?php if ($this->setting['site_close'] == 0) { ?> checked="checked"<?php } ?> /><?php _e('否'); ?></label>
-				</span>	
-				</dd>
-			</dl>
-			<?php } ?>
 		</div>
 		<div class="aw-mod-footer">
 			<a href="javascript:;" class="btn btn-inverse btn-normal" onclick="ajax_post($('#settings_form'));"><?php _e('保存'); ?></a>

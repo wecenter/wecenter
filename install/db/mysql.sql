@@ -67,6 +67,7 @@ CREATE TABLE `[#DB_PREFIX#]article` (
   `lock` int(1) NOT NULL DEFAULT '0',
   `votes` int(10) DEFAULT '0',
   `title_fulltext` TEXT NULL DEFAULT NULL,
+  `category_id` int(10) DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `has_attach` (`has_attach`),
   KEY `uid` (`uid`),
@@ -75,6 +76,7 @@ CREATE TABLE `[#DB_PREFIX#]article` (
   KEY `add_time` (`add_time`),
   KEY `lock` (`lock`),
   KEY `votes` (`votes`),
+  KEY `category_id` (`category_id`),
   FULLTEXT KEY `title_fulltext` (`title_fulltext`)
 ) ENGINE=MYISAM DEFAULT CHARSET=utf8;
 
@@ -554,6 +556,20 @@ CREATE TABLE `[#DB_PREFIX#]related_topic` (
   KEY `related_id` (`related_id`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
 
+CREATE TABLE `[#DB_PREFIX#]related_links` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `uid` int(10) NOT NULL,
+  `item_type` varchar(32) NOT NULL,
+  `item_id` int(10) NOT NULL,
+  `link` varchar(255) NOT NULL,
+  `add_time` int(10) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`),
+  KEY `item_type` (`item_type`),
+  KEY `item_id` (`item_id`),
+  KEY `add_time` (`add_time`)
+) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
+
 CREATE TABLE `[#DB_PREFIX#]school` (
   `school_id` int(11) NOT NULL COMMENT '自增ID',
   `school_type` tinyint(4) DEFAULT NULL COMMENT '学校类型ID',
@@ -954,16 +970,6 @@ CREATE TABLE `[#DB_PREFIX#]reputation_category` (
   `question_count` INT(10) DEFAULT '0',
   PRIMARY KEY (`auto_id`),
   UNIQUE KEY `uid_category_id` (`uid`, `category_id`)
-) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
-
-CREATE TABLE `[#DB_PREFIX#]users_forbidden` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `uid` int(11) DEFAULT NULL,
-  `admin_uid` int(11) DEFAULT NULL,
-  `status` tinyint(1) DEFAULT NULL,
-  `add_time` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `uid` (`uid`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]edm_task` (

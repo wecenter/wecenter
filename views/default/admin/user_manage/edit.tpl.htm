@@ -6,7 +6,22 @@
 		<div class="aw-mod-head">
 			<h2><?php _e('编辑用户资料'); ?></h2>
 		</div>
-		<div class="aw-mod-body">	
+		<div class="aw-mod-body">
+			<dl>
+				<dt><h3><?php _e('删除用户'); ?>:</h3></dt>
+				<dd>
+					<form action="admin/user_manage/remove_user/" method="post" id="remove_user_form">
+						<input type="hidden" name="uid" value="<?php echo $this->user['id']; ?>" />
+						
+						<label><input name="remove_user" id="remove_user" type="checkbox" value="1" /> <?php _e('确认删除这个用户'); ?></label>
+						
+						<label><input name="remove_user_data" id="remove_user_data" type="checkbox" value="1" /> <?php _e('删除用户发布的内容'); ?></label>
+					
+						<label><a href="javascript:;" class="btn btn-danger btn-xs" onclick="if (!document.getElementById('remove_user').checked) { alert('<?php _e('请先确认删除操作'); ?>'); } else { ajax_post($('#remove_user_form')); }"><?php _e('删除用户'); ?></a></label>
+					</form>
+				</dd>
+			</dl>
+			
 			<form action="admin/user_manage/user_save_ajax/" id="settings_form" enctype="multipart/form-data" method="post">
 			<input name="uid" type="hidden" value="<?php echo $this->user['uid']; ?>" />
 			

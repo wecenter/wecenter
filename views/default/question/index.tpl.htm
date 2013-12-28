@@ -110,11 +110,27 @@
 							</ul>
 							<?php } ?>
 						</div>
+						<?php if ($this->question_related_links) { ?>
+						<div class="aw-question-related-list">
+							<div class="aw-mod-head">
+								<h3><?php _e('相关链接'); ?> : </h3>
+							</div>
+							<div class="aw-mod-body">
+								<ul>
+									<?php foreach ($this->question_related_links AS $key => $val) { ?>
+									<li><a href="<?php echo $val['link']; ?>" rel="nofollow" target="_blank"><?php echo $val['link']; ?></a> &nbsp; <?php if ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator'] OR $this->user_id == $this->question_info['published_uid']) { ?><a onclick="ajax_request(G_BASE_URL + '/publish/ajax/remove_related_link/', 'item_id=<?php echo $this->question_info['question_id']; ?>&id=<?php echo $val['id']; ?>');">x</a><?php } ?></li>
+									<?php } ?>
+								</ul>
+							</div>
+						</div>
+						<?php } ?>
 						<div class="aw-question-detail-meta">
 							<span class="aw-text-color-999"><?php echo date_friendly($this->question_info['add_time']); ?></span>
 
 							<a herf="javascript:;" data-id="<?php echo $this->question_info['question_id']; ?>" data-type="question" class="aw-add-comment aw-text-color-999"<?php if ($this->question_info['lock']) { ?> data-close="true"<?php } ?>><i class="fa fa-comment"></i><?php if ($this->question_info['comment_count']) { ?><?php _e('%s 条评论', $this->question_info['comment_count']); ?><?php } else { ?><?php _e('添加评论'); ?><?php } ?></a>
-							<a class="aw-text-color-999 aw-invite-replay"><i class="fa fa-retweet"></i>邀请回答 <em class="badge badge-info"><?php echo count($this->invite_users); ?></em></a>
+							<?php if ($this->user_id) { ?>
+							<a class="aw-text-color-999 aw-invite-replay"><i class="fa fa-retweet"></i><?php _e('邀请回答'); ?> <em class="badge badge-info"><?php echo count($this->invite_users); ?></em></a>
+							<?php } ?>
 							<?php if ((!$this->question_info['lock'] AND ($this->question_info['published_uid'] == $this->user_id OR $this->user_info['permission']['edit_question'])) OR $this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?><a class="aw-text-color-999" href="publish/<?php echo $this->question_info['question_id']; ?>"><i class="fa fa-edit"></i><?php _e('编辑'); ?></a><?php } ?>
 							<?php if ($this->question_info['unverified_modify_count']) { ?><a href="question/<?php echo $this->question_info['question_id']; ?>?column=log&rf=false" class="aw-text-color-999 aw-question-wait-edit"><i class="icon-check"></i><?php _e('待确认修改'); ?><em class="badge badge-info"><?php echo $this->question_info['unverified_modify_count']; ?></em></a><?php } ?>
 							<?php if (($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) AND $this->question_info['ip']) { ?><a href="javascript:;" title="<?php echo long2ip($this->question_info['ip']); ?>" onclick="$.alert('<?php _e('系统记录的 IP 地址为'); ?>: <?php echo long2ip($this->question_info['ip']); ?>');" class="aw-text-color-999"><i class="fa fa-map-marker"></i><?php _e('IP 地址'); ?></a><?php } ?>
@@ -123,8 +139,13 @@
 							<a <?php if (!$this->question_thanks) { ?>data-placement="bottom" title="" data-toggle="tooltip" data-original-title="<?php _e('感谢提问者'); ?>" onclick="question_thanks(<?php echo $this->question_info['question_id']; ?>, this);"<?php } ?> class="aw-icon-thank-tips aw-text-color-999"><i class="fa fa-heart"></i><?php if ($this->question_thanks) { ?><?php _e('已感谢'); ?><?php } else { ?><?php _e('感谢'); ?><?php } ?></a>
 							<?php } ?>
 							<a class="aw-text-color-999" onclick="$.dialog('shareOut', {item_type:'question', item_id:<?php echo $this->question_info['question_id']; ?>});"><i class="fa fa-share"></i><?php _e('分享'); ?></a>
+							
+							<?php if ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator'] OR $this->user_id == $this->question_info['published_uid']) { ?>
+							<a class="aw-text-color-999 aw-add-question-related"><i class="fa fa-chain"></i> <?php _e('相关链接'); ?></a>
+							<?php } ?>
 						</div>
 					</div>
+					<!-- 站内邀请 -->
 					<div class="aw-invite-box hide">
 						<div class="aw-mod-head clearfix">
 							<div class="search-box pull-left">
@@ -140,7 +161,7 @@
 								<?php _e('已邀请'); ?>:
 								<?php if ($this->invite_users) { ?>
 								<?php foreach($this->invite_users as $key => $val) { ?>
-									<a class="aw-text-color-999" data-id="<?php echo $val['uid']; ?>" href="people/<?php echo $val['url_token']; ?>" data-id="<?php echo $val['uid']; ?>"><?php echo $val['user_name']; ?></a>
+									<a class="aw-text-color-999 invite-list-user" data-id="<?php echo $val['uid']; ?>" href="people/<?php echo $val['url_token']; ?>" data-id="<?php echo $val['uid']; ?>" data-original-title="<?php echo $val['user_name']; ?>" data-placement="right" data-toggle="tooltip"><img src="<?php echo get_avatar_url($val['uid'], 'mid'); ?>" /></a>
 								<?php } ?>
 								<?php } ?>
 							</div>
@@ -150,28 +171,24 @@
 							<ul>
 								<?php foreach ($this->helpful_users AS $key => $val) { ?>
 									<li>
-										<a class="aw-user-img pull-left" data-id="<?php echo $val['uid']; ?>" href="people/<?php echo $val['url_token']; ?>"><img class="img" alt="" src="<?php echo get_avatar_url($val['uid'], 'mid'); ?>" /></a>
+										<a class="aw-user-img pull-left" data-id="<?php echo $val['user_info']['uid']; ?>" href="people/<?php echo $val['user_info']['url_token']; ?>"><img class="img" alt="" src="<?php echo get_avatar_url($val['user_info']['uid'], 'mid'); ?>" /></a>
 										<div class="main">
 											<?php if ($val['has_invite']) { ?>
-												<a class="pull-right btn btn-normal btn-default btn-default" data-value="<?php echo $val['user_name']; ?>" data-id="<?php echo $val['uid']; ?>" onclick="disinvite_user($(this))"><?php _e('取消邀请'); ?></a>
+												<a class="pull-right btn btn-normal btn-default" data-value="<?php echo $val['user_info']['user_name']; ?>" data-id="<?php echo $val['user_info']['uid']; ?>" onclick="disinvite_user($(this))"><?php _e('取消邀请'); ?></a>
 											<?php } else { ?>
-												<a class="pull-right btn btn-normal btn-default btn-default aw-active" data-value="<?php echo $val['user_name']; ?>" data-id="<?php echo $val['uid']; ?>" onclick="invite_user($(this))"><?php _e('邀请'); ?></a>
+												<a class="pull-right btn btn-normal btn-default aw-active" data-value="<?php echo $val['user_info']['user_name']; ?>" data-id="<?php echo $val['user_info']['uid']; ?>" onclick="invite_user($(this),$(this).parents('li').find('img').attr('src'));"><?php _e('邀请'); ?></a>
 											<?php } ?>
 											
-											<a class="aw-user-name" data-id="<?php echo $val['uid']; ?>" href="people/<?php echo $val['url_token']; ?>"><?php echo $val['user_name']; ?><?php if ($val['verified']) { ?><i class="icon-v<?php if ($val['verified'] == 'enterprise') { ?> i-ve<?php } ?>" title="<?php if ($val['verified'] == 'enterprise') { ?>企业认证<?php } else { ?>个人认证<?php } ?>"></i><?php } ?></a>
+											<a class="aw-user-name" data-id="<?php echo $val['user_info']['uid']; ?>" href="people/<?php echo $val['user_info']['url_token']; ?>"><?php echo $val['user_info']['user_name']; ?><?php if ($val['user_info']['verified']) { ?><i class="icon-v<?php if ($val['user_info']['verified'] == 'enterprise') { ?> i-ve<?php } ?>" title="<?php if ($val['user_info']['verified'] == 'enterprise') { ?>企业认证<?php } else { ?>个人认证<?php } ?>"></i><?php } ?></a>
 											
 											<p>
-												<?php if ($val['topic_agree_count']) { ?>
-													<?php _e('%s 个赞同', $val['topic_agree_count']); ?>
-												<?php } else { ?>
-													<?php _e('威望'); ?>: <?php echo $val['reputation']; ?>
-												<?php } ?>
+												<?php _e('%s 个赞同', $val['agree_count']); ?>
 											</p>
 										</div>
 										<div class="clearfix"></div>
 										
 										<div class="signature">
-											<?php echo cjk_substr($val['signature'], 0, 12, 'UTF-8', '...'); ?>
+											<?php echo cjk_substr($val['user_info']['signature'], 0, 24, 'UTF-8', '...'); ?>
 										</div>
 									</li>
 								<?php } ?>
@@ -183,6 +200,23 @@
 						<?php } ?>
 						<i class="i-dropdown-triangle"></i>
 					</div>
+					<!-- end 站内邀请 -->
+					<!-- 相关链接 -->
+					<div class="aw-question-related-box hide">
+						<form action="publish/ajax/save_related_link/" method="post" onsubmit="return false" id="related_link_form">
+							<div class="aw-mod-head">
+								<h2><?php _e('与内容相关的链接'); ?></h2>
+							</div>
+							<div class="aw-mod-body clearfix">
+								<input type="hidden" name="item_id" value="<?php echo $this->question_info['question_id']; ?>" />
+								<input type="text" class="form-control pull-left" name="link" />
+									
+								<a onclick="ajax_post($('#related_link_form'));" class="pull-left btn btn-success"><?php _e('提交'); ?></a>
+							</div>
+						</form>
+						<i class="i-dropdown-triangle"></i>
+					</div>
+					<!-- end 相关链接 -->
 				</div>
 				
 				<?php if ($_GET['column'] == 'log') { ?>
@@ -311,6 +345,9 @@
 												<a href="javascript:;"<?php if (!$val['user_rated_thanks']) { ?> onclick="answer_user_rate(<?php echo $val['answer_id']; ?>, 'thanks', this);"<?php } ?> class="aw-icon-thank-tips aw-text-color-999" data-original-title="<?php _e('感谢热心的回复者'); ?>" data-toggle="tooltip" title="" data-placement="bottom"><i class="fa fa-heart"></i><?php if ($val['user_rated_thanks']) { ?><?php _e('已感谢'); ?><?php } else { ?><?php _e('感谢'); ?><?php } ?></a>
 												<?php } ?>	
 												<a href="javascript:;" onclick="$.dialog('shareOut', {item_type:'answer', item_id:<?php echo $val['answer_id']; ?>});" class="aw-text-color-999"><i class="fa fa-share"></i><?php _e('分享'); ?></a>
+												<?php if (($this->user_info['permission']['is_moderator'] OR $this->user_info['permission']['is_administortar']) AND !$this->question_info['best_answer']) { ?>
+												<a href="javascript:;" onclick="ajax_request(G_BASE_URL + '/question/ajax/set_best_answer/', 'answer_id=<?php echo $val['answer_id']; ?>');" class="aw-text-color-999"><i class="fa fa-star"></i><?php _e('设为最佳回复'); ?></a>
+												<?php } ?>
 											</span>
 											<!-- end 可显示/隐藏的操作box -->
 											
@@ -390,7 +427,7 @@
 						</p>
 						<?php } ?>
 						<div class="aw-replay-box-control clearfix">
-							<a href="javascript:;" onclick="ajax_post($('#answer_form'));" class="btn btn-large btn-success pull-right btn-submit"><?php _e('回复'); ?></a>
+							<a href="javascript:;" onclick="ajax_post($('#answer_form'));" class="btn btn-large btn-success pull-right btn-publish-submit"><?php _e('回复'); ?></a>
 							<div id="file_uploader_answer"></div>
 							<span class="aw-text-color-999 aw-upload-tips hide"><?php _e('允许的附件文件类型'); ?>: <?php echo get_setting('allowed_upload_types'); ?></span>
 						</div>
@@ -439,46 +476,16 @@
 				
 				<?php if ($this->user_id) { ?>
 				<!-- 邀请别人回复 -->
-				<div class="aw-side-bar-mod aw-side-bar-invite-replay">
+				<div class="aw-side-bar-mod invite-replay">
 					<div class="aw-mod-head">
-						<h3><?php _e('邀请别人回复'); ?></h3>
+						<h3><?php _e('邮件邀请别人回复'); ?></h3>
 					</div>
-					<div class="aw-mod-body">
-						<a class="aw-website-invite"><?php _e('站内邀请'); ?><em class="badge badge-info"><?php echo count($this->invite_users); ?></em></a> • <a class="aw-email-invite"><?php _e('邮件邀请'); ?></a>
+					<div class="aw-mod-body clearfix">
 						<!-- 侧边栏邀请box -->
-						<div class="aw-side-bar-invite-box">
-							<div class="aw-item clearfix">
-								<input id="invite-input" class="form-control" type="text"  placeholder="<?php _e('仅限邀请站内用户...'); ?>"/>
-								<div class="aw-dropdown">
-									<i class="aw-icon i-dropdown-triangle"></i>
-									<p class="title"><?php _e('没有找到相关结果'); ?></p>
-									<ul class="aw-dropdown-list"></ul>
-								</div>
-								<div class="alert alert-danger hide"></div>
-								<ul class="aw-side-bar-invite-list">
-								<?php if ($this->invite_users) { ?>
-									<p><?php _e('已邀请过的用户'); ?>: </p>
-									<?php foreach($this->invite_users as $key => $val) { ?>
-									<li>
-										<?php if ($val['sender_uid'] == $this->user_id) { ?><a class="pull-right btn btn-mini btn-default" onclick="disinvite_user($(this),<?php echo $val['uid']; ?>);$(this).parent().detach();"><?php _e('取消邀请'); ?></a><?php } ?>
-										<a href="people/<?php echo $val['url_token']; ?>" class="aw-user-name" data-id="<?php echo $val['uid']; ?>">
-											<img src="<?php echo get_avatar_url($val['uid'], 'mid'); ?>" alt="" />
-										</a>
-										
-										<span class="aw-text-color-666"><?php echo $val['user_name']; ?></span>
-									</li>
-									<?php } ?>
-								<?php } ?>
-								</ul>
-							</div>
-							<div class="aw-item clearfix">
-								<form method="post" action="question/ajax/email_invite/question_id-<?php echo $this->question_info['question_id']; ?>" onsubmit="return false;" id="email_invite_form">
-									<input class="form-control" type="text" name="email" placeholder="<?php _e('邮件邀请回复...'); ?>"/>
-									<a class="pull-right btn btn-mini btn-success" onclick="ajax_post($('#email_invite_form'));"><?php _e('邀请'); ?> »</a>
-								</form>
-								
-							</div>
-						</div>
+						<form method="post" action="question/ajax/email_invite/question_id-<?php echo $this->question_info['question_id']; ?>" onsubmit="return false;" id="email_invite_form">
+							<input class="form-control" type="text" name="email" placeholder="<?php _e('邮件邀请回复...'); ?>"/>
+							<a class="pull-right btn btn-mini btn-success" onclick="ajax_post($('#email_invite_form'));"><?php _e('邀请'); ?></a>
+						</form>
 						<!-- end 侧边栏邀请box -->
 					</div>
 				</div>

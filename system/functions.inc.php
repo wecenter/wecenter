@@ -479,10 +479,16 @@ function get_setting($varname = null, $permission_check = true)
 
 	if ($settings = AWS_APP::$settings)
 	{
-		// AWS_APP::session()->permission是指当前用户所在用户组的权限许可项，在users_group表中，你可以看到permission字段
-		if ($permission_check AND $settings['upload_enable'] == 'Y' AND ! AWS_APP::session()->permission['upload_attach'])
+		// AWS_APP::session()->permission 是指当前用户所在用户组的权限许可项，在 users_group 表中，你可以看到 permission 字段
+		if ($permission_check AND $settings['upload_enable'] == 'Y')
 		{
-			$settings['upload_enable'] = 'N';
+			if (AWS_APP::session())
+			{
+				if (!AWS_APP::session()->permission['upload_attach'])
+				{
+					$settings['upload_enable'] = 'N';
+				}
+			}
 		}
 	}
 	
