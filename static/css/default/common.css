@@ -340,6 +340,7 @@ a.aw-load-more-content{display: block;}
 .aw-side-bar-topic-about .aw-topic-name{display: inline-block;margin:0 4px 8px 0;}
 .aw-side-bar-topic-about .aw-edit-topic-box input{width: 203px;margin-bottom: 5px;}
 /* 分享,邀请好友完善 */
+.aw-side-bar-mod.question-share .invite-replay .btn-success{margin-top: 10px;}
 .aw-side-bar-share a{margin-right:10px;}
 .aw-side-bar-share .aw-icon{position:relative;top:2px;margin-right:5px;}
 /* 话题修改记录 */
