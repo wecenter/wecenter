@@ -695,7 +695,7 @@ a.aw-load-more-content{display: block;}
 /* 专题页面 */
 .aw-feature-wrap{width: 930px;}
 .aw-feature-wrap, .aw-feature-wrap .aw-side-bar{background: #fff;}
-.aw-feature-wrap .aw-side-bar{width:237px;padding:0 0 15px;}
+.aw-feature-wrap .aw-side-bar{width:237px;margin:0;padding:0 0 15px;}
 .aw-feature-wrap .aw-side-bar-mod-feature{margin:0 15px;padding:10px;}
 .aw-feature-wrap .aw-side-bar-mod-feature h3{margin:0;}
 .aw-feature-wrap .aw-main-content{width: 693px;}
