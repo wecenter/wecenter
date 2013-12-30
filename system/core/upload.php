@@ -449,10 +449,6 @@ class core_upload {
 			{
 				$filename .= $this->file_ext;
 			}
-			else
-			{
-				
-			}
 			
 			if ( ! file_exists($path . $filename))
 			{
