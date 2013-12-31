@@ -251,7 +251,7 @@ class system_class extends AWS_MODEL
 	
 	public function clean_break_attach()
 	{
-		if ($attachs = $this->query_all("SELECT `id`, `access_key` FROM " . get_table('attach') . " WHERE (item_id IS NULL OR item_id < 1) AND wait_approval = 0 AND add_time < " . (time() - 3600 * 24)))
+		if ($attachs = $this->query_all("SELECT `id`, `access_key` FROM " . get_table('attach') . " WHERE item_id = 0 AND wait_approval = 0 AND add_time < " . (time() - 3600 * 24)))
 		{
 			foreach ($attachs AS $key => $val)
 			{

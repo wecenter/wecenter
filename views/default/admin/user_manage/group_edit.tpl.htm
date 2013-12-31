@@ -64,6 +64,19 @@
 				</dd>
 			</dl>
 			<dl>
+				<dt><h3><?php _e('允许发布评论'); ?>:</h3></dt>
+				
+				<dd>
+					<span class="yesno_yes">
+						<label><input type="radio" value="1" name="publish_comment"<?php if ($this->group_pms['publish_comment']) { ?> checked="checked"<?php } ?>><?php _e('是'); ?></label>
+					</span>
+					
+					<span class="yesno_no">
+						<label><input type="radio" value="0" name="publish_comment"<?php if (!$this->group_pms['publish_comment']) { ?> checked="checked"<?php } ?>><?php _e('否'); ?></label>
+					</span>
+				</dd>
+			</dl>
+			<dl>
 				<dt><h3><?php _e('发布内容需要审核'); ?>:</h3></dt>
 				
 				<dd>
