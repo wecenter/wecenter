@@ -21,8 +21,8 @@
 					<div class="aw-mod-body">
 						<?php foreach ($this->list AS $key => $val) { ?>
 						<div class="aw-item">
-							<h4><a href="question/<?php echo $val['question_id']; ?>"><?php echo $val['question_content']; ?></a></h4>
-							<p class="aw-text-color-999"><a class="aw-user-name" data-id="<?php echo $val['answer_info']['uid']; ?>" href="people/<?php echo $val['answer_info']['url_token']; ?>"><?php echo $val['answer_info']['user_name']; ?></a><?php if ($val['answer_info']['signature']) { ?> - <?php echo $val['answer_info']['signature']; ?><?php } ?></p>
+							<h4><a href="question/<?php echo $val['question_info']['question_id']; ?>"><?php echo $val['question_info']['question_content']; ?></a></h4>
+							<p class="aw-text-color-999"><a class="aw-user-name" data-id="<?php echo $val['user_info']['uid']; ?>" href="people/<?php echo $val['answer_info']['url_token']; ?>"><?php echo $val['user_info']['user_name']; ?></a><?php if ($val['user_info']['signature']) { ?> - <?php echo $val['user_info']['signature']; ?><?php } ?></p>
 							
 							<!-- 评论内容 -->
 							<div class="aw-dynamic-topic-content">
