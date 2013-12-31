@@ -90,16 +90,16 @@
 					<dl>
 						<dt><h3><?php _e('是否有图片'); ?>:</h3></dt>
 						<dd>
-						<label><input type="radio" value="1" name="topic_pic"<?php if ($_GET['topic_pic'] == '1') { ?> checked="checked"<?php } ?>> <?php _e('有'); ?></label>
-						<label><input type="radio" value="2" name="topic_pic"<?php if ($_GET['topic_pic'] == '2') { ?> checked="checked"<?php } ?>> <?php _e('没有'); ?></label>
+						<label><input type="radio" value="YES" name="topic_pic"<?php if ($_GET['topic_pic'] == 'YES') { ?> checked="checked"<?php } ?>> <?php _e('有'); ?></label>
+						<label><input type="radio" value="NO" name="topic_pic"<?php if ($_GET['topic_pic'] == 'NO') { ?> checked="checked"<?php } ?>> <?php _e('没有'); ?></label>
 						<label><input type="radio" value="0" name="topic_pic"<?php if (!$_GET['topic_pic']) { ?> checked="checked"<?php } ?>> <?php _e('不限制'); ?></label></dd>
 					</dl>
 					<dl>
 						<dt><h3><?php _e('是否有描述内容'); ?>:</h3></dt>
 						
 						<dd>
-						<label><input type="radio" value="1" name="topic_description"<?php if ($_GET['topic_description'] == '1') { ?> checked="checked"<?php } ?>> <?php _e('有'); ?></label>
-						<label><input type="radio" value="2" name="topic_description"<?php if ($_GET['topic_description'] == '2') { ?> checked="checked"<?php } ?>> <?php _e('没有'); ?></label>
+						<label><input type="radio" value="YES" name="topic_description"<?php if ($_GET['topic_description'] == 'YES') { ?> checked="checked"<?php } ?>> <?php _e('有'); ?></label>
+						<label><input type="radio" value="NO" name="topic_description"<?php if ($_GET['topic_description'] == 'NO') { ?> checked="checked"<?php } ?>> <?php _e('没有'); ?></label>
 						<label><input type="radio" value="0" name="topic_description"<?php if (!$_GET['topic_description']) { ?> checked="checked"<?php } ?>> <?php _e('不限制'); ?></label>
 						</dd>
 					</dl>
