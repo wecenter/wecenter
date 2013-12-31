@@ -42,7 +42,7 @@
 			<?php } ?>
 			<div class="aw-article-detail-meta clearfix">
 				<span class="aw-article-vote<?php if (!$this->user_id OR $this->user_id == $this->article_info['uid']) { ?> disabled<?php } ?>">
-					<a href="javascript:;" class="agree<?php if ($this->article_info['vote_info']['rating'] == 1) { ?> active<?php } ?>" onclick="article_vote(this, <?php echo $this->article_info['id']; ?>, 1);"><i class="fa fa-thumbs-up"></i> <b><?php echo $this->article_info['votes']; ?></b> 赞</a>
+					<a href="javascript:;" class="agree<?php if ($this->article_info['vote_info']['rating'] == 1) { ?> active<?php } ?>" onclick="article_vote(this, <?php echo $this->article_info['id']; ?>, 1);"><i class="fa fa-thumbs-up"></i> <b><?php echo $this->article_info['votes']; ?></b> <?php _e('赞'); ?></a>
 					<a href="javascript:;" class="disagree<?php if ($this->article_info['vote_info']['rating'] == -1) { ?> active<?php } ?>" onclick="article_vote(this, <?php echo $this->article_info['id']; ?>, -1);"><i class="fa fa-thumbs-down"></i></a>
 				</span>
 			</div>
@@ -72,18 +72,18 @@
 					<h3>
 						<a href="m/people/<?php echo $val['user_info']['url_token']; ?>" class="avatar"><img alt="" src="<?php echo get_avatar_url($val['uid'], 'mid'); ?>" /></a>
 						<a href="m/people/<?php echo $val['user_info']['url_token']; ?>"><?php echo $val['user_info']['user_name']; ?></a>
-						<?php if ($val['at_user_info']) { ?> 回复 <a href="people/<?php echo $val['at_user_info']['url_token']; ?>"><?php echo $val['at_user_info']['user_name']; ?></a><?php } ?>
+						<?php if ($val['at_user_info']) { ?> <?php _e('回复'); ?> <a href="people/<?php echo $val['at_user_info']['url_token']; ?>"><?php echo $val['at_user_info']['user_name']; ?></a><?php } ?>
 					</h3>
 				</div>
 				<div class="aw-mod-body markitup-box"><?php echo nl2br($val['message']); ?></div>
 				<div class="aw-mod-footer">
 					<span class="aw-text-color-999"><?php echo date_friendly($val['add_time']); ?></span> 
 					
-					<a class="aw-article-comment" data-id="<?php echo $val['user_info']['uid']; ?>"><i class="icon-comment"></i> 回复</a>
+					<?php if ($this->user_id) { ?><a class="aw-article-comment" data-id="<?php echo $val['user_info']['uid']; ?>"><i class="icon-comment"></i> <?php _e('回复'); ?></a>
 					
-					<a onclick="comment_vote(this, <?php echo $val['id']; ?>, 1)"<?php if ($val['vote_info']['rating'] == 1) { ?> class="active"<?php } ?>><i class="icon-thumbs-up-alt"></i> <?php if ($val['vote_info']['rating'] == 1) { ?>我已赞<?php } else { ?>赞<?php } ?></a>
+					<a onclick="comment_vote(this, <?php echo $val['id']; ?>, 1)"<?php if ($val['vote_info']['rating'] == 1) { ?> class="active"<?php } ?>><i class="icon-thumbs-up-alt"></i> <?php if ($val['vote_info']['rating'] == 1) { ?><?php _e('我已赞'); ?><?php } else { ?><?php _e('赞'); ?><?php } ?></a><?php } ?>
 					
-					<span class="pull-right aw-text-color-999"><?php echo $val['votes']; ?> 赞</span>
+					<span class="pull-right aw-text-color-999"><?php echo $val['votes']; ?> <?php _e('赞'); ?></span>
 				</div>
 			</li>
 			<?php } ?>
