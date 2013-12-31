@@ -66,7 +66,7 @@
 		
 		<script type="text/javascript">
 			$(document).ready(function () {
-				if (typeof(WeixinJSBridge) != 'undefined')
+				if (typeof WeixinJSBridge != 'undefined')
 				{
 					WeixinJSBridge.on('menu:share:appmessage', function(argv) {
 						WeixinJSBridge.invoke('sendAppMessage', {
