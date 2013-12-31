@@ -44,7 +44,7 @@
 	<?php if ($val['answer_info']) { ?>
 	<div class="aw-mod-body clearfix">
 		<!-- 投票栏 -->
-		<em class="aw-border-radius-5 aw-vote-count pull-left<?php if (!$this->user_id OR $this->user_id == $val['answer_info']['uid']) { ?> disable<?php } ?>"<?php if ($this->user_id AND $this->user_id != $val['answer_info']['uid']) { ?> onclick="insertVoteBar({element:this,agree_count:<?php echo $val['answer_info']['agree_count']; ?>,flag:<?php echo $val['answer_info']['agree_status']; ?>,user_name:G_USER_NAME,answer_id:<?php echo $val['answer_info']['answer_id']; ?>})"<?php } ?>><?php echo $val['answer_info']['agree_count']; ?></em>
+		<em class="aw-border-radius-5 aw-vote-count pull-left<?php if (!$this->user_id OR $this->user_id == $val['answer_info']['uid']) { ?> disabled<?php } ?>"<?php if ($this->user_id AND $this->user_id != $val['answer_info']['uid']) { ?> onclick="insertVoteBar({element:this,agree_count:<?php echo $val['answer_info']['agree_count']; ?>,flag:<?php echo $val['answer_info']['agree_status']; ?>,user_name:G_USER_NAME,answer_id:<?php echo $val['answer_info']['answer_id']; ?>})"<?php } ?>><?php echo $val['answer_info']['agree_count']; ?></em>
 		<!-- end 投票栏 -->
 		<div class="pull-left aw-dynamic-topic-content">
 			<p class="aw-text-color-999 aw-agree-by<?php if (count($val['answer_info']['agree_users']) == 0) { ?> hide<?php } ?>">
