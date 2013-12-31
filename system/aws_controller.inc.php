@@ -30,6 +30,10 @@ class AWS_CONTROLLER
 				date_default_timezone_set($this->user_info['default_timezone']);
 			}
 		}
+		else if ($this->user_id)
+		{
+			$this->model('account')->logout();
+		}
 		else
 		{
 			$user_group = $this->model('account')->get_user_group_by_id(99);
