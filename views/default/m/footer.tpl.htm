@@ -63,5 +63,24 @@
 			<?php echo get_setting('statistic_code'); ?>
 		</div>
 		<!-- / DO NOT REMOVE -->
+		
+		<script type="text/javascript">
+			if (typeof(WeixinJSBridge) != 'undefined')
+			{
+				WeixinJSBridge.on('menu:share:appmessage', function(argv) {
+					WeixinJSBridge.invoke('sendAppMessage', {
+						"title" : document.title,
+						"link" : 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=<?php echo get_setting('weixin_app_id'); ?>&redirect_uri=' + encodeURIComponent(location.href) + '&response_type=code&scope=snsapi_userinfo&state=OAUTH#wechat_redirect'
+			        });
+		        });
+	        
+		    	WeixinJSBridge.on('menu:share:timeline', function(argv) {
+					WeixinJSBridge.invoke('shareTimeline', {
+						"title" : document.title,
+						"link" : 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=<?php echo get_setting('weixin_app_id'); ?>&redirect_uri=' + encodeURIComponent(location.href) + '&response_type=code&scope=snsapi_userinfo&state=OAUTH#wechat_redirect'
+					});
+				});
+			}
+		</script>
 	</body>
 </html>
