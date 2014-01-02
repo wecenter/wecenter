@@ -9,14 +9,17 @@
 .aw-register-box{width: 656px;height: auto;margin:0 auto;background:#F5F5F5;border:1px solid #C9C9C9;border-top:none;border-radius: 0 0 10px 10px;text-align: center;}
 .aw-register-box ul{width: 322px;margin:0 auto;padding: 40px;}
 .aw-register-box ul li{position:relative;width:256px;margin-bottom: 10px;}
-.aw-register-box ul li input{width:257px;height: 40px;line-height: 28px\0;}
+.aw-register-box ul li input[type="text"]{width:257px;height: 40px;line-height: 28px\0;}
 .aw-register-box ul li.last{text-align: left;color:#666;}
 .aw-register-box ul li.last a{font-size: 14px;}
 .aw-register-box ul li.last input{width: 13px;width:30px\0;height: auto;}
 .aw-register-box ul li.last label{display: inline-block;}
 .aw-register-box ul .aw-register-verify{text-align: left;}
-.aw-register-box ul .aw-register-verify input{width: 130px;}
+.aw-register-box ul .aw-register-verify input{width: 130px !important;}
 .aw-register-box ul .aw-register-verify .auth-img{width: 93px;height: 38px;}
+.aw-register-box .more-information ul{padding:0;}
+.aw-register-box .more-information ul li{padding:5px 0;text-align: left;}
+.aw-register-box .more-information-btn, .aw-register-box .more-information-btn i{color: #666;}
 .aw-regiter-agreement{position:relative;width:615px;margin:10px 0 0 -187px;padding: 20px 5px 20px 20px;background:#DEDEDE;border-radius: 10px;}
 .aw-regiter-agreement .i-register-triangle{position: absolute;top:-6px;left: 280px;}
 .aw-register-agreement-txt{max-height: 110px;overflow-x:hidden;overflow-y:auto;}
