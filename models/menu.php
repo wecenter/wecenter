@@ -92,6 +92,7 @@ class menu_class extends AWS_MODEL
 			}
 			
 			$category_info = $this->model('system')->get_category_list('question');
+			
 			$feature_info = $this->model('feature')->get_feature_by_id($feature_ids);
 			
 			switch ($app)
