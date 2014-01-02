@@ -30,103 +30,103 @@
 				</dd>
 		</dl>
 		<dl>
-				<dt><?php _e('生日'); ?>:</dt>
-				<dd>
-					<select name="birthday_y">
-						<option value=""></option>
-						<?php echo H::display_options($this->birthday_y, date('Y', $this->user_info['birthday'])); ?>
-					</select>
-					<?php _e('年'); ?>
-					<select name="birthday_m">
-						<option value=""></option>
-						<?php echo H::display_options(array(
-							0 => '', 
-							1 => 1, 
-							2 => 2, 
-							3 => 3, 
-							4 => 4, 
-							5 => 5, 
-							6 => 6, 
-							7 => 7, 
-							8 => 8, 
-							9 => 9, 
-							10 => 10, 
-							11 => 11, 
-							12 => 12
-						), date('m', $this->user_info['birthday'])); ?>
-					</select>
-					<?php _e('月'); ?>
-					<select name="birthday_d">
-						<option value=""></option>
-						<?php echo H::display_options($this->birthday_d, date('d', $this->user_info['birthday'])); ?>
-					</select>
-					<?php _e('日'); ?>
-				</dd>
+			<dt><?php _e('生日'); ?>:</dt>
+			<dd>
+				<select name="birthday_y">
+					<option value=""></option>
+					<?php echo H::display_options($this->birthday_y, date('Y', $this->user_info['birthday'])); ?>
+				</select>
+				<?php _e('年'); ?>
+				<select name="birthday_m">
+					<option value=""></option>
+					<?php echo H::display_options(array(
+						0 => '', 
+						1 => 1, 
+						2 => 2, 
+						3 => 3, 
+						4 => 4, 
+						5 => 5, 
+						6 => 6, 
+						7 => 7, 
+						8 => 8, 
+						9 => 9, 
+						10 => 10, 
+						11 => 11, 
+						12 => 12
+					), date('m', $this->user_info['birthday'])); ?>
+				</select>
+				<?php _e('月'); ?>
+				<select name="birthday_d">
+					<option value=""></option>
+					<?php echo H::display_options($this->birthday_d, date('d', $this->user_info['birthday'])); ?>
+				</select>
+				<?php _e('日'); ?>
+			</dd>
 		</dl>
 		<dl>
-				<dt><label><?php _e('现居'); ?>:</label></dt>
-				<dd>
-					<select name="province" class="select_area"></select> <select name="city" class="select_area"></select>
-				</dd>
+			<dt><label><?php _e('现居'); ?>:</label></dt>
+			<dd>
+				<select name="province" class="select_area"></select> <select name="city" class="select_area"></select>
+			</dd>
 		</dl>
 		<dl>
-				<dt><label><?php _e('职业'); ?>:</label></dt>
-				<dd>
-					<select name="job_id">
-						<option value="">--</option>
-						<?php echo H::display_options($this->job_list, $this->user_info['job_id']); ?>
-					</select>
-				</dd>
+			<dt><label><?php _e('职业'); ?>:</label></dt>
+			<dd>
+				<select name="job_id">
+					<option value="">--</option>
+					<?php echo H::display_options($this->job_list, $this->user_info['job_id']); ?>
+				</select>
+			</dd>
 		</dl>
 		<dl>
-				<dt><label><?php _e('介绍'); ?>:</label></dt>
-				<dd class="aw-user-setting-base-introduce"><input class="form-control" name="signature" maxlength="128" type="text" value="<?php echo $this->user_info['signature']; ?>"<?php if ($this->user_info['verified']) { ?> disabled="disabled"<?php } ?> /></dd>
-		</dl>
-		<dl class="form-horizontal">
-				<dt><label><?php _e('个性网址'); ?>:</label></dt>
-				<dd>
-					<script type="text/javascript">document.write(G_BASE_URL);</script>/people/ <input type="text" class="form-control" value="<?php echo $this->user_info['url_token']; ?>" maxlength="32" name="url_token" style="display:inline;width:30%;margin-bottom:0;"<?php if ($this->user_info['url_token_update'] AND $this->user_info['url_token_update'] > (time() - 3600 * 24 * 30)) { ?> disabled="disabled"<?php } ?> />
-					<p class="aw-text-color-666"><?php _e('可输入 4~20 位的英文或数字, 30 天内只能修改一次'); ?></p>
-				</dd>
+			<dt><label><?php _e('介绍'); ?>:</label></dt>
+			<dd class="aw-user-setting-base-introduce"><input class="form-control" name="signature" maxlength="128" type="text" value="<?php echo $this->user_info['signature']; ?>"<?php if ($this->user_info['verified']) { ?> disabled="disabled"<?php } ?> /></dd>
+	</dl>
+	<dl class="form-horizontal">
+			<dt><label><?php _e('个性网址'); ?>:</label></dt>
+			<dd>
+				<script type="text/javascript">document.write(G_BASE_URL);</script>/people/ <input type="text" class="form-control" value="<?php echo $this->user_info['url_token']; ?>" maxlength="32" name="url_token" style="display:inline;width:30%;margin-bottom:0;"<?php if ($this->user_info['url_token_update'] AND $this->user_info['url_token_update'] > (time() - 3600 * 24 * 30)) { ?> disabled="disabled"<?php } ?> />
+				<p class="aw-text-color-666"><?php _e('可输入 4~20 位的英文或数字, 30 天内只能修改一次'); ?></p>
+			</dd>
 		</dl>
 		<dl>
-				<dt><label><?php _e('时区'); ?>:</label></dt>
-				<dd>
-					<select class="aw-user-setting-base-time" name="default_timezone">
-						<option value=''><?php _e('使用系统默认时区'); ?></option>
-						<option value='Etc/GMT+12'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT+12') { ?> selected="selected"<?php } ?>><?php _e('(GMT - 12:00 小时) 安尼威托克岛，卡瓦加兰'); ?></option>
-						<option value='Etc/GMT+11'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT+11') { ?> selected="selected"<?php } ?>><?php _e('(GMT - 11:00 小时) 中途岛，萨摩亚'); ?></option>
-						<option value='Etc/GMT+10'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT+10') { ?> selected="selected"<?php } ?>><?php _e('(GMT - 10:00 小时) 夏威夷'); ?></option>
-						<option value='Etc/GMT+9'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT+9') { ?> selected="selected"<?php } ?>><?php _e('(GMT - 9:00 小时) 阿拉斯加'); ?></option>
-						<option value='Etc/GMT+8'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT+8') { ?> selected="selected"<?php } ?>><?php _e('(GMT - 8:00 小时) 太平洋时间'); ?></option>
-						<option value='Etc/GMT+7'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT+7') { ?> selected="selected"<?php } ?>><?php _e('(GMT - 7:00 小时) 美国山区时间'); ?></option>
-						<option value='Etc/GMT+6'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT+6') { ?> selected="selected"<?php } ?>><?php _e('(GMT - 6:00 小时) 美国中部时间，墨西哥市'); ?></option>
-						<option value='Etc/GMT+5'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT+5') { ?> selected="selected"<?php } ?>><?php _e('(GMT - 5:00 小时) 美国东部时间，波哥大，利马'); ?></option>
-						<option value='Etc/GMT+4'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT+4') { ?> selected="selected"<?php } ?>><?php _e('(GMT - 4:00 小时) 大西洋时间（加拿大），加拉加斯，拉巴斯'); ?></option>
-						<option value='Canada/Newfoundland'<?php if ($this->user_info['default_timezone'] == 'Canada/Newfoundland') { ?> selected="selected"<?php } ?>><?php _e('(GMT - 3:30 小时) 纽芬兰'); ?></option>
-						<option value='Etc/GMT+3'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT+3') { ?> selected="selected"<?php } ?>><?php _e('(GMT - 3:00 小时) 巴西，布宜诺斯艾利斯，福克兰群岛'); ?></option>
-						<option value='Etc/GMT+2'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT+2') { ?> selected="selected"<?php } ?>><?php _e('(GMT - 2:00 小时) 大西洋中部，亚森欣，圣赫勒拿岛'); ?></option>
-						<option value='Etc/GMT+1'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT+1') { ?> selected="selected"<?php } ?>><?php _e('(GMT - 1:00 小时) 亚速群岛，佛得角群岛'); ?></option>
-						<option value='Etc/GMT'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT') { ?> selected="selected"<?php } ?>><?php _e('(GMT) 卡萨布兰卡，都柏林，伦敦，里斯本，蒙罗维亚'); ?></option>
-						<option value='Etc/GMT-1'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT-1') { ?> selected="selected"<?php } ?>><?php _e('(GMT + 1:00 小时) 布鲁塞尔，哥本哈根，马德里，巴黎'); ?></option>
-						<option value='Etc/GMT-2'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT-2') { ?> selected="selected"<?php } ?>><?php _e('(GMT + 2:00 小时) 加里宁格勒，南非'); ?></option>
-						<option value='Etc/GMT-3'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT-3') { ?> selected="selected"<?php } ?>><?php _e('(GMT + 3:00 小时) 巴格达，利雅德，莫斯科，奈洛比'); ?></option>
-						<option value='Iran'<?php if ($this->user_info['default_timezone'] == 'Iran') { ?> selected="selected"<?php } ?>><?php _e('(GMT + 3:30 小时) 德黑兰'); ?></option>
-						<option value='Etc/GMT-4'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT-4') { ?> selected="selected"<?php } ?>><?php _e('(GMT + 4:00 小时) 阿布达比，巴库，马斯喀特，第比利斯'); ?></option>
-						<option value='Asia/Kabul'<?php if ($this->user_info['default_timezone'] == 'Asia/Kabul') { ?> selected="selected"<?php } ?>><?php _e('(GMT + 4:30 小时) 喀布尔'); ?></option>
-						<option value='Etc/GMT-5'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT-5') { ?> selected="selected"<?php } ?>><?php _e('(GMT + 5:00 小时) 凯萨琳堡，克拉嗤，塔什干'); ?></option>
-						<option value='Asia/Kolkata'<?php if ($this->user_info['default_timezone'] == 'Asia/Kolkata') { ?> selected="selected"<?php } ?>><?php _e('(GMT + 5:30 小时) 孟买，加尔各答，马德拉斯，新德里'); ?></option>
-						<option value='Etc/GMT-6'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT-6') { ?> selected="selected"<?php } ?>><?php _e('(GMT + 6:00 小时) 阿拉木图，科隆巴，达卡'); ?></option>
-						<option value='Etc/GMT-7'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT-7') { ?> selected="selected"<?php } ?>><?php _e('(GMT + 7:00 小时) 曼谷，河内，雅加达'); ?></option>
-						<option value='Etc/GMT-8'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT-8') { ?> selected="selected"<?php } ?>><?php _e('(GMT + 8:00 小时) 北京，香港，澳洲伯斯，新加坡，台北'); ?></option>
-						<option value='Etc/GMT-9'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT-9') { ?> selected="selected"<?php } ?>><?php _e('(GMT + 9:00 小时) 大阪，札幌，首尔，东京，亚库次克'); ?></option>
-						<option value='Etc/GMT-10'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT-10') { ?> selected="selected"<?php } ?>><?php _e('(GMT + 10:00 小时) 墨尔本，巴布亚新几内亚，雪梨'); ?></option>
-						<option value='Etc/GMT-11'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT-11') { ?> selected="selected"<?php } ?>><?php _e('(GMT + 11:00 小时) 马加丹，新喀里多尼亚，所罗门群岛'); ?></option>
-						<option value='Etc/GMT-12'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT-12') { ?> selected="selected"<?php } ?>><?php _e('(GMT + 12:00 小时) 新西兰，斐济，马绍尔群岛'); ?></option>
-						<option value='Etc/GMT-13'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT-13') { ?> selected="selected"<?php } ?>><?php _e('(GMT + 13:00 小时) 堪察加半岛，阿那底河'); ?></option>
-						<option value='Etc/GMT-14'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT-14') { ?> selected="selected"<?php } ?>><?php _e('(GMT + 14:00 小时) 圣诞岛'); ?></option>
-					</select>
-				</dd>
+			<dt><label><?php _e('时区'); ?>:</label></dt>
+			<dd>
+				<select class="aw-user-setting-base-time" name="default_timezone">
+					<option value=''><?php _e('使用系统默认时区'); ?></option>
+					<option value='Etc/GMT+12'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT+12') { ?> selected="selected"<?php } ?>><?php _e('(GMT - 12:00 小时) 安尼威托克岛，卡瓦加兰'); ?></option>
+					<option value='Etc/GMT+11'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT+11') { ?> selected="selected"<?php } ?>><?php _e('(GMT - 11:00 小时) 中途岛，萨摩亚'); ?></option>
+					<option value='Etc/GMT+10'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT+10') { ?> selected="selected"<?php } ?>><?php _e('(GMT - 10:00 小时) 夏威夷'); ?></option>
+					<option value='Etc/GMT+9'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT+9') { ?> selected="selected"<?php } ?>><?php _e('(GMT - 9:00 小时) 阿拉斯加'); ?></option>
+					<option value='Etc/GMT+8'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT+8') { ?> selected="selected"<?php } ?>><?php _e('(GMT - 8:00 小时) 太平洋时间'); ?></option>
+					<option value='Etc/GMT+7'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT+7') { ?> selected="selected"<?php } ?>><?php _e('(GMT - 7:00 小时) 美国山区时间'); ?></option>
+					<option value='Etc/GMT+6'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT+6') { ?> selected="selected"<?php } ?>><?php _e('(GMT - 6:00 小时) 美国中部时间，墨西哥市'); ?></option>
+					<option value='Etc/GMT+5'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT+5') { ?> selected="selected"<?php } ?>><?php _e('(GMT - 5:00 小时) 美国东部时间，波哥大，利马'); ?></option>
+					<option value='Etc/GMT+4'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT+4') { ?> selected="selected"<?php } ?>><?php _e('(GMT - 4:00 小时) 大西洋时间（加拿大），加拉加斯，拉巴斯'); ?></option>
+					<option value='Canada/Newfoundland'<?php if ($this->user_info['default_timezone'] == 'Canada/Newfoundland') { ?> selected="selected"<?php } ?>><?php _e('(GMT - 3:30 小时) 纽芬兰'); ?></option>
+					<option value='Etc/GMT+3'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT+3') { ?> selected="selected"<?php } ?>><?php _e('(GMT - 3:00 小时) 巴西，布宜诺斯艾利斯，福克兰群岛'); ?></option>
+					<option value='Etc/GMT+2'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT+2') { ?> selected="selected"<?php } ?>><?php _e('(GMT - 2:00 小时) 大西洋中部，亚森欣，圣赫勒拿岛'); ?></option>
+					<option value='Etc/GMT+1'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT+1') { ?> selected="selected"<?php } ?>><?php _e('(GMT - 1:00 小时) 亚速群岛，佛得角群岛'); ?></option>
+					<option value='Etc/GMT'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT') { ?> selected="selected"<?php } ?>><?php _e('(GMT) 卡萨布兰卡，都柏林，伦敦，里斯本，蒙罗维亚'); ?></option>
+					<option value='Etc/GMT-1'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT-1') { ?> selected="selected"<?php } ?>><?php _e('(GMT + 1:00 小时) 布鲁塞尔，哥本哈根，马德里，巴黎'); ?></option>
+					<option value='Etc/GMT-2'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT-2') { ?> selected="selected"<?php } ?>><?php _e('(GMT + 2:00 小时) 加里宁格勒，南非'); ?></option>
+					<option value='Etc/GMT-3'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT-3') { ?> selected="selected"<?php } ?>><?php _e('(GMT + 3:00 小时) 巴格达，利雅德，莫斯科，奈洛比'); ?></option>
+					<option value='Iran'<?php if ($this->user_info['default_timezone'] == 'Iran') { ?> selected="selected"<?php } ?>><?php _e('(GMT + 3:30 小时) 德黑兰'); ?></option>
+					<option value='Etc/GMT-4'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT-4') { ?> selected="selected"<?php } ?>><?php _e('(GMT + 4:00 小时) 阿布达比，巴库，马斯喀特，第比利斯'); ?></option>
+					<option value='Asia/Kabul'<?php if ($this->user_info['default_timezone'] == 'Asia/Kabul') { ?> selected="selected"<?php } ?>><?php _e('(GMT + 4:30 小时) 喀布尔'); ?></option>
+					<option value='Etc/GMT-5'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT-5') { ?> selected="selected"<?php } ?>><?php _e('(GMT + 5:00 小时) 凯萨琳堡，克拉嗤，塔什干'); ?></option>
+					<option value='Asia/Kolkata'<?php if ($this->user_info['default_timezone'] == 'Asia/Kolkata') { ?> selected="selected"<?php } ?>><?php _e('(GMT + 5:30 小时) 孟买，加尔各答，马德拉斯，新德里'); ?></option>
+					<option value='Etc/GMT-6'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT-6') { ?> selected="selected"<?php } ?>><?php _e('(GMT + 6:00 小时) 阿拉木图，科隆巴，达卡'); ?></option>
+					<option value='Etc/GMT-7'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT-7') { ?> selected="selected"<?php } ?>><?php _e('(GMT + 7:00 小时) 曼谷，河内，雅加达'); ?></option>
+					<option value='Etc/GMT-8'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT-8') { ?> selected="selected"<?php } ?>><?php _e('(GMT + 8:00 小时) 北京，香港，澳洲伯斯，新加坡，台北'); ?></option>
+					<option value='Etc/GMT-9'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT-9') { ?> selected="selected"<?php } ?>><?php _e('(GMT + 9:00 小时) 大阪，札幌，首尔，东京，亚库次克'); ?></option>
+					<option value='Etc/GMT-10'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT-10') { ?> selected="selected"<?php } ?>><?php _e('(GMT + 10:00 小时) 墨尔本，巴布亚新几内亚，雪梨'); ?></option>
+					<option value='Etc/GMT-11'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT-11') { ?> selected="selected"<?php } ?>><?php _e('(GMT + 11:00 小时) 马加丹，新喀里多尼亚，所罗门群岛'); ?></option>
+					<option value='Etc/GMT-12'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT-12') { ?> selected="selected"<?php } ?>><?php _e('(GMT + 12:00 小时) 新西兰，斐济，马绍尔群岛'); ?></option>
+					<option value='Etc/GMT-13'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT-13') { ?> selected="selected"<?php } ?>><?php _e('(GMT + 13:00 小时) 堪察加半岛，阿那底河'); ?></option>
+					<option value='Etc/GMT-14'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT-14') { ?> selected="selected"<?php } ?>><?php _e('(GMT + 14:00 小时) 圣诞岛'); ?></option>
+				</select>
+			</dd>
 		</dl>
 		<!-- 上传头像 -->
 		<div class="aw-user-setting-upload-img-box">

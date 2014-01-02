@@ -26,20 +26,22 @@
 			<div class="aw-mod-head clearfix">
 		    	<h3><?php _e('问题标题'); ?>:</h3>
 		    	<div class="aw-publish-title">
-		    		<input type="text" class="pull-left<?php if (!$this->question_category_list) { ?> active<?php } ?>" placeholder="<?php _e('问题标题'); ?>..." name="question_content" value="<?php echo $this->question_info['question_content']; ?>" />
-		    		<?php if ($this->question_category_list) { ?>
+		    		<textarea class="form-control pull-left" placeholder="<?php _e('问题标题'); ?>..." name="question_content" value="<?php echo $this->question_info['question_content']; ?>"></textarea>
+		    		
+		    	</div>
+		    	<?php if ($this->question_category_list) { ?>
+			    	<h3><?php _e('选择分类'); ?>:</h3>
 				    <div class="aw-publish-dropdown pull-left">
 				    	<p class="dropdown-toggle" data-toggle="dropdown">
 				    		<span class="pull-left aw-text-color-999"><?php _e('选择分类'); ?></span>
 				    		<i class="pull-left"></i>
 				    	</p>
 				    </div>
-				    <?php } ?>
-		    	</div>
+		    	<?php } ?>
 			</div>
 		    <div class="aw-mod-body clearfix">
-		    	<h3><?php _e('问题补充 (选填)'); ?>:</h3>
-		    	<textarea name="question_detail" class="form-control" id="question_detail" rows="4"><?php echo $this->question_info['question_detail']; ?></textarea>
+		    	<h3><?php _e('问题补充 (选填)'); ?>: <span id="file_uploader_answer"></span></h3>
+		    	<textarea name="question_detail" class="form-control textarea_content" id="question_detail" rows="4" placeholder="<?php _e('问题补充'); ?>"><?php echo $this->question_info['question_detail']; ?></textarea>
 		    	
 		    	<?php if (!$this->question_info['question_id']) { ?>
 	    		<div class="aw-topic-edit-box" id="quick_publish_topic_chooser">
@@ -48,7 +50,6 @@
 					</div>
 				</div>
 				<?php } ?>
-				<div id="file_uploader_answer"></div>
 			</div>
 		    <div class="aw-mod-footer">
 		    	<?php if ($this->human_valid) { ?>

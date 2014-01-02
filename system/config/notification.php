@@ -99,5 +99,5 @@ $config['action_details'][notify_class::TYPE_ARTICLE_NEW_COMMENT] = array(
 $config['action_details'][notify_class::TYPE_ARTICLE_COMMENT_AT_ME] = array(
 	'user_setting' => 1,
 	'combine' => 1,
-	'desc' => '我的文章被评论',
+	'desc' => '有文章评论提到我',
 );
