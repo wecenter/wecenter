@@ -1,0 +1,1 @@
+DELETE FROM `[#DB_PREFIX#]system_setting` WHERE `varname` = 'register_email_reqire';INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES ('register_valid_type', 's:5:"email";');
