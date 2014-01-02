@@ -88,6 +88,11 @@
 						<input name="weixin_settings[]" value="NEW_COMMENT" type="checkbox"<?php if ($this->user_info['weixin_settings']['NEW_COMMENT'] != 'N') { ?> checked="checked"<?php } ?> /> <?php _e('我的回复有了新评论'); ?>
 					</label>
 				</span>
+				<span>
+					<label>
+						<input name="weixin_settings[]" value="QUESTION_INVITE" type="checkbox"<?php if ($this->user_info['weixin_settings']['QUESTION_INVITE'] != 'N') { ?> checked="checked"<?php } ?> /> <?php _e('有人邀请我回答问题'); ?>
+					</label>
+				</span>
 			</p>
 		</div>
 	</div>
