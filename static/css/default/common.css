@@ -533,7 +533,7 @@ a.aw-load-more-content{display: block;}
 .aw-publish-title-dropdown .dropdown-menu ul li, .aw-question-follow .dropdown-menu ul li{padding:5px 10px;}
 .aw-publish-title-dropdown .dropdown-menu ul li a, .aw-question-follow .dropdown-menu ul li a{display: block;}
 .aw-mod-publish .aw-mod-footer{margin-top:20px;text-align: right;}
-.aw-mod-publish .aw-mod-footer .aw-anonymity{margin:8px 30px 8px 0;}
+.aw-mod-publish .aw-mod-footer .aw-anonymity{margin:8px 20px 8px 10px;}
 .aw-mod-publish .aw-mod-footer .aw-anonymity label{margin-left: 10px;}
 .aw-mod-publish .aw-mod-footer .aw-anonymity input{margin:4px 3px 0 0;margin:0\0;}
 .aw-mod-publish-box{height: auto;overflow: hidden;}
@@ -839,7 +839,7 @@ a.aw-load-more-content{display: block;}
 .aw-mod-replay-box .aw-mod-body{position:relative;padding:20px;background: #f8f8f8;border: 1px solid #C2CACD;}
 .aw-mod-replay-box .aw-mod-body .aw-text-color-999{margin-bottom:10px;}
 .aw-mod-replay-box .aw-replay-box-control{position: relative;height: auto;line-height: 34px;}
-.aw-mod-replay-box .aw-replay-box-control .btn-submit{margin-left: 10px;}
+.aw-mod-replay-box .aw-replay-box-control .btn-publish-submit{margin-left: 10px;}
 .aw-mod-article-replay-box{position:relative;margin-top:20px;padding-left: 40px;}
 .aw-mod-article-replay-box .aw-mod-head{position:absolute;left:0;}
 .aw-mod-article-replay-box .aw-mod-head img{width: 32px;height: 32px;}
