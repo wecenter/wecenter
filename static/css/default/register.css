@@ -20,8 +20,7 @@
 .aw-regiter-agreement{position:relative;width:615px;margin:10px 0 0 -187px;padding: 20px 5px 20px 20px;background:#DEDEDE;border-radius: 10px;}
 .aw-regiter-agreement .i-register-triangle{position: absolute;top:-6px;left: 280px;}
 .aw-register-agreement-txt{max-height: 110px;overflow-x:hidden;overflow-y:auto;}
-.error-message .fa-times{margin-right:5px;color: #c30100;font-size: 16px;vertical-align: middle;}
-
+.alert-danger{text-align: left;}
 /* 注册提示 */
 .aw-register-box li span{position:absolute;top:0;right:-145px;width: 130px;padding:5px;font-size:12px;border-radius: 5px;overflow: hidden;text-align: left;}
 .aw-reg-tips{line-height:15px;background: #EEF7FD;border: 1px solid #CFDDE6;color:#999;}
