@@ -32,6 +32,7 @@ class email_class extends AWS_MODEL
 	NEW_MESSAGE // 有人向我发送私信
 	QUESTION_MOD // 问题被修改
 	QUESTION_DEL // 问题被删除
+	REGISTER_DECLINE // 注册被拒绝
 	*/
 	
 	public function action_email($action, $email, $link, $data = array())
@@ -60,6 +61,7 @@ class email_class extends AWS_MODEL
 			$$key = str_replace('[#user_name#]', $data['user_name'], $val);
 			$$key = str_replace('[#site_name#]', get_setting('site_name'), $$key);
 			$$key = str_replace('[#question_title#]', $data['question_title'], $$key);
+			$$key = str_replace('[#message#]', $data['message'], $$key);
 			
 			if (preg_match('/question_detail/i', $$key))
 			{
@@ -85,9 +87,9 @@ class email_class extends AWS_MODEL
 		}
 	}
 	
-	public function get_mail_template($username, $subject, $message, $link = null, $link_title = null)
+	public function get_mail_template($user_name, $subject, $message, $link = null, $link_title = null)
 	{
-		TPL::assign('username', $username);
+		TPL::assign('user_name', $user_name);
 		TPL::assign('subject', $subject);
 		TPL::assign('message', $message);
 		TPL::assign('link', $link);
@@ -105,12 +107,12 @@ class email_class extends AWS_MODEL
 				return false;
 			}
 			
-			$username = $user_info['user_name'];
+			$user_name = $user_info['user_name'];
 			
 			$email = $user_info['email'];
 		}
 		
-		return AWS_APP::mail()->send($email, $subject, $this->get_mail_template($username, $subject, $message, $link, $link_title), get_setting('site_name'), $username);
+		return AWS_APP::mail()->send($email, $subject, $this->get_mail_template($user_name, $subject, $message, $link, $link_title), get_setting('site_name'), $user_name);
 	}
 	
 	public function send_mail_queue($limit = 10)

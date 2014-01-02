@@ -808,9 +808,9 @@ a.aw-load-more-content{display: block;}
 .aw-edit-comment-box .aw-file-upload-box{padding:20px;border:1px solid #ccc;border-top: none;}
 /* 用户初次登陆提示box */
 .aw-first-login .aw-mod-head h2{font-size: 20px;line-height: 20px;padding-bottom: 40px;}
-.aw-first-login .aw-mod-head ul{width:536px;height: auto;overflow: hidden;background: #fff;border:1px solid #E3E3E3;}
+.aw-first-login .aw-mod-head ul{width:560px;height: auto;overflow: hidden;background: #fff;border:1px solid #E3E3E3;}
 .aw-first-login .aw-mod-head ul.active, .aw-first-login .aw-mod-head ul li.active{background: #E7EFF3;}
-.aw-first-login .aw-mod-head ul li{display: inline;float: left;width: 178px;height:48px;line-height:48px;padding-left:20px;}
+.aw-first-login .aw-mod-head ul li{display: inline;float: left;width: 186px;height:48px;line-height:48px;padding-left:20px;}
 .aw-first-login .aw-mod-head ul li em{display:inline-block;width: 25px;height: 25px;line-height: 25px;margin-right:10px;background: #E6E6E6;text-align: center;}
 .aw-first-login .aw-mod-head ul li.active em{background: #fff;}
 .aw-first-login .aw-complete-data{height: auto;overflow: hidden;margin:15px 0;padding:40px;background:#fff;border:1px solid #E3E3E3;font-size: 12px;}

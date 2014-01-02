@@ -48,7 +48,7 @@ class ucenter_class extends AWS_MODEL
 		$this->ucenter_charset = strtolower(get_setting('ucenter_charset'));
 	}
 	
-	function register($_username, $_password, $_email, $email_valid = false)
+	function register($_username, $_password, $_email)
 	{
 		if ($this->ucenter_charset != 'utf-8')
 		{
@@ -62,7 +62,7 @@ class ucenter_class extends AWS_MODEL
 		switch ($result)
 		{
 			default:
-				$this->model('account')->user_register($_username, $_password, $_email, $email_valid);
+				$this->model('account')->user_register($_username, $_password, $_email);
 				
 				return array(
 					'user_info' => $this->model('account')->get_user_info_by_username($_username),
