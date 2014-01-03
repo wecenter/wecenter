@@ -195,7 +195,6 @@ a.aw-load-more-content{display: block;}
 
 /* 搜索框 */
 .aw-search-box{width:264px !important;padding-left: 10px;}
-.aw-search-box #aw-search-query{width: 206px;}
 .aw-search-box .input-group{margin-bottom: 10px;}
 .aw-search-box .input-group .input-group-addon{border-left:none;border-radius: 0 5px 5px 0;cursor: pointer;}
 .aw-search-box form{margin-top:10px;}
@@ -390,6 +389,7 @@ a.aw-load-more-content{display: block;}
 
 /* 文章广场 */
 .aw-article-square .aw-main-content{border-right: 1px solid #e1e1e1;}
+.aw-article-square .category{margin-bottom: 20px;}
 .aw-article-list .aw-item{position: relative;margin-bottom:20px;padding-left: 70px;padding-bottom:20px;border-bottom:1px solid #e1e1e1;}
 .aw-article-list .aw-item > .aw-user-name{position: absolute;left: 0;top: 0;}
 .aw-article-list .aw-item h2{font-size: 20px;line-height: 24px;}
