@@ -89,7 +89,7 @@
 .aw-dynamic-topic .aw-item.active{width: 617px;}
 .aw-comment-box-main{background: #f7f7f7;}
 .aw-question-detail-title .aw-mod-head h1{width:480px;}
-.aw-question-detail-box .aw-vote-bar, .aw-dynamic-topic .aw-vote-count.disable{left: -25px;}
+.aw-question-detail-box .aw-vote-bar, .aw-dynamic-topic .aw-vote-count.disabled{left: -25px !important;}
 
 /* 经验详情页 */
 .aw-article-detail-meta{margin:0;}
