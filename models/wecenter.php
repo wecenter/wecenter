@@ -40,7 +40,7 @@ class wecenter_class extends AWS_MODEL
 			return false;
 		}
 		
-		$_post_data[] = 'access_token=' . get_setting('wecenter_access_token');
+		$_post_data[] = 'wecenter_access_token=' . get_setting('wecenter_access_token');
 		$_post_data[] = 'version=1';
 		
 		$curl = curl_init();
