@@ -198,6 +198,7 @@ a.aw-load-more-content{display: block;}
 .aw-search-box .input-group{margin-bottom: 10px;}
 .aw-search-box .input-group .input-group-addon{border-left:none;border-radius: 0 5px 5px 0;cursor: pointer;}
 .aw-search-box form{margin-top:10px;}
+.aw-search-box form input{width: 210px !important;}
 /* 搜索下拉菜单 */
 .aw-search-box .aw-dropdown{top:44px;left:0;width: 360px;}
 .aw-search-box .aw-dropdown .i-dropdown-triangle{position: absolute;top:-6px;}
