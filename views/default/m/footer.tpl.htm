@@ -68,17 +68,19 @@
 			$(document).ready(function () {
 				if (typeof WeixinJSBridge != 'undefined')
 				{
-					WeixinJSBridge.on('menu:share:appmessage', function(argv) {
-						WeixinJSBridge.invoke('sendAppMessage', {
-							"title" : document.title,
-							"link" : 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=<?php echo get_setting('weixin_app_id'); ?>&redirect_uri=' + encodeURIComponent(G_BASE_URL + '/m/weixin/redirect/?redirect=' + $.base64.encode(location.href)) + '&response_type=code&scope=snsapi_userinfo&state=OAUTH#wechat_redirect'
+					document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+						WeixinJSBridge.on('menu:share:appmessage', function(argv) {
+							WeixinJSBridge.invoke('sendAppMessage', {
+								"title" : document.title,
+								"link" : 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=<?php echo get_setting('weixin_app_id'); ?>&redirect_uri=' + encodeURIComponent(G_BASE_URL + '/m/weixin/redirect/?redirect=' + $.base64.encode(location.href)) + '&response_type=code&scope=snsapi_userinfo&state=OAUTH#wechat_redirect'
+					        });
 				        });
-			        });
-					
-			    	WeixinJSBridge.on('menu:share:timeline', function(argv) {
-						WeixinJSBridge.invoke('shareTimeline', {
-							"title" : document.title,
-							"link" : 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=<?php echo get_setting('weixin_app_id'); ?>&redirect_uri=' + encodeURIComponent(G_BASE_URL + '/m/weixin/redirect/?redirect=' + $.base64.encode(location.href)) + '&response_type=code&scope=snsapi_userinfo&state=OAUTH#wechat_redirect'
+						
+				    	WeixinJSBridge.on('menu:share:timeline', function(argv) {
+							WeixinJSBridge.invoke('shareTimeline', {
+								"title" : document.title,
+								"link" : 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=<?php echo get_setting('weixin_app_id'); ?>&redirect_uri=' + encodeURIComponent(G_BASE_URL + '/m/weixin/redirect/?redirect=' + $.base64.encode(location.href)) + '&response_type=code&scope=snsapi_userinfo&state=OAUTH#wechat_redirect'
+							});
 						});
 					});
 				}
