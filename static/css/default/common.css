@@ -50,7 +50,7 @@ input, textarea{padding: 6px !important;}
 table td{vertical-align: middle !important;}
 .aw-padding10{padding:10px;}
 .aw-margin-top-10{margin-top:10px;}
-.aw-wecenter{max-width:940px;height:auto;margin:0 auto;}
+.aw-wecenter{max-width:960px;height:auto;margin:0 auto;}
 .aw-content-wrap{padding-bottom:30px;}
 .aw-load-more-content{position:relative;overflow: hidden;height: 34px;line-height: 34px;margin: 15px auto 0;padding:0 10px;background-color: #E1F0F7;border:1px solid #D1E6ED;text-align: center;cursor: pointer;}
 a.aw-load-more-content{display: block;}
@@ -147,7 +147,7 @@ a.aw-load-more-content{display: block;}
 
 /* top-menu */
 .aw-top-menu-wrap{position:relative;z-index:1001;width:100%;min-height:54px;margin-bottom:30px;background:#3579a6;}
-.aw-top-menu{max-width:940px;overflow: visible;}
+.aw-top-menu{overflow: visible;}
 .aw-logo{width:100px;height:40px;margin:9px 0 0 0;}
 .aw-logo a{display:block;width: 57px;height: 36px;background:url('img/logo.png') no-repeat;}
 .aw-logo h1{height:25px;line-height:25px;margin:-2px 0 2px 0;font-size:14px;}
@@ -198,6 +198,7 @@ a.aw-load-more-content{display: block;}
 .aw-search-box .input-group{margin-bottom: 10px;}
 .aw-search-box .input-group .input-group-addon{border-left:none;border-radius: 0 5px 5px 0;cursor: pointer;}
 .aw-search-box form{margin-top:10px;}
+.aw-search-box form input{width: 210px !important;}
 /* 搜索下拉菜单 */
 .aw-search-box .aw-dropdown{top:44px;left:0;width: 360px;}
 .aw-search-box .aw-dropdown .i-dropdown-triangle{position: absolute;top:-6px;}
