@@ -193,7 +193,7 @@ switch ($_POST['step'])
 			
 			if ($_POST['db_port'])
 			{
-				$db_config['db_port'] = $_POST['db_port'];
+				$db_config['port'] = $_POST['db_port'];
 			}
 			
 			if ($_POST['db_driver'])
@@ -277,7 +277,7 @@ switch ($_POST['step'])
 			
 			if ($_POST['db_port'])
 			{
-				$config['db_port'] = $_POST['db_port'];
+				$config['port'] = $_POST['db_port'];
 			}
 			
 			load_class('core_config')->set('database', $config);
