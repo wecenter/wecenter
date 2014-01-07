@@ -47,7 +47,8 @@
 		<!-- / DO NOT REMOVE -->
 		
 		<script type="text/javascript">
-			$(document).ready(function () {
+			document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() 
+			{
 				if (typeof WeixinJSBridge != 'undefined')
 				{
 					WeixinJSBridge.on('menu:share:appmessage', function(argv) {
@@ -65,6 +66,7 @@
 					});
 				}
 			});
+
 		</script>
 	</body>
 </html>
