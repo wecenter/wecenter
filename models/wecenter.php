@@ -22,11 +22,6 @@ class wecenter_class extends AWS_MODEL
 {
 	public function mp_server_query($node, $post_data = null)
 	{
-		if (!get_setting('wecenter_access_token'))
-		{
-			return false;
-		}
-		
 		if ($post_data)
 		{
 			foreach ($post_data AS $key => $val)
@@ -40,7 +35,11 @@ class wecenter_class extends AWS_MODEL
 			return false;
 		}
 		
-		$_post_data[] = 'wecenter_access_token=' . get_setting('wecenter_access_token');
+		if (get_setting('wecenter_access_token'))
+		{
+			$_post_data[] = 'wecenter_access_token=' . get_setting('wecenter_access_token');
+		}
+		
 		$_post_data[] = 'version=1';
 		
 		$curl = curl_init();
