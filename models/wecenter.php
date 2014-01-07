@@ -50,6 +50,8 @@ class wecenter_class extends AWS_MODEL
 		
 		curl_close($curl);
 		
+		echo 'r:' . $content; die;
+		
 		return json_decode($content, true);
 	}
 }
