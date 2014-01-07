@@ -32,6 +32,23 @@ class setting_class extends AWS_MODEL
 		
 		return $settings;
 	}
+	
+	public function set_vars($vars)
+	{
+		if (!is_array($vars))
+		{
+			return false;
+		}
+		
+		foreach ($vars as $key => $val)
+		{
+			$this->update('system_setting', array(
+				'value' => serialize($val)
+			), "`varname` = '" . $this->quote($key) . "'");
+		}
+		
+		return true;
+	}
 
 	public function get_ui_styles()
 	{
