@@ -22,7 +22,7 @@ class wecenter_class extends AWS_MODEL
 {
 	public function mp_server_query($node, $post_data = null)
 	{
-		if (get_setting('wecenter_access_token'))
+		if (!get_setting('wecenter_access_token'))
 		{
 			return false;
 		}
