@@ -8,24 +8,6 @@
 				<span class="slide-close" onclick="$(this).parents('.aw-top-nav-popup').hide();"><i class="fa fa-angle-up"></i></span>
 			</div>
 			<!-- end 导航下拉 消息 -->
-			
-			<script type="text/javascript">
-				$(document).ready(function () {
-					if (G_USER_ID)
-					{
-						$.get(G_BASE_URL + '/notifications/ajax/list/flag-0__limit-10', function (data) {
-							if (data)
-							{
-								$('#notifications_list').html(data);
-							}
-							else
-							{
-								$('#notifications_list').html('<li><p align="center">暂无新通知</p></li>');
-							}
-						});
-					}					
-				});
-			</script>
 
 			<!-- 导航下拉 我 -->
 			<div class="aw-top-nav-popup aw-top-nav-profile hide">
