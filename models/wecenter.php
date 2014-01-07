@@ -39,7 +39,7 @@ class wecenter_class extends AWS_MODEL
 		
 		$curl = curl_init();
 		
-		curl_setopt($curl, CURLOPT_URL, 'http://mp.wecenter.com/?/' . $node . '/');
+		curl_setopt($curl, CURLOPT_URL, 'http://mp.wecenter.com/?/services/' . $node . '/');
 		curl_setopt($curl, CURLOPT_HEADER, false);
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 		
@@ -49,8 +49,6 @@ class wecenter_class extends AWS_MODEL
 		$content = trim(curl_exec($curl));
 		
 		curl_close($curl);
-		
-		echo 'r:' . $content; die;
 		
 		return json_decode($content, true);
 	}
