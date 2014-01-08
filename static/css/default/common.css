@@ -711,7 +711,7 @@ a.aw-load-more-content{display: block;}
 .aw-feature-content .aw-mod{margin-bottom: 30px;}
 
 /* 底部版权 */
-.aw-footer{padding:30px 0;font-size: 12px;}
+.aw-footer{padding:30px 0;font-size: 12px;text-align: center;}
 .aw-footer .aw-copyright .fa-rss-square{font-size: 14px;color: #e6a244;}
 .aw-copyright{text-align:right;}
 .aw-copyright a img{position: relative;top: -2px;}

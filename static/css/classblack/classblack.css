@@ -153,9 +153,7 @@
 .aw-mod-body ul li.last .btn{color: #fff;}
 
 /* 底部 */
-.aw-footer-wrap{height: 40px;line-height: 40px;background: #333333;}
-.aw-footer{padding: 0;color: #fff;}
-.aw-footer a{color: #fff;}
+.aw-footer-wrap{line-height: 40px;}
 
 /* 编辑器 */
 .aw-mod-replay-box .aw-mod-body{background: #F7F7F7;}
