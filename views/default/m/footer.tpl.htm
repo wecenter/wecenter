@@ -49,16 +49,16 @@
 		<script type="text/javascript">
 		$(function()
 		{
-			var weixin_handler = setInterval(function()
-			{
-				// 判断是否微信打开
-				if (typeof G_IN_WEIXIN != 'undefined' && G_IN_WEIXIN == true)
-			    {
-			    	$('header, nav, footer').hide();
-			        // if ($.cookie('wechat-tips-close') != 'true')
-			        // {
-			        // 	$('.aw-global-tips').show();
-			        // }
+			// 判断是否微信打开
+			if (typeof G_IN_WEIXIN != 'undefined' && G_IN_WEIXIN == true)
+		    {
+		    	$('header, nav, footer').hide();
+		        // if ($.cookie('wechat-tips-close') != 'true')
+		        // {
+		        // 	$('.aw-global-tips').show();
+		        // }
+		        var weixin_handler = setInterval(function()
+				{
 			    	try
 			        {
 			        	WeixinJSBridge.on('menu:share:appmessage', function(argv) {
@@ -82,10 +82,9 @@
 			        {
 			        	alert(e);
 			        }
-			    }
-			}, 500);
-			
+				}, 500);
 
+		    }
 		});
 		</script>
 	</body>
