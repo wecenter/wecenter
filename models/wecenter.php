@@ -26,7 +26,10 @@ class wecenter_class extends AWS_MODEL
 		{
 			foreach ($post_data AS $key => $val)
 			{
-				$_post_data[] = $key . '=' . rawurlencode($val);
+				if ($val)
+				{
+					$_post_data[] = $key . '=' . rawurlencode($val);
+				}
 			}
 		}
 		
