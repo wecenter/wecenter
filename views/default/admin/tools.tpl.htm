@@ -3,8 +3,21 @@
 
 <div class="right-side">
 	<div class="aw-box aw-box-row tools">
-		<div class="aw-mod-head"><h2>系统维护</h2></div>
-		<div class="aw-mod-body">			
+		<div class="aw-mod-head"><h2><?php _e('系统维护'); ?></h2></div>
+		<div class="aw-mod-body">
+			<dl>
+				<form action="admin/tools/mp_services_check/" method="post" id="mp_services_check_form">
+					<dt><h3><?php _e('WeCenter 微信服务状态查询'); ?>:</h3></dt>
+					
+					<dd class="aw-box-row-dd">
+						<p class="aw-text-color-999"><?php _e('可以在这里对 http://mp.wecenter.com 的微信服务进行状态查询'); ?></p>
+					</dd>
+					<dd>
+						<input class="btn btn-inverse" type="button" onclick="ajax_post($('#mp_services_check_form'))" value="<?php _e('开始处理'); ?>" />
+					</dd>
+				</form>
+			</dl>
+					
 			<dl>
 				<form action="admin/tools/init/" method="post">
 					<input type="hidden" name="action" value="cache_clean" />

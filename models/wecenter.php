@@ -22,11 +22,6 @@ class wecenter_class extends AWS_MODEL
 {
 	public function mp_server_query($node, $post_data = null)
 	{
-		if (get_setting('wecenter_access_token'))
-		{
-			return false;
-		}
-		
 		if ($post_data)
 		{
 			foreach ($post_data AS $key => $val)
@@ -35,17 +30,16 @@ class wecenter_class extends AWS_MODEL
 			}
 		}
 		
-		if (!$_post_data)
+		if (get_setting('wecenter_access_token'))
 		{
-			return false;
+			$_post_data[] = 'wecenter_access_token=' . get_setting('wecenter_access_token');
 		}
 		
-		$_post_data[] = 'wecenter_access_token=' . get_setting('wecenter_access_token');
 		$_post_data[] = 'version=1';
 		
 		$curl = curl_init();
 		
-		curl_setopt($curl, CURLOPT_URL, 'http://mp.wecenter.com/?/' . $node . '/');
+		curl_setopt($curl, CURLOPT_URL, 'http://mp.wecenter.com/?/services/' . $node . '/');
 		curl_setopt($curl, CURLOPT_HEADER, false);
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 		
