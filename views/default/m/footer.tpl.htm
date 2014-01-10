@@ -1,1 +1,90 @@
-		<!-- 导航下拉内容 -->		<div class="aw-top-nav-wrap">			<!-- 导航下拉 消息 -->			<div class="aw-top-nav-popup aw-top-nav-notic hide">				<div class="aw-top-nav-notic-wrap">					<ul id="notifications_list"></ul>				</div>				<span class="slide-close" onclick="$(this).parents('.aw-top-nav-popup').hide();"><i class="fa fa-angle-up"></i></span>			</div>			<!-- end 导航下拉 消息 -->			<!-- 导航下拉 我 -->			<div class="aw-top-nav-popup aw-top-nav-profile hide">				<ul>					<li>						<a href="m/people/"><?php _e('我的主页'); ?></a>					</li>					<li>						<a href="m/inbox/"><?php _e('私信'); ?><?php if ($this->user_info['inbox_unread']) { ?><span class="badge badge-info"><?php echo $this->user_info['inbox_unread']; ?></span><?php } ?></a>					</li>					<li>						<a href="m/settings/"><?php _e('设置'); ?></a>					</li>					<li>						<a href="account/logout/"><?php _e('退出'); ?></a>					</li>				</ul>				<span class="slide-close" onclick="$(this).parents('.aw-top-nav-popup').hide();"><i class="fa fa-angle-up"></i></span>			</div>			<!-- end 导航下拉 我 -->		</div>		<!-- end 导航下拉内容 -->		<!-- 底部 -->		<footer>			Copyright © <?php echo date('Y'); ?> - <?php echo get_setting('site_name'); ?>			<p><a href="<?php echo get_setting('base_url'); ?>/<?php if (get_setting('url_rewrite_enable') != 'Y') { ?><?php echo G_INDEX_SCRIPT; ?><?php } ?>ignore_ua_check-TRUE"><?php _e('访问桌面版网站'); ?></a></p>		</footer>		<!-- end 底部 -->				<!-- DO NOT REMOVE -->		<div id="aw-ajax-box" class="aw-ajax-box"></div>		<div style="display:none">			<?php echo get_setting('statistic_code'); ?>		</div>		<!-- / DO NOT REMOVE -->				<script type="text/javascript">			// $(document).ready(function () {			// 	if (typeof WeixinJSBridge != 'undefined')			// 	{			// 		WeixinJSBridge.on('menu:share:appmessage', function(argv) {			// 			WeixinJSBridge.invoke('sendAppMessage', {			// 				"title" : document.title,			// 				"link" : 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=<?php echo get_setting('weixin_app_id'); ?>&redirect_uri=' + encodeURIComponent(G_BASE_URL + '/m/weixin/redirect/?redirect=' + $.base64.encode(location.href)) + '&response_type=code&scope=snsapi_userinfo&state=OAUTH#wechat_redirect'			// 	        });			//         });								//     	WeixinJSBridge.on('menu:share:timeline', function(argv) {			// 			WeixinJSBridge.invoke('shareTimeline', {			// 				"title" : document.title,			// 				"link" : 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=<?php echo get_setting('weixin_app_id'); ?>&redirect_uri=' + encodeURIComponent(G_BASE_URL + '/m/weixin/redirect/?redirect=' + $.base64.encode(location.href)) + '&response_type=code&scope=snsapi_userinfo&state=OAUTH#wechat_redirect'			// 			});			// 		});			// 	}			// });		</script>	</body></html>
+		<!-- 导航下拉内容 -->
+		<div class="aw-top-nav-wrap">
+			<!-- 导航下拉 消息 -->
+			<div class="aw-top-nav-popup aw-top-nav-notic hide">
+				<div class="aw-top-nav-notic-wrap">
+					<ul id="notifications_list"></ul>
+				</div>
+				<span class="slide-close" onclick="$(this).parents('.aw-top-nav-popup').hide();"><i class="fa fa-angle-up"></i></span>
+			</div>
+			<!-- end 导航下拉 消息 -->
+
+			<!-- 导航下拉 我 -->
+			<div class="aw-top-nav-popup aw-top-nav-profile hide">
+				<ul>
+					<li>
+						<a href="m/people/"><?php _e('我的主页'); ?></a>
+					</li>
+					<li>
+						<a href="m/inbox/"><?php _e('私信'); ?><?php if ($this->user_info['inbox_unread']) { ?><span class="badge badge-info"><?php echo $this->user_info['inbox_unread']; ?></span><?php } ?></a>
+					</li>
+					<li>
+						<a href="m/settings/"><?php _e('设置'); ?></a>
+					</li>
+					<li>
+						<a href="account/logout/"><?php _e('退出'); ?></a>
+					</li>
+				</ul>
+				<span class="slide-close" onclick="$(this).parents('.aw-top-nav-popup').hide();"><i class="fa fa-angle-up"></i></span>
+			</div>
+			<!-- end 导航下拉 我 -->
+		</div>
+		<!-- end 导航下拉内容 -->
+
+		<!-- 底部 -->
+		<footer>
+			Copyright © <?php echo date('Y'); ?> - <?php echo get_setting('site_name'); ?>
+			<p><a href="<?php echo get_setting('base_url'); ?>/<?php if (get_setting('url_rewrite_enable') != 'Y') { ?><?php echo G_INDEX_SCRIPT; ?><?php } ?>ignore_ua_check-TRUE"><?php _e('访问桌面版网站'); ?></a></p>
+		</footer>
+		<!-- end 底部 -->
+		
+		<!-- DO NOT REMOVE -->
+		<div id="aw-ajax-box" class="aw-ajax-box"></div>
+
+		<div style="display:none">
+			<?php echo get_setting('statistic_code'); ?>
+		</div>
+		<!-- / DO NOT REMOVE -->
+		
+		<script type="text/javascript">
+		$(function()
+		{
+			// 判断是否微信打开
+			if (typeof G_IN_WEIXIN != 'undefined' && G_IN_WEIXIN == true)
+		    {
+		    	$('header, nav, footer').hide();
+		        // if ($.cookie('wechat-tips-close') != 'true')
+		        // {
+		        // 	$('.aw-global-tips').show();
+		        // }
+		        var weixin_handler = setInterval(function()
+				{
+			    	try
+			        {
+			        	WeixinJSBridge.on('menu:share:appmessage', function(argv) {
+							WeixinJSBridge.invoke('sendAppMessage', {
+								"title" : document.title,
+								"link" : 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + WEIXIN_APP_ID + '&redirect_uri=' + encodeURIComponent(G_BASE_URL + '/m/weixin/redirect/?redirect=' + $.base64.encode(location.href)) + '&response_type=code&scope=snsapi_userinfo&state=OAUTH#wechat_redirect',
+								"description" : document.description
+					        });
+				        });
+						
+				    	WeixinJSBridge.on('menu:share:timeline', function(argv) {
+							WeixinJSBridge.invoke('shareTimeline', {
+								"title" : document.title,
+								"link" : 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + WEIXIN_APP_ID + '&redirect_uri=' + encodeURIComponent(G_BASE_URL + '/m/weixin/redirect/?redirect=' + $.base64.encode(location.href)) + '&response_type=code&scope=snsapi_userinfo&state=OAUTH#wechat_redirect',
+								"description" : document.description
+							});
+						});
+						clearInterval(weixin_handler);
+			        }
+			        catch(e)
+			        {
+			        	alert(e);
+			        }
+				}, 500);
+		    }
+		});
+		</script>
+	</body>
+</html>
