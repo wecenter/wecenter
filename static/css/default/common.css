@@ -466,10 +466,12 @@ a.aw-load-more-content{display: block;}
 .aw-invite-box .aw-mod-head input{width: 200px;}
 .aw-invite-box .aw-mod-head .fa-search{position: absolute;right: 30px;top: 10px;}
 .aw-invite-box .aw-mod-body{padding:10px;border-top: 1px solid #E2E2E2;}
-.aw-invite-box .aw-mod-body ul{width:103%;max-height: 65px;overflow: hidden;margin-left:-10px;}
+.aw-invite-box .aw-mod-body ul{width:103%;max-height: 70px;overflow: hidden;margin-left:-10px;}
 .aw-invite-box .aw-mod-body ul li{position:relative;float: left;width:30%;margin:0 10px;}
 .aw-invite-box .aw-mod-body ul li .main{padding-left: 50px;}
-.aw-invite-box .aw-mod-body ul li p{margin:0;font-size: 13px;color: #999;}
+.aw-invite-box .aw-mod-body ul li p{margin:1px 0 0 0;font-size: 13px;color: #999;}
+.aw-invite-box .aw-mod-body ul li p .aw-topic-name{position:relative;top:5px;height:20px;margin:0 3px;}
+.aw-invite-box .aw-mod-body ul li p .aw-topic-name span{max-width: 133px;height:20px;overflow: hidden;}
 .aw-invite-box .aw-mod-body ul li img{width: 40px;height: 40px;}
 .aw-invite-box .aw-mod-body .btn-normal{width:60px;padding:2px 0;font-size: 12px;}
 .aw-invite-box .aw-mod-footer{height:34px;line-height:34px;border-top: 1px solid #E2E2E2;text-align: center;font-size: 13px;}
