@@ -302,6 +302,7 @@ a.aw-load-more-content{display: block;}
 
 /* 侧边栏公共部分 */
 .aw-side-bar{height:auto;overflow:hidden;margin:0;padding:0 20px;}
+.aw-index-side-bar{padding-top:20px;}
 .aw-side-bar .aw-side-bar-mod{height:auto;padding:20px 0;border-bottom: 1px solid #E2E2E2;}
 .aw-side-bar .aw-side-bar-mod:first-child{padding-top:0px;}
 .aw-side-bar .aw-side-bar-mod .aw-mod-head{padding-bottom:5px;}
