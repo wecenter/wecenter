@@ -49,7 +49,6 @@ class reputation_class extends AWS_MODEL
 			if ($articles_ids)
 			{
 				$articles_vote_agree_users = $this->model('article')->get_article_vote_by_ids('article', $articles_ids, 1);
-				
 				$articles_vote_against_users = $this->model('article')->get_article_vote_by_ids('article', $$articles_ids, -1);
 				
 				if ($article_topics_query = $this->query_all('SELECT item_id, topic_id FROM ' . get_table('topic_relation') . ' WHERE item_id IN(' . implode(',', $articles_ids) . ") AND `type` = 'article'"))
@@ -73,13 +72,19 @@ class reputation_class extends AWS_MODEL
 				// 赞同的用户
 				if ($articles_vote_agree_users[$articles_val['id']])
 				{					
-					$s_agree_value = $s_agree_value + $articles_vote_agree_users[$articles_val['id']]['reputation_factor'];
+					foreach($articles_vote_agree_users[$articles_val['id']] AS $articles_vote_agree_user)
+					{
+						$s_agree_value = $s_agree_value + $articles_vote_agree_user['reputation_factor'];
+					}
 				}
 				
 				// 反对的用户
 				if ($articles_vote_against_users[$articles_val['id']])
-				{										
-					$s_against_value = $s_against_value + $articles_vote_against_users[$articles_val['id']]['reputation_factor'];
+				{
+					foreach($articles_vote_against_users[$articles_val['id']] AS $articles_vote_against_user)
+					{
+						$s_against_value = $s_against_value + $articles_vote_against_user['reputation_factor'];
+					}
 				}
 			}
 			
