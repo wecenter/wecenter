@@ -71,6 +71,7 @@ var AW_MOBILE_TEMPLATE = {
 		   '<div class="modal-dialog">'+
 				'<div class="modal-content">'+
 				   '<form id="publish" action="' + G_BASE_URL + '/inbox/ajax/send/" method="post" id="quick_publish" onsubmit="return false">'+
+				   		'<input type="hidden" name="post_hash" value="' + G_POST_HASH + '" />'+
 				    	'<div class="modal-header">'+
 					    	'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
 					    	'<h3 class="modal-title" id="myModalLabel">' + _t('发送私信') + '</h3>'+
