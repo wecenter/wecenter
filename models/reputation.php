@@ -49,7 +49,6 @@ class reputation_class extends AWS_MODEL
 			if ($articles_ids)
 			{
 				$articles_vote_agree_users = $this->model('article')->get_article_vote_by_ids('article', $articles_ids, 1);
-				
 				$articles_vote_against_users = $this->model('article')->get_article_vote_by_ids('article', $$articles_ids, -1);
 				
 				if ($article_topics_query = $this->query_all('SELECT item_id, topic_id FROM ' . get_table('topic_relation') . ' WHERE item_id IN(' . implode(',', $articles_ids) . ") AND `type` = 'article'"))
@@ -73,13 +72,19 @@ class reputation_class extends AWS_MODEL
 				// 赞同的用户
 				if ($articles_vote_agree_users[$articles_val['id']])
 				{					
-					$s_agree_value = $s_agree_value + $articles_vote_agree_users[$articles_val['id']]['reputation_factor'];
+					foreach($articles_vote_agree_users[$articles_val['id']] AS $articles_vote_agree_user)
+					{
+						$s_agree_value = $s_agree_value + $articles_vote_agree_user['reputation_factor'];
+					}
 				}
 				
 				// 反对的用户
 				if ($articles_vote_against_users[$articles_val['id']])
-				{										
-					$s_against_value = $s_against_value + $articles_vote_against_users[$articles_val['id']]['reputation_factor'];
+				{
+					foreach($articles_vote_against_users[$articles_val['id']] AS $articles_vote_against_user)
+					{
+						$s_against_value = $s_against_value + $articles_vote_against_user['reputation_factor'];
+					}
 				}
 			}
 			
@@ -116,8 +121,8 @@ class reputation_class extends AWS_MODEL
 						$user_topics[$topic_info['topic_id']] = array(
 							'topic_id' => $topic_info['topic_id'], 
 							'count' => (intval($user_topics[$topic_info['topic_id']]['count']) + 1), 
-							'agree_count' => (intval($user_topics[$topic_info['topic_id']]['agree_count']) + $articles_val['agree_count']), 
-							'thanks_count' => (intval($user_topics[$topic_info['topic_id']]['thanks_count']) + $articles_val['thanks_count']), 
+							'agree_count' => (intval($user_topics[$topic_info['topic_id']]['agree_count']) + sizeof($articles_vote_agree_users[$articles_val['id']])), 
+							'thanks_count' => 0, 
 							'reputation' => ($user_topics[$topic_info['topic_id']]['reputation'] + $article_reputation)
 						);
 					}
@@ -290,69 +295,69 @@ class reputation_class extends AWS_MODEL
 							
 				$user_reputation = $user_reputation + $answer_reputation;
 			}
-						
-			if (is_array($user_topics))
+		}
+		
+		if (is_array($user_topics))
+		{
+			if ($user_topics = aasort($user_topics, 'count', 'DESC'))
 			{
-				if ($user_topics = aasort($user_topics, 'count', 'DESC'))
-				{
-					$user_topics = array_slice($user_topics, 0, 20);
-				}
-						
-				foreach ($user_topics as $t_key => $t_val)
-				{
-					if ($reputation_topic_id = $this->fetch_one('reputation_topic', 'auto_id', 'uid = ' . $uid . ' AND topic_id = ' . $t_val['topic_id']))
-					{
-						$this->update('reputation_topic', array(
-							'uid' => $uid,
-							'topic_id' => $t_val['topic_id'],
-							'topic_count' => $t_val['count'],
-							'update_time' => time(),
-							'agree_count' => $t_val['agree_count'],
-							'thanks_count' => $t_val['thanks_count'],
-							'reputation' => round($t_val['reputation'])
-						), 'auto_id = ' . $reputation_topic_id);
-					}
-					else
-					{
-						$this->insert('reputation_topic', array(
-							'uid' => $uid,
-							'topic_id' => $t_val['topic_id'],
-							'topic_count' => $t_val['count'],
-							'update_time' => time(),
-							'agree_count' => $t_val['agree_count'],
-							'thanks_count' => $t_val['thanks_count'],
-							'reputation' => round($t_val['reputation'])
-						));
-					}
-				}
+				$user_topics = array_slice($user_topics, 0, 20);
 			}
 					
-			if (is_array($user_reputation_category))
+			foreach ($user_topics as $t_key => $t_val)
 			{
-				foreach ($user_reputation_category as $t_key => $t_val)
+				if ($reputation_topic_id = $this->fetch_one('reputation_topic', 'auto_id', 'uid = ' . $uid . ' AND topic_id = ' . $t_val['topic_id']))
 				{
-					if ($user_reputation_category_id = $this->fetch_one('reputation_category', 'auto_id', 'uid = ' . intval($uid) . ' AND category_id = ' . $t_key))
-					{
-						$this->update('reputation_category', array(
-							'uid' => intval($uid),
-							'category_id' => $t_key,
-							'update_time' => time(),
-							'reputation' => round($t_val['reputation']),
-							'agree_count' => $t_val['agree_count'],
-							'question_count' => count($t_val['questions'])
-						), 'auto_id = ' . $user_reputation_category_id);
-					}
-					else
-					{
-						$this->insert('reputation_category', array(
-							'uid' => intval($uid),
-							'category_id' => $t_key,
-							'update_time' => time(),
-							'reputation' => round($t_val['reputation']),
-							'agree_count' => $t_val['agree_count'],
-							'question_count' => count($t_val['questions'])
-						));
-					}
+					$this->update('reputation_topic', array(
+						'uid' => $uid,
+						'topic_id' => $t_val['topic_id'],
+						'topic_count' => $t_val['count'],
+						'update_time' => time(),
+						'agree_count' => $t_val['agree_count'],
+						'thanks_count' => $t_val['thanks_count'],
+						'reputation' => round($t_val['reputation'])
+					), 'auto_id = ' . $reputation_topic_id);
+				}
+				else
+				{
+					$this->insert('reputation_topic', array(
+						'uid' => $uid,
+						'topic_id' => $t_val['topic_id'],
+						'topic_count' => $t_val['count'],
+						'update_time' => time(),
+						'agree_count' => $t_val['agree_count'],
+						'thanks_count' => $t_val['thanks_count'],
+						'reputation' => round($t_val['reputation'])
+					));
+				}
+			}
+		}
+				
+		if (is_array($user_reputation_category))
+		{
+			foreach ($user_reputation_category as $t_key => $t_val)
+			{
+				if ($user_reputation_category_id = $this->fetch_one('reputation_category', 'auto_id', 'uid = ' . intval($uid) . ' AND category_id = ' . $t_key))
+				{
+					$this->update('reputation_category', array(
+						'uid' => intval($uid),
+						'category_id' => $t_key,
+						'update_time' => time(),
+						'reputation' => round($t_val['reputation']),
+						'agree_count' => $t_val['agree_count'],
+						'question_count' => count($t_val['questions'])
+					), 'auto_id = ' . $user_reputation_category_id);
+				}
+				else
+				{
+					$this->insert('reputation_category', array(
+						'uid' => intval($uid),
+						'category_id' => $t_key,
+						'update_time' => time(),
+						'reputation' => round($t_val['reputation']),
+						'agree_count' => $t_val['agree_count'],
+						'question_count' => count($t_val['questions'])
+					));
 				}
 			}
 		}
