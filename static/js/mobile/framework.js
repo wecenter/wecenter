@@ -1468,7 +1468,7 @@ function _ajax_uploader_append_file(selecter, v)
     }
         
     var html = '<dl class="clearfix">' +
-        '<dt class="pull-left  img-thumbnail"><div class="upload-loading  upload-' + v['class_name'] + '" ' + (url==null || url=='' ? '' : 'style="background-image:url('+url+')"')+'></div></dt>' +
+        '<dt class="pull-left  img-thumbnail"><div class=" upload-' + v['class_name'] + '" ' + (url==null || url=='' ? '' : 'style="background-image:url('+url+')"')+'></div></dt>' +
         '<dd class="pull-left">' + 
         	'<p><span class="_ajax_upload-file aw-file-uploader-name" title="' + v['file_name'] + '">' + (v['file_name']).substring(0, 10) + '</span></p>' +
         	'<span class="_ajax_upload-inset"><a href="' + v['delete_link'] + '" class="fa fa-times _ajax_upload_delete_file" onclick="if (confirm(\'' + _t('确认删除?') + '\')) { _ajax_uploader_delete_attach(this.href, $(this).parents(\'dl\')) } return false;"></a> ';

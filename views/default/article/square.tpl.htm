@@ -23,7 +23,9 @@
 								</div>
 								<div class="content-wrap">
 									<div class="content" id="detail_<?php echo $val['id']; ?>">
-										<?php echo nl2br(strip_ubb(cjk_substr($val['message'], 0, 130, 'UTF-8', '...'))); ?>
+										<div class="hide-content">
+											<?php echo FORMAT::parse_attachs(nl2br(FORMAT::parse_markdown($val['message']))); ?>
+										</div>
 										
 										<?php if (cjk_strlen($val['message']) > 130) { ?>
 							        	<a class="more" href="#" onclick="content_switcher($('#detail_<?php echo $val['id']; ?>'), $('#detail_more_<?php echo $val['id']; ?>')); return false;"><?php _e('继续阅读'); ?> »</a>
