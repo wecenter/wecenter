@@ -1,0 +1,21 @@
+<?php TPL::output('global/header_landing.tpl.htm'); ?>
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		$('#header_action').append('<?php _e('等待审核'); ?>');
+	});
+</script>
+
+<div class="aw-register-box">
+	<div class="aw-mod aw-find-pwd">
+		<div class="aw-mod-body">
+			<h3><?php _e('感谢您的注册!'); ?></h3>
+			<p>
+				<?php _e('本站点会员注册需要经过管理员审核,请耐心等待'); ?><br />
+				<?php _e('如果审核被拒绝会邮件告知原因'); ?>
+			</p>
+		</div>
+	</div>
+</div>
+
+<?php TPL::output('global/footer.tpl.htm'); ?>
