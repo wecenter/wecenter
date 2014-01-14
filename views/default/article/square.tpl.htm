@@ -63,9 +63,8 @@
 					</div>
 					<div class="aw-mod-body">
 						<ul class="aw-li-border-bottom">
-							<li><a href="">热门文章热门文章热门文章</a></li>
-							<?php foreach($this->question_related_list AS $key => $val) { ?>
-							<li><a href="question/<?php echo $val['question_id']; ?>"><?php echo $val['question_content']; ?></a></li>
+							<?php foreach($this->hot_articles AS $key => $val) { ?>
+							<li><a href="article/<?php echo $val['id']; ?>"><?php echo $val['title']; ?></a></li>
 							<?php } ?>
 						</ul>
 					</div>
