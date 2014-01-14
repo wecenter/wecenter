@@ -224,6 +224,22 @@
 				</div>
 				<?php } ?>
 				<!-- end 发起人 -->
+				<?php if ($this->question_related_list) { ?>
+				<!-- 相关问题 -->
+				<div class="aw-side-bar-mod aw-text-align-justify question_related_list">
+					<div class="aw-mod-head">
+						<h3><?php _e('相关问题'); ?></h3>
+					</div>
+					<div class="aw-mod-body">
+						<ul class="aw-li-border-bottom">
+							<?php foreach($this->question_related_list AS $key => $val) { ?>
+							<li><a href="question/<?php echo $val['question_id']; ?>"><?php echo $val['question_content']; ?></a></li>
+							<?php } ?>
+						</ul>
+					</div>
+				</div>
+				<!-- end 相关问题 -->
+				<?php } ?>
 			</div>
 			<!-- end 侧边栏 -->
 		</div>

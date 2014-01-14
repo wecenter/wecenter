@@ -56,27 +56,21 @@
 			</div>
 			<!-- 侧边栏 -->
 			<div class="col-sm-3 aw-side-bar">
-				<!-- 所有分类 -->
-				<div class="aw-side-bar-mod side-sort">
+				<!-- 热门文章 -->
+				<div class="aw-side-bar-mod aw-text-align-justify question_related_list">
 					<div class="aw-mod-head">
-						<h3><?php _e('经验专题'); ?></h3>
+						<h3><?php _e('热门文章'); ?></h3>
 					</div>
 					<div class="aw-mod-body">
-						<?php if ($this->feature_list) { ?>
-						<ul>
-							<?php foreach ($this->feature_list AS $key => $val) { ?>
-							<li>
-								<a<?php if ($val['id'] == $_GET['feature_id']) { ?> class="active"<?php } ?> href="article/square/feature_id-<?php echo $val['id']; ?>">
-									<?php echo $val['title']; ?>
-									<!-- <span class="badge badge-info pull-right">10</span> -->
-								</a>
-							</li>
+						<ul class="aw-li-border-bottom">
+							<?php foreach($this->hot_articles AS $key => $val) { ?>
+							<li><a href="article/<?php echo $val['id']; ?>"><?php echo $val['title']; ?></a></li>
 							<?php } ?>
 						</ul>
-						<?php } ?>
 					</div>
 				</div>
-				<!-- end 所有分类 -->
+				<!-- end 热门文章 -->
+				<?php TPL::output('block/sidebar_hot_topics.tpl.htm'); ?>
 			</div>
 			<!-- end 侧边栏 -->
 		</div>
