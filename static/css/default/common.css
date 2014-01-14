@@ -390,7 +390,6 @@ a.aw-load-more-content{display: block;}
 .aw-question-detail-box .aw-dynamic-topic .aw-vote-count.disabled{position:absolute;left:-30px;background: #F2F2F2;}
 
 /* 文章广场 */
-.aw-article-square .aw-main-content{border-right: 1px solid #e1e1e1;}
 .aw-article-square .category{margin-bottom: 20px;}
 .aw-article-list .aw-item{position: relative;margin-bottom:20px;padding-left: 70px;padding-bottom:20px;border-bottom:1px solid #e1e1e1;}
 .aw-article-list .aw-item > .aw-user-name{position: absolute;left: 0;top: 0;}
