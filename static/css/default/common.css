@@ -787,6 +787,8 @@ a.aw-load-more-content{display: block;}
 /* 发起box */
 .aw-message-box textarea, .aw-inbox textarea{min-height: 60px;}
 #quick_publish_error{margin-bottom: 10px;}
+.aw-publish-box .modal-dialog, .aw-edit-comment-box .modal-dialog{width: 100%;}
+.aw-publish-box .modal-content{width: 470px;margin: 0 auto;}
 .aw-publish-box input{width:170px;}
 .aw-publish-box .modal-body{padding-bottom: 0px;}
 .aw-publish-box .aw-edit-topic-box .btn{margin-bottom: 10px;}
@@ -804,7 +806,7 @@ a.aw-load-more-content{display: block;}
 /* 问题重定向box */
 .aw-question-redirect-box .modal-body{overflow: visible;}
 /* 评论修改box */
-.aw-edit-comment-box .modal-dialog{width:690px; }
+.aw-edit-comment-box .modal-content{width:690px;margin:0 auto;}
 .aw-edit-comment-box .modal-body textarea{margin:0;overflow-y:scroll;clear: left;border-radius: 10px 10px 0 0;}
 .aw-edit-comment-box .aw-file-upload-box{border-radius: 0 0 10px 10px;}
 .aw-edit-comment-box .modal-footer label{display: inline;margin-left:10px;font-size: 14px;}
