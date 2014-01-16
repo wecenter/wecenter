@@ -36,6 +36,7 @@ class wecenter_class extends AWS_MODEL
 		if (get_setting('wecenter_access_token'))
 		{
 			$_post_data[] = 'wecenter_access_token=' . get_setting('wecenter_access_token');
+			$_post_data[] = 'wecenter_access_secret=' . get_setting('wecenter_access_secret');
 		}
 		
 		$_post_data[] = 'version=1';
