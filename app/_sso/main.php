@@ -20,6 +20,15 @@ if (!defined('IN_ANWSION'))
 
 class main extends AWS_CONTROLLER
 {
+	public function get_access_rule()
+	{
+		$rule_action['rule_type'] = 'black'; //黑名单,黑名单中的检查  'white'白名单,白名单以外的检查
+		
+		$rule_action['actions'] = array();
+		
+		return $rule_action;
+	}
+	
 	public function get_user_info_by_session_id_action()
 	{
 		if ($session_info = $this->model('system')->fetch_row('session', "id = '" . $this->model('system')->quote($_GET['session_id']) . "'"))
