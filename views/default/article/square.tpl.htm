@@ -2,9 +2,10 @@
 
 <div class="aw-container-wrap">
 	<div class="aw-container aw-wecenter">
+		<?php TPL::output('block/content_nav_menu.tpl.htm'); ?>
+		
 		<div class="row aw-content-wrap aw-article-square">
 			<div class="col-sm-9 aw-main-content">
-				<?php TPL::output('block/content_nav_menu.tpl.htm'); ?>
 				
 				<div class="aw-mod aw-article-list">
 					<?php if ($this->article_list) { ?>
