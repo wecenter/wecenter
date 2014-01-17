@@ -37,7 +37,11 @@ class main extends AWS_CONTROLLER
 			{
 				$session_data = explode('|', $session_info['data']);
 				
-				echo json_encode($session_data[1]);
+				unset($session_data[0]);
+				
+				$session_data = implode('|', $session_data);
+				
+				echo json_encode(unserialize($session_data));
 			}
 		}
 	}
