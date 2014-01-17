@@ -5,6 +5,7 @@
 <!-- 顶部 -->
 <header>
 	<a href="m/" class="logo"><img src="<?php echo G_STATIC_URL; ?>/js/mobile/img/logo.png" width="57"/></a>
+	<?php if ($this->user_id) { ?>
 	<div class="aw-search-bar">
 		<form class="aw-relative" action="m/search/" method="post">
 			<input type="hidden" name="_is_mobile" value="true" />
@@ -13,8 +14,9 @@
 		</form>
 	</div>
 	
-	<?php if ($this->user_id) { ?>
 	<button class="aw-publish" onclick="alert_box('publish', {'category_enable':'<?php echo (get_setting('category_enable') == 'Y') ? '1' : '0'; ?>', 'category_id':'<?php echo intval($_GET['category']); ?>'});"><?php _e('发起'); ?></button>
+	<?php }  else { ?>
+	<a class="aw-login-btn pull-right" href="m/login/">登录</a>
 	<?php } ?>
 </header>
 <!-- end 顶部 -->

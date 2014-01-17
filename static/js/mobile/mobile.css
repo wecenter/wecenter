@@ -52,6 +52,7 @@ header .logo img{position: absolute;left: 5px;top:5px;}
 header form{width: auto;height: 32px;max-width: 100%;margin:6px 0 0 65px;background-color: #E6F3FA;border: 1px solid #0055AC;border-radius: 5px 5px 5px 5px;}
 header form input{width:98%;background: none repeat scroll 0 0 transparent;border: 0 none;color: #999999;font-size: 14px;line-height: normal;outline: medium none;overflow: hidden;padding: 6px 8px;}
 header .aw-publish{background-image: -moz-linear-gradient(top, #1589E0, #0F71C6);background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#1589E0), to(#0F71C6));background-image: -webkit-linear-gradient(top, #1589E0, #0F71C6);background-image: -o-linear-gradient(top, #1589E0, #0F71C6);background-image: linear-gradient(to bottom, #1589E0, #0F71C6);border: 1px solid #065FB9;border-radius: 5px 5px 5px 5px;box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1) inset, 0 1px 1px rgba(0, 0, 0, 0.1);font-size: 15px;height: 32px;line-height: 32px;text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);width: 54px;color: #fff;position: absolute;right: 5px;top: 7px;}
+header .aw-login-btn{height:46px;line-height:46px;padding:0 15px;font-size: 15px;text-shadow:0 1px 1px rgba(0, 0, 0, 0.12);color: #fff;}
 
 /* 导航 */
 nav{background: #f2f2f2;border-bottom: 1px solid #E1E1E1;margin: 0;height: 36px;font-size: 15px;}
