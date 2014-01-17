@@ -111,7 +111,7 @@ class main extends AWS_ADMIN_CONTROLLER
 		}
 	}
 	
-	function logout_action($return_url = '/')
+	public function logout_action($return_url = '/')
 	{
 		$this->model('admin')->admin_logout();
 		
