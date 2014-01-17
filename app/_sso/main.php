@@ -31,7 +31,7 @@ class main extends AWS_CONTROLLER
 	
 	public function get_user_info_by_session_id_action()
 	{
-		if ($session_info = $this->model('system')->fetch_row('session', "id = '" . $this->model('system')->quote($_GET['session_id']) . "'"))
+		if ($session_info = $this->model('system')->fetch_row('sessions', "id = '" . $this->model('system')->quote($_GET['session_id']) . "'"))
 		{
 			if (time() <= ($session_info['modified'] + $session_info['lifetime']))
 			{
