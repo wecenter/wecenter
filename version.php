@@ -12,6 +12,6 @@
 +---------------------------------------------------------------------------
 */
 
-define('G_VERSION', '2.5 Beta 5');
-define('G_VERSION_BUILD', '20131213');
+define('G_VERSION', '2.5 RC 1');
+define('G_VERSION_BUILD', '20140117');
 
