@@ -10,16 +10,18 @@
 # Copyright (c) 2004-2006 John Gruber  
 # <http://daringfireball.net/projects/markdown/>
 #
+# Modify by WeCenter
+#
 
 #
-# Modify by WeCenter
+# Markdown Parser Class
 #
 
 class Services_Markdown {
 
 	### Version ###
 
-	const  MARKDOWNLIB_VERSION  =  "1.3";
+	const  MARKDOWNLIB_VERSION  =  "1.4.0";
 
 	### Simple Function Interface ###
 
@@ -138,7 +140,7 @@ class Services_Markdown {
 	# and pass it through the document gamut.
 	#
 		$this->setup();
-		
+	
 		# Remove UTF-8 BOM and marker character in input, if present.
 		$text = preg_replace('{^\xEF\xBB\xBF|\x1A}', '', $text);
 
@@ -148,15 +150,14 @@ class Services_Markdown {
 
 		# Make sure $text ends with a couple of newlines:
 		$text .= "\n";
-		
 		$text = str_replace('&gt;', '>', $text);
-		
+
 		# Convert all tabs to spaces.
 		$text = $this->detab($text);
-		
+
 		# Turn block-level HTML blocks into hash entries
 		$text = $this->hashHTMLBlocks($text);
-		
+
 		# Strip any lines consisting only of spaces and tabs.
 		# This makes subsequent regexen easier to write, because we can
 		# match consecutive blank lines with /\n+/ instead of something
@@ -491,12 +492,12 @@ class Services_Markdown {
 		# Make links out of things like `<http://example.com/>`
 		# Must come after doAnchors, because you can use < and >
 		# delimiters in inline links like [this](<url>).
-		"doAutoLinks"         =>  30,
+		"doAutoLinks"         =>  70,
 		"encodeAmpsAndAngles" =>  40,
 
 		"doItalicsAndBold"    =>  50,
 		"doHardBreaks"        =>  60,
-		"doParseLink"         =>  70,
+		"doParseLink"         =>  80,
 		);
 
 	protected function runSpanGamut($text) {
@@ -506,7 +507,7 @@ class Services_Markdown {
 		foreach ($this->span_gamut as $method => $priority) {
 			$text = $this->$method($text);
 		}
-
+		
 		return $text;
 	}
 	
@@ -521,9 +522,8 @@ class Services_Markdown {
 	}
 	
 	protected function doParseLink($text) {
-		return FORMAT::parse_links($text);
+		return $this->hashPart(FORMAT::parse_links($text));
 	}
-
 
 	protected function doAnchors($text) {
 	#
@@ -779,7 +779,7 @@ class Services_Markdown {
 				\n+
 			}xm',
 			array(&$this, '_doHeaders_callback_atx'), $text);
-		
+
 		return $text;
 	}
 	protected function _doHeaders_callback_setext($matches) {
@@ -794,7 +794,6 @@ class Services_Markdown {
 	protected function _doHeaders_callback_atx($matches) {
 		$level = strlen($matches[1]);
 		$block = "<h$level>".$this->runSpanGamut($matches[2])."</h$level>";
-		
 		return $this->hashBlock($block);
 	}
 
@@ -802,7 +801,7 @@ class Services_Markdown {
 	protected function doLists($text) {
 	#
 	# Form HTML ordered (numbered) and unordered (bulleted) lists.
-	#		
+	#
 		$less_than_tab = $this->tab_width - 1;
 
 		# Re-usable patterns to match list item bullets and number markers:
@@ -866,7 +865,6 @@ class Services_Markdown {
 		return $text;
 	}
 	protected function _doLists_callback($matches) {
-	
 		# Re-usable patterns to match list item bullets and number markers:
 		$marker_ul_re  = '[*+-]';
 		$marker_ol_re  = '\d+[\.]';
@@ -951,7 +949,7 @@ class Services_Markdown {
 			$item = $this->runSpanGamut($item);
 		}
 
-		return "<li>" . $item . "</li>";
+		return "<li>" . $item . "</li>\n";
 	}
 
 
@@ -993,10 +991,10 @@ class Services_Markdown {
 			'&nbsp;'
 		), $codeblock);
 
-		$codeblock = "<code>$codeblock</code>";
-		
-		return $this->hashBlock($codeblock);
+		$codeblock = "<pre><code>$codeblock\n</code></pre>";
+		return "\n\n".$this->hashBlock($codeblock)."\n\n";
 	}
+
 
 	protected function makeCodeSpan($code) {
 	#
@@ -1157,7 +1155,6 @@ class Services_Markdown {
 				{
 					$text_stack[0] .= $token;
 				}
-				
 				# Here $token_len == 1
 				else if ($em) {
 					if (strlen($token_stack[0]) == 1) {
@@ -1203,18 +1200,17 @@ class Services_Markdown {
 		$bq = preg_replace('/^[ ]*>[ ]?|^[ ]+$/m', '', $bq);
 		$bq = $this->runBlockGamut($bq);		# recurse
 
-		$bq = preg_replace('/^/m', "", $bq);
+		$bq = preg_replace('/^/m', "  ", $bq);
 		# These leading spaces cause problem with <pre> content, 
 		# so we need to fix that:
 		$bq = preg_replace_callback('{(\s*<pre>.+?</pre>)}sx', 
 			array(&$this, '_doBlockQuotes_callback2'), $bq);
 
-		return $this->hashBlock("<blockquote>$bq</blockquote>");
+		return $this->hashBlock("<blockquote>\n$bq\n</blockquote>");
 	}
 	protected function _doBlockQuotes_callback2($matches) {
 		$pre = $matches[1];
 		$pre = preg_replace('/^  /m', '', $pre);
-		
 		return $pre;
 	}
 
@@ -1312,11 +1308,11 @@ class Services_Markdown {
 			# Ampersand-encoding based entirely on Nat Irons's Amputator
 			# MT plugin: <http://bumppo.net/projects/amputator/>
 			$text = preg_replace('/&(?!#?[xX]?(?:[0-9a-fA-F]+|\w+);)/', 
-								'&amp;', $text);;
+								'&amp;', $text);
 		}
 		# Encode remaining <'s
 		$text = str_replace('<', '&lt;', $text);
-		
+
 		return $text;
 	}
 
@@ -1345,8 +1341,15 @@ class Services_Markdown {
 			>
 			}xi',
 			array(&$this, '_doAutoLinks_email_callback'), $text);
+		$text = preg_replace_callback('{<(tel:([^\'">\s]+))>}i',array(&$this, '_doAutoLinks_tel_callback'), $text);
 
 		return $text;
+	}
+	protected function _doAutoLinks_tel_callback($matches) {
+		$url = $this->encodeAttribute($matches[1]);
+		$tel = $this->encodeAttribute($matches[2]);
+		$link = "<a href=\"$url\">$tel</a>";
+		return $this->hashPart($link);
 	}
 	protected function _doAutoLinks_url_callback($matches) {
 		$url = $this->encodeAttribute($matches[1]);
@@ -1552,21 +1555,6 @@ class Services_Markdown {
 		return $this->html_hashes[$matches[0]];
 	}
 
-	protected function _doAbbreviations_callback($matches) {
-		$abbr = $matches[0];
-		if (isset($this->abbr_desciptions[$abbr])) {
-			$desc = $this->abbr_desciptions[$abbr];
-			if (empty($desc)) {
-				return $this->hashPart("<abbr>$abbr</abbr>");
-			} else {
-				$desc = $this->encodeAttribute($desc);
-				return $this->hashPart("<abbr title=\"$desc\">$abbr</abbr>");
-			}
-		} else {
-			return $matches[0];
-		}
-	}
-	
 	protected function doVideos($text)
 	{
 		$text = preg_replace_callback('{
