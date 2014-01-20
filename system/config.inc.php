@@ -13,14 +13,14 @@
 */
 
 // 定义 Cookies 作用域
-define('G_COOKIE_DOMAIN','');
+define('G_COOKIE_DOMAIN','.wecenter.com');
 
 // 定义 Cookies 前缀
-define('G_COOKIE_PREFIX','csc_');
+define('G_COOKIE_PREFIX','wc_');
 
 // 定义应用加密 KEY
-define('G_SECUKEY','xnksahihodgq');
-define('G_COOKIE_HASH_KEY', 'odtpwdhowspnjfi');
+define('G_SECUKEY','fb6c73cf0c184450ae91e30267794a1d');
+define('G_COOKIE_HASH_KEY', 'accaec7c03f077b3207a6cbf33af097d');
 
 define('G_INDEX_SCRIPT', '?/');
 
