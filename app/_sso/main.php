@@ -45,13 +45,13 @@ class main extends AWS_CONTROLLER
 		
 		if (! $user_info)
 		{
-			jsonp_encode(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请输入正确的帐号或密码')));
+			echo jsonp_encode(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请输入正确的帐号或密码')));
 		}
 		else
 		{			
 			if ($user_info['forbidden'] == 1)
 			{
-				jsonp_encode(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('抱歉, 你的账号已经被禁止登录')));
+				echo jsonp_encode(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('抱歉, 你的账号已经被禁止登录')));
 			}
 						
 			if ($_POST['net_auto_login'])
@@ -64,7 +64,7 @@ class main extends AWS_CONTROLLER
 			
 			$this->model('account')->setcookie_login($user_info['uid'], $_GET['user_name'], $_POST['password'], $user_info['salt'], $expire);
 			
-			jsonp_encode(AWS_APP::RSM(null, 1, null));
+			echo jsonp_encode(AWS_APP::RSM(null, 1, null));
 		}
 	}
 	
