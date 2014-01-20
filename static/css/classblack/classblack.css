@@ -171,3 +171,6 @@
 
 /* 私信对话框 */
 .aw-my-inbox .aw-item.active{width: 610px;}
+
+/* 发起页面 */
+.aw-publish-title input{width: 511px;}

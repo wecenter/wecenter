@@ -1,5 +1,6 @@
 $(document).ready(function () {
-	$('.aw-edit-topic').click();
+
+	bind_dropdown_list('#question_contents', 'publish');
 	
 	if (document.getElementById('question_id'))
 	{
@@ -86,4 +87,7 @@ $(document).ready(function () {
 			}
 		});
 	}
+
+	$('.aw-edit-topic').click();
+	
 });
