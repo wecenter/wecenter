@@ -14,6 +14,7 @@
 .aw-register-box ul li.last a{font-size: 14px;}
 .aw-register-box ul li.last input{width: 13px;width:30px\0;height: auto;}
 .aw-register-box ul li.last label{display: inline-block;}
+.aw-register-box ul li.alert-danger i{margin-right: 5px;}
 .aw-register-box ul .aw-register-verify{text-align: left;}
 .aw-register-box ul .aw-register-verify input{width: 130px !important;}
 .aw-register-box ul .aw-register-verify .auth-img{width: 93px;height: 38px;}
@@ -29,9 +30,7 @@
 .aw-register-box li span{position:absolute;top:0;right:-145px;width: 130px;padding:5px;font-size:12px;border-radius: 5px;overflow: hidden;text-align: left;}
 .aw-reg-tips{line-height:15px;background: #EEF7FD;border: 1px solid #CFDDE6;color:#999;}
 .aw-reg-err{line-height: 28px;background: #FFEAEA;border:1px solid #E5C3C4;color:#CC0000;}
-.aw-reg-err .i-err{position:relative;top:2px;margin-right: 5px;}
 .aw-reg-right{background: none;border: none;}
-.aw-reg-right .i-followed{position: relative;top:5px;}
 
 /* 开放接口注册页面 */
 .aw-register-open-box{padding-top:30px;}
@@ -44,7 +43,6 @@
 .aw-find-pwd{padding:40px 0 0;}
 .aw-find-pwd .aw-mod-body{margin:0 0 100px;}
 .aw-find-pwd .aw-mod-body h3{margin:0 0 30px;font-size: 20px;color:#1A9F00;}
-.aw-find-pwd p{margin:0;color:#666;}
 .aw-find-pwd .aw-mod-footer{padding:25px 30px 30px;background: #EBEBEB;border-radius:0 0 10px 10px;text-align: left;}
 .aw-register-box ul li.error p {background: none repeat scroll 0 0 #FFF480;border: 1px solid #EBEBEB;border-radius: 5px 5px 5px 5px;color: #666666;height: 40px;line-height: 40px;padding-left: 12px;text-align: left;}
 .aw-register-box ul li.error p .i-no{margin-right: 10px;position: relative;top:4px;}
