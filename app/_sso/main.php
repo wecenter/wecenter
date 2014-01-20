@@ -76,13 +76,3 @@ class main extends AWS_CONTROLLER
 		}
 	}
 }
-
-function jsonp_encode($json = array(), $callback = 'jsoncallback')
-{
-	if ($_GET[$callback])
-	{
-		return $_GET[$callback] . '(' . json_encode($json) . ')';
-	}
-	
-	return json_encode($json);
-}
