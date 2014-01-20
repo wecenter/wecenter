@@ -32,16 +32,16 @@
 								<div class="aw-publish-title<?php if (!$this->question_category_list) { ?> active<?php } ?>">
 									<input type="text" placeholder="<?php _e('问题标题'); ?>..." name="question_content" id="question_contents" value="<?php echo $this->question_info['question_content']; ?>" class="form-control" />
 									<?php if ($this->question_category_list) { ?>
-									<div class="aw-dropdown aw-question-dropdown">
-										<i class="aw-icon i-dropdown-triangle active"></i>
-										<p class="title"><?php _e('没有找到相关结果'); ?></p>
-										<ul class="aw-question-dropdown-list"></ul>
-									</div>
 									<div class="aw-publish-title-dropdown">
 										<p class="dropdown-toggle" data-toggle="dropdown">
 											<span id="aw-topic-tags-select"><?php _e('选择分类'); ?></span>
 											<a href="javascript:;"><i class="fa fa-chevron-down"></i></a></a>
 										</p>
+									</div>
+									<div class="aw-dropdown">
+										<i class="i-dropdown-triangle"></i>
+										<p class="title"><?php _e('没有找到相关结果'); ?></p>
+										<ul class="aw-dropdown-list"></ul>
 									</div>
 									<?php } ?>
 								</div>
