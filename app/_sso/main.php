@@ -62,7 +62,7 @@ class main extends AWS_CONTROLLER
 			$this->model('account')->update_user_last_login($user_info['uid']);
 			$this->model('account')->setcookie_logout();
 			
-			$this->model('account')->setcookie_login($user_info['uid'], $_GET['user_name'], $_POST['password'], $user_info['salt'], $expire);
+			$this->model('account')->setcookie_login($user_info['uid'], $_GET['user_name'], $_GET['password'], $user_info['salt'], $expire);
 			
 			echo jsonp_encode(AWS_APP::RSM(null, 1, null));
 		}
