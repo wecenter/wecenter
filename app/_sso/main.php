@@ -29,20 +29,50 @@ class main extends AWS_CONTROLLER
 		return $rule_action;
 	}
 	
-	public function get_user_info_by_session_id_action()
+	public function login_process_action()
 	{
-		if ($session_info = $this->model('system')->fetch_row('sessions', "id = '" . $this->model('system')->quote($_GET['session_id']) . "'"))
+		if (get_setting('ucenter_enabled') == 'Y')
 		{
-			if (time() <= ($session_info['modified'] + $session_info['lifetime']))
+			if (!$user_info = $this->model('ucenter')->login($_GET['user_name'], $_GET['password']))
 			{
-				$session_data = explode('|', $session_info['data']);
-				
-				unset($session_data[0]);
-				
-				$session_data = implode($session_data, '|');
-				
-				echo json_encode(unserialize($session_data));
+				$user_info = $this->model('account')->check_login($_GET['user_name'], $_GET['password']);
 			}
+		}
+		else
+		{
+			$user_info = $this->model('account')->check_login($_GET['user_name'], $_GET['password']);
+		}
+		
+		if (! $user_info)
+		{
+			echo jsonp_encode(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请输入正确的帐号或密码')));
+		}
+		else
+		{			
+			if ($user_info['forbidden'] == 1)
+			{
+				echo jsonp_encode(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('抱歉, 你的账号已经被禁止登录')));
+			}
+						
+			if ($_POST['net_auto_login'])
+			{
+				$expire = 60 * 60 * 24 * 360;
+			}
+
+			$this->model('account')->update_user_last_login($user_info['uid']);
+			$this->model('account')->setcookie_logout();
+			
+			$this->model('account')->setcookie_login($user_info['uid'], $_GET['user_name'], $_GET['password'], $user_info['salt'], $expire);
+			
+			echo jsonp_encode(AWS_APP::RSM(null, 1, null));
+		}
+	}
+	
+	public function check_hash_login_action()
+	{
+		if ($user_info = $this->model('account')->check_hash_login($_POST['user_name'], $_POST['password']))
+		{
+			echo json_encode($user_info);
 		}
 	}
 }
