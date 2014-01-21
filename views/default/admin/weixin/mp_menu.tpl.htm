@@ -42,12 +42,12 @@
 		</script>
 		<!-- end 最新问题 -->
 
-		<!-- 经验专题 -->
+		<!-- 文章专题 -->
 		<script type="text/x-template" id="drop_menu_template_new_article">
 			<div class="dropdown-menu pull-right">
 				<div class="mod-head clearfix">
 					<div class="mod">
-						<div class="mod-head"><?php _e('经验专题'); ?></div>
+						<div class="mod-head"><?php _e('文章专题'); ?></div>
 						<div class="divider"></div>
 						<div class="mod-footer">
 							<ul class="control-height">
@@ -63,7 +63,7 @@
 				</div>
 			</div>
 		</script>
-		<!-- end 经验专题 -->
+		<!-- end 文章专题 -->
 
 		<!-- 热门问题 -->
 		<script type="text/x-template" id="drop_menu_template_hot_question">
@@ -244,7 +244,7 @@
 			<option></option>
 			<option data-name="全局命令"><?php _e('全局命令'); ?></option>
 			<option data-value="COMMAND_NEW_QUESTION" data-name="最新问题"><?php _e('最新问题'); ?></option>
-		    <option data-value="COMMAND_NEW_ARTICLE" data-name="经验专题"><?php _e('经验专题'); ?></option>
+		    <option data-value="COMMAND_NEW_ARTICLE" data-name="文章专题"><?php _e('文章专题'); ?></option>
 		    <option data-value="COMMAND_HOT_QUESTION" data-name="热门问题"><?php _e('热门问题'); ?></option>
 		    <option data-value="COMMAND_RECOMMEND_QUESTION" data-name="推荐问题"><?php _e('推荐问题'); ?></option>
 		    <option data-value="COMMAND_HOME_ACTIONS" data-name="等待回复"><?php _e('等待回复'); ?></option>
@@ -600,7 +600,7 @@
 			case '最新问题' : 
 				var template = $('#drop_menu_template_new_question').html();
 			break;
-			case '经验专题' :
+			case '文章专题' :
 				var template = $('#drop_menu_template_new_article').html();
 			break;
 			case '热门问题' :
