@@ -991,7 +991,7 @@ class Services_Markdown {
 			'&nbsp;'
 		), $codeblock);
 
-		$codeblock = "<pre><code>$codeblock\n</code></pre>";
+		$codeblock = "<code>$codeblock\n</code>";
 		return "\n\n".$this->hashBlock($codeblock)."\n\n";
 	}
 
