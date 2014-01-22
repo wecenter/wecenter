@@ -65,7 +65,8 @@ $(document).ready(function () {
 		});
 		
 		add_dropdown_list('.aw-publish-title .aw-publish-title-dropdown', eval('[' + category_data + ']'), CATEGORY_ID);
-		
+		$('#category_id').val(CATEGORY_ID);
+
 		$('.aw-publish-title .aw-publish-title-dropdown li a').click(function() {
 			$('#category_id').val($(this).attr('data-value'));
 		});
