@@ -11,6 +11,10 @@
 	<?php foreach (AWS_APP::plugins()->plugins_list() AS $key => $val) { ?>
 		<p><?php echo $val; ?> (ID: <?php echo $key; ?>)</p>
 	<?php } ?>
+	<br /><p><b style="font-weight: bold;">Loaded Class:</b></p>
+	<?php foreach (core_autoload::$loaded_class AS $key => $val) { ?>
+		<p><b><?php echo $key; ?></b>: <?php echo $val; ?></p>
+	<?php } ?>
 	<?php foreach (AWS_APP::$_debug AS $key => $val) { ?>
 	<br /><p><b style="font-weight: bold;"><?php echo ucfirst($key); ?></b></p>
 		<?php foreach ($val AS $_key => $_val) { ?>
