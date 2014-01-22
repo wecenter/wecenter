@@ -22,7 +22,7 @@ class TPL
 	
 	public static $in_app = false;
 	
-	public static function init()
+	public static function initialize()
 	{
 		if (!is_object(self::$view))
 		{			
@@ -45,9 +45,7 @@ class TPL
 	}
 	
 	public static function output($template_filename, $display = true)
-	{
-		self::init();
-		
+	{		
 		if (!strstr($template_filename, self::$template_ext))
 		{
 			$template_filename .= self::$template_ext;
@@ -150,29 +148,21 @@ class TPL
 	
 	public static function set_meta($tag, $value)
 	{
-		self::init();
-		
 		self::assign('_meta_' . $tag, $value);
 	}
 	
 	public static function assign($name, $value)
 	{
-		self::init();
-		
 		self::$view->$name = $value;
 	}
 	
 	public static function val($name)
 	{
-		self::init();
-		
 		return self::$view->$name;
 	}
 	
 	public static function import_css($path)
 	{
-		self::init();
-		
 		if (is_array($path))
 		{
 			foreach ($path AS $key => $val)
@@ -208,8 +198,6 @@ class TPL
 	
 	public static function import_js($path)
 	{
-		self::init();
-		
 		if (is_array($path))
 		{			
 			foreach ($path AS $key => $val)
@@ -235,8 +223,6 @@ class TPL
 	
 	public static function import_clean($type = false)
 	{
-		self::init();
-		
 		if ($type == 'js' OR !$type)
 		{
 			self::$view->_import_js_files = null;
@@ -250,8 +236,6 @@ class TPL
 	
 	public static function fetch($template_filename)
 	{
-		self::init();
-		
 		if (self::$in_app)
 		{
 			if (get_setting('ui_style') != 'default')
