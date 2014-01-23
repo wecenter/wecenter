@@ -583,6 +583,7 @@ a.aw-load-more-content{display: block;}
 .aw-topic-follow .aw-item:first-child{border-top: none;}
 .aw-topic-follow .aw-item ul{margin-top:10px;}
 .aw-topic-follow .aw-item ul li{line-height: 28px;}
+.aw-topic-follow .aw-item ul li span{margin-left: 10px;}
 .aw-topic-follow .aw-item .aw-topic-img{position: absolute;left: 5px;top: 20px;}
 
 /* 话题详细页 */
