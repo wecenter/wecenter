@@ -102,7 +102,7 @@ class main extends AWS_CONTROLLER
 		
 		TPL::assign('human_valid', human_valid('question_valid_hour'));
 		
-		TPL::import_js('js/publish.js');
+		TPL::import_js('js/app/publish.js');
 		
 		if (get_setting('advanced_editor_enable') == 'Y')
 		{
@@ -177,7 +177,7 @@ class main extends AWS_CONTROLLER
 		
 		TPL::assign('human_valid', human_valid('question_valid_hour'));
 		
-		TPL::import_js('js/publish.js');
+		TPL::import_js('js/app/publish.js');
 		
 		if (get_setting('advanced_editor_enable') == 'Y')
 		{
