@@ -120,9 +120,8 @@ a.aw-load-more-content{display: block;}
 .aw-dropdown .aw-dropdown-list li.user a img{width: 25px;height: 25px;margin-right: 5px;}
 .aw-dropdown .aw-dropdown-list li.user a span{margin-left:10px;color: #999;}
 .aw-question-redirect-box .aw-dropdown .aw-dropdown-list{max-height: 329px;overflow-y:auto;}
-.aw-publish-box .aw-dropdown .aw-dropdown-list{max-height: 335px;overflow-y:auto;}
-.aw-publish-box .aw-dropdown .aw-dropdown-list{max-height: 165px;overflow-y: auto;}
-.aw-publish .aw-dropdown .aw-dropdown-list{max-height:266px;overflow-y: auto;}
+.aw-mod-publish .aw-dropdown .aw-dropdown-list{max-height: 207px;overflow-y:auto;}
+.aw-publish-box .aw-dropdown .aw-dropdown-list{max-height: 209px;overflow-y: auto;}
 .aw-edit-topic-box .aw-dropdown .aw-dropdown-list{max-height: 292px;overflow-y: auto;}
 
 /* ipad屏幕兼容 */
@@ -584,6 +583,7 @@ a.aw-load-more-content{display: block;}
 .aw-topic-follow .aw-item:first-child{border-top: none;}
 .aw-topic-follow .aw-item ul{margin-top:10px;}
 .aw-topic-follow .aw-item ul li{line-height: 28px;}
+.aw-topic-follow .aw-item ul li span{margin-left: 10px;}
 .aw-topic-follow .aw-item .aw-topic-img{position: absolute;left: 5px;top: 20px;}
 
 /* 话题详细页 */
@@ -924,11 +924,12 @@ a.aw-load-more-content{display: block;}
 .aw-point-rule .red{color: #ff5d61;}
 
 /* 微信登陆页面 */
-.aw-wechat-body{background-image: url('img/wechat_login.png');background-repeat: repeat;}
-.aw-wechat-body h1{margin-bottom:30px;font-size: 24px;text-shadow:0 2px 0 #333;color:#fff;text-align: center;}
-.aw-wechat-body .aw-wechat-login-box{width: 500px;margin:50px auto 0;text-shadow:0 1px 1px #333333;text-align: center;}
+.aw-wechat-body{background-color: #333;}
+.aw-wechat-body h1{margin-bottom:20px;font-size: 20px;text-shadow:0 2px 0 #333;color:#fff;text-align: center;}
+.aw-wechat-body .aw-wechat-login-box{width: 500px;margin:60px auto 0;text-shadow:0 1px 1px #333333;text-align: center;}
 .aw-wechat-body .aw-wechat-login-box .icon-wechat{display:block;font-size: 200px;}
-.aw-wechat-body .aw-wechat-login-box .info{display:inline-block;height:46px;line-height:46px;margin:20px auto 0;padding:0 40px;border:1px solid #3d4145;border-bottom-color:#505359;box-shadow:0 1px 0px #383B41 inset;border-radius: 20px;color:#B4B7BC;}
+.aw-wechat-body .aw-wechat-login-box img{width: 280px;}
+.aw-wechat-body .aw-wechat-login-box .info{display:inline-block;width:280px;height:46px;line-height:46px;margin:20px auto 0;padding:0 40px;box-shadow:0 5px 10px -5px #191919 inset, 0 1px 0 0 #444444;border-radius: 20px;color:#fff;}
 .aw-wechat-body .aw-wechat-login-box .info b{color:#ffba61;}
 
 /* 404页面 */
