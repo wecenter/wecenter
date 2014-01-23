@@ -20,6 +20,8 @@ if (!defined('IN_ANWSION'))
 
 class wecenter_class extends AWS_MODEL
 {
+	public $api_version = '1.1';
+	
 	public function mp_server_query($node, $post_data = null)
 	{
 		if ($post_data)
@@ -39,7 +41,7 @@ class wecenter_class extends AWS_MODEL
 			$_post_data[] = 'wecenter_access_secret=' . get_setting('wecenter_access_secret');
 		}
 		
-		$_post_data[] = 'version=1';
+		$_post_data[] = 'version=' . $this->api_version;
 		
 		$curl = curl_init();
 		
