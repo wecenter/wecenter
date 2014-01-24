@@ -162,6 +162,16 @@ function convert_encoding($string, $from_encoding = 'GBK', $target_encoding = 'U
 	}
 	else
 	{
+		if (strtoupper($from_encoding) == 'UTF-16')
+		{
+			$from_encoding = 'UTF-16BE';
+		}
+		
+		if (strtoupper($target_encoding) == 'UTF-16')
+		{
+			$target_encoding = 'UTF-16BE';
+		}
+		
 		if (strtoupper($target_encoding) == 'GB2312' or strtoupper($target_encoding) == 'GBK')
 		{
 			$target_encoding .= '//IGNORE';
