@@ -129,5 +129,29 @@ var AW_MOBILE_TEMPLATE = {
 			'{{#items}}'+
 				'<li><a data-value="{{id}}">{{title}}</a></li>'+
 			'{{/items}}'+
-		'</ul>'
+		'</ul>',
+	'editCommentBox' :
+		'<div class="modal fade alert-commentEdit">'+
+			'<div class="modal-dialog">'+
+				'<div class="modal-content">'+
+					'<div class="modal-header">'+
+						'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
+						'<h3 class="modal-title" id="myModalLabel">' + _t('编辑回复') + '</h3>'+
+					'</div>'+
+					'<form action="' + G_BASE_URL + '/question/ajax/update_answer/answer_id-{{answer_id}}" method="post" onsubmit="return false" id="answer_edit">'+
+					'<div class="modal-body">'+
+						'<input type="hidden" name="attach_access_key" value="{{attach_access_key}}" />'+
+						'<textarea name="answer_content" id="editor_reply" class="form-control" rows="5"></textarea>'+
+						'<div class="aw-file-upload-box">'+
+							'<span id="file_uploader_answer_edit"></span>'+
+						'</div>'+
+					'</div>'+
+					'<div class="modal-footer">'+
+						'<span><input id="aw-do-delete" type="checkbox" value="1" name="do_delete" /><label for="aw-do-delete">&nbsp;' + _t('删除回复') + '</label></span>'+
+						'<button class="btn btn-large btn-success" onclick="ajax_post($(\'#answer_edit\'), _ajax_post_alert_processer);return false;">' + _t('确定') + '</button>'+
+					'</div>'+
+					'</form>'+
+				'</div>'+
+			'</div>'+
+		'</div>'
 }
