@@ -383,7 +383,7 @@ a.aw-load-more-content{display: block;}
 .aw-question-detail-meta a:hover i, .aw-dynamic-topic-meta a:hover i, .aw-article-list .aw-mod-footer a:hover i{color: #2A6496;}
 .aw-notopic-sort{margin:5px 0 15px 0;padding:5px 10px;background: #E0E2E1;}
 .aw-question-detail-box .aw-dynamic-topic .aw-item .aw-user-img{position: relative;top: 10px;width: 32px;height: 32px;}
-.aw-question-detail-box .aw-vote-bar{position: absolute;left: -30px;}
+.aw-question-detail-box .aw-vote-bar, .aw-question-detail-box .aw-vote-count{position: absolute;left: -30px;}
 .aw-question-detail-box .aw-vote-bar.fixed .vote-container{position: fixed;top: 25px;}
 .aw-question-detail-box .aw-dynamic-topic .aw-vote-count.disabled{position:absolute;left:-30px;background: #F2F2F2;}
 

@@ -141,7 +141,7 @@ var AW_MOBILE_TEMPLATE = {
 					'<form action="' + G_BASE_URL + '/question/ajax/update_answer/answer_id-{{answer_id}}" method="post" onsubmit="return false" id="answer_edit">'+
 					'<div class="modal-body">'+
 						'<input type="hidden" name="attach_access_key" value="{{attach_access_key}}" />'+
-						'<textarea name="answer_content" id="editor_reply" class="form-control" rows="5"></textarea>'+
+						'<textarea name="answer_content" id="editor_reply" class="form-control textarea_content" rows="5"></textarea>'+
 						'<div class="aw-file-upload-box">'+
 							'<span id="file_uploader_answer_edit"></span>'+
 						'</div>'+
