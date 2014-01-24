@@ -441,6 +441,8 @@ nav #aw-top-nav-notic .badge{position: absolute;right: 0;top:1px;z-index:100;pad
 .alert-publish .aw-publish-title .dropdown-menu{width: 100%;}
 .alert-publish .alert{margin-bottom: 10px;border:1px solid #EED3D7;}
 .alert-redirect .modal-body .dropdown-list{max-height: 288px;overflow-y:scroll;}
+.alert-commentEdit .btn-success{margin-left: 10px;}
+.alert-commentEdit label{font-weight: normal;}
 
 /* 全局提示 */
 .aw-global-tips{position: fixed;top: 0;width: 100%;height:45px;line-height:45px;z-index: 9999;background-color:#4f4f4f;opacity: 0.9;box-shadow:0px 2px 1px #434343;}
