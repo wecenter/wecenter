@@ -322,7 +322,7 @@ nav #aw-top-nav-notic .badge{position: absolute;right: 0;top:1px;z-index:100;pad
 .aw-people-page .aw-people-follow .aw-mod-body section h3{font-size: 14px;}
 .aw-people-page .aw-people-replay ul li, .aw-people-page .aw-people-ask ul li{padding:10px 0;border-top: 1px dashed #eee;}
 .aw-people-page .aw-people-replay ul li:first-child, .aw-people-page .aw-people-ask ul li:first-child{border-top: none;}
-.aw-people-page .aw-people-replay ul li p, .aw-people-page .aw-people-ask ul li p{margin:0;}
+.aw-people-page .aw-people-replay ul li p, .aw-people-page .aw-people-ask ul li p{margin:0;word-wrap:break-word;}
 
 /* 登陆页面 */
 .explore-body{padding:0 !important;background: #0078D8;}
