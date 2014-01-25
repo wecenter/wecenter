@@ -14,7 +14,7 @@
 		</form>
 	</div>
 	
-	<button class="aw-publish" onclick="alert_box('publish', {'category_enable':'<?php echo (get_setting('category_enable') == 'Y') ? '1' : '0'; ?>', 'category_id':'<?php echo intval($_GET['category']); ?>'});"><?php _e('发起'); ?></button>
+	<a class="aw-publish" <?php if (get_setting('quick_publish') == 'Y' AND $this->user_id) { ?> onclick="alert_box('publish', {'category_enable':'<?php echo (get_setting('category_enable') == 'Y') ? '1' : '0'; ?>', 'category_id':'<?php echo intval($_GET['category']); ?>'});"<?php } else { ?>href="m/publish/"<?php } ?>><?php _e('发起'); ?></a>
 	<?php }  else { ?>
 	<a class="aw-login-btn pull-right" href="m/login/">登录</a>
 	<?php } ?>
