@@ -216,6 +216,7 @@ function welcome_step_finish()
 {
 	$('#aw-ajax-box').html('');
 	$('.modal-backdrop').detach();
+	$('body').removeClass('modal-open');
 
 	$.get(G_BASE_URL + '/account/ajax/clean_first_login/', function (result)
 	{

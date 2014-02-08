@@ -813,13 +813,16 @@ a.aw-load-more-content{display: block;}
 .aw-edit-comment-box .modal-footer .btn-success{margin-left: 10px;}
 .aw-edit-comment-box .aw-file-upload-box{padding:20px;border:1px solid #ccc;border-top: none;}
 /* 用户初次登陆提示box */
+.aw-first-login .aw-mod-head{margin-bottom:10px;}
 .aw-first-login .aw-mod-head h2{font-size: 20px;line-height: 20px;padding-bottom: 40px;}
 .aw-first-login .aw-mod-head ul{width:560px;height: auto;overflow: hidden;background: #fff;border:1px solid #E3E3E3;}
 .aw-first-login .aw-mod-head ul.active, .aw-first-login .aw-mod-head ul li.active{background: #E7EFF3;}
 .aw-first-login .aw-mod-head ul li{display: inline;float: left;width: 186px;height:48px;line-height:48px;padding-left:20px;}
 .aw-first-login .aw-mod-head ul li em{display:inline-block;width: 25px;height: 25px;line-height: 25px;margin-right:10px;background: #E6E6E6;text-align: center;}
 .aw-first-login .aw-mod-head ul li.active em{background: #fff;}
-.aw-first-login .aw-complete-data{height: auto;overflow: hidden;margin:15px 0;padding:40px;background:#fff;border:1px solid #E3E3E3;font-size: 12px;}
+.aw-first-login .aw-mod-footer{line-height: 32px;margin-top:10px;}
+.aw-first-login .aw-mod-footer .btn-success{margin-left: 10px;}
+.aw-first-login .aw-complete-data{height: auto;overflow: hidden;margin:20px 0;padding:40px;background:#fff;border:1px solid #E3E3E3;font-size: 12px;}
 .aw-first-login .aw-complete-data .aw-complete-data-img{width: 100px;margin-right: 20px;}
 .aw-first-login .aw-complete-data .aw-complete-data-img span{display:block;margin:5px 0 20px;text-align: right;}
 .aw-first-login .aw-complete-data label{display: inline;}
@@ -828,11 +831,14 @@ a.aw-load-more-content{display: block;}
 .aw-first-login .aw-complete-data input, .aw-first-login .aw-complete-data select{margin: 0;}
 .aw-first-login .aw-complete-data input[type="text"]{width: 300px;margin-top:5px;}
 .aw-first-login .aw-complete-data-follow-topic .aw-topic-img, .aw-first-login .aw-complete-data-follow-topic .aw-user-img{position: absolute;left: 15px;top: 15px;}
-.aw-first-login .aw-complete-data-follow-topic ul{width:542px;margin-top:20px;}
-.aw-first-login .aw-complete-data-follow-topic li{position: relative;float:left;width:261px;min-height:110px;margin:0 5px 20px;padding:15px 15px 15px 75px;background:#fff;border:1px solid #E3E3E3;font-size: 12px;}
+.aw-first-login .aw-complete-data-follow-topic p{margin:0;}
+.aw-first-login .aw-complete-data-follow-topic ul{width:580px;margin-top:10px;}
+.aw-first-login .aw-complete-data-follow-topic li{position: relative;float:left;width:270px;min-height:110px;margin:0 20px 20px 0;padding:15px 15px 15px 75px;background:#fff;border:1px solid #E3E3E3;font-size: 12px;}
 .aw-first-login .aw-complete-data-follow-topic li > span{display:inline-block;padding:0 6px;background:#D4F2FF;}
-.aw-first-login .aw-complete-data-follow-topic li .btn-mini{min-width: 50px;min-width: 30px\0;}
-.aw-first-login .aw-complete-data-follow-topic li p{margin:10px 0 0 0;}
+.aw-first-login .aw-complete-data-follow-topic li .btn-mini{min-width: 60px;min-width: 40px\0;padding:3px 0;}
+.aw-first-login .aw-complete-data-follow-topic li p{max-height:44px;overflow:hidden;margin:5px 0 0 0;}
+.aw-first-login .aw-complete-data-follow-topic li p.signature{max-height: 20px;overflow: hidden;}
+.aw-first-login .aw-complete-data-follow-topic li p span.aw-hide-txt{max-width: 20px;overflow: hidden;}
 
 /* 回复编辑器 */
 .aw-mod-replay-box{margin-top:20px;padding-bottom: 30px;}

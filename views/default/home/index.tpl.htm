@@ -61,11 +61,12 @@
 </div>
 
 <?php if ($_GET['first_login']) { ?>
+<script type="text/javascript" src="<?php echo G_STATIC_URL; ?>/js/ajaxupload.js"></script>
 <script type="text/javascript">
 $(document).ready(function () {
 	$.get(G_BASE_URL+'/account/ajax/welcome_message_template/', function (template) {
 		$('#aw-ajax-box').html(template);
-		
+		$('body').addClass('modal-open');
 		welcome_step_1_load();
 	});
 });
