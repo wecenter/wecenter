@@ -504,8 +504,10 @@ a.aw-load-more-content{display: block;}
 .aw-question-list .aw-item > .aw-user-name{position:absolute;left:10px;top:15px;}
 .aw-question-list .aw-questoin-content .aw-user-name img{width: 24px;height: 24px;}
 /* 问题列表问题标签 */
-.aw-question-tags{margin-right:10px;padding:0 5px 0 10px;background-color:#f2f2f2;cursor:pointer;font-size: 14px;}
+.aw-question-tags{position:relative;margin-right:10px;padding:1px 5px 0 15px;background-color:#f2f2f2;cursor:pointer;font-size: 14px;}
 .aw-question-tags:hover{background-color:#dddddd;}
+.aw-question-tags:hover i{color:#dddddd;}
+.aw-question-tags i{position:absolute;left:0;top:-4px;width:8px;background-color: #fff;color:#f2f2f2;font-size: 25px;}
 
 /* 文章页面 */
 .aw-article-detail .aw-item{position: relative;padding-left: 40px !important;}
