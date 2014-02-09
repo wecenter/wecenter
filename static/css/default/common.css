@@ -553,7 +553,7 @@ a.aw-load-more-content{display: block;}
 .aw-mod-publish .aw-publish-suggest-topics{margin-top: 10px;}
 
 /* 发起问题 */
-.aw-publish-article .aw-publish-title input{width: 780px;}
+.aw-publish-article .aw-publish-title input{width: 800px;}
 .aw-publish-article .aw-publish-title.active input{width: 100%;}
 
 /* 话题页面公共模块 */

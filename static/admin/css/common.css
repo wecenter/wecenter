@@ -206,7 +206,7 @@ body.modal-open, .modal-open .navbar-fixed-top, .modal-open .navbar-fixed-bottom
 .zoom{width: 16px;height: 16px;background: url('../img/zoom.png') no-repeat;}
 .accept{width: 16px;height: 16px;background: url('../img/accept.png') no-repeat;}
 .folder_page{width: 16px;height: 16px;background: url('../img/folder_page.png') no-repeat;}
-.database-table{width: 16px;height: 16px;background: url('../img/database-table.png') no-repeat;}
+.database-table{width: 16px;height: 16px;background: url('../img/database_table.png') no-repeat;}
 .b-go-to-top{width:43px;height:43px;background: url('../img/aw-btn-sprite.png') no-repeat 0 -430px;}
 
 
