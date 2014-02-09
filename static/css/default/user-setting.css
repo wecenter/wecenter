@@ -44,7 +44,7 @@
 .aw-user-setting-base dl{height:auto;line-height: 25px;overflow:hidden;margin:0;padding-bottom: 15px;}
 .aw-user-setting-base dl dt, .aw-user-setting-base dl dd{float: left;line-height: 30px;}
 .aw-user-setting-base dl dt{width: 80px;text-align: right;font-weight: normal;}
-.aw-user-setting-base .aw-user-setting-base-introduce{*margin-left:5px;}
+.aw-user-setting-base .aw-user-setting-base-introduce input{width: 250px;}
 .aw-user-setting-base dl dd select{width:100px;margin:0;}
 .aw-user-setting-base-time{width: 380px !important;}
 .aw-user-setting-reset-table table th, .aw-user-setting-reset-table table td{text-align: center;font-size: 13px;vertical-align: middle;}
