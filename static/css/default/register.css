@@ -17,6 +17,7 @@
 .aw-register-box ul li.alert-danger i{margin-right: 5px;}
 .aw-register-box ul .aw-register-verify{text-align: left;}
 .aw-register-box ul .aw-register-verify input{width: 130px !important;}
+.aw-register-box ul .aw-register-verify img{cursor: pointer;}
 .aw-register-box ul .aw-register-verify .auth-img{width: 93px;height: 38px;}
 .aw-register-box .more-information ul{padding:0;}
 .aw-register-box .more-information ul li{padding:5px 0;text-align: left;}
