@@ -134,7 +134,14 @@ class main extends AWS_CONTROLLER
 		}
 		else if (!in_array($this->db_version, $this->versions) AND $_GET['act'] != 'final')
 		{
-			H::redirect_msg(AWS_APP::lang()->_t('您的程序已经是最新版本'));
+			if ($this->db_version > end($this->versions))
+			{
+				H::redirect_msg(AWS_APP::lang()->_t('您的程序已经是最新版本'));
+			}
+			else
+			{
+				H::redirect_msg(AWS_APP::lang()->_t('无法定位您的程序版本, 请手动执行升级, Build: %s', $this->db_version));
+			}
 		}
 		
 		TPL::assign('static_url', G_STATIC_URL);
