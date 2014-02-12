@@ -10,10 +10,10 @@ input, textarea{font-family: "Helvetica Neue",Helvetica,Arial,'Microsoft YaHei',
 .input-xlarge{width: 215px;}
 label{margin:0;padding:0.3em .6em .3em;font-weight: normal;}
 select{width: auto;min-width: 220px;padding:3px;margin-bottom: 10px;*margin-left:10px;background: #FFFFFF;border:1px solid #CCCCCC;border-radius: 4px 4px 4px 4px;color: #555;}
-select, input[type="file"]{height: auto;}
+select, input[type="file"]{height: auto;line-height: 0px;font-size: 13px;}
+input[type="file"]{padding:3px !important;}
 table{width: 100%;}
 input[type="radio"], input[type="checkbox"]{margin:0;}
-select, input[type="file"]{line-height: 0px;font-size: 13px;}
 th{text-align: center;}
 .form-control{margin-bottom: 10px;}
 .btn-inverse, .label-inverse{background: #444444;color: #fff !important;}
@@ -84,7 +84,7 @@ th{text-align: center;}
 .right-side .aw-box .aw-mod-footer{padding: 10px;background: #F5F5F5;border-top: 1px solid #D7D7D7;text-align: center;}
 .right-side .aw-box dl dd .label{margin-bottom: 5px;}
 .right-side .aw-user-message-setting label{display: inline-block;margin-right: 10px;}
-.right-side .yesno_yes, .right-side .yesno_no{display: inline-block;min-width:50px;margin-right:-4px;padding:1px 3px;text-align: center;}
+.right-side .yesno_yes, .right-side .yesno_no{display: inline-block;min-width:50px;height:34px\0;margin-right:-4px;padding:1px 3px;padding:0 3px\0;text-align: center;}
 .right-side .yesno_yes label, .right-side .yesno_no label{font-size: 13px;}
 .right-side .yesno_yes{*margin-left:10px;background: #E3F6E5;border:1px solid #B4E3B9;border-right: none;border-radius: 6px 0 0 6px;}
 .right-side .yesno_no{background: #F6E3E3;border:1px solid #E3B4B4;border-left: none;border-radius: 0 6px 6px 0;}
@@ -172,6 +172,7 @@ th{text-align: center;}
 /*alert-box*/
 body.modal-open, .modal-open .navbar-fixed-top, .modal-open .navbar-fixed-bottom{margin:0px;}
 .alert-box{outline: none;}
+.alert-box .modal-dialog{margin:30px auto;}
 .aw-tips-box .modal-dialog{width: 350px;}
 .aw-tips-box .modal-body{background: url('../img/warmming.png') no-repeat right 5px;}
 .aw-tips-box .modal-body p{margin: 10px 0;}

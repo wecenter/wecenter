@@ -50,9 +50,13 @@ $(document).ready(function () {
 	
 	if ($('#category_id').length)
 	{
-		var category_data = '';
+		var category_data = '', category_id;
 		
 		$.each($('#category_id option').toArray(), function (i, field) {
+			if($(field).attr('selected') == 'selected')
+			{
+				category_id = $(field).attr('value');
+			}
 			if (i > 0)
 			{
 				if (i > 1)
@@ -64,16 +68,16 @@ $(document).ready(function () {
 			}
 		});
 		
-		add_dropdown_list('.aw-publish-title .aw-publish-title-dropdown', eval('[' + category_data + ']'), CATEGORY_ID);
-		$('#category_id').val(CATEGORY_ID);
+		add_dropdown_list('.aw-publish-title .aw-publish-title-dropdown', eval('[' + category_data + ']'), category_id);
+		$('#category_id').val(category_id);
 
 		$('.aw-publish-title .aw-publish-title-dropdown li a').click(function() {
 			$('#category_id').val($(this).attr('data-value'));
 		});
 		
-		if (CATEGORY_ID)
+		if (category_id)
 		{
-			$('#quick_publish_category_id').val(CATEGORY_ID);
+			$('#quick_publish_category_id').val(category_id);
 		}
 	}
 
