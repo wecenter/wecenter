@@ -88,6 +88,11 @@ switch ($_POST['step'])
 			$system_require['curl'] = TRUE;
 		}
 		
+		if (function_exists('imageftbbox'))
+		{
+			$system_require['ft_font'] = TRUE;
+		}
+		
 		// 检测 AWS_PATH 是否有写权限
 		if (is_really_writable(AWS_PATH) OR defined('IN_SAE'))
 		{
