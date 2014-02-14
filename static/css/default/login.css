@@ -32,3 +32,12 @@
 .aw-login-box .alert-danger .fa-times{margin-right:5px;color: #c30100;font-size: 16px;vertical-align: middle;}
 .aw-login-footer{position:relative;z-index:9999;margin:95px auto;text-align: center;font-size: 12px;}
 
+/* iphone竖屏幕 */
+@media (max-width:321px){
+	/*登录界面*/
+	#wrapper{padding: 20px;}
+	.aw-login-wrap{width: auto;}
+	.aw-login-box .aw-mod-head, .aw-login-box .aw-mod-body, .aw-login-box .aw-mod-footer{width: auto;}
+	.aw-login-box .aw-mod-body{padding: 20px;}
+	.aw-login-box .aw-mod-body #aw-login-user-name, .aw-mod-body #aw-login-user-password{width: 195px;}
+}

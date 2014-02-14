@@ -2,18 +2,20 @@
 	
 	<div class="aw-container-wrap">
 		<div class="aw-container aw-wecenter">
-				<?php TPL::output('block/content_nav_menu.tpl.htm'); ?>
+			<?php TPL::output('block/content_nav_menu.tpl.htm'); ?>
 			
-			<div class="row aw-content-wrap">
-				<?php TPL::output('block/content_question.tpl.htm'); ?>
-				
-				<!-- 侧边栏 -->
-				<div class="col-sm-12 col-md-3 aw-side-bar aw-index-side-bar  hidden-xs hidden-sm">
-					<?php TPL::output('block/sidebar_feature.tpl.htm'); ?>
-					<?php TPL::output('block/sidebar_hot_topics.tpl.htm'); ?>
-					<?php TPL::output('block/sidebar_hot_users.tpl.htm'); ?>
+			<div class="container">
+				<div class="row aw-content-wrap">
+					<?php TPL::output('block/content_question.tpl.htm'); ?>
+					
+					<!-- 侧边栏 -->
+					<div class="col-sm-12 col-md-3 aw-side-bar aw-index-side-bar  hidden-xs hidden-sm">
+						<?php TPL::output('block/sidebar_feature.tpl.htm'); ?>
+						<?php TPL::output('block/sidebar_hot_topics.tpl.htm'); ?>
+						<?php TPL::output('block/sidebar_hot_users.tpl.htm'); ?>
+					</div>
+					<!-- end 侧边栏 -->
 				</div>
-				<!-- end 侧边栏 -->
 			</div>
 		</div>
 	</div>
