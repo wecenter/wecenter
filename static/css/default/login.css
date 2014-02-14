@@ -29,6 +29,6 @@
 .aw-login-box .aw-mod-footer .fa-chevron-right{margin-left: 10px;color: #B7B7B7;}
 .aw-login-box .aw-mod-footer .icon-sina, .aw-mod-footer .icon-weibo, .aw-mod-footer .icon-qq, .aw-mod-footer .icon-wechat{font-size: 20px;color: #B7B7B7;vertical-align: middle;margin-left: 5px;}
 .aw-login-box .aw-mod-footer .icon-sina:hover, .aw-mod-footer .icon-weibo:hover, .aw-mod-footer .icon-qq:hover{color: #2A6496; }
-.aw-login-box .error-message .fa-times{margin-right:5px;color: #c30100;font-size: 16px;vertical-align: middle;}
+.aw-login-box .alert-danger .fa-times{margin-right:5px;color: #c30100;font-size: 16px;vertical-align: middle;}
 .aw-login-footer{position:relative;z-index:9999;margin:95px auto;text-align: center;font-size: 12px;}
 

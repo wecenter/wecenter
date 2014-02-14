@@ -83,7 +83,7 @@ a.aw-load-more-content{display: block;}
 .aw-publish-title-dropdown p, .aw-publish-title-dropdown p a{border-radius: 0 5px 5px 0;}
 .aw-nav-main li:first-child a.active{border-radius:10px 0 0 0;}
 .aw-first-login .aw-mod-head ul li em{border-radius: 30px;}
-.error-message, .alert-danger{position: relative;}
+.alert-danger{position: relative;}
 .aw-close{font-size: 16px;}
 .inline-block{display: inline-block;}
 /* 分类小标签 */
