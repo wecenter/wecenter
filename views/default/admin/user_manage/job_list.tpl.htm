@@ -1,61 +1,1 @@
-<?php TPL::output('admin/global/header.tpl.htm'); ?>
-<?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
-
-<div class="pull-left right-side">
-	<div class="pull-left" style="width: 65%">
-		<div class="alert alert-success hide"></div>
-		
-		<form id="jobs_form" action="admin/user_manage/save_job_ajax/" method="post">
-			<table class="aw-table aw-no-margin-top">
-				<thead>
-					<tr>
-						<th align="center">ID</th>
-						<th><?php _e('职位名称'); ?></th>
-						<th align="center"></th>
-					</tr>
-				</thead>
-				<tbody>
-					<?php if ($this->job_list) { ?>
-					<?php foreach ($this->job_list AS $key => $val) { ?>
-					<tr>
-						<td align="center"><?php echo $key; ?></td>
-						<td>
-							<div class="row">
-								<div class="col-sm-12">
-									<input class="job-title form-control" type="text"  name="job_list[<?php echo $key; ?>]" value="<?php echo $val; ?>" />
-								</div>
-							</div>
-						</td>
-						<td align="center"><a href="javascript:;" onclick="if (confirm('<?php _e('确认删除?'); ?>')) { ajax_request(G_BASE_URL + '/admin/user_manage/remove_job/job_id-<?php echo $key; ?>'); }"><?php _e('删除'); ?></a></td>
-					</tr>
-					<?php } ?>
-					<?php } ?>
-				</tbody>
-			</table>
-		</form>
-	</div>
-	
-	<div class="aw-message-box pull-left aw-no-margin-top">
-	<form id="_save_form" action="admin/user_manage/add_job_ajax/" method="post">
-		<div class="aw-mod-head"><h3><?php _e('添加新职位'); ?></h3></div>
-		<div class="aw-mod-body clearfix">
-			<p><textarea class="form-control" name="jobs" style="width:100%" placeholder="<?php _e('一行一个职位名称'); ?>"></textarea></p>
-			<a href="javascript:;" class="btn btn-inverse btn-mini pull-right" id="login_submit" onclick="ajax_post($('#_save_form'));"><?php _e('保存'); ?></a>
-</p>
-		</div>
-	</form>
-	</div>
-</div>
-
-<script type="text/javascript">
-	$(document).ready(function () {
-		$('input.job-title').keyup(function () {
-			if ($(this).val() != '')
-			{
-				ajax_post($('#jobs_form'), _error_message_form_processer);
-			}
-		});
-	});
-</script>
-
-<?php TPL::output('admin/global/footer.tpl.htm'); ?>
+<?php TPL::output('admin/global/header.tpl.htm'); ?><?php TPL::output('admin/global/nav_menu.tpl.htm'); ?><div class="pull-left right-side">	<div class="pull-left" style="width: 65%">		<div class="alert alert-success hide error_message"></div>				<form id="jobs_form" action="admin/user_manage/save_job_ajax/" method="post">			<table class="aw-table aw-no-margin-top">				<thead>					<tr>						<th align="center">ID</th>						<th><?php _e('职位名称'); ?></th>						<th align="center"></th>					</tr>				</thead>				<tbody>					<?php if ($this->job_list) { ?>					<?php foreach ($this->job_list AS $key => $val) { ?>					<tr>						<td align="center"><?php echo $key; ?></td>						<td>							<div class="row">								<div class="col-sm-12">									<input class="job-title form-control" type="text"  name="job_list[<?php echo $key; ?>]" value="<?php echo $val; ?>" />								</div>							</div>						</td>						<td align="center"><a href="javascript:;" onclick="if (confirm('<?php _e('确认删除?'); ?>')) { ajax_request(G_BASE_URL + '/admin/user_manage/remove_job/job_id-<?php echo $key; ?>'); }"><?php _e('删除'); ?></a></td>					</tr>					<?php } ?>					<?php } ?>				</tbody>			</table>		</form>	</div>		<div class="aw-message-box pull-left aw-no-margin-top">	<form id="_save_form" action="admin/user_manage/add_job_ajax/" method="post">		<div class="aw-mod-head"><h3><?php _e('添加新职位'); ?></h3></div>		<div class="aw-mod-body clearfix">			<p><textarea class="form-control" name="jobs" style="width:100%" placeholder="<?php _e('一行一个职位名称'); ?>"></textarea></p>			<a href="javascript:;" class="btn btn-inverse btn-mini pull-right" id="login_submit" onclick="ajax_post($('#_save_form'));"><?php _e('保存'); ?></a></p>		</div>	</form>	</div></div><script type="text/javascript">	$(document).ready(function () {		$('input.job-title').keyup(function () {			if ($(this).val() != '')			{				ajax_post($('#jobs_form'), _error_message_form_processer);			}		});	});</script><?php TPL::output('admin/global/footer.tpl.htm'); ?>
