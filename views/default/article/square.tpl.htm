@@ -4,78 +4,80 @@
 	<div class="aw-container aw-wecenter">
 		<?php TPL::output('block/content_nav_menu.tpl.htm'); ?>
 		
-		<div class="row aw-content-wrap aw-article-square">
-			<div class="col-sm-9 aw-main-content">
-				
-				<div class="aw-mod aw-article-list">
-					<?php if ($this->article_list) { ?>
-					<?php foreach ($this->article_list AS $key => $val) { ?>
-					<div class="aw-item">
-						<a class="aw-user-name" href="people/<?php echo $val['user_info']['url_token']; ?>">
-							<img alt="" src="<?php echo get_avatar_url($val['uid'], 'mid'); ?>" />
-						</a>
-						<div class="aw-content">
-							<div class="aw-mod-body">
-								<h2><a href="article/<?php echo $val['id']; ?>"><?php echo $val['title']; ?></a></h2>
-								<div class="aw-article-topics">
-									<?php foreach($this->article_topics[$val['id']] as $topic_key => $topic_val) { ?>
-									<a href="topic/<?php echo $topic_val['url_token']; ?>" class="aw-topic-name" data-id="<?php echo $topic_val['topic_id']; ?>"><span><?php echo $topic_val['topic_title']; ?></span></a>
-									<?php } ?>
-								</div>
-								<div class="content-wrap">
-									<div class="content" id="detail_<?php echo $val['id']; ?>">
-										<div class="hide-content markitup-box">
-											<?php echo FORMAT::parse_attachs(nl2br(FORMAT::parse_markdown($val['message']))); ?>
+		<div class="container">
+			<div class="row aw-content-wrap aw-article-square">
+				<div class="col-sm-12 col-md-9 aw-main-content">
+					
+					<div class="aw-mod aw-article-list">
+						<?php if ($this->article_list) { ?>
+						<?php foreach ($this->article_list AS $key => $val) { ?>
+						<div class="aw-item">
+							<a class="aw-user-name hidden-xs" href="people/<?php echo $val['user_info']['url_token']; ?>">
+								<img alt="" src="<?php echo get_avatar_url($val['uid'], 'mid'); ?>" />
+							</a>
+							<div class="aw-content">
+								<div class="aw-mod-body">
+									<h2><a href="article/<?php echo $val['id']; ?>"><?php echo $val['title']; ?></a></h2>
+									<div class="aw-article-topics">
+										<?php foreach($this->article_topics[$val['id']] as $topic_key => $topic_val) { ?>
+										<a href="topic/<?php echo $topic_val['url_token']; ?>" class="aw-topic-name" data-id="<?php echo $topic_val['topic_id']; ?>"><span><?php echo $topic_val['topic_title']; ?></span></a>
+										<?php } ?>
+									</div>
+									<div class="content-wrap">
+										<div class="content" id="detail_<?php echo $val['id']; ?>">
+											<div class="hide-content markitup-box">
+												<?php echo FORMAT::parse_attachs(nl2br(FORMAT::parse_markdown($val['message']))); ?>
+											</div>
+											
+											<?php if (cjk_strlen($val['message']) > 130) { ?>
+								        	<a class="more" href="#" onclick="content_switcher($('#detail_<?php echo $val['id']; ?>'), $('#detail_more_<?php echo $val['id']; ?>')); return false;"><?php _e('继续阅读'); ?> »</a>
+								        	<?php } ?>
 										</div>
 										
-										<?php if (cjk_strlen($val['message']) > 130) { ?>
-							        	<a class="more" href="#" onclick="content_switcher($('#detail_<?php echo $val['id']; ?>'), $('#detail_more_<?php echo $val['id']; ?>')); return false;"><?php _e('继续阅读'); ?> »</a>
-							        	<?php } ?>
-									</div>
-									
-									<div class="content markitup-box hide" id="detail_more_<?php echo $val['id']; ?>">
-										<?php echo FORMAT::parse_attachs(nl2br(FORMAT::parse_markdown($val['message']))); ?>
-										<?php if (cjk_strlen($val['message']) > 130) { ?>
-							        	<a class="more" href="#" onclick="content_switcher($('#detail_more_<?php echo $val['id']; ?>'), $('#detail_<?php echo $val['id']; ?>')); return false;"><?php _e('收起阅读'); ?> »</a>
-							        	<?php } ?>
+										<div class="content markitup-box hide" id="detail_more_<?php echo $val['id']; ?>">
+											<?php echo FORMAT::parse_attachs(nl2br(FORMAT::parse_markdown($val['message']))); ?>
+											<?php if (cjk_strlen($val['message']) > 130) { ?>
+								        	<a class="more" href="#" onclick="content_switcher($('#detail_more_<?php echo $val['id']; ?>'), $('#detail_<?php echo $val['id']; ?>')); return false;"><?php _e('收起阅读'); ?> »</a>
+								        	<?php } ?>
+										</div>
 									</div>
 								</div>
-							</div>
-							<div class="aw-mod-footer clearfix">
-								<span class="pull-right">
-									<?php echo $val['user_info']['user_name']; ?> 发表于 : <?php echo date_friendly($val['add_time']); ?>
-									<a href="article/<?php echo $val['id']; ?>"><i class="fa fa-comment"></i> <?php _e('评论'); ?> (<?php echo $val['comments']; ?>)</a><a href="javascript:;" onclick="$.dialog('shareOut', {item_type:'article', item_id:<?php echo $val['id']; ?>});"><i class="fa fa-share"></i> <?php _e('分享'); ?></a>
-								</span>
+								<div class="aw-mod-footer clearfix">
+									<span class="pull-right">
+										<?php echo $val['user_info']['user_name']; ?> 发表于 : <?php echo date_friendly($val['add_time']); ?>
+										<a href="article/<?php echo $val['id']; ?>"><i class="fa fa-comment"></i> <?php _e('评论'); ?> (<?php echo $val['comments']; ?>)</a><a href="javascript:;" onclick="$.dialog('shareOut', {item_type:'article', item_id:<?php echo $val['id']; ?>});"><i class="fa fa-share"></i> <?php _e('分享'); ?></a>
+									</span>
+								</div>
 							</div>
 						</div>
+						<?php } ?>
+						
+						<?php echo $this->pagination; ?>
+						
+						<?php } ?>
 					</div>
-					<?php } ?>
-					
-					<?php echo $this->pagination; ?>
-					
-					<?php } ?>
+					<!-- end 文章列表 -->
 				</div>
-				<!-- end 文章列表 -->
-			</div>
-			<!-- 侧边栏 -->
-			<div class="col-sm-3 aw-side-bar">
-				<!-- 热门文章 -->
-				<div class="aw-side-bar-mod aw-text-align-justify question_related_list">
-					<div class="aw-mod-head">
-						<h3><?php _e('热门文章'); ?></h3>
+				<!-- 侧边栏 -->
+				<div class="col-sm-3 col-md-3 aw-side-bar hidden-xs hidden-sm">
+					<!-- 热门文章 -->
+					<div class="aw-side-bar-mod aw-text-align-justify question_related_list">
+						<div class="aw-mod-head">
+							<h3><?php _e('热门文章'); ?></h3>
+						</div>
+						<div class="aw-mod-body">
+							<ul class="aw-li-border-bottom">
+								<?php foreach($this->hot_articles AS $key => $val) { ?>
+								<li><a href="article/<?php echo $val['id']; ?>"><?php echo $val['title']; ?></a></li>
+								<?php } ?>
+							</ul>
+						</div>
 					</div>
-					<div class="aw-mod-body">
-						<ul class="aw-li-border-bottom">
-							<?php foreach($this->hot_articles AS $key => $val) { ?>
-							<li><a href="article/<?php echo $val['id']; ?>"><?php echo $val['title']; ?></a></li>
-							<?php } ?>
-						</ul>
-					</div>
+					<!-- end 热门文章 -->
+					<?php TPL::output('block/sidebar_hot_topics.tpl.htm'); ?>
 				</div>
-				<!-- end 热门文章 -->
-				<?php TPL::output('block/sidebar_hot_topics.tpl.htm'); ?>
+				<!-- end 侧边栏 -->
 			</div>
-			<!-- end 侧边栏 -->
 		</div>
 	</div>
 </div>

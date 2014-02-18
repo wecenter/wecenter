@@ -2,32 +2,34 @@
 
 <div class="aw-container-wrap">
 	<div class="aw-container aw-wecenter">
-		<div class="row aw-content-wrap">
-			<div class="col-md-9 aw-main-content">
-				<div class="aw-mod aw-dynamic-index aw-my-notifications clearfix">
-					<div class="aw-mod-head">
-						<h2>
-							<a href="javascript:;" onclick="read_notification(0, true, true);" class="pull-right btn btn-mini btn-success"><?php _e('全部已读'); ?></a>
-							<span class="pull-right"><a class="aw-text-color-999" href="account/setting/privacy/#!notifications"><i class="fa fa-cog"></i> <?php _e('通知设置'); ?></a></span>
-							
-							<?php _e('通知'); ?>
-						</h2>
-					</div>
-					<div class="aw-mod-body">
-						<ul id="notifications_list"></ul>
-						<!-- 加载更多内容 -->
-						<a class="aw-load-more-content" id="notifications_more">
-							<span><?php _e('更多'); ?>...</span>
-						</a>
-						<!-- end 加载更多内容 -->
+		<div class="container">
+			<div class="row aw-content-wrap">
+				<div class="col-sm-12 col-md-9 aw-main-content">
+					<div class="aw-mod aw-dynamic-index aw-my-notifications clearfix">
+						<div class="aw-mod-head">
+							<h2>
+								<a href="javascript:;" onclick="read_notification(0, true, true);" class="pull-right btn btn-mini btn-success"><?php _e('全部已读'); ?></a>
+								<span class="pull-right hidden-xs"><a class="aw-text-color-999" href="account/setting/privacy/#!notifications"><i class="fa fa-cog"></i> <?php _e('通知设置'); ?></a></span>
+								
+								<?php _e('通知'); ?>
+							</h2>
+						</div>
+						<div class="aw-mod-body">
+							<ul id="notifications_list"></ul>
+							<!-- 加载更多内容 -->
+							<a class="aw-load-more-content" id="notifications_more">
+								<span><?php _e('更多'); ?>...</span>
+							</a>
+							<!-- end 加载更多内容 -->
+						</div>
 					</div>
 				</div>
+				<!-- 侧边栏 -->
+				<div class="col-md-3 aw-side-bar hidden-xs hidden-sm">
+					<?php TPL::output('block/sidebar_menu.tpl.htm'); ?>	
+				</div>
+				<!-- end 侧边栏 -->
 			</div>
-			<!-- 侧边栏 -->
-			<div class="col-md-3 aw-side-bar">
-				<?php TPL::output('block/sidebar_menu.tpl.htm'); ?>	
-			</div>
-			<!-- end 侧边栏 -->
 		</div>
 	</div>
 </div>
