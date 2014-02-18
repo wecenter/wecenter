@@ -62,7 +62,12 @@ class ucenter_class extends AWS_MODEL
 		switch ($result)
 		{
 			default:
-				$this->model('account')->user_register($_username, $_password, $_email);
+				$uid = $this->model('account')->user_register($_username, $_password, $_email);
+				
+				if (get_setting('register_valid_type') == 'N' OR (get_setting('register_valid_type') == 'email' AND get_setting('register_type') == 'invite'))
+				{
+					$this->model('active')->active_user_by_uid($uid);
+				}
 				
 				return array(
 					'user_info' => $this->model('account')->get_user_info_by_username($_username),
