@@ -54,12 +54,5 @@
 	.aw-register-box, .aw-register-head-title{margin:0 20px;}
 	.aw-register-head, .aw-register-head-title, .aw-register-box, .aw-register-box ul li{width: auto;}
 	.aw-register-box ul{width: auto;margin: 0;padding:20px;}
-}
-
-/* iphone竖屏幕 */
-@media (max-width:321px){
-	/*注册界面*/
-	.aw-register-box, .aw-register-head-title{margin:0 20px;}
-	.aw-register-head, .aw-register-head-title, .aw-register-box, .aw-register-box ul li{width: auto;}
-	.aw-register-box ul{width: auto;margin: 0;padding:20px;}
+	.aw-register-head h1{padding:0 10px 15px;}
 }
