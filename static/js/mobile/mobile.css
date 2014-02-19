@@ -36,6 +36,7 @@ code{white-space: normal;}
 .form-control{padding:3px 6px;}
 input[type="text"], input[type="password"]{height: 38px;padding: 3px 6px;font-size: 14px;line-height: 1.428571429;color: #555555;vertical-align: middle;background-color: #ffffff;border: 1px solid #cccccc;border-radius: 4px;-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);-webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;}
 input[type="text"]:focus, input[type="password"]:focus {border-color: #66afe9;outline: 0;-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);}
+.aw-add-topic-box{color: #999;}
 
 /* tabs切换样式重载 */
 .aw-reset-nav-tabs{position:relative;z-index:1;margin:0;min-height: 30px;}
@@ -164,6 +165,7 @@ nav #aw-top-nav-notic .badge{position: absolute;right: 0;top:1px;z-index:100;pad
 .aw-question-detail-page .aw-answers-list ul li{padding:10px 0;border-top:1px solid #EEEEEE;}
 .aw-question-detail-page .aw-answers-list ul li:first-child{border-top: none;}
 .aw-question-detail-page .aw-answers-list ul li .aw-mod-footer p{margin:5px 0 0 0;}
+.aw-question-detail-page .aw-answers-list ul li .aw-mod-footer a{margin-right:10px;color: #999;}
 .aw-question-detail-page .aw-answers-list .avatar img{width: 25px;height: 25px;border-radius: 2px;}
 .aw-question-detail-page .aw-answers-list h3{min-height:26px;font-size: 15px;}
 .aw-question-detail-page .aw-answers-list h3 strong{margin-left: 10px;}
@@ -453,11 +455,11 @@ nav #aw-top-nav-notic .badge{position: absolute;right: 0;top:1px;z-index:100;pad
 .aw-global-tips .fa-times-circle-o{margin:13px 10px 0 0;font-size:20px;color: #fff;text-shadow:1px 1px 1px #242424;}
 
 /* 字体icon */
-.fa-tag, .fa-signal, .fa-thumbs-up, .fa-heart, .fa-edit, .fa-heart{color: #999;}
+.fa-tag, .fa-signal, .fa-thumbs-up, .fa-heart, .fa-edit, .fa-heart, .fa-comment{color: #999;}
 .icon-v{font-size: 18px;color: #a5d300;}
 .icon-v.i-ve{color: #fce568;}
 .fa-arrow-circle-right{margin-left: 5px;font-size: 16px;}
-.icon-edit{margin-right: 5px;}
+.fa-edit{margin-right: 5px;}
 .fa-thumbs-up.active{color: #428BCA;}
 
 /* 底部 */
