@@ -15,10 +15,10 @@ code{white-space: normal;}
 .aw-text-color-999{color: #999;}
 .aw-arrow{border-color: #C1C1C1 transparent transparent;border-image: none;border-right: 4px solid transparent;border-style: solid;border-width: 4px;}
 .aw-arrow.normal{border-width: 7px;}
-.btn-submit{margin:0 auto 15px;background:#80C3F7;border: 1px solid #1D80CF;border-radius: 5px 5px 5px 5px;box-shadow: 0 1px 0 rgba(255, 255, 255, 0.3) inset, 0 1px 1px rgba(50, 50, 50, 0.05);color: #FFFFFF;cursor: pointer;display: block;font-size: 16px;line-height: 37px;text-align: center;text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);width: 100%;font-weight: bold;}
+.btn-submit{margin:0 auto 15px;background:#80C3F7;border: 1px solid #1D80CF;border-radius: 5px;box-shadow: 0 1px 0 rgba(255, 255, 255, 0.3) inset, 0 1px 1px rgba(50, 50, 50, 0.05);color: #FFFFFF;cursor: pointer;display: block;font-size: 16px;line-height: 37px;text-align: center;text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);width: 100%;font-weight: bold;}
 .btn-submit:hover{text-decoration: none;}
 .btn-green{background-color: #8aca02;}
-.alert{margin:0;padding:8px 14px;border-left: none;border-left: none;border-radius: 0px;}
+.alert{margin:0;padding:8px 14px;border-left: none;border-left: none;border-radius: 0;}
 .alert a{text-decoration: underline;}
 .alert-info{color: #666;}
 .btn-mini{font-size: 12px;}
@@ -50,9 +50,9 @@ input[type="text"]:focus, input[type="password"]:focus {border-color: #66afe9;ou
 /* 顶部 */
 header{height: 46px;min-width: 0;padding:0 10px;background: none repeat scroll 0 0 #0D7DCB;border-bottom: 1px solid #0055AC;border-top: 1px solid #0055AC;}
 header .logo img{position: absolute;left: 5px;top:5px;}
-header form{width: auto;height: 32px;max-width: 100%;margin:6px 0 0 65px;background-color: #E6F3FA;border: 1px solid #0055AC;border-radius: 5px 5px 5px 5px;}
+header form{width: auto;height: 32px;max-width: 100%;margin:6px 0 0 65px;background-color: #E6F3FA;border: 1px solid #0055AC;border-radius: 5px;}
 header form input{width:98%;background: none repeat scroll 0 0 transparent;border: 0 none;color: #999999;font-size: 14px;line-height: normal;outline: medium none;overflow: hidden;padding: 6px 8px;}
-header .aw-publish{background-image: -moz-linear-gradient(top, #1589E0, #0F71C6);background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#1589E0), to(#0F71C6));background-image: -webkit-linear-gradient(top, #1589E0, #0F71C6);background-image: -o-linear-gradient(top, #1589E0, #0F71C6);background-image: linear-gradient(to bottom, #1589E0, #0F71C6);border: 1px solid #065FB9;border-radius: 5px 5px 5px 5px;box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1) inset, 0 1px 1px rgba(0, 0, 0, 0.1);font-size: 15px;height: 32px;line-height: 32px;text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);width: 54px;color: #fff;position: absolute;right: 5px;top: 7px;text-align: center;}
+header .aw-publish{background-image: -moz-linear-gradient(top, #1589E0, #0F71C6);background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#1589E0), to(#0F71C6));background-image: -webkit-linear-gradient(top, #1589E0, #0F71C6);background-image: -o-linear-gradient(top, #1589E0, #0F71C6);background-image: linear-gradient(to bottom, #1589E0, #0F71C6);border: 1px solid #065FB9;border-radius: 5px;box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1) inset, 0 1px 1px rgba(0, 0, 0, 0.1);font-size: 15px;height: 32px;line-height: 32px;text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);width: 54px;color: #fff;position: absolute;right: 5px;top: 7px;text-align: center;}
 header .aw-login-btn{height:46px;line-height:46px;padding:0 15px;font-size: 15px;text-shadow:0 1px 1px rgba(0, 0, 0, 0.12);color: #fff;}
 
 
@@ -69,7 +69,7 @@ nav #aw-top-nav-notic .badge{position: absolute;right: 0;top:1px;z-index:100;pad
 .aw-top-nav-popup{position: absolute;border-radius: 0 0 6px 6px;box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);}
 .aw-top-nav-popup li, .aw-top-nav-popup .slide-close{border-top: 1px solid #eee;}
 .aw-top-nav-popup li:first-child{border-top: none;}
-.aw-top-nav-popup li a{display: block;background-color: #F4F4F4;border: 0 none !important;border-radius: 0 0 0 0 !important;box-shadow: none;color: #000000;height: 45px;line-height: 45px;text-shadow: none; width: 100%;}
+.aw-top-nav-popup li a{display: block;background-color: #F4F4F4;border: 0 none !important;border-radius: 0 !important;box-shadow: none;color: #000000;height: 45px;line-height: 45px;text-shadow: none; width: 100%;}
 .aw-top-nav-popup li a:hover{background-color: #E4E4E4;}
 .aw-top-nav-popup li img{ margin:0 10px;border-radius: 2px;box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);}
 .aw-top-nav-popup .slide-close{background-color:#F4F4F4;display: block;height: 36px;line-height:36px;color:#999;width: 100%;border-radius: 0 0 6px 6px;cursor: pointer;text-align: center;}
@@ -113,7 +113,7 @@ nav #aw-top-nav-notic .badge{position: absolute;right: 0;top:1px;z-index:100;pad
 .aw-side-bar .aw-side-nav{padding:10px 0;border-bottom: 1px solid #EEEEEE;}
 .aw-side-bar .aw-side-nav li{margin:0 0 3px;}
 .aw-side-bar .aw-side-nav li a{display: block;height: 28px;line-height: 28px;padding: 0 0 0 10px;color: #666666;}
-.aw-side-bar .aw-side-nav li a:hover, .aw-side-bar .aw-side-nav li.active a{background: none repeat scroll 0 0 #E7F3F9;border-radius: 3px 3px 3px 3px;color: #225599;text-decoration: none;}
+.aw-side-bar .aw-side-nav li a:hover, .aw-side-bar .aw-side-nav li.active a{background: none repeat scroll 0 0 #E7F3F9;border-radius: 4px;color: #225599;text-decoration: none;}
 .aw-side-bar .aw-side-nav li .badge-info{margin-left: 10px;}
 .aw-side-bar .aw-side-bar-section ul li{margin:10px 0;}
 .aw-side-bar .aw-side-bar-section ul li img{margin-right: 10px;}
@@ -185,8 +185,8 @@ nav #aw-top-nav-notic .badge{position: absolute;right: 0;top:1px;z-index:100;pad
 .aw-question-detail-page .aw-related-questions{margin-top: 40px;border-top:1px solid #EEEEEE;}
 .aw-question-detail-page .aw-related-questions h3{margin:10px 0;}
 .aw-question-detail-page .aw-related-questions ul li{margin-bottom: 10px;}
-.aw-question-detail-page .aw-winner-replay{position:relative;height: 30px;line-height: 30px;margin:10px 0 12px;padding-left: 10px;background: #eeeeee;font-size: 14px;font-weight: bold;}
-.aw-question-detail-page .aw-winner-replay i{margin-right: 5px;vertical-align: -2px;}
+.aw-question-detail-page .aw-winner-replay{position:relative;height: 30px;line-height: 30px;padding-left: 40px;background: #eeeeee;font-size: 14px;font-weight: bold;}
+.aw-question-detail-page .aw-winner-replay i{position:absolute;left:-4px;top:-3px;font-size: 48px;}
 .aw-question-detail-page .aw-share-iframe{position: relative;top: 2px;max-width: 50px;}
 
 /* 邀请回答 */
@@ -372,12 +372,13 @@ nav #aw-top-nav-notic .badge{position: absolute;right: 0;top:1px;z-index:100;pad
 .inbox .replay-box textarea{width:100%;padding: 0;}
 .inbox .replay-list li{position: relative;min-height:50px;padding:10px 35px;}
 .inbox .replay-list li .aw-item p{white-space:normal; word-break:break-all;}
-.inbox .replay-list li.active .inbox-arrow{background-position: -84px -32px;left: -6px !important;}
 .inbox .replay-list li.active .aw-item{background: #F5FAFE;border:1px solid #DCECF9;}
 .inbox .replay-list li.active .avatar{left: 0 !important;}
 .inbox .replay-list .avatar{position: absolute;right: 0;top: 10px;}
 .inbox .replay-list .avatar img{width: 25px;height: 25px;}
-.inbox .replay-list .aw-item{position: relative;padding: 12px 15px;background: #FAFAFA;border: 1px solid #E6E6E6;}
+.inbox .replay-list .aw-item{position: relative;padding: 12px 15px;background: #FAFAFA;border: 1px solid #E6E6E6;border-radius: 5px;}
+.inbox .replay-list li.active .icon-inbox-arrow{left: -6px;top: 5px;background: url('img/icon-angle-left.png') no-repeat;}
+.inbox .icon-inbox-arrow{position:absolute;right:-6px;top:5px;display:block;width: 7px;height: 10px;background: url('img/icon-angle-right.png') no-repeat;}
 
 /* 我的草稿 & 我的收藏 & 我关注的问题 */
 .aw-draft-list li, .aw-favorite-list li, .aw-focus-question li{position: relative;padding: 10px 0;border-top: 1px dashed #eee;}
@@ -461,6 +462,7 @@ nav #aw-top-nav-notic .badge{position: absolute;right: 0;top:1px;z-index:100;pad
 .fa-arrow-circle-right{margin-left: 5px;font-size: 16px;}
 .fa-edit{margin-right: 5px;}
 .fa-thumbs-up.active{color: #428BCA;}
+.icon-g-replay{color: #1A9F00;}
 
 /* 底部 */
 footer{margin-top:20px;font-size: 12px;text-align: center;}
