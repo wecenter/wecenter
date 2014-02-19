@@ -1,3 +1,5 @@
+@charset "UTF-8";
+
 /* 重载bootstrap部分 */
 em{font-style: normal;}
 input[type="radio"], input[type="checkbox"]{margin:0;}
@@ -560,16 +562,16 @@ a.aw-load-more-content{display: block;}
 .aw-side-bar-topic-nav ul > li > p{height:auto;overflow:hidden;margin-top:10px;padding:10px;border:1px solid #ccc;}
 .aw-side-bar-topic-nav ul > li > p a{display:inline-block;margin:3px 2px;padding: 1px 5px;}
 .aw-side-bar-topic-nav ul > li > p .active{background:#D4F2FF;}
-/* 已关注话题 */
-.aw-topic-follow{margin-bottom: 20px;}
-.aw-topic-follow .aw-mod-head{margin-bottom: 20px;}
-.aw-topic-follow h2{margin-top:0px;font-size: 20px;}
-.aw-topic-follow .aw-item{position:relative;min-height:90px;padding:20px 5px 20px 65px;border-top:1px dotted #E2E2E2;}
-.aw-topic-follow .aw-item:first-child{border-top: none;}
-.aw-topic-follow .aw-item ul{margin-top:10px;}
-.aw-topic-follow .aw-item ul li{line-height: 28px;}
-.aw-topic-follow .aw-item ul li span{margin-left: 10px;}
-.aw-topic-follow .aw-item .aw-topic-img{position: absolute;left: 5px;top: 20px;}
+/* 热门话题列表 */
+.aw-topic-list{margin-bottom: 20px;}
+.aw-topic-list .aw-mod-head{margin-bottom: 20px;}
+.aw-topic-list h2{margin-top:0px;font-size: 20px;}
+.aw-topic-list .aw-item{position:relative;min-height:90px;padding:20px 5px 20px 65px;border-top:1px dotted #E2E2E2;}
+.aw-topic-list .aw-item:first-child{border-top: none;}
+.aw-topic-list .aw-item ul{margin-top:10px;}
+.aw-topic-list .aw-item ul li{line-height: 28px;}
+.aw-topic-list .aw-item ul li span{margin-left: 10px;}
+.aw-topic-list .aw-item .aw-topic-img{position: absolute;left: 5px;top: 20px;}
 
 /* 话题详细页 */
 .aw-topic-detail-title{min-height: 90px;margin-top:10px;}
@@ -1016,12 +1018,12 @@ a.aw-load-more-content{display: block;}
 	.category dl:hover .aw-dropdown, .category ul li:hover .aw-dropdown, .category dl .aw-dropdown ul li a{display:none;}
 	/*话题广场*/
 	.aw-topic-content{padding:0;}
-	.aw-topic-content .aw-topic-follow h2{margin-top: 20px;}
+	.aw-topic-content .aw-topic-list h2{margin-top: 20px;}
 	/*话题详情页*/
 	.aw-topic-detail-content .aw-topic-detail-title{margin:0;min-height: 50px;}
 	.aw-topic-detail-content .aw-topic-list-mod .aw-item{padding-left: 0;}
-	.aw-topic-follow .aw-mod-head{margin:0;}
-	.aw-topic-content .aw-topic-follow h2{margin:10px 0;}
+	.aw-topic-list .aw-mod-head{margin:0;}
+	.aw-topic-content .aw-topic-list h2{margin:10px 0;}
 	/*问题详情页*/
 	.aw-invite-box .aw-mod-body ul{width:100%;max-height: 999px;margin:0;}
 	.aw-invite-box .aw-mod-body ul li{width: 100%;margin:0;}

@@ -1,3 +1,5 @@
+@charset "UTF-8";
+
 *{margin:0;padding:0;}
 body{padding:0 0 20px 0 !important;}
 input, textarea, select{margin-bottom:10px;font-family: "Helvetica Neue",Helvetica,Arial,'Microsoft YaHei',sans-serif;color: #666;}
@@ -266,10 +268,6 @@ nav #aw-top-nav-notic .badge{position: absolute;right: 0;top:1px;z-index:100;pad
 .aw-topic-side-section dl{height: auto;overflow: hidden;margin:0;padding:10px 0;border-bottom:1px solid #eee;}
 .aw-topic-side-section p{margin:10px 0 0 0;}
 .aw-topic-page .aw-topic-feed-title{padding-bottom: 10px;border-bottom: 1px solid #eee;color: #666;}
-.aw-topic-page .aw-topic-follow-list .topic img, .aw-topic-page .aw-topic-list .topic img, .aw-topic-page .aw-topic-hot dl img{width: 50px;height: 50px;border-radius: 4px;}
-.aw-topic-page .aw-topic-follow-list h3, .aw-topic-page .aw-topic-list h3{margin-bottom: 5px;}
-.aw-topic-page .aw-topic-follow-list li{line-height: 22px;margin-bottom: 8px;}
-.aw-topic-page .aw-topic-follow-list li a{font-size: 15px;}
 .aw-topic-page .aw-topic-list li{position: relative;padding:10px 0 10px 60px;border-top: 1px dashed #eee;}
 .aw-topic-page .aw-topic-list li:first-child{border-top: none;}
 .aw-topic-page .aw-topic-list li .topic{position: absolute;left: 0;top: 10px;}
