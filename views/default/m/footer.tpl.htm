@@ -16,13 +16,16 @@
 		<script type="text/javascript">
 		$(function()
 		{
-			if ($('.aw-question-detail-title .aw-mod-body img').first().attr('src') == ''){
-		        var weixin_img_url =location.protocol+'//'+location.host+'/static/common/weixin_default_logo.jpg';
-		    }else{
-		        var weixin_img_url = $('.aw-question-detail-title .aw-mod-body img').first().attr('src'),
-		        weixin_img_first = $('.aw-question-detail-title .aw-mod-body img').first().attr('src').replace(/(.*\/){0,}([^\.]+.*)/ig, "$2");
-		        var weixin_img_url = weixin_img_url.replace(weixin_img_first,'90x90_'+weixin_img_first);
-		    }
+			if ($('.aw-question-detail-title .aw-mod-body img')[0])
+			{
+				if ($('.aw-question-detail-title .aw-mod-body img').first().attr('src') == ''){
+			        var weixin_img_url =location.protocol+'//'+location.host+'/static/common/weixin_default_logo.jpg';
+			    }else{
+			        var weixin_img_url = $('.aw-question-detail-title .aw-mod-body img').first().attr('src'),
+			        weixin_img_first = $('.aw-question-detail-title .aw-mod-body img').first().attr('src').replace(/(.*\/){0,}([^\.]+.*)/ig, "$2");
+			        var weixin_img_url = weixin_img_url.replace(weixin_img_first,'90x90_'+weixin_img_first);
+			    }
+			}
 			// 判断是否微信打开
 			if (typeof G_IN_WEIXIN != 'undefined' && G_IN_WEIXIN == true)
 		    {
