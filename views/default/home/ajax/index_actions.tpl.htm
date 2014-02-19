@@ -30,7 +30,7 @@
 				<a href="<?php echo $val['link']; ?>" class="aw-text-color-999"><?php _e('%s 个评论', $val['article_info']['comments']); ?></a>
 			<?php } else { ?>
 				<a href="<?php echo $val['link']; ?>" class="aw-text-color-999"><?php _e('%s 个回复', $val['question_info']['answer_count']); ?></a>
-					<?php if ($this->user_id AND !$_GET['filter']) { ?> • <a href="javascript:;" class="aw-text-color-999<?php if (!$val['question_info']['has_focus']) { ?> aw-active<?php } ?>" onclick="focus_question($(this), <?php echo $val['question_info']['question_id']; ?>);"><?php if ($val['question_info']['has_focus']) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?>
+					<?php if ($this->user_id AND !$_GET['filter']) { ?>
 				</a>
 				<?php } ?>
 				<?php if ($_GET['filter'] == 'focus') { ?>
