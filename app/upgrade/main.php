@@ -219,6 +219,8 @@ class main extends AWS_CONTROLLER
 		
 		include(ROOT_PATH . 'app/upgrade/script/' . $script_version . '.php');
 		
+		$this->model('upgrade')->remove_upgrade_script($script_version);
+		
 		H::redirect_msg(AWS_APP::lang()->_t('正在执行升级脚本 %s, 请耐心等待...', $script_version), '/upgrade/script/' . rand(100000, 666666));
 	}
 	
