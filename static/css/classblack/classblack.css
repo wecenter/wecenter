@@ -37,6 +37,7 @@
 /* category */
 .category{margin:0 0 30px 0;background:#F7F7F7;border:1px solid #DFDFDF;border-radius: 5px;}
 .category .col-sm-12{margin-left: 0px;padding:0 0 0 2px;}
+.category .col-sm-12 > ul > li{margin:7px 5px;}
 .category dl{margin:10px;padding:12px;}
 
 /* aw-container-wrap */
@@ -171,3 +172,10 @@
 
 /* 发起页面 */
 .aw-publish-title input{width: 511px;}
+
+/* ipad横屏 */
+@media (max-width: 1024px) {
+	.aw-main-content{width: 100% !important;}
+}
+
+
