@@ -248,7 +248,7 @@ nav #aw-top-nav-notic .badge{position: absolute;right: 0;top:1px;z-index:100;pad
 .aw-article-detail-meta .aw-article-vote a:hover{background-color: #FBFBFB;}
 .aw-article-detail-meta .aw-article-vote a.active{background-color: #F1F2F3;box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) inset;}
 .aw-article-detail-meta .aw-article-vote i{margin:0;}
-.aw-article-voter a img{width: 25px;height: 25px;border-radius: 15px;}
+.aw-article-voter a img{width: 25px;height: 25px;margin-bottom:10px;border-radius: 15px;}
 .aw-article-voter a.more-voters{display: inline-block;width: 25px;height: 25px;line-height:18px;border-radius: 15px;background-color: #f1f2f3;text-align: center;vertical-align: middle;color: #cdcecf;}
 
 
