@@ -30,7 +30,7 @@
 				<a href="<?php echo $val['link']; ?>" class="aw-text-color-999"><?php _e('%s 个评论', $val['article_info']['comments']); ?></a>
 			<?php } else { ?>
 				<a href="<?php echo $val['link']; ?>" class="aw-text-color-999"><?php _e('%s 个回复', $val['question_info']['answer_count']); ?></a>
-					<?php if ($this->user_id AND !$_GET['filter']) { ?> • <a href="javascript:;" class="aw-text-color-999<?php if (!$val['question_info']['has_focus']) { ?> aw-active<?php } ?>" onclick="focus_question($(this), <?php echo $val['question_info']['question_id']; ?>);"><?php if ($val['question_info']['has_focus']) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?>
+					<?php if ($this->user_id AND !$_GET['filter']) { ?>
 				</a>
 				<?php } ?>
 				<?php if ($_GET['filter'] == 'focus') { ?>
@@ -47,22 +47,19 @@
 		<em class="aw-border-radius-5 aw-vote-count pull-left<?php if (!$this->user_id OR $this->user_id == $val['answer_info']['uid']) { ?> disabled<?php } ?>"<?php if ($this->user_id AND $this->user_id != $val['answer_info']['uid']) { ?> onclick="insertVoteBar({element:this,agree_count:<?php echo $val['answer_info']['agree_count']; ?>,flag:<?php echo $val['answer_info']['agree_status']; ?>,user_name:G_USER_NAME,answer_id:<?php echo $val['answer_info']['answer_id']; ?>})"<?php } ?>><?php echo $val['answer_info']['agree_count']; ?></em>
 		<!-- end 投票栏 -->
 		<div class="pull-left aw-dynamic-topic-content">
-			<p class="aw-text-color-999 aw-agree-by<?php if (count($val['answer_info']['agree_users']) == 0) { ?> hide<?php } ?>">
-				<?php _e('赞同来自'); ?>:
-				<?php if ($val['answer_info']['agree_users']) { $count = 0; ?>
-				<?php foreach ($val['answer_info']['agree_users'] as $uid => $user) { ?>
-					<?php if ($count > 0) { ?><em<?php if ($count >= 5) { ?> class="hide"<?php } ?>>、</em><?php } ?><a href="people/<?php echo $user['url_token']; ?>" data-id="<?php echo $user['uid']; ?>" class="aw-user-name<?php if ($count >= 5) { ?> hide<?php } ?>"><?php echo $user['user_name']; ?></a>
-				<?php $count++; } ?>
-				<?php if (count($val['answer_info']['agree_users']) >= 5) { ?><a href="javascript:;" class="aw-agree-by-show" onclick="$(this).parents('.aw-agree-by').find('em,a').removeClass('hide'); $(this).remove();"><?php _e('更多'); ?> »</a><?php } ?>
-				<?php } ?>
-			</p>
-			
-			<!-- 评论内容 -->
 			<div>
-				<div id="detail_<?php echo $val['history_id']; ?>">
-		      		<p>
-		      			<?php echo nl2br(strip_ubb(cjk_substr($val['answer_info']['answer_content'], 0, 130, 'UTF-8', '...'))); ?>
-		      		</p>
+				<p class="aw-text-color-999 aw-agree-by<?php if (count($val['answer_info']['agree_users']) == 0) { ?> hide<?php } ?>">
+					<?php _e('赞同来自'); ?>:
+					<?php if ($val['answer_info']['agree_users']) { $count = 0; ?>
+					<?php foreach ($val['answer_info']['agree_users'] as $uid => $user) { ?>
+						<?php if ($count > 0) { ?><em<?php if ($count >= 5) { ?> class="hide"<?php } ?>>、</em><?php } ?><a href="people/<?php echo $user['url_token']; ?>" data-id="<?php echo $user['uid']; ?>" class="aw-user-name<?php if ($count >= 5) { ?> hide<?php } ?>"><?php echo $user['user_name']; ?></a>
+					<?php $count++; } ?>
+					<?php if (count($val['answer_info']['agree_users']) >= 5) { ?><a href="javascript:;" class="aw-agree-by-show" onclick="$(this).parents('.aw-agree-by').find('em,a').removeClass('hide'); $(this).remove();"><?php _e('更多'); ?> »</a><?php } ?>
+					<?php } ?>
+				</p>
+				<!-- 评论内容 -->
+				<div id="detail_<?php echo $val['history_id']; ?>" class="markitup-box">
+		      		<?php echo nl2br(strip_ubb(cjk_substr($val['answer_info']['answer_content'], 0, 130, 'UTF-8', '...'))); ?>
 		      		<?php if (cjk_strlen($val['answer_info']['answer_content']) > 130) { ?>
 		        	<a href="javascript:;" class="showMore" onclick="content_switcher($('#detail_<?php echo $val['history_id']; ?>'), $('#detail_more_<?php echo $val['history_id']; ?>'));"><?php _e('显示全部'); ?> »</a>
 		        	<?php } ?>
@@ -87,8 +84,7 @@
 						</div>
 					<?php } ?>
 				</div>
-				
-				<div id="detail_more_<?php echo $val['history_id']; ?>" class="hide">
+				<div id="detail_more_<?php echo $val['history_id']; ?>" class="hide markitup-box">
 		      		<?php echo nl2br(strip_ubb($val['answer_info']['answer_content'])); ?>
 		        	
 					<?php if ($val['answer_info']['attachs']) { ?>
@@ -109,8 +105,8 @@
 						</div>
 					<?php } ?>
 				</div>    
+				<!-- end 评论内容 -->
 			</div>
-			<!-- end 评论内容 -->
 			<!-- 社交操作 -->
 			<div class="aw-dynamic-topic-meta">
 				<a class="aw-add-comment aw-text-color-999" href="javascript:;" data-id="<?php echo $val['answer_info']['answer_id']; ?>" data-type="answer"><i class="fa fa-comment"></i><?php _e('%s 条评论', $val['answer_info']['comment_count']); ?></a>

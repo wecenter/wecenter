@@ -98,10 +98,10 @@ class AWS_CONTROLLER
 		$this->crumb(get_setting('site_name'), get_setting('base_url'));
 		
 		if ($plugins = AWS_APP::plugins()->parse($_GET['app'], $_GET['c'], 'setup'))
-		{
+		{			
 			foreach ($plugins as $plugin_file)
 			{
-				include ($plugin_file);
+				include $plugin_file;
 			}
 		}
 		

@@ -16,7 +16,7 @@
 /* top-menu */
 .aw-top-menu-wrap{background: #383838;}
 .aw-top-menu h1{margin:0;}
-.aw-top-nav nav ul li a:hover, .aw-user-nav > span > a:hover{background: #404040;}
+.aw-top-nav nav ul li a:hover, .aw-user-nav > span > a:hover, .aw-top-nav nav ul li a:focus{background: #404040;}
 .aw-top-nav nav ul li a.active{background:#515151 !important;}
 .aw-publish-btn{display:inline-block;height:32px;line-height:32px;color:#fff;}
 .aw-publish-btn:hover{background-position: -110px -10px;color: #fff;}
@@ -37,6 +37,7 @@
 /* category */
 .category{margin:0 0 30px 0;background:#F7F7F7;border:1px solid #DFDFDF;border-radius: 5px;}
 .category .col-sm-12{margin-left: 0px;padding:0 0 0 2px;}
+.category .col-sm-12 > ul > li{margin:7px 5px;}
 .category dl{margin:10px;padding:12px;}
 
 /* aw-container-wrap */
@@ -76,17 +77,17 @@
 /* 问题详情页 */
 .aw-question-detail-title{padding:10px 20px 20px;border:1px solid #DFDFDF;border-radius: 5px;}
 .aw-question-detail-title .aw-comment-box{margin:10px 0;}
-.aw-question-detail-box{margin-bottom:20px;padding:1px;border:1px solid #DFDFDF;border-radius: 5px;}
-.aw-question-detail-box .aw-dynamic-topic{padding:0 20px 0 40px;}
-.aw-question-detail-box .aw-dynamic-topic .aw-item{border-top: 1px dotted #C1CAD4;border-bottom: none;}
-.aw-question-detail-box .aw-dynamic-topic .aw-item:first-child{border-top: none;}
-.aw-question-detail-box .aw-dynamic-topic .aw-vote-bar, .aw-question-detail-box .aw-dynamic-topic .aw-vote-count{margin:0 10px 0 0;}
-.aw-question-detail-box .aw-dynamic-topic .aw-dynamic-topic-content{width: 540px;}
-.aw-question-detail-box .aw-load-more-content{margin:15px 20px;}
+.aw-question-comment-box{margin-bottom:20px;padding:1px;border:1px solid #DFDFDF;border-radius: 5px;}
+.aw-question-comment-box .aw-dynamic-topic{padding:0 20px 0 40px;}
+.aw-question-comment-box .aw-dynamic-topic .aw-item{border-top: 1px dotted #C1CAD4;border-bottom: none;}
+.aw-question-comment-box .aw-dynamic-topic .aw-item:first-child{border-top: none;}
+.aw-question-comment-box .aw-dynamic-topic .aw-vote-bar, .aw-question-comment-box .aw-dynamic-topic .aw-vote-count{margin:0 10px 0 0;}
+.aw-question-comment-box .aw-dynamic-topic .aw-dynamic-topic-content{width: 540px;}
+.aw-question-comment-box .aw-load-more-content{margin:15px 20px;}
+.aw-question-comment-box .aw-vote-bar, .aw-dynamic-topic .aw-vote-count.disabled{left: -25px !important;}
 .aw-dynamic-topic .aw-item.active{width: 617px;}
 .aw-comment-box-main{background: #f7f7f7;}
 .aw-question-detail-title .aw-mod-head h1{width:480px;}
-.aw-question-detail-box .aw-vote-bar, .aw-dynamic-topic .aw-vote-count.disabled{left: -25px !important;}
 
 /* 经验详情页 */
 .aw-article-detail-meta{margin:0;}
@@ -104,7 +105,7 @@
 .aw-topic-content{padding:1px;border:1px solid #DFDFDF;border-radius: 5px;}
 .aw-topic-content-wrap .aw-topic-all-list .col-sm-6{width: 238px;}
 .aw-topic-daily .aw-mod-head h3{padding: 0;}
-.aw-topic-follow{margin:20px;}
+.aw-topic-list{margin:20px;}
 .aw-side-bar-topic-nav ul > li > a, .aw-side-bar-topic-nav ul > li > span{padding-left:20px;}
 .aw-side-bar-topic-nav ul > li > a:hover, .aw-side-bar-topic-nav ul > li > a.active{background-color:#515151;color: #fff;}
 .aw-topic-list-mod{border:1px solid #DFDFDF;}
@@ -171,3 +172,32 @@
 
 /* 发起页面 */
 .aw-publish-title input{width: 511px;}
+
+/* ipad横屏 */
+@media (max-width: 1024px) {
+	.aw-container-wrap{margin:0;}
+	.aw-main-content{width: 100% !important;margin:0;padding:0;}
+	.category{margin:0 -15px 10px;}
+	.aw-all-question .aw-question-box-mod .aw-mod-body{padding:10px;}
+	.aw-question-detail-title{padding:10px;}
+	/*发起页面*/
+	.aw-publish .aw-reset-nav-tabs{margin:0 0 20px;}
+	.aw-index .aw-dynamic-topic > .aw-mod-body, .aw-dynamic-index > .aw-mod-body{padding:10px;}
+	.aw-mod-publish h3{margin-top:10px;}
+	/*话题页面*/
+	.aw-topic-detail-content .aw-topic-detail-title{min-height: 90px;margin-bottom: 10px;}
+
+}
+/* ipad竖屏 */
+@media (max-width: 769px) {
+}
+/* iphone横屏幕 */
+@media (max-width:640px) {
+	.aw-question-detail-title .aw-mod-head h1{width: 100%;}
+}
+/* iphone竖屏幕 */
+@media (max-width:321px) {
+
+}
+
+

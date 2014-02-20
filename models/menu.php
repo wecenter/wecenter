@@ -72,7 +72,7 @@ class menu_class extends AWS_MODEL
 		return $data;
 	}
 	
-	public function get_nav_menu_list($app = '')
+	public function get_nav_menu_list($app = null)
 	{
 		if (!$nav_menu_data = AWS_APP::cache()->get('nav_menu_list'))
 		{
@@ -98,7 +98,13 @@ class menu_class extends AWS_MODEL
 			switch ($app)
 			{
 				case 'explore':
-					$url_prefix = 'home/explore/';
+					$url_prefix = 'explore/';
+					
+					$url_mobile_prefix = 'm/explore/';
+				break;
+				
+				case 'question':
+					$url_prefix = 'question/square/';
 					
 					$url_mobile_prefix = 'm/explore/';
 				break;

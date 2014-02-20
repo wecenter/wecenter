@@ -6,7 +6,7 @@ $config = array(
 	'prev_link' => '&lt;',
 	'last_link' => '&gt;&gt;',
 	'uri_segment' => 3,
-	'full_tag_open' => '<div class="page-control clearfix"><ul class="pagination  pull-right">',
+	'full_tag_open' => '<div class="page-control clearfix"><ul class="pagination pull-right">',
 	'full_tag_close' => '</ul></div>',
 	'first_tag_open' => '<li>',
 	'first_tag_close' => '</li>',
@@ -22,5 +22,6 @@ $config = array(
 	'num_tag_open' => '<li>',
 	'num_tag_close' => '</li>',
 	'display_pages' => TRUE,
-	'anchor_class' => ''
+	'anchor_class' => '',
+	'num_links' => 3
 );

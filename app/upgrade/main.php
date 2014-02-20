@@ -20,10 +20,10 @@ if (!defined('IN_ANWSION'))
 
 class main extends AWS_CONTROLLER
 {
-	var $versions = array();
-	var $db_version = 0;
-	var $db_engine = '';
-	var $ignore_sql;
+	public $versions = array();
+	public $db_version = 0;
+	public $db_engine = '';
+	public $ignore_sql;
 	
 	public function get_access_rule()
 	{
@@ -53,41 +53,7 @@ class main extends AWS_CONTROLLER
 		$this->model('upgrade')->db_clean();
 		
 		// 在此标记有 SQL 升级的版本号, 名称为上一个版本的 Build 编号
-		$this->versions = array(
-			/*20120608,
-			20120615,
-			20120622,
-			20120629,
-			20120706,
-			20120713,
-			20120719,
-			20120720,*/
-			
-			20120727,
-			20120803,
-			20120810,
-			20120817,
-			20120824,
-			20120831,
-			20120921,
-			20120928,
-			20121012,
-			20121019,
-			20121026,
-			20121102,
-			20121109,
-			20121123,
-			20121228,
-			20130111,
-			20130118,
-			20130125,
-			20130201,
-			20130301,
-			20130308,
-			20130315,
-			20130322,
-			20130329,
-			20130412,
+		$this->versions = array(			
 			20130419,
 			20130426,
 			20130607,
@@ -108,17 +74,15 @@ class main extends AWS_CONTROLLER
 			20131206,
 			20131213,
 			20140117,
-			20140124
+			20140124,
+			20140214
 		);
 		
-		if (!$this->db_version = get_setting('db_version', false))
-		{
-			$this->db_version = 20120608;
-		}
+		$this->db_version = get_setting('db_version', false);
 		
-		if ($this->db_version < 20120727)
+		if ($this->db_version < 20130419)
 		{
-			H::redirect_msg(AWS_APP::lang()->_t('当前升级器只支持 1.0.2 以上版本升级, 你当前版本太低, 请下载 1.0.3 版进行升级'));
+			H::redirect_msg(AWS_APP::lang()->_t('当前升级器只支持 2.0 与以上版本升级, 你当前版本太低, 请下载 2.0 - 2.5.1 版先进行升级'));
 		}
 		
 		if (!in_array($this->db_version, $this->versions))
@@ -133,7 +97,7 @@ class main extends AWS_CONTROLLER
 			// ignore
 			$this->db_version = $this->db_version + 1;
 		}
-		else if (!in_array($this->db_version, $this->versions) AND $_GET['act'] != 'final')
+		else if (!in_array($this->db_version, $this->versions) AND $_GET['act'] != 'final' AND $_GET['act'] != 'script')
 		{
 			if ($this->db_version > end($this->versions))
 			{
@@ -194,10 +158,16 @@ class main extends AWS_CONTROLLER
 			$sql_query = null;
 			
 			$sql_file = ROOT_PATH . 'app/upgrade/db/' . $version . '.sql';
+			$upgrade_script = ROOT_PATH . 'app/upgrade/script/' . $version . '.php';
 			
 			if ($this->db_version <= $version AND file_exists($sql_file))
 			{	
 				$sql_query = file_get_contents($sql_file);
+			}
+			
+			if ($this->db_version <= $version AND file_exists($upgrade_script))
+			{	
+				$this->model('upgrade')->setup_upgrade_script($version);
 			}
 			
 			if ($this->db_version == $version AND $this->ignore_sql)
@@ -227,108 +197,38 @@ class main extends AWS_CONTROLLER
 		
 		AWS_APP::cache()->clean();
 		
-		H::redirect_msg(AWS_APP::lang()->_t('升级完成, 下面开始重建数据...'), '/upgrade/final/case-start');
+		$upgrade_script = $this->model('upgrade')->get_upgrade_script();
+		
+		if (sizeof($upgrade_script) > 0)
+		{
+			HTTP::redirect('/upgrade/script/');
+		}
+		
+		HTTP::redirect('/upgrade/final/');
+	}
+	
+	public function script_action()
+	{
+		$upgrade_script = $this->model('upgrade')->get_upgrade_script();
+		
+		if (sizeof($upgrade_script) == 0 OR !$upgrade_script)
+		{
+			HTTP::redirect('/upgrade/final/');
+		}
+		
+		krsort($upgrade_script);
+		
+		$script_version = end($upgrade_script);
+		
+		include(ROOT_PATH . 'app/upgrade/script/' . $script_version . '.php');
+		
+		$this->model('upgrade')->remove_upgrade_script($script_version);
+		
+		H::redirect_msg(AWS_APP::lang()->_t('正在执行升级脚本 %s, 请耐心等待...', $script_version), '/upgrade/script/' . rand(100000, 666666));
 	}
 	
 	public function final_action()
 	{
-		if (intval($_GET['page']) < 1)
-		{
-			$_GET['page'] = 1;
-		}
-		
-		switch ($_GET['case'])
-		{
-			case 'start':				
-				H::redirect_msg(AWS_APP::lang()->_t('正在进入重建数据阶段...'), '/upgrade/final/case-update_last_answer');
-			break;
-			
-			// 0629
-			/*case 'update_question_attach_statistics':
-				if ($this->model('upgrade')->check_question_attach_statistics())
-				{
-					H::redirect_msg(AWS_APP::lang()->_t('问题附件统计重建完成, 开始重建回复附件统计...'), '/upgrade/final/case-update_answer_attach_statistics');
-				}
-				
-				if ($this->model('upgrade')->update_question_attach_statistics($_GET['page'], 2500))
-				{
-					H::redirect_msg(AWS_APP::lang()->_t('正在重建问题附件统计') . ', ' . AWS_APP::lang()->_t('批次: %s', $_GET['page']), '/upgrade/final/case-update_question_attach_statistics__page-' . ($_GET['page'] + 1));
-				}
-				else
-				{
-					H::redirect_msg(AWS_APP::lang()->_t('问题附件统计重建完成, 开始重建附件统计...'), '/upgrade/final/case-update_answer_attach_statistics');
-				}
-			break;*/
-			
-			// 0803
-			case 'update_last_answer':
-				if ($this->model('upgrade')->check_last_answer())
-				{
-					H::redirect_msg(AWS_APP::lang()->_t('最后回复数据更新完成, 开始更新问题热门度...'), '/upgrade/final/case-update_popular_value');
-				}
-				
-				if ($this->model('upgrade')->update_last_answer($_GET['page'], 2500))
-				{
-					H::redirect_msg(AWS_APP::lang()->_t('正在更新最后回复数据') . ', ' . AWS_APP::lang()->_t('批次: %s', $_GET['page']), '/upgrade/final/case-update_last_answer__page-' . ($_GET['page'] + 1));
-				}
-				else
-				{
-					H::redirect_msg(AWS_APP::lang()->_t('最后回复数据更新完成, 开始更新问题热门度...'), '/upgrade/final/case-update_popular_value');
-				}
-			break;
-			
-			// 0824
-			case 'update_popular_value':
-				if ($this->model('upgrade')->update_popular_value_answer($_GET['page'], 2000))
-				{
-					H::redirect_msg(AWS_APP::lang()->_t('正在更新问题热门度') . ', ' . AWS_APP::lang()->_t('批次: %s', $_GET['page']), '/upgrade/final/case-update_popular_value__page-' . ($_GET['page'] + 1));
-				}
-				else
-				{
-					H::redirect_msg(AWS_APP::lang()->_t('问题热门度更新完成, 开始重建附件统计...'), '/upgrade/final/case-update_answer_attach_statistics');
-				}
-			break;
-			
-			case 'update_answer_attach_statistics':
-				if ($this->model('upgrade')->check_answer_attach_statistics())
-				{
-					H::redirect_msg(AWS_APP::lang()->_t('附件统计重建完成, 开始升级动作数据...'), '/upgrade/final/case-upgrade_user_action_history');
-				}
-				
-				if ($this->model('upgrade')->update_answer_attach_statistics($_GET['page'], 2500))
-				{
-					H::redirect_msg(AWS_APP::lang()->_t('正在重建附件统计') . ', ' . AWS_APP::lang()->_t('批次: %s', $_GET['page']), '/upgrade/final/case-update_answer_attach_statistics__page-' . ($_GET['page'] + 1));
-				}
-				else
-				{
-					H::redirect_msg(AWS_APP::lang()->_t('附件统计重建完成, 开始升级动作数据...'), '/upgrade/final/case-upgrade_user_action_history');
-				}
-			break;
-			
-			//0201
-			case 'upgrade_user_action_history':
-				if (get_setting('user_action_history_fresh_upgrade') == 'Y')
-				{
-					H::redirect_msg(AWS_APP::lang()->_t('动作数据升级完成...'), '/upgrade/final/case-final');
-				}
-							
-				if ($this->model('system')->update_associate_fresh_action($_GET['page'], 2000))
-				{
-					H::redirect_msg(AWS_APP::lang()->_t('正在升级动作数据') . ', ' . AWS_APP::lang()->_t('批次: %s', $_GET['page']), '/upgrade/final/case-upgrade_user_action_history__page-' . ($_GET['page'] + 1));
-				}
-				else
-				{
-					$this->model('setting')->set_vars(array(
-						'user_action_history_fresh_upgrade' => 'Y'
-					));
-					
-					H::redirect_msg(AWS_APP::lang()->_t('动作数据升级完成...'), '/upgrade/final/case-final');
-				}
-			break;
-			
-			case 'final':
-				H::redirect_msg(AWS_APP::lang()->_t('升级完成, 您的程序已经是最新版本, 如遇搜索功能异常, 请进入后台更新搜索索引') . '<!-- Analytics --><img src="http://www.wecenter.com/analytics/?build=' . G_VERSION_BUILD . '&amp;site_name=' . urlencode(get_setting('site_name')) . '&amp;base_url=' . urlencode(get_setting('base_url')) . '&amp;php=' . PHP_VERSION . '" alt="" width="1" height="1" /><!-- / Analytics -->', '/');
-			break;
-		}
+		H::redirect_msg(AWS_APP::lang()->_t('升级完成, 您的程序已经是最新版本, 如遇搜索功能异常, 请进入后台更新搜索索引') . '<!-- Analytics --><img src="http://www.wecenter.com/analytics/?build=' . G_VERSION_BUILD . '&amp;site_name=' . urlencode(get_setting('site_name')) . '&amp;base_url=' . urlencode(get_setting('base_url')) . '&amp;php=' . PHP_VERSION . '" alt="" width="1" height="1" /><!-- / Analytics -->', '/');
 	}
 }

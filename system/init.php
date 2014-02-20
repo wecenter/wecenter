@@ -49,7 +49,7 @@ define('ROOT_PATH', dirname(dirname(__FILE__)) . '/');
 
 if (defined('IN_SAE'))
 {
-	define('TEMP_PATH', SAE_TMP_PATH);
+	define('TEMP_PATH', rtrim(SAE_TMP_PATH, '/') . '/');
 }
 else
 {

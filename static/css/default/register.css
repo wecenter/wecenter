@@ -48,10 +48,11 @@
 .aw-register-box ul li.error p {background: none repeat scroll 0 0 #FFF480;border: 1px solid #EBEBEB;border-radius: 5px 5px 5px 5px;color: #666666;height: 40px;line-height: 40px;padding-left: 12px;text-align: left;}
 .aw-register-box ul li.error p .i-no{margin-right: 10px;position: relative;top:4px;}
 
-/* iphone竖屏幕 */
-@media (max-width:321px){
+/* iphone横屏幕 */
+@media (max-width:640px){
 	/*注册界面*/
 	.aw-register-box, .aw-register-head-title{margin:0 20px;}
 	.aw-register-head, .aw-register-head-title, .aw-register-box, .aw-register-box ul li{width: auto;}
 	.aw-register-box ul{width: auto;margin: 0;padding:20px;}
+	.aw-register-head h1{padding:0 10px 15px;}
 }

@@ -20,16 +20,26 @@ if (!defined('IN_ANWSION'))
 
 class upgrade_class extends AWS_MODEL
 {
-	var $db_engine = '';
+	public $db_engine = '';
+	
+	public $upgrade_script_log_file = '';
+	public $upgrade_script_log = '';
 	
 	public function setup()
 	{
-		$this->db_engine = get_setting('db_engine');
-		
-		if (!$this->db_engine)
+		if (!$this->db_engine = get_setting('db_engine'))
 		{
 			$this->db_engine = 'MyISAM';
 		}
+		
+		$this->upgrade_script_log_file = TEMP_PATH . 'upgrade_script.log';
+		
+		if (!file_exists($this->upgrade_script_log_file))
+		{
+			file_put_contents($this->upgrade_script_log_file, 'a:0:{}');
+		}
+		
+		$this->upgrade_script_log = unserialize(file_get_contents($this->upgrade_script_log_file));
 	}
 	
 	public function db_clean()
@@ -71,71 +81,28 @@ class upgrade_class extends AWS_MODEL
 			}
 		}
 	}
-		
-	public function check_last_answer()
+	
+	public function get_upgrade_script()
 	{
-		return $this->fetch_row('question', 'last_answer > 0');
+		return $this->upgrade_script_log;
 	}
 	
-	public function update_last_answer($page, $limit = 100)
+	public function setup_upgrade_script($date)
 	{
-		if (!$all_questions = $this->query_all("SELECT question_id FROM " . get_table('question') . ' LIMIT ' . calc_page_limit($page, $limit)))
-		{
-			return false;
-		}
+		$this->upgrade_script_log[$date] = $date;
 		
-		foreach ($all_questions AS $key => $val)
-		{
-			if ($last_answer = $this->fetch_row('answer', "question_id = " . $val['question_id'], 'add_time DESC'))
-			{
-				$this->update('question', array(
-					'last_answer' => $last_answer['answer_id']
-				), 'question_id = ' . $val['question_id']);
-			}
-		}
-		
-		return true;
+		$this->save_upgrade_script_log();
 	}
 	
-	public function update_popular_value_answer($page, $limit = 100)
+	public function remove_upgrade_script($date)
 	{
-		if (!$all_questions = $this->query_all("SELECT question_id FROM " . get_table('question') . ' LIMIT ' . calc_page_limit($page, $limit)))
-		{
-			return false;
-		}
+		unset($this->upgrade_script_log[$date]);
 		
-		foreach ($all_questions AS $key => $val)
-		{
-			$this->model('question')->calc_popular_value($val['question_id']);
-		}
-		
-		return true;
+		$this->save_upgrade_script_log();
 	}
 	
-	public function check_answer_attach_statistics()
+	public function save_upgrade_script_log()
 	{
-		return $this->fetch_row('answer', 'has_attach = 1');
-	}
-	
-	public function update_answer_attach_statistics($page, $limit = 100)
-	{
-		if (!$answers = $this->query_all("SELECT answer_id FROM " . $this->get_table('answer'). ' LIMIT ' . calc_page_limit($page, $limit)))
-		{
-			return false;
-		}
-		
-		foreach ($answers AS $key => $val)
-		{
-			if ($this->count('attach', "item_type = 'answer' AND item_id = " . $val['answer_id']))
-			{
-				$this->update('answer', array('has_attach' => 1), 'answer_id = ' . intval($val['answer_id']));
-			}
-			else
-			{
-				$this->update('answer', array('has_attach' => 0), 'answer_id = ' . intval($val['answer_id']));
-			}
-		}
-		
-		return true;
+		file_put_contents($this->upgrade_script_log_file, serialize($this->upgrade_script_log));
 	}
 }
