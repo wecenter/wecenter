@@ -32,3 +32,5 @@ CREATE TABLE `[#DB_PREFIX#]posts_index` (
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
 
 ALTER TABLE `[#DB_PREFIX#]article` ADD `is_recommend` TINYINT( 1 ) NULL DEFAULT '0', ADD INDEX ( `is_recommend` );
+
+UPDATE `[#DB_PREFIX#]system_setting` SET `value` = 's:0:"";' WHERE `varname` = 'request_route_custom';
