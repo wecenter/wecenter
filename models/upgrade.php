@@ -39,7 +39,7 @@ class upgrade_class extends AWS_MODEL
 			file_put_contents($this->upgrade_script_log_file, 'a:0:{}');
 		}
 		
-		$this->upgrade_script_log = unserialize(file_get_contents($this->upgrade_script_log));
+		$this->upgrade_script_log = unserialize(file_get_contents($this->upgrade_script_log_file));
 	}
 	
 	public function db_clean()
