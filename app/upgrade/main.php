@@ -20,10 +20,10 @@ if (!defined('IN_ANWSION'))
 
 class main extends AWS_CONTROLLER
 {
-	var $versions = array();
-	var $db_version = 0;
-	var $db_engine = '';
-	var $ignore_sql;
+	public $versions = array();
+	public $db_version = 0;
+	public $db_engine = '';
+	public $ignore_sql;
 	
 	public function get_access_rule()
 	{
@@ -78,6 +78,8 @@ class main extends AWS_CONTROLLER
 			20140214
 		);
 		
+		$this->db_version = get_setting('db_version', false);
+		
 		if ($this->db_version < 20130419)
 		{
 			H::redirect_msg(AWS_APP::lang()->_t('当前升级器只支持 2.0 与以上版本升级, 你当前版本太低, 请下载 2.0 - 2.5.1 版先进行升级'));
@@ -95,7 +97,7 @@ class main extends AWS_CONTROLLER
 			// ignore
 			$this->db_version = $this->db_version + 1;
 		}
-		else if (!in_array($this->db_version, $this->versions) AND $_GET['act'] != 'final')
+		else if (!in_array($this->db_version, $this->versions) AND $_GET['act'] != 'final' AND $_GET['act'] != 'script')
 		{
 			if ($this->db_version > end($this->versions))
 			{
@@ -199,19 +201,19 @@ class main extends AWS_CONTROLLER
 		
 		if (sizeof($upgrade_script) > 0)
 		{
-			H::redirect('/upgrade/script/');
+			HTTP::redirect('/upgrade/script/');
 		}
 		
-		H::redirect('/upgrade/final/');
+		HTTP::redirect('/upgrade/final/');
 	}
 	
 	public function script_action()
 	{
 		$upgrade_script = $this->model('upgrade')->get_upgrade_script();
 		
-		if (sizeof($upgrade_script) == 0)
+		if (sizeof($upgrade_script) == 0 OR !$upgrade_script)
 		{
-			H::redirect('/upgrade/final/');
+			HTTP::redirect('/upgrade/final/');
 		}
 		
 		krsort($upgrade_script);

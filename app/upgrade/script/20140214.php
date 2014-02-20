@@ -5,6 +5,11 @@ if (!defined('IN_ANWSION'))
 	die;
 }
 
+if (!$_GET['page'])
+{
+	$_GET['page'] = 1;
+}
+
 switch ($_GET['post_type'])
 {
 	default:
@@ -33,7 +38,7 @@ switch ($_GET['post_type'])
 		}
 		else
 		{
-			H::redirect('?/upgrade/script/post_type-article__page-1');
+			HTTP::redirect('?/upgrade/script/post_type-article__page-1');
 			die;
 		}
 	break;
