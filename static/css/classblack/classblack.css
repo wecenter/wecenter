@@ -16,7 +16,7 @@
 /* top-menu */
 .aw-top-menu-wrap{background: #383838;}
 .aw-top-menu h1{margin:0;}
-.aw-top-nav nav ul li a:hover, .aw-user-nav > span > a:hover{background: #404040;}
+.aw-top-nav nav ul li a:hover, .aw-user-nav > span > a:hover, .aw-top-nav nav ul li a:focus{background: #404040;}
 .aw-top-nav nav ul li a.active{background:#515151 !important;}
 .aw-publish-btn{display:inline-block;height:32px;line-height:32px;color:#fff;}
 .aw-publish-btn:hover{background-position: -110px -10px;color: #fff;}
@@ -175,7 +175,29 @@
 
 /* ipad横屏 */
 @media (max-width: 1024px) {
-	.aw-main-content{width: 100% !important;}
+	.aw-container-wrap{margin:0;}
+	.aw-main-content{width: 100% !important;margin:0;padding:0;}
+	.category{margin:0 -15px 10px;}
+	.aw-all-question .aw-question-box-mod .aw-mod-body{padding:10px;}
+	.aw-question-detail-title{padding:10px;}
+	/*发起页面*/
+	.aw-publish .aw-reset-nav-tabs{margin:0 0 20px;}
+	.aw-index .aw-dynamic-topic > .aw-mod-body, .aw-dynamic-index > .aw-mod-body{padding:10px;}
+	.aw-mod-publish h3{margin-top:10px;}
+	/*话题页面*/
+	.aw-topic-detail-content .aw-topic-detail-title{min-height: 90px;margin-bottom: 10px;}
+
+}
+/* ipad竖屏 */
+@media (max-width: 769px) {
+}
+/* iphone横屏幕 */
+@media (max-width:640px) {
+	.aw-question-detail-title .aw-mod-head h1{width: 100%;}
+}
+/* iphone竖屏幕 */
+@media (max-width:321px) {
+
 }
 
 
