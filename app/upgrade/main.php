@@ -74,7 +74,8 @@ class main extends AWS_CONTROLLER
 			20131206,
 			20131213,
 			20140117,
-			20140124
+			20140124,
+			20140214
 		);
 		
 		if ($this->db_version < 20130419)
