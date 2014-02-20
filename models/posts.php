@@ -27,19 +27,14 @@ class posts_class extends AWS_MODEL
 			return false;
 		}
 		
-		if ($posts_index_id = $this->fetch_one('posts_index', 'id', "post_id = " . intval($post_id) . " AND post_type = '" . $this->quote($post_type) . "'"))
-		{
-			$this->update('posts_index', $data, "post_id = " . intval($post_id) . " AND post_type = '" . $this->quote($post_type) . "'");
-		}
-		else
-		{
-			$data = array_merge($data, array(
-				'post_id' => intval($post_id),
-				'post_type' => $post_type
-			));
-			
-			$this->insert('posts_index', $data);
-		}
+		$this->delete('posts_index', "post_id = " . intval($post_id) . " AND post_type = '" . $this->quote($post_type) . "'");
+		
+		$data = array_merge($data, array(
+			'post_id' => intval($post_id),
+			'post_type' => $post_type
+		));
+		
+		$this->insert('posts_index', $data);
 	}
 	
 	public function remove_posts_index($post_id, $post_type)
