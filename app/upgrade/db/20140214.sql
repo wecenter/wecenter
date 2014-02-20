@@ -30,3 +30,5 @@ CREATE TABLE `[#DB_PREFIX#]posts_index` (
   KEY `answer_count` (`answer_count`),
   KEY `view_count` (`view_count`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
+
+ALTER TABLE `[#DB_PREFIX#]article` ADD `is_recommend` TINYINT( 1 ) NULL DEFAULT '0', ADD INDEX ( `is_recommend` );
