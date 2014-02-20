@@ -36,7 +36,11 @@ class ajax extends AWS_CONTROLLER
 	{
 		if ($_GET['feature_id'])
 		{
-			$_GET['topic_id'] = $this->model('feature')->get_topics_by_feature_id($_GET['feature_id']);
+			$topic_ids = $this->model('feature')->get_topics_by_feature_id($_GET['feature_id']);
+		}
+		else
+		{
+			$topic_ids = explode(',', $_GET['topic_id']);
 		}
 		
 		if ($_GET['per_page'])
@@ -50,11 +54,11 @@ class ajax extends AWS_CONTROLLER
 		
 		if ($_GET['sort_type'] == 'hot')
 		{
-			$posts_list = $this->model('posts')->get_hot_posts($_GET['post_type'], $_GET['category'], explode(',', $_GET['topic_id']), $_GET['day'], $_GET['page'], $per_page);
+			$posts_list = $this->model('posts')->get_hot_posts($_GET['post_type'], $_GET['category'], $topic_ids, $_GET['day'], $_GET['page'], $per_page);
 		}
 		else
 		{
-			$posts_list = $this->model('posts')->get_posts_list($_GET['post_type'], $_GET['page'], $per_page, $_GET['sort_type'], explode(',', $_GET['topic_id']), $_GET['category'], $_GET['answer_count'], $_GET['day']);
+			$posts_list = $this->model('posts')->get_posts_list($_GET['post_type'], $_GET['page'], $per_page, $_GET['sort_type'], $topic_ids, $_GET['category'], $_GET['answer_count'], $_GET['day']);
 		}
 		
 		if ($_GET['template'] != 'm' AND $posts_list)

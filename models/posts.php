@@ -77,7 +77,7 @@ class posts_class extends AWS_MODEL
 		}
 		
 		if ($topic_ids)
-		{
+		{			
 			$posts_index = $this->get_posts_list_by_topic_ids($post_type, $topic_ids, $category_id, $answer_count, $order_key, $is_recommend, $page, $per_page);
 		}
 		else
@@ -254,7 +254,7 @@ class posts_class extends AWS_MODEL
 		{
 			return false;
 		}
-
+		
 		array_walk_recursive($topic_ids, 'intval_string');
 		
 		$result_cache_key = 'posts_list_by_topic_ids_' . implode('_', $topic_ids) . '_' . md5($answer_count . $category_id . $order_by . $is_recommend . $page . $per_page . $post_type);
@@ -284,10 +284,6 @@ class posts_class extends AWS_MODEL
 		{
 			$on_query[] = "posts_index.post_type = '" . $this->quote($post_type) . "'";
 			$on_query[] = "topic_relation.type = '" . $this->quote($post_type) . "'";
-		}
-		else
-		{
-			$on_query[] = 'posts_index.post_type = topic_relation.type';
 		}
 		
 		if (!$found_rows = AWS_APP::cache()->get($found_rows_cache_key))
