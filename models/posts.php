@@ -27,14 +27,21 @@ class posts_class extends AWS_MODEL
 			return false;
 		}
 		
-		$this->delete('posts_index', "post_id = " . intval($post_id) . " AND post_type = '" . $this->quote($post_type) . "'");
-		
-		$data = array_merge($data, array(
-			'post_id' => intval($post_id),
-			'post_type' => $post_type
-		));
-		
-		$this->insert('posts_index', $data);
+		if ($posts_index_id = $this->fetch_one('posts_index', 'id', "post_id = " . intval($post_id) . " AND post_type = '" . $this->quote($post_type) . "'"))
+		{
+			$this->update('posts_index', $data, 'id = ' . intval($posts_index_id));
+		}
+		else
+		{
+			$data = array_merge($data, array(
+				'post_id' => intval($post_id),
+				'post_type' => $post_type
+			));
+			
+			$this->remove_posts_index($post_id, $post_type);
+			
+			$this->insert('posts_index', $data);
+		}
 	}
 	
 	public function remove_posts_index($post_id, $post_type)
@@ -183,7 +190,7 @@ class posts_class extends AWS_MODEL
 				break;
 			}
 			
-			$data_list_uids[] = $data['uid'];
+			$data_list_uids[$data['uid']] = $data['uid'];
 		}
 		
 		if ($question_ids)
