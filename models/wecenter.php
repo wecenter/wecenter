@@ -41,6 +41,7 @@ class wecenter_class extends AWS_MODEL
 			$_post_data[] = 'wecenter_access_secret=' . get_setting('wecenter_access_secret');
 		}
 		
+		$_post_data[] = 'wecenter_account_role=' . get_setting('weixin_account_role');
 		$_post_data[] = 'version=' . $this->api_version;
 		
 		$curl = curl_init();
