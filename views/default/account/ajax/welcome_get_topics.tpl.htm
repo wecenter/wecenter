@@ -1,3 +1,4 @@
+<?php if ($this->topics_list) { ?>
 <?php foreach ($this->topics_list AS $key => $val) { ?>
 <li>
 	<a class="aw-topic-img" ><img src="<?php echo get_topic_pic_url('mid', $val['topic_pic']); ?>" alt="" /></a>
@@ -10,4 +11,5 @@
 		<span><?php _e('该话题有 %s 个问题', $val['discuss_count']); ?></span>
 	</p>
 </li>
+<?php } ?>
 <?php } ?>
