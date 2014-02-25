@@ -23,8 +23,7 @@
 .aw-register-box .more-information ul li{padding:5px 0;text-align: left;}
 .aw-register-box .more-information .select_area{max-width: 130px;}
 .aw-register-box .more-information-btn, .aw-register-box .more-information-btn i{color: #666;}
-.aw-regiter-agreement{position:relative;width:615px;margin:10px 0 0 -187px;padding: 20px 5px 20px 20px;background:#DEDEDE;border-radius: 10px;}
-.aw-regiter-agreement .i-register-triangle{position: absolute;top:-6px;left: 280px;}
+.aw-regiter-agreement{position:relative;width:550px;margin:10px 0 0 -125px;padding: 20px 5px 20px 20px;background:#DEDEDE;border-radius: 10px;}
 .aw-register-agreement-txt{max-height: 110px;overflow-x:hidden;overflow-y:auto;}
 .alert-danger{text-align: left;}
 /* 注册提示 */
@@ -55,4 +54,7 @@
 	.aw-register-head, .aw-register-head-title, .aw-register-box, .aw-register-box ul li{width: auto;}
 	.aw-register-box ul{width: auto;margin: 0;padding:20px;}
 	.aw-register-head h1{padding:0 10px 15px;}
+}
+@media (max-width:321px){
+	.aw-regiter-agreement{width: 240px;margin:10px 0 0;}
 }

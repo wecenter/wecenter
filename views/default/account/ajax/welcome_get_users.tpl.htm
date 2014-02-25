@@ -1,3 +1,4 @@
+<?php if ($this->users_list) { ?>
 <?php foreach ($this->users_list AS $key => $val) { ?>
 <li>
 	<a class="aw-user-img"><img src="<?php echo get_avatar_url($val['uid'], 'mid'); ?>" alt="" /></a>
@@ -10,4 +11,5 @@
 		<?php echo $val['signature']; ?>
 	</p>
 </li>
+<?php } ?>
 <?php } ?>

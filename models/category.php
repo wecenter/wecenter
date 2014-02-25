@@ -53,13 +53,38 @@ class category_class extends AWS_MODEL
 		return $this->delete('category', 'id = ' . intval($category_id));
 	}
 
-	public function question_exists($category_id)
+	public function contents_exists($category_id)
 	{
-		return $this->model('question')->fetch_one('question', 'question_id', 'category_id = ' . intval($category_id));
+		if ($this->fetch_one('question', 'question_id', 'category_id = ' . intval($category_id)) OR $this->fetch_one('article', 'id', 'category_id = ' . intval($category_id)))
+		{
+			return true;
+		}
 	}
 	
 	public function check_url_token($url_token, $category_id)
 	{
 		return $this->count('category', "url_token = '" . $this->quote($url_token) . "' AND id != " . intval($category_id));
+	}
+	
+	public function move_contents($from_ids = array(), $target_id)
+	{
+		if (!is_array($from_ids) OR !$target_id)
+		{
+			return false;
+		}
+		
+		array_walk_recursive($from_ids, 'intval_string');
+		
+		$this->update('question', array(
+			'category_id' => intval($target_id)
+		), 'category_id IN (' . implode(',', $from_ids) .')');
+		
+		$this->update('article', array(
+			'category_id' => intval($target_id)
+		), 'category_id IN (' . implode(',', $from_ids) .')');
+		
+		$this->update('posts_index', array(
+			'category_id' => intval($target_id)
+		), 'category_id IN (' . implode(',', $from_ids) .')');
 	}
 }
