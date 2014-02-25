@@ -34,7 +34,7 @@ class feature_class extends AWS_MODEL
 					
 			return $feature_list;
 		}
-			
+		
 		return array();
 	}
 
