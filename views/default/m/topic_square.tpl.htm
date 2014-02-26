@@ -19,16 +19,8 @@
 	<!-- end 话题广场 -->
 	<!-- 话题列表 -->
 	<div class="aw-topic-list">
-		<ul>
-			<?php foreach ($this->topics_hot_list AS $key => $val) { ?>
-			<li>
-				<a class="topic" href="m/topic/<?php echo $val['url_token']; ?>"><img src="<?php echo get_topic_pic_url('mid', $val['topic_pic']); ?>" alt="" /></a>
-				<?php if ($this->user_id) { ?><a class="btn btn-primary btn-mini pull-right<?php if ($val['has_focus']) { ?> aw-active<?php } ?>" onclick="focus_topic($(this), $(this), <?php echo $val['topic_id']; ?>);"><?php if ($val['has_focus']) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?></a><?php } ?>
-				<h3><a href="m/topic/<?php echo $val['url_token']; ?>"><?php echo $val['topic_title']; ?></a></h3>
-				<p><?php echo cjk_substr($val['topic_description'], 0, 32, 'UTF-8', '...'); ?></p>
-			</li>
-			<?php } ?>
-		</ul>
+		<ul id="topics_hot_list"></ul>
+		<a class="aw-load-more" id="load_hot_topics"><?php _e('更多'); ?></a>
 	</div>
 	<!-- end 话题列表 -->
 </div>
@@ -39,6 +31,10 @@
 		if ($('#focus_topics_listview').length)
 		{
 			load_list_view(G_BASE_URL + '/m/ajax/focus_topics_list/', $('#focus_topics_listview'), $('#load_focus_topics'));
+		}
+		if ($('#topics_hot_list').length)
+		{
+			load_list_view(G_BASE_URL + '/m/ajax/topics_hot_list/', $('#topics_hot_list'), $('#load_hot_topics'));
 		}
 	});
 </script>
