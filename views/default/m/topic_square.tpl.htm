@@ -3,6 +3,15 @@
 
 <!-- 内容 -->
 <div class="aw-content aw-topic-page">
+	<!-- 我关注的话题 -->
+	<?php if ($this->user_id) { ?>
+	<div class="aw-topic-hot">
+		<h2><?php _e('我关注的话题'); ?></h2>
+		<div id="focus_topics_listview"></div>
+		<a class="aw-load-more" id="load_focus_topics"><?php _e('更多'); ?></a>
+	</div>
+	<?php } ?>
+	<!-- end 我关注的话题 -->
 	<!-- 话题广场 -->
 	<div class="aw-topic-feed-title">
 		<h2><?php _e('话题广场'); ?></h2>
@@ -22,16 +31,6 @@
 		</ul>
 	</div>
 	<!-- end 话题列表 -->
-	<!-- 我关注的话题 -->
-	<?php if ($this->user_id) { ?>
-	<div class="aw-topic-hot">
-		<h2><?php _e('我关注的话题'); ?></h2>
-		<div id="focus_topics_listview"></div>
-		<a class="aw-load-more" id="load_focus_topics"><?php _e('更多'); ?></a>
-	</div>
-	<?php } ?>
-	<!-- end 我关注的话题 -->
-
 </div>
 <!-- end 内容 -->
 
