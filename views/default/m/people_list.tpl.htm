@@ -1,0 +1,82 @@
+<?php TPL::output('m/header.tpl.htm'); ?>
+<?php TPL::output('m/global_header.tpl.htm'); ?>
+
+<!-- 内容 -->
+<div class="aw-content aw-people-list-page">
+	<div class="aw-user-sort-title clearfix">
+		<h3 class="pull-left"><?php _e('用户推荐'); ?></h3>
+		<ul class="nav nav-tabs aw-reset-nav-tabs pull-right">
+			<?php if ($this->custom_group) { ?>
+			<li<?php if (!$_GET['group_id']) { ?> class="active"<?php } ?>><a href="people/list/"><?php _e('全部'); ?></a></li>
+			<?php foreach ($this->custom_group AS $key => $val) { ?>
+			<li<?php if ($_GET['group_id'] == $val['group_id']) { ?> class="active"<?php } ?>><a href="people/list/group_id-<?php echo $val['group_id']; ?>"><?php echo $val['group_name']; ?></a></li>
+			<?php } ?>
+			<?php } ?>
+		</ul>
+	</div>
+	<div class="<?php if (!$this->feature_list) { ?>active<?php } ?>">
+		<div class="side-nav clearfix">
+			<ul>
+				<?php if ($this->feature_list) { ?>
+				<?php foreach ($this->feature_list AS $key => $val) { ?>
+				<li>
+					<a href="people/list/feature_id-<?php echo $val['id']; ?>"<?php if ($_GET['feature_id'] == $val['id']) { ?> class="active"<?php } ?>><?php echo $val['title']; ?></a>
+				</li>
+				<?php } ?>
+				<?php } ?>
+			</ul>
+		</div>
+		<div class="content">
+			<div class="aw-mod">
+				<div class="aw-mod-body">
+					<?php if ($this->users_list) { ?>
+					<?php foreach($this->users_list as $key => $val) { ?>
+					<div class="aw-item">
+						<span class="aw-user-sort-count aw-border-radius-5<?php if (($key + 1 + ((intval($_GET['page']) - 1) * get_setting('contents_per_page'))) <= 3) { ?> active<?php } ?>"><?php if (($key + 1 + ((intval($_GET['page']) - 1) * get_setting('contents_per_page'))) < 99) { echo ($key + 1 + ((intval($_GET['page']) - 1) * get_setting('contents_per_page'))); } else { echo '*'; }; ?></span>
+						<a class="aw-user-img aw-border-radius-5" href="people/<?php echo $val['url_token']; ?>">
+							<img alt="" src="<?php echo get_avatar_url($val['uid'], 'mid'); ?>" />
+						</a>
+						<?php if ($val['uid'] != $this->user_id AND $this->user_id) { ?>
+						<a href="javascript:;" onclick="follow_people($(this), <?php echo $val['uid'];?>);" class="pull-right btn btn-mini btn-default<?php if (!$val['focus']) { ?> aw-active<?php } ?>"><?php if ($val['focus']) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?></a>
+						<a href="javascript:;" onclick="$.dialog('publish', {category_enable:<?php echo (get_setting('category_enable') == 'Y') ? '1' : '0'; ?>, ask_user_id:<?php echo $val['uid']; ?>, ask_user_name:'<?php echo $val['user_name']; ?>'});" class="pull-right btn btn-mini btn-primary"><?php _e('问Ta'); ?></a>
+						<?php } ?>
+						<p class="aw-text-color-999 title">
+							<a href="people/<?php echo $val['url_token']; ?>" class="aw-user-name"><?php echo $val['user_name']; ?></a>
+							<?php if ($val['verified']) { ?><i class="icon-v<?php if ($val['verified'] == 'enterprise') { ?> i-ve<?php } ?>" title="<?php if ($val['verified'] == 'enterprise') { ?><?php _e('企业认证'); ?><?php } else { ?><?php _e('个人认证'); ?><?php } ?>"></i><?php } ?>
+							<?php echo $val['signature']; ?>
+						</p>
+						<p class="aw-user-center-follow-meta">
+							<span><i class="fa fa-tag"></i> <?php _e('威望'); ?>: <em class="aw-text-color-green"><?php echo $val['reputation']; ?></em></span>
+							<?php if (get_setting('integral_system_enabled') == 'Y') { ?><span><i class="fa fa-signal"></i> <?php _e('积分'); ?>: <em class="aw-text-color-orange"><?php echo $val['integral']; ?></em></span><?php } ?>
+							<span><i class="fa fa-thumbs-up"></i> <?php _e('赞同'); ?>: <em class="aw-text-color-orange"><?php echo $val['agree_count']; ?></em></span>
+							<span><i class="fa fa-heart"></i> <?php _e('感谢'); ?>: <em class="aw-text-color-orange"><?php echo $val['thanks_count']; ?></em></span>
+						</p>
+						
+						<?php if ($val['reputation_topics']) { ?>
+						<p>
+							<?php _e('擅长话题'); ?>:
+							<?php foreach($val['reputation_topics'] as $t_key => $t_val) { ?>
+								<a href="topic/<?php echo $t_val['url_token']; ?>" class="aw-topic-name" data-id="<?php echo $t_val['topic_id']; ?>"><span><?php echo $t_val['topic_title']; ?></span></a>
+							<?php } ?>
+						</p>
+						<?php } else if ($val['experience']) { ?>
+						<p class="aw-text-color-999">
+							<?php foreach($val['experience'] as $t_key => $t_val) { ?>
+								<a href="topic/<?php echo $t_val['topic_info']['url_token']; ?>" class="aw-topic-name" data-id="<?php echo $t_val['topic_id']; ?>"><span><?php echo $t_val['topic_info']['topic_title']; ?></span></a>
+							<?php } ?>
+							<?php _e('等话题下共获得 %s 个赞同', $val['total_agree_count']); ?>
+						</p>
+						<?php } ?>
+					</div>
+					<?php } ?>
+					<?php } ?>
+					
+					<?php echo $this->pagination; ?>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- end 内容 -->
+
+<?php TPL::output('m/footer.tpl.htm'); ?>
