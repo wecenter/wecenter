@@ -19,7 +19,7 @@
 	<!-- end 话题广场 -->
 	<!-- 话题列表 -->
 	<div class="aw-topic-list">
-		<ul id="topics_hot_list"></ul>
+		<ul id="hot_topics_list"></ul>
 		<a class="aw-load-more" id="load_hot_topics"><?php _e('更多'); ?></a>
 	</div>
 	<!-- end 话题列表 -->
@@ -32,9 +32,9 @@
 		{
 			load_list_view(G_BASE_URL + '/m/ajax/focus_topics_list/', $('#focus_topics_listview'), $('#load_focus_topics'));
 		}
-		if ($('#topics_hot_list').length)
+		if ($('#hot_topics_list').length)
 		{
-			load_list_view(G_BASE_URL + '/m/ajax/topics_hot_list/', $('#topics_hot_list'), $('#load_hot_topics'));
+			load_list_view(G_BASE_URL + '/m/ajax/hot_topics_list/', $('#hot_topics_list'), $('#load_hot_topics'), 1);
 		}
 	});
 </script>
