@@ -22,12 +22,12 @@
 			</div>
 		</div>
 		<div class="aw-mod-footer">
-			<span><i class="fa fa-tag"></i> <?php _e('威望'); ?>: <em><?php echo $this->user['reputation']; ?></em></span>
+			<span><i class="fa fa-tag"></i> <?php _e('威望'); ?>: <em class="aw-text-color-green"><?php echo $this->user['reputation']; ?></em></span>
 			<?php if (get_setting('integral_system_enabled') == 'Y') { ?>
-			<span><i class="fa fa-signal"></i> <?php _e('积分'); ?>: <em><?php echo $this->user['integral']; ?></em></span>
+			<span><i class="fa fa-signal"></i> <?php _e('积分'); ?>: <em class="aw-text-color-orange"><?php echo $this->user['integral']; ?></em></span>
 			<?php } ?>
-			<span><i class="fa fa-thumbs-up"></i> <?php _e('赞同'); ?>: <em><?php echo $this->user['agree_count']; ?></em></span>
-			<span><i class="fa fa-heart active"></i> <?php _e('感谢'); ?>: <em><?php echo $this->user['thanks_count']; ?></em></span>
+			<span><i class="fa fa-thumbs-up"></i> <?php _e('赞同'); ?>: <em class="aw-text-color-orange"><?php echo $this->user['agree_count']; ?></em></span>
+			<span><i class="fa fa-heart active"></i> <?php _e('感谢'); ?>: <em class="aw-text-color-orange"><?php echo $this->user['thanks_count']; ?></em></span>
 		</div>
 		<?php if ($this->user['uid'] != $this->user_id AND $this->user_id) { ?>
 		<a class="btn btn-primary btn-mini<?php if ($this->user_follow_check) { ?> aw-active<?php } ?>" onclick="follow_people($(this), $(this), <?php echo $this->user['uid']; ?>);"><?php if ($this->user_follow_check) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?></a>

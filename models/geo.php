@@ -60,8 +60,7 @@ class geo_class extends AWS_MODEL
 	public function get_distance($latitude_a, $longitude_a, $latitude_b, $longitude_b)
 	{
 		/*
-		Convert these degrees to radians
-		to work with the formula
+		Convert these degrees to radians to work with the formula
 		*/
 		
 		$latitude_a = ($latitude_a * pi()) / 180;
@@ -71,8 +70,7 @@ class geo_class extends AWS_MODEL
 		$longitude_b = ($longitude_b * pi()) / 180;
 		
 		/*
-		Using the
-		Haversine formula
+		Using the Haversine formula
 		
 		http://en.wikipedia.org/wiki/Haversine_formula
 		
@@ -81,10 +79,11 @@ class geo_class extends AWS_MODEL
 		
 		$calcLongitude = $longitude_b - $longitude_a;
 		$calcLatitude = $latitude_b - $latitude_a;
-		$stepOne = pow(sin($calcLatitude / 2), 2) + cos($latitude_a) * cos($latitude_b) * pow(sin($calcLongitude / 2), 2);  $stepTwo = 2 * asin(min(1, sqrt($stepOne)));
+		$stepOne = pow(sin($calcLatitude / 2), 2) + cos($latitude_a) * cos($latitude_b) * pow(sin($calcLongitude / 2), 2);
+		$stepTwo = 2 * asin(min(1, sqrt($stepOne)));
 		
 		$calculatedDistance = GEO_EARTH_RADIUS * $stepTwo;
 		
-		return round($calculate);
+		return round($calculatedDistance);
 	}
 }
