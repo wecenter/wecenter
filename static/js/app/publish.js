@@ -1,7 +1,5 @@
 $(document).ready(function () {
 
-	bind_dropdown_list('#question_contents', 'publish');
-	
 	if (document.getElementById('question_id'))
 	{
 		ITEM_ID = document.getElementById('question_id').value;
