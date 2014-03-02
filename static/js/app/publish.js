@@ -1,5 +1,17 @@
 $(document).ready(function () {
 
+	//编辑器初始化
+    if (typeof (myMarkdownSettings) != 'undefined' && $('.advanced_editor'))
+    {
+        $('.advanced_editor').markItUp(myMarkdownSettings);
+
+        $.setEditorPreview();
+    }
+    else if ($('.markItUpPreviewFrame'))
+    {
+        $('.markItUpPreviewFrame').hide();
+    }
+    
 	if (document.getElementById('question_id'))
 	{
 		ITEM_ID = document.getElementById('question_id').value;
