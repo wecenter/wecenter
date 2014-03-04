@@ -1,5 +1,14 @@
 $(document).ready(function () {
 
+	if ($('#question_id'))
+	{
+		ITEM_ID = $('#question_id').val();
+	}
+	else if ($('#article_id'))
+	{
+		ITEM_ID = $('#article_id').val();
+	}
+
 	//编辑器初始化
     if (typeof (myMarkdownSettings) != 'undefined' && $('.advanced_editor'))
     {
@@ -11,21 +20,10 @@ $(document).ready(function () {
     {
         $('.markItUpPreviewFrame').hide();
     }
-    
-	if (document.getElementById('question_id'))
-	{
-		ITEM_ID = document.getElementById('question_id').value;
-	}
-	else if (document.getElementById('article_id'))
-	{
-		ITEM_ID = document.getElementById('article_id').value;
-	}
-    
     if (ATTACH_ACCESS_KEY != '')
     {
 	    init_fileuploader('file_uploader_question', G_BASE_URL + '/publish/ajax/attach_upload/id-' + PUBLISH_TYPE + '__attach_access_key-' + ATTACH_ACCESS_KEY);
     }
-
     if (ITEM_ID && G_UPLOAD_ENABLE == 'Y' && ATTACH_ACCESS_KEY != '')
     {
         if ($("#file_uploader_question ._ajax_upload-list").length) {
@@ -58,14 +56,15 @@ $(document).ready(function () {
 		});
 	}
 	
+	//初始化分类
 	if ($('#category_id').length)
 	{
 		var category_data = '', category_id;
 		
 		$.each($('#category_id option').toArray(), function (i, field) {
-			if($(field).attr('selected') == 'selected')
+			if ($(field).attr('selected') == 'selected')
 			{
-				category_id = $(field).attr('value');
+				category_id = $(this).attr('value');
 			}
 			if (i > 0)
 			{
@@ -77,23 +76,21 @@ $(document).ready(function () {
 				category_data += "{'title':'" + $(field).text() + "', 'id':'" + $(field).val() + "'}";
 			}
 		});
-		
-		add_dropdown_list('.aw-publish-title .aw-publish-title-dropdown', eval('[' + category_data + ']'), category_id);
+
+		if(category_id == undefined)
+		{
+			category_id = CATEGORY_ID;
+		}
+
 		$('#category_id').val(category_id);
+
+		add_dropdown_list('.aw-publish-title .aw-publish-title-dropdown', eval('[' + category_data + ']'), category_id);
 
 		$('.aw-publish-title .aw-publish-title-dropdown li a').click(function() {
 			$('#category_id').val($(this).attr('data-value'));
 		});
-		
-		if (category_id)
-		{
-			$('#quick_publish_category_id').val(category_id);
-		}
-	}
 
-	if ($('.aw-publish-title .aw-publish-title-dropdown').length)
-	{
-		$.each($('.aw-publish-title .aw-publish-title-dropdown .aw-dropdown-menu li a'),function(i, e)
+		$.each($('.aw-publish-title .aw-publish-title-dropdown .aw-category-dropdown-list li a'),function(i, e)
 		{
 			if ($(e).attr('data-value') == $('#category_id').val())
 			{
@@ -103,6 +100,7 @@ $(document).ready(function () {
 		});
 	}
 
+	//自动展开话题选择
 	$('.aw-edit-topic').click();
 	
 });
