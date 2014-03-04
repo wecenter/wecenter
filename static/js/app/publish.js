@@ -60,14 +60,12 @@ $(document).ready(function () {
 	if ($('#category_id').length)
 	{
 		var category_data = '', category_id;
-		$('#category_id').val(CATEGORY_ID);
-
-		if (CATEGORY_ID)
-		{
-			$('#quick_publish_category_id').val(CATEGORY_ID);
-		}
 		
 		$.each($('#category_id option').toArray(), function (i, field) {
+			if ($(field).attr('selected') == 'selected')
+			{
+				category_id = $(this).attr('value');
+			}
 			if (i > 0)
 			{
 				if (i > 1)
@@ -78,7 +76,14 @@ $(document).ready(function () {
 				category_data += "{'title':'" + $(field).text() + "', 'id':'" + $(field).val() + "'}";
 			}
 		});
-		
+
+		if(category_id == undefined)
+		{
+			category_id = CATEGORY_ID;
+		}
+
+		$('#category_id').val(category_id);
+
 		add_dropdown_list('.aw-publish-title .aw-publish-title-dropdown', eval('[' + category_data + ']'), category_id);
 
 		$('.aw-publish-title .aw-publish-title-dropdown li a').click(function() {
