@@ -9,17 +9,6 @@ $(document).ready(function () {
 		ITEM_ID = $('#article_id').val();
 	}
 
-	//编辑器初始化
-    if (typeof (myMarkdownSettings) != 'undefined' && $('.advanced_editor'))
-    {
-        $('.advanced_editor').markItUp(myMarkdownSettings);
-
-        $.setEditorPreview();
-    }
-    else if ($('.markItUpPreviewFrame'))
-    {
-        $('.markItUpPreviewFrame').hide();
-    }
     if (ATTACH_ACCESS_KEY != '')
     {
 	    init_fileuploader('file_uploader_question', G_BASE_URL + '/publish/ajax/attach_upload/id-' + PUBLISH_TYPE + '__attach_access_key-' + ATTACH_ACCESS_KEY);
