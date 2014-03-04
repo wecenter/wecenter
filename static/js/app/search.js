@@ -1,4 +1,4 @@
-var cur_page = 0;
+var cur_page = 1;
 var search_result_more_inner_o = '';
 var search_query = '';
 var split_query = '';
@@ -6,7 +6,7 @@ var ajax_template = '';
 
 function reload_list()
 {
-	cur_page = 0;
+	cur_page = 1;
 	
 	$('#search_result').html('<p style="padding: 15px 0" align="center"><img src="' + G_STATIC_URL + '/common/loading_b.gif" alt="" /></p>');
 	
@@ -40,7 +40,7 @@ $(document).ready(function()
 		{
 			if (response.length)
 			{
-				if (cur_page == 0)
+				if (cur_page == 1)
 				{
 					$('#search_result').html(response);
 				}
@@ -57,7 +57,7 @@ $(document).ready(function()
 			}
 			else
 			{
-				if (cur_page == 0)
+				if (cur_page == 1)
 				{
 					$('#search_result').html('<p style="padding: 15px 0" align="center">' + _t('没有内容') + '</p>');
 				}

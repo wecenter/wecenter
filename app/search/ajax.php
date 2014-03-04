@@ -21,16 +21,14 @@ if (!defined('IN_ANWSION'))
 }
 
 class ajax extends AWS_CONTROLLER
-{
-	var $per_page = 20;
-	
+{	
 	public function get_access_rule()
 	{
-		$rule_action['rule_type'] = "white";
+		$rule_action['rule_type'] = 'white';
 		
 		if ($this->user_info['permission']['search_avail'])
 		{
-			$rule_action['rule_type']="black"; //'black'黑名单,黑名单中的检查  'white'白名单,白名单以外的检查
+			$rule_action['rule_type'] = 'black'; //'black'黑名单,黑名单中的检查  'white'白名单,白名单以外的检查
 		}
 		
 		$rule_action['actions'] = array();
@@ -45,28 +43,26 @@ class ajax extends AWS_CONTROLLER
 	
 	public function search_result_action()
 	{
-		$limit = intval($_GET['page']) * $this->per_page . ', ' . $this->per_page;
-		
 		switch ($_GET['search_type'])
 		{	
 			case 'all':
-				$search_result = $this->model('search')->search($_GET['q'], null, $limit);
+				$search_result = $this->model('search')->search($_GET['q'], null, $_GET['page'], get_setting('contents_per_page'));
 			break; 
 				
 			case 'questions':
-				$search_result = $this->model('search')->search($_GET['q'], 'questions', $limit);
+				$search_result = $this->model('search')->search($_GET['q'], 'questions', $_GET['page'], get_setting('contents_per_page'));
 			break;
 			
 			case 'topics':
-				$search_result = $this->model('search')->search($_GET['q'], 'topics', $limit);
+				$search_result = $this->model('search')->search($_GET['q'], 'topics', $_GET['page'], get_setting('contents_per_page'));
 			break;
 			
 			case 'users':
-				$search_result = $this->model('search')->search($_GET['q'], 'users', $limit);
+				$search_result = $this->model('search')->search($_GET['q'], 'users', $_GET['page'], get_setting('contents_per_page'));
 			break;
 			
 			case 'articles':
-				$search_result = $this->model('search')->search($_GET['q'], 'articles', $limit);
+				$search_result = $this->model('search')->search($_GET['q'], 'articles', $_GET['page'], get_setting('contents_per_page'));
 			break;
 		}
 		
@@ -105,9 +101,9 @@ class ajax extends AWS_CONTROLLER
 	
 	public function search_action()
 	{
-		if ($result = $this->model('search')->search($_GET['q'], $_GET['type'], intval($_GET['limit']), $_GET['topic_ids']))
+		if ($result = $this->model('search')->search($_GET['q'], $_GET['type'], 1, $_GET['limit'], $_GET['topic_ids']))
 		{
-			H::ajax_json_output($this->model('search')->search($_GET['q'], $_GET['type'], intval($_GET['limit']), $_GET['topic_ids']));
+			H::ajax_json_output($result);
 		}
 		else
 		{

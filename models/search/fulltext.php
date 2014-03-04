@@ -20,6 +20,48 @@ if (!defined('IN_ANWSION'))
 
 class search_fulltext_class extends AWS_MODEL
 {
+	public function get_search_hash($table, $column, $q, $where = null)
+	{
+		return md5($this->bulid_query($table, $column, $q, $where));
+	}
+	
+	public function fetch_cache($search_hash)
+	{
+		if ($search_cache = $this->fetch_row('search_cache', "`hash` = '" . $this->quote($search_hash) . "'"))
+		{
+			return unserialize($search_cache['data']);
+		}
+	}
+	
+	public function save_cache($search_hash, $data)
+	{
+		if (!$data)
+		{
+			return false;
+		}
+		
+		if ($this->fetch_cache($search_hash))
+		{
+			$this->remove_cache($search_hash);
+		}
+		
+		return $this->insert('search_cache', array(
+			'hash' => $search_hash,
+			'data' => serialize($data),
+			'time' => time()
+		));
+	}
+	
+	public function remove_cache($search_hash)
+	{
+		return $this->delete('search_cache', "`hash` = '" . $this->quote($search_hash) . "'");
+	}
+	
+	public function clean_cache()
+	{
+		return $this->delete('search_cache', 'time < ' . (time() - 900));
+	}
+	
 	public function bulid_query($table, $column, $q, $where = null)
 	{
 		if (is_array($q))
@@ -41,21 +83,10 @@ class search_fulltext_class extends AWS_MODEL
 			$where = ' AND (' . $where . ')';
 		}
 		
-		switch ($table)
-		{
-			default:
-				$order_key = 'agree_count DESC';
-			break;
-			
-			case 'article':
-				$order_key = 'votes DESC';
-			break;
-		}
-		
-		return "SELECT *, MATCH(" . $column . "_fulltext) AGAINST('" . $this->quote($this->encode_search_code($keyword)) . "' IN BOOLEAN MODE) AS score FROM " . $this->get_table($table) . " WHERE MATCH(" . $column . "_fulltext) AGAINST('" . $this->quote($this->encode_search_code($keyword)) . "' IN BOOLEAN MODE) " . $where . " ORDER BY score DESC, " . $order_key;
+		return "SELECT *, MATCH(" . $column . "_fulltext) AGAINST('" . $this->quote($this->encode_search_code($keyword)) . "' IN BOOLEAN MODE) AS score FROM " . $this->get_table($table) . " WHERE MATCH(" . $column . "_fulltext) AGAINST('" . $this->quote($this->encode_search_code($keyword)) . "' IN BOOLEAN MODE) " . $where;
 	}
 	
-	public function search_questions($q, $topic_ids = null, $limit = 20)
+	public function search_questions($q, $topic_ids = null, $page = 1, $limit = 20)
 	{
 		if ($topic_ids)
 		{
@@ -63,13 +94,35 @@ class search_fulltext_class extends AWS_MODEL
 			
 			array_walk_recursive($topic_ids, 'intval_string');
 			
-			$where = "question_id IN(SELECT item_id FROM " . $this->get_table('topic_relation') . " WHERE topic_id IN(" . implode(',', $topic_ids) . ") AND `type` = 'question')";
+			$where = 'question_id IN(SELECT item_id FROM ' . $this->get_table('topic_relation') . ' WHERE topic_id IN(' . implode(',', $topic_ids) . ") AND `type` = 'question')";
 		}
 		
-		return $this->query_all($this->bulid_query('question', 'question_content', $q, $where), $limit);
+		$search_hash = $this->get_search_hash('question', 'question_content', $q, $where);
+		
+		if (!$result = $this->fetch_cache($search_hash))
+		{
+			if ($result = $this->query_all($this->bulid_query('question', 'question_content', $q, $where), 1000))
+			{
+				$result = aasort($result, 'score', 'DESC');
+				$result = aasort($result, 'agree_count', 'DESC');
+			}
+			else
+			{
+				return false;
+			}
+			
+			$this->save_cache($search_hash, $result);
+		}
+		
+		if (!$page)
+		{
+			$page = 1;
+		}
+		
+		return array_slice($result, (($page - 1) * $limit), $limit);
 	}
 	
-	public function search_articles($q, $topic_ids = null, $limit = 20)
+	public function search_articles($q, $topic_ids = null, $page = 1, $limit = 20)
 	{
 		if ($topic_ids)
 		{
@@ -80,7 +133,29 @@ class search_fulltext_class extends AWS_MODEL
 			$where = "id IN(SELECT item_id FROM " . $this->get_table('topic_relation') . " WHERE topic_id IN(" . implode(',', $topic_ids) . ") AND `type` = 'article')";
 		}
 		
-		return $this->query_all($this->bulid_query('article', 'title', $q, $where), $limit);
+		$search_hash = $this->get_search_hash('article', 'title', $q, $where);
+		
+		if (!$result = $this->fetch_cache($search_hash))
+		{
+			if ($result = $this->query_all($this->bulid_query('article', 'title', $q, $where), 1000))
+			{
+				$result = aasort($result, 'score', 'DESC');
+				$result = aasort($result, 'vote', 'DESC');
+			}
+			else
+			{
+				return false;
+			}
+			
+			$this->save_cache($search_hash, $result);
+		}
+		
+		if (!$page)
+		{
+			$page = 1;
+		}
+		
+		return array_slice($result, (($page - 1) * $limit), $limit);
 	}
 	
 	public function encode_search_code($string)
