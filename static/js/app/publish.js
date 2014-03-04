@@ -38,25 +38,10 @@ $(document).ready(function () {
             }, 'json');
         }
     }
+
+    bind_dropdown_list($('.aw-mod-publish #question_contents'), 'publish');
     
-    // 自动保存草稿
-	if ($('textarea#advanced_editor').length)
-	{
-		$('textarea#advanced_editor').bind('blur', function() {
-			if ($(this).val() != '')
-			{
-				$.post(G_BASE_URL + '/account/ajax/save_draft/item_id-1__type-' +　PUBLISH_TYPE, 'message=' + $(this).val(), function (result) {
-					$('#question_detail_message').html(result.err + ' <a href="#" onclick="$(\'textarea#advanced_editor\').attr(\'value\', \'\'); delete_draft(1, \'' + PUBLISH_TYPE + '\'); $(this).parent().html(\' \'); return false;">' + _t('删除草稿') + '</a>');
-				}, 'json');
-			}
-		});
-		
-		$('#publish_submit').click(function () {
-			$('textarea#advanced_editor').unbind('blur');
-		});
-	}
-	
-	//初始化分类
+    //初始化分类
 	if ($('#category_id').length)
 	{
 		var category_data = '', category_id;
@@ -102,5 +87,22 @@ $(document).ready(function () {
 
 	//自动展开话题选择
 	$('.aw-edit-topic').click();
+	
+    // 自动保存草稿
+	if ($('textarea#advanced_editor').length)
+	{
+		$('textarea#advanced_editor').bind('blur', function() {
+			if ($(this).val() != '')
+			{
+				$.post(G_BASE_URL + '/account/ajax/save_draft/item_id-1__type-' +　PUBLISH_TYPE, 'message=' + $(this).val(), function (result) {
+					$('#question_detail_message').html(result.err + ' <a href="#" onclick="$(\'textarea#advanced_editor\').attr(\'value\', \'\'); delete_draft(1, \'' + PUBLISH_TYPE + '\'); $(this).parent().html(\' \'); return false;">' + _t('删除草稿') + '</a>');
+				}, 'json');
+			}
+		});
+		
+		$('#publish_submit').click(function () {
+			$('textarea#advanced_editor').unbind('blur');
+		});
+	}
 	
 });
