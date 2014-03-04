@@ -85,7 +85,6 @@ $(document).ready(function () {
 			$('#category_id').val($(this).attr('data-value'));
 		});
 
-		console.log($('#category_id').val());
 		$.each($('.aw-publish-title .aw-publish-title-dropdown .aw-category-dropdown-list li a'),function(i, e)
 		{
 			if ($(e).attr('data-value') == $('#category_id').val())
