@@ -19,7 +19,7 @@
  * @param  string $sort_type 正序或倒序 'ASC'|'DESC'
  * @return array 返回排序后的数组
  */
-function aasort($source_array, $order_field, $sort_type)
+function aasort($source_array, $order_field, $sort_type = 'DESC')
 {
 	if (! is_array($source_array) or sizeof($source_array) == 0)
 	{
