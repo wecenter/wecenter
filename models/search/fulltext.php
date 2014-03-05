@@ -20,6 +20,8 @@ if (!defined('IN_ANWSION'))
 
 class search_fulltext_class extends AWS_MODEL
 {
+	public $max_results = 1000;	// 搜索结果超过这个数值, 超过的部分将被抛弃
+	
 	public function get_search_hash($table, $column, $q, $where = null)
 	{
 		return md5($this->bulid_query($table, $column, $q, $where));
@@ -101,7 +103,7 @@ class search_fulltext_class extends AWS_MODEL
 		
 		if (!$result = $this->fetch_cache($search_hash))
 		{
-			if ($result = $this->query_all($this->bulid_query('question', 'question_content', $q, $where), 1000))
+			if ($result = $this->query_all($this->bulid_query('question', 'question_content', $q, $where), $this->max_results))
 			{
 				$result = aasort($result, 'score', 'DESC');
 				$result = aasort($result, 'agree_count', 'DESC');
@@ -116,10 +118,14 @@ class search_fulltext_class extends AWS_MODEL
 		
 		if (!$page)
 		{
-			$page = 1;
+			$slice_offset = 0;
+		}
+		else
+		{
+			$slice_offset = (($page - 1) * $limit);
 		}
 		
-		return array_slice($result, (($page - 1) * $limit), $limit);
+		return array_slice($result, $slice_offset, $limit);
 	}
 	
 	public function search_articles($q, $topic_ids = null, $page = 1, $limit = 20)
@@ -137,7 +143,7 @@ class search_fulltext_class extends AWS_MODEL
 		
 		if (!$result = $this->fetch_cache($search_hash))
 		{
-			if ($result = $this->query_all($this->bulid_query('article', 'title', $q, $where), 1000))
+			if ($result = $this->query_all($this->bulid_query('article', 'title', $q, $where), $this->max_results))
 			{
 				$result = aasort($result, 'score', 'DESC');
 				$result = aasort($result, 'vote', 'DESC');
@@ -152,10 +158,14 @@ class search_fulltext_class extends AWS_MODEL
 		
 		if (!$page)
 		{
-			$page = 1;
+			$slice_offset = 0;
+		}
+		else
+		{
+			$slice_offset = (($page - 1) * $limit);
 		}
 		
-		return array_slice($result, (($page - 1) * $limit), $limit);
+		return array_slice($result, $slice_offset, $limit);
 	}
 	
 	public function encode_search_code($string)
@@ -181,7 +191,6 @@ class search_fulltext_class extends AWS_MODEL
     		}
     		else if ($code != 65279)
     		{ 
-    			//$output .= '&#' . $code . ';'; 
     			$output .= $code;
     		}
     	}
