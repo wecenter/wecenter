@@ -118,7 +118,7 @@ class search_fulltext_class extends AWS_MODEL
 		
 		if (!$page)
 		{
-			$slice_offset = 0
+			$slice_offset = 0;
 		}
 		else
 		{
@@ -158,7 +158,7 @@ class search_fulltext_class extends AWS_MODEL
 		
 		if (!$page)
 		{
-			$slice_offset = 0
+			$slice_offset = 0;
 		}
 		else
 		{
