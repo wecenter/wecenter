@@ -949,7 +949,7 @@ class Services_Markdown {
 			$item = $this->runSpanGamut($item);
 		}
 
-		return "<li>" . $item . "</li>\n";
+		return "<li>" . $item . "</li>";
 	}
 
 
@@ -992,7 +992,7 @@ class Services_Markdown {
 		), $codeblock);
 
 		$codeblock = "<code>$codeblock\n</code>";
-		return "\n\n".$this->hashBlock($codeblock)."\n\n";
+		return "\n".$this->hashBlock($codeblock)."\n";
 	}
 
 
