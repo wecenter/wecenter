@@ -1206,7 +1206,7 @@ class Services_Markdown {
 		$bq = preg_replace_callback('{(\s*<pre>.+?</pre>)}sx', 
 			array(&$this, '_doBlockQuotes_callback2'), $bq);
 
-		return $this->hashBlock("<blockquote>\n$bq\n</blockquote>");
+		return $this->hashBlock("<blockquote>$bq</blockquote>");
 	}
 	protected function _doBlockQuotes_callback2($matches) {
 		$pre = $matches[1];
