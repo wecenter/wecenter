@@ -1205,6 +1205,8 @@ class Services_Markdown {
 		# so we need to fix that:
 		$bq = preg_replace_callback('{(\s*<pre>.+?</pre>)}sx', 
 			array(&$this, '_doBlockQuotes_callback2'), $bq);
+			
+		$bq = trim($bq);
 
 		return $this->hashBlock("<blockquote>$bq</blockquote>");
 	}
