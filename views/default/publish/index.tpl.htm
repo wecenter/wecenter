@@ -80,15 +80,15 @@
 										<?php } ?>
 										<?php } ?>
 										
-										<span class="aw-edit-topic"><i class="icon-edit"></i><?php _e('编辑话题'); ?></span>
+										<span class="aw-edit-topic"><i class="fa fa-edit"></i><?php _e('编辑话题'); ?></span>
 										</span>
 										
 										<?php if ($this->recent_topics) { ?>
-										<div class="aw-publish-suggest-topics">
-											<?php _e('最近话题'); ?>: 
+										<h3><?php _e('最近话题'); ?>:</h3>
+										<div class="aw-publish-suggest-topics clearfix">
 																	
 											<?php foreach($this->recent_topics as $key => $val) { ?>
-											<a href="javascript:;" onclick="$('#aw_edit_topic_title').val('<?php echo $val; ?>');$('.submit-edit').click();$(this).hide();" class="aw-topic-name ht-topic-name"><span><?php echo $val; ?></span></a>
+											<a href="javascript:;" onclick="$('#aw_edit_topic_title').val('<?php echo $val; ?>');$('.submit-edit').click();$(this).hide();" class="aw-topic-name"><span><?php echo $val; ?></span></a>
 											<?php } ?>
 										</div>
 										<?php } ?>

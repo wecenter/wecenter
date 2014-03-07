@@ -132,6 +132,10 @@
 .aw-user-center-follow-mod ul .col-sm-6{width:293px;}
 .aw-user-center-tab .aw-mod .aw-item .aw-mod-body p.aw-hide-txt{max-width: 570px;}
 
+/* 用户列表页面 */
+.aw-user-sort .aw-user-sort-title{background-color: #F8F8F8;}
+.aw-user-sort .aw-user-sort-title .aw-reset-nav-tabs{top: 9px;}
+
 /* 私信页面 */
 .aw-mod-private-replay-box .aw-user-img{right: 15px;}
 .aw-mod-private-replay-list{margin:0 20px;}
