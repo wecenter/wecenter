@@ -106,7 +106,6 @@ class search_fulltext_class extends AWS_MODEL
 			if ($result = $this->query_all($this->bulid_query('question', 'question_content', $q, $where), $this->max_results))
 			{
 				$result = aasort($result, 'score', 'DESC');
-				$result = aasort($result, 'agree_count', 'DESC');
 			}
 			else
 			{
@@ -146,7 +145,6 @@ class search_fulltext_class extends AWS_MODEL
 			if ($result = $this->query_all($this->bulid_query('article', 'title', $q, $where), $this->max_results))
 			{
 				$result = aasort($result, 'score', 'DESC');
-				$result = aasort($result, 'vote', 'DESC');
 			}
 			else
 			{
