@@ -10,7 +10,6 @@
 		<?php if ($val['detail']['best_answer'] > 0 AND $val['type'] == 'questions') { ?><i class="icon-g-replay"></i><?php } ?><a href="<?php echo $val['url']; ?>" target="_blank"><?php echo $val['name']; ?></a> <?php if ($val['type'] == 'users' AND $val['detail']['signature']) { ?><span class="aw-text-color-999"><?php echo $val['detail']['signature']; ?></span><?php } else if ($val['type'] == 'topics' AND $val['detail']['topic_description']) { ?><span class="aw-text-color-999"><?php echo cjk_substr($val['detail']['topic_description'], 0, 48, 'UTF-8', '...'); ?></span><?php } ?>
 	</p>
 	<p class="aw-hide-text aw-text-color-666">
-		<?php echo $val['score']; ?>
 		<?php if ($val['type'] == 'questions') { ?>
 		<a class="aw-search-result-tags"><?php _e('问题'); ?></a> <?php _e('%s 个回复', $val['detail']['answer_count']); ?> • <?php _e('%s 人关注', $val['detail']['focus_count']); ?>
 		<?php } else if ($val['type'] == 'articles') { ?>
