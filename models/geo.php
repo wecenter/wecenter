@@ -57,7 +57,7 @@ class geo_class extends AWS_MODEL
 		));
 	}
 	
-	public function get_distance($latitude_a, $longitude_a, $latitude_b, $longitude_b)
+	public function get_distance($longitude_a, $latitude_a, $longitude_b, $latitude_b)
 	{
 		/*
 		Convert these degrees to radians to work with the formula
