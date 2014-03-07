@@ -48,7 +48,7 @@
 										<?php _e('女'); ?>
 										</label> &nbsp;
 										<label>
-										<input type="radio" name="sex" value="3"<?php if ($this->user_info['sex'] == 1 OR !$this->user_info['sex']) { ?> checked="checked"<?php } ?> />
+										<input type="radio" name="sex" value="3"<?php if (!$this->user_info['sex']) { ?> checked="checked"<?php } ?> />
 										<?php _e('保密'); ?>
 										</label>
 									</li>
