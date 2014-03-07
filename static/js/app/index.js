@@ -171,18 +171,6 @@ function _welcome_step_1_form_processer(result)
 
 function welcome_step_1_load()
 {
-	$('.select_area').LocationSelect({
-        labels: [_t('请选择省份或直辖市'), _t('请选择城市')],
-
-        elements: document.getElementsByTagName('select'),
-
-        detector: function () {
-	  		this.selectID(['', '']);
-   		},	// 默认显示的城市
-   		
-		dataUrl: G_BASE_URL + '/account/ajax/areas_json_data/'
-	});
-
 	init_avatar_uploader($('#welcome_avatar_uploader'), $('#aw-img-uploading'), $("#aw-upload-img"));
 
 	$('.aw-first-login').css({
