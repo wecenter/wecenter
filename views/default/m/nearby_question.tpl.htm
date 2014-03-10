@@ -4,7 +4,7 @@
 			<?php foreach ($this->near_by_questions AS $key => $val) { ?>
 			<li>
 				<h1><a href="m/question/<?php echo $val['question_id']; ?>"><?php echo $val['question_content']; ?></a></h1>
-				<p><i class="glyphicon glyphicon-map-marker"></i> <?php _e('%s 米以内', $val['distance']); ?> <span><?php echo date_friendly($val['add_time']); ?></span> <a href="m/people/<?php echo $val['user_info']['url_token']; ?>"><?php echo $val['user_info']['user_name']; ?></a></p>
+				<p><i class="glyphicon glyphicon-map-marker"></i> <?php _e('%s 公里以内', $val['distance']); ?> <span><?php echo date_friendly($val['add_time']); ?></span> <a href="m/people/<?php echo $val['user_info']['url_token']; ?>"><?php echo $val['user_info']['user_name']; ?></a></p>
 			</li>
 			<?php } ?>
 		</ul>

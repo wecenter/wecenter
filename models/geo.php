@@ -70,7 +70,7 @@ class geo_class extends AWS_MODEL
 		$s = 2 * asin(sqrt(pow(sin($a / 2), 2) + cos($round_latitude_1) * cos($round_latitude_2) * pow(sin($b / 2), 2)));
 		
 		$s = $s * GEO_EARTH_RADIUS;
-		$s = round($s * 10000);
+		$s = round($s * 10000) / 1000;
 		
 		return number_format($s, 2);
 	}
