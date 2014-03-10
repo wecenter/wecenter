@@ -18,7 +18,7 @@ if (!defined('IN_ANWSION'))
 	die;
 }
 
-define('GEO_EARTH_RADIUS', 6371);	// 地球半径, 平均半径为 6371km
+define('GEO_EARTH_RADIUS', 6378);	// 地球半径
 
 class geo_class extends AWS_MODEL
 {
@@ -59,31 +59,19 @@ class geo_class extends AWS_MODEL
 	
 	public function get_distance($longitude_a, $latitude_a, $longitude_b, $latitude_b)
 	{
-		/*
-		Convert these degrees to radians to work with the formula
-		*/
+		$round_latitude_1 = $latitude_a * pi() / 180.0;
+		$round_latitude_2 = $latitude_b * pi() / 180.0;
 		
-		$latitude_a = ($latitude_a * pi()) / 180;
-		$longitude_a = ($longitude_a * pi()) / 180;
+		$round_longitude_1 = $longitude_a * pi() / 180.0;
+		$round_longitude_2 = $longitude_b * pi() / 180.0;
 		
-		$latitude_b = ($latitude_b * pi()) / 180;
-		$longitude_b = ($longitude_b * pi()) / 180;
+		$a = $round_latitude_1 - $round_latitude_2;
+	    $b = $round_longitude_1 - $round_longitude_2;
+		$s = 2 * asin(sqrt(pow(sin($a / 2), 2) + cos($round_latitude_1) * cos($round_latitude_2) * pow(sin($b / 2), 2)));
 		
-		/*
-		Using the Haversine formula
+		$s = $s * GEO_EARTH_RADIUS;
+		$s = round($s * 10000) / 1000;
 		
-		http://en.wikipedia.org/wiki/Haversine_formula
-		
-		calculate the distance
-		*/
-		
-		$calcLongitude = $longitude_b - $longitude_a;
-		$calcLatitude = $latitude_b - $latitude_a;
-		$stepOne = pow(sin($calcLatitude / 2), 2) + cos($latitude_a) * cos($latitude_b) * pow(sin($calcLongitude / 2), 2);
-		$stepTwo = 2 * asin(min(1, sqrt($stepOne)));
-		
-		$calculatedDistance = GEO_EARTH_RADIUS * $stepTwo;
-		
-		return round($calculatedDistance);
+		return number_format($s, 2);
 	}
 }
