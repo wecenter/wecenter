@@ -59,6 +59,8 @@ class geo_class extends AWS_MODEL
 	
 	public function get_distance($longitude_a, $latitude_a, $longitude_b, $latitude_b)
 	{
+		echo "$longitude_a, $latitude_a, $longitude_b, $latitude_b<br />";
+		
 		$radLat1 = $latitude_a * pi() / 180.0;
 		$radLat2 = $latitude_b * pi() / 180.0;
 		$a = $radLat1 - $radLat2;
