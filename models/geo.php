@@ -65,8 +65,8 @@ class geo_class extends AWS_MODEL
 	    $b = fn_rad($longitude_a) - fn_rad($longitude_b);
 		$s = 2 * asin(sqrt(pow(sin($a/2),2) + cos($radLat1)*cos($radLat2)*pow(sin($b/2),2)));
 		$s = $s * GEO_EARTH_RADIUS;
-		$s = round($s * 10000) / 10000;
-		return number_format($s,2);
+		$s = round($s * 10000);
+		return number_format($s, 2);
 	}
 }
 
