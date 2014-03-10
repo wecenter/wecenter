@@ -59,11 +59,11 @@ class geo_class extends AWS_MODEL
 	
 	public function get_distance($longitude_a, $latitude_a, $longitude_b, $latitude_b)
 	{
-		$latitude_a = $latitude_a * pi()/ 180.0;   //pi()圆周率
-		$latitude_b = $latitude_b * pi() / 180.0;
-		$a = $latitude_a - $latitude_b;
+		$radLat1 = $latitude_a * pi() / 180.0;
+		$radLat2 = $latitude_b * pi() / 180.0;
+		$a = $radLat1 - $radLat2;
 		$b = ($longitude_a * pi() / 180.0) - ($longitude_b * pi() / 180.0);
-		$s = 2 * asin(sqrt(pow(sin($a/2),2) + cos($latitude_a) * cos($latitude_b) * pow(sin($b/2),2)));
+		$s = 2 * asin(sqrt(pow(sin($a / 2), 2) + cos($radLat1) * cos($radLat2) * pow(sin($b / 2), 2)));
 		$s = $s * GEO_EARTH_RADIUS;
 		$s = round($s * 1000);
 		
