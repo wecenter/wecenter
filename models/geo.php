@@ -18,7 +18,7 @@ if (!defined('IN_ANWSION'))
 	die;
 }
 
-define('GEO_EARTH_RADIUS', 6371);	// 地球半径, 平均半径为 6371km
+define('GEO_EARTH_RADIUS', 6378);	// 地球半径
 
 class geo_class extends AWS_MODEL
 {
@@ -59,16 +59,18 @@ class geo_class extends AWS_MODEL
 	
 	public function get_distance($longitude_a, $latitude_a, $longitude_b, $latitude_b)
 	{
-		echo "$longitude_a, $latitude_a, $longitude_b, $latitude_b<br />";
-		
-		$radLat1 = $latitude_a * pi() / 180.0;
-		$radLat2 = $latitude_b * pi() / 180.0;
+		$radLat1 = fn_rad($latitude_a);
+		$radLat2 = fn_rad($latitude_b);
 		$a = $radLat1 - $radLat2;
-		$b = ($longitude_a * pi() / 180.0) - ($longitude_b * pi() / 180.0);
-		$s = 2 * asin(sqrt(pow(sin($a / 2), 2) + cos($radLat1) * cos($radLat2) * pow(sin($b / 2), 2)));
+	    $b = fn_rad($longitude_a) - fn_rad($longitude_b);
+		$s = 2 * asin(sqrt(pow(sin($a/2),2) + cos($radLat1)*cos($radLat2)*pow(sin($b/2),2)));
 		$s = $s * GEO_EARTH_RADIUS;
-		$s = round($s * 1000);
-		
-		return round($s, 2);
+		$s = round($s * 10000) / 10000;
+		return number_format($s,2);
 	}
+}
+
+function fn_rad($d)
+{
+	return $d * pi() / 180.0;
 }
