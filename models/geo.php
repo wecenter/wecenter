@@ -62,7 +62,7 @@ class geo_class extends AWS_MODEL
 		$latitude_a = $latitude_a * pi()/ 180.0;   //pi()圆周率
 		$latitude_b = $latitude_b * pi() / 180.0;
 		$a = $latitude_a - $latitude_b;
-		$b = ($lng1 * pi() / 180.0) - ($lng2 * pi() / 180.0);
+		$b = ($longitude_a * pi() / 180.0) - ($longitude_b * pi() / 180.0);
 		$s = 2 * asin(sqrt(pow(sin($a/2),2) + cos($latitude_a) * cos($latitude_b) * pow(sin($b/2),2)));
 		$s = $s * EARTH_RADIUS;
 		$s = round($s * 1000);
