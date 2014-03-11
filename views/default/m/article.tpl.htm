@@ -18,6 +18,9 @@
 		</div>
 		<div class="aw-mod-body markitup-box">
 			<?php echo $this->article_info['message']; ?>
+			<div id="weixin-desc" style="display:none;">
+				<?php echo cjk_substr(str_replace(array("\r","\n"),array(' ',' '), strip_tags($this->article_info['message'])), 0, 130, 'UTF-8', '...');?>
+			</div>
 							
 			<?php if ($this->article_info['attachs']) {  ?>
 			<div class="aw-comment-upload-img-list">
@@ -102,7 +105,7 @@
 	<?php if ($this->article_info['lock']) { ?>
 	<p align="center"><?php _e('该文章目前已经被锁定, 无法添加新评论'); ?></p>
 	<?php } else if (!$this->user_id) { ?>
-	<a class="aw-load-more" id="load_index_actions" href="account/login/">登录进行回复</a>
+	<a class="aw-load-more" id="load_index_actions" href="account/login/"><?php _e('登录进行回复'); ?></a>
 	<?php } else { ?>
 	<!-- 评论box -->
 	<div class="aw-anwser-box">

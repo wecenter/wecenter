@@ -78,7 +78,7 @@
 .aw-question-detail-title{padding:10px 20px 20px;border:1px solid #DFDFDF;border-radius: 5px;}
 .aw-question-detail-title .aw-comment-box{margin:10px 0;}
 .aw-question-comment-box{margin-bottom:20px;padding:1px;border:1px solid #DFDFDF;border-radius: 5px;}
-.aw-question-comment-box .aw-dynamic-topic{padding:0;}
+.aw-question-comment-box .aw-dynamic-topic{padding:10px;}
 .aw-question-comment-box .aw-dynamic-topic .aw-item{border-top: 1px dotted #C1CAD4;border-bottom: none;}
 .aw-question-comment-box .aw-dynamic-topic .aw-item:first-child{border-top: none;}
 .aw-question-comment-box .aw-dynamic-topic .aw-dynamic-topic-content{width: 540px;}
@@ -86,9 +86,6 @@
 .aw-dynamic-topic .aw-item.active{width: 617px;}
 .aw-comment-box-main{background: #f7f7f7;}
 .aw-question-detail-title .aw-mod-head h1{width:480px;}
-
-/* 经验详情页 */
-.aw-article-detail-meta{margin:0;}
 
 /* 动态首页右侧页面 */
 .aw-dynamic-index{padding:1px;border:1px solid #DFDFDF;border-radius: 5px;}
