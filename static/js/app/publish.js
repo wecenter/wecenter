@@ -13,6 +13,7 @@ $(document).ready(function () {
     {
 	    init_fileuploader('file_uploader_question', G_BASE_URL + '/publish/ajax/attach_upload/id-' + PUBLISH_TYPE + '__attach_access_key-' + ATTACH_ACCESS_KEY);
     }
+    
     if (ITEM_ID && G_UPLOAD_ENABLE == 'Y' && ATTACH_ACCESS_KEY != '')
     {
         if ($("#file_uploader_question ._ajax_upload-list").length) {
