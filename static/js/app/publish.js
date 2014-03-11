@@ -1,10 +1,10 @@
 $(document).ready(function () {
 
-	if ($('#question_id')[0])
+	if ($('#question_id').length)
 	{
 		ITEM_ID = $('#question_id').val();
 	}
-	else if ($('#article_id')[0])
+	else if ($('#article_id').length)
 	{
 		ITEM_ID = $('#article_id').val();
 	}
