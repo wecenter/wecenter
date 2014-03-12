@@ -39,43 +39,27 @@
 				{
 					if (typeof G_IN_WEIXIN != 'undefined' && G_IN_WEIXIN == true)
 					{
-						if (WEIXIN_APP_ID == ''){ 
-							//不支持开放平台
-							WeixinJSBridge.on('menu:share:timeline', function(argv) {
-		                        WeixinJSBridge.invoke('shareTimeline', {
-		                            "img_url":weixin_img_url,
-		                            "title" : document.title,
-		                            "link" :location.href,
-		                            "desc" :($('#weixin-desc').text()=='')?document.description:$('#weixin-desc').text()
-		                        });
-		                    });
-		                    WeixinJSBridge.on('menu:share:appmessage', function(argv) {
-		                        WeixinJSBridge.invoke('sendAppMessage', {
-		                            "img_url":weixin_img_url,
-		                            "title" : document.title,
-		                            "link" : location.href,
-		                            "desc" : ($('#weixin-desc').text()=='')?document.description:$('#weixin-desc').text()
-		                        });
-		                    });
-		                }
-		                else
-		                {
-		                	//支持开放平台
-		                	WeixinJSBridge.on('menu:share:timeline', function(argv) {
-		                        WeixinJSBridge.invoke('shareTimeline', {
-		                            "title" : document.title,
-		                            "link" : 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + WEIXIN_APP_ID + '&redirect_uri=' + encodeURIComponent(G_BASE_URL + '/m/weixin/redirect/?redirect=' + $.base64.encode(location.href)) + '&response_type=code&scope=snsapi_userinfo&state=OAUTH#wechat_redirect',
-		                            "description" : document.description
-		                        });
-		                    });
-		                    WeixinJSBridge.on('menu:share:appmessage', function(argv) {
-		                        WeixinJSBridge.invoke('sendAppMessage', {
-		                            "title" : document.title,
-		                            "link" : 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + WEIXIN_APP_ID + '&redirect_uri=' + encodeURIComponent(G_BASE_URL + '/m/weixin/redirect/?redirect=' + $.base64.encode(location.href)) + '&response_type=code&scope=snsapi_userinfo&state=OAUTH#wechat_redirect',
-		                            "description" : document.description
-		                        });
-		                    });
-		                }
+						if (WEIXIN_APP_ID)
+						{
+							var link = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + WEIXIN_APP_ID + '&redirect_uri=' + encodeURIComponent(G_BASE_URL + '/m/weixin/redirect/?redirect=' + $.base64.encode(location.href)) + '&response_type=code&scope=snsapi_userinfo&state=OAUTH#wechat_redirect';
+						}
+
+						WeixinJSBridge.on('menu:share:timeline', function(argv) {
+	                        WeixinJSBridge.invoke('shareTimeline', {
+	                            "img_url":weixin_img_url,
+	                            "title" : document.title,
+	                            "link" : (link != undefined) ? link : location.href,
+	                            "desc" : ($('#weixin-desc').text()=='') ? document.description : $('#weixin-desc').text()
+	                        });
+	                    });
+	                    WeixinJSBridge.on('menu:share:appmessage', function(argv) {
+	                        WeixinJSBridge.invoke('sendAppMessage', {
+	                            "img_url":weixin_img_url,
+	                            "title" : document.title,
+	                            "link" : (link != undefined) ? link : location.href,
+	                            "desc" : ($('#weixin-desc').text()=='') ? document.description : $('#weixin-desc').text()
+	                        });
+	                    });
 						clearInterval(weixin_handler);
 					}
 				}, 500);
