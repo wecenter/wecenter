@@ -74,4 +74,4 @@
 .aw-side-bar-mod.profile-side-following .row{margin-bottom: 20px;}
 .aw-side-bar-mod.profile-side-following p{margin-top: 5px;}
 .aw-side-bar-mod.profile-side-following .aw-user-name img{width: 25px;height: 25px;}
-.aw-side-bar-mod.profile-side-following .aw-topic-name{margin:0 4px 4px 0;}
+.aw-side-bar-mod.profile-side-following .aw-topic-name{display:inline-block;margin:0 4px 4px 0;}
