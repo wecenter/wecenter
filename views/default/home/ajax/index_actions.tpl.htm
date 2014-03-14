@@ -17,7 +17,7 @@
 </script>
 <?php } ?>
 <?php foreach ($this->list AS $key => $val) { ?>
-<div class="aw-item">
+<div class="aw-item" data-id="<?php echo $val['id']; ?>">
 	<div class="aw-mod-head">
 		<?php if ($val['question_info']['anonymous'] == 0 OR !$val['question_info']) { ?><a data-id="<?php echo $val['user_info']['uid']; ?>" class="aw-user-img aw-border-radius-5 pull-right" href="people/<?php echo $val['user_info']['url_token']; ?>"><img src="<?php echo get_avatar_url($val['user_info']['uid'], 'mid'); ?>" alt="<?php echo $val['user_info']['user_name']; ?>" /></a><?php } else { ?><a href="javascript:;" class="aw-user-img aw-border-radius-5 pull-right"><img src="<?php echo G_STATIC_URL; ?>/common/avatar-mid-img.png" alt="<?php _e('匿名用户'); ?>" /></a><?php } ?>
 		
