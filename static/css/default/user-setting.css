@@ -31,8 +31,7 @@
 .aw-user-setting-bind .icon-wechat{font-size:16px;color: #86C76D;}
 /* 我的积分 */
 .aw-user-setting-points table{margin:20px 0;font-size:13px;color: #666;}
-.aw-user-setting-points table .info{background: #F5FAFE;}
-.aw-user-setting-points table .info th{border-top: none;}
+.aw-user-setting-points table .info th{background-color: #F5FAFE !important;border-top: none;font-weight: normal;}
 .aw-user-setting-points .table th, .aw-user-setting-points .table td{border-top: 1px solid #DCEDFA;}
 /* 隐私 */
 .aw-user-setting-layout{padding:30px 60px;border-bottom:1px dotted #DFDFDF;}
