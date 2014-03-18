@@ -41,7 +41,7 @@
 			</div>
 		    <div class="aw-mod-body clearfix">
 		    	<h3><?php _e('问题补充 (选填)'); ?>: <span id="file_uploader_answer"></span></h3>
-		    	<textarea name="question_detail" class="form-control textarea_content" id="question_detail" rows="4" placeholder="<?php _e('问题补充'); ?>"><?php echo $this->question_info['question_detail']; ?></textarea>
+		    	<textarea name="question_detail" class="autosize form-control textarea_content" id="question_detail" rows="4" placeholder="<?php _e('问题补充'); ?>"><?php echo $this->question_info['question_detail']; ?></textarea>
 		    	
 		    	<?php if (!$this->question_info['question_id']) { ?>
 	    		<div class="aw-topic-edit-box" id="quick_publish_topic_chooser">

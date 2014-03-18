@@ -117,7 +117,7 @@
 			<form action="article/ajax/save_comment/" onsubmit="return false;" method="post" id="answer_form" class="form-inline">
 				<input type="hidden" name="post_hash" value="<?php echo new_post_hash(); ?>" />
 		        <input type="hidden" name="article_id" value="<?php echo $this->article_info['id']; ?>" />
-				<textarea class="form-control" rows="5" name="message"></textarea>
+				<textarea class="form-control autosize" rows="5" name="message"></textarea>
 			</form>
 		</div>
 		<div class="aw-mod-footer clearfix">
