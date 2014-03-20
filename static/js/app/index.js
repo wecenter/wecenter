@@ -159,14 +159,7 @@ $(document).ready(function()
 
 function _welcome_step_1_form_processer(result)
 {
-	if (result.errno != 1)
-	{		
-		alert(result.err);
-	}
-	else
-	{
-		welcome_step_2_load();
-	}
+	welcome_step_2_load();
 }
 
 function welcome_step_1_load()
