@@ -28,8 +28,11 @@
 		<li><a href="m/explore/"><?php _e('发现'); ?></a></li>
 		<li><a href="m/topic_square/"><?php _e('话题'); ?></a></li>
 		<li><a href="m/people_list/"><?php _e('用户'); ?></a></li>
+		<?php if ($this->user_id) { ?>
 		<li id="aw-top-nav-profile"><a><?php _e('我'); ?></a><i class="fa fa-caret-down"></i></li>
-		
+		<?php } else { ?>
+		<li><a href="m/login/"><?php _e('我'); ?></a></li>
+		<?php } ?>
 	</ul>
 	<!-- 导航下拉内容 -->
 	<div class="aw-top-nav-wrap">
