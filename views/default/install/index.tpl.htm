@@ -45,6 +45,9 @@
 			<b><?php _e('FreeType 支持'); ?></b><?php if (!$this->system_require['ft_font']) { ?><span class="red">× <?php _e('WeCenter 的验证码需要 FreeType 支持'); ?></span><?php } else { ?><span class="green">√</span><?php } ?>
 		</li>
 		<li>
+			<b><?php _e('Zlib 支持'); ?></b><?php if (!$this->system_require['zlib']) { ?><span class="red">× <?php _e('WeCenter 的搜索需要 Zlib 支持'); ?></span><?php } else { ?><span class="green">√</span><?php } ?>
+		</li>
+		<li>
 			<b><?php _e('编码转换'); ?></b><?php if (!$this->system_require['convert_encoding']) { ?><span class="red">× <?php _e('WeCenter 至少需要有 MB 或 ICONV 编码转换处理库才能正常运行'); ?></span><?php } else { ?><span class="green">√</span><?php } ?>
 		</li>
 		<li>
@@ -57,7 +60,7 @@
 			<b><?php _e('目录权限'); ?></b><span><?php echo AWS_PATH; ?>config/</span><?php if (!$this->system_require['config_writable_config']) { ?><span class="red">×</span><?php } else { ?><span class="green">√</span><?php } ?>
 		</li>
 	</ul>
-	<a class="btn btn-success pull-right"<?php if (sizeof($this->system_require) != 11) { ?> onclick="alert('<?php _e('抱歉, 您的服务器需要满足系统的运行需求才能安装'); ?>');"<?php } else { ?> onclick="document.getElementById('installer').submit(); this.className='btn btn-success disabled pull-right'; this.onclick='';"<?php } ?>><?php _e('下一步'); ?></a>
+	<a class="btn btn-success pull-right"<?php if (sizeof($this->system_require) != 12) { ?> onclick="alert('<?php _e('抱歉, 您的服务器需要满足系统的运行需求才能安装'); ?>');"<?php } else { ?> onclick="document.getElementById('installer').submit(); this.className='btn btn-success disabled pull-right'; this.onclick='';"<?php } ?>><?php _e('下一步'); ?></a>
 	 </form>
 </div>
 
