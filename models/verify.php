@@ -81,7 +81,7 @@ class verify_class extends AWS_MODEL
 				unlink(get_setting('upload_dir') . '/verify/' . $verify_apply['attach']);
 			}
 			
-			return $this->delete('verify_apply', 'id = ' . intval($uid));
+			return $this->delete('verify_apply', 'id = ' . intval($verify_apply['id']));
 		}
 	}
 	
