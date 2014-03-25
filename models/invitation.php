@@ -20,7 +20,7 @@ if (!defined('IN_ANWSION'))
 
 class invitation_class extends AWS_MODEL
 {
-	function get_unique_invitation_code()
+	public function get_unique_invitation_code()
 	{
 		$invitation_code = md5(uniqid(rand(), true) . fetch_salt(4));
 		
@@ -34,10 +34,10 @@ class invitation_class extends AWS_MODEL
 		}
 	}
 
-	function add_invitation($uid, $invitation_code, $invitation_email, $add_time, $add_ip)
+	public function add_invitation($uid, $invitation_code, $invitation_email, $add_time, $add_ip)
 	{		
 		return $this->insert('invitation', array(
-			'uid' => $uid,
+			'uid' => intval($uid),
 			'invitation_code' => $invitation_code,
 			'invitation_email' => $invitation_email,
 			'add_time' => $add_time,
@@ -45,12 +45,12 @@ class invitation_class extends AWS_MODEL
 		));
 	}
 
-	function get_invitation_by_email($email)
+	public function get_invitation_by_email($email)
 	{		
 		return $this->fetch_row('invitation', "invitation_email = '" . $this->quote($email) . "'");
 	}
 
-	function get_invitation_list($uid, $limit = null, $orderby = "invitation_id DESC")
+	public function get_invitation_list($uid, $limit = null, $orderby = "invitation_id DESC")
 	{
 		if ($uid)
 		{
@@ -59,51 +59,30 @@ class invitation_class extends AWS_MODEL
 		
 		return $this->fetch_all('invitation', $where, $orderby, $limit);
 	}
-
-	/**
-	 * 根据邀请ID获得邀请记录
-	 * @param unknown_type $invitation_id
-	 */
-	function get_invitation_by_id($invitation_id)
+	
+	public function get_invitation_by_id($invitation_id)
 	{
 		return $this->fetch_row('invitation', 'invitation_id = ' . intval($invitation_id));
 	}
 	
-	function cancel_invitation_by_id($invitation_id)
+	public function function cancel_invitation_by_id($invitation_id)
 	{
 		return $this->update('invitation', array(
 			'active_status' => '-1'
 		), 'invitation_id = ' . intval($invitation_id));
 	}
-
-	/**
-     * 根据邀请码获得邀请表信息
-     * @param ing $invitation_code
-     */
-	function get_invitation_by_code($invitation_code)
+	
+	public function get_invitation_by_code($invitation_code)
 	{
 		return $this->fetch_row('invitation', "invitation_code = '" . $this->quote($invitation_code) . "'");
 	}
-
-	/**
-     * 校验邀请码有效
-     * @param string $invitation_code
-     * @return bool
-     */
-	function check_code_available($invitation_code)
+	
+	public function check_code_available($invitation_code)
 	{
 		return $this->fetch_row('invitation', "active_status = 0 AND active_expire <> 1 AND invitation_code = '" . $this->quote($invitation_code) . "'");
 	}
-
-	/**
-     * 激活邀请码
-     * @param string $invitation_code	邀请码
-     * @param int $active_time	激活时间
-     * @param unknown_type $active_ip	激活IP
-     * @param unknown_type $active_uid	激活用户ID
-     * @param unknown_type $active_uid	邀请回复问题 ID
-     */
-	function invitation_code_active($invitation_code, $active_time, $active_ip, $active_uid)
+	
+	public function invitation_code_active($invitation_code, $active_time, $active_ip, $active_uid)
 	{
 		return $this->update('invitation', array(
 			'active_time' => $active_time,
@@ -113,7 +92,7 @@ class invitation_class extends AWS_MODEL
 		), "invitation_code = '" . $this->quote($invitation_code) . "' AND active_status = 0");
 	}
 	
-	function send_invitation_email($invitation_id)
+	public function send_invitation_email($invitation_id)
 	{		
 		$invitation_row = $this->get_invitation_by_id($invitation_id);
 		
@@ -131,7 +110,7 @@ class invitation_class extends AWS_MODEL
 		}
 		
 		$user_info = $this->model('account')->get_user_info_by_uid($invitation_row['uid']);
-
+		
 		$email_hash = base64_encode(H::encode_hash(array(
 			'email' => $invitation_row['invitation_email']
 		)));
@@ -141,7 +120,7 @@ class invitation_class extends AWS_MODEL
 		));
 	}
 	
-	function send_batch_invitations($email_list, $uid, $user_name)
+	public function send_batch_invitations($email_list, $uid, $user_name)
 	{
 		foreach ($email_list as $key => $email)
 		{
@@ -152,7 +131,7 @@ class invitation_class extends AWS_MODEL
 			
 			$invitation_code = $this->get_unique_invitation_code();
 			
-			$invitation_id = $this->model('invitation')->add_invitation($uid, $invitation_code, $email, time(), ip2long($_SERVER['REMOTE_ADDR']));
+			$this->model('invitation')->add_invitation($uid, $invitation_code, $email, time(), ip2long($_SERVER['REMOTE_ADDR']));
 			
 			$this->model('email')->action_email('INVITE_REG', $email, get_js_url('/account/register/email-' . urlencode($email) . '__icode-' . $invitation_code), array(
 				'user_name' => $user_name,
