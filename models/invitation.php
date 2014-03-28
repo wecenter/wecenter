@@ -65,7 +65,7 @@ class invitation_class extends AWS_MODEL
 		return $this->fetch_row('invitation', 'invitation_id = ' . intval($invitation_id));
 	}
 	
-	public function function cancel_invitation_by_id($invitation_id)
+	public function cancel_invitation_by_id($invitation_id)
 	{
 		return $this->update('invitation', array(
 			'active_status' => '-1'
