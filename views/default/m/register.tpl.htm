@@ -1,54 +1,1 @@
-<?php TPL::output('m/header.tpl.htm'); ?>
-
-<div class="explore-page">
-	<div class="explore-wrap">
-		<div class="aw-mod-header">
-			<img src="<?php echo G_STATIC_URL; ?>/js/mobile/img/login_logo.png" width="114">
-		</div>
-		<div class="aw-mod-body">
-			<h1><?php echo get_setting('site_name'); ?></h1>
-		</div>
-		<div class="aw-mod-footer">
-			<form id="register_form" method="post" onsubmit="ajax_post($('#register_form')); return false;" action="account/ajax/register_process/">
-				<input type="hidden" name="agreement_chk" value="agree" />
-				
-				<?php if ($this->icode) { ?>
-					<input type="hidden" name="icode" id="icode" value="<?php echo $this->icode; ?>" />
-				<?php } ?>
-				
-				<?php if ($this->return_url) { ?>
-					<input type="hidden" name="return_url" value="<?php echo $this->return_url; ?>" />
-				<?php } ?>
-				
-				<?php if ($this->fromuid AND $_GET['invite_question_id']) { ?>
-				  	<input type="hidden" name="invite_question_id" value="<?php echo htmlspecialchars($_GET['invite_question_id']); ?>"/> 
-				<?php } ?>
-				
-				<div class="register">
-					<div class="title clearfix">
-						<a class="pull-right btn-login" href="m/login/"><?php _e('登录'); ?><i class="fa fa-arrow-circle-right"></i></a>
-					</div>
-					<div class="username">
-						<input type="text" id="user_name" name="user_name" placeholder="<?php _e('用户名'); ?>" value="<?php echo htmlspecialchars($_GET['user_name']); ?>" />
-					</div>
-					<div class="email">
-						<input type="text" id="email" name="email" placeholder="<?php _e('邮箱'); ?>" value="<?php echo htmlspecialchars(urldecode($_GET['email'])); ?>" />
-					</div>
-					<div class="password">
-						<input type="password" id="password" name="password" placeholder="<?php _e('密码'); ?>">
-					</div>
-					<?php if (!$this->fromuid AND !$this->icode AND get_setting('register_seccode') == 'Y') { ?>
-					<div class="verify clearfix">
-						<input type="text" id="seccode_verify" name="seccode_verify" placeholder="<?php _e('验证码'); ?>" />
-						<img class="pull-right" id="captcha" onclick="this.src = G_BASE_URL + '/account/captcha/' + Math.floor(Math.random() * 10000);" src="" />
-					</div>
-					<?php } ?>
-					
-					<a class="btn-submit" href="javascript:;" onclick="ajax_post($('#register_form'));"><?php _e('注册'); ?></a>
-				</div>
-			</form>
-		</div>
-	</div>
-<div>
-
-<?php TPL::output('m/footer.tpl.htm'); ?>
+<?php TPL::output('m/header.tpl.htm'); ?><div class="explore-page">	<div class="explore-wrap">		<div class="aw-mod-header">			<img src="<?php echo G_STATIC_URL; ?>/js/mobile/img/login_logo.png" width="114">		</div>		<div class="aw-mod-body">			<h1><?php echo get_setting('site_name'); ?></h1>		</div>		<div class="aw-mod-footer">			<form id="register_form" method="post" onsubmit="ajax_post($('#register_form')); return false;" action="account/ajax/register_process/">				<input type="hidden" name="agreement_chk" value="agree" />								<?php if ($this->icode) { ?>					<input type="hidden" name="icode" id="icode" value="<?php echo $this->icode; ?>" />				<?php } ?>								<?php if ($this->return_url) { ?>					<input type="hidden" name="return_url" value="<?php echo $this->return_url; ?>" />				<?php } ?>								<?php if ($this->fromuid AND $_GET['invite_question_id']) { ?>				  	<input type="hidden" name="invite_question_id" value="<?php echo htmlspecialchars($_GET['invite_question_id']); ?>"/> 				<?php } ?>								<div class="register">					<div class="title clearfix">						<a class="pull-right btn-login" href="m/login/"><?php _e('登录'); ?><i class="fa fa-arrow-circle-right"></i></a>					</div>					<div class="username">						<input type="text" id="user_name" name="user_name" placeholder="<?php _e('用户名'); ?>" value="<?php echo htmlspecialchars($_GET['user_name']); ?>" />					</div>					<div class="email">						<input type="text" id="email" name="email" placeholder="<?php _e('邮箱'); ?>" value="<?php echo htmlspecialchars(urldecode($_GET['email'])); ?>" />					</div>					<div class="password">						<input type="password" id="password" name="password" placeholder="<?php _e('密码'); ?>">					</div>					<?php if (!$this->fromuid AND !$this->icode AND get_setting('register_seccode') == 'Y') { ?>					<div class="verify clearfix">						<input type="text" id="seccode_verify" name="seccode_verify" placeholder="<?php _e('验证码'); ?>" onfocus="$('#captcha').click();" />						<img class="pull-right" id="captcha" onclick="this.src = G_BASE_URL + '/account/captcha/' + Math.floor(Math.random() * 10000);" src="" />					</div>					<?php } ?>										<a class="btn-submit" href="javascript:;" onclick="ajax_post($('#register_form'));"><?php _e('注册'); ?></a>				</div>			</form>		</div>	</div><div><?php TPL::output('m/footer.tpl.htm'); ?>
