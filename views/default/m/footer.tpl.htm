@@ -43,21 +43,25 @@
 						{
 							var link = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + WEIXIN_APP_ID + '&redirect_uri=' + encodeURIComponent(G_BASE_URL + '/m/weixin/redirect/?redirect=' + $.base64.encode(location.href)) + '&response_type=code&scope=snsapi_userinfo&state=OAUTH#wechat_redirect';
 						}
+						else
+						{
+							var link = location.href;
+						}
 
 						WeixinJSBridge.on('menu:share:timeline', function(argv) {
 	                        WeixinJSBridge.invoke('shareTimeline', {
-	                            "img_url":weixin_img_url,
+	                            "img_url": weixin_img_url,
 	                            "title" : document.title,
-	                            "link" : (link != undefined) ? link : location.href,
-	                            "desc" : ($('#weixin-desc').text()=='') ? document.description : $('#weixin-desc').text()
+	                            "link" : link,
+	                            "desc" : ($('#weixin-desc').text()=='') ? $('meta[name="description"]').attr('content') : $('#weixin-desc').text()
 	                        });
 	                    });
 	                    WeixinJSBridge.on('menu:share:appmessage', function(argv) {
 	                        WeixinJSBridge.invoke('sendAppMessage', {
 	                            "img_url":weixin_img_url,
 	                            "title" : document.title,
-	                            "link" : (link != undefined) ? link : location.href,
-	                            "desc" : ($('#weixin-desc').text()=='') ? document.description : $('#weixin-desc').text()
+	                            "link" : link,
+	                            "desc" : ($('#weixin-desc').text()=='') ? $('meta[name="description"]').attr('content') : $('#weixin-desc').text()
 	                        });
 	                    });
 						clearInterval(weixin_handler);
