@@ -49,6 +49,7 @@ class wecenter_class extends AWS_MODEL
 		curl_setopt($curl, CURLOPT_URL, 'http://mp.wecenter.com/?/services/' . $node . '/');
 		curl_setopt($curl, CURLOPT_HEADER, false);
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($curl, CURLOPT_TIMEOUT, 10);
 		
 		curl_setopt($curl, CURLOPT_POST, true);
 		curl_setopt($curl, CURLOPT_POSTFIELDS, implode('&', $_post_data));
