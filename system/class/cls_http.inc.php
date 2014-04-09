@@ -353,19 +353,17 @@ class HTTP
 		return 0;
 	}
 
-	/**
-	 * Make an HTTP request
-	 *
-	 * @return string API results
-	 * @ignore
-	 */
-	public static function request($url, $method, $postfields = NULL, $headers = null)
+	public static function request($url, $method, $post_fields = NULL, $time_out = 15)
 	{
+		if (!function_exists('curl_init'))
+		{
+			throw new Zend_Exception('CURL not support');
+		}
+		
 		$curl = curl_init();
 		
-		curl_setopt($curl, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_0);
-		curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 15);
-		curl_setopt($curl, CURLOPT_TIMEOUT, 15);
+		curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 10);
+		curl_setopt($curl, CURLOPT_TIMEOUT, $time_out);
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
 		curl_setopt($curl, CURLOPT_HEADER, FALSE);
 		
@@ -374,27 +372,28 @@ class HTTP
 			case 'POST' :
 				curl_setopt($curl, CURLOPT_POST, TRUE);
 				
-				if ($postfields)
+				if ($post_fields)
 				{
-					curl_setopt($curl, CURLOPT_POSTFIELDS, $postfields);
+					curl_setopt($curl, CURLOPT_POSTFIELDS, $post_fields);
 				}
 			break;
 			
 			case 'DELETE' :
 				curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'DELETE');
 				
-				if ($postfields)
+				if ($post_fields)
 				{
-					$url = "{$url}?{$postfields}";
+					$url = "{$url}?{$post_fields}";
 				}
 			break;
 		}
 		
-		$headers[] = 'API-RemoteIP: ' . fetch_ip();
-		
 		curl_setopt($curl, CURLOPT_URL, $url);
-		curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
 		curl_setopt($curl, CURLINFO_HEADER_OUT, TRUE);
+		
+		curl_setopt($curl, CURLOPT_HTTPHEADER, array(
+			'API-RemoteIP: ' . fetch_ip()
+		));
 		
 		if (substr($url, 0, 8) == 'https://')
 		{
