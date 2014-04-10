@@ -149,7 +149,7 @@ if (! function_exists('iconv_strpos'))
 
 /**
  * 兼容性转码
- * @param  strring $string 需要转换的字符串
+ * @param  string $string 需要转换的字符串
  * @param  string $from_encoding 源字符串编码
  * @param  string $target_encoding 目标字符串编码
  * @return string 转码后的字符串
@@ -179,6 +179,18 @@ function convert_encoding($string, $from_encoding = 'GBK', $target_encoding = 'U
 		
 		return iconv($from_encoding, $target_encoding, $string);
 	}
+}
+
+/**
+ * 兼容性转码 (数组)
+ * @param  array $string 需要转换的数组
+ * @param  string $from_encoding 源字符串编码
+ * @param  string $target_encoding 目标字符串编码
+ * @return array 转码后的数组
+ */
+function convert_encoding_array($data, $from_encoding = 'GBK', $target_encoding = 'UTF-8')
+{
+	return eval('return ' . convert_encoding(var_export($data, true) . ';', $from_encoding, $target_encoding));    
 }
 
 function cjk_strpos($haystack, $needle, $offset = 0, $charset = 'UTF-8')
@@ -448,7 +460,7 @@ function _show_error($exception_message)
 	}
 	
 	return <<<EOF
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="content-type" content="text/html; charset=UTF-8" /><meta http-equiv="Pragma" content="no-cache" /><meta http-equiv="Cache-Control" content="no-cache" /><meta http-equiv="Expires" content="Fri, 01 January 1999 01:00:00 GMT" /><title>{$name} System Error</title><style type='text/css'>body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td{margin:0;padding:0;}table{border-collapse:collapse;border-spacing:0;}address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:400;}ol,ul{list-style:none;}caption,th{text-align:left;}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:400;}q:before,q:after{content:'';}hr{display:none;}address{display:inline;}body{font-family:arial, tahoma, sans-serif;font-size:.8em;width:100%;}h1{font-family:arial, tahoma, "times new roman", serif;font-size:1.9em;color:#fff;}h2{font-size:1.6em;font-weight:400;clear:both;margin:0 0 8px;}a{color:#3e70a8;}a:hover{color:#3d8ce4;}#branding{background:#484848;padding:8px;}#content{clear:both;overflow:hidden;padding:20px 15px 0;}* #content{height:1%;}.message{background-color:#f5f5f5;clear:both;border-color:#d7d7d7;border-style:solid;border-width:1px;margin:0 0 10px;padding:7px 7px 7px 30px;border-radius:5px;}.message.error{background-color:#f3dddd;color:#281b1b;font-size:1.3em;font-weight:700;border-color:#deb7b7;}.message.unspecific{background-color:#f3f3f3;color:#515151;border-color:#d4d4d4;}.footer{text-align:center;font-size:1.5em;}.system-error{margin:10px 0;padding:5px 10px;}textarea{width:95%;height:300px;font-size:12px;font-family:Monaco,Lucida Console,Consolas,Courier,Courier New;line-height:16px;color:#474747;border:1px #bbb solid;border-radius:3px;padding:5px;}fieldset,img,abbr,acronym{border:0;}</style></head><body><div id='header'><div id='branding'><h1>{$name} System Error</h1></div></div><div id='content'><div class='message error'>There appears to be an error:{$errorBlock}</div><p class='message unspecific'>If you are seeing this page, it means there was a problem communicating with our database.  Sometimes this error is temporary and will go away when you refresh the page.  Sometimes the error will need to be fixed by an administrator before the site will become accessible again.<br /><br />You can try to refresh the page by clicking <a href="#" onclick="window.location=window.location; return false;">here</a></p></div></body></html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xml:lang="en" lang="en" xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="content-type" content="text/html; charset=UTF-8" /><meta http-equiv="Pragma" content="no-cache" /><meta http-equiv="Cache-Control" content="no-cache" /><meta http-equiv="Expires" content="Fri, 01 January 1999 01:00:00 GMT" /><title>{$name} System Error</title><style type='text/css'>body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td{margin:0;padding:0;}table{border-collapse:collapse;border-spacing:0;}address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:400;}ol,ul{list-style:none;}caption,th{text-align:left;}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:400;}q:before,q:after{content:'';}hr{display:none;}address{display:inline;}body{font-family:"Lucida Grande", "Lucida Sans Unicode", Helvetica, Arial, Verdana, sans-serif;font-size:.8em;width:100%;}h1{font-family:"Lucida Grande", "Lucida Sans Unicode", Helvetica, Arial, Verdana, sans-serif;font-size:1.9em;color:#fff;}h2{font-size:1.6em;font-weight:400;clear:both;margin:0 0 8px;}a{color:#3e70a8;}a:hover{color:#3d8ce4;}#branding{background:#484848;padding:8px;}#content{clear:both;overflow:hidden;padding:20px 15px 0;}* #content{height:1%;}.message{background-color:#f5f5f5;clear:both;border-color:#d7d7d7;border-style:solid;border-width:1px;margin:0 0 10px;padding:7px 7px 7px 30px;border-radius:5px;}.message.error{background-color:#f3dddd;color:#281b1b;font-size:1.3em;font-weight:700;border-color:#deb7b7;}.message.unspecific{background-color:#f3f3f3;color:#515151;border-color:#d4d4d4;font-size:10px;}.system-error{margin:10px 0;padding:5px 10px;}textarea{width:95%;height:300px;font-size:11px;font-family:"Helvetica Neue Ultra Light", Monaco,Lucida Console,Consolas,Courier,Courier New;line-height:16px;color:#474747;border:1px #bbb solid;border-radius:3px;padding:5px;}fieldset,img,abbr,acronym{border:0;}</style></head><body><div id='header'><div id='branding'><h1>{$name} System Error</h1></div></div><div id='content'><div class='message error'>There appears to be an error:{$errorBlock}</div><p class='message unspecific'>If you are seeing this page, it means there was a problem communicating with our database.  Sometimes this error is temporary and will go away when you refresh the page.<br />Sometimes the error will need to be fixed by an administrator before the site will become accessible again.<br /><br />You can try to refresh the page by clicking <a href="#" onclick="window.location=window.location; return false;">here</a></p></div></body></html>
 EOF;
 }
 
