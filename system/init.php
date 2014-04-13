@@ -102,6 +102,8 @@ if (@ini_get('register_globals'))
 	}
 }
 
+require_once(AWS_PATH . 'functions.app.php');
+
 if (file_exists(AWS_PATH . 'config.inc.php'))
 {
 	require_once(AWS_PATH . 'config.inc.php');
