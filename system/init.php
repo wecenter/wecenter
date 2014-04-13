@@ -75,6 +75,14 @@ if (function_exists('get_magic_quotes_gpc'))
 	}
 }
 
+require_once(ROOT_PATH . 'version.php');
+require_once(AWS_PATH . 'functions.inc.php');
+
+array_walk_recursive($_GET, 'remove_invisible_characters');
+array_walk_recursive($_POST, 'remove_invisible_characters');
+array_walk_recursive($_COOKIE, 'remove_invisible_characters');
+array_walk_recursive($_REQUEST, 'remove_invisible_characters');	
+
 if (@ini_get('register_globals'))
 {
 	if ($_REQUEST)
@@ -93,9 +101,6 @@ if (@ini_get('register_globals'))
 		}
 	}
 }
-
-require_once(ROOT_PATH . 'version.php');
-require_once(AWS_PATH . 'functions.inc.php');
 
 if (file_exists(AWS_PATH . 'config.inc.php'))
 {
