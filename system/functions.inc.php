@@ -1,23 +1,36 @@
 <?php
-/*
-+--------------------------------------------------------------------------
-|   WeCenter [#RELEASE_VERSION#]
-|   ========================================
-|   by WeCenter Software
-|   © 2011 - 2013 WeCenter. All Rights Reserved
-|   http://www.wecenter.com
-|   ========================================
-|   Support: WeCenter@qq.com
-|   
-+---------------------------------------------------------------------------
-*/
+/**
+ * WeCenter Framework
+ *
+ * An open source application development framework for PHP 5.2.2 or newer
+ *
+ * @package		WeCenter Framework
+ * @author		WeCenter Dev Team
+ * @copyright	Copyright (c) 20011 - 2013, WeCenter, Inc.
+ * @license		http://www.wecenter.com/license/
+ * @link		http://www.wecenter.com/
+ * @since		Version 1.0
+ * @filesource
+ */
+
+/**
+ * WeCenter 系统函数类
+ *
+ * @package		WeCenter
+ * @subpackage	System
+ * @category	Libraries
+ * @author		WeCenter Dev Team
+ */
 
 /**
  * 根据特定规则对数组进行排序
- * @param  array $source_array 需要排序的数组
- * @param  string $order_field 提取多维数组的某个键名，以便把数组转换成一位数组进行排序（注意：不支持下标，否则排序会出错）
- * @param  string $sort_type 正序或倒序 'ASC'|'DESC'
- * @return array 返回排序后的数组
+ *
+ * 提取多维数组的某个键名，以便把数组转换成一位数组进行排序（注意：不支持下标，否则排序会出错）
+ * 
+ * @param  array
+ * @param  string
+ * @param  string
+ * @return array
  */
 function aasort($source_array, $order_field, $sort_type = 'DESC')
 {
@@ -46,6 +59,7 @@ function aasort($source_array, $order_field, $sort_type = 'DESC')
 
 /**
  * 获取用户 IP
+ * 
  * @return string
  */
 function fetch_ip()
@@ -77,6 +91,12 @@ function fetch_ip()
 	return $ip_address;
 }
 
+/**
+ * 验证 IP 地址是否为内网 IP
+ * 
+ * @param string
+ * @return string
+ */
 function valid_internal_ip($ip)
 { 
 	if (!valid_ip($ip))
@@ -105,9 +125,10 @@ function valid_internal_ip($ip)
 }
 
 /**
- * 校验ip有效性
- * @param  string $ip
- * @return bool
+ * 校验 IP 有效性
+ * 
+ * @param  string
+ * @return boolean
  */
 function valid_ip($ip)
 {
@@ -117,11 +138,12 @@ function valid_ip($ip)
 if (! function_exists('iconv'))
 {
 	/**
-	 * 系统不开启iconv模块时，自建iconv()
-	 * @param  string $from_encoding 源字符串的编码，默认GBK
-	 * @param  string $target_encoding 目标字符串的编码，默认UTF-8
-	 * @param  string $string 需要转换的字符串
-	 * @return string 转码后的字符串
+	 * 系统不开启 iconv 模块时, 自建 iconv(), 使用 MB String 库处理
+	 * 
+	 * @param  string
+	 * @param  string
+	 * @param  string
+	 * @return string
 	 */
 	function iconv($from_encoding = 'GBK', $target_encoding = 'UTF-8', $string)
 	{
@@ -131,7 +153,15 @@ if (! function_exists('iconv'))
 
 if (! function_exists('iconv_substr'))
 {
-
+	/**
+	 * 系统不开启 iconv_substr 模块时, 自建 iconv_substr(), 使用 MB String 库处理
+	 * 
+	 * @param  string
+	 * @param  string
+	 * @param  int
+	 * @param  string
+	 * @return string
+	 */
 	function iconv_substr($string, $start, $length, $charset = 'UTF-8')
 	{
 		return mb_substr($string, $start, $length, $charset);
@@ -140,7 +170,15 @@ if (! function_exists('iconv_substr'))
 
 if (! function_exists('iconv_strpos'))
 {
-
+	/**
+	 * 系统不开启 iconv_substr 模块时, 自建 iconv_strpos(), 使用 MB String 库处理
+	 * 
+	 * @param  string
+	 * @param  string
+	 * @param  int
+	 * @param  string
+	 * @return string
+	 */
 	function iconv_strpos($haystack, $needle, $offset = 0, $charset = 'UTF-8')
 	{
 		return mb_strpos($haystack, $needle, $offset, $charset);
@@ -149,10 +187,13 @@ if (! function_exists('iconv_strpos'))
 
 /**
  * 兼容性转码
- * @param  string $string 需要转换的字符串
- * @param  string $from_encoding 源字符串编码
- * @param  string $target_encoding 目标字符串编码
- * @return string 转码后的字符串
+ * 
+ * 系统转换编码调用此函数, 会自动根据当前环境采用 iconv 或 MB String 处理
+ * 
+ * @param  string
+ * @param  string
+ * @param  string 
+ * @return string
  */
 function convert_encoding($string, $from_encoding = 'GBK', $target_encoding = 'UTF-8')
 {
@@ -183,16 +224,30 @@ function convert_encoding($string, $from_encoding = 'GBK', $target_encoding = 'U
 
 /**
  * 兼容性转码 (数组)
- * @param  array $string 需要转换的数组
- * @param  string $from_encoding 源字符串编码
- * @param  string $target_encoding 目标字符串编码
- * @return array 转码后的数组
+ * 
+ * 系统转换编码调用此函数, 会自动根据当前环境采用 iconv 或 MB String 处理, 支持多维数组转码
+ * 
+ * @param  array
+ * @param  string
+ * @param  string 
+ * @return array
  */
 function convert_encoding_array($data, $from_encoding = 'GBK', $target_encoding = 'UTF-8')
 {
 	return eval('return ' . convert_encoding(var_export($data, true) . ';', $from_encoding, $target_encoding));    
 }
 
+/**
+ * 双字节语言版 strpos
+ * 
+ * 使用方法同 strpos()
+ * 
+ * @param  string
+ * @param  string
+ * @param  int
+ * @param  string
+ * @return string
+ */
 function cjk_strpos($haystack, $needle, $offset = 0, $charset = 'UTF-8')
 {
 	if (function_exists('iconv_strpos'))
@@ -203,6 +258,18 @@ function cjk_strpos($haystack, $needle, $offset = 0, $charset = 'UTF-8')
 	return mb_strpos($haystack, $needle, $offset, $charset);
 }
 
+/**
+ * 双字节语言版 substr
+ * 
+ * 使用方法同 substr(), $dot 参数为截断后带上的字符串, 一般场景下使用省略号
+ * 
+ * @param  string
+ * @param  int
+ * @param  int
+ * @param  string
+ * @param  string
+ * @return string
+ */
 function cjk_substr($string, $start, $length, $charset = 'UTF-8', $dot = '')
 {
 	if (cjk_strlen($string, $charset) <= $length)
@@ -220,6 +287,15 @@ function cjk_substr($string, $start, $length, $charset = 'UTF-8', $dot = '')
 	}
 }
 
+/**
+ * 双字节语言版 strlen
+ * 
+ * 使用方法同 strlen()
+ * 
+ * @param  string
+ * @param  string
+ * @return string
+ */
 function cjk_strlen($string, $charset = 'UTF-8')
 {
 	if (function_exists('mb_strlen'))
@@ -234,11 +310,14 @@ function cjk_strlen($string, $charset = 'UTF-8')
 
 /**
  * 递归创建目录
- * @param  string  $dir 目录的绝对路径的字符串表示
- * @param  int $mode 目录权限，仅针对类unix
- * @return bool 
+ * 
+ * 与 mkdir 不同之处在于支持一次性多级创建, 比如 /dir/sub/dir/
+ * 
+ * @param  string
+ * @param  int
+ * @return boolean
  */
-function make_dir($dir, $mode = 0777)
+function make_dir($dir, $permission = 0777)
 {
 	$dir = rtrim($dir, '/') . '/';
 	
@@ -247,52 +326,23 @@ function make_dir($dir, $mode = 0777)
 		return TRUE;
 	}
 	
-	if (! make_dir(dirname($dir), $mode))
+	if (! make_dir(dirname($dir), $permission))
 	{
 		return FALSE;
 	}
 	
-	return @mkdir($dir, $mode);
+	return @mkdir($dir, $permission);
 }
 
 /**
- * 获取头像地址
- * @param  int $uid 用户id
- * @param  string $size 三种头像尺寸 max(100px)|mid(50px)|min(32px)
- * @return string 返回完整url地址
- * 举个例子：$uid=12345，那么头像路径很可能(根据您部署的上传文件夹而定)会被存储为/uploads/000/01/23/45_avatar_min.jpg
+ * jQuery jsonp 调用函数
+ * 
+ * 用法同 json_encode
+ * 
+ * @param  array
+ * @param  string
+ * @return string
  */
-function get_avatar_url($uid, $size = 'min')
-{
-	$uid = intval($uid);
-	
-	if (!$uid)
-	{
-		return G_STATIC_URL . '/common/avatar-' . $size . '-img.png';
-	}
-	
-	foreach (AWS_APP::config()->get('image')->avatar_thumbnail as $key => $val)
-	{
-		$all_size[] = $key;
-	}
-	
-	$size = in_array($size, $all_size) ? $size : $all_size[0];
-	
-	$uid = sprintf("%09d", $uid);
-	$dir1 = substr($uid, 0, 3);
-	$dir2 = substr($uid, 3, 2);
-	$dir3 = substr($uid, 5, 2);
-	
-	if (file_exists(get_setting('upload_dir') . '/avatar/' . $dir1 . '/' . $dir2 . '/' . $dir3 . '/' . substr($uid, - 2) . '_avatar_' . $size . '.jpg'))
-	{
-		return get_setting('upload_url') . '/avatar/' . $dir1 . '/' . $dir2 . '/' . $dir3 . '/' . substr($uid, - 2) . '_avatar_' . $size . '.jpg';
-	}
-	else
-	{
-		return G_STATIC_URL . '/common/avatar-' . $size . '-img.png';
-	}
-}
-
 function jsonp_encode($json = array(), $callback = 'jsoncallback')
 {
 	if ($_GET[$callback])
@@ -304,24 +354,16 @@ function jsonp_encode($json = array(), $callback = 'jsoncallback')
 }
 
 /**
- * 附件url地址，实际上是通过一定格式编码指配到/app/file/main.php中，让download控制器处理并发送下载请求
- * @param  string $file_name 附件的真实文件名，即上传之前的文件名称，包含后缀
- * @param  string $url 附件完整的真实url地址
- * @return string 附件下载的完整url地址
- */
-function download_url($file_name, $url)
-{	
-	return get_js_url('/file/download/file_name-' . base64_encode($file_name) . '__url-' . base64_encode($url));
-}
-
-/**
  * 时间友好型提示风格化（即微博中的XXX小时前、昨天等等）
- * @param  int  $timestamp 需要处理的时间戳
- * @param  int $time_limit 过期的秒数，需要处理的时间过期后，按out_format的设定风格化时间戳
- * @param  string  $out_format 时间戳date()格式化风格，仅在time_style关闭状态或需要处理的时间戳超过time_limit预定时触发
- * @param  array  $formats 友好型sprintf()格式化风格，并遵循指定数组格式：array('YEAR' => '', 'MONTH' => '', 'DAY' => '', 'HOUR' => '', 'MINUTE' => '', 'SECOND' => '')，默认为XX小时前、XX秒前……
- * @param  int  $time_now 当前时间值
- * @return string 风格化后的时间表示
+ * 
+ * 即微博中的 XXX 小时前、昨天等等, 时间超过 $time_limit 后返回按 out_format 的设定风格化时间戳
+ * 
+ * @param  int
+ * @param  int
+ * @param  string
+ * @param  array
+ * @param  int
+ * @return string
  */
 function date_friendly($timestamp, $time_limit = 604800, $out_format = 'Y-m-d H:i', $formats = null, $time_now = null)
 {
@@ -412,9 +454,12 @@ function date_friendly($timestamp, $time_limit = 604800, $out_format = 'Y-m-d H:
 }
 
 /**
- * 载入类库，并实例化、加入队列
- * @param  string $class 需要加载的类包，注意：路径从/system开始计算，并遵循zendframe路径表示法，即下划线"_"取代"/"，比如core_config表示/system/core/config.php
- * @return object 实例化后的对象
+ * 载入类库, 并实例化、加入队列
+ * 
+ * 路径从 system 开始计算，并遵循 Zend Freamework 路径表示法，即下划线 _ 取代 / , 如 core_config 表示 system/core/config.php
+ * 
+ * @param  string
+ * @return object
  */
 function &load_class($class)
 {
@@ -478,9 +523,10 @@ function show_error($exception_message, $error_message = '')
 }
 
 /**
- * 获取数据库表名
- * @param  string $name 不包含前缀的表名
- * @return string 返回包含前缀的完整表名
+ * 获取带表前缀的数据库表名
+ * 
+ * @param  string
+ * @return string
  */
 function get_table($name)
 {
@@ -489,8 +535,11 @@ function get_table($name)
 
 /**
  * 获取全局配置项
- * @param  string $varname 指定需要获取的某一配置项
- * @return string|array 如果指定varname，则返回指定的配置项；如果不指定varname，则返回全部配置项
+ * 
+ * 如果指定 varname 则返回指定的配置项, 如果不指定 varname 则返回全部配置项
+ * 
+ * @param  string
+ * @return mixed
  */
 function get_setting($varname = null, $permission_check = true)
 {
@@ -529,7 +578,8 @@ function get_setting($varname = null, $permission_check = true)
 
 /**
  * 判断文件或目录是否可写
- * @param  [type]  $file 物理路径
+ * 
+ * @param  string
  * @return boolean
  */
 function is_really_writable($file)
@@ -567,8 +617,9 @@ function is_really_writable($file)
 
 /**
  * 生成密码种子
- * @param  integer $length 种子长度
- * @return string 随机的种子
+ * 
+ * @param  integer
+ * @return string
  */
 function fetch_salt($length = 4)
 {
@@ -581,11 +632,11 @@ function fetch_salt($length = 4)
 }
 
 /**
- * 编译密码
+ * 根据 salt 混淆密码
  *
- *  @param  $password 	密码
- *  @param  $salt		混淆码
- * 	@return string		加密后的密码
+ * @param  string
+ * @param  string
+ * @return string
  */
 function compile_password($password, $salt)
 {
@@ -601,9 +652,10 @@ function compile_password($password, $salt)
 }
 
 /**
- * 伪静态构造器
- * @param  string $url 需要转换的请求地址
- * @return string 构造后的完整url地址
+ * 伪静态地址转换器
+ * 
+ * @param  string
+ * @return string
  */
 function get_js_url($url)
 {
@@ -649,10 +701,11 @@ function get_js_url($url)
 }
 
 /**
- * 用于分页查询SQL的limit参数
- * @param  int $page lime第一个参数，起始行
- * @param  int $per_page lime第二个参数，查询数量
- * @return string limit参数的字符串表示
+ * 用于分页查询 SQL 的 limit 参数生成器
+ * 
+ * @param  int
+ * @param  int
+ * @return string
  */
 function calc_page_limit($page, $per_page)
 {
@@ -670,13 +723,14 @@ function calc_page_limit($page, $per_page)
 }
 
 /**
- * 将用户登录信息编译成hash字符串，用于发送cookie
- * @param  string  $user_name 用户名
- * @param  string  $password 密码
- * @param  string  $salt 混淆码
- * @param  int  $uid 用户id
- * @param  boolean $hash_password 是否采用混淆器加密
- * @return string 返回编译后的hash字符串
+ * 将用户登录信息编译成 hash 字符串，用于发送 Cookie
+ * 
+ * @param  string
+ * @param  string
+ * @param  string
+ * @param  integer
+ * @param  boolean
+ * @return string
  */
 function get_login_cookie_hash($user_name, $password, $salt, $uid, $hash_password = true)
 {
@@ -694,9 +748,10 @@ function get_login_cookie_hash($user_name, $password, $salt, $uid, $hash_passwor
 }
 
 /**
- * 检查队列中是否存在指定的hash值，并移除之
- * @param  string $hash 需要检查的hash字符串
- * @return bool 是否检测到
+ * 检查队列中是否存在指定的 hash 值, 并移除之, 用于表单提交验证
+ * 
+ * @param  string
+ * @return boolean
  */
 function valid_post_hash($hash)
 {
@@ -704,8 +759,9 @@ function valid_post_hash($hash)
 }
 
 /**
- * 创建一个新的hash字符串，并写入hash队列
- * @return string 创建的hash字符串
+ * 创建一个新的 hash 字符串，并写入 hash 队列, 用于表单提交验证
+ * 
+ * @return string
  */
 function new_post_hash()
 {
@@ -717,51 +773,13 @@ function new_post_hash()
 	return AWS_APP::form()->new_post_hash();
 }
 
-// 检测当前操作是否需要验证码
-function human_valid($permission_tag)
-{
-	if (! is_array(AWS_APP::session()->human_valid))
-	{
-		return FALSE;
-	}
-	
-	if (! AWS_APP::session()->human_valid[$permission_tag] or ! AWS_APP::session()->permission[$permission_tag])
-	{
-		return FALSE;
-	}
-	
-	foreach (AWS_APP::session()->human_valid[$permission_tag] as $time => $val)
-	{
-		if (date('H', $time) != date('H', time()))
-		{
-			unset(AWS_APP::session()->human_valid[$permission_tag][$time]);
-		}
-	}
-	
-	if (sizeof(AWS_APP::session()->human_valid[$permission_tag]) >= AWS_APP::session()->permission[$permission_tag])
-	{
-		return TRUE;
-	}
-	
-	return FALSE;
-}
-
-function set_human_valid($permission_tag)
-{
-	if (! is_array(AWS_APP::session()->human_valid))
-	{
-		return FALSE;
-	}
-	
-	AWS_APP::session()->human_valid[$permission_tag][time()] = TRUE;
-	
-	return count(AWS_APP::session()->human_valid[$permission_tag]);
-}
-
 /**
  * 构造或解析路由规则后得到的请求地址数组
- * @param  boolean $positive true：通过真实请求地址构造伪静态| false：解析伪静态的真实请求地址
- * @return array 二位数组，每个规则占据一条，被处理的地址通过下标为0返回，处理后的地址通过下标为1返回
+ * 
+ * 返回二维数组, 二位数组, 每个规则占据一条, 被处理的地址通过下标 0 返回, 处理后的地址通过下标 1 返回
+ * 
+ * @param  boolean
+ * @return array
  */
 function get_request_route($positive = true)
 {
@@ -818,9 +836,10 @@ function get_request_route($positive = true)
 }
 
 /**
- * 删除 ubb 标识码
- * @param  string $str 需要ubb处理的字符串
- * @return string      替换后的字符串
+ * 删除 UBB 标识码
+ * 
+ * @param  string
+ * @return string
  */
 function strip_ubb($str)
 {
@@ -831,68 +850,10 @@ function strip_ubb($str)
 }
 
 /**
- * 仅附件处理中的preg_replace_callback()的每次搜索时的回调
- * @param  array $matches preg_replace_callback()搜索时返回给第二参数的结果
- * @return string  取出附件的加载模板字符串
- */
-function parse_attachs_callback($matches)
-{
-	if ($attach = AWS_APP::model('publish')->get_attach_by_id($matches[1]))
-	{
-		TPL::assign('attach', $attach);
-		
-		return TPL::output('question/ajax/load_attach', false);
-	}
-}
-
-/**
- * 获取主题图片指定尺寸的完整url地址
- * @param  string $size
- * @param  string $pic_file 某一尺寸的图片文件名
- * @return string           取出主题图片或主题默认图片的完整url地址
- */
-function get_topic_pic_url($size = null, $pic_file = null)
-{
-	if ($sized_file = AWS_APP::model('topic')->get_sized_file($size, $pic_file))
-	{
-		return get_setting('upload_url') . '/topic/' . $sized_file;
-	}
-	
-	if (! $size)
-	{
-		return G_STATIC_URL . '/common/topic-max-img.png';
-	}
-	
-	return G_STATIC_URL . '/common/topic-' . $size . '-img.png';
-}
-
-/**
- * 获取专题图片指定尺寸的完整url地址
- * @param  string $size     三种图片尺寸 max(100px)|mid(50px)|min(32px)
- * @param  string $pic_file 某一尺寸的图片文件名
- * @return string           取出专题图片的完整url地址
- */
-function get_feature_pic_url($size = null, $pic_file = null)
-{
-	if (! $pic_file)
-	{
-		return false;
-	}
-	else
-	{
-		if ($size)
-		{
-			$pic_file = str_replace(AWS_APP::config()->get('image')->feature_thumbnail['min']['w'] . '_' . AWS_APP::config()->get('image')->feature_thumbnail['min']['h'], AWS_APP::config()->get('image')->feature_thumbnail[$size]['w'] . '_' . AWS_APP::config()->get('image')->feature_thumbnail[$size]['h'], $pic_file);
-		}
-	}
-	
-	return get_setting('upload_url') . '/feature/' . $pic_file;
-}
-
-/**
- * 随机码
- * @param  array $arr 随机码阵列
- * @return string     最后一个单元的值
+ * 获取数组中随机一条数据
+ * 
+ * @param  array
+ * @return mixed
  */
 function array_random($arr)
 {
@@ -903,9 +864,10 @@ function array_random($arr)
 
 /**
  * 获得二维数据中第二维指定键对应的值，并组成新数组 (不支持二维数组)
- * @param  array $array 需要处理的数组
- * @param  string $key  第二维的指定键
- * @return array        组成新的数组
+ * 
+ * @param  array
+ * @param  string
+ * @return array
  */
 function fetch_array_value($array, $key)
 {
@@ -924,84 +886,10 @@ function fetch_array_value($array, $key)
 	return $data;
 }
 
-function get_host_top_domain()
-{
-	$host = strtolower($_SERVER['HTTP_HOST']);
-	
-	if (strpos($host, '/') !== false)
-	{
-		$parse = @parse_url($host);
-		$host = $parse['host'];
-	}
-	
-	$top_level_domain_db = array('com', 'edu', 'gov', 'int', 'mil', 'net', 'org', 'biz', 'info', 'pro', 'name', 'coop', 'aero', 'xxx', 'idv', 'mobi', 'cc', 'me', 'jp', 'uk', 'ws', 'eu', 'pw', 'kr', 'io', 'us', 'cn');
-	
-	foreach ($top_level_domain_db as $v)
-	{
-		$str .= ($str ? '|' : '') . $v;
-	}
-	
-	$matchstr = "[^\.]+\.(?:(" . $str . ")|\w{2}|((" . $str . ")\.\w{2}))$";
-	
-	if (preg_match('/' . $matchstr . '/ies', $host, $matchs))
-	{
-		$domain = $matchs['0'];
-	}
-	else
-	{
-		$domain = $host;
-	}
-	
-	return $domain;
-}
-
-function parse_link_callback($matches)
-{
-	if (preg_match('/^(?!http).*/i', $matches[1]))
-	{
-		$url = 'http://' . $matches[1];
-	}
-	else
-	{
-		$url = $matches[1];
-	}
-	
-	if (is_inside_url($url))
-	{
-		return '<a href="' . $url . '">' . FORMAT::sub_url($matches[1], 50) . '</a>';
-	}
-	else
-	{
-		return '<a href="' . $url . '" rel="nofollow" target="_blank">' . FORMAT::sub_url($matches[1], 50) . '</a>';
-	}
-}
-
-function is_inside_url($url)
-{
-	if (!$url)
-	{
-		return false;
-	}
-	
-	if (preg_match('/^(?!http).*/i', $url))
-	{
-		$url = 'http://' . $url;
-	}
-	
-	$domain = get_host_top_domain();
-	
-	if (preg_match('/^http[s]?:\/\/([-_a-zA-Z0-9]+[\.])*?' . $domain . '(?!\.)[-a-zA-Z0-9@:;%_\+.~#?&\/\/=]*$/i', $url))
-	{
-		return true;
-	}
-	
-	return false;
-}
-
 /**
- * 强制转换字符串为整型，对数字或数字字符串无效
- * @param  mixed $value 可以是任意的类型
- * @return void        引用传参
+ * 强制转换字符串为整型, 对数字或数字字符串无效
+ * 
+ * @param  mixed
  */
 function intval_string(&$value)
 {
@@ -1013,7 +901,8 @@ function intval_string(&$value)
 
 /**
  * 获取时差
- * @return string 时差的字符串表示
+ * 
+ * @return string
  */
 function get_time_zone()
 {
@@ -1034,9 +923,11 @@ function get_time_zone()
 
 /**
  * 格式化输出相应的语言
- * @param  string $string  在语言包中的键名
- * @param  string $replace 替换值
- * @return void          输出格式化后的语言到客户端
+ * 
+ * 根据语言包中数组键名的下标获取对应的翻译字符串
+ * 
+ * @param  string
+ * @param  string
  */
 function _e($string, $replace = null)
 {
@@ -1052,9 +943,12 @@ function _e($string, $replace = null)
 
 /**
  * 递归读取文件夹的文件列表
- * @param  string $dir       读取的目录路径，可以是相对路径，也可以是绝对路径
- * @param  string $file_type 指定读取的文件后缀，如果不知道，则读取文件夹内所有的文件
- * @return array             指定的文件夹内指定后缀的文件路径的集合
+ * 
+ * 读取的目录路径可以是相对路径, 也可以是绝对路径, $file_type 为指定读取的文件后缀, 不设置则读取文件夹内所有的文件
+ * 
+ * @param  string
+ * @param  string
+ * @return array
  */
 function fetch_file_lists($dir, $file_type = null)
 {
@@ -1094,6 +988,7 @@ function fetch_file_lists($dir, $file_type = null)
 
 /**
  * 判断是否是合格的手机客户端
+ * 
  * @return boolean
  */
 function is_mobile()
@@ -1113,6 +1008,11 @@ function is_mobile()
 	return false;
 }
 
+/**
+ * 判断是否处于微信内置浏览器中
+ * 
+ * @return boolean
+ */
 function in_weixin()
 {
 	$user_agent = strtolower($_SERVER['HTTP_USER_AGENT']);
@@ -1125,11 +1025,15 @@ function in_weixin()
 	return false;
 }
 
-function get_weixin_rule_image($image_file, $size = '')
-{
-	return AWS_APP::model('weixin')->get_weixin_rule_image($image_file, $size);
-}
-
+/**
+ * CURL 获取文件内容
+ * 
+ * 用法同 file_get_contents
+ * 
+ * @param string
+ * @param integerr
+ * @return string
+ */
 function curl_get_contents($url, $timeout = 10)
 {
 	if (!function_exists('curl_init'))
@@ -1154,16 +1058,6 @@ function curl_get_contents($url, $timeout = 10)
 	curl_close($curl);
 	
 	return $result;
-}
-
-function array_key_sort_asc_callback($a, $b)
-{
-    if ($a['sort'] == $b['sort'])
-    {
-        return 0;
-    }
-    
-    return ($a['sort'] < $b['sort']) ? -1 : 1;
 }
 
 /**

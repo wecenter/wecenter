@@ -1,24 +1,35 @@
 <?php
-/*
-+--------------------------------------------------------------------------
-|   WeCenter [#RELEASE_VERSION#]
-|   ========================================
-|   by WeCenter Software
-|   © 2011 - 2013 WeCenter. All Rights Reserved
-|   http://www.wecenter.com
-|   ========================================
-|   Support: WeCenter@qq.com
-|   
-+---------------------------------------------------------------------------
-*/
+/**
+ * WeCenter Framework
+ *
+ * An open source application development framework for PHP 5.2.2 or newer
+ *
+ * @package		WeCenter Framework
+ * @author		WeCenter Dev Team
+ * @copyright	Copyright (c) 20011 - 2013, WeCenter, Inc.
+ * @license		http://www.wecenter.com/license/
+ * @link		http://www.wecenter.com/
+ * @since		Version 1.0
+ * @filesource
+ */
 
+/**
+ * WeCenter 前台控制器
+ *
+ * @package		WeCenter
+ * @subpackage	System
+ * @category	Libraries
+ * @author		WeCenter Dev Team
+ */
 class AWS_CONTROLLER
 {
+	
 	public $user_id;
 	public $user_info;
 	
-	public function __construct($pre_setup = true)
-	{		
+	public function __construct($process_setup = true)
+	{
+		// 获取当前用户 User ID
 		$this->user_id = USER::get_client_uid();
 		
 		if ($this->user_info = $this->model('account')->get_user_info_by_uid($this->user_id, TRUE))
@@ -65,6 +76,7 @@ class AWS_CONTROLLER
 			AWS_APP::session()->human_valid = array();
 		}
 		
+		// 引入系统 CSS 文件
 		TPL::import_css(array(
 			'css/common.css',
 			'css/link.css',
@@ -86,6 +98,7 @@ class AWS_CONTROLLER
 			TPL::import_js('js/jquery.2.js');
 		}
 		
+		// 引入系统 JS 文件
 		TPL::import_js(array(
 			'js/jquery.form.js',
 			'js/plug_module/plug-in_module.js',
@@ -95,8 +108,10 @@ class AWS_CONTROLLER
 			'js/app.js',
 		));
 		
+		// 产生面包屑导航数据
 		$this->crumb(get_setting('site_name'), get_setting('base_url'));
 		
+		// 载入插件
 		if ($plugins = AWS_APP::plugins()->parse($_GET['app'], $_GET['c'], 'setup'))
 		{			
 			foreach ($plugins as $plugin_file)
@@ -112,14 +127,30 @@ class AWS_CONTROLLER
 			H::redirect_msg(get_setting('close_notice'), '/account/login/');
 		}
 		
-		if ($pre_setup)
+		// 执行控制器 Setup 动作
+		if ($process_setup)
 		{
 			$this->setup();
 		}
 	}
-
+	
+	/**
+	 * 控制器 Setup 动作
+	 *
+	 * 每个继承于此类库的控制器均会调用此函数
+	 * 
+	 * @access	public
+	 */	
 	public function setup() {}
-
+	
+	/**
+	 * 判断当前访问类型是否为 POST
+	 *
+	 * 调用 $_SERVER['REQUEST_METHOD']
+	 * 
+	 * @access	public
+	 * @return	boolean
+	 */	
 	public function is_post()
 	{
 		if ($_SERVER['REQUEST_METHOD'] == 'POST')
@@ -130,17 +161,44 @@ class AWS_CONTROLLER
 		return FALSE;
 	}
 
+	/**
+	 * 调用系统 Model
+	 *
+	 * 于控制器中使用 $this->model('class')->function() 进行调用
+	 * 
+	 * @access	public
+	 * @param	string
+	 * @return	object
+	 */	
 	public function model($model = null)
 	{
 		return AWS_APP::model($model);
 	}
-
+	
+	/**
+	 * 产生面包屑导航数据
+	 *
+	 * 产生面包屑导航数据并生成浏览器标题供前端使用
+	 * 
+	 * @access	public
+	 * @param	string
+	 * @param	string
+	 */	
 	public function crumb($name, $url = null)
 	{
 		$this->_crumb(htmlspecialchars_decode($name), $url);
 	}
-
-	public function _crumb($name, $url = null)
+	
+	/**
+	 * 产生面包屑导航数据
+	 *
+	 * 产生面包屑导航数据并生成浏览器标题供前端使用
+	 * 
+	 * @access	private
+	 * @param	string
+	 * @param	string
+	 */	
+	private function _crumb($name, $url = null)
 	{
 		if (is_array($name))
 		{
@@ -219,6 +277,14 @@ class AWS_CONTROLLER
 	}
 }
 
+/**
+ * WeCenter 后台控制器
+ *
+ * @package		WeCenter
+ * @subpackage	System
+ * @category	Libraries
+ * @author		WeCenter Dev Team
+ */
 class AWS_ADMIN_CONTROLLER extends AWS_CONTROLLER
 {
 	public $per_page = 20;
