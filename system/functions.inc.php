@@ -1064,9 +1064,8 @@ function curl_get_contents($url, $timeout = 10)
  * 删除网页上看不见的隐藏字符串, 如 Java\0script
  *
  * @param	string
- * @return	string
  */
-function remove_invisible_characters($str, $url_encoded = TRUE)
+function remove_invisible_characters(&$str, $url_encoded = TRUE)
 {
 	$non_displayables = array();
 	
@@ -1086,6 +1085,4 @@ function remove_invisible_characters($str, $url_encoded = TRUE)
 		$str = preg_replace($non_displayables, '', $str, -1, $count);
 	}
 	while ($count);
-
-	return $str;
 }
