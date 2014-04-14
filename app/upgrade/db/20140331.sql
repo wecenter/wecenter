@@ -1,0 +1,1 @@
+ALTER TABLE `[#DB_PREFIX#]feature` ADD  `enabled` TINYINT( 1 ) NULL DEFAULT '0', ADD INDEX ( `enabled` );

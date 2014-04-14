@@ -20,9 +20,9 @@ if (!defined('IN_ANWSION'))
 
 class feature_class extends AWS_MODEL
 {
-	public function get_feature_list($where = null, $order = 'title ASC', $page = null, $limit = null)
+	public function get_feature_list($order = 'title ASC', $page = null, $limit = null)
 	{
-		if ($feature_list = $this->fetch_page('feature', $where, $order, $page, $limit))
+		if ($feature_list = $this->fetch_page('feature', null, $order, $page, $limit))
 		{
 			foreach($feature_list as $key => $val)
 			{
@@ -31,11 +31,25 @@ class feature_class extends AWS_MODEL
 					$feature_list[$key]['url_token'] = $val['id'];
 				}
 			}
-					
-			return $feature_list;
 		}
 		
-		return array();
+		return $feature_list;
+	}
+	
+	public function get_enabled_feature_list($order = 'title ASC', $page = null, $limit = null)
+	{
+		if ($feature_list = $this->fetch_page('feature', 'enabled = 1', $order, $page, $limit))
+		{
+			foreach($feature_list as $key => $val)
+			{
+				if (!$val['url_token'])
+				{
+					$feature_list[$key]['url_token'] = $val['id'];
+				}
+			}
+		}
+		
+		return $feature_list;
 	}
 
 	public function add_feature($title)
@@ -200,5 +214,12 @@ class feature_class extends AWS_MODEL
 		}
 		
 		return $feature_ids;
+	}
+	
+	public function update_feature_enabled($id, $status)
+	{
+		return $this->update('feature', array(
+			'enabled' => intval($status)
+		), 'id = ' . intval($id));
 	}
 }

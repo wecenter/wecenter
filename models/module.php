@@ -93,6 +93,6 @@ class module_class extends AWS_MODEL
 	
 	public function feature_list()
 	{
-		return $this->model('feature')->get_feature_list(null, 'id DESC', 1, 5);
+		return $this->model('feature')->get_enabled_feature_list('id DESC', 1, 5);
 	}
 }

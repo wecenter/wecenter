@@ -252,13 +252,3 @@ function get_weixin_rule_image($image_file, $size = '')
 {
 	return AWS_APP::model('weixin')->get_weixin_rule_image($image_file, $size);
 }
-
-function array_key_sort_asc_callback($a, $b)
-{
-    if ($a['sort'] == $b['sort'])
-    {
-        return 0;
-    }
-    
-    return ($a['sort'] < $b['sort']) ? -1 : 1;
-}

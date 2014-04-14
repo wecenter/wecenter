@@ -27,7 +27,7 @@ class feature extends AWS_ADMIN_CONTROLLER
 	
 	public function list_action()
 	{
-		$feature_list = $this->model('feature')->get_feature_list(null, 'id DESC', $_GET['page'], $limit);
+		$feature_list = $this->model('feature')->get_feature_list('id DESC', $_GET['page'], $limit);
 		
 		$feature_count = $this->model('feature')->found_rows();
 		
@@ -220,5 +220,20 @@ class feature extends AWS_ADMIN_CONTROLLER
 		$this->model('feature')->delete_feature($_POST['feature_id']);
 		
 		H::ajax_json_output(AWS_APP::RSM(null, 1, null));
+	}
+	
+	public function save_feature_status_action()
+	{
+		define('IN_AJAX', TRUE);
+		
+		if ($_POST['feature_ids'])
+		{
+			foreach ($_POST['feature_ids'] AS $feature_id => $val)
+			{
+				$this->model('feature')->update_feature_enabled($feature_id, $_POST['enabled_status'][$feature_id]);
+			}
+		}
+		
+		H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('规则状态已自动保存')));
 	}
 }

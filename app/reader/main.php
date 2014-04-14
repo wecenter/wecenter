@@ -33,7 +33,7 @@ class main extends AWS_CONTROLLER
 	{
 		$this->crumb(AWS_APP::lang()->_t('问答阅读'), '/reader/');
 		
-		TPL::assign('feature_list', $this->model('feature')->get_feature_list());
+		TPL::assign('feature_list', $this->model('feature')->get_enabled_feature_list());
 		
 		TPL::output('reader/index');
 	}
