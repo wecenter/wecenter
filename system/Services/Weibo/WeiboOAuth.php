@@ -11,7 +11,14 @@
 class OAuthException extends Exception {
 	function __construct($message)
 	{
-		H::redirect_msg(AWS_APP::lang()->_t('错误代码') . ': ' . $message);
+		if ($_POST['_post_type'] == 'ajax')
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, -1, 'SDK 异常: ' . $message));
+		}
+		else
+		{
+			H::redirect_msg('SDK 异常: ' . $message);
+		}
 	}
 }
 
