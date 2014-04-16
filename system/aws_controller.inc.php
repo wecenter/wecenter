@@ -248,9 +248,9 @@ class AWS_CONTROLLER
 				return true;
 			}
 			
-			if ($this->user_info['permission']['publish_approval_time']['start'] =< $this->user_info['permission']['publish_approval_time']['end'])
+			if ($this->user_info['permission']['publish_approval_time']['start'] <= $this->user_info['permission']['publish_approval_time']['end'])
 			{
-				if (intval(date('H')) > $this->user_info['permission']['publish_approval_time']['start'] AND intval(date('H')) =< $this->user_info['permission']['publish_approval_time']['end'])
+				if (intval(date('H')) > $this->user_info['permission']['publish_approval_time']['start'] AND intval(date('H')) <= $this->user_info['permission']['publish_approval_time']['end'])
 				{
 					return true;
 				}
@@ -258,7 +258,7 @@ class AWS_CONTROLLER
 			
 			if ($this->user_info['permission']['publish_approval_time']['start'] > $this->user_info['permission']['publish_approval_time']['end'])
 			{
-				if (intval(date('H')) >= $this->user_info['permission']['publish_approval_time']['start'] OR intval(date('H')) =< $this->user_info['permission']['publish_approval_time']['end'])
+				if (intval(date('H')) >= $this->user_info['permission']['publish_approval_time']['start'] OR intval(date('H')) <= $this->user_info['permission']['publish_approval_time']['end'])
 				{
 					return true;
 				}
