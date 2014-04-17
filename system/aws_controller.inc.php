@@ -241,36 +241,64 @@ class AWS_CONTROLLER
 	
 	public function publish_approval_valid()
 	{
+		if ($default_timezone = get_setting('default_timezone'))
+		{
+			date_default_timezone_set($default_timezone);
+		}
+		
 		if ($this->user_info['permission']['publish_approval'] == 1)
 		{
 			if (!$this->user_info['permission']['publish_approval_time']['start'] AND !$this->user_info['permission']['publish_approval_time']['end'])
 			{
+				if ($this->user_info['default_timezone'])
+				{
+					date_default_timezone_set($this->user_info['default_timezone']);
+				}
+				
 				return true;
 			}
 			
 			if ($this->user_info['permission']['publish_approval_time']['start'] < $this->user_info['permission']['publish_approval_time']['end'])
 			{
-				if (date('H') > $this->user_info['permission']['publish_approval_time']['start'] AND date('H') < $this->user_info['permission']['publish_approval_time']['end'])
+				if (intval(date('H')) >= $this->user_info['permission']['publish_approval_time']['start'] AND intval(date('H')) <= $this->user_info['permission']['publish_approval_time']['end'])
 				{
+					if ($this->user_info['default_timezone'])
+					{
+						date_default_timezone_set($this->user_info['default_timezone']);
+					}
+					
 					return true;
 				}
 			}
 			
 			if ($this->user_info['permission']['publish_approval_time']['start'] > $this->user_info['permission']['publish_approval_time']['end'])
 			{
-				if (date('H') > $this->user_info['permission']['publish_approval_time']['start'] OR date('H') < $this->user_info['permission']['publish_approval_time']['end'])
+				if (intval(date('H')) >= $this->user_info['permission']['publish_approval_time']['start'] OR intval(date('H')) <= $this->user_info['permission']['publish_approval_time']['end'])
 				{
+					if ($this->user_info['default_timezone'])
+					{
+						date_default_timezone_set($this->user_info['default_timezone']);
+					}
 					return true;
 				}
 			}
 			
 			if ($this->user_info['permission']['publish_approval_time']['start'] == $this->user_info['permission']['publish_approval_time']['end'])
 			{
-				if (date('H') == $this->user_info['permission']['publish_approval_time']['start'])
+				if (intval(date('H')) == $this->user_info['permission']['publish_approval_time']['start'])
 				{
+					if ($this->user_info['default_timezone'])
+					{
+						date_default_timezone_set($this->user_info['default_timezone']);
+					}
 					return true;
 				}
 			}
+		}
+		
+		if ($this->user_info['default_timezone'])
+		{
+			date_default_timezone_set($this->user_info['default_timezone']);
 		}
 		
 		return false;
