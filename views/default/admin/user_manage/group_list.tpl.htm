@@ -42,9 +42,9 @@
 						</td>
 						<td class="form-inline">
 							<div class="form-group">
-								<input type="text" name="group[<?php echo $val['group_id']; ?>][reputation_lower]" value="<?php echo $val['reputation_lower']; ?>" class="form-control" />
+								<input type="text" name="group[<?php echo $val['group_id']; ?>][reputation_lower]" value="<?php echo $val['reputation_lower']; ?>" class="form-control control-value" />
 								~
-								<input type="text" name="group[<?php echo $val['group_id']; ?>][reputation_higer]" class="form-control" value="<?php echo $val['reputation_higer']; ?>" />
+								<input type="text" name="group[<?php echo $val['group_id']; ?>][reputation_higer]" class="form-control max-value" value="<?php echo $val['reputation_higer']; ?>" />
 							</div>
 						</td>
 						<td><input type="text" name="group[<?php echo $val['group_id']; ?>][reputation_factor]" class="form-control" value="<?php echo $val[reputation_factor]; ?>" /></td>
@@ -146,6 +146,62 @@
 				document.getElementById(window.location.hash.replace('#', '')).click();
 			}
 		}
+
+		// 遍历生成select的option
+		var select_arr = [], template = '<option value="0">0</option>';
+		$.each($('#members_table .max-value'), function (i, e)
+		{
+			if (i != $('#members_table .max-value').length - 1)
+			{
+				select_arr.push($(this).val());
+			}
+		});
+		$.each(select_arr, function (i, e)
+		{
+			template = template +  '<option value="' + e + '">' + e + '</option>';
+		});
+
+		// 替换原来的input为select
+		$.each($('#members_table .control-value'), function (i, e)
+		{
+			if (i != 0)
+			{
+				$(this).parents('.form-group').prepend('<select name="' + $(this).attr('name') + '">' + template + '</select>');
+				if ($.inArray($(this).val(), select_arr) != -1)
+				{
+					var val = $(this).parents('.form-group').find('option').eq($.inArray($(this).val(), select_arr)).val();
+					$(this).parents('.form-group').find('select').val(val);
+				}
+				$(this).detach();
+			}
+		});
+
+		var _index = $('#members_table .max-value').length - 1;
+		$('#members_table .max-value:lt(' + _index + ')').change(function()
+		{
+			var select_arr = [], input_arr = [], template = '<option value="0">0</option>';
+			$.each($('#members_table .max-value'), function (i, e)
+			{
+				if (i != $('#members_table .max-value').length - 1)
+				{
+					select_arr.push($(this).val());
+				}
+			});
+			$.each($('#members_table select'), function (i, e)
+			{
+				input_arr.push($(this).val());
+			});
+			$.each(select_arr, function (i, e)
+			{
+				template = template +  '<option value="' + e + '">' + e + '</option>';
+			});
+			$('#members_table select').html(template);
+			$.each($('#members_table select'), function (i, e)
+			{
+				$(this).val(input_arr[i]);
+			});
+		});
+
 	});
 </script>
 
