@@ -148,23 +148,12 @@
 		}
 
 		// 遍历生成select的option
-		var select_arr = [], template = '<option value="0">0</option>';
-		$.each($('#members_table .max-value'), function (i, e)
-		{
-			if (i != $('#members_table .max-value').length - 1)
-			{
-				select_arr.push($(this).val());
-			}
-		});
-		$.each(select_arr, function (i, e)
-		{
-			template = template +  '<option value="' + e + '">' + e + '</option>';
-		});
+		var select_arr = get_select_arr(), input_arr = [], template = get_select_template(select_arr);
 
 		// 替换原来的input为select
 		$.each($('#members_table .control-value'), function (i, e)
 		{
-			if (i != 0)
+			if (i > 0)
 			{
 				$(this).parents('.form-group').prepend('<select name="' + $(this).attr('name') + '">' + template + '</select>');
 				if ($.inArray($(this).val(), select_arr) != -1)
@@ -179,21 +168,10 @@
 		var _index = $('#members_table .max-value').length - 1;
 		$('#members_table .max-value:lt(' + _index + ')').change(function()
 		{
-			var select_arr = [], input_arr = [], template = '<option value="0">0</option>';
-			$.each($('#members_table .max-value'), function (i, e)
-			{
-				if (i != $('#members_table .max-value').length - 1)
-				{
-					select_arr.push($(this).val());
-				}
-			});
+			var select_arr = get_select_arr(), input_arr = [], template = get_select_template(select_arr);
 			$.each($('#members_table select'), function (i, e)
 			{
 				input_arr.push($(this).val());
-			});
-			$.each(select_arr, function (i, e)
-			{
-				template = template +  '<option value="' + e + '">' + e + '</option>';
 			});
 			$('#members_table select').html(template);
 			$.each($('#members_table select'), function (i, e)
@@ -202,6 +180,28 @@
 			});
 		});
 
+		function get_select_arr ()
+		{
+			var arr = [];
+			$.each($('#members_table .max-value'), function (i, e)
+			{
+				if (i != $('#members_table .max-value').length - 1)
+				{
+					arr.push($(this).val());
+				}
+			});
+			return arr;
+		}
+
+		function get_select_template (arr)
+		{
+			var template = '';
+			$.each(arr, function (i, e)
+			{
+				template = template +  '<option value="' + e + '">' + e + '</option>';
+			});
+			return template
+		}
 	});
 </script>
 
