@@ -2063,7 +2063,7 @@ function at_user_lists(selector) {
                             $('.aw-invite-dropdown, .i-invite-triangle').addClass('hide');
                             return false;
                         }
-                        $.get(G_BASE_URL + '/search/ajax/search/?type=user&q=' + encodeURIComponent($(this).val().substring(flag, ti).replace('@', '')) + '&limit=10', function (result) {
+                        $.get(G_BASE_URL + '/search/ajax/search/?type=users&q=' + encodeURIComponent($(this).val().substring(flag, ti).replace('@', '')) + '&limit=10', function (result) {
                             if ($('.aw-invite-dropdown')[0]) {
                                 if (result.length != 0) {
                                     $('.aw-invite-dropdown').html('');
