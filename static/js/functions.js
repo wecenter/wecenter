@@ -1314,7 +1314,7 @@ function init_topic_edit_box(selector) //selector -> .aw-edit-topic
                         break;
 
                     case 'question':
-                        $.post(G_BASE_URL + '/topic/ajax/save_topic_relation/', 'type=question&item_id=' + data_id + '&topic_title=' + _aw_topic_editor_element.find('#aw_edit_topic_title').val(), function (result)
+                        $.post(G_BASE_URL + '/topic/ajax/save_topic_relation/', 'type=question&item_id=' + data_id + '&topic_title=' + encodeURIComponent(_aw_topic_editor_element.find('#aw_edit_topic_title').val()), function (result)
                         {
                             if (result.errno != 1)
                             {
@@ -1330,7 +1330,7 @@ function init_topic_edit_box(selector) //selector -> .aw-edit-topic
                         break;
 
                     case 'article':
-                        $.post(G_BASE_URL + '/topic/ajax/save_topic_relation/', 'type=article&item_id=' + data_id + '&topic_title=' + _aw_topic_editor_element.find('#aw_edit_topic_title').val(), function (result)
+                        $.post(G_BASE_URL + '/topic/ajax/save_topic_relation/', 'type=article&item_id=' + data_id + '&topic_title=' + encodeURIComponent(_aw_topic_editor_element.find('#aw_edit_topic_title').val()), function (result)
                         {
                             if (result.errno != 1)
                             {
@@ -1347,7 +1347,7 @@ function init_topic_edit_box(selector) //selector -> .aw-edit-topic
 
 
                     case 'topic':
-                        $.post(G_BASE_URL + '/topic/ajax/save_related_topic/topic_id-' + data_id, 'topic_title=' + _aw_topic_editor_element.find('#aw_edit_topic_title').val(), function (result)
+                        $.post(G_BASE_URL + '/topic/ajax/save_related_topic/topic_id-' + data_id, 'topic_title=' + encodeURIComponent(_aw_topic_editor_element.find('#aw_edit_topic_title').val()), function (result)
                         {
                             if (result.errno != 1)
                             {
@@ -1363,7 +1363,7 @@ function init_topic_edit_box(selector) //selector -> .aw-edit-topic
                         break;
 
                     case 'favorite':
-                        $.post(G_BASE_URL + '/favorite/ajax/update_favorite_tag/', 'answer_id=' + data_id + '&tags=' + _aw_topic_editor_element.find('#aw_edit_topic_title').val(), function (result)
+                        $.post(G_BASE_URL + '/favorite/ajax/update_favorite_tag/', 'answer_id=' + data_id + '&tags=' + encodeURIComponent(_aw_topic_editor_element.find('#aw_edit_topic_title').val()), function (result)
                         {
                             if (result.errno != 1)
                             {
