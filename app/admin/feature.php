@@ -27,21 +27,19 @@ class feature extends AWS_ADMIN_CONTROLLER
 	
 	public function list_action()
 	{
-		$feature_list = $this->model('feature')->get_feature_list('id DESC', $_GET['page'], $limit);
+		$this->crumb(AWS_APP::lang()->_t('专题管理'), 'admin/feature/list/');
 		
-		$feature_count = $this->model('feature')->found_rows();
-		
-		$this->crumb(AWS_APP::lang()->_t('专题管理'), "admin/feature/list/");
+		$feature_list = $this->model('feature')->get_feature_list('id DESC', $_GET['page'], $this->per_page);
 		
 		TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
 			'base_url' => get_setting('base_url') . '/?/admin/feature/list/',
-			'total_rows' => $feature_count,
+			'total_rows' => $this->model('feature')->found_rows(),
 			'per_page' => 20
 		))->create_links());
 		
 		TPL::assign('list', $feature_list);
 		
-		TPL::output("admin/feature/list");
+		TPL::output('admin/feature/list');
 	}
 	
 	public function add_action()
