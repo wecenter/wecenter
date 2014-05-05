@@ -710,7 +710,7 @@ class main extends AWS_CONTROLLER
 			$where[] = 'forbidden = 0 AND group_id <> 3';
 			
 			TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
-				'base_url' => get_js_url('/m/people/list/group_id-' . $_GET['group_id']), 
+				'base_url' => get_js_url('/m/people_list/group_id-' . $_GET['group_id']), 
 				'total_rows' => $this->model('account')->get_user_count(implode(' AND ', $where)), 
 				'per_page' => get_setting('contents_per_page')
 			))->create_links());
