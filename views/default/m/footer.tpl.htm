@@ -20,16 +20,12 @@
 			if (typeof G_IN_WEIXIN != 'undefined' && G_IN_WEIXIN == true)
 		    {
 		    	$('header, footer').hide();
-		        // if ($.cookie('wechat-tips-close') != 'true')
-		        // {
-		        // 	$('.aw-global-tips').show();
-		        // }
+
 		        if ($('.aw-question-detail-title .markitup-box img')[0])
 				{
 					var weixin_img_url = $('.aw-question-detail-title .markitup-box img').first().attr('src'),
-				        weixin_img_first = $('.aw-question-detail-title .markitup-box img').first().attr('src').replace(/(.*\/){0,}([^\.]+.*)/ig, "$2");
-				    var weixin_img_url = weixin_img_url.replace(weixin_img_first,'90x90_' + weixin_img_first);
-
+				        weixin_img_first = $('.aw-question-detail-title .markitup-box img').first().attr('src').replace(/(.*\/){0,}([^\.]+.*)/ig, "$2"),
+				        weixin_img_url = weixin_img_url.replace(weixin_img_first,'90x90_' + weixin_img_first);
 				}
 				else
 				{

@@ -11,7 +11,7 @@
 				<dt><h3><?php _e('删除用户'); ?>:</h3></dt>
 				<dd>
 					<form action="admin/user_manage/remove_user/" method="post" id="remove_user_form">
-						<input type="hidden" name="uid" value="<?php echo $this->user['uid']; ?>" />
+						<input type="hidden" name="uid" value="<?php echo $this->user['id']; ?>" />
 						
 						<label><input name="remove_user" id="remove_user" type="checkbox" value="1" /> <?php _e('确认删除这个用户'); ?></label>
 						

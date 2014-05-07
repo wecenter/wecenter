@@ -3,7 +3,7 @@
 
 <div class="aw-mod aw-user-setting-bind">
 	<div class="aw-mod-head">
-		<h4><?php _e('修改密码'); ?></h4>
+		<h3><?php _e('修改密码'); ?></h3>
 	</div>
 	<form class="form-horizontal" action="account/ajax/modify_password/" method="post" id="setting_form">
 		<div class="aw-mod-body">
@@ -32,7 +32,7 @@
 				</div>
 			</div>      
 		</div>
-		<a href="javascript:;" class="btn btn-large btn-success pull-right aw-user-setting-save" onclick="ajax_post($('#setting_form'));"><?php _e('保存'); ?></a>
+		<a href="javascript:;" class="btn btn-large btn-success pull-right aw-user-setting-save" onclick="AWS.ajax_post($('#setting_form'));"><?php _e('保存'); ?></a>
 	</form>
 </div>
 

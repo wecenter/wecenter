@@ -102,9 +102,8 @@ class AWS_CONTROLLER
 		TPL::import_js(array(
 			'js/jquery.form.js',
 			'js/plug_module/plug-in_module.js',
-			'js/functions.js',
+			'js/aws.js',
 			'js/aw_template.js',
-			'js/common.js',
 			'js/app.js',
 		));
 		

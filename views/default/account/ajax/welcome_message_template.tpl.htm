@@ -32,34 +32,32 @@
 								
 							</div>
 							<div class="pull-left">
-								<ul>
-									<li>
-										<?php _e('一句话介绍'); ?><br />
-										<input type="text" class="form-control" placeholder="<?php _e('如：80后IT男..'); ?>" id="welcome_signature" value="<?php if ($this->user_info['signature']) { echo $this->user_info['signature']; } ?>" name="signature" />
-									</li>
-									<li>
-										<?php _e('性别'); ?>:
-										<label>
-											<input type="radio" name="sex" value="1"<?php if ($this->user_info['sex'] == 1) { ?> checked="checked"<?php } ?> />
-										<?php _e('男'); ?>
-										</label> &nbsp;
-										<label>
-										<input type="radio" name="sex" value="2"<?php if ($this->user_info['sex'] == 2) { ?> checked="checked"<?php } ?> />
-										<?php _e('女'); ?>
-										</label> &nbsp;
-										<label>
-										<input type="radio" name="sex" value="3"<?php if (!$this->user_info['sex']) { ?> checked="checked"<?php } ?> />
-										<?php _e('保密'); ?>
-										</label>
-									</li>
-								</ul>
+								<p>
+									<?php _e('一句话介绍'); ?><br />
+									<input type="text" class="form-control" placeholder="<?php _e('如：80后IT男..'); ?>" id="welcome_signature" value="<?php if ($this->user_info['signature']) { echo $this->user_info['signature']; } ?>" name="signature" />
+								</p>
+								<p>
+									<?php _e('性别'); ?>:
+									<label>
+										<input type="radio" name="sex" value="1"<?php if ($this->user_info['sex'] == 1) { ?> checked="checked"<?php } ?> />
+									<?php _e('男'); ?>
+									</label> &nbsp;
+									<label>
+									<input type="radio" name="sex" value="2"<?php if ($this->user_info['sex'] == 2) { ?> checked="checked"<?php } ?> />
+									<?php _e('女'); ?>
+									</label> &nbsp;
+									<label>
+									<input type="radio" name="sex" value="3"<?php if (!$this->user_info['sex']) { ?> checked="checked"<?php } ?> />
+									<?php _e('保密'); ?>
+									</label>
+								</p>
 							</div>
 						</div>
 						</form>
 					</div>
 					<div class="aw-mod-footer">
 						<a class="pull-left" onclick="welcome_step_finish();">跳过资料填写</a>
-						<a class="btn btn-large btn-success pull-right" onclick="ajax_post($('#welcome_step_1_form'), _welcome_step_1_form_processer);"><?php _e('下一步'); ?></a>
+						<a class="btn btn-large btn-success pull-right" onclick="AWS.ajax_post($('#welcome_step_1_form'), _welcome_step_1_form_processer);"><?php _e('下一步'); ?></a>
 					</div>
 					
 				</div>

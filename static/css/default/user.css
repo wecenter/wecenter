@@ -18,7 +18,8 @@
 .aw-user-detail-box .aw-mod-footer ul li.active a, .aw-user-detail-box .aw-mod-footer ul li:hover a{background-color: #EEEEEE;color: #666;}
 
 /* 用户页面公共模块 */
-.aw-user-center-tab .tab-pane > .aw-mod{margin-top:20px;border:1px solid #E3E3E3;border-radius: 5px;}
+.aw-user-center-tab{margin-top: 30px;}
+.aw-user-center-tab .tab-pane > .aw-mod{margin-bottom:30px;border:1px solid #E3E3E3;border-radius: 5px;}
 .aw-user-center-tab .tab-pane > .aw-mod > .aw-mod-head{padding:10px 20px;border-bottom: 1px dotted #E3E3E3;}
 .aw-user-center-tab .tab-pane > .aw-mod > .aw-mod-head h2, .aw-user-center-tab .tab-pane > .aw-mod > .aw-mod-head h3{margin:0;font-size: 16px;}
 .aw-user-center-tab .tab-pane > .aw-mod > .aw-mod-head h3 a{font-size: 12px;}
@@ -71,7 +72,7 @@
 .aw-user-center-details .icon-weibo, .aw-user-detail-box  .icon-weibo{margin-right: 3px;color: #44B8E8;}
 
 /* 侧边栏 */
-.aw-side-bar-mod.profile-side-following .row{margin-bottom: 20px;}
+.aw-side-bar-mod.profile-side-following .mod-head, .aw-side-bar-mod.profile-side-following .mod-body{margin-bottom: 20px;}
 .aw-side-bar-mod.profile-side-following p{margin-top: 5px;}
 .aw-side-bar-mod.profile-side-following .aw-user-name img{width: 25px;height: 25px;}
 .aw-side-bar-mod.profile-side-following .aw-topic-name{display:inline-block;margin:0 4px 4px 0;}

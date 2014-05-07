@@ -1,9 +1,9 @@
 <?php TPL::output('global/header.tpl.htm'); ?>
 
 <div class="aw-container-wrap">
-	<div class="aw-container aw-wecenter">
+	<div class="container">
 		<div class="row aw-content-wrap">
-			<div class="col-sm-9 aw-main-content">
+			<div class="col-sm-12 col-md-9 aw-main-content">
 				<div class="aw-mod aw-dynamic-index aw-my-favorite">
 					<div class="aw-mod-head">
 						<h2><i class="fa fa-bookmark"></i> <?php _e('我的收藏'); ?></h2>
@@ -78,7 +78,7 @@
 							<!-- end 评论内容 -->
 							
 							<div class="aw-my-favorite-meta">
-								<a class="pull-right btn btn-mini btn-default" href="javascript:;" onclick="ajax_request(G_BASE_URL + '/favorite/ajax/remove_favorite_item/', 'answer_id=' + <?php echo $val['answer_info']['answer_id']; ?>);"><?php _e('取消收藏'); ?></a>
+								<a class="pull-right btn btn-mini btn-default" href="javascript:;" onclick="AWS.ajax_request(G_BASE_URL + '/favorite/ajax/remove_favorite_item/', 'answer_id=' + <?php echo $val['answer_info']['answer_id']; ?>);"><?php _e('取消收藏'); ?></a>
 								
 								<span class="aw-topic-editor" data-type="favorite" data-id="<?php echo $val['answer_info']['answer_id']; ?>">
 								<?php if ($this->favorite_items_tags[$val['answer_info']['answer_id']]) { ?>
@@ -101,7 +101,7 @@
 				</div>
 			</div>
 			<!-- 侧边栏 -->
-			<div class="col-sm-3 aw-side-bar">
+			<div class="col-sm-12 col-md-3 aw-side-bar">
 				<?php TPL::output('block/sidebar_announce.tpl.htm'); ?>
 				
 				<?php TPL::output('block/sidebar_menu.tpl.htm'); ?>	

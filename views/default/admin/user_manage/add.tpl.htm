@@ -13,7 +13,7 @@
 					<dd>
 						<div class="row">
 							<div class="col-sm-7">
-								<input class="form-control" name="user_name" type="text" value="" />
+								<input class="form-control" name="user_name" type="text" value="<?php echo $this->user['user_name']; ?>" />
 							</div>
 						</div>
 					</dd>
@@ -23,7 +23,7 @@
 					<dd>
 						<div class="row">
 							<div class="col-sm-7">
-								<input class="form-control" name="email" type="text" value="" />
+								<input class="form-control" name="email" type="text" value="<?php echo $this->user['email']; ?>" />
 							</div>
 						</div>
 					</dd>
@@ -45,5 +45,14 @@
 		</div>
 	</div>
 </div>
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		if ($('#topic_pic_uploader').length)
+		{
+			init_img_uploader(G_BASE_URL + '/topic/ajax/upload_topic_pic/topic_id-<?php echo $this->topic_info['topic_id']; ?>', 'topic_pic', $('#topic_pic_uploader'), null, $('#topic_pic'));
+		}
+	});
+</script>
 
 <?php TPL::output('admin/global/footer.tpl.htm'); ?>

@@ -1,58 +1,54 @@
 <?php TPL::output('global/header.tpl.htm'); ?>
+<div class="aw-container-wrap">
+	<?php TPL::output('block/content_nav_menu.tpl.htm'); ?>
 	
-	<div class="aw-container-wrap">
-		<div class="aw-container aw-wecenter">
-			<?php TPL::output('block/content_nav_menu.tpl.htm'); ?>
-			
-			<div class="container">
-				<div class="row aw-content-wrap">
-					<div class="col-sm-12 col-md-9 aw-main-content aw-all-question">
-						<!-- tab切换 -->
-						<ul class="nav nav-tabs aw-reset-nav-tabs hidden-xs">
-							<li<?php if ($_GET['sort_type'] == 'unresponsive') { ?> class="active"<?php } ?>><a href="question/square/<?php if ($this->feature_info) { ?>feature_id-<?php echo $this->feature_info['id']; ?>__<?php } ?>category-<?php echo $this->category_info['id']; ?>__sort_type-unresponsive"><?php _e('等待回复'); ?></a></li>
-							<li<?php if ($_GET['sort_type'] == 'hot') { ?> class="active"<?php } ?>><a href="question/square/<?php if ($this->feature_info) { ?>feature_id-<?php echo $this->feature_info['id']; ?>__<?php } ?>category-<?php echo $this->category_info['id']; ?>__sort_type-hot__day-30" id="sort_control_hot"><?php _e('热门'); ?></a></li>
-							<li<?php if ($_GET['is_recommend']) { ?> class="active"<?php } ?>><a href="question/square/<?php if ($this->feature_info) { ?>feature_id-<?php echo $this->feature_info['id']; ?>__<?php } ?>category-<?php echo $this->category_info['id']; ?>__is_recommend-1"><?php _e('推荐'); ?></a></li>
-							<li<?php if ((!$_GET['sort_type'] OR $_GET['sort_type'] == 'new') AND !$_GET['is_recommend']) { ?> class="active"<?php } ?>><a href="question/square/<?php if ($this->feature_info) { ?>feature_id-<?php echo $this->feature_info['id']; ?>__<?php } ?><?php if ($this->category_info['id']) { ?>category-<?php echo $this->category_info['id']; ?><?php } ?>"><?php _e('最新'); ?></a></li>
-		
-							<h2 class="hidden-xs"><?php if ($this->category_info) { ?><?php echo $this->category_info['title']; ?><?php } else if ($this->feature_info) { ?><?php echo $this->feature_info['title']; ?><?php } else { ?><?php _e('全部问题'); ?><?php } ?></h2>
-						</ul>
-						<!-- end tab切换 -->
+	<div class="container">
+		<div class="row aw-content-wrap">
+			<div class="col-sm-12 col-md-9 aw-main-content aw-all-question">
+				<!-- tab切换 -->
+				<ul class="nav nav-tabs aw-nav-tabs hidden-xs">
+					<li<?php if ($_GET['sort_type'] == 'unresponsive') { ?> class="active"<?php } ?>><a href="question/square/<?php if ($this->feature_info) { ?>feature_id-<?php echo $this->feature_info['id']; ?>__<?php } ?>category-<?php echo $this->category_info['id']; ?>__sort_type-unresponsive"><?php _e('等待回复'); ?></a></li>
+					<li<?php if ($_GET['sort_type'] == 'hot') { ?> class="active"<?php } ?>><a href="question/square/<?php if ($this->feature_info) { ?>feature_id-<?php echo $this->feature_info['id']; ?>__<?php } ?>category-<?php echo $this->category_info['id']; ?>__sort_type-hot__day-30" id="sort_control_hot"><?php _e('热门'); ?></a></li>
+					<li<?php if ($_GET['is_recommend']) { ?> class="active"<?php } ?>><a href="question/square/<?php if ($this->feature_info) { ?>feature_id-<?php echo $this->feature_info['id']; ?>__<?php } ?>category-<?php echo $this->category_info['id']; ?>__is_recommend-1"><?php _e('推荐'); ?></a></li>
+					<li<?php if ((!$_GET['sort_type'] OR $_GET['sort_type'] == 'new') AND !$_GET['is_recommend']) { ?> class="active"<?php } ?>><a href="question/square/<?php if ($this->feature_info) { ?>feature_id-<?php echo $this->feature_info['id']; ?>__<?php } ?><?php if ($this->category_info['id']) { ?>category-<?php echo $this->category_info['id']; ?><?php } ?>"><?php _e('最新'); ?></a></li>
 
-						<?php if ($_GET['sort_type'] == 'hot') { ?>
-						<!-- 自定义tab切换 -->
-						<div class="aw-tabs">
-							<ul class="pull-right">
-								<li<?php if ($_GET['sort_type'] == 'hot' AND $_GET['day'] == 30) { ?> class="active"<?php } ?>><a href="question/square/<?php if ($this->feature_info) { ?>feature_id-<?php echo $this->feature_info['id']; ?>__<?php } ?>sort_type-hot__<?php if ($this->category_info['id']) { ?>__category-<?php echo $this->category_info['id']; ?><?php } ?>__day-30" day="30"><?php _e('30天'); ?></a></li>
-							  	<li<?php if ($_GET['sort_type'] == 'hot' AND $_GET['day'] == 7) { ?> class="active"<?php } ?>><a href="question/square/<?php if ($this->feature_info) { ?>feature_id-<?php echo $this->feature_info['id']; ?>__<?php } ?>sort_type-hot__<?php if ($this->category_info['id']) { ?>__category-<?php echo $this->category_info['id']; ?><?php } ?>__day-7" day="7"><?php _e('7天'); ?></a></li>
-							  	<li<?php if ($_GET['sort_type'] == 'hot' AND $_GET['day'] == 1) { ?> class="active"<?php } ?>><a href="question/square/<?php if ($this->feature_info) { ?>feature_id-<?php echo $this->feature_info['id']; ?>__<?php } ?>sort_type-hot__<?php if ($this->category_info['id']) { ?>__category-<?php echo $this->category_info['id']; ?><?php } ?>__day-1" day="1"><?php _e('当天'); ?></a></li>
-							</ul>
-						</div>
-						<!-- end 自定义tab切换 -->
-						<?php } ?>
+					<h2 class="hidden-xs"><?php if ($this->category_info) { ?><?php echo $this->category_info['title']; ?><?php } else if ($this->feature_info) { ?><?php echo $this->feature_info['title']; ?><?php } else { ?><?php _e('全部问题'); ?><?php } ?></h2>
+				</ul>
+				<!-- end tab切换 -->
 
-						<!-- 问题列表 -->
-						<div class="aw-mod aw-question-box-mod">
-							<div class="aw-mod-body">
-								<div class="aw-question-list">
-									<?php echo $this->question_list_bit; ?>
-								</div>
-							</div>
-						</div>
-						<!-- end 问题列表 -->
-	
-						<?php echo $this->pagination; ?>
-					</div>
-					
-					<!-- 侧边栏 -->
-					<div class="col-sm-12 col-md-3 aw-side-bar aw-index-side-bar hidden-xs hidden-sm">
-						<?php TPL::output('block/sidebar_feature.tpl.htm'); ?>
-						<?php TPL::output('block/sidebar_hot_topics.tpl.htm'); ?>
-						<?php TPL::output('block/sidebar_hot_users.tpl.htm'); ?>
-					</div>
-					<!-- end 侧边栏 -->
+				<?php if ($_GET['sort_type'] == 'hot') { ?>
+				<!-- 自定义tab切换 -->
+				<div class="aw-tabs">
+					<ul class="pull-right">
+						<li<?php if ($_GET['sort_type'] == 'hot' AND $_GET['day'] == 30) { ?> class="active"<?php } ?>><a href="question/square/<?php if ($this->feature_info) { ?>feature_id-<?php echo $this->feature_info['id']; ?>__<?php } ?>sort_type-hot__<?php if ($this->category_info['id']) { ?>__category-<?php echo $this->category_info['id']; ?><?php } ?>__day-30" day="30"><?php _e('30天'); ?></a></li>
+					  	<li<?php if ($_GET['sort_type'] == 'hot' AND $_GET['day'] == 7) { ?> class="active"<?php } ?>><a href="question/square/<?php if ($this->feature_info) { ?>feature_id-<?php echo $this->feature_info['id']; ?>__<?php } ?>sort_type-hot__<?php if ($this->category_info['id']) { ?>__category-<?php echo $this->category_info['id']; ?><?php } ?>__day-7" day="7"><?php _e('7天'); ?></a></li>
+					  	<li<?php if ($_GET['sort_type'] == 'hot' AND $_GET['day'] == 1) { ?> class="active"<?php } ?>><a href="question/square/<?php if ($this->feature_info) { ?>feature_id-<?php echo $this->feature_info['id']; ?>__<?php } ?>sort_type-hot__<?php if ($this->category_info['id']) { ?>__category-<?php echo $this->category_info['id']; ?><?php } ?>__day-1" day="1"><?php _e('当天'); ?></a></li>
+					</ul>
 				</div>
+				<!-- end 自定义tab切换 -->
+				<?php } ?>
+
+				<!-- 问题列表 -->
+				<div class="aw-mod aw-question-box-mod">
+					<div class="aw-mod-body">
+						<div class="aw-question-list">
+							<?php echo $this->question_list_bit; ?>
+						</div>
+					</div>
+				</div>
+				<!-- end 问题列表 -->
+
+				<?php echo $this->pagination; ?>
 			</div>
+			
+			<!-- 侧边栏 -->
+			<div class="col-sm-12 col-md-3 aw-side-bar aw-index-side-bar hidden-xs hidden-sm">
+				<?php TPL::output('block/sidebar_feature.tpl.htm'); ?>
+				<?php TPL::output('block/sidebar_hot_topics.tpl.htm'); ?>
+				<?php TPL::output('block/sidebar_hot_users.tpl.htm'); ?>
+			</div>
+			<!-- end 侧边栏 -->
 		</div>
 	</div>
-
+</div>
 <?php TPL::output('global/footer.tpl.htm'); ?>

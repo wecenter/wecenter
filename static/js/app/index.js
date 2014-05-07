@@ -18,35 +18,20 @@ function reload_list()
 
 $(document).ready(function()
 {
-	if (Number($('#announce_num').html()) > 0)
-	{
-		$.get(G_BASE_URL + '/notifications/ajax/list/flag-0__page-0', function (response) {
-			if (response.length)
-			{
-				$("#notification_list").html(response);
-
-				notification_show(5);
-			}
-		});
-	}
-
 	bp_more_inner_o = $('#bp_more').html();
 
 	$('.aw-side-bar-mod.side-nav a').click(function () {
-		$("#delete-draft").remove();
 
 		if ($('#main_title').attr('id') != null && $(this).attr('rel'))
 		{
 
-			$('.aw-side-bar-mod.side-nav a, .aw-side-bar-mod.side-nav li').removeClass('active');
+			$('.aw-side-bar-mod.side-nav a').removeClass('active');
 
 			window.location.hash = $(this).attr('rel');
 
 			$('#main_title').html($(this).html());
 
 			$(this).addClass('active');
-
-			$(this).parents('li').addClass('active');
 
 			reload_list();
 
@@ -59,8 +44,6 @@ $(document).ready(function()
 	{
 		var _this = this;
 		
-		$("#delete-draft").remove();		
-
 		switch (window.location.hash)
 		{
 			default:
@@ -107,8 +90,6 @@ $(document).ready(function()
 
 		$(this).addClass('loading');
 
-		$(this).find('span').html('Loading...');
-
 		$.get(request_url, function (response)
 		{
 			if (response.length)
@@ -154,7 +135,7 @@ $(document).ready(function()
 	}
 
 	//问题添加评论
-    init_comment_box('.aw-add-comment');
+    AWS.Init.init_comment_box('.aw-add-comment');
 });
 
 function _welcome_step_1_form_processer(result)
@@ -164,7 +145,7 @@ function _welcome_step_1_form_processer(result)
 
 function welcome_step_1_load()
 {
-	init_avatar_uploader($('#welcome_avatar_uploader'), $('#aw-img-uploading'), $("#aw-upload-img"));
+	AWS.Init.init_avatar_uploader($('#welcome_avatar_uploader'), $('#aw-img-uploading'), $("#aw-upload-img"));
 
 	$('.aw-first-login').css({
 		left : $(window).width() / 2 - ($('.aw-first-login').width() + 42) / 2
