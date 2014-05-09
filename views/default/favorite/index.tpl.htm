@@ -25,7 +25,7 @@
 							<p class="aw-text-color-999"><a class="aw-user-name" data-id="<?php echo $val['user_info']['uid']; ?>" href="people/<?php echo $val['answer_info']['url_token']; ?>"><?php echo $val['user_info']['user_name']; ?></a><?php if ($val['user_info']['signature']) { ?> - <?php echo $val['user_info']['signature']; ?><?php } ?></p>
 							
 							<!-- 评论内容 -->
-							<div class="aw-feed-list-content">
+							<div class="content">
 								<div id="detail_<?php echo $val['history_id']; ?>">
 						      		<?php echo nl2br(strip_ubb(cjk_substr($val['answer_info']['answer_content'], 0, 130, 'UTF-8', '...'))); ?>
 						      		<?php if (cjk_strlen($val['answer_info']['answer_content']) > 130) { ?>
@@ -77,7 +77,7 @@
 							</div>
 							<!-- end 评论内容 -->
 							
-							<div class="aw-my-favorite-meta">
+							<div class="meta">
 								<a class="pull-right btn btn-mini btn-default" href="javascript:;" onclick="AWS.ajax_request(G_BASE_URL + '/favorite/ajax/remove_favorite_item/', 'answer_id=' + <?php echo $val['answer_info']['answer_id']; ?>);"><?php _e('取消收藏'); ?></a>
 								
 								<span class="aw-topic-editor" data-type="favorite" data-id="<?php echo $val['answer_info']['answer_id']; ?>">

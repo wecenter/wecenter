@@ -24,7 +24,7 @@
 						</h1>
 						
 						<?php if ($this->user_id) { ?>
-						<div class="question-operate clearfix">
+						<div class="aw-question-operate clearfix">
 							<a href="javascript:;" onclick="AWS.User.follow($(this), 'question', <?php echo $this->question_info['question_id']; ?>);" class="btn btn-normal btn-default pull-left <?php if (!$this->question_focus) { ?> aw-active<?php } ?>"><?php if ($this->question_focus) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?></a>
 							<!-- 下拉菜单 -->
 							<div class="btn-group pull-left">

@@ -13,31 +13,31 @@
 	
 	<div class="container">
 		<div class="row aw-content-wrap">
-			<div class="col-sm-12 col-md-9 aw-main-content aw-topic-detail-content">
+			<div class="col-sm-12 col-md-9 aw-main-content">
 				<div class="aw-mod aw-topic-detail-title">
-					<div class="aw-mod-body">
+					<div class="mod-body">
 						<img src="<?php echo get_topic_pic_url('mid', $this->topic_info['topic_pic']); ?>" alt="<?php echo $this->topic_info['topic_title']; ?>" />
 						<h2 class="pull-left"><?php echo $this->topic_info['topic_title']; ?> <?php if ($this->topic_info['topic_lock']) { ?><i class="aw-icon i-lock" title="<?php _e('已锁定'); ?>"></i><?php } ?></h2>
-						<p class="aw-topic-detail-title-follow aw-text-color-999">
+						<div class="aw-topic-operate aw-text-color-999">
 							<?php _e('%s 人关注该话题', $this->topic_info['focus_count']); ?><br />
 							<?php if ($this->user_id) { ?>
 							<a href="javascript:;" onclick="AWS.User.follow($(this), 'topic', <?php echo $this->topic_info['topic_id']; ?>);" class="btn btn-mini btn-default<?php if (!$this->topic_info['has_focus']) { ?> aw-active<?php } ?>"><?php if ($this->topic_info['has_focus']) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?></a>
 							<?php } ?>
-						</p>
+						</div>
 					</div>
 				</div>
 				<div class="aw-mod aw-topic-list-mod">
 					<div class="aw-mod-head">
 						<div class="tabbable">
 							<!-- tab 切换 -->
-							<ul class="nav nav-tabs aw-nav-tabs aw-topic-detail-tabs hidden-xs">
+							<ul class="nav nav-tabs aw-nav-tabs hidden-xs">
 								<li class="active"><a href="#questions" data-toggle="tab"><?php _e('全部问题'); ?></a></li>
 								<li><a href="#best_answers" data-toggle="tab"><?php _e('精华'); ?></a></li>
 								<li><a href="#articles" data-toggle="tab"><?php _e('全部文章'); ?></a></li>
 								<li><a href="#favorite" id="i_favorite" data-toggle="tab" style="display:none"><?php _e('我的收藏'); ?></a></li>
 								<li><a href="#about" id="i_about" data-toggle="tab"><?php _e('关于话题'); ?></a></li>
 								<div class="aw-search-bar pull-right hidden-xs">
-									<div class="aw-topic-search aw-question-drodpwon">
+									<div class="aw-topic-search">
 										<i class="fa fa-search pull-left"></i>
 										<input type="text" id="question-input" class="search-query" placeholder="搜索...">
 										<div class="aw-dropdown">
@@ -56,12 +56,13 @@
 						<!-- tab 切换内容 -->
 						<div class="tab-content">
 							<div class="tab-pane active" id="questions">
-								<div class="aw-mod aw-question-box-mod">
-									<div class="aw-mod-body">
+								<div class="aw-mod">
+									<div class="mod-body">
 										<div class="aw-common-list" id="c_question_list">
 											<?php echo $this->all_questions_list_bit; ?>
 										</div>
-										
+									</div>
+									<div class="mod-footer">
 										<a class="aw-load-more-content" id="c_question_more" auto-load="false">
 											<span><?php _e('更多'); ?>...</span>
 										</a>
@@ -72,35 +73,33 @@
 							<div class="tab-pane" id="best_answers">
 								<!-- 动态首页&话题精华模块 -->
 								<div class="aw-mod aw-feed-list" id="c_best_question_list">
-									<?php echo $this->best_questions_list_bit; ?>
+									<div class="mod-body">
+										<?php echo $this->best_questions_list_bit; ?>
+									</div>
+									<div class="mod-footer">
+										<a class="aw-load-more-content" id="bp_best_question_more" auto-load="false">
+											<span><?php _e('更多'); ?>...</span>
+										</a>
+									</div>
 								</div>
 								<!-- end 动态首页&话题精华模块 -->
-								
-								<!-- 加载更多内容 -->
-								<a class="aw-load-more-content" id="bp_best_question_more" auto-load="false">
-									<span><?php _e('更多'); ?>...</span>
-								</a>
-								<!-- end 加载更多内容 -->
 							</div>
 							
 							<div class="tab-pane" id="articles">
 								<!-- 动态首页&话题精华模块 -->
-								<div class="aw-mod aw-feed-list" >
-									<div class="aw-mod aw-question-box-mod">
-										<div class="aw-mod-body">
-											<div class="aw-common-list" id="c_articles_list">
-												<?php echo $this->articles_list_bit; ?>
-											</div>
+								<div class="aw-mod">
+									<div class="mod-body">
+										<div class="aw-common-list" id="c_articles_list">
+											<?php echo $this->articles_list_bit; ?>
 										</div>
 									</div>
+									<div class="mod-footer">
+										<a class="aw-load-more-content" id="bp_articles_more" auto-load="false">
+											<span><?php _e('更多'); ?>...</span>
+										</a>
+									</div>	
 								</div>
 								<!-- end 动态首页&话题精华模块 -->
-								
-								<!-- 加载更多内容 -->
-								<a class="aw-load-more-content" id="bp_articles_more" auto-load="false">
-									<span><?php _e('更多'); ?>...</span>
-								</a>
-								<!-- end 加载更多内容 -->
 							</div>
 							
 							<div class="tab-pane" id="favorite">

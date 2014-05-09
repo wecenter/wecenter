@@ -28,7 +28,7 @@
 					</select>
 					<?php } ?>
 					<div class="aw-mod aw-mod-publish">
-						<div class="aw-mod-body">
+						<div class="mod-body">
 							<h3><?php _e('问题标题'); ?>:</h3>
 							<!-- 问题标题 -->
 							<div class="aw-publish-title<?php if (!$this->question_category_list) { ?> active<?php } ?>">
@@ -101,7 +101,7 @@
 							</p>
 							<?php } ?>
 						</div>
-						<div class="aw-mod-footer clearfix">
+						<div class="mod-footer clearfix">
 							<a href="page/integral" target="_blank">[积分规则]</a>
 							<span class="aw-anonymity">
 								<?php if ($this->question_info['question_id'] AND ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator'])) { ?>

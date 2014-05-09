@@ -474,12 +474,6 @@ var AWS =
 			                    $('#quick_publish_category_id').val($(this).attr('data-value'));
 			                });
 			            });
-			            
-			            $('#quick_publish_topic_chooser').hide();
-		        	}
-		        	else
-		        	{
-			        	$('#quick_publish_category_chooser').hide();
 		        	}
 
 		        	if (data.ask_user_id != '' && data.ask_user_id != undefined)

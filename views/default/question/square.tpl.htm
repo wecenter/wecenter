@@ -4,7 +4,7 @@
 	
 	<div class="container">
 		<div class="row aw-content-wrap">
-			<div class="col-sm-12 col-md-9 aw-main-content aw-all-question">
+			<div class="col-sm-12 col-md-9 aw-main-content">
 				<!-- tab切换 -->
 				<ul class="nav nav-tabs aw-nav-tabs hidden-xs">
 					<li<?php if ($_GET['sort_type'] == 'unresponsive') { ?> class="active"<?php } ?>><a href="question/square/<?php if ($this->feature_info) { ?>feature_id-<?php echo $this->feature_info['id']; ?>__<?php } ?>category-<?php echo $this->category_info['id']; ?>__sort_type-unresponsive"><?php _e('等待回复'); ?></a></li>
@@ -29,8 +29,8 @@
 				<?php } ?>
 
 				<!-- 问题列表 -->
-				<div class="aw-mod aw-question-box-mod">
-					<div class="aw-mod-body">
+				<div class="aw-mod">
+					<div class="mod-body">
 						<div class="aw-common-list">
 							<?php echo $this->question_list_bit; ?>
 						</div>

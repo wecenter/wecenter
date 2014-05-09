@@ -4,22 +4,26 @@
 	<div class="container">
 		<div class="row aw-content-wrap">
 			<div class="col-sm-12 col-md-9 aw-main-content">
-				<div class="aw-mod aw-my-notifications clearfix">
+				<div class="aw-mod clearfix">
 					<div class="mod-head common-head clearfix">
 						<h2>
-							<a href="javascript:;" onclick="AWS.Message.read_notification(true, 0, true);" class="pull-right btn btn-mini btn-success"><?php _e('全部已读'); ?></a>
-							<span class="pull-right hidden-xs"><a class="aw-text-color-999" href="account/setting/privacy/#!notifications"><i class="fa fa-cog"></i> <?php _e('通知设置'); ?></a></span>
+							<span class="pull-right hidden-xs">
+								<a class="aw-text-color-999" href="account/setting/privacy/#!notifications"><i class="fa fa-cog"></i> <?php _e('通知设置'); ?></a>
+								<a onclick="AWS.Message.read_notification(true, 0, true);" class="btn btn-mini btn-success"><?php _e('全部已读'); ?></a>
+							</span>
 							
 							<?php _e('通知'); ?>
 						</h2>
 					</div>
-					<div class="aw-mod-body">
-						<ul id="notifications_list"></ul>
-						<!-- 加载更多内容 -->
+					<div class="mod-body">
+						<div class="aw-notifications-list">
+							<ul id="notifications_list"></ul>
+						</div>
+					</div>
+					<div class="mod-footer">
 						<a class="aw-load-more-content" id="notifications_more">
 							<span><?php _e('更多'); ?>...</span>
 						</a>
-						<!-- end 加载更多内容 -->
 					</div>
 				</div>
 			</div>

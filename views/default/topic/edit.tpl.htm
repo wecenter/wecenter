@@ -2,12 +2,16 @@
 
 <div class="aw-container-wrap">
 	<div class="container aw-topic-edit">
+		<div class="row">
+			<div class="col-sm-12">
+				<h4><a class="btn btn-mini pull-right" href="topic/<?php echo $this->topic_info['url_token']; ?>"><?php _e('返回话题'); ?> »</a><?php _e('话题编辑'); ?></h4>
+			</div>
+		</div>
 		<div class="row aw-content-wrap">
-			<h4><a class="btn btn-mini pull-right" href="topic/<?php echo $this->topic_info['url_token']; ?>"><?php _e('返回话题'); ?> »</a><?php _e('话题编辑'); ?></h4>
 			<div class="col-sm-9 aw-main-content">
 				<div class="aw-mod aw-mod-topic-edit-box">
-					<div class="aw-mod-head">
-						<a href="javascript:;" class="aw-topic-img" style="background:url('<?php echo get_topic_pic_url('mid', $this->topic_info['topic_pic']); ?>') no-repeat;" <?php if ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator'] OR ($this->topic_info['topic_lock'] == 0 && $this->user_info['permission']['edit_topic'])) { ?> id="topic_pic_uploader"<?php } ?>><span><i class="fa fa-wrench"></i></span></a>
+					<div class="mod-head">
+						<a href="javascript:;" class="img" style="background:url('<?php echo get_topic_pic_url('mid', $this->topic_info['topic_pic']); ?>') no-repeat;" <?php if ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator'] OR ($this->topic_info['topic_lock'] == 0 && $this->user_info['permission']['edit_topic'])) { ?> id="topic_pic_uploader"<?php } ?>><span><i class="fa fa-wrench"></i></span></a>
 						<h3><?php echo $this->topic_info['topic_title']; ?></h3>
 						
 						
@@ -26,7 +30,7 @@
 							</span>
 						</div>
 					</div>
-					<div class="aw-mod-body">
+					<div class="mod-body">
 						<form id="topic_form" action="topic/ajax/edit_topic/" method="post" onsubmit="return false">
 						<input type="hidden" name="topic_id" value="<?php echo $this->topic_info['topic_id']; ?>" />
 						<textarea name="topic_description" id="advanced_editor" class="advanced_editor" class="form-control" rows="15"><?php echo $this->topic_info['topic_description']; ?></textarea>
@@ -38,7 +42,7 @@
 						</div>
 						</form>
 					</div>
-					<div class="aw-mod-footer">
+					<div class="mod-footer">
 						<a class="btn btn-large btn-success pull-right" href="javascript:;" onclick="AWS.ajax_post($('#topic_form'));"><?php _e('完成'); ?></a>
 					</div>
 				</div>
