@@ -72,7 +72,7 @@
 .aw-user-center-details .icon-weibo, .aw-user-detail-box  .icon-weibo{margin-right: 3px;color: #44B8E8;}
 
 /* 侧边栏 */
-.aw-side-bar-mod.profile-side-following .mod-head, .aw-side-bar-mod.profile-side-following .mod-body{margin-bottom: 20px;}
-.aw-side-bar-mod.profile-side-following p{margin-top: 5px;}
-.aw-side-bar-mod.profile-side-following .aw-user-name img{width: 25px;height: 25px;}
-.aw-side-bar-mod.profile-side-following .aw-topic-name{display:inline-block;margin:0 4px 4px 0;}
+.aw-mod.people-following .mod-head, .aw-mod.people-following .mod-body{margin-bottom: 20px;}
+.aw-mod.people-following p{margin-top: 5px;}
+.aw-mod.people-following .aw-user-name img{width: 25px;height: 25px;}
+.aw-mod.people-following .aw-topic-name{display:inline-block;margin:0 4px 4px 0;}

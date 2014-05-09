@@ -20,16 +20,18 @@ $(document).ready(function()
 {
 	bp_more_inner_o = $('#bp_more').html();
 
-	$('.aw-side-bar-mod.side-nav a').click(function () {
+	$('.aw-mod.side-nav a').click(function () {
 
 		if ($('#main_title').attr('id') != null && $(this).attr('rel'))
 		{
 
-			$('.aw-side-bar-mod.side-nav a').removeClass('active');
+			$('.aw-mod.side-nav a').removeClass('active');
 
 			window.location.hash = $(this).attr('rel');
 
 			$('#main_title').html($(this).html());
+
+			$('#main_title i').detach();
 
 			$(this).addClass('active');
 
@@ -125,13 +127,13 @@ $(document).ready(function()
 		return false;
 	});
 
-	if ($('.aw-side-bar-mod.side-nav a[rel=' + window.location.hash.replace(/#/g, '') + ']').attr('href'))
+	if ($('.aw-mod.side-nav a[rel=' + window.location.hash.replace(/#/g, '') + ']').attr('href'))
 	{
-		$('.aw-side-bar-mod.side-nav a[rel=' + window.location.hash.replace(/#/g, '') + ']').click();
+		$('.aw-mod.side-nav a[rel=' + window.location.hash.replace(/#/g, '') + ']').click();
 	}
 	else
 	{
-		$('.aw-side-bar-mod.side-nav a[rel=all]').click();
+		$('.aw-mod.side-nav a[rel=all]').click();
 	}
 
 	//问题添加评论

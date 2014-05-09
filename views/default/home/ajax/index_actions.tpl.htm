@@ -46,7 +46,7 @@
 		<!-- 投票栏 -->
 		<em class="aw-border-radius-5 aw-vote-count pull-left<?php if (!$this->user_id OR $this->user_id == $val['answer_info']['uid']) { ?> disabled<?php } ?>"<?php if ($this->user_id AND $this->user_id != $val['answer_info']['uid']) { ?> onclick="AWS.Init.init_vote_bar({element:this,agree_count:<?php echo $val['answer_info']['agree_count']; ?>,flag:<?php echo $val['answer_info']['agree_status']; ?>,user_name:G_USER_NAME,answer_id:<?php echo $val['answer_info']['answer_id']; ?>})"<?php } ?>><?php echo $val['answer_info']['agree_count']; ?></em>
 		<!-- end 投票栏 -->
-		<div class="pull-left aw-dynamic-topic-content">
+		<div class="pull-left aw-feed-list-content">
 			<div>
 				<p class="aw-text-color-999 aw-agree-by<?php if (count($val['answer_info']['agree_users']) == 0) { ?> hide<?php } ?>">
 					<?php _e('赞同来自'); ?>:
@@ -108,7 +108,7 @@
 				<!-- end 评论内容 -->
 			</div>
 			<!-- 社交操作 -->
-			<div class="aw-dynamic-topic-meta">
+			<div class="aw-feed-list-meta">
 				<a class="aw-add-comment aw-text-color-999" href="javascript:;" data-id="<?php echo $val['answer_info']['answer_id']; ?>" data-type="answer"><i class="fa fa-comment"></i><?php _e('%s 条评论', $val['answer_info']['comment_count']); ?></a>
 				<a data-toggle="dropdown" class="aw-text-color-999 dropdown-toggle" onclick="AWS.dialog('shareOut', {item_type:'answer', item_id:<?php echo $val['answer_info']['answer_id']; ?>});"><i class="fa fa-share" ></i><?php _e('分享'); ?></a>
 			</div>

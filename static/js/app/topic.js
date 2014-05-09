@@ -33,15 +33,15 @@ $(document).ready(function() {
     AWS.Init.init_comment_box('.aw-add-comment');
 
 	//侧边栏话题编辑记录收缩
-	$('.aw-side-bar-topic-edit-notes .fa-chevron-down').click(function() {
-		if (!$(this).parents('.aw-side-bar-topic-edit-notes').find('.aw-mod-body').is(':visible'))
+	$('.topic-edit-notes .fa-chevron-down').click(function() {
+		if (!$(this).parents('.topic-edit-notes').find('.mod-body').is(':visible'))
 		{
-			$(this).parents('.aw-side-bar-topic-edit-notes').find('.aw-mod-body').fadeIn();
+			$(this).parents('.topic-edit-notes').find('.mod-body').fadeIn();
 			$(this).addClass('active');
 		}
 		else
 		{
-			$(this).parents('.aw-side-bar-topic-edit-notes').find('.aw-mod-body').fadeOut();	
+			$(this).parents('.topic-edit-notes').find('.mod-body').fadeOut();	
 			$(this).removeClass('active');
 		}
 	});

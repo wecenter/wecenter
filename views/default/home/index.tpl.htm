@@ -23,14 +23,14 @@
 				<!-- end 新消息通知 -->
 				
 				<a name="c_contents"></a>
-				<div class="aw-mod aw-dynamic-topic clearfix">
-					<div class="aw-mod-head">
+				<div class="aw-mod clearfix">
+					<div class="mod-head common-head">
 						<h2 id="main_title"><?php _e('最新动态'); ?></h2>
 					</div>
 					
-					<div class="aw-mod-body" id="main_contents"></div>
+					<div class="mod-body aw-feed-list" id="main_contents"></div>
 					
-					<div class="aw-mod-footer">
+					<div class="mod-footer">
 						<!-- 加载更多内容 -->
 						<a id="bp_more" class="aw-load-more-content">
 							<span><?php _e('更多'); ?>...</span>
@@ -45,11 +45,11 @@
 				
 				<?php TPL::output('block/sidebar_menu.tpl.htm'); ?>	
 				
-				<div class="aw-side-bar-mod invite-join">
-					<div class="aw-mod-head">
+				<div class="aw-mod invite-join">
+					<div class="mod-head">
 						<h3><?php _e('邀请好友加入社区'); ?><?php if ($this->user_info['invitation_available']) { ?><em class="badge badge-info"><?php echo $this->user_info['invitation_available']; ?></em><?php } ?></h3>
 					</div>
-					<div class="aw-mod-body">
+					<div class="mod-body">
 						<a href="invitation/" class="btn btn-mini btn-success"><?php _e('发送邀请'); ?></a>
 					</div>
 				</div>

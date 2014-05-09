@@ -4,14 +4,14 @@
 	<div class="container">
 		<div class="row aw-content-wrap">
 			<div class="col-sm-12 col-md-9 aw-main-content">
-				<div class="aw-mod aw-item aw-question-detail-title aw-article-detail-title">
-					<div class="aw-mod-head">
+				<div class="aw-mod aw-question-detail aw-article-detail">
+					<div class="mod-head">
 						<h1>
 							<?php echo $this->article_info['title']; ?>
 						</h1>
 						
 						<?php if ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?>
-						<div class="aw-question-follow clearfix">
+						<div class="question-operate clearfix">
 							<!-- 下拉菜单 -->
 							<div class="btn-group pull-left">
 								<a class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" href="javascript:;">
@@ -46,8 +46,8 @@
 							<?php } ?>
 						</div>
 					</div>
-					<div class="aw-mod-body">
-						<div class="aw-question-detail-txt markitup-box">
+					<div class="mod-body">
+						<div class="content markitup-box">
 							<?php echo $this->article_info['message']; ?>
 							
 							<?php if ($this->article_info['attachs']) {  ?>
@@ -93,7 +93,7 @@
 					</div>
 				</div>
 				
-				<div class="aw-mod aw-question-comment-box">
+				<div class="aw-mod aw-question-comment">
 					<div class="aw-mod-head">
 						<ul class="nav nav-tabs aw-nav-tabs">
 							<?php if ($_GET['single']) { ?>
@@ -109,7 +109,7 @@
 					</div>
 					
 					<?php if ($this->comments) { ?>
-					<div class="aw-mod-body aw-dynamic-topic aw-article-detail">
+					<div class="aw-mod-body aw-feed-list aw-article-detail">
 						<?php foreach ($this->comments AS $key => $val) { ?>
 						<div class="aw-item">
 							<a class="aw-user-name" href="people/<?php echo $val['user_info']['url_token']; ?>">
@@ -186,11 +186,11 @@
 			<div class="col-sm-12 col-md-3 aw-side-bar hidden-sm hidden-xs">
 				<!-- 发起人 -->
 				<?php if ($this->article_info['anonymous'] == 0) { ?>
-				<div class="aw-side-bar-mod user-detail">
-					<div class="aw-mod-head">
+				<div class="aw-mod user-detail">
+					<div class="mod-head">
 						<h3><?php _e('发起人'); ?></h3>
 					</div>
-					<div class="aw-mod-body">
+					<div class="mod-body">
 						<dl>
 							<dt class="pull-left aw-border-radius-5">
 								<a href="people/<?php echo $this->article_info['user_info']['url_token']; ?>"><img alt="<?php echo $this->article_info['user_info']['user_name']; ?>" src="<?php echo get_avatar_url($this->article_info['uid'], 'mid'); ?>" /></a>
@@ -201,7 +201,7 @@
 							</dd>
 						</dl>
 					</div>
-					<div class="aw-mod-footer">
+					<div class="mod-footer">
 						<ul class="aw-text-color-999">
 							<li>
 								<?php _e('积分'); ?>: <span><?php echo $this->article_info['user_info']['integral']; ?></span>
@@ -229,11 +229,11 @@
 				<!-- end 发起人 -->
 				<?php if ($this->question_related_list) { ?>
 				<!-- 相关问题 -->
-				<div class="aw-side-bar-mod aw-text-align-justify question_related_list">
-					<div class="aw-mod-head">
+				<div class="aw-mod aw-text-align-justify question-related-list">
+					<div class="mod-head">
 						<h3><?php _e('相关问题'); ?></h3>
 					</div>
-					<div class="aw-mod-body">
+					<div class="mod-body">
 						<ul>
 							<?php foreach($this->question_related_list AS $key => $val) { ?>
 							<li><a href="question/<?php echo $val['question_id']; ?>"><?php echo $val['question_content']; ?></a></li>

@@ -17,14 +17,14 @@
 	<div class="container">
 		<div class="row aw-content-wrap">
 			<div class="col-sm-12 col-md-9 aw-main-content">
-				<div class="aw-mod aw-item aw-question-detail-title">
-					<div class="aw-mod-head">
+				<div class="aw-mod aw-question-detail">
+					<div class="mod-head">
 						<h1>
 							<?php echo $this->question_info['question_content']; ?>
 						</h1>
 						
 						<?php if ($this->user_id) { ?>
-						<div class="aw-question-follow clearfix">
+						<div class="question-operate clearfix">
 							<a href="javascript:;" onclick="AWS.User.follow($(this), 'question', <?php echo $this->question_info['question_id']; ?>);" class="btn btn-normal btn-default pull-left <?php if (!$this->question_focus) { ?> aw-active<?php } ?>"><?php if ($this->question_focus) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?></a>
 							<!-- 下拉菜单 -->
 							<div class="btn-group pull-left">
@@ -95,8 +95,8 @@
 						</div>
 						<?php } ?>
 					</div>
-					<div class="aw-mod-body">
-						<div class="aw-question-detail-txt markitup-box">
+					<div class="mod-body">
+						<div class="content markitup-box">
 							<?php echo $this->question_info['question_detail']; ?>
 							
 							<?php if ($this->question_info['attachs']) {  ?>
@@ -237,7 +237,7 @@
 					</div>
 				</div>
 				<?php } else { ?>
-				<div class="aw-mod aw-question-comment-box">
+				<div class="aw-mod aw-question-comment">
 					<div class="aw-mod-head">
 						<ul class="nav nav-tabs aw-nav-tabs">
 							<?php if ($_GET['single']) { ?>
@@ -251,7 +251,7 @@
 							<h2 class="hidden-xs"><?php if ($_GET['single']) { ?><?php _e('查看单个回答'); ?><?php } else { ?><?php _e('%s 个回复', $this->answer_count); ?><?php } ?></h2>
 						</ul>
 					</div>
-					<div class="aw-mod-body aw-dynamic-topic">
+					<div class="aw-mod-body aw-feed-list">
 						<?php if ($this->answers) { foreach ($this->answers AS $key => $val) { ?>
 							<?php if ($this->question_info['best_answer'] == $val['answer_id']) { ?>
 							<!-- 最佳回答 -->
@@ -270,7 +270,7 @@
 									<!-- 投票栏 -->
 									<em class="aw-border-radius-5 aw-vote-count pull-left<?php if (!$this->user_id OR $val['uid'] == $this->user_id) { ?> disabled<?php } ?>"<?php if ($this->user_id AND $val['uid'] != $this->user_id) { ?> onclick="AWS.Init.init_vote_bar({element:this,agree_count:<?php echo $val['agree_count']; ?>,flag:<?php echo $val['agree_status']; ?>,user_name:G_USER_NAME,answer_id:<?php echo $val['answer_id']; ?>})"<?php } ?>><?php echo $val['agree_count']; ?></em>
 									<!-- end 投票栏 -->
-									<div class="pull-left aw-dynamic-topic-content">
+									<div class="pull-left aw-feed-list-content">
 										<div class="mod-head">
 											<p>
 												<?php if ($val['anonymous'] == 0) { ?>
@@ -329,11 +329,11 @@
 
 										</div>
 										<!-- 社交操作 -->
-										<div class="mod-footer aw-dynamic-topic-meta">
+										<div class="mod-footer aw-feed-list-meta">
 											<span class="aw-text-color-999"><?php echo date_friendly($val['add_time']); ?></span>
 											<a class="aw-add-comment aw-text-color-999 <?php if ($val['comment_count'] > 0) {?>active<?php } ?>" data-id="<?php echo $val['answer_id']; ?>" data-type="answer" data-comment-count="<?php echo $val['comment_count']; ?>" data-first-click="<?php if ($val['comment_count'] == 0) {?>hide<?php }?>" href="javascript:;"><i class="fa fa-comment"></i><?php if ($val['comment_count']) { ?><?php _e('%s 条评论', $val['comment_count']); ?><?php } else { ?><?php _e('添加评论'); ?><?php } ?></a>
 											<!-- 可显示/隐藏的操作box -->
-											<span class="aw-dynamic-topic-more-operate">
+											<span class="aw-feed-list-more-operate">
 												<?php if ($this->user_id) { ?>	
 													<?php if (($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) OR ($val['uid'] == $this->user_id AND ((time() - $val['add_time']) < (get_setting('answer_edit_time') * 60) OR (!get_setting('answer_edit_time'))))) { ?>
 													<a class="aw-text-color-999" href="javascript:;" onclick="AWS.dialog('commentEdit', {answer_id:<?php echo $val['answer_id']; ?>,attach_access_key:'<?php echo $this->attach_access_key; ?>'});"><i class="fa fa-edit"></i><?php _e('编辑'); ?></a>
@@ -376,7 +376,7 @@
 								<a href="javascript:;"><?php _e('%s 个回复被折叠', '<span class="hide_answers_count">0</span>'); ?></a>
 							</div>
 							
-							<div class="hide aw-dynamic-topic" id="uninterested_answers_list"></div>
+							<div class="hide aw-feed-list" id="uninterested_answers_list"></div>
 						<?php } ?>
 					</div>
 					
@@ -456,11 +456,11 @@
 			<div class="col-md-3 aw-side-bar hidden-xs hidden-sm">
 				<!-- 发起人 -->
 				<?php if ($this->question_info['anonymous'] == 0) { ?>
-				<div class="aw-side-bar-mod">
-					<div class="aw-mod-head">
+				<div class="aw-mod">
+					<div class="mod-head">
 						<h3><?php _e('发起人'); ?></h3>
 					</div>
-					<div class="aw-mod-body">
+					<div class="mod-body">
 						<dl>
 							<dt class="pull-left aw-border-radius-5">
 								<a href="people/<?php echo $this->question_info['user_info']['url_token']; ?>"><img alt="<?php echo $this->question_info['user_info']['user_name']; ?>" src="<?php echo get_avatar_url($this->question_info['published_uid'], 'mid'); ?>" /></a>
@@ -483,11 +483,11 @@
 				
 				<?php if ($this->user_id) { ?>
 				<!-- 邀请别人回复 -->
-				<div class="aw-side-bar-mod invite-replay">
-					<div class="aw-mod-head">
+				<div class="aw-mod invite-replay">
+					<div class="mod-head">
 						<h3><?php _e('邮件邀请别人回复'); ?></h3>
 					</div>
-					<div class="aw-mod-body clearfix">
+					<div class="mod-body clearfix">
 						<!-- 侧边栏邀请box -->
 						<form method="post" action="question/ajax/email_invite/question_id-<?php echo $this->question_info['question_id']; ?>" onsubmit="return false;" id="email_invite_form">
 							<input class="form-control" type="text" name="email" placeholder="<?php _e('邮件邀请回复...'); ?>"/>
@@ -501,11 +501,11 @@
 
 				<?php if ($this->question_related_list) { ?>
 				<!-- 相关问题 -->
-				<div class="aw-side-bar-mod question_related_list">
-					<div class="aw-mod-head">
+				<div class="aw-mod question-related-list">
+					<div class="mod-head">
 						<h3><?php _e('相关问题'); ?></h3>
 					</div>
-					<div class="aw-mod-body">
+					<div class="mod-body">
 						<ul>
 							<?php foreach($this->question_related_list AS $key => $val) { ?>
 							<li><a href="question/<?php echo $val['question_id']; ?>"><?php echo $val['question_content']; ?></a></li>
@@ -517,17 +517,17 @@
 				<?php } ?>
 
 				<!-- 问题状态 -->
-				<div class="aw-side-bar-mod aw-side-bar-mod-question-status">
-					<div class="aw-mod-head">
+				<div class="aw-mod question-status">
+					<div class="mod-head">
 						<h3><?php _e('问题状态'); ?></h3>
 					</div>
-					<div class="aw-mod-body">
+					<div class="mod-body">
 						<ul>
 							<li><?php _e('最新活动'); ?>: <span class="aw-text-color-blue"><?php echo date_friendly($this->question_info['update_time']); ?></span></li>
 							<li><?php _e('浏览'); ?>: <span class="aw-text-color-blue"><?php echo $this->question_info['view_count']; ?></span></li>
 							<li><?php _e('关注'); ?>: <span class="aw-text-color-blue"><?php echo $this->question_info['focus_count']; ?></span> <?php _e('人'); ?></li>
 							
-							<li class="aw-side-bar-user-list aw-border-radius-5" id="focus_users"></li>
+							<li class="aw-border-radius-5" id="focus_users"></li>
 						</ul>
 					</div>
 				</div>

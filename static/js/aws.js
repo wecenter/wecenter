@@ -1505,8 +1505,7 @@ AWS.User =
 				else
 				{
 					selector.parents('.aw-article-vote').find('a').removeClass('active');
-					selector.addClass('active');
-	                selector.find('b').html(parseInt(selector.find('b').html()) + 1);
+					selector.addClass('active').find('b').html(parseInt(selector.find('b').html()) + 1);
 				}
 		    }
 		}, 'json');
