@@ -27,7 +27,7 @@
 						</select>
 						<?php } ?>
 					<div class="aw-mod aw-mod-publish">
-						<div class="aw-mod-body">
+						<div class="mod-body">
 							<h3><?php _e('文章标题'); ?>:</h3>
 							<!-- 文章标题 -->
 							<div class="aw-publish-title<?php if (!$this->article_category_list) { ?> active<?php } ?>">
@@ -50,11 +50,11 @@
 
 							<h3><?php _e('文章内容'); ?>:</h3>
 							<div class="aw-mod aw-mod-publish-box">
-								<div class="aw-mod-head">
+								<div class="mod-head">
 									<textarea name="message" id="advanced_editor" rows="20" class="autosize form-control advanced_editor"><?php echo $this->article_info['message']; ?></textarea>
 									<p class="aw-text-color-999"><span class="pull-right" id="article_message">&nbsp;</span></p>
 								</div>
-								<div class="aw-mod-body">
+								<div class="mod-body">
 									<span id="file_uploader_question"></span>
 
 									<span class="aw-text-color-999 aw-upload-tips hide hidden-xs"><?php _e('允许的附件文件类型'); ?>: <?php echo get_setting('allowed_upload_types'); ?></span>
