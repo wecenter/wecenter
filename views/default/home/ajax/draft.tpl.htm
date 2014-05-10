@@ -1,1 +1,11 @@
-<?php if ($this->drafts) { ?><?php foreach ($this->drafts AS $key => $val) { ?><div class="aw-item">	<a class="pull-right aw-new-message-tips-close delete-draft" href="javascript:;" onclick="delete_draft(<?php echo $val['item_id']; ?>, 'answer'); $(this).parents('.aw-item').fadeOut();"><button type="button" class="close aw-close">×</button></a>		<h4><a href="question/<?php echo $val['item_id']; ?>#!answer_form"><?php echo $val['question_info']['question_content']; ?></a></h4>	<div class="markitup-box"><?php echo nl2br(htmlspecialchars($val['data']['message'])); ?></div>	<p><a href="question/<?php echo $val['item_id']; ?>#!answer_form"><?php _e('编辑草稿'); ?></a> • <?php echo date_friendly($val['time']); ?></p></div><?php } ?><?php } ?>
+<?php if ($this->drafts) { ?>
+<?php foreach ($this->drafts AS $key => $val) { ?>
+<div class="aw-item">
+	<a class="pull-right aw-new-message-tips-close delete-draft" href="javascript:;" onclick="delete_draft(<?php echo $val['item_id']; ?>, 'answer'); $(this).parents('.aw-item').fadeOut();"><button type="button" class="close aw-close">×</button></a>
+	
+	<h4><a href="question/<?php echo $val['item_id']; ?>#!answer_form"><?php echo $val['question_info']['question_content']; ?></a></h4>
+	<div class="markitup-box"><?php echo nl2br(htmlspecialchars($val['data']['message'])); ?></div>
+	<p><a href="question/<?php echo $val['item_id']; ?>#!answer_form"><?php _e('编辑草稿'); ?></a> • <?php echo date_friendly($val['time']); ?></p>
+</div>
+<?php } ?>
+<?php } ?>
