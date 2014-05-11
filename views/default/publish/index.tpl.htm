@@ -58,7 +58,7 @@
 											<span id="file_uploader_question"></span>
 
 											<span class="aw-text-color-999 aw-upload-tips hide hidden-xs"><?php _e('允许的附件文件类型'); ?>: <?php echo get_setting('allowed_upload_types'); ?></span>
-											
+
 											<div id="markItUpPreviewFrame" class="markItUpPreviewFrame">
 												<h2 class="title">
 													<?php _e('预览模式'); ?>:
@@ -73,20 +73,20 @@
 										<?php if ($_GET['topic_title']) { ?>
 										<a href="javascript:;" class="aw-topic-name"><span><?php echo urldecode($_GET['topic_title']); ?><i class="aw-icon i-close-hover" onclick="$(this).parents('.aw-topic-name').remove();"></i></span><input type="hidden" value="<?php echo urldecode($_GET['topic_title']); ?>" name="topics[]" /></a>
 										<?php } ?>
-										
+
 										<?php if ($_POST['topics']) { ?>
 										<?php foreach ($_POST['topics'] AS $key => $val) { ?>
 										<a href="javascript:;" class="aw-topic-name"><span><?php echo $val; ?></span><input type="hidden" value="<?php echo $val; ?>" name="topics[]" /></a>
 										<?php } ?>
 										<?php } ?>
-										
+
 										<span class="aw-edit-topic"><i class="fa fa-edit"></i><?php _e('编辑话题'); ?></span>
 										</span>
-										
+
 										<?php if ($this->recent_topics) { ?>
 										<h3><?php _e('最近话题'); ?>:</h3>
 										<div class="aw-publish-suggest-topics clearfix">
-																	
+
 											<?php foreach($this->recent_topics as $key => $val) { ?>
 											<a href="javascript:;" onclick="$('#aw_edit_topic_title').val('<?php echo $val; ?>');$('.submit-edit').click();$(this).hide();" class="aw-topic-name"><span><?php echo $val; ?></span></a>
 											<?php } ?>
@@ -95,8 +95,8 @@
 									<?php } ?>
 									<?php if ($this->human_valid) { ?>
 									<p class="aw-auth-img clearfix">
-										<em class="auth-img pull-right"><img src="" onclick="this.src = G_BASE_URL + '/account/captcha/' + Math.floor(Math.random() * 10000);" id="captcha" /></em>
-										<input class="form-control pull-right" type="text" name="seccode_verify" placeholder="验证码" onfocus="$('#captcha').click();" />
+										<em class="auth-img pull-right"><img src="" onclick="reload_captcha();" id="captcha" /></em>
+										<input class="form-control pull-right" type="text" name="seccode_verify" placeholder="验证码" maxlength="4" />
 									</p>
 									<?php } ?>
 								</div>
@@ -134,7 +134,7 @@
 					            <?php } ?>
 							</div>
 						</div>
-						<!-- end 问题状态 -->		
+						<!-- end 问题状态 -->
 					</div>
 					<!-- end 侧边栏 -->
 
@@ -148,6 +148,8 @@
 	var ATTACH_ACCESS_KEY = '<?php echo $this->attach_access_key; ?>';
 	var CATEGORY_ID = <?php echo intval($_POST['category_id']); ?>;
 	var PUBLISH_TYPE = 'question';
+
+	var reload_captcha_interval = window.setInterval(reload_captcha, 600000);
 </script>
 
 <?php TPL::output('global/footer.tpl.htm'); ?>

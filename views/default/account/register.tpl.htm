@@ -11,7 +11,7 @@
 		<?php if ($this->icode) { ?><input type="hidden" name="icode" id="icode" value="<?php echo $this->icode; ?>" /><?php } ?>
 		<?php if ($this->return_url) { ?><input type="hidden" name="return_url" value="<?php echo $this->return_url; ?>" /><?php } ?>
 		<?php if ($this->fromuid AND $_GET['invite_question_id']) { ?>
-		  	<input type="hidden" name="invite_question_id" value="<?php echo htmlspecialchars($_GET['invite_question_id']); ?>"/> 
+		  	<input type="hidden" name="invite_question_id" value="<?php echo htmlspecialchars($_GET['invite_question_id']); ?>"/>
 		<?php } ?>
 		<ul>
 			<li class="alert alert-danger hide error_message">
@@ -32,12 +32,12 @@
 						<?php _e('性别'); ?>:
 						<label>
 							<input name="sex" id="sex" value="1" type="radio" /> <?php _e('男'); ?>
-						</label>&nbsp; 
+						</label>&nbsp;
 						<label>
-							<input name="sex" id="sex" value="2" type="radio" /> <?php _e('女'); ?> </label>&nbsp; 
+							<input name="sex" id="sex" value="2" type="radio" /> <?php _e('女'); ?> </label>&nbsp;
 						<label>
 							<input name="sex" id="sex" value="3" type="radio" checked="checked" /> <?php _e('保密'); ?>
-						</label> 
+						</label>
 					</li>
 					<li>
 						<?php _e('职业'); ?>:
@@ -49,7 +49,7 @@
 					<li>
 						<?php _e('所在城市'); ?>:
 						<select name="province" class="select_area" style="display:inline-block"></select>
-						
+
 						<select name="city" class="select_area"></select>
 					</li>
 					<li>
@@ -62,9 +62,8 @@
 			</li>
 			<?php if (get_setting('register_seccode') == 'Y') { ?>
 			<li class="aw-register-verify">
-				<img class="pull-right" id="captcha" onclick="this.src = G_BASE_URL + '/account/captcha/' + Math.floor(Math.random() * 10000);" src="" />
-				
-				<input type="text" class="form-control" name="seccode_verify" placeholder="<?php _e('验证码'); ?>" tips="<?php _e('验证码不区分大小写,点击图片可换一张'); ?>" onfocus="$('#captcha').click();" />
+				<img class="pull-right" id="captcha" onclick="reload_captcha();" src="" />
+				<input type="text" class="form-control" name="seccode_verify" placeholder="<?php _e('验证码'); ?>" tips="<?php _e('验证码不区分大小写,点击图片可换一张'); ?>" maxlength="4" />
 			</li>
 			<?php } ?>
 			<li class="last">
@@ -73,7 +72,7 @@
 				<div class="aw-regiter-agreement hide">
 					<div class="aw-register-agreement-txt" id="register_agreement"></div>
 				</div>
-				
+
 			</li>
 			<li class="clearfix">
 				<button class="pull-right btn btn-large btn-success" onclick="ajax_post($('#register_form'), _error_message_form_processer); return false;"><?php _e('注册'); ?></button>
@@ -102,7 +101,7 @@ $(document).ready(function ()
 			$(this).find('i').addClass('fa-chevron-up');
 		}
 	});
-	
+
     verify_register_form('#register_form');
 
     /* 注册页面验证 */
@@ -122,7 +121,7 @@ $(document).ready(function ()
 	        	{
 	        		switch ($(this).attr('name'))
 		            {
-		                case 'user_name' : 
+		                case 'user_name' :
 		                    var _this = $(this);
 		                    $(this).parent().find('.aw-reg-tips').detach();
 		                    if ($(this).val().length >= 0 && $(this).val().length < 2)
@@ -155,7 +154,7 @@ $(document).ready(function ()
 		                    }
 		                    return;
 
-		                case 'email' : 
+		                case 'email' :
 		                    $(this).parent().find('.aw-reg-tips').detach();
 		                    var emailreg = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
 		                    if (!emailreg.test($(this).val()))
@@ -168,7 +167,7 @@ $(document).ready(function ()
 		                    {
 		                        $(this).parent().find('.aw-reg-tips').detach();
 		                        $(this).parent().append('<span class="aw-reg-tips aw-reg-right"><i class="aw-icon i-followed"></i></span>');
-		                    }        
+		                    }
 		                    return;
 
 		                case 'password' :
@@ -194,11 +193,11 @@ $(document).ready(function ()
 
 		            }
 	        	}
-	            
+
 	        }
 	    });
 	}
-	
+
 	$('.select_area').LocationSelect({
         labels: ["<?php _e('请选择省份或直辖市'); ?>", "<?php _e('请选择城市'); ?>"],
         elements: document.getElementsByTagName("select"),
@@ -208,6 +207,8 @@ $(document).ready(function ()
 		dataUrl: G_BASE_URL + '/account/ajax/areas_json_data/'
     });
 });
+
+var reload_captcha_interval = window.setInterval(reload_captcha, 600000);
 </script>
 
 <?php TPL::output('global/footer.tpl.htm'); ?>

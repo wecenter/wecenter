@@ -16,8 +16,8 @@
 				<input class="aw-register-email form-control" type="text" placeholder="<?php _e('邮箱'); ?>" name="email" />
 			</li>
 			<li class="aw-register-verify">
-				<img  class="auth-img pull-right" id="captcha" onclick="this.src = G_BASE_URL + '/account/captcha/' + Math.floor(Math.random() * 10000);" src="" />
-				<input class="form-control" type="text" name="seccode_verify" placeholder="<?php _e('验证码'); ?>" onfocus="$('#captcha').click();" />
+				<img  class="auth-img pull-right" id="captcha" onclick="reload_captcha();" src="" />
+				<input class="form-control" type="text" name="seccode_verify" placeholder="<?php _e('验证码'); ?>" maxlength="4" />
 			</li>
 			<li class="clearfix">
 				<button class="pull-right btn btn-large btn-success" onclick="ajax_post($('#fpw_form'), _error_message_form_processer); return false;"><?php _e('下一步'); ?></button>
@@ -25,5 +25,9 @@
 		</ul>
 	</form>
 </div>
+
+<script type="text/javascript">
+var reload_captcha_interval = window.setInterval(reload_captcha, 600000);
+</script>
 
 <?php TPL::output('global/footer.tpl.htm'); ?>

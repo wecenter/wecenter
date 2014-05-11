@@ -15,19 +15,19 @@
 			<input type="hidden" name="question_id" id="question_id" value="<?php echo $this->question_info['question_id']; ?>" />
 			<input type="hidden" name="ask_user_id" value="<?php echo $_POST['ask_user_id']; ?>" />
 			<input type="hidden" name="attach_access_key" value="<?php echo $this->attach_access_key; ?>" />
-			
+
 			<?php if ($this->question_category_list) { ?>
 			<select name="category_id" class="hide" id="category_id">
 				<option value="0">- <?php _e('请选择分类'); ?> -</option>
 				<?php echo $this->question_category_list; ?>
 			</select>
 			<?php } ?>
-			
+
 			<div class="aw-mod-head clearfix">
 		    	<h3><?php _e('问题标题'); ?>:</h3>
 		    	<div class="aw-publish-title">
 		    		<textarea class="form-control pull-left" placeholder="<?php _e('问题标题'); ?>..." name="question_content" onkeydown="if (event.keyCode == 13) { return false; }" rows="2"><?php echo $this->question_info['question_content']; ?></textarea>
-		    		
+
 		    	</div>
 		    	<?php if ($this->question_category_list) { ?>
 			    	<h3><?php _e('选择分类'); ?>:</h3>
@@ -42,11 +42,11 @@
 		    <div class="aw-mod-body clearfix">
 		    	<h3><?php _e('问题补充 (选填)'); ?>: <span id="file_uploader_answer"></span></h3>
 		    	<textarea name="question_detail" class="autosize form-control textarea_content" id="question_detail" rows="4" placeholder="<?php _e('问题补充'); ?>"><?php echo $this->question_info['question_detail']; ?></textarea>
-		    	
+
 		    	<?php if (!$this->question_info['question_id']) { ?>
 	    		<div class="aw-topic-edit-box" id="quick_publish_topic_chooser">
 					<div class="aw-topic-box">
-						<a class="aw-add-topic-box"><i class="fa fa-edit"></i> <?php _e('编辑话题'); ?></a>				
+						<a class="aw-add-topic-box"><i class="fa fa-edit"></i> <?php _e('编辑话题'); ?></a>
 					</div>
 				</div>
 				<?php } ?>
@@ -54,12 +54,12 @@
 		    <div class="aw-mod-footer">
 		    	<?php if ($this->human_valid) { ?>
 				<div class="aw-auth-img pull-left">
-					<em class="auth-img pull-left"><img src="" onclick="this.src = G_BASE_URL + '/account/captcha/' + Math.floor(Math.random() * 10000);" id="captcha" /></em>
-					<input class="form-control pull-left" type="text" name="seccode_verify" placeholder="验证码" onfocus="$('#captcha').click();" />
+					<em class="auth-img pull-left"><img src="" onclick="reload_captcha();" id="captcha" /></em>
+					<input class="form-control pull-left" type="text" name="seccode_verify" placeholder="验证码" maxlength="4" />
 				</div>
 				<?php } ?>
 		    	<button class="btn btn-primary pull-right" onclick="ajax_post($('#question_form')); return false;"><?php _e('确认发起'); ?></button>
-		    	
+
 		    	<span class="aw-anonymity">
 					<?php if ($this->question_info['question_id'] AND ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator'])) { ?>
 					<label><input type="checkbox" class="pull-left" value="1" name="do_delete" /> <?php _e('删除问题'); ?></label>
@@ -75,7 +75,7 @@
 	var CATEGORY_ID = <?php echo intval($_POST['category_id']); ?>;
 	var ATTACH_ACCESS_KEY = '<?php echo $this->attach_access_key; ?>';
 	var PUBLISH_TYPE = 'question';
-	
+
 	$(document).ready(function () {
 
 		// 判断是否微信打开
@@ -83,7 +83,7 @@
 	    {
 	    	$('header, nav, footer').hide();
 	    }
-    
+
 		if (ATTACH_ACCESS_KEY != '')
 		{
 			init_fileuploader('file_uploader_answer', G_BASE_URL + '/publish/ajax/attach_upload/id-question__attach_access_key' + '-' + ATTACH_ACCESS_KEY);
@@ -92,7 +92,7 @@
 		if ($('#category_id').length)
 		{
 			var category_data = '';
-			
+
 			$.each($('#category_id option').toArray(), function (i, field) {
 				if (i > 0)
 				{
@@ -100,13 +100,13 @@
 					{
 						category_data += ',';
 					}
-					
+
 					category_data += "{'title':'" + $(field).text() + "', 'id':'" + $(field).val() + "'}";
 				}
 			});
-			
+
 			add_dropdown_list('.aw-publish-dropdown', eval('[' + category_data + ']'), CATEGORY_ID);
-			
+
 			$('.aw-publish-dropdown .dropdown-menu li a').click(function() {
 				$('#category_id').val($(this).attr('data-value'));
 			});
@@ -119,12 +119,12 @@
 				if ($(e).attr('data-value') == $('#category_id').val())
 				{
 					$('.aw-publish-dropdown span').html($(e).html());
-					
+
 					return;
 				}
 			});
 		}
-		
+
 		if ($('#quick_publish_topic_chooser').length)
 		{
 			$('#quick_publish_topic_chooser').click();
@@ -155,6 +155,8 @@
 	    }
 
 	});
+
+var reload_captcha_interval = window.setInterval(reload_captcha, 600000);
 </script>
-		
+
 <?php TPL::output('m/footer.tpl.htm'); ?>

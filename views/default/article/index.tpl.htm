@@ -10,7 +10,7 @@
 							<h1>
 								<?php echo $this->article_info['title']; ?>
 							</h1>
-							
+
 							<?php if ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?>
 							<div class="aw-question-follow clearfix">
 								<!-- 下拉菜单 -->
@@ -37,7 +37,7 @@
 								<!-- end 下拉菜单 -->
 							</div>
 							<?php } ?>
-							
+
 							<div class="aw-topic-editor" data-type="article" data-id="<?php echo $this->article_info['id']; ?>">
 								<?php foreach($this->article_topics as $key => $val) { ?>
 								<a href="topic/<?php echo $val['url_token']; ?>" class="aw-topic-name" data-id="<?php echo $val['topic_id']; ?>"><span><?php echo $val['topic_title']; ?></span></a>
@@ -50,7 +50,7 @@
 						<div class="aw-mod-body">
 							<div class="aw-question-detail-txt markitup-box">
 								<?php echo $this->article_info['message']; ?>
-								
+
 								<?php if ($this->article_info['attachs']) {  ?>
 								<div class="aw-comment-upload-img-list">
 								<?php foreach ($this->article_info['attachs'] AS $attach) { ?>
@@ -60,7 +60,7 @@
 								<?php } ?>
 								</div>
 								<?php } ?>
-								
+
 								<?php if ($this->article_info['attachs']) {  ?>
 								<ul class="aw-comment-upload-file-list">
 									<?php foreach ($this->article_info['attachs'] AS $attach) { ?>
@@ -76,13 +76,13 @@
 									<a href="javascript:;" class="agree<?php if ($this->article_info['vote_info']['rating'] == 1) { ?> active<?php } ?>" onclick="article_vote(this, <?php echo $this->article_info['id']; ?>, 1);"><i class="fa fa-thumbs-up"></i> <b><?php echo $this->article_info['votes']; ?></b> 赞</a>
 									<a href="javascript:;" class="disagree<?php if ($this->article_info['vote_info']['rating'] == -1) { ?> active<?php } ?>" onclick="article_vote(this, <?php echo $this->article_info['id']; ?>, -1);"><i class="fa fa-thumbs-down"></i></a>
 								</span>
-								
+
 								<a class="aw-text-color-999 pull-right" onclick="$.dialog('shareOut', {item_type:'article', item_id:<?php echo $this->article_info['id']; ?>});"><i class="fa fa-share"></i><?php _e('分享'); ?></a>
 								<?php if ((!$this->article_info['lock'] AND ($this->article_info['uid'] == $this->user_id OR $this->user_info['permission']['edit_article'])) OR $this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?>
 								<a class="aw-text-color-999 pull-right" href="publish/article/<?php echo $this->article_info['id']; ?>"><i class="fa fa-edit"></i> <?php _e('编辑'); ?></a>
 								<?php } ?>
 							</div>
-							
+
 							<?php if ($this->article_info['vote_users']) { ?>
 							<div class="aw-article-voter">
 								<?php foreach ($this->article_info['vote_users'] AS $key => $val) { ?>
@@ -93,7 +93,7 @@
 							<?php } ?>
 						</div>
 					</div>
-					
+
 					<div class="aw-mod aw-question-comment-box">
 						<div class="aw-mod-head">
 							<ul class="nav nav-tabs aw-reset-nav-tabs">
@@ -104,11 +104,11 @@
 								<li<?php if ($_GET['sort_key'] == 'add_time') { ?> class="active"<?php } ?>><a href="question/<?php echo $this->article_info['question_id']; ?>?sort_key=add_time&sort=<?php if (($_GET['sort_key'] == 'add_time') && $_GET['sort'] == 'ASC') { ?>DESC<?php } else { ?>ASC<?php } ?>"><?php _e('时间'); ?><?php if (($_GET['sort_key'] == 'add_time') && $_GET['sort'] == 'DESC') { ?><i class="icon-caret-down"></i><?php } else { ?><i class="icon-caret-up"></i><?php } ?></a></li>
 								<li<?php if ((!$_GET['uid'] && !$_GET['sort_key']) || $_GET['sort_key'] == 'agree_count') { ?> class="active"<?php } ?>><a href="question/<?php echo $this->article_info['question_id']; ?>&sort_key=agree_count&sort=DESC"><?php _e('票数'); ?></a></li>
 								<?php } ?>
-								
+
 								<h2><?php _e('%s 个评论', $this->comments_count); ?></h2>
 							</ul>
 						</div>
-						
+
 						<?php if ($this->comments) { ?>
 						<div class="aw-mod-body aw-dynamic-topic aw-article-detail">
 							<?php foreach ($this->comments AS $key => $val) { ?>
@@ -125,7 +125,7 @@
 									</div>
 									<div class="aw-item-meta">
 										<span class="pull-right"><?php echo $val['votes']; ?> <?php _e('赞'); ?></span>
-										
+
 										<span><?php echo date_friendly($val['add_time']); ?></span>
 										<?php if ($this->user_id) { ?>
 											<a class="aw-article-comment" data-id="<?php echo $val['user_info']['uid']; ?>"><i class="fa fa-comment"></i> <?php _e('回复'); ?></a>
@@ -140,7 +140,7 @@
 							<?php } ?>
 						</div>
 						<?php } ?>
-						
+
 						<?php if ($_GET['item_id']) { ?>
 						<div class="aw-mod-footer">
 								<a href="article/<?php echo $this->article_info['id']; ?>" class="aw-load-more-content">
@@ -148,12 +148,12 @@
 								</a>
 						</div>
 						<?php } ?>
-						
+
 						<?php if ($this->pagination) { ?>
 							<div class="clearfix"><?php echo $this->pagination; ?></div>
 						<?php } ?>
 					</div>
-					
+
 					<!-- 回复编辑器 -->
 					<div class="aw-mod aw-mod-article-replay-box">
 						<a name="answer_form"></a>
@@ -174,8 +174,8 @@
 						<div class="aw-mod-footer">
 							<a href="javascript:;" onclick="ajax_post($('#answer_form'));" class="btn btn-large btn-success pull-right btn-submit"><?php _e('回复'); ?></a>
 							<?php if ($this->human_valid) { ?>
-							<em class="auth-img pull-right"><img src="" onclick="this.src = G_BASE_URL + '/account/captcha/' + Math.floor(Math.random() * 10000);" id="captcha" /></em>
-							<input class="pull-right form-control" type="text" name="seccode_verify" placeholder="<?php _e('验证码'); ?>" onfocus="$('#captcha').click();" />
+							<em class="auth-img pull-right"><img src="" onclick="reload_captcha();" id="captcha" /></em>
+							<input class="pull-right form-control" type="text" name="seccode_verify" placeholder="<?php _e('验证码'); ?>" maxlength="4" />
 							<?php } ?>
 						</div>
 						</form>
@@ -260,6 +260,8 @@
 
 		at_user_lists('#comment_editor');
 	});
+
+	var reload_captcha_interval = window.setInterval(reload_captcha, 600000);
 </script>
 
 <?php TPL::output('global/footer.tpl.htm'); ?>

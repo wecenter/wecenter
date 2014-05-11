@@ -26,7 +26,7 @@
 		<div class="aw-mod-body markitup-box">
 			<?php echo $this->question_info['question_detail']; ?>
 			<div id="weixin-desc" style="display:none;"><?=cjk_substr(str_replace(array("\r","\n"),array(' ',' '), strip_tags($this->question_info['question_detail'])), 0, 130, 'UTF-8', '...');?></div>
-			
+
 			<?php if ($this->question_info['attachs']) {  ?>
 				<div class="aw-comment-upload-img-list">
 				<?php foreach ($this->question_info['attachs'] AS $key => $attach) { ?>
@@ -54,9 +54,9 @@
 		</div>
 		<div class="aw-mod-footer clearfix">
 			<div class="meta clearfix">
-				<?php if ($this->user_id) { ?>	
+				<?php if ($this->user_id) { ?>
 				<a herf="javascript:;" data-id="<?php echo $this->question_info['question_id']; ?>" data-type="question" class="aw-add-comment"<?php if ($this->question_info['lock'] OR !$this->user_info['permission']['publish_comment']) { ?> data-close="true"<?php } ?>><i class="fa fa-comment"></i> <?php if ($this->question_info['comment_count']) { ?><?php _e('%s 条评论', $this->question_info['comment_count']); ?><?php } else { ?><?php _e('添加评论'); ?><?php } ?></a><?php if ((!$this->question_info['lock'] AND ($this->question_info['published_uid'] == $this->user_id OR $this->user_info['permission']['edit_question'])) OR $this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?><a href="m/publish/<?php echo $this->question_info['question_id']; ?>"><i class="fa fa-edit"></i> <?php _e('编辑'); ?></a><?php } ?><a<?php if (!$this->question_thanks) { ?> onclick="question_thanks(<?php echo $this->question_info['question_id']; ?>, this);"<?php } ?>><i class="fa fa-heart"></i><?php if ($this->question_thanks) { ?> <?php _e('已感谢'); ?><?php } else { ?> <?php _e('感谢'); ?><?php } ?></a><a class="aw-invite-replay"> <i class="fa fa-retweet"></i> <?php _e('邀请回答'); ?></a>
-				<?php } ?> 
+				<?php } ?>
 				<!-- JiaThis Button BEGIN -->
 				<span id="ckepop">
 					<a class="jiathis_button_tsina"></a>
@@ -81,7 +81,7 @@
 						<?php } ?>
 					</div>
 				</div>
-				
+
 				<?php if ($this->helpful_users) { ?>
 				<div class="aw-mod-body clearfix">
 					<ul>
@@ -94,15 +94,15 @@
 									<?php } else { ?>
 										<a class="pull-right btn btn-normal btn-default btn-primary" data-value="<?php echo $val['user_info']['user_name']; ?>" data-id="<?php echo $val['user_info']['uid']; ?>" onclick="invite_user($(this),$(this).parents('li').find('img').attr('src'));"><?php _e('邀请'); ?></a>
 									<?php } ?>
-									
+
 									<a class="aw-user-name" data-id="<?php echo $val['user_info']['uid']; ?>" href="people/<?php echo $val['user_info']['url_token']; ?>"><?php echo $val['user_info']['user_name']; ?><?php if ($val['user_info']['verified']) { ?><i class="icon-v<?php if ($val['user_info']['verified'] == 'enterprise') { ?> i-ve<?php } ?>" title="<?php if ($val['user_info']['verified'] == 'enterprise') { ?>企业认证<?php } else { ?>个人认证<?php } ?>"></i><?php } ?></a>
-									
+
 									<p>
 										<?php _e('%s 个赞同', $val['agree_count']); ?>
 									</p>
 								</div>
 								<div class="clearfix"></div>
-								
+
 								<div class="signature">
 									<?php echo cjk_substr($val['user_info']['signature'], 0, 12, 'UTF-8', '...'); ?>
 								</div>
@@ -178,7 +178,7 @@
 					</h3>
 					<div class="aw-vote-info<?php if (sizeof($val['agree_users']) == 0) { ?> hide<?php } ?>">
 						<?php _e('赞同来自'); ?>:
-												
+
 						<?php if ($val['agree_users']) { ?>
 						<?php $count = 0; foreach($val['agree_users'] AS $uid => $user) { ?>
 						<?php if ($count > 0) { ?><em<?php if ($count >= 5) { ?> class="hide"<?php } ?>>、</em><?php } ?><a href="people/<?php echo $user['url_token']; ?>" data-id="<?php echo $user['uid']; ?>" class="aw-user-name<?php if ($count >= 5) { ?> hide<?php } ?>"><?php echo $user['user_name']; ?></a><?php $count++; } ?><?php } ?><?php if (count($val['agree_users']) >= 5) { ?><a href="javascript:;" class="aw-agree-by-show" onclick="$(this).parents('.aw-vote-info').find('em,a').removeClass('hide'); $(this).remove();"><?php _e('更多'); ?> »</a>
@@ -187,7 +187,7 @@
 				</div>
 				<div class="aw-mod-body markitup-box">
 					<?php echo nl2br($val['answer_content']); ?>
-					
+
 					<?php if ($val['attachs']) {  ?>
 					<div class="aw-comment-upload-img-list">
 					<?php foreach ($val['attachs'] AS $attach) { ?>
@@ -215,13 +215,13 @@
 			</li>
 			<?php } ?>
 		</ul>
-		
+
 		<a href="javascript:;" class="aw-load-more" style="display:none" id="load_uninterested_answers" ><?php _e('%s 个回复被折叠', '<span class="hide_answers_count">0</span>'); ?></a>
-		
+
 		<ul class="hide" id="uninterested_answers_list"></ul>
 	</div>
 	<?php } ?>
-	
+
 	<!-- end 评论列表 -->
 	<a name="answer_form"></a>
 	<?php if ($_GET['single']) { ?>
@@ -229,7 +229,7 @@
 	<?php } else if ($this->next_page) { ?>
 	<a href="m/question/<?php echo $this->question_info['question_id']; ?>?page=<?php echo $this->next_page; ?>" class="aw-load-more"><?php _e('下一页'); ?></a>
 	<?php } ?>
-	
+
 	<?php if (!$this->user_id) { ?>
 	<a class="aw-load-more" id="load_index_actions" href="account/login/"><?php _e('登录进行回复'); ?></a>
 	<?php } else if ($this->question_info['lock']) { ?>
@@ -245,7 +245,7 @@
 			<input type="hidden" name="attach_access_key" value="<?php echo $this->attach_access_key; ?>" />
 			<input type="hidden" name="post_hash" value="<?php echo new_post_hash(); ?>" />
 			<input type="hidden" name="question_id" value="<?php echo $this->question_info['question_id']; ?>" />
-			
+
 			<div class="aw-mod-head">
 				<a href="m/people/" class="avatar"><img src="<?php echo get_avatar_url($this->user_id, 'mid'); ?>" alt="" /></a>
 				<?php echo $this->user_info['user_name']; ?>
@@ -269,8 +269,8 @@
 				</span>
 				<?php if ($this->human_valid) { ?>
 				<div class="aw-auth-img pull-right clearfix">
-					<em class="auth-img pull-left"><img src="" onclick="this.src = G_BASE_URL + '/account/captcha/' + Math.floor(Math.random() * 10000);" id="captcha" /></em>
-					<input class="pull-left" type="text" name="seccode_verify" placeholder="<?php _e('验证码'); ?>" onfocus="$('#captcha').click();" />
+					<em class="auth-img pull-left"><img src="" onclick="reload_captcha();" id="captcha" /></em>
+					<input class="pull-left" type="text" name="seccode_verify" placeholder="<?php _e('验证码'); ?>" maxlength="4" />
 				</div>
 				<?php } ?>
 				<div id="file_uploader_answer"></div>
@@ -280,7 +280,7 @@
 	</div>
 	<!-- end 评论box -->
 	<?php } ?>
-	
+
 	<!-- 相关问题 -->
 	<?php if ($this->question_related_list) { ?>
 	<div class="aw-related-questions">
@@ -300,7 +300,7 @@
 	var QUESTION_ID = <?php echo $this->question_info['question_id'];?>;
 	var UNINTERESTED_COUNT = <?php echo get_setting('uninterested_fold'); ?>;
 	var ATTACH_ACCESS_KEY = '<?php echo $this->attach_access_key; ?>';
-	
+
 	$(document).ready(function () {
 		init_fileuploader('file_uploader_answer', G_BASE_URL + '/publish/ajax/attach_upload/id-answer__attach_access_key' + '-' + ATTACH_ACCESS_KEY);
 
@@ -316,13 +316,13 @@
 				}
 			});
 		}
-		
+
 		// 折叠回复
 		$.each($('li.aw-item'), function (i, e) {
 			if ($(this).attr('uninterested_count') >= UNINTERESTED_COUNT || $(this).attr('force_fold') == 1)
 			{
 				$('#uninterested_answers_list').append('<li class="aw-item">' + $(e).html() + '</li>');
-				
+
 				$(e).remove();
 			}
 		});
@@ -339,14 +339,14 @@
 	            $('#uninterested_answers_list').show();
 	        }
 	    });
-		
+
 		if ($('#uninterested_answers_list li.aw-item').length > 0)
 		{
 			$('#load_uninterested_answers span.hide_answers_count').html($('#uninterested_answers_list li.aw-item').length);
 			$('#load_uninterested_answers').fadeIn();
 		}
 	});
-	
+
 	function answer_force_fold(answer_id, element)
 	{
 		$.post(G_BASE_URL + '/question/ajax/answer_force_fold/', 'answer_id=' + answer_id, function (result) {
@@ -368,7 +368,7 @@
 		}, 'json');
 	}
 
-	
+var reload_captcha_interval = window.setInterval(reload_captcha, 600000);
 </script>
 
 <?php TPL::output('m/footer.tpl.htm'); ?>

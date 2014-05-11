@@ -78,7 +78,7 @@ $(document).ready(function () {
 			$.scrollTo($('a[name=' + window.location.hash.replace('#!', '') + ']').offset()['top'] - 20, 600, {queue:true});
 		}
 	}
-	
+
 	$('a[rel=lightbox]').fancybox(
     {
         openEffect: 'none',
@@ -104,14 +104,14 @@ $(document).ready(function () {
     });
 
 	$('.aw-mod-publish .aw-publish-title textarea').autosize();
-	
+
 	init_comment_box('.aw-add-comment');
 	init_article_comment_box('.aw-article-comment');
 
 	$('.autosize').autosize();
-	
+
 	$('img#captcha').attr('src', G_BASE_URL + '/account/captcha/');
-	
+
 	$('#aw-top-nav-profile').click(function(){
 		$('.aw-top-nav-popup').hide();
 		$('.aw-top-nav-profile').show();
@@ -156,7 +156,7 @@ $(document).ready(function () {
 			'topic_id' : $(this).parents('.aw-topic-name').attr('data-id')
 		} , function(result)
 		{
-			if (result.errno == 1) 
+			if (result.errno == 1)
 			{
 				_this.parents('.aw-topic-name').detach();
 			}else
@@ -220,7 +220,7 @@ $(document).ready(function () {
 				{
 	    			$('.aw-question-detail-title .aw-invite-box ul li').eq(e-3).show();
 				}
-	    		
+
 	    		if (e-3 == 0)
 	    		{
 	    			$('.aw-question-detail-title .aw-invite-box .prev').addClass('active');
@@ -405,17 +405,17 @@ function notification_show(length)
 function alert_box(type , data)
 {
 	var template;
-	
+
 	switch (type)
 	{
-		case 'publish' : 
+		case 'publish' :
 			template = Hogan.compile(AW_MOBILE_TEMPLATE.publish).render({
 	            'category_id': data.category_id,
 	            'ask_user_id': data.ask_user_id
 	        });
 		break;
 
-		case 'redirect' : 
+		case 'redirect' :
 			template = Hogan.compile(AW_MOBILE_TEMPLATE.redirect).render({
 				'data-id' : data
 			});
@@ -438,14 +438,14 @@ function alert_box(type , data)
 	if (template)
 	{
 		$('#aw-ajax-box').empty().append(template);
-		
+
 		switch (type)
 		{
 			case 'message' :
 				dropdown_list('.aw-message-input','message');
 			break;
-			
-			case 'redirect' : 
+
+			case 'redirect' :
 				dropdown_list('.aw-redirect-input','redirect');
 			break;
 
@@ -461,23 +461,23 @@ function alert_box(type , data)
 		                    $('#quick_publish_category_id').val($(this).attr('data-value'));
 		                });
 		            });
-		            
+
 		            $('#quick_publish_topic_chooser').hide();
 	        	}
 	        	else
 	        	{
 		        	$('#quick_publish_category_chooser').hide();
 	        	}
-	
+
 	            if ($('#aw-search-query').val() && $('#aw-search-query').val() != $('#aw-search-query').attr('placeholder'))
 	            {
 		            $('#quick_publish_question_content').val($('#aw-search-query').val());
 	            }
-	            
+
 	            add_topic_box('.alert-publish .aw-topic-edit-box .aw-add-topic-box', 'publish');
-				
+
 	            $('#quick_publish .aw-add-topic-box').click();
-	            
+
 	            if (typeof(G_QUICK_PUBLISH_HUMAN_VALID) != 'undefined')
 	            {
 		            $('#quick_publish_captcha').show();
@@ -490,9 +490,9 @@ function alert_box(type , data)
 	            {
 	                $('#editor_reply').html(result.answer_content.replace('&amp;', '&'));
 	            }, 'json');
-				
+
 	            init_fileuploader('file_uploader_answer_edit', G_BASE_URL + '/publish/ajax/attach_upload/id-answer__attach_access_key-' + ATTACH_ACCESS_KEY);
-	            
+
 	            if ($("#file_uploader_answer_edit ._ajax_upload-list").length) {
 		            $.post(G_BASE_URL + '/publish/ajax/answer_attach_edit_list/', 'answer_id=' + data.answer_id, function (data) {
 		                if (data['err']) {
@@ -507,7 +507,7 @@ function alert_box(type , data)
 	            break;
 		}
 	}
-	
+
 	$('.alert-' + type).modal('show');
 }
 
@@ -517,7 +517,7 @@ var aw_dropdown_list_interval, aw_dropdown_list_flag = 0;
 function dropdown_list(element, type)
 {
 	var ul = $(element).next().find('ul');
-	
+
 	$(element).keydown(function()
 	{
 		if (aw_dropdown_list_flag == 0)
@@ -528,13 +528,13 @@ function dropdown_list(element, type)
 				{
 					switch (type)
 					{
-						case 'search' : 
+						case 'search' :
 							$.get(G_BASE_URL + '/search/ajax/search/?q=' + encodeURIComponent($(element).val()) + '&limit=5',function(result)
 							{
 								if (result.length > 0)
 								{
 									ul.html('');
-									
+
 									$.each(result, function(i, e)
 									{
 										switch(result[i].type)
@@ -542,7 +542,7 @@ function dropdown_list(element, type)
 											case 'questions' :
 												ul.append('<li><a href="' + decodeURIComponent(result[i].url) + '">' + result[i].name + '<span class="aw-text-color-999">' + result[i].detail.answer_count + ' 个回答</span></a></li>');
 												break;
-												
+
 											case 'articles' :
 												ul.append('<li><a href="' + decodeURIComponent(result[i].url) + '">' + result[i].name + '<span class="aw-text-color-999">' + result[i].detail.comments + ' 个评论</span></a></li>');
 												break;
@@ -556,7 +556,7 @@ function dropdown_list(element, type)
 												break;
 										}
 									});
-									
+
 									$(element).next().show();
 								}else
 								{
@@ -574,13 +574,13 @@ function dropdown_list(element, type)
 									$.each(result ,function(i, e)
 									{
 										ul.append('<li><a><img src="' + result[i].detail.avatar_file + '"><span>' + result[i].name + '</span></a></li>')
-									});	
+									});
 									$('.alert-message .dropdown-list ul li a').click(function()
 									{
 										$(element).val($(this).text());
 										$(element).next().hide();
 									});
-									
+
 									$(element).next().show();
 								}else
 								{
@@ -589,13 +589,13 @@ function dropdown_list(element, type)
 							},'json');
 						break;
 
-						case 'invite' : 
+						case 'invite' :
 							$.get(G_BASE_URL + '/search/ajax/search/?type=users&q=' + encodeURIComponent($(element).val()) + '&limit=10',function(result)
 							{
 								if (result.length > 0)
 								{
 									ul.html('');
-									
+
 									$.each(result ,function(i, e)
 									{
 										ul.append('<li><a data-id="' + result[i].uid + '" data-value="' + result[i].name + '"><img src="' + result[i].detail.avatar_file + '"><span>' + result[i].name + '</span></a></li>')
@@ -605,7 +605,7 @@ function dropdown_list(element, type)
 									{
 										invite_user($(this),$(this).parents('li').find('img').attr('src'));
 									});
-									
+
 									$(element).next().show();
 								}else
 								{
@@ -620,12 +620,12 @@ function dropdown_list(element, type)
 								if (result.length > 0)
 								{
 									ul.html('');
-									
+
 									$.each(result ,function(i, e)
 									{
 										ul.append('<li><a onclick="ajax_request(' + "'" + G_BASE_URL + "/question/ajax/redirect/', 'item_id=" + $(element).attr('data-id') + "&target_id=" + result[i].search_id + "'" +')">' + result[i].name +'</a></li>')
-									});	
-									
+									});
+
 									$(element).next().show();
 								}else
 								{
@@ -640,12 +640,12 @@ function dropdown_list(element, type)
 								if (result.length > 0)
 								{
 									ul.html('');
-									
+
 									$.each(result ,function(i, e)
 									{
 										ul.append('<li><a>' + result[i].name +'</a></li>')
-									});	
-									
+									});
+
 									$('.alert-publish .aw-topic-edit-box .dropdown-list ul li, .aw-mod-publish .aw-topic-edit-box .dropdown-list ul li').click(function()
 									{
 										$(element).parents('.aw-topic-edit-box').find('.aw-topic-box').prepend('<span class="aw-topic-name"><a>' + $(this).text() + '</a><input type="hidden" name="topics[]" value="' + $(this).text() + '"><a href="#"><i onclick="$(this).parents(\'.aw-topic-name\').detach();">X</i></a></span>');
@@ -658,14 +658,14 @@ function dropdown_list(element, type)
 										$(this).parents('.aw-topic-box-selector').find('.aw-topic-input').val($(this).text());
 										$(this).parents('.aw-topic-box-selector').find('.btn-success').click();
 									});
-									
+
 									$(element).next().show();
 								}else
 								{
 									$(element).next().hide();
 								}
 							},'json');
-							
+
 						break;
 					}
 				}
@@ -689,11 +689,11 @@ function dropdown_list(element, type)
 			return aw_dropdown_list_interval;
 		}
 	});
-	
+
 	$(element).blur(function()
 	{
 		clearInterval(aw_dropdown_list_interval);
-		
+
 		aw_dropdown_list_flag = 0;
 	});
 }
@@ -774,7 +774,7 @@ function add_topic_box(element, type)
 		$('.aw-question-detail-title .aw-topic-edit-box .dropdown-list ul li').click(function()
 		{
 			var _this = $(this);
-			
+
 			switch (data_type)
 			{
 				case 'question' :
@@ -807,7 +807,7 @@ function add_topic_box(element, type)
 					}, 'json');
 			}
 
-			
+
 		});
 		/* 话题编辑取消按钮 */
 		$('.aw-topic-box-selector .cancel').click(function()
@@ -851,7 +851,7 @@ function invite_user(obj, img)
             _this.parents('.aw-question-detail-title').find('.aw-invite-replay .badge').text(parseInt(_this.parents('.aw-question-detail-title').find('.aw-invite-replay .badge').text()) + 1);
     	}
     }, 'json');
-	
+
 }
 
 /*取消邀请*/
@@ -945,7 +945,7 @@ function init_fileuploader(element_id, action_url)
     {
         return false;
     }
-    
+
     // if (G_UPLOAD_ENABLE == 'Y')
     // {
     // 	$('.aw-upload-tips').show();
@@ -1009,15 +1009,15 @@ function read_notification(notification_id, el, reload)
 function article_vote(element, article_id, rating)
 {
 	$.loading('show');
-	
+
 	if ($(element).hasClass('active'))
 	{
 		rating = 0;
 	}
-	
+
 	$.post(G_BASE_URL + '/article/ajax/article_vote/', 'type=article&item_id=' + article_id + '&rating=' + rating, function (result) {
 		$.loading('hide');
-		
+
 		if (result.errno != 1)
 	    {
 	        $.alert(result.err);
@@ -1058,21 +1058,21 @@ $.loading = function (s) {
     {
         $('#aw-ajax-box').append('<div id="aw-loading" class="hide"><div id="aw-loading-box"></div></div>');
     }
-    
+
 	if (s == 'show')
 	{
 		if ($('#aw-loading').css('display') == 'block')
 	    {
 		    return false;
 	    }
-		
+
 		$('#aw-loading').fadeIn();
-	
+
 		aw_loading_timer = setInterval(function () {
 			aw_loading_bg_count = aw_loading_bg_count - 1;
-			
+
 			$('#aw-loading-box').css('background-position', '0px ' + aw_loading_bg_count * 40 + 'px');
-			
+
 			if (aw_loading_bg_count == 1)
 			{
 				aw_loading_bg_count = 12;
@@ -1082,63 +1082,63 @@ $.loading = function (s) {
 	else
 	{
 		$('#aw-loading').fadeOut();
-	
+
 		clearInterval(aw_loading_timer);
 	}
 };
 
 function _t(string, replace)
-{	
+{
 	if (typeof(aws_lang) == 'undefined')
 	{
 		if (replace)
 		{
 			string = string.replace('%s', replace);
 		}
-		
+
 		return string;
 	}
-	
+
 	if (aws_lang[string])
 	{
 		string = aws_lang[string];
-		
+
 		if (replace)
 		{
 			string = string.replace('%s', replace);
 		}
-		
+
 		return string;
-	}	
+	}
 }
 
 var _list_view_pages = new Array();
 
 function load_list_view(url, list_view, ul_button, start_page, callback_func)
-{	
+{
 	if (!ul_button.attr('id'))
 	{
 		return false;
 	}
-	
+
 	if (!start_page)
 	{
 		start_page = 0
 	}
-	
+
 	_list_view_pages[ul_button.attr('id')] = start_page;
-	
+
 	ul_button.unbind('click');
-	
+
 	ul_button.bind('click', function () {
 		var _this = this;
-			
+
 		$.loading('show');
-	
+
 		$(_this).addClass('disabled');
-			
+
 		$.get(url + '__page-' + _list_view_pages[ul_button.attr('id')], function (response)
-		{			
+		{
 			if ($.trim(response) != '')
 			{
 				if (_list_view_pages[ul_button.attr('id')] == start_page)
@@ -1149,9 +1149,9 @@ function load_list_view(url, list_view, ul_button, start_page, callback_func)
 				{
 					list_view.append(response);
 				}
-				
-				_list_view_pages[ul_button.attr('id')]++; 
-				
+
+				_list_view_pages[ul_button.attr('id')]++;
+
 				$(_this).removeClass('disabled');
 			}
 			else
@@ -1160,38 +1160,38 @@ function load_list_view(url, list_view, ul_button, start_page, callback_func)
 				{
 					list_view.append('<p align="center">没有相关内容</p>');
 				}
-							
+
 				$(_this).unbind('click').bind('click', function () { return false; });
 			}
-				
+
 			$.loading('hide');
-			
+
 			if (callback_func != null)
 			{
 				callback_func();
 			}
 		});
-			
+
 		return false;
 	});
-	
+
 	ul_button.click();
 }
 
 function ajax_post(formEl, processer)	// 表单对象，用 jQuery 获取，回调函数名
-{	
+{
 	if (typeof(processer) != 'function')
 	{
 		processer = _ajax_post_processer;
-		
+
 		$.loading('show');
 	}
-	
+
 	var custom_data = {
 		_post_type:'ajax',
 		_is_mobile:'true'
 	};
-	
+
 	formEl.ajaxSubmit({
 		dataType: 'json',
 		data: custom_data,
@@ -1203,7 +1203,7 @@ function ajax_post(formEl, processer)	// 表单对象，用 jQuery 获取，回�
 function _ajax_post_processer(result)
 {
 	$.loading('hide');
-	
+
 	if (typeof(result.errno) == 'undefined')
 	{
 		alert(result);
@@ -1211,9 +1211,14 @@ function _ajax_post_processer(result)
 	else if (result.errno != 1)
 	{
 		alert(result.err);
+
+        if ($('#captcha'))
+        {
+            reload_captcha();
+        }
 	}
 	else
-	{		
+	{
 		if (result.rsm && result.rsm.url)
 		{
 			window.location = decodeURIComponent(result.rsm.url);
@@ -1225,15 +1230,20 @@ function _ajax_post_processer(result)
 	}
 }
 
+function reload_captcha() {
+    $("#captcha").attr("src", G_BASE_URL + '/account/captcha/' + Math.floor(Math.random() * 10000));
+    $("input[name='seccode_verify']").val("");
+};
+
 function ajax_request(url, params)
 {
 	$.loading('show');
-	
+
 	if (params)
 	{
 		$.post(url, params, function (result) {
 			$.loading('hide');
-			
+
 			if (result.err)
 			{
 				alert(result.err);
@@ -1252,7 +1262,7 @@ function ajax_request(url, params)
 	{
 		$.get(url, function (result) {
 			$.loading('hide');
-			
+
 			if (result.err)
 			{
 				alert(result.err);
@@ -1267,7 +1277,7 @@ function ajax_request(url, params)
 			}
 		}, 'json').error(function (error) { if ($.trim(error.responseText) != '') { $.loading('hide'); alert(_t('发生错误, 返回的信息:') + ' ' + error.responseText); } });
 	}
-	
+
 	return false;
 }
 
@@ -1276,29 +1286,29 @@ function focus_question(el, text_el, question_id)
 	if (el.hasClass('aw-active'))
 	{
 		text_el.html(_t('关注'));
-		
+
 		el.removeClass('aw-active');
 	}
 	else
 	{
 		text_el.html(_t('取消关注'));
-		
+
 		el.addClass('aw-active');
 	}
-	
+
 	$.loading('show');
-	
+
 	$.get(G_BASE_URL + '/question/ajax/focus/question_id-' + question_id, function (data)
 	{
 		$.loading('hide');
-		
+
 		if (data.errno != 1)
 		{
 			if (data.err)
 			{
 				alert(data.err);
 			}
-			
+
 			if (data.rsm.url)
 			{
 				window.location = decodeURIComponent(data.rsm.url);
@@ -1319,20 +1329,20 @@ function focus_topic(el, text_el, topic_id)
 		text_el.html(_t('取消关注'));
 		el.addClass('aw-active');
 	}
-	
+
 	$.loading('show');
-	
+
 	$.get(G_BASE_URL + '/topic/ajax/focus_topic/topic_id-' + topic_id, function (data)
 	{
 		$.loading('hide');
-		
+
 		if (data.errno != 1)
 		{
 			if (data.err)
 			{
 				alert(data.err);
 			}
-			
+
 			if (data.rsm.url)
 			{
 				window.location = decodeURIComponent(data.rsm.url);
@@ -1353,20 +1363,20 @@ function follow_people(el, uid)
         el.html(_t('关注'));
         el.removeClass('aw-active');
     }
-	
+
 	$.loading('show');
-	
+
 	$.get(G_BASE_URL + '/follow/ajax/follow_people/uid-' + uid, function (data)
 	{
 		$.loading('hide');
-		
+
 		if (data.errno != 1)
 		{
 			if (data.err)
 			{
 				alert(data.err);
 			}
-			
+
 			if (data.rsm.url)
 			{
 				window.location = decodeURIComponent(data.rsm.url);
@@ -1378,11 +1388,11 @@ function follow_people(el, uid)
 function answer_user_rate(answer_id, type, element)
 {
 	$.loading('show');
-	
+
 	$.post(G_BASE_URL + '/question/ajax/question_answer_rate/', 'type=' + type + '&answer_id=' + answer_id, function (result) {
-		
+
 		$.loading('hide');
-		
+
 		if (result.errno != 1)
 		{
 			alert(result.err);
@@ -1402,7 +1412,7 @@ function answer_user_rate(answer_id, type, element)
 						$(element).html(_t('感谢'));
 					}
 				break;
-				
+
 				case 'uninterested':
 					if (result.rsm.action == 'add')
 					{
@@ -1428,15 +1438,15 @@ function _ajax_post_confirm_processer(result)
 	{
 		if (!confirm(result.err))
 		{
-			return false;	
+			return false;
 		}
 	}
-	
+
 	if (result.errno == 1 && result.err)
 	{
 		alert(result.err);
 	}
-	
+
 	if (result.rsm && result.rsm.url)
 	{
 		window.location = decodeURIComponent(result.rsm.url);
@@ -1450,21 +1460,21 @@ function _ajax_post_confirm_processer(result)
 function answer_vote(element, answer_id, val)
 {
 	var data_theme = element.attr('data-theme');
-	
+
 	$('.ui-dialog').dialog('close');
-	
+
 	$.loading('show');
-	
+
 	$.post(G_BASE_URL + '/question/ajax/answer_vote/', 'answer_id=' + answer_id + '&value=' + val, function (result) {
 		$.loading('hide');
-		
+
 		if (data_theme == 'd')
 		{
 			$('#answer_vote_button').removeClass('ui-btn-up-d').removeClass('ui-btn-hover-d');
-		
+
 			$('#answer_vote_button').addClass('ui-btn-up-b');
 			$('#answer_vote_button').attr('data-theme', 'b');
-			
+
 			if (parseInt(val) > 0)
 			{
 				$('#answer_vote_button').find('span.ui-btn-text').html((parseInt($('#answer_vote_button').find('span.ui-btn-text').text()) + parseInt(val)));
@@ -1473,10 +1483,10 @@ function answer_vote(element, answer_id, val)
 		else
 		{
 			$('#answer_vote_button').removeClass('ui-btn-up-b').removeClass('ui-btn-hover-b');
-		
+
 			$('#answer_vote_button').addClass('ui-btn-up-d');
 			$('#answer_vote_button').attr('data-theme', 'd');
-			
+
 			if (parseInt(val) > 0)
 			{
 				$('#answer_vote_button').find('span.ui-btn-text').html((parseInt($('#answer_vote_button').find('span.ui-btn-text').text()) - parseInt(val)));
@@ -1495,7 +1505,7 @@ function init_comment_box(selecter)
         }
 
         var comment_box_id = '#aw-comment-box-' + $(this).attr('data-type') + '-' + 　$(this).attr('data-id');
-		
+
         if ($(comment_box_id).length > 0)
         {
             if ($(comment_box_id).css('display') == 'none')
@@ -1516,7 +1526,7 @@ function init_comment_box(selecter)
 	                var comment_form_action = G_BASE_URL + '/question/ajax/save_question_comment/question_id-' + $(this).attr('data-id');
 	                var comment_data_url = G_BASE_URL + '/question/ajax/get_question_comments/question_id-' + $(this).attr('data-id');
 	                break;
-	
+
 	            case 'answer':
 	                var comment_form_action = G_BASE_URL + '/question/ajax/save_answer_comment/answer_id-' + $(this).attr('data-id');
 	                var comment_data_url = G_BASE_URL + '/question/ajax/get_answer_comments/answer_id-' + $(this).attr('data-id');
@@ -1530,7 +1540,7 @@ function init_comment_box(selecter)
                     'comment_form_id': comment_box_id.replace('#', ''),
                     'comment_form_action': comment_form_action
                 }));
-				
+
                 $(comment_box_id).find('.close-comment-box').click(function ()
                 {
                     $(comment_box_id).fadeOut();
@@ -1626,7 +1636,7 @@ function _comments_form_processer(result)
 function remove_comment(el, type, comment_id)
 {
 	$.get(G_BASE_URL + '/question/ajax/remove_comment/type-' + type + '__comment_id-' + comment_id);
-	
+
 	$(el).parents('.aw-comment-box li').fadeOut();
 }
 
@@ -1664,8 +1674,8 @@ function question_thanks(question_id, element)
 function agreeVote(element, answer_id)
 {
 	$.post(G_BASE_URL + '/question/ajax/answer_vote/', 'answer_id=' + answer_id + '&value=1', function (result) {});
-	
-    //判断是否投票过   
+
+    //判断是否投票过
     if ($(element).find('i').hasClass('active'))
     {
     	return false;
@@ -1673,7 +1683,7 @@ function agreeVote(element, answer_id)
     else
     {
     	$(element).find('i').addClass('active');
-    	
+
     	$(element).find('em').html(parseInt($(element).find('em').html()) + 1);
     }
 }
@@ -1682,12 +1692,12 @@ function agreeVote(element, answer_id)
 function disagreeVote(element, answer_id)
 {
     $.post(G_BASE_URL + '/question/ajax/answer_vote/', 'answer_id=' + answer_id + '&value=-1', function (result) {});
-    
+
     //判断是否投票过
     if ($(element).find('.aw-icon').hasClass('active'))
     {
     	$(element).parents('.aw-mod-footer').find('a.answer_vote .aw-icon').removeClass('active');
-    	
+
         $(element).find('.aw-icon').removeClass('active');
     }
     else
@@ -1701,10 +1711,10 @@ function disagreeVote(element, answer_id)
     	}
 
     	$(element).parents('.aw-mod-footer').find('a.answer_vote .aw-icon').removeClass('active');
-    	
+
     	$(element).find('.aw-icon').addClass('active');
-    	
-    	
+
+
        	//$(element).parents('.aw-mod-footer').find('a.answer_vote em').html(parseInt($(element).parents('.aw-mod-footer').find('a.answer_vote em').html()) - 1);
     }
 }
@@ -1751,15 +1761,15 @@ function answer_user_rate(answer_id, type, element)
 function comment_vote(element, comment_id, rating)
 {
 	$.loading('show');
-	
+
 	if ($(element).hasClass('active'))
 	{
 		rating = 0;
 	}
-	
+
 	$.post(G_BASE_URL + '/article/ajax/article_vote/', 'type=comment&item_id=' + comment_id + '&rating=' + rating, function (result) {
 		$.loading('hide');
-		
+
 		if (result.errno != 1)
 	    {
 	        alert(result.err);

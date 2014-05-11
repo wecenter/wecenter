@@ -19,18 +19,18 @@ function _t(string, replace)
 function ajax_request(url, params)
 {
 	$.loading('show');
-	
+
     if (params)
     {
         $.post(url, params + '&_post_type=ajax', function (result)
         {
         	$.loading('hide');
-        	
+
         	if (!result)
         	{
 	        	return false;
         	}
-        	
+
             if (result.err)
             {
                 $.alert(result.err);
@@ -46,7 +46,7 @@ function ajax_request(url, params)
         }, 'json').error(function (error)
         {
         	$.loading('hide');
-        	
+
             if ($.trim(error.responseText) != '')
             {
                 alert(_t('发生错误, 返回的信息:') + ' ' + error.responseText);
@@ -58,12 +58,12 @@ function ajax_request(url, params)
         $.get(url, function (result)
         {
         	$.loading('hide');
-        	
+
         	if (!result)
         	{
 	        	return false;
         	}
-        	
+
             if (result.err)
             {
                 $.alert(result.err);
@@ -79,7 +79,7 @@ function ajax_request(url, params)
         }, 'json').error(function (error)
         {
         	$.loading('hide');
-        	
+
             if ($.trim(error.responseText) != '')
             {
                 alert(_t('发生错误, 返回的信息:') + ' ' + error.responseText);
@@ -95,7 +95,7 @@ function ajax_post(formEl, processer) // 表单对象，用 jQuery 获取，回�
     if (typeof (processer) != 'function')
     {
         processer = _ajax_post_processer;
-        
+
         $.loading('show');
     }
 
@@ -113,7 +113,7 @@ function ajax_post(formEl, processer) // 表单对象，用 jQuery 获取，回�
             if ($.trim(error.responseText) != '')
             {
             	$.loading('hide');
-            	
+
                 alert(_t('发生错误, 返回的信息:') + ' ' + error.responseText);
             }
         }
@@ -123,7 +123,7 @@ function ajax_post(formEl, processer) // 表单对象，用 jQuery 获取，回�
 function _ajax_post_processer(result)
 {
 	$.loading('hide');
-	
+
     if (typeof (result.errno) == 'undefined')
     {
         $.alert(result);
@@ -252,7 +252,7 @@ function _error_message_form_processer(result)
     	{
 	    	 $('.error_message').html(result.err);
     	}
-    	
+
     	if ($('.error_message').css('display') != 'none')
     	{
 	    	shake($('.error_message'));
@@ -261,6 +261,11 @@ function _error_message_form_processer(result)
     	{
 	    	$('.error_message').fadeIn();
     	}
+
+        if ($('#captcha'))
+        {
+            reload_captcha();
+        }
     }
     else
     {
@@ -278,13 +283,18 @@ function _error_message_form_processer(result)
 function shake(element)
 {
     element.css('margin-left',element.css('margin-left'));
-    
+
     for (var i = 1; i <= 3; i++)
     {
         element.animate({ 'left': (30 - 10 * i) }, 20);
         element.animate({ 'left': (2 * (30 - 10 * i)) }, 20);
     }
 }
+
+function reload_captcha() {
+    $("#captcha").attr("src", G_BASE_URL + '/account/captcha/' + Math.floor(Math.random() * 10000));
+    $("input[name='seccode_verify']").val("");
+};
 
 function focus_question(el, question_id)
 {
@@ -817,7 +827,7 @@ function init_fileuploader(element_id, action_url)
     {
         return false;
     }
-    
+
     if (G_UPLOAD_ENABLE == 'Y')
     {
     	$('.aw-upload-tips').show();
@@ -927,7 +937,7 @@ function _comments_form_processer(result)
 function remove_comment(el, type, comment_id)
 {
 	$.get(G_BASE_URL + '/question/ajax/remove_comment/type-' + type + '__comment_id-' + comment_id);
-	
+
 	$(el).parents('.aw-comment-box li').fadeOut();
 }
 
@@ -1015,7 +1025,7 @@ function init_comment_box(selector)
         }
 
         var comment_box_id = '#aw-comment-box-' + $(this).attr('data-type') + '-' + 　$(this).attr('data-id');
-		
+
         if ($(comment_box_id).length > 0)
         {
             if ($(comment_box_id).css('display') == 'none')
@@ -1036,7 +1046,7 @@ function init_comment_box(selector)
 	                var comment_form_action = G_BASE_URL + '/question/ajax/save_question_comment/question_id-' + $(this).attr('data-id');
 	                var comment_data_url = G_BASE_URL + '/question/ajax/get_question_comments/question_id-' + $(this).attr('data-id');
 	                break;
-	
+
 	            case 'answer':
 	                var comment_form_action = G_BASE_URL + '/question/ajax/save_answer_comment/answer_id-' + $(this).attr('data-id');
 	                var comment_data_url = G_BASE_URL + '/question/ajax/get_answer_comments/answer_id-' + $(this).attr('data-id');
@@ -1049,7 +1059,7 @@ function init_comment_box(selector)
                     'comment_form_id': comment_box_id.replace('#', ''),
                     'comment_form_action': comment_form_action
                 }));
-				
+
                 $(comment_box_id).find('.aw-comment-txt').bind(
                 {
                     focus: function ()
@@ -1088,7 +1098,7 @@ function init_comment_box(selector)
                 {
                     result = '<div align="center" class="aw-padding10">' + _t('暂无评论') + '</div>';
                 }
-				
+
                 $(comment_box_id).find('.aw-comment-list').html(result);
             });
 
@@ -1138,12 +1148,12 @@ function insertVoteBar(data)
 	        up_class = 'active';
 	        down_class = '';
 	        break;
-	
+
 	    case -1:
 	        up_class = '';
 	        down_class = 'active';
 	        break;
-	
+
 	    case 0:
 	        up_class = '';
 	        down_class = '';
@@ -1166,7 +1176,7 @@ function insertVoteBar(data)
 function agreeVote(element, user_name, answer_id)
 {
 	$.post(G_BASE_URL + '/question/ajax/answer_vote/', 'answer_id=' + answer_id + '&value=1', function (result) {});
-	
+
     //判断是否投票过
     if ($(element).parents('.aw-item').find('.aw-agree-by').text().match(user_name))
     {
@@ -1253,7 +1263,7 @@ function disagreeVote(element, user_name, answer_id)
                 $(element).parents('.aw-item').find('.aw-vote-bar-count').html(parseInt($(element).parents('.aw-item').find('.aw-vote-bar-count').html())-1);
             }
         }
-        
+
         $(element).parents('.aw-item').find('a.active').removeClass('active');
         $(element).addClass('active');
 
@@ -1373,7 +1383,7 @@ function init_topic_edit_box(selector) //selector -> .aw-edit-topic
                             }
 
                             _aw_topic_editor_element.prepend('<a href="' + G_BASE_URL + '/favorite/tag-' + encodeURIComponent(_aw_topic_editor_element.find('#aw_edit_topic_title').val()) + '" class="aw-topic-name"><span>' + _aw_topic_editor_element.find('#aw_edit_topic_title').val() + '<button class="close aw-close">x</button></span></a>').hide().fadeIn();
-                            
+
                             _aw_topic_editor_element.find('#aw_edit_topic_title').val('');
                         }, 'json');
                         break;
@@ -1427,7 +1437,7 @@ function show_card_box(selector, type, time) //selector -> .aw-user-name/.aw-top
             {
                  switch (type)
                 {
-                    case 'user' : 
+                    case 'user' :
                         //检查是否有缓存
                         if (cashUserData.length == 0)
                         {
@@ -1477,7 +1487,7 @@ function show_card_box(selector, type, time) //selector -> .aw-user-name/.aw-top
                             focusTxt,
                             verified = result.verified,
                             userName = "'" + result.user_name + "'";
-                           
+
                         if (focus == 1)
                         {
                             focus = '';
@@ -1488,7 +1498,7 @@ function show_card_box(selector, type, time) //selector -> .aw-user-name/.aw-top
                             focus = 'aw-active';
                             focusTxt = '关注';
                         }
-                        
+
                         if(result.verified == 'enterprise')
                         {
                             verified_enterprise = 'icon-v i-ve';
@@ -1636,7 +1646,7 @@ function show_card_box(selector, type, time) //selector -> .aw-user-name/.aw-top
                     nBottom = $(window).height() - _this.innerHeight() - nTop,
                     cardBoxWidth = ($('#aw-card-tips').innerWidth()) ? $('#aw-card-tips').innerWidth() : 270;
                 //判断下边距不足的情况
-                if ($('#aw-card-tips').innerHeight() + _this.children().innerHeight() > nBottom) 
+                if ($('#aw-card-tips').innerHeight() + _this.children().innerHeight() > nBottom)
                 {
                     top = top - $('#aw-card-tips').innerHeight() - 5;
                 }
@@ -1650,7 +1660,7 @@ function show_card_box(selector, type, time) //selector -> .aw-user-name/.aw-top
                 }
 
                 return {'left': left, 'top': top};
-                
+
             }
         }, time);
     });
@@ -1661,7 +1671,7 @@ function show_card_box(selector, type, time) //selector -> .aw-user-name/.aw-top
         cardBoxTimeout = setTimeout(function ()
         {
             $('#aw-card-tips').fadeOut();
-        }, 600); 
+        }, 600);
     });
 }
 
@@ -1669,7 +1679,7 @@ function show_card_box(selector, type, time) //selector -> .aw-user-name/.aw-top
 function invite_user(obj, img)
 {
 	var _this = obj;
-	
+
     $.post(G_BASE_URL + '/question/ajax/save_invite/',
     {
         'question_id': QUESTION_ID,
@@ -1763,7 +1773,7 @@ function bind_dropdown_list(selector, type)
                 {
                     $('.aw-edit-topic-box #aw_edit_topic_title').val( $('.aw-edit-topic-box #aw_edit_topic_title').val().substring(0,$('.aw-edit-topic-box #aw_edit_topic_title').val().length-1));
                     $('.aw-edit-topic-box .aw-topic-dropdown').hide();
-                    $('.aw-edit-topic-box .submit-edit').click(); 
+                    $('.aw-edit-topic-box .submit-edit').click();
                 }
                 return false;
             }
@@ -1854,7 +1864,7 @@ function get_dropdown_list(selector, type, data)
                                     'discuss_count': a.detail.answer_count
                                 }));
                                 break;
-								
+
 							case 'articles':
                                 $(selector).parent().find('.aw-dropdown-list').append(Hogan.compile(AW_TEMPLATE.searchDropdownListArticles).render(
                                 {
@@ -1863,7 +1873,7 @@ function get_dropdown_list(selector, type, data)
                                     'comments': a.detail.comments
                                 }));
                                 break;
-								
+
                             case 'topics':
                                 $(selector).parent().find('.aw-dropdown-list').append(Hogan.compile(AW_TEMPLATE.searchDropdownListTopics).render(
                                 {
@@ -1873,7 +1883,7 @@ function get_dropdown_list(selector, type, data)
                                     'topic_id': a.detail.topic_id
                                 }));
                                 break;
-                            
+
                             case 'users':
                                 if (a.detail.signature == '')
                                 {
@@ -1883,7 +1893,7 @@ function get_dropdown_list(selector, type, data)
                                 {
                                     var signature = a.detail.signature;
                                 }
-                                
+
                                 $(selector).parent().find('.aw-dropdown-list').append(Hogan.compile(AW_TEMPLATE.searchDropdownListUsers).render(
                                 {
                                     'url': a.url,
@@ -2008,7 +2018,7 @@ var at_user_lists_flag = 0, at_user_lists_index = 0;
 function at_user_lists(selector) {
     $(selector).keyup(function (e) {
         init();
-        
+
         var _this = $(this),
              flag = getCursorPosition($(this)[0]).start,
             key = e.which,
@@ -2134,15 +2144,15 @@ function at_user_lists(selector) {
 function article_vote(element, article_id, rating)
 {
 	$.loading('show');
-	
+
 	if ($(element).hasClass('active'))
 	{
 		rating = 0;
 	}
-	
+
 	$.post(G_BASE_URL + '/article/ajax/article_vote/', 'type=article&item_id=' + article_id + '&rating=' + rating, function (result) {
 		$.loading('hide');
-		
+
 		if (result.errno != 1)
 	    {
 	        $.alert(result.err);
@@ -2177,15 +2187,15 @@ function article_vote(element, article_id, rating)
 function comment_vote(element, comment_id, rating)
 {
 	$.loading('show');
-	
+
 	if ($(element).hasClass('active'))
 	{
 		rating = 0;
 	}
-	
+
 	$.post(G_BASE_URL + '/article/ajax/article_vote/', 'type=comment&item_id=' + comment_id + '&rating=' + rating, function (result) {
 		$.loading('hide');
-		
+
 		if (result.errno != 1)
 	    {
 	        $.alert(result.err);
@@ -2213,9 +2223,9 @@ function getCursorPosition(textarea)
         start: 0,
         end: 0
     };
-    
+
     textarea.focus();
-    
+
     if (textarea.setSelectionRange) { // W3C
         rangeData.start = textarea.selectionStart;
         rangeData.end = textarea.selectionEnd;

@@ -23,7 +23,7 @@
 			</li>
 		</ul>
 	</form>
-	
+
 	<form id="register_form" method="post" class="aw-register-form" onsubmit="return false" action="">
 		<ul>
 			<li>
@@ -37,8 +37,8 @@
 			</li>
 			<?php if (!$this->fromuid AND !$this->icode AND get_setting('register_seccode') == 'Y') { ?>
 			<li class="aw-register-verify">
-				<em class="auth-img pull-right"><img id="captcha" onclick="this.src = G_BASE_URL + '/account/captcha/' + Math.floor(Math.random() * 10000);" src="" /></em>
-				<input class="form-control" type="text" name="seccode_verify" placeholder="<?php _e('验证码'); ?>" />
+				<em class="auth-img pull-right"><img id="captcha" onclick="reload_captcha();" src="" /></em>
+				<input class="form-control" type="text" name="seccode_verify" placeholder="<?php _e('验证码'); ?>" maxlength="4"/>
 			</li>
 			<?php } ?>
 			<li class="last">
@@ -63,26 +63,28 @@
 <script type="text/javascript">
 	$(document).ready(function () {
 		$('#login_return_url').val(window.location.href);
-		
+
 		$.get(G_BASE_URL + '/account/ajax/register_agreement/', function (result) { $('#register_agreement').html(result.err); }, 'json');
-		
+
 		$('.aw-register-open-tabs').click(function() {
 			if ($('#login_form').is(':visible'))
 			{
 				$('#login_form').hide();
 				$('#register_form').show();
-				
+
 				$(this).removeClass('active');
 			}
 			else
 			{
 				$('#login_form').show();
 				$('#register_form').hide();
-				
+
 				$(this).addClass('active');
 			}
 		});
 	});
+
+var reload_captcha_interval = window.setInterval(reload_captcha, 600000);
 </script>
 
 <?php TPL::output('global/footer.tpl.htm'); ?>
