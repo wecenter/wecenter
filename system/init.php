@@ -8,7 +8,7 @@
 |   http://www.wecenter.com
 |   ========================================
 |   Support: WeCenter@qq.com
-|   
+|
 +---------------------------------------------------------------------------
 */
 
@@ -33,8 +33,6 @@ if (function_exists('memory_get_usage'))
 	define('MEMORY_USAGE_START', memory_get_usage());
 }
 
-error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT);
-
 if (! defined('AWS_PATH'))
 {
 	define('AWS_PATH', dirname(__FILE__) . '/');
@@ -49,10 +47,12 @@ define('ROOT_PATH', dirname(dirname(__FILE__)) . '/');
 
 if (defined('IN_SAE'))
 {
+	error_reporting(0);
 	define('TEMP_PATH', rtrim(SAE_TMP_PATH, '/') . '/');
 }
 else
 {
+	error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT);
 	define('TEMP_PATH', dirname(dirname(__FILE__)) . '/tmp/');
 }
 
@@ -67,11 +67,11 @@ if (function_exists('get_magic_quotes_gpc'))
 				$value = stripslashes($value);
 			}
 		}
-		
+
 		array_walk_recursive($_GET, 'stripslashes_gpc');
 		array_walk_recursive($_POST, 'stripslashes_gpc');
 		array_walk_recursive($_COOKIE, 'stripslashes_gpc');
-		array_walk_recursive($_REQUEST, 'stripslashes_gpc');	
+		array_walk_recursive($_REQUEST, 'stripslashes_gpc');
 	}
 }
 
@@ -81,7 +81,7 @@ require_once(AWS_PATH . 'functions.inc.php');
 array_walk_recursive($_GET, 'remove_invisible_characters');
 array_walk_recursive($_POST, 'remove_invisible_characters');
 array_walk_recursive($_COOKIE, 'remove_invisible_characters');
-array_walk_recursive($_REQUEST, 'remove_invisible_characters');	
+array_walk_recursive($_REQUEST, 'remove_invisible_characters');
 
 if (@ini_get('register_globals'))
 {
@@ -92,7 +92,7 @@ if (@ini_get('register_globals'))
 			unset($$name);
 		}
 	}
-	
+
 	if ($_COOKIE)
 	{
 		foreach ($_COOKIE AS $name => $value)
