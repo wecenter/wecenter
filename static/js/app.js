@@ -18,7 +18,7 @@ $(document).ready(function ()
     $("form[action='']").attr('action', window.location.href);
 
     $('img#captcha').attr('src', G_BASE_URL + '/account/captcha/');
-    
+
     $('.autosize').autosize();
 
     //编辑器初始化
@@ -78,7 +78,7 @@ $(document).ready(function ()
             this.title = '第 ' + (this.index + 1) + ' 张, 共 ' + this.group.length + ' 张' + (this.title ? ' - ' + this.title : '');
         }
     });
-	
+
 	if (window.location.hash.indexOf('#!') != -1)
 	{
 		if ($('a[name=' + window.location.hash.replace('#!', '') + ']').length)
@@ -86,20 +86,20 @@ $(document).ready(function ()
 			$.scrollTo($('a[name=' + window.location.hash.replace('#!', '') + ']').offset()['top'] - 20, 600, {queue:true});
 		}
 	}
-	
+
     //文章页添加评论, 话题添加 绑定事件
     init_article_comment_box('.aw-article-detail .aw-article-comment');
     init_topic_edit_box('.aw-edit-topic');
-	
+
     /*用户头像提示box*/
     show_card_box('.aw-user-name, .aw-user-img', 'user');
     show_card_box('.aw-topic-name, .aw-topic-img', 'topic');
-    
+
     //小卡片mouseover
     $(document).on('mouseover', '#aw-card-tips', function ()
     {
         clearTimeout(cardBoxTimeout);
-        
+
         $(this).show();
     });
     //小卡片mouseout
@@ -112,7 +112,7 @@ $(document).ready(function ()
     $(document).on('click', '.aw-card-tips-user .focus', function ()
     {
         var uid = $(this).parents('.aw-card-tips').find('.name').attr('data-id');
-       
+
        $.each(cashUserData, function (i, a)
        {
            //存在缓存
@@ -135,7 +135,7 @@ $(document).ready(function ()
     $(document).on('click', '.aw-card-tips-topic .focus', function ()
     {
         var topic_id = $(this).parents('.aw-card-tips').find('.name').attr('data-id');
-        
+
         $.each(cashTopicData, function (i, a)
         {
             //存在缓存
@@ -152,19 +152,19 @@ $(document).ready(function ()
             }
         });
     });
-    
+
     /*icon tooltips提示*/
     $(document).on('mouseover', '.voter, .fa-check, .icon-ok-sign , .fa-thumbs-o-up , .fa-thumbs-o-down  , .aw-icon-thank-tips, .invite-list-user', function ()
     {
         $(this).tooltip('show');
     });
-	
+
     //话题编辑下拉菜单mouseover click事件动态绑定
     $(document).on('mouseover', '.aw-edit-topic-box .aw-dropdown-list li', function ()
     {
         $(this).parents('.aw-edit-topic-box').find('#aw_edit_topic_title').val($(this).text());
     });
-    
+
     $(document).on('click', '.aw-edit-topic-box .aw-dropdown-list li', function ()
     {
         $(this).parents('.aw-edit-topic-box').find('#aw_edit_topic_title').val($(this).text());
@@ -214,7 +214,7 @@ $(document).ready(function ()
 
         return false;
     });
-	
+
     //ie浏览器下input,textarea兼容
     if (document.all)
     {
@@ -242,6 +242,11 @@ $(document).ready(function ()
                 });
             }
         });
+    }
+
+    if ($('#captcha'))
+    {
+        var reload_captcha_interval = window.setInterval(reload_captcha, 600000);
     }
 });
 
