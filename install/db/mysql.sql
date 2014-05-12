@@ -1067,6 +1067,21 @@ CREATE TABLE `[#DB_PREFIX#]weixin_reply_rule` (
   KEY `sort_status` (`sort_status`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
 
+CREATE TABLE `[#DB_PREFIX#]weixin_accounts` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `mp_token` varchar(255) NOT NULL,
+  `account_role` varchar(20) DEFAULT 'general',
+  `app_id` varchar(255) DEFAULT '',
+  `app_secret` varchar(255) DEFAULT '',
+  `wecenter_access_token` varchar(255) DEFAULT '',
+  `wecenter_access_secret` varchar(255) DEFAULT '',
+  `mp_menu` text DEFAULT '{}',
+  PRIMARY KEY (`id`),
+  KEY `mp_token` (`mp_token`),
+  KEY `account_role` (`account_role`),
+  KEY `app_id` (`app_id`),
+) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8 COMMENT='微信多账号设置';
+
 INSERT INTO `[#DB_PREFIX#]category`(`title`,`type`) VALUES
 ('默认分类', 'question');
 
