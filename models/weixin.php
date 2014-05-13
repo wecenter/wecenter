@@ -19,11 +19,11 @@ if (! defined('IN_ANWSION'))
 
 class weixin_class extends AWS_MODEL
 {
-	var $xml_template_text = '<xml><ToUserName><![CDATA[%s]]></ToUserName><FromUserName><![CDATA[%s]]></FromUserName><CreateTime>%s</CreateTime><MsgType><![CDATA[%s]]></MsgType><Content><![CDATA[%s]]></Content><FuncFlag>0</FuncFlag></xml>';
+	private $xml_template_text = '<xml><ToUserName><![CDATA[%s]]></ToUserName><FromUserName><![CDATA[%s]]></FromUserName><CreateTime>%s</CreateTime><MsgType><![CDATA[%s]]></MsgType><Content><![CDATA[%s]]></Content><FuncFlag>0</FuncFlag></xml>';
 
-	var $bind_message;
+	private $bind_message;
 
-	var $user_id;
+	private $user_id;
 
 	private $account_info;
 

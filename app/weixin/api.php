@@ -20,7 +20,7 @@ if (!defined('IN_ANWSION'))
 
 class api extends AWS_CONTROLLER
 {
-	public $input_message;
+	private $input_message;
 
 	public function get_access_rule()
 	{
