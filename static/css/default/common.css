@@ -501,10 +501,10 @@ a.aw-load-more-content{display: block;}
 .aw-publish-title-dropdown .dropdown-menu ul li, .aw-question-operate .dropdown-menu ul li{padding:5px 10px;}
 .aw-publish-title-dropdown .dropdown-menu ul li a, .aw-question-operate .dropdown-menu ul li a{display: block;}
 .aw-publish-title .aw-dropdown .aw-dropdown-list li{line-height: 10px;}
-.aw-mod-publish .aw-mod-footer{margin-top:20px;text-align: right;}
-.aw-mod-publish .aw-mod-footer .aw-anonymity{margin:8px 20px 8px 10px;}
-.aw-mod-publish .aw-mod-footer .aw-anonymity label{margin-left: 10px;}
-.aw-mod-publish .aw-mod-footer .aw-anonymity input{margin:4px 3px 0 0;margin:0\0;}
+.aw-mod-publish .mod-footer{margin-top:20px;text-align: right;}
+.aw-mod-publish .mod-footer .aw-anonymity{margin:8px 20px 8px 10px;}
+.aw-mod-publish .mod-footer .aw-anonymity label{margin-left: 10px;}
+.aw-mod-publish .mod-footer .aw-anonymity input{margin:4px 3px 0 0;margin:0\0;}
 .aw-mod-publish-box{height: auto;overflow: hidden;}
 .aw-mod-publish-box .mod-head{position:relative;margin:0 !important;border-bottom: none !important;}
 .aw-mod-publish-box .mod-body{position:relative;padding:10px 0;}
