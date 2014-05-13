@@ -32,6 +32,11 @@ class weixin_class extends AWS_MODEL
 		return $this->fetch_one('weixin_accounts', 'id', 'id = ' . $account_id);
 	}
 
+	public function get_weixin_mp_menu ($account_id)
+	{
+		return $this->fetch_one('weixin_accounts', 'mp_menu', 'id = ' . $account_id);
+	}
+
 	public function get_account_info_by_id ($account_id)
 	{
 		return $this->query_row('SELECT * FROM ' . $this->get_table('weixin_accounts') . ' WHERE id = ' . $account_id);
@@ -850,7 +855,7 @@ class weixin_class extends AWS_MODEL
 
 	public function check_signature($account_id, $signature, $timestamp, $nonce)
 	{
-		$this->account_info = $this->model('weixin')->get_account_info_by_id($account_id);
+		$this->account_info = $this->get_account_info_by_id($account_id);
 
 		if (!$this->account_info['mp_token'])
 		{
@@ -1083,7 +1088,7 @@ class weixin_class extends AWS_MODEL
 			return false;
 		}
 
-		$mp_menu_data = json_encode($this->account_info['mp_menu']);
+		$mp_menu_data = json_decode($this->account_info['mp_menu']);
 
 		foreach ($mp_menu_data AS $key => $val)
 		{
@@ -1136,7 +1141,7 @@ class weixin_class extends AWS_MODEL
 			return false;
 		}
 
-		$mp_menu = json_encode($this->account_info['mp_menu']);
+		$mp_menu = json_decode($this->account_info['mp_menu']);
 
 		foreach ($mp_menu AS $key => $val)
 		{

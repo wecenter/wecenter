@@ -8,7 +8,7 @@
 |   http://www.wecenter.com
 |   ========================================
 |   Support: WeCenter@qq.com
-|   
+|
 +---------------------------------------------------------------------------
 */
 
@@ -24,28 +24,28 @@ class tools extends AWS_ADMIN_CONTROLLER
 	{
 		@set_time_limit(0);
 	}
-	
+
 	public function index_action()
 	{
 		$this->crumb(AWS_APP::lang()->_t('系统维护'), 'admin/tools/');
-		
+
 		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(501));
-		
+
 		TPL::output('admin/tools');
 	}
-	
+
 	public function init_action()
 	{
 		H::redirect_msg(AWS_APP::lang()->_t('正在准备...'), '?/admin/tools/' . $_POST['action'] . '/page-1__per_page-' . $_POST['per_page']);
 	}
-	
+
 	public function cache_clean_action()
-	{	
+	{
 		AWS_APP::cache()->clean();
-		
+
 		H::redirect_msg(AWS_APP::lang()->_t('缓存清理完成'), '?/admin/tools/');
 	}
-	
+
 	public function update_users_reputation_action()
 	{
 		if ($this->model('reputation')->calculate((($_GET['page'] * $_GET['per_page']) - $_GET['per_page']), $_GET['per_page']))
@@ -57,7 +57,7 @@ class tools extends AWS_ADMIN_CONTROLLER
 			H::redirect_msg(AWS_APP::lang()->_t('用户威望更新完成'));
 		}
 	}
-	
+
 	public function bbcode_to_markdown_action()
 	{
 		switch ($_GET['type'])
@@ -71,15 +71,15 @@ class tools extends AWS_ADMIN_CONTROLLER
 							'question_detail' => FORMAT::bbcode_2_markdown($val['question_detail'])
 						), 'question_id = ' . intval($val['question_id']));
 					}
-					
+
 					H::redirect_msg(AWS_APP::lang()->_t('正在转换问题内容 BBCode') . ', ' . AWS_APP::lang()->_t('批次: %s', $_GET['page']), '?/admin/tools/bbcode_to_markdown/page-' . ($_GET['page'] + 1) . '__per_page-' . $_GET['per_page']);
 				}
 				else
 				{
 					H::redirect_msg(AWS_APP::lang()->_t('准备继续...'), '?/admin/tools/bbcode_to_markdown/page-1__type-answer__per_page-' . $_GET['per_page']);
-				}		
+				}
 			break;
-					
+
 			case 'answer':
 				if ($answer_list = $this->model('question')->fetch_page('answer', null, 'answer_id ASC', $_GET['page'], $_GET['per_page']))
 				{
@@ -89,15 +89,15 @@ class tools extends AWS_ADMIN_CONTROLLER
 							'answer_content' => FORMAT::bbcode_2_markdown($val['answer_content'])
 						));
 					}
-					
+
 					H::redirect_msg(AWS_APP::lang()->_t('正在转换回答内容 BBCode') . ', ' . AWS_APP::lang()->_t('批次: %s', $_GET['page']), '?/admin/tools/bbcode_to_markdown/page-' . ($_GET['page'] + 1) . '__type-answer__per_page-' . $_GET['per_page']);
 				}
 				else
 				{
 					H::redirect_msg(AWS_APP::lang()->_t('准备继续...'), '?/admin/tools/bbcode_to_markdown/page-1__type-topic__per_page-' . $_GET['per_page']);
-				}	
+				}
 			break;
-					
+
 			case 'topic':
 				if ($topic_list = $this->model('topic')->get_topic_list(null, 'topic_id ASC', $_GET['per_page'], $_GET['page']))
 				{
@@ -107,17 +107,17 @@ class tools extends AWS_ADMIN_CONTROLLER
 							'topic_description' => FORMAT::bbcode_2_markdown($val['topic_description'])
 						), 'topic_id = ' . intval($val['topic_id']));
 					}
-					
+
 					H::redirect_msg(AWS_APP::lang()->_t('正在转换话题内容 BBCode') . ', ' . AWS_APP::lang()->_t('批次: %s', $_GET['page']), '?/admin/tools/bbcode_to_markdown/page-' . ($_GET['page'] + 1) . '__type-topic__per_page-' . $_GET['per_page']);
 				}
 				else
 				{
 					H::redirect_msg(AWS_APP::lang()->_t('BBCode 转换完成'));
-				}		
+				}
 			break;
 		}
 	}
-	
+
 	public function update_question_search_index_action()
 	{
 		if ($questions_list = $this->model('question')->fetch_page('question', null, 'question_id ASC', $_GET['page'], $_GET['per_page']))
@@ -125,10 +125,10 @@ class tools extends AWS_ADMIN_CONTROLLER
 			foreach ($questions_list as $key => $val)
 			{
 				$this->model('search_fulltext')->push_index('question', $val['question_content'], $val['question_id']);
-				
+
 				$this->model('posts')->set_posts_index($val['question_id'], 'question', $val);
 			}
-			
+
 			H::redirect_msg(AWS_APP::lang()->_t('正在更新问题搜索索引') . ', ' . AWS_APP::lang()->_t('批次: %s', $_GET['page']), '?/admin/tools/update_question_search_index/page-' . ($_GET['page'] + 1) . '__per_page-' . $_GET['per_page']);
 		}
 		else
@@ -136,7 +136,7 @@ class tools extends AWS_ADMIN_CONTROLLER
 			H::redirect_msg(AWS_APP::lang()->_t('搜索索引更新完成'));
 		}
 	}
-	
+
 	public function update_article_search_index_action()
 	{
 		if ($articles_list = $this->model('question')->fetch_page('article', null, 'id ASC', $_GET['page'], $_GET['per_page']))
@@ -144,10 +144,10 @@ class tools extends AWS_ADMIN_CONTROLLER
 			foreach ($articles_list as $key => $val)
 			{
 				$this->model('search_fulltext')->push_index('article', $val['title'], $val['id']);
-				
+
 				$this->model('posts')->set_posts_index($val['id'], 'article', $val);
 			}
-			
+
 			H::redirect_msg(AWS_APP::lang()->_t('正在更新文章搜索索引') . ', ' . AWS_APP::lang()->_t('批次: %s', $_GET['page']), '?/admin/tools/update_article_search_index/page-' . ($_GET['page'] + 1) . '__per_page-' . $_GET['per_page']);
 		}
 		else
@@ -167,7 +167,7 @@ class tools extends AWS_ADMIN_CONTROLLER
 			H::redirect_msg(AWS_APP::lang()->_t('最新动态更新完成'));
 		}
 	}
-	
+
 	public function email_setting_test_action()
 	{
 		if ($error_message = AWS_APP::mail()->send($_POST['test_email'], get_setting('site_name') . ' - ' . AWS_APP::lang()->_t('邮件服务器配置测试'), AWS_APP::lang()->_t('这是一封测试邮件，收到邮件表示邮件服务器配置成功'), get_setting('site_name')))
@@ -179,10 +179,10 @@ class tools extends AWS_ADMIN_CONTROLLER
 			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('测试邮件已发送, 请查收邮件测试配置是否正确')));
 		}
 	}
-	
-	public function update_weixin_menu_action()
+
+	public function update_weixin_menu_action($account_id)
 	{
-		if ($error_message = $this->model('weixin')->update_client_menu(get_setting('weixin_mp_menu')))
+		if ($error_message = $this->model('weixin')->update_client_menu($this->model('weixin')->get_weixin_mp_menu($account_id)))
 		{
 			H::redirect_msg($error_message);
 		}
@@ -191,7 +191,7 @@ class tools extends AWS_ADMIN_CONTROLLER
 			H::redirect_msg(AWS_APP::lang()->_t('微信菜单更新成功'));
 		}
 	}
-	
+
 	public function mp_services_check_action()
 	{
 		if ($service_status = $this->model('wecenter')->mp_server_query('check_service_status'))
@@ -200,7 +200,7 @@ class tools extends AWS_ADMIN_CONTROLLER
 			{
 				H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('服务异常, 返回的信息: %s', $service_status['message'])));
 			}
-			
+
 			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('服务状态正常')));
 		}
 		else
