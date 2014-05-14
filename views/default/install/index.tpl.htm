@@ -48,7 +48,7 @@
 			<b><?php _e('Zlib 支持'); ?></b><?php if (!$this->system_require['zlib']) { ?><span class="red">× <?php _e('WeCenter 的搜索需要 Zlib 支持'); ?></span><?php } else { ?><span class="green">√</span><?php } ?>
 		</li>
 		<li>
-			<b><?php _e('编码转换'); ?></b><?php if (!$this->system_require['convert_encoding']) { ?><span class="red">× <?php _e('WeCenter 至少需要有 MB 或 ICONV 编码转换处理库才能正常运行'); ?></span><?php } else { ?><span class="green">√</span><?php } ?>
+			<b><?php _e('编码转换'); ?></b><?php if (!$this->system_require['convert_encoding']) { ?><span class="red">× <?php _e('WeCenter 至少需要 ICONV 编码转换处理库才能正常运行'); ?></span><?php } else { ?><span class="green">√</span><?php } ?>
 		</li>
 		<li>
 			<b><?php _e('上传限制'); ?></b><span><?php echo get_cfg_var('upload_max_filesize'); ?> (<?php _e('此处建议值'); ?> > 8M)</span>
