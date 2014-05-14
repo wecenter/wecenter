@@ -25,24 +25,43 @@ class weixin_class extends AWS_MODEL
 
 	private $user_id;
 
-	private $account_info;
-
-	public function check_account_id ($account_id)
+	public function get_account_info_by_id($account_id, $column = '')
 	{
-		return $this->fetch_one('weixin_accounts', 'id', 'id = ' . $account_id);
+		if ($account_id = 0)
+		{
+			if ($column)
+			{
+				return get_setting($column);
+			}
+
+			return array(
+				'id' => 0,
+				'mp_token' => get_setting('weixin_mp_token'),
+				'account_role' => get_setting('weixin_mp_token'),
+				'app_id' => get_setting('weixin_app_id'),
+				'app_secret' => get_setting('weixin_app_secret'),
+				'wecenter_access_token' => get_setting('wecenter_access_token'),
+				'wecenter_access_secret' => get_setting('wecenter_access_secret'),
+				'mp_menu' => get_setting('weixin_mp_menu')
+			);
+		}
+
+		static $account_info;
+
+		if (!$account_info[$account_id])
+		{
+			$account_info[$account_id] = $this->fetch_row('weixin_accounts', 'id = ' . intval($account_id));
+		}
+
+		if ($column)
+		{
+			return $account_info[$account_id][$column];
+		}
+
+		return $account_info;
 	}
 
-	public function get_weixin_mp_menu ($account_id)
-	{
-		return $this->fetch_one('weixin_accounts', 'mp_menu', 'id = ' . $account_id);
-	}
-
-	public function get_account_info_by_id ($account_id)
-	{
-		return $this->query_row('SELECT * FROM ' . $this->get_table('weixin_accounts') . ' WHERE id = ' . $account_id);
-	}
-
-	public function fetch_message()
+	public function fetch_message($account_role)
 	{
 		if ($post_data = file_get_contents('php://input'))
 		{
@@ -74,20 +93,13 @@ class weixin_class extends AWS_MODEL
 				$this->user_id = $weixin_info['uid'];
 			}
 
-			$this->bind_message = $this->get_binding_message();
+			if ($account_role = 'service')
+			{
+				$this->bind_message = '你的微信帐号没有绑定 ' . get_setting('site_name') . ' 的帐号, 请<a href="' . $this->model('openid_weixin')->get_oauth_url(get_js_url('/m/weixin/authorization/')) . '">点此绑定</a>';
+			}
 
 			return $input_message;
 		}
-	}
-
-	public function get_binding_message()
-	{
-		if ($this->account_info['account_role'] != 'service')
-		{
-			return false;
-		}
-
-		return '你的微信帐号没有绑定 ' . get_setting('site_name') . ' 的帐号, 请<a href="' . $this->model('openid_weixin')->get_oauth_url(get_js_url('/m/weixin/authorization/')) . '">点此绑定</a>';
 	}
 
 	public function response_message($input_message)
@@ -853,17 +865,15 @@ class weixin_class extends AWS_MODEL
 		);
 	}
 
-	public function check_signature($account_id, $signature, $timestamp, $nonce)
+	public function check_signature($account_info, $signature, $timestamp, $nonce)
 	{
-		$this->account_info = $this->get_account_info_by_id($account_id);
-
-		if (!$this->account_info['mp_token'])
+		if (!$account_info['mp_token'])
 		{
 			return false;
 		}
 
 		$tmpArr = array(
-			$this->account_info['mp_token'],
+			$account_info['mp_token'],
 			$timestamp,
 			$nonce
 		);
@@ -1046,7 +1056,7 @@ class weixin_class extends AWS_MODEL
 
 	public function send_text_message($openid, $message, $url = null)
 	{
-		if ($this->account_info['account_role'] != 'service')
+		if ($account_info['account_role'] != 'service')
 		{
 			return false;
 		}
@@ -1060,7 +1070,7 @@ class weixin_class extends AWS_MODEL
 
 	public function update_client_menu($mp_menu_data)
 	{
-		if (!$this->account_info['app_id'])
+		if (!$account_info['app_id'])
 		{
 			return false;
 		}
@@ -1083,12 +1093,12 @@ class weixin_class extends AWS_MODEL
 
 	public function get_client_list_image_by_command($command)
 	{
-		if (!$this->account_info['app_id'])
+		if (!$account_info['app_id'])
 		{
 			return false;
 		}
 
-		$mp_menu_data = json_decode($this->account_info['mp_menu']);
+		$mp_menu_data = json_decode($account_info['mp_menu']);
 
 		foreach ($mp_menu_data AS $key => $val)
 		{
@@ -1112,12 +1122,12 @@ class weixin_class extends AWS_MODEL
 
 	public function get_weixin_app_id_setting_var()
 	{
-		if (!$this->account_info['wecenter_access_token'])
+		if (!$account_info['wecenter_access_token'])
 		{
 			return $this->update('weixin_accounts', array(
 				'app_id' => '',
 				'app_secret' => ''
-			), '`id` = ' . $this->account_info['id']);
+			), '`id` = ' . $account_info['id']);
 		}
 
 		if ($result = $this->model('wecenter')->mp_server_query('get_app_id'))
@@ -1129,7 +1139,7 @@ class weixin_class extends AWS_MODEL
 				$this->update('weixin_accounts', array(
 					'app_id' => $app_id_setting['weixin_app_id'],
 					'app_secret' => $app_id_setting['weixin_app_secret']
-				), '`id` = ' . $this->account_info['id']);
+				), '`id` = ' . $account_info['id']);
 			}
 		}
 	}
@@ -1141,7 +1151,7 @@ class weixin_class extends AWS_MODEL
 			return false;
 		}
 
-		$mp_menu = json_decode($this->account_info['mp_menu']);
+		$mp_menu = json_decode($account_info['mp_menu']);
 
 		foreach ($mp_menu AS $key => $val)
 		{
@@ -1179,17 +1189,49 @@ class weixin_class extends AWS_MODEL
 
 	public function get_qr_code($scene_id)
 	{
-		if ($this->account_info['account_role'] != 'service')
+		// id 是自增的，不能这样写。
+		$account_num = $this->count('weixin_accounts');
+
+		$data = array();
+
+		for ($i=0; $i<=$account_num; $i++)
 		{
-			return false;
+			$account_role = $this->get_account_info_by_id($i, 'account_role');
+
+			if ($account_role = 'service' AND
+				$result = $this->model('wecenter')->mp_server_query('get_qr_code', array(
+					'scene_id' => $scene_id,
+					'expire_seconds' => 300
+			)))
+			{
+				$data[] = $result['data'];
+			}
 		}
 
-		if ($result = $this->model('wecenter')->mp_server_query('get_qr_code', array(
-			'scene_id' => $scene_id,
-			'expire_seconds' => 300
-		)))
+		return $data;
+	}
+
+	public function add_account($account_info)
+	{
+		$this->insert('weixin_accounts', $account_info);
+	}
+
+	public function update_account($account_id, $account_info)
+	{
+		foreach ($account_info AS $key => $value)
 		{
-			return $result['data'];
+			$this->update('weixin_accounts', $value, 'id = ' . intval($account_id));
 		}
+	}
+
+	public function del_account($account_id)
+	{
+		$this->delete('weixin_accounts', 'id = ' . intval($account_id));
+	}
+
+	public function get_account_ids()
+	{
+		$this->fetch_page($table = 'weixin_accounts', $order = 'id ASC', $limit = NULL);
+		return $this->found_rows();
 	}
 }

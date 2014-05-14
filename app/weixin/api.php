@@ -32,12 +32,9 @@ class api extends AWS_CONTROLLER
 
 	public function setup()
 	{
-		$account_id = intval($_GET['account']) ?: 1;
-		if (!$this->model('weixin')->check_account_id($account_id)) {
-			die;
-		}
-
-		if (!$this->model('weixin')->check_signature($account_id, $_GET['signature'], $_GET['timestamp'], $_GET['nonce']))
+		$account_id = $_GET['account'] ?: 0;
+		if (!$account_info = $this->model('weixin')->get_account_info_by_id($account_id) OR
+			!$this->model('weixin')->check_signature($account_info, $_GET['signature'], $_GET['timestamp'], $_GET['nonce']))
 		{
 			die;
 		}
@@ -48,7 +45,7 @@ class api extends AWS_CONTROLLER
 			die;
 		}
 
-		$this->input_message = $this->model('weixin')->fetch_message();
+		$this->input_message = $this->model('weixin')->fetch_message($account_info['account_role']);
 	}
 
 	public function index_action()

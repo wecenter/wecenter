@@ -57,9 +57,11 @@ class weixin extends AWS_ADMIN_CONTROLLER
 		TPL::output('admin/weixin/reply_edit');
 	}
 
-	public function mp_menu_action($account_id)
+	public function mp_menu_action()
 	{
-		$account_info = $this->model('weixin')->get_account_info_by_id('$account_id');
+		$account_id = intval($_GET['id']) ?: 0;
+
+		$account_info = $this->model('weixin')->get_account_info_by_id($account_id);
 
 		if (!$account_info['app_id'] || $account_info['account_role'] == 'general')
 		{
@@ -70,7 +72,7 @@ class weixin extends AWS_ADMIN_CONTROLLER
 
 		$this->model('weixin')->client_list_image_clean();
 
-		TPL::assign('mp_menu', $account_info['mp_menu']);
+		TPL::assign('mp_menu', json_decode($account_info['mp_menu']));
 		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(803));
 
 		TPL::assign('feature_list', $this->model('feature')->get_enabled_feature_list('id DESC', null, null));
@@ -88,8 +90,10 @@ class weixin extends AWS_ADMIN_CONTROLLER
 		TPL::output('admin/weixin/mp_menu');
 	}
 
-	public function save_mp_menu_action($account_id)
+	public function save_mp_menu_action()
 	{
+		$account_id = intval($_GET['id']) ?: 1;
+
 		if ($_POST['button'])
 		{
 			if (!$weixin_mp_menu = $this->model('weixin')->process_mp_menu_post_data($_POST['button']))
