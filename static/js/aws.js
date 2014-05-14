@@ -705,9 +705,7 @@ var AWS =
 	                {
 	                    $.get(G_BASE_URL + url + _this.attr('data-id'), function(result)
 	                    {
-	                        var focus = result.focus,
-	                            focusTxt,
-	                            verified = result.verified;
+	                        var focus = result.focus, verified = result.verified, focusTxt;
 	                           
 	                        if (focus == 1)
 	                        {
@@ -724,11 +722,13 @@ var AWS =
 	                        {
 	                            verified_enterprise = 'icon-v i-ve';
 	                            verified_title = '企业认证';
-	                        }else if(result.verified == 'personal')
+	                        }
+	                        else if(result.verified == 'personal')
 	                        {
 	                            verified_enterprise = 'icon-v';
 	                            verified_title = '个人认证';
-	                        }else
+	                        }
+	                        else
 	                        {
 	                            verified_enterprise = verified_title = '';
 	                        }
@@ -747,7 +747,8 @@ var AWS =
 	                            'url' : result.url,
 	                            'category_enable' : result.category_enable,
 	                            'focus': focus,
-	                            'focusTxt': focusTxt
+	                            'focusTxt': focusTxt,
+	                            'ask_name': "'" + result.user_name + "'"
 	                        }));
 
 	                        //判断是否为游客or自己

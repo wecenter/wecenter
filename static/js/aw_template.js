@@ -25,9 +25,9 @@ var AW_TEMPLATE = {
 					'</div>'+
 					'<div class="aw-mod-footer">'+
 						'<span class="pull-right">'+
-							'<a href="javascript:;" onclick="AWS.dialog(\'inbox\', \'{{user_name}}\');">' + _t('私信') + '</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:;" onclick="AWS.dialog(\'publish\', {category_enable:{{category_enable}}, ask_user_id:{{uid}}, ask_user_name:{{ask_name}}});">' + _t('问Ta') + '</a>'+
+							'<a href="javascript:;" onclick="AWS.dialog(\'inbox\', \'{{user_name}}\');">' + _t('私信') + '</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:;" onclick="AWS.dialog(\'publish\', {category_enable:{{category_enable}}, ask_user_id:{{uid}}, ask_user_name:{{ask_name}} });">' + _t('问Ta') + '</a>'+
 						'</span>'+
-						'<a class="btn btn-mini btn-default focus {{focus}}" onclick="AWS.User.follow($(this), \'user\' {{uid}});">{{focusTxt}}</a>'+
+						'<a class="btn btn-mini btn-default focus {{focus}}" onclick="AWS.User.follow($(this), \'user\', {{uid}});">{{focusTxt}}</a>'+
 					'</div>'+
 				'</div>'+
 			'</div>',

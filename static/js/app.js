@@ -85,7 +85,7 @@ $(document).ready(function ()
     //小卡片mouseover
     $(document).on('mouseover', '#aw-card-tips', function ()
     {
-        clearTimeout(AWS.G.cardBoxTimeout);
+        clearTimeout(AWS.G.card_box_hide_timer);
         
         $(this).show();
     });
