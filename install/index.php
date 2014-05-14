@@ -54,11 +54,7 @@ switch ($_POST['step'])
 			$system_require['session'] = TRUE;
 		}
 
-		if (function_exists('mb_strlen'))
-		{
-			$system_require['convert_encoding'] = TRUE;
-		}
-		else if (function_exists('iconv'))
+		if (function_exists('iconv'))
 		{
 			$system_require['convert_encoding'] = TRUE;
 		}
