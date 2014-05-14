@@ -11,9 +11,9 @@ var AW_TEMPLATE = {
 						'<a href="{{url}}" class="aw-head-img">'+
 							'<img src="{{avatar_file}}" alt="" />'+
 						'</a>'+
-						'<p class="title">'+
-							'<a href="{{url}}" class="name" data-id="{{uid}}">{{user_name}}</a>'+
-							'<i class="{{verified_enterprise}}" title="{{verified_title}}"></i>'+
+						'<p class="title clearfix">'+
+							'<a href="{{url}}" class="name pull-left" data-id="{{uid}}">{{user_name}}</a>'+
+							'<i class="{{verified_enterprise}} pull-left" title="{{verified_title}}"></i>'+
 						'</p>'+
 						'<p class="aw-user-center-follow-meta">'+
 							'<span>' + _t('威望') + ': <em class="aw-text-color-green">{{reputation}}</em></span>'+

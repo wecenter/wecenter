@@ -126,7 +126,7 @@ a.aw-load-more-content{display: block;}
 .aw-logo, .aw-search-box, .aw-top-nav{float: left;}
 .aw-publish-btn, .aw-user-nav{float: right;}
 .aw-logo{width:70px;height:40px;margin:9px 0 0 0;}
-.aw-logo a{display:block;width: 57px;height: 35px;background:url('img/logo.png') no-repeat;background-size: 57px;}
+.aw-logo a{display:block;width: 57px;height: 35px;background:url('img/logo.png') no-repeat;}
 .aw-logo h1{height:25px;line-height:25px;margin:-2px 0 2px 0;font-size:14px;}
 .aw-login-register{position:relative;top:15px;height: 27px;}
 .aw-login-register a{margin-left:10px;font-weight:bold;}
@@ -699,6 +699,8 @@ a.aw-load-more-content{display: block;}
 .aw-card-tips .aw-mod-head .aw-head-img{position: absolute;left: 0;top: 0;}
 .aw-card-tips .aw-mod-body{margin-bottom: 10px;}
 .aw-card-tips .aw-mod-footer{line-height: 26px;padding-top:10px;border-top: 1px dotted #E2E2E2;}
+.aw-card-tips .icon-v{display:inline-block;width: 17px;height: 14px;margin:4px 0 0 3px;background: url('img/icon-v.png') no-repeat;font-size: 0px;}
+.aw-card-tips .icon-v.i-ve{background: url('img/icon-v-hover.png') no-repeat}
 
 /* @用户下拉 */
 .content_cursor{position: absolute;z-index:-1;max-width:600px;font-size: 14px;font-family: "Helvetica Neue",Helvetica,Arial,'Microsoft YaHei',sans-serif;word-wrap: break-word;opacity: 0;}
