@@ -5,14 +5,14 @@
 		<div class="row aw-content-wrap">
 			<div class="col-sm-12 col-md-9 aw-main-content">
 				<!-- 新消息通知 -->
-				<div class="aw-mod aw-new-message-tips aw-border-radius-5 hide" id="index_notification">
-					<div class="aw-mod-head">
+				<div class="aw-mod aw-notification-box hide" id="index_notification">
+					<div class="mod-head">
 						<h3>
 							<span class="pull-right"><a href="account/setting/privacy/#notifications" class="aw-text-color-999"><i class="fa fa-cog"></i> <?php _e('通知设置'); ?></a></span>
 							<span><?php _e('新通知'); ?></span><em class="badge badge-important" name="notification_unread_num"><?php echo $this->user_info['notification_unread']; ?></em>
 						</h3>
 					</div>
-					<div class="aw-mod-body">
+					<div class="mod-body">
 						<ul id="notification_list"></ul>
 						<p>
 							<a href="javascript:;" onclick="AWS.Message.read_notification(false, 0, false);" class="pull-left btn btn-mini btn-default"><?php _e('我知道了'); ?></a>

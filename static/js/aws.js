@@ -2157,7 +2157,7 @@ AWS.Init =
 	{
 	    $(document).on('click', selector, function ()
 	    {
-	        $(this).parents('.aw-question-detail-title').find('.aw-invite-box, .aw-question-related-box').hide();
+	        $(this).parents('.aw-question-detail').find('.aw-invite-box, .aw-question-related-box').hide();
 	        if (typeof COMMENT_UNFOLD != 'undefined')
 	        {
 	            if (COMMENT_UNFOLD == 'all' && $(this).attr('data-comment-count') == 0 && $(this).attr('data-first-click') == 'hide')
@@ -2202,7 +2202,7 @@ AWS.Init =
 	            }
 	            if (G_USER_ID)
 	            {
-	                $(this).parents('.aw-item').append(Hogan.compile(AW_TEMPLATE.commentBox).render(
+	                $(this).parents('.aw-question-detail').append(Hogan.compile(AW_TEMPLATE.commentBox).render(
 	                {
 	                    'comment_form_id': comment_box_id.replace('#', ''),
 	                    'comment_form_action': comment_form_action

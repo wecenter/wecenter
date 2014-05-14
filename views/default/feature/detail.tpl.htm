@@ -1,6 +1,6 @@
 <?php TPL::output('global/header.tpl.htm'); ?>
 
-<div class="aw-container-wrap aw-feature-wrap">
+<div class="aw-container-wrap">
 	<div class="container aw-feature-title">
 		<div class="row">
 			<div class="col-xs-12 col-sm-12">
@@ -14,66 +14,63 @@
 	</div>
 	<div class="container">
 		<div class="row aw-content-wrap">
-			<div class="col-xs-12 col-sm-9 aw-main-content">
-				<div class="aw-feature-content">
-					<!-- 热门解答 -->
-					<div class="aw-mod clearfix">
-						<div class="aw-mod-head">
-							<!-- tab切换 -->
-							<ul class="nav nav-tabs aw-nav-tabs" id="hot_question_control">
-								<li><a href="#day_30" onclick="get_hot_posts(30);" data-toggle="tab"><?php _e('30天'); ?></a></li>
-								<li><a href="#day_7" onclick="get_hot_posts(7);" data-toggle="tab"><?php _e('7天'); ?></a></li>
-								<li class="active"><a href="#day_all" onclick="get_hot_posts(0);" data-toggle="tab"><?php _e('全部'); ?></a></li>
-								<h2><?php _e('热门内容'); ?></h2>
-							</ul>
-							<!-- end tab切换 -->
-						</div>
-						<div class="aw-mod-body">
-							<div class="aw-common-list" id="hot_question_list"></div>
-						</div>
+			<div class="col-xs-12 col-sm-9 aw-main-content aw-feature-content">
+				<!-- 热门解答 -->
+				<div class="aw-mod clearfix">
+					<div class="aw-mod-head">
+						<!-- tab切换 -->
+						<ul class="nav nav-tabs aw-nav-tabs" id="hot_question_control">
+							<li><a href="#day_30" onclick="get_hot_posts(30);" data-toggle="tab"><?php _e('30天'); ?></a></li>
+							<li><a href="#day_7" onclick="get_hot_posts(7);" data-toggle="tab"><?php _e('7天'); ?></a></li>
+							<li class="active"><a href="#day_all" onclick="get_hot_posts(0);" data-toggle="tab"><?php _e('全部'); ?></a></li>
+							<h2><?php _e('热门内容'); ?></h2>
+						</ul>
+						<!-- end tab切换 -->
 					</div>
-					<!-- end 热门解答 -->
-
-
-					<!-- 最佳回复 -->
-					<div class="aw-mod clearfix">
-						<div class="aw-mod-head">
-							<h2><?php _e('最佳回复'); ?></h2>
-						</div>
-						<div class="aw-mod-body aw-feed-list">
-							<div class="aw-mod-body" id="c_best_list"></div>
-						</div>
+					<div class="aw-mod-body">
+						<div class="aw-common-list" id="hot_question_list"></div>
 					</div>
-					<!-- end 最佳回复 -->
-					
-					<!-- 专题动态 -->
-					<div class="aw-mod clearfix">
-						<div class="aw-mod-head">
-							<!-- tab切换 -->
-							<ul class="nav nav-tabs aw-nav-tabs" id="feature_dynamic">
-								<li><a href="#unresponsive" data-toggle="tab"><?php _e('等待回复'); ?></a></li>
-								<li class="active"><a href="#all" data-toggle="tab"><?php _e('全部'); ?></a></li>
-								<h2><?php _e('专题动态'); ?></h2>
-							</ul>
-							<!-- end tab切换 -->
-						</div>
-						<div class="aw-mod-body aw-question-box-mod">
-							<div class="aw-common-list" id="c_all_list"></div>
-						</div>
-						<!-- 加载更多 -->
-						<a class="aw-load-more-content" id="bp_all_more">
-							<span><?php _e('更多'); ?>...</span>
-						</a>
-						<!-- end 加载更多 -->
-					</div>
-					<!-- end 专题动态 -->
 				</div>
+				<!-- end 热门解答 -->
 
+
+				<!-- 最佳回复 -->
+				<div class="aw-mod clearfix">
+					<div class="aw-mod-head">
+						<h2><?php _e('最佳回复'); ?></h2>
+					</div>
+					<div class="aw-mod-body aw-feed-list">
+						<div class="aw-mod-body" id="c_best_list"></div>
+					</div>
+				</div>
+				<!-- end 最佳回复 -->
+				
+				<!-- 专题动态 -->
+				<div class="aw-mod clearfix">
+					<div class="aw-mod-head">
+						<!-- tab切换 -->
+						<ul class="nav nav-tabs aw-nav-tabs" id="feature_dynamic">
+							<li><a href="#unresponsive" data-toggle="tab"><?php _e('等待回复'); ?></a></li>
+							<li class="active"><a href="#all" data-toggle="tab"><?php _e('全部'); ?></a></li>
+							<h2><?php _e('专题动态'); ?></h2>
+						</ul>
+						<!-- end tab切换 -->
+					</div>
+					<div class="aw-mod-body aw-question-box-mod">
+						<div class="aw-common-list" id="c_all_list"></div>
+					</div>
+					<!-- 加载更多 -->
+					<a class="aw-load-more-content" id="bp_all_more">
+						<span><?php _e('更多'); ?>...</span>
+					</a>
+					<!-- end 加载更多 -->
+				</div>
+				<!-- end 专题动态 -->
 			</div>
 			<!-- 侧边栏 -->
 			<div class="col-xs-12 col-sm-3 aw-side-bar">
 				<!-- 热门话题 -->
-				<div class="aw-mod mod-feature aw-text-align-justify">
+				<div class="aw-mod">
 					<div class="mod-head">
 						<h2><?php _e('该专题包含'); ?> <?php _e('%s 个话题', '<span class="i_blue">' . $this->feature_info['topic_count'] . '</span>'); ?></h2>
 					</div>

@@ -3,8 +3,8 @@
 <div class="aw-container-wrap">
 	<div class="container">
 		<div class="row aw-content-wrap">
-			<div class="col-sm-12 col-md-9 aw-main-content">
-				<div class="aw-mod aw-question-detail aw-article-detail">
+			<div class="col-sm-12 col-md-9 aw-main-content aw-article-content">
+				<div class="aw-mod aw-question-detail">
 					<div class="mod-head">
 						<h1>
 							<?php echo $this->article_info['title']; ?>
@@ -70,18 +70,19 @@
 							</ul>
 							<?php } ?>
 						</div>
-						<div class="aw-question-detail-meta aw-article-detail-meta">
-							<span class="aw-article-vote<?php if (!$this->user_id OR $this->user_id == $this->article_info['uid']) { ?> disabled<?php } ?>">
+						<div class="meta clearfix">
+							<div class="aw-article-vote pull-left<?php if (!$this->user_id OR $this->user_id == $this->article_info['uid']) { ?> disabled<?php } ?>">
 								<a href="javascript:;" class="agree<?php if ($this->article_info['vote_info']['rating'] == 1) { ?> active<?php } ?>" onclick="AWS.User.article_vote($(this), <?php echo $this->article_info['id']; ?>, 1);"><i class="fa fa-thumbs-up"></i> <b><?php echo $this->article_info['votes']; ?></b> 赞</a>
 								<a href="javascript:;" class="disagree<?php if ($this->article_info['vote_info']['rating'] == -1) { ?> active<?php } ?>" onclick="AWS.User.article_vote($(this), <?php echo $this->article_info['id']; ?>, -1);"><i class="fa fa-thumbs-down"></i></a>
-							</span>
+							</div>
 							
 							<a class="aw-text-color-999 pull-right" onclick="AWS.dialog('shareOut', {item_type:'article', item_id:<?php echo $this->article_info['id']; ?>});"><i class="fa fa-share"></i><?php _e('分享'); ?></a>
 							<?php if ((!$this->article_info['lock'] AND ($this->article_info['uid'] == $this->user_id OR $this->user_info['permission']['edit_article'])) OR $this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?>
 							<a class="aw-text-color-999 pull-right" href="publish/article/<?php echo $this->article_info['id']; ?>"><i class="fa fa-edit"></i> <?php _e('编辑'); ?></a>
 							<?php } ?>
 						</div>
-						
+					</div>
+					<div class="mod-footer">
 						<?php if ($this->article_info['vote_users']) { ?>
 						<div class="aw-article-voter">
 							<?php foreach ($this->article_info['vote_users'] AS $key => $val) { ?>
@@ -93,23 +94,14 @@
 					</div>
 				</div>
 				
-				<div class="aw-mod aw-question-comment">
-					<div class="aw-mod-head">
-						<ul class="nav nav-tabs aw-nav-tabs">
-							<?php if ($_GET['single']) { ?>
-							<!--<li><a href="question/<?php echo $this->article_info['question_id']; ?>"><?php _e('全部回答'); ?></a></li>-->
-							<?php } else if (($this->answer_count OR $_GET['uid']) AND $this->user_id) { ?>
-							<li<?php if ($_GET['uid'] == 'focus') { ?> class="active"<?php } ?>><a href="question/<?php echo $this->article_info['question_id']; ?>?uid=focus"><?php _e('关注的人'); ?></a></li>
-							<li<?php if ($_GET['sort_key'] == 'add_time') { ?> class="active"<?php } ?>><a href="question/<?php echo $this->article_info['question_id']; ?>?sort_key=add_time&sort=<?php if (($_GET['sort_key'] == 'add_time') && $_GET['sort'] == 'ASC') { ?>DESC<?php } else { ?>ASC<?php } ?>"><?php _e('时间'); ?><?php if (($_GET['sort_key'] == 'add_time') && $_GET['sort'] == 'DESC') { ?><i class="icon-caret-down"></i><?php } else { ?><i class="icon-caret-up"></i><?php } ?></a></li>
-							<li<?php if ((!$_GET['uid'] && !$_GET['sort_key']) || $_GET['sort_key'] == 'agree_count') { ?> class="active"<?php } ?>><a href="question/<?php echo $this->article_info['question_id']; ?>&sort_key=agree_count&sort=DESC"><?php _e('票数'); ?></a></li>
-							<?php } ?>
-							
-							<h2><?php _e('%s 个评论', $this->comments_count); ?></h2>
-						</ul>
+				<!-- 文章评论 -->
+				<div class="aw-mod">
+					<div class="mod-head common-head">
+						<h2><?php _e('%s 个评论', $this->comments_count); ?></h2>
 					</div>
 					
 					<?php if ($this->comments) { ?>
-					<div class="aw-mod-body aw-feed-list aw-article-detail">
+					<div class="mod-body aw-feed-list">
 						<?php foreach ($this->comments AS $key => $val) { ?>
 						<div class="aw-item">
 							<a class="aw-user-name" href="people/<?php echo $val['user_info']['url_token']; ?>">
@@ -122,7 +114,7 @@
 								<div class="markitup-box">
 									<?php echo nl2br($val['message']); ?>
 								</div>
-								<div class="aw-item-meta">
+								<div class="meta">
 									<span class="pull-right"><?php echo $val['votes']; ?> <?php _e('赞'); ?></span>
 									
 									<span><?php echo date_friendly($val['add_time']); ?></span>
@@ -141,7 +133,7 @@
 					<?php } ?>
 					
 					<?php if ($_GET['item_id']) { ?>
-					<div class="aw-mod-footer">
+					<div class="mod-footer">
 							<a href="article/<?php echo $this->article_info['id']; ?>" class="aw-load-more-content">
 								<span><?php _e('查看全部评论'); ?></span>
 							</a>
@@ -152,9 +144,10 @@
 						<div class="clearfix"><?php echo $this->pagination; ?></div>
 					<?php } ?>
 				</div>
+				<!-- end 文章评论 -->
 				
 				<!-- 回复编辑器 -->
-				<div class="aw-mod aw-mod-article-replay-box">
+				<div class="aw-mod article-replay-box">
 					<a name="answer_form"></a>
 					<?php if ($this->article_info['lock']) { ?>
 					<p align="center"><?php _e('该文章目前已经被锁定, 无法添加新评论'); ?></p>
@@ -164,13 +157,13 @@
 					<form action="article/ajax/save_comment/" onsubmit="return false;" method="post" id="answer_form">
 		        	<input type="hidden" name="post_hash" value="<?php echo new_post_hash(); ?>" />
 		        	<input type="hidden" name="article_id" value="<?php echo $this->article_info['id']; ?>" />
-					<div class="aw-mod-head">
+					<div class="mod-head">
 						<a href="people/" class="aw-user-name"><img alt="<?php echo $this->user_info['user_name']; ?>" src="<?php echo get_avatar_url($this->user_info['uid'], 'mid'); ?>" /></a>
 					</div>
-					<div class="aw-mod-body">
-						<textarea rows="2" name="message" id="comment_editor" class="form-control autosize" placeholder="写下你的评论..."  /></textarea>
+					<div class="mod-body">
+						<textarea rows="3" name="message" id="comment_editor" class="form-control autosize" placeholder="写下你的评论..."  /></textarea>
 					</div>
-					<div class="aw-mod-footer">
+					<div class="mod-footer">
 						<a href="javascript:;" onclick="AWS.ajax_post($('#answer_form'));" class="btn btn-large btn-success pull-right btn-submit"><?php _e('回复'); ?></a>
 						<?php if ($this->human_valid) { ?>
 						<em class="auth-img pull-right"><img src="" onclick="this.src = G_BASE_URL + '/account/captcha/' + Math.floor(Math.random() * 10000);" id="captcha" /></em>

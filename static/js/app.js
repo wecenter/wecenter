@@ -78,7 +78,7 @@ $(document).ready(function ()
     AWS.show_card_box('.aw-topic-name, .aw-topic-img', 'topic');
     
     //文章页添加评论, 话题添加 绑定事件
-    AWS.Init.init_article_comment_box('.aw-article-detail .aw-article-comment');
+    AWS.Init.init_article_comment_box('.aw-article-content .aw-article-comment');
 
     AWS.Init.init_topic_edit_box('.aw-edit-topic');
 	

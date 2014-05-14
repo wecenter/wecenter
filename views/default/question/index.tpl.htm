@@ -133,7 +133,7 @@
 							</div>
 						</div>
 						<?php } ?>
-						<div class="aw-question-detail-meta">
+						<div class="meta">
 							<span class="aw-text-color-999"><?php echo date_friendly($this->question_info['add_time']); ?></span>
 
 							<a herf="javascript:;" data-id="<?php echo $this->question_info['question_id']; ?>" data-type="question" class="aw-add-comment aw-text-color-999 <?php if ($this->question_info['comment_count'] > 0) {?>active<?php }?>" data-comment-count="<?php echo $this->question_info['comment_count']; ?>" data-first-click="<?php if ($this->question_info['comment_count'] == 0) {?>hide<?php }?>"><i class="fa fa-comment"></i><?php if ($this->question_info['comment_count']) { ?><?php _e('%s 条评论', $this->question_info['comment_count']); ?><?php } else { ?><?php _e('添加评论'); ?><?php } ?></a>
@@ -155,7 +155,7 @@
 					</div>
 					<!-- 站内邀请 -->
 					<div class="aw-invite-box hide">
-						<div class="aw-mod-head clearfix">
+						<div class="mod-head clearfix">
 							<div class="search-box pull-left">
 								<input id="invite-input" class="form-control" type="text"  placeholder="<?php _e('搜索你想邀请的人...'); ?>"/>
 								<div class="aw-dropdown">
@@ -175,7 +175,7 @@
 							</div>
 						</div>
 						<?php if ($this->helpful_users) { ?>
-						<div class="aw-mod-body clearfix">
+						<div class="mod-body clearfix">
 							<ul>
 								<?php foreach ($this->helpful_users AS $key => $val) { ?>
 									<li>
@@ -197,7 +197,7 @@
 								<?php } ?>
 							</ul>
 						</div>
-						<div class="aw-mod-footer">
+						<div class="mod-footer">
 							<a class="prev active"><?php _e('上一页'); ?></a> &nbsp; <a class="next"><?php _e('下一页'); ?></a>
 						</div>
 						<?php } ?>
@@ -224,10 +224,10 @@
 				
 				<?php if ($_GET['column'] == 'log') { ?>
 				<div class="aw-mod aw-question-edit">
-					<div class="aw-mod-head">
+					<div class="mod-head">
 						<h2><span class="pull-right"><a href="question/<?php echo $this->question_info['question_id']; ?>"><?php _e('返回问题'); ?> »</a></span><?php _e('问题修改日志'); ?></h2>
 					</div>
-					<div class="aw-mod-body">
+					<div class="mod-body">
 						<ul id="c_log_list"></ul>
 						<!-- 加载更多内容 -->
 						<a class="aw-load-more-content" id="bp_log_more">
@@ -404,7 +404,7 @@
 		        	<input type="hidden" name="post_hash" value="<?php echo new_post_hash(); ?>" />
 		        	<input type="hidden" name="question_id" value="<?php echo $this->question_info['question_id']; ?>" />
 		        	<input type="hidden" name="attach_access_key" value="<?php echo $this->attach_access_key; ?>" />
-					<div class="aw-mod-head">
+					<div class="mod-head">
 						<a href="people/" class="aw-user-name"><img alt="<?php echo $this->user_info['user_name']; ?>" src="<?php echo get_avatar_url($this->user_info['uid'], 'mid'); ?>" /></a>
 						<p><a class="aw-user-name"><?php echo $this->user_info['user_name']; ?></a></p>
 						<p>
@@ -423,7 +423,7 @@
 							</span>
 						</p>
 					</div>
-					<div class="aw-mod-body">
+					<div class="mod-body">
 						<textarea name="answer_content" id="advanced_editor" rows="15" class="autosize form-control advanced_editor"><?php echo htmlspecialchars($this->draft_content['message']); ?></textarea>
 						<p class="aw-text-color-999 clearfix"><span class="pull-right" id="answer_content_message">&nbsp;</span></p>
 						<?php if ($this->human_valid) { ?>
@@ -483,7 +483,7 @@
 				
 				<?php if ($this->user_id) { ?>
 				<!-- 邀请别人回复 -->
-				<div class="aw-mod invite-replay">
+				<div class="aw-mod email-invite-replay">
 					<div class="mod-head">
 						<h3><?php _e('邮件邀请别人回复'); ?></h3>
 					</div>

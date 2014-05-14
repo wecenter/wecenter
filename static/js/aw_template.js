@@ -7,8 +7,8 @@ var AW_TEMPLATE = {
 	'userCard':
 			'<div id="aw-card-tips" class="aw-card-tips aw-card-tips-user">'+
 				'<div class="aw-mod">'+
-					'<div class="aw-mod-head">'+
-						'<a href="{{url}}" class="aw-head-img">'+
+					'<div class="mod-head">'+
+						'<a href="{{url}}" class="img">'+
 							'<img src="{{avatar_file}}" alt="" />'+
 						'</a>'+
 						'<p class="title clearfix">'+
@@ -20,10 +20,10 @@ var AW_TEMPLATE = {
 							'<span>' + _t('赞同') + ': <em class="aw-text-color-orange">{{agree_count}}</em></span>'+
 						'</p>'+
 					'</div>'+
-					'<div class="aw-mod-body">'+
+					'<div class="mod-body">'+
 						'<p>{{signature}}</p>'+
 					'</div>'+
-					'<div class="aw-mod-footer">'+
+					'<div class="mod-footer">'+
 						'<span class="pull-right">'+
 							'<a href="javascript:;" onclick="AWS.dialog(\'inbox\', \'{{user_name}}\');">' + _t('私信') + '</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:;" onclick="AWS.dialog(\'publish\', {category_enable:{{category_enable}}, ask_user_id:{{uid}}, ask_user_name:{{ask_name}} });">' + _t('问Ta') + '</a>'+
 						'</span>'+
@@ -35,8 +35,8 @@ var AW_TEMPLATE = {
 	'topicCard' : 
 			'<div id="aw-card-tips" class="aw-card-tips aw-card-tips-topic">'+
 				'<div class="aw-mod">'+
-					'<div class="aw-mod-head">'+
-						'<a href="{{url}}" class="aw-head-img">'+
+					'<div class="mod-head">'+
+						'<a href="{{url}}" class="img">'+
 							'<img src="{{topic_pic}}" alt="" title=""/>'+
 						'</a>'+
 						'<p class="title">'+
@@ -46,7 +46,7 @@ var AW_TEMPLATE = {
 							'{{topic_description}}'+
 						'</p>'+
 					'</div>'+
-					'<div class="aw-mod-footer">'+
+					'<div class="mod-footer">'+
 						'<span class="pull-right">'+
 							_t('问题数') + ' {{discuss_count}} • ' + _t('关注者') + ' {{focus_count}}'+
 						'</span>'+
@@ -122,15 +122,15 @@ var AW_TEMPLATE = {
 			'</div>',
 
 	'articleCommentBox' :
-		'<div class="aw-article-comment-box clearfix">'+
+		'<div class="article-replay-box clearfix">'+
 			'<form action="'+ G_BASE_URL +'/article/ajax/save_comment/" onsubmit="return false;" method="post">'+
-				'<div class="aw-mod-body">'+
+				'<div class="mod-body">'+
 					'<input type="hidden" name="at_uid" value="{{at_uid}}">'+
 					'<input type="hidden" name="post_hash" value="' + G_POST_HASH + '" />'+
 					'<input type="hidden" name="article_id" value="{{article_id}}" />'+
 					'<textarea placeholder="' + _t('写下你的评论...') + '" class="form-control" id="comment_editor" name="message" rows="2"></textarea>'+
 				'</div>'+
-				'<div class="aw-mod-footer">'+
+				'<div class="mod-footer">'+
 					'<a href="javascript:;" onclick="AWS.ajax_post($(this).parents(\'form\'));" class="btn btn-large btn-success pull-right btn-submit">' + _t('回复') + '</a>'+
 				'</div>'+
 			'</form>'+

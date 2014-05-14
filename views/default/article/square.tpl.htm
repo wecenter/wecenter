@@ -17,7 +17,7 @@
 						<div class="aw-content">
 							<div class="aw-mod-body">
 								<h2><a href="article/<?php echo $val['id']; ?>"><?php echo $val['title']; ?></a></h2>
-								<div class="aw-article-topics">
+								<div class="topics">
 									<?php foreach($this->article_topics[$val['id']] as $topic_key => $topic_val) { ?>
 									<a href="topic/<?php echo $topic_val['url_token']; ?>" class="aw-topic-name" data-id="<?php echo $topic_val['topic_id']; ?>"><span><?php echo $topic_val['topic_title']; ?></span></a>
 									<?php } ?>
@@ -60,11 +60,11 @@
 			<!-- 侧边栏 -->
 			<div class="col-sm-3 col-md-3 aw-side-bar hidden-xs hidden-sm">
 				<!-- 热门文章 -->
-				<div class="aw-side-bar-mod aw-text-align-justify question_related_list">
-					<div class="aw-mod-head">
+				<div class="aw-mod aw-text-align-justify">
+					<div class="mod-head">
 						<h3><?php _e('热门文章'); ?></h3>
 					</div>
-					<div class="aw-mod-body">
+					<div class="mod-body">
 						<ul>
 							<?php foreach($this->hot_articles AS $key => $val) { ?>
 							<li><a href="article/<?php echo $val['id']; ?>"><?php echo $val['title']; ?></a></li>
