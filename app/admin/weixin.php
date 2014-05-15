@@ -59,7 +59,7 @@ class weixin extends AWS_ADMIN_CONTROLLER
 
 	public function mp_menu_action()
 	{
-		$account_id = intval($_GET['id']) ?: 0;
+		$account_id = $_GET['id'] ?: 0;
 
 		$account_info = $this->model('weixin')->get_account_info_by_id($account_id);
 
@@ -92,7 +92,7 @@ class weixin extends AWS_ADMIN_CONTROLLER
 
 	public function save_mp_menu_action()
 	{
-		$account_id = intval($_GET['id']) ?: 1;
+		$account_id = $_GET['id'] ?: 0;
 
 		if ($_POST['button'])
 		{
@@ -342,5 +342,15 @@ class weixin extends AWS_ADMIN_CONTROLLER
 		}
 
 		H::ajax_json_output(AWS_APP::RSM(null, 1, null));
+	}
+
+	public function list_accounts_action()
+	{
+		$accounts_list = $this->model('weixin')->fetch_page($table = 'weixin_accounts', $order = 'id ASC', $page = intval($_GET['page']))
+		$accounts_num = $this->model('weixin')->found_rows();
+
+		TPL::assign('list', $accounts_list);
+		TPL::assign('num', $accounts_num);
+		TPL::output('admin/weixin/accounts');
 	}
 }

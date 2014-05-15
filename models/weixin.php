@@ -25,12 +25,21 @@ class weixin_class extends AWS_MODEL
 
 	private $user_id;
 
-	public function get_account_info_by_id($account_id, $column = '')
+	public function get_account_info_by_id($account_id, $column = NULL)
 	{
 		if ($account_id = 0)
 		{
 			if ($column)
 			{
+				if (is_array($column))
+				{
+					$result = array();
+					foreach ($column as $value) {
+						$result[$value] = get_setting($value);
+					}
+					return $result;
+				}
+
 				return get_setting($column);
 			}
 
@@ -51,10 +60,20 @@ class weixin_class extends AWS_MODEL
 		if (!$account_info[$account_id])
 		{
 			$account_info[$account_id] = $this->fetch_row('weixin_accounts', 'id = ' . intval($account_id));
+			$account_info[$account_id]['mp_menu'] = json_decode($account_info[$account_id]['mp_menu']);
 		}
 
 		if ($column)
 		{
+			if (is_array($column))
+			{
+				$result = array();
+				foreach ($column as $value) {
+					$result[$value] = $account_info[$account_id][$value];
+				}
+				return $result;
+			}
+
 			return $account_info[$account_id][$column];
 		}
 
@@ -1098,7 +1117,7 @@ class weixin_class extends AWS_MODEL
 			return false;
 		}
 
-		$mp_menu_data = json_decode($account_info['mp_menu']);
+		$mp_menu_data = $account_info['mp_menu'];
 
 		foreach ($mp_menu_data AS $key => $val)
 		{
@@ -1151,7 +1170,7 @@ class weixin_class extends AWS_MODEL
 			return false;
 		}
 
-		$mp_menu = json_decode($account_info['mp_menu']);
+		$mp_menu = $account_info['mp_menu'];
 
 		foreach ($mp_menu AS $key => $val)
 		{
@@ -1227,11 +1246,5 @@ class weixin_class extends AWS_MODEL
 	public function del_account($account_id)
 	{
 		$this->delete('weixin_accounts', 'id = ' . intval($account_id));
-	}
-
-	public function get_account_ids()
-	{
-		$this->fetch_page($table = 'weixin_accounts', $order = 'id ASC', $limit = NULL);
-		return $this->found_rows();
 	}
 }
