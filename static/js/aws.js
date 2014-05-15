@@ -1844,14 +1844,14 @@ AWS.Dropdown =
 	            }
 	            else
 	            {
-	                $(selector).parent().find('.aw-dropdown').show().children().show();
+	                $(selector).parent().find('.aw-dropdown, .aw-dropdown-list').show().children().show();
 	                $(selector).parent().find('.title').hide();
 	                // 关键词高亮
 	                $(selector).parent().find('.aw-dropdown-list li.question a').highText(data, 'b', 'active');
 	            }
 	        }else
 	        {
-	            $(selector).parent().find('.aw-dropdown').show().children('.title').html(_t('没有找到相关结果')).show();
+	            $(selector).parent().find('.aw-dropdown').show().end().find('.title').html(_t('没有找到相关结果')).show();
 	            $(selector).parent().find('.aw-dropdown-list, .aw-publish-suggest-question').hide();
 	        }
 	    }, 'json');
@@ -2157,6 +2157,7 @@ AWS.Init =
 	{
 	    $(document).on('click', selector, function ()
 	    {
+	    	console.log('123');
 	        $(this).parents('.aw-question-detail').find('.aw-invite-box, .aw-question-related-box').hide();
 	        if (typeof COMMENT_UNFOLD != 'undefined')
 	        {
@@ -2202,7 +2203,7 @@ AWS.Init =
 	            }
 	            if (G_USER_ID)
 	            {
-	                $(this).parents('.aw-question-detail').append(Hogan.compile(AW_TEMPLATE.commentBox).render(
+	                $(this).parents('.aw-item').append(Hogan.compile(AW_TEMPLATE.commentBox).render(
 	                {
 	                    'comment_form_id': comment_box_id.replace('#', ''),
 	                    'comment_form_action': comment_form_action

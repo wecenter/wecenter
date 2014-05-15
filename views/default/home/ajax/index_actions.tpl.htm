@@ -18,7 +18,7 @@
 <?php } ?>
 <?php foreach ($this->list AS $key => $val) { ?>
 <div class="aw-item" data-history-id="<?php echo $val['history_id']; ?>">
-	<div class="aw-mod-head">
+	<div class="mod-head">
 		<?php if ($val['question_info']['anonymous'] == 0 OR !$val['question_info']) { ?><a data-id="<?php echo $val['user_info']['uid']; ?>" class="aw-user-img aw-border-radius-5 pull-right" href="people/<?php echo $val['user_info']['url_token']; ?>"><img src="<?php echo get_avatar_url($val['user_info']['uid'], 'mid'); ?>" alt="<?php echo $val['user_info']['user_name']; ?>" /></a><?php } else { ?><a href="javascript:;" class="aw-user-img aw-border-radius-5 pull-right"><img src="<?php echo G_STATIC_URL; ?>/common/avatar-mid-img.png" alt="<?php _e('匿名用户'); ?>" /></a><?php } ?>
 		
 		<h4><a href="<?php echo $val['link']; ?>"><?php echo $val['title']; ?></a></h4>
@@ -42,7 +42,7 @@
 		</p>
 	</div>
 	<?php if ($val['answer_info']) { ?>
-	<div class="aw-mod-body clearfix">
+	<div class="mod-body clearfix">
 		<!-- 投票栏 -->
 		<em class="aw-border-radius-5 aw-vote-count pull-left<?php if (!$this->user_id OR $this->user_id == $val['answer_info']['uid']) { ?> disabled<?php } ?>"<?php if ($this->user_id AND $this->user_id != $val['answer_info']['uid']) { ?> onclick="AWS.Init.init_vote_bar({element:this,agree_count:<?php echo $val['answer_info']['agree_count']; ?>,flag:<?php echo $val['answer_info']['agree_status']; ?>,user_name:G_USER_NAME,answer_id:<?php echo $val['answer_info']['answer_id']; ?>})"<?php } ?>><?php echo $val['answer_info']['agree_count']; ?></em>
 		<!-- end 投票栏 -->
@@ -108,7 +108,7 @@
 				<!-- end 评论内容 -->
 			</div>
 			<!-- 社交操作 -->
-			<div class="aw-feed-list-meta">
+			<div class="meta">
 				<a class="aw-add-comment aw-text-color-999" href="javascript:;" data-id="<?php echo $val['answer_info']['answer_id']; ?>" data-type="answer"><i class="fa fa-comment"></i><?php _e('%s 条评论', $val['answer_info']['comment_count']); ?></a>
 				<a data-toggle="dropdown" class="aw-text-color-999 dropdown-toggle" onclick="AWS.dialog('shareOut', {item_type:'answer', item_id:<?php echo $val['answer_info']['answer_id']; ?>});"><i class="fa fa-share" ></i><?php _e('分享'); ?></a>
 			</div>

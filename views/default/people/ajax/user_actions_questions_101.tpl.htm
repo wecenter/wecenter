@@ -2,12 +2,12 @@
 <?php foreach ($this->list AS $key => $val) { ?>	
 <div class="aw-item">
 	<div class="aw-mod">
-		<div class="aw-mod-head">
+		<div class="mod-head">
 			<h4 class="aw-hide-txt">
 				<a href="<?php echo $val['link']; ?>"><?php echo $val['title']; ?></a>
 			</h4>
 		</div>
-		<div class="aw-mod-body">
+		<div class="mod-body">
 			<p class="aw-text-color-999"><?php echo $val['question_info']['answer_count']; ?> <?php _e('回复'); ?> • <?php _e('%s 次浏览', $val['question_info']['view_count']); ?> • <?php _e('%s 个关注', $val['question_info']['focus_count']); ?> • <?php echo date_friendly($val['add_time']); ?></p>
 		</div>
 	</div>

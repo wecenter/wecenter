@@ -441,7 +441,7 @@ var AW_TEMPLATE = {
 
 	'workInsert' : 
 			'<td class="w1" data-txt="{{company}}">{{company}}</td>'+
-			'<td class="w2" data-txt="{{workid}}">{{work}}</td>'+
+			'<td class="w2" data-txt="{{jobid}}">{{work}}</td>'+
 			'<td class="w3" data-s-val="{{syear}}" data-e-val="{{eyear}}">{{syear}} ' + _t('年') + ' ' + _t('至') + ' {{eyear}}</td>'+
 			'<td><a class="delete-work">' + _t('删除') + '</a>&nbsp;&nbsp;<a class="edit-work">' + _t('编辑') + '</a></td>',
 

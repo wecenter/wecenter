@@ -17,7 +17,7 @@
 	<div class="container">
 		<div class="row aw-content-wrap">
 			<div class="col-sm-12 col-md-9 aw-main-content">
-				<div class="aw-mod aw-question-detail">
+				<div class="aw-mod aw-question-detail aw-item">
 					<div class="mod-head">
 						<h1>
 							<?php echo $this->question_info['question_content']; ?>
@@ -121,10 +121,10 @@
 						</div>
 						<?php if ($this->question_related_links) { ?>
 						<div class="aw-question-related-list">
-							<div class="aw-mod-head">
+							<div class="mod-head">
 								<h3><?php _e('相关链接'); ?> : </h3>
 							</div>
-							<div class="aw-mod-body">
+							<div class="mod-body">
 								<ul>
 									<?php foreach ($this->question_related_links AS $key => $val) { ?>
 									<li><a href="<?php echo $val['link']; ?>" rel="nofollow" target="_blank"><?php echo $val['link']; ?></a> &nbsp; <?php if ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator'] OR $this->user_id == $this->question_info['published_uid']) { ?><a onclick="AWS.ajax_request(G_BASE_URL + '/publish/ajax/remove_related_link/', 'item_id=<?php echo $this->question_info['question_id']; ?>&id=<?php echo $val['id']; ?>');">x</a><?php } ?></li>
@@ -207,10 +207,10 @@
 					<!-- 相关链接 -->
 					<div class="aw-question-related-box hide">
 						<form action="publish/ajax/save_related_link/" method="post" onsubmit="return false" id="related_link_form">
-							<div class="aw-mod-head">
+							<div class="mod-head">
 								<h2><?php _e('与内容相关的链接'); ?></h2>
 							</div>
-							<div class="aw-mod-body clearfix">
+							<div class="mod-body clearfix">
 								<input type="hidden" name="item_id" value="<?php echo $this->question_info['question_id']; ?>" />
 								<input type="text" class="form-control pull-left" name="link" />
 									
@@ -238,7 +238,7 @@
 				</div>
 				<?php } else { ?>
 				<div class="aw-mod aw-question-comment">
-					<div class="aw-mod-head">
+					<div class="mod-head">
 						<ul class="nav nav-tabs aw-nav-tabs">
 							<?php if ($_GET['single']) { ?>
 							<!--<li><a href="question/<?php echo $this->question_info['question_id']; ?>"><?php _e('全部回答'); ?></a></li>-->
@@ -251,7 +251,7 @@
 							<h2 class="hidden-xs"><?php if ($_GET['single']) { ?><?php _e('查看单个回答'); ?><?php } else { ?><?php _e('%s 个回复', $this->answer_count); ?><?php } ?></h2>
 						</ul>
 					</div>
-					<div class="aw-mod-body aw-feed-list">
+					<div class="mod-body aw-feed-list">
 						<?php if ($this->answers) { foreach ($this->answers AS $key => $val) { ?>
 							<?php if ($this->question_info['best_answer'] == $val['answer_id']) { ?>
 							<!-- 最佳回答 -->
@@ -266,12 +266,12 @@
 								<!-- 用户头像 -->
 								<?php if ($val['anonymous'] == 0) { ?><a class="aw-user-img aw-border-radius-5 pull-right" href="people/<?php echo $val['url_token']; ?>" data-id="<?php echo $val['uid']; ?>"><img src="<?php echo get_avatar_url($val['uid'], 'mid'); ?>" alt="" /></a><?php } else { ?><a class="aw-user-img aw-border-radius-5 pull-right" href="javascript:;"><img src="<?php echo G_STATIC_URL; ?>/common/avatar-mid-img.png" alt="<?php _e('匿名用户'); ?>" /></a><?php } ?>
 								<!-- end 用户头像 -->
-								<div class="aw-mod-body clearfix">
+								<div class="mod-body clearfix">
 									<!-- 投票栏 -->
 									<em class="aw-border-radius-5 aw-vote-count pull-left<?php if (!$this->user_id OR $val['uid'] == $this->user_id) { ?> disabled<?php } ?>"<?php if ($this->user_id AND $val['uid'] != $this->user_id) { ?> onclick="AWS.Init.init_vote_bar({element:this,agree_count:<?php echo $val['agree_count']; ?>,flag:<?php echo $val['agree_status']; ?>,user_name:G_USER_NAME,answer_id:<?php echo $val['answer_id']; ?>})"<?php } ?>><?php echo $val['agree_count']; ?></em>
 									<!-- end 投票栏 -->
 									<div class="pull-left aw-feed-list-content">
-										<div class="mod-head">
+										<div class="title">
 											<p>
 												<?php if ($val['anonymous'] == 0) { ?>
 													<a class="aw-user-name" href="people/<?php echo $val['url_token']; ?>" data-id="<?php echo $val['uid']; ?>"><?php echo $val['user_name']; ?></a>
@@ -299,9 +299,8 @@
 												<?php } ?>
 											</p>
 										</div>
-										<div class="mod-body">
+										<div class="content">
 											<!-- 评论内容 -->
-
 											<div class="markitup-box">
 												<?php echo $val['answer_content']; ?>
 											</div>
@@ -329,11 +328,11 @@
 
 										</div>
 										<!-- 社交操作 -->
-										<div class="mod-footer aw-feed-list-meta">
+										<div class="meta">
 											<span class="aw-text-color-999"><?php echo date_friendly($val['add_time']); ?></span>
 											<a class="aw-add-comment aw-text-color-999 <?php if ($val['comment_count'] > 0) {?>active<?php } ?>" data-id="<?php echo $val['answer_id']; ?>" data-type="answer" data-comment-count="<?php echo $val['comment_count']; ?>" data-first-click="<?php if ($val['comment_count'] == 0) {?>hide<?php }?>" href="javascript:;"><i class="fa fa-comment"></i><?php if ($val['comment_count']) { ?><?php _e('%s 条评论', $val['comment_count']); ?><?php } else { ?><?php _e('添加评论'); ?><?php } ?></a>
 											<!-- 可显示/隐藏的操作box -->
-											<span class="aw-feed-list-more-operate">
+											<span class="more-operate">
 												<?php if ($this->user_id) { ?>	
 													<?php if (($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) OR ($val['uid'] == $this->user_id AND ((time() - $val['add_time']) < (get_setting('answer_edit_time') * 60) OR (!get_setting('answer_edit_time'))))) { ?>
 													<a class="aw-text-color-999" href="javascript:;" onclick="AWS.dialog('commentEdit', {answer_id:<?php echo $val['answer_id']; ?>,attach_access_key:'<?php echo $this->attach_access_key; ?>'});"><i class="fa fa-edit"></i><?php _e('编辑'); ?></a>
@@ -365,7 +364,7 @@
 							<?php } ?>
 						<?php } ?>
 					</div>
-					<div class="aw-mod-footer">
+					<div class="mod-footer">
 						<?php if ($_GET['single']) { ?>
 							<a href="question/<?php echo $this->question_info['question_id']; ?>" class="aw-load-more-content">
 								<span><?php _e('查看全部回答'); ?></span>
