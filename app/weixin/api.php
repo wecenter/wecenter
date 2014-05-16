@@ -33,6 +33,7 @@ class api extends AWS_CONTROLLER
 	public function setup()
 	{
 		$account_id = $_GET['account'] ?: 0;
+
 		if (!$account_info = $this->model('weixin')->get_account_info_by_id($account_id) OR
 			!$this->model('weixin')->check_signature($account_info, $_GET['signature'], $_GET['timestamp'], $_GET['nonce']))
 		{

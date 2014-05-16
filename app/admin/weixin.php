@@ -344,7 +344,7 @@ class weixin extends AWS_ADMIN_CONTROLLER
 		H::ajax_json_output(AWS_APP::RSM(null, 1, null));
 	}
 
-	public function list_accounts_action()
+	public function accounts_action()
 	{
 		$accounts_list = $this->model('weixin')->fetch_page($table = 'weixin_accounts', $order = 'id ASC', $page = intval($_GET['page']))
 		$accounts_num = $this->model('weixin')->found_rows();
@@ -352,5 +352,38 @@ class weixin extends AWS_ADMIN_CONTROLLER
 		TPL::assign('list', $accounts_list);
 		TPL::assign('num', $accounts_num);
 		TPL::output('admin/weixin/accounts');
+	}
+
+	public function save_accounts_action()
+	{
+		define('IN_AJAX', TRUE);
+
+		foreach ($_POST AS $name)
+		{
+			foreach ($_POST[$name] AS $key => $value)
+			{
+				$accounts_info[$key][$name] = $value;
+			}
+		}
+
+		foreach ($accounts_info AS $account_info)
+		{
+			if ($account_info['id'])
+			{
+				$this->model('weixin')->update_account($account_info['id'], $account_info);
+			}
+			else
+			{
+				$this->model('weixin')->add_account($account_info);
+			}
+		}
+	}
+
+	public function del_account_action()
+	{
+		if ($_GET['id'])
+		{
+			$this->model('weixin')->del_account($_GET['id']);
+		}
 	}
 }

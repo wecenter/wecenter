@@ -33,8 +33,8 @@ class weixin_class extends AWS_MODEL
 			{
 				if (is_array($column))
 				{
-					$result = array();
-					foreach ($column as $value) {
+					foreach ($column as $value)
+					{
 						$result[$value] = get_setting($value);
 					}
 					return $result;
@@ -67,8 +67,8 @@ class weixin_class extends AWS_MODEL
 		{
 			if (is_array($column))
 			{
-				$result = array();
-				foreach ($column as $value) {
+				foreach ($column as $value)
+				{
 					$result[$value] = $account_info[$account_id][$value];
 				}
 				return $result;
@@ -1237,7 +1237,7 @@ class weixin_class extends AWS_MODEL
 
 	public function update_account($account_id, $account_info)
 	{
-		foreach ($account_info AS $key => $value)
+		foreach ($account_info AS $value)
 		{
 			$this->update('weixin_accounts', $value, 'id = ' . intval($account_id));
 		}
