@@ -195,7 +195,7 @@ var AW_TEMPLATE = {
 								'<input type="hidden" name="post_hash" value="' + G_POST_HASH + '" />'+
 								'<input type="hidden" name="ask_user_id" value="{{ask_user_id}}" />'+
 								'<div>'+
-									'<textarea class="form-control" placeholder="' + _t('写下你的问题') + '..." name="question_content" id="quick_publish_question_content" onkeydown="if (event.keyCode == 13) { return false; }"></textarea>'+
+									'<textarea class="form-control" placeholder="' + _t('写下你的问题') + '..." rows="1" name="question_content" id="quick_publish_question_content" onkeydown="if (event.keyCode == 13) { return false; }"></textarea>'+
 									'<div class="aw-publish-suggest-question hide">'+
 										'<p class="aw-text-color-999">你的问题可能已经有答案</p>'+
 										'<ul class="aw-dropdown-list">'+
@@ -203,7 +203,7 @@ var AW_TEMPLATE = {
 									'</div>'+
 								'</div>'+
 								//'<p onclick="$(this).parents(\'form\').find(\'.aw-publish-box-supplement-content\').fadeIn().focus();$(this).hide();"><span class="aw-publish-box-supplement"><i class="aw-icon i-edit"></i>' + _t('补充说明') + ' »</span></p>'+
-								'<textarea name="question_detail" class="aw-publish-box-supplement-content form-control" placeholder="' + _t('问题背景、条件等详细信息') + '..."></textarea>'+
+								'<textarea name="question_detail" class="form-control" rows="4" placeholder="' + _t('问题背景、条件等详细信息') + '..."></textarea>'+
 								'<div class="aw-publish-title-dropdown" id="quick_publish_category_chooser">'+
 									'<p class="dropdown-toggle" data-toggle="dropdown">'+
 										'<span id="aw-topic-tags-select">' + _t('选择分类') + '</span>'+
@@ -271,14 +271,12 @@ var AW_TEMPLATE = {
 							'<h3 class="modal-title" id="myModalLabel">' + _t('分享') + '</h3>'+
 						'</div>'+
 						'<div class="modal-body clearfix">'+
-							'<div class="modal-body">'+
-								'<ul id="bdshare" class="bdshare_t bds_tools get-codes-bdshare">'+
-								'{{#items}}'+
-									'<li><a title="' + _t('分享到') + ' {{title}}" class="{{className}}"><i class="bds"></i>{{name}}</a></li>'+
-								'{{/items}}'+
-								'</ul>'+
-								'<script type="text/javascript" src="http://bdimg.share.baidu.com/static/js/bds_s_v2.js?cdnversion=' + new Date().getHours() + '"></script>'+
-							'</div>'+
+							'<ul id="bdshare" class="bdshare_t bds_tools get-codes-bdshare">'+
+							'{{#items}}'+
+								'<li><a title="' + _t('分享到') + ' {{title}}" class="{{className}}"><i class="bds"></i>{{name}}</a></li>'+
+							'{{/items}}'+
+							'</ul>'+
+							'<script type="text/javascript" src="http://bdimg.share.baidu.com/static/js/bds_s_v2.js?cdnversion=' + new Date().getHours() + '"></script>'+
 						'</div>'+
 					'</div>'+
 				'</div>'+

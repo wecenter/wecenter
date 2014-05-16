@@ -635,12 +635,12 @@ a.aw-load-more-content{display: block;}
 .aw-mod-search-result .aw-text-color-666{font-size: 12px;}
 
 /* 上传附件模块 */
-.aw-file-uploader{width: 638px;}
+.aw-file-uploader{width: 110%;}
 .aw-file-uploader dl, .aw-file-uploader dt, .aw-file-uploader dd{float:left;}
 .aw-file-uploader dl{padding:10px 0 10px 10px;margin:15px 15px 0 0;background: #F5FAFF;border:1px solid #DCEDFA;}
 .aw-file-uploader dl.error{border: 1px solid red;}
 .aw-file-uploader dt{width: 90px;height: 90px;background-image: url(img/user-img-max.jpg);background-position: center;}
-.aw-file-uploader dd{width: 80px;}
+.aw-file-uploader dd{width: 115px;}
 .aw-file-uploader dd a{font-size: 12px;}
 .aw-file-uploader dd p{margin: 0;}
 .aw-file-uploader dd .aw-text-color-999{margin:5px 0;}
@@ -652,17 +652,14 @@ a.aw-load-more-content{display: block;}
 .aw-file-uploader dt.upload-zip{background-position: -300px 0;}
 .aw-file-uploader dt.upload-gif{background-position: -100px 0;}
 .aw-file-uploader dt.upload-3ds{background-position: -200px 0;}
-._ajax_upload-button{color: #666;}
 ._ajax_upload-button i{margin-right: 5px;}
 
 /* 小卡片提示box */
 .aw-card-tips{display:none;position:absolute;z-index:9999;width: 270px;padding:15px;background: #FFF;border: 1px solid #999;box-shadow: 0 2px 3px #DFDFDF;}
-.aw-card-tips .title{font-weight: bold;}
 .aw-card-tips .mod-head{position: relative;min-height:60px;padding-left: 60px;}
 .aw-card-tips .mod-head p{margin: 0;}
 .aw-card-tips .mod-head .img{position: absolute;left: 0;top: 0;}
-.aw-card-tips .mod-body{margin-bottom: 10px;}
-.aw-card-tips .mod-footer{line-height: 26px;padding-top:10px;border-top: 1px dotted #E2E2E2;}
+.aw-card-tips .mod-footer{line-height: 26px;margin-top:10px;padding-top:10px;border-top: 1px dotted #E2E2E2;}
 .aw-card-tips .icon-v{display:inline-block;width: 17px;height: 14px;margin:4px 0 0 3px;background: url('img/icon-v.png') no-repeat;font-size: 0px;}
 .aw-card-tips .icon-v.i-ve{background: url('img/icon-v-hover.png') no-repeat}
 
@@ -676,49 +673,36 @@ a.aw-load-more-content{display: block;}
 .aw-invite-dropdown p{height: 26px;line-height: 26px;padding-left: 10px;margin:0;}
 
 /* bs弹窗 */
-.alert-box{outline: none;}
 .alert-box .modal-footer{line-height: 34px;}
 .alert-box .modal-footer button{margin:0 0 0 20px;}
 .modal-dialog textarea, .modal-dialog input{margin-bottom: 10px;}
-.aw-share-box .modal-dialog, .aw-publish-box .modal-dialog, .aw-message-box .modal-dialog, .aw-question-redirect-box .modal-dialog, .aw-inbox .modal-dialog, .aw-topic-edit-note-box .modal-dialog{width: 470px;}
+.aw-share-box .modal-dialog, .aw-publish-box .modal-dialog, .aw-question-redirect-box .modal-dialog, .aw-inbox .modal-dialog, .aw-topic-edit-note-box .modal-dialog{width: 470px;}
 /* 警告提示box */
 .aw-tips-box .modal-dialog, .aw-image-box .modal-dialog, .aw-link-box .modal-dialog{width: 370px;}
 .aw-tips-box .modal-body{background: url(img/warmming.png) no-repeat right 5px;}
 .aw-tips-box .modal-body p{margin: 10px 0;}
-/* 图片box */
+/* 微信绑定弹窗box */
 .aw-alert-img-box .modal-body{background:none;}
 .aw-alert-img-box .modal-body img{max-width: 328px;}
 /* 分享box */
-.aw-share-box .modal-body{padding: 10px;}
-.aw-share-box  #bdshare li{float: left;min-width: 70px;margin:0 30px 20px 0;}
+.aw-share-box #bdshare li{float: left;min-width: 70px;margin:0 36px 20px 0;}
 /* 发起box */
-.aw-message-box textarea, .aw-inbox textarea{min-height: 60px;}
-.aw-publish-box .modal-dialog, .aw-edit-comment-box .modal-dialog{width: 100%;height: 100%;}
-.aw-publish-box .modal-content, .aw-edit-comment-box .modal-content{z-index: 9999;}
-.aw-publish-box .modal-content{width: 470px;margin: 0 auto;}
+.aw-publish-box .modal-content{width: 470px;}
 .aw-publish-box input{width:170px !important;}
-.aw-publish-box .modal-body{padding-bottom: 0px;}
-.aw-publish-box .aw-edit-topic-box .btn{margin-bottom: 10px;}
-.aw-publish-box #captcha{height: 36px;margin-left: 10px;}
-.aw-publish-box .modal-body{overflow-y:visible;}
-.aw-publish-box textarea{height: 34px;}
+.aw-publish-box .modal-body{padding-bottom: 0px;overflow-y:visible;}
+.aw-publish-box #qp_captcha{height: 36px;margin-left: 10px;}
 .aw-publish-box .aw-dropdown-menu ul{max-height: 165px;}
-.aw-publish-box .aw-publish-box-supplement{font-size:12px;cursor: pointer;}
-.aw-publish-box .aw-publish-box-supplement-content{min-height: 100px;}
 .aw-publish-box .aw-publish-title-dropdown{position: relative;margin-bottom: 20px;}
 .aw-publish-box .aw-publish-title-dropdown .dropdown-toggle span{width: 391px;}
-.aw-publish-box #quick_publish, .aw-question-drodpwon, .aw-inbox form{position: relative;}
-/* 问题重定向box */
-.aw-question-redirect-box .modal-body{overflow: visible;}
+.aw-question-drodpwon, .aw-inbox form{position: relative;}
 /* 评论修改box */
 .aw-edit-comment-box .modal-dialog{width:690px;}
-.aw-edit-comment-box .modal-body textarea{margin:0;overflow-y:scroll;clear: left;border-radius: 10px 10px 0 0;}
-.aw-edit-comment-box .aw-file-upload-box{border-radius: 0 0 10px 10px;}
-.aw-edit-comment-box .modal-footer label{display: inline;margin-left:10px;font-size: 14px;}
-.aw-edit-comment-box .modal-footer .btn-success{margin-left: 10px;}
-.aw-edit-comment-box .aw-file-upload-box{padding:20px;border:1px solid #ccc;border-top: none;}
+.aw-edit-comment-box .modal-body textarea{margin:0;border-radius: 10px 10px 0 0;}
+.aw-edit-comment-box .aw-file-upload-box{padding:20px;border:1px solid #ccc;border-top: none;border-radius: 0 0 10px 10px;}
+.aw-edit-comment-box .modal-footer label{margin-left:5px;}
 /* 回复收藏box */
 .aw-favorite-box .aw-topic-name{display:inline-block;margin:0 3px 5px 3px;}
+
 /* 用户初次登陆提示box */
 .aw-first-login .mod-head{margin-bottom:10px;}
 .aw-first-login .mod-head h2{margin-bottom: 40px;font-size: 20px;}
@@ -942,7 +926,7 @@ a.aw-load-more-content{display: block;}
 	/*通知*/
 	.aw-top-nav .badge{position: relative;top: 0;left: 0;}
 	/*弹窗*/
-	.aw-share-box .modal-dialog, .aw-publish-box .modal-dialog, .aw-message-box .modal-dialog, .aw-question-redirect-box .modal-dialog, .aw-inbox .modal-dialog, .aw-topic-edit-note-box .modal-dialog, .aw-tips-box .modal-dialog, .aw-image-box .modal-dialog, .aw-link-box .modal-dialog, .aw-edit-comment-box .modal-dialog, .aw-publish-box .modal-content{width: auto;}
+	.aw-share-box .modal-dialog, .aw-publish-box .modal-dialog, .aw-question-redirect-box .modal-dialog, .aw-inbox .modal-dialog, .aw-topic-edit-note-box .modal-dialog, .aw-tips-box .modal-dialog, .aw-image-box .modal-dialog, .aw-link-box .modal-dialog, .aw-edit-comment-box .modal-dialog, .aw-publish-box .modal-content{width: auto;}
 	.aw-share-box #bdshare li{margin:0 15px 20px 0;}
 	/*发起问题页面*/
 	.aw-publish .aw-main-content{padding:0;}
