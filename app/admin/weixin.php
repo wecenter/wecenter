@@ -368,13 +368,22 @@ class weixin extends AWS_ADMIN_CONTROLLER
 
 		foreach ($accounts_info AS $account_info)
 		{
+			$account_info['mp_token'] = trim($account_info['mp_token']);
+			if ($account_info['mp_token'])
+			{
+				H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('微信公众平台接口 Token 不能为空')));
+			}
+
+			$account_info['id'] = intval($account_info['id']);
 			if ($account_info['id'])
 			{
 				$this->model('weixin')->update_account($account_info['id'], $account_info);
+				H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('更新微信账号成功')));
 			}
 			else
 			{
 				$this->model('weixin')->add_account($account_info);
+				H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('添加微信账号成功')));
 			}
 		}
 	}
