@@ -393,6 +393,7 @@ class weixin extends AWS_ADMIN_CONTROLLER
 		if ($_GET['id'])
 		{
 			$this->model('weixin')->del_account($_GET['id']);
+			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('删除微信账号成功')));
 		}
 	}
 }
