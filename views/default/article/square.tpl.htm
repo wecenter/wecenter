@@ -29,7 +29,7 @@
 										</div>
 										
 										<?php if (cjk_strlen($val['message']) > 130) { ?>
-							        	<a class="more" href="#" onclick="content_switcher($('#detail_<?php echo $val['id']; ?>'), $('#detail_more_<?php echo $val['id']; ?>')); return false;"><?php _e('继续阅读'); ?> »</a>
+							        	<a class="more" href="#" onclick="AWS.content_switcher($('#detail_<?php echo $val['id']; ?>'), $('#detail_more_<?php echo $val['id']; ?>')); return false;"><?php _e('继续阅读'); ?> »</a>
 							        	<?php } ?>
 									</div>
 									

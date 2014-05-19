@@ -79,7 +79,7 @@ a.aw-load-more-content{display: block;}
 .aw-load-more-content.loading{background-image: url(img/ajax-loader.gif);background-repeat:no-repeat;background-position:center center;background-color: #f6f6f6;border:1px solid #dfdfdf;}
 .aw-load-more-content.loading span{font-size: 0px;}
 .aw-load-more-content.loading img{opacity: 1;}
-.aw-load-more-content.warmming{background:#fcfddb;border:1px solid #f9f2a7;}
+.aw-load-more-content.warmming{display:none;background:#fcfddb;border:1px solid #f9f2a7;}
 .aw-load-more-content .aw-alert-box{position: absolute;right: 10px;top:0;}
 .aw-load-more-content.disabled{background-color: #f6f6f6;border:1px solid #dfdfdf;color: #999;}
 /* 分类小标签 */
@@ -679,7 +679,7 @@ a.aw-load-more-content{display: block;}
 .modal-dialog textarea, .modal-dialog input{margin-bottom: 10px;}
 .aw-share-box .modal-dialog, .aw-publish-box .modal-dialog, .aw-question-redirect-box .modal-dialog, .aw-inbox .modal-dialog, .aw-topic-edit-note-box .modal-dialog{width: 470px;}
 /* 警告提示box */
-.aw-tips-box .modal-dialog, .aw-image-box .modal-dialog, .aw-link-box .modal-dialog{width: 370px;}
+.aw-tips-box .modal-dialog, .aw-image-box .modal-dialog, .aw-link-box .modal-dialog, .aw-confirm-box .modal-dialog{width: 370px;}
 .aw-tips-box .modal-body{background: url(img/warmming.png) no-repeat right 5px;}
 .aw-tips-box .modal-body p{margin: 10px 0;}
 /* 微信绑定弹窗box */

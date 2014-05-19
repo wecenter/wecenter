@@ -493,6 +493,25 @@ var AW_TEMPLATE = {
 					'</div>'+
 				'</div>'+
 			'</div>'+
+		'</div>',
+
+	'confirmBox' :
+		'<div class="modal fade alert-box aw-confirm-box">'+
+			'<div class="modal-dialog">'+
+				'<div class="modal-content">'+
+					'<div class="modal-header">'+
+						'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
+						'<h3 class="modal-title" id="myModalLabel">' + _t('提示信息') + '</h3>'+
+					'</div>'+
+					'<div class="modal-body">'+
+						'{{message}}'+
+					'</div>'+
+					'<div class="modal-footer">'+
+						'<a class="btn btn-default">取消</a>'+
+						'<a class="btn btn-success">确定</a>'+
+					'</div>'+
+				'</div>'+
+			'</div>'+
 		'</div>'
 
 }

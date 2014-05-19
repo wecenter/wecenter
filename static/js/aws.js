@@ -445,6 +445,13 @@ var AWS =
 			case 'imagePreview':
 				var template = AW_TEMPLATE.ajaxData.replace('{{title}}', _t('图片预览')).replace('{{data}}', '<p align="center"><img src="' + data.image + '" alt="" style="max-width:520px" /></p>');
 			break;
+
+			case 'confirm':
+				var template = Hogan.compile(AW_TEMPLATE.confirmBox).render(
+				{
+					'message': data.message
+				});
+			break;
 	    }
 
 	    if (template)
