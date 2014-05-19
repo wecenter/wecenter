@@ -62,9 +62,9 @@
 .aw-user-center-details .aw-user-center-details-good-topic > div{min-height:20px;margin-bottom:15px;}
 .aw-user-center-details .meta{margin:0;}
 .aw-user-center-details .meta span{margin-right:10px;}
-.aw-user-center-details .icon-sina{font-size: 14px;}
-.aw-user-center-details .icon-sina, .aw-user-detail-box .icon-sina{margin-right: 3px;color: #DA2420;}
-.aw-user-center-details .icon-weibo, .aw-user-detail-box  .icon-weibo{margin-right: 3px;color: #44B8E8;}
+.aw-user-center-details .fa-weibo{font-size: 14px;}
+.aw-user-center-details .fa-weibo, .aw-user-detail-box .fa-weibo{margin-right: 3px;color: #DA2420;}
+.aw-user-center-details .fa-tencent-weibo, .aw-user-detail-box  .icon-tencent-weibo{margin-right: 3px;color: #44B8E8;}
 
 /* 侧边栏 */
 .aw-mod.people-following .mod-head, .aw-mod.people-following .mod-body{margin-bottom: 20px;}

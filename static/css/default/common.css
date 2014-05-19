@@ -89,7 +89,8 @@ a.aw-load-more-content{display: block;}
 .aw-topic-name .aw-close{margin-left:5px;margin-top:3px\0;color: #295477;opacity: 1;}
 /* 最佳回答 */
 .aw-winner-replay{position:relative;height: 30px;line-height: 30px;margin:10px 0 20px;padding-left: 50px;background: #F7F7F6;font-size: 14px;font-weight: bold;}
-.aw-winner-replay .icon-g-replay{position: absolute;left: -4px;top: -4px;font-size: 51px;}
+.aw-winner-replay .fa-bookmark{position: absolute;left: 0;top: -3px;font-size: 51px;color: #309C04}
+.aw-winner-replay .fa-star{position: absolute;left: 9px;top: 6px;margin:0;font-size: 20px;color: #fff;}
 /* 自定义tab切换 */
 .aw-tabs{height:30px;line-height:30px;padding-left:20px;background:#F7F7F7;}
 .aw-tabs li.active{font-weight:bold;}
@@ -660,8 +661,7 @@ a.aw-load-more-content{display: block;}
 .aw-card-tips .mod-head p{margin: 0;}
 .aw-card-tips .mod-head .img{position: absolute;left: 0;top: 0;}
 .aw-card-tips .mod-footer{line-height: 26px;margin-top:10px;padding-top:10px;border-top: 1px dotted #E2E2E2;}
-.aw-card-tips .icon-v{display:inline-block;width: 17px;height: 14px;margin:4px 0 0 3px;background: url('img/icon-v.png') no-repeat;font-size: 0px;}
-.aw-card-tips .icon-v.i-ve{background: url('img/icon-v-hover.png') no-repeat}
+.aw-card-tips .icon-v{margin:4px 0 0 3px;}
 
 /* @用户下拉 */
 .content_cursor{position: absolute;z-index:-1;max-width:600px;font-size: 14px;font-family: "Helvetica Neue",Helvetica,Arial,'Microsoft YaHei',sans-serif;word-wrap: break-word;opacity: 0;}
@@ -822,15 +822,14 @@ a.aw-load-more-content{display: block;}
 .fa-chevron-down.active:before{content:"\f077";}
 .fa-mobile-phone{margin-left:5px;font-size: 21px;color:#9d9c9c;vertical-align: -2px;}
 .fa-external-link{font-size: 12px;}
-.icon-v{font-size: 18px;color: #a5d300;vertical-align: -2px;}
-.icon-v.i-ve{color: #fce568;}
+.icon-v{display:inline-block;width: 17px;height: 14px;background: url('img/icon-v.png') no-repeat;font-size: 0px;}
+.icon-v.i-ve{background: url('img/icon-v-hover.png') no-repeat;}
 .icon-add-alt{font-size: 18px;margin-right: 10px;}
 .icon-register-arrow{display: inline-block;width: 20px;height: 48px;background-image: url('img/register-triangle.png');background-color:#fff;background-repeat: no-repeat;}
 .i-dropdown-triangle{display:inline-block;width:13px;height:7px;background: url('img/icon-angle-up.png') no-repeat;}
 .i-private-replay-triangle{width: 8px;height: 10px;background: url('img/icon-angle-right.png') no-repeat;}
 .fa-fire, .fa-tags{margin-right: 5px;}
 .fa-retweet{font-size: 14px;}
-.icon-g-replay{color: #309C04;}
 
 /*分享icon*/
 .bds{position:relative;top:3px;display:inline-block;width:16px;height:16px;margin-right:5px;background-image: url(img/bds-icon-sprite.png);background-repeat: no-repeat;}

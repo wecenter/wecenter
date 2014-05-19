@@ -182,9 +182,9 @@
 										<a class="aw-user-img pull-left" data-id="<?php echo $val['user_info']['uid']; ?>" href="people/<?php echo $val['user_info']['url_token']; ?>"><img class="img" alt="" src="<?php echo get_avatar_url($val['user_info']['uid'], 'mid'); ?>" /></a>
 										<div class="main">
 											<?php if ($val['has_invite']) { ?>
-												<a class="pull-right btn btn-normal btn-default" data-value="<?php echo $val['user_info']['user_name']; ?>" data-id="<?php echo $val['user_info']['uid']; ?>" onclick="AWS.disinvite_user($(this))"><?php _e('取消邀请'); ?></a>
+												<a class="pull-right btn btn-normal btn-default" data-value="<?php echo $val['user_info']['user_name']; ?>" data-id="<?php echo $val['user_info']['uid']; ?>" onclick="AWS.User.disinvite_user($(this))"><?php _e('取消邀请'); ?></a>
 											<?php } else { ?>
-												<a class="pull-right btn btn-normal btn-default aw-active" data-value="<?php echo $val['user_info']['user_name']; ?>" data-id="<?php echo $val['user_info']['uid']; ?>" onclick="AWS.invite_user($(this),$(this).parents('li').find('img').attr('src'));"><?php _e('邀请'); ?></a>
+												<a class="pull-right btn btn-normal btn-default aw-active" data-value="<?php echo $val['user_info']['user_name']; ?>" data-id="<?php echo $val['user_info']['uid']; ?>" onclick="AWS.User.invite_user($(this),$(this).parents('li').find('img').attr('src'));"><?php _e('邀请'); ?></a>
 											<?php } ?>
 											
 											<a class="aw-user-name" data-id="<?php echo $val['user_info']['uid']; ?>" href="people/<?php echo $val['user_info']['url_token']; ?>"><?php echo $val['user_info']['user_name']; ?><?php if ($val['user_info']['verified']) { ?><i class="icon-v<?php if ($val['user_info']['verified'] == 'enterprise') { ?> i-ve<?php } ?>" title="<?php if ($val['user_info']['verified'] == 'enterprise') { ?>企业认证<?php } else { ?>个人认证<?php } ?>"></i><?php } ?></a>
@@ -256,7 +256,8 @@
 							<?php if ($this->question_info['best_answer'] == $val['answer_id']) { ?>
 							<!-- 最佳回答 -->
 							<p class="aw-winner-replay">
-								<i class="icon-g-replay"></i>
+								<i class="fa fa-bookmark"></i>
+								<i class="fa fa-star"></i>
 								<?php _e('最佳回复'); ?>
 							</p>
 							<!-- end 最佳回答 -->

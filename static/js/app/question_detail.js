@@ -132,7 +132,7 @@ $(function() {
     }
     
     //长度小于3翻页隐藏
-    if ($('.aw-question-detail .aw-invite-box ul li').length <=3 )
+    if ($('.aw-question-detail .aw-invite-box .mod-body ul li').length <=3 )
     {
     	$('.aw-question-detail .aw-invite-box .aw-mod-footer').hide();
     }
@@ -143,26 +143,26 @@ $(function() {
 	    {
 	    	if (!$(this).hasClass('active'))
 	    	{
-	    		var attr = [],li_length = $('.aw-question-detail .aw-invite-box ul li').length;
-		    	$.each($('.aw-question-detail .aw-invite-box ul li'), function (i, e)
+	    		var attr = [],li_length = $('.aw-question-detail .aw-invite-box .mod-body ul li').length;
+		    	$.each($('.aw-question-detail .aw-invite-box .mod-body ul li'), function (i, e)
 		    	{
 		    		if ($(this).is(':visible') == true)
 		    		{
 		    			attr.push($(this).index());
 		    		}
 		    	});
-		    	$('.aw-question-detail .aw-invite-box ul li').hide();
+		    	$('.aw-question-detail .aw-invite-box .mod-body ul li').hide();
 		    	$.each(attr, function (i, e)
 		    	{
 					if (attr.join('') == '123' || attr.join('') == '234')
 					{
-						$('.aw-question-detail .aw-invite-box ul li').eq(0).show();
-						$('.aw-question-detail .aw-invite-box ul li').eq(1).show();
-						$('.aw-question-detail .aw-invite-box ul li').eq(2).show();
+						$('.aw-question-detail .aw-invite-box .mod-body ul li').eq(0).show();
+						$('.aw-question-detail .aw-invite-box .mod-body ul li').eq(1).show();
+						$('.aw-question-detail .aw-invite-box .mod-body ul li').eq(2).show();
 					}
 					else
 					{
-		    			$('.aw-question-detail .aw-invite-box ul li').eq(e-3).show();
+		    			$('.aw-question-detail .aw-invite-box .mod-body ul li').eq(e-3).show();
 					}
 		    		
 		    		if (e-3 == 0)
@@ -179,7 +179,7 @@ $(function() {
 	    {
 	    	if (!$(this).hasClass('active'))
 	    	{
-				var attr = [], li_length = $('.aw-question-detail .aw-invite-box ul li').length;
+				var attr = [], li_length = $('.aw-question-detail .aw-invite-box .mod-body ul li').length;
 		    	$.each($('.aw-question-detail .aw-invite-box ul li'), function (i, e)
 		    	{
 		    		if ($(this).is(':visible') == true)
@@ -191,10 +191,10 @@ $(function() {
 		    	{
 		    		if (e+3 < li_length)
 		    		{
-		    			$('.aw-question-detail .aw-invite-box ul li').eq(e).hide();
-		    			$('.aw-question-detail .aw-invite-box ul li').eq(e+3).show();
+		    			$('.aw-question-detail .aw-invite-box .mod-body ul li').eq(e).hide();
+		    			$('.aw-question-detail .aw-invite-box .mod-body ul li').eq(e+3).show();
 		    		}
-		    		if (e+4 == $('.aw-question-detail .aw-invite-box ul li').length)
+		    		if (e+4 == $('.aw-question-detail .aw-invite-box .mod-body ul li').length)
 		    		{
 		    			$('.aw-question-detail .aw-invite-box .next').addClass('active');
 		    		}

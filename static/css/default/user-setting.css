@@ -35,10 +35,10 @@
 .aw-user-setting .mod-setting-bind .form-group{line-height: 36px;}
 .aw-user-setting .mod-setting-bind .form-group .col-lg-4, .aw-user-setting .mod-setting-bind .form-group .col-lg-8, .aw-user-setting .mod-setting-bind .form-group .col-lg-10{padding-left: 0px;}
 .aw-user-setting .mod-setting-bind i{font-size: 20px;}
-.aw-user-setting .mod-setting-bind .icon-sina{color: #da2420;}
-.aw-user-setting .mod-setting-bind .icon-weibo{color: #44b8e8;}
-.aw-user-setting .mod-setting-bind .icon-qq{color: #5caada;}
-.aw-user-setting .mod-setting-bind .icon-wechat{font-size:16px;color: #86C76D;}
+.aw-user-setting .mod-setting-bind .fa-weibo{color: #da2420;}
+.aw-user-setting .mod-setting-bind .fa-tencent-weibo{color: #44b8e8;}
+.aw-user-setting .mod-setting-bind .fa-qq{color: #5caada;}
+.aw-user-setting .mod-setting-bind .fa-wechat{font-size:16px;color: #86C76D;}
 /* 我的积分 */
 .aw-user-setting-points table{margin:20px 0;font-size:13px;color: #666;}
 .aw-user-setting-points table .info th{background-color: #F5FAFE !important;border-top: none;font-weight: normal;}

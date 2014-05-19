@@ -39,10 +39,10 @@
 					
 					<?php if (get_setting('site_close') != 'Y' && (get_setting('sina_weibo_enabled') == 'Y' OR get_setting('qq_t_enabled') == 'Y' OR get_setting('qq_login_enabled') == 'Y') OR get_setting('weixin_app_id')) { ?>
 						<?php _e('第三方登录'); ?>:
-						<?php if (get_setting('sina_weibo_enabled') == 'Y') { ?><a href="account/openid/sina/" class="icon-sina"></a><?php } ?>
-						<?php if (get_setting('qq_t_enabled') == 'Y') { ?><a href="account/openid/qq/" class="icon-weibo"></a><?php } ?>
-						<?php if (get_setting('qq_login_enabled') == 'Y') { ?><a href="account/openid/qq_login/" class="icon-qq"></a><?php } ?>
-						<?php if (get_setting('weixin_app_id') AND get_setting('weixin_account_role') == 'service') { ?><a href="account/weixin_login/" class="icon-wechat"></a><?php } ?>
+						<?php if (get_setting('sina_weibo_enabled') == 'Y') { ?><a href="account/openid/sina/" class="fa fa-weibo"></a><?php } ?>
+						<?php if (get_setting('qq_t_enabled') == 'Y') { ?><a href="account/openid/qq/" class="fa fa-tencent-weibo"></a><?php } ?>
+						<?php if (get_setting('qq_login_enabled') == 'Y') { ?><a href="account/openid/qq_login/" class="fa fa-qq"></a><?php } ?>
+						<?php if (get_setting('weixin_app_id') AND get_setting('weixin_account_role') == 'service') { ?><a href="account/weixin_login/" class="fa fa-wechat"></a><?php } ?>
 					<?php } ?>
 				</div>
 			</div>
