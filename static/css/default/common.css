@@ -890,7 +890,6 @@ a.aw-load-more-content{display: block;}
 /* iphone横屏幕 */
 @media (max-width:640px) {  
     /*公共部分*/
-    
     .aw-container-wrap{padding: 0 10px;}
     .aw-common-list .aw-item{padding-left: 5px;}
 	.aw-question-comment-box .aw-vote-bar, .aw-vote-count{position: relative !important;left: 0 !important;}

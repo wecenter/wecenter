@@ -190,6 +190,7 @@ var AWS =
 				AWS.reload_comments_list(result.rsm.item_id, result.rsm.item_id, result.rsm.type_name);
 	        	$('#aw-comment-box-' + result.rsm.type_name + '-' + result.rsm.item_id + ' form input').val('');
 	        	$('#aw-comment-box-' + result.rsm.type_name + '-' + result.rsm.item_id + ' form textarea').val('');
+	        	$('.aw-comment-box-btn .btn-success').removeClass('disabled');
 			}
 
 			if (result.rsm && result.rsm.url)
@@ -2157,7 +2158,6 @@ AWS.Init =
 	{
 	    $(document).on('click', selector, function ()
 	    {
-	    	console.log('123');
 	        $(this).parents('.aw-question-detail').find('.aw-invite-box, .aw-question-related-box').hide();
 	        if (typeof COMMENT_UNFOLD != 'undefined')
 	        {
