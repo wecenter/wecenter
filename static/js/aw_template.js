@@ -216,7 +216,7 @@ var AW_TEMPLATE = {
 									'</span>'+
 								'</div>'+
 								'<div class="clearfix hide" id="quick_publish_captcha">'+
-									'<input type="text" class="pull-left form-control" name="seccode_verify" placeholder="' + _t('验证码') + '"  onfocus="$(\'#qp_captcha\').click();" />'+
+									'<input type="text" class="pull-left form-control" name="seccode_verify" placeholder="' + _t('验证码') + '" />'+
 									'<img id="qp_captcha" class="pull-left" onclick="this.src = \'' +G_BASE_URL + '/account/captcha/\' + Math.floor(Math.random() * 10000);" src="" />'+
 								'</div>'+
 							'</form>'+

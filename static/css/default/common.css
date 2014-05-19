@@ -3,6 +3,7 @@
 /* 重载bootstrap部分 */
 em{font-style: normal;}
 input[type="radio"], input[type="checkbox"]{margin:0;}
+input[type="radio"]:focus, input[type="checkbox"]:focus{outline: none;}
 label{margin:0;font-weight: normal;}
 form{margin:0;}
 select, input[type="file"]{line-height: 28px;}
