@@ -29,9 +29,10 @@
             <dt><h3><?php _e('微信公众平台帐号角色'); ?>: </h3></dt>
 
             <dd>
+                <label><input type="radio" name="account_role[<?php echo $key; ?>]" value="base"<?php if ($value['account_role'] == 'base') { ?> checked="checked"<?php } ?> /> <?php _e('普通订阅号'); ?></label>
+                <label><input type="radio" name="account_role[<?php echo $key; ?>]" value="subscription"<?php if ($value['account_role'] == 'subscription') { ?> checked="checked"<?php } ?> /> <?php _e('微信认证订阅号'); ?></label>
                 <label><input type="radio" name="account_role[<?php echo $key; ?>]" value="general"<?php if ($value['account_role'] == 'general') { ?> checked="checked"<?php } ?> /> <?php _e('普通服务号'); ?></label>
-                <label><input type="radio" name="account_role[<?php echo $key; ?>]" value="subscription"<?php if ($value['account_role'] == 'subscription') { ?> checked="checked"<?php } ?> /> <?php _e('认证订阅号'); ?></label>
-                <label><input type="radio" name="account_role[<?php echo $key; ?>]" value="service"<?php if ($value['account_role'] == 'service') { ?> checked="checked"<?php } ?> /> <?php _e('认证服务号'); ?></label>
+                <label><input type="radio" name="account_role[<?php echo $key; ?>]" value="service"<?php if ($value['account_role'] == 'service') { ?> checked="checked"<?php } ?> /> <?php _e('微信认证服务号'); ?></label>
 
             </dd>
         </dl>

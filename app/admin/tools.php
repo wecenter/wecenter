@@ -180,9 +180,9 @@ class tools extends AWS_ADMIN_CONTROLLER
 		}
 	}
 
-	public function update_weixin_menu_action($account_id)
+	public function update_weixin_menu_action()
 	{
-		if ($error_message = $this->model('weixin')->update_client_menu($this->model('weixin')->get_weixin_mp_menu($account_id)))
+		if ($error_message = $this->model('weixin')->update_client_menu(get_setting('weixin_mp_menu'))
 		{
 			H::redirect_msg($error_message);
 		}

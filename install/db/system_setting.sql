@@ -112,4 +112,4 @@ INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES
 ('weixin_app_secret', 's:0:"";'),
 ('wecenter_access_token', 's:0:"";'),
 ('wecenter_access_secret', 's:0:"";'),
-('weixin_account_role', 's:7:"general";');
+('weixin_account_role', 's:7:"base";');

@@ -884,15 +884,16 @@ class weixin_class extends AWS_MODEL
 		);
 	}
 
-	public function check_signature($account_info, $signature, $timestamp, $nonce)
+	public function check_signature($mp_token, $signature, $timestamp, $nonce)
 	{
-		if (!$account_info['mp_token'])
+		$mp_token = trim($mp_token);
+		if (empty($mp_token))
 		{
 			return false;
 		}
 
 		$tmpArr = array(
-			$account_info['mp_token'],
+			$mp_token,
 			$timestamp,
 			$nonce
 		);
@@ -1073,9 +1074,9 @@ class weixin_class extends AWS_MODEL
 		return get_setting('upload_url') . '/weixin/' . $size . $image_file;
 	}
 
-	public function send_text_message($openid, $message, $url = null)
+	public function send_text_message($account_role, $openid, $message, $url = null)
 	{
-		if ($account_info['account_role'] != 'service')
+		if ($account_role != 'service')
 		{
 			return false;
 		}
@@ -1089,11 +1090,6 @@ class weixin_class extends AWS_MODEL
 
 	public function update_client_menu($mp_menu_data)
 	{
-		if (!$account_info['app_id'])
-		{
-			return false;
-		}
-
 		if ($result = $this->model('wecenter')->mp_server_query('update_client_menu', array(
 			'mp_menu_data' => serialize($mp_menu_data),
 			'base_url' => get_setting('base_url')
@@ -1206,30 +1202,6 @@ class weixin_class extends AWS_MODEL
 		}
 	}
 
-	public function get_qr_code($scene_id)
-	{
-		// id 是自增的，不能这样写。
-		$account_num = $this->count('weixin_accounts');
-
-		$data = array();
-
-		for ($i=0; $i<=$account_num; $i++)
-		{
-			$account_role = $this->get_account_info_by_id($i, 'account_role');
-
-			if ($account_role = 'service' AND
-				$result = $this->model('wecenter')->mp_server_query('get_qr_code', array(
-					'scene_id' => $scene_id,
-					'expire_seconds' => 300
-			)))
-			{
-				$data[] = $result['data'];
-			}
-		}
-
-		return $data;
-	}
-
 	public function add_account($account_info)
 	{
 		$this->insert('weixin_accounts', $account_info);
@@ -1239,12 +1211,12 @@ class weixin_class extends AWS_MODEL
 	{
 		foreach ($account_info AS $value)
 		{
-			$this->update('weixin_accounts', $value, 'id = ' . intval($account_id));
+			$this->update('weixin_accounts', $value, 'id = ' . $account_id);
 		}
 	}
 
 	public function del_account($account_id)
 	{
-		$this->delete('weixin_accounts', 'id = ' . intval($account_id));
+		$this->delete('weixin_accounts', 'id = ' . $account_id);
 	}
 }

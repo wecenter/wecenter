@@ -63,16 +63,16 @@ class weixin extends AWS_ADMIN_CONTROLLER
 
 		$account_info = $this->model('weixin')->get_account_info_by_id($account_id);
 
-		if (!$account_info['app_id'] || $account_info['account_role'] == 'general')
+		if (!$account_info['app_id'] || $account_info['account_role'] == 'base')
 		{
-			H::redirect_msg(AWS_APP::lang()->_t('此功能不适用于微信普通服务号或未启用 WeCenter 服务'));
+			H::redirect_msg(AWS_APP::lang()->_t('此功能不适用于未通过微信认证的普通订阅号或未启用 WeCenter 服务'));
 		}
 
 		$this->crumb(AWS_APP::lang()->_t('菜单管理'), 'admin/weixin/mp_menu/');
 
 		$this->model('weixin')->client_list_image_clean();
 
-		TPL::assign('mp_menu', json_decode($account_info['mp_menu']));
+		TPL::assign('mp_menu', $account_info['mp_menu']);
 		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(803));
 
 		TPL::assign('feature_list', $this->model('feature')->get_enabled_feature_list('id DESC', null, null));
@@ -92,7 +92,7 @@ class weixin extends AWS_ADMIN_CONTROLLER
 
 	public function save_mp_menu_action()
 	{
-		$account_id = $_GET['id'] ?: 0;
+		$account_id = intval($_POST['id']) ?: 0;
 
 		if ($_POST['button'])
 		{
@@ -102,9 +102,18 @@ class weixin extends AWS_ADMIN_CONTROLLER
 			}
 		}
 
-		$this->update('weixin_accounts', array(
-			'weixin_mp_menu' => $weixin_mp_menu
-		), '`id` = ' . $account_id);
+		if ($account_id == 0)
+		{
+			$this->model('setting')->set_vars(array(
+				'weixin_mp_menu' => $weixin_mp_menu
+			));
+		}
+		else
+		{
+			$this->update('weixin_accounts', array(
+				'weixin_mp_menu' => json_encode($weixin_mp_menu)
+			), '`id` = ' . $account_id);
+		}
 
 		H::ajax_json_output(AWS_APP::RSM(null, 1, null));
 	}
@@ -369,28 +378,29 @@ class weixin extends AWS_ADMIN_CONTROLLER
 		foreach ($accounts_info AS $account_info)
 		{
 			$account_info['mp_token'] = trim($account_info['mp_token']);
-			if ($account_info['mp_token'])
+			if (empty($account_info['mp_token']))
 			{
 				H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('微信公众平台接口 Token 不能为空')));
 			}
 
 			$account_info['id'] = intval($account_info['id']);
-			if ($account_info['id'])
-			{
-				$this->model('weixin')->update_account($account_info['id'], $account_info);
-				H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('更新微信账号成功')));
-			}
-			else
+			if (empty($account_info['id']))
 			{
 				$this->model('weixin')->add_account($account_info);
 				H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('添加微信账号成功')));
+			}
+			else
+			{
+				$this->model('weixin')->update_account($account_info['id'], $account_info);
+				H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('更新微信账号成功')));
 			}
 		}
 	}
 
 	public function del_account_action()
 	{
-		if ($_GET['id'])
+		$_GET['id'] = intval($_GET['id']);
+		if (!empty($_GET['id']))
 		{
 			$this->model('weixin')->del_account($_GET['id']);
 			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('删除微信账号成功')));

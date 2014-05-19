@@ -1070,7 +1070,7 @@ CREATE TABLE `[#DB_PREFIX#]weixin_reply_rule` (
 CREATE TABLE `[#DB_PREFIX#]weixin_accounts` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `mp_token` varchar(255) NOT NULL,
-  `account_role` varchar(20) DEFAULT 'general',
+  `account_role` varchar(20) DEFAULT 'base',
   `app_id` varchar(255) DEFAULT '',
   `app_secret` varchar(255) DEFAULT '',
   `wecenter_access_token` varchar(255) DEFAULT '',
