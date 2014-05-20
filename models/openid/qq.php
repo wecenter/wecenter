@@ -116,7 +116,7 @@ class openid_qq_class extends AWS_MODEL
 		return $this->insert('users_qq', array(
 			'type' => 'qq',
 			'uid' => intval($uid),
-			'openid' => $name,
+			'openid' => $openid,
 			'nick' => $nick,
 			'gender' => $gender,
 			'add_time' => time(),
