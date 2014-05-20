@@ -161,7 +161,7 @@ class openid extends AWS_CONTROLLER
 			}
 			else
 			{
-				H::ajax_json_output(AWS_APP::RSM(null, 1, AWS_APP::lang()->_t('与微博通信出错 (Register), 请重新登录')));
+				H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('与微博通信出错 (Register), 请重新登录')));
 			}
 		}
 		else
@@ -501,7 +501,7 @@ class openid extends AWS_CONTROLLER
 				}
 				else
 				{
-					H::ajax_json_output(AWS_APP::RSM(null, - 1, $result));
+					H::ajax_json_output(AWS_APP::RSM(null, -1, $result));
 				}
 			}
 			else
@@ -532,7 +532,7 @@ class openid extends AWS_CONTROLLER
 			}
 			else
 			{
-				H::ajax_json_output(AWS_APP::RSM(null, 1, AWS_APP::lang()->_t('与 QQ 通信出错 (Register), 请重新登录')));
+				H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('与 QQ 通信出错 (Register), 请重新登录')));
 			}
 		}
 		else
