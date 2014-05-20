@@ -29,7 +29,7 @@ class qq extends AWS_CONTROLLER
 		return $rule_action;
 	}
 
-	function binding_weibo_action()
+	public function binding_weibo_action()
 	{
 		if (get_setting('qq_t_enabled') != 'Y')
 		{
@@ -39,7 +39,7 @@ class qq extends AWS_CONTROLLER
 		$this->model('openid_qq_weibo')->init(get_js_url('/account/qq/callback_weibo/'));
 	}
 
-	function callback_weibo_action()
+	public function callback_weibo_action()
 	{
 		if (get_setting('qq_t_enabled') != 'Y')
 		{
@@ -63,14 +63,14 @@ class qq extends AWS_CONTROLLER
 		}
 	}
 
-	function del_bind_weibo_action()
+	public function del_bind_weibo_action()
 	{
 		$this->model('openid_qq_weibo')->del_users_by_uid($this->user_id);
 		
 		HTTP::redirect('/account/setting/openid/');
 	}
 
-	function binding_qq_action()
+	public function binding_qq_action()
 	{
 		if (get_setting('qq_login_enabled') != 'Y')
 		{
@@ -82,7 +82,7 @@ class qq extends AWS_CONTROLLER
 		HTTP::redirect($this->model('openid_qq')->qq_login(get_js_url('/account/qq/callback_qq/')));
 	}
 
-	function callback_qq_action()
+	public function callback_qq_action()
 	{
 		if (get_setting('qq_login_enabled') != 'Y')
 		{
@@ -117,7 +117,7 @@ class qq extends AWS_CONTROLLER
 		}
 	}
 	
-	function del_bind_qq_action()
+	public function del_bind_qq_action()
 	{
 		$this->model('openid_qq')->del_user_by_uid($this->user_id);
 		

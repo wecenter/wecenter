@@ -1,1 +1,19 @@
-<?php if ($this->users_list) { ?><?php foreach ($this->users_list AS $key => $val) { ?><li class="col-sm-6">	<div class="aw-item">		<a class="aw-user-img pull-left aw-border-radius-5" data-id="<?php echo $val['uid']; ?>" href="people/<?php echo $val['url_token']; ?>">			<img src="<?php echo get_avatar_url($val['uid'],'mid',$val['avatar_file']); ?>" alt="<?php echo $val['user_name']; ?>" />		</a>		<p><a href="people/<?php echo $val['url_token']; ?>"><?php echo $val['user_name']; ?></a></p>		<p class="aw-text-color-999"><?php echo $val['signature']; ?></p>	</div>		<p class="aw-user-center-follow-meta">		<span><i class="fa fa-tag"></i><?php _e('威望'); ?>: <em class="aw-text-color-green"><?php echo $val['reputation']; ?></em></span>		<span><i class="fa fa-thumbs-up"></i><?php _e('赞同'); ?>: <em class="aw-text-color-orange"><?php echo $val['agree_count']; ?></em></span>		<span><i class="fa fa-heart"></i><?php _e('感谢'); ?>: <em class="aw-text-color-orange"><?php echo $val['thanks_count']; ?></em></span>	</p></li><?php } ?><?php } ?>
+<?php if ($this->users_list) { ?>
+<?php foreach ($this->users_list AS $key => $val) { ?>
+<li class="col-sm-6">
+	<div class="aw-item">
+		<a class="aw-user-img pull-left aw-border-radius-5" data-id="<?php echo $val['uid']; ?>" href="people/<?php echo $val['url_token']; ?>">
+			<img src="<?php echo get_avatar_url($val['uid'],'mid',$val['avatar_file']); ?>" alt="<?php echo $val['user_name']; ?>" />
+		</a>
+		<p><a href="people/<?php echo $val['url_token']; ?>"><?php echo $val['user_name']; ?></a></p>
+		<p class="aw-text-color-999"><?php echo $val['signature']; ?></p>
+	</div>
+	
+	<p class="aw-user-center-follow-meta">
+		<span><i class="fa fa-tag"></i><?php _e('威望'); ?>: <em class="aw-text-color-green"><?php echo $val['reputation']; ?></em></span>
+		<span><i class="fa fa-thumbs-up"></i><?php _e('赞同'); ?>: <em class="aw-text-color-orange"><?php echo $val['agree_count']; ?></em></span>
+		<span><i class="fa fa-heart"></i><?php _e('感谢'); ?>: <em class="aw-text-color-orange"><?php echo $val['thanks_count']; ?></em></span>
+	</p>
+</li>
+<?php } ?>
+<?php } ?>

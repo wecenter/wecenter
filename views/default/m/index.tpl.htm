@@ -1,1 +1,40 @@
-<?php TPL::output('m/header.tpl.htm'); ?><?php TPL::output('m/global_header.tpl.htm'); ?><div class="aw-content">	<!-- 新消息通知 -->	<div class="aw-mod aw-new-message-tips hide" id="index_notification">		<div class="aw-mod-head">			<h3>				<span class="pull-right"><a href="m/settings/" class="aw-text-color-999"><i class="fa fa-cog"></i> <?php _e('通知设置'); ?></a></span>				<span><?php _e('新通知'); ?></span> <em class="badge badge-info" name="notification_unread_num"><?php echo $this->user_info['notification_unread']; ?></em>			</h3>		</div>		<div class="aw-mod-body">			<ul id="notification_list"></ul>			<p>				<a href="javascript:;" onclick="read_notification(0, false, false);" class="pull-left btn btn-mini btn-default"><?php _e('我知道了'); ?></a>				<a href="notifications/" class="pull-right btn btn-mini btn-success"><?php _e('查看所有'); ?></a>			</p>		</div>	</div>	<!-- end 新消息通知 -->	<div class="aw-title">		<h2><?php _e('最新动态'); ?></h2>	</div>	<div class="feed-list">		<ul id="index_listview"></ul>		<a href="javascript:;" id="load_index_actions" class="aw-load-more"><?php _e('更多'); ?></a>	</div></div><?php TPL::output('m/nav_menu.tpl.htm'); ?><script type="text/javascript">	$(document).ready(function () {		load_list_view(G_BASE_URL + '/home/ajax/index_actions/template-m', $('#index_listview'), $('#load_index_actions'));	});</script><?php TPL::output('m/footer.tpl.htm'); ?>
+<?php TPL::output('m/header.tpl.htm'); ?>
+<?php TPL::output('m/global_header.tpl.htm'); ?>
+
+<div class="aw-content">
+	<!-- 新消息通知 -->
+	<div class="aw-mod aw-new-message-tips hide" id="index_notification">
+		<div class="aw-mod-head">
+			<h3>
+				<span class="pull-right"><a href="m/settings/" class="aw-text-color-999"><i class="fa fa-cog"></i> <?php _e('通知设置'); ?></a></span>
+				<span><?php _e('新通知'); ?></span> <em class="badge badge-info" name="notification_unread_num"><?php echo $this->user_info['notification_unread']; ?></em>
+			</h3>
+		</div>
+		<div class="aw-mod-body">
+			<ul id="notification_list"></ul>
+			<p>
+				<a href="javascript:;" onclick="read_notification(0, false, false);" class="pull-left btn btn-mini btn-default"><?php _e('我知道了'); ?></a>
+				<a href="notifications/" class="pull-right btn btn-mini btn-success"><?php _e('查看所有'); ?></a>
+			</p>
+		</div>
+	</div>
+	<!-- end 新消息通知 -->
+
+	<div class="aw-title">
+		<h2><?php _e('最新动态'); ?></h2>
+	</div>
+	<div class="feed-list">
+		<ul id="index_listview"></ul>
+		<a href="javascript:;" id="load_index_actions" class="aw-load-more"><?php _e('更多'); ?></a>
+	</div>
+</div>
+
+<?php TPL::output('m/nav_menu.tpl.htm'); ?>
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		load_list_view(G_BASE_URL + '/home/ajax/index_actions/template-m', $('#index_listview'), $('#load_index_actions'));
+	});
+</script>
+
+<?php TPL::output('m/footer.tpl.htm'); ?>
