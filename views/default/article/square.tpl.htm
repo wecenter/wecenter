@@ -36,7 +36,7 @@
 									<div class="content markitup-box hide" id="detail_more_<?php echo $val['id']; ?>">
 										<?php echo FORMAT::parse_attachs(nl2br(FORMAT::parse_markdown($val['message']))); ?>
 										<?php if (cjk_strlen($val['message']) > 130) { ?>
-							        	<a class="more" href="#" onclick="content_switcher($('#detail_more_<?php echo $val['id']; ?>'), $('#detail_<?php echo $val['id']; ?>')); return false;"><?php _e('收起阅读'); ?> »</a>
+							        	<a class="more" href="#" onclick="AWS.content_switcher($('#detail_more_<?php echo $val['id']; ?>'), $('#detail_<?php echo $val['id']; ?>')); return false;"><?php _e('收起阅读'); ?> »</a>
 							        	<?php } ?>
 									</div>
 								</div>

@@ -10,7 +10,7 @@ $(document).ready(function()
 	bp_more_inner_o = $('#bp_more').html();
 
 	// 检测首页动态更新
-	checkactionsnew_handle = setInterval(function () {
+	var checkactionsnew_handle = setInterval(function () {
 		check_actions_new('0', '<?php echo time(); ?>');
 	}, 60000);
 
@@ -18,7 +18,6 @@ $(document).ready(function()
 
 		if ($('#main_title').attr('id') != null && $(this).attr('rel'))
 		{
-
 			$('.aw-mod.side-nav a').removeClass('active');
 
 			window.location.hash = $(this).attr('rel');
@@ -147,50 +146,45 @@ function reload_list()
 
 function _welcome_step_1_form_processer(result)
 {
-	welcome_step_2_load();
+	welcome_step('2');
 }
 
-function welcome_step_1_load()
+function welcome_step(step)
 {
-	AWS.Init.init_avatar_uploader($('#welcome_avatar_uploader'), $('#aw-img-uploading'), $("#aw-upload-img"));
-
-	$('.aw-first-login').css({
-		left : $(window).width() / 2 - ($('.aw-first-login').width() + 42) / 2
-	});
-}
-
-function welcome_step_2_load()
-{
-	$('#welcome_topics_list').html('<p style="padding: 15px 0" align="center"><img src="' + G_STATIC_URL + '/common/loading_b.gif" alt="" /></p>');
-
-	$('.aw-first-login').hide().siblings().eq(1).show();
-
-	$.get(G_BASE_URL + '/account/ajax/welcome_get_topics/', function (result) {
-		$('#welcome_topics_list').html(result);
-	});
-}
-
-function welcome_step_3_load()
-{
-	$('#welcome_users_list').html('<p style="padding: 15px 0" align="center"><img src="' + G_STATIC_URL + '/common/loading_b.gif" alt="" /></p>');
-
-	$('.aw-first-login').hide().siblings().eq(2).show();
-
-	$.get(G_BASE_URL + '/account/ajax/welcome_get_users/', function (result) {
-		$('#welcome_users_list').html(result);
-	});
-}
-
-function welcome_step_finish()
-{
-	$('#aw-ajax-box').html('');
-	$('.modal-backdrop').detach();
-	$('body').removeClass('modal-open');
-
-	$.get(G_BASE_URL + '/account/ajax/clean_first_login/', function (result)
+	switch (step)
 	{
-		//window.location = G_BASE_URL + '/home/';
-	});
+		case '1':
+			AWS.Init.init_avatar_uploader($('#welcome_avatar_uploader'), $('#aw-img-uploading'), $("#aw-upload-img"));
+		break;
+
+		case '2':
+			$('#welcome_topics_list').html('<p style="padding: 15px 0" align="center"><img src="' + G_STATIC_URL + '/common/loading_b.gif" alt="" /></p>');
+
+			$('.aw-first-login').hide().siblings().eq(1).show();
+
+			$.get(G_BASE_URL + '/account/ajax/welcome_get_topics/', function (result) {
+				$('#welcome_topics_list').html(result);
+			});
+		break;
+
+		case '3':
+			$('#welcome_users_list').html('<p style="padding: 15px 0" align="center"><img src="' + G_STATIC_URL + '/common/loading_b.gif" alt="" /></p>');
+
+			$('.aw-first-login').hide().siblings().eq(2).show();
+
+			$.get(G_BASE_URL + '/account/ajax/welcome_get_users/', function (result) {
+				$('#welcome_users_list').html(result);
+			});
+		break;
+
+		case 'finish':
+			$('#aw-ajax-box').html('');
+			$('.modal-backdrop').detach();
+			$('body').removeClass('modal-open');
+
+			$.get(G_BASE_URL + '/account/ajax/clean_first_login/', function (result){});
+		break;
+	}
 }
 
 function check_actions_new(uid, time)

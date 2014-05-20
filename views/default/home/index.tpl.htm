@@ -69,7 +69,7 @@ $(document).ready(function () {
 	$.get(G_BASE_URL+'/account/ajax/welcome_message_template/', function (template) {
 		$('#aw-ajax-box').html(template);
 		$('body').addClass('modal-open');
-		welcome_step_1_load();
+		welcome_step('1');
 	});
 });
 </script>

@@ -56,7 +56,7 @@
 						</form>
 					</div>
 					<div class="mod-footer">
-						<a class="pull-left" onclick="welcome_step_finish();">跳过资料填写</a>
+						<a class="pull-left" onclick="welcome_step('finish');">跳过资料填写</a>
 						<a class="btn btn-large btn-success pull-right" onclick="AWS.ajax_post($('#welcome_step_1_form'), _welcome_step_1_form_processer);"><?php _e('下一步'); ?></a>
 					</div>
 					
@@ -91,13 +91,13 @@
 					</div>
 					<div class="mod-body">
 						<div class="aw-card-box-list clearfix">
-							<p class="clearfix"><a class="pull-right " onclick="welcome_step_2_load();">换一批</a></p>
+							<p class="clearfix"><a class="pull-right " onclick="welcome_step('2');">换一批</a></p>
 							<ul id="welcome_topics_list" class="clearfix"></ul>
 						</div>
 					</div>
 					<div class="mod-footer">
-						<a class="pull-left" onclick="welcome_step_finish();">跳过资料填写</a>
-						<a class="btn btn-large btn-success pull-right" onclick="welcome_step_3_load();"><?php _e('下一步'); ?></a>
+						<a class="pull-left" onclick="welcome_step('finish');">跳过资料填写</a>
+						<a class="btn btn-large btn-success pull-right" onclick="welcome_step('3');"><?php _e('下一步'); ?></a>
 						<a class="btn btn-large btn-success pull-right" onclick="$('.aw-first-login.first').show();$('.aw-first-login.second').hide();"><?php _e('上一步'); ?></a>
 					</div>
 					
@@ -131,13 +131,13 @@
 					</div>
 					<div class="mod-body">
 						<div class="aw-card-box-list clearfix">
-							<p class="clearfix"><a class="pull-right " onclick="welcome_step_3_load();">换一批</a></p>
+							<p class="clearfix"><a class="pull-right " onclick="welcome_step('3');">换一批</a></p>
 							<ul id="welcome_users_list" class="clearfix"></ul>
 						</div>
 					</div>
 					<div class="mod-footer">
-						<a class="pull-left" onclick="welcome_step_finish();">跳过资料填写</a>
-						<a class="btn btn-large btn-success pull-right" onclick="welcome_step_finish();"><?php _e('完成'); ?></a>
+						<a class="pull-left" onclick="welcome_step('finish');">跳过资料填写</a>
+						<a class="btn btn-large btn-success pull-right" onclick="welcome_step('finish');"><?php _e('完成'); ?></a>
 						<a class="btn btn-large btn-success pull-right" onclick="$('.aw-first-login.second').show();$('.aw-first-login.third').hide();"><?php _e('上一步'); ?></a>
 					</div>
 					

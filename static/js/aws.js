@@ -1,4 +1,4 @@
-var AWS = 
+var AWS =  
 {
 	//全局loading
 	loading: function (type)
