@@ -1069,17 +1069,17 @@ CREATE TABLE `[#DB_PREFIX#]weixin_reply_rule` (
 
 CREATE TABLE `[#DB_PREFIX#]weixin_accounts` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `mp_token` varchar(255) NOT NULL,
-  `account_role` varchar(20) DEFAULT 'base',
-  `app_id` varchar(255) DEFAULT '',
-  `app_secret` varchar(255) DEFAULT '',
+  `weixin_mp_token` varchar(255) NOT NULL,
+  `weixin_account_role` varchar(20) DEFAULT 'base',
+  `weixin_app_id` varchar(255) DEFAULT '',
+  `weixin_app_secret` varchar(255) DEFAULT '',
   `wecenter_access_token` varchar(255) DEFAULT '',
   `wecenter_access_secret` varchar(255) DEFAULT '',
-  `mp_menu` text DEFAULT '{}',
+  `weixin_mp_menu` text DEFAULT '{}',
   PRIMARY KEY (`id`),
-  KEY `mp_token` (`mp_token`),
-  KEY `account_role` (`account_role`),
-  KEY `app_id` (`app_id`),
+  KEY `weixin_mp_token` (`weixin_mp_token`),
+  KEY `weixin_account_role` (`weixin_account_role`),
+  KEY `weixin_app_id` (`weixin_app_id`),
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8 COMMENT='微信多账号设置';
 
 INSERT INTO `[#DB_PREFIX#]category`(`title`,`type`) VALUES

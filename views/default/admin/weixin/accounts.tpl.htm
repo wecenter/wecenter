@@ -18,7 +18,7 @@
             <dd>
                 <div class="row">
                     <div class="col-sm-7">
-                        <input name="mp_token[<?php echo $key; ?>]" type="text" class="form-control" value="<?php echo $value['mp_token']; ?>"/>
+                        <input name="weixin_mp_token[<?php echo $key; ?>]" type="text" class="form-control" value="<?php echo $value['weixin_mp_token']; ?>"/>
                     </div>
                 </div>
                 <p class="aw-text-color-999"><?php _e('请与微信公众平台后台设置一致'); ?></p>
@@ -29,10 +29,10 @@
             <dt><h3><?php _e('微信公众平台帐号角色'); ?>: </h3></dt>
 
             <dd>
-                <label><input type="radio" name="account_role[<?php echo $key; ?>]" value="base"<?php if ($value['account_role'] == 'base') { ?> checked="checked"<?php } ?> /> <?php _e('普通订阅号'); ?></label>
-                <label><input type="radio" name="account_role[<?php echo $key; ?>]" value="subscription"<?php if ($value['account_role'] == 'subscription') { ?> checked="checked"<?php } ?> /> <?php _e('微信认证订阅号'); ?></label>
-                <label><input type="radio" name="account_role[<?php echo $key; ?>]" value="general"<?php if ($value['account_role'] == 'general') { ?> checked="checked"<?php } ?> /> <?php _e('普通服务号'); ?></label>
-                <label><input type="radio" name="account_role[<?php echo $key; ?>]" value="service"<?php if ($value['account_role'] == 'service') { ?> checked="checked"<?php } ?> /> <?php _e('微信认证服务号'); ?></label>
+                <label><input type="radio" name="weixin_account_role[<?php echo $key; ?>]" value="base"<?php if ($value['weixin_account_role'] == 'base') { ?> checked="checked"<?php } ?> /> <?php _e('普通订阅号'); ?></label>
+                <label><input type="radio" name="weixin_account_role[<?php echo $key; ?>]" value="subscription"<?php if ($value['weixin_account_role'] == 'subscription') { ?> checked="checked"<?php } ?> /> <?php _e('微信认证订阅号'); ?></label>
+                <label><input type="radio" name="weixin_account_role[<?php echo $key; ?>]" value="general"<?php if ($value['weixin_account_role'] == 'general') { ?> checked="checked"<?php } ?> /> <?php _e('普通服务号'); ?></label>
+                <label><input type="radio" name="weixin_account_role[<?php echo $key; ?>]" value="service"<?php if ($value['weixin_account_role'] == 'service') { ?> checked="checked"<?php } ?> /> <?php _e('微信认证服务号'); ?></label>
 
             </dd>
         </dl>
@@ -67,7 +67,7 @@
             <dd>
                 <div class="row">
                     <div class="col-sm-7">
-                        <input name="app_id[<?php echo $key; ?>]" type="text" class="form-control" value="<?php echo $value['app_id']; ?>"/>
+                        <input name="weixin_app_id[<?php echo $key; ?>]" type="text" class="form-control" value="<?php echo $value['weixin_app_id']; ?>"/>
                     </div>
                 </div>
             </dd>
@@ -78,7 +78,7 @@
             <dd>
                 <div class="row">
                     <div class="col-sm-7">
-                        <input name="app_secret[<?php echo $key; ?>]" type="text" class="form-control" value="<?php echo $value['app_secret']; ?>"/>
+                        <input name="weixin_app_secret[<?php echo $key; ?>]" type="text" class="form-control" value="<?php echo $value['weixin_app_secret']; ?>"/>
                     </div>
                 </div>
             </dd>

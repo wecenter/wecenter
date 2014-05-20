@@ -142,7 +142,7 @@ class weixin extends AWS_CONTROLLER
 				{
 					if ($access_user['errcode'] == 48001)
 					{
-						$this->model('weixin')->send_text_message($account_role, $access_token['openid'], '当前微信没有绑定社区帐号, 请<a href="' . $this->model('openid_weixin')->get_oauth_url(get_js_url('/m/weixin/authorization/'), 'snsapi_userinfo') . '">点此绑定</a>或<a href="' . get_js_url('/m/register/') . '">注册新账户</a>, 使用全部功能');
+						$this->model('weixin')->send_text_message($access_token['openid'], '当前微信没有绑定社区帐号, 请<a href="' . $this->model('openid_weixin')->get_oauth_url(get_js_url('/m/weixin/authorization/'), 'snsapi_userinfo') . '">点此绑定</a>或<a href="' . get_js_url('/m/register/') . '">注册新账户</a>, 使用全部功能');
 
 						H::redirect_msg(AWS_APP::lang()->_t('当前微信没有绑定社区帐号, 请返回进行绑定后访问本内容'));
 					}

@@ -9,7 +9,7 @@ $config[] = array(
 			'title' => '管理首页',
 			'url' => 'admin/',
 		),
-		
+
 		array(
 			'id' => 101,
 			'title' => '系统设置',
@@ -56,19 +56,19 @@ $config[] = array(
 			'title' => '性能优化',
 			'url' => 'admin/settings/#!cache',
 		),
-		
+
 		array(
 			'id' => 110,
 			'title' => '界面设置',
 			'url' => 'admin/settings/#!interface',
 		),
-		
+
 		array(
 			'id' => 111,
 			'title' => '词语过滤',
 			'url' => 'admin/settings/#!sensitive_words',
 		),
-		
+
 		array(
 			'id' => 112,
 			'title' => '话题设置',
@@ -86,25 +86,25 @@ $config[] = array(
 			'title' => '导航设置',
 			'url' => 'admin/nav_menu/',
 		),
-		
+
 		array(
 			'id' => 300,
 			'title' => '内容审核',
 			'url' => 'admin/approval/list/',
 		),
-		
+
 		array(
 			'id' => 301,
 			'title' => '问题管理',
 			'url' => 'admin/question/question_list/',
 		),
-		
+
 		array(
 			'id' => 309,
 			'title' => '文章管理',
 			'url' => 'admin/article/list/',
 		),
-		
+
 		array(
 			'id' => 302,
 			'title' => '分类设置',
@@ -197,13 +197,18 @@ if (get_setting('weixin_mp_token'))
 	$config[] = array(
 		'title' => '微信',
 		'cname' => 'weixin',
-		'children' => array(			
+		'children' => array(
+			array(
+				'id' => 802,
+				'title' => '多账号管理',
+				'url' => 'admin/weixin/accounts/',
+			),
 			array(
 				'id' => 801,
 				'title' => '自定义回复',
 				'url' => 'admin/weixin/reply/',
 			),
-			
+
 			array(
 				'id' => 803,
 				'title' => '菜单管理',
@@ -222,7 +227,7 @@ $config[] = array(
 			'title' => '数据统计',
 			'url' => 'admin/statistic/',
 		),
-		
+
 		array(
 			'id' => 501,
 			'title' => '系统维护',

@@ -22,7 +22,7 @@ class wecenter_class extends AWS_MODEL
 {
 	public $api_version = '1.1';
 
-	public function mp_server_query($node, $post_data = null)
+	public function mp_server_query($node, $post_data = null, $account_id = 0)
 	{
 		if ($post_data)
 		{
@@ -35,13 +35,17 @@ class wecenter_class extends AWS_MODEL
 			}
 		}
 
-		if (get_setting('wecenter_access_token'))
+		if ($account_info = $this->model('weixin')->get_account_info_by_id($account_id))
 		{
-			$_post_data[] = 'wecenter_access_token=' . get_setting('wecenter_access_token');
-			$_post_data[] = 'wecenter_access_secret=' . get_setting('wecenter_access_secret');
+			if ($account_info['wecenter_access_token'])
+			{
+				$_post_data[] = 'wecenter_access_token=' . $account_info['wecenter_access_token'];
+				$_post_data[] = 'wecenter_access_secret=' . $account_info['wecenter_access_secret'];
+			}
+
+			$_post_data[] = 'wecenter_account_role=' . $account_info['weixin_account_role'];
 		}
 
-		$_post_data[] = 'wecenter_account_role=' . get_setting('weixin_account_role');
 		$_post_data[] = 'version=' . $this->api_version;
 
 		$curl = curl_init();

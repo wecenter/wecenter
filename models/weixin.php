@@ -45,13 +45,13 @@ class weixin_class extends AWS_MODEL
 
 			return array(
 				'id' => 0,
-				'mp_token' => get_setting('weixin_mp_token'),
-				'account_role' => get_setting('weixin_mp_token'),
-				'app_id' => get_setting('weixin_app_id'),
-				'app_secret' => get_setting('weixin_app_secret'),
+				'weixin_mp_token' => get_setting('weixin_mp_token'),
+				'weixin_account_role' => get_setting('weixin_mp_token'),
+				'weixin_app_id' => get_setting('weixin_app_id'),
+				'weixin_app_secret' => get_setting('weixin_app_secret'),
 				'wecenter_access_token' => get_setting('wecenter_access_token'),
 				'wecenter_access_secret' => get_setting('wecenter_access_secret'),
-				'mp_menu' => get_setting('weixin_mp_menu')
+				'weixin_mp_menu' => get_setting('weixin_mp_menu')
 			);
 		}
 
@@ -60,7 +60,7 @@ class weixin_class extends AWS_MODEL
 		if (!$account_info[$account_id])
 		{
 			$account_info[$account_id] = $this->fetch_row('weixin_accounts', 'id = ' . intval($account_id));
-			$account_info[$account_id]['mp_menu'] = json_decode($account_info[$account_id]['mp_menu']);
+			$account_info[$account_id]['weixin_mp_menu'] = json_decode($account_info[$account_id]['weixin_mp_menu']);
 		}
 
 		if ($column)
@@ -78,6 +78,31 @@ class weixin_class extends AWS_MODEL
 		}
 
 		return $account_info;
+	}
+
+	public function add_account($account_info)
+	{
+		$this->insert('weixin_accounts', $account_info);
+	}
+
+	public function update_setting_or_account($account_id, $account_info)
+	{
+		if ($account_id == 0)
+		{
+			$this->model('setting')->set_vars($account_info);
+		}
+		else
+		{
+			foreach ($account_info AS $value)
+			{
+				$this->update('weixin_accounts', $value, 'id = ' . intval($account_id));
+			}
+		}
+	}
+
+	public function del_account($account_id)
+	{
+		$this->delete('weixin_accounts', 'id = ' . intval($account_id));
 	}
 
 	public function fetch_message($account_role)
@@ -349,16 +374,6 @@ class weixin_class extends AWS_MODEL
 
 			$rule_image_size = 'square';
 		}
-
-		/*if ($result = $this->model('wecenter')->mp_server_query('create_image_response', array(
-			'article_data' => serialize($article_data),
-			'from_username' => $input_message['fromUsername'],
-			'to_username' => $input_message['toUsername'],
-			'create_time' => $input_message['time'],
-		)))
-		{
-			return $result['data'];
-		}*/
 
 		if (!is_array($article_data))
 		{
@@ -1074,9 +1089,9 @@ class weixin_class extends AWS_MODEL
 		return get_setting('upload_url') . '/weixin/' . $size . $image_file;
 	}
 
-	public function send_text_message($account_role, $openid, $message, $url = null)
+	public function send_text_message($openid, $message, $url = null)
 	{
-		if ($account_role != 'service')
+		if (get_setting('weixin_account_rule') != 'service')
 		{
 			return false;
 		}
@@ -1108,12 +1123,12 @@ class weixin_class extends AWS_MODEL
 
 	public function get_client_list_image_by_command($command)
 	{
-		if (!$account_info['app_id'])
+		if (!$account_info['weixin_app_id'])
 		{
 			return false;
 		}
 
-		$mp_menu_data = $account_info['mp_menu'];
+		$mp_menu_data = $account_info['weixin_mp_menu'];
 
 		foreach ($mp_menu_data AS $key => $val)
 		{
@@ -1137,12 +1152,12 @@ class weixin_class extends AWS_MODEL
 
 	public function get_weixin_app_id_setting_var()
 	{
-		if (!$account_info['wecenter_access_token'])
+		if (!get_setting('wecenter_access_token'))
 		{
-			return $this->update('weixin_accounts', array(
-				'app_id' => '',
-				'app_secret' => ''
-			), '`id` = ' . $account_info['id']);
+			return $this->model('setting')->set_vars(array(
+				'weixin_app_id' => '',
+				'weixin_app_secret' => ''
+			));
 		}
 
 		if ($result = $this->model('wecenter')->mp_server_query('get_app_id'))
@@ -1151,10 +1166,10 @@ class weixin_class extends AWS_MODEL
 			{
 				$app_id_setting = unserialize($result['data']);
 
-				$this->update('weixin_accounts', array(
-					'app_id' => $app_id_setting['weixin_app_id'],
-					'app_secret' => $app_id_setting['weixin_app_secret']
-				), '`id` = ' . $account_info['id']);
+				$this->model('setting')->set_vars(array(
+					'weixin_app_id' => $app_id_setting['weixin_app_id'],
+					'weixin_app_secret' => $app_id_setting['weixin_app_secret']
+				));
 			}
 		}
 	}
@@ -1166,7 +1181,7 @@ class weixin_class extends AWS_MODEL
 			return false;
 		}
 
-		$mp_menu = $account_info['mp_menu'];
+		$mp_menu = $account_info['weixin_mp_menu'];
 
 		foreach ($mp_menu AS $key => $val)
 		{
@@ -1200,23 +1215,5 @@ class weixin_class extends AWS_MODEL
 		{
 			return $result['data'];
 		}
-	}
-
-	public function add_account($account_info)
-	{
-		$this->insert('weixin_accounts', $account_info);
-	}
-
-	public function update_account($account_id, $account_info)
-	{
-		foreach ($account_info AS $value)
-		{
-			$this->update('weixin_accounts', $value, 'id = ' . $account_id);
-		}
-	}
-
-	public function del_account($account_id)
-	{
-		$this->delete('weixin_accounts', 'id = ' . $account_id);
 	}
 }
