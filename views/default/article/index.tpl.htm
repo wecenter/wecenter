@@ -214,7 +214,7 @@
 						<?php if ($this->article_info['user_info']['uid'] != $this->user_id AND $this->user_id) { ?>
 							<a href="javascript:;" class="btn btn-mini btn-default<?php if (!$this->user_follow_check) { ?> aw-active<?php } ?>" onclick="AWS.User.follow($(this), 'user', <?php echo $this->article_info['user_info']['uid']; ?>);"><?php if ($this->user_follow_check) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?>
 							</a>
-							<a class="btn btn-mini btn-primary" href="javascript:;" onclick="AWS.dialog('publish', {category_enable:<?php echo (get_setting('category_enable') == 'Y') ? '1' : '0'; ?>, ask_user_id:<?php echo $this->article_info['uid']; ?>}, ask_user_name:'<?php echo $this->article_info['user_info']['user_name'];?>');"><?php _e('问Ta'); ?></a>
+							<a class="btn btn-mini btn-primary" href="javascript:;" onclick="AWS.dialog('publish', {category_enable:<?php echo (get_setting('category_enable') == 'Y') ? '1' : '0'; ?>, ask_user_id:<?php echo $this->article_info['uid']; ?>, ask_user_name:'<?php echo $this->article_info['user_info']['user_name'];?>'});"><?php _e('问Ta'); ?></a>
 						<?php } ?>
 					</div>
 				</div>
