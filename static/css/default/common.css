@@ -142,7 +142,7 @@ a.aw-load-more-content{display: block;}
 .aw-login-register a img{width: 25px;height: 25px;position:absolute;right:15px;}
 .aw-login-register .aw-user-nav-dropdown{max-width:141px;height:27px;line-height:27px;margin-left:20px;}
 .aw-login-register .aw-user-head img{width: 25px;height: 25px;margin:-3px 0 0 5px;}
-.aw-publish-btn{width:80px;margin:11px 0 0 0;padding:0px;}
+.aw-publish-btn{width:80px;margin:12px 15px 0 0;padding:0px;}
 .aw-publish-btn a{display:block;width:80px;height: 32px;line-height: 32px;font-size: 14px;background-color: #42c8e7;text-align: center;color: #fff;border-radius: 3px;}
 .aw-publish-btn a:hover{background-color: #2abde9;}
 .aw-publish-btn .fa-edit{margin-right:10px;vertical-align:-1px;font-size: 15px;color: #fff;}
@@ -167,7 +167,7 @@ a.aw-load-more-content{display: block;}
 .aw-top-nav .aw-message-dropdown ul li:hover{background: #F5FAFF;}
 .aw-top-nav .aw-message-dropdown ul li:hover .aw-new-message-tips-close{display: block;}
 .aw-top-nav .aw-message-dropdown ul li .message{display:inline-block;width: 210px;}
-.aw-user-nav{position:relative;float:right;width:145px;height:54px;text-align: right;}
+.aw-user-nav{position:relative;float:right;width:135px;height:54px;text-align: right;}
 .aw-user-nav:hover .aw-user-nav-dropdown-list{display: block;}
 .aw-user-nav > a{display:block;height:54px;line-height:52px;padding-right:10px;color: #fff;}
 .aw-user-nav > a img{width: 32px;height: 32px;border-radius: 5px;}
