@@ -37,7 +37,7 @@ class openid_qq_class extends AWS_MODEL
 	
 	public function get_user_info_by_open_id($open_id)
 	{
-		return $this->fetch_row('users_qq', "type = 'qq' AND name = '" . $this->quote($open_id) . "'");
+		return $this->fetch_row('users_qq', "type = 'qq' AND openid = '" . $this->quote($open_id) . "'");
 	}
 	
 	public function get_user_info_by_uid($uid)
