@@ -589,6 +589,8 @@ class openid extends AWS_CONTROLLER
 						
 						TPL::assign('user_name', str_replace(' ', '_', AWS_APP::session()->qq_profile['nickname']));
 						
+						TPL::import_css('css/register.css');
+						
 						TPL::output("account/openid/callback");
 					}
 				}
