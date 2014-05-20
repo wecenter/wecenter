@@ -2,12 +2,14 @@
 
 <script type="text/javascript">
 	$(document).ready(function () {
-		$('#header_action').append('<?php _e('第三方登录'); ?>');
+		$('#header_action').append('<?php _e('完善资料'); ?>');
 	});
 </script>
 
 <div class="aw-register-box aw-register-open-box">
+	<?php if ($_GET['act'] != 'qq_login_callback') { ?>
 	<p><?php _e('已有账号'); ?>? <a class="aw-register-open-tabs"><?php _e('点此绑定'); ?><i class="aw-icon i-triangle-down"></i></a></p>
+	<?php } ?>
 	<form id="login_form" method="post" class="aw-register-form hide" onsubmit="return false" action="account/ajax/login_process/">
 		<input type="hidden" name="post_hash" value="<?php echo new_post_hash(); ?>" />
 		<input type="hidden" name="return_url" id="login_return_url" value="" />
@@ -53,7 +55,7 @@
 				<em></em>
 			</li>
 			<li>
-				<button class="pull-right btn btn-large btn-success" onclick="ajax_post($('#register_form'), _error_message_form_processer); return false;"><?php _e('确认注册'); ?></button>
+				<button class="pull-right btn btn-large btn-success" onclick="ajax_post($('#register_form'), _error_message_form_processer); return false;"><?php _e('完善资料'); ?></button>
 			</li>
 		</ul>
 	</form>
@@ -62,8 +64,6 @@
 <script type="text/javascript" src="<?php echo G_STATIC_URL; ?>/js/app/login.js"></script>
 <script type="text/javascript">
 	$(document).ready(function () {
-		$('#login_return_url').val(window.location.href);
-
 		$.get(G_BASE_URL + '/account/ajax/register_agreement/', function (result) { $('#register_agreement').html(result.err); }, 'json');
 
 		$('.aw-register-open-tabs').click(function() {
