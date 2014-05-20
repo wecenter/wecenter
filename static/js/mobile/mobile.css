@@ -113,12 +113,12 @@ nav #aw-top-nav-notic .badge{position: absolute;right: 0;top:1px;z-index:100;pad
 .feed-list ul li:first-child{border-top: none;}
 .feed-list ul li .avatar{position: absolute;right: 0;top: 10px;}
 .feed-list ul li .avatar img{width: 25px;height: 25px;border-radius: 2px;}
-.feed-list ul li .aw-mod-head h2{line-height: 24px;}
+.feed-list ul li .aw-mod-head h2{line-height: 24px;word-wrap:break-word;}
 .feed-list ul li .aw-mod-head p{max-width:270px;font-size: 15px;line-height:24px;color: #999;}
 .feed-list ul li .aw-mod-head p a{color: #222222;}
 .feed-list ul li .aw-mod-head p a.aw-topic-name{color: #0088CC;}
 .feed-list ul li .aw-mod-head span{font-size: 13px;}
-.feed-list ul li h2{font-size: 16px;}
+.feed-list ul li h2{font-size: 16px;word-wrap:break-word;}
 .feed-list ul li p, .aw-title p{margin:0;}
 .feed-list ul li .aw-mod-body p.content{line-height: 24px;font-size: 15px;}
 .feed-list ul li .aw-mod-footer{margin-top: 5px;}
