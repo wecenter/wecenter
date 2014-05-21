@@ -38,18 +38,18 @@
 									<p class="title"><?php _e('没有找到相关结果'); ?></p>
 									<ul class="aw-question-dropdown-list"></ul>
 								</div>
-								<div class="aw-publish-title-dropdown">
-									<p class="dropdown-toggle" data-toggle="dropdown">
+								<div class="dropdown">
+									<div class="dropdown-toggle" data-toggle="dropdown">
 										<span id="aw-topic-tags-select"><?php _e('选择分类'); ?></span>
 										<a href="javascript:;"><i class="fa fa-chevron-down"></i></a></a>
-									</p>
+									</div>
 								</div>
 								<?php } ?>
 						</div>
 							<!-- end 文章标题 -->
 
 							<h3><?php _e('文章内容'); ?>:</h3>
-							<div class="aw-mod aw-mod-publish-box">
+							<div class="aw-mod aw-editor-box">
 								<div class="mod-head">
 									<textarea name="message" id="advanced_editor" rows="20" class="autosize form-control advanced_editor"><?php echo $this->article_info['message']; ?></textarea>
 									<p class="aw-text-color-999"><span class="pull-right" id="article_message">&nbsp;</span></p>

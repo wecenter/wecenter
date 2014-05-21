@@ -59,13 +59,13 @@ $(document).ready(function () {
 
 		$('#category_id').val(category_id);
 
-		AWS.Dropdown.set_dropdown_list('.aw-publish-title .aw-publish-title-dropdown', eval('[' + category_data + ']'), category_id);
+		AWS.Dropdown.set_dropdown_list('.aw-publish-title .dropdown', eval('[' + category_data + ']'), category_id);
 
-		$('.aw-publish-title .aw-publish-title-dropdown li a').click(function() {
+		$('.aw-publish-title .dropdown li a').click(function() {
 			$('#category_id').val($(this).attr('data-value'));
 		});
 
-		$.each($('.aw-publish-title .aw-publish-title-dropdown .aw-category-dropdown-list li a'),function(i, e)
+		$.each($('.aw-publish-title .dropdown .aw-dropdown-list li a'),function(i, e)
 		{
 			if ($(e).attr('data-value') == $('#category_id').val())
 			{

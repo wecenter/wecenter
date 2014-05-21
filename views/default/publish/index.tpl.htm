@@ -32,25 +32,27 @@
 							<h3><?php _e('问题标题'); ?>:</h3>
 							<!-- 问题标题 -->
 							<div class="aw-publish-title<?php if (!$this->question_category_list) { ?> active<?php } ?>">
-								<input type="text" placeholder="<?php _e('问题标题'); ?>..." name="question_content" id="question_contents" value="<?php echo $this->question_info['question_content']; ?>" class="form-control" />
+								<div>
+									<input type="text" placeholder="<?php _e('问题标题'); ?>..." name="question_content" id="question_contents" value="<?php echo $this->question_info['question_content']; ?>" class="form-control" />
+									<div class="aw-publish-suggest-question hide">
+										<p class="aw-text-color-999">你的问题可能已经有答案</p>
+										<ul class="aw-dropdown-list">
+										</ul>
+									</div>
+								</div>
 								<?php if ($this->question_category_list) { ?>
-								<div class="aw-publish-title-dropdown">
-									<p class="dropdown-toggle" data-toggle="dropdown">
-										<span id="aw-topic-tags-select"><?php _e('选择分类'); ?></span>
+								<div class="dropdown">
+									<div class="dropdown-toggle" data-toggle="dropdown">
+										<span id="aw-topic-tags-select" class="aw-hide-txt"><?php _e('选择分类'); ?></span>
 										<a href="javascript:;"><i class="fa fa-chevron-down"></i></a></a>
-									</p>
+									</div>
 								</div>
 								<?php } ?>
-								<div class="aw-publish-suggest-question hide">
-									<p class="aw-text-color-999">你的问题可能已经有答案</p>
-									<ul class="aw-dropdown-list">
-									</ul>
-								</div>
 							</div>
 							<!-- end 问题标题 -->
 
 							<h3><?php _e('问题补充 (选填)'); ?>:</h3>
-							<div class="aw-mod aw-mod-publish-box">
+							<div class="aw-mod aw-editor-box">
 								<div class="mod-head">
 									<textarea name="question_detail" id="advanced_editor"  rows="20" class="autosize form-control advanced_editor"><?php echo $this->question_info['question_detail']; ?></textarea>
 									<p class="aw-text-color-999"><span class="pull-right" id="question_detail_message">&nbsp;</span></p>
@@ -86,7 +88,7 @@
 								
 								<?php if ($this->recent_topics) { ?>
 								<h3><?php _e('最近话题'); ?>:</h3>
-								<div class="aw-publish-suggest-topics clearfix">
+								<div class="clearfix">
 															
 									<?php foreach($this->recent_topics as $key => $val) { ?>
 									<a href="javascript:;" onclick="$('#aw_edit_topic_title').val('<?php echo $val; ?>');$('.submit-edit').click();$(this).hide();" class="aw-topic-name"><span><?php echo $val; ?></span></a>

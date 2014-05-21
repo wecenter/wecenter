@@ -15,7 +15,7 @@
 							<img alt="" src="<?php echo get_avatar_url($val['uid'], 'mid'); ?>" />
 						</a>
 						<div class="aw-content">
-							<div class="aw-mod-body">
+							<div class="mod-body">
 								<h2><a href="article/<?php echo $val['id']; ?>"><?php echo $val['title']; ?></a></h2>
 								<div class="topics">
 									<?php foreach($this->article_topics[$val['id']] as $topic_key => $topic_val) { ?>
@@ -41,7 +41,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="aw-mod-footer clearfix">
+							<div class="mod-footer clearfix">
 								<span class="pull-right">
 									<?php echo $val['user_info']['user_name']; ?> 发表于 : <?php echo date_friendly($val['add_time']); ?>
 									<a href="article/<?php echo $val['id']; ?>"><i class="fa fa-comment"></i> <?php _e('评论'); ?> (<?php echo $val['comments']; ?>)</a><a href="javascript:;" onclick="AWS.dialog('shareOut', {item_type:'article', item_id:<?php echo $val['id']; ?>});"><i class="fa fa-share"></i> <?php _e('分享'); ?></a>

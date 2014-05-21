@@ -480,11 +480,12 @@ var AWS =
 		        	{
 			        	$.get(G_BASE_URL + '/publish/ajax/fetch_question_category/', function (result)
 			            {
-			                AWS.Dropdown.set_dropdown_list('.aw-publish-box .aw-publish-title-dropdown', eval(result), data.category_id);
+			                AWS.Dropdown.set_dropdown_list('.aw-publish-box .dropdown', eval(result), data.category_id);
 			
-			                $('.aw-publish-title-dropdown li a').click(function ()
+			                $('.aw-publish-title .dropdown li a').click(function ()
 			                {
-			                    $('#quick_publish_category_id').val($(this).attr('data-value'));
+			                    $('.aw-publish-box #quick_publish_category_id').val($(this).attr('data-value'));
+			                    $('.aw-publish-box #aw-topic-tags-select').html($(this).text());
 			                });
 			            });
 		        	}
@@ -1573,7 +1574,7 @@ AWS.Dropdown =
 
 	        if ($(selector).val().length >= 1)
 	        {
-	        	if (e.which != 38 && e.which != 40)
+	        	if (e.which != 38 && e.which != 40 && e.which != 188 && e.which != 13)
 	        	{
 	            	AWS.Dropdown.get_dropdown_list($(this), type, $(selector).val());
 	        	}
@@ -1591,8 +1592,8 @@ AWS.Dropdown =
 	                if ($('.aw-edit-topic-box #aw_edit_topic_title').val() != ',')
 	                {
 	                    $('.aw-edit-topic-box #aw_edit_topic_title').val( $('.aw-edit-topic-box #aw_edit_topic_title').val().substring(0,$('.aw-edit-topic-box #aw_edit_topic_title').val().length-1));
-	                    $('.aw-edit-topic-box .aw-topic-dropdown').hide();
-	                    $('.aw-edit-topic-box .submit-edit').click(); 
+	                    $('.aw-edit-topic-box .aw-dropdown').hide();
+	                    $('.aw-edit-topic-box .submit-edit').click();
 	                }
 	                return false;
 	            }
@@ -1600,8 +1601,9 @@ AWS.Dropdown =
 	            // 回车提交
 	            if (e.which == 13)
 	            {
-	            	$('.aw-edit-topic-box .aw-topic-dropdown').hide();
+	            	$('.aw-edit-topic-box .aw-dropdown').hide();
 	                $('.aw-edit-topic-box .submit-edit').click(); 
+	            	return false;
 	            }
 
 	            var lis = $(selector).parent().find('.aw-dropdown-list li');
@@ -1683,7 +1685,7 @@ AWS.Dropdown =
 	        'items': data
 	    }));
 
-	    $(selector + ' .dropdown-menu li a').click(function ()
+	    $(selector + ' .aw-dropdown-list li a').click(function ()
 	    {
 	        $('#aw-topic-tags-select').html($(this).text());
 	    });
@@ -1864,6 +1866,8 @@ AWS.Dropdown =
 	            }
 	        }else
 	        {
+	            	console.log('y');
+	        	
 	            $(selector).parent().find('.aw-dropdown').show().end().find('.title').html(_t('没有找到相关结果')).show();
 	            $(selector).parent().find('.aw-dropdown-list, .aw-publish-suggest-question').hide();
 	        }

@@ -204,11 +204,13 @@ var AW_TEMPLATE = {
 								'</div>'+
 								//'<p onclick="$(this).parents(\'form\').find(\'.aw-publish-box-supplement-content\').fadeIn().focus();$(this).hide();"><span class="aw-publish-box-supplement"><i class="aw-icon i-edit"></i>' + _t('补充说明') + ' »</span></p>'+
 								'<textarea name="question_detail" class="form-control" rows="4" placeholder="' + _t('问题背景、条件等详细信息') + '..."></textarea>'+
-								'<div class="aw-publish-title-dropdown" id="quick_publish_category_chooser">'+
-									'<p class="dropdown-toggle" data-toggle="dropdown">'+
-										'<span id="aw-topic-tags-select">' + _t('选择分类') + '</span>'+
+								'<div class="aw-publish-title">'+
+									'<div class="dropdown" id="quick_publish_category_chooser">'+
+									'<div class="dropdown-toggle" data-toggle="dropdown">'+
+										'<span id="aw-topic-tags-select" class="aw-hide-txt">' + _t('选择分类') + '</span>'+
 										'<a><i class="fa fa-chevron-down"></i></a>'+
-									'</p>'+
+									'</div>'+
+								'</div>'+
 								'</div>'+
 								'<div id="quick_publish_topic_chooser">'+
 									'<span class="aw-topic-editor" data-type="publish">'+
@@ -352,9 +354,9 @@ var AW_TEMPLATE = {
 			'</div>',
 
 	'dropdownList' : 
-		'<div aria-labelledby="dropdownMenu" role="menu" class="dropdown-menu aw-category-dropdown">'+
-			'<span><i class="i-dropdown-triangle"></i></span>'+
-			'<ul class="aw-category-dropdown-list">'+
+		'<div aria-labelledby="dropdownMenu" role="menu" class="aw-dropdown">'+
+			'<i class="i-dropdown-triangle"></i>'+
+			'<ul class="aw-dropdown-list">'+
 			'{{#items}}'+
 				'<li><a data-value="{{id}}">{{title}}</a></li>'+
 			'{{/items}}'+
