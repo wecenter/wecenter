@@ -20,6 +20,61 @@ if (!defined('IN_ANWSION'))
 
 class openid_weixin_class extends AWS_MODEL
 {
+	public function access_request($url, $method, $contents)
+	{
+		if ($result = HTTP::request($url, $method, $contents))
+		{
+			$result = json_decode($result, true);
+			
+			if ($result['errcode'] == 40001)
+			{
+				$this->refresh_access_token();
+			}
+			
+			return $result;
+		}
+	}
+	
+	public function refresh_access_token()
+	{
+		$token_cache_key = 'weixin_access_token_' . md5(get_setting('weixin_app_id') . get_setting('weixin_app_secret'));
+		
+		AWS_APP::cache()->delete($token_cache_key);
+		
+		return $this->get_access_token();
+	}
+	
+	public function get_access_token()
+	{
+		if (!get_setting('weixin_app_id'))
+		{
+			return false;
+		}
+		
+		$token_cache_key = 'weixin_access_token_' . md5(get_setting('weixin_app_id') . get_setting('weixin_app_secret'));
+		
+		if ($access_token = AWS_APP::cache()->get($token_cache_key))
+		{
+			return $access_token;
+		}
+		
+		if ($result = curl_get_contents('https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=' . get_setting('weixin_app_id') . '&secret=' . get_setting('weixin_app_secret')))
+		{
+			$result = json_decode($result, true);
+			
+			if ($result['access_token'])
+			{
+				AWS_APP::cache()->set($token_cache_key, $result['access_token'], $result['expires_in']);
+				
+				return $result['access_token'];
+			}
+			else
+			{
+				AWS_APP::cache()->delete($token_cache_key);
+			}
+		}
+	}
+	
 	public function get_user_info_by_openid_from_mp($openid)
 	{
 		if ($result = $this->model('wecenter')->mp_server_query('get_user_info', array(

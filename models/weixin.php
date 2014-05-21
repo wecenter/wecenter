@@ -1102,22 +1102,67 @@ class weixin_class extends AWS_MODEL
 			'url' => $url
 		));
 	}
-
-	public function update_client_menu($mp_menu_data)
+	
+	public function update_client_menu($mp_menu_data, $account_role = null)
 	{
-		if ($result = $this->model('wecenter')->mp_server_query('update_client_menu', array(
-			'mp_menu_data' => serialize($mp_menu_data),
-			'base_url' => get_setting('base_url')
-		)))
+		if (!$mp_menu_data)
 		{
-			if ($result['status'] == 'error')
-			{
-				return $result['message'];
-			}
+			return false;
 		}
-		else
+		
+		foreach ($mp_menu_data AS $key => $val)
+		{
+			if ($val['sub_button'])
+			{
+				foreach ($val['sub_button'] AS $sub_key => $sub_val)
+				{
+					unset($sub_val['sort']);
+					unset($sub_val['command_type']);
+					unset($sub_val['attach_key']);
+					
+					if ($sub_val['type'] == 'view')
+					{
+						unset($sub_val['key']);
+						
+						if (strstr($sub_val['url'], get_setting('base_url')) AND (!$account_role OR $account_role == 'service'))
+						{
+							$sub_val['url'] = $this->model('openid_weixin')->redirect_url($sub_val['url']);
+						}
+					}
+					
+					$val['sub_button_no_key'][] = $sub_val;
+				}
+				
+				$val['sub_button'] = $val['sub_button_no_key'];
+				
+				unset($val['sub_button_no_key']);
+			}
+			
+			unset($val['sort']);
+			unset($val['command_type']);
+			unset($val['attach_key']);
+			
+			if ($val['type'] == 'view')
+			{
+				unset($val['key']);
+				
+				if (strstr($val['url'], get_setting('base_url')) AND (!$account_role OR $account_role == 'service'))
+				{
+					$val['url'] = $this->model('openid_weixin')->redirect_url($val['url']);
+				}
+			}
+			
+			$mp_menu_no_key[] = $val;
+		}
+		
+		if (!$result = $this->model('openid_weixin')->access_request('https://api.weixin.qq.com/cgi-bin/menu/create?access_token=' . $this->model('openid_weixin')->get_access_token(), 'POST', preg_replace("#\\\u([0-9a-f]+)#ie", "convert_encoding(pack('H4', '\\1'), 'UCS-2', 'UTF-8')", json_encode(array('button' => $mp_menu_no_key)))))
 		{
 			return AWS_APP::lang()->_t('远程服务器忙,请稍后再试');
+		}
+		
+		if ($result['status'] == 'error')
+		{
+			return $result['message'];
 		}
 	}
 

@@ -182,7 +182,7 @@ class tools extends AWS_ADMIN_CONTROLLER
 
 	public function update_weixin_menu_action()
 	{
-		if ($error_message = $this->model('weixin')->update_client_menu(get_setting('weixin_mp_menu'))
+		if ($error_message = $this->model('weixin')->update_client_menu(get_setting('weixin_mp_menu'), get_setting('weixin_account_role'))
 		{
 			H::redirect_msg($error_message);
 		}
