@@ -139,62 +139,9 @@ $(document).ready(function ()
     });
     
     /*icon tooltips提示*/
-    $(document).on('mouseover', '.voter, .fa-check, .icon-ok-sign , .fa-thumbs-o-up , .fa-thumbs-o-down  , .aw-icon-thank-tips, .invite-list-user', function ()
+    $(document).on('mouseover', '.voter, .fa-check, .fa-thumbs-o-up , .fa-thumbs-o-down, .aw-icon-thank-tips, .invite-list-user', function ()
     {
         $(this).tooltip('show');
-    });
-	
-    //话题编辑下拉菜单mouseover click事件
-    $(document).on('mouseover', '.aw-edit-topic-box .aw-dropdown-list li', function ()
-    {
-        $(this).parents('.aw-edit-topic-box').find('#aw_edit_topic_title').val($(this).text());
-    });
-    
-    $(document).on('click', '.aw-edit-topic-box .aw-dropdown-list li', function ()
-    {
-        $(this).parents('.aw-edit-topic-box').find('#aw_edit_topic_title').val($(this).text());
-        $(this).parents('.aw-edit-topic-box').find('.submit-edit').click();
-        $(this).parents('.aw-edit-topic-box').find('.aw-dropdown').hide();
-    });
-
-    //话题删除按钮
-    $(document).on('click', '.aw-topic-name .aw-close',  function()
-    {
-        var data_type = $(this).parents('.aw-topic-editor').attr('data-type'),
-            data_id = $(this).parents('.aw-topic-editor').attr('data-id');
-        switch (data_type)
-        {
-            case 'question':
-                $.post(G_BASE_URL + '/topic/ajax/remove_topic_relation/', 'type=question&item_id=' + data_id + '&topic_id=' + $(this).parents('.aw-topic-name').attr('data-id'),function(){
-                    $('#aw-ajax-box').empty();
-                });
-                break;
-
-            case 'topic':
-                $.get(G_BASE_URL + '/topic/ajax/remove_related_topic/related_id-' + $(this).parents('.aw-topic-name').attr('data-id') + '__topic_id-' + data_id);
-                break;
-
-            case 'favorite':
-                $.post(G_BASE_URL + '/favorite/ajax/remove_favorite_tag/', 'answer_id=' + data_id + '&tags=' + $(this).parents('.aw-topic-name').text().substring(0, $(this).parents('.aw-topic-name').text().length - 1));
-                break;
-
-            case 'article':
-                $.post(G_BASE_URL + '/topic/ajax/remove_topic_relation/', 'type=article&item_id=' + data_id + '&topic_id=' + $(this).parents('.aw-topic-name').attr('data-id'),function(){
-                    $('#aw-ajax-box').empty();
-                });
-                break;
-
-        }
-
-        $(this).parents('.aw-topic-name').remove();
-
-        return false;
-    });
-
-    //分享私信用户下拉点击事件
-    $(document).on('click','.aw-share-box .aw-dropdown-list li a, .aw-inbox .aw-dropdown-list li a',function() {
-    	$('.alert-box #quick_publish input.form-control').val($(this).text());
-    	$(this).parents('.aw-dropdown').hide();
     });
 
     //搜索下拉
