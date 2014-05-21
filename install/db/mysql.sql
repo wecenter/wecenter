@@ -1075,11 +1075,11 @@ CREATE TABLE `[#DB_PREFIX#]weixin_accounts` (
   `weixin_app_secret` varchar(255) DEFAULT '',
   `wecenter_access_token` varchar(255) DEFAULT '',
   `wecenter_access_secret` varchar(255) DEFAULT '',
-  `weixin_mp_menu` text DEFAULT '{}',
+  `weixin_mp_menu` text,
   PRIMARY KEY (`id`),
   KEY `weixin_mp_token` (`weixin_mp_token`),
   KEY `weixin_account_role` (`weixin_account_role`),
-  KEY `weixin_app_id` (`weixin_app_id`),
+  KEY `weixin_app_id` (`weixin_app_id`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8 COMMENT='微信多账号设置';
 
 INSERT INTO `[#DB_PREFIX#]category`(`title`,`type`) VALUES

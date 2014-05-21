@@ -63,7 +63,7 @@ class weixin extends AWS_ADMIN_CONTROLLER
 
 		$account_info = $this->model('weixin')->get_account_info_by_id($account_id);
 
-		if (!$account_info['weixin_app_id'] || $account_info['weixin_account_role'] == 'base')
+		if ($account_info['weixin_account_role'] == 'base' OR empty($account_info['weixin_app_id']) OR empty($account_info['weixin_app_secret']))
 		{
 			H::redirect_msg(AWS_APP::lang()->_t('此功能不适用于未通过微信认证的普通订阅号或未启用 WeCenter 服务'));
 		}
@@ -351,9 +351,10 @@ class weixin extends AWS_ADMIN_CONTROLLER
 
 	public function accounts_action()
 	{
-		$accounts_list = $this->model('weixin')->fetch_page($table = 'weixin_accounts', $order = 'id ASC', $page = intval($_GET['page']))
+		$accounts_list = $this->model('weixin')->fetch_page('weixin_accounts', null, 'id ASC', null, null);
 		$accounts_num = $this->model('weixin')->found_rows();
 
+		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(802));
 		TPL::assign('list', $accounts_list);
 		TPL::assign('num', $accounts_num);
 		TPL::output('admin/weixin/accounts');

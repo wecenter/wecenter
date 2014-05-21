@@ -182,14 +182,36 @@ class tools extends AWS_ADMIN_CONTROLLER
 
 	public function update_weixin_menu_action()
 	{
-		if ($error_message = $this->model('weixin')->update_client_menu(get_setting('weixin_mp_menu'), get_setting('weixin_account_role'))
+		$accounts_info = $this->model('setting')->query_all('SELECT `id`, `weixin_app_id`, `weixin_app_secret`, `weixin_mp_menu`, `weixin_account_role` FROM ' . $this->get_table('weixin_account'));
+
+		$accounts_info[] = array(
+			'id' => 0,
+			'weixin_mp_menu' => get_setting('weixin_mp_menu'),
+			'weixin_account_role' => get_setting('weixin_account_role')
+		);
+
+		foreach ($accounts_info AS $account_info) {
+			if ($account_info['id'] != 0)
+			{
+				$account_info['weixin_mp_menu'] = json_decode($account_info['weixin_mp_menu']);
+			}
+
+			if ($error_message = $this->model('weixin')->update_client_menu($account_info))
+			{
+				$messages .= '<br />' . $error_message;
+			}
+		}
+
+		if (empty($messages))
 		{
-			H::redirect_msg($error_message);
+			$messages = '更新微信菜单完成';
 		}
 		else
 		{
-			H::redirect_msg(AWS_APP::lang()->_t('微信菜单更新成功'));
+			$messages = '更新微信菜单出现错误：<br />' . $messages;
 		}
+
+		H::redirect_msg(AWS_APP::lang()->_t($messages));
 	}
 
 	public function mp_services_check_action()

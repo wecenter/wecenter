@@ -20,52 +20,60 @@ if (!defined('IN_ANWSION'))
 
 class openid_weixin_class extends AWS_MODEL
 {
-	public function access_request($url, $method, $contents)
+	private $app_id;
+
+	private $app_secret;
+
+	public function access_request($app_id, $app_secret, $url, $method, $contents)
 	{
+		$this->app_id = $app_id;
+
+		$this->app_secret = $app_secret,
+
 		if ($result = HTTP::request($url, $method, $contents))
 		{
 			$result = json_decode($result, true);
-			
+
 			if ($result['errcode'] == 40001)
 			{
 				$this->refresh_access_token();
 			}
-			
+
 			return $result;
 		}
 	}
-	
+
 	public function refresh_access_token()
 	{
 		$token_cache_key = 'weixin_access_token_' . md5(get_setting('weixin_app_id') . get_setting('weixin_app_secret'));
-		
+
 		AWS_APP::cache()->delete($token_cache_key);
-		
+
 		return $this->get_access_token();
 	}
-	
+
 	public function get_access_token()
 	{
-		if (!get_setting('weixin_app_id'))
+		if (empty($this->app_id) OR empty($this->app_secret))
 		{
 			return false;
 		}
-		
-		$token_cache_key = 'weixin_access_token_' . md5(get_setting('weixin_app_id') . get_setting('weixin_app_secret'));
-		
+
+		$token_cache_key = 'weixin_access_token_' . md5($this->app_id . $this->app_secret);
+
 		if ($access_token = AWS_APP::cache()->get($token_cache_key))
 		{
 			return $access_token;
 		}
-		
-		if ($result = curl_get_contents('https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=' . get_setting('weixin_app_id') . '&secret=' . get_setting('weixin_app_secret')))
+
+		if ($result = curl_get_contents('https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=' . $this->app_id . '&secret=' . $this->app_secret))
 		{
 			$result = json_decode($result, true);
-			
+
 			if ($result['access_token'])
 			{
 				AWS_APP::cache()->set($token_cache_key, $result['access_token'], $result['expires_in']);
-				
+
 				return $result['access_token'];
 			}
 			else
@@ -74,7 +82,7 @@ class openid_weixin_class extends AWS_MODEL
 			}
 		}
 	}
-	
+
 	public function get_user_info_by_openid_from_mp($openid)
 	{
 		if ($result = $this->model('wecenter')->mp_server_query('get_user_info', array(

@@ -1102,15 +1102,15 @@ class weixin_class extends AWS_MODEL
 			'url' => $url
 		));
 	}
-	
-	public function update_client_menu($mp_menu_data, $account_role = null)
+
+	public function update_client_menu($account_info)
 	{
-		if (!$mp_menu_data)
+		if (empty($account_info['weixin_mp_menu']))
 		{
 			return false;
 		}
-		
-		foreach ($mp_menu_data AS $key => $val)
+
+		foreach ($account_info['weixin_mp_menu'] AS $key => $val)
 		{
 			if ($val['sub_button'])
 			{
@@ -1119,47 +1119,53 @@ class weixin_class extends AWS_MODEL
 					unset($sub_val['sort']);
 					unset($sub_val['command_type']);
 					unset($sub_val['attach_key']);
-					
+
 					if ($sub_val['type'] == 'view')
 					{
 						unset($sub_val['key']);
-						
+
 						if (strstr($sub_val['url'], get_setting('base_url')) AND (!$account_role OR $account_role == 'service'))
 						{
 							$sub_val['url'] = $this->model('openid_weixin')->redirect_url($sub_val['url']);
 						}
 					}
-					
+
 					$val['sub_button_no_key'][] = $sub_val;
 				}
-				
+
 				$val['sub_button'] = $val['sub_button_no_key'];
-				
+
 				unset($val['sub_button_no_key']);
 			}
-			
+
 			unset($val['sort']);
 			unset($val['command_type']);
 			unset($val['attach_key']);
-			
+
 			if ($val['type'] == 'view')
 			{
 				unset($val['key']);
-				
-				if (strstr($val['url'], get_setting('base_url')) AND (!$account_role OR $account_role == 'service'))
+
+				if (strstr($val['url'], get_setting('base_url')) AND $account_role == 'service')
 				{
 					$val['url'] = $this->model('openid_weixin')->redirect_url($val['url']);
 				}
 			}
-			
+
 			$mp_menu_no_key[] = $val;
 		}
-		
-		if (!$result = $this->model('openid_weixin')->access_request('https://api.weixin.qq.com/cgi-bin/menu/create?access_token=' . $this->model('openid_weixin')->get_access_token(), 'POST', preg_replace("#\\\u([0-9a-f]+)#ie", "convert_encoding(pack('H4', '\\1'), 'UCS-2', 'UTF-8')", json_encode(array('button' => $mp_menu_no_key)))))
+
+		if (!$result = $this->model('openid_weixin')->access_request(
+			$account_info['weixin_app_id'],
+			$account_info['weixin_app_secret'],
+			'https://api.weixin.qq.com/cgi-bin/menu/create?access_token=' . $this->model('openid_weixin')->get_access_token(),
+			'POST',
+			preg_replace("#\\\u([0-9a-f]+)#ie", "convert_encoding(pack('H4', '\\1'), 'UCS-2', 'UTF-8')", json_encode(array('button' => $mp_menu_no_key)))
+		))
 		{
 			return AWS_APP::lang()->_t('远程服务器忙,请稍后再试');
 		}
-		
+
 		if ($result['status'] == 'error')
 		{
 			return $result['message'];
@@ -1195,32 +1201,6 @@ class weixin_class extends AWS_MODEL
 		}
 	}
 
-	public function get_weixin_app_id_setting_var($account_id = 0)
-	{
-		$account_info = $this->get_account_info_by_id($account_id);
-
-		if (!$account_info['wecenter_access_token'])
-		{
-			return $this->update_setting_or_account($account_id, array(
-				'weixin_app_id' => '',
-				'weixin_app_secret' => ''
-			));
-		}
-
-		if ($result = $this->model('wecenter')->mp_server_query('get_app_id', $account_id = $account_id))
-		{
-			if ($result['status'] == 'success')
-			{
-				$app_id_setting = unserialize($result['data']);
-
-				$this->update_setting_or_account($account_id, array(
-					'weixin_app_id' => $app_id_setting['weixin_app_id'],
-					'weixin_app_secret' => $app_id_setting['weixin_app_secret']
-				));
-			}
-		}
-	}
-
 	public function client_list_image_clean()
 	{
 		if (!is_dir(ROOT_PATH . 'weixin/list_image/'))
@@ -1251,6 +1231,30 @@ class weixin_class extends AWS_MODEL
 	    	{
 		    	unlink($search_file);
 	    	}
+		}
+	}
+
+	public function get_weixin_app_id_setting_var()
+	{
+		if (!get_setting('wecenter_access_token'))
+		{
+			return $this->model('setting')->set_vars(array(
+				'weixin_app_id' => '',
+				'weixin_app_secret' => ''
+			));
+		}
+
+		if ($result = $this->model('wecenter')->mp_server_query('get_app_id'))
+		{
+			if ($result['status'] == 'success')
+			{
+				$app_id_setting = unserialize($result['data']);
+
+				$this->model('setting')->set_vars(array(
+					'weixin_app_id' => $app_id_setting['weixin_app_id'],
+					'weixin_app_secret' => $app_id_setting['weixin_app_secret']
+				));
+			}
 		}
 	}
 
