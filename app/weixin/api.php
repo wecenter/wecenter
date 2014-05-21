@@ -46,7 +46,7 @@ class api extends AWS_CONTROLLER
 			die;
 		}
 
-		$this->input_message = $this->model('weixin')->fetch_message($account_info['weixin_account_role']);
+		$this->input_message = $this->model('weixin')->fetch_message($account_id);
 	}
 
 	public function index_action()

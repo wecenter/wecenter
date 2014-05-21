@@ -105,7 +105,7 @@ class weixin_class extends AWS_MODEL
 		$this->delete('weixin_accounts', 'id = ' . intval($account_id));
 	}
 
-	public function fetch_message($account_role)
+	public function fetch_message($account_id)
 	{
 		if ($post_data = file_get_contents('php://input'))
 		{
@@ -137,7 +137,7 @@ class weixin_class extends AWS_MODEL
 				$this->user_id = $weixin_info['uid'];
 			}
 
-			if ($account_role = 'service')
+			if ($account_id == 0 AND get_setting('weixin_account_role') == 'service')
 			{
 				$this->bind_message = '你的微信帐号没有绑定 ' . get_setting('site_name') . ' 的帐号, 请<a href="' . $this->model('openid_weixin')->get_oauth_url(get_js_url('/m/weixin/authorization/')) . '">点此绑定</a>';
 			}
@@ -1150,23 +1150,25 @@ class weixin_class extends AWS_MODEL
 		}
 	}
 
-	public function get_weixin_app_id_setting_var()
+	public function get_weixin_app_id_setting_var($account_id = 0)
 	{
-		if (!get_setting('wecenter_access_token'))
+		$account_info = $this->get_account_info_by_id($account_id);
+
+		if (!$account_info['wecenter_access_token'])
 		{
-			return $this->model('setting')->set_vars(array(
+			return $this->update_setting_or_account($account_id, array(
 				'weixin_app_id' => '',
 				'weixin_app_secret' => ''
 			));
 		}
 
-		if ($result = $this->model('wecenter')->mp_server_query('get_app_id'))
+		if ($result = $this->model('wecenter')->mp_server_query('get_app_id', $account_id = $account_id))
 		{
 			if ($result['status'] == 'success')
 			{
 				$app_id_setting = unserialize($result['data']);
 
-				$this->model('setting')->set_vars(array(
+				$this->update_setting_or_account($account_id, array(
 					'weixin_app_id' => $app_id_setting['weixin_app_id'],
 					'weixin_app_secret' => $app_id_setting['weixin_app_secret']
 				));
