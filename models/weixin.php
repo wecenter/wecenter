@@ -27,7 +27,7 @@ class weixin_class extends AWS_MODEL
 
 	public function get_account_info_by_id($account_id, $column = NULL)
 	{
-		if ($account_id = 0)
+		if ($account_id == 0)
 		{
 			if ($column)
 			{
