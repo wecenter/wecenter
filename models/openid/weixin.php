@@ -28,7 +28,7 @@ class openid_weixin_class extends AWS_MODEL
 	{
 		$this->app_id = $app_id;
 
-		$this->app_secret = $app_secret,
+		$this->app_secret = $app_secret;
 
 		$url = 'https://api.weixin.qq.com/cgi-bin/' . $url . '?access_token=' . $this->get_access_token();
 
