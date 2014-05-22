@@ -70,7 +70,7 @@ class weixin extends AWS_ADMIN_CONTROLLER
 
 		$this->crumb(AWS_APP::lang()->_t('菜单管理'), 'admin/weixin/mp_menu/');
 
-		$this->model('weixin')->client_list_image_clean();
+		$this->model('weixin')->client_list_image_clean($account_info['weixin_mp_menu']);
 
 		TPL::assign('weixin_mp_menu', $account_info['weixin_mp_menu']);
 		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(803));
@@ -100,11 +100,6 @@ class weixin extends AWS_ADMIN_CONTROLLER
 			{
 				H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('远程服务器忙,请稍后再试')));
 			}
-		}
-
-		if ($account_id != 0)
-		{
-			$mp_menu = json_encode($mp_menu);
 		}
 
 		$this->model('weixin')->update_setting_or_account($account_id, array(
@@ -355,8 +350,8 @@ class weixin extends AWS_ADMIN_CONTROLLER
 		$accounts_num = $this->model('weixin')->found_rows();
 
 		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(802));
-		TPL::assign('list', $accounts_list);
-		TPL::assign('num', $accounts_num);
+		TPL::assign('accounts_list', $accounts_list);
+		TPL::assign('accounts_num', $accounts_num);
 		TPL::output('admin/weixin/accounts');
 	}
 

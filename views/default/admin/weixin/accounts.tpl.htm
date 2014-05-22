@@ -4,7 +4,7 @@
 <div class="pull-left right-side">
     <form action="admin/weixin/accounts/save_accounts/" id="accounts_form" method="post">
     <div class="aw-box">
-        <?php if ($this->num != 0 ) { foreach ($this->list AS $key => $value) { ?>
+        <?php if ($this->accounts_num != 0 ) { foreach ($this->accounts_list AS $key => $value) { ?>
         <div class="aw-mod-head">
             <h2><a href="javascript:;" onclick="ajax_post($('#accounts_form'));" class="label label-inverse pull-right"><?php _e('快速保存'); ?></a><?php _e('微信账号 %s', $key + 1); ?></h2>
             <a href="admin/weixin/accounts/del_account/id-<?php echo $value['id']; ?>"><?php _e('删除此账号'); ?></a>
@@ -61,7 +61,7 @@
             </dd>
         </dl>
 
-        <!--<dl>
+        <dl>
             <dt><h3><?php _e('微信公众平台 AppID'); ?>:</h3></dt>
             <dd>
                 <div class="row">
@@ -81,7 +81,7 @@
                     </div>
                 </div>
             </dd>
-        </dl>-->
+        </dl>
         <?php } } ?>
         </div>
 

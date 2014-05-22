@@ -182,13 +182,7 @@ class tools extends AWS_ADMIN_CONTROLLER
 
 	public function update_weixin_menu_action()
 	{
-		$accounts_info = $this->model('setting')->query_all('SELECT `id`, `weixin_app_id`, `weixin_app_secret`, `weixin_mp_menu`, `weixin_account_role` FROM ' . $this->get_table('weixin_account'));
-
-		$accounts_info[] = array(
-			'id' => 0,
-			'weixin_mp_menu' => get_setting('weixin_mp_menu'),
-			'weixin_account_role' => get_setting('weixin_account_role')
-		);
+		$accounts_info = $this->model('weixin')->get_accounts_info();
 
 		foreach ($accounts_info AS $account_info) {
 			if ($account_info['id'] != 0)

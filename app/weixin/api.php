@@ -22,6 +22,8 @@ class api extends AWS_CONTROLLER
 {
 	private $input_message;
 
+	private $mp_menu;
+
 	public function get_access_rule()
 	{
 		$rule_action['rule_type'] = 'black';
@@ -47,10 +49,12 @@ class api extends AWS_CONTROLLER
 		}
 
 		$this->input_message = $this->model('weixin')->fetch_message($account_id);
+
+		$this->mp_menu = ($account_info['weixin_account_role'] == 'base' OR empty($account_info['weixin_app_id']) OR empty($account_info['weixin_app_secret'])) ? null : $account_info['weixin_mp_menu'];
 	}
 
 	public function index_action()
 	{
-		$this->model('weixin')->response_message($this->input_message);
+		$this->model('weixin')->response_message($this->input_message, $this->mp_menu);
 	}
 }
