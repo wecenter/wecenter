@@ -6,3 +6,5 @@ system/config.inc.php
 system/config/install.lock.php
 system/config/database.php
 .DS_Store
+api/uc.php
+uc_client/
