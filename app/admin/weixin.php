@@ -398,4 +398,29 @@ class weixin extends AWS_ADMIN_CONTROLLER
 		}
 	}
 
+	public function send_msg_action()
+	{
+		$result = $this->model('weixin')->get_groups_from_mp();
+
+		if (is_array($result))
+		{
+			TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(804));
+			TPL::assign('groups_list', $result);
+			TPL::output('admin/weixin/send_msg');
+		}
+		else
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('获取微信分组失败，错误为：<br />') . $result));
+		}
+	}
+
+	public function send_msg_by_group_action()
+	{
+
+	}
+
+	public function list_send_msg_action()
+	{
+
+	}
 }

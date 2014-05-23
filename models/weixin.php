@@ -1297,4 +1297,32 @@ class weixin_class extends AWS_MODEL
 		}
 	}
 
+	public function get_groups_from_mp()
+	{
+
+		if (!$groups = AWS_APP::cache()->get('weixin_groups'))
+		{
+			if (!$result = $this->model('openid_weixin')->access_request(
+				$account_info['weixin_app_id'],
+				$account_info['weixin_app_secret'],
+				'groups/get',
+				'GET'
+			))
+			{
+				return AWS_APP::lang()->_t('远程服务器忙');
+			}
+
+			if ($result['status'] == 'error')
+			{
+				return $result['message'];
+			}
+
+			$groups = $result['groups'];
+
+			AWS_APP::cache()->set('weixin_groups', $groups, get_setting('cache_level_normal'));
+		}
+
+		return $groups;
+	}
+
 }

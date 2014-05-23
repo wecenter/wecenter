@@ -201,19 +201,26 @@ if (get_setting('weixin_mp_token'))
 			array(
 				'id' => 802,
 				'title' => '多账号管理',
-				'url' => 'admin/weixin/accounts/',
+				'url' => 'admin/weixin/accounts/'
 			),
+
 			array(
 				'id' => 801,
 				'title' => '自定义回复',
-				'url' => 'admin/weixin/reply/',
+				'url' => 'admin/weixin/reply/'
 			),
 
 			array(
 				'id' => 803,
 				'title' => '菜单管理',
-				'url' => 'admin/weixin/mp_menu/',
+				'url' => 'admin/weixin/mp_menu/'
 			),
+
+			array(
+				'id' => 804,
+				'title' => '消息群发',
+				'url' => 'admin/weixin/send_msg/'
+			)
 		)
 	);
 }
