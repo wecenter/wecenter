@@ -20,36 +20,35 @@ if (!defined('IN_ANWSION'))
 
 class openid_qq_class extends AWS_MODEL
 {	
-	function qq_login($callback)
+	public function qq_login($callback)
 	{		
 		return load_class('Services_Tencent_QQConnect_V2')->qq_login(get_setting('qq_login_app_id'), $callback);
 	}
 	
-	function request_access_token($callback)
+	public function request_access_token($callback)
 	{
 		return load_class('Services_Tencent_QQConnect_V2')->qq_callback(get_setting('qq_login_app_id'), $callback, get_setting('qq_login_app_key'));
 	}
 	
-	function request_user_info()
+	public function request_user_info()
 	{
 		return load_class('Services_Tencent_QQConnect_V2')->get_user_info();
 	}
 	
-	function get_user_info_by_open_id($open_id)
+	public function get_user_info_by_open_id($open_id)
 	{
-		return $this->fetch_row('users_qq', 'type = \'qq\' AND name = \'' . $this->quote($open_id) . '\'');
+		return $this->fetch_row('users_qq', "type = 'qq' AND openid = '" . $this->quote($open_id) . "'");
 	}
 	
-	function get_user_info_by_uid($uid)
+	public function get_user_info_by_uid($uid)
 	{
-		return $this->fetch_row('users_qq', 'type = \'qq\' AND uid = ' . intval($uid));
+		return $this->fetch_row('users_qq', "type = 'qq' AND uid = " . intval($uid));
 	}
 	
-	function bind_account($uinfo, $redirect, $uid, $is_ajax = false)
+	public function bind_account($uinfo, $redirect, $uid, $is_ajax = false)
 	{
 		if (! $openid = load_class('Services_Tencent_QQConnect_V2')->get_openid())
 		{
-			
 			if ($is_ajax)
 			{
 				H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('与 QQ 通信出错, 请重新登录')));
@@ -62,7 +61,7 @@ class openid_qq_class extends AWS_MODEL
 		
 		if ($openid_info = $this->get_user_info_by_uid($uid))
 		{
-			if ($openid_info['name'] != $openid)
+			if ($openid_info['openid'] != $openid)
 			{
 				if ($is_ajax)
 				{
@@ -112,26 +111,26 @@ class openid_qq_class extends AWS_MODEL
 		}
 	}
 	
-	function user_add($uid, $name, $nick, $gender)
+	public function user_add($uid, $openid, $nick, $gender)
 	{
 		return $this->insert('users_qq', array(
 			'type' => 'qq',
 			'uid' => intval($uid),
-			'name' => $name,
+			'openid' => $openid,
 			'nick' => $nick,
 			'gender' => $gender,
 			'add_time' => time(),
 		));
 	}
 	
-	function update_token($openid, $access_token)
+	public function update_token($openid, $access_token)
 	{
 		$this->update('users_qq', array(
 			'access_token' => $access_token
-		), 'type = \'qq\' AND name = \'' . $this->quote($openid) . '\'');
+		), "type = 'qq' AND openid = '" . $this->quote($openid) . "'");
 	}
 	
-	function del_user_by_uid($uid)
+	public function del_user_by_uid($uid)
 	{
 		return $this->delete('users_qq', "type = 'qq' AND uid = " . intval($uid));
 	}

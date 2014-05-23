@@ -828,6 +828,7 @@ CREATE TABLE `[#DB_PREFIX#]users_qq` (
   `id` bigint(11) unsigned NOT NULL AUTO_INCREMENT,
   `uid` int(11) NOT NULL COMMENT '用户在本地的UID',
   `type` VARCHAR(20) NULL DEFAULT NULL COMMENT '类别',
+  `openid` varchar(128) DEFAULT '',
   `name` varchar(64) DEFAULT NULL COMMENT '微博昵称',
   `location` varchar(255) DEFAULT NULL COMMENT '地址',
   `gender` varchar(8) DEFAULT NULL,
@@ -836,7 +837,11 @@ CREATE TABLE `[#DB_PREFIX#]users_qq` (
   `oauth_token_secret` varchar(64) DEFAULT NULL,
   `nick` varchar(64) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `uid` (`uid`)
+  KEY `uid` (`uid`),
+  KEY `type` (`type`),
+  KEY `add_time` (`add_time`),
+  KEY `access_token` (`access_token`),
+  KEY `openid` (`openid`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]users_sina` (
@@ -851,7 +856,8 @@ CREATE TABLE `[#DB_PREFIX#]users_sina` (
   `add_time` int(10) DEFAULT NULL COMMENT '添加时间',
   `access_token` varchar(64) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `uid` (`uid`)
+  UNIQUE KEY `uid` (`uid`),
+  KEY `access_token` (`access_token`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]geo_location` (

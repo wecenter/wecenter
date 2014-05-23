@@ -184,6 +184,8 @@ class openid_weixin_class extends AWS_MODEL
 
 		$this->associate_avatar($uid, $access_user['headimgurl']);
 
+		$this->model('account')->associate_remote_avatar($uid, $access_user['headimgurl']);
+
 		return $this->insert('users_weixin', array(
 			'uid' => intval($uid),
 			'openid' => $access_token['openid'],
@@ -293,6 +295,8 @@ class openid_weixin_class extends AWS_MODEL
 		if ($uid = $this->model('account')->user_register($access_user['nickname'], md5(rand(111111, 999999999))))
 		{
 			$this->associate_avatar($uid, $access_user['headimgurl']);
+
+			$this->model('account')->associate_remote_avatar($uid, $access_user['headimgurl']);
 
 			$this->model('account')->update('users', array(
 				'sex' => intval($access_user['sex'])
