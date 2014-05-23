@@ -24,7 +24,7 @@ class openid_weixin_class extends AWS_MODEL
 
 	private $app_secret;
 
-	public function access_request($app_id, $app_secret, $url, $method, $contents)
+	public function access_request($app_id, $app_secret, $url, $method, $contents = NULL)
 	{
 		$this->app_id = $app_id;
 

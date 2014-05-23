@@ -25,6 +25,11 @@ class weixin_class extends AWS_MODEL
 
 	private $user_id;
 
+	public function replace_post($subject)
+	{
+		return preg_replace_callback('#\\\u([0-9a-f]+)#i', function($r) { return convert_encoding(pack('H4', $r), 'UCS-2', 'UTF-8') }, $subject)
+	}
+
 	public function get_account_info_by_id($account_id, $column = NULL)
 	{
 		if ($account_id == 0)
@@ -1188,7 +1193,7 @@ class weixin_class extends AWS_MODEL
 			$account_info['weixin_app_secret'],
 			'menu/create',
 			'POST',
-			preg_replace("#\\\u([0-9a-f]+)#ie", "convert_encoding(pack('H4', '\\1'), 'UCS-2', 'UTF-8')", json_encode(array('button' => $mp_menu_no_key)))
+			$this->replace_post(json_encode(array('button' => $mp_menu_no_key)))
 		))
 		{
 			return AWS_APP::lang()->_t('远程服务器忙,请稍后再试');
@@ -1291,4 +1296,5 @@ class weixin_class extends AWS_MODEL
 			return $result['data'];
 		}
 	}
+
 }
