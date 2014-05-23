@@ -1,16 +1,12 @@
 var cur_page = 0;
 
-var bp_more_inner_o = '';
-
 var cur_filter = '';
 
 $(document).ready(function()
 {
-
-	bp_more_inner_o = $('#bp_more').html();
-
 	// 检测首页动态更新
-	var checkactionsnew_handle = setInterval(function () {
+	var checkactionsnew_handle = setInterval(function ()
+	{
 		check_actions_new('0', '<?php echo time(); ?>');
 	}, 60000);
 
@@ -22,13 +18,15 @@ $(document).ready(function()
 
 			window.location.hash = $(this).attr('rel');
 
-			$('#main_title').html($(this).html());
-
-			$('#main_title i').detach();
+			$('#main_title').html($(this).html()).find('i').detach();
 
 			$(this).addClass('active');
 
-			reload_list();
+			cur_page = 0;
+
+			$('#main_contents').html('<p style="padding: 15px 0" align="center"><img src="' + G_STATIC_URL + '/common/loading_b.gif" alt="" /></p>');
+
+			$('#bp_more').click();
 
 			return false;
 		}
@@ -54,7 +52,6 @@ $(document).ready(function()
 						}
 					}
 					
-
 					if (query_string[1])
 					{
 						cur_filter = query_string[1];
@@ -99,8 +96,6 @@ $(document).ready(function()
 				}
 
 				cur_page++;
-
-				$(_this).html(bp_more_inner_o); 
 			}
 			else
 			{
@@ -132,17 +127,6 @@ $(document).ready(function()
 	//问题添加评论
     AWS.Init.init_comment_box('.aw-add-comment');
 });
-
-function reload_list()
-{	
-	cur_page = 0;
-
-	$('#main_contents').html('<p style="padding: 15px 0" align="center"><img src="' + G_STATIC_URL + '/common/loading_b.gif" alt="" /></p>');
-
-	$('#bp_more').html(bp_more_inner_o);
-
-	$('#bp_more').click();
-}
 
 function _welcome_step_1_form_processer(result)
 {
