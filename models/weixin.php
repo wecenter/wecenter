@@ -27,7 +27,7 @@ class weixin_class extends AWS_MODEL
 
 	public function replace_post($subject)
 	{
-		return preg_replace_callback('#\\\u([0-9a-f]+)#i', function($r) { return convert_encoding(pack('H4', $r), 'UCS-2', 'UTF-8') }, $subject);
+		return preg_replace_callback('#\\\u([0-9a-f]+)#i', function($r) { return convert_encoding(pack('H4', $r), 'UCS-2', 'UTF-8'); }, $subject);
 	}
 
 	public function get_account_info_by_id($account_id, $column = NULL)
