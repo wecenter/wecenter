@@ -22,7 +22,7 @@ class posts_class extends AWS_MODEL
 {
 	public function set_posts_index($post_id, $post_type, $data = null)
 	{
-		if (!$result)
+		if (!$data)
 		{
 			switch ($post_type)
 			{
@@ -39,6 +39,10 @@ class posts_class extends AWS_MODEL
 			{
 				return false;	
 			}
+		}
+		else
+		{
+			$result = $data;
 		}
 			
 		switch ($post_type)
@@ -290,6 +294,8 @@ class posts_class extends AWS_MODEL
 					$explore_list_data[$key] = $article_infos[$data['post_id']];
 				break;
 			}
+			
+			$explore_list_data[$key]['post_type'] = $data['post_type'];
 			
 			
 			if (get_setting('category_enable') == 'Y')
