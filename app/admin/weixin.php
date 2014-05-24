@@ -410,7 +410,7 @@ class weixin extends AWS_ADMIN_CONTROLLER
 		}
 		else
 		{
-			H::redirect_msg(AWS_APP::lang()->_t('获取微信分组失败，错误为：<br />') . $result));
+			H::redirect_msg(AWS_APP::lang()->_t('获取微信分组失败，错误为：<br />') . $result);
 		}
 	}
 
