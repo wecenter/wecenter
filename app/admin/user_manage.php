@@ -569,7 +569,7 @@ class user_manage extends AWS_ADMIN_CONTROLLER
 
 		$this->model('invitation')->send_batch_invitations(array_unique($email_list), $this->user_id, $this->user_info['user_name']);
 
-		H::ajax_json_output(AWS_APP::RSM(null, 1, AWS_APP::lang()->_t('邀请已发送')));
+		H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('邀请已发送')));
 	}
 
 	public function job_list_action()
@@ -635,7 +635,7 @@ class user_manage extends AWS_ADMIN_CONTROLLER
 			}
 		}
 
-		H::ajax_json_output(AWS_APP::RSM(null, 1, AWS_APP::lang()->_t('职位列表更新成功')));
+		H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('职位列表更新成功')));
 	}
 
 	public function integral_add_ajax_action()

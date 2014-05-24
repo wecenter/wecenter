@@ -8,7 +8,7 @@
 |   http://www.wecenter.com
 |   ========================================
 |   Support: WeCenter@qq.com
-|
+|   
 +---------------------------------------------------------------------------
 */
 
@@ -28,20 +28,20 @@ class nav_menu extends AWS_ADMIN_CONTROLLER
 	public function index_action()
 	{
 		$this->crumb(AWS_APP::lang()->_t('导航设置'), 'admin/nav_menu/');
-
+		
 		TPL::assign('nav_menu_list', $this->model('menu')->get_nav_menu_list());
-
+		
 		TPL::assign('feature_list', $this->model('feature')->get_enabled_feature_list());
-
+		
 		TPL::assign('category_list', $this->model('system')->build_category_html('question', 0, 0, null, true));
-
+		
 		TPL::assign('setting', get_setting());
-
+		
 		TPL::import_js(array(
 			'admin/js/jquery.dragsort.js',
 			'js/ajaxupload.js',
 		));
-
+		
 		TPL::output("admin/nav_menu");
 	}
 
@@ -57,7 +57,7 @@ class nav_menu extends AWS_ADMIN_CONTROLLER
 				}
 			}
 		}
-
+		
 		if ($_POST['nav_menu'])
 		{
 			foreach($_POST['nav_menu'] as $key => $val)
@@ -65,13 +65,13 @@ class nav_menu extends AWS_ADMIN_CONTROLLER
 				$this->model('menu')->update_nav_menu($key, $val);
 			}
 		}
-
+		
 		$setting_update['category_display_mode'] = $_POST['category_display_mode'];
 		$setting_update['nav_menu_show_child'] = isset($_POST['nav_menu_show_child']) ? 'Y' : 'N';
-
+		
 		$this->model('setting')->set_vars($setting_update);
 
-		H::ajax_json_output(AWS_APP::RSM(null, 1, AWS_APP::lang()->_t('导航菜单保存成功')));
+		H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('导航菜单保存成功')));
 	}
 
 	public function add_menu_ajax_action()
@@ -95,28 +95,28 @@ class nav_menu extends AWS_ADMIN_CONTROLLER
 				$type_id = 0;
 				break;
 		}
-
+		
 		if (!$title)
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('导航标签不能为空')));
 		}
-
+		
 		$this->model('menu')->add_nav_menu($title, $description, $_POST['type'], $type_id, $link);
-
+		
 		H::ajax_json_output(AWS_APP::RSM(null, 1));
 	}
-
+	
 	function remove_nav_menu_action()
 	{
 		$this->model('menu')->remove_nav_menu($_GET['nav_menu_id']);
-
+		
 		H::ajax_json_output(AWS_APP::RSM(null, 1, null));
 	}
-
+	
 	function icon_upload_ajax_action()
 	{
 		$nav_menu_id = intval($_GET['nav_menu_id']);
-
+		
 		AWS_APP::upload()->initialize(array(
 			'allowed_types' => 'jpg,jpeg,png,gif',
 			'upload_path' => get_setting('upload_dir') . '/nav_menu',
@@ -124,7 +124,7 @@ class nav_menu extends AWS_ADMIN_CONTROLLER
 			'file_name' => $nav_menu_id . '.jpg',
 			'encrypt_name' => FALSE
 		))->do_upload('icon_file');
-
+		
 		if (AWS_APP::upload()->get_error())
 		{
 			switch (AWS_APP::upload()->get_error())
@@ -132,18 +132,18 @@ class nav_menu extends AWS_ADMIN_CONTROLLER
 				default:
 					H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('错误代码') . ': ' . AWS_APP::upload()->get_error()));
 				break;
-
+				
 				case 'upload_invalid_filetype':
 					H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('文件类型无效')));
 				break;
 			}
 		}
-
+		
 		if (! $upload_data = AWS_APP::upload()->data())
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('上传失败, 请与管理员联系')));
 		}
-
+		
 		if ($upload_data['is_image'] == 1)
 		{
 			AWS_APP::image()->initialize(array(
@@ -152,11 +152,11 @@ class nav_menu extends AWS_ADMIN_CONTROLLER
 				'new_image' => $upload_data['full_path'],
 				'width' => 50,
 				'height' => 50
-			))->resize();
+			))->resize();	
 		}
-
+		
 		$this->model('menu')->update_nav_menu($nav_menu_id, array('icon' => basename($upload_data['full_path'])));
-
+		
 		H::ajax_json_output(AWS_APP::RSM(array(
 			'preview' => get_setting('upload_url') . '/nav_menu/' . basename($upload_data['full_path'])
 		), 1, null));

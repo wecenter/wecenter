@@ -121,15 +121,12 @@ class weixin_class extends AWS_MODEL
 		}
 		else
 		{
-			foreach ($account_info AS $key => $value)
+			if (!empty($account_info['weixin_mp_menu']))
 			{
-				if ($key == 'weixin_mp_menu')
-				{
-					$value = json_encode($value);
-				}
-
-				$this->update('weixin_accounts', $value, 'id = ' . intval($account_id));
+				$account_info['weixin_mp_menu'] = json_encode($account_info['weixin_mp_menu']);
 			}
+
+			$this->update('weixin_accounts', $account_info, 'id = ' . intval($account_id));
 		}
 	}
 

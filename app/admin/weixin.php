@@ -270,7 +270,7 @@ class weixin extends AWS_ADMIN_CONTROLLER
 			}
 		}
 
-		H::ajax_json_output(AWS_APP::RSM(null, 1, AWS_APP::lang()->_t('规则状态已自动保存')));
+		H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('规则状态已自动保存')));
 	}
 
 	public function reply_remove_action()
@@ -359,7 +359,9 @@ class weixin extends AWS_ADMIN_CONTROLLER
 	{
 		define('IN_AJAX', TRUE);
 
-		foreach ($_POST AS $name)
+		unset($_POST['_post_type']);
+
+		foreach ($_POST AS $name => $array)
 		{
 			foreach ($_POST[$name] AS $key => $value)
 			{
@@ -370,23 +372,25 @@ class weixin extends AWS_ADMIN_CONTROLLER
 		foreach ($accounts_info AS $account_info)
 		{
 			$account_info['weixin_mp_token'] = trim($account_info['weixin_mp_token']);
+
 			if (empty($account_info['weixin_mp_token']))
 			{
 				H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('微信公众平台接口 Token 不能为空')));
 			}
 
 			$account_info['id'] = intval($account_info['id']);
+
 			if (empty($account_info['id']))
 			{
 				$this->model('weixin')->add_account($account_info);
-				H::ajax_json_output(AWS_APP::RSM(null, 1, AWS_APP::lang()->_t('添加微信账号成功')));
 			}
 			else
 			{
 				$this->model('weixin')->update_setting_or_account($account_info['id'], $account_info);
-				H::ajax_json_output(AWS_APP::RSM(null, 1, AWS_APP::lang()->_t('更新微信账号成功')));
 			}
 		}
+
+		H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('添加和更新微信账号成功')));
 	}
 
 	public function del_account_action()
@@ -394,6 +398,8 @@ class weixin extends AWS_ADMIN_CONTROLLER
 		if ($_POST['id'])
 		{
 			$this->model('weixin')->del_account($_POST['id']);
+
+			H::ajax_json_output(AWS_APP::RSM(null, 1, null));
 		}
 		else
 		{
