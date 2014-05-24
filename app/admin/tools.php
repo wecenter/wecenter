@@ -176,7 +176,7 @@ class tools extends AWS_ADMIN_CONTROLLER
 		}
 		else
 		{
-			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('测试邮件已发送, 请查收邮件测试配置是否正确')));
+			H::ajax_json_output(AWS_APP::RSM(null, 1, AWS_APP::lang()->_t('测试邮件已发送, 请查收邮件测试配置是否正确')));
 		}
 	}
 
@@ -217,7 +217,7 @@ class tools extends AWS_ADMIN_CONTROLLER
 				H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('服务异常, 返回的信息: %s', $service_status['message'])));
 			}
 
-			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('服务状态正常')));
+			H::ajax_json_output(AWS_APP::RSM(null, 1, AWS_APP::lang()->_t('服务状态正常')));
 		}
 		else
 		{

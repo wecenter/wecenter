@@ -270,7 +270,7 @@ class weixin extends AWS_ADMIN_CONTROLLER
 			}
 		}
 
-		H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('规则状态已自动保存')));
+		H::ajax_json_output(AWS_APP::RSM(null, 1, AWS_APP::lang()->_t('规则状态已自动保存')));
 	}
 
 	public function reply_remove_action()
@@ -379,22 +379,22 @@ class weixin extends AWS_ADMIN_CONTROLLER
 			if (empty($account_info['id']))
 			{
 				$this->model('weixin')->add_account($account_info);
-				H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('添加微信账号成功')));
+				H::ajax_json_output(AWS_APP::RSM(null, 1, AWS_APP::lang()->_t('添加微信账号成功')));
 			}
 			else
 			{
 				$this->model('weixin')->update_setting_or_account($account_info['id'], $account_info);
-				H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('更新微信账号成功')));
+				H::ajax_json_output(AWS_APP::RSM(null, 1, AWS_APP::lang()->_t('更新微信账号成功')));
 			}
 		}
 	}
 
 	public function del_account_action()
 	{
-		if ($_GET['id'])
+		if ($_POST['id'])
 		{
-			$this->model('weixin')->del_account($_GET['id']);
-			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('删除微信账号成功')));
+			$this->model('weixin')->del_account($_POST['id']);
+			H::ajax_json_output(AWS_APP::RSM(null, 1, null));
 		}
 	}
 
@@ -410,7 +410,7 @@ class weixin extends AWS_ADMIN_CONTROLLER
 		}
 		else
 		{
-			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('获取微信分组失败，错误为：<br />') . $result));
+			H::redirect_msg(AWS_APP::lang()->_t('获取微信分组失败，错误为：<br />') . $result));
 		}
 	}
 
