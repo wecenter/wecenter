@@ -8,3 +8,5 @@ system/config/database.php
 .DS_Store
 api/uc.php
 uc_client/
+.tags
+.tags_sorted_by_file
