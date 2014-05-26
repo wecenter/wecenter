@@ -1,4 +1,5 @@
-$(document).ready(function() {
+$(function()
+{
 	if ($('.tabbable').length)
 	{		
 		AWS.load_list_view(G_BASE_URL + '/explore/ajax/list/post_type-question__sort_type-new__topic_id-' + CONTENTS_TOPIC_ID, $('#c_question_more'), $('#c_question_list'), 2);

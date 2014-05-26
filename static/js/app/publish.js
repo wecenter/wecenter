@@ -1,5 +1,5 @@
-$(document).ready(function () {
-
+$(function()
+{
 	if ($('#question_id').length)
 	{
 		ITEM_ID = $('#question_id').val();
@@ -70,7 +70,6 @@ $(document).ready(function () {
 			if ($(e).attr('data-value') == $('#category_id').val())
 			{
 				$('#aw-topic-tags-select').html($(e).html());
-				return;
 			}
 		});
 	}
@@ -83,13 +82,9 @@ $(document).ready(function () {
 		if ($(this).val() != '')
 		{
 			$.post(G_BASE_URL + '/account/ajax/save_draft/item_id-1__type-' +　PUBLISH_TYPE, 'message=' + $(this).val(), function (result) {
-				$('#question_detail_message').html(result.err + ' <a href="#" onclick="$(\'textarea#advanced_editor\').attr(\'value\', \'\'); delete_draft(1, \'' + PUBLISH_TYPE + '\'); $(this).parent().html(\' \'); return false;">' + _t('删除草稿') + '</a>');
+				$('#question_detail_message').html(result.err + ' <a href="#" onclick="$(\'textarea#advanced_editor\').attr(\'value\', \'\'); AWS.User.delete_draft(1, \'' + PUBLISH_TYPE + '\'); $(this).parent().html(\' \'); return false;">' + _t('删除草稿') + '</a>');
 			}, 'json');
 		}
 	});
 	
-	$('#publish_submit').click(function () {
-		$('textarea#advanced_editor').unbind('blur');
-	});
-
 });

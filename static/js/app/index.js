@@ -1,8 +1,4 @@
-var cur_page = 0;
-
-var cur_filter = '';
-
-$(document).ready(function()
+$(function()
 {
 	// 检测首页动态更新
 	var checkactionsnew_handle = setInterval(function ()
@@ -16,17 +12,15 @@ $(document).ready(function()
 		{
 			$('.aw-mod.side-nav a').removeClass('active');
 
+			$(this).addClass('active');
+
 			window.location.hash = $(this).attr('rel');
 
 			$('#main_title').html($(this).html()).find('i').detach();
 
-			$(this).addClass('active');
-
-			cur_page = 0;
-
 			$('#main_contents').html('<p style="padding: 15px 0" align="center"><img src="' + G_STATIC_URL + '/common/loading_b.gif" alt="" /></p>');
 
-			$('#bp_more').click();
+			$('#bp_more').attr('data-page', 0).click();
 
 			return false;
 		}
@@ -42,7 +36,7 @@ $(document).ready(function()
 			default:
 				if (window.location.hash != '#all')
 				{
-					query_string = window.location.hash.replace(/#/g, '').split('__');
+					var query_string = window.location.hash.replace(/#/g, '').split('__');
 
 					for (i = 0; i < 3; i++)
 					{
@@ -54,29 +48,29 @@ $(document).ready(function()
 					
 					if (query_string[1])
 					{
-						cur_filter = query_string[1];
+						var cur_filter = query_string[1];
 					}
 					else
 					{
-						cur_filter = '';
+						var cur_filter = '';
 					}
 				}
 				else
 				{
-					cur_filter = '';
+					var cur_filter = '';
 				}
 
-				var request_url = G_BASE_URL + '/home/ajax/index_actions/page-' + cur_page + '__filter-' + cur_filter;
+				var request_url = G_BASE_URL + '/home/ajax/index_actions/page-' + $(this).attr('data-page') + '__filter-' + cur_filter;
 			break;
 
 			case '#draft_list__draft':
-				var request_url = G_BASE_URL + '/home/ajax/draft/page-' + cur_page;
+				var request_url = G_BASE_URL + '/home/ajax/draft/page-' + $(this).attr('data-page');
 
 				$('#main_title').prepend('<a class="pull-right btn btn-mini btn-success" id="delete-draft" onclick="$.each($(\'a.delete-draft\'), function (i, e) { $(e).click(); });">' + _t('清空所有') + '</a>');
 			break;
 
 			case '#invite_list__invite':
-				var request_url = G_BASE_URL + '/home/ajax/invite/page-' + cur_page;
+				var request_url = G_BASE_URL + '/home/ajax/invite/page-' + $(this).attr('data-page');
 			break;
 		}
 
@@ -86,7 +80,7 @@ $(document).ready(function()
 		{
 			if (response.length)
 			{
-				if (cur_page == 0)
+				if ($(_this).attr('data-page') == 0)
 				{
 					$('#main_contents').html(response);
 				}
@@ -95,11 +89,11 @@ $(document).ready(function()
 					$('#main_contents').append(response);
 				}
 
-				cur_page++;
+				$(_this).attr('data-page', parseInt($(_this).attr('data-page')) + 1);
 			}
 			else
 			{
-				if (cur_page == 0)
+				if ($(_this).attr('data-page') == 0)
 				{
 					$('#main_contents').html('<p style="padding: 15px 0" align="center">' + _t('没有内容') + '</p>');
 				}

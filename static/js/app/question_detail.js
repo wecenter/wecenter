@@ -1,10 +1,10 @@
 var ATTACH_ACCESS_KEY
-var ITEM_IDS;
 var COMMENT_UNFOLD;
 var QUESTION_ID;
 var UNINTERESTED_COUNT;
 
-$(function() {
+$(function()
+{
 	
     //问题页添加评论
     AWS.Init.init_comment_box('.aw-add-comment');
@@ -19,24 +19,19 @@ $(function() {
 	else
 	{
 		ITEM_IDS = ITEM_IDS.split(',');
-	
-		if ($("#captcha").attr('id'))
-		{
-			$("#captcha").click();
-		}
-		
+
 		AWS.Init.init_fileuploader('file_uploader_answer', G_BASE_URL + '/publish/ajax/attach_upload/id-answer__attach_access_key-' + ATTACH_ACCESS_KEY);
 		
 		//折叠回复
-		$.each($('div.aw-item'), function (i, e) {
+		$.each($('.aw-question-comment .aw-item'), function (i, e) 
+		{
 			if ($(this).attr('uninterested_count') >= UNINTERESTED_COUNT || $(this).attr('force_fold') == 1)
 			{
-				$('#uninterested_answers_list').append('<div class="aw-item">' + $(e).html() + '</div>');
-				
-				$(e).remove();
+				$('#uninterested_answers_list').append($(e));
 			}
 		});
 		
+		//折叠回复数量
 		if ($('#uninterested_answers_list div.aw-item').length > 0)
 		{
 			$('#load_uninterested_answers span.hide_answers_count').html($('#uninterested_answers_list div.aw-item').length);
@@ -46,14 +41,7 @@ $(function() {
 		//回复折叠显示按钮
 	    $('#load_uninterested_answers a').click(function()
 	    {
-	        if ($('#uninterested_answers_list').is(':visible'))
-	        {
-	            $('#uninterested_answers_list').hide();
-	        }
-	        else
-	        {
-	            $('#uninterested_answers_list').show();
-	        }
+	    	$('#uninterested_answers_list').toggle();
 	    });
 		
 		//自动保存草稿
@@ -61,7 +49,7 @@ $(function() {
 			if ($(this).val() != '')
 			{
 				$.post(G_BASE_URL + '/account/ajax/save_draft/item_id-' + QUESTION_ID + '__type-answer', 'message=' + $(this).val(), function (result) {
-					$('#answer_content_message').html(result.err + ' <a href="#" onclick="$(\'textarea#advanced_editor\').attr(\'value\', \'\'); delete_draft(QUESTION_ID, \'answer\'); $(this).parent().html(\' \'); return false;">' + _t('删除草稿') + '</a>');
+					$('#answer_content_message').html(result.err + ' <a href="#" onclick="$(\'textarea#advanced_editor\').attr(\'value\', \'\'); AWS.User.delete_draft(QUESTION_ID, \'answer\'); $(this).parent().html(\' \'); return false;">' + _t('删除草稿') + '</a>');
 				}, 'json');
 			}
 		});
@@ -90,7 +78,7 @@ $(function() {
 		});
 	}
 	
-	/* 关注用户列表 */
+	//关注用户列表
 	$.get(G_BASE_URL + '/question/ajax/get_focus_users/question_id-' + QUESTION_ID, function (result) {
 		if (result)
 		{
@@ -124,16 +112,15 @@ $(function() {
     });
     
     //邀请初始化
-    $('.aw-question-detail .aw-invite-box ul li').hide();
-    
     for (var i = 0; i < 3; i++)
     {
     	$('.aw-question-detail .aw-invite-box ul li').eq(i).show();
     }
     
-    //长度小于3翻页隐藏
+    // 邀请翻页
     if ($('.aw-question-detail .aw-invite-box .mod-body ul li').length <=3 )
     {
+    	//长度小于3翻页隐藏
     	$('.aw-question-detail .aw-invite-box .aw-mod-footer').hide();
     }
     else
@@ -143,7 +130,7 @@ $(function() {
 	    {
 	    	if (!$(this).hasClass('active'))
 	    	{
-	    		var attr = [],li_length = $('.aw-question-detail .aw-invite-box .mod-body ul li').length;
+	    		var attr = [];
 		    	$.each($('.aw-question-detail .aw-invite-box .mod-body ul li'), function (i, e)
 		    	{
 		    		if ($(this).is(':visible') == true)
@@ -237,7 +224,7 @@ $(function() {
     //赞同反对fixed滚动
     $(window).scroll(function()
     {
-    	if ($('.aw-question-comment-box .aw-vote-bar').css('position') == 'absolute')
+    	if ($('.aw-question-comment .aw-vote-bar').css('position') == 'relative')
     	{
     		$.each($('.anchor'), function (i, e)
 	    	{

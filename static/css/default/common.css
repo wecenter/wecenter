@@ -335,7 +335,7 @@ a.aw-load-more-content{display: block;}
 .aw-comment-list li > .aw-user-name img{width: 32px;height: 32px;}
 .aw-comment-list li p{margin:0;word-break:break-all;}
 /* 评论投票栏 */
-.aw-vote-bar{position:relative;}
+.aw-vote-bar{position:relative;width: 25px;height: 83px;}
 .aw-vote-bar a{display:block;width:24px;height:24px;line-height:24px;background:#e9f5ff;text-align: center;}
 .aw-vote-bar a:hover{background:#c6e3fc;}
 .aw-vote-bar a.active{background:#4686d4;}
@@ -357,7 +357,7 @@ a.aw-load-more-content{display: block;}
 .aw-invite-box .mod-head .fa-search{position: absolute;right: 30px;top: 10px;}
 .aw-invite-box .mod-body{padding:10px;border-top: 1px solid #E2E2E2;}
 .aw-invite-box .mod-body ul{width:103%;max-height: 70px;overflow: hidden;margin-left:-10px;}
-.aw-invite-box .mod-body ul li{position:relative;float: left;width:30%;margin:0 10px;}
+.aw-invite-box .mod-body ul li{display:none;position:relative;float: left;width:30%;margin:0 10px;}
 .aw-invite-box .mod-body ul li .main{padding-left: 50px;}
 .aw-invite-box .mod-body ul li p{margin:1px 0 0 0;font-size: 13px;color: #999;}
 .aw-invite-box .mod-body ul li p .aw-topic-name{position:relative;top:5px;height:20px;margin:0 3px;}
@@ -858,9 +858,6 @@ a.aw-load-more-content{display: block;}
 	.aw-user-nav{position: absolute;right: 0;padding-right: 0;}
 	.aw-user-nav .badge{right: 0;}
 	.aw-publish-btn{display: none;}
-	.aw-top-nav{width: 100% !important;}
-	.aw-top-nav .navbar-collapse{display:block;position:absolute;left:-75%;width: 130px;margin-top:4px;background-color: #4079A8;transition: left .25s linear;}
-	.aw-top-nav .navbar-collapse.active{left: -15px;}
 }
 /* iphone横屏幕 */
 @media (max-width:640px) {  
@@ -878,6 +875,10 @@ a.aw-load-more-content{display: block;}
 	.aw-publish-box input{width: 100% !important;}
 	.aw-vote-bar{position: relative;}
 	.markitup-box img{width: 100% !important;}
+	/*导航条*/
+	.aw-top-nav{width: 100% !important;}
+	.aw-top-nav .navbar-collapse{display:block;position:absolute;left:-75%;width: 130px;margin-top:4px;background-color: #4079A8;transition: left .25s linear;}
+	.aw-top-nav .navbar-collapse.active{left: -15px;}
 	/*分类*/
 	.category .col-sm-12{padding:0;}
 	.category .col-sm-12 > ul > li{margin:2px 3px;padding:0 4px;}
