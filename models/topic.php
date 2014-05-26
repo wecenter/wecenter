@@ -230,6 +230,8 @@ class topic_class extends AWS_MODEL
 			if ($uid)
 			{
 				ACTION_LOG::save_action($uid, $topic_id, ACTION_LOG::CATEGORY_TOPIC, ACTION_LOG::ADD_TOPIC, $topic_title);
+				
+				$this->add_focus_topic($uid, $topic_id);
 			}
 		}
 		else
