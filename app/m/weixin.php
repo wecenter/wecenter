@@ -154,6 +154,11 @@ class weixin extends AWS_CONTROLLER
 
 				if (!$access_user['nickname'])
 				{
+					if ($access_user['subscribe'] == 0)
+					{
+						H::redirect_msg(AWS_APP::lang()->_t('您当前没有关注本公众号主账号, 无法使用身份认证功能'));
+					}
+
 					H::redirect_msg(AWS_APP::lang()->_t('您当前没有关注本公众号, 无法使用全部功能'));
 				}
 

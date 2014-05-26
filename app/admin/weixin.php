@@ -72,6 +72,7 @@ class weixin extends AWS_ADMIN_CONTROLLER
 
 		$this->model('weixin')->client_list_image_clean($account_info['weixin_mp_menu']);
 
+		TPL::assign('account_id', $account_info['id']);
 		TPL::assign('mp_menu', $account_info['weixin_mp_menu']);
 		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(803));
 
