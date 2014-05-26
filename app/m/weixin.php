@@ -206,6 +206,8 @@ class weixin extends AWS_CONTROLLER
 					TPL::assign('access_token', $access_token);
 					TPL::assign('access_user', $access_user);
 
+					TPL::assign('register_url', $this->model('openid_weixin')->get_oauth_url(get_js_url('/m/weixin/register/'), 'snsapi_userinfo'));
+
 					TPL::assign('body_class', 'explore-body');
 
 					TPL::output('m/weixin/authorization');
@@ -288,8 +290,13 @@ class weixin extends AWS_CONTROLLER
 
 	public function register_action()
 	{
-		if ($access_token = unserialize(base64_decode($_GET['access_token'])))
+		if ($_GET['code'] AND get_setting('weixin_app_id'))
 		{
+			if (!$access_token = $this->model('openid_weixin')->get_sns_access_token_by_authorization_code($_GET['code']))
+			{
+				H::redirect_msg('远程服务器忙,请稍后再试, Code: ' . $_GET['code']);
+			}
+
 			if ($access_token['errcode'])
 			{
 				H::redirect_msg('授权失败: Register ' . $access_token['errcode'] . ' ' . $access_token['errmsg'] . ', code: ' . $_GET['code']);
@@ -340,7 +347,7 @@ class weixin extends AWS_CONTROLLER
 		}
 		else
 		{
-			H::redirect_msg('服务器忙,请稍后再试');
+			H::redirect_msg(AWS_APP::lang()->_t('授权失败,请返回重新操作'));
 		}
 	}
 
