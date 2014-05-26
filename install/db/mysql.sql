@@ -1091,16 +1091,16 @@ CREATE TABLE `[#DB_PREFIX#]weixin_accounts` (
 CREATE TABLE `[#DB_PREFIX#]weixin_msg` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `msg_id` int(20) NOT NULL DEFAULT '',
-  `weixin_account_role` varchar(20) DEFAULT 'base',
-  `weixin_app_id` varchar(255) DEFAULT '',
-  `weixin_app_secret` varchar(255) DEFAULT '',
-  `wecenter_access_token` varchar(255) DEFAULT '',
-  `wecenter_access_secret` varchar(255) DEFAULT '',
-  `weixin_mp_menu` text,
+  `status` varchar(255) DEFAULT 'unsent',
+  `article_id` varchar(255) DEFAULT '',
+  `question_id` varchar(255) DEFAULT '',
+  `create_time` int() DEFAULT '',
+  `filter_count` int(15) DEFAULT '',
   PRIMARY KEY (`id`),
-  KEY `weixin_mp_token` (`weixin_mp_token`),
-  KEY `weixin_account_role` (`weixin_account_role`),
-  KEY `weixin_app_id` (`weixin_app_id`)
+  KEY `msg_id` (`msg_id`),
+  KEY `status` (`status`),
+  KEY `article_id` (`article_id`),
+  KEY `question_id` (`question_id`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8 COMMENT='微信群发列表';
 
 INSERT INTO `[#DB_PREFIX#]category`(`title`,`type`) VALUES
