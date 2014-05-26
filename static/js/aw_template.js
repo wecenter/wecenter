@@ -435,9 +435,9 @@ var AW_TEMPLATE = {
 	'educateEdit' : 
 			'<td><input type="text" value="{{school}}" class="school form-control"></td>'+
 			'<td><input type="text" value="{{departments}}" class="departments form-control"></td>'+
-			'<td><select class="edityear">'+
+			'<td><select class="year edityear">'+
 				'</select> ' + _t('年') + '</td>'+
-			'<td><a class="delete-educate">' + _t('删除') + '</a>&nbsp;&nbsp;<a class="save-educate">' + _t('保存') + '</a></td>',
+			'<td><a class="delete-educate">' + _t('删除') + '</a>&nbsp;&nbsp;<a class="add-educate">' + _t('保存') + '</a></td>',
 
 	'workInsert' : 
 			'<td class="w1" data-txt="{{company}}">{{company}}</td>'+
@@ -451,12 +451,12 @@ var AW_TEMPLATE = {
 				'<select class="work editwork">'+
 				'</select>'+
 			'</td>'+
-			'<td><select class="editsyear">'+
+			'<td><select class="syear editsyear">'+
 				'</select>&nbsp;&nbsp;' + _t('年') + ' &nbsp;&nbsp; ' + _t('至') + '&nbsp;&nbsp;&nbsp;&nbsp;'+
-				'<select class="editeyear">'+
+				'<select class="eyear editeyear">'+
 				'</select> ' + _t('年') +
 			'</td>'+
-			'<td><a class="delete-work">' + _t('删除') + '</a>&nbsp;&nbsp;<a class="save-work">' + _t('保存') + '</a></td>',
+			'<td><a class="delete-work">' + _t('删除') + '</a>&nbsp;&nbsp;<a class="add-work">' + _t('保存') + '</a></td>',
 
 	'linkBox' : 
 			'<div id="aw-link-box" class="modal alert-box aw-link-box fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">'+
