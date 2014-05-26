@@ -201,7 +201,7 @@ class weixin extends AWS_CONTROLLER
 					TPL::assign('access_token', $access_token);
 					TPL::assign('access_user', $access_user);
 					
-					TPL::assign('register_url', $this->model('openid_weixin')->get_oauth_url(get_js_url('/m/weixin/register/'), 'snsapi_userinfo'));
+					TPL::assign('register_url', $this->model('openid_weixin')->get_oauth_url(get_js_url('/m/weixin/register/redirect-' . urlencode($_GET['redirect'])), 'snsapi_userinfo'));
 					
 					TPL::assign('body_class', 'explore-body');
 					
