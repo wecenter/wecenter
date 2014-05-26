@@ -1092,15 +1092,15 @@ CREATE TABLE `[#DB_PREFIX#]weixin_msg` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `msg_id` int(20) NOT NULL DEFAULT '',
   `status` varchar(255) DEFAULT 'unsent',
-  `article_id` varchar(255) DEFAULT '',
-  `question_id` varchar(255) DEFAULT '',
-  `create_time` int() DEFAULT '',
-  `filter_count` int(15) DEFAULT '',
+  `article_ids` varchar(255) DEFAULT '',
+  `question_ids` varchar(255) DEFAULT '',
+  `create_time` int(10) DEFAULT '',
+  `filter_count` int(10) DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `msg_id` (`msg_id`),
   KEY `status` (`status`),
-  KEY `article_id` (`article_id`),
-  KEY `question_id` (`question_id`)
+  KEY `article_ids` (`article_ids`),
+  KEY `question_ids` (`question_ids`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8 COMMENT='微信群发列表';
 
 INSERT INTO `[#DB_PREFIX#]category`(`title`,`type`) VALUES
