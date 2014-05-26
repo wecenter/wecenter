@@ -82,7 +82,7 @@ class weixin_class extends AWS_MODEL
 			return $account_info[$account_id][$column];
 		}
 
-		return $account_info;
+		return $account_info[$account_id];
 	}
 
 	public function get_accounts_info()
@@ -167,7 +167,7 @@ class weixin_class extends AWS_MODEL
 				$this->user_id = $weixin_info['uid'];
 			}
 
-			if ($account_id == 0 AND get_setting('weixin_account_role') == 'service')
+			if (get_setting('weixin_account_role') == 'service')
 			{
 				$this->bind_message = '你的微信帐号没有绑定 ' . get_setting('site_name') . ' 的帐号, 请<a href="' . $this->model('openid_weixin')->get_oauth_url(get_js_url('/m/weixin/authorization/')) . '">点此绑定</a>';
 			}
@@ -932,6 +932,7 @@ class weixin_class extends AWS_MODEL
 	public function check_signature($mp_token, $signature, $timestamp, $nonce)
 	{
 		$mp_token = trim($mp_token);
+
 		if (empty($mp_token))
 		{
 			return false;
