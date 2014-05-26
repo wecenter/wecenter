@@ -31,7 +31,7 @@ class weixin_class extends AWS_MODEL
 			'#\\\u([0-9a-f]+)#i',
 			function($r)
 			{
-				return convert_encoding(pack('H4', $r), 'UCS-2', 'UTF-8');
+				return convert_encoding(pack('H4', $r[1]), 'UCS-2', 'UTF-8');
 			},
 			$subject
 		);
