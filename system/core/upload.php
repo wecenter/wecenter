@@ -853,7 +853,7 @@ class core_upload {
 		{
 			$parts		= explode('.', $filename);
 			$ext		= '.'.array_pop($parts);
-			$filename	= implode('.', $parts);
+			//$filename	= implode('.', $parts);
 		}
 
 		return substr($filename, 0, ($length - strlen($ext))).$ext;

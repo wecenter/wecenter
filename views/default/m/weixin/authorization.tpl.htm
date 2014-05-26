@@ -50,7 +50,7 @@
 				<a href="javascript:;" class="btn-submit btn-green" onclick="$('.bind-confirm, .bind-form').hide();$('.register-confirm, .register-form').show();"><?php _e('注册')?></a>
 
 				<p><?php _e('或者点击下面的按钮生成帐号'); ?></p>
-					<a href="m/weixin/register/access_token-<?php echo urlencode(base64_encode(serialize($this->access_token))); ?>__redirect-<?php echo urlencode($_GET['redirect']); ?>" class="btn-submit btn-green"><?php _e('生成帐号')?></a>
+					<a href="<?php echo $this->register_url; ?>" class="btn-submit btn-green"><?php _e('生成帐号')?></a>
 			</div>
 
 			<div class="register-confirm hide">
