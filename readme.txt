@@ -48,5 +48,4 @@ http://www.wecenter.com/downloads/
 当您在安装、升级、日常使用当中遇到疑难，请您到以下站点获取技术支持。
 
 支持：http://www.wecenter.com/support/
-讨论区：http://www.wecenter.com
-
+讨论区：http://wenda.wecenter.com

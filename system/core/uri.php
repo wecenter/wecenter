@@ -157,8 +157,8 @@ class core_uri
 		);
 		
 		if ($uri['last'])
-		{			
-			parse_str(str_replace(array($this->params['sep_value'], $this->params['sep_var']), array('=', '&'), $uri['last']), $query_string);
+		{
+			parse_str($uri['last'], $query_string);
 			
 			foreach ($query_string AS $key => $val)
 			{
