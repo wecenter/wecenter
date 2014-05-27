@@ -152,17 +152,17 @@ class question extends AWS_ADMIN_CONTROLLER
 	{
 		define('IN_AJAX', TRUE);
 
+		if (empty($_POST['question_ids']))
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择问题进行操作')));
+		}
+
 		switch ($_POST['action'])
 		{
 			case 'del':
-				if (! $_POST['question_ids'])
+				foreach ($_POST['question_ids'] AS $question_id)
 				{
-					H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择问题进行操作')));
-				}
-
-				foreach ($_POST['question_ids'] AS $key => $question_ids)
-				{
-					$this->model('question')->remove_question($question_ids);
+					$this->model('question')->remove_question($question_id);
 				}
 
 				H::ajax_json_output(AWS_APP::RSM(null, 1, null));
@@ -170,17 +170,12 @@ class question extends AWS_ADMIN_CONTROLLER
 				break;
 
 			case 'send':
-				if (! $_POST['question_ids'])
-				{
-					H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择问题进行操作')));
-				}
+				$result = $this->model('weixin')->add_articles_or_questions_to_unsent_msg($_POST['question_ids']);
 
-				H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('添加至微信群发队列成功')));
+				H::ajax_json_output(AWS_APP::RSM(null, -1, $result));
 
 				break;
 		}
-
-
 	}
 
 	public function answer_batch_action()

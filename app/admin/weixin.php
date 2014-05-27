@@ -408,13 +408,23 @@ class weixin extends AWS_ADMIN_CONTROLLER
 		}
 	}
 
+	public function sent_msg_list_action()
+	{
+		$weixin_msg_list = $this->model('weixin')->fetch_page('weixin_msg', null, 'id DESC', $_GET['page'], 10);
+		$weixin_msg_num = $this->model('weixin')->found_rows();
+
+		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(804));
+		TPL::assign('msg_list', $weixin_msg_list);
+		TPL::assign('msg_num', $weixin_msg_num);
+		TPL::output('admin/weixin/sent_msg_list');
+	}
+
 	public function send_msg_action()
 	{
 		$result = $this->model('weixin')->get_groups_from_mp();
 
 		if (is_array($result))
 		{
-			TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(804));
 			TPL::assign('groups_list', $result);
 			TPL::output('admin/weixin/send_msg');
 		}
@@ -422,15 +432,5 @@ class weixin extends AWS_ADMIN_CONTROLLER
 		{
 			H::redirect_msg(AWS_APP::lang()->_t('获取微信分组失败，错误为：<br />') . $result);
 		}
-	}
-
-	public function send_msg_by_group_action()
-	{
-
-	}
-
-	public function list_send_msg_action()
-	{
-
 	}
 }
