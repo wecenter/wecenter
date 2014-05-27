@@ -2448,8 +2448,7 @@ AWS.Init =
 	            // 给编辑box取消按钮添加事件
 	            _topic_editor.find('.close-edit').click(function ()
 	            {
-	                _topic_editor.find('.aw-edit-topic-box').hide();
-	                _topic_editor.find('.aw-close').hide();
+	                _topic_editor.find('.aw-edit-topic-box, .aw-close').hide();
 	                _topic_editor.find('.aw-edit-topic').show();
 	            });
 
@@ -2623,10 +2622,10 @@ function _t(string, replace)
 	        }
 	        else if (textObj.setSelectionRange)
 	        {
-	            var rangeStart = textObj.selectionStart;
-	            var rangeEnd = textObj.selectionEnd;
-	            var tempStr1 = textObj.value.substring(0, rangeStart);
-	            var tempStr2 = textObj.value.substring(rangeEnd);
+	            var rangeStart = textObj.selectionStart,
+	            	rangeEnd = textObj.selectionEnd,
+	            	tempStr1 = textObj.value.substring(0, rangeStart),
+	            	tempStr2 = textObj.value.substring(rangeEnd);
 	            textObj.value = tempStr1 + textFeildValue + tempStr2;
 	            textObj.focus();
 	            var len = textFeildValue.length;
