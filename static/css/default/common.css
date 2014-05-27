@@ -1026,9 +1026,6 @@ a.aw-load-more-content{display: block;}
 	/*导航条*/
 	.aw-user-nav{position: absolute;right: 0;padding-right: 0;}
 	.aw-user-nav .badge{right: 0;}
-	.aw-top-nav{width: 100% !important;}
-	.aw-top-nav .navbar-collapse{display:block;position:absolute;left:-75%;width: 130px;margin-top:4px;background-color: #4079A8;transition: left .25s linear;}
-	.aw-top-nav .navbar-collapse.active{left: -15px;}
 	.aw-publish-btn{display: none;}
 }
 /* iphone横屏幕 */
@@ -1071,6 +1068,9 @@ a.aw-load-more-content{display: block;}
 	.aw-article-list .aw-item{padding-left: 0;}
 	/*通知*/
 	.aw-top-nav .badge{position: relative;top: 0;left: 0;}
+	.aw-top-nav{width: 100% !important;}
+	.aw-top-nav .navbar-collapse{display:block;position:absolute;left:-75%;width: 130px;margin-top:4px;background-color: #4079A8;transition: left .25s linear;}
+	.aw-top-nav .navbar-collapse.active{left: -15px;}
 	/*弹窗*/
 	.aw-share-box .modal-dialog, .aw-publish-box .modal-dialog, .aw-message-box .modal-dialog, .aw-question-redirect-box .modal-dialog, .aw-inbox .modal-dialog, .aw-topic-edit-note-box .modal-dialog, .aw-tips-box .modal-dialog, .aw-image-box .modal-dialog, .aw-link-box .modal-dialog, .aw-edit-comment-box .modal-dialog, .aw-publish-box .modal-content{width: auto;}
 	.aw-share-box #bdshare li{margin:0 15px 20px 0;}

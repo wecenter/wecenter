@@ -2,6 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
+<meta name="renderer" content="webkit" />
 <meta http-equiv="X-UA-Compatible" content="<?php echo X_UA_COMPATIBLE; ?>" />
 <title><?php echo $this->page_title; ?></title>
 <base href="<?php echo get_setting('base_url');?>/<?php echo G_INDEX_SCRIPT; ?>" />
@@ -30,15 +31,11 @@
 		<div class="aw-mod">
 			<div class="aw-mod-body">
 				<div class="alert alert-danger hide error_message"></div>
-
 				<ul>
 					<li>
 						<label>
 							<span>E-mail:</span>
-							<?php if ($this->user_info) { ?>
-							<strong><?php echo $this->user_info['email']; ?></strong>
-							<?php } ?>
-							<input type="text" name="username"<?php if ($this->user_info) { ?> value="<?php echo $this->user_info['email']; ?>" style="display:none"<?php } ?> />
+							<?php if ($this->user_info) { ?><strong><?php echo $this->user_info['email']; ?></strong><?php } ?>
 						</label>
 					</li>
 					<li>
