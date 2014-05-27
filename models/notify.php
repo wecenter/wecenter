@@ -219,7 +219,7 @@ class notify_class extends AWS_MODEL
 				$tmp_data['p_url'] = get_js_url('/people/' . $user_info['url_token']);
 			}
 			
-			$token = 'notification_id-' . $notify['notification_id'];
+			$token = 'notification_id=' . $notify['notification_id'];
 			
 			switch ($notify['model_type'])
 			{
@@ -244,7 +244,7 @@ class notify_class extends AWS_MODEL
 						{
 							asort($item_ids);
 							
-							$querys[] = 'item_id-' . implode(',', array_unique($item_ids));
+							$querys[] = 'item_id=' . implode(',', array_unique($item_ids));
 						}
 						
 						$tmp_data['extend_details'] = $this->format_extend_detail($notify['extend_details'], $user_infos);
@@ -252,7 +252,7 @@ class notify_class extends AWS_MODEL
 					}
 					else
 					{
-						$tmp_data['key_url'] = get_js_url('/article/' . $data['article_id'] . '?' . $token . '__item_id-' . $data['item_id']);
+						$tmp_data['key_url'] = get_js_url('/article/' . $data['article_id'] . '?' . $token . '&item_id=' . $data['item_id']);
 					}
 				break;
 				
@@ -308,23 +308,23 @@ class notify_class extends AWS_MODEL
 								
 								if (! $rf)
 								{
-									$querys[] = 'rf-false';
+									$querys[] = 'rf=false';
 								}
 								
 								if ($from_uid)
 								{
-									$querys[] = 'source-' . base64_encode($from_uid);
+									$querys[] = 'source=' . base64_encode($from_uid);
 								}
 								
 								if ($comment_type)
 								{									
 									if (count(array_unique($comment_type)) == 1)
 									{
-										$querys[] = 'comment_unfold-' . array_pop($comment_type);
+										$querys[] = 'comment_unfold=' . array_pop($comment_type);
 									}
 									else if (count(array_unique($comment_type)) == 2)
 									{
-										$querys[] = 'comment_unfold-all';
+										$querys[] = 'comment_unfold=all';
 									}
 								}
 								
@@ -334,7 +334,7 @@ class notify_class extends AWS_MODEL
 									
 									asort($answer_ids);
 									
-									$querys[] = 'item_id-' . implode(',', $answer_ids) . '#!answer_' . array_pop($answer_ids);
+									$querys[] = 'item_id=' . implode(',', $answer_ids) . '#!answer_' . array_pop($answer_ids);
 								}
 								
 								$tmp_data['extend_details'] = $this->format_extend_detail($notify['extend_details'], $user_infos);
@@ -343,31 +343,31 @@ class notify_class extends AWS_MODEL
 							{
 								if ($notify['action_type'] != self::TYPE_REDIRECT_QUESTION)
 								{
-									$querys[] = 'rf-false';
+									$querys[] = 'rf=false';
 								}
 								
 								if ($notify['action_type'] == self::TYPE_MOD_QUESTION)
 								{
-									$querys[] = 'column-log';
+									$querys[] = 'column=log';
 								}
 								
 								if ($notify['action_type'] == self::TYPE_INVITE_QUESTION)
 								{
-									$querys[] = 'source-' . base64_encode($data['from_uid']);
+									$querys[] = 'source=' . base64_encode($data['from_uid']);
 								}
 								
 								if ($notify['action_type'] == self::TYPE_QUESTION_COMMENT OR $notify['action_type'] == self::TYPE_COMMENT_AT_ME)
 								{
-									$querys[] = 'comment_unfold-question';
+									$querys[] = 'comment_unfold=question';
 								}
 								
 								if ($data['item_id'])
 								{
-									$querys[] = 'item_id-' . $data['item_id'] . '__answer_id-' . $data['item_id'] . '__single-TRUE#!answer_' . $data['item_id'];
+									$querys[] = 'item_id=' . $data['item_id'] . '&answer_id=' . $data['item_id'] . '&single=TRUE#!answer_' . $data['item_id'];
 								}
 							}
 							
-							$tmp_data['key_url'] = get_js_url('/question/' . $data['question_id'] . '?' . implode('__', $querys));
+							$tmp_data['key_url'] = get_js_url('/question/' . $data['question_id'] . '?' . implode('&', $querys));
 							
 							break;
 					}
@@ -479,25 +479,25 @@ class notify_class extends AWS_MODEL
 				
 				if (! $rf)
 				{
-					$querys[] = 'rf-false';
+					$querys[] = 'rf=false';
 				}
 				
-				$querys[] = 'notification_id-' . implode(',', $notification_ids);
+				$querys[] = 'notification_id=' . implode(',', $notification_ids);
 				
 				if ($column_log)
 				{
-					$querys[] = 'column-log';
+					$querys[] = 'column=log';
 				}
 				
 				if (!($ex_notify['action_type'] == self::TYPE_ARTICLE_NEW_COMMENT OR $ex_notify['action_type'] == self::TYPE_ARTICLE_COMMENT_AT_ME) AND $comment_type)
 				{
 					if (count(array_unique($comment_type)) == 1)
 					{
-						$querys[] = 'comment_unfold-' . array_pop($comment_type);
+						$querys[] = 'comment_unfold=' . array_pop($comment_type);
 					}
 					else if (count(array_unique($comment_type)) == 2)
 					{
-						$querys[] = 'comment_unfold-all';
+						$querys[] = 'comment_unfold=all';
 					}
 				}
 				
@@ -507,16 +507,16 @@ class notify_class extends AWS_MODEL
 					
 					asort($answer_ids);
 					
-					$querys[] = 'item_id-' . implode(',', $answer_ids) . '#!answer_' . array_pop($answer_ids);
+					$querys[] = 'item_id=' . implode(',', $answer_ids) . '#!answer_' . array_pop($answer_ids);
 				}
 				
 				if ($ex_notify['action_type'] == self::TYPE_ARTICLE_NEW_COMMENT OR $ex_notify['action_type'] == self::TYPE_ARTICLE_COMMENT_AT_ME)
 				{
-					$url = 'article/' . $val[0]['data']['article_id'] . '?' . implode('__', $querys);
+					$url = 'article/' . $val[0]['data']['article_id'] . '?' . implode('&', $querys);
 				}
 				else
 				{
-					$url = 'question/' . $val[0]['data']['question_id'] . '?' . implode('__', $querys);
+					$url = 'question/' . $val[0]['data']['question_id'] . '?' . implode('&', $querys);
 				}
 				
 				$tmp_data['users'][$uid] = array(
