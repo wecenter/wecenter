@@ -87,14 +87,14 @@ class main extends AWS_ADMIN_CONTROLLER
 		
 		if (get_setting('ucenter_enabled') == 'Y')
 		{
-			if (! $user_info = $this->model('ucenter')->login($_POST['username'], $_POST['password']))
+			if (! $user_info = $this->model('ucenter')->login($this->user_info['email'], $_POST['password']))
 			{
-				$user_info = $this->model('account')->check_login($_POST['username'], $_POST['password']);
+				$user_info = $this->model('account')->check_login($this->user_info['email'], $_POST['password']);
 			}
 		}
 		else
 		{
-			$user_info = $this->model('account')->check_login($_POST['username'], $_POST['password']);
+			$user_info = $this->model('account')->check_login($this->user_info['email'], $_POST['password']);
 		}
 		
 		if ($user_info['uid'])
