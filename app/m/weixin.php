@@ -91,7 +91,7 @@ class weixin extends AWS_CONTROLLER
 		}
 		else
 		{
-			H::redirect_msg(AWS_APP::lang()->_t('授权失败,请返回重新操作'));
+			H::redirect_msg('授权失败, 请返回重新操作, URI: ' . $_SERVER['REQUEST_URI']);
 		}
 	}
 	
@@ -215,7 +215,7 @@ class weixin extends AWS_CONTROLLER
 		}
 		else
 		{
-			H::redirect_msg(AWS_APP::lang()->_t('授权失败,请返回重新操作'));
+			H::redirect_msg('授权失败, 请返回重新操作, URI: ' . $_SERVER['REQUEST_URI']);
 		}
 	}
 	
@@ -236,7 +236,7 @@ class weixin extends AWS_CONTROLLER
 		}
 		else
 		{
-			H::redirect_msg(AWS_APP::lang()->_t('授权失败,请返回重新操作'));
+			H::redirect_msg('授权失败, 请返回重新操作, URI: ' . $_SERVER['REQUEST_URI']);
 		}
 	}
 	
@@ -342,7 +342,7 @@ class weixin extends AWS_CONTROLLER
 		}
 		else
 		{
-			H::redirect_msg(AWS_APP::lang()->_t('授权失败,请返回重新操作'));
+			H::redirect_msg('授权失败, 请返回重新操作, URI: ' . $_SERVER['REQUEST_URI']);
 		}
 	}
 	
