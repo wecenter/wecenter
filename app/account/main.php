@@ -130,7 +130,7 @@ class main extends AWS_CONTROLLER
 			H::redirect_msg(AWS_APP::lang()->_t('与微信通信出错, 请刷新页面重试'));
 		}*/
 		
-		$qr_code_url = 'http://mp.wecenter.com/services/qr_code/' . urlencode(base64_encode($this->model('openid_weixin')->get_oauth_url(get_js_url('/m/weixin/qr_login/token-' . $this->model('openid_weixin')->request_client_login_token(session_id())), 'snsapi_userinfo', 'OAUTH_REDIRECT')));
+		$qr_code_url = 'http://mp.wecenter.com/services/qr_code/' . urlencode(base64_encode($this->model('openid_weixin')->get_oauth_url(get_js_url('/m/weixin/qr_login/?token=' . $this->model('openid_weixin')->request_client_login_token(session_id())), 'snsapi_userinfo', 'OAUTH_REDIRECT')));
 		
 		TPL::assign('qr_code_url', $qr_code_url);
 		
