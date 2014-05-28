@@ -348,11 +348,11 @@ class weixin extends AWS_ADMIN_CONTROLLER
 	public function accounts_action()
 	{
 		$accounts_list = $this->model('weixin')->fetch_page('weixin_accounts', null, 'id ASC', null, null);
-		$accounts_num = $this->model('weixin')->found_rows();
+		$accounts_total = $this->model('weixin')->found_rows();
 
 		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(802));
 		TPL::assign('accounts_list', $accounts_list);
-		TPL::assign('accounts_num', $accounts_num);
+		TPL::assign('accounts_total', $accounts_total);
 		TPL::output('admin/weixin/accounts');
 	}
 
@@ -413,11 +413,11 @@ class weixin extends AWS_ADMIN_CONTROLLER
 	public function sent_msgs_list_action()
 	{
 		$msgs_list = $this->model('weixin')->fetch_page('weixin_msg', null, 'id DESC', $_GET['page'], 10);
-		$msgs_num = $this->model('weixin')->found_rows();
+		$msgs_total = $this->model('weixin')->found_rows();
 
 		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(804));
 		TPL::assign('msgs_list', $msgs_list);
-		TPL::assign('msgs_num', $msgs_num);
+		TPL::assign('msgs_num', $msgs_total);
 		TPL::output('admin/weixin/sent_msgs_list');
 	}
 
