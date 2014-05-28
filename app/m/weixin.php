@@ -91,7 +91,7 @@ class weixin extends AWS_CONTROLLER
 		}
 		else
 		{
-			H::redirect_msg(AWS_APP::lang()->_t('授权失败,请返回重新操作'));
+			H::redirect_msg('授权失败, 请返回重新操作, URI: ' . $_SERVER['REQUEST_URI']);
 		}
 	}
 
@@ -220,7 +220,7 @@ class weixin extends AWS_CONTROLLER
 		}
 		else
 		{
-			H::redirect_msg(AWS_APP::lang()->_t('授权失败,请返回重新操作'));
+			H::redirect_msg('授权失败, 请返回重新操作, URI: ' . $_SERVER['REQUEST_URI']);
 		}
 	}
 
@@ -241,7 +241,7 @@ class weixin extends AWS_CONTROLLER
 		}
 		else
 		{
-			H::redirect_msg(AWS_APP::lang()->_t('授权失败,请返回重新操作'));
+			H::redirect_msg('授权失败, 请返回重新操作, URI: ' . $_SERVER['REQUEST_URI']);
 		}
 	}
 
@@ -347,15 +347,15 @@ class weixin extends AWS_CONTROLLER
 		}
 		else
 		{
-			H::redirect_msg(AWS_APP::lang()->_t('授权失败,请返回重新操作'));
+			H::redirect_msg('授权失败, 请返回重新操作, URI: ' . $_SERVER['REQUEST_URI']);
 		}
 	}
 
 	public function qr_login_action()
-	{
-		if (!$this->user_id)
+	{		
+		if (!$this->user_id AND $_GET['code'])
 		{
-			HTTP::redirect(get_js_url('/m/weixin/authorization/redirect-' . base64_encode(get_js_url('/m/weixin/qr_login/token-' . $_GET['token'])) . '__code-' . $_GET['code'] . '__state-' . $_GET['state']));
+			HTTP::redirect(get_js_url('/m/weixin/authorization/?redirect=' . urlencode(base64_encode(get_js_url('/m/weixin/qr_login/?token=' . $_GET['token']))) . '&code=' . $_GET['code'] . '&state=' . $_GET['state']));
 		}
 
 		if ($this->model('openid_weixin')->process_client_login($_GET['token'], $this->user_id))
@@ -364,7 +364,7 @@ class weixin extends AWS_CONTROLLER
 		}
 		else
 		{
-			H::redirect_msg('登录失败, 二维码已过期');
+			H::redirect_msg('二维码已过期');
 		}
 	}
 }
