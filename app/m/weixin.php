@@ -350,7 +350,8 @@ class weixin extends AWS_CONTROLLER
 	{		
 		if (!$this->user_id)
 		{	
-			HTTP::redirect(get_js_url('/m/weixin/authorization/?redirect=' . urlencode(base64_encode(get_js_url('/m/weixin/qr_login/?token=' . $_GET['token']))) . '&code=' . $_GET['code'] . '&state=' . $_GET['state']));
+			//HTTP::redirect(get_js_url('/m/weixin/authorization/?redirect=' . urlencode(base64_encode(get_js_url('/m/weixin/qr_login/?token=' . $_GET['token']))) . '&code=' . $_GET['code'] . '&state=' . $_GET['state']));
+			header('Location: ' . get_js_url('/m/weixin/authorization/?redirect=' . urlencode(base64_encode(get_js_url('/m/weixin/qr_login/?token=' . $_GET['token']))) . '&code=' . $_GET['code'] . '&state=' . $_GET['state']));
 		}
 		 
 		if ($this->model('openid_weixin')->process_client_login($_GET['token'], $this->user_id))
