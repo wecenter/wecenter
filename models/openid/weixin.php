@@ -26,13 +26,11 @@ class openid_weixin_class extends AWS_MODEL
 
 	public function access_request($app_id, $app_secret, $url, $method, $contents = NULL)
 	{
-		$this->app_id = $app_id;
+		$url = 'https://api.weixin.qq.com/cgi-bin/' . $url . '?access_token=' . $this->get_access_token($app_id, $app_secret);
 
-		$this->app_secret = $app_secret;
+		$result = HTTP::request($url, $method, $contents);
 
-		$url = 'https://api.weixin.qq.com/cgi-bin/' . $url . '?access_token=' . $this->get_access_token();
-
-		if ($result = HTTP::request($url, $method, $contents))
+		if (!empty($result))
 		{
 			$result = json_decode($result, true);
 
@@ -54,21 +52,21 @@ class openid_weixin_class extends AWS_MODEL
 		return $this->get_access_token();
 	}
 
-	public function get_access_token()
+	public function get_access_token($app_id, $app_secret)
 	{
-		if (empty($this->app_id) OR empty($this->app_secret))
+		if (empty($app_id) OR empty($app_secret))
 		{
 			return false;
 		}
 
-		$token_cache_key = 'weixin_access_token_' . md5($this->app_id . $this->app_secret);
+		$token_cache_key = 'weixin_access_token_' . md5($app_id . $app_secret);
 
 		if ($access_token = AWS_APP::cache()->get($token_cache_key))
 		{
 			return $access_token;
 		}
 
-		if ($result = curl_get_contents('https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=' . $this->app_id . '&secret=' . $this->app_secret))
+		if ($result = curl_get_contents('https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=' . $app_id . '&secret=' . $app_secret))
 		{
 			$result = json_decode($result, true);
 
@@ -357,6 +355,31 @@ class openid_weixin_class extends AWS_MODEL
 			$this->delete('weixin_login', "session_id = '" . $this->quote($session_id) . "'");
 
 			return $this->model('account')->get_user_info_by_uid($weixin_login['uid']);
+		}
+	}
+
+	public function upload_file_to_weixin($type, $file)
+	{
+		$app_id = get_setting('weixin_app_id');
+
+		$app_secret = get_setting('weixin_app_secret');
+
+		$file = '@' . realpath($file);
+
+		$url = 'http://file.api.weixin.qq.com/cgi-bin/media/upload?access_token=' . $this->get_access_token($app_id, $app_secret) . '&type=' . $type;
+
+		$result = HTTP::request($url, 'POST', $file);
+
+		if (!empty($result))
+		{
+			$result = json_decode($result, true);
+
+			if ($result['errcode'] == 40001)
+			{
+				$this->refresh_access_token();
+			}
+
+			return $result;
 		}
 	}
 }

@@ -65,7 +65,7 @@ class weixin extends AWS_ADMIN_CONTROLLER
 
 		if ($account_info['weixin_account_role'] == 'base' OR empty($account_info['weixin_app_id']) OR empty($account_info['weixin_app_secret']))
 		{
-			H::redirect_msg(AWS_APP::lang()->_t('此功能不适用于未通过微信认证的普通订阅号或未启用 WeCenter 服务'));
+			H::redirect_msg(AWS_APP::lang()->_t('此功能不适用于未通过微信认证的订阅号'));
 		}
 
 		$this->crumb(AWS_APP::lang()->_t('菜单管理'), 'admin/weixin/mp_menu/');
@@ -396,6 +396,8 @@ class weixin extends AWS_ADMIN_CONTROLLER
 
 	public function del_account_action()
 	{
+		define('IN_AJAX', TRUE);
+
 		if ($_POST['id'])
 		{
 			$this->model('weixin')->del_account($_POST['id']);
@@ -408,29 +410,142 @@ class weixin extends AWS_ADMIN_CONTROLLER
 		}
 	}
 
-	public function sent_msg_list_action()
+	public function sent_msgs_list_action()
 	{
-		$weixin_msg_list = $this->model('weixin')->fetch_page('weixin_msg', null, 'id DESC', $_GET['page'], 10);
-		$weixin_msg_num = $this->model('weixin')->found_rows();
+		$msgs_list = $this->model('weixin')->fetch_page('weixin_msg', null, 'id DESC', $_GET['page'], 10);
+		$msgs_num = $this->model('weixin')->found_rows();
 
 		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(804));
-		TPL::assign('msg_list', $weixin_msg_list);
-		TPL::assign('msg_num', $weixin_msg_num);
-		TPL::output('admin/weixin/sent_msg_list');
+		TPL::assign('msgs_list', $msgs_list);
+		TPL::assign('msgs_num', $msgs_num);
+		TPL::output('admin/weixin/sent_msgs_list');
+	}
+
+	public function sent_msg_details_action()
+	{
+		$msg_details = $this->model('weixin')->get_msg_details_by_id($_GET['id']);
+
+		if (!$msg_details)
+		{
+			H::redirect_msg(AWS_APP::lang()->_t('群发消息不存在'));
+		}
+
+		if ($msg_details['article_ids'])
+		{
+			$articles_info = $this->model('article')->get_article_info_by_ids($msg_details['article_ids']);
+		}
+
+		if ($msg_details['question_ids'])
+		{
+			$questions_info = $this->model('question')->get_question_info_by_ids($msg_details['question_ids']);
+		}
+
+		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(804));
+		TPL::assign('msg_details', $msg_details);
+		TPL::assign('articles_info', $articles_info);
+		TPL::assign('questions_info', $questions_info);
+		TPL::output('admin/weixin/sent_msg_details');
+	}
+
+	public function unsent_msg_action()
+	{
+		if (get_setting('weixin_account_role') != 'service' OR empty(get_setting('weixin_app_id')) OR empty(get_setting('weixin_app_secret')))
+		{
+			H::redirect_msg(AWS_APP::lang()->_t('此功能只适用于通过微信认证的服务号'));
+		}
+
+		$groups_list = $this->model('weixin')->get_groups_from_mp();
+
+		if (!is_array($groups_list))
+		{
+			H::redirect_msg(AWS_APP::lang()->_t('获取微信分组失败，错误为：<br />') . $groups_list);
+		}
+
+		$article_ids = AWS_APP::cache()->get('unsent_article_ids');
+
+		if ($article_ids)
+		{
+			TPL::assign('article_ids', $article_ids);
+		}
+
+		$question_ids = AWS_APP::cache()->get('unsent_question_ids');
+
+		if ($question_ids)
+		{
+			TPL::assign('question_ids', $question_ids);
+		}
+
+		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(804));
+		TPL::assign('group_list', $groups_list);
+		TPL::output('admin/weixin/unsent_msg');
 	}
 
 	public function send_msg_action()
 	{
-		$result = $this->model('weixin')->get_groups_from_mp();
+		define('IN_AJAX', TRUE);
 
-		if (is_array($result))
+		if (empty($_POST['group_id']))
 		{
-			TPL::assign('groups_list', $result);
-			TPL::output('admin/weixin/send_msg');
+			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择要群发的分组')));
+		}
+
+		$article_ids = explode(',', $_POST['article_ids']);
+
+		$question_ids = explode(',', $_POST['question_ids']);
+
+		if (empty($article_ids) AND empty($question_ids))
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请添加要群发的文章或问题 id')));
+		}
+
+		$msg_num = count($article_ids) + count($question_ids);
+
+		if ($msg_num > 10)
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('最多可添加 10 个文章和问题')));
+		}
+
+		if (!empty($article_ids))
+		{
+			$articles_info = $this->model('article')->get_article_info_by_ids($article_ids);
+		}
+
+		if (!empty($question_ids))
+		{
+			$questions_info = $this->model('question')->get_question_info_by_ids($question_ids);
+		}
+
+		foreach ($articles_info as $article_info) {
+
+		}
+
+/*
+		if ($_FILES['msg_img']['error'] === UPLOAD_ERR_OK)
+		{
+			if ($_FILES['msg_img']['type'] != 'image/jpeg')
+			{
+				H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('只允许上传 jpeg 格式的图片')));
+			}
+
+			if ($_FILES['msg_img']['size'] > '262144')
+			{
+				H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('图片最大为 256KB')));
+			}
+
+			if (is_uploaded_file($_FILES['msg_img']['tmp_name']))
+			{
+				$msg_img = $_FILES['msg_img']['tmp_name'];
+			}
+			else
+			{
+				H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('非法的上传文件')));
+			}
 		}
 		else
 		{
-			H::redirect_msg(AWS_APP::lang()->_t('获取微信分组失败，错误为：<br />') . $result);
+			$msg_img = AWS_APP::config()->get('weixin')->default_list_image;
 		}
+*/
+
 	}
 }

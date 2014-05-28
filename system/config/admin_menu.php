@@ -219,7 +219,7 @@ if (get_setting('weixin_mp_token'))
 			array(
 				'id' => 804,
 				'title' => '消息群发',
-				'url' => 'admin/weixin/sent_msg_list/'
+				'url' => 'admin/weixin/sent_msgs_list/'
 			)
 		)
 	);

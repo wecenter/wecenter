@@ -39,6 +39,13 @@ class weixin_class extends AWS_MODEL
 
 	public function get_account_info_by_id($account_id, $column = NULL)
 	{
+		$account_id = intval($account_id);
+
+		if (empty($account_id))
+		{
+			return false;
+		}
+
 		if ($account_id == 0)
 		{
 			if ($column)
@@ -67,11 +74,17 @@ class weixin_class extends AWS_MODEL
 			);
 		}
 
-		static $account_info;
+		private static $account_info;
 
 		if (!$account_info[$account_id])
 		{
-			$account_info[$account_id] = $this->fetch_row('weixin_accounts', 'id = ' . intval($account_id));
+			$account_info[$account_id] = $this->fetch_row('weixin_accounts', 'id = ' . $account_id);
+
+			if (!$account_info[$account_id])
+			{
+				return false;
+			}
+
 			$account_info[$account_id]['weixin_mp_menu'] = json_decode($account_info[$account_id]['weixin_mp_menu']);
 		}
 
@@ -117,11 +130,23 @@ class weixin_class extends AWS_MODEL
 
 	public function add_account($account_info)
 	{
+		if (empty($account_info))
+		{
+			return false;
+		}
+
 		$this->insert('weixin_accounts', $account_info);
 	}
 
 	public function update_setting_or_account($account_id, $account_info)
 	{
+		$account_id = intval($account_id);
+
+		if (empty($account_id) OR empty($account_info))
+		{
+			return false;
+		}
+
 		if ($account_id == 0)
 		{
 			$this->model('setting')->set_vars($account_info);
@@ -133,13 +158,20 @@ class weixin_class extends AWS_MODEL
 				$account_info['weixin_mp_menu'] = json_encode($account_info['weixin_mp_menu']);
 			}
 
-			$this->update('weixin_accounts', $account_info, 'id = ' . intval($account_id));
+			$this->update('weixin_accounts', $account_info, 'id = ' . $account_id);
 		}
 	}
 
 	public function del_account($account_id)
 	{
-		$this->delete('weixin_accounts', 'id = ' . intval($account_id));
+		$account_id = intval($account_id);
+
+		if (empty($account_id))
+		{
+			return false;
+		}
+
+		$this->delete('weixin_accounts', 'id = ' . $account_id);
 	}
 
 	public function fetch_message()
@@ -1302,11 +1334,93 @@ class weixin_class extends AWS_MODEL
 		}
 	}
 
+	public function get_msg_details_by_id($msg_id)
+	{
+		$msg_id = intval($msg_id);
+
+		if (empty($msg_id))
+		{
+			return false;
+		}
+
+		private static $msgs_details;
+
+		if (!$msgs_details[$msg_id])
+		{
+			$msgs_details[$msg_id] = $this->fetch_row('weixin_msg', 'id = ' . $msg_id);
+
+			if (!$msgs_details[$msg_id])
+			{
+				return false;
+			}
+
+			if (empty($msgs_details[$msg_id]['article_ids']))
+			{
+				unset($msgs_details[$msg_id]['article_ids']);
+			}
+			else
+			{
+				$msgs_details[$msg_id]['article_ids'] = explode($msgs_details[$msg_id]['article_ids'], ',')
+			}
+
+			if (empty($msgs_details[$msg_id]['question_ids']))
+			{
+				unset($msgs_details[$msg_id]['question_ids']);
+			}
+			else
+			{
+				$msgs_details[$msg_id]['question_ids'] = explode($msgs_details[$msg_id]['question_ids'], ',')
+			}
+		}
+
+		return $msgs_details[$msg_id];
+	}
+
+	public function add_articles_or_questions_to_unsent_msg($article_ids = NULL, $question_ids = NULL)
+	{
+		$old_article_ids = AWS_APP::cache()->get('unsent_article_ids');
+
+		if ($old_article_ids)
+		{
+			$article_ids = array_unique(array_merge($article_ids, $old_article_ids));
+		}
+
+		if ($article_ids)
+		{
+			natsort($article_ids);
+		}
+
+		$old_question_ids = AWS_APP::cache()->get('unsent_question_ids');
+
+		if ($old_question_ids)
+		{
+			$question_ids = array_unique(array_merge($question_ids, $old_question_ids));
+		}
+
+		if ($question_ids)
+		{
+			natsort($question_ids);
+		}
+
+		$msg_num = count($article_ids) + count($question_ids);
+
+		if ($msg_num > 10)
+		{
+			return AWS_APP::lang()->_t('最多可添加 10 个文章和问题');
+		}
+
+		AWS_APP::cache()->set('unsent_article_ids', $article_ids, 86400);
+
+		AWS_APP::cache()->set('unsent_question_ids', $question_ids, 86400);
+
+		return AWS_APP::lang()->_t('添加至微信群发队列成功');
+	}
+
 	public function get_groups_from_mp()
 	{
 		$groups = AWS_APP::cache()->get('weixin_groups');
 
-		if (empty($groups))
+		if (!$groups)
 		{
 			$result = $this->model('openid_weixin')->access_request(
 							get_setting('weixin_app_id'),
@@ -1331,34 +1445,6 @@ class weixin_class extends AWS_MODEL
 		}
 
 		return $groups;
-	}
-
-	public function add_articles_or_questions_to_unsent_msg($article_ids = NULL, $question_ids = NULL)
-	{
-		$old_article_ids = AWS_APP::cache()->get('unsent_article_ids');
-
-		$article_ids = array_unique(array_merge($article_ids, $old_article_ids));
-
-		natsort($article_ids);
-
-		$old_question_ids = AWS_APP::cache()->get('unsent_question_ids');
-
-		$question_ids = array_unique(array_merge($article_ids, $old_article_ids));
-
-		natsort($question_ids);
-
-		$msg_num = count($article_ids) + count($question_ids);
-
-		if ($msg_num > 10)
-		{
-			return AWS_APP::lang()->_t('最多可添加 10 条文章和问题');
-		}
-
-		AWS_APP::cache()->set('unsent_article_ids', $article_ids, 86400);
-
-		AWS_APP::cache()->set('unsent_question_ids', $question_ids, 86400);
-
-		return AWS_APP::lang()->_t('添加至微信群发队列成功');
 	}
 
 	public function send_msg()
