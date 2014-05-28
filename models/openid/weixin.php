@@ -45,9 +45,9 @@ class openid_weixin_class extends AWS_MODEL
 
 	public function refresh_access_token()
 	{
-		$token_cache_key = 'weixin_access_token_' . md5(get_setting('weixin_app_id') . get_setting('weixin_app_secret'));
+		$cached_token = 'weixin_access_token_' . md5(get_setting('weixin_app_id') . get_setting('weixin_app_secret'));
 
-		AWS_APP::cache()->delete($token_cache_key);
+		AWS_APP::cache()->delete($cached_token);
 
 		return $this->get_access_token();
 	}
@@ -59,9 +59,9 @@ class openid_weixin_class extends AWS_MODEL
 			return false;
 		}
 
-		$token_cache_key = 'weixin_access_token_' . md5($app_id . $app_secret);
+		$cached_token = 'weixin_access_token_' . md5($app_id . $app_secret);
 
-		if ($access_token = AWS_APP::cache()->get($token_cache_key))
+		if ($access_token = AWS_APP::cache()->get($cached_token))
 		{
 			return $access_token;
 		}
@@ -72,13 +72,13 @@ class openid_weixin_class extends AWS_MODEL
 
 			if ($result['access_token'])
 			{
-				AWS_APP::cache()->set($token_cache_key, $result['access_token'], $result['expires_in']);
+				AWS_APP::cache()->set($cached_token, $result['access_token'], $result['expires_in']);
 
 				return $result['access_token'];
 			}
 			else
 			{
-				AWS_APP::cache()->delete($token_cache_key);
+				AWS_APP::cache()->delete($cached_token);
 			}
 		}
 	}
@@ -364,14 +364,30 @@ class openid_weixin_class extends AWS_MODEL
 
 		$app_secret = get_setting('weixin_app_secret');
 
-		if (is_readable($file))
-		{
-			$file = '@' . realpath($file);
-		}
-		else
+		$file = realpath($file);
+
+		if (!is_readable($file))
 		{
 			return false;
 		}
+
+		$file_md5 = md5_file($file);
+
+		$cached_result = AWS_APP::cache()->get('weixin_media_file_' . $file_md5);
+
+		if ($cached_result)
+		{
+			if ($cached_result['media_id'] AND $cached_result['created_at'] + 259200 > time())
+			{
+				return $cached_result;
+			}
+			else
+			{
+				AWS_APP::cache()->delete('weixin_media_file_' . $file_md5);
+			}
+		}
+
+		$file = '@' . $file;
 
 		$url = 'http://file.api.weixin.qq.com/cgi-bin/media/upload?access_token=' . $this->get_access_token($app_id, $app_secret) . '&type=' . $type;
 
@@ -381,7 +397,11 @@ class openid_weixin_class extends AWS_MODEL
 		{
 			$result = json_decode($result, true);
 
-			if ($result['errcode'] == 40001)
+			if ($result['media_id'])
+			{
+				AWS_APP::cache()->set('weixin_media_file_' . $file_md5, $result, 259200);
+			}
+			else if ($result['errcode'] == 40001)
 			{
 				$this->refresh_access_token();
 			}

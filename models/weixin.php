@@ -43,7 +43,7 @@ class weixin_class extends AWS_MODEL
 		);
 	}
 
-	public function get_account_info_by_id($account_id, $column = NULL)
+	public function get_account_info_by_id($account_id, $column = null)
 	{
 		$account_id = intval($account_id);
 
@@ -1384,7 +1384,7 @@ class weixin_class extends AWS_MODEL
 		return $msgs_details[$msg_id];
 	}
 
-	public function add_article_or_question_ids_to_cache($article_ids = NULL, $question_ids = NULL)
+	public function add_article_or_question_ids_to_cache($article_ids = null, $question_ids = null)
 	{
 		$old_article_ids = AWS_APP::cache()->get('unsent_article_ids');
 
