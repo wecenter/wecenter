@@ -348,10 +348,8 @@ class weixin extends AWS_CONTROLLER
 	
 	public function qr_login_action()
 	{		
-		if (!$this->user_id)
+		if (!$this->user_id AND $_GET['code'])
 		{
-			echo get_js_url('/m/weixin/authorization/?redirect=' . urlencode(base64_encode(get_js_url('/m/weixin/qr_login/?token=' . $_GET['token']))) . '&code=' . $_GET['code'] . '&state=' . $_GET['state']); die;
-			
 			HTTP::redirect(get_js_url('/m/weixin/authorization/?redirect=' . urlencode(base64_encode(get_js_url('/m/weixin/qr_login/?token=' . $_GET['token']))) . '&code=' . $_GET['code'] . '&state=' . $_GET['state']));
 		}
 		 
