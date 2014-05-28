@@ -358,13 +358,20 @@ class openid_weixin_class extends AWS_MODEL
 		}
 	}
 
-	public function upload_file_to_weixin($type, $file)
+	public function upload_file($type, $file)
 	{
 		$app_id = get_setting('weixin_app_id');
 
 		$app_secret = get_setting('weixin_app_secret');
 
-		$file = '@' . realpath($file);
+		if (is_readable($file))
+		{
+			$file = '@' . realpath($file);
+		}
+		else
+		{
+			return false;
+		}
 
 		$url = 'http://file.api.weixin.qq.com/cgi-bin/media/upload?access_token=' . $this->get_access_token($app_id, $app_secret) . '&type=' . $type;
 

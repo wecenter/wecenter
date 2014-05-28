@@ -34,7 +34,7 @@ class article_class extends AWS_MODEL
 
 		array_walk_recursive($article_ids, 'intval_string');
 
-	    if ($articles_list = $this->fetch_all('article', "id IN(" . implode(',', $article_ids) . ")"))
+	    if ($articles_list = $this->fetch_all('article', 'id IN(' . implode(',', $article_ids) . ')'))
 	    {
 		    foreach ($articles_list AS $key => $val)
 		    {

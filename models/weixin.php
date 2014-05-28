@@ -1225,13 +1225,15 @@ class weixin_class extends AWS_MODEL
 			$mp_menu_no_key[] = $val;
 		}
 
-		if (!$result = $this->model('openid_weixin')->access_request(
-			$account_info['weixin_app_id'],
-			$account_info['weixin_app_secret'],
-			'menu/create',
-			'POST',
-			$this->replace_post(json_encode(array('button' => $mp_menu_no_key)))
-		))
+		$result = $this->model('openid_weixin')->access_request(
+						$account_info['weixin_app_id'],
+						$account_info['weixin_app_secret'],
+						'menu/create',
+						'POST',
+						$this->replace_post(json_encode(array('button' => $mp_menu_no_key)))
+					)
+
+		if (empty($result))
 		{
 			return AWS_APP::lang()->_t('远程服务器忙,请稍后再试');
 		}
@@ -1447,7 +1449,120 @@ class weixin_class extends AWS_MODEL
 		return $groups;
 	}
 
-	public function send_msg()
+	public function upload_articles_and_questions($article_ids, $question_ids)
+	{
+		if (!empty($article_ids))
+		{
+			$articles_info = $this->model('article')->get_article_info_by_ids($article_ids);
+
+			$users_info = $this->model('account')->get_user_info_by_uids(array_column($articles_info), 'uid');
+
+			foreach ($articles_info AS $key => $val)
+			{
+				$article_avatar_result = $this->model('openid_weixin')->upload_file(get_setting('upload_dir') . '/avatar/' . $this->model('account')->get_avatar($users_info[$key]['uid'], 'mid'), 'thumb');
+
+				if ($article_avatar_result['errmsg'])
+				{
+					return array(
+								'error' => 'aricle',
+								'result' => $article_avatar_result['errmsg']
+							);
+				}
+
+				$msg['articles'][] = array(
+											'thumb_media_id' => $upload_avatar_result['media_id'],
+											'author' => $users_info[$key]['user_name'],
+											'title' => $val['title'],
+											'content_source_url' => get_js_url('/m/article/' . $val['id']),
+											'content' => $val['message']
+										);
+			}
+		}
+
+		if (!empty($question_ids))
+		{
+			$questions_info = $this->model('question')->get_question_info_by_ids($question_ids);
+
+			$users_info = $this->model('account')->get_user_info_by_uids(array_column($questions_info), 'uid');
+
+			foreach ($questions_info AS $key => $val)
+			{
+				$question_avatar_result = $this->model('openid_weixin')->upload_file(get_setting('upload_dir') . '/avatar/' . $this->model('account')->get_avatar($users_info[$key]['uid'], 'mid'), 'thumb');
+
+				if ($question_avatar_result['errmsg'])
+				{
+					return array(
+								'error' => 'aricle',
+								'result' => $question_avatar_result['errmsg']
+							);
+				}
+
+				$msg['articles'][] = array(
+											'thumb_media_id' => $upload_avatar_result['media_id'],
+											'author' => $users_info[$key]['user_name'],
+											'title' => $val['question_content'],
+											'content_source_url' => get_js_url('/m/article/' . $val['id']),
+											'content' => $val['message']
+										);
+			}
+		}
+
+		$result = $this->model('openid_weixin')->access_request(
+						get_setting('weixin_app_id'),
+						get_setting('weixin_app_secret'),
+						'media/uploadnews',
+						'POST',
+						$this->replace_post(json_encode($msg['articles']))
+					);
+
+		if ($result['errmsg'])
+		{
+			return array(
+						'error' => 'msg',
+						'result' => $result['errmsg']
+					);
+		}
+
+		return array(
+					'error' => 'none',
+					'result' => $result['media_id']
+				);
+	}
+
+	public function send_msg($group_id, $msgtype, $media_id)
+	{
+		$msg = array(
+					'filter' => array(
+									'group_id' => $group_id,
+								),
+					$msgtype => array(
+									'media_id' => $media_id,
+								),
+					'msgtype' => $msgtype
+				);
+
+		$result = $this->model('openid_weixin')->access_request(
+						get_setting('weixin_app_id'),
+						get_setting('weixin_app_secret'),
+						'message/mass/sendall',
+						'POST',
+						$this->replace_post(json_encode($msg))
+					);
+
+		if (empty($result))
+		{
+			return AWS_APP::lang()->_t('远程服务器忙');
+		}
+
+		if ($result['errcode'] != 0)
+		{
+			return $result['errmsg'];
+		}
+
+		return $result['msg_id'];
+	}
+
+	public function save_sent_msg()
 	{
 
 	}
