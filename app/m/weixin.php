@@ -266,8 +266,6 @@ class weixin extends AWS_CONTROLLER
 		$this->model('account')->setcookie_logout();	// 清除 COOKIE
 		$this->model('account')->setsession_logout();	// 清除 Session
 		
-		echo $redirect_uri; die;
-		
 		HTTP::redirect('https://open.weixin.qq.com/connect/oauth2/authorize?appid=' . get_setting('weixin_app_id') . '&redirect_uri=' . $redirect_uri . '&response_type=code&scope=' . urlencode($_GET['scope']) . '&state=' . urlencode($_GET['state']) . '#wechat_redirect');
 	}
 	
@@ -352,7 +350,7 @@ class weixin extends AWS_CONTROLLER
 	{
 		if (!$this->user_id)
 		{
-			HTTP::redirect(get_js_url('/m/weixin/authorization/redirect-' . base64_encode(get_js_url('/m/weixin/qr_login/token-' . $_GET['token'])) . '__code-' . $_GET['code'] . '__state-' . $_GET['state']));
+			HTTP::redirect(get_js_url('/m/weixin/authorization/?redirect=' . urlencode(base64_encode(get_js_url('/m/weixin/qr_login/?token=' . $_GET['token']))) . '&code=' . $_GET['code'] . '&state=' . $_GET['state']));
 		}
 		 
 		if ($this->model('openid_weixin')->process_client_login($_GET['token'], $this->user_id))
