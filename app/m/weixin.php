@@ -348,7 +348,7 @@ class weixin extends AWS_CONTROLLER
 	
 	public function qr_login_action()
 	{
-		echo $_SERVER['REQUEST_URI']; die;
+		print_r($_GET); die;
 		
 		if (!$this->user_id)
 		{
