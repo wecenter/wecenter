@@ -25,6 +25,12 @@ class weixin_class extends AWS_MODEL
 
 	private $user_id;
 
+	private $mpnews;
+
+	private $media_id;
+
+	private $msg_id;
+
 	public function replace_post($subject)
 	{
 		return preg_replace_callback(
@@ -135,7 +141,7 @@ class weixin_class extends AWS_MODEL
 			return false;
 		}
 
-		$this->insert('weixin_accounts', $account_info);
+		return $this->insert('weixin_accounts', $account_info);
 	}
 
 	public function update_setting_or_account($account_id, $account_info)
@@ -149,7 +155,7 @@ class weixin_class extends AWS_MODEL
 
 		if ($account_id == 0)
 		{
-			$this->model('setting')->set_vars($account_info);
+			return $this->model('setting')->set_vars($account_info);
 		}
 		else
 		{
@@ -158,7 +164,7 @@ class weixin_class extends AWS_MODEL
 				$account_info['weixin_mp_menu'] = json_encode($account_info['weixin_mp_menu']);
 			}
 
-			$this->update('weixin_accounts', $account_info, 'id = ' . $account_id);
+			return $this->update('weixin_accounts', $account_info, 'id = ' . $account_id);
 		}
 	}
 
@@ -171,7 +177,7 @@ class weixin_class extends AWS_MODEL
 			return false;
 		}
 
-		$this->delete('weixin_accounts', 'id = ' . $account_id);
+		return $this->delete('weixin_accounts', 'id = ' . $account_id);
 	}
 
 	public function fetch_message()
@@ -1378,13 +1384,13 @@ class weixin_class extends AWS_MODEL
 		return $msgs_details[$msg_id];
 	}
 
-	public function add_articles_or_questions_to_unsent_msg($article_ids = NULL, $question_ids = NULL)
+	public function add_article_or_question_ids_to_cache($article_ids = NULL, $question_ids = NULL)
 	{
 		$old_article_ids = AWS_APP::cache()->get('unsent_article_ids');
 
 		if ($old_article_ids)
 		{
-			$article_ids = array_unique(array_merge($article_ids, $old_article_ids));
+			$article_ids = array_unique(array_filter(array_merge($article_ids, $old_article_ids)));
 		}
 
 		if ($article_ids)
@@ -1396,7 +1402,7 @@ class weixin_class extends AWS_MODEL
 
 		if ($old_question_ids)
 		{
-			$question_ids = array_unique(array_merge($question_ids, $old_question_ids));
+			$question_ids = array_unique(array_filter(array_merge($question_ids, $old_question_ids)));
 		}
 
 		if ($question_ids)
@@ -1404,9 +1410,9 @@ class weixin_class extends AWS_MODEL
 			natsort($question_ids);
 		}
 
-		$msg_num = count($article_ids) + count($question_ids);
+		$total = count($article_ids) + count($question_ids);
 
-		if ($msg_num > 10)
+		if ($total > 10)
 		{
 			return AWS_APP::lang()->_t('最多可添加 10 个文章和问题');
 		}
@@ -1415,10 +1421,10 @@ class weixin_class extends AWS_MODEL
 
 		AWS_APP::cache()->set('unsent_question_ids', $question_ids, 86400);
 
-		return AWS_APP::lang()->_t('添加至微信群发队列成功');
+		return AWS_APP::lang()->_t('已添加至待群发队列');
 	}
 
-	public function get_groups_from_mp()
+	public function get_groups()
 	{
 		$groups = AWS_APP::cache()->get('weixin_groups');
 
@@ -1441,7 +1447,7 @@ class weixin_class extends AWS_MODEL
 				return $result['message'];
 			}
 
-			$groups = $result['groups'];
+			$groups = array_column($result['groups'], 'name', 'id');
 
 			AWS_APP::cache()->set('weixin_groups', $groups, get_setting('cache_level_normal'));
 		}
@@ -1449,94 +1455,97 @@ class weixin_class extends AWS_MODEL
 		return $groups;
 	}
 
-	public function upload_articles_and_questions($article_ids, $question_ids)
+	public function add_articles_to_mpnews($article_ids)
 	{
-		if (!empty($article_ids))
+		$articles_info = $this->model('article')->get_article_info_by_ids($article_ids);
+
+		$users_info = $this->model('account')->get_user_info_by_uids(array_column($articles_info), 'uid');
+
+		foreach ($articles_info AS $key => $val)
 		{
-			$articles_info = $this->model('article')->get_article_info_by_ids($article_ids);
+			$result = $this->model('openid_weixin')->upload_file(get_setting('upload_dir') . '/avatar/' . $this->model('account')->get_avatar($users_info[$key]['uid'], 'mid'), 'thumb');
 
-			$users_info = $this->model('account')->get_user_info_by_uids(array_column($articles_info), 'uid');
-
-			foreach ($articles_info AS $key => $val)
+			if (empty($result))
 			{
-				$article_avatar_result = $this->model('openid_weixin')->upload_file(get_setting('upload_dir') . '/avatar/' . $this->model('account')->get_avatar($users_info[$key]['uid'], 'mid'), 'thumb');
-
-				if ($article_avatar_result['errmsg'])
-				{
-					return array(
-								'error' => 'aricle',
-								'result' => $article_avatar_result['errmsg']
-							);
-				}
-
-				$msg['articles'][] = array(
-											'thumb_media_id' => $upload_avatar_result['media_id'],
-											'author' => $users_info[$key]['user_name'],
-											'title' => $val['title'],
-											'content_source_url' => get_js_url('/m/article/' . $val['id']),
-											'content' => $val['message']
-										);
+				return AWS_APP::lang()->_t('远程服务器忙');
 			}
-		}
 
-		if (!empty($question_ids))
+			if ($result['errmsg'])
+			{
+				return $result['errmsg'];
+			}
+
+			$this->mpnews['articles'][] = array(
+												'thumb_media_id' => $result['media_id'],
+												'author' => $users_info[$key]['user_name'],
+												'title' => $val['title'],
+												'content_source_url' => get_js_url('/m/article/' . $val['id']),
+												'content' => $val['message']
+											);
+		}
+	}
+
+	public function add_questions_to_mpnews($question_ids)
+	{
+		$questions_info = $this->model('question')->get_question_info_by_ids($question_ids);
+
+		$users_info = $this->model('account')->get_user_info_by_uids(array_column($questions_info), 'published_uid');
+
+		foreach ($questions_info AS $key => $val)
 		{
-			$questions_info = $this->model('question')->get_question_info_by_ids($question_ids);
+			$result = $this->model('openid_weixin')->upload_file(get_setting('upload_dir') . '/avatar/' . $this->model('account')->get_avatar($users_info[$key]['published_uid'], 'mid'), 'thumb');
 
-			$users_info = $this->model('account')->get_user_info_by_uids(array_column($questions_info), 'uid');
-
-			foreach ($questions_info AS $key => $val)
+			if (empty($result))
 			{
-				$question_avatar_result = $this->model('openid_weixin')->upload_file(get_setting('upload_dir') . '/avatar/' . $this->model('account')->get_avatar($users_info[$key]['uid'], 'mid'), 'thumb');
-
-				if ($question_avatar_result['errmsg'])
-				{
-					return array(
-								'error' => 'aricle',
-								'result' => $question_avatar_result['errmsg']
-							);
-				}
-
-				$msg['articles'][] = array(
-											'thumb_media_id' => $upload_avatar_result['media_id'],
-											'author' => $users_info[$key]['user_name'],
-											'title' => $val['question_content'],
-											'content_source_url' => get_js_url('/m/article/' . $val['id']),
-											'content' => $val['message']
-										);
+				return AWS_APP::lang()->_t('远程服务器忙');
 			}
-		}
 
+			if ($result['errmsg'])
+			{
+				return $result['errmsg'];
+			}
+
+			$this->mpnews['articles'][] = array(
+												'thumb_media_id' => $result['media_id'],
+												'author' => $users_info[$key]['user_name'],
+												'title' => $val['question_content'],
+												'content_source_url' => get_js_url('/m/article/' . $val['question_id']),
+												'content' => $val['question_detail']
+											);
+		}
+	}
+
+	public function upload_mpnews()
+	{
 		$result = $this->model('openid_weixin')->access_request(
 						get_setting('weixin_app_id'),
 						get_setting('weixin_app_secret'),
 						'media/uploadnews',
 						'POST',
-						$this->replace_post(json_encode($msg['articles']))
+						$this->replace_post(json_encode($this->mpnews))
 					);
+
+		if (empty($result))
+		{
+			return AWS_APP::lang()->_t('远程服务器忙');
+		}
 
 		if ($result['errmsg'])
 		{
-			return array(
-						'error' => 'msg',
-						'result' => $result['errmsg']
-					);
+			return $result['errmsg'];
 		}
 
-		return array(
-					'error' => 'none',
-					'result' => $result['media_id']
-				);
+		$this->media_id = $result['media_id'];
 	}
 
-	public function send_msg($group_id, $msgtype, $media_id)
+	public function send_msg($group_id, $msgtype)
 	{
 		$msg = array(
 					'filter' => array(
 									'group_id' => $group_id,
 								),
 					$msgtype => array(
-									'media_id' => $media_id,
+									'media_id' => $this->media_id,
 								),
 					'msgtype' => $msgtype
 				);
@@ -1559,11 +1568,18 @@ class weixin_class extends AWS_MODEL
 			return $result['errmsg'];
 		}
 
-		return $result['msg_id'];
+		$this->msg_id = $result['msg_id'];
 	}
 
-	public function save_sent_msg()
+	public function save_sent_msg($group_name, $article_ids, $question_ids)
 	{
-
+		return $this->insert(array(
+					'msg_id' => intval($this->msg_id),
+					'group_name' => trim($group_name),
+					'status' => 'pending',
+					'article_ids' => implode(',', $article_ids),
+					'question_ids' => implode(',', $question_ids),
+					'create_time' => time()
+				));
 	}
 }

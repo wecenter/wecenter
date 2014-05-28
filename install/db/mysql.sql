@@ -1090,7 +1090,7 @@ CREATE TABLE `[#DB_PREFIX#]weixin_accounts` (
 
 CREATE TABLE `[#DB_PREFIX#]weixin_msg` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `msg_id` int(10) NOT NULL DEFAULT '',
+  `msg_id` int(10) NOT NULL,
   `group_name` varchar(255) NOT NULL DEFAULT '未分组',
   `status` varchar(255) NOT NULL DEFAULT 'unsent',
   `article_ids` varchar(255) DEFAULT NULL,

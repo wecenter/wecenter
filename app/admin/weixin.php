@@ -454,7 +454,7 @@ class weixin extends AWS_ADMIN_CONTROLLER
 			H::redirect_msg(AWS_APP::lang()->_t('此功能只适用于通过微信认证的服务号'));
 		}
 
-		$groups_list = $this->model('weixin')->get_groups_from_mp();
+		$groups_list = $this->model('weixin')->get_groups();
 
 		if (!is_array($groups_list))
 		{
@@ -484,52 +484,63 @@ class weixin extends AWS_ADMIN_CONTROLLER
 	{
 		define('IN_AJAX', TRUE);
 
-		$_POST['group_id'] = intval($_POST['group_id']);
+		$group_id = intval($_POST['group_id']);
 
-		if (empty($_POST['group_id']))
+		if (empty($group_id))
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择要群发的分组')));
 		}
 
-		$article_ids = explode(',', $_POST['article_ids']);
+		$groups = $this->model('weixin')->get_groups();
 
-		$question_ids = explode(',', $_POST['question_ids']);
+		$group_name = $groups[$group_id];
+
+		if (!isset($group_name))
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('选择的分组不存在');
+		}
+
+		$article_ids = array_unique(array_filter(explode(',', $_POST['article_ids'])));
+
+		$question_ids = array_unique(array_filter(explode(',', $_POST['question_ids'])));
 
 		if (empty($article_ids) AND empty($question_ids))
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请添加要群发的文章或问题 id')));
 		}
 
-		$msg_num = count($article_ids) + count($question_ids);
+		$total = count($article_ids) + count($question_ids);
 
-		if ($msg_num > 10)
+		if ($total > 10)
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('最多可添加 10 个文章和问题')));
 		}
 
-		$media_id_result = $this->model('weixin')->upload_articles_and_questions($article_ids, $question_ids);
-
-		switch ($media_id_result)
+		if (!empty($article_ids))
 		{
-			case 'aricle':
-				H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('上传文章作者的头像失败，错误为：') . $media_id_result['result']));
+			$error_msg = $this->model('weixin')->add_articles_to_mpnews($article_ids);
 
-				break;
+			if (isset($error_msg))
+			{
+				H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('上传文章作者的头像失败，错误为：') . $error_msg));
+			}
+		}
 
-			case 'question':
-				H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('上传问题作者的头像失败，错误为：') . $media_id_result['result']));
+		if (!empty($question_ids))
+		{
+			$error_msg = $this->model('weixin')->add_questions_to_mpnews($question_ids);
 
-				break;
+			if (isset($error_msg))
+			{
+				H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('上传问题作者的头像失败，错误为：') . $error_msg));
+			}
+		}
 
-			case 'msg':
-				H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('上传图文消息失败，错误为：') . $media_id_result['result']));
+		$error_msg = $this->model('weixin')->upload_mpnews();
 
-				break;
-
-			default:
-				$media_id = $media_id_result['result'];
-
-				break;
+		if (isset($error_msg))
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('上传图文消息失败，错误为：') . $error_msg));
 		}
 
 /*
@@ -560,7 +571,15 @@ class weixin extends AWS_ADMIN_CONTROLLER
 		}
 */
 
-		$result = $this->model('weixin')->send_msg($_POST['group_id'], 'mpnews', $media_id);
+		$error_msg = $this->model('weixin')->send_msg($group_id, 'mpnews');
 
+		if (isset($error_msg))
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('群发任务提交失败，错误为：') . $error_msg));
+		}
+
+		$this->model('weixin')->save_sent_msg($group_name, $article_ids, $question_ids);
+
+		H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('群发任务提交成功')));
 	}
 }
