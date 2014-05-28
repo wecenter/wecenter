@@ -359,7 +359,7 @@ class weixin extends AWS_CONTROLLER
 		}
 		else
 		{
-			H::redirect_msg('登录失败, 二维码已过期');
+			H::redirect_msg('二维码已过期');
 		}
 	}
 }
