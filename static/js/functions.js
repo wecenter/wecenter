@@ -1395,6 +1395,12 @@ function init_topic_edit_box(selector) //selector -> .aw-edit-topic
         bind_dropdown_list($(this).parents('.aw-topic-editor').find('#aw_edit_topic_title'),'topic');
         $(this).parents('.aw-topic-editor').find('.aw-edit-topic-box').fadeIn();
 
+        // 是否允许创建新话题
+        if (!G_CAN_CREATE_TOPIC)
+        {
+            $(this).parents('.aw-topic-editor').find('.submit-edit').hide();
+        }
+
         /*隐藏话题编辑按钮*/
         $(this).hide();
     });
