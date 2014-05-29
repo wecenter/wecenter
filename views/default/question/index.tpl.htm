@@ -425,12 +425,12 @@
 					</div>
 					<div class="mod-body">
 						<textarea name="answer_content" id="advanced_editor" rows="15" class="autosize form-control advanced_editor"><?php echo htmlspecialchars($this->draft_content['message']); ?></textarea>
-						<p class="aw-text-color-999 clearfix"><span class="pull-right" id="answer_content_message">&nbsp;</span></p>
+						<div class="aw-text-color-999 clearfix"><span class="pull-right" id="answer_content_message">&nbsp;</span></div>
 						<?php if ($this->human_valid) { ?>
-						<p class="aw-auth-img clearfix">
+						<div class="aw-auth-img clearfix">
 							<em class="auth-img pull-right"><img src="" onclick="this.src = G_BASE_URL + '/account/captcha/' + Math.floor(Math.random() * 10000);" id="captcha" /></em>
 							<input class="pull-right" type="text" name="seccode_verify" placeholder="<?php _e('验证码'); ?>" />
-						</p>
+						</div>
 						<?php } ?>
 						<div class="aw-replay-box-control clearfix">
 							<a href="javascript:;" onclick="AWS.ajax_post($('#answer_form'));" class="btn btn-large btn-success pull-right btn-publish-submit"><?php _e('回复'); ?></a>

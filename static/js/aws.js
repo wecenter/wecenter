@@ -2504,6 +2504,12 @@ AWS.Init =
 
 	        $(this).parents('.aw-topic-editor').find('.aw-edit-topic-box').fadeIn();
 
+	        // 是否允许创建新话题
+	        if (!G_CAN_CREATE_TOPIC)
+	        {
+	            $(this).parents('.aw-topic-editor').find('.submit-edit').hide();
+	        }
+
 	        $(this).hide();
 	    });
 	},
