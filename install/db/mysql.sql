@@ -1093,6 +1093,7 @@ CREATE TABLE `[#DB_PREFIX#]weixin_msg` (
   `msg_id` int(10) NOT NULL,
   `group_name` varchar(255) NOT NULL DEFAULT '未分组',
   `status` varchar(255) NOT NULL DEFAULT 'unsent',
+  `error_num` int(10) DEFAULT NULL,
   `article_ids` varchar(255) DEFAULT NULL,
   `question_ids` varchar(255) DEFAULT NULL,
   `create_time` int(10) NOT NULL,

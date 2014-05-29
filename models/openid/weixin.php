@@ -377,14 +377,7 @@ class openid_weixin_class extends AWS_MODEL
 
 		if ($cached_result)
 		{
-			if ($cached_result['media_id'] AND $cached_result['created_at'] + 259200 > time())
-			{
-				return $cached_result;
-			}
-			else
-			{
-				AWS_APP::cache()->delete('weixin_media_file_' . $file_md5);
-			}
+			return $cached_result;
 		}
 
 		$file = '@' . $file;

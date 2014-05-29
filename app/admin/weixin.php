@@ -350,6 +350,8 @@ class weixin extends AWS_ADMIN_CONTROLLER
 		$accounts_list = $this->model('weixin')->fetch_page('weixin_accounts', null, 'id ASC', null, null);
 		$accounts_total = $this->model('weixin')->found_rows();
 
+		$this->crumb(AWS_APP::lang()->_t('微信账号'), "admin/weixin/accounts/");
+
 		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(802));
 		TPL::assign('accounts_list', $accounts_list);
 		TPL::assign('accounts_total', $accounts_total);
@@ -412,12 +414,20 @@ class weixin extends AWS_ADMIN_CONTROLLER
 
 	public function sent_msgs_list_action()
 	{
-		$msgs_list = $this->model('weixin')->fetch_page('weixin_msg', null, 'id DESC', $_GET['page'], 10);
+		$msgs_list = $this->model('weixin')->fetch_page('weixin_msg', null, 'id DESC', $_GET['page'], $this->per_page);
 		$msgs_total = $this->model('weixin')->found_rows();
+
+		TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
+			'base_url' => get_setting('base_url') . '/?/' . 'admin/weixin/sent_msgs_list/',
+			'total_rows' => $msgs_total,
+			'per_page' => $this->per_page
+		))->create_links());
+
+		$this->crumb(AWS_APP::lang()->_t('群发列表'), "admin/weixin/sent_msgs_list/");
 
 		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(804));
 		TPL::assign('msgs_list', $msgs_list);
-		TPL::assign('msgs_num', $msgs_total);
+		TPL::assign('msgs_total', $msgs_total);
 		TPL::output('admin/weixin/sent_msgs_list');
 	}
 
@@ -439,6 +449,8 @@ class weixin extends AWS_ADMIN_CONTROLLER
 		{
 			$questions_info = $this->model('question')->get_question_info_by_ids($msg_details['question_ids']);
 		}
+
+		$this->crumb(AWS_APP::lang()->_t('查看群发消息'), "admin/weixin/sent_msg_details/");
 
 		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(804));
 		TPL::assign('msg_details', $msg_details);
@@ -462,6 +474,8 @@ class weixin extends AWS_ADMIN_CONTROLLER
 		}
 
 		$article_ids = AWS_APP::cache()->get('unsent_article_ids');
+
+		$this->crumb(AWS_APP::lang()->_t('群发消息'), "admin/weixin/unsent_msg/");
 
 		if ($article_ids)
 		{
