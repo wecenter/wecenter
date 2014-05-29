@@ -204,10 +204,43 @@ class weixin_class extends AWS_MODEL
 				'location_X' => $post_object['Location_X'],
 				'location_Y' => $post_object['Location_y'],
 				'label' => $post_object['Label'],
-				'ticket' => $post_object['Ticket']
+				'ticket' => $post_object['Ticket'],
+				'createTime' => $post_object['CreateTime'],
+				'status' => $post_object['Status'],
+				'filterCount' => $post_object['filterCount']
 			);
 
-			if ($weixin_info = $this->model('openid_weixin')->get_user_info_by_openid($input_message['fromUsername']))
+			if ($input_message['event'] == 'MASSSENDJOBFINISH')
+			{
+				$msg_id = $input_message['msgID'];
+
+				$msg_details = array(
+									'create_time' => intval($input_message['CreateTime']),
+									'filter_count' => intval($input_message['filterCount'])
+								);
+
+				if ($input_message['status'] == 'send success')
+				{
+					$msg_details['status'] = 'success';
+				}
+				elseif ($input_message['status'] == 'send fail')
+				{
+					$msg_details['status'] = 'fail';
+				}
+				else
+				{
+					$msg_details['status'] = 'wrong';
+					$msg_details['error_num'] = intval(substr($input_message['status'], 4, 9));
+				}
+
+				$this->update_sent_msg($msg_id, $msg_details);
+
+				return false;
+			}
+
+			$weixin_info = $this->model('openid_weixin')->get_user_info_by_openid($input_message['fromUsername']);
+
+			if ($weixin_info)
 			{
 				$this->user_id = $weixin_info['uid'];
 			}
@@ -1447,7 +1480,7 @@ class weixin_class extends AWS_MODEL
 				return $result['message'];
 			}
 
-			$groups = array_column($result['groups'], 'name', 'id');
+			$groups = array_combine(array_column($result['groups'], 'id'), $result['groups']);
 
 			AWS_APP::cache()->set('weixin_groups', $groups, get_setting('cache_level_normal'));
 		}
@@ -1571,15 +1604,21 @@ class weixin_class extends AWS_MODEL
 		$this->msg_id = $result['msg_id'];
 	}
 
-	public function save_sent_msg($group_name, $article_ids, $question_ids)
+	public function save_sent_msg($group_name, $article_ids, $question_ids, $filter_count)
 	{
-		return $this->insert(array(
+		return $this->insert('weixin_msg', array(
 					'msg_id' => intval($this->msg_id),
 					'group_name' => trim($group_name),
 					'status' => 'pending',
 					'article_ids' => implode(',', $article_ids),
 					'question_ids' => implode(',', $question_ids),
-					'create_time' => time()
+					'create_time' => time(),
+					'filter_count' => intval($filter_count)
 				));
+	}
+
+	public function update_sent_msg($msg_id, $msg_details)
+	{
+		return $this->update('weixin_msg', $msg_details, 'msg_id = ' . intval($msg_id));
 	}
 }

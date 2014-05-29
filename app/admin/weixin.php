@@ -466,7 +466,7 @@ class weixin extends AWS_ADMIN_CONTROLLER
 			H::redirect_msg(AWS_APP::lang()->_t('此功能只适用于通过微信认证的服务号'));
 		}
 
-		$groups_list = $this->model('weixin')->get_groups();
+		$groups = $this->model('weixin')->get_groups();
 
 		if (!is_array($groups_list))
 		{
@@ -490,7 +490,7 @@ class weixin extends AWS_ADMIN_CONTROLLER
 		}
 
 		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(804));
-		TPL::assign('group_list', $groups_list);
+		TPL::assign('groups', $groups);
 		TPL::output('admin/weixin/unsent_msg');
 	}
 
@@ -507,7 +507,7 @@ class weixin extends AWS_ADMIN_CONTROLLER
 
 		$groups = $this->model('weixin')->get_groups();
 
-		$group_name = $groups[$group_id];
+		$group_name = $groups[$group_id]['name'];
 
 		if (!isset($group_name))
 		{
@@ -592,7 +592,7 @@ class weixin extends AWS_ADMIN_CONTROLLER
 			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('群发任务提交失败，错误为：') . $error_msg));
 		}
 
-		$this->model('weixin')->save_sent_msg($group_name, $article_ids, $question_ids);
+		$this->model('weixin')->save_sent_msg($group_name, $article_ids, $question_ids, $groups[$group_id]['count']);
 
 		H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('群发任务提交成功')));
 	}
