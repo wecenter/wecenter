@@ -51,7 +51,7 @@
                                 _e('未发送');
                                 break;
 
-                            case 'pendig':
+                            case 'pending':
                                 _e('提交成功');
                                 break;
 
@@ -80,7 +80,7 @@
             </dd>
         </dl>
 
-        <?php if ($this->msg_details['status']) == 'wrong') { ?>
+        <?php if ($this->msg_details['status'] == 'wrong') { ?>
         <dl>
             <dt><h3><?php _e('审核失败的原因：'); ?></h3></dt>
             <dd>
@@ -164,7 +164,7 @@
             <dd>
                 <div class="row">
                     <div class="col-sm-7">
-                        <?php echo $this->msg_details['create_time']; ?>
+                        <?php echo date_friendly($this->msg_details['create_time']); ?>
                     </div>
                 </div>
             </dd>

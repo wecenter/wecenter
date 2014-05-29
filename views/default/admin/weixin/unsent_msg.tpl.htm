@@ -21,7 +21,7 @@
             <div class="row">
                 <div class="col-sm-7">
                     <select name="group_id">
-                        <?php foreach ($this->groups => $val) { ?>
+                        <?php foreach ($this->groups AS $val) { ?>
                             <option value="<?php echo $val['id']; ?>"><?php echo $val['name']; ?></option>
                         <?php } ?>
                     </select>

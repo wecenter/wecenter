@@ -80,7 +80,7 @@ class weixin_class extends AWS_MODEL
 			);
 		}
 
-		private static $account_info;
+		static $account_info;
 
 		if (!$account_info[$account_id])
 		{
@@ -1270,7 +1270,7 @@ class weixin_class extends AWS_MODEL
 						'menu/create',
 						'POST',
 						$this->replace_post(json_encode(array('button' => $mp_menu_no_key)))
-					)
+					);
 
 		if (empty($result))
 		{
@@ -1384,7 +1384,7 @@ class weixin_class extends AWS_MODEL
 			return false;
 		}
 
-		private static $msgs_details;
+		static $msgs_details;
 
 		if (!$msgs_details[$msg_id])
 		{
@@ -1401,7 +1401,7 @@ class weixin_class extends AWS_MODEL
 			}
 			else
 			{
-				$msgs_details[$msg_id]['article_ids'] = explode($msgs_details[$msg_id]['article_ids'], ',')
+				$msgs_details[$msg_id]['article_ids'] = explode($msgs_details[$msg_id]['article_ids'], ',');
 			}
 
 			if (empty($msgs_details[$msg_id]['question_ids']))
@@ -1410,7 +1410,7 @@ class weixin_class extends AWS_MODEL
 			}
 			else
 			{
-				$msgs_details[$msg_id]['question_ids'] = explode($msgs_details[$msg_id]['question_ids'], ',')
+				$msgs_details[$msg_id]['question_ids'] = explode($msgs_details[$msg_id]['question_ids'], ',');
 			}
 		}
 
@@ -1492,11 +1492,13 @@ class weixin_class extends AWS_MODEL
 	{
 		$articles_info = $this->model('article')->get_article_info_by_ids($article_ids);
 
-		$users_info = $this->model('account')->get_user_info_by_uids(array_column($articles_info), 'uid');
+		$users_info = $this->model('account')->get_user_info_by_uids(array_column($articles_info, 'uid'));
 
-		foreach ($articles_info AS $key => $val)
+		foreach ($articles_info AS $article_info)
 		{
-			$result = $this->model('openid_weixin')->upload_file(get_setting('upload_dir') . '/avatar/' . $this->model('account')->get_avatar($users_info[$key]['uid'], 'mid'), 'thumb');
+			$user_info = $users_info[$article_info['uid']];
+
+			$result = $this->model('openid_weixin')->upload_file(get_setting('upload_dir') . '/avatar/' . $this->model('account')->get_avatar($user_info['uid'], 'mid'), 'thumb');
 
 			if (empty($result))
 			{
@@ -1509,11 +1511,11 @@ class weixin_class extends AWS_MODEL
 			}
 
 			$this->mpnews['articles'][] = array(
-												'thumb_media_id' => $result['media_id'],
-												'author' => $users_info[$key]['user_name'],
-												'title' => $val['title'],
-												'content_source_url' => get_js_url('/m/article/' . $val['id']),
-												'content' => $val['message']
+												'thumb_media_id' => $result['thumb_media_id'],
+												'author' => $user_info['user_name'],
+												'title' => $article_info['title'],
+												'content_source_url' => get_js_url('/m/article/' . $article_info['id']),
+												'content' => $article_info['message']
 											);
 		}
 	}
@@ -1522,11 +1524,13 @@ class weixin_class extends AWS_MODEL
 	{
 		$questions_info = $this->model('question')->get_question_info_by_ids($question_ids);
 
-		$users_info = $this->model('account')->get_user_info_by_uids(array_column($questions_info), 'published_uid');
+		$users_info = $this->model('account')->get_user_info_by_uids(array_column($questions_info, 'published_uid'));
 
-		foreach ($questions_info AS $key => $val)
+		foreach ($questions_info AS $question_info)
 		{
-			$result = $this->model('openid_weixin')->upload_file(get_setting('upload_dir') . '/avatar/' . $this->model('account')->get_avatar($users_info[$key]['published_uid'], 'mid'), 'thumb');
+			$user_info = $users_info[$question_info['published_uid']];
+
+			$result = $this->model('openid_weixin')->upload_file(get_setting('upload_dir') . '/avatar/' . $this->model('account')->get_avatar($user_info['uid'], 'mid'), 'thumb');
 
 			if (empty($result))
 			{
@@ -1539,11 +1543,11 @@ class weixin_class extends AWS_MODEL
 			}
 
 			$this->mpnews['articles'][] = array(
-												'thumb_media_id' => $result['media_id'],
-												'author' => $users_info[$key]['user_name'],
-												'title' => $val['question_content'],
-												'content_source_url' => get_js_url('/m/article/' . $val['question_id']),
-												'content' => $val['question_detail']
+												'thumb_media_id' => $result['thumb_media_id'],
+												'author' => $user_info['user_name'],
+												'title' => $question_info['question_content'],
+												'content_source_url' => get_js_url('/m/article/' . $question_info['question_id']),
+												'content' => $question_info['question_detail']
 											);
 		}
 	}

@@ -468,9 +468,9 @@ class weixin extends AWS_ADMIN_CONTROLLER
 
 		$groups = $this->model('weixin')->get_groups();
 
-		if (!is_array($groups_list))
+		if (!is_array($groups))
 		{
-			H::redirect_msg(AWS_APP::lang()->_t('获取微信分组失败，错误为：<br />') . $groups_list);
+			H::redirect_msg(AWS_APP::lang()->_t('获取微信分组失败，错误为：<br />') . $groups);
 		}
 
 		$article_ids = AWS_APP::cache()->get('unsent_article_ids');
@@ -500,7 +500,7 @@ class weixin extends AWS_ADMIN_CONTROLLER
 
 		$group_id = intval($_POST['group_id']);
 
-		if (empty($group_id))
+		if (!isset($group_id))
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择要群发的分组')));
 		}
@@ -511,7 +511,7 @@ class weixin extends AWS_ADMIN_CONTROLLER
 
 		if (!isset($group_name))
 		{
-			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('选择的分组不存在');
+			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('选择的分组不存在')));
 		}
 
 		$article_ids = array_unique(array_filter(explode(',', $_POST['article_ids'])));
