@@ -634,6 +634,12 @@ class Services_Markdown {
 		$link_text		=  $this->runSpanGamut($matches[2]);
 		$url			=  $matches[3] == '' ? $matches[4] : $matches[3];
 		$title			=& $matches[7];
+		
+		// WeCenter
+		if (strstr(strtolower($url), 'script:'))
+		{
+			return $this->hashPart($link_text);
+		}
 
 		$url = $this->encodeAttribute($url);
 

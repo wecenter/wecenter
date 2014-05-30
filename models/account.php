@@ -329,10 +329,18 @@ class account_class extends AWS_MODEL
         {
             $user_info['email_settings'] = unserialize($user_info['email_settings']);
         }
+        else
+        {
+	        $user_info['email_settings'] = array();
+        }
 
         if ($user_info['weixin_settings'])
         {
             $user_info['weixin_settings'] = unserialize($user_info['weixin_settings']);
+        }
+        else
+        {
+	        $user_info['weixin_settings'] = array();
         }
 
         $users_info[$uid] = $user_info;
@@ -400,10 +408,18 @@ class account_class extends AWS_MODEL
                 {
                     $val['email_settings'] = unserialize($val['email_settings']);
                 }
+                else
+                {
+	                $val['email_settings'] = array();
+                }
 
                 if ($val['weixin_settings'])
                 {
                     $val['weixin_settings'] = unserialize($val['weixin_settings']);
+                }
+                else
+                {
+	                $val['weixin_settings'] = array();
                 }
 
                 $data[$val['uid']] = $val;
