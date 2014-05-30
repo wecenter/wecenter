@@ -979,7 +979,7 @@ class AWS_MODEL
 	{
 		if (is_object($this->db()))
 		{
-			return trim($this->db()->quote($string), "'");
+			return substr(substr($this->db()->quote($string), 1), 0, -1);
 		}
 		
 		if (function_exists('mysql_escape_string'))
