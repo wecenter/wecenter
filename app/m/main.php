@@ -814,7 +814,7 @@ class main extends AWS_CONTROLLER
 
 		if ($topic_info['merged_id'])
 		{
-			if ($this->model('topic')->get_topic_by_title($topic_info['merged_id']))
+			if ($this->model('topic')->get_topic_by_id($topic_info['merged_id']))
 			{
 				HTTP::redirect('/m/topic/' . $topic_info['merged_id'] . '?rf=' . $topic_info['topic_id']);
 			}
