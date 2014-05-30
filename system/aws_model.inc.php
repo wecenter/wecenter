@@ -983,7 +983,7 @@ class AWS_MODEL
 			
 			if (substr($_quote, 0, 1) == "'")
 			{
-				$_quote = substr(substr($_quote, 1), 0, -1)
+				$_quote = substr(substr($_quote, 1), 0, -1);
 			}
 			
 			return $_quote;
