@@ -43,7 +43,7 @@
 							<dt><?php _e('被合并的话题'); ?>:</dt>
 							<dd>
 								<?php foreach ($this->merged_topics_info AS $key => $val) { ?>
-								<a class="aw-topic-name" href="javascript:;"><span><?php echo $val['topic_title']; ?><i class="aw-icon i-close-hover" onclick="ajax_request(G_BASE_URL + '/topic/ajax/remove_merge_topic/', 'source_id=<?php echo $val['topic_id']; ?>&target_id=<?php echo $this->topic_info['topic_id']; ?>');"></i></span></a>
+								<a class="aw-topic-name" href="javascript:;"><span><?php echo $val['topic_title']; ?><button class="close aw-close" onclick="ajax_request(G_BASE_URL + '/topic/ajax/remove_merge_topic/', 'source_id=<?php echo $val['topic_id']; ?>&target_id=<?php echo $this->topic_info['topic_id']; ?>');">×</button></span></a>
 								<?php } ?>
 							</dd>
 						</dl>
