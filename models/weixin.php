@@ -31,6 +31,10 @@ class weixin_class extends AWS_MODEL
 
 	private $msg_id;
 
+	private $to_save_articles;
+
+	private $to_save_questions;
+
 	public function replace_post($subject)
 	{
 		return preg_replace_callback(
@@ -267,7 +271,7 @@ class weixin_class extends AWS_MODEL
 				}
 				else if ($input_message['event'] == 'MASSSENDJOBFINISH')
 				{
-					$msg_id = intval($input_message['msgID']);
+					$msg_id = $input_message['msgID'];
 
 					$msg_details = array(
 										'create_time' => intval($input_message['createTime']),
@@ -1364,36 +1368,20 @@ class weixin_class extends AWS_MODEL
 
 	public function get_msg_details_by_id($msg_id)
 	{
-		$msg_id = intval($msg_id);
-
 		static $msgs_details;
 
 		if (!$msgs_details[$msg_id])
 		{
-			$msgs_details[$msg_id] = $this->fetch_row('weixin_msg', 'id = ' . $msg_id);
+			$msgs_details[$msg_id] = $this->fetch_row('weixin_msg', 'id = ' . $this->quote($msg_id));
 
 			if (!$msgs_details[$msg_id])
 			{
 				return false;
 			}
 
-			if (empty($msgs_details[$msg_id]['article_ids']))
-			{
-				unset($msgs_details[$msg_id]['article_ids']);
-			}
-			else
-			{
-				$msgs_details[$msg_id]['article_ids'] = explode(',', $msgs_details[$msg_id]['article_ids']);
-			}
+			$msgs_details[$msg_id]['articles_info'] = unserialize($msgs_details[$msg_id]['articles_info']);
 
-			if (empty($msgs_details[$msg_id]['question_ids']))
-			{
-				unset($msgs_details[$msg_id]['question_ids']);
-			}
-			else
-			{
-				$msgs_details[$msg_id]['question_ids'] = explode(',', $msgs_details[$msg_id]['question_ids']);
-			}
+			$msgs_details[$msg_id]['questions_info'] = unserialize($msgs_details[$msg_id]['questions_info']);
 		}
 
 		return $msgs_details[$msg_id];
@@ -1505,6 +1493,11 @@ class weixin_class extends AWS_MODEL
 												'content' => $article_info['message'],
 												'show_cover_pic' => '0'
 											);
+
+			$this->to_save_articles[$article_info['id']] = array(
+															'id' => $article_info['id'],
+															'title' => $article_info['title']
+														);
 		}
 	}
 
@@ -1543,6 +1536,11 @@ class weixin_class extends AWS_MODEL
 												'content' => $question_info['question_detail'],
 												'show_cover_pic' => '0'
 											);
+
+			$this->to_save_questions[$question_info['question_id']] = array(
+																	'id' => $question_info['question_id'],
+																	'title' => $question_info['question_content']
+																);
 		}
 	}
 
@@ -1610,11 +1608,11 @@ class weixin_class extends AWS_MODEL
 	public function save_sent_msg($group_name, $article_ids, $question_ids, $filter_count)
 	{
 		$this->insert('weixin_msg', array(
-					'msg_id' => intval($this->msg_id),
+					'msg_id' => $this->msg_id,
 					'group_name' => trim($group_name),
 					'status' => 'pending',
-					'article_ids' => implode(',', $article_ids),
-					'question_ids' => implode(',', $question_ids),
+					'articles_info' => serialize($this->to_save_articles),
+					'questions_info' => serialize($this->to_save_questions),
 					'create_time' => time(),
 					'filter_count' => intval($filter_count)
 				));
@@ -1626,6 +1624,6 @@ class weixin_class extends AWS_MODEL
 
 	public function update_sent_msg($msg_id, $msg_details)
 	{
-		return $this->update('weixin_msg', $msg_details, 'msg_id = ' . $msg_id);
+		return $this->update('weixin_msg', $msg_details, 'msg_id = ' . $this->quote($msg_id));
 	}
 }

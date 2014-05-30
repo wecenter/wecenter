@@ -1090,20 +1090,19 @@ CREATE TABLE `[#DB_PREFIX#]weixin_accounts` (
 
 CREATE TABLE `[#DB_PREFIX#]weixin_msg` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `msg_id` int(10) NOT NULL,
+  `msg_id` bigint(20) NOT NULL,
   `group_name` varchar(255) NOT NULL DEFAULT '未分组',
-  `status` varchar(255) NOT NULL DEFAULT 'unsent',
+  `status` varchar(15) NOT NULL DEFAULT 'unsent',
   `error_num` int(10) DEFAULT NULL,
-  `article_ids` varchar(255) DEFAULT NULL,
-  `question_ids` varchar(255) DEFAULT NULL,
+  `main_msg` text DEFAULT 'a:0:{}',
+  `articles_info` text DEFAULT 'a:0:{}',
+  `questions_info` text DEFAULT 'a:0:{}',
   `create_time` int(10) NOT NULL,
   `filter_count` int(10) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `msg_id` (`msg_id`),
   KET `group_name` (`group_name`),
   KEY `status` (`status`),
-  KEY `article_ids` (`article_ids`),
-  KEY `question_ids` (`question_ids`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8 COMMENT='微信群发列表';
 
 INSERT INTO `[#DB_PREFIX#]category`(`title`,`type`) VALUES
