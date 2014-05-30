@@ -71,7 +71,7 @@
 							<h3><?php _e('添加话题'); ?>:</h3>
 							<span class="aw-topic-editor" data-type="publish">
 								<?php if ($_GET['topic_title']) { ?>
-								<a href="javascript:;" class="aw-topic-name"><span><?php echo urldecode($_GET['topic_title']); ?><i class="aw-icon i-close-hover" onclick="$(this).parents('.aw-topic-name').remove();"></i></span><input type="hidden" value="<?php echo urldecode($_GET['topic_title']); ?>" name="topics[]" /></a>
+								<a href="javascript:;" class="aw-topic-name"><span><?php echo urldecode($_GET['topic_title']); ?><button class="close aw-close" onclick="$(this).parents('.aw-topic-name').remove();">×</button></span><input type="hidden" value="<?php echo urldecode($_GET['topic_title']); ?>" name="topics[]" /></a>
 								<?php } ?>
 								
 								<?php if ($_POST['topics']) { ?>
