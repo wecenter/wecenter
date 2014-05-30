@@ -636,7 +636,7 @@ class Services_Markdown {
 		$title			=& $matches[7];
 		
 		// WeCenter
-		if (strstr($url, 'script:'))
+		if (strstr(strtolower($url), 'script:'))
 		{
 			return $this->hashPart($link_text);
 		}
