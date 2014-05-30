@@ -138,9 +138,9 @@
             <dd>
                 <div class="row">
                     <div class="col-sm-7">
-                        <?php if ($this->articles_info) { foreach ($this->articles_info AS $val) {
-
-                        } } ?>
+                        <?php if ($this->articles_info) { foreach ($this->articles_info AS $article_info) { ?>
+                        <a href="article/<?php echo $article_info['id']; ?>"><?php echo $article_info['title']; ?></a>
+                        <?php } } ?>
                     </div>
                 </div>
             </dd>
@@ -151,9 +151,9 @@
             <dd>
                 <div class="row">
                     <div class="col-sm-7">
-                        <?php if ($this->questions_info) { foreach ($this->questions_info AS $val) {
-
-                        } } ?>
+                        <?php if ($this->questions_info) { foreach ($this->questions_info AS $question_info) { ?>
+                        <a href="question/<?php echo $question_info['question_id']; ?>"><?php echo $question_info['question_content']; ?></a>
+                        <?php } } ?>
                     </div>
                 </div>
             </dd>

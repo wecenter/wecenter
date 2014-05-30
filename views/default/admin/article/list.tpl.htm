@@ -20,6 +20,8 @@
 
 			<?php if ($this->list) { ?>
 			<form id="batchs_form" action="admin/article/article_batch/" method="post">
+				<input type="hidden" id="action" name="action" value="del" />
+
 				<table class="aw-table">
 					<thead>
 						<tr>
@@ -50,7 +52,9 @@
 							<td colspan="7">
 								<span class="pull-right"><?php echo $this->pagination; ?></span>
 
-								<a class="btn btn-inverse" onclick="ajax_post($('#batchs_form'));" href="javascript:;"><?php _e('删除所选'); ?></a>
+								<a class="btn btn-inverse" onclick="$('#action').val('del'); ajax_post($('#batchs_form'));" href="javascript:;"><?php _e('删除所选'); ?></a>
+
+								<a class="btn btn-inverse" onclick="$('#action').val('send'); ajax_post($('#batchs_form'));" href="javascript:;"><?php _e('微信群发'); ?></a>
 							</td>
 						</tr>
 					</tfoot>

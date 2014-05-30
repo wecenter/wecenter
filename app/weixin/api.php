@@ -36,31 +36,27 @@ class api extends AWS_CONTROLLER
 	{
 		$account_id = $_GET['account'] ?: 0;
 
-		if (!$account_info = $this->model('weixin')->get_account_info_by_id($account_id) OR
+		$account_info = $this->model('weixin')->get_account_info_by_id($account_id);
+
+		if (empty($account_info) OR
 			!$this->model('weixin')->check_signature($account_info['weixin_mp_token'], $_GET['signature'], $_GET['timestamp'], $_GET['nonce']))
 		{
-			die;
+			exit;
 		}
 
 		if ($_GET['echostr'])
 		{
-			echo htmlspecialchars($_GET['echostr']);
-			die;
+			exit(htmlspecialchars($_GET['echostr']));
 		}
 
 		$this->input_message = $this->model('weixin')->fetch_message();
 
-		if ($this->input_message)
-		{
-			$this->mp_menu = ($account_info['weixin_account_role'] == 'base' OR empty($account_info['weixin_app_id']) OR empty($account_info['weixin_app_secret'])) ? null : $account_info['weixin_mp_menu'];
-		}
+
+		$this->mp_menu = ($account_info['weixin_account_role'] == 'base' OR empty($account_info['weixin_app_id']) OR empty($account_info['weixin_app_secret'])) ? null : $account_info['weixin_mp_menu'];
 	}
 
 	public function index_action()
 	{
-		if ($this->input_message)
-		{
-			$this->model('weixin')->response_message($this->input_message, $this->mp_menu);
-		}
+		$this->model('weixin')->response_message($this->input_message, $this->mp_menu);
 	}
 }

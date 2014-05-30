@@ -47,11 +47,6 @@ class weixin_class extends AWS_MODEL
 	{
 		$account_id = intval($account_id);
 
-		if (empty($account_id))
-		{
-			return false;
-		}
-
 		if ($account_id == 0)
 		{
 			if ($column)
@@ -148,7 +143,7 @@ class weixin_class extends AWS_MODEL
 	{
 		$account_id = intval($account_id);
 
-		if (empty($account_id) OR empty($account_info))
+		if (empty($account_info))
 		{
 			return false;
 		}
@@ -171,11 +166,6 @@ class weixin_class extends AWS_MODEL
 	public function del_account($account_id)
 	{
 		$account_id = intval($account_id);
-
-		if (empty($account_id))
-		{
-			return false;
-		}
 
 		return $this->delete('weixin_accounts', 'id = ' . $account_id);
 	}
@@ -207,36 +197,8 @@ class weixin_class extends AWS_MODEL
 				'ticket' => $post_object['Ticket'],
 				'createTime' => $post_object['CreateTime'],
 				'status' => $post_object['Status'],
-				'filterCount' => $post_object['filterCount']
+				'filterCount' => $post_object['FilterCount']
 			);
-
-			if ($input_message['event'] == 'MASSSENDJOBFINISH')
-			{
-				$msg_id = $input_message['msgID'];
-
-				$msg_details = array(
-									'create_time' => intval($input_message['CreateTime']),
-									'filter_count' => intval($input_message['filterCount'])
-								);
-
-				if ($input_message['status'] == 'send success')
-				{
-					$msg_details['status'] = 'success';
-				}
-				elseif ($input_message['status'] == 'send fail')
-				{
-					$msg_details['status'] = 'fail';
-				}
-				else
-				{
-					$msg_details['status'] = 'wrong';
-					$msg_details['error_num'] = intval(substr($input_message['status'], 4, 9));
-				}
-
-				$this->update_sent_msg($msg_id, $msg_details);
-
-				return false;
-			}
 
 			$weixin_info = $this->model('openid_weixin')->get_user_info_by_openid($input_message['fromUsername']);
 
@@ -302,6 +264,31 @@ class weixin_class extends AWS_MODEL
 					{
 						$response_message = '菜单指令错误';
 					}
+				}
+				else if ($input_message['event'] == 'MASSSENDJOBFINISH')
+				{
+					$msg_id = intval($input_message['msgID']);
+
+					$msg_details = array(
+										'create_time' => intval($input_message['createTime']),
+										'filter_count' => intval($input_message['filterCount'])
+									);
+
+					if ($input_message['status'] == 'sendsuccess')
+					{
+						$msg_details['status'] = 'success';
+					}
+					elseif ($input_message['status'] == 'sendfail')
+					{
+						$msg_details['status'] = 'fail';
+					}
+					else
+					{
+						$msg_details['status'] = 'wrong';
+						$msg_details['error_num'] = intval(substr($input_message['status'], 4, 9));
+					}
+
+					$this->update_sent_msg($msg_id, $msg_details);
 				}
 				else
 				{
@@ -1379,11 +1366,6 @@ class weixin_class extends AWS_MODEL
 	{
 		$msg_id = intval($msg_id);
 
-		if (empty($msg_id))
-		{
-			return false;
-		}
-
 		static $msgs_details;
 
 		if (!$msgs_details[$msg_id])
@@ -1401,7 +1383,7 @@ class weixin_class extends AWS_MODEL
 			}
 			else
 			{
-				$msgs_details[$msg_id]['article_ids'] = explode($msgs_details[$msg_id]['article_ids'], ',');
+				$msgs_details[$msg_id]['article_ids'] = explode(',', $msgs_details[$msg_id]['article_ids']);
 			}
 
 			if (empty($msgs_details[$msg_id]['question_ids']))
@@ -1410,7 +1392,7 @@ class weixin_class extends AWS_MODEL
 			}
 			else
 			{
-				$msgs_details[$msg_id]['question_ids'] = explode($msgs_details[$msg_id]['question_ids'], ',');
+				$msgs_details[$msg_id]['question_ids'] = explode(',', $msgs_details[$msg_id]['question_ids']);
 			}
 		}
 
@@ -1426,21 +1408,11 @@ class weixin_class extends AWS_MODEL
 			$article_ids = array_unique(array_filter(array_merge($article_ids, $old_article_ids)));
 		}
 
-		if ($article_ids)
-		{
-			natsort($article_ids);
-		}
-
 		$old_question_ids = AWS_APP::cache()->get('unsent_question_ids');
 
 		if ($old_question_ids)
 		{
 			$question_ids = array_unique(array_filter(array_merge($question_ids, $old_question_ids)));
-		}
-
-		if ($question_ids)
-		{
-			natsort($question_ids);
 		}
 
 		$total = count($article_ids) + count($question_ids);
@@ -1450,9 +1422,19 @@ class weixin_class extends AWS_MODEL
 			return AWS_APP::lang()->_t('最多可添加 10 个文章和问题');
 		}
 
-		AWS_APP::cache()->set('unsent_article_ids', $article_ids, 86400);
+		if ($article_ids)
+		{
+			natsort($article_ids);
 
-		AWS_APP::cache()->set('unsent_question_ids', $question_ids, 86400);
+			AWS_APP::cache()->set('unsent_article_ids', $article_ids, 86400);
+		}
+
+		if ($question_ids)
+		{
+			natsort($question_ids);
+
+			AWS_APP::cache()->set('unsent_question_ids', $question_ids, 86400);
+		}
 
 		return AWS_APP::lang()->_t('已添加至待群发队列');
 	}
@@ -1492,13 +1474,18 @@ class weixin_class extends AWS_MODEL
 	{
 		$articles_info = $this->model('article')->get_article_info_by_ids($article_ids);
 
+		if (empty($articles_info))
+		{
+			return false;
+		}
+
 		$users_info = $this->model('account')->get_user_info_by_uids(array_column($articles_info, 'uid'));
 
 		foreach ($articles_info AS $article_info)
 		{
 			$user_info = $users_info[$article_info['uid']];
 
-			$result = $this->model('openid_weixin')->upload_file(get_setting('upload_dir') . '/avatar/' . $this->model('account')->get_avatar($user_info['uid'], 'mid'), 'thumb');
+			$result = $this->model('openid_weixin')->upload_file(get_setting('upload_dir') . '/avatar/' . $this->model('account')->get_avatar($user_info['uid'], 'real'), 'thumb');
 
 			if (empty($result))
 			{
@@ -1515,7 +1502,8 @@ class weixin_class extends AWS_MODEL
 												'author' => $user_info['user_name'],
 												'title' => $article_info['title'],
 												'content_source_url' => get_js_url('/m/article/' . $article_info['id']),
-												'content' => $article_info['message']
+												'content' => $article_info['message'],
+												'show_cover_pic' => '0'
 											);
 		}
 	}
@@ -1524,13 +1512,18 @@ class weixin_class extends AWS_MODEL
 	{
 		$questions_info = $this->model('question')->get_question_info_by_ids($question_ids);
 
+		if (empty($questions_info))
+		{
+			return false;
+		}
+
 		$users_info = $this->model('account')->get_user_info_by_uids(array_column($questions_info, 'published_uid'));
 
 		foreach ($questions_info AS $question_info)
 		{
 			$user_info = $users_info[$question_info['published_uid']];
 
-			$result = $this->model('openid_weixin')->upload_file(get_setting('upload_dir') . '/avatar/' . $this->model('account')->get_avatar($user_info['uid'], 'mid'), 'thumb');
+			$result = $this->model('openid_weixin')->upload_file(get_setting('upload_dir') . '/avatar/' . $this->model('account')->get_avatar($user_info['uid'], 'real'), 'thumb');
 
 			if (empty($result))
 			{
@@ -1546,14 +1539,20 @@ class weixin_class extends AWS_MODEL
 												'thumb_media_id' => $result['thumb_media_id'],
 												'author' => $user_info['user_name'],
 												'title' => $question_info['question_content'],
-												'content_source_url' => get_js_url('/m/article/' . $question_info['question_id']),
-												'content' => $question_info['question_detail']
+												'content_source_url' => get_js_url('/m/question/' . $question_info['question_id']),
+												'content' => $question_info['question_detail'],
+												'show_cover_pic' => '0'
 											);
 		}
 	}
 
 	public function upload_mpnews()
 	{
+		if (empty($this->mpnews))
+		{
+			return AWS_APP::lang()->_t('没有要群发的文章和问题');
+		}
+
 		$result = $this->model('openid_weixin')->access_request(
 						get_setting('weixin_app_id'),
 						get_setting('weixin_app_secret'),
@@ -1623,6 +1622,6 @@ class weixin_class extends AWS_MODEL
 
 	public function update_sent_msg($msg_id, $msg_details)
 	{
-		return $this->update('weixin_msg', $msg_details, 'msg_id = ' . intval($msg_id));
+		return $this->update('weixin_msg', $msg_details, 'msg_id = ' . $msg_id);
 	}
 }

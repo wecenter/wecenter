@@ -383,7 +383,7 @@ class weixin extends AWS_ADMIN_CONTROLLER
 
 			$account_info['id'] = intval($account_info['id']);
 
-			if (empty($account_info['id']))
+			if ($account_info['id'])
 			{
 				$this->model('weixin')->add_account($account_info);
 			}
@@ -443,19 +443,21 @@ class weixin extends AWS_ADMIN_CONTROLLER
 		if ($msg_details['article_ids'])
 		{
 			$articles_info = $this->model('article')->get_article_info_by_ids($msg_details['article_ids']);
+
+			TPL::assign('articles_info', $articles_info);
 		}
 
 		if ($msg_details['question_ids'])
 		{
 			$questions_info = $this->model('question')->get_question_info_by_ids($msg_details['question_ids']);
+
+			TPL::assign('questions_info', $questions_info);
 		}
 
 		$this->crumb(AWS_APP::lang()->_t('查看群发消息'), "admin/weixin/sent_msg_details/");
 
 		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(804));
 		TPL::assign('msg_details', $msg_details);
-		TPL::assign('articles_info', $articles_info);
-		TPL::assign('questions_info', $questions_info);
 		TPL::output('admin/weixin/sent_msg_details');
 	}
 
@@ -475,10 +477,10 @@ class weixin extends AWS_ADMIN_CONTROLLER
 
 		$article_ids = AWS_APP::cache()->get('unsent_article_ids');
 
-		$this->crumb(AWS_APP::lang()->_t('群发消息'), "admin/weixin/unsent_msg/");
-
 		if ($article_ids)
 		{
+			$article_ids = implode(',', $article_ids);
+
 			TPL::assign('article_ids', $article_ids);
 		}
 
@@ -486,8 +488,12 @@ class weixin extends AWS_ADMIN_CONTROLLER
 
 		if ($question_ids)
 		{
+			$question_ids = implode(',', $question_ids);
+
 			TPL::assign('question_ids', $question_ids);
 		}
+
+		$this->crumb(AWS_APP::lang()->_t('群发消息'), "admin/weixin/unsent_msg/");
 
 		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(804));
 		TPL::assign('groups', $groups);
@@ -499,11 +505,6 @@ class weixin extends AWS_ADMIN_CONTROLLER
 		define('IN_AJAX', TRUE);
 
 		$group_id = intval($_POST['group_id']);
-
-		if (!isset($group_id))
-		{
-			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择要群发的分组')));
-		}
 
 		$groups = $this->model('weixin')->get_groups();
 

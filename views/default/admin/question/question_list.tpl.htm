@@ -5,7 +5,7 @@
 	<div class="aw-mod-head">
 		<h2>
 			<span class="pull-left"><?php _e('问题管理'); ?></span>
-			
+
 			<ul class="nav nav-tabs pull-left">
 			    <li class="active"><a href="#list" data-toggle="tab"><?php _e('问题列表'); ?></a></li>
 			    <li><a href="#search" data-toggle="tab"><?php _e('搜索'); ?></a></li>
@@ -17,9 +17,11 @@
 			<?php if ($_GET['action'] == 'search') { ?>
 			<div class="alert alert-info" style="margin:10px 0"><?php _e('找到 %s 条符合条件的内容', intval($this->question_num)); ?></div>
 			<?php } ?>
-			
+
 			<?php if ($this->list) { ?>
 			<form id="batchs_form" action="admin/question/question_batch/" method="post">
+				<input type="hidden" id="action" name="action" value="del" />
+
 				<table class="aw-table">
 					<thead>
 						<tr>
@@ -53,7 +55,10 @@
 						<tr>
 							<td colspan="9">
 								<span class="pull-right"><?php echo $this->pagination; ?></span>
-								<a class="btn btn-inverse" onclick="ajax_post($('#batchs_form'));" href="javascript:;"><?php _e('删除所选'); ?></a>
+
+								<a class="btn btn-inverse" onclick="$('#action').val('del'); ajax_post($('#batchs_form'));" href="javascript:;"><?php _e('删除所选'); ?></a>
+
+								<a class="btn btn-inverse" onclick="$('#action').val('send'); ajax_post($('#batchs_form'));" href="javascript:;"><?php _e('微信群发'); ?></a>
 							</td>
 						</tr>
 					</tfoot>
@@ -61,7 +66,7 @@
 			</form>
 			<?php } ?>
 		</div>
-	
+
 		<div class="tab-pane" id="search">
 			<form method="post" action="admin/question/question_list/" onsubmit="return false;" id="search_form">
 				<input name="action" type="hidden" value="search" />

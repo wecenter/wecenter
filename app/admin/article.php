@@ -145,7 +145,7 @@ class article extends AWS_ADMIN_CONTROLLER
 				break;
 
 			case 'send':
-				$result = $this->model('weixin')->add_article_or_question_ids_to_cache($_POST['article_ids']);
+				$result = $this->model('weixin')->add_article_or_question_ids_to_cache($_POST['article_ids'], null);
 
 				H::ajax_json_output(AWS_APP::RSM(null, -1, $result));
 
