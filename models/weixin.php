@@ -1609,7 +1609,7 @@ class weixin_class extends AWS_MODEL
 
 	public function save_sent_msg($group_name, $article_ids, $question_ids, $filter_count)
 	{
-		return $this->insert('weixin_msg', array(
+		$this->insert('weixin_msg', array(
 					'msg_id' => intval($this->msg_id),
 					'group_name' => trim($group_name),
 					'status' => 'pending',
@@ -1618,6 +1618,10 @@ class weixin_class extends AWS_MODEL
 					'create_time' => time(),
 					'filter_count' => intval($filter_count)
 				));
+
+		AWS_APP::cache()->delete('unsent_article_ids');
+
+		AWS_APP::cache()->delete('unsent_question_ids');
 	}
 
 	public function update_sent_msg($msg_id, $msg_details)
