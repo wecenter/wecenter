@@ -50,4 +50,17 @@
 		</div>
 	</div>
 </div>
+
+<script type="text/javascript">
+	$(function()
+	{
+		$.each($('.aw-common-list .aw-item.article'), function (i, e)
+		{
+			if (!$(this).find('.aw-comment-upload-img-list').length)
+			{
+				$(this).find('.img.pull-right').detach();
+			}
+		});
+	});
+</script>
 <?php TPL::output('global/footer.tpl.htm'); ?>

@@ -381,6 +381,11 @@ a.aw-load-more-content{display: block;}
 .aw-common-list .aw-item{position:relative;z-index:0;height:auto;min-height:45px;overflow:hidden;padding:15px 5px 15px 70px;}
 .aw-common-list .aw-item.active, .aw-common-list .aw-item.active .fa-caret-left{background-color: #f9fcff;}
 .aw-common-list .aw-item.article, .aw-common-list .aw-item.article .fa-caret-left{background-color: #fffff8;}
+.aw-common-list .aw-item.article .markitup-box{margin-top:10px;max-height: 130px;overflow: hidden;}
+.aw-common-list .aw-item.article .img{width: 200px;height: 130px;margin-left: 10px;}
+.aw-common-list .aw-item.article .aw-comment-upload-img-list{position: absolute;right: 0;top: 0;width: 200px;}
+.aw-common-list .aw-item.article .aw-comment-upload-img-list img{max-width: 200px;}
+.aw-common-list .aw-item.article .more{font-size: 12px;}
 .aw-common-list{width:100%;height:auto;overflow: hidden;}
 .aw-common-list > div + div{border-top:1px dotted #E2E2E2;}
 /* 问题列表回复统计 */

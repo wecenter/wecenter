@@ -56,7 +56,7 @@
 				</ul>
 			</div>
 			<div class="aw-mod-footer">
-				<a href="javascript:;" class="btn btn-inverse btn-normal" id="login_submit" onclick="ajax_post($('#login_form'), _error_message_form_processer);"><?php _e('登录'); ?></a>
+				<a href="javascript:;" class="btn btn-inverse btn-normal" id="login_submit" onclick="AWS.ajax_post($('#login_form'), AWS.ajax_processer, 'error_message');"><?php _e('登录'); ?></a>
 			</div>
 		</div>
 	</form>
