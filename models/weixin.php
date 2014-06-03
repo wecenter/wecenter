@@ -35,6 +35,8 @@ class weixin_class extends AWS_MODEL
 
 	private $to_save_questions;
 
+	private $to_save_main_msg;
+
 	public function replace_post($subject)
 	{
 		return preg_replace_callback(
@@ -1405,9 +1407,9 @@ class weixin_class extends AWS_MODEL
 
 		$total = count($article_ids) + count($question_ids);
 
-		if ($total > 10)
+		if ($total > 9)
 		{
-			return AWS_APP::lang()->_t('最多可添加 10 个文章和问题');
+			return AWS_APP::lang()->_t('最多可添加 9 个文章和问题');
 		}
 
 		if ($article_ids)
@@ -1456,6 +1458,35 @@ class weixin_class extends AWS_MODEL
 		}
 
 		return $groups;
+	}
+
+	public function add_main_msg_to_mpnews($main_msg)
+	{
+		$result = $this->model('openid_weixin')->upload_file($main_msg['img'], 'thumb');
+
+		if (empty($result))
+		{
+			return AWS_APP::lang()->_t('远程服务器忙');
+		}
+
+		if ($result['errmsg'])
+		{
+			return $result['errmsg'];
+		}
+
+		$this->mpnews['articles'][] = array(
+											'thumb_media_id' => $result['thumb_media_id'],
+											'author' => $main_msg['author'],
+											'title' => $main_msg['title'],
+											'content_source_url' => $main_msg['url'],
+											'content' => $main_msg['content'],
+											'show_cover_pic' => $main_msg['show_cover_pic']
+										);
+
+		$this->to_save_main_msg = array(
+										'title' => $main_msg['title'],
+										'content' => $main_msg['content']
+									);
 	}
 
 	public function add_articles_to_mpnews($article_ids)
@@ -1548,7 +1579,7 @@ class weixin_class extends AWS_MODEL
 	{
 		if (empty($this->mpnews))
 		{
-			return AWS_APP::lang()->_t('没有要群发的文章和问题');
+			return AWS_APP::lang()->_t('没有要群发的内容');
 		}
 
 		$result = $this->model('openid_weixin')->access_request(
@@ -1605,12 +1636,13 @@ class weixin_class extends AWS_MODEL
 		$this->msg_id = $result['msg_id'];
 	}
 
-	public function save_sent_msg($group_name, $article_ids, $question_ids, $filter_count)
+	public function save_sent_msg($group_name, $filter_count)
 	{
 		$this->insert('weixin_msg', array(
 					'msg_id' => $this->msg_id,
 					'group_name' => trim($group_name),
 					'status' => 'pending',
+					'main_msg' => serialize($this->to_save_main_msg),
 					'articles_info' => serialize($this->to_save_articles),
 					'questions_info' => serialize($this->to_save_questions),
 					'create_time' => time(),

@@ -440,6 +440,33 @@ class weixin extends AWS_ADMIN_CONTROLLER
 			H::redirect_msg(AWS_APP::lang()->_t('群发消息不存在'));
 		}
 
+		if (empty($msg_details['main_msg']))
+		{
+			unset($msg_details['main_msg']);
+		}
+		else
+		{
+			$msg_details['main_msg'] = unserialize($msg_details['main_msg']);
+		}
+
+		if (empty($msg_details['articles_info']))
+		{
+			unset($msg_details['articles_info']);
+		}
+		else
+		{
+			$msg_details['articles_info'] = unserialize($msg_details['articles_info']);
+		}
+
+		if (empty($msg_details['questions_info']))
+		{
+			unset($msg_details['questions_info']);
+		}
+		else
+		{
+			$msg_details['questions_info'] = unserialize($msg_details['questions_info']);
+		}
+
 		$this->crumb(AWS_APP::lang()->_t('查看群发消息'), "admin/weixin/sent_msg_details/");
 
 		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(804));
@@ -501,6 +528,31 @@ class weixin extends AWS_ADMIN_CONTROLLER
 			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('选择的分组不存在')));
 		}
 
+		if (empty($_POST['main_msg_title']))
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请输入封面的标题')));
+		}
+
+		if (empty($_POST['main_msg_author']))
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请输入封面的作者')));
+		}
+
+		if (empty($_POST['main_msg_context']))
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请输入封面的内容')));
+		}
+
+		if (empty($_POST['main_msg_url']))
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请输入封面的原文链接')));
+		}
+
+		if ($_POST['show_cover_pic'] !== '0' OR $_POST['show_cover_pic'] !== '1')
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择是否显示封面')));
+		}
+
 		$article_ids = array_unique(array_filter(explode(',', $_POST['article_ids'])));
 
 		$question_ids = array_unique(array_filter(explode(',', $_POST['question_ids'])));
@@ -512,9 +564,9 @@ class weixin extends AWS_ADMIN_CONTROLLER
 
 		$total = count($article_ids) + count($question_ids);
 
-		if ($total > 10)
+		if ($total > 9)
 		{
-			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('最多可添加 10 个文章和问题')));
+			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('最多可添加 9 个文章和问题')));
 		}
 
 		if (!empty($article_ids))
@@ -544,22 +596,21 @@ class weixin extends AWS_ADMIN_CONTROLLER
 			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('上传图文消息失败，错误为：') . $error_msg));
 		}
 
-/*
-		if ($_FILES['msg_img']['error'] === UPLOAD_ERR_OK)
+		if ($_FILES['main_msg_img']['error'] === UPLOAD_ERR_OK)
 		{
-			if ($_FILES['msg_img']['type'] != 'image/jpeg')
+			if ($_FILES['main_msg_img']['type'] != 'image/jpeg')
 			{
 				H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('只允许上传 jpeg 格式的图片')));
 			}
 
-			if ($_FILES['msg_img']['size'] > '262144')
+			if ($_FILES['main_msg_img']['size'] > '262144')
 			{
 				H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('图片最大为 256KB')));
 			}
 
-			if (is_uploaded_file($_FILES['msg_img']['tmp_name']))
+			if (is_uploaded_file($_FILES['main_msg_img']['tmp_name']))
 			{
-				$msg_img = $_FILES['msg_img']['tmp_name'];
+				$main_msg_img = '@' . $_FILES['main_msg_img']['tmp_name'];
 			}
 			else
 			{
@@ -568,9 +619,24 @@ class weixin extends AWS_ADMIN_CONTROLLER
 		}
 		else
 		{
-			$msg_img = AWS_APP::config()->get('weixin')->default_list_image;
+			$main_msg_img = AWS_APP::config()->get('weixin')->default_list_image;
 		}
-*/
+
+		$main_msg = array(
+						'author' => $_POST['main_msg_author'],
+						'title' => $_POST['main_msg_title'],
+						'url' => $_POST['main_msg_url'],
+						'context' => $_POST['main_msg_context'],
+						'img' => $main_msg_img,
+						'show_cover_pic' => $_POST['show_cover_pic']
+					);
+
+		$error_msg = $this->model('weixin')->add_main_msg_to_mpnews($main_msg);
+
+		if (isset($error_msg))
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('上传封面图失败，错误为：') . $error_msg));
+		}
 
 		$error_msg = $this->model('weixin')->send_msg($group_id, 'mpnews');
 
@@ -579,7 +645,7 @@ class weixin extends AWS_ADMIN_CONTROLLER
 			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('群发任务提交失败，错误为：') . $error_msg));
 		}
 
-		$this->model('weixin')->save_sent_msg($group_name, $article_ids, $question_ids, $groups[$group_id]['count']);
+		$this->model('weixin')->save_sent_msg($group_name, $groups[$group_id]['count']);
 
 		H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('群发任务提交成功')));
 	}

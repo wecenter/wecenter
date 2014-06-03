@@ -14,7 +14,7 @@
     </div>
 
     <div class="aw-mod-body">
-    <form action="admin/weixin/send_msg/" id="settings_form" method="post">
+    <form action="admin/weixin/send_msg/" id="settings_form" method="post" enctype="multipart/form-data">
     <dl>
         <dt><h3><?php _e('目标分组：'); ?></h3></dt>
         <dd>
@@ -27,6 +27,74 @@
                     </select>
                 </div>
             </div>
+        </dd>
+    </dl>
+
+    <dl>
+        <dt><h3><?php _e('封面标题：'); ?></h3></dt>
+        <dd>
+            <div class="row">
+                <div class="col-sm-7">
+                    <input class="form-control" name="main_msg_title" type="text" />
+                </div>
+            </div>
+        </dd>
+    </dl>
+
+    <dl>
+        <dt><h3><?php _e('封面作者：'); ?></h3></dt>
+        <dd>
+            <div class="row">
+                <div class="col-sm-7">
+                    <input class="form-control" name="main_msg_author" type="text" />
+                </div>
+            </div>
+        </dd>
+    </dl>
+
+    <dl>
+        <dt><h3><?php _e('封面内容：'); ?></h3></dt>
+        <dd>
+            <div class="row">
+                <div class="col-sm-7">
+                    <input class="form-control" name="main_msg_context" type="text" />
+                </div>
+            </div>
+        </dd>
+    </dl>
+
+    <dl>
+        <dt><h3><?php _e('封面的原文链接：'); ?></h3></dt>
+        <dd>
+            <div class="row">
+                <div class="col-sm-7">
+                    <input class="form-control" name="main_msg_url" type="text" />
+                </div>
+            </div>
+        </dd>
+    </dl>
+
+    <dl>
+        <dt><h3><?php _e('封面图片：'); ?></h3></dt>
+        <dd>
+            <div class="row">
+                <div class="col-sm-7">
+                    <input name="main_msg_img" type="file">
+                </div>
+            </div>
+        </dd>
+    </dl>
+
+    <dl>
+        <dt><h3><?php _e('在正文中显示封面图片：'); ?></h3></dt>
+        <dd>
+            <span class="yesno_yes">
+                <label><input type="radio" name="show_cover_pic" value="1" checked="checked">是</label>
+            </span>
+
+            <span class="yesno_no">
+                <label><input type="radio" name="show_cover_pic" value="0">否</label>
+            </span>
         </dd>
     </dl>
 
