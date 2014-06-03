@@ -440,15 +440,6 @@ class weixin extends AWS_ADMIN_CONTROLLER
 			H::redirect_msg(AWS_APP::lang()->_t('群发消息不存在'));
 		}
 
-		if (empty($msg_details['main_msg']))
-		{
-			unset($msg_details['main_msg']);
-		}
-		else
-		{
-			$msg_details['main_msg'] = unserialize($msg_details['main_msg']);
-		}
-
 		if (empty($msg_details['articles_info']))
 		{
 			unset($msg_details['articles_info']);
