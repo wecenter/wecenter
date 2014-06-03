@@ -21,7 +21,7 @@
 			<div id="weixin-desc" style="display:none;">
 				<?php echo cjk_substr(str_replace(array("\r","\n"),array(' ',' '), strip_tags($this->article_info['message'])), 0, 130, 'UTF-8', '...');?>
 			</div>
-
+							
 			<?php if ($this->article_info['attachs']) {  ?>
 			<div class="aw-comment-upload-img-list">
 			<?php foreach ($this->article_info['attachs'] AS $attach) { ?>
@@ -31,7 +31,7 @@
 			<?php } ?>
 			</div>
 			<?php } ?>
-
+			
 			<?php if ($this->article_info['attachs']) {  ?>
 			<ul class="aw-comment-upload-file-list">
 				<?php foreach ($this->article_info['attachs'] AS $attach) { ?>
@@ -43,8 +43,8 @@
 			<?php } ?>
 			<div class="aw-article-detail-meta clearfix">
 				<span class="aw-article-vote<?php if (!$this->user_id OR $this->user_id == $this->article_info['uid']) { ?> disabled<?php } ?>">
-					<a href="javascript:;" class="agree<?php if ($this->article_info['vote_info']['rating'] == 1) { ?> active<?php } ?>" onclick="article_vote(this, <?php echo $this->article_info['id']; ?>, 1);"><i class="fa fa-thumbs-up"></i> <b><?php echo $this->article_info['votes']; ?></b> <?php _e('赞'); ?></a>
-					<a href="javascript:;" class="disagree<?php if ($this->article_info['vote_info']['rating'] == -1) { ?> active<?php } ?>" onclick="article_vote(this, <?php echo $this->article_info['id']; ?>, -1);"><i class="fa fa-thumbs-down"></i></a>
+					<a href="javascript:;" class="agree<?php if ($this->article_info['vote_info']['rating'] == 1) { ?> active<?php } ?>" onclick="AWS.User.article_vote($(this), <?php echo $this->article_info['id']; ?>, 1);"><i class="fa fa-thumbs-up"></i> <b><?php echo $this->article_info['votes']; ?></b> <?php _e('赞'); ?></a>
+					<a href="javascript:;" class="disagree<?php if ($this->article_info['vote_info']['rating'] == -1) { ?> active<?php } ?>" onclick="AWS.User.article_vote($(this), <?php echo $this->article_info['id']; ?>, -1);"><i class="fa fa-thumbs-down"></i></a>
 				</span>
 			</div>
 		</div>
@@ -58,7 +58,7 @@
 			</div>
 		</div>
 		<?php } ?>
-
+		
 	</div>
 	<div class="aw-answers-title">
 		<h2><?php _e('%s 个评论', $this->comments_count); ?></h2>
@@ -78,30 +78,30 @@
 				</div>
 				<div class="aw-mod-body markitup-box"><?php echo nl2br($val['message']); ?></div>
 				<div class="aw-mod-footer">
-					<span class="aw-text-color-999"><?php echo date_friendly($val['add_time']); ?></span>
-
+					<span class="aw-text-color-999"><?php echo date_friendly($val['add_time']); ?></span> 
+					
 					<?php if ($this->user_id) { ?><a class="aw-article-comment" data-id="<?php echo $val['user_info']['uid']; ?>"><i class="fa fa-comment"></i> <?php _e('回复'); ?></a>
-
-					<a onclick="comment_vote(this, <?php echo $val['id']; ?>, 1)"<?php if ($val['vote_info']['rating'] == 1) { ?> class="active"<?php } ?>><i class="fa fa-thumbs-up"></i> <?php if ($val['vote_info']['rating'] == 1) { ?><?php _e('我已赞'); ?><?php } else { ?><?php _e('赞'); ?><?php } ?></a><?php } ?>
-
+					
+					<a onclick="AWS.User.article_comment_vote($(this), <?php echo $val['id']; ?>, 1)"<?php if ($val['vote_info']['rating'] == 1) { ?> class="active"<?php } ?>><i class="fa fa-thumbs-up"></i> <?php if ($val['vote_info']['rating'] == 1) { ?><?php _e('我已赞'); ?><?php } else { ?><?php _e('赞'); ?><?php } ?></a><?php } ?>
+					
 					<span class="pull-right aw-text-color-999"><?php echo $val['votes']; ?> <?php _e('赞'); ?></span>
 				</div>
 			</li>
 			<?php } ?>
 		</ul>
-
+		
 		<?php if ($_GET['item_id']) { ?>
 		<a href="article/<?php echo $this->article_info['id']; ?>" class="aw-load-more"><?php _e('查看全部评论'); ?></a>
 		<?php } ?>
 	</div>
 	<?php } ?>
-
+	
 	<!-- end 评论列表 -->
 	<a name="answer_form"></a>
 	<?php if ($this->next_page) { ?>
 	<a href="m/question/<?php echo $this->question_info['question_id']; ?>?page-<?php echo $this->next_page; ?>" class="aw-load-more">下一页</a>
 	<?php } ?>
-
+	
 	<?php if ($this->article_info['lock']) { ?>
 	<p align="center"><?php _e('该文章目前已经被锁定, 无法添加新评论'); ?></p>
 	<?php } else if (!$this->user_id) { ?>
@@ -122,12 +122,12 @@
 		</div>
 		<div class="aw-mod-footer clearfix">
 			<span class="pull-right">
-				<a class="btn btn-success pull-left" onclick="ajax_post($('#answer_form'));"><?php _e('回复'); ?></a>
+				<a class="btn btn-success pull-left" onclick="AWS.ajax_post($('#answer_form'));"><?php _e('回复'); ?></a>
 			</span>
 			<?php if ($this->human_valid) { ?>
 				<div class="aw-auth-img pull-right clearfix">
-					<em class="auth-img pull-left"><img src="" onclick="reload_captcha();" id="captcha" /></em>
-					<input class="pull-left" type="text" name="seccode_verify" placeholder="<?php _e('验证码'); ?>" maxlength="4" />
+					<em class="auth-img pull-left"><img src="" onclick="this.src = G_BASE_URL + '/account/captcha/' + Math.floor(Math.random() * 10000);" id="captcha" /></em>
+					<input class="pull-left" type="text" name="seccode_verify" placeholder="<?php _e('验证码'); ?>" />
 				</div>
 			<?php } ?>
 		</div>

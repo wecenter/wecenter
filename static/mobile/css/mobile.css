@@ -3,7 +3,7 @@
 *{margin:0;padding:0;}
 body{padding:0 0 20px 0 !important;}
 input, textarea, select{margin-bottom:10px;font-family: "Helvetica Neue",Helvetica,Arial,'Microsoft YaHei',sans-serif;color: #666;}
-ul,li,ol{margin:0;list-style: none;}
+ul ,ol{margin:0;list-style: none;}
 article, aside, dialog, footer, header, section, footer, nav, figure, menu {display: block;}
 h1,h2,h3,h4,h5,h6{margin:0;font-size: 16px;line-height: 30px;font-weight: 700;}
 a{cursor: pointer;}
@@ -28,8 +28,8 @@ code{white-space: normal;}
 .aw-text-color-red{color: red;}
 .aw-relative{position: relative;}
 .btn-mini{min-width: 60px;padding:2px 3px;font-size:14px;font-weight: normal;}
-.btn-primary.aw-active{background:#FFFFFF;border:1px solid #CCCCCC;color: #333333;}
-.btn-primary.aw-active:hover{background: #EBEBEB;border-color:#ADADAD;color: #333333;}
+.btn-default.aw-active{background:#428BCA;border:1px solid #357EBD;color: #fff;}
+.btn-default.aw-active:hover{background: #3276B1;border-color:#285E8E;color: #fff;}
 .img-polaroid{max-width: 90%;}
 .badge.badge-info{background: #3A87AD;}
 .aw-loading{display:inline-block;width:16px;height:16px;background: url(img/ajax-loader.gif) no-repeat;}
@@ -43,12 +43,12 @@ input[type="text"]:focus, input[type="password"]:focus {border-color: #66afe9;ou
 .aw-text-color-orange{color: #F5A900;}
 
 /* tabs切换样式重载 */
-.aw-reset-nav-tabs{position:relative;z-index:1;margin:0;min-height: 30px;}
-.aw-reset-nav-tabs > li{margin:0 4px 0 0;font-size: 14px;}
-.aw-reset-nav-tabs > li > a{line-height:30px;padding:0 13px;cursor: pointer !important;background-color: #FCFDFF;border: 1px solid #ddd;border-bottom-color: transparent;border-radius: 3px 3px 0 0;}
-.aw-reset-nav-tabs > li > a:hover{background-color: #F5FAFF;border: 1px solid #ddd;border-bottom-color: transparent;}
-.aw-reset-nav-tabs > li.active{margin:0 4px -1px 0;}
-.aw-reset-nav-tabs > li.active a{line-height:31px;background-color: #fff;}
+.aw-nav-tabs{position:relative;z-index:1;margin:0;min-height: 30px;}
+.aw-nav-tabs > li{margin:0 4px 0 0;font-size: 14px;}
+.aw-nav-tabs > li > a{line-height:30px;padding:0 13px;cursor: pointer !important;background-color: #FCFDFF;border: 1px solid #ddd;border-bottom-color: transparent;border-radius: 3px 3px 0 0;}
+.aw-nav-tabs > li > a:hover{background-color: #F5FAFF;border: 1px solid #ddd;border-bottom-color: transparent;}
+.aw-nav-tabs > li.active{margin:0 4px -1px 0;}
+.aw-nav-tabs > li.active a{line-height:31px;background-color: #fff;}
 
 
 /* 顶部 */
@@ -351,7 +351,7 @@ nav #aw-top-nav-notic .badge{position: absolute;right: 0;top:1px;z-index:100;pad
 .aw-people-list-page{margin:10px;padding:0;border:1px solid #DCDCDC;border-radius: 5px;}
 .aw-people-list-page .aw-user-sort-title{height: 50px;background-color: #f5f5f5;border-bottom: 1px solid #DCDCDC;}
 .aw-people-list-page .aw-user-sort-title h3{line-height: 50px;margin-left: 10px;}
-.aw-people-list-page .aw-user-sort-title .aw-reset-nav-tabs{position: relative;top: 17px;margin-right: 10px;}
+.aw-people-list-page .aw-user-sort-title .aw-nav-tabs{position: relative;top: 17px;margin-right: 10px;}
 .aw-people-list-page .side-nav{padding:10px;border-bottom: 1px solid #DCDCDC;}
 .aw-people-list-page .side-nav ul li{float: left;margin:0 5px 5px 0;}
 .aw-people-list-page .side-nav ul li a{display:block;line-height: 34px;padding:0 10px;border-radius: 5px;}
@@ -499,7 +499,7 @@ nav #aw-top-nav-notic .badge{position: absolute;right: 0;top:1px;z-index:100;pad
 .icon-v.i-ve{color: #fce568;}
 .fa-arrow-circle-right{margin-left: 5px;font-size: 16px;}
 .fa-edit{margin-right: 5px;}
-.fa-thumbs-up.active{color: #428BCA;}
+.fa-thumbs-up.active, .fa-thumbs-down.active{color: #428BCA;}
 .icon-g-replay{color: #1A9F00;}
 
 /* 底部 */

@@ -30,12 +30,11 @@
 	$(document).ready(function () {
 		if ($('#focus_topics_listview').length)
 		{
-			load_list_view(G_BASE_URL + '/m/ajax/focus_topics_list/', $('#focus_topics_listview'), $('#load_focus_topics'));
+			AWS.load_list_view(G_BASE_URL + '/m/ajax/focus_topics_list/', $('#load_focus_topics'), $('#focus_topics_listview'));
 		}
-		
 		if ($('#hot_topics_list').length)
 		{
-			load_list_view(G_BASE_URL + '/m/ajax/hot_topics_list/', $('#hot_topics_list'), $('#load_hot_topics'), 1);
+			AWS.load_list_view(G_BASE_URL + '/m/ajax/hot_topics_list/', $('#load_hot_topics'), $('#hot_topics_list'), 1);
 		}
 	});
 </script>

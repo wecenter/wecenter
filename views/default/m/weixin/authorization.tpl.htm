@@ -9,8 +9,8 @@
 			<div class="bind-form">
 				<p><?php _e('请填写下列表单完成与微信账号的绑定'); ?></p>
 				<form id="login_form" method="post" onsubmit="return false;" action="account/ajax/login_process/">
-					<input type="hidden" name="return_url" value="<?php echo get_js_url('/m/weixin/binding/redirect-' . urlencode($_GET['redirect'])); ?>" />
-
+					<input type="hidden" name="return_url" value="<?php echo get_js_url('/m/weixin/binding/redirect-' . urlencode($_GET['redirect'])); ?>" />					
+					
 					<div class="email">
 						<input type="text" id="user_name" name="user_name" placeholder="<?php _e('邮箱'); ?>/<?php _e('用户名'); ?>" />
 					</div>
@@ -23,9 +23,9 @@
 				<p><?php _e('请填写下列表单完成账号注册'); ?></p>
 				<form id="register_form" method="post" onsubmit="return false;" action="account/ajax/register_process/">
 					<input type="hidden" name="agreement_chk" value="agree" />
-
+					
 					<input type="hidden" name="return_url" value="<?php echo get_js_url('/m/weixin/binding/redirect-' . urlencode($_GET['redirect'])); ?>" />
-
+					
 					<div class="username">
 						<input type="text" id="user_name" name="user_name" placeholder="<?php _e('用户名'); ?>" value="<?php echo $this->access_user['nickname']; ?>" />
 					</div>
@@ -37,27 +37,24 @@
 					</div>
 					<?php if (!$this->fromuid AND !$this->icode AND get_setting('register_seccode') == 'Y') { ?>
 					<div class="verify clearfix">
-						<input type="text" id="seccode_verify" name="seccode_verify" placeholder="<?php _e('验证码'); ?>" maxlength="4" />
-						<img class="pull-right" id="captcha" onclick="reload_captcha();" src="" />
+						<input type="text" id="seccode_verify" name="seccode_verify" placeholder="<?php _e('验证码'); ?>" />
+						<img class="pull-right" id="captcha" onclick="this.src = G_BASE_URL + '/account/captcha/' + Math.floor(Math.random() * 10000);" src="" />
 					</div>
 					<?php } ?>
 				</form>
 			</div>
 
 			<div class="bind-confirm">
-				<a class="btn-submit" href="javascript:;" onclick="ajax_post($('#login_form'));"><?php _e('绑定微信'); ?></a>
-				<p><?php _e('如果您还未注册, 请先注册问答账号'); ?></p>
-				<a href="javascript:;" class="btn-submit btn-green" onclick="$('.bind-confirm, .bind-form').hide();$('.register-confirm, .register-form').show();"><?php _e('注册')?></a>
-
-				<p><?php _e('或者点击下面的按钮生成帐号'); ?></p>
-					<a href="<?php echo $this->register_url; ?>" class="btn-submit btn-green"><?php _e('生成帐号')?></a>
+				<a class="btn-submit" href="javascript:;" onclick="ajax_post($('#login_form'));"><?php _e('绑定微信'); ?></a>	
+					<p><?php _e('如果您还未注册, 请先注册问答账号'); ?></p>
+					<a href="javascript:;" class="btn-submit btn-green" onclick="$('.bind-confirm, .bind-form').hide();$('.register-confirm, .register-form').show();"><?php _e('注册')?></a>
 			</div>
-
+					
 			<div class="register-confirm hide">
 				<a href="javascript:;" class="btn-submit" onclick="ajax_post($('#register_form')); return false;"><?php _e('注册')?></a>
 				<a class="btn-submit btn-green" href="javascript:;" onclick="$('.register-confirm, .register-form').hide();$('.bind-confirm, .bind-form').show();"><?php _e('绑定微信'); ?></a>
 			</div>
-
+					
 		</div>
 	</div>
 <div>
@@ -69,5 +66,6 @@
 	<?php echo get_setting('statistic_code'); ?>
 </div>
 <!-- / DO NOT REMOVE -->
+
 </body>
 </html>

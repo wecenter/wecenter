@@ -11,15 +11,15 @@ $(document).ready(function()
 });
 </script>
 
-<div class="aw-side-bar-mod new-message hide" id="aw-site-announce">
-	<div class="aw-mod-head">
+<div class="aw-mod new-announce hide" id="aw-site-announce">
+	<div class="mod-head">
 		<h3>
-			<a href="javascript:;" onclick="$('#aw-site-announce').fadeOut(); $.cookie('announce_close', ANNOUNCE_CLOSE, { expires: 30 });"><button class="close aw-close" type="button">×</button></a>
+			<a href="javascript:;" onclick="$('#aw-site-announce').fadeOut(); $.cookie('announce_close', ANNOUNCE_CLOSE, { expires: 30 });"><i class="close">×</i></a>
 			
 			<?php _e('公告'); ?>
 		</h3>
 	</div>
-	<div class="aw-mod-body">
+	<div class="mod-body">
 		<?php echo get_setting('site_announce'); ?>
 	</div>
 </div>

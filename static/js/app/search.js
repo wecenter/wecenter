@@ -1,31 +1,21 @@
 var cur_page = 1;
-var search_result_more_inner_o = '';
 var search_query = '';
 var split_query = '';
 var ajax_template = '';
-
-function reload_list()
+$(function()
 {
-	cur_page = 1;
-	
-	$('#search_result').html('<p style="padding: 15px 0" align="center"><img src="' + G_STATIC_URL + '/common/loading_b.gif" alt="" /></p>');
-	
-	$('#search_result_more').html(search_result_more_inner_o);
-	
-	$('#search_result_more').click();
-}
-
-$(document).ready(function()
-{
-	$('#list_nav a').click(function () {		
+	$('#list_nav a').click(function ()
+	{		
 		window.location.hash = $(this).attr('href').replace(/#/g, '');
 		
 		$('#aw-search-type').html($(this).text());
 		
-		reload_list();
-	});
+		cur_page = 1;
 	
-	search_result_more_inner_o = $('#search_result_more').html();
+		$('#search_result').html('<p style="padding: 15px 0" align="center"><img src="' + G_STATIC_URL + '/common/loading_b.gif" alt="" /></p>');
+		
+		$('#search_result_more').click();
+	});
 	
 	$('#search_result_more').click(function()
 	{
@@ -34,7 +24,6 @@ $(document).ready(function()
 		var request_url = G_BASE_URL + '/search/ajax/search_result/search_type-' +  window.location.hash.replace(/#/g, '') + '__q-' + encodeURIComponent(search_query) + '__template-' + ajax_template + '__page-' + cur_page;
 		
 		$(this).addClass('loading');
-		$(this).find('span').html(_t('正在载入') + '...');
 		
 		$.get(request_url, function (response)
 		{
@@ -53,7 +42,6 @@ $(document).ready(function()
 					
 				cur_page++;
 				
-				$(_this).html(search_result_more_inner_o);
 			}
 			else
 			{
@@ -75,15 +63,15 @@ $(document).ready(function()
 	});
 	
 	switch (window.location.hash)
-	{
-		default:
-			$("#list_nav a[href='#all']").click();
-		break;
-		
+	{	
 		case '#questions':
 		case '#topics':
 		case '#users':
 			$("#list_nav a[href='" + window.location.hash + "']").click();
+		break;
+
+		default:
+			$("#list_nav a[href='#all']").click();
 		break;
 	}
 });

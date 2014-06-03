@@ -4,8 +4,7 @@ window.onload = function()
 	{
 		var newNode = document.createElement("div");
 			newNode.setAttribute('id', 'browser-not-support');
-	        newNode.innerHTML = '<div class="aw-wecenter">'+
-					'<img class="pull-left" src="'+ G_STATIC_URL +'/css/default/img/404-logo.png" alt="" />'+
+	        newNode.innerHTML = '<img class="pull-left" src="'+ G_STATIC_URL +'/css/default/img/404-logo.png" alt="" />'+
 					'<div class="pull-left content">'+
 						'<h1>您的浏览器<span>不受支持</span></h1>'+
 						'<p>您的浏览器版本非常旧, 存在诸多安全和体验问题! 建议<a href="http://windows.microsoft.com/zh-cn/windows/upgrade-your-browser">更新</a>或者使用其他浏览器来访问, 如果您使用的是搜狗、360、遨游等双核浏览器, 请切换到极速模式以获得更好的体验</p>'+
@@ -14,8 +13,7 @@ window.onload = function()
 							'<li><a href="http://opera.com/">￮ Opera 浏览器</a></li>'+
 							'<li><a href="http://www.mozilla.com/firefox/">￮ Firefox 浏览器</a></li>'+
 						'</ul>'+
-					'</div>'+
-				'</div>';
+					'</div>';
 		document.getElementsByTagName('body')[0].appendChild(newNode);
 		// window.location = G_BASE_URL + '/home/browser_not_support/';
 	}

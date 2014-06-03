@@ -4,7 +4,7 @@
 <!-- 内容 -->
 <div class="aw-content inbox">
 	<div class="aw-title">
-		<h2><a class="btn btn-mini btn-primary pull-right" onclick="alert_box('message')"><?php _e('发私信'); ?></a><?php _e('我的私信'); ?></h2>
+		<h2><a class="btn btn-mini btn-primary pull-right" onclick="AWS.dialog('message')"><?php _e('发私信'); ?></a><?php _e('我的私信'); ?></h2>
 	</div>
 	<div class="inbox-list">
 		<ul id="inbox_listview"></ul>
@@ -16,7 +16,7 @@
 
 <script type="text/javascript">
 	$(document).ready(function () {
-		load_list_view(G_BASE_URL + '/m/ajax/inbox_list/template-m', $('#inbox_listview'), $('#load_inbox'), 1);
+		AWS.load_list_view(G_BASE_URL + '/m/ajax/inbox_list/template-m', $('#load_inbox'), $('#inbox_listview'), 1);
 	});
 </script>
 

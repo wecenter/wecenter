@@ -16,7 +16,7 @@
 			<p class="aw-padding10">
 				<form action="account/ajax/valid_email_active/" method="post" id="active_form">
 					<input type="hidden" name="active_code" value="<?php echo $this->active_code; ?>" />
-					<button class="btn btn-large btn-success" onclick="ajax_post($('#active_form')); return false;"><?php _e('下一步'); ?></button>
+					<button class="btn btn-large btn-success" onclick="AWS.ajax_post($('#active_form')); return false;"><?php _e('下一步'); ?></button>
 				</form>	
 			</p>
 		</div>

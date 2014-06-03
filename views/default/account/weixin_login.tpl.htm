@@ -1,34 +1,1 @@
-<?php TPL::output('global/header_meta.tpl.htm'); ?>
-
-<body class="aw-wechat-body">
-	<div class="aw-wechat-login-box">
-		<h1><?php _e('微信登录'); ?></h1>
-		<!--<i class="icon-wechat"></i>-->
-		<p align="center"><img src="<?php echo $this->qr_code_url; ?>" alt="" /></p>
-		<span class="info">
-			<?php if ($_GET['command'] == 'REGISTER') { ?>
-			<?php _e('请使用微信扫描二维码注册'); ?>
-			<?php } else { ?>
-			<?php _e('请使用微信扫描二维码登录'); ?>
-			<?php } ?>
-		</span>
-	</div>
-
-<script type="text/javascript">
-	$(document).ready(function () {
-		setInterval(function () {
-			$.get(G_BASE_URL + '/account/ajax/weixin_login_process/', function (response) {
-				if (response.errno == 1)
-				{
-					window.location.reload();
-				}
-			}, 'json');
-		}, 1500);
-	});
-	
-	setInterval(function () {
-		window.location.reload();
-	}, 300000);
-</script>
-</body>
-</html>
+<?php TPL::output('global/header_meta.tpl.htm'); ?><body class="aw-wechat-body">	<div class="aw-wechat-login-box">		<h1><?php _e('微信登录'); ?></h1>		<!--<i class="icon-wechat"></i>-->		<p align="center"><img src="<?php echo $this->qr_code_url; ?>" alt="" /></p>		<span class="info">			<?php if ($_GET['command'] == 'REGISTER') { ?>			<?php _e('请使用微信扫描二维码注册'); ?>			<?php } else { ?>			<?php _e('请使用微信扫描二维码登录'); ?>			<?php } ?>		</span>	</div><script type="text/javascript">	$(document).ready(function () {		setInterval(function () {			$.get(G_BASE_URL + '/account/ajax/weixin_login_process/', function (response) {				if (response.errno == 1)				{					window.location.reload();				}			}, 'json');		}, 1500);	});		setInterval(function () {		window.location.reload();	}, 300000);</script></body></html>

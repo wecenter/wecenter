@@ -1,30 +1,30 @@
 <?php TPL::output('global/header.tpl.htm'); ?>
 
 <div class="aw-container-wrap">
-	<div class="aw-container aw-wecenter">
+	<div class="container">
 		<div class="row aw-content-wrap">
-			<div class="col-xs-12 col-sm-9 aw-main-content">
-				<div class="aw-mod aw-dynamic-index aw-mod-invite-friend">
-					<div class="aw-mod-head">
+			<div class="col-sm-12 col-md-9 aw-main-content">
+				<div class="aw-mod aw-mod-invite-friend">
+					<div class="mod-head common-head">
 						<h2><?php _e('邀请好友加入社区'); ?></h2>
 					</div>
-					<div class="aw-mod-body">
+					<div class="mod-body">
 						<form id="invitation_form" method="post" action="invitation/ajax/invite/" onsubmit="return false">
-							<div class="aw-invite-friend-box">
+							<div class="content">
 								<input class="form-control" type="text" name="email" placeholder="<?php _e('请输入好友邮箱'); ?>..." />
 								<p>
-									<a class="pull-right btn btn-mini btn-success" onclick="ajax_post($('#invitation_form')); return false;"><?php _e('发送邀请'); ?></a>
+									<a class="pull-right btn btn-mini btn-success" onclick="AWS.ajax_post($('#invitation_form')); return false;"><?php _e('发送邀请'); ?></a>
 									<?php _e('你还有'); ?> <?php _e('%s 个邀请名额', '<span class="aw-text-color-blue">' . $this->user_info['invitation_available'] . '</span>'); ?>
 								</p>
 							</div>
 						</form>
 					</div>
 				</div>
-				<div class="aw-mod aw-dynamic-index aw-mod-invited">
-					<div class="aw-mod-head">
+				<div class="aw-mod aw-invite-list">
+					<div class="mod-head common-head">
 						<h2><?php _e('已邀请好友'); ?></h2>
 					</div>
-					<div class="aw-mod-body">
+					<div class="mod-body">
 						<ul id="invitation_list"></ul>
 						
 						<!-- 加载更多内容 -->
@@ -36,7 +36,7 @@
 				</div>
 			</div>
 			<!-- 侧边栏 -->
-			<div class="col-xs-12 col-sm-3 aw-side-bar">
+			<div class="col-sm-12 col-md-3 aw-side-bar">
 				<?php TPL::output('block/sidebar_menu.tpl.htm'); ?>	
 			</div>
 			<!-- end 侧边栏 -->
@@ -46,7 +46,7 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-	bp_more_load(G_BASE_URL + '/invitation/ajax/invitation_list/', $('#invitation_more'),  $('#invitation_list'));
+	AWS.load_list_view(G_BASE_URL + '/invitation/ajax/invitation_list/', $('#invitation_more'),  $('#invitation_list'));
 });
 </script>
 

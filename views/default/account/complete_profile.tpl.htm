@@ -9,11 +9,11 @@
 <div class="aw-register-box">
 	<form class="aw-register-form" id="profile_form" method="post" action="account/ajax/complete_profile/">
 		<ul>
-			<li class="error hide error_message">
+			<li class="error alert-danger hide error_message">
 				<p><i class="icon-remove"></i><em></em></p>
 			</li>
 			<li>
-				<input class="form-control" name="user_name" type="text" placeholder="<?php _e('真实姓名'); ?>" value="<?php echo str_replace(' ', '_', $this->user_info['user_name']); ?>" />
+				<input class="form-control" name="user_name" type="text" placeholder="<?php _e('真实姓名'); ?>" value="<?php echo $this->user_info['user_name']; ?>" />
 			</li>
 			<li>
 				<input class="form-control" name="email" type="text" placeholder="<?php _e('邮箱'); ?>" />
@@ -23,7 +23,7 @@
 			</li>
 			
 			<li class="clearfix">
-				<button class="pull-right btn btn-large btn-success" onclick="ajax_post($('#profile_form'), _error_message_form_processer); return false;"><?php _e('完善资料'); ?></button>
+				<button class="pull-right btn btn-large btn-success" onclick="AWS.ajax_post($('#profile_form'), AWS.ajax_processer, 'error_message'); return false;"><?php _e('完善资料'); ?></button>
 			</li>
 		</ul>
 	</form>

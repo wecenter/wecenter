@@ -2,12 +2,12 @@
 <?php TPL::output('account/setting/setting_header.tpl.htm'); ?>
 
 <!-- 基本信息 -->
-<div class="aw-mod">
-	<div class="aw-mod-head">
-		<h4><?php _e('基本信息'); ?></h4>
+<div class="aw-mod mod-base">
+	<div class="mod-head">
+		<h3><?php _e('基本信息'); ?></h3>
 	</div>
 	<form id="setting_form" method="post" action="account/ajax/profile_setting/">
-	<div class="aw-mod-body aw-user-setting-layout aw-user-setting-base">
+	<div class="mod-body">
 		<dl>
 				<dt><?php _e('账号'); ?>:</dt>
 				<dd><?php echo $this->user_info['email']; ?><?php if ($this->user_info['valid_email'] == 0) { ?> &nbsp; (<a href="javascript:;" onclick="ajax_request(G_BASE_URL + '/account/ajax/send_valid_mail/');"><?php _e('你的邮件地址还未验证, 请点击这里发送验证邮件'); ?></a>)<?php } ?></dd>
@@ -80,7 +80,7 @@
 		</dl>
 		<dl>
 			<dt><label><?php _e('介绍'); ?>:</label></dt>
-			<dd class="aw-user-setting-base-introduce"><input class="form-control" name="signature" maxlength="128" type="text" value="<?php echo $this->user_info['signature']; ?>"<?php if ($this->user_info['verified']) { ?> disabled="disabled"<?php } ?> /></dd>
+			<dd class="introduce"><input class="form-control" name="signature" maxlength="128" type="text" value="<?php echo $this->user_info['signature']; ?>"<?php if ($this->user_info['verified']) { ?> disabled="disabled"<?php } ?> /></dd>
 	</dl>
 	<dl class="form-horizontal">
 			<dt><label><?php _e('个性网址'); ?>:</label></dt>
@@ -92,7 +92,7 @@
 		<dl>
 			<dt><label><?php _e('时区'); ?>:</label></dt>
 			<dd>
-				<select class="aw-user-setting-base-time" name="default_timezone">
+				<select class="time" name="default_timezone">
 					<option value=''><?php _e('使用系统默认时区'); ?></option>
 					<option value='Etc/GMT+12'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT+12') { ?> selected="selected"<?php } ?>><?php _e('(GMT - 12:00 小时) 安尼威托克岛，卡瓦加兰'); ?></option>
 					<option value='Etc/GMT+11'<?php if ($this->user_info['default_timezone'] == 'Etc/GMT+11') { ?> selected="selected"<?php } ?>><?php _e('(GMT - 11:00 小时) 中途岛，萨摩亚'); ?></option>
@@ -129,7 +129,7 @@
 			</dd>
 		</dl>
 		<!-- 上传头像 -->
-		<div class="aw-user-setting-upload-img-box">
+		<div class="side-bar">
 			<dl>
 				<dt class="pull-left"><img class="aw-border-radius-5" src="<?php echo get_avatar_url($this->user_id, 'max'); ?>?rand=<?php echo rand(1, 999); ?>" alt="" id="avatar_src" /></dt>
 				<dd class="pull-left">
@@ -145,11 +145,11 @@
 <!-- end 基本信息 -->
 
 <!-- 联系方式 -->
-<div class="aw-mod aw-user-setting-base-contact">
-	<div class="aw-mod-head">
-		<h4><?php _e('联系方式'); ?></h4>
+<div class="aw-mod mod-contact">
+	<div class="mod-head">
+		<h3><?php _e('联系方式'); ?></h3>
 	</div>
-	<div class="aw-mod-body aw-user-setting-layout clearfix">
+	<div class="mod-body clearfix">
 		<ul>
 			<li>
 				<label for="input-qq">QQ:</label>
@@ -175,10 +175,10 @@
 
 <!-- 教育经历 -->
 <div class="aw-mod">
-	<div class="aw-mod-head">
-		<h4><?php _e('教育经历'); ?></h4>
+	<div class="mod-head">
+		<h3><?php _e('教育经历'); ?></h3>
 	</div>
-	<div class="aw-mod-body aw-user-educate aw-user-setting-layout aw-user-setting-reset-table">
+	<div class="mod-body aw-user-educate">
 		<table class="table table-bordered">
 			<thead>
 				<tr>
@@ -213,10 +213,10 @@
 
 <!-- 工作经历 -->
 <div class="aw-mod">
-	<div class="aw-mod-head">
-		<h4><?php _e('工作经历'); ?></h4>
+	<div class="mod-head">
+		<h3><?php _e('工作经历'); ?></h3>
 	</div>
-	<div class="aw-mod-body aw-user-work aw-user-setting-layout aw-user-setting-reset-table">
+	<div class="mod-body aw-user-work">
 		<table class="table table-bordered">
 			<thead>
 				<tr>
@@ -257,7 +257,7 @@
 </div>
 <!-- end 工作经历 -->
 
-<a href="javascript:;" class="btn btn-large btn-success pull-right aw-user-setting-save" onclick="ajax_post($('#setting_form'));"><?php _e('保存'); ?></a>
+<a href="javascript:;" class="btn btn-large btn-success pull-right aw-user-setting-save" onclick="AWS.ajax_post($('#setting_form'));"><?php _e('保存'); ?></a>
 
 <script type="text/javascript">
 $(document).ready(function () {
@@ -270,7 +270,7 @@ $(document).ready(function () {
 		dataUrl: G_BASE_URL + '/account/ajax/areas_json_data/'
     });
 	
-    init_avatar_uploader($('#avatar_uploader'), $('#avatar_uploading_status'), $("#avatar_src"));
+    AWS.Init.init_avatar_uploader($('#avatar_uploader'), $('#avatar_uploading_status'), $("#avatar_src"));
 });
 
 <?php if ($this->education_experience_list) { ?>

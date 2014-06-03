@@ -48,7 +48,7 @@
 
 <script type="text/javascript">
 	$(document).ready(function () {
-		load_list_view(G_BASE_URL + '/explore/ajax/list/sort_type-new__feature_id-<?php echo $this->feature_info['id']; ?>__category-<?php echo $this->category_info['id']; ?>__template-m', $('#explore_listview'), $('#load_explore'), 1);
+		AWS.load_list_view(G_BASE_URL + '/explore/ajax/list/sort_type-new__feature_id-<?php echo $this->feature_info['id']; ?>__category-<?php echo $this->category_info['id']; ?>__template-m', $('#load_explore'), $('#explore_listview'), 1);
 	});
 </script>
 

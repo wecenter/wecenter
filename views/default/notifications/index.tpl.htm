@@ -1,42 +1,44 @@
 <?php TPL::output('global/header.tpl.htm'); ?>
 
 <div class="aw-container-wrap">
-	<div class="aw-container aw-wecenter">
-		<div class="container">
-			<div class="row aw-content-wrap">
-				<div class="col-sm-12 col-md-9 aw-main-content">
-					<div class="aw-mod aw-dynamic-index aw-my-notifications clearfix">
-						<div class="aw-mod-head">
-							<h2>
-								<a href="javascript:;" onclick="read_notification(0, true, true);" class="pull-right btn btn-mini btn-success"><?php _e('全部已读'); ?></a>
-								<span class="pull-right hidden-xs"><a class="aw-text-color-999" href="account/setting/privacy/#!notifications"><i class="fa fa-cog"></i> <?php _e('通知设置'); ?></a></span>
-								
-								<?php _e('通知'); ?>
-							</h2>
-						</div>
-						<div class="aw-mod-body">
+	<div class="container">
+		<div class="row aw-content-wrap">
+			<div class="col-sm-12 col-md-9 aw-main-content">
+				<div class="aw-mod clearfix">
+					<div class="mod-head common-head clearfix">
+						<h2>
+							<span class="pull-right hidden-xs">
+								<a class="aw-text-color-999" href="account/setting/privacy/#!notifications"><i class="fa fa-cog"></i> <?php _e('通知设置'); ?></a>
+								<a onclick="AWS.Message.read_notification(true, 0, true);" class="btn btn-mini btn-success"><?php _e('全部已读'); ?></a>
+							</span>
+							
+							<?php _e('通知'); ?>
+						</h2>
+					</div>
+					<div class="mod-body">
+						<div class="aw-notifications-list">
 							<ul id="notifications_list"></ul>
-							<!-- 加载更多内容 -->
-							<a class="aw-load-more-content" id="notifications_more">
-								<span><?php _e('更多'); ?>...</span>
-							</a>
-							<!-- end 加载更多内容 -->
 						</div>
 					</div>
+					<div class="mod-footer">
+						<a class="aw-load-more-content" id="notifications_more">
+							<span><?php _e('更多'); ?>...</span>
+						</a>
+					</div>
 				</div>
-				<!-- 侧边栏 -->
-				<div class="col-md-3 aw-side-bar hidden-xs hidden-sm">
-					<?php TPL::output('block/sidebar_menu.tpl.htm'); ?>	
-				</div>
-				<!-- end 侧边栏 -->
 			</div>
+			<!-- 侧边栏 -->
+			<div class="col-md-3 aw-side-bar hidden-xs hidden-sm">
+				<?php TPL::output('block/sidebar_menu.tpl.htm'); ?>	
+			</div>
+			<!-- end 侧边栏 -->
 		</div>
 	</div>
 </div>
 
 <script type="text/javascript">
 	$(document).ready(function () {
-		bp_more_load(G_BASE_URL + '/notifications/ajax/list/', $('#notifications_more'), $('#notifications_list'));
+		AWS.load_list_view(G_BASE_URL + '/notifications/ajax/list/', $('#notifications_more'), $('#notifications_list'));
 	});
 </script>
 

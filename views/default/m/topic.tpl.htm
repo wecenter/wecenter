@@ -18,7 +18,7 @@
 		<?php if ($this->user_id) { ?>
 		<div class="aw-topic-section">
 			<div class="aw-mod-head">
-				<a class="btn btn-primary <?php if ($this->topic_info['has_focus']) { ?> aw-active<?php } ?>" onclick="focus_topic($(this), $(this), <?php echo $this->topic_info['topic_id']; ?>);"><?php if ($this->topic_info['has_focus']) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?></a>
+				<a class="btn btn-default <?php if (!$this->topic_info['has_focus']) { ?> aw-active<?php } ?>" onclick="AWS.User.follow($(this), 'topic', <?php echo $this->topic_info['topic_id']; ?>);"><?php if ($this->topic_info['has_focus']) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?></a>
 				<span class="aw-text-color-999"><a><?php echo $this->topic_info['focus_count']; ?></a> 人关注</span>
 			</div>
 		</div>
@@ -93,12 +93,12 @@
 	$(document).ready(function () {
 		if ($('#all_posts_listview').length)
 		{
-			load_list_view(G_BASE_URL + '/explore/ajax/list/sort_type-new__topic_id' + '-' + CONTENTS_TOPIC_ID + '__template-m', $('#all_posts_listview'), $('#load_all_posts'));
+			AWS.load_list_view(G_BASE_URL + '/explore/ajax/list/sort_type-new__topic_id' + '-' + CONTENTS_TOPIC_ID + '__template-m', $('#load_all_posts'), $('#all_posts_listview'));
 		}
 		
 		if ($('#best_answers_listview').length)
 		{
-			load_list_view(G_BASE_URL + '/topic/ajax/question_list/type-best__topic_id' + '-' + CONTENTS_TOPIC_ID + '__template-m', $('#best_answers_listview'), $('#load_best_answers'));
+			AWS.load_list_view(G_BASE_URL + '/topic/ajax/question_list/type-best__topic_id' + '-' + CONTENTS_TOPIC_ID + '__template-m', $('#load_best_answers'), $('#best_answers_listview'));
 		}
 	});
 </script>

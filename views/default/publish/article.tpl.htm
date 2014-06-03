@@ -1,111 +1,111 @@
 <?php TPL::output('global/header.tpl.htm'); ?>
 
 <div class="aw-container-wrap">
-	<div class="aw-container aw-wecenter aw-publish aw-publish-article">
-		<div class="container">
-			<div class="row aw-content-wrap">
-				<div class="tabbable">
-					<!-- tab 切换 -->
-					<ul class="nav nav-tabs aw-reset-nav-tabs aw-publish-tabs">
-						<?php if ($this->user_info['permission']['publish_question']) { ?>
-						<li><a href="publish/topic_title-<?php echo $_GET['topic_title']; ?>"><?php _e('发起问题'); ?></a></li>
-						<?php } ?>
-						<li class="active"><a href="publish/article/topic_title-<?php echo $_GET['topic_title']; ?>"><?php _e('发起文章'); ?></a></li>
-					</ul>
+	<div class="container aw-publish aw-publish-article">
+		<div class="row">
+			<div class="col-sm-12">
+				<!-- tab 切换 -->
+				<ul class="nav nav-tabs aw-nav-tabs">
+					<?php if ($this->user_info['permission']['publish_question']) { ?>
+					<li><a href="publish/"><?php _e('发起问题'); ?></a></li>
+					<?php } ?>
+					<li class="active"><a href="publish/article/"><?php _e('发起文章'); ?></a></li>
+				</ul>
 				<!-- end tab 切换 -->
-
-				<div class="col-sm-12 col-md-12 aw-main-content">
-					<form action="publish/ajax/<?php if ($this->article_info['id']) { ?>modify<?php } else { ?>publish<?php } ?>_article/" method="post" id="question_form" onsubmit="return false;">
-						<input type="hidden" name="post_hash" value="<?php echo new_post_hash(); ?>" />
-						<input type="hidden" name="attach_access_key" value="<?php echo $this->attach_access_key; ?>" />
-						<input type="hidden" name="article_id" id="article_id" value="<?php echo $this->article_info['id']; ?>" />
-						<?php if ($this->article_category_list) { ?>
-							<select name="category_id" class="hide" id="category_id">
-								<option value="0">- <?php _e('请选择分类'); ?> -</option>
-								<?php echo $this->article_category_list; ?>
-							</select>
-							<?php } ?>
-						<div class="aw-mod aw-dynamic-index aw-mod-publish">
-							<div class="aw-mod-body">
-								<h3><?php _e('文章标题'); ?>:</h3>
-								<!-- 文章标题 -->
-								<div class="aw-publish-title<?php if (!$this->article_category_list) { ?> active<?php } ?>">
-									<input type="text" name="title" value="<?php echo $this->article_info['title']; ?>" class="form-control" />
-									<?php if ($this->article_category_list) { ?>
-									<div class="aw-dropdown aw-question-dropdown">
-										<i class="aw-icon i-dropdown-triangle active"></i>
-										<p class="title"><?php _e('没有找到相关结果'); ?></p>
-										<ul class="aw-question-dropdown-list"></ul>
-									</div>
-									<div class="aw-publish-title-dropdown">
-										<p class="dropdown-toggle" data-toggle="dropdown">
-											<span id="aw-topic-tags-select"><?php _e('选择分类'); ?></span>
-											<a href="javascript:;"><i class="fa fa-chevron-down"></i></a></a>
-										</p>
-									</div>
-									<?php } ?>
-							</div>
-								<!-- end 文章标题 -->
-
-								<h3><?php _e('文章内容'); ?>:</h3>
-								<div class="aw-mod aw-mod-publish-box">
-									<div class="aw-mod-head">
-										<textarea name="message" id="advanced_editor" rows="20" class="autosize form-control advanced_editor"><?php echo $this->article_info['message']; ?></textarea>
-										<p class="aw-text-color-999"><span class="pull-right" id="article_message">&nbsp;</span></p>
-									</div>
-									<div class="aw-mod-body">
-										<span id="file_uploader_question"></span>
-
-										<span class="aw-text-color-999 aw-upload-tips hide hidden-xs"><?php _e('允许的附件文件类型'); ?>: <?php echo get_setting('allowed_upload_types'); ?></span>
-
-										<div id="markItUpPreviewFrame" class="markItUpPreviewFrame">
-											<h2 class="title">
-												<?php _e('预览模式'); ?>:
-											</h2>
-											<div id="markItUpPreviewFrames" class="markItUpPreviewFrames"></div>
-										</div>
+			</div>
+		</div>
+		<div class="row aw-content-wrap">
+			<div class="col-sm-12 col-md-12 aw-main-content">
+				<form action="publish/ajax/<?php if ($this->article_info['id']) { ?>modify<?php } else { ?>publish<?php } ?>_article/" method="post" id="question_form" onsubmit="return false;">
+					<input type="hidden" name="post_hash" value="<?php echo new_post_hash(); ?>" />
+					<input type="hidden" name="attach_access_key" value="<?php echo $this->attach_access_key; ?>" />
+					<input type="hidden" name="article_id" id="article_id" value="<?php echo $this->article_info['id']; ?>" />
+					<?php if ($this->article_category_list) { ?>
+						<select name="category_id" class="hide" id="category_id">
+							<option value="0">- <?php _e('请选择分类'); ?> -</option>
+							<?php echo $this->article_category_list; ?>
+						</select>
+						<?php } ?>
+					<div class="aw-mod aw-mod-publish">
+						<div class="mod-body">
+							<h3><?php _e('文章标题'); ?>:</h3>
+							<!-- 文章标题 -->
+							<div class="aw-publish-title<?php if (!$this->article_category_list) { ?> active<?php } ?>">
+								<input type="text" name="title" value="<?php echo $this->article_info['title']; ?>" class="form-control" />
+								<?php if ($this->article_category_list) { ?>
+								<div class="aw-dropdown aw-question-dropdown">
+									<i class="aw-icon i-dropdown-triangle active"></i>
+									<p class="title"><?php _e('没有找到相关结果'); ?></p>
+									<ul class="aw-question-dropdown-list"></ul>
+								</div>
+								<div class="dropdown">
+									<div class="dropdown-toggle" data-toggle="dropdown">
+										<span id="aw-topic-tags-select"><?php _e('选择分类'); ?></span>
+										<a href="javascript:;"><i class="fa fa-chevron-down"></i></a></a>
 									</div>
 								</div>
-
-								<h3><?php _e('添加话题'); ?>:</h3>
-								<span class="aw-topic-editor" data-type="publish">
-									<?php if ($_GET['topic_title']) { ?>
-									<a href="javascript:;" class="aw-topic-name"><span><?php echo urldecode($_GET['topic_title']); ?><button class="close aw-close" onclick="$(this).parents('.aw-topic-name').remove();">×</button></span><input type="hidden" value="<?php echo urldecode($_GET['topic_title']); ?>" name="topics[]" /></a>
-									<?php } ?>
-
-									<?php if ($_POST['topics']) { ?>
-									<?php foreach ($_POST['topics'] AS $key => $val) { ?>
-									<a href="javascript:;" class="aw-topic-name"><span><?php echo $val; ?></span><input type="hidden" value="<?php echo $val; ?>" name="topics[]" /></a>
-									<?php } ?>
-									<?php } else if ($this->article_topics) { ?>
-									<?php foreach ($this->article_topics AS $key => $val) { ?>
-									<a href="javascript:;" class="aw-topic-name"><span><?php echo $val['topic_title']; ?></span><input type="hidden" value="<?php echo $val['topic_title']; ?>" name="topics[]" /></a>
-									<?php } ?>
-									<?php } ?>
-
-									<span class="aw-edit-topic"><i class="icon-edit"></i><?php _e('编辑话题'); ?></span>
-								</span>
-
-								<?php if ($this->human_valid) { ?>
-								<p class="aw-auth-img clearfix">
-									<em class="auth-img pull-right"><img src="" onclick="reload_captcha();" id="captcha" /></em>
-									<input class="pull-right form-control" type="text" name="seccode_verify" placeholder="验证码" maxlength="4" />
-								</p>
 								<?php } ?>
-							</div>
-							<div class="aw-mod-footer clearfix">
-								<a href="page/integral" target="_blank">[积分规则]</a>
-								<span class="aw-anonymity">
-									<?php if ($this->article_info['id'] AND ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator'])) { ?>
-									<label><input type="checkbox" class="pull-left" value="1" name="do_delete" />
-										<?php _e('删除文章'); ?></label>
-									<?php } ?>
-								</span>
-								<a class="btn btn-large btn-success btn-publish-submit" id="publish_submit" onclick="ajax_post($('#question_form')); return false;"><?php _e('确认发起'); ?></a>
-							</div>
 						</div>
-					</form>
-				</div>
+							<!-- end 文章标题 -->
+
+							<h3><?php _e('文章内容'); ?>:</h3>
+							<div class="aw-mod aw-editor-box">
+								<div class="mod-head">
+									<textarea name="message" id="advanced_editor" rows="20" class="autosize form-control advanced_editor"><?php echo $this->article_info['message']; ?></textarea>
+									<p class="aw-text-color-999"><span class="pull-right" id="article_message">&nbsp;</span></p>
+								</div>
+								<div class="mod-body">
+									<span id="file_uploader_question"></span>
+
+									<span class="aw-text-color-999 aw-upload-tips hide hidden-xs"><?php _e('允许的附件文件类型'); ?>: <?php echo get_setting('allowed_upload_types'); ?></span>
+									
+									<div id="markItUpPreviewFrame" class="markItUpPreviewFrame">
+										<h2 class="title">
+											<?php _e('预览模式'); ?>:
+										</h2>
+										<div id="markItUpPreviewFrames" class="markItUpPreviewFrames"></div>
+									</div>
+								</div>
+							</div>
+
+							<h3><?php _e('添加话题'); ?>:</h3>
+							<span class="aw-topic-editor" data-type="publish">
+								<?php if ($_GET['topic_title']) { ?>
+								<a href="javascript:;" class="aw-topic-name"><span><?php echo urldecode($_GET['topic_title']); ?><button class="close aw-close" onclick="$(this).parents('.aw-topic-name').remove();">×</button></span><input type="hidden" value="<?php echo urldecode($_GET['topic_title']); ?>" name="topics[]" /></a>
+								<?php } ?>
+								
+								<?php if ($_POST['topics']) { ?>
+								<?php foreach ($_POST['topics'] AS $key => $val) { ?>
+								<a href="javascript:;" class="aw-topic-name"><span><?php echo $val; ?></span><input type="hidden" value="<?php echo $val; ?>" name="topics[]" /></a>
+								<?php } ?>
+								<?php } else if ($this->article_topics) { ?>
+								<?php foreach ($this->article_topics AS $key => $val) { ?>
+								<a href="javascript:;" class="aw-topic-name"><span><?php echo $val['topic_title']; ?></span><input type="hidden" value="<?php echo $val['topic_title']; ?>" name="topics[]" /></a>
+								<?php } ?>
+								<?php } ?>
+								
+								<span class="aw-edit-topic"><i class="icon-edit"></i><?php _e('编辑话题'); ?></span>
+							</span>
+							
+							<?php if ($this->human_valid) { ?>
+							<p class="aw-auth-img clearfix">
+								<em class="auth-img pull-right"><img src="" onclick="this.src = G_BASE_URL + '/account/captcha/' + Math.floor(Math.random() * 10000);" id="captcha"  /></em>
+								<input class="pull-right form-control" type="text" name="seccode_verify" placeholder="验证码" />
+							</p>
+							<?php } ?>
+						</div>
+						<div class="mod-footer clearfix">
+							<a href="page/integral" target="_blank">[积分规则]</a>
+							<span class="aw-anonymity">
+								<?php if ($this->article_info['id'] AND ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator'])) { ?>
+								<label><input type="checkbox" class="pull-left" value="1" name="do_delete" />
+									<?php _e('删除文章'); ?></label>
+								<?php } ?>
+							</span>
+							<a class="btn btn-large btn-success btn-publish-submit" id="publish_submit" onclick="AWS.ajax_post($('#question_form')); return false;"><?php _e('确认发起'); ?></a>
+						</div>
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>

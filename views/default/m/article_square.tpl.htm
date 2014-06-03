@@ -31,7 +31,7 @@
 
 <script type="text/javascript">
 	$(document).ready(function () {
-		load_list_view(G_BASE_URL + '/explore/ajax/list/post_type-article__sort_type-new__feature_id-<?php echo $_GET['feature_id']; ?>__category_id-<?php echo $_GET['category']; ?>__template-m', $('#article_listview'), $('#load_article'), 1);
+		AWS.load_list_view(G_BASE_URL + '/explore/ajax/list/post_type-article__sort_type-new__feature_id-<?php echo $_GET['feature_id']; ?>__category_id-<?php echo $_GET['category']; ?>__template-m', $('#load_article'), $('#article_listview'), 1);
 	});
 </script>
 

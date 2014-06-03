@@ -22,7 +22,7 @@
 	</p>
 	<?php if ($this->user_id) { ?>
 		<?php if ($this->user['search_id'] != $this->user_id AND $val['type'] == 'users') { ?>
-		<a href="javascript:;" onclick="follow_people($(this), <?php echo $val['search_id']; ?>);" class="btn btn-mini btn-default aw-btn-follow<?php if (!$val['focus']) { ?> aw-active<?php } ?>"><?php if ($val['focus']) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?></a>
+		<a href="javascript:;" onclick="AWS.User.follow($(this), 'user', <?php echo $val['search_id']; ?>);" class="btn btn-mini btn-default aw-btn-follow<?php if (!$val['focus']) { ?> aw-active<?php } ?>"><?php if ($val['focus']) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?></a>
 		<?php } ?>
 	<?php } ?>
 </div>

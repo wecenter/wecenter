@@ -1,4 +1,4 @@
-/**
+﻿/**
  * AJAX Upload ( http://valums.com/ajax-upload/ ) 
  * Copyright (c) Andrew Valums
  * Licensed under the MIT license 

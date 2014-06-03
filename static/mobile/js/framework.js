@@ -760,7 +760,7 @@ _ajax_uploader.extend(_ajax_uploader.FileUploader.prototype, {
         	{
         		$(this._find(item, 'spinner')).css('background-image','url('+result.thumb+')').attr('rel', result.thumb);
 				if (typeof(result.attach_id) != 'undefined'){
-					$('<a/>').attr('href','javascript:;').attr('class','fa fa-arrow-up').attr('onclick','insert_attach(this,'+result.attach_id+',\''+result.attach_tag+'\')').appendTo($(this._find(item, 'inset')));
+					$('<a/>').attr('href','javascript:;').attr('class','fa fa-arrow-up').attr('onclick','AWS.Editor.insert_attach($(this),'+result.attach_id+',\''+result.attach_tag+'\')').appendTo($(this._find(item, 'inset')));
 				}
         	}
         	else if (typeof(result.class_name) != 'undefined')
@@ -1458,7 +1458,7 @@ function _ajax_uploader_append_file(selecter, v)
         
         if (typeof(v['thumb']) != 'undefined' && typeof(v['attach_id']) != 'undefined')
         {
-	        html += '<a href="javascript:;" class="fa fa-arrow-up" onclick="insert_attach(this, ' + v['attach_id'] + ',\'' + v['attach_tag'] + '\')"></a>';
+	        html += '<a href="javascript:;" class="fa fa-arrow-up" onclick="AWS.Editor.insert_attach($(this), ' + v['attach_id'] + ',\'' + v['attach_tag'] + '\')"></a>';
         }
        
         html += '</span></dd></dl>';
