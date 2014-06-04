@@ -11,7 +11,9 @@ a:hover, a:focus {
 body {
     background: #eaeaea;;
 }
-
+.block{
+    display: block;
+}
 /*改写bootstrap部分*/
 .aw-content-wrap .tab-content .fa {
     width: 25px;
@@ -366,14 +368,15 @@ li {
 }
 
 .mod-symbol {
-    margin-left: -7px;
-    width: 29px;
+    margin-left: -2px;
+    width: 1px;
+    padding: 0;
     text-align: center;
     font-size: 22px;
 }
 
 .col-sm-55 {
-    width: 44.666667%;
+    width: 41.7%;
 }
 
 /* 右侧公共头部部分  mod-head*/
@@ -575,12 +578,12 @@ textarea {
 }
 
 .aw-content-wrap .tab-content .help-block {
-    clear: both;
+    clear: both; 
     overflow:hidden;
     margin: 0;
     padding: 10px 10px 10px 5px;
     font-size: 12px;
-    line-height: 1.8em;
+    line-height: 1.8em; 
 }
 
 .aw-content-wrap .tab-content .help-block a {
@@ -717,7 +720,9 @@ textarea {
 .aw-message-box form {
     margin: 0;
 }
-
+.aw-message-box a{
+    margin-top: 10px;
+}
 /*微信菜单页面*/
 
 .chat-symbol {
@@ -854,12 +859,13 @@ textarea {
         margin-left: 0;
     }
 
-    .col-sm-55 {
-        width:100%;
-    }
-    .mod-symbol{
+    .aw-content-wrap .mod-symbol{
         display: none;
     }
+    
+    .aw-content-wrap .mod-double{
+        margin-bottom: 10px;
+    }  
 
     .table-responsive{
         border: none;
@@ -905,14 +911,12 @@ textarea {
     }
 
     .table-responsive {
-        margin-bottom: 0;
+        margin-bottom: 0; 
     }
 
 
 }
-@media only screen  and (min-height: 481px) and (max-height: 1024px){
 
-}
 
 /* Phone Landscape (480px) */
 @media only screen and (min-width: 320px) and (max-width: 640px) {
@@ -935,4 +939,13 @@ textarea {
 
 
 }
+
+@media only screen and (max-width: 321px){
+
+    .date_selector{
+        left: -40px;
+    }
+
+}
+
 
