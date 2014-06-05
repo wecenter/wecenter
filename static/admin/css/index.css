@@ -11,9 +11,7 @@ a:hover, a:focus {
 body {
     background: #eaeaea;;
 }
-.block{
-    display: block;
-}
+
 /*改写bootstrap部分*/
 .aw-content-wrap .tab-content .fa {
     width: 25px;
@@ -317,7 +315,9 @@ li {
 .aw-side ul li ul {
     display: none;
 }
-
+.aw-side ul li ul.block{
+    display: block;
+}
 .aw-side ul li ul li a {
     text-indent: 40px;
 }
