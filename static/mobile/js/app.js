@@ -51,28 +51,9 @@ $(document).ready(function () {
 	$('img#captcha').attr('src', G_BASE_URL + '/account/captcha/');
 	
 	$('#aw-top-nav-profile').click(function(){
-		$('.aw-top-nav-popup').hide();
 		$('.aw-top-nav-profile').show();
 	});
 
-	$('#aw-top-nav-notic').click(function()
-	{
-		$('.aw-top-nav-popup').hide();
-		if (G_USER_ID)
-		{
-			$.get(G_BASE_URL + '/notifications/ajax/list/flag-0__limit-10', function (data) {
-				if (data)
-				{
-					$('#notifications_list').html(data);
-				}
-				else
-				{
-					$('#notifications_list').html('<li><p align="center">暂无新通知</p></li>');
-				}
-				$('.aw-top-nav-notic').show();
-			});
-		}
-	});
 
 	/* 点击下拉菜单外得地方隐藏　*/
 	$(document).click(function(e)

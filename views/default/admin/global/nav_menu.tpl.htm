@@ -1,18 +1,55 @@
-<div class="pull-left left-side">
-	<div class="side-nav">
-		<ul>
-			<?php foreach($this->menu_list as $key => $val){  ?>
-			<li>
-				<a href="javascript:;"><i class="aw-icon icon_<?php echo $val['cname']; ?>"></i><?php echo $val['title']; ?></a>
-				<?php if ($val['children']) { ?>
-				<ul<?php if (!$val['select']) { ?> class="hide"<?php } ?>>
-					<?php foreach($val['children'] as $child) { ?>
-					<li><a href="<?php echo $child['url']; ?>"<?php if ($child['select']) { ?> class="active"<?php } ?>><?php echo $child['title'];?></a></li>
-					<?php } ?>
-				</ul>
-				<?php } ?>
-			</li>
-			<?php } ?>
-		</ul>
-	</div>
+<div class="aw-side" id="aw-side">
+    <div class="mod">
+        <div class="mod-logo">
+            <img class="pull-left" src="<?php echo G_STATIC_URL; ?>/admin/img/logo.png" alt="wecenter-logo" />
+            <span>Wecenter</span>
+        </div>
+
+        <div class="mod-message">
+            <div class=="message">
+                <a class="btn btn-sm" href="<?php echo get_setting('base_url'); ?>" target="_blank">
+                    <i class="fa fa-home fa-2"></i>
+                </a>
+
+                <!-- 审核 -->
+                <a class="btn btn-sm" href="<?php ?>">
+                    <i class="fa fa-envelope"></i>
+                    <span class="badge pull-right badge-primary"><?php ?></span>
+                </a>
+
+                <!-- 未定 -->
+                <a class="btn btn-sm" href="<?php ?>">
+                    <i class="fa fa-lock"></i>
+                    <span class="badge pull-right badge-primary"><?php ?></span>
+                </a>
+
+                <a class="btn btn-sm pull-right" href="admin/logout/">
+                    <i class="fa fa-sign-out"></i>
+                </a>
+            </div>
+        </div>
+
+        <ul style="display: block;" class="mod-bar">
+            <?php foreach ($this->menu_list as $key => $val) { ?>
+            <li>
+                <a href="javascript:;" class="fa fa-<?php echo $val['cname']; if ($val['select']) { ?> active collapsed<?php } ?>">
+                    <span><?php echo $val['title']; ?></span>
+                </a>
+                <?php if ($val['children']) { ?>
+
+                <ul<?php if ($val['select']) { ?> class="block"<?php } ?>>
+                    <?php foreach ($val['children'] as $child) { ?>
+                    <li>
+                        <a <?php if ($child['select']) { ?> class="active collapsed"<?php } ?> href="<?php echo $child['url']; ?>">
+                            <span><?php echo $child['title'];?></span>
+                        </a>
+                    </li>
+                    <?php } ?>
+                </ul>
+                <?php } ?>
+            </li>
+
+            <?php } ?>
+        </ul>
+    </div>
 </div>
