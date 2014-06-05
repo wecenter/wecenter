@@ -51,7 +51,6 @@ $(document).ready(function () {
 	$('img#captcha').attr('src', G_BASE_URL + '/account/captcha/');
 	
 	$('#aw-top-nav-profile').click(function(){
-		console.log('1');
 		$('.aw-top-nav-profile').show();
 	});
 
