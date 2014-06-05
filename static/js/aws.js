@@ -1089,12 +1089,24 @@ var AWS =
 	// 错误提示效果
 	shake: function(selector)
 	{
-		selector.css('margin-left',selector.css('margin-left'));
-		    
-	    for (var i = 1; i <= 3; i++)
+		var length = 6;
+	    for (var i = 1; i <= length; i++)
 	    {
-	        selector.animate({ 'left': (30 - 10 * i) }, 20);
-	        selector.animate({ 'left': (2 * (30 - 10 * i)) }, 20);
+	    	if (i % 2 == 0) 
+	    	{
+	        	if (i == length)
+	        	{
+	        		selector.animate({ 'left': 0 }, 50);
+	        	}
+	        	else
+	        	{
+	        		selector.animate({ 'left': 10 }, 50);
+	        	}
+	    	}
+	    	else
+	    	{
+	    		selector.animate({ 'left': -10 }, 50);
+	    	}
 	    }
 	}
 }
