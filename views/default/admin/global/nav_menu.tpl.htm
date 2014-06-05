@@ -37,10 +37,10 @@
                 </a>
                 <?php if ($val['children']) { ?>
 
-                <ul<?php if ($val['select']) { ?> class="active"<?php } ?>>
+                <ul<?php if ($val['select']) { ?> class="block"<?php } ?>>
                     <?php foreach ($val['children'] as $child) { ?>
                     <li>
-                        <a <?php if ($child['select']) { ?> class="active"<?php } ?> href="<?php echo $child['url']; ?>">
+                        <a <?php if ($child['select']) { ?> class="active collapsed"<?php } ?> href="<?php echo $child['url']; ?>">
                             <span><?php echo $child['title'];?></span>
                         </a>
                     </li>
