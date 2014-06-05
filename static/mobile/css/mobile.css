@@ -67,7 +67,6 @@ nav > ul li{position:relative;float: left;width: 20%;height: 36px;line-height: 3
 nav > ul li .fa-caret-down{position: absolute;right: 3px;top: 10px;}
 nav > ul li a{display:block;font-weight: bold;color: #222;}
 nav > ul li a span{margin-left: 10px;}
-nav #aw-top-nav-notic .badge{position: absolute;right: 0;top:1px;z-index:100;padding:2px 6px;}
 /* 导航下拉 */
 .aw-top-nav-wrap{position: relative;z-index: 9999;}
 .aw-top-nav-popup{position: absolute;border-radius: 0 0 6px 6px;box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);}
@@ -81,14 +80,6 @@ nav #aw-top-nav-notic .badge{position: absolute;right: 0;top:1px;z-index:100;pad
 .aw-top-nav-profile li{width: 140px;float: none;}
 .aw-top-nav-profile li a{padding-left: 10px;}
 .aw-top-nav-profile li .badge-info{margin-left: 10px;}
-.aw-top-nav-notic-wrap{max-height: 322px;overflow-y: scroll;overflow-x:hidden;background: #fff;}
-.aw-top-nav-notic{left: 0;width: 100%;}
-.aw-top-nav-notic li{float: none;width: auto;height:auto;padding:10px 0 10px 10px;overflow:visible;background: #FFFFFF;}
-.aw-top-nav-notic li:hover{background: #E4E4E4;}
-.aw-top-nav-notic li a{display: inline;width: auto;line-height:22px;background: none;color: #0088CC;}
-.aw-top-nav-notic li a:hover{background: none;}
-.aw-top-nav-notic li p{margin:0;}
-.aw-top-nav-notic .aw-new-message-tips-close{display:none;margin-right: 10px;}
 /* 动态首页新通知提示box */
 .aw-new-message-tips{margin:10px 0 25px;padding:15px;background-color:#fefdf8;border:1px solid #F1EDE0;border-radius: 5px;}
 .aw-new-message-tips .aw-mod-head{padding-bottom:10px;}
