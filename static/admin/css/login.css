@@ -46,19 +46,19 @@ a {
 .aw-login .mod form {
     margin-top: 30px;
     padding:40px;
-    background: #fff;
     border: 1px solid #ddd;
     border-radius:4px;
+    background: #fff;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .aw-login .mod form button {
-    width: 100%;
     margin-top: 10px;
+    width: 100%;
 }
 .aw-login .form-group {
-    margin-bottom: 15px;
     position: relative;
+    margin-bottom: 15px;
 }
 
 .aw-login .mod form input {
@@ -89,6 +89,9 @@ a {
     text-align: center;
     font-weight: normal;
     font-size: 14px;
+}
+.aw-login .mod .col-xs-6{
+    margin-top: 6px;
 }
 .aw-login img.verification{
     width: 100px;
