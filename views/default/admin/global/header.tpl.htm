@@ -13,6 +13,7 @@
 <base href="<?php echo get_setting('base_url');?>/<?php echo G_INDEX_SCRIPT; ?>" />
 <link type="text/css" rel="stylesheet" href="<?php echo G_STATIC_URL; ?>/css/bootstrap.css?v=<?php echo G_VERSION_BUILD; ?>" />
 <link type="text/css" rel="stylesheet" href="<?php echo G_STATIC_URL; ?>/css/font-awesome.css?v=<?php echo G_VERSION_BUILD; ?>" />
+<link type="text/css" rel="stylesheet" href="<?php echo G_STATIC_URL; ?>/admin/css/blue.css?v=<?php echo G_VERSION_BUILD; ?>" />
 <script type="text/javascript">
     var G_INDEX_SCRIPT = "<?php echo G_INDEX_SCRIPT; ?>";
     var G_BASE_URL = "<?php echo get_setting('base_url'); ?>/<?php echo rtrim(G_INDEX_SCRIPT, '/'); ?>";
@@ -31,8 +32,9 @@
 <script type="text/javascript" src="<?php echo $import_js; ?>?v=<?php echo G_VERSION_BUILD; ?>" ></script>
 <?php } ?>
 <?php } ?>
+<script type="text/javascript" src="<?php echo G_STATIC_URL; ?>/admin/js/icheck.js?v=<?php echo G_VERSION_BUILD; ?>" ></script>
+<script type="text/javascript" src="<?php echo G_STATIC_URL; ?>/admin/js/jquery.perfect_scrollbar.js?v=<?php echo G_VERSION_BUILD; ?>" ></script>
 <!--[if lte IE 8]>
-    <script type="text/javascript" src="<?php echo G_STATIC_URL; ?>/js/excanvas.js"></script>
     <script type="text/javascript" src="<?php echo G_STATIC_URL; ?>/js/respond.js"></script>
 <![endif]-->
 </head>
