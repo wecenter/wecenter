@@ -58,6 +58,7 @@ li {
 /*后台header start*/
 .aw-header {
     position: fixed;
+    top:0;
     z-index: 999;
     margin-bottom: 0;
     width: 100%;
