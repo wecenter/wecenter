@@ -47,7 +47,7 @@ class approval extends AWS_ADMIN_CONTROLLER
 			$found_rows = $this->model('publish')->found_rows();
 			
 			TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
-				'base_url' => get_setting('base_url') . '/?/admin/approval/list/type-' . $_GET['type'], 
+				'base_url' => get_js_url('/admin/approval/list/type-' . $_GET['type']), 
 				'total_rows' => $found_rows, 
 				'per_page' => $this->per_page
 			))->create_links());

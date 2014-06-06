@@ -5,10 +5,6 @@
 	<div class="aw-title">
 		<h2><?php _e('发起问题'); ?></h2>
 	</div>
-	<!-- <ul class="nav nav-tabs aw-nav-tabs aw-publish-tabs">
-		<li class="active"><a href="http://192.168.1.248/anwsion/trunk/?/publish/">发起问题</a></li>
-		<li><a href="http://192.168.1.248/anwsion/trunk/?/publish/article/">发起文章</a></li>
-	</ul> -->
 	<div class="aw-mod aw-mod-publish clearfix">
 		<form action="publish/ajax/<?php if ($this->question_info['question_id']) { ?>modify<?php } else { ?>publish<?php } ?>_question/" method="post" id="question_form" onsubmit="return false;">
 			<input type="hidden" name="post_hash" value="<?php echo new_post_hash(); ?>" />

@@ -44,7 +44,7 @@ class question extends AWS_ADMIN_CONTROLLER
 			}
 
 			H::ajax_json_output(AWS_APP::RSM(array(
-				'url' => get_setting('base_url') . '/?/admin/question/question_list/' . implode('__', $param)
+				'url' => get_js_url('/admin/question/question_list/' . implode('__', $param))
 			), 1, null));
 		}
 
@@ -128,11 +128,9 @@ class question extends AWS_ADMIN_CONTROLLER
 				$url_param[] = $key . '-' . $val;
 			}
 		}
-
-		$search_url = 'admin/question/question_list/' . implode('__', $url_param);
-
+		
 		TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
-			'base_url' => get_setting('base_url') . '/?/' . $search_url,
+			'base_url' => get_js_url('/admin/question/question_list/' . implode('__', $url_param)),
 			'total_rows' => $total_rows,
 			'per_page' => $this->per_page
 		))->create_links());
@@ -212,7 +210,7 @@ class question extends AWS_ADMIN_CONTROLLER
 		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(306));
 
 		TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
-			'base_url' => get_setting('base_url') . '/?/admin/question/report_list/status-' . intval($_GET['status']),
+			'base_url' => get_js_url('/admin/question/report_list/status-' . intval($_GET['status'])),
 			'total_rows' => $report_total,
 			'per_page' => $this->per_page
 		))->create_links());

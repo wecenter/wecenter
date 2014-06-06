@@ -944,7 +944,7 @@ class ajax extends AWS_CONTROLLER
 		
 		$recipient_uid = get_setting('report_message_uid') ? get_setting('report_message_uid') : 1;
 			
-		$this->model('message')->send_message($this->user_id, $recipient_uid, AWS_APP::lang()->_t('有新的举报, 请登录后台查看处理') . ': ' . get_setting('base_url') . '/?/admin/question/report_list/');
+		$this->model('message')->send_message($this->user_id, $recipient_uid, AWS_APP::lang()->_t('有新的举报, 请登录后台查看处理: %s', get_js_url('/admin/question/report_list/')));
 			
 		H::ajax_json_output(AWS_APP::RSM(null, 1, AWS_APP::lang()->_t('举报成功')));
 	}
