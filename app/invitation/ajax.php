@@ -91,17 +91,20 @@ class ajax extends AWS_CONTROLLER
 		}
 		
 		// 若再次填入已邀请过的邮箱，则再发送一次邀请邮件
-		if ($invitation_info = $this->model('invitation')->get_invitation_by_email($_POST['email']))
+		if ($invitation_info = $this->model('invitation')->get_active_invitation_by_email($_POST['email']))
 		{
-			if ($invitation_info['uid'] == $this->user_id)
+			if ($invitation_info['active_status'] == 0)
 			{
-				$this->model('invitation')->send_invitation_email($invitation_info['invitation_id']);
-				
-				H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('重发邀请成功')));
-			}
-			else
-			{
-				H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('此邮箱已接收过本站发出的邀请')));
+				if ($invitation_info['uid'] == $this->user_id)
+				{
+					$this->model('invitation')->send_invitation_email($invitation_info['invitation_id']);
+					
+					H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('重发邀请成功')));
+				}
+				else
+				{
+					H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('此邮箱已接收过本站发出的邀请')));
+				}
 			}
 		}
 		

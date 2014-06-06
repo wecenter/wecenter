@@ -47,9 +47,9 @@ class invitation_class extends AWS_MODEL
 		));
 	}
 
-	public function get_invitation_by_email($email)
+	public function get_active_invitation_by_email($email)
 	{		
-		return $this->fetch_row('invitation', "invitation_email = '" . $this->quote($email) . "'");
+		return $this->fetch_row('invitation', "active_status = 0 AND invitation_email = '" . $this->quote($email) . "'");
 	}
 
 	public function get_invitation_list($uid, $limit = null, $orderby = "invitation_id DESC")
