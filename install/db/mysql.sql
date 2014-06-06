@@ -1109,7 +1109,7 @@ CREATE TABLE `[#DB_PREFIX#]weibo_msg` (
   `weibo_id` bigint(30) NOT NULL,
   `created_at` int(10) NOT NULL,
   `text` varchar(255) NOT NULL,
-  `bmiddle_pic` varchar(255) DEFAULT NULL,
+  `pic_urls` text,
   PRIMARY KEY (`id`),
   KEY `weibo_id` (`weibo_id`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8 COMMENT='新浪微博列表';
