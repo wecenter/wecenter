@@ -1104,6 +1104,16 @@ CREATE TABLE `[#DB_PREFIX#]weixin_msg` (
   KEY `status` (`status`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8 COMMENT='微信群发列表';
 
+CREATE TABLE `[#DB_PREFIX#]weibo_msg` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `weibo_id` bigint(30) NOT NULL,
+  `created_at` int(10) NOT NULL,
+  `text` varchar(255) NOT NULL,
+  `bmiddle_pic` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `weibo_id` (`weibo_id`)
+) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8 COMMENT='新浪微博列表';
+
 INSERT INTO `[#DB_PREFIX#]category`(`title`,`type`) VALUES
 ('默认分类', 'question');
 
