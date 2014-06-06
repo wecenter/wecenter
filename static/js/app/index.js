@@ -109,9 +109,10 @@ $(function()
 		return false;
 	});
 
-	if ($('.aw-mod.side-nav a[rel=' + window.location.hash.replace(/#/g, '') + ']').attr('href'))
+
+	if ($('.aw-mod.side-nav a[rel="' + window.location.hash.replace(/#/g, '') + '"]').attr('href'))
 	{
-		$('.aw-mod.side-nav a[rel=' + window.location.hash.replace(/#/g, '') + ']').click();
+		$('.aw-mod.side-nav a[rel="' + window.location.hash.replace(/#/g, '') + '"]').click();
 	}
 	else
 	{
