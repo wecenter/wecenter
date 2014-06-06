@@ -342,18 +342,13 @@ class AWS_ADMIN_CONTROLLER extends AWS_CONTROLLER
 		}
 
 		TPL::import_js(array(
-			// 下面两个以后要删除
 			'js/aws.js',
 			'js/jquery.form.js',
-			//
-			'js/aw_template.js',
-			'js/plug_module/plug-in_mocdule.js',
+			'admin/js/framework.js',
 			'admin/js/global.js',
-			'admin/js/jquery.migrate.js'
 		));
 
 		TPL::import_css(array(
-			'js/plug_module/style.css',
 			'admin/css/index.css'
 		));
 
