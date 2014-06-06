@@ -492,16 +492,6 @@ class account_class extends AWS_MODEL
     }
 
     /**
-     * 更新邀请名额
-     *
-     * @param int
-     */
-    public function consume_invitation_available($uid)
-    {
-        return $this->query("UPDATE " . $this->get_table('users') . " SET invitation_available = invitation_available - 1 WHERE uid = " . intval($uid));
-    }
-
-    /**
      * 插入用户数据
      *
      * @param string
@@ -518,7 +508,7 @@ class account_class extends AWS_MODEL
             return false;
         }
 
-        if ($user_info = $this->get_user_info_by_username($user_name, false, false))
+        if ($this->check_username($user_name))
         {
             return false;
         }
