@@ -2,7 +2,7 @@
 
 $config[] = array(
 	'title' => '全局',
-	'cname' => 'system',
+	'cname' => 'briefcase',
 	'children' => array(
 		array(
 			'id' => 100,
@@ -67,7 +67,7 @@ $config[] = array(
 
 $config[] = array(
 	'title' => '内容',
-	'cname' => 'contents',
+	'cname' => 'bookmark',
 	'children' => array(
 		array(
 			'id' => 307,
@@ -165,7 +165,7 @@ $config[] = array(
 
 $config[] = array(
 	'title' => '邮件群发',
-	'cname' => 'edm',
+	'cname' => 'envelope',
 	'children' => array(
 		array(
 			'id' => 701,
@@ -215,7 +215,7 @@ if (get_setting('weixin_mp_token'))
 
 $config[] = array(
 	'title' => '工具',
-	'cname' => 'tools',
+	'cname' => 'wrench',
 	'children' => array(
 		array(
 			'id' => 502,
