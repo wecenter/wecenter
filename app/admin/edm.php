@@ -39,7 +39,7 @@ class edm extends AWS_ADMIN_CONTROLLER
 		}
 		
 		TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
-			'base_url' => get_setting('base_url') . '/?/admin/edm/groups/', 
+			'base_url' => get_js_url('/admin/edm/groups/'), 
 			'total_rows' => $total_rows, 
 			'per_page' => $this->per_page
 		))->create_links());
@@ -149,14 +149,14 @@ class edm extends AWS_ADMIN_CONTROLLER
 	{
 		$this->model('edm')->remove_task($_GET['id']);
 		
-		H::redirect_msg(AWS_APP::lang()->_t('任务已删除'), get_setting('base_url') . '/?/admin/edm/tasks/');
+		H::redirect_msg(AWS_APP::lang()->_t('任务已删除'), '/admin/edm/tasks/');
 	}
 	
 	public function remove_group_action()
 	{
 		$this->model('edm')->remove_group($_GET['id']);
 		
-		H::redirect_msg(AWS_APP::lang()->_t('用户群已删除'), get_setting('base_url') . '/?/admin/edm/groups/');
+		H::redirect_msg(AWS_APP::lang()->_t('用户群已删除'), '/admin/edm/groups/');
 	}
 	
 	public function tasks_action()
@@ -175,7 +175,7 @@ class edm extends AWS_ADMIN_CONTROLLER
 		}
 		
 		TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
-			'base_url' => get_setting('base_url') . '/?/admin/edm/tasks/', 
+			'base_url' => get_js_url('/admin/edm/tasks/'), 
 			'total_rows' => $total_rows, 
 			'per_page' => $this->per_page
 		))->create_links());

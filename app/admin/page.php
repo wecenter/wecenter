@@ -32,7 +32,7 @@ class page extends AWS_ADMIN_CONTROLLER
 		TPL::assign('page_list', $this->model('page')->fetch_page_list($_GET['page'], 20));
 		
 		TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
-			'base_url' => get_setting('base_url') . '/?/admin/page/',
+			'base_url' => get_js_url('/admin/page/'),
 			'total_rows' => $this->model('page')->found_rows(),
 			'per_page' => 20
 		))->create_links());

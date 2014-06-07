@@ -45,16 +45,15 @@ class main extends AWS_ADMIN_CONTROLLER
 		TPL::assign('approval_question_count', $this->model('publish')->count('approval', "type = 'question'"));
 		TPL::assign('approval_answer_count', $this->model('publish')->count('approval', "type = 'answer'"));
 		
-		$this->crumb(AWS_APP::lang()->_t('管理中心首页'), "admin/main/");
+		$this->crumb(AWS_APP::lang()->_t('概述'), 'admin/main/');
 		
 		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(100));
 		
-		TPL::import_js('js/chart.js');
-		
 		TPL::assign('statistic_questions', $this->model('statistic')->get_new_question_by_month(strtotime('-12 months'), time()));
+		
 		TPL::assign('statistic_answers', $this->model('statistic')->get_new_answer_by_month(strtotime('-12 months'), time()));
 		
-		TPL::output("admin/index");
+		TPL::output('admin/index');
 	}
 
 	public function login_action()
@@ -65,10 +64,12 @@ class main extends AWS_ADMIN_CONTROLLER
 		}
 		else if (AWS_APP::session()->admin_login)
 		{
-			HTTP::redirect(get_setting('base_url') . '/?/admin/');
+			HTTP::redirect('/admin/');
 		}
 		
-		TPL::output("admin/login");
+		TPL::import_css('admin/css/login.css');
+		
+		TPL::output('admin/login');
 	}
 	
 	public function login_process_ajax_action()
@@ -102,12 +103,12 @@ class main extends AWS_ADMIN_CONTROLLER
 			$this->model('admin')->set_admin_login($user_info['uid']);
 			
 			H::ajax_json_output(AWS_APP::RSM(array(
-				'url' => $_POST['url'] ? base64_decode($_POST['url']) : get_js_url('?/admin/')
+				'url' => $_POST['url'] ? base64_decode($_POST['url']) : get_js_url('/admin/')
 			), 1, null));
 		}
 		else
 		{
-			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('帐号或密码错误')));
+			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('帐号或密码错误')));
 		}
 	}
 	

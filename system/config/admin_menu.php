@@ -2,11 +2,11 @@
 
 $config[] = array(
 	'title' => '全局',
-	'cname' => 'system',
+	'cname' => 'briefcase',
 	'children' => array(
 		array(
 			'id' => 100,
-			'title' => '管理首页',
+			'title' => '概述',
 			'url' => 'admin/',
 		),
 
@@ -62,24 +62,12 @@ $config[] = array(
 			'title' => '界面设置',
 			'url' => 'admin/settings/#!interface',
 		),
-
-		array(
-			'id' => 111,
-			'title' => '词语过滤',
-			'url' => 'admin/settings/#!sensitive_words',
-		),
-
-		array(
-			'id' => 112,
-			'title' => '话题设置',
-			'url' => 'admin/settings/#!topic_settings',
-		),
 	)
 );
 
 $config[] = array(
 	'title' => '内容',
-	'cname' => 'contents',
+	'cname' => 'bookmark',
 	'children' => array(
 		array(
 			'id' => 307,
@@ -177,7 +165,7 @@ $config[] = array(
 
 $config[] = array(
 	'title' => '邮件群发',
-	'cname' => 'edm',
+	'cname' => 'envelope',
 	'children' => array(
 		array(
 			'id' => 701,
@@ -227,7 +215,7 @@ if (get_setting('weixin_mp_token'))
 
 $config[] = array(
 	'title' => '工具',
-	'cname' => 'tools',
+	'cname' => 'wrench',
 	'children' => array(
 		array(
 			'id' => 502,

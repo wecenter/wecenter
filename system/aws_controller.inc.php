@@ -342,19 +342,15 @@ class AWS_ADMIN_CONTROLLER extends AWS_CONTROLLER
 		}
 
 		TPL::import_js(array(
-			// 下面两个以后要删除
 			'js/aws.js',
 			'js/jquery.form.js',
-			//
+			'admin/js/framework.js',
 			'js/aw_template.js',
-			'js/plug_module/plug-in_mocdule.js',
 			'admin/js/global.js',
-			'admin/js/jquery.migrate.js'
 		));
 
 		TPL::import_css(array(
-			'js/plug_module/style.css',
-			'admin/css/index.css'
+			'admin/css/common.css'
 		));
 
 		if (in_array($_GET['act'], array(
@@ -377,7 +373,7 @@ class AWS_ADMIN_CONTROLLER extends AWS_CONTROLLER
 				}
 				else
 				{
-					H::redirect_msg(AWS_APP::lang()->_t('会话超时, 请重新登录'), get_setting('base_url') . '/?/admin/login/url-' . base64_encode($_SERVER['REQUEST_URI']));
+					H::redirect_msg(AWS_APP::lang()->_t('会话超时, 请重新登录'), get_setting('base_url') . '/admin/login/url-' . base64_encode($_SERVER['REQUEST_URI']));
 				}
 			}
 		}
@@ -389,7 +385,7 @@ class AWS_ADMIN_CONTROLLER extends AWS_CONTROLLER
 			}
 			else
 			{
-				HTTP::redirect(get_setting('base_url') . '/?/admin/login/url-' . base64_encode($_SERVER['REQUEST_URI']));
+				HTTP::redirect(get_setting('base_url') . '/admin/login/url-' . base64_encode($_SERVER['REQUEST_URI']));
 			}
 		}
 

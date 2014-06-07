@@ -40,7 +40,7 @@ class topic extends AWS_ADMIN_CONTROLLER
 			}
 			
 			H::ajax_json_output(AWS_APP::RSM(array(
-				'url' => get_setting('base_url') . '/?/admin/topic/list/' . implode('__', $param)
+				'url' => get_js_url('/admin/topic/list/' . implode('__', $param))
 			), 1, null));
 		}
 		
@@ -94,10 +94,8 @@ class topic extends AWS_ADMIN_CONTROLLER
 			}
 		}
 		
-		$search_url = 'admin/topic/list/' . implode('__', $url_param);
-		
 		TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
-			'base_url' => get_setting('base_url') . '/?/' . $search_url, 
+			'base_url' => get_js_url('/admin/topic/list/' . implode('__', $url_param)), 
 			'total_rows' => $total_rows, 
 			'per_page' => $this->per_page
 		))->create_links());
@@ -108,32 +106,6 @@ class topic extends AWS_ADMIN_CONTROLLER
 		TPL::assign('search_url', $search_url);
 		TPL::assign('list', $topic_list);
 		TPL::output("admin/topic/list");
-	}
-
-	/**
-	 * 格式化话题列表
-	 * @param unknown_type $list
-	 */
-	function topic_list_process($list)
-	{
-		if (empty($list))
-		{
-			return false;
-		}
-		
-		foreach ($list as $key => $topic)
-		{
-			$list[$key]['add_time'] = date("Y-m-d H:i", $topic['add_time']);
-			$list[$key]['topic_title'] = cjk_substr($topic['topic_title'], 0, 12, 'UTF-8', '...');
-			$list[$key]['topic_pic'] = get_topic_pic_url('min', $topic['topic_pic']);
-			
-			if ($topic['parent_id'] > 0)
-			{
-				$list[$key]['parent'] = $this->model('topic')->get_topic_by_id($topic['parent_id']);
-			}
-		}
-		
-		return $list;
 	}
 	
 	public function topic_lock_action()

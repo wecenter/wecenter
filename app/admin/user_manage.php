@@ -35,7 +35,7 @@ class user_manage extends AWS_ADMIN_CONTROLLER
 			}
 
 			H::ajax_json_output(AWS_APP::RSM(array(
-				'url' => get_setting('base_url') . '/?/admin/user_manage/list/' . implode('__', $param)
+				'url' => get_js_url('/admin/user_manage/list/' . implode('__', $param))
 			), 1, null));
 		}
 
@@ -125,11 +125,9 @@ class user_manage extends AWS_ADMIN_CONTROLLER
 				$url_param[] = $key . '-' . $val;
 			}
 		}
-
-		$search_url = 'admin/user_manage/list/' . implode('__', $url_param);
-
+		
 		TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
-			'base_url' => get_setting('base_url') . '/?/' . $search_url,
+			'base_url' => get_js_url('/admin/user_manage/list/' . implode('__', $url_param)),
 			'total_rows' => $total_rows,
 			'per_page' => $this->per_page
 		))->create_links());
@@ -142,6 +140,7 @@ class user_manage extends AWS_ADMIN_CONTROLLER
 		TPL::assign('total_rows', $total_rows);
 		TPL::assign('list', $user_list);
 		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(402));
+		
 		TPL::output('admin/user_manage/list');
 	}
 
@@ -270,12 +269,12 @@ class user_manage extends AWS_ADMIN_CONTROLLER
 
 		if ($group_new OR $group_ids)
 		{
-			$rsm_array = array(
-				'url' => get_setting('base_url') . '/?/admin/user_manage/group_list/r-' . rand(1, 999) . '#custom'
+			$rsm = array(
+				'url' => get_js_url('/admin/user_manage/group_list/r-' . rand(1, 999) . '#custom')
 			);
 		}
 
-		H::ajax_json_output(AWS_APP::RSM($rsm_array, 1, null));
+		H::ajax_json_output(AWS_APP::RSM($rsm, 1, null));
 	}
 
 	public function group_edit_action()
@@ -520,7 +519,7 @@ class user_manage extends AWS_ADMIN_CONTROLLER
 			$this->model('active')->active_user_by_uid($uid);
 
 			H::ajax_json_output(AWS_APP::RSM(array(
-				'url' => get_setting('base_url') . '/?/admin/user_manage/list/'
+				'url' => get_js_url('/admin/user_manage/list/')
 			), 1, null));
 		}
 	}
@@ -657,7 +656,9 @@ class user_manage extends AWS_ADMIN_CONTROLLER
 
 		$this->model('integral')->process($_POST['uid'], 'AWARD', $_POST['integral'], $_POST['note']);
 
-		H::ajax_json_output(AWS_APP::RSM(array('url' => get_setting('base_url') . '/?/admin/user_manage/integral_log/uid-' . $_POST['uid']), 1, null));
+		H::ajax_json_output(AWS_APP::RSM(array(
+			'url' => get_js_url('/admin/user_manage/integral_log/uid-' . $_POST['uid'])
+		), 1, null));
 	}
 
 	public function verify_approval_list_action()
@@ -675,7 +676,7 @@ class user_manage extends AWS_ADMIN_CONTROLLER
 		}
 
 		TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
-			'base_url' => get_setting('base_url') . '/?/admin/user_manage/verify_approval_list/status-' . $_GET['status'],
+			'base_url' => get_js_url('/admin/user_manage/verify_approval_list/status-' . $_GET['status']),
 			'total_rows' => $total_rows,
 			'per_page' => $this->per_page
 		))->create_links());
@@ -701,7 +702,7 @@ class user_manage extends AWS_ADMIN_CONTROLLER
 		$total_rows = $this->model('people')->found_rows();
 
 		TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
-			'base_url' => get_setting('base_url') . '/?/admin/user_manage/register_approval_list/',
+			'base_url' => get_js_url('/admin/user_manage/register_approval_list/'),
 			'total_rows' => $total_rows,
 			'per_page' => $this->per_page
 		))->create_links());
@@ -780,7 +781,7 @@ class user_manage extends AWS_ADMIN_CONTROLLER
 		}
 
 		H::ajax_json_output(AWS_APP::RSM(array(
-			'url' => get_setting('base_url') . '/?/admin/user_manage/verify_approval_list/'
+			'url' => get_js_url('/admin/user_manage/verify_approval_list/')
 		), 1, null));
 	}
 
@@ -812,7 +813,7 @@ class user_manage extends AWS_ADMIN_CONTROLLER
 		if ($log = $this->model('integral')->fetch_page('integral_log', 'uid = ' . intval($_GET['uid']), 'time DESC', $_GET['page'], 50))
 		{
 			TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
-				'base_url' => get_setting('base_url') . '/?/admin/user_manage/integral_log/uid-' . intval($_GET['uid']),
+				'base_url' => get_js_url('/admin/user_manage/integral_log/uid-' . intval($_GET['uid'])),
 				'total_rows' => $this->model('integral')->found_rows(),
 				'per_page' => 50
 			))->create_links());
@@ -854,7 +855,7 @@ class user_manage extends AWS_ADMIN_CONTROLLER
 		}
 
 		H::ajax_json_output(AWS_APP::RSM(array(
-			'url' => get_setting('base_url') . '/?/admin/user_manage/list/'
+			'url' => get_js_url('/admin/user_manage/list/')
 		), 1, null));
 	}
 }
