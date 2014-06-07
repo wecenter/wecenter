@@ -45,7 +45,7 @@ class main extends AWS_ADMIN_CONTROLLER
 		TPL::assign('approval_question_count', $this->model('publish')->count('approval', "type = 'question'"));
 		TPL::assign('approval_answer_count', $this->model('publish')->count('approval', "type = 'answer'"));
 		
-		$this->crumb(AWS_APP::lang()->_t('管理中心首页'), "admin/main/");
+		$this->crumb(AWS_APP::lang()->_t('概述'), 'admin/main/');
 		
 		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(100));
 		

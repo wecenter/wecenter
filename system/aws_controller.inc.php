@@ -345,6 +345,7 @@ class AWS_ADMIN_CONTROLLER extends AWS_CONTROLLER
 			'js/aws.js',
 			'js/jquery.form.js',
 			'admin/js/framework.js',
+			'js/aw_template.js',
 			'admin/js/global.js',
 		));
 
