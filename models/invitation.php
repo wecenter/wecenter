@@ -35,7 +35,9 @@ class invitation_class extends AWS_MODEL
 	}
 
 	public function add_invitation($uid, $invitation_code, $invitation_email, $add_time, $add_ip)
-	{		
+	{
+		$this->query("UPDATE " . $this->get_table('users') . " SET invitation_available = invitation_available - 1 WHERE uid = " . intval($uid));
+		
 		return $this->insert('invitation', array(
 			'uid' => intval($uid),
 			'invitation_code' => $invitation_code,
@@ -45,9 +47,9 @@ class invitation_class extends AWS_MODEL
 		));
 	}
 
-	public function get_invitation_by_email($email)
+	public function get_active_invitation_by_email($email)
 	{		
-		return $this->fetch_row('invitation', "invitation_email = '" . $this->quote($email) . "'");
+		return $this->fetch_row('invitation', "active_status = 0 AND invitation_email = '" . $this->quote($email) . "'");
 	}
 
 	public function get_invitation_list($uid, $limit = null, $orderby = "invitation_id DESC")
@@ -67,9 +69,15 @@ class invitation_class extends AWS_MODEL
 	
 	public function cancel_invitation_by_id($invitation_id)
 	{
-		return $this->update('invitation', array(
-			'active_status' => '-1'
-		), 'invitation_id = ' . intval($invitation_id));
+		if (!$invitation_info = $this->get_invitation_by_id($invitation_id))
+		{
+			return false;
+		}
+		
+		if ($this->delete('invitation', 'invitation_id = ' . intval($invitation_id)))
+		{
+			$this->query("UPDATE " . $this->get_table('users') . " SET invitation_available = invitation_available + 1 WHERE uid = " . $invitation_info['uid']);
+		}
 	}
 	
 	public function get_invitation_by_code($invitation_code)
@@ -101,14 +109,6 @@ class invitation_class extends AWS_MODEL
 			return true;
 		}
 		
-		// 已取消的记录重置状态
-		if ($invitation_row['active_status'] == -1)
-		{
-			$this->update('invitation', array(
-				'active_status' => 0
-			), 'invitation_id = ' . intval($invitation_id));
-		}
-		
 		$user_info = $this->model('account')->get_user_info_by_uid($invitation_row['uid']);
 		
 		$email_hash = base64_encode(H::encode_hash(array(
@@ -124,7 +124,7 @@ class invitation_class extends AWS_MODEL
 	{
 		foreach ($email_list as $key => $email)
 		{
-			if ($this->model('account')->get_user_info_by_email($email))
+			if ($this->model('account')->check_email($email))
 			{
 				continue;
 			}

@@ -438,7 +438,7 @@ a.aw-load-more-content{display: block;}
 .aw-article-content .aw-feed-list .aw-user-name{position: absolute;left: 0;top: 10px;}
 .aw-article-content .aw-feed-list .aw-user-name img{width: 32px;height: 32px;}
 .aw-article-content .aw-feed-list .meta{margin-top:10px;font-size: 12px;color: #999;}
-.aw-article-content .aw-feed-list .meta a{margin-left: 15px;color: #999;}
+.aw-article-content .aw-feed-list .meta a{margin-right: 15px;color: #999;}
 .aw-article-content .aw-feed-list .article-replay-box{padding:0;}
 
 /* 发起问题页面 */
