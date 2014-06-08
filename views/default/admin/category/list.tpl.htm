@@ -81,7 +81,7 @@
 		$('input.sort-action').keyup(function () {
 			if ($(this).val() != '')
 			{
-				AWS.ajax_post($('#category_form'), 'ajax_porcesser', 'error_message');
+				AWS.ajax_post($('#category_form'), AWS.ajax_processer, 'error_message');
 			}
 		});
 	});

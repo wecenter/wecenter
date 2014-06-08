@@ -105,11 +105,6 @@ class user extends AWS_ADMIN_CONTROLLER
 			$where[] = "city = '" . $this->model('people')->quote($_GET['city']) . "'";
 		}
 
-		if ($_GET['type'] == 'forbidden')
-		{
-			$where[] = "forbidden = 1";
-		}
-
 		$user_list = $this->model('people')->fetch_page('users', implode(' AND ', $where), 'uid DESC', $_GET['page'], $this->per_page);
 
 		$total_rows = $this->model('people')->found_rows();
