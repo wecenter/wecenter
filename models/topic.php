@@ -294,17 +294,17 @@ class topic_class extends AWS_MODEL
 			// 记录日志
 			if ($topic_title && $topic_title != $topic_info['topic_title'])
 			{
-				ACTION_LOG::save_action(USER::get_client_uid(), $topic_id, ACTION_LOG::CATEGORY_TOPIC, ACTION_LOG::MOD_TOPIC, $topic_title, $topic_info['topic_title']);
+				ACTION_LOG::save_action(AWS_APP::user()->get_info('uid'), $topic_id, ACTION_LOG::CATEGORY_TOPIC, ACTION_LOG::MOD_TOPIC, $topic_title, $topic_info['topic_title']);
 			}
 			
 			if ($topic_description && $topic_description != $topic_info['topic_description'])
 			{
-				ACTION_LOG::save_action(USER::get_client_uid(), $topic_id, ACTION_LOG::CATEGORY_TOPIC, ACTION_LOG::MOD_TOPIC_DESCRI, $topic_description, $topic_info['topic_description']);
+				ACTION_LOG::save_action(AWS_APP::user()->get_info('uid'), $topic_id, ACTION_LOG::CATEGORY_TOPIC, ACTION_LOG::MOD_TOPIC_DESCRI, $topic_description, $topic_info['topic_description']);
 			}
 			
 			if ($topic_pic && $topic_pic != $topic_info['topic_pic'])
 			{
-				ACTION_LOG::save_action(USER::get_client_uid(), $topic_id, ACTION_LOG::CATEGORY_TOPIC, ACTION_LOG::MOD_TOPIC_PIC, $topic_pic, $topic_info['topic_pic']);
+				ACTION_LOG::save_action(AWS_APP::user()->get_info('uid'), $topic_id, ACTION_LOG::CATEGORY_TOPIC, ACTION_LOG::MOD_TOPIC_PIC, $topic_pic, $topic_info['topic_pic']);
 			}
 		}
 		

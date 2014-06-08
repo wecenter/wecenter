@@ -7,8 +7,8 @@
 			<span class="pull-left"><?php _e('会员列表'); ?></span>
 			
 			<ul class="nav nav-tabs pull-left">
-			    <li<?php if (!$_GET['type']) { ?> class="active"<?php } ?>><a href="admin/user_manage/list/"><?php _e('会员列表'); ?></a></li>
-			    <li<?php if ($_GET['type'] == 'forbidden') { ?> class="active"<?php } ?>><a href="admin/user_manage/list/type-forbidden"><?php _e('封禁用户'); ?></a></li>
+			    <li<?php if (!$_GET['type']) { ?> class="active"<?php } ?>><a href="admin/user/list/"><?php _e('会员列表'); ?></a></li>
+			    <li<?php if ($_GET['type'] == 'forbidden') { ?> class="active"<?php } ?>><a href="admin/user/list/type-forbidden"><?php _e('封禁用户'); ?></a></li>
 			    <li><a href="#search" data-toggle="tab"><?php _e('搜索'); ?></a></li>
 			</ul>
 		</h2>
@@ -46,9 +46,9 @@
 						<td align="center"><?php echo round($val['online_time'] / 60); ?></td>
 						<td align="center"><?php echo $val['reputation']; ?></td>
 						<?php if (get_setting('integral_system_enabled') == 'Y') { ?>
-						<td align="center"><a href="admin/user_manage/integral_log/uid-<?php echo $val['uid']; ?>" title="<?php _e('日志'); ?>"><i class="aw-icon database-table"></i></a> &nbsp;<?php echo $val['integral']; ?></td>
+						<td align="center"><a href="admin/user/integral_log/uid-<?php echo $val['uid']; ?>" title="<?php _e('日志'); ?>"><i class="aw-icon database-table"></i></a> &nbsp;<?php echo $val['integral']; ?></td>
 						<?php } ?>
-						<td align="center"><a href="admin/user_manage/edit/uid-<?php echo $val['uid']; ?>"><i class="aw-icon user-edit"></i></a><?php if ($val['uid'] != $this->user_id) { ?> &nbsp; <a href="javascript:;" onclick="ajax_request(G_BASE_URL + '/admin/user_manage/forbidden_user/' , 'uid=<?php echo $val['uid']; ?>&status=<?php echo intval($val['forbidden']) ? 0 : 1; ?>');" title="<?php if ($val['forbidden']) { ?><?php _e('解除封禁'); ?><?php } else { ?><?php _e('封禁用户'); ?><?php } ?>"><i class="aw-icon <?php if ($val['forbidden']) { ?>user-add<?php } else { ?>user-delete<?php } ?>"></i><?php } ?></td>
+						<td align="center"><a href="admin/user/edit/uid-<?php echo $val['uid']; ?>"><i class="aw-icon user-edit"></i></a><?php if ($val['uid'] != $this->user_id) { ?> &nbsp; <a href="javascript:;" onclick="ajax_request(G_BASE_URL + '/admin/user/forbidden_user/' , 'uid=<?php echo $val['uid']; ?>&status=<?php echo intval($val['forbidden']) ? 0 : 1; ?>');" title="<?php if ($val['forbidden']) { ?><?php _e('解除封禁'); ?><?php } else { ?><?php _e('封禁用户'); ?><?php } ?>"><i class="aw-icon <?php if ($val['forbidden']) { ?>user-add<?php } else { ?>user-delete<?php } ?>"></i><?php } ?></td>
 					</tr>
 					<?php } ?>
 				</tbody>
@@ -58,7 +58,7 @@
 		</div>
 	
 		<div class="tab-pane" id="search">
-			<form method="post" action="admin/user_manage/list/" onsubmit="return false;" id="search_form">
+			<form method="post" action="admin/user/list/" onsubmit="return false;" id="search_form">
 				<input name="action" type="hidden" value="search" />
 				<div class="aw-box aw-no-border-top">
 					<dl>

@@ -15,7 +15,7 @@
 	</div>
 	<div class="aw-mod-body tab-content">
 		<div class="tab-pane active" id="_members">	
-			<form method="post" action="admin/user_manage/group_save_ajax/" id="batchs_form">
+			<form method="post" action="admin/user/group_save_ajax/" id="batchs_form">
 			<table class="aw-table" id="members_table">
 				<thead>
 					<tr>
@@ -48,7 +48,7 @@
 							</div>
 						</td>
 						<td><input type="text" name="group[<?php echo $val['group_id']; ?>][reputation_factor]" class="form-control" value="<?php echo $val[reputation_factor]; ?>" /></td>
-						<td><a href="admin/user_manage/group_edit/group_id-<?php echo $val['group_id']; ?>"><?php _e('权限编辑'); ?></a></td>
+						<td><a href="admin/user/group_edit/group_id-<?php echo $val['group_id']; ?>"><?php _e('权限编辑'); ?></a></td>
 					</tr>
 					<?php } ?>
 					<?php } ?>
@@ -106,7 +106,7 @@
 					<tr>
 						<td align="center"><?php echo $val['group_id']; ?></td>
 						<td><?php echo $val['group_name']; ?></td>
-						<td><a href="admin/user_manage/group_edit/group_id-<?php echo $val['group_id']; ?>"><?php _e('权限编辑'); ?></a></td>
+						<td><a href="admin/user/group_edit/group_id-<?php echo $val['group_id']; ?>"><?php _e('权限编辑'); ?></a></td>
 					</tr>
 					<?php } ?>
 				</tbody>
@@ -114,7 +114,7 @@
 		</div>
 		
 		<div class="tab-pane" id="_custom">
-			<form method="post" action="admin/user_manage/group_custom_save_ajax/" id="custom_form">
+			<form method="post" action="admin/user/group_custom_save_ajax/" id="custom_form">
 			<table class="aw-table" id="custom_table">
 				<thead>
 					<tr>
@@ -131,7 +131,7 @@
 						<td align="center"><input type="checkbox" value="<?php echo $val['group_id']; ?>" name="group_ids[]"></td>
 						<td align="center"><?php echo $val['group_id']; ?></td>
 						<td><input type="text" class="form-control" name="group[<?php echo $val['group_id']; ?>][group_name]" value="<?php echo $val['group_name']; ?>" /></td>
-						<td><a href="admin/user_manage/group_edit/group_id-<?php echo $val['group_id']; ?>"><?php _e('权限编辑'); ?></a></td>
+						<td><a href="admin/user/group_edit/group_id-<?php echo $val['group_id']; ?>"><?php _e('权限编辑'); ?></a></td>
 					</tr>
 					<?php } ?>
 					<?php } ?>

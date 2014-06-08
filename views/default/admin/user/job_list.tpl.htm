@@ -5,7 +5,7 @@
 	<div class="pull-left" style="width: 65%">
 		<div class="alert alert-success hide error_message"></div>
 		
-		<form id="jobs_form" action="admin/user_manage/save_job_ajax/" method="post">
+		<form id="jobs_form" action="admin/user/save_job_ajax/" method="post">
 			<table class="aw-table aw-no-margin-top">
 				<thead>
 					<tr>
@@ -26,7 +26,7 @@
 								</div>
 							</div>
 						</td>
-						<td align="center"><a href="javascript:;" onclick="if (confirm('<?php _e('确认删除?'); ?>')) { ajax_request(G_BASE_URL + '/admin/user_manage/remove_job/job_id-<?php echo $key; ?>'); }"><?php _e('删除'); ?></a></td>
+						<td align="center"><a href="javascript:;" onclick="if (confirm('<?php _e('确认删除?'); ?>')) { ajax_request(G_BASE_URL + '/admin/user/remove_job/job_id-<?php echo $key; ?>'); }"><?php _e('删除'); ?></a></td>
 					</tr>
 					<?php } ?>
 					<?php } ?>
@@ -36,7 +36,7 @@
 	</div>
 	
 	<div class="aw-message-box pull-left aw-no-margin-top">
-	<form id="_save_form" action="admin/user_manage/add_job_ajax/" method="post">
+	<form id="_save_form" action="admin/user/add_job_ajax/" method="post">
 		<div class="aw-mod-head"><h3><?php _e('添加新职位'); ?></h3></div>
 		<div class="aw-mod-body clearfix">
 			<p><textarea class="form-control" name="jobs" style="width:100%" placeholder="<?php _e('一行一个职位名称'); ?>"></textarea></p>

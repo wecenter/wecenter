@@ -1,55 +1,79 @@
 <?php TPL::output('admin/global/header.tpl.htm'); ?>
 <?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
 
-<div class="pull-left right-side">
-	<div class="alert alert-success hide error_message"></div>
-	<div class="aw-mod-body">
-		<table class="aw-table">
-			<thead>
-				<tr>
-					<th style="width:70%;"><?php _e('分类标题'); ?></th>
-					<th align="center" style="width: 100px"><?php _e('排序'); ?></th>
-					<th style="width:15%;" align="center"><?php _e('操作'); ?></th>
-				</tr>
-			</thead>
-			<tbody>
-			<form id="category_form" action="admin/category/save_sort/" method="post">
-				<?php foreach ($this->list AS $key => $val) { ?>
-				<tr>
-					<td><a href="admin/category/edit/category_id-<?php echo $val['id']; ?>"><?php echo $val['title']; ?></a></td>
-					<td align="center"><input type="text" value="<?php echo $val['sort']; ?>" class="form-control sort-action" name="category[<?php echo $val['id']; ?>][sort]" /></td>
-					<td align="center">
-						<a href="admin/category/edit/category_id-<?php echo $val['id']; ?>" title="<?php _e('编辑'); ?>">
-							<i class="aw-icon page-edit"></i>
-						</a> &nbsp; 
-						<a href="javascript:;" onclick="ajax_request(G_BASE_URL + '/admin/category/category_remove/', 'category_id=<?php echo $val['id'];?>');" title="<?php _e('删除'); ?>">
-							<i class="aw-icon page-delete"></i>
-						</a> &nbsp; 
-						<a href="admin/category/move_contents/category_id-<?php echo $val['id']; ?>" title="<?php _e('批量移动'); ?>">
-							<i class="aw-icon table-go"></i>
-						</a></td>
-				</tr>
-				<?php } ?>
-			</form>
-			</tbody>
-			<tfoot>
-				<tr>
-					<td colspan="3">
-						<form id="add_category_form" action="admin/category/save/" method="post">
-						<?php _e('分类标题'); ?>: <input type="text" name="title" /> &nbsp; 
-						<?php _e('父级分类'); ?>: 
-						<select name="parent_id">
-							<option value="0"><?php _e('无'); ?></option>
-							<?php echo $this->category_option; ?>
-						</select> &nbsp;
-						<a class="btn btn-inverse inline-block btn-sm" onclick="ajax_post($('#add_category_form'));" href="javascript:;"><?php _e('添加分类'); ?></a>
-						</form>
-					</td>
-				</tr>
-			</tfoot>
-		</table>
-		
-	</div>
+<div class="aw-content-wrap">
+    <div class="mod">
+        <div class="mod-head">
+            <h3>
+                <span class="pull-left"><?php _e('分类设置'); ?></span>
+            </h3>
+        </div>
+
+        <div class="tab-content mod-body">
+        	<div class="alert alert-success hide error_message"></div>
+        	
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th><?php _e('分类标题'); ?></th>
+                        <th><?php _e('排序'); ?></th>
+                        <th><?php _e('操作'); ?></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <form id="category_form" action="admin/category/save_sort/" method="post" onsubmit="return false">
+                    <?php foreach ($this->list AS $key => $val) { ?>
+                    <tr>
+                        <td>
+                            <a href="admin/category/edit/category_id-<?php echo $val['id']; ?>"><?php echo $val['title']; ?></a>
+                        </td>
+                        <td>
+                            <div class="col-sm-6 clo-xs-12 col-lg-offset-3">
+                                <input type="text" class="form-control sort-action" name="category[<?php echo $val['id']; ?>][sort]" value="<?php echo $val['sort']; ?>" />
+                            </div>
+                        </td>
+                        <td >
+                            <a href="admin/category/edit/category_id-<?php echo $val['id']; ?>" data-toggle="tooltip" class="fa fa-pencil md-tip" title="<?php _e('编辑'); ?>"></a>
+                            <a onclick="ajax_request(G_BASE_URL + '/admin/category/category_remove/', 'category_id=<?php echo $val['id'];?>');" data-toggle="tooltip" class="fa fa-trash-o md-tip" title="<?php _e('删除'); ?>"></a>
+                            <a href="admin/category/move_contents/category_id-<?php echo $val['id']; ?>" data-toggle="tooltip" class="fa fa-exchange md-tip" title="<?php _e('批量移动'); ?>"></a>
+                        </td>
+                    </tr>
+                    <?php } ?>
+                    </form>
+                    </tbody>
+                    <tfoot class="mod-foot-center">
+                    <form id="add_category_form" action="admin/category/save/" method="post" onsubmit="return false">
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <span  class="col-sm-3 mod-category-foot"><?php _e('分类标题'); ?></span>
+                                <div class="col-sm-6 col-xs-12">
+                                    <input type="text" class="form-control" name="title" />
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                <span class="col-sm-3 mod-category-foot"><?php _e('父级分类') ?>:</span>
+                                <div class="col-sm-6 col-xs-12">
+                                    <select name="parent_id" class="form-control">
+										<option value="0"><?php _e('无'); ?></option>
+										<?php echo $this->category_option; ?>
+									</select>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="mod-foot-btn">
+                            <a onclick="AWS.ajax_post($('#add_category_form'));" class="btn-primary btn"><?php _e('添加分类'); ?></a>
+                        </td>
+                    </tr>
+                    </form>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script type="text/javascript">
@@ -57,7 +81,7 @@
 		$('input.sort-action').keyup(function () {
 			if ($(this).val() != '')
 			{
-				ajax_post($('#category_form'), _error_message_form_processer);
+				AWS.ajax_post($('#category_form'), 'ajax_porcesser', 'error_message');
 			}
 		});
 	});

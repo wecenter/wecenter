@@ -884,11 +884,11 @@ class account_class extends AWS_MODEL
         {
             if ($where)
             {
-                $where = '(' . $where . ') AND uid <> ' . USER::get_client_uid();
+                $where = '(' . $where . ') AND uid <> ' . AWS_APP::user()->get_info('uid');
             }
             else
             {
-                $where = 'uid <> ' . USER::get_client_uid();
+                $where = 'uid <> ' . AWS_APP::user()->get_info('uid');
             }
         }
 

@@ -18,7 +18,7 @@ if (!defined('IN_ANWSION'))
 	die;
 }
 
-class user_manage extends AWS_ADMIN_CONTROLLER
+class user extends AWS_ADMIN_CONTROLLER
 {
 	public function list_action()
 	{
@@ -35,7 +35,7 @@ class user_manage extends AWS_ADMIN_CONTROLLER
 			}
 
 			H::ajax_json_output(AWS_APP::RSM(array(
-				'url' => get_js_url('/admin/user_manage/list/' . implode('__', $param))
+				'url' => get_js_url('/admin/user/list/' . implode('__', $param))
 			), 1, null));
 		}
 
@@ -127,12 +127,12 @@ class user_manage extends AWS_ADMIN_CONTROLLER
 		}
 		
 		TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
-			'base_url' => get_js_url('/admin/user_manage/list/' . implode('__', $url_param)),
+			'base_url' => get_js_url('/admin/user/list/' . implode('__', $url_param)),
 			'total_rows' => $total_rows,
 			'per_page' => $this->per_page
 		))->create_links());
 
-		$this->crumb(AWS_APP::lang()->_t('会员列表'), "admin/user_manage/list/");
+		$this->crumb(AWS_APP::lang()->_t('会员列表'), "admin/user/list/");
 
 		TPL::assign('system_group', $this->model('account')->get_user_group_list(0));
 		TPL::assign('job_list', $this->model('work')->get_jobs_list());
@@ -141,18 +141,18 @@ class user_manage extends AWS_ADMIN_CONTROLLER
 		TPL::assign('list', $user_list);
 		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(402));
 		
-		TPL::output('admin/user_manage/list');
+		TPL::output('admin/user/list');
 	}
 
 	public function group_list_action()
 	{
-		$this->crumb(AWS_APP::lang()->_t('用户组管理'), "admin/user_manage/group_list/");
+		$this->crumb(AWS_APP::lang()->_t('用户组管理'), "admin/user/group_list/");
 
 		TPL::assign('mem_group', $this->model('account')->get_user_group_list(1));
 		TPL::assign('system_group', $this->model('account')->get_user_group_list(0, 0));
 		TPL::assign('custom_group', $this->model('account')->get_user_group_list(0, 1));
 		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(403));
-		TPL::output('admin/user_manage/group_list');
+		TPL::output('admin/user/group_list');
 	}
 
 	public function group_save_ajax_action()
@@ -270,7 +270,7 @@ class user_manage extends AWS_ADMIN_CONTROLLER
 		if ($group_new OR $group_ids)
 		{
 			$rsm = array(
-				'url' => get_js_url('/admin/user_manage/group_list/r-' . rand(1, 999) . '#custom')
+				'url' => get_js_url('/admin/user/group_list/r-' . rand(1, 999) . '#custom')
 			);
 		}
 
@@ -284,12 +284,12 @@ class user_manage extends AWS_ADMIN_CONTROLLER
 			H::redirect_msg(AWS_APP::lang()->_t('用户组不存在'));
 		}
 
-		$this->crumb(AWS_APP::lang()->_t('用户组管理'), "admin/user_manage/group_list/");
+		$this->crumb(AWS_APP::lang()->_t('用户组管理'), "admin/user/group_list/");
 
 		TPL::assign('group', $group);
 		TPL::assign('group_pms', $group['permission']);
 		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(403));
-		TPL::output('admin/user_manage/group_edit');
+		TPL::output('admin/user/group_edit');
 	}
 
 	public function group_edit_process_action()
@@ -354,7 +354,7 @@ class user_manage extends AWS_ADMIN_CONTROLLER
 			H::redirect_msg(AWS_APP::lang()->_t('用户不存在'));
 		}
 
-		$this->crumb(AWS_APP::lang()->_t('编辑用户资料'), "admin/user_manage/list/");
+		$this->crumb(AWS_APP::lang()->_t('编辑用户资料'), "admin/user/list/");
 
 		TPL::assign('job_list', $this->model('work')->get_jobs_list());
 
@@ -364,7 +364,7 @@ class user_manage extends AWS_ADMIN_CONTROLLER
 
 		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(402));
 
-		TPL::output('admin/user_manage/edit');
+		TPL::output('admin/user/edit');
 	}
 
 	public function user_save_ajax_action()
@@ -519,7 +519,7 @@ class user_manage extends AWS_ADMIN_CONTROLLER
 			$this->model('active')->active_user_by_uid($uid);
 
 			H::ajax_json_output(AWS_APP::RSM(array(
-				'url' => get_js_url('/admin/user_manage/list/')
+				'url' => get_js_url('/admin/user/list/')
 			), 1, null));
 		}
 	}
@@ -535,18 +535,18 @@ class user_manage extends AWS_ADMIN_CONTROLLER
 
 	public function user_add_action()
 	{
-		$this->crumb(AWS_APP::lang()->_t('添加用户'), "admin/user_manage/user_add/");
+		$this->crumb(AWS_APP::lang()->_t('添加用户'), "admin/user/user_add/");
 
 		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(405));
-		TPL::output('admin/user_manage/add');
+		TPL::output('admin/user/add');
 	}
 
 	public function invites_action()
 	{
-		$this->crumb(AWS_APP::lang()->_t('批量邀请'), "admin/user_manage/invites/");
+		$this->crumb(AWS_APP::lang()->_t('批量邀请'), "admin/user/invites/");
 
 		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(406));
-		TPL::output('admin/user_manage/invites');
+		TPL::output('admin/user/invites');
 	}
 
 	public function invites_ajax_action()
@@ -580,10 +580,10 @@ class user_manage extends AWS_ADMIN_CONTROLLER
 	{
 		TPL::assign('job_list', $this->model('work')->get_jobs_list());
 
-		$this->crumb(AWS_APP::lang()->_t('职位设置'), "admin/user_manage/job_list/");
+		$this->crumb(AWS_APP::lang()->_t('职位设置'), "admin/user/job_list/");
 
 		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(407));
-		TPL::output('admin/user_manage/job_list');
+		TPL::output('admin/user/job_list');
 	}
 
 	public function remove_job_action()
@@ -657,7 +657,7 @@ class user_manage extends AWS_ADMIN_CONTROLLER
 		$this->model('integral')->process($_POST['uid'], 'AWARD', $_POST['integral'], $_POST['note']);
 
 		H::ajax_json_output(AWS_APP::RSM(array(
-			'url' => get_js_url('/admin/user_manage/integral_log/uid-' . $_POST['uid'])
+			'url' => get_js_url('/admin/user/integral_log/uid-' . $_POST['uid'])
 		), 1, null));
 	}
 
@@ -676,18 +676,18 @@ class user_manage extends AWS_ADMIN_CONTROLLER
 		}
 
 		TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
-			'base_url' => get_js_url('/admin/user_manage/verify_approval_list/status-' . $_GET['status']),
+			'base_url' => get_js_url('/admin/user/verify_approval_list/status-' . $_GET['status']),
 			'total_rows' => $total_rows,
 			'per_page' => $this->per_page
 		))->create_links());
 
-		$this->crumb(AWS_APP::lang()->_t('认证审核'), 'admin/user_manage/verify_approval_list/');
+		$this->crumb(AWS_APP::lang()->_t('认证审核'), 'admin/user/verify_approval_list/');
 
 		TPL::assign('users_info', $this->model('account')->get_user_info_by_uids($uids));
 		TPL::assign('approval_list', $approval_list);
 		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(401));
 
-		TPL::output('admin/user_manage/verify_approval_list');
+		TPL::output('admin/user/verify_approval_list');
 	}
 
 	public function register_approval_list_action()
@@ -702,17 +702,17 @@ class user_manage extends AWS_ADMIN_CONTROLLER
 		$total_rows = $this->model('people')->found_rows();
 
 		TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
-			'base_url' => get_js_url('/admin/user_manage/register_approval_list/'),
+			'base_url' => get_js_url('/admin/user/register_approval_list/'),
 			'total_rows' => $total_rows,
 			'per_page' => $this->per_page
 		))->create_links());
 
-		$this->crumb(AWS_APP::lang()->_t('注册审核'), 'admin/user_manage/register_approval_list/');
+		$this->crumb(AWS_APP::lang()->_t('注册审核'), 'admin/user/register_approval_list/');
 
 		TPL::assign('list', $user_list);
 		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(408));
 
-		TPL::output('admin/user_manage/register_approval_list');
+		TPL::output('admin/user/register_approval_list');
 	}
 
 	public function register_approval_process_action()
@@ -764,10 +764,10 @@ class user_manage extends AWS_ADMIN_CONTROLLER
 
 		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(401));
 
-		$this->crumb(AWS_APP::lang()->_t('认证审核'), 'admin/user_manage/verify_approval_list/');
-		$this->crumb($this->user['user_name'], 'admin/user_manage/verify_approval_edit/' . $_GET['id']);
+		$this->crumb(AWS_APP::lang()->_t('认证审核'), 'admin/user/verify_approval_list/');
+		$this->crumb($this->user['user_name'], 'admin/user/verify_approval_edit/' . $_GET['id']);
 
-		TPL::output('admin/user_manage/verify_approval_edit');
+		TPL::output('admin/user/verify_approval_edit');
 	}
 
 	public function verify_approval_save_action()
@@ -781,7 +781,7 @@ class user_manage extends AWS_ADMIN_CONTROLLER
 		}
 
 		H::ajax_json_output(AWS_APP::RSM(array(
-			'url' => get_js_url('/admin/user_manage/verify_approval_list/')
+			'url' => get_js_url('/admin/user/verify_approval_list/')
 		), 1, null));
 	}
 
@@ -813,7 +813,7 @@ class user_manage extends AWS_ADMIN_CONTROLLER
 		if ($log = $this->model('integral')->fetch_page('integral_log', 'uid = ' . intval($_GET['uid']), 'time DESC', $_GET['page'], 50))
 		{
 			TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
-				'base_url' => get_js_url('/admin/user_manage/integral_log/uid-' . intval($_GET['uid'])),
+				'base_url' => get_js_url('/admin/user/integral_log/uid-' . intval($_GET['uid'])),
 				'total_rows' => $this->model('integral')->found_rows(),
 				'per_page' => 50
 			))->create_links());
@@ -833,9 +833,9 @@ class user_manage extends AWS_ADMIN_CONTROLLER
 		TPL::assign('user', $this->model('account')->get_user_info_by_uid($_GET['uid']));
 		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(402));
 
-		$this->crumb(AWS_APP::lang()->_t('积分日志'), '/admin/user_manage/integral_log/uid-' . $_GET['uid']);
+		$this->crumb(AWS_APP::lang()->_t('积分日志'), '/admin/user/integral_log/uid-' . $_GET['uid']);
 
-		TPL::output('admin/user_manage/integral_log');
+		TPL::output('admin/user/integral_log');
 	}
 
 	public function remove_user_action()
@@ -855,7 +855,7 @@ class user_manage extends AWS_ADMIN_CONTROLLER
 		}
 
 		H::ajax_json_output(AWS_APP::RSM(array(
-			'url' => get_js_url('/admin/user_manage/list/')
+			'url' => get_js_url('/admin/user/list/')
 		), 1, null));
 	}
 }
