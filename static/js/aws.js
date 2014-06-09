@@ -492,8 +492,6 @@ var AWS =
 			                    $('.aw-publish-box #quick_publish_category_id').val($(this).attr('data-value'));
 			                    $('.aw-publish-box #aw-topic-tags-select').html($(this).text());
 			                });
-
-			                $(".aw-publish-box .dropdown li a[data-value='" + data.category_id + "']").click();
 			            });
 		        	}
 

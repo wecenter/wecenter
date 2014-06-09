@@ -103,15 +103,7 @@
 			<!-- 发起 -->
 			<?php if ($this->user_id) { ?>
 			<div class="aw-publish-btn">
-				<?php if (get_setting('quick_publish') == 'Y' AND $this->user_id) { ?>
-					<a id="header_publish" class="<?php if ($_GET['app'] == 'publish') { ?> active<?php } ?>" onclick="AWS.dialog('publish', {'category_enable':'<?php echo (get_setting('category_enable') == 'Y') ? '1' : '0'; ?>', 'category_id':'<?php echo intval($_GET['category']); ?>', 'topic_title':'<?php echo $this->topic_info['topic_title']; ?>'}); return false;"><i class="fa fa-edit"></i><?php _e('发起'); ?></a>
-				<?php } else { ?>
-					<form action="publish/" method="post">
-						<input type="hidden" value="<?php echo intval($_GET['category']); ?>" name="category_id" id="quick_publish_category_id">
-						<button type="submit" id="header_publish" class="<?php if ($_GET['app'] == 'publish') { ?> active<?php } ?>"><i class="fa fa-edit"></i><?php _e('发起'); ?></button>
-					</form>
-				<?php } ?>
-				
+				<a id="header_publish"<?php if (get_setting('quick_publish') == 'Y' AND $this->user_id) { ?>href="publish/"<?php } else { ?>href="publish/<?php if ($_GET['category']) { ?>category_id-<?php echo intval($_GET['category']); ?>__<?php } ?><?php if ($this->topic_info) { ?>topic_title-<?php echo urlencode($this->topic_info['topic_title']); ?>__<?php } ?>"<?php } ?> class="<?php if ($_GET['app'] == 'publish') { ?> active<?php } ?>"<?php if (get_setting('quick_publish') == 'Y' && $this->user_id) { ?> onclick="AWS.dialog('publish', {'category_enable':'<?php echo (get_setting('category_enable') == 'Y') ? '1' : '0'; ?>', 'category_id':'<?php echo intval($_GET['category']); ?>', 'topic_title':'<?php echo $this->topic_info['topic_title']; ?>'}); return false;"<?php } ?>><i class="fa fa-edit"></i><?php _e('发起'); ?></a>
 			</div>
 			<?php }?>
 			<!-- end 发起 -->
