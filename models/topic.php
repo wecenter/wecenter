@@ -93,24 +93,24 @@ class topic_class extends AWS_MODEL
 		{
 			return false;
 		}
-		
+	
 		$original_file = str_replace('_' . AWS_APP::config()->get('image')->topic_thumbnail['min']['w'] . '_' . AWS_APP::config()->get('image')->topic_thumbnail['min']['h'] . '.', '.', $pic_file);
 		
 		// Fix date() bug
-		if (!file_exists($original_file))
+		if (!file_exists(get_setting('upload_dir') . '/topic/' . $original_file))
 		{
 			$dir_info = explode('/', $original_file);
-			
+		
 			$dir_date = intval($dir_info[0]);
-			
+		
 			$original_file = ($dir_date + 1) . '/' . basename($original_file);
 		}
-		
+	
 		if (! $size)
 		{
 			return $original_file;
 		}
-		
+	
 		return str_replace('.', '_' . AWS_APP::config()->get('image')->topic_thumbnail[$size]['w'] . '_' . AWS_APP::config()->get('image')->topic_thumbnail[$size]['h'] . '.', $original_file);
 	}
 	
