@@ -1,13 +1,11 @@
 <?php if (is_array($this->list)) { ?>
-<ul>
-	<?php foreach ($this->list AS $key => $val) { ?>
-	<li>
-		<p>
-			<span class="pull-right aw-text-color-999"><?php echo date_friendly($val['add_time']); ?></span>
-			<?php echo $val['last_action_str']; ?>:
-			<a class="aw-hide-txt" href="<?php echo $val['link']; ?>"><?php echo $val['title']; ?></a>
-		</p>
-	</li>
-	<?php } ?>
-</ul>
+<?php foreach ($this->list AS $key => $val) { ?>
+<li>
+    <p>
+        <span class="pull-right aw-text-color-999"><?php echo date_friendly($val['add_time']); ?></span>
+        <?php echo $val['last_action_str']; ?>:
+        <a class="aw-hide-txt" href="<?php echo $val['link']; ?>"><?php echo $val['title']; ?></a>
+    </p>
+</li>
+<?php } ?>
 <?php } ?>
