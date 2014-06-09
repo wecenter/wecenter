@@ -383,7 +383,7 @@ class user_manage extends AWS_ADMIN_CONTROLLER
 			{
 				H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('用户名已存在')));
 			}
-			
+
 			if ($_POST['email'] != $user_info['email'] AND $this->model('account')->get_user_info_by_username($_POST['email']))
 			{
 				H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('E-mail 已存在')));
@@ -455,6 +455,7 @@ class user_manage extends AWS_ADMIN_CONTROLLER
 			$update_data['verified'] = $_POST['verified'];
 			$update_data['valid_email'] = intval($_POST['valid_email']);
 			$update_data['forbidden'] = intval($_POST['forbidden']);
+			$update_data['sex'] = intval($_POST['sex']);
 
 			if ($this->user_info['group_id'] == 1 AND $_POST['group_id'])
 			{
