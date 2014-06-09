@@ -10,7 +10,8 @@ body{background: #eaeaea;;}
 .nav-tabs > li > a:hover{border-color: transparent;}
 li{list-style: none;}
 .table{margin-bottom: 0;}
-.radio-inline, .checkbox-inline{padding-right: 20px; padding-left: 0;}
+.aw-content-wrap .radio-inline, .aw-content-wrap label.checkbox-inline{margin-left: 0}
+.aw-content-wrap label.checkbox-inline{line-height: 30px;}
 .nav > li > a:hover, .nav > li > a:focus{background-color: transparent;}
 .nav .open > a, .nav .open > a:hover, .nav .open > a:focus{background-color: #fff;}
 
@@ -80,7 +81,7 @@ li{list-style: none;}
 /* 右侧公共头部部分 mod-head*/
 .aw-content-wrap .mod-border{border-top: none;}
 .aw-content-wrap .mod-head .nav-tabs{border-bottom: none;}
-.aw-content-wrap .mod-head .nav-tabs li{width: 89px; height: 42px; border-right: 1px solid #DDD; list-style: none; text-align: center; cursor: default;}
+.aw-content-wrap .mod-head .nav-tabs li{min-width: 89px; height: 42px; border-right: 1px solid #DDD; list-style: none; text-align: center; cursor: default;}
 .aw-content-wrap .mod-head .nav-tabs li a{margin-top: 0; margin-left: 0; padding: 8px 15px; outline: none; border: none; background: transparent; line-height: 29px;}
 .aw-content-wrap .mod-head{margin: 10px 0 0 0; height: 44px; border: 1px solid #e2e1e1; background: #f4f4f4; color: #333;}
 .aw-content-wrap .mod-site-save{margin: 10px 15px 0 0;}
@@ -110,7 +111,7 @@ textarea{resize: none;}
 .aw-content-wrap .mod-foot-center td{text-align: center;}
 .aw-content-wrap .mod-site-foot{border-top: none;}
 .aw-content-wrap .mod-text-inline{line-height: 34px; padding: 0 9px; width: auto;}
-
+.aw-content-wrap .table th{white-space: nowrap;}
 /*按钮样式*/
 .aw-content-wrap .mod-btn .mod-btn-color{border: 1px solid #eaeaea; background: #fff; color: #000;}
 
