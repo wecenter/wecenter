@@ -50,6 +50,7 @@ a:focus{outline: none;}
 input, textarea{padding: 6px !important;resize:none;}
 table td{vertical-align: middle !important;}
 .container{width: 990px !important;}
+.aw-wecenter{margin:0 auto;}/*兼容2.5*/
 .aw-padding10{padding:10px;}
 .aw-content-wrap{padding-bottom:30px;}
 .aw-mod .mod-head h4, .aw-mod .mod-head h4 a{font-size:14px;}
