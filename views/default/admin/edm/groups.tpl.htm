@@ -18,10 +18,10 @@
 					<table class="table table-striped">
 						<thead>
 							<tr>
-								<th width="50%"><?php _e('用户群名称'); ?></th>
-								<th align="center"><?php _e('用户数量'); ?></th>
-								<th align="center"><?php _e('建立时间'); ?></th>
-								<th align="center"><?php _e('操作'); ?></th>
+								<th><?php _e('用户群名称'); ?></th>
+								<th><?php _e('用户数量'); ?></th>
+								<th><?php _e('建立时间'); ?></th>
+								<th><?php _e('操作'); ?></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -31,7 +31,7 @@
 								<td><?php echo $val['users']; ?></td>
 								<td><?php echo date_friendly($val['time']); ?></a>
 								<td>
-									<a href="admin/edm/remove_group/<?php echo $val['id']; ?>" onclick="if (confirm('<?php _e('确认删除这个用户群?'); ?>')) { window.location = this.href; } return false;" class="fa fa-trash-o md-tip"></a>
+									<a href="admin/edm/remove_group/<?php echo $val['id']; ?>" onclick="if (confirm('<?php _e('确认删除这个用户群?'); ?>')) { window.location = this.href; } return false;" class="fa fa-trash-o md-tip" title="<?php _e('删除'); ?>"></a>
 								</td>
 							</tr>
 							<?php } ?>

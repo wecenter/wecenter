@@ -1,107 +1,114 @@
 <?php TPL::output('admin/global/header.tpl.htm'); ?>
 <?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
 
-<div class="pull-left right-side">
-	<div class="aw-mod-head">
-		<h2>
-			<span class="pull-left"><?php _e('任务管理'); ?></span>
-			
-			<ul class="nav nav-tabs pull-left">
-			    <li class="active"><a href="#list" data-toggle="tab"><?php _e('任务列表'); ?></a></li>
-			    <li><a href="#add" data-toggle="tab"><?php _e('新建任务'); ?></a></li>
-			</ul>
-		</h2>
-	</div>
-	<div class="aw-mod-body tab-content">
-		<div class="tab-pane active" id="list">
-			<table class="aw-table">
-				<thead>
-					<tr>
-						<th width="40%"><?php _e('任务名称'); ?></th>
-						<th><?php _e('用户数量'); ?></th>
-						<th><?php _e('发出数量'); ?></th>
-						<th><?php _e('阅读数'); ?></th>
-						<th><?php _e('建立时间'); ?></th>
-						<th><?php _e('操作'); ?></th>
-					</tr>
-				</thead>
-				<tbody>
-					<?php if ($this->tasks_list) { ?>
-					<?php foreach ($this->tasks_list AS $key => $val) { ?>
-					<tr>
-						<td><?php echo $val['title']; ?></td>
-						<td><?php echo $val['users']; ?></td>
-						<td><?php echo $val['sent']; ?></td>
-						<td><?php echo $val['views']; ?></td>
-						<td><?php echo date_friendly($val['time']); ?></a>
-						<td><a href="account/edm/mail/<?php echo $val['id']; ?>" target="_blank"><?php _e('邮件内容'); ?></a> | <a href="admin/edm/export_active_users/<?php echo $val['id']; ?>"><?php _e('导出活跃用户'); ?></a> | <a href="admin/edm/remove_task/<?php echo $val['id']; ?>" onclick="if (confirm('<?php _e('确认删除这个任务?'); ?>')) { window.location = this.href; } return false;"><?php _e('删除'); ?></a></td>
-					</tr>
-					<?php } ?>
-					<?php } ?>
-				</tbody>
-			</table>
-			
-			<?php echo $this->pagination; ?>
+<div class="aw-content-wrap">
+	<div class="mod">
+		<div class="mod-head">
+			<h3>
+				<ul class="nav nav-tabs">
+				    <li class="active"><a href="#list" data-toggle="tab"><?php _e('任务列表'); ?></a></li>
+				    <li><a href="#add" data-toggle="tab"><?php _e('新建'); ?></a></li>
+				</ul>
+			</h3>
 		</div>
+		<div class="mod-body tab-content">
+			<div class="tab-pane active" id="list">
+				<div class="table-responsive">
+				<?php if ($this->tasks_list) { ?>
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th width="40%"><?php _e('用户群名称'); ?></th>
+								<th><?php _e('用户数量'); ?></th>
+								<th><?php _e('发出数量'); ?></th>
+								<th><?php _e('阅读数'); ?></th>
+								<th><?php _e('建立时间'); ?></th>
+								<th><?php _e('操作'); ?></th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php foreach ($this->tasks_list AS $key => $val) { ?>
+							<tr>
+								<td><?php echo $val['title']; ?></td>
+								<td><?php echo $val['users']; ?></td>
+								<td><?php echo $val['sent']; ?></td>
+								<td><?php echo $val['views']; ?></td>
+								<td><?php echo date_friendly($val['time']); ?></a>
+								<td>
+									<a href="account/edm/mail/<?php echo $val['id']; ?>" target="_blank" class="fa fa-envelope-o md-tip" title="<?php _e('邮件内容'); ?>"></a>
+									<a href="dmin/edm/export_active_users/<?php echo $val['id']; ?>" class="fa fa-cloud-download md-tip" title="<?php _e('导出活跃用户'); ?>"></a>
+									<a href="admin/edm/remove_task/<?php echo $val['id']; ?>" onclick="if (confirm('<?php _e('确认删除这个用户群?'); ?>')) { window.location = this.href; } return false;" class="fa fa-trash-o md-tip" title="<?php _e('删除'); ?>"></a>
+								</td>
+							</tr>
+							<?php } ?>
+						</tbody>
+					</table>
+				<?php } ?>
+				</div>
+				<div class="mod-table-foot">
+					<span class="pull-right mod-page"><?php echo $this->pagination; ?></span>
+				</div>
+			</div>
 	
-		<div class="tab-pane" id="add">
-			<form action="admin/edm/add_task/" onsubmit="return false" id="task_form" method="post">
-				<div class="aw-box aw-no-border-top">					
-					<dl>
-						<dt><h3><?php _e('任务标题'); ?></h3></dt>
-						<dd><input type="text" name="title" /></dd>
-					</dl>
+			<div class="tab-pane" id="add">
+				<form method="post" action="admin/edm/add_task/" onsubmit="return false;" id="task_form" class="form-horizontal" role="form">
 					
-					<dl>
-						<dt><h3><?php _e('邮件标题'); ?></h3></dt>
-						<dd><input type="text" name="subject" /></dd>
-					</dl>
+					<div class="form-group">
+						<label class="col-sm-2 col-xs-3 control-label"><?php _e('任务标题'); ?>:</label>
+							
+						<div class="col-sm-5 col-xs-8">
+							<input class="form-control" type="text" name="title" />
+		                </div>
+					</div>
 					
-					<dl>
-						<dt><h3><?php _e('发件人名称'); ?></h3></dt>
-						<dd><input type="text" name="from_name" value="<?php echo get_setting('site_name'); ?>" /></dd>
-					</dl>
+					<div class="form-group">
+						<label class="col-sm-2 col-xs-3 control-label"><?php _e('邮件标题'); ?>:</label>
+							
+						<div class="col-sm-5 col-xs-8">
+							<input class="form-control" type="text" name="subject" />
+		                </div>
+					</div>
 					
-					<dl>
-						<dt><h3><?php _e('用户群组'); ?></h3></dt>              
-						<dd>
-							<select name="usergroup_id">
+					<div class="form-group">
+						<label class="col-sm-2 col-xs-3 control-label"><?php _e('发件人名称'); ?>:</label>
+							
+						<div class="col-sm-5 col-xs-8">
+							<input class="form-control" type="text" name="from_name" value="<?php echo get_setting('site_name'); ?>" />
+		                </div>
+					</div>
+					
+					<div class="form-group">
+						<label class="col-sm-2 col-xs-3 control-label"><?php _e('用户群组'); ?>:</label>
+							
+						<div class="col-sm-5 col-xs-8">
+							<select name="usergroup_id" class="form-control">
 								<option value="0"> - <?php _e('请选择'); ?> - </option>
 								<?php foreach ($this->usergroups AS $key => $item) { ?>
 								<option value="<?php echo $item['id']; ?>"<?php if ($_GET['usergroup_id'] == $item['id']) { ?> selected="selected"<?php } ?>><?php echo $item['title']; ?></option>
 								<?php } ?>
 							</select>
-						</dd>
-					</dl>
-					
-					<dl>
-						<dt><h3><?php _e('邮件内容'); ?></h3></dt>
-						<dd>
-							<textarea class="form-control" name="message"></textarea>
-							<p class="aw-text-color-999"><?php _e('请直接粘帖 HTML 代码'); ?></p>
-						</dd>						
-					</dl>
-					
-					<div class="aw-mod-footer">
-						<a href="javascript:;" class="btn btn-inverse btn-normal" onclick="ajax_post($('#task_form'));"><?php _e('创建'); ?></a>
+		                </div>
 					</div>
-				</div>
-			</form>
+					
+					<div class="form-group">
+						<label class="col-sm-2 col-xs-3 control-label"><?php _e('邮件内容'); ?>:</label>
+							
+						<div class="col-sm-5 col-xs-8">
+							<textarea class="form-control" name="message" rows="6"></textarea>
+							
+							<span class="help-block"><?php _e('请直接粘帖 HTML 代码'); ?></span>
+		                </div>
+					</div>
+					
+					<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-5 col-xs-8">
+							<button type="button" onclick="AWS.ajax_post($('#task_form'));" class="btn btn-primary"><?php _e('创建'); ?></button>
+						</div>
+					</div>
+				</form>
+			</div>
 		</div>
 	</div>
 </div>
-
-<script type="text/javascript">
-	function set_import_type(item_name)
-	{
-		$('.hidden_option').css('display', 'none');
-		
-		$('#option_' + item_name).css('display', '');
-	}
-	
-	$(document).ready(function () {
-		set_import_type($('#import_type').val());
-	});
-</script>
 
 <?php TPL::output('admin/global/footer.tpl.htm'); ?>
