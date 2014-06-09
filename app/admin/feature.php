@@ -32,7 +32,7 @@ class feature extends AWS_ADMIN_CONTROLLER
 		$feature_list = $this->model('feature')->get_feature_list('id DESC', $_GET['page'], $this->per_page);
 		
 		TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
-			'base_url' => get_setting('base_url') . '/?/admin/feature/list/',
+			'base_url' => get_js_url('/admin/feature/list/'),
 			'total_rows' => $this->model('feature')->found_rows(),
 			'per_page' => 20
 		))->create_links());

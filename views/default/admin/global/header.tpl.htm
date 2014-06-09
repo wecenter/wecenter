@@ -1,42 +1,100 @@
-<!doctype html>
+<!DOCTYPE HTML>
 <html>
+
 <head>
-	<meta charset="utf-8" />
-	<meta name="renderer" content="webkit" />
-	<meta http-equiv="X-UA-Compatible" content="<?php echo X_UA_COMPATIBLE; ?>" />
-	<title><?php echo $this->page_title; ?></title>
-	<base href="<?php echo get_setting('base_url');?>/<?php echo G_INDEX_SCRIPT; ?>" />
-	<link href="<?php echo G_STATIC_URL; ?>/css/bootstrap.css" rel="stylesheet" type="text/css" />
-	<link href="<?php echo G_STATIC_URL; ?>/css/font-awesome.css" rel="stylesheet" type="text/css" />
-	<script type="text/javascript">
-		var G_INDEX_SCRIPT = '<?php echo G_INDEX_SCRIPT; ?>';
-		var G_BASE_URL = '<?php echo get_setting('base_url'); ?>/<?php echo rtrim(G_INDEX_SCRIPT, '/'); ?>';
-		var G_STATIC_URL = '<?php echo G_STATIC_URL; ?>';
-		var G_UPLOAD_URL = '<?php echo get_setting('upload_url'); ?>';
-		var G_USER_ID = <?php echo $this->user_id; ?>;
-		var G_POST_HASH = '';
-	</script>
-	<?php if (is_array($this->_import_css_files)) { ?>
-	<?php foreach ($this->_import_css_files AS $import_css) { ?>
-	<link href="<?php echo $import_css; ?>?v=<?php echo G_VERSION_BUILD; ?>" rel="stylesheet" type="text/css" />
-	<?php } ?>
-	<?php } ?>
-	<?php if (is_array($this->_import_js_files)) { ?>
-	<?php foreach ($this->_import_js_files AS $import_js) { ?>
-	<script src="<?php echo $import_js; ?>?v=<?php echo G_VERSION_BUILD; ?>" type="text/javascript"></script>
-	<?php } ?>
-	<?php } ?>
-	<!--[if lte IE 8]>
-		<script type="text/javascript" src="<?php echo G_STATIC_URL; ?>/js/excanvas.js"></script>
-		<script type="text/javascript" src="<?php echo G_STATIC_URL; ?>/js/respond.js"></script>
-	<![endif]-->
+<meta charset="utf-8" />
+<meta name="renderer" content="webkit" />
+<meta http-equiv="X-UA-Compatible" content="<?php echo X_UA_COMPATIBLE; ?>" />
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="blank" />
+<meta name="format-detection" content="telephone=no" />
+<title><?php echo $this->page_title; ?></title>
+<base href="<?php echo get_setting('base_url');?>/<?php echo G_INDEX_SCRIPT; ?>" />
+<link type="text/css" rel="stylesheet" href="<?php echo G_STATIC_URL; ?>/css/bootstrap.css?v=<?php echo G_VERSION_BUILD; ?>" />
+<link type="text/css" rel="stylesheet" href="<?php echo G_STATIC_URL; ?>/css/font-awesome.css?v=<?php echo G_VERSION_BUILD; ?>" />
+<script type="text/javascript">
+    var G_INDEX_SCRIPT = "<?php echo G_INDEX_SCRIPT; ?>";
+    var G_BASE_URL = "<?php echo get_setting('base_url'); ?>/<?php echo rtrim(G_INDEX_SCRIPT, '/'); ?>";
+    var G_STATIC_URL = "<?php echo G_STATIC_URL; ?>";
+    var G_UPLOAD_URL = "<?php echo get_setting('upload_url'); ?>";
+    var G_USER_ID = <?php echo $this->user_id; ?>;
+    var G_POST_HASH = "";
+</script>
+<?php if (is_array($this->_import_css_files)) { ?>
+<?php foreach ($this->_import_css_files AS $import_css) { ?>
+<link type="text/css" rel="stylesheet" href="<?php echo $import_css; ?>?v=<?php echo G_VERSION_BUILD; ?>" />
+<?php } ?>
+<?php } ?>
+<?php if (is_array($this->_import_js_files)) { ?>
+<?php foreach ($this->_import_js_files AS $import_js) { ?>
+<script type="text/javascript" src="<?php echo $import_js; ?>?v=<?php echo G_VERSION_BUILD; ?>" ></script>
+<?php } ?>
+<?php } ?>
+<!--[if lte IE 8]>
+    <script type="text/javascript" src="<?php echo G_STATIC_URL; ?>/js/respond.js"></script>
+<![endif]-->
 </head>
+
 <body>
-	<div class="row aw-manage-menu">
-		<div class="span12">
-			<h1><img src="<?php echo G_STATIC_URL; ?>/admin/img/logo.png" alt="" /></h1>
-			<span><?php _e('你好'); ?>, <?php echo $this->user_info['user_name']; ?></span> -
-			<a href="<?php echo get_setting('base_url'); ?>" target="_blank"><?php _e('访问网站首页'); ?></a> - <a href="admin/logout/"><?php _e('退出'); ?></a>
-		</div>
-	</div>
-	<div class="content">
+<div class="aw-header">
+    <button class="btn btn-sm mod-head-btn pull-left">
+        <i class="fa fa-bars fa-2x"></i>
+    </button>
+
+    <div class="mod-header-user">
+        <ul class="pull-right">
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle mod-bell" data-toggle="dropdown">
+                    <i class="fa fa-bell"></i>
+                    <span class="label label-danger"><?php ?></span>
+                </a>
+                <ul class="dropdown-menu mod-chat">
+                    <!-- 站内通知 -->
+                    <?php // foreach ($this-> AS $key => $value) { ?>
+                    <li class="mod-media">
+                        <a class="pull-left" href="<?php ?>">
+                            <img width="50" class="thumb" src="<?php ?>" />
+                        </a>
+                        <div class="media-body">
+                            <span class="label label-default pull-right"><?php ?></span>
+                            <h5 class="media-heading"><?php ?></h5>
+                            <p class="margin-none"><?php ?></p>
+                        </div>
+                    </li>
+
+                    <?php // } ?>
+                    <li class="mod-btn">
+                        <a href="<?php ?>" class="btn btn-primary">
+                            <i class="fa fa-list"></i>
+                            <span>View all messages</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="dropdown username">
+                <a href="" class="dropdown-toggle" data-toggle="dropdown">
+                    <img src="<?php echo get_avatar_url($this->user_info['uid'], 'mid'); ?>" class="img-circle" width="30">
+                    <?php echo $this->user_info['user_name']; ?>
+                    <span class="caret"></span>
+                </a>
+
+                <ul class="dropdown-menu pull-right mod-user">
+                    <li>
+                        <a href=""><i class="fa fa-user"></i>报告</a>
+                    </li>
+                    <li>
+                        <a href="inbox/"><i class="fa fa-envelope"></i>消息</a>
+                    </li>
+                    <li>
+                        <a href="account/setting/profile/"><i class="fa fa-cogs"></i>设置</a>
+                    </li>
+                    <li>
+                        <a href="admin/logout/"><i class="fa fa-reply"></i>退出</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>

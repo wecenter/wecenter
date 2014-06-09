@@ -44,7 +44,7 @@ class article extends AWS_ADMIN_CONTROLLER
 			}
 
 			H::ajax_json_output(AWS_APP::RSM(array(
-				'url' => get_setting('base_url') . '/?/admin/article/list/' . implode('__', $param)
+				'url' => get_js_url('/admin/article/list/' . implode('__', $param))
 			), 1, null));
 		}
 
@@ -71,6 +71,16 @@ class article extends AWS_ADMIN_CONTROLLER
 			$user_info = $this->model('account')->get_user_info_by_username($_GET['user_name']);
 
 			$where[] = 'uid = ' . intval($user_info['uid']);
+		}
+		
+		if ($_GET['comment_count_min'])
+		{
+			$where[] = 'comments >= ' . intval($_GET['comment_count_min']);
+		}
+
+		if ($_GET['answer_count_max'])
+		{
+			$where[] = 'comments <= ' . intval($_GET['comment_count_max']);
 		}
 
 		if ($articles_list = $this->model('article')->fetch_page('article', implode(' AND ', $where), 'id DESC', $_GET['page'], $this->per_page))
@@ -105,16 +115,14 @@ class article extends AWS_ADMIN_CONTROLLER
 				$url_param[] = $key . '-' . $val;
 			}
 		}
-
-		$search_url = 'admin/article/list/' . implode('__', $url_param);
-
+		
 		TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
-			'base_url' => get_setting('base_url') . '/?/' . $search_url,
+			'base_url' => get_js_url('/admin/article/list/' . implode('__', $url_param)),
 			'total_rows' => $search_articles_total,
 			'per_page' => $this->per_page
 		))->create_links());
 
-		$this->crumb(AWS_APP::lang()->_t('文章管理'), 'admin/question/question_list/');
+		$this->crumb(AWS_APP::lang()->_t('文章管理'), 'admin/article/list/');
 
 		TPL::assign('articles_count', $search_articles_total);
 		TPL::assign('search_url', $search_url);
@@ -141,15 +149,13 @@ class article extends AWS_ADMIN_CONTROLLER
 				}
 
 				H::ajax_json_output(AWS_APP::RSM(null, 1, null));
-
-				break;
+			break;
 
 			case 'send':
 				$result = $this->model('weixin')->add_article_or_question_ids_to_cache($_POST['article_ids'], null);
 
 				H::ajax_json_output(AWS_APP::RSM(null, -1, $result));
-
-				break;
+			break;
 		}
 	}
 }

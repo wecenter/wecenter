@@ -418,7 +418,7 @@ class weixin extends AWS_ADMIN_CONTROLLER
 		$msgs_total = $this->model('weixin')->found_rows();
 
 		TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
-			'base_url' => get_setting('base_url') . '/?/' . 'admin/weixin/sent_msgs_list/',
+			'base_url' => get_js_url('/admin/weixin/sent_msgs_list/'),
 			'total_rows' => $msgs_total,
 			'per_page' => $this->per_page
 		))->create_links());
@@ -428,6 +428,7 @@ class weixin extends AWS_ADMIN_CONTROLLER
 		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(804));
 		TPL::assign('msgs_list', $msgs_list);
 		TPL::assign('msgs_total', $msgs_total);
+		
 		TPL::output('admin/weixin/sent_msgs_list');
 	}
 

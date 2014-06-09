@@ -1,130 +1,154 @@
 <?php TPL::output('admin/global/header.tpl.htm'); ?>
 <?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
 
-<div class="pull-left right-side">
-	<div class="aw-mod-head">
-		<h2>
-			<span class="pull-left"><?php _e('问题管理'); ?></span>
-
-			<ul class="nav nav-tabs pull-left">
-			    <li class="active"><a href="#list" data-toggle="tab"><?php _e('问题列表'); ?></a></li>
-			    <li><a href="#search" data-toggle="tab"><?php _e('搜索'); ?></a></li>
-			</ul>
-		</h2>
-	</div>
-	<div class="aw-mod-body tab-content">
-		<div class="tab-pane active" id="list">
-			<?php if ($_GET['action'] == 'search') { ?>
-			<div class="alert alert-info" style="margin:10px 0"><?php _e('找到 %s 条符合条件的内容', intval($this->question_num)); ?></div>
-			<?php } ?>
-
-			<?php if ($this->list) { ?>
-			<form id="batchs_form" action="admin/question/question_batch/" method="post">
-				<input type="hidden" id="action" name="action" value="del" />
-
-				<table class="aw-table">
-					<thead>
-						<tr>
-							<th align="center"><input type="checkbox" class="check-all"></th>
-							<th style="width:280px;"><?php _e('问题标题'); ?></th>
-							<th align="center"><a href="<?php echo $this->search_url; ?>__sort_key-answer_count__order-<?php if ($_GET['sort_key'] == 'answer_count' && $_GET['order'] == 'DESC') { ?>ASC<?php } else { ?>DESC<?php } ?>"><?php _e('回答'); ?><?php if ($_GET['sort_key'] == 'answer_count') { ?><?php if ($_GET['order'] == 'ASC') { ?><i class="aw-icon triangle_up"></i><?php } else { ?><i class="aw-icon triangle_down"></i><?php } ?><?php } ?></a></th>
-							<th align="center"><a href="<?php echo $this->search_url; ?>__sort_key-view_count__order-<?php if ($_GET['sort_key'] == 'view_count' && $_GET['order'] == 'DESC') { ?>ASC<?php } else { ?>DESC<?php } ?>"><?php _e('浏览'); ?><?php if ($_GET['sort_key'] == 'view_count') { ?><?php if ($_GET['order'] == 'ASC') { ?><i class="aw-icon triangle_up"></i><?php } else { ?><i class="aw-icon triangle_down"></i><?php } ?><?php } ?></a></th>
-							<th align="center"><a href="<?php echo $this->search_url; ?>__sort_key-unverified_modify__order-<?php if ($_GET['sort_key'] == 'unverified_modify' && $_GET['order'] == 'DESC') { ?>ASC<?php } else { ?>DESC<?php } ?>"><?php _e('确认编辑'); ?><?php if ($_GET['sort_key'] == 'unverified_modify') { ?><?php if ($_GET['order'] == 'ASC') { ?><i class="aw-icon triangle_up"></i><?php } else { ?><i class="aw-icon triangle_down"></i><?php } ?><?php } ?></a></th>
-							<th align="center"><?php _e('作者'); ?></th>
-							<th align="center"><a href="<?php echo $this->search_url; ?>__sort_key-add_time__order-<?php if ($_GET['sort_key'] == 'add_time' && $_GET['order'] == 'ASC') { ?>DESC<?php } else { ?>ASC<?php } ?>"><?php _e('发布时间'); ?><?php if ($_GET['sort_key'] == 'add_time') { ?><?php if ($_GET['order'] == 'ASC') { ?><i class="aw-icon triangle_up"></i><?php } else { ?><i class="aw-icon triangle_down"></i><?php } ?><?php } ?></a></th>
-							<th align="center"><a href="<?php echo $this->search_url; ?>__sort_key-update_time__order-<?php if ($_GET['sort_key'] == 'update_time' && $_GET['order'] == 'ASC') { ?>DESC<?php } else { ?>ASC<?php } ?>"><?php _e('最后更新'); ?><?php if ($_GET['sort_key'] == 'update_time') { ?><?php if ($_GET['order'] == 'ASC') { ?><i class="aw-icon triangle_up"></i><?php } else { ?><i class="aw-icon triangle_down"></i><?php } ?><?php } ?></a></th>
-							<th align="center"><?php _e('操作'); ?></th>
-						</tr>
-					</thead>
-					<tbody>
-						<?php foreach ($this->list AS $key => $val) { ?>
-						<tr>
-							<td align="center"><input type="checkbox" name="question_ids[]" value="<?php echo $val['question_id']; ?>"></td>
-							<td><a href="question/<?php echo $val['question_id']; ?>" target="_blank"><?php echo $val['question_content']; ?></a></td>
-							<td align="center"><?php if ($val['answer_count']) { ?><?php echo $val['answer_count']; ?><?php } else { ?>0<?php } ?></td>
-							<td align="center"><?php echo $val['view_count']; ?></td>
-							<td align="center"><?php if ($val['unverified_modify']) { ?><a href="question/id-<?php echo $val['question_id']; ?>__column-log__rf-false" target="_blank"><?php _e('有'); ?></a><?php } else { ?><?php _e('无'); ?><?php } ?></td>
-							<td align="center"><a href="people/<?php echo $val['user_info']['url_token']; ?>" target="_blank"><?php echo $val['user_info']['user_name']; ?></a></td>
-							<td align="center"><?php echo date_friendly($val['add_time']); ?></td>
-							<td align="center"><?php echo date_friendly($val['update_time']); ?></td>
-							<td align="center"><a href="publish/<?php echo $val['question_id']; ?>" target="_blank"><i class="aw-icon page-edit"></i></a></td>
-						</tr>
-						<?php } ?>
-					</tbody>
-					<tfoot>
-						<tr>
-							<td colspan="9">
-								<span class="pull-right"><?php echo $this->pagination; ?></span>
-
-								<a class="btn btn-inverse" onclick="$('#action').val('del'); ajax_post($('#batchs_form'));" href="javascript:;"><?php _e('删除所选'); ?></a>
-
-								<a class="btn btn-inverse" onclick="$('#action').val('send'); ajax_post($('#batchs_form'));" href="javascript:;"><?php _e('微信群发'); ?></a>
-							</td>
-						</tr>
-					</tfoot>
-				</table>
-			</form>
-			<?php } ?>
+<div class="aw-content-wrap">
+	<div class="mod">
+		<div class="mod-head">
+			<h3>
+				<ul class="nav nav-tabs">
+				    <li class="active"><a href="#list" data-toggle="tab"><?php _e('问题列表'); ?></a></li>
+				    <li><a href="#search" data-toggle="tab"><?php _e('搜索'); ?></a></li>
+				</ul>
+			</h3>
 		</div>
-
-		<div class="tab-pane" id="search">
-			<form method="post" action="admin/question/question_list/" onsubmit="return false;" id="search_form">
-				<input name="action" type="hidden" value="search" />
-				<div class="aw-box aw-no-border-top">
-					<dl>
-						<dt><h3><?php _e('关键词'); ?>:</h3></dt>
-						<dd>
-							<div class="row">
-								<div class="col-sm-7">
-									<input class="form-control" type="text" value="<?php echo rawurldecode($_GET['keyword']); ?>" name="keyword" />
-								</div>
-							</div>
-						</dd>
-					</dl>
-					<dl>
-						<dt><h3><?php _e('分类'); ?>:</h3></dt>
-						<dd>
-							<select name="category_id">
+		<div class="mod-body tab-content">
+			<div class="tab-pane active" id="list">
+				<?php if ($_GET['action'] == 'search') { ?>
+				<div class="alert alert-info"><?php _e('找到 %s 条符合条件的内容', intval($this->question_count)); ?></div>
+				<?php } ?>
+				
+				<form id="batchs_form" action="admin/question/question_batch/" method="post">
+				<input type="hidden" id="action" name="action" value="del" />
+				<div class="table-responsive">
+				<?php if ($this->list) { ?>
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th><input type="checkbox" class="check-all"></th>
+								<th><?php _e('问题标题'); ?></th>
+								<th><?php _e('回答'); ?></th>
+								<th><?php _e('浏览'); ?></th>
+								<th><?php _e('确认编辑'); ?></th>
+								<th><?php _e('作者'); ?></th>
+								<th><?php _e('发布时间'); ?></th>
+								<th><?php _e('最后更新'); ?></th>
+								<th><?php _e('操作'); ?></th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php foreach ($this->list AS $key => $val) { ?>
+							<tr>
+								<td><input type="checkbox" name="question_ids[]" value="<?php echo $val['question_id']; ?>"></td>
+								<td><a href="question/<?php echo $val['question_id']; ?>" target="_blank"><?php echo $val['question_content']; ?></a></td>
+								<td><?php if ($val['answer_count']) { ?><?php echo $val['answer_count']; ?><?php } else { ?>0<?php } ?></td>
+								<td><?php echo $val['view_count']; ?></td>
+								<td><?php if ($val['unverified_modify']) { ?><a href="question/id-<?php echo $val['question_id']; ?>__column-log__rf-false" target="_blank"><?php _e('有'); ?></a><?php } else { ?><?php _e('无'); ?><?php } ?></td>
+								<td><a href="people/<?php echo $val['user_info']['url_token']; ?>" target="_blank"><?php echo $val['user_info']['user_name']; ?></a></td>
+								<td><?php echo date_friendly($val['add_time']); ?></td>
+								<td><?php echo date_friendly($val['update_time']); ?></td>
+								<td><a href="publish/<?php echo $val['question_id']; ?>" target="_blank" class="fa fa-pencil md-tip" title="编辑"></a></td>
+							</tr>
+							<?php } ?>
+						</tbody>
+					</table>
+				<?php } ?>
+				</div>
+				</form>
+				<div class="mod-table-foot">
+					<span class="pull-right mod-page"><?php echo $this->pagination; ?></span>
+					
+					<a class="btn btn-danger" onclick="$('#action').val('del'); ajax_post($('#batchs_form'));"><?php _e('删除所选'); ?></a>
+					<a class="btn btn-primary" onclick="$('#action').val('send'); ajax_post($('#batchs_form'));"><?php _e('微信群发'); ?></a>
+				</div>
+			</div>
+	
+			<div class="tab-pane" id="search">
+				<form method="post" action="admin/question/question_list/" onsubmit="return false;" id="search_form" class="form-horizontal" role="form">
+					
+					<input name="action" type="hidden" value="search" />
+					
+					<div class="form-group">
+						<label class="col-sm-2 col-xs-3 control-label"><?php _e('关键词'); ?>:</label>
+							
+						<div class="col-sm-5 col-xs-8">
+							<input class="form-control" type="text" value="<?php echo rawurldecode($_GET['keyword']); ?>" name="keyword" />
+		                </div>
+					</div>
+					
+					<div class="form-group">
+						<label class="col-sm-2 col-xs-3 control-label"><?php _e('分类'); ?>:</label>
+							
+						<div class="col-sm-5 col-xs-8">
+							<select name="category_id" class="form-control">
 								<option value="0"></option>
 								<?php echo $this->category_list; ?>
 							</select>
-						</dd>
-					</dl>
-					<dl>
-						<dt><h3><?php _e('发起时间范围'); ?>:</h3></dt>
-						<dd>
-							<input type="text" value="<?php echo base64_decode($_GET['start_date']); ?>" name="start_date" class="date_picker">
-							-
-							<input type="text" value="<?php echo base64_decode($_GET['end_date']); ?>" name="end_date" class="date_picker" />
-						</dd>
-					</dl>
-					<dl>
-						<dt><h3><?php _e('作者'); ?>:</h3></dt>
-						<dd>
+		                </div>
+					</div>
+					
+					<div class="form-group">
+						<label class="col-sm-2 col-xs-3 control-label"><?php _e('发起时间范围'); ?>:</label>
+						
+						<div class="col-sm-6 col-xs-9">
 							<div class="row">
-								<div class="col-sm-7">
-									<input class="form-control" type="text" value="<?php echo $_GET['user_name']; ?>" name="user_name" />
+								<div class="col-xs-11  col-sm-5 mod-double">
+									<input type="text" class="form-control mod-data" value="<?php echo base64_decode($_GET['start_date']); ?>" name="start_date" />
+									<i class="fa fa-calendar"></i>
+								</div>
+								<span class="mod-symbol col-xs-1 col-sm-1">
+								-
+								</span>
+								<div class="col-xs-11 col-sm-5">
+									<input type="text" class="form-control mod-data" value="<?php echo base64_decode($_GET['end_date']); ?>" name="end_date" />
+									<i class="fa fa-calendar"></i>
 								</div>
 							</div>
-						</dd>
-					</dl>
-					<dl>
-						<dt><h3><?php _e('回复数'); ?>:</h3></dt>
-						<dd>
-							<input type="text" name="answer_count_min" value="<?php echo $_GET['answer_count_min']; ?>" />
-							-
-							<input type="text" name="answer_count_max" value="<?php echo $_GET['answer_count_max']; ?>" />
-						</dd>
-					</dl>
-					<dl>
-						<dt><h3><?php _e('是否有最佳回复'); ?>:</h3></dt>
-						<dd><input type="checkbox" value="1" name="best_answer"<?php if ($_GET['best_answer'] == '1') { ?> checked="checked"<?php } ?>> <?php _e('有最佳回复'); ?></label></dd>
-					</dl>
-					<div class="aw-mod-footer">
-						<a href="javascript:;" class="btn btn-inverse btn-normal" onclick="ajax_post($('#search_form'));"><?php _e('搜索'); ?></a>
+						</div>
 					</div>
-				</div>
-			</form>
+					
+					<div class="form-group">
+						<label class="col-sm-2 col-xs-3 control-label"><?php _e('作者'); ?>:</label>
+						
+						<div class="col-sm-5 col-xs-8">
+							<input class="form-control" type="text" value="<?php echo $_GET['user_name']; ?>" name="user_name" />
+		                </div>
+					</div>
+					
+					<div class="form-group">
+						<label class="col-sm-2 col-xs-3 control-label"><?php _e('回复数'); ?>:</label>
+						
+						<div class="col-sm-6 col-xs-9">
+							<div class="row">
+								<div class="col-xs-11  col-sm-5 mod-double">
+									<input type="text" class="form-control" name="answer_count_min" value="<?php echo $_GET['answer_count_min']; ?>" />
+								</div>
+								<span class="mod-symbol col-xs-1 col-sm-1">
+								-
+								</span>
+								<div class="col-xs-11 col-sm-5">
+									<input type="text" class="form-control" name="answer_count_max" value="<?php echo $_GET['answer_count_max']; ?>" />
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="col-sm-2 col-xs-3 control-label"><?php _e('是否有最佳回复'); ?>:</label>
+						
+						<div class="col-sm-5 col-xs-8">
+							<div class="checkbox mod-padding">
+								<label><input type="checkbox" value="1" name="best_answer"<?php if ($_GET['best_answer'] == '1') { ?> checked="checked"<?php } ?>> <?php _e('有最佳回复'); ?></label>
+							</div>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-5 col-xs-8">
+							<button type="button" onclick="AWS.ajax_post($('#search_form'));" class="btn btn-primary"><?php _e('搜索'); ?></button>
+						</div>
+					</div>
+				</form>
+			</div>
 		</div>
 	</div>
 </div>

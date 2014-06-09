@@ -1,66 +1,75 @@
-<!doctype html>
+<!DOCTYPE HTML>
 <html>
+
 <head>
-<meta charset="utf-8">
+<meta charset="utf-8" />
 <meta name="renderer" content="webkit" />
 <meta http-equiv="X-UA-Compatible" content="<?php echo X_UA_COMPATIBLE; ?>" />
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="blank" />
+<meta name="format-detection" content="telephone=no" />
 <title><?php echo $this->page_title; ?></title>
 <base href="<?php echo get_setting('base_url');?>/<?php echo G_INDEX_SCRIPT; ?>" />
-<link href="<?php echo G_STATIC_URL; ?>/css/bootstrap.css" rel="stylesheet" type="text/css" />
-<link href="<?php echo G_STATIC_URL; ?>/admin/css/login.css?v=<?php echo G_VERSION_BUILD; ?>" rel="stylesheet" type="text/css" />
+<link type="text/css" rel="stylesheet" href="<?php echo G_STATIC_URL; ?>/css/bootstrap.css?v=<?php echo G_VERSION_BUILD; ?>" />
+<link type="text/css" rel="stylesheet" href="<?php echo G_STATIC_URL; ?>/css/font-awesome.css?v=<?php echo G_VERSION_BUILD; ?>" />
+<link type="text/css" rel="stylesheet" href="<?php echo G_STATIC_URL; ?>/admin/css/login.css?v=<?php echo G_VERSION_BUILD; ?>" />
 <script type="text/javascript">
-	var G_INDEX_SCRIPT = '<?php echo G_INDEX_SCRIPT; ?>';
-	var G_BASE_URL = '<?php echo get_setting('base_url'); ?>/<?php echo rtrim(G_INDEX_SCRIPT, '/'); ?>';
+	var G_INDEX_SCRIPT = "<?php echo G_INDEX_SCRIPT; ?>";
+	var G_BASE_URL = "<?php echo get_setting('base_url'); ?>/<?php echo rtrim(G_INDEX_SCRIPT, '/'); ?>";
 	var G_USER_ID = <?php echo $this->user_id; ?>;
-	var G_POST_HASH = '';
+	var G_POST_HASH = "";
 </script>
+<?php if (is_array($this->_import_css_files)) { ?>
+<?php foreach ($this->_import_css_files AS $import_css) { ?>
+<link type="text/css" rel="stylesheet" href="<?php echo $import_css; ?>?v=<?php echo G_VERSION_BUILD; ?>" />
+<?php } ?>
+<?php } ?>
 <?php if (is_array($this->_import_js_files)) { ?>
 <?php foreach ($this->_import_js_files AS $import_js) { ?>
-<script src="<?php echo $import_js; ?>?v=<?php echo G_VERSION_BUILD; ?>" type="text/javascript"></script>
+<script type="text/javascript" src="<?php echo $import_js; ?>?v=<?php echo G_VERSION_BUILD; ?>" ></script>
 <?php } ?>
 <?php } ?>
 </head>
+
 <body>
+<div class="aw-login">
+    <div class="mod center-block">
+        <h1><img src="<?php echo G_STATIC_URL; ?>/admin/img/wecenter-logo.png" alt="" /></h1>
+        
+        <form role="form" id="login_form" onsubmit="return false" action="admin/login_process_ajax/" method="post">
+        	<?php if ($_GET['url']){ ?>
+        	<input type="hidden" name="url" value="<?php echo htmlspecialchars($_GET['url']); ?>">
+        	<?php } ?>
+        	
+        	<div class="alert alert-danger hide error_message"></div>
+        	
+            <div class="form-group">
+                <label><?php _e('邮箱'); ?></label>
+                <input type="text" class="form-control" placeholder="<?php _e('邮箱'); ?>" value="<?php echo $this->user_info['email']; ?>" disabled="disabled" />
+                <i class="fa fa-user"></i>
+            </div>
+            <div class="form-group">
+                <label><?php _e('密码'); ?></label>
+                <input type="password" class="form-control" placeholder="<?php _e('密码'); ?>" type="password" name="password" onkeydown="if (event.keyCode == 13) { document.getElementById('login_submit').click(); };" />
+                <i class="fa fa-lock"></i>
+            </div>
+            <?php if (get_setting('admin_login_seccode') == 'Y') { ?>
+            <div class="form-group">
+                <label><?php _e('验证码'); ?></label>
+                <div class="row">
+                  <div class="col-xs-7">
+                    <input type="text" class="form-control" name="seccode_verify" onkeydown="if (event.keyCode == 13) { document.getElementById('login_submit').click(); };" maxlength="4" />
+                  </div>
+                  <div class="col-xs-5">
+                    <img src="" class="verification" id="captcha" onclick="this.src = G_BASE_URL + '/account/captcha/' + Math.floor(Math.random() * 10000);" />
+                  </div>
+                </div>
+            </div>
+            <?php } ?>
+            <button type="submit" class="btn btn-primary" id="login_submit" onclick="AWS.ajax_post($('#login_form'), AWS.ajax_processer, 'error_message');"><?php _e('登录'); ?></button>
+        </form>
 
-<div class="login-box">
-	<h1><img src="<?php echo G_STATIC_URL; ?>/admin/img/logo.png" alt="" /> WeCenter Admin Control</h1>
-	<form id="login_form" onsubmit="return false" action="admin/login_process_ajax/" method="post">
-	<?php if ($_GET['url']){ ?>
-		<input type="hidden" name="url" value="<?php echo htmlspecialchars($_GET['url']); ?>">
-	<?php } ?>
-		<div class="aw-mod">
-			<div class="aw-mod-body">
-				<div class="alert alert-danger hide error_message"></div>
-				<ul>
-					<li>
-						<label>
-							<span>E-mail:</span>
-							<?php if ($this->user_info) { ?><strong><?php echo $this->user_info['email']; ?></strong><?php } ?>
-						</label>
-					</li>
-					<li>
-						<label>
-							<span><?php _e('密码'); ?>:</span>
-							<input class="form-control" type="password" name="password" onkeydown="if (event.keyCode == 13) { document.getElementById('login_submit').click(); };" />
-						</label>
-					</li>
-					<?php if (get_setting('admin_login_seccode') == 'Y') { ?>
-					<li class="vercode">
-						<label>
-							<span><?php _e('验证码'); ?>:</span>
-							<input class="form-control" type="text" name="seccode_verify" onkeydown="if (event.keyCode == 13) { document.getElementById('login_submit').click(); };" maxlength="4" />
-						</label>
-						<img style="vertical-align:middle" id="captcha" onclick="reload_captcha();" src="" />
-					</li>
-					<?php } ?>
-				</ul>
-			</div>
-			<div class="aw-mod-footer">
-				<a href="javascript:;" class="btn btn-inverse btn-normal" id="login_submit" onclick="AWS.ajax_post($('#login_form'), AWS.ajax_processer, 'error_message');"><?php _e('登录'); ?></a>
-			</div>
-		</div>
-	</form>
+        <h2>WeCenter Admin Control</h2>
+    </div>
 </div>
-
-</body>
-</html>

@@ -36,21 +36,21 @@ class tools extends AWS_ADMIN_CONTROLLER
 
 	public function init_action()
 	{
-		H::redirect_msg(AWS_APP::lang()->_t('正在准备...'), '?/admin/tools/' . $_POST['action'] . '/page-1__per_page-' . $_POST['per_page']);
+		H::redirect_msg(AWS_APP::lang()->_t('正在准备...'), '/admin/tools/' . $_POST['action'] . '/page-1__per_page-' . $_POST['per_page']);
 	}
 
 	public function cache_clean_action()
 	{
 		AWS_APP::cache()->clean();
 
-		H::redirect_msg(AWS_APP::lang()->_t('缓存清理完成'), '?/admin/tools/');
+		H::redirect_msg(AWS_APP::lang()->_t('缓存清理完成'), '/admin/tools/');
 	}
 
 	public function update_users_reputation_action()
 	{
 		if ($this->model('reputation')->calculate((($_GET['page'] * $_GET['per_page']) - $_GET['per_page']), $_GET['per_page']))
 		{
-			H::redirect_msg(AWS_APP::lang()->_t('正在更新用户威望') . ', ' . AWS_APP::lang()->_t('批次: %s', $_GET['page']), '?/admin/tools/update_users_reputation/page-' . ($_GET['page'] + 1) . '__per_page-' . $_GET['per_page']);
+			H::redirect_msg(AWS_APP::lang()->_t('正在更新用户威望') . ', ' . AWS_APP::lang()->_t('批次: %s', $_GET['page']), '/admin/tools/update_users_reputation/page-' . ($_GET['page'] + 1) . '__per_page-' . $_GET['per_page']);
 		}
 		else
 		{
@@ -72,11 +72,11 @@ class tools extends AWS_ADMIN_CONTROLLER
 						), 'question_id = ' . intval($val['question_id']));
 					}
 
-					H::redirect_msg(AWS_APP::lang()->_t('正在转换问题内容 BBCode') . ', ' . AWS_APP::lang()->_t('批次: %s', $_GET['page']), '?/admin/tools/bbcode_to_markdown/page-' . ($_GET['page'] + 1) . '__per_page-' . $_GET['per_page']);
+					H::redirect_msg(AWS_APP::lang()->_t('正在转换问题内容 BBCode') . ', ' . AWS_APP::lang()->_t('批次: %s', $_GET['page']), '/admin/tools/bbcode_to_markdown/page-' . ($_GET['page'] + 1) . '__per_page-' . $_GET['per_page']);
 				}
 				else
 				{
-					H::redirect_msg(AWS_APP::lang()->_t('准备继续...'), '?/admin/tools/bbcode_to_markdown/page-1__type-answer__per_page-' . $_GET['per_page']);
+					H::redirect_msg(AWS_APP::lang()->_t('准备继续...'), '/admin/tools/bbcode_to_markdown/page-1__type-answer__per_page-' . $_GET['per_page']);
 				}
 			break;
 
@@ -90,11 +90,11 @@ class tools extends AWS_ADMIN_CONTROLLER
 						));
 					}
 
-					H::redirect_msg(AWS_APP::lang()->_t('正在转换回答内容 BBCode') . ', ' . AWS_APP::lang()->_t('批次: %s', $_GET['page']), '?/admin/tools/bbcode_to_markdown/page-' . ($_GET['page'] + 1) . '__type-answer__per_page-' . $_GET['per_page']);
+					H::redirect_msg(AWS_APP::lang()->_t('正在转换回答内容 BBCode') . ', ' . AWS_APP::lang()->_t('批次: %s', $_GET['page']), '/admin/tools/bbcode_to_markdown/page-' . ($_GET['page'] + 1) . '__type-answer__per_page-' . $_GET['per_page']);
 				}
 				else
 				{
-					H::redirect_msg(AWS_APP::lang()->_t('准备继续...'), '?/admin/tools/bbcode_to_markdown/page-1__type-topic__per_page-' . $_GET['per_page']);
+					H::redirect_msg(AWS_APP::lang()->_t('准备继续...'), '/admin/tools/bbcode_to_markdown/page-1__type-topic__per_page-' . $_GET['per_page']);
 				}
 			break;
 
@@ -108,7 +108,7 @@ class tools extends AWS_ADMIN_CONTROLLER
 						), 'topic_id = ' . intval($val['topic_id']));
 					}
 
-					H::redirect_msg(AWS_APP::lang()->_t('正在转换话题内容 BBCode') . ', ' . AWS_APP::lang()->_t('批次: %s', $_GET['page']), '?/admin/tools/bbcode_to_markdown/page-' . ($_GET['page'] + 1) . '__type-topic__per_page-' . $_GET['per_page']);
+					H::redirect_msg(AWS_APP::lang()->_t('正在转换话题内容 BBCode') . ', ' . AWS_APP::lang()->_t('批次: %s', $_GET['page']), '/admin/tools/bbcode_to_markdown/page-' . ($_GET['page'] + 1) . '__type-topic__per_page-' . $_GET['per_page']);
 				}
 				else
 				{
@@ -129,7 +129,7 @@ class tools extends AWS_ADMIN_CONTROLLER
 				$this->model('posts')->set_posts_index($val['question_id'], 'question', $val);
 			}
 
-			H::redirect_msg(AWS_APP::lang()->_t('正在更新问题搜索索引') . ', ' . AWS_APP::lang()->_t('批次: %s', $_GET['page']), '?/admin/tools/update_question_search_index/page-' . ($_GET['page'] + 1) . '__per_page-' . $_GET['per_page']);
+			H::redirect_msg(AWS_APP::lang()->_t('正在更新问题搜索索引') . ', ' . AWS_APP::lang()->_t('批次: %s', $_GET['page']), '/admin/tools/update_question_search_index/page-' . ($_GET['page'] + 1) . '__per_page-' . $_GET['per_page']);
 		}
 		else
 		{
@@ -148,7 +148,7 @@ class tools extends AWS_ADMIN_CONTROLLER
 				$this->model('posts')->set_posts_index($val['id'], 'article', $val);
 			}
 
-			H::redirect_msg(AWS_APP::lang()->_t('正在更新文章搜索索引') . ', ' . AWS_APP::lang()->_t('批次: %s', $_GET['page']), '?/admin/tools/update_article_search_index/page-' . ($_GET['page'] + 1) . '__per_page-' . $_GET['per_page']);
+			H::redirect_msg(AWS_APP::lang()->_t('正在更新文章搜索索引') . ', ' . AWS_APP::lang()->_t('批次: %s', $_GET['page']), '/admin/tools/update_article_search_index/page-' . ($_GET['page'] + 1) . '__per_page-' . $_GET['per_page']);
 		}
 		else
 		{
@@ -160,7 +160,7 @@ class tools extends AWS_ADMIN_CONTROLLER
 	{
 		if ($this->model('system')->update_associate_fresh_action($_GET['page'], $_GET['per_page']))
 		{
-			H::redirect_msg(AWS_APP::lang()->_t('正在更新最新动态') . ', ' . AWS_APP::lang()->_t('批次: %s', $_GET['page']), '?/admin/tools/update_fresh_actions/page-' . ($_GET['page'] + 1) . '__per_page-' . $_GET['per_page']);
+			H::redirect_msg(AWS_APP::lang()->_t('正在更新最新动态') . ', ' . AWS_APP::lang()->_t('批次: %s', $_GET['page']), '/admin/tools/update_fresh_actions/page-' . ($_GET['page'] + 1) . '__per_page-' . $_GET['per_page']);
 		}
 		else
 		{

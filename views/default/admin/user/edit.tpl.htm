@@ -10,7 +10,7 @@
 			<dl>
 				<dt><h3><?php _e('删除用户'); ?>:</h3></dt>
 				<dd>
-					<form action="admin/user_manage/remove_user/" method="post" id="remove_user_form">
+					<form action="admin/user/remove_user/" method="post" id="remove_user_form">
 						<input type="hidden" name="uid" value="<?php echo $this->user['uid']; ?>" />
 						
 						<label><input name="remove_user" id="remove_user" type="checkbox" value="1" /> <?php _e('确认删除这个用户'); ?></label>
@@ -22,7 +22,7 @@
 				</dd>
 			</dl>
 			
-			<form action="admin/user_manage/user_save_ajax/" id="settings_form" enctype="multipart/form-data" method="post">
+			<form action="admin/user/user_save_ajax/" id="settings_form" enctype="multipart/form-data" method="post">
 			<input name="uid" type="hidden" value="<?php echo $this->user['uid']; ?>" />
 			
 			<dl>
@@ -128,7 +128,7 @@
 			<dl>
 				<dt><h3><?php _e('积分'); ?>: </h3></dt>
 				
-				<dd><?php echo $this->user['integral']; ?></span> &nbsp; <a href="admin/user_manage/integral_log/uid-<?php echo $this->user['uid']; ?>">[ <?php _e('操作积分'); ?> ]</a></dd>
+				<dd><?php echo $this->user['integral']; ?></span> &nbsp; <a href="admin/user/integral_log/uid-<?php echo $this->user['uid']; ?>">[ <?php _e('操作积分'); ?> ]</a></dd>
 			</dl>
 			<dl>
 				<dt><h3><?php _e('邮箱激活状态'); ?>:</h3></dt>
@@ -148,7 +148,7 @@
 				<dd>
 					<label><input type="radio" name="verified" value=""<?php if ($this->user['verified'] == '') { ?> checked="checked"<?php } ?> /><?php _e('无'); ?></label>
 					<label><input type="radio" name="verified" value="personal"<?php if ($this->user['verified'] == 'personal') { ?> checked="checked"<?php } ?> /><?php _e('个人认证'); ?></label>
-					<label><input type="radio" name="verified" value="enterprise"<?php if ($this->user['verified'] == 'enterprise') { ?> checked="checked"<?php } ?>/><?php _e('机构认证'); ?></label> &nbsp; [ <a href="admin/user_manage/verify_approval_edit/<?php echo $this->user['uid']; ?>"><?php _e('编辑认证审核资料'); ?></a> ]
+					<label><input type="radio" name="verified" value="enterprise"<?php if ($this->user['verified'] == 'enterprise') { ?> checked="checked"<?php } ?>/><?php _e('机构认证'); ?></label> &nbsp; [ <a href="admin/user/verify_approval_edit/<?php echo $this->user['uid']; ?>"><?php _e('编辑认证审核资料'); ?></a> ]
 				</dd>
 			</dl>
 			<dl>
