@@ -61,7 +61,7 @@ class weixin extends AWS_CONTROLLER
 			{
 				if ($access_token['errcode'])
 				{
-					H::redirect_msg('授权失败: Redirect ' . $access_token['errcode'] . ' ' . $access_token['errmsg'] . ', code: ' . $_GET['code']);
+					H::redirect_msg('授权失败: Redirect ' . $access_token['errcode'] . ' ' . $access_token['errmsg'] . ', Code: ' . htmlspecialchars($_GET['code']));
 				}
 				
 				if ($weixin_user = $this->model('openid_weixin')->get_user_info_by_openid($access_token['openid']))
@@ -86,7 +86,7 @@ class weixin extends AWS_CONTROLLER
 			}
 			else
 			{
-				H::redirect_msg('远程服务器忙,请稍后再试, State: ' . $_GET['state'] . ', Code: ' . $_GET['code']);
+				H::redirect_msg('远程服务器忙,请稍后再试, State: ' . htmlspecialchars($_GET['state']) . ', Code: ' . htmlspecialchars($_GET['code']));
 			}
 		}
 		else
@@ -121,7 +121,7 @@ class weixin extends AWS_CONTROLLER
 			{
 				if ($access_token['errcode'])
 				{
-					H::redirect_msg('授权失败: Authorization ' . $access_token['errcode'] . ' ' . $access_token['errmsg'] . ', code: ' . $_GET['code']);
+					H::redirect_msg('授权失败: Authorization ' . $access_token['errcode'] . ' ' . $access_token['errmsg'] . ', Code: ' . htmlspecialchars($_GET['code']));
 				}
 				
 				if ($_GET['state'] == 'OAUTH' OR $_GET['state'] == 'OAUTH_REDIRECT')
@@ -210,7 +210,7 @@ class weixin extends AWS_CONTROLLER
 			}
 			else
 			{
-				H::redirect_msg('远程服务器忙,请稍后再试, State: ' . $_GET['state'] . ', Code: ' . $_GET['code']);
+				H::redirect_msg('远程服务器忙,请稍后再试, State: ' . htmlspecialchars($_GET['state']) . ', Code: ' . htmlspecialchars($_GET['code']));
 			}
 		}
 		else
@@ -294,7 +294,7 @@ class weixin extends AWS_CONTROLLER
 			
 			if ($access_token['errcode'])
 			{
-				H::redirect_msg('授权失败: Register ' . $access_token['errcode'] . ' ' . $access_token['errmsg'] . ', code: ' . $_GET['code']);
+				H::redirect_msg('授权失败: Register ' . $access_token['errcode'] . ' ' . $access_token['errmsg'] . ', Code: ' . htmlspecialchars($_GET['code']));
 			}
 			
 			if (!$access_user = $this->model('openid_weixin')->get_user_info_by_oauth_openid_from_mp($access_token['access_token'], $access_token['openid']))
