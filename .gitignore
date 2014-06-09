@@ -8,3 +8,10 @@ system/config/database.php
 .DS_Store
 .tags
 .tags_sorted_by_file
+api/
+app/_sso/
+app/aws_external/
+app/aws_offical_external/
+app/lang/
+app/migrate/
+plugins/
