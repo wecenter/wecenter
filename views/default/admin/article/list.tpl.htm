@@ -25,7 +25,7 @@
 						<thead>
 							<tr>
 								<th><input type="checkbox" class="check-all"></th>
-								<th class="mod_title"><?php _e('文章标题'); ?></th>
+								<th><?php _e('文章标题'); ?></th>
 								<th><?php _e('评论'); ?></th>
 								<th><?php _e('浏览'); ?></th>
 								<th><?php _e('作者'); ?></th>
@@ -37,7 +37,7 @@
 							<?php foreach ($this->list AS $key => $val) { ?>
 							<tr>
 								<td><input type="checkbox" name="article_ids[]" value="<?php echo $val['id']; ?>"></td>
-								<td class="mod_title"><a href="article/<?php echo $val['id']; ?>" target="_blank"><?php echo $val['title']; ?></a></td>
+								<td><a href="article/<?php echo $val['id']; ?>" target="_blank"><?php echo $val['title']; ?></a></td>
 								<td><?php echo $val['comments']; ?></td>
 								<td><?php echo $val['views']; ?></td>
 								<td><a href="people/<?php echo $val['user_info']['url_token']; ?>" target="_blank"><?php echo $val['user_info']['user_name']; ?></a></td>

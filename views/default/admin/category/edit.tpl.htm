@@ -1,44 +1,60 @@
 <?php TPL::output('admin/global/header.tpl.htm'); ?>
 <?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
 
-<div class="pull-left right-side">
-	<form action="admin/category/save/category_id-<?php echo $this->category['id']; ?>" id="settings_form" method="post">
-	<div class="aw-box">
-		<div class="aw-mod-head">
-			<h2><?php _e('分类编辑'); ?></h2>
+<div class="aw-content-wrap">
+	<form action="admin/category/save/category_id-<?php echo $this->category['id']; ?>" id="settings_form" method="post" onsubmit="return false">
+	<div class="mod">
+		<a name="site_info"></a>
+		<div class="mod-head">
+			<h3>
+				<span class="pull-left"><?php _e('分类编辑'); ?></span>
+			</h3>
 		</div>
-		<div class="aw-mod-body">			
-			<dl>
-				<dt><h3><?php _e('分类标题'); ?>:</h3></dt>
-				<dd>
-					<div class="row">
-						<div class="col-sm-7">
-							<input class="form-control" type="text" name="title" value="<?php echo $this->category['title']; ?>" />
+		</div>
+		<div class="tab-content mod-content">
+			<table class="table table-striped">
+				<tr>
+					<td>
+						<div class="form-group">
+							<span class="col-sm-4 col-xs-3 control-label"><?php _e('分类标题'); ?>:</span>
+							<div class="col-sm-5 col-xs-8">
+								<input class="form-control" type="text" name="title" value="<?php echo $this->category['title']; ?>" />
+							</div>
 						</div>
-					</div>
-				</dd>
-			</dl>
-			<dl class="form-inline">
-				<dt><h3><?php _e('别名'); ?>:</h3></dt>
-				<dd>
-					<?php echo get_js_url('/'); ?>category/
-					<div class="form-group">
-   						<input type="text" name="url_token" class="form-control" value="<?php echo $this->category['url_token']; ?>" />
-  					</div>
-				</dd>
-			</dl>
-			<dl>
-				<dt><h3><?php _e('父级分类'); ?>:</h3></dt>
-				<dd><select name="parent_id">
-					<option value="0"><?php _e('无'); ?></option>
-					<?php echo $this->category_option; ?>
-				</select></dd>
-			</dl>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div class="form-group">
+							<span class="col-sm-4 col-xs-3 control-label"><?php _e('别名'); ?>:</span>
+							<div class="col-sm-3 col-xs-3">
+								/category/ <input type="text" name="url_token" class="form-control" value="<?php echo $this->category['url_token']; ?>" />
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div class="form-group">
+							<span class="col-sm-4 col-xs-3 control-label"><?php _e('父级分类'); ?>:</span>
+							<div class="col-sm-5 col-xs-8">
+								<select name="parent_id" class="form-control">
+									<option value="0"><?php _e('无'); ?></option>
+									<?php echo $this->category_option; ?>
+								</select>
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tfoot>
+				<tr>
+					<td>
+						<input type="button" value="<?php _e('保存'); ?>" class="btn btn-primary center-block" onclick="AWS.ajax_post($('#settings_form'));" />
+					</td>
+				</tr>
+				</tfoot>
+			</table>
 		</div>
-		<div class="aw-mod-footer">
-			<a href="javascript:;" class="btn btn-inverse btn-normal" onclick="ajax_post($('#settings_form'));"><?php _e('保存'); ?></a>
-		</div>
-	</div>
 	</form>
 </div>
 

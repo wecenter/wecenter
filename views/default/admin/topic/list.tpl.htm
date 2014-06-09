@@ -25,7 +25,7 @@
 						<thead>
 							<tr>
 								<th><input type="checkbox" class="check-all"></th>
-								<th class="mod_title"><?php _e('话题标题'); ?></th>
+								<th><?php _e('话题标题'); ?></th>
 								<th><?php _e('讨论'); ?></th>
 								<th><?php _e('关注'); ?></th>
 								<th><?php _e('合并'); ?></th>
@@ -38,7 +38,7 @@
 							<?php foreach ($this->list AS $key => $val) { ?>
 							<tr>
 								<td><input type="checkbox" name="topic_ids[]" value="<?php echo $val['topic_id']; ?>"></td>
-								<td class="mod_title"><a href="topic/<?php echo $val['url_token']; ?>" target="_blank"><?php echo $val['topic_title']; ?></a></td>
+								<td><a href="topic/<?php echo $val['url_token']; ?>" target="_blank"><?php echo $val['topic_title']; ?></a></td>
 								<td><?php echo $val['discuss_count']; ?></td>
 								<td><?php echo $val['focus_count']; ?></td>
 								<td><?php if ($val['merged_id']) { ?><?php _e('是'); ?><?php } else { ?><?php _e('否'); ?><?php } ?></td>
