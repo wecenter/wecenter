@@ -72,6 +72,16 @@ class article extends AWS_ADMIN_CONTROLLER
 
 			$where[] = 'uid = ' . intval($user_info['uid']);
 		}
+		
+		if ($_GET['comment_count_min'])
+		{
+			$where[] = 'comments >= ' . intval($_GET['comment_count_min']);
+		}
+
+		if ($_GET['answer_count_max'])
+		{
+			$where[] = 'comments <= ' . intval($_GET['comment_count_max']);
+		}
 
 		if ($articles_list = $this->model('article')->fetch_page('article', implode(' AND ', $where), 'id DESC', $_GET['page'], $this->per_page))
 		{
@@ -112,7 +122,7 @@ class article extends AWS_ADMIN_CONTROLLER
 			'per_page' => $this->per_page
 		))->create_links());
 
-		$this->crumb(AWS_APP::lang()->_t('文章管理'), 'admin/question/question_list/');
+		$this->crumb(AWS_APP::lang()->_t('文章管理'), 'admin/article/list/');
 
 		TPL::assign('articles_count', $search_articles_total);
 		TPL::assign('search_url', $search_url);
@@ -139,15 +149,13 @@ class article extends AWS_ADMIN_CONTROLLER
 				}
 
 				H::ajax_json_output(AWS_APP::RSM(null, 1, null));
-
-				break;
+			break;
 
 			case 'send':
 				$result = $this->model('weixin')->add_article_or_question_ids_to_cache($_POST['article_ids'], null);
 
 				H::ajax_json_output(AWS_APP::RSM(null, -1, $result));
-
-				break;
+			break;
 		}
 	}
 }

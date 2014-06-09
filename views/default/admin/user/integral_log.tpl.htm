@@ -33,7 +33,7 @@
 					<td colspan="6">
 						<span class="pull-right"><?php echo $this->pagination; ?></span>
 						
-						<form id="integral_form" action="admin/user_manage/integral_add_ajax/" method="post">
+						<form id="integral_form" action="admin/user/integral_add_ajax/" method="post">
 						<input name="uid" type="hidden" value="<?php echo $this->user['uid']; ?>">
 						<?php _e('用户'); ?>: <b><?php echo $this->user['user_name']; ?></b> &nbsp; <?php _e('当前积分'); ?>: <?php echo $this->user['integral']; ?> &nbsp; <?php _e('操作积分'); ?>: <input name="integral" class="input-small" type="text" value="" /> &nbsp; <?php _e('说明'); ?>: <input name="note" type="text" value="<?php _e('管理员操作积分'); ?>"/> &nbsp; 
 						<a class="btn btn-inverse inline-block" onclick="ajax_post($('#integral_form'));" href="javascript:;"><?php _e('提交'); ?></a>

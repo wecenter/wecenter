@@ -30,7 +30,7 @@ class AWS_CONTROLLER
 	public function __construct($process_setup = true)
 	{
 		// 获取当前用户 User ID
-		$this->user_id = USER::get_client_uid();
+		$this->user_id = AWS_APP::user()->get_info('uid');
 
 		if ($this->user_info = $this->model('account')->get_user_info_by_uid($this->user_id, TRUE))
 		{

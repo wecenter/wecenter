@@ -61,23 +61,14 @@ class topic extends AWS_ADMIN_CONTROLLER
 			$where[] = 'discuss_count <= ' . intval($_GET['question_count_max']);
 		}
 		
-
-		if ($_GET['topic_pic'] == 'YES')
+		if (base64_decode($_GET['start_date']))
 		{
-			$where[] = "topic_pic <> ''";
-		}
-		else if ($_GET['topic_pic'] == 'NO')
-		{
-			$where[] = "topic_pic = ''";
+			$where[] = 'add_time >= ' . strtotime(base64_decode($_GET['start_date']));
 		}
 
-		if ($_GET['topic_description'] == 'YES')
+		if (base64_decode($_GET['end_date']))
 		{
-			$where[] = "topic_description <> ''";
-		}
-		else if ($_GET['topic_description'] == 'NO')
-		{
-			$where[] = "topic_description = ''";
+			$where[] = 'add_time <= ' . strtotime('+1 day', strtotime(base64_decode($_GET['end_date'])));
 		}
 		
 		$topic_list = $this->model('topic')->get_topic_list(implode(' AND ', $where), 'topic_id DESC', $this->per_page, $_GET['page']);
@@ -102,7 +93,7 @@ class topic extends AWS_ADMIN_CONTROLLER
 		
 		$this->crumb(AWS_APP::lang()->_t('话题管理'), "admin/topic/list/");
 		
-		TPL::assign('topic_num', $total_rows);
+		TPL::assign('topics_count', $total_rows);
 		TPL::assign('search_url', $search_url);
 		TPL::assign('list', $topic_list);
 		TPL::output("admin/topic/list");
@@ -132,7 +123,7 @@ class topic extends AWS_ADMIN_CONTROLLER
 		
 		TPL::import_js('js/ajaxupload.js');
 		
-		TPL::output("admin/topic/edit");
+		TPL::output('admin/topic/edit');
 	}
 	
 	public function save_ajax_action()

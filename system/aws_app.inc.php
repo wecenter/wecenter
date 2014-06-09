@@ -37,6 +37,7 @@ class AWS_APP
 	private static $session;
 	private static $captcha;
 	private static $mail;
+	private static $user;
 	
 	public static $session_type = 'file';
 	
@@ -249,7 +250,7 @@ class AWS_APP
 	 */	
 	public static function login()
 	{
-		if (! USER::get_client_uid())
+		if (! AWS_APP::user()->get_info('uid'))
 		{
 			if ($_POST['_post_type'] == 'ajax')
 			{
@@ -273,6 +274,24 @@ class AWS_APP
 	public static function config()
 	{
 		return self::$config;
+	}
+	
+	/**
+	 * 获取用户信息类
+	 *
+	 * 调用 core/user.php
+	 * 
+	 * @access	public
+	 * @return	object
+	 */	
+	public static function user()
+	{
+		if (!self::$user)
+		{
+			self::$user = load_class('core_user');
+		}
+		
+		return self::$user;
 	}
 	
 	/**

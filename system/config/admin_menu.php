@@ -128,37 +128,37 @@ $config[] = array(
 		array(
 			'id' => 408,
 			'title' => '注册审核',
-			'url' => 'admin/user_manage/register_approval_list/',
+			'url' => 'admin/user/register_approval_list/',
 		),
 		array(
 			'id' => 401,
 			'title' => '认证审核',
-			'url' => 'admin/user_manage/verify_approval_list/',
+			'url' => 'admin/user/verify_approval_list/',
 		),
 		array(
 			'id' => 402,
 			'title' => '会员列表',
-			'url' => 'admin/user_manage/list/',
+			'url' => 'admin/user/list/',
 		),
 		array(
 			'id' => 403,
 			'title' => '用户组',
-			'url' => 'admin/user_manage/group_list/',
+			'url' => 'admin/user/group_list/',
 		),
 		array(
 			'id' => 405,
 			'title' => '添加用户',
-			'url' => 'admin/user_manage/user_add/',
+			'url' => 'admin/user/user_add/',
 		),
 		array(
 			'id' => 406,
 			'title' => '批量邀请',
-			'url' => 'admin/user_manage/invites/',
+			'url' => 'admin/user/invites/',
 		),
 		array(
 			'id' => 407,
 			'title' => '职位设置',
-			'url' => 'admin/user_manage/job_list/',
+			'url' => 'admin/user/job_list/',
 		)
 	)
 );

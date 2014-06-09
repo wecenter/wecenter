@@ -1,0 +1,205 @@
+<?php TPL::output('admin/global/header.tpl.htm'); ?>
+<?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
+
+<div class="aw-content-wrap">
+	<div class="mod">
+		<div class="mod-head">
+			<h3>
+				<ul class="nav nav-tabs">
+				    <li<?php if (!$_GET['type']) { ?> class="active"<?php } ?>><a href="admin/user/list/" data-toggle="tab"><?php _e('会员列表'); ?></a></li>
+					<li<?php if ($_GET['type'] == 'forbidden') { ?> class="active"<?php } ?>><a href="admin/user/list/type-forbidden"><?php _e('封禁用户'); ?></a></li>
+				    <li><a href="#search" data-toggle="tab"><?php _e('搜索'); ?></a></li>
+				</ul>
+			</h3>
+		</div>
+		<div class="mod-body tab-content">
+			<div class="tab-pane active" id="list">
+				<?php if ($_GET['action'] == 'search') { ?>
+				<div class="alert alert-info"><?php _e('找到 %s 条符合条件的内容', intval($this->total_rows)); ?></div>
+				<?php } ?>
+				
+				<div class="table-responsive">
+				<?php if ($this->list) { ?>
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th><?php _e('用户名'); ?></th>
+								<th><?php _e('邮箱'); ?></th>
+								<th><?php _e('用户组'); ?></th>
+								<th><?php _e('注册时间'); ?></th>
+								<th><?php _e('最后活跃'); ?></th>
+								<th><?php _e('在线时长'); ?></th>
+								<th><?php _e('威望'); ?></th>
+								<?php if (get_setting('integral_system_enabled') == 'Y') { ?>
+								<th><?php _e('积分'); ?></th>
+								<?php } ?>
+								<th><?php _e('操作'); ?></th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php foreach ($this->list AS $key => $val) { ?>
+							<tr>
+								<td><?php echo $val['uid']; ?></td>
+								<td><a href="people/<?php echo $val['user_name']; ?>" target="_blank"><?php echo $val['user_name']; ?></a> <?php if ($val['forbidden']) { ?><span class="aw-text-color-999">[ <?php _e('封禁'); ?> ]</span><?php } else if (!$val['valid_email']) { ?><span class="aw-text-color-999">[ <?php _e('邮件未验证'); ?> ]</span><?php } ?></td>
+								<td><?php echo $val['email']; ?></td>
+								<td><?php echo $this->system_group[$val['group_id']]['group_name']; ?></td>
+								<td><?php echo date_friendly($val['reg_time']); ?></td>
+								<td><?php if ($val['last_active']) { ?><?php echo date_friendly($val['last_active']); ?><?php } else { ?> - <?php } ?></td>
+								<td><?php echo round($val['online_time'] / 60); ?> 分钟</td>
+								<td><?php echo $val['reputation']; ?></td>
+								<?php if (get_setting('integral_system_enabled') == 'Y') { ?>
+								<td><?php echo $val['integral']; ?></td>
+								<?php } ?>
+								<td>
+									<a href="admin/user/edit/uid-<?php echo $val['uid']; ?>" class="fa fa-pencil md-tip" title="<?php _e('编辑'); ?>"></a>
+									<?php if (get_setting('integral_system_enabled') == 'Y') { ?><a href="admin/user/integral_log/uid-<?php echo $val['uid']; ?>" class="fa fa-file-text-o md-tip" title="<?php _e('积分日志'); ?>"></a><?php } ?>
+									<?php if ($val['uid'] != $this->user_id) { ?><a href="javascript:;" onclick="ajax_request(G_BASE_URL + '/admin/user/forbidden_user/' , 'uid=<?php echo $val['uid']; ?>&status=<?php echo intval($val['forbidden']) ? 0 : 1; ?>');" title="<?php if ($val['forbidden']) { ?><?php _e('解除封禁'); ?><?php } else { ?><?php _e('封禁用户'); ?><?php } ?>" class="fa <?php if ($val['forbidden']) { ?>fa-plus-circle<?php } else { ?>fa-minus-circle<?php } ?> md-tip"><?php } ?>
+								</td>
+							</tr>
+							<?php } ?>
+						</tbody>
+					</table>
+				<?php } ?>
+				</div>
+				<div class="mod-table-foot">
+					<span class="pull-right mod-page"><?php echo $this->pagination; ?></span>
+				</div>
+			</div>
+	
+			<div class="tab-pane" id="search">
+				<form method="post" action="admin/user/list/" onsubmit="return false;" id="search_form" class="form-horizontal" role="form">
+					
+					<input name="action" type="hidden" value="search" />
+					
+					<div class="form-group">
+						<label class="col-sm-2 col-xs-3 control-label"><?php _e('用户名'); ?>:</label>
+							
+						<div class="col-sm-5 col-xs-8">
+							<input class="form-control" type="text" value="<?php echo rawurldecode($_GET['user_name']); ?>" name="user_name" />
+		                </div>
+					</div>
+					
+					<div class="form-group">
+						<label class="col-sm-2 col-xs-3 control-label"><?php _e('邮箱'); ?>:</label>
+							
+						<div class="col-sm-5 col-xs-8">
+							<input class="form-control" type="text" value="<?php echo rawurldecode($_GET['email']); ?>" name="email" />
+		                </div>
+					</div>
+					
+					<div class="form-group">
+						<label class="col-sm-2 col-xs-3 control-label"><?php _e('分类'); ?>:</label>
+							
+						<div class="col-sm-5 col-xs-8">
+							<select name="category_id" class="form-control">
+								<option value="0"></option>
+								<?php echo $this->category_list; ?>
+							</select>
+		                </div>
+					</div>
+					
+					<div class="form-group">
+						<label class="col-sm-2 col-xs-3 control-label"><?php _e('用户组'); ?>:</label>
+		
+						<div class="col-sm-5 col-xs-8">
+							<select name="category_id" class="form-control">
+								<option value="0"></option>
+								<?php echo $this->category_list; ?>
+							</select>
+		                </div>
+					</div>
+					
+					<div class="form-group">
+						<label class="col-sm-2 col-xs-3 control-label"><?php _e('最后登录 IP 段'); ?>:</label>
+							
+						<div class="col-sm-5 col-xs-8">
+							<input class="form-control" type="text" value="<?php echo $_GET['ip']; ?>" name="ip" />
+							
+							<span class="help-block"><?php _e('限 C 段, 如: 203.31.42.*'); ?></span>
+		                </div>
+					</div>
+					
+					<div class="form-group">
+						<label class="col-sm-2 col-xs-3 control-label"><?php _e('积分'); ?>:</label>
+	
+						<div class="col-sm-6 col-xs-9">
+							<div class="row">
+								<div class="col-xs-11  col-sm-5 mod-double">
+									<input type="text" class="form-control" name="integral_min" value="<?php echo $_GET['integral_min']; ?>" />
+								</div>
+								<span class="mod-symbol col-xs-1 col-sm-1">
+								-
+								</span>
+								<div class="col-xs-11 col-sm-5">
+									<input type="text" class="form-control" name="integral_max" value="<?php echo $_GET['integral_max']; ?>" />
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="col-sm-2 col-xs-3 control-label"><?php _e('威望'); ?>:</label>
+	
+						<div class="col-sm-6 col-xs-9">
+							<div class="row">
+								<div class="col-xs-11  col-sm-5 mod-double">
+									<input type="text" class="form-control" name="reputation_min" value="<?php echo $_GET['reputation_min']; ?>" />
+								</div>
+								<span class="mod-symbol col-xs-1 col-sm-1">
+								-
+								</span>
+								<div class="col-xs-11 col-sm-5">
+									<input type="text" class="form-control" name="reputation_max" value="<?php echo $_GET['reputation_max']; ?>" />
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="col-sm-2 col-xs-3 control-label"><?php _e('职业'); ?>:</label>
+		
+						<div class="col-sm-5 col-xs-8">
+							<select name="category_id" class="form-control">
+								<option value="0"></option>
+								<?php foreach($this->job_list as $job_id => $job_name) { ?>
+									<option value="<?php echo $job_id; ?>"<?php if ($_GET['job_id'] == $job_id) { ?> selected="selected"<?php } ?>><?php echo $job_name; ?></option>
+								<?php } ?>
+							</select>
+		                </div>
+					</div>
+					
+					<div class="form-group">
+						<label class="col-sm-2 col-xs-3 control-label"><?php _e('居住地'); ?>:</label>
+		
+						<div class="col-sm-5 col-xs-8">
+							<select name="province" class="select_area form-control"></select>
+							<select name="city" class="select_area form-control hide"></select>
+		                </div>
+					</div>
+
+					<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-5 col-xs-8">
+							<button type="button" onclick="AWS.ajax_post($('#search_form'));" class="btn btn-primary"><?php _e('搜索'); ?></button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function () {
+	$('.select_area').LocationSelect({
+        labels: ["<?php _e('请选择省份或直辖市'); ?>", "<?php _e('请选择城市'); ?>"],
+        elements: document.getElementsByTagName("select"),
+        detector: function () {
+            this.select(["<?php echo $_GET['province']; ?>", "<?php echo $_GET['city']; ?>"]);
+        },
+		dataUrl: G_BASE_URL + '/account/ajax/areas_json_data/'
+    });
+});
+</script>
+
+<?php TPL::output('admin/global/footer.tpl.htm'); ?>

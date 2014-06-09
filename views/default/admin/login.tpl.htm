@@ -35,14 +35,18 @@
 <body>
 <div class="aw-login">
     <div class="mod center-block">
-        <h1><img src="<?php echo G_STATIC_URL; ?>/admin/img/wecenter-logo.png" alt="wecenter-logo" /></h1>
+        <h1><img src="<?php echo G_STATIC_URL; ?>/admin/img/wecenter-logo.png" alt="" /></h1>
+        
         <form role="form" id="login_form" onsubmit="return false" action="admin/login_process_ajax/" method="post">
         	<?php if ($_GET['url']){ ?>
         	<input type="hidden" name="url" value="<?php echo htmlspecialchars($_GET['url']); ?>">
         	<?php } ?>
+        	
+        	<div class="alert alert-danger hide error_message"></div>
+        	
             <div class="form-group">
                 <label><?php _e('邮箱'); ?></label>
-                <input type="text" class="form-control" placeholder="<?php _e('邮箱'); ?>" value="<?php if ($this->user_info) { echo $this->user_info['email']; } ?>" disabled />
+                <input type="text" class="form-control" placeholder="<?php _e('邮箱'); ?>" value="<?php echo $this->user_info['email']; ?>" disabled="disabled" />
                 <i class="fa fa-user"></i>
             </div>
             <div class="form-group">

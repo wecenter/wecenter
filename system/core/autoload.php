@@ -21,7 +21,6 @@ class core_autoload
 		'FORMAT'			=> 'class/cls_format.inc.php',
 		'HTTP'				=> 'class/cls_http.inc.php',
 		'H'					=> 'class/cls_helper.inc.php',
-		'USER'				=> 'class/cls_user.inc.php',
 		'ACTION_LOG'		=> 'class/cls_action_log_class.inc.php',
 	);
 	
