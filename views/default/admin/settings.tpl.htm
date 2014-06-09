@@ -2,7 +2,7 @@
 <?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
 
 <div class="aw-content-wrap">
-	<form action="admin/settings/save/" id="settings_form" method="post">
+	<form action="admin/settings/save/" id="settings_form" method="post" onsubmit="return false">
 	<div class="mod">
 		<a name="site_info"></a>
 		<div class="mod-head">
@@ -117,7 +117,7 @@
 						<div class="form-group">
 							<span class="col-sm-4 col-xs-3 control-label"><?php _e('默认时区'); ?>:</span>
 							<div class="col-sm-5 col-xs-8">
-								<select name="default_timezone">
+								<select name="default_timezone" class="form-control">
 									<option value='Etc/GMT+12'<?php if ($this->setting['default_timezone'] == 'Etc/GMT+12') { ?> selected="selected"<?php } ?>><?php _e('(GMT - 12:00 小时) 安尼威托克岛，卡瓦加兰'); ?></option>
 									<option value='Etc/GMT+11'<?php if ($this->setting['default_timezone'] == 'Etc/GMT+11') { ?> selected="selected"<?php } ?>><?php _e('(GMT - 11:00 小时) 中途岛，萨摩亚'); ?></option>
 									<option value='Etc/GMT+10'<?php if ($this->setting['default_timezone'] == 'Etc/GMT+10') { ?> selected="selected"<?php } ?>><?php _e('(GMT - 10:00 小时) 夏威夷'); ?></option>

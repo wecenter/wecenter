@@ -25,7 +25,7 @@
 						<thead>
 							<tr>
 								<th><input type="checkbox" class="check-all"></th>
-								<th class="mod_title"><?php _e('问题标题'); ?></th>
+								<th><?php _e('问题标题'); ?></th>
 								<th><?php _e('回答'); ?></th>
 								<th><?php _e('浏览'); ?></th>
 								<th><?php _e('确认编辑'); ?></th>
@@ -39,7 +39,7 @@
 							<?php foreach ($this->list AS $key => $val) { ?>
 							<tr>
 								<td><input type="checkbox" name="question_ids[]" value="<?php echo $val['question_id']; ?>"></td>
-								<td class="mod_title"><a href="question/<?php echo $val['question_id']; ?>" target="_blank"><?php echo $val['question_content']; ?></a></td>
+								<td><a href="question/<?php echo $val['question_id']; ?>" target="_blank"><?php echo $val['question_content']; ?></a></td>
 								<td><?php if ($val['answer_count']) { ?><?php echo $val['answer_count']; ?><?php } else { ?>0<?php } ?></td>
 								<td><?php echo $val['view_count']; ?></td>
 								<td><?php if ($val['unverified_modify']) { ?><a href="question/id-<?php echo $val['question_id']; ?>__column-log__rf-false" target="_blank"><?php _e('有'); ?></a><?php } else { ?><?php _e('无'); ?><?php } ?></td>
