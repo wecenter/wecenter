@@ -103,13 +103,6 @@ class edm extends AWS_ADMIN_CONTROLLER
 					$this->model('edm')->import_system_email_by_last_active($usergroup_id, $_POST['last_active']);
 				}
 			break;
-			
-			case 'last_login':
-				if ($_POST['last_active'])
-				{
-					$this->model('edm')->import_system_email_by_last_login($usergroup_id, $_POST['last_active']);
-				}
-			break;
 		}
 		
 		H::ajax_json_output(AWS_APP::RSM(null, 1, AWS_APP::lang()->_t('用户群添加完成')));
