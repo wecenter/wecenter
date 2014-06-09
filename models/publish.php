@@ -422,7 +422,7 @@ class publish_class extends AWS_MODEL
 			$attach['item_type'] = 'questions';
 		}
 		
-		$attach_dir = get_setting('upload_dir') . '/' . $attach['item_type'] . '/' . date('Ymd/', $attach['add_time']);
+		$attach_dir = get_setting('upload_dir') . '/' . $attach['item_type'] . '/' . gmdate('Ymd/', $attach['add_time']);
 		
 		foreach(AWS_APP::config()->get('image')->attachment_thumbnail AS $key => $val)
 		{
