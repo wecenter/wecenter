@@ -1,13 +1,11 @@
-$(function () {
-
-    // bs自带方法 TAB切换
-
-    $('#myTab a').click(function (e)
-    {
-        e.preventDefault()
-        $(this).tab('show')
-    });
-
+$(function ()
+{
+	// fix form bug...
+    $("form[action='']").attr('action', window.location.href);
+    
+    // 验证码
+    $('img#captcha').attr('src', G_BASE_URL + '/account/captcha/');
+	
     // bs自带方法-气泡提示
     $('.aw-content-wrap .md-tip').tooltip('hide');
 
@@ -90,4 +88,32 @@ $(function () {
         $(this).parents('table').find(".icheckbox_square-blue").iCheck('uncheck');
     });
 
+	//ie浏览器下input,textarea兼容
+    if (document.all)
+    {
+        $('input,textarea').each(function ()
+        {
+            if (typeof ($(this).attr("placeholder")) != "undefined")
+            {
+                if ($(this).val() == '')
+                {
+	                $(this).addClass('aw-placeholder').val($(this).attr("placeholder"));
+                }
+
+                $(this).focus(function () {
+                    if ($(this).val() == $(this).attr('placeholder'))
+                    {
+                        $(this).removeClass('aw-placeholder').val('');
+                    }
+                });
+
+                $(this).blur(function () {
+                    if ($(this).val() == '')
+                    {
+                        $(this).addClass('aw-placeholder').val($(this).attr('placeholder'));
+                    }
+                });
+            }
+        });
+    }
 });
