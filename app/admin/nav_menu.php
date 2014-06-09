@@ -38,7 +38,6 @@ class nav_menu extends AWS_ADMIN_CONTROLLER
 		TPL::assign('setting', get_setting());
 		
 		TPL::import_js(array(
-			'admin/js/jquery.dragsort.js',
 			'js/ajaxupload.js',
 		));
 		
