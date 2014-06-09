@@ -6,3 +6,5 @@ system/config.inc.php
 system/config/install.lock.php
 system/config/database.php
 .DS_Store
+.tags
+.tags_sorted_by_file
