@@ -1088,6 +1088,7 @@ var AWS =
 	shake: function(selector)
 	{
 		var length = 6;
+		selector.css('position', 'relative');
 	    for (var i = 1; i <= length; i++)
 	    {
 	    	if (i % 2 == 0) 
