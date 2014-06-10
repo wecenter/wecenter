@@ -2,7 +2,7 @@
 a{color: #080808; font: 14px/1.5em "microsoft yahei";}
 a:hover, a:focus{text-decoration: none;}
 body{background: #eaeaea;;}
-
+.middle{line-height: 32px;}
 /*改写bootstrap部分*/
 .aw-content-wrap .tab-content .fa{width: 25px; height: 25px; border-radius: 5px; background: #8bbf61; color: #fff; text-align: center; line-height: 25px;}
 .tooltip-inner{background: #246594;}
@@ -14,7 +14,9 @@ li{list-style: none;}
 .aw-content-wrap label.checkbox-inline{line-height: 30px;}
 .nav > li > a:hover, .nav > li > a:focus{background-color: transparent;}
 .nav .open > a, .nav .open > a:hover, .nav .open > a:focus{background-color: #fff;}
-
+.table-striped > tbody > tr:nth-child(odd) > td, .table-striped > tbody > tr:nth-child(odd) > th {
+background-color: #F5F8FA;
+}
 /*后台header start*/
 .aw-header{position: fixed; top:0; z-index: 999; margin-bottom: 0; width: 100%; height: 50px; border: none; border-bottom: 1px solid #d5d5d5; background: #fff;}
 .aw-header .mod-head-btn{padding: 0 20px; height: 50px; outline: none; border: none; border-right: 1px solid #e2e1e1; border-radius: 0; background: transparent; color: #676766;}
@@ -54,7 +56,8 @@ li{list-style: none;}
 .aw-side ul{padding: 0; width: 235px; list-style: none;}
 .aw-side ul li{border-bottom: 1px solid #434343; line-height: 20px;}
 .aw-side .active, .aw-side ul li a.active:hover{border-color: #207fbd; background: #3695D5; color: #fff;}
-.aw-side ul li ul li a.active{border-color: #323232;}
+.aw-side ul li ul li a{border: none;}
+.aw-side ul li ul li a.active{border-color: #323232; border: none;}
 .aw-side ul li a{position: relative; display: block; padding-left: 25px; height: 56px; outline: none; border-right: 4px solid #353535; border-left: 4px solid #353535; background: #3f3f3f; color: #999; font-size: 15px; line-height: 52px;}
 .aw-side .fa:before{display: inline-block; width: 35px; vertical-align: middle; text-align: center; font-size: 22px;}
 .aw-side .fa-home:before{font-size: 28px;}
@@ -111,7 +114,7 @@ textarea{resize: none;}
 .aw-content-wrap table > tfoot > tr > td{padding-top: 18px; padding-bottom: 0;}
 .aw-content-wrap .mod-foot-center td{text-align: center;}
 .aw-content-wrap .mod-site-foot{border-top: none;}
-.aw-content-wrap .mod-text-inline{line-height: 34px; padding: 0 9px; width: auto;}
+.aw-content-wrap .mod-text-inline{line-height: 34px; padding: 0 9px 0 15px; width: auto;}
 .aw-content-wrap .table th{white-space: nowrap;}
 /*按钮样式*/
 .aw-content-wrap .mod-btn .mod-btn-color{border: 1px solid #eaeaea; background: #fff; color: #000;}
