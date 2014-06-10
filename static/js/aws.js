@@ -174,7 +174,6 @@ var AWS =
 			    	
 			    	if ($('.error_message').css('display') != 'none')
 			    	{
-			    		console.log('1');
 				    	AWS.shake($('.error_message'));
 			    	}
 			    	else
