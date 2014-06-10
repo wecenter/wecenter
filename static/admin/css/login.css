@@ -16,4 +16,6 @@ a{font: 14px/1.5em "microsoft yahei";}
 .aw-login .mod h2{color: #999; text-align: center; font-weight: normal; font-size: 14px;}
 .aw-login .mod .col-xs-6{margin-top: 6px;}
 .aw-login img.verification{width: 100px; height: 40px; border: none;}
+/*登陆错误提示框*/
+.aw-login .mod .alert{padding: 5px 15px;}
 @media only screen and (max-width: 320px){.aw-login .mod{margin-top: 40px; width: 310px;}}

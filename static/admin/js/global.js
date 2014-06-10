@@ -1,11 +1,13 @@
-$(function ()
-{
-	// fix form bug...
-    $("form[action='']").attr('action', window.location.href);
-    
-    // 验证码
-    $('img#captcha').attr('src', G_BASE_URL + '/account/captcha/');
-	
+$(function () {
+
+    // bs自带方法 TAB切换
+
+    $('#myTab a').click(function (e)
+    {
+        e.preventDefault()
+        $(this).tab('show')
+    });
+
     // bs自带方法-气泡提示
     $('.aw-content-wrap .md-tip').tooltip('hide');
 
@@ -28,6 +30,15 @@ $(function ()
         }
     });
 
+    function changeSize() {
+        var height = $('#aw-side').height();
+        $("#aw-side").height(height-40);
+
+        // update perfect scrollbar
+        $('#aw-side').perfectScrollbar('update');
+    }
+    changeSize();
+
     $('#aw-side').perfectScrollbar({useBothWheelAxes: true});
 
     /*日期选择*/
@@ -36,7 +47,7 @@ $(function ()
     }
 
     // 单选框 input checked radio 初始化
-    $('input').iCheck({
+    $('.aw-content-wrap .table').find("input").iCheck({
         checkboxClass: 'icheckbox_square-blue',
         radioClass: 'iradio_square-blue',
         increaseArea: '20%'
@@ -77,43 +88,15 @@ $(function ()
 
 
     // input 单选框全选or 全取消
-    $('.check-all').on('ifChecked', function (e) {
+    $('.aw-content-wrap .table').find(".check-all").on('ifChecked', function (e) {
         e.preventDefault()
         $(this).parents('table').find(".icheckbox_square-blue").iCheck('check');
 
     });
 
-    $('.check-all').on('ifUnchecked', function (e) {
+    $('.aw-content-wrap .table').find(".check-all").on('ifUnchecked', function (e) {
         e.preventDefault()
         $(this).parents('table').find(".icheckbox_square-blue").iCheck('uncheck');
     });
 
-	//ie浏览器下input,textarea兼容
-    if (document.all)
-    {
-        $('input,textarea').each(function ()
-        {
-            if (typeof ($(this).attr("placeholder")) != "undefined")
-            {
-                if ($(this).val() == '')
-                {
-	                $(this).addClass('aw-placeholder').val($(this).attr("placeholder"));
-                }
-
-                $(this).focus(function () {
-                    if ($(this).val() == $(this).attr('placeholder'))
-                    {
-                        $(this).removeClass('aw-placeholder').val('');
-                    }
-                });
-
-                $(this).blur(function () {
-                    if ($(this).val() == '')
-                    {
-                        $(this).addClass('aw-placeholder').val($(this).attr('placeholder'));
-                    }
-                });
-            }
-        });
-    }
 });
