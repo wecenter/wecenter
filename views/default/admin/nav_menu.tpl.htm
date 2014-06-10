@@ -147,16 +147,6 @@ $(document).ready(function () {
 		<?php } ?>
 	<?php } ?>
 	<?php } ?>
-	
-	var aw_nav_menu_sort = [];
-	
-	$(".aw-nav-menu ul:first").dragsort({dragEnd:function(){
-		$.each($('.aw-nav-menu ul li'),function(i ,e) {
-			aw_nav_menu_sort.push($(this).attr('data-sort'));
-		});
-		
-		$('#nav_sort').val(aw_nav_menu_sort.join(','));
-	}});
 });
 </script>
 
