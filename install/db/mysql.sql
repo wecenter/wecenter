@@ -439,7 +439,7 @@ CREATE TABLE `[#DB_PREFIX#]question` (
   `published_uid` int(11) DEFAULT NULL COMMENT '发布用户UID',
   `answer_count` int(11) DEFAULT '0' COMMENT '回答计数',
   `answer_users` int(11) DEFAULT '0' COMMENT '回答人数',
-  `view_count` int(11) DEFAULT '0' COMMENT '浏览次数',
+  `view_count` int(11)DEFAULT '0' COMMENT '浏览次数',
   `focus_count` int(11) DEFAULT '0' COMMENT '关注数',
   `comment_count` int(11) DEFAULT '0' COMMENT '评论数',
   `action_history_id` int(11) DEFAULT '0' COMMENT '动作的记录表的关连id',
@@ -458,6 +458,7 @@ CREATE TABLE `[#DB_PREFIX#]question` (
   `thanks_count` INT( 10 ) NULL DEFAULT '0',
   `question_content_fulltext` TEXT NULL DEFAULT NULL,
   `is_recommend` tinyint(1) DEFAULT '0',
+  `weibo_msg_id` DEFAULT NULL,
   PRIMARY KEY (`question_id`),
   KEY `category_id` (`category_id`),
   KEY `update_time` (`update_time`),
@@ -1105,14 +1106,19 @@ CREATE TABLE `[#DB_PREFIX#]weixin_msg` (
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8 COMMENT='微信群发列表';
 
 CREATE TABLE `[#DB_PREFIX#]weibo_msg` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
   `weibo_id` bigint(30) NOT NULL,
   `created_at` int(10) NOT NULL,
   `text` varchar(255) NOT NULL,
   `pic_urls` text,
-  PRIMARY KEY (`id`),
-  KEY `weibo_id` (`weibo_id`)
-) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8 COMMENT='新浪微博列表';
+  `uid` int(10) NOT NULL,
+  `weibo_uid` bigint(20) NOT NULL,
+  `question_id` int(11) DEFAULT NULL,
+  `approvaled` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY `weibo_id` (`weibo_id`),
+  KEY `uid` (`uid`),
+  KEY `weibo_uid` (`weibo_uid`),
+  KEY `question_id` (`question_id`)
+) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8 COMMENT='新浪微博消息列表';
 
 INSERT INTO `[#DB_PREFIX#]category`(`title`,`type`) VALUES
 ('默认分类', 'question');
