@@ -1,157 +1,132 @@
 <?php TPL::output('admin/global/header.tpl.htm'); ?>
 <?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
 
-<div class="pull-left right-side">
-	<div class="aw-mod-head">
-		<h2>
-			<span class="pull-left"><?php _e('用户组管理 '); ?></span>
-			
-			<ul class="nav nav-tabs pull-left">
-			    <li class="active"><a href="#_members" data-toggle="tab" id="members"><?php _e('会员组'); ?></a></li>
-			    <li><a href="#_system" data-toggle="tab" id="system"><?php _e('系统组'); ?></a></li>
-			    <li><a href="#_custom" data-toggle="tab" id="custom"><?php _e('特殊组'); ?></a></li>
-			</ul>
-		</h2>
-	</div>
-	<div class="aw-mod-body tab-content">
-		<div class="tab-pane active" id="_members">	
-			<form method="post" action="admin/user/group_save_ajax/" id="batchs_form">
-			<table class="aw-table" id="members_table">
-				<thead>
-					<tr>
-						<th align="center"><input class="check-all" type="checkbox" /> <?php _e('删'); ?></th>
-						<th align="center" >ID</th>
-						<th><?php _e('会员组名称'); ?></th>
-						<th><?php _e('威望介于'); ?></th>
-						<th><?php _e('威望系数'); ?></th>
-						<th></th>
-					</tr>
-				</thead>
-				<tbody>
-					<?php if ($this->mem_group) { ?>
-					<?php foreach ($this->mem_group AS $key => $val) { ?>
-					<tr>
-						<td align="center"><input type="checkbox" value="<?php echo $val['group_id']; ?>" name="group_ids[]"></td>
-						<td align="center"><?php echo $val['group_id']; ?></td>
-						<td>
-							<div class="row">
-								<div class="col-sm-12">
+<div class="aw-content-wrap">
+	<div class="mod">
+		<div class="mod-head">
+			<h3>
+				<ul class="nav nav-tabs">
+					<li class="active"><a href="#_members" data-toggle="tab" id="members"><?php _e('会员组'); ?></a></li>
+	   			    <li><a href="#_system" data-toggle="tab" id="system"><?php _e('系统组'); ?></a></li>
+	   			    <li><a href="#_custom" data-toggle="tab" id="custom"><?php _e('特殊组'); ?></a></li>
+				</ul>
+			</h3>
+		</div>
+		<div class="mod-body tab-content">
+			<div class="tab-pane active" id="_members">	
+				<div class="table-responsive">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th><input class="check-all" type="checkbox" /></th>
+								<th>ID</th>
+								<th><?php _e('会员组名称'); ?></th>
+								<th><?php _e('威望介于'); ?></th>
+								<th><?php _e('威望系数'); ?></th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php if ($this->mem_group) { ?>
+							<?php foreach ($this->mem_group AS $key => $val) { ?>
+							<tr>
+								<td><input type="checkbox" value="<?php echo $val['group_id']; ?>" name="group_ids[]"></td>
+								<td><?php echo $val['group_id']; ?></td>
+								<td>
 									<input class="form-control" type="text" name="group[<?php echo $val['group_id']; ?>][group_name]" value="<?php echo $val['group_name']; ?>" />
-								</div>
-							</div>
-						</td>
-						<td class="form-inline">
-							<div class="form-group">
-								<input type="text" name="group[<?php echo $val['group_id']; ?>][reputation_lower]" value="<?php echo $val['reputation_lower']; ?>" class="form-control control-value" />
-								~
-								<input type="text" name="group[<?php echo $val['group_id']; ?>][reputation_higer]" class="form-control max-value" value="<?php echo $val['reputation_higer']; ?>" />
-							</div>
-						</td>
-						<td><input type="text" name="group[<?php echo $val['group_id']; ?>][reputation_factor]" class="form-control" value="<?php echo $val[reputation_factor]; ?>" /></td>
-						<td><a href="admin/user/group_edit/group_id-<?php echo $val['group_id']; ?>"><?php _e('权限编辑'); ?></a></td>
-					</tr>
-					<?php } ?>
-					<?php } ?>
-					<tr id="members_add_form" class="hide">
-						<td></td>
-						<td></td>
-						<td>
-							<div class="row">
-								<div class="col-sm-12">
+								</td>
+								<td class="form-inline">
+									<div class="form-group">
+										<input type="text" name="group[<?php echo $val['group_id']; ?>][reputation_lower]" value="<?php echo $val['reputation_lower']; ?>" class="form-control control-value" />
+										~
+										<input type="text" name="group[<?php echo $val['group_id']; ?>][reputation_higer]" class="form-control max-value" value="<?php echo $val['reputation_higer']; ?>" />
+									</div>
+								</td>
+								<td><input type="text" name="group[<?php echo $val['group_id']; ?>][reputation_factor]" class="form-control" value="<?php echo $val['reputation_factor']; ?>" /></td>
+								<td><a href="admin/user/group_edit/group_id-<?php echo $val['group_id']; ?>" title="<?php _e('权限编辑'); ?>" class="fa fa-pencil md-tip"></a></td>
+							</tr>
+							<?php } ?>
+							<?php } ?>
+							<tr id="members_add_form" class="hide">
+								<td></td>
+								<td></td>
+								<td>
 									<input type="text" class="form-control" name="group_new[group_name][]" placeholder="<?php _e('用户组名称'); ?>" />
-								</div>
-							</div>
-						</td>
-						<td class="form-inline">
-							<div class="form-group">
-								<input class="new_input" type="text" name="group_new[reputation_lower][]" />
-							 ~ <input type="text" class="input-small max-value" name="group_new[reputation_higer][]" />
-							</div>
-						</td>
-						<td>
-							<div class="row">
-								<div class="col-sm-12">
-									<input type="text" class="input-small form-control" name="group_new[reputation_factor][]" />
-								</div>
-							</div>
-						</td>
-						<td></td>
-					</tr>
-
-
-				</tbody>
-				<tfoot>
-					<tr>
-						<td colspan="6">
-							<a class="btn btn-inverse pull-right" onclick="ajax_post($('#batchs_form'));" href="javascript:;"><?php _e('保存设置'); ?></a>
-							<a class="btn btn-inverse add" href="javascript:;"><?php _e('添加新用户组'); ?></a>
-						</td>
-					</tr>
-				</tfoot>
-			</table>
-			</form>
-		</div>
+								</td>
+								<td class="form-inline">
+									<div class="form-group">
+										<input class="new_input" type="text" name="group_new[reputation_lower][]" />
+									 	~ <input type="text" class="input-small max-value" name="group_new[reputation_higer][]" />
+									</div>
+								</td>
+								<td><input type="text" class="input-small form-control" name="group_new[reputation_factor][]" /></td>
+								<td></td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="mod-table-foot">
+						<a class="btn btn-primary" onclick="ajax_post($('#batchs_form'));"><?php _e('保存设置'); ?></a>
+						<a class="btn btn-primary add"><?php _e('添加新用户组'); ?></a>
+					</div>
+				</div>
+			</div>
 	
-		<div class="tab-pane" id="_system">
-			<table class="aw-table">
-				<thead>
-					<tr>
-						<th align="center">ID</th>
-						<th><?php _e('系统组名称'); ?></th>
-						<th></th>
-					</tr>
-				</thead>
-				<tbody>
-					<?php foreach ($this->system_group AS $key => $val) { ?>
-					<tr>
-						<td align="center"><?php echo $val['group_id']; ?></td>
-						<td><?php echo $val['group_name']; ?></td>
-						<td><a href="admin/user/group_edit/group_id-<?php echo $val['group_id']; ?>"><?php _e('权限编辑'); ?></a></td>
-					</tr>
-					<?php } ?>
-				</tbody>
-			</table>
-		</div>
-		
-		<div class="tab-pane" id="_custom">
-			<form method="post" action="admin/user/group_custom_save_ajax/" id="custom_form">
-			<table class="aw-table" id="custom_table">
-				<thead>
-					<tr>
-						<th align="center"><input class="check-all" type="checkbox" /> <?php _e('删'); ?></th>
-						<th align="center">ID</th>
-						<th><?php _e('名称'); ?></th>
-						<th></th>
-					</tr>
-				</thead>
-				<tbody>
-					<?php if ($this->custom_group) { ?>
-					<?php foreach ($this->custom_group AS $key => $val) { ?>
-					<tr>
-						<td align="center"><input type="checkbox" value="<?php echo $val['group_id']; ?>" name="group_ids[]"></td>
-						<td align="center"><?php echo $val['group_id']; ?></td>
-						<td><input type="text" class="form-control" name="group[<?php echo $val['group_id']; ?>][group_name]" value="<?php echo $val['group_name']; ?>" /></td>
-						<td><a href="admin/user/group_edit/group_id-<?php echo $val['group_id']; ?>"><?php _e('权限编辑'); ?></a></td>
-					</tr>
-					<?php } ?>
-					<?php } ?>
-					<tr id="custom_add_form" class="hide">
-						<td></td>
-						<td></td>
-						<td><input type="text" class="form-control" name="group_new[group_name][]" placeholder="<?php _e('用户组名称'); ?>" /></td>
-						<td></td>
-					</tr>
-				</tbody>
-				<tfoot>
-					<tr>
-						<td colspan="4">
-							<a class="btn btn-inverse pull-right" onclick="ajax_post($('#custom_form'));" href="javascript:;"><?php _e('保存设置'); ?></a>
-							<a class="btn btn-inverse" onclick="$('#custom_table').append('<tr>' + $('#custom_add_form').html() + '</tr>')" href="javascript:;"><?php _e('添加新用户组'); ?></a>
-						</td>
-					</tr>
-				</tfoot>
-			</table>
-			</form>
+			<div class="tab-pane" id="_system">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th><?php _e('系统组名称'); ?></th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php foreach ($this->system_group AS $key => $val) { ?>
+						<tr>
+							<td><?php echo $val['group_id']; ?></td>
+							<td><?php echo $val['group_name']; ?></td>
+							<td><a href="admin/user/group_edit/group_id-<?php echo $val['group_id']; ?>" title="<?php _e('权限编辑'); ?>" class="fa fa-pencil md-tip"></a></td>
+						</tr>
+						<?php } ?>
+					</tbody>
+				</table>
+			</div>
+			
+			<div class="tab-pane" id="_custom">
+				<form method="post" action="admin/user/group_custom_save_ajax/" id="custom_form">
+				<table class="table table-striped" id="custom_table">
+					<thead>
+						<tr>
+							<td width="3%"><input class="check-all" type="checkbox" /></td>
+							<th>ID</th>
+							<th><?php _e('名称'); ?></th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php if ($this->custom_group) { ?>
+						<?php foreach ($this->custom_group AS $key => $val) { ?>
+						<tr>
+							<td><input type="checkbox" value="<?php echo $val['group_id']; ?>" name="group_ids[]"></td>
+							<td><?php echo $val['group_id']; ?></td>
+							<td><input type="text" class="form-control" name="group[<?php echo $val['group_id']; ?>][group_name]" value="<?php echo $val['group_name']; ?>" /></td>
+							<td><a href="admin/user/group_edit/group_id-<?php echo $val['group_id']; ?>" title="<?php _e('权限编辑'); ?>" class="fa fa-pencil md-tip"></a></td>
+						</tr>
+						<?php } ?>
+						<?php } ?>
+						<tr id="custom_add_form" class="hide">
+							<td></td>
+							<td></td>
+							<td><input type="text" class="form-control" name="group_new[group_name][]" placeholder="<?php _e('用户组名称'); ?>" /></td>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
+				</form>
+				<div class="mod-table-foot">
+					<a class="btn btn-primary" onclick="ajax_post($('#custom_form'));"><?php _e('保存设置'); ?></a>
+					<a class="btn btn-primary" onclick="$('#custom_table').append('<tr>' + $('#custom_add_form').html() + '</tr>')"><?php _e('添加新用户组'); ?></a>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>

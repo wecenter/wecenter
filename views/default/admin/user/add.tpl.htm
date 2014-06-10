@@ -1,49 +1,57 @@
 <?php TPL::output('admin/global/header.tpl.htm'); ?>
 <?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
 
-<div class="pull-left right-side">	
-	<div class="aw-box">
-		<div class="aw-mod-head">
-			<h2><?php _e('添加用户'); ?></h2>
+<div class="aw-content-wrap">
+	<form action="admin/user/user_save_ajax/" id="settings_form" method="post">
+	<div class="mod">
+		<div class="mod-head">
+			<h3>
+				<span class="pull-left"><?php _e('添加用户'); ?></span>
+			</h3>
 		</div>
-		<div class="aw-mod-body">	
-			<form action="admin/user/user_save_ajax/" id="settings_form" method="post">
-				<dl>
-					<dt><h3><?php _e('用户名'); ?>:</h3></dt>
-					<dd>
-						<div class="row">
-							<div class="col-sm-7">
+		</div>
+		<div class="tab-content mod-content">
+			<table class="table table-striped">
+				<tr>
+					<td>
+						<div class="form-group">
+							<span class="col-sm-4 col-xs-3 control-label"><?php _e('用户名'); ?>:</span>
+							<div class="col-sm-5 col-xs-8">
 								<input class="form-control" name="user_name" type="text" value="" />
 							</div>
 						</div>
-					</dd>
-				</dl>
-				<dl>
-					<dt><h3><?php _e('邮箱'); ?></h3></dt>
-					<dd>
-						<div class="row">
-							<div class="col-sm-7">
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div class="form-group">
+							<span class="col-sm-4 col-xs-3 control-label"><?php _e('邮箱'); ?>:</span>
+							<div class="col-sm-5 col-xs-8">
 								<input class="form-control" name="email" type="text" value="" />
 							</div>
 						</div>
-					</dd>
-				</dl>
-				<dl>
-					<dt><h3><?php _e('密码'); ?></h3></dt>
-					<dd>
-						<div class="row">
-							<div class="col-sm-3">
-								<input class="form-control" name="password" type="password" />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div class="form-group">
+							<span class="col-sm-4 col-xs-3 control-label"><?php _e('密码'); ?>:</span>
+							<div class="col-sm-5 col-xs-8">
+								<input class="form-control" name="password" type="password" value="" />
 							</div>
 						</div>
-					</dd>
-				</dl>
-			</form>
+					</td>
+				</tr>
+				<tfoot>
+				<tr>
+					<td>
+						<input type="button" value="<?php _e('添加用户'); ?>" class="btn btn-primary center-block" onclick="AWS.ajax_post($('#settings_form'));" />
+					</td>
+				</tr>
+				</tfoot>
+			</table>
 		</div>
-		<div class="aw-mod-footer">
-			<a href="javascript:;" class="btn btn-inverse btn-normal" onclick="ajax_post($('#settings_form'));"><?php _e('保存'); ?></a>
-		</div>
-	</div>
+	</form>
 </div>
 
 <?php TPL::output('admin/global/footer.tpl.htm'); ?>
