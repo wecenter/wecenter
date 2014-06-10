@@ -345,7 +345,7 @@ _ajax_uploader.FileUploaderBasic = function(o){
         action: '/server/upload',
         params: {},
         button: null,
-        multiple: false,
+        multiple: true,
         maxConnections: 3,
         // validation        
         allowedExtensions: [],               

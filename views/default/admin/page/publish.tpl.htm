@@ -1,65 +1,80 @@
 <?php TPL::output('admin/global/header.tpl.htm'); ?>
 <?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
 
-<div class="pull-left right-side">	
-	<div class="aw-box">
-		<div class="aw-mod-head">
-			<h2><?php _e('页面编辑'); ?></h2>
+<div class="aw-content-wrap">
+	<form action="admin/page/page_<?php if ($this->page_info['id']) { ?>edit<?php } else { ?>add<?php } ?>/" id="settings_form" method="post">
+	<?php if ($this->page_info['id']) { ?>
+	<input type="hidden" name="page_id" value="<?php echo $this->page_info['id']; ?>" />
+	<?php } ?>
+	<div class="mod">
+		<div class="mod-head">
+			<h3>
+				<span class="pull-left"><?php _e('页面编辑'); ?></span>
+			</h3>
 		</div>
-		<div class="aw-mod-body">
-			<form action="admin/page/page_<?php if ($this->page_info['id']) { ?>edit<?php } else { ?>add<?php } ?>/" id="settings_form" method="post">
-			<?php if ($this->page_info['id']) { ?>
-			<input type="hidden" name="page_id" value="<?php echo $this->page_info['id']; ?>" />
-			<?php } ?>
-			<dl class="form-inline">
-				<dt><h3><?php _e('页面 URL'); ?>:</h3></dt>
-				<dd>
-					<script type="text/javascript">document.write(G_BASE_URL);</script>/page/ 
-					<div class="form-group">
-						<input type="text" name="url_token" class="form-control" value="<?php echo $this->page_info['url_token']; ?>" />
-					</div>
-				</dd>
-			</dl>
-			<dl>
-				<dt><h3><?php _e('页面标题'); ?>:</h3></dt>
-				<dd>
-					<div class="row">
-						<div class="col-sm-7">
-							<input type="text" name="title" class="form-control" value="<?php echo $this->page_info['title']; ?>" />
-						</div>
-					</div>
-				</dd>
-			</dl>
-			<dl>
-				<dt><h3><?php _e('页面描述'); ?>:</h3></dt>
-				<dd>
-					<div class="row">
-						<div class="col-sm-7">
-							<input type="text" name="description" class="form-control" value="<?php echo $this->page_info['description']; ?>" />
-						</div>
-					</div>
-				</dd>
-			</dl>
-			<dl>
-				<dt><h3><?php _e('页面关键词'); ?>:</h3></dt>
-				<dd>
-					<div class="row">
-						<div class="col-sm-7">
-							<input type="text" name="keywords" class="form-control" value="<?php echo $this->page_info['keywords']; ?>" />
-						</div>
-					</div>
-				</dd>
-			</dl>
-			<dl>
-				<dt><h3><?php _e('页面内容'); ?></h3></dt>
-				<dd><textarea class="form-control" name="contents"><?php echo $this->page_info['contents']; ?></textarea></dd>
-			</dl>
-			</form>
 		</div>
-		<div class="aw-mod-footer">
-			<a href="javascript:;" class="btn btn-inverse btn-normal" onclick="ajax_post($('#settings_form'));"><?php _e('保存'); ?></a>
+		<div class="tab-content mod-content">
+			<table class="table table-striped">
+				<tr>
+					<td>
+						<div class="form-group">
+							<span class="col-sm-4 col-xs-3 control-label"><?php _e('页面 URL'); ?>:</span>
+							<div class="col-sm-3 col-xs-8">
+								/page/ <input type="text" name="url_token" class="form-control" value="<?php echo $this->page_info['url_token']; ?>" />
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div class="form-group">
+							<span class="col-sm-4 col-xs-3 control-label"><?php _e('页面标题'); ?>:</span>
+							<div class="col-sm-5 col-xs-8">
+								<input type="text" name="title" class="form-control" value="<?php echo $this->page_info['title']; ?>" />
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div class="form-group">
+							<span class="col-sm-4 col-xs-3 control-label"><?php _e('页面描述'); ?>:</span>
+							<div class="col-sm-5 col-xs-3">
+								<input type="text" name="description" class="form-control" value="<?php echo $this->page_info['description']; ?>" />
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div class="form-group">
+							<span class="col-sm-4 col-xs-3 control-label"><?php _e('页面关键词'); ?>:</span>
+							<div class="col-sm-5 col-xs-8">
+								<input type="text" name="keywords" class="form-control" value="<?php echo $this->page_info['keywords']; ?>" />
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div class="form-group">
+							<span class="col-sm-4 col-xs-3 control-label"><?php _e('页面内容'); ?>:</span>
+							<div class="col-sm-5 col-xs-8">
+								<textarea class="form-control" name="contents" rows="6"><?php echo $this->page_info['contents']; ?></textarea>
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tfoot>
+				<tr>
+					<td>
+						<input type="button" value="<?php _e('保存'); ?>" class="btn btn-primary center-block" onclick="AWS.ajax_post($('#settings_form'));" />
+					</td>
+				</tr>
+				</tfoot>
+			</table>
 		</div>
-	</div>
+	</form>
 </div>
 
 <?php TPL::output('admin/global/footer.tpl.htm'); ?>

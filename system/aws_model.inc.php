@@ -756,9 +756,10 @@ class AWS_MODEL
 	 * @param	string
 	 * @param	string
 	 * @param	string
+	 * @param	string
 	 * @return	mixed
 	 */
-	public function fetch_one($table, $column, $where = null)
+	public function fetch_one($table, $column, $where = null, $order = null)
 	{
 		$this->slave();
 
@@ -769,6 +770,24 @@ class AWS_MODEL
 		if ($where)
 		{
 			$select->where($where);
+		}
+		
+		if ($order)
+		{
+			if (strstr($order, ','))
+			{
+				if ($all_order = explode(',', $order))
+				{
+					foreach ($all_order AS $current_order)
+					{
+						$select->order($current_order);
+					}
+				}
+			}
+			else
+			{
+				$select->order($order);
+			}
 		}
 
 		$select->limit(1, 0);
