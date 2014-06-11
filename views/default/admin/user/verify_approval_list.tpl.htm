@@ -40,7 +40,7 @@
 								<?php _e('联系方式'); ?>: <?php echo $val['data']['contact']; ?>
 							</td>
 							<td><?php echo $val['reason']; ?></td>
-							<td>
+							<td class="nowrap">
 								<?php if ($val['attach']) { ?><a href="<?php echo get_setting('upload_url'); ?>/verify/<?php echo $val['attach']; ?>" target="_blank" data-toggle="tooltip" class="fa file-archive-o md-tip" title="<?php _e('附件'); ?>"></a><?php } ?>
 
 								<a href="admin/user/verify_approval_edit/<?php echo $val['uid']; ?>" data-toggle="tooltip" class="fa fa-pencil md-tip" title="<?php _e('编辑'); ?>"></a>

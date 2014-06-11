@@ -3,7 +3,6 @@
 .tooltip-inner{background: #246594;}
 .tooltip.top .tooltip-arrow{border-top-color: #246594;}
 .nav-tabs > li > a:hover{border-color: transparent;}
-li{list-style: none;}
 .table{margin-bottom: 0;}
 .aw-content-wrap .radio-inline, .aw-content-wrap label.checkbox-inline{margin-left: 0}
 .aw-content-wrap label.checkbox-inline{line-height: 30px;}
@@ -14,13 +13,12 @@ background-color: #F5F8FA;
 }
 
 /*公共部分*/
-a{color: #080808; font: 14px/1.5em "microsoft yahei";}
+body,a{color: #080808; font: 14px/1.5em "microsoft yahei";}
 a:hover, a:focus{text-decoration: none;}
 body{background: #eaeaea;;}
+ul li{list-style: none;}
 .middle{line-height: 32px;}
 .nowrap{white-space: nowrap;}
-.width173{width: 173px}
-.clpadding{padding: 0}
 
 /*后台header start*/
 .aw-header{position: fixed; top:0; z-index: 999; margin-bottom: 0; width: 100%; height: 50px; border: none; border-bottom: 1px solid #d5d5d5; background: #fff;}
@@ -75,7 +73,7 @@ body{background: #eaeaea;;}
 .aw-side ul li a[data="icon"]:after{position: absolute; right: 15px; content: "\f054";}
 
 /*数据内容区域 start*/
-.aw-content-wrap{overflow: hidden; margin-left: 235px; padding: 0 25px 20px; background: #eaeaea; margin-top: 70px;}
+.aw-content-wrap{margin-left: 235px; padding: 0 25px 20px; background: #eaeaea; margin-top: 70px;}
 .aw-content-wrap .widget{margin: 20px 0;}
 .aw-content-wrap .echart-date{margin-top: 20px; padding-left: 5px;}
 .aw-content-wrap .echart-date .nopadding{padding: 0;line-height: 36px;}
@@ -87,7 +85,6 @@ body{background: #eaeaea;;}
 /*右侧公共部分*/
 .mod-padding{padding-left: 0;}
 .mod-symbol{margin-left: -2px; padding: 0; width: 1px; text-align: center; font-size: 22px;}
-.col-sm-55{width: 41.7%;}
 
 /* 右侧公共头部部分 mod-head*/
 .aw-content-wrap .mod-border{border-top: none;}
@@ -101,6 +98,7 @@ body{background: #eaeaea;;}
 .mod-head .nav-tabs li.active{height: 43px; border-bottom: 1px solid #fff; background: #FFF;}
 .aw-content-wrap .mod-table-foot{margin-top: 20px;}
 .aw-content-wrap .mod-table-foot .pull-right{margin-top:0}
+
 /*右侧表格主体部分*/
 textarea{resize: none;}
 .aw-content-wrap .mod-title{font-weight: normal;}
@@ -123,6 +121,9 @@ textarea{resize: none;}
 .aw-content-wrap .mod-site-foot{border-top: none;}
 .aw-content-wrap .mod-text-inline{line-height: 34px; padding: 0 9px 0 15px; width: auto;}
 .aw-content-wrap .table th{white-space: nowrap;}
+
+#members_table .min-value{min-width: 190px;}
+
 /*按钮样式*/
 .aw-content-wrap .mod-btn .mod-btn-color{border: 1px solid #eaeaea; background: #fff; color: #000;}
 

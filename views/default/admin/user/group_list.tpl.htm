@@ -151,7 +151,7 @@
 		{
 			if (i > 0)
 			{
-				$(this).parents('.form-group').prepend('<select class="form-control width173" name="' + $(this).attr('name') + '">' + template + '</select>');
+				$(this).parents('.form-group').prepend('<select class="form-control min-value" name="' + $(this).attr('name') + '">' + template + '</select>');
 				if ($.inArray($(this).val(), select_arr) != -1)
 				{
 					var val = $(this).parents('.form-group').find('option').eq($.inArray($(this).val(), select_arr)).val();
