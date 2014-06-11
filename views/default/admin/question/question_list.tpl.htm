@@ -46,7 +46,7 @@
 								<td><a href="people/<?php echo $val['user_info']['url_token']; ?>" target="_blank"><?php echo $val['user_info']['user_name']; ?></a></td>
 								<td><?php echo date_friendly($val['add_time']); ?></td>
 								<td><?php echo date_friendly($val['update_time']); ?></td>
-								<td><a href="publish/<?php echo $val['question_id']; ?>" target="_blank" class="fa fa-pencil md-tip" title="编辑"></a></td>
+								<td><a href="publish/<?php echo $val['question_id']; ?>" target="_blank" class="fa fa-pencil md-tip" title="<?php _e('编辑'); ?>"></a></td>
 							</tr>
 							<?php } ?>
 						</tbody>
