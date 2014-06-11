@@ -3,6 +3,8 @@ a{color: #080808; font: 14px/1.5em "microsoft yahei";}
 a:hover, a:focus{text-decoration: none;}
 body{background: #eaeaea;;}
 .middle{line-height: 32px;}
+.nowrap{white-space: nowrap;}
+.width173{width: 173px !important}
 /*改写bootstrap部分*/
 .aw-content-wrap .tab-content .fa{width: 25px; height: 25px; border-radius: 5px; background: #8bbf61; color: #fff; text-align: center; line-height: 25px;}
 .tooltip-inner{background: #246594;}
