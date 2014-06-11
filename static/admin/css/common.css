@@ -4,7 +4,8 @@
 .tooltip.top .tooltip-arrow{border-top-color: #246594;}
 .nav-tabs > li > a:hover{border-color: transparent;}
 .table{margin-bottom: 0;}
-.aw-content-wrap .radio-inline, .aw-content-wrap label.checkbox-inline{margin-left: 0}
+.radio-inline, label.checkbox-inline{margin:0 15px 0 0;padding:0;}
+.radio-inline + .radio-inline, .checkbox-inline + .checkbox-inline{margin-left: 0;}
 .aw-content-wrap label.checkbox-inline{line-height: 30px;}
 .nav > li > a:hover, .nav > li > a:focus{background-color: transparent;}
 .nav .open > a, .nav .open > a:hover, .nav .open > a:focus{background-color: #fff;}
