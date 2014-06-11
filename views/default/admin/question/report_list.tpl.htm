@@ -37,7 +37,7 @@
 								<td><?php echo nl2br($val['reason']); ?></td>
 								<td><?php echo date_friendly($val['add_time']); ?></td>
 								<td><a href="people/<?php echo $val['user']['url_token']; ?>" target="_blank"><?php echo $val['user']['user_name']; ?></a></td>
-								<td align="center"><?php if ($_GET['status'] == 1) { ?><i title="<?php _e('已处理'); ?>" class="fa fa-check-square md-tip"></i><?php } else { ?><a onclick="ajax_request(G_BASE_URL + '/admin/question/report_batch/', 'action_type=handle&report_ids[]=<?php echo $val['id']; ?>')" title="<?php _e('标记为已处理'); ?>" class="fa fa-check-square-o md-tip"></a><?php } ?></td>
+								<td align="center"><?php if ($_GET['status'] == 1) { ?><i title="<?php _e('已处理'); ?>" class="fa fa-check-square md-tip"></i><?php } else { ?><a onclick="AWS.ajax_request(G_BASE_URL + '/admin/question/report_batch/', 'action_type=handle&report_ids[]=<?php echo $val['id']; ?>')" title="<?php _e('标记为已处理'); ?>" class="fa fa-check-square-o md-tip"></a><?php } ?></td>
 							</tr>
 						</tr>
 						<?php } ?>
