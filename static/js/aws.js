@@ -461,7 +461,7 @@ var AWS =
 	            $('.alert-box').remove();
 	        }
 
-	        $('#aw-ajax-box').html(template);
+	        $('#aw-ajax-box').html(template).show();
 
 	        switch (type)
 	        {
@@ -575,15 +575,15 @@ var AWS =
 		                $('#editor_reply').html(result.answer_content.replace('&amp;', '&'));
 		            }, 'json');
 					
-		            AWS.Init.init_fileuploader('file_uploader_answer_edit', G_BASE_URL + '/publish/ajax/attach_upload/id-answer__attach_access_key-' + ATTACH_ACCESS_KEY);
+					var fileupload = new FileUpload('.aw-edit-comment-box .aw-upload-box .btn', '.aw-edit-comment-box .aw-upload-box .upload-container', G_BASE_URL + '/publish/ajax/attach_upload/id-answer__attach_access_key-' + ATTACH_ACCESS_KEY, {'insertTextarea': '.aw-edit-comment-box #editor_reply'});
 		            
-		            if ($("#file_uploader_answer_edit ._ajax_upload-list").length) {
+		            if ($(".aw-edit-comment-box .upload-list").length) {
 			            $.post(G_BASE_URL + '/publish/ajax/answer_attach_edit_list/', 'answer_id=' + data.answer_id, function (data) {
 			                if (data['err']) {
 			                    return false;
 			                } else {
 			                    $.each(data['rsm']['attachs'], function (i, v) {
-			                        _ajax_uploader_append_file('#file_uploader_answer_edit ._ajax_upload-list', v);
+			                        fileupload.setFileList(v);
 			                    });
 			                }
 			            }, 'json');

@@ -1,24 +1,30 @@
 <?php TPL::output('admin/global/header.tpl.htm'); ?>
 <?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
 
-<div class="pull-left right-side">
-	<div class="pull-left" style="width: 65%">
-		<div class="alert alert-success hide error_message"></div>
-		
-		<form id="jobs_form" action="admin/user/save_job_ajax/" method="post">
-			<table class="aw-table aw-no-margin-top">
-				<thead>
-					<tr>
-						<th align="center">ID</th>
-						<th><?php _e('职位名称'); ?></th>
-						<th align="center"></th>
-					</tr>
-				</thead>
-				<tbody>
+<div class="aw-content-wrap">
+    <div class="mod">
+        <div class="mod-head">
+            <h3>
+                <span class="pull-left"><?php _e('职位设置'); ?></span>
+            </h3>
+        </div>
+
+        <div class="tab-content mod-body">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th><?php _e('职位名称'); ?></th>
+                        <th><?php _e('操作'); ?></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <form id="jobs_form" action="admin/user/save_job_ajax/" method="post" onsubmit="return false">
 					<?php if ($this->job_list) { ?>
 					<?php foreach ($this->job_list AS $key => $val) { ?>
-					<tr>
-						<td align="center"><?php echo $key; ?></td>
+                    <tr>
+						<td><?php echo $key; ?></td>
 						<td>
 							<div class="row">
 								<div class="col-sm-12">
@@ -26,36 +32,46 @@
 								</div>
 							</div>
 						</td>
-						<td align="center"><a href="javascript:;" onclick="if (confirm('<?php _e('确认删除?'); ?>')) { ajax_request(G_BASE_URL + '/admin/user/remove_job/job_id-<?php echo $key; ?>'); }"><?php _e('删除'); ?></a></td>
+						<td><a onclick="if (confirm('<?php _e('确认删除?'); ?>')) { ajax_request(G_BASE_URL + '/admin/user/remove_job/job_id-<?php echo $key; ?>'); }" class="fa fa-trash-o md-tip" title="<?php _e('删除'); ?>" title="<?php _e('删除'); ?>"></a></td>
+                    </tr>
+                    <?php } ?>
+					<?php } ?>
+                    </form>
+                    </tbody>
+					<tfoot>
+					<tr>
+						<td>
+							<input type="button" value="<?php _e('保存'); ?>" class="btn btn-primary center-block" onclick="AWS.ajax_post($('#category_form'));" />
+						</td>
 					</tr>
-					<?php } ?>
-					<?php } ?>
-				</tbody>
-			</table>
-		</form>
-	</div>
-	
-	<div class="aw-message-box pull-left aw-no-margin-top">
-	<form id="_save_form" action="admin/user/add_job_ajax/" method="post">
-		<div class="aw-mod-head"><h3><?php _e('添加新职位'); ?></h3></div>
-		<div class="aw-mod-body clearfix">
-			<p><textarea class="form-control" name="jobs" style="width:100%" placeholder="<?php _e('一行一个职位名称'); ?>"></textarea></p>
-			<a href="javascript:;" class="btn btn-inverse btn-mini pull-right" id="login_submit" onclick="ajax_post($('#_save_form'));"><?php _e('保存'); ?></a>
-</p>
-		</div>
-	</form>
-	</div>
+					</tfoot>
+                </table>
+				<form id="_save_form" action="admin/user/add_job_ajax/" method="post">
+				<table class="table table-striped">
+					<tr>
+						<td>
+							<div class="form-group">
+								<span class="col-sm-4 col-xs-3 control-label"><?php _e('添加新职位'); ?>:</span>
+								<div class="col-sm-5 col-xs-8">
+									<textarea class="form-control" name="jobs" rows="6"></textarea>
+				
+									<span class="help-block"><?php _e('一行一个职位名称'); ?></span>
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tfoot>
+					<tr>
+						<td>
+							<input type="button" value="<?php _e('添加新职位'); ?>" class="btn btn-primary center-block" onclick="AWS.ajax_post($('#_save_form'));" />
+						</td>
+					</tr>
+					</tfoot>
+				</table>
+				</form>
+            </div>
+        </div>
+    </div>
 </div>
-
-<script type="text/javascript">
-	$(document).ready(function () {
-		$('input.job-title').keyup(function () {
-			if ($(this).val() != '')
-			{
-				ajax_post($('#jobs_form'), _error_message_form_processer);
-			}
-		});
-	});
-</script>
 
 <?php TPL::output('admin/global/footer.tpl.htm'); ?>

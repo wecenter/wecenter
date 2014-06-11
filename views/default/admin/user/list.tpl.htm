@@ -6,7 +6,7 @@
 		<div class="mod-head">
 			<h3>
 				<ul class="nav nav-tabs">
-				    <li<?php if (!$_GET['type']) { ?> class="active"<?php } ?>><a href="admin/user/list/" data-toggle="tab"><?php _e('会员列表'); ?></a></li>
+				    <li<?php if (!$_GET['type']) { ?> class="active"<?php } ?>><a href="admin/user/list/"><?php _e('会员列表'); ?></a></li>
 					<li<?php if ($_GET['type'] == 'forbidden') { ?> class="active"<?php } ?>><a href="admin/user/list/type-forbidden"><?php _e('封禁用户'); ?></a></li>
 				    <li><a href="#search" data-toggle="tab"><?php _e('搜索'); ?></a></li>
 				</ul>
@@ -62,8 +62,8 @@
 					</table>
 				<?php } ?>
 				</div>
-				<div class="mod-table-foot">
-					<span class="pull-right mod-page"><?php echo $this->pagination; ?></span>
+				<div class="mod-table-foot clearfix">
+					<?php echo $this->pagination; ?>
 				</div>
 			</div>
 	

@@ -1,80 +1,102 @@
 <?php TPL::output('admin/global/header.tpl.htm'); ?>
 <?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
 
-<div class="pull-left right-side">	
-	<div class="aw-box">
-		<div class="aw-mod-head">
-			<h2><?php _e('规则编辑'); ?></h2>
+<div class="aw-content-wrap">
+	<form action="admin/weixin/rule_save/" enctype="multipart/form-data" id="settings_form" method="post" onsubmit="return false">
+	<?php if ($this->rule_info['id']) { ?>
+	<input type="hidden" name="id" value="<?php echo $this->rule_info['id']; ?>" />
+	<?php } ?>
+	<div class="mod">
+		<div class="mod-head">
+			<h3>
+				<span class="pull-left"><?php _e('规则编辑'); ?></span>
+			</h3>
 		</div>
-		<div class="aw-mod-body">
-			<?php if ($this->rule_info['image_file']) { ?>
-			<dl>
-				<dt><h3><?php _e('图片封面'); ?>:</h3></dt>
-				<dd><img src="<?php echo get_weixin_rule_image($this->rule_info['image_file'], 'square'); ?>" alt="" class="img-polaroid" /></dd>
-			</dl>
-			<?php } ?>
-			<form action="admin/weixin/rule_save/" enctype="multipart/form-data" id="settings_form" method="post">
-			<?php if ($this->rule_info['id']) { ?>
-			<input type="hidden" name="id" value="<?php echo $this->rule_info['id']; ?>" />
-			<?php } ?>
-			<dl>
-				<dt><h3><?php _e('关键词'); ?>:</h3></dt>
-				<dd><?php if ($this->rule_info['id']) { ?><?php echo $this->rule_info['keyword']; ?><?php } else { ?>
-					<div class="row">
-						<div class="col-sm-7">
-							<input type="text" name="keyword" class="form-control" value="" />
-						</div>
-					</div>
-					<?php } ?>
-				</dd>
-			</dl>
-			<dl>
-				<dt><h3><?php _e('回应内容'); ?>:</h3></dt>
-				<dd>
-					<div class="row">
-						<div class="col-sm-10">
-							<textarea class="form-control" name="title"><?php echo htmlspecialchars($this->rule_info['title']); ?></textarea>
-						</div>
-					</div>
-				</dd>
-			</dl>
-			<?php if ($this->rule_info['image_file'] OR !$this->rule_info) { ?>
-			<dl>
-				<dt><h3><?php _e('图片'); ?>:</h3></dt>
-				<dd>
-					<input type="file" name="image" />
-					<p class="aw-text-color-999"><?php _e('文字消息忽略此选项'); ?>, <?php _e('图片会被自动裁剪成 640 x 320 尺寸'); ?>, <?php _e('多个相同关键词的图文消息会被组成图文列表'); ?></p>
-				</dd>
-			</dl>
-			<dl>
-				<dt><h3><?php _e('图片简介'); ?></h3></dt>
-				<dd>
-					<div class="row">
-						<div class="col-sm-10">
-							<textarea class="form-control" name="description"><?php echo htmlspecialchars($this->rule_info['description']); ?></textarea>
-						</div>
-					</div>
-					<p class="aw-text-color-999"><?php _e('文字消息忽略此选项'); ?>, <?php _e('只在单条图片回应下显示'); ?></p>
-				</dd>
-			</dl>
-			<dl>
-				<dt><h3><?php _e('图片链接'); ?></h3></dt>
-				<dd>
-					<div class="row">
-						<div class="col-sm-7">
-							<input type="text" name="link" value="<?php echo $this->rule_info['link']; ?>" class="form-control" />
-						</div>
-					</div>
-					<p class="aw-text-color-999"><?php _e('文字消息忽略此选项'); ?></p>
-				</dd>
-			</dl>
-			<?php } ?>
-			</form>
 		</div>
-		<div class="aw-mod-footer">
-			<a href="javascript:;" class="btn btn-inverse btn-normal" onclick="ajax_post($('#settings_form'));"><?php _e('保存'); ?></a>
+		<div class="tab-content mod-content">
+			<table class="table table-striped">
+				<?php if ($this->rule_info['image_file']) { ?>
+				<tr>
+					<td>
+						<div class="form-group">
+							<span class="col-sm-4 col-xs-3 control-label"><?php _e('图片封面'); ?>::</span>
+							<div class="col-sm-5 col-xs-8">
+								<img src="<?php echo get_weixin_rule_image($this->rule_info['image_file'], 'square'); ?>" alt="" class="img-polaroid" />
+							</div>
+						</div>
+					</td>
+				</tr>
+				<?php } ?>
+				<tr>
+					<td>
+						<div class="form-group">
+							<span class="col-sm-4 col-xs-3 control-label"><?php _e('关键词'); ?>:</span>
+							<div class="col-sm-5 col-xs-8">
+								<?php if ($this->rule_info['id']) { ?><?php echo $this->rule_info['keyword']; ?><?php } else { ?>
+								<input type="text" name="keyword" class="form-control" value="" />
+								<?php } ?>
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div class="form-group">
+							<span class="col-sm-4 col-xs-3 control-label"><?php _e('回应内容'); ?>:</span>
+							<div class="col-sm-5 col-xs-8">
+								<textarea class="form-control" name="title" rows="3"><?php echo htmlspecialchars($this->rule_info['title']); ?></textarea>
+							</div>
+						</div>
+					</td>
+				</tr>
+				<?php if ($this->rule_info['image_file'] OR !$this->rule_info) { ?>
+				<tr>
+					<td>
+						<div class="form-group">
+							<span class="col-sm-4 col-xs-3 control-label"><?php _e('图片'); ?>:</span>
+							<div class="col-sm-5 col-xs-8">
+								<input type="file" name="image" class="form-control" />
+								
+								<span class="help-block"><?php _e('文字消息忽略此选项'); ?>, <?php _e('图片会被自动裁剪成 640 x 320 尺寸'); ?>, <?php _e('多个相同关键词的图文消息会被组成图文列表'); ?></span>
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div class="form-group">
+							<span class="col-sm-4 col-xs-3 control-label"><?php _e('图片简介'); ?>:</span>
+							<div class="col-sm-5 col-xs-8">
+								<textarea class="form-control" name="description" rows="3"><?php echo htmlspecialchars($this->rule_info['description']); ?></textarea>
+								
+								<span class="help-block"><?php _e('文字消息忽略此选项'); ?>, <?php _e('只在单条图片回应下显示'); ?></span>
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div class="form-group">
+							<span class="col-sm-4 col-xs-3 control-label"><?php _e('图片链接'); ?>:</span>
+							<div class="col-sm-5 col-xs-8">
+								<input type="text" name="link" value="<?php echo $this->rule_info['link']; ?>" class="form-control" />
+								
+								<span class="help-block"><?php _e('文字消息忽略此选项'); ?></span>
+							</div>
+						</div>
+					</td>
+				</tr>
+				<?php } ?>
+				<tfoot>
+				<tr>
+					<td>
+						<input type="button" value="<?php _e('保存'); ?>" class="btn btn-primary center-block" onclick="AWS.ajax_post($('#settings_form'));" />
+					</td>
+				</tr>
+				</tfoot>
+			</table>
 		</div>
-	</div>
+	</form>
 </div>
 
 <?php TPL::output('admin/global/footer.tpl.htm'); ?>

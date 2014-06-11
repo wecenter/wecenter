@@ -433,9 +433,16 @@
 						</div>
 						<?php } ?>
 						<div class="aw-replay-box-control clearfix">
-							<a href="javascript:;" onclick="AWS.ajax_post($('#answer_form'));" class="btn btn-large btn-success pull-right btn-publish-submit"><?php _e('回复'); ?></a>
-							<a href="page/integral" class="pull-right" target="_blank">[积分规则]</a>
-							<div id="file_uploader_answer"></div>
+							<span class="pull-right">
+								<a href="page/integral" target="_blank">[积分规则]</a>
+								<a href="javascript:;" onclick="AWS.ajax_post($('#answer_form'));" class="btn btn-large btn-success btn-publish-submit"><?php _e('回复'); ?></a>
+							</span>
+							<div id="file_uploader_answer">
+								<div class="aw-upload-box">
+									<a class="btn btn-default">上传附件</a>
+									<div class="upload-container"></div>
+								</div>
+							</div>
 							<span class="aw-text-color-999 aw-upload-tips hide hidden-xs"><?php _e('允许的附件文件类型'); ?>: <?php echo get_setting('allowed_upload_types'); ?></span>
 						</div>
 						<div id="markItUpPreviewFrame" class="markItUpPreviewFrame">

@@ -1,67 +1,64 @@
 <?php TPL::output('admin/global/header.tpl.htm'); ?>
 <?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
 
-<div class="pull-left right-side">
-	<div class="aw-mod-head">
-		<h2>
-			<span class="pull-left"><?php _e('认证审核'); ?></span>
+<div class="aw-content-wrap">
+	<div class="mod">
+		<div class="mod-head">
+			<h3>
+				<ul class="nav nav-tabs">
+					<li class="<?php if (!$_GET['status']) { ?> active<?php } ?>"><a href="admin/user/verify_approval_list/"><?php _e('待审核'); ?></a></li>
+					<li class="<?php if ($_GET['status'] == 1) { ?> active<?php } ?>"><a href="admin/user/verify_approval_list/status-1"><?php _e('已审核'); ?></a></li>
+				</ul>
+			</h3>
+		</div>
+		<div class="mod-body tab-content">
+			<form id="batchs_form" action="admin/approval/batch/" method="post">
+			<input type="hidden" id="batch_type" name="batch_type" value="approval" />
+			<div class="table-responsive">
+			<?php if ($this->approval_list) { ?>
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th><input type="checkbox" class="check-all"></th>
+							<th><?php _e('会员'); ?></th>
+							<th><?php _e('企业名称/真实姓名'); ?></th>
+							<th><?php _e('认证类型'); ?></th>
+							<th><?php _e('详细资料'); ?></th>
+							<th><?php _e('认证说明'); ?></th>
+							<th><?php _e('操作'); ?></th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php foreach ($this->approval_list AS $key => $val) { ?>
+						<tr>
+							<td><input type="checkbox" class="approval_ids" name="approval_ids[]" value="<?php echo $val['id']; ?>"></td>
+							<td><a href="people/<?php echo $this->users_info[$val['uid']]['url_token']; ?>" target="_blank"><?php echo $this->users_info[$val['uid']]['user_name']; ?></a></td>
+							<td><?php echo $val['name']; ?></td>
+							<td><?php if ($val['type'] == 'enterprise') { ?><?php _e('机构认证'); ?><?php } else { ?><?php _e('个人认证'); ?><?php } ?></td>
+							<td>
+								<?php if ($val['type'] == 'enterprise') { ?><?php _e('组织机构代码'); ?><?php } else { ?><?php _e('身份证号码'); ?><?php } ?>: <?php echo $val['data']['id_code']; ?><br />
+								<?php _e('联系方式'); ?>: <?php echo $val['data']['contact']; ?>
+							</td>
+							<td><?php echo $val['reason']; ?></td>
+							<td class="nowrap">
+								<?php if ($val['attach']) { ?><a href="<?php echo get_setting('upload_url'); ?>/verify/<?php echo $val['attach']; ?>" target="_blank" data-toggle="tooltip" class="fa fa-file-archive-o md-tip" title="<?php _e('附件'); ?>"></a><?php } ?>
 
-			<ul class="nav nav-tabs pull-left">
-			    <li class="<?php if (!$_GET['status']) { ?> active<?php } ?>"><a href="admin/user/verify_approval_list/"><?php _e('待审核'); ?></a></li>
-			    <li class="<?php if ($_GET['status'] == 1) { ?> active<?php } ?>"><a href="admin/user/verify_approval_list/status-1"><?php _e('已审核'); ?></a></li>
-			</ul>
-		</h2>
-	</div>
-	<div class="aw-mod-body tab-content">
-		<form action="admin/user/verify_approval_batch/" id="batchs_form" onsubmit="return false;" method="post">
-		<input type="hidden" id="batch_type" name="batch_type" value="approval" />
-		<table class="aw-table">
-			<thead>
-				<tr>
-					<th align="center"><input type="checkbox" class="check-all"></th>
-					<th style="width:100px;"><?php _e('会员'); ?></th>
-					<th align="center" style="width:150px;"><?php _e('企业名称/真实姓名'); ?></th>
-					<th align="center" style="width:100px;"><?php _e('认证类型'); ?></th>
-					<th><?php _e('详细资料'); ?></th>
-					<th><?php _e('认证说明'); ?></th>
-					<th align="center"><?php _e('操作'); ?></th>
-				</tr>
-			</thead>
-			<tbody>
-				<?php if ($this->approval_list) { ?>
-				<?php foreach ($this->approval_list AS $key => $val) { ?>
-				<tr>
-					<td align="center"><input type="checkbox" class="approval_ids" name="approval_ids[]" value="<?php echo $val['id']; ?>"></td>
-					<td><a href="people/<?php echo $this->users_info[$val['uid']]['url_token']; ?>" target="_blank"><?php echo $this->users_info[$val['uid']]['user_name']; ?></a></td>
-					<td align="center"><?php echo $val['name']; ?></td>
-					<td align="center"><?php if ($val['type'] == 'enterprise') { ?><?php _e('机构认证'); ?><?php } else { ?><?php _e('个人认证'); ?><?php } ?></td>
-					<td>
-						<?php if ($val['type'] == 'enterprise') { ?><?php _e('组织机构代码'); ?><?php } else { ?><?php _e('身份证号码'); ?><?php } ?>: <?php echo $val['data']['id_code']; ?><br />
-						<?php _e('联系方式'); ?>: <?php echo $val['data']['contact']; ?>
-					</td>
-					<td><?php echo $val['reason']; ?></td>
-					<td align="center">
-						<?php if ($val['attach']) { ?><a href="<?php echo get_setting('upload_url'); ?>/verify/<?php echo $val['attach']; ?>" target="_blank"><i class="aw-icon page-attach"></i></a><?php } ?>
-
-						<a href="admin/user/verify_approval_edit/<?php echo $val['uid']; ?>"><i class="aw-icon page-edit"></i></a>
-					</td>
-				</tr>
-				<?php } ?>
-				<?php } ?>
-			</tbody>
-			<tfoot>
-				<tr>
-					<td colspan="7">
-						<span class="pull-right"><?php echo $this->pagination; ?></span>
-						<?php if (!$_GET['status']) { ?>
-						<a class="btn btn-inverse" onclick="$('#batch_type').val('approval'); ajax_post($('#batchs_form'));" href="javascript:;"><?php _e('通过审核'); ?></a>
-						<a class="btn btn-inverse" onclick="$('#batch_type').val('decline'); ajax_post($('#batchs_form'));" href="javascript:;"><?php _e('拒绝审核'); ?></a>
+								<a href="admin/user/verify_approval_edit/<?php echo $val['uid']; ?>" data-toggle="tooltip" class="fa fa-pencil md-tip" title="<?php _e('编辑'); ?>"></a>
+							</td>
+						</tr>
 						<?php } ?>
-					</td>
-				</tr>
-			</tfoot>
-		</table>
-		</form>
+					</tbody>
+				</table>
+			<?php } ?>
+			</div>
+			</form>
+			<div class="mod-table-foot">
+				<span class="pull-right mod-page"><?php echo $this->pagination; ?></span>
+				
+				<a class="btn btn-primary" onclick="$('#batch_type').val('approval'); ajax_post($('#batchs_form'));" id="batch_approval"><?php _e('通过审核'); ?></a>
+				<a class="btn btn-danger" onclick="$('#batch_type').val('decline'); ajax_post($('#batchs_form'));" id="batch_decline"><?php _e('拒绝审核'); ?></a>
+			</div>
+		</div>
 	</div>
 </div>
 
