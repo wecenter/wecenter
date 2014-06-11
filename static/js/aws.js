@@ -461,7 +461,7 @@ var AWS =
 	            $('.alert-box').remove();
 	        }
 
-	        $('#aw-ajax-box').html(template);
+	        $('#aw-ajax-box').html(template).show();
 
 	        switch (type)
 	        {
