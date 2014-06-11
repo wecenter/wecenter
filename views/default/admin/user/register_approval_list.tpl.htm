@@ -1,52 +1,56 @@
 <?php TPL::output('admin/global/header.tpl.htm'); ?>
 <?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
 
-<div class="pull-left right-side">
-	<div class="aw-mod-head">
-		<h2>
-			<span class="pull-left"><?php _e('注册审核'); ?></span>
-		</h2>
-	</div>
-	<div class="aw-mod-body tab-content">
-		<form id="batchs_form" action="admin/user/register_approval_process/" method="post">
-		<input type="hidden" name="batch_type" id="batch_type" />
-		<table class="aw-table">
-			<thead>
-				<th align="center"><input type="checkbox" class="check-all"></th>
-				<th><?php _e('用户名'); ?></th>
-				<th><?php _e('邮箱'); ?></th>
-				<th><?php _e('一句话介绍'); ?></th>
-				<th><?php _e('城市'); ?></th>
-				<th align="center"><?php _e('注册时间'); ?></th>
-				<th align="center"><?php _e('操作'); ?></th>
-			</thead>
-			<tbody>
-				<?php foreach ($this->list AS $key => $val) { ?>
-				<tr>
-					<td align="center"><input type="checkbox" name="approval_uids[]" value="<?php echo $val['uid']; ?>"></td>
-					<td><a href="people/<?php echo $val['user_name']; ?>" target="_blank"><?php echo $val['user_name']; ?></a> <?php if ($val['forbidden']) { ?><span class="aw-text-color-999">[ <?php _e('封禁'); ?> ]</span><?php } else if (!$val['valid_email']) { ?><span class="aw-text-color-999">[ <?php _e('邮件未验证'); ?> ]</span><?php } ?></td>
-					<td><?php echo $val['email']; ?></td>
-					<td><?php echo $val['signature']; ?></td>
-					<td><?php echo $val['province']; ?> <?php echo $val['city']; ?></td>
-					<td align="center"><?php echo date_friendly($val['reg_time']); ?></td>
-					<td align="center"><a href="admin/user/edit/uid-<?php echo $val['uid']; ?>"><i class="aw-icon user-edit"></i></a></td>
-				</tr>
-				<?php } ?>
-			</tbody>
-			<tfoot>
-				<tr>
-					<td colspan="7">
-						<span class="pull-right"><?php echo $this->pagination; ?></span>
-						
-						<?php _e('拒绝理由'); ?>: <input type="text" name="reason" />
-						
-						<a class="btn btn-inverse" onclick="$('#batch_type').val('approval'); ajax_post($('#batchs_form'));" href="javascript:;"><?php _e('通过审核'); ?></a>
-						<a class="btn btn-inverse" onclick="$('#batch_type').val('decline'); ajax_post($('#batchs_form'));" href="javascript:;"><?php _e('拒绝审核'); ?></a> 
-					</td>
-				</tr>
-			</tfoot>
-		</table>
-		</form>
+<div class="aw-content-wrap">
+	<div class="mod">
+		<div class="mod-head">
+			<h3>
+				<span class="pull-left"><?php _e('注册审核'); ?></span>
+			</h3>
+		</div>
+		<div class="mod-body tab-content">
+			<form id="batchs_form" action="admin/user/register_approval_process/" method="post">
+			<input type="hidden" name="batch_type" id="batch_type" />
+			<div class="table-responsive">
+			<?php if ($this->list) { ?>
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th><input type="checkbox" class="check-all"></th>
+							<th><?php _e('用户名'); ?></th>
+							<th><?php _e('邮箱'); ?></th>
+							<th><?php _e('一句话介绍'); ?></th>
+							<th><?php _e('城市'); ?></th>
+							<th><?php _e('注册时间'); ?></th>
+							<th><?php _e('操作'); ?></th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php foreach ($this->list AS $key => $val) { ?>
+						<tr>
+							<td><input type="checkbox" name="approval_uids[]" value="<?php echo $val['uid']; ?>"></td>
+							<td><a href="people/<?php echo $val['user_name']; ?>" target="_blank"><?php echo $val['user_name']; ?></a> <?php if ($val['forbidden']) { ?><span class="aw-text-color-999">[ <?php _e('封禁'); ?> ]</span><?php } else if (!$val['valid_email']) { ?><span class="aw-text-color-999">[ <?php _e('邮件未验证'); ?> ]</span><?php } ?></td>
+							<td><?php echo $val['email']; ?></td>
+							<td><?php echo $val['signature']; ?></td>
+							<td><?php echo $val['province']; ?> <?php echo $val['city']; ?></td>
+							<td><?php echo date_friendly($val['reg_time']); ?></td>
+							<td><a href="admin/user/edit/uid-<?php echo $val['uid']; ?>" class="fa fa-pencil md-tip" title="<?php _e('编辑'); ?>"></a></td>
+						</tr>
+						<?php } ?>
+					</tbody>
+				</table>
+			<?php } ?>
+			</div>
+			</form>
+			<div class="mod-table-foot">
+				<span class="pull-right mod-page"><?php echo $this->pagination; ?></span>
+				
+				<?php _e('拒绝理由'); ?>: <input type="text" name="reason" />
+				
+				<a class="btn btn-primary" onclick="$('#batch_type').val('approval'); ajax_post($('#batchs_form'));" id="batch_approval"><?php _e('通过审核'); ?></a>
+				<a class="btn btn-danger" onclick="$('#batch_type').val('decline'); ajax_post($('#batchs_form'));" id="batch_decline"><?php _e('拒绝审核'); ?></a>
+			</div>
+		</div>
 	</div>
 </div>
 
