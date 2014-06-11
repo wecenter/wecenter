@@ -8,9 +8,8 @@
 .aw-content-wrap label.checkbox-inline{line-height: 30px;}
 .nav > li > a:hover, .nav > li > a:focus{background-color: transparent;}
 .nav .open > a, .nav .open > a:hover, .nav .open > a:focus{background-color: #fff;}
-.table-striped > tbody > tr:nth-child(odd) > td, .table-striped > tbody > tr:nth-child(odd) > th {
-background-color: #F5F8FA;
-}
+.table-striped > tbody > tr:nth-child(odd) > td, .table-striped > tbody > tr:nth-child(odd) > th {background-color: #F5F8FA;}
+.table-striped > tbody > tr:first-child td{border-top: none;}
 
 /*公共部分*/
 body,a{color: #080808; font: 14px/1.5em "microsoft yahei";}
