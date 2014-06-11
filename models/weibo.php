@@ -36,42 +36,16 @@ class weibo_class extends AWS_MODEL
         return $this->delete('weibo_msg', 'weibo_id = ' . $this->quote($weibo_id));
     }
 
-    public function get_msg_from_sina($access_token, $since_id = 0, $max_id = 0)
+    public function get_services_info()
     {
-        $client = new Services_Weibo_WeiboClient(get_setting('sina_akey'), get_setting('sina_skey'), $access_token);
+        static $services_info;
 
-        do
+        if (!$services_info)
         {
-            $result = json_decode($client->mentions(1, 200, $since_id, $max_id), true);
-
-            if ($result['error'])
-            {
-                return $result;
-            }
-
-            $new_msgs = $result['statuses'];
-
-            $new_msgs_total = count($new_msgs);
-
-            if ($new_msgs_total == 0)
-            {
-                return false;
-            }
-
-            if (empty($msgs))
-            {
-                $msgs = $new_msgs;
-            }
-            else
-            {
-                $msgs = array_merge($msgs, $new_msgs);
-            }
-
-            $max_id = $msgs[200]['weibo_id'] - 1;
+            $services_info = $this->fetch_all('users_sina', 'last_msg_id IS NOT NULL');
         }
-        while ($new_msgs_total < 200);
 
-        return $msgs;
+        return $services_info;
     }
 
     public function save_msg_info($msg_info)
@@ -91,24 +65,24 @@ class weibo_class extends AWS_MODEL
             return false;
         }
 
-        $service_uids = get_setting('service_weibo_uids');
+        $services_info = $this->get_services_info();
 
-        if (empty($service_uids))
+        if (empty($services_info))
         {
             return false;
         }
 
-        foreach ($service_uids AS $service_info)
+        foreach ($services_info AS $service_info)
         {
-            $uid = $service_info['uid'];
+            if (empty($service_info['access_token']) OR $service_info['expires_time'] <= time())
+            {
+                // 提示更新 access_token，添加到前台（和后台）通知里
+                $this->notification_of_refresh_access_token($service_info['uid']);
 
-            $user_info = $this->model('openid_weibo')->get_users_sina_by_id($uid);
+                continue;
+            }
 
-            $last_msg_id = get_setting('last_weibo_msg_ids_from_sina')[$uid] ?: 0;
-
-            $access_token = $user_info['access_token'];
-
-            $msgs = $this->get_msg_from_sina($access_token, $last_msg_id);
+            $msgs = $this->model('openid_weibo')->get_msg_from_sina($service_info['access_token'], $service_info['last_msg_id']);
 
             if (empty($msgs))
             {
@@ -118,9 +92,12 @@ class weibo_class extends AWS_MODEL
             if ($msgs['error_code'] == 21332)
             {
                 // 提示更新 access_token，添加到前台（和后台）通知里
+                $this->notification_of_refresh_access_token($service_info['uid']);
 
                 continue;
             }
+
+            $last_msg_id = $msgs[0]['id'];
 
             foreach ($msgs AS $msg)
             {
@@ -130,27 +107,32 @@ class weibo_class extends AWS_MODEL
 
                 $msg_info['text'] = $msg['text'];
 
-                $msg_info['weibo_uid'] = $msg['user']['id'];
+                $msg_info['msg_author_uid'] = $msg['user']['id'];
 
                 if (!empty($msg['pic_urls']))
                 {
                     foreach ($msg['pic_urls'] AS $pic_url)
                     {
-                        $pic_urls[] = $pic_url['thumbnail_pic'];
-                    }
+                        $pic_url = str_replace('/thumbnail/', '/large/', $pic_url['thumbnail_pic']);
 
-                    $msg_info['pic_urls'] = implode("\n", $pic_urls);
+                        // 上传图片
+
+                    }
                 }
 
-                $msg_info['uid'] = $user_info['uid'];
+                $msg_info['uid'] = $service_info['uid'];
+
+                $msg_info['weibo_uid'] = $service_info['id'];
 
                 $this->save_msg_info($msg_info);
             }
-
-            $last_msg_id = $msgs[0]['weibo_id'];
-
         }
 
         return true;
+    }
+
+    public function notification_of_refresh_access_token($weibo_uid)
+    {
+
     }
 }

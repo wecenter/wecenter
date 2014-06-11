@@ -855,10 +855,13 @@ CREATE TABLE `[#DB_PREFIX#]users_sina` (
   `profile_image_url` varchar(255) DEFAULT NULL COMMENT 'Sina 自定义头像地址',
   `gender` varchar(8) DEFAULT NULL,
   `add_time` int(10) DEFAULT NULL COMMENT '添加时间',
+  `expires_time` int(10) DEFAULT NULL COMMENT '过期时间',
   `access_token` varchar(64) DEFAULT NULL,
+  `last_msg_id` bigint(30) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `uid` (`uid`),
-  KEY `access_token` (`access_token`)
+  KEY `access_token` (`access_token`),
+  KEY `service` (`service`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]geo_location` (
@@ -1108,6 +1111,7 @@ CREATE TABLE `[#DB_PREFIX#]weixin_msg` (
 CREATE TABLE `[#DB_PREFIX#]weibo_msg` (
   `weibo_id` bigint(30) NOT NULL,
   `created_at` int(10) NOT NULL,
+  `msg_author_uid` bigint(20) NOT NULL,
   `text` varchar(255) NOT NULL,
   `pic_urls` text,
   `uid` int(10) NOT NULL,

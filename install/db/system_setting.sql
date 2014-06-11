@@ -112,6 +112,4 @@ INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES
 ('weixin_app_secret', 's:0:"";'),
 ('wecenter_access_token', 's:0:"";'),
 ('wecenter_access_secret', 's:0:"";'),
-('weixin_account_role', 's:7:"base";'),
-('service_weibo_uids', 'a:0:{}'),
-('last_weibo_msg_ids_from_sina', 'a:0:{}');
+('weixin_account_role', 's:7:"base";');
