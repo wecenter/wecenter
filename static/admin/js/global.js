@@ -47,7 +47,7 @@ $(function () {
     }
 
     // 单选框 input checked radio 初始化
-    $('.aw-content-wrap .table').find("input").iCheck({
+    $('.aw-content-wrap').find("input").iCheck({
         checkboxClass: 'icheckbox_square-blue',
         radioClass: 'iradio_square-blue',
         increaseArea: '20%'
