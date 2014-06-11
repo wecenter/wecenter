@@ -1,163 +1,214 @@
 <?php TPL::output('admin/global/header.tpl.htm'); ?>
 <?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
 
-<div class="right-side">
-	<div class="aw-box aw-box-row tools">
-		<div class="aw-mod-head"><h2><?php _e('系统维护'); ?></h2></div>
-		<div class="aw-mod-body">
-			<dl>
-				<form action="admin/tools/mp_services_check/" method="post" id="mp_services_check_form">
-					<dt><h3><?php _e('WeCenter 微信服务状态查询'); ?>:</h3></dt>
-					
-					<dd class="aw-box-row-dd">
-						<p class="aw-text-color-999"><?php _e('可以在这里对 http://mp.wecenter.com 的微信服务进行状态查询'); ?></p>
-					</dd>
-					<dd>
-						<input class="btn btn-inverse" type="button" onclick="ajax_post($('#mp_services_check_form'))" value="<?php _e('开始处理'); ?>" />
-					</dd>
-				</form>
-			</dl>
-					
-			<dl>
-				<form action="admin/tools/init/" method="post">
-					<input type="hidden" name="action" value="cache_clean" />
-					<dt><h3><?php _e('缓存清理'); ?>:</h3></dt>
-					
-					<dd class="aw-box-row-dd">
-						<p class="aw-text-color-999"><?php _e('当站点进行了数据恢复、升级或者工作出现异常的时候, 你可以使用本功能清除缓存'); ?></p>
-					</dd>
-					<dd>
-						<input class="btn btn-inverse" type="submit" value="<?php _e('开始处理'); ?>" />
-					</dd>
-				</form>
-			</dl>
-				
-			<dl class="form-inline">
-				<form action="admin/tools/email_setting_test/" method="post" id="email_setting_test_form" onsubmit="return false">
-					<dt><h3><?php _e('邮件系统测试'); ?>:</h3></dt>
-					
-					<dd class="aw-box-row-dd">
-						<p class="aw-text-color-999"><?php _e('使用此功能测试邮件系统配置是否正确'); ?></p>
-						<?php _e('收件人地址'); ?>:
-						<div class="form-group">
-							<input class="form-control" type="text" name="test_email" />
-						</div>
-					</dd>
-					
-					<dd>
-						<input class="btn btn-inverse" type="button" onclick="ajax_post($('#email_setting_test_form'));" value="<?php _e('发送邮件'); ?>" />
-					</dd>
-				</form>
-			</dl>
-				
-			<dl class="form-inline">
-				<form action="admin/tools/init/" method="post" target="_blank">
-					<input type="hidden" name="action" value="update_question_search_index" />
+<div class="aw-content-wrap">
+    <div class="mod">
+        <div class="mod-head">
+            <h3>
+                <span class="pull-left"><?php _e('系统维护'); ?></span>
+            </h3>
+        </div>
 
-					<dt><h3><?php _e('更新问题搜索索引'); ?>:</h3></dt>
-					
-					<dd class="aw-box-row-dd">
-						<p class="aw-text-color-999"><?php _e('如果站点搜索功能有问题可以使用此功能修正'); ?></p>
-						<?php _e('每次处理数量'); ?>: 
-						<div class="form-group">
-							<input type="text" value="300" name="per_page" class="form-control" />
-						</div>
-					</dd>
-					
-					<dd>
-						<input class="btn btn-inverse" type="submit" value="<?php _e('开始处理'); ?>" />
-					</dd>
-				</form>
-			</dl>
-				
-			<dl class="form-inline">
-				<form action="admin/tools/init/" method="post" target="_blank">
-				<input type="hidden" name="action" value="update_article_search_index" />
-					<dt><h3><?php _e('更新文章搜索索引'); ?>:</h3></dt>
-					
-					<dd class="aw-box-row-dd">
-						<p class="aw-text-color-999"><?php _e('如果站点搜索功能有问题可以使用此功能修正'); ?></p>
-						<?php _e('每次处理数量'); ?>: 
-						<div class="form-group">
-							<input type="text" value="300" name="per_page" class="form-control" />
-						</div>
-					</dd>
-					
-					<dd>
-						<input class="btn btn-inverse" type="submit" value="<?php _e('开始处理'); ?>" />
-					</dd>
-				</form>
-			</dl>
-				
-			<dl class="form-inline">
-				<form action="admin/tools/init/" method="post" target="_blank">
-					<dt><h3><?php _e('更新最新动态'); ?>:</h3></dt>
-					
-					<dd class="aw-box-row-dd">
-						<p class="aw-text-color-999"><?php _e('如果站点最新动态数据有问题可以使用此功能修正'); ?></p>
-						<?php _e('每次处理数量'); ?>: 
-						<div class="form-group">
-							<input type="text" value="2000" name="per_page" class="form-control" />
-						</div>
-					</dd>
-					<dd>
-						<input class="btn btn-inverse" type="submit" value="<?php _e('开始处理'); ?>" />
-					</dd>
-					<input type="hidden" name="action" value="update_fresh_actions" />
-				</form>
-			</dl>
-				
-			<dl class="form-inline">
-				<form action="admin/tools/init/" method="post" target="_blank">
-				<input type="hidden" name="action" value="update_users_reputation" />
-					<dt><h3><?php _e('更新用户威望'); ?>:</h3></dt>
-					
-					<dd class="aw-box-row-dd">
-						<p class="aw-text-color-999"><?php _e('威望数据一般情况下会自动更新, 如果更改了威望设置需要立即生效可以使用此工具'); ?></p>
-						<?php _e('每次处理数量'); ?>:
-						<div class="form-group">
-							<input type="text" value="500" name="per_page" class="form-control" />
-						</div>
-					</dd>
-					<dd>
-						<input class="btn btn-inverse" type="submit" value="<?php _e('开始处理'); ?>" />
-					</dd>
-				</form>
-			</dl>
-				
-			<dl class="form-inline">
-				<form action="admin/tools/init/" method="post" target="_blank">
-					<dt><h3><?php _e('BBCode 转换'); ?>:</h3></dt>
-					
-					<dd class="aw-box-row-dd">
-						<p class="aw-text-color-999"><?php _e('此工具可以将系统内容中的 BBcode 语法转换为 Markdown 语法'); ?></p>
-						<?php _e('每次处理数量'); ?>:
-						<div class="form-group">
-							<input type="text" value="500" name="per_page" class="form-control" />
-						</div>
-					</dd>
-					<dd>
-						<input class="btn btn-inverse" type="submit" value="<?php _e('开始处理'); ?>" />
-					</dd>
-					<input type="hidden" name="action" value="bbcode_to_markdown" />
-				</form>
-			</dl>
-				
-			<dl>
-				<form action="admin/tools/init/" method="post" target="_blank">
-					<dt><h3><?php _e('更新微信菜单'); ?>:</h3></dt>
-					
-					<dd class="aw-box-row-dd">
-						<p class="aw-text-color-999"><?php _e('此工具可以读取系统中的微信配置并提交给微信公众平台, 使用前请确认菜单已经配置好, 并且有菜单权限'); ?></p>
-					</dd>
-					<dd>
-						<input class="btn btn-inverse" type="submit" value="<?php _e('开始处理'); ?>" />
-					</dd>
-					<input type="hidden" name="action" value="update_weixin_menu" />
-				</form>
-			</dl>
-		</div>
-	</div>
+        <div class="tab-content mod-content">
+            <table class="table table-striped">
+            <tbody>
+            <tr>
+                <td>
+					<form action="admin/tools/mp_services_check/" method="post" id="mp_services_check_form">
+	                    <div class="form-group">
+	                        <span class="col-sm-3 col-xs-3 control-label middle"><?php _e('WeCenter 微信服务状态查询'); ?>:</span>
+	                        <div class="col-sm-6 col-xs-8 middle">
+	                        	<?php _e('可以在这里对 http://mp.wecenter.com 的微信服务进行状态查询'); ?>
+	                        </div>
+	                        <div class="col-sm-2">
+	                            <input type="button" class="btn btn-primary" onclick="AWS.ajax_post($('#mp_services_check_form'))" value="<?php _e('开始处理'); ?>">
+	                        </div>
+	                    </div>
+					</form>
+                </td>
+            </tr>
+            <tr>
+                <td>
+					<form action="admin/tools/init/" method="post">
+						<input type="hidden" name="action" value="cache_clean" />
+	                    <div class="form-group">
+	                        <span class="col-sm-3 col-xs-3 control-label middle"><?php _e('缓存清理'); ?>:</span>
+	                        <div class="col-sm-6 col-xs-8 middle">
+	                        	<?php _e('当站点进行了数据恢复、升级或者工作出现异常的时候, 你可以使用本功能清除缓存'); ?>
+	                        </div>
+	                        <div class="col-sm-2">
+	                            <input type="submit" class="btn btn-primary" value="<?php _e('开始处理'); ?>">
+	                        </div>
+	                    </div>
+					</form>
+                </td>
+            </tr>
+            <tr>
+                <td>
+					<form action="admin/tools/email_setting_test/" method="post" id="email_setting_test_form" onsubmit="return false">
+                    <div class="form-group">
+                        <span class="col-sm-3 col-xs-3 control-label middle"><?php _e('邮件系统测试'); ?>:</span>
+                        <div class="col-sm-6 col-xs-8 middle">
+                            <?php _e('使用此功能测试邮件系统配置是否正确'); ?>
+                            <div class="row">
+                                <span class="col-sm-1 mod-text-inline"><?php _e('收件人地址'); ?>:</span>
+                                <div class="col-sm-6">
+                                    <input class="form-control" type="text" name="test_email" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-2">
+                            <input type="button" class="btn btn-primary" onclick="AWS.ajax_post($('#email_setting_test_form'));" value="<?php _e('开始处理'); ?>">
+                        </div>
+                    </div>
+					</form>
+                </td>
+            </tr>
+            
+            <tr>
+                <td>
+					<form action="admin/tools/init/" method="post" target="_blank">
+						<input type="hidden" name="action" value="update_question_search_index" />
+						
+	                    <div class="form-group">
+	                        <span class="col-sm-3 col-xs-3 control-label middle"><?php _e('更新问题搜索索引'); ?>:</span>
+	                        <div class="col-sm-6 col-xs-8 middle">
+	                            <?php _e('如果站点搜索功能有问题可以使用此功能修正'); ?>
+								
+	                            <div class="row">
+	                                <span class="col-sm-1 mod-text-inline"><?php _e('每次处理数量'); ?>:</span>
+	                                <div class="col-sm-6">
+	                                    <input type="text" value="300" name="per_page" class="form-control" />
+	                                </div>
+	                            </div>
+	                        </div>
+
+	                        <div class="col-sm-2">
+	                            <input type="submit" class="btn btn-primary" value="<?php _e('开始处理'); ?>">
+	                        </div>
+	                    </div>
+					</form>
+                </td>
+            </tr>
+            
+            <tr>
+                <td>
+					<form action="admin/tools/init/" method="post" target="_blank">
+						<input type="hidden" name="action" value="update_article_search_index" />
+						
+	                    <div class="form-group">
+	                        <span class="col-sm-3 col-xs-3 control-label middle"><?php _e('更新文章搜索索引'); ?>:</span>
+	                        <div class="col-sm-6 col-xs-8 middle">
+	                            <?php _e('如果站点搜索功能有问题可以使用此功能修正'); ?>
+								
+	                            <div class="row">
+	                                <span class="col-sm-1 mod-text-inline"><?php _e('每次处理数量'); ?>:</span>
+	                                <div class="col-sm-6">
+	                                    <input type="text" value="300" name="per_page" class="form-control" />
+	                                </div>
+	                            </div>
+	                        </div>
+
+	                        <div class="col-sm-2">
+	                            <input type="submit" class="btn btn-primary" value="<?php _e('开始处理'); ?>">
+	                        </div>
+	                    </div>
+					</form>
+                </td>
+            </tr>
+			
+            <tr>
+                <td>
+					<form action="admin/tools/init/" method="post" target="_blank">
+	                    <div class="form-group">
+	                        <span class="col-sm-3 col-xs-3 control-label middle"><?php _e('更新最新动态'); ?>:</span>
+	                        <div class="col-sm-6 col-xs-8 middle">
+	                        	<?php _e('如果站点最新动态数据有问题可以使用此功能修正'); ?>
+								
+	                            <div class="row">
+	                                <span class="col-sm-1 mod-text-inline"><?php _e('每次处理数量'); ?>:</span>
+	                                <div class="col-sm-6">
+	                                    <input type="text" value="2000" name="per_page" class="form-control" />
+	                                </div>
+	                            </div>
+	                        </div>
+	                        <div class="col-sm-2">
+	                            <input type="submit" class="btn btn-primary" value="<?php _e('开始处理'); ?>">
+	                        </div>
+	                    </div>
+					</form>
+                </td>
+            </tr>
+			
+            <tr>
+                <td>
+					<form action="admin/tools/init/" method="post" target="_blank">
+						<input type="hidden" name="action" value="update_users_reputation" />
+	                    <div class="form-group">
+	                        <span class="col-sm-3 col-xs-3 control-label middle"><?php _e('更新用户威望'); ?>:</span>
+	                        <div class="col-sm-6 col-xs-8 middle">
+	                        	<?php _e('威望数据一般情况下会自动更新, 如果更改了威望设置需要立即生效可以使用此工具'); ?>
+								
+	                            <div class="row">
+	                                <span class="col-sm-1 mod-text-inline"><?php _e('每次处理数量'); ?>:</span>
+	                                <div class="col-sm-6">
+	                                    <input type="text" value="500" name="per_page" class="form-control" />
+	                                </div>
+	                            </div>
+	                        </div>
+	                        <div class="col-sm-2">
+	                            <input type="submit" class="btn btn-primary" value="<?php _e('开始处理'); ?>">
+	                        </div>
+	                    </div>
+					</form>
+                </td>
+            </tr>
+			
+            <tr>
+                <td>
+					<form action="admin/tools/init/" method="post" target="_blank">
+						<input type="hidden" name="action" value="bbcode_to_markdown" />
+	                    <div class="form-group">
+	                        <span class="col-sm-3 col-xs-3 control-label middle"><?php _e('BBCode 转换'); ?>:</span>
+	                        <div class="col-sm-6 col-xs-8 middle">
+	                        	<?php _e('威望数据一般情况下会自动更新, 如果更改了威望设置需要立即生效可以使用此工具'); ?>
+								
+	                            <div class="row">
+	                                <span class="col-sm-1 mod-text-inline"><?php _e('每次处理数量'); ?>:</span>
+	                                <div class="col-sm-6">
+	                                    <input type="text" value="500" name="per_page" class="form-control" />
+	                                </div>
+	                            </div>
+	                        </div>
+	                        <div class="col-sm-2">
+	                            <input type="submit" class="btn btn-primary" value="<?php _e('开始处理'); ?>">
+	                        </div>
+	                    </div>
+					</form>
+                </td>
+            </tr>
+			
+            <tr>
+                <td>
+					<form action="admin/tools/init/" method="post" target="_blank">
+						<input type="hidden" name="action" value="update_weixin_menu" />
+	                    <div class="form-group">
+	                        <span class="col-sm-3 col-xs-3 control-label middle"><?php _e('更新微信菜单'); ?>:</span>
+	                        <div class="col-sm-6 col-xs-8 middle">
+	                        	<?php _e('此工具可以读取系统中的微信配置并提交给微信公众平台, 使用前请确认菜单已经配置好, 并且有菜单权限'); ?>
+	                        </div>
+	                        <div class="col-sm-2">
+	                            <input type="submit" class="btn btn-primary" value="<?php _e('开始处理'); ?>">
+	                        </div>
+	                    </div>
+					</form>
+                </td>
+            </tr>
+            </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
 <?php TPL::output('admin/global/footer.tpl.htm'); ?>
