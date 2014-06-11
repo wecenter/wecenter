@@ -117,6 +117,9 @@ class main extends AWS_CONTROLLER
 			TPL::import_js('js/editor/jquery.markitup.js');
 			TPL::import_js('js/editor/markdown.js');
 			TPL::import_js('js/editor/sets/default/set.js');
+
+			// fileupload
+			TPL::import_js('js/fileupload.js');			
 		}
 		
 		TPL::assign('recent_topics', @unserialize($this->user_info['recent_topics']));
@@ -192,6 +195,9 @@ class main extends AWS_CONTROLLER
 			TPL::import_js('js/editor/jquery.markitup.js');
 			TPL::import_js('js/editor/markdown.js');
 			TPL::import_js('js/editor/sets/default/set.js');
+
+			// fileupload
+			TPL::import_js('js/fileupload.js');	
 		}
 		
 		TPL::output('publish/article');
