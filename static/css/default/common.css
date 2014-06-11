@@ -470,6 +470,22 @@ a.aw-load-more-content{display: block;}
 .aw-publish-suggest-question ul li a{display:block;padding:5px 10px;border-bottom: 1px solid #DCDCDC;font-size: 12px;}
 .aw-publish-suggest-question ul li a:hover{background-color: #f5faff;}
 
+.aw-upload-box{position: relative;}
+.aw-upload-box form{width:0;height:0;opacity: 0;}
+.aw-upload-box form input{position:absolute;top:0;left:0;width: 80px;height: 34px;}
+.aw-upload-box .upload-list{width:688px;height: auto;overflow: hidden;}
+.aw-upload-box .upload-list li{position:relative;float: left;width: 214px;height: 115px;padding:15px 15px 15px 110px;margin:15px 15px 0 0;background: #F5FAFF;border:1px solid #DCEDFA;border-radius: 5px;}
+.aw-upload-box .upload-list li .img{position:absolute;left:10px;top:10px;width: 90px;height: 90px;background: url('img/ajax-loader.gif') center center no-repeat;text-align: center;line-height: 90px;border-radius: 5px;}
+.aw-upload-box .upload-list li .img.error{background: none;}
+.aw-upload-box .upload-list li .img.file{background: none;}
+.aw-upload-box .upload-list li .img .fa-file-o{font-size: 48px;vertical-align: middle;color: #aac6e1;}
+.aw-upload-box .upload-list li .img .fa-times{font-size: 24px;color: #ff6464;}
+.aw-upload-box .upload-list li .content p{margin:0;line-height: 16px;}
+.aw-upload-box .upload-list li .title{height: 36px;overflow:hidden;font-size:12px;word-wrap:break-word;color: #666;}
+.aw-upload-box .upload-list li .size{margin-bottom:10px !important;font-size: 12px;color: #999;}
+.aw-upload-box .upload-list li .meta a{margin-right:5px;font-size: 13px;}
+.aw-upload-box .upload-list li.error{border-color: #ff6464;}
+
 /* 发起文章 */
 .aw-publish-article .aw-publish-title input{width: 810px;}
 .aw-publish-article .aw-publish-title.active input{width: 100%;}
@@ -716,6 +732,7 @@ a.aw-load-more-content{display: block;}
 .aw-mod-replay-box .mod-body{position:relative;padding:20px;background: #f8f8f8;border: 1px solid #C2CACD;}
 .aw-mod-replay-box .aw-replay-box-control{position: relative;height: auto;line-height: 34px;}
 .aw-mod-replay-box .aw-replay-box-control .btn-publish-submit{margin-left: 10px;}
+.aw-mod-replay-box .aw-replay-box-control span{position: relative;z-index: 1;}
 .article-replay-box{position:relative;margin-top:20px;padding-left: 40px;}
 .article-replay-box .mod-head{position:absolute;left:0;}
 .article-replay-box .mod-head img{width: 32px;height: 32px;}
