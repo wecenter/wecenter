@@ -84,12 +84,12 @@ ul, ol{padding:0;list-style: none;}
 
 /* 右侧公共头部部分 mod-head*/
 .aw-content-wrap .mod-border{border-top: none;}
-.aw-content-wrap > .mod-head{margin: 10px 0 0 0; height: 44px; border: 1px solid #e2e1e1; background: #f4f4f4; color: #333;}
-.aw-content-wrap > .mod-head h3{margin: 0;}
-.aw-content-wrap > .mod-head .pull-left{margin-right: 20px; padding-left: 15px; font-size: 14px; line-height: 45px;}
-.aw-content-wrap > .mod-head .nav-tabs{border-bottom: none;}
-.aw-content-wrap > .mod-head .nav-tabs li{min-width: 89px; height: 42px; border-right: 1px solid #DDD; list-style: none; text-align: center; cursor: default;}
-.aw-content-wrap > .mod-head .nav-tabs li a{margin-top: 0; margin-left: 0; padding: 8px 15px; outline: none; border: none; background: transparent; line-height: 29px;}
+.aw-content-wrap .mod > .mod-head{margin: 10px 0 0 0; height: 44px; border: 1px solid #e2e1e1; background: #f4f4f4; color: #333;}
+.aw-content-wrap .mod > .mod-head h3{margin: 0;}
+.aw-content-wrap .mod > .mod-head .pull-left{margin-right: 20px; padding-left: 15px; font-size: 14px; line-height: 45px;}
+.aw-content-wrap .mod > .mod-head .nav-tabs{border-bottom: none;}
+.aw-content-wrap .mod > .mod-head .nav-tabs li{min-width: 89px; height: 42px; border-right: 1px solid #DDD; list-style: none; text-align: center; cursor: default;}
+.aw-content-wrap .mod > .mod-head .nav-tabs li a{margin-top: 0; margin-left: 0; padding: 8px 15px; outline: none; border: none; background: transparent; line-height: 29px;}
 .aw-content-wrap .mod-site-save{margin: 10px 15px 0 0;}
 .mod-head .nav-tabs li.active{height: 43px; border-bottom: 1px solid #fff; background: #FFF;}
 .aw-content-wrap .mod-table-foot{margin-top: 20px;}
@@ -167,6 +167,7 @@ textarea{resize: none;}
 .aw-wechat-dropdown-box span{position: relative;z-index: 3;}
 .aw-wechat-dropdown-box .input-bg{position:absolute;z-index:1;left:0;width:100%;height:34px;background-color: #fff;border: 1px solid #ccc;border-radius: 5px;}
 .aw-wechat-dropdown-box .dropdown-menu{right:20px;width:64%;padding:10px;}
+.aw-wechat-dropdown-box .dropdown-menu .mod > .mod-head{height:34px;margin:0;background: transparent;border:none;}
 .aw-wechat-dropdown-box .dropdown-menu.subtract-two{width: 137%;}
 .aw-wechat-dropdown-box .dropdown-menu.all{width: 360%;}
 .aw-wechat-dropdown-box .dropdown-menu.all.subtract-two{width: 243%;}
