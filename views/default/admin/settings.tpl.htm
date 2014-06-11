@@ -205,7 +205,7 @@
 						<div class="form-group">
 							<span class="col-sm-4 col-xs-3 control-label"><?php _e('新用户注册验证类型'); ?>:</span>
 							<div class="col-sm-8 col-xs-8">
-								<label class="checkbox-inline"><input type="radio" name="register_valid_type" value="email"<?php if ($this->setting['register_valid_type'] == 'email') { ?> checked="checked"<?php } ?> /> <?php _e('邮件验证'); ?></label>
+								<label class="checkbox-inline clpadding"><input type="radio" name="register_valid_type" value="email"<?php if ($this->setting['register_valid_type'] == 'email') { ?> checked="checked"<?php } ?> /> <?php _e('邮件验证'); ?></label>
 
 								<label class="checkbox-inline"><input type="radio" name="register_valid_type" value="approval"<?php if ($this->setting['register_valid_type'] == 'approval') { ?> checked="checked"<?php } ?> /> <?php _e('邮件验证 + 后台审核'); ?></label>
 
@@ -219,7 +219,7 @@
 						<div class="form-group">
 							<span class="col-sm-4 col-xs-3 control-label"><?php _e('注册类型'); ?>:</span>
 							<div class="col-sm-8 col-xs-8">
-								<label class="checkbox-inline"><input type="radio" name="register_type" value="open"<?php if ($this->setting['register_type'] == 'open') { ?> checked="checked"<?php } ?> /> <?php _e('开放注册'); ?></label>
+								<label class="checkbox-inline clpadding"><input type="radio" name="register_type" value="open"<?php if ($this->setting['register_type'] == 'open') { ?> checked="checked"<?php } ?> /> <?php _e('开放注册'); ?></label>
 
 								<label class="checkbox-inline"><input type="radio" name="register_type" value="invite"<?php if ($this->setting['register_type'] == 'invite') { ?> checked="checked"<?php } ?> /> <?php _e('邀请注册'); ?></label>
 			
@@ -237,7 +237,7 @@
 						<div class="form-group">
 							<span class="col-sm-4 col-xs-3 control-label"><?php _e('用户名规则'); ?>:</span>
 							<div class="col-sm-8 col-xs-8">
-								<label class="checkbox-inline"><input type="radio" value="0" name="username_rule"<?php if ($this->setting['username_rule'] == 0) { ?> checked="checked"<?php } ?> /> <?php _e('不限制'); ?></label>
+								<label class="checkbox-inline clpadding"><input type="radio" value="0" name="username_rule"<?php if ($this->setting['username_rule'] == 0) { ?> checked="checked"<?php } ?> /> <?php _e('不限制'); ?></label>
 								<label class="checkbox-inline"><input type="radio" value="1" name="username_rule"<?php if ($this->setting['username_rule'] == 1) { ?> checked="checked"<?php } ?> /> <?php _e('汉字/字母/数字/下划线'); ?></label>
 								<label class="checkbox-inline"><input type="radio" value="2" name="username_rule"<?php if ($this->setting['username_rule'] == 2) { ?> checked="checked"<?php } ?> /> <?php _e('字母/数字/下划线'); ?></label>
 								<label class="checkbox-inline"><input type="radio" value="3" name="username_rule"<?php if ($this->setting['username_rule'] == 3) { ?> checked="checked"<?php } ?> /> <?php _e('汉字'); ?></label>
