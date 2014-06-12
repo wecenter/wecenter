@@ -517,6 +517,44 @@ var AW_TEMPLATE = {
 					'</div>'+
 				'</div>'+
 			'</div>'+
+		'</div>',
+
+	// 后台分类移动设置
+	'adminCategoryMove' :
+		'<div class="modal fade alert-box aw-category-move-box">'+
+			'<div class="modal-dialog">'+
+				'<form method="post" id="settings_form" action="' + G_BASE_URL + '/admin/category/move_contents_process/">'+
+					'<div class="modal-content">'+
+						'<div class="modal-header">'+
+							'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
+							'<h3 class="modal-title" id="myModalLabel">' + _t('分类移动') + '</h3>'+
+						'</div>'+
+						'<div class="modal-body">'+
+							'<div class="row">'+
+								'<div class="col-md-6 hide">'+
+									'<select class="from-category form-control" name="from_ids[]">'+
+										'{{#items}}'+
+											'<option value="{{id}}">{{title}}</option>'+
+										'{{/items}}'+
+									'</select>'+
+								'</div>'+
+								'<div class="col-md-12">'+
+									'<select name="target_id" class="form-control">'+
+										'{{#items}}'+
+											'<option value="{{id}}">{{title}}</option>'+
+										'{{/items}}'+
+									'</select>'+
+								'</div>'+
+							'</div>'+
+						'</div>'+
+						'<div class="modal-footer">'+
+							'<a class="btn btn-default">取消</a>'+
+							'<a class="btn btn-success" onclick="AWS.ajax_post($(\'#settings_form\'))">确定</a>'+
+						'</div>'+
+					'</div>'+
+				'</form>'+
+			'</div>'+
 		'</div>'
+
 
 }

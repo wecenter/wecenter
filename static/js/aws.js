@@ -452,6 +452,14 @@ var AWS =
 					'message': data.message
 				});
 			break;
+
+			// 后台分类移动设置
+			case 'adminCategoryMove':
+				var template = Hogan.compile(AW_TEMPLATE.adminCategoryMove).render(
+		        {
+		        	items : data
+		        });
+		    break;
 	    }
 
 	    if (template)

@@ -1,11 +1,10 @@
 $(function () {
 
     // bs自带方法 TAB切换
-
     $('#myTab a').click(function (e)
     {
-        e.preventDefault()
-        $(this).tab('show')
+        e.preventDefault();
+        $(this).tab('show');
     });
 
     // bs自带方法-气泡提示
@@ -17,15 +16,13 @@ $(function () {
         if ($('#aw-side').is(':hidden'))
         {
             $('#aw-side').show(0, function () {
-                $('.aw-content-wrap').css("marginLeft", "235px");
-                $('.aw-footer').css("marginLeft", "235px");
+                $('.aw-content-wrap, .aw-footer').css("marginLeft", "235px");
             });
         }
         else{
             $('#aw-side').hide(0, function ()
             {
-                $('.aw-content-wrap').css("marginLeft", "0");
-                $('.aw-footer').css("marginLeft", "0");
+                $('.aw-content-wrap, .aw-footer').css("marginLeft", "0");
             });
         }
     });

@@ -191,6 +191,9 @@ textarea{resize: none;}
 .aw-wechat-dropdown-box .ajax-upload, .aw-wechat-dropdown-box .ajax-look{position: absolute;top:4px;right: -30px;}
 .aw-wechat-dropdown-box .ajax-look{right: -60px;}
 
+/* 弹窗 */
+.aw-category-move-box .modal-dialog{width: 350px;}
+
 /*响应式兼容start*/
 /* iCheck plugin Square skin, blue
 ----------------------------------- */

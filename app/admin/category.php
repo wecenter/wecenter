@@ -33,6 +33,8 @@ class category extends AWS_ADMIN_CONTROLLER
 		
 		TPL::assign('category_option', $this->model('system')->build_category_html('question', 0, 0, null, false));
 		
+		TPL::assign('target_category', $this->model('system')->build_category_html('question', 0, null));
+		
 		TPL::output('admin/category/list');
 	}
 
