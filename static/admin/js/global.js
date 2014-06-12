@@ -27,14 +27,6 @@ $(function () {
         }
     });
 
-    function changeSize() {
-        var height = $('#aw-side').height();
-        $("#aw-side").height(height-40);
-
-        // update perfect scrollbar
-        $('#aw-side').perfectScrollbar('update');
-    }
-    changeSize();
 
     $('#aw-side').perfectScrollbar({useBothWheelAxes: true});
 
