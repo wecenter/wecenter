@@ -40,7 +40,7 @@
 						<td><?php if (!$this->echo_rule_list[$val['keyword']]) { ?><input class="flag-action" type="radio" value="<?php echo $val['keyword']; ?>" name="is_no_result"<?php if (get_setting('weixin_no_result_message_key') == $val['keyword']) { ?> checked="checked"<?php } ?> /><?php } else { ?>-<?php } ?></td>
 						<td>
 							<a href="admin/weixin/reply_edit/id-<?php echo $val['id']; ?>" data-toggle="tooltip" class="fa fa-pencil md-tip" title="<?php _e('编辑'); ?>"></a> 
-							<a onclick="ajax_request(G_BASE_URL + '/admin/weixin/reply_remove/id-<?php echo $val['id']; ?>');" data-toggle="tooltip" class="fa fa-trash-o md-tip" title="<?php _e('删除'); ?>"></a>
+							<a onclick="AWS.ajax_request(G_BASE_URL + '/admin/weixin/reply_remove/id-<?php echo $val['id']; ?>');" data-toggle="tooltip" class="fa fa-trash-o md-tip" title="<?php _e('删除'); ?>"></a>
 						</td>
                     </tr>
 					<?php $this->echo_rule_list[$val['keyword']] = true; ?>

@@ -72,50 +72,33 @@ class main extends AWS_ADMIN_CONTROLLER
 		TPL::output('admin/login');
 	}
 	
-	public function login_process_ajax_action()
-	{
-		define('IN_AJAX', TRUE);
-				
-		if (! $this->user_info['permission']['is_administortar'])
-		{
-			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('你没有访问权限, 请重新登录')));
-		}
-		
-		if (get_setting('admin_login_seccode') == 'Y' AND !AWS_APP::captcha()->is_validate($_POST['seccode_verify']))
-		{
-			H::ajax_json_output(AWS_APP::RSM(null, -1, '请填写正确的验证码'));
-		}
-		
-		if (get_setting('ucenter_enabled') == 'Y')
-		{
-			if (! $user_info = $this->model('ucenter')->login($this->user_info['email'], $_POST['password']))
-			{
-				$user_info = $this->model('account')->check_login($this->user_info['email'], $_POST['password']);
-			}
-		}
-		else
-		{
-			$user_info = $this->model('account')->check_login($this->user_info['email'], $_POST['password']);
-		}
-		
-		if ($user_info['uid'])
-		{
-			$this->model('admin')->set_admin_login($user_info['uid']);
-			
-			H::ajax_json_output(AWS_APP::RSM(array(
-				'url' => $_POST['url'] ? base64_decode($_POST['url']) : get_js_url('/admin/')
-			), 1, null));
-		}
-		else
-		{
-			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('帐号或密码错误')));
-		}
-	}
-	
 	public function logout_action($return_url = '/')
 	{
 		$this->model('admin')->admin_logout();
 		
 		HTTP::redirect($return_url);
+	}
+	
+	public function settings_action()
+	{
+		$this->crumb(AWS_APP::lang()->_t('系统设置'), 'admin/settings');
+		
+		switch ($_GET['category'])
+		{
+			case 'interface':
+				TPL::assign('styles', $this->model('setting')->get_ui_styles());
+			break;
+			
+			case 'register':
+				TPL::assign('notification_settings', get_setting('new_user_notification_setting'));
+				TPL::assign('notify_actions', $this->model('notify')->notify_action_details);
+			break;
+		}
+		
+		TPL::assign('setting', get_setting(null, false));
+
+		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list('SETTINGS_' . strtoupper($_GET['category'])));
+
+		TPL::output('admin/settings');
 	}
 }

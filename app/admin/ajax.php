@@ -8,9 +8,11 @@
 |   http://www.wecenter.com
 |   ========================================
 |   Support: WeCenter@qq.com
-|
+|   
 +---------------------------------------------------------------------------
 */
+
+define('IN_AJAX', TRUE);
 
 
 if (!defined('IN_ANWSION'))
@@ -18,33 +20,59 @@ if (!defined('IN_ANWSION'))
 	die;
 }
 
-class settings extends AWS_ADMIN_CONTROLLER
-{
-	public function index_action()
+class ajax extends AWS_ADMIN_CONTROLLER
+{	
+	public function setup()
 	{
-		TPL::assign('styles', $this->model('setting')->get_ui_styles());
-		TPL::assign('notification_settings', get_setting('new_user_notification_setting'));
-		TPL::assign('notify_actions', $this->model('notify')->notify_action_details);
-
-		$this->crumb(AWS_APP::lang()->_t('系统设置'), 'admin/settings');
-
-		TPL::assign('setting', get_setting(null, false));
-
-		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(101));
-
-		TPL::output('admin/settings');
+		HTTP::no_cache_header();
 	}
-
-	public function save_action()
+	
+	public function login_process_action()
 	{
-		define('IN_AJAX', TRUE);
-
-		if ($_POST['upload_dir'] && preg_match('/(.*)\/$/i', $_POST['upload_dir']))
+		if (! $this->user_info['permission']['is_administortar'])
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('你没有访问权限, 请重新登录')));
+		}
+		
+		if (get_setting('admin_login_seccode') == 'Y' AND !AWS_APP::captcha()->is_validate($_POST['seccode_verify']))
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, -1, '请填写正确的验证码'));
+		}
+		
+		if (get_setting('ucenter_enabled') == 'Y')
+		{
+			if (! $user_info = $this->model('ucenter')->login($this->user_info['email'], $_POST['password']))
+			{
+				$user_info = $this->model('account')->check_login($this->user_info['email'], $_POST['password']);
+			}
+		}
+		else
+		{
+			$user_info = $this->model('account')->check_login($this->user_info['email'], $_POST['password']);
+		}
+		
+		if ($user_info['uid'])
+		{
+			$this->model('admin')->set_admin_login($user_info['uid']);
+			
+			H::ajax_json_output(AWS_APP::RSM(array(
+				'url' => $_POST['url'] ? base64_decode($_POST['url']) : get_js_url('/admin/')
+			), 1, null));
+		}
+		else
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('帐号或密码错误')));
+		}
+	}
+	
+	public function save_settings_action()
+	{
+		if ($_POST['upload_dir'] AND preg_match('/(.*)\/$/i', $_POST['upload_dir']))
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('上传文件存放绝对路径不能以 / 结尾')));
 		}
 
-		if ($_POST['upload_url'] && preg_match('/(.*)\/$/i', $_POST['upload_url']))
+		if ($_POST['upload_url'] AND preg_match('/(.*)\/$/i', $_POST['upload_url']))
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('上传目录外部访问 URL 地址不能以 / 结尾')));
 		}
@@ -64,12 +92,12 @@ class settings extends AWS_ADMIN_CONTROLLER
 
 					list($m, $n) = explode('===', $val);
 
-					if (substr($n, 0, 1) != '/' || substr($m, 0, 1) != '/')
+					if (substr($n, 0, 1) != '/' OR substr($m, 0, 1) != '/')
 					{
 						H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('URL 自定义路由规则 URL 必须以 / 开头')));
 					}
 
-					if (strstr($m, '/admin') || strstr($n, '/admin'))
+					if (strstr($m, '/admin') OR strstr($n, '/admin'))
 					{
 						H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('URL 自定义路由规则不允许设置 /admin 路由')));
 					}
@@ -96,18 +124,13 @@ class settings extends AWS_ADMIN_CONTROLLER
 
 		if (array_intersect(array_keys($_POST), $curl_require_setting))
 		{
-			foreach ($curl_require_setting as $key)
+			foreach ($curl_require_setting AS $key)
 			{
-				if ($_POST[$key] == 'Y' && !function_exists('curl_init'))
+				if ($_POST[$key] == 'Y' AND !function_exists('curl_init'))
 				{
 					H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('微博登录、QQ 登录等功能须服务器支持 CURL')));
 				}
 			}
-		}
-
-		if (!$_POST['newer_content_type'])
-		{
-			$_POST['newer_content_type'] = array();
 		}
 
 		if ($_POST['set_notification_settings'])

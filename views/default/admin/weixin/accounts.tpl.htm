@@ -7,7 +7,7 @@
         <?php if ($this->accounts_total != 0 ) { foreach ($this->accounts_list AS $key => $value) { ?>
         <div class="aw-mod-head">
             <h2><a href="javascript:;" onclick="ajax_post($('#accounts_form'));" class="label label-inverse pull-right"><?php _e('快速保存'); ?></a><?php _e('微信账号 %s', $value['id']); ?></h2>
-            <a href="javascript:;" onclick="ajax_request(G_BASE_URL + '/admin/weixin/del_account/', 'id=<?php echo $value['id']; ?>');"><?php _e('删除此账号'); ?></a>
+            <a href="javascript:;" onclick="AWS.ajax_request(G_BASE_URL + '/admin/weixin/del_account/', 'id=<?php echo $value['id']; ?>');"><?php _e('删除此账号'); ?></a>
             <input type="hidden" name="id[<?php echo $key; ?>]" value="<?php echo $value['id']; ?>" />
         </div>
 

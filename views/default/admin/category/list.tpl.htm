@@ -35,7 +35,7 @@
                         </td>
                         <td >
                             <a href="admin/category/edit/category_id-<?php echo $val['id']; ?>" data-toggle="tooltip" class="fa fa-pencil md-tip" title="<?php _e('编辑'); ?>"></a>
-                            <a onclick="ajax_request(G_BASE_URL + '/admin/category/category_remove/', 'category_id=<?php echo $val['id'];?>');" data-toggle="tooltip" class="fa fa-trash-o md-tip" title="<?php _e('删除'); ?>"></a>
+                            <a onclick="AWS.ajax_request(G_BASE_URL + '/admin/category/category_remove/', 'category_id=<?php echo $val['id'];?>');" data-toggle="tooltip" class="fa fa-trash-o md-tip" title="<?php _e('删除'); ?>"></a>
                             <a href="admin/category/move_contents/category_id-<?php echo $val['id']; ?>" data-toggle="tooltip" class="fa fa-exchange md-tip" title="<?php _e('批量移动'); ?>"></a>
                         </td>
                     </tr>

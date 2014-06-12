@@ -54,7 +54,7 @@
 								<td class="nowrap">
 									<a href="admin/user/edit/uid-<?php echo $val['uid']; ?>" class="fa fa-pencil md-tip" title="<?php _e('编辑'); ?>"></a>
 									<?php if (get_setting('integral_system_enabled') == 'Y') { ?><a href="admin/user/integral_log/uid-<?php echo $val['uid']; ?>" class="fa fa-file-text-o md-tip" title="<?php _e('积分日志'); ?>"></a><?php } ?>
-									<?php if ($val['uid'] != $this->user_id) { ?><a href="javascript:;" onclick="ajax_request(G_BASE_URL + '/admin/user/forbidden_user/' , 'uid=<?php echo $val['uid']; ?>&status=<?php echo intval($val['forbidden']) ? 0 : 1; ?>');" title="<?php if ($val['forbidden']) { ?><?php _e('解除封禁'); ?><?php } else { ?><?php _e('封禁用户'); ?><?php } ?>" class="fa <?php if ($val['forbidden']) { ?>fa-plus-circle<?php } else { ?>fa-minus-circle<?php } ?> md-tip"><?php } ?>
+									<?php if ($val['uid'] != $this->user_id) { ?><a href="javascript:;" onclick="AWS.ajax_request(G_BASE_URL + '/admin/user/forbidden_user/' , 'uid=<?php echo $val['uid']; ?>&status=<?php echo intval($val['forbidden']) ? 0 : 1; ?>');" title="<?php if ($val['forbidden']) { ?><?php _e('解除封禁'); ?><?php } else { ?><?php _e('封禁用户'); ?><?php } ?>" class="fa <?php if ($val['forbidden']) { ?>fa-plus-circle<?php } else { ?>fa-minus-circle<?php } ?> md-tip"><?php } ?>
 								</td>
 							</tr>
 							<?php } ?>
