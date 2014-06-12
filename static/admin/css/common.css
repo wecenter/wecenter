@@ -190,7 +190,8 @@ textarea{resize: none;}
 .aw-wechat-dropdown-box .dropdown-menu > .mod-footer li a{display:inline;}
 .aw-wechat-dropdown-box .ajax-upload, .aw-wechat-dropdown-box .ajax-look{position: absolute;top:4px;right: -30px;}
 .aw-wechat-dropdown-box .ajax-look{right: -60px;}
-
+/*编辑用户资料*/
+#remove_user_form label{margin-right: 15px;}
 /* 弹窗 */
 .aw-category-move-box .modal-dialog{width: 350px;}
 
