@@ -101,4 +101,25 @@ class main extends AWS_ADMIN_CONTROLLER
 
 		TPL::output('admin/settings');
 	}
+	
+	public function nav_menu_action()
+	{
+		$this->crumb(AWS_APP::lang()->_t('导航设置'), 'admin/nav_menu/');
+		
+		TPL::assign('nav_menu_list', $this->model('menu')->get_nav_menu_list());
+		
+		TPL::assign('feature_list', $this->model('feature')->get_enabled_feature_list());
+		
+		TPL::assign('category_list', $this->model('system')->build_category_html('question', 0, 0, null, true));
+		
+		TPL::assign('setting', get_setting());
+		
+		TPL::import_js(array(
+			'js/ajaxupload.js',
+		));
+		
+		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(307));
+		
+		TPL::output('admin/nav_menu');
+	}
 }
