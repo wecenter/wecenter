@@ -17,8 +17,8 @@
 				<div class="alert alert-info"><?php _e('找到 %s 条符合条件的内容', intval($this->question_count)); ?></div>
 				<?php } ?>
 				
-				<form id="batchs_form" action="admin/question/question_batch/" method="post">
-				<input type="hidden" id="action" name="action" value="del" />
+				<form id="batchs_form" action="admin/ajax/question_manage/" method="post">
+				<input type="hidden" id="action" name="action" value="" />
 				<div class="table-responsive">
 				<?php if ($this->list) { ?>
 					<table class="table table-striped">
@@ -57,7 +57,7 @@
 				<div class="mod-table-foot">
 					<?php echo $this->pagination; ?>
 					
-					<a class="btn btn-danger" onclick="$('#action').val('del'); ajax_post($('#batchs_form'));"><?php _e('删除所选'); ?></a>
+					<a class="btn btn-danger" onclick="$('#action').val('remove'); ajax_post($('#batchs_form'));"><?php _e('删除所选'); ?></a>
 					<a class="btn btn-primary" onclick="$('#action').val('send'); ajax_post($('#batchs_form'));"><?php _e('微信群发'); ?></a>
 				</div>
 			</div>

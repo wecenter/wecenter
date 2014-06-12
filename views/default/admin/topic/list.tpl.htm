@@ -17,8 +17,8 @@
 				<div class="alert alert-info"><?php _e('找到 %s 条符合条件的内容', intval($this->topics_count)); ?></div>
 				<?php } ?>
 				
-				<form id="batchs_form" action="admin/topic/topic_batch/" method="post">
-				<input type="hidden" id="action" name="action" value="del" />
+				<form id="batchs_form" action="admin/ajax/topic_manage/" method="post">
+				<input type="hidden" id="action" name="action" value="" />
 				<div class="table-responsive">
 				<?php if ($this->list) { ?>
 					<table class="table table-striped">
@@ -42,7 +42,7 @@
 								<td><?php echo $val['discuss_count']; ?></td>
 								<td><?php echo $val['focus_count']; ?></td>
 								<td><?php if ($val['merged_id']) { ?><?php _e('是'); ?><?php } else { ?><?php _e('否'); ?><?php } ?></td>
-								<td><?php if ($val['topic_lock']) { ?><a href="javascript:;" onclick="AWS.ajax_request(G_BASE_URL + '/admin/topic/topic_lock/topic_id-<?php echo $val['topic_id']; ?>__status-0');" title="<?php _e('解除锁定'); ?>" class="fa fa-lock md-tip"></a><?php } else { ?><a href="javascript:;" onclick="AWS.ajax_request(G_BASE_URL + '/admin/topic/topic_lock/topic_id-<?php echo $val['topic_id']; ?>__status-1');" title="<?php _e('锁定话题'); ?>" class="fa fa-unlock md-tip"></a><?php } ?></td>
+								<td><?php if ($val['topic_lock']) { ?><a href="javascript:;" onclick="AWS.ajax_request(G_BASE_URL + '/admin/ajax/lock_topic/', 'topic_id=<?php echo $val['topic_id']; ?>&status=0');" title="<?php _e('解除锁定'); ?>" data-toggle="tooltip" class="fa fa-lock md-tip"></a><?php } else { ?><a href="javascript:;" onclick="AWS.ajax_request(G_BASE_URL + '/admin/ajax/lock_topic/', 'topic_id=<?php echo $val['topic_id']; ?>&status=1');" data-toggle="tooltip" title="<?php _e('锁定话题'); ?>" class="fa fa-unlock md-tip"></a><?php } ?></td>
 								<td><?php echo date_friendly($val['add_time']); ?></td>
 								<td><a href="admin/topic/edit/topic_id-<?php echo $val['topic_id']; ?>" class="fa fa-pencil md-tip" title="编辑"></a></td>
 							</tr>
