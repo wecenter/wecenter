@@ -181,4 +181,161 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
 		H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('系统设置修改成功')));
 	}
+	
+	public function approval_manage_action()
+	{
+		if (!is_array($_POST['approval_ids']))
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择条目进行操作')));
+		}
+		
+		switch ($_POST['batch_type'])
+		{
+			case 'approval':
+			case 'decline':
+				$func = $_POST['batch_type'] . '_publish';
+				
+				foreach ($_POST['approval_ids'] AS $approval_id)
+				{
+					$this->model('publish')->$func($approval_id);
+				}
+			break;
+		}
+		
+		H::ajax_json_output(AWS_APP::RSM(null, 1, null));
+	}
+	
+	public function article_manage_action()
+	{
+		if (empty($_POST['article_ids']))
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择文章进行操作')));
+		}
+
+		switch ($_POST['action'])
+		{
+			case 'del':
+				foreach ($_POST['article_ids'] AS $article_id)
+				{
+					$this->model('article')->remove_article($article_id);
+				}
+
+				H::ajax_json_output(AWS_APP::RSM(null, 1, null));
+			break;
+
+			case 'send':
+				$result = $this->model('weixin')->add_article_or_question_ids_to_cache($_POST['article_ids'], null);
+
+				H::ajax_json_output(AWS_APP::RSM(null, -1, $result));
+			break;
+		}
+	}
+	
+	public function save_category_sort_action()
+	{
+		if (is_array($_POST['category']))
+		{
+			foreach ($_POST['category'] as $key => $val)
+			{
+				$this->model('category')->update_category($key, array(
+					'sort' => intval($val['sort'])
+				));
+			}
+		}
+		
+		H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('分类排序已自动保存')));
+	}
+	
+	public function save_category_action()
+	{
+		if ($_POST['category_id'] AND $_POST['parent_id'] AND $category_list = $this->model('system')->fetch_category('question', $_POST['category_id']))
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('系统允许最多二级分类, 当前分类下有子分类, 不能移动到其它分类')));
+		}
+		
+		if (trim($_POST['title']) == '')
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('请输入分类名称')));
+		}
+		
+		if ($_POST['url_token'])
+		{
+			if (!preg_match("/^(?!__)[a-zA-Z0-9_]+$/i", $_POST['url_token']))
+			{
+				H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('分类别名只允许输入英文或数字')));
+			}
+			
+			if (preg_match("/^[\d]+$/i", $_POST['url_token']) AND ($_POST['category_id'] != $_POST['url_token']))
+			{
+				H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('分类别名不可以全为数字')));
+			}
+	
+			if ($this->model('category')->check_url_token($_POST['url_token'], $_POST['category_id']))
+			{
+				H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('分类别名已经被占用请更换一个')));
+			}
+		}
+		
+		if (! $_POST['category_id'])
+		{
+			$category_id = $this->model('category')->add_category('question', $_POST['title'], $_POST['parent_id']);
+		}
+		else
+		{
+			$category_id = intval($_POST['category_id']);
+		}
+		
+		$category = $this->model('system')->get_category_info($category_id);
+		
+		if ($category['id'] == $_POST['parent_id'])
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('不能设置当前分类为父级分类')));
+		}
+		
+		$update_data = array(
+			'title' => $_POST['title'], 
+			'parent_id' => $_POST['parent_id'],
+			'url_token' => $_POST['url_token'],
+		);
+		
+		$this->model('category')->update_category($category_id, $update_data);
+		
+		H::ajax_json_output(AWS_APP::RSM(array(
+			'url' => get_setting('base_url') . '/' . G_INDEX_SCRIPT . 'admin/category/list/'
+		), 1, null));
+	}
+
+	public function remove_category_action()
+	{
+		if (intval($_POST['category_id']) == 1)
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('默认分类不可删除')));
+		}
+		
+		if ($this->model('category')->contents_exists($_POST['category_id']))
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('分类下存在内容, 请先批量移动问题到其它分类, 再删除当前分类')));
+		}
+		
+		$this->model('category')->delete_category('question', $_POST['category_id']);
+
+		H::ajax_json_output(AWS_APP::RSM(null, 1, null));
+	}
+	
+	public function move_category_contents_action()
+	{
+		if (!$_POST['from_id'] OR !$_POST['target_id'])
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请先选择指定分类和目标分类')));
+		}
+		
+		if ($_POST['target_id'] == $_POST['from_id'])
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('指定分类不能与目标分类相同')));
+		}
+		
+		$this->model('category')->move_contents($_POST['from_id'], $_POST['target_id']);
+		
+		H::ajax_json_output(AWS_APP::RSM(null, 1, null));
+	}
 }

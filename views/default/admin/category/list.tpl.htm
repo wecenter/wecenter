@@ -22,7 +22,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <form id="category_form" action="admin/category/save_sort/" method="post" onsubmit="return false">
+                    <form id="category_form" action="admin/ajax/save_category_sort/" method="post" onsubmit="return false">
                     <?php foreach ($this->list AS $key => $val) { ?>
                     <tr>
                         <td>
@@ -35,7 +35,7 @@
                         </td>
                         <td >
                             <a href="admin/category/edit/category_id-<?php echo $val['id']; ?>" data-toggle="tooltip" class="fa fa-pencil md-tip" title="<?php _e('编辑'); ?>"></a>
-                            <a onclick="ajax_request(G_BASE_URL + '/admin/category/category_remove/', 'category_id=<?php echo $val['id'];?>');" data-toggle="tooltip" class="fa fa-trash-o md-tip" title="<?php _e('删除'); ?>"></a>
+                            <a onclick="ajax_request(G_BASE_URL + '/admin/ajax/remove_category/', 'category_id=<?php echo $val['id'];?>');" data-toggle="tooltip" class="fa fa-trash-o md-tip" title="<?php _e('删除'); ?>"></a>
                             <a data-id="<?php echo $val['id']; ?>" data-url="admin/category/move_contents/category_id-" data-toggle="tooltip" class="fa fa-exchange md-tip move" title="<?php _e('批量移动'); ?>"></a>
                         </td>
                     </tr>
@@ -43,7 +43,7 @@
                     </form>
                     </tbody>
                     <tfoot class="mod-foot-center">
-                    <form id="add_category_form" action="admin/category/save/" method="post" onsubmit="return false">
+                    <form id="add_category_form" action="admin/ajax/save_category/" method="post" onsubmit="return false">
                     <tr>
                         <td>
                             <div class="form-group">
