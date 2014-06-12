@@ -301,7 +301,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 		$this->model('category')->update_category($category_id, $update_data);
 		
 		H::ajax_json_output(AWS_APP::RSM(array(
-			'url' => get_js_url('admin/category/list/')
+			'url' => get_js_url('/admin/category/list/')
 		), 1, null));
 	}
 
