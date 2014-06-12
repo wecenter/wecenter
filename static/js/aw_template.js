@@ -549,8 +549,8 @@ var AW_TEMPLATE = {
 							'</div>'+
 						'</div>'+
 						'<div class="modal-footer">'+
-							'<a class="btn btn-default">取消</a>'+
-							'<a class="btn btn-success" onclick="AWS.ajax_post($(\'#settings_form\'), AWS.ajax_processer, \'error_message\')">确定</a>'+
+							'<a class="btn btn-default" aria-hidden="true" data-dismiss="modal">' + _t('取消') + '</a>'+
+							'<a class="btn btn-success" onclick="AWS.ajax_post($(\'#settings_form\'), AWS.ajax_processer, \'error_message\')">' + _t('确定') + '</a>'+
 						'</div>'+
 					'</div>'+
 				'</form>'+
