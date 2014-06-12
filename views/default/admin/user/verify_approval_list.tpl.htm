@@ -55,8 +55,8 @@
 			<div class="mod-table-foot">
 				<span class="pull-right mod-page"><?php echo $this->pagination; ?></span>
 				
-				<a class="btn btn-primary" onclick="$('#batch_type').val('approval'); ajax_post($('#batchs_form'));" id="batch_approval"><?php _e('通过审核'); ?></a>
-				<a class="btn btn-danger" onclick="$('#batch_type').val('decline'); ajax_post($('#batchs_form'));" id="batch_decline"><?php _e('拒绝审核'); ?></a>
+				<a class="btn btn-primary" onclick="$('#batch_type').val('approval'); AWS.ajax_post($('#batchs_form'));" id="batch_approval"><?php _e('通过审核'); ?></a>
+				<a class="btn btn-danger" onclick="$('#batch_type').val('decline'); AWS.ajax_post($('#batchs_form'));" id="batch_decline"><?php _e('拒绝审核'); ?></a>
 			</div>
 		</div>
 	</div>

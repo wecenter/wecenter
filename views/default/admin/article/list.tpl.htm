@@ -53,8 +53,8 @@
 				<div class="mod-table-foot">
 					<?php echo $this->pagination; ?>
 					
-					<a class="btn btn-danger" onclick="$('#action').val('del'); ajax_post($('#batchs_form'));"><?php _e('删除所选'); ?></a>
-					<a class="btn btn-primary" onclick="$('#action').val('send'); ajax_post($('#batchs_form'));"><?php _e('微信群发'); ?></a>
+					<a class="btn btn-danger" onclick="$('#action').val('del'); AWS.ajax_post($('#batchs_form'));"><?php _e('删除所选'); ?></a>
+					<a class="btn btn-primary" onclick="$('#action').val('send'); AWS.ajax_post($('#batchs_form'));"><?php _e('微信群发'); ?></a>
 				</div>
 			</div>
 	
