@@ -15,12 +15,13 @@
 
 /*公共部分*/
 body,a{color: #080808; font: 14px/1.5em "microsoft yahei";}
-a:hover, a:focus{text-decoration: none;}
+a:hover, a:focus{text-decoration: none;cursor: pointer;}
 body{background: #eaeaea;;}
 ul, ol{padding:0;list-style: none;}
 .middle{line-height: 32px;}
 .nowrap{white-space: nowrap;}
 .aw-text-color-999{margin:2px 0 0 0;color: #999;font-size: 11px;}
+label{font-weight: normal;}
 
 /*后台header start*/
 .aw-header{position: fixed; top:0; z-index: 999; margin-bottom: 0; width: 100%; height: 50px; border: none; border-bottom: 1px solid #d5d5d5; background: #fff;}
@@ -47,7 +48,7 @@ ul, ol{padding:0;list-style: none;}
 .aw-header .fa-user:before{font-size: 16px;}
 
 /*aw-side start*/
-.aw-side{position: fixed; top: 50px; z-index: 16; display: block; float: left; overflow: hidden; width: 235px; height: 100%; background: #323232;}
+.aw-side{position: fixed; top: 0; padding-top:50px; z-index: 16; display: block; float: left; overflow: hidden; width: 235px; height: 100%; background: #323232;}
 .aw-side .mod-logo{padding: 10px 10px 10px 25px; height: 55px;}
 .aw-side .mod-message{padding: 8px 5px 0 10px; height: 55px; background: #3f3f3f;}
 .aw-side .mod-message a{position: relative; padding: 0; width: 35px; height: 35px; border-color: #323232; background: #323232; color: #fff; line-height: 35px;}
@@ -86,7 +87,8 @@ ul, ol{padding:0;list-style: none;}
 
 /*右侧公共部分*/
 .mod-padding{padding-left: 0;}
-.mod-symbol{margin-left: -2px; padding: 0; width: 1px; text-align: center; font-size: 22px;}
+.mod-symbol{margin-left: -2px; line-height: 35px;padding: 0; width: 1px; text-align: center; font-size: 22px;}
+.mod-table-foot .clpadding{padding: 0;line-height: 35px;}
 
 /* 右侧公共头部部分 mod-head*/
 .aw-content-wrap .mod-border{border-top: none;}
@@ -112,7 +114,7 @@ textarea{resize: none;}
 .aw-content-wrap .mod-page{margin: 0;}
 #search{margin-top: 25px;}
 .aw-content-wrap .fa-calendar{position: absolute; top: 5px; left: 20px; background: #2780bb !important;}
-.aw-content-wrap .mod-data{padding-left: 40px;}
+.aw-content-wrap .mod-data{padding-left: 35px;font-size: 12px;}
 .aw-content-wrap input[type="radio"], .aw-content-wrap input[type="checkbox"]{margin-right: 5px;}
 .aw-content-wrap .tab-content th{border: none; color: #000; font-weight: normal;}
 .aw-content-wrap .editor{text-align: center;}

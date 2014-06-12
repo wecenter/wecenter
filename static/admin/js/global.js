@@ -27,14 +27,6 @@ $(function () {
         }
     });
 
-    function changeSize() {
-        var height = $('#aw-side').height();
-        $("#aw-side").height(height-40);
-
-        // update perfect scrollbar
-        $('#aw-side').perfectScrollbar('update');
-    }
-    changeSize();
 
     $('#aw-side').perfectScrollbar({useBothWheelAxes: true});
 
@@ -58,7 +50,7 @@ $(function () {
             $(this).removeClass('collapsed active');
 
         } else {
-            $('#aw-side').find('li').children('ul').slideUp('normal');
+            $('#aw-side').find('li').children('ul').hide();
             $(this).addClass('active collapsed').parent().siblings().find('a').removeClass('active collapsed');
             $(this).next().slideDown('normal');
         }

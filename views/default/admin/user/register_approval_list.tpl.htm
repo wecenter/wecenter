@@ -44,9 +44,14 @@
 			</form>
 			<div class="mod-table-foot">
 				<span class="pull-right mod-page"><?php echo $this->pagination; ?></span>
-				
-				<?php _e('拒绝理由'); ?>: <input type="text" name="reason" />
-				
+				<div class="col-sm-4">
+					<div class="col-xs-3 clpadding">
+						<?php _e('拒绝理由'); ?>:
+					</div> 
+					<div class="col-xs-8">
+						<input type="text"class="form-control" name="reason" />
+					</div>
+				</div>
 				<a class="btn btn-primary" onclick="$('#batch_type').val('approval'); AWS.ajax_post($('#batchs_form'));" id="batch_approval"><?php _e('通过审核'); ?></a>
 				<a class="btn btn-danger" onclick="$('#batch_type').val('decline'); AWS.ajax_post($('#batchs_form'));" id="batch_decline"><?php _e('拒绝审核'); ?></a>
 			</div>
