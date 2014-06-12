@@ -109,7 +109,10 @@ var AW_TEMPLATE = {
 							'<input type="hidden" name="attach_access_key" value="{{attach_access_key}}" />'+
 							'<textarea name="answer_content" id="editor_reply" class="form-control" rows="5"></textarea>'+
 							'<div class="aw-file-upload-box">'+
-								'<span id="file_uploader_answer_edit"></span>'+
+								'<div class="aw-upload-box">'+
+									'<a class="btn btn-default">上传附件</a>'+
+									'<div class="upload-container"></div>'+
+								'</div>'+
 							'</div>'+
 						'</div>'+
 						'<div class="modal-footer">'+

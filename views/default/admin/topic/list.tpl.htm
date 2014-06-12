@@ -53,7 +53,7 @@
 				</div>
 				</form>
 				<div class="mod-table-foot">
-					<span class="pull-right mod-page"><?php echo $this->pagination; ?></span>
+					<?php echo $this->pagination; ?>
 					
 					<a class="btn btn-danger" onclick="$('#action').val('remove'); ajax_post($('#batchs_form'));"><?php _e('删除所选'); ?></a>
 					<a class="btn btn-primary" onclick="$('#action').val('lock'); ajax_post($('#batchs_form'));"><?php _e('锁定所选'); ?></a>

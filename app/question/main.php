@@ -396,6 +396,9 @@ class main extends AWS_CONTROLLER
 			TPL::import_js('js/editor/jquery.markitup.js');
 			TPL::import_js('js/editor/markdown.js');
 			TPL::import_js('js/editor/sets/default/set.js');
+
+			// fileupload
+			TPL::import_js('js/fileupload.js');	
 		}
 		
 		TPL::assign('attach_access_key', md5($this->user_id . time()));

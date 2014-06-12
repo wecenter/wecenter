@@ -20,7 +20,7 @@ $(function()
 	{
 		ITEM_IDS = ITEM_IDS.split(',');
 
-		AWS.Init.init_fileuploader('file_uploader_answer', G_BASE_URL + '/publish/ajax/attach_upload/id-answer__attach_access_key-' + ATTACH_ACCESS_KEY);
+		var fileupload = new FileUpload('#file_uploader_answer .aw-upload-box .btn', '#file_uploader_answer .aw-upload-box .upload-container', G_BASE_URL + '/publish/ajax/attach_upload/id-answer__attach_access_key-' + ATTACH_ACCESS_KEY)
 		
 		//折叠回复
 		$.each($('.aw-question-comment .aw-item'), function (i, e) 
