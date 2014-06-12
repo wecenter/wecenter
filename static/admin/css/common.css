@@ -15,7 +15,7 @@
 
 /*公共部分*/
 body,a{color: #080808; font: 14px/1.5em "microsoft yahei";}
-a:hover, a:focus{text-decoration: none;}
+a:hover, a:focus{text-decoration: none;cursor: pointer;}
 body{background: #eaeaea;;}
 ul, ol{padding:0;list-style: none;}
 .middle{line-height: 32px;}
