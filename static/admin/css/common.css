@@ -138,7 +138,7 @@ textarea{resize: none;}
 .aw-content-wrap .tab-content ul p{margin: 10px 90px 0 0;}
 .aw-content-wrap li.mod-site-rule{min-height: 230px; height: auto;}
 .aw-content-wrap .tab-content ul textarea{margin: 5px 0 0 0;}
-.aw-content-wrap .tab-content .help-block{clear: both; overflow:hidden; margin: 0; padding: 10px 10px 10px 5px; font-size: 12px; line-height: 1.8em;}
+.aw-content-wrap .tab-content .help-block{clear: both;text-align: left; overflow:hidden; margin: 0; padding: 10px 10px 10px 5px; font-size: 12px; line-height: 1.8em;}
 .aw-content-wrap .tab-content .help-block a{padding: 0 5px; color: #3276b1; font-size: 12px;}
 
 /*wechat 页面 左侧菜单区域*/
@@ -194,6 +194,8 @@ textarea{resize: none;}
 .aw-wechat-dropdown-box .ajax-look{right: -60px;}
 /*编辑用户资料*/
 #remove_user_form label{margin-right: 15px;}
+#integral_form span.mod-category-foot{padding: 0;line-height: 35px;text-align: right;}
+#integral_form .col-xs-11{line-height: 35px;}
 /* 弹窗 */
 .aw-category-move-box .modal-dialog{width: 350px;}
 
