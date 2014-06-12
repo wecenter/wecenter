@@ -56,7 +56,7 @@
 	{
 		$.each($('.aw-question-list .aw-item.article'), function (i, e)
 		{
-			if (!$(this).find('img').length)
+			if ($(this).find('img').length <= 1)
 			{
 				$(this).find('.img.pull-right').detach();
 			}
