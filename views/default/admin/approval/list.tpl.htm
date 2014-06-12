@@ -24,13 +24,12 @@
 						<tr>
 							<th><input type="checkbox" class="check-all"></th>
 							<th><?php _e('用户'); ?></th>
-							
 							<?php if ($_GET['type'] == 'answer' OR $_GET['type'] == 'article_comment') { ?>
 							<?php } else { ?>
 								<th><?php _e('标题'); ?></th>
 							<?php } ?>
-							
 							<th><?php _e('内容'); ?></th>
+							<th><?php _e('操作')?></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -40,12 +39,22 @@
 							<td><a href="people/<?php echo $this->users_info[$val['uid']]['url_token']; ?>" target="_blank"><?php echo $this->users_info[$val['uid']]['user_name']; ?></a></td>
 						
 							<?php if ($_GET['type'] == 'question') { ?>
-							<td><a class="fa fa-search md-tip" onclick="AWS.dialog('ajaxData', {'title':'<?php _e('内容审核'); ?>', 'url':G_BASE_URL + '/admin/approval/preview/<?php echo $val['id']; ?>'});" data-original-title="查看内容"></a> &nbsp; <?php echo htmlspecialchars($val['data']['question_content']); ?></td>
+							
+							<td>
+								<?php echo htmlspecialchars($val['data']['question_content']); ?>
+							</td>
 							<?php } else if ($_GET['type'] == 'article') { ?>
-							<td><a class="fa fa-search md-tip" onclick="AWS.dialog('ajaxData', {'title':'<?php _e('内容审核'); ?>', 'url':G_BASE_URL + '/admin/approval/preview/<?php echo $val['id']; ?>'});" data-original-title="查看内容"></a> &nbsp; <?php echo htmlspecialchars($val['data']['title']); ?></td>
+							<td>
+								<?php echo htmlspecialchars($val['data']['title']); ?>
+							</td>
 							<?php } ?>
 						
-							<td><a onclick="$.dialog('ajaxData', {'title':'<?php _e('内容审核'); ?>', 'url':G_BASE_URL + '/admin/approval/preview/<?php echo $val['id']; ?>'});"><?php if ($_GET['type'] == 'answer') { echo cjk_substr(htmlspecialchars($val['data']['answer_content']), 0, 128, 'UTF-8', '...'); } else if ($_GET['type'] == 'article' OR $_GET['type'] == 'article_comment') { echo cjk_substr(htmlspecialchars($val['data']['message']), 0, 128, 'UTF-8', '...'); } else { echo cjk_substr(htmlspecialchars($val['data']['question_detail']), 0, 128, 'UTF-8', '...'); } ?></a></td>
+							<td><a onclick="$.dialog('ajaxData', {'title':'<?php _e('内容审核'); ?>', 'url':G_BASE_URL + '/admin/approval/preview/<?php echo $val['id']; ?>'});"><?php if ($_GET['type'] == 'answer') { echo cjk_substr(htmlspecialchars($val['data']['answer_content']), 0, 128, 'UTF-8', '...'); } else if ($_GET['type'] == 'article' OR $_GET['type'] == 'article_comment') { echo cjk_substr(htmlspecialchars($val['data']['message']), 0, 128, 'UTF-8', '...'); } else { echo cjk_substr(htmlspecialchars($val['data']['question_detail']), 0, 128, 'UTF-8', '...'); } ?></a>
+							</td>
+
+							<td>
+								<a class="fa fa-search md-tip" onclick="AWS.dialog('ajaxData', {'title':'<?php _e('内容审核'); ?>', 'url':G_BASE_URL + '/admin/approval/preview/<?php echo $val['id']; ?>'});" data-original-title="查看内容"></a>
+							</td>
 						</tr>
 						<?php } ?>
 					</tbody>
