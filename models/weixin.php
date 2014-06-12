@@ -575,14 +575,14 @@ class weixin_class extends AWS_MODEL
 					switch ($child_param[0])
 					{
 						case 'FEATURE':
-							$topics_id = $this->model('feature')->get_topics_by_feature_id($child_param[1]);
+							$topic_ids = $this->model('feature')->get_topics_by_feature_id($child_param[1]);
 						break;
 					}
 				}
 
-				if ($topics_id)
+				if ($topic_ids)
 				{
-					$article_list = $this->model('article')->get_articles_list_by_topic_ids($param, 5, 'add_time DESC', $topics_id);
+					$article_list = $this->model('article')->get_articles_list_by_topic_ids($param, 5, 'add_time DESC', $topic_ids);
 				}
 				else
 				{
@@ -623,12 +623,12 @@ class weixin_class extends AWS_MODEL
 						break;
 
 						case 'FEATURE':
-							$topics_id = $this->model('feature')->get_topics_by_feature_id($child_param[1]);
+							$topic_ids = $this->model('feature')->get_topics_by_feature_id($child_param[1]);
 						break;
 					}
 				}
 
-				if ($question_list = $this->model('posts')->get_hot_posts('question', $category_id, array($topics_id), 7, $param, 5))
+				if ($question_list = $this->model('posts')->get_hot_posts('question', $category_id, $topic_ids, 7, $param, 5))
 				{
 					foreach ($question_list AS $key => $val)
 					{
@@ -669,12 +669,12 @@ class weixin_class extends AWS_MODEL
 						break;
 
 						case 'FEATURE':
-							$topics_id = $this->model('feature')->get_topics_by_feature_id($child_param[1]);
+							$topic_ids = $this->model('feature')->get_topics_by_feature_id($child_param[1]);
 						break;
 					}
 				}
 
-				if ($question_list = $this->model('posts')->get_posts_list('question', $param, 5, 'new', array($topics_id), $category_id))
+				if ($question_list = $this->model('posts')->get_posts_list('question', $param, 5, 'new', $topic_ids, $category_id))
 				{
 					foreach ($question_list AS $key => $val)
 					{
@@ -715,12 +715,12 @@ class weixin_class extends AWS_MODEL
 						break;
 
 						case 'FEATURE':
-							$topics_id = $this->model('feature')->get_topics_by_feature_id($child_param[1]);
+							$topic_ids = $this->model('feature')->get_topics_by_feature_id($child_param[1]);
 						break;
 					}
 				}
 
-				if ($question_list = $this->model('posts')->get_posts_list(null, $param, 5, 'new', array($topics_id), $category_id))
+				if ($question_list = $this->model('posts')->get_posts_list(null, $param, 5, 'new', $topic_ids, $category_id))
 				{
 					foreach ($question_list AS $key => $val)
 					{
@@ -780,12 +780,12 @@ class weixin_class extends AWS_MODEL
 						break;
 
 						case 'FEATURE':
-							$topics_id = $this->model('feature')->get_topics_by_feature_id($child_param[1]);
+							$topic_ids = $this->model('feature')->get_topics_by_feature_id($child_param[1]);
 						break;
 					}
 				}
 
-				if ($question_list = $this->model('posts')->get_posts_list('question', $param, 5, 'unresponsive', array($topics_id), $category_id))
+				if ($question_list = $this->model('posts')->get_posts_list('question', $param, 5, 'unresponsive', $topic_ids, $category_id))
 				{
 					foreach ($question_list AS $key => $val)
 					{
@@ -826,12 +826,12 @@ class weixin_class extends AWS_MODEL
 						break;
 
 						case 'FEATURE':
-							$topics_id = $this->model('feature')->get_topics_by_feature_id($child_param[1]);
+							$topic_ids = $this->model('feature')->get_topics_by_feature_id($child_param[1]);
 						break;
 					}
 				}
 
-				if ($question_list = $this->model('posts')->get_posts_list('question', $param, 5, null, array($topics_id), $category_id, null, null, true))
+				if ($question_list = $this->model('posts')->get_posts_list('question', $param, 5, null, $topic_ids, $category_id, null, null, true))
 				{
 					foreach ($question_list AS $key => $val)
 					{
