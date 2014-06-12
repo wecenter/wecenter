@@ -62,11 +62,8 @@
 					</table>
 				<?php } ?>
 				</div>
-<<<<<<< HEAD
-				<div class="mod-table-foot">
-=======
+
 				<div class="mod-table-foot clearfix">
->>>>>>> 13a71320a7a9089bc58dd675648a79fea6e05e66
 					<?php echo $this->pagination; ?>
 				</div>
 			</div>
@@ -93,23 +90,14 @@
 					</div>
 					
 					<div class="form-group">
-						<label class="col-sm-2 col-xs-3 control-label"><?php _e('分类'); ?>:</label>
-							
-						<div class="col-sm-5 col-xs-8">
-							<select name="category_id" class="form-control">
-								<option value="0"></option>
-								<?php echo $this->category_list; ?>
-							</select>
-		                </div>
-					</div>
-					
-					<div class="form-group">
 						<label class="col-sm-2 col-xs-3 control-label"><?php _e('用户组'); ?>:</label>
 		
 						<div class="col-sm-5 col-xs-8">
-							<select name="category_id" class="form-control">
-								<option value="0"></option>
-								<?php echo $this->category_list; ?>
+							<select name="group_id" class="form-control">
+								<option value=""></option>
+								<?php foreach($this->system_group as $skey => $sval) { ?>
+								<option value="<?php echo $sval['group_id']; ?>"<?php if ($_GET['group_id'] == $sval['group_id']) { ?> selected="selected"<?php } ?>><?php echo $sval['group_name']; ?></option>
+							<?php } ?>
 							</select>
 		                </div>
 					</div>
