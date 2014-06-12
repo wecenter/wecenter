@@ -193,6 +193,8 @@ textarea{resize: none;}
 .aw-wechat-dropdown-box .ajax-look{right: -60px;}
 /*编辑用户资料*/
 #remove_user_form label{margin-right: 15px;}
+#integral_form span.mod-category-foot{padding: 0;line-height: 35px;text-align: right;}
+#integral_form .col-xs-11{line-height: 35px;}
 /* 弹窗 */
 .aw-category-move-box .modal-dialog{width: 350px;}
 
