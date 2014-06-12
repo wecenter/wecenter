@@ -301,7 +301,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 		$this->model('category')->update_category($category_id, $update_data);
 		
 		H::ajax_json_output(AWS_APP::RSM(array(
-			'url' => get_setting('base_url') . '/' . G_INDEX_SCRIPT . 'admin/category/list/'
+			'url' => get_js_url('admin/category/list/')
 		), 1, null));
 	}
 
@@ -337,5 +337,345 @@ class ajax extends AWS_ADMIN_CONTROLLER
 		$this->model('category')->move_contents($_POST['from_id'], $_POST['target_id']);
 		
 		H::ajax_json_output(AWS_APP::RSM(null, 1, null));
+	}
+	
+	public function edm_add_group_action()
+	{
+		@set_time_limit(0);
+		
+		if (trim($_POST['title']) == '')
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('请填写用户群名称')));
+		}
+				
+		$usergroup_id = $this->model('edm')->add_group($_POST['title']);
+				
+		switch ($_POST['import_type'])
+		{
+			case 'text':
+				if ($email_list = explode("\n", str_replace(array("\r", "\t"), "\n", $_POST['email'])))
+				{
+					foreach ($email_list AS $key => $email)
+					{
+						$this->model('edm')->add_user_data($usergroup_id, $email);
+					}
+				}
+			break;
+			
+			case 'system_group':
+				if ($_POST['user_groups'])
+				{
+					foreach ($_POST['user_groups'] AS $key => $val)
+					{
+						$this->model('edm')->import_system_email_by_user_group($usergroup_id, $val);
+					}
+				}
+			break;
+			
+			case 'reputation_group':
+				if ($_POST['user_groups'])
+				{
+					foreach ($_POST['user_groups'] AS $key => $val)
+					{
+						$this->model('edm')->import_system_email_by_reputation_group($usergroup_id, $val);
+					}
+				}
+			break;
+			
+			case 'last_active':
+				if ($_POST['last_active'])
+				{
+					$this->model('edm')->import_system_email_by_last_active($usergroup_id, $_POST['last_active']);
+				}
+			break;
+		}
+		
+		H::ajax_json_output(AWS_APP::RSM(null, 1, null));
+	}
+	
+	public function edm_add_task_action()
+	{
+		if (trim($_POST['title']) == '')
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请填写任务名称')));
+		}
+					
+		if (trim($_POST['subject']) == '')
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请填写邮件标题')));
+		}
+					
+		if (intval($_POST['usergroup_id']) == 0)
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择用户群组')));
+		}
+					
+		if (trim($_POST['from_name']) == '')
+		{
+			$_POST['from_name'] = get_setting('site_name');
+		}
+					
+		$task_id = $this->model('edm')->add_task($_POST['title'], $_POST['subject'], $_POST['message'], $_POST['from_name']);
+		
+		$this->model('edm')->import_group_data_to_task($task_id, $_POST['usergroup_id']);
+		
+		H::ajax_json_output(AWS_APP::RSM(null, 1, AWS_APP::lang()->_t('任务建立完成')));
+					
+	}
+	
+	public function save_feature_action()
+	{
+		$feature_id = intval($_GET['feature_id']);
+		
+		if (trim($_POST['title']) == '')
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('专题标题不能为空')));
+		}
+		
+		if ($feature_id)
+		{
+			$feature = $this->model('feature')->get_feature_by_id($feature_id);
+		}
+		
+		if ($_POST['url_token'])
+		{
+			if (!preg_match("/^(?!__)[a-zA-Z0-9_]+$/i", $_POST['url_token']))
+			{
+				H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('专题别名只允许输入英文或数字')));
+			}
+			
+			if (preg_match("/^[\d]+$/i", $_POST['url_token']) AND ($feature_id != $_POST['url_token']))
+			{
+				H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('专题别名不可以全为数字')));
+			}
+		
+			if ($this->model('feature')->check_url_token($_POST['url_token'], $feature_id))
+			{
+				H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('专题别名已经被占用请更换一个')));
+			}
+		}
+		
+		if (! $feature_id)
+		{		
+			$feature_id = $this->model('feature')->add_feature($_POST['title']);
+
+			if ($_POST['add_nav_menu'])
+			{
+				$this->model('menu')->add_nav_menu($_POST['title'], htmlspecialchars($_POST['description']), 'feature', $feature_id);
+			}
+		}
+		
+		if ($_POST['topics'])
+		{			
+			if ($topics = explode("\n", $_POST['topics']))
+			{
+				$this->model('feature')->empty_topics($feature_id);
+			}
+			
+			foreach ($topics AS $key => $topic_title)
+			{
+				if ($topic_info = $this->model('topic')->get_topic_by_title(trim($topic_title)))
+				{
+					$this->model('feature')->add_topic($feature_id, $topic_info['topic_id']);
+				}
+			}
+		}
+	
+		$update_data = array(
+			'title' => $_POST['title'],
+			'description' => htmlspecialchars($_POST['description']),
+			'css' => htmlspecialchars($_POST['css']),
+			'url_token' => $_POST['url_token'],
+			'seo_title' => htmlspecialchars($_POST['seo_title'])
+		);
+	
+		if ($_FILES['icon']['name'])
+		{
+			AWS_APP::upload()->initialize(array(
+				'allowed_types' => 'jpg,jpeg,png,gif',
+				'upload_path' => get_setting('upload_dir') . '/feature',
+				'is_image' => TRUE
+			))->do_upload('icon');
+			
+			
+			if (AWS_APP::upload()->get_error())
+			{
+				switch (AWS_APP::upload()->get_error())
+				{
+					default:
+						H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('错误代码') . ': ' . AWS_APP::upload()->get_error()));
+					break;
+					
+					case 'upload_invalid_filetype':
+						H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('文件类型无效')));
+					break;	
+				}
+			}
+			
+			if (! $upload_data = AWS_APP::upload()->data())
+			{
+				H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('上传失败, 请与管理员联系')));
+			}
+
+			foreach (AWS_APP::config()->get('image')->feature_thumbnail as $key => $val)
+			{
+				$thumb_file[$key] = $upload_data['file_path'] . $feature_id . "_" . $val['w'] . "_" . $val['h'] . '.jpg';
+				
+				AWS_APP::image()->initialize(array(
+					'quality' => 90,
+					'source_image' => $upload_data['full_path'],
+					'new_image' => $thumb_file[$key],
+					'width' => $val['w'],
+					'height' => $val['h']
+				))->resize();	
+			}
+			
+			unlink($upload_data['full_path']);
+			
+			$update_data['icon'] = basename($thumb_file['min']);
+		}
+	
+		$this->model('feature')->update_feature($feature_id, $update_data);
+	
+		H::ajax_json_output(AWS_APP::RSM(array(
+			'url' => get_js_url('/admin/feature/list/')
+		), 1, null));
+	}
+	
+	public function remove_feature_action()
+	{
+		$this->model('feature')->delete_feature($_POST['feature_id']);
+		
+		H::ajax_json_output(AWS_APP::RSM(null, 1, null));
+	}
+	
+	public function save_feature_status_action()
+	{
+		if ($_POST['feature_ids'])
+		{
+			foreach ($_POST['feature_ids'] AS $feature_id => $val)
+			{
+				$this->model('feature')->update_feature_enabled($feature_id, $_POST['enabled_status'][$feature_id]);
+			}
+		}
+		
+		H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('规则状态已自动保存')));
+	}
+	
+	public function save_nav_menu_action()
+	{
+		if ($_POST['nav_sort'])
+		{
+			if ($menu_ids = explode(',', $_POST['nav_sort']))
+			{
+				foreach($menu_ids as $key => $val)
+				{
+					$this->model('menu')->update_nav_menu($val, array('sort' => $key));
+				}
+			}
+		}
+		
+		if ($_POST['nav_menu'])
+		{
+			foreach($_POST['nav_menu'] as $key => $val)
+			{
+				$this->model('menu')->update_nav_menu($key, $val);
+			}
+		}
+		
+		$setting_update['category_display_mode'] = $_POST['category_display_mode'];
+		$setting_update['nav_menu_show_child'] = isset($_POST['nav_menu_show_child']) ? 'Y' : 'N';
+		
+		$this->model('setting')->set_vars($setting_update);
+
+		H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('导航菜单保存成功')));
+	}
+
+	public function add_nav_menu_action()
+	{
+		switch ($_POST['type'])
+		{
+			case 'category' :
+				$type_id = intval($_POST['type_id']);
+				$category = $this->model('system')->get_category_info($type_id);
+				$title = $category['title'];
+			break;
+			
+			case 'feature' :
+				$type_id = intval($_POST['type_id']);
+				$feature = $this->model('feature')->get_feature_by_id($type_id);
+				$title = $feature['title'];
+			break;
+			
+			case 'custom' :
+				$title = trim($_POST['title']);
+				$description = trim($_POST['description']);
+				$link = trim($_POST['link']);
+				$type_id = 0;
+			break;
+		}
+		
+		if (!$title)
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('导航标签不能为空')));
+		}
+		
+		$this->model('menu')->add_nav_menu($title, $description, $_POST['type'], $type_id, $link);
+		
+		H::ajax_json_output(AWS_APP::RSM(null, 1, null));
+	}
+	
+	public function remove_nav_menu_action()
+	{
+		$this->model('menu')->remove_nav_menu($_POST['id']);
+		
+		H::ajax_json_output(AWS_APP::RSM(null, 1, null));
+	}
+	
+	public function nav_menu_upload_action()
+	{
+		AWS_APP::upload()->initialize(array(
+			'allowed_types' => 'jpg,jpeg,png,gif',
+			'upload_path' => get_setting('upload_dir') . '/nav_menu',
+			'is_image' => TRUE,
+			'file_name' => intval($_GET['id']) . '.jpg',
+			'encrypt_name' => FALSE
+		))->do_upload('attach');
+		
+		if (AWS_APP::upload()->get_error())
+		{
+			switch (AWS_APP::upload()->get_error())
+			{
+				default:
+					H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('错误代码') . ': ' . AWS_APP::upload()->get_error()));
+				break;
+				
+				case 'upload_invalid_filetype':
+					H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('文件类型无效')));
+				break;
+			}
+		}
+		
+		if (! $upload_data = AWS_APP::upload()->data())
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('上传失败, 请与管理员联系')));
+		}
+		
+		if ($upload_data['is_image'] == 1)
+		{
+			AWS_APP::image()->initialize(array(
+				'quality' => 90,
+				'source_image' => $upload_data['full_path'],
+				'new_image' => $upload_data['full_path'],
+				'width' => 50,
+				'height' => 50
+			))->resize();	
+		}
+		
+		$this->model('menu')->update_nav_menu($_GET['id'], array('icon' => basename($upload_data['full_path'])));
+		
+		H::ajax_json_output(AWS_APP::RSM(array(
+			'preview' => get_setting('upload_url') . '/nav_menu/' . basename($upload_data['full_path'])
+		), 1, null));
 	}
 }
