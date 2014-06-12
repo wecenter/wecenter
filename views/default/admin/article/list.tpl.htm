@@ -17,7 +17,7 @@
 				<div class="alert alert-info"><?php _e('找到 %s 条符合条件的内容', intval($this->articles_count)); ?></div>
 				<?php } ?>
 				
-				<form id="batchs_form" action="admin/article/article_batch/" method="post">
+				<form id="batchs_form" action="admin/ajax/article_manage/" method="post">
 				<input type="hidden" id="action" name="action" value="del" />
 				<div class="table-responsive">
 				<?php if ($this->list) { ?>
