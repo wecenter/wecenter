@@ -327,7 +327,7 @@ var AW_TEMPLATE = {
 						'<h3 class="modal-title" id="myModalLabel">{{title}}</h3>'+
 					'</div>'+
 					'<div class="modal-body">'+
-						'<p>{{data}}</p>'+
+						'{{data}}'+
 					'</div>'+
 				'</div>'+
 			'</div>'+

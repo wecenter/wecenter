@@ -200,6 +200,9 @@ textarea{resize: none;}
 #integral_form .col-xs-11{line-height: 35px;}
 /* 弹窗 */
 .aw-category-move-box .modal-dialog{width: 350px;}
+.aw-topic-edit-note-box img{max-width: 530px;}
+.aw-topic-edit-note-box #aw_dialog_ajax_data{max-height: 450px;overflow-y: scroll;}
+
 
 /*响应式兼容start*/
 /* iCheck plugin Square skin, blue

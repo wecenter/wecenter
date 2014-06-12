@@ -1233,7 +1233,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 		H::ajax_json_output(AWS_APP::RSM(null, 1, null));
 	}
 
-	public function add_job_ajax_action()
+	public function add_job_action()
 	{
 		if (!$_POST['jobs'])
 		{

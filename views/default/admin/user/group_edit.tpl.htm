@@ -2,7 +2,7 @@
 <?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
 
 <div class="aw-content-wrap">
-	<form action="admin/user/edit_user_group_permission/" id="settings_form" method="post" onsubmit="return false">
+	<form action="admin/ajax/edit_user_group_permission/" id="settings_form" method="post" onsubmit="return false">
 	<input type="hidden" name="group_id" value="<?php echo $this->group['group_id']; ?>" />
 	<div class="mod">
 		<div class="mod-head">
