@@ -11,6 +11,7 @@
 .nav .open > a, .nav .open > a:hover, .nav .open > a:focus{background-color: #fff;}
 .table-striped > tbody > tr:nth-child(odd) > td, .table-striped > tbody > tr:nth-child(odd) > th {background-color: #F5F8FA;}
 .table-striped > tbody > tr:first-child td{border-top: none;}
+.alert{padding: 5px 15px;}
 
 /*公共部分*/
 body,a{color: #080808; font: 14px/1.5em "microsoft yahei";}
