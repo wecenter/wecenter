@@ -15,7 +15,7 @@
 		<div class="mod-body tab-content">
 			<div class="alert alert-success hide error_message"></div>
 			
-			<form action="admin/feature/save_feature_status/" method="post" id="feature_form">
+			<form action="admin/ajax/save_feature_status/" method="post" id="feature_form">
 			<div class="table-responsive">
 			<?php if ($this->list) { ?>
 				<table class="table table-striped">
@@ -40,7 +40,7 @@
 							<td><?php echo $val['description']; ?></td>
 							<td><?php if ($val['topic_count']) { ?><?php _e('%s 个话题', $val['topic_count']); ?><?php } else { ?> - <?php } ?></td>
 							<td><a href="admin/feature/edit/feature_id-<?php echo $val['id']; ?>" title="<?php _e('编辑'); ?>" class="fa fa-pencil md-tip"></a>
-							<a onclick="AWS.ajax_request(G_BASE_URL + '/admin/feature/delete_feature_ajax/', 'feature_id=<?php echo $val['id']; ?>');" title="<?php _e('删除'); ?>" class="fa fa-trash-o md-tip"></td>
+							<a onclick="AWS.ajax_request(G_BASE_URL + '/admin/ajax/remove_feature/', 'feature_id=<?php echo $val['id']; ?>');" title="<?php _e('删除'); ?>" class="fa fa-trash-o md-tip"></td>
 						</tr>
 						<?php } ?>
 					</tbody>

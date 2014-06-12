@@ -3,7 +3,7 @@
 
 <div class="aw-content-wrap">
     <div class="tab-content mod-content">
-	<form action="admin/nav_menu/save_ajax/" method="post" id="nav_menu_list" onsubmit="return false">
+	<form action="admin/ajax/save_nav_menu/" method="post" id="nav_menu_list" onsubmit="return false">
         <div class="row">
         <div class="col-md-12">
         <div class="row">
@@ -13,7 +13,7 @@
             <a class="btn btn-success btn-xs pull-right" onclick="AWS.ajax_post($('#nav_menu_list'));"><?php _e('保存菜单设置'); ?></a>
             <h3>
                 <?php _e('导航菜单'); ?>
-                <span>拖动菜单可调整导航菜单排序</span>
+                <span><?php _e('拖动菜单可调整导航菜单排序'); ?></span>
             </h3>
         </div>
         <div class="mod-set-body">
@@ -34,7 +34,7 @@
 			<?php if ($val['title']) { ?>
 			<li data-sort="<?php echo $val['id']; ?>" data-cursor="pointer">
 				<div class="mod-set-head">
-					<span class="pull-right"><a href="javascript:;" onclick="if (confirm('<?php _e('确认删除?'); ?>')) { ajax_request(G_BASE_URL + '/admin/nav_menu/remove_nav_menu/nav_menu_id-<?php echo $val['id']; ?>'); }"><?php _e('删除'); ?></a></span>
+					<span class="pull-right"><a href="javascript:;" onclick="if (confirm('<?php _e('确认删除?'); ?>')) { AWS.ajax_request(G_BASE_URL + '/admin/ajax/remove_nav_menu/', 'id=<?php echo $val['id']; ?>'); }"><?php _e('删除'); ?></a></span>
 					<h4><?php echo $val['title']; ?> (<?php if ($val['type'] == 'category') { ?><?php _e('分类'); ?><?php } else if ($val['type'] == 'feature') { ?><?php _e('专题'); ?><?php } else { ?><?php _e('自定义链接'); ?><?php } ?>)</h4>
 				</div>
 				<div class="mod-set-body clearfix">
@@ -82,7 +82,7 @@
                         <h3>分类</h3>
                     </div>
                     <div class="mod-set-body">
-                        <form action="admin/nav_menu/add_menu_ajax/" method="post">
+                        <form action="admin/ajax/add_nav_menu/" method="post">
                             <input type="hidden" name="type" value="category">
                             <select name="type_id" class="form-control pull-left input-small">
 								<option value="0"><?php _e('无'); ?></option>
@@ -99,7 +99,7 @@
                         <h3>专题</h3>
                     </div>
                     <div class="mod-set-body">
-                        <form action="admin/nav_menu/add_menu_ajax/" method="post">
+                        <form action="admin/ajax/add_nav_menu/" method="post">
                             <input type="hidden" name="type" value="feature">
                             <a onclick="AWS.ajax_post($(this).parents('form'));" class="btn btn-primary"><?php _e('添加至导航菜单'); ?></a>
                         </form>
@@ -143,7 +143,7 @@ $(document).ready(function () {
 	<?php if ($this->nav_menu_list) { ?>
 	<?php foreach($this->nav_menu_list as $key => $val) { ?>
 		<?php if ($val['title']) { ?>
-		AWS.Init.init_img_uploader(G_BASE_URL + '/admin/nav_menu/icon_upload_ajax/nav_menu_id-<?php echo $val['id']; ?>', 'icon_file', $('#aw-nav-menu-img-upload-<?php echo $val['id']; ?>'), null, $('#aw-nav-menu-img-<?php echo $val['id']; ?>'));
+		AWS.Init.init_img_uploader(G_BASE_URL + '/admin/ajax/nav_menu_upload/<?php echo $val['id']; ?>', 'attach', $('#aw-nav-menu-img-upload-<?php echo $val['id']; ?>'), null, $('#aw-nav-menu-img-<?php echo $val['id']; ?>'));
 		<?php } ?>
 	<?php } ?>
 	<?php } ?>

@@ -68,7 +68,7 @@ class category_class extends AWS_MODEL
 	
 	public function move_contents($from_id, $target_id)
 	{
-		if ($from_id OR !$target_id)
+		if (!$from_id OR !$target_id)
 		{
 			return false;
 		}

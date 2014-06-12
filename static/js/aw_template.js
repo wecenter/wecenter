@@ -523,16 +523,17 @@ var AW_TEMPLATE = {
 	'adminCategoryMove' :
 		'<div class="modal fade alert-box aw-category-move-box">'+
 			'<div class="modal-dialog">'+
-				'<form method="post" id="settings_form" action="' + G_BASE_URL + '/admin/category/move_contents_process/">'+
+				'<form method="post" id="settings_form" action="' + G_BASE_URL + '/admin/ajax/move_category_contents/">'+
 					'<div class="modal-content">'+
 						'<div class="modal-header">'+
 							'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
 							'<h3 class="modal-title" id="myModalLabel">' + _t('分类移动') + '</h3>'+
 						'</div>'+
 						'<div class="modal-body">'+
+							'<div class="alert alert-danger hide error_message"></div>'+
 							'<div class="row">'+
 								'<div class="col-md-6 hide">'+
-									'<select class="from-category form-control" name="from_ids[]">'+
+									'<select class="from-category form-control" name="from_id">'+
 										'{{#items}}'+
 											'<option value="{{id}}">{{title}}</option>'+
 										'{{/items}}'+
@@ -549,7 +550,7 @@ var AW_TEMPLATE = {
 						'</div>'+
 						'<div class="modal-footer">'+
 							'<a class="btn btn-default">取消</a>'+
-							'<a class="btn btn-success" onclick="AWS.ajax_post($(\'#settings_form\'))">确定</a>'+
+							'<a class="btn btn-success" onclick="AWS.ajax_post($(\'#settings_form\'), AWS.ajax_processer, \'error_message\')">确定</a>'+
 						'</div>'+
 					'</div>'+
 				'</form>'+

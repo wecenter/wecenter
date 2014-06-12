@@ -36,7 +36,7 @@
                         <td >
                             <a href="admin/category/edit/category_id-<?php echo $val['id']; ?>" data-toggle="tooltip" class="fa fa-pencil md-tip" title="<?php _e('编辑'); ?>"></a>
                             <a onclick="ajax_request(G_BASE_URL + '/admin/ajax/remove_category/', 'category_id=<?php echo $val['id'];?>');" data-toggle="tooltip" class="fa fa-trash-o md-tip" title="<?php _e('删除'); ?>"></a>
-                            <a data-id="<?php echo $val['id']; ?>" data-url="admin/category/move_contents/category_id-" data-toggle="tooltip" class="fa fa-exchange md-tip move" title="<?php _e('批量移动'); ?>"></a>
+                            <a data-id="<?php echo $val['id']; ?>" data-name="<?php echo $val['title']?>" data-url="admin/category/move_contents/category_id-" data-toggle="tooltip" class="fa fa-exchange md-tip move" title="<?php _e('批量移动'); ?>"></a>
                         </td>
                     </tr>
                     <?php } ?>
@@ -104,9 +104,9 @@
 
         $('.move').click(function()
         {
-            json = json + ",{'category_id': '" + $(this).attr("data-id") + "'}";
             AWS.dialog('adminCategoryMove', eval('[' + json + ']'));
             $('.from-category').val($(this).attr('data-id'));
+            $('.aw-category-move-box .col-md-12').prepend('<p>将' + $(this).attr('data-name') + '批量移动到</p>');
         });
 	});
 </script>
