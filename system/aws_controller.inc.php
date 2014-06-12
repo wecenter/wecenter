@@ -355,7 +355,7 @@ class AWS_ADMIN_CONTROLLER extends AWS_CONTROLLER
 
 		if (in_array($_GET['act'], array(
 			'login',
-			'login_process_ajax',
+			'login_process',
 		)))
 		{
 			return true;
