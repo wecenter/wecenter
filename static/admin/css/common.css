@@ -21,6 +21,7 @@ ul, ol{padding:0;list-style: none;}
 .middle{line-height: 32px;}
 .nowrap{white-space: nowrap;}
 .aw-text-color-999{margin:2px 0 0 0;color: #999;font-size: 11px;}
+label{font-weight: normal;}
 
 /*后台header start*/
 .aw-header{position: fixed; top:0; z-index: 999; margin-bottom: 0; width: 100%; height: 50px; border: none; border-bottom: 1px solid #d5d5d5; background: #fff;}
@@ -87,6 +88,7 @@ ul, ol{padding:0;list-style: none;}
 /*右侧公共部分*/
 .mod-padding{padding-left: 0;}
 .mod-symbol{margin-left: -2px; padding: 0; width: 1px; text-align: center; font-size: 22px;}
+.mod-table-foot .clpadding{padding: 0;line-height: 35px;}
 
 /* 右侧公共头部部分 mod-head*/
 .aw-content-wrap .mod-border{border-top: none;}
