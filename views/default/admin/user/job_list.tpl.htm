@@ -4,9 +4,7 @@
 <div class="aw-content-wrap">
     <div class="mod">
         <div class="mod-head">
-            <h3>
-                <span class="pull-left"><?php _e('职位设置'); ?></span>
-            </h3>
+            <span class="pull-left"><?php _e('职位设置'); ?></span>
         </div>
 
         <div class="tab-content mod-body">
@@ -40,37 +38,45 @@
                     </tbody>
 					<tfoot>
 					<tr>
-						<td>
-							<input type="button" value="<?php _e('保存'); ?>" class="btn btn-primary center-block" onclick="AWS.ajax_post($('#category_form'));" />
+						<td colspan="3">
+							<input type="button" value="<?php _e('保存设置'); ?>" class="btn btn-primary center-block" onclick="AWS.ajax_post($('#category_form'));" />
 						</td>
 					</tr>
 					</tfoot>
                 </table>
-				<form id="_save_form" action="admin/user/add_job_ajax/" method="post">
-				<table class="table table-striped">
-					<tr>
-						<td>
-							<div class="form-group">
-								<span class="col-sm-4 col-xs-3 control-label"><?php _e('添加新职位'); ?>:</span>
-								<div class="col-sm-5 col-xs-8">
-									<textarea class="form-control" name="jobs" rows="6"></textarea>
-				
-									<span class="help-block"><?php _e('一行一个职位名称'); ?></span>
-								</div>
-							</div>
-						</td>
-					</tr>
-					<tfoot>
-					<tr>
-						<td>
-							<input type="button" value="<?php _e('添加新职位'); ?>" class="btn btn-primary center-block" onclick="AWS.ajax_post($('#_save_form'));" />
-						</td>
-					</tr>
-					</tfoot>
-				</table>
-				</form>
             </div>
         </div>
+
+        <div class="mod-head">
+        	<span class="pull-left"><?php _e('职位列表'); ?></span>
+		</div>
+		 <div class="tab-content mod-body">
+            <div class="table-responsive">
+                <form id="_save_form" action="admin/user/add_job_ajax/" method="post">
+					<table class="table table-striped">
+						<tr>
+							<td>
+								<div class="form-group">
+									<span class="col-sm-4 col-xs-3 control-label"><?php _e('添加新职位'); ?>:</span>
+									<div class="col-sm-5 col-xs-8">
+										<textarea class="form-control" name="jobs" rows="6"></textarea>
+					
+										<span class="help-block"><?php _e('一行一个职位名称'); ?></span>
+									</div>
+								</div>
+							</td>
+						</tr>
+						<tfoot>
+						<tr>
+							<td>
+								<input type="button" value="<?php _e('添加新职位'); ?>" class="btn btn-primary center-block" onclick="AWS.ajax_post($('#_save_form'));" />
+							</td>
+						</tr>
+						</tfoot>
+					</table>
+				</form>
+			</div>	
+		</div>    
     </div>
 </div>
 

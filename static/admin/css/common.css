@@ -137,7 +137,7 @@ textarea{resize: none;}
 .aw-content-wrap .tab-content ul p{margin: 10px 90px 0 0;}
 .aw-content-wrap li.mod-site-rule{min-height: 230px; height: auto;}
 .aw-content-wrap .tab-content ul textarea{margin: 5px 0 0 0;}
-.aw-content-wrap .tab-content .help-block{clear: both; overflow:hidden; margin: 0; padding: 10px 10px 10px 5px; font-size: 12px; line-height: 1.8em;}
+.aw-content-wrap .tab-content .help-block{clear: both;text-align: left; overflow:hidden; margin: 0; padding: 10px 10px 10px 5px; font-size: 12px; line-height: 1.8em;}
 .aw-content-wrap .tab-content .help-block a{padding: 0 5px; color: #3276b1; font-size: 12px;}
 
 /*wechat 页面 左侧菜单区域*/
