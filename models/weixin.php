@@ -1389,14 +1389,14 @@ class weixin_class extends AWS_MODEL
 
 	public function add_article_or_question_ids_to_cache($article_ids = null, $question_ids = null)
 	{
-		$old_article_ids = AWS_APP::cache()->get('unsent_article_ids');
+		$old_article_ids = AWS_APP::cache()->get('send_msg_batch_article_ids');
 
 		if ($old_article_ids)
 		{
 			$article_ids = array_unique(array_filter(array_merge($article_ids, $old_article_ids)));
 		}
 
-		$old_question_ids = AWS_APP::cache()->get('unsent_question_ids');
+		$old_question_ids = AWS_APP::cache()->get('send_msg_batch_question_ids');
 
 		if ($old_question_ids)
 		{
@@ -1414,14 +1414,14 @@ class weixin_class extends AWS_MODEL
 		{
 			natsort($article_ids);
 
-			AWS_APP::cache()->set('unsent_article_ids', $article_ids, 86400);
+			AWS_APP::cache()->set('send_msg_batch_article_ids', $article_ids, 86400);
 		}
 
 		if ($question_ids)
 		{
 			natsort($question_ids);
 
-			AWS_APP::cache()->set('unsent_question_ids', $question_ids, 86400);
+			AWS_APP::cache()->set('send_msg_batch_question_ids', $question_ids, 86400);
 		}
 
 		return AWS_APP::lang()->_t('已添加至待群发队列');
@@ -1641,9 +1641,9 @@ class weixin_class extends AWS_MODEL
 					'filter_count' => intval($filter_count)
 				));
 
-		AWS_APP::cache()->delete('unsent_article_ids');
+		AWS_APP::cache()->delete('send_msg_batch_article_ids');
 
-		AWS_APP::cache()->delete('unsent_question_ids');
+		AWS_APP::cache()->delete('send_msg_batch_question_ids');
 	}
 
 	public function update_sent_msg($msg_id, $msg_details)
