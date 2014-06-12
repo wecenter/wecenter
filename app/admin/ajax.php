@@ -1394,4 +1394,281 @@ class ajax extends AWS_ADMIN_CONTROLLER
 			'url' => get_js_url('/admin/user/list/')
 		), 1, null));
 	}
+	
+	public function weixin_save_reply_rule_status_action()
+	{
+		if ($_POST['rule_ids'])
+		{
+			foreach ($_POST['rule_ids'] AS $rule_id => $val)
+			{
+				$this->model('weixin')->update_reply_rule_enabled($rule_id, $_POST['enabled_status'][$rule_id]);
+				$this->model('weixin')->update_reply_rule_sort($rule_id, $_POST['sort_status'][$rule_id]);
+			}
+
+			if ($_POST['is_subscribe'])
+			{
+				$this->model('setting')->set_vars(array(
+					'weixin_subscribe_message_key' => $_POST['is_subscribe']
+				));
+			}
+
+			if ($_POST['is_no_result'])
+			{
+				$this->model('setting')->set_vars(array(
+					'weixin_no_result_message_key' => $_POST['is_no_result']
+				));
+			}
+		}
+
+		H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('规则状态已自动保存')));
+	}
+
+	public function weixin_remove_reply_rule_action()
+	{
+		$this->model('weixin')->remove_reply_rule($_POST['id']);
+
+		H::ajax_json_output(AWS_APP::RSM(null, 1, null));
+	}
+
+	public function weixin_mp_menu_list_image_upload_action()
+	{
+		AWS_APP::upload()->initialize(array(
+			'allowed_types' => 'jpg,jpeg,png,gif',
+			'upload_path' => get_setting('upload_dir') . '/weixin/list_image/',
+			'is_image' => TRUE,
+			'file_name' => str_replace(array('/', '\\', '.'), '', $_GET['attach_access_key']) . '.jpg',
+			'encrypt_name' => FALSE
+		));
+
+		if ($_GET['attach_access_key'])
+		{
+			AWS_APP::upload()->do_upload('list_image');
+		}
+		else
+		{
+			return false;
+		}
+
+		if (AWS_APP::upload()->get_error())
+		{
+			switch (AWS_APP::upload()->get_error())
+			{
+				default:
+					die("{'error':'错误代码: " . AWS_APP::upload()->get_error() . "'}");
+				break;
+
+				case 'upload_invalid_filetype':
+					die("{'error':'文件类型无效'}");
+				break;
+
+				case 'upload_invalid_filesize':
+					die("{'error':'文件尺寸过大, 最大允许尺寸为 " . get_setting('upload_size_limit') .  " KB'}");
+				break;
+			}
+		}
+
+		if (! $upload_data = AWS_APP::upload()->data())
+		{
+			die("{'error':'上传失败, 请与管理员联系'}");
+		}
+
+		if ($upload_data['is_image'] == 1)
+		{
+			AWS_APP::image()->initialize(array(
+				'quality' => 90,
+				'source_image' => $upload_data['full_path'],
+				'new_image' => $upload_data['full_path'],
+				'width' => 640,
+				'height' => 320
+			))->resize();
+
+			AWS_APP::image()->initialize(array(
+				'quality' => 90,
+				'source_image' => $upload_data['full_path'],
+				'new_image' => get_setting('upload_dir') . '/weixin/list_image/square_' . basename($upload_data['full_path']),
+				'width' => 80,
+				'height' => 80
+			))->resize();
+		}
+
+		H::ajax_json_output(AWS_APP::RSM(null, 1, null));
+	}
+	
+	public function weixin_save_accounts_action()
+	{
+		unset($_POST['_post_type']);
+
+		foreach ($_POST AS $name => $array)
+		{
+			foreach ($_POST[$name] AS $key => $value)
+			{
+				$accounts_info[$key][$name] = $value;
+			}
+		}
+
+		foreach ($accounts_info AS $account_info)
+		{
+			$account_info['weixin_mp_token'] = trim($account_info['weixin_mp_token']);
+
+			if (empty($account_info['weixin_mp_token']))
+			{
+				H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('微信公众平台接口 Token 不能为空')));
+			}
+
+			$account_info['id'] = intval($account_info['id']);
+
+			if ($account_info['id'])
+			{
+				$this->model('weixin')->add_account($account_info);
+			}
+			else
+			{
+				$this->model('weixin')->update_setting_or_account($account_info['id'], $account_info);
+			}
+		}
+
+		H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('添加和更新微信账号成功')));
+	}
+
+	public function weixin_remove_account_action()
+	{
+		$this->model('weixin')->del_account($_POST['id']);
+
+		H::ajax_json_output(AWS_APP::RSM(null, 1, null));
+	}
+
+	public function send_msg_action()
+	{
+		$group_id = intval($_POST['group_id']);
+		
+		$groups = $this->model('weixin')->get_groups();
+
+		$group_name = $groups[$group_id]['name'];
+
+		if (!isset($group_name))
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('选择的分组不存在')));
+		}
+
+		if (empty($_POST['main_msg_title']))
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请输入封面的标题')));
+		}
+
+		if (empty($_POST['main_msg_author']))
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请输入封面的作者')));
+		}
+
+		if (empty($_POST['main_msg_context']))
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请输入封面的内容')));
+		}
+
+		if (empty($_POST['main_msg_url']))
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请输入封面的原文链接')));
+		}
+
+		if ($_POST['show_cover_pic'] !== '0' OR $_POST['show_cover_pic'] !== '1')
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择是否显示封面')));
+		}
+
+		$article_ids = array_unique(array_filter(explode(',', $_POST['article_ids'])));
+
+		$question_ids = array_unique(array_filter(explode(',', $_POST['question_ids'])));
+
+		if (empty($article_ids) AND empty($question_ids))
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请添加要群发的文章或问题 id')));
+		}
+
+		$total = count($article_ids) + count($question_ids);
+
+		if ($total > 9)
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('最多可添加 9 个文章和问题')));
+		}
+
+		if (!empty($article_ids))
+		{
+			$error_msg = $this->model('weixin')->add_articles_to_mpnews($article_ids);
+
+			if (isset($error_msg))
+			{
+				H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('上传文章作者的头像失败, 错误信息: %s', $error_msg)));
+			}
+		}
+
+		if (!empty($question_ids))
+		{
+			$error_msg = $this->model('weixin')->add_questions_to_mpnews($question_ids);
+
+			if (isset($error_msg))
+			{
+				H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('上传问题作者的头像失败, 错误信息: %s', $error_msg)));
+			}
+		}
+
+		$error_msg = $this->model('weixin')->upload_mpnews();
+
+		if (isset($error_msg))
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('上传图文消息失败, 错误为: %s', $error_msg)));
+		}
+
+		if ($_FILES['main_msg_img']['error'] === UPLOAD_ERR_OK)
+		{
+			if ($_FILES['main_msg_img']['type'] != 'image/jpeg')
+			{
+				H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('只允许上传 jpeg 格式的图片')));
+			}
+
+			if ($_FILES['main_msg_img']['size'] > '262144')
+			{
+				H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('图片最大为 256KB')));
+			}
+
+			if (is_uploaded_file($_FILES['main_msg_img']['tmp_name']))
+			{
+				$main_msg_img = '@' . $_FILES['main_msg_img']['tmp_name'];
+			}
+			else
+			{
+				H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('上传失败, 请与管理员联系')));
+			}
+		}
+		else
+		{
+			$main_msg_img = AWS_APP::config()->get('weixin')->default_list_image;
+		}
+
+		$main_msg = array(
+			'author' => $_POST['main_msg_author'],
+			'title' => $_POST['main_msg_title'],
+			'url' => $_POST['main_msg_url'],
+			'context' => $_POST['main_msg_context'],
+			'img' => $main_msg_img,
+			'show_cover_pic' => $_POST['show_cover_pic']
+		);
+
+		$error_msg = $this->model('weixin')->add_main_msg_to_mpnews($main_msg);
+
+		if (isset($error_msg))
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('上传封面图失败, 错误信息: %s', $error_msg)));
+		}
+
+		$error_msg = $this->model('weixin')->send_msg($group_id, 'mpnews');
+
+		if (isset($error_msg))
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('群发任务提交失败, 错误信息: %s', $error_msg)));
+		}
+
+		$this->model('weixin')->save_sent_msg($group_name, $groups[$group_id]['count']);
+
+		H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('群发任务提交成功')));
+	}
 }
