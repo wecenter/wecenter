@@ -38,7 +38,7 @@
 							<td width="50%"><?php echo $val['description']; ?></td>
 							<td>
 								<a href="admin/page/edit/id-<?php echo $val['id']; ?>" title="<?php _e('编辑'); ?>" class="fa fa-pencil md-tip"></a>
-								<a onclick="ajax_request(G_BASE_URL + '/admin/page/page_remove/', 'id=<?php echo $val['id']; ?>');" title="<?php _e('删除'); ?>" class="fa fa-trash-o md-tip"></a>
+								<a onclick="AWS.ajax_request(G_BASE_URL + '/admin/page/page_remove/', 'id=<?php echo $val['id']; ?>');" title="<?php _e('删除'); ?>" class="fa fa-trash-o md-tip"></a>
 							</td>
 						</tr>
 						<?php } ?>

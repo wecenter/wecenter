@@ -10,7 +10,7 @@
 	<div class="mod-body">
 		<dl>
 				<dt><?php _e('账号'); ?>:</dt>
-				<dd><?php echo $this->user_info['email']; ?><?php if ($this->user_info['valid_email'] == 0) { ?> &nbsp; (<a href="javascript:;" onclick="ajax_request(G_BASE_URL + '/account/ajax/send_valid_mail/');"><?php _e('你的邮件地址还未验证, 请点击这里发送验证邮件'); ?></a>)<?php } ?></dd>
+				<dd><?php echo $this->user_info['email']; ?><?php if ($this->user_info['valid_email'] == 0) { ?> &nbsp; (<a onclick="AWS.ajax_request(G_BASE_URL + '/account/ajax/send_valid_mail/');"><?php _e('你的邮件地址还未验证, 请点击这里发送验证邮件'); ?></a>)<?php } ?></dd>
 		</dl>
 		<dl>
 				<dt><?php _e('真实姓名'); ?>:</dt>
