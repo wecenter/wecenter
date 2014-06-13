@@ -1558,7 +1558,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请输入封面的原文链接')));
 		}
 
-		if ($_POST['show_cover_pic'] !== '0' OR $_POST['show_cover_pic'] !== '1')
+		if ($_POST['show_cover_pic'] != 0 OR $_POST['show_cover_pic'] != 1)
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择是否显示封面')));
 		}
@@ -1629,7 +1629,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 		}
 		else
 		{
-			$main_msg_img = AWS_APP::config()->get('weixin')->default_list_image;
+			$main_msg_img = '@' . AWS_APP::config()->get('weixin')->default_list_image;
 		}
 
 		$main_msg = array(
