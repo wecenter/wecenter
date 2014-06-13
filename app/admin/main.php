@@ -49,10 +49,6 @@ class main extends AWS_ADMIN_CONTROLLER
 		
 		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(100));
 		
-		TPL::assign('statistic_questions', $this->model('statistic')->get_new_question_by_month(strtotime('-12 months'), time()));
-		
-		TPL::assign('statistic_answers', $this->model('statistic')->get_new_answer_by_month(strtotime('-12 months'), time()));
-		
 		TPL::output('admin/index');
 	}
 

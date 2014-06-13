@@ -70,7 +70,7 @@ class weixin_class extends AWS_MODEL
 			return array(
 				'id' => 0,
 				'weixin_mp_token' => get_setting('weixin_mp_token'),
-				'weixin_account_role' => get_setting('weixin_mp_token'),
+				'weixin_account_role' => get_setting('weixin_account_role'),
 				'weixin_app_id' => get_setting('weixin_app_id'),
 				'weixin_app_secret' => get_setting('weixin_app_secret'),
 				'wecenter_access_token' => get_setting('wecenter_access_token'),

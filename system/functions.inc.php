@@ -1086,3 +1086,50 @@ function remove_invisible_characters(&$str, $url_encoded = TRUE)
 	}
 	while ($count);
 }
+
+/**
+ * 生成一段时间的月份列表
+ * 
+ * @param string
+ * @param string
+ * @param string
+ * @param string
+ * @return array
+ */
+function get_month_list($timestamp1, $timestamp2, $year_format = 'Y', $month_format = 'm')
+{
+    $yearsyn = date($year_format, $timestamp1);
+    $monthsyn = date($month_format, $timestamp1);
+    $daysyn = date('d', $timestamp1);
+    
+    $yearnow = date($year_format, $timestamp2);
+    $monthnow = date($month_format, $timestamp2);
+    $daynow = date('d', $timestamp2);
+    
+    if ($yearsyn == $yearnow)
+    {
+        $monthinterval = $monthnow - $monthsyn;
+    }
+    else if ($yearsyn < $yearnow)
+    {
+        $yearinterval = $yearnow - $yearsyn -1;
+        $monthinterval = (12 - $monthsyn + $monthnow) + 12 * $yearinterval;
+    }    
+    
+    $timedata = array();
+    for ($i = 0; $i <= $monthinterval; $i++)
+    {
+        $tmptime = mktime(0, 0, 0, $monthsyn + $i, 1, $yearsyn);
+        $timedata[$i]['year'] = date($year_format, $tmptime);
+        $timedata[$i]['month'] = date($month_format, $tmptime);
+        $timedata[$i]['beginday'] = '01';
+        $timedata[$i]['endday'] = date('t', $tmptime);
+    }
+    
+    $timedata[0]['beginday'] = $daysyn;
+    $timedata[$monthinterval]['endday'] = $daynow;
+    
+    unset($tmptime);
+    
+    return $timedata;
+}
