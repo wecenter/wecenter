@@ -1387,46 +1387,6 @@ class weixin_class extends AWS_MODEL
 		return $msgs_details[$msg_id];
 	}
 
-	public function add_article_or_question_ids_to_cache($article_ids = null, $question_ids = null)
-	{
-		$old_article_ids = AWS_APP::cache()->get('send_msg_batch_article_ids');
-
-		if ($old_article_ids)
-		{
-			$article_ids = array_unique(array_filter(array_merge($article_ids, $old_article_ids)));
-		}
-
-		$old_question_ids = AWS_APP::cache()->get('send_msg_batch_question_ids');
-
-		if ($old_question_ids)
-		{
-			$question_ids = array_unique(array_filter(array_merge($question_ids, $old_question_ids)));
-		}
-
-		$total = count($article_ids) + count($question_ids);
-
-		if ($total > 9)
-		{
-			return AWS_APP::lang()->_t('最多可添加 9 个文章和问题');
-		}
-
-		if ($article_ids)
-		{
-			natsort($article_ids);
-
-			AWS_APP::cache()->set('send_msg_batch_article_ids', $article_ids, 86400);
-		}
-
-		if ($question_ids)
-		{
-			natsort($question_ids);
-
-			AWS_APP::cache()->set('send_msg_batch_question_ids', $question_ids, 86400);
-		}
-
-		return AWS_APP::lang()->_t('已添加至待群发队列');
-	}
-
 	public function get_groups()
 	{
 		$groups = AWS_APP::cache()->get('weixin_groups');

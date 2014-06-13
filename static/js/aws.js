@@ -460,6 +460,14 @@ var AWS =
 		        	items : data
 		        });
 		    break;
+
+		    // 后台微信群发消息
+		    case 'adminWechatSendMsg':
+		    	var template = Hogan.compile(AW_TEMPLATE.adminWechatSendMsg).render(
+		        {
+		        	items : data
+		        });
+		    break;
 	    }
 
 	    if (template)
@@ -603,6 +611,11 @@ var AWS =
 			    	$.get(data.url, function (result) {
 						$('#aw_dialog_ajax_data').html(result);
 					});
+		    	break;
+
+		    	// 后台微信群发消息
+		    	case 'adminWechatSendMsg':
+		    		AWS.Dropdown.bind_dropdown_list($('.aw-wechat-send-message .search-input'), data.type);
 		    	break;
 	        }
 
@@ -1597,7 +1610,6 @@ AWS.Dropdown =
 	        {
 	            $(selector).parent().find('.search').show().children('a').text($(selector).val());
 	        }
-
 	        if ($(selector).val().length >= 1)
 	        {
 	        	if (e.which != 38 && e.which != 40 && e.which != 188 && e.which != 13)
@@ -1759,6 +1771,16 @@ AWS.Dropdown =
 	        case 'topic' :
 	            url = G_BASE_URL + '/search/ajax/search/?type=topics&q=' + encodeURIComponent(data) + '&limit=10';
 	        break;
+
+	        case 'questions' :
+	        case 'adminQuestions' :
+	        	url = G_BASE_URL + '/search/ajax/search/?type=questions&q=' + encodeURIComponent(data) + '&limit=10';
+	        break;
+
+	        case 'articles' :
+	        case 'adminArticles' :
+	        	url = G_BASE_URL + '/search/ajax/search/?type=articles&q=' + encodeURIComponent(data) + '&limit=10';
+	        break
 	    }
 
 	    AWS.G.dropdown_list_xhr = $.get(url, function (result)
@@ -1856,13 +1878,77 @@ AWS.Dropdown =
 	                	break;
 
 	                case 'redirect' :
-	                    $.each(result, function (i, a)
+	                	$.each(result, function (i, a)
 	                    {
 	                        $(selector).parent().find('.aw-dropdown-list').append(Hogan.compile(AW_TEMPLATE.questionRedirectList).render(
 	                        {
 	                            'url': "'" + G_BASE_URL + "/question/ajax/redirect/', 'item_id=" + $(selector).attr('data-id') + "&target_id=" + a['search_id'] + "'",
 	                            'name': a['name']
 	                        }));
+	                    });
+	                 	break;
+
+	                case 'questions' :
+	                case 'articles' :
+	                	$.each(result, function (i, a)
+	                    {
+	                        $(selector).parent().find('.aw-dropdown-list').append(Hogan.compile(AW_TEMPLATE.questionDropdownList).render(
+	                        {
+	                            'url': '#',
+	                            'name': a['name']
+	                        }));
+	                    });
+	                	break;
+
+	                case 'adminQuestions' :
+	                	$.each(result, function (i, a)
+	                    {
+	                        $(selector).parent().find('.aw-dropdown-list').append(Hogan.compile(AW_TEMPLATE.questionDropdownList).render(
+	                        {
+	                        	'id': a['search_id'],
+	                            'url': 'javascript:;',
+	                            'name': a['name']
+	                        }));
+	                    });
+
+	                    $(selector).parent().find('.aw-dropdown-list li').click(function()
+	                    {
+	                    	$('.aw-article-list').append('<li>' + $(this).html() + '</li>');
+	                    	if ($('.question_ids').val() == '')
+	                    	{
+	                    		$('.question_ids').val($(this).attr('data-id'));
+	                    	}
+	                    	else
+	                    	{
+	                    		$('.question_ids').val($('.question_ids').val() + ',' + $(this).attr('data-id'));
+	                    	}
+	                    	$(".alert-box").modal('hide');
+	                    });
+
+	                    break;
+
+	                case 'adminArticles' :
+	                    $.each(result, function (i, a)
+	                    {
+	                        $(selector).parent().find('.aw-dropdown-list').append(Hogan.compile(AW_TEMPLATE.questionDropdownList).render(
+	                        {
+	                        	'id': a['search_id'],
+	                            'url': 'javascript:;',
+	                            'name': a['name']
+	                        }));
+	                    });
+	                    $(selector).parent().find('.aw-dropdown-list li').click(function()
+	                    {
+	                    	$('.aw-article-list').append('<li>' + $(this).html() + '</li>');
+	                    	if ($('.article_ids').val() == '')
+	                    	{
+	                    		$('.article_ids').val($(this).attr('data-id'));
+	                    	}
+	                    	else
+	                    	{
+	                    		$('.article_ids').val($('.article_ids').val() + ',' + $(this).attr('data-id'));
+	                    	}
+	                    	$(".alert-box").modal('hide');
 	                    });
 	                	break;
 

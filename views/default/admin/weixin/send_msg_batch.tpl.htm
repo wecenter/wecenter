@@ -2,7 +2,7 @@
 <?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
 
 <div class="aw-content-wrap">
-    <form action="admin/weixin/send_msg/" id="settings_form" method="post" onsubmit="return false" enctype="multipart/form-data">
+    <form action="admin/ajax/weixin_send_msg/" id="msg_form" method="post" onsubmit="return false" enctype="multipart/form-data">
     <div class="mod">
         <div class="mod-head">
             <h3>
@@ -79,7 +79,7 @@
                         <div class="form-group">
                             <span class="col-sm-4 col-xs-3 control-label"><?php _e('封面图片'); ?>:</span>
                             <div class="col-sm-5 col-xs-8">
-                                <input class="form-control" name="main_msg_img" type="file" />
+                                <input name="main_msg_img" type="file" />
                             </div>
                         </div>
                     </td>
@@ -107,9 +107,11 @@
                 <tr>
                     <td>
                         <div class="form-group">
-                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('文章 ID'); ?>:</span>
-                            <div class="col-sm-5 col-xs-8">
-                                <input class="form-control" name="article_ids" value="<?php if ($this->article_ids) echo $this->article_ids; ?>" />
+                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('问题 ID'); ?>:</span>
+                            <div class="col-sm-8 col-xs-8">
+                                <ul class="aw-question-list"></ul>
+                                <a class="md-tip" onclick="AWS.dialog('adminWechatSendMsg', {'type': 'adminQuestions'})" data-original-title="添加问题"><i class="fa fa-plus"></i></a>
+                                <input class="form-control question_ids hide" name="question_ids" value="<?php if ($this->question_ids) echo $this->question_ids; ?>" />
                             </div>
                         </div>
                     </td>
@@ -118,9 +120,11 @@
                 <tr>
                     <td>
                         <div class="form-group">
-                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('问题 ID'); ?>:</span>
-                            <div class="col-sm-5 col-xs-8">
-                                <input class="form-control" name="question_ids" value="<?php if ($this->question_ids) echo $this->question_ids; ?>" />
+                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('文章 ID'); ?>:</span>
+                            <div class="col-sm-8 col-xs-8">
+                                <ul class="aw-article-list"></ul>
+                                <a class="md-tip" onclick="AWS.dialog('adminWechatSendMsg', {'type': 'adminArticles'})" data-original-title="添加文章"><i class="fa fa-plus"></i></a>
+                                <input class="form-control article_ids hide" name="article_ids" value="<?php if ($this->article_ids) echo $this->article_ids; ?>" />
                             </div>
                         </div>
                     </td>
@@ -129,7 +133,7 @@
                 <tfoot>
                 <tr>
                     <td>
-                        <input type="button" value="<?php _e('保存'); ?>" class="btn btn-primary center-block" onclick="AWS.ajax_post($('#settings_form'));" />
+                        <input type="button" value="<?php _e('保存'); ?>" class="btn btn-primary center-block" onclick="AWS.ajax_post($('#msg_form'));" />
                     </td>
                 </tr>
                 </tfoot>

@@ -2,8 +2,8 @@
 <?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
 
 <div class="aw-content-wrap">
-    <div class="mod">
     <form action="admin/ajax/weixin_save_accounts/" id="accounts_form" method="post" onsubmit="return false">
+    <div class="mod">
         <?php if ($this->accounts_total != 0) { foreach ($this->accounts_list AS $key => $value) { ?>
         <div class="mod-head">
             <span class="pull-left"><?php _e('微信账号 %s', $key + 1); ?> (ID: <?php echo $value['id']; ?>)</span>
@@ -122,8 +122,8 @@
                  <input type="button" value="<?php _e('保存'); ?>" class="btn btn-primary" onclick="AWS.ajax_post($('#accounts_form'));" />
             </div>
         </div>
-    </form>
     </div>
+    </form>
 </div>
 
 <div class="wechat-hide" style="display: none">
