@@ -86,9 +86,9 @@ label{font-weight: normal;}
 .aw-footer p{font-size: 12px;}
 
 /*右侧公共部分*/
-.mod-padding{padding-left: 0;}
-.mod-symbol{margin-left: -2px; line-height: 35px;padding: 0; width: 1px; text-align: center; font-size: 22px;}
-.mod-table-foot .clpadding{padding: 0;line-height: 35px;}
+.aw-content-wrap .mod-padding{padding-left: 0;}
+.aw-content-wrap .mod-symbol{margin-left: -2px; line-height: 35px;padding: 0; width: 2px; text-align: center; font-size: 22px;}
+.aw-content-wrap .mod-table-foot .clpadding{padding: 0;line-height: 35px;}
 
 /* 右侧公共头部部分 mod-head*/
 .aw-content-wrap .mod-border{border-top: none;}
@@ -123,7 +123,7 @@ textarea{resize: none;}
 .aw-content-wrap table > tfoot > tr > td{padding-top: 18px; padding-bottom: 0;}
 .aw-content-wrap .mod-foot-center td{text-align: center;}
 .aw-content-wrap .mod-site-foot{border-top: none;}
-.aw-content-wrap .mod-text-inline{line-height: 34px; padding: 0 5px 0 15px; width: auto;}
+.aw-content-wrap .mod-text-inline{line-height: 34px; padding: 0 5px 0 20px; width: auto;}
 .aw-content-wrap .table th{white-space: nowrap;}
 
 #members_table .min-value{min-width: 175px;}
