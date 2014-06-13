@@ -218,12 +218,6 @@ $config[] = array(
 	'cname' => 'wrench',
 	'children' => array(
 		array(
-			'id' => 502,
-			'title' => '数据统计',
-			'url' => 'admin/statistic/',
-		),
-
-		array(
 			'id' => 501,
 			'title' => '系统维护',
 			'url' => 'admin/tools/',

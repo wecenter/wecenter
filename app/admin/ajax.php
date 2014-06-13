@@ -1671,4 +1671,80 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
 		H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('群发任务提交成功')));
 	}
+	
+	public function statistic_action()
+	{
+		if (!$start_time = strtotime($_GET['start_date']))
+		{
+			$start_time = strtotime('-12 months');
+		}
+		
+		if (!$end_time = strtotime($_GET['end_date']))
+		{
+			$end_time = time();
+		}		
+		
+		if ($_GET['tag'])
+		{
+			$statistic_tag = explode(',', $_GET['tag']);
+		}
+		
+		if (!$month_list = get_month_list($start_time, $end_time, 'y'))
+		{
+			die;
+		}
+		
+		foreach ($month_list AS $key => $val)
+		{
+			$labels[] = $val['year'] . '-' . $val['month'];
+			$data_template[] = 0;
+		}
+		
+		if (!$statistic_tag)
+		{
+			die;
+		}
+		
+		foreach ($statistic_tag AS $key => $val)
+		{
+			switch ($val)
+			{
+				case 'new_question_by_month':
+					$statistic[] = $this->model('statistic')->get_new_question_by_month($start_time, $end_time);
+				break;
+				
+				case 'new_answer_by_month':
+					$statistic[] = $this->model('statistic')->get_new_answer_by_month($start_time, $end_time);
+				break;
+				
+				case 'user_register_by_month':
+					$statistic[] = $this->model('statistic')->get_user_register_by_month($start_time, $end_time);
+				break;
+				
+				case 'new_topic_by_month':
+					$statistic[] = $this->model('statistic')->get_new_topic_by_month($start_time, $end_time);
+				break;
+			}
+		}
+		
+		foreach($statistic AS $key => $val)
+		{
+			$statistic_data = $data_template;
+			
+			foreach ($val AS $k => $v)
+			{
+				$data_key = array_search($v['date'], $labels);
+				
+				$statistic_data[$data_key] = $v['count'];
+			}
+			
+			$data[] = $statistic_data;
+			
+		}
+		
+		echo json_encode(array(
+			'labels' => $labels,
+			'data' => $data
+		));
+	}
 }

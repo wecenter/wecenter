@@ -20,7 +20,7 @@ if (!defined('IN_ANWSION'))
 
 class statistic_class extends AWS_MODEL
 {	
-	public function get_user_register_list_by_month($start_time = null, $end_time = null, $valid_email = false)
+	public function get_user_register_by_month($start_time = null, $end_time = null, $valid_email = false)
 	{
 		if (!$start_time)
 		{
@@ -108,7 +108,7 @@ class statistic_class extends AWS_MODEL
 	{		
 		if (!$start_time)
 		{
-			$start_time = strtotime('-6 months');;
+			$start_time = strtotime('-6 months');
 		}
 		
 		if (!$end_time)
