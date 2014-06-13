@@ -1,95 +1,127 @@
 <?php TPL::output('admin/global/header.tpl.htm'); ?>
 <?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
 
-<div class="pull-left right-side">
+<div class="aw-content-wrap">
+    <div class="mod">
     <form action="admin/ajax/weixin_save_accounts/" id="accounts_form" method="post" onsubmit="return false">
-    <div class="aw-box">
-        <?php if ($this->accounts_total != 0 ) { foreach ($this->accounts_list AS $key => $value) { ?>
-        <div class="aw-mod-head">
-            <h2><a href="javascript:;" onclick="AWS.ajax_post($('#accounts_form'));" class="label label-inverse pull-right"><?php _e('快速保存'); ?></a><?php _e('微信账号 %s', $value['id']); ?></h2>
-            <a href="javascript:;" onclick="AWS.ajax_request(G_BASE_URL + '/admin/ajax/weixin_remove_account/', 'id=<?php echo $value['id']; ?>');"><?php _e('删除此账号'); ?></a>
-            <input type="hidden" name="id[<?php echo $key; ?>]" value="<?php echo $value['id']; ?>" />
+        <div class="aw-box">
+            <?php if ($this->accounts_total != 0 ) { foreach ($this->accounts_list AS $key => $value) { ?>
+            <div class="mod-head">
+                <span class="pull-left"><?php _e('微信账号 %s', $value['id']); ?></span>
+
+                <span class="pull-right">
+                    <a href="javascript:;" onclick="AWS.ajax_post($('#accounts_form'));" class="btn btn-xs btn-primary mod-site-save"><?php _e('快速保存'); ?></a>
+                    <a href="javascript:;" onclick="AWS.ajax_request(G_BASE_URL + '/admin/ajax/weixin_remove_account/', 'id=<?php echo $value['id']; ?>');"><?php _e('删除此账号'); ?></a>
+                </span>
+
+                <input type="hidden" name="id[<?php echo $key; ?>]" value="<?php echo $value['id']; ?>" />
+            </div>
+
+            <div class="tab-content mod-content">
+                <table class="table table-striped">
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <span class="col-sm-4 col-xs-3 control-label"><?php _e('微信公众平台接口 Token'); ?>:</span>
+                                <div class="col-sm-5 col-xs-8">
+                                    <input type="text" class="form-control" name="weixin_mp_token[<?php echo $key; ?>]" value="<?php echo $value['weixin_mp_token']; ?>">
+                                    <span class="help-block"><?php _e('请与微信公众平台后台设置一致'); ?></span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <span class="col-sm-4 col-xs-3 control-label"><?php _e('微信公众平台帐号角色'); ?>:</span>
+                                <div class="col-sm-6 col-xs-8">
+                                    <label type="button" class="btn mod-btn-color"
+                                    >
+                                        <input type="radio" name="weixin_account_role[<?php echo $key; ?>]" value="base"<?php if ($value['weixin_account_role'] == 'base') { ?> checked="checked"<?php } ?> /> <?php _e('普通订阅号'); ?>
+                                    </label>
+
+                                    <label type="button" class="btn mod-btn-color">
+                                        <input type="radio" name="weixin_account_role[<?php echo $key; ?>]" value="subscription"<?php if ($value['weixin_account_role'] == 'subscription') { ?> checked="checked"<?php } ?> /> <?php _e('微信认证订阅号'); ?>
+                                    </label>
+
+                                    <label type="button" class="btn mod-btn-color">
+                                        <input type="radio" name="weixin_account_role[<?php echo $key; ?>]" value="general"<?php if ($value['weixin_account_role'] == 'general') { ?> checked="checked"<?php } ?> /> <?php _e('普通服务号'); ?>
+                                    </label>
+
+                                    <label type="button" class="btn mod-btn-color">
+                                        <input type="radio" name="weixin_account_role" value="service"<?php if ($this->setting['weixin_account_role'] == 'service') { ?> checked="checked"<?php } ?> /> <?php _e('微信认证服务号'); ?>
+                                    </label>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <span class="col-sm-4 col-xs-3 control-label"><?php _e('WeCenter 微信服务 Access token'); ?>:</span>
+                                <div class="col-sm-5 col-xs-8">
+                                    <input type="text" class="form-control" name="wecenter_access_token[<?php echo $key; ?>]" value="<?php echo $value['wecenter_access_token']; ?>">
+                                    <span class="help-block"><?php _e('请到 %s 申请', '<a href="http://mp.wecenter.com" target="_blank">http://mp.wecenter.com</a>'); ?></span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <span class="col-sm-4 col-xs-3 control-label"><?php _e('WeCenter 微信服务 Access token'); ?>:</span>
+                                <div class="col-sm-5 col-xs-8">
+                                    <input type="text" class="form-control" name="wecenter_access_token[<?php echo $key; ?>]" value="<?php echo $value['wecenter_access_token']; ?>">
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <span class="col-sm-4 col-xs-3 control-label"><?php _e('WeCenter 微信服务 Access secret'); ?>:</span>
+                                <div class="col-sm-5 col-xs-8">
+                                    <input type="text" class="form-control" name="wecenter_access_secret[<?php echo $key; ?>]" value="<?php echo $value['wecenter_access_secret']; ?>">
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <span class="col-sm-4 col-xs-3 control-label"><?php _e('微信公众平台 AppID'); ?>:</span>
+                                <div class="col-sm-5 col-xs-8">
+                                    <input type="text" class="form-control" name="weixin_app_id[<?php echo $key; ?>]" value="<?php echo $value['weixin_app_id']; ?>">
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <span class="col-sm-4 col-xs-3 control-label"><?php _e('微信公众平台 AppSecret'); ?>:</span>
+                                <div class="col-sm-5 col-xs-8">
+                                    <input type="text" class="form-control" name="weixin_app_secret[<?php echo $key; ?>]" value="<?php echo $value['weixin_app_secret']; ?>">
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <?php } } ?>
+
+            <div class="tab-content mod-content">
+                <input type="button" value="<?php _e('保存设置'); ?>" class="btn btn-primary center-block" onclick="AWS.ajax_post($('#accounts_form'));" />
+            </div>
         </div>
-
-        <div class="aw-mod-body">
-        <dl>
-            <dt><h3><?php _e('微信公众平台接口 Token'); ?>: </h3></dt>
-
-            <dd>
-                <div class="row">
-                    <div class="col-sm-7">
-                        <input name="weixin_mp_token[<?php echo $key; ?>]" type="text" class="form-control" value="<?php echo $value['weixin_mp_token']; ?>"/>
-                    </div>
-                </div>
-                <p class="aw-text-color-999"><?php _e('请与微信公众平台后台设置一致'); ?></p>
-            </dd>
-        </dl>
-
-        <dl>
-            <dt><h3><?php _e('微信公众平台帐号角色'); ?>: </h3></dt>
-
-            <dd>
-                <label><input type="radio" name="weixin_account_role[<?php echo $key; ?>]" value="base"<?php if ($value['weixin_account_role'] == 'base') { ?> checked="checked"<?php } ?> /> <?php _e('普通订阅号'); ?></label>
-                <label><input type="radio" name="weixin_account_role[<?php echo $key; ?>]" value="subscription"<?php if ($value['weixin_account_role'] == 'subscription') { ?> checked="checked"<?php } ?> /> <?php _e('微信认证订阅号'); ?></label>
-                <label><input type="radio" name="weixin_account_role[<?php echo $key; ?>]" value="general"<?php if ($value['weixin_account_role'] == 'general') { ?> checked="checked"<?php } ?> /> <?php _e('普通服务号'); ?></label>
-                <label><input type="radio" name="weixin_account_role" value="service"<?php if ($this->setting['weixin_account_role'] == 'service') { ?> checked="checked"<?php } ?> /> <?php _e('微信认证服务号'); ?></label>
-            </dd>
-        </dl>
-
-        <dl>
-            <dt><h3><?php _e('WeCenter 微信服务 Access token'); ?>: </h3></dt>
-
-            <dd>
-                <div class="row">
-                    <div class="col-sm-7">
-                        <input name="wecenter_access_token[<?php echo $key; ?>]" type="text" class="form-control" value="<?php echo $value['wecenter_access_token']; ?>"/>
-                    </div>
-                </div>
-                <p class="aw-text-color-999"><?php _e('请到 %s 申请', '<a href="http://mp.wecenter.com" target="_blank">http://mp.wecenter.com</a>'); ?></p>
-            </dd>
-        </dl>
-
-        <dl>
-            <dt><h3><?php _e('WeCenter 微信服务 Access secret'); ?>: </h3></dt>
-
-            <dd>
-                <div class="row">
-                    <div class="col-sm-7">
-                        <input name="wecenter_access_secret[<?php echo $key; ?>]" type="text" class="form-control" value="<?php echo $value['wecenter_access_secret']; ?>"/>
-                    </div>
-                </div>
-            </dd>
-        </dl>
-
-        <dl>
-            <dt><h3><?php _e('微信公众平台 AppID'); ?>:</h3></dt>
-            <dd>
-                <div class="row">
-                    <div class="col-sm-7">
-                        <input name="weixin_app_id[<?php echo $key; ?>]" type="text" class="form-control" value="<?php echo $value['weixin_app_id']; ?>"/>
-                    </div>
-                </div>
-            </dd>
-        </dl>
-
-        <dl>
-            <dt><h3><?php _e('微信公众平台 AppSecret'); ?>:</h3></dt>
-            <dd>
-                <div class="row">
-                    <div class="col-sm-7">
-                        <input name="weixin_app_secret[<?php echo $key; ?>]" type="text" class="form-control" value="<?php echo $value['weixin_app_secret']; ?>"/>
-                    </div>
-                </div>
-            </dd>
-        </dl>
-        <?php } } ?>
-        </div>
-
-        <div class="aw-mod-footer">
-            <a href="javascript:;" class="btn btn-inverse btn-normal" onclick="AWS.ajax_post($('#accounts_form'));"><?php _e('保存'); ?></a>
-        </div>
-    </div>
     </form>
     </div>
+</div>
 
 <?php TPL::output('admin/global/footer.tpl.htm'); ?>
