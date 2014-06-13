@@ -1525,7 +1525,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 		H::ajax_json_output(AWS_APP::RSM(null, 1, null));
 	}
 
-	public function send_msg_action()
+	public function weixin_send_msg_action()
 	{
 		$group_id = intval($_POST['group_id']);
 
