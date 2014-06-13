@@ -222,12 +222,6 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
 				H::ajax_json_output(AWS_APP::RSM(null, 1, null));
 			break;
-
-			case 'send':
-				$result = $this->model('weixin')->add_article_or_question_ids_to_cache($_POST['article_ids'], null);
-
-				H::ajax_json_output(AWS_APP::RSM(null, -1, $result));
-			break;
 		}
 	}
 
@@ -771,12 +765,6 @@ class ajax extends AWS_ADMIN_CONTROLLER
 				}
 
 				H::ajax_json_output(AWS_APP::RSM(null, 1, null));
-			break;
-
-			case 'send':
-				$result = $this->model('weixin')->add_article_or_question_ids_to_cache(null, $_POST['question_ids']);
-
-				H::ajax_json_output(AWS_APP::RSM(null, -1, $result));
 			break;
 		}
 	}
