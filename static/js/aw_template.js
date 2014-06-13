@@ -568,7 +568,6 @@ var AW_TEMPLATE = {
 							'<h3 class="modal-title" id="myModalLabel">' + _t('搜索消息内容') + '</h3>'+
 						'</div>'+
 						'<div class="modal-body">'+
-							'<div class="alert alert-danger hide error_message"></div>'+
 							'<div class="aw-dropdown-box">'+
 								'<input type="text" class="form-control search-input" />'+
 								'<div class="aw-dropdown"><p class="title">' + _t('没有找到相关结果') + '</p><ul class="aw-dropdown-list"><li><a>123</a></li></ul></div>'+
@@ -576,7 +575,6 @@ var AW_TEMPLATE = {
 						'</div>'+
 						'<div class="modal-footer">'+
 							'<a class="btn btn-default" aria-hidden="true" data-dismiss="modal">' + _t('取消') + '</a>'+
-							'<a class="btn btn-success" onclick="AWS.ajax_post($(\'#settings_form\'), AWS.ajax_processer, \'error_message\')">' + _t('确定') + '</a>'+
 						'</div>'+
 					'</div>'+
 				'</form>'+
