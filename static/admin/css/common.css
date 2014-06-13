@@ -22,6 +22,7 @@ ul, ol{padding:0;list-style: none;}
 .nowrap{white-space: nowrap;}
 .aw-text-color-999{margin:2px 0 0 0;color: #999;font-size: 11px;}
 label{font-weight: normal;}
+.aw-hide-txt{overflow: hidden;text-overflow:ellipsis;white-space: nowrap;}
 
 /*后台header start*/
 .aw-header{position: fixed; top:0; z-index: 999; margin-bottom: 0; width: 100%; height: 50px; border: none; border-bottom: 1px solid #d5d5d5; background: #fff;}
@@ -171,6 +172,10 @@ textarea{resize: none;}
 .aw-message-box form{margin: 0;}
 .aw-message-box a{margin-top: 10px;}
 
+/* 微信群发信息 */
+.aw-article-list b, .aw-question-list b{font-weight: normal;}
+.aw-article-list a, .aw-question-list a{display:block;max-width: 600px;}
+
 /*微信菜单页面*/
 .chat-symbol{padding: 0; line-height: 34px;}
 .aw-wechat-dropdown-box{position: relative;width: 230px;height:34px;line-height:34px;}
@@ -226,6 +231,22 @@ textarea{resize: none;}
 .date_selector td.selectable_day{cursor: pointer;}
 .date_selector td.selected{background: #4B85D2;color: #fff;font-weight: bold;}
 .date_selector td.selectable_day:hover, .date_selector td.selectable_day.hover{background: #F2F8FF;color: #246594;}
+
+/* 全局通用下拉列表 */
+.aw-dropdown, .aw-category-dropdown{display:none;position:absolute;left:0;z-index:9999;width:100%;background: #fff;border:1px solid #ccc;box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);}
+.aw-dropdown .i-dropdown-triangle, .aw-category-dropdown .i-dropdown-triangle{position: absolute;top:-6px;left: 15px;}
+.aw-dropdown p, .aw-category-dropdown p{padding:5px 10px;margin:0;}
+.aw-dropdown .aw-dropdown-list li, .aw-category-dropdown .aw-category-dropdown-list li{border-top: 1px dotted #E2E2E2;cursor: pointer;}
+.aw-dropdown .aw-dropdown-list li:first-child, .aw-category-dropdown .aw-category-dropdown-list li:first-child{border-top: none;}
+.aw-dropdown .aw-dropdown-list li:hover, .aw-dropdown .aw-dropdown-list li.active, .aw-category-dropdown .aw-category-dropdown-list li:hover{background-color: #F5FAFF;}
+.aw-dropdown .aw-dropdown-list li.topic{line-height:24px;padding:5px 10px;}
+.aw-dropdown .aw-dropdown-list li.question{line-height:32px;padding:0 10px;}
+.aw-dropdown .aw-dropdown-list li.question.active .icon-g-replay{display: inline-block;}
+.aw-dropdown .aw-dropdown-list li.question .icon-g-replay{display: none;margin:9px 5px 0 0;}
+.aw-dropdown .aw-dropdown-list li.question a{display: block;line-height: 32px;font-size: 13px;}
+.aw-dropdown .aw-dropdown-list li.question b{line-height: 30px;}
+.aw-dropdown-box{position: relative;}
+.aw-wechat-send-message .aw-dropdown-list{max-height: 330px;overflow-y:scroll;margin-bottom: 0;}
 
 
 /*响应式兼容start*/
