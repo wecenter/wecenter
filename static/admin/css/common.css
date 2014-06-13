@@ -203,6 +203,30 @@ textarea{resize: none;}
 .aw-topic-edit-note-box img{max-width: 530px;}
 .aw-topic-edit-note-box #aw_dialog_ajax_data{max-height: 450px;overflow-y: scroll;}
 
+/*日期选择控件*/
+.date_selector, .date_selector *{margin: 0;padding: 0;width: auto;height: auto;border: none;background: none;text-align: left;text-decoration: none;cursor: pointer;}
+.date_selector{position: absolute;z-index: 100000;display: none;margin: 0;margin-top: -1px;padding: 10px;border: 1px solid #ccc;background: #fbfbfb;-webkit-box-shadow: 0 0 5px #aaa;-moz-box-shadow: 0 0 5px #aaa;box-shadow: 0 0 5px #aaa;-moz--webkit-}
+.date_selector_ieframe{position: absolute;z-index: 99999;display: none;}
+.date_selector .nav{width: 17.5em; /* 7 * 2.5em */}
+.date_selector .nav p{clear: none;}
+.date_selector .month_nav, .date_selector .year_nav{position: relative;display: block;margin: 0 0 3px 0;padding: 0;text-align: center;}
+.date_selector .month_nav{float: left;width: 55%;}
+.date_selector .year_nav{float: right;margin-right: -8px; /* Compensates for cell borders */width: 42%;}
+.date_selector .month_name, .date_selector .year_name{font-weight: bold;line-height: 20px;}
+.date_selector .button{position: absolute;top: 0;display: block;overflow: hidden;width: 18px;height: 18px;border: 1px solid #ccc;-webkit-border-radius: 2px;-moz-border-radius: 2px;border-radius: 2px;color: #008ee8;text-align: center;font-weight: bold;font-size: 12px;line-height: 16px;}
+.date_selector .button:hover, .date_selector .button.hover{border-color: #d77011;background: #ed9c35;color: #fff;cursor: pointer;}
+.date_selector .prev{left: 0;}
+.date_selector .next{right: 0;}
+.date_selector table#table1{clear: both;margin: 0;border-spacing: 0;border-collapse: collapse;}
+.date_selector th, .date_selector td{padding: 0 !important;width: 2.5em;height: 2em;color: #666;text-align: center !important;font-weight: normal;}
+.date_selector th{font-size: 11px;}
+.date_selector td{border: 1px solid #D7E6F0;background: #fff;color: #666;text-align: center;white-space: nowrap;line-height: 2em;}
+.date_selector td.today{background: #eee;}
+.date_selector td.unselected_month{color: #ccc;}
+.date_selector td.selectable_day{cursor: pointer;}
+.date_selector td.selected{background: #4B85D2;color: #fff;font-weight: bold;}
+.date_selector td.selectable_day:hover, .date_selector td.selectable_day.hover{background: #F2F8FF;color: #246594;}
+
 
 /*响应式兼容start*/
 /* iCheck plugin Square skin, blue
@@ -211,8 +235,6 @@ textarea{resize: none;}
 .iradio_square-blue{display: inline-block; margin-right:5px; padding: 0; width: 22px; height: 22px; border: none; background: url(../img/blue.png) no-repeat; vertical-align: middle; cursor: pointer; *display: inline;}
 .icheckbox_square-blue{background-position: 0 0;} .icheckbox_square-blue.hover{background-position: -24px 0;} .icheckbox_square-blue.checked{background-position: -48px 0;} .icheckbox_square-blue.disabled{background-position: -72px 0; cursor: default;} .icheckbox_square-blue.checked.disabled{background-position: -96px 0;}
 .iradio_square-blue{background-position: -120px 0;} .iradio_square-blue.hover{background-position: -144px 0;} .iradio_square-blue.checked{background-position: -168px 0;} .iradio_square-blue.disabled{background-position: -192px 0; cursor: default;} .iradio_square-blue.checked.disabled{background-position: -216px 0;}
-/* HiDPI support */
-@media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi){.icheckbox_square-blue, .iradio_square-blue{background-image: url(../img/blue-2x.png); -webkit-background-size: 240px 24px; background-size: 240px 24px;}
 /* Tablet Portrait (1024) */
 @media only screen and (max-width: 1024px){.aw-footer{margin-left: 0;} .aw-side{display: none;} .aw-content-wrap{margin: 0 5px;} .aw-side ul li a{padding-left: 0;} .aw-content-wrap{padding: 0;} .radio-inline + .radio-inline, .checkbox-inline + .checkbox-inline{margin-left: 0;} .aw-content-wrap .mod-symbol{display: none;} .aw-content-wrap .mod-double{margin-bottom: 10px;} .table-responsive{border: none;} .btn{padding: 2px 7px; border-radius: 3px; font-size: 14px; line-height: 1.5;} .aw-content-wrap .mod-body, .aw-content-wrap .mod-content{padding: 5px 5px 20px 5px;} .pagination > li > a, .pagination > li > span{padding: 5px 10px; font-size: 12px;} .pagination > li:first-child > a, .pagination > li:first-child > span{border-top-left-radius: 3px; border-bottom-left-radius: 3px;} .pagination > li:last-child > a, .pagination > li:last-child > span{border-top-right-radius: 3px; border-bottom-right-radius: 3px;} .aw-content-wrap table tfoot .mod-foot-btn{padding-top: 50px; vertical-align: middle;} .radio-inline, .checkbox-inline{margin-bottom: 6px;} .table-responsive{margin-bottom: 0;}}
 /* Phone Landscape (480px) */
@@ -242,29 +264,3 @@ textarea{resize: none;}
 .iradio_square-blue{display: inline-block; *display: inline; vertical-align: middle; margin-right:5px; padding: 0; width: 22px; height: 22px; background: url(../img/blue.png) no-repeat; border: none; cursor: pointer;}
 .icheckbox_square-blue{background-position: 0 0;} .icheckbox_square-blue.hover{background-position: -24px 0;} .icheckbox_square-blue.checked{background-position: -48px 0;} .icheckbox_square-blue.disabled{background-position: -72px 0; cursor: default;} .icheckbox_square-blue.checked.disabled{background-position: -96px 0;}
 .iradio_square-blue{background-position: -120px 0;} .iradio_square-blue.hover{background-position: -144px 0;} .iradio_square-blue.checked{background-position: -168px 0;} .iradio_square-blue.disabled{background-position: -192px 0; cursor: default;} .iradio_square-blue.checked.disabled{background-position: -216px 0;}
-/* HiDPI support */
-@media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi){.icheckbox_square-blue, .iradio_square-blue{background-image: url(../img/blue-2x.png); -webkit-background-size: 240px 24px; background-size: 240px 24px;}
-
-/*日期选择控件*/
-.date_selector, .date_selector *{margin: 0;padding: 0;width: auto;height: auto;border: none;background: none;text-align: left;text-decoration: none;cursor: pointer;}
-.date_selector{position: absolute;z-index: 100000;display: none;margin: 0;margin-top: -1px;padding: 10px;border: 1px solid #ccc;background: #fbfbfb;-webkit-box-shadow: 0 0 5px #aaa;-moz-box-shadow: 0 0 5px #aaa;box-shadow: 0 0 5px #aaa;-moz--webkit-}
-.date_selector_ieframe{position: absolute;z-index: 99999;display: none;}
-.date_selector .nav{width: 17.5em; /* 7 * 2.5em */}
-.date_selector .nav p{clear: none;}
-.date_selector .month_nav, .date_selector .year_nav{position: relative;display: block;margin: 0 0 3px 0;padding: 0;text-align: center;}
-.date_selector .month_nav{float: left;width: 55%;}
-.date_selector .year_nav{float: right;margin-right: -8px; /* Compensates for cell borders */width: 42%;}
-.date_selector .month_name, .date_selector .year_name{font-weight: bold;line-height: 20px;}
-.date_selector .button{position: absolute;top: 0;display: block;overflow: hidden;width: 18px;height: 18px;border: 1px solid #ccc;-webkit-border-radius: 2px;-moz-border-radius: 2px;border-radius: 2px;color: #008ee8;text-align: center;font-weight: bold;font-size: 12px;line-height: 16px;}
-.date_selector .button:hover, .date_selector .button.hover{border-color: #d77011;background: #ed9c35;color: #fff;cursor: pointer;}
-.date_selector .prev{left: 0;}
-.date_selector .next{right: 0;}
-.date_selector table#table1{clear: both;margin: 0;border-spacing: 0;border-collapse: collapse;}
-.date_selector th, .date_selector td{padding: 0 !important;width: 2.5em;height: 2em;color: #666;text-align: center !important;font-weight: normal;}
-.date_selector th{font-size: 11px;}
-.date_selector td{border: 1px solid #D7E6F0;background: #fff;color: #666;text-align: center;white-space: nowrap;line-height: 2em;}
-.date_selector td.today{background: #eee;}
-.date_selector td.unselected_month{color: #ccc;}
-.date_selector td.selectable_day{cursor: pointer;}
-.date_selector td.selected{background: #4B85D2;color: #fff;font-weight: bold;}
-.date_selector td.selectable_day:hover, .date_selector td.selectable_day.hover{background: #F2F8FF;color: #246594;}
