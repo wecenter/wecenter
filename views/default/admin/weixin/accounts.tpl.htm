@@ -125,4 +125,110 @@
     </div>
 </div>
 
+<div class="wechat-hide" style="display: none">
+    <div class="mod">
+        <div class="mod-head">
+            <h3>
+                <span class="pull-left">微信帐号:</span>
+                <span class="pull-right">
+                    <a href="" class="btn btn-primary btn-xs mod-site-save">快速保存</a>
+                </span>
+            </h3>
+        </div>
+
+        <div class="tab-content  mod-content">
+            <table class="table table-striped">
+                <tbody>
+                <tr>
+                    <td colspan="9" class="mod-border">
+                        <div class="form-group">
+                            <span class="col-sm-2 control-label">微信公众平台接口 Token</span>
+                            <div class="col-sm-5">
+                                <input name="weixin_mp_token" type="text" class="form-control" value="">
+                                    <span class="help-block">
+                                       请与微信公众平台后台设置一致
+                                    </span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="9">
+                        <div class="form-group">
+                            <span class="col-sm-2 control-label">微信公众平台帐号角色</span>
+                            <div class="col-sm-8">
+                                <label>
+                                    <input type="radio" name="weixin_account_role" value="general" checked="checked"> 普通服务号
+                                </label>
+                                <label class="col-md-offset-1">
+                                    <input type="radio" name="weixin_account_role" value="subscription">认证订阅号
+                                </label>
+                                <label class="col-md-offset-1">
+                                    <input type="radio" name="weixin_account_role" value="service">认证服务号
+                                </label>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="9">
+                        <div class="form-group">
+                            <span class="col-sm-2 control-label">WeCenter 微信服务 Access token</span>
+                            <div class="col-sm-5">
+                                <input name="wecenter_access_token" type="text" class="form-control" value="">
+                                    <span class="help-block">
+                                      请到<a href="">http://mp.wecenter.com</a>申请
+                                    </span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="9">
+                        <div class="form-group">
+                            <span class="col-sm-2 control-label">WeCenter 微信服务 Access secret</span>
+                            <div class="col-sm-5">
+                                <input name="wecenter_access_secret" type="text" class="form-control" value="">
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td colspan="6" class="mod-site-foot pull-right">
+                        <a href="" class="btn btn-primary btn-sm">修改微信菜单</a>
+                    </td>
+                    <td colspan="6" class="mod-site-foot pull-right">
+                        <a href="" class="btn btn-danger btn-sm">删除</a>
+                    </td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function(){
+        var oNewChat = $('#newChat');
+        var oHtml = $(".wechat-hide").html();
+        var num = 2;
+
+        oNewChat.click(function(){
+            var url = ['<div class="aw-content-wrap wechat' , num  , '"','>' , '</div>'].join("");
+
+            var oParent = $(url);
+            var oChat = oParent.append(oHtml);
+            var oName = '.wechat'+(num-1);
+            num++
+
+            $(oName).after(oChat);
+
+        });
+
+
+    });
+</script>
+
 <?php TPL::output('admin/global/footer.tpl.htm'); ?>
