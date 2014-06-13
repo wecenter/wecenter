@@ -123,7 +123,7 @@ textarea{resize: none;}
 .aw-content-wrap table > tfoot > tr > td{padding-top: 18px; padding-bottom: 0;}
 .aw-content-wrap .mod-foot-center td{text-align: center;}
 .aw-content-wrap .mod-site-foot{border-top: none;}
-.aw-content-wrap .mod-text-inline{line-height: 34px; padding: 0 9px 0 5px; width: auto;}
+.aw-content-wrap .mod-text-inline{line-height: 34px; padding: 0 5px 0 15px; width: auto;}
 .aw-content-wrap .table th{white-space: nowrap;}
 
 #members_table .min-value{min-width: 175px;}
