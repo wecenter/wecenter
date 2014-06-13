@@ -5,9 +5,9 @@
     <div class="mod">
     <form action="admin/ajax/weixin_save_accounts/" id="accounts_form" method="post" onsubmit="return false">
         <div class="aw-box">
-            <?php if ($this->accounts_total != 0 ) { foreach ($this->accounts_list AS $key => $value) { ?>
+            <?php if ($this->accounts_total != 0) { foreach ($this->accounts_list AS $key => $value) { ?>
             <div class="mod-head">
-                <span class="pull-left"><?php _e('微信账号 %s', $value['id']); ?></span>
+                <span class="pull-left"><?php _e('微信账号 %s', $key + 1); ?> (ID: <?php echo $value['id']; ?>)</span>
 
                 <span class="pull-right">
                     <a href="javascript:;" onclick="AWS.ajax_post($('#accounts_form'));" class="btn btn-xs btn-primary mod-site-save"><?php _e('快速保存'); ?></a>
