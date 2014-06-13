@@ -63,6 +63,11 @@ class weixin extends AWS_ADMIN_CONTROLLER
 
 		$account_info = $this->model('weixin')->get_account_info_by_id($account_id);
 
+		if (empty($account_info))
+		{
+			H::redirect_msg(AWS_APP::lang()->_t('微信账号不存在'));
+		}
+
 		if ($account_info['weixin_account_role'] == 'base' OR empty($account_info['weixin_app_id']) OR empty($account_info['weixin_app_secret']))
 		{
 			H::redirect_msg(AWS_APP::lang()->_t('此功能不适用于未通过微信认证的订阅号'));
@@ -275,7 +280,7 @@ class weixin extends AWS_ADMIN_CONTROLLER
 		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(804));
 		TPL::assign('msgs_list', $msgs_list);
 		TPL::assign('msgs_total', $msgs_total);
-		
+
 		TPL::output('admin/weixin/sent_msgs_list');
 	}
 
@@ -312,7 +317,7 @@ class weixin extends AWS_ADMIN_CONTROLLER
 		TPL::assign('msg_details', $msg_details);
 		TPL::output('admin/weixin/sent_msg_details');
 	}
-	
+
 	public function send_msg_batch_action()
 	{
 		if (get_setting('weixin_account_role') != 'service' OR empty(get_setting('weixin_app_id')) OR empty(get_setting('weixin_app_secret')))

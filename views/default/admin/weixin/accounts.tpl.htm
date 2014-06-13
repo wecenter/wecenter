@@ -11,7 +11,8 @@
 
                 <span class="pull-right">
                     <a href="javascript:;" onclick="AWS.ajax_post($('#accounts_form'));" class="btn btn-xs btn-primary mod-site-save"><?php _e('快速保存'); ?></a>
-                    <a href="javascript:;" onclick="AWS.ajax_request(G_BASE_URL + '/admin/ajax/weixin_remove_account/', 'id=<?php echo $value['id']; ?>');"><?php _e('删除此账号'); ?></a>
+                    <a href="admin/weixin/mp_menu/id-<?php echo $value['id']; ?>"><?php _e('菜单管理'); ?></a>
+                    <a href="javascript:;" onclick="AWS.ajax_request(G_BASE_URL + '/admin/ajax/weixin_remove_account/', 'id=<?php echo $value['id']; ?>');" class="btn btn-xs btn-primary mod-site-save"><?php _e('删除账号'); ?></a>
                 </span>
 
                 <input type="hidden" name="id[<?php echo $key; ?>]" value="<?php echo $value['id']; ?>" />
