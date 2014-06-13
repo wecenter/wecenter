@@ -1913,7 +1913,7 @@ AWS.Dropdown =
 
 	                    $(selector).parent().find('.aw-dropdown-list li').click(function()
 	                    {
-	                    	$('.aw-article-list').append('<li>' + $(this).html() + '</li>');
+	                    	$('.aw-question-list').append('<li>' + $(this).html() + '</li>');
 	                    	if ($('.question_ids').val() == '')
 	                    	{
 	                    		$('.question_ids').val($(this).attr('data-id'));
