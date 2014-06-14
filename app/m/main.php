@@ -122,8 +122,8 @@ class main extends AWS_CONTROLLER
 			'js/jquery.2.js',
 			'js/jquery.form.js',
 			'mobile/js/framework.js',
-			'mobile/js/app.js',
 			'mobile/js/aws_mobile.js',
+			'mobile/js/app.js',
 			'mobile/js/mobile.js',
 			'mobile/js/aw-mobile-template.js'
 		));
