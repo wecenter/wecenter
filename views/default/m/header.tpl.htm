@@ -34,7 +34,7 @@
 		var G_STATIC_URL = '<?php echo G_STATIC_URL; ?>';
 		var G_UPLOAD_ENABLE = '<?php echo get_setting('upload_enable'); ?>';
 		var G_UPLOAD_URL = '<?php echo get_setting('upload_url'); ?>';
-		var G_USER_ID = <?php echo $this->user_id; ?>;
+		var G_USER_ID = '<?php echo $this->user_id; ?>';
 		var G_USER_NAME = '<?php echo addcslashes($this->user_info['user_name'], "'"); ?>';
 		var G_UNREAD_NOTIFICATION = 0;
 		var G_NOTIFICATION_INTERVAL = <?php echo intval(get_setting('unread_flush_interval')) * 1000; ?>;
@@ -46,6 +46,7 @@
 		var G_IN_WEIXIN = true;
 		<?php } ?>
 		var WEIXIN_APP_ID = '<?php echo get_setting('weixin_app_id'); ?>';
+		var WEIXIN_APP_USER = '<?php echo get_setting('weixin_account_role'); ?>';
 
 	</script>
 	
