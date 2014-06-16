@@ -21,15 +21,15 @@
 					</div>
 				</div>
 				<!-- end 新消息通知 -->
-				
+
 				<a name="c_contents"></a>
 				<div class="aw-mod clearfix">
 					<div class="mod-head common-head">
 						<h2 id="main_title"><?php _e('最新动态'); ?></h2>
 					</div>
-					
+
 					<div class="mod-body aw-feed-list" id="main_contents"></div>
-					
+
 					<div class="mod-footer">
 						<!-- 加载更多内容 -->
 						<a id="bp_more" class="aw-load-more-content" data-page="0">
@@ -42,9 +42,9 @@
 			<!-- 侧边栏 -->
 			<div class="col-sm-12 col-md-3 aw-side-bar hidden-xs hidden-sm">
 				<?php TPL::output('block/sidebar_announce.tpl.htm'); ?>
-				
-				<?php TPL::output('block/sidebar_menu.tpl.htm'); ?>	
-				
+
+				<?php TPL::output('block/sidebar_menu.tpl.htm'); ?>
+
 				<div class="aw-mod invite-join">
 					<div class="mod-head">
 						<h3><?php _e('邀请好友加入社区'); ?><?php if ($this->user_info['invitation_available']) { ?><em class="badge badge-info"><?php echo $this->user_info['invitation_available']; ?></em><?php } ?></h3>
@@ -53,7 +53,7 @@
 						<a href="invitation/" class="btn btn-mini btn-success"><?php _e('发送邀请'); ?></a>
 					</div>
 				</div>
-				
+
 				<!-- 可能感兴趣的人/或话题 -->
 				<?php TPL::output('block/sidebar_recommend_users_topics.tpl.htm'); ?>
 			</div>
@@ -62,7 +62,7 @@
 	</div>
 </div>
 
-<?php if ($_GET['first_login']) { ?>
+<?php if ($_GET['first_login'] && $this->user_info['is_first_login'] == 1) { ?>
 <script type="text/javascript" src="<?php echo G_STATIC_URL; ?>/js/ajaxupload.js"></script>
 <script type="text/javascript">
 $(document).ready(function () {
