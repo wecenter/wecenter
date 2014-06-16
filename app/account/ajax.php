@@ -1043,13 +1043,10 @@ class ajax extends AWS_CONTROLLER
 
 		$update_data['sex'] = intval($_POST['sex']);
 
-		if ($_POST['province'])
+		if ($_POST['first_login'] == 1)
 		{
 			$update_data['province'] = htmlspecialchars($_POST['province']);
-		}
 
-		if ($_POST['city'])
-		{
 			$update_data['city'] = htmlspecialchars($_POST['city']);
 		}
 

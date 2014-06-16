@@ -23,13 +23,14 @@
 					</div>
 					<div class="mod-body">
 						<form id="welcome_step_1_form" action="account/ajax/profile_setting/" method="post" onsubmit="return false">
+						<input type="hidden" name="first_login" value="1" />
 						<div class="aw-complete-data">
 							<div class="pull-left side-bar">
 								<img id="aw-upload-img" src="<?php echo get_avatar_url($this->user_id, 'max'); ?>" title="" alt=""/>
 								<span><?php _e('支持 jpg、gif、png 等格式的图片'); ?></span>
 								<p><a class="btn btn-mini btn-success pull-right clearfix" id="welcome_avatar_uploader"><?php _e('上传头像'); ?></a> </p>
 								<p id="aw-img-uploading" class="hide"><i class="aw-loading"></i><?php _e('文件上传中...'); ?></p>
-								
+
 							</div>
 							<div class="pull-left">
 								<p>
@@ -59,7 +60,7 @@
 						<a class="pull-left" onclick="welcome_step('finish');">跳过资料填写</a>
 						<a class="btn btn-large btn-success pull-right" onclick="AWS.ajax_post($('#welcome_step_1_form'), _welcome_step_1_form_processer);"><?php _e('下一步'); ?></a>
 					</div>
-					
+
 				</div>
 			</div>
 		</div>
@@ -100,7 +101,7 @@
 						<a class="btn btn-large btn-success pull-right" onclick="welcome_step('3');"><?php _e('下一步'); ?></a>
 						<a class="btn btn-large btn-success pull-right" onclick="$('.aw-first-login.first').show();$('.aw-first-login.second').hide();"><?php _e('上一步'); ?></a>
 					</div>
-					
+
 				</div>
 			</div>
 		</div>
@@ -140,7 +141,7 @@
 						<a class="btn btn-large btn-success pull-right" onclick="welcome_step('finish');"><?php _e('完成'); ?></a>
 						<a class="btn btn-large btn-success pull-right" onclick="$('.aw-first-login.second').show();$('.aw-first-login.third').hide();"><?php _e('上一步'); ?></a>
 					</div>
-					
+
 				</div>
 			</div>
 		</div>
