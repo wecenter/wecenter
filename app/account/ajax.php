@@ -230,7 +230,7 @@ class ajax extends AWS_CONTROLLER
 		
 		$user_info = $this->model('account')->get_user_info_by_uid($uid);
 
-		if (get_setting('register_valid_type') == 'N' OR (get_setting('register_valid_type') == 'email' AND $user_info['group_id'] != 3) OR $user_info['group_id'] != 3)
+		if (get_setting('register_valid_type') == 'N' OR (get_setting('register_valid_type') == 'email' AND $user_info['group_id'] != 3) OR $user_info['group_id'] != 3 OR $_POST['email'] == $invitation['invitation_email'])
 		{
 			$this->model('account')->setcookie_login($user_info['uid'], $user_info['user_name'], $_POST['password'], $user_info['salt']);
 			
