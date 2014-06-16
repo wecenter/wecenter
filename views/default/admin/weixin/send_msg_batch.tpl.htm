@@ -111,7 +111,7 @@
                             <div class="col-sm-8 col-xs-8">
                                 <ul class="aw-question-list"></ul>
                                 <a class="md-tip" onclick="AWS.dialog('adminWechatSendMsg', {'type': 'adminQuestions'})" data-original-title="添加问题"><i class="fa fa-plus"></i></a>
-                                <input class="form-control question_ids hide" name="question_ids" value="<?php if ($this->question_ids) echo $this->question_ids; ?>" />
+                                <input class="form-control question_ids hide" name="question_ids" value="" type="hidden" />
                             </div>
                         </div>
                     </td>
@@ -124,7 +124,7 @@
                             <div class="col-sm-8 col-xs-8">
                                 <ul class="aw-article-list"></ul>
                                 <a class="md-tip" onclick="AWS.dialog('adminWechatSendMsg', {'type': 'adminArticles'})" data-original-title="添加文章"><i class="fa fa-plus"></i></a>
-                                <input class="form-control article_ids hide" name="article_ids" value="<?php if ($this->article_ids) echo $this->article_ids; ?>" />
+                                <input class="form-control article_ids hide" name="article_ids" value="" type="hidden" />
                             </div>
                         </div>
                     </td>
