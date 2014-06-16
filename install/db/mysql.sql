@@ -475,6 +475,7 @@ CREATE TABLE `[#DB_PREFIX#]question` (
   KEY `popular_value_update` (`popular_value_update`),
   KEY `against_count` (`against_count`),
   KEY `is_recommend` (`is_recommend`),
+  KEY `weibo_msg_id` (`weibo_msg_id`),
   FULLTEXT KEY `question_content_fulltext` (`question_content_fulltext`)
 ) ENGINE=MYISAM DEFAULT CHARSET=utf8 COMMENT='问题列表';
 
@@ -1117,8 +1118,8 @@ CREATE TABLE `[#DB_PREFIX#]weibo_msg` (
   `uid` int(10) NOT NULL,
   `weibo_uid` bigint(20) NOT NULL,
   `question_id` int(11) DEFAULT NULL,
-  `approvaled` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY `weibo_id` (`weibo_id`),
+  KEY `created_at` (`created_at`),
   KEY `uid` (`uid`),
   KEY `weibo_uid` (`weibo_uid`),
   KEY `question_id` (`question_id`)
