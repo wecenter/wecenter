@@ -12,6 +12,14 @@ $(function ()
 		echart3.render();
 	});
 
+	$('.btn-echat1').click(function()
+	{
+		var start_date = $(this).parents('.echart-date').find('.date-start').val(),
+			end_date = $(this).parents('.echart-date').find('.date-end').val();
+		var url = echart.url.substring(0, echart.url.search(/&/)) + '&start_date=' + start_date + '&end_date=' + end_date;
+		echart.initChart(url);
+	});
+
 });
 
 function Echarts(element, type, url, options)
@@ -58,13 +66,13 @@ function Echarts(element, type, url, options)
 
 	this.options = $.extend(this.options, options);
 
-	this.initChart(element, type, url, options);
+	this.initChart(url);
 }
 
 Echarts.prototype = 
 {
 	// 图表初始化
-	initChart : function (element, type, url, options)
+	initChart : function (url)
 	{
 		this.getData(url);
 	},
