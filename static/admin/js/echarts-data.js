@@ -12,9 +12,6 @@ function Echarts(element, type, url, options)
 	this.options = {
 		animation:false,
         addDataAnimation:false,
-        tooltip : {
-	        trigger: 'axis'
-	    },
         grid:{
            x:45,
            y:25,
