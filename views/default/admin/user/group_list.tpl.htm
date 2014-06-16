@@ -15,7 +15,7 @@
 		<div class="mod-body tab-content">
 			<div class="tab-pane active" id="_members">	
 				<div class="table-responsive">
-					<form id="batchs_form" action="admin/user/group_save_ajax/" method="post" onsubmit="return false;">
+					<form id="batchs_form" action="admin/ajax/save_user_group/" method="post" onsubmit="return false;">
 						<table class="table table-striped" id="members_table">
 							<thead>
 								<tr>
@@ -94,7 +94,7 @@
 			</div>
 			
 			<div class="tab-pane" id="_custom">
-				<form method="post" action="admin/user/group_custom_save_ajax/" id="custom_form">
+				<form method="post" action="admin/ajax/save_custom_user_group/" id="custom_form">
 				<table class="table table-striped" id="custom_table">
 					<thead>
 						<tr>
@@ -125,7 +125,7 @@
 				</table>
 				</form>
 				<div class="mod-table-foot">
-					<a class="btn btn-primary" onclick="ajax_post($('#custom_form'));"><?php _e('保存设置'); ?></a>
+					<a class="btn btn-primary" onclick="AWS.ajax_post($('#custom_form'));"><?php _e('保存设置'); ?></a>
 					<a class="btn btn-primary" onclick="$('#custom_table').append('<tr>' + $('#custom_add_form').html() + '</tr>')"><?php _e('添加新用户组'); ?></a>
 				</div>
 			</div>
@@ -184,7 +184,7 @@
 			if ($('#members_table tbody tr').length != 2)
 			{
 				var select_arr = get_select_arr(), template = get_select_template(select_arr);
-					$('#members_table .new_input').parents('.form-group').prepend('<select class="form-control" name="group_new[reputation_lower][]"></select>');
+					$('#members_table .new_input').parents('.form-group').prepend('<select class="form-control min-value" name="group_new[reputation_lower][]"></select>');
 					$('#members_table .new_input').detach();
 					$('#members_table select').last().append(template);
 			}

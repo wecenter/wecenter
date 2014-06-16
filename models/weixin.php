@@ -70,7 +70,7 @@ class weixin_class extends AWS_MODEL
 			return array(
 				'id' => 0,
 				'weixin_mp_token' => get_setting('weixin_mp_token'),
-				'weixin_account_role' => get_setting('weixin_mp_token'),
+				'weixin_account_role' => get_setting('weixin_account_role'),
 				'weixin_app_id' => get_setting('weixin_app_id'),
 				'weixin_app_secret' => get_setting('weixin_app_secret'),
 				'wecenter_access_token' => get_setting('wecenter_access_token'),
@@ -575,14 +575,14 @@ class weixin_class extends AWS_MODEL
 					switch ($child_param[0])
 					{
 						case 'FEATURE':
-							$topics_id = $this->model('feature')->get_topics_by_feature_id($child_param[1]);
+							$topic_ids = $this->model('feature')->get_topics_by_feature_id($child_param[1]);
 						break;
 					}
 				}
 
-				if ($topics_id)
+				if ($topic_ids)
 				{
-					$article_list = $this->model('article')->get_articles_list_by_topic_ids($param, 5, 'add_time DESC', $topics_id);
+					$article_list = $this->model('article')->get_articles_list_by_topic_ids($param, 5, 'add_time DESC', $topic_ids);
 				}
 				else
 				{
@@ -623,12 +623,12 @@ class weixin_class extends AWS_MODEL
 						break;
 
 						case 'FEATURE':
-							$topics_id = $this->model('feature')->get_topics_by_feature_id($child_param[1]);
+							$topic_ids = $this->model('feature')->get_topics_by_feature_id($child_param[1]);
 						break;
 					}
 				}
 
-				if ($question_list = $this->model('posts')->get_hot_posts('question', $category_id, array($topics_id), 7, $param, 5))
+				if ($question_list = $this->model('posts')->get_hot_posts('question', $category_id, $topic_ids, 7, $param, 5))
 				{
 					foreach ($question_list AS $key => $val)
 					{
@@ -669,12 +669,12 @@ class weixin_class extends AWS_MODEL
 						break;
 
 						case 'FEATURE':
-							$topics_id = $this->model('feature')->get_topics_by_feature_id($child_param[1]);
+							$topic_ids = $this->model('feature')->get_topics_by_feature_id($child_param[1]);
 						break;
 					}
 				}
 
-				if ($question_list = $this->model('posts')->get_posts_list('question', $param, 5, 'new', array($topics_id), $category_id))
+				if ($question_list = $this->model('posts')->get_posts_list('question', $param, 5, 'new', $topic_ids, $category_id))
 				{
 					foreach ($question_list AS $key => $val)
 					{
@@ -715,12 +715,12 @@ class weixin_class extends AWS_MODEL
 						break;
 
 						case 'FEATURE':
-							$topics_id = $this->model('feature')->get_topics_by_feature_id($child_param[1]);
+							$topic_ids = $this->model('feature')->get_topics_by_feature_id($child_param[1]);
 						break;
 					}
 				}
 
-				if ($question_list = $this->model('posts')->get_posts_list(null, $param, 5, 'new', array($topics_id), $category_id))
+				if ($question_list = $this->model('posts')->get_posts_list(null, $param, 5, 'new', $topic_ids, $category_id))
 				{
 					foreach ($question_list AS $key => $val)
 					{
@@ -780,12 +780,12 @@ class weixin_class extends AWS_MODEL
 						break;
 
 						case 'FEATURE':
-							$topics_id = $this->model('feature')->get_topics_by_feature_id($child_param[1]);
+							$topic_ids = $this->model('feature')->get_topics_by_feature_id($child_param[1]);
 						break;
 					}
 				}
 
-				if ($question_list = $this->model('posts')->get_posts_list('question', $param, 5, 'unresponsive', array($topics_id), $category_id))
+				if ($question_list = $this->model('posts')->get_posts_list('question', $param, 5, 'unresponsive', $topic_ids, $category_id))
 				{
 					foreach ($question_list AS $key => $val)
 					{
@@ -826,12 +826,12 @@ class weixin_class extends AWS_MODEL
 						break;
 
 						case 'FEATURE':
-							$topics_id = $this->model('feature')->get_topics_by_feature_id($child_param[1]);
+							$topic_ids = $this->model('feature')->get_topics_by_feature_id($child_param[1]);
 						break;
 					}
 				}
 
-				if ($question_list = $this->model('posts')->get_posts_list('question', $param, 5, null, array($topics_id), $category_id, null, null, true))
+				if ($question_list = $this->model('posts')->get_posts_list('question', $param, 5, null, $topic_ids, $category_id, null, null, true))
 				{
 					foreach ($question_list AS $key => $val)
 					{
@@ -1387,46 +1387,6 @@ class weixin_class extends AWS_MODEL
 		return $msgs_details[$msg_id];
 	}
 
-	public function add_article_or_question_ids_to_cache($article_ids = null, $question_ids = null)
-	{
-		$old_article_ids = AWS_APP::cache()->get('unsent_article_ids');
-
-		if ($old_article_ids)
-		{
-			$article_ids = array_unique(array_filter(array_merge($article_ids, $old_article_ids)));
-		}
-
-		$old_question_ids = AWS_APP::cache()->get('unsent_question_ids');
-
-		if ($old_question_ids)
-		{
-			$question_ids = array_unique(array_filter(array_merge($question_ids, $old_question_ids)));
-		}
-
-		$total = count($article_ids) + count($question_ids);
-
-		if ($total > 9)
-		{
-			return AWS_APP::lang()->_t('最多可添加 9 个文章和问题');
-		}
-
-		if ($article_ids)
-		{
-			natsort($article_ids);
-
-			AWS_APP::cache()->set('unsent_article_ids', $article_ids, 86400);
-		}
-
-		if ($question_ids)
-		{
-			natsort($question_ids);
-
-			AWS_APP::cache()->set('unsent_question_ids', $question_ids, 86400);
-		}
-
-		return AWS_APP::lang()->_t('已添加至待群发队列');
-	}
-
 	public function get_groups()
 	{
 		$groups = AWS_APP::cache()->get('weixin_groups');
@@ -1641,9 +1601,9 @@ class weixin_class extends AWS_MODEL
 					'filter_count' => intval($filter_count)
 				));
 
-		AWS_APP::cache()->delete('unsent_article_ids');
+		AWS_APP::cache()->delete('send_msg_batch_article_ids');
 
-		AWS_APP::cache()->delete('unsent_question_ids');
+		AWS_APP::cache()->delete('send_msg_batch_question_ids');
 	}
 
 	public function update_sent_msg($msg_id, $msg_details)

@@ -11,56 +11,56 @@ $config[] = array(
 		),
 
 		array(
-			'id' => 101,
+			'id' => 'SETTINGS_SITE',
 			'title' => '系统设置',
-			'url' => 'admin/settings/',
+			'url' => 'admin/settings/category-site',
 		),
 		array(
-			'id' => 102,
+			'id' => 'SETTINGS_REGISTER',
 			'title' => '注册与访问',
-			'url' => 'admin/settings/#!register_viste',
+			'url' => 'admin/settings/category-register',
 		),
 		array(
-			'id' => 103,
+			'id' => 'SETTINGS_FUNCTIONS',
 			'title' => '站点功能',
-			'url' => 'admin/settings/#!functions',
+			'url' => 'admin/settings/category-functions',
 		),
 		array(
-			'id' => 104,
+			'id' => 'SETTINGS_CONTENTS',
 			'title' => '内容设置',
-			'url' => 'admin/settings/#!contents',
+			'url' => 'admin/settings/category-contents',
 		),
 		array(
-			'id' => 106,
+			'id' => 'SETTINGS_INTEGRAL',
 			'title' => '积分与威望',
-			'url' => 'admin/settings/#!integral',
+			'url' => 'admin/settings/category-integral',
 		),
 		array(
-			'id' => 111,
+			'id' => 'SETTINGS_PERMISSIONS',
 			'title' => '用户权限',
-			'url' => 'admin/settings/#!permissions',
+			'url' => 'admin/settings/category-permissions',
 		),
 		array(
-			'id' => 107,
+			'id' => 'SETTINGS_MAIL',
 			'title' => '邮件设置',
-			'url' => 'admin/settings/#!email',
+			'url' => 'admin/settings/category-mail',
 		),
 		array(
-			'id' => 108,
+			'id' => 'SETTINGS_OPENID',
 			'title' => '开放平台',
-			'url' => 'admin/settings/#!openid',
+			'url' => 'admin/settings/category-openid',
 		),
 
 		array(
-			'id' => 109,
+			'id' => 'SETTINGS_CACHE',
 			'title' => '性能优化',
-			'url' => 'admin/settings/#!cache',
+			'url' => 'admin/settings/category-cache',
 		),
 
 		array(
-			'id' => 110,
+			'id' => 'SETTINGS_INTERFACE',
 			'title' => '界面设置',
-			'url' => 'admin/settings/#!interface',
+			'url' => 'admin/settings/category-interface',
 		),
 	)
 );
@@ -217,12 +217,6 @@ $config[] = array(
 	'title' => '工具',
 	'cname' => 'wrench',
 	'children' => array(
-		array(
-			'id' => 502,
-			'title' => '数据统计',
-			'url' => 'admin/statistic/',
-		),
-
 		array(
 			'id' => 501,
 			'title' => '系统维护',

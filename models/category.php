@@ -66,25 +66,23 @@ class category_class extends AWS_MODEL
 		return $this->count('category', "url_token = '" . $this->quote($url_token) . "' AND id != " . intval($category_id));
 	}
 	
-	public function move_contents($from_ids = array(), $target_id)
+	public function move_contents($from_id, $target_id)
 	{
-		if (!is_array($from_ids) OR !$target_id)
+		if (!$from_id OR !$target_id)
 		{
 			return false;
 		}
 		
-		array_walk_recursive($from_ids, 'intval_string');
-		
 		$this->update('question', array(
 			'category_id' => intval($target_id)
-		), 'category_id IN (' . implode(',', $from_ids) .')');
+		), 'category_id = ' . intval($from_id));
 		
 		$this->update('article', array(
 			'category_id' => intval($target_id)
-		), 'category_id IN (' . implode(',', $from_ids) .')');
+		), 'category_id = ' . intval($from_id));
 		
 		$this->update('posts_index', array(
 			'category_id' => intval($target_id)
-		), 'category_id IN (' . implode(',', $from_ids) .')');
+		), 'category_id = ' . intval($from_id));
 	}
 }

@@ -2,7 +2,8 @@
 <?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
 
 <div class="aw-content-wrap">
-	<form action="admin/user/group_edit_process/group_id-<?php echo $this->group['group_id']; ?>" id="settings_form" method="post" onsubmit="return false">
+	<form action="admin/ajax/edit_user_group_permission/" id="settings_form" method="post" onsubmit="return false">
+	<input type="hidden" name="group_id" value="<?php echo $this->group['group_id']; ?>" />
 	<div class="mod">
 		<div class="mod-head">
 			<h3>
@@ -129,17 +130,18 @@
 					<td>
 						<div class="form-group">
 							<span class="col-sm-4 col-xs-3 control-label"><?php _e('需要审核内容的时间段'); ?>:</span>
-							<div class="row">
-								<div class="col-sm-3">
-									<input type="text" class="form-control" value="<?php echo $this->group_pms['publish_approval_time']['start']; ?>" name="publish_approval_time[start]" />
+							<div class="col-sm-7">
+								<div class="row">
+									<div class="col-sm-4">
+										<input type="text" class="form-control" value="<?php echo $this->group_pms['publish_approval_time']['start']; ?>" name="publish_approval_time[start]" />
+									</div>
+									<span class="col-sm-1 mod-text-inline"> -</span>
+									<div class="col-sm-4">
+										<input type="text" class="form-control" value="<?php echo $this->group_pms['publish_approval_time']['end']; ?>" name="publish_approval_time[end]" />
+									</div>
+									
+									<span class="help-block"><?php _e('24 小时制全部审核请设置 0 小时 - 23 小时或不设置 <br>以小时为单位'); ?></span>
 								</div>
-								<div class="col-sm-1"><?php _e('小时'); ?> - </div>
-								<div class="col-sm-3">
-									<input type="text" class="form-control" value="<?php echo $this->group_pms['publish_approval_time']['end']; ?>" name="publish_approval_time[end]" />
-								</div>
-								<div class="col-sm-1"><?php _e('小时'); ?></div>
-								
-								<span class="help-block"><?php _e('24 小时制全部审核请设置 0 小时 - 23 小时或不设置'); ?></span>
 							</div>
 						</div>
 					</td>

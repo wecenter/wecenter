@@ -22,7 +22,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <form id="category_form" action="admin/category/save_sort/" method="post" onsubmit="return false">
+                    <form id="category_form" action="admin/ajax/save_category_sort/" method="post" onsubmit="return false">
                     <?php foreach ($this->list AS $key => $val) { ?>
                     <tr>
                         <td>
@@ -35,15 +35,15 @@
                         </td>
                         <td >
                             <a href="admin/category/edit/category_id-<?php echo $val['id']; ?>" data-toggle="tooltip" class="fa fa-pencil md-tip" title="<?php _e('编辑'); ?>"></a>
-                            <a onclick="ajax_request(G_BASE_URL + '/admin/category/category_remove/', 'category_id=<?php echo $val['id'];?>');" data-toggle="tooltip" class="fa fa-trash-o md-tip" title="<?php _e('删除'); ?>"></a>
-                            <a href="admin/category/move_contents/category_id-<?php echo $val['id']; ?>" data-toggle="tooltip" class="fa fa-exchange md-tip" title="<?php _e('批量移动'); ?>"></a>
+                            <a onclick="ajax_request(G_BASE_URL + '/admin/ajax/remove_category/', 'category_id=<?php echo $val['id'];?>');" data-toggle="tooltip" class="fa fa-trash-o md-tip" title="<?php _e('删除'); ?>"></a>
+                            <a data-id="<?php echo $val['id']; ?>" data-name="<?php echo $val['title']?>" data-url="admin/category/move_contents/category_id-" data-toggle="tooltip" class="fa fa-exchange md-tip move" title="<?php _e('批量移动'); ?>"></a>
                         </td>
                     </tr>
                     <?php } ?>
                     </form>
                     </tbody>
                     <tfoot class="mod-foot-center">
-                    <form id="add_category_form" action="admin/category/save/" method="post" onsubmit="return false">
+                    <form id="add_category_form" action="admin/ajax/save_category/" method="post" onsubmit="return false">
                     <tr>
                         <td>
                             <div class="form-group">
@@ -74,7 +74,11 @@
             </div>
         </div>
     </div>
+    <div id="target-category" class="hide">
+        <?php echo $this->target_category; ?>
+    </div>
 </div>
+
 
 <script type="text/javascript">
 	$(document).ready(function () {
@@ -84,6 +88,26 @@
 				AWS.ajax_post($('#category_form'), AWS.ajax_processer, 'error_message');
 			}
 		});
+
+        var json = '';
+
+        $.each($('#target-category option').toArray(), function (i, e)
+        {
+            if (i >= 1)
+            {
+                json += ',';
+            }
+            
+            json += "{'title':'" + $(e).text() + "', 'id':'" + $(e).val() + "'}";
+        });
+
+
+        $('.move').click(function()
+        {
+            AWS.dialog('adminCategoryMove', eval('[' + json + ']'));
+            $('.from-category').val($(this).attr('data-id'));
+            $('.aw-category-move-box .col-md-12').prepend('<p>将 <b>' + $(this).attr('data-name') + '</b> 的内容批量移动到</p>');
+        });
 	});
 </script>
 

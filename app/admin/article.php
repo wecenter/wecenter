@@ -130,32 +130,4 @@ class article extends AWS_ADMIN_CONTROLLER
 
 		TPL::output('admin/article/list');
 	}
-
-	public function article_batch_action()
-	{
-		define('IN_AJAX', TRUE);
-
-		if (empty($_POST['article_ids']))
-		{
-			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择文章进行操作')));
-		}
-
-		switch ($_POST['action'])
-		{
-			case 'del':
-				foreach ($_POST['article_ids'] AS $article_id)
-				{
-					$this->model('article')->remove_article($article_id);
-				}
-
-				H::ajax_json_output(AWS_APP::RSM(null, 1, null));
-			break;
-
-			case 'send':
-				$result = $this->model('weixin')->add_article_or_question_ids_to_cache($_POST['article_ids'], null);
-
-				H::ajax_json_output(AWS_APP::RSM(null, -1, $result));
-			break;
-		}
-	}
 }

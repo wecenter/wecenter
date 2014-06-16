@@ -1,0 +1,145 @@
+<?php TPL::output('admin/global/header.tpl.htm'); ?>
+<?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
+
+<div class="aw-content-wrap">
+    <form action="admin/ajax/weixin_send_msg/" id="msg_form" method="post" onsubmit="return false" enctype="multipart/form-data">
+    <div class="mod">
+        <div class="mod-head">
+            <h3>
+                <ul class="nav nav-tabs pull-left">
+                    <li><a href="admin/weixin/sent_msgs_list/"><?php _e('群发列表'); ?></a></li>
+                    <li class="active"><a href="admin/weixin/send_msg_batch/"><?php _e('群发消息'); ?></a></li>
+                </ul>
+            </h3>
+        </div>
+        </div>
+        <div class="tab-content mod-content">
+            <table class="table table-striped">
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('目标分组'); ?>:</span>
+                            <div class="col-sm-5 col-xs-8">
+                                <select name="group_id" class="form-control">
+                                   <?php foreach ($this->groups AS $val) { ?>
+                                       <option value="<?php echo $val['id']; ?>"><?php echo $val['name']; ?></option>
+                                   <?php } ?>
+                               </select>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('封面标题'); ?>:</span>
+                            <div class="col-sm-5 col-xs-8">
+                                <input class="form-control" name="main_msg_title" type="text" />
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('封面作者'); ?>:</span>
+                            <div class="col-sm-5 col-xs-8">
+                                <input class="form-control" name="main_msg_author" type="text" />
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('封面内容'); ?>:</span>
+                            <div class="col-sm-5 col-xs-8">
+                                <input class="form-control" name="main_msg_context" type="text" />
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('封面的原文链接'); ?>:</span>
+                            <div class="col-sm-5 col-xs-8">
+                                <input class="form-control" name="main_msg_url" type="text" />
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('封面图片'); ?>:</span>
+                            <div class="col-sm-5 col-xs-8">
+                                <input name="main_msg_img" type="file" />
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('在正文中显示封面图片'); ?>:</span>
+                            <div class="col-sm-6 col-xs-8">
+                                <div class="btn-group mod-btn">
+                                    <label type="button" class="btn mod-btn-color">
+                                        <input type="radio" name="show_cover_pic" value="1" checked="checked" /> <?php _e('是'); ?>
+                                    </label>
+
+                                    <label type="button" class="btn mod-btn-color">
+                                        <input type="radio" name="show_cover_pic" value="0" /> <?php _e('否'); ?>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('问题 ID'); ?>:</span>
+                            <div class="col-sm-8 col-xs-8">
+                                <ul class="aw-question-list"></ul>
+                                <a class="md-tip" onclick="AWS.dialog('adminWechatSendMsg', {'type': 'adminQuestions'})" data-original-title="添加问题"><i class="fa fa-plus"></i></a>
+                                <input class="form-control question_ids hide" name="question_ids" value="" type="hidden" />
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('文章 ID'); ?>:</span>
+                            <div class="col-sm-8 col-xs-8">
+                                <ul class="aw-article-list"></ul>
+                                <a class="md-tip" onclick="AWS.dialog('adminWechatSendMsg', {'type': 'adminArticles'})" data-original-title="添加文章"><i class="fa fa-plus"></i></a>
+                                <input class="form-control article_ids hide" name="article_ids" value="" type="hidden" />
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tfoot>
+                <tr>
+                    <td>
+                        <input type="button" value="<?php _e('保存'); ?>" class="btn btn-primary center-block" onclick="AWS.ajax_post($('#msg_form'));" />
+                    </td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    </form>
+</div>
+
+<?php TPL::output('admin/global/footer.tpl.htm'); ?>

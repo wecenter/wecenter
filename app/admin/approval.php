@@ -102,27 +102,4 @@ class approval extends AWS_ADMIN_CONTROLLER
 		
 		TPL::output('admin/approval/preview');
 	}
-	
-	public function batch_action()
-	{
-		if (!is_array($_POST['approval_ids']))
-		{
-			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择条目进行操作')));
-		}
-		
-		switch ($_POST['batch_type'])
-		{
-			case 'approval':
-			case 'decline':
-				$func = $_POST['batch_type'] . '_publish';
-				
-				foreach ($_POST['approval_ids'] AS $approval_id)
-				{
-					$this->model('publish')->$func($approval_id);
-				}
-			break;
-		}
-		
-		H::ajax_json_output(AWS_APP::RSM(null, 1, null));
-	}
 }

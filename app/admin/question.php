@@ -135,7 +135,7 @@ class question extends AWS_ADMIN_CONTROLLER
 			'per_page' => $this->per_page
 		))->create_links());
 
-		$this->crumb(AWS_APP::lang()->_t('问题管理'), "admin/question/question_list/");
+		$this->crumb(AWS_APP::lang()->_t('问题管理'), 'admin/question/question_list/');
 
 		TPL::assign('question_count', $total_rows);
 		TPL::assign('search_url', $search_url);
@@ -144,50 +144,6 @@ class question extends AWS_ADMIN_CONTROLLER
 		TPL::assign('list', $question_list);
 
 		TPL::output('admin/question/question_list');
-	}
-
-	public function question_batch_action()
-	{
-		define('IN_AJAX', TRUE);
-
-		if (empty($_POST['question_ids']))
-		{
-			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择问题进行操作')));
-		}
-
-		switch ($_POST['action'])
-		{
-			case 'del':
-				foreach ($_POST['question_ids'] AS $question_id)
-				{
-					$this->model('question')->remove_question($question_id);
-				}
-
-				H::ajax_json_output(AWS_APP::RSM(null, 1, null));
-
-				break;
-
-			case 'send':
-				$result = $this->model('weixin')->add_article_or_question_ids_to_cache(null, $_POST['question_ids']);
-
-				H::ajax_json_output(AWS_APP::RSM(null, -1, $result));
-
-				break;
-		}
-	}
-
-	public function answer_batch_action()
-	{
-		define('IN_AJAX', TRUE);
-
-		if (! $_POST['answer_ids'])
-		{
-			H::ajax_json_output(AWS_APP::RSM(nul, -1, AWS_APP::lang()->_t('请选择回复进行操作')));
-		}
-
-		$this->model('answer')->remove_answer_by_ids($_POST['answer_ids']);
-
-		H::ajax_json_output(AWS_APP::RSM(null, 1, null));
 	}
 
 	public function report_list_action()
@@ -216,48 +172,5 @@ class question extends AWS_ADMIN_CONTROLLER
 		))->create_links());
 
 		TPL::output('admin/question/report_list');
-	}
-
-	public function report_batch_action()
-	{
-		$action_type = $_POST['action_type'];
-
-		if (! $_POST['report_ids'])
-		{
-			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择内容进行操作')));
-		}
-
-		if (! $action_type)
-		{
-			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择操作类型')));
-		}
-
-		if ($action_type == 'delete')
-		{
-			foreach ($_POST['report_ids'] as $val)
-			{
-				$this->model('question')->delete_report($val);
-			}
-		}
-		else if ($action_type == 'handle')
-		{
-			foreach ($_POST['report_ids'] as $val)
-			{
-				$this->model('question')->update_report($val, array(
-					'status' => 1
-				));
-			}
-		}
-
-		H::ajax_json_output(AWS_APP::RSM(null, 1, null));
-	}
-
-	public function report_handle_ajax_action()
-	{
-		$this->model('question')->update_report($_GET['report_id'], array(
-			'status' => 1
-		));
-
-		H::ajax_json_output(AWS_APP::RSM(null, 1, null));
 	}
 }

@@ -14,38 +14,47 @@
 			</h3>
 		</div>
 		<div class="mod-body tab-content">
-			<form id="batchs_form" action="admin/approval/batch/" method="post">
+			<form id="batchs_form" action="admin/ajax/approval_manage/" method="post">
 			<input type="hidden" id="batch_type" name="batch_type" value="approval" />
 			<input type="hidden" id="approval_id" name="approval_ids[]" value="" />
 			<div class="table-responsive">
-			<?php if ($this->list) { ?>
+			<?php if ($this->approval_list) { ?>
 				<table class="table table-striped">
 					<thead>
 						<tr>
 							<th><input type="checkbox" class="check-all"></th>
 							<th><?php _e('用户'); ?></th>
-							
 							<?php if ($_GET['type'] == 'answer' OR $_GET['type'] == 'article_comment') { ?>
 							<?php } else { ?>
 								<th><?php _e('标题'); ?></th>
 							<?php } ?>
-							
 							<th><?php _e('内容'); ?></th>
+							<th><?php _e('操作')?></th>
 						</tr>
 					</thead>
 					<tbody>
-						<?php foreach ($this->list AS $key => $val) { ?>
+						<?php foreach ($this->approval_list AS $key => $val) { ?>
 						<tr>
 							<td><input type="checkbox" name="approval_ids[]" value="<?php echo $val['id']; ?>"></td>
 							<td><a href="people/<?php echo $this->users_info[$val['uid']]['url_token']; ?>" target="_blank"><?php echo $this->users_info[$val['uid']]['user_name']; ?></a></td>
 						
 							<?php if ($_GET['type'] == 'question') { ?>
-							<td><a class="fa fa-search md-tip" onclick="$.dialog('ajaxData', {'title':'<?php _e('内容审核'); ?>', 'url':G_BASE_URL + '/admin/approval/preview/<?php echo $val['id']; ?>'});"></a> &nbsp; <?php echo htmlspecialchars($val['data']['question_content']); ?></td>
+							
+							<td>
+								<?php echo htmlspecialchars($val['data']['question_content']); ?>
+							</td>
 							<?php } else if ($_GET['type'] == 'article') { ?>
-							<td><a class="fa fa-search md-tip" onclick="$.dialog('ajaxData', {'title':'<?php _e('内容审核'); ?>', 'url':G_BASE_URL + '/admin/approval/preview/<?php echo $val['id']; ?>'});"></a> &nbsp; <?php echo htmlspecialchars($val['data']['title']); ?></td>
+							<td>
+								<?php echo htmlspecialchars($val['data']['title']); ?>
+							</td>
 							<?php } ?>
 						
-							<td><a onclick="$.dialog('ajaxData', {'title':'<?php _e('内容审核'); ?>', 'url':G_BASE_URL + '/admin/approval/preview/<?php echo $val['id']; ?>'});"><?php if ($_GET['type'] == 'answer') { echo cjk_substr(htmlspecialchars($val['data']['answer_content']), 0, 128, 'UTF-8', '...'); } else if ($_GET['type'] == 'article' OR $_GET['type'] == 'article_comment') { echo cjk_substr(htmlspecialchars($val['data']['message']), 0, 128, 'UTF-8', '...'); } else { echo cjk_substr(htmlspecialchars($val['data']['question_detail']), 0, 128, 'UTF-8', '...'); } ?></a></td>
+							<td><a onclick="AWS.dialog('ajaxData', {'title':'<?php _e('内容审核'); ?>', 'url':G_BASE_URL + '/admin/approval/preview/<?php echo $val['id']; ?>'});"><?php if ($_GET['type'] == 'answer') { echo cjk_substr(htmlspecialchars($val['data']['answer_content']), 0, 128, 'UTF-8', '...'); } else if ($_GET['type'] == 'article' OR $_GET['type'] == 'article_comment') { echo cjk_substr(htmlspecialchars($val['data']['message']), 0, 128, 'UTF-8', '...'); } else { echo cjk_substr(htmlspecialchars($val['data']['question_detail']), 0, 128, 'UTF-8', '...'); } ?></a>
+							</td>
+
+							<td>
+								<a class="fa fa-search md-tip" onclick="AWS.dialog('ajaxData', {'title':'<?php _e('内容审核'); ?>', 'url':G_BASE_URL + '/admin/approval/preview/<?php echo $val['id']; ?>'});" data-original-title="查看内容"></a>
+							</td>
 						</tr>
 						<?php } ?>
 					</tbody>
@@ -56,8 +65,8 @@
 			<div class="mod-table-foot">
 				<span class="pull-right mod-page"><?php echo $this->pagination; ?></span>
 				
-				<a class="btn btn-primary" onclick="$('#batch_type').val('approval'); ajax_post($('#batchs_form'));" id="batch_approval"><?php _e('通过审核'); ?></a>
-				<a class="btn btn-danger" onclick="$('#batch_type').val('decline'); ajax_post($('#batchs_form'));" id="batch_decline"><?php _e('拒绝审核'); ?></a>
+				<a class="btn btn-primary" onclick="$('#batch_type').val('approval'); AWS.ajax_post($('#batchs_form'));" id="batch_approval"><?php _e('通过审核'); ?></a>
+				<a class="btn btn-danger" onclick="$('#batch_type').val('decline'); AWS.ajax_post($('#batchs_form'));" id="batch_decline"><?php _e('拒绝审核'); ?></a>
 			</div>
 		</div>
 	</div>

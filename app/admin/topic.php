@@ -99,17 +99,6 @@ class topic extends AWS_ADMIN_CONTROLLER
 		TPL::output("admin/topic/list");
 	}
 	
-	public function topic_lock_action()
-	{
-		define('IN_AJAX', TRUE);
-		
-		$status = isset($_GET['status']) ? $_GET['status'] : 0;
-		
-		$this->model('topic')->lock_topic_by_ids($_GET['topic_id'], $status);
-		
-		H::ajax_json_output(AWS_APP::RSM(null, 1, null));
-	}
-	
 	public function edit_action()
 	{
 		$this->crumb(AWS_APP::lang()->_t('话题编辑'), 'admin/topic/edit/');
@@ -125,56 +114,4 @@ class topic extends AWS_ADMIN_CONTROLLER
 		
 		TPL::output('admin/topic/edit');
 	}
-	
-	public function save_ajax_action()
-	{
-		define('IN_AJAX', TRUE);
-		
-		if (! $topic_info = $this->model('topic')->get_topic_by_id($_GET['topic_id']))
-		{
-			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('话题不存在')));
-		}
-		
-		$topic_info = $this->model('topic')->get_topic_by_id($_GET['topic_id']);
-			
-		if ($topic_info['topic_title'] != $_POST['topic_title'] AND $this->model('topic')->get_topic_by_title($_POST['topic_title']))
-		{
-			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('同名话题已经存在')));
-		}
-		
-		$this->model('topic')->update_topic($_GET['topic_id'], $_POST['topic_title'], $_POST['topic_description']);
-		
-		$this->model('topic')->lock_topic_by_ids($_GET['topic_id'], $_POST['topic_lock']);
-			
-		$referer_url = empty($_POST['referer_url']) ? get_js_url('/admin/topic/list/') : $_POST['referer_url'];
-			
-		H::ajax_json_output(AWS_APP::RSM(array(
-			'url' => $referer_url
-		), 1, null));
-	}
-	
-	public function topic_batch_action()
-	{
-		define('IN_AJAX', TRUE);
-		
-		if (!$_POST['topic_ids'])
-		{
-			H::ajax_json_output(AWS_APP::RSM(nul, -1, AWS_APP::lang()->_t('请选择话题进行操作')));
-		}
-		
-		switch($_POST['action_type'])
-		{
-			case 'remove' : 
-				$this->model('topic')->remove_topic_by_ids($_POST['topic_ids']);
-			break;
-			
-			case 'lock' : 
-				$this->model('topic')->lock_topic_by_ids($_POST['topic_ids'], 1);
-			break;
-		}
-		
-		
-		H::ajax_json_output(AWS_APP::RSM(null, 1, null));
-	}
-
 }

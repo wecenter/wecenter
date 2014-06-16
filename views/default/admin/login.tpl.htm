@@ -37,7 +37,7 @@
     <div class="mod center-block">
         <h1><img src="<?php echo G_STATIC_URL; ?>/admin/img/wecenter-logo.png" alt="" /></h1>
         
-        <form role="form" id="login_form" onsubmit="return false" action="admin/login_process_ajax/" method="post">
+        <form role="form" id="login_form" onsubmit="return false" action="admin/ajax/login_process/" method="post">
         	<?php if ($_GET['url']){ ?>
         	<input type="hidden" name="url" value="<?php echo htmlspecialchars($_GET['url']); ?>">
         	<?php } ?>

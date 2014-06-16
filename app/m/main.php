@@ -122,8 +122,8 @@ class main extends AWS_CONTROLLER
 			'js/jquery.2.js',
 			'js/jquery.form.js',
 			'mobile/js/framework.js',
-			'mobile/js/app.js',
 			'mobile/js/aws_mobile.js',
+			'mobile/js/app.js',
 			'mobile/js/mobile.js',
 			'mobile/js/aw-mobile-template.js'
 		));
@@ -278,7 +278,7 @@ class main extends AWS_CONTROLLER
 
 				if ($this->user_id && ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator'] OR (!$this->question_info['lock'] AND $this->user_info['permission']['redirect_question'])))
 				{
-					$message .= '&nbsp; (<a href="javascript:;" onclick="ajax_request(G_BASE_URL + \'/question/ajax/redirect/\', \'item_id=' . $question_info['question_id'] . '\');">' . AWS_APP::lang()->_t('撤消重定向') . '</a>)';
+					$message .= '&nbsp; (<a href="javascript:;" onclick="AWS.ajax_request(G_BASE_URL + \'/question/ajax/redirect/\', \'item_id=' . $question_info['question_id'] . '\');">' . AWS_APP::lang()->_t('撤消重定向') . '</a>)';
 				}
 
 				$redirect_message[] = $message;

@@ -2,7 +2,7 @@
 <?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
 
 <div class="aw-content-wrap">
-	<form action="admin/feature/save_ajax/feature_id-<?php echo $this->feature['id']; ?>" id="settings_form" method="post" enctype="multipart/form-data">
+	<form action="admin/ajax/save_feature/feature_id-<?php echo $this->feature['id']; ?>" id="settings_form" method="post" enctype="multipart/form-data">
 	<div class="mod">
 		<div class="mod-head">
 			<h3>
@@ -36,8 +36,9 @@
 					<td>
 						<div class="form-group">
 							<span class="col-sm-4 col-xs-3 control-label"><?php _e('别名'); ?>:</span>
-							<div class="col-sm-3 col-xs-3">
-								/feature/ <input type="text" name="url_token" class="form-control" value="<?php echo $this->feature['url_token']; ?>" />
+                            <span class="col-sm-1 mod-text-inline">/feature/</span>
+							<div class="col-sm-4 col-xs-4">
+								<input type="text" name="url_token" class="form-control" value="<?php echo $this->feature['url_token']; ?>" />
 							</div>
 						</div>
 					</td>

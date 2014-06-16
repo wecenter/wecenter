@@ -1,186 +1,190 @@
 <?php TPL::output('admin/global/header.tpl.htm'); ?>
 <?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
 
-<div class="pull-left right-side">
-    <div class="aw-box">
-        <div class="aw-mod-head">
-            <h2><?php _e('查看群发消息'); ?></h2>
+<div class="aw-content-wrap">
+    <div class="mod">
+        <div class="mod-head">
+            <h3>
+                <span class="pull-left"><?php _e('查看群发消息'); ?></span>
+            </h3>
         </div>
+    </div>
 
-        <div class="aw-mod-body">
-        <dl>
-            <dt><h3><?php _e('ID'); ?>:</h3></dt>
-            <dd>
-                <div class="row">
-                    <div class="col-sm-6">
-                        <?php echo $this->msg_details['id']; ?>
+    <div class="tab-content mod-content">
+        <table class="table table-striped">
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <span class="col-sm-4 col-xs-3 control-label"><?php _e('ID'); ?>:</span>
+                        <div class="col-sm-5 col-xs-8">
+                            <?php echo $this->msg_details['id']; ?>
+                        </div>
                     </div>
-                </div>
-            </dd>
-        </dl>
+                </td>
+            </tr>
 
-        <dl>
-            <dt><h3><?php _e('消息 ID'); ?>:</h3></dt>
-            <dd>
-                <div class="row">
-                    <div class="col-sm-7">
-                        <?php echo $this->msg_details['msg_id']; ?>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <span class="col-sm-4 col-xs-3 control-label"><?php _e('消息 ID'); ?>:</span>
+                        <div class="col-sm-5 col-xs-8">
+                            <input class="form-control" name="main_msg_title" type="text" />
+                        </div>
                     </div>
-                </div>
-            </dd>
-        </dl>
+                </td>
+            </tr>
 
-        <dl>
-            <dt><h3><?php _e('目标分组'); ?>:</h3></dt>
-            <dd>
-                <div class="row">
-                    <div class="col-sm-7">
-                        <?php echo $this->msg_details['group_name']; ?>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <span class="col-sm-4 col-xs-3 control-label"><?php _e('目标分组'); ?>:</span>
+                        <div class="col-sm-5 col-xs-8">
+                            <?php echo $this->msg_details['group_name']; ?>
+                        </div>
                     </div>
-                </div>
-            </dd>
-        </dl>
+                </td>
+            </tr>
 
-        <dl>
-            <dt><h3><?php _e('状态'); ?>:</h3></dt>
-            <dd>
-                <div class="row">
-                    <div class="col-sm-7">
-                        <?php switch ($this->msg_details['status']) {
-                            case 'unsent':
-                                _e('未发送');
-                                break;
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <span class="col-sm-4 col-xs-3 control-label"><?php _e('状态'); ?>:</span>
+                        <div class="col-sm-5 col-xs-8">
+                            <?php switch ($this->msg_details['status']) {
+                                  case 'unsent':
+                                      _e('未发送');
+                                      break;
 
-                            case 'pending':
-                                _e('提交成功');
-                                break;
+                                  case 'pending':
+                                      _e('提交成功');
+                                      break;
 
-                            case 'error':
-                                _e('提交失败');
-                                break;
+                                  case 'error':
+                                      _e('提交失败');
+                                      break;
 
-                            case 'success':
-                                _e('发送成功');
-                                break;
+                                  case 'success':
+                                      _e('发送成功');
+                                      break;
 
-                            case 'fail':
-                                _e('发送失败');
-                                break;
+                                  case 'fail':
+                                      _e('发送失败');
+                                      break;
 
-                            case 'wrong':
-                                _e('审核失败');
-                                break;
+                                  case 'wrong':
+                                      _e('审核失败');
+                                      break;
 
-                            default:
-                                _e('未知');
-                                break;
-                        } ?>
+                                  default:
+                                      _e('未知');
+                                      break;
+                              } ?>
+                        </div>
                     </div>
-                </div>
-            </dd>
-        </dl>
+                </td>
+            </tr>
 
-        <?php if ($this->msg_details['status'] == 'wrong') { ?>
-        <dl>
-            <dt><h3><?php _e('审核失败的原因'); ?>:</h3></dt>
-            <dd>
-                <div class="row">
-                    <div class="col-sm-7">
-                        <?php switch ($this->msg_details['error_num']) {
-                            case '10001':
-                                _e('涉嫌广告');
-                                break;
+            <?php if ($this->msg_details['status'] == 'wrong') { ?>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <span class="col-sm-4 col-xs-3 control-label"><?php _e('审核失败的原因'); ?>:</span>
+                        <div class="col-sm-5 col-xs-8">
+                            <?php switch ($this->msg_details['error_num']) {
+                                 case '10001':
+                                     _e('涉嫌广告');
+                                     break;
 
-                            case '20001':
-                                _e('涉嫌政治');
-                                break;
+                                 case '20001':
+                                     _e('涉嫌政治');
+                                     break;
 
-                            case '20004':
-                                _e('涉嫌社会');
-                                break;
+                                 case '20004':
+                                     _e('涉嫌社会');
+                                     break;
 
-                            case '20002':
-                                _e('涉嫌色情');
-                                break;
+                                 case '20002':
+                                     _e('涉嫌色情');
+                                     break;
 
-                            case '20006':
-                                _e('涉嫌违法犯罪');
-                                break;
+                                 case '20006':
+                                     _e('涉嫌违法犯罪');
+                                     break;
 
-                            case '20008':
-                                _e('涉嫌欺诈');
-                                break;
+                                 case '20008':
+                                     _e('涉嫌欺诈');
+                                     break;
 
-                            case '20013':
-                                _e('涉嫌版权');
-                                break;
+                                 case '20013':
+                                     _e('涉嫌版权');
+                                     break;
 
-                            case '22000':
-                                _e('涉嫌互推(互相宣传)');
-                                break;
+                                 case '22000':
+                                     _e('涉嫌互推(互相宣传)');
+                                     break;
 
-                            case '21000':
-                                _e('涉嫌其他');
-                                break;
+                                 case '21000':
+                                     _e('涉嫌其他');
+                                     break;
 
-                            default:
-                                _e('未知原因');
-                                break;
-                        } ?>
+                                 default:
+                                     _e('未知原因');
+                                     break;
+                             } ?>
+                        </div>
                     </div>
-                </div>
-            </dd>
-        </dl>
-        <?php } ?>
+                </td>
+            </tr>
+            <?php } ?>
 
-        <dl>
-            <dt><h3><?php _e('群发的文章'); ?>:</h3></dt>
-            <dd>
-                <div class="row">
-                    <div class="col-sm-7">
-                        <?php if (!empty($this->msg_details['articles_info'])) { foreach ($this->msg_details['articles_info'] AS $article_info) { ?>
-                        <a href="article/<?php echo $article_info['id']; ?>"><?php echo $article_info['title']; ?></a>
-                        <?php } } ?>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <span class="col-sm-4 col-xs-3 control-label"><?php _e('群发的文章'); ?>:</span>
+                        <div class="col-sm-5 col-xs-8">
+                            <?php if (!empty($this->msg_details['articles_info'])) { foreach ($this->msg_details['articles_info'] AS $article_info) { ?>
+                            <a href="article/<?php echo $article_info['id']; ?>"><?php echo $article_info['title']; ?></a>
+                            <?php } } ?>
+                        </div>
                     </div>
-                </div>
-            </dd>
-        </dl>
+                </td>
+            </tr>
 
-        <dl>
-            <dt><h3><?php _e('群发的问题'); ?>:</h3></dt>
-            <dd>
-                <div class="row">
-                    <div class="col-sm-7">
-                        <?php if (!empty($this->msg_details['questions_info'])) { foreach ($this->msg_details['questions_info'] AS $question_info) { ?>
-                        <a href="question/<?php echo $question_info['id']; ?>"><?php echo $question_info['title']; ?></a>
-                        <?php } } ?>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <span class="col-sm-4 col-xs-3 control-label"><?php _e('群发的问题'); ?>:</span>
+                        <div class="col-sm-6 col-xs-8">
+                            <?php if (!empty($this->msg_details['questions_info'])) { foreach ($this->msg_details['questions_info'] AS $question_info) { ?>
+                            <a href="question/<?php echo $question_info['id']; ?>"><?php echo $question_info['title']; ?></a>
+                            <?php } } ?>
+                        </div>
                     </div>
-                </div>
-            </dd>
-        </dl>
+                </td>
+            </tr>
 
-        <dl>
-            <dt><h3><?php _e('创建时间'); ?>:</h3></dt>
-            <dd>
-                <div class="row">
-                    <div class="col-sm-7">
-                        <?php echo date_friendly($this->msg_details['create_time']); ?>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <span class="col-sm-4 col-xs-3 control-label"><?php _e('创建时间'); ?>:</span>
+                        <div class="col-sm-6 col-xs-8">
+                            <?php echo date_friendly($this->msg_details['create_time']); ?>
+                        </div>
                     </div>
-                </div>
-            </dd>
-        </dl>
+                </td>
+            </tr>
 
-        <dl>
-            <dt><h3><?php _e('用户数'); ?>:</h3></dt>
-            <dd>
-                <div class="row">
-                    <div class="col-sm-7">
-                        <?php echo $this->msg_details['filter_count']; ?>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <span class="col-sm-4 col-xs-3 control-label"><?php _e('用户数'); ?>:</span>
+                        <div class="col-sm-6 col-xs-8">
+                            <?php echo $this->msg_details['filter_count']; ?>
+                        </div>
                     </div>
-                </div>
-            </dd>
-        </dl>
-        </div>
+                </td>
+            </tr>
+        </table>
     </div>
 </div>
 

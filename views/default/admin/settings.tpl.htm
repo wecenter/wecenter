@@ -2,9 +2,9 @@
 <?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
 
 <div class="aw-content-wrap">
-	<form action="admin/settings/save/" id="settings_form" method="post" onsubmit="return false">
+	<form action="admin/ajax/save_settings/" id="settings_form" method="post" onsubmit="return false">
 	<div class="mod">
-		<a name="site_info"></a>
+		<?php if ($_GET['category'] == 'site') { ?>
 		<div class="mod-head">
 			<h3>
 				<span class="pull-left"><?php _e('站点信息'); ?></span>
@@ -102,7 +102,7 @@
 			</table>
 		</div>
 		
-		<a name="register_viste"></a>
+		<?php } else if ($_GET['category'] == 'register') { ?>
 		<div class="mod-head">
 			<h3>
 				<span class="pull-left"><?php _e('注册与访问'); ?></span>
@@ -193,7 +193,7 @@
 									</label>
 									
 									<label type="button" class="btn mod-btn-color">
-										<input type="radio" name="site_close" value="N"<?php if ($this->setting['site_close'] == 'N') { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?>
+										<input type="radio" name="register_seccode" value="N"<?php if ($this->setting['register_seccode'] == 'N') { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?>
 									</label>
 								</div>
 							</div>
@@ -380,7 +380,7 @@
 			</table>
 		</div>
 		
-		<a name="functions"></a>
+		<?php } else if ($_GET['category'] == 'functions') { ?>
 		<div class="mod-head">
 			<h3>
 				<span class="pull-left"><?php _e('站点功能'); ?></span>
@@ -591,7 +591,7 @@
 			</table>
 		</div>
 		
-		<a name="contents"></a>
+		<?php } else if ($_GET['category'] == 'contents') { ?>
 		<div class="mod-head">
 			<h3>
 				<span class="pull-left"><?php _e('内容设置'); ?></span>
@@ -907,7 +907,7 @@
 			</table>
 		</div>
 		
-		<a name="integral"></a>
+		<?php } else if ($_GET['category'] == 'integral') { ?>
 		<div class="mod-head">
 			<h3>
 				<span class="pull-left"><?php _e('积分与威望'); ?></span>
@@ -1070,7 +1070,7 @@
 			</table>
 		</div>
 		
-		<a name="permissions"></a>
+		<?php } else if ($_GET['category'] == 'permissions') { ?>
 		<div class="mod-head">
 			<h3>
 				<span class="pull-left"><?php _e('用户权限'); ?></span>
@@ -1130,7 +1130,7 @@
 			</table>
 		</div>
 		
-		<a name="email"></a>
+		<?php } else if ($_GET['category'] == 'mail') { ?>
 		<div class="mod-head">
 			<h3>
 				<span class="pull-left"><?php _e('邮件设置'); ?></span>
@@ -1240,7 +1240,7 @@
 			</table>
 		</div>
 		
-		<a name="openid"></a>
+		<?php } else if ($_GET['category'] == 'openid') { ?>
 		<div class="mod-head">
 			<h3>
 				<span class="pull-left"><?php _e('开放平台'); ?></span>
@@ -1446,7 +1446,7 @@
 			</table>
 		</div>
 		
-		<a name="cache"></a>
+		<?php } else if ($_GET['category'] == 'cache') { ?>
 		<div class="mod-head">
 			<h3>
 				<span class="pull-left"><?php _e('性能优化'); ?></span>
@@ -1495,7 +1495,7 @@
 			</table>
 		</div>
 		
-		<a name="interface"></a>
+		<?php } else if ($_GET['category'] == 'interface') { ?>
 		<div class="mod-head">
 			<h3>
 				<span class="pull-left"><?php _e('界面设置'); ?></span>
@@ -1559,14 +1559,11 @@
 						</div>
 					</td>
 				</tr>
-				<tfoot>
-				<tr>
-					<td>
-						<input type="button" value="<?php _e('保存设置'); ?>" class="btn btn-primary center-block" onclick="AWS.ajax_post($('#settings_form'));" />
-					</td>
-				</tr>
-				</tfoot>
 			</table>
+		</div>
+		<?php } ?>
+		<div class="tab-content mod-content">
+			<input type="button" value="<?php _e('保存设置'); ?>" class="btn btn-primary center-block" onclick="AWS.ajax_post($('#settings_form'));" />
 		</div>
 	</div>
 	</form>

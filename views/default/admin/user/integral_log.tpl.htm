@@ -34,44 +34,42 @@
 					<?php } ?>
 					<?php } ?>
 				</tbody>
-			    <tfoot class="mod-foot-center">
-			    <form id="integral_form" action="admin/user/integral_add_ajax/" method="post" onsubmit="return false">
+			</table>
+			<div class="mod-table-foot">
+			    <form id="integral_form" action="admin/ajax/integral_process/" method="post" onsubmit="return false">
 				<input name="uid" type="hidden" value="<?php echo $this->user['uid']; ?>">
-			    <tr>
-			        <td>
+			        <div class="col-sm-2">
 			            <div class="form-group">
-			                <span  class="col-sm-2 mod-category-foot"><?php _e('当前积分'); ?>:</span>
-			                <div class="col-sm-6 col-xs-12">
+			                <span  class="col-sm-5 mod-category-foot"><?php _e('当前积分'); ?>:</span>
+			                <span class="col-sm-6 col-xs-11">
 			                    <?php echo $this->user['integral']; ?>
-			                </div>
+			                </span>
 			            </div>
-			        </td>
-			        <td>
+			        </div>
+			        <div class="col-sm-3">
 			            <div class="form-group">
-			                <span class="col-sm-2 mod-category-foot"><?php _e('操作积分') ?>:</span>
-			                <div class="col-sm-6 col-xs-12">
+			                <span class="col-sm-4 mod-category-foot"><?php _e('操作积分') ?>:</span>
+			                <div class="col-sm-8 col-xs-12">
 			                    <input type="text" class="form-control" name="integral" />
 			                </div>
 			            </div>
-			        </td>
-			        <td>
+			        </div>
+			        <div class="col-sm-3">
 			            <div class="form-group">
-			                <span class="col-sm-2 mod-category-foot"><?php _e('说明') ?>:</span>
-			                <div class="col-sm-6 col-xs-12">
+			                <span class="col-sm-3 mod-category-foot"><?php _e('说明') ?>:</span>
+			                <div class="col-sm-9 col-xs-12">
 			                    <input type="text" class="form-control" name="note" value="<?php _e('管理员操作积分'); ?>" />
 			                </div>
 			            </div>
-			        </td>
+			        </div>
 			        <td class="mod-foot-btn">
 			            <a onclick="AWS.ajax_post($('#integral_form'));" class="btn-primary btn"><?php _e('提交'); ?></a>
 			        </td>
 					<td>
 						<span class="pull-right"><?php echo $this->pagination; ?></span>
 					</td>
-			    </tr>
 			    </form>
-			    </tfoot>
-			</table>
+			    </div>
 		</div>
 	</div>
 </div>

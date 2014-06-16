@@ -9,7 +9,7 @@
 			</h3>
 		</div>
 		<div class="mod-body tab-content">
-			<form id="batchs_form" action="admin/user/register_approval_process/" method="post">
+			<form id="batchs_form" action="admin/ajax/register_approval_manage/" method="post">
 			<input type="hidden" name="batch_type" id="batch_type" />
 			<div class="table-responsive">
 			<?php if ($this->list) { ?>
@@ -44,11 +44,16 @@
 			</form>
 			<div class="mod-table-foot">
 				<span class="pull-right mod-page"><?php echo $this->pagination; ?></span>
-				
-				<?php _e('拒绝理由'); ?>: <input type="text" name="reason" />
-				
-				<a class="btn btn-primary" onclick="$('#batch_type').val('approval'); ajax_post($('#batchs_form'));" id="batch_approval"><?php _e('通过审核'); ?></a>
-				<a class="btn btn-danger" onclick="$('#batch_type').val('decline'); ajax_post($('#batchs_form'));" id="batch_decline"><?php _e('拒绝审核'); ?></a>
+				<div class="col-sm-4">
+					<div class="col-xs-3 clpadding">
+						<?php _e('拒绝理由'); ?>:
+					</div> 
+					<div class="col-xs-8">
+						<input type="text"class="form-control" name="reason" />
+					</div>
+				</div>
+				<a class="btn btn-primary" onclick="$('#batch_type').val('approval'); AWS.ajax_post($('#batchs_form'));" id="batch_approval"><?php _e('通过审核'); ?></a>
+				<a class="btn btn-danger" onclick="$('#batch_type').val('decline'); AWS.ajax_post($('#batchs_form'));" id="batch_decline"><?php _e('拒绝审核'); ?></a>
 			</div>
 		</div>
 	</div>
