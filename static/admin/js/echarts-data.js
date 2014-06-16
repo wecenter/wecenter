@@ -1,7 +1,7 @@
 $(function () {
-    var echart = new Echarts('#main', 'line', 'http://10.0.0.167/wecenter/?/admin/ajax/statistic/?tag=new_question_by_month,new_answer_by_month&start_date=2012-01&end_date=2012-12');
-    var echart2 = new Echarts('#main2', 'line', 'http://10.0.0.167/wecenter/?/admin/ajax/statistic/?tag=user_register_by_month,new_answer_by_month,new_question_by_month,new_topic_by_month&start_date=2013-01&end_date=2013-12');
-    var echart3 = new Echarts('#main3', 'line', 'http://10.0.0.167/wecenter/?/admin/ajax/statistic/?tag=user_register_by_month,new_answer_by_month,new_question_by_month,new_topic_by_month&start_date=2014-01&end_date=2014-12');
+    var echart = new Echarts('#main', 'line', G_BASE_URL + '/admin/ajax/statistic/?tag=new_question_by_month,new_answer_by_month&start_date=2012-01&end_date=2012-12');
+    var echart2 = new Echarts('#main2', 'line', G_BASE_URL + '/admin/ajax/statistic/?tag=user_register_by_month,new_answer_by_month,new_question_by_month,new_topic_by_month&start_date=2013-01&end_date=2013-12');
+    var echart3 = new Echarts('#main3', 'line', G_BASE_URL + '/admin/ajax/statistic/?tag=user_register_by_month,new_answer_by_month,new_question_by_month,new_topic_by_month&start_date=2014-01&end_date=2014-12');
 });
 
 function Echarts(element, type, url, options)
