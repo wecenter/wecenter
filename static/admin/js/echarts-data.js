@@ -1,20 +1,18 @@
-$(function () {
-   init();
-});
-
-$('.aw-header .mod-head-btn').click(function ()
+$(function ()
 {
-	init();
-});
-
-
-function init(){
-	
 	var echart = new Echarts('#main', 'line', G_BASE_URL + '/admin/ajax/statistic/?tag=new_question_by_month,new_answer_by_month&start_date=2012-01&end_date=2012-12');
     var echart2 = new Echarts('#main2', 'line', G_BASE_URL + '/admin/ajax/statistic/?tag=user_register_by_month,new_answer_by_month,new_question_by_month,new_topic_by_month&start_date=2013-01&end_date=2013-12');
     var echart3 = new Echarts('#main3', 'line', G_BASE_URL + '/admin/ajax/statistic/?tag=user_register_by_month,new_answer_by_month,new_question_by_month,new_topic_by_month&start_date=2014-01&end_date=2014-12');
 
-}
+    // 左侧菜单收缩重新渲染图表
+    $('.aw-header .mod-head-btn').click(function ()
+	{
+		echart.render();
+		echart2.render();
+		echart3.render();
+	});
+
+});
 
 function Echarts(element, type, url, options)
 {
@@ -150,9 +148,9 @@ Echarts.prototype =
 	},
 
 	// 渲染
-	render : function(element)
+	render : function()
 	{
-		var chart = echarts.init($(element)[0]);
+		var chart = echarts.init($(this.element)[0]);
 		
 		chart.setOption(this.options);
 	},

@@ -51,7 +51,7 @@ $config['feature_thumbnail'] = array(
 		"h" => 240
 	),
 	'max' => array(
-		"w" => 900, 
+		"w" => 990, 
 		"h" => 240
 	)
 );
