@@ -12,14 +12,29 @@ $(function ()
 		echart3.render();
 	});
 
-	$('.btn-echat1').click(function()
-	{
-		var start_date = $(this).parents('.echart-date').find('.date-start').val(),
-			end_date = $(this).parents('.echart-date').find('.date-end').val();
-		var url = echart.url.substring(0, echart.url.search(/&/)) + '&start_date=' + start_date + '&end_date=' + end_date;
-		echart.initChart(url);
-	});
+    var oEchart=$('.echart-date');
 
+    for(var i=0,j=oEchart.length;i<j;i++){
+    	(function(i){
+			oEchart[i].onclick=function(ev)
+			{	
+				var ev = ev || window.event;
+				var target =  ev.targe || ev.srcElement;
+
+				if(ev.target.nodeName.toLocaleLowerCase()=="a"){
+
+					var start_date = $(this).find('.date-start').val(),
+						end_date = $(this).find('.date-end').val(),
+						aEchart = '';
+					var url = echart.url.substring(0, echart.url.search(/&/)) + '&start_date=' + start_date + '&end_date=' + end_date;
+														
+					i>0?aEchart = eval('echart'+(i+1)):aEchart=eval(aEchart = 'echart');
+
+					aEchart.initChart(url);
+				}
+			};
+		})(i);
+	}
 });
 
 function Echarts(element, type, url, options)
