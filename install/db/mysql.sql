@@ -1110,15 +1110,15 @@ CREATE TABLE `[#DB_PREFIX#]weixin_msg` (
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8 COMMENT='微信群发列表';
 
 CREATE TABLE `[#DB_PREFIX#]weibo_msg` (
-  `weibo_id` bigint(30) NOT NULL,
+  `id` bigint(30) NOT NULL,
   `created_at` int(10) NOT NULL,
   `msg_author_uid` bigint(20) NOT NULL,
   `text` varchar(255) NOT NULL,
-  `pic_urls` text,
+  `has_attach` tinyint(1) NOT NULL DEFAULT '0',
   `uid` int(10) NOT NULL,
   `weibo_uid` bigint(20) NOT NULL,
   `question_id` int(11) DEFAULT NULL,
-  PRIMARY KEY `weibo_id` (`weibo_id`),
+  PRIMARY KEY `id` (`id`),
   KEY `created_at` (`created_at`),
   KEY `uid` (`uid`),
   KEY `weibo_uid` (`weibo_uid`),

@@ -87,9 +87,9 @@ class approval extends AWS_ADMIN_CONTROLLER
 	{
 		if ($_GET['type'] == 'weibo_msg')
 		{
-			$approval_item = $this->model('weibo')->get_msg_info_by_id($_GET['weibo_id']);
+			$approval_item = $this->model('weibo')->get_msg_info_by_id($_GET['id']);
 
-			if (empty($approval_item['question_id']))
+			if ($approval_item['question_id'])
 			{
 				exit();
 			}
@@ -124,7 +124,12 @@ class approval extends AWS_ADMIN_CONTROLLER
 			break;
 
 			case 'weibo_msg':
-				$approval_item['content'] = $approval_item['text'];
+				$approval_item['content'] =& $approval_item['text'];
+
+				if ($approval_item['has_attach'])
+				{
+					$approval_item['attachs'] = $this->model('publish')->get_attach('weibo_msg', $_GET['id']);
+				}
 		}
 
 		if ($approval_item['data']['attach_access_key'])

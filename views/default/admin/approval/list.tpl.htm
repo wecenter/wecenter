@@ -22,6 +22,9 @@
 			<form id="batchs_form" action="admin/ajax/approval_manage/" method="post">
 			<input type="hidden" id="batch_type" name="batch_type" value="approval" />
 			<input type="hidden" id="approval_id" name="approval_ids[]" value="" />
+			<?php if ($_GET['type'] == 'weibo_msg') { ?>
+			<input type="hidden" name="type" value="weibo_msg" />
+			<?php } ?>
 
 			<div class="table-responsive">
 			<?php if ($this->approval_list) { ?>
@@ -68,33 +71,33 @@
 								case 'weibo_msg':
 							?>
 							<td>
-								<?php echo htmlspecialchars($val['text']); ?>
+								<?php echo $val['text']; ?>
 							</td>
 							}
 
 							<td>
 								<a onclick="AWS.dialog('ajaxData', {'title':'<?php _e('内容审核'); ?>', 'url':G_BASE_URL + '/admin/approval/preview/<?php
 								if ($_GET['type'] == 'weibo_msg') {
-									echo $val['weibo_id'];
-								} else {
-									echo $val['id'];
+								?>type-weibo_msg__<?php
 								}
+								echo $val['id'];
 								?>'});"><?php
 								switch ($_GET['type']) {
 									case 'question':
 										echo cjk_substr(htmlspecialchars($val['data']['question_detail']), 0, 128, 'UTF-8', '...');
-
 										break;
 
 								 	case 'answer':
 								 		echo cjk_substr(htmlspecialchars($val['data']['answer_content']), 0, 128, 'UTF-8', '...');
-
 								 		break;
 
 								 	case 'article':
 								 	case 'article_comment'
 								 		echo cjk_substr(htmlspecialchars($val['data']['message']), 0, 128, 'UTF-8', '...');
+								 		break;
 
+								 	case 'weibo_msg':
+								 		echo cjk_substr($val['text'], 0, 128, 'UTF-8', '...');
 								 		break;
 
 								}
@@ -102,7 +105,12 @@
 							</td>
 
 							<td>
-								<a class="fa fa-search md-tip" onclick="AWS.dialog('ajaxData', {'title':'<?php _e('内容审核'); ?>', 'url':G_BASE_URL + '/admin/approval/preview/<?php echo $val['id']; ?>'});" data-original-title="查看内容"></a>
+								<a class="fa fa-search md-tip" onclick="AWS.dialog('ajaxData', {'title':'<?php _e('内容审核'); ?>', 'url':G_BASE_URL + '/admin/approval/preview/<?php
+								if ($_GET['type'] == 'weibo_msg') {
+								?>type-weibo_msg__<?php
+								}
+								echo $val['id'];
+								?>'});" data-original-title="查看内容"></a>
 							</td>
 						</tr>
 						<?php } ?>
