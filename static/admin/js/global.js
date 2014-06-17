@@ -29,12 +29,13 @@ $(function () {
 
     function changeSize() {
         
-        var height = $('#aw-side').height();
+        var height = ($('#aw-side').height())-50;
 
-        $("#aw-side").height(height-50);
+        $("#aw-side").height(height);
     }
     
     changeSize();
+    
 
     $('#aw-side').perfectScrollbar({useBothWheelAxes: true});
 

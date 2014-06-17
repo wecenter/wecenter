@@ -15,6 +15,7 @@
 
 /*公共部分*/
 body,a{color: #080808; font: 14px/1.5em "microsoft yahei";}
+html, body{height: 100%;}
 a:hover, a:focus{text-decoration: none;cursor: pointer;}
 body{background: #eaeaea;;}
 ul, ol{padding:0;list-style: none;}
@@ -77,7 +78,7 @@ label{font-weight: normal;}
 .aw-side ul li a[data="icon"]:after{position: absolute; right: 15px; content: "\f054";}
 
 /*数据内容区域 start*/
-.aw-content-wrap{margin-left: 235px; padding: 0 25px 20px; background: #eaeaea; margin-top: 70px;}
+.aw-content-wrap{margin: 70px 0 0 235px; padding: 0 25px 20px; background: #eaeaea; min-height: 100%;height: auto;}
 .aw-content-wrap .widget{margin: 20px 0;}
 .aw-content-wrap .echart-date{margin-top: 20px; padding-left: 5px;}
 .aw-content-wrap .echart-date .nopadding{padding: 0;line-height: 36px;}
