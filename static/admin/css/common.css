@@ -84,7 +84,7 @@ label{font-weight: normal;}
 .aw-content-wrap .echart-date .nopadding{padding: 0;line-height: 36px;}
 
 /*页面底部区域 start*/
-.aw-footer{overflow: hidden; margin-top: 140px; margin-left: 225px; height: 50px; background: #efefef; text-align: center; line-height: 52px;}
+.aw-footer{overflow: hidden;  margin:0 0 0 225px; height: 50px; background: #efefef; text-align: center; line-height: 52px;}
 .aw-footer p{font-size: 12px;}
 
 /*右侧公共部分*/
