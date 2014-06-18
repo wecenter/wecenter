@@ -91,7 +91,7 @@ class main extends AWS_ADMIN_CONTROLLER
 			break;
 		}
 
-		$services_info = $this->get_services_info();
+		$services_info = $this->model('weibo')->get_services_info();
 
 		if (!empty($services_info))
 		{

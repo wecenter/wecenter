@@ -208,7 +208,12 @@ class ajax extends AWS_ADMIN_CONTROLLER
 				case 'approval':
 					foreach ($_POST['approval_ids'] AS $approval_id)
 					{
-						$this->model('weibo')->save_msg_info_to_question($approval_id);
+						$result = $this->model('weibo')->save_msg_info_to_question($approval_id);
+
+						if ($result)
+						{
+							H::ajax_json_output(AWS_APP::RSM(null, -1, $result));
+						}
 					}
 
 					break;
