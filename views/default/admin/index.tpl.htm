@@ -34,7 +34,7 @@
                                 </div>
                             </div>
                             <div class="col-sm-2">
-                                <a href="javascript:;" class="btn btn-primary date-seach one">确认查询</a>
+                                <a href="javascript:;" class="btn btn-primary date-seach">确认查询</a>
                             </div>
                         </div>
                     </div>
@@ -60,7 +60,7 @@
                                 </div>
                             </div>
                             <div class="col-sm-2">
-                                <a href="javascript:;" class="btn btn-primary date-seach two">确认查询</a>
+                                <a href="javascript:;" class="btn btn-primary date-seach">确认查询</a>
                             </div>
                         </div>
                     </div>
@@ -86,65 +86,67 @@
         </div>
     </div>
     
-    <div class="row">
-    	<div class="col-md-12">
-	    	<table width="100%" class="table table-striped">
-				<thead>
-					<tr>
-						<th colspan="2"><?php _e('系统信息'); ?></th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td><?php _e('PHP 版本'); ?></td>
-						<td><?php echo PHP_VERSION; ?></td>
-					</tr>
-					<tr>
-						<td><?php _e('MySQL 版本'); ?></td>
-						<td><?php echo MYSQL_VERSION; ?></td>
-					</tr>
-					<tr>
-						<td><?php _e('会员总数'); ?></td>
-						<td><?php echo $this->users_count; ?></td>
-					</tr>
-					<tr>
-						<td><?php _e('Email 激活会员'); ?></td>
-						<td><?php echo $this->users_valid_email_count; ?></td>
-					</tr>
-					<tr>
-						<td><?php _e('问题总数'); ?></td>
-						<td><?php echo $this->question_count; ?></td>
-					</tr>
-					<tr>
-						<td><?php _e('回答总数'); ?></td>
-						<td><?php echo $this->answer_count; ?></td>
-					</tr>
-					<tr>
-						<td><?php _e('等待回答的问题'); ?></td>
-						<td><?php echo $this->question_no_answer_count; ?></td>
-					</tr>
-					<tr>
-						<td><?php _e('最佳答案数量'); ?></td>
-						<td><?php echo $this->best_answer_count; ?></td>
-					</tr>
-					<tr>
-						<td><?php _e('话题总数'); ?></td>
-						<td><?php echo $this->topic_count; ?></td>
-					</tr>
-					<tr>
-						<td><?php _e('附件总数'); ?></td>
-						<td><?php echo $this->attach_count; ?></td>
-					</tr>
-					<tr>
-						<td><?php _e('待审核问题'); ?></td>
-						<td><?php echo $this->approval_question_count; ?></td>
-					</tr>
-					<tr>
-						<td><?php _e('待审核回答'); ?></td>
-						<td><?php echo $this->approval_answer_count; ?></td>
-					</tr>
-				</tbody>
-			</table>
+    <div class="aw-content-wrap mod-echat-info">
+    	<div class="mod">
+            <div class="mod-head">
+                <h3>
+                    <span class="pull-left"><?php _e('系统信息'); ?></span>
+                </h3>
+            </div>
+            <div class="tab-content mod-content">
+    	    	<table  class="table table-striped">
+    				<tbody>
+    					<tr>
+    						<td><?php _e('PHP 版本'); ?></td>
+    						<td><?php echo PHP_VERSION; ?></td>
+    					</tr>
+    					<tr>
+    						<td><?php _e('MySQL 版本'); ?></td>
+    						<td><?php echo MYSQL_VERSION; ?></td>
+    					</tr>
+    					<tr>
+    						<td><?php _e('会员总数'); ?></td>
+    						<td><?php echo $this->users_count; ?></td>
+    					</tr>
+    					<tr>
+    						<td><?php _e('Email 激活会员'); ?></td>
+    						<td><?php echo $this->users_valid_email_count; ?></td>
+    					</tr>
+    					<tr>
+    						<td><?php _e('问题总数'); ?></td>
+    						<td><?php echo $this->question_count; ?></td>
+    					</tr>
+    					<tr>
+    						<td><?php _e('回答总数'); ?></td>
+    						<td><?php echo $this->answer_count; ?></td>
+    					</tr>
+    					<tr>
+    						<td><?php _e('等待回答的问题'); ?></td>
+    						<td><?php echo $this->question_no_answer_count; ?></td>
+    					</tr>
+    					<tr>
+    						<td><?php _e('最佳答案数量'); ?></td>
+    						<td><?php echo $this->best_answer_count; ?></td>
+    					</tr>
+    					<tr>
+    						<td><?php _e('话题总数'); ?></td>
+    						<td><?php echo $this->topic_count; ?></td>
+    					</tr>
+    					<tr>
+    						<td><?php _e('附件总数'); ?></td>
+    						<td><?php echo $this->attach_count; ?></td>
+    					</tr>
+    					<tr>
+    						<td><?php _e('待审核问题'); ?></td>
+    						<td><?php echo $this->approval_question_count; ?></td>
+    					</tr>
+    					<tr>
+    						<td><?php _e('待审核回答'); ?></td>
+    						<td><?php echo $this->approval_answer_count; ?></td>
+    					</tr>
+    				</tbody>
+    			</table>
+            </div>
     	</div>
     </div>
 </div>

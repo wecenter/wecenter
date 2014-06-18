@@ -35,9 +35,12 @@ $(function () {
     }
     
     changeSize();
-    
 
-    $('#aw-side').perfectScrollbar({useBothWheelAxes: true});
+    $("#aw-side").perfectScrollbar({
+      wheelSpeed: 20,
+      wheelPropagation: true,
+      minScrollbarLength: 20
+    })
 
     /*日期选择*/
     if (typeof(DateInput) != 'undefined') {
