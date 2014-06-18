@@ -52,7 +52,7 @@ class notify_class extends AWS_MODEL
 	const TYPE_ARTICLE_NEW_COMMENT	= 117; // 文章有新评论
 	const TYPE_ARTICLE_COMMENT_AT_ME	= 118; // 文章评论提到我
 
-	const TYPE_REFRESH_SINA_ACCESS_TOKEN = 119 // 更新新浪微博 Access Token
+	const TYPE_REFRESH_SINA_ACCESS_TOKEN = 119; // 更新新浪微博 Access Token
 
 	public $notify_actions = array();
 	public $notify_action_details;
