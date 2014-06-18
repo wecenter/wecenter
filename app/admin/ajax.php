@@ -179,6 +179,11 @@ class ajax extends AWS_ADMIN_CONTROLLER
 			$this->model('weixin')->get_weixin_app_id_setting_var();
 		}
 
+		if ($_POST['weibo_msg_published_uid'])
+		{
+			$this->model('openid_weibo')->get_users_sina_by_uid($_POST['weibo_msg_published_uid']) or unset($_POST['weibo_msg_published_uid']);
+		}
+
 		if ($_POST['service_ids'])
 		{
 			$service_ids = explode(',', $_POST['service_ids']);
