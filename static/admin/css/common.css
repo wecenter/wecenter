@@ -49,8 +49,9 @@ ul,ol{padding:0;list-style:none;}
 .aw-header .dropdown-menu li .fa{width:27px;vertical-align:middle;text-align:center;}
 
 /*aw-side start*/
-.aw-side{position:fixed;top:50px;z-index:16;display:block;float:left;overflow:hidden;width:235px;height:100%;background:#323232;}
+.aw-side{position:fixed;top:0; padding-top: 50px; z-index:16;display:block;float:left;overflow:hidden;width:235px;height:100%;background:#323232;}
 .aw-side .mod-logo{padding:10px 10px 10px 25px;height:55px;}
+.ps-scrollbar-y-rail{margin-top: 50px;}
 .aw-side .mod-message{padding:8px 5px 0 10px;height:55px;background:#3f3f3f;}
 .aw-side .mod-message a{position:relative;padding:0;width:35px;height:35px;border-color:#323232;background:#323232;color:#fff;line-height:35px;line-line-;}
 .aw-side .mod-message a:hover{background:#3695D5;}

@@ -29,7 +29,8 @@
             </div>
         </div>
 
-        <ul class="mod-bar">
+        <ul class="mod-bar" >
+            <input type="hidden" id="hide_values" val="0" />
             <?php foreach ($this->menu_list as $key => $val) { ?>
             <li>
                 <a href="javascript:;" class=" fa fa-<?php echo $val['cname']; if ($val['select']) { ?> active collapsed<?php } ?>" data="icon">

@@ -27,15 +27,7 @@ $(function () {
         }
     });
 
-    function changeSize() {
-        
-        var height = ($('#aw-side').height())-50;
-
-        $("#aw-side").height(height);
-    }
     
-    changeSize();
-
     $("#aw-side").perfectScrollbar({
       wheelSpeed: 20,
       wheelPropagation: true,
