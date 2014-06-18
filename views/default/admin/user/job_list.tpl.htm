@@ -30,7 +30,7 @@
 								</div>
 							</div>
 						</td>
-						<td><a onclick="if (confirm('<?php _e('确认删除?'); ?>')) { AWS.ajax_request(G_BASE_URL + '/admin/ajax/remove_job/', 'id-<?php echo $key; ?>'); }" class="fa fa-trash-o md-tip" data-toggle="tooltip" title="<?php _e('删除'); ?>"></a></td>
+						<td><a onclick="AWS.dialog('confirm', {'message': '<?php _e('确认删除?'); ?>'}, function(){AWS.ajax_request(G_BASE_URL + '/admin/ajax/remove_job/', 'id-<?php echo $key; ?>');}); " class="fa fa-trash-o md-tip" data-toggle="tooltip" title="<?php _e('删除'); ?>"></a></td>
                     </tr>
                     <?php } ?>
 					<?php } ?>

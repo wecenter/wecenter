@@ -10,6 +10,7 @@
 .nav .open > a,.nav .open > a:hover,.nav .open > a:focus{background-color:#fff;}
 .table-striped > tbody > tr:nth-child(odd) > td,.table-striped > tbody > tr:nth-child(odd) > th{background-color:#F5F8FA;}
 .alert{padding:5px 15px;}
+.aw-alert{position: absolute;top: 0;}
 
 /*公共部分*/
 body,a{color:#080808;font:14px/1.5em "microsoft yahei";}
@@ -20,6 +21,10 @@ ul,ol{list-style:none;padding:0;}
 .middle{line-height:32px;}
 .aw-text-color-999{color:#999;font-size:11px;margin:2px 0 0;}
 .aw-hide-txt{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+/* 警告提示box */
+.aw-tips-box .modal-dialog, .aw-image-box .modal-dialog, .aw-link-box .modal-dialog, .aw-confirm-box .modal-dialog{width: 370px;}
+.aw-tips-box .modal-body{background: url(../img/warmming.png) no-repeat right 5px;}
+.aw-tips-box .modal-body p{margin: 10px 0;}
 
 /*后台header start*/
 .aw-header{background:#fff;border:none;border-bottom:1px solid #d5d5d5;height:50px;margin-bottom:0;position:fixed;top:0;width:100%;z-index:999;}
@@ -68,7 +73,7 @@ ul,ol{list-style:none;padding:0;}
 .aw-side ul li a[data=icon]:after{content:"\f054";position:absolute;right:15px;}
 
 /*数据内容区域 start*/
-.aw-content-wrap{background:#eaeaea;height:auto;margin:70px 0 0 235px;min-height:100%;padding:0 25px 20px;}
+.aw-content-wrap{position:relative;background:#eaeaea;height:auto;margin:70px 0 0 235px;min-height:100%;padding:0 25px 20px;}
 .aw-content-wrap .widget{margin:20px 0;}
 .aw-content-wrap .echart-date{margin-top:20px;padding-left:5px;}
 .aw-content-wrap .echart-date .nopadding{line-height:36px;padding:0;}
