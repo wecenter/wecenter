@@ -215,9 +215,9 @@ class weibo_class extends AWS_MODEL
         return true;
     }
 
-    public function notification_of_refresh_access_token($weibo_uid)
+    public function notification_of_refresh_access_token($uid)
     {
-
+        $this->model('notify')->send(1, $uid, notify_class::TYPE_REFRESH_SINA_ACCESS_TOKEN);
     }
 
     public function add_service_account($id)
