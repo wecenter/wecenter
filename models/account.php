@@ -331,7 +331,7 @@ class account_class extends AWS_MODEL
         }
         else
         {
-	        $user_info['email_settings'] = array();
+            $user_info['email_settings'] = array();
         }
 
         if ($user_info['weixin_settings'])
@@ -340,7 +340,7 @@ class account_class extends AWS_MODEL
         }
         else
         {
-	        $user_info['weixin_settings'] = array();
+            $user_info['weixin_settings'] = array();
         }
 
         $users_info[$uid] = $user_info;
@@ -410,7 +410,7 @@ class account_class extends AWS_MODEL
                 }
                 else
                 {
-	                $val['email_settings'] = array();
+                    $val['email_settings'] = array();
                 }
 
                 if ($val['weixin_settings'])
@@ -419,7 +419,7 @@ class account_class extends AWS_MODEL
                 }
                 else
                 {
-	                $val['weixin_settings'] = array();
+                    $val['weixin_settings'] = array();
                 }
 
                 $data[$val['uid']] = $val;
@@ -552,7 +552,7 @@ class account_class extends AWS_MODEL
      * @param string
      * @return int
      */
-    public function user_register($user_name, $password = null, $email = null)
+    public function user_register($user_name, $password = null, $email = null, $group = null)
     {
         if ($uid = $this->insert_user($user_name, $password, $email))
         {
@@ -566,8 +566,10 @@ class account_class extends AWS_MODEL
                 }
             }
 
+            $group_id = ($group_id) ? intval($group_id) : 3;
+
             $this->update('users', array(
-                'group_id' => 3,
+                'group_id' => $group_id,
                 'reputation_group' => 5,
                 'invitation_available' => get_setting('newer_invitation_num'),
                 'is_first_login' => 1
@@ -1380,57 +1382,57 @@ class account_class extends AWS_MODEL
             'agree_count' => ($this->count('answer_vote', 'vote_value = 1 AND answer_uid = ' . intval($uid)) + $this->count('article_vote', 'rating = 1 AND item_uid = ' . intval($uid)))
         ), 'uid = ' . intval($uid));
     }
-    
-	public function associate_remote_avatar($uid, $headimgurl)
-	{
-		if ($headimgurl)
-		{
-			if (!$user_info = $this->model('account')->get_user_info_by_uid($uid))
-			{
-				return false;
-			}
-			
-			if ($user_info['avatar_file'])
-			{
-				return false;
-			}
-			
-			if ($avatar_stream = curl_get_contents($headimgurl, 1))
-			{
-				$avatar_location = get_setting('upload_dir') . '/avatar/' . $this->model('account')->get_avatar($uid, '', 1) . $this->model('account')->get_avatar($uid, '', 2);
-				
-				$avatar_dir = str_replace(basename($avatar_location), '', $avatar_location);
-				
-				if ( ! is_dir($avatar_dir))
-				{
-					make_dir($avatar_dir);
-				}
-				
-				if (@file_put_contents($avatar_location, $avatar_stream))
-				{
-					foreach(AWS_APP::config()->get('image')->avatar_thumbnail AS $key => $val)
-					{			
-						$thumb_file[$key] = $avatar_dir . $this->model('account')->get_avatar($uid, $key, 2);
-						
-						AWS_APP::image()->initialize(array(
-							'quality' => 90,
-							'source_image' => $avatar_location,
-							'new_image' => $thumb_file[$key],
-							'width' => $val['w'],
-							'height' => $val['h']
-						))->resize();	
-					}
-					
-					$avatar_file = $this->model('account')->get_avatar($uid, null, 1) . basename($thumb_file['min']);
-				}
-			}
-		}
-		
-		if ($avatar_file)
-		{
-			return $this->model('account')->update('users', array(
-				'avatar_file' => $avatar_file
-			), 'uid = ' . intval($uid));
-		}
-	}
+
+    public function associate_remote_avatar($uid, $headimgurl)
+    {
+        if ($headimgurl)
+        {
+            if (!$user_info = $this->model('account')->get_user_info_by_uid($uid))
+            {
+                return false;
+            }
+
+            if ($user_info['avatar_file'])
+            {
+                return false;
+            }
+
+            if ($avatar_stream = curl_get_contents($headimgurl, 1))
+            {
+                $avatar_location = get_setting('upload_dir') . '/avatar/' . $this->model('account')->get_avatar($uid, '', 1) . $this->model('account')->get_avatar($uid, '', 2);
+
+                $avatar_dir = str_replace(basename($avatar_location), '', $avatar_location);
+
+                if ( ! is_dir($avatar_dir))
+                {
+                    make_dir($avatar_dir);
+                }
+
+                if (@file_put_contents($avatar_location, $avatar_stream))
+                {
+                    foreach(AWS_APP::config()->get('image')->avatar_thumbnail AS $key => $val)
+                    {
+                        $thumb_file[$key] = $avatar_dir . $this->model('account')->get_avatar($uid, $key, 2);
+
+                        AWS_APP::image()->initialize(array(
+                            'quality' => 90,
+                            'source_image' => $avatar_location,
+                            'new_image' => $thumb_file[$key],
+                            'width' => $val['w'],
+                            'height' => $val['h']
+                        ))->resize();
+                    }
+
+                    $avatar_file = $this->model('account')->get_avatar($uid, null, 1) . basename($thumb_file['min']);
+                }
+            }
+        }
+
+        if ($avatar_file)
+        {
+            return $this->model('account')->update('users', array(
+                'avatar_file' => $avatar_file
+            ), 'uid = ' . intval($uid));
+        }
+    }
 }

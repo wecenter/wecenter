@@ -1169,7 +1169,12 @@ class ajax extends AWS_ADMIN_CONTROLLER
 				H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('密码长度不符合规则')));
 			}
 
-			$uid = $this->model('account')->user_register($_POST['user_name'], $_POST['password'], $_POST['email']);
+			if (empty($_POST['group_id']) OR $this->user_info['group_id'] != 1)
+			{
+				unset($_POST['group_id']);
+			}
+
+			$uid = $this->model('account')->user_register($_POST['user_name'], $_POST['password'], $_POST['email'], $_POST['group_id']);
 
 			$this->model('active')->set_user_email_valid_by_uid($uid);
 			$this->model('active')->active_user_by_uid($uid);
@@ -1659,40 +1664,40 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
 		H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('群发任务提交成功')));
 	}
-	
+
 	public function statistic_action()
 	{
 		if (!$start_time = strtotime($_GET['start_date']))
 		{
 			$start_time = strtotime('-12 months');
 		}
-		
+
 		if (!$end_time = strtotime($_GET['end_date']))
 		{
 			$end_time = time();
-		}		
-		
+		}
+
 		if ($_GET['tag'])
 		{
 			$statistic_tag = explode(',', $_GET['tag']);
 		}
-		
+
 		if (!$month_list = get_month_list($start_time, $end_time, 'y'))
 		{
 			die;
 		}
-		
+
 		foreach ($month_list AS $key => $val)
 		{
 			$labels[] = $val['year'] . '-' . $val['month'];
 			$data_template[] = 0;
 		}
-		
+
 		if (!$statistic_tag)
 		{
 			die;
 		}
-		
+
 		foreach ($statistic_tag AS $key => $val)
 		{
 			switch ($val)
@@ -1700,36 +1705,36 @@ class ajax extends AWS_ADMIN_CONTROLLER
 				case 'new_question_by_month':
 					$statistic[] = $this->model('statistic')->get_new_question_by_month($start_time, $end_time);
 				break;
-				
+
 				case 'new_answer_by_month':
 					$statistic[] = $this->model('statistic')->get_new_answer_by_month($start_time, $end_time);
 				break;
-				
+
 				case 'user_register_by_month':
 					$statistic[] = $this->model('statistic')->get_user_register_by_month($start_time, $end_time);
 				break;
-				
+
 				case 'new_topic_by_month':
 					$statistic[] = $this->model('statistic')->get_new_topic_by_month($start_time, $end_time);
 				break;
 			}
 		}
-		
+
 		foreach($statistic AS $key => $val)
 		{
 			$statistic_data = $data_template;
-			
+
 			foreach ($val AS $k => $v)
 			{
 				$data_key = array_search($v['date'], $labels);
-				
+
 				$statistic_data[$data_key] = $v['count'];
 			}
-			
+
 			$data[] = $statistic_data;
-			
+
 		}
-		
+
 		echo json_encode(array(
 			'labels' => $labels,
 			'data' => $data
