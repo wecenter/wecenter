@@ -181,7 +181,12 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
 		if ($_POST['weibo_msg_published_uid'])
 		{
-			$this->model('openid_weibo')->get_users_sina_by_uid($_POST['weibo_msg_published_uid']) or unset($_POST['weibo_msg_published_uid']);
+			$published_user_info = $this->model('openid_weibo')->get_users_sina_by_uid($_POST['weibo_msg_published_uid']);
+
+			if (empty($published_user_info))
+			{
+				unset($_POST['weibo_msg_published_uid']);
+			}
 		}
 
 		if ($_POST['service_ids'])
