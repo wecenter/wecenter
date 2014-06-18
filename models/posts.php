@@ -207,9 +207,33 @@ class posts_class extends AWS_MODEL
 		{
 			array_walk_recursive($topic_ids, 'intval_string');
 			
-			if ($post_ids = $this->model('topic')->get_item_ids_by_topics_ids($topic_ids, $post_type))
-			{				
-				$where[] = 'post_id IN(' . implode(',', $post_ids) . ')';
+			if (!$post_type)
+			{
+				if ($question_post_ids = $this->model('topic')->get_item_ids_by_topics_ids($topic_ids, 'question') OR $article_post_ids = $this->model('topic')->get_item_ids_by_topics_ids($topic_ids, 'article'))
+				{
+					if ($question_post_ids)
+					{
+						$topic_where[] = 'post_id IN(' . implode(',', $question_post_ids) . ") AND post_type = 'question'";
+					}
+					
+					if ($article_post_ids)
+					{
+						$topic_where[] = 'post_id IN(' . implode(',', $article_post_ids) . ") AND post_type = 'article'";
+					}
+					
+					if ($topic_where)
+					{
+						$where[] = '(' . implode(' OR ', $topic_where) . ')';
+					}
+				}
+				else
+				{
+					return false;
+				}
+			}
+			else if ($post_ids = $this->model('topic')->get_item_ids_by_topics_ids($topic_ids, $post_type))
+			{
+				$where[] = 'post_id IN(' . implode(',', $question_post_ids) . ") AND post_type = '" . $post_type . "";
 			}
 			else
 			{
