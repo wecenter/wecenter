@@ -37,7 +37,7 @@
     <div class="mod center-block">
         <h1><img src="<?php echo G_STATIC_URL; ?>/admin/img/wecenter-logo.png" alt="" /></h1>
         
-        <form role="form" id="login_form" onsubmit="return false" action="admin/ajax/login_process/" method="post">
+        <form role="form" id="login_form"  onsubmit="return false" action="admin/ajax/login_process/" method="post">
         	<?php if ($_GET['url']){ ?>
         	<input type="hidden" name="url" value="<?php echo htmlspecialchars($_GET['url']); ?>">
         	<?php } ?>
@@ -58,10 +58,10 @@
             <div class="form-group">
                 <label><?php _e('验证码'); ?></label>
                 <div class="row">
-                  <div class="col-xs-7">
+                  <div class="col-xs-5">
                     <input type="text" class="form-control" name="seccode_verify" onkeydown="if (event.keyCode == 13) { document.getElementById('login_submit').click(); };" maxlength="4" />
                   </div>
-                  <div class="col-xs-5">
+                  <div class="col-xs-4 col-xs-offset-2">
                     <img src="" class="verification" id="captcha" onclick="this.src = G_BASE_URL + '/account/captcha/' + Math.floor(Math.random() * 10000);" />
                   </div>
                 </div>

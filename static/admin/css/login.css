@@ -1,21 +1,21 @@
 /*Wecenter 后台登陆界面*/
-body{background: #f1f1f1;}
-a{font: 14px/1.5em "microsoft yahei";}
-.aw-login .mod{margin-top: 70px; width: 350px;}
-.aw-login .mod h1 img{display: block; margin: 0 auto; width: 130px; height: 80px; -webkit-animation: fadeInDown 1s .2s ease both; -moz-animation: fadeInDown 1s .2s ease both;}
+body{background:#f1f1f1;}
+a{font:14px/1.5em "microsoft yahei";}
+.aw-login .mod{margin-top:70px;width:350px;}
+.aw-login .mod h1 img{display:block;width:130px;height:80px;-webkit-animation:fadeInDown 1s .2s ease both;-moz-animation:fadeInDown 1s .2s ease both;margin:0 auto;}
 @-webkit-keyframes fadeInDown{0%{opacity: 0; -webkit-transform: translateY(-20px);} 100%{opacity: 1; -webkit-transform: translateY(0);}}
 @-moz-keyframes fadeInDown{0%{opacity: 0; -moz-transform: translateY(-20px);} 100%{opacity: 1; -moz-transform: translateY(0);}}
-.aw-login .mod form{margin-top: 30px; padding:40px; border: 1px solid #ddd; border-radius:4px; background: #fff; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);}
-.aw-login .mod form button{margin-top: 10px; width: 100%;}
-.aw-login .form-group{position: relative; margin-bottom: 15px;}
-.aw-login .mod form input{padding-left: 30px;}
-.aw-login .mod form label{color: #666;}
-.aw-login .mod form .fa{position: absolute; left: 10px; color: #d5d5d5; font-size: 18px;}
-.aw-login .mod form .fa-user{top: 32px;}
-.aw-login .mod form .fa-lock{top: 32px; font-size: 20px;}
-.aw-login .mod h2{color: #999; text-align: center; font-weight: normal; font-size: 14px;}
-.aw-login .mod .col-xs-6{margin-top: 6px;}
-.aw-login img.verification{width: 100px; height: 40px; border: none;}
+.aw-login .mod form{margin-top:30px;border:1px solid #ddd;border-radius:4px;box-shadow:0 1px 3px rgba(0,0,0,0.1);padding:40px;background:#fff;}
+.aw-login .mod form button{margin-top:10px;width:100%;}
+.aw-login .form-group{position:relative;margin-bottom:15px;}
+.aw-login .mod form input{padding-left:30px;}
+.aw-login .mod form label{color:#666;}
+.aw-login .mod form .fa{position:absolute;left:10px;color:#d5d5d5;font-size:18px;}
+.aw-login .mod form .fa-user{top:32px;}
+.aw-login .mod form .fa-lock{top:32px;font-size:20px;}
+.aw-login .mod h2{color:#999;text-align:center;font-weight:400;font-size:14px;}
+.aw-login .mod .col-xs-5{margin-top:8px;}
+.aw-login img.verification{width:100px;height:40px;border:none;}
 /*登陆错误提示框*/
 .aw-login .mod .alert{padding: 5px 15px;}
 @media only screen and (max-width: 320px){.aw-login .mod{margin-top: 40px; width: 310px;}}

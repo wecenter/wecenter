@@ -1,4 +1,7 @@
 $(function () {
+    
+        $('#captcha').click();
+
 
     // bs自带方法 TAB切换
     $('#myTab a').click(function (e)
