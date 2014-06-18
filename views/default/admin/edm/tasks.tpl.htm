@@ -37,7 +37,7 @@
 								<td>
 									<a href="account/edm/mail/<?php echo $val['id']; ?>" target="_blank" class="fa fa-envelope-o md-tip" title="<?php _e('邮件内容'); ?>"></a>
 									<a href="dmin/edm/export_active_users/<?php echo $val['id']; ?>" class="fa fa-cloud-download md-tip" title="<?php _e('导出活跃用户'); ?>"></a>
-									<a href="admin/edm/remove_task/<?php echo $val['id']; ?>" onclick="if (confirm('<?php _e('确认删除这个用户群?'); ?>')) { window.location = this.href; } return false;" class="fa fa-trash-o md-tip" title="<?php _e('删除'); ?>"></a>
+									<a onclick="AWS.dialog('confirm', {'message': '<?php _e('确认删除这个用户群?'); ?>'}, function(){window.location = G_BASE_URL + '/admin/edm/remove_task/<?php echo $val['id']; ?>'}); return false;" class="fa fa-trash-o md-tip" title="<?php _e('删除'); ?>"></a>
 								</td>
 							</tr>
 							<?php } ?>

@@ -512,8 +512,8 @@ var AW_TEMPLATE = {
 						'{{message}}'+
 					'</div>'+
 					'<div class="modal-footer">'+
-						'<a class="btn btn-default">取消</a>'+
-						'<a class="btn btn-success">确定</a>'+
+						'<a class="btn btn-default" data-dismiss="modal" aria-hidden="true">取消</a>'+
+						'<a class="btn btn-success yes">确定</a>'+
 					'</div>'+
 				'</div>'+
 			'</div>'+
