@@ -28,7 +28,7 @@
 											<a href="javascript:;" onclick="AWS.ajax_request(G_BASE_URL + '/article/ajax/set_recommend/', 'action=<?php if ($this->article_info['is_recommend']) { ?>un<?php } ?>set&article_id=<?php echo $this->article_info['id']; ?>');"><?php if ($this->article_info['is_recommend']) { ?><?php _e('取消推荐'); ?><?php } else { ?><?php _e('推荐文章'); ?><?php } ?></a>
 										</li>
 										<li>
-											<a href="javascript:;" onclick="if (confirm('<?php _e('确认删除?'); ?>')) { AWS.ajax_request(G_BASE_URL + '/article/ajax/remove_article/', 'article_id=<?php echo $this->article_info['id']; ?>'); }"><?php _e('删除文章'); ?></a>
+											<a href="javascript:;" onclick="AWS.dialog('confirm', {'message' : '<?php _e('确认删除?'); ?>'}, function(){AWS.ajax_request(G_BASE_URL + '/article/ajax/remove_article/', 'article_id=<?php echo $this->article_info['id']; ?>');});"><?php _e('删除文章'); ?></a>
 										</li>
 									</ul>
 								</div>
@@ -122,7 +122,7 @@
 										<a class="aw-article-comment" data-id="<?php echo $val['user_info']['uid']; ?>"><i class="fa fa-comment"></i> <?php _e('回复'); ?></a>
 										<a onclick="AWS.User.article_comment_vote($(this), <?php echo $val['id']; ?>, 1)"<?php if ($val['vote_info']['rating'] == 1) { ?> class="active"<?php } ?>><i class="fa fa-thumbs-up"></i> <?php if ($val['vote_info']['rating'] == 1) { ?><?php _e('我已赞'); ?><?php } else { ?><?php _e('赞'); ?><?php } ?></a>
 										<?php if ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?>
-										<a onclick="if (confirm('<?php _e('确认删除?'); ?>')) { AWS.ajax_request(G_BASE_URL + '/article/ajax/remove_comment/', 'comment_id=<?php echo $val['id']; ?>'); }"><i class="fa fa-trash-o"></i> <?php _e('删除'); ?></a>
+										<a onclick="AWS.dialog('confirm', {'message' : '<?php _e('确认删除?'); ?>'}, function(){AWS.ajax_request(G_BASE_URL + '/article/ajax/remove_comment/', 'comment_id=<?php echo $val['id']; ?>');});"><i class="fa fa-trash-o"></i> <?php _e('删除'); ?></a>
 										<?php } ?>
 									<?php } ?>
 								</div>
