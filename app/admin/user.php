@@ -120,7 +120,7 @@ class user extends AWS_ADMIN_CONTROLLER
 				$url_param[] = $key . '-' . $val;
 			}
 		}
-		
+
 		TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
 			'base_url' => get_js_url('/admin/user/list/' . implode('__', $url_param)),
 			'total_rows' => $total_rows,
@@ -135,7 +135,7 @@ class user extends AWS_ADMIN_CONTROLLER
 		TPL::assign('total_rows', $total_rows);
 		TPL::assign('list', $user_list);
 		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(402));
-		
+
 		TPL::output('admin/user/list');
 	}
 
@@ -164,7 +164,7 @@ class user extends AWS_ADMIN_CONTROLLER
 		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(403));
 		TPL::output('admin/user/group_edit');
 	}
-	
+
 	public function edit_action()
 	{
 		if (!$user = $this->model('account')->get_user_info_by_uid($_GET['uid'], TRUE))
@@ -190,6 +190,9 @@ class user extends AWS_ADMIN_CONTROLLER
 		$this->crumb(AWS_APP::lang()->_t('添加用户'), "admin/user/user_add/");
 
 		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(405));
+
+		TPL::assign('system_group', $this->model('account')->get_user_group_list(0));
+
 		TPL::output('admin/user/add');
 	}
 
