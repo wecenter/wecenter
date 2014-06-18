@@ -99,9 +99,9 @@ a.aw-load-more-content{display: block;}
 .aw-tabs ul li{display:inline;}
 .aw-tabs ul li a{display:inline-block;height:30px;line-height:30px;margin-right:20px;}
 /* 全局loading样式 */
-#aw-loading { background: #000; width: 40px; height: 40px;  position: fixed; top: 50%;	left: 50%; margin: -20px 0 0 -20px; z-index: 10001; -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=75)"; filter: alpha(opacity=75); opacity: 0.75; }
-#aw-loading-box { width: 40px; height: 40px; background-image: url('../../common/loading.png'); }
-.aw-loading {display: inline-block;height: 16px;width: 16px;background: url("img/ajax-loader.gif") no-repeat;}
+#aw-loading{position:fixed;top:50%;left:50%;background:#000;width: 40px;height: 40px;margin: 0 0 0 -20px;z-index: 10001;opacity: 0.75;filter: alpha(opacity=75);}
+#aw-loading-box{width:40px;height:40px;background-image: url('../../common/loading.png');}
+.aw-loading{display:inline-block;height:16px;width:16px;background:url("img/ajax-loader.gif") no-repeat;}
 /* 全局通用下拉列表 */
 .aw-dropdown, .aw-category-dropdown{display:none;position:absolute;left:0;z-index:9999;width:100%;background: #fff;border:1px solid #ccc;box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);}
 .aw-dropdown .i-dropdown-triangle, .aw-category-dropdown .i-dropdown-triangle{position: absolute;top:-6px;left: 15px;}
@@ -208,12 +208,10 @@ a.aw-load-more-content{display: block;}
 .aw-feed-list .aw-item{position:relative;padding:10px 0;border-bottom: 1px dotted #E2E2E2;}
 .aw-feed-list .aw-item .aw-user-img{width: 32px;height: 32px;}
 .aw-feed-list .aw-item.active{background: #FEFAB1;}
-.aw-feed-list .aw-item .aw-mod-body, .aw-feed-list .aw-mod-body > .aw-item + div{padding-top:10px;}
 .aw-feed-list .aw-item .close{display: none;}
 .aw-feed-list .aw-item:hover .more-operate, .aw-feed-list .aw-item:hover .close{display:inline-block;}
 .aw-feed-list .mod-head h4{max-width: 650px;}
 .aw-feed-list .aw-user-img img{width: 32px;height: 32px;}
-.aw-feed-list .aw-mod-body > .aw-item:first-child{margin:10px 0 0 0;}
 .aw-feed-list .meta{min-height:24px;margin-top:10px;font-size: 12px;}
 .aw-feed-list .meta > span{margin-right: 15px;}
 .aw-feed-list .meta .aw-add-comment{margin-right: 15px;}
@@ -309,7 +307,7 @@ a.aw-load-more-content{display: block;}
 .aw-question-detail .meta > span, .aw-question-detail .meta > a, .aw-question-detail .meta > div{margin-right:15px;}
 .aw-question-detail .meta .badge-info{margin:0;}
 .aw-question-detail .aw-edit-topic-box .aw-dropdown{width: 418px;}
-.aw-question-detail .meta a:hover i, .meta a:hover i, .aw-article-list .aw-mod-footer a:hover i{color: #2A6496;}
+.aw-question-detail .meta a:hover i, .meta a:hover i, .aw-article-list .mod-footer a:hover i{color: #2A6496;}
 .aw-question-comment .aw-feed-list .aw-item{padding:10px;}
 .aw-question-comment .aw-feed-list .aw-item .aw-user-img{position:absolute;right:10px;top:20px;width: 32px;height: 32px;}
 .aw-question-comment .aw-vote-bar.fixed .vote-container{position: fixed;top: 25px;}
@@ -419,6 +417,7 @@ a.aw-load-more-content{display: block;}
 .aw-article-list .aw-item .mod-body .content-wrap .markitup-box img{max-width: 100% !important;}
 .aw-article-list .aw-item .mod-footer span{color: #999;font-size: 12px;}
 .aw-article-list .aw-item .mod-footer span a{margin-left:15px;color: #999;}
+.aw-article-list .aw-item .mod-footer span a:hover{color: #2A6496;}
 .aw-article-list .aw-item .more{font-size: 12px;}
 
 /* 文章详情页 */
@@ -435,10 +434,10 @@ a.aw-load-more-content{display: block;}
 .aw-article-vote i{margin:0;}
 .aw-article-content .aw-question-detail .mod-footer a img{width: 25px;height: 25px;margin-bottom:10px;border-radius: 15px;}
 .aw-article-content .aw-question-detail .mod-footer a.more-voters{display: inline-block;width: 25px;height: 25px;line-height:18px;border-radius: 15px;background-color: #f1f2f3;text-align: center;vertical-align: middle;color: #cdcecf;}
-.aw-article-content .aw-feed-list .aw-item{position: relative;padding: 10px 0 10px 40px;}
+.aw-article-content .aw-feed-list .aw-item{padding: 10px 0 10px 40px;}
 .aw-article-content .aw-feed-list .aw-user-name{position: absolute;left: 0;top: 10px;}
 .aw-article-content .aw-feed-list .aw-user-name img{width: 32px;height: 32px;}
-.aw-article-content .aw-feed-list .meta{margin-top:10px;font-size: 12px;color: #999;}
+.aw-article-content .aw-feed-list .meta{color: #999;}
 .aw-article-content .aw-feed-list .meta a{margin-right: 15px;color: #999;}
 .aw-article-content .aw-feed-list .article-replay-box{padding:0;}
 

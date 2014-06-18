@@ -32,7 +32,7 @@
         <ul class="mod-bar">
             <?php foreach ($this->menu_list as $key => $val) { ?>
             <li>
-                <a href="javascript:;" class="fa fa-<?php echo $val['cname']; if ($val['select']) { ?> active collapsed<?php } ?>">
+                <a href="javascript:;" class=" fa fa-<?php echo $val['cname']; if ($val['select']) { ?> active collapsed<?php } ?>" data="icon">
                     <span><?php echo $val['title']; ?></span>
                 </a>
                 <?php if ($val['children']) { ?>
