@@ -1149,7 +1149,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 		}
 		else
 		{
-			if (empty($_POST['user_name']))
+			if (empty(trim($_POST['user_name'])))
 			{
 				H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请输入用户名')));
 			}
