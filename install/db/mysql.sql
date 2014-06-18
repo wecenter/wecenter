@@ -862,7 +862,7 @@ CREATE TABLE `[#DB_PREFIX#]users_sina` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `uid` (`uid`),
   KEY `access_token` (`access_token`),
-  KEY `service` (`service`)
+  KEY `last_msg_id` (`last_msg_id`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]geo_location` (

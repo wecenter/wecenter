@@ -146,4 +146,13 @@ class openid_weibo_class extends AWS_MODEL
 
 	    return $msgs;
 	}
+
+	public function create_comment($access_token, $id, $comment)
+	{
+		$client = new Services_Weibo_WeiboClient(get_setting('sina_akey'), get_setting('sina_skey'), $access_token);
+
+		$result = $client->send_comment($id, cjk_substr($comment, 0, 140, 'UTF-8', '...'));
+
+		return $result;
+	}
 }

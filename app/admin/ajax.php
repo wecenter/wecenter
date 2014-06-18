@@ -179,6 +179,18 @@ class ajax extends AWS_ADMIN_CONTROLLER
 			$this->model('weixin')->get_weixin_app_id_setting_var();
 		}
 
+		if ($_POST['service_ids'])
+		{
+			$service_ids = explode(',', $_POST['service_ids']);
+
+			foreach ($service_ids AS $service_id)
+			{
+				$this->model('weibo')->add_service_account($service_id);
+			}
+
+			unset($_POST['service_ids']);
+		}
+
 		H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('系统设置修改成功')));
 	}
 

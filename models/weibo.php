@@ -31,6 +31,11 @@ class weibo_class extends AWS_MODEL
         return $msgs_info[$id];
     }
 
+    public function get_msg_info_by_question_id($question_id)
+    {
+        return $this->fetch_row('weibo_msg', 'question_id = ' . intval($question_id));
+    }
+
     public function del_msg_by_id($id)
     {
         return $this->delete('weibo_msg', 'id = ' . $this->quote($id));
@@ -55,7 +60,47 @@ class weibo_class extends AWS_MODEL
 
     public function save_msg_info_to_question($id)
     {
+        $msg_info = $this->get_msg_info_by_id($id);
 
+        if (empty($msg_info))
+        {
+            return AWS_APP::lang()->_t('微博消息 ID 不存在');
+        }
+
+        $published_uid = get_setting('weibo_msg_published_uid');
+
+        if (empty($published_uid))
+        {
+            return AWS_APP::lang()->_t('微博发布用户不存在');
+        }
+
+        $question_id = $this->model('question')->save_question($msg_info['text'], null, $published_uid, 0, null, $id);
+
+        $this->update('weibo_msg', array('question_id' => $question_id), 'id = ' . intval($id));
+    }
+
+    public function reply_answer_to_sina($question_id, $comment)
+    {
+        if (get_setting('sina_weibo_enabled') == 'N' OR empty(get_setting('sina_akey')) OR empty(get_setting('sina_skey')))
+        {
+            return false;
+        }
+
+        $msg_info = $this->get_msg_info_by_question_id($question_id);
+
+        if (empty($msg_info))
+        {
+            return false;
+        }
+
+        $service_info = $this->model('openid_weibo')->get_users_sina_by_id($msg_info['weibo_uid']);
+
+        if (empty($service_info))
+        {
+            return false;
+        }
+
+        $this->model('openid_weibo')->create_comment($service_info['access_token'], $msg_info['id'], $comment);
     }
 
     public function get_msg_from_sina_crond()
@@ -74,6 +119,13 @@ class weibo_class extends AWS_MODEL
 
         foreach ($services_info AS $service_info)
         {
+            $service_user_info = $this->model('account')->get_user_info_by_uid($service_info['uid']);
+
+            if (empty($service_user_info))
+            {
+                continue;
+            }
+
             if (empty($service_info['access_token']) OR $service_info['expires_time'] <= time())
             {
                 $this->notification_of_refresh_access_token($service_info['uid']);
@@ -103,7 +155,7 @@ class weibo_class extends AWS_MODEL
 
                 $msg_info['id'] = $msg['id'];
 
-                $msg_info['text'] = $msg['text'];
+                $msg_info['text'] = str_replace('@' . $service_info['name'], '@' . $service_user_info['user_name'], $msg['text']);
 
                 $msg_info['msg_author_uid'] = $msg['user']['id'];
 
@@ -166,5 +218,10 @@ class weibo_class extends AWS_MODEL
     public function notification_of_refresh_access_token($weibo_uid)
     {
 
+    }
+
+    public function add_service_account($id)
+    {
+        $this->update('users_sina', array('last_msg_id' => 0), 'id = ' . intval($id));
     }
 }
