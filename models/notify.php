@@ -52,8 +52,6 @@ class notify_class extends AWS_MODEL
 	const TYPE_ARTICLE_NEW_COMMENT	= 117; // 文章有新评论
 	const TYPE_ARTICLE_COMMENT_AT_ME	= 118; // 文章评论提到我
 
-	const TYPE_REFRESH_SINA_ACCESS_TOKEN = 119; // 更新新浪微博 Access Token
-
 	public $notify_actions = array();
 	public $notify_action_details;
 
@@ -970,11 +968,6 @@ class notify_class extends AWS_MODEL
 
 					case self::TYPE_CONTEXT:
 						$data[$key]['message'] = $val['content'];
-
-						break;
-
-					case self::TYPE_REFRESH_SINA_ACCESS_TOKEN:
-						$data[$key]['message'] = AWS_APP::lang()->_t('新浪微博的 ACCESS TOKEN 需要刷新，请%s重新授权%s。', '<a href="' . get_js_url('/account/sina/binding/') . '">', '</a>');
 
 						break;
 				}

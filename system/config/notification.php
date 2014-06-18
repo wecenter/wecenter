@@ -101,9 +101,3 @@ $config['action_details'][notify_class::TYPE_ARTICLE_COMMENT_AT_ME] = array(
 	'combine' => 1,
 	'desc' => '有文章评论提到我',
 );
-
-$config['action_details'][notify_class::TYPE_REFRESH_SINA_ACCESS_TOKEN] = array(
-	'user_setting' => 0,
-	'combine' => 0,
-	'desc' => '更新新浪微博 Access Token',
-);
