@@ -45,7 +45,7 @@ CREATE TABLE `[#DB_PREFIX#]weibo_msg` (
   KEY `question_id` (`question_id`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8 COMMENT='新浪微博消息列表';
 
-INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES ('weibo_msg_published_uid', 's:0:"";');
+INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES ('weibo_msg_published_user', 'a:0:"";');
 
 ALTER TABLE `[#DB_PREFIX#]question` ADD `weibo_msg_id` bigint(30) DEFAULT NULL;
 CREATE INDEX `weibo_msg_id` ON `[#DB_PREFIX#]question` (`weibo_msg_id`);
