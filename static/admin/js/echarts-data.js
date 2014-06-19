@@ -37,7 +37,7 @@ $(function ()
 						aEchart = '';
 					i>0?aEchart = eval('echart'+(i+1)):aEchart=eval(aEchart = 'echart');
 					
-					var url = echart.url.substring(0, aEchart.url.search(/&/)) + '&start_date=' + start_date + '&end_date=' + end_date;
+					var url = aEchart.url.substring(0, aEchart.url.search(/&/)) + '&start_date=' + start_date + '&end_date=' + end_date;
 														
 
 					aEchart.initChart(url);
@@ -103,7 +103,7 @@ function Echarts(element, type, url, options)
         addDataAnimation:false,
         grid:{
            x:45,
-           y:25,
+           y:35,
            x2:15,
            y2:35,
            backgroundColor:'#fff',
@@ -265,7 +265,9 @@ Echarts.prototype =
 
 		var options = {
 			legend : {
-				data: arr
+				data: arr,
+				padding: 8,
+				x: 'right',
 			}
 		}
 

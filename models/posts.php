@@ -233,7 +233,7 @@ class posts_class extends AWS_MODEL
 			}
 			else if ($post_ids = $this->model('topic')->get_item_ids_by_topics_ids($topic_ids, $post_type))
 			{
-				$where[] = 'post_id IN(' . implode(',', $question_post_ids) . ") AND post_type = '" . $post_type . "";
+				$where[] = 'post_id IN(' . implode(',', $post_ids) . ") AND post_type = '" . $post_type . "'";
 			}
 			else
 			{
