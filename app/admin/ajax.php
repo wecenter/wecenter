@@ -1792,4 +1792,38 @@ class ajax extends AWS_ADMIN_CONTROLLER
 			'data' => $data
 		));
 	}
-}
+
+	public function add_weibo_service_account_action()
+	{
+		$uid = $_POST['uid'];
+
+		if (empty($_POST['action']) OR empty($uid))
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('错误的请求')));
+		}
+
+		if (!$this->model('account')->check_uid($uid))
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('所选用户不存在')));
+		}
+
+		switch ($_POST['action'])
+		{
+			case 'add':
+				$services_info = $this->model('weibo')->get_services_info();
+
+				if ($services_info[$uid])
+				{
+					H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('该用户已是回答用户')));
+				}
+
+				$this->model('weibo')->add_service_account($uid);
+
+				break;
+
+			case 'del':
+				$this->model('weibo')->update_service_account($uid, 'del');
+
+				break;
+		}
+	}

@@ -81,7 +81,7 @@ class weibo_class extends AWS_MODEL
 
     public function reply_answer_to_sina($question_id, $comment)
     {
-        if (get_setting('sina_weibo_enabled') == 'N' OR empty(get_setting('sina_akey')) OR empty(get_setting('sina_skey')))
+        if (empty(get_setting('sina_akey')) OR empty(get_setting('sina_skey')))
         {
             return false;
         }
@@ -105,7 +105,7 @@ class weibo_class extends AWS_MODEL
 
     public function get_msg_from_sina_crond()
     {
-        if (get_setting('sina_weibo_enabled') == 'N' OR empty(get_setting('sina_akey')) OR empty(get_setting('sina_skey')))
+        if (empty(get_setting('sina_akey')) OR empty(get_setting('sina_skey')))
         {
             return false;
         }
@@ -196,7 +196,7 @@ class weibo_class extends AWS_MODEL
 
                         $now = time();
 
-                        $attach_access_key =  md5($service_info['uid'], $now);
+                        $attach_access_key = md5($service_info['uid'], $now);
 
                         $this->model('publish')->add_attach('weibo_msg', $pic_url_array[3], $attach_access_key, $now, $ori_image, true);
                     }
@@ -220,8 +220,21 @@ class weibo_class extends AWS_MODEL
 
     }
 
-    public function add_service_account($id)
+    public function update_service_account($id, $action = 'add')
     {
-        $this->update('users_sina', array('last_msg_id' => 0), 'id = ' . intval($id));
+        switch ($action)
+        {
+            case 'add':
+                $last_msg_id = 0;
+
+                break;
+
+            case 'del':
+                $last_msg_id = null;
+
+                break;
+        }
+
+        $this->update('users_sina', array('last_msg_id' => $last_msg_id), 'id = ' . intval($id));
     }
 }

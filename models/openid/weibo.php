@@ -35,9 +35,17 @@ class openid_weibo_class extends AWS_MODEL
 		return $this->fetch_row('users_sina', 'uid = ' . intval($uid));
 	}
 
-	function update_user_info($id, $user_info)
+	function refresh_access_token($id, $sina_token)
 	{
-		return $this->update('users_sina', $user_info, 'id = ' . $this->quote($id));
+		if (empty($sina_token['access_token']))
+		{
+			return false;
+		}
+
+		return $this->update('users_sina', array(
+					'access_token' => $sina_token['access_token'],
+					'expires_time' => time() + $sina_token['expires_in']
+				), 'id = ' . $this->quote($id));
 	}
 
 	function del_users_by_uid($uid)
@@ -65,7 +73,7 @@ class openid_weibo_class extends AWS_MODEL
 		return $this->insert('users_sina', $data);
 	}
 
-	function bind_account($sina_profile, $redirect, $uid, $is_ajax = false)
+	function bind_account($sina_profile, $redirect, $uid, $sina_token, $is_ajax = false)
 	{
 		if ($openid_info = $this->get_users_sina_by_uid($uid))
 		{
@@ -98,17 +106,11 @@ class openid_weibo_class extends AWS_MODEL
 			}
 			else
 			{
-				H::redirect_msg(AWS_APP::lang()->_t('此账号已经与另外一个微博绑定'), '/account/setting/openid/');
+				H::redirect_msg(AWS_APP::lang()->_t('此账号已经与另外一个微博绑定'), $redirect);
 			}
 		}
 
-		if (AWS_APP::session()->sina_token['access_token'])
-		{
-			$this->update_user_info($sina_profile['id'], array(
-				'access_token' => AWS_APP::session()->sina_token['access_token'],
-				'expires_time' => time() + AWS_APP::session()->sina_token['expires_in']
-			));
-		}
+		$this->refresh_access_token($sina_profile['id'], $sina_token);
 
 		if ($redirect)
 		{

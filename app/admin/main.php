@@ -95,7 +95,11 @@ class main extends AWS_ADMIN_CONTROLLER
 
 		if (!empty($services_info))
 		{
-			TPL::assign('service_ids', implode(',', $services_info['uid']));
+			$service_uids = array_column($services_info, 'uid');
+
+			$service_users_info = $this->model('account')->get_user_info_by_uids($service_uids);
+
+			TPL::assign('service_users_info', $service_users_info);
 		}
 
 		TPL::assign('setting', get_setting(null, false));
