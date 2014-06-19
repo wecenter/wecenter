@@ -15,6 +15,7 @@ a{font:14px/1.5em "microsoft yahei";}
 .aw-login .mod form .fa-lock{top:32px;font-size:20px;}
 .aw-login .mod h2{color:#999;text-align:center;font-weight:400;font-size:14px;}
 .aw-login .mod .col-xs-5{margin-top:8px;}
+.aw-login .mod .col-xs-5 input{padding-left: 20px;font-size: 16px;}
 .aw-login img.verification{width:100px;height:40px;border:none;}
 /*登陆错误提示框*/
 .aw-login .mod .alert{padding: 5px 15px;}
