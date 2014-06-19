@@ -45,14 +45,10 @@ CREATE TABLE `aws_weibo_msg` (
   KEY `question_id` (`question_id`)
 ) ENGINE=inndb DEFAULT CHARSET=utf8 COMMENT='新浪微博消息列表';
 
-<<<<<<< HEAD
-INSERT INTO `aws_system_setting` (`varname`, `value`) VALUES ('weibo_msg_published_uid', 's:0:"";');
-=======
 INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES ('weibo_msg_published_user', 'a:0:"";');
->>>>>>> 0b8636abf660d842730ba90122d5bc8d230cc8d1
 
-ALTER TABLE `aws_question` ADD `weibo_msg_id` bigint(30) DEFAULT NULL;
+ALTER TABLE `[#DB_PREFIX#]_question` ADD `weibo_msg_id` bigint(30) DEFAULT NULL;
 CREATE INDEX `weibo_msg_id` ON `aws_question` (`weibo_msg_id`);
 
-ALTER TABLE `aws_users_sina` ADD `last_msg_id` bigint(30) DEFAULT NULL;
+ALTER TABLE `[#DB_PREFIX#]_users_sina` ADD `last_msg_id` bigint(30) DEFAULT NULL;
 CREATE INDEX `last_msg_id` ON `aws_users_sina` (`last_msg_id`);
