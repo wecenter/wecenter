@@ -1702,20 +1702,17 @@ class ajax extends AWS_ADMIN_CONTROLLER
 		{
 			switch ($val)
 			{
-				case 'new_question_by_month':
-					$statistic[] = $this->model('statistic')->get_new_question_by_month($start_time, $end_time);
-				break;
-
-				case 'new_answer_by_month':
-					$statistic[] = $this->model('statistic')->get_new_answer_by_month($start_time, $end_time);
-				break;
-
-				case 'user_register_by_month':
-					$statistic[] = $this->model('statistic')->get_user_register_by_month($start_time, $end_time);
-				break;
-
-				case 'new_topic_by_month':
-					$statistic[] = $this->model('statistic')->get_new_topic_by_month($start_time, $end_time);
+				case 'new_answer':	// 新增答案
+				case 'new_question':	// 新增问题
+				case 'new_user':	// 新注册用户
+				case 'user_valid':	// 新激活用户
+				case 'new_topic':	// 新增话题
+				case 'new_answer_vote': // 新增答案投票
+				case 'new_answer_thanks': // 新增答案感谢
+				case 'new_favorite_item': // 新增收藏条目
+				case 'new_question_thanks': // 新增问题感谢
+				case 'new_question_redirect': // 新增问题重定向
+					$statistic[] = $this->model('system')->statistic($val, $start_time, $end_time);
 				break;
 			}
 		}
