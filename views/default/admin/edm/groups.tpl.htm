@@ -31,7 +31,7 @@
 								<td><?php echo $val['users']; ?></td>
 								<td><?php echo date_friendly($val['time']); ?></a>
 								<td>
-									<a href="admin/edm/remove_group/<?php echo $val['id']; ?>" onclick="if (confirm('<?php _e('确认删除这个用户群?'); ?>')) { window.location = this.href; } return false;" class="fa fa-trash-o md-tip" title="<?php _e('删除'); ?>"></a>
+									<a onclick="AWS.dialog('confirm', {'message': '<?php _e('确认删除这个用户群?'); ?>'}, function(){window.location = G_BASE_URL + '/admin/edm/remove_group/<?php echo $val['id']; ?>'}); return false;" class="fa fa-trash-o md-tip" title="<?php _e('删除'); ?>"></a>
 								</td>
 							</tr>
 							<?php } ?>

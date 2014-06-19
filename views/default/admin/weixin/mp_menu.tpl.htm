@@ -336,11 +336,11 @@
 
 							<input type="hidden" class="attach_key" name="button[{MENU_ID}][attach_key]" value="" />
 							<a class="ajax-upload"><i class="fa fa-upload"></i></a>
-							<a class="ajax-look" onclick="if ($(this).parent().find('input.attach_key').val() != '') { AWS.dialog('imagePreview', {'image':'<?php echo get_setting('upload_url'); ?>/weixin/list_image/' + $(this).parent().find('input.attach_key').val() + '.jpg?'+ Math.random() }) } else { alert('<?php _e('当前菜单没有上传图片'); ?>'); }"><i class="fa fa-picture-o"></i></a>
+							<a class="ajax-look" onclick="if ($(this).parent().find('input.attach_key').val() != '') { AWS.dialog('imagePreview', {'image':'<?php echo get_setting('upload_url'); ?>/weixin/list_image/' + $(this).parent().find('input.attach_key').val() + '.jpg?'+ Math.random() }) } else { AWS.alert('<?php _e('当前菜单没有上传图片'); ?>'); }"><i class="fa fa-picture-o"></i></a>
 						</div>
 					</td>
 					<td align="center">
-						<a href="javascript:;" onclick="if ($('#mp_menu_table tbody tr.sub_button_{MENU_ID}').length > 4) { alert('<?php _e('最多只能创建 5 个子菜单'); ?>') } else { $('tr#menu_id_{MENU_ID}').after($('#sub_button_template').html().replace(/{MENU_TOP_ID}/g, '{MENU_ID}').replace(/{MENU_SUB_ID}/g, hex_md5(new Date().getTime() + '|' + Math.random()))); ajax_upload_reload();$('tr#menu_id_{MENU_ID}').next().find('.aw-wechat-select').append($('#select_option').html()); }"><?php _e('添加子菜单'); ?></a> |
+						<a href="javascript:;" onclick="if ($('#mp_menu_table tbody tr.sub_button_{MENU_ID}').length > 4) { AWS.alert('<?php _e('最多只能创建 5 个子菜单'); ?>') } else { $('tr#menu_id_{MENU_ID}').after($('#sub_button_template').html().replace(/{MENU_TOP_ID}/g, '{MENU_ID}').replace(/{MENU_SUB_ID}/g, hex_md5(new Date().getTime() + '|' + Math.random()))); ajax_upload_reload();$('tr#menu_id_{MENU_ID}').next().find('.aw-wechat-select').append($('#select_option').html()); }"><?php _e('添加子菜单'); ?></a> |
 						<a href="javascript:;" onclick="$(this).parents('tr').remove(); $('.sub_button_{MENU_ID}').remove();"><?php _e('删除'); ?></a>
 					</td>
 				</tr>
@@ -363,7 +363,7 @@
 
 							<input type="hidden" class="attach_key" name="button[{MENU_TOP_ID}][sub_button][{MENU_SUB_ID}][attach_key]" value="" />
 							<a class="ajax-upload hide"><i class="fa fa-upload"></i></a>
-							<a class="ajax-look hide" onclick="if ($(this).parent().find('input.attach_key').val() != '') { AWS.dialog('imagePreview', {'image':'<?php echo get_setting('upload_url'); ?>/weixin/list_image/' + $(this).parent().find('input.attach_key').val() + '.jpg?'+ Math.random()}) } else { alert('<?php _e('当前菜单没有上传图片'); ?>'); }"><i class="fa fa-picture-o"></i></a>
+							<a class="ajax-look hide" onclick="if ($(this).parent().find('input.attach_key').val() != '') { AWS.dialog('imagePreview', {'image':'<?php echo get_setting('upload_url'); ?>/weixin/list_image/' + $(this).parent().find('input.attach_key').val() + '.jpg?'+ Math.random()}) } else { AWS.alert('<?php _e('当前菜单没有上传图片'); ?>'); }"><i class="fa fa-picture-o"></i></a>
 						</div>
 					</td>
 					<td align="center">
@@ -401,12 +401,12 @@
 										<a class="fa fa-sort" data-toggle="dropdown"></a>
 										<input type="hidden" class="attach_key" name="button[<?php echo $key; ?>][attach_key]" value="<?php echo $val['attach_key']; ?>" />
 										<a class="ajax-upload"><i class="fa fa-upload"></i></a>
-										<a class="ajax-look" onclick="if ($(this).parent().find('input.attach_key').val() != '') { AWS.dialog('imagePreview', {'image':'<?php echo get_setting('upload_url'); ?>/weixin/list_image/' + $(this).parent().find('input.attach_key').val() + '.jpg?'+ Math.random()}) } else { alert('<?php _e('当前菜单没有上传图片'); ?>'); }"><i class="fa fa-picture-o"></i></a>
+										<a class="ajax-look" onclick="if ($(this).parent().find('input.attach_key').val() != '') { AWS.dialog('imagePreview', {'image':'<?php echo get_setting('upload_url'); ?>/weixin/list_image/' + $(this).parent().find('input.attach_key').val() + '.jpg?'+ Math.random()}) } else { AWS.alert('<?php _e('当前菜单没有上传图片'); ?>'); }"><i class="fa fa-picture-o"></i></a>
 									</div>
 
 								</td>
 								<td align="center">
-									<a href="javascript:;" onclick="if ($('#mp_menu_table tbody tr.sub_button_<?php echo $key; ?>').length > 4) { alert('<?php _e('最多只能创建 5 个子菜单'); ?>') } else { $('tr#menu_id_<?php echo $key; ?>').after($('#sub_button_template').html().replace(/{MENU_TOP_ID}/g, '<?php echo $key; ?>').replace(/{MENU_SUB_ID}/g, hex_md5(new Date().getTime() + ' ' + Math.random()))); ajax_upload_reload();$('tr#menu_id_<?php echo $key; ?>').next().find('.aw-wechat-select').append($('#select_option').html()); }"><?php _e('添加子菜单'); ?></a> |
+									<a href="javascript:;" onclick="if ($('#mp_menu_table tbody tr.sub_button_<?php echo $key; ?>').length > 4) { AWS.alert('<?php _e('最多只能创建 5 个子菜单'); ?>') } else { $('tr#menu_id_<?php echo $key; ?>').after($('#sub_button_template').html().replace(/{MENU_TOP_ID}/g, '<?php echo $key; ?>').replace(/{MENU_SUB_ID}/g, hex_md5(new Date().getTime() + ' ' + Math.random()))); ajax_upload_reload();$('tr#menu_id_<?php echo $key; ?>').next().find('.aw-wechat-select').append($('#select_option').html()); }"><?php _e('添加子菜单'); ?></a> |
 									<a href="javascript:;" onclick="$(this).parents('tr').remove(); $('.sub_button_<?php echo $key; ?>').remove();"><?php _e('删除'); ?></a>
 								</td>
 							</tr>
@@ -433,7 +433,7 @@
 
 											<input type="hidden" class="attach_key" name="button[<?php echo $key; ?>][sub_button][<?php echo $sub_key; ?>][attach_key]" value="<?php echo $sub_val['attach_key']; ?>" />
 											<a class="ajax-upload"><i class="fa fa-upload"></i></a>
-											<a class="ajax-look" onclick="if ($(this).parent().find('input.attach_key').val() != '') { AWS.dialog('imagePreview', {'image':'<?php echo get_setting('upload_url'); ?>/weixin/list_image/' + $(this).parent().find('input.attach_key').val() + '.jpg?'+ Math.random()}) } else { alert('<?php _e('当前菜单没有上传图片'); ?>'); }"><i class="fa fa-picture-o"></i></a>
+											<a class="ajax-look" onclick="if ($(this).parent().find('input.attach_key').val() != '') { AWS.dialog('imagePreview', {'image':'<?php echo get_setting('upload_url'); ?>/weixin/list_image/' + $(this).parent().find('input.attach_key').val() + '.jpg?'+ Math.random()}) } else { AWS.alert('<?php _e('当前菜单没有上传图片'); ?>'); }"><i class="fa fa-picture-o"></i></a>
 										</div>
 									</td>
 									<td align="center">
@@ -450,7 +450,7 @@
 							<td colspan="5">
 								<a class="btn btn-primary inline-block pull-right" href="javascript:;" onclick="AWS.ajax_post($('#mp_menu_form'), function(){$('#form_update_weixin_menu_submit').click();});"><?php _e('提交菜单至微信'); ?></a>
 
-								<a class="btn btn-primary inline-block" href="javascript:;" onclick="if ($('#mp_menu_table tbody tr.top_menu').length > 2) { alert('<?php _e('最多只能创建 3 个菜单'); ?>') } else { $('#mp_menu_table tbody').append($('#top_menu_template').html().replace(/{MENU_ID}/g, hex_md5(new Date().getTime() + '|' + Math.random())));$('#mp_menu_table tbody tr:last').find('.aw-wechat-select').append($('#select_option').html()); }"><?php _e('添加菜单'); ?></a>
+								<a class="btn btn-primary inline-block" href="javascript:;" onclick="if ($('#mp_menu_table tbody tr.top_menu').length > 2) { AWS.alert('<?php _e('最多只能创建 3 个菜单'); ?>') } else { $('#mp_menu_table tbody').append($('#top_menu_template').html().replace(/{MENU_ID}/g, hex_md5(new Date().getTime() + '|' + Math.random())));$('#mp_menu_table tbody tr:last').find('.aw-wechat-select').append($('#select_option').html()); }"><?php _e('添加菜单'); ?></a>
 
 								<a class="btn btn-primary inline-block" href="javascript:;" onclick="AWS.ajax_post($('#mp_menu_form'));"><?php _e('保存设置'); ?></a>
 							</td>
@@ -730,7 +730,7 @@
 	function ajax_upload_reload()
 	{
 		$.each($('.ajax-upload'), function (i, e) {
-			AWS.Init.init_list_img_uploader(G_BASE_URL + '/admin/ajax/weixin_mp_menu_list_image_upload/', 'list_image', $(e));
+			init_list_img_uploader(G_BASE_URL + '/admin/ajax/weixin_mp_menu_list_image_upload/', 'list_image', $(e));
 		});
 	}
 
@@ -748,7 +748,7 @@
 	        {
 	            if (!new RegExp('(png|jpe|jpg|jpeg|gif)$', 'i').test(ext))
 	            {
-	                alert(_t('上传失败: 只支持 jpg、gif、png 格式的图片文件'));
+	                AWS.alert(_t('上传失败: 只支持 jpg、gif、png 格式的图片文件'));
 
 	                return false;
 	            }
@@ -772,7 +772,7 @@
 
 	            if (response.errno == -1)
 	            {
-	                alert(response.err);
+	                AWS.alert(response.err);
 	            }
 	            else
 	            {

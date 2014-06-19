@@ -336,7 +336,7 @@ var AWS =
 	 *	inbox       : 私信
 	 *  report      : 举报问题
 	 */
-	dialog: function (type, data)
+	dialog: function (type, data, callback)
 	{
 	    switch (type)
 	    {
@@ -452,22 +452,6 @@ var AWS =
 					'message': data.message
 				});
 			break;
-
-			// 后台分类移动设置
-			case 'adminCategoryMove':
-				var template = Hogan.compile(AW_TEMPLATE.adminCategoryMove).render(
-		        {
-		        	items : data
-		        });
-		    break;
-
-		    // 后台微信群发消息
-		    case 'adminWechatSendMsg':
-		    	var template = Hogan.compile(AW_TEMPLATE.adminWechatSendMsg).render(
-		        {
-		        	items : data
-		        });
-		    break;
 	    }
 
 	    if (template)
@@ -613,9 +597,14 @@ var AWS =
 					});
 		    	break;
 
-		    	// 后台微信群发消息
-		    	case 'adminWechatSendMsg':
-		    		AWS.Dropdown.bind_dropdown_list($('.aw-wechat-send-message .search-input'), data.type);
+		    	case 'confirm':
+		    		$('.aw-confirm-box .yes').click(function()
+		    		{
+		    			
+		    			callback();
+		    			$(".alert-box").modal('hide');
+		    			return false;
+		    		});
 		    	break;
 	        }
 

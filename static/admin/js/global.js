@@ -1,4 +1,7 @@
 $(function () {
+    
+        $('#captcha').click();
+
 
     // bs自带方法 TAB切换
     $('#myTab a').click(function (e)
@@ -27,17 +30,12 @@ $(function () {
         }
     });
 
-    function changeSize() {
-        
-        var height = ($('#aw-side').height())-50;
-
-        $("#aw-side").height(height);
-    }
     
-    changeSize();
-    
-
-    $('#aw-side').perfectScrollbar({useBothWheelAxes: true});
+    $("#aw-side").perfectScrollbar({
+      wheelSpeed: 20,
+      wheelPropagation: true,
+      minScrollbarLength: 20
+    })
 
     /*日期选择*/
     if (typeof(DateInput) != 'undefined') {
