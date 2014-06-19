@@ -76,16 +76,16 @@ ul,ol{padding:0;list-style:none;}
 /*数据内容区域 start*/
 
 .aw-content-wrap{margin:70px 0 0 235px;padding:0 25px 20px;min-height:100%;height:auto;background:#eaeaea;}
-.aw-content-wrap .widget{margin:20px 0;}
 .aw-content-wrap .echart-date{margin-top:20px;padding-left:5px;}
 .aw-content-wrap .echart-date .nopadding{padding:0;line-height:36px;}
 .aw-content-wrap .mod-echat-info{margin:20px 0 0 0;padding: 0;}
 .aw-content-wrap .mod-double{margin-bottom:10px; padding:0 10px}
 .aw-content-wrap .mod-double .fa-calendar{left: 16px;}
 #main,#main2,#main3{height: 200px; background: #fff}
-#main3{margin-top: 20px;}
+#main3{margin-top: 20px;height: 300px;}
+.mod-echat-info .col-md-6{margin-bottom: 40px;}
 /*页面底部区域 start*/
-.aw-footer{overflow:hidden;margin:0 0 0 225px;height:50px;background:#efefef;text-align:center;line-height:52px;}
+.aw-footer{overflow:hidden;margin:0 0 0 225px;height:50px;background:#efefef;text-align:center;line-height:52px;clear:both;}
 .aw-footer p{font-size:12px;}
 
 /*右侧公共部分*/
@@ -95,7 +95,7 @@ ul,ol{padding:0;list-style:none;}
 .aw-content-wrap .mod-head .nav-tabs{border-bottom:none;}
 .aw-content-wrap .mod-head .nav-tabs li{min-width:89px;height:42px;border-right:1px solid #DDD;list-style:none;text-align:center;cursor:default;}
 .aw-content-wrap .mod-head .nav-tabs li a{margin-top:0;margin-left:0;padding:8px 15px;outline:none;border:none;background:transparent;line-height:29px;}
-.aw-content-wrap .mod > .mod-head{margin:10px 0 0;height:44px;border:1px solid #e2e1e1;background:#f4f4f4;color:#333;}
+.aw-content-wrap .mod > .mod-head,.mod-echat-info .mod-head{margin:10px 0 0;height:44px;border:1px solid #e2e1e1;background:#f4f4f4;color:#333;}
 .aw-content-wrap .mod-site-save{margin:10px 15px 0 0;}
 .aw-content-wrap .mod-head .pull-left{margin-right:20px;padding-left:15px;font-size:14px;line-height:45px;}
 .mod-head .nav-tabs li.active{height:43px;border-bottom:1px solid #fff;background:#FFF;}
@@ -104,7 +104,7 @@ ul,ol{padding:0;list-style:none;}
 
 /*右侧表格主体部分*/
 textarea{resize:none;}
-.aw-content-wrap > .mod{box-shadow:0 3px 0 #CCC;}
+.aw-content-wrap .mod{box-shadow:0 3px 0 #CCC;}
 .aw-content-wrap .mod-body,.aw-content-wrap .mod-content{padding:20px;border:1px solid #e2e1e1;border-top:none;background:#fff;}
 .aw-content-wrap h2 i{position:relative;top:0;}
 .mod-body table thead th,.mod-body table tbody td{vertical-align:middle;text-align:center;}
