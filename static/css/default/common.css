@@ -945,7 +945,6 @@ a.aw-load-more-content{display: block;}
 	.category dl dt, .category dl dt img{width: 30px;height: 30px;}
 	.category dl dd{width: 95px;}
 	/*发起页面*/
-	.aw-publish-title input, .aw-publish-article .aw-publish-title input{width: 183px;}
 	.aw-publish-title .aw-publish-title .dropdown{width: 117px;}
 	.aw-publish-title .aw-publish-title .dropdown .dropdown-menu{float: right !important;left:auto;right: 0;}
 	.aw-publish-title .dropdown .dropdown-menu{width: 120px;min-width: 120px;}
