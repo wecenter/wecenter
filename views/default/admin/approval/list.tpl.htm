@@ -7,9 +7,14 @@
 			<h3>
 				<ul class="nav nav-tabs">
 					<li class="<?php if ($_GET['type'] == 'question') { ?> active<?php } ?>"><a href="admin/approval/list/"><?php _e('问题'); ?> (<?php echo $this->question_count; ?>)</a></li>
+
 				    <li class="<?php if ($_GET['type'] == 'answer') { ?> active<?php } ?>"><a href="admin/approval/list/type-answer"><?php _e('回答'); ?> (<?php echo $this->answer_count; ?>)</a></li>
+
 				    <li class="<?php if ($_GET['type'] == 'article') { ?> active<?php } ?>"><a href="admin/approval/list/type-article"><?php _e('文章'); ?> (<?php echo $this->article_count; ?>)</a></li>
+
 				    <li class="<?php if ($_GET['type'] == 'article_comment') { ?> active<?php } ?>"><a href="admin/approval/list/type-article_comment"><?php _e('文章评论'); ?> (<?php echo $this->article_comment_count; ?>)</a></li>
+
+				    <li class="<?php if ($_GET['type'] == 'weibo_msg') { ?> active<?php } ?>"><a href="admin/approval/list/type-weibo_msg"><?php _e('新浪微博'); ?> (<?php echo $this->weibo_msg_count; ?>)</a></li>
 				</ul>
 			</h3>
 		</div>
@@ -17,6 +22,10 @@
 			<form id="batchs_form" action="admin/ajax/approval_manage/" method="post">
 			<input type="hidden" id="batch_type" name="batch_type" value="approval" />
 			<input type="hidden" id="approval_id" name="approval_ids[]" value="" />
+			<?php if ($_GET['type'] == 'weibo_msg') { ?>
+			<input type="hidden" name="type" value="weibo_msg" />
+			<?php } ?>
+
 			<div class="table-responsive">
 			<?php if ($this->approval_list) { ?>
 				<table class="table table-striped">
@@ -24,9 +33,8 @@
 						<tr>
 							<th><input type="checkbox" class="check-all"></th>
 							<th><?php _e('用户'); ?></th>
-							<?php if ($_GET['type'] == 'answer' OR $_GET['type'] == 'article_comment') { ?>
-							<?php } else { ?>
-								<th><?php _e('标题'); ?></th>
+							<?php if ($_GET['type'] == 'question' OR $_GET['type'] == 'article') { ?>
+							<th><?php _e('标题'); ?></th>
 							<?php } ?>
 							<th><?php _e('内容'); ?></th>
 							<th><?php _e('操作')?></th>
@@ -35,25 +43,74 @@
 					<tbody>
 						<?php foreach ($this->approval_list AS $key => $val) { ?>
 						<tr>
-							<td><input type="checkbox" name="approval_ids[]" value="<?php echo $val['id']; ?>"></td>
-							<td><a href="people/<?php echo $this->users_info[$val['uid']]['url_token']; ?>" target="_blank"><?php echo $this->users_info[$val['uid']]['user_name']; ?></a></td>
-						
-							<?php if ($_GET['type'] == 'question') { ?>
-							
 							<td>
-								<?php echo htmlspecialchars($val['data']['question_content']); ?>
-							</td>
-							<?php } else if ($_GET['type'] == 'article') { ?>
-							<td>
-								<?php echo htmlspecialchars($val['data']['title']); ?>
-							</td>
-							<?php } ?>
-						
-							<td><a onclick="AWS.dialog('ajaxData', {'title':'<?php _e('内容审核'); ?>', 'url':G_BASE_URL + '/admin/approval/preview/<?php echo $val['id']; ?>'});"><?php if ($_GET['type'] == 'answer') { echo cjk_substr(htmlspecialchars($val['data']['answer_content']), 0, 128, 'UTF-8', '...'); } else if ($_GET['type'] == 'article' OR $_GET['type'] == 'article_comment') { echo cjk_substr(htmlspecialchars($val['data']['message']), 0, 128, 'UTF-8', '...'); } else { echo cjk_substr(htmlspecialchars($val['data']['question_detail']), 0, 128, 'UTF-8', '...'); } ?></a>
+								<input type="checkbox" name="approval_ids[]" value="<?php echo $val['id']; ?>">
 							</td>
 
 							<td>
-								<a class="fa fa-search md-tip" onclick="AWS.dialog('ajaxData', {'title':'<?php _e('内容审核'); ?>', 'url':G_BASE_URL + '/admin/approval/preview/<?php echo $val['id']; ?>'});" data-original-title="查看内容"></a>
+								<a href="people/<?php echo $this->users_info[$val['uid']]['url_token']; ?>" target="_blank"><?php echo $this->users_info[$val['uid']]['user_name']; ?></a>
+							</td>
+
+							<?php switch ($_GET['type']) {
+								case 'question':
+							?>
+							<td>
+								<?php echo htmlspecialchars($val['data']['question_content']); ?>
+							</td>
+							<?php
+									break;
+
+								case 'article':
+							?>
+							<td>
+								<?php echo htmlspecialchars($val['data']['title']); ?>
+							</td>
+							<?php
+									break;
+
+								case 'weibo_msg':
+							?>
+							<td>
+								<?php echo $val['text']; ?>
+							</td>
+							}
+
+							<td>
+								<a onclick="AWS.dialog('ajaxData', {'title':'<?php _e('内容审核'); ?>', 'url':G_BASE_URL + '/admin/approval/preview/<?php
+								if ($_GET['type'] == 'weibo_msg') {
+								?>type-weibo_msg__<?php
+								}
+								echo $val['id'];
+								?>'});"><?php
+								switch ($_GET['type']) {
+									case 'question':
+										echo cjk_substr(htmlspecialchars($val['data']['question_detail']), 0, 128, 'UTF-8', '...');
+										break;
+
+								 	case 'answer':
+								 		echo cjk_substr(htmlspecialchars($val['data']['answer_content']), 0, 128, 'UTF-8', '...');
+								 		break;
+
+								 	case 'article':
+								 	case 'article_comment'
+								 		echo cjk_substr(htmlspecialchars($val['data']['message']), 0, 128, 'UTF-8', '...');
+								 		break;
+
+								 	case 'weibo_msg':
+								 		echo cjk_substr($val['text'], 0, 128, 'UTF-8', '...');
+								 		break;
+
+								}
+								?></a>
+							</td>
+
+							<td>
+								<a class="fa fa-search md-tip" onclick="AWS.dialog('ajaxData', {'title':'<?php _e('内容审核'); ?>', 'url':G_BASE_URL + '/admin/approval/preview/<?php
+								if ($_GET['type'] == 'weibo_msg') {
+								?>type-weibo_msg__<?php
+								}
+								echo $val['id'];
+								?>'});" data-original-title="查看内容"></a>
 							</td>
 						</tr>
 						<?php } ?>
@@ -64,7 +121,7 @@
 			</form>
 			<div class="mod-table-foot">
 				<span class="pull-right mod-page"><?php echo $this->pagination; ?></span>
-				
+
 				<a class="btn btn-primary" onclick="$('#batch_type').val('approval'); AWS.ajax_post($('#batchs_form'));" id="batch_approval"><?php _e('通过审核'); ?></a>
 				<a class="btn btn-danger" onclick="$('#batch_type').val('decline'); AWS.ajax_post($('#batchs_form'));" id="batch_decline"><?php _e('拒绝审核'); ?></a>
 			</div>

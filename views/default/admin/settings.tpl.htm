@@ -8,7 +8,7 @@
 		<div class="mod-head">
 			<h3>
 				<span class="pull-left"><?php _e('站点信息'); ?></span>
-				
+
 				<span class="pull-right"><a href="javascript:;" onclick="AWS.ajax_post($('#settings_form'));" class="btn btn-xs btn-primary mod-site-save"><?php _e('快速保存'); ?></a></span>
 			</h3>
 		</div>
@@ -81,7 +81,7 @@
 							<span class="col-sm-4 col-xs-3 control-label"><?php _e('上传文件存放绝对路径'); ?></span>
 							<div class="col-sm-5 col-xs-8">
 								<input name="upload_dir" class="form-control" type="text" value="<?php echo $this->setting['upload_dir']; ?>"/>
-								
+
 								<span class="help-block"><?php _e('目前网站根目录绝对路径'); ?>: <?php echo ROOT_PATH; ?></span>
 							</div>
 						</div>
@@ -93,7 +93,7 @@
 							<span class="col-sm-4 col-xs-3 control-label"><?php _e('static 目录资源 URL 地址'); ?></span>
 							<div class="col-sm-5 col-xs-8">
 								<input name="img_url" class="form-control" type="text" value="<?php echo $this->setting['img_url']; ?>"/>
-								
+
 								<span class="help-block"><?php _e('末尾不带 /, 留空使用根目录下的 static 资源'); ?></span>
 							</div>
 						</div>
@@ -101,12 +101,12 @@
 				</tr>
 			</table>
 		</div>
-		
+
 		<?php } else if ($_GET['category'] == 'register') { ?>
 		<div class="mod-head">
 			<h3>
 				<span class="pull-left"><?php _e('注册与访问'); ?></span>
-				
+
 				<span class="pull-right"><a href="javascript:;" onclick="AWS.ajax_post($('#settings_form'));" class="btn btn-xs btn-primary mod-site-save"><?php _e('快速保存'); ?></a></span>
 			</h3>
 		</div>
@@ -163,7 +163,7 @@
 									<label type="button" class="btn mod-btn-color">
 										<input type="radio" name="site_close" value="Y"<?php if ($this->setting['site_close'] == 'Y') { ?> checked="checked"<?php } ?> /> <?php _e('是'); ?>
 									</label>
-									
+
 									<label type="button" class="btn mod-btn-color">
 										<input type="radio" name="site_close" value="N"<?php if ($this->setting['site_close'] == 'N') { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?>
 									</label>
@@ -191,7 +191,7 @@
 									<label type="button" class="btn mod-btn-color">
 										<input type="radio" name="register_seccode" value="Y"<?php if ($this->setting['register_seccode'] == 'Y') { ?> checked="checked"<?php } ?> /> <?php _e('是'); ?>
 									</label>
-									
+
 									<label type="button" class="btn mod-btn-color">
 										<input type="radio" name="register_seccode" value="N"<?php if ($this->setting['register_seccode'] == 'N') { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?>
 									</label>
@@ -222,11 +222,11 @@
 								<label class="checkbox-inline"><input type="radio" name="register_type" value="open"<?php if ($this->setting['register_type'] == 'open') { ?> checked="checked"<?php } ?> /> <?php _e('开放注册'); ?></label>
 
 								<label class="checkbox-inline"><input type="radio" name="register_type" value="invite"<?php if ($this->setting['register_type'] == 'invite') { ?> checked="checked"<?php } ?> /> <?php _e('邀请注册'); ?></label>
-			
+
 								<?php if (get_setting('weixin_app_id')) { ?>
 								<label class="checkbox-inline"><input type="radio" name="register_type" value="weixin"<?php if ($this->setting['register_type'] == 'weixin') { ?> checked="checked"<?php } ?> /> <?php _e('微信一站式注册 (不支持 UCenter)'); ?></label>
 								<?php } ?>
-			
+
 								<label class="checkbox-inline"><input type="radio" name="register_type" value="close"<?php if ($this->setting['register_type'] == 'close') { ?> checked="checked"<?php } ?> /> <?php _e('关闭注册'); ?></label>
 							</div>
 						</div>
@@ -261,7 +261,7 @@
 							<span class="col-sm-4 col-xs-3 control-label"><?php _e('用户名最多字符数'); ?>:</span>
 							<div class="col-sm-5 col-xs-8">
 								<input name="username_length_max" class="form-control" type="text" value="<?php echo $this->setting['username_length_max']; ?>"/>
-								
+
 								<span class="help-block"><?php _e('注: 一个汉字等于 2 个字符'); ?></span>
 							</div>
 						</div>
@@ -283,7 +283,7 @@
 							<span class="col-sm-4 col-xs-3 control-label"><?php _e('用户注册名不允许出现以下关键字'); ?>:</span>
 							<div class="col-sm-5 col-xs-8">
 								<textarea class="form-control" name="censoruser" rows="3"><?php echo $this->setting['censoruser']; ?></textarea>
-								
+
 								<span class="help-block"><?php _e('每行填写一个关键字, 如: admin, 管理员等'); ?></span>
 							</div>
 						</div>
@@ -295,7 +295,7 @@
 							<span class="col-sm-4 col-xs-3 control-label"><?php _e('用户注册后默认关注的用户 ID'); ?>:</span>
 							<div class="col-sm-5 col-xs-8">
 								<input name="def_focus_uids" class="form-control" type="text" value="<?php echo $this->setting['def_focus_uids']; ?>"/>
-								
+
 								<span class="help-block"><?php _e('多个用户 ID 请用 , 隔开'); ?></span>
 							</div>
 						</div>
@@ -307,7 +307,7 @@
 							<span class="col-sm-4 col-xs-3 control-label"><?php _e('首次登录推荐用户列表'); ?>:</span>
 							<div class="col-sm-5 col-xs-8">
 								<input name="welcome_recommend_users" class="form-control" type="text" value="<?php echo $this->setting['welcome_recommend_users']; ?>"/>
-								
+
 								<span class="help-block"><?php _e('填写用户名, 若有多个用户名请用 , 隔开, 留空系统自动推荐'); ?></span>
 							</div>
 						</div>
@@ -329,7 +329,7 @@
 							<span class="col-sm-4 col-xs-3 control-label"><?php _e('新用户注册系统发送的欢迎内容'); ?>:</span>
 							<div class="col-sm-5 col-xs-8">
 								<textarea class="form-control" name="welcome_message_pm" rows="3"><?php echo $this->setting['welcome_message_pm']; ?></textarea>
-								
+
 								<span class="help-block"><?php _e('新用户注册欢迎内容, 以下变量可作为内容替换: <br />{username}: 用户名<br />{time}: 发送时间<br />{sitename}: 网站名称'); ?></span>
 							</div>
 						</div>
@@ -341,7 +341,7 @@
 							<span class="col-sm-2 col-xs-3 control-label"><?php _e('新用户默认邮件提醒设置'); ?>:</span>
 							<div class="col-sm-10 col-xs-8">
 								<input type="hidden" name="set_email_settings" value="1" />
-								
+
 								<label>
 									<input type="checkbox" name="new_user_email_setting[]" value="FOLLOW_ME"<?php if ($this->setting['new_user_email_setting']['FOLLOW_ME'] != 'N') { ?> checked="checked"<?php } ?> /> <?php _e('当有人关注我'); ?>
 								</label>
@@ -367,7 +367,7 @@
 							<span class="col-sm-2 col-xs-3 control-label"><?php _e('新用户默认通知设置'); ?>:</span>
 							<div class="col-sm-10 col-xs-8">
 								<input type="hidden" name="set_notification_settings" value="1" />
-								
+
 								<?php foreach($this->notify_actions as $key => $val) { ?>
 					            <?php if ($val['user_setting']) { ?>
 					            <label><input name="new_user_notification_setting[<?php echo $key;?>]" type="checkbox" value="1"<?php if (!in_array($key, $this->notification_settings)) { ?> checked="checked"<?php } ?> /> <?php _e($val['desc']); ?></label>
@@ -379,12 +379,12 @@
 				</tr>
 			</table>
 		</div>
-		
+
 		<?php } else if ($_GET['category'] == 'functions') { ?>
 		<div class="mod-head">
 			<h3>
 				<span class="pull-left"><?php _e('站点功能'); ?></span>
-				
+
 				<span class="pull-right"><a href="javascript:;" onclick="AWS.ajax_post($('#settings_form'));" class="btn btn-xs btn-primary mod-site-save"><?php _e('快速保存'); ?></a></span>
 			</h3>
 		</div>
@@ -409,11 +409,11 @@
 									<label type="button" class="btn mod-btn-color">
 										<input type="radio" name="url_rewrite_enable" value="Y"<?php if ($this->setting['url_rewrite_enable'] == 'Y') { ?> checked="checked"<?php } ?> /> <?php _e('是'); ?>
 									</label>
-									
+
 									<label type="button" class="btn mod-btn-color">
 										<input type="radio" name="url_rewrite_enable" value="N"<?php if ($this->setting['url_rewrite_enable'] == 'N') { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?>
 									</label>
-									
+
 									<span class="help-block"><?php _e('Rewrite 开启方法请见 ReadMe 说明文件'); ?></span>
 								</div>
 							</div>
@@ -473,7 +473,7 @@
 									<label type="button" class="btn mod-btn-color">
 										<input type="radio" name="ucenter_enabled" value="Y"<?php if ($this->setting['ucenter_enabled'] == 'Y') { ?> checked="checked"<?php } ?> /> <?php _e('是'); ?>
 									</label>
-									
+
 									<label type="button" class="btn mod-btn-color">
 										<input type="radio" name="ucenter_enabled" value="N"<?php if ($this->setting['ucenter_enabled'] == 'N') { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?>
 									</label>
@@ -489,7 +489,7 @@
 							<span class="col-sm-4 col-xs-3 control-label"><?php _e('通知未读数刷新间隔时间'); ?>:</span>
 							<div class="col-sm-5 col-xs-8">
 								<input name="unread_flush_interval" class="form-control" type="text" value="<?php echo $this->setting['unread_flush_interval']; ?>"/>
-								
+
 								<div class="help-block"><?php _e('单位'); ?>: <?php _e('秒'); ?></div>
 							</div>
 						</div>
@@ -501,7 +501,7 @@
 							<span class="col-sm-4 col-xs-3 control-label"><?php _e('问题自动锁定时间'); ?>:</span>
 							<div class="col-sm-5 col-xs-8">
 								<input name="auto_question_lock_day" class="form-control" type="text" value="<?php echo $this->setting['auto_question_lock_day']; ?>"/>
-								
+
 								<div class="help-block"><?php _e('单位'); ?>: <?php _e('天'); ?>, <?php _e('问题超过设定天数没有动作,系统则会自动锁定该问题, 设置为 0 则关闭自动锁定'); ?></div>
 							</div>
 						</div>
@@ -523,7 +523,7 @@
 							<span class="col-sm-4 col-xs-3 control-label"><?php _e('问题举报理由选项'); ?>:</span>
 							<div class="col-sm-5 col-xs-8">
 								<textarea class="form-control" name="report_reason" rows="3"><?php echo get_setting('report_reason'); ?></textarea>
-								
+
 								<div class="help-block"><?php _e('每行填写一个举报理由'); ?></div>
 							</div>
 						</div>
@@ -535,7 +535,7 @@
 							<span class="col-sm-4 col-xs-3 control-label"><?php _e('有新举报与认证申请私信提醒用户 ID'); ?>:</span>
 							<div class="col-sm-5 col-xs-8">
 								<input name="report_message_uid" class="form-control" type="text" value="<?php echo $this->setting['report_message_uid']; ?>"/>
-								
+
 								<div class="help-block"><?php _e('留空则发送到 ID 为 1 的用户'); ?></div>
 							</div>
 						</div>
@@ -561,7 +561,7 @@
 									<label type="button" class="btn mod-btn-color">
 										<input type="radio" name="admin_login_seccode" value="Y"<?php if ($this->setting['admin_login_seccode'] == 'Y') { ?> checked="checked"<?php } ?> /> <?php _e('是'); ?>
 									</label>
-									
+
 									<label type="button" class="btn mod-btn-color">
 										<input type="radio" name="admin_login_seccode" value="N"<?php if ($this->setting['admin_login_seccode'] == 'N') { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?>
 									</label>
@@ -579,7 +579,7 @@
 									<label type="button" class="btn mod-btn-color">
 										<input type="radio" name="report_diagnostics" value="Y"<?php if ($this->setting['report_diagnostics'] == 'Y') { ?> checked="checked"<?php } ?> /> <?php _e('是'); ?>
 									</label>
-									
+
 									<label type="button" class="btn mod-btn-color">
 										<input type="radio" name="report_diagnostics" value="N"<?php if ($this->setting['report_diagnostics'] == 'N') { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?>
 									</label>
@@ -590,12 +590,12 @@
 				</tr>
 			</table>
 		</div>
-		
+
 		<?php } else if ($_GET['category'] == 'contents') { ?>
 		<div class="mod-head">
 			<h3>
 				<span class="pull-left"><?php _e('内容设置'); ?></span>
-				
+
 				<span class="pull-right"><a href="javascript:;" onclick="AWS.ajax_post($('#settings_form'));" class="btn btn-xs btn-primary mod-site-save"><?php _e('快速保存'); ?></a></span>
 			</h3>
 		</div>
@@ -632,7 +632,7 @@
 									<label type="button" class="btn mod-btn-color">
 										<input type="radio" name="category_enable" value="Y"<?php if ($this->setting['category_enable'] == 'Y') { ?> checked="checked"<?php } ?> /> <?php _e('是'); ?>
 									</label>
-									
+
 									<label type="button" class="btn mod-btn-color">
 										<input type="radio" name="category_enable" value="N"<?php if ($this->setting['category_enable'] == 'N') { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?>
 									</label>
@@ -650,7 +650,7 @@
 									<label type="button" class="btn mod-btn-color">
 										<input type="radio" name="upload_enable" value="Y"<?php if ($this->setting['upload_enable'] == 'Y') { ?> checked="checked"<?php } ?> /> <?php _e('是'); ?>
 									</label>
-									
+
 									<label type="button" class="btn mod-btn-color">
 										<input type="radio" name="upload_enable" value="N"<?php if ($this->setting['upload_enable'] == 'N') { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?>
 									</label>
@@ -675,7 +675,7 @@
 							<span class="col-sm-4 col-xs-3 control-label"><?php _e('允许上传最大附件大小'); ?>:</span>
 							<div class="col-sm-5 col-xs-8">
 								<input name="upload_size_limit" class="form-control" type="text" value="<?php echo $this->setting['upload_size_limit']; ?>"/>
-								
+
 								<div class="help-block"><?php _e('单位'); ?>: KB</div>
 							</div>
 						</div>
@@ -687,7 +687,7 @@
 							<span class="col-sm-4 col-xs-3 control-label"><?php _e('回复内容最小字符数限制'); ?>:</span>
 							<div class="col-sm-5 col-xs-8">
 								<input name="answer_length_lower" class="form-control" type="text" value="<?php echo $this->setting['answer_length_lower']; ?>"/>
-								
+
 								<div class="help-block"><?php _e('填写 0 则不限制'); ?></div>
 							</div>
 						</div>
@@ -699,7 +699,7 @@
 							<span class="col-sm-4 col-xs-3 control-label"><?php _e('问题标题最大字符数限制'); ?>:</span>
 							<div class="col-sm-5 col-xs-8">
 								<input name="question_title_limit" class="form-control" type="text" value="<?php echo $this->setting['question_title_limit']; ?>"/>
-								
+
 								<div class="help-block"><?php _e('填写 0 则不限制'); ?></div>
 							</div>
 						</div>
@@ -714,7 +714,7 @@
 									<label type="button" class="btn mod-btn-color">
 										<input type="radio" name="new_question_force_add_topic" value="Y"<?php if ($this->setting['new_question_force_add_topic'] == 'Y') { ?> checked="checked"<?php } ?> /> <?php _e('是'); ?>
 									</label>
-									
+
 									<label type="button" class="btn mod-btn-color">
 										<input type="radio" name="new_question_force_add_topic" value="N"<?php if ($this->setting['new_question_force_add_topic'] == 'N') { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?>
 									</label>
@@ -729,7 +729,7 @@
 							<span class="col-sm-4 col-xs-3 control-label"><?php _e('问题话题数量限制'); ?>:</span>
 							<div class="col-sm-5 col-xs-8">
 								<input name="question_topics_limit" class="form-control" type="text" value="<?php echo $this->setting['question_topics_limit']; ?>"/>
-								
+
 								<div class="help-block"><?php _e('填写 0 则不限制'); ?></div>
 							</div>
 						</div>
@@ -744,7 +744,7 @@
 									<label type="button" class="btn mod-btn-color">
 										<input type="radio" name="unfold_question_comments" value="Y"<?php if ($this->setting['unfold_question_comments'] == 'Y') { ?> checked="checked"<?php } ?> /> <?php _e('是'); ?>
 									</label>
-									
+
 									<label type="button" class="btn mod-btn-color">
 										<input type="radio" name="unfold_question_comments" value="N"<?php if ($this->setting['unfold_question_comments'] == 'N') { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?>
 									</label>
@@ -759,7 +759,7 @@
 							<span class="col-sm-4 col-xs-3 control-label"><?php _e('评论内容最大字符数限制'); ?>:</span>
 							<div class="col-sm-5 col-xs-8">
 								<input name="comment_limit" type="text" class="form-control" value="<?php echo $this->setting['comment_limit']; ?>"/>
-								
+
 								<div class="help-block"><?php _e('填写 0 则不限制'); ?></div>
 							</div>
 						</div>
@@ -771,7 +771,7 @@
 							<span class="col-sm-4 col-xs-3 control-label"><?php _e('话题标题最大字符数限制'); ?>:</span>
 							<div class="col-sm-5 col-xs-8">
 								<input name="topic_title_limit" type="text" class="form-control" value="<?php echo $this->setting['topic_title_limit']; ?>"/>
-								
+
 								<div class="help-block"><?php _e('填写 0 则不限制'); ?></div>
 							</div>
 						</div>
@@ -783,7 +783,7 @@
 							<span class="col-sm-4 col-xs-3 control-label"><?php _e('允许上传最大头像/话题图片大小'); ?>:</span>
 							<div class="col-sm-5 col-xs-8">
 								<input name="upload_avatar_size_limit" type="text" class="form-control" value="<?php echo $this->setting['upload_avatar_size_limit']; ?>"/>
-								
+
 								<div class="help-block"><?php _e('单位'); ?>: KB</div>
 							</div>
 						</div>
@@ -795,7 +795,7 @@
 							<span class="col-sm-4 col-xs-3 control-label"><?php _e('回复编辑/删除有效时间'); ?>:</span>
 							<div class="col-sm-5 col-xs-8">
 								<input name="answer_edit_time" type="text" class="form-control" value="<?php echo $this->setting['answer_edit_time']; ?>"/>
-								
+
 								<div class="help-block"><?php _e('单位'); ?>: <?php _e('分钟'); ?></div>
 							</div>
 						</div>
@@ -817,7 +817,7 @@
 							<span class="col-sm-4 col-xs-3 control-label"><?php _e('系统自动选出最佳回复时间'); ?>:</span>
 							<div class="col-sm-5 col-xs-8">
 								<input name="best_answer_day" type="text" class="form-control" value="<?php echo $this->setting['best_answer_day']; ?>"/>
-								
+
 								<div class="help-block"><?php _e('单位'); ?>: 天, <?php _e('填写 0 则不启用'); ?></div>
 							</div>
 						</div>
@@ -872,7 +872,7 @@
 									<label type="button" class="btn mod-btn-color">
 										<input type="radio" name="auto_create_social_topics" value="Y"<?php if ($this->setting['auto_create_social_topics'] == 'Y') { ?> checked="checked"<?php } ?> /> <?php _e('是'); ?>
 									</label>
-									
+
 									<label type="button" class="btn mod-btn-color">
 										<input type="radio" name="auto_create_social_topics" value="N"<?php if ($this->setting['auto_create_social_topics'] == 'N') { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?>
 									</label>
@@ -898,7 +898,7 @@
 							<span class="col-sm-4 col-xs-3 control-label"><?php _e('今日话题'); ?>:</span>
 							<div class="col-sm-5 col-xs-8">
 								<input type="text" name="today_topics" class="form-control" value="<?php echo $this->setting['today_topics']; ?>" />
-								
+
 								<span class="help-block"><?php _e('填写话题名称, 系统每天随机选出一个作为今日话题, 留空则不显示今日话题, 可填写一个或多个话题, 多个话题请用 , 分隔'); ?></span>
 							</div>
 						</div>
@@ -906,12 +906,12 @@
 				</tr>
 			</table>
 		</div>
-		
+
 		<?php } else if ($_GET['category'] == 'integral') { ?>
 		<div class="mod-head">
 			<h3>
 				<span class="pull-left"><?php _e('积分与威望'); ?></span>
-				
+
 				<span class="pull-right"><a href="javascript:;" onclick="AWS.ajax_post($('#settings_form'));" class="btn btn-xs btn-primary mod-site-save"><?php _e('快速保存'); ?></a></span>
 			</h3>
 		</div>
@@ -926,7 +926,7 @@
 									<label type="button" class="btn mod-btn-color">
 										<input type="radio" name="integral_system_enabled" value="Y"<?php if ($this->setting['integral_system_enabled'] == 'Y') { ?> checked="checked"<?php } ?> /> <?php _e('是'); ?>
 									</label>
-									
+
 									<label type="button" class="btn mod-btn-color">
 										<input type="radio" name="integral_system_enabled" value="N"<?php if ($this->setting['integral_system_enabled'] == 'N') { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?>
 									</label>
@@ -1061,7 +1061,7 @@
 							<span class="col-sm-4 col-xs-3 control-label"><?php _e('对数底值'); ?>:</span>
 							<div class="col-sm-5 col-xs-8">
 								<input name="reputation_log_factor" type="text" class="form-control" value="<?php echo get_setting('reputation_log_factor'); ?>"/>
-								
+
 								<div class="help-block"><?php _e('控制显示的威望值大小，底数越小威望值越大，底数越大威望值越小，系统默认数值是 3'); ?><br /><?php _e('威望公式：log((((用户组威望系数 x 赞同数 - 用户组威望系数 x 反对数) + 发起者赞同反对威望系数 + 最佳回复威望系数) + 0.5), 对数底值)'); ?></div>
 							</div>
 						</div>
@@ -1069,12 +1069,12 @@
 				</tr>
 			</table>
 		</div>
-		
+
 		<?php } else if ($_GET['category'] == 'permissions') { ?>
 		<div class="mod-head">
 			<h3>
 				<span class="pull-left"><?php _e('用户权限'); ?></span>
-				
+
 				<span class="pull-right"><a href="javascript:;" onclick="AWS.ajax_post($('#settings_form'));" class="btn btn-xs btn-primary mod-site-save"><?php _e('快速保存'); ?></a></span>
 			</h3>
 		</div>
@@ -1100,7 +1100,7 @@
 									<label type="button" class="btn mod-btn-color">
 										<input type="radio" name="answer_self_question" value="Y"<?php if ($this->setting['answer_self_question'] == 'Y') { ?> checked="checked"<?php } ?> /> <?php _e('是'); ?>
 									</label>
-									
+
 									<label type="button" class="btn mod-btn-color">
 										<input type="radio" name="answer_self_question" value="N"<?php if ($this->setting['answer_self_question'] == 'N') { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?>
 									</label>
@@ -1118,7 +1118,7 @@
 									<label type="button" class="btn mod-btn-color">
 										<input type="radio" name="anonymous_enable" value="Y"<?php if ($this->setting['anonymous_enable'] == 'Y') { ?> checked="checked"<?php } ?> /> <?php _e('是'); ?>
 									</label>
-									
+
 									<label type="button" class="btn mod-btn-color">
 										<input type="radio" name="anonymous_enable" value="N"<?php if ($this->setting['anonymous_enable'] == 'N') { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?>
 									</label>
@@ -1129,12 +1129,12 @@
 				</tr>
 			</table>
 		</div>
-		
+
 		<?php } else if ($_GET['category'] == 'mail') { ?>
 		<div class="mod-head">
 			<h3>
 				<span class="pull-left"><?php _e('邮件设置'); ?></span>
-				
+
 				<span class="pull-right"><a href="javascript:;" onclick="AWS.ajax_post($('#settings_form'));" class="btn btn-xs btn-primary mod-site-save"><?php _e('快速保存'); ?></a></span>
 			</h3>
 		</div>
@@ -1149,7 +1149,7 @@
 									<option value="sendmail"<?php if ($this->setting['mail_config']['transport'] == 'sendmail') { ?> selected="selected"<?php } ?>><?php _e('通过 PHP 的 Sendmail 发送'); ?></option>
 									<option value="smtp"<?php if ($this->setting['mail_config']['transport'] == 'smtp') { ?> selected="selected"<?php } ?>><?php _e('通过 SOCKET 连接 SMTP 服务器发送'); ?></option>
 								</select>
-								
+
 								<div class="help-block"><?php _e('若选择 SendMail 方式, 下面的 SMTP 选项无效'); ?></div>
 							</div>
 						</div>
@@ -1161,7 +1161,7 @@
 							<span class="col-sm-4 col-xs-3 control-label"><?php _e('邮件编码'); ?>:</span>
 							<div class="col-sm-5 col-xs-8">
 								<input name="mail_config[charset]" type="text" class="form-control" value="<?php echo $this->setting['mail_config']['charset']; ?>" />
-								
+
 								<div class="help-block"><?php _e('非 UTF-8 编码会被自动转码'); ?></div>
 							</div>
 						</div>
@@ -1186,7 +1186,7 @@
 									<label type="button" class="btn mod-btn-color">
 										<input type="radio" name="mail_config[ssl]" value="1"<?php if ($this->setting['mail_config']['ssl'] == 1) { ?> checked="checked"<?php } ?> /> <?php _e('是'); ?>
 									</label>
-									
+
 									<label type="button" class="btn mod-btn-color">
 										<input type="radio" name="mail_config[ssl]" value="0"<?php if ($this->setting['mail_config']['ssl'] == 0) { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?>
 									</label>
@@ -1201,7 +1201,7 @@
 							<span class="col-sm-4 col-xs-3 control-label"><?php _e('SMTP 端口'); ?>:</span>
 							<div class="col-sm-5 col-xs-8">
 								<input name="mail_config[port]" type="text" class="form-control" value="<?php echo $this->setting['mail_config']['port']; ?>" />
-								
+
 								<div class="help-block"><?php _e('留空时默认服务器端口为 25，使用 SSL 协议默认端口为 465，详细参数请询问邮箱服务商'); ?></div>
 							</div>
 						</div>
@@ -1239,12 +1239,12 @@
 				</tr>
 			</table>
 		</div>
-		
+
 		<?php } else if ($_GET['category'] == 'openid') { ?>
 		<div class="mod-head">
 			<h3>
 				<span class="pull-left"><?php _e('开放平台'); ?></span>
-				
+
 				<span class="pull-right"><a href="javascript:;" onclick="AWS.ajax_post($('#settings_form'));" class="btn btn-xs btn-primary mod-site-save"><?php _e('快速保存'); ?></a></span>
 			</h3>
 		</div>
@@ -1259,7 +1259,7 @@
 									<label type="button" class="btn mod-btn-color">
 										<input type="radio" name="qq_login_enabled" value="Y"<?php if ($this->setting['qq_login_enabled'] == 'Y') { ?> checked="checked"<?php } ?>/> <?php _e('是'); ?>
 									</label>
-									
+
 									<label type="button" class="btn mod-btn-color">
 										<input type="radio" name="qq_login_enabled" value="N"<?php if ($this->setting['qq_login_enabled'] == 'N') { ?> checked="checked"<?php } ?>/> <?php _e('否'); ?>
 									</label>
@@ -1274,7 +1274,7 @@
 							<span class="col-sm-4 col-xs-3 control-label"><?php _e('QQ 登录 AppID'); ?>:</span>
 							<div class="col-sm-5 col-xs-8">
 								<input name="qq_login_app_id" type="text" class="form-control" value="<?php echo $this->setting['qq_login_app_id']; ?>"/>
-								
+
 								<span class="help-block"><?php _e('AppID 与 APPKey 需要到 <a href="http://connect.qq.com/" target="_blank">QQ 互联开放平台</a> 申请 (注意: 请申请网站不要申请应用)'); ?></span>
 							</div>
 						</div>
@@ -1290,7 +1290,7 @@
 						</div>
 					</td>
 				</tr>
-				
+
 				<tr>
 					<td>
 						<div class="form-group">
@@ -1300,7 +1300,7 @@
 									<label type="button" class="btn mod-btn-color">
 										<input type="radio" name="sina_weibo_enabled" value="Y"<?php if ($this->setting['sina_weibo_enabled'] == 'Y') { ?> checked="checked"<?php } ?>/> <?php _e('是'); ?>
 									</label>
-									
+
 									<label type="button" class="btn mod-btn-color">
 										<input type="radio" name="sina_weibo_enabled" value="N"<?php if ($this->setting['sina_weibo_enabled'] == 'N') { ?> checked="checked"<?php } ?>/> <?php _e('否'); ?>
 									</label>
@@ -1315,7 +1315,7 @@
 							<span class="col-sm-4 col-xs-3 control-label"><?php _e('新浪微博 AppKey(akey)'); ?>:</span>
 							<div class="col-sm-5 col-xs-8">
 								<input name="sina_akey" type="text" class="form-control" value="<?php echo $this->setting['sina_akey']; ?>"/>
-								
+
 								<span class="help-block"><?php _e('AppKey 需要到 <a href="http://open.weibo.com/" target="_blank">新浪微博开放平台</a> 申请 (注意: 请申请网站不要申请应用)'); ?></span>
 							</div>
 						</div>
@@ -1331,8 +1331,29 @@
 						</div>
 					</td>
 				</tr>
-				
-				
+				<tr>
+					<td>
+						<div class="form-group">
+							<span class="col-sm-4 col-xs-3 control-label"><?php _e('微博发布用户'); ?>:</span>
+							<div class="col-sm-3 col-xs-8">
+								<input name="weibo_msg_published_uid" type="hidden" value="<?php echo $this->setting['weibo_msg_published_uid']; ?>"/>
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div class="form-group">
+							<span class="col-sm-4 col-xs-3 control-label"><?php _e('微博回答用户'); ?>:</span>
+							<div class="col-sm-5 col-xs-8">
+								<?php if ($service_users_info) { foreach ($service_users_info AS $service_user_info) { ?>
+								<a href="people/<?php echo $service_user_info['url_token']; ?>" target="_blank"><?php echo $service_user_info['user_name']; ?></a>
+								<?php } } ?>
+							</div>
+						</div>
+					</td>
+				</tr>
+
 				<tr>
 					<td>
 						<div class="form-group">
@@ -1342,7 +1363,7 @@
 									<label type="button" class="btn mod-btn-color">
 										<input type="radio" name="qq_t_enabled" value="Y"<?php if ($this->setting['qq_t_enabled'] == 'Y') { ?> checked="checked"<?php } ?>/> <?php _e('是'); ?>
 									</label>
-									
+
 									<label type="button" class="btn mod-btn-color">
 										<input type="radio" name="qq_t_enabled" value="N"<?php if ($this->setting['qq_t_enabled'] == 'N') { ?> checked="checked"<?php } ?>/> <?php _e('否'); ?>
 									</label>
@@ -1357,7 +1378,7 @@
 							<span class="col-sm-4 col-xs-3 control-label"><?php _e('腾讯微博 AppKey(app_key)'); ?>:</span>
 							<div class="col-sm-5 col-xs-8">
 								<input name="qq_app_key" type="text" class="form-control" value="<?php echo $this->setting['qq_app_key']; ?>"/>
-								
+
 								<span class="help-block"><?php _e('AppKey 需要到 <a href="http://open.t.qq.com/" target="_blank">腾讯微博开放平台</a> 申请 (注意: 请申请网站不要申请应用)'); ?></span>
 							</div>
 						</div>
@@ -1373,14 +1394,14 @@
 						</div>
 					</td>
 				</tr>
-				
+
 				<tr>
 					<td>
 						<div class="form-group">
 							<span class="col-sm-4 col-xs-3 control-label"><?php _e('微信公众平台接口 Token'); ?>:</span>
 							<div class="col-sm-5 col-xs-8">
 								<input name="weixin_mp_token" type="text" class="form-control" value="<?php echo $this->setting['weixin_mp_token']; ?>"/>
-								
+
 								<span class="help-block"><?php _e('请与微信公众平台后台设置一致'); ?></span>
 							</div>
 						</div>
@@ -1399,14 +1420,14 @@
 						</div>
 					</td>
 				</tr>
-				
+
 				<tr>
 					<td>
 						<div class="form-group">
 							<span class="col-sm-4 col-xs-3 control-label"><?php _e('WeCenter 微信服务 Access token'); ?>:</span>
 							<div class="col-sm-5 col-xs-8">
 								<input name="wecenter_access_token" type="text" class="form-control" value="<?php echo $this->setting['wecenter_access_token']; ?>"/>
-								
+
 								<span class="help-block"><?php _e('请到 %s 申请', '<a href="http://mp.wecenter.com" target="_blank">http://mp.wecenter.com</a>'); ?></span>
 							</div>
 						</div>
@@ -1422,7 +1443,7 @@
 						</div>
 					</td>
 				</tr>
-				
+
 				<tr>
 					<td>
 						<div class="form-group">
@@ -1445,12 +1466,12 @@
 				</tr>
 			</table>
 		</div>
-		
+
 		<?php } else if ($_GET['category'] == 'cache') { ?>
 		<div class="mod-head">
 			<h3>
 				<span class="pull-left"><?php _e('性能优化'); ?></span>
-				
+
 				<span class="pull-right"><a href="javascript:;" onclick="AWS.ajax_post($('#settings_form'));" class="btn btn-xs btn-primary mod-site-save"><?php _e('快速保存'); ?></a></span>
 			</h3>
 		</div>
@@ -1462,7 +1483,7 @@
 							<span class="col-sm-4 col-xs-3 control-label"><?php _e('高级别缓存时间'); ?>:</span>
 							<div class="col-sm-5 col-xs-8">
 								<input name="cache_level_high" type="text" class="form-control" value="<?php echo $this->setting['cache_level_high']; ?>"/>
-								
+
 								<span class="help-block"><?php _e('单位:秒'); ?></span>
 							</div>
 						</div>
@@ -1474,7 +1495,7 @@
 							<span class="col-sm-4 col-xs-3 control-label"><?php _e('普通级别缓存时间'); ?>:</span>
 							<div class="col-sm-5 col-xs-8">
 								<input name="cache_level_normal" type="text" class="form-control" value="<?php echo $this->setting['cache_level_normal']; ?>"/>
-								
+
 								<span class="help-block"><?php _e('单位:秒'); ?></span>
 							</div>
 						</div>
@@ -1486,7 +1507,7 @@
 							<span class="col-sm-4 col-xs-3 control-label"><?php _e('低级别缓存时间'); ?>:</span>
 							<div class="col-sm-5 col-xs-8">
 								<input name="cache_level_low" type="text" class="form-control" value="<?php echo $this->setting['cache_level_low']; ?>"/>
-								
+
 								<span class="help-block"><?php _e('单位:秒'); ?></span>
 							</div>
 						</div>
@@ -1494,12 +1515,12 @@
 				</tr>
 			</table>
 		</div>
-		
+
 		<?php } else if ($_GET['category'] == 'interface') { ?>
 		<div class="mod-head">
 			<h3>
 				<span class="pull-left"><?php _e('界面设置'); ?></span>
-				
+
 				<span class="pull-right"><a href="javascript:;" onclick="AWS.ajax_post($('#settings_form'));" class="btn btn-xs btn-primary mod-site-save"><?php _e('快速保存'); ?></a></span>
 			</h3>
 		</div>
