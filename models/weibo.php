@@ -67,7 +67,7 @@ class weibo_class extends AWS_MODEL
             return AWS_APP::lang()->_t('微博消息 ID 不存在');
         }
 
-        $published_uid = get_setting('weibo_msg_published_uid');
+        $published_uid = get_setting('weibo_msg_published_user')['uid'];
 
         if (empty($published_uid))
         {

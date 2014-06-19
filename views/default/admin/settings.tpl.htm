@@ -1336,7 +1336,8 @@
 						<div class="form-group">
 							<span class="col-sm-4 col-xs-3 control-label"><?php _e('微博发布用户'); ?>:</span>
 							<div class="col-sm-3 col-xs-8">
-								<input name="weibo_msg_published_uid" type="hidden" value="<?php echo $this->setting['weibo_msg_published_uid']; ?>"/>
+								<a href="people/<?php echo $this->setting['weibo_msg_published_user']['url_token']; ?>" target="_blank"><?php echo $this->setting['weibo_msg_published_user']['user_name']; ?></a>
+								<input name="weibo_msg_published_user['uid']" type="hidden" value="<?php echo $this->setting['weibo_msg_published_user']['uid']; ?>"/>
 							</div>
 						</div>
 					</td>
@@ -1348,6 +1349,8 @@
 							<div class="col-sm-5 col-xs-8">
 								<?php if ($service_users_info) { foreach ($service_users_info AS $service_user_info) { ?>
 								<a href="people/<?php echo $service_user_info['url_token']; ?>" target="_blank"><?php echo $service_user_info['user_name']; ?></a>
+								<a href="account/sina/binding/uid-<?php echo $service_user_info['uid']; ?>" target="_blank"><?php _e('更新 Access Token'); ?></a>
+								<a href="javascript:;" onclick="AWS.ajax_request(G_BASE_URL + '/admin/ajax/add_weibo_service_account', 'action=del&uid=<?php echo $service_user_info['uid']; ?>')">取消绑定</a>
 								<?php } } ?>
 							</div>
 						</div>
