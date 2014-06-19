@@ -82,7 +82,8 @@ ul,ol{padding:0;list-style:none;}
 .aw-content-wrap .mod-echat-info{margin:20px 0 0 0;padding: 0;}
 .aw-content-wrap .mod-double{margin-bottom:10px; padding:0 10px}
 .aw-content-wrap .mod-double .fa-calendar{left: 16px;}
-
+#main,#main2,#main3{height: 200px; background: #fff}
+#main3{margin-top: 20px;}
 /*页面底部区域 start*/
 .aw-footer{overflow:hidden;margin:0 0 0 225px;height:50px;background:#efefef;text-align:center;line-height:52px;}
 .aw-footer p{font-size:12px;}

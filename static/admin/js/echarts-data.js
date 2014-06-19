@@ -7,10 +7,9 @@ $(function ()
     $('.aw-content-wrap').find('.date-end').val(dateArr[0]);
 
     //图表数据接入
-	var echart = new Echarts('#main', 'line', G_BASE_URL + '/admin/ajax/statistic/?tag=new_question_by_month,new_answer_by_month&start_date='+dateArr[3]+'&end_date='+dateArr[2]);
-    console.log(echart)
-    var echart2 = new Echarts('#main2', 'line', G_BASE_URL + '/admin/ajax/statistic/?tag=user_register_by_month,new_answer_by_month,new_question_by_month,new_topic_by_month&start_date='+dateArr[3]+'&end_date='+dateArr[2]);
-    var echart3 = new Echarts('#main3', 'line', G_BASE_URL + '/admin/ajax/statistic/?tag=user_register_by_month,new_answer_by_month,new_question_by_month,new_topic_by_month&start_date='+dateArr[3]+'&end_date='+dateArr[2]);
+	var echart = new Echarts('#main', 'line', G_BASE_URL + '/admin/ajax/statistic/?tag=new_user,user_valid&start_date='+dateArr[3]+'&end_date='+dateArr[2]);
+    var echart2 = new Echarts('#main2', 'line', G_BASE_URL + '/admin/ajax/statistic/?tag=new_question,new_answer,new_topic,new_favorite_item,new_question_redirect&start_date='+dateArr[3]+'&end_date='+dateArr[2]);
+    var echart3 = new Echarts('#main3', 'line', G_BASE_URL + '/admin/ajax/statistic/?tag=new_answer_vote,new_answer_thanks,new_question_thanks&start_date='+dateArr[3]+'&end_date='+dateArr[2]);
 
     // 左侧菜单收缩重新渲染图表
     $('.aw-header .mod-head-btn').click(function ()
@@ -32,11 +31,10 @@ $(function ()
 
 				if(ev.target.nodeName.toLocaleLowerCase()=="a"){
 
-					var start_date = $(this).find('.date-start').val(),
-						end_date = $(this).find('.date-end').val(),
+					var start_date = ($(this).find('.date-start').val()).substring(0,7),
+						end_date = ($(this).find('.date-end').val()).substring(0,7),
 						aEchart = '';
 					i>0?aEchart = eval('echart'+(i+1)):aEchart=eval(aEchart = 'echart');
-					
 					var url = aEchart.url.substring(0, aEchart.url.search(/&/)) + '&start_date=' + start_date + '&end_date=' + end_date;
 														
 
@@ -245,20 +243,44 @@ Echarts.prototype =
 		{
 			switch(param[i]) 
 			{
-				case 'new_question_by_month' :
-					arr.push('新问题');
+				case 'new_answer' :
+					arr.push('新增答案');
 				break;
 
-				case 'new_answer_by_month' :
-					arr.push('新回复');
+				case 'new_question' :
+					arr.push('新增问题');
 				break;
 
-				case 'user_register_by_month' :
-					arr.push('新用户注册');
+				case 'new_user' :
+					arr.push('新注册用户');
 				break;
 
-				case 'new_topic_by_month' :
-					arr.push('新话题');
+				case 'user_valid' :
+					arr.push('新激活用户');
+				break;
+
+				case 'new_topic' :
+					arr.push('新增话题');
+				break;
+
+				case 'new_answer_vote' :
+					arr.push('新增答案投票');
+				break;
+
+				case 'new_answer_thanks' :
+					arr.push('新增答案感谢');
+				break;
+
+				case 'new_favorite_item' :
+					arr.push('新增收藏条目');
+				break;
+
+				case 'new_question_thanks' :
+					arr.push('新增问题感谢');
+				break;
+
+				case 'new_question_redirect' :
+					arr.push('新增问题重定向');
 				break;
 			}
 		}
