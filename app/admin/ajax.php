@@ -179,6 +179,28 @@ class ajax extends AWS_ADMIN_CONTROLLER
 			$this->model('weixin')->get_weixin_app_id_setting_var();
 		}
 
+		if ($_POST['weibo_msg_published_uid'])
+		{
+			$published_user_info = $this->model('openid_weibo')->get_users_sina_by_uid($_POST['weibo_msg_published_uid']);
+
+			if (empty($published_user_info))
+			{
+				unset($_POST['weibo_msg_published_uid']);
+			}
+		}
+
+		if ($_POST['service_ids'])
+		{
+			$service_ids = explode(',', $_POST['service_ids']);
+
+			foreach ($service_ids AS $service_id)
+			{
+				$this->model('weibo')->add_service_account($service_id);
+			}
+
+			unset($_POST['service_ids']);
+		}
+
 		H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('系统设置修改成功')));
 	}
 
@@ -189,17 +211,47 @@ class ajax extends AWS_ADMIN_CONTROLLER
 			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择条目进行操作')));
 		}
 
-		switch ($_POST['batch_type'])
+		if ($_POST['type'] == 'weibo_msg')
 		{
-			case 'approval':
-			case 'decline':
-				$func = $_POST['batch_type'] . '_publish';
+			switch ($_POST['batch_type'])
+			{
+				case 'approval':
+					foreach ($_POST['approval_ids'] AS $approval_id)
+					{
+						$result = $this->model('weibo')->save_msg_info_to_question($approval_id);
 
-				foreach ($_POST['approval_ids'] AS $approval_id)
-				{
-					$this->model('publish')->$func($approval_id);
-				}
-			break;
+						if ($result)
+						{
+							H::ajax_json_output(AWS_APP::RSM(null, -1, $result));
+						}
+					}
+
+					break;
+
+				case 'decline':
+					foreach ($_POST['approval_ids'] AS $approval_id)
+					{
+						$this->model('weibo')->del_msg_by_id($approval_id);
+					}
+
+					break;
+			}
+
+		}
+		else
+		{
+			switch ($_POST['batch_type'])
+			{
+				case 'approval':
+				case 'decline':
+					$func = $_POST['batch_type'] . '_publish';
+
+					foreach ($_POST['approval_ids'] AS $approval_id)
+					{
+						$this->model('publish')->$func($approval_id);
+					}
+				break;
+			}
 		}
 
 		H::ajax_json_output(AWS_APP::RSM(null, 1, null));
@@ -1736,5 +1788,40 @@ class ajax extends AWS_ADMIN_CONTROLLER
 			'labels' => $labels,
 			'data' => $data
 		));
+	}
+
+	public function add_weibo_service_account_action()
+	{
+		$uid = $_POST['uid'];
+
+		if (empty($_POST['action']) OR empty($uid))
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('错误的请求')));
+		}
+
+		if (!$this->model('account')->check_uid($uid))
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('所选用户不存在')));
+		}
+
+		switch ($_POST['action'])
+		{
+			case 'add':
+				$services_info = $this->model('weibo')->get_services_info();
+
+				if ($services_info[$uid])
+				{
+					H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('该用户已是回答用户')));
+				}
+
+				$this->model('weibo')->add_service_account($uid);
+
+				break;
+
+			case 'del':
+				$this->model('weibo')->update_service_account($uid, 'del');
+
+				break;
+		}
 	}
 }
