@@ -192,7 +192,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 					'uid' => $published_user_info['uid'],
 					'user_name' => $published_user_info['user_name'],
 					'url_token' => $published_user_info['url_token']
-				)
+				);
 			}
 		}
 
