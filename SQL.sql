@@ -50,5 +50,5 @@ INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES ('weibo_ms
 ALTER TABLE `[#DB_PREFIX#]question` ADD `weibo_msg_id` bigint(30) DEFAULT NULL;
 CREATE INDEX `weibo_msg_id` ON `[#DB_PREFIX#]question` (`weibo_msg_id`);
 
-ALTER TABLE `[#DB_PREFIX#]users_sina` ADD `last_msg_id` bigint(30) DEFAULT NULL,
+ALTER TABLE `[#DB_PREFIX#]users_sina` ADD `last_msg_id` bigint(30) DEFAULT NULL;
 CREATE INDEX `last_msg_id` ON `[#DB_PREFIX#]users_sina` (`last_msg_id`);
