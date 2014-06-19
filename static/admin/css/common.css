@@ -77,7 +77,7 @@ ul,ol{padding:0;list-style:none;}
 
 .aw-content-wrap{margin:70px 0 0 235px;padding:0 25px 20px;min-height:100%;height:auto;background:#eaeaea;}
 .aw-content-wrap .widget{margin:20px 0;}
-.aw-content-wrap .echart-date{margin-top:20px;padding-left:15px;}
+.aw-content-wrap .echart-date{margin-top:20px;padding-left:5px;}
 .aw-content-wrap .echart-date .nopadding{padding:0;line-height:36px;}
 .aw-content-wrap .mod-echat-info{margin:20px 0 0 0;padding: 0;}
 .aw-content-wrap .mod-double{margin-bottom:10px; padding:0 10px}
@@ -110,7 +110,7 @@ textarea{resize:none;}
 .mod-content table thead th,.mod-content table tbody td{text-align:left;}
 #search{margin-top:25px;}
 .aw-content-wrap .fa-calendar{position:absolute;top:5px;left:20px;background:#2780bb!important;}
-.aw-content-wrap .mod-data{padding-left:35px;font-size:12px;}
+.aw-content-wrap .mod-data{padding:3px 0 0 20px;text-align: center;}
 .aw-content-wrap input[type=radio],.aw-content-wrap input[type=checkbox]{margin-right:5px;}
 .aw-content-wrap .tab-content th{border:none;color:#000;font-weight:400;}
 .aw-content-wrap table > tfoot > tr > td{padding-top:18px;padding-bottom:0;}
