@@ -1335,9 +1335,10 @@
 					<td>
 						<div class="form-group">
 							<span class="col-sm-4 col-xs-3 control-label"><?php _e('微博发布用户'); ?>:</span>
-							<div class="col-sm-3 col-xs-8">
+							<div class="col-sm-3 col-xs-8 aw-admin-weibo-publish">
 								<a href="people/<?php echo $this->setting['weibo_msg_published_user']['url_token']; ?>" target="_blank"><?php echo $this->setting['weibo_msg_published_user']['user_name']; ?></a>
-								<input name="weibo_msg_published_user['uid']" type="hidden" value="<?php echo $this->setting['weibo_msg_published_user']['uid']; ?>"/>
+                                <a class="md-tip" onclick="AWS.dialog('adminWechatSendMsg', {'type': 'adminPublishUser'})" data-original-title="添加问题"><i class="fa fa-plus"></i></a>
+								<input class="weibo_msg_published_uid" name="weibo_msg_published_uid" type="hidden" value="<?php echo $this->setting['weibo_msg_published_uid']; ?>"/>
 							</div>
 						</div>
 					</td>
@@ -1347,6 +1348,7 @@
 						<div class="form-group">
 							<span class="col-sm-4 col-xs-3 control-label"><?php _e('微博回答用户'); ?>:</span>
 							<div class="col-sm-5 col-xs-8">
+								 <a class="md-tip" onclick="AWS.dialog('adminWechatSendMsg', {'type': 'adminAnswerUser'})" data-original-title="添加问题"><i class="fa fa-plus"></i></a>
 								<?php if ($service_users_info) { foreach ($service_users_info AS $service_user_info) { ?>
 								<a href="people/<?php echo $service_user_info['url_token']; ?>" target="_blank"><?php echo $service_user_info['user_name']; ?></a>
 								<a href="account/sina/binding/uid-<?php echo $service_user_info['uid']; ?>" target="_blank"><?php _e('更新 Access Token'); ?></a>

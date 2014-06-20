@@ -117,7 +117,7 @@ a.aw-load-more-content{display: block;}
 .aw-dropdown .aw-dropdown-list li.question b{line-height: 30px;}
 .aw-dropdown .aw-dropdown-list li.user a{display: block;line-height:22px;padding: 5px 10px;font-size: 13px;}
 .aw-dropdown .aw-dropdown-list li.user a img{width: 25px;height: 25px;margin-right: 5px;}
-.aw-dropdown .aw-dropdown-list li.user a span{display:inline-block;max-width:180px;margin:;margin-left:10px;color: #999;vertical-align: top;}
+.aw-dropdown .aw-dropdown-list li.user a span{display:inline-block;max-width:180px;margin-left:10px;color: #999;vertical-align: top;}
 .aw-question-redirect-box .aw-dropdown .aw-dropdown-list{max-height: 329px;overflow-y:auto;}
 .aw-publish-title .aw-dropdown .aw-dropdown-list{max-height: 199px;overflow-y:auto;}
 .aw-publish-title .aw-dropdown .aw-dropdown-list a{display:block;padding:5px 10px;max-width: 400px;}
