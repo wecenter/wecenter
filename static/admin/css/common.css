@@ -105,7 +105,7 @@ ul,ol{padding:0;list-style:none;}
 
 /*右侧表格主体部分*/
 textarea{resize:none;}
-.aw-content-wrap .mod{box-shadow:0 3px 0 #CCC;margin-bottom:30px;}
+.aw-content-wrap .mod{box-shadow: 0 1px 2px #d5d7d8;margin-bottom:30px;}
 .aw-content-wrap .mod-body,.aw-content-wrap .mod-content{padding:20px;border:1px solid #e2e1e1;border-top:none;background:#fff;}
 .aw-content-wrap h2 i{position:relative;top:0;}
 .mod-body table thead th,.mod-body table tbody td{vertical-align:middle;text-align:center;}

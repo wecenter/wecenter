@@ -20,6 +20,7 @@ $(function () {
         {
             $('#aw-side').show(0, function () {
                 $('.aw-content-wrap, .aw-footer').css("marginLeft", "235px");
+                $('.mod-echat-info').css("marginLeft", "0");
             });
         }
         else{
