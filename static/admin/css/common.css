@@ -76,7 +76,7 @@ ul,ol{padding:0;list-style:none;}
 
 /*数据内容区域 start*/
 
-.aw-content-wrap{margin:70px 0 0 235px;padding:0 25px 20px;min-height:100%;height:auto;background:#eaeaea;}
+.aw-content-wrap{margin:70px 0 0 235px;padding:0 15px 20px;min-height:100%;height:auto;background:#eaeaea;}
 .aw-content-wrap .echart-date{margin-top:20px;padding-left:5px;}
 .aw-content-wrap .echart-date .nopadding{padding:0;line-height:36px;}
 .aw-content-wrap .mod-echat-info{margin:20px 0 0 0;padding: 0;}
@@ -122,7 +122,7 @@ textarea{resize:none;}
 
 /*site_info 页面 start*/
 .aw-content-wrap .mod-text-color-999{padding-left:15px;color:#999;}
-.aw-content-wrap .tab-content .mod-site-url li{margin-top:10px;height:102px;border:1px solid #D7E6F0;background:#fff;}
+.aw-content-wrap .mod-site-url li{margin-top:10px;height:102px;border:1px solid #D7E6F0;background:#fff;}
 .aw-content-wrap .mod-site-rule .col-sm-8{padding:0;}
 .aw-content-wrap .tab-content li > span{margin-right:10px;width:25%;height:100px;background:#F2F8FF;text-align:center;line-height:100px;line-line-;}
 .aw-content-wrap .tab-content ul p{margin:10px 90px 0 0;}
@@ -290,6 +290,10 @@ label,.aw-content-wrap .mod-title,.aw-article-list b,.aw-question-list b{font-we
 .aw-content-wrap .echart-date .col-xs-offset-3{margin-left: 5%}
 .aw-header .username{position:absolute;top:1px;right:0;display:block;}
 .mod-header-user .username ul.pull-right{width:80px;border:1px solid #d7d7d7;background:#fff;}
+.aw-content-wrap .mod-site-url li{clear: both;height: 200px;}
+.aw-content-wrap .tab-content ul p{margin: 0}
+.aw-content-wrap .mod-site-rule .help-block{display: none;}
+.aw-content-wrap .tab-content li > span{width: 100%}
 }
 @media only screen and (max-width: 321px){
 .date_selector{left:-40px;}
