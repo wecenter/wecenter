@@ -73,15 +73,10 @@
 							<td>
 								<?php echo $val['text']; ?>
 							</td>
-							}
+							<?php } ?>
 
 							<td>
-								<a onclick="AWS.dialog('ajaxData', {'title':'<?php _e('内容审核'); ?>', 'url':G_BASE_URL + '/admin/approval/preview/<?php
-								if ($_GET['type'] == 'weibo_msg') {
-								?>type-weibo_msg__<?php
-								}
-								echo $val['id'];
-								?>'});"><?php
+								<a onclick="AWS.dialog('ajaxData', {'title':'<?php _e('内容审核'); ?>', 'url':G_BASE_URL + '/admin/approval/preview/<?php if ($_GET['type'] == 'weibo_msg') { ?>type-weibo_msg__<?php } echo $val['id']; ?>'});"><?php
 								switch ($_GET['type']) {
 									case 'question':
 										echo cjk_substr(htmlspecialchars($val['data']['question_detail']), 0, 128, 'UTF-8', '...');
