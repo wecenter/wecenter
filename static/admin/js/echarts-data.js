@@ -132,7 +132,7 @@ function Echarts(element, type, url, options)
            backgroundColor:'#fff',
            borderColor: '#fff'
         },
-	    calculable: true,
+	    calculable: false,
 	    yAxis: [
             {
                 type: 'value',
