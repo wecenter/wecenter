@@ -172,13 +172,13 @@ class ajax extends AWS_ADMIN_CONTROLLER
 			$_POST['new_user_email_setting'] = $email_settings;
 		}
 
-		if ($_POST['weibo_msg_published_user']['uid'] == get_setting('weibo_msg_published_user')['uid'] OR empty($_POST['weibo_msg_published_user']))
+		if ($_POST['weibo_msg_published_user']['uid'] == get_setting('weibo_msg_published_user')['uid'] OR empty($_POST['weibo_msg_published_user']['uid']))
 		{
 			unset($_POST['weibo_msg_published_user']);
 		}
 		else
 		{
-			$published_user_sina_info = $this->model('openid_weibo')->get_users_sina_by_uid($_POST['weibo_msg_published_uid']['uid']);
+			$published_user_sina_info = $this->model('openid_weibo')->get_users_sina_by_uid($_POST['weibo_msg_published_user']['uid']);
 
 			if (empty($published_user_info))
 			{
@@ -1814,7 +1814,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 					H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('该用户已是回答用户')));
 				}
 
-				$this->model('weibo')->add_service_account($_POST['uid']);
+				$this->model('weibo')->update_service_account($_POST['uid'], 'add');
 
 				break;
 

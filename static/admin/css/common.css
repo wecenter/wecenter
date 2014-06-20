@@ -21,6 +21,7 @@ ul,ol{padding:0;list-style:none;}
 .middle{line-height:32px;}
 .aw-text-color-999{margin:2px 0 0;color:#999;font-size:11px;}
 .aw-hide-txt{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.nopadding{padding:0;}
 /* 警告提示box */
 .aw-tips-box .modal-dialog, .aw-image-box .modal-dialog, .aw-link-box .modal-dialog, .aw-confirm-box .modal-dialog{width: 370px;}
 .aw-tips-box .modal-body{background: url(../img/warmming.png) no-repeat right 5px;}
@@ -79,9 +80,9 @@ ul,ol{padding:0;list-style:none;}
 .aw-content-wrap .echart-date{margin-top:20px;padding-left:5px;}
 .aw-content-wrap .echart-date .nopadding{padding:0;line-height:36px;}
 .aw-content-wrap .mod-echat-info{margin:20px 0 0 0;padding: 0;}
-.aw-content-wrap .mod-double{margin-bottom:10px; padding:0 10px}
-.aw-content-wrap .mod-double .fa-calendar{left: 16px;}
-#main,#main2,#main3{height: 200px; background: #fff}
+.aw-content-wrap .mod-double{margin-bottom:10px;}
+.aw-content-wrap .mod-double .fa-calendar{left: 20px;}
+#main,#main2,#main3{height: 240px; background: #fff}
 #main3{margin-top: 20px;height: 300px;}
 .mod-echat-info .col-md-6{margin-bottom: 40px;}
 /*页面底部区域 start*/
@@ -104,7 +105,7 @@ ul,ol{padding:0;list-style:none;}
 
 /*右侧表格主体部分*/
 textarea{resize:none;}
-.aw-content-wrap .mod{box-shadow:0 3px 0 #CCC;}
+.aw-content-wrap .mod{box-shadow:0 3px 0 #CCC;margin-bottom:30px;}
 .aw-content-wrap .mod-body,.aw-content-wrap .mod-content{padding:20px;border:1px solid #e2e1e1;border-top:none;background:#fff;}
 .aw-content-wrap h2 i{position:relative;top:0;}
 .mod-body table thead th,.mod-body table tbody td{vertical-align:middle;text-align:center;}
@@ -141,8 +142,8 @@ textarea{resize:none;}
 .aw-content-wrap .mod-set-body > p{height:40px;line-height:40px;line-line-;}
 .aw-content-wrap .mod-set-body > p select{margin-top:7px;width:240px;}
 .aw-content-wrap .aw-nav-menu li{margin-top:10px;border:1px solid #D7E6F0;}
-.aw-content-wrap .aw-nav-menu .mod-set-head{padding:0 10px;height:40px;background:#F2F8FF;font-size:12px;line-height:40px;cursor:s-resize;line-margin:0;line-}
-.aw-content-wrap .aw-nav-menu .mod-set-head h4{height:40px;font-weight:400;line-height:40px;line-margin:0;line-}
+.aw-content-wrap .aw-nav-menu .mod-set-head{padding:0 10px;height:40px;background:#F2F8FF;font-size:12px;line-height:40px;cursor:s-resize;}
+.aw-content-wrap .aw-nav-menu .mod-set-head h4{height:40px;font-weight:400;line-height:40px;margin: 0;}
 .aw-content-wrap .aw-nav-menu .mod-set-head span{color:#999;}
 .aw-content-wrap .aw-nav-menu .mod-set-body{display:none;padding:10px;}
 .aw-content-wrap .aw-nav-menu .aw-nav-menu-tag .aw-nav-menu-img{margin:5px 0 0 15px;width:52px;height:52px;border:1px dashed #999;}
@@ -266,7 +267,9 @@ label,.aw-content-wrap .mod-title,.aw-article-list b,.aw-question-list b{font-we
 .ps-container.ie6 .ps-scrollbar-x,.ps-container.ie6 .ps-scrollbar-y{font-size:0;}
 /*响应式兼容start*/
 @media only screen and (max-width: 1024px){
-.aw-content-wrap{margin:0 5px;padding:0;}
+.aw-content-wrap{margin:70px 5px 0 5px;padding:0;}
+#main2 {clear: both;}
+.aw-content-wrap .col-xs-offset-1{margin-left: 0}
 .aw-side ul li a{padding-left:0;}
 .aw-content-wrap .mod-double{margin-bottom:10px;}
 .table-responsive{margin-bottom:0;border:none;}
@@ -282,9 +285,13 @@ label,.aw-content-wrap .mod-title,.aw-article-list b,.aw-question-list b{font-we
 }
 @media only screen and (min-width: 320px) and (max-width: 640px){
 .aw-header .pull-right .mod-bell{display:none;}
+.aw-content-wrap .col-xs-offset-1{margin-left: 0}
+.aw-content-wrap .echart-date .col-sm-1{clear: both;text-align: center;margin-right: 22%;}
+.aw-content-wrap .echart-date .col-xs-offset-3{margin-left: 5%}
 .aw-header .username{position:absolute;top:1px;right:0;display:block;}
 .mod-header-user .username ul.pull-right{width:80px;border:1px solid #d7d7d7;background:#fff;}
 }
 @media only screen and (max-width: 321px){
 .date_selector{left:-40px;}
+.aw-content-wrap .echart-date .col-sm-1{margin-right: 17%;}
 }

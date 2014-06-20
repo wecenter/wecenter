@@ -21,6 +21,14 @@ $(function ()
 
 	});
 
+      
+	window.addEventListener("orientationchange", function() {
+	    
+	    echart.render();
+		echart2.render();
+		echart3.render();
+	}, false);
+
     var oEchart = $('.echart-date');
 
     for(var i=0,j=oEchart.length;i<j;i++){
@@ -118,7 +126,7 @@ function Echarts(element, type, url, options)
         addDataAnimation:false,
         grid:{
            x:45,
-           y:35,
+           y:65,
            x2:15,
            y2:35,
            backgroundColor:'#fff',
