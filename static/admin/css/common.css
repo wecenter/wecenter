@@ -223,8 +223,15 @@ textarea{resize:none;}
 .aw-dropdown .aw-dropdown-list li.question.active .icon-g-replay{display:inline-block;}
 .aw-dropdown .aw-dropdown-list li.question .icon-g-replay{display:none;margin:9px 5px 0 0;}
 .aw-dropdown .aw-dropdown-list li.question a{display:block;font-size:13px;line-height:32px;}
+.aw-dropdown .aw-dropdown-list li.user a{display: block;line-height:22px;padding: 5px 10px;font-size: 13px;}
+.aw-dropdown .aw-dropdown-list li.user a img{width: 25px;height: 25px;margin-right: 5px;}
+.aw-dropdown .aw-dropdown-list li.user a span{display:inline-block;max-width:180px;margin-left:10px;color: #999;vertical-align: top;}
 .aw-dropdown-box{position:relative;}
 .aw-wechat-send-message .aw-dropdown-list{overflow-y:scroll;margin-bottom:0;max-height:330px;}
+
+/* 开放平台设置 */
+.aw-admin-weibo-publish .img{width: 24px;margin-right: 5px;}
+.aw-admin-weibo-publish .btn{margin-left: 5px;}
 
 /* iCheck plugin */
 .icheckbox_square-blue,

@@ -452,6 +452,22 @@ var AWS =
 					'message': data.message
 				});
 			break;
+
+			// 后台分类移动设置
+			case 'adminCategoryMove':
+				var template = Hogan.compile(AW_TEMPLATE.adminCategoryMove).render(
+		        {
+		        	items : data
+		        });
+		    break;
+
+		    // 后台微信群发消息
+		    case 'adminWechatSendMsg':
+		    	var template = Hogan.compile(AW_TEMPLATE.adminWechatSendMsg).render(
+		        {
+		        	items : data
+		        });
+		    break;
 	    }
 
 	    if (template)
@@ -600,11 +616,15 @@ var AWS =
 		    	case 'confirm':
 		    		$('.aw-confirm-box .yes').click(function()
 		    		{
-		    			
 		    			callback();
 		    			$(".alert-box").modal('hide');
 		    			return false;
 		    		});
+		    	break;
+
+		    	// 后台微信群发消息
+		    	case 'adminWechatSendMsg':
+		    		AWS.Dropdown.bind_dropdown_list($('.aw-wechat-send-message .search-input'), data.type);
 		    	break;
 	        }
 
@@ -1750,6 +1770,8 @@ AWS.Dropdown =
 
 	        case 'invite' :
 	        case 'inbox' :
+	        case 'adminPublishUser' :
+	        case 'adminAnswerUser' :
 	            url = G_BASE_URL + '/search/ajax/search/?type=users&q=' + encodeURIComponent(data) + '&limit=10';
 	        break;
 
@@ -1769,7 +1791,8 @@ AWS.Dropdown =
 	        case 'articles' :
 	        case 'adminArticles' :
 	        	url = G_BASE_URL + '/search/ajax/search/?type=articles&q=' + encodeURIComponent(data) + '&limit=10';
-	        break
+	        break;
+
 	    }
 
 	    AWS.G.dropdown_list_xhr = $.get(url, function (result)
@@ -1951,6 +1974,53 @@ AWS.Dropdown =
 	                            'name': a.name,
 	                            'img': a.detail.avatar_file
 	                        }));
+	                    });
+	                	break;
+
+	                // 后台微博发布用户
+	                case 'adminPublishUser' : 
+	                	$.each(result, function (i, a)
+	                    {
+	                        $(selector).parent().find('.aw-dropdown-list').append(Hogan.compile(AW_TEMPLATE.inviteDropdownList).render(
+	                        {
+	                            'uid': a.uid,
+	                            'name': a.name,
+	                            'img': a.detail.avatar_file
+	                        }));
+	                    });
+	                    $(selector).parent().find('.aw-dropdown-list li a').click(function()
+	                    {
+	                    	$('.weibo_msg_published_uid').val($(this).attr('data-id'));
+	                    	$(".alert-box").modal('hide');
+	                    	$('.aw-admin-weibo-publish').append($(this));
+	                    	$('.aw-admin-weibo-publish').append('<a class="delete btn btn-default btn-sm">删除用户</a>');
+	                    	$('.aw-admin-weibo-publish .md-tip').hide();
+	                    	$('.aw-admin-weibo-publish').find('.delete').click(function()
+	                    	{
+	                    		$(this).parent().find('.weibo_msg_published_uid').val('');
+	                    		$(this).parent().find('.md-tip').show();
+	                    		$(this).prev().detach().end().detach();
+	                    	});
+	                    });
+	                	break;
+
+	                // 后台微博回答用户
+	                case 'adminAnswerUser' :
+	                	$.each(result, function (i, a)
+	                    {
+	                        $(selector).parent().find('.aw-dropdown-list').append(Hogan.compile(AW_TEMPLATE.inviteDropdownList).render(
+	                        {
+	                            'uid': a.uid,
+	                            'name': a.name,
+	                            'img': a.detail.avatar_file
+	                        }));
+	                    });
+	                    $(selector).parent().find('.aw-dropdown-list li a').click(function()
+	                    {
+	                    	$.post(G_BASE_URL + '/admin/ajax/add_weibo_service_account/', {'uid' :  $(this).attr('data-id')}, function (result)
+	                    	{
+	                    		console.log(result.err);
+	                    	}, 'json');
 	                    });
 	                	break;
 	            }
