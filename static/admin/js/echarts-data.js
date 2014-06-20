@@ -11,12 +11,14 @@ $(function ()
     var echart2 = new Echarts('#main2', 'line', G_BASE_URL + '/admin/ajax/statistic/?tag=new_question,new_answer,new_topic,new_favorite_item,new_question_redirect&start_date='+dateArr[3]+'&end_date='+dateArr[2]);
     var echart3 = new Echarts('#main3', 'line', G_BASE_URL + '/admin/ajax/statistic/?tag=new_answer_vote,new_answer_thanks,new_question_thanks&start_date='+dateArr[3]+'&end_date='+dateArr[2]);
 
+
     // 左侧菜单收缩重新渲染图表
     $('.aw-header .mod-head-btn').click(function ()
 	{
 		echart.render();
 		echart2.render();
 		echart3.render();
+
 	});
 
     var oEchart = $('.echart-date');
@@ -103,11 +105,14 @@ function getDate(){
 	return arr; 
 }
 
+
 function Echarts(element, type, url, options)
-{
+{	
+
 	this.element = element;
 	this.type = type;
 	this.url = url;
+
 	this.options = {
 		animation:false,
         addDataAnimation:false,
@@ -141,7 +146,6 @@ function Echarts(element, type, url, options)
                 }
             }
         ],
-	    lineColor : ['#4195fd', '#50dcb3', '#fde457', '#fd575f']
 
 	};
 
@@ -153,6 +157,7 @@ function Echarts(element, type, url, options)
 Echarts.prototype = 
 {
 	// 图表初始化
+
 	initChart : function (url)
 	{
 		this.getData(url);
@@ -218,7 +223,6 @@ Echarts.prototype =
 	                     normal: {
 	                          lineStyle:{
 	                            width: 4,
-	                            color: this.options.lineColor[i],
 	                          }
 	                        },
 	                },
