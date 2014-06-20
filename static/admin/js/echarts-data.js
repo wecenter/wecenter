@@ -19,8 +19,7 @@ $(function ()
 		echart3.render();
 	});
 
-
-    var oEchart=$('.echart-date');
+    var oEchart = $('.echart-date');
 
     for(var i=0,j=oEchart.length;i<j;i++){
     	(function(i){
@@ -34,7 +33,8 @@ $(function ()
 					var start_date = ($(this).find('.date-start').val()).substring(0,7),
 						end_date = ($(this).find('.date-end').val()).substring(0,7),
 						aEchart = '';
-					i>0?aEchart = eval('echart'+(i+1)):aEchart=eval(aEchart = 'echart');
+					i > 0 ? aEchart = eval('echart'+(i+1)) : aEchart = eval(aEchart = 'echart');
+					
 					var url = aEchart.url.substring(0, aEchart.url.search(/&/)) + '&start_date=' + start_date + '&end_date=' + end_date;
 														
 
@@ -47,33 +47,44 @@ $(function ()
 
 function getDate(){
 	var date = new Date(), 
-		 Year = 0, 
-		 Month = 0, 
+		 Year = 0,
+		 beforeYear =0, 
+		 Month = 0,
+		 beforeSixMonth = 0,
 		 Day = 0, 
 		 stratDate = "",
 		 endDate = "",
 		 stratDateM = "",
 		 endDateM = "",
-
 		 arr=[];
 
 	Year= date.getFullYear();
-	beforeYear= (date.getFullYear())-1;
-	Month= date.getMonth()+1; 
+	Month= date.getMonth()+1;
 	Day = date.getDate(); 
+	
+	if(Month>6){
+		beforeSixMonth = Month-6;
+		beforeYear= date.getFullYear();
+	}else{
+		beforeYear  = (date.getFullYear())-1;
+		beforeSixMonth = 6 + Month;
+	}
+
 
 	stratDate += Year + "-"; 
 	endDate += beforeYear + "-"; 
-	if (Month >= 10 ) 
+
+	if ( Month >= 10) 
 	{ 
 		stratDate += Month + "-";
-		endDate+= Month + "-";
+		endDate += "0" + beforeSixMonth + "-";
 	} 
 	else 
 	{ 
 		stratDate += "0" + Month + "-";
-		endDate+= "0" + Month + "-";
+		endDate += beforeSixMonth + "-";
 	} 
+
 	if (Day >= 10 ) 
 	{ 
 		stratDate += Day ;
@@ -82,14 +93,15 @@ function getDate(){
 	else 
 	{ 
 		stratDate += "0" + Day ;
-		endDate+= "0" + Day ;
+		endDate += "0" + Day ;
 	} 
-	stratDateM = stratDate.substring(0,7);
-	endDateM = endDate.substring(0,7);
+	
+	stratDateM = stratDate.substring(0 , 7);
+	endDateM = endDate.substring(0 , 7);
+	
 	arr.push(stratDate,endDate,stratDateM,endDateM);
 	return arr; 
 }
-
 
 function Echarts(element, type, url, options)
 {

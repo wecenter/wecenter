@@ -172,33 +172,35 @@ class ajax extends AWS_ADMIN_CONTROLLER
 			$_POST['new_user_email_setting'] = $email_settings;
 		}
 
+		if ($_POST['weibo_msg_published_user']['uid'] == get_setting('weibo_msg_published_user')['uid'] OR empty($_POST['weibo_msg_published_user']))
+		{
+			unset($_POST['weibo_msg_published_user']);
+		}
+		else
+		{
+			$published_user_sina_info = $this->model('openid_weibo')->get_users_sina_by_uid($_POST['weibo_msg_published_uid']['uid']);
+
+			if (empty($published_user_info))
+			{
+				$_POST['weibo_msg_published_user'] = array();
+			}
+			else
+			{
+				$published_user_info = $this->model('account')->get_user_info_by_uid($_POST['weibo_msg_published_user']['uid']);
+
+				$_POST['weibo_msg_published_user'] = array(
+					'uid' => $published_user_info['uid'],
+					'user_name' => $published_user_info['user_name'],
+					'url_token' => $published_user_info['url_token']
+				);
+			}
+		}
+
 		$this->model('setting')->set_vars($_POST);
 
 		if ($_POST['wecenter_access_token'])
 		{
 			$this->model('weixin')->get_weixin_app_id_setting_var();
-		}
-
-		if ($_POST['weibo_msg_published_uid'])
-		{
-			$published_user_info = $this->model('openid_weibo')->get_users_sina_by_uid($_POST['weibo_msg_published_uid']);
-
-			if (empty($published_user_info))
-			{
-				unset($_POST['weibo_msg_published_uid']);
-			}
-		}
-
-		if ($_POST['service_ids'])
-		{
-			$service_ids = explode(',', $_POST['service_ids']);
-
-			foreach ($service_ids AS $service_id)
-			{
-				$this->model('weibo')->add_service_account($service_id);
-			}
-
-			unset($_POST['service_ids']);
 		}
 
 		H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('系统设置修改成功')));
