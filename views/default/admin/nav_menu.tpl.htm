@@ -3,79 +3,78 @@
 
 <div class="aw-content-wrap">
     <div class="tab-content mod-content">
-	<form action="admin/ajax/save_nav_menu/" method="post" id="nav_menu_list" onsubmit="return false">
         <div class="row">
-        <div class="col-md-12">
-        <div class="row">
-        <div class="col-md-7">
-        <div class="mod">
-        <div class="mod-set-head">
-            <a class="btn btn-primary btn-xs pull-right" onclick="AWS.ajax_post($('#nav_menu_list'));"><?php _e('保存菜单设置'); ?></a>
-            <h3>
-                <?php _e('导航菜单'); ?>
-                <span><?php _e('拖动菜单可调整导航菜单排序'); ?></span>
-            </h3>
-        </div>
-        <div class="mod-set-body">
-        <input type="hidden" name="nav_sort" id="nav_sort">
-		
-        <p>			
-			<select name="category_display_mode" class="pull-left form-control">
-				<option value="list"<?php if ($this->setting['category_display_mode'] == 'list') { ?> selected="selected"<?php } ?>><?php _e('文字列表模式'); ?></option>
-				<option value="icon"<?php if ($this->setting['category_display_mode'] == 'icon') { ?> selected="selected"<?php } ?>><?php _e('图标模式'); ?></option>
-			</select>
+            <div class="col-md-12 nopadding">
+            <div class="col-md-7">
+                <form action="admin/ajax/save_nav_menu/" method="post" id="nav_menu_list" onsubmit="return false">
+                    <div class="mod aw-message-box ">
+                    <div class="mod-set-head">
+                        <a class="btn btn-primary btn-xs pull-right" onclick="AWS.ajax_post($('#nav_menu_list'));"><?php _e('保存菜单设置'); ?></a>
+                        <h3>
+                            <?php _e('导航菜单'); ?>
+                            <span><?php _e('拖动菜单可调整导航菜单排序'); ?></span>
+                        </h3>
+                    </div>
+                    <div class="mod-set-body">
+                    <input type="hidden" name="nav_sort" id="nav_sort">
 
-            <label class="pull-right"><input type="checkbox" value="Y" name="nav_menu_show_child"<?php if ($this->setting['nav_menu_show_child'] == 'Y') { ?> checked="checked"<?php } ?>> <?php _e('显示分类下的子分类'); ?></label>
-        </p>
-        <div class="aw-nav-menu">
-        <ul data-listidx="0">
-			<?php if ($this->nav_menu_list) { ?>
-			<?php foreach($this->nav_menu_list as $key => $val) { ?>
-			<?php if ($val['title']) { ?>
-			<li data-sort="<?php echo $val['id']; ?>" data-cursor="pointer">
-				<div class="mod-set-head">
-					<span class="pull-right"><a href="javascript:;" onclick="AWS.dialog('confirm', {'message': '<?php _e('确认删除?'); ?>'}, function(){AWS.ajax_request(G_BASE_URL + '/admin/ajax/remove_nav_menu/', 'id=<?php echo $val['id']; ?>');}); return false;"><?php _e('删除'); ?></a></span>
-					<h4><?php echo $val['title']; ?> (<?php if ($val['type'] == 'category') { ?><?php _e('分类'); ?><?php } else if ($val['type'] == 'feature') { ?><?php _e('专题'); ?><?php } else { ?><?php _e('自定义链接'); ?><?php } ?>)</h4>
-				</div>
-				<div class="mod-set-body clearfix">
-					<div class="aw-nav-menu-tag clearfix">
-						<label class="pull-left">
-							<?php _e('导航标签'); ?><br />
-							<input class="form-control" type="text" name="nav_menu[<?php echo $val['id']; ?>][title]" value="<?php echo $val['title']; ?>" />
-						</label>
-						<div class="pull-left aw-nav-menu-img">
-							<a id="aw-nav-menu-img-upload-<?php echo $val['id']; ?>"><img src="<?php if ($val['icon']) { ?><?php echo get_setting('upload_url');?>/nav_menu/<?php echo $val['icon']; ?><?php } else { ?><?php echo G_STATIC_URL; ?>/css/default/img/default_class_imgs.png<?php } ?>" alt="" id="aw-nav-menu-img-<?php echo $val['id']; ?>" /></a>
-						</div>
-					</div>
-					
-					<?php if ($val['type'] == 'custom') { ?>
-					<div class="aw-nav-menu-descrip">
-						<label class="pull-left">
-							<?php _e('链接'); ?><br />
-							<input class="form-control" type="text" name="nav_menu[<?php echo $val['id']; ?>][link]" value="<?php echo $val['link']; ?>" />
-						</label>
-					</div>
-					<?php } ?>
+                    <p>
+                        <select name="category_display_mode" class="pull-left form-control">
+                            <option value="list"<?php if ($this->setting['category_display_mode'] == 'list') { ?> selected="selected"<?php } ?>><?php _e('文字列表模式'); ?></option>
+                            <option value="icon"<?php if ($this->setting['category_display_mode'] == 'icon') { ?> selected="selected"<?php } ?>><?php _e('图标模式'); ?></option>
+                        </select>
 
-					<div class="aw-nav-menu-descrip">
-						<label class="pull-left">
-							<?php _e('描述'); ?><br />
-							<input class="form-control" type="text" name="nav_menu[<?php echo $val['id']; ?>][description]" value="<?php echo $val['description']; ?>" />
-						</label>
-					</div>
-				</div>
-			</li>
-			<?php } ?>
-			<?php } ?>
-			<?php } ?>
-        </ul>
-        </div>
-        </div>
-        </div>
-		</form>
-        </div>
+                        <label class="pull-right"><input type="checkbox" value="Y" name="nav_menu_show_child"<?php if ($this->setting['nav_menu_show_child'] == 'Y') { ?> checked="checked"<?php } ?>> <?php _e('显示分类下的子分类'); ?></label>
+                    </p>
+                    <div class="aw-nav-menu">
+                    <ul data-listidx="0">
+                        <?php if ($this->nav_menu_list) { ?>
+                        <?php foreach($this->nav_menu_list as $key => $val) { ?>
+                        <?php if ($val['title']) { ?>
+                        <li data-sort="<?php echo $val['id']; ?>" data-cursor="pointer">
+                            <div class="mod-set-head">
+                                <span class="pull-right"><a href="javascript:;" onclick="AWS.dialog('confirm', {'message': '<?php _e('确认删除?'); ?>'}, function(){AWS.ajax_request(G_BASE_URL + '/admin/ajax/remove_nav_menu/', 'id=<?php echo $val['id']; ?>');}); return false;"><?php _e('删除'); ?></a></span>
+                                <h4><?php echo $val['title']; ?> (<?php if ($val['type'] == 'category') { ?><?php _e('分类'); ?><?php } else if ($val['type'] == 'feature') { ?><?php _e('专题'); ?><?php } else { ?><?php _e('自定义链接'); ?><?php } ?>)</h4>
+                            </div>
+                            <div class="mod-set-body clearfix">
+                                <div class="aw-nav-menu-tag clearfix">
+                                    <label class="pull-left">
+                                        <?php _e('导航标签'); ?><br />
+                                        <input class="form-control" type="text" name="nav_menu[<?php echo $val['id']; ?>][title]" value="<?php echo $val['title']; ?>" />
+                                    </label>
+                                    <div class="pull-left aw-nav-menu-img">
+                                        <a id="aw-nav-menu-img-upload-<?php echo $val['id']; ?>"><img src="<?php if ($val['icon']) { ?><?php echo get_setting('upload_url');?>/nav_menu/<?php echo $val['icon']; ?><?php } else { ?><?php echo G_STATIC_URL; ?>/css/default/img/default_class_imgs.png<?php } ?>" alt="" id="aw-nav-menu-img-<?php echo $val['id']; ?>" /></a>
+                                    </div>
+                                </div>
+
+                                <?php if ($val['type'] == 'custom') { ?>
+                                <div class="aw-nav-menu-descrip">
+                                    <label class="pull-left">
+                                        <?php _e('链接'); ?><br />
+                                        <input class="form-control" type="text" name="nav_menu[<?php echo $val['id']; ?>][link]" value="<?php echo $val['link']; ?>" />
+                                    </label>
+                                </div>
+                                <?php } ?>
+
+                                <div class="aw-nav-menu-descrip">
+                                    <label class="pull-left">
+                                        <?php _e('描述'); ?><br />
+                                        <input class="form-control" type="text" name="nav_menu[<?php echo $val['id']; ?>][description]" value="<?php echo $val['description']; ?>" />
+                                    </label>
+                                </div>
+                            </div>
+                        </li>
+                        <?php } ?>
+                        <?php } ?>
+                        <?php } ?>
+                    </ul>
+                    </div>
+                    </div>
+                </div>
+                </form>
+            </div>
 		
-        <div class="col-md-5">
+            <div class="col-md-5">
             <div class="mod">
                 <div class="aw-message-box topic">
                     <div class="mod-set-head">
