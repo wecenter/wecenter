@@ -1814,7 +1814,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 					H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('该用户已是回答用户')));
 				}
 
-				$this->model('weibo')->add_service_account($_POST['uid']);
+				$this->model('weibo')->update_service_account($_POST['uid'], 'add');
 
 				break;
 

@@ -2017,7 +2017,7 @@ AWS.Dropdown =
 	                    });
 	                    $(selector).parent().find('.aw-dropdown-list li a').click(function()
 	                    {
-	                    	$.post(G_BASE_URL + '/admin/ajax/add_weibo_service_account/', {'uid' :  $(this).attr('data-id')}, function (result)
+	                    	$.post(G_BASE_URL + '/admin/ajax/add_weibo_service_account/', {'uid': $(this).attr('data-id'), 'action': 'add'}, function (result)
 	                    	{
 	                    		console.log(result.err);
 	                    	}, 'json');
