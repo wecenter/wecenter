@@ -1338,7 +1338,7 @@
 							<div class="col-sm-3 col-xs-8 aw-admin-weibo-publish">
 								<a href="people/<?php echo $this->setting['weibo_msg_published_user']['url_token']; ?>" target="_blank"><?php echo $this->setting['weibo_msg_published_user']['user_name']; ?></a>
                                 <a class="md-tip" onclick="AWS.dialog('adminWechatSendMsg', {'type': 'adminPublishUser'})" data-original-title="添加问题"><i class="fa fa-plus"></i></a>
-								<input class="weibo_msg_published_uid" name="weibo_msg_published_uid" type="hidden" value="<?php echo $this->setting['weibo_msg_published_uid']; ?>"/>
+								<input class="weibo_msg_published_user" name="weibo_msg_published_user['uid']" type="hidden" value="<?php echo $this->setting['weibo_msg_published_user']['uid']; ?>"/>
 							</div>
 						</div>
 					</td>

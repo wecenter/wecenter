@@ -220,7 +220,7 @@ class weibo_class extends AWS_MODEL
 
     }
 
-    public function update_service_account($id, $action = 'add')
+    public function update_service_account($id, $action)
     {
         switch ($action)
         {

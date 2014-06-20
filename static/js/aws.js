@@ -1,4 +1,4 @@
-var AWS =  
+var AWS =
 {
 	//全局loading
 	loading: function (type)
@@ -7,22 +7,22 @@ var AWS =
 	    {
 	        $('#aw-ajax-box').append(AW_TEMPLATE.loadingBox);
 	    }
-		    
+
 		if (type == 'show')
 		{
 			if ($('#aw-loading').css('display') == 'block')
 		    {
 			    return false;
 		    }
-			
+
 			$('#aw-loading').fadeIn();
-		
-			AWS.G.loading_timer = setInterval(function () 
+
+			AWS.G.loading_timer = setInterval(function ()
 			{
 				AWS.G.loading_bg_count -= 1;
-				
+
 				$('#aw-loading-box').css('background-position', '0px ' + AWS.G.loading_bg_count * 40 + 'px');
-				
+
 				if (AWS.G.loading_bg_count == 1)
 				{
 					AWS.G.loading_bg_count = 12;
@@ -32,7 +32,7 @@ var AWS =
 		else
 		{
 			$('#aw-loading').fadeOut();
-		
+
 			clearInterval(AWS.G.loading_timer);
 		}
 	},
@@ -40,7 +40,7 @@ var AWS =
 	ajax_request: function(url, params)
 	{
 		AWS.loading('show');
-		
+
 	    if (params)
 	    {
 	        $.post(url, params + '&_post_type=ajax', function (result)
@@ -65,12 +65,12 @@ var AWS =
 	    function _callback (result)
 	    {
 	    	AWS.loading('hide');
-	        	
+
         	if (!result)
         	{
 	        	return false;
         	}
-        	
+
             if (result.err)
             {
                 AWS.alert(result.err);
@@ -88,7 +88,7 @@ var AWS =
 	    function _error (error)
 	    {
 	    	AWS.loading('hide');
-	        	
+
             if ($.trim(error.responseText) != '')
             {
                 alert(_t('发生错误, 返回的信息:') + ' ' + error.responseText);
@@ -103,7 +103,7 @@ var AWS =
 	    if (typeof (processer) != 'function')
 	    {
 	        var processer = AWS.ajax_processer;
-	        
+
 	        AWS.loading('show');
 	    }
 
@@ -129,7 +129,7 @@ var AWS =
 	            if ($.trim(error.responseText) != '')
 	            {
 	            	AWS.loading('hide');
-	            	
+
 	                alert(_t('发生错误, 返回的信息:') + ' ' + error.responseText);
 	            }
 	        }
@@ -171,7 +171,7 @@ var AWS =
 			    	{
 				    	 $('.error_message').html(result.err);
 			    	}
-			    	
+
 			    	if ($('.error_message').css('display') != 'none')
 			    	{
 				    	AWS.shake($('.error_message'));
@@ -242,7 +242,7 @@ var AWS =
 		{
 			selector.attr('data-page', parents(selector.attr('data-page')) + 1);
 		}
-	    
+
 	    selector.bind('click', function ()
 	    {
 	    	var _this = this;
@@ -348,7 +348,7 @@ var AWS =
 		    		'message': data.message
 		    	});
 		    break;
-		
+
 		    case 'publish':
 		        var template = Hogan.compile(AW_TEMPLATE.publishBox).render(
 		        {
@@ -356,21 +356,21 @@ var AWS =
 		            'ask_user_id': data.ask_user_id
 		        });
 		    break;
-		
+
 		    case 'shareOut':
 		        var template = Hogan.compile(AW_TEMPLATE.shareBox).render(
 		        {
 		            'items': AW_TEMPLATE.shareList
 		        });
 		    break;
-		
+
 		    case 'redirect':
 		        var template = Hogan.compile(AW_TEMPLATE.questionRedirect).render(
 		        {
 		            'data_id': data
 		        });
 		    break;
-		
+
 		    case 'imageBox':
 		        var template = Hogan.compile(AW_TEMPLATE.imagevideoBox).render(
 		        {
@@ -381,7 +381,7 @@ var AWS =
 		            'upload' : ''
 		        });
 		    break;
-		
+
 		    case 'videoBox':
 		        var template = Hogan.compile(AW_TEMPLATE.imagevideoBox).render(
 		        {
@@ -403,7 +403,7 @@ var AWS =
 		            'type' : "'link'"
 		        });
 		    break;
-		
+
 		    case 'commentEdit':
 		        var template = Hogan.compile(AW_TEMPLATE.editCommentBox).render(
 		        {
@@ -411,21 +411,21 @@ var AWS =
 		            'attach_access_key': data.attach_access_key
 		        });
 		    break;
-		
+
 		    case 'favorite':
 		        var template = Hogan.compile(AW_TEMPLATE.favoriteBox).render(
 		        {
 		            'answer_id': data
 		        });
 		    break;
-		
+
 		    case 'inbox':
 		        var template = Hogan.compile(AW_TEMPLATE.inbox).render(
 		        {
 		            'recipient': data
 		        });
 		    break;
-		
+
 		    case 'report':
 		        var template = Hogan.compile(AW_TEMPLATE.reportBox).render(
 		        {
@@ -433,15 +433,15 @@ var AWS =
 		            'item_id': data.item_id
 		        });
 		    break;
-		        
+
 		    case 'topicEditHistory':
 		        var template = AW_TEMPLATE.ajaxData.replace('{{title}}', _t('编辑记录')).replace('{{data}}', data);
 			break;
-				
+
 			case 'ajaxData':
 				var template = AW_TEMPLATE.ajaxData.replace('{{title}}', data.title).replace('{{data}}', '<div id="aw_dialog_ajax_data"></div>');
 			break;
-				
+
 			case 'imagePreview':
 				var template = AW_TEMPLATE.ajaxData.replace('{{title}}', _t('图片预览')).replace('{{data}}', '<p align="center"><img src="' + data.image + '" alt="" style="max-width:520px" /></p>');
 			break;
@@ -481,7 +481,7 @@ var AWS =
 
 	        switch (type)
 	        {
-	        	case 'redirect' : 
+	        	case 'redirect' :
 	        		AWS.Dropdown.bind_dropdown_list($('.aw-question-redirect-box #question-input'), 'redirect');
 	        	break;
 
@@ -502,7 +502,7 @@ var AWS =
 			        	$.get(G_BASE_URL + '/publish/ajax/fetch_question_category/', function (result)
 			            {
 			                AWS.Dropdown.set_dropdown_list('.aw-publish-box .dropdown', eval(result), data.category_id);
-			
+
 			                $('.aw-publish-title .dropdown li a').click(function ()
 			                {
 			                    $('.aw-publish-box #quick_publish_category_id').val($(this).attr('data-value'));
@@ -515,21 +515,21 @@ var AWS =
 					{
 						$('.aw-publish-box .modal-title').html('向 ' + data.ask_user_name + ' 提问');
 					}
-		
+
 		            if ($('#aw-search-query').val() && $('#aw-search-query').val() != $('#aw-search-query').attr('placeholder'))
 		            {
 			            $('#quick_publish_question_content').val($('#aw-search-query').val());
 		            }
-		
+
 		            AWS.Init.init_topic_edit_box('#quick_publish .aw-edit-topic');
-		            
+
 		            $('#quick_publish .aw-edit-topic').click();
-		
+
 		            if (data.topic_title)
 		            {
 		                $('#quick_publish .aw-edit-topic').parents('.aw-topic-editor').prepend('<a href="javascript:;" class="aw-topic-name"><span>' + data.topic_title + '</span><input type="hidden" value="' + data.topic_title + '" name="topics[]" /></a>')
 		            }
-		            
+
 		            if (typeof(G_QUICK_PUBLISH_HUMAN_VALID) != 'undefined')
 		            {
 			            $('#quick_publish_captcha').show();
@@ -541,7 +541,7 @@ var AWS =
 		        case 'shareIn':
 		        case 'shareOut':
 		        	AWS.Dropdown.bind_dropdown_list($('.aw-share-box #invite-input'), 'inbox');
-		
+
 					switch (data.item_type)
 					{
 						case 'question':
@@ -550,14 +550,14 @@ var AWS =
 							var request_uri = G_BASE_URL + '/question/ajax/fetch_share_data/type-' + data.item_type + '__item_id-' + data.item_id;
 						break;
 					}
-					
+
 		            $.get(request_uri, function (result)
 		            {
 		            	$('#share_out_content').val(result.rsm.share_txt.message);
-		
+
 		                $('#bdshare').attr('data', '{text:\'' + result.rsm.share_txt.message.replace(' ' + result.rsm.share_txt.url, '') + '\', url:\'' + result.rsm.share_txt.url + '\', \'bdPic\': \'\'}');
 		            }, 'json');
-		            
+
 		            break;
 				break;
 
@@ -568,7 +568,7 @@ var AWS =
 		                {
 		                    $('#add_favorite_my_tags').show();
 		                }
-		
+
 		                $.each(result, function (i, a)
 		                {
 		                    $('#add_favorite_my_tags').append('<a href="javascript:;" onclick="$(\'#add_favorite_tags\').val($(\'#add_favorite_tags\').val() + \'' + a['title'] + ',\');" class="aw-topic-name"><span>' + a['title'] + '</span></a> ');
@@ -590,9 +590,9 @@ var AWS =
 		            {
 		                $('#editor_reply').html(result.answer_content.replace('&amp;', '&'));
 		            }, 'json');
-					
+
 					var fileupload = new FileUpload('.aw-edit-comment-box .aw-upload-box .btn', '.aw-edit-comment-box .aw-upload-box .upload-container', G_BASE_URL + '/publish/ajax/attach_upload/id-answer__attach_access_key-' + ATTACH_ACCESS_KEY, {'insertTextarea': '.aw-edit-comment-box #editor_reply'});
-		            
+
 		            if ($(".aw-edit-comment-box .upload-list").length) {
 			            $.post(G_BASE_URL + '/publish/ajax/answer_attach_edit_list/', 'answer_id=' + data.answer_id, function (data) {
 			                if (data['err']) {
@@ -709,7 +709,7 @@ var AWS =
 	            {
 	                 switch (type)
 	                {
-	                    case 'user' : 
+	                    case 'user' :
 	                        //检查是否有缓存
 	                        if (AWS.G.cashUserData.length == 0)
 	                        {
@@ -755,7 +755,7 @@ var AWS =
 	                    $.get(G_BASE_URL + url + _this.attr('data-id'), function(result)
 	                    {
 	                        var focus = result.focus, verified = result.verified, focusTxt;
-	                           
+
 	                        if (focus == 1)
 	                        {
 	                            focus = '';
@@ -766,7 +766,7 @@ var AWS =
 	                            focus = 'aw-active';
 	                            focusTxt = '关注';
 	                        }
-	                        
+
 	                        if(result.verified == 'enterprise')
 	                        {
 	                            verified_enterprise = 'icon-v i-ve';
@@ -781,7 +781,7 @@ var AWS =
 	                        {
 	                            verified_enterprise = verified_title = '';
 	                        }
-	                        
+
 	                        //动态插入盒子
 	                        $('#aw-ajax-box').html(Hogan.compile(AW_TEMPLATE.userCard).render(
 	                        {
@@ -889,7 +889,7 @@ var AWS =
 	            	var left = _this.offset().left,
 	            		top = _this.offset().top + _this.height() + 5,
 	            		nTop = _this.offset().top - $(window).scrollTop();
-			            
+
 	            	//判断下边距离不足情况
 	            	if (nTop + $('#aw-card-tips').innerHeight() > $(window).height())
 	            	{
@@ -917,7 +917,7 @@ var AWS =
 	        AWS.G.card_box_hide_timer = setTimeout(function ()
 	        {
 	            $('#aw-card-tips').fadeOut();
-	        }, 600); 
+	        }, 600);
 	    });
 	},
 
@@ -1081,9 +1081,9 @@ var AWS =
 		        start: 0,
 		        end: 0
 		    };
-		    
+
 		    textarea.focus();
-		    
+
 		    if (textarea.setSelectionRange) { // W3C
 		        rangeData.start = textarea.selectionStart;
 		        rangeData.end = textarea.selectionEnd;
@@ -1121,7 +1121,7 @@ var AWS =
 		selector.css('position', 'relative');
 	    for (var i = 1; i <= length; i++)
 	    {
-	    	if (i % 2 == 0) 
+	    	if (i % 2 == 0)
 	    	{
 	        	if (i == length)
 	        	{
@@ -1141,7 +1141,7 @@ var AWS =
 }
 
 // 全局变量
-AWS.G = 
+AWS.G =
 {
 	cashUserData: [],
 	cashTopicData: [],
@@ -1153,7 +1153,7 @@ AWS.G =
 	notification_timer: ''
 }
 
-AWS.User = 
+AWS.User =
 {
 	// 关注
 	follow: function(selector, type, data_id)
@@ -1225,7 +1225,7 @@ AWS.User =
 	        }
 
 	        selector.removeClass('disabled');
-	        
+
 	    }, 'json');
 	},
 
@@ -1245,7 +1245,7 @@ AWS.User =
 	agree_vote: function(selector, user_name, answer_id)
 	{
 		$.post(G_BASE_URL + '/question/ajax/answer_vote/', 'answer_id=' + answer_id + '&value=1');
-		
+
 	    // 判断是否投票过
 	    if ($(selector).parents('.aw-item').find('.aw-agree-by').text().match(user_name))
 	    {
@@ -1331,7 +1331,7 @@ AWS.User =
 	                $(selector).parents('.aw-item').find('.aw-vote-bar-count').html(parseInt($(selector).parents('.aw-item').find('.aw-vote-bar-count').html())-1);
 	            }
 	        }
-	        
+
 	        $(selector).parents('.aw-item').find('a.active').removeClass('active');
 	        $(selector).addClass('active');
 
@@ -1522,7 +1522,7 @@ AWS.User =
 	remove_comment: function(selector, type, comment_id)
 	{
 		$.get(G_BASE_URL + '/question/ajax/remove_comment/type-' + type + '__comment_id-' + comment_id);
-		
+
 		selector.parents('.aw-comment-box li').fadeOut();
 	},
 
@@ -1530,16 +1530,16 @@ AWS.User =
 	article_vote: function(selector, article_id, rating)
 	{
 		AWS.loading('show');
-		
+
 		if (selector.hasClass('active'))
 		{
 			var rating = 0;
 		}
-		
+
 		$.post(G_BASE_URL + '/article/ajax/article_vote/', 'type=article&item_id=' + article_id + '&rating=' + rating, function (result) {
-			
+
 			AWS.loading('hide');
-			
+
 			if (result.errno != 1)
 		    {
 		        AWS.alert(result.err);
@@ -1572,16 +1572,16 @@ AWS.User =
 	article_comment_vote: function(selector, comment_id, rating)
 	{
 		AWS.loading('show');
-		
+
 		if (selector.hasClass('active'))
 		{
 			var rating = 0;
 		}
-		
+
 		$.post(G_BASE_URL + '/article/ajax/article_vote/', 'type=comment&item_id=' + comment_id + '&rating=' + rating, function (result)
 		{
 			AWS.loading('hide');
-			
+
 			if (result.errno != 1)
 		    {
 		        AWS.alert(result.err);
@@ -1601,7 +1601,7 @@ AWS.User =
 	}
 }
 
-AWS.Dropdown = 
+AWS.Dropdown =
 {
 	// 下拉菜单功能绑定
 	bind_dropdown_list: function(selector, type)
@@ -1649,7 +1649,7 @@ AWS.Dropdown =
 	            if (e.which == 13)
 	            {
 	            	$('.aw-edit-topic-box .aw-dropdown').hide();
-	                $('.aw-edit-topic-box .submit-edit').click(); 
+	                $('.aw-edit-topic-box .submit-edit').click();
 	            	return false;
 	            }
 
@@ -1713,7 +1713,7 @@ AWS.Dropdown =
 	            		lis.eq(_index).addClass('active');
 	            		$(selector).val(lis.eq(_index).text());
 	            	}
-	            	
+
 	            }
 	        }
 	    });
@@ -1825,7 +1825,7 @@ AWS.Dropdown =
 	                                    'discuss_count': a.detail.answer_count
 	                                }));
 	                                break;
-									
+
 								case 'articles':
 	                                $(selector).parent().find('.aw-dropdown-list').append(Hogan.compile(AW_TEMPLATE.searchDropdownListArticles).render(
 	                                {
@@ -1834,7 +1834,7 @@ AWS.Dropdown =
 	                                    'comments': a.detail.comments
 	                                }));
 	                                break;
-									
+
 	                            case 'topics':
 	                                $(selector).parent().find('.aw-dropdown-list').append(Hogan.compile(AW_TEMPLATE.searchDropdownListTopics).render(
 	                                {
@@ -1844,7 +1844,7 @@ AWS.Dropdown =
 	                                    'topic_id': a.detail.topic_id
 	                                }));
 	                                break;
-	                            
+
 	                            case 'users':
 	                                if (a.detail.signature == '')
 	                                {
@@ -1854,7 +1854,7 @@ AWS.Dropdown =
 	                                {
 	                                    var signature = a.detail.signature;
 	                                }
-	                                
+
 	                                $(selector).parent().find('.aw-dropdown-list').append(Hogan.compile(AW_TEMPLATE.searchDropdownListUsers).render(
 	                                {
 	                                    'url': a.url,
@@ -1978,7 +1978,7 @@ AWS.Dropdown =
 	                	break;
 
 	                // 后台微博发布用户
-	                case 'adminPublishUser' : 
+	                case 'adminPublishUser' :
 	                	$.each(result, function (i, a)
 	                    {
 	                        $(selector).parent().find('.aw-dropdown-list').append(Hogan.compile(AW_TEMPLATE.inviteDropdownList).render(
@@ -1990,14 +1990,14 @@ AWS.Dropdown =
 	                    });
 	                    $(selector).parent().find('.aw-dropdown-list li a').click(function()
 	                    {
-	                    	$('.weibo_msg_published_uid').val($(this).attr('data-id'));
+	                    	$('.weibo_msg_published_user').val($(this).attr('data-id'));
 	                    	$(".alert-box").modal('hide');
 	                    	$('.aw-admin-weibo-publish').append($(this));
 	                    	$('.aw-admin-weibo-publish').append('<a class="delete btn btn-default btn-sm">删除用户</a>');
 	                    	$('.aw-admin-weibo-publish .md-tip').hide();
 	                    	$('.aw-admin-weibo-publish').find('.delete').click(function()
 	                    	{
-	                    		$(this).parent().find('.weibo_msg_published_uid').val('');
+	                    		$(this).parent().find('.weibo_msg_published_user').val('');
 	                    		$(this).parent().find('.md-tip').show();
 	                    		$(this).prev().detach().end().detach();
 	                    	});
@@ -2017,7 +2017,7 @@ AWS.Dropdown =
 	                    });
 	                    $(selector).parent().find('.aw-dropdown-list li a').click(function()
 	                    {
-	                    	$.post(G_BASE_URL + '/admin/ajax/add_weibo_service_account/', {'uid' :  $(this).attr('data-id')}, function (result)
+	                    	$.post(G_BASE_URL + '/admin/ajax/add_weibo_service_account/', {'uid': $(this).attr('data-id'), 'action': 'add'}, function (result)
 	                    	{
 	                    		console.log(result.err);
 	                    	}, 'json');
@@ -2045,7 +2045,7 @@ AWS.Dropdown =
 	}
 }
 
-AWS.Editor = 
+AWS.Editor =
 {
 	// 设置编辑器预览状态
     set_editor_preview: function ()
@@ -2063,16 +2063,16 @@ AWS.Editor =
 			}
             else
 			{
-				$('.markItUpPreviewFrame').fadeOut();	
+				$('.markItUpPreviewFrame').fadeOut();
 			}
         }
     },
-    
+
 	// 向编辑器插入多媒体内容(图片,视频,超链接)
 	add_multimedia: function (type)
 	{
 		switch (type){
-			case 'img' : 
+			case 'img' :
 				var title = 'imgsAlt',
 					url = 'imgsUrl',
 					textFeildValue = '\n![' + ($('#addTxtForms :input[name="' + title + '"]').val()) + '](' + $('#addTxtForms :input[name="' + url + '"]').val() + ')';
@@ -2088,7 +2088,7 @@ AWS.Editor =
 				var title = 'linkText',
 					url = 'linkUrl',
 					textFeildValue = '[' + ($('#addTxtForms :input[name="' + title + '"]').val()) + '](' + $('#addTxtForms :input[name="' + url + '"]').val() + ')';;
-			break;	
+			break;
 		}
 		if($('#addTxtForms :input[name="' + url + '"]').val() == '')
     	{
@@ -2180,7 +2180,7 @@ AWS.Editor =
 	}
 }
 
-AWS.Message = 
+AWS.Message =
 {
 	// 检测通知
 	check_notifications: function()
@@ -2336,7 +2336,7 @@ AWS.Message =
 	}
 }
 
-AWS.Init = 
+AWS.Init =
 {
 	// 初始化问题评论框
 	init_comment_box: function(selector)
@@ -2359,7 +2359,7 @@ AWS.Init =
 	        }
 
 	        var comment_box_id = '#aw-comment-box-' + $(this).attr('data-type') + '-' + 　$(this).attr('data-id');
-			
+
 	        if ($(comment_box_id).length)
 	        {
 	            if ($(comment_box_id).css('display') == 'none')
@@ -2380,7 +2380,7 @@ AWS.Init =
 		                var comment_form_action = G_BASE_URL + '/question/ajax/save_question_comment/question_id-' + $(this).attr('data-id');
 		                var comment_data_url = G_BASE_URL + '/question/ajax/get_question_comments/question_id-' + $(this).attr('data-id');
 		                break;
-		
+
 		            case 'answer':
 		                var comment_form_action = G_BASE_URL + '/question/ajax/save_answer_comment/answer_id-' + $(this).attr('data-id');
 		                var comment_data_url = G_BASE_URL + '/question/ajax/get_answer_comments/answer_id-' + $(this).attr('data-id');
@@ -2393,7 +2393,7 @@ AWS.Init =
 	                    'comment_form_id': comment_box_id.replace('#', ''),
 	                    'comment_form_action': comment_form_action
 	                }));
-					
+
 	                $(comment_box_id).find('.aw-comment-txt').bind(
 	                {
 	                    focus: function ()
@@ -2432,7 +2432,7 @@ AWS.Init =
 	                {
 	                    result = '<div align="center" class="aw-padding10">' + _t('暂无评论') + '</div>';
 	                }
-					
+
 	                $(comment_box_id).find('.aw-comment-list').html(result);
 	            });
 
@@ -2483,12 +2483,12 @@ AWS.Init =
 		        var up_class = 'active';
 		        var down_class = '';
 		        break;
-		
+
 		    case -1:
 		        var up_class = '';
 		        var down_class = 'active';
 		        break;
-		
+
 		    case 0:
 		        var up_class = '';
 		        var down_class = '';
@@ -2603,7 +2603,7 @@ AWS.Init =
 		                            }
 
 		                            _topic_editor.prepend('<a href="' + G_BASE_URL + '/favorite/tag-' + encodeURIComponent(_topic_editor.find('#aw_edit_topic_title').val()) + '" class="aw-topic-name"><span>' + _topic_editor.find('#aw_edit_topic_title').val() + '<button class="close aw-close">x</button></span></a>').hide().fadeIn();
-		                            
+
 		                            _topic_editor.find('#aw_edit_topic_title').val('');
 		                        }, 'json');
 	                        break;
@@ -2626,7 +2626,7 @@ AWS.Init =
 		    {
 		        $(this).parents('.aw-edit-topic-box').find('#aw_edit_topic_title').val($(this).text());
 		    });
-		    
+
 		    $(document).on('click', '.aw-edit-topic-box .aw-dropdown-list li', function ()
 		    {
 		        $(this).parents('.aw-edit-topic-box').find('#aw_edit_topic_title').val($(this).text());
@@ -2745,7 +2745,7 @@ AWS.Init =
 	    {
 	        return false;
 	    }
-	    
+
 	    if (G_UPLOAD_ENABLE == 'Y')
 	    {
 	    	$('.aw-upload-tips').show();
@@ -2841,7 +2841,7 @@ function _t(string, replace)
 			{
 				var type = $(type).offset().top
 			}
-			
+
 			$('html, body').animate({
 				scrollTop: type
 			}, {
