@@ -1139,44 +1139,6 @@ AWS.Init =
 				}
 			});
 
-			$('.aw-question-detail-title .aw-topic-edit-box .dropdown-list ul li').click(function()
-			{
-				var _this = $(this);
-				
-				switch (data_type)
-				{
-					case 'question' :
-						$.post(G_BASE_URL + '/question/ajax/save_topic/question_id-' + $(this).parents('.aw-topic-edit-box').attr('data-id'), 'topic_title=' + encodeURIComponent($(this).text()), function (result)
-						{
-							if (result.errno == 1)
-							{
-								$(selector).parents('.aw-topic-edit-box').find('.aw-topic-box').prepend('<span class="aw-topic-name" data-id="' + result.rsm.topic_id + '"><a>' + _this.text() + '</a><a href="#"><i>X</i></a></span>');
-								$(selector).val('');
-								$(selector).next().hide();
-							}else
-							{
-								alert(result.err);
-							}
-						}, 'json');
-					break;
-
-					case 'article' :
-						$.post(G_BASE_URL + '/question/ajax/save_topic/article_id-' + $(this).parents('.aw-topic-edit-box').attr('data-id'), 'topic_title=' + encodeURIComponent($(this).text()), function(result)
-						{
-							if (result.errno == 1)
-							{
-								$(selector).parents('.aw-topic-edit-box').find('.aw-topic-box').prepend('<span class="aw-topic-name" data-id="' + result.rsm.topic_id + '"><a>' + _this.text() + '</a><a href="#"><i>X</i></a></span>');
-								$(selector).val('');
-								$(selector).next().hide();
-							}else
-							{
-								alert(result.err);
-							}
-						}, 'json');
-				}
-
-				
-			});
 			/* 话题编辑取消按钮 */
 			$('.aw-topic-box-selector .cancel').click(function()
 			{
