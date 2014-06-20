@@ -104,7 +104,7 @@ ul,ol{padding:0;list-style:none;}
 
 /*右侧表格主体部分*/
 textarea{resize:none;}
-.aw-content-wrap .mod{box-shadow:0 3px 0 #CCC;}
+.aw-content-wrap .mod{box-shadow:0 3px 0 #CCC;margin-bottom:30px;}
 .aw-content-wrap .mod-body,.aw-content-wrap .mod-content{padding:20px;border:1px solid #e2e1e1;border-top:none;background:#fff;}
 .aw-content-wrap h2 i{position:relative;top:0;}
 .mod-body table thead th,.mod-body table tbody td{vertical-align:middle;text-align:center;}
@@ -141,8 +141,8 @@ textarea{resize:none;}
 .aw-content-wrap .mod-set-body > p{height:40px;line-height:40px;line-line-;}
 .aw-content-wrap .mod-set-body > p select{margin-top:7px;width:240px;}
 .aw-content-wrap .aw-nav-menu li{margin-top:10px;border:1px solid #D7E6F0;}
-.aw-content-wrap .aw-nav-menu .mod-set-head{padding:0 10px;height:40px;background:#F2F8FF;font-size:12px;line-height:40px;cursor:s-resize;line-margin:0;line-}
-.aw-content-wrap .aw-nav-menu .mod-set-head h4{height:40px;font-weight:400;line-height:40px;line-margin:0;line-}
+.aw-content-wrap .aw-nav-menu .mod-set-head{padding:0 10px;height:40px;background:#F2F8FF;font-size:12px;line-height:40px;cursor:s-resize;}
+.aw-content-wrap .aw-nav-menu .mod-set-head h4{height:40px;font-weight:400;line-height:40px;margin: 0;}
 .aw-content-wrap .aw-nav-menu .mod-set-head span{color:#999;}
 .aw-content-wrap .aw-nav-menu .mod-set-body{display:none;padding:10px;}
 .aw-content-wrap .aw-nav-menu .aw-nav-menu-tag .aw-nav-menu-img{margin:5px 0 0 15px;width:52px;height:52px;border:1px dashed #999;}
