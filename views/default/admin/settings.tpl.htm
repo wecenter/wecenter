@@ -1589,7 +1589,9 @@
 		</div>
 		<?php } ?>
 		<div class="tab-content mod-content">
-			<input type="button" value="<?php _e('保存设置'); ?>" class="btn btn-primary center-block" onclick="AWS.ajax_post($('#settings_form'));" />
+			<div class="center-block">
+				<input type="button" value="<?php _e('保存设置'); ?>" class="btn btn-primary" onclick="AWS.ajax_post($('#settings_form'));" />
+			</div>
 		</div>
 	</div>
 	</form>

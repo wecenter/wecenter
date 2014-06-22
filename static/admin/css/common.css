@@ -11,7 +11,7 @@
 .table-striped > tbody > tr:nth-child(odd) > td,.table-striped > tbody > tr:nth-child(odd) > th{background-color:#F5F8FA;}
 .alert{padding:5px 15px;}
 .aw-alert{position: absolute;top: 0;}
-
+.table tbody form tr td,.table tfoot form tr td{padding: 8px;line-height: 1.42857143;border-top: 1px solid #ddd;}
 /*公共部分*/
 body,a{color:#080808;font:14px/1.5em "microsoft yahei";}
 html,body{height:100%;}
@@ -82,7 +82,8 @@ ul,ol{padding:0;list-style:none;}
 .aw-content-wrap .mod-echat-info{margin:20px 0 0 0;padding: 0;}
 .aw-content-wrap .mod-double{margin-bottom:10px;}
 .aw-content-wrap .mod-double .fa-calendar{left: 20px;}
-#main,#main2,#main3{height: 240px; background: #fff}
+#main,#main2,#main3{height: 240px; background: #fff;border: 2px solid #fff;}
+#main:hover,#main2:hover,#main3:hover{border: 2px solid #3695D5;}
 #main3{margin-top: 20px;height: 300px;}
 .mod-echat-info .col-md-6{margin-bottom: 40px;}
 /*页面底部区域 start*/
@@ -100,13 +101,13 @@ ul,ol{padding:0;list-style:none;}
 .aw-content-wrap .mod-site-save{margin:10px 15px 0 0;}
 .aw-content-wrap .mod-head .pull-left{margin-right:20px;padding-left:15px;font-size:14px;line-height:45px;}
 .mod-head .nav-tabs li.active{height:43px;border-bottom:1px solid #fff;background:#FFF;}
-.aw-content-wrap .mod-table-foot{margin-top:20px;}
+.aw-content-wrap .mod-table-foot{margin-top:20px; text-align: center;}
 .aw-content-wrap .mod-table-foot .pull-right{margin-top:0;}
 
 /*右侧表格主体部分*/
 textarea{resize:none;}
 .aw-content-wrap .mod{box-shadow: 0 1px 2px #d5d7d8;margin-bottom:30px;}
-.aw-content-wrap .mod-body,.aw-content-wrap .mod-content{padding:20px;border:1px solid #e2e1e1;border-top:none;background:#fff;}
+.aw-content-wrap .mod-body,.aw-content-wrap .mod-content{padding:20px;border:1px solid #e2e1e1;border-top:none;background:#fff;text-align: center;}
 .aw-content-wrap h2 i{position:relative;top:0;}
 .mod-body table thead th,.mod-body table tbody td{vertical-align:middle;text-align:center;}
 .mod-content table thead th,.mod-content table tbody td{text-align:left;}

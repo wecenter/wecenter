@@ -1,45 +1,43 @@
 $(function () {
-    
-        $('#captcha').click();
 
+    $('#captcha').click();
 
     // bs自带方法 TAB切换
-    $('#myTab a').click(function (e)
-    {
+    $('#myTab a').click(function (e) {
         e.preventDefault();
         $(this).tab('show');
     });
 
+    //徽章兼容IE8 
+    var tooltip = $('.aw-header').find(".label-danger");
+    tooltip.text() > 0 ? tooltip.show() : tooltip.hide();
+    
     // bs自带方法-气泡提示
     $('.aw-content-wrap .md-tip').tooltip('hide');
 
-    $('.aw-header .mod-head-btn').click(function ()
-    {
+    $('.aw-header .mod-head-btn').click(function () {
 
-        if ($('#aw-side').is(':hidden'))
-        {
+        if ($('#aw-side').is(':hidden')) {
             $('#aw-side').show(0, function () {
                 $('.aw-content-wrap, .aw-footer').css("marginLeft", "235px");
                 $('.mod-echat-info').css("marginLeft", "0");
             });
-        }
-        else{
-            $('#aw-side').hide(0, function ()
-            {
+        } else {
+            $('#aw-side').hide(0, function () {
                 $('.aw-content-wrap, .aw-footer').css("marginLeft", "0");
             });
         }
     });
 
-    
+
     $("#aw-side").perfectScrollbar({
-      wheelSpeed: 20,
-      wheelPropagation: true,
-      minScrollbarLength: 20
+        wheelSpeed: 20,
+        wheelPropagation: true,
+        minScrollbarLength: 20
     })
 
     /*日期选择*/
-    if (typeof(DateInput) != 'undefined') {
+    if (typeof (DateInput) != 'undefined') {
         $('input.mod-data').date_input();
     }
 
@@ -74,14 +72,16 @@ $(function () {
         }
     });
 
-    $(".aw-nav-menu").find('ul:first').dragsort({dragEnd: function () {
-        var arr = [];
-        $.each($('.aw-nav-menu ul li'), function (i, e) {
-            arr.push($(this).attr('data-sort'));
-        });
-        $('#nav_sort').val(arr.join(','));
+    $(".aw-nav-menu").find('ul:first').dragsort({
+        dragEnd: function () {
+            var arr = [];
+            $.each($('.aw-nav-menu ul li'), function (i, e) {
+                arr.push($(this).attr('data-sort'));
+            });
+            $('#nav_sort').val(arr.join(','));
 
-    }});
+        }
+    });
 
 
     // input 单选框全选or 全取消
