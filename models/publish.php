@@ -351,26 +351,34 @@ class publish_class extends AWS_MODEL
 		{
 			return false;
 		}
-		
-		if ($this->update('attach', array(
+	
+		if ($update_result = $this->update('attach', array(
 			'item_id' => intval($item_id)
 		), "item_type = '" . $this->quote($item_type) . "' AND item_id = 0 AND access_key = '" . $this->quote($attach_access_key) . "'"))
 		{
 			switch ($item_type)
 			{
 				default:
-					$update_key = $item_type . '_id';
-				break;
-				
-				case 'article':
 					$update_key = 'id';
 				break;
-			}
 			
-			return $this->shutdown_update($item_type, array(
+				case 'question':
+				case 'answer':
+					$update_key = $item_type . '_id';
+				break;
+			
+				// Modify by wecenter
+				case 'support':
+					return true;
+				break;
+			}
+		
+			$this->shutdown_update($item_type, array(
 				'has_attach' => 1
 			), $update_key . ' = ' . intval($item_id));
 		}
+	
+		return $update_result;
 	}
 
 	public function add_attach($item_type, $file_name, $attach_access_key, $add_time, $file_location, $is_image = false)
