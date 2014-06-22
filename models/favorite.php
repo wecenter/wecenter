@@ -50,7 +50,7 @@ class favorite_class extends AWS_MODEL
 		
 		foreach ($tags AS $key => $tag)
 		{
-			if (!$this->count('favorite_tag', 'answer_id = ' . intval($answer_id) . ' AND `title` = \'' . $this->quote(htmlspecialchars(trim($tag))) . '\' AND uid = ' . intval($uid)))
+			if (!$this->count('favorite_tag', "answer_id = " . intval($answer_id) . " AND `title` = '" . $this->quote(htmlspecialchars(trim($tag))) . "' AND uid = " . intval($uid)))
 			{
 				$this->insert('favorite_tag', array(
 					'answer_id' => intval($answer_id),
