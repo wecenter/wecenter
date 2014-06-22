@@ -355,7 +355,7 @@ class posts_class extends AWS_MODEL
 			$topic_relation_where[] = "`type` = '" . $this->quote($topic_type) . "'";
 		}
 		
-		if ($topic_relation_query = $this->query_all("SELECT item_id FROM " . get_table('topic_relation') . "WHERE " . implode(' AND ', $topic_relation_where)))
+		if ($topic_relation_query = $this->query_all("SELECT item_id FROM " . get_table('topic_relation') . " WHERE " . implode(' AND ', $topic_relation_where)))
 		{
 			foreach ($topic_relation_query AS $key => $val)
 			{
@@ -367,6 +367,8 @@ class posts_class extends AWS_MODEL
 		{
 			return false;
 		}
+		
+		$where[] = "post_id IN (" . implode(',', $post_ids) . ")";
 			
 		if ($answer_count !== null)
 		{
