@@ -191,30 +191,49 @@ class article_class extends AWS_MODEL
 
 		array_walk_recursive($topic_ids, 'intval_string');
 
-		$result_cache_key = 'article_list_by_topic_ids_' . implode('_', $topic_ids) . '_' . md5($order_by . $page . $per_page);
+		$result_cache_key = 'article_list_by_topic_ids_' . md5(implode('_', $topic_ids) . $order_by . $page . $per_page);
 
-		$found_rows_cache_key = 'article_list_by_topic_ids_found_rows_' . implode('_', $topic_ids) . '_' . md5($order_by . $page . $per_page);
-
-		$where[] = 'topic_relation.topic_id IN(' . implode(',', $topic_ids) . ')';
-
-		if (!$found_rows = AWS_APP::cache()->get($found_rows_cache_key))
+		$found_rows_cache_key = 'article_list_by_topic_ids_found_rows_' . md5(implode('_', $topic_ids)$order_by . $page . $per_page);
+		
+		if (!$result = AWS_APP::cache()->get($result_cache_key) OR $found_rows = AWS_APP::cache()->get($found_rows_cache_key))
 		{
-			$_found_rows = $this->query_row('SELECT COUNT(DISTINCT article.id) AS count FROM ' . $this->get_table('article') . ' AS article LEFT JOIN ' . $this->get_table('topic_relation') . " AS topic_relation ON article.id = topic_relation.item_id AND topic_relation.type = 'article' WHERE " . implode(' AND ', $where));
+			$topic_relation_where[] = '`topic_id` IN(' . implode(',', $topic_ids) . ')';
+			$topic_relation_where[] = "`type` = 'article'";
+		
+			if ($topic_relation_query = $this->query_all("SELECT item_id FROM " . get_table('topic_relation') . " WHERE " . implode(' AND ', $topic_relation_where)))
+			{
+				foreach ($topic_relation_query AS $key => $val)
+				{
+					$article_ids[$val['item_id']] = $val['item_id'];
+				}
+			}
+			
+			if (!$article_ids)
+			{
+				return false;
+			}
+			
+			$where[] = "id IN (" . implode(',', $article_ids) . ")";
+		}
 
-			$found_rows = $_found_rows['count'];
+
+		if (!$result)
+		{
+			$result = $this->fetch_page('article', implode(' AND ', $where), $order_by, $page, $per_page);
+
+			AWS_APP::cache()->set($result_cache_key, $result, get_setting('cache_level_high'));
+		}
+		
+		
+		if (!$found_rows)
+		{
+			$found_rows = $this->found_rows();
 
 			AWS_APP::cache()->set($found_rows_cache_key, $found_rows, get_setting('cache_level_high'));
 		}
 
 		$this->article_list_total = $found_rows;
-
-		if (!$result = AWS_APP::cache()->get($result_cache_key))
-		{
-			$result = $this->query_all('SELECT article.* FROM ' . $this->get_table('article') . ' AS article LEFT JOIN ' . $this->get_table('topic_relation') . " AS topic_relation ON article.id = topic_relation.item_id AND topic_relation.type = 'article' WHERE " . implode(' AND ', $where) . ' GROUP BY article.id ORDER BY article.' . $order_by, calc_page_limit($page, $per_page));
-
-			AWS_APP::cache()->set($result_cache_key, $result, get_setting('cache_level_high'));
-		}
-
+		
 		return $result;
 	}
 
