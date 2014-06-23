@@ -102,6 +102,13 @@ class main extends AWS_ADMIN_CONTROLLER
 			TPL::assign('service_users_info', $service_users_info);
 		}
 
+		$tmp_service_users_info = AWS_APP::cache()->get('tmp_service_account');
+
+		if (!empty($tmp_service_users_info))
+		{
+			TPL::assign('tmp_service_users_info', $tmp_service_users_info);
+		}
+
 		TPL::assign('setting', get_setting(null, false));
 
 		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list('SETTINGS_' . strtoupper($_GET['category'])));

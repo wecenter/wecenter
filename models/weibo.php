@@ -222,6 +222,13 @@ class weibo_class extends AWS_MODEL
 
     public function update_service_account($id, $action)
     {
+        $sina_user_info = $this->model('openid_weibo')->get_users_sina_by_uid($id);
+
+        if (empty($sina_user_info))
+        {
+            return AWS_APP::lang()->_t('该用户未绑定新浪微博账号');
+        }
+
         switch ($action)
         {
             case 'add':
