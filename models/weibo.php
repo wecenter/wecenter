@@ -38,6 +38,13 @@ class weibo_class extends AWS_MODEL
 
     public function del_msg_by_id($id)
     {
+        if (is_array($id))
+        {
+            $id = implode(',', $id);
+
+            return $this->delete('weibo_msg', 'id IN (' . $this->quote($id)) . ')';
+        }
+
         return $this->delete('weibo_msg', 'id = ' . $this->quote($id));
     }
 
@@ -76,7 +83,18 @@ class weibo_class extends AWS_MODEL
 
         $question_id = $this->model('question')->save_question($msg_info['text'], null, $published_uid, 0, null, $id);
 
-        $this->update('weibo_msg', array('question_id' => $question_id), 'id = ' . intval($id));
+        $this->update('weibo_msg', array(
+            'question_id' => $question_id
+        ), 'id = ' . $this->quote($id));
+
+        $this->shutdown_update('attach', array(
+            'item_type' => 'question',
+            'item_id' => $question_id,
+        ), 'item_type = "weibo_msg" AND item_id = ' . $this->quote($id));
+
+        $this->shutdown_update('question', array(
+            'has_attach' => 1
+        ), 'question_id = ' . $question_id);
     }
 
     public function reply_answer_to_sina($question_id, $comment)
@@ -222,13 +240,6 @@ class weibo_class extends AWS_MODEL
 
     public function update_service_account($id, $action)
     {
-        $sina_user_info = $this->model('openid_weibo')->get_users_sina_by_uid($id);
-
-        if (empty($sina_user_info))
-        {
-            return AWS_APP::lang()->_t('该用户未绑定新浪微博账号');
-        }
-
         switch ($action)
         {
             case 'add':
