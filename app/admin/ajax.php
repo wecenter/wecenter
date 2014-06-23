@@ -231,9 +231,19 @@ class ajax extends AWS_ADMIN_CONTROLLER
 					break;
 
 				case 'decline':
+					$this->model('weibo')->del_msg_by_id($_POST['approval_ids']);
+
 					foreach ($_POST['approval_ids'] AS $approval_id)
 					{
-						$this->model('weibo')->del_msg_by_id($approval_id);
+						$attachs = $this->model('publish')->get_attach('weibo_msg', $approval_id);
+
+						if ($attachs)
+						{
+							foreach ($attachs AS $attach)
+							{
+								$this->model('publish')->remove_attach($attach['id'], $attach['access_key']);
+							}
+						}
 					}
 
 					break;

@@ -11,7 +11,7 @@ CREATE TABLE `aws_weixin_accounts` (
   KEY `weixin_mp_token` (`weixin_mp_token`),
   KEY `weixin_account_role` (`weixin_account_role`),
   KEY `weixin_app_id` (`weixin_app_id`)
-) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8 COMMENT='微信多账号设置';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='微信多账号设置';
 
 CREATE TABLE `aws_weixin_msg` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
@@ -27,7 +27,7 @@ CREATE TABLE `aws_weixin_msg` (
   KEY `msg_id` (`msg_id`),
   KEY `group_name` (`group_name`),
   KEY `status` (`status`)
-) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8 COMMENT='微信群发列表';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='微信群发列表';
 
 CREATE TABLE `aws_weibo_msg` (
   `id` bigint(30) NOT NULL,
@@ -43,12 +43,14 @@ CREATE TABLE `aws_weibo_msg` (
   KEY `uid` (`uid`),
   KEY `weibo_uid` (`weibo_uid`),
   KEY `question_id` (`question_id`)
-) ENGINE=inndb DEFAULT CHARSET=utf8 COMMENT='新浪微博消息列表';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='新浪微博消息列表';
 
-INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES ('weibo_msg_published_user', 'a:0:"";');
+INSERT INTO `aws_system_setting` (`varname`, `value`) VALUES ('weibo_msg_published_user', 'a:0:"";');
 
-ALTER TABLE `[#DB_PREFIX#]_question` ADD `weibo_msg_id` bigint(30) DEFAULT NULL;
+ALTER TABLE `aws_question` ADD `weibo_msg_id` bigint(30) DEFAULT NULL;
 CREATE INDEX `weibo_msg_id` ON `aws_question` (`weibo_msg_id`);
 
-ALTER TABLE `[#DB_PREFIX#]_users_sina` ADD `last_msg_id` bigint(30) DEFAULT NULL;
+ALTER TABLE `aws_users_sina` ADD `last_msg_id` bigint(30) DEFAULT NULL;
 CREATE INDEX `last_msg_id` ON `aws_users_sina` (`last_msg_id`);
+
+ALTER TABLE `aws_attach` MODIFY `item_id` bigint(30) DEFAULT '0' COMMENT '关联 ID';

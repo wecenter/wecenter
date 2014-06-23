@@ -122,7 +122,7 @@ CREATE TABLE `[#DB_PREFIX#]attach` (
   `file_location` varchar(255) DEFAULT NULL COMMENT '文件位置',
   `is_image` int(1) DEFAULT '0',
   `item_type` varchar(32) DEFAULT '0' COMMENT '关联类型',
-  `item_id` int(11) DEFAULT '0' COMMENT '关联 ID',
+  `item_id` bigint(30) DEFAULT '0' COMMENT '关联 ID',
   `wait_approval` TINYINT( 1 ) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `access_key` (`access_key`),
