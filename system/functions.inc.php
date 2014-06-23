@@ -739,12 +739,13 @@ function get_login_cookie_hash($user_name, $password, $salt, $uid, $hash_passwor
 		$password = compile_password($password, $salt);
 	}
 	
+	$auth_hash_key = md5(G_COOKIE_HASH_KEY . $_SERVER['HTTP_USER_AGENT'] . $_SERVER['HTTP_ACCEPT_LANGUAGE']);
+	
 	return H::encode_hash(array(
-		'user_name' => $user_name,
-		'password' => $password,
 		'uid' => $uid,
-		'UA' => $_SERVER['HTTP_USER_AGENT']
-	));
+		'user_name' => $user_name,
+		'password' => $password
+	), $auth_hash_key);
 }
 
 /**
