@@ -472,7 +472,7 @@ a.aw-load-more-content{display: block;}
 /* 附件上传 */
 .aw-upload-box{position: relative;}
 .aw-upload-box form{width:0;height:0;opacity: 0;}
-.aw-upload-box form input{position:absolute;top:0;left:0;width: 80px;height: 34px;filter:alpha(opacity=0);}
+.aw-upload-box form input{position:absolute;top:2px;left:0;width: 80px;height: 34px;filter:alpha(opacity=0);}
 .aw-upload-box .upload-list{width:688px;height: auto;overflow: hidden;}
 .aw-upload-box .upload-list li{position:relative;float: left;width: 214px;height: 115px;padding:15px 15px 15px 110px;margin:15px 15px 0 0;background: #F5FAFF;border:1px solid #DCEDFA;border-radius: 5px;}
 .aw-upload-box .upload-list li .img{position:absolute;left:10px;top:10px;width: 90px;height: 90px;background: url('img/ajax-loader.gif') center center no-repeat;text-align: center;line-height: 90px;border-radius: 5px;}
