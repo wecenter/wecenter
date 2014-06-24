@@ -166,7 +166,7 @@ class main extends AWS_CONTROLLER
 		}
 		else if (get_setting('register_type') == 'invite' AND !$_GET['icode'])
 		{
-			if (get_setting('weixin_app_id'))
+			if (get_setting('weixin_app_id') AND get_setting('weixin_account_role') == 'service')
 			{
 				HTTP::redirect('/account/weixin_login/command-REGISTER');
 			}
