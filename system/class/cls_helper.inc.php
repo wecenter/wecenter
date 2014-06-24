@@ -71,7 +71,7 @@ class H
 	 * @param string $hash_key
 	 * @return string
 	 */
-	public static function encode_hash($hash_data, $hash_key = false)
+	public static function encode_hash($hash_data, $hash_key = null)
 	{
 		if (!$hash_data)
 		{
@@ -101,6 +101,7 @@ class H
 		}
 		
 		$hash_string = base64_encode($tmp_str);
+		
 		$hash_string = str_replace(array(
 			'+', 
 			'/', 
@@ -120,7 +121,7 @@ class H
 	 * @param string $hash_string
 	 * @return array
 	 */
-	public static function decode_hash($hash_string, $hash_key = false)
+	public static function decode_hash($hash_string, $hash_key = null)
 	{
 		if (!$hash_string)
 		{
@@ -134,7 +135,7 @@ class H
 		}
 		
 		// 解密过程		
-		if (strpos($hash_string, '-') || strpos($hash_string, '_') || strpos($hash_string, '.'))
+		if (strpos($hash_string, '-') OR strpos($hash_string, '_') OR strpos($hash_string, '.'))
 		{
 			$hash_string = str_replace(array(
 				'-', 
@@ -175,7 +176,7 @@ class H
 	}
 
 	/** 生成 Options **/
-	public static function display_options($param, $default = '_DEFAULT_', $default_key='key')
+	public static function display_options($param, $default = '_DEFAULT_', $default_key = 'key')
 	{
 		if (is_array($param))
 		{

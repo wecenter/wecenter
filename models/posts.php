@@ -207,9 +207,33 @@ class posts_class extends AWS_MODEL
 		{
 			array_walk_recursive($topic_ids, 'intval_string');
 			
-			if ($post_ids = $this->model('topic')->get_item_ids_by_topics_ids($topic_ids, $post_type))
-			{				
-				$where[] = 'post_id IN(' . implode(',', $post_ids) . ')';
+			if (!$post_type)
+			{
+				if ($question_post_ids = $this->model('topic')->get_item_ids_by_topics_ids($topic_ids, 'question') OR $article_post_ids = $this->model('topic')->get_item_ids_by_topics_ids($topic_ids, 'article'))
+				{
+					if ($question_post_ids)
+					{
+						$topic_where[] = 'post_id IN(' . implode(',', $question_post_ids) . ") AND post_type = 'question'";
+					}
+					
+					if ($article_post_ids)
+					{
+						$topic_where[] = 'post_id IN(' . implode(',', $article_post_ids) . ") AND post_type = 'article'";
+					}
+					
+					if ($topic_where)
+					{
+						$where[] = '(' . implode(' OR ', $topic_where) . ')';
+					}
+				}
+				else
+				{
+					return false;
+				}
+			}
+			else if ($post_ids = $this->model('topic')->get_item_ids_by_topics_ids($topic_ids, $post_type))
+			{
+				$where[] = 'post_id IN(' . implode(',', $post_ids) . ") AND post_type = '" . $post_type . "'";
 			}
 			else
 			{
@@ -320,56 +344,67 @@ class posts_class extends AWS_MODEL
 		
 		array_walk_recursive($topic_ids, 'intval_string');
 		
-		$result_cache_key = 'posts_list_by_topic_ids_' . implode('_', $topic_ids) . '_' . md5($answer_count . $category_id . $order_by . $is_recommend . $page . $per_page . $post_type . $topic_type);
+		$result_cache_key = 'posts_list_by_topic_ids_' .  md5(implode('_', $topic_ids) . $answer_count . $category_id . $order_by . $is_recommend . $page . $per_page . $post_type . $topic_type);
 		
-		$found_rows_cache_key = 'posts_list_by_topic_ids_found_rows_' . implode('_', $topic_ids) . '_' . md5($answer_count . $category_id . $is_recommend . $per_page . $post_type . $topic_type);
+		$found_rows_cache_key = 'posts_list_by_topic_ids_found_rows_' . md5(implode('_', $topic_ids) . $answer_count . $category_id . $is_recommend . $per_page . $post_type . $topic_type);
 			
-		$where[] = 'topic_relation.topic_id IN(' . implode(',', $topic_ids) . ')';
+		$topic_relation_where[] = '`topic_id` IN(' . implode(',', $topic_ids) . ')';
+		
+		if ($topic_type)
+		{
+			$topic_relation_where[] = "`type` = '" . $this->quote($topic_type) . "'";
+		}
+		
+		if ($topic_relation_query = $this->query_all("SELECT item_id FROM " . get_table('topic_relation') . " WHERE " . implode(' AND ', $topic_relation_where)))
+		{
+			foreach ($topic_relation_query AS $key => $val)
+			{
+				$post_ids[$val['item_id']] = $val['item_id'];
+			}
+		}
+		
+		if (!$post_ids)
+		{
+			return false;
+		}
+		
+		$where[] = "post_id IN (" . implode(',', $post_ids) . ")";
 			
 		if ($answer_count !== null)
 		{
-			$where[] = "posts_index.answer_count = " . intval($answer_count);
+			$where[] = "answer_count = " . intval($answer_count);
 		}
 		
 		if ($is_recommend)
 		{
-			$where[] = 'posts_index.is_recommend = 1';
+			$where[] = 'is_recommend = 1';
 		}
-				
-		if ($category_id)
-		{
-			$where[] = 'posts_index.category_id IN(' . implode(',', $this->model('system')->get_category_with_child_ids('question', $category_id)) . ')';
-		}
-		
-		$on_query[] = 'posts_index.post_id = topic_relation.item_id';
 		
 		if ($post_type)
 		{
-			$on_query[] = "posts_index.post_type = '" . $this->quote($post_type) . "'";
+			$where[] = "post_type = '" . $this->quote($post_type) . "'";
 		}
 		
-		if ($topic_type)
+		if ($category_id)
 		{
-			$on_query[] = "topic_relation.type = '" . $this->quote($topic_type) . "'";
+			$where[] = 'category_id IN(' . implode(',', $this->model('system')->get_category_with_child_ids('question', $category_id)) . ')';
+		}
+		
+		if (!$result = AWS_APP::cache()->get($result_cache_key))
+		{
+			$result = $this->fetch_page('posts_index', implode(' AND ', $where), $order_by, $page, $per_page);
+			
+			AWS_APP::cache()->set($result_cache_key, $result, get_setting('cache_level_high'));
 		}
 		
 		if (!$found_rows = AWS_APP::cache()->get($found_rows_cache_key))
 		{
-			$_found_rows = $this->query_row('SELECT COUNT(DISTINCT posts_index.post_id) AS count FROM ' . $this->get_table('posts_index') . ' AS posts_index LEFT JOIN ' . $this->get_table('topic_relation') . " AS topic_relation ON " . implode(' AND ', $on_query) . " WHERE " . implode(' AND ', $where));
-			
-			$found_rows = $_found_rows['count'];
-			
+			$found_rows = $this->found_rows();
+	
 			AWS_APP::cache()->set($found_rows_cache_key, $found_rows, get_setting('cache_level_high'));
 		}
 		
 		$this->posts_list_total = $found_rows;
-		
-		if (!$result = AWS_APP::cache()->get($result_cache_key))
-		{
-			$result = $this->query_all('SELECT posts_index.* FROM ' . $this->get_table('posts_index') . ' AS posts_index LEFT JOIN ' . $this->get_table('topic_relation') . " AS topic_relation ON " . implode(' AND ', $on_query) . " WHERE " . implode(' AND ', $where) . ' GROUP BY posts_index.post_id ORDER BY posts_index.' . $order_by, calc_page_limit($page, $per_page));
-			
-			AWS_APP::cache()->set($result_cache_key, $result, get_setting('cache_level_high'));
-		}
 		
 		return $result;
 	}

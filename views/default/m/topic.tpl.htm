@@ -93,12 +93,12 @@
 	$(document).ready(function () {
 		if ($('#all_posts_listview').length)
 		{
-			load_list_view(G_BASE_URL + '/explore/ajax/list/sort_type-new__topic_id' + '-' + CONTENTS_TOPIC_ID + '__template-m', $('#all_posts_listview'), $('#load_all_posts'));
+			load_list_view(G_BASE_URL + '/explore/ajax/list/sort_type-new__topic_id' + '-' + CONTENTS_TOPIC_ID + '__template-m', $('#all_posts_listview'), $('#load_all_posts'), 1);
 		}
 		
 		if ($('#best_answers_listview').length)
 		{
-			load_list_view(G_BASE_URL + '/topic/ajax/question_list/type-best__topic_id' + '-' + CONTENTS_TOPIC_ID + '__template-m', $('#best_answers_listview'), $('#load_best_answers'));
+			load_list_view(G_BASE_URL + '/topic/ajax/question_list/type-best__topic_id' + '-' + CONTENTS_TOPIC_ID + '__template-m', $('#best_answers_listview'), $('#load_best_answers'), 1);
 		}
 	});
 </script>

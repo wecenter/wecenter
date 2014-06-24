@@ -513,7 +513,7 @@ class weixin_class extends AWS_MODEL
 				}
 				
 				if ($question_list = $this->model('posts')->get_posts_list('question', $param, 5, 'new', $topic_ids, $category_id))
-				{					
+				{		
 					foreach ($question_list AS $key => $val)
 					{
 						if (!$response_message)
@@ -525,12 +525,31 @@ class weixin_class extends AWS_MODEL
 						}
 						else
 						{
-							$image_file = get_avatar_url($val['published_uid'], 'max');
+							if ($val['uid'])
+							{
+								$image_file = get_avatar_url($val['uid'], 'max');
+							}
+							else
+							{
+								$image_file = get_avatar_url($val['published_uid'], 'max');
+							}
 						}
 						
+						
+						if ($val['uid'])
+						{
+							$title = $val['title'];
+							$link = get_js_url('/m/article/' . $val['id']);
+						}
+						else
+						{
+							$title = $val['question_content'];
+							$link = get_js_url('/m/question/' . $val['question_id']);
+						}
+
 						$response_message[] = array(
-							'title' => $val['question_content'],
-							'link' => get_js_url('/m/question/' . $val['question_id']),
+							'title' => $title,
+							'link' => $link,
 							'image_file' => $image_file
 						);
 					}
@@ -636,12 +655,31 @@ class weixin_class extends AWS_MODEL
 						}
 						else
 						{
-							$image_file = get_avatar_url($val['published_uid'], 'max');
+							if ($val['uid'])
+							{
+								$image_file = get_avatar_url($val['uid'], 'max');
+							}
+							else
+							{
+								$image_file = get_avatar_url($val['published_uid'], 'max');
+							}
 						}
 						
+						
+						if ($val['uid'])
+						{
+							$title = $val['title'];
+							$link = get_js_url('/m/article/' . $val['id']);
+						}
+						else
+						{
+							$title = $val['question_content'];
+							$link = get_js_url('/m/question/' . $val['question_id']);
+						}
+
 						$response_message[] = array(
-							'title' => $val['question_content'],
-							'link' => get_js_url('/m/question/' . $val['question_id']),
+							'title' => $title,
+							'link' => $link,
 							'image_file' => $image_file
 						);
 					}
@@ -682,12 +720,31 @@ class weixin_class extends AWS_MODEL
 						}
 						else
 						{
-							$image_file = get_avatar_url($val['published_uid'], 'max');
+							if ($val['uid'])
+							{
+								$image_file = get_avatar_url($val['uid'], 'max');
+							}
+							else
+							{
+								$image_file = get_avatar_url($val['published_uid'], 'max');
+							}
 						}
 						
+						
+						if ($val['uid'])
+						{
+							$title = $val['title'];
+							$link = get_js_url('/m/article/' . $val['id']);
+						}
+						else
+						{
+							$title = $val['question_content'];
+							$link = get_js_url('/m/question/' . $val['question_id']);
+						}
+
 						$response_message[] = array(
-							'title' => $val['question_content'],
-							'link' => get_js_url('/m/question/' . $val['question_id']),
+							'title' => $title,
+							'link' => $link,
 							'image_file' => $image_file
 						);
 					}
