@@ -180,6 +180,7 @@ textarea{resize:none;}
 .aw-wechat-dropdown-box .ajax-upload,.aw-wechat-dropdown-box .ajax-look{position:absolute;top:4px;right:-30px;}
 .aw-wechat-dropdown-box .ajax-look{right:-60px;}
 .aw-content-wrap .mod-weibo-reply li{margin-top: 10px;}
+.aw-content-wrap .mod-weibo-reply li .reply-name{min-width: 140px;display: inline-block;}
 /*编辑用户资料*/
 #remove_user_form label{margin-right:15px;}
 #integral_form span.mod-category-foot{padding:0;text-align:right;line-height:35px;}
