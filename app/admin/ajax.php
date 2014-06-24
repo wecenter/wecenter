@@ -1876,5 +1876,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
 				break;
 		}
+
+		H::ajax_json_output(AWS_APP::RSM(null, 1, null));
 	}
 }
