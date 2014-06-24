@@ -2019,7 +2019,23 @@ AWS.Dropdown =
 	                    {
 	                    	$.post(G_BASE_URL + '/admin/ajax/add_weibo_service_account/', {'uid': $(this).attr('data-id'), 'action': 'add'}, function (result)
 	                    	{
-	                    		console.log(result.err);
+	                    		if (result.err)
+	                    		{
+	                    			$('.aw-wechat-send-message .error_message').html(result.err);
+	                    			
+	                    			if ($('.error_message').css('display') != 'none')
+							    	{
+								    	AWS.shake($('.error_message'));
+							    	}
+							    	else
+							    	{
+								    	$('.error_message').fadeIn();
+							    	}
+	                    		}
+	                    		else
+	                    		{
+	                    			$(".alert-box").modal('hide');
+	                    		}
 	                    	}, 'json');
 	                    });
 	                	break;

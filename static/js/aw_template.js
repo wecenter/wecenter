@@ -569,6 +569,7 @@ var AW_TEMPLATE = {
 						'</div>'+
 						'<div class="modal-body">'+
 							'<div class="aw-dropdown-box">'+
+								'<div class="alert alert-danger hide error_message"></div>'+
 								'<input type="text" class="form-control search-input" />'+
 								'<div class="aw-dropdown"><p class="title">' + _t('没有找到相关结果') + '</p><ul class="aw-dropdown-list"><li><a>123</a></li></ul></div>'+
 							'</div>'+
