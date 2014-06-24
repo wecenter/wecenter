@@ -107,7 +107,7 @@ ul,ol{padding:0;list-style:none;}
 /*右侧表格主体部分*/
 textarea{resize:none;}
 .aw-content-wrap .mod{box-shadow: 0 1px 2px #d5d7d8;margin-bottom:30px;}
-.aw-content-wrap .mod-body,.aw-content-wrap .mod-content{padding:20px;border:1px solid #e2e1e1;border-top:none;background:#fff;text-align: center;}
+.aw-content-wrap .mod-body,.aw-content-wrap .mod-content{padding:20px;border:1px solid #e2e1e1;border-top:none;background:#fff;}
 .aw-content-wrap h2 i{position:relative;top:0;}
 .mod-body table thead th,.mod-body table tbody td{vertical-align:middle;text-align:center;}
 .mod-content table thead th,.mod-content table tbody td{text-align:left;}
@@ -179,7 +179,8 @@ textarea{resize:none;}
 .aw-wechat-dropdown-box .dropdown-menu > .mod-footer li a{display:inline;}
 .aw-wechat-dropdown-box .ajax-upload,.aw-wechat-dropdown-box .ajax-look{position:absolute;top:4px;right:-30px;}
 .aw-wechat-dropdown-box .ajax-look{right:-60px;}
-
+.aw-content-wrap .mod-weibo-reply li{margin-top: 10px;}
+.aw-content-wrap .mod-weibo-reply li .reply-name{min-width: 140px;display: inline-block;}
 /*编辑用户资料*/
 #remove_user_form label{margin-right:15px;}
 #integral_form span.mod-category-foot{padding:0;text-align:right;line-height:35px;}
@@ -300,3 +301,6 @@ label,.aw-content-wrap .mod-title,.aw-article-list b,.aw-question-list b{font-we
 .date_selector{left:-40px;}
 .aw-content-wrap .echart-date .col-sm-1{margin-right: 17%;}
 }
+
+/* HiDPI support */
+@media (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {.icheckbox_square-blue,.iradio_square-blue { background-image: url(../img/blue-2x.png);-webkit-background-size: 240px 24px; background-size: 240px 24px;}}
