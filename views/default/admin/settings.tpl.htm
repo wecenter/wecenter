@@ -1364,6 +1364,11 @@
 										<p class="title">没有找到相关结果</p>
 										<ul class="aw-dropdown-list">
 											<li>
+												<?php if ($this->setting['weibo_msg_published_user']) { ?>
+												<img src="<?php echo get_avatar_url($this->setting['weibo_msg_published_user']['uid'], 'min'); ?>" alt="" />
+												<a class="reply-name" href="people/<?php echo $this->setting['weibo_msg_published_user']['url_token']; ?>" target="_blank"><?php echo $this->setting['weibo_msg_published_user']['user_name']; ?></a>
+												<a class="btn btn-danger btn-sm" href="javascript:;" onclick="">删除用户</a>
+												<?php } ?>
 											</li>
 										</ul>
 									</div>
