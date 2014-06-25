@@ -2008,8 +2008,29 @@ AWS.Dropdown =
 	                    		$(this).prev().detach().end().detach();
 	                    	});
 
-	                 
+	                    },function(){
 
+	                    	$.post(G_BASE_URL + '/admin/ajax/weibo_batch/', {'uid': $(this).attr('data-id'), 'action': 'add_published_use'}, function (result)
+	                    	{
+	                    		if (result.err)
+	                    		{
+	                    			$('.aw-wechat-send-message .error_message').html(result.err);
+	                    			
+	                    			if ($('.error_message').css('display') != 'none')
+							    	{
+								    	AWS.shake($('.error_message'));
+							    	}
+							    	else
+							    	{
+								    	$('.error_message').fadeIn();
+							    	}
+	                    		}
+	                    		else
+	                    		{
+	                    			$(".alert-box").modal('hide');
+	   
+	                    		}
+	                    	}, 'json');
 	                    });
 	                	break;
 
