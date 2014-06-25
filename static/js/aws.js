@@ -1993,16 +1993,43 @@ AWS.Dropdown =
 	                    	$('.aw-admin-weibo-publish').find('.search-input').hide('0');
 	                    	$('.weibo_msg_published_user').val($(this).attr('data-id'));
 	                    	$(".alert-box").modal('hide');
-	                    	$('.aw-admin-weibo-publish').append($(this));
+	                    	var oHtml = '<a href="javascript:;" data-value>'+$(this).html()+'</a>';
+
+	                    	$('.aw-admin-weibo-publish').append(oHtml);
 	                    	$('.aw-admin-weibo-publish').append('<a class="delete btn btn-danger btn-sm">删除用户</a>');
-	                    	$('.aw-admin-weibo-publish').find('a[data-value]').css({'min-width':'175px','display':'inline-block'})
+	                    	$('.aw-admin-weibo-publish').find('a[data-value]').css({'min-width':'175px','display':'inline-block'});
 	                    	$('.aw-admin-weibo-publish .md-tip').hide();
+
 	                    	$('.aw-admin-weibo-publish').find('.delete').click(function()
-	                    	{
+	                    	{	
+	                    		$('.aw-admin-weibo-publish').find('.search-input').show('0').val("");
 	                    		$(this).parent().find('.weibo_msg_published_user').val('');
 	                    		$(this).parent().find('.md-tip').show();
 	                    		$(this).prev().detach().end().detach();
 	                    	});
+
+	                    	$.post(G_BASE_URL + '/admin/ajax/weibo_batch/', {'uid': $(this).attr('data-id'), 'action': 'add'}, function (result)
+	                    	{
+	                    		if (result.err)
+	                    		{
+	                    			$('.aw-wechat-send-message .error_message').html(result.err);
+	                    			
+	                    			if ($('.error_message').css('display') != 'none')
+							    	{
+								    	AWS.shake($('.error_message'));
+							    	}
+							    	else
+							    	{
+								    	$('.error_message').fadeIn();
+							    	}
+	                    		}
+	                    		else
+	                    		{
+	                    			$(".alert-box").modal('hide');
+	                    			window.location.reload();
+	                    		}
+	                    	}, 'json');
+	                    	
 	                    });
 	                	break;
 
