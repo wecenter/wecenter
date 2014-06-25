@@ -45,7 +45,7 @@ FileUpload.prototype =
 	// 创建表单
 	createForm : function ()
 	{
-		var form = this.toElement('<form method="post" enctype="multipart/form-data"></form>');
+		var form = this.toElement('<form method="post" enctype="multipart/form-data"><input type="submit" class="submit" /></form>');
 
 		$(form).attr({
 			'id' : 'upload-form',
@@ -81,6 +81,7 @@ FileUpload.prototype =
 		var iframe = this.toElement('<iframe></iframe>');
     	$(iframe).attr({
     		'class': 'hide',
+    		'id': 'upload-iframe',
     		'name': 'ajaxUpload'
     	});
     	return iframe;
@@ -162,7 +163,7 @@ FileUpload.prototype =
 
     		$('body').append(iframe);
 
-        	$('#upload-form').submit();
+        	$('#upload-form .submit').click();
         }
 	},
 
@@ -180,6 +181,8 @@ FileUpload.prototype =
            	filename = this.getName($('#upload-form .file-input')[0].value);
 
            	$(this.li).find('.title').html(filename);
+
+           	$('#upload-iframe').detach();
         }
         catch(err)
         {

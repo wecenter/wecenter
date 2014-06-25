@@ -38,7 +38,7 @@
 						<td><?php if ($val['image_file']) { ?><span class="label label-info"><?php _e('图文消息'); ?></span> <?php } ?><?php echo $val['title']; ?></td>
 						<td><?php if (!$this->echo_rule_list[$val['keyword']]) { ?><input class="flag-action" type="radio" value="<?php echo $val['keyword']; ?>" name="is_subscribe"<?php if (get_setting('weixin_subscribe_message_key') == $val['keyword']) { ?> checked="checked"<?php } ?> /><?php } else { ?>-<?php } ?></td>
 						<td><?php if (!$this->echo_rule_list[$val['keyword']]) { ?><input class="flag-action" type="radio" value="<?php echo $val['keyword']; ?>" name="is_no_result"<?php if (get_setting('weixin_no_result_message_key') == $val['keyword']) { ?> checked="checked"<?php } ?> /><?php } else { ?>-<?php } ?></td>
-						<td>
+						<td class="nowrap">
 							<a href="admin/weixin/reply_edit/id-<?php echo $val['id']; ?>" data-toggle="tooltip" class="fa fa-pencil md-tip" title="<?php _e('编辑'); ?>"></a> 
 							<a onclick="AWS.ajax_request(G_BASE_URL + '/admin/ajax/weixin_remove_reply_rule/', 'id=<?php echo $val['id']; ?>');" data-toggle="tooltip" class="fa fa-trash-o md-tip" title="<?php _e('删除'); ?>"></a>
 						</td>

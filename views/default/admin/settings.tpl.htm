@@ -424,7 +424,7 @@
                     <td>
                         <div class="form-group">
                             <span class="col-sm-2 col-xs-3 control-label"><?php _e('URL 链接显示样式'); ?>:</span>
-                            <div class="col-sm-10 col-xs-8">
+                            <div class="col-sm-10 col-xs-12">
                                 <ul class="mod-site-url">
                                     <li>
                                         <span class="pull-left"><a href="javascript:;" onclick='$("#request_route_custom").val("/people/list/===/users/\n/account/login/===/login/\n/account/logout/===/logout/\n/account/setting/(:any)/===/setting/(:any)/")'>[ <?php _e('获取规则'); ?> ]</a></span>
@@ -1335,9 +1335,10 @@
 					<td>
 						<div class="form-group">
 							<span class="col-sm-4 col-xs-3 control-label"><?php _e('微博发布用户'); ?>:</span>
-							<div class="col-sm-3 col-xs-8">
+							<div class="col-sm-3 col-xs-8 aw-admin-weibo-publish">
 								<a href="people/<?php echo $this->setting['weibo_msg_published_user']['url_token']; ?>" target="_blank"><?php echo $this->setting['weibo_msg_published_user']['user_name']; ?></a>
-								<input name="weibo_msg_published_user['uid']" type="hidden" value="<?php echo $this->setting['weibo_msg_published_user']['uid']; ?>"/>
+                                <a class="md-tip" onclick="AWS.dialog('adminWechatSendMsg', {'type': 'adminPublishUser'})" data-original-title="添加用户"><i class="fa fa-plus"></i></a>
+								<input class="weibo_msg_published_user" name="weibo_msg_published_user['uid']" type="hidden" value="<?php echo $this->setting['weibo_msg_published_user']['uid']; ?>"/>
 							</div>
 						</div>
 					</td>
@@ -1346,12 +1347,25 @@
 					<td>
 						<div class="form-group">
 							<span class="col-sm-4 col-xs-3 control-label"><?php _e('微博回答用户'); ?>:</span>
-							<div class="col-sm-5 col-xs-8">
-								<?php if ($service_users_info) { foreach ($service_users_info AS $service_user_info) { ?>
-								<a href="people/<?php echo $service_user_info['url_token']; ?>" target="_blank"><?php echo $service_user_info['user_name']; ?></a>
-								<a href="account/sina/binding/uid-<?php echo $service_user_info['uid']; ?>" target="_blank"><?php _e('更新 Access Token'); ?></a>
-								<a href="javascript:;" onclick="AWS.ajax_request(G_BASE_URL + '/admin/ajax/add_weibo_service_account', 'action=del&uid=<?php echo $service_user_info['uid']; ?>')">取消绑定</a>
-								<?php } } ?>
+							<div class="col-sm-8 col-xs-8">
+								<a class="md-tip" onclick="AWS.dialog('adminWechatSendMsg', {'type': 'adminAnswerUser'})" data-original-title="添加用户"><i class="fa fa-plus"></i></a>
+								<ul class="mod-weibo-reply">
+									<?php if ($this->tmp_service_users_info) { foreach ($this->tmp_service_users_info AS $tmp_service_user_info) { ?>
+									<li>
+										<a class="reply-name" href="people/<?php echo $tmp_service_user_info['url_token']; ?>" target="_blank"><?php echo $tmp_service_user_info['user_name']; ?></a>
+										<a class="btn btn-primary btn-sm col-xs-offset-1" href="account/sina/binding/uid-<?php echo $tmp_service_user_info['uid']; ?>" target="_blank"><?php _e('绑定新浪微博'); ?></a>
+										<a class="btn btn-danger btn-sm" href="javascript:;" onclick="AWS.ajax_request(G_BASE_URL + '/admin/ajax/add_weibo_service_account/', 'action=del&uid=<?php echo $tmp_service_user_info['uid']; ?>')">删除用户</a>
+									</li>
+									<?php } } ?>
+
+									<?php if ($this->service_users_info) { foreach ($this->service_users_info AS $service_user_info) { ?>
+									<li>
+										<a class="reply-name" href="people/<?php echo $service_user_info['url_token']; ?>" target="_blank"><?php echo $service_user_info['user_name']; ?></a>
+										<a href="account/sina/binding/uid-<?php echo $service_user_info['uid']; ?>" target="_blank"><?php _e('更新 Access Token'); ?></a>
+										<a href="javascript:;" onclick="AWS.ajax_request(G_BASE_URL + '/admin/ajax/add_weibo_service_account/', 'action=del&uid=<?php echo $service_user_info['uid']; ?>')">删除用户</a>
+									</li>
+									<?php } } ?>
+								</ul>
 							</div>
 						</div>
 					</td>
@@ -1587,7 +1601,9 @@
 		</div>
 		<?php } ?>
 		<div class="tab-content mod-content">
-			<input type="button" value="<?php _e('保存设置'); ?>" class="btn btn-primary center-block" onclick="AWS.ajax_post($('#settings_form'));" />
+			<div class="center-block">
+				<input type="button" value="<?php _e('保存设置'); ?>" class="btn btn-primary" onclick="AWS.ajax_post($('#settings_form'));" />
+			</div>
 		</div>
 	</div>
 	</form>

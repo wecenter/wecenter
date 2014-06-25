@@ -25,10 +25,12 @@ class core_user
 		
 		if (! AWS_APP::session()->client_info AND $_COOKIE[G_COOKIE_PREFIX . '_user_login'])
 		{
-			// 解码 Cookie
-			$sso_user_login = H::decode_hash($_COOKIE[G_COOKIE_PREFIX . '_user_login']);
+			$auth_hash_key = md5(G_COOKIE_HASH_KEY . $_SERVER['HTTP_USER_AGENT'] . $_SERVER['HTTP_ACCEPT_LANGUAGE']);
 			
-			if ($sso_user_login['user_name'] AND $sso_user_login['password'] AND $sso_user_login['uid'] AND strstr($sso_user_login['UA'], $_SERVER['HTTP_USER_AGENT']))
+			// 解码 Cookie
+			$sso_user_login = H::decode_hash($_COOKIE[G_COOKIE_PREFIX . '_user_login'], $auth_hash_key);
+			
+			if ($sso_user_login['user_name'] AND $sso_user_login['password'] AND $sso_user_login['uid'])
 			{			
 				if (AWS_APP::model('account')->check_hash_login($sso_user_login['user_name'], $sso_user_login['password']))
 				{

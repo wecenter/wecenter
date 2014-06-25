@@ -30,9 +30,9 @@ class sina extends AWS_CONTROLLER
 
 	public function setup()
 	{
-		if (get_setting('sina_weibo_enabled') != 'Y')
+		if (get_setting('sina_weibo_enabled') != 'Y' OR empty(get_setting('sina_akey')) OR empty(get_setting('sina_skey')))
 		{
-			die;
+			H::redirect_msg(AWS_APP::lang()->_t('本站未开通微博登录'), '/');
 		}
 	}
 

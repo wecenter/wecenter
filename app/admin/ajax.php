@@ -172,13 +172,13 @@ class ajax extends AWS_ADMIN_CONTROLLER
 			$_POST['new_user_email_setting'] = $email_settings;
 		}
 
-		if ($_POST['weibo_msg_published_user']['uid'] == get_setting('weibo_msg_published_user')['uid'] OR empty($_POST['weibo_msg_published_user']))
+		if ($_POST['weibo_msg_published_user']['uid'] == get_setting('weibo_msg_published_user')['uid'] OR empty($_POST['weibo_msg_published_user']['uid']))
 		{
 			unset($_POST['weibo_msg_published_user']);
 		}
 		else
 		{
-			$published_user_sina_info = $this->model('openid_weibo')->get_users_sina_by_uid($_POST['weibo_msg_published_uid']['uid']);
+			$published_user_sina_info = $this->model('openid_weibo')->get_users_sina_by_uid($_POST['weibo_msg_published_user']['uid']);
 
 			if (empty($published_user_info))
 			{
@@ -231,9 +231,19 @@ class ajax extends AWS_ADMIN_CONTROLLER
 					break;
 
 				case 'decline':
+					$this->model('weibo')->del_msg_by_id($_POST['approval_ids']);
+
 					foreach ($_POST['approval_ids'] AS $approval_id)
 					{
-						$this->model('weibo')->del_msg_by_id($approval_id);
+						$attachs = $this->model('publish')->get_attach('weibo_msg', $approval_id);
+
+						if ($attachs)
+						{
+							foreach ($attachs AS $attach)
+							{
+								$this->model('publish')->remove_attach($attach['id'], $attach['access_key']);
+							}
+						}
 					}
 
 					break;
@@ -1799,29 +1809,74 @@ class ajax extends AWS_ADMIN_CONTROLLER
 			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('错误的请求')));
 		}
 
-		if (!$this->model('account')->check_uid($_POST['uid']))
+		$user_info = $this->model('account')->get_user_info_by_uid($_POST['uid']);
+
+		if (empty($user_info))
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('所选用户不存在')));
 		}
 
+		$service_info = $this->model('openid_weibo')->get_users_sina_by_uid($user_info['uid']);
+
+		$tmp_service_account = AWS_APP::cache()->get('tmp_service_account');
+
 		switch ($_POST['action'])
 		{
 			case 'add':
-				$services_info = $this->model('weibo')->get_services_info();
-
-				if ($services_info[$_POST['uid']])
+				if ($service_info)
 				{
-					H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('该用户已是回答用户')));
-				}
+					if (isset($service_info['last_msg_id']))
+					{
+						H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('该用户已是回答用户')));
+					}
 
-				$this->model('weibo')->add_service_account($_POST['uid']);
+					$this->model('weibo')->update_service_account($user_info['uid'], 'add');
+				}
+				else
+				{
+					if ($tmp_service_account[$user_info['uid']])
+					{
+						H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('该用户已是回答用户')));
+					}
+
+					$tmp_service_account[$user_info['uid']] = array(
+																	'uid' => $user_info['uid'],
+																	'user_name' => $user_info['user_name'],
+																	'url_token' => $user_info['url_token']
+																);
+
+					natsort($tmp_service_account);
+
+					AWS_APP::cache()->set('tmp_service_account', $tmp_service_account, 86400);
+				}
 
 				break;
 
 			case 'del':
-				$this->model('weibo')->update_service_account($_POST['uid'], 'del');
+				if ($service_info)
+				{
+					if (!isset($service_info['last_msg_id']))
+					{
+						H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('该用户不是回答用户')));
+					}
+
+					$this->model('weibo')->update_service_account($user_info['uid'], 'del');
+				}
+				else
+				{
+					if (!$tmp_service_account[$user_info['uid']])
+					{
+						H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('该用户不是回答用户')));
+					}
+
+					unset($tmp_service_account[$user_info['uid']]);
+
+					AWS_APP::cache()->set('tmp_service_account', $tmp_service_account, 86400);
+				}
 
 				break;
 		}
+
+		H::ajax_json_output(AWS_APP::RSM(null, 1, null));
 	}
 }

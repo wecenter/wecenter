@@ -124,7 +124,6 @@ class main extends AWS_CONTROLLER
 			'mobile/js/framework.js',
 			'mobile/js/aws_mobile.js',
 			'mobile/js/app.js',
-			'mobile/js/mobile.js',
 			'mobile/js/aw-mobile-template.js'
 		));
 	}
