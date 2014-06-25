@@ -2008,28 +2008,8 @@ AWS.Dropdown =
 	                    		$(this).prev().detach().end().detach();
 	                    	});
 
-	                    	$.post(G_BASE_URL + '/admin/ajax/weibo_batch/', {'uid': $(this).attr('data-id'), 'action': 'add'}, function (result)
-	                    	{
-	                    		if (result.err)
-	                    		{
-	                    			$('.aw-wechat-send-message .error_message').html(result.err);
-	                    			
-	                    			if ($('.error_message').css('display') != 'none')
-							    	{
-								    	AWS.shake($('.error_message'));
-							    	}
-							    	else
-							    	{
-								    	$('.error_message').fadeIn();
-							    	}
-	                    		}
-	                    		else
-	                    		{
-	                    			$(".alert-box").modal('hide');
-	                    			window.location.reload();
-	                    		}
-	                    	}, 'json');
-	                    	
+	                 
+
 	                    });
 	                	break;
 
@@ -2047,7 +2027,7 @@ AWS.Dropdown =
 	                    });
 	                    $(selector).parent().find('.aw-dropdown-list li a').click(function()
 	                    {
-	                    	$.post(G_BASE_URL + '/admin/ajax/add_weibo_service_account/', {'uid': $(this).attr('data-id'), 'action': 'add'}, function (result)
+	                    	$.post(G_BASE_URL + '/admin/ajax/weibo_batch/', {'uid': $(this).attr('data-id'), 'action': 'add_service_user'}, function (result)
 	                    	{
 	                    		if (result.err)
 	                    		{
