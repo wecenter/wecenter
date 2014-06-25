@@ -1988,9 +1988,9 @@ AWS.Dropdown =
 	                            'img': a.detail.avatar_file
 	                        }));
 	                    });
+
 	                    $(selector).parent().find('.aw-dropdown-list li a').click(function()
 	                    {	
-	                    	$('.aw-admin-weibo-publish').find('.search-input').hide('0');
 	                    	$('.weibo_msg_published_user').val($(this).attr('data-id'));
 	                    	$(".alert-box").modal('hide');
 	                    	var oHtml = '<a href="javascript:;" data-value>'+$(this).html()+'</a>';
@@ -2000,6 +2000,8 @@ AWS.Dropdown =
 	                    	$('.aw-admin-weibo-publish').find('a[data-value]').css({'min-width':'175px','display':'inline-block'});
 	                    	$('.aw-admin-weibo-publish .md-tip').hide();
 
+	                    	$('.aw-admin-weibo-publish').find('.search-input').hide('0');
+	                    	
 	                    	$('.aw-admin-weibo-publish').find('.delete').click(function()
 	                    	{	
 	                    		$('.aw-admin-weibo-publish').find('.search-input').show('0').val("");
@@ -2008,9 +2010,7 @@ AWS.Dropdown =
 	                    		$(this).prev().detach().end().detach();
 	                    	});
 
-	                    },function(){
-
-	                    	$.post(G_BASE_URL + '/admin/ajax/weibo_batch/', {'uid': $(this).attr('data-id'), 'action': 'add_published_use'}, function (result)
+	                   		$.post(G_BASE_URL + '/admin/ajax/weibo_batch/', {'uid': $(this).attr('data-id'), 'action': 'add_published_user'}, function (result)
 	                    	{
 	                    		if (result.err)
 	                    		{
@@ -2031,7 +2031,9 @@ AWS.Dropdown =
 	   
 	                    		}
 	                    	}, 'json');
-	                    });
+
+                    	});
+
 	                	break;
 
 	                // 后台微博回答用户
