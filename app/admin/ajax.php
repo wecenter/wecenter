@@ -1860,7 +1860,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 			case 'add_published_user':
 				if ($_POST['uid'] != get_setting('weibo_msg_published_user')['uid'])
 				{
-					$published_user_info = $this->model('account')->get_user_info_by_uid($_POST['weibo_msg_published_user']['uid']);
+					$published_user_info = $this->model('account')->get_user_info_by_uid($_POST['uid']);
 
 					$this->model('setting')->set_vars(array(
 						'weibo_msg_published_user' => array(
