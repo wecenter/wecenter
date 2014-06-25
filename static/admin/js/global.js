@@ -96,4 +96,16 @@ $(function () {
         $(this).parents('table').find(".icheckbox_square-blue").iCheck('uncheck');
     });
 
+
+    //微博发布用户
+$('.aw-admin-weibo-publish').find('btn-danger') ? $('.aw-admin-weibo-publish').find('.search-input').hide() : $('.aw-admin-weibo-publish').find('.search-input').show();
+
+$('.aw-admin-weibo-publish').find('.delete').click(function()
+    {   
+        $('.aw-admin-weibo-publish').find('.search-input').show('0').val("");
+        $(this).parent().find('.weibo_msg_published_user').val('');
+        $(this).parent().find('.md-tip').show();
+        $(this).prev().detach().end().detach();
+    });
+
 });

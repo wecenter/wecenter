@@ -1347,9 +1347,8 @@
 									</div>
 
 									<?php if ($this->setting['weibo_msg_published_user']) { ?>
-									<img src="<?php echo get_avatar_url($this->setting['weibo_msg_published_user']['uid'], 'min'); ?>" alt="" />
-									<a class="reply-name" href="people/<?php echo $this->setting['weibo_msg_published_user']['url_token']; ?>" target="_blank"><?php echo $this->setting['weibo_msg_published_user']['user_name']; ?></a>
-									<a class="btn btn-danger btn-sm" href="javascript:;" onclick="">删除用户</a>
+									<a class="push-name" href="people/<?php echo $this->setting['weibo_msg_published_user']['url_token']; ?>" target="_blank"><img class="img" src="<?php echo get_avatar_url($this->setting['weibo_msg_published_user']['uid'], 'min'); ?>" alt="" /><?php echo $this->setting['weibo_msg_published_user']['user_name']; ?></a>
+									<a class="delete btn btn-danger btn-sm" href="javascript:;">删除用户</a>
 									<?php } ?>
 								</form>
 							</div>
@@ -1374,9 +1373,8 @@
 								<ul class="mod-weibo-reply">
 									<?php if ($this->tmp_service_users_info) { foreach ($this->tmp_service_users_info AS $tmp_service_user_info) { ?>
 									<li>
-										<img src="<?php echo get_avatar_url($tmp_service_user_info['uid'], 'min'); ?>" alt="" />
-										<a class="reply-name" href="people/<?php echo $tmp_service_user_info['url_token']; ?>" target="_blank"><?php echo $tmp_service_user_info['user_name']; ?></a>
-										<a class="btn btn-primary btn-sm col-xs-offset-1" href="account/sina/binding/uid-<?php echo $tmp_service_user_info['uid']; ?>" target="_blank"><?php _e('绑定新浪微博'); ?></a>
+										<a class="reply-name" href="people/<?php echo $tmp_service_user_info['url_token']; ?>" target="_blank"><img src="<?php echo get_avatar_url($tmp_service_user_info['uid'], 'min'); ?>" alt="" /><?php echo $tmp_service_user_info['user_name']; ?></a>
+										<a class="btn btn-primary btn-sm" href="account/sina/binding/uid-<?php echo $tmp_service_user_info['uid']; ?>" target="_blank"><?php _e('绑定新浪微博'); ?></a>
 										<a class="btn btn-danger btn-sm" href="javascript:;" onclick="AWS.ajax_request(G_BASE_URL + '/admin/ajax/weibo_batch/', 'action=del_service_user&uid=<?php echo $tmp_service_user_info['uid']; ?>')">删除用户</a>
 									</li>
 									<?php } } ?>

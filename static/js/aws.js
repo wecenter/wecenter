@@ -1996,19 +1996,20 @@ AWS.Dropdown =
 	                    	var oHtml = '<a href="javascript:;" data-value>'+$(this).html()+'</a>';
 
 	                    	$('.aw-admin-weibo-publish').append(oHtml);
-	                    	$('.aw-admin-weibo-publish').append('<a class="delete btn btn-danger btn-sm">删除用户</a>');
-	                    	$('.aw-admin-weibo-publish').find('a[data-value]').css({'min-width':'175px','display':'inline-block'});
+	                    	$('.aw-admin-weibo-publish').append(' <a class="delete btn btn-danger btn-sm">删除用户</a> ');
+	                    	$('.aw-admin-weibo-publish').find('a[data-value]').addClass("push-name");
 	                    	$('.aw-admin-weibo-publish .md-tip').hide();
 
 	                    	$('.aw-admin-weibo-publish').find('.search-input').hide('0');
 	                    	
 	                    	$('.aw-admin-weibo-publish').find('.delete').click(function()
-	                    	{	
-	                    		$('.aw-admin-weibo-publish').find('.search-input').show('0').val("");
-	                    		$(this).parent().find('.weibo_msg_published_user').val('');
-	                    		$(this).parent().find('.md-tip').show();
-	                    		$(this).prev().detach().end().detach();
-	                    	});
+						    {   
+						        $('.aw-admin-weibo-publish').find('.search-input').show('0').val("");
+						        $(this).parent().find('.weibo_msg_published_user').val('');
+						        $(this).parent().find('.md-tip').show();
+						        $(this).prev().detach().end().detach();
+						    });
+
 
 	                   		$.post(G_BASE_URL + '/admin/ajax/weibo_batch/', {'uid': $(this).attr('data-id'), 'action': 'add_published_user'}, function (result)
 	                    	{
@@ -2050,6 +2051,25 @@ AWS.Dropdown =
 	                    });
 	                    $(selector).parent().find('.aw-dropdown-list li a').click(function()
 	                    {
+
+	                    	$('.weibo_msg_published_user').val($(this).attr('data-id'));
+	                    	$(".alert-box").modal('hide');
+	                    	
+	                    	var oHtml = '<li> <a href="javascript:;" data-value>'+$(this).html()+'</a> <a class="btn btn-primary btn-sm target="_blank"">绑定新浪微博</a> <a class="delete btn btn-danger btn-sm">删除用户</a> </li>';
+	                    	$('.mod-weibo-reply').append(oHtml);
+	                    	
+	                    	$('.aw-admin-weibo-answer').find('a[data-value]').addClass("reply-name");
+	                    	$('.aw-admin-weibo-answer .md-tip').hide();
+
+	                    	$('.aw-admin-weibo-answer').find('.search-input').val("");
+	                    	
+	                    	$('.aw-admin-weibo-answer').find('.delete').click(function()
+						    {   
+						        $(this).parent().html('');
+						        $(this).parent().find('.md-tip').show();
+						        $(this).prev().detach().end().detach();
+						    });
+
 	                    	$.post(G_BASE_URL + '/admin/ajax/weibo_batch/', {'uid': $(this).attr('data-id'), 'action': 'add_service_user'}, function (result)
 	                    	{
 	                    		if (result.err)
@@ -2068,7 +2088,6 @@ AWS.Dropdown =
 	                    		else
 	                    		{
 	                    			$(".alert-box").modal('hide');
-	                    			window.location.reload();
 	                    		}
 	                    	}, 'json');
 	                    });
