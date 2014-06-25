@@ -1335,10 +1335,18 @@
 					<td>
 						<div class="form-group">
 							<span class="col-sm-4 col-xs-3 control-label"><?php _e('微博发布用户'); ?>:</span>
-							<div class="col-sm-3 col-xs-8 aw-admin-weibo-publish">
-								<a href="people/<?php echo $this->setting['weibo_msg_published_user']['url_token']; ?>" target="_blank"><?php echo $this->setting['weibo_msg_published_user']['user_name']; ?></a>
-                                <a class="md-tip" onclick="AWS.dialog('adminWechatSendMsg', {'type': 'adminPublishUser'})" data-original-title="添加用户"><i class="fa fa-plus"></i></a>
-								<input class="weibo_msg_published_user" name="weibo_msg_published_user['uid']" type="hidden" value="<?php echo $this->setting['weibo_msg_published_user']['uid']; ?>"/>
+							<div class="col-sm-5 col-xs-8 aw-admin-weibo-publish">
+								<form method="post" id="settings_form" action="http://10.0.0.168/wecenter/?/admin/ajax/move_category_contents/">
+									<input type="text" onclick="AWS.Dropdown.bind_dropdown_list($(this), 'adminPublishUser');" class="form-control search-input" placeholder="添加发布用户">
+									<div class="aw-dropdown">
+										<p class="title">没有找到相关结果</p>
+										<ul class="aw-dropdown-list">
+											<li>
+												<a>123</a>
+											</li>
+										</ul>
+									</div>
+								</form>
 							</div>
 						</div>
 					</td>
@@ -1347,8 +1355,18 @@
 					<td>
 						<div class="form-group">
 							<span class="col-sm-4 col-xs-3 control-label"><?php _e('微博回答用户'); ?>:</span>
-							<div class="col-sm-8 col-xs-8">
-								<a class="md-tip" onclick="AWS.dialog('adminWechatSendMsg', {'type': 'adminAnswerUser'})" data-original-title="添加用户"><i class="fa fa-plus"></i></a>
+							<div class="col-sm-5 col-xs-8 aw-admin-weibo-answer" >
+								<form method="post" id="settings_form" action="http://10.0.0.167/wecenter/?/admin/ajax/move_category_contents/">
+									<input type="text" onclick="AWS.Dropdown.bind_dropdown_list($(this), 'adminAnswerUser');" class="form-control search-input" placeholder="添加回答用户">
+									<div class="aw-dropdown">
+										<p class="title">没有找到相关结果</p>
+										<ul class="aw-dropdown-list">
+											<li>
+												<a>123</a>
+											</li>
+										</ul>
+									</div>
+								</form>
 								<ul class="mod-weibo-reply">
 									<?php if ($this->tmp_service_users_info) { foreach ($this->tmp_service_users_info AS $tmp_service_user_info) { ?>
 									<li>

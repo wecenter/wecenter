@@ -1989,11 +1989,13 @@ AWS.Dropdown =
 	                        }));
 	                    });
 	                    $(selector).parent().find('.aw-dropdown-list li a').click(function()
-	                    {
+	                    {	
+	                    	$('.aw-admin-weibo-publish').find('.search-input').hide('0');
 	                    	$('.weibo_msg_published_user').val($(this).attr('data-id'));
 	                    	$(".alert-box").modal('hide');
 	                    	$('.aw-admin-weibo-publish').append($(this));
-	                    	$('.aw-admin-weibo-publish').append('<a class="delete btn btn-default btn-sm">删除用户</a>');
+	                    	$('.aw-admin-weibo-publish').append('<a class="delete btn btn-danger btn-sm">删除用户</a>');
+	                    	$('.aw-admin-weibo-publish').find('a[data-value]').css({'min-width':'175px','display':'inline-block'})
 	                    	$('.aw-admin-weibo-publish .md-tip').hide();
 	                    	$('.aw-admin-weibo-publish').find('.delete').click(function()
 	                    	{
@@ -2006,6 +2008,7 @@ AWS.Dropdown =
 
 	                // 后台微博回答用户
 	                case 'adminAnswerUser' :
+	                	
 	                	$.each(result, function (i, a)
 	                    {
 	                        $(selector).parent().find('.aw-dropdown-list').append(Hogan.compile(AW_TEMPLATE.inviteDropdownList).render(
@@ -2035,6 +2038,7 @@ AWS.Dropdown =
 	                    		else
 	                    		{
 	                    			$(".alert-box").modal('hide');
+	                    			window.location.reload();
 	                    		}
 	                    	}, 'json');
 	                    });
