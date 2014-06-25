@@ -1370,7 +1370,7 @@
 									<li>
 										<a class="reply-name" href="people/<?php echo $tmp_service_user_info['url_token']; ?>" target="_blank"><?php echo $tmp_service_user_info['user_name']; ?></a>
 										<a class="btn btn-primary btn-sm col-xs-offset-1" href="account/sina/binding/uid-<?php echo $tmp_service_user_info['uid']; ?>" target="_blank"><?php _e('绑定新浪微博'); ?></a>
-										<a class="btn btn-danger btn-sm" href="javascript:;" onclick="AWS.ajax_request(G_BASE_URL + '/admin/ajax/add_weibo_service_account/', 'action=del&uid=<?php echo $tmp_service_user_info['uid']; ?>')">删除用户</a>
+										<a class="btn btn-danger btn-sm" href="javascript:;" onclick="AWS.ajax_request(G_BASE_URL + '/admin/ajax/weibo_batch/', 'action=del_service_user&uid=<?php echo $tmp_service_user_info['uid']; ?>')">删除用户</a>
 									</li>
 									<?php } } ?>
 
@@ -1378,7 +1378,7 @@
 									<li>
 										<a class="reply-name" href="people/<?php echo $service_user_info['url_token']; ?>" target="_blank"><?php echo $service_user_info['user_name']; ?></a>
 										<a href="account/sina/binding/uid-<?php echo $service_user_info['uid']; ?>" target="_blank"><?php _e('更新 Access Token'); ?></a>
-										<a href="javascript:;" onclick="AWS.ajax_request(G_BASE_URL + '/admin/ajax/add_weibo_service_account/', 'action=del&uid=<?php echo $service_user_info['uid']; ?>')">删除用户</a>
+										<a href="javascript:;" onclick="AWS.ajax_request(G_BASE_URL + '/admin/ajax/weibo_batch/', 'action=del_service_user&uid=<?php echo $service_user_info['uid']; ?>')">删除用户</a>
 									</li>
 									<?php } } ?>
 								</ul>
