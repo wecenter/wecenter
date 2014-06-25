@@ -1993,11 +1993,10 @@ AWS.Dropdown =
 	                    {	
 	                    	$('.weibo_msg_published_user').val($(this).attr('data-id'));
 	                    	$(".alert-box").modal('hide');
-	                    	var oHtml = '<a href="javascript:;" data-value>'+$(this).html()+'</a>';
+	                    	var oHtml = '<a class="push-name" href="javascript:;" data-value>'+$(this).html()+'</a> <a class="delete btn btn-danger btn-sm">删除用户</a>';
 
 	                    	$('.aw-admin-weibo-publish').append(oHtml);
-	                    	$('.aw-admin-weibo-publish').append(' <a class="delete btn btn-danger btn-sm">删除用户</a> ');
-	                    	$('.aw-admin-weibo-publish').find('a[data-value]').addClass("push-name");
+	                    
 	                    	$('.aw-admin-weibo-publish .md-tip').hide();
 
 	                    	$('.aw-admin-weibo-publish').find('.search-input').hide('0');
@@ -2046,7 +2045,8 @@ AWS.Dropdown =
 	                        {
 	                            'uid': a.uid,
 	                            'name': a.name,
-	                            'img': a.detail.avatar_file
+	                            'img': a.detail.avatar_file,
+	                            'url': a.url
 	                        }));
 	                    });
 	                    $(selector).parent().find('.aw-dropdown-list li a').click(function()
@@ -2072,7 +2072,7 @@ AWS.Dropdown =
 
 	                    	$.post(G_BASE_URL + '/admin/ajax/weibo_batch/', {'uid': $(this).attr('data-id'), 'action': 'add_service_user'}, function (result)
 	                    	{
-	                    		if (result.err)
+	                    		if (result.errno == -1)
 	                    		{
 	                    			$('.aw-wechat-send-message .error_message').html(result.err);
 	                    			

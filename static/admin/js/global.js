@@ -98,7 +98,8 @@ $(function () {
 
 
     //微博发布用户
-$('.aw-admin-weibo-publish').find('btn-danger') ? $('.aw-admin-weibo-publish').find('.search-input').hide() : $('.aw-admin-weibo-publish').find('.search-input').show();
+
+$('.aw-admin-weibo-publish').find('.btn-danger').length >0 ? $('.aw-admin-weibo-publish').find('.search-input').hide() : $('.aw-admin-weibo-publish').find('.search-input').show();
 
 $('.aw-admin-weibo-publish').find('.delete').click(function()
     {   
