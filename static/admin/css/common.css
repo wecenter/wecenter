@@ -180,7 +180,7 @@ textarea{resize:none;}
 .aw-wechat-dropdown-box .ajax-upload,.aw-wechat-dropdown-box .ajax-look{position:absolute;top:4px;right:-30px;}
 .aw-wechat-dropdown-box .ajax-look{right:-60px;}
 .aw-content-wrap .mod-weibo-reply li{margin-top: 10px;}
-.aw-content-wrap .mod-weibo-reply li .reply-name{min-width: 140px;display: inline-block;}
+.aw-content-wrap .mod-weibo-reply li .reply-name,.aw-admin-weibo-publish .push-name{display: inline-block;min-width: 180px;}
 /*编辑用户资料*/
 #remove_user_form label{margin-right:15px;}
 #integral_form span.mod-category-foot{padding:0;text-align:right;line-height:35px;}
@@ -216,7 +216,7 @@ textarea{resize:none;}
 .date_selector td.selectable_day:hover,.date_selector td.selectable_day.hover{background:#F2F8FF;color:#246594;}
 
 /* 全局通用下拉列表 */
-.aw-dropdown,.aw-category-dropdown{position:absolute;left:0;z-index:9999;display:none;width:100%;border:1px solid #ccc;background:#fff;box-shadow:0 5px 10px rgba(0,0,0,0.2);}
+.aw-dropdown,.aw-category-dropdown{position:absolute;left:16px;z-index:9999;display:none;width:93%;border:1px solid #ccc;border-top: none; background:#fff;box-shadow:0 5px 10px rgba(0,0,0,0.2);}
 .aw-dropdown .i-dropdown-triangle,.aw-category-dropdown .i-dropdown-triangle{position:absolute;top:-6px;left:15px;}
 .aw-dropdown p,.aw-category-dropdown p{margin:0;padding:5px 10px;}
 .aw-dropdown .aw-dropdown-list li,.aw-category-dropdown .aw-category-dropdown-list li{border-top:1px dotted #E2E2E2;cursor:pointer;}
@@ -233,7 +233,8 @@ textarea{resize:none;}
 .aw-wechat-send-message .aw-dropdown-list{overflow-y:scroll;margin-bottom:0;max-height:330px;}
 
 /* 开放平台设置 */
-.aw-admin-weibo-publish .img{width: 24px;margin-right: 5px;}
+.aw-admin-weibo-publish .img,.aw-admin-weibo-answer li img{width: 24px;margin-right: 10px;}
+
 .aw-admin-weibo-publish .btn{margin-left: 5px;}
 
 /* iCheck plugin */

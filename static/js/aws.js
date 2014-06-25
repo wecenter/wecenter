@@ -1988,24 +1988,58 @@ AWS.Dropdown =
 	                            'img': a.detail.avatar_file
 	                        }));
 	                    });
+
 	                    $(selector).parent().find('.aw-dropdown-list li a').click(function()
-	                    {
+	                    {	
 	                    	$('.weibo_msg_published_user').val($(this).attr('data-id'));
 	                    	$(".alert-box").modal('hide');
-	                    	$('.aw-admin-weibo-publish').append($(this));
-	                    	$('.aw-admin-weibo-publish').append('<a class="delete btn btn-default btn-sm">删除用户</a>');
+	                    	var oHtml = '<a href="javascript:;" data-value>'+$(this).html()+'</a>';
+
+	                    	$('.aw-admin-weibo-publish').append(oHtml);
+	                    	$('.aw-admin-weibo-publish').append(' <a class="delete btn btn-danger btn-sm">删除用户</a> ');
+	                    	$('.aw-admin-weibo-publish').find('a[data-value]').addClass("push-name");
 	                    	$('.aw-admin-weibo-publish .md-tip').hide();
+
+	                    	$('.aw-admin-weibo-publish').find('.search-input').hide('0');
+	                    	
 	                    	$('.aw-admin-weibo-publish').find('.delete').click(function()
+						    {   
+						        $('.aw-admin-weibo-publish').find('.search-input').show('0').val("");
+						        $(this).parent().find('.weibo_msg_published_user').val('');
+						        $(this).parent().find('.md-tip').show();
+						        $(this).prev().detach().end().detach();
+						    });
+
+
+	                   		$.post(G_BASE_URL + '/admin/ajax/weibo_batch/', {'uid': $(this).attr('data-id'), 'action': 'add_published_user'}, function (result)
 	                    	{
-	                    		$(this).parent().find('.weibo_msg_published_user').val('');
-	                    		$(this).parent().find('.md-tip').show();
-	                    		$(this).prev().detach().end().detach();
-	                    	});
-	                    });
+	                    		if (result.err)
+	                    		{
+	                    			$('.aw-wechat-send-message .error_message').html(result.err);
+	                    			
+	                    			if ($('.error_message').css('display') != 'none')
+							    	{
+								    	AWS.shake($('.error_message'));
+							    	}
+							    	else
+							    	{
+								    	$('.error_message').fadeIn();
+							    	}
+	                    		}
+	                    		else
+	                    		{
+	                    			$(".alert-box").modal('hide');
+	   
+	                    		}
+	                    	}, 'json');
+
+                    	});
+
 	                	break;
 
 	                // 后台微博回答用户
 	                case 'adminAnswerUser' :
+	                	
 	                	$.each(result, function (i, a)
 	                    {
 	                        $(selector).parent().find('.aw-dropdown-list').append(Hogan.compile(AW_TEMPLATE.inviteDropdownList).render(
@@ -2017,7 +2051,26 @@ AWS.Dropdown =
 	                    });
 	                    $(selector).parent().find('.aw-dropdown-list li a').click(function()
 	                    {
-	                    	$.post(G_BASE_URL + '/admin/ajax/add_weibo_service_account/', {'uid': $(this).attr('data-id'), 'action': 'add'}, function (result)
+
+	                    	$('.weibo_msg_published_user').val($(this).attr('data-id'));
+	                    	$(".alert-box").modal('hide');
+	                    	
+	                    	var oHtml = '<li> <a href="javascript:;" data-value>'+$(this).html()+'</a> <a class="btn btn-primary btn-sm target="_blank"">绑定新浪微博</a> <a class="delete btn btn-danger btn-sm">删除用户</a> </li>';
+	                    	$('.mod-weibo-reply').append(oHtml);
+	                    	
+	                    	$('.aw-admin-weibo-answer').find('a[data-value]').addClass("reply-name");
+	                    	$('.aw-admin-weibo-answer .md-tip').hide();
+
+	                    	$('.aw-admin-weibo-answer').find('.search-input').val("");
+	                    	
+	                    	$('.aw-admin-weibo-answer').find('.delete').click(function()
+						    {   
+						        $(this).parent().html('');
+						        $(this).parent().find('.md-tip').show();
+						        $(this).prev().detach().end().detach();
+						    });
+
+	                    	$.post(G_BASE_URL + '/admin/ajax/weibo_batch/', {'uid': $(this).attr('data-id'), 'action': 'add_service_user'}, function (result)
 	                    	{
 	                    		if (result.err)
 	                    		{
