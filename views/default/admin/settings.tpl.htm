@@ -1356,7 +1356,7 @@
 							<span class="col-sm-4 col-xs-3 control-label"><?php _e('微博发布用户'); ?>:</span>
 							<div class="col-sm-5 col-xs-8 aw-admin-weibo-publish">
 								<form method="post" id="settings_form" action="admin/ajax/move_category_contents/">
-									<input type="text"  onclick="AWS.Dropdown.bind_dropdown_list($(this), 'adminPublishUser');" class="form-control search-input" placeholder="添加发布用户">
+									<input type="text"  class="form-control search-input" placeholder="添加发布用户">
 									<div class="aw-dropdown">
 										<p class="title">没有找到相关结果</p>
 										<ul class="aw-dropdown-list">
@@ -1380,7 +1380,7 @@
 							<span class="col-sm-4 col-xs-3 control-label"><?php _e('微博回答用户'); ?>:</span>
 							<div class="col-sm-5 col-xs-8 aw-admin-weibo-answer" >
 								<form method="post" id="settings_form" action="admin/ajax/move_category_contents/">
-									<input type="text" onclick="AWS.Dropdown.bind_dropdown_list($(this), 'adminAnswerUser');" class="form-control search-input" placeholder="添加回答用户">
+									<input type="text" class="form-control search-input" placeholder="添加回答用户">
 									<div class="aw-dropdown">
 										<p class="title">没有找到相关结果</p>
 										<ul class="aw-dropdown-list">
@@ -1649,5 +1649,9 @@
 	</div>
 	</form>
 </div>
-
+ <script>
+ $(function(){
+ 	AWS.Dropdown.bind_dropdown_list($('#settings_form input'), 'adminPublishUser');
+ })
+ </script>
 <?php TPL::output('admin/global/footer.tpl.htm'); ?>
