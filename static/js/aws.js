@@ -2055,25 +2055,27 @@ AWS.Dropdown =
 	                    	$('.weibo_msg_published_user').val($(this).attr('data-id'));
 	                    	$(".alert-box").modal('hide');
 	                    	
-	                    	var oHtml = '<li> <a class="reply-name" href="'+ $(this).attr('data-url') +'">'+$(this).html()+'</a> <a class="btn btn-primary btn-sm target="_blank"">绑定新浪微博</a> <a data-id="'+ $(this).attr('data-id')+'" class="delete btn btn-danger btn-sm">删除用户</a> </li>';
+	                    	var oHtml = '<li> <a class="reply-name" href="'+ $(this).attr('data-url') +'">'+$(this).html()+'</a> <a href="/account/sina/binding/uid-'+$(this).attr('data-id')+' "class="btn btn-primary btn-sm" target="_blank">绑定新浪微博</a> <a data-id="'+ $(this).attr('data-id')+'" action= "del_service_user" class="delete btn btn-danger btn-sm">删除用户</a> </li>';
 	                    	$('.mod-weibo-reply').append(oHtml);	                    
 
 	                    	$('.aw-admin-weibo-answer').find('.search-input').val("");
 	                    	
 	                    	$('.aw-admin-weibo-answer').find('.delete').click(function()
 						    {   
-						        $(this).parent().html('');
+						        $(this).parent().detach();
 						        $(this).prev().detach().end().detach();						        						        
-						        weiboPost('del_service_user');
+
+						        weiboPost($(this).attr('action'));
 						    });
 
 	                    	var _this = $(this);
 	                    	
-	                    	weiboPost('add_service_user');
+	                    	weiboPost(_this.attr('action'));
 	                    	
-	                    	function weiboPost(type){
+	                    	function weiboPost(action){
 
-		                    	$.post(G_BASE_URL + '/admin/ajax/weibo_batch/', {'uid': _this.attr('data-id'), 'action': type}, function (result)
+
+		                    	$.post(G_BASE_URL + '/admin/ajax/weibo_batch/', {'uid': _this.attr('data-id'), 'action':action}, function (result)
 		                    	{
 		                    		if (result.errno == -1)
 		                    		{

@@ -399,7 +399,7 @@ var AW_TEMPLATE = {
 	'searchDropdownListArticles' : 
 		'<li class="question clearfix"><a class="aw-hide-txt pull-left" href="{{url}}">{{content}} </a><span class="pull-right aw-text-color-999">{{comments}} ' + _t('条评论') + '</span></li>',
 	'inviteDropdownList' :
-		'<li class="user"><a data-url="{{url}}" data-id="{{uid}}" data-value="{{name}}"><img class="img" src="{{img}}" />{{name}}</a></li>',
+		'<li class="user"><a data-url="{{url}}" data-id="{{uid}}" action="add_service_user" data-value="{{name}}"><img class="img" src="{{img}}" />{{name}}</a></li>',
 	'editTopicDorpdownList' : 
 		'<li class="question"><a>{{name}}</a></li>',
 	'questionRedirectList' : 
