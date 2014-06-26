@@ -1986,7 +1986,8 @@ AWS.Dropdown =
 	                            'uid': a.uid,
 	                            'name': a.name,
 	                            'img': a.detail.avatar_file,
-	                            'url': a.url
+	                            'url': a.url,
+	                            'action':'add_published_user'
 	                        }));
 	                    });
 
@@ -2009,28 +2010,9 @@ AWS.Dropdown =
 						        $(this).prev().detach().end().detach();
 						    });
 
-
-	                   		$.post(G_BASE_URL + '/admin/ajax/weibo_batch/', {'uid': $(this).attr('data-id'), 'action': 'add_published_user'}, function (result)
-	                    	{
-	                    		if (result.err)
-	                    		{
-	                    			$('.aw-wechat-send-message .error_message').html(result.err);
-	                    			
-	                    			if ($('.error_message').css('display') != 'none')
-							    	{
-								    	AWS.shake($('.error_message'));
-							    	}
-							    	else
-							    	{
-								    	$('.error_message').fadeIn();
-							    	}
-	                    		}
-	                    		else
-	                    		{
-	                    			$(".alert-box").modal('hide');
-	   
-	                    		}
-	                    	}, 'json');
+	                    	var _this = $(this);
+	                    	
+	                    	weiboPost(_this);
 
                     	});
 
@@ -2046,7 +2028,8 @@ AWS.Dropdown =
 	                            'uid': a.uid,
 	                            'name': a.name,
 	                            'img': a.detail.avatar_file,
-	                            'url': a.url
+	                            'url': a.url,
+	                            'action':'add_service_user'
 	                        }));
 	                    });
 	                    $(selector).parent().find('.aw-dropdown-list li a').click(function()
@@ -2062,40 +2045,15 @@ AWS.Dropdown =
 	                    	
 	                    	$('.aw-admin-weibo-answer').find('.delete').click(function()
 						    {   
-						        $(this).parent().detach();
-						        $(this).prev().detach().end().detach();						        						        
+						        $(this).parent().detach();					        						        
 
-						        weiboPost($(this).attr('action'));
+						        weiboPost($(this));
 						    });
 
 	                    	var _this = $(this);
 	                    	
-	                    	weiboPost(_this.attr('action'));
+	                    	weiboPost(_this);
 	                    	
-	                    	function weiboPost(action){
-
-
-		                    	$.post(G_BASE_URL + '/admin/ajax/weibo_batch/', {'uid': _this.attr('data-id'), 'action':action}, function (result)
-		                    	{
-		                    		if (result.errno == -1)
-		                    		{
-		                    			$('.aw-wechat-send-message .error_message').html(result.err);
-		                    			
-		                    			if ($('.error_message').css('display') != 'none')
-								    	{
-									    	AWS.shake($('.error_message'));
-								    	}
-								    	else
-								    	{
-									    	$('.error_message').fadeIn();
-								    	}
-		                    		}
-		                    		else
-		                    		{
-		                    			$(".alert-box").modal('hide');
-		                    		}
-		                    	}, 'json');
-	                    	};
 	                    });
 	                	break;
 	            }
