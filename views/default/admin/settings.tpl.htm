@@ -1338,18 +1338,17 @@
 							<div class="col-sm-6 col-xs-8">
 								<div class="btn-group mod-btn">
 									<label type="button" class="btn mod-btn-color">
-										<input type="radio" <?php if ($this->setting['weibo_msg_enabled'] == 'Y') { ?> checked="checked"<?php } ?> onclick="AWS.ajax_request(G_BASE_URL + '/admin/ajax/weibo_batch/', 'action=weibo_msg_enabled&uid=1')" /> <?php _e('是'); ?>
+										<input type="radio" name="weibo_msg_enabled" value="Y"<?php if ($this->setting['weibo_msg_enabled'] == 'Y') { ?> checked="checked"<?php } ?> onclick="AWS.ajax_request(G_BASE_URL + '/admin/ajax/weibo_batch/', 'action=weibo_msg_enabled&uid=1')" /> <?php _e('是'); ?>
 									</label>
 
 									<label type="button" class="btn mod-btn-color">
-										<input type="radio" <?php if ($this->setting['weibo_msg_enabled'] == 'N') { ?> checked="checked"<?php } ?> onclick="AWS.ajax_request(G_BASE_URL + '/admin/ajax/weibo_batch/', 'action=weibo_msg_enabled&uid=0')" /> <?php _e('否'); ?>
+										<input type="radio" name="weibo_msg_enabled" value="N"<?php if ($this->setting['weibo_msg_enabled'] == 'N') { ?> checked="checked"<?php } ?> onclick="AWS.aaxj_request(G_BASE_URL + '/admin/ajax/weibo_batch/', 'action=weibo_msg_enabled&uid=0')" /> <?php _e('否'); ?>
 									</label>
 								</div>
 							</div>
 						</div>
 					</td>
 				</tr>
-				<?php if ($this->setting['weibo_msg_enabled'] == 'Y') { ?>
 				<tr>
 					<td>
 						<div class="form-group">
@@ -1411,7 +1410,6 @@
 						</div>
 					</td>
 				</tr>
-				<?php } ?>
 				<tr>
 					<td>
 						<div class="form-group">
