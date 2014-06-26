@@ -114,3 +114,27 @@ $('.aw-admin-weibo-publish').find('.delete').click(function()
     });
 
 });
+
+function weiboPost(obj){
+
+    $.post(G_BASE_URL + '/admin/ajax/weibo_batch/', {'uid': obj.attr('data-id'), 'action':obj.attr('action')}, function (result)
+    {
+        if (result.errno == -1)
+        {
+            $('.aw-wechat-send-message .error_message').html(result.err);
+            
+            if ($('.error_message').css('display') != 'none')
+            {
+                AWS.shake($('.error_message'));
+            }
+            else
+            {
+                $('.error_message').fadeIn();
+            }
+        }
+        else
+        {
+            $(".alert-box").modal('hide');
+        }
+    }, 'json');
+};
