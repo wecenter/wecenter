@@ -1649,7 +1649,8 @@
 </div>
  <script>
  $(function(){
- 	AWS.Dropdown.bind_dropdown_list($('#settings_form input'), 'adminPublishUser');
+ 	AWS.Dropdown.bind_dropdown_list($('.aw-admin-weibo-publish input'), 'adminPublishUser');
+ 	AWS.Dropdown.bind_dropdown_list($('.aw-admin-weibo-answer input'), 'adminAnswerUser');
  })
  </script>
 <?php TPL::output('admin/global/footer.tpl.htm'); ?>
