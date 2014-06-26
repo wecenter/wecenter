@@ -186,6 +186,10 @@ textarea{resize:none;}
 #integral_form span.mod-category-foot{padding:0;text-align:right;line-height:35px;}
 #integral_form .col-xs-11{line-height:35px;}
 
+/*微信消息群发*/
+.mod-file{position:relative;display:inline-block;*display:inline;*zoom:1;cursor:pointer;overflow:hidden;vertical-align:middle;}
+.mod-file .mod-input-file{ position:absolute;right:0; top:0;_font-size:100px; _font-size:12px;_zoom:10; height:100%;_height:auto;opacity:0;filter:alpha(opacity=0);-ms-filter:"alpha(opacity=0)";cursor:pointer;}
+
 /* 弹窗 */
 .aw-category-move-box .modal-dialog{width:350px;}
 .aw-topic-edit-note-box img{max-width:530px;}

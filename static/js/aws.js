@@ -2063,11 +2063,19 @@ AWS.Dropdown =
 	                    	$('.aw-admin-weibo-answer').find('.delete').click(function()
 						    {   
 						        $(this).parent().html('');
-						        $(this).prev().detach().end().detach();						        
-						        
-						        $.post(G_BASE_URL + '/admin/ajax/weibo_batch/', {'uid': $(this).attr('data-id'), 'action': 'del_service_user'}, function (result)
+						        $(this).prev().detach().end().detach();						        						        
+						        weiboPost('del_service_user');
+						    });
+
+	                    	var _this = $(this);
+	                    	
+	                    	weiboPost('add_service_user');
+	                    	
+	                    	function weiboPost(type){
+
+		                    	$.post(G_BASE_URL + '/admin/ajax/weibo_batch/', {'uid': _this.attr('data-id'), 'action': type}, function (result)
 		                    	{
-		                    		if (result.errno)
+		                    		if (result.errno == -1)
 		                    		{
 		                    			$('.aw-wechat-send-message .error_message').html(result.err);
 		                    			
@@ -2085,29 +2093,7 @@ AWS.Dropdown =
 		                    			$(".alert-box").modal('hide');
 		                    		}
 		                    	}, 'json');
-
-						    });
-
-	                    	$.post(G_BASE_URL + '/admin/ajax/weibo_batch/', {'uid': $(this).attr('data-id'), 'action': 'add_service_user'}, function (result)
-	                    	{
-	                    		if (result.errno == -1)
-	                    		{
-	                    			$('.aw-wechat-send-message .error_message').html(result.err);
-	                    			
-	                    			if ($('.error_message').css('display') != 'none')
-							    	{
-								    	AWS.shake($('.error_message'));
-							    	}
-							    	else
-							    	{
-								    	$('.error_message').fadeIn();
-							    	}
-	                    		}
-	                    		else
-	                    		{
-	                    			$(".alert-box").modal('hide');
-	                    		}
-	                    	}, 'json');
+	                    	};
 	                    });
 	                	break;
 	            }
