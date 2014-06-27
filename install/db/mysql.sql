@@ -1132,7 +1132,7 @@ CREATE TABLE `[#DB_PREFIX#]weixin_qr_code` (
   `subscribe_num` int(10) NOT NULL DEFAULT '0',
   PRIMARY KEY `scene_id` (`scene_id`),
   KEY `ticket` (`ticket`),
-  KEY `subscribe_num` (`subscribe_num`),
+  KEY `subscribe_num` (`subscribe_num`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8 COMMENT='微信二维码';
 
 INSERT INTO `[#DB_PREFIX#]category`(`title`,`type`) VALUES

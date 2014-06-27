@@ -364,7 +364,7 @@ class weixin extends AWS_ADMIN_CONTROLLER
 			H::redirect_msg(AWS_APP::lang()->_t('此功能只适用于通过微信认证的服务号'));
 		}
 
-		$qr_code_list = $this->model('weixin')->fetch_page('qr_code', 'ticket IS NOT NULL', 'scene_id ASC', $_GET['page'], $this->per_page);
+		$qr_code_list = $this->model('weixin')->fetch_page('weixin_qr_code', 'ticket IS NOT NULL', 'scene_id ASC', $_GET['page'], $this->per_page);
 
 		$qr_code_rows = $this->model('weixin')->found_rows();
 
