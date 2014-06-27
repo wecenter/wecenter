@@ -269,36 +269,16 @@ class weixin_class extends AWS_MODEL
 						$response_message = '菜单指令错误';
 					}
 				}
-				else if ($input_message['event'] == 'MASSSENDJOBFINISH')
-				{
-					$msg_id = $input_message['msgID'];
-
-					$msg_details = array(
-										'create_time' => intval($input_message['createTime']),
-										'filter_count' => intval($input_message['filterCount'])
-									);
-
-					if ($input_message['status'] == 'sendsuccess')
-					{
-						$msg_details['status'] = 'success';
-					}
-					elseif ($input_message['status'] == 'sendfail')
-					{
-						$msg_details['status'] = 'fail';
-					}
-					else
-					{
-						$msg_details['status'] = 'wrong';
-						$msg_details['error_num'] = intval(substr($input_message['status'], 4, 9));
-					}
-
-					$this->update_sent_msg($msg_id, $msg_details);
-				}
 				else
 				{
 					switch (strtolower($input_message['event']))
 					{
 						case 'subscribe':
+							if (substr($input_message['eventKey'], 0, 8) == 'qrscene_')
+							{
+								$this->update('weixin_qr_code', array('subscribe_num' => 'subscribe_num + 1'), 'scene_id = ' . substr($input_message['eventKey'], 8));
+							}
+
 							if (get_setting('weixin_subscribe_message_key'))
 							{
 								$response_message = $this->create_response_by_reply_rule_keyword(get_setting('weixin_subscribe_message_key'));
@@ -315,6 +295,31 @@ class weixin_class extends AWS_MODEL
 								), 'uid = ' . $this->user_id);
 							}
 						break;
+
+						case 'masssendjobfinish':
+							$msg_id = $input_message['msgID'];
+
+							$msg_details = array(
+												'create_time' => intval($input_message['createTime']),
+												'filter_count' => intval($input_message['filterCount'])
+											);
+
+							if ($input_message['status'] == 'sendsuccess')
+							{
+								$msg_details['status'] = 'success';
+							}
+							elseif ($input_message['status'] == 'sendfail')
+							{
+								$msg_details['status'] = 'fail';
+							}
+							else
+							{
+								$msg_details['status'] = 'wrong';
+								$msg_details['error_num'] = intval(substr($input_message['status'], 4, 9));
+							}
+
+							$this->update_sent_msg($msg_id, $msg_details);
+							break;
 					}
 				}
 			break;
@@ -696,8 +701,8 @@ class weixin_class extends AWS_MODEL
 								$image_file = get_avatar_url($val['published_uid'], 'max');
 							}
 						}
-						
-						
+
+
 						if ($val['uid'])
 						{
 							$title = $val['title'];
@@ -826,8 +831,8 @@ class weixin_class extends AWS_MODEL
 								$image_file = get_avatar_url($val['published_uid'], 'max');
 							}
 						}
-						
-						
+
+
 						if ($val['uid'])
 						{
 							$title = $val['title'];
@@ -891,8 +896,8 @@ class weixin_class extends AWS_MODEL
 								$image_file = get_avatar_url($val['published_uid'], 'max');
 							}
 						}
-						
-						
+
+
 						if ($val['uid'])
 						{
 							$title = $val['title'];
@@ -1666,5 +1671,56 @@ class weixin_class extends AWS_MODEL
 	public function update_sent_msg($msg_id, $msg_details)
 	{
 		return $this->update('weixin_msg', $msg_details, 'msg_id = ' . $this->quote($msg_id));
+	}
+
+	public function create_qr_code($scene_id)
+	{
+		if (empty($scene_id))
+		{
+			return AWS_APP::lang()->_t('scene_id 错误');
+		}
+
+		$result = $this->model('openid_weixin')->access_request(
+						get_setting('weixin_app_id'),
+						get_setting('weixin_app_secret'),
+						'qrcode/create',
+						'POST',
+						$this->replace_post(json_encode(array(
+							'action_name' => 'QR_LIMIT_SCENE',
+							'action_info' => array(
+								'scene' => array('scene_id' => $scene_id)
+						)))));
+
+		if (empty($result))
+		{
+			return AWS_APP::lang()->_t('远程服务器忙');
+		}
+
+		if ($result['errcode'])
+		{
+			return $result['errmsg'];
+		}
+
+		if (empty($result['ticket']))
+		{
+			return AWS_APP::lang()->_t('获取 ticket 失败');
+		}
+
+		$this->update('weixin_qr_code', array('ticket' => $result['ticket']), 'scene_id = ' . $scene_id);
+
+		$qr_code = curl_get_contents('https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=' . urlencode($result['ticket']));
+
+		if (empty($qr_code))
+		{
+			return AWS_APP::lang()->_t('换取二维码失败');
+		}
+
+		$img_file = get_setting('upload_dir') . '/weixin_qr_code/' . $scene_id . '.jpg';
+
+		$fp = fopen($file, 'w');
+
+		fwrite($fp, $qr_code);
+
+		fclose($fp);
 	}
 }

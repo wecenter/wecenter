@@ -208,6 +208,12 @@ if (get_setting('weixin_mp_token'))
 				'id' => 804,
 				'title' => '消息群发',
 				'url' => 'admin/weixin/sent_msgs_list/'
+			),
+
+			array(
+				'id' => 805,
+				'title' => '二维码管理',
+				'url' => 'admin/weixin/qr_code/'
 			)
 		)
 	);

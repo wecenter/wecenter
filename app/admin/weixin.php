@@ -22,7 +22,7 @@ class weixin extends AWS_ADMIN_CONTROLLER
 {
 	public function setup()
 	{
-		$this->crumb(AWS_APP::lang()->_t('微信'), "admin/weixin/reply/");
+		$this->crumb(AWS_APP::lang()->_t('微信'), 'admin/weixin/reply/');
 	}
 
 	public function reply_action()
@@ -355,5 +355,29 @@ class weixin extends AWS_ADMIN_CONTROLLER
 		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(804));
 		TPL::assign('groups', $groups);
 		TPL::output('admin/weixin/send_msg_batch');
+	}
+
+	public function qr_code_action()
+	{
+		if (get_setting('weixin_account_role') != 'service' OR empty(get_setting('weixin_app_id')) OR empty(get_setting('weixin_app_secret')))
+		{
+			H::redirect_msg(AWS_APP::lang()->_t('此功能只适用于通过微信认证的服务号'));
+		}
+
+		$qr_code_list = $this->model('weixin')->fetch_page('qr_code', 'ticket IS NOT NULL', 'scene_id ASC', $_GET['page'], $this->per_page);
+
+		$qr_code_rows = $this->model('weixin')->found_rows();
+
+		TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
+			'base_url' => get_js_url('/admin/weixin/send_msg_batch/'),
+			'total_rows' => $qr_code_rows,
+			'per_page' => $this->per_page
+		))->create_links());
+
+		$this->crumb(AWS_APP::lang()->_t('二维码管理'), "admin/weixin/send_msg_batch/");
+
+		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(805));
+		TPL::assign('qr_code_list', $qr_code_list);
+		TPL::output('admin/weixin/qr_code');
 	}
 }
