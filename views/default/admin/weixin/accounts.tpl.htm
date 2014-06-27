@@ -1,7 +1,7 @@
 <?php TPL::output('admin/global/header.tpl.htm'); ?>
 <?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
 
-<div class="aw-content-wrap">
+<div class="aw-content-wrap wechat1">
     <form action="admin/ajax/weixin_save_accounts/" id="accounts_form" method="post" onsubmit="return false">
     <div class="mod">
         <?php if ($this->accounts_total != 0) { foreach ($this->accounts_list AS $key => $value) { ?>
@@ -116,15 +116,14 @@
         </div>
         <?php } } ?>
     </div>
-    <div class="mod-table-foot">
-            <div class="mod-wechat-sava">
-                 <input type="button" value="<?php _e('新增'); ?>" class="btn btn-primary" id="newChat"/>
-                 <input type="button" value="<?php _e('保存'); ?>" class="btn btn-primary" onclick="AWS.ajax_post($('#accounts_form'));" />
-            </div>
-        </div>
     </form>
 </div>
-
+<div class="aw-content-wrap mod-wechat-btn">
+    <div class="mod-wechat-sava center-block">
+         <input type="button" value="<?php _e('新增'); ?>" class="btn btn-primary" id="newChat"/>
+         <input type="button" value="<?php _e('保存'); ?>" class="btn btn-primary" onclick="AWS.ajax_post($('#accounts_form'));" />
+    </div>
+</div>
 <div class="wechat-hide" style="display: none">
     <div class="mod">
         <div class="mod-head">
@@ -214,21 +213,23 @@
 //点击新增按钮
 <?php } ?>
 
-
     $(function(){
-        var oNewChat = $('#newChat');
         var oHtml = $(".wechat-hide").html();
         var num = 2;
 
-        oNewChat.click(function(){
-            var url = ['<div class="aw-content-wrap wechat' , num  , '"','>' , '</div>'].join("");
+        $('#newChat').click(function(){
+
+            var url = ['<div class="aw-content-wrap wechat wechat' , num  , '"','>' , '</div>'].join("");
 
             var oParent = $(url);
             var oChat = oParent.append(oHtml);
             var oName = '.wechat'+(num-1);
+            var oId = '.wechat'+(num);
             num++
 
             $(oName).after(oChat);
+
+            $(oId).find(".pull-left").html('微信帐号  '+(num-1));
         });
     });
 </script>
