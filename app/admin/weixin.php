@@ -369,12 +369,12 @@ class weixin extends AWS_ADMIN_CONTROLLER
 		$qr_code_rows = $this->model('weixin')->found_rows();
 
 		TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
-			'base_url' => get_js_url('/admin/weixin/send_msg_batch/'),
+			'base_url' => get_js_url('/admin/weixin/qr_code/'),
 			'total_rows' => $qr_code_rows,
 			'per_page' => $this->per_page
 		))->create_links());
 
-		$this->crumb(AWS_APP::lang()->_t('二维码管理'), "admin/weixin/send_msg_batch/");
+		$this->crumb(AWS_APP::lang()->_t('二维码管理'), "admin/weixin/qr_code/");
 
 		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(805));
 		TPL::assign('qr_code_list', $qr_code_list);
