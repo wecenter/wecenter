@@ -55,3 +55,13 @@ ALTER TABLE `aws_users_sina` ADD `last_msg_id` bigint(30) DEFAULT NULL;
 CREATE INDEX `last_msg_id` ON `aws_users_sina` (`last_msg_id`);
 
 ALTER TABLE `aws_attach` MODIFY `item_id` bigint(30) DEFAULT '0' COMMENT '关联 ID';
+
+CREATE TABLE `aws_weixin_qr_code` (
+  `scene_id` mediumint(5) NOT NULL AUTO_INCREMENT,
+  `ticket` varchar(255) DEFAULT NULL,
+  `description` varchar(255) NOT NULL,
+  `subscribe_num` int(10) NOT NULL DEFAULT '0',
+  PRIMARY KEY `scene_id` (`scene_id`),
+  KEY `ticket` (`ticket`),
+  KEY `subscribe_num` (`subscribe_num`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='微信二维码';
