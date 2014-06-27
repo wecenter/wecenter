@@ -1922,7 +1922,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
 		$this->model('weixin')->delete('weixin_qr_code', 'scene_id = ' . $scene_id);
 
-		unlink(get_setting('upload_dir') . '/weixin_qr_code/' . $scene_id . '.jpg';)
+		unlink(get_setting('upload_dir') . '/weixin_qr_code/' . $scene_id . '.jpg');
 
 		H::ajax_json_output(AWS_APP::RSM(null, 1, null));
 	}
