@@ -1691,7 +1691,7 @@ class weixin_class extends AWS_MODEL
 								'scene' => array('scene_id' => $scene_id)
 						)))));
 
-		if (empty($result))
+		if (!$result)
 		{
 			$this->remove_weixin_qr_code($scene_id);
 
@@ -1705,7 +1705,7 @@ class weixin_class extends AWS_MODEL
 			return $result['errmsg'];
 		}
 
-		if (empty($result['ticket']))
+		if (!$result['ticket'])
 		{
 			$this->remove_weixin_qr_code($scene_id);
 
@@ -1716,7 +1716,7 @@ class weixin_class extends AWS_MODEL
 
 		$qr_code = curl_get_contents('https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=' . urlencode($result['ticket']));
 
-		if (empty($qr_code))
+		if (!$qr_code)
 		{
 			$this->remove_weixin_qr_code($scene_id);
 

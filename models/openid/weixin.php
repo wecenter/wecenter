@@ -30,21 +30,26 @@ class openid_weixin_class extends AWS_MODEL
 
         $result = HTTP::request($url, $method, $contents);
 
-        if (!empty($result))
+        if ($result)
         {
             $result = json_decode($result, true);
 
             if ($result['errcode'] == 40001)
             {
-                $this->refresh_access_token();
+                $this->refresh_access_token($app_id, $app_secret);
             }
 
             return $result;
         }
     }
 
-    public function refresh_access_token()
+    public function refresh_access_token($app_id, $app_secret)
     {
+        if (!$app_id OR !$app_secret)
+        {
+            return false;
+        }
+
         $cached_token = 'weixin_access_token_' . md5(get_setting('weixin_app_id') . get_setting('weixin_app_secret'));
 
         AWS_APP::cache()->delete($cached_token);
@@ -54,7 +59,7 @@ class openid_weixin_class extends AWS_MODEL
 
     public function get_access_token($app_id, $app_secret)
     {
-        if (empty($app_id) OR empty($app_secret))
+        if (!$app_id OR !$app_secret)
         {
             return false;
         }
