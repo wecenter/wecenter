@@ -276,7 +276,7 @@ class weixin_class extends AWS_MODEL
 						case 'subscribe':
 							if (substr($input_message['eventKey'], 0, 8) == 'qrscene_')
 							{
-								$this->update('weixin_qr_code', array('subscribe_num' => 'subscribe_num + 1'), 'scene_id = ' . substr($input_message['eventKey'], 8));
+								$this->query('UPDATE ' . get_table('weixin_qr_code') . ' SET subscribe_num = subscribe_num + 1 WHERE scene_id = ' . intval(substr($input_message['eventKey'], 8)));
 							}
 
 							if (get_setting('weixin_subscribe_message_key'))
