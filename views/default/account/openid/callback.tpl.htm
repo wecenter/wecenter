@@ -37,7 +37,7 @@
 			<li>
 				<input name="password" class="aw-register-pwd form-control" type="password" placeholder="<?php _e('密码'); ?>" />
 			</li>
-			<?php if (!$this->fromuid AND !$this->icode AND get_setting('register_seccode') == 'Y') { ?>
+			<?php if (get_setting('register_seccode') == 'Y') { ?>
 			<li class="aw-register-verify">
 				<em class="auth-img pull-right"><img id="captcha" onclick="reload_captcha();" src="" /></em>
 				<input class="form-control" type="text" name="seccode_verify" placeholder="<?php _e('验证码'); ?>" maxlength="4"/>

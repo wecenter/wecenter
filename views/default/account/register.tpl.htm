@@ -10,9 +10,6 @@
 	<form class="aw-register-form" action="account/ajax/register_process/" method="post" id="register_form">
 		<?php if ($this->icode) { ?><input type="hidden" name="icode" id="icode" value="<?php echo $this->icode; ?>" /><?php } ?>
 		<?php if ($this->return_url) { ?><input type="hidden" name="return_url" value="<?php echo $this->return_url; ?>" /><?php } ?>
-		<?php if ($this->fromuid AND $_GET['invite_question_id']) { ?>
-		  	<input type="hidden" name="invite_question_id" value="<?php echo htmlspecialchars($_GET['invite_question_id']); ?>"/>
-		<?php } ?>
 		<ul>
 			<li class="alert alert-danger hide error_message">
 				<i class="fa fa-times"></i> <em></em>
