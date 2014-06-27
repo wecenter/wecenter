@@ -19,11 +19,7 @@
 				<?php if ($this->return_url) { ?>
 					<input type="hidden" name="return_url" value="<?php echo $this->return_url; ?>" />
 				<?php } ?>
-
-				<?php if ($this->fromuid AND $_GET['invite_question_id']) { ?>
-				  	<input type="hidden" name="invite_question_id" value="<?php echo htmlspecialchars($_GET['invite_question_id']); ?>"/>
-				<?php } ?>
-
+				
 				<div class="register">
 					<div class="title clearfix">
 						<a class="pull-right btn-login" href="m/login/"><?php _e('登录'); ?><i class="fa fa-arrow-circle-right"></i></a>
@@ -37,7 +33,7 @@
 					<div class="password">
 						<input type="password" id="password" name="password" placeholder="<?php _e('密码'); ?>">
 					</div>
-					<?php if (!$this->fromuid AND !$this->icode AND get_setting('register_seccode') == 'Y') { ?>
+					<?php if (get_setting('register_seccode') == 'Y') { ?>
 					<div class="verify clearfix">
 						<input type="text" id="seccode_verify" name="seccode_verify" placeholder="<?php _e('验证码'); ?>" maxlength="4" />
 						<img class="pull-right" id="captcha" onclick="reload_captcha();" src="" />

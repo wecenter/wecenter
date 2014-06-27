@@ -543,15 +543,7 @@ class main extends AWS_CONTROLLER
 				HTTP::redirect('/m/');
 			}
 		}
-
-		if ($this->user_id AND $_GET['invite_question_id'])
-		{
-			if ($invite_question_id = intval($_GET['invite_question_id']))
-			{
-				HTTP::redirect('/question/' . $invite_question_id);
-			}
-		}
-
+		
 		if (get_setting('register_type') == 'close')
 		{
 			H::redirect_msg(AWS_APP::lang()->_t('本站目前关闭注册'));

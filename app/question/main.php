@@ -181,14 +181,6 @@ class main extends AWS_CONTROLLER
 				$answer_count = $question_info['answer_count'];
 			}
 			
-			if (! $this->user_id)
-			{
-				if ($_GET['fromuid'])
-				{
-					HTTP::set_cookie('fromuid', $_GET['fromuid']);
-				}
-			}
-			
 			if (isset($_GET['answer_id']) and (! $this->user_id OR $_GET['single']))
 			{
 				$answer_list = $this->model('answer')->get_answer_list_by_question_id($question_info['question_id'], 1, 'answer_id = ' . intval($_GET['answer_id']));

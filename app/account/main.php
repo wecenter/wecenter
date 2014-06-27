@@ -139,22 +139,6 @@ class main extends AWS_CONTROLLER
 	
 	public function register_action()
 	{
-		if ($this->user_id AND $_GET['invite_question_id'])
-		{
-			if ($invite_question_id = intval($_GET['invite_question_id']))
-			{
-				HTTP::redirect('/question/' . $invite_question_id);
-			}
-		}
-		
-		if (! $this->user_id)
-		{
-			if ($_GET['fromuid'])
-			{
-				HTTP::set_cookie('fromuid', $_GET['fromuid']);
-			}
-		}
-		
 		if (is_mobile() AND HTTP::get_cookie('_ignore_ua_check') != 'TRUE' AND !$_GET['ignore_ua_check'])
 		{
 			HTTP::redirect('/m/register/?email=' . $_GET['email'] . '&icode=' . $_GET['icode']);
@@ -166,7 +150,7 @@ class main extends AWS_CONTROLLER
 		}
 		else if (get_setting('register_type') == 'invite' AND !$_GET['icode'])
 		{
-			if (get_setting('weixin_app_id'))
+			if (get_setting('weixin_app_id') AND get_setting('weixin_account_role') == 'service')
 			{
 				HTTP::redirect('/account/weixin_login/command-REGISTER');
 			}
