@@ -78,7 +78,10 @@
                         <div class="form-group">
                             <span class="col-sm-4 col-xs-3 control-label"><?php _e('封面图片'); ?>:</span>
                             <div class="col-sm-5 col-xs-8">
-                                <input name="main_msg_img" type="file" />
+                                <span class="mod-file">
+                                    <input type="button" class="btn btn-primary" value="点击选择图片" />
+                                    <input type="file" name="main_msg_img" exts="png|jpg|bmp" class="mod-input-file" />
+                                </span>
                             </div>
                         </div>
                     </td>
@@ -139,6 +142,7 @@
             </table>
         </div>
     </form>
+    </div>
 </div>
 
 <?php TPL::output('admin/global/footer.tpl.htm'); ?>

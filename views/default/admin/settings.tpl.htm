@@ -1334,10 +1334,28 @@
 				<tr>
 					<td>
 						<div class="form-group">
+							<span class="col-sm-4 col-xs-3 control-label"><?php _e('接收新浪微博消息'); ?>:</span>
+							<div class="col-sm-6 col-xs-8">
+								<div class="btn-group mod-btn">
+									<label type="button" class="btn mod-btn-color">
+										<input type="radio" name="weibo_msg_enabled" value="Y"<?php if ($this->setting['weibo_msg_enabled'] == 'Y') { ?> checked="checked"<?php } ?> onclick="AWS.ajax_request(G_BASE_URL + '/admin/ajax/weibo_batch/', 'action=weibo_msg_enabled&uid=1')" /> <?php _e('是'); ?>
+									</label>
+
+									<label type="button" class="btn mod-btn-color">
+										<input type="radio" name="weibo_msg_enabled" value="N"<?php if ($this->setting['weibo_msg_enabled'] == 'N') { ?> checked="checked"<?php } ?> onclick="AWS.aaxj_request(G_BASE_URL + '/admin/ajax/weibo_batch/', 'action=weibo_msg_enabled&uid=0')" /> <?php _e('否'); ?>
+									</label>
+								</div>
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div class="form-group">
 							<span class="col-sm-4 col-xs-3 control-label"><?php _e('微博发布用户'); ?>:</span>
 							<div class="col-sm-5 col-xs-8 aw-admin-weibo-publish">
 								<form method="post" id="settings_form" action="admin/ajax/move_category_contents/">
-									<input type="text"  onclick="AWS.Dropdown.bind_dropdown_list($(this), 'adminPublishUser');" class="form-control search-input" placeholder="添加发布用户">
+									<input type="text"  class="form-control search-input" placeholder="添加发布用户">
 									<div class="aw-dropdown">
 										<p class="title">没有找到相关结果</p>
 										<ul class="aw-dropdown-list">
@@ -1347,9 +1365,8 @@
 									</div>
 
 									<?php if ($this->setting['weibo_msg_published_user']) { ?>
-									<img src="<?php echo get_avatar_url($this->setting['weibo_msg_published_user']['uid'], 'min'); ?>" alt="" />
-									<a class="reply-name" href="people/<?php echo $this->setting['weibo_msg_published_user']['url_token']; ?>" target="_blank"><?php echo $this->setting['weibo_msg_published_user']['user_name']; ?></a>
-									<a class="btn btn-danger btn-sm" href="javascript:;" onclick="">删除用户</a>
+									<a class="push-name" href="people/<?php echo $this->setting['weibo_msg_published_user']['url_token']; ?>" target="_blank"><img class="img" src="<?php echo get_avatar_url($this->setting['weibo_msg_published_user']['uid'], 'min'); ?>" alt="" /><?php echo $this->setting['weibo_msg_published_user']['user_name']; ?></a>
+									<a class="delete btn btn-danger btn-sm" href="javascript:;">删除用户</a>
 									<?php } ?>
 								</form>
 							</div>
@@ -1362,7 +1379,7 @@
 							<span class="col-sm-4 col-xs-3 control-label"><?php _e('微博回答用户'); ?>:</span>
 							<div class="col-sm-5 col-xs-8 aw-admin-weibo-answer" >
 								<form method="post" id="settings_form" action="admin/ajax/move_category_contents/">
-									<input type="text" onclick="AWS.Dropdown.bind_dropdown_list($(this), 'adminAnswerUser');" class="form-control search-input" placeholder="添加回答用户">
+									<input type="text" class="form-control search-input" placeholder="添加回答用户">
 									<div class="aw-dropdown">
 										<p class="title">没有找到相关结果</p>
 										<ul class="aw-dropdown-list">
@@ -1374,9 +1391,8 @@
 								<ul class="mod-weibo-reply">
 									<?php if ($this->tmp_service_users_info) { foreach ($this->tmp_service_users_info AS $tmp_service_user_info) { ?>
 									<li>
-										<img src="<?php echo get_avatar_url($tmp_service_user_info['uid'], 'min'); ?>" alt="" />
-										<a class="reply-name" href="people/<?php echo $tmp_service_user_info['url_token']; ?>" target="_blank"><?php echo $tmp_service_user_info['user_name']; ?></a>
-										<a class="btn btn-primary btn-sm col-xs-offset-1" href="account/sina/binding/uid-<?php echo $tmp_service_user_info['uid']; ?>" target="_blank"><?php _e('绑定新浪微博'); ?></a>
+										<a class="reply-name" href="people/<?php echo $tmp_service_user_info['url_token']; ?>" target="_blank"><img src="<?php echo get_avatar_url($tmp_service_user_info['uid'], 'min'); ?>" alt="" /><?php echo $tmp_service_user_info['user_name']; ?></a>
+										<a class="btn btn-primary btn-sm" href="account/sina/binding/uid-<?php echo $tmp_service_user_info['uid']; ?>" target="_blank"><?php _e('绑定新浪微博'); ?></a>
 										<a class="btn btn-danger btn-sm" href="javascript:;" onclick="AWS.ajax_request(G_BASE_URL + '/admin/ajax/weibo_batch/', 'action=del_service_user&uid=<?php echo $tmp_service_user_info['uid']; ?>')">删除用户</a>
 									</li>
 									<?php } } ?>
@@ -1394,7 +1410,6 @@
 						</div>
 					</td>
 				</tr>
-
 				<tr>
 					<td>
 						<div class="form-group">
@@ -1632,5 +1647,10 @@
 	</div>
 	</form>
 </div>
-
+ <script>
+ $(function(){
+ 	AWS.Dropdown.bind_dropdown_list($('.aw-admin-weibo-publish input'), 'adminPublishUser');
+ 	AWS.Dropdown.bind_dropdown_list($('.aw-admin-weibo-answer input'), 'adminAnswerUser');
+ })
+ </script>
 <?php TPL::output('admin/global/footer.tpl.htm'); ?>

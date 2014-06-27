@@ -180,11 +180,15 @@ textarea{resize:none;}
 .aw-wechat-dropdown-box .ajax-upload,.aw-wechat-dropdown-box .ajax-look{position:absolute;top:4px;right:-30px;}
 .aw-wechat-dropdown-box .ajax-look{right:-60px;}
 .aw-content-wrap .mod-weibo-reply li{margin-top: 10px;}
-.aw-content-wrap .mod-weibo-reply li .reply-name{min-width: 140px;display: inline-block;}
+.aw-content-wrap .mod-weibo-reply li .reply-name,.aw-admin-weibo-publish .push-name{display: inline-block;min-width: 180px;}
 /*编辑用户资料*/
 #remove_user_form label{margin-right:15px;}
 #integral_form span.mod-category-foot{padding:0;text-align:right;line-height:35px;}
 #integral_form .col-xs-11{line-height:35px;}
+
+/*微信消息群发*/
+.mod-file{position:relative;display:inline-block;*display:inline;*zoom:1;cursor:pointer;overflow:hidden;vertical-align:middle;}
+.mod-file .mod-input-file{ position:absolute;right:0; top:0;_font-size:100px; _font-size:12px;_zoom:10; height:100%;_height:auto;opacity:0;filter:alpha(opacity=0);-ms-filter:"alpha(opacity=0)";cursor:pointer;}
 
 /* 弹窗 */
 .aw-category-move-box .modal-dialog{width:350px;}
@@ -233,7 +237,8 @@ textarea{resize:none;}
 .aw-wechat-send-message .aw-dropdown-list{overflow-y:scroll;margin-bottom:0;max-height:330px;}
 
 /* 开放平台设置 */
-.aw-admin-weibo-publish .img{width: 24px;margin-right: 5px;}
+.aw-admin-weibo-publish .img,.aw-admin-weibo-answer li img{width: 24px;margin-right: 10px;}
+
 .aw-admin-weibo-publish .btn{margin-left: 5px;}
 
 /* iCheck plugin */

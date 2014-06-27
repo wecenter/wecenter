@@ -1787,7 +1787,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('错误的请求')));
 		}
 
-		if ($_POST['action'] != 'add_published_user')
+		if ($_POST['action'] == 'add_service_user' OR $_POST['action'] == 'del_service_user')
 		{
 			$user_info = $this->model('account')->get_user_info_by_uid($_POST['uid']);
 
@@ -1869,6 +1869,22 @@ class ajax extends AWS_ADMIN_CONTROLLER
 							'url_token' => $published_user_info['url_token']
 					)));
 				}
+
+				break;
+
+			case 'weibo_msg_enabled':
+				if ($_POST['uid'] == 1)
+				{
+					$weibo_msg_enabled = 'Y';
+				}
+				else
+				{
+					$weibo_msg_enabled = 'N';
+				}
+
+				$this->model('setting')->set_vars(array(
+						'weibo_msg_enabled' => $weibo_msg_enabled
+				));
 
 				break;
 		}
