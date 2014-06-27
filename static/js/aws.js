@@ -443,7 +443,7 @@ var AWS =
 			break;
 
 			case 'imagePreview':
-				var template = AW_TEMPLATE.ajaxData.replace('{{title}}', _t('图片预览')).replace('{{data}}', '<p align="center"><img src="' + data.image + '" alt="" style="max-width:520px" /></p>');
+				var template = AW_TEMPLATE.ajaxData.replace('{{title}}', data.title).replace('{{data}}', '<p align="center"><img src="' + data.image + '" alt="" style="max-width:520px" /></p>');
 			break;
 
 			case 'confirm':

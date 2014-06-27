@@ -336,7 +336,7 @@
 
 							<input type="hidden" class="attach_key" name="button[{MENU_ID}][attach_key]" value="" />
 							<a class="ajax-upload"><i class="fa fa-upload"></i></a>
-							<a class="ajax-look" onclick="if ($(this).parent().find('input.attach_key').val() != '') { AWS.dialog('imagePreview', {'image':'<?php echo get_setting('upload_url'); ?>/weixin/list_image/' + $(this).parent().find('input.attach_key').val() + '.jpg?'+ Math.random() }) } else { AWS.alert('<?php _e('当前菜单没有上传图片'); ?>'); }"><i class="fa fa-picture-o"></i></a>
+							<a class="ajax-look" onclick="if ($(this).parent().find('input.attach_key').val() != '') { AWS.dialog('imagePreview', {'title':'图片预览', 'image':'<?php echo get_setting('upload_url'); ?>/weixin/list_image/' + $(this).parent().find('input.attach_key').val() + '.jpg?'+ Math.random() }) } else { AWS.alert('<?php _e('当前菜单没有上传图片'); ?>'); }"><i class="fa fa-picture-o"></i></a>
 						</div>
 					</td>
 					<td align="center">
@@ -363,7 +363,7 @@
 
 							<input type="hidden" class="attach_key" name="button[{MENU_TOP_ID}][sub_button][{MENU_SUB_ID}][attach_key]" value="" />
 							<a class="ajax-upload hide"><i class="fa fa-upload"></i></a>
-							<a class="ajax-look hide" onclick="if ($(this).parent().find('input.attach_key').val() != '') { AWS.dialog('imagePreview', {'image':'<?php echo get_setting('upload_url'); ?>/weixin/list_image/' + $(this).parent().find('input.attach_key').val() + '.jpg?'+ Math.random()}) } else { AWS.alert('<?php _e('当前菜单没有上传图片'); ?>'); }"><i class="fa fa-picture-o"></i></a>
+							<a class="ajax-look hide" onclick="if ($(this).parent().find('input.attach_key').val() != '') { AWS.dialog('imagePreview', {'title':'图片预览', 'image':'<?php echo get_setting('upload_url'); ?>/weixin/list_image/' + $(this).parent().find('input.attach_key').val() + '.jpg?'+ Math.random()}) } else { AWS.alert('<?php _e('当前菜单没有上传图片'); ?>'); }"><i class="fa fa-picture-o"></i></a>
 						</div>
 					</td>
 					<td align="center">
@@ -401,7 +401,7 @@
 										<a class="fa fa-sort" data-toggle="dropdown"></a>
 										<input type="hidden" class="attach_key" name="button[<?php echo $key; ?>][attach_key]" value="<?php echo $val['attach_key']; ?>" />
 										<a class="ajax-upload"><i class="fa fa-upload"></i></a>
-										<a class="ajax-look" onclick="if ($(this).parent().find('input.attach_key').val() != '') { AWS.dialog('imagePreview', {'image':'<?php echo get_setting('upload_url'); ?>/weixin/list_image/' + $(this).parent().find('input.attach_key').val() + '.jpg?'+ Math.random()}) } else { AWS.alert('<?php _e('当前菜单没有上传图片'); ?>'); }"><i class="fa fa-picture-o"></i></a>
+										<a class="ajax-look" onclick="if ($(this).parent().find('input.attach_key').val() != '') { AWS.dialog('imagePreview', {'title':'图片预览', 'image':'<?php echo get_setting('upload_url'); ?>/weixin/list_image/' + $(this).parent().find('input.attach_key').val() + '.jpg?'+ Math.random()}) } else { AWS.alert('<?php _e('当前菜单没有上传图片'); ?>'); }"><i class="fa fa-picture-o"></i></a>
 									</div>
 
 								</td>
@@ -433,7 +433,7 @@
 
 											<input type="hidden" class="attach_key" name="button[<?php echo $key; ?>][sub_button][<?php echo $sub_key; ?>][attach_key]" value="<?php echo $sub_val['attach_key']; ?>" />
 											<a class="ajax-upload"><i class="fa fa-upload"></i></a>
-											<a class="ajax-look" onclick="if ($(this).parent().find('input.attach_key').val() != '') { AWS.dialog('imagePreview', {'image':'<?php echo get_setting('upload_url'); ?>/weixin/list_image/' + $(this).parent().find('input.attach_key').val() + '.jpg?'+ Math.random()}) } else { AWS.alert('<?php _e('当前菜单没有上传图片'); ?>'); }"><i class="fa fa-picture-o"></i></a>
+											<a class="ajax-look" onclick="if ($(this).parent().find('input.attach_key').val() != '') { AWS.dialog('imagePreview', {'title':'图片预览', 'image':'<?php echo get_setting('upload_url'); ?>/weixin/list_image/' + $(this).parent().find('input.attach_key').val() + '.jpg?'+ Math.random()}) } else { AWS.alert('<?php _e('当前菜单没有上传图片'); ?>'); }"><i class="fa fa-picture-o"></i></a>
 										</div>
 									</td>
 									<td align="center">
