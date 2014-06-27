@@ -1717,7 +1717,7 @@ class weixin_class extends AWS_MODEL
 
 		$img_file = get_setting('upload_dir') . '/weixin_qr_code/' . $scene_id . '.jpg';
 
-		$fp = fopen($file, 'w');
+		$fp = fopen($img_file, 'w');
 
 		fwrite($fp, $qr_code);
 
