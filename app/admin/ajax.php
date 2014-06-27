@@ -1918,9 +1918,9 @@ class ajax extends AWS_ADMIN_CONTROLLER
 			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('ID 不能为空')));
 		}
 
-		$this->model('weixin')->remove_weixin_qr_code($_POST['$scene_id']);
+		$this->model('weixin')->remove_weixin_qr_code($_POST['scene_id']);
 
-		unlink(get_setting('upload_dir') . '/weixin_qr_code/' . $_POST['$scene_id'] . '.jpg');
+		unlink(get_setting('upload_dir') . '/weixin_qr_code/' . $_POST['scene_id'] . '.jpg');
 
 		H::ajax_json_output(AWS_APP::RSM(null, 1, null));
 	}
