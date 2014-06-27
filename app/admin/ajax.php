@@ -1892,7 +1892,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 		H::ajax_json_output(AWS_APP::RSM(null, 1, null));
 	}
 
-	public function create_qr_code_action()
+	public function create_weixin_qr_code_action()
 	{
 		if (empty($_POST['description']))
 		{
@@ -1911,7 +1911,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 		H::ajax_json_output(AWS_APP::RSM(null, 1, null));
 	}
 
-	public function remove_qr_code_action()
+	public function remove_weixin_qr_code_action()
 	{
 		$scene_id = intval($_POST['scene_id']);
 

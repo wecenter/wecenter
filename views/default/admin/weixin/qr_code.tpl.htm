@@ -11,9 +11,11 @@
             </ul>
         </h3>
     </div>
+
     <div class="mod-body tab-content">
         <div class="tab-pane active" id="list">
             <div class="table-responsive">
+                <table class="table table-striped">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -31,12 +33,35 @@
                         <td>
                             <?php $img_file = get_setting('upload_dir') . '/weixin_qr_code/' . $scene_id . '.jpg'; ?>
                             <a href="<?php echo $img_file; ?>" target="_blank" data-toggle="tooltip" title="<?php _e('查看二维码'); ?>" class="fa fa-search md-tip"></a>
-                            <a href="javascript:;" onclick="AWS.ajax_request(G_BASE_URL + '/admin/ajax/remove_qr_code/', 'scene_id=<?php echo $qr_code_info['scene_id'] ?>');" data-toggle="tooltip" title="<?php _e('删除'); ?>" class="fa fa-trash-o md-tip"></a>
+                            <a href="javascript:;" onclick="AWS.ajax_request(G_BASE_URL + '/admin/ajax/remove_weixin_qr_code/', 'scene_id=<?php echo $qr_code_info['scene_id'] ?>');" data-toggle="tooltip" title="<?php _e('删除'); ?>" class="fa fa-trash-o md-tip"></a>
                         </td>
                     </tr>
                     <?php } } ?>
                 </tbody>
+                </table>
+
+                <div class="mod-table-foot">
+                    <?php echo $this->pagination; ?>
+                </div>
             </div>
+        </div>
+
+        <div class="tab-pane" id="create">
+        <form method="post" action="admin/ajax/create_weixin_qr_code/" onsubmit="return false;" id="create_form" class="form-horizontal" role="form">
+            <div class="form-group">
+                <label class="col-sm-2 col-xs-3 control-label"><?php _e('描述'); ?>:</label>
+
+                <div class="col-sm-5 col-xs-8">
+                    <input class="form-control" type="text" value="" name="description" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-5 col-xs-8">
+                    <button type="button" onclick="AWS.ajax_post($('#create_form'));" class="btn btn-primary"><?php _e('生成'); ?></button>
+                </div>
+            </div>
+        </form>
         </div>
     </div>
 </div>
