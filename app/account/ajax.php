@@ -92,12 +92,7 @@ class ajax extends AWS_CONTROLLER
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('本站只能通过微信注册')));
 		}
-
-		if (HTTP::get_cookie('fromuid'))
-		{
-			$fromuid = HTTP::get_cookie('fromuid');
-		}
-
+		
 		if ($_POST['icode'])
 		{
 			if (!$invitation = $this->model('invitation')->check_code_available($_POST['icode']) AND $_POST['email'] == $invitation['invitation_email'])
@@ -139,7 +134,7 @@ class ajax extends AWS_CONTROLLER
 		}
 
 		// 检查验证码
-		if (!($_POST['fromuid'] OR $_POST['icode']) AND !AWS_APP::captcha()->is_validate($_POST['seccode_verify']) AND get_setting('register_seccode') == 'Y')
+		if (!AWS_APP::captcha()->is_validate($_POST['seccode_verify']) AND get_setting('register_seccode') == 'Y')
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请填写正确的验证码')));
 		}
@@ -194,24 +189,18 @@ class ajax extends AWS_CONTROLLER
 
 		$this->model('account')->setcookie_logout();
 		$this->model('account')->setsession_logout();
-
-		if ($fromuid)
-		{
-			// 有来源的用户无邀请码
-			$follow_users = $this->model('account')->get_user_info_by_uid($fromuid);
-		}
-		else
+		
+		if ($_POST['icode'])
 		{
 			$follow_users = $this->model('invitation')->get_invitation_by_code($_POST['icode']);
+		}
+		else if (HTTP::get_cookie('fromuid'))
+		{
+			$follow_users = $this->model('account')->get_user_info_by_uid(HTTP::get_cookie('fromuid'));
 		}
 
 		if ($follow_users['uid'])
 		{
-			if ($_POST['invite_question_id'])
-			{
-				$this->model('message')->send_message($follow_users['uid'], $uid, $follow_users['user_name'] . " 邀请你来回复问题: " . get_js_url('/question/' . $_POST['invite_question_id']) . " \r\n\r\n邀请你来回复问题期待您的回复");
-			}
-
 			$this->model('follow')->user_follow_add($uid, $follow_users['uid']);
 			$this->model('follow')->user_follow_add($follow_users['uid'], $uid);
 

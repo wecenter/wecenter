@@ -773,10 +773,8 @@ class ajax extends AWS_CONTROLLER
 			'user_name' => $this->user_info['user_name'],
 			'question_title' => $question_info['question_content']
 		));
-
-		H::ajax_json_output(AWS_APP::RSM(array(
-			'question_id' => $_GET['question_id']
-		), 1, AWS_APP::lang()->_t('邀请成功')));
+		
+		H::ajax_json_output(AWS_APP::RSM(null, 1, AWS_APP::lang()->_t('邀请成功')));
 	}
 
 	public function remove_question_action()

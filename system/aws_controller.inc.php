@@ -48,6 +48,11 @@ class AWS_CONTROLLER
 		else
 		{
 			$user_group = $this->model('account')->get_user_group_by_id(99);
+			
+			if ($_GET['fromuid'])
+			{
+				HTTP::set_cookie('fromuid', $_GET['fromuid']);
+			}
 		}
 
 		$this->user_info['group_name'] = $user_group['group_name'];
