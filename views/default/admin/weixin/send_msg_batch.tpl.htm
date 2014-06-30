@@ -110,9 +110,16 @@
                     <td>
                         <div class="form-group">
                             <span class="col-sm-4 col-xs-3 control-label"><?php _e('问题 ID'); ?>:</span>
-                            <div class="col-sm-8 col-xs-8">
+                            <div class="col-sm-5 col-xs-8 mod-question">
                                 <ul class="aw-question-list"></ul>
-                                <a class="md-tip" onclick="AWS.dialog('adminWechatSendMsg', {'type': 'adminQuestions'})" data-original-title="添加问题"><i class="fa fa-plus"></i></a>
+                                <input type="text"  class="form-control search-input" placeholder="问题">
+                                <div class="aw-dropdown">
+                                    <p class="title">没有找到相关结果</p>
+                                    <ul class="aw-dropdown-list">
+                                        <li>
+                                        </li>
+                                    </ul>
+                                </div>
                                 <input class="form-control question_ids hide" name="question_ids" value="" type="hidden" />
                             </div>
                         </div>
@@ -123,9 +130,16 @@
                     <td>
                         <div class="form-group">
                             <span class="col-sm-4 col-xs-3 control-label"><?php _e('文章 ID'); ?>:</span>
-                            <div class="col-sm-8 col-xs-8">
+                            <div class="col-sm-5 col-xs-8 mod-article">
                                 <ul class="aw-article-list"></ul>
-                                <a class="md-tip" onclick="AWS.dialog('adminWechatSendMsg', {'type': 'adminArticles'})" data-original-title="添加文章"><i class="fa fa-plus"></i></a>
+                                <input type="text"  class="form-control search-input" placeholder="文章">
+                                <div class="aw-dropdown">
+                                    <p class="title">没有找到相关结果</p>
+                                    <ul class="aw-dropdown-list">
+                                        <li>
+                                        </li>
+                                    </ul>
+                                </div>
                                 <input class="form-control article_ids hide" name="article_ids" value="" type="hidden" />
                             </div>
                         </div>
@@ -144,5 +158,12 @@
     </form>
     </div>
 </div>
-
+<script>
+    $(function(){
+        AWS.Dropdown.bind_dropdown_list($('.mod-question input'), 'adminQuestions');
+        AWS.Dropdown.bind_dropdown_list($('.mod-article input'), 'adminArticles');
+        /*<a class="md-tip" onclick="AWS.dialog('adminWechatSendMsg', {'type': 'adminQuestions'})" data-original-title="添加问题"><i class="fa fa-plus"></i></a>*/
+        /*<a class="md-tip" onclick="AWS.dialog('adminWechatSendMsg', {'type': 'adminArticles'})" data-original-title="添加文章"><i class="fa fa-plus"></i></a>*/
+    })
+</script>
 <?php TPL::output('admin/global/footer.tpl.htm'); ?>

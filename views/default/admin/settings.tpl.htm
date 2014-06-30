@@ -1354,21 +1354,19 @@
 						<div class="form-group">
 							<span class="col-sm-4 col-xs-3 control-label"><?php _e('微博发布用户'); ?>:</span>
 							<div class="col-sm-5 col-xs-8 aw-admin-weibo-publish">
-								<form method="post" id="settings_form" action="admin/ajax/move_category_contents/">
-									<input type="text"  class="form-control search-input" placeholder="添加发布用户">
-									<div class="aw-dropdown">
-										<p class="title">没有找到相关结果</p>
-										<ul class="aw-dropdown-list">
-											<li>
-											</li>
-										</ul>
-									</div>
+								<input type="text"  class="form-control search-input" placeholder="添加发布用户">
+								<div class="aw-dropdown">
+									<p class="title">没有找到相关结果</p>
+									<ul class="aw-dropdown-list">
+										<li>
+										</li>
+									</ul>
+								</div>
 
-									<?php if ($this->setting['weibo_msg_published_user']) { ?>
-									<a class="push-name" href="people/<?php echo $this->setting['weibo_msg_published_user']['url_token']; ?>" target="_blank"><img class="img" src="<?php echo get_avatar_url($this->setting['weibo_msg_published_user']['uid'], 'min'); ?>" alt="" /><?php echo $this->setting['weibo_msg_published_user']['user_name']; ?></a>
-									<a class="delete btn btn-danger btn-sm" href="javascript:;">删除用户</a>
-									<?php } ?>
-								</form>
+								<?php if ($this->setting['weibo_msg_published_user']) { ?>
+								<a class="push-name" href="people/<?php echo $this->setting['weibo_msg_published_user']['url_token']; ?>" target="_blank"><img class="img" src="<?php echo get_avatar_url($this->setting['weibo_msg_published_user']['uid'], 'min'); ?>" alt="" /><?php echo $this->setting['weibo_msg_published_user']['user_name']; ?></a>
+								<a class="delete btn btn-danger btn-sm" href="javascript:;">删除用户</a>
+								<?php } ?>
 							</div>
 						</div>
 					</td>
@@ -1378,7 +1376,6 @@
 						<div class="form-group">
 							<span class="col-sm-4 col-xs-3 control-label"><?php _e('微博回答用户'); ?>:</span>
 							<div class="col-sm-5 col-xs-8 aw-admin-weibo-answer" >
-								<form method="post" id="settings_form" action="admin/ajax/move_category_contents/">
 									<input type="text" class="form-control search-input" placeholder="添加回答用户">
 									<div class="aw-dropdown">
 										<p class="title">没有找到相关结果</p>
