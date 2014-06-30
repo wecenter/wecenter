@@ -153,7 +153,7 @@ textarea{resize:none;}
 .aw-content-wrap .aw-nav-menu label,.aw-content-wrap .aw-nav-menu input{font-size:13px;}
 .aw-content-wrap .aw-nav-menu input{margin-top:3px;}
 .aw-message-box{margin-bottom:30px;border:1px solid #E2E1E1;}
-.aw-message-box h3{margin:0;padding-left:10px;height:35px;background:#3695D5;color:#fff;font-weight:400;font-size:14px;line-height:35px;cursor:s-resize;line-line-;}
+.aw-message-box h3{margin:0;padding-left:10px;height:35px;background:#3695D5;color:#fff;font-weight:400;font-size:14px;line-height:35px;}
 .aw-message-box .mod-set-body{padding:10px;}
 .aw-message-box a{margin-top:10px;}
 .aw-article-list a,.aw-question-list a{display:block;max-width:600px;}
