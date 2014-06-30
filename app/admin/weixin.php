@@ -332,24 +332,6 @@ class weixin extends AWS_ADMIN_CONTROLLER
 			H::redirect_msg(AWS_APP::lang()->_t('获取微信分组失败, 错误信息:<br />%s', $groups));
 		}
 
-		$article_ids = AWS_APP::cache()->get('send_msg_batch_article_ids');
-
-		if ($article_ids)
-		{
-			$article_ids = implode(',', $article_ids);
-
-			TPL::assign('article_ids', $article_ids);
-		}
-
-		$question_ids = AWS_APP::cache()->get('send_msg_batch_question_ids');
-
-		if ($question_ids)
-		{
-			$question_ids = implode(',', $question_ids);
-
-			TPL::assign('question_ids', $question_ids);
-		}
-
 		$this->crumb(AWS_APP::lang()->_t('群发消息'), "admin/weixin/send_msg_batch/");
 
 		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(804));

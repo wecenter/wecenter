@@ -1662,10 +1662,6 @@ class weixin_class extends AWS_MODEL
 					'create_time' => time(),
 					'filter_count' => intval($filter_count)
 				));
-
-		AWS_APP::cache()->delete('send_msg_batch_article_ids');
-
-		AWS_APP::cache()->delete('send_msg_batch_question_ids');
 	}
 
 	public function update_sent_msg($msg_id, $msg_details)

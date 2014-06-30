@@ -16,7 +16,7 @@
 							<dt><?php _e('话题别名'); ?>:</dt>
 							<dd>
 								<a class="btn btn-large btn-success pull-right" href="javascript:;" onclick="AWS.ajax_post($('#url_token_form'));" /><?php _e('保存'); ?></a>
-								<script type="text/javascript">document.write(G_BASE_URL);</script>/topic/ 
+								<script type="text/javascript">document.write(G_BASE_URL);</script>/topic/
 								<input type="text" class="form-control" name="url_token" value="<?php echo $this->topic_info['url_token']; ?>" />
 							</dd>
 						</form>
@@ -27,7 +27,7 @@
 							<dt><?php _e('页面标题'); ?>:</dt>
 							<dd>
 								<a class="btn btn-large btn-success pull-right" href="javascript:;" onclick="AWS.ajax_post($('#seo_title_form'));"><?php _e('保存'); ?></a>
-								<input type="text"  class="form-control" name="seo_title" value="<?php echo $this->topic_info['seo_title']; ?>" />
+								<input type="text" class="form-control" name="seo_title" value="<?php echo $this->topic_info['seo_title']; ?>" />
 							</dd>
 						</form>
 					</dl>
@@ -51,7 +51,7 @@
 						</dd>
 					</dl>
 					<?php } ?>
-					
+
 					<?php if (sizeof($this->feature_list) > 0) { ?>
 					<dl class="dl-horizontal">
 						<form class="form-inline" action="topic/ajax/feature_topic/" method="post" id="feature_topic_form">
@@ -63,16 +63,16 @@
 									<div class="checkbox">
 								    <?php foreach($this->feature_list AS $key => $val) { ?>
 									<label><input type="checkbox" name="feature_ids[]" value="<?php echo $val['id']; ?>"<?php if (in_array($val['id'], $this->topic_in_features)) { ?> checked="checked"<?php } ?> /> <?php echo $val['title']; ?></label>
-									<?php } ?>	
+									<?php } ?>
 								  </div>
-									
+
 								</div>
 							</dd>
 						</form>
 					</dl>
 					<?php } ?>
 				</div>
-				
+
 			</div>
 			<!-- 侧边栏 -->
 			<div class="col-sm-3 aw-side-bar">
@@ -85,7 +85,7 @@
 						<p><b>● <?php _e('话题合并'); ?>:</b> <?php _e('如果该话题跟另一个话题意义相近, 您可以将此话题合并至其他话题'); ?></p>
 					</div>
 				</div>
-				
+
 			</div>
 			<!-- end 侧边栏 -->
 		</div>
