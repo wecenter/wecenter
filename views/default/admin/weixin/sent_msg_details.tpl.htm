@@ -8,9 +8,8 @@
                 <span class="pull-left"><?php _e('查看群发消息'); ?></span>
             </h3>
         </div>
-    </div>
 
-    <div class="tab-content mod-content">
+        <div class="tab-content mod-content">
         <table class="table table-striped">
             <tr>
                 <td>
@@ -28,7 +27,7 @@
                     <div class="form-group">
                         <span class="col-sm-4 col-xs-3 control-label"><?php _e('消息 ID'); ?>:</span>
                         <div class="col-sm-5 col-xs-8">
-                            <input class="form-control" name="main_msg_title" type="text" />
+                            <?php echo $this->msg_details['msg_id']; ?>
                         </div>
                     </div>
                 </td>
@@ -185,6 +184,7 @@
                 </td>
             </tr>
         </table>
+        </div>
     </div>
 </div>
 

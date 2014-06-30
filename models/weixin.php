@@ -1441,9 +1441,23 @@ class weixin_class extends AWS_MODEL
 				return false;
 			}
 
-			$msgs_details[$msg_id]['articles_info'] = unserialize($msgs_details[$msg_id]['articles_info']);
+			if (empty($msgs_details[$msg_id]['articles_info']))
+			{
+				unset($msgs_details[$msg_id]['articles_info']);
+			}
+			else
+			{
+				$msgs_details[$msg_id]['articles_info'] = unserialize($msgs_details[$msg_id]['articles_info']);
+			}
 
-			$msgs_details[$msg_id]['questions_info'] = unserialize($msgs_details[$msg_id]['questions_info']);
+			if (empty($msgs_details[$msg_id]['questions_info']))
+			{
+				unset($msgs_details[$msg_id]['questions_info']);
+			}
+			else
+			{
+				$msgs_details[$msg_id]['questions_info'] = unserialize($msgs_details[$msg_id]['questions_info']);
+			}
 		}
 
 		return $msgs_details[$msg_id];

@@ -293,24 +293,6 @@ class weixin extends AWS_ADMIN_CONTROLLER
 			H::redirect_msg(AWS_APP::lang()->_t('群发消息不存在'));
 		}
 
-		if (empty($msg_details['articles_info']))
-		{
-			unset($msg_details['articles_info']);
-		}
-		else
-		{
-			$msg_details['articles_info'] = unserialize($msg_details['articles_info']);
-		}
-
-		if (empty($msg_details['questions_info']))
-		{
-			unset($msg_details['questions_info']);
-		}
-		else
-		{
-			$msg_details['questions_info'] = unserialize($msg_details['questions_info']);
-		}
-
 		$this->crumb(AWS_APP::lang()->_t('查看群发消息'), "admin/weixin/sent_msg_details/");
 
 		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(804));
