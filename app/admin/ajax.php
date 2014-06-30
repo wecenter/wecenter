@@ -1676,7 +1676,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 		}
 		else
 		{
-			$main_msg_img = '@' . AWS_APP::config()->get('weixin')->default_list_image;
+			$main_msg_img = '@' . AWS_APP::config()->get('weixin')->default_list_image_path;
 		}
 
 		$main_msg = array(
