@@ -1667,7 +1667,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
 			if (is_uploaded_file($_FILES['main_msg_img']['tmp_name']))
 			{
-				$main_msg_img = '@' . $_FILES['main_msg_img']['tmp_name'];
+				$main_msg_img = $_FILES['main_msg_img']['tmp_name'];
 			}
 			else
 			{
@@ -1676,7 +1676,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 		}
 		else
 		{
-			$main_msg_img = '@' . AWS_APP::config()->get('weixin')->default_list_image_path;
+			$main_msg_img = AWS_APP::config()->get('weixin')->default_list_image_path;
 		}
 
 		$main_msg = array(
