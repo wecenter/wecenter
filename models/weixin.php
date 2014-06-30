@@ -1714,8 +1714,8 @@ class weixin_class extends AWS_MODEL
 
 		$this->update('weixin_qr_code', array('ticket' => $result['ticket']), 'scene_id = ' . $scene_id);
 
-		$qr_code = file_get_contents('https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=' . urlencode($result['ticket']));
-var_dump($qr_code); exit;
+		$qr_code = curl_get_contents('https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=' . urlencode($result['ticket']));
+
 		if (!$qr_code)
 		{
 			$this->remove_weixin_qr_code($scene_id);
