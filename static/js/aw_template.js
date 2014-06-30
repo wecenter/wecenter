@@ -405,7 +405,7 @@ var AW_TEMPLATE = {
 	'questionRedirectList' : 
 		'<li class="question"><a class="aw-hide-txt" onclick="AWS.ajax_request({{url}})">{{name}}</a></li>',
 	'questionDropdownList' : 
-		'<li class="question" data-id="{{id}}"><a class="aw-hide-txt" href="{{url}}">{{name}}</a></li>',
+		'<li class="question" data-id="{{id}}"><a class="aw-hide-txt" target="_blank" _href="{{url}}">{{name}}</a></li>',
 
 	'inviteUserList' : 
 		'<li>'+

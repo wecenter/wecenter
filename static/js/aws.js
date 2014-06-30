@@ -1918,7 +1918,7 @@ AWS.Dropdown =
 	                        $(selector).parent().find('.aw-dropdown-list').append(Hogan.compile(AW_TEMPLATE.questionDropdownList).render(
 	                        {
 	                        	'id': a['search_id'],
-	                            'url': 'javascript:;',
+	                            'url': a['url'],
 	                            'name': a['name']
 	                        }));
 	                    });
@@ -1926,6 +1926,12 @@ AWS.Dropdown =
 	                    $(selector).parent().find('.aw-dropdown-list li').click(function()
 	                    {
 	                    	$('.aw-question-list').append('<li>' + $(this).html() + '</li>');
+
+	                    	$('.aw-question-list li').find("a").attr('href',function(){
+	                    		return $(this).attr("_href")
+
+	                    	});
+
 	                    	if ($('.question_ids').val() == '')
 	                    	{
 	                    		$('.question_ids').val($(this).attr('data-id'));
@@ -1945,13 +1951,19 @@ AWS.Dropdown =
 	                        $(selector).parent().find('.aw-dropdown-list').append(Hogan.compile(AW_TEMPLATE.questionDropdownList).render(
 	                        {
 	                        	'id': a['search_id'],
-	                            'url': 'javascript:;',
+	                            'url': a['url'],
 	                            'name': a['name']
 	                        }));
 	                    });
 	                    $(selector).parent().find('.aw-dropdown-list li').click(function()
 	                    {
 	                    	$('.aw-article-list').append('<li>' + $(this).html() + '</li>');
+
+	                    	$('.aw-article-list li').find("a").attr('href',function(){
+	                    		return $(this).attr("_href")
+	                    	});
+
+
 	                    	if ($('.article_ids').val() == '')
 	                    	{
 	                    		$('.article_ids').val($(this).attr('data-id'));
