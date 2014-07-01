@@ -6,7 +6,12 @@
 			<div class="col-sm-12 col-md-9 aw-main-content">
 				<div class="aw-mod">
 					<div class="mod-head common-head">
-						<h2><?php _e('我的收藏'); ?></h2>
+						<ul class="nav nav-tabs aw-nav-tabs hidden-xs">
+							<li><a href="favorite/article/"><?php _e('文章'); ?></a></li>
+							<li><a href="favorite/"><?php _e('答案'); ?></a></li>
+							<h2 class="hidden-xs"><?php _e('我的收藏'); ?></h2>
+						</ul>
+						
 						<?php if (sizeof($this->favorite_tags) > 0) { ?>
 						<p>
 							<span><?php _e('标签'); ?>:</span>
