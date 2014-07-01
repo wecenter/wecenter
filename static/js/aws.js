@@ -415,7 +415,8 @@ var AWS =
 		    case 'favorite':
 		        var template = Hogan.compile(AW_TEMPLATE.favoriteBox).render(
 		        {
-		            'answer_id': data
+			         'item_id': data.item_id,
+			         'item_type': data.item_type
 		        });
 		    break;
 
@@ -2638,7 +2639,7 @@ AWS.Init =
 	                        break;
 
 	                    	case 'favorite':
-		                        $.post(G_BASE_URL + '/favorite/ajax/update_favorite_tag/', 'answer_id=' + data_id + '&tags=' + encodeURIComponent(_topic_editor.find('#aw_edit_topic_title').val()), function (result)
+		                        $.post(G_BASE_URL + '/favorite/ajax/update_favorite_tag/', 'item_id=' + data_id + '&item_type=' + _topic_editor.attr('data-item-type') + '&tags=' + encodeURIComponent(_topic_editor.find('#aw_edit_topic_title').val()), function (result)
 		                        {
 		                            if (result.errno != 1)
 		                            {
@@ -2697,7 +2698,7 @@ AWS.Init =
 		                break;
 
 		            case 'favorite':
-		                $.post(G_BASE_URL + '/favorite/ajax/remove_favorite_tag/', 'answer_id=' + data_id + '&tags=' + $(this).parents('.aw-topic-name').text().substring(0, $(this).parents('.aw-topic-name').text().length - 1));
+		                $.post(G_BASE_URL + '/favorite/ajax/remove_favorite_tag/', 'item_id=' + data_id + '&item_type=' + _topic_editor.attr('data-item-type') + '&tags=' + $(this).parents('.aw-topic-name').text().substring(0, $(this).parents('.aw-topic-name').text().length - 1));
 		                break;
 
 		            case 'article':

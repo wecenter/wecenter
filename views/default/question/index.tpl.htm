@@ -344,7 +344,7 @@
 													<a class="aw-icon-thank-tips aw-text-color-999" data-original-title="<?php _e('这是一个没有价值的回复'); ?>" data-toggle="tooltip" title="" data-placement="bottom" onclick="AWS.User.answer_user_rate($(this), 'uninterested', <?php echo $val['answer_id']; ?>);"><i class="fa fa-flag"></i><?php if ($val['user_rated_uninterested']) { ?><?php _e('撤消没有帮助'); ?><?php } else { ?><?php _e('没有帮助'); ?><?php } ?></a>
 													<?php } ?>
 													
-													<a href="javascript:;" onclick="AWS.dialog('favorite', <?php echo $val['answer_id']; ?>);" class="aw-text-color-999"><i class="fa fa-bookmark"></i><?php _e('收藏'); ?></a>
+													<a href="javascript:;" onclick="AWS.dialog('favorite', {item_id:<?php echo $val['answer_id']; ?>, item_type:'answer'});" class="aw-text-color-999"><i class="fa fa-bookmark"></i><?php _e('收藏'); ?></a>
 												<?php } ?>
 												
 												<?php if ($this->user_id != $val['uid'] AND $this->user_id) { ?>

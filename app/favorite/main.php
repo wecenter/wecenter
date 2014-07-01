@@ -62,13 +62,13 @@ class main extends AWS_CONTROLLER
 		{
 			if (!$_GET['page'] OR $_GET['page'] == 1)
 			{
-				$this->model('favorite')->remove_favorite_tag(null, $_GET['tag'], $this->user_id);
+				$this->model('favorite')->remove_favorite_tag(null, 'answer', $_GET['tag'], $this->user_id);
 			}
 		}
 		
 		if ($answer_ids)
 		{
-			$favorite_items_tags = $this->model('favorite')->get_favorite_items_tags_by_answer_id($this->user_id, $answer_ids);
+			$favorite_items_tags = $this->model('favorite')->get_favorite_items_tags_by_item_id($this->user_id, $answer_ids, 'answer');
 			
 			TPL::assign('favorite_items_tags', $favorite_items_tags);
 		}

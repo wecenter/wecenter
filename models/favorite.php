@@ -20,26 +20,27 @@ if (!defined('IN_ANWSION'))
 
 class favorite_class extends AWS_MODEL
 {
-	public function add_favorite($answer_id, $uid)
+	public function add_favorite($item_id, $item_type, $uid)
 	{
-		if (!$answer_id)
+		if (!$item_id OR !$item_type)
 		{
 			return false;
 		}
 		
-		if (!$this->count('favorite', 'answer_id = ' . intval($answer_id) . ' AND uid = ' . intval($uid)))
+		if (!$this->fetch_one('favorite', 'id', "type = '" . $this->quote($item_type) . "' AND item_id = " . intval($item_id) . ' AND uid = ' . intval($uid)))
 		{
 			return $this->insert('favorite', array(
-				'answer_id' => intval($answer_id),
+				'item_id' => intval($item_id),
+				'type' => $item_type,
 				'uid' => intval($uid),
 				'time' => time()
 			));
 		}
 	}
 	
-	public function update_favorite_tag($answer_id, $tags, $uid)
+	public function update_favorite_tag($item_id, $item_type, $tags, $uid)
 	{
-		if (!$answer_id OR !$tags)
+		if (!$item_id OR !$tags OR !$item_type)
 		{
 			return false;
 		}
@@ -50,12 +51,13 @@ class favorite_class extends AWS_MODEL
 		
 		foreach ($tags AS $key => $tag)
 		{
-			if (!$this->count('favorite_tag', "answer_id = " . intval($answer_id) . " AND `title` = '" . $this->quote(htmlspecialchars(trim($tag))) . "' AND uid = " . intval($uid)))
+			if (!$this->fetch_one('favorite_tag', 'id', "item_id = " . intval($item_id) . " AND `type` = '" . $this->quote($item_type) . "' AND `title` = '" . trim($this->quote(htmlspecialchars($tag))) . "' AND uid = " . intval($uid)))
 			{
 				$this->insert('favorite_tag', array(
-					'answer_id' => intval($answer_id),
+					'item_id' => intval($item_id),
+					'type' => $item_type,
 					'uid' => intval($uid),
-					'title' => htmlspecialchars(trim($tag))
+					'title' => trim(htmlspecialchars($tag))
 				));
 			}
 		}
@@ -63,32 +65,33 @@ class favorite_class extends AWS_MODEL
 		return true;
 	}
 	
-	public function remove_favorite_tag($answer_id, $tag, $uid)
+	public function remove_favorite_tag($item_id, $item_type, $tag, $uid)
 	{
 		if ($tag)
 		{
 			$where[] = "title = '" . $this->quote($tag) . "'";
 		}
 		
-		if ($answer_id)
+		if ($item_id)
 		{
-			$where[] = "answer_id = " . intval($answer_id);
+			$where[] = "item_id = " . intval($item_id);
 		}
 		
+		$where[] = "item_type = '" . $this->quote($item_type) . "'";
 		$where[] = 'uid = ' . intval($uid);
 		
 		return $this->delete('favorite_tag', implode(' AND ', $where));
 	}
 	
-	public function remove_favorite_item($answer_id, $uid)
+	public function remove_favorite_item($item_id, $item_type, $uid)
 	{
-		if (!$answer_id OR !$uid)
+		if (!$item_id OR !$item_type OR !$uid)
 		{
 			return false;
 		}
 		
-		$this->delete('favorite', 'answer_id = ' . intval($answer_id) . ' AND uid = ' . intval($uid));
-		$this->delete('favorite_tag', 'answer_id = ' . intval($answer_id) . ' AND uid = ' . intval($uid));
+		$this->delete('favorite', "item_id = " . intval($item_id) . " AND item_type = '" . $this->quote($item_type) . "' AND uid = " . intval($uid));
+		$this->delete('favorite_tag', "item_id = " . intval($item_id) . " AND item_type = '" . $this->quote($item_type) . "' AND uid = " . intval($uid));
 	}
 	
 	public function get_favorite_tags($uid, $limit = null)
@@ -96,20 +99,20 @@ class favorite_class extends AWS_MODEL
 		return $this->query_all('SELECT DISTINCT title FROM ' . $this->get_table('favorite_tag') . ' WHERE uid = ' . intval($uid) . ' ORDER BY id DESC', $limit);
 	}
 	
-	public function get_favorite_items_tags_by_answer_id($uid, $answer_ids)
+	public function get_favorite_items_tags_by_item_id($uid, $item_ids, $item_type)
 	{
-		if (sizeof($answer_ids) == 0 OR !is_array($answer_ids))
+		if (!$item_ids)
 		{
 			return false;
 		}
 		
-		array_walk_recursive($answer_ids, 'intval_string');
+		array_walk_recursive($item_ids, 'intval_string');
 		
-		if ($favorite_tags = $this->fetch_all('favorite_tag', 'uid = ' . intval($uid) . ' AND answer_id IN (' . implode(',', $answer_ids) . ')'))
+		if ($favorite_tags = $this->fetch_all('favorite_tag', 'uid = ' . intval($uid) . ' AND item_id IN (' . implode(',', $item_ids) . ") AND `type` = '" . $this->quote($item_type) . "'"))
 		{
 			foreach ($favorite_tags AS $key => $val)
 			{
-				$items_tags[$val['answer_id']][] = $val;
+				$items_tags[$val['item_id']][] = $val;
 			}
 		}
 		
@@ -120,7 +123,7 @@ class favorite_class extends AWS_MODEL
 	{
 		if ($tag)
 		{
-			$favorite_items = $this->query_all('SELECT DISTINCT answer_id FROM ' . get_table('favorite_tag') . ' WHERE uid = ' . intval($uid) . " AND title = '" . $this->quote($tag) . "'");
+			$favorite_items = $this->query_all('SELECT DISTINCT item_id FROM ' . get_table('favorite_tag') . ' WHERE uid = ' . intval($uid) . " AND title = '" . $this->quote($tag) . "'");
 			
 			return sizeof($favorite_items);
 		}

@@ -149,7 +149,8 @@ var AW_TEMPLATE = {
 					'</div>'+
 					'<form action="' + G_BASE_URL + '/favorite/ajax/update_favorite_tag/" method="post" onsubmit="return false;">'+
 						'<div class="modal-body">'+
-							'<input type="hidden" name="answer_id" value="{{answer_id}}" />'+
+							'<input type="hidden" name="item_id" value="{{item_id}}" />'+
+							'<input type="hidden" name="item_type" value="{{item_type}}" />'+
 							'<div class="alert alert-danger hide error_message"><i class="fa fa-times"></i> <em></em></div>'+
 							'<p>' + _t('添加话题标签') + ': <input type="text" name="tags" id="add_favorite_tags" class="form-control" /></p>'+
 							'<p id="add_favorite_my_tags" class="hide">' + _t('常用标签') + ': </p>'+
