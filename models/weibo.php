@@ -238,11 +238,11 @@ class weibo_class extends AWS_MODEL
         $admin_notifications = get_setting('admin_notifications');
 
         $admin_notifications['sina_users'][$uid] = array(
-                                                                'uid' => $uid,
-                                                                'user_name' => $user_name
-                                                            );
+                                                        'uid' => $uid,
+                                                        'user_name' => $user_name
+                                                    );
 
-        $this->model('setting')->set_vars(array('admin_notifications' => $notifications));
+        $this->model('setting')->set_vars(array('admin_notifications' => $admin_notifications));
     }
 
     public function update_service_account($id, $action)

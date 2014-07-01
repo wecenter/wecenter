@@ -116,7 +116,8 @@
                                                         'text' => _e('用户 %s 的新浪微博账号需要更新 Access Token，请重新授权。', $sina_user['user_name'])
                                                     );
                     }
-                } ?>
+                }
+            } ?>
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle mod-bell" data-toggle="dropdown">
                     <i class="fa fa-bell"></i>
@@ -131,10 +132,11 @@
                             <a href="<?php $notifications_text['url']; ?>"><p class="margin-none"><?php echo $notifications_text['text']; ?></p></a>
                         </div>
                     </li>
-                    <?php } } ?>
+                    <?php } } else { ?>
+                    <p><?php _e('没有通知。'); ?></p>
+                    <?php } ?>
                 </ul>
             </li>
-            <?php } ?>
 
             <li class="dropdown username">
                 <a href="" class="dropdown-toggle" data-toggle="dropdown">
