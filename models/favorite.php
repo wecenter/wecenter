@@ -20,17 +20,18 @@ if (!defined('IN_ANWSION'))
 
 class favorite_class extends AWS_MODEL
 {
-	public function add_favorite($answer_id, $uid)
+	public function add_favorite($item_id, $item_type, $uid)
 	{
-		if (!$answer_id)
+		if (!$item_id OR !$item_type)
 		{
 			return false;
 		}
 		
-		if (!$this->count('favorite', 'answer_id = ' . intval($answer_id) . ' AND uid = ' . intval($uid)))
+		if (!$this->fetch_one('favorite', 'id', "type = '" . $this->quote($item_type) . "' AND item_id = " . intval($item_id) . ' AND uid = ' . intval($uid)))
 		{
 			return $this->insert('favorite', array(
-				'answer_id' => intval($answer_id),
+				'item_id' => intval($item_id),
+				'type' => $item_type,
 				'uid' => intval($uid),
 				'time' => time()
 			));

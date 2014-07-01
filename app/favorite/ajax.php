@@ -48,7 +48,7 @@ class ajax extends AWS_CONTROLLER
 			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('请添加话题标签')));
 		}
 		
-		$this->model('favorite')->add_favorite($_POST['answer_id'], $this->user_id);
+		$this->model('favorite')->add_favorite($_POST['item_id'], $_POST['type'], $this->user_id);
 		
 		$this->model('favorite')->update_favorite_tag($_POST['answer_id'], $_POST['tags'], $this->user_id);
 		

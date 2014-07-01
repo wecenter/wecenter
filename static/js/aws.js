@@ -415,7 +415,7 @@ var AWS =
 		    case 'favorite':
 		        var template = Hogan.compile(AW_TEMPLATE.favoriteBox).render(
 		        {
-		            'answer_id': data
+		            'item_id': data
 		        });
 		    break;
 
@@ -2638,7 +2638,7 @@ AWS.Init =
 	                        break;
 
 	                    	case 'favorite':
-		                        $.post(G_BASE_URL + '/favorite/ajax/update_favorite_tag/', 'answer_id=' + data_id + '&tags=' + encodeURIComponent(_topic_editor.find('#aw_edit_topic_title').val()), function (result)
+		                        $.post(G_BASE_URL + '/favorite/ajax/update_favorite_tag/', 'item_id=' + data_id + '&tags=' + encodeURIComponent(_topic_editor.find('#aw_edit_topic_title').val()), function (result)
 		                        {
 		                            if (result.errno != 1)
 		                            {
