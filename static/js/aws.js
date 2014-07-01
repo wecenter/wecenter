@@ -415,7 +415,8 @@ var AWS =
 		    case 'favorite':
 		        var template = Hogan.compile(AW_TEMPLATE.favoriteBox).render(
 		        {
-		            'item_id': data
+			         'item_id': data.item_id,
+			         'item_type': data.item_type
 		        });
 		    break;
 
