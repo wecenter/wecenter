@@ -44,14 +44,14 @@
 
     <div class="mod-header-user">
         <ul class="pull-right">
+            <?php $notifications = get_setting('admin_notifications');
+            if (!empty($notifications)) { ?>
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle mod-bell" data-toggle="dropdown">
                     <i class="fa fa-bell"></i>
                     <span class="label label-danger">0</span>
                 </a>
 
-                <?php $notifications = get_setting('admin_notifications');
-                if (!empty($notifications)) { ?>
                 <ul class="dropdown-menu mod-chat">
                     <?php
 
@@ -136,8 +136,8 @@
                     </li>
                     <?php } } ?>
                 </ul>
-                <?php } ?>
             </li>
+            <?php } ?>
 
             <li class="dropdown username">
                 <a href="" class="dropdown-toggle" data-toggle="dropdown">
