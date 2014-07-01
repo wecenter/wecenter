@@ -57,14 +57,14 @@ class ajax extends AWS_CONTROLLER
 	
 	public function remove_favorite_item_action()
 	{
-		$this->model('favorite')->remove_favorite_item($_POST['item'], $_POST['item_type'], $this->user_id);
+		$this->model('favorite')->remove_favorite_item($_POST['item_id'], $_POST['item_type'], $this->user_id);
 		
 		H::ajax_json_output(AWS_APP::RSM(null, 1, null));
 	}
 	
 	public function remove_favorite_tag_action()
 	{
-		$this->model('favorite')->remove_favorite_tag($_POST['item'], $_POST['item_type'], $_POST['tags'], $this->user_id);
+		$this->model('favorite')->remove_favorite_tag($_POST['item_id'], $_POST['item_type'], $_POST['tags'], $this->user_id);
 		
 		H::ajax_json_output(AWS_APP::RSM(null, 1, null));
 	}
