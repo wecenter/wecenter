@@ -50,8 +50,10 @@
                     <span class="label label-danger">0</span>
                 </a>
 
+                <?php $notifications = get_setting('admin_notifications');
+                if (!empty($notifications)) { ?>
                 <ul class="dropdown-menu mod-chat">
-                    <?php $notifications = get_setting('admin_notifications');
+                    <?php
 
                     if ($notifications['answer_approval']) {
                         $notifications_texts[] = array(
@@ -116,7 +118,7 @@
                                                     );
                     }
 
-                    if ($notifications['sina_users']) {
+                    if (get_setting('weibo_msg_enabled') == 'Y' AND $notifications['sina_users']) {
                         foreach ($notifications['sina_users'] AS $sina_user) {
                             $notifications_texts[] = array(
                                                             'url' => 'admin/settings/category-openid',
@@ -134,6 +136,7 @@
                     </li>
                     <?php } } ?>
                 </ul>
+                <?php } ?>
             </li>
 
             <li class="dropdown username">
