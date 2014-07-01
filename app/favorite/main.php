@@ -53,7 +53,7 @@ class main extends AWS_CONTROLLER
 		{
 			foreach ($action_list AS $key => $val)
 			{
-				$answer_ids[] = $val['answer_info']['answer_id'];
+				$item_ids[] = $val['item_id'];
 			}
 			
 			TPL::assign('list', $action_list);
@@ -62,13 +62,13 @@ class main extends AWS_CONTROLLER
 		{
 			if (!$_GET['page'] OR $_GET['page'] == 1)
 			{
-				$this->model('favorite')->remove_favorite_tag(null, 'answer', $_GET['tag'], $this->user_id);
+				$this->model('favorite')->remove_favorite_tag(null, null, $_GET['tag'], $this->user_id);
 			}
 		}
 		
-		if ($answer_ids)
+		if ($item_ids)
 		{
-			$favorite_items_tags = $this->model('favorite')->get_favorite_items_tags_by_item_id($this->user_id, $answer_ids, 'answer');
+			$favorite_items_tags = $this->model('favorite')->get_favorite_items_tags_by_item_id($this->user_id, $item_ids);
 			
 			TPL::assign('favorite_items_tags', $favorite_items_tags);
 		}

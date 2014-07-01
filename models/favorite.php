@@ -65,7 +65,7 @@ class favorite_class extends AWS_MODEL
 		return true;
 	}
 	
-	public function remove_favorite_tag($item_id, $item_type, $tag, $uid)
+	public function remove_favorite_tag($item_id, $tag, $uid)
 	{
 		if ($tag)
 		{
@@ -77,7 +77,6 @@ class favorite_class extends AWS_MODEL
 			$where[] = "item_id = " . intval($item_id);
 		}
 		
-		$where[] = "`type` = '" . $this->quote($item_type) . "'";
 		$where[] = 'uid = ' . intval($uid);
 		
 		return $this->delete('favorite_tag', implode(' AND ', $where));
@@ -99,7 +98,7 @@ class favorite_class extends AWS_MODEL
 		return $this->query_all('SELECT DISTINCT title FROM ' . $this->get_table('favorite_tag') . ' WHERE uid = ' . intval($uid) . ' ORDER BY id DESC', $limit);
 	}
 	
-	public function get_favorite_items_tags_by_item_id($uid, $item_ids, $item_type)
+	public function get_favorite_items_tags_by_item_id($uid, $item_ids)
 	{
 		if (!$item_ids)
 		{
@@ -108,7 +107,7 @@ class favorite_class extends AWS_MODEL
 		
 		array_walk_recursive($item_ids, 'intval_string');
 		
-		if ($favorite_tags = $this->fetch_all('favorite_tag', 'uid = ' . intval($uid) . ' AND item_id IN (' . implode(',', $item_ids) . ") AND `type` = '" . $this->quote($item_type) . "'"))
+		if ($favorite_tags = $this->fetch_all('favorite_tag', 'uid = ' . intval($uid) . ' AND item_id IN (' . implode(',', $item_ids) . ")"))
 		{
 			foreach ($favorite_tags AS $key => $val)
 			{
