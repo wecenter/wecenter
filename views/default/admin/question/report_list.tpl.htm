@@ -6,7 +6,7 @@
         <div class="mod-head">
             <h3>
 				<ul class="nav nav-tabs">
-					<li class="<?php if ($_GET['status'] == 0) { ?>active<?php } ?>"><a href="admin/question/report_list/status-0"><?php _e('新举报'); ?></a></li>
+					<li class="<?php if ($_GET['status'] == 0) { ?>active<?php } ?>"><a href="admin/question/report_list/"><?php _e('新举报'); ?></a></li>
 					<li class="<?php if ($_GET['status'] == 1) { ?>active<?php } ?>"><a href="admin/question/report_list/status-1"><?php _e('已处理'); ?></a></li>
 				</ul>
             </h3>
@@ -48,7 +48,7 @@
 			</form>
 			<div class="mod-table-foot">
 				<span class="pull-right mod-page"><?php echo $this->pagination; ?></span>
-				
+
 				<a onclick="$('#action_type').val('delete'); AWS.ajax_post($('#batchs_form'));" class="btn-danger btn"><?php _e('删除所选'); ?></a>
 				<?php if ($_GET['status'] == 0) { ?><a onclick="$('#action_type').val('handle'); AWS.ajax_post($('#batchs_form'));" class="btn-primary btn"><?php _e('标记所选'); ?></a><?php } ?>
 			</div>

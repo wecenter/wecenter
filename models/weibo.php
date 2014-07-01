@@ -146,7 +146,7 @@ class weibo_class extends AWS_MODEL
 
             if (empty($service_info['access_token']) OR $service_info['expires_time'] <= time())
             {
-                $this->notification_of_refresh_access_token($service_info['uid']);
+                $this->notification_of_refresh_access_token($service_user_info['uid'], $service_user_info['user_name']);
 
                 continue;
             }
@@ -160,7 +160,7 @@ class weibo_class extends AWS_MODEL
 
             if ($msgs['error_code'] == 21332)
             {
-                $this->notification_of_refresh_access_token($service_info['uid']);
+                $this->notification_of_refresh_access_token($service_user_info['uid'], $service_user_info['user_name']);
 
                 continue;
             }
@@ -233,9 +233,16 @@ class weibo_class extends AWS_MODEL
         return true;
     }
 
-    public function notification_of_refresh_access_token($uid)
+    public function notification_of_refresh_access_token($uid, $user_name)
     {
+        $admin_notifications = get_setting('admin_notifications');
 
+        $admin_notifications['sina_users'][$uid] = array(
+                                                                'uid' => $uid,
+                                                                'user_name' => $user_name
+                                                            );
+
+        $this->model('setting')->set_vars(array('admin_notifications' => $notifications));
     }
 
     public function update_service_account($id, $action)
