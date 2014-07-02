@@ -98,7 +98,7 @@ class favorite_class extends AWS_MODEL
 	
 	public function get_favorite_items_tags_by_answer_id($uid, $answer_ids)
 	{
-		if (sizeof($answer_ids) == 0 OR !is_array($answer_ids))
+		if (!$answer_ids)
 		{
 			return false;
 		}
@@ -211,6 +211,7 @@ class favorite_class extends AWS_MODEL
 			
 			$favorite_list_data[$key]['question_info'] = $question_infos[$answer_infos[$data['answer_id']]['question_id']];
 			
+			$favorite_list_data[$key]['answer_id'] = $data['answer_id'];
 			$favorite_list_data[$key]['user_info'] = $users_info[$data['uid']];
 		}
 		
