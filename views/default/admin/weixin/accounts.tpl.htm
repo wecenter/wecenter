@@ -253,10 +253,12 @@
             var oName = '.wechat'+(num-1);
             var oId = '.wechat'+(num);
             num++
-
+            
             $(oName).after(oChat);
+            
 
-            $(oId).find(".pull-left").html('微信帐号  '+(num-1));
+            console.log($(oId).find('.form-control').attr("name",'weixin_app_secret['+ (num-2) +']'));
+            $(oId).find(".pull-left").html('微信帐号  '+(num-2));
         });
     });
 </script>
