@@ -72,7 +72,7 @@ class ajax extends AWS_CONTROLLER
 			break;
 			
 			case 'favorite':
-				$action_list = $this->model('actions')->get_favorite_tag_action_list($_GET['topic_title'], $this->user_id, intval($_GET['page']) * get_setting('contents_per_page') . ', ' . get_setting('contents_per_page'));
+				$action_list = $this->model('favorite')->get_item_list($_GET['topic_title'], $this->user_id, intval($_GET['page']) * get_setting('contents_per_page') . ', ' . get_setting('contents_per_page'));
 			break;
 		}
 		

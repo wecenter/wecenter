@@ -256,7 +256,9 @@ CREATE TABLE `[#DB_PREFIX#]favorite_tag` (
   `title` varchar(128) DEFAULT NULL,
   `answer_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `uid` (`uid`)
+  KEY `uid` (`uid`),
+  KEY `title` (`title`),
+  KEY `answer_id` (`answer_id`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]invitation` (
