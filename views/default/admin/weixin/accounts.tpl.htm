@@ -1,7 +1,7 @@
 <?php TPL::output('admin/global/header.tpl.htm'); ?>
 <?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
 
-<form action="admin/ajax/weixin_save_accounts/" id="accounts_form" method="post" onsubmit="return false">=
+<form action="admin/ajax/weixin_save_accounts/" id="accounts_form" method="post" onsubmit="return false">
     <?php if ($this->accounts_total != 0) { foreach ($this->accounts_list AS $key => $value) { ?>
     <div class="aw-content-wrap wechat wechat<?php echo $key + 1?>">
         <div class="mod">
