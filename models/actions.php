@@ -213,16 +213,6 @@ class actions_class extends AWS_MODEL
 					)))
 					{
 						$action_list[$key]['answer_info'] = $answer_infos[$val['associate_attached']];
-						
-						if (! isset($user_info_lists[$action_list[$key]['answer_info']['uid']]))
-						{
-							$user_info_lists[$action_list[$key]['answer_info']['uid']] = $this->model('account')->get_user_info_by_uid($action_list[$key]['answer_info']['uid']);
-						}
-						
-						$action_list[$key]['answer_info']['uid'] = $user_info_lists[$action_list[$key]['answer_info']['uid']]['uid'];
-						$action_list[$key]['answer_info']['user_name'] = $user_info_lists[$action_list[$key]['answer_info']['uid']]['user_name'];
-						$action_list[$key]['answer_info']['url_token'] = $user_info_lists[$action_list[$key]['answer_info']['uid']]['url_token'];
-						$action_list[$key]['answer_info']['signature'] = $user_info_lists[$action_list[$key]['answer_info']['uid']]['signature'];
 					}
 					
 					$action_list[$key]['question_info'] = $question_info;
