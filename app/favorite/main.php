@@ -53,7 +53,7 @@ class main extends AWS_CONTROLLER
 		{
 			foreach ($action_list AS $key => $val)
 			{
-				$answer_ids[] = $val['answer_info']['answer_id'];
+				$answer_ids[] = $val['answer_id'];
 			}
 			
 			TPL::assign('list', $action_list);
