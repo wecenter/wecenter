@@ -244,23 +244,24 @@
 
     $(function(){
         var oHtml = $(".wechat-hide").html();
-        var num = ($('.wechat').length)+2;
+        var num = ($('.wechat').length);
 
         $('#newChat').click(function(){
 
-            var url = ['<div class="aw-content-wrap wechat wechat' , num  , '"','>' , '</div>'].join("");
+            var url = ['<div class="aw-content-wrap wechat wechat' , num+2  , '"','>' , '</div>'].join("");
 
             var oParent = $(url);
             var oChat = oParent.append(oHtml);
-            var oName = '.wechat'+(num-1);
-            var oId = '.wechat'+(num);
+            var oName = '.wechat'+(num + 1);
+            var oId = '.wechat'+(num + 2);
             num++
             
             $(oName).after(oChat);
             
 
-            $(oId).find('.form-control').attr("name",'weixin_app_secret['+ (num-2) +']');
-            $(oId).find(".pull-left").html('微信帐号  '+(num-2));
+            $(oId).find('.form-control').attr("name",'weixin_app_secret['+ (num-1) +']');
+            $('.mod-head').find('input').attr("name",'id['+ (num-1) +']');
+            $(oId).find(".pull-left").html('微信帐号  '+(num));
         });
     });
 </script>
