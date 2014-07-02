@@ -10,7 +10,6 @@
 				<span class="pull-left"><?php _e('分类编辑'); ?></span>
 			</h3>
 		</div>
-		</div>
 		<div class="tab-content mod-content">
 			<table class="table table-striped">
 				<tr>
@@ -27,9 +26,11 @@
 					<td>
 						<div class="form-group">
 							<span class="col-sm-4 col-xs-3 control-label"><?php _e('别名'); ?>:</span>
-                            <span class="col-sm-1 mod-text-inline">/category/</span>
-							<div class="col-sm-4 col-xs-4">
-								<input type="text" name="url_token" class="form-control" value="<?php echo $this->category['url_token']; ?>" />
+							<div class="col-sm-5 col-xs-4">
+	                            <span class="col-sm-1 mod-text-inline">/category/</span>
+	                            <div class="col-sm-10 pull-right nopadding">
+									<input type="text" name="url_token" class="form-control" value="<?php echo $this->category['url_token']; ?>" />
+								</div>
 							</div>
 						</div>
 					</td>
@@ -55,6 +56,7 @@
 				</tr>
 				</tfoot>
 			</table>
+		</div>
 		</div>
 	</form>
 </div>

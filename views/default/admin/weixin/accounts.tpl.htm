@@ -50,7 +50,7 @@
                                 </label>
 
                                 <label class="checkbox-inline">
-                                    <input type="radio" name="weixin_account_role" value="service"<?php if ($value['weixin_account_role'] == 'service') { ?> checked="checked"<?php } ?> /> <?php _e('微信认证服务号'); ?>
+                                    <input type="radio" name="weixin_account_role[<?php echo $key; ?>]" value="service"<?php if ($value['weixin_account_role'] == 'service') { ?> checked="checked"<?php } ?> /> <?php _e('微信认证服务号'); ?>
                                 </label>
                             </div>
                         </div>
@@ -120,93 +120,119 @@
 </div>
 <div class="aw-content-wrap mod-wechat-btn">
     <div class="mod-wechat-sava center-block">
-         <input type="button" value="<?php _e('新增'); ?>" class="btn btn-primary" id="newChat"/>
-         <input type="button" value="<?php _e('保存'); ?>" class="btn btn-primary" onclick="AWS.ajax_post($('#accounts_form'));" />
+        <input type="button" value="<?php _e('新增'); ?>" class="btn btn-primary" id="newChat"/>
+        <input type="button" value="<?php _e('保存'); ?>" class="btn btn-primary" onclick="AWS.ajax_post($('#accounts_form'));" />
     </div>
 </div>
 
 <div class="wechat-hide" style="display: none">
-    <div class="mod">
-        <div class="mod-head">
-            <h3>
-                <span class="pull-left">微信帐号:</span>
-                <span class="pull-right">
-                    <a href="" class="btn btn-primary btn-xs mod-site-save">快速保存</a>
-                </span>
-            </h3>
-        </div>
+<div class="mod-head">
+    <span class="pull-left"><?php _e('微信账号'); ?></span>
 
-        <div class="tab-content  mod-content">
-            <table class="table table-striped">
-                <tbody>
-                <tr>
-                    <td colspan="9" class="mod-border">
-                        <div class="form-group">
-                            <span class="col-sm-2 control-label">微信公众平台接口 Token</span>
-                            <div class="col-sm-5">
-                                <input name="weixin_mp_token" type="text" class="form-control" value="">
-                                    <span class="help-block">
-                                       请与微信公众平台后台设置一致
-                                    </span>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="9">
-                        <div class="form-group">
-                            <span class="col-sm-2 control-label">微信公众平台帐号角色</span>
-                            <div class="col-sm-8">
-                                <label>
-                                    <input type="radio" name="weixin_account_role" value="general" checked="checked">普通服务号
-                                </label>
-                                <label class="col-md-offset-1">
-                                    <input type="radio" name="weixin_account_role" value="subscription">认证订阅号
-                                </label>
-                                <label class="col-md-offset-1">
-                                    <input type="radio" name="weixin_account_role" value="service">认证服务号
-                                </label>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="9">
-                        <div class="form-group">
-                            <span class="col-sm-2 control-label">WeCenter 微信服务 Access token</span>
-                            <div class="col-sm-5">
-                                <input name="wecenter_access_token" type="text" class="form-control" value="">
-                                    <span class="help-block">
-                                      请到<a href="">http://mp.wecenter.com</a>申请
-                                    </span>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="9">
-                        <div class="form-group">
-                            <span class="col-sm-2 control-label">WeCenter 微信服务 Access secret</span>
-                            <div class="col-sm-5">
-                                <input name="wecenter_access_secret" type="text" class="form-control" value="">
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                </tbody>
-                <tfoot>
-                <tr>
-                    <td colspan="6" class="mod-site-foot pull-right">
-                        <a href="" class="btn btn-primary btn-sm">修改微信菜单</a>
-                    </td>
-                    <td colspan="6" class="mod-site-foot pull-right">
-                        <a href="" class="btn btn-danger btn-sm">删除</a>
-                    </td>
-                </tr>
-                </tfoot>
-            </table>
-        </div>
-    </div>
+    <span class="pull-right">
+        <a href="javascript:;" onclick="AWS.ajax_post($('#accounts_form'));" class="btn btn-xs btn-primary mod-site-save"><?php _e('快速保存'); ?></a>
+    </span>
+
+    <input type="hidden" name="id[]" value="" />
+</div>
+
+<div class="tab-content mod-content">
+    <table class="table table-striped">
+        <tr>
+            <td>
+                <div class="form-group">
+                    <span class="col-sm-4 col-xs-3 control-label"><?php _e('微信公众平台接口 Token'); ?>:</span>
+                    <div class="col-sm-5 col-xs-8">
+                        <input type="text" class="form-control" name="weixin_mp_token[]" value="">
+                        <span class="help-block"><?php _e('请与微信公众平台后台设置一致'); ?></span>
+                    </div>
+                </div>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <div class="form-group">
+                    <span class="col-sm-4 col-xs-3 control-label"><?php _e('微信公众平台帐号角色'); ?>:</span>
+                    <div class="col-sm-8 col-xs-8">
+                        <label class="checkbox-inline"
+                        >
+                            <input type="radio" name="weixin_account_role[]" value="base" /> <?php _e('普通订阅号'); ?>
+                        </label>
+
+                        <label class="checkbox-inline">
+                            <input type="radio" name="weixin_account_role[]" value="subscription" /> <?php _e('微信认证订阅号'); ?>
+                        </label>
+
+                        <label class="checkbox-inline">
+                            <input type="radio" name="weixin_account_role[]" value="general" /> <?php _e('普通服务号'); ?>
+                        </label>
+
+                        <label class="checkbox-inline">
+                            <input type="radio" name="weixin_account_role[]" value="service" /> <?php _e('微信认证服务号'); ?>
+                        </label>
+                    </div>
+                </div>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <div class="form-group">
+                    <span class="col-sm-4 col-xs-3 control-label"><?php _e('WeCenter 微信服务 Access token'); ?>:</span>
+                    <div class="col-sm-5 col-xs-8">
+                        <input type="text" class="form-control" name="wecenter_access_token[]" value="">
+                        <span class="help-block"><?php _e('请到 %s 申请', '<a href="http://mp.wecenter.com" target="_blank">http://mp.wecenter.com</a>'); ?></span>
+                    </div>
+                </div>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <div class="form-group">
+                    <span class="col-sm-4 col-xs-3 control-label"><?php _e('WeCenter 微信服务 Access token'); ?>:</span>
+                    <div class="col-sm-5 col-xs-8">
+                        <input type="text" class="form-control" name="wecenter_access_token[]" value="">
+                    </div>
+                </div>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <div class="form-group">
+                    <span class="col-sm-4 col-xs-3 control-label"><?php _e('WeCenter 微信服务 Access secret'); ?>:</span>
+                    <div class="col-sm-5 col-xs-8">
+                        <input type="text" class="form-control" name="wecenter_access_secret[]" value="">
+                    </div>
+                </div>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <div class="form-group">
+                    <span class="col-sm-4 col-xs-3 control-label"><?php _e('微信公众平台 AppID'); ?>:</span>
+                    <div class="col-sm-5 col-xs-8">
+                        <input type="text" class="form-control" name="weixin_app_id[]" value="">
+                    </div>
+                </div>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <div class="form-group">
+                    <span class="col-sm-4 col-xs-3 control-label"><?php _e('微信公众平台 AppSecret'); ?>:</span>
+                    <div class="col-sm-5 col-xs-8">
+                        <input type="text" class="form-control" name="weixin_app_secret[]" value="">
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
 </div>
 
 <script>
