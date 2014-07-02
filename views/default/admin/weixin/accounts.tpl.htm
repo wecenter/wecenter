@@ -1,10 +1,10 @@
 <?php TPL::output('admin/global/header.tpl.htm'); ?>
 <?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
 
-<div class="aw-content-wrap wechat1">
-    <form action="admin/ajax/weixin_save_accounts/" id="accounts_form" method="post" onsubmit="return false">
-    <div class="mod">
-        <?php if ($this->accounts_total != 0) { foreach ($this->accounts_list AS $key => $value) { ?>
+<form action="admin/ajax/weixin_save_accounts/" id="accounts_form" method="post" onsubmit="return false">=
+    <?php if ($this->accounts_total != 0) { foreach ($this->accounts_list AS $key => $value) { ?>
+    <div class="aw-content-wrap wechat wechat<?php echo $key + 1?>">
+        <div class="mod">
         <div class="mod-head">
             <span class="pull-left"><?php _e('微信账号 %s', $key + 1); ?> (ID: <?php echo $value['id']; ?>)</span>
 
@@ -114,10 +114,11 @@
                 </tr>
             </table>
         </div>
-        <?php } } ?>
+        </div>
     </div>
-    </form>
-</div>
+    <?php } } ?>
+</form>
+
 <div class="aw-content-wrap mod-wechat-btn">
     <div class="mod-wechat-sava center-block">
         <input type="button" value="<?php _e('新增'); ?>" class="btn btn-primary" id="newChat"/>
@@ -158,7 +159,7 @@
                     <div class="col-sm-8 col-xs-8">
                         <label class="checkbox-inline"
                         >
-                            <input type="radio" name="weixin_account_role[]" value="base" /> <?php _e('普通订阅号'); ?>
+                            <input type="radio" name="weixin_account_role[]" value="base" checked="checked" /> <?php _e('普通订阅号'); ?>
                         </label>
 
                         <label class="checkbox-inline">
@@ -238,12 +239,6 @@
 </div>
 
 <script>
-<?php if ($this->accounts_total == 0) { ?>
-    window.onload= function(){
-        $('#newChat').click();
-    }
-<?php } ?>
-
     $(function(){
         var oHtml = $(".wechat-hide").html();
         var num = ($('.wechat').length);
@@ -257,16 +252,22 @@
             var oName = '.wechat'+(num + 1);
             var oId = '.wechat'+(num + 2);
             num++
-            
+
             $(oName).after(oChat);
-            
+
 
             $(oId).find('.form-control').attr("name",'weixin_app_secret['+ (num-1) +']');
             $(oId).find('.mod-head').find('input').attr("name",'id['+ (num-1) +']');
-            
+
             $(oId).find(".pull-left").html('微信帐号  '+(num));
         });
     });
+
+    <?php if ($this->accounts_total == 0) { ?>
+    window.onload= function(){
+        $('#newChat').click();
+    }
+    <?php } ?>
 </script>
 
 <?php TPL::output('admin/global/footer.tpl.htm'); ?>
