@@ -237,12 +237,14 @@
 
 <script>
 <?php if ($this->accounts_total == 0) { ?>
-//点击新增按钮
+    window.onload= function(){
+        $('#newChat').click();
+    }
 <?php } ?>
 
     $(function(){
         var oHtml = $(".wechat-hide").html();
-        var num = 2;
+        var num = ($('.wechat').length)+2;
 
         $('#newChat').click(function(){
 
@@ -257,7 +259,7 @@
             $(oName).after(oChat);
             
 
-            console.log($(oId).find('.form-control').attr("name",'weixin_app_secret['+ (num-2) +']'));
+            $(oId).find('.form-control').attr("name",'weixin_app_secret['+ (num-2) +']');
             $(oId).find(".pull-left").html('微信帐号  '+(num-2));
         });
     });
