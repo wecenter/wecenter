@@ -260,7 +260,8 @@
             
 
             $(oId).find('.form-control').attr("name",'weixin_app_secret['+ (num-1) +']');
-            $('.mod-head').find('input').attr("name",'id['+ (num-1) +']');
+            $(oId).find('.mod-head').find('input').attr("name",'id['+ (num-1) +']');
+            
             $(oId).find(".pull-left").html('微信帐号  '+(num));
         });
     });
