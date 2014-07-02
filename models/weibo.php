@@ -60,11 +60,6 @@ class weibo_class extends AWS_MODEL
         return $services_info;
     }
 
-    public function save_msg_info($msg_info)
-    {
-        return $this->insert('weixin_msg', $msg_info);
-    }
-
     public function save_msg_info_to_question($id)
     {
         $msg_info = $this->get_msg_info_by_id($id);
@@ -226,7 +221,7 @@ class weibo_class extends AWS_MODEL
 
                 $msg_info['weibo_uid'] = $service_info['id'];
 
-                $this->save_msg_info($msg_info);
+                $this->insert('weixin_msg', $msg_info);
             }
         }
 
@@ -238,11 +233,11 @@ class weibo_class extends AWS_MODEL
         $admin_notifications = get_setting('admin_notifications');
 
         $admin_notifications['sina_users'][$uid] = array(
-                                                                'uid' => $uid,
-                                                                'user_name' => $user_name
-                                                            );
+                                                        'uid' => $uid,
+                                                        'user_name' => $user_name
+                                                    );
 
-        $this->model('setting')->set_vars(array('admin_notifications' => $notifications));
+        $this->model('setting')->set_vars(array('admin_notifications' => $admin_notifications));
     }
 
     public function update_service_account($id, $action)

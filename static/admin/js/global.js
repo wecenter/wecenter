@@ -8,9 +8,6 @@ $(function () {
         $(this).tab('show');
     });
 
-    //徽章兼容IE8 
-    var tooltip = $('.aw-header').find(".label-danger");
-    tooltip.text() > 0 ? tooltip.show() : tooltip.hide();
     
     // bs自带方法-气泡提示
     $('.aw-content-wrap .md-tip').tooltip('hide');

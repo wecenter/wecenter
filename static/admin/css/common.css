@@ -41,6 +41,7 @@ ul,ol{padding:0;list-style:none;}
 .mod-bell span{padding-top:5px;}
 .mod-bell i:hover{color:#3695d5;}
 .mod-chat{top:38px;left:-220px;padding:0;width:280px;border:1px solid #DFDFDF;border-top:none;border-radius:0;box-shadow:0 3px 3px rgba(0,0,0,0.1);}
+.mod-chat p{text-align: center;line-height: 32px;margin-top: 10px;}
 .mod-media{margin:0;padding:10px;width:100%;border-bottom:1px solid #DFDFDF;background:#f8f8f8;line-height:1em;}
 .mod-media:hover{background:#fff;}
 .mod-media a{padding:2px;}

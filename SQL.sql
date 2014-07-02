@@ -66,5 +66,4 @@ CREATE TABLE `aws_weixin_qr_code` (
   KEY `subscribe_num` (`subscribe_num`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='微信二维码';
 
-
-INSERT INTO `aws_system_setting` (`varname`, `value`) VALUES ('admin_notifications', 'a:0:"";')
+INSERT INTO `aws_system_setting` (`varname`, `value`) VALUES ('admin_notifications', 'a:0:"";');
