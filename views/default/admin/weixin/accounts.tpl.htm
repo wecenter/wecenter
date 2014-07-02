@@ -247,7 +247,7 @@
         var num = ($('.wechat').length);
 
         $('#newChat').click(function(){
-
+            var arr = [ ];
             var url = ['<div class="aw-content-wrap wechat wechat' , num+2  , '"','>' , '</div>'].join("");
 
             var oParent = $(url);
@@ -258,8 +258,19 @@
 
             $(oName).after(oChat);
 
+            var oLength = $(oId).find('.mod-content input').length;
+            
+            for(var i=0;i<oLength;i++){
 
-            $(oId).find('.form-control').attr("name",'weixin_app_secret['+ (num-1) +']');
+                var oInputName = $(oId).find('.mod-content input:eq('+ i +')').attr("name")
+                    oInputName = oInputName.replace("[]",'['+ (num-1) +']');
+                arr.push(oInputName);
+            }
+
+            for(var i=0;i<arr.length;i++){
+                $(oId).find('.mod-content input:eq('+ i +')').attr("name",arr[i]);
+            }
+
             $(oId).find('.mod-head').find('input').attr("name",'id['+ (num-1) +']');
 
             $(oId).find(".pull-left").html('微信帐号  '+(num));
