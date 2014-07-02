@@ -49,4 +49,19 @@ $(function()
 
 	//话题问题搜索下拉绑定
 	AWS.Dropdown.bind_dropdown_list($('.aw-topic-search #question-input'), 'topic_question');
+
+	//文章列表样式调整
+	$.each($('.aw-common-list .aw-item.article'), function (i, e)
+	{
+		if ($(this).find('img').length <= 1)
+		{
+			$(this).find('.img.pull-right').detach();
+		}
+		else
+		{
+			$(this).find('.aw-comment-upload-img-list').next().detach();
+			$(this).find('img').next().detach().end().prev().detach();
+			$(this).find('.markitup-box img').eq(0).css({'z-index':'999'});
+		}
+	});
 });
