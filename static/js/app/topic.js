@@ -49,4 +49,5 @@ $(function()
 
 	//话题问题搜索下拉绑定
 	AWS.Dropdown.bind_dropdown_list($('.aw-topic-search #question-input'), 'topic_question');
+
 });

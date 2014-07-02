@@ -43,6 +43,18 @@ $(document).ready(function ()
         AWS.G.notification_timer = setInterval('AWS.Message.check_notifications()', G_NOTIFICATION_INTERVAL);
     }
 
+    //文章列表样式调整
+    $.each($('.aw-common-list .aw-item.article'), function (i, e)
+    {
+        if ($(this).find('img').length > 1)
+        {
+            $(this).find('.img.pull-right').show();
+            $(this).find('.aw-comment-upload-img-list').next().detach();
+            $(this).find('img').next().detach().end().prev().detach();
+            $(this).find('.markitup-box img').eq(0).css({'z-index':'999'});
+        }
+    });
+
     $('a[rel=lightbox]').fancybox(
     {
         openEffect: 'none',

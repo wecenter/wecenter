@@ -4,7 +4,7 @@
 	<div class="container">
 		<div class="row aw-content-wrap">
 			<div class="col-sm-12 col-md-9 aw-main-content">
-				<div class="mod-head">
+				<div class="mod-head common-head">
 					<h2><?php _e('我的收藏'); ?></h2>
 					
 					<?php if (sizeof($this->favorite_tags) > 0) { ?>
@@ -24,10 +24,14 @@
 						
 						<h4><a href="<?php echo $val['link']; ?>"><?php echo $val['title']; ?></a></h4>
 						
-						<?php if ($val['last_action_str']) { ?><?php echo $val['last_action_str']; ?> • <?php echo date_friendly($val['add_time']); ?><?php } ?>
+						<p class="aw-text-color-999">
+							<?php if ($val['last_action_str']) { ?><?php echo $val['last_action_str']; ?> • <?php echo date_friendly($val['add_time']); ?><?php } ?>
+						</p>
 						
 						<?php if ($val['answer_info']) { ?>
-						<p class="aw-text-color-999"><a class="aw-user-name" data-id="<?php echo $val['user_info']['uid']; ?>" href="people/<?php echo $val['answer_info']['url_token']; ?>"><?php echo $val['user_info']['user_name']; ?></a><?php if ($val['user_info']['signature']) { ?> - <?php echo $val['user_info']['signature']; ?><?php } ?></p>
+						<p class="aw-text-color-999">
+							<a class="aw-user-name" data-id="<?php echo $val['user_info']['uid']; ?>" href="people/<?php echo $val['answer_info']['url_token']; ?>"><?php echo $val['user_info']['user_name']; ?></a><?php if ($val['user_info']['signature']) { ?> - <?php echo $val['user_info']['signature']; ?><?php } ?>
+						</p>
 						
 						<!-- 评论内容 -->
 						<div class="content">
