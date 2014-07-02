@@ -49,63 +49,63 @@
                 if ($notifications['answer_approval']) {
                     $notifications_texts[] = array(
                                                     'url' => 'admin/approval/list/',
-                                                    'text' => AWS_APP::lang()->_t('有 %s 个回答待审核。', $notifications['answer_approval'])
+                                                    'text' => AWS_APP::lang()->_t('有 %s 个回答待审核', $notifications['answer_approval'])
                                                 );
                 }
 
                 if ($notifications['question_approval']) {
                     $notifications_texts[] = array(
                                                     'url' => 'admin/approval/list/type-answer',
-                                                    'text' => AWS_APP::lang()->_t('有 %s 个问题待审核。', $notifications['question_approval'])
+                                                    'text' => AWS_APP::lang()->_t('有 %s 个问题待审核', $notifications['question_approval'])
                                                 );
                 }
 
                 if ($notifications['article_approval']) {
                     $notifications_texts[] = array(
                                                     'url' => 'admin/approval/list/type-article',
-                                                    'text' => AWS_APP::lang()->_t('有 %s 篇文章待审核。', $notifications['article_approval'])
+                                                    'text' => AWS_APP::lang()->_t('有 %s 篇文章待审核', $notifications['article_approval'])
                                                 );
                 }
 
                 if ($notifications['article_comment_approval']) {
                     $notifications_texts[] = array(
                                                     'url' => 'admin/approval/list/type-article_comment',
-                                                    'text' => AWS_APP::lang()->_t('有 %s 个文章评论待审核。', $notifications['article_comment_approval'])
+                                                    'text' => AWS_APP::lang()->_t('有 %s 个文章评论待审核', $notifications['article_comment_approval'])
                                                 );
                 }
 
                 if ($notifications['weibo_msg_approval']) {
                     $notifications_texts[] = array(
                                                     'url' => 'admin/approval/list/type-weibo_msg',
-                                                    'text' => AWS_APP::lang()->_t('有 %s 个新浪微博消息待审核。', $notifications['weibo_msg_approval'])
+                                                    'text' => AWS_APP::lang()->_t('有 %s 个新浪微博消息待审核', $notifications['weibo_msg_approval'])
                                                 );
                 }
 
                 if ($notifications['user_report']) {
                     $notifications_texts[] = array(
                                                     'url' => 'admin/question/report_list/',
-                                                    'text' => AWS_APP::lang()->_t('有 %s 个用户举报待查看。', $notifications['user_report'])
+                                                    'text' => AWS_APP::lang()->_t('有 %s 个用户举报待查看', $notifications['user_report'])
                                                 );
                 }
 
                 if (get_setting('register_valid_type') == 'approval' AND $notifications['register_approval']) {
                     $notifications_texts[] = array(
                                                     'url' => 'admin/user/register_approval_list/',
-                                                    'text' => AWS_APP::lang()->_t('有 %s 个新用户待审核。', $notifications['register_approval'])
+                                                    'text' => AWS_APP::lang()->_t('有 %s 个新用户待审核', $notifications['register_approval'])
                                                 );
                 }
 
                 if ($notifications['verify_approval']) {
                     $notifications_texts[] = array(
                                                     'url' => 'admin/verify_approval_list',
-                                                    'text' => AWS_APP::lang()->_t('有 %s 个认证申请待审核。', $notifications['verify_approval'])
+                                                    'text' => AWS_APP::lang()->_t('有 %s 个认证申请待审核', $notifications['verify_approval'])
                                                 );
                 }
 
                 if ($this->user_info['group_id'] == 1 AND $notifications['last_version_build_day'] > G_VERSION_BUILD) {
                     $notifications_texts[] = array(
                                                     'url' => 'http://www.wecenter.com/downloads/',
-                                                    'text' => AWS_APP::lang()->_t('程序需要更新，最新版本为 %s。', $notifications['last_version'])
+                                                    'text' => AWS_APP::lang()->_t('程序需要更新，最新版本为 %s', $notifications['last_version'])
                                                 );
                 }
 
@@ -113,7 +113,7 @@
                     foreach ($notifications['sina_users'] AS $sina_user) {
                         $notifications_texts[] = array(
                                                         'url' => 'admin/settings/category-openid',
-                                                        'text' => AWS_APP::lang()->_t('用户 %s 的新浪微博账号需要更新 Access Token，请重新授权。', $sina_user['user_name'])
+                                                        'text' => AWS_APP::lang()->_t('用户 %s 的新浪微博账号需要更新 Access Token，请重新授权', $sina_user['user_name'])
                                                     );
                     }
                 }
@@ -128,12 +128,12 @@
                     <?php if ($notifications_texts) { foreach ($notifications_texts AS $notifications_text) { ?>
 
                     <li class="mod-media">
-                        <div class="media-body">
-                            <a href="<?php echo $notifications_text['url']; ?>"><p class="margin-none"><?php echo $notifications_text['text']; ?></p></a>
-                        </div>
+                        <a href="<?php echo $notifications_text['url']; ?>">
+                            <?php echo $notifications_text['text']; ?>
+                        </a>
                     </li>
                     <?php } } else { ?>
-                    <p><?php _e('没有通知。'); ?></p>
+                    <p><?php _e('没有通知'); ?></p>
                     <?php } ?>
                 </ul>
             </li>
