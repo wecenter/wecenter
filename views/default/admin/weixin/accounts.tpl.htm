@@ -126,17 +126,18 @@
 </div>
 
 <div class="wechat-hide" style="display: none">
-<div class="mod-head">
-    <span class="pull-left"><?php _e('微信账号'); ?></span>
+<div class="mod">
+    <div class="mod-head">
+        <span class="pull-left"><?php _e('微信账号'); ?></span>
 
-    <span class="pull-right">
-        <a href="javascript:;" onclick="AWS.ajax_post($('#accounts_form'));" class="btn btn-xs btn-primary mod-site-save"><?php _e('快速保存'); ?></a>
-    </span>
+        <span class="pull-right">
+            <a href="javascript:;" onclick="AWS.ajax_post($('#accounts_form'));" class="btn btn-xs btn-primary mod-site-save"><?php _e('快速保存'); ?></a>
+        </span>
 
-    <input type="hidden" name="id[]" value="" />
-</div>
+        <input type="hidden" name="id[]" value="" />
+    </div>
 
-<div class="tab-content mod-content">
+    <div class="tab-content mod-content">
     <table class="table table-striped">
         <tr>
             <td>
@@ -232,6 +233,7 @@
             </td>
         </tr>
     </table>
+</div>
 </div>
 </div>
 
