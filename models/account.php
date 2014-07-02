@@ -313,7 +313,7 @@ class account_class extends AWS_MODEL
         
         if ($attrib)
         {
-	        if ($user_attrib = $this->fetch_row('users_attrib', 'uid = ' . intval($uid))
+	        if ($user_attrib = $this->fetch_row('users_attrib', 'uid = ' . intval($uid)))
 	        {
 		        foreach ($user_attrib AS $key => $val)
 		        {
