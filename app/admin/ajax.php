@@ -864,7 +864,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('同名话题已经存在')));
 		}
 
-		$this->model('topic')->update_topic($_POST['topic_id'], $_POST['topic_title'], $_POST['topic_description']);
+		$this->model('topic')->update_topic($this->user_id, $_POST['topic_id'], $_POST['topic_title'], $_POST['topic_description']);
 
 		$this->model('topic')->lock_topic_by_ids($_POST['topic_id'], $_POST['topic_lock']);
 
