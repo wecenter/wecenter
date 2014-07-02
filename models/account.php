@@ -306,7 +306,7 @@ class account_class extends AWS_MODEL
             }
         }
 
-        if (! $user_info = $this->fetch_row('user', 'uid = ' . intval($uid)))
+        if (! $user_info = $this->fetch_row('users', 'uid = ' . intval($uid)))
         {
             return false;
         }
