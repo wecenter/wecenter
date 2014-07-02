@@ -1533,6 +1533,11 @@ class ajax extends AWS_ADMIN_CONTROLLER
 	{
 		unset($_POST['_post_type']);
 
+		if (empty($_POST))
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('错误的请求')));
+		}
+
 		foreach ($_POST AS $name => $array)
 		{
 			foreach ($_POST[$name] AS $key => $value)

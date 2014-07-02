@@ -12,6 +12,11 @@
 +---------------------------------------------------------------------------
 */
 
+if (!defined('IN_ANWSION'))
+{
+	die;
+}
+
 class admin_class extends AWS_MODEL
 {
 	public function fetch_menu_list($select_id)
