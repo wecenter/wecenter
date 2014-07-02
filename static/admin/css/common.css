@@ -50,8 +50,8 @@ ul,ol{padding:0;list-style:none;}
 .mod-chat .thumb{display:block;padding:3px;border:1px solid #e2e1e1;background:#fff;}
 .mod-header-user a.dropdown-toggle{margin-right:15px;padding:10px 0;}
 .mod-header-user ul li{display:inline-block;margin:10px 0 0;}
-.mod-header-user ul li ul li{min-width:100px;margin-top: 0;}
-.mod-header-user ul li ul li a{line-height: 30px;}
+.mod-header-user ul li ul li{min-width:100px;margin-top: 0;overflow:hidden;}
+.mod-header-user ul li ul li a{line-height: 30px;margin-left: -3px;}
 .aw-header ul li.username{margin-right:30px;}
 .aw-header .dropdown-menu li .fa{width:27px;vertical-align:middle;text-align:center;}
 
@@ -93,7 +93,7 @@ ul,ol{padding:0;list-style:none;}
 #main3{margin-top: 20px;height: 300px;}
 .mod-echat-info .col-md-6{margin-bottom: 40px;}
 /*页面底部区域 start*/
-.aw-footer{overflow:hidden;margin:0 0 0 225px;height:50px;background:#efefef;text-align:center;line-height:52px;clear:both;}
+.aw-footer{overflow:hidden;margin:0 0 -20px 225px;height:50px;background:#efefef;text-align:center;line-height:52px;clear:both;}
 .aw-footer p{font-size:12px;}
 
 /*右侧公共部分*/
@@ -107,7 +107,7 @@ ul,ol{padding:0;list-style:none;}
 .aw-content-wrap .mod-site-save{margin:10px 15px 0 0;}
 .aw-content-wrap .mod-head .pull-left{margin-right:20px;padding-left:15px;font-size:14px;line-height:45px;}
 .mod-head .nav-tabs li.active{height:43px;border-bottom:1px solid #fff;background:#FFF;}
-.aw-content-wrap .mod-table-foot{margin-top:20px; text-align: center;}
+.aw-content-wrap .mod-table-foot{margin-top:20px;}
 .aw-content-wrap .mod-table-foot .pull-right{margin-top:0;}
 
 /*右侧表格主体部分*/
@@ -123,10 +123,10 @@ textarea{resize:none;}
 .aw-content-wrap input[type=radio],.aw-content-wrap input[type=checkbox]{margin-right:5px;}
 .aw-content-wrap .tab-content th{border:none;color:#000;font-weight:400;}
 .aw-content-wrap table > tfoot > tr > td{padding-top:18px;padding-bottom:0;}
-.aw-content-wrap .mod-text-inline{padding:0 5px 0 20px;width:auto;line-height:34px;}
+.aw-content-wrap .mod-text-inline{padding: 0 5px 0 8px;width:auto;line-height:34px;}
 #members_table .min-value{min-width:175px;}
 .aw-content-wrap .mod-btn .mod-btn-color{border:1px solid #eaeaea;background:#fff;color:#000;}
-
+.mod-one-btn{text-align:center;}
 /*site_info 页面 start*/
 .aw-content-wrap .mod-text-color-999{padding-left:15px;color:#999;}
 .aw-content-wrap .mod-site-url li{margin-top:10px;height:102px;border:1px solid #D7E6F0;background:#fff;}

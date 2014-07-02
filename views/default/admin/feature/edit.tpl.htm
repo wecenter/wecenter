@@ -9,7 +9,6 @@
 				<span class="pull-left"><?php _e('专题管理'); ?></span>
 			</h3>
 		</div>
-		</div>
 		<div class="tab-content mod-content">
 			<table class="table table-striped">
 				<tr>
@@ -36,9 +35,11 @@
 					<td>
 						<div class="form-group">
 							<span class="col-sm-4 col-xs-3 control-label"><?php _e('别名'); ?>:</span>
-                            <span class="col-sm-1 mod-text-inline">/feature/</span>
-							<div class="col-sm-4 col-xs-4">
-								<input type="text" name="url_token" class="form-control" value="<?php echo $this->feature['url_token']; ?>" />
+							<div class="col-sm-5 col-xs-4">
+								<span class="col-sm-1 mod-text-inline">/feature/</span>
+								<div class="col-sm-10 pull-right nopadding">
+									<input type="text" name="url_token" class="form-control" value="<?php echo $this->feature['url_token']; ?>" />
+								</div>
 							</div>
 						</div>
 					</td>
@@ -57,9 +58,12 @@
 					<td>
 						<div class="form-group">
 							<span class="col-sm-4 col-xs-3 control-label"><?php _e('专题图片'); ?>:</span>
-							<div class="col-sm-5 col-xs-8">
-								<input name="icon" type="file" />
-								
+							<div class="col-sm-5 col-xs-8 nopadding">
+								<div class="col-sm-5 col-xs-8">
+                                <span class="mod-file">
+                                    <input type="button" class="btn btn-primary" value="点击选择图片" />
+                                    <input type="file" name="main_msg_img" exts="png|jpg|bmp|jpeg" class="mod-input-file" />
+                                </span>						
 								<span class="help-block"><?php _e('规格'); ?>: 900px x 240px, <?php _e('支持上传图片类型'); ?>: jpg,jpeg,gif,png</span>
 							</div>
 						</div>
@@ -97,6 +101,7 @@
 			</table>
 		</div>
 	</form>
+	</div>
 </div>
 
 <?php TPL::output('admin/global/footer.tpl.htm'); ?>
