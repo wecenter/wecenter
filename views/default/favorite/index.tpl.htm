@@ -8,8 +8,8 @@
 					<h2><?php _e('我的收藏'); ?></h2>
 					
 					<?php if (sizeof($this->favorite_tags) > 0) { ?>
-					<div class="aw-tag-meta">
-						<span><?php _e('标签'); ?>:</span>
+					<div class="aw-tag-meta clearfix">
+						<span class="pull-left"><?php _e('标签'); ?>:</span>
 						<?php foreach ($this->favorite_tags AS $key => $val) { ?>
 						<a class="aw-topic-name" href="favorite/tag-<?php echo urlencode($val['title']); ?>"><span><?php echo $val['title']; ?></span></a>
 						<?php } ?>
