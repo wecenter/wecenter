@@ -215,7 +215,7 @@ class topic_class extends AWS_MODEL
 	
 	public function get_topic_by_title($topic_title)
 	{
-		if ($topic_id = $this->fetch_one('topic', 'topic_id', "topic_title = '" . $this->quote($topic_title) . "'"))
+		if ($topic_id = $this->fetch_one('topic', 'topic_id', "topic_title = '" . $this->quote(htmlspecialchars($topic_title)) . "'"))
 		{
 			return $this->get_topic_by_id($topic_id);
 		}
@@ -570,7 +570,7 @@ class topic_class extends AWS_MODEL
 		return $topics;
 	}
 
-	function get_focus_users_by_topic($topic_id, $limit = 10)
+	public function get_focus_users_by_topic($topic_id, $limit = 10)
 	{
 		if ($uids = $this->query_all("SELECT DISTINCT uid FROM " . $this->get_table('topic_focus') . " WHERE topic_id = " . intval($topic_id), $limit))
 		{
@@ -578,7 +578,7 @@ class topic_class extends AWS_MODEL
 		}
 	}
 	
-	function get_question_best_ids_by_topics_ids($topic_ids, $limit = null)
+	public function get_question_best_ids_by_topics_ids($topic_ids, $limit = null)
 	{
 		if (!is_array($topic_ids))
 		{
@@ -1224,19 +1224,19 @@ class topic_class extends AWS_MODEL
 		return $result;
 	}
 	
-	function check_url_token($url_token, $topic_id)
+	public function check_url_token($url_token, $topic_id)
 	{
 		return $this->count('topic', "url_token = '" . $this->quote($url_token) . "' OR topic_title = '" . $this->quote($url_token) . "' AND topic_id != " . intval($topic_id));
 	}
 	
-	function update_url_token($url_token, $topic_id)
+	public function update_url_token($url_token, $topic_id)
 	{
 		return $this->update('topic', array(
 			'url_token' => htmlspecialchars($url_token)
 		), 'topic_id = ' . intval($topic_id));
 	}
 	
-	function update_seo_title($seo_title, $topic_id)
+	public function update_seo_title($seo_title, $topic_id)
 	{
 		return $this->update('topic', array(
 			'seo_title' => htmlspecialchars($seo_title)
