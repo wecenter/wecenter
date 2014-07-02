@@ -218,7 +218,7 @@ class favorite_class extends AWS_MODEL
 			{
 				case 'answer':
 					$favorite_list_data[$key]['title'] = $question_infos[$answer_infos[$data['item_id']]['question_id']]['question_content'];
-					$favorite_list_data[$key]['link'] = get_js_url('/question/' . $question_infos[$answer_infos[$data['item_id']]['question_id']] . '?rf=false&item_id=' . $data['item_id'] . '#!answer_' . $data['item_id']);
+					$favorite_list_data[$key]['link'] = get_js_url('/question/' . $question_infos[$answer_infos[$data['item_id']]]['question_id'] . '?rf=false&item_id=' . $data['item_id'] . '#!answer_' . $data['item_id']);
 					$favorite_list_data[$key]['add_time'] = $question_infos[$answer_infos[$data['item_id']]['question_id']]['add_time'];
 					
 					$favorite_list_data[$key]['answer_info'] = $answer_infos[$data['item_id']];
