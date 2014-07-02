@@ -20,7 +20,7 @@ if (!defined('IN_ANWSION'))
 
 class topic_class extends AWS_MODEL
 {
-	public function get_topic_list($where = null, $order = 'topic_id DESC', $limit = 10, $page = 1)
+	public function get_topic_list($where = null, $order = 'topic_id DESC', $limit = 10, $page = null)
 	{
 		if ($topic_list = $this->fetch_page('topic', $where, $order, $page, $limit))
 		{
@@ -198,7 +198,7 @@ class topic_class extends AWS_MODEL
 
 		array_walk_recursive($topic_ids, 'intval_string');
 
-		$topics = $this->fetch_all('topic', 'topic_id IN(' . implode(',', array_unique($topic_ids)) . ')');
+		$topics = $this->fetch_all('topic', 'topic_id IN(' . implode(',', $topic_ids) . ')');
 
 		foreach ($topics AS $key => $val)
 		{
@@ -215,7 +215,7 @@ class topic_class extends AWS_MODEL
 
 	public function get_topic_by_title($topic_title)
 	{
-		if ($topic_id = $this->fetch_one('topic', 'topic_id', "topic_title = '" . $this->quote($topic_title) . "'"))
+		if ($topic_id = $this->fetch_one('topic', 'topic_id', "topic_title = '" . $this->quote(htmlspecialchars($topic_title)) . "'"))
 		{
 			return $this->get_topic_by_id($topic_id);
 		}
@@ -271,32 +271,26 @@ class topic_class extends AWS_MODEL
 		return $this->delete('topic_relation', 'topic_id = ' . intval($topic_id) . ' AND item_id = ' . intval($item_id) . " AND `type` = '" . $this->quote($type) . "'");
 	}
 
-	public function update_topic($topic_id, $topic_title = null, $topic_description = null, $topic_pic = null, $topic_lock = 0)
+	public function update_topic($uid, $topic_id, $topic_title = null, $topic_description = null, $topic_pic = null)
 	{
-		$topic_title = htmlspecialchars(trim($topic_title));
-		$topic_description = htmlspecialchars($topic_description);
-		$topic_pic = htmlspecialchars($topic_pic);
-
-		$topic_info = $this->get_topic_by_id($topic_id); //得到话题信息
+		if (!$topic_info = $this->get_topic_by_id($topic_id))
+		{
+			return false;
+		}
 
 		if (! empty($topic_title))
 		{
-			$data['topic_title'] = $topic_title;
+			$data['topic_title'] = htmlspecialchars(trim($topic_title));
 		}
 
 		if (! empty($topic_description))
 		{
-			$data['topic_description'] = $topic_description;
+			$data['topic_description'] = htmlspecialchars($topic_description);
 		}
 
 		if (! empty($topic_pic))
 		{
-			$data['topic_pic'] = $topic_pic;
-		}
-
-		if (! empty($topic_lock))
-		{
-			$data['topic_lock'] = $topic_lock;
+			$data['topic_pic'] = htmlspecialchars($topic_pic);
 		}
 
 		if ($data)
@@ -304,19 +298,19 @@ class topic_class extends AWS_MODEL
 			$this->update('topic', $data, 'topic_id = ' . intval($topic_id));
 
 			// 记录日志
-			if ($topic_title && $topic_title != $topic_info['topic_title'])
+			if ($topic_title AND $topic_title != $topic_info['topic_title'])
 			{
-				ACTION_LOG::save_action(AWS_APP::user()->get_info('uid'), $topic_id, ACTION_LOG::CATEGORY_TOPIC, ACTION_LOG::MOD_TOPIC, $topic_title, $topic_info['topic_title']);
+				ACTION_LOG::save_action($uid, $topic_id, ACTION_LOG::CATEGORY_TOPIC, ACTION_LOG::MOD_TOPIC, $topic_title, $topic_info['topic_title']);
 			}
 
-			if ($topic_description && $topic_description != $topic_info['topic_description'])
+			if ($topic_description AND $topic_description != $topic_info['topic_description'])
 			{
-				ACTION_LOG::save_action(AWS_APP::user()->get_info('uid'), $topic_id, ACTION_LOG::CATEGORY_TOPIC, ACTION_LOG::MOD_TOPIC_DESCRI, $topic_description, $topic_info['topic_description']);
+				ACTION_LOG::save_action($uid, $topic_id, ACTION_LOG::CATEGORY_TOPIC, ACTION_LOG::MOD_TOPIC_DESCRI, $topic_description, $topic_info['topic_description']);
 			}
 
-			if ($topic_pic && $topic_pic != $topic_info['topic_pic'])
+			if ($topic_pic AND $topic_pic != $topic_info['topic_pic'])
 			{
-				ACTION_LOG::save_action(AWS_APP::user()->get_info('uid'), $topic_id, ACTION_LOG::CATEGORY_TOPIC, ACTION_LOG::MOD_TOPIC_PIC, $topic_pic, $topic_info['topic_pic']);
+				ACTION_LOG::save_action($uid, $topic_id, ACTION_LOG::CATEGORY_TOPIC, ACTION_LOG::MOD_TOPIC_PIC, $topic_pic, $topic_info['topic_pic']);
 			}
 		}
 
@@ -570,7 +564,7 @@ class topic_class extends AWS_MODEL
 		return $topics;
 	}
 
-	function get_focus_users_by_topic($topic_id, $limit = 10)
+	public function get_focus_users_by_topic($topic_id, $limit = 10)
 	{
 		if ($uids = $this->query_all("SELECT DISTINCT uid FROM " . $this->get_table('topic_focus') . " WHERE topic_id = " . intval($topic_id), $limit))
 		{
@@ -578,7 +572,7 @@ class topic_class extends AWS_MODEL
 		}
 	}
 
-	function get_question_best_ids_by_topics_ids($topic_ids, $limit = null)
+	public function get_question_best_ids_by_topics_ids($topic_ids, $limit = null)
 	{
 		if (!is_array($topic_ids))
 		{
@@ -1224,19 +1218,19 @@ class topic_class extends AWS_MODEL
 		return $result;
 	}
 
-	function check_url_token($url_token, $topic_id)
+	public function check_url_token($url_token, $topic_id)
 	{
 		return $this->count('topic', "url_token = '" . $this->quote($url_token) . "' OR topic_title = '" . $this->quote($url_token) . "' AND topic_id != " . intval($topic_id));
 	}
 
-	function update_url_token($url_token, $topic_id)
+	public function update_url_token($url_token, $topic_id)
 	{
 		return $this->update('topic', array(
 			'url_token' => htmlspecialchars($url_token)
 		), 'topic_id = ' . intval($topic_id));
 	}
 
-	function update_seo_title($seo_title, $topic_id)
+	public function update_seo_title($seo_title, $topic_id)
 	{
 		return $this->update('topic', array(
 			'seo_title' => htmlspecialchars($seo_title)
@@ -1263,7 +1257,6 @@ class topic_class extends AWS_MODEL
 		switch ($type)
 		{
 			case 'question':
-				// 添加问题添加到话题的动作
 				ACTION_LOG::save_action($uid, $item_id, ACTION_LOG::CATEGORY_QUESTION, ACTION_LOG::ADD_TOPIC, $topic_info['topic_title'], $topic_id);
 
 				ACTION_LOG::save_action($uid, $topic_id, ACTION_LOG::CATEGORY_TOPIC, ACTION_LOG::ADD_TOPIC, $topic_info['topic_title'], $item_id);

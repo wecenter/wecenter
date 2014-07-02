@@ -138,7 +138,7 @@ class ajax extends AWS_CONTROLLER
 			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('请填写话题描述')));
 		}
 
-		$this->model('topic')->update_topic($_POST['topic_id'], null, $_POST['topic_description']);
+		$this->model('topic')->update_topic($this->user_id, $_POST['topic_id'], null, $_POST['topic_description']);
 
 		AWS_APP::cache()->set('function_interval_timer_topic_' . $this->user_id, time(), 86400);
 
@@ -288,7 +288,7 @@ class ajax extends AWS_CONTROLLER
 			@unlink(get_setting('upload_dir') . '/topic/' . str_replace('_' . AWS_APP::config()->get('image')->topic_thumbnail['min']['w'] . '_' . AWS_APP::config()->get('image')->topic_thumbnail['min']['h'], '', $topic_info['topic_pic']));
 		}
 
-		$this->model('topic')->update_topic($_GET['topic_id'], null, null, gmdate('Ymd') . '/' . basename($thumb_file['min']));
+		$this->model('topic')->update_topic($this->user_id, $_GET['topic_id'], null, null, gmdate('Ymd') . '/' . basename($thumb_file['min']));
 
 		H::ajax_json_output(AWS_APP::RSM(array(
 			'preview' => get_setting('upload_url') . '/topic/' . gmdate('Ymd') . '/' . basename($thumb_file['mid'])

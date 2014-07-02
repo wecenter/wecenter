@@ -51,22 +51,4 @@
 	</div>
 </div>
 
-<script type="text/javascript">
-	$(function()
-	{
-		$.each($('.aw-question-list .aw-item.article'), function (i, e)
-		{
-			if ($(this).find('img').length <= 1)
-			{
-				$(this).find('.img.pull-right').detach();
-			}
-			else
-			{
-				$(this).find('.aw-comment-upload-img-list').next().detach();
-				$(this).find('img').next().detach();
-				$(this).find('img').prev().detach();
-			}
-		});
-	});
-</script>
 <?php TPL::output('global/footer.tpl.htm'); ?>
