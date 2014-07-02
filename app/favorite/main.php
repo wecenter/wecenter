@@ -49,7 +49,7 @@ class main extends AWS_CONTROLLER
 			TPL::assign('sidebar_recommend_users_topics', $recommend_users_topics);
 		}
 		
-		if ($action_list = $this->model('actions')->get_favorite_tag_action_list($_GET['tag'], $this->user_id, calc_page_limit($_GET['page'], get_setting('contents_per_page'))))
+		if ($action_list = $this->model('favorite')->get_item_list($_GET['tag'], $this->user_id, calc_page_limit($_GET['page'], get_setting('contents_per_page'))))
 		{
 			foreach ($action_list AS $key => $val)
 			{
