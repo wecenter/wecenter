@@ -199,7 +199,7 @@ class favorite_class extends AWS_MODEL
 		foreach ($favorite_items as $key => $data)
 		{
 			$favorite_list_data[$key]['title'] = $question_infos[$answer_infos[$data['answer_id']]['question_id']]['question_content'];
-			$favorite_list_data[$key]['link'] = get_js_url('/question/' . $question_infos[$answer_infos[$data['answer_id']]['question_id']] . '?rf=false&item_id=' . $data['answer_id'] . '#!answer_' . $data['answer_id']);
+			$favorite_list_data[$key]['link'] = get_js_url('/question/' . $question_infos[$answer_infos[$data['answer_id']]]['question_id'] . '?rf=false&item_id=' . $data['answer_id'] . '#!answer_' . $data['answer_id']);
 			$favorite_list_data[$key]['add_time'] = $question_infos[$answer_infos[$data['answer_id']]['question_id']]['add_time'];
 			
 			$favorite_list_data[$key]['answer_info'] = $answer_infos[$data['answer_id']];
