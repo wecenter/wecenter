@@ -6,7 +6,8 @@
 			<div class="col-sm-12 col-md-9 aw-main-content">
 				<div class="mod-head common-head">
 					<h2><?php _e('我的收藏'); ?></h2>
-					
+				</div>
+				<div class="mod-body aw-feed-list">
 					<?php if (sizeof($this->favorite_tags) > 0) { ?>
 					<div class="aw-tag-meta clearfix">
 						<span class="pull-left"><?php _e('标签'); ?>:</span>
@@ -15,9 +16,7 @@
 						<?php } ?>
 					</div>
 					<?php } ?>
-				</div>
-				<?php if (sizeof ($this->list) > 0) { ?>
-				<div class="mod-body aw-feed-list">
+					<?php if (sizeof ($this->list) > 0) { ?>
 					<?php foreach ($this->list AS $key => $val) { ?>
 					<div class="aw-item">
 						<?php if ($val['answer_info']['anonymous'] == 0) { ?><a data-id="<?php echo $val['user_info']['uid']; ?>" class="aw-user-img aw-border-radius-5 pull-right" data-id="<?php echo $val['user_info']['uid']; ?>" href="people/<?php echo $val['user_info']['url_token']; ?>"><img src="<?php echo get_avatar_url($val['user_info']['uid'], 'mid'); ?>" alt="<?php echo $val['user_info']['user_name']; ?>" /></a><?php } else { ?><a href="javascript:;" class="aw-user-img aw-border-radius-5 pull-right"><img src="<?php echo G_STATIC_URL; ?>/common/avatar-mid-img.png" alt="<?php _e('匿名用户'); ?>" /></a><?php } ?>
@@ -102,9 +101,8 @@
 						</div>
 					</div>
 					<?php } ?>
+					<?php } ?>
 				</div>
-				<?php } ?>
-				
 				<div class="mod-footer">
 					<?php echo $this->pagination; ?>
 				</div>

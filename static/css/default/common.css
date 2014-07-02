@@ -63,7 +63,7 @@ table td{vertical-align: middle !important;}
 .aw-close{font-size: 16px;}
 .inline-block{display: inline-block;}
 .aw-global-tips{margin-bottom: 20px;}
-.aw-tag-meta{margin:10px 0;}
+.aw-tag-meta{margin:10px 0;padding:10px;background-color:#fcfed9;border-radius: 10px;}
 .aw-tag-meta > span{margin-top: 3px;}
 .aw-tag-meta .aw-topic-name{float:left;margin:5px;}
 /* 加载更多 */
