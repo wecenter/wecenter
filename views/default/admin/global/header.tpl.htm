@@ -102,7 +102,7 @@
                                                 );
                 }
 
-                if ($notifications['last_version_build_day'] > G_VERSION_BUILD) {
+                if ($this->user_info['group_id'] == 1 AND $notifications['last_version_build_day'] > G_VERSION_BUILD) {
                     $notifications_texts[] = array(
                                                     'url' => 'http://www.wecenter.com/downloads/',
                                                     'text' => _e('程序需要更新，最新版本为 %s。', $notifications['last_version'])
