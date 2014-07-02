@@ -2,9 +2,8 @@
 <?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
 
 <form action="admin/ajax/weixin_save_accounts/" id="accounts_form" method="post" onsubmit="return false">=
-        <?php if ($this->accounts_total != 0) { foreach ($this->accounts_list AS $key => $value) { ?>
-        <div class="aw-content-wrap wechat wechat<?php echo $key + 1?>">
-
+    <?php if ($this->accounts_total != 0) { foreach ($this->accounts_list AS $key => $value) { ?>
+    <div class="aw-content-wrap wechat wechat<?php echo $key + 1?>">
         <div class="mod">
         <div class="mod-head">
             <span class="pull-left"><?php _e('微信账号 %s', $key + 1); ?> (ID: <?php echo $value['id']; ?>)</span>
@@ -115,12 +114,9 @@
                 </tr>
             </table>
         </div>
-
-
+        </div>
     </div>
-
-</div>
-<?php } } ?>
+    <?php } } ?>
 </form>
 
 <div class="aw-content-wrap mod-wechat-btn">
@@ -162,7 +158,7 @@
                     <div class="col-sm-8 col-xs-8">
                         <label class="checkbox-inline"
                         >
-                            <input type="radio" name="weixin_account_role[]" value="base" /> <?php _e('普通订阅号'); ?>
+                            <input type="radio" name="weixin_account_role[]" value="base" checked="checked" /> <?php _e('普通订阅号'); ?>
                         </label>
 
                         <label class="checkbox-inline">
@@ -241,12 +237,6 @@
 </div>
 
 <script>
-<?php if ($this->accounts_total == 0) { ?>
-    window.onload= function(){
-        $('#newChat').click();
-    }
-<?php } ?>
-
     $(function(){
         var oHtml = $(".wechat-hide").html();
         var num = ($('.wechat').length);
@@ -270,6 +260,12 @@
             $(oId).find(".pull-left").html('微信帐号  '+(num));
         });
     });
+
+    <?php if ($this->accounts_total == 0) { ?>
+    window.onload= function(){
+        $('#newChat').click();
+    }
+    <?php } ?>
 </script>
 
 <?php TPL::output('admin/global/footer.tpl.htm'); ?>
