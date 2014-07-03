@@ -15,6 +15,7 @@
         <div class="tab-content mod-body">
             <div class="table-responsive">
                 <table class="table table-striped">
+                    <?php if ($this->msgs_total != 0) { ?>
                     <thead>
                     <tr>
                         <th><?php _e('ID'); ?></th>
@@ -28,7 +29,7 @@
                     </thead>
 
                     <tbody>
-                    <?php if ($this->msgs_total != 0) { foreach ($this->msgs_list AS $msg_info) { ?>
+                    <?php foreach ($this->msgs_list AS $msg_info) { ?>
                     <tr>
                         <td><?php echo $msg_info['id']; ?></td>
                         <td><?php echo $msg_info['msg_id']; ?></td>
@@ -66,8 +67,9 @@
                         <td><?php echo $msg_info['filter_count']; ?></td>
                         <td><a href="admin/weixin/sent_msg_details/id-<?php echo $msg_info['id']; ?>" data-toggle="tooltip" title="<?php _e('查看'); ?>" class="fa fa-search md-tip"></a></td>
                     </tr>
-                    <?php } } ?>
+                    <?php } ?>
                     </tbody>
+                    <?php } ?>
                 </table>
 
                 <div class="mod-table-foot">

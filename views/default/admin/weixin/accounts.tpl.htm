@@ -15,6 +15,7 @@
         <div class="tab-content mod-body">
             <div class="table-responsive">
                 <table class="table table-striped">
+                    <?php if ($this->accounts_total != 0) { ?>
                     <thead>
                     <tr>
                         <th>ID</th>
@@ -25,7 +26,7 @@
                     </thead>
 
                     <tbody>
-                    <?php if ($this->accounts_total != 0) { foreach ($this->accounts_list AS $account_info) { ?>
+                    <?php foreach ($this->accounts_list AS $account_info) { ?>
                     <tr>
                         <td><?php echo $account_info['id']; ?></td>
                         <td><?php echo $account_info['weixin_mp_token']; ?></td>
@@ -35,8 +36,9 @@
                             <a href="javascript:;" onclick="AWS.ajax_request(G_BASE_URL + '/admin/ajax/remove_weixin_account/', 'id=<?php echo $account_info['id'] ?>');" data-toggle="tooltip" title="<?php _e('删除'); ?>" class="fa fa-trash-o md-tip"></a>
                         </td>
                     </tr>
-                    <?php } } ?>
+                    <?php } ?>
                     </tbody>
+                    <?php } ?>
                 </table>
 
                 <div class="mod-table-foot">
