@@ -774,7 +774,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
         $this->model('page')->update_page($_POST['page_id'], $_POST['title'], $_POST['keywords'], $_POST['description'], $_POST['contents'], $_POST['url_token']);
 
         H::ajax_json_output(AWS_APP::RSM(array(
-            'url' => get_js_url('admin/page/')
+            'url' => get_js_url('/admin/page/')
         ), 1, null));
     }
 
@@ -1555,7 +1555,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
             case 'add':
                 $account_id = $this->model('weixin')->insert('weixin_accounts', $account_info);
 
-                H::ajax_json_output(AWS_APP::RSM(array('url' => get_js_url('admin/weixin/account/id-' . $account_id)), 1, null));
+                H::ajax_json_output(AWS_APP::RSM(array('url' => get_js_url('/admin/weixin/account/id-' . $account_id)), 1, null));
 
                 break;
 
@@ -1707,7 +1707,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
         $msg_id = $this->model('weixin')->save_sent_msg($group_name, $groups[$group_id]['count']);
 
-        H::ajax_json_output(AWS_APP::RSM(array('url' => get_js_url('admin/weixin/account/id-' . $msg_id), 1, null)));
+        H::ajax_json_output(AWS_APP::RSM(array('url' => get_js_url('/admin/weixin/account/id-' . $msg_id), 1, null)));
     }
 
     public function statistic_action()
