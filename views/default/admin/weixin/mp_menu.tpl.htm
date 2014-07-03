@@ -348,7 +348,12 @@
 
 			<script type="text/x-template" id="sub_button_template">
 				<tr class="sub_button_{MENU_TOP_ID}" data-id="{MENU_SUB_ID}">
-					<td> -- <input class="form-control input-xlarge inline-block" type="text" value="" name="button[{MENU_TOP_ID}][sub_button][{MENU_SUB_ID}][name]" /></td>
+					<td> 
+						<span class="col-sm-1 chat-symbol">--</span>
+						<div class="col-sm-11">
+							<input class="form-control input-xlarge inline-block" type="text" value="" name="button[{MENU_TOP_ID}][sub_button][{MENU_SUB_ID}][name]" />
+						</div>
+					</td>
 					<td align="center"><input type="text" value="" class="form-control sort-action" name="button[{MENU_TOP_ID}][sub_button][{MENU_SUB_ID}][sort]" /></td>
 					<td aligin="center">
 						<select class="aw-wechat-select form-control" name="button[{MENU_TOP_ID}][sub_button][{MENU_SUB_ID}][command_type]">
