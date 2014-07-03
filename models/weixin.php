@@ -1650,15 +1650,15 @@ class weixin_class extends AWS_MODEL
 
     public function save_sent_msg($group_name, $filter_count)
     {
-        $this->insert('weixin_msg', array(
-                    'msg_id' => $this->msg_id,
-                    'group_name' => trim($group_name),
-                    'status' => 'pending',
-                    'articles_info' => serialize($this->to_save_articles),
-                    'questions_info' => serialize($this->to_save_questions),
-                    'create_time' => time(),
-                    'filter_count' => intval($filter_count)
-                ));
+        return $this->insert('weixin_msg', array(
+            'msg_id' => $this->msg_id,
+            'group_name' => trim($group_name),
+            'status' => 'pending',
+            'articles_info' => serialize($this->to_save_articles),
+            'questions_info' => serialize($this->to_save_questions),
+            'create_time' => time(),
+            'filter_count' => intval($filter_count)
+        ));
     }
 
     public function update_sent_msg($msg_id, $msg_details)

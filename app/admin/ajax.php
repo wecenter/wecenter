@@ -1553,16 +1553,16 @@ class ajax extends AWS_ADMIN_CONTROLLER
         switch ($_POST['type'])
         {
             case 'add':
-                $this->model('weixin')->insert('weixin_accounts', $account_info);
+                $account_id = $this->model('weixin')->insert('weixin_accounts', $account_info);
 
-                H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('添加微信账号成功')));
+                H::ajax_json_output(AWS_APP::RSM(array('url' => get_js_url('admin/weixin/account/id-' . $account_id)) 1, null));
 
                 break;
 
             case 'update':
                 $this->model('weixin')->update_setting_or_account($_POST['id'], $account_info);
 
-                H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('更新微信账号成功')));
+                H::ajax_json_output(AWS_APP::RSM(null, 1, null));
 
                 break;
         }
@@ -1705,9 +1705,9 @@ class ajax extends AWS_ADMIN_CONTROLLER
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('群发任务提交失败, 错误信息: %s', $error_msg)));
         }
 
-        $this->model('weixin')->save_sent_msg($group_name, $groups[$group_id]['count']);
+        $msg_id = $this->model('weixin')->save_sent_msg($group_name, $groups[$group_id]['count']);
 
-        H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('群发任务提交成功')));
+        H::ajax_json_output(AWS_APP::RSM(array('url' => get_js_url('admin/weixin/account/id-' . $msg_id), 1, null));
     }
 
     public function statistic_action()

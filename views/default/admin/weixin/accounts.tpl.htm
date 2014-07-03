@@ -17,9 +17,10 @@
                 <table class="table table-striped">
                     <thead>
                     <tr>
-                        <th><?php _e('ID'); ?></th>
-                        <th><?php _e('Token'); ?></th>
+                        <th>ID</th>
+                        <th>Token</th>
                         <th><?php _e('角色'); ?></th>
+                        <th><?php _e('操作'); ?></th>
                     </tr>
                     </thead>
 
@@ -31,7 +32,7 @@
                         <td><?php echo $account_info['weixin_account_role']; ?></td>
                         <td>
                             <a href="admin/weixin/account/id-<?php echo $account_info['id']; ?>" data-toggle="tooltip" title="<?php _e('编辑'); ?>" class="fa fa-pencil md-tip"></a>
-                            <a href="javascript:;" onclick="AWS.ajax_request(G_BASE_URL + '/admin/ajax/remove_weixin_account_action/', 'id=<?php echo $account_info['scene_id'] ?>');" data-toggle="tooltip" title="<?php _e('删除'); ?>" class="fa fa-trash-o md-tip"></a>
+                            <a href="javascript:;" onclick="AWS.ajax_request(G_BASE_URL + '/admin/ajax/remove_weixin_account/', 'id=<?php echo $account_info['id'] ?>');" data-toggle="tooltip" title="<?php _e('删除'); ?>" class="fa fa-trash-o md-tip"></a>
                         </td>
                     </tr>
                     <?php } } ?>
