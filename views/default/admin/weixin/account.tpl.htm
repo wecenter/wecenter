@@ -58,7 +58,7 @@
                             </label>
 
                             <label class="checkbox-inline">
-                                <input type="radio" name="weixin_account_role" value="service"<?php if ($_GET['id'] AND $this->account_info['weixin_account_role'] == 'service') ?> checked="checked"<?php } ?> />
+                                <input type="radio" name="weixin_account_role" value="service"<?php if ($_GET['id'] AND $this->account_info['weixin_account_role'] == 'service') { ?> checked="checked"<?php } ?> />
                                 <?php _e('微信认证服务号'); ?>
                         </label>
                         </div>
