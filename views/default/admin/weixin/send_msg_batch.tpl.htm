@@ -163,6 +163,11 @@
 <script>
     $(function(){
         AWS.Dropdown.bind_dropdown_list($('.mod-question input'), 'adminQuestions');
+        
+        $('.aw-dropdown').delegate("a","click",function(){
+            $(".search-input").val("");
+        });
+
         AWS.Dropdown.bind_dropdown_list($('.mod-article input'), 'adminArticles');
     })
 </script>
