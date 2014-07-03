@@ -25,11 +25,6 @@ class question_class extends AWS_MODEL
 		return $this->query_all('SELECT uid FROM ' . $this->get_table('question_focus') . ' WHERE question_id = ' . intval($question_id));
 	}
 
-	public function get_answers_uid_by_question_id($question_id)
-	{
-		return $this->query_all('SELECT uid FROM ' . $this->get_table('answer') . ' WHERE question_id = ' . intval($question_id));
-	}
-
 	public function get_question_info_by_id($question_id, $cache = true)
 	{
 		if (! $question_id)
@@ -76,7 +71,7 @@ class question_class extends AWS_MODEL
 
 	public function get_question_info_by_ids($question_ids)
 	{
-		if (!is_array($question_ids) OR sizeof($question_ids) == 0)
+		if (!$question_ids)
 		{
 			return false;
 		}
@@ -435,7 +430,7 @@ class question_class extends AWS_MODEL
 	 */
 	public function delete_focus_question($question_id, $uid)
 	{
-		if (!$question_id || !$uid)
+		if (!$question_id OR !$uid)
 		{
 			return false;
 		}
@@ -507,7 +502,7 @@ class question_class extends AWS_MODEL
 		}
 	}
 
-	function get_focus_users_by_question($question_id, $limit = 10)
+	public function get_focus_users_by_question($question_id, $limit = 10)
 	{
 		if ($uids = $this->query_all('SELECT DISTINCT uid FROM ' . $this->get_table('question_focus') . ' WHERE question_id = ' . intval($question_id) . ' ORDER BY focus_id DESC', intval($limit)))
 		{
@@ -662,7 +657,7 @@ class question_class extends AWS_MODEL
 	 */
 	public function add_question_uninterested($uid, $question_id)
 	{
-		if (!$uid || !$question_id)
+		if (!$uid OR !$question_id)
 		{
 			return false;
 		}
@@ -702,12 +697,12 @@ class question_class extends AWS_MODEL
 
 	public function add_invite($question_id, $sender_uid, $recipients_uid = 0, $email = null)
 	{
-		if (!$question_id || !$sender_uid)
+		if (!$question_id OR !$sender_uid)
 		{
 			return false;
 		}
 
-		if (!$recipients_uid && !$email)
+		if (!$recipients_uid AND !$email)
 		{
 			return false;
 		}
