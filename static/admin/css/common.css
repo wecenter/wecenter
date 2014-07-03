@@ -107,7 +107,7 @@ ul,ol{padding:0;list-style:none;}
 .aw-content-wrap .mod-site-save{margin:10px 15px 0 0;}
 .aw-content-wrap .mod-head .pull-left{margin-right:20px;padding-left:15px;font-size:14px;line-height:45px;}
 .mod-head .nav-tabs li.active{height:43px;border-bottom:1px solid #fff;background:#FFF;}
-.aw-content-wrap .mod-table-foot{margin-top:20px;}
+.aw-content-wrap .mod-table-foot{margin-top:20px;overflow: hidden;}
 .aw-content-wrap .mod-table-foot .pull-right{margin-top:0;}
 
 /*右侧表格主体部分*/
