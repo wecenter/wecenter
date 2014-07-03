@@ -1531,7 +1531,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
     public function save_weixin_account_action()
     {
-        if (empty($_POST['type']) OR $_POST['type'] == 'add' AND empty($_POST['id']))
+        if (empty($_POST['type']) OR $_POST['type'] == 'update' AND empty($_POST['id']))
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('错误的请求')));
         }
