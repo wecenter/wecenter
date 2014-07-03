@@ -43,13 +43,13 @@ class crond_class extends AWS_MODEL
             AWS_APP::cache()->set('crond_timer_minute', time(), 60, 'crond');
         }
 
-        if (date('YW', AWS_APP::cache()->get('crond_timer_week')) != date('YW', time()))
+        if (gmdate('YW', AWS_APP::cache()->get('crond_timer_week')) != gmdate('YW', time()))
         {
             $call_actions[] = 'week';
 
             AWS_APP::cache()->set('crond_timer_week', time(), 259200, 'crond');
         }
-        else if (date('Y-m-d', AWS_APP::cache()->get('crond_timer_day')) != date('Y-m-d', time()))
+        else if (gmdate('Y-m-d', AWS_APP::cache()->get('crond_timer_day')) != gmdate('Y-m-d', time()))
         {
             $call_actions[] = 'day';
 
