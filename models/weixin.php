@@ -291,17 +291,18 @@ class weixin_class extends AWS_MODEL
                             {
                                 $msg_details['status'] = 'success';
                             }
-                            elseif ($input_message['status'] == 'sendfail')
+                            else if ($input_message['status'] == 'sendfail')
                             {
                                 $msg_details['status'] = 'fail';
                             }
-                            else
+                            else if (substr($input_message['status'], 0, 3) == 'err')
                             {
                                 $msg_details['status'] = 'wrong';
                                 $msg_details['error_num'] = intval(substr($input_message['status'], 4, 9));
                             }
 
-                            $this->update_sent_msg($msg_id, $msg_details);
+                            $this->update('weixin_msg', $msg_details, 'msg_id = ' . $this->quote($msg_id));
+
                             break;
                     }
                 }
@@ -1659,11 +1660,6 @@ class weixin_class extends AWS_MODEL
             'create_time' => time(),
             'filter_count' => intval($filter_count)
         ));
-    }
-
-    public function update_sent_msg($msg_id, $msg_details)
-    {
-        return $this->update('weixin_msg', $msg_details, 'msg_id = ' . $this->quote($msg_id));
     }
 
     public function create_qr_code($scene_id)
