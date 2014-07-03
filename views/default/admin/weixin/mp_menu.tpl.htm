@@ -476,7 +476,7 @@
 
 		// 遍历给ajaxbox插入模板
 		$.each($("script[type='text/x-template']"), function (i, e) {
-			$('#aw-ajax-box').append($(e).html()).hide();
+			$('#aw-ajax-box').append($(e).html());
 		});
 
 		//动态插入select内的option
