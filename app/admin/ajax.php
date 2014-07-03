@@ -1555,7 +1555,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
             case 'add':
                 $account_id = $this->model('weixin')->insert('weixin_accounts', $account_info);
 
-                H::ajax_json_output(AWS_APP::RSM(array('url' => get_js_url('admin/weixin/account/id-' . $account_id)) 1, null));
+                H::ajax_json_output(AWS_APP::RSM(array('url' => get_js_url('admin/weixin/account/id-' . $account_id)), 1, null));
 
                 break;
 
