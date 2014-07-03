@@ -1707,7 +1707,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
         $msg_id = $this->model('weixin')->save_sent_msg($group_name, $groups[$group_id]['count']);
 
-        H::ajax_json_output(AWS_APP::RSM(array('url' => get_js_url('admin/weixin/account/id-' . $msg_id), 1, null));
+        H::ajax_json_output(AWS_APP::RSM(array('url' => get_js_url('admin/weixin/account/id-' . $msg_id), 1, null)));
     }
 
     public function statistic_action()
