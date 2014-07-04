@@ -352,14 +352,10 @@ switch ($_POST['step'])
 		//加载网站配置
 		$base_dir = dirname(dirname($_SERVER['PHP_SELF']));
 		$base_dir = ($base_dir == DIRECTORY_SEPARATOR) ? '' : $base_dir;
-		//$_SERVER['HTTPS'] may be empty, see http://stackoverflow.com/questions/1175096/how-to-find-out-if-you-are-using-https-without-serverhttps for more details.
-		$base_url =  'http' . ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? 's' : '') . '://' . $_SERVER['HTTP_HOST'] . $base_dir;
 
 		$insert_query = file_get_contents(ROOT_PATH . 'install/db/system_setting.sql');
 
 		$insert_query = str_replace('[#DB_PREFIX#]', $db_prefix, $insert_query);
-		$insert_query = str_replace('[#BASE_URL#]', serialize($base_url), $insert_query);
-
 		if (defined('IN_SAE'))
 		{
 			$insert_query = str_replace('[#UPLOAD_URL#]', serialize($_POST['upload_url']), $insert_query);

@@ -13,3 +13,5 @@ ALTER TABLE `[#DB_PREFIX#]favorite_tag` ADD `type` VARCHAR( 16 ) NOT NULL DEFAUL
 UPDATE `[#DB_PREFIX#]favorite_tag` SET `type` = 'answer';
 
 ALTER TABLE  `[#DB_PREFIX#]favorite_tag` ADD INDEX ( `item_id` );
+
+DELETE FROM `[#DB_PREFIX#]system_setting` WHERE `varname` = 'base_url';

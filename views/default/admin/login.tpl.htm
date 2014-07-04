@@ -10,13 +10,13 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="blank" />
 <meta name="format-detection" content="telephone=no" />
 <title><?php echo $this->page_title; ?></title>
-<base href="<?php echo get_setting('base_url');?>/<?php echo G_INDEX_SCRIPT; ?>" />
+
 <link type="text/css" rel="stylesheet" href="<?php echo G_STATIC_URL; ?>/css/bootstrap.css?v=<?php echo G_VERSION_BUILD; ?>" />
 <link type="text/css" rel="stylesheet" href="<?php echo G_STATIC_URL; ?>/css/font-awesome.css?v=<?php echo G_VERSION_BUILD; ?>" />
 <link type="text/css" rel="stylesheet" href="<?php echo G_STATIC_URL; ?>/admin/css/login.css?v=<?php echo G_VERSION_BUILD; ?>" />
 <script type="text/javascript">
 	var G_INDEX_SCRIPT = "<?php echo G_INDEX_SCRIPT; ?>";
-	var G_BASE_URL = "<?php echo get_setting('base_url'); ?>/<?php echo rtrim(G_INDEX_SCRIPT, '/'); ?>";
+	var G_BASE_URL = "<?php echo base_url(); ?>/<?php echo rtrim(G_INDEX_SCRIPT, '/'); ?>";
 	var G_USER_ID = <?php echo $this->user_id; ?>;
 	var G_POST_HASH = "";
 </script>

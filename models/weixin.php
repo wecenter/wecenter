@@ -1272,7 +1272,7 @@ class weixin_class extends AWS_MODEL
                     {
                         unset($sub_val['key']);
 
-                        if (strstr($sub_val['url'], get_setting('base_url')) AND (!$account_role OR $account_role == 'service'))
+                        if (strstr($sub_val['url'], base_url()) AND (!$account_role OR $account_role == 'service'))
                         {
                             $sub_val['url'] = $this->model('openid_weixin')->redirect_url($sub_val['url']);
                         }
@@ -1294,7 +1294,7 @@ class weixin_class extends AWS_MODEL
             {
                 unset($val['key']);
 
-                if (strstr($val['url'], get_setting('base_url')) AND $account_role == 'service')
+                if (strstr($val['url'], base_url()) AND $account_role == 'service')
                 {
                     $val['url'] = $this->model('openid_weixin')->redirect_url($val['url']);
                 }

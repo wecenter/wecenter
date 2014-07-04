@@ -153,9 +153,8 @@ class AWS_APP
 		}
 
 		$img_url = get_setting('img_url');
-		$base_url = get_setting('base_url');
 		
-		! empty($img_url) ? define('G_STATIC_URL', $img_url) : define('G_STATIC_URL', $base_url . '/static');
+		! empty($img_url) ? define('G_STATIC_URL', $img_url) : define('G_STATIC_URL', base_url() . '/static');
 		
 		if (self::config()->get('system')->debug)
 		{

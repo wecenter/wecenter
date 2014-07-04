@@ -57,17 +57,6 @@
                 <tr>
                     <td>
                         <div class="form-group">
-                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('网站地址'); ?>:</span>
-                            <div class="col-sm-5 col-xs-8">
-                                <input name="base_url" class="form-control" type="text" value="<?php echo $this->setting['base_url']; ?>"/>
-                                <span class="help-block"><?php _e('末尾不带 /'); ?></span>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="form-group">
                             <span class="col-sm-4 col-xs-3 control-label"><?php _e('上传目录外部访问 URL 地址'); ?>:</span>
                             <div class="col-sm-5 col-xs-8">
                                 <input name="upload_url" class="form-control" type="text" value="<?php echo $this->setting['upload_url']; ?>"/>
@@ -429,13 +418,13 @@
                                     <li>
                                         <span class="pull-left"><a href="javascript:;" onclick='$("#request_route_custom").val("/people/list/===/users/\n/account/login/===/login/\n/account/logout/===/logout/\n/account/setting/(:any)/===/setting/(:any)/")'>[ <?php _e('获取规则'); ?> ]</a></span>
                                         <p class="pull-left">
-                                            <?php echo get_setting('base_url'); ?>/question/123<br /><?php echo get_setting('base_url'); ?>/topic/123<br /><?php echo get_setting('base_url'); ?>/people/anwsion<br /><?php echo get_setting('base_url'); ?>/category/123
+                                            <?php echo base_url(); ?>/question/123<br /><?php echo base_url(); ?>/topic/123<br /><?php echo base_url(); ?>/people/anwsion<br /><?php echo base_url(); ?>/category/123
                                         </p>
                                     </li>
                                     <li>
                                         <span class="pull-left"><a href="javascript:;" onclick='$("#request_route_custom").val("/question/(:any)===/q_(:any)\n/topic/(:any)===/t_(:any).html\n/people/(:any)===/p_(:any).html\n/people/list/===/users/\n/account/login/===/login/\n/account/logout/===/logout/\n/account/setting/(:any)/===/setting/(:any)/");'>[ <?php _e('获取规则'); ?> ]</a></span>
                                         <p class="pull-left">
-                                            <?php echo get_setting('base_url'); ?>/q_123<br /><?php echo get_setting('base_url'); ?>/t_话题.html<br /><?php echo get_setting('base_url'); ?>/p_admin.html<br /><?php echo get_setting('base_url'); ?>/c_123.html
+                                            <?php echo base_url(); ?>/q_123<br /><?php echo base_url(); ?>/t_话题.html<br /><?php echo base_url(); ?>/p_admin.html<br /><?php echo base_url(); ?>/c_123.html
                                         </p>
                                     </li>
                                     <li class="mod-site-rule">
