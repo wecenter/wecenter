@@ -172,8 +172,6 @@ class ajax extends AWS_ADMIN_CONTROLLER
             $_POST['new_user_email_setting'] = $email_settings;
         }
 
-
-
         $this->model('setting')->set_vars($_POST);
 
         if ($_POST['wecenter_access_token'])
@@ -325,7 +323,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
         {
             H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('不能设置当前分类为父级分类')));
         }
-		
+
         $this->model('category')->update_category_info($category_id, $_POST['title'], $_POST['parent_id'], $_POST['url_token']);
 
         H::ajax_json_output(AWS_APP::RSM(array(
