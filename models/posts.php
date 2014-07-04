@@ -307,11 +307,8 @@ class posts_class extends AWS_MODEL
 				case 'question':
 					$explore_list_data[$key] = $question_infos[$data['post_id']];
 					
-					$explore_list_data[$key]['answer'] = array(
-						'user_info' => $users_info[$last_answers[$data['post_id']]['uid']],
-						'answer_content' => $last_answers[$data['post_id']]['answer_content'],
-						'anonymous' => $last_answers[$data['post_id']]['anonymous']
-					);
+					$explore_list_data[$key]['answer_info'] = $last_answers[$data['post_id']];
+					$explore_list_data[$key]['answer_info']['user_info'] = $users_info[$last_answers[$data['post_id']]['uid']];
 				break;
 				
 				case 'article':

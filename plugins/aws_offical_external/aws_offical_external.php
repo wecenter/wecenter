@@ -35,7 +35,7 @@ class aws_offical_external_class extends AWS_MODEL
 				
 				if ($val['answer_count'] > 0)
 				{
-					$output .= '<a class="q_user i_alpHover" href="' . get_js_url('/people/' . $val['answer']['user_info']['url_token']) . '"><img src="' . get_avatar_url($val['answer']['user_info']['uid'], 'mid') . '" class="user_msg" /></a>';
+					$output .= '<a class="q_user i_alpHover" href="' . get_js_url('/people/' . $val['answer_info']['user_info']['url_token']) . '"><img src="' . get_avatar_url($val['answer_info']['user_info']['uid'], 'mid') . '" class="user_msg" /></a>';
 				}
 				else
 				{
@@ -51,7 +51,7 @@ class aws_offical_external_class extends AWS_MODEL
 				
 				if ($val['answer_count'] > 0)
 				{
-					$output .= '<a class="user_msg" href="' . get_js_url('/people/' . $val['answer']['user_info']['url_token']) . '">' . $val['answer']['user_info']['user_name'] . '</a> 回复了问题';
+					$output .= '<a class="user_msg" href="' . get_js_url('/people/' . $val['answer_info']['user_info']['url_token']) . '">' . $val['answer_info']['user_info']['user_name'] . '</a> 回复了问题';
 				}
 				else
 				{

@@ -5,7 +5,7 @@
 		<div class="container">
 			<!-- logo -->
 			<div class="aw-logo hidden-xs">
-				<a href="<?php echo get_setting('base_url'); ?>"></a>
+				<a href="<?php echo base_url(); ?>"></a>
 			</div>
 			<!-- end logo -->
 			<!-- 搜索框 -->
@@ -43,7 +43,7 @@
 				<nav role="navigation" class="collapse navbar-collapse bs-navbar-collapse">
 			      <ul class="nav navbar-nav">
 			        <?php if ($this->user_id) { ?>
-					<li><a href="<?php echo get_setting('base_url'); ?>"<?php if (!$_GET['app'] OR $_GET['app'] == 'home') { ?> class="active"<?php } ?>><?php _e('首页'); ?></a></li>
+					<li><a href="<?php echo base_url(); ?>"<?php if (!$_GET['app'] OR $_GET['app'] == 'home') { ?> class="active"<?php } ?>><?php _e('首页'); ?></a></li>
 					<?php } ?>
 					
 					<li><a href="explore/" class="<?php if ($_GET['app'] == 'explore') { ?>active<?php } ?>"><?php _e('发现'); ?></a></li>

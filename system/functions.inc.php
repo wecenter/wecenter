@@ -21,6 +21,30 @@
  * @category	Libraries
  * @author		WeCenter Dev Team
  */
+ 
+/**
+ * 获取站点根目录 URL
+ * 
+ * @return string
+ */
+function base_url()
+{
+	$clean_url = isset($_SERVER['PATH_INFO']) ? $_SERVER['PATH_INFO'] : NULL;
+	$clean_url = dirname(rtrim($_SERVER['PHP_SELF'], $clean_url));
+	$clean_url = rtrim($_SERVER['HTTP_HOST'] . $clean_url, '/\\');
+	$clean_url = rtrim($clean_url, '/\\');
+	
+	if ($_SERVER['SERVER_PORT'] == 443)
+	{
+		$scheme = 'https';
+	}
+	else
+	{
+		$scheme = 'http';
+	}
+	
+	return $scheme . '://' . $clean_url;
+}
 
 /**
  * 根据特定规则对数组进行排序
@@ -515,7 +539,7 @@ function show_error($exception_message, $error_message = '')
 	
 	if (get_setting('report_diagnostics') == 'Y' AND class_exists('AWS_APP', false))
 	{
-		AWS_APP::mail()->send('wecenter_report@outlook.com', '[' . G_VERSION . '][' . G_VERSION_BUILD . '][' . get_setting('base_url') . ']' . $error_message, nl2br($exception_message), get_setting('site_name'), 'WeCenter');
+		AWS_APP::mail()->send('wecenter_report@outlook.com', '[' . G_VERSION . '][' . G_VERSION_BUILD . '][' . base_url() . ']' . $error_message, nl2br($exception_message), get_setting('site_name'), 'WeCenter');
 	}
 	
 	echo _show_error($exception_message);
@@ -694,7 +718,7 @@ function get_js_url($url)
 			}
 		}
 		
-		$url = get_setting('base_url') . '/' . ((get_setting('url_rewrite_enable') != 'Y') ? G_INDEX_SCRIPT : '') . $url;
+		$url = base_url() . '/' . ((get_setting('url_rewrite_enable') != 'Y') ? G_INDEX_SCRIPT : '') . $url;
 	}
 	
 	return $url;

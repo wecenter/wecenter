@@ -12,7 +12,6 @@ INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES
 ('newer_invitation_num', 's:1:"5";'),
 ('index_per_page', 's:2:"20";'),
 ('from_email', '[#FROM_EMAIL#]'),
-('base_url', '[#BASE_URL#]'),
 ('img_url', 's:0:"";'),
 ('upload_url', '[#UPLOAD_URL#]'),
 ('upload_dir', '[#UPLOAD_DIR#]'),

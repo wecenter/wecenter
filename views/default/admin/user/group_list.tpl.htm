@@ -13,13 +13,13 @@
 			</h3>
 		</div>
 		<div class="mod-body tab-content">
-			<div class="tab-pane active" id="_members">	
+			<div class="tab-pane active" id="_members">
 				<div class="table-responsive">
 					<form id="batchs_form" action="admin/ajax/save_user_group/" method="post" onsubmit="return false;">
 						<table class="table table-striped" id="members_table">
 							<thead>
 								<tr>
-									<th><input class="check-all" type="checkbox" /></th>
+									<th><?php _e('删'); ?></th>
 									<th>ID</th>
 									<th><?php _e('会员组名称'); ?></th>
 									<th><?php _e('威望介于'); ?></th>
@@ -27,8 +27,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								<?php if ($this->mem_group) { ?>
-								<?php foreach ($this->mem_group AS $key => $val) { ?>
+								<?php if ($this->mem_group) { foreach ($this->mem_group AS $key => $val) { ?>
 								<tr>
 									<td><input type="checkbox" value="<?php echo $val['group_id']; ?>" name="group_ids[]"></td>
 									<td><?php echo $val['group_id']; ?></td>
@@ -45,8 +44,7 @@
 									<td><input type="text" name="group[<?php echo $val['group_id']; ?>][reputation_factor]" class="form-control" value="<?php echo $val['reputation_factor']; ?>" /></td>
 									<td><a href="admin/user/group_edit/group_id-<?php echo $val['group_id']; ?>" title="<?php _e('权限编辑'); ?>" class="fa fa-pencil md-tip"></a></td>
 								</tr>
-								<?php } ?>
-								<?php } ?>
+								<?php } } ?>
 								<tr id="members_add_form" class="hide">
 									<td></td>
 									<td></td>
@@ -65,13 +63,13 @@
 							</tbody>
 						</table>
 						<div class="mod-table-foot">
-							<a class="btn btn-primary" onclick="AWS.ajax_post($('#batchs_form'), AWS.ajax_processer);"><?php _e('保存设置'); ?></a>
-							<a class="btn btn-primary add"><?php _e('添加新用户组'); ?></a>
+							<a class="btn btn-primary" onclick="AWS.ajax_post($('#batchs_form'), AWS.ajax_processer);"><?php _e('保存'); ?></a>
+							<a class="btn btn-primary add"><?php _e('新增'); ?></a>
 						</div>
 					</form>
 				</div>
 			</div>
-	
+
 			<div class="tab-pane" id="_system">
 				<table class="table table-striped">
 					<thead>
@@ -92,13 +90,13 @@
 					</tbody>
 				</table>
 			</div>
-			
+
 			<div class="tab-pane" id="_custom">
 				<form method="post" action="admin/ajax/save_custom_user_group/" id="custom_form">
 				<table class="table table-striped" id="custom_table">
 					<thead>
 						<tr>
-							<td width="3%"><input class="check-all" type="checkbox" /></td>
+							<th><?php _e('删'); ?></th>
 							<th>ID</th>
 							<th><?php _e('名称'); ?></th>
 							<th></th>
@@ -125,8 +123,8 @@
 				</table>
 				</form>
 				<div class="mod-table-foot">
-					<a class="btn btn-primary" onclick="AWS.ajax_post($('#custom_form'));"><?php _e('保存设置'); ?></a>
-					<a class="btn btn-primary" onclick="$('#custom_table').append('<tr>' + $('#custom_add_form').html() + '</tr>')"><?php _e('添加新用户组'); ?></a>
+					<a class="btn btn-primary" onclick="AWS.ajax_post($('#custom_form'));"><?php _e('保存'); ?></a>
+					<a class="btn btn-primary" onclick="$('#custom_table').append('<tr>' + $('#custom_add_form').html() + '</tr>')"><?php _e('新增'); ?></a>
 				</div>
 			</div>
 		</div>
@@ -180,7 +178,7 @@
 		$('.add').click(function()
 		{
 			$('#members_table').append('<tr class="new">' + $('#members_add_form').html() + '</tr>');
-			
+
 			if ($('#members_table tbody tr').length != 2)
 			{
 				var select_arr = get_select_arr(), template = get_select_template(select_arr);
@@ -202,7 +200,7 @@
 						arr.push($(this).val());
 					}
 				}
-				
+
 			});
 			return arr;
 		}

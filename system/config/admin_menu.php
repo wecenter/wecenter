@@ -219,6 +219,21 @@ if (get_setting('weixin_mp_token'))
 	);
 }
 
+if (get_setting('sina_akey') AND get_setting('sina_skey'))
+{
+	$config[] = array(
+		'title' => '微博',
+		'cname' => 'weibo'
+		'children' => array(
+			array(
+				'id' => 901,
+				'title' => '消息接收',
+				'url' => 'admin/weibo/msg/'
+			)
+		)
+	);
+}
+
 $config[] = array(
 	'title' => '工具',
 	'cname' => 'wrench',

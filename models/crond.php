@@ -43,13 +43,13 @@ class crond_class extends AWS_MODEL
             AWS_APP::cache()->set('crond_timer_minute', time(), 60, 'crond');
         }
 
-        if (date('YW', AWS_APP::cache()->get('crond_timer_week')) != date('YW', time()))
+        if (gmdate('YW', AWS_APP::cache()->get('crond_timer_week')) != gmdate('YW', time()))
         {
             $call_actions[] = 'week';
 
             AWS_APP::cache()->set('crond_timer_week', time(), 259200, 'crond');
         }
-        else if (date('Y-m-d', AWS_APP::cache()->get('crond_timer_day')) != date('Y-m-d', time()))
+        else if (gmdate('Y-m-d', AWS_APP::cache()->get('crond_timer_day')) != gmdate('Y-m-d', time()))
         {
             $call_actions[] = 'day';
 
@@ -108,11 +108,9 @@ class crond_class extends AWS_MODEL
 
         $this->model('search_fulltext')->clean_cache();
 
-        // 测试用，版本发布前放到下面去
-        $this->model('admin')->notifications_crond();
-
         // 拉取微博最新 @用户 消息
-        if (get_setting('weibo_msg_enabled') == 'Y'){
+        if (get_setting('weibo_msg_enabled') == 'Y')
+        {
             $this->model('weibo')->get_msg_from_sina_crond();
         }
     }
@@ -120,7 +118,7 @@ class crond_class extends AWS_MODEL
     // 每半小时执行
     public function half_hour($uid)
     {
-
+        $this->model('admin')->notifications_crond();
     }
 
     // 每小时执行

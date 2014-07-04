@@ -76,7 +76,7 @@ class HTTP
 	{
 		if (substr($url, 0, 1) == '?')
 		{
-			$url = get_setting('base_url') . $url;
+			$url = base_url() . $url;
 		}
 		else if (substr($url, 0, 1) == '/')
 		{

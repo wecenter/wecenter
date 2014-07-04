@@ -2,7 +2,6 @@
 <?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
 
 <div class="aw-content-wrap">
-    <form action="admin/ajax/weixin_send_msg/" id="msg_form" method="post" onsubmit="return false" enctype="multipart/form-data">
     <div class="mod">
         <div class="mod-head">
             <h3>
@@ -12,7 +11,9 @@
                 </ul>
             </h3>
         </div>
+
         <div class="tab-content mod-content">
+        <form action="admin/ajax/weixin_send_msg/" id="msg_form" method="post" onsubmit="return false" enctype="multipart/form-data">
             <table class="table table-striped">
                 <tr>
                     <td>
@@ -20,8 +21,8 @@
                             <span class="col-sm-4 col-xs-3 control-label"><?php _e('目标分组'); ?>:</span>
                             <div class="col-sm-5 col-xs-8">
                                 <select name="group_id" class="form-control">
-                                   <?php foreach ($this->groups AS $val) { ?>
-                                       <option value="<?php echo $val['id']; ?>"><?php echo $val['name']; ?></option>
+                                   <?php foreach ($this->groups AS $group_info) { ?>
+                                       <option value="<?php echo $group_info['id']; ?>"><?php echo $group_info['name']; ?></option>
                                    <?php } ?>
                                </select>
                             </div>
@@ -34,7 +35,7 @@
                         <div class="form-group">
                             <span class="col-sm-4 col-xs-3 control-label"><?php _e('封面标题'); ?>:</span>
                             <div class="col-sm-5 col-xs-8">
-                                <input class="form-control" name="main_msg_title" type="text" />
+                                <input class="form-control" name="main_msg_title" type="text" value="" />
                             </div>
                         </div>
                     </td>
@@ -56,7 +57,7 @@
                         <div class="form-group">
                             <span class="col-sm-4 col-xs-3 control-label"><?php _e('封面内容'); ?>:</span>
                             <div class="col-sm-5 col-xs-8">
-                                <input class="form-control" name="main_msg_context" type="text" />
+                                <input class="form-control" name="main_msg_context" type="text" value="" />
                             </div>
                         </div>
                     </td>
@@ -67,7 +68,7 @@
                         <div class="form-group">
                             <span class="col-sm-4 col-xs-3 control-label"><?php _e('封面的原文链接'); ?>:</span>
                             <div class="col-sm-5 col-xs-8">
-                                <input class="form-control" name="main_msg_url" type="text" />
+                                <input class="form-control" name="main_msg_url" type="text" value="" />
                             </div>
                         </div>
                     </td>
@@ -154,14 +155,21 @@
                 </tr>
                 </tfoot>
             </table>
+        </form>
         </div>
-    </form>
     </div>
 </div>
+
 <script>
     $(function(){
         AWS.Dropdown.bind_dropdown_list($('.mod-question input'), 'adminQuestions');
+        
+        $('.aw-dropdown').delegate("a","click",function(){
+            $(".search-input").val("");
+        });
+
         AWS.Dropdown.bind_dropdown_list($('.mod-article input'), 'adminArticles');
     })
 </script>
+
 <?php TPL::output('admin/global/footer.tpl.htm'); ?>
