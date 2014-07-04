@@ -1413,9 +1413,20 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
     public function remove_user_action()
     {
+        if (empty($_POST['uid']))
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('错误的请求')));
+        }
+
         @set_time_limit(0);
 
-        if ($user_info = $this->model('account')->get_user_info_by_uid($_POST['uid']))
+        $user_info = $this->model('account')->get_user_info_by_uid($_POST['uid']);
+
+        if (empty($user_info))
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('该用户不存在')));
+        }
+        else
         {
             if ($user_info['group_id'] == 1)
             {
@@ -1428,6 +1439,37 @@ class ajax extends AWS_ADMIN_CONTROLLER
         H::ajax_json_output(AWS_APP::RSM(array(
             'url' => get_js_url('/admin/user/list/')
         ), 1, null));
+    }
+
+    public function remove_users_action()
+    {
+        if (!is_array($_POST['uids']) OR empty($_POST['uids']))
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择要删除的用户')));
+        }
+
+        @set_time_limit(0);
+
+        foreach ($_POST['uids'] AS $uid)
+        {
+            $user_info = $this->model('account')->get_user_info_by_uid($uid);
+
+            if (empty($user_info))
+            {
+                continue;
+            }
+            else
+            {
+                if ($user_info['group_id'] == 1)
+                {
+                    continue;
+                }
+
+                $this->model('system')->remove_user_by_uid($uid, true);
+            }
+        }
+
+        H::ajax_json_output(AWS_APP::RSM(null, 1, null));
     }
 
     public function weixin_save_reply_rule_status_action()
