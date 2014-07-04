@@ -179,7 +179,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
             $this->model('weixin')->get_weixin_app_id_setting_var();
         }
 
-        H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('系统设置修改成功')));
+        H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('修改成功')));
     }
 
     public function approval_manage_action()
