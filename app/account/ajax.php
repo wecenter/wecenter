@@ -333,7 +333,7 @@ class ajax extends AWS_CONTROLLER
 				{
 					unset($url);
 				}
-				else if (strstr($_POST['return_url'], '://') AND !strstr($_POST['return_url'], get_setting('base_url')))
+				else if (strstr($_POST['return_url'], '://') AND !strstr($_POST['return_url'], base_url()))
 				{
 					unset($url);
 				}

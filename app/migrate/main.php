@@ -50,7 +50,6 @@ class main extends AWS_CONTROLLER
 			}
 			
 			$this->model('setting')->set_vars(array(
-				'base_url' => $_POST['base_url'],
 				'img_url' => $_POST['img_url'],
 				'upload_dir' => $_POST['upload_dir'],
 				'upload_url' => $_POST['upload_url'],

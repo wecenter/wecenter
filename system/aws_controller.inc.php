@@ -90,7 +90,7 @@ class AWS_CONTROLLER
 
 		if (defined('SYSTEM_LANG'))
 		{
-			TPL::import_js(get_setting('base_url') . '/language/' . SYSTEM_LANG . '.js');
+			TPL::import_js(base_url() . '/language/' . SYSTEM_LANG . '.js');
 		}
 
 		if (HTTP::is_browser('ie', 8))
@@ -113,7 +113,7 @@ class AWS_CONTROLLER
 		));
 
 		// 产生面包屑导航数据
-		$this->crumb(get_setting('site_name'), get_setting('base_url'));
+		$this->crumb(get_setting('site_name'), base_url());
 
 		// 载入插件
 		if ($plugins = AWS_APP::plugins()->parse($_GET['app'], $_GET['c'], 'setup'))
@@ -218,7 +218,7 @@ class AWS_CONTROLLER
 
 		if (strlen($url) > 1 and substr($url, 0, 1) == '/')
 		{
-			$url = get_setting('base_url') . substr($url, 1);
+			$url = base_url() . substr($url, 1);
 		}
 
 		$this->crumb[] = array(
@@ -334,7 +334,7 @@ class AWS_ADMIN_CONTROLLER extends AWS_CONTROLLER
 
 		if (defined('SYSTEM_LANG'))
 		{
-			TPL::import_js(get_setting('base_url') . '/language/' . SYSTEM_LANG . '.js');
+			TPL::import_js(base_url() . '/language/' . SYSTEM_LANG . '.js');
 		}
 
 		if (HTTP::is_browser('ie', 8))

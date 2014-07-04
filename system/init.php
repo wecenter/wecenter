@@ -48,11 +48,13 @@ define('ROOT_PATH', dirname(dirname(__FILE__)) . '/');
 if (defined('IN_SAE'))
 {
 	error_reporting(0);
+	
 	define('TEMP_PATH', rtrim(SAE_TMP_PATH, '/') . '/');
 }
 else
 {
 	error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT);
+	
 	define('TEMP_PATH', dirname(dirname(__FILE__)) . '/tmp/');
 }
 
