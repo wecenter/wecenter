@@ -19,7 +19,7 @@
 						<table class="table table-striped" id="members_table">
 							<thead>
 								<tr>
-									<th><input class="check-all" type="checkbox" /></th>
+									<th><?php _e('删'); ?></th>
 									<th>ID</th>
 									<th><?php _e('会员组名称'); ?></th>
 									<th><?php _e('威望介于'); ?></th>
@@ -63,8 +63,8 @@
 							</tbody>
 						</table>
 						<div class="mod-table-foot">
-							<a class="btn btn-primary" onclick="AWS.ajax_post($('#batchs_form'), AWS.ajax_processer);"><?php _e('保存设置'); ?></a>
-							<a class="btn btn-primary add"><?php _e('添加新用户组'); ?></a>
+							<a class="btn btn-primary" onclick="AWS.ajax_post($('#batchs_form'), AWS.ajax_processer);"><?php _e('保存'); ?></a>
+							<a class="btn btn-primary add"><?php _e('新增'); ?></a>
 						</div>
 					</form>
 				</div>
@@ -96,7 +96,7 @@
 				<table class="table table-striped" id="custom_table">
 					<thead>
 						<tr>
-							<td width="3%"><input class="check-all" type="checkbox" /></td>
+							<th><?php _e('删'); ?></th>
 							<th>ID</th>
 							<th><?php _e('名称'); ?></th>
 							<th></th>
@@ -123,8 +123,8 @@
 				</table>
 				</form>
 				<div class="mod-table-foot">
-					<a class="btn btn-primary" onclick="AWS.ajax_post($('#custom_form'));"><?php _e('保存设置'); ?></a>
-					<a class="btn btn-primary" onclick="$('#custom_table').append('<tr>' + $('#custom_add_form').html() + '</tr>')"><?php _e('添加新用户组'); ?></a>
+					<a class="btn btn-primary" onclick="AWS.ajax_post($('#custom_form'));"><?php _e('保存'); ?></a>
+					<a class="btn btn-primary" onclick="$('#custom_table').append('<tr>' + $('#custom_add_form').html() + '</tr>')"><?php _e('新增'); ?></a>
 				</div>
 			</div>
 		</div>

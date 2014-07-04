@@ -20,9 +20,20 @@ if (!defined('IN_ANWSION'))
 
 class category_class extends AWS_MODEL
 {
-	public function update_category($category_id, $update_data)
+	public function update_category_info($category_id, $title, $parent_id, $url_token)
 	{
-		return $this->update('category', $update_data, 'id = ' . intval($category_id));
+		return $this->update('category', array(
+			'title' => htmlspecialchars($title),
+			'parent_id' => intval($parent_id),
+			'url_token' => $url_token
+		), 'id = ' . intval($category_id));
+	}
+	
+	public function set_category_sort($category_id, $sort)
+	{
+		return $this->update('category', array(
+			'sort' => intval($sort)
+		), 'id = ' . intval($category_id));
 	}
 	
 	public function add_category($type, $title, $parent_id)
