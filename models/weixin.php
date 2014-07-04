@@ -282,15 +282,6 @@ class weixin_class extends AWS_MODEL
                         break;
 
                         case 'masssendjobfinish':
-                            // debug
-                            $debug = var_export($input_message, true);
-
-                            $fp = fopen('/home/www/root/wecenter/debug.txt', 'a');
-
-                            fwrite($fp, $debug);
-
-                            fclose($fp);
-
                             $msg_id = $input_message['msgID'];
 
                             $msg_details = array(
@@ -298,11 +289,11 @@ class weixin_class extends AWS_MODEL
                                                 'filter_count' => intval($input_message['filterCount'])
                                             );
 
-                            if ($input_message['status'] == 'send success')
+                            if ($input_message['status'] == 'send success' OR $input_message['status'] == 'sendsuccess')
                             {
                                 $msg_details['status'] = 'success';
                             }
-                            else if ($input_message['status'] == 'send fail')
+                            else if ($input_message['status'] == 'send fail' OR $input_message['status'] == 'sendfail')
                             {
                                 $msg_details['status'] = 'fail';
                             }
