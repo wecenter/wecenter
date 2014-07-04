@@ -106,7 +106,7 @@ $(function()
     	else
     	{
     		/*给邀请三角形定位*/
-    		$('.aw-question-detail .aw-invite-box > .i-dropdown-triangle').css('left', $(this).width() / 2 + $(this).position().left);
+    		$('.aw-question-detail .aw-invite-box > .i-dropdown-triangle').css('left', $(this).position().left + 14);
     		$('.aw-question-detail .aw-invite-box').fadeIn();
     	}
     });
@@ -210,7 +210,7 @@ $(function()
     	else
     	{
     		/*给邀请三角形定位*/
-    		$('.aw-question-detail .aw-question-related-box .i-dropdown-triangle').css('left', $(this).width() / 2 + $(this).position().left);
+    		$('.aw-question-detail .aw-question-related-box .i-dropdown-triangle').css('left', $(this).position().left + 14);
     		$('.aw-question-detail .aw-question-related-box').fadeIn();
     	}
 	});

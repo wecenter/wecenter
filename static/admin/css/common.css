@@ -1,5 +1,6 @@
 /*改写bootstrap部分*/
 .aw-content-wrap .fa{width:25px;height:25px;border-radius:5px;background:#8bbf61;color:#fff;text-align:center;line-height:25px;line-line-line-;}
+.aw-content-wrap .fa.disabled{background-color: #c5c5c5;}
 .tooltip-inner{background:#246594;}
 .tooltip.top .tooltip-arrow{border-top-color:#246594;}
 .nav-tabs > li > a:hover{border-color:transparent;}
