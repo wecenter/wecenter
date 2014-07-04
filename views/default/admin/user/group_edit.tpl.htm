@@ -10,7 +10,6 @@
 				<span class="pull-left"><?php _e('用户组权限'); ?>: <?php echo $this->group['group_name']; ?></span>
 			</h3>
 		</div>
-		</div>
 		<div class="tab-content mod-content">
 			<?php if ($this->group['group_id'] == 4) { ?>
 				<div class="alert alert-danger"><?php _e('注意: 这个用户组的权限会被会员组覆盖, 除非用户的威望不在会员组范围内才会使用此用户组权限'); ?></div>
@@ -509,6 +508,7 @@
 				</tr>
 				</tfoot>
 			</table>
+		</div>
 		</div>
 	</form>
 </div>
