@@ -79,6 +79,11 @@ class main extends AWS_ADMIN_CONTROLLER
 	{
 		$this->crumb(AWS_APP::lang()->_t('系统设置'), 'admin/settings');
 
+		if (empty($_GET['category']))
+		{
+			$_GET['category'] = 'site';
+		}
+
 		switch ($_GET['category'])
 		{
 			case 'interface':
