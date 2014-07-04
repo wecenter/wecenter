@@ -142,15 +142,17 @@ class ACTION_LOG
 	/**
 	 * 
 	 * 根据事件 ID,得到事件列表
+	 * 
 	 * @param boolean $count
 	 * @param int     $event_id
 	 * @param int     $limit
 	 * @param int     $action_type
 	 * @param int     $action_id
+	 * @param int     $associate_attached
 	 * 
 	 * @return array
 	 */
-	public static function get_action_by_event_id($event_id = 0, $limit = 20, $action_type = null, $action_id = null)
+	public static function get_action_by_event_id($event_id = 0, $limit = 20, $action_type = null, $action_id = null, $associate_attached = null)
 	{
 		if ($event_id)
 		{
@@ -174,6 +176,11 @@ class ACTION_LOG
 				self::ADD_USEFUL,
 				self::ADD_UNUSEFUL,
 			)) . ')';
+		}
+		
+		if (isset($associate_attached))
+		{
+			$where[] = "associate_attached  = '" . AWS_APP::model()->quote($associate_attached) . "'";
 		}
 		
 		if ($user_action_history = AWS_APP::model()->fetch_all('user_action_history', implode(' AND ', $where), 'add_time DESC', $limit))
