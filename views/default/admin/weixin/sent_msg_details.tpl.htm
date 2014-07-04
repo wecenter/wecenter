@@ -136,31 +136,48 @@
             </tr>
             <?php } ?>
 
+            <?php if (!empty($this->msg_details['main_msg'])) { ?>
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <span class="col-sm-4 col-xs-3 control-label"><?php _e('群发封面'); ?>:</span>
+                        <div class="col-sm-5 col-xs-8">
+                            <a href="<?php echo $this->msg_details['main_msg']['url']; ?>" target="_blank"><?php echo $this->msg_details['main_msg']['title']; ?></a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <?php } ?>
+
+            <?php if (!empty($this->msg_details['articles_info'])) { ?>
             <tr>
                 <td>
                     <div class="form-group">
                         <span class="col-sm-4 col-xs-3 control-label"><?php _e('群发的文章'); ?>:</span>
                         <div class="col-sm-5 col-xs-8">
-                            <?php if (!empty($this->msg_details['articles_info'])) { foreach ($this->msg_details['articles_info'] AS $article_info) { ?>
+                            <?php foreach ($this->msg_details['articles_info'] AS $article_info) { ?>
                             <a href="article/<?php echo $article_info['id']; ?>" target="_blank"><?php echo $article_info['title']; ?></a>
-                            <?php } } ?>
+                            <?php } ?>
                         </div>
                     </div>
                 </td>
             </tr>
+            <?php } ?>
 
+            <?php if (!empty($this->msg_details['questions_info'])) { ?>
             <tr>
                 <td>
                     <div class="form-group">
                         <span class="col-sm-4 col-xs-3 control-label"><?php _e('群发的问题'); ?>:</span>
                         <div class="col-sm-6 col-xs-8">
-                            <?php if (!empty($this->msg_details['questions_info'])) { foreach ($this->msg_details['questions_info'] AS $question_info) { ?>
+                            <?php foreach ($this->msg_details['questions_info'] AS $question_info) { ?>
                             <a href="question/<?php echo $question_info['id']; ?>" target="_blank"><?php echo $question_info['title']; ?></a>
-                            <?php } } ?>
+                            <?php } ?>
                         </div>
                     </div>
                 </td>
             </tr>
+            <?php } ?>
 
             <tr>
                 <td>

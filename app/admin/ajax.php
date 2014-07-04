@@ -1629,33 +1629,6 @@ class ajax extends AWS_ADMIN_CONTROLLER
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('最多可添加 9 个文章和问题')));
         }
 
-        if (!empty($article_ids))
-        {
-            $error_msg = $this->model('weixin')->add_articles_to_mpnews($article_ids);
-
-            if (isset($error_msg))
-            {
-                H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('上传文章作者的头像失败, 错误信息: %s', $error_msg)));
-            }
-        }
-
-        if (!empty($question_ids))
-        {
-            $error_msg = $this->model('weixin')->add_questions_to_mpnews($question_ids);
-
-            if (isset($error_msg))
-            {
-                H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('上传问题作者的头像失败, 错误信息: %s', $error_msg)));
-            }
-        }
-
-        $error_msg = $this->model('weixin')->upload_mpnews();
-
-        if (isset($error_msg))
-        {
-            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('上传图文消息失败, 错误为: %s', $error_msg)));
-        }
-
         if ($_FILES['main_msg_img']['error'] === UPLOAD_ERR_OK)
         {
             if ($_FILES['main_msg_img']['type'] != 'image/jpeg')
@@ -1698,6 +1671,33 @@ class ajax extends AWS_ADMIN_CONTROLLER
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('上传封面图失败, 错误信息: %s', $error_msg)));
         }
 
+        if (!empty($article_ids))
+        {
+            $error_msg = $this->model('weixin')->add_articles_to_mpnews($article_ids);
+
+            if (isset($error_msg))
+            {
+                H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('上传文章作者的头像失败, 错误信息: %s', $error_msg)));
+            }
+        }
+
+        if (!empty($question_ids))
+        {
+            $error_msg = $this->model('weixin')->add_questions_to_mpnews($question_ids);
+
+            if (isset($error_msg))
+            {
+                H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('上传问题作者的头像失败, 错误信息: %s', $error_msg)));
+            }
+        }
+
+        $error_msg = $this->model('weixin')->upload_mpnews();
+
+        if (isset($error_msg))
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('上传图文消息失败, 错误为: %s', $error_msg)));
+        }
+
         $error_msg = $this->model('weixin')->send_msg($group_id, 'mpnews');
 
         if (isset($error_msg))
@@ -1707,7 +1707,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
         $msg_id = $this->model('weixin')->save_sent_msg($group_name, $groups[$group_id]['count']);
 
-        H::ajax_json_output(AWS_APP::RSM(array('url' => get_js_url('/admin/weixin/account/id-' . $msg_id), 1, null)));
+        H::ajax_json_output(AWS_APP::RSM(array('url' => get_js_url('/admin/weixin/sent_msg_details/id-' . $msg_id)), 1, null));
     }
 
     public function statistic_action()

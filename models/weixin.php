@@ -31,6 +31,8 @@ class weixin_class extends AWS_MODEL
 
     private $msg_id;
 
+    private $to_save_main_msg;
+
     private $to_save_articles;
 
     private $to_save_questions;
@@ -287,11 +289,11 @@ class weixin_class extends AWS_MODEL
                                                 'filter_count' => intval($input_message['filterCount'])
                                             );
 
-                            if ($input_message['status'] == 'sendsuccess')
+                            if ($input_message['status'] == 'send success' OR $input_message['status'] == 'sendsuccess')
                             {
                                 $msg_details['status'] = 'success';
                             }
-                            else if ($input_message['status'] == 'sendfail')
+                            else if ($input_message['status'] == 'send fail' OR $input_message['status'] == 'sendfail')
                             {
                                 $msg_details['status'] = 'fail';
                             }
@@ -1425,6 +1427,15 @@ class weixin_class extends AWS_MODEL
                 return false;
             }
 
+            if (empty($msgs_details[$msg_id]['main_msg']))
+            {
+                unset($msgs_details[$msg_id]['main_msg']);
+            }
+            else
+            {
+                $msgs_details[$msg_id]['main_msg'] = unserialize($msgs_details[$msg_id]['main_msg']);
+            }
+
             if (empty($msgs_details[$msg_id]['articles_info']))
             {
                 unset($msgs_details[$msg_id]['articles_info']);
@@ -1500,6 +1511,11 @@ class weixin_class extends AWS_MODEL
                                             'content' => $main_msg['content'],
                                             'show_cover_pic' => $main_msg['show_cover_pic']
                                         );
+
+        $this->to_save_main_msg = array(
+                                        'title' => $main_msg['title'],
+                                        'url' => $main_msg['url']
+                                    );
     }
 
     public function add_articles_to_mpnews($article_ids)
@@ -1539,9 +1555,9 @@ class weixin_class extends AWS_MODEL
                                             );
 
             $this->to_save_articles[$article_info['id']] = array(
-                                                            'id' => $article_info['id'],
-                                                            'title' => $article_info['title']
-                                                        );
+                                                                'id' => $article_info['id'],
+                                                                'title' => $article_info['title']
+                                                            );
         }
     }
 
@@ -1655,6 +1671,7 @@ class weixin_class extends AWS_MODEL
             'msg_id' => $this->msg_id,
             'group_name' => trim($group_name),
             'status' => 'pending',
+            'main_msg' => serialize($this->to_save_main_msg),
             'articles_info' => serialize($this->to_save_articles),
             'questions_info' => serialize($this->to_save_questions),
             'create_time' => time(),
