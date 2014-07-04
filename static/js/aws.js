@@ -2483,7 +2483,7 @@ AWS.Init =
 	            });
 
 	            // 给三角形定位
-	            $(comment_box_id).find('.i-dropdown-triangle').css('left', $(this).position().left - 10);
+	            $(comment_box_id).find('.i-dropdown-triangle').css('left', $(this).position().left + 14);
 	            // textarae自动增高
 	            $(comment_box_id).find('.aw-comment-txt').autosize();
 	        }
