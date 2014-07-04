@@ -19,6 +19,7 @@ CREATE TABLE `aws_weixin_msg` (
   `group_name` varchar(255) NOT NULL DEFAULT '未分组',
   `status` varchar(15) NOT NULL DEFAULT 'unsent',
   `error_num` int(10) DEFAULT NULL,
+  `main_msg` text,
   `articles_info` text,
   `questions_info` text,
   `create_time` int(10) NOT NULL,

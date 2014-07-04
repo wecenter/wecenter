@@ -139,6 +139,19 @@
             <tr>
                 <td>
                     <div class="form-group">
+                        <span class="col-sm-4 col-xs-3 control-label"><?php _e('群发封面'); ?>:</span>
+                        <div class="col-sm-5 col-xs-8">
+                            <?php if (!empty($this->msg_details['main_msg'])) { ?>
+                            <a href="<?php echo $this->msg_details['main_msg']['url']; ?>" target="_blank"><?php echo $this->msg_details['main_msg']['title']; ?></a>
+                            <?php } ?>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <div class="form-group">
                         <span class="col-sm-4 col-xs-3 control-label"><?php _e('群发的文章'); ?>:</span>
                         <div class="col-sm-5 col-xs-8">
                             <?php if (!empty($this->msg_details['articles_info'])) { foreach ($this->msg_details['articles_info'] AS $article_info) { ?>

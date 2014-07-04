@@ -108,9 +108,6 @@ class crond_class extends AWS_MODEL
 
         $this->model('search_fulltext')->clean_cache();
 
-        // 测试用，版本发布前放到下面去
-        $this->model('admin')->notifications_crond();
-
         // 拉取微博最新 @用户 消息
         if (get_setting('weibo_msg_enabled') == 'Y'){
             $this->model('weibo')->get_msg_from_sina_crond();
@@ -120,7 +117,7 @@ class crond_class extends AWS_MODEL
     // 每半小时执行
     public function half_hour($uid)
     {
-
+        $this->model('admin')->notifications_crond();
     }
 
     // 每小时执行
