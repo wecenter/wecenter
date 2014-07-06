@@ -4,7 +4,7 @@
 |   WeCenter [#RELEASE_VERSION#]
 |   ========================================
 |   by WeCenter Software
-|   © 2011 - 2013 WeCenter. All Rights Reserved
+|   © 2011 - 2014 WeCenter. All Rights Reserved
 |   http://www.wecenter.com
 |   ========================================
 |   Support: WeCenter@qq.com
@@ -20,13 +20,10 @@ if (!defined('IN_ANWSION'))
 
 class weixin extends AWS_ADMIN_CONTROLLER
 {
-    public function setup()
-    {
-        $this->crumb(AWS_APP::lang()->_t('微信'), 'admin/weixin/reply/');
-    }
-
     public function reply_action()
     {
+        $this->crumb(AWS_APP::lang()->_t('微信'), 'admin/weixin/reply/');
+
         TPL::assign('rule_list', $this->model('weixin')->fetch_reply_rule_list());
         TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(801));
 
