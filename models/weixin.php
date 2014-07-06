@@ -1186,7 +1186,7 @@ class weixin_class extends AWS_MODEL
             'description' => $description,
             'image_file' => $image_file,
             'link' => $link
-        ), 'id = ' . intval($id) ' AND account_id = ' . intval($account_id));
+        ), 'id = ' . intval($id) . ' AND account_id = ' . intval($account_id));
     }
 
     public function get_reply_rule_by_id($id)
