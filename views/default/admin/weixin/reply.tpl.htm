@@ -5,7 +5,7 @@
     <div class="mod">
         <div class="mod-head">
             <h3>
-                <span class="pull-left"><?php _e('分类设置'); ?></span>
+                <span class="pull-left"><?php _e('自定义回复'); ?></span>
             </h3>
         </div>
 
@@ -27,7 +27,9 @@
                     </thead>
                     <tbody>
                     <form action="admin/ajax/weixin_save_reply_rule_status/" method="post" id="rule_list_form" onsubmit="return false">
-                    <?php if ($this->rule_list) {  ?>
+                    <?php if ($this->rule_list) { ?>
+                    <input type="hidden" name="account_id" value="<?php echo $this->account_id; ?>" />
+
                     <?php foreach ($this->rule_list AS $key => $val) { ?>
                     <tr>
                         <td><input type="checkbox" class="enabled-status" name="enabled_status[<?php echo $val['id']; ?>]" value="1"<?php if ($val['enabled']) { ?> checked="checked"<?php } ?> /></td>
@@ -50,7 +52,7 @@
                     </tbody>
                 </table>
                 <div class="mod-table-foot mod-one-btn">
-                    <a class="btn btn-primary" href="admin/weixin/reply_add/" id="batch_approval"><?php _e('添加规则'); ?></a>
+                    <a class="btn btn-primary" href="admin/weixin/reply_edit/account_id-<?php echo $this->account_id; ?>" id="batch_approval"><?php _e('添加规则'); ?></a>
                 </div>
             </div>
         </div>

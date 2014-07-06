@@ -23,6 +23,8 @@ class weibo extends AWS_ADMIN_CONTROLLER
 {
     public function msg_action()
     {
+        $this->crumb(AWS_APP::lang()->_t('消息接收'), 'admin/weibo/msg/');
+
         $services_info = $this->model('weibo')->get_services_info();
 
         if (!empty($services_info))
@@ -40,8 +42,6 @@ class weibo extends AWS_ADMIN_CONTROLLER
         {
             TPL::assign('tmp_service_users_info', $tmp_service_users_info);
         }
-
-        $this->crumb(AWS_APP::lang()->_t('微博'), 'admin/weibo/msg/');
 
         TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(901));
 

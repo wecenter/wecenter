@@ -31,8 +31,10 @@
                         <td><?php echo $account_info['id']; ?></td>
                         <td><?php echo $account_info['weixin_mp_token']; ?></td>
                         <td><?php echo $account_info['weixin_account_role']; ?></td>
-                        <td>
+                        <td class="nowrap">
                             <a href="admin/weixin/account/id-<?php echo $account_info['id']; ?>" data-toggle="tooltip" title="<?php _e('编辑'); ?>" class="fa fa-pencil md-tip"></a>
+                            <a href="admin/weixin/mp_menu/id-<?php echo $account_info['id']; ?>" data-toggle="tooltip" title="<?php _e('菜单管理'); ?>" class="fa fa-list md-tip"></a>
+                            <a href="admin/weixin/reply/id-<?php echo $account_info['id']; ?>" data-toggle="tooltip" title="<?php _e('自定义回复'); ?>" class="fa fa-reply md-tip"></a>
                             <a href="javascript:;" onclick="AWS.ajax_request(G_BASE_URL + '/admin/ajax/remove_weixin_account/', 'id=<?php echo $account_info['id'] ?>');" data-toggle="tooltip" title="<?php _e('删除'); ?>" class="fa fa-trash-o md-tip"></a>
                         </td>
                     </tr>

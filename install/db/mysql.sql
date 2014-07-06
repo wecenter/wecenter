@@ -1065,6 +1065,7 @@ CREATE TABLE `[#DB_PREFIX#]verify_apply` (
 
 CREATE TABLE `[#DB_PREFIX#]weixin_reply_rule` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
+  `account_id` int(10) NOT NULL DEFAULT '0',
   `keyword` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `image_file` varchar(255) COLLATE utf8_unicode_ci DEFAULT '',
@@ -1073,6 +1074,7 @@ CREATE TABLE `[#DB_PREFIX#]weixin_reply_rule` (
   `enabled` tinyint(1) DEFAULT '0',
   `sort_status` int(10) DEFAULT '0',
   PRIMARY KEY (`id`),
+  KEY `account_id` (`account_id`),
   KEY `keyword` (`keyword`),
   KEY `enabled` (`enabled`),
   KEY `sort_status` (`sort_status`)
@@ -1087,6 +1089,8 @@ CREATE TABLE `[#DB_PREFIX#]weixin_accounts` (
   `wecenter_access_token` varchar(255) DEFAULT '',
   `wecenter_access_secret` varchar(255) DEFAULT '',
   `weixin_mp_menu` text,
+  `weixin_subscribe_message_key` varchar(255) COLLATE utf8_unicode_ci DEFAULT '',
+  `weixin_no_result_message_key` varchar(255) COLLATE utf8_unicode_ci DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `weixin_mp_token` (`weixin_mp_token`),
   KEY `weixin_account_role` (`weixin_account_role`),

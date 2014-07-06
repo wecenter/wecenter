@@ -7,6 +7,8 @@ CREATE TABLE `aws_weixin_accounts` (
   `wecenter_access_token` varchar(255) DEFAULT '',
   `wecenter_access_secret` varchar(255) DEFAULT '',
   `weixin_mp_menu` text,
+  `weixin_subscribe_message_key` varchar(255) COLLATE utf8_unicode_ci DEFAULT '',
+  `weixin_no_result_message_key` varchar(255) COLLATE utf8_unicode_ci DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `weixin_mp_token` (`weixin_mp_token`),
   KEY `weixin_account_role` (`weixin_account_role`),
@@ -68,3 +70,6 @@ CREATE TABLE `aws_weixin_qr_code` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='微信二维码';
 
 INSERT INTO `aws_system_setting` (`varname`, `value`) VALUES ('admin_notifications', 'a:0:"";');
+
+ALTER TABLE `aws_weixin_reply_rule` ADD `account_id` int(10) NOT NULL DEFAULT '0';
+CREATE INDEX `account_id` ON `aws_weixin_reply_rule` (`account_id`);
