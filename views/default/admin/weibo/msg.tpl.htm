@@ -5,13 +5,17 @@
     <div class="mod">
         <div class="mod-head">
             <h3>
-                <span class="pull-left"><?php _e('分类设置'); ?></span>
+                <span class="pull-left"><?php _e('消息接收'); ?></span>
+
+                <span class="pull-right"><a href="javascript:;" onclick="AWS.ajax_post($('#msg_form'));" class="btn btn-xs btn-primary mod-site-save"><?php _e('快速保存'); ?></a></span>
             </h3>
         </div>
 
+
         <div class="tab-content mod-body">
-        <form method="post" action="admin/ajax/save_settings/" onsubmit="return false;" id="msg_form" class="form-horizontal" role="form">
+            <form method="post" action="admin/ajax/save_settings/" onsubmit="return false;" id="msg_form" class="form-horizontal" role="form">
             <table class="table table-striped">
+                <tr><td>
                 <div class="form-group">
                     <span class="col-sm-4 col-xs-3 control-label"><?php _e('接收新浪微博消息'); ?>:</span>
                     <div class="col-sm-6 col-xs-8">
@@ -28,7 +32,9 @@
                         </div>
                     </div>
                 </div>
+                </td></tr>
 
+                <tr><td>
                 <div class="form-group">
                     <span class="col-sm-4 col-xs-3 control-label"><?php _e('从指定微博帐号获取 @ta 的内容并导入 WeCenter'); ?>:</span>
                     <div class="col-sm-5 col-xs-8 aw-admin-weibo-answer" >
@@ -60,7 +66,9 @@
                         </ul>
                     </div>
                 </div>
+                </td></tr>
 
+                <tr><td>
                 <div class="form-group">
                     <span class="col-sm-4 col-xs-3 control-label"><?php _e('设置微博内容对应提问用户'); ?>:</span>
                     <div class="col-sm-5 col-xs-8 aw-admin-weibo-publish">
@@ -78,23 +86,25 @@
                         <?php } ?>
                     </div>
                 </div>
-
-                <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-5 col-xs-8">
-                        <button type="button" onclick="AWS.ajax_post($('#msg_form'));" class="btn btn-primary"><?php _e('保存'); ?></button>
-                    </div>
-                </div>
+                </td></tr>
             </table>
-        </form>
+            </form>
+        </div>
+
+
+        <div class="tab-content mod-content mod-one-btn">
+            <div class="center-block">
+                <input type="button" value="<?php _e('保存设置'); ?>" class="btn btn-primary" onclick="AWS.ajax_post($('#msg_form'));" />
+            </div>
         </div>
     </div>
 </div>
 
- <script>
- $(function(){
+<script>
+$(function(){
     AWS.Dropdown.bind_dropdown_list($('.aw-admin-weibo-publish input'), 'adminPublishUser');
     AWS.Dropdown.bind_dropdown_list($('.aw-admin-weibo-answer input'), 'adminAnswerUser');
- })
- </script>
+})
+</script>
 
 <?php TPL::output('admin/global/footer.tpl.htm'); ?>
