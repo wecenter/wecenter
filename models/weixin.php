@@ -1179,14 +1179,14 @@ class weixin_class extends AWS_MODEL
         ), 'id = ' . intval($id));
     }
 
-    public function update_reply_rule($id, $title, $description = '', $link = '', $image_file = '')
+    public function update_reply_rule($id, $account_id, $title, $description = '', $link = '', $image_file = '')
     {
         return $this->update('weixin_reply_rule', array(
             'title' => $title,
             'description' => $description,
             'image_file' => $image_file,
             'link' => $link
-        ), 'id = ' . intval($id));
+        ), 'id = ' . intval($id) ' AND account_id = ' . intval($account_id));
     }
 
     public function get_reply_rule_by_id($id)

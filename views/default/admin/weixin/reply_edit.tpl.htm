@@ -3,11 +3,11 @@
 
 <div class="aw-content-wrap">
 	<form action="admin/weixin/rule_save/" enctype="multipart/form-data" id="settings_form" method="post" onsubmit="return false">
-	<?php if (empty($this->rule_info['id'])) { ?>
-	<input type="hidden" name="account_id" value="<?php echo $this->account_id; ?>" />
-	<?php } else { ?>
+	<?php if (!empty($this->rule_info['id'])) { ?>
 	<input type="hidden" name="id" value="<?php echo $this->rule_info['id']; ?>" />
 	<?php } ?>
+
+	<input type="hidden" name="account_id" value="<?php echo $this->account_id; ?>" />
 
 	<div class="mod">
 		<div class="mod-head">

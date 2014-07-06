@@ -67,6 +67,8 @@ class weixin extends AWS_ADMIN_CONTROLLER
             {
                 H::redirect_msg(AWS_APP::lang()->_t('自定义回复规则不存在'));
             }
+
+            TPL::assign('account_id', $rule_info['account_id']);
         }
 
         TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(801));
@@ -122,7 +124,7 @@ class weixin extends AWS_ADMIN_CONTROLLER
     {
         define('IN_AJAX', TRUE);
 
-        $account_id = $_POST['id'] ?: 0;
+        $account_id = $_POST['account_id'] ?: 0;
 
         if ($_POST['button'])
         {
@@ -143,7 +145,7 @@ class weixin extends AWS_ADMIN_CONTROLLER
     {
         define('IN_AJAX', TRUE);
 
-        if (!$_POST['title'])
+        if (empty($_POST['title']))
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请输入回应内容')));
         }
@@ -204,10 +206,10 @@ class weixin extends AWS_ADMIN_CONTROLLER
                 $rule_info['image_file'] = basename($upload_data['full_path']);
             }
 
-            $this->model('weixin')->update_reply_rule($_POST['id'], $_POST['title'], $_POST['description'], $_POST['link'], $rule_info['image_file']);
+            $this->model('weixin')->update_reply_rule($_POST['id'], $_POST['account_id'], $_POST['title'], $_POST['description'], $_POST['link'], $rule_info['image_file']);
 
             H::ajax_json_output(AWS_APP::RSM(array(
-                'url' => get_js_url('/admin/weixin/reply/')
+                'url' => get_js_url('/admin/weixin/reply/id-' . $_POST['account_id'])
             ), 1, null));
         }
         else
@@ -273,7 +275,7 @@ class weixin extends AWS_ADMIN_CONTROLLER
         }
 
         H::ajax_json_output(AWS_APP::RSM(array(
-            'url' => get_js_url('admin/weixin/reply/')
+            'url' => get_js_url('admin/weixin/reply/id-' . $_POST['account_id'])
         ), 1, null));
     }
 
