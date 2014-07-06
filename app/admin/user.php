@@ -191,7 +191,7 @@ class user extends AWS_ADMIN_CONTROLLER
 
 		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(405));
 
-		TPL::assign('system_group', $this->model('account')->get_user_group_list(0));
+		TPL::assign('groups', $this->model('account')->get_user_group_list());
 
 		TPL::output('admin/user/add');
 	}
