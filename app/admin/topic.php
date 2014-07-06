@@ -75,6 +75,24 @@ class topic extends AWS_ADMIN_CONTROLLER
 
 		$total_rows = $this->model('topic')->found_rows();
 
+		if ($topic_list)
+		{
+			foreach ($topic_list AS $topic_info)
+			{
+				$log_list[$topic_info['topic_id']] = ACTION_LOG::get_action_by_event_id($topic_info['topic_id'], 1, ACTION_LOG::CATEGORY_TOPIC, implode(',', array(
+					ACTION_LOG::ADD_TOPIC,
+					ACTION_LOG::MOD_TOPIC,
+					ACTION_LOG::MOD_TOPIC_DESCRI,
+					ACTION_LOG::MOD_TOPIC_PIC,
+					ACTION_LOG::DELETE_TOPIC,
+					ACTION_LOG::ADD_RELATED_TOPIC,
+					ACTION_LOG::DELETE_RELATED_TOPIC
+				)), -1);
+
+				$log_list[$topic_info['topic_id']] = $this->model('topic')->analysis_log($log_list[$topic_info['topic_id']]);
+			}
+		}
+
 		$url_param = array();
 
 		foreach($_GET as $key => $val)
@@ -97,6 +115,7 @@ class topic extends AWS_ADMIN_CONTROLLER
 		TPL::assign('topics_count', $total_rows);
 		TPL::assign('search_url', $search_url);
 		TPL::assign('list', $topic_list);
+		TPL::assign('log_list', $log_list);
 		TPL::output("admin/topic/list");
 	}
 

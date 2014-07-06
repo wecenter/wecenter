@@ -1010,7 +1010,8 @@ class topic_class extends AWS_MODEL
 				'user_name' => $user_name,
 				'title' => $title_list,
 				'add_time' => date('Y-m-d', $log['add_time']),
-				'log_id' => sprintf('%06s', $log['history_id'])
+				'log_id' => sprintf('%06s', $log['history_id']),
+				'user_url' => $user_url
 			) : '';
 		}
 
