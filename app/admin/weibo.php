@@ -45,6 +45,6 @@ class weibo extends AWS_ADMIN_CONTROLLER
 
         TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(901));
 
-        TPL::output('admin/weixin/msg');
+        TPL::output('admin/weibo/msg');
     }
 }
