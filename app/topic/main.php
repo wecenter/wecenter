@@ -244,7 +244,7 @@ class main extends AWS_CONTROLLER
 			ACTION_LOG::DELETE_TOPIC,
 			ACTION_LOG::ADD_RELATED_TOPIC,
 			ACTION_LOG::DELETE_RELATED_TOPIC
-		)));
+		)), -1);
 		
 		$log_list = $this->model('topic')->analysis_log($log_list);
 		
