@@ -122,7 +122,7 @@ class weixin_class extends AWS_MODEL
         {
             $accounts_info = $this->model('setting')->fetch_all('weixin_accounts');
 
-            $accounts_info[] = array(
+            $accounts_info[0] = array(
                 'id' => 0,
                 'weixin_mp_token' => get_setting('weixin_mp_token'),
                 'weixin_account_role' => get_setting('weixin_mp_token'),

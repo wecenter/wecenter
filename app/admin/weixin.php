@@ -24,18 +24,20 @@ class weixin extends AWS_ADMIN_CONTROLLER
     {
         $this->crumb(AWS_APP::lang()->_t('自定义回复'), 'admin/weixin/reply/');
 
-        $account_id = $_GET['id'] ?: 0;
+        $_GET['id'] = intval($_GET['id']);
 
-        $account_info = $this->model('weixin')->get_account_info_by_id($account_id);
+        $accounts_list = $this->model('weixin')->get_accounts_info();
 
-        if (empty($account_info))
+        if (empty($accounts_list[$_GET['id']]))
         {
             H::redirect_msg(AWS_APP::lang()->_t('公众账号不存在'));
         }
 
-        TPL::assign('account_id', $account_info['id']);
+        TPL::assign('account_id', $accounts_list[$_GET['id']]['id']);
 
-        TPL::assign('rule_list', $this->model('weixin')->fetch_reply_rule_list($account_info['id']));
+        TPL::assign('rule_list', $this->model('weixin')->fetch_reply_rule_list($accounts_list[$_GET['id']]['id']));
+
+        TPL::assign('accounts_list', $accounts_list);
 
         TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(801));
 
@@ -82,25 +84,27 @@ class weixin extends AWS_ADMIN_CONTROLLER
     {
         $this->crumb(AWS_APP::lang()->_t('菜单管理'), 'admin/weixin/mp_menu/');
 
-        $account_id = $_GET['id'] ?: 0;
+        $_GET['id'] = intval($_GET['id']);
 
-        $account_info = $this->model('weixin')->get_account_info_by_id($account_id);
+        $accounts_list = $this->model('weixin')->get_accounts_info();
 
-        if (empty($account_info))
+        if (empty($accounts_list[$_GET['id']]))
         {
             H::redirect_msg(AWS_APP::lang()->_t('公众账号不存在'));
         }
 
-        if ($account_info['weixin_account_role'] == 'base' OR empty($account_info['weixin_app_id']) OR empty($account_info['weixin_app_secret']))
+        if ($accounts_list[$_GET['id']]['weixin_account_role'] == 'base' OR empty($accounts_list[$_GET['id']]['weixin_app_id']) OR empty($accounts_list[$_GET['id']]['weixin_app_secret']))
         {
             H::redirect_msg(AWS_APP::lang()->_t('此功能不适用于未通过微信认证的订阅号'));
         }
 
-        $this->model('weixin')->client_list_image_clean($account_info['weixin_mp_menu']);
+        $this->model('weixin')->client_list_image_clean($accounts_list[$_GET['id']]['weixin_mp_menu']);
 
-        TPL::assign('account_id', $account_info['id']);
+        TPL::assign('account_id', $accounts_list[$_GET['id']]['id']);
 
-        TPL::assign('mp_menu', $account_info['weixin_mp_menu']);
+        TPL::assign('mp_menu', $accounts_list[$_GET['id']]['weixin_mp_menu']);
+
+        TPL::assign('accounts_list', $accounts_list);
 
         TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(803));
 

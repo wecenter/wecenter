@@ -54,7 +54,7 @@ class main extends AWS_ADMIN_CONTROLLER
 
 	public function login_action()
 	{
-		if (! $this->user_info['permission']['is_administortar'])
+		if (!$this->user_info['permission']['is_administortar'] OR !$this->user_info['permission']['is_moderator'])
 		{
 			H::redirect_msg(AWS_APP::lang()->_t('你没有访问权限, 请重新登录'), '/');
 		}
