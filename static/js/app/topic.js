@@ -34,13 +34,13 @@ $(document).ready(function() {
 
 	//侧边栏话题编辑记录收缩
 	$('.aw-side-bar-topic-edit-notes .fa-chevron-down').click(function() {
-		if ($(this).parents('.aw-side-bar-topic-edit-notes').find('.aw-side-bar-body').css('display') == 'none')
+		if ($(this).parents('.aw-side-bar-topic-edit-notes').find('.aw-mod-body').css('display') == 'none')
 		{
-			$(this).parents('.aw-side-bar-topic-edit-notes').find('.aw-side-bar-body').fadeIn();
+			$(this).parents('.aw-side-bar-topic-edit-notes').find('.aw-mod-body').fadeIn();
 		}
 		else
 		{
-			$(this).parents('.aw-side-bar-topic-edit-notes').find('.aw-side-bar-body').fadeOut();	
+			$(this).parents('.aw-side-bar-topic-edit-notes').find('.aw-mod-body').fadeOut();	
 		}
 		
 		if ($(this).hasClass('active'))
