@@ -13,11 +13,15 @@
         <div class="tab-content mod-content">
             <form action="admin/ajax/save_approval_item/" id="approval_form" method="post" onsubmit="return false" enctype="multipart/form-data">
                 <table class="table table-striped">
+                    <?php if ($_GET['type'] == 'weibo_msg') { ?>
+                    <input type="hidden" name="type" value="weibo_msg" />
+                    <?php } ?>
+
                     <tr><td>
                     <div class="form-group">
                         <span class="col-sm-4 col-xs-3 control-label"><?php _e('标题'); ?>:</span>
                         <div class="col-sm-5 col-xs-8">
-                            <input class="form-control" name="main_msg_author" type="text" />
+                            <input class="form-control" name="title" type="text" value="<?php echo $approval_item['title'] ?>" />
                         </div>
                     </div>
                     </td></tr>
@@ -33,7 +37,7 @@
 
                     <?php if ($this->approval_item['attachs']) {  ?>
                     <p><strong><?php _e('附件'); ?></strong></p>
-                    <?php if ($this->approval_item['attachs']) {  ?>
+
                     <blockquote class="aw-comment-upload-img-list">
                     <?php foreach ($this->approval_item['attachs'] AS $attach) { ?>
                     <?php if ($attach['is_image']) { ?>
@@ -42,9 +46,7 @@
                     <?php } ?>
                     <?php } ?>
                     </blockquote>
-                    <?php } ?>
 
-                    <?php if ($this->approval_item['attachs']) {  ?>
                     <blockquote>
                         <ul class="aw-comment-upload-file-list">
                             <?php foreach ($this->approval_item['attachs'] AS $attach) { ?>
@@ -56,7 +58,6 @@
                     </blockquote>
                     <?php } ?>
 
-                    <?php } ?>
                 </table>
             </form>
         </div>

@@ -158,25 +158,40 @@ class approval extends AWS_ADMIN_CONTROLLER
 		switch ($approval_item['type'])
 		{
 			case 'question':
+				$approval_item['title'] = htmlspecialchars($approval_item['data']['question_content']);
+
 				$approval_item['content'] = htmlspecialchars($approval_item['data']['question_detail']);
-			break;
+
+				break;
 
 			case 'answer':
 				$approval_item['content'] = htmlspecialchars($approval_item['data']['answer_content']);
-			break;
+
+				break;
 
 			case 'article':
+				$approval_item['title'] = htmlspecialchars($approval_item['data']['title']);
+
+				$approval_item['content'] = htmlspecialchars($approval_item['data']['message']);
+
+				break;
+
 			case 'article_comment':
 				$approval_item['content'] = htmlspecialchars($approval_item['data']['message']);
-			break;
+
+				break;
 
 			case 'weibo_msg':
+				$approval_item['title'] =& $approval_item['text'];
+
 				$approval_item['content'] =& $approval_item['text'];
 
 				if ($approval_item['has_attach'])
 				{
 					$approval_item['attachs'] = $this->model('publish')->get_attach('weibo_msg', $_GET['id']);
 				}
+
+				break;
 		}
 
 		if ($approval_item['data']['attach_access_key'])
