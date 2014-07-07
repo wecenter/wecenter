@@ -66,7 +66,9 @@ class admin_class extends AWS_MODEL
 	public function notifications_crond()
 	{
 		$last_version = json_decode(curl_get_contents('http://wenda.wecenter.com/api/version_check.php'), true);
-
+		
+		$admin_notifications = get_setting('admin_notifications');
+		
 		$notifications = array(
 								// 内容审核
 								'answer_approval' => $this->count('approval', "type = 'answer'"),
@@ -89,7 +91,7 @@ class admin_class extends AWS_MODEL
 								'last_version_build_day' => $last_version['build_day'],
 
 								// 新浪微博 Access Token 更新
-								'sina_users' => get_setting('admin_notifications')['sina_users']
+								'sina_users' => $admin_notifications['sina_users']
 							);
 
 		$this->model('setting')->set_vars(array('admin_notifications' => $notifications));

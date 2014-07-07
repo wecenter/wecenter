@@ -1181,7 +1181,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
         }
         else
         {
-            if (empty(trim($_POST['user_name'])))
+            if (!trim($_POST['user_name']))
             {
                 H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请输入用户名')));
             }
@@ -1893,7 +1893,9 @@ class ajax extends AWS_ADMIN_CONTROLLER
                 break;
 
             case 'add_published_user':
-                if ($_POST['uid'] != get_setting('weibo_msg_published_user')['uid'])
+            	$weibo_msg_published_user = get_setting('weibo_msg_published_user');
+            	
+                if ($_POST['uid'] != $weibo_msg_published_user['uid'])
                 {
                     $published_user_info = $this->model('account')->get_user_info_by_uid($_POST['uid']);
 
