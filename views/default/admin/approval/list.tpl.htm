@@ -8,7 +8,7 @@
                 <ul class="nav nav-tabs">
                     <li class="<?php if ($_GET['type'] == 'question') { ?> active<?php } ?>"><a href="admin/approval/list/"><?php _e('问题'); ?> (<?php echo $this->question_count; ?>)</a></li>
 
-                    <li class="<?php if ($_GET['type'] == 'unverified_modify_count') { ?> active<?php } ?>"><a href="admin/approval/list/type-unverified_modify_count"><?php _e('问题修改'); ?> (<?php echo $this->unverified_modify_count; ?>)</a></li>
+                    <li class="<?php if ($_GET['type'] == 'unverified_modify') { ?> active<?php } ?>"><a href="admin/approval/list/type-unverified_modify_count"><?php _e('问题修改'); ?> (<?php echo $this->unverified_modify_count; ?>)</a></li>
 
                     <li class="<?php if ($_GET['type'] == 'answer') { ?> active<?php } ?>"><a href="admin/approval/list/type-answer"><?php _e('回答'); ?> (<?php echo $this->answer_count; ?>)</a></li>
 
