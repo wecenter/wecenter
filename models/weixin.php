@@ -120,8 +120,6 @@ class weixin_class extends AWS_MODEL
 
         if (!$accounts_info)
         {
-            $accounts_info = $this->model('setting')->fetch_all('weixin_accounts');
-
             $accounts_info[0] = array(
                 'id' => 0,
                 'weixin_mp_token' => get_setting('weixin_mp_token'),
@@ -134,6 +132,16 @@ class weixin_class extends AWS_MODEL
                 'weixin_subscribe_message_key' => get_setting('weixin_subscribe_message_key'),
                 'weixin_no_result_message_key' => get_setting('weixin_no_result_message_key')
             );
+
+            $accounts_list = $this->model('setting')->fetch_all('weixin_accounts');
+
+            if (!empty($accounts_list))
+            {
+                foreach ($accounts_list AS $account_info)
+                {
+                    $accounts_info[$account_info['id']] = $account_info;
+                }
+            }
         }
 
         return $accounts_info;
