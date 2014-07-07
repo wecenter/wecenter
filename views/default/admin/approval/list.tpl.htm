@@ -8,7 +8,7 @@
                 <ul class="nav nav-tabs">
                     <li class="<?php if ($_GET['type'] == 'question') { ?> active<?php } ?>"><a href="admin/approval/list/"><?php _e('问题'); ?> (<?php echo $this->question_count; ?>)</a></li>
 
-                    <li class="<?php if ($_GET['type'] == 'unverified_modify') { ?> active<?php } ?>"><a href="admin/approval/list/type-unverified_modify_count"><?php _e('问题修改'); ?> (<?php echo $this->unverified_modify_count; ?>)</a></li>
+                    <li class="<?php if ($_GET['type'] == 'unverified_modify') { ?> active<?php } ?>"><a href="admin/approval/list/type-unverified_modify"><?php _e('问题修改'); ?> (<?php echo $this->unverified_modify_count; ?>)</a></li>
 
                     <li class="<?php if ($_GET['type'] == 'answer') { ?> active<?php } ?>"><a href="admin/approval/list/type-answer"><?php _e('回答'); ?> (<?php echo $this->answer_count; ?>)</a></li>
 
@@ -33,21 +33,21 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <?php if ($_GET['type'] != 'unverified_modify_count') { ?>
+                            <?php if ($_GET['type'] != 'unverified_modify') { ?>
                             <th><input type="checkbox" class="check-all"></th>
                             <?php } ?>
                             <th><?php _e('用户'); ?></th>
-                            <?php if (in_array($_GET['type'], array('question', 'unverified_modify_count', 'article'))) { ?>
+                            <?php if (in_array($_GET['type'], array('question', 'unverified_modify', 'article'))) { ?>
                             <th><?php _e('标题'); ?></th>
                             <?php } ?>
-                            <th><?php if ($_GET['type'] == 'unverified_modify_count') { _e('待确认修改数'); } else { _e('内容'); } ?></th>
+                            <th><?php if ($_GET['type'] == 'unverified_modify') { _e('待确认修改数'); } else { _e('内容'); } ?></th>
                             <th><?php _e('操作')?></th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php foreach ($this->approval_list AS $approval_info) { ?>
                         <tr>
-                            <?php if ($_GET['type'] != 'unverified_modify_count') { ?>
+                            <?php if ($_GET['type'] != 'unverified_modify') { ?>
                             <td>
                                 <input type="checkbox" name="approval_ids[]" value="<?php echo $approval_info['id']; ?>">
                             </td>
@@ -83,7 +83,7 @@
                             <?php } ?>
 
                             <td>
-                                <?php if ($_GET['type'] == 'unverified_modify_count') { echo $approval_info['unverified_modify_count']; } else { ?>
+                                <?php if ($_GET['type'] == 'unverified_modify') { echo $approval_info['unverified_modify_count']; } else { ?>
                                 <a onclick="AWS.dialog('ajaxData', {'title':'<?php _e('内容审核'); ?>', 'url':G_BASE_URL + '/admin/approval/preview/<?php if ($_GET['type'] == 'weibo_msg') { ?>type-weibo_msg__<?php } echo $approval_info['id']; ?>'});"><?php
                                 switch ($_GET['type']) {
                                     case 'question':
@@ -109,7 +109,7 @@
                             </td>
 
                             <td>
-                                <?php if ($_GET['type'] == 'unverified_modify_count') { ?>
+                                <?php if ($_GET['type'] == 'unverified_modify') { ?>
                                 <a href="question/id-<?php echo $approval_info['question_id']; ?>__column-log__rf-false" target="_blank" class="fa fa-search md-tip" data-original-title="<?php _e('查看内容'); ?>"></a>
                                 <?php } else { ?>
                                 <a class="fa fa-search md-tip" onclick="AWS.dialog('ajaxData', {'title':'<?php _e('内容审核'); ?>', 'url':G_BASE_URL + '/admin/approval/preview/<?php
@@ -130,7 +130,7 @@
             <div class="mod-table-foot">
                 <span class="pull-right mod-page"><?php echo $this->pagination; ?></span>
 
-                <?php if ($_GET['type'] != 'unverified_modify_count') { ?>
+                <?php if ($_GET['type'] != 'unverified_modify') { ?>
                 <a class="btn btn-primary" onclick="$('#batch_type').val('approval'); AWS.ajax_post($('#batchs_form'));" id="batch_approval"><?php _e('通过审核'); ?></a>
                 <a class="btn btn-danger" onclick="$('#batch_type').val('decline'); AWS.ajax_post($('#batchs_form'));" id="batch_decline"><?php _e('拒绝审核'); ?></a>
                 <?php } ?>
