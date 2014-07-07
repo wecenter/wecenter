@@ -4,7 +4,7 @@
 |   WeCenter [#RELEASE_VERSION#]
 |   ========================================
 |   by WeCenter Software
-|   © 2011 - 2013 WeCenter. All Rights Reserved
+|   © 2011 - 2014 WeCenter. All Rights Reserved
 |   http://www.wecenter.com
 |   ========================================
 |   Support: WeCenter@qq.com
@@ -20,38 +20,61 @@ if (!defined('IN_ANWSION'))
 
 class weixin extends AWS_ADMIN_CONTROLLER
 {
-    public function setup()
-    {
-        $this->crumb(AWS_APP::lang()->_t('微信'), 'admin/weixin/reply/');
-    }
-
     public function reply_action()
     {
-        TPL::assign('rule_list', $this->model('weixin')->fetch_reply_rule_list());
+        $this->crumb(AWS_APP::lang()->_t('自定义回复'), 'admin/weixin/reply/');
+
+        $_GET['id'] = intval($_GET['id']);
+
+        $accounts_list = $this->model('weixin')->get_accounts_info();
+
+        if (empty($accounts_list[$_GET['id']]))
+        {
+            H::redirect_msg(AWS_APP::lang()->_t('公众账号不存在'));
+        }
+
+        TPL::assign('account_id', $accounts_list[$_GET['id']]['id']);
+
+        TPL::assign('rule_list', $this->model('weixin')->fetch_reply_rule_list($accounts_list[$_GET['id']]['id']));
+
+        TPL::assign('accounts_list', $accounts_list);
+
         TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(801));
 
         TPL::output('admin/weixin/reply');
     }
 
-    public function reply_add_action()
-    {
-        $this->crumb(AWS_APP::lang()->_t('添加规则'), "admin/weixin/reply_add/");
-
-        TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(801));
-
-        TPL::output('admin/weixin/reply_edit');
-    }
-
     public function reply_edit_action()
     {
-        $this->crumb(AWS_APP::lang()->_t('编辑规则'), "admin/weixin/reply_add/");
+        $this->crumb(AWS_APP::lang()->_t('编辑回复规则'), "admin/weixin/reply_edit/");
 
-        if (!$rule_info = $this->model('weixin')->get_reply_rule_by_id($_GET['id']))
+        if (empty($_GET['id']))
         {
-            H::redirect_msg(AWS_APP::lang()->_t('自定义回复规则不存在'));
+            $account_id = $_GET['account_id'] ?: 0;
+
+            $account_info = $this->model('weixin')->get_account_info_by_id($account_id);
+
+            if (empty($account_info))
+            {
+                H::redirect_msg(AWS_APP::lang()->_t('公众账号不存在'));
+            }
+
+            TPL::assign('account_id', $account_info['id']);
+        }
+        else
+        {
+            $rule_info = $this->model('weixin')->get_reply_rule_by_id($_GET['id']);
+
+            if (empty($rule_info))
+            {
+                H::redirect_msg(AWS_APP::lang()->_t('自定义回复规则不存在'));
+            }
+
+            TPL::assign('account_id', $rule_info['account_id']);
         }
 
         TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(801));
+
         TPL::assign('rule_info', $rule_info);
 
         TPL::output('admin/weixin/reply_edit');
@@ -59,26 +82,30 @@ class weixin extends AWS_ADMIN_CONTROLLER
 
     public function mp_menu_action()
     {
-        $account_id = $_GET['id'] ?: 0;
+        $this->crumb(AWS_APP::lang()->_t('菜单管理'), 'admin/weixin/mp_menu/');
 
-        $account_info = $this->model('weixin')->get_account_info_by_id($account_id);
+        $_GET['id'] = intval($_GET['id']);
 
-        if (empty($account_info))
+        $accounts_list = $this->model('weixin')->get_accounts_info();
+
+        if (empty($accounts_list[$_GET['id']]))
         {
-            H::redirect_msg(AWS_APP::lang()->_t('微信账号不存在'));
+            H::redirect_msg(AWS_APP::lang()->_t('公众账号不存在'));
         }
 
-        if ($account_info['weixin_account_role'] == 'base' OR empty($account_info['weixin_app_id']) OR empty($account_info['weixin_app_secret']))
+        if ($accounts_list[$_GET['id']]['weixin_account_role'] == 'base' OR empty($accounts_list[$_GET['id']]['weixin_app_id']) OR empty($accounts_list[$_GET['id']]['weixin_app_secret']))
         {
             H::redirect_msg(AWS_APP::lang()->_t('此功能不适用于未通过微信认证的订阅号'));
         }
 
-        $this->crumb(AWS_APP::lang()->_t('菜单管理'), 'admin/weixin/mp_menu/');
+        $this->model('weixin')->client_list_image_clean($accounts_list[$_GET['id']]['weixin_mp_menu']);
 
-        $this->model('weixin')->client_list_image_clean($account_info['weixin_mp_menu']);
+        TPL::assign('account_id', $accounts_list[$_GET['id']]['id']);
 
-        TPL::assign('account_id', $account_info['id']);
-        TPL::assign('mp_menu', $account_info['weixin_mp_menu']);
+        TPL::assign('mp_menu', $accounts_list[$_GET['id']]['weixin_mp_menu']);
+
+        TPL::assign('accounts_list', $accounts_list);
+
         TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(803));
 
         TPL::assign('feature_list', $this->model('feature')->get_enabled_feature_list('id DESC', null, null));
@@ -91,6 +118,7 @@ class weixin extends AWS_ADMIN_CONTROLLER
         TPL::assign('reply_rule_list', $this->model('weixin')->fetch_unique_reply_rule_list());
 
         TPL::import_js('js/ajaxupload.js');
+
         TPL::import_js('js/md5.js');
 
         TPL::output('admin/weixin/mp_menu');
@@ -98,7 +126,9 @@ class weixin extends AWS_ADMIN_CONTROLLER
 
     public function save_mp_menu_action()
     {
-        $account_id = $_POST['id'] ?: 0;
+        define('IN_AJAX', TRUE);
+
+        $account_id = $_POST['account_id'] ?: 0;
 
         if ($_POST['button'])
         {
@@ -117,7 +147,9 @@ class weixin extends AWS_ADMIN_CONTROLLER
 
     public function rule_save_action()
     {
-        if (!$_POST['title'])
+        define('IN_AJAX', TRUE);
+
+        if (empty($_POST['title']))
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请输入回应内容')));
         }
@@ -178,10 +210,10 @@ class weixin extends AWS_ADMIN_CONTROLLER
                 $rule_info['image_file'] = basename($upload_data['full_path']);
             }
 
-            $this->model('weixin')->update_reply_rule($_POST['id'], $_POST['title'], $_POST['description'], $_POST['link'], $rule_info['image_file']);
+            $this->model('weixin')->update_reply_rule($_POST['id'], $_POST['account_id'], $_POST['title'], $_POST['description'], $_POST['link'], $rule_info['image_file']);
 
             H::ajax_json_output(AWS_APP::RSM(array(
-                'url' => get_js_url('/admin/weixin/reply/')
+                'url' => get_js_url('/admin/weixin/reply/id-' . $_POST['account_id'])
             ), 1, null));
         }
         else
@@ -243,17 +275,20 @@ class weixin extends AWS_ADMIN_CONTROLLER
                 $image_file = basename($upload_data['full_path']);
             }
 
-            $this->model('weixin')->add_reply_rule($_POST['keyword'], $_POST['title'], $_POST['description'], $_POST['link'], $image_file);
+            $this->model('weixin')->add_reply_rule($_POST['account_id'], $_POST['keyword'], $_POST['title'], $_POST['description'], $_POST['link'], $image_file);
         }
 
         H::ajax_json_output(AWS_APP::RSM(array(
-            'url' => get_js_url('admin/weixin/reply/')
+            'url' => get_js_url('admin/weixin/reply/id-' . $_POST['account_id'])
         ), 1, null));
     }
 
     public function accounts_action()
     {
+        $this->crumb(AWS_APP::lang()->_t('公众账号管理'), "admin/weixin/accounts/");
+
         $accounts_list = $this->model('weixin')->fetch_page('weixin_accounts', null, 'id ASC', $_GET['page'], $this->per_page);
+
         $accounts_total = $this->model('weixin')->found_rows();
 
         TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
@@ -262,10 +297,10 @@ class weixin extends AWS_ADMIN_CONTROLLER
             'per_page' => $this->per_page
         ))->create_links());
 
-        $this->crumb(AWS_APP::lang()->_t('微信账号'), "admin/weixin/accounts/");
-
         TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(802));
+
         TPL::assign('accounts_list', $accounts_list);
+
         TPL::assign('accounts_total', $accounts_total);
 
         TPL::output('admin/weixin/accounts');
@@ -273,6 +308,8 @@ class weixin extends AWS_ADMIN_CONTROLLER
 
     public function account_action()
     {
+        $this->crumb(AWS_APP::lang()->_t('编辑公众账号'), "admin/weixin/accounts/");
+
         if (!empty($_GET['id']))
         {
             $account_info = $this->model('weixin')->get_account_info_by_id($_GET['id']);
@@ -292,7 +329,10 @@ class weixin extends AWS_ADMIN_CONTROLLER
 
     public function sent_msgs_list_action()
     {
+        $this->crumb(AWS_APP::lang()->_t('群发消息列表'), "admin/weixin/sent_msgs_list/");
+
         $msgs_list = $this->model('weixin')->fetch_page('weixin_msg', null, 'id DESC', $_GET['page'], $this->per_page);
+
         $msgs_total = $this->model('weixin')->found_rows();
 
         TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
@@ -301,10 +341,10 @@ class weixin extends AWS_ADMIN_CONTROLLER
             'per_page' => $this->per_page
         ))->create_links());
 
-        $this->crumb(AWS_APP::lang()->_t('群发列表'), "admin/weixin/sent_msgs_list/");
-
         TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(804));
+
         TPL::assign('msgs_list', $msgs_list);
+
         TPL::assign('msgs_total', $msgs_total);
 
         TPL::output('admin/weixin/sent_msgs_list');
@@ -312,6 +352,8 @@ class weixin extends AWS_ADMIN_CONTROLLER
 
     public function sent_msg_details_action()
     {
+        $this->crumb(AWS_APP::lang()->_t('查看群发消息'), "admin/weixin/sent_msg_details/");
+
         $msg_details = $this->model('weixin')->get_msg_details_by_id($_GET['id']);
 
         if (empty($msg_details))
@@ -319,9 +361,8 @@ class weixin extends AWS_ADMIN_CONTROLLER
             H::redirect_msg(AWS_APP::lang()->_t('群发消息不存在'));
         }
 
-        $this->crumb(AWS_APP::lang()->_t('查看群发消息'), "admin/weixin/sent_msg_details/");
-
         TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(804));
+
         TPL::assign('msg_details', $msg_details);
 
         TPL::output('admin/weixin/sent_msg_details');
@@ -329,6 +370,8 @@ class weixin extends AWS_ADMIN_CONTROLLER
 
     public function send_msg_batch_action()
     {
+        $this->crumb(AWS_APP::lang()->_t('群发消息'), "admin/weixin/send_msg_batch/");
+
         if (get_setting('weixin_account_role') != 'service' OR empty(get_setting('weixin_app_id')) OR empty(get_setting('weixin_app_secret')))
         {
             H::redirect_msg(AWS_APP::lang()->_t('此功能只适用于通过微信认证的服务号'));
@@ -341,15 +384,17 @@ class weixin extends AWS_ADMIN_CONTROLLER
             H::redirect_msg(AWS_APP::lang()->_t('获取微信分组失败, 错误信息:<br />%s', $groups));
         }
 
-        $this->crumb(AWS_APP::lang()->_t('群发消息'), "admin/weixin/send_msg_batch/");
-
         TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(804));
+
         TPL::assign('groups', $groups);
+
         TPL::output('admin/weixin/send_msg_batch');
     }
 
     public function qr_code_action()
     {
+        $this->crumb(AWS_APP::lang()->_t('二维码管理'), "admin/weixin/qr_code/");
+
         if (get_setting('weixin_account_role') != 'service' OR empty(get_setting('weixin_app_id')) OR empty(get_setting('weixin_app_secret')))
         {
             H::redirect_msg(AWS_APP::lang()->_t('此功能只适用于通过微信认证的服务号'));
@@ -365,10 +410,10 @@ class weixin extends AWS_ADMIN_CONTROLLER
             'per_page' => $this->per_page
         ))->create_links());
 
-        $this->crumb(AWS_APP::lang()->_t('二维码管理'), "admin/weixin/qr_code/");
-
         TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(805));
+
         TPL::assign('qr_code_list', $qr_code_list);
+
         TPL::output('admin/weixin/qr_code');
     }
 }

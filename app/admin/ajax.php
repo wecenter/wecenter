@@ -29,7 +29,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
     public function login_process_action()
     {
-        if (! $this->user_info['permission']['is_administortar'])
+        if (!$this->user_info['permission']['is_administortar'] OR !$this->user_info['permission']['is_moderator'])
         {
             H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('你没有访问权限, 请重新登录')));
         }
@@ -67,14 +67,19 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
     public function save_settings_action()
     {
+        if (!$this->user_info['permission']['is_administortar'] OR !$this->user_info['permission']['is_moderator'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('你没有访问权限, 请重新登录')));
+        }
+
         if ($_POST['upload_dir'] AND preg_match('/(.*)\/$/i', $_POST['upload_dir']))
         {
-            H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('上传文件存放绝对路径不能以 / 结尾')));
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('上传文件存放绝对路径不能以 / 结尾')));
         }
 
         if ($_POST['upload_url'] AND preg_match('/(.*)\/$/i', $_POST['upload_url']))
         {
-            H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('上传目录外部访问 URL 地址不能以 / 结尾')));
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('上传目录外部访问 URL 地址不能以 / 结尾')));
         }
 
         if ($_POST['request_route_custom'])
@@ -224,7 +229,6 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
                     break;
             }
-
         }
         else
         {
@@ -1469,22 +1473,21 @@ class ajax extends AWS_ADMIN_CONTROLLER
             foreach ($_POST['rule_ids'] AS $rule_id => $val)
             {
                 $this->model('weixin')->update_reply_rule_enabled($rule_id, $_POST['enabled_status'][$rule_id]);
+
                 $this->model('weixin')->update_reply_rule_sort($rule_id, $_POST['sort_status'][$rule_id]);
             }
 
             if ($_POST['is_subscribe'])
             {
-                $this->model('setting')->set_vars(array(
-                    'weixin_subscribe_message_key' => $_POST['is_subscribe']
-                ));
+                $account_info['weixin_subscribe_message_key'] = $_POST['is_subscribe'];
             }
 
             if ($_POST['is_no_result'])
             {
-                $this->model('setting')->set_vars(array(
-                    'weixin_no_result_message_key' => $_POST['is_no_result']
-                ));
+                $account_info['weixin_no_result_message_key'] = $_POST['is_no_result'];
             }
+
+            $this->model('weixin')->update_setting_or_account($_POST['account_id'], $account_info);
         }
 
         H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('规则状态已自动保存')));
@@ -1602,7 +1605,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
     public function remove_weixin_account_action()
     {
-        $this->model('weixin')->delete('weixin_accounts', 'id = ' . intval($_POST['id']));
+        $this->model('weixin')->remove_weixin_account($_POST['id']);
 
         H::ajax_json_output(AWS_APP::RSM(null, 1, null));
     }

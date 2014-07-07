@@ -20,10 +20,6 @@ if (!defined('IN_ANWSION'))
 
 class api extends AWS_CONTROLLER
 {
-	private $input_message;
-
-	private $mp_menu;
-
 	public function get_access_rule()
 	{
 		$rule_action['rule_type'] = 'black';
@@ -32,7 +28,7 @@ class api extends AWS_CONTROLLER
 		return $rule_action;
 	}
 
-	public function setup()
+	public function index_action()
 	{
 		$account_id = $_GET['account'] ?: 0;
 
@@ -49,14 +45,13 @@ class api extends AWS_CONTROLLER
 			exit(htmlspecialchars($_GET['echostr']));
 		}
 
-		$this->input_message = $this->model('weixin')->fetch_message();
+		$input_message = $this->model('weixin')->fetch_message();
 
+		if ($account_info['weixin_account_role'] == 'base' OR empty($account_info['weixin_app_id']) OR empty($account_info['weixin_app_secret']))
+		{
+			$account_info['weixin_mp_menu'] = null;
+		}
 
-		$this->mp_menu = ($account_info['weixin_account_role'] == 'base' OR empty($account_info['weixin_app_id']) OR empty($account_info['weixin_app_secret'])) ? null : $account_info['weixin_mp_menu'];
-	}
-
-	public function index_action()
-	{
-		$this->model('weixin')->response_message($this->input_message, $this->mp_menu);
+		$this->model('weixin')->response_message($input_message, $account_info);
 	}
 }

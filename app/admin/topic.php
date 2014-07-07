@@ -75,6 +75,31 @@ class topic extends AWS_ADMIN_CONTROLLER
 
 		$total_rows = $this->model('topic')->found_rows();
 
+		if ($topic_list)
+		{
+			foreach ($topic_list AS $topic_info)
+			{
+				$topic_log[$topic_info['topic_id']] = ACTION_LOG::get_action_by_event_id($topic_info['topic_id'], 1, ACTION_LOG::CATEGORY_TOPIC, implode(',', array(
+					ACTION_LOG::ADD_TOPIC,
+					ACTION_LOG::MOD_TOPIC,
+					ACTION_LOG::MOD_TOPIC_DESCRI,
+					ACTION_LOG::MOD_TOPIC_PIC,
+					ACTION_LOG::DELETE_TOPIC,
+					ACTION_LOG::ADD_RELATED_TOPIC,
+					ACTION_LOG::DELETE_RELATED_TOPIC
+				)), -1)[0];
+
+				$user_info = $this->model('account')->get_user_info_by_uid($topic_log[$topic_info['topic_id']]['uid']);
+
+				$topic_log[$topic_info['topic_id']] = array(
+					'uid' => $user_info['uid'],
+					'user_name' => $user_info['user_name'],
+					'url_token' => $user_info['url_token'],
+					'add_time' => $topic_log[$topic_info['topic_id']]['add_time']
+				);
+			}
+		}
+
 		$url_param = array();
 
 		foreach($_GET as $key => $val)
@@ -97,6 +122,7 @@ class topic extends AWS_ADMIN_CONTROLLER
 		TPL::assign('topics_count', $total_rows);
 		TPL::assign('search_url', $search_url);
 		TPL::assign('list', $topic_list);
+		TPL::assign('topic_log', $topic_log);
 		TPL::output("admin/topic/list");
 	}
 
