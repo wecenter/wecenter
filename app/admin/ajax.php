@@ -67,14 +67,19 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
     public function save_settings_action()
     {
+        if (!$this->user_info['permission']['is_administortar'] OR !$this->user_info['permission']['is_moderator'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('你没有访问权限, 请重新登录')));
+        }
+
         if ($_POST['upload_dir'] AND preg_match('/(.*)\/$/i', $_POST['upload_dir']))
         {
-            H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('上传文件存放绝对路径不能以 / 结尾')));
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('上传文件存放绝对路径不能以 / 结尾')));
         }
 
         if ($_POST['upload_url'] AND preg_match('/(.*)\/$/i', $_POST['upload_url']))
         {
-            H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('上传目录外部访问 URL 地址不能以 / 结尾')));
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('上传目录外部访问 URL 地址不能以 / 结尾')));
         }
 
         if ($_POST['request_route_custom'])

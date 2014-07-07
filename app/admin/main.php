@@ -15,112 +15,117 @@
 
 if (!defined('IN_ANWSION'))
 {
-	die;
+    die;
 }
 
 class main extends AWS_ADMIN_CONTROLLER
 {
-	public function index_action()
-	{
-		if (!defined('IN_SAE'))
-		{
-			$writable_check = array(
-				'cache' => is_really_writable(ROOT_PATH . 'cache/'),
-				'tmp' => is_really_writable(ROOT_PATH . './tmp/'),
-				get_setting('upload_dir') => is_really_writable(get_setting('upload_dir'))
-			);
+    public function index_action()
+    {
+        if (!defined('IN_SAE'))
+        {
+            $writable_check = array(
+                'cache' => is_really_writable(ROOT_PATH . 'cache/'),
+                'tmp' => is_really_writable(ROOT_PATH . './tmp/'),
+                get_setting('upload_dir') => is_really_writable(get_setting('upload_dir'))
+            );
 
-			TPL::assign('writable_check', $writable_check);
-		}
+            TPL::assign('writable_check', $writable_check);
+        }
 
-		TPL::assign('users_count', $this->model('system')->count('users'));
-		TPL::assign('users_valid_email_count', $this->model('system')->count('users', 'valid_email = 1'));
-		TPL::assign('question_count', $this->model('system')->count('question'));
-		TPL::assign('answer_count', $this->model('system')->count('answer'));
-		TPL::assign('question_count', $this->model('system')->count('question'));
-		TPL::assign('question_no_answer_count', $this->model('system')->count('question', 'answer_count = 0'));
-		TPL::assign('best_answer_count', $this->model('system')->count('question', 'best_answer > 0'));
-		TPL::assign('topic_count', $this->model('system')->count('topic'));
-		TPL::assign('attach_count', $this->model('system')->count('attach'));
-		TPL::assign('approval_question_count', $this->model('publish')->count('approval', "type = 'question'"));
-		TPL::assign('approval_answer_count', $this->model('publish')->count('approval', "type = 'answer'"));
+        TPL::assign('users_count', $this->model('system')->count('users'));
+        TPL::assign('users_valid_email_count', $this->model('system')->count('users', 'valid_email = 1'));
+        TPL::assign('question_count', $this->model('system')->count('question'));
+        TPL::assign('answer_count', $this->model('system')->count('answer'));
+        TPL::assign('question_count', $this->model('system')->count('question'));
+        TPL::assign('question_no_answer_count', $this->model('system')->count('question', 'answer_count = 0'));
+        TPL::assign('best_answer_count', $this->model('system')->count('question', 'best_answer > 0'));
+        TPL::assign('topic_count', $this->model('system')->count('topic'));
+        TPL::assign('attach_count', $this->model('system')->count('attach'));
+        TPL::assign('approval_question_count', $this->model('publish')->count('approval', "type = 'question'"));
+        TPL::assign('approval_answer_count', $this->model('publish')->count('approval', "type = 'answer'"));
 
-		$this->crumb(AWS_APP::lang()->_t('概述'), 'admin/main/');
+        $this->crumb(AWS_APP::lang()->_t('概述'), 'admin/main/');
 
-		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(100));
+        TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(100));
 
-		TPL::output('admin/index');
-	}
+        TPL::output('admin/index');
+    }
 
-	public function login_action()
-	{
-		if (!$this->user_info['permission']['is_administortar'] OR !$this->user_info['permission']['is_moderator'])
-		{
-			H::redirect_msg(AWS_APP::lang()->_t('你没有访问权限, 请重新登录'), '/');
-		}
-		else if (AWS_APP::session()->admin_login)
-		{
-			HTTP::redirect('/admin/');
-		}
+    public function login_action()
+    {
+        if (!$this->user_info['permission']['is_administortar'] OR !$this->user_info['permission']['is_moderator'])
+        {
+            H::redirect_msg(AWS_APP::lang()->_t('你没有访问权限, 请重新登录'), '/');
+        }
+        else if (AWS_APP::session()->admin_login)
+        {
+            HTTP::redirect('/admin/');
+        }
 
-		TPL::import_css('admin/css/login.css');
+        TPL::import_css('admin/css/login.css');
 
-		TPL::output('admin/login');
-	}
+        TPL::output('admin/login');
+    }
 
-	public function logout_action($return_url = '/')
-	{
-		$this->model('admin')->admin_logout();
+    public function logout_action($return_url = '/')
+    {
+        $this->model('admin')->admin_logout();
 
-		HTTP::redirect($return_url);
-	}
+        HTTP::redirect($return_url);
+    }
 
-	public function settings_action()
-	{
-		$this->crumb(AWS_APP::lang()->_t('系统设置'), 'admin/settings');
+    public function settings_action()
+    {
+        $this->crumb(AWS_APP::lang()->_t('系统设置'), 'admin/settings');
 
-		if (empty($_GET['category']))
-		{
-			$_GET['category'] = 'site';
-		}
+        if (!$this->user_info['permission']['is_administortar'])
+        {
+            H::redirect_msg(AWS_APP::lang()->_t('你没有访问权限, 请重新登录'), '/');
+        }
 
-		switch ($_GET['category'])
-		{
-			case 'interface':
-				TPL::assign('styles', $this->model('setting')->get_ui_styles());
-			break;
+        if (empty($_GET['category']))
+        {
+            $_GET['category'] = 'site';
+        }
 
-			case 'register':
-				TPL::assign('notification_settings', get_setting('new_user_notification_setting'));
-				TPL::assign('notify_actions', $this->model('notify')->notify_action_details);
-			break;
-		}
+        switch ($_GET['category'])
+        {
+            case 'interface':
+                TPL::assign('styles', $this->model('setting')->get_ui_styles());
+            break;
 
-		TPL::assign('setting', get_setting(null, false));
+            case 'register':
+                TPL::assign('notification_settings', get_setting('new_user_notification_setting'));
+                TPL::assign('notify_actions', $this->model('notify')->notify_action_details);
+            break;
+        }
 
-		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list('SETTINGS_' . strtoupper($_GET['category'])));
+        TPL::assign('setting', get_setting(null, false));
 
-		TPL::output('admin/settings');
-	}
+        TPL::assign('menu_list', $this->model('admin')->fetch_menu_list('SETTINGS_' . strtoupper($_GET['category'])));
 
-	public function nav_menu_action()
-	{
-		$this->crumb(AWS_APP::lang()->_t('导航设置'), 'admin/nav_menu/');
+        TPL::output('admin/settings');
+    }
 
-		TPL::assign('nav_menu_list', $this->model('menu')->get_nav_menu_list());
+    public function nav_menu_action()
+    {
+        $this->crumb(AWS_APP::lang()->_t('导航设置'), 'admin/nav_menu/');
 
-		TPL::assign('feature_list', $this->model('feature')->get_enabled_feature_list());
+        TPL::assign('nav_menu_list', $this->model('menu')->get_nav_menu_list());
 
-		TPL::assign('category_list', $this->model('system')->build_category_html('question', 0, 0, null, true));
+        TPL::assign('feature_list', $this->model('feature')->get_enabled_feature_list());
 
-		TPL::assign('setting', get_setting());
+        TPL::assign('category_list', $this->model('system')->build_category_html('question', 0, 0, null, true));
 
-		TPL::import_js(array(
-			'js/ajaxupload.js',
-		));
+        TPL::assign('setting', get_setting());
 
-		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(307));
+        TPL::import_js(array(
+            'js/ajaxupload.js',
+        ));
 
-		TPL::output('admin/nav_menu');
-	}
+        TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(307));
+
+        TPL::output('admin/nav_menu');
+    }
 }
