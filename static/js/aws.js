@@ -633,6 +633,37 @@ var AWS =
 	    }
 	},
 
+	// 兼容placeholder
+	check_placeholder: function(selector)
+	{
+		$.each(selector, function()
+		{
+			if (typeof ($(this).attr("placeholder")) != "undefined")
+            {
+                $(this).attr('data-placeholder', 'true');
+
+                if ($(this).val() == '')
+                {
+	                $(this).addClass('aw-placeholder').val($(this).attr("placeholder"));
+                }
+
+                $(this).focus(function () {
+                    if ($(this).val() == $(this).attr('placeholder'))
+                    {
+                        $(this).removeClass('aw-placeholder').val('');
+                    }
+                });
+
+                $(this).blur(function () {
+                    if ($(this).val() == '')
+                    {
+                        $(this).addClass('aw-placeholder').val($(this).attr('placeholder'));
+                    }
+                });
+            }
+		});
+	},
+
 	// 回复背景高亮
 	hightlight: function(selector, class_name)
 	{
