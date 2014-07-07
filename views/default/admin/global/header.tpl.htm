@@ -46,17 +46,24 @@
         <ul class="pull-right">
             <?php $notifications = get_setting('admin_notifications');
             if (!empty($notifications)) {
-                if ($notifications['answer_approval']) {
-                    $notifications_texts[] = array(
-                                                    'url' => 'admin/approval/list/',
-                                                    'text' => AWS_APP::lang()->_t('有 %s 个回答待审核', $notifications['answer_approval'])
-                                                );
-                }
-
                 if ($notifications['question_approval']) {
                     $notifications_texts[] = array(
                                                     'url' => 'admin/approval/list/type-answer',
                                                     'text' => AWS_APP::lang()->_t('有 %s 个问题待审核', $notifications['question_approval'])
+                                                );
+                }
+
+                if ($notifications['unverified_modify_count']) {
+                    $notifications_texts[] = array(
+                                                    'url' => 'admin/approval/list/type-unverified_modify',
+                                                    'text' => AWS_APP::lang()->_t('有 %s 个问题修改待审核', $notifications['unverified_modify_count'])
+                                                );
+                }
+
+                if ($notifications['answer_approval']) {
+                    $notifications_texts[] = array(
+                                                    'url' => 'admin/approval/list/',
+                                                    'text' => AWS_APP::lang()->_t('有 %s 个回答待审核', $notifications['answer_approval'])
                                                 );
                 }
 
@@ -102,7 +109,7 @@
                                                 );
                 }
 
-                if ($this->user_info['group_id'] == 1 AND $notifications['last_version_build_day'] > G_VERSION_BUILD) {
+                if ($this->user_info['is_administortar'] AND $notifications['last_version_build_day'] > G_VERSION_BUILD) {
                     $notifications_texts[] = array(
                                                     'url' => 'http://www.wecenter.com/downloads/',
                                                     'text' => AWS_APP::lang()->_t('程序需要更新，最新版本为 %s', $notifications['last_version'])

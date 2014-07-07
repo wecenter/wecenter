@@ -224,7 +224,6 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
                     break;
             }
-
         }
         else
         {
@@ -1469,22 +1468,21 @@ class ajax extends AWS_ADMIN_CONTROLLER
             foreach ($_POST['rule_ids'] AS $rule_id => $val)
             {
                 $this->model('weixin')->update_reply_rule_enabled($rule_id, $_POST['enabled_status'][$rule_id]);
+
                 $this->model('weixin')->update_reply_rule_sort($rule_id, $_POST['sort_status'][$rule_id]);
             }
 
             if ($_POST['is_subscribe'])
             {
-                $this->model('setting')->set_vars(array(
-                    'weixin_subscribe_message_key' => $_POST['is_subscribe']
-                ));
+                $account_info['weixin_subscribe_message_key'] = $_POST['is_subscribe'];
             }
 
             if ($_POST['is_no_result'])
             {
-                $this->model('setting')->set_vars(array(
-                    'weixin_no_result_message_key' => $_POST['is_no_result']
-                ));
+                $account_info['weixin_no_result_message_key'] = $_POST['is_no_result'];
             }
+
+            $this->model('weixin')->update_setting_or_account($_POST['account_id'], $account_info);
         }
 
         H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('规则状态已自动保存')));
@@ -1602,7 +1600,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
     public function remove_weixin_account_action()
     {
-        $this->model('weixin')->delete('weixin_accounts', 'id = ' . intval($_POST['id']));
+        $this->model('weixin')->remove_weixin_account($_POST['id']);
 
         H::ajax_json_output(AWS_APP::RSM(null, 1, null));
     }

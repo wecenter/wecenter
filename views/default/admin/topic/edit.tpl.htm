@@ -10,7 +10,7 @@
 				<span class="pull-left"><?php _e('话题编辑'); ?></span>
 			</h3>
 		</div>
-		</div>
+
 		<div class="tab-content mod-content">
 			<table class="table table-striped">
 				<tr>
@@ -52,7 +52,7 @@
 									<label type="button" class="btn mod-btn-color">
 										<input type="radio" name="topic_lock" value="1"<?php if ($this->topic_info['topic_lock']) { ?> checked="checked"<?php } ?> /> <?php _e('是'); ?>
 									</label>
-					
+
 									<label type="button" class="btn mod-btn-color">
 										<input type="radio" name="topic_lock" value="0"<?php if (!$this->topic_info['topic_lock']) { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?>
 									</label>
@@ -70,6 +70,7 @@
 				</tfoot>
 			</table>
 		</div>
+	</div>
 	</form>
 </div>
 

@@ -223,7 +223,7 @@ if (get_setting('sina_akey') AND get_setting('sina_skey'))
 {
 	$config[] = array(
 		'title' => '微博',
-		'cname' => 'weibo'
+		'cname' => 'weibo',
 		'children' => array(
 			array(
 				'id' => 901,

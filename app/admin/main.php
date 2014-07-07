@@ -94,27 +94,6 @@ class main extends AWS_ADMIN_CONTROLLER
 				TPL::assign('notification_settings', get_setting('new_user_notification_setting'));
 				TPL::assign('notify_actions', $this->model('notify')->notify_action_details);
 			break;
-
-			case 'openid':
-				$services_info = $this->model('weibo')->get_services_info();
-
-				if (!empty($services_info))
-				{
-					$service_uids = array_column($services_info, 'uid');
-
-					$service_users_info = $this->model('account')->get_user_info_by_uids($service_uids);
-
-					TPL::assign('service_users_info', $service_users_info);
-				}
-
-				$tmp_service_users_info = AWS_APP::cache()->get('tmp_service_account');
-
-				if (!empty($tmp_service_users_info))
-				{
-					TPL::assign('tmp_service_users_info', $tmp_service_users_info);
-				}
-
-				break;
 		}
 
 		TPL::assign('setting', get_setting(null, false));
