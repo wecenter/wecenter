@@ -41,7 +41,6 @@
                             <th><?php _e('标题'); ?></th>
                             <?php } ?>
                             <th><?php if ($_GET['type'] == 'unverified_modify_count') { _e('待确认修改数'); } else { _e('内容'); } ?></th>
-                            <?php } ?>
                             <th><?php _e('操作')?></th>
                         </tr>
                     </thead>
@@ -60,6 +59,7 @@
 
                             <?php switch ($_GET['type']) {
                                 case 'question':
+                                case 'unverified_modify':
                             ?>
                             <td>
                                 <?php echo htmlspecialchars($approval_info['data']['question_content']); ?>
