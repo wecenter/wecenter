@@ -224,7 +224,6 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
                     break;
             }
-
         }
         else
         {
