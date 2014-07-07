@@ -110,7 +110,7 @@ class approval extends AWS_ADMIN_CONTROLLER
 				{
 					if (!$approval_uids[$approval_info['uid']])
 					{
-						$approval_uids[$approval_info['uid']] = $$approval_info['uid'];
+						$approval_uids[$approval_info['uid']] = $approval_info['uid'];
 					}
 				}
 			}
@@ -127,6 +127,11 @@ class approval extends AWS_ADMIN_CONTROLLER
 
 	public function preview_action()
 	{
+		if (!$_GET['action'])
+		{
+			$_GET['action'] = 'preview';
+		}
+
 		if ($_GET['type'] == 'weibo_msg')
 		{
 			$approval_item = $this->model('weibo')->get_msg_info_by_id($_GET['id']);
@@ -153,16 +158,16 @@ class approval extends AWS_ADMIN_CONTROLLER
 		switch ($approval_item['type'])
 		{
 			case 'question':
-				$approval_item['content'] = nl2br(FORMAT::parse_markdown(htmlspecialchars($approval_item['data']['question_detail'])));
+				$approval_item['content'] = htmlspecialchars($approval_item['data']['question_detail']);
 			break;
 
 			case 'answer':
-				$approval_item['content'] = nl2br(FORMAT::parse_markdown(htmlspecialchars($approval_item['data']['answer_content'])));
+				$approval_item['content'] = htmlspecialchars($approval_item['data']['answer_content']);
 			break;
 
 			case 'article':
 			case 'article_comment':
-				$approval_item['content'] = nl2br(FORMAT::parse_markdown(htmlspecialchars($approval_item['data']['message'])));
+				$approval_item['content'] = htmlspecialchars($approval_item['data']['message']);
 			break;
 
 			case 'weibo_msg':
@@ -179,8 +184,13 @@ class approval extends AWS_ADMIN_CONTROLLER
 			$approval_item['attachs'] = $this->model('publish')->get_attach_by_access_key($approval_item['type'], $approval_item['data']['attach_access_key']);
 		}
 
+		if ($_GET['action'] != 'edit' AND $_GET['type'] != 'weibo_msg')
+		{
+			$approval_item['content'] = nl2br(FORMAT::parse_markdown($approval_item['content']));
+		}
+
 		TPL::assign('approval_item', $approval_item);
 
-		TPL::output('admin/approval/preview');
+		TPL::output('admin/approval/' . $_GET['action']);
 	}
 }

@@ -1897,7 +1897,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
             case 'add_published_user':
             	$weibo_msg_published_user = get_setting('weibo_msg_published_user');
-            	
+
                 if ($_POST['uid'] != $weibo_msg_published_user['uid'])
                 {
                     $published_user_info = $this->model('account')->get_user_info_by_uid($_POST['uid']);
@@ -1963,5 +1963,18 @@ class ajax extends AWS_ADMIN_CONTROLLER
         unlink(get_setting('upload_dir') . '/weixin_qr_code/' . $_POST['scene_id'] . '.jpg');
 
         H::ajax_json_output(AWS_APP::RSM(null, 1, null));
+    }
+
+    public function save_approval_item_action()
+    {
+        if (!$_POST['id'])
+        {
+
+        }
+    }
+
+    public function remove_approval_attach()
+    {
+
     }
 }
