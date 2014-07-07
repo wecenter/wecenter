@@ -48,18 +48,21 @@ class weixin extends AWS_ADMIN_CONTROLLER
     {
         $this->crumb(AWS_APP::lang()->_t('编辑回复规则'), "admin/weixin/reply_edit/");
 
-        if (empty($_GET['id']))
+        if (!$_GET['id'])
         {
-            $account_id = $_GET['account_id'] ?: 0;
+            if (!isset($_GET['account_id']))
+            {
+                $_GET['account_id'] = 0;
+            };
 
-            $account_info = $this->model('weixin')->get_account_info_by_id($account_id);
+            $account_info = $this->model('weixin')->get_account_info_by_id($_GET['account_id']);
 
             if (empty($account_info))
             {
                 H::redirect_msg(AWS_APP::lang()->_t('公众账号不存在'));
             }
 
-            TPL::assign('account_id', $account_info['id']);
+            TPL::assign('account_id', $account_info[$_GET['account_id']]);
         }
         else
         {
@@ -128,7 +131,10 @@ class weixin extends AWS_ADMIN_CONTROLLER
     {
         define('IN_AJAX', TRUE);
 
-        $account_id = $_POST['account_id'] ?: 0;
+        if (!isset($_POST['account_id']))
+        {
+            $_POST['account_id'] = 0;
+        };
 
         if ($_POST['button'])
         {
@@ -138,7 +144,7 @@ class weixin extends AWS_ADMIN_CONTROLLER
             }
         }
 
-        $this->model('weixin')->update_setting_or_account($account_id, array(
+        $this->model('weixin')->update_setting_or_account($_POST['account_id'], array(
             'weixin_mp_menu' => $mp_menu
         ));
 
@@ -149,7 +155,7 @@ class weixin extends AWS_ADMIN_CONTROLLER
     {
         define('IN_AJAX', TRUE);
 
-        if (empty($_POST['title']))
+        if (!$_POST['title'])
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请输入回应内容')));
         }
@@ -310,7 +316,7 @@ class weixin extends AWS_ADMIN_CONTROLLER
     {
         $this->crumb(AWS_APP::lang()->_t('编辑公众账号'), "admin/weixin/accounts/");
 
-        if (!empty($_GET['id']))
+        if ($_GET['id'])
         {
             $account_info = $this->model('weixin')->get_account_info_by_id($_GET['id']);
 

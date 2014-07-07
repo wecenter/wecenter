@@ -84,7 +84,7 @@ class main extends AWS_ADMIN_CONTROLLER
             H::redirect_msg(AWS_APP::lang()->_t('你没有访问权限, 请重新登录'), '/');
         }
 
-        if (empty($_GET['category']))
+        if (!$_GET['category'])
         {
             $_GET['category'] = 'site';
         }

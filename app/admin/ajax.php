@@ -251,7 +251,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
     public function article_manage_action()
     {
-        if (empty($_POST['article_ids']))
+        if (!$_POST['article_ids'])
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择文章进行操作')));
         }
@@ -787,7 +787,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
     public function question_manage_action()
     {
-        if (empty($_POST['question_ids']))
+        if (!$_POST['question_ids'])
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择问题进行操作')));
         }
@@ -862,7 +862,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
         $this->model('topic')->lock_topic_by_ids($_POST['topic_id'], $_POST['topic_lock']);
 
-        $referer_url = empty($_POST['referer_url']) ? get_js_url('/admin/topic/list/') : $_POST['referer_url'];
+        $referer_url = (!$_POST['referer_url']) ? get_js_url('/admin/topic/list/') : $_POST['referer_url'];
 
         H::ajax_json_output(AWS_APP::RSM(array(
             'url' => $referer_url
@@ -1205,7 +1205,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
                 H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('密码长度不符合规则')));
             }
 
-            if (!empty($_POST['group_id']) AND $this->user_info['group_id'] != 1)
+            if (!!$_POST['group_id'] AND $this->user_info['group_id'] != 1)
             {
                 unset($_POST['group_id']);
             }
@@ -1407,7 +1407,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
     public function remove_user_action()
     {
-        if (empty($_POST['uid']))
+        if (!$_POST['uid'])
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('错误的请求')));
         }
@@ -1437,7 +1437,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
     public function remove_users_action()
     {
-        if (!is_array($_POST['uids']) OR empty($_POST['uids']))
+        if (!is_array($_POST['uids']) OR !$_POST['uids'])
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择要删除的用户')));
         }
@@ -1566,12 +1566,12 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
     public function save_weixin_account_action()
     {
-        if (empty($_POST['type']) OR $_POST['type'] == 'update' AND empty($_POST['id']))
+        if (!$_POST['type']) OR $_POST['type'] == 'update' AND empty($_POST['id'])
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('错误的请求')));
         }
 
-        if (empty($_POST['weixin_mp_token']))
+        if (!$_POST['weixin_mp_token'])
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('微信公众平台接口 Token 不能为空')));
         }
@@ -1623,22 +1623,22 @@ class ajax extends AWS_ADMIN_CONTROLLER
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('选择的分组不存在')));
         }
 
-        if (empty($_POST['main_msg_title']))
+        if (!$_POST['main_msg_title'])
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请输入封面的标题')));
         }
 
-        if (empty($_POST['main_msg_author']))
+        if (!$_POST['main_msg_author'])
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请输入封面的作者')));
         }
 
-        if (empty($_POST['main_msg_context']))
+        if (!$_POST['main_msg_context'])
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请输入封面的内容')));
         }
 
-        if (empty($_POST['main_msg_url']))
+        if (!$_POST['main_msg_url'])
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请输入封面的原文链接')));
         }
@@ -1820,7 +1820,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
     public function weibo_batch_action()
     {
-        if (empty($_POST['action']) OR empty($_POST['uid']))
+        if (!$_POST['action']) OR empty($_POST['uid'])
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('错误的请求')));
         }
@@ -1934,7 +1934,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
     public function create_weixin_qr_code_action()
     {
-        if (empty($_POST['description']))
+        if (!$_POST['description'])
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('描述不能为空')));
         }
@@ -1953,7 +1953,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
     public function remove_weixin_qr_code_action()
     {
-        if (empty($_POST['scene_id']))
+        if (!$_POST['scene_id'])
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('ID 不能为空')));
         }
@@ -1969,12 +1969,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
     {
         if (!$_POST['id'])
         {
-
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('ID 不能为空')));
         }
-    }
-
-    public function remove_approval_attach()
-    {
-
     }
 }
