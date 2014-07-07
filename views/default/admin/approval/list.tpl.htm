@@ -59,10 +59,17 @@
 
                             <?php switch ($_GET['type']) {
                                 case 'question':
-                                case 'unverified_modify':
                             ?>
                             <td>
                                 <?php echo htmlspecialchars($approval_info['data']['question_content']); ?>
+                            </td>
+                            <?php
+                                    break;
+
+                                case 'unverified_modify':
+                            ?>
+                            <td>
+                                <?php echo htmlspecialchars($approval_info['question_content']); ?>
                             </td>
                             <?php
                                     break;
@@ -110,7 +117,7 @@
 
                             <td>
                                 <?php if ($_GET['type'] == 'unverified_modify') { ?>
-                                <a href="question/id-<?php echo $approval_info['question_id']; ?>__column-log__rf-false" target="_blank" class="fa fa-search md-tip" data-original-title="<?php _e('查看内容'); ?>"></a>
+                                <a href="question/id-<?php echo $approval_info['question_id']; ?>__column-log__rf-false" target="_blank" class="fa fa-search md-tip" data-original-title="<?php _e('查看修改日志'); ?>"></a>
                                 <?php } else { ?>
                                 <a class="fa fa-search md-tip" onclick="AWS.dialog('ajaxData', {'title':'<?php _e('内容审核'); ?>', 'url':G_BASE_URL + '/admin/approval/preview/<?php
                                 if ($_GET['type'] == 'weibo_msg') {
