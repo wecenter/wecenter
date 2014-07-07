@@ -80,27 +80,27 @@ class approval extends AWS_ADMIN_CONTROLLER
 
 			if ($_GET['type'] == 'unverified_modify')
 			{
-				foreach ($approval_list AS $approval_info)
+				foreach ($approval_list AS $key => $approval_info)
 				{
-					$approval_info['uid'] =& $approval_info['published_uid'];
+					$approval_list[$key]['uid'] = $approval_info['published_uid'];
 
-					if (!$approval_uids[$approval_info['uid']])
+					if (!$approval_uids[$approval_list[$key]['uid']])
 					{
-						$approval_uids[$approval_info['uid']] = $approval_info['uid'];
+						$approval_uids[$approval_list[$key]['uid']] = $approval_list[$key]['uid'];
 					}
 
-					$approval_info['unverified_modify'] = @unserialize($approval_info['unverified_modify']);
+					$approval_list[$key]['unverified_modify'] = @unserialize($approval_info['unverified_modify']);
 
-					if (is_array($approval_info['unverified_modify']))
+					if (is_array($approval_list[$key]['unverified_modify']))
 					{
 						$counter = 0;
 
-						foreach ($approval_info['unverified_modify'] AS $unverified_modify_info)
+						foreach ($approval_list[$key]['unverified_modify'] AS $unverified_modify_info)
 						{
 							$counter = $counter + count($unverified_modify_info);
 						}
 
-						$approval_info['unverified_modify_count'] = $counter;
+						$approval_list[$key]['unverified_modify_count'] = $counter;
 					}
 				}
 			}
