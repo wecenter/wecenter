@@ -451,12 +451,12 @@ CREATE TABLE `[#DB_PREFIX#]question` (
   `unverified_modify` text,
   `ip` bigint(11) DEFAULT NULL,
   `last_answer` int(11) DEFAULT '0' COMMENT '最后回答 ID',
-  `popular_value` DOUBLE NULL DEFAULT '0',
-  `popular_value_update` INT( 10 ) NULL DEFAULT '0',
-  `lock` TINYINT( 1 ) NULL DEFAULT '0' COMMENT '是否锁定',
-  `anonymous` TINYINT( 1 ) NULL DEFAULT '0',
-  `thanks_count` INT( 10 ) NULL DEFAULT '0',
-  `question_content_fulltext` TEXT NULL DEFAULT NULL,
+  `popular_value` double DEFAULT '0',
+  `popular_value_update` int(10) DEFAULT '0',
+  `lock` tinyint(1) DEFAULT '0' COMMENT '是否锁定',
+  `anonymous` tinyint(1) DEFAULT '0',
+  `thanks_count` int(10) DEFAULT '0',
+  `question_content_fulltext` text,
   `is_recommend` tinyint(1) DEFAULT '0',
   `weibo_msg_id` bigint(30) DEFAULT NULL,
   PRIMARY KEY (`question_id`),
@@ -476,7 +476,7 @@ CREATE TABLE `[#DB_PREFIX#]question` (
   KEY `against_count` (`against_count`),
   KEY `is_recommend` (`is_recommend`),
   KEY `weibo_msg_id` (`weibo_msg_id`),
-  KEY `unverified_modify` (`unverified_modify`),
+  FULLTEXT KEY `unverified_modify` (`unverified_modify`),
   FULLTEXT KEY `question_content_fulltext` (`question_content_fulltext`)
 ) ENGINE=MYISAM DEFAULT CHARSET=utf8 COMMENT='问题列表';
 
