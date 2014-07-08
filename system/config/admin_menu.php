@@ -86,7 +86,7 @@ else
 				'url' => 'admin/',
 			),
 		)
-	)
+	);
 }
 
 $config[] = array(
