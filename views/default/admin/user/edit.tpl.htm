@@ -9,12 +9,12 @@
             </h3>
         </div>
         <div class="tab-content mod-content">
-            <table class="table table-striped">
+            <form action="admin/ajax/remove_user/" method="post" id="remove_user_form">
+            <table class="table">
                 <tr>
                     <td>
                         <div class="form-group">
                             <span class="col-sm-4 col-xs-3 control-label"><?php _e('删除用户'); ?>:</span>
-                            <form action="admin/ajax/remove_user/" method="post" id="remove_user_form">
                             <div class="col-sm-7 col-xs-8">
                                 <input type="hidden" name="uid" value="<?php echo $this->user['uid']; ?>" />
 
@@ -25,292 +25,293 @@
                                 <a class="btn btn-danger btn-xs" onclick="if (!document.getElementById('remove_user').checked) { AWS.alert('<?php _e('请先确认删除操作'); ?>'); } else { AWS.ajax_post($('#remove_user_form')); }"><?php _e('删除用户'); ?></a>
 
                             </div>
-                            </form>
                         </div>
                     </td>
                 </tr>
+            </table>
+            </form>
                 <form action="admin/ajax/save_user/" id="settings_form" enctype="multipart/form-data" method="post" onsubmit="return false">
-                <input name="uid" type="hidden" value="<?php echo $this->user['uid']; ?>" />
-                <tr>
-                    <td>
-                        <div class="form-group">
-                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('用户名'); ?>:</span>
-                            <div class="col-sm-5 col-xs-8">
-                                <input class="form-control" name="user_name" type="text" value="<?php echo $this->user['user_name']; ?>" />
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="form-group">
-                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('邮箱'); ?>:</span>
-                            <div class="col-sm-5 col-xs-8">
-                                <input class="form-control" name="email" type="text" value="<?php echo $this->user['email']; ?>" />
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="form-group">
-                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('密码'); ?>:</span>
-                            <div class="col-sm-5 col-xs-8">
-                                <input class="form-control" name="password" type="password" value="" />
-
-                                <span class="help-block"><?php _e('不更改请留空'); ?></span>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="form-group">
-                            <label class="col-sm-4 col-xs-3 control-label"><?php _e('居住地'); ?>:</label>
-
-                            <div class="col-sm-3 col-xs-3">
-                                <select name="province" class="select_area form-control"></select>
-                            </div>
-                            <div class="col-sm-3 col-xs-3">
-                                <select name="city" class="select_area form-control hide"></select>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="form-group">
-                            <label class="col-sm-4 col-xs-3 control-label"><?php _e('职业'); ?>:</label>
-
-                            <div class="col-sm-5 col-xs-8">
-                                <select name="job_id" class="form-control">
-                                    <option value="">--</option>
-                                    <?php echo H::display_options($this->job_list, $this->user['job_id']); ?>
-                                </select>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="form-group">
-                            <label class="col-sm-4 col-xs-3 control-label"><?php _e('手机号码'); ?>:</label>
-
-                            <div class="col-sm-5 col-xs-8">
-                                <input class="form-control" name="mobile" type="text" value="<?php echo $this->user['mobile']; ?>" />
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="form-group">
-                            <label class="col-sm-4 col-xs-3 control-label">QQ:</label>
-
-                            <div class="col-sm-5 col-xs-8">
-                                <input class="form-control" name="qq" type="text" value="<?php echo $this->user['qq']; ?>" />
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="form-group">
-                            <label class="col-sm-4 col-xs-3 control-label"><?php _e('常用邮箱'); ?>:</label>
-
-                            <div class="col-sm-5 col-xs-8">
-                                <input class="form-control" name="common_email" type="text" value="<?php echo $this->user['common_email']; ?>" />
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="form-group">
-                            <label class="col-sm-4 col-xs-3 control-label"><?php _e('网站'); ?>:</label>
-
-                            <div class="col-sm-5 col-xs-8">
-                                <input class="form-control" name="homepage" type="text" value="<?php echo $this->user['homepage']; ?>" />
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="form-group">
-                            <label class="col-sm-4 col-xs-3 control-label"><?php _e('一句话介绍'); ?>:</label>
-
-                            <div class="col-sm-5 col-xs-8">
-                                <input class="form-control" name="signature" type="text" value="<?php echo $this->user['signature']; ?>" />
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="form-group">
-                            <label class="col-sm-4 col-xs-3 control-label"><?php _e('积分'); ?>:</label>
-
-                            <div class="col-sm-5 col-xs-8">
-                                <?php echo $this->user['integral']; ?> &nbsp; <a class="btn btn-xs btn-danger" href="admin/user/integral_log/uid-<?php echo $this->user['uid']; ?>"><?php _e('操作积分'); ?></a>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="form-group">
-                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('邮箱激活状态'); ?>:</span>
-                            <div class="col-sm-6 col-xs-8">
-                                <div class="btn-group mod-btn">
-                                    <label type="button" class="btn mod-btn-color">
-                                        <input type="radio" name="valid_email" value="1"<?php if ($this->user['valid_email'] == 1) { ?> checked="checked"<?php } ?> /> <?php _e('是'); ?>
-                                    </label>
-
-                                    <label type="button" class="btn mod-btn-color">
-                                        <input type="radio" name="valid_email" value="0"<?php if ($this->user['valid_email'] == 0) { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?>
-                                    </label>
+                <table class="table table-striped">
+                    <input name="uid" type="hidden" value="<?php echo $this->user['uid']; ?>" />
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <span class="col-sm-4 col-xs-3 control-label"><?php _e('用户名'); ?>:</span>
+                                <div class="col-sm-5 col-xs-8">
+                                    <input class="form-control" name="user_name" type="text" value="<?php echo $this->user['user_name']; ?>" />
                                 </div>
                             </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="form-group">
-                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('认证用户'); ?>:</span>
-                            <div class="col-sm-8 col-xs-8">
-                                <label class="checkbox-inline"><input type="radio" name="verified" value=""<?php if ($this->user['verified'] == '') { ?> checked="checked"<?php } ?> /><?php _e('无'); ?></label>
-                                <label class="checkbox-inline"><input type="radio" name="verified" value="personal"<?php if ($this->user['verified'] == 'personal') { ?> checked="checked"<?php } ?> /><?php _e('个人认证'); ?></label>
-                                <label class="checkbox-inline"><input type="radio" name="verified" value="enterprise"<?php if ($this->user['verified'] == 'enterprise') { ?> checked="checked"<?php } ?>/><?php _e('机构认证'); ?></label>
-                                &nbsp; <a href="admin/user/verify_approval_edit/<?php echo $this->user['uid']; ?>" class="btn btn-xs btn-danger"><?php _e('编辑认证审核资料'); ?></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <span class="col-sm-4 col-xs-3 control-label"><?php _e('邮箱'); ?>:</span>
+                                <div class="col-sm-5 col-xs-8">
+                                    <input class="form-control" name="email" type="text" value="<?php echo $this->user['email']; ?>" />
+                                </div>
                             </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="form-group">
-                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('头像'); ?>:</span>
-                            <div class="col-sm-6 col-xs-8">
-                                <p><img src="<?php echo get_avatar_url($this->user['uid'], 'mid'); ?>" alt="" class="img-polaroid" /></p>
-                                <p><?php _e('更换头像'); ?>: <input name="user_avatar" type="file" /></p>
-                                <label><input name="delete_avatar" type="checkbox" value="1" /> <?php _e('删除头像'); ?></label>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <?php if ($this->user_info['group_id'] == 1) { ?>
-                <tr>
-                    <td>
-                        <div class="form-group">
-                            <label class="col-sm-4 col-xs-3 control-label"><?php _e('用户组'); ?>:</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <span class="col-sm-4 col-xs-3 control-label"><?php _e('密码'); ?>:</span>
+                                <div class="col-sm-5 col-xs-8">
+                                    <input class="form-control" name="password" type="password" value="" />
 
-                            <div class="col-sm-5 col-xs-8">
-                                <select name="group_id" class="form-control">
-                                    <?php foreach($this->system_group as $skey => $val){ ?>
-                                    <option value="<?php echo $val['group_id']; ?>"<?php if ($this->user['group_id'] == $val['group_id']) { ?> selected="selected"<?php } ?>><?php echo $val['group_name']; ?></option>
-                                    <?php } ?>
-                                </select>
+                                    <span class="help-block"><?php _e('不更改请留空'); ?></span>
+                                </div>
                             </div>
-                        </div>
-                    </td>
-                </tr>
-                <?php } ?>
-                <tr>
-                    <td>
-                        <div class="form-group">
-                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('封禁用户'); ?>:</span>
-                            <div class="col-sm-6 col-xs-8">
-                                <div class="btn-group mod-btn">
-                                    <label type="button" class="btn mod-btn-color">
-                                        <input type="radio" name="forbidden" value="1"<?php if ($this->user['forbidden'] == 1) { ?> checked="checked"<?php } ?> /> <?php _e('是'); ?>
-                                    </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <label class="col-sm-4 col-xs-3 control-label"><?php _e('居住地'); ?>:</label>
 
-                                    <label type="button" class="btn mod-btn-color">
-                                        <input type="radio" name="forbidden" value="0"<?php if ($this->user['forbidden'] == 0) { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?>
-                                    </label>
+                                <div class="col-sm-3 col-xs-3">
+                                    <select name="province" class="select_area form-control"></select>
+                                </div>
+                                <div class="col-sm-3 col-xs-3">
+                                    <select name="city" class="select_area form-control hide"></select>
                                 </div>
                             </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="form-group">
-                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('注册时间'); ?>:</span>
-                            <div class="col-sm-6 col-xs-8">
-                                <div class="btn-group mod-btn">
-                                    <?php echo date_friendly($this->user['reg_time']); ?>
-                                </div>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <?php if ($this->user['reg_ip']) { ?>
-                <tr>
-                    <td>
-                        <div class="form-group">
-                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('注册 IP'); ?>:</span>
-                            <div class="col-sm-6 col-xs-8">
-                                <div class="btn-group mod-btn">
-                                    <?php echo long2ip($this->user['reg_ip']); ?>
-                                </div>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <?php } ?>
-                <?php if ($this->user['last_ip']) { ?>
-                <tr>
-                    <td>
-                        <div class="form-group">
-                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('上次登录 IP'); ?>:</span>
-                            <div class="col-sm-6 col-xs-8">
-                                <div class="btn-group mod-btn">
-                                    <?php echo long2ip($this->user['last_ip']); ?>
-                                </div>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <?php } ?>
-                <tr>
-                    <td>
-                        <div class="form-group">
-                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('上次登录时间'); ?>:</span>
-                            <div class="col-sm-6 col-xs-8">
-                                <div class="btn-group mod-btn">
-                                    <?php echo date_friendly($this->user['last_login']); ?>
-                                </div>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="form-group">
-                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('性别'); ?>:</span>
-                            <div class="col-sm-8 col-xs-8">
-                                <label class="checkbox-inline"><input type="radio" name="sex" value="1"<?php if ($this->user['sex'] == 1) { ?> checked="checked"<?php } ?> /><?php _e('男'); ?></label>
-                                <label class="checkbox-inline"><input type="radio" name="sex" value="2"<?php if ($this->user['sex'] == 2) { ?> checked="checked"<?php } ?> /><?php _e('女'); ?></label>
-                                <label class="checkbox-inline"><input type="radio" name="sex" value="3"<?php if (!$this->user['sex'] OR $this->user['sex'] == 3) { ?> checked="checked"<?php } ?>/><?php _e('保密'); ?></label>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="form-group">
-                            <label class="col-sm-4 col-xs-3 control-label"><?php _e('可用邀请名额'); ?>:</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <label class="col-sm-4 col-xs-3 control-label"><?php _e('职业'); ?>:</label>
 
-                            <div class="col-sm-5 col-xs-8">
-                                <input class="form-control" name="invitation_available" type="text" value="<?php echo $this->user['invitation_available']; ?>"/>
+                                <div class="col-sm-5 col-xs-8">
+                                    <select name="job_id" class="form-control">
+                                        <option value="">--</option>
+                                        <?php echo H::display_options($this->job_list, $this->user['job_id']); ?>
+                                    </select>
+                                </div>
                             </div>
-                        </div>
-                    </td>
-                </tr>
-                </form>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <label class="col-sm-4 col-xs-3 control-label"><?php _e('手机号码'); ?>:</label>
+
+                                <div class="col-sm-5 col-xs-8">
+                                    <input class="form-control" name="mobile" type="text" value="<?php echo $this->user['mobile']; ?>" />
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <label class="col-sm-4 col-xs-3 control-label">QQ:</label>
+
+                                <div class="col-sm-5 col-xs-8">
+                                    <input class="form-control" name="qq" type="text" value="<?php echo $this->user['qq']; ?>" />
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <label class="col-sm-4 col-xs-3 control-label"><?php _e('常用邮箱'); ?>:</label>
+
+                                <div class="col-sm-5 col-xs-8">
+                                    <input class="form-control" name="common_email" type="text" value="<?php echo $this->user['common_email']; ?>" />
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <label class="col-sm-4 col-xs-3 control-label"><?php _e('网站'); ?>:</label>
+
+                                <div class="col-sm-5 col-xs-8">
+                                    <input class="form-control" name="homepage" type="text" value="<?php echo $this->user['homepage']; ?>" />
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <label class="col-sm-4 col-xs-3 control-label"><?php _e('一句话介绍'); ?>:</label>
+
+                                <div class="col-sm-5 col-xs-8">
+                                    <input class="form-control" name="signature" type="text" value="<?php echo $this->user['signature']; ?>" />
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <label class="col-sm-4 col-xs-3 control-label"><?php _e('积分'); ?>:</label>
+
+                                <div class="col-sm-5 col-xs-8">
+                                    <?php echo $this->user['integral']; ?> &nbsp; <a class="btn btn-xs btn-danger" href="admin/user/integral_log/uid-<?php echo $this->user['uid']; ?>"><?php _e('操作积分'); ?></a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <span class="col-sm-4 col-xs-3 control-label"><?php _e('邮箱激活状态'); ?>:</span>
+                                <div class="col-sm-6 col-xs-8">
+                                    <div class="btn-group mod-btn">
+                                        <label type="button" class="btn mod-btn-color">
+                                            <input type="radio" name="valid_email" value="1"<?php if ($this->user['valid_email'] == 1) { ?> checked="checked"<?php } ?> /> <?php _e('是'); ?>
+                                        </label>
+
+                                        <label type="button" class="btn mod-btn-color">
+                                            <input type="radio" name="valid_email" value="0"<?php if ($this->user['valid_email'] == 0) { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <span class="col-sm-4 col-xs-3 control-label"><?php _e('认证用户'); ?>:</span>
+                                <div class="col-sm-8 col-xs-8">
+                                    <label class="checkbox-inline"><input type="radio" name="verified" value=""<?php if ($this->user['verified'] == '') { ?> checked="checked"<?php } ?> /><?php _e('无'); ?></label>
+                                    <label class="checkbox-inline"><input type="radio" name="verified" value="personal"<?php if ($this->user['verified'] == 'personal') { ?> checked="checked"<?php } ?> /><?php _e('个人认证'); ?></label>
+                                    <label class="checkbox-inline"><input type="radio" name="verified" value="enterprise"<?php if ($this->user['verified'] == 'enterprise') { ?> checked="checked"<?php } ?>/><?php _e('机构认证'); ?></label>
+                                    &nbsp; <a href="admin/user/verify_approval_edit/<?php echo $this->user['uid']; ?>" class="btn btn-xs btn-danger"><?php _e('编辑认证审核资料'); ?></a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <span class="col-sm-4 col-xs-3 control-label"><?php _e('头像'); ?>:</span>
+                                <div class="col-sm-6 col-xs-8">
+                                    <p><img src="<?php echo get_avatar_url($this->user['uid'], 'mid'); ?>" alt="" class="img-polaroid" /></p>
+                                    <p><?php _e('更换头像'); ?>: <input name="user_avatar" type="file" /></p>
+                                    <label><input name="delete_avatar" type="checkbox" value="1" /> <?php _e('删除头像'); ?></label>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <?php if ($this->user_info['group_id'] == 1) { ?>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <label class="col-sm-4 col-xs-3 control-label"><?php _e('用户组'); ?>:</label>
+
+                                <div class="col-sm-5 col-xs-8">
+                                    <select name="group_id" class="form-control">
+                                        <?php foreach($this->system_group as $skey => $val){ ?>
+                                        <option value="<?php echo $val['group_id']; ?>"<?php if ($this->user['group_id'] == $val['group_id']) { ?> selected="selected"<?php } ?>><?php echo $val['group_name']; ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <?php } ?>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <span class="col-sm-4 col-xs-3 control-label"><?php _e('封禁用户'); ?>:</span>
+                                <div class="col-sm-6 col-xs-8">
+                                    <div class="btn-group mod-btn">
+                                        <label type="button" class="btn mod-btn-color">
+                                            <input type="radio" name="forbidden" value="1"<?php if ($this->user['forbidden'] == 1) { ?> checked="checked"<?php } ?> /> <?php _e('是'); ?>
+                                        </label>
+
+                                        <label type="button" class="btn mod-btn-color">
+                                            <input type="radio" name="forbidden" value="0"<?php if ($this->user['forbidden'] == 0) { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <span class="col-sm-4 col-xs-3 control-label"><?php _e('注册时间'); ?>:</span>
+                                <div class="col-sm-6 col-xs-8">
+                                    <div class="btn-group mod-btn">
+                                        <?php echo date_friendly($this->user['reg_time']); ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <?php if ($this->user['reg_ip']) { ?>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <span class="col-sm-4 col-xs-3 control-label"><?php _e('注册 IP'); ?>:</span>
+                                <div class="col-sm-6 col-xs-8">
+                                    <div class="btn-group mod-btn">
+                                        <?php echo long2ip($this->user['reg_ip']); ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <?php } ?>
+                    <?php if ($this->user['last_ip']) { ?>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <span class="col-sm-4 col-xs-3 control-label"><?php _e('上次登录 IP'); ?>:</span>
+                                <div class="col-sm-6 col-xs-8">
+                                    <div class="btn-group mod-btn">
+                                        <?php echo long2ip($this->user['last_ip']); ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <?php } ?>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <span class="col-sm-4 col-xs-3 control-label"><?php _e('上次登录时间'); ?>:</span>
+                                <div class="col-sm-6 col-xs-8">
+                                    <div class="btn-group mod-btn">
+                                        <?php echo date_friendly($this->user['last_login']); ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <span class="col-sm-4 col-xs-3 control-label"><?php _e('性别'); ?>:</span>
+                                <div class="col-sm-8 col-xs-8">
+                                    <label class="checkbox-inline"><input type="radio" name="sex" value="1"<?php if ($this->user['sex'] == 1) { ?> checked="checked"<?php } ?> /><?php _e('男'); ?></label>
+                                    <label class="checkbox-inline"><input type="radio" name="sex" value="2"<?php if ($this->user['sex'] == 2) { ?> checked="checked"<?php } ?> /><?php _e('女'); ?></label>
+                                    <label class="checkbox-inline"><input type="radio" name="sex" value="3"<?php if (!$this->user['sex'] OR $this->user['sex'] == 3) { ?> checked="checked"<?php } ?>/><?php _e('保密'); ?></label>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <label class="col-sm-4 col-xs-3 control-label"><?php _e('可用邀请名额'); ?>:</label>
+
+                                <div class="col-sm-5 col-xs-8">
+                                    <input class="form-control" name="invitation_available" type="text" value="<?php echo $this->user['invitation_available']; ?>"/>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
                 <tfoot>
                 <tr>
                     <td>
@@ -319,6 +320,7 @@
                 </tr>
                 </tfoot>
             </table>
+            </form>
         </div>
     </div>
 </div>
