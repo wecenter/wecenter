@@ -146,11 +146,6 @@ $config[] = array(
 			'url' => 'admin/user/group_list/',
 		),
 		array(
-			'id' => 405,
-			'title' => '添加用户',
-			'url' => 'admin/user/user_add/',
-		),
-		array(
 			'id' => 406,
 			'title' => '批量邀请',
 			'url' => 'admin/user/invites/',

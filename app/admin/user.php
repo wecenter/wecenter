@@ -187,9 +187,9 @@ class user extends AWS_ADMIN_CONTROLLER
 
 	public function user_add_action()
 	{
-		$this->crumb(AWS_APP::lang()->_t('添加用户'), "admin/user/user_add/");
+		$this->crumb(AWS_APP::lang()->_t('添加用户'), "admin/user/list/");
 
-		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(405));
+		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(402));
 
 		TPL::assign('system_group', $this->model('account')->get_user_group_list(0));
 
