@@ -2061,5 +2061,9 @@ class ajax extends AWS_ADMIN_CONTROLLER
         {
             $this->model('publish')->update('approval', serialize($approval_item), 'id = ' . $approval_item['id']);
         }
+
+        H::ajax_json_output(AWS_APP::RSM(array(
+            'url' => get_js_url('/admin/approval/list/')
+        ), 1, null));
     }
 }
