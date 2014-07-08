@@ -35,7 +35,7 @@ class main extends AWS_CONTROLLER
 
 	public function index_action()
 	{
-		if ($_GET['id'] or $_GET['title'])
+		if ($_GET['id'])
 		{
 			$this->_topic();
 		}
@@ -273,6 +273,9 @@ class main extends AWS_CONTROLLER
 				$contents_topic_title .= ',' . implode(',', $merged_topic_title);
 			}
 		}
+		
+		TPL::assign('list', $this->model('topic')->get_topic_best_answer_action_list($contents_topic_id, $this->user_id, get_setting('contents_per_page')));
+		TPL::assign('best_questions_list_bit', TPL::output('home/ajax/index_actions', false));
 		
 		TPL::assign('list', $this->model('topic')->get_topic_best_answer_action_list($contents_topic_id, $this->user_id, get_setting('contents_per_page')));
 		TPL::assign('best_questions_list_bit', TPL::output('home/ajax/index_actions', false));
