@@ -69,7 +69,9 @@ class weibo_class extends AWS_MODEL
             return AWS_APP::lang()->_t('微博消息 ID 不存在');
         }
 
-        $published_uid = get_setting('weibo_msg_published_user')['uid'];
+        $published_user = get_setting('weibo_msg_published_user');
+
+        $published_uid = $published_user['uid'];
 
         if (empty($published_uid))
         {
@@ -94,7 +96,7 @@ class weibo_class extends AWS_MODEL
 
     public function reply_answer_to_sina($question_id, $comment)
     {
-        if (empty(get_setting('sina_akey')) OR empty(get_setting('sina_skey')))
+        if (!get_setting('sina_akey') OR !get_setting('sina_skey'))
         {
             return false;
         }
@@ -118,7 +120,7 @@ class weibo_class extends AWS_MODEL
 
     public function get_msg_from_sina_crond()
     {
-        if (empty(get_setting('sina_akey')) OR empty(get_setting('sina_skey')))
+        if (!get_setting('sina_akey') OR !get_setting('sina_skey'))
         {
             return false;
         }

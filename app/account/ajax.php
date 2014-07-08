@@ -92,7 +92,7 @@ class ajax extends AWS_CONTROLLER
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('本站只能通过微信注册')));
 		}
-		
+
 		if ($_POST['icode'])
 		{
 			if (!$invitation = $this->model('invitation')->check_code_available($_POST['icode']) AND $_POST['email'] == $invitation['invitation_email'])
@@ -189,7 +189,7 @@ class ajax extends AWS_CONTROLLER
 
 		$this->model('account')->setcookie_logout();
 		$this->model('account')->setsession_logout();
-		
+
 		if ($_POST['icode'])
 		{
 			$follow_users = $this->model('invitation')->get_invitation_by_code($_POST['icode']);
@@ -610,7 +610,7 @@ class ajax extends AWS_CONTROLLER
 			H::ajax_json_output(AWS_APP::RSM(null, -1,  AWS_APP::lang()->_t('链接已失效，请重新找回密码')));
 		}
 
-		if (empty($_POST['password']))
+		if (!$_POST['password'])
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, -1,  AWS_APP::lang()->_t('请输入密码')));
 		}
@@ -722,12 +722,12 @@ class ajax extends AWS_CONTROLLER
 		$education_years = intval($_POST['education_years']);
 		$departments = htmlspecialchars($_POST['departments']);
 
-		if (empty($_POST['school_name']))
+		if (!$_POST['school_name'])
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('请输入学校名称')));
 		}
 
-		if (empty($_POST['departments']))
+		if (!$_POST['departments'])
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('请输入院系')));
 		}
@@ -823,12 +823,12 @@ class ajax extends AWS_CONTROLLER
 	//修改教育经历
 	function edit_edu_action()
 	{
-		if (empty($_POST['school_name']))
+		if (!$_POST['school_name'])
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('请输入学校名称')));
 		}
 
-		if (empty($_POST['departments']))
+		if (!$_POST['departments'])
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('请输入院系')));
 		}

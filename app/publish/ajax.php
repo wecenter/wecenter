@@ -396,7 +396,7 @@ class ajax extends AWS_CONTROLLER
 			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('你的剩余积分已经不足以进行此操作')));
 		}
 
-		if (empty($_POST['question_content']))
+		if (!$_POST['question_content'])
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, - 1, AWS_APP::lang()->_t('请输入问题标题')));
 		}
@@ -500,7 +500,7 @@ class ajax extends AWS_CONTROLLER
 			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('你没有权限发布文章')));
 		}
 
-		if (empty($_POST['title']))
+		if (!$_POST['title'])
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, - 1, AWS_APP::lang()->_t('请输入文章标题')));
 		}
@@ -601,7 +601,7 @@ class ajax extends AWS_CONTROLLER
 			}
 		}
 
-		if (empty($_POST['title']))
+		if (!$_POST['title'])
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, - 1, AWS_APP::lang()->_t('请输入文章标题')));
 		}

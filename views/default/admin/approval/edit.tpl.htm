@@ -1,0 +1,65 @@
+<?php TPL::output('admin/global/header.tpl.htm'); ?>
+<?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
+
+<div class="aw-content-wrap">
+
+    <div class="mod">
+        <div class="mod-head">
+            <h3>
+                <span class="pull-left"><?php _e('编辑内容'); ?></span>
+            </h3>
+        </div>
+
+        <div class="tab-content mod-content">
+            <form action="admin/ajax/save_approval_item/" id="approval_form" method="post" onsubmit="return false" enctype="multipart/form-data">
+                <table class="table table-striped">
+                    <?php if ($_GET['type'] == 'weibo_msg') { ?>
+                    <input type="hidden" name="type" value="weibo_msg" />
+                    <?php } ?>
+
+                    <tr><td>
+                    <div class="form-group">
+                        <span class="col-sm-4 col-xs-3 control-label"><?php _e('标题'); ?>:</span>
+                        <div class="col-sm-5 col-xs-8">
+                            <input class="form-control" name="title" type="text" value="<?php echo $approval_item['title'] ?>" />
+                        </div>
+                    </div>
+                    </td></tr>
+
+                    <tr><td>
+                    <div class="form-group">
+                        <span class="col-sm-4 col-xs-3 control-label"><?php _e('内容'); ?>:</span>
+                        <div class="col-sm-5 col-xs-8">
+                            <textarea class="form-control" name="content" rows="6"><?php echo $this->approval_item['content']; ?></textarea>
+                        </div>
+                    </div>
+                    </td></tr>
+
+                    <?php if ($this->approval_item['attachs']) {  ?>
+                    <p><strong><?php _e('附件'); ?></strong></p>
+
+                    <blockquote class="aw-comment-upload-img-list">
+                    <?php foreach ($this->approval_item['attachs'] AS $attach) { ?>
+                    <?php if ($attach['is_image']) { ?>
+                        <a href="<?php echo $attach['attachment']; ?>" target="_blank" data-fancybox-group="thumb" rel="lightbox"><img src="<?php echo $attach['attachment']; ?>" class="img-polaroid" alt="<?php echo $attach['attach_name']; ?>" /></a>
+                        <a href="javascript:;" onclick="AWS.ajax_request(G_BASE_URL + '/admin/ajax/remove_approval_attach/id-<?php echo $attach['attach_name']; ?>__ak-<?php echo access_key; ?>');"></a>
+                    <?php } ?>
+                    <?php } ?>
+                    </blockquote>
+
+                    <blockquote>
+                        <ul class="aw-comment-upload-file-list">
+                            <?php foreach ($this->approval_item['attachs'] AS $attach) { ?>
+                            <?php if (!$attach['is_image']) { ?>
+                                <li><a href="<?php echo download_url($attach['file_name'], $attach['attachment']); ?>"><em class="aw-icon i-upload-file"></em><?php echo $attach['file_name']; ?></a></li>
+                            <?php } ?>
+                            <?php } ?>
+                        </ul>
+                    </blockquote>
+                    <?php } ?>
+
+                </table>
+            </form>
+        </div>
+
+<?php TPL::output('admin/global/footer.tpl.htm'); ?>
