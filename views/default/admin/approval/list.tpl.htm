@@ -24,9 +24,8 @@
             <form id="batchs_form" action="admin/ajax/approval_manage/" method="post">
             <input type="hidden" id="batch_type" name="batch_type" value="approval" />
             <input type="hidden" id="approval_id" name="approval_ids[]" value="" />
-            <?php if ($_GET['type'] == 'weibo_msg') { ?>
-            <input type="hidden" name="type" value="weibo_msg" />
-            <?php } ?>
+
+            <input type="hidden" name="type" value="<?php echo htmlspecialchars($_GET['type']); ?>" />
 
             <div class="table-responsive">
             <?php if ($this->approval_list) { ?>

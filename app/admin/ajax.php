@@ -1971,5 +1971,95 @@ class ajax extends AWS_ADMIN_CONTROLLER
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('ID 不能为空')));
         }
+
+        if (!$_POST['type'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('类型不能为空')));
+        }
+
+        if ($_POST['type'] == 'weibo_msg')
+        {
+            $approval_item = $this->model('weibo')->get_msg_info_by_id($_POST['id']);
+
+            if ($approval_item['question_id'])
+            {
+                H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('该消息已通过审核，不能修改')));
+            }
+
+            $approval_item['type'] = 'weibo_msg';
+        }
+        else
+        {
+            $approval_item = $this->model('publish')->get_approval_item($_POST['id']);
+        }
+
+        if (empty($approval_item))
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('待审项不存在')));
+        }
+
+        if ($_POST['type'] != $approval_item['type'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('类型不正确')));
+        }
+
+        if (!$_POST['title'] AND ($_POST['type'] == 'question' OR $_POST['type'] == 'article'))
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('标题不能为空')));
+        }
+
+        if (!$_POST['content'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('内容不能为空')));
+        }
+
+        switch ($approval_item['type'])
+        {
+            case 'question':
+                $approval_item['data']['question_content'] = htmlspecialchars_decode($_POST['title']);
+
+                $approval_item['data']['question_detail'] = htmlspecialchars_decode($_POST['content']);
+
+                break;
+
+            case 'answer':
+                $approval_item['data']['answer_content'] = htmlspecialchars_decode($_POST['content']);
+
+                break;
+
+            case 'article':
+                $approval_item['data']['title'] = htmlspecialchars_decode($_POST['title']);
+
+                $approval_item['data']['message'] = htmlspecialchars_decode($_POST['content']);
+
+                break;
+
+            case 'article_comment':
+                $approval_item['data']['message'] = htmlspecialchars_decode($_POST['content']);
+
+                break;
+        }
+
+        if ($approval_item['type'] != 'article_comment' AND is_array($_POST['remove_attachs']))
+        {
+            foreach ($_POST['remove_attachs'] AS $id => $access_key)
+            {
+                $this->model('publish')->remove_attach($id, $access_key);
+            }
+
+            if ($approval_item['type'] != 'weibo_msg' AND !$this->model('publish')->fetch_row('attach', 'item_id = ' . $approval_item['id']))
+            {
+                $approval_item['data']['attach_access_key'] = null;
+            }
+        }
+
+        if ($approval_item['type'] == 'weibo_msg')
+        {
+            $this->model('weibo')->update('weibo_msg', array('text' => $_POST['content']), 'id = ' . $approval_item['id']);
+        }
+        else
+        {
+            $this->model('publish')->update('approval', serialize($approval_item), 'id = ' . $approval_item['id']);
+        }
     }
 }
