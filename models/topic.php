@@ -1124,6 +1124,13 @@ class topic_class extends AWS_MODEL
 
 	public function get_topic_best_answer_action_list($topic_ids, $uid, $limit)
 	{
+		if (!is_array($topic_ids))
+		{
+			return false;
+		}
+
+		array_walk_recursive($topic_ids, 'intval_string');
+		
 		if (!$result = AWS_APP::cache()->get('topic_best_answer_result_' . md5($topic_ids) . '_' . intval($limit)))
 		{
 			if (!$question_ids = $this->get_question_best_ids_by_topics_ids(explode(',', $topic_ids), $limit))
