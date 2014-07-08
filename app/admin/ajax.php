@@ -29,7 +29,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
     public function login_process_action()
     {
-        if (!$this->user_info['permission']['is_administortar'] OR !$this->user_info['permission']['is_moderator'])
+        if (!$this->user_info['permission']['is_administortar'] AND !$this->user_info['permission']['is_moderator'])
         {
             H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('你没有访问权限, 请重新登录')));
         }
@@ -67,7 +67,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
     public function save_settings_action()
     {
-        if (!$this->user_info['permission']['is_administortar'] OR !$this->user_info['permission']['is_moderator'])
+        if (!$this->user_info['permission']['is_administortar'] AND !$this->user_info['permission']['is_moderator'])
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('你没有访问权限, 请重新登录')));
         }

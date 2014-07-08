@@ -203,7 +203,7 @@ class ajax extends AWS_CONTROLLER
 			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('回复内容字数不得少于 %s 字节', get_setting('answer_length_lower'))));
 		}
 
-		if (! $this->user_info['permission']['publish_url'] && FORMAT::outside_url_exists($answer_content))
+		if (! $this->user_info['permission']['publish_url'] AND FORMAT::outside_url_exists($answer_content))
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('你所在的用户组不允许发布站外链接')));
 		}
@@ -396,12 +396,12 @@ class ajax extends AWS_CONTROLLER
 
 		$question_info = $this->model('question')->get_question_info_by_id($_GET['question_id']);
 
-		if ($question_info['lock'] && ! ($this->user_info['permission']['is_administortar'] or $this->user_info['permission']['is_moderator']))
+		if ($question_info['lock'] AND ! ($this->user_info['permission']['is_administortar'] or $this->user_info['permission']['is_moderator']))
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('不能评论锁定的问题')));
 		}
 
-		if (get_setting('comment_limit') > 0 && (cjk_strlen($_POST['message']) > get_setting('comment_limit')))
+		if (get_setting('comment_limit') > 0 AND (cjk_strlen($_POST['message']) > get_setting('comment_limit')))
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('评论内容字数不得超过 %s 字节', get_setting('comment_limit'))));
 		}
@@ -523,7 +523,7 @@ class ajax extends AWS_CONTROLLER
 			H::ajax_json_output(AWS_APP::RSM(null, - 1, AWS_APP::lang()->_t('不能评价自己发表的回复')));
 		}
 
-		if ($_POST['type'] == 'thanks' && $this->model('answer')->user_rated('thanks', $_POST['answer_id'], $this->user_id))
+		if ($_POST['type'] == 'thanks' AND $this->model('answer')->user_rated('thanks', $_POST['answer_id'], $this->user_id))
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, - 1, AWS_APP::lang()->_t('已感谢过该回复, 请不要重复感谢')));
 		}
@@ -604,7 +604,7 @@ class ajax extends AWS_CONTROLLER
 		}
 
 		// 判断是否已回复过问题
-		if ((get_setting('answer_unique') == 'Y') && $this->model('answer')->has_answer_by_uid($question_info['question_id'], $this->user_id))
+		if ((get_setting('answer_unique') == 'Y') AND $this->model('answer')->has_answer_by_uid($question_info['question_id'], $this->user_id))
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('一个问题只能回复一次，你可以编辑回复过的回复')));
 		}
@@ -614,7 +614,7 @@ class ajax extends AWS_CONTROLLER
 			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('回复内容字数不得少于 %s 字节', get_setting('answer_length_lower'))));
 		}
 
-		if (! $this->user_info['permission']['publish_url'] && FORMAT::outside_url_exists($answer_content))
+		if (! $this->user_info['permission']['publish_url'] AND FORMAT::outside_url_exists($answer_content))
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('你所在的用户组不允许发布站外链接')));
 		}
@@ -718,17 +718,17 @@ class ajax extends AWS_CONTROLLER
 	{
 		$question_info = $this->model('question')->get_question_info_by_id($_POST['item_id']);
 
-		if ($question_info['lock'] && ! ($this->user_info['permission']['is_administortar'] or $this->user_info['permission']['is_moderator']))
+		if ($question_info['lock'] AND ! ($this->user_info['permission']['is_administortar'] or $this->user_info['permission']['is_moderator']))
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('锁定的问题不能设置重定向')));
 		}
 
-		if (!$this->user_info['permission']['redirect_question'] && ! ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']))
+		if (!$this->user_info['permission']['redirect_question'] AND ! ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']))
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('你没有权限进行此操作')));
 		}
 
-		if ((!$this->user_info['permission']['is_administortar'] OR !$this->user_info['permission']['is_moderator']) AND $this->user_info['permission']['function_interval'] AND ((time() - AWS_APP::cache()->get('function_interval_timer_redirect_' . $this->user_id)) < $this->user_info['permission']['function_interval']))
+		if ((!$this->user_info['permission']['is_administortar'] AND !$this->user_info['permission']['is_moderator']) AND $this->user_info['permission']['function_interval'] AND ((time() - AWS_APP::cache()->get('function_interval_timer_redirect_' . $this->user_id)) < $this->user_info['permission']['function_interval']))
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('灌水预防机制已经打开, 在 %s 秒内不能操作', $this->user_info['permission']['function_interval'])));
 		}
@@ -773,7 +773,7 @@ class ajax extends AWS_CONTROLLER
 			'user_name' => $this->user_info['user_name'],
 			'question_title' => $question_info['question_content']
 		));
-		
+
 		H::ajax_json_output(AWS_APP::RSM(null, 1, AWS_APP::lang()->_t('邀请成功')));
 	}
 
@@ -837,7 +837,7 @@ class ajax extends AWS_CONTROLLER
 
 		$comment = $this->model($_GET['type'])->get_comment_by_id($_GET['comment_id']);
 
-		if (! $this->user_info['permission']['is_moderator'] && ! $this->user_info['permission']['is_administortar'] && $this->user_id != $comment['uid'])
+		if (! $this->user_info['permission']['is_moderator'] AND ! $this->user_info['permission']['is_administortar'] AND $this->user_id != $comment['uid'])
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, - 1, AWS_APP::lang()->_t('你没有权限删除该评论')));
 		}
@@ -858,7 +858,7 @@ class ajax extends AWS_CONTROLLER
 
 	public function answer_force_fold_action()
 	{
-		if (! $this->user_info['permission']['is_moderator'] && ! $this->user_info['permission']['is_administortar'])
+		if (! $this->user_info['permission']['is_moderator'] AND ! $this->user_info['permission']['is_administortar'])
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('你没有权限进行此操作')));
 		}
@@ -901,7 +901,7 @@ class ajax extends AWS_CONTROLLER
 
 	public function lock_action()
 	{
-		if (! $this->user_info['permission']['is_moderator'] && ! $this->user_info['permission']['is_administortar'])
+		if (! $this->user_info['permission']['is_moderator'] AND ! $this->user_info['permission']['is_administortar'])
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, - 1, AWS_APP::lang()->_t('你没有权限进行此操作')));
 		}
@@ -954,7 +954,7 @@ class ajax extends AWS_CONTROLLER
 
 	public function set_best_answer_action()
 	{
-		if (! $this->user_info['permission']['is_moderator'] && ! $this->user_info['permission']['is_administortar'])
+		if (! $this->user_info['permission']['is_moderator'] AND ! $this->user_info['permission']['is_administortar'])
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, - 1, AWS_APP::lang()->_t('你没有权限进行此操作')));
 		}

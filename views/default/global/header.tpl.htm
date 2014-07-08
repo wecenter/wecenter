@@ -45,17 +45,17 @@
 			        <?php if ($this->user_id) { ?>
 					<li><a href="<?php echo base_url(); ?>"<?php if (!$_GET['app'] OR $_GET['app'] == 'home') { ?> class="active"<?php } ?>><?php _e('首页'); ?></a></li>
 					<?php } ?>
-					
+
 					<li><a href="explore/" class="<?php if ($_GET['app'] == 'explore') { ?>active<?php } ?>"><?php _e('发现'); ?></a></li>
-					
+
 					<!-- <li><a href="question/square/" class="<?php if ($_GET['app'] == 'question') { ?>active<?php } ?>"><?php _e('问题'); ?></a></li>
 
 					<li><a href="article/square/" class="<?php if ($_GET['app'] == 'article') { ?>active<?php } ?>"><?php _e('文章'); ?></a></li> -->
-					
+
 					<li><a href="topic/" <?php if ($_GET['app'] == 'topic') { ?>class="active"<?php } ?>><?php _e('话题'); ?></a></li>
-					
+
 					<li><a href="people/list/" <?php if ($_GET['app'] == 'people') { ?>class="active"<?php } ?>><?php _e('用户'); ?></a></li>
-					
+
 					<?php if ($this->user_id) { ?>
 					<li>
 						<a href="notifications/" class="<?php if ($_GET['app'] == 'notifications') { ?>active<?php } ?>"><?php _e('通知'); ?><span class="badge badge-important" style="display:none" id="notifications_unread"><?php echo $this->user_info['notification_unread']; ?></span></a>
@@ -79,13 +79,13 @@
 						<?php if ($this->user_info['inbox_unread'] != 0) {?>
 							<span class="badge badge-important"><?php echo $this->user_info['inbox_unread']?></span>
 						<?php } ?>
-						
+
 					</a>
 					<div class="dropdown-list pull-right">
 						<ul>
 							<li><a href="inbox/"><i class="fa fa-envelope"></i> <?php _e('私信'); ?><span class="badge badge-important hide" id="inbox_unread">0</span></a></li>
 							<li class="hidden-xs"><a href="account/setting/profile/"><i class="fa fa-cog"></i> <?php _e('设置'); ?></a></li>
-							<?php if ($this->user_info['permission']['is_administortar'] ) { ?>
+							<?php if ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?>
 							<li class="hidden-xs"><a href="admin/"><i class="fa fa-wrench"></i> <?php _e('管理'); ?></a></li>
 							<?php } ?>
 							<li><a href="account/logout/"><i class="fa fa-power-off"></i> <?php _e('退出'); ?></a></li>
