@@ -172,7 +172,7 @@ class user extends AWS_ADMIN_CONTROLLER
 			H::redirect_msg(AWS_APP::lang()->_t('用户不存在'));
 		}
 
-		$this->crumb(AWS_APP::lang()->_t('编辑用户资料'), "admin/user/list/");
+		$this->crumb(AWS_APP::lang()->_t('编辑用户资料'), "admin/user/edit/");
 
 		TPL::assign('job_list', $this->model('work')->get_jobs_list());
 
@@ -187,7 +187,7 @@ class user extends AWS_ADMIN_CONTROLLER
 
 	public function user_add_action()
 	{
-		$this->crumb(AWS_APP::lang()->_t('添加用户'), "admin/user/list/");
+		$this->crumb(AWS_APP::lang()->_t('添加用户'), "admin/user/list/user_add/");
 
 		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(402));
 
