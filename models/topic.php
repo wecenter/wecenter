@@ -572,63 +572,6 @@ class topic_class extends AWS_MODEL
 		}
 	}
 
-	public function get_question_best_ids_by_topics_ids($topic_ids, $limit = null)
-	{
-		if (!is_array($topic_ids))
-		{
-			return false;
-		}
-
-		array_walk_recursive($topic_ids, 'intval_string');
-
-		if (!$result = AWS_APP::cache()->get('best_question_ids_by_topics_ids_' . implode('', $topic_ids)))
-		{
-			if ($question_ids_query = $this->query_all("SELECT item_id FROM " . $this->get_table('topic_relation') . " WHERE topic_id IN (" . implode(',', $topic_ids) . ") AND `type` = 'question'"))
-			{
-				foreach ($question_ids_query AS $key => $val)
-				{
-					$question_ids[] = $val['item_id'];
-				}
-
-				unset($question_ids_query);
-			}
-			else
-			{
-				return false;
-			}
-
-			$result = $this->query_all("SELECT question_id FROM " . get_table('question') . " WHERE question_id IN (" . implode(',', $question_ids) . ") AND best_answer > 0 ORDER BY update_time DESC");
-
-			unset($question_ids);
-
-			AWS_APP::cache()->set('best_question_ids_by_topics_ids_' . implode('', $topic_ids), $result, get_setting('cache_level_low'));
-		}
-
-		if ($limit AND $result)
-		{
-			if (strstr($limit, ','))
-			{
-				$limit = explode(',', $limit, 2);
-
-				$result = array_slice($result, $limit[0], trim($limit[1]));
-			}
-			else
-			{
-				$result = array_slice($result, 0, $limit);
-			}
-		}
-
-		if ($result)
-		{
-			foreach ($result AS $key => $val)
-			{
-				$question_ids[] = $val['question_id'];
-			}
-		}
-
-		return $question_ids;
-	}
-
 	public function get_item_ids_by_topics_id($topic_id, $type = null, $limit = null)
 	{
 		return $this->get_item_ids_by_topics_ids(array(
@@ -1123,26 +1066,33 @@ class topic_class extends AWS_MODEL
 	}
 
 	public function get_topic_best_answer_action_list($topic_ids, $uid, $limit)
-	{
-		if (!is_array($topic_ids))
-		{
-			return false;
-		}
-
-		array_walk_recursive($topic_ids, 'intval_string');
+	{		
+		$cache_key = 'topic_best_answer_action_list_' . md5($topic_ids) . '_' . intval($limit);
 		
-		if (!$result = AWS_APP::cache()->get('topic_best_answer_result_' . md5($topic_ids) . '_' . intval($limit)))
+		if (!$result = AWS_APP::cache()->get($cache_key))
 		{
-			if (!$question_ids = $this->get_question_best_ids_by_topics_ids(explode(',', $topic_ids), $limit))
+			if ($topic_relation = $this->query_all("SELECT item_id FROM " . $this->get_table('topic_relation') . " WHERE topic_id IN (" . implode(',', explode(',', $topic_ids)) . ") AND `type` = 'question'"))
+			{
+				foreach ($topic_relation AS $key => $val)
+				{
+					$question_ids[$val['item_id']] = $val['item_id'];
+				}
+
+				unset($topic_relation);
+			}
+			else
 			{
 				return false;
 			}
 
-			if ($best_answers = $this->query_all("SELECT best_answer FROM " . $this->get_table('question') . " WHERE best_answer > 0 AND question_id IN (" . implode(',', $question_ids) . ")"))
+			if ($best_answers = $this->query_all("SELECT question_id, best_answer FROM " . $this->get_table('question') . " WHERE best_answer > 0 AND question_id IN (" . implode(',', $question_ids) . ") ORDER BY update_time DESC LIMIT " . $limit))
 			{
+				unset($question_ids);
+				
 				foreach ($best_answers AS $key => $val)
 				{
-					$answer_ids[] = $val['best_answer'];
+					$answer_ids[$val['best_answer']] = $val['best_answer'];
+					$question_ids[$val['question_id']] = $val['question_id'];
 				}
 			}
 			else
@@ -1187,15 +1137,9 @@ class topic_class extends AWS_MODEL
 				{
 					$result[$key]['answer_info']['attachs'] = $answer_attachs[$val['best_answer']];
 				}
-
-				$result[$key]['answer_info']['user_name'] = $action_list_users_info[$val['published_uid']]['user_name'];
-				$result[$key]['answer_info']['url_token'] = $action_list_users_info[$val['published_uid']]['url_token'];
-				$result[$key]['answer_info']['signature'] = $action_list_users_info[$val['published_uid']]['signature'];
-
-				$result[$key]['answer_info']['agree_users'] = $answers_info_vote_user[$val['best_answer']];
 			}
 
-			AWS_APP::cache()->set('topic_best_answer_result_' . md5($topic_ids) . '_' . intval($limit), $result, get_setting('cache_level_low'));
+			AWS_APP::cache()->set($cache_key, $result, get_setting('cache_level_low'));
 		}
 
 		if ($uid)
