@@ -20,15 +20,12 @@ if (!defined('IN_ANWSION'))
 
 class approval extends AWS_ADMIN_CONTROLLER
 {
-	public function setup()
-	{
-		$this->crumb(AWS_APP::lang()->_t('内容审核'), 'admin/approval/');
-
-		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(300));
-	}
-
 	public function list_action()
 	{
+		$this->crumb(AWS_APP::lang()->_t('内容审核'), 'admin/approval/list/');
+
+		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(300));
+
 		if (!$_GET['type'])
 		{
 			$_GET['type'] = 'question';
@@ -132,6 +129,13 @@ class approval extends AWS_ADMIN_CONTROLLER
 			$_GET['action'] = 'preview';
 		}
 
+		if ($_GET['action'] == 'edit')
+		{
+			$this->crumb(AWS_APP::lang()->_t('待审项修改'), 'admin/approval/edit/');
+
+			TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(300));
+		}
+
 		if ($_GET['type'] == 'weibo_msg')
 		{
 			$approval_item = $this->model('weibo')->get_msg_info_by_id($_GET['id']);
@@ -140,10 +144,8 @@ class approval extends AWS_ADMIN_CONTROLLER
 			{
 				exit();
 			}
-			else
-			{
-				$approval_item['type'] = 'weibo_msg';
-			}
+
+			$approval_item['type'] = 'weibo_msg';
 		}
 		else
 		{
@@ -182,8 +184,6 @@ class approval extends AWS_ADMIN_CONTROLLER
 				break;
 
 			case 'weibo_msg':
-				$approval_item['title'] =& $approval_item['text'];
-
 				$approval_item['content'] =& $approval_item['text'];
 
 				if ($approval_item['has_attach'])

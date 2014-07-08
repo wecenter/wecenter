@@ -310,7 +310,7 @@ class account_class extends AWS_MODEL
         {
             return false;
         }
-        
+
         if ($attrib)
         {
 	        if ($user_attrib = $this->fetch_row('users_attrib', 'uid = ' . intval($uid)))
@@ -554,7 +554,7 @@ class account_class extends AWS_MODEL
      * @param string
      * @return int
      */
-    public function user_register($user_name, $password = null, $email = null, $group = null)
+    public function user_register($user_name, $password = null, $email = null, $group_id = null)
     {
         if ($uid = $this->insert_user($user_name, $password, $email))
         {

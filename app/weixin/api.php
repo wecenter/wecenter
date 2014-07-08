@@ -37,8 +37,7 @@ class api extends AWS_CONTROLLER
 
         $account_info = $this->model('weixin')->get_account_info_by_id($_GET['account_id']);
 
-        if (empty($account_info) OR
-            !$this->model('weixin')->check_signature($account_info['weixin_mp_token'], $_GET['signature'], $_GET['timestamp'], $_GET['nonce']))
+        if (empty($account_info) OR !$this->model('weixin')->check_signature($account_info['weixin_mp_token'], $_GET['signature'], $_GET['timestamp'], $_GET['nonce']))
         {
             exit;
         }

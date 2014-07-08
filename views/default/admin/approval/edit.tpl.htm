@@ -2,7 +2,6 @@
 <?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
 
 <div class="aw-content-wrap">
-
     <div class="mod">
         <div class="mod-head">
             <h3>
@@ -13,18 +12,20 @@
         <div class="tab-content mod-content">
             <form action="admin/ajax/save_approval_item/" id="approval_form" method="post" onsubmit="return false" enctype="multipart/form-data">
                 <table class="table table-striped">
-                    <?php if ($_GET['type'] == 'weibo_msg') { ?>
-                    <input type="hidden" name="type" value="weibo_msg" />
-                    <?php } ?>
+                    <input name="id" type="hidden" value="<?php echo $this->approval_item['id']; ?>" />
 
+                    <input type="hidden" name="type" value="<?php echo $this->approval_item['type']; ?>" />
+
+                    <?php if ($this->approval_item['type'] == 'question' OR $this->approval_item['type'] == 'article') { ?>
                     <tr><td>
                     <div class="form-group">
                         <span class="col-sm-4 col-xs-3 control-label"><?php _e('标题'); ?>:</span>
                         <div class="col-sm-5 col-xs-8">
-                            <input class="form-control" name="title" type="text" value="<?php echo $approval_item['title'] ?>" />
+                            <input class="form-control" name="title" type="text" value="<?php echo $this->approval_item['title']; ?>" />
                         </div>
                     </div>
                     </td></tr>
+                    <?php } ?>
 
                     <tr><td>
                     <div class="form-group">
@@ -39,27 +40,43 @@
                     <p><strong><?php _e('附件'); ?></strong></p>
 
                     <blockquote class="aw-comment-upload-img-list">
-                    <?php foreach ($this->approval_item['attachs'] AS $attach) { ?>
-                    <?php if ($attach['is_image']) { ?>
+                        <?php foreach ($this->approval_item['attachs'] AS $attach) { ?>
+                        <?php if ($attach['is_image']) { ?>
+                        <input name="attachs[<?php echo $attach['id']; ?>]" type="hidden" value="<?php echo $attach['access_key']; ?>" />
+
                         <a href="<?php echo $attach['attachment']; ?>" target="_blank" data-fancybox-group="thumb" rel="lightbox"><img src="<?php echo $attach['attachment']; ?>" class="img-polaroid" alt="<?php echo $attach['attach_name']; ?>" /></a>
-                        <a href="javascript:;" onclick="AWS.ajax_request(G_BASE_URL + '/admin/ajax/remove_approval_attach/id-<?php echo $attach['attach_name']; ?>__ak-<?php echo access_key; ?>');"></a>
-                    <?php } ?>
-                    <?php } ?>
+
+                        <a href="javascript:;" onclick=""><?php _e('删除'); ?></a>
+                        <?php } ?>
+                        <?php } ?>
                     </blockquote>
 
                     <blockquote>
                         <ul class="aw-comment-upload-file-list">
                             <?php foreach ($this->approval_item['attachs'] AS $attach) { ?>
                             <?php if (!$attach['is_image']) { ?>
-                                <li><a href="<?php echo download_url($attach['file_name'], $attach['attachment']); ?>"><em class="aw-icon i-upload-file"></em><?php echo $attach['file_name']; ?></a></li>
+                            <input class="form-control" name="attachs[<?php echo $attach['id']; ?>]" type="hidden" value="<?php echo $attach['access_key']; ?>" />
+
+                            <li>
+                                <a href="<?php echo download_url($attach['file_name'], $attach['attachment']); ?>"><em class="aw-icon i-upload-file"></em><?php echo $attach['file_name']; ?></a>
+                            </li>
+
+                            <a href="javascript:;" onclick=""><?php _e('删除'); ?></a>
                             <?php } ?>
                             <?php } ?>
                         </ul>
                     </blockquote>
                     <?php } ?>
-
                 </table>
             </form>
         </div>
+
+        <div class="tab-content mod-content mod-one-btn">
+            <div class="center-block">
+                <input type="button" value="<?php _e('保存设置'); ?>" class="btn btn-primary" onclick="AWS.ajax_post($('#approval_form'));" />
+            </div>
+        </div>
+    </div>
+</div>
 
 <?php TPL::output('admin/global/footer.tpl.htm'); ?>
