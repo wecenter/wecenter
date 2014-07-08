@@ -1147,7 +1147,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
             $update_data['valid_email'] = intval($_POST['valid_email']);
             $update_data['forbidden'] = intval($_POST['forbidden']);
 
-            if ($this->user_info['group_id'] == 1 AND $_POST['group_id'])
+            if ($_POST['group_id'] AND ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']))
             {
                 $update_data['group_id'] = intval($_POST['group_id']);
             }
@@ -1205,15 +1205,18 @@ class ajax extends AWS_ADMIN_CONTROLLER
                 H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('密码长度不符合规则')));
             }
 
-            if ($_POST['group_id'] AND $this->user_info['group_id'] != 1)
-            {
-                unset($_POST['group_id']);
-            }
-
-            $uid = $this->model('account')->user_register($_POST['user_name'], $_POST['password'], $_POST['email'], $_POST['group_id']);
+            $uid = $this->model('account')->user_register($_POST['user_name'], $_POST['password'], $_POST['email']);
 
             $this->model('active')->set_user_email_valid_by_uid($uid);
+
             $this->model('active')->active_user_by_uid($uid);
+
+            if ($_POST['group_id'] AND ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']))
+            {
+                $this->model('account')->update('users', array(
+                    'group_id' => intval($_POST['group_id']),
+                ), 'uid = ' . $uid);
+            }
 
             H::ajax_json_output(AWS_APP::RSM(array(
                 'url' => get_js_url('/admin/user/list/')
@@ -1896,7 +1899,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
                 break;
 
             case 'add_published_user':
-            	$weibo_msg_published_user = get_setting('weibo_msg_published_user');
+                $weibo_msg_published_user = get_setting('weibo_msg_published_user');
 
                 if ($_POST['uid'] != $weibo_msg_published_user['uid'])
                 {
@@ -2059,7 +2062,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
         }
         else
         {
-            $this->model('publish')->update('approval', array('data' => serialize($approval_item['data'])), 'id = ' . $approval_item['id']);
+            $this->model('publish')->update('approval', serialize($approval_item), 'id = ' . $approval_item['id']);
         }
 
         H::ajax_json_output(AWS_APP::RSM(array(
