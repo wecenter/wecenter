@@ -578,63 +578,6 @@ class topic_class extends AWS_MODEL
 		}
 	}
 	
-	public function get_question_best_ids_by_topics_ids($topic_ids, $limit = null)
-	{
-		if (!is_array($topic_ids))
-		{
-			return false;
-		}
-		
-		array_walk_recursive($topic_ids, 'intval_string');
-		
-		if (!$result = AWS_APP::cache()->get('best_question_ids_by_topics_ids_' . implode('', $topic_ids)))
-		{
-			if ($question_ids_query = $this->query_all("SELECT item_id FROM " . $this->get_table('topic_relation') . " WHERE topic_id IN (" . implode(',', $topic_ids) . ") AND `type` = 'question'"))
-			{
-				foreach ($question_ids_query AS $key => $val)
-				{
-					$question_ids[] = $val['item_id'];	
-				}
-					
-				unset($question_ids_query);
-			}
-			else
-			{
-				return false;
-			}
-				
-			$result = $this->query_all("SELECT question_id FROM " . get_table('question') . " WHERE question_id IN (" . implode(',', $question_ids) . ") AND best_answer > 0 ORDER BY update_time DESC");
-			
-			unset($question_ids);
-				
-			AWS_APP::cache()->set('best_question_ids_by_topics_ids_' . implode('', $topic_ids), $result, get_setting('cache_level_low'));
-		}
-		
-		if ($limit AND $result)
-		{
-			if (strstr($limit, ','))
-			{
-				$limit = explode(',', $limit, 2);
-					
-				$result = array_slice($result, $limit[0], trim($limit[1]));
-			}
-			else
-			{
-				$result = array_slice($result, 0, $limit);
-			}
-		}
-		
-		if ($result)
-		{
-			foreach ($result AS $key => $val)
-			{
-				$question_ids[] = $val['question_id'];	
-			}
-		}
-		
-		return $question_ids;
-	}
-	
 	public function get_item_ids_by_topics_id($topic_id, $type = null, $limit = null)
 	{
 		return $this->get_item_ids_by_topics_ids(array(
@@ -1126,101 +1069,109 @@ class topic_class extends AWS_MODEL
 		
 		return $topic['user_related'];
 	}
-
+	
 	public function get_topic_best_answer_action_list($topic_ids, $uid, $limit)
-	{
-		if (!$result = AWS_APP::cache()->get('topic_best_answer_result_' . md5($topic_ids) . '_' . intval($limit)))
+	{		
+		$cache_key = 'topic_best_answer_action_list_' . md5($topic_ids) . '_' . intval($limit);
+		
+		if (!$result = AWS_APP::cache()->get($cache_key))
 		{
-			if (!$question_ids = $this->get_question_best_ids_by_topics_ids(explode(',', $topic_ids), $limit))
+			if ($topic_relation = $this->query_all("SELECT item_id FROM " . $this->get_table('topic_relation') . " WHERE topic_id IN (" . implode(',', explode(',', $topic_ids)) . ") AND `type` = 'question'"))
+			{
+				foreach ($topic_relation AS $key => $val)
+				{
+					$question_ids[$val['item_id']] = $val['item_id'];
+				}
+
+				unset($topic_relation);
+			}
+			else
 			{
 				return false;
 			}
-			
-			if ($best_answers = $this->query_all("SELECT best_answer FROM " . $this->get_table('question') . " WHERE best_answer > 0 AND question_id IN (" . implode(',', $question_ids) . ")"))
+
+			if ($best_answers = $this->query_all("SELECT question_id, best_answer FROM " . $this->get_table('question') . " WHERE best_answer > 0 AND question_id IN (" . implode(',', $question_ids) . ") ORDER BY update_time DESC LIMIT " . $limit))
 			{
+				unset($question_ids);
+				
 				foreach ($best_answers AS $key => $val)
 				{
-					$answer_ids[] = $val['best_answer'];
+					$answer_ids[$val['best_answer']] = $val['best_answer'];
+					$question_ids[$val['question_id']] = $val['question_id'];
 				}
 			}
 			else
 			{
 				return false;
 			}
-			
+
 			if ($questions_info = $this->model('question')->get_question_info_by_ids($question_ids))
 			{
 				foreach ($questions_info AS $key => $val)
 				{
 					$questions_info[$key]['associate_action'] = ACTION_LOG::ANSWER_QUESTION;
-					
+
 					$action_list_uids[$val['published_uid']] = $val['published_uid'];
 				}
 			}
-			
+
 			if ($action_list_uids)
 			{
 				$action_list_users_info = $this->model('account')->get_user_info_by_uids($action_list_uids);
 			}
-			
+
 			$answers_info = $this->model('answer')->get_answers_by_ids($answer_ids);
 			$answers_info_vote_user = $this->model('answer')->get_vote_user_by_answer_ids($answer_ids);
-			
+
 			$answer_attachs = $this->model('publish')->get_attachs('answer', $answer_ids, 'min');
-			
+
 			foreach ($questions_info AS $key => $val)
 			{
-				
+
 				$result[$key]['question_info'] = $val;
 				$result[$key]['user_info'] = $action_list_users_info[$val['published_uid']];
-				
+
 				if ($val['has_attach'])
 				{
 					$result[$key]['question_info']['attachs'] = $question_attachs[$val['question_id']];
 				}
-				
+
 				$result[$key]['answer_info'] = $answers_info[$val['best_answer']];
-							
+
 				if ($val['answer_info']['has_attach'])
 				{
 					$result[$key]['answer_info']['attachs'] = $answer_attachs[$val['best_answer']];
 				}
-							
-				$result[$key]['answer_info']['user_name'] = $action_list_users_info[$val['published_uid']]['user_name'];
-				$result[$key]['answer_info']['url_token'] = $action_list_users_info[$val['published_uid']]['url_token'];
-				$result[$key]['answer_info']['signature'] = $action_list_users_info[$val['published_uid']]['signature'];
-				
-				$result[$key]['answer_info']['agree_users'] = $answers_info_vote_user[$val['best_answer']];
 			}
-			
-			AWS_APP::cache()->set('topic_best_answer_result_' . md5($topic_ids) . '_' . intval($limit), $result, get_setting('cache_level_low'));
+
+			AWS_APP::cache()->set($cache_key, $result, get_setting('cache_level_low'));
 		}
-		
+
 		if ($uid)
 		{
 			foreach ($result AS $key => $val)
 			{
 				$question_ids[] = $val['question_info']['question_id'];
-				
+
 				if ($val['question_info']['best_answer'])
 				{
 					$answer_ids[] = $val['question_info']['best_answer'];
 				}
 			}
-			
+
 			$questions_focus = $this->model('question')->has_focus_questions($question_ids, $uid);
 			$answers_info_vote_status = $this->model('answer')->get_answer_vote_status($answer_ids, $uid);
 		}
-		
+
 		foreach ($result AS $key => $val)
 		{
 			$result[$key]['question_info']['has_focus'] = $questions_focus[$val['question_info']['question_id']];
 			$result[$key]['answer_info']['agree_status'] = intval($answers_info_vote_status[$val['question_info']['best_answer']]);
-			
+
 			$result[$key]['title'] = $val['question_info']['question_content'];
 			$result[$key]['link'] = get_js_url('/question/' . $val['question_info']['question_id']);
 		}
-		
+
 		return $result;
 	}
 	
