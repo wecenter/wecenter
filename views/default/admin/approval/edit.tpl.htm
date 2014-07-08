@@ -2,7 +2,6 @@
 <?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
 
 <div class="aw-content-wrap">
-
     <div class="mod">
         <div class="mod-head">
             <h3>
@@ -68,11 +67,15 @@
                         </ul>
                     </blockquote>
                     <?php } ?>
-
                 </table>
             </form>
         </div>
 
+        <div class="tab-content mod-content mod-one-btn">
+            <div class="center-block">
+                <input type="button" value="<?php _e('保存设置'); ?>" class="btn btn-primary" onclick="AWS.ajax_post($('#approval_form'));" />
+            </div>
+        </div>
     </div>
 </div>
 
