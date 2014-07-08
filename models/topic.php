@@ -862,12 +862,12 @@ class topic_class extends AWS_MODEL
 				$uid_list[] = $log['uid'];
 			}
 
-			if (! empty($log['associate_attached']) && is_numeric($log['associate_attached']) && ! in_array($log['associate_attached'], $topic_list))
+			if (! empty($log['associate_attached']) AND is_numeric($log['associate_attached']) AND ! in_array($log['associate_attached'], $topic_list))
 			{
 				$topic_list[] = $log['associate_attached'];
 			}
 
-			if (! empty($log['associate_content']) && is_numeric($log['associate_content']) && ! in_array($log['associate_content'], $topic_list))
+			if (! empty($log['associate_content']) AND is_numeric($log['associate_content']) AND ! in_array($log['associate_content'], $topic_list))
 			{
 				$topic_list[] = $log['associate_content'];
 			}
@@ -1066,9 +1066,9 @@ class topic_class extends AWS_MODEL
 	}
 
 	public function get_topic_best_answer_action_list($topic_ids, $uid, $limit)
-	{		
+	{
 		$cache_key = 'topic_best_answer_action_list_' . md5($topic_ids . $limit);
-		
+
 		if (!$result = AWS_APP::cache()->get($cache_key))
 		{
 			if ($topic_relation = $this->query_all("SELECT item_id FROM " . $this->get_table('topic_relation') . " WHERE topic_id IN (" . implode(',', explode(',', $topic_ids)) . ") AND `type` = 'question'"))
@@ -1088,7 +1088,7 @@ class topic_class extends AWS_MODEL
 			if ($best_answers = $this->query_all("SELECT question_id, best_answer FROM " . $this->get_table('question') . " WHERE best_answer > 0 AND question_id IN (" . implode(',', $question_ids) . ") ORDER BY update_time DESC LIMIT " . $limit))
 			{
 				unset($question_ids);
-				
+
 				foreach ($best_answers AS $key => $val)
 				{
 					$answer_ids[$val['best_answer']] = $val['best_answer'];

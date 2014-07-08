@@ -910,7 +910,7 @@ class ajax extends AWS_CONTROLLER
 
 			foreach ($notify_actions as $key => $val)
 			{
-				if (! isset($_POST['notification_settings'][$key]) && $val['user_setting'])
+				if (! isset($_POST['notification_settings'][$key]) AND $val['user_setting'])
 				{
 					$notification_setting[] = intval($key);
 				}

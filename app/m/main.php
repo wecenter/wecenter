@@ -333,7 +333,7 @@ class main extends AWS_CONTROLLER
 		{
 			$answer_list = $this->model('answer')->get_answer_list_by_question_id($question_info['question_id'], 1, 'answer_id = ' . intval($_GET['answer_id']));
 		}
-		else if (! $this->user_id && !$this->user_info['permission']['answer_show'])
+		else if (! $this->user_id AND !$this->user_info['permission']['answer_show'])
 		{
 			if ($question_info['best_answer'])
 			{

@@ -146,7 +146,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
                 foreach ($notify_actions as $key => $val)
                 {
-                    if (! isset($_POST['new_user_notification_setting'][$key]) && $val['user_setting'])
+                    if (! isset($_POST['new_user_notification_setting'][$key]) AND $val['user_setting'])
                     {
                         $notification_setting[] = intval($key);
                     }
@@ -1070,7 +1070,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
                 H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('用户不存在')));
             }
 
-            if ($_POST['user_name'] != $user_info['user_name'] && $this->model('account')->get_user_info_by_username($_POST['user_name']))
+            if ($_POST['user_name'] != $user_info['user_name'] AND $this->model('account')->get_user_info_by_username($_POST['user_name']))
             {
                 H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('用户名已存在')));
             }
