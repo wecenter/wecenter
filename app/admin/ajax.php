@@ -1205,7 +1205,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
                 H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('密码长度不符合规则')));
             }
 
-            if (!!$_POST['group_id'] AND $this->user_info['group_id'] != 1)
+            if ($_POST['group_id'] AND $this->user_info['group_id'] != 1)
             {
                 unset($_POST['group_id']);
             }
