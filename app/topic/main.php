@@ -261,20 +261,16 @@ class main extends AWS_CONTROLLER
 			$contents_topic_id .= ',' . implode(',', $merged_topic_ids);
 			
 			if ($merged_topics_info = $this->model('topic')->get_topics_by_ids($merged_topic_ids))
-			{
-				$contents_topic_title = array(
-					$contents_topic_title
-				);
-				
+			{				
 				foreach($merged_topics_info AS $key => $val)
 				{
-					$contents_topic_title[] = $val['topic_title'];
+					$merged_topic_title[] = $val['topic_title'];
 				}
 			}
 			
-			if ($contents_topic_title)
+			if ($merged_topic_title)
 			{
-				$contents_topic_title .= ',' . implode(',', $contents_topic_title);
+				$contents_topic_title .= ',' . implode(',', $merged_topic_title);
 			}
 		}
 		
