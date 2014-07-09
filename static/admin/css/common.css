@@ -90,6 +90,7 @@ ul,ol{padding:0;list-style:none;}
 .aw-content-wrap .mod-echat-info{margin:20px 0 0 0;padding: 0;}
 .aw-content-wrap .mod-double{margin-bottom:10px;}
 .aw-content-wrap .mod-double .fa-calendar{left: 20px;}
+.aw-content-wrap .date-seach{padding: 7px 10px}
 #main,#main2,#main3{height: 240px;border: 2px solid #fff; background: #fff;}
 #main:hover,#main2:hover,#main3:hover{border: 2px solid #3695D5;}
 #main3{margin-top: 20px;height: 300px;}
@@ -156,14 +157,14 @@ textarea{resize:none;}
 .aw-content-wrap .aw-nav-menu .mod-set-head{padding:0 10px;height:40px;background:#F2F8FF;font-size:12px;line-height:40px;cursor:s-resize;line-}
 .aw-content-wrap .aw-nav-menu .mod-set-head h4{margin: 0;height:40px;font-weight:400;line-height:40px;line-}
 .aw-content-wrap .aw-nav-menu .mod-set-head span{color:#999;}
-.aw-content-wrap .aw-nav-menu .mod-set-body{display:none;padding:10px;}
+.aw-content-wrap .aw-nav-menu .mod-set-body{display:none;padding: 10px 25px;}
 .aw-content-wrap .aw-nav-menu .aw-nav-menu-tag .aw-nav-menu-img{margin:5px 0 0 15px;width:52px;height:52px;border:1px dashed #999;}
 .aw-content-wrap .aw-nav-menu .aw-nav-menu-descrip input{width:390px;}
 .aw-content-wrap .aw-nav-menu label,.aw-content-wrap .aw-nav-menu input{font-size:13px;}
 .aw-content-wrap .aw-nav-menu input{margin-top:3px;}
 .aw-message-box{margin-bottom:30px;border:1px solid #E2E1E1;}
 .aw-message-box h3{margin:0;padding-left:10px;height:35px;background:#3695D5;color:#fff;font-weight:400;font-size:14px;line-height:35px;line-}
-.aw-message-box .mod-set-body{padding:10px;}
+.aw-message-box .mod-set-body{padding:20px;}
 .aw-message-box a{margin-top:10px;}
 .aw-article-list a,.aw-question-list a{display:block;max-width:600px;}
 
@@ -197,7 +198,7 @@ textarea{resize:none;}
 /*编辑用户资料*/
 #remove_user_form label{margin-right:15px;}
 #integral_form span.mod-category-foot{padding:0;text-align:right;line-height:35px;}
-#integral_form .col-xs-11{line-height:35px;}
+#integral_form .col-sm-6{line-height:35px;}
 
 /*微信消息群发*/
 .mod-file{position:relative;display:inline-block;overflow:hidden;vertical-align:middle;cursor:pointer;*display:inline;*zoom:1;}
@@ -248,7 +249,6 @@ textarea{resize:none;}
 .aw-dropdown .aw-dropdown-list li.user a span{display:inline-block;margin-left:10px;max-width:180px;color: #999;vertical-align: top;}
 .aw-dropdown-box{position:relative;}
 .aw-wechat-send-message .aw-dropdown-list{overflow-y:scroll;margin-bottom:0;max-height:330px;}
-
 /* 开放平台设置 */
 .aw-admin-weibo-publish .img,.aw-admin-weibo-answer li img{margin-right: 10px;width: 24px;}
 
@@ -287,6 +287,7 @@ label,.aw-content-wrap .mod-title,.aw-article-list b,.aw-question-list b{font-we
 .ps-container.ie6 .ps-scrollbar-x,.ps-container.ie6 .ps-scrollbar-y{font-size:0;}
 /*响应式兼容start*/
 @media only screen and (max-width: 1024px){
+#integral_form .btn-primary{margin: 20px 0 0 15px}
 .aw-content-wrap{margin:70px 5px 0 5px;padding:0;}
 #main2 {clear: both;}
 .aw-content-wrap .col-xs-offset-1{margin-left: 0;}

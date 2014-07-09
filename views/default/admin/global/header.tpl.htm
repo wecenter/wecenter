@@ -34,6 +34,12 @@
 <!--[if lte IE 8]>
     <script type="text/javascript" src="<?php echo G_STATIC_URL; ?>/js/respond.js"></script>
 <![endif]-->
+
+<?php if (!$this->user_info['permission']['is_administortar']) { ?>
+<style type="text/css">
+    .fa-briefcase, .fa-wrench {display: none;}
+</style>
+<?php } ?>
 </head>
 
 <body>
