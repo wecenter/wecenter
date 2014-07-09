@@ -488,11 +488,6 @@ class ajax extends AWS_ADMIN_CONTROLLER
         if (! $feature_id)
         {
             $feature_id = $this->model('feature')->add_feature($_POST['title']);
-
-            if ($_POST['add_nav_menu'])
-            {
-                $this->model('menu')->add_nav_menu($_POST['title'], htmlspecialchars($_POST['description']), 'feature', $feature_id);
-            }
         }
 
         if ($_POST['topics'])
@@ -600,7 +595,9 @@ class ajax extends AWS_ADMIN_CONTROLLER
             {
                 foreach($menu_ids as $key => $val)
                 {
-                    $this->model('menu')->update_nav_menu($val, array('sort' => $key));
+                    $this->model('menu')->update_nav_menu($val, array(
+                    	'sort' => $key
+                    ));
                 }
             }
         }
@@ -613,10 +610,10 @@ class ajax extends AWS_ADMIN_CONTROLLER
             }
         }
 
-        $setting_update['category_display_mode'] = $_POST['category_display_mode'];
-        $setting_update['nav_menu_show_child'] = isset($_POST['nav_menu_show_child']) ? 'Y' : 'N';
+        $settings_var['category_display_mode'] = $_POST['category_display_mode'];
+        $settings_var['nav_menu_show_child'] = isset($_POST['nav_menu_show_child']) ? 'Y' : 'N';
 
-        $this->model('setting')->set_vars($setting_update);
+        $this->model('setting')->set_vars($settings_var);
 
         H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('导航菜单保存成功')));
     }
@@ -631,12 +628,6 @@ class ajax extends AWS_ADMIN_CONTROLLER
                 $title = $category['title'];
             break;
 
-            case 'feature' :
-                $type_id = intval($_POST['type_id']);
-                $feature = $this->model('feature')->get_feature_by_id($type_id);
-                $title = $feature['title'];
-            break;
-
             case 'custom' :
                 $title = trim($_POST['title']);
                 $description = trim($_POST['description']);
@@ -647,7 +638,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
         if (!$title)
         {
-            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('导航标签不能为空')));
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请输入导航标题')));
         }
 
         $this->model('menu')->add_nav_menu($title, $description, $_POST['type'], $type_id, $link);

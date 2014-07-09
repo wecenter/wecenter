@@ -90,17 +90,7 @@ class menu_class extends AWS_MODEL
 		
 		if ($nav_menu_data)
 		{
-			foreach ($nav_menu_data as $key => $val)
-			{
-				if ($val['type'] == 'feature')
-				{
-					$feature_ids[] = $val['type_id'];
-				}
-			}
-			
 			$category_info = $this->model('system')->get_category_list('question');
-			
-			$feature_info = $this->model('feature')->get_feature_by_id($feature_ids);
 			
 			switch ($app)
 			{
@@ -139,23 +129,10 @@ class menu_class extends AWS_MODEL
 							$nav_menu_data[$key]['child'] = $this->process_child_menu_links($this->model('system')->fetch_category($category_info[$val['type_id']]['type'], $val['type_id']), $app);
 						}
 					break;
-					
-					case 'feature':
-						if (defined('IN_MOBILE'))
-						{
-							$nav_menu_data[$key]['link'] = $url_mobile_prefix . 'feature_id-' . $feature_info[$val['type_id']]['id'];
-						}
-						else
-						{
-							$nav_menu_data[$key]['link'] = $url_prefix . 'feature_id-' . $feature_info[$val['type_id']]['id'];
-						}
-					break;
 				}
 				
 				$nav_menu_data['category_ids'][] = $val['type_id'];
 			}
-			
-			$nav_menu_data['feature_ids'] = $feature_ids;
 			
 			if (defined('IN_MOBILE'))
 			{
