@@ -37,10 +37,10 @@
 
 <?php if (!$this->user_info['permission']['is_administortar']) { ?>
 <script type="text/javascript">
-window.onload = function(){
+$(function(){
     $('.fa-briefcase').parent().css({'display':'none'});
     $('.fa-wrench').parent().css({'display':'none'});
-}
+});
 </script>
 <?php } ?>
 </head>
