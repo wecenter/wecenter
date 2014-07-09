@@ -62,35 +62,26 @@ class main extends AWS_CONTROLLER
 		{
 			HTTP::redirect('/feature/' . $feature_info['url_token']);
 		}
-
-		$nav_menu = $this->model('menu')->get_nav_menu_list('explore');
-
-		if (is_array($nav_menu['feature_ids']) AND in_array($feature_info['id'], $nav_menu['feature_ids']))
+				
+		if (! $topic_list = $this->model('topic')->get_topics_by_ids($this->model('feature')->get_topics_by_feature_id($feature_info['id'])))
 		{
-			HTTP::redirect('/explore/feature_id-' . $feature_info['id']);
+			H::redirect_msg(AWS_APP::lang()->_t('专题下必须包含一个以上话题'), '/');
+		}
+
+		if ($feature_info['seo_title'])
+		{
+			TPL::assign('page_title', $feature_info['seo_title']);
 		}
 		else
 		{
-			if (! $topic_list = $this->model('topic')->get_topics_by_ids($this->model('feature')->get_topics_by_feature_id($feature_info['id'])))
-			{
-				H::redirect_msg(AWS_APP::lang()->_t('专题下必须包含一个以上话题'), '/');
-			}
-
-			if ($feature_info['seo_title'])
-			{
-				TPL::assign('page_title', $feature_info['seo_title']);
-			}
-			else
-			{
-				$this->crumb($feature_info['title'], '/feature/' . $feature_info['url_token']);
-			}
-
-			TPL::assign('sidebar_hot_topics', $topic_list);
-			TPL::assign('feature_info', $feature_info);
-
-			TPL::import_js('js/app/feature.js');
-
-			TPL::output('feature/detail');
+			$this->crumb($feature_info['title'], '/feature/' . $feature_info['url_token']);
 		}
+
+		TPL::assign('sidebar_hot_topics', $topic_list);
+		TPL::assign('feature_info', $feature_info);
+
+		TPL::import_js('js/app/feature.js');
+
+		TPL::output('feature/detail');
 	}
 }

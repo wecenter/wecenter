@@ -13,6 +13,7 @@
             <div class="alert alert-success hide error_message"></div>
 
             <div class="table-responsive">
+                <form action="admin/ajax/weixin_save_reply_rule_status/" method="post" id="rule_list_form" onsubmit="return false">
                 <table class="table table-striped">
                     <thead>
                     <tr>
@@ -26,7 +27,6 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <form action="admin/ajax/weixin_save_reply_rule_status/" method="post" id="rule_list_form" onsubmit="return false">
                     <input type="hidden" name="account_id" value="<?php echo $this->account_id; ?>" />
 
                     <?php if ($this->rule_list) { foreach ($this->rule_list AS $key => $val) { ?>
@@ -46,9 +46,9 @@
                     </tr>
                     <?php $this->echo_rule_list[$val['keyword']] = true; ?>
                     <?php } } ?>
-                    </form>
                     </tbody>
                 </table>
+                </form>
                 <div class="mod-table-foot mod-one-btn">
                     <a class="btn btn-primary" href="admin/weixin/reply_edit/account_id-<?php echo $this->account_id; ?>" id="batch_approval"><?php _e('添加规则'); ?></a>
                 </div>

@@ -401,7 +401,7 @@ class main extends AWS_CONTROLLER
 
 	public function square_action()
 	{
-		$this->crumb(AWS_APP::lang()->_t('问题'), '/question/square');
+		$this->crumb(AWS_APP::lang()->_t('问题'), '/question/square/');
 
 		// 导航
 		if (TPL::is_output('block/content_nav_menu.tpl.htm', 'question/square'))

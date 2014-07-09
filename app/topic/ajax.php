@@ -30,7 +30,6 @@ class ajax extends AWS_CONTROLLER
 			'topic_info',
 			'question_list',
 			'get_focus_users',
-			'topics_list'
 		);
 
 		return $rule_action;

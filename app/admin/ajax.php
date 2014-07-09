@@ -67,7 +67,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
     public function save_settings_action()
     {
-        if (!$this->user_info['permission']['is_administortar'] AND !$this->user_info['permission']['is_moderator'])
+        if (!$this->user_info['permission']['is_administortar'])
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('你没有访问权限, 请重新登录')));
         }
@@ -488,11 +488,6 @@ class ajax extends AWS_ADMIN_CONTROLLER
         if (! $feature_id)
         {
             $feature_id = $this->model('feature')->add_feature($_POST['title']);
-
-            if ($_POST['add_nav_menu'])
-            {
-                $this->model('menu')->add_nav_menu($_POST['title'], htmlspecialchars($_POST['description']), 'feature', $feature_id);
-            }
         }
 
         if ($_POST['topics'])
@@ -600,7 +595,9 @@ class ajax extends AWS_ADMIN_CONTROLLER
             {
                 foreach($menu_ids as $key => $val)
                 {
-                    $this->model('menu')->update_nav_menu($val, array('sort' => $key));
+                    $this->model('menu')->update_nav_menu($val, array(
+                    	'sort' => $key
+                    ));
                 }
             }
         }
@@ -613,10 +610,10 @@ class ajax extends AWS_ADMIN_CONTROLLER
             }
         }
 
-        $setting_update['category_display_mode'] = $_POST['category_display_mode'];
-        $setting_update['nav_menu_show_child'] = isset($_POST['nav_menu_show_child']) ? 'Y' : 'N';
+        $settings_var['category_display_mode'] = $_POST['category_display_mode'];
+        $settings_var['nav_menu_show_child'] = isset($_POST['nav_menu_show_child']) ? 'Y' : 'N';
 
-        $this->model('setting')->set_vars($setting_update);
+        $this->model('setting')->set_vars($settings_var);
 
         H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('导航菜单保存成功')));
     }
@@ -631,12 +628,6 @@ class ajax extends AWS_ADMIN_CONTROLLER
                 $title = $category['title'];
             break;
 
-            case 'feature' :
-                $type_id = intval($_POST['type_id']);
-                $feature = $this->model('feature')->get_feature_by_id($type_id);
-                $title = $feature['title'];
-            break;
-
             case 'custom' :
                 $title = trim($_POST['title']);
                 $description = trim($_POST['description']);
@@ -647,7 +638,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
         if (!$title)
         {
-            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('导航标签不能为空')));
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请输入导航标题')));
         }
 
         $this->model('menu')->add_nav_menu($title, $description, $_POST['type'], $type_id, $link);
@@ -1147,16 +1138,15 @@ class ajax extends AWS_ADMIN_CONTROLLER
             $update_data['valid_email'] = intval($_POST['valid_email']);
             $update_data['forbidden'] = intval($_POST['forbidden']);
 
-            if ($_POST['group_id'] AND ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']))
-            {
-                $update_data['group_id'] = intval($_POST['group_id']);
-            }
+            $update_data['group_id'] = intval($_POST['group_id']);
 
             $update_data['province'] = htmlspecialchars($_POST['province']);
             $update_data['city'] = htmlspecialchars($_POST['city']);
 
             $update_data['job_id'] = intval($_POST['job_id']);
             $update_data['mobile'] = htmlspecialchars($_POST['mobile']);
+
+            $update_data['sex'] = intval($_POST['sex']);
 
             $this->model('account')->update_users_fields($update_data, $user_info['uid']);
 
@@ -1211,7 +1201,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
             $this->model('active')->active_user_by_uid($uid);
 
-            if ($_POST['group_id'] AND ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']))
+            if ($_POST['group_id'] != 4)
             {
                 $this->model('account')->update('users', array(
                     'group_id' => intval($_POST['group_id']),
@@ -1961,7 +1951,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('ID 不能为空')));
         }
 
-        $this->model('weixin')->remove_weixin_qr_code($_POST['scene_id']);
+        $this->delete('weixin_qr_code', 'scene_id = ' . intval($$_POST['scene_id']));
 
         unlink(get_setting('upload_dir') . '/weixin_qr_code/' . $_POST['scene_id'] . '.jpg');
 
