@@ -377,7 +377,7 @@ class ajax extends AWS_CONTROLLER
 
 	public function lock_action()
 	{
-		if (! $this->user_info['permission']['is_moderator'] && ! $this->user_info['permission']['is_administortar'])
+		if (! $this->user_info['permission']['is_moderator'] AND ! $this->user_info['permission']['is_administortar'])
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, - 1, AWS_APP::lang()->_t('你没有权限进行此操作')));
 		}
@@ -394,7 +394,7 @@ class ajax extends AWS_CONTROLLER
 
 	public function remove_action()
 	{
-		if (! $this->user_info['permission']['is_moderator'] && ! $this->user_info['permission']['is_administortar'])
+		if (! $this->user_info['permission']['is_moderator'] AND ! $this->user_info['permission']['is_administortar'])
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, - 1, AWS_APP::lang()->_t('你没有权限进行此操作')));
 		}

@@ -554,7 +554,7 @@ class account_class extends AWS_MODEL
      * @param string
      * @return int
      */
-    public function user_register($user_name, $password = null, $email = null, $group_id = null)
+    public function user_register($user_name, $password = null, $email = null)
     {
         if ($uid = $this->insert_user($user_name, $password, $email))
         {
@@ -568,10 +568,8 @@ class account_class extends AWS_MODEL
                 }
             }
 
-            $group_id = ($group_id) ? intval($group_id) : 3;
-
             $this->update('users', array(
-                'group_id' => $group_id,
+                'group_id' => 3,
                 'reputation_group' => 5,
                 'invitation_available' => get_setting('newer_invitation_num'),
                 'is_first_login' => 1

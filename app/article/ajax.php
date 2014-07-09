@@ -61,7 +61,7 @@ class ajax extends AWS_CONTROLLER
 			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('回复内容字数不得少于 %s 字节', get_setting('answer_length_lower'))));
 		}
 
-		if (! $this->user_info['permission']['publish_url'] && FORMAT::outside_url_exists($message))
+		if (! $this->user_info['permission']['publish_url'] AND FORMAT::outside_url_exists($message))
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('你所在的用户组不允许发布站外链接')));
 		}

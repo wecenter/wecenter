@@ -8,7 +8,7 @@
 |   http://www.wecenter.com
 |   ========================================
 |   Support: WeCenter@qq.com
-|   
+|
 +---------------------------------------------------------------------------
 */
 
@@ -30,25 +30,25 @@ class active_class extends AWS_MODEL
 		{
 			return false;
 		}
-		
+
 		if (!$active_info = $this->fetch_row('active_data', "active_type_code = '" . $this->quote($active_type_code) . "' AND active_code = '" . $this->quote($active_code) . "' AND ((active_time is NULL AND active_ip is NULL) OR (active_time = '' AND active_ip = ''))"))
 		{
 			return false;
 		}
-		
+
 		$this->update('active_data', array(
 			'active_time' => time(),
 			'active_ip' => time(),
 		), 'active_id = ' . intval($active_info['active_id']));
-		
+
 		switch ($active_type_code)
 		{
 			case 'VALID_EMAIL':
 			case 'FIND_PASSWORD':
 				return $active_info['uid'];
-			break;		
+			break;
 		}
-		
+
 		return true;
 	}
 
@@ -65,67 +65,67 @@ class active_class extends AWS_MODEL
 		{
 			$this->delete('active_data', "uid = " . intval($uid) . " AND active_type_code = '" . $this->quote($active_type) . "' AND active_id <> " . intval($active_id));
 		}
-		
+
 		return $active_id;
-	
+
 	}
-	
+
 	public function get_active_code($active_code, $active_type_code = null)
 	{
 		if (!$active_code)
 		{
 			return false;
 		}
-		
+
 		return $this->fetch_row('active_data', "active_code = '" . $this->quote($active_code) . "' AND active_type_code = '" . $this->quote($active_type_code) . "'");
-	
+
 	}
-	
+
 	public function new_valid_email($uid, $email = null)
 	{
 		if (!$uid)
 		{
 			return false;
 		}
-		
+
 		$active_code_hash = $this->active_code_generate();
-		
+
 		$active_id = $this->new_active_code($uid, (time() + 60 * 60 * 24), $active_code_hash, 'VALID_EMAIL');
 
 		if ($email)
 		{
 			$uid = $email;
 		}
-		
+
 		return $this->model('email')->action_email('VALID_EMAIL', $uid, get_js_url('/account/valid_email_active/key-' . $active_code_hash));
 	}
-	
+
 	public function new_find_password($uid)
 	{
 		if (!$uid)
 		{
 			return false;
 		}
-		
+
 		$active_code_hash = $this->active_code_generate();
-		
+
 		$active_id = $this->model('active')->new_active_code($uid, (time() + 60 * 60 * 24), $active_code_hash, 'FIND_PASSWORD');
-		
+
 		return $this->model('email')->action_email('FIND_PASSWORD', $uid, get_js_url('/account/find_password/modify/key-' . $active_code_hash));
 	}
-	
+
 	public function clean_expire()
 	{
 		return $this->delete('active_data', 'expire_time < ' . time());
 	}
-	
+
 	public function set_user_email_valid_by_uid($uid)
 	{
 		return $this->update('users', array(
 			'valid_email' => 1,
 		), 'uid = ' . intval($uid));
 	}
-	
+
 	public function active_user_by_uid($uid)
 	{
 		return $this->update('users', array(

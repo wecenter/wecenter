@@ -476,7 +476,6 @@ CREATE TABLE `[#DB_PREFIX#]question` (
   KEY `against_count` (`against_count`),
   KEY `is_recommend` (`is_recommend`),
   KEY `weibo_msg_id` (`weibo_msg_id`),
-  FULLTEXT KEY `unverified_modify` (`unverified_modify`),
   FULLTEXT KEY `question_content_fulltext` (`question_content_fulltext`)
 ) ENGINE=MYISAM DEFAULT CHARSET=utf8 COMMENT='问题列表';
 

@@ -100,7 +100,8 @@ ul,ol{padding:0;list-style:none;}
 
 /*右侧公共部分*/
 .aw-content-wrap .mod-symbol{margin-left:-2px;padding:0;width:2px;text-align:center;font-size:22px;line-height:35px;}
-
+#remove_user_form{border-bottom: 1px solid #e5e5e5}
+#remove_user_form .table>tbody>tr>td{border-top: none;}
 /* 右侧公共头部部分 mod-head*/
 .aw-content-wrap .mod-head .nav-tabs{border-bottom:none;}
 .aw-content-wrap .mod-head .nav-tabs li{min-width:89px;height:42px;border-right:1px solid #DDD;list-style:none;text-align:center;cursor:default;}

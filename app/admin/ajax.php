@@ -67,7 +67,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
     public function save_settings_action()
     {
-        if (!$this->user_info['permission']['is_administortar'] AND !$this->user_info['permission']['is_moderator'])
+        if (!$this->user_info['permission']['is_administortar'])
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('你没有访问权限, 请重新登录')));
         }
@@ -146,7 +146,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
                 foreach ($notify_actions as $key => $val)
                 {
-                    if (! isset($_POST['new_user_notification_setting'][$key]) && $val['user_setting'])
+                    if (! isset($_POST['new_user_notification_setting'][$key]) AND $val['user_setting'])
                     {
                         $notification_setting[] = intval($key);
                     }
@@ -1070,7 +1070,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
                 H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('用户不存在')));
             }
 
-            if ($_POST['user_name'] != $user_info['user_name'] && $this->model('account')->get_user_info_by_username($_POST['user_name']))
+            if ($_POST['user_name'] != $user_info['user_name'] AND $this->model('account')->get_user_info_by_username($_POST['user_name']))
             {
                 H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('用户名已存在')));
             }
@@ -1147,16 +1147,15 @@ class ajax extends AWS_ADMIN_CONTROLLER
             $update_data['valid_email'] = intval($_POST['valid_email']);
             $update_data['forbidden'] = intval($_POST['forbidden']);
 
-            if ($this->user_info['group_id'] == 1 AND $_POST['group_id'])
-            {
-                $update_data['group_id'] = intval($_POST['group_id']);
-            }
+            $update_data['group_id'] = intval($_POST['group_id']);
 
             $update_data['province'] = htmlspecialchars($_POST['province']);
             $update_data['city'] = htmlspecialchars($_POST['city']);
 
             $update_data['job_id'] = intval($_POST['job_id']);
             $update_data['mobile'] = htmlspecialchars($_POST['mobile']);
+
+            $update_data['sex'] = intval($_POST['sex']);
 
             $this->model('account')->update_users_fields($update_data, $user_info['uid']);
 
@@ -1205,15 +1204,18 @@ class ajax extends AWS_ADMIN_CONTROLLER
                 H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('密码长度不符合规则')));
             }
 
-            if ($_POST['group_id'] AND $this->user_info['group_id'] != 1)
-            {
-                unset($_POST['group_id']);
-            }
-
-            $uid = $this->model('account')->user_register($_POST['user_name'], $_POST['password'], $_POST['email'], $_POST['group_id']);
+            $uid = $this->model('account')->user_register($_POST['user_name'], $_POST['password'], $_POST['email']);
 
             $this->model('active')->set_user_email_valid_by_uid($uid);
+
             $this->model('active')->active_user_by_uid($uid);
+
+            if ($_POST['group_id'] != 4)
+            {
+                $this->model('account')->update('users', array(
+                    'group_id' => intval($_POST['group_id']),
+                ), 'uid = ' . $uid);
+            }
 
             H::ajax_json_output(AWS_APP::RSM(array(
                 'url' => get_js_url('/admin/user/list/')
@@ -1896,7 +1898,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
                 break;
 
             case 'add_published_user':
-            	$weibo_msg_published_user = get_setting('weibo_msg_published_user');
+                $weibo_msg_published_user = get_setting('weibo_msg_published_user');
 
                 if ($_POST['uid'] != $weibo_msg_published_user['uid'])
                 {
@@ -2059,7 +2061,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
         }
         else
         {
-            $this->model('publish')->update('approval', array('data' => serialize($approval_item['data'])), 'id = ' . $approval_item['id']);
+            $this->model('publish')->update('approval', serialize($approval_item), 'id = ' . $approval_item['id']);
         }
 
         H::ajax_json_output(AWS_APP::RSM(array(
