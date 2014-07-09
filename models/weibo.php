@@ -186,11 +186,16 @@ class weibo_class extends AWS_MODEL
 
                         $result = curl_get_contents($pic_url);
 
+                        if (empty($result))
+                        {
+                            continue;
+                        }
+
                         $upload_dir = get_setting('upload_dir') . '/' . 'weibo' . '/' . gmdate('Ymd') . '/';
 
                         $ori_image = $upload_dir . $pic_url_array[3];
 
-                        $handle = fopen($file_location, 'w');
+                        $handle = fopen($ori_image, 'w');
 
                         fwrite($handle, $result);
 

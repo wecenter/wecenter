@@ -365,10 +365,6 @@ class openid_weixin_class extends AWS_MODEL
 
     public function upload_file($file, $type)
     {
-        $app_id = get_setting('weixin_app_id');
-
-        $app_secret = get_setting('weixin_app_secret');
-
         $file = realpath($file);
 
         if (!is_readable($file))
@@ -378,7 +374,7 @@ class openid_weixin_class extends AWS_MODEL
 
         $file_md5 = md5_file($file);
 
-        $cached_result = AWS_APP::cache()->get('weixin_media_file_' . $file_md5);
+        $cached_result = AWS_APP::cache()->get('weixin_upload_file_' . $file_md5);
 
         if ($cached_result)
         {
@@ -389,7 +385,7 @@ class openid_weixin_class extends AWS_MODEL
                             'media' => '@' . $file
                         );
 
-        $url = 'http://file.api.weixin.qq.com/cgi-bin/media/upload?access_token=' . $this->get_access_token($app_id, $app_secret) . '&type=' . $type;
+        $url = 'http://file.api.weixin.qq.com/cgi-bin/media/upload?access_token=' . $this->get_access_token(get_setting('weixin_app_id'), get_setting('weixin_app_secret')) . '&type=' . $type;
 
         $result = HTTP::request($url, 'POST', $post_data);
 
@@ -406,10 +402,41 @@ class openid_weixin_class extends AWS_MODEL
             }
             else
             {
-                AWS_APP::cache()->set('weixin_media_file_' . $file_md5, $result, 259200);
+                AWS_APP::cache()->set('weixin_upload_file_' . $file_md5, $result, 259200);
             }
 
             return $result;
+        }
+    }
+
+    public function get_file($media_id)
+    {
+        $cached_file = AWS_APP::cache()->get('weixin_get_file_' . $media_id);
+
+        if ($cached_file)
+        {
+            return $cached_file;
+        }
+
+        $url = 'http://file.api.weixin.qq.com/cgi-bin/media/get?access_token=' . $this->get_access_token(get_setting('weixin_app_id'), get_setting('weixin_app_secret'));
+
+        $file = curl_get_contents($url);
+
+        if (!empty($file))
+        {
+            $result = json_decode($file, true);
+
+            if (!empty($result))
+            {
+                if ($result['errcode'] == 40001)
+                {
+                    $this->refresh_access_token();
+                }
+
+                return $result;
+            }
+
+            return $file;
         }
     }
 }
