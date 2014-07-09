@@ -36,9 +36,11 @@
 <![endif]-->
 
 <?php if (!$this->user_info['permission']['is_administortar']) { ?>
-<style type="text/css">
-    .fa-briefcase, .fa-wrench {display: none;}
-</style>
+<script type="text/javascript">
+    $('.fa-briefcase').parent().hide();
+    $('.fa-wrench').parent().hide();
+
+</script>
 <?php } ?>
 </head>
 
