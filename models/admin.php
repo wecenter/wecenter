@@ -66,9 +66,9 @@ class admin_class extends AWS_MODEL
 	public function notifications_crond()
 	{
 		$last_version = json_decode(curl_get_contents('http://wenda.wecenter.com/api/version_check.php'), true);
-		
+
 		$admin_notifications = get_setting('admin_notifications');
-		
+
 		$notifications = array(
 								// 内容审核
 								'answer_approval' => $this->count('approval', "type = 'answer'"),
