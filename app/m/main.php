@@ -929,6 +929,19 @@ class main extends AWS_CONTROLLER
 
 			$question_info['category_id'] = $_POST['category_id'];
 		}
+		else if ($_GET['weixin_media_id'])
+		{
+			$weixin_pic_url = AWS_APP::cache()->get('weixin_pic_url_' . $_GET['media_id']);
+
+			if (!$weixin_pic_url)
+			{
+				H::redirect_msg(AWS_APP::lang()->_t('图片已过期或 media_id 无效'));
+			}
+
+			TPL::assign('media_id', $_GET['weixin_media_id']);
+
+			TPL::assign('weixin_pic_url', $weixin_pic_url);
+		}
 		else
 		{
 			$draft_content = $this->model('draft')->get_data(1, 'question', $this->user_id);

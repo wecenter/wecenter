@@ -196,7 +196,8 @@ class weixin_class extends AWS_MODEL
                 'ticket' => $post_object['Ticket'],
                 'createTime' => $post_object['CreateTime'],
                 'status' => $post_object['Status'],
-                'filterCount' => $post_object['FilterCount']
+                'filterCount' => $post_object['FilterCount'],
+                'picUrl' => $post_object['PicUrl']
             );
 
             $weixin_info = $this->model('openid_weixin')->get_user_info_by_openid($input_message['fromUsername']);
@@ -278,7 +279,8 @@ class weixin_class extends AWS_MODEL
                             {
                                 $response_message = $this->create_response_by_reply_rule_keyword($account_info['weixin_subscribe_message_key']);
                             }
-                        break;
+
+                            break;
 
                         case 'location':
                             if ($this->user_id)
@@ -289,7 +291,8 @@ class weixin_class extends AWS_MODEL
                                     'location_update' => time()
                                 ), 'uid = ' . $this->user_id);
                             }
-                        break;
+
+                            break;
 
                         case 'masssendjobfinish':
                             $msg_id = $input_message['msgID'];
@@ -318,7 +321,8 @@ class weixin_class extends AWS_MODEL
                             break;
                     }
                 }
-            break;
+
+                break;
 
             case 'location':
                 if (!$near_by_questions = $this->model('people')->get_near_by_users($input_message['location_X'], $input_message['location_y'], $this->user_id, 5))
@@ -345,7 +349,8 @@ class weixin_class extends AWS_MODEL
                         );
                     }
                 }
-            break;
+
+                break;
 
             case 'voice':
                 if (!$input_message['recognition'])
@@ -359,7 +364,18 @@ class weixin_class extends AWS_MODEL
 
                     $response_message = $this->response_message($input_message, $account_info);
                 }
-            break;
+
+                break;
+
+            case 'image':
+                if ($input_message['mediaID'] AND $input_message['picUrl'])
+                {
+                    AWS_APP::cache()->set('weixin_pic_url_' . $input_message['mediaID'], $input_message['picUrl'], 259200);
+
+                    $response_message = '<a href="' . $this->model('openid_weixin')->redirect_url('/m/publish/weixin_media_id-' . $input_message['mediaID']) . '">发起问题并提交图片</a>'
+                }
+
+                break;
 
             default:
                 if ($response_message = $this->create_response_by_reply_rule_keyword($input_message['content']))
@@ -413,7 +429,8 @@ class weixin_class extends AWS_MODEL
                         $response_message = '您的问题: ' . $input_message['content'] . ', 目前没有人提到过, <a href="' . $this->model('openid_weixin')->redirect_url('/m/publish/') . '">点此提问</a>';
                     }
                 }
-            break;
+
+                break;
         }
 
         if (is_array($response_message))
