@@ -1140,6 +1140,11 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
             $update_data['group_id'] = intval($_POST['group_id']);
 
+            if ($update_data['group_id'] == 1 AND !$this->user_info['permission']['is_administortar'])
+            {
+                unset($update_data['group_id']);
+            }
+
             $update_data['province'] = htmlspecialchars($_POST['province']);
             $update_data['city'] = htmlspecialchars($_POST['city']);
 
@@ -1175,7 +1180,15 @@ class ajax extends AWS_ADMIN_CONTROLLER
         }
         else
         {
-            if (!trim($_POST['user_name']))
+            $_POST['user_name'] = trim($_POST['user_name']);
+
+            $_POST['email'] = trim($_POST['email']);
+
+            $_POST['password'] = trim($_POST['password']);
+
+            $_POST['group_id'] = intval($_POST['group_id']);
+
+            if (!$_POST['user_name'])
             {
                 H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请输入用户名')));
             }
@@ -1201,10 +1214,15 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
             $this->model('active')->active_user_by_uid($uid);
 
+            if ($_POST['group_id'] == 1 AND !$this->user_info['permission']['is_administortar'])
+            {
+                $_POST['group_id'] = 4;
+            }
+
             if ($_POST['group_id'] != 4)
             {
                 $this->model('account')->update('users', array(
-                    'group_id' => intval($_POST['group_id']),
+                    'group_id' => $_POST['group_id'],
                 ), 'uid = ' . $uid);
             }
 
