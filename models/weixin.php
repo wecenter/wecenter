@@ -1757,21 +1757,21 @@ class weixin_class extends AWS_MODEL
 
         if (!$result)
         {
-            $this->remove_weixin_qr_code($scene_id);
+            $this->delete('weixin_qr_code', 'scene_id = ' . intval($scene_id));
 
             return AWS_APP::lang()->_t('远程服务器忙');
         }
 
         if ($result['errcode'])
         {
-            $this->remove_weixin_qr_code($scene_id);
+            $this->delete('weixin_qr_code', 'scene_id = ' . intval($scene_id));
 
             return $result['errmsg'];
         }
 
         if (!$result['ticket'])
         {
-            $this->remove_weixin_qr_code($scene_id);
+            $this->delete('weixin_qr_code', 'scene_id = ' . intval($scene_id));
 
             return AWS_APP::lang()->_t('获取 ticket 失败');
         }
@@ -1782,7 +1782,7 @@ class weixin_class extends AWS_MODEL
 
         if (!$qr_code)
         {
-            $this->remove_weixin_qr_code($scene_id);
+            $this->delete('weixin_qr_code', 'scene_id = ' . intval($scene_id));
 
             return AWS_APP::lang()->_t('换取二维码失败');
         }
@@ -1794,10 +1794,5 @@ class weixin_class extends AWS_MODEL
         fwrite($fp, $qr_code);
 
         fclose($fp);
-    }
-
-    public function remove_weixin_qr_code($scene_id)
-    {
-        $this->delete('weixin_qr_code', 'scene_id = ' . intval($scene_id));
     }
 }

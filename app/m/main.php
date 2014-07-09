@@ -931,7 +931,7 @@ class main extends AWS_CONTROLLER
 		}
 		else if ($_GET['weixin_media_id'])
 		{
-			$weixin_pic_url = AWS_APP::cache()->get('weixin_pic_url_' . $_GET['media_id']);
+			$weixin_pic_url = AWS_APP::cache()->get('weixin_pic_url_' . $_GET['weixin_media_id']);
 
 			if (!$weixin_pic_url)
 			{
