@@ -37,9 +37,10 @@
 
 <?php if (!$this->user_info['permission']['is_administortar']) { ?>
 <script type="text/javascript">
+window.onload = function(){
     $('.fa-briefcase').parent().hide();
     $('.fa-wrench').parent().hide();
-
+}
 </script>
 <?php } ?>
 </head>
