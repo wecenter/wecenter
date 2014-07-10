@@ -36,14 +36,16 @@
                     </div>
                     </td></tr>
 
+                    <?php if ($this->approval_item['type'] == 'question') { ?>
                     <tr><td>
                     <div class="form-group">
                         <span class="col-sm-4 col-xs-3 control-label"><?php _e('话题'); ?>:</span>
                         <div class="col-sm-5 col-xs-8">
-                            <textarea class="form-control" name="topics" rows="6"><?php echo implode(',', $this->approval_item['topics']); ?></textarea>
+                            <input class="form-control" name="topics" type="text" value="<?php echo $this->approval_item['topics']); ?>" />
                         </div>
                     </div>
                     </td></tr>
+                    <?php } ?>
 
                     <?php if ($this->approval_item['attachs']) {  ?>
                     <p><strong><?php _e('附件'); ?></strong></p>

@@ -152,6 +152,8 @@ class approval extends AWS_ADMIN_CONTROLLER
 
 				$approval_item['content'] = htmlspecialchars($approval_item['data']['question_detail']);
 
+				$approval_item['topics'] = htmlspecialchars(implode(',', $approval_item['data']['topics']));
+
 				break;
 
 			case 'answer':
