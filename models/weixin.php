@@ -183,10 +183,10 @@ class weixin_class extends AWS_MODEL
                 'msgType' => $post_object['MsgType'],
                 'event' => $post_object['Event'],
                 'eventKey' => $post_object['EventKey'],
-                'mediaID' => $post_object['MediaID'],
+                'mediaID' => $post_object['MediaId'],
                 'format' => $post_object['Format'],
                 'recognition' => $post_object['Recognition'],
-                'msgID' => $post_object['MsgID'],
+                'msgID' => $post_object['MsgId'],
                 'latitude' => $post_object['Latitude'],
                 'longitude' => $post_object['Longitude'],
                 'precision' => $post_object['Precision'],
@@ -372,7 +372,7 @@ class weixin_class extends AWS_MODEL
                 {
                     AWS_APP::cache()->set('weixin_pic_url_' . $input_message['mediaID'], $input_message['picUrl'], 259200);
 
-                    $response_message = '<a href="' . $this->model('openid_weixin')->redirect_url('/m/publish/weixin_media_id-' . $input_message['mediaID']) . '">发起问题并提交图片</a>';
+                    $response_message = '您想提交图片到社区么？<a href="' . $this->model('openid_weixin')->redirect_url('/m/publish/weixin_media_id-' . $input_message['mediaID']) . '">点击进入提交页面</a>';
                 }
 
                 break;

@@ -365,6 +365,10 @@ class openid_weixin_class extends AWS_MODEL
 
     public function upload_file($file, $type)
     {
+        $app_id = get_setting('weixin_app_id');
+
+        $app_secret = get_setting('weixin_app_secret');
+
         $file = realpath($file);
 
         if (!is_readable($file))
@@ -385,7 +389,7 @@ class openid_weixin_class extends AWS_MODEL
                             'media' => '@' . $file
                         );
 
-        $url = 'http://file.api.weixin.qq.com/cgi-bin/media/upload?access_token=' . $this->get_access_token(get_setting('weixin_app_id'), get_setting('weixin_app_secret')) . '&type=' . $type;
+        $url = 'http://file.api.weixin.qq.com/cgi-bin/media/upload?access_token=' . $this->get_access_token($app_id, $app_secret) . '&type=' . $type;
 
         $result = HTTP::request($url, 'POST', $post_data);
 
@@ -397,7 +401,7 @@ class openid_weixin_class extends AWS_MODEL
             {
                 if ($result['errcode'] == 40001)
                 {
-                    $this->refresh_access_token();
+                    $this->refresh_access_token($app_id, $app_secret);
                 }
             }
             else
@@ -411,6 +415,10 @@ class openid_weixin_class extends AWS_MODEL
 
     public function get_file($media_id)
     {
+        $app_id = get_setting('weixin_app_id');
+
+        $app_secret = get_setting('weixin_app_secret');
+
         $cached_file = AWS_APP::cache()->get('weixin_get_file_' . $media_id);
 
         if ($cached_file)
@@ -418,7 +426,7 @@ class openid_weixin_class extends AWS_MODEL
             return $cached_file;
         }
 
-        $url = 'http://file.api.weixin.qq.com/cgi-bin/media/get?access_token=' . $this->get_access_token(get_setting('weixin_app_id'), get_setting('weixin_app_secret'));
+        $url = 'http://file.api.weixin.qq.com/cgi-bin/media/get?access_token=' . $this->get_access_token($app_id, $app_secret) . '&media_id=' . $media_id;
 
         $file = curl_get_contents($url);
 
@@ -430,11 +438,13 @@ class openid_weixin_class extends AWS_MODEL
             {
                 if ($result['errcode'] == 40001)
                 {
-                    $this->refresh_access_token();
+                    $this->refresh_access_token($app_id, $app_secret);
                 }
 
                 return $result;
             }
+
+            AWS_APP::cache()->set('weixin_get_file_' . $media_id, $file, 259200);
 
             return $file;
         }

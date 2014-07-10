@@ -938,7 +938,7 @@ class main extends AWS_CONTROLLER
 				H::redirect_msg(AWS_APP::lang()->_t('图片已过期或 media_id 无效'));
 			}
 
-			TPL::assign('media_id', $_GET['weixin_media_id']);
+			TPL::assign('weixin_media_id', $_GET['weixin_media_id']);
 
 			TPL::assign('weixin_pic_url', $weixin_pic_url);
 		}

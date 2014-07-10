@@ -457,14 +457,19 @@ class ajax extends AWS_CONTROLLER
                 H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('远程服务器忙')));
             }
 
-            if ($file['errmsg'])
+            if (is_array($file) AND $file['errmsg'])
             {
-                H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('获取图片失败，错误为: %s', $result['errmsg'])));
+                H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('获取图片失败，错误为: %s', $file['errmsg'])));
             }
 
             $file_name = $_POST['weixin_media_id'] . '.jpg';
 
-            $upload_dir = get_setting('upload_dir') . '/' . 'question' . '/' . gmdate('Ymd') . '/';
+            $upload_dir = get_setting('upload_dir') . '/' . 'questions' . '/' . gmdate('Ymd') . '/';
+
+            if (!is_dir($upload_dir))
+            {
+                mkdir($upload_dir, 0755, true);
+            }
 
             $ori_file = $upload_dir . $file_name;
 
@@ -489,9 +494,9 @@ class ajax extends AWS_CONTROLLER
 
             $now = time();
 
-            $_POST['attach_access_key'] = md5($this->user_id, $now);
+            $_POST['attach_access_key'] = md5($this->user_id . $now);
 
-            $this->model('publish')->add_attach('question', $file_name, $_POST['attach_access_key'], $now, $ori_file, true);
+            $this->model('publish')->add_attach('question', $file_name, $_POST['attach_access_key'], $now, $file_name, true);
         }
 
         // !注: 来路检测后面不能再放报错提示

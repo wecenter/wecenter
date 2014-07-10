@@ -193,6 +193,11 @@ class weibo_class extends AWS_MODEL
 
                         $upload_dir = get_setting('upload_dir') . '/' . 'weibo' . '/' . gmdate('Ymd') . '/';
 
+                        if (!is_dir($upload_dir))
+                        {
+                            mkdir($upload_dir, 0755, true);
+                        }
+
                         $ori_image = $upload_dir . $pic_url_array[3];
 
                         $handle = fopen($ori_image, 'w');
@@ -216,9 +221,9 @@ class weibo_class extends AWS_MODEL
 
                         $now = time();
 
-                        $attach_access_key = md5($service_info['uid'], $now);
+                        $attach_access_key = md5($service_info['uid'] . $now);
 
-                        $this->model('publish')->add_attach('weibo_msg', $pic_url_array[3], $attach_access_key, $now, $ori_image, true);
+                        $this->model('publish')->add_attach('weibo_msg', $pic_url_array[3], $attach_access_key, $now, $pic_url_array[3], true);
                     }
 
                     $this->model('publish')->update_attach('weibo_msg', $msg_info['id'], $attach_access_key);

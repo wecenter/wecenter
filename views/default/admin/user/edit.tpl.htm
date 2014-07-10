@@ -207,7 +207,7 @@
                             </div>
                         </td>
                     </tr>
-                    <?php if ($this->user_info['group_id'] == 1) { ?>
+
                     <tr>
                         <td>
                             <div class="form-group">
@@ -215,7 +215,8 @@
 
                                 <div class="col-sm-5 col-xs-8">
                                     <select name="group_id" class="form-control">
-                                        <?php foreach($this->system_group as $skey => $val){ ?>
+                                        <?php foreach ($this->system_group as $skey => $val) { ?>
+                                        <?php if ($val['group_id'] == 1 AND !$this->user_info['permission']['is_administortar']) { continue; } ?>
                                         <option value="<?php echo $val['group_id']; ?>"<?php if ($this->user['group_id'] == $val['group_id']) { ?> selected="selected"<?php } ?>><?php echo $val['group_name']; ?></option>
                                         <?php } ?>
                                     </select>
@@ -223,7 +224,7 @@
                             </div>
                         </td>
                     </tr>
-                    <?php } ?>
+
                     <tr>
                         <td>
                             <div class="form-group">
