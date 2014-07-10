@@ -1994,7 +1994,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
             if ($approval_item['question_id'])
             {
-                H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('该消息已通过审核，不能修改')));
+                H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('该消息已通过审核')));
             }
 
             $approval_item['type'] = 'weibo_msg';
@@ -2030,6 +2030,8 @@ class ajax extends AWS_ADMIN_CONTROLLER
                 $approval_item['data']['question_content'] = htmlspecialchars_decode($_POST['title']);
 
                 $approval_item['data']['question_detail'] = htmlspecialchars_decode($_POST['content']);
+
+                $approval_item['data']['topics'] = explode(',', htmlspecialchars_decode($_POST['topics']));
 
                 break;
 

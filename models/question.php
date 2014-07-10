@@ -266,14 +266,7 @@ class question_class extends AWS_MODEL
 			ACTION_LOG::delete_action_history('history_id = ' . intval($log_id));
 		}
 
-		$unverified_modify_count = 0;
-
-		foreach ($unverified_modify AS $unverified_modify_info)
-		{
-			$unverified_modify_count = $unverified_modify_count + count($unverified_modify_info);
-		}
-
-		$this->save_unverified_modify($question_id, $unverified_modify, $unverified_modify_count);
+		$this->save_unverified_modify($question_id, $unverified_modify);
 
 		return false;
 	}
@@ -298,10 +291,18 @@ class question_class extends AWS_MODEL
 		return array();
 	}
 
-	public function save_unverified_modify($question_id, $unverified_modify = array(), $unverified_modify_count = 0)
+	public function save_unverified_modify($question_id, $unverified_modify = array())
 	{
+		$unverified_modify_count = 0;
+
+		foreach ($unverified_modify AS $unverified_modify_info)
+		{
+			$unverified_modify_count = $unverified_modify_count + count($unverified_modify_info);
+		}
+
 		return $this->update('question', array(
-			'unverified_modify' => serialize($unverified_modify)
+			'unverified_modify' => serialize($unverified_modify),
+			'unverified_modify_count' = $unverified_modify_count
 		), 'question_id = ' . $question_id);
 	}
 
@@ -311,14 +312,7 @@ class question_class extends AWS_MODEL
 
 		$unverified_modify[$type][$log_id] = $log_id;
 
-		$unverified_modify_count = 0;
-
-		foreach ($unverified_modify AS $unverified_modify_info)
-		{
-			$unverified_modify_count = $unverified_modify_count + count($unverified_modify_info);
-		}
-
-		return $this->save_unverified_modify($question_id, $unverified_modify, $unverified_modify_count);
+		return $this->save_unverified_modify($question_id, $unverified_modify);
 	}
 
 	public function clean_unverified_modify($question_id, $type)
@@ -327,14 +321,7 @@ class question_class extends AWS_MODEL
 
 		unset($unverified_modify[$type]);
 
-		$unverified_modify_count = 0;
-
-		foreach ($unverified_modify AS $unverified_modify_info)
-		{
-			$unverified_modify_count = $unverified_modify_count + count($unverified_modify_info);
-		}
-
-		return $this->save_unverified_modify($question_id, $unverified_modify, $unverified_modify_count);
+		return $this->save_unverified_modify($question_id, $unverified_modify);
 	}
 
 	public function get_unverified_modify_count($question_id)
