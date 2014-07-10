@@ -2,129 +2,129 @@
 <?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
 
 <div class="aw-content-wrap">
-	<div class="mod">
-		<div class="mod-head">
-			<h3>
-				<ul class="nav nav-tabs">
-				    <li class="active"><a href="#list" data-toggle="tab"><?php _e('文章列表'); ?></a></li>
-				    <li><a href="#search" data-toggle="tab"><?php _e('搜索'); ?></a></li>
-				</ul>
-			</h3>
-		</div>
-		<div class="mod-body tab-content">
-			<div class="tab-pane active" id="list">
-				<?php if ($_GET['action'] == 'search') { ?>
-				<div class="alert alert-info"><?php _e('找到 %s 条符合条件的内容', intval($this->articles_count)); ?></div>
-				<?php } ?>
+    <div class="mod">
+        <div class="mod-head">
+            <h3>
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#list" data-toggle="tab"><?php _e('文章列表'); ?></a></li>
+                    <li><a href="#search" data-toggle="tab"><?php _e('搜索'); ?></a></li>
+                </ul>
+            </h3>
+        </div>
+        <div class="mod-body tab-content">
+            <div class="tab-pane active" id="list">
+                <?php if ($_GET['action'] == 'search') { ?>
+                <div class="alert alert-info"><?php _e('找到 %s 条符合条件的内容', intval($this->articles_count)); ?></div>
+                <?php } ?>
 
-				<form id="batchs_form" action="admin/ajax/article_manage/" method="post">
-				<input type="hidden" id="action" name="action" value="del" />
-				<div class="table-responsive">
-				<?php if ($this->list) { ?>
-					<table class="table table-striped">
-						<thead>
-							<tr>
-								<th><input type="checkbox" class="check-all"></th>
-								<th><?php _e('文章标题'); ?></th>
-								<th><?php _e('评论'); ?></th>
-								<th><?php _e('浏览'); ?></th>
-								<th><?php _e('作者'); ?></th>
-								<th><?php _e('发布时间'); ?></th>
-								<th><?php _e('操作'); ?></th>
-							</tr>
-						</thead>
-						<tbody>
-							<?php foreach ($this->list AS $key => $val) { ?>
-							<tr>
-								<td><input type="checkbox" name="article_ids[]" value="<?php echo $val['id']; ?>"></td>
-								<td><a href="article/<?php echo $val['id']; ?>" target="_blank"><?php echo $val['title']; ?></a></td>
-								<td><?php echo $val['comments']; ?></td>
-								<td><?php echo $val['views']; ?></td>
-								<td><a href="people/<?php echo $val['user_info']['url_token']; ?>" target="_blank"><?php echo $val['user_info']['user_name']; ?></a></td>
-								<td><?php echo date_friendly($val['add_time']); ?></td>
-								<td><a href="publish/article/<?php echo $val['question_id']; ?>" target="_blank" class="fa fa-pencil md-tip" title="编辑"></a></td>
-							</tr>
-							<?php } ?>
-						</tbody>
-					</table>
-				<?php } ?>
-				</div>
-				</form>
-				<div class="mod-table-foot">
-					<?php echo $this->pagination; ?>
+                <form id="batchs_form" action="admin/ajax/article_manage/" method="post">
+                <input type="hidden" id="action" name="action" value="del" />
+                <div class="table-responsive">
+                <?php if ($this->list) { ?>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox" class="check-all"></th>
+                                <th><?php _e('文章标题'); ?></th>
+                                <th><?php _e('评论'); ?></th>
+                                <th><?php _e('浏览'); ?></th>
+                                <th><?php _e('作者'); ?></th>
+                                <th><?php _e('发布时间'); ?></th>
+                                <th><?php _e('操作'); ?></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($this->list AS $key => $val) { ?>
+                            <tr>
+                                <td><input type="checkbox" name="article_ids[]" value="<?php echo $val['id']; ?>"></td>
+                                <td><a href="article/<?php echo $val['id']; ?>" target="_blank"><?php echo $val['title']; ?></a></td>
+                                <td><?php echo $val['comments']; ?></td>
+                                <td><?php echo $val['views']; ?></td>
+                                <td><a href="people/<?php echo $val['user_info']['url_token']; ?>" target="_blank"><?php echo $val['user_info']['user_name']; ?></a></td>
+                                <td><?php echo date_friendly($val['add_time']); ?></td>
+                                <td><a href="publish/article/<?php echo $val['question_id']; ?>" target="_blank" class="fa fa-pencil md-tip" title="编辑"></a></td>
+                            </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+                <?php } ?>
+                </div>
+                </form>
+                <div class="mod-table-foot">
+                    <?php echo $this->pagination; ?>
 
-					<a class="btn btn-danger" onclick="$('#action').val('del'); AWS.ajax_post($('#batchs_form'));"><?php _e('删除所选'); ?></a>
-				</div>
-			</div>
+                    <a class="btn btn-danger" onclick="$('#action').val('del'); AWS.ajax_post($('#batchs_form'));"><?php _e('删除所选'); ?></a>
+                </div>
+            </div>
 
-			<div class="tab-pane" id="search">
-				<form method="post" action="admin/article/list/" onsubmit="return false;" id="search_form" class="form-horizontal" role="form">
+            <div class="tab-pane" id="search">
+                <form method="post" action="admin/article/list/" onsubmit="return false;" id="search_form" class="form-horizontal" role="form">
 
-					<input name="action" type="hidden" value="search" />
+                    <input name="action" type="hidden" value="search" />
 
-					<div class="form-group">
-						<label for="inputEmail3" class="col-sm-2 col-xs-3 control-label"><?php _e('关键词'); ?>:</label>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-xs-3 control-label"><?php _e('关键词'); ?>:</label>
 
-						<div class="col-sm-5 col-xs-8">
-							<input class="form-control" type="text" value="<?php echo rawurldecode($_GET['keyword']); ?>" name="keyword" />
-		                </div>
-					</div>
+                        <div class="col-sm-5 col-xs-8">
+                            <input class="form-control" type="text" value="<?php echo rawurldecode($_GET['keyword']); ?>" name="keyword" />
+                        </div>
+                    </div>
 
-					<div class="form-group">
-						<label class="col-sm-2 col-xs-3 control-label"><?php _e('发起时间范围'); ?>:</label>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-xs-3 control-label"><?php _e('发起时间范围'); ?>:</label>
 
-						<div class="col-sm-6 col-xs-9">
-							<div class="row">
-								<div class="col-xs-11  col-sm-5 mod-double">
-									<input type="text" class="form-control mod-data" value="<?php echo base64_decode($_GET['start_date']); ?>" name="start_date" />
-									<i class="fa fa-calendar"></i>
-								</div>
-								<span class="mod-symbol col-xs-1 col-sm-1">
-								-
-								</span>
-								<div class="col-xs-11 col-sm-5">
-									<input type="text" class="form-control mod-data" value="<?php echo base64_decode($_GET['end_date']); ?>" name="end_date" />
-									<i class="fa fa-calendar"></i>
-								</div>
-							</div>
-						</div>
-					</div>
+                        <div class="col-sm-6 col-xs-9">
+                            <div class="row">
+                                <div class="col-xs-11  col-sm-5 mod-double">
+                                    <input type="text" class="form-control mod-data" value="<?php echo base64_decode($_GET['start_date']); ?>" name="start_date" />
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <span class="mod-symbol col-xs-1 col-sm-1">
+                                -
+                                </span>
+                                <div class="col-xs-11 col-sm-5">
+                                    <input type="text" class="form-control mod-data" value="<?php echo base64_decode($_GET['end_date']); ?>" name="end_date" />
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-					<div class="form-group">
-						<label class="col-sm-2 col-xs-3 control-label"><?php _e('作者'); ?>:</label>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-xs-3 control-label"><?php _e('作者'); ?>:</label>
 
-						<div class="col-sm-5 col-xs-8">
-							<input class="form-control" type="text" value="<?php echo $_GET['user_name']; ?>" name="user_name" />
-		                </div>
-					</div>
+                        <div class="col-sm-5 col-xs-8">
+                            <input class="form-control" type="text" value="<?php echo $_GET['user_name']; ?>" name="user_name" />
+                        </div>
+                    </div>
 
-					<div class="form-group">
-						<label class="col-sm-2 col-xs-3 control-label"><?php _e('评论数'); ?>:</label>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-xs-3 control-label"><?php _e('评论数'); ?>:</label>
 
-						<div class="col-sm-6 col-xs-9">
-							<div class="row">
-								<div class="col-xs-11  col-sm-5 mod-double">
-									<input type="text" class="form-control" name="comment_count_min" value="<?php echo $_GET['comment_count_min']; ?>" />
-								</div>
-								<span class="mod-symbol col-xs-1 col-sm-1">
-								-
-								</span>
-								<div class="col-xs-11 col-sm-5">
-									<input type="text" class="form-control" name="comment_count_max" value="<?php echo $_GET['comment_count_max']; ?>" />
-								</div>
-							</div>
-						</div>
-					</div>
+                        <div class="col-sm-6 col-xs-9">
+                            <div class="row">
+                                <div class="col-xs-11  col-sm-5 mod-double">
+                                    <input type="text" class="form-control" name="comment_count_min" value="<?php echo $_GET['comment_count_min']; ?>" />
+                                </div>
+                                <span class="mod-symbol col-xs-1 col-sm-1">
+                                -
+                                </span>
+                                <div class="col-xs-11 col-sm-5">
+                                    <input type="text" class="form-control" name="comment_count_max" value="<?php echo $_GET['comment_count_max']; ?>" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-					<div class="form-group">
-						<div class="col-sm-offset-2 col-sm-5 col-xs-8">
-							<button type="button" onclick="AWS.ajax_post($('#search_form'));" class="btn btn-primary"><?php _e('搜索'); ?></button>
-						</div>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-5 col-xs-8">
+                            <button type="button" onclick="AWS.ajax_post($('#search_form'));" class="btn btn-primary"><?php _e('搜索'); ?></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 
 <?php TPL::output('admin/global/footer.tpl.htm'); ?>

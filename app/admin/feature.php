@@ -44,7 +44,7 @@ class feature extends AWS_ADMIN_CONTROLLER
 	
 	public function add_action()
 	{		
-		$this->crumb(AWS_APP::lang()->_t('添加专题'), "admin/feature/add/");
+		$this->crumb(AWS_APP::lang()->_t('添加专题'), 'admin/feature/add/');
 		
 		TPL::output("admin/feature/edit");
 	}
@@ -68,6 +68,6 @@ class feature extends AWS_ADMIN_CONTROLLER
 		
 		TPL::assign('feature', $this->model('feature')->get_feature_by_id($_GET['feature_id']));
 		
-		TPL::output("admin/feature/edit");
+		TPL::output('admin/feature/edit');
 	}
 }

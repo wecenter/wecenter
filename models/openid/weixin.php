@@ -30,21 +30,26 @@ class openid_weixin_class extends AWS_MODEL
 
         $result = HTTP::request($url, $method, $contents);
 
-        if (!empty($result))
+        if ($result)
         {
             $result = json_decode($result, true);
 
             if ($result['errcode'] == 40001)
             {
-                $this->refresh_access_token();
+                $this->refresh_access_token($app_id, $app_secret);
             }
 
             return $result;
         }
     }
 
-    public function refresh_access_token()
+    public function refresh_access_token($app_id, $app_secret)
     {
+        if (!$app_id OR !$app_secret)
+        {
+            return false;
+        }
+
         $cached_token = 'weixin_access_token_' . md5(get_setting('weixin_app_id') . get_setting('weixin_app_secret'));
 
         AWS_APP::cache()->delete($cached_token);
@@ -54,7 +59,7 @@ class openid_weixin_class extends AWS_MODEL
 
     public function get_access_token($app_id, $app_secret)
     {
-        if (empty($app_id) OR empty($app_secret))
+        if (!$app_id OR !$app_secret)
         {
             return false;
         }
@@ -373,7 +378,7 @@ class openid_weixin_class extends AWS_MODEL
 
         $file_md5 = md5_file($file);
 
-        $cached_result = AWS_APP::cache()->get('weixin_media_file_' . $file_md5);
+        $cached_result = AWS_APP::cache()->get('weixin_upload_file_' . $file_md5);
 
         if ($cached_result)
         {
@@ -396,15 +401,52 @@ class openid_weixin_class extends AWS_MODEL
             {
                 if ($result['errcode'] == 40001)
                 {
-                    $this->refresh_access_token();
+                    $this->refresh_access_token($app_id, $app_secret);
                 }
             }
             else
             {
-                AWS_APP::cache()->set('weixin_media_file_' . $file_md5, $result, 259200);
+                AWS_APP::cache()->set('weixin_upload_file_' . $file_md5, $result, 259200);
             }
 
             return $result;
+        }
+    }
+
+    public function get_file($media_id)
+    {
+        $app_id = get_setting('weixin_app_id');
+
+        $app_secret = get_setting('weixin_app_secret');
+
+        $cached_file = AWS_APP::cache()->get('weixin_get_file_' . $media_id);
+
+        if ($cached_file)
+        {
+            return $cached_file;
+        }
+
+        $url = 'http://file.api.weixin.qq.com/cgi-bin/media/get?access_token=' . $this->get_access_token($app_id, $app_secret) . '&media_id=' . $media_id;
+
+        $file = curl_get_contents($url);
+
+        if (!empty($file))
+        {
+            $result = json_decode($file, true);
+
+            if (!empty($result))
+            {
+                if ($result['errcode'] == 40001)
+                {
+                    $this->refresh_access_token($app_id, $app_secret);
+                }
+
+                return $result;
+            }
+
+            AWS_APP::cache()->set('weixin_get_file_' . $media_id, $file, 259200);
+
+            return $file;
         }
     }
 }

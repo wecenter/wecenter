@@ -415,7 +415,8 @@ var AWS =
 		    case 'favorite':
 		        var template = Hogan.compile(AW_TEMPLATE.favoriteBox).render(
 		        {
-		            'answer_id': data
+			         'item_id': data.item_id,
+			         'item_type': data.item_type
 		        });
 		    break;
 
@@ -443,7 +444,7 @@ var AWS =
 			break;
 
 			case 'imagePreview':
-				var template = AW_TEMPLATE.ajaxData.replace('{{title}}', _t('图片预览')).replace('{{data}}', '<p align="center"><img src="' + data.image + '" alt="" style="max-width:520px" /></p>');
+				var template = AW_TEMPLATE.ajaxData.replace('{{title}}', data.title).replace('{{data}}', '<p align="center"><img src="' + data.image + '" alt="" style="max-width:520px" /></p>');
 			break;
 
 			case 'confirm':
@@ -630,6 +631,37 @@ var AWS =
 
 	        $(".alert-box").modal('show');
 	    }
+	},
+
+	// 兼容placeholder
+	check_placeholder: function(selector)
+	{
+		$.each(selector, function()
+		{
+			if (typeof ($(this).attr("placeholder")) != "undefined")
+            {
+                $(this).attr('data-placeholder', 'true');
+
+                if ($(this).val() == '')
+                {
+	                $(this).addClass('aw-placeholder').val($(this).attr("placeholder"));
+                }
+
+                $(this).focus(function () {
+                    if ($(this).val() == $(this).attr('placeholder'))
+                    {
+                        $(this).removeClass('aw-placeholder').val('');
+                    }
+                });
+
+                $(this).blur(function () {
+                    if ($(this).val() == '')
+                    {
+                        $(this).addClass('aw-placeholder').val($(this).attr('placeholder'));
+                    }
+                });
+            }
+		});
 	},
 
 	// 回复背景高亮
@@ -1918,7 +1950,7 @@ AWS.Dropdown =
 	                        $(selector).parent().find('.aw-dropdown-list').append(Hogan.compile(AW_TEMPLATE.questionDropdownList).render(
 	                        {
 	                        	'id': a['search_id'],
-	                            'url': 'javascript:;',
+	                            'url': a['url'],
 	                            'name': a['name']
 	                        }));
 	                    });
@@ -1926,6 +1958,12 @@ AWS.Dropdown =
 	                    $(selector).parent().find('.aw-dropdown-list li').click(function()
 	                    {
 	                    	$('.aw-question-list').append('<li>' + $(this).html() + '</li>');
+
+	                    	$('.aw-question-list li').find("a").attr('href',function(){
+	                    		return $(this).attr("_href")
+
+	                    	});
+
 	                    	if ($('.question_ids').val() == '')
 	                    	{
 	                    		$('.question_ids').val($(this).attr('data-id'));
@@ -1945,13 +1983,19 @@ AWS.Dropdown =
 	                        $(selector).parent().find('.aw-dropdown-list').append(Hogan.compile(AW_TEMPLATE.questionDropdownList).render(
 	                        {
 	                        	'id': a['search_id'],
-	                            'url': 'javascript:;',
+	                            'url': a['url'],
 	                            'name': a['name']
 	                        }));
 	                    });
 	                    $(selector).parent().find('.aw-dropdown-list li').click(function()
 	                    {
 	                    	$('.aw-article-list').append('<li>' + $(this).html() + '</li>');
+
+	                    	$('.aw-article-list li').find("a").attr('href',function(){
+	                    		return $(this).attr("_href")
+	                    	});
+
+
 	                    	if ($('.article_ids').val() == '')
 	                    	{
 	                    		$('.article_ids').val($(this).attr('data-id'));
@@ -1985,58 +2029,75 @@ AWS.Dropdown =
 	                        {
 	                            'uid': a.uid,
 	                            'name': a.name,
-	                            'img': a.detail.avatar_file
+	                            'img': a.detail.avatar_file,
+	                            'url': a.url,
+	                            'action':'add_published_user'
 	                        }));
 	                    });
+
 	                    $(selector).parent().find('.aw-dropdown-list li a').click(function()
-	                    {
-	                    	$('.weibo_msg_published_user').val($(this).attr('data-id'));
+	                    {	
+	                    	
 	                    	$(".alert-box").modal('hide');
-	                    	$('.aw-admin-weibo-publish').append($(this));
-	                    	$('.aw-admin-weibo-publish').append('<a class="delete btn btn-default btn-sm">删除用户</a>');
-	                    	$('.aw-admin-weibo-publish .md-tip').hide();
+	                    	
+	                    	var oHtml = '<a class="push-name" href="'+ $(this).attr('data-url') +'">'+$(this).html()+'</a> <a class="delete btn btn-danger btn-sm">删除用户</a>';
+
+	                    	$('.aw-admin-weibo-publish').append(oHtml);	                   
+
+	                    	$('.aw-admin-weibo-publish').find('.search-input').hide('0');
+	                    	
 	                    	$('.aw-admin-weibo-publish').find('.delete').click(function()
-	                    	{
-	                    		$(this).parent().find('.weibo_msg_published_user').val('');
-	                    		$(this).parent().find('.md-tip').show();
-	                    		$(this).prev().detach().end().detach();
-	                    	});
-	                    });
+						    {   
+						        $('.aw-admin-weibo-publish').find('.search-input').show('0').val("");
+						        $(this).parent().find('.weibo_msg_published_user').val('');
+						        $(this).parent().find('.md-tip').show();
+						        $(this).prev().detach().end().detach();
+						    });
+
+	                    	var _this = $(this);
+	                    	
+	                    	weiboPost(_this);
+
+                    	});
+
 	                	break;
 
 	                // 后台微博回答用户
 	                case 'adminAnswerUser' :
+	                	
 	                	$.each(result, function (i, a)
 	                    {
 	                        $(selector).parent().find('.aw-dropdown-list').append(Hogan.compile(AW_TEMPLATE.inviteDropdownList).render(
 	                        {
 	                            'uid': a.uid,
 	                            'name': a.name,
-	                            'img': a.detail.avatar_file
+	                            'img': a.detail.avatar_file,
+	                            'url': a.url,
+	                            'action':'add_service_user'
 	                        }));
 	                    });
 	                    $(selector).parent().find('.aw-dropdown-list li a').click(function()
 	                    {
-	                    	$.post(G_BASE_URL + '/admin/ajax/add_weibo_service_account/', {'uid': $(this).attr('data-id'), 'action': 'add'}, function (result)
-	                    	{
-	                    		if (result.err)
-	                    		{
-	                    			$('.aw-wechat-send-message .error_message').html(result.err);
-	                    			
-	                    			if ($('.error_message').css('display') != 'none')
-							    	{
-								    	AWS.shake($('.error_message'));
-							    	}
-							    	else
-							    	{
-								    	$('.error_message').fadeIn();
-							    	}
-	                    		}
-	                    		else
-	                    		{
-	                    			$(".alert-box").modal('hide');
-	                    		}
-	                    	}, 'json');
+
+	                    	$('.weibo_msg_published_user').val($(this).attr('data-id'));
+	                    	$(".alert-box").modal('hide');
+	                    	
+	                    	var oHtml = '<li> <a class="reply-name" href="'+ $(this).attr('data-url') +'">'+$(this).html()+'</a> <a href="/account/sina/binding/uid-'+$(this).attr('data-id')+' "class="btn btn-primary btn-sm" target="_blank">绑定新浪微博</a> <a data-id="'+ $(this).attr('data-id')+'" action= "del_service_user" class="delete btn btn-danger btn-sm">删除用户</a> </li>';
+	                    	$('.mod-weibo-reply').append(oHtml);	                    
+
+	                    	$('.aw-admin-weibo-answer').find('.search-input').val("");
+	                    	
+	                    	$('.aw-admin-weibo-answer').find('.delete').click(function()
+						    {   
+						        $(this).parent().detach();					        						        
+
+						        weiboPost($(this));
+						    });
+
+	                    	var _this = $(this);
+	                    	
+	                    	weiboPost(_this);
+	                    	
 	                    });
 	                	break;
 	            }
@@ -2453,7 +2514,7 @@ AWS.Init =
 	            });
 
 	            // 给三角形定位
-	            $(comment_box_id).find('.i-dropdown-triangle').css('left', $(this).position().left - 10);
+	            $(comment_box_id).find('.i-dropdown-triangle').css('left', $(this).position().left + 14);
 	            // textarae自动增高
 	            $(comment_box_id).find('.aw-comment-txt').autosize();
 	        }
@@ -2609,7 +2670,7 @@ AWS.Init =
 	                        break;
 
 	                    	case 'favorite':
-		                        $.post(G_BASE_URL + '/favorite/ajax/update_favorite_tag/', 'answer_id=' + data_id + '&tags=' + encodeURIComponent(_topic_editor.find('#aw_edit_topic_title').val()), function (result)
+		                        $.post(G_BASE_URL + '/favorite/ajax/update_favorite_tag/', 'item_id=' + data_id + '&item_type=' + _topic_editor.attr('data-item-type') + '&tags=' + encodeURIComponent(_topic_editor.find('#aw_edit_topic_title').val()), function (result)
 		                        {
 		                            if (result.errno != 1)
 		                            {
@@ -2668,7 +2729,7 @@ AWS.Init =
 		                break;
 
 		            case 'favorite':
-		                $.post(G_BASE_URL + '/favorite/ajax/remove_favorite_tag/', 'answer_id=' + data_id + '&tags=' + $(this).parents('.aw-topic-name').text().substring(0, $(this).parents('.aw-topic-name').text().length - 1));
+		                $.post(G_BASE_URL + '/favorite/ajax/remove_favorite_tag/', 'item_id=' + data_id + '&item_type=' + _topic_editor.attr('data-item-type') + '&tags=' + $(this).parents('.aw-topic-name').text().substring(0, $(this).parents('.aw-topic-name').text().length - 1));
 		                break;
 
 		            case 'article':

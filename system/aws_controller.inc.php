@@ -48,6 +48,11 @@ class AWS_CONTROLLER
 		else
 		{
 			$user_group = $this->model('account')->get_user_group_by_id(99);
+
+			if ($_GET['fromuid'])
+			{
+				HTTP::set_cookie('fromuid', $_GET['fromuid']);
+			}
 		}
 
 		$this->user_info['group_name'] = $user_group['group_name'];
@@ -85,7 +90,7 @@ class AWS_CONTROLLER
 
 		if (defined('SYSTEM_LANG'))
 		{
-			TPL::import_js(get_setting('base_url') . '/language/' . SYSTEM_LANG . '.js');
+			TPL::import_js(base_url() . '/language/' . SYSTEM_LANG . '.js');
 		}
 
 		if (HTTP::is_browser('ie', 8))
@@ -108,7 +113,7 @@ class AWS_CONTROLLER
 		));
 
 		// 产生面包屑导航数据
-		$this->crumb(get_setting('site_name'), get_setting('base_url'));
+		$this->crumb(get_setting('site_name'), base_url());
 
 		// 载入插件
 		if ($plugins = AWS_APP::plugins()->parse($_GET['app'], $_GET['c'], 'setup'))
@@ -213,7 +218,7 @@ class AWS_CONTROLLER
 
 		if (strlen($url) > 1 and substr($url, 0, 1) == '/')
 		{
-			$url = get_setting('base_url') . substr($url, 1);
+			$url = base_url() . substr($url, 1);
 		}
 
 		$this->crumb[] = array(
@@ -329,7 +334,7 @@ class AWS_ADMIN_CONTROLLER extends AWS_CONTROLLER
 
 		if (defined('SYSTEM_LANG'))
 		{
-			TPL::import_js(get_setting('base_url') . '/language/' . SYSTEM_LANG . '.js');
+			TPL::import_js(base_url() . '/language/' . SYSTEM_LANG . '.js');
 		}
 
 		if (HTTP::is_browser('ie', 8))
@@ -363,7 +368,7 @@ class AWS_ADMIN_CONTROLLER extends AWS_CONTROLLER
 
 		if ($admin_info = H::decode_hash(AWS_APP::session()->admin_login))
 		{
-			if ($admin_info['uid'] != $this->user_id OR $admin_info['UA'] != $_SERVER['HTTP_USER_AGENT'] OR !AWS_APP::session()->permission['is_administortar'])
+			if ($admin_info['uid'] != $this->user_id OR $admin_info['UA'] != $_SERVER['HTTP_USER_AGENT'] OR !AWS_APP::session()->permission['is_administortar'] AND !AWS_APP::session()->permission['is_moderator'])
 			{
 				unset(AWS_APP::session()->admin_login);
 

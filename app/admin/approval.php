@@ -20,31 +20,39 @@ if (!defined('IN_ANWSION'))
 
 class approval extends AWS_ADMIN_CONTROLLER
 {
-	public function setup()
-	{
-		$this->crumb(AWS_APP::lang()->_t('内容审核'), 'admin/approval/');
-
-		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(300));
-	}
-
 	public function list_action()
 	{
+		$this->crumb(AWS_APP::lang()->_t('内容审核'), 'admin/approval/list/');
+
+		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(300));
+
 		if (!$_GET['type'])
 		{
 			$_GET['type'] = 'question';
 		}
 
-		if ($_GET['type'] == 'weibo')
+		switch ($_GET['type'])
 		{
-			$approval_list = $this->model('weibo')->fetch_page('weibo_msg', 'question_id IS NULL', 'created_at ASC', $_GET['page'], $this->per_page);
+			case 'weibo':
+				$approval_list = $this->model('weibo')->fetch_page('weibo_msg', 'question_id IS NULL', 'id ASC', $_GET['page'], $this->per_page);
 
-			$found_rows = $this->model('weibo')->found_rows();
-		}
-		else
-		{
-			$approval_list = $this->model('publish')->get_approval_list($_GET['type'], $_GET['page'], $this->per_page);
+				$found_rows = $this->model('weibo')->found_rows();
 
-			$found_rows = $this->model('publish')->found_rows();
+				break;
+
+			case 'unverified_modify':
+				$approval_list = $this->model('question')->fetch_page('question', 'unverified_modify_count <> 0', 'question_id ASC', $_GET['page'], $this->per_page);
+
+				$found_rows = $this->model('question')->found_rows();
+
+				break;
+
+			default:
+				$approval_list = $this->model('publish')->get_approval_list($_GET['type'], $_GET['page'], $this->per_page);
+
+				$found_rows = $this->model('publish')->found_rows();
+
+				break;
 		}
 
 		TPL::assign('answer_count', $this->model('publish')->count('approval', "type = 'answer'"));
@@ -57,6 +65,8 @@ class approval extends AWS_ADMIN_CONTROLLER
 
 		TPL::assign('weibo_msg_count', $this->model('weibo')->count('weibo_msg', 'question_id IS NULL'));
 
+		TPL::assign('unverified_modifies_count', $this->model('question')->count('question', 'unverified_modify_count <> 0'));
+
 		if ($approval_list)
 		{
 			TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
@@ -65,11 +75,28 @@ class approval extends AWS_ADMIN_CONTROLLER
 				'per_page' => $this->per_page
 			))->create_links());
 
-			foreach ($approval_list AS $key => $val)
+			if ($_GET['type'] == 'unverified_modify')
 			{
-				if (!$approval_uids[$val['uid']])
+				foreach ($approval_list AS $key => $approval_info)
 				{
-					$approval_uids[$val['uid']] = $val['uid'];
+					$approval_list[$key]['uid'] = $approval_info['published_uid'];
+
+					if (!$approval_uids[$approval_list[$key]['uid']])
+					{
+						$approval_uids[$approval_list[$key]['uid']] = $approval_list[$key]['uid'];
+					}
+
+					$approval_list[$key]['unverified_modify'] = @unserialize($approval_info['unverified_modify']);
+				}
+			}
+			else
+			{
+				foreach ($approval_list AS $approval_info)
+				{
+					if (!$approval_uids[$approval_info['uid']])
+					{
+						$approval_uids[$approval_info['uid']] = $approval_info['uid'];
+					}
 				}
 			}
 
@@ -85,6 +112,18 @@ class approval extends AWS_ADMIN_CONTROLLER
 
 	public function preview_action()
 	{
+		if (!$_GET['action'])
+		{
+			$_GET['action'] = 'preview';
+		}
+
+		if ($_GET['action'] == 'edit')
+		{
+			$this->crumb(AWS_APP::lang()->_t('待审项修改'), 'admin/approval/edit/');
+
+			TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(300));
+		}
+
 		if ($_GET['type'] == 'weibo_msg')
 		{
 			$approval_item = $this->model('weibo')->get_msg_info_by_id($_GET['id']);
@@ -93,10 +132,8 @@ class approval extends AWS_ADMIN_CONTROLLER
 			{
 				exit();
 			}
-			else
-			{
-				$approval_item['type'] = 'weibo_msg';
-			}
+
+			$approval_item['type'] = 'weibo_msg';
 		}
 		else
 		{
@@ -111,17 +148,28 @@ class approval extends AWS_ADMIN_CONTROLLER
 		switch ($approval_item['type'])
 		{
 			case 'question':
-				$approval_item['content'] = nl2br(FORMAT::parse_markdown(htmlspecialchars($approval_item['data']['question_detail'])));
-			break;
+				$approval_item['title'] = htmlspecialchars($approval_item['data']['question_content']);
+
+				$approval_item['content'] = htmlspecialchars($approval_item['data']['question_detail']);
+
+				break;
 
 			case 'answer':
-				$approval_item['content'] = nl2br(FORMAT::parse_markdown(htmlspecialchars($approval_item['data']['answer_content'])));
-			break;
+				$approval_item['content'] = htmlspecialchars($approval_item['data']['answer_content']);
+
+				break;
 
 			case 'article':
+				$approval_item['title'] = htmlspecialchars($approval_item['data']['title']);
+
+				$approval_item['content'] = htmlspecialchars($approval_item['data']['message']);
+
+				break;
+
 			case 'article_comment':
-				$approval_item['content'] = nl2br(FORMAT::parse_markdown(htmlspecialchars($approval_item['data']['message'])));
-			break;
+				$approval_item['content'] = htmlspecialchars($approval_item['data']['message']);
+
+				break;
 
 			case 'weibo_msg':
 				$approval_item['content'] =& $approval_item['text'];
@@ -130,6 +178,8 @@ class approval extends AWS_ADMIN_CONTROLLER
 				{
 					$approval_item['attachs'] = $this->model('publish')->get_attach('weibo_msg', $_GET['id']);
 				}
+
+				break;
 		}
 
 		if ($approval_item['data']['attach_access_key'])
@@ -137,8 +187,13 @@ class approval extends AWS_ADMIN_CONTROLLER
 			$approval_item['attachs'] = $this->model('publish')->get_attach_by_access_key($approval_item['type'], $approval_item['data']['attach_access_key']);
 		}
 
+		if ($_GET['action'] != 'edit' AND $_GET['type'] != 'weibo_msg')
+		{
+			$approval_item['content'] = nl2br(FORMAT::parse_markdown($approval_item['content']));
+		}
+
 		TPL::assign('approval_item', $approval_item);
 
-		TPL::output('admin/approval/preview');
+		TPL::output('admin/approval/' . $_GET['action']);
 	}
 }

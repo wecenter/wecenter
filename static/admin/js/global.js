@@ -8,9 +8,6 @@ $(function () {
         $(this).tab('show');
     });
 
-    //徽章兼容IE8 
-    var tooltip = $('.aw-header').find(".label-danger");
-    tooltip.text() > 0 ? tooltip.show() : tooltip.hide();
     
     // bs自带方法-气泡提示
     $('.aw-content-wrap .md-tip').tooltip('hide');
@@ -96,4 +93,45 @@ $(function () {
         $(this).parents('table').find(".icheckbox_square-blue").iCheck('uncheck');
     });
 
+
+    //微博发布用户
+$('.aw-admin-weibo-answer').find('.search-input').bind("keydown", function(){
+    if (window.event && window.event.keyCode == 13) {
+                window.event.returnValue = false;
+            }
 });
+$('.aw-admin-weibo-publish').find('.btn-danger').length >0 ? $('.aw-admin-weibo-publish').find('.search-input').hide() : $('.aw-admin-weibo-publish').find('.search-input').show();
+
+$('.aw-admin-weibo-publish').find('.delete').click(function()
+    {   
+        $('.aw-admin-weibo-publish').find('.search-input').show('0').val("");
+        $(this).parent().find('.weibo_msg_published_user').val('');
+        $(this).parent().find('.md-tip').show();
+        $(this).prev().detach().end().detach();
+    });
+
+});
+
+function weiboPost(obj){
+
+    $.post(G_BASE_URL + '/admin/ajax/weibo_batch/', {'uid': obj.attr('data-id'), 'action':obj.attr('action')}, function (result)
+    {
+        if (result.errno == -1)
+        {
+            $('.aw-wechat-send-message .error_message').html(result.err);
+            
+            if ($('.error_message').css('display') != 'none')
+            {
+                AWS.shake($('.error_message'));
+            }
+            else
+            {
+                $('.error_message').fadeIn();
+            }
+        }
+        else
+        {
+            $(".alert-box").modal('hide');
+        }
+    }, 'json');
+};

@@ -149,7 +149,8 @@ var AW_TEMPLATE = {
 					'</div>'+
 					'<form action="' + G_BASE_URL + '/favorite/ajax/update_favorite_tag/" method="post" onsubmit="return false;">'+
 						'<div class="modal-body">'+
-							'<input type="hidden" name="answer_id" value="{{answer_id}}" />'+
+							'<input type="hidden" name="item_id" value="{{item_id}}" />'+
+							'<input type="hidden" name="item_type" value="{{item_type}}" />'+
 							'<div class="alert alert-danger hide error_message"><i class="fa fa-times"></i> <em></em></div>'+
 							'<p>' + _t('添加话题标签') + ': <input type="text" name="tags" id="add_favorite_tags" class="form-control" /></p>'+
 							'<p id="add_favorite_my_tags" class="hide">' + _t('常用标签') + ': </p>'+
@@ -399,13 +400,13 @@ var AW_TEMPLATE = {
 	'searchDropdownListArticles' : 
 		'<li class="question clearfix"><a class="aw-hide-txt pull-left" href="{{url}}">{{content}} </a><span class="pull-right aw-text-color-999">{{comments}} ' + _t('条评论') + '</span></li>',
 	'inviteDropdownList' :
-		'<li class="user"><a data-id="{{uid}}" data-value="{{name}}"><img class="img" src="{{img}}" />{{name}}</a></li>',
+		'<li class="user"><a data-url="{{url}}" data-id="{{uid}}" action="{{action}}" data-value="{{name}}"><img class="img" src="{{img}}" />{{name}}</a></li>',
 	'editTopicDorpdownList' : 
 		'<li class="question"><a>{{name}}</a></li>',
 	'questionRedirectList' : 
 		'<li class="question"><a class="aw-hide-txt" onclick="AWS.ajax_request({{url}})">{{name}}</a></li>',
 	'questionDropdownList' : 
-		'<li class="question" data-id="{{id}}"><a class="aw-hide-txt" href="{{url}}">{{name}}</a></li>',
+		'<li class="question" data-id="{{id}}"><a class="aw-hide-txt" target="_blank" _href="{{url}}">{{name}}</a></li>',
 
 	'inviteUserList' : 
 		'<li>'+

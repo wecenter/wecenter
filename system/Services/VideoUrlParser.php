@@ -79,7 +79,7 @@ class Services_VideoUrlParser
 		
 		if (strstr($lowerurl, '.swf'))
 		{
-			return '<p><embed src="' . $url . '" quality="high" width="560" height="360" align="middle" allowNetworking="all" allowFullScreen="true" allowScriptAccess="always" type="application/x-shockwave-flash" wmode="transparent"></embed></p>';
+			return '<p><object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,28,0" width="560" height="360"><param name="movie" value="' . $url . '" /><param name="quality" value="high" /><param name="wmode" value="transparent" /><embed src="' . $url . '" quality="high" pluginspage="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="460" height="360" wmode="transparent"></embed></object></p>';
 		}
 		
 		preg_match(self::CHECK_URL_VALID, $lowerurl, $matches);
@@ -141,7 +141,7 @@ class Services_VideoUrlParser
 			}
 			else
 			{
-				return '<p><embed src="' . $data['swf'] . '" quality="high" width="560" height="360" align="middle" allowNetworking="all" allowFullScreen="true" allowScriptAccess="always" type="application/x-shockwave-flash" wmode="transparent"></embed></p>';
+				return '<p><object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,28,0" width="560" height="360"><param name="movie" value="' . $data['swf'] . '" /><param name="quality" value="high" /><param name="wmode" value="transparent" /><embed src="' . $data['swf'] . '" quality="high" pluginspage="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="460" height="360" wmode="transparent"></embed></object></p>';
 			}
 		}
 		

@@ -4,8 +4,8 @@
 <div class="aw-content-wrap">
     <div class="tab-content mod-content">
         <div class="row">
-            <div class="col-md-12 nopadding">
-            <div class="col-md-7">
+            <div class="col-md-12">
+            <div class="col-md-7 nopadding">
                 <form action="admin/ajax/save_nav_menu/" method="post" id="nav_menu_list" onsubmit="return false">
                     <div class="mod aw-message-box ">
                     <div class="mod-set-head">
@@ -92,19 +92,7 @@
                     </div>
                 </div>
             </div>
-            <div class="mod">
-                <div class="aw-message-box topic">
-                    <div class="mod-set-head">
-                        <h3>专题</h3>
-                    </div>
-                    <div class="mod-set-body">
-                        <form action="admin/ajax/add_nav_menu/" method="post">
-                            <input type="hidden" name="type" value="feature">
-                            <a onclick="AWS.ajax_post($(this).parents('form'));" class="btn btn-primary"><?php _e('添加至导航菜单'); ?></a>
-                        </form>
-                    </div>
-                </div>
-            </div>
+			
             <div class="mod">
                 <div class="aw-message-box define-link">
                     <div class="mod-set-head">

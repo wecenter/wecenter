@@ -49,11 +49,11 @@ class main extends AWS_CONTROLLER
 			TPL::assign('sidebar_recommend_users_topics', $recommend_users_topics);
 		}
 		
-		if ($action_list = $this->model('actions')->get_favorite_tag_action_list($_GET['tag'], $this->user_id, calc_page_limit($_GET['page'], get_setting('contents_per_page'))))
+		if ($action_list = $this->model('favorite')->get_item_list($_GET['tag'], $this->user_id, calc_page_limit($_GET['page'], get_setting('contents_per_page'))))
 		{
 			foreach ($action_list AS $key => $val)
 			{
-				$answer_ids[] = $val['answer_info']['answer_id'];
+				$item_ids[] = $val['item_id'];
 			}
 			
 			TPL::assign('list', $action_list);
@@ -62,13 +62,13 @@ class main extends AWS_CONTROLLER
 		{
 			if (!$_GET['page'] OR $_GET['page'] == 1)
 			{
-				$this->model('favorite')->remove_favorite_tag(null, $_GET['tag'], $this->user_id);
+				$this->model('favorite')->remove_favorite_tag(null, null, $_GET['tag'], $this->user_id);
 			}
 		}
 		
-		if ($answer_ids)
+		if ($item_ids)
 		{
-			$favorite_items_tags = $this->model('favorite')->get_favorite_items_tags_by_answer_id($this->user_id, $answer_ids);
+			$favorite_items_tags = $this->model('favorite')->get_favorite_items_tags_by_item_id($this->user_id, $item_ids);
 			
 			TPL::assign('favorite_items_tags', $favorite_items_tags);
 		}

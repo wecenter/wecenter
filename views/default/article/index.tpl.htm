@@ -80,6 +80,8 @@
 							<?php if ((!$this->article_info['lock'] AND ($this->article_info['uid'] == $this->user_id OR $this->user_info['permission']['edit_article'])) OR $this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?>
 							<a class="aw-text-color-999 pull-right" href="publish/article/<?php echo $this->article_info['id']; ?>"><i class="fa fa-edit"></i> <?php _e('编辑'); ?></a>
 							<?php } ?>
+							
+							<?php if ($this->user_id) { ?><a href="javascript:;" onclick="AWS.dialog('favorite', {item_id:<?php echo $this->article_info['id']; ?>, item_type:'article'});" class="aw-text-color-999 pull-right"><i class="fa fa-bookmark"></i><?php _e('收藏'); ?></a><?php } ?>
 						</div>
 					</div>
 					<div class="mod-footer">

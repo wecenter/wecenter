@@ -12,7 +12,6 @@ INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES
 ('newer_invitation_num', 's:1:"5";'),
 ('index_per_page', 's:2:"20";'),
 ('from_email', '[#FROM_EMAIL#]'),
-('base_url', '[#BASE_URL#]'),
 ('img_url', 's:0:"";'),
 ('upload_url', '[#UPLOAD_URL#]'),
 ('upload_dir', '[#UPLOAD_DIR#]'),
@@ -113,4 +112,6 @@ INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES
 ('wecenter_access_token', 's:0:"";'),
 ('wecenter_access_secret', 's:0:"";'),
 ('weixin_account_role', 's:7:"base";'),
-('weibo_msg_published_user', 'a:0:"";');
+('weibo_msg_enabled', 's:1:"N";'),
+('weibo_msg_published_user', 'a:0:"";'),
+('admin_notifications', 'a:0:"";');

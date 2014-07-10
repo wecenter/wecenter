@@ -157,6 +157,10 @@
                 <div class="tab-content mod-content">
                     <table  class="table table-striped">
                         <tbody>
+                        	<tr>
+                                <td><?php _e('操作系统'); ?></td>
+                                <td><?php echo php_uname('s'); ?> <?php echo php_uname('r'); ?></td>
+                            </tr>
                             <tr>
                                 <td><?php _e('PHP 版本'); ?></td>
                                 <td><?php echo PHP_VERSION; ?></td>

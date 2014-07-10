@@ -470,7 +470,7 @@ class answer_class extends AWS_MODEL
 		), 'question_id = ' . intval($question_id));
 	}
 	
-	function set_answer_vote_status($voter_id, $vote_value)
+	public function set_answer_vote_status($voter_id, $vote_value)
 	{
 		return $this->update('answer_vote', array(
 			"add_time" => time(), 
@@ -478,7 +478,7 @@ class answer_class extends AWS_MODEL
 		), "voter_id = " . intval($voter_id));
 	}
 
-	function get_answer_vote_status($answer_id, $uid)
+	public function get_answer_vote_status($answer_id, $uid)
 	{
 		if (is_array($answer_id))
 		{

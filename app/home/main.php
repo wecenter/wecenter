@@ -22,9 +22,8 @@ class main extends AWS_CONTROLLER
 {
 	public function get_access_rule()
 	{
-		$rule_action['rule_type'] = "white"; //'black'黑名单,黑名单中的检查  'white'白名单,白名单以外的检查
+		$rule_action['rule_type'] = 'white';
 		$rule_action['actions'] = array(
-			'browser_not_support',
 			'explore'
 		);
 		
@@ -66,7 +65,7 @@ class main extends AWS_CONTROLLER
 			HTTP::redirect('/account/complete_profile/');
 		}
 		
-		//边栏可能感兴趣的人或话题
+		// 边栏可能感兴趣的人或话题
 		if (TPL::is_output('block/sidebar_recommend_users_topics.tpl.htm', 'home/index'))
 		{
 			$recommend_users_topics = $this->model('module')->recommend_users_topics($this->user_id);
@@ -74,7 +73,7 @@ class main extends AWS_CONTROLLER
 			TPL::assign('sidebar_recommend_users_topics', $recommend_users_topics);
 		}
 		
-		//边栏热门用户
+		// 边栏热门用户
 		if (TPL::is_output('block/sidebar_hot_users.tpl.htm', 'home/index'))
 		{
 			$sidebar_hot_users = $this->model('module')->sidebar_hot_users($this->user_id);
@@ -97,15 +96,5 @@ class main extends AWS_CONTROLLER
 	public function explore_action()
 	{
 		HTTP::redirect('/explore/');
-	}
-	
-	public function browser_not_support_action()
-	{
-		if (!HTTP::is_browser('ie', 7) AND !HTTP::is_browser('ie', 6))
-		{
-			HTTP::redirect('/');
-		}
-		
-		TPL::output('global/browser_not_support');
 	}
 }

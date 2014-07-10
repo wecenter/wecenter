@@ -275,7 +275,7 @@ class main extends AWS_CONTROLLER
 			{
 				$message = AWS_APP::lang()->_t('此问题将跳转至') . ' <a href="' . get_js_url('/m/question/' . $question_info['redirect']['target_id'] . '?rf=' . $question_info['question_id']) . '">' . $target_question['question_content'] . '</a>';
 
-				if ($this->user_id && ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator'] OR (!$this->question_info['lock'] AND $this->user_info['permission']['redirect_question'])))
+				if ($this->user_id AND ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator'] OR (!$this->question_info['lock'] AND $this->user_info['permission']['redirect_question'])))
 				{
 					$message .= '&nbsp; (<a href="javascript:;" onclick="AWS.ajax_request(G_BASE_URL + \'/question/ajax/redirect/\', \'item_id=' . $question_info['question_id'] . '\');">' . AWS_APP::lang()->_t('撤消重定向') . '</a>)';
 				}
@@ -333,7 +333,7 @@ class main extends AWS_CONTROLLER
 		{
 			$answer_list = $this->model('answer')->get_answer_list_by_question_id($question_info['question_id'], 1, 'answer_id = ' . intval($_GET['answer_id']));
 		}
-		else if (! $this->user_id && !$this->user_info['permission']['answer_show'])
+		else if (! $this->user_id AND !$this->user_info['permission']['answer_show'])
 		{
 			if ($question_info['best_answer'])
 			{
@@ -542,14 +542,6 @@ class main extends AWS_CONTROLLER
 			else
 			{
 				HTTP::redirect('/m/');
-			}
-		}
-
-		if ($this->user_id AND $_GET['invite_question_id'])
-		{
-			if ($invite_question_id = intval($_GET['invite_question_id']))
-			{
-				HTTP::redirect('/question/' . $invite_question_id);
 			}
 		}
 
@@ -936,6 +928,19 @@ class main extends AWS_CONTROLLER
 			));
 
 			$question_info['category_id'] = $_POST['category_id'];
+		}
+		else if ($_GET['weixin_media_id'])
+		{
+			$weixin_pic_url = AWS_APP::cache()->get('weixin_pic_url_' . $_GET['weixin_media_id']);
+
+			if (!$weixin_pic_url)
+			{
+				H::redirect_msg(AWS_APP::lang()->_t('图片已过期或 media_id 无效'));
+			}
+
+			TPL::assign('weixin_media_id', $_GET['weixin_media_id']);
+
+			TPL::assign('weixin_pic_url', $weixin_pic_url);
 		}
 		else
 		{

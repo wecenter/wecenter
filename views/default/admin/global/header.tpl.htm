@@ -10,12 +10,12 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="blank" />
 <meta name="format-detection" content="telephone=no" />
 <title><?php echo $this->page_title; ?></title>
-<base href="<?php echo get_setting('base_url');?>/<?php echo G_INDEX_SCRIPT; ?>" />
+<base href="<?php echo base_url();?>/<?php echo G_INDEX_SCRIPT; ?>" />
 <link type="text/css" rel="stylesheet" href="<?php echo G_STATIC_URL; ?>/css/bootstrap.css?v=<?php echo G_VERSION_BUILD; ?>" />
 <link type="text/css" rel="stylesheet" href="<?php echo G_STATIC_URL; ?>/css/font-awesome.css?v=<?php echo G_VERSION_BUILD; ?>" />
 <script type="text/javascript">
     var G_INDEX_SCRIPT = "<?php echo G_INDEX_SCRIPT; ?>";
-    var G_BASE_URL = "<?php echo get_setting('base_url'); ?>/<?php echo rtrim(G_INDEX_SCRIPT, '/'); ?>";
+    var G_BASE_URL = "<?php echo base_url(); ?>/<?php echo rtrim(G_INDEX_SCRIPT, '/'); ?>";
     var G_STATIC_URL = "<?php echo G_STATIC_URL; ?>";
     var G_UPLOAD_URL = "<?php echo get_setting('upload_url'); ?>";
     var G_USER_ID = <?php echo $this->user_id; ?>;
@@ -34,42 +34,123 @@
 <!--[if lte IE 8]>
     <script type="text/javascript" src="<?php echo G_STATIC_URL; ?>/js/respond.js"></script>
 <![endif]-->
+
+<?php if (!$this->user_info['permission']['is_administortar']) { ?>
+<script type="text/javascript">
+$(function(){
+    $('.fa-briefcase').parent().css({'display':'none'});
+    $('.fa-wrench').parent().css({'display':'none'});
+});
+</script>
+<?php } ?>
 </head>
 
 <body>
-<div class="aw-header">
+<div  class="aw-header">
     <button class="btn btn-sm mod-head-btn pull-left">
         <i class="fa fa-bars fa-2x"></i>
     </button>
 
     <div class="mod-header-user">
         <ul class="pull-right">
+            <?php $notifications = get_setting('admin_notifications');
+            if (!empty($notifications)) {
+                if ($notifications['question_approval']) {
+                    $notifications_texts[] = array(
+                                                    'url' => 'admin/approval/list/type-answer',
+                                                    'text' => AWS_APP::lang()->_t('有 %s 个问题待审核', $notifications['question_approval'])
+                                                );
+                }
+
+                if ($notifications['unverified_modify_count']) {
+                    $notifications_texts[] = array(
+                                                    'url' => 'admin/approval/list/type-unverified_modify',
+                                                    'text' => AWS_APP::lang()->_t('有 %s 个问题修改待审核', $notifications['unverified_modify_count'])
+                                                );
+                }
+
+                if ($notifications['answer_approval']) {
+                    $notifications_texts[] = array(
+                                                    'url' => 'admin/approval/list/',
+                                                    'text' => AWS_APP::lang()->_t('有 %s 个回答待审核', $notifications['answer_approval'])
+                                                );
+                }
+
+                if ($notifications['article_approval']) {
+                    $notifications_texts[] = array(
+                                                    'url' => 'admin/approval/list/type-article',
+                                                    'text' => AWS_APP::lang()->_t('有 %s 篇文章待审核', $notifications['article_approval'])
+                                                );
+                }
+
+                if ($notifications['article_comment_approval']) {
+                    $notifications_texts[] = array(
+                                                    'url' => 'admin/approval/list/type-article_comment',
+                                                    'text' => AWS_APP::lang()->_t('有 %s 个文章评论待审核', $notifications['article_comment_approval'])
+                                                );
+                }
+
+                if ($notifications['weibo_msg_approval']) {
+                    $notifications_texts[] = array(
+                                                    'url' => 'admin/approval/list/type-weibo_msg',
+                                                    'text' => AWS_APP::lang()->_t('有 %s 个新浪微博消息待审核', $notifications['weibo_msg_approval'])
+                                                );
+                }
+
+                if ($notifications['user_report']) {
+                    $notifications_texts[] = array(
+                                                    'url' => 'admin/question/report_list/',
+                                                    'text' => AWS_APP::lang()->_t('有 %s 个用户举报待查看', $notifications['user_report'])
+                                                );
+                }
+
+                if (get_setting('register_valid_type') == 'approval' AND $notifications['register_approval']) {
+                    $notifications_texts[] = array(
+                                                    'url' => 'admin/user/register_approval_list/',
+                                                    'text' => AWS_APP::lang()->_t('有 %s 个新用户待审核', $notifications['register_approval'])
+                                                );
+                }
+
+                if ($notifications['verify_approval']) {
+                    $notifications_texts[] = array(
+                                                    'url' => 'admin/verify_approval_list',
+                                                    'text' => AWS_APP::lang()->_t('有 %s 个认证申请待审核', $notifications['verify_approval'])
+                                                );
+                }
+
+                if ($this->user_info['is_administortar'] AND $notifications['last_version_build_day'] > G_VERSION_BUILD) {
+                    $notifications_texts[] = array(
+                                                    'url' => 'http://www.wecenter.com/downloads/',
+                                                    'text' => AWS_APP::lang()->_t('程序需要更新，最新版本为 %s', $notifications['last_version'])
+                                                );
+                }
+
+                if (get_setting('weibo_msg_enabled') == 'Y' AND $notifications['sina_users']) {
+                    foreach ($notifications['sina_users'] AS $sina_user) {
+                        $notifications_texts[] = array(
+                                                        'url' => 'admin/settings/category-openid',
+                                                        'text' => AWS_APP::lang()->_t('用户 %s 的新浪微博账号需要更新 Access Token，请重新授权', $sina_user['user_name'])
+                                                    );
+                    }
+                }
+            } ?>
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle mod-bell" data-toggle="dropdown">
                     <i class="fa fa-bell"></i>
-                    <span class="label label-danger">0</span>
+                    <?php if ($notifications_texts) { ?><span class="label label-danger"><?php echo count($notifications_texts); ?></span><?php } ?>
                 </a>
-                <ul class="dropdown-menu mod-chat">
-                    <!-- 站内通知 -->
-                    <?php // foreach ($this-> AS $key => $value) { ?>
-                    <li class="mod-media">
-                        <a class="pull-left" href="<?php ?>">
-                            <img width="50" class="thumb" src="<?php ?>" />
-                        </a>
-                        <div class="media-body">
-                            <span class="label label-default pull-right"><?php ?></span>
-                            <h5 class="media-heading"><?php ?></h5>
-                            <p class="margin-none"><?php ?></p>
-                        </div>
-                    </li>
 
-                    <?php // } ?>
-                    <li class="mod-btn">
-                        <a href="<?php ?>" class="btn btn-primary">
-                            <i class="fa fa-list"></i>
-                            <span>View all messages</span>
+                <ul class="dropdown-menu mod-chat">
+                    <?php if ($notifications_texts) { foreach ($notifications_texts AS $notifications_text) { ?>
+
+                    <li class="mod-media">
+                        <a href="<?php echo $notifications_text['url']; ?>">
+                            <?php echo $notifications_text['text']; ?>
                         </a>
                     </li>
+                    <?php } } else { ?>
+                    <p><?php _e('没有通知'); ?></p>
+                    <?php } ?>
                 </ul>
             </li>
 
@@ -82,16 +163,15 @@
 
                 <ul class="dropdown-menu pull-right mod-user">
                     <li>
-                        <a href=""><i class="fa fa-user"></i>报告</a>
+                        <a href="admin/"><i class="fa fa-user"></i><?php _e('报告'); ?></a>
                     </li>
+
                     <li>
-                        <a href="inbox/"><i class="fa fa-envelope"></i>消息</a>
+                        <a href="account/setting/profile/"><i class="fa fa-cogs"></i><?php _e('设置'); ?></a>
                     </li>
+
                     <li>
-                        <a href="account/setting/profile/"><i class="fa fa-cogs"></i>设置</a>
-                    </li>
-                    <li>
-                        <a href="admin/logout/"><i class="fa fa-reply"></i>退出</a>
+                        <a href="admin/logout/"><i class="fa fa-reply"></i><?php _e('退出'); ?></a>
                     </li>
                 </ul>
             </li>

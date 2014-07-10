@@ -15,48 +15,45 @@
 
 if (!defined('IN_ANWSION'))
 {
-	die;
+    die;
 }
 
 class api extends AWS_CONTROLLER
 {
-	private $input_message;
+    public function get_access_rule()
+    {
+        $rule_action['rule_type'] = 'black';
+        $rule_action['actions'] = array();
 
-	private $mp_menu;
+        return $rule_action;
+    }
 
-	public function get_access_rule()
-	{
-		$rule_action['rule_type'] = 'black';
-		$rule_action['actions'] = array();
+    public function index_action()
+    {
+        if (!isset($_GET['account_id']))
+        {
+            $_GET['account_id'] = 0;
+        };
 
-		return $rule_action;
-	}
+        $account_info = $this->model('weixin')->get_account_info_by_id($_GET['account_id']);
 
-	public function setup()
-	{
-		$account_id = $_GET['account'] ?: 0;
+        if (empty($account_info) OR !$this->model('weixin')->check_signature($account_info['weixin_mp_token'], $_GET['signature'], $_GET['timestamp'], $_GET['nonce']))
+        {
+            exit;
+        }
 
-		$account_info = $this->model('weixin')->get_account_info_by_id($account_id);
+        if ($_GET['echostr'])
+        {
+            exit(htmlspecialchars($_GET['echostr']));
+        }
 
-		if (empty($account_info) OR
-			!$this->model('weixin')->check_signature($account_info['weixin_mp_token'], $_GET['signature'], $_GET['timestamp'], $_GET['nonce']))
-		{
-			exit;
-		}
+        $input_message = $this->model('weixin')->fetch_message();
 
-		if ($_GET['echostr'])
-		{
-			exit(htmlspecialchars($_GET['echostr']));
-		}
+        if ($account_info['weixin_account_role'] == 'base' OR empty($account_info['weixin_app_id']) OR empty($account_info['weixin_app_secret']))
+        {
+            $account_info['weixin_mp_menu'] = null;
+        }
 
-		$this->input_message = $this->model('weixin')->fetch_message();
-
-
-		$this->mp_menu = ($account_info['weixin_account_role'] == 'base' OR empty($account_info['weixin_app_id']) OR empty($account_info['weixin_app_secret'])) ? null : $account_info['weixin_mp_menu'];
-	}
-
-	public function index_action()
-	{
-		$this->model('weixin')->response_message($this->input_message, $this->mp_menu);
-	}
+        $this->model('weixin')->response_message($input_message, $account_info);
+    }
 }

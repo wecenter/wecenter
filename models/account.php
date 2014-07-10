@@ -306,18 +306,20 @@ class account_class extends AWS_MODEL
             }
         }
 
-        if ($attrib)
-        {
-            $sql = "SELECT MEM.*, MEB.signature, MEB.qq, MEB.homepage FROM " . $this->get_table('users') . " AS MEM LEFT JOIN " . $this->get_table('users_attrib') . " AS MEB ON MEM.uid = MEB.uid WHERE MEM.uid = " . intval($uid);
-        }
-        else
-        {
-            $sql = "SELECT * FROM " . $this->get_table('users') . " WHERE uid = " . intval($uid);
-        }
-
-        if (! $user_info = $this->query_row($sql))
+        if (! $user_info = $this->fetch_row('users', 'uid = ' . intval($uid)))
         {
             return false;
+        }
+
+        if ($attrib)
+        {
+	        if ($user_attrib = $this->fetch_row('users_attrib', 'uid = ' . intval($uid)))
+	        {
+		        foreach ($user_attrib AS $key => $val)
+		        {
+			        $user_info[$key] = $val;
+		        }
+	        }
         }
 
         if (!$user_info['url_token'] AND $user_info['user_name'])
@@ -552,7 +554,7 @@ class account_class extends AWS_MODEL
      * @param string
      * @return int
      */
-    public function user_register($user_name, $password = null, $email = null, $group = null)
+    public function user_register($user_name, $password = null, $email = null)
     {
         if ($uid = $this->insert_user($user_name, $password, $email))
         {
@@ -566,10 +568,8 @@ class account_class extends AWS_MODEL
                 }
             }
 
-            $group_id = ($group_id) ? intval($group_id) : 3;
-
             $this->update('users', array(
-                'group_id' => $group_id,
+                'group_id' => 3,
                 'reputation_group' => 5,
                 'invitation_available' => get_setting('newer_invitation_num'),
                 'is_first_login' => 1

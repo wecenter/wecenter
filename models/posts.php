@@ -307,11 +307,8 @@ class posts_class extends AWS_MODEL
 				case 'question':
 					$explore_list_data[$key] = $question_infos[$data['post_id']];
 					
-					$explore_list_data[$key]['answer'] = array(
-						'user_info' => $users_info[$last_answers[$data['post_id']]['uid']],
-						'answer_content' => $last_answers[$data['post_id']]['answer_content'],
-						'anonymous' => $last_answers[$data['post_id']]['anonymous']
-					);
+					$explore_list_data[$key]['answer_info'] = $last_answers[$data['post_id']];
+					$explore_list_data[$key]['answer_info']['user_info'] = $users_info[$last_answers[$data['post_id']]['uid']];
 				break;
 				
 				case 'article':
@@ -344,9 +341,9 @@ class posts_class extends AWS_MODEL
 		
 		array_walk_recursive($topic_ids, 'intval_string');
 		
-		$result_cache_key = 'posts_list_by_topic_ids_' .  md5(implode('_', $topic_ids) . $answer_count . $category_id . $order_by . $is_recommend . $page . $per_page . $post_type . $topic_type);
+		$result_cache_key = 'posts_list_by_topic_ids_' .  md5(implode(',', $topic_ids) . $answer_count . $category_id . $order_by . $is_recommend . $page . $per_page . $post_type . $topic_type);
 		
-		$found_rows_cache_key = 'posts_list_by_topic_ids_found_rows_' . md5(implode('_', $topic_ids) . $answer_count . $category_id . $is_recommend . $per_page . $post_type . $topic_type);
+		$found_rows_cache_key = 'posts_list_by_topic_ids_found_rows_' . md5(implode(',', $topic_ids) . $answer_count . $category_id . $is_recommend . $per_page . $post_type . $topic_type);
 			
 		$topic_relation_where[] = '`topic_id` IN(' . implode(',', $topic_ids) . ')';
 		
@@ -355,11 +352,11 @@ class posts_class extends AWS_MODEL
 			$topic_relation_where[] = "`type` = '" . $this->quote($topic_type) . "'";
 		}
 		
-		if ($topic_relation_query = $this->query_all("SELECT item_id FROM " . get_table('topic_relation') . " WHERE " . implode(' AND ', $topic_relation_where)))
+		if ($topic_relation_query = $this->query_all("SELECT `item_id`, `type` FROM " . get_table('topic_relation') . " WHERE " . implode(' AND ', $topic_relation_where)))
 		{
 			foreach ($topic_relation_query AS $key => $val)
 			{
-				$post_ids[$val['item_id']] = $val['item_id'];
+				$post_ids[$val['type']][$val['item_id']] = $val['item_id'];
 			}
 		}
 		
@@ -368,8 +365,11 @@ class posts_class extends AWS_MODEL
 			return false;
 		}
 		
-		$where[] = "post_id IN (" . implode(',', $post_ids) . ")";
-			
+		foreach ($post_ids AS $key => $val)
+		{
+			$where[] = "(post_id IN (" . implode(',', $val) . ") AND post_type = '" . $this->quote($key) . "')";
+		}
+		
 		if ($answer_count !== null)
 		{
 			$where[] = "answer_count = " . intval($answer_count);

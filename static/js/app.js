@@ -43,6 +43,18 @@ $(document).ready(function ()
         AWS.G.notification_timer = setInterval('AWS.Message.check_notifications()', G_NOTIFICATION_INTERVAL);
     }
 
+    //文章列表样式调整
+    $.each($('.aw-common-list .aw-item.article'), function (i, e)
+    {
+        if ($(this).find('img').length > 1)
+        {
+            $(this).find('.img.pull-right').show();
+            $(this).find('.aw-comment-upload-img-list').next().detach();
+            $(this).find('img').next().detach().end().prev().detach();
+            $(this).find('.markitup-box img').eq(0).css({'z-index':'999'});
+        }
+    });
+
     $('a[rel=lightbox]').fancybox(
     {
         openEffect: 'none',
@@ -150,30 +162,13 @@ $(document).ready(function ()
     //ie浏览器下input,textarea兼容
     if (document.all)
     {
-        $('input,textarea').each(function ()
+        AWS.check_placeholder($('input, textarea'));
+
+        // 每隔1s轮询检测placeholder
+        setInterval(function()
         {
-            if (typeof ($(this).attr("placeholder")) != "undefined")
-            {
-                if ($(this).val() == '')
-                {
-	                $(this).addClass('aw-placeholder').val($(this).attr("placeholder"));
-                }
-
-                $(this).focus(function () {
-                    if ($(this).val() == $(this).attr('placeholder'))
-                    {
-                        $(this).removeClass('aw-placeholder').val('');
-                    }
-                });
-
-                $(this).blur(function () {
-                    if ($(this).val() == '')
-                    {
-                        $(this).addClass('aw-placeholder').val($(this).attr('placeholder'));
-                    }
-                });
-            }
-        });
+            AWS.check_placeholder($('input[data-placeholder!="true"], textarea[data-placeholder!="true"]'));
+        }, 1000);
     }
 });
 

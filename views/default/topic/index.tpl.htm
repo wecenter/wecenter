@@ -14,6 +14,7 @@
 			</div>
 		</div>
 	</div>
+	
 	<div class="container">
 		<div class="row aw-content-wrap">
 			<div class="col-sm-12 col-md-9 aw-main-content">
@@ -29,14 +30,17 @@
 						</div>
 					</div>
 				</div>
+				
 				<div class="aw-mod aw-topic-list-mod">
 					<div class="aw-mod-head">
 						<div class="tabbable">
 							<!-- tab 切换 -->
 							<ul class="nav nav-tabs aw-nav-tabs hidden-xs">
-								<li class="active"><a href="#questions" data-toggle="tab"><?php _e('全部问题'); ?></a></li>
+								<li class="active"><a href="#all" data-toggle="tab"><?php _e('全部内容'); ?></a></li>
 								<li><a href="#best_answers" data-toggle="tab"><?php _e('精华'); ?></a></li>
-								<li><a href="#articles" data-toggle="tab"><?php _e('全部文章'); ?></a></li>
+								<li><a href="#recommend" data-toggle="tab"><?php _e('推荐'); ?></a></li>
+								<li><a href="#questions" data-toggle="tab"><?php _e('问题'); ?></a></li>
+								<li><a href="#articles" data-toggle="tab"><?php _e('文章'); ?></a></li>
 								<li><a href="#favorite" id="i_favorite" data-toggle="tab" style="display:none"><?php _e('我的收藏'); ?></a></li>
 								<li><a href="#about" id="i_about" data-toggle="tab"><?php _e('关于话题'); ?></a></li>
 								<div class="aw-search-bar pull-right hidden-xs">
@@ -46,8 +50,7 @@
 										<div class="aw-dropdown">
 											<i class="aw-icon i-dropdown-triangle active"></i>
 											<p class="title"><?php _e('没有找到相关结果'); ?></p>
-											<ul class="aw-dropdown-list">
-											</ul>
+											<ul class="aw-dropdown-list"></ul>
 										</div>
 									</div>
 								</div>
@@ -55,10 +58,54 @@
 							<!-- end tab 切换 -->
 						</div>
 					</div>
+					
 					<div class="aw-mod-body">
 						<!-- tab 切换内容 -->
 						<div class="tab-content">
-							<div class="tab-pane active" id="questions">
+							<div class="tab-pane active" id="all">
+								<div class="aw-mod">
+									<div class="mod-body">
+										<div class="aw-common-list" id="c_all_list">
+											<?php echo $this->all_list_bit; ?>
+										</div>
+									</div>
+									<div class="mod-footer">
+										<a class="aw-load-more-content" id="c_all_more" auto-load="false">
+											<span><?php _e('更多'); ?>...</span>
+										</a>
+									</div>
+								</div>
+							</div>
+							
+							<div class="tab-pane" id="best_answers">
+								<div class="aw-mod aw-feed-list" id="c_best_question_list">
+									<div class="mod-body">
+										<?php echo $this->best_questions_list_bit; ?>
+									</div>
+									<div class="mod-footer">
+										<a class="aw-load-more-content" id="bp_best_question_more" auto-load="false">
+											<span><?php _e('更多'); ?>...</span>
+										</a>
+									</div>
+								</div>
+							</div>
+							
+							<div class="tab-pane" id="recommend">
+								<div class="aw-mod">
+									<div class="mod-body">
+										<div class="aw-common-list" id="c_recommend_list">
+											<?php echo $this->recommend_list_bit; ?>
+										</div>
+									</div>
+									<div class="mod-footer">
+										<a class="aw-load-more-content" id="c_recommend_more" auto-load="false">
+											<span><?php _e('更多'); ?>...</span>
+										</a>
+									</div>
+								</div>
+							</div>
+							
+							<div class="tab-pane" id="questions">
 								<div class="aw-mod">
 									<div class="mod-body">
 										<div class="aw-common-list" id="c_question_list">
@@ -72,22 +119,7 @@
 									</div>
 								</div>
 							</div>
-
-							<div class="tab-pane" id="best_answers">
-								<!-- 动态首页&话题精华模块 -->
-								<div class="aw-mod aw-feed-list" id="c_best_question_list">
-									<div class="mod-body">
-										<?php echo $this->best_questions_list_bit; ?>
-									</div>
-									<div class="mod-footer">
-										<a class="aw-load-more-content" id="bp_best_question_more" auto-load="false">
-											<span><?php _e('更多'); ?>...</span>
-										</a>
-									</div>
-								</div>
-								<!-- end 动态首页&话题精华模块 -->
-							</div>
-
+							
 							<div class="tab-pane" id="articles">
 								<!-- 动态首页&话题精华模块 -->
 								<div class="aw-mod">
@@ -118,13 +150,16 @@
 							</div>
 
 							<div class="tab-pane" id="about">
-								<div class="aw-topic-detail-about aw-text-color-666"><?php echo $this->topic_info['topic_description']; ?> </div>
+								<div class="aw-topic-detail-about aw-text-color-666">
+									<?php echo $this->topic_info['topic_description']; ?>
+								</div>
 							</div>
 						</div>
 						<!-- end tab 切换内容 -->
 					</div>
 				</div>
 			</div>
+			
 			<!-- 侧边栏 -->
 			<div class="col-sm-12 col-md-3 aw-side-bar hidden-xs">
 				<!-- 话题描述 -->
@@ -145,6 +180,7 @@
 					<div class="mod-head">
 						<h3><?php _e('所属专题'); ?></h3>
 					</div>
+					
 					<div class="mod-body">
 						<ul>
 							<?php foreach ($this->in_features AS $key => $val) { ?>
@@ -161,20 +197,21 @@
 					<div class="mod-head">
 						<h3><?php _e('最佳回复者'); ?></h3>
 					</div>
+					
 					<div class="mod-body">
 						<?php foreach ($this->best_answer_users AS $key => $val) { ?>
 						<dl>
 							<dt class="pull-left aw-border-radius-5">
 								<a href="people/<?php echo $val['user_info']['url_token']; ?>"><img src="<?php echo get_avatar_url($val['user_info']['uid'], 'mid'); ?>" alt="" /></a>
 							</dt>
+							
 							<dd class="pull-left">
 								<a class="aw-user-name" href="people/<?php echo $val['user_info']['url_token']; ?>" data-id="<?php echo $val['user_info']['uid']; ?>"><?php echo $val['user_info']['user_name']; ?><?php if ($val['user_info']['verified']) { ?><i class="aw-icon i-v<?php if ($val['verified'] == 'enterprise') { ?> i-ve<?php } ?>" title="<?php if ($val['verified'] == 'enterprise') { ?>企业认证<?php } else { ?>个人认证<?php } ?>"></i><?php } ?>
-									<?php echo $val['signature']; ?></a>
-									<p><?php _e('获得'); ?> <?php _e('%s 次赞同', '<b>' . $val['agree_count'] . '</b>'); ?>, <?php _e('%s 次感谢', '<b>' . $val['thanks_count'] . '</b>'); ?></p>
-								</dd>
-							</dl>
-							<?php } ?>
-						</div>
+								<?php echo $val['signature']; ?></a>
+								<p><?php _e('获得'); ?> <?php _e('%s 次赞同', '<b>' . $val['agree_count'] . '</b>'); ?>, <?php _e('%s 次感谢', '<b>' . $val['thanks_count'] . '</b>'); ?></p>
+							</dd>
+						</dl>
+						<?php } ?>
 					</div>
 					<?php } ?>
 					<!-- end 最佳回复者 -->
@@ -217,6 +254,7 @@
 						<div class="mod-head">
 							<h3><?php _e('管理'); ?></h3>
 						</div>
+						
 						<div class="mod-body">
 							<ul>
 								<?php if ($this->topic_info['topic_lock'] == 0 && $this->user_info['permission']['edit_topic']) { ?>
@@ -240,14 +278,15 @@
 			</div>
 		</div>
 	</div>
+</div>
 
-	<script type="text/javascript">
-		var TOPIC_ID = '<?php echo $this->topic_info['topic_id']; ?>';
+<script type="text/javascript">
+	var TOPIC_ID = '<?php echo $this->topic_info['topic_id']; ?>';
 
-		var CONTENTS_TOPIC_ID = '<?php echo $this->contents_topic_id; ?>';
-		var CONTENTS_TOPIC_TITLE = '<?php echo $this->contents_topic_title; ?>';
-	</script>
+	var CONTENTS_TOPIC_ID = '<?php echo $this->contents_topic_id; ?>';
+	var CONTENTS_TOPIC_TITLE = '<?php echo $this->contents_topic_title; ?>';
+</script>
 
-	<script type="text/javascript" src="<?php echo G_STATIC_URL; ?>/js/app/topic.js"></script>
+<script type="text/javascript" src="<?php echo G_STATIC_URL; ?>/js/app/topic.js"></script>
 
-	<?php TPL::output('global/footer.tpl.htm'); ?>
+<?php TPL::output('global/footer.tpl.htm'); ?>
