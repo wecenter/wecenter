@@ -302,7 +302,7 @@ class question_class extends AWS_MODEL
 
 		return $this->update('question', array(
 			'unverified_modify' => serialize($unverified_modify),
-			'unverified_modify_count' = $unverified_modify_count
+			'unverified_modify_count' => $unverified_modify_count
 		), 'question_id = ' . $question_id);
 	}
 
