@@ -459,7 +459,7 @@ CREATE TABLE `[#DB_PREFIX#]question` (
   `thanks_count` int(10) NOT NULL DEFAULT '0',
   `question_content_fulltext` text,
   `is_recommend` tinyint(1) NOT NULL DEFAULT '0',
-  `weibo_msg_id` bigint(30) NOT NULL DEFAULT NULL,
+  `weibo_msg_id` bigint(30) DEFAULT NULL,
   PRIMARY KEY (`question_id`),
   KEY `category_id` (`category_id`),
   KEY `update_time` (`update_time`),
