@@ -2,9 +2,16 @@
 <?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
 
 <div class="aw-content-wrap">
-    <div class="alert alert-success hide error_message"></div>
     <div class="mod">
-        <div class="mod-body">
+        <div class="mod-head">
+            <h3>
+                <span class="pull-left"><?php _e('菜单管理'); ?></span>
+            </h3>
+        </div>
+
+        <div class="tab-content mod-body">
+            <div class="alert alert-success hide error_message"></div>
+
             <!-- 最新问题 -->
             <script type="text/x-template" id="drop_menu_template_new_posts">
                 <div class="dropdown-menu pull-right<?php if ($this->category_data) { ?> subtract-two<?php } ?>">
