@@ -38,6 +38,7 @@
 							<ul class="nav nav-tabs aw-nav-tabs hidden-xs">
 								<li class="active"><a href="#all" data-toggle="tab"><?php _e('全部内容'); ?></a></li>
 								<li><a href="#best_answers" data-toggle="tab"><?php _e('精华'); ?></a></li>
+								<li><a href="#recommend" data-toggle="tab"><?php _e('推荐'); ?></a></li>
 								<li><a href="#questions" data-toggle="tab"><?php _e('问题'); ?></a></li>
 								<li><a href="#articles" data-toggle="tab"><?php _e('文章'); ?></a></li>
 								<li><a href="#favorite" id="i_favorite" data-toggle="tab" style="display:none"><?php _e('我的收藏'); ?></a></li>
@@ -77,7 +78,6 @@
 							</div>
 							
 							<div class="tab-pane" id="best_answers">
-								<!-- 动态首页&话题精华模块 -->
 								<div class="aw-mod aw-feed-list" id="c_best_question_list">
 									<div class="mod-body">
 										<?php echo $this->best_questions_list_bit; ?>
@@ -88,7 +88,21 @@
 										</a>
 									</div>
 								</div>
-								<!-- end 动态首页&话题精华模块 -->
+							</div>
+							
+							<div class="tab-pane" id="recommend">
+								<div class="aw-mod">
+									<div class="mod-body">
+										<div class="aw-common-list" id="c_recommend_list">
+											<?php echo $this->recommend_list_bit; ?>
+										</div>
+									</div>
+									<div class="mod-footer">
+										<a class="aw-load-more-content" id="c_recommend_more" auto-load="false">
+											<span><?php _e('更多'); ?>...</span>
+										</a>
+									</div>
+								</div>
 							</div>
 							
 							<div class="tab-pane" id="questions">
