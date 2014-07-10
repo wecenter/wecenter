@@ -43,3 +43,16 @@
 .aw-user-setting-points table{margin:20px 0;font-size:13px;color: #666;}
 .aw-user-setting-points table .info th{background-color: #F5FAFE !important;border-top: none;font-weight: normal;}
 .aw-user-setting-points .table th, .aw-user-setting-points .table td{border-top: 1px solid #DCEDFA;}
+/*响应式*/
+@media (max-width: 640px) {
+	.aw-nav-tabs h2 {position: static;}
+	.aw-user-setting .mod-base .side-bar {position: relative;top: 0;}
+}
+@media (max-width: 321px) {
+	.aw-nav-tabs h2 {position: static;}
+	.aw-user-setting .mod-base dl dt {width: auto;}
+	.aw-user-setting .mod-base dl dd select,.aw-user-setting .mod-base .introduce input,.aw-user-setting .mod-base .time,.aw-user-setting .mod-contact li input {width: 100%!important;}
+	.aw-user-setting .mod-base .side-bar {position: relative;top: 0;}
+	.aw-user-setting .mod-body {padding: 30px;}
+
+}
