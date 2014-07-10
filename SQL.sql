@@ -73,3 +73,6 @@ INSERT INTO `aws_system_setting` (`varname`, `value`) VALUES ('admin_notificatio
 
 ALTER TABLE `aws_weixin_reply_rule` ADD `account_id` int(10) NOT NULL DEFAULT '0';
 CREATE INDEX `account_id` ON `aws_weixin_reply_rule` (`account_id`);
+
+ALTER TABLE `aws_question` ADD `unverified_modify_count` int(10) NOT NULL DEFAULT '0';
+CREATE INDEX `unverified_modify_count` ON `aws_question` (`unverified_modify_count`);

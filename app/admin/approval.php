@@ -41,7 +41,7 @@ class approval extends AWS_ADMIN_CONTROLLER
 				break;
 
 			case 'unverified_modify':
-				$approval_list = $this->model('question')->fetch_page('question', "unverified_modify IS NOT NULL AND unverified_modify <> 'a:0:{}'", 'question_id ASC', $_GET['page'], $this->per_page);
+				$approval_list = $this->model('question')->fetch_page('question', 'unverified_modify_count <> 0', 'question_id ASC', $_GET['page'], $this->per_page);
 
 				$found_rows = $this->model('question')->found_rows();
 
@@ -65,7 +65,7 @@ class approval extends AWS_ADMIN_CONTROLLER
 
 		TPL::assign('weibo_msg_count', $this->model('weibo')->count('weibo_msg', 'question_id IS NULL'));
 
-		TPL::assign('unverified_modify_count', $this->model('question')->count('question', "unverified_modify IS NOT NULL AND unverified_modify <> 'a:0:{}'"));
+		TPL::assign('unverified_modifies_count', $this->model('question')->count('question', 'unverified_modify_count <> 0'));
 
 		if ($approval_list)
 		{
@@ -87,18 +87,6 @@ class approval extends AWS_ADMIN_CONTROLLER
 					}
 
 					$approval_list[$key]['unverified_modify'] = @unserialize($approval_info['unverified_modify']);
-
-					if (is_array($approval_list[$key]['unverified_modify']))
-					{
-						$counter = 0;
-
-						foreach ($approval_list[$key]['unverified_modify'] AS $unverified_modify_info)
-						{
-							$counter = $counter + count($unverified_modify_info);
-						}
-
-						$approval_list[$key]['unverified_modify_count'] = $counter;
-					}
 				}
 			}
 			else
