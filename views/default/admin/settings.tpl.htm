@@ -1368,7 +1368,7 @@
                         <div class="form-group">
                             <span class="col-sm-4 col-xs-3 control-label"><?php _e('微信公众平台帐号角色'); ?>:</span>
                             <div class="col-sm-8 col-xs-8">
-                                <label class="checkbox-inline"><input type="radio" name="weixin_account_role" value="base"<?php if ($this->setting['weixin_account_role'] == 'base') { ?> checked="checked"<?php } ?> /> <?php _e('普通订阅号'); ?></label>
+                                <label class="checkbox-inline"><input type="radio" name="weixin_account_role" value="base"<?php if (!$this->setting['weixin_account_role'] OR $this->setting['weixin_account_role'] == 'base') { ?> checked="checked"<?php } ?> /> <?php _e('普通订阅号'); ?></label>
                             <label class="checkbox-inline"><input type="radio" name="weixin_account_role" value="subscription"<?php if ($this->setting['weixin_account_role'] == 'subscription') { ?> checked="checked"<?php } ?> /> <?php _e('微信认证订阅号'); ?></label>
                             <label class="checkbox-inline"><input type="radio" name="weixin_account_role" value="general"<?php if ($this->setting['weixin_account_role'] == 'general') { ?> checked="checked"<?php } ?> /> <?php _e('普通服务号'); ?></label>
                             <label class="checkbox-inline"><input type="radio" name="weixin_account_role" value="service"<?php if ($this->setting['weixin_account_role'] == 'service') { ?> checked="checked"<?php } ?> /> <?php _e('微信认证服务号'); ?></label>
