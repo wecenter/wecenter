@@ -234,7 +234,17 @@ class main extends AWS_CONTROLLER
 		
 		TPL::assign('topic_info', $topic_info);
 		
-		TPL::assign('related_topics', $this->model('topic')->related_topics($topic_info['topic_id']));
+		$related_topics_ids = array();
+		
+		if ($related_topics = $this->model('topic')->related_topics($topic_info['topic_id']))
+		{
+			foreach ($related_topics AS $key => $val)
+			{
+				$related_topics_ids[] = $val['topic_id'];
+			}
+		}
+		
+		TPL::assign('related_topics', $related_topics);
 		
 		$log_list = ACTION_LOG::get_action_by_event_id($topic_info['topic_id'], 10, ACTION_LOG::CATEGORY_TOPIC, implode(',', array(
 			ACTION_LOG::ADD_TOPIC,
@@ -274,10 +284,14 @@ class main extends AWS_CONTROLLER
 			}
 		}
 		
-		TPL::assign('posts_list', $this->model('posts')->get_posts_list(null, 1, get_setting('contents_per_page'), null, explode(',', $contents_topic_id)));
+		$contents_related_topic_ids = array_merge($related_topics_ids, explode(',', $contents_topic_id));
+		
+		TPL::assign('contents_related_topic_ids', implode(',', $contents_related_topic_ids));
+		
+		TPL::assign('posts_list', $this->model('posts')->get_posts_list(null, 1, get_setting('contents_per_page'), null, array_merge($related_topics_ids, explode(',', $contents_topic_id))));
 		TPL::assign('all_list_bit', TPL::output('explore/ajax/list', false));
 		
-		TPL::assign('posts_list', $this->model('posts')->get_posts_list(null, 1, get_setting('contents_per_page'), null, explode(',', $contents_topic_id), null, null, 30, true));
+		TPL::assign('posts_list', $this->model('posts')->get_posts_list(null, 1, get_setting('contents_per_page'), null, array_merge($related_topics_ids, explode(',', $contents_topic_id)), null, null, 30, true));
 		TPL::assign('recommend_list_bit', TPL::output('explore/ajax/list', false));
 		
 		TPL::assign('list', $this->model('topic')->get_topic_best_answer_action_list($contents_topic_id, $this->user_id, get_setting('contents_per_page')));

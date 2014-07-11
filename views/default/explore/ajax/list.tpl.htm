@@ -1,6 +1,6 @@
 <?php if ($this->posts_list) { ?>
 <?php foreach($this->posts_list as $key => $val) { ?>
-<div class="aw-item <?php if ($val['question_id']) { ?><?php if ($val['answer_count'] == 0) { ?>active<?php } ?><?php } else {?>article<?php } ?>">
+<div class="aw-item <?php if ($val['question_id']) { ?><?php if ($val['answer_count'] == 0) { ?>active<?php } ?><?php } else {?>article<?php } ?>" data-topic-id="<?php foreach ($val['topics'] AS $k => $v) { ?><?php echo $v['topic_id']; ?>,<?php } ?>">
 	<?php if ($val['anonymous'] == 0) { ?><a class="aw-user-name hidden-xs" data-id="<?php echo $val['user_info']['uid']; ?>" href="people/<?php echo $val['user_info']['url_token']; ?>" rel="nofollow"><img src="<?php echo get_avatar_url($val['user_info']['uid'], 'max'); ?>" alt="" /></a><?php } else { ?><a class="aw-user-name hidden-xs" href="javascript:;"><img src="<?php echo G_STATIC_URL; ?>/common/avatar-max-img.png" alt="<?php _e('匿名用户'); ?>" title="<?php _e('匿名用户'); ?>" /></a><?php } ?>
 	
 	<div class="aw-question-content">
@@ -11,8 +11,9 @@
 			<a href="article/<?php echo $val['id']; ?>"><?php echo $val['title']; ?></a>
 			<?php } ?>
 			
-			<?php foreach ($val['topics'] AS $t_key => $t_val) { ?>
-				<a href="topic/<?php echo $t_val['url_token']; ?>" class="aw-topic-name" data-id="<?php echo $t_val['topic_id']; ?>"><span><?php echo $t_val['topic_title']; ?></span></a><?php } ?>
+			<?php foreach ($val['topics'] AS $k => $v) { ?>
+				<a href="topic/<?php echo $v['url_token']; ?>" class="aw-topic-name" data-id="<?php echo $v['topic_id']; ?>"><span><?php echo $v['topic_title']; ?></span></a>
+			<?php } ?>
 		</h4>
 		
 		<?php if (is_array($val['answer_users'])) { ?>
