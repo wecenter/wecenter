@@ -57,7 +57,7 @@ $(function(){
             if (!empty($notifications)) {
                 if ($notifications['question_approval']) {
                     $notifications_texts[] = array(
-                                                    'url' => 'admin/approval/list/type-answer',
+                                                    'url' => 'admin/approval/list/',
                                                     'text' => AWS_APP::lang()->_t('有 %s 个问题待审核', $notifications['question_approval'])
                                                 );
                 }
