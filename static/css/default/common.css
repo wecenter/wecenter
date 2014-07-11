@@ -392,7 +392,7 @@ a.aw-load-more-content{display: block;}
 .aw-common-list{width:100%;height:auto;overflow: hidden;}
 .aw-common-list > div + div{border-top:1px dotted #E2E2E2;}
 /* 问题列表回复统计 */
-.aw-common-list .aw-question-content h4{margin:0 0 8px;font-size:14px;}
+.aw-common-list .aw-question-content h4{max-width:550px;margin:0 0 8px;font-size:14px;word-wrap:break-word;}
 .aw-common-list .aw-question-content > span, .aw-common-list .aw-question-content p span{font-size: 12px;font-weight: normal;color: #999;}
 .aw-common-list .aw-question-content .aw-user-name img{max-width: 24px;}
 .aw-common-list .aw-question-content p{margin:0;color: #999;}

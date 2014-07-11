@@ -4,6 +4,8 @@
 	<?php if ($val['anonymous'] == 0) { ?><a class="aw-user-name hidden-xs" data-id="<?php echo $val['user_info']['uid']; ?>" href="people/<?php echo $val['user_info']['url_token']; ?>" rel="nofollow"><img src="<?php echo get_avatar_url($val['user_info']['uid'], 'max'); ?>" alt="" /></a><?php } else { ?><a class="aw-user-name hidden-xs" href="javascript:;"><img src="<?php echo G_STATIC_URL; ?>/common/avatar-max-img.png" alt="<?php _e('匿名用户'); ?>" title="<?php _e('匿名用户'); ?>" /></a><?php } ?>
 	
 	<div class="aw-question-content">
+		<span class="pull-right aw-text-color-999 related-topic hide">来自相关话题</span>
+		
 		<h4>
 			<?php if ($val['question_id']) { ?>
 			<a href="question/<?php echo $val['question_id']; ?>"><?php echo $val['question_content']; ?></a>
@@ -11,9 +13,9 @@
 			<a href="article/<?php echo $val['id']; ?>"><?php echo $val['title']; ?></a>
 			<?php } ?>
 			
-			<?php foreach ($val['topics'] AS $k => $v) { ?>
+			<!--<?php foreach ($val['topics'] AS $k => $v) { ?>
 				<a href="topic/<?php echo $v['url_token']; ?>" class="aw-topic-name" data-id="<?php echo $v['topic_id']; ?>"><span><?php echo $v['topic_title']; ?></span></a>
-			<?php } ?>
+			<?php } ?>-->
 		</h4>
 		
 		<?php if (is_array($val['answer_users'])) { ?>
