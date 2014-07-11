@@ -55,7 +55,6 @@ class question_class extends AWS_MODEL
 		
 		if ($questions[$question_id])
 		{
-
 			$questions[$question_id]['unverified_modify'] = @unserialize($questions[$question_id]['unverified_modify']);
 			
 			if (is_array($questions[$question_id]['unverified_modify']))
@@ -300,7 +299,7 @@ class question_class extends AWS_MODEL
 	{
 		return $this->update('question', array(
 			'unverified_modify' => serialize($unverified_modify)
-		), 'question_id = ' . $question_id);
+		), 'question_id = ' . intval($question_id));
 	}
 	
 	public function track_unverified_modify($question_id, $log_id, $type)
