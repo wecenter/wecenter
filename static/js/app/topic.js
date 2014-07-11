@@ -59,7 +59,6 @@ $(function()
 	{
 		var content_topic = CONTENTS_TOPIC_ID.split(','),
 			content_realate_topic = CONTENTS_RELATED_TOPIC_IDS.split(',');
-		var arr = $.inArray('11', content_realate_topic);
 		$.each(content_topic, function (i, e)
 		{
 			delete content_realate_topic[$.inArray(e, content_realate_topic)]
