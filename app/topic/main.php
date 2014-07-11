@@ -288,10 +288,30 @@ class main extends AWS_CONTROLLER
 		
 		TPL::assign('contents_related_topic_ids', implode(',', $contents_related_topic_ids));
 		
-		TPL::assign('posts_list', $this->model('posts')->get_posts_list(null, 1, get_setting('contents_per_page'), null, array_merge($related_topics_ids, explode(',', $contents_topic_id))));
+		$posts_list = $this->model('posts')->get_posts_list(null, 1, get_setting('contents_per_page'), null, array_merge($related_topics_ids, explode(',', $contents_topic_id)));
+		
+		foreach ($posts_list AS $key => $val)
+		{
+			if ($val['answer_count'])
+			{
+				$posts_list[$key]['answer_users'] = $this->model('question')->get_answer_users_by_question_id($val['question_id'], 2, $val['published_uid']);
+			}
+		}
+		
+		TPL::assign('posts_list', $posts_list);
 		TPL::assign('all_list_bit', TPL::output('explore/ajax/list', false));
 		
-		TPL::assign('posts_list', $this->model('posts')->get_posts_list(null, 1, get_setting('contents_per_page'), null, array_merge($related_topics_ids, explode(',', $contents_topic_id)), null, null, 30, true));
+		$posts_list = $this->model('posts')->get_posts_list(null, 1, get_setting('contents_per_page'), null, array_merge($related_topics_ids, explode(',', $contents_topic_id)), null, null, 30, true);
+		
+		foreach ($posts_list AS $key => $val)
+		{
+			if ($val['answer_count'])
+			{
+				$posts_list[$key]['answer_users'] = $this->model('question')->get_answer_users_by_question_id($val['question_id'], 2, $val['published_uid']);
+			}
+		}
+		
+		TPL::assign('posts_list', $posts_list);
 		TPL::assign('recommend_list_bit', TPL::output('explore/ajax/list', false));
 		
 		TPL::assign('list', $this->model('topic')->get_topic_best_answer_action_list($contents_topic_id, $this->user_id, get_setting('contents_per_page')));
@@ -307,8 +327,6 @@ class main extends AWS_CONTROLLER
 		TPL::assign('contents_topic_title', $contents_topic_title);
 		
 		TPL::assign('log_list', $log_list);
-		
-		TPL::import_js('js/ajaxupload.js');
 		
 		TPL::assign('redirect_message', $redirect_message);
 		

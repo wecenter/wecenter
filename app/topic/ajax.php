@@ -35,7 +35,7 @@ class ajax extends AWS_CONTROLLER
 		return $rule_action;
 	}
 
-	function setup()
+	public function setup()
 	{
 		HTTP::no_cache_header();
 	}
