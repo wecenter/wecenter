@@ -73,7 +73,7 @@
                 </div>
                 </form>
             </div>
-		
+
             <div class="col-md-5">
             <div class="mod">
                 <div class="aw-message-box topic">
@@ -84,15 +84,15 @@
                         <form action="admin/ajax/add_nav_menu/" method="post">
                             <input type="hidden" name="type" value="category">
                             <select name="type_id" class="form-control pull-left input-small">
-								<option value="0"><?php _e('无'); ?></option>
-								<?php echo $this->category_list; ?>
+                                <option value="0"><?php _e('无'); ?></option>
+                                <?php echo $this->category_list; ?>
                             </select>
                             <a onclick="AWS.ajax_post($(this).parents('form'));" class="btn btn-primary"><?php _e('添加至导航菜单'); ?></a>
                         </form>
                     </div>
                 </div>
             </div>
-			
+
             <div class="mod">
                 <div class="aw-message-box define-link">
                     <div class="mod-set-head">
@@ -126,13 +126,13 @@
 
 <script type="text/javascript">
 $(document).ready(function () {
-	<?php if ($this->nav_menu_list) { ?>
-	<?php foreach($this->nav_menu_list as $key => $val) { ?>
-		<?php if ($val['title']) { ?>
-		AWS.Init.init_img_uploader(G_BASE_URL + '/admin/ajax/nav_menu_upload/<?php echo $val['id']; ?>', 'attach', $('#aw-nav-menu-img-upload-<?php echo $val['id']; ?>'), null, $('#aw-nav-menu-img-<?php echo $val['id']; ?>'));
-		<?php } ?>
-	<?php } ?>
-	<?php } ?>
+    <?php if ($this->nav_menu_list) { ?>
+    <?php foreach($this->nav_menu_list as $key => $val) { ?>
+        <?php if ($val['title']) { ?>
+        AWS.Init.init_img_uploader(G_BASE_URL + '/admin/ajax/nav_menu_upload/<?php echo $val['id']; ?>', 'attach', $('#aw-nav-menu-img-upload-<?php echo $val['id']; ?>'), null, $('#aw-nav-menu-img-<?php echo $val['id']; ?>'));
+        <?php } ?>
+    <?php } ?>
+    <?php } ?>
 });
 </script>
 
