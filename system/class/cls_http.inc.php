@@ -66,10 +66,17 @@ class HTTP
 
 	public static function error_404()
 	{
-		header('HTTP/1.1 404 Not Found');
+		if ($_POST['_post_type'] == 'ajax')
+		{
+			H::ajax_json_output(self::RSM(null, -1, 'HTTP/1.1 404 Not Found'));
+		}
+		else
+		{
+			header('HTTP/1.1 404 Not Found');
 
-		TPL::output('global/error_404');
-		exit;
+			TPL::output('global/error_404');
+			exit;
+		}
 	}
 
 	public static function parse_redirect_url($url)
