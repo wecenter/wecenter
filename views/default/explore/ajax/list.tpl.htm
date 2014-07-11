@@ -48,6 +48,8 @@
 			<?php } else { ?>
 				<a href="people/<?php echo $val['user_info']['url_token']; ?>" class="aw-user-name"><?php echo $val['user_info']['user_name']; ?></a> <span class="aw-text-color-999"><?php _e('发表了文章'); ?> • <?php _e('%s 个评论', $val['comments']); ?> • <?php _e('%s 次浏览', $val['views']); ?> • <?php echo date_friendly($val['add_time']); ?></span>
 			<?php } ?>
+
+			<span class="pull-right aw-text-color-999 related-topic hide">来自相关话题</span>
 		</p>
 		
 		<?php if (!$val['question_id']) { ?>
