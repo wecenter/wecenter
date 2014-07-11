@@ -137,15 +137,19 @@
 							<span class="aw-text-color-999"><?php echo date_friendly($this->question_info['add_time']); ?></span>
 
 							<a herf="javascript:;" data-id="<?php echo $this->question_info['question_id']; ?>" data-type="question" class="aw-add-comment aw-text-color-999 <?php if ($this->question_info['comment_count'] > 0) {?>active<?php }?>" data-comment-count="<?php echo $this->question_info['comment_count']; ?>" data-first-click="<?php if ($this->question_info['comment_count'] == 0) {?>hide<?php }?>"><i class="fa fa-comment"></i><?php if ($this->question_info['comment_count']) { ?><?php _e('%s 条评论', $this->question_info['comment_count']); ?><?php } else { ?><?php _e('添加评论'); ?><?php } ?></a>
+							
 							<?php if ($this->user_id) { ?>
 							<a class="aw-text-color-999 aw-invite-replay"><i class="fa fa-retweet"></i><?php _e('邀请回答'); ?> <?php if (sizeof($this->invite_users) > 0){ ?><em class="badge badge-info"><?php echo count($this->invite_users); ?></em><?php } ?></a>
 							<?php } ?>
+							
 							<?php if ((!$this->question_info['lock'] AND ($this->question_info['published_uid'] == $this->user_id OR $this->user_info['permission']['edit_question'])) OR $this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?><a class="aw-text-color-999" href="publish/<?php echo $this->question_info['question_id']; ?>"><i class="fa fa-edit"></i><?php _e('编辑'); ?></a><?php } ?>
-							<?php if ($this->question_info['unverified_modify_count']) { ?><a href="question/<?php echo $this->question_info['question_id']; ?>?column=log&rf=false" class="aw-text-color-999 aw-question-wait-edit"><i class="icon-check"></i><?php _e('待确认修改'); ?> <em class="badge badge-info"><?php echo $this->question_info['unverified_modify_count']; ?></em></a><?php } ?>
+							<?php if ($this->user_id AND $this->question_info['unverified_modify_count']) { ?><a href="question/<?php echo $this->question_info['question_id']; ?>?column=log&rf=false" class="aw-text-color-999 aw-question-wait-edit"><i class="icon-check"></i><?php _e('待确认修改'); ?> <em class="badge badge-info"><?php echo $this->question_info['unverified_modify_count']; ?></em></a><?php } ?>
+							
 							<?php if ($this->user_id) { ?><a href="javascript:;" class="aw-text-color-999" onclick="AWS.dialog('report', {item_type:'question', item_id:<?php echo $this->question_info['question_id']; ?>})"><i class="fa fa-flag"></i><?php _e('举报'); ?></a><?php } ?>
-							<?php if ($this->user_id != $this->question_info['published_uid'] AND $this->user_id) { ?>
-							<a <?php if (!$this->question_thanks) { ?>data-placement="bottom" title="" data-toggle="tooltip" data-original-title="<?php _e('感谢提问者'); ?>" onclick="AWS.User.question_thanks($(this), <?php echo $this->question_info['question_id']; ?>);"<?php } ?> class="aw-icon-thank-tips aw-text-color-999"><i class="fa fa-heart"></i><?php if ($this->question_thanks) { ?><?php _e('已感谢'); ?><?php } else { ?><?php _e('感谢'); ?><?php } ?></a>
+							
+							<?php if ($this->user_id != $this->question_info['published_uid'] AND $this->user_id) { ?><a <?php if (!$this->question_thanks) { ?>data-placement="bottom" title="" data-toggle="tooltip" data-original-title="<?php _e('感谢提问者'); ?>" onclick="AWS.User.question_thanks($(this), <?php echo $this->question_info['question_id']; ?>);"<?php } ?> class="aw-icon-thank-tips aw-text-color-999"><i class="fa fa-heart"></i><?php if ($this->question_thanks) { ?><?php _e('已感谢'); ?><?php } else { ?><?php _e('感谢'); ?><?php } ?></a>
 							<?php } ?>
+							
 							<a class="aw-text-color-999" onclick="AWS.dialog('shareOut', {item_type:'question', item_id:<?php echo $this->question_info['question_id']; ?>});"><i class="fa fa-share"></i><?php _e('分享'); ?></a>
 							
 							<?php if ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator'] OR $this->user_id == $this->question_info['published_uid']) { ?>
