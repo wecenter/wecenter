@@ -51,4 +51,32 @@ $(function()
 
 	//话题问题搜索下拉绑定
 	AWS.Dropdown.bind_dropdown_list($('.aw-topic-search #question-input'), 'topic_question');
+
+	check_about_topic($('#c_all_list .aw-item'));
+	check_about_topic($('#c_recommend_list .aw-item'));
+
+	function check_about_topic (selector)
+	{
+		var content_topic = CONTENTS_TOPIC_ID.split(','),
+			content_realate_topic = CONTENTS_RELATED_TOPIC_IDS.split(',');
+		var arr = $.inArray('11', content_realate_topic);
+		$.each(content_topic, function (i, e)
+		{
+			delete content_realate_topic[$.inArray(e, content_realate_topic)]
+		});
+
+		$.each(selector, function (i, e)
+		{
+			var arr = $(this).attr('data-topic-id').split(','), _this = $(this);
+			$.each(arr, function (i, e)
+			{
+				if ($.inArray(e, content_realate_topic))
+				{
+					_this.find('.aw-question-content p').append('<span class="pull-right aw-text-color-999">来自相关话题</span>');
+					return false;
+				}
+			});
+		});
+
+	}
 });
