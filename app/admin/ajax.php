@@ -842,14 +842,14 @@ class ajax extends AWS_ADMIN_CONTROLLER
             H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('话题不存在')));
         }
 
-        $topic_info = $this->model('topic')->get_topic_by_id($_POST['topic_id']);
-
         if ($topic_info['topic_title'] != $_POST['topic_title'] AND $this->model('topic')->get_topic_by_title($_POST['topic_title']))
         {
             H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('同名话题已经存在')));
         }
 
         $this->model('topic')->update_topic($this->user_id, $_POST['topic_id'], $_POST['topic_title'], $_POST['topic_description']);
+        
+        $this->model('topic')->set_is_parent($_POST['topic_id'], $_POST['is_parent']);
 
         $this->model('topic')->lock_topic_by_ids($_POST['topic_id'], $_POST['topic_lock']);
 

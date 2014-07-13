@@ -1296,4 +1296,11 @@ class topic_class extends AWS_MODEL
 
 		return $result;
 	}
+	
+	public function set_is_parent($topic_id, $is_parent)
+	{
+		return $this->update('topic', array(
+			'is_parent' => intval($is_parent)
+		), 'topic_id = ' . intval($topic_id));
+	}
 }
