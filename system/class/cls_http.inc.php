@@ -68,7 +68,7 @@ class HTTP
 	{
 		if ($_POST['_post_type'] == 'ajax')
 		{
-			H::ajax_json_output(self::RSM(null, -1, 'HTTP/1.1 404 Not Found'));
+			H::ajax_json_output(AWS_APP::RSM(null, -1, 'HTTP/1.1 404 Not Found'));
 		}
 		else
 		{

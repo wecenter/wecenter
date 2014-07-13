@@ -171,8 +171,6 @@ class topic extends AWS_ADMIN_CONTROLLER
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('话题不存在')));
 		}
-		
-		$topic_info = $this->model('topic')->get_topic_by_id($_GET['topic_id']);
 			
 		if ($topic_info['topic_title'] != $_POST['topic_title'] AND $this->model('topic')->get_topic_by_title($_POST['topic_title']))
 		{
