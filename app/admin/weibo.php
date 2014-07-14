@@ -29,7 +29,10 @@ class weibo extends AWS_ADMIN_CONTROLLER
 
         if (!empty($services_info))
         {
-            $service_uids = array_column($services_info, 'uid');
+            foreach ($services_info AS $service_info)
+            {
+                $service_uids[] = $service_info['uid'];
+            }
 
             $service_users_info = $this->model('account')->get_user_info_by_uids($service_uids);
 
