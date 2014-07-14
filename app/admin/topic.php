@@ -116,14 +116,33 @@ class topic extends AWS_ADMIN_CONTROLLER
 			'per_page' => $this->per_page
 		))->create_links());
 
-		$this->crumb(AWS_APP::lang()->_t('话题管理'), "admin/topic/list/");
-
-		TPL::assign('today_topics', get_setting('today_topics'));
+		$this->crumb(AWS_APP::lang()->_t('话题管理'), 'admin/topic/list/');
+		
 		TPL::assign('topics_count', $total_rows);
 		TPL::assign('search_url', $search_url);
 		TPL::assign('list', $topic_list);
 		TPL::assign('topic_log', $topic_log);
-		TPL::output("admin/topic/list");
+		
+		TPL::output('admin/topic/list');
+	}
+	
+	public function parent_action()
+	{
+		$this->crumb(AWS_APP::lang()->_t('根话题'), 'admin/topic/parent/');
+		
+		$topic_list = $this->model('topic')->get_topic_list('is_parent = 1', 'topic_id DESC', $this->per_page, $_GET['page']);
+
+		$total_rows = $this->model('topic')->found_rows();
+		
+		TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
+			'base_url' => get_js_url('/admin/topic/parent/',
+			'total_rows' => $total_rows,
+			'per_page' => $this->per_page
+		))->create_links());
+		
+		TPL::assign('list', $topic_list);
+		
+		TPL::output('admin/topic/parent');
 	}
 
 	public function edit_action()

@@ -11,10 +11,11 @@
 <p><?php echo $this->message;?></p>
 
 <?php if ($this->link) { ?>
-<p class="answer" style="border-top: 1px solid #DDDDDD;margin: 15px 0 25px;padding: 15px;">
+<p style="border-top: 1px solid #DDDDDD;margin: 15px 0 25px;padding: 15px;">
 <?php _e('请点击链接继续'); ?>: <a href="<?php echo $this->link; ?>" target="_blank"><?php echo $this->link_title ? $this->link_title : $this->link; ?></a>
 <p>
 <?php } ?>
+
 <p class="footer" style="border-top: 1px solid #DDDDDD; padding-top:6px; margin-top:25px; color:#838383;"><?php _e('请勿回复本邮件, 此邮箱未受监控, 您不会得到任何回复. 要获得帮助, 请登录网站'); ?> | <a href="<?php echo get_js_url('/account/setting/privacy/'); ?>" target="_blank"><?php _e('修改通知设置'); ?></a><br /><br /><a href="<?php echo base_url(); ?>" target="_blank"><?php echo get_setting('site_name'); ?></a></p>
 </div>
 </div>
