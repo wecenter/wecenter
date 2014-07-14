@@ -175,7 +175,7 @@
 			<?php } else if ((get_setting('answer_self_question') == 'N') && ($this->user_id == $this->question_info['published_uid'])) { ?>
 			<p align="center"><?php _e('不能回复自己发布的问题, 你可以修改问题内容'); ?></p>
 			<?php } else { ?>
-			<form action="question/ajax/save_answer/" onsubmit="return false;" method="post" id="answer_form" class="form-inline">
+			<form action="question/ajax/save_answer/" onsubmit="return false;" method="post" id="answer_form">
 				<input type="hidden" name="attach_access_key" value="<?php echo $this->attach_access_key; ?>" />
 				<input type="hidden" name="post_hash" value="<?php echo new_post_hash(); ?>" />
 				<input type="hidden" name="question_id" value="<?php echo $this->question_info['question_id']; ?>" />
@@ -202,12 +202,6 @@
 				<div class="mod-footer">
 					<a class="btn btn-success btn-normal pull-right" onclick="AWS.ajax_post($('#answer_form'));"><?php _e('回复'); ?></a>
 
-					<!-- 上传控件 -->
-		            <div class="aw-upload-box">
-		                <a class="icon icon-pic"></a>
-		            </div>
-		            <!-- end 上传控件 -->
-					
 					<?php if ($this->human_valid) { ?>
 					<div class="captcha pull-right clearfix">
 						<input type="text" class="form-control" name="seccode_verify" placeholder="<?php _e('验证码'); ?>" />
@@ -215,6 +209,12 @@
 					</div>
 					<?php } ?>
 
+					<!-- 上传控件 -->
+		            <div class="aw-upload-box">
+		                <a class="icon icon-pic"></a>
+		            </div>
+		            <!-- end 上传控件 -->
+					
 		            <div class="upload-container"></div>
 
 				</div>
