@@ -1,5 +1,39 @@
 <?php TPL::output('m/header.tpl.htm'); ?>
-<?php TPL::output('m/global_header.tpl.htm'); ?>
+
+<!-- top-nav -->
+<div class="top-nav">
+	<ul>
+		<li>
+			<a href="m/" class="active">最新动态 <i class="icon-tips"></i></a>
+		</li>
+		<li>
+			<a href="m/notifications/">消息通知</a>
+		</li>
+	</ul>
+</div>
+<!-- end top-nav -->
+
+<!-- 提示 -->
+<div class="alert aw-info"><a>36 条新动态，点击查看</a></div>
+<!-- end 提示 -->
+
+<!-- 内容 -->
+<div class="container">
+	<!-- 动态列表 -->
+	<div class="aw-feed-list">
+		<div class="mod-body">
+			<ul id="index_listview"></ul>
+		</div>
+		<div class="mod-footer">
+			<a id="load_index_actions" class="aw-load-more"><i class="icon icon-loading fa-spin"></i> <span><?php _e('更多'); ?></span></a>
+		</div>
+	</div>
+	<!-- end 动态列表 -->
+	
+	<?php TPL::output('m/nav_menu.tpl.htm'); ?>
+
+</div>
+<!-- end 内容 -->
 
 <div class="aw-content">
 	<!-- 新消息通知 -->
@@ -19,17 +53,8 @@
 		</div>
 	</div>
 	<!-- end 新消息通知 -->
-
-	<div class="aw-title">
-		<h2><?php _e('最新动态'); ?></h2>
-	</div>
-	<div class="feed-list">
-		<ul id="index_listview"></ul>
-		<a href="javascript:;" id="load_index_actions" class="aw-load-more"><?php _e('更多'); ?></a>
-	</div>
 </div>
 
-<?php TPL::output('m/nav_menu.tpl.htm'); ?>
 
 <script type="text/javascript">
 	$(document).ready(function () {

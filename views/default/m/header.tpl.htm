@@ -1,60 +1,183 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8" />
-	<meta name="robots" content="noarchive" />
-	<meta content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0" name="viewport">
-	<!--<meta name="apple-mobile-web-app-capable" content="yes" />
-	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
-	<link rel="apple-touch-startup-image" href="/startup.png" />
-	<link rel="apple-touch-startup-image" sizes="640x1096" href="/startup_5.png" />-->
-	<meta name="description" content="<?php echo $this->_meta_description; ?>" />
-	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?php echo G_STATIC_URL; ?>/common/apple_touch_icon.png" />
-	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?php echo G_STATIC_URL; ?>/common/apple_touch_icon_114x114.png" />
-	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?php echo G_STATIC_URL; ?>/common/apple_touch_icon_72x72.png" />
-	<link rel="apple-touch-icon-precomposed" href="<?php echo G_STATIC_URL; ?>/common/apple_touch_icon_57x57.png" />
-	
-	<link href="<?php echo G_STATIC_URL; ?>/css/bootstrap.css" rel="stylesheet" type="text/css" />
-	<link href="<?php echo G_STATIC_URL; ?>/css/font-awesome.css" rel="stylesheet" type="text/css" />
-	
-	<?php if (is_array($this->_import_css_files)) { ?>
-	<?php foreach ($this->_import_css_files AS $import_css) { ?>
-	<link href="<?php echo $import_css; ?>?v=<?php echo G_VERSION_BUILD; ?>" rel="stylesheet" type="text/css" />
-	<?php } ?>
-	<?php } ?>
-	
-	<?php $post_hash_var_name = strtoupper(md5(time() . $this->userinfo['salt'])); ?>
-	<script type="text/javascript">
-		var _<?php echo $post_hash_var_name; ?>='<?php echo new_post_hash(); ?>';
-		var G_POST_HASH=_<?php echo $post_hash_var_name; ?>;
-		var G_INDEX_SCRIPT = '<?php if (get_setting('url_rewrite_enable') != 'Y') { ?><?php echo G_INDEX_SCRIPT; ?><?php } ?>';
-		var G_SITE_NAME = '<?php echo addcslashes(get_setting('site_name'), "'"); ?>';
-		var G_BASE_URL = '<?php echo base_url(); ?>/<?php echo rtrim(G_INDEX_SCRIPT, '/'); ?>';
-		var G_STATIC_URL = '<?php echo G_STATIC_URL; ?>';
-		var G_UPLOAD_ENABLE = '<?php echo get_setting('upload_enable'); ?>';
-		var G_UPLOAD_URL = '<?php echo get_setting('upload_url'); ?>';
-		var G_USER_ID = '<?php echo $this->user_id; ?>';
-		var G_USER_NAME = '<?php echo addcslashes($this->user_info['user_name'], "'"); ?>';
-		var G_UNREAD_NOTIFICATION = 0;
-		var G_NOTIFICATION_INTERVAL = <?php echo intval(get_setting('unread_flush_interval')) * 1000; ?>;
-		
-		<?php if (human_valid('question_valid_hour')) { ?>
-		var G_QUICK_PUBLISH_HUMAN_VALID = true;
-		<?php } ?>
-		<?php if (in_weixin()) { ?>
-		var G_IN_WEIXIN = true;
-		<?php } ?>
-		var WEIXIN_APP_ID = '<?php echo get_setting('weixin_app_id'); ?>';
-		var WEIXIN_APP_USER = '<?php echo get_setting('weixin_account_role'); ?>';
+<?php TPL::output('m/header_meta.tpl.htm'); ?>
 
-	</script>
-	
-	<?php if (is_array($this->_import_js_files)) { ?>
-	<?php foreach ($this->_import_js_files AS $import_js) { ?>
-	<script src="<?php echo $import_js; ?>?v=<?php echo G_VERSION_BUILD; ?>" type="text/javascript"></script>
-	<?php } ?>
-	<?php } ?>
-	
-	<title><?php echo $this->page_title; ?></title>
-</head>
-<body class="<?php echo $this->body_class; ?>">
+<!-- nav -->
+<div class="nav">
+	<ul>
+		<?php if ($this->user_id) { ?>
+		<li>
+			<a href="m/"><i class="icon icon-home"></i><?php _e('首页'); ?></a>
+		</li>
+		<?php } ?>
+		<li>
+			<a href="m/explore/"><i class="icon icon-list"></i><?php _e('发现'); ?></a>
+		</li>
+		<?php if (!$this->user_id) { ?>
+		<li>
+			<a href="m/topic_square/"><i class="icon icon-topic"></i><?php _e('话题'); ?></a>
+		</li>
+		<?php } ?>
+		<li>
+			<a href="m/publish/"><i class="icon icon-ask"></i><?php _e('提问'); ?></a>
+		</li>
+		<?php if (!$this->user_id) { ?>
+		<li>
+			<a href=""><i class="icon icon-search"></i><?php _e('搜索'); ?></a>
+		</li>
+		<?php }?>
+		<li>
+			<a class="user"><span class="triangle"></span><i class="icon icon-user"></i><?php _e('我'); ?></a>
+		</li>
+		<?php if ($this->user_id) { ?>
+		<li>
+			<a class="more"><span class="triangle"></span><i class="icon icon-more"></i><?php _e('更多'); ?></a>
+		</li>
+		<?php } ?>
+	</ul>
+	<div class="aw-popover user active">
+		<ul>
+			<?php if (!$this->user_id) { ?>
+				<li>
+					<a href="m/login/">
+						<span class="label">
+							<i class="icon icon-login"></i>
+						</span>
+						<?php _e('登录'); ?>
+					</a>
+				</li>
+				<?php if (get_setting('sina_weibo_enabled') == 'Y') { ?>
+				<li>
+					<a href="">
+						<span class="label">
+							<i class="icon icon-weibo"></i>
+						</span>
+						<?php _e('微博登录'); ?>
+					</a>
+				</li>
+				<?php } ?>
+				<?php if (get_setting('qq_login_enabled') == 'Y') { ?>
+				<li>
+					<a href="">
+						<span class="label">
+							<i class="icon icon-qq"></i>
+						</span>
+						<?php _e('QQ登录'); ?>
+					</a>
+				</li>
+				<?php } ?>
+				<li>
+					<a href="m/register/">
+						<span class="label">
+							<i class="icon icon-signup"></i>
+						</span>
+						<?php _e('注册'); ?>
+					</a>
+				</li>
+			<?php } else { ?>
+			<li>
+				<a href="people/<?php echo $this->user_info['url_token']; ?>">
+					<span class="label">
+						<img class="img" alt="<?php echo $this->user_info['user_name']; ?>" src="<?php echo get_avatar_url($this->user_info['uid'], 'mid'); ?>" />
+					</span>
+					<?php echo $this->user_info['user_name']; ?>
+					<?php if ($this->user_info['inbox_unread'] != 0) {?>
+						<span class="badge badge-important"><?php echo $this->user_info['inbox_unread']?></span>
+					<?php } ?>
+							
+				</a>
+			</li>
+			<li>
+				<a href="m/inbox/">
+					<span class="label">
+						<i class="icon icon-inbox"></i>
+					</span>
+					<?php _e('私信'); ?>
+				</a>
+			</li>
+			<li>
+				<a href="m/settings/">
+					<span class="label">
+						<i class="icon icon-setting"></i>
+					</span>
+					<?php _e('设置'); ?>
+				</a>
+			</li>
+			<li>
+				<a href="account/logout/">
+					<span class="label">
+						<i class="icon icon-logout"></i>
+					</span>
+					<?php _e('退出'); ?>
+				</a>
+			</li>
+			<?php } ?>
+		</ul>
+	</div>
+	<div class="aw-popover more">
+		<ul>
+			<li>
+				<a href="m/search/">
+					<span class="label">
+						<i class="icon icon-search"></i>
+					</span>
+					<?php _e('搜索'); ?>
+				</a>
+			</li>
+			<li>
+				<a href="m/people_list/">
+					<span class="label">
+						<i class="icon icon-user"></i>
+					</span>
+					<?php _e('用户'); ?>
+				</a>
+			</li>
+			<li>
+				<a href="m/topic_square/">
+					<span class="label">
+						<i class="icon icon-topic"></i>
+					</span>
+					<?php _e('话题'); ?>
+				</a>
+			</li>
+		</ul>
+	</div>
+</div>
+<!-- end nav -->
+
+<!-- 导航 -->
+<!-- <nav>
+	<ul>
+		<li><a href="m/"><?php _e('首页'); ?></a></li>
+		<li><a href="m/explore/"><?php _e('发现'); ?></a></li>
+		<li><a href="m/topic_square/"><?php _e('话题'); ?></a></li>
+		<li><a href="m/people_list/"><?php _e('用户'); ?></a></li>
+		<?php if ($this->user_id) { ?>
+		<li id="aw-top-nav-profile"><a><?php _e('我'); ?></a><i class="fa fa-caret-down"></i></li>
+		<?php } else { ?>
+		<li><a href="m/login/"><?php _e('我'); ?></a></li>
+		<?php } ?>
+	</ul>
+	<!-- 导航下拉内容 -->
+	<!-- <div class="aw-top-nav-wrap">
+		<!-- 导航下拉 我 -->
+		<div class="aw-top-nav-popup aw-top-nav-profile hide">
+			<ul>
+				<li>
+					<a href="m/people/"><?php _e('我的主页'); ?></a>
+				</li>
+				<li>
+					<a href="m/inbox/"><?php _e('私信'); ?><?php if ($this->user_info['inbox_unread']) { ?><span class="badge badge-info"><?php echo $this->user_info['inbox_unread']; ?></span><?php } ?></a>
+				</li>
+				<li>
+					<a href="m/settings/"><?php _e('设置'); ?></a>
+				</li>
+				<li>
+					<a href="account/logout/"><?php _e('退出'); ?></a>
+				</li>
+			</ul>
+			<span class="slide-close" onclick="$(this).parents('.aw-top-nav-popup').hide();"><i class="fa fa-angle-up"></i></span>
+		</div>
+		<!-- end 导航下拉 我 -->
+	<!--</div> -->
+	<!-- end 导航下拉内容 -->
+<!--</nav> -->
+<!-- end 导航 -->
