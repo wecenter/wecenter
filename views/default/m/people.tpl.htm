@@ -181,7 +181,6 @@
 
 			<!-- 个人资料 -->
 			<div class="tab-pane" id="profile">
-				<!-- 个人资料 -->
 				<div class="mod card-mod people-profile">
 					<div class="mod-head">
 						<h2><?php _e('个人资料'); ?></h2>
@@ -190,26 +189,30 @@
 						<ul>
 							<li>
 								<i class="icon icon-location"></i>
-								<span class="color-666"> 现居 :</span> 广东省 深圳市
+								<span class="color-666"> <?php _e('现居'); ?> :</span> 
+								<?php if ($this->user['province']) { ?>
+									<?php echo $this->user['province']; ?>
+									<?php echo $this->user['city']; ?>
+								<?php } ?>
 							</li>
 							<li>
 								<i class="icon icon-job"></i>
-								<span class="color-666"> 职业 :</span> 程序猿
+								<span class="color-666"> <?php _e('职业'); ?> :</span> <?php if ($this->job_name) { ?><?php echo $this->job_name; ?><?php } ?>
 							</li>
 							<li>
 								<i class="icon icon-bind"></i>
-								<span class="color-666">绑定 :</span> <a href="">新浪微博</a>
+								<span class="color-666"><?php _e('绑定'); ?>  :</span>
+								<?php if ((get_setting('qq_t_enabled') == 'Y' OR get_setting('sina_weibo_enabled') == 'Y') AND ($this->sina_weibo_url OR $this->qq_weibo_url)) { ?>
+									<?php if ($this->sina_weibo_url AND get_setting('sina_weibo_enabled') == 'Y') { ?><a href="<?php if ($this->sina_weibo_url) { ?><?php echo $this->sina_weibo_url; ?><?php } else { ?>javascript:;<?php } ?>" title="<?php _e('新浪微博'); ?>">新浪微博</a><?php } ?>
+									<?php if ($this->qq_weibo_url AND get_setting('qq_t_enabled') == 'Y') { ?><a href="<?php if ($this->user_info['weibo_visit']) { ?><?php echo $this->qq_weibo_url; ?><?php } else { ?>javascript:;<?php } ?>" title="<?php _e('腾讯微博'); ?>">腾讯微博</a><?php } ?>
+								<?php } ?>
 							</li>
 						</ul>
 					</div>
 				</div>
-				<!-- end 个人资料 -->
 			</div>
 			<!-- end 个人资料 -->
 		</div>
-		<!-- 参与列表 -->
-
-		<!-- end 参与列表 -->
 	</div>
 </div>
 <!-- end 内容 -->

@@ -1342,6 +1342,27 @@ function _t(string, replace)
 	        {
 	            textObj.value += textFeildValue;
 	        }
+	    },
+
+	    highText: function (searchWords, htmlTag, tagClass)
+	    {
+	        return this.each(function ()
+	        {
+	            $(this).html(function high(replaced, search, htmlTag, tagClass)
+	            {
+	                var pattarn = search.replace(/\b(\w+)\b/g, "($1)").replace(/\s+/g, "|");
+
+	                return replaced.replace(new RegExp(pattarn, "ig"), function (keyword)
+	                {
+	                    return $("<" + htmlTag + " class=" + tagClass + ">" + keyword + "</" + htmlTag + ">").outerHTML();
+	                });
+	            }($(this).text(), searchWords, htmlTag, tagClass));
+	        });
+	    },
+	    
+	    outerHTML: function (s)
+	    {
+	        return (s) ? this.before(s).remove() : jQuery("<p>").append(this.eq(0).clone()).html();
 	    }
     });
 

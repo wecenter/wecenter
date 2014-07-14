@@ -793,12 +793,10 @@ class main extends AWS_CONTROLLER
 
 		$this->crumb($keyword, 'm/search/q-' . urlencode($keyword));
 
-		if (!$keyword)
-		{
-			HTTP::redirect('/m/');
-		}
+		TPL::assign('body_class', 'active');
 
 		TPL::assign('keyword', $keyword);
+		
 		TPL::assign('split_keyword', implode(' ', $this->model('system')->analysis_keyword($keyword)));
 
 		TPL::output('m/search');
@@ -1001,6 +999,8 @@ class main extends AWS_CONTROLLER
 		TPL::import_js(array(
 			'js/fileupload.js'
 		));
+
+		TPL::assign('body_class', 'active');
 
 		TPL::assign('human_valid', human_valid('question_valid_hour'));
 

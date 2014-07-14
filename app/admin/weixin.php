@@ -387,7 +387,7 @@ class weixin extends AWS_ADMIN_CONTROLLER
 
         if (!is_array($groups))
         {
-            H::redirect_msg(AWS_APP::lang()->_t('获取微信分组失败, 错误信息:<br />%s', $groups));
+            H::redirect_msg(AWS_APP::lang()->_t('获取微信分组失败, 错误为: %s', $groups));
         }
 
         TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(804));
