@@ -1539,7 +1539,10 @@ class weixin_class extends AWS_MODEL
                 return $result['message'];
             }
 
-            $groups = array_combine(array_column($result['groups'], 'id'), $result['groups']);
+            foreach ($result['groups'] AS $group)
+            {
+                $groups[$group['id']] = $group;
+            }
 
             AWS_APP::cache()->set('weixin_groups', $groups, get_setting('cache_level_normal'));
         }
@@ -1585,7 +1588,12 @@ class weixin_class extends AWS_MODEL
             return false;
         }
 
-        $users_info = $this->model('account')->get_user_info_by_uids(array_column($articles_info, 'uid'));
+        foreach ($articles_info AS $article_info)
+        {
+            $published_uids[] = $article_info['uid'];
+        }
+
+        $users_info = $this->model('account')->get_user_info_by_uids($published_uids);
 
         foreach ($articles_info AS $article_info)
         {
@@ -1628,7 +1636,12 @@ class weixin_class extends AWS_MODEL
             return false;
         }
 
-        $users_info = $this->model('account')->get_user_info_by_uids(array_column($questions_info, 'published_uid'));
+        foreach ($questions_info AS $question_info)
+        {
+            $published_uids[] = $question_info['uid'];
+        }
+
+        $users_info = $this->model('account')->get_user_info_by_uids($published_uids);
 
         foreach ($questions_info AS $question_info)
         {
@@ -1656,9 +1669,9 @@ class weixin_class extends AWS_MODEL
                                             );
 
             $this->to_save_questions[$question_info['question_id']] = array(
-                                                                    'id' => $question_info['question_id'],
-                                                                    'title' => $question_info['question_content']
-                                                                );
+                                                                            'id' => $question_info['question_id'],
+                                                                            'title' => $question_info['question_content']
+                                                                        );
         }
     }
 

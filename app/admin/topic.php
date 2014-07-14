@@ -96,9 +96,11 @@ class topic extends AWS_ADMIN_CONTROLLER
 				$topic_list[$key]['last_edited_uid'] = $action_log['uid'];
 
 				$topic_list[$key]['last_edited_time'] = $action_log['add_time'];
+
+				$last_edited_uids[] = $topic_list[$key]['last_edited_uid'];
 			}
 
-			$users_info_query = $this->model('account')->get_user_info_by_uids(array_column($topic_list, 'last_edited_uid'));
+			$users_info_query = $this->model('account')->get_user_info_by_uids($last_edited_uids);
 
 			foreach ($users_info_query AS $user_info)
 			{
