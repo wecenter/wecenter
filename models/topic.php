@@ -1307,8 +1307,28 @@ class topic_class extends AWS_MODEL
 		), 'topic_id = ' . intval($topic_id));
 	}
 	
+	public function set_parent_id($topic_id, $parent_id)
+	{
+		return $this->update('topic', array(
+			'parent_id' => intval($parent_id)
+		), 'topic_id = ' . intval($topic_id));
+	}
+	
 	public function get_parent_topics()
 	{
-		return $this->fetch_all('topic', 'is_parent = 1', 'title ASC');
+		return $this->fetch_all('topic', 'is_parent = 1', 'topic_title ASC');
+	}
+	
+	public function get_child_topic_ids($topic_id)
+	{
+		if ($child_topics = $this->query_all("SELECT topic_id FROM " . get_table('topic') . " WHERE parent_id = " . intval($topic_id)))
+		{
+			foreach ($child_topics AS $key => $val)
+			{
+				$child_topic_ids[] = $val['topic_id'];
+			}
+		}
+		
+		return $child_topic_ids;
 	}
 }
