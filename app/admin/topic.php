@@ -79,7 +79,7 @@ class topic extends AWS_ADMIN_CONTROLLER
 		{
 			foreach ($topic_list AS $topic_info)
 			{
-				$topic_log[$topic_info['topic_id']] = ACTION_LOG::get_action_by_event_id($topic_info['topic_id'], 1, ACTION_LOG::CATEGORY_TOPIC, implode(',', array(
+				$action_log = ACTION_LOG::get_action_by_event_id($topic_info['topic_id'], 1, ACTION_LOG::CATEGORY_TOPIC, implode(',', array(
 					ACTION_LOG::ADD_TOPIC,
 					ACTION_LOG::MOD_TOPIC,
 					ACTION_LOG::MOD_TOPIC_DESCRI,
@@ -87,7 +87,9 @@ class topic extends AWS_ADMIN_CONTROLLER
 					ACTION_LOG::DELETE_TOPIC,
 					ACTION_LOG::ADD_RELATED_TOPIC,
 					ACTION_LOG::DELETE_RELATED_TOPIC
-				)), -1)[0];
+				)), -1);
+				
+				$topic_log[$topic_info['topic_id']] = $action_log[0];
 
 				$user_info = $this->model('account')->get_user_info_by_uid($topic_log[$topic_info['topic_id']]['uid']);
 
