@@ -132,12 +132,13 @@ class topic extends AWS_ADMIN_CONTROLLER
 	{
 		$this->crumb(AWS_APP::lang()->_t('根话题'), 'admin/topic/parent/');
 		
-		$topic_list = $this->model('topic')->get_topic_list('is_parent = 1', 'topic_id DESC', $this->per_page, $_GET['page']);
-
-		$total_rows = $this->model('topic')->found_rows();
+		if ($topic_list = $this->model('topic')->get_topic_list('is_parent = 1', 'topic_id DESC', $this->per_page, $_GET['page']))
+		{
+			$total_rows = $this->model('topic')->found_rows();
+		}
 		
 		TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
-			'base_url' => get_js_url('/admin/topic/parent/',
+			'base_url' => get_js_url('/admin/topic/parent/'),
 			'total_rows' => $total_rows,
 			'per_page' => $this->per_page
 		))->create_links());
