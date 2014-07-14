@@ -1374,9 +1374,9 @@ class weixin_class extends AWS_MODEL
             return AWS_APP::lang()->_t('远程服务器忙,请稍后再试');
         }
 
-        if ($result['status'] == 'error')
+        if ($result['errcode'] != 0)
         {
-            return $result['message'];
+            return $result['errmsg'];
         }
     }
 
@@ -1534,9 +1534,9 @@ class weixin_class extends AWS_MODEL
                 return AWS_APP::lang()->_t('远程服务器忙');
             }
 
-            if ($result['status'] == 'error')
+            if ($result['errcode'])
             {
-                return $result['message'];
+                return $result['errmsg'];
             }
 
             foreach ($result['groups'] AS $group)
@@ -1559,7 +1559,7 @@ class weixin_class extends AWS_MODEL
             return AWS_APP::lang()->_t('远程服务器忙');
         }
 
-        if ($result['errmsg'])
+        if ($result['errcode'])
         {
             return $result['errmsg'];
         }
@@ -1606,7 +1606,7 @@ class weixin_class extends AWS_MODEL
                 return AWS_APP::lang()->_t('远程服务器忙');
             }
 
-            if ($result['errmsg'])
+            if ($result['errcode'])
             {
                 return $result['errmsg'];
             }
