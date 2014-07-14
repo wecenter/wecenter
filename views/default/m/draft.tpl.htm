@@ -1,19 +1,32 @@
 <?php TPL::output('m/header.tpl.htm'); ?>
-<?php TPL::output('m/global_header.tpl.htm'); ?>
+
+<!-- 标题 -->
+<div class="aw-title">
+	<?php _e('我的草稿'); ?> 
+	<?php if ($this->user_info['draft_count']) { ?>
+	<span class="badge"><?php echo $this->user_info['draft_count']; ?></span>
+	<?php } ?>
+</div>
+<!-- end 标题 -->
 
 <!-- 内容 -->
-<div class="aw-content">
-	<div class="aw-title">
-		<h2><?php _e('我的草稿'); ?></h2>
+<div class="container">
+	<!-- 草稿列表 -->
+	<div class="aw-feed-list active">
+		<div class="mod-body">
+			<ul id="draft_listview">
+			</ul>
+		</div>
+		<div class="mod-footer">
+			<a id="load_draft" class="aw-load-more"><i class="icon icon-loading fa-spin"></i> <span><?php _e('更多'); ?></span></a>
+		</div>
 	</div>
-	<div class="aw-draft-list">
-		<ul id="draft_listview"></ul>
-		<a href="javascript:;" id="load_draft" class="aw-load-more"><?php _e('更多'); ?></a>
-	</div>
+	<!-- end 草稿列表 -->
+
+	<?php TPL::output('m/nav_menu.tpl.htm'); ?>
+
 </div>
 <!-- end 内容 -->
-
-<?php TPL::output('m/nav_menu.tpl.htm'); ?>
 
 <script type="text/javascript">
 	$(document).ready(function () {

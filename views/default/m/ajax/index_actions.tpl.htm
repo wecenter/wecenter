@@ -1,9 +1,11 @@
 <?php if ($this->list) { ?>
 <?php foreach ($this->list AS $key => $val) { ?>
 <li>
-	<a class="avatar" href="m/people/<?php echo $val['user_info']['user_name']?>"><?php if ($val['question_info']['anonymous'] == 0 OR !$val['question_info']) { ?><img src="<?php echo get_avatar_url($val['user_info']['uid'], 'max'); ?>" /><?php } else { ?><img src="<?php echo G_STATIC_URL; ?>/common/avatar-max-img.png" /><?php } ?></a>
-	<div class="aw-mod-head">
-		<?php if ($val['last_action_str']) { ?><p><?php echo $val['last_action_str']; ?> <span><?php echo date_friendly($val['add_time']); ?></span></p><?php } ?>
+	
+	<div class="mod-head">
+		<?php if ($val['last_action_str']) { ?>
+			<?php echo $val['last_action_str']; ?>
+		<?php } ?>
 		
 		<?php if (isset($val['article_info']['comments'])) { ?>
 			
@@ -12,23 +14,44 @@
 			<p><?php _e('%s 个回复', $val['question_info']['answer_count']); ?><?php if ($val['topics']) { ?> &nbsp; <?php _e('已添加到'); ?> <?php foreach($val['topics'] as $t_key => $t_val) { if ($t_key > 2) { break; } ?><a href="m/topic/<?php echo $t_val['url_token']; ?>" class="aw-topic-name" data-id="<?php echo $t_val['topic_id']; ?>"><?php echo $t_val['topic_title']; ?></a> <?php } ?><?php if (sizeof($val['topics']) > 3) { ?> <?php _e('等'); ?> <?php _e('%s 个话题', sizeof($val['topics'])); ?><?php } else { ?><?php _e('话题'); ?><?php } ?><?php } ?></p>
 		<?php } ?>
 		<?php } ?>
-		
-		<h2><a href="<?php echo $val['link']; ?>"><?php echo $val['title']; ?></a></h2>
+		<a href="m/people/<?php echo $val['user_info']['user_name']?>">
+			<?php if ($val['question_info']['anonymous'] == 0 OR !$val['question_info']) { ?>
+				<img class="img" width="20" src="<?php echo get_avatar_url($val['user_info']['uid'], 'max'); ?>" />
+			<?php } else { ?>
+				<img class="img" width="20" src="<?php echo G_STATIC_URL; ?>/common/avatar-max-img.png" />
+			<?php } ?>
+		</a>
 	</div>
-	<?php if ($val['associate_action'] == ACTION_LOG::ANSWER_QUESTION OR $val['associate_action'] == ACTION_LOG::ADD_AGREE) { ?>
-	<div class="aw-mod-body">
-		<p class="content">
+	<div class="mod-body">
+		<h2>
+			<a href="<?php echo $val['link']; ?>"><?php echo $val['title']; ?></a>
+		</h2>
+		<?php if ($val['associate_action'] == ACTION_LOG::ANSWER_QUESTION OR $val['associate_action'] == ACTION_LOG::ADD_AGREE) { ?>
+		<div class="content">
 			<?php echo nl2br($val['answer_info']['answer_content']); ?>
-		</p>
+		</div>
+		<?php } ?>
 	</div>
-	<?php } ?>
-	<div class="aw-mod-footer">
-	
-	<?php if ($val['associate_action'] == ACTION_LOG::ANSWER_QUESTION OR $val['associate_action'] == ACTION_LOG::ADD_AGREE) { ?>
-		<a onclick="AWS.User.agree_vote(this, <?php echo $val['answer_info']['answer_id']; ?>)" class="answer_vote"><span class="aw-text-color-999"><i class="fa fa-thumbs-up<?php if ($val['answer_info']['agree_status'] == 1) { ?> active<?php } ?>"></i> <em><?php echo $val['answer_info']['agree_count']; ?></em></span></a><a class="answer_vote" onclick="AWS.User.disagree_vote(this, <?php echo $val['answer_info']['answer_id']; ?>)"><span class="aw-text-color-999"><i class="fa fa-thumbs-down<?php if ($val['answer_info']['agree_status'] == -1) { ?> active<?php } ?>"></i></span></a> <a class="aw-add-comment" href="javascript:;" data-id="<?php echo $val['answer_info']['answer_id']; ?>" data-type="answer"><i class="fa fa-comment"></i> <?php _e('%s 条评论', $val['answer_info']['comment_count']); ?></a>
-	<?php } else if (isset($val['article_info']['comments'])) { ?>
-		<span class="aw-text-color-999"><i class="fa fa-comment"></i> <?php _e('%s 个评论', $val['article_info']['comments']); ?></span>
-	<?php } ?>
+	<div class="mod-footer">
+		<?php if ($val['associate_action'] == ACTION_LOG::ANSWER_QUESTION OR $val['associate_action'] == ACTION_LOG::ADD_AGREE) { ?>
+		<a onclick="AWS.User.agree_vote(this, <?php echo $val['answer_info']['answer_id']; ?>)" class="answer_vote">
+			<i class="icon icon-agree<?php if ($val['answer_info']['agree_status'] == 1) { ?> active<?php } ?>"></i>
+			<span><?php echo $val['answer_info']['agree_count']; ?></span>
+		</a>
+		<a class="answer_vote" onclick="AWS.User.disagree_vote(this, <?php echo $val['answer_info']['answer_id']; ?>)">
+			<i class="icon icon-disagree<?php if ($val['answer_info']['agree_status'] == -1) { ?> active<?php } ?>"></i>
+		</a> 
+		<!-- <a class="aw-add-comment" href="javascript:;" data-id="<?php echo $val['answer_info']['answer_id']; ?>" data-type="answer">
+			<i class="fa fa-comment"></i> <?php _e('%s 条评论', $val['answer_info']['comment_count']); ?>
+		</a> -->
+		<?php } else if (isset($val['article_info']['comments'])) { ?>
+			<a><i class="icon icon-agree"></i> <?php echo $val['article_info']['votes']; ?></a>
+			<a><i class="icon icon-disagree"></i></a>
+		<?php } else { ?>
+			<a><i class="icon icon-replay"></i> 添加回复</a>
+		<?php } ?>
+
+		<span class="color-999 pull-right"><?php echo date_friendly($val['add_time']); ?></span>
 	</div>
 </li>
 <?php } ?>

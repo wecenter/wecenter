@@ -2,6 +2,44 @@ var document_title = document.title;
 
 $(document).ready(function () {
 
+	// 导航条小箭头位置修复
+	$('.nav .triangle').css('left', $('.nav li').innerWidth()/2 - 8);
+
+	// 导航条按钮
+	$('.nav ul li .user').click(function()
+	{
+		$(this).parents('.nav').find('.aw-popover.more').hide();
+		$('.nav ul li .more .triangle').hide();
+
+		if ($(this).parents('li').find('.triangle').css('display') == 'none')
+		{
+			$(this).parents('li').find('.triangle').show();
+			$(this).parents('.nav').find('.aw-popover.user').show();
+		}
+		else
+		{
+			$(this).parents('li').find('.triangle').hide();
+			$(this).parents('.nav').find('.aw-popover.user').hide();
+		}
+	});
+
+	$('.nav ul li .more').click(function()
+	{
+		$(this).parents('.nav').find('.aw-popover.user').hide();
+		$('.nav ul li .user .triangle').hide();
+
+		if ($(this).parents('li').find('.triangle').css('display') == 'none')
+		{
+			$(this).parents('li').find('.triangle').show();
+			$(this).parents('.nav').find('.aw-popover.more').show();
+		}
+		else
+		{
+			$(this).parents('li').find('.triangle').hide();
+			$(this).parents('.nav').find('.aw-popover.more').hide()
+		}
+	});
+
 	if (typeof (G_NOTIFICATION_INTERVAL) != 'undefined')
     {
         AWS.Message.check_notifications();
@@ -66,14 +104,14 @@ $(document).ready(function () {
 	});
 
 	/* 话题编辑删除按钮 */
-	$(document).on('click', '.aw-question-detail-title .aw-topic-edit-box .aw-topic-box i', function()
+	$(document).on('click', '.aw-topic-bar .tag-bar .topic-tag i', function()
 	{
 		var _this = $(this);
-		$.post(G_BASE_URL + '/topic/ajax/remove_topic_relation/', {'type':$(this).parents('.aw-topic-edit-box').attr('data-type'), 'item_id' : $(this).parents('.aw-topic-edit-box').attr('data-id'), 'topic_id' : $(this).parents('.aw-topic-name').attr('data-id')} , function(result)
+		$.post(G_BASE_URL + '/topic/ajax/remove_topic_relation/', {'type':$(this).parents('.aw-topic-bar').attr('data-type'), 'item_id' : $(this).parents('.aw-topic-bar').attr('data-id'), 'topic_id' : $(this).parents('.topic-tag').attr('data-id')} , function (result)
 		{
 			if (result.errno == 1) 
 			{
-				_this.parents('.aw-topic-name').detach();
+				_this.parents('.topic-tag').detach();
 			}else
 			{
 				alert(result.err);
@@ -84,8 +122,8 @@ $(document).ready(function () {
 
 	AWS.Dropdown.bind_dropdown_list('.aw-search-input','search');
 	AWS.Dropdown.bind_dropdown_list('.aw-invite-input','invite');
-	AWS.Init.init_topic_edit_box('.aw-question-detail-title .aw-add-topic-box', 'question');
-	AWS.Init.init_topic_edit_box('.aw-mod-publish .aw-add-topic-box','publish');
+	AWS.Init.init_topic_edit_box('.aw-topic-bar .icon-inverse', 'question');
+	AWS.Init.init_topic_edit_box('.aw-publish-box .aw-topic-bar .icon-inverse','publish');
 
 	//邀请回答按钮
 	$('.aw-invite-replay').click(function()

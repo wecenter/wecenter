@@ -1,0 +1,63 @@
+<?php TPL::output('m/header.tpl.htm'); ?>
+
+<!-- top-nav -->
+<div class="top-nav">
+	<ul>
+		<li>
+			<a href="m/">最新动态 <i class="icon-tips"></i></a>
+		</li>
+		<li>
+			<a href="m/notifications" class="active">消息通知</a>
+		</li>
+	</ul>
+</div>
+<!-- end top-nav -->
+
+<!-- 内容 -->
+<div class="container">
+	<!-- 消息列表 -->
+	<div class="aw-feed-list active">
+		<div class="mod-head text-center">
+			<a href="" class="btn btn-success btn-large" onclick="AWS.Message.read_notification(0, false, false);"><?php _e('全部已读'); ?></a>
+			<a href="m/settings/" class="btn btn-gray btn-large">通知设置</a>
+		</div>
+		<div class="mod-body">
+			<ul id="notifications_listview"></ul>
+		</div>
+		<div class="mod-footer">
+			<a id="load_notifications" class="aw-load-more"><i class="icon icon-loading fa-spin"></i> <span>更多</span></a>
+		</div>
+	</div>
+	<!-- end 消息列表 -->
+
+	<?php TPL::output('m/nav_menu.tpl.htm'); ?>
+
+</div>
+<!-- end 内容 -->
+
+<!-- 内容 -->
+<div class="container">
+	<!-- 动态列表 -->
+	<div class="aw-feed-list">
+		<div class="mod-body">
+			<ul id="notifications_listview"></ul>
+		</div>
+		<div class="mod-footer">
+			<a id="load_notifications" class="aw-load-more"><i class="icon icon-loading fa-spin"></i> <span><?php _e('更多'); ?></span></a>
+		</div>
+	</div>
+	<!-- end 动态列表 -->
+	
+
+</div>
+<!-- end 内容 -->
+
+
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		AWS.load_list_view(G_BASE_URL + '/notifications/ajax/list/template-m', $('#load_notifications'), $('#notifications_listview'));
+	});
+</script>
+
+<?php TPL::output('m/footer.tpl.htm'); ?>

@@ -1,16 +1,28 @@
 <?php TPL::output('m/header.tpl.htm'); ?>
-<?php TPL::output('m/global_header.tpl.htm'); ?>
+
+<!-- 标题 -->
+<div class="aw-title">
+	<?php _e('我的私信'); ?>
+	<a class="pull-right btn btn-success btn-mini" onclick="AWS.dialog('message')">发私信</a>
+</div>
+<!-- end 标题 -->
 
 <!-- 内容 -->
-<div class="aw-content inbox">
-	<div class="aw-title">
-		<h2><a class="btn btn-mini btn-primary pull-right" onclick="AWS.dialog('message')"><?php _e('发私信'); ?></a><?php _e('我的私信'); ?></h2>
+<div class="container">
+	<!-- 私信列表 -->
+	<div class="aw-feed-list aw-inbox-list active">
+		<div class="mod-body">
+			<ul id="inbox_listview">
+			</ul>
+		</div>
+		<div class="mod-footer">
+			<a id="load_inbox" class="aw-load-more"><i class="icon icon-loading fa-spin"></i> <span>更多</span></a>
+		</div>
 	</div>
-	<div class="inbox-list">
-		<ul id="inbox_listview"></ul>
-		
-		<a href="javascript:;" id="load_inbox" class="aw-load-more"><?php _e('更多'); ?></a>
-	</div>
+	<!-- end 私信列表 -->
+
+	<?php TPL::output('m/nav_menu.tpl.htm'); ?>
+	
 </div>
 <!-- end 内容 -->
 
