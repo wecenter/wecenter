@@ -1,30 +1,22 @@
 <?php if ($this->search_result) { ?>
 <?php foreach ($this->search_result AS $key => $val) { ?>
 	<?php if ($val['type'] == 'users') { ?>
-		<li>
-			<a href="<?php echo $val['url']; ?>" class="avatar"><img src="<?php echo get_avatar_url($val['search_id'], 'mid'); ?>" alt="" /></a>
-			<p class="aw-title">
-				<a href="<?php echo $val['url']; ?>"><?php echo $val['name']; ?></a>
-			</p>
-			<p class="aw-text-color-999">
-				<span class="aw-topic-name"><?php _e('用户'); ?></span> <?php echo $val['detail']['signature']; ?>
-			</p>
+		<li class="user">
+			<a href="<?php echo $val['url']; ?>">
+				<img src="<?php echo get_avatar_url($val['search_id'], 'mid'); ?>" alt="" class="img" width="25" />
+				<?php echo $val['name']; ?>
+			</a>
 		</li>
 	<?php } else if ($val['type'] == 'topics') { ?>
-		<li>
-			<a href="<?php echo $val['url']; ?>" class="topic"><img src="<?php echo $val['detail']['topic_pic']; ?>" alt="" /></a>
-			<p class="aw-title">
-				<a href="<?php echo $val['url']; ?>"><?php echo $val['name']; ?></a>
-				<span><?php echo cjk_substr($val['topic_description'], 0, 64, 'UTF-8', '...'); ?></span>
-			</p>
-			<p class="aw-text-color-999">
-				<span class="aw-topic-name"><?php _e('话题'); ?></span> <?php _e('%s 个问题', $val['detail']['discuss_count']); ?> &nbsp; <?php _e('%s 人关注', $val['detail']['focus_count']); ?>
-			</p>
+		<li class="topic">
+			<span class="topic-tag">
+				<a href="<?php echo $val['url']; ?>" class="text"><?php echo $val['name']; ?></a>
+			</span>
+			 <span class="color-999"><?php echo cjk_substr($val['topic_description'], 0, 64, 'UTF-8', '...'); ?></span>
 		</li>
 	<?php } else if ($val['type'] == 'questions') { ?>
 		<li class="question">
-			<p class="aw-title"><a href="<?php echo $val['url']; ?>"><?php echo $val['name']; ?></a></p>
-			<p class="aw-text-color-999"><span class="aw-topic-name"><?php _e('问题'); ?></span> <?php _e('%s 个回复', $val['detail']['answer_count']); ?> &nbsp; <?php _e('%s 人关注', $val['detail']['focus_count']); ?></p>
+			<a href="<?php echo $val['url']; ?>"><?php echo $val['name']; ?><span class="pull-right color-999"><?php _e('%s 个回复', $val['detail']['answer_count']); ?></span></a>
 		</li>
 	<?php } ?>
 <?php } ?>

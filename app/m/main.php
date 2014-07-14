@@ -793,7 +793,10 @@ class main extends AWS_CONTROLLER
 
 		$this->crumb($keyword, 'm/search/q-' . urlencode($keyword));
 
+		TPL::assign('body_class', 'active');
+
 		TPL::assign('keyword', $keyword);
+		
 		TPL::assign('split_keyword', implode(' ', $this->model('system')->analysis_keyword($keyword)));
 
 		TPL::output('m/search');

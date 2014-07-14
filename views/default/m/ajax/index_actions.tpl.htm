@@ -48,7 +48,7 @@
 			<a><i class="icon icon-agree"></i> <?php echo $val['article_info']['votes']; ?></a>
 			<a><i class="icon icon-disagree"></i></a>
 		<?php } else { ?>
-			<a><i class="icon icon-replay"></i> 添加回复</a>
+			<a><i class="icon icon-replay"></i> <?php if ($val['question_info']['answer_count'] == 0) { ?> 添加回复 <?php } else { ?><?php echo $val['question_info']['answer_count']; ?><?php } ?></a>
 		<?php } ?>
 
 		<span class="color-999 pull-right"><?php echo date_friendly($val['add_time']); ?></span>
