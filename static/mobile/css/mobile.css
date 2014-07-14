@@ -195,6 +195,7 @@ input[type="text"], input[type="password"], textarea{-webkit-appearance:none;}
 .aw-article-detail .operate a{height: 34px;line-height: 34px;}
 .aw-article-detail .operate i{font-size: 18px;vertical-align: -2px;}
 .aw-article-detail .operate .icon-agree{margin-right: 3px;}
+.aw-article-detail .aw-article-voter{margin-top: 5px;}
 
 /* 编辑器效果 */
 .markitup-box p{line-height: 1.8em;}
