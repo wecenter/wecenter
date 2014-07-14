@@ -1,10 +1,14 @@
 <?php if ($this->list) { ?>
 <?php foreach($this->list as $key => $val) { ?>
 <li>
-	<div class="aw-mod-head">
-		<p><a class="aw-user-name" href="m/people/<?php echo $val['user_info']['url_token']; ?>"><?php echo $val['user_info']['user_name']; ?></a> <?php _e('邀请你回复这个问题'); ?></p>
-		
-		<h2><a href="m/question/<?php echo $val['question_info']['question_id']; ?>" target="_blank"><?php echo $val['question_info']['question_content']; ?></a></h2>
+	<div class="mod-body">
+		<h2>
+			<a href="m/question/<?php echo $val['question_info']['question_id']; ?>" target="_blank"><?php echo $val['question_info']['question_content']; ?></a>
+		</h2>
+	</div>
+	<div class="mod-footer active">
+		<a class="aw-user-name" href="m/people/<?php echo $val['user_info']['url_token']; ?>"><?php echo $val['user_info']['user_name']; ?></a><?php _e('邀请你回复'); ?>
+		<span class="color-999 pull-right"><?php echo date_friendly($val['add_time']); ?></span>
 	</div>
 </li>
 <?php } ?>

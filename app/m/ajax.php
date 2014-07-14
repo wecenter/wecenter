@@ -130,4 +130,5 @@ class ajax extends AWS_CONTROLLER
 		
 		TPL::output('m/ajax/hot_topics_list');
 	}
+
 }
