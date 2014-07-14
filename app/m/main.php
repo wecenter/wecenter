@@ -659,6 +659,10 @@ class main extends AWS_CONTROLLER
 		TPL::assign('user_actions_answers', $this->model('actions')->get_user_actions($user['uid'], 5, ACTION_LOG::ANSWER_QUESTION, $this->user_id));
 
 		$this->crumb(AWS_APP::lang()->_t('%s 的个人主页', $user['user_name']), '/m/people/' . $user['url_token']);
+		
+		$job_info = $this->model('account')->get_jobs_by_id($user['job_id']);
+		
+		TPL::assign('job_name', $job_info['job_name']);
 
 		TPL::output('m/people');
 	}
