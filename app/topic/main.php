@@ -166,15 +166,13 @@ class main extends AWS_CONTROLLER
 		{
 			HTTP::redirect('/m/topic/' . $_GET['id']);
 		}
-
-		$topic_info = $this->model('topic')->get_topic_by_title($_GET['id'])
-
-		if (empty($topic_info))
+		
+		if (!$topic_info = $this->model('topic')->get_topic_by_title($_GET['id']))
 		{
 			$topic_info = $this->model('topic')->get_topic_by_url_token($_GET['id']);
 		}
 
-		if (empty($topic_info))
+		if (!$topic_info)
 		{
 			H::redirect_msg(AWS_APP::lang()->_t('话题不存在'), '/');
 		}
@@ -326,6 +324,11 @@ class main extends AWS_CONTROLLER
 		TPL::assign('redirect_message', $redirect_message);
 
 		TPL::assign('in_features', $this->model('feature')->get_feature_by_id($this->model('feature')->get_topic_in_feature_ids($topic_info['topic_id'])));
+		
+		if ($topic_info['parent_id'])
+		{
+			TPL::assign('parent_topic_info', $this->model('topic')->get_topic_by_id($topic_info['parent_id']));
+		}
 
 		TPL::output('topic/index');
 	}
@@ -381,6 +384,9 @@ class main extends AWS_CONTROLLER
 		{
 			H::redirect_msg(AWS_APP::lang()->_t('话题不存在'), '/');
 		}
+		
+		$this->crumb(AWS_APP::lang()->_t('话题管理'), '/topic/manage/' . $topic_info['topic_id']);
+		$this->crumb($topic_info['topic_title'], '/topic/' . $topic_info['topic_id']);
 
 		if (!($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']))
 		{
@@ -406,14 +412,9 @@ class main extends AWS_CONTROLLER
 
 		TPL::assign('merged_topics_info', $merged_topics_info);
 
-		TPL::assign('feature_list', $this->model('feature')->get_enabled_feature_list());
-		TPL::assign('topic_in_features', $this->model('feature')->get_topic_in_feature_ids($topic_info['topic_id']));
-
-		$this->crumb(AWS_APP::lang()->_t('话题管理'), '/topic/manage/' . $topic_info['topic_id']);
-
-		$this->crumb($topic_info['topic_title'], '/topic/' . $topic_info['topic_id']);
-
 		TPL::assign('topic_info', $topic_info);
+		
+		TPL::assign('parent_topics', $this->model('topic')->get_parent_topics());
 
 		TPL::output('topic/manage');
 	}

@@ -673,6 +673,19 @@ class main extends AWS_CONTROLLER
 		$job_info = $this->model('account')->get_jobs_by_id($user['job_id']);
 		
 		TPL::assign('job_name', $job_info['job_name']);
+		
+		if ($user['weibo_visit'])
+		{
+			if ($users_sina = $this->model('openid_weibo')->get_users_sina_by_uid($user['uid']))
+			{
+				TPL::assign('sina_weibo_url', 'http://www.weibo.com/' . $users_sina['id']);
+			}
+			
+			if ($users_qq = $this->model('openid_qq_weibo')->get_users_qq_by_uid($user['uid']))
+			{
+				TPL::assign('qq_weibo_url', 'http://t.qq.com/' . $users_qq['name']);
+			}
+		}
 
 		TPL::output('m/people');
 	}
