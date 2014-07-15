@@ -16,8 +16,6 @@
                 </a>
 
                 <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                    <li role="presentation" class="divider"></li>
-
                     <?php foreach ($this->accounts_list AS $account_info) { ?>
                     <li role="presentation" <?php if ($account_info['id'] == $this->account_id) { continue; } ?>>
                         <a role="menuitem" tabindex="-1" href="admin/weixin/mp_menu/id-<?php echo $account_info['id']; ?>"><?php if ($account_info['id'] == 0) { _e('主账号'); } else { _e('子账号 %s', $account_info['id']); } ?></a>
