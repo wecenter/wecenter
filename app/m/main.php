@@ -108,6 +108,7 @@ class main extends AWS_CONTROLLER
 			case 'article':
 			case 'article_square':
 			case 'topic_square':
+			case 'find_password':
 				// Public page..
 			break;
 		}
@@ -587,6 +588,13 @@ class main extends AWS_CONTROLLER
 		TPL::output('m/register');
 	}
 
+	public function find_password_action()
+	{
+		TPL::assign('body_class', 'explore-body');
+
+		TPL::output('m/find_password');
+	}
+
 	public function explore_action()
 	{
 		if (!$this->user_id AND !$this->user_info['permission']['visit_explore'])
@@ -732,7 +740,8 @@ class main extends AWS_CONTROLLER
 			TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
 				'base_url' => get_js_url('/m/people_list/group_id-' . $_GET['group_id']),
 				'total_rows' => $this->model('account')->get_user_count(implode(' AND ', $where)),
-				'per_page' => get_setting('contents_per_page')
+				'per_page' => get_setting('contents_per_page'),
+				'num_links' => 1
 			))->create_links());
 		}
 

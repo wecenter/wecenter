@@ -1,5 +1,22 @@
 <?php TPL::output('m/header_meta.tpl.htm'); ?>
 
+<!-- header -->
+<div class="header">
+	<a href="m/"><img src="<?php echo G_STATIC_URL; ?>/mobile/img/logo.png" alt="" width="52" /></a>
+	<span class="pull-right">
+		<?php if ($this->user_id) { ?>
+			<a href="m/people/<?php echo $this->user_info['url_token']; ?>">
+				<?php echo $this->user_info['user_name']; ?>
+				<img src="<?php echo get_avatar_url($this->user['uid'], 'mid'); ?>" alt="" class="img" width="25" />
+			</a>
+		<?php } else {?>
+			<a href="m/account/login" class="btn btn-mini btn-primary btn-normal">登录</a>
+			<a href="m/account/register" class="btn btn-mini btn-success btn-normal">注册</a>
+		<?php } ?>
+	</span>
+</div>
+<!-- end header -->
+
 <!-- nav -->
 <div class="nav">
 	<ul>
