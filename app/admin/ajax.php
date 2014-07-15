@@ -2053,16 +2053,11 @@ class ajax extends AWS_ADMIN_CONTROLLER
                 break;
         }
 
-        if ($approval_item['type'] != 'article_comment' AND is_array($_POST['remove_attachs']))
+        if ($approval_item['type'] != 'article_comment' AND $_POST['remove_attachs'])
         {
             foreach ($_POST['remove_attachs'] AS $id => $access_key)
             {
                 $this->model('publish')->remove_attach($id, $access_key);
-            }
-
-            if ($approval_item['type'] != 'weibo_msg' AND !$this->model('publish')->fetch_row('attach', 'item_id = ' . $approval_item['id']))
-            {
-                $approval_item['data']['attach_access_key'] = null;
             }
         }
 
@@ -2072,7 +2067,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
         }
         else
         {
-            $this->model('publish')->update('approval', array('data' => serialize($approval_item)), 'id = ' . $approval_item['id']);
+            $this->model('publish')->update('approval', array('data' => serialize($approval_item['data'])), 'id = ' . $approval_item['id']);
         }
 
         H::ajax_json_output(AWS_APP::RSM(array(

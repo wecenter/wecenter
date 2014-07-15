@@ -108,6 +108,9 @@ class main extends AWS_CONTROLLER
 			case 'article':
 			case 'article_square':
 			case 'topic_square':
+			case 'find_password':
+			case 'find_password_success':
+			case 'find_password_modify':
 				// Public page..
 			break;
 		}
@@ -587,6 +590,37 @@ class main extends AWS_CONTROLLER
 		TPL::output('m/register');
 	}
 
+	public function find_password_action()
+	{
+		$this->crumb(AWS_APP::lang()->_t('找回密码'), '/m/find_password/');
+
+		TPL::output('m/find_password');
+	}
+
+	public function find_password_success_action()
+	{
+		TPL::assign('email', AWS_APP::session()->find_password);
+
+		$this->crumb(AWS_APP::lang()->_t('找回密码'), '/m/find_password_success/');
+
+		TPL::output('m/find_password_success');
+	}
+
+	public function find_password_modify_action()
+	{
+		if (!$active_code_row = $this->model('active')->get_active_code($_GET['key'], 'FIND_PASSWORD'))
+		{
+			H::redirect_msg(AWS_APP::lang()->_t('链接已失效'), '/');
+		}
+		
+		if ($active_code_row['active_time'] OR $active_code_row['active_ip'])
+		{
+			H::redirect_msg(AWS_APP::lang()->_t('链接已失效'), '/');
+		}
+		
+		TPL::output('m/find_password_modify');
+	}
+
 	public function explore_action()
 	{
 		if (!$this->user_id AND !$this->user_info['permission']['visit_explore'])
@@ -732,7 +766,8 @@ class main extends AWS_CONTROLLER
 			TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
 				'base_url' => get_js_url('/m/people_list/group_id-' . $_GET['group_id']),
 				'total_rows' => $this->model('account')->get_user_count(implode(' AND ', $where)),
-				'per_page' => get_setting('contents_per_page')
+				'per_page' => get_setting('contents_per_page'),
+				'num_links' => 1
 			))->create_links());
 		}
 
@@ -751,7 +786,7 @@ class main extends AWS_CONTROLLER
 
 			if (!$_GET['feature_id'])
 			{
-				$reputation_topics = $this->model('people')->get_users_reputation_topic($reputation_users_ids, $users_reputations, 5);
+				$reputation_topics = $this->model('people')->get_users_reputation_topic($reputation_users_ids, $users_reputations, 4);
 
 				foreach ($users_list as $key => $val)
 				{

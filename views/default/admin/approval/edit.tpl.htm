@@ -42,6 +42,8 @@
                         <span class="col-sm-4 col-xs-3 control-label"><?php _e('话题'); ?>:</span>
                         <div class="col-sm-5 col-xs-8">
                             <input class="form-control" name="topics" type="text" value="<?php echo $this->approval_item['topics']; ?>" />
+
+                            <span class="help-block">多个话题请用 , 分隔</span>
                         </div>
                     </div>
                     </td></tr>
@@ -56,9 +58,10 @@
                         <?php if ($attach['is_image']) { ?>
                             <li>
                                 <input name="attachs[<?php echo $attach['id']; ?>]" type="hidden" value="<?php echo $attach['access_key']; ?>" />
+
                                 <a href="<?php echo $attach['attachment']; ?>" target="_blank" data-fancybox-group="thumb" rel="lightbox"><img src="<?php echo $attach['attachment']; ?>" class="img-polaroid" alt="<?php echo $attach['attach_name']; ?>" /></a>
 
-                                <a href="javascript:;" class="btn btn-danger" onclick=""><?php _e('删除'); ?></a>
+                                <a href="javascript:;" class="btn btn-danger"><?php _e('删除'); ?></a>
                             </li>
                         <?php } ?>
                         <?php } ?>
@@ -75,7 +78,7 @@
                                 <a href="<?php echo download_url($attach['file_name'], $attach['attachment']); ?>"><em class="aw-icon i-upload-file"></em><?php echo $attach['file_name']; ?></a>
                             </li>
 
-                            <a href="javascript:;" onclick=""><?php _e('删除'); ?></a>
+                            <a href="javascript:;"><?php _e('删除'); ?></a>
                             <?php } ?>
                             <?php } ?>
                         </ul>
