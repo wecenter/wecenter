@@ -27,6 +27,8 @@ class topic extends AWS_ADMIN_CONTROLLER
 
 	public function list_action()
 	{
+		$this->crumb(AWS_APP::lang()->_t('话题管理'), 'admin/topic/list/');
+
 		if ($_POST)
 		{
 			foreach ($_POST as $key => $val)
@@ -77,9 +79,9 @@ class topic extends AWS_ADMIN_CONTROLLER
 
 		if ($topic_list)
 		{
-			foreach ($topic_list AS $topic_info)
+			foreach ($topic_list AS $key => $topic_info)
 			{
-				$topic_log[$topic_info['topic_id']] = ACTION_LOG::get_action_by_event_id($topic_info['topic_id'], 1, ACTION_LOG::CATEGORY_TOPIC, implode(',', array(
+				$action_log = ACTION_LOG::get_action_by_event_id($topic_info['topic_id'], 1, ACTION_LOG::CATEGORY_TOPIC, implode(',', array(
 					ACTION_LOG::ADD_TOPIC,
 					ACTION_LOG::MOD_TOPIC,
 					ACTION_LOG::MOD_TOPIC_DESCRI,
@@ -87,22 +89,28 @@ class topic extends AWS_ADMIN_CONTROLLER
 					ACTION_LOG::DELETE_TOPIC,
 					ACTION_LOG::ADD_RELATED_TOPIC,
 					ACTION_LOG::DELETE_RELATED_TOPIC
-				)), -1)[0];
+				)), -1);
 
-				$user_info = $this->model('account')->get_user_info_by_uid($topic_log[$topic_info['topic_id']]['uid']);
+				$action_log = $action_log[0];
 
-				$topic_log[$topic_info['topic_id']] = array(
-					'uid' => $user_info['uid'],
-					'user_name' => $user_info['user_name'],
-					'url_token' => $user_info['url_token'],
-					'add_time' => $topic_log[$topic_info['topic_id']]['add_time']
-				);
+				$topic_list[$key]['last_edited_uid'] = $action_log['uid'];
+
+				$topic_list[$key]['last_edited_time'] = $action_log['add_time'];
+
+				$last_edited_uids[] = $topic_list[$key]['last_edited_uid'];
+			}
+
+			$users_info_query = $this->model('account')->get_user_info_by_uids($last_edited_uids);
+
+			foreach ($users_info_query AS $user_info)
+			{
+				$users_info[$user_info['uid']] = $user_info;
 			}
 		}
 
 		$url_param = array();
 
-		foreach($_GET as $key => $val)
+		foreach($_GET AS $key => $val)
 		{
 			if (!in_array($key, array('app', 'c', 'act', 'page')))
 			{
@@ -116,14 +124,31 @@ class topic extends AWS_ADMIN_CONTROLLER
 			'per_page' => $this->per_page
 		))->create_links());
 
-		$this->crumb(AWS_APP::lang()->_t('话题管理'), "admin/topic/list/");
-
-		TPL::assign('today_topics', get_setting('today_topics'));
 		TPL::assign('topics_count', $total_rows);
 		TPL::assign('search_url', $search_url);
 		TPL::assign('list', $topic_list);
-		TPL::assign('topic_log', $topic_log);
-		TPL::output("admin/topic/list");
+		TPL::assign('users_info', $users_info);
+
+		TPL::output('admin/topic/list');
+	}
+
+	public function parent_action()
+	{
+		$this->crumb(AWS_APP::lang()->_t('根话题'), 'admin/topic/parent/');
+
+		$topic_list = $this->model('topic')->get_topic_list('is_parent = 1', 'topic_id DESC', $this->per_page, $_GET['page']);
+
+		$total_rows = $this->model('topic')->found_rows();
+
+		TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
+			'base_url' => get_js_url('/admin/topic/parent/'),
+			'total_rows' => $total_rows,
+			'per_page' => $this->per_page
+		))->create_links());
+
+		TPL::assign('list', $topic_list);
+
+		TPL::output('admin/topic/parent');
 	}
 
 	public function edit_action()

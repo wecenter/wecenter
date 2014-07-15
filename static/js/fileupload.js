@@ -8,20 +8,22 @@ function FileUpload (element, container, url, options)
 	this.element = element;
 	this.container = container;
 	this.url = url;
-	this.template = '<li>'+
+
+    this.options = {
+		'multiple' : true,
+		'deleteBtn' : true,
+		'insertBtn' : true,
+		'insertTextarea' : '.advanced_editor',
+		'template' : '<li>'+
 		    			'<div class="img"></div>'+
 						'<div class="content">'+
 							'<p class="title"></p>'+
 							'<p class="size"></p>'+
 							'<p class="meta"></p>'+
 						'</div>'+
-		    		'</li>';
-
-    this.options = {
-		'multiple' : true,
-		'deleteBtn' : true,
-		'insertBtn' : true,
-		'insertTextarea' : '.advanced_editor'
+		    		'</li>',
+		'deleteBtnTemplate' : '<a class="delete-file">删除</a>' ,
+		'insertBtnTemplate' : '<a class="insert-file">插入</a>'
 	},
 
 	this.options = $.extend(this.options, options);
@@ -95,7 +97,7 @@ FileUpload.prototype =
 		{
 			for (i = 0; i < files.length; i++)
 			{
-				this.li = this.toElement(this.template);
+				this.li = this.toElement(this.options.template);
 				this.file = files[i];
 				$(this.container).find('.upload-list').append(this.li);
 				this.upload(files[i], this.li);
@@ -103,7 +105,7 @@ FileUpload.prototype =
 		}
 		else
 		{
-			this.li = this.toElement(this.template);
+			this.li = this.toElement(this.options.template);
 			$(this.container).find('.upload-list').append(this.li);
 			this.upload('', this.li);
 		}
@@ -290,7 +292,7 @@ FileUpload.prototype =
     // 创建插入按钮
     createInsertBtn : function (attach_id)
     {
-    	var btn = this.toElement('<a class="insert-file">插入</a>'), _this = this;
+    	var btn = this.toElement(this.options.insertBtnTemplate), _this = this;
 
     	$(btn).click(function()
 		{
@@ -303,7 +305,7 @@ FileUpload.prototype =
     // 创建删除按钮
    	createDeleteBtn : function (url)
    	{
-   		var btn = this.toElement('<a class="delete-file">删除</a>');
+   		var btn = this.toElement(this.options.deleteBtnTemplate);
 
    		$(btn).click(function()
 		{

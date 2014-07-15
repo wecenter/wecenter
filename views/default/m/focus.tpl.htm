@@ -1,17 +1,28 @@
 <?php TPL::output('m/header.tpl.htm'); ?>
-<?php TPL::output('m/global_header.tpl.htm'); ?>
 
-<div class="aw-content">
-	<div class="aw-title">
-		<h2><?php _e('我关注的问题'); ?></h2>
-	</div>
-	<div class="feed-list">
-		<ul id="index_listview" class="aw-focus-question"></ul>
-		<a href="javascript:;" id="load_index_actions" class="aw-load-more"><?php _e('更多'); ?></a>
-	</div>
+<!-- 标题 -->
+<div class="aw-title">
+	<?php _e('我关注的问题'); ?> <span class="badge"><?php echo $this->user_info['focus_count']; ?></span>
 </div>
+<!-- end 标题 -->
 
-<?php TPL::output('m/nav_menu.tpl.htm'); ?>
+<!-- 内容 -->
+<div class="container">
+	<!-- 动态列表 -->
+	<div class="aw-feed-list active">
+		<div class="mod-body">
+			<ul id="index_listview"></ul>
+		</div>
+		<div class="mod-footer">
+			<a id="load_index_actions" class="aw-load-more"><i class="icon icon-loading fa-spin"></i> <span><?php _e('更多'); ?></span></a>
+		</div>
+	</div>
+	<!-- end 动态列表 -->
+
+	<?php TPL::output('m/nav_menu.tpl.htm'); ?>
+
+</div>
+<!-- end 内容 -->
 
 <script type="text/javascript">
 	$(document).ready(function () {

@@ -341,7 +341,7 @@ class topic_class extends AWS_MODEL
 
 		array_walk_recursive($topic_ids, 'intval_string');
 
-		return $this->UPDATE('topic', array(
+		return $this->update('topic', array(
 			'topic_lock' => $topic_lock
 		), 'topic_id IN (' . implode(',', $topic_ids) . ')');
 
@@ -369,7 +369,7 @@ class topic_class extends AWS_MODEL
 
 			$result = 'add';
 
-			//记录日志
+			// 记录日志
 			ACTION_LOG::save_action($uid, $topic_id, ACTION_LOG::CATEGORY_TOPIC, ACTION_LOG::ADD_TOPIC_FOCUS);
 		}
 		else
@@ -384,7 +384,7 @@ class topic_class extends AWS_MODEL
 			ACTION_LOG::delete_action_history('associate_type = ' . ACTION_LOG::CATEGORY_QUESTION . ' AND associate_action = ' . ACTION_LOG::ADD_TOPIC_FOCUS . ' AND uid = ' . intval($uid) . ' AND associate_id = ' . intval($topic_id));
 		}
 
-		//更新个人计数
+		// 更新个人计数
 		$focus_count = $this->count('topic_focus', 'uid = ' . intval($uid));
 
 		$this->model('account')->update_users_fields(array(
@@ -397,7 +397,6 @@ class topic_class extends AWS_MODEL
 	public function delete_focus_topic($topic_id, $uid)
 	{
 		return $this->delete('topic_focus', 'uid = ' . intval($uid) . ' AND topic_id = ' . intval($topic_id));
-
 	}
 
 	public function has_focus_topic($uid, $topic_id)
@@ -488,6 +487,10 @@ class topic_class extends AWS_MODEL
 			$this->delete('related_topic', 'topic_id = ' . intval($topic_id) . ' OR related_id = ' . intval($topic_id));
 			$this->delete('reputation_topic', ' topic_id = ' . intval($topic_id));
 			$this->delete('topic', 'topic_id = ' . intval($topic_id));
+			
+			$this->update('topic', array(
+				'parent_id' => 0
+			), 'parent_id = ' . intval($topic_id));
 		}
 
 		return true;
@@ -527,7 +530,7 @@ class topic_class extends AWS_MODEL
 			foreach ($topic_focus as $key => $val)
 			{
 				$topic_ids[] = $val['topic_id'];
-				$topic_id_focus_uid[$val['topic_id']] = $val[uid];
+				$topic_id_focus_uid[$val['topic_id']] = $val['uid'];
 			}
 		}
 		if (! $topic_ids)
@@ -1302,5 +1305,30 @@ class topic_class extends AWS_MODEL
 		return $this->update('topic', array(
 			'is_parent' => intval($is_parent)
 		), 'topic_id = ' . intval($topic_id));
+	}
+	
+	public function set_parent_id($topic_id, $parent_id)
+	{
+		return $this->update('topic', array(
+			'parent_id' => intval($parent_id)
+		), 'topic_id = ' . intval($topic_id));
+	}
+	
+	public function get_parent_topics()
+	{
+		return $this->fetch_all('topic', 'is_parent = 1', 'topic_title ASC');
+	}
+	
+	public function get_child_topic_ids($topic_id)
+	{
+		if ($child_topics = $this->query_all("SELECT topic_id FROM " . get_table('topic') . " WHERE parent_id = " . intval($topic_id)))
+		{
+			foreach ($child_topics AS $key => $val)
+			{
+				$child_topic_ids[] = $val['topic_id'];
+			}
+		}
+		
+		return $child_topic_ids;
 	}
 }

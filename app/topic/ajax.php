@@ -307,8 +307,42 @@ class ajax extends AWS_CONTROLLER
 
 		H::ajax_json_output(AWS_APP::RSM(null, 1));
 	}
+	
+	public function set_parent_id_action()
+	{
+		if (!($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']))
+		{
+			if (!$this->user_info['permission']['manage_topic'])
+			{
+				H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('你没有权限进行此操作')));
+			}
+			else if ($this->model('topic')->has_lock_topic($_POST['topic_id']))
+			{
+				H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('锁定的话题不能编辑')));
+			}
+		}
 
-	function save_url_token_action()
+		if (!$topic_info = $this->model('topic')->get_topic_by_id($_POST['topic_id']))
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('话题不存在')));
+		}
+		
+		if ($topic_info['is_parent'])
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('不允许为根话题设置根话题')));
+		}
+		
+		if ($topic_info['topic_id'] == intval($_POST['parent_id']))
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('不允许将根话题设置为自己')));
+		}
+		
+		$this->model('topic')->set_parent_id($topic_info['topic_id'], $_POST['parent_id']);
+		
+		H::ajax_json_output(AWS_APP::RSM(null, 1, null));
+	}
+	
+	public function save_url_token_action()
 	{
 		if (!($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']))
 		{
@@ -349,7 +383,7 @@ class ajax extends AWS_CONTROLLER
 		), 1, null));
 	}
 
-	function save_seo_title_action()
+	public function save_seo_title_action()
 	{
 		if (!($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']))
 		{
