@@ -45,8 +45,10 @@ ul,ol{padding:0;list-style:none;}
 .mod-bell i:hover{color:#3695d5;}
 .mod-chat{top:38px;left:-150px;padding:0;width:200px;border:1px solid #DFDFDF;border-top:none;border-radius:0;box-shadow:0 3px 3px rgba(0,0,0,0.1);}
 .mod-chat li{text-align: center;}
-.mod-media{margin:0;padding:10px;width:100%;border-bottom:1px solid #DFDFDF;background:#f8f8f8;line-height:1em;}
-.mod-media:hover{background:#fff;}
+.mod-chat p {margin-bottom: 0;line-height: 45px;text-align: center;}
+.mod-media{margin:0;padding:10px;width:100%;border-bottom:1px solid #DFDFDF;line-height:1em;}
+.mod-chat .mod-media a:hover{background: #f6f6f6;}
+.mod-chat:after,.mod-user:after{bottom: 100%;left: 92%;border: solid transparent;content: " ";height: 0;width: 0;position: absolute;pointer-events: none;border-color: rgba(255, 255, 255, 0);border-bottom-color: #f6f6f6;border-width: 7px;margin-left: -7px;}
 .mod-media a{padding:2px;}
 .mod-btn a{color:#fff;}
 .mod-btn a:hover{background:#3695d5;}
@@ -99,7 +101,9 @@ ul,ol{padding:0;list-style:none;}
 /*页面底部区域 start*/
 .aw-footer{clear:both;overflow:hidden;margin:0 0 -20px 225px;height:50px;background:#efefef;text-align:center;line-height:52px;}
 .aw-footer p{font-size:12px;}
-
+text-align: center;
+line-height: 45px;
+margin-bottom: 0;
 /*右侧公共部分*/
 .aw-content-wrap .mod-symbol{margin-left:-2px;padding:0;width:2px;text-align:center;font-size:22px;line-height:35px;}
 #remove_user_form{border-bottom: 1px solid #e5e5e5}
@@ -109,10 +113,11 @@ ul,ol{padding:0;list-style:none;}
 .aw-content-wrap .mod-head .nav-tabs li{min-width:89px;height:42px;border-right:1px solid #DDD;list-style:none;text-align:center;cursor:default;}
 .aw-content-wrap .mod-head .nav-tabs li a{margin-top:0;margin-left:0;padding:8px 15px;outline:none;border:none;background:transparent;line-height:29px;}
 .aw-content-wrap .mod > .mod-head,.mod-echat-info .mod-head{margin:10px 0 0;height:44px;border:1px solid #e2e1e1;background:#f4f4f4;color:#333;}
+.mod-head .dropdown{margin: 5px 10px 0 0}
 .aw-content-wrap .mod-site-save{margin:10px 15px 0 0;}
 .aw-content-wrap .mod-head .pull-left{margin-right:20px;padding-left:15px;font-size:14px;line-height:45px;}
 .mod-head .nav-tabs li.active{height:43px;border-bottom:1px solid #fff;background:#FFF;}
-.aw-content-wrap .mod-table-foot{margin-top:20px;height: 30px;}
+.aw-content-wrap .mod-table-foot{margin-top:20px;overflow: hidden;}
 .aw-content-wrap .mod-table-foot .pull-right{margin-top:0;}
 
 /*右侧表格主体部分*/

@@ -79,7 +79,7 @@ var AWS =
             {
                 window.location = decodeURIComponent(result.rsm.url);
             }
-            else
+            else if (result.errno == 1)
             {
                 window.location.reload();
             }
@@ -1808,7 +1808,7 @@ AWS.Dropdown =
 	        break;
 
 	        case 'topic_question' :
-	            url = G_BASE_URL + '/search/ajax/search/?type=questions&q=' + encodeURIComponent(data) + '&topic_ids=' + CONTENTS_TOPIC_ID;
+	            url = G_BASE_URL + '/search/ajax/search/?q=' + encodeURIComponent(data) + '&topic_ids=' + CONTENTS_RELATED_TOPIC_IDS + '&limit=50';
 	        break;
 
 	        case 'topic' :

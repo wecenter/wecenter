@@ -339,7 +339,7 @@ class ajax extends AWS_CONTROLLER
             ), 1, null));
         }
 
-        $IS_MODIFY_VERIFIED = FALSE;
+        $IS_MODIFY_VERIFIED = TRUE;
 
         if (!$this->user_info['permission']['is_administortar'] AND !$this->user_info['permission']['is_moderator'] AND $question_info['published_uid'] != $this->user_id)
         {
