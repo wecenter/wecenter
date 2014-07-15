@@ -600,7 +600,7 @@ class main extends AWS_CONTROLLER
 	public function find_password_success_action()
 	{
 		TPL::assign('email', AWS_APP::session()->find_password);
-		
+
 		$this->crumb(AWS_APP::lang()->_t('找回密码'), '/m/find_password_success/');
 
 		TPL::output('m/find_password_success');
@@ -608,8 +608,16 @@ class main extends AWS_CONTROLLER
 
 	public function find_password_modify_action()
 	{
-		$this->crumb(AWS_APP::lang()->_t('找回密码'), '/m/find_password_modify/');
-
+		if (!$active_code_row = $this->model('active')->get_active_code($_GET['key'], 'FIND_PASSWORD'))
+		{
+			H::redirect_msg(AWS_APP::lang()->_t('链接已失效'), '/');
+		}
+		
+		if ($active_code_row['active_time'] OR $active_code_row['active_ip'])
+		{
+			H::redirect_msg(AWS_APP::lang()->_t('链接已失效'), '/');
+		}
+		
 		TPL::output('m/find_password_modify');
 	}
 
