@@ -56,12 +56,27 @@
 					<dl class="dl-horizontal">
 						<dt><?php _e('根话题'); ?>:</dt>
 						<dd>
-							<select name="parent_id" onchange="AWS.ajax_request(G_BASE_URL + '/topic/ajax/set_parent_id/', 'topic_id=<?php echo $this->topic_info['topic_id']; ?>&parent_id=' + this.value);">
+							<select id="parent_topic_select" class="hide" name="parent_id" onchange="AWS.ajax_request(G_BASE_URL + '/topic/ajax/set_parent_id/', 'topic_id=<?php echo $this->topic_info['topic_id']; ?>&parent_id=' + this.value);">
 							<option value=""> --- </option>
 							<?php foreach ($this->parent_topics AS $key => $val) { ?>
 							<option value="<?php echo $val['topic_id']; ?>"<?php if ($val['topic_id'] == $this->topic_info['parent_id']) { ?> selected="selected"<?php } ?>><?php echo $val['topic_title']; ?></option>
 							<?php } ?>
 							</select>
+							
+							<div class="aw-publish-title">
+								<div class="dropdown">
+									<div class="dropdown-toggle">
+										<input class="aw-hide-txt" id="aw-topic-tags-select" placeholder="选择分类" />
+										<a href="javascript:;"><i class="fa fa-chevron-down"></i></a>
+									</div>
+									<div class="aw-dropdown">
+										<i class="i-dropdown-triangle"></i>
+										<ul class="aw-dropdown-list">
+										</ul>
+									</div>
+								</div>
+							</div>
+
 						</dd>
 					</dl>
 					<?php } ?>
@@ -85,5 +100,94 @@
 		</div>
 	</div>
 </div>
+
+<script>
+	$(function()
+	{
+		// 根话题选择
+		$.each($('#parent_topic_select option'), function (i, e)
+		{
+			if ($(this).attr('value'))
+			{
+				$('.aw-publish-title .aw-dropdown-list').append('<li data-value="' + $(this).attr('value') + '"><a href="javascript:;" >' + $(this).html() + '</a></li>');
+			}
+		});
+
+		// 初始化给input赋值
+		$('.aw-publish-title #aw-topic-tags-select').val($('#parent_topic_select option[selected=selected]').text());
+
+		$('.aw-publish-title .aw-dropdown-list li').click(function()
+		{
+			$('#parent_topic_select').val($(this).data('value'));
+			$('#aw-topic-tags-select').val($(this).text());
+			$('.aw-publish-title .dropdown').removeClass('open');
+		});
+
+
+		$('.aw-publish-title #aw-topic-tags-select').bind({
+			focus : function()
+			{
+				$(this).parents('.dropdown').addClass('open');
+			},
+
+			blur : function()
+			{
+				var _this = $(this);
+
+				$(document).click(function(e)
+				{
+					var target = $(e.target);
+					if (target.parents('.aw-publish-title').length)
+					{
+						return false;
+					}
+					else
+					{
+						if (_this.val() == '')
+						{
+							$('#parent_topic_select').val('');
+							$('.aw-publish-title .dropdown').removeClass('open');
+						}
+						else
+						{
+							if ($('.aw-publish-title .aw-dropdown-list li:not(".hide")').eq(0).length)
+							{
+								$('.aw-publish-title .aw-dropdown-list li:not(".hide")').eq(0).click();
+							}
+							else
+							{
+								$('.aw-publish-title #aw-topic-tags-select').val($('#parent_topic_select option[selected=selected]').text());
+							}
+						}
+					}
+				});
+			},
+
+			keyup : function()
+			{
+				var value = $(this).val();
+				if (value != '')
+				{
+					$.each($('.aw-publish-title .aw-dropdown-list li'), function (i, e)
+					{
+						if ($(this).text().match(value) == null)
+						{
+							$(this).addClass('hide');
+						}
+						else
+						{
+							$(this).removeClass('hide');
+						}
+					});
+				}
+				else
+				{
+					$('.aw-publish-title .aw-dropdown-list li').removeClass('hide');
+				}
+			}
+		});
+
+	});
+</script>
 
 <?php TPL::output('global/footer.tpl.htm'); ?>
