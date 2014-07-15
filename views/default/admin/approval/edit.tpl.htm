@@ -52,8 +52,8 @@
                     <?php if ($this->approval_item['attachs']) { ?>
                     <p><strong><?php _e('附件'); ?></strong></p>
 
-                    <blockquote class="aw-comment-upload-img-list">
-                        <ul>
+                    <blockquote>
+                        <ul class="aw-comment-upload-img-list">
                         <?php foreach ($this->approval_item['attachs'] AS $attach) { ?>
                         <?php if ($attach['is_image']) { ?>
                             <li>
@@ -72,13 +72,11 @@
                         <ul class="aw-comment-upload-file-list">
                             <?php foreach ($this->approval_item['attachs'] AS $attach) { ?>
                             <?php if (!$attach['is_image']) { ?>
-                            <input class="form-control" name="attachs[<?php echo $attach['id']; ?>]" type="hidden" value="<?php echo $attach['access_key']; ?>" />
-
                             <li>
+                                <input class="form-control" name="attachs[<?php echo $attach['id']; ?>]" type="hidden" value="<?php echo $attach['access_key']; ?>" />
                                 <a href="<?php echo download_url($attach['file_name'], $attach['attachment']); ?>"><em class="aw-icon i-upload-file"></em><?php echo $attach['file_name']; ?></a>
+                                 <a class="btn btn-danger btn-sm" href="javascript:;"><?php _e('删除'); ?></a>
                             </li>
-
-                            <a href="javascript:;"><?php _e('删除'); ?></a>
                             <?php } ?>
                             <?php } ?>
                         </ul>
@@ -99,19 +97,31 @@
 
 <script>
     $(function(){
-        $('.aw-comment-upload-img-list li').find(".btn-danger").on("click",function(){
-            var tempName = 'remove_'+ $(this).siblings("input").attr("name");
-            $(this).siblings("input").attr("name",tempName);
 
-             $(this).parents("li").css({display:"none"})
-        })
+        deleteList($('.aw-comment-upload-img-list li'));
+         deleteList($('.aw-comment-upload-file-list li'));
+
+        function deleteList(obj){
+
+            obj.find(".btn-danger").on("click",function(){
+                var tempName = 'remove_'+ $(this).siblings("input").attr("name");
+                $(this).siblings("input").attr("name",tempName);
+
+                 $(this).parents("li").css({display:"none"})
+            })
+        };
 
         if($('.aw-comment-upload-file-list').find('li').length == 0){
-            $('.aw-comment-upload-file-list').parent().css({display:"none"});
-        }
+            $('.aw-comment-upload-file-list').parent('blockquote').css({display:"none"});
+        }else{
+            $('.aw-comment-upload-file-list').parent('blockquote').css({display:"block"});
+        };
+        
         if($('.aw-comment-upload-img-list').find('li').length == 0){
-            $('.aw-comment-upload-img-list').parent().css({display:"none"});
-        }
+            $('.aw-comment-upload-img-list').parent('blockquote').css({display:"none"});
+        }else{
+            $('.aw-comment-upload-img-list').parent('blockquote').css({display:"block"});
+        };
 
     })
 </script>
