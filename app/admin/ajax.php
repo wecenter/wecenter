@@ -848,7 +848,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
         }
 
         $this->model('topic')->update_topic($this->user_id, $_POST['topic_id'], $_POST['topic_title'], $_POST['topic_description']);
-        
+
         $this->model('topic')->set_is_parent($_POST['topic_id'], $_POST['is_parent']);
 
         $this->model('topic')->lock_topic_by_ids($_POST['topic_id'], $_POST['topic_lock']);
@@ -2072,7 +2072,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
         }
         else
         {
-            $this->model('publish')->update('approval', serialize($approval_item), 'id = ' . $approval_item['id']);
+            $this->model('publish')->update('approval', array('data' => serialize($approval_item)), 'id = ' . $approval_item['id']);
         }
 
         H::ajax_json_output(AWS_APP::RSM(array(
