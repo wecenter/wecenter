@@ -339,7 +339,7 @@ class ajax extends AWS_CONTROLLER
 		
 		$this->model('topic')->set_parent_id($topic_info['topic_id'], $_POST['parent_id']);
 		
-		H::ajax_json_output(AWS_APP::RSM(null, 1, null));
+		H::ajax_json_output(AWS_APP::RSM(null, -1, null));
 	}
 	
 	public function save_url_token_action()
