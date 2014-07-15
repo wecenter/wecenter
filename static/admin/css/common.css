@@ -11,6 +11,7 @@
 .nav .open > a,.nav .open > a:hover,.nav .open > a:focus{background-color:#fff;}
 .table-striped > tbody > tr:nth-child(odd) > td,.table-striped > tbody > tr:nth-child(odd) > th{background-color:#F5F8FA;}
 .alert{padding:5px 15px;}
+.dropdown-menu .divider{margin: 5px 0;}
 .aw-alert{position: absolute;top: 0;}
 .table tbody form tr td,.table tfoot form tr td{padding: 8px;border-top: 1px solid #ddd;line-height: 1.42857143;}
 /*公共部分*/
@@ -108,6 +109,7 @@ ul,ol{padding:0;list-style:none;}
 .aw-content-wrap .mod-head .nav-tabs li{min-width:89px;height:42px;border-right:1px solid #DDD;list-style:none;text-align:center;cursor:default;}
 .aw-content-wrap .mod-head .nav-tabs li a{margin-top:0;margin-left:0;padding:8px 15px;outline:none;border:none;background:transparent;line-height:29px;}
 .aw-content-wrap .mod > .mod-head,.mod-echat-info .mod-head{margin:10px 0 0;height:44px;border:1px solid #e2e1e1;background:#f4f4f4;color:#333;}
+.mod-head .dropdown{margin: 5px 10px 0 0}
 .aw-content-wrap .mod-site-save{margin:10px 15px 0 0;}
 .aw-content-wrap .mod-head .pull-left{margin-right:20px;padding-left:15px;font-size:14px;line-height:45px;}
 .mod-head .nav-tabs li.active{height:43px;border-bottom:1px solid #fff;background:#FFF;}
