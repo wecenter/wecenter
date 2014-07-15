@@ -85,7 +85,7 @@
 			
 			<!-- 侧边栏 -->
 			<div class="col-sm-3 aw-side-bar">
-					<div class="aw-mod topic-edit-help">
+				<div class="aw-mod topic-edit-help">
 					<div class="mod-head">
 						<h3><?php _e('管理话题指南'); ?></h3>
 					</div>
@@ -95,6 +95,14 @@
 					</div>
 				</div>
 
+				<?php if ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?>
+				<div class="aw-mod topic-manage">
+					<div class="mod-body clearfix">
+						<a onclick="AWS.ajax_request(G_BASE_URL + '/topic/ajax/lock/', 'topic_id=<?php echo $this->topic_info['topic_id']; ?>');" class="btn btn-default pull-left <?php if (!$this->topic_info['topic_lock']) { ?>aw-active<?php } ?>"><?php if ($this->topic_info['topic_lock']) { ?><?php _e('解除锁定'); ?><?php } else { ?><?php _e('锁定话题'); ?><?php } ?></a>
+						<a onclick="AWS.dialog('confirm', {'message' : '<?php _e('确认删除?'); ?>'}, function(){AWS.ajax_request(G_BASE_URL + '/topic/ajax/remove/', 'topic_id=<?php echo $this->topic_info['topic_id']; ?>');});" class="btn btn-danger pull-right"><?php _e('删除话题'); ?></a>
+					</div>
+				</div>
+				<?php } ?>
 			</div>
 			<!-- end 侧边栏 -->
 		</div>
