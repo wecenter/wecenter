@@ -174,6 +174,16 @@
 				<!-- end 话题描述 -->
 
 				<?php TPL::output('topic/related_topics.tpl.htm'); ?>
+				
+				<?php if ($this->parent_topic_info) { ?>
+				<div class="aw-mod">
+					<div class="mod-head">
+						<h3><?php _e('根话题'); ?></h3>
+					</div>
+					
+					<a class="aw-topic-name" href="topic/<?php echo $this->parent_topic_info['url_token']; ?>" data-id="<?php echo $this->parent_topic_info['topic_id']; ?>"><span><?php echo $this->parent_topic_info['topic_title']; ?></span></a>
+				</div>
+				<?php } ?>
 
 				<?php if ($this->in_features) { ?>
 				<div class="aw-mod">
@@ -213,69 +223,69 @@
 						</dl>
 						<?php } ?>
 					</div>
-					<?php } ?>
-					<!-- end 最佳回复者 -->
-
-					<!-- xx人关注该话题 -->
-					<div class="aw-mod topic-status">
-						<div class="mod-head">
-							<h3><?php _e('%s 人关注该话题', $this->topic_info['focus_count']); ?></h3>
-						</div>
-						<div class="mod-body">
-							<div id="focus_users" class="aw-border-radius-5"></div>
-						</div>
-					</div>
-					<!-- end xx人关注该话题 -->
-
-					<!-- 话题修改记录 -->
-					<?php if ($this->user_id) {?>
-					<div class="aw-mod topic-edit-notes">
-						<div class="mod-head">
-							<h3><i class="fa fa-chevron-down pull-right"></i><?php _e('话题修改记录'); ?></h3>
-						</div>
-						<div class="mod-body hide">
-							<ul>
-								<?php if ($this->log_list) { ?>
-								<?php foreach ($this->log_list as $key => $val) { ?>
-								<li onclick="AWS.dialog('topicEditHistory', decodeURIComponent('<?php echo rawurlencode($val['add_time'] . ': ' . $val['title']); ?>'));">
-									<span class="pull-right aw-text-color-999"><?php echo $val['add_time']; ?></span>
-									<a href="javascript:;" data-id="<?php echo $val['uid']; ?>" class="aw-user-name pull-left"><?php echo $val['user_name']; ?></a>
-								</li>
-								<?php } ?>
-								<?php } ?>
-							</ul>
-						</div>
-					</div>
-					<?php } ?>
-					<!-- end 话题修改记录 -->
-
-					<?php if ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator'] OR ($this->topic_info['topic_lock'] == 0 && $this->user_info['permission']['edit_topic']) OR ($this->topic_info['topic_lock'] == 0 && $this->user_info['permission']['manage_topic'])) { ?>
-					<div class="aw-mod">
-						<div class="mod-head">
-							<h3><?php _e('管理'); ?></h3>
-						</div>
-						
-						<div class="mod-body">
-							<ul>
-								<?php if ($this->topic_info['topic_lock'] == 0 && $this->user_info['permission']['edit_topic']) { ?>
-								<li><a href="topic/edit/<?php echo $this->topic_info['topic_id']; ?>"><?php _e('编辑话题'); ?></a></li>
-								<?php } ?>
-								<?php if ($this->topic_info['topic_lock'] == 0 && $this->user_info['permission']['manage_topic']) { ?>
-								<li><a href="topic/manage/<?php echo $this->topic_info['topic_id']; ?>"><?php _e('管理话题'); ?></a></li>
-								<?php } ?>
-
-								<?php if ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?>
-								<li><a href="javascript:;" onclick="AWS.ajax_request(G_BASE_URL + '/topic/ajax/lock/', 'topic_id=<?php echo $this->topic_info['topic_id']; ?>');"><?php if ($this->topic_info['topic_lock']) { ?><?php _e('解除锁定'); ?><?php } else { ?><?php _e('锁定话题'); ?><?php } ?></a></li>
-
-								<li><a href="javascript:;" onclick="AWS.dialog('confirm', {'message' : '<?php _e('确认删除?'); ?>'}, function(){AWS.ajax_request(G_BASE_URL + '/topic/ajax/remove/', 'topic_id=<?php echo $this->topic_info['topic_id']; ?>');});"><?php _e('删除话题'); ?></a></li>
-								<?php } ?>
-							</ul>
-						</div>
-					</div>
-					<?php } ?>
 				</div>
-				<!-- end 侧边栏 -->
+				<?php } ?>
+				<!-- end 最佳回复者 -->
+
+				<!-- xx人关注该话题 -->
+				<div class="aw-mod topic-status">
+					<div class="mod-head">
+						<h3><?php _e('%s 人关注该话题', $this->topic_info['focus_count']); ?></h3>
+					</div>
+					<div class="mod-body">
+						<div id="focus_users" class="aw-border-radius-5"></div>
+					</div>
+				</div>
+				<!-- end xx人关注该话题 -->
+
+				<!-- 话题修改记录 -->
+				<?php if ($this->user_id) {?>
+				<div class="aw-mod topic-edit-notes">
+					<div class="mod-head">
+						<h3><i class="fa fa-chevron-down pull-right"></i><?php _e('话题修改记录'); ?></h3>
+					</div>
+					<div class="mod-body hide">
+						<ul>
+							<?php if ($this->log_list) { ?>
+							<?php foreach ($this->log_list as $key => $val) { ?>
+							<li onclick="AWS.dialog('topicEditHistory', decodeURIComponent('<?php echo rawurlencode($val['add_time'] . ': ' . $val['title']); ?>'));">
+								<span class="pull-right aw-text-color-999"><?php echo $val['add_time']; ?></span>
+								<a href="javascript:;" data-id="<?php echo $val['uid']; ?>" class="aw-user-name pull-left"><?php echo $val['user_name']; ?></a>
+							</li>
+							<?php } ?>
+							<?php } ?>
+						</ul>
+					</div>
+				</div>
+				<?php } ?>
+				<!-- end 话题修改记录 -->
+
+				<?php if ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator'] OR ($this->topic_info['topic_lock'] == 0 && $this->user_info['permission']['edit_topic']) OR ($this->topic_info['topic_lock'] == 0 && $this->user_info['permission']['manage_topic'])) { ?>
+				<div class="aw-mod">
+					<div class="mod-head">
+						<h3><?php _e('管理'); ?></h3>
+					</div>
+					
+					<div class="mod-body">
+						<ul>
+							<?php if ($this->topic_info['topic_lock'] == 0 && $this->user_info['permission']['edit_topic']) { ?>
+							<li><a href="topic/edit/<?php echo $this->topic_info['topic_id']; ?>"><?php _e('编辑话题'); ?></a></li>
+							<?php } ?>
+							<?php if ($this->topic_info['topic_lock'] == 0 && $this->user_info['permission']['manage_topic']) { ?>
+							<li><a href="topic/manage/<?php echo $this->topic_info['topic_id']; ?>"><?php _e('管理话题'); ?></a></li>
+							<?php } ?>
+
+							<?php if ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?>
+							<li><a href="javascript:;" onclick="AWS.ajax_request(G_BASE_URL + '/topic/ajax/lock/', 'topic_id=<?php echo $this->topic_info['topic_id']; ?>');"><?php if ($this->topic_info['topic_lock']) { ?><?php _e('解除锁定'); ?><?php } else { ?><?php _e('锁定话题'); ?><?php } ?></a></li>
+
+							<li><a href="javascript:;" onclick="AWS.dialog('confirm', {'message' : '<?php _e('确认删除?'); ?>'}, function(){AWS.ajax_request(G_BASE_URL + '/topic/ajax/remove/', 'topic_id=<?php echo $this->topic_info['topic_id']; ?>');});"><?php _e('删除话题'); ?></a></li>
+							<?php } ?>
+						</ul>
+					</div>
+				</div>
+				<?php } ?>
 			</div>
+			<!-- end 侧边栏 -->
 		</div>
 	</div>
 </div>

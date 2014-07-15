@@ -1,74 +1,86 @@
 <?php TPL::output('m/header.tpl.htm'); ?>
-<?php TPL::output('m/global_header.tpl.htm'); ?>
+
+<!-- 标题 -->
+<div class="aw-title">
+    发起问题
+</div>
+<!-- end 标题 -->
+
 <!-- 内容 -->
-<div class="aw-content aw-publish">
-    <div class="aw-title">
-        <h2><?php _e('发起问题'); ?></h2>
-    </div>
-    <div class="aw-mod aw-mod-publish clearfix">
-        <form action="publish/ajax/<?php if ($this->question_info['question_id']) { ?>modify<?php } else { ?>publish<?php } ?>_question/" method="post" id="question_form" onsubmit="return false;">
-            <input type="hidden" name="post_hash" value="<?php echo new_post_hash(); ?>" />
-            <input type="hidden" name="question_id" id="question_id" value="<?php echo $this->question_info['question_id']; ?>" />
-            <input type="hidden" name="ask_user_id" value="<?php echo $_POST['ask_user_id']; ?>" />
-            <input type="hidden" name="attach_access_key" value="<?php echo $this->attach_access_key; ?>" />
+<div class="container active">
+    <form action="publish/ajax/<?php if ($this->question_info['question_id']) { ?>modify<?php } else { ?>publish<?php } ?>_question/" method="post" id="question_form" onsubmit="return false;">
+        <input type="hidden" name="post_hash" value="<?php echo new_post_hash(); ?>" />
+        <input type="hidden" name="question_id" id="question_id" value="<?php echo $this->question_info['question_id']; ?>" />
+        <input type="hidden" name="ask_user_id" value="<?php echo $_POST['ask_user_id']; ?>" />
+        <input type="hidden" name="attach_access_key" value="<?php echo $this->attach_access_key; ?>" />
 
-            <?php if ($this->weixin_media_id) { ?>
-            <input type="hidden" name="weixin_media_id" value="<?php echo $this->weixin_media_id; ?>" />
-            <input type="hidden" name="weixin_pic_url" value="<?php echo $this->weixin_pic_url; ?>" />
+        <?php if ($this->weixin_media_id) { ?>
+        <input type="hidden" name="weixin_media_id" value="<?php echo $this->weixin_media_id; ?>" />
+        <input type="hidden" name="weixin_pic_url" value="<?php echo $this->weixin_pic_url; ?>" />
+        <?php } ?>
+        <div class="aw-publish-box">
+            <!-- 问题标题 -->
+            <div class="title">
+                <input type="text" class="form-control" placeholder="<?php _e('输入问题'); ?>" name="question_content" value="<?php echo $this->question_info['question_content']; ?>" />
+            </div>
+            <!-- end 问题标题 -->
+
+            <!-- 问题补充 -->
+            <div class="content">
+                <textarea name="question_detail" class="form-control autosize" placeholder="<?php _e('问题详细补充（选填）'); ?>" id="" cols="30" rows="4"><?php echo $this->question_info['question_detail']; ?></textarea>
+            </div>
+            <!-- end 问题补充 -->
+
+            <?php if (get_setting('upload_enable') == 'Y' AND get_setting('advanced_editor_enable' == 'Y')) { ?>
+            <!-- 上传控件 -->
+            <div class="aw-upload-box">
+                <a class="icon icon-pic"></a>
+                <div class="upload-container"></div>
+            </div>
+            <!-- end 上传控件 -->
             <?php } ?>
 
+            <!-- 分类 -->
             <?php if ($this->question_category_list) { ?>
-            <select name="category_id" class="hide" id="category_id">
-                <option value="0">- <?php _e('请选择分类'); ?> -</option>
-                <?php echo $this->question_category_list; ?>
-            </select>
+            <div class="category clearfix">
+                <select name="category_id" id="category_id">
+                    <option value="0">- <?php _e('请选择分类'); ?> -</option>
+                    <?php echo $this->question_category_list; ?>
+                </select>
+                <i class="icon icon-down"></i>
+            </div>
+            <?php } ?>
+            <!-- end 分类 -->
+
+            <!-- 话题bar -->
+            <?php if ($this->user_id AND !$this->question_info['question_id']) { ?>
+            <div class="aw-topic-bar clearfix">
+                <div class="tag-bar">
+                    <a class="icon icon-inverse aw-add-topic-box"><i class="icon icon-edit"></i></a>
+                </div>
+            </div>
+            <?php } ?>
+            <!-- end 话题bar -->
+
+            <?php if ($this->human_valid) { ?>
+            <div class="aw-auth-img pull-left">
+                <em class="auth-img pull-left"><img src="" onclick="this.src = G_BASE_URL + '/account/captcha/' + Math.floor(Math.random() * 10000);" id="captcha"  /></em>
+                <input class="form-control pull-left" type="text" name="seccode_verify" placeholder="验证码" />
+            </div>
             <?php } ?>
 
-            <div class="aw-mod-head clearfix">
-                <h3><?php _e('问题标题'); ?>:</h3>
-                <div class="aw-publish-title">
-                    <textarea class="form-control pull-left" placeholder="<?php _e('问题标题'); ?>..." name="question_content" onkeydown="if (event.keyCode == 13) { return false; }" rows="2"><?php echo $this->question_info['question_content']; ?></textarea>
-
-                </div>
-                <?php if ($this->question_category_list) { ?>
-                    <h3><?php _e('选择分类'); ?>:</h3>
-                    <div class="aw-publish-dropdown pull-left">
-                        <p class="dropdown-toggle" data-toggle="dropdown">
-                            <span class="pull-left aw-text-color-999"><?php _e('选择分类'); ?></span>
-                            <i class="pull-left"></i>
-                        </p>
-                    </div>
+            <div class="command">
+                <label class="pull-left"><input type="checkbox" value="" /> <?php _e('匿名'); ?></label>
+                <?php if ($this->question_info['question_id'] AND ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator'])) { ?>
+                <label class="pull-left"><input type="checkbox"  value="1" name="do_delete" /> <?php _e('删除问题'); ?></label>
                 <?php } ?>
-            </div>
-            <div class="aw-mod-body clearfix">
-                <h3><?php _e('问题补充 (选填)'); ?>: <span id="file_uploader_answer"></span></h3>
-                <textarea name="question_detail" class="autosize form-control textarea_content" id="question_detail" rows="4" placeholder="<?php _e('问题补充'); ?>"><?php echo $this->question_info['question_detail']; ?></textarea>
 
-                <?php if (!$this->question_info['question_id']) { ?>
-                <div class="aw-topic-edit-box" id="quick_publish_topic_chooser">
-                    <div class="aw-topic-box">
-                        <a class="aw-add-topic-box"><i class="fa fa-edit"></i> <?php _e('编辑话题'); ?></a>
-                    </div>
-                </div>
-                <?php } ?>
+                <a class="btn btn-success btn-slarge" onclick="AWS.ajax_post($('#question_form')); return false;"><?php _e('发起问题'); ?></a>
             </div>
-            <div class="aw-mod-footer">
-                <?php if ($this->human_valid) { ?>
-                <div class="aw-auth-img pull-left">
-                    <em class="auth-img pull-left"><img src="" onclick="this.src = G_BASE_URL + '/account/captcha/' + Math.floor(Math.random() * 10000);" id="captcha"  /></em>
-                    <input class="form-control pull-left" type="text" name="seccode_verify" placeholder="验证码" />
-                </div>
-                <?php } ?>
-                <button class="btn btn-primary pull-right" onclick="AWS.ajax_post($('#question_form')); return false;"><?php _e('确认发起'); ?></button>
 
-                <span class="aw-anonymity">
-                    <?php if ($this->question_info['question_id'] AND ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator'])) { ?>
-                    <label><input type="checkbox" class="pull-left" value="1" name="do_delete" /> <?php _e('删除问题'); ?></label>
-                    <?php } ?>
-                </span>
-            </div>
-        </form>
-    </div>
+        </div>
+    </form>
+
 </div>
 <!-- end 内容 -->
 
@@ -87,7 +99,7 @@
 
         if (ATTACH_ACCESS_KEY != '')
         {
-            AWS.Init.init_fileuploader('file_uploader_answer', G_BASE_URL + '/publish/ajax/attach_upload/id-question__attach_access_key' + '-' + ATTACH_ACCESS_KEY);
+            var fileupload = new FileUpload('.aw-upload-box .icon-pic', '.aw-upload-box .upload-container', G_BASE_URL + '/publish/ajax/attach_upload/id-question__attach_access_key' + '-' + ATTACH_ACCESS_KEY, {'deleteBtnTemplate' : '<a class="delete-file"><i class="icon icon-delete"></i></a>', 'insertBtnTemplate' : '<a class="insert-file"><i class="icon icon-insert"></i></a>'})
         }
 
         if ($('#category_id').length)
@@ -106,7 +118,7 @@
                 }
             });
 
-            AWS.Dropdown.add_dropdown_list('.aw-publish-dropdown', eval('[' + category_data + ']'), CATEGORY_ID);
+            //AWS.Dropdown.add_dropdown_list('.aw-publish-dropdown', eval('[' + category_data + ']'), CATEGORY_ID);
 
             $('.aw-publish-dropdown .dropdown-menu li a').click(function() {
                 $('#category_id').val($(this).attr('data-value'));

@@ -583,9 +583,18 @@ class ajax extends AWS_CONTROLLER
 		$this->model('active')->new_find_password($user_info['uid']);
 
 		AWS_APP::session()->find_password = $user_info['email'];
+		
+		if (is_mobile())
+		{
+			$url = get_js_url('/m/find_password_success/');
+		}
+		else
+		{
+			$url = get_js_url('/account/find_password/process_success/');
+		}
 
 		H::ajax_json_output(AWS_APP::RSM(array(
-			'url' => get_js_url('/account/find_password/process_success/')
+			'url' => $url
 		), 1, null));
 	}
 
@@ -1032,12 +1041,10 @@ class ajax extends AWS_CONTROLLER
 
 		$update_data['sex'] = intval($_POST['sex']);
 
-		if ($_POST['first_login'] == 1)
-		{
-			$update_data['province'] = htmlspecialchars($_POST['province']);
 
-			$update_data['city'] = htmlspecialchars($_POST['city']);
-		}
+		$update_data['province'] = htmlspecialchars($_POST['province']);
+
+		$update_data['city'] = htmlspecialchars($_POST['city']);
 
 		if ($_POST['birthday_y'])
 		{

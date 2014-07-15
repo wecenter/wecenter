@@ -108,6 +108,9 @@ class main extends AWS_CONTROLLER
 			case 'article':
 			case 'article_square':
 			case 'topic_square':
+			case 'find_password':
+			case 'find_password_success':
+			case 'find_password_modify':
 				// Public page..
 			break;
 		}
@@ -115,14 +118,15 @@ class main extends AWS_CONTROLLER
 		TPL::import_clean();
 
 		TPL::import_css(array(
-			'mobile/css/mobile.css',
+			'mobile/css/icon.css',
+			'mobile/css/mobile.css'
 		));
 
 		TPL::import_js(array(
 			'js/jquery.2.js',
 			'js/jquery.form.js',
 			'mobile/js/framework.js',
-			'mobile/js/aws_mobile.js',
+			'mobile/js/aws-mobile.js',
 			'mobile/js/app.js',
 			'mobile/js/aw-mobile-template.js'
 		));
@@ -139,6 +143,7 @@ class main extends AWS_CONTROLLER
 
 		TPL::output('m/index');
 	}
+
 
 	public function focus_action()
 	{
@@ -207,6 +212,8 @@ class main extends AWS_CONTROLLER
 
 			$this->crumb(AWS_APP::lang()->_t('私信对话') . ': ' . $recipient_user['user_name'], '/m/inbox/dialog_id-' . intval($_GET['dialog_id']));
 
+			TPL::assign('body_class', 'active');
+
 			TPL::assign('list', $list_data);
 
 			TPL::assign('recipient_user', $recipient_user);
@@ -223,6 +230,8 @@ class main extends AWS_CONTROLLER
 
 	public function question_action()
 	{
+		TPL::assign('body_class', 'active');
+
 		if (!$this->user_id AND !$this->user_info['permission']['visit_question'])
 		{
 			HTTP::redirect('/m/login/url-' . base64_encode(get_js_url($_SERVER['QUERY_STRING'])));
@@ -486,6 +495,10 @@ class main extends AWS_CONTROLLER
 			TPL::assign('next_page', $_GET['page']);
 		}
 
+		TPL::import_js(array(
+			'js/fileupload.js'
+		));
+
 		TPL::output('m/question');
 	}
 
@@ -577,6 +590,37 @@ class main extends AWS_CONTROLLER
 		TPL::output('m/register');
 	}
 
+	public function find_password_action()
+	{
+		$this->crumb(AWS_APP::lang()->_t('找回密码'), '/m/find_password/');
+
+		TPL::output('m/find_password');
+	}
+
+	public function find_password_success_action()
+	{
+		TPL::assign('email', AWS_APP::session()->find_password);
+
+		$this->crumb(AWS_APP::lang()->_t('找回密码'), '/m/find_password_success/');
+
+		TPL::output('m/find_password_success');
+	}
+
+	public function find_password_modify_action()
+	{
+		if (!$active_code_row = $this->model('active')->get_active_code($_GET['key'], 'FIND_PASSWORD'))
+		{
+			H::redirect_msg(AWS_APP::lang()->_t('链接已失效'), '/');
+		}
+		
+		if ($active_code_row['active_time'] OR $active_code_row['active_ip'])
+		{
+			H::redirect_msg(AWS_APP::lang()->_t('链接已失效'), '/');
+		}
+		
+		TPL::output('m/find_password_modify');
+	}
+
 	public function explore_action()
 	{
 		if (!$this->user_id AND !$this->user_info['permission']['visit_explore'])
@@ -659,6 +703,23 @@ class main extends AWS_CONTROLLER
 		TPL::assign('user_actions_answers', $this->model('actions')->get_user_actions($user['uid'], 5, ACTION_LOG::ANSWER_QUESTION, $this->user_id));
 
 		$this->crumb(AWS_APP::lang()->_t('%s 的个人主页', $user['user_name']), '/m/people/' . $user['url_token']);
+		
+		$job_info = $this->model('account')->get_jobs_by_id($user['job_id']);
+		
+		TPL::assign('job_name', $job_info['job_name']);
+		
+		if ($user['weibo_visit'])
+		{
+			if ($users_sina = $this->model('openid_weibo')->get_users_sina_by_uid($user['uid']))
+			{
+				TPL::assign('sina_weibo_url', 'http://www.weibo.com/' . $users_sina['id']);
+			}
+			
+			if ($users_qq = $this->model('openid_qq_weibo')->get_users_qq_by_uid($user['uid']))
+			{
+				TPL::assign('qq_weibo_url', 'http://t.qq.com/' . $users_qq['name']);
+			}
+		}
 
 		TPL::output('m/people');
 	}
@@ -705,7 +766,8 @@ class main extends AWS_CONTROLLER
 			TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
 				'base_url' => get_js_url('/m/people_list/group_id-' . $_GET['group_id']),
 				'total_rows' => $this->model('account')->get_user_count(implode(' AND ', $where)),
-				'per_page' => get_setting('contents_per_page')
+				'per_page' => get_setting('contents_per_page'),
+				'num_links' => 1
 			))->create_links());
 		}
 
@@ -724,7 +786,7 @@ class main extends AWS_CONTROLLER
 
 			if (!$_GET['feature_id'])
 			{
-				$reputation_topics = $this->model('people')->get_users_reputation_topic($reputation_users_ids, $users_reputations, 5);
+				$reputation_topics = $this->model('people')->get_users_reputation_topic($reputation_users_ids, $users_reputations, 4);
 
 				foreach ($users_list as $key => $val)
 				{
@@ -766,12 +828,10 @@ class main extends AWS_CONTROLLER
 
 		$this->crumb($keyword, 'm/search/q-' . urlencode($keyword));
 
-		if (!$keyword)
-		{
-			HTTP::redirect('/m/');
-		}
+		TPL::assign('body_class', 'active');
 
 		TPL::assign('keyword', $keyword);
+		
 		TPL::assign('split_keyword', implode(' ', $this->model('system')->analysis_keyword($keyword)));
 
 		TPL::output('m/search');
@@ -970,6 +1030,12 @@ class main extends AWS_CONTROLLER
 		{
 			TPL::assign('attach_access_key', md5($this->user_id . time()));
 		}
+
+		TPL::import_js(array(
+			'js/fileupload.js'
+		));
+
+		TPL::assign('body_class', 'active');
 
 		TPL::assign('human_valid', human_valid('question_valid_hour'));
 

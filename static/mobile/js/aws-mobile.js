@@ -1071,7 +1071,10 @@ AWS.Init =
 	{
 		$(selector).click(function()
 		{
-			var data_id = $(this).parents('.aw-topic-edit-box').attr('data-id'),
+
+			$(this).parents('.aw-topic-bar').addClass('active');
+
+			var data_id = $(this).parents('.aw-topic-bar').attr('data-id'),
 				data_type;
 			if (type)
 			{
@@ -1079,44 +1082,49 @@ AWS.Init =
 			}
 			else
 			{
-				data_type = $(this).parents('.aw-topic-edit-box').attr('data-type');
+				data_type = $(this).parents('.aw-topic-bar').attr('data-type');
 			}
+
 			$(selector).hide();
-			$(selector).parents('.aw-topic-edit-box').append(AW_MOBILE_TEMPLATE.topic_edit_box);
-			$.each($(selector).parents('.aw-topic-edit-box').find('.aw-topic-name'), function(i, e)
+
+			$(selector).parents('.aw-topic-bar').append(AW_MOBILE_TEMPLATE.topic_edit_box);
+
+			$.each($(selector).parents('.aw-topic-bar').find('.topic-tag'), function (i, e)
 			{
 				if (!$(e).has('i')[0])
 				{
-					$(e).append('<a href="#"><i>X</i></a>');
+					$(e).append('<a href="#" class="close"><i class="icon icon-delete"></i></a>');
 				}
 			});
-			AWS.Dropdown.bind_dropdown_list('.aw-topic-box-selector .aw-topic-input','topic');
+
+			AWS.Dropdown.bind_dropdown_list('.aw-topic-bar input','topic');
+
 			/* 话题编辑添加按钮 */
-			$('.aw-topic-box-selector .add').click(function()
+			$('.aw-topic-bar .add').click(function()
 			{
 				switch (data_type)
 				{
 					case 'publish' :
-						if ($(this).parents('.aw-topic-box-selector').find('.aw-topic-input').val() != '')
+						if ($(this).parents('.aw-topic-bar').find('.topic-text').val() != '')
 						{
-							$(this).parents('.aw-topic-edit-box').find('.aw-topic-box').prepend('<span class="aw-topic-name"><a>' + $(this).parents('.aw-topic-box-selector').find('.aw-topic-input').val() + '</a><input type="hidden" name="topics[]" value="' + $(this).parents('.aw-topic-box-selector').find('.aw-topic-input').val() + '"><a><i onclick="$(this).parents(\'.aw-topic-name\').detach();">X</i></a></span>');
-							$(this).parents('.aw-topic-edit-box').find('.aw-topic-input').val('');
-							$(this).parents('.aw-topic-edit-box').find('.dropdown-list').hide();
+							$(this).parents('.aw-topic-bar').find('.tag-bar').prepend('<span class="topic-tag"><a class="text">' + $(this).parents('.aw-topic-bar').find('.topic-text').val() + '</a><input type="hidden" name="topics[]" value="' + $(this).parents('.aw-topic-bar').find('.topic-text').val() + '" ><a class="close" onclick="$(this).parents(\'.topic-tag\').detach();"><i class="icon icon-delete"></i></a>');
+							$(this).parents('.aw-topic-bar').find('.topic-text').val('');
+							$(this).parents('.aw-topic-bar').find('.dropdown-list').hide();
 						}
 					break;
 					case 'question' :
 						var _this = $(this);
-						$.post(G_BASE_URL + '/topic/ajax/save_topic_relation/', 'type=question&item_id=' + data_id + '&topic_title=' + encodeURIComponent($(this).parents('.aw-topic-box-selector').find('.aw-topic-input').val()), function(result)
+						$.post(G_BASE_URL + '/topic/ajax/save_topic_relation/', 'type=question&item_id=' + data_id + '&topic_title=' + encodeURIComponent($(this).parents('.aw-topic-bar').find('.topic-text').val()), function(result)
 						{
 							if (result.errno == 1)
 							{
-								_this.parents('.aw-topic-edit-box').find('.aw-topic-box').prepend('<span class="aw-topic-name" data-id="'+ result.rsm.topic_id +'"><a>' + _this.parents('.aw-topic-box-selector').find('.aw-topic-input').val() + '</a><a><i>X</i></a></span>');
-								_this.parents('.aw-topic-edit-box').find('.aw-topic-input').val('');
-								_this.parents('.aw-topic-edit-box').find('.dropdown-list').hide();
+								_this.parents('.aw-topic-bar').find('.tag-bar').prepend('<span class="topic-tag" data-id="'+ result.rsm.topic_id +'"><a class="text">' + _this.parents('.aw-topic-bar').find('.topic-text').val() + '</a><a class="close"><i class="icon icon-delete"></i></a></span>');
+								_this.parents('.aw-topic-bar').find('.topic-text').val('');
+								_this.parents('.aw-topic-bar').find('.dropdown-list').hide();
 							}else
 							{
 								alert(result.err);
-								_this.parents('.aw-topic-edit-box').find('.dropdown-list').hide();
+								_this.parents('.aw-topic-bar').find('.dropdown-list').hide();
 							}
 						}, 'json');
 					break;
@@ -1334,6 +1342,27 @@ function _t(string, replace)
 	        {
 	            textObj.value += textFeildValue;
 	        }
+	    },
+
+	    highText: function (searchWords, htmlTag, tagClass)
+	    {
+	        return this.each(function ()
+	        {
+	            $(this).html(function high(replaced, search, htmlTag, tagClass)
+	            {
+	                var pattarn = search.replace(/\b(\w+)\b/g, "($1)").replace(/\s+/g, "|");
+
+	                return replaced.replace(new RegExp(pattarn, "ig"), function (keyword)
+	                {
+	                    return $("<" + htmlTag + " class=" + tagClass + ">" + keyword + "</" + htmlTag + ">").outerHTML();
+	                });
+	            }($(this).text(), searchWords, htmlTag, tagClass));
+	        });
+	    },
+	    
+	    outerHTML: function (s)
+	    {
+	        return (s) ? this.before(s).remove() : jQuery("<p>").append(this.eq(0).clone()).html();
 	    }
     });
 

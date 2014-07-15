@@ -78,7 +78,12 @@ class search_class extends AWS_MODEL
 	}
 	
 	public function search($q, $search_type, $page = 1, $limit = 20, $topic_ids = null)
-	{		
+	{
+		if (!$q)
+		{
+			return false;
+		}
+		
 		$q = (array)explode(' ', str_replace('  ', ' ', trim($q)));
 		
 		foreach ($q AS $key => $val)

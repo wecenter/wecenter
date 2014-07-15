@@ -7,6 +7,20 @@
             <h3>
                 <span class="pull-left"><?php _e('自定义回复'); ?></span>
             </h3>
+
+            <?php if (count($this->accounts_list) > 1) { ?>
+            <div class="dropdown pull-right">
+                <a class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"><?php _e('微信帐号'); ?><span class="caret"></span></a>
+
+                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                    <li role="presentation" class="divider"></li>
+                    <?php foreach ($this->accounts_list AS $account_info) { ?>
+                        <li role="presentation" <?php if ($account_info['id'] == $this->account_id) { ?> class="active"<?php } ?>><a role="menuitem" tabindex="-1" href="admin/weixin/reply/id-<?php echo $account_info['id']; ?>"><?php if ($account_info['id'] == 0) { _e('主账号'); } else { _e('子账号 %s', $account_info['id']); } ?></a></li>
+                    <?php } ?>
+                </ul>
+
+            </div>
+            <?php } ?>
         </div>
 
         <div class="tab-content mod-body">
@@ -57,16 +71,6 @@
     </div>
 </div>
 
-<!--
-<?php if (count($this->accounts_list) > 1) { ?>
-<ul>
-    <?php foreach ($this->accounts_list AS $account_info) { ?>
-        <li<?php if ($this->account_info['id'] == $this->account_id) { ?> class=""<?php } ?>><a href="admin/weixin/reply/id-<?php echo $account_info['id']; ?>"><?php _e('微信账号 %s', $account_info['id']); ?></a></li>
-    <?php } ?>
-</ul>
-<?php } ?>
--->
-
 <script type="text/javascript">
     $(document).ready(function () {
         $('input.enabled-status, input.flag-action').on('ifChanged', function () {
@@ -82,6 +86,12 @@
                 AWS.ajax_post($('#rule_list_form'), AWS.ajax_processer, 'error_message');
             }
         });
+
+    /**
+     * 7月15日 默认使用的微信帐号显示在首位
+     */
+
+     $('.dropdown-menu .active','.dropdown').insertBefore('.divider','.dropdown');
     });
 </script>
 
