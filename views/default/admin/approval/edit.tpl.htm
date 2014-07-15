@@ -42,24 +42,30 @@
                         <span class="col-sm-4 col-xs-3 control-label"><?php _e('话题'); ?>:</span>
                         <div class="col-sm-5 col-xs-8">
                             <input class="form-control" name="topics" type="text" value="<?php echo $this->approval_item['topics']; ?>" />
+
+                            <span class="help-block">多个话题请用 , 分隔</span>
                         </div>
                     </div>
                     </td></tr>
                     <?php } ?>
-
-                    <?php if ($this->approval_item['attachs']) {  ?>
+                    <tr><td>
+                    <?php if ($this->approval_item['attachs']) { ?>
                     <p><strong><?php _e('附件'); ?></strong></p>
 
                     <blockquote class="aw-comment-upload-img-list">
+                        <ul>
                         <?php foreach ($this->approval_item['attachs'] AS $attach) { ?>
                         <?php if ($attach['is_image']) { ?>
-                        <input name="attachs[<?php echo $attach['id']; ?>]" type="hidden" value="<?php echo $attach['access_key']; ?>" />
+                            <li>
+                                <input name="attachs[<?php echo $attach['id']; ?>]" type="hidden" value="<?php echo $attach['access_key']; ?>" />
 
-                        <a href="<?php echo $attach['attachment']; ?>" target="_blank" data-fancybox-group="thumb" rel="lightbox"><img src="<?php echo $attach['attachment']; ?>" class="img-polaroid" alt="<?php echo $attach['attach_name']; ?>" /></a>
+                                <a href="<?php echo $attach['attachment']; ?>" target="_blank" data-fancybox-group="thumb" rel="lightbox"><img src="<?php echo $attach['attachment']; ?>" class="img-polaroid" alt="<?php echo $attach['attach_name']; ?>" /></a>
 
-                        <a href="javascript:;" onclick=""><?php _e('删除'); ?></a>
+                                <a href="javascript:;" class="btn btn-danger"><?php _e('删除'); ?></a>
+                            </li>
                         <?php } ?>
                         <?php } ?>
+                        </ul>
                     </blockquote>
 
                     <blockquote>
@@ -72,22 +78,37 @@
                                 <a href="<?php echo download_url($attach['file_name'], $attach['attachment']); ?>"><em class="aw-icon i-upload-file"></em><?php echo $attach['file_name']; ?></a>
                             </li>
 
-                            <a href="javascript:;" onclick=""><?php _e('删除'); ?></a>
+                            <a href="javascript:;"><?php _e('删除'); ?></a>
                             <?php } ?>
                             <?php } ?>
                         </ul>
                     </blockquote>
                     <?php } ?>
+                 </td></tr>
                 </table>
             </form>
         </div>
 
         <div class="tab-content mod-content mod-one-btn">
             <div class="center-block">
-                <input type="button" value="<?php _e('保存设置'); ?>" class="btn btn-primary" onclick="AWS.ajax_post($('#approval_form'));" />
+                <input type="button" value="<?php _e('保存'); ?>" class="btn btn-primary" onclick="AWS.ajax_post($('#approval_form'));" />
             </div>
         </div>
     </div>
 </div>
 
+<script>
+    $(function(){
+        $('.aw-comment-upload-img-list li').find(".btn-danger").on("click",function(){
+            var tempName = 'remove_'+ $(this).siblings("input").attr("name");
+            $(this).siblings("input").attr("name",tempName);
+
+             $(this).parents("li").css({display:"none"})
+        })
+
+        if($('.aw-comment-upload-file-list').find('li').length == 0){
+            $('.aw-comment-upload-file-list').parent().css({display:"none"});
+        }
+    })
+</script>
 <?php TPL::output('admin/global/footer.tpl.htm'); ?>
