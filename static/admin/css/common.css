@@ -222,7 +222,7 @@ textarea{resize:none;}
 
 /* 微信多账号下拉菜单 */
 .dropdown #dropdownMenu1 .caret{margin-left:5px;}
-.dropdown #dropdownMenu1 .dropdown-menu ul{min-width:100px;}
+.dropdown ul.dropdown-menu{min-width:100px;}
 
 /*日期选择控件*/
 .date_selector,.date_selector *{margin:0;padding:0;width:auto;height:auto;border:none;background:none;text-align:left;text-decoration:none;cursor:pointer;}
