@@ -9,7 +9,7 @@
 						<h1>
 							<?php echo $this->article_info['title']; ?>
 						</h1>
-						
+
 						<?php if ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?>
 						<div class="operate clearfix">
 							<!-- 下拉菜单 -->
@@ -36,7 +36,7 @@
 							<!-- end 下拉菜单 -->
 						</div>
 						<?php } ?>
-						
+
 						<div class="aw-topic-editor" data-type="article" data-id="<?php echo $this->article_info['id']; ?>">
 							<?php foreach($this->article_topics as $key => $val) { ?>
 							<a href="topic/<?php echo $val['url_token']; ?>" class="aw-topic-name" data-id="<?php echo $val['topic_id']; ?>"><span><?php echo $val['topic_title']; ?></span></a>
@@ -49,17 +49,17 @@
 					<div class="mod-body">
 						<div class="content markitup-box">
 							<?php echo $this->article_info['message']; ?>
-							
+
 							<?php if ($this->article_info['attachs']) {  ?>
 							<div class="aw-comment-upload-img-list">
 							<?php foreach ($this->article_info['attachs'] AS $attach) { ?>
 							<?php if ($attach['is_image'] AND !in_array($attach['id'], $this->article_info['attachs_ids'])) { ?>
-								<a href="<?php echo $attach['attachment']; ?>" target="_blank" data-fancybox-group="thumb" rel="lightbox"><img src="<?php echo $attach['attachment']; ?>" class="img-polaroid" alt="<?php echo $attach['attach_name']; ?>" /></a>
+								<a href="<?php echo $attach['attachment']; ?>" target="_blank" data-fancybox-group="thumb" rel="lightbox"><img src="<?php echo $attach['attachment']; ?>" class="img-polaroid" alt="<?php echo $attach['file_name']; ?>" /></a>
 							<?php } ?>
 							<?php } ?>
 							</div>
 							<?php } ?>
-							
+
 							<?php if ($this->article_info['attachs']) {  ?>
 							<ul class="aw-comment-upload-file-list">
 								<?php foreach ($this->article_info['attachs'] AS $attach) { ?>
@@ -75,12 +75,12 @@
 								<a href="javascript:;" class="agree<?php if ($this->article_info['vote_info']['rating'] == 1) { ?> active<?php } ?>" onclick="AWS.User.article_vote($(this), <?php echo $this->article_info['id']; ?>, 1);"><i class="fa fa-thumbs-up"></i> <b><?php echo $this->article_info['votes']; ?></b> 赞</a>
 								<a href="javascript:;" class="disagree<?php if ($this->article_info['vote_info']['rating'] == -1) { ?> active<?php } ?>" onclick="AWS.User.article_vote($(this), <?php echo $this->article_info['id']; ?>, -1);"><i class="fa fa-thumbs-down"></i></a>
 							</div>
-							
+
 							<a class="aw-text-color-999 pull-right" onclick="AWS.dialog('shareOut', {item_type:'article', item_id:<?php echo $this->article_info['id']; ?>});"><i class="fa fa-share"></i><?php _e('分享'); ?></a>
 							<?php if ((!$this->article_info['lock'] AND ($this->article_info['uid'] == $this->user_id OR $this->user_info['permission']['edit_article'])) OR $this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?>
 							<a class="aw-text-color-999 pull-right" href="publish/article/<?php echo $this->article_info['id']; ?>"><i class="fa fa-edit"></i> <?php _e('编辑'); ?></a>
 							<?php } ?>
-							
+
 							<?php if ($this->user_id) { ?><a href="javascript:;" onclick="AWS.dialog('favorite', {item_id:<?php echo $this->article_info['id']; ?>, item_type:'article'});" class="aw-text-color-999 pull-right"><i class="fa fa-bookmark"></i><?php _e('收藏'); ?></a><?php } ?>
 						</div>
 					</div>
@@ -95,13 +95,13 @@
 						<?php } ?>
 					</div>
 				</div>
-				
+
 				<!-- 文章评论 -->
 				<div class="aw-mod">
 					<div class="mod-head common-head">
 						<h2><?php _e('%s 个评论', $this->comments_count); ?></h2>
 					</div>
-					
+
 					<?php if ($this->comments) { ?>
 					<div class="mod-body aw-feed-list">
 						<?php foreach ($this->comments AS $key => $val) { ?>
@@ -118,7 +118,7 @@
 								</div>
 								<div class="meta">
 									<span class="pull-right"><?php echo $val['votes']; ?> <?php _e('赞'); ?></span>
-									
+
 									<span><?php echo date_friendly($val['add_time']); ?></span>
 									<?php if ($this->user_id) { ?>
 										<a class="aw-article-comment" data-id="<?php echo $val['user_info']['uid']; ?>"><i class="fa fa-comment"></i> <?php _e('回复'); ?></a>
@@ -133,7 +133,7 @@
 						<?php } ?>
 					</div>
 					<?php } ?>
-					
+
 					<?php if ($_GET['item_id']) { ?>
 					<div class="mod-footer">
 							<a href="article/<?php echo $this->article_info['id']; ?>" class="aw-load-more-content">
@@ -141,13 +141,13 @@
 							</a>
 					</div>
 					<?php } ?>
-					
+
 					<?php if ($this->pagination) { ?>
 						<div class="clearfix"><?php echo $this->pagination; ?></div>
 					<?php } ?>
 				</div>
 				<!-- end 文章评论 -->
-				
+
 				<!-- 回复编辑器 -->
 				<div class="aw-mod article-replay-box">
 					<a name="answer_form"></a>
