@@ -465,7 +465,7 @@
                                     <a class="btn btn-primary inline-block" href="javascript:;" onclick="if ($('#mp_menu_table tbody tr.top_menu').length > 2) { AWS.alert('<?php _e('最多只能创建 3 个菜单'); ?>') } else { $('#mp_menu_table tbody').append($('#top_menu_template').html().replace(/{MENU_ID}/g, hex_md5(new Date().getTime() + '|' + Math.random())));$('#mp_menu_table tbody tr:last').find('.aw-wechat-select').append($('#select_option').html()); }"><?php _e('添加菜单'); ?></a>
                                 </div>
                                 <div class="col-md-3 pull-right">
-                                   <a class="btn btn-primary inline-block pull-right" href="javascript:;" onclick="AWS.ajax_post($('#mp_menu_form'), function(){$('#form_update_weixin_menu_submit').click();});"><?php _e('提交菜单至微信'); ?></a> 
+                                   <a class="btn btn-primary inline-block pull-right" href="javascript:;" onclick="AWS.ajax_post($('#mp_menu_form'), function(){$('#form_update_weixin_menu_submit').click();});"><?php _e('提交菜单至微信'); ?></a>
                                    <div class="dropdown">
                                         <a class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
                                         <?php _e('微信帐号'); ?>
@@ -475,7 +475,7 @@
                                         <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
                                             <li role="presentation" class="divider"></li>
                                             <?php foreach ($this->accounts_list AS $account_info) { ?>
-                                                <li role="presentation" <?php if ($account_info['id'] == $this->account_id) { ?> class="active"<?php } ?>><a role="menuitem" tabindex="-1" href="admin/weixin/reply/id-<?php echo $account_info['id']; ?>"><?php _e('微信账号 %s', $account_info['id']); ?></a></li>
+                                                <li role="presentation" <?php if ($account_info['id'] == $this->account_id) { ?> class="active"<?php } ?>><a role="menuitem" tabindex="-1" href="admin/weixin/mp_menu/id-<?php echo $account_info['id']; ?>"><?php if ($account_info['id'] == 0) { _e('主账号'); } else { _e('子账号 %s', $account_info['id']); } ?></a></li>
                                             <?php } ?>
                                         </ul>
                                         <?php } ?>
@@ -498,7 +498,7 @@
     var mp_menu_list = eval('[<?php echo json_encode($this->mp_menu); ?>]');
 
     $('.dropdown-menu .active','.dropdown').insertBefore('.divider','.dropdown');
-    
+
     $(function()
     {
         // 初始化上传按钮
