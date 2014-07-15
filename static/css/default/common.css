@@ -238,6 +238,7 @@ a.aw-load-more-content{display: block;}
 .aw-notification-box .mod-body ul li span{font-size: 12px;}
 .aw-notification-box .mod-body ul li p{max-width: 630px;margin:0;line-height: 24px;}
 .aw-notification-box .mod-body ul li .close{display: none;}
+.aw-notification-box .mod-body ul li .more{margin:5px 0 0 5px;font-size: 12px;}
 .aw-notification-box .mod-body ul li:hover .close{display: block;}
 
 /* 侧边栏公共部分 */
@@ -552,7 +553,7 @@ a.aw-load-more-content{display: block;}
 .aw-mod-topic-manage dl .aw-publish-title .dropdown{position: relative;left: 0;width: 40%;}
 .aw-mod-topic-manage dl .aw-publish-title .dropdown .dropdown-toggle{border-radius: 5px;}
 .aw-mod-topic-manage dl .aw-publish-title #question_contents{width: 80%;}
-.aw-mod-topic-manage dl .aw-publish-title #aw-topic-tags-select{width:78%;height:30px;border:none;}
+.aw-mod-topic-manage dl .aw-publish-title #aw-topic-tags-select{width:78%;height:30px;line-height:30px;border:none;}
 /* 话题编辑box */
 .aw-edit-topic{display:inline-block;font-size: 12px;cursor: pointer;font-weight: normal;}
 .aw-edit-topic-box input, .aw-edit-topic-box > a{margin:0 5px 10px 0;}

@@ -751,7 +751,7 @@ class main extends AWS_CONTROLLER
 
 			if (!$_GET['feature_id'])
 			{
-				$reputation_topics = $this->model('people')->get_users_reputation_topic($reputation_users_ids, $users_reputations, 5);
+				$reputation_topics = $this->model('people')->get_users_reputation_topic($reputation_users_ids, $users_reputations, 4);
 
 				foreach ($users_list as $key => $val)
 				{
