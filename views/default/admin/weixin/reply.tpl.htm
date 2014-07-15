@@ -87,6 +87,12 @@
                 AWS.ajax_post($('#rule_list_form'), AWS.ajax_processer, 'error_message');
             }
         });
+
+    /**
+     * 7月15日 默认使用的微信帐号显示在首位
+     */
+
+     $('.dropdown-menu .active','.dropdown').insertBefore('.divider','.dropdown');
     });
 </script>
 
