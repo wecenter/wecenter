@@ -501,7 +501,7 @@
                         <div class="form-group">
                             <span class="col-sm-4 col-xs-3 control-label"><?php _e('网站统计代码'); ?>:</span>
                             <div class="col-sm-5 col-xs-8">
-                                <textarea class="form-control" name="statistic_code" rows="3"><?php echo $this->setting['statistic_code']; ?></textarea>
+                                <textarea class="form-control" name="statistic_code" rows="9"><?php echo $this->setting['statistic_code']; ?></textarea>
                             </div>
                         </div>
                     </td>
@@ -511,7 +511,7 @@
                         <div class="form-group">
                             <span class="col-sm-4 col-xs-3 control-label"><?php _e('问题举报理由选项'); ?>:</span>
                             <div class="col-sm-5 col-xs-8">
-                                <textarea class="form-control" name="report_reason" rows="3"><?php echo get_setting('report_reason'); ?></textarea>
+                                <textarea class="form-control" name="report_reason" rows="6"><?php echo get_setting('report_reason'); ?></textarea>
 
                                 <div class="help-block"><?php _e('每行填写一个举报理由'); ?></div>
                             </div>
@@ -875,7 +875,7 @@
                         <div class="form-group">
                             <span class="col-sm-4 col-xs-3 control-label"><?php _e('敏感词列表'); ?>:</span>
                             <div class="col-sm-5 col-xs-8">
-                                <textarea class="form-control" name="sensitive_words" rows="3"><?php echo $this->setting['sensitive_words']; ?></textarea>
+                                <textarea class="form-control" name="sensitive_words" rows="6"><?php echo $this->setting['sensitive_words']; ?></textarea>
                                 <span class="help-block"><?php _e('内容中出现敏感词将被替换成 * , 每行填写一个词'); ?></span>
                             </div>
                         </div>

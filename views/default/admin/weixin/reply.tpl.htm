@@ -61,7 +61,7 @@
 <?php if (count($this->accounts_list) > 1) { ?>
 <ul>
     <?php foreach ($this->accounts_list AS $account_info) { ?>
-        <li<?php if ($this->account_info['id'] == $this->account_id) { ?> class=""<?php } ?>><a href="admin/weixin/reply/id-<?php echo $account_info['id']; ?>"><?php _e('微信账号 %s', $account_info['id']); ?></a></li>
+        <li<?php if ($account_info['id'] == $this->account_id) { ?> class=""<?php } ?>><a href="admin/weixin/reply/id-<?php echo $account_info['id']; ?>"><?php _e('微信账号 %s', $account_info['id']); ?></a></li>
     <?php } ?>
 </ul>
 <?php } ?>
