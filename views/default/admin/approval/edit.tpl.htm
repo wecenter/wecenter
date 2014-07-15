@@ -54,31 +54,29 @@
 
                     <blockquote>
                         <ul class="aw-comment-upload-img-list">
-                        <?php foreach ($this->approval_item['attachs'] AS $attach) { ?>
-                        <?php if ($attach['is_image']) { ?>
+                            <?php foreach ($this->approval_item['attachs'] AS $attach) { if ($attach['is_image']) { ?>
                             <li>
-                                <input name="attachs[<?php echo $attach['id']; ?>]" type="hidden" value="<?php echo $attach['access_key']; ?>" />
+                                <input name="attachs[]" type="hidden" value="<?php echo $attach['id']; ?>" />
 
                                 <a href="<?php echo $attach['attachment']; ?>" target="_blank" data-fancybox-group="thumb" rel="lightbox"><img src="<?php echo $attach['attachment']; ?>" class="img-polaroid" alt="<?php echo $attach['attach_name']; ?>" /></a>
 
                                 <a href="javascript:;" class="btn btn-danger"><?php _e('删除'); ?></a>
                             </li>
-                        <?php } ?>
-                        <?php } ?>
+                            <?php } } ?>
                         </ul>
                     </blockquote>
 
                     <blockquote>
                         <ul class="aw-comment-upload-file-list">
-                            <?php foreach ($this->approval_item['attachs'] AS $attach) { ?>
-                            <?php if (!$attach['is_image']) { ?>
+                            <?php foreach ($this->approval_item['attachs'] AS $attach) { if (!$attach['is_image']) { ?>
                             <li>
-                                <input class="form-control" name="attachs[<?php echo $attach['id']; ?>]" type="hidden" value="<?php echo $attach['access_key']; ?>" />
+                                <input name="attachs[]" type="hidden" value="<?php echo $attach['id']; ?>" />
+
                                 <a href="<?php echo download_url($attach['file_name'], $attach['attachment']); ?>"><em class="aw-icon i-upload-file"></em><?php echo $attach['file_name']; ?></a>
-                                 <a class="btn btn-danger btn-sm" href="javascript:;"><?php _e('删除'); ?></a>
+
+                                <a class="btn btn-danger btn-sm" href="javascript:;"><?php _e('删除'); ?></a>
                             </li>
-                            <?php } ?>
-                            <?php } ?>
+                            <?php } } ?>
                         </ul>
                     </blockquote>
                     <?php } ?>
@@ -107,7 +105,7 @@
                 var tempName = 'remove_'+ $(this).siblings("input").attr("name");
                 $(this).siblings("input").attr("name",tempName);
 
-                 $(this).parents("li").css({display:"none"})
+                $(this).parents("li").css({display:"none"})
             })
         };
 
@@ -116,7 +114,7 @@
         }else{
             $('.aw-comment-upload-file-list').parent('blockquote').css({display:"block"});
         };
-        
+
         if($('.aw-comment-upload-img-list').find('li').length == 0){
             $('.aw-comment-upload-img-list').parent('blockquote').css({display:"none"});
         }else{
