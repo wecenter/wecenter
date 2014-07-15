@@ -46,20 +46,23 @@
                     </div>
                     </td></tr>
                     <?php } ?>
-
+                    <tr><td>
                     <?php if ($this->approval_item['attachs']) {  ?>
                     <p><strong><?php _e('附件'); ?></strong></p>
 
                     <blockquote class="aw-comment-upload-img-list">
+                        <ul>
                         <?php foreach ($this->approval_item['attachs'] AS $attach) { ?>
                         <?php if ($attach['is_image']) { ?>
-                        <input name="attachs[<?php echo $attach['id']; ?>]" type="hidden" value="<?php echo $attach['access_key']; ?>" />
+                            <li>
+                                <input name="attachs[<?php echo $attach['id']; ?>]" type="hidden" value="<?php echo $attach['access_key']; ?>" />
+                                <a href="<?php echo $attach['attachment']; ?>" target="_blank" data-fancybox-group="thumb" rel="lightbox"><img src="<?php echo $attach['attachment']; ?>" class="img-polaroid" alt="<?php echo $attach['attach_name']; ?>" /></a>
 
-                        <a href="<?php echo $attach['attachment']; ?>" target="_blank" data-fancybox-group="thumb" rel="lightbox"><img src="<?php echo $attach['attachment']; ?>" class="img-polaroid" alt="<?php echo $attach['attach_name']; ?>" /></a>
-
-                        <a href="javascript:;" onclick=""><?php _e('删除'); ?></a>
+                                <a href="javascript:;" class="btn btn-danger" onclick=""><?php _e('删除'); ?></a>
+                            </li>
                         <?php } ?>
                         <?php } ?>
+                        </ul>
                     </blockquote>
 
                     <blockquote>
@@ -78,6 +81,7 @@
                         </ul>
                     </blockquote>
                     <?php } ?>
+                 </td></tr>
                 </table>
             </form>
         </div>
