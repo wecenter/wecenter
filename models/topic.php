@@ -1303,7 +1303,8 @@ class topic_class extends AWS_MODEL
 	public function set_is_parent($topic_id, $is_parent)
 	{
 		return $this->update('topic', array(
-			'is_parent' => intval($is_parent)
+			'is_parent' => intval($is_parent),
+			'parent_id' => 0
 		), 'topic_id = ' . intval($topic_id));
 	}
 	

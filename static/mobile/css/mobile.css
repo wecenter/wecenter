@@ -113,7 +113,6 @@ input[type="text"], input[type="password"], textarea{-webkit-appearance:none;}
 .aw-question-list li .mod-footer{padding:10px;border-top:1px solid #e6e6e6;font-size: 14px;color: #999;}
 
 /* 发现列表 */
-.aw-feed-list .mod-head{margin-top: 10px;}
 .aw-feed-list .mod-head a{margin:0 5px;}
 .aw-feed-list li{position: relative;}
 .aw-feed-list li .mod-head{position:relative;padding:10px 40px 0 10px;color: #999;font-size: 15px;}
@@ -271,8 +270,8 @@ input[type="text"], input[type="password"], textarea{-webkit-appearance:none;}
 
 /* 私信页面 */
 .aw-inbox-list ul li .mod-head{position: relative;padding:10px 10px 10px 70px !important;}
-.aw-inbox-list ul li .mod-head .img{position: absolute;left: 10px;top: 10px;}
-.aw-inbox-list ul li .mod-head p{margin-top:5px;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;}
+.aw-inbox-list ul li .mod-head .img, .aw-people-list ul li .mod-head .img{position: absolute;left: 10px;top: 10px;}
+.aw-inbox-list ul li .mod-head p, .aw-people-list ul li .mod-head p{margin-top:5px;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;}
 
 /* 私信详情页 */
 .aw-inbox-read-list{margin-bottom: 25px;padding:0 10px 50px 10px;}
@@ -316,9 +315,26 @@ input[type="text"], input[type="password"], textarea{-webkit-appearance:none;}
 .aw-login-box .mod-body .btn-primary{height: 40px;line-height: 40px;padding:0;font-size: 15px;}
 .aw-login-box .mod-body .verify .content{margin:15px 0;padding:15px;background-color: #ebebeb;color: #999999;}
 
+/* 用户列表页 */
+.aw-people-list ul li .mod-head{position:relative;padding:10px 10px 0 70px;}
+.aw-people-list ul li .mod-head .flag{position: absolute;left: 3px;top: -1px;}
+.aw-people-list ul li .mod-head .flag i{font-size: 22px;}
+.aw-people-list ul li .mod-head .flag b{position: absolute;left: 0;z-index: 1px;width:22px;text-align:center;font-weight:normal;color: #fff;}
+.aw-people-list ul li .mod-body{padding:0 10px 10px !important;}
+.aw-people-list ul li .mod-body ol li{float: left;width:20%;margin:0;font-size: 14px;text-align: center;color: #666666;border:none;}
+.aw-people-list ul li .mod-body ol li:last-child{padding-top: 4px;}
+.aw-people-list ul li .mod-body ol li b{display: block;font-size: 17px;color: #19558d;font-weight: normal;}
+.aw-people-list ul li .mod-footer{position:relative;height:44px;padding:5px 10px;background-color: #fafafa;}
+.aw-people-list ul li .mod-footer .topic-tag{margin:0 7px 0 0;}
+.aw-people-list ul li .mod-footer a{float:none !important;height:23px !important;padding:2px 5px !important;border:none !important;color: #fff !important;line-height: 18px;}
+.aw-people-list ul li .mod-footer a:hover{background-color: #66b7ff !important;}
+.aw-people-list ul li .mod-footer i{position:absolute;z-index:1;top:-14px;right:10%;width:0;height:0;margin:0 !important;line-height:0;border-width:7px;border-style:solid;border-color: transparent transparent  #fafafa transparent;}
+.aw-people-list ul li .mod-footer i.active{z-index:0;top:-16px;right:9.7%;border-color: transparent transparent #e6e6e6 transparent;border-width: 8px;}
+
 /* icon */
-.icon-inverse{display:inline-block;width: 24px;height: 24px;line-height:24px;background-color: #cccccc;color: #fff;text-align: center;}
+.icon-inverse{display:inline-block;width: 25px;height: 25px;line-height:24px;background-color: #cccccc;color: #fff;text-align: center;}
 .icon-agree.active, .icon-disagree.active{color: #66b7ff;}
 .icon-tips{display:block;width: 6px;height: 6px;border-radius: 6px;background-color: #ff5428;}
+.icon-flag.active{color: #ffc000;}
 .triangle{position:absolute;top:-1px;display: none;width:0;height:0;margin:0 !important;line-height:0;border-width:8px;border-style:solid;border-color: #66b7ff transparent transparent transparent;}
 

@@ -4,7 +4,7 @@
 	<div class="container aw-topic-edit">
 		<div class="row">
 			<div class="col-sm-12">
-				<h4><a class="btn btn-mini pull-right" href="topic/<?php echo $this->topic_info['url_token']; ?>"><?php _e('返回话题'); ?> »</a><?php _e('管理话题'); ?> - <?php echo $this->topic_info['topic_title']; ?></h4>
+				<h4><a class="pull-right aw-text-color-999" href="topic/<?php echo $this->topic_info['url_token']; ?>"><?php _e('返回话题'); ?> »</a><?php _e('管理话题'); ?> - <?php echo $this->topic_info['topic_title']; ?></h4>
 			</div>
 		</div>
 		<div class="row aw-content-wrap">
@@ -66,8 +66,8 @@
 							<div class="aw-publish-title">
 								<div class="dropdown">
 									<div class="dropdown-toggle">
-										<input class="aw-hide-txt" id="aw-topic-tags-select" placeholder="选择分类" />
-										<a href="javascript:;"><i class="fa fa-chevron-down"></i></a>
+										<input class="aw-hide-txt" id="aw-topic-tags-select" placeholder="<?php _e(根话题); ?>" />
+										<a class="triangle"><i class="fa fa-chevron-down"></i></a>
 									</div>
 									<div class="aw-dropdown">
 										<i class="i-dropdown-triangle"></i>
@@ -119,7 +119,14 @@
 		});
 
 		// 初始化给input赋值
-		$('.aw-publish-title #aw-topic-tags-select').val($('#parent_topic_select option[selected=selected]').text());
+		if ($('#parent_topic_select option[selected=selected]').text())
+		{
+			$('.aw-publish-title #aw-topic-tags-select').val($('#parent_topic_select option[selected=selected]').text());
+		}
+		else
+		{
+			$('.aw-publish-title #aw-topic-tags-select').val($('#parent_topic_select option').eq(0).text());	
+		}
 
 		$('.aw-publish-title .aw-dropdown-list li').click(function()
 		{
@@ -127,6 +134,18 @@
 			$('#aw-topic-tags-select').val($(this).text());
 			$('.aw-publish-title .dropdown').removeClass('open');
 			AWS.ajax_request(G_BASE_URL + '/topic/ajax/set_parent_id/', 'topic_id=<?php echo $this->topic_info['topic_id']; ?>&parent_id=' + $(this).data('value'));
+		});
+
+		$('.aw-publish-title .triangle').click(function()
+		{
+			if ($(this).parents('.dropdown').hasClass('open'))
+			{
+				$(this).parents('.dropdown').removeClass('open');
+			}
+			else
+			{
+				$(this).parents('.dropdown').addClass('open');
+			}
 		});
 
 
