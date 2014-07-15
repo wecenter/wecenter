@@ -94,4 +94,14 @@
     </div>
 </div>
 
+<script>
+    $(function(){
+        $('.aw-comment-upload-img-list li').find(".btn-danger").on("click",function(){
+            var tempName = 'remove_'+ $(this).siblings("input").attr("name");
+            $(this).siblings("input").attr("name",tempName);
+
+             $(this).parents("li").css({display:"none"})
+        })
+    })
+</script>
 <?php TPL::output('admin/global/footer.tpl.htm'); ?>

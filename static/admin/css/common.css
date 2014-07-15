@@ -203,9 +203,9 @@ textarea{resize:none;}
 .wechat{margin-top: 0;}
 
 /*preview/action-edit  限制附件*/
-.aw-comment-upload-img-list  ul{margin-top: -30px;text-align: center;}
+.aw-comment-upload-img-list  ul{margin-top: -30px;}
 .aw-comment-upload-img-list img{max-width: 200px;min-height: 150px;max-height: 150px;display: block;margin: 0 auto;}
-.aw-comment-upload-img-list li{display: inline-block;margin: 30px 15px 0 0;width: 20%;height: 150px;}
+.aw-comment-upload-img-list li{text-align: center;display: inline-block;margin: 30px 15px 0 30px;width: 20%;height: 150px;}
 .aw-comment-upload-img-list .btn{margin-top: 15px;}
 /*编辑用户资料*/
 #remove_user_form label{margin-right:15px;}
