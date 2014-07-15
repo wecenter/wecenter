@@ -180,7 +180,7 @@ a.aw-load-more-content{display: block;}
 .aw-search-box .aw-dropdown p{height: 38px;line-height: 38px;margin:0;padding:0 10px;font-weight: normal;border-bottom: 1px dotted #E2E2E2;}
 .aw-search-box .aw-dropdown p.search{display: none;}
 .aw-search-box .aw-dropdown .mod-footer .btn-success{margin:5px;}
-.aw-search-box .aw-dropdown .aw-dropdown-list{max-height: 348px;overflow-y: scroll;border-bottom: 1px dotted #E2E2E2;}
+.aw-search-box .aw-dropdown .aw-dropdown-list{max-height: 355px;overflow-y: scroll;border-bottom: 1px dotted #E2E2E2;}
 .aw-search-box .aw-dropdown .aw-dropdown-list li.question .aw-hide-txt{width: 250px;}
 
 /* 分类 */
@@ -519,6 +519,7 @@ a.aw-load-more-content{display: block;}
 .aw-topic-list-mod .aw-nav-tabs ul{position: relative;}
 .aw-topic-list-mod .aw-nav-tabs > li{float:left;}
 .aw-topic-list-mod .aw-nav-tabs .aw-search-bar{position: absolute;right: 0;background-color: #fff;border-radius: 5px;}
+.aw-topic-list-mod .aw-nav-tabs .aw-search-bar .aw-dropdown-list{max-height: 329px;overflow-y:scroll;}
 .aw-topic-detail-about{padding:20px;line-height: 24px;}
 .aw-topic-search{position:relative;display:block;height:28px;border:1px solid #CCCCCC;}
 .aw-topic-search .fa-search{margin:6px 4px 4px 6px;}
