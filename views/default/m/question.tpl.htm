@@ -44,6 +44,10 @@
 						<?php } ?>
 						</div>
 					<?php } ?>
+
+					<?php if ((!$this->question_info['lock'] AND ($this->question_info['published_uid'] == $this->user_id OR $this->user_info['permission']['edit_question'])) OR $this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?>
+					<a href="m/publish/<?php echo $this->question_info['question_id']; ?>" class="btn btn-primary btn-mini">编辑</a>
+					<?php }?>
 				</div>
 			</div>
 			<?php if ($this->user_id) { ?>
@@ -52,11 +56,7 @@
 				<div class="meta">
 					<a href=""><i class="icon icon-inviteask"></i> 邀请回复</a>
 					<a href=""><i class="icon icon-share"></i> 微博分享</a>
-					<?php if ((!$this->question_info['lock'] AND ($this->question_info['published_uid'] == $this->user_id OR $this->user_info['permission']['edit_question'])) OR $this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?>
-					<a href="m/publish/<?php echo $this->question_info['question_id']; ?>" class="btn btn-primary btn-mini pull-right">编辑</a>
-					<?php } else { ?>
-					<a href="" class="btn btn-success btn-mini pull-right <?php if (!$this->question_focus) { ?> aw-active<?php } ?>" onclick="AWS.User.follow($(this), 'question', <?php echo $this->question_info['question_id']; ?>);"><?php if ($this->question_focus) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?></a>
-					<?php } ?>
+					<a href="" class="btn btn-success btn-mini pull-right <?php if ($this->question_focus) { ?> active<?php } ?>" onclick="AWS.User.follow($(this), 'question', <?php echo $this->question_info['question_id']; ?>);"><?php if ($this->question_focus) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?></a>
 				</div>
 				<div class="aw-invite-box hide">
 					<div class="mod-head">

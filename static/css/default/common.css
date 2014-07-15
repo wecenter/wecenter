@@ -454,7 +454,7 @@ a.aw-load-more-content{display: block;}
 .aw-publish-title .dropdown{position: absolute;right: 0;top: 0;width: 20%;}
 .aw-publish-title .dropdown.open .aw-dropdown{display: block;}
 .aw-publish-title .dropdown .dropdown-toggle{height:34px;line-height:34px;margin-bottom:10px;border: 1px solid #cccccc;box-shadow: 0 1px 1px #F3F3F3 inset;cursor: pointer;}
-.aw-publish-title .dropdown .dropdown-toggle span{display: inline-block;float: left;width: 80%;padding-left: 10px;color: #999;}
+.aw-publish-title .dropdown .dropdown-toggle span{display: inline-block;float: left;width: 80%;height:32px;padding-left: 10px;color: #999;line-height: 32px;}
 .aw-publish-title .dropdown .dropdown-toggle a{display:inline-block;width:20%;height:32px;background: #f5f5f5;border-left:1px solid #E2E2E2;text-align: center;}
 .aw-publish-title .dropdown i{margin:0;}
 .aw-mod-publish .mod-footer{margin-top:20px;text-align: right;}
@@ -546,6 +546,10 @@ a.aw-load-more-content{display: block;}
 .aw-mod-topic-manage dl:first-child dd input{width: 183px;}
 .aw-mod-topic-manage dl .topic-list{width: 470px;}
 .aw-mod-topic-manage dl .topic-list label{float: left;margin:4px 14px 6px 0;line-height: 22px;}
+.aw-mod-topic-manage dl .aw-publish-title .dropdown{position: relative;left: 0;width: 40%;}
+.aw-mod-topic-manage dl .aw-publish-title .dropdown .dropdown-toggle{border-radius: 5px;}
+.aw-mod-topic-manage dl .aw-publish-title #question_contents{width: 80%;}
+.aw-mod-topic-manage dl .aw-publish-title #aw-topic-tags-select{width:78%;height:30px;border:none;}
 /* 话题编辑box */
 .aw-edit-topic{display:inline-block;font-size: 12px;cursor: pointer;font-weight: normal;}
 .aw-edit-topic-box input, .aw-edit-topic-box > a{margin:0 5px 10px 0;}
