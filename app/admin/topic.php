@@ -172,6 +172,11 @@ class topic extends AWS_ADMIN_CONTROLLER
 		}
 
 		TPL::assign('topic_info', $topic_info);
+		
+		if (!$topic_info['is_parent'])
+		{
+			TPL::assign('parent_topics', $this->model('topic')->get_parent_topics());
+		}
 
 		TPL::import_js('js/ajaxupload.js');
 
