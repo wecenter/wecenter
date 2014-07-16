@@ -22,6 +22,8 @@ class main extends AWS_ADMIN_CONTROLLER
 {
     public function index_action()
     {
+        $this->crumb(AWS_APP::lang()->_t('概述'), 'admin/main/');
+
         if (!defined('IN_SAE'))
         {
             $writable_check = array(
@@ -45,9 +47,11 @@ class main extends AWS_ADMIN_CONTROLLER
         TPL::assign('approval_question_count', $this->model('publish')->count('approval', "type = 'question'"));
         TPL::assign('approval_answer_count', $this->model('publish')->count('approval', "type = 'answer'"));
 
-        $this->crumb(AWS_APP::lang()->_t('概述'), 'admin/main/');
+        $admin_menu = (array)AWS_APP::config()->get('admin_menu');
 
-        TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(100));
+        $admin_menu[0]['select'] = true;
+
+        TPL::assign('menu_list', $admin_menu);
 
         TPL::output('admin/index');
     }
@@ -113,7 +117,7 @@ class main extends AWS_ADMIN_CONTROLLER
         $this->crumb(AWS_APP::lang()->_t('导航设置'), 'admin/nav_menu/');
 
         TPL::assign('nav_menu_list', $this->model('menu')->get_nav_menu_list());
-		
+
         TPL::assign('category_list', $this->model('system')->build_category_html('question', 0, 0, null, true));
 
         TPL::assign('setting', get_setting());

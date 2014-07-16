@@ -226,7 +226,7 @@ textarea{resize:none;}
 
 /* 微信多账号下拉菜单 */
 .dropdown #dropdownMenu1 .caret{margin-left:5px;}
-.dropdown ul.dropdown-menu{min-width:100px;}
+.dropdown ul.weixin-dropdown-menu{min-width:100px;}
 
 /*日期选择控件*/
 .date_selector,.date_selector *{margin:0;padding:0;width:auto;height:auto;border:none;background:none;text-align:left;text-decoration:none;cursor:pointer;}
@@ -253,21 +253,31 @@ textarea{resize:none;}
 .date_selector td.selectable_day:hover,.date_selector td.selectable_day.hover{background:#F2F8FF;color:#246594;}
 
 /* 全局通用下拉列表 */
-.aw-dropdown,.aw-category-dropdown{position:absolute;left:16px;z-index:9999;display:none;width:93%;border:1px solid #ccc;border-top: none; background:#fff;box-shadow:0 5px 10px rgba(0,0,0,0.2);}
-.aw-dropdown .i-dropdown-triangle,.aw-category-dropdown .i-dropdown-triangle{position:absolute;top:-6px;left:15px;}
-.aw-dropdown p,.aw-category-dropdown p{margin:0;padding:5px 10px;}
-.aw-dropdown .aw-dropdown-list li,.aw-category-dropdown .aw-category-dropdown-list li{border-top:1px dotted #E2E2E2;cursor:pointer;}
-.aw-dropdown .aw-dropdown-list li:hover,.aw-dropdown .aw-dropdown-list li.active,.aw-category-dropdown .aw-category-dropdown-list li:hover{background-color:#F5FAFF;}
-.aw-dropdown .aw-dropdown-list li.topic{padding:5px 10px;line-height:24px;}
-.aw-dropdown .aw-dropdown-list li.question{padding:0 10px;line-height:32px;}
-.aw-dropdown .aw-dropdown-list li.question.active .icon-g-replay{display:inline-block;}
-.aw-dropdown .aw-dropdown-list li.question .icon-g-replay{display:none;margin:9px 5px 0 0;}
-.aw-dropdown .aw-dropdown-list li.question a{display:block;font-size:13px;line-height:32px;}
-.aw-dropdown .aw-dropdown-list li.user a{display: block;padding: 5px 10px;font-size: 13px;line-height:22px;}
-.aw-dropdown .aw-dropdown-list li.user a img{margin-right: 5px;width: 25px;height: 25px;}
-.aw-dropdown .aw-dropdown-list li.user a span{display:inline-block;margin-left:10px;max-width:180px;color: #999;vertical-align: top;}
+.aw-dropdown, .aw-category-dropdown{display:none;position:absolute;left:0;z-index:9999;width:100%;background: #fff;border:1px solid #ccc;box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);}
+.aw-dropdown .i-dropdown-triangle, .aw-category-dropdown .i-dropdown-triangle{position: absolute;top:-6px;left: 15px;}
+.aw-dropdown p, .aw-category-dropdown p{padding:5px 10px;margin:0;}
+.aw-dropdown .aw-dropdown-list{margin:0;}
+.aw-dropdown .aw-dropdown-list li, .aw-category-dropdown .aw-category-dropdown-list li{border-top: 1px dotted #E2E2E2;cursor: pointer;}
+.aw-dropdown .aw-dropdown-list li:first-child, .aw-category-dropdown .aw-category-dropdown-list li:first-child{border-top: none;}
+.aw-dropdown .aw-dropdown-list li:hover, .aw-dropdown .aw-dropdown-list li.active, .aw-category-dropdown .aw-category-dropdown-list li:hover{background-color: #F5FAFF;}
+.aw-dropdown .aw-dropdown-list li.topic{line-height:24px;padding:5px 10px;}
+.aw-dropdown .aw-dropdown-list li.question{line-height:32px;padding:0 10px;}
+.aw-dropdown .aw-dropdown-list li.question.active .icon-g-replay{display: inline-block;}
+.aw-dropdown .aw-dropdown-list li.question .icon-g-replay{display: none;margin:9px 5px 0 0;}
+.aw-dropdown .aw-dropdown-list li.question a{display: block;line-height: 32px;font-size: 13px;}
+.aw-dropdown .aw-dropdown-list li.question b{line-height: 30px;}
+.aw-dropdown .aw-dropdown-list li.user a{display: block;line-height:22px;padding: 5px 10px;font-size: 13px;}
+.aw-dropdown .aw-dropdown-list li.user a img{width: 25px;height: 25px;margin-right: 5px;}
+.aw-dropdown .aw-dropdown-list li.user a span{display:inline-block;max-width:180px;margin-left:10px;color: #999;vertical-align: top;}
 .aw-dropdown-box{position:relative;}
 .aw-wechat-send-message .aw-dropdown-list{overflow-y:scroll;margin-bottom:0;max-height:330px;}
+.aw-publish-title{position: relative;border:1px solid #ccc;border-radius: 5px;}
+.aw-publish-title input{width:90%;height:32px;float:left;border:none;box-shadow: none;}
+.aw-publish-title .dropdown.open .aw-dropdown{display: block;}
+.aw-publish-title .dropdown .dropdown-toggle a{display:inline-block;width:10%;height:32px;line-height:32px;background: #f5f5f5;border-left:1px solid #E2E2E2;text-align: center;border-radius: 0 5px 5px 0;}
+.aw-publish-title .dropdown .dropdown-toggle .fa-chevron-down{background: transparent;color: #b7b7b7;}
+.aw-publish-title .dropdown i{margin:0;}
+.aw-publish-title .aw-dropdown .aw-dropdown-list a{display:block;padding:5px 10px;max-width: 400px;}
 /* 开放平台设置 */
 .aw-admin-weibo-publish .img,.aw-admin-weibo-answer li img{margin-right: 10px;width: 24px;}
 
