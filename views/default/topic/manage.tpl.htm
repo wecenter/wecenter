@@ -133,6 +133,7 @@
 			$('#parent_topic_select').val($(this).data('value'));
 			$('#aw-topic-tags-select').val($(this).text());
 			$('.aw-publish-title .dropdown').removeClass('open');
+			$('.aw-publish-title .aw-dropdown-list li').removeClass('hide');
 			AWS.ajax_request(G_BASE_URL + '/topic/ajax/set_parent_id/', 'topic_id=<?php echo $this->topic_info['topic_id']; ?>&parent_id=' + $(this).data('value'));
 		});
 
@@ -153,40 +154,6 @@
 			focus : function()
 			{
 				$(this).parents('.dropdown').addClass('open');
-			},
-
-			blur : function()
-			{
-				var _this = $(this);
-
-				$(document).click(function(e)
-				{
-					var target = $(e.target);
-					if (target.parents('.aw-publish-title').length)
-					{
-						return false;
-					}
-					else
-					{
-						if (_this.val() == '')
-						{
-							$('#parent_topic_select').val('');
-							$('.aw-publish-title .aw-dropdown-list li').eq(0).click();
-							$('.aw-publish-title .dropdown').removeClass('open');
-						}
-						else
-						{
-							if ($('.aw-publish-title .aw-dropdown-list li:not(".hide")').eq(0).length)
-							{
-								$('.aw-publish-title .aw-dropdown-list li:not(".hide")').eq(0).click();
-							}
-							else
-							{
-								$('.aw-publish-title #aw-topic-tags-select').val($('#parent_topic_select option[selected=selected]').text());
-							}
-						}
-					}
-				});
 			},
 
 			keyup : function()
@@ -212,6 +179,69 @@
 				}
 			}
 		});
+
+		$(document).click(function(e)
+			{
+				var target = $(e.target);
+				if (target.parents('.aw-publish-title').length)
+				{
+					//return false;
+				}
+				else
+				{
+					var _this = $('#aw-topic-tags-select');
+					if (_this.val() == '')
+					{
+						$('#parent_topic_select').val('');
+						$('.aw-publish-title .aw-dropdown-list li').eq(0).click();
+						$('.aw-publish-title .dropdown').removeClass('open');
+					}
+					else
+					{
+						if ($('#parent_topic_select option[selected=selected]').text() != '')
+						{
+							var val = $('#parent_topic_select option[selected=selected]').text();
+						}
+						else
+						{
+							var val = ' --- ';
+						}
+
+						if (_this.val() != val)
+						{
+							if ($('.aw-publish-title .aw-dropdown-list li:not(".hide")').eq(0).text().match(_this.val()))
+							{
+								$('.aw-publish-title .aw-dropdown-list li:not(".hide")').eq(0).click();
+							}
+							else
+							{
+								var flag = false;
+								$.each($('.aw-publish-title .aw-dropdown-list li:not(".hide")'), function (i, e)
+								{
+									if ($(this).text().match(_this.val()))
+									{
+										flag = true;
+										$(this).click();
+									}
+								});
+
+								if (flag == false)
+								{
+									$('.aw-publish-title #aw-topic-tags-select').val($('#parent_topic_select option[selected=selected]').text());
+								}
+							}
+
+							$('.aw-publish-title .dropdown').removeClass('open');
+						}
+						else
+						{
+							$('.aw-publish-title .dropdown').removeClass('open');
+						}
+					}
+
+					$(this).parents('.dropdown').removeClass('open');
+				}
+			});
 
 	});
 </script>
