@@ -25,7 +25,7 @@
             <input type="hidden" id="hide_values" val="0" />
             <?php foreach ($this->menu_list as $key => $val) { ?>
             <li>
-                <a href="javascript:;" class=" fa fa-<?php echo $val['cname']; if ($val['select']) { ?> active collapsed<?php } ?>"<?php if ($val['children']) { ?> data="icon"<?php } ?>>
+                <a href="<?php if ($val['url'] AND !$val['children']) { echo $val['url']; } else { ?>javascript:;<?php } ?>" class=" fa fa-<?php echo $val['cname']; if ($val['select']) { ?> active collapsed<?php } ?>"<?php if ($val['children']) { ?> data="icon"<?php } ?>>
                     <span><?php echo $val['title']; ?></span>
                 </a>
                 <?php if ($val['children']) { ?>

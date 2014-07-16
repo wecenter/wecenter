@@ -2,6 +2,7 @@
 $config[] = array(
     'title' => '概述',
     'cname' => 'home',
+    'url' => 'admin/'
     'children' => array()
 );
 
