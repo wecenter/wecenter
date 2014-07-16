@@ -90,7 +90,7 @@
 								<option value="<?php echo $val['topic_id']; ?>"<?php if ($val['topic_id'] == $this->topic_info['parent_id']) { ?> selected="selected"<?php } ?>><?php echo $val['topic_title']; ?></option>
 								<?php } ?>
 								</select>
-								
+
 								<div class="aw-publish-title">
 									<div class="dropdown">
 										<div class="dropdown-toggle">
@@ -110,7 +110,7 @@
 				<tfoot>
 				<tr>
 					<td>
-						<input type="button" value="<?php _e('保存'); ?>" class="btn btn-primary center-block" onclick="AWS.ajax_post($('#settings_form'));" />
+						<input type="button" value="<?php _e('设置保存'); ?>" class="btn btn-primary center-block" onclick="AWS.ajax_post($('#settings_form'));" />
 					</td>
 				</tr>
 				</tfoot>
@@ -146,7 +146,7 @@
 			}
 			else
 			{
-				$('.aw-publish-title #aw-topic-tags-select').val($('#parent_topic_select option').eq(0).text());	
+				$('.aw-publish-title #aw-topic-tags-select').val($('#parent_topic_select option').eq(0).text());
 			}
 
 			$('.aw-publish-title .aw-dropdown-list li').click(function()
@@ -265,7 +265,7 @@
 			});
 		}
 
-		
+
 	});
 </script>
 

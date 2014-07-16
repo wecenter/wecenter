@@ -63,7 +63,7 @@
                                 <span class="mod-file">
                                     <input type="button" class="btn btn-primary" value="点击选择图片" />
                                     <input type="file" name="main_msg_img" exts="png|jpg|bmp|jpeg" class="mod-input-file" />
-                                </span>						
+                                </span>
 								<span class="help-block"><?php _e('规格'); ?>: 900px x 240px, <?php _e('支持上传图片类型'); ?>: jpg,jpeg,gif,png</span>
 							</div>
 						</div>
@@ -75,7 +75,7 @@
 							<span class="col-sm-4 col-xs-3 control-label"><?php _e('专题话题'); ?>:</span>
 							<div class="col-sm-5 col-xs-8">
 								<textarea class="form-control" name="topics" rows="3"><?php echo htmlspecialchars($this->feature_topics); ?></textarea>
-								
+
 								<span class="help-block">一行一个话题</span>
 							</div>
 						</div>
@@ -94,7 +94,7 @@
 				<tfoot>
 				<tr>
 					<td>
-						<input type="button" value="<?php _e('保存'); ?>" class="btn btn-primary center-block" onclick="AWS.ajax_post($('#settings_form'));" />
+						<input type="button" value="<?php _e('保存设置'); ?>" class="btn btn-primary center-block" onclick="AWS.ajax_post($('#settings_form'));" />
 					</td>
 				</tr>
 				</tfoot>
