@@ -1808,7 +1808,7 @@ AWS.Dropdown =
 	        break;
 
 	        case 'topic_question' :
-	            url = G_BASE_URL + '/search/ajax/search/?q=' + encodeURIComponent(data) + '&topic_ids=' + CONTENTS_RELATED_TOPIC_IDS + '&limit=50';
+	            url = G_BASE_URL + '/search/ajax/search/?type=questions,articles&q=' + encodeURIComponent(data) + '&topic_ids=' + CONTENTS_RELATED_TOPIC_IDS + '&limit=50';
 	        break;
 
 	        case 'topic' :
