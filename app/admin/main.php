@@ -81,7 +81,7 @@ class main extends AWS_ADMIN_CONTROLLER
 
     public function settings_action()
     {
-        $this->crumb(AWS_APP::lang()->_t('系统设置'), 'admin/settings');
+        $this->crumb(AWS_APP::lang()->_t('系统设置'), 'admin/settings/');
 
         if (!$this->user_info['permission']['is_administortar'])
         {
