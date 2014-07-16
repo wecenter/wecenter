@@ -123,7 +123,6 @@ input[type="text"], input[type="password"], textarea{-webkit-appearance:none;}
 
 /* 发现列表 */
 .aw-feed-list .mod-head{margin-top: 10px;}
-.aw-feed-list .mod-head a{margin:0 5px;}
 .aw-feed-list li{position: relative;}
 .aw-feed-list li .mod-head{position:relative;padding:10px 40px 0 10px;color: #999;font-size: 15px;}
 .aw-feed-list li .mod-head .img{position: absolute;top: 10px;right: 10px;}
@@ -138,6 +137,9 @@ input[type="text"], input[type="password"], textarea{-webkit-appearance:none;}
 .aw-feed-list.active li .mod-body{padding:10px;}
 .aw-feed-list.active li .mod-footer a{padding:0 10px;border:none;}
 .aw-feed-list.active li .mod-footer a:active, .aw-feed-list.active li .mod-footer a:hover{background-color: transparent;color: #19558d;}
+
+/* 话题详情页 */
+.aw-topic-detail .mod-footer ul li{width: 20%;}
 
 /* 话题列表 */
 .aw-topic-list li .mod-head{position:relative;padding:10px 10px 10px 70px;border-bottom: 1px solid #e6e6e6;}
@@ -251,18 +253,18 @@ input[type="text"], input[type="password"], textarea{-webkit-appearance:none;}
 .upload-list .meta a.active{background-color: #e6e6e6;color: #fff;border-color: #e6e6e6;}
 
 /* 用户页面 */
-.aw-people-detail{margin-bottom:10px;background-color: #fff;}
-.aw-people-detail .mod-head{position: relative;min-height:70px;padding:10px 10px 10px 70px;border-bottom:1px solid #e6e6e6;}
-.aw-people-detail .mod-head h1{margin:3px 0 5px 0;font-size: 17px;color: #000000;}
-.aw-people-detail .mod-head .img{position: absolute;left: 10px;top: 10px;}
-.aw-people-detail .mod-head p{margin:0;}
+.aw-people-detail, .aw-topic-detail{background-color: #fff;}
+.aw-people-detail .mod-head, .aw-topic-detail .mod-head{position: relative;min-height:70px;padding:10px 10px 10px 70px;border-bottom:1px solid #e6e6e6;}
+.aw-people-detail .mod-head h1, .aw-topic-detail .mod-head h1{margin:3px 0 5px 0;font-size: 17px;color: #000000;}
+.aw-people-detail .mod-head .img, .aw-topic-detail .mod-head .img{position: absolute;left: 10px;top: 10px;}
+.aw-people-detail .mod-head p, .aw-topic-detail .mod-head p{margin:0;}
 .aw-people-detail .mod-body{padding:10px 20px;border-bottom: 1px solid #e6e6e6;}
 .aw-people-detail .mod-body ul li{float: left;width:25%;font-size: 14px;text-align: center;color: #666666;}
 .aw-people-detail .mod-body ul li b{display: block;font-size: 17px;color: #19558d;font-weight: normal;}
-.aw-people-detail .mod-footer{padding:0 30px;background-color:#fafafa;border-bottom: 1px solid #999999;}
-.aw-people-detail .mod-footer ul li{float: left;width:25%;}
-.aw-people-detail .mod-footer ul li a{display: block;height: 48px;padding:0 5px;line-height: 48px;font-size: 15px;color:#666666;text-align: center;}
-.aw-people-detail .mod-footer ul li.active a{border-bottom: 3px solid #19558d;color: #333333;font-weight: bold;}
+.aw-people-detail .mod-footer, .aw-topic-detail .mod-footer{padding:0 30px;background-color:#fafafa;border-bottom: 1px solid #999999;}
+.aw-people-detail .mod-footer ul li, .aw-topic-detail .mod-footer ul li{float: left;width:25%;}
+.aw-people-detail .mod-footer ul li a, .aw-topic-detail .mod-footer ul li a{display: block;height: 48px;padding:0 5px;line-height: 48px;font-size: 15px;color:#666666;text-align: center;}
+.aw-people-detail .mod-footer ul li.active a, .aw-topic-detail .mod-footer ul li.active a{border-bottom: 3px solid #19558d;color: #333333;}
 .aw-box{padding:0 10px;}
 .card-mod{margin-bottom:10px;background-color:#fff;border:1px solid #e6e6e6;border-radius: 5px;}
 .card-mod .mod-head{padding:10px;border-bottom: 1px solid #e6e6e6;}

@@ -10,11 +10,11 @@
 	</div>
 	<div class="mod-footer">
 		<?php if ($val['anonymous'] == 0) { ?>
-		<a class="avatar" data-id="<?php echo $val['user_info']['uid']; ?>" href="people/<?php echo $val['user_info']['url_token']; ?>" rel="nofollow">
-			<img src="<?php echo get_avatar_url($val['user_info']['uid'], 'max'); ?>" alt="" width="20" />
+		<a data-id="<?php echo $val['user_info']['uid']; ?>" href="people/<?php echo $val['user_info']['url_token']; ?>" rel="nofollow">
+			<img class="img" src="<?php echo get_avatar_url($val['user_info']['uid'], 'max'); ?>" alt="" width="20" />
 		</a>
 		<?php } else { ?>
-		<a class="avatar" href="javascript:;"><img width="20" src="<?php echo G_STATIC_URL; ?>/common/avatar-max-img.png" alt="<?php _e('匿名用户'); ?>" title="<?php _e('匿名用户'); ?>" /></a>
+		<a><img width="20" src="<?php echo G_STATIC_URL; ?>/common/avatar-max-img.png" alt="<?php _e('匿名用户'); ?>" title="<?php _e('匿名用户'); ?>" /></a>
 		<?php } ?>
 		<?php if ($val['question_id']) { ?>
 		<?php if ($val['answer_count'] > 0) { ?>
