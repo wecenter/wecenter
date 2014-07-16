@@ -187,7 +187,7 @@ $config[] = array(
 );
 
 $config[] = array(
-    'title' => '开放平台',
+    'title' => '微信微博',
     'cname' => 'send',
     'children' => array(
         array(
