@@ -141,8 +141,11 @@ $(function(){
                 </a>
 
                 <ul class="dropdown-menu mod-chat">
+                	<div class="mod-list-head">
+                		YOU HAVE <?php echo count($notifications_texts); ?> MAILS
+                	</div>
                     <?php if ($notifications_texts) { foreach ($notifications_texts AS $notifications_text) { ?>
-
+						
                     <li class="mod-media">
                         <a href="<?php echo $notifications_text['url']; ?>">
                             <?php echo $notifications_text['text']; ?>
@@ -167,7 +170,7 @@ $(function(){
                     </li>
 
                     <li>
-                        <a href="admin/"><i class="fa fa-file-text"></i><?php _e('报告'); ?></a>
+                        <a href="admin/"><i class="fa fa-file-text"></i><?php _e('概述'); ?></a>
                     </li>
 
                     <li>
