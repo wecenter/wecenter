@@ -99,7 +99,7 @@ ul,ol{padding:0;list-style:none;}
 .aw-content-wrap .mod-double{margin-bottom:10px;}
 .aw-content-wrap .mod-double .fa-calendar{left: 20px;}
 .aw-content-wrap .date-seach{padding: 7px 10px}
-#main,#main2,#main3{height: 240px;border: 2px solid #fff; background: #fff;}
+#main,#main2,#main3{height: 240px;border: 2px solid #fff; background: #fff!important;}
 #main:hover,#main2:hover,#main3:hover{border: 2px solid #3695D5;}
 #main3{margin-top: 20px;height: 300px;}
 .mod-echat-info .col-md-6{margin-bottom: 40px;}
@@ -204,7 +204,7 @@ textarea{resize:none;}
 .wechat1,.wechat{min-height:inherit;height: auto;}
 .wechat1{margin-top:20px}
 .wechat{margin-top: 0;}
-
+#import .col-xs-8 label{margin-right: 10px;}
 /*preview/action-edit  限制附件*/
 .aw-comment-upload-img-list  ul{margin-top: -30px;}
 .aw-comment-upload-img-list img{max-width: 200px;min-height: 150px;max-height: 150px;display: block;margin: 0 auto;}
@@ -308,7 +308,7 @@ label,.aw-content-wrap .mod-title,.aw-article-list b,.aw-question-list b{font-we
 .aw-header .mod-btn,.aw-content-wrap .aw-nav-menu .aw-nav-menu-descrip{width:100%;}
 .aw-header .fa-user:before,.aw-side .mod-message .fa:before{font-size:16px;}
 .aw-side .mod-message .fa-envelope:before,.aw-content-wrap .aw-nav-menu li h4{font-size:14px;}
-.aw-side ul li i,.aw-content-wrap .md-tip{margin:0 5px;}
+.aw-side ul li i,.aw-content-wrap .md-tip{margin:0 1px;}
 .aw-content-wrap .mod-padding,.aw-content-wrap .mod-site-url,.aw-content-wrap .aw-nav-menu ul{padding-left:0;}
 .aw-content-wrap .mod-table-foot .clpadding,.aw-content-wrap tfoot .mod-category-foot{padding:0;line-height:35px;}
 .aw-content-wrap .mod-head h3,.aw-content-wrap .mod-page,.aw-message-box form,.aw-wechat-dropdown-box .dropdown-menu > .mod-footer ul{margin:0;}
