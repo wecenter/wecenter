@@ -121,7 +121,7 @@ $config[] = array(
 );
 
 $config[] = array(
-    'title' => '全局',
+    'title' => '全局设置',
     'cname' => 'flag',
     'children' => array(
         array(
