@@ -47,7 +47,7 @@ class category extends AWS_ADMIN_CONTROLLER
     {
         if (!$category_info = $this->model('system')->get_category_info($_GET['category_id']))
         {
-            H::redirect_msg(AWS_APP::lang()->_t('指定分类不存在'));
+            H::redirect_msg(AWS_APP::lang()->_t('指定分类不存在'), '/admin/category/list/');
         }
 
         TPL::assign('category', $category_info);

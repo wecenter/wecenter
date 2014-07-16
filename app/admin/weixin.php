@@ -1,4 +1,4 @@
-<?php
+z<?php
 /*
 +--------------------------------------------------------------------------
 |   WeCenter [#RELEASE_VERSION#]
@@ -30,7 +30,7 @@ class weixin extends AWS_ADMIN_CONTROLLER
 
         if (empty($accounts_list[$_GET['id']]))
         {
-            H::redirect_msg(AWS_APP::lang()->_t('公众账号不存在'));
+            H::redirect_msg(AWS_APP::lang()->_t('公众账号不存在'), '/admin/weixin/reply/');
         }
 
         TPL::assign('account_id', $accounts_list[$_GET['id']]['id']);
@@ -48,7 +48,18 @@ class weixin extends AWS_ADMIN_CONTROLLER
     {
         $this->crumb(AWS_APP::lang()->_t('编辑回复规则'), "admin/weixin/reply_edit/");
 
-        if (!$_GET['id'])
+        if ($_GET['id'])
+        {
+            $rule_info = $this->model('weixin')->get_reply_rule_by_id($_GET['id']);
+
+            if (empty($rule_info))
+            {
+                H::redirect_msg(AWS_APP::lang()->_t('自定义回复规则不存在'), '/admin/weixin/reply/account_id-' . $rule_info['account_id']);
+            }
+
+            TPL::assign('account_id', $rule_info['account_id']);
+        }
+        else
         {
             if (!isset($_GET['account_id']))
             {
@@ -59,21 +70,10 @@ class weixin extends AWS_ADMIN_CONTROLLER
 
             if (empty($account_info))
             {
-                H::redirect_msg(AWS_APP::lang()->_t('公众账号不存在'));
+                H::redirect_msg(AWS_APP::lang()->_t('公众账号不存在'), '/admin/weixin/reply/');
             }
 
-            TPL::assign('account_id', $account_info[$_GET['account_id']]);
-        }
-        else
-        {
-            $rule_info = $this->model('weixin')->get_reply_rule_by_id($_GET['id']);
-
-            if (empty($rule_info))
-            {
-                H::redirect_msg(AWS_APP::lang()->_t('自定义回复规则不存在'));
-            }
-
-            TPL::assign('account_id', $rule_info['account_id']);
+            TPL::assign('account_id', $account_info['id']);
         }
 
         TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(801));
@@ -93,12 +93,12 @@ class weixin extends AWS_ADMIN_CONTROLLER
 
         if (empty($accounts_list[$_GET['id']]))
         {
-            H::redirect_msg(AWS_APP::lang()->_t('公众账号不存在'));
+            H::redirect_msg(AWS_APP::lang()->_t('公众账号不存在'), '/admin/weixin/mp_menu/');
         }
 
         if ($accounts_list[$_GET['id']]['weixin_account_role'] == 'base' OR empty($accounts_list[$_GET['id']]['weixin_app_id']) OR empty($accounts_list[$_GET['id']]['weixin_app_secret']))
         {
-            H::redirect_msg(AWS_APP::lang()->_t('此功能不适用于未通过微信认证的订阅号'));
+            H::redirect_msg(AWS_APP::lang()->_t('此功能不适用于未通过微信认证的订阅号'), '/admin/');
         }
 
         $this->model('weixin')->client_list_image_clean($accounts_list[$_GET['id']]['weixin_mp_menu']);
@@ -322,7 +322,7 @@ class weixin extends AWS_ADMIN_CONTROLLER
 
             if (empty($account_info))
             {
-                H::redirect_msg(AWS_APP::lang()->_t('该账号不存在'));
+                H::redirect_msg(AWS_APP::lang()->_t('该账号不存在'), '/admin/weixin/accounts/');
             }
 
             TPL::assign('account_info', $account_info);
@@ -364,7 +364,7 @@ class weixin extends AWS_ADMIN_CONTROLLER
 
         if (empty($msg_details))
         {
-            H::redirect_msg(AWS_APP::lang()->_t('群发消息不存在'));
+            H::redirect_msg(AWS_APP::lang()->_t('群发消息不存在'), '/admin/weixin/sent_msgs_list/');
         }
 
         TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(804));
@@ -380,14 +380,14 @@ class weixin extends AWS_ADMIN_CONTROLLER
 
         if (get_setting('weixin_account_role') != 'service' OR !get_setting('weixin_app_id') OR !get_setting('weixin_app_secret'))
         {
-            H::redirect_msg(AWS_APP::lang()->_t('此功能只适用于通过微信认证的服务号'));
+            H::redirect_msg(AWS_APP::lang()->_t('此功能只适用于通过微信认证的服务号'), '/admin/weixin/sent_msgs_list/');
         }
 
         $groups = $this->model('weixin')->get_groups();
 
         if (!is_array($groups))
         {
-            H::redirect_msg(AWS_APP::lang()->_t('获取微信分组失败, 错误为: %s', $groups));
+            H::redirect_msg(AWS_APP::lang()->_t('获取微信分组失败, 错误为: %s', $groups), '/admin/weixin/sent_msgs_list/');
         }
 
         TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(804));
@@ -403,7 +403,7 @@ class weixin extends AWS_ADMIN_CONTROLLER
 
         if (get_setting('weixin_account_role') != 'service' OR !get_setting('weixin_app_id') OR !get_setting('weixin_app_secret'))
         {
-            H::redirect_msg(AWS_APP::lang()->_t('此功能只适用于通过微信认证的服务号'));
+            H::redirect_msg(AWS_APP::lang()->_t('此功能只适用于通过微信认证的服务号'), , '/admin/');
         }
 
         $qr_code_list = $this->model('weixin')->fetch_page('weixin_qr_code', 'ticket IS NOT NULL', 'scene_id ASC', $_GET['page'], $this->per_page);

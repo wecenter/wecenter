@@ -59,7 +59,7 @@ class tools extends AWS_ADMIN_CONTROLLER
         }
         else
         {
-            H::redirect_msg(AWS_APP::lang()->_t('用户威望更新完成'));
+            H::redirect_msg(AWS_APP::lang()->_t('用户威望更新完成'), '/admin/tools/');
         }
     }
 
@@ -117,7 +117,7 @@ class tools extends AWS_ADMIN_CONTROLLER
                 }
                 else
                 {
-                    H::redirect_msg(AWS_APP::lang()->_t('BBCode 转换完成'));
+                    H::redirect_msg(AWS_APP::lang()->_t('BBCode 转换完成'), '/admin/tools/');
                 }
             break;
         }
@@ -138,7 +138,7 @@ class tools extends AWS_ADMIN_CONTROLLER
         }
         else
         {
-            H::redirect_msg(AWS_APP::lang()->_t('搜索索引更新完成'));
+            H::redirect_msg(AWS_APP::lang()->_t('搜索索引更新完成'), '/admin/tools/');
         }
     }
 
@@ -157,7 +157,7 @@ class tools extends AWS_ADMIN_CONTROLLER
         }
         else
         {
-            H::redirect_msg(AWS_APP::lang()->_t('搜索索引更新完成'));
+            H::redirect_msg(AWS_APP::lang()->_t('搜索索引更新完成'), '/admin/tools/');
         }
     }
 
@@ -169,7 +169,7 @@ class tools extends AWS_ADMIN_CONTROLLER
         }
         else
         {
-            H::redirect_msg(AWS_APP::lang()->_t('最新动态更新完成'));
+            H::redirect_msg(AWS_APP::lang()->_t('最新动态更新完成'), '/admin/tools/');
         }
     }
 
@@ -210,7 +210,7 @@ class tools extends AWS_ADMIN_CONTROLLER
             $messages = '更新微信菜单出现错误：<br />' . $messages;
         }
 
-        H::redirect_msg(AWS_APP::lang()->_t($messages));
+        H::redirect_msg(AWS_APP::lang()->_t($messages), '/admin/weixin/mp_menu/');
     }
 
     public function mp_services_check_action()
