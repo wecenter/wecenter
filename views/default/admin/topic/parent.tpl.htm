@@ -9,6 +9,7 @@
                     <li><a href="admin/topic/list/"><?php _e('话题列表'); ?></a></li>
                     <li class="active"><a href="#list" data-toggle="tab"><?php _e('根话题'); ?></a></li>
                     <li><a href="#search" data-toggle="tab"><?php _e('搜索'); ?></a></li>
+                    <li><a href="#today-topics" data-toggle="tab"><?php _e('今日话题'); ?></a></li>
                 </ul>
             </h3>
         </div>
@@ -44,7 +45,7 @@
                     </table>
                 <?php } ?>
                 </div>
-				
+
                 <div class="mod-table-foot">
                     <?php echo $this->pagination; ?>
                 </div>
@@ -112,6 +113,25 @@
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-5 col-xs-8">
                             <button type="button" onclick="AWS.ajax_post($('#search_form'));" class="btn btn-primary"><?php _e('搜索'); ?></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="tab-pane" id="today-topics">
+                <form method="post" action="admin/ajax/save_today_topics/" onsubmit="return false;" id="today_topics_form" class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <span class="col-sm-2 col-xs-3 control-label"><?php _e('今日话题'); ?>:</span>
+                        <div class="col-sm-5 col-xs-8">
+                            <input type="text" name="today_topics" class="form-control" value="<?php echo get_setting('today_topics'); ?>" />
+
+                            <span class="help-block"><?php _e('填写话题名称, 系统每天随机选出一个作为今日话题, 留空则不显示今日话题, 可填写一个或多个话题, 多个话题请用 , 分隔'); ?></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-5 col-xs-8">
+                            <button type="button" onclick="AWS.ajax_post($('#today_topics_form'));" class="btn btn-primary"><?php _e('保存设置'); ?></button>
                         </div>
                     </div>
                 </form>

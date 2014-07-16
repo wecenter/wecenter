@@ -1,27 +1,54 @@
 <?php TPL::output('m/header.tpl.htm'); ?>
 
+<!-- top-nav -->
+<div class="top-nav">
+	<ul>
+		<?php if ($this->user_id) { ?>
+		<li class="active">
+			<a href="#my_topic" role="tab" data-toggle="tab">我关注的话题</a>
+		</li>
+		<?php } ?>
+		<?php if (!$this->user_id) { ?>
+		<li class="active">
+			<a href="#hot_topic" role="tab" data-toggle="tab">热门话题</a>
+		</li>
+		<?php } ?>
+	</ul>
+</div>
+<!-- end top-nav -->
+
 <!-- 内容 -->
-<div class="aw-content aw-topic-page">
-	<!-- 我关注的话题 -->
-	<?php if ($this->user_id) { ?>
-	<div class="aw-topic-hot">
-		<h2><?php _e('我关注的话题'); ?></h2>
-		<div id="focus_topics_listview"></div>
-		<a class="aw-load-more" id="load_focus_topics"><?php _e('更多'); ?></a>
+<div class="container">
+	<div class="tab-content">
+		<!-- 我关注的话题 -->
+		<?php if ($this->user_id) { ?>
+		<div class="tab-pane active" id="my_topic">
+			<div class="aw-feed-list aw-topic-list active">
+				<div class="mod-body">
+					<ul id="focus_topics_listview"></ul>
+				</div>
+				<div class="mod-footer">
+					<a class="aw-load-more" id="focus_topics_list"><i class="icon icon-loading fa-spin"></i> <span><?php _e('更多'); ?></span></a>
+				</div>
+			</div>
+		</div>
+		<?php } ?>
+		<!-- end 我关注的话题 -->
+		<!-- 热门话题 -->
+		<?php if (!$this->user_id) { ?>
+		<div class="tab-pane active" id="hot_topic">
+			<div class="aw-feed-list aw-topic-list active">
+				<div class="mod-body">
+					<ul id="hot_topics_list"></ul>
+				</div>
+				<div class="mod-footer">
+					<a class="aw-load-more" id="load_hot_topics"><i class="icon icon-loading fa-spin"></i> <span><?php _e('更多'); ?></span></a>
+				</div>
+			</div>
+		</div>
+		<?php } ?>
+		<!-- 热门话题 -->
 	</div>
-	<?php } ?>
-	<!-- end 我关注的话题 -->
-	<!-- 话题广场 -->
-	<div class="aw-topic-feed-title">
-		<h2><?php _e('话题广场'); ?></h2>
-	</div>
-	<!-- end 话题广场 -->
-	<!-- 话题列表 -->
-	<div class="aw-topic-list">
-		<ul id="hot_topics_list"></ul>
-		<a class="aw-load-more" id="load_hot_topics"><?php _e('更多'); ?></a>
-	</div>
-	<!-- end 话题列表 -->
 </div>
 <!-- end 内容 -->
 
@@ -29,7 +56,7 @@
 	$(document).ready(function () {
 		if ($('#focus_topics_listview').length)
 		{
-			AWS.load_list_view(G_BASE_URL + '/m/ajax/focus_topics_list/', $('#load_focus_topics'), $('#focus_topics_listview'));
+			AWS.load_list_view(G_BASE_URL + '/m/ajax/focus_topics_list/', $('#focus_topics_list'), $('#focus_topics_listview'));
 		}
 		if ($('#hot_topics_list').length)
 		{

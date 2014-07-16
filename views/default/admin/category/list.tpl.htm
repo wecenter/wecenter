@@ -43,19 +43,18 @@
                     </form>
                     </tbody>
                     <tfoot class="mod-foot-center">
-                    <form id="add_category_form" action="admin/ajax/save_category/" method="post" onsubmit="return false">
                     <tr>
-                        <td>
-                            <div class="form-group">
-                                <span  class="col-sm-3 mod-category-foot"><?php _e('分类标题'); ?></span>
+                        <td colspan="3">
+                        <form id="add_category_form" action="admin/ajax/save_category/" method="post" onsubmit="return false">
+                            <div class="form-group col-sm-5">
+                                <span  class="col-sm-3 col-xs-12 mod-category-foot"><?php _e('分类标题'); ?></span>
                                 <div class="col-sm-6 col-xs-12">
                                     <input type="text" class="form-control" name="title" />
                                 </div>
                             </div>
-                        </td>
-                        <td>
-                            <div class="form-group">
-                                <span class="col-sm-3 mod-category-foot"><?php _e('父级分类') ?>:</span>
+
+                            <div class="form-group col-sm-5">
+                                <span class="col-sm-3 col-xs-12 mod-category-foot"><?php _e('父级分类') ?>:</span>
                                 <div class="col-sm-6 col-xs-12">
                                     <select name="parent_id" class="form-control">
 										<option value="0"><?php _e('无'); ?></option>
@@ -63,12 +62,12 @@
 									</select>
                                 </div>
                             </div>
-                        </td>
-                        <td class="mod-foot-btn">
-                            <a onclick="AWS.ajax_post($('#add_category_form'));" class="btn-primary btn"><?php _e('添加分类'); ?></a>
+                            <div class="col-sm-2 col-xs-12">
+                             <a onclick="AWS.ajax_post($('#add_category_form'));" class="btn-primary btn"><?php _e('添加分类'); ?></a>
+                            </div>
+                        </form>
                         </td>
                     </tr>
-                    </form>
                     </tfoot>
                 </table>
             </div>

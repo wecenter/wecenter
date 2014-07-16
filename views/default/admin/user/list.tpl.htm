@@ -1,7 +1,7 @@
 <?php TPL::output('admin/global/header.tpl.htm'); ?>
 <?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
 
-<div class="aw-content-wrap">
+<div class="aw-content-wrap" id="user_list">
     <div class="mod">
         <div class="mod-head">
             <h3>
@@ -69,9 +69,12 @@
                 </div>
 
                 <div class="mod-table-foot">
-                    <a class="btn btn-primary" onclick="AWS.ajax_post($('#users_form'));"><?php _e('保存设置'); ?></a>
-
-                    <?php echo $this->pagination; ?>
+                    <div class="col-sm-4 col-xs-12">
+                        <a class="btn btn-primary" onclick="AWS.ajax_post($('#users_form'));"><?php _e('保存设置'); ?></a>
+                    </div>
+                    <div class="col-xs-12 col-sm-8">
+                        <?php echo $this->pagination; ?>
+                    </div>
                 </div>
             </div>
 

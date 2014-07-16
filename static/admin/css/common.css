@@ -18,13 +18,14 @@
 body,a{color:#080808;font:14px/1.5em "microsoft yahei";}
 html,body{height:100%;}
 a:hover,a:focus{text-decoration:none;cursor:pointer;}
-body{background:#eaeaea;}
+body{background:#eff0f4;}
 ul,ol{padding:0;list-style:none;}
 .middle{line-height:32px;}
 .aw-text-color-999{margin:2px 0 0;color:#999;font-size:11px;}
 .aw-hide-txt{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .nopadding{padding:0;}
-.nopadding input{margin-left:-10px;}
+.textwrap{ word-break: break-all;overflow: height: ;}
+/*.nopadding input{margin-left:-10px;}*/
 /* 警告提示box */
 .aw-tips-box .modal-dialog, .aw-image-box .modal-dialog, .aw-link-box .modal-dialog, .aw-confirm-box .modal-dialog{width: 370px;}
 .aw-tips-box .modal-body{background: url(../img/warmming.png) no-repeat right 5px;}
@@ -91,7 +92,7 @@ ul,ol{padding:0;list-style:none;}
 
 /*数据内容区域 start*/
 
-.aw-content-wrap{margin:70px 0 0 235px;padding:0 15px 20px;min-height:100%;height:auto;background:#eff0f4;}
+.aw-content-wrap{margin:70px 0 0 235px;padding:0 15px 20px;min-height:100%;height:auto;}
 .aw-content-wrap .echart-date{margin-top:20px;padding-left:5px;}
 .aw-content-wrap .echart-date .nopadding{padding:0;line-height:36px;}
 .aw-content-wrap .mod-echat-info{margin:20px 0 0 0;padding: 0;}
@@ -103,7 +104,7 @@ ul,ol{padding:0;list-style:none;}
 #main3{margin-top: 20px;height: 300px;}
 .mod-echat-info .col-md-6{margin-bottom: 40px;}
 /*页面底部区域 start*/
-.aw-footer{clear:both;overflow:hidden;margin:0 0 -20px 225px;height:50px;background:#efefef;text-align:center;line-height:52px;}
+.aw-footer{clear:both;overflow:hidden;margin:-40px 0 0 225px;height:50px;background:#efefef;text-align:center;line-height:52px;}
 .aw-footer p{font-size:12px;}
 
 /*右侧公共部分*/
@@ -307,7 +308,7 @@ label,.aw-content-wrap .mod-title,.aw-article-list b,.aw-question-list b{font-we
 .aw-header .mod-btn,.aw-content-wrap .aw-nav-menu .aw-nav-menu-descrip{width:100%;}
 .aw-header .fa-user:before,.aw-side .mod-message .fa:before{font-size:16px;}
 .aw-side .mod-message .fa-envelope:before,.aw-content-wrap .aw-nav-menu li h4{font-size:14px;}
-.aw-side ul li i,.aw-content-wrap .md-tip{margin:0 5px;}
+.aw-side ul li i,.aw-content-wrap .md-tip{margin:0 1px;}
 .aw-content-wrap .mod-padding,.aw-content-wrap .mod-site-url,.aw-content-wrap .aw-nav-menu ul{padding-left:0;}
 .aw-content-wrap .mod-table-foot .clpadding,.aw-content-wrap tfoot .mod-category-foot{padding:0;line-height:35px;}
 .aw-content-wrap .mod-head h3,.aw-content-wrap .mod-page,.aw-message-box form,.aw-wechat-dropdown-box .dropdown-menu > .mod-footer ul{margin:0;}
@@ -316,6 +317,7 @@ label,.aw-content-wrap .mod-title,.aw-article-list b,.aw-question-list b{font-we
 .ps-container.ie6 .ps-scrollbar-x,.ps-container.ie6 .ps-scrollbar-y{font-size:0;}
 /*响应式兼容start*/
 @media only screen and (max-width: 1024px){
+.mod-user{top:36px}
 #integral_form .btn-primary{margin: 20px 0 0 15px}
 .aw-content-wrap{margin:70px 5px 0 5px;padding:0;}
 #main2 {clear: both;}
@@ -323,7 +325,7 @@ label,.aw-content-wrap .mod-title,.aw-article-list b,.aw-question-list b{font-we
 .aw-side ul li a{padding-left:0;}
 .aw-content-wrap .mod-double{margin-bottom:10px;}
 .table-responsive{margin-bottom:0;border:none;}
-.btn{padding:2px 7px;border-radius:3px;font-size:14px;line-height:1.5;}
+.btn{padding:3px 7px;border-radius:3px;font-size:14px;line-height:1.5;}
 .aw-content-wrap .mod-body,.aw-content-wrap .mod-content{padding:5px 5px 20px;}
 .pagination > li > a,.pagination > li > span{padding:5px 10px;font-size:12px;}
 .pagination > li:first-child > a,.pagination > li:first-child > span{border-top-left-radius:3px;border-bottom-left-radius:3px;}
@@ -332,6 +334,16 @@ label,.aw-content-wrap .mod-title,.aw-article-list b,.aw-question-list b{font-we
 .radio-inline,.checkbox-inline{margin-bottom:6px;}
 .aw-footer,.radio-inline + .radio-inline,.checkbox-inline + .checkbox-inline{margin-left:0;}
 .aw-side,.aw-content-wrap .mod-symbol{display:none;}
+#approval {height: 130px;}
+#approval h3 li {text-align: left;width:50%;display: inline-block;}
+.mod-head .nav-tabs li.active{height: 42px}
+#add_category_form .col-sm-2{margin-top: 10px;}
+#add_category_form div{text-align: left;margin-bottom: 10px;}
+#user_list .mod-head {height:86px}
+#user_list .mod-head h3 li{display: inline-block;width: 50%}
+#user_list .pagination{float: left!important;margin-top: 15px;}
+#tools .col-xs-12{margin-top: 10px;}
+#tools .col-xs-12 input{margin-left: 73px}
 }
 @media only screen and (min-width: 320px) and (max-width: 640px){
 .aw-header .pull-right .mod-bell{display:none;}
