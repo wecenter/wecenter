@@ -58,7 +58,7 @@ class page extends AWS_ADMIN_CONTROLLER
 
         if (!$page_info = $this->model('page')->get_page_by_url_id($_GET['id']))
         {
-            H::redirect_msg(AWS_APP::lang()->_t('页面不存在'));
+            H::redirect_msg(AWS_APP::lang()->_t('页面不存在'), '/admin/page/');
         }
 
         TPL::assign('page_info', $page_info);
