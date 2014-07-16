@@ -122,7 +122,6 @@ input[type="text"], input[type="password"], textarea{-webkit-appearance:none;}
 .aw-question-list li .mod-footer{padding:10px;border-top:1px solid #e6e6e6;font-size: 14px;color: #999;}
 
 /* 发现列表 */
-.aw-feed-list .mod-head{margin-top: 10px;}
 .aw-feed-list li{position: relative;}
 .aw-feed-list li .mod-head{position:relative;padding:10px 40px 0 10px;color: #999;font-size: 15px;}
 .aw-feed-list li .mod-head .img{position: absolute;top: 10px;right: 10px;}

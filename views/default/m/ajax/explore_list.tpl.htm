@@ -18,7 +18,7 @@
 		<?php } ?>
 		<?php if ($val['question_id']) { ?>
 		<?php if ($val['answer_count'] > 0) { ?>
-			<?php if ($val['answer_info']['anonymous']) { ?><a href="javascript:;"><?php _e('匿名用户'); ?></a><?php } else { ?><a href="m/people/<?php echo $val['answer_info']['user_info']['url_token']; ?>" class="aw-user-name"><?php echo $val['answer_info']['user_info']['user_name']; ?></a><?php } ?> <?php _e('回复了问题'); ?>
+			<?php if ($val['answer_info']['anonymous']) { ?><a href="javascript:;"><?php _e('匿名用户'); ?></a><?php } else { ?><a href="m/people/<?php echo $val['answer_info']['user_info']['url_token']; ?>"><?php echo $val['answer_info']['user_info']['user_name']; ?></a><?php } ?> <?php _e('回复了问题'); ?>
 				<span class="pull-right color-999"><?php echo date_friendly($val['update_time'], 604800, 'Y-m-d'); ?></span>
 		<?php } else { ?>
 			<?php if ($val['anonymous'] == 0) { ?><a href="m/people/<?php echo $val['user_info']['url_token']; ?>"><?php echo $val['user_info']['user_name']; ?></a><?php } else { ?><a href="javascript:;"><?php _e('匿名用户'); ?></a><?php } ?> <?php _e('发起了问题'); ?>

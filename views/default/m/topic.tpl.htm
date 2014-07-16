@@ -122,17 +122,17 @@
 	$(document).ready(function () {
 		if ($('#all_posts_listview').length)
 		{
-			AWS.load_list_view(G_BASE_URL + '/explore/ajax/list/sort_type-new__topic_id-' + CONTENTS_TOPIC_ID + '__template-m', $('#load_all_posts'), $('#all_posts_listview'), 1);
+			AWS.load_list_view(G_BASE_URL + '/explore/ajax/list/sort_type-new__topic_id' + '-' + CONTENTS_TOPIC_ID + '__template-m', $('#load_all_posts'), $('#all_posts_listview'), 0);
 		}
 
 		if ($('#recommend_answers_listview').length)
 		{
-			AWS.load_list_view(G_BASE_URL + '/explore/ajax/list/sort_type-new__is_recommend-1__topic_id-' + CONTENTS_TOPIC_ID + '__template-m', $('#load_recommend_answers'), $('#recommend_answers_listview'), 1);
+			AWS.load_list_view(G_BASE_URL + '/explore/ajax/list/sort_type-new__is_recommend-1__topic_id' + '-' + CONTENTS_TOPIC_ID + '__template-m', $('#load_recommend_answers'), $('#recommend_answers_listview'), 0);
 		}
 		
 		if ($('#best_answers_listview').length)
 		{
-			AWS.load_list_view(G_BASE_URL + '/topic/ajax/question_list/type-best__topic_id-' + CONTENTS_TOPIC_ID, $('#load_best_answers'), $('#best_answers_listview'), 1);
+			AWS.load_list_view(G_BASE_URL + '/topic/ajax/question_list/type-best__topic_id' + '-' + CONTENTS_TOPIC_ID + '__template-m', $('#load_best_answers'), $('#best_answers_listview'), 0);
 
 			// AWS.load_list_view(G_BASE_URL + '/topic/ajax/question_list/type-best__topic_id-' + CONTENTS_TOPIC_ID + '__template-m', $('#load_best_answers'), $('#best_answers_listview'), 1);
 		}
