@@ -24,7 +24,8 @@ ul,ol{padding:0;list-style:none;}
 .aw-text-color-999{margin:2px 0 0;color:#999;font-size:11px;}
 .aw-hide-txt{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .nopadding{padding:0;}
-.nopadding input{margin-left:-10px;}
+.textwrap{ word-break: break-all;overflow: height: ;}
+/*.nopadding input{margin-left:-10px;}*/
 /* 警告提示box */
 .aw-tips-box .modal-dialog, .aw-image-box .modal-dialog, .aw-link-box .modal-dialog, .aw-confirm-box .modal-dialog{width: 370px;}
 .aw-tips-box .modal-body{background: url(../img/warmming.png) no-repeat right 5px;}
@@ -324,7 +325,7 @@ label,.aw-content-wrap .mod-title,.aw-article-list b,.aw-question-list b{font-we
 .aw-side ul li a{padding-left:0;}
 .aw-content-wrap .mod-double{margin-bottom:10px;}
 .table-responsive{margin-bottom:0;border:none;}
-.btn{padding:2px 7px;border-radius:3px;font-size:14px;line-height:1.5;}
+.btn{padding:3px 7px;border-radius:3px;font-size:14px;line-height:1.5;}
 .aw-content-wrap .mod-body,.aw-content-wrap .mod-content{padding:5px 5px 20px;}
 .pagination > li > a,.pagination > li > span{padding:5px 10px;font-size:12px;}
 .pagination > li:first-child > a,.pagination > li:first-child > span{border-top-left-radius:3px;border-bottom-left-radius:3px;}
@@ -338,6 +339,11 @@ label,.aw-content-wrap .mod-title,.aw-article-list b,.aw-question-list b{font-we
 .mod-head .nav-tabs li.active{height: 42px}
 #add_category_form .col-sm-2{margin-top: 10px;}
 #add_category_form div{text-align: left;margin-bottom: 10px;}
+#user_list .mod-head {height:86px}
+#user_list .mod-head h3 li{display: inline-block;width: 50%}
+#user_list .pagination{float: left!important;margin-top: 15px;}
+#tools .col-xs-12{margin-top: 10px;}
+#tools .col-xs-12 input{margin-left: 73px}
 }
 @media only screen and (min-width: 320px) and (max-width: 640px){
 .aw-header .pull-right .mod-bell{display:none;}
