@@ -18,7 +18,7 @@
 body,a{color:#080808;font:14px/1.5em "microsoft yahei";}
 html,body{height:100%;}
 a:hover,a:focus{text-decoration:none;cursor:pointer;}
-body{background:#eaeaea;}
+body{background:#eff0f4;}
 ul,ol{padding:0;list-style:none;}
 .middle{line-height:32px;}
 .aw-text-color-999{margin:2px 0 0;color:#999;font-size:11px;}
@@ -92,7 +92,7 @@ ul,ol{padding:0;list-style:none;}
 
 /*数据内容区域 start*/
 
-.aw-content-wrap{margin:70px 0 0 235px;padding:0 15px 20px;min-height:100%;height:auto;background:#eff0f4;}
+.aw-content-wrap{margin:70px 0 0 235px;padding:0 15px 20px;min-height:100%;height:auto;}
 .aw-content-wrap .echart-date{margin-top:20px;padding-left:5px;}
 .aw-content-wrap .echart-date .nopadding{padding:0;line-height:36px;}
 .aw-content-wrap .mod-echat-info{margin:20px 0 0 0;padding: 0;}
