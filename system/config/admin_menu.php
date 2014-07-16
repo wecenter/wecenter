@@ -109,7 +109,7 @@ $config[] = array(
             'id' => 304,
             'title' => '专题管理',
             'url' => 'admin/feature/list/'
-        )，
+        ),
 
         array(
             'id' => 308,
