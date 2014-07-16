@@ -1,7 +1,7 @@
 <?php TPL::output('admin/global/header.tpl.htm'); ?>
 <?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
 
-<div class="aw-content-wrap">
+<div class="aw-content-wrap" id="tools">
     <div class="mod">
         <div class="mod-head">
             <h3>
@@ -20,7 +20,7 @@
 	                        <div class="col-sm-7 col-xs-8 middle">
 	                        	<?php _e('可以在这里对 http://mp.wecenter.com 的微信服务进行状态查询'); ?>
 	                        </div>
-	                        <div class="col-sm-2">
+	                        <div class="col-sm-2 col-xs-12">
 	                            <input type="button" class="btn btn-primary" onclick="AWS.ajax_post($('#mp_services_check_form'))" value="<?php _e('开始处理'); ?>">
 	                        </div>
 	                    </div>
@@ -36,7 +36,7 @@
 	                        <div class="col-sm-7 col-xs-8 middle">
 	                        	<?php _e('当站点进行了数据恢复、升级或者工作出现异常的时候, 你可以使用本功能清除缓存'); ?>
 	                        </div>
-	                        <div class="col-sm-2">
+	                        <div class="col-sm-2 col-xs-12">
 	                            <input type="submit" class="btn btn-primary" value="<?php _e('开始处理'); ?>">
 	                        </div>
 	                    </div>
@@ -58,7 +58,7 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-2">
+                        <div class="col-sm-2 col-xs-12">
                             <input type="button" class="btn btn-primary" onclick="AWS.ajax_post($('#email_setting_test_form'));" value="<?php _e('开始处理'); ?>">
                         </div>
                     </div>
@@ -84,7 +84,7 @@
 	                            </div>
 	                        </div>
 
-	                        <div class="col-sm-2">
+	                        <div class="col-sm-2 col-xs-12">
 	                            <input type="submit" class="btn btn-primary" value="<?php _e('开始处理'); ?>">
 	                        </div>
 	                    </div>
@@ -110,7 +110,7 @@
 	                            </div>
 	                        </div>
 
-	                        <div class="col-sm-2">
+	                        <div class="col-sm-2 col-xs-12">
 	                            <input type="submit" class="btn btn-primary" value="<?php _e('开始处理'); ?>">
 	                        </div>
 	                    </div>
@@ -133,7 +133,7 @@
 	                                </div>
 	                            </div>
 	                        </div>
-	                        <div class="col-sm-2">
+	                        <div class="col-sm-2 col-xs-12">
 	                            <input type="submit" class="btn btn-primary" value="<?php _e('开始处理'); ?>">
 	                        </div>
 	                    </div>
@@ -157,7 +157,7 @@
 	                                </div>
 	                            </div>
 	                        </div>
-	                        <div class="col-sm-2">
+	                        <div class="col-sm-2 col-xs-12">
 	                            <input type="submit" class="btn btn-primary" value="<?php _e('开始处理'); ?>">
 	                        </div>
 	                    </div>
@@ -181,7 +181,7 @@
 	                                </div>
 	                            </div>
 	                        </div>
-	                        <div class="col-sm-2">
+	                        <div class="col-sm-2 col-xs-12">
 	                            <input type="submit" class="btn btn-primary" value="<?php _e('开始处理'); ?>">
 	                        </div>
 	                    </div>
@@ -198,7 +198,7 @@
 	                        <div class="col-sm-7 col-xs-8 middle">
 	                        	<?php _e('此工具可以读取系统中的微信配置并提交给微信公众平台, 使用前请确认菜单已经配置好, 并且有菜单权限'); ?>
 	                        </div>
-	                        <div class="col-sm-2">
+	                        <div class="col-sm-2 col-xs-12">
 	                            <input type="submit" class="btn btn-primary" value="<?php _e('开始处理'); ?>">
 	                        </div>
 	                    </div>

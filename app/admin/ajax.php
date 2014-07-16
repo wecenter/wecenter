@@ -184,7 +184,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
             $this->model('weixin')->get_weixin_app_id_setting_var();
         }
 
-        H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('修改成功')));
+        H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('保存设置成功')));
     }
 
     public function approval_manage_action()
@@ -271,6 +271,11 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
     public function save_category_sort_action()
     {
+        if (!$this->user_info['permission']['is_administortar'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('你没有访问权限, 请重新登录')));
+        }
+
         if (is_array($_POST['category']))
         {
             foreach ($_POST['category'] as $key => $val)
@@ -284,6 +289,11 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
     public function save_category_action()
     {
+        if (!$this->user_info['permission']['is_administortar'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('你没有访问权限, 请重新登录')));
+        }
+
         if ($_POST['category_id'] AND $_POST['parent_id'] AND $category_list = $this->model('system')->fetch_category('question', $_POST['category_id']))
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('系统允许最多二级分类, 当前分类下有子分类, 不能移动到其它分类')));
@@ -337,6 +347,11 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
     public function remove_category_action()
     {
+        if (!$this->user_info['permission']['is_administortar'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('你没有访问权限, 请重新登录')));
+        }
+
         if (intval($_POST['category_id']) == 1)
         {
             H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('默认分类不可删除')));
@@ -354,6 +369,11 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
     public function move_category_contents_action()
     {
+        if (!$this->user_info['permission']['is_administortar'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('你没有访问权限, 请重新登录')));
+        }
+
         if (!$_POST['from_id'] OR !$_POST['target_id'])
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请先选择指定分类和目标分类')));
@@ -455,6 +475,11 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
     public function save_feature_action()
     {
+        if (!$this->user_info['permission']['is_administortar'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('你没有访问权限, 请重新登录')));
+        }
+
         $feature_id = intval($_GET['feature_id']);
 
         if (trim($_POST['title']) == '')
@@ -569,6 +594,11 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
     public function remove_feature_action()
     {
+        if (!$this->user_info['permission']['is_administortar'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('你没有访问权限, 请重新登录')));
+        }
+
         $this->model('feature')->delete_feature($_POST['feature_id']);
 
         H::ajax_json_output(AWS_APP::RSM(null, 1, null));
@@ -576,6 +606,11 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
     public function save_feature_status_action()
     {
+        if (!$this->user_info['permission']['is_administortar'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('你没有访问权限, 请重新登录')));
+        }
+
         if ($_POST['feature_ids'])
         {
             foreach ($_POST['feature_ids'] AS $feature_id => $val)
@@ -589,6 +624,11 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
     public function save_nav_menu_action()
     {
+        if (!$this->user_info['permission']['is_administortar'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('你没有访问权限, 请重新登录')));
+        }
+
         if ($_POST['nav_sort'])
         {
             if ($menu_ids = explode(',', $_POST['nav_sort']))
@@ -596,7 +636,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
                 foreach($menu_ids as $key => $val)
                 {
                     $this->model('menu')->update_nav_menu($val, array(
-                    	'sort' => $key
+                        'sort' => $key
                     ));
                 }
             }
@@ -620,6 +660,11 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
     public function add_nav_menu_action()
     {
+        if (!$this->user_info['permission']['is_administortar'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('你没有访问权限, 请重新登录')));
+        }
+
         switch ($_POST['type'])
         {
             case 'category' :
@@ -648,6 +693,11 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
     public function remove_nav_menu_action()
     {
+        if (!$this->user_info['permission']['is_administortar'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('你没有访问权限, 请重新登录')));
+        }
+
         $this->model('menu')->remove_nav_menu($_POST['id']);
 
         H::ajax_json_output(AWS_APP::RSM(null, 1, null));
@@ -655,6 +705,11 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
     public function nav_menu_upload_action()
     {
+        if (!$this->user_info['permission']['is_administortar'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('你没有访问权限, 请重新登录')));
+        }
+
         AWS_APP::upload()->initialize(array(
             'allowed_types' => 'jpg,jpeg,png,gif',
             'upload_path' => get_setting('upload_dir') . '/nav_menu',
@@ -702,6 +757,11 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
     public function add_page_action()
     {
+        if (!$this->user_info['permission']['is_administortar'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('你没有访问权限, 请重新登录')));
+        }
+
         if (!$_POST['url_token'])
         {
             H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('请输入页面 URL')));
@@ -726,6 +786,11 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
     public function remove_page_action()
     {
+        if (!$this->user_info['permission']['is_administortar'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('你没有访问权限, 请重新登录')));
+        }
+
         $this->model('page')->remove_page($_POST['id']);
 
         H::ajax_json_output(AWS_APP::RSM(null, 1, null));
@@ -733,6 +798,11 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
     public function edit_page_action()
     {
+        if (!$this->user_info['permission']['is_administortar'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('你没有访问权限, 请重新登录')));
+        }
+
         if (!$page_info = $this->model('page')->get_page_by_url_id($_POST['page_id']))
         {
             H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('页面不存在')));
@@ -765,6 +835,11 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
     public function save_page_status_action()
     {
+        if (!$this->user_info['permission']['is_administortar'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('你没有访问权限, 请重新登录')));
+        }
+
         if ($_POST['page_ids'])
         {
             foreach ($_POST['page_ids'] AS $page_id => $val)
@@ -884,6 +959,11 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
     public function save_user_group_action()
     {
+        if (!$this->user_info['permission']['is_administortar'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('你没有访问权限, 请重新登录')));
+        }
+
         if ($group_data = $_POST['group'])
         {
             foreach ($group_data as $key => $val)
@@ -947,6 +1027,11 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
     public function save_custom_user_group_action()
     {
+        if (!$this->user_info['permission']['is_administortar'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('你没有访问权限, 请重新登录')));
+        }
+
         if ($group_data = $_POST['group'])
         {
             foreach ($group_data as $key => $val)
@@ -1002,6 +1087,11 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
     public function edit_user_group_permission_action()
     {
+        if (!$this->user_info['permission']['is_administortar'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('你没有访问权限, 请重新登录')));
+        }
+
         $permission_array = array(
             'is_administortar',
             'is_moderator',
@@ -2073,5 +2163,14 @@ class ajax extends AWS_ADMIN_CONTROLLER
         H::ajax_json_output(AWS_APP::RSM(array(
             'url' => get_js_url('/admin/approval/list/')
         ), 1, null));
+    }
+
+    public function save_today_topics()
+    {
+        $today_topics = trim($_POST['today_topics']);
+
+        $this->model('setting')->set_vars(array('today_topics' => $today_topics));
+
+        H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('修改成功')));
     }
 }
