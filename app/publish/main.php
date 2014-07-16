@@ -116,7 +116,10 @@ class main extends AWS_CONTROLLER
 			TPL::import_js('js/editor/jquery.markitup.js');
 			TPL::import_js('js/editor/markdown.js');
 			TPL::import_js('js/editor/sets/default/set.js');
+		}
 
+		if (get_setting('upload_enable') == 'Y')
+		{
 			// fileupload
 			TPL::import_js('js/fileupload.js');
 		}
