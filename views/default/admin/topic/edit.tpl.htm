@@ -79,10 +79,10 @@
 						</div>
 					</td>
 				</tr>
-				<tr>
+				<tr class="parent_topic_tr">
 					<td>
 						<div class="form-group">
-							<span class="col-sm-4 col-xs-3 control-label"><?php _e('操作'); ?>:</span>
+							<span class="col-sm-4 col-xs-3 control-label"><?php _e('选择根话题'); ?>:</span>
 							<div class="col-sm-4 col-xs-8">
 								<select id="parent_topic_select" class="hide" name="parent_id">
 								<option value=""> --- </option>
@@ -125,7 +125,14 @@
 		if ($('#topic_pic_uploader').length)
 		{
 			AWS.Init.init_img_uploader(G_BASE_URL + '/topic/ajax/upload_topic_pic/topic_id-<?php echo $this->topic_info['topic_id']; ?>', 'topic_pic', $('#topic_pic_uploader'), null, $('#topic_pic'));
+		}
 
+		if ($('input[name="is_parent"]:checked').val() == 1)
+		{
+			$('.parent_topic_tr').hide();
+		}
+		else
+		{
 			// 根话题选择
 			$.each($('#parent_topic_select option'), function (i, e)
 			{
@@ -147,6 +154,7 @@
 				$('#parent_topic_select').val($(this).data('value'));
 				$('#aw-topic-tags-select').val($(this).text());
 				$('.aw-publish-title .dropdown').removeClass('open');
+				$('.aw-publish-title .aw-dropdown-list li').removeClass('hide');
 				AWS.ajax_request(G_BASE_URL + '/topic/ajax/set_parent_id/', 'topic_id=<?php echo $this->topic_info['topic_id']; ?>&parent_id=' + $(this).data('value'));
 			});
 
@@ -167,56 +175,6 @@
 				focus : function()
 				{
 					$(this).parents('.dropdown').addClass('open');
-				},
-
-				blur : function()
-				{
-					var _this = $(this);
-
-					$(document).click(function(e)
-					{
-						var target = $(e.target);
-						if (target.parents('.aw-publish-title').length)
-						{
-							return false;
-						}
-						else
-						{
-							if (_this.val() == '')
-							{
-								$('#parent_topic_select').val('');
-								$('.aw-publish-title .aw-dropdown-list li').eq(0).click();
-								$('.aw-publish-title .dropdown').removeClass('open');
-							}
-							else
-							{
-								if ($('#parent_topic_select option[selected=selected]').text() != '')
-								{
-									var val = $('#parent_topic_select option[selected=selected]').text();
-								}
-								else
-								{
-									var val = ' --- ';
-								}
-
-								if (_this.val() != val)
-								{
-									if ($('.aw-publish-title .aw-dropdown-list li:not(".hide")').eq(0).length)
-									{
-										$('.aw-publish-title .aw-dropdown-list li:not(".hide")').eq(0).click();
-									}
-									else
-									{
-										$('.aw-publish-title #aw-topic-tags-select').val($('#parent_topic_select option[selected=selected]').text());
-									}
-								}
-								else
-								{
-									$('.aw-publish-title .dropdown').removeClass('open');
-								}
-							}
-						}
-					});
 				},
 
 				keyup : function()
@@ -243,7 +201,71 @@
 				}
 			});
 
+			$(document).click(function(e)
+			{
+				var target = $(e.target);
+				if (target.parents('.aw-publish-title').length)
+				{
+					//return false;
+				}
+				else
+				{
+					var _this = $('#aw-topic-tags-select');
+					if (_this.val() == '')
+					{
+						$('#parent_topic_select').val('');
+						$('.aw-publish-title .aw-dropdown-list li').eq(0).click();
+						$('.aw-publish-title .dropdown').removeClass('open');
+					}
+					else
+					{
+						if ($('#parent_topic_select option[selected=selected]').text() != '')
+						{
+							var val = $('#parent_topic_select option[selected=selected]').text();
+						}
+						else
+						{
+							var val = ' --- ';
+						}
+
+						if (_this.val() != val)
+						{
+							if ($('.aw-publish-title .aw-dropdown-list li:not(".hide")').eq(0).text().match(_this.val()))
+							{
+								$('.aw-publish-title .aw-dropdown-list li:not(".hide")').eq(0).click();
+							}
+							else
+							{
+								var flag = false;
+								$.each($('.aw-publish-title .aw-dropdown-list li:not(".hide")'), function (i, e)
+								{
+									if ($(this).text().match(_this.val()))
+									{
+										flag = true;
+										$(this).click();
+									}
+								});
+
+								if (flag == false)
+								{
+									$('.aw-publish-title #aw-topic-tags-select').val($('#parent_topic_select option[selected=selected]').text());
+								}
+							}
+
+							$('.aw-publish-title .dropdown').removeClass('open');
+						}
+						else
+						{
+							$('.aw-publish-title .dropdown').removeClass('open');
+						}
+					}
+
+					$(this).parents('.dropdown').removeClass('open');
+				}
+			});
 		}
+
+		
 	});
 </script>
 
