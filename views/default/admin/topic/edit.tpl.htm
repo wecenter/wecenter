@@ -173,34 +173,50 @@
 				{
 					var _this = $(this);
 
-					// $(document).click(function(e)
-					// {
-					// 	var target = $(e.target);
-					// 	if (target.parents('.aw-publish-title').length)
-					// 	{
-					// 		return false;
-					// 	}
-					// 	else
-					// 	{
-					// 		if (_this.val() == '')
-					// 		{
-					// 			$('#parent_topic_select').val('');
-					// 			$('.aw-publish-title .aw-dropdown-list li').eq(0).click();
-					// 			$('.aw-publish-title .dropdown').removeClass('open');
-					// 		}
-					// 		else
-					// 		{
-					// 			if ($('.aw-publish-title .aw-dropdown-list li:not(".hide")').eq(0).length)
-					// 			{
-					// 				$('.aw-publish-title .aw-dropdown-list li:not(".hide")').eq(0).click();
-					// 			}
-					// 			else
-					// 			{
-					// 				$('.aw-publish-title #aw-topic-tags-select').val($('#parent_topic_select option[selected=selected]').text());
-					// 			}
-					// 		}
-					// 	}
-					// });
+					$(document).click(function(e)
+					{
+						var target = $(e.target);
+						if (target.parents('.aw-publish-title').length)
+						{
+							return false;
+						}
+						else
+						{
+							if (_this.val() == '')
+							{
+								$('#parent_topic_select').val('');
+								$('.aw-publish-title .aw-dropdown-list li').eq(0).click();
+								$('.aw-publish-title .dropdown').removeClass('open');
+							}
+							else
+							{
+								if ($('#parent_topic_select option[selected=selected]').text() != '')
+								{
+									var val = $('#parent_topic_select option[selected=selected]').text();
+								}
+								else
+								{
+									var val = ' --- ';
+								}
+
+								if (_this.val() != val)
+								{
+									if ($('.aw-publish-title .aw-dropdown-list li:not(".hide")').eq(0).length)
+									{
+										$('.aw-publish-title .aw-dropdown-list li:not(".hide")').eq(0).click();
+									}
+									else
+									{
+										$('.aw-publish-title #aw-topic-tags-select').val($('#parent_topic_select option[selected=selected]').text());
+									}
+								}
+								else
+								{
+									$('.aw-publish-title .dropdown').removeClass('open');
+								}
+							}
+						}
+					});
 				},
 
 				keyup : function()
