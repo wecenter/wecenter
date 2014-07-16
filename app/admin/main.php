@@ -116,6 +116,11 @@ class main extends AWS_ADMIN_CONTROLLER
     {
         $this->crumb(AWS_APP::lang()->_t('导航设置'), 'admin/nav_menu/');
 
+        if (!$this->user_info['permission']['is_administortar'])
+        {
+            H::redirect_msg(AWS_APP::lang()->_t('你没有访问权限, 请重新登录'), '/');
+        }
+
         TPL::assign('nav_menu_list', $this->model('menu')->get_nav_menu_list());
 
         TPL::assign('category_list', $this->model('system')->build_category_html('question', 0, 0, null, true));

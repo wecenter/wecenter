@@ -98,13 +98,13 @@ class topic extends AWS_ADMIN_CONTROLLER
 				$topic_list[$key]['last_edited_time'] = $action_log['add_time'];
 
 				$last_edited_uids[] = $topic_list[$key]['last_edited_uid'];
-				
+
 				if ($topic_info['parent_id'])
 				{
 					$parent_ids[$topic_info['parent_id']] = $topic_info['parent_id'];
 				}
 			}
-			
+
 			if ($parent_ids)
 			{
 				$parent_topics_info = $this->model('topic')->get_topics_by_ids($parent_ids);
@@ -138,7 +138,6 @@ class topic extends AWS_ADMIN_CONTROLLER
 		TPL::assign('list', $topic_list);
 		TPL::assign('users_info', $users_info);
 		TPL::assign('parent_topics_info', $parent_topics_info);
-		
 
 		TPL::output('admin/topic/list');
 	}
@@ -172,7 +171,7 @@ class topic extends AWS_ADMIN_CONTROLLER
 		}
 
 		TPL::assign('topic_info', $topic_info);
-		
+
 		if (!$topic_info['is_parent'])
 		{
 			TPL::assign('parent_topics', $this->model('topic')->get_parent_topics());

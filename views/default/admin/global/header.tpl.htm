@@ -38,8 +38,10 @@
 <?php if (!$this->user_info['permission']['is_administortar']) { ?>
 <script type="text/javascript">
 $(function(){
-    $('.fa-briefcase').parent().css({'display':'none'});
+    $('.fa-bookmark').parent().css({'display':'none'});
+    $('.fa-flag').parent().css({'display':'none'});
     $('.fa-wrench').parent().css({'display':'none'});
+    $('.fa-user').parent().children('ul').children('li:nth-child(2)').css({'display':'none'});
 });
 </script>
 <?php } ?>
@@ -145,7 +147,7 @@ $(function(){
                 		YOU HAVE <?php echo count($notifications_texts); ?> MAILS
                 	</div>
                     <?php if ($notifications_texts) { foreach ($notifications_texts AS $notifications_text) { ?>
-						
+
                     <li class="mod-media">
                         <a href="<?php echo $notifications_text['url']; ?>">
                             <?php echo $notifications_text['text']; ?>
