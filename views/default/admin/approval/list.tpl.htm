@@ -3,7 +3,7 @@
 
 <div class="aw-content-wrap">
     <div class="mod">
-        <div class="mod-head">
+        <div class="mod-head table-striped" id="approval">
             <h3>
                 <ul class="nav nav-tabs">
                     <li class="<?php if ($_GET['type'] == 'question') { ?> active<?php } ?>"><a href="admin/approval/list/"><?php _e('问题'); ?> (<?php echo $this->question_count; ?>)</a></li>
@@ -29,7 +29,7 @@
 
             <div class="table-responsive">
             <?php if ($this->approval_list) { ?>
-                <table class="table table-striped">
+                <table class="table">
                     <thead>
                         <tr>
                             <?php if ($_GET['type'] != 'unverified_modify') { ?>

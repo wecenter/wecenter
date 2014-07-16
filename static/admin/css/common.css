@@ -103,7 +103,7 @@ ul,ol{padding:0;list-style:none;}
 #main3{margin-top: 20px;height: 300px;}
 .mod-echat-info .col-md-6{margin-bottom: 40px;}
 /*页面底部区域 start*/
-.aw-footer{clear:both;overflow:hidden;margin:0 0 -20px 225px;height:50px;background:#efefef;text-align:center;line-height:52px;}
+.aw-footer{clear:both;overflow:hidden;margin:-40px 0 0 225px;height:50px;background:#efefef;text-align:center;line-height:52px;}
 .aw-footer p{font-size:12px;}
 
 /*右侧公共部分*/
@@ -306,6 +306,7 @@ label,.aw-content-wrap .mod-title,.aw-article-list b,.aw-question-list b{font-we
 .ps-container.ie6 .ps-scrollbar-x,.ps-container.ie6 .ps-scrollbar-y{font-size:0;}
 /*响应式兼容start*/
 @media only screen and (max-width: 1024px){
+.mod-user{top:36px}
 #integral_form .btn-primary{margin: 20px 0 0 15px}
 .aw-content-wrap{margin:70px 5px 0 5px;padding:0;}
 #main2 {clear: both;}
@@ -322,6 +323,11 @@ label,.aw-content-wrap .mod-title,.aw-article-list b,.aw-question-list b{font-we
 .radio-inline,.checkbox-inline{margin-bottom:6px;}
 .aw-footer,.radio-inline + .radio-inline,.checkbox-inline + .checkbox-inline{margin-left:0;}
 .aw-side,.aw-content-wrap .mod-symbol{display:none;}
+#approval {height: 130px;}
+#approval h3 li {text-align: left;width:50%;display: inline-block;}
+.mod-head .nav-tabs li.active{height: 42px}
+#add_category_form .col-sm-2{margin-top: 10px;}
+#add_category_form div{text-align: left;margin-bottom: 10px;}
 }
 @media only screen and (min-width: 320px) and (max-width: 640px){
 .aw-header .pull-right .mod-bell{display:none;}
