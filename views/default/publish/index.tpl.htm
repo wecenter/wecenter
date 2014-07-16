@@ -55,11 +55,15 @@
 							<div class="aw-mod aw-editor-box">
 								<div class="mod-head">
 									<textarea name="question_detail" id="advanced_editor" rows="20" class="autosize form-control advanced_editor"><?php echo $this->question_info['question_detail']; ?></textarea>
+
 									<p class="aw-text-color-999"><span class="pull-right" id="question_detail_message">&nbsp;</span></p>
+
+									<?php if (get_setting('upload_enable') == 'Y') { ?>
 									<div class="aw-upload-box">
 										<a class="btn btn-default">上传附件</a>
 										<div class="upload-container"></div>
 									</div>
+									<?php } ?>
 								</div>
 								<div class="mod-body">
 									<span id="file_uploader_question"></span>

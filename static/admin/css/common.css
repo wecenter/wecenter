@@ -101,9 +101,7 @@ ul,ol{padding:0;list-style:none;}
 /*页面底部区域 start*/
 .aw-footer{clear:both;overflow:hidden;margin:0 0 -20px 225px;height:50px;background:#efefef;text-align:center;line-height:52px;}
 .aw-footer p{font-size:12px;}
-text-align: center;
-line-height: 45px;
-margin-bottom: 0;
+
 /*右侧公共部分*/
 .aw-content-wrap .mod-symbol{margin-left:-2px;padding:0;width:2px;text-align:center;font-size:22px;line-height:35px;}
 #remove_user_form{border-bottom: 1px solid #e5e5e5}
@@ -207,6 +205,7 @@ textarea{resize:none;}
 .aw-comment-upload-img-list img{max-width: 200px;min-height: 150px;max-height: 150px;display: block;margin: 0 auto;}
 .aw-comment-upload-img-list li{text-align: center;display: inline-block;margin: 30px 15px 0 30px;width: 20%;height: 150px;}
 .aw-comment-upload-img-list .btn{margin-top: 15px;}
+.aw-comment-upload-file-list li{display: inline-block;margin: 0px 20px 10px 20px}
 /*编辑用户资料*/
 #remove_user_form label{margin-right:15px;}
 #integral_form span.mod-category-foot{padding:0;text-align:right;line-height:35px;}
@@ -220,6 +219,10 @@ textarea{resize:none;}
 .aw-category-move-box .modal-dialog{width:350px;}
 .aw-topic-edit-note-box img{max-width:530px;}
 .aw-topic-edit-note-box #aw_dialog_ajax_data{overflow-y:scroll;max-height:450px;}
+
+/* 微信多账号下拉菜单 */
+.dropdown #dropdownMenu1 .caret{margin-left:5px;}
+.dropdown ul.dropdown-menu{min-width:100px;}
 
 /*日期选择控件*/
 .date_selector,.date_selector *{margin:0;padding:0;width:auto;height:auto;border:none;background:none;text-align:left;text-decoration:none;cursor:pointer;}
