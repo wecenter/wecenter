@@ -7,6 +7,72 @@ $config[] = array(
 );
 
 $config[] = array(
+    'title' => '全局设置',
+    'cname' => 'flag',
+    'children' => array(
+        array(
+            'id' => 'SETTINGS_SITE',
+            'title' => '站点信息',
+            'url' => 'admin/settings/category-site'
+        ),
+
+        array(
+            'id' => 'SETTINGS_REGISTER',
+            'title' => '注册访问',
+            'url' => 'admin/settings/category-register'
+        ),
+
+        array(
+            'id' => 'SETTINGS_FUNCTIONS',
+            'title' => '站点功能',
+            'url' => 'admin/settings/category-functions'
+        ),
+
+        array(
+            'id' => 'SETTINGS_CONTENTS',
+            'title' => '内容设置',
+            'url' => 'admin/settings/category-contents'
+        ),
+
+        array(
+            'id' => 'SETTINGS_INTEGRAL',
+            'title' => '威望积分',
+            'url' => 'admin/settings/category-integral'
+        ),
+
+        array(
+            'id' => 'SETTINGS_PERMISSIONS',
+            'title' => '用户权限',
+            'url' => 'admin/settings/category-permissions'
+        ),
+
+        array(
+            'id' => 'SETTINGS_MAIL',
+            'title' => '邮件设置',
+            'url' => 'admin/settings/category-mail'
+        ),
+
+        array(
+            'id' => 'SETTINGS_OPENID',
+            'title' => '开放平台',
+            'url' => 'admin/settings/category-openid'
+        ),
+
+        array(
+            'id' => 'SETTINGS_CACHE',
+            'title' => '性能优化',
+            'url' => 'admin/settings/category-cache'
+        ),
+
+        array(
+            'id' => 'SETTINGS_INTERFACE',
+            'title' => '界面设置',
+            'url' => 'admin/settings/category-interface'
+        )
+    )
+);
+
+$config[] = array(
     'title' => '内容管理',
     'cname' => 'briefcase',
     'children' => array(
@@ -120,71 +186,6 @@ $config[] = array(
     )
 );
 
-$config[] = array(
-    'title' => '全局设置',
-    'cname' => 'flag',
-    'children' => array(
-        array(
-            'id' => 'SETTINGS_SITE',
-            'title' => '站点信息',
-            'url' => 'admin/settings/category-site'
-        ),
-
-        array(
-            'id' => 'SETTINGS_REGISTER',
-            'title' => '注册访问',
-            'url' => 'admin/settings/category-register'
-        ),
-
-        array(
-            'id' => 'SETTINGS_FUNCTIONS',
-            'title' => '站点功能',
-            'url' => 'admin/settings/category-functions'
-        ),
-
-        array(
-            'id' => 'SETTINGS_CONTENTS',
-            'title' => '内容设置',
-            'url' => 'admin/settings/category-contents'
-        ),
-
-        array(
-            'id' => 'SETTINGS_INTEGRAL',
-            'title' => '威望积分',
-            'url' => 'admin/settings/category-integral'
-        ),
-
-        array(
-            'id' => 'SETTINGS_PERMISSIONS',
-            'title' => '用户权限',
-            'url' => 'admin/settings/category-permissions'
-        ),
-
-        array(
-            'id' => 'SETTINGS_MAIL',
-            'title' => '邮件设置',
-            'url' => 'admin/settings/category-mail'
-        ),
-
-        array(
-            'id' => 'SETTINGS_OPENID',
-            'title' => '开放平台',
-            'url' => 'admin/settings/category-openid'
-        ),
-
-        array(
-            'id' => 'SETTINGS_CACHE',
-            'title' => '性能优化',
-            'url' => 'admin/settings/category-cache'
-        ),
-
-        array(
-            'id' => 'SETTINGS_INTERFACE',
-            'title' => '界面设置',
-            'url' => 'admin/settings/category-interface'
-        )
-    )
-);
 
 $config[] = array(
     'title' => '微信微博',
