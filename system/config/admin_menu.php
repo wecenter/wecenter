@@ -1,13 +1,13 @@
 <?php
 $config[] = array(
     'title' => '概述',
-    'cname' => 'overview',
+    'cname' => 'home',
     'children' => array()
 );
 
 $config[] = array(
     'title' => '内容管理',
-    'cname' => 'bookmark',
+    'cname' => 'briefcase',
     'children' => array(
         array(
             'id' => 301,
@@ -31,7 +31,7 @@ $config[] = array(
 
 $config[] = array(
     'title' => '用户管理',
-    'cname' => 'users',
+    'cname' => 'user',
     'children' => array(
         array(
             'id' => 402,
@@ -61,7 +61,7 @@ $config[] = array(
 
 $config[] = array(
     'title' => '审核管理',
-    'cname' => 'approval',
+    'cname' => 'tasks',
     'children' => array(
         array(
             'id' => 300,
@@ -91,7 +91,7 @@ $config[] = array(
 
 $config[] = array(
     'title' => '内容设置',
-    'cname' => 'content',
+    'cname' => 'bookmark',
     'children' => array(
         array(
             'id' => 307,
@@ -121,7 +121,7 @@ $config[] = array(
 
 $config[] = array(
     'title' => '全局',
-    'cname' => 'briefcase',
+    'cname' => 'flag',
     'children' => array(
         array(
             'id' => 'SETTINGS_SITE',
@@ -187,7 +187,7 @@ $config[] = array(
 
 $config[] = array(
     'title' => '开放平台',
-    'cname' => 'openid',
+    'cname' => 'send',
     'children' => array(
         array(
             'id' => 802,
