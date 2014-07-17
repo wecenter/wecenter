@@ -49,8 +49,8 @@
 			<div class="mod-table-foot">
 				<span class="pull-right mod-page"><?php echo $this->pagination; ?></span>
 
-				<a onclick="$('#action_type').val('delete'); AWS.ajax_post($('#batchs_form'));" class="btn-danger btn"><?php _e('删除所选'); ?></a>
-				<?php if ($_GET['status'] == 0) { ?><a onclick="$('#action_type').val('handle'); AWS.ajax_post($('#batchs_form'));" class="btn-primary btn"><?php _e('标记所选'); ?></a><?php } ?>
+				<a onclick="$('#action_type').val('delete'); AWS.ajax_post($('#batchs_form'));" class="btn-danger btn"><?php _e('删除'); ?></a>
+				<?php if ($_GET['status'] == 0) { ?><a onclick="$('#action_type').val('handle'); AWS.ajax_post($('#batchs_form'));" class="btn-primary btn"><?php _e('标记'); ?></a><?php } ?>
 			</div>
 		</div>
 	</div>
