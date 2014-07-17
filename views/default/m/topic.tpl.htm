@@ -16,7 +16,7 @@
 				<h1 class="pull-left"><?php echo $this->topic_info['topic_title']; ?></h1>
 				<?php if ($this->user_id) { ?>
 				<span class="pull-right">
-					<a class="btn btn-success btn-mini <?php if (!$this->topic_info['has_focus']) { ?> active<?php } ?>" onclick="AWS.User.follow($(this), 'topic', <?php echo $this->topic_info['topic_id']; ?>);"><?php if ($this->topic_info['has_focus']) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?></a>
+					<a class="btn btn-success btn-mini <?php if ($this->topic_info['has_focus']) { ?> active<?php } ?>" onclick="AWS.User.follow($(this), 'topic', <?php echo $this->topic_info['topic_id']; ?>);"><?php if ($this->topic_info['has_focus']) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?></a>
 				</span>
 				<?php } ?>
 			</div>

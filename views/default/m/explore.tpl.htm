@@ -62,7 +62,11 @@
 <script type="text/javascript">
 	$(document).ready(function () {
 		AWS.load_list_view(G_BASE_URL + '/explore/ajax/list/sort_type-new__feature_id-<?php echo $this->feature_info['id']; ?>__category-<?php echo $this->category_info['id']; ?>__template-m', $('#load_explore'), $('#explore_listview'), 1);
+		
+		var myScroll = new IScroll('.top-category', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false });
 	});
+
+			
 </script>
 
 <?php TPL::output('m/footer.tpl.htm'); ?>
