@@ -76,7 +76,7 @@ class admin_class extends AWS_MODEL
 								'article_approval' => $this->count('approval', "type = 'article'"),
 								'article_comment_approval' => $this->count('approval', "type = 'article_comment'"),
 								'weibo_msg_approval' => $this->count('weibo_msg', 'question_id IS NULL'),
-								'unverified_modify_count' => $this->count('question', "unverified_modify IS NOT NULL OR unverified_modify <> 'a:0:{}'"),
+								'unverified_modify_count' => $this->count('question', 'unverified_modify_count <> 0'),
 
 								// 用户举报
 								'user_report' => $this->count('report', 'status = 0'),
@@ -88,8 +88,10 @@ class admin_class extends AWS_MODEL
 								'verify_approval' => $this->count('verify_apply', 'status = 0'),
 
 								// 程序更新
-								'last_version' => $last_version['version'],
-								'last_version_build_day' => $last_version['build_day'],
+								'last_version' => array(
+														'version' => $last_version['version'],
+														'build_day' => $last_version['build_day']
+													),
 
 								// 新浪微博 Access Token 更新
 								'sina_users' => $admin_notifications['sina_users']

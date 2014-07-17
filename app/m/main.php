@@ -1073,7 +1073,7 @@ class main extends AWS_CONTROLLER
 
 		if ($this->user_id)
 		{
-			$article_info['vote_info'] = $this->model('article')->get_article_vote_by_id('article', $article_info['id'], $this->user_id);
+			$article_info['vote_info'] = $this->model('article')->get_article_vote_by_id('article', $article_info['id'], null, $this->user_id);
 		}
 
 		$article_info['vote_users'] = $this->model('article')->get_article_vote_users_by_id('article', $article_info['id'], null, 10);
@@ -1095,7 +1095,7 @@ class main extends AWS_CONTROLLER
 		{
 			foreach ($comments AS $key => $val)
 			{
-				$comments[$key]['vote_info'] = $this->model('article')->get_article_vote_by_id('comment', $val['id'], $this->user_id);
+				$comments[$key]['vote_info'] = $this->model('article')->get_article_vote_by_id('comment', $val['id'], 1, $this->user_id);
 			}
 		}
 

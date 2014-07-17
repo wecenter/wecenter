@@ -113,12 +113,14 @@ class crond_class extends AWS_MODEL
         {
             $this->model('weibo')->get_msg_from_sina_crond();
         }
+
+        $this->model('admin')->notifications_crond();
     }
 
     // 每半小时执行
     public function half_hour($uid)
     {
-        $this->model('admin')->notifications_crond();
+
     }
 
     // 每小时执行

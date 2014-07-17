@@ -576,18 +576,20 @@ AWS.User =
 	{
 		$.post(G_BASE_URL + '/question/ajax/answer_vote/', 'answer_id=' + answer_id + '&value=1', function (result) {});
 		
-	    //判断是否投票过   
-	    if (selector.find('.fa').hasClass('active'))
+	    //判断是否投票过  
+	    if (selector.find('.icon').hasClass('active'))
 	    {
-	    	selector.parents('.aw-mod-footer').find('a.answer_vote .fa').removeClass('active');
-	    	
-	        selector.find('.fa').addClass('active');
-	    }
+	    	selector.find('b').html(parseInt(selector.find('b').html()) - 1);
+
+	    	selector.find('.icon').removeClass('active');
+	    } 
 	    else
 	    {
-	    	selector.find('.fa').addClass('active');
-	    	
-	    	selector.find('em').html(parseInt(selector.find('em').html()) + 1);
+	    	selector.find('b').html(parseInt(selector.find('b').html()) + 1);
+
+	    	selector.parents('.mod-footer').find('a.answer_vote .icon').removeClass('active');
+
+	    	selector.find('.icon').addClass('active');
 	    }
 	},
 
@@ -596,26 +598,22 @@ AWS.User =
 	{
 	    $.post(G_BASE_URL + '/question/ajax/answer_vote/', 'answer_id=' + answer_id + '&value=-1', function (result) {});
 	    
-	    //判断是否投票过
-	    if (selector.find('.fa').hasClass('active'))
+	    //判断是否赞同过
+	    if (selector.parents('.mod-footer').find('.agree .icon').hasClass('active'))
 	    {
-	    	selector.parents('.aw-mod-footer').find('a.answer_vote .fa').removeClass('active');
-	    	
-	        selector.find('.fa').addClass('active');
+	    	selector.parents('.mod-footer').find('.agree b').html(parseInt(selector.parents('.mod-footer').find('.agree b').html()) - 1);
+
+	    	selector.parents('.mod-footer').find('.agree .icon').removeClass('active');
+
+			selector.find('.icon').addClass('active');
+	    }
+	    else if (selector.find('.icon').hasClass('active'))
+	    {
+	    	selector.find('.icon').removeClass('active');
 	    }
 	    else
 	    {
-	    	if (selector.parents('.aw-mod-footer').find('.agree').hasClass('active'))
-	    	{
-	    		if (parseInt(selector.parents('.aw-mod-footer').find('.agree').next().html()) > 0)
-		    	{
-		    		selector.parents('.aw-mod-footer').find('.agree').next().html(parseInt(selector.parents('.aw-mod-footer').find('.agree').next().html()) - 1);
-		    	}
-	    	}
-
-	    	selector.parents('.aw-mod-footer').find('a.answer_vote .fa').removeClass('active');
-	    	
-	    	selector.find('.fa').addClass('active');
+	    	selector.find('.icon').addClass('active');
 	    }
 	},
 
@@ -639,25 +637,53 @@ AWS.User =
 		    }
 		    else
 		    {
-				if (rating == 0)
-				{
-	                selector.find('b').html(parseInt(selector.find('b').html()) - 1).end().removeClass('active');
-				}
-	            else if (rating == -1)
-	            {
-	                if (selector.parents('.aw-article-vote').find('.icon-agree').hasClass('active'))
-	                {
-	                    selector.parents('.aw-article-vote').find('b').html(parseInt(selector.parents('.aw-article-vote').find('b').html()) - 1);
-	                    selector.parents('.aw-article-vote').find('i').removeClass('active');
-	                }
-	                selector.addClass('active');
-	            }
-				else
-				{
-					selector.parents('.aw-article-vote').find('.icon-disagree').removeClass('active');
-					selector.find('i').addClass('active');
-	                selector.find('b').html(parseInt(selector.find('b').html()) + 1);
-				}
+		    	// 0第一次, 1赞同 -1反对
+		    	if (rating == 0)
+		    	{
+		    		selector.parents('.aw-article-vote').find('b')
+
+		    		selector.parents('.aw-article-vote').find('b').html(parseInt(selector.parents('.aw-article-vote').find('b').html()) + 1);
+
+		    		selector.find('.icon').addClass('active');
+		    	}
+		    	else if (rating == 1)
+		    	{
+		    		if (selector.parents('.aw-article-vote').find('.icon-agree').hasClass('active'))
+		    		{
+		    			selector.parents('.aw-article-vote').find('b').html(parseInt(selector.parents('.aw-article-vote').find('b').html()) - 1);
+
+		    			selector.find('.icon').removeClass('active');
+		    		}
+		    		else if (selector.parents('.aw-article-vote').find('.icon-disagree').hasClass('active'))
+		    		{
+		    			selector.parents('.aw-article-vote').find('b').html(parseInt(selector.parents('.aw-article-vote').find('b').html()) + 1);
+
+		    			selector.parents('.aw-article-vote').find('.icon-disagree').removeClass('active');
+
+		    			selector.find('.icon').addClass('active');
+		    		}
+		    		else
+		    		{
+		    			selector.parents('.aw-article-vote').find('b').html(parseInt(selector.parents('.aw-article-vote').find('b').html()) + 1);
+
+		    			selector.find('.icon').addClass('active');
+		    		}
+		    	}
+		    	else
+		    	{
+		    		if (selector.parents('.aw-article-vote').find('.icon-agree').hasClass('active'))
+		    		{
+		    			selector.parents('.aw-article-vote').find('b').html(parseInt(selector.parents('.aw-article-vote').find('b').html()) - 1);
+
+		    			selector.parents('.aw-article-vote').find('.icon-agree').removeClass('active');
+
+		    			selector.find('.icon').addClass('active');
+		    		}
+		    		else if (selector.parents('.aw-article-vote').find('.icon-disagree').hasClass('active'))
+		    		{
+		    			selector.parents('.aw-article-vote').find('.icon-disagree').removeClass('active');
+		    		}
+		    	}
 		    }
 		}, 'json');
 	},
@@ -685,10 +711,14 @@ AWS.User =
 				if (rating == 0)
 				{
 					selector.html(selector.html().replace(_t('我已赞'), _t('赞'))).removeClass('active');
+
+					selector.find('b').html(parseInt(selector.find('b').html()) - 1);
 				}
 				else
 				{
 					selector.html(selector.html().replace(_t('赞'), _t('我已赞'))).addClass('active');
+
+					selector.find('b').html(parseInt(selector.find('b').html()) + 1);
 				}
 		    }
 		}, 'json');
@@ -1293,7 +1323,7 @@ AWS.Init =
 	            $(this).parents('.mod-footer').append(Hogan.compile(AW_MOBILE_TEMPLATE.articleCommentBox).render(
 	            {
 	                'at_uid' : $(this).attr('data-id'),
-	                'article_id' : $('.aw-anwser-box input[name="article_id"]').val()
+	                'article_id' : $('.aw-replay-box input[name="article_id"]').val()
 	            }));
 	            $(this).parents('.mod-footer').find('.cancel').click(function ()
 	            {

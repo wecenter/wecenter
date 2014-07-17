@@ -120,10 +120,10 @@ $(function(){
                                                 );
                 }
 
-                if ($this->user_info['is_administortar'] AND $notifications['last_version_build_day'] > G_VERSION_BUILD) {
+                if ($this->user_info['is_administortar'] AND $notifications['last_version']['build_day'] > G_VERSION_BUILD) {
                     $notifications_texts[] = array(
                                                     'url' => 'http://www.wecenter.com/downloads/',
-                                                    'text' => AWS_APP::lang()->_t('程序需要更新，最新版本为 %s', $notifications['last_version'])
+                                                    'text' => AWS_APP::lang()->_t('程序需要更新，最新版本为 %s', $notifications['last_version']['version'])
                                                 );
                 }
 
@@ -143,12 +143,12 @@ $(function(){
                 </a>
 
                 <ul class="dropdown-menu mod-chat">
-                <?php if ($notifications_texts){ ?>
+                <?php if ($notifications_texts) { ?>
                     <div class="mod-list-head">
-                        您有 <?php echo count($notifications_texts); ?> 条消息
+                        <?php _e('您有 %s 条消息', count($notifications_texts)); ?>
                     </div>
 
-                    <?php  foreach ($notifications_texts AS $notifications_text) { ?>
+                    <?php foreach ($notifications_texts AS $notifications_text) { ?>
                     <li class="mod-media">
                         <a href="<?php echo $notifications_text['url']; ?>">
                             <?php echo $notifications_text['text']; ?>

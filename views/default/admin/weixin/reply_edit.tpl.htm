@@ -2,7 +2,7 @@
 <?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
 
 <div class="aw-content-wrap">
-	<form action="admin/weixin/rule_save/" enctype="multipart/form-data" id="settings_form" method="post" onsubmit="return false">
+	<form action="admin/weixin/rule_save/" enctype="multipart/form-data" id="reply_form" method="post" onsubmit="return false">
 	<?php if (!empty($this->rule_info['id'])) { ?>
 	<input type="hidden" name="id" value="<?php echo $this->rule_info['id']; ?>" />
 	<?php } ?>
@@ -93,7 +93,7 @@
 				<tfoot>
 				<tr>
 					<td>
-						<input type="button" value="<?php _e('保存设置'); ?>" class="btn btn-primary center-block" onclick="AWS.ajax_post($('#settings_form'));" />
+						<input type="button" value="<?php _e('保存设置'); ?>" class="btn btn-primary center-block" onclick="AWS.ajax_post($('#reply_form'));" />
 					</td>
 				</tr>
 				</tfoot>
