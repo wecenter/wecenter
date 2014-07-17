@@ -92,8 +92,7 @@
 						<div class="mod-footer">
 							<div class="meta">
 								<?php if ($this->user_id) { ?>
-								<?php print_r($val); ?>
-								<a onclick="AWS.User.article_comment_vote($(this), <?php echo $val['id']; ?>, 1)"<?php if ($val['vote_info']['rating'] == 1) { ?> class="active"<?php } ?>><?php if ($val['vote_info']['rating'] == 1) { ?><?php _e('我已赞'); ?><?php } else { ?><?php _e('赞'); ?><?php } ?> (<?php echo $val['votes']; ?>)</a>&nbsp; • &nbsp;
+								<a onclick="AWS.User.article_comment_vote($(this), <?php echo $val['id']; ?>, 1)"<?php if ($val['vote_info']['rating'] == 1) { ?> class="active"<?php } ?>><?php if ($val['vote_info']['rating'] == 1) { ?><?php _e('我已赞'); ?><?php } else { ?><?php _e('赞'); ?><?php } ?> (<b><?php echo $val['votes']; ?></b>)</a>&nbsp; • &nbsp;
 								<a class="aw-article-comment" data-id="<?php echo $val['user_info']['uid']; ?>">回复</a>
 								<?php } ?>
 								<span class="pull-right"><?php echo date_friendly($val['add_time']); ?></span>
