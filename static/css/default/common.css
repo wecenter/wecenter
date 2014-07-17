@@ -313,7 +313,8 @@ a.aw-load-more-content{display: block;}
 .aw-question-detail .meta > span, .aw-question-detail .meta > a, .aw-question-detail .meta > div{margin-right:15px;}
 .aw-question-detail .meta .badge-info{margin:0;}
 .aw-question-detail .aw-edit-topic-box .aw-dropdown{width: 418px;}
-.aw-question-detail .meta a:hover i, .meta a:hover i, .aw-article-list .mod-footer a:hover i{color: #2A6496;}
+.aw-question-detail .meta a:hover i, .meta a:hover i, .aw-article-list .mod-footer a:hover i,.aw-article-content .aw-feed-list .meta a:hover,.aw-article-content .aw-feed-list .meta a.active:hover i{color: #2A6496;}
+.aw-article-content .aw-feed-list .meta a.active i {color: #999;}
 .aw-question-comment .aw-feed-list .aw-item{padding:10px;}
 .aw-question-comment .aw-feed-list .aw-item .aw-user-img{position:absolute;right:10px;top:20px;width: 32px;height: 32px;}
 .aw-question-comment .aw-vote-bar.fixed .vote-container{position: fixed;top: 25px;}
