@@ -597,11 +597,11 @@ AWS.User =
 	    $.post(G_BASE_URL + '/question/ajax/answer_vote/', 'answer_id=' + answer_id + '&value=-1', function (result) {});
 	    
 	    //判断是否投票过
-	    if (selector.find('.fa').hasClass('active'))
+	    if (selector.find('.icon').hasClass('active'))
 	    {
-	    	selector.parents('.aw-mod-footer').find('a.answer_vote .fa').removeClass('active');
+	    	selector.parents('.mod-footer').find('a.answer_vote .icon').removeClass('active');
 	    	
-	        selector.find('.fa').addClass('active');
+	        selector.find('.icon').addClass('active');
 	    }
 	    else
 	    {

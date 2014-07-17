@@ -22,6 +22,7 @@ label{font-weight: normal;}
 .label-orange{background-color: #ff8852;}
 .pagination > li > a, .pagination > li > span{color: #999999;}
 .pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus{background-color: #66b7ff;border-color: #66b7ff;}
+.alert-warning{height:35px;line-height:35px;margin:0;padding:0 10px;border-radius: 0;}
 
 /* 公共部分 */
 *{margin:0; padding:0;}
