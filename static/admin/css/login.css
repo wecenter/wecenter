@@ -1,6 +1,7 @@
 /*Wecenter 后台登陆界面*/
 body{background:#f1f1f1;}
 a{font:14px/1.5em "microsoft yahei";}
+.aw-login{overflow:hidden;}
 .aw-login .mod{margin-top:70px;width:350px;}
 .aw-login .mod h1 img{display:block;width:130px;height:80px;-webkit-animation:fadeInDown 1s .2s ease both;-moz-animation:fadeInDown 1s .2s ease both;margin:0 auto;}
 @-webkit-keyframes fadeInDown{0%{opacity: 0; -webkit-transform: translateY(-20px);} 100%{opacity: 1; -webkit-transform: translateY(0);}}
