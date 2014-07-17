@@ -4,10 +4,10 @@
 <div class="top-nav">
 	<ul>
 		<li>
-			<a href="m/">最新动态 <i class="icon-tips"></i></a>
+			<a href="m/"><?php _e('最新动态'); ?> <i class="icon-tips"></i></a>
 		</li>
 		<li>
-			<a href="m/notifications" class="active">消息通知</a>
+			<a href="m/notifications" class="active"><?php _e('消息通知'); ?></a>
 		</li>
 	</ul>
 </div>
@@ -19,13 +19,13 @@
 	<div class="aw-feed-list aw-notifications-list active">
 		<div class="mod-head text-center">
 			<a href="" class="btn btn-success btn-large" onclick="AWS.Message.read_notification(0, false, false);"><?php _e('全部已读'); ?></a>
-			<a href="m/settings/" class="btn btn-gray btn-large">通知设置</a>
+			<a href="m/settings/" class="btn btn-gray btn-large"><?php _e('通知设置'); ?></a>
 		</div>
 		<div class="mod-body">
 			<ul id="notifications_listview"></ul>
 		</div>
 		<div class="mod-footer">
-			<a id="load_notifications" class="aw-load-more"><i class="icon icon-loading fa-spin"></i> <span>更多</span></a>
+			<a id="load_notifications" class="aw-load-more"><i class="icon icon-loading fa-spin"></i> <span><?php _e('更多'); ?></span></a>
 		</div>
 	</div>
 	<!-- end 消息列表 -->
