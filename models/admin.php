@@ -88,8 +88,10 @@ class admin_class extends AWS_MODEL
 								'verify_approval' => $this->count('verify_apply', 'status = 0'),
 
 								// 程序更新
-								'last_version' => $last_version['version'],
-								'last_version_build_day' => $last_version['build_day'],
+								'last_version' => array(
+														'version' => $last_version['version'],
+														'build_day' => $last_version['build_day']
+													),
 
 								// 新浪微博 Access Token 更新
 								'sina_users' => $admin_notifications['sina_users']
