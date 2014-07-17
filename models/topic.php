@@ -1071,9 +1071,9 @@ class topic_class extends AWS_MODEL
 	}
 	
 	public function get_topic_best_answer_action_list($topic_ids, $uid, $limit)
-	{		
+	{
 		$cache_key = 'topic_best_answer_action_list_' . md5($topic_ids . $limit);
-		
+
 		if (!$result = AWS_APP::cache()->get($cache_key))
 		{
 			if ($topic_relation = $this->query_all("SELECT item_id FROM " . $this->get_table('topic_relation') . " WHERE topic_id IN (" . implode(',', explode(',', $topic_ids)) . ") AND `type` = 'question'"))
@@ -1093,7 +1093,7 @@ class topic_class extends AWS_MODEL
 			if ($best_answers = $this->query_all("SELECT question_id, best_answer FROM " . $this->get_table('question') . " WHERE best_answer > 0 AND question_id IN (" . implode(',', $question_ids) . ") ORDER BY update_time DESC LIMIT " . $limit))
 			{
 				unset($question_ids);
-				
+
 				foreach ($best_answers AS $key => $val)
 				{
 					$answer_ids[$val['best_answer']] = $val['best_answer'];
@@ -1115,21 +1115,28 @@ class topic_class extends AWS_MODEL
 				}
 			}
 
+			if ($answers_info = $this->model('answer')->get_answers_by_ids($answer_ids))
+			{
+				foreach ($answers_info AS $key => $val)
+				{
+					$action_list_uids[$val['uid']] = $val['uid'];
+				}
+			}
+			
 			if ($action_list_uids)
 			{
 				$action_list_users_info = $this->model('account')->get_user_info_by_uids($action_list_uids);
 			}
-
-			$answers_info = $this->model('answer')->get_answers_by_ids($answer_ids);
+			
 			$answers_info_vote_user = $this->model('answer')->get_vote_user_by_answer_ids($answer_ids);
 
 			$answer_attachs = $this->model('publish')->get_attachs('answer', $answer_ids, 'min');
+			
 
 			foreach ($questions_info AS $key => $val)
 			{
-
 				$result[$key]['question_info'] = $val;
-				$result[$key]['user_info'] = $action_list_users_info[$val['published_uid']];
+				$result[$key]['user_info'] = $action_list_users_info[$answers_info[$val['best_answer']]['uid']];
 
 				if ($val['has_attach'])
 				{
@@ -1170,11 +1177,15 @@ class topic_class extends AWS_MODEL
 
 			$result[$key]['title'] = $val['question_info']['question_content'];
 			$result[$key]['link'] = get_js_url('/question/' . $val['question_info']['question_id']);
+			
+			$result[$key]['add_time'] = $result[$key]['answer_info']['add_time'];
+			
+			$result[$key]['last_action_str'] = ACTION_LOG::format_action_data(ACTION_LOG::ANSWER_QUESTION, $result[$key]['answer_info']['uid'], $result[$key]['user_info']['user_name'], $result[$key]['question_info']);
 		}
 
 		return $result;
 	}
-	
+		
 	public function check_url_token($url_token, $topic_id)
 	{
 		return $this->count('topic', "url_token = '" . $this->quote($url_token) . "' OR topic_title = '" . $this->quote($url_token) . "' AND topic_id != " . intval($topic_id));

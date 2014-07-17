@@ -56,6 +56,7 @@
 /* 动态 */
 .tab-pane #contents_user_actions li, #overview ul li{padding-top:10px;border-top: 1px dotted #E3E3E3;}
 .tab-pane #contents_user_actions li:first-child, #overview ul li:first-child{padding-top:0;border-top: none;}
+.aw-user-center-tab .tab-pane p .aw-user-name, .aw-user-center-tab .tab-pane p .aw-topic-name {font-size: 14px;}
 /* 详细资料 */
 .aw-user-center-details{padding:0 60px;}
 .aw-user-center-details dl{height: auto;overflow: hidden;line-height: 22px;margin:0;padding:15px 0 15px 10px;border-top:1px dotted #C1CAD4;}

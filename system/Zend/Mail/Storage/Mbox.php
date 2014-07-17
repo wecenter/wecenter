@@ -25,7 +25,7 @@
  * @see Zend_Loader
  * May be used in constructor, but commented out for now
  */
-// //require_once 'Zend/Loader.php';
+//require_once 'Zend/Loader.php';
 
 /**
  * @see Zend_Mail_Storage_Abstract

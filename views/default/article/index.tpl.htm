@@ -55,7 +55,7 @@
 								<div class="aw-comment-upload-img-list">
 								<?php foreach ($this->article_info['attachs'] AS $attach) { ?>
 								<?php if ($attach['is_image'] AND !in_array($attach['id'], $this->article_info['attachs_ids'])) { ?>
-									<a href="<?php echo $attach['attachment']; ?>" target="_blank" data-fancybox-group="thumb" rel="lightbox"><img src="<?php echo $attach['attachment']; ?>" class="img-polaroid" alt="<?php echo $attach['attach_name']; ?>" /></a>
+									<a href="<?php echo $attach['attachment']; ?>" target="_blank" data-fancybox-group="thumb" rel="lightbox"><img src="<?php echo $attach['attachment']; ?>" class="img-polaroid" alt="<?php echo $attach['file_name']; ?>" /></a>
 								<?php } ?>
 								<?php } ?>
 								</div>

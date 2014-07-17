@@ -66,7 +66,8 @@ class core_cache
 			$this->backendOptions = array(
 				'cache_dir' => realpath($cache_dir),
 				'hashed_directory_level' => 1,
-				'read_control_type' => 'adler32'
+				'read_control_type' => 'adler32',
+				'file_name_prefix' => substr(md5(G_SECUKEY), 0, 6)
 			);	
 		}
 			
