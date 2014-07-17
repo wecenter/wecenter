@@ -25,9 +25,9 @@
 				<span class="pull-right color-999"><?php echo date_friendly($val['add_time'], 604800, 'Y-m-d'); ?></span>
 		<?php } ?>
 		<?php } else { ?>
-			<a href="m/people/<?php echo $val['user_info']['url_token']; ?>">
-				<?php echo $val['user_info']['user_name']; ?></a> <?php _e('发起了文章'); ?>
-				<span class="pull-right color-999"><?php echo date_friendly($val['add_time'], 604800, 'Y-m-d'); ?></span>
+			<a href="m/people/<?php echo $val['user_info']['url_token']; ?>"><?php echo $val['user_info']['user_name']; ?></a> 
+			<?php _e('发起了文章'); ?>
+			<span class="pull-right color-999"><?php echo date_friendly($val['add_time'], 604800, 'Y-m-d'); ?></span>
 		<?php } ?>
 	</div>
 

@@ -1,17 +1,15 @@
 <?php TPL::output('m/header.tpl.htm'); ?>
-<?php TPL::output('m/global_header.tpl.htm'); ?>
 
-<!-- 内容 -->
-<div class="aw-content aw-question-page">
+<div class="container">
 	<?php if ($this->content_nav_menu) { ?>
 	<!-- 话题标签 -->
-	<div class="aw-topic-tags clearfix">
+	<div class="top-category">
 		<ul>
-			<li<?php if (!$_GET['category'] AND !$this->feature_info) { ?> class="active"<?php } ?>><a href="<?php echo $this->content_nav_menu['base']['link']; ?>"><?php _e('全部'); ?></a></li>
+			<li><a <?php if (!$_GET['category'] AND !$this->feature_info) { ?> class="active"<?php } ?> href="<?php echo $this->content_nav_menu['base']['link']; ?>"><?php _e('全部'); ?></a></li>
 			<?php foreach ($this->content_nav_menu as $key => $val) { ?>
 			<?php if ($val['title']) { ?>
-			<li<?php if (($val['type'] == 'category' AND $_GET['category'] AND ($val['type_id'] == $this->category_info['id'])) OR ($val['type'] == 'feature' AND $this->feature_info['id'] == $val['type_id'])) { ?> class="active"<?php } ?>>
-				<a href="<?php echo $val['link']; ?>"<?php if ($val['type'] == 'custom') { ?> target="_blank"<?php } ?>><?php echo $val['title']; ?></a>
+			<li>
+				<a <?php if (($val['type'] == 'category' AND $_GET['category'] AND ($val['type_id'] == $this->category_info['id'])) OR ($val['type'] == 'feature' AND $this->feature_info['id'] == $val['type_id'])) { ?> class="active"<?php } ?> href="<?php echo $val['link']; ?>"<?php if ($val['type'] == 'custom') { ?> target="_blank"<?php } ?>><?php echo $val['title']; ?></a>
 			</li>
 			<?php } ?>
 			<?php } ?>
@@ -19,14 +17,19 @@
 	</div>
 	<!-- end 话题标签 -->
 	<?php } ?>
-	
-	<div class="feed-list article">
-		<ul id="article_listview"></ul>
-		<a id="load_article" class="aw-load-more"><?php _e('更多'); ?></a>
+
+	<!-- 动态列表 -->
+	<div class="aw-question-list">
+		<div class="mod-body">
+			<ul id="article_listview"></ul>
+		</div>
+		<div class="mod-footer">
+			<a id="load_article" class="aw-load-more"><i class="icon icon-loading fa-spin"></i> <span><?php _e('更多'); ?></span></a>
+		</div>
 	</div>
-	
-	
-	</div>
+	<!-- end 动态列表 -->
+
+</div>
 <!-- end 内容 -->
 
 <script type="text/javascript">
