@@ -1113,21 +1113,28 @@ class topic_class extends AWS_MODEL
 				}
 			}
 
+			if ($answers_info = $this->model('answer')->get_answers_by_ids($answer_ids))
+			{
+				foreach ($answers_info AS $key => $val)
+				{
+					$action_list_uids[$val['uid']] = $val['uid'];
+				}
+			}
+			
 			if ($action_list_uids)
 			{
 				$action_list_users_info = $this->model('account')->get_user_info_by_uids($action_list_uids);
 			}
-
-			$answers_info = $this->model('answer')->get_answers_by_ids($answer_ids);
+			
 			$answers_info_vote_user = $this->model('answer')->get_vote_user_by_answer_ids($answer_ids);
 
 			$answer_attachs = $this->model('publish')->get_attachs('answer', $answer_ids, 'min');
+			
 
 			foreach ($questions_info AS $key => $val)
 			{
-
 				$result[$key]['question_info'] = $val;
-				$result[$key]['user_info'] = $action_list_users_info[$val['published_uid']];
+				$result[$key]['user_info'] = $action_list_users_info[$answers_info[$val['best_answer']]['uid']];
 
 				if ($val['has_attach'])
 				{
@@ -1168,6 +1175,10 @@ class topic_class extends AWS_MODEL
 
 			$result[$key]['title'] = $val['question_info']['question_content'];
 			$result[$key]['link'] = get_js_url('/question/' . $val['question_info']['question_id']);
+			
+			$result[$key]['add_time'] = $result[$key]['answer_info']['add_time'];
+			
+			$result[$key]['last_action_str'] = ACTION_LOG::format_action_data(ACTION_LOG::ANSWER_QUESTION, $result[$key]['answer_info']['uid'], $result[$key]['user_info']['user_name'], $result[$key]['question_info']);
 		}
 
 		return $result;
