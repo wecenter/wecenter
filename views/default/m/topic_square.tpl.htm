@@ -8,11 +8,9 @@
 			<a href="#my_topic" role="tab" data-toggle="tab">我关注的话题</a>
 		</li>
 		<?php } ?>
-		<?php if (!$this->user_id) { ?>
-		<li class="active">
+		<li <?php if (!$this->user_id) { ?>class="active" <?php } ?>>
 			<a href="#hot_topic" role="tab" data-toggle="tab">热门话题</a>
 		</li>
-		<?php } ?>
 	</ul>
 </div>
 <!-- end top-nav -->
@@ -35,8 +33,7 @@
 		<?php } ?>
 		<!-- end 我关注的话题 -->
 		<!-- 热门话题 -->
-		<?php if (!$this->user_id) { ?>
-		<div class="tab-pane active" id="hot_topic">
+		<div class="tab-pane <?php if (!$this->user_id) { ?>active<?php } ?>" id="hot_topic">
 			<div class="aw-feed-list aw-topic-list active">
 				<div class="mod-body">
 					<ul id="hot_topics_list"></ul>
@@ -46,7 +43,6 @@
 				</div>
 			</div>
 		</div>
-		<?php } ?>
 		<!-- 热门话题 -->
 	</div>
 </div>

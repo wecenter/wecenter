@@ -70,7 +70,7 @@
             <div class="command">
                 <label class="pull-left"><input type="checkbox" value="" /> <?php _e('匿名'); ?></label>
                 <?php if ($this->question_info['question_id'] AND ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator'])) { ?>
-                <label class="pull-left"><input type="checkbox"  value="1" name="do_delete" /> <?php _e('删除问题'); ?></label>
+                <!-- <label class="pull-left"><input type="checkbox"  value="1" name="do_delete" /> <?php _e('删除问题'); ?></label> -->
                 <?php } ?>
 
                 <a class="btn btn-success btn-slarge" onclick="AWS.ajax_post($('#question_form')); return false;"><?php _e('发起问题'); ?></a>
@@ -150,15 +150,29 @@
             ITEM_ID = document.getElementById('article_id').value;
         }
 
+        // 微信图片发起
+        if ($('input[name="weixin_pic_url"]').val() != undefined)
+        {
+            $('.upload-list').append('<li>'+
+                                '<div class="img" style="background: url(' + $('input[name="weixin_pic_url"]').val() + ') repeat;"></div>'+
+                                '<div class="content">'+
+                                    '<p class="meta">'+
+                                        '<span class="color-999">图片已插入</span>'+
+                                        '<a class="insert-file active"><i class="icon icon-insert"></i></a>'+
+                                    '</p>'+
+                                '</div>'+
+                            '</li>')
+        }
+
         if (ITEM_ID && G_UPLOAD_ENABLE == 'Y' && ATTACH_ACCESS_KEY != '')
         {
-            if ($("._ajax_upload-list").length) {
+            if ($(".aw-upload-box .upload-list").length) {
                 $.post(G_BASE_URL + '/publish/ajax/' + PUBLISH_TYPE + '_attach_edit_list/', PUBLISH_TYPE + '_id=' + ITEM_ID, function (data) {
                     if (data['err']) {
                         return false;
                     } else {
                         $.each(data['rsm']['attachs'], function (i, v) {
-                            _ajax_uploader_append_file('._ajax_upload-list', v);
+                           fileupload.setFileList(v);
                         });
                     }
                 }, 'json');

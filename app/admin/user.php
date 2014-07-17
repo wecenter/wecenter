@@ -166,7 +166,7 @@ class user extends AWS_ADMIN_CONTROLLER
 
         if (! $group = $this->model('account')->get_user_group_by_id($_GET['group_id']))
         {
-            H::redirect_msg(AWS_APP::lang()->_t('用户组不存在'));
+            H::redirect_msg(AWS_APP::lang()->_t('用户组不存在'), '/admin/user/group_list/');
         }
 
         TPL::assign('group', $group);
@@ -179,7 +179,7 @@ class user extends AWS_ADMIN_CONTROLLER
     {
         if (!$user = $this->model('account')->get_user_info_by_uid($_GET['uid'], TRUE))
         {
-            H::redirect_msg(AWS_APP::lang()->_t('用户不存在'));
+            H::redirect_msg(AWS_APP::lang()->_t('用户不存在'), '/admin/user/list/');
         }
 
         $this->crumb(AWS_APP::lang()->_t('编辑用户资料'), "admin/user/edit/");
@@ -257,7 +257,7 @@ class user extends AWS_ADMIN_CONTROLLER
     {
         if (get_setting('register_valid_type') != 'approval')
         {
-            H::redirect_msg(AWS_APP::lang()->_t('未启用新用户注册审核'));
+            H::redirect_msg(AWS_APP::lang()->_t('未启用新用户注册审核'), '/admin/');
         }
 
         $user_list = $this->model('people')->fetch_page('users', 'group_id = 3', 'uid ASC', $_GET['page'], $this->per_page);
@@ -282,7 +282,7 @@ class user extends AWS_ADMIN_CONTROLLER
     {
         if (!$verify_apply = $this->model('verify')->fetch_apply($_GET['id']))
         {
-            H::redirect_msg(AWS_APP::lang()->_t('审核认证不存在'));
+            H::redirect_msg(AWS_APP::lang()->_t('审核认证不存在'), '/admin/user/register_approval_list/');
         }
 
         TPL::assign('verify_apply', $verify_apply);

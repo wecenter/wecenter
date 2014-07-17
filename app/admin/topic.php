@@ -167,7 +167,7 @@ class topic extends AWS_ADMIN_CONTROLLER
 
 		if (!$topic_info = $this->model('topic')->get_topic_by_id($_GET['topic_id']))
 		{
-			H::redirect_msg(AWS_APP::lang()->_t('话题不存在'));
+			H::redirect_msg(AWS_APP::lang()->_t('话题不存在'), '/admin/topic/list/');
 		}
 
 		TPL::assign('topic_info', $topic_info);

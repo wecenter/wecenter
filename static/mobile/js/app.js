@@ -122,7 +122,7 @@ $(document).ready(function () {
 
 	AWS.Dropdown.bind_dropdown_list('.aw-search-input','search');
 	AWS.Dropdown.bind_dropdown_list('.aw-invite-input','invite');
-	AWS.Init.init_topic_edit_box('.aw-topic-bar .icon-inverse', 'question');
+	AWS.Init.init_topic_edit_box('.aw-topic-bar .icon-inverse');
 	AWS.Init.init_topic_edit_box('.aw-publish-box .aw-topic-bar .icon-inverse','publish');
 
 	//邀请回答按钮

@@ -2528,7 +2528,7 @@ AWS.Init =
 	{
 	    $(document).on('click', selector, function ()
 	    {
-	    	var _editor_box = $(this).parents('.aw-item').find('.aw-article-comment-box');
+	    	var _editor_box = $(this).parents('.aw-item').find('.article-replay-box');
 	        if (_editor_box.length)
 	        {
 	            if (_editor_box.css('display') == 'block')
