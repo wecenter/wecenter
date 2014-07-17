@@ -1323,7 +1323,7 @@ AWS.Init =
 	            $(this).parents('.mod-footer').append(Hogan.compile(AW_MOBILE_TEMPLATE.articleCommentBox).render(
 	            {
 	                'at_uid' : $(this).attr('data-id'),
-	                'article_id' : $('.aw-anwser-box input[name="article_id"]').val()
+	                'article_id' : $('.aw-replay-box input[name="article_id"]').val()
 	            }));
 	            $(this).parents('.mod-footer').find('.cancel').click(function ()
 	            {
