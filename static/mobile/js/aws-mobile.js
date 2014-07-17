@@ -366,7 +366,7 @@ var AWS =
 	{
 	    $('#aw-comment-box-' + type_name + '-' + element_id + ' .aw-comment-list').html('<p align="center" class="aw-padding10"><i class="aw-loading"></i></p>');
 
-	    $.get(G_BASE_URL + '/question/ajax/get_' + type_name + '_comments/' + type_name + '_id-' + item_id, function (data)
+	    $.get(G_BASE_URL + '/question/ajax/get_' + type_name + '_comments/' + type_name + '_id-' + item_id + '__template-m', function (data)
 	    {
 	        $('#aw-comment-box-' + type_name + '-' + element_id + ' .aw-comment-list').html(data);
 	    });
@@ -641,21 +641,21 @@ AWS.User =
 		    {
 				if (rating == 0)
 				{
-	                selector.find('b').html(parseInt(selector.find('b').html()) - 1).removeClass('active');
+	                selector.find('b').html(parseInt(selector.find('b').html()) - 1).end().removeClass('active');
 				}
 	            else if (rating == -1)
 	            {
-	                if (selector.parents('.aw-article-vote').find('.agree').hasClass('active'))
+	                if (selector.parents('.aw-article-vote').find('.icon-agree').hasClass('active'))
 	                {
 	                    selector.parents('.aw-article-vote').find('b').html(parseInt(selector.parents('.aw-article-vote').find('b').html()) - 1);
-	                    selector.parents('.aw-article-vote').find('a').removeClass('active');
+	                    selector.parents('.aw-article-vote').find('i').removeClass('active');
 	                }
 	                selector.addClass('active');
 	            }
 				else
 				{
-					selector.parents('.aw-article-vote').find('a').removeClass('active');
-					selector.addClass('active');
+					selector.parents('.aw-article-vote').find('.icon-disagree').removeClass('active');
+					selector.find('i').addClass('active');
 	                selector.find('b').html(parseInt(selector.find('b').html()) + 1);
 				}
 		    }
@@ -1071,7 +1071,6 @@ AWS.Init =
 	{
 		$(selector).click(function()
 		{
-
 			$(this).parents('.aw-topic-bar').addClass('active');
 
 			var data_id = $(this).parents('.aw-topic-bar').attr('data-id'),
@@ -1130,17 +1129,17 @@ AWS.Init =
 					break;
 					case 'article' :
 						var _this = $(this);
-						$.post(G_BASE_URL + '/topic/ajax/save_topic_relation/', 'type=article&item_id=' + data_id + '&topic_title=' + encodeURIComponent($(this).parents('.aw-topic-box-selector').find('.aw-topic-input').val()), function (result)
+						$.post(G_BASE_URL + '/topic/ajax/save_topic_relation/', 'type=article&item_id=' + data_id + '&topic_title=' + encodeURIComponent($(this).parents('.aw-topic-bar').find('.topic-text').val()), function (result)
 						{
 							if (result.errno == 1)
 							{
-								_this.parents('.aw-topic-edit-box').find('.aw-topic-box').prepend('<span class="aw-topic-name" data-id="'+ result.rsm.topic_id +'"><a>' + _this.parents('.aw-topic-box-selector').find('.aw-topic-input').val() + '</a><a><i>X</i></a></span>');
-								_this.parents('.aw-topic-edit-box').find('.aw-topic-input').val('');
-								_this.parents('.aw-topic-edit-box').find('.dropdown-list').hide();
+								_this.parents('.aw-topic-bar').find('.tag-bar').prepend('<span class="topic-tag" data-id="'+ result.rsm.topic_id +'"><a class="text">' + _this.parents('.aw-topic-bar').find('.topic-text').val() + '</a><a class="close"><i class="icon icon-delete"></i></a></span>');
+								_this.parents('.aw-topic-bar').find('.topic-text').val('');
+								_this.parents('.aw-topic-bar').find('.dropdown-list').hide();
 							}else
 							{
 								alert(result.err);
-								_this.parents('.aw-topic-edit-box').find('.dropdown-list').hide();
+								_this.parents('.aw-topic-bar').find('.dropdown-list').hide();
 							}
 						}, 'json');
 					break;
@@ -1212,24 +1211,24 @@ AWS.Init =
 	            {
 		            case 'question':
 		                var comment_form_action = G_BASE_URL + '/question/ajax/save_question_comment/question_id-' + $(this).attr('data-id');
-		                var comment_data_url = G_BASE_URL + '/question/ajax/get_question_comments/question_id-' + $(this).attr('data-id');
+		                var comment_data_url = G_BASE_URL + '/question/ajax/get_question_comments/question_id-' + $(this).attr('data-id') + '__template-m';
 		                break;
 		
 		            case 'answer':
 		                var comment_form_action = G_BASE_URL + '/question/ajax/save_answer_comment/answer_id-' + $(this).attr('data-id');
-		                var comment_data_url = G_BASE_URL + '/question/ajax/get_answer_comments/answer_id-' + $(this).attr('data-id');
+		                var comment_data_url = G_BASE_URL + '/question/ajax/get_answer_comments/answer_id-' + $(this).attr('data-id') + '__template-m';
 		                break;
 	            }
 
 	            if (G_USER_ID && $(this).attr('data-close') != 'true')
 	            {
-	                $(this).parents('.aw-mod-footer').append(Hogan.compile(AW_MOBILE_TEMPLATE.commentBox).render(
+	                $(this).parents('.mod-footer').append(Hogan.compile(AW_MOBILE_TEMPLATE.commentBox).render(
 	                {
 	                    'comment_form_id': comment_box_id.replace('#', ''),
 	                    'comment_form_action': comment_form_action
 	                }));
 					
-	                $(comment_box_id).find('.close-comment-box').click(function ()
+	                $(comment_box_id).find('.cancel').click(function ()
 	                {
 	                    $(comment_box_id).fadeOut();
 	                });
@@ -1256,9 +1255,9 @@ AWS.Init =
 	                $(comment_box_id).find('.aw-comment-list').html(result);
 	            });
 
-	            //var left = $(this).width()/2 + $(this).prev().width();
 	            /*给三角形定位*/
-	            //$(comment_box_id).find('.i-comment-triangle').css('left', $(this).width() / 2 + $(this).prev().width() + 15);
+	            $(comment_box_id).find('i').css('left', $(this).width()/2 + $(this).position().left);
+	            $(comment_box_id).find('i.active').css('left', $(this).width()/2 + $(this).position().left - 1);
 	        }
 	    });
 	},
@@ -1267,29 +1266,33 @@ AWS.Init =
 	{
 		$(document).on('click', selector, function ()
 	    {
-	        if ($(this).parents('.aw-item').find('.aw-comment-box').length)
+	        if ($(this).parents('.mod-footer').find('.aw-comment-box').length)
 	        {
-	            if ($(this).parents('.aw-item').find('.aw-comment-box').css('display') == 'block')
+	            if ($(this).parents('.mod-footer').find('.aw-comment-box').css('display') == 'block')
 	            {
-	               $(this).parents('.aw-item').find('.aw-comment-box').fadeOut();
+	               $(this).parents('.mod-footer').find('.aw-comment-box').fadeOut();
 	            }
 	            else
 	            {
-	                $(this).parents('.aw-item').find('.aw-comment-box').fadeIn();
+	                $(this).parents('.mod-footer').find('.aw-comment-box').fadeIn();
 	            }
 	        }
 	        else
 	        {
-	            $(this).parents('.aw-item').append(Hogan.compile(AW_MOBILE_TEMPLATE.articleCommentBox).render(
+	            $(this).parents('.mod-footer').append(Hogan.compile(AW_MOBILE_TEMPLATE.articleCommentBox).render(
 	            {
 	                'at_uid' : $(this).attr('data-id'),
 	                'article_id' : $('.aw-anwser-box input[name="article_id"]').val()
 	            }));
-	            $(this).parents('.aw-item').find('.close-comment-box').click(function ()
+	            $(this).parents('.mod-footer').find('.cancel').click(function ()
 	            {
-	                $(this).parents('.aw-item').find('.aw-comment-box').fadeOut();
+	                $(this).parents('.mod-footer').find('.aw-comment-box').fadeOut();
 	            });
-	            $(this).parents('.aw-item').find('.aw-comment-txt').autosize();
+	            $(this).parents('.mod-footer').find('.aw-comment-txt').autosize();
+
+	            /*给三角形定位*/
+	            $(this).parents('.mod-footer').find('i').css('left', $(this).width()/2 + $(this).position().left);
+	            $(this).parents('.mod-footer').find('i.active').css('left', $(this).width()/2 + $(this).position().left - 1);
 	        }
 	    });
 	}

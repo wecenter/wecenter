@@ -374,7 +374,14 @@ class ajax extends AWS_CONTROLLER
 
 		TPL::assign('comments', $comments);
 
-		TPL::output("question/ajax/comments");
+		if ($_GET['template'] == 'm')
+		{
+			TPL::output("m/ajax/question_comments");
+		}
+		else
+		{
+			TPL::output("question/ajax/comments");
+		}
 	}
 
 	public function save_question_comment_action()
