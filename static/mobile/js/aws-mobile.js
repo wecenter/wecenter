@@ -439,13 +439,13 @@ AWS.User =
 	{
 		AWS.loading('show');
 
-		if (!selector.hasClass('aw-active'))
+		if (!selector.hasClass('active'))
         {
-            selector.html(_t('关注'));
+            selector.html(_t('取消关注'));
         }
         else
         {
-            selector.html(_t('取消关注'));
+            selector.html(_t('关注'));
         }
 
 	    switch (type)
@@ -471,11 +471,11 @@ AWS.User =
 	        {
 	            if (result.rsm.type == 'add')
 	            {
-	                selector.removeClass('aw-active');
+	                selector.addClass('active');
 	            }
 	            else
 	            {
-	                selector.addClass('aw-active');
+	            	selector.removeClass('active');
 	            }
 	        }
 	        else
@@ -700,7 +700,14 @@ AWS.Dropdown =
 	// 下拉菜单功能绑定
 	bind_dropdown_list: function(element, type)
 	{
-		var ul = $(element).next().find('ul');
+		if (type == 'search')
+		{
+			var ul = $('#search_result');
+		}
+		else
+		{
+			var ul = $(element).next().find('ul');
+		}
 		
 		$(element).keydown(function()
 		{
@@ -724,27 +731,31 @@ AWS.Dropdown =
 											switch(result[i].type)
 											{
 												case 'questions' :
-													ul.append('<li><a href="' + decodeURIComponent(result[i].url) + '">' + result[i].name + '<span class="aw-text-color-999">' + result[i].detail.answer_count + ' 个回答</span></a></li>');
+													ul.append('<li class="question"><a href="' + decodeURIComponent(result[i].url) + '">' + result[i].name + '<span class="pull-right color-999">' + result[i].detail.answer_count + ' 个回答</span></a></li>');
 													break;
 													
 												case 'articles' :
-													ul.append('<li><a href="' + decodeURIComponent(result[i].url) + '">' + result[i].name + '<span class="aw-text-color-999">' + result[i].detail.comments + ' 个评论</span></a></li>');
+													ul.append('<li class="question"><a href="' + decodeURIComponent(result[i].url) + '">' + result[i].name + '<span class="pull-right color-999">' + result[i].detail.comments + ' 个评论</span></a></li>');
 													break;
 
 												case 'topics' :
-													ul.append('<li><a class="aw-topic-name" href="' + decodeURIComponent(result[i].url) + '">' + result[i].name  + '</a><span class="aw-text-color-999">' + result[i].detail.discuss_count + ' 个问题</span></li>');
+													ul.append('<li class="topic"><span class="topic-tag"><a class="text" href="' + decodeURIComponent(result[i].url) + '">' + result[i].name  + '</a></span>&nbsp;<span class="color-999">' + result[i].detail.discuss_count + ' 个问题</span></li>');
 													break;
 
 												case 'users' :
-													ul.append('<li><a href="' + decodeURIComponent(result[i].url) + '"><img src="' + result[i].detail.avatar_file + '"><span>' + result[i].name + '</span></a></li>');
+													ul.append('<li class="user"><a href="' + decodeURIComponent(result[i].url) + '"><img class="img" width="25" src="' + result[i].detail.avatar_file + '" /> <span>' + result[i].name + '</span></a></li>');
 													break;
 											}
 										});
 										
-										$(element).next().show();
+										ul.show();
+										$('.aw-search-result-box .result-mod .all-result').show();
+										$('.aw-search-result-box .result-mod .mod-head, .aw-search-result-box .result-mod .tips').hide();
 									}else
 									{
-										$(element).next().hide();
+										ul.hide();
+										$('.aw-search-result-box .result-mod .all-result').hide();
+										$('.aw-search-result-box .tips').show();
 									}
 								},'json');
 							break;

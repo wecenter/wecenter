@@ -120,7 +120,7 @@ $(document).ready(function () {
 		return false;
 	});
 
-	AWS.Dropdown.bind_dropdown_list('.aw-search-input','search');
+	AWS.Dropdown.bind_dropdown_list('.aw-search-bar input','search');
 	AWS.Dropdown.bind_dropdown_list('.aw-invite-input','invite');
 	AWS.Init.init_topic_edit_box('.aw-topic-bar .icon-inverse');
 	AWS.Init.init_topic_edit_box('.aw-publish-box .aw-topic-bar .icon-inverse','publish');
