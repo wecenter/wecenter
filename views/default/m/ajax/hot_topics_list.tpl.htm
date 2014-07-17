@@ -17,7 +17,7 @@
 		<a><?php _e('%s 个讨论', $val['discuss_count']); ?></a>
 		<span class="pull-left"> • </span>
 		<a><?php _e('%s 个关注', $val['focus_count']); ?></a>
-		<a href="" class="pull-right btn btn-mini btn-success">关注</a>
+		<a class="pull-right btn btn-success btn-mini <?php if ($this->topic_info['has_focus']) { ?> active<?php } ?>" onclick="AWS.User.follow($(this), 'topic', <?php echo $val['topic_id']; ?>);"><?php if ($this->topic_info['has_focus']) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?></a>
 	</div>
 </li>
 

@@ -644,6 +644,10 @@ class main extends AWS_CONTROLLER
 			TPL::assign('category_info', $this->model('system')->get_category_info($_GET['category']));
 		}
 
+		TPL::import_js(array(
+			'mobile/js/iscroll.js',
+		));
+
 		TPL::output('m/explore');
 	}
 
@@ -1180,4 +1184,10 @@ class main extends AWS_CONTROLLER
 
 		TPL::output('m/verify');
 	}
+
+	public function favorite_action()
+	{
+		TPL::output('m/favorite');
+	}
+
 }

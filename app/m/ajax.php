@@ -38,6 +38,33 @@ class ajax extends AWS_CONTROLLER
 	{
 		HTTP::no_cache_header();
 	}
+
+	public function favorite_list_action()
+	{
+		if ($_GET['tag'])
+		{
+			$this->crumb(AWS_APP::lang()->_t('标签') . ': ' . $_GET['tag'], '/favorite/tag-' . $_GET['tag']);
+		}
+
+		if ($action_list = $this->model('favorite')->get_item_list($_GET['tag'], $this->user_id, calc_page_limit($_GET['page'], get_setting('contents_per_page'))))
+		{
+			foreach ($action_list AS $key => $val)
+			{
+				$item_ids[] = $val['item_id'];
+			}
+			
+			TPL::assign('list', $action_list);
+		}
+		else
+		{
+			if (!$_GET['page'] OR $_GET['page'] == 1)
+			{
+				$this->model('favorite')->remove_favorite_tag(null, null, $_GET['tag'], $this->user_id);
+			}
+		}
+
+		TPL::output('m/ajax/favorite_list');
+	}
 	
 	public function inbox_list_action()
 	{

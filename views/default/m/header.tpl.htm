@@ -1,8 +1,7 @@
 <?php TPL::output('m/header_meta.tpl.htm'); ?>
-
 <!-- header -->
 <div class="header">
-	<a href="m/"><img src="<?php echo G_STATIC_URL; ?>/mobile/img/logo.png" alt="" width="52" /></a>
+	<a class="logo" href="m/"><img src="<?php echo G_STATIC_URL; ?>/mobile/img/logo.png" alt="" width="52" /></a>
 	<span class="pull-right">
 		<?php if ($this->user_id) { ?>
 			<a href="m/people/<?php echo $this->user_info['url_token']; ?>">
@@ -22,7 +21,7 @@
 	<ul>
 		<?php if ($this->user_id) { ?>
 		<li>
-			<a href="m/"><i class="icon icon-home"></i><?php _e('首页'); ?></a>
+			<a href="m/" <?php if ($_GET['app'] == 'explore') { ?>class="active"<?php } ?>><i class="icon icon-home"></i><?php _e('首页'); ?></a>
 		</li>
 		<?php } ?>
 		<li>
@@ -30,7 +29,7 @@
 		</li>
 		<?php if (!$this->user_id) { ?>
 		<li>
-			<a href="m/topic_square/"><i class="icon icon-topic"></i><?php _e('话题'); ?></a>
+			<a href="m/topic_square/" <?php if ($_GET['app'] == 'topic_square') { ?>class="active"<?php } ?>><i class="icon icon-topic"></i><?php _e('话题'); ?></a>
 		</li>
 		<?php } ?>
 		<li>
