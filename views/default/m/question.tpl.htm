@@ -130,9 +130,9 @@
 						<div class="mod-footer">
 							<div class="meta">
 								<span class="operate">
-									<a class="answer_vote" onclick="AWS.User.agree_vote($(this), <?php echo $val['answer_id']; ?>)"><i class="icon icon-agree <?php if ($val['agree_status'] == 1) { ?> active<?php } ?>"></i> <?php echo $val['agree_count']; ?></a>
+									<a class="answer_vote agree" onclick="AWS.User.agree_vote($(this), <?php echo $val['answer_id']; ?>)"><i class="icon icon-agree <?php if ($val['agree_status'] == 1) { ?> active<?php } ?>"></i> <b><?php echo $val['agree_count']; ?></b></a>
 									<?php if ($this->user_id != $val['uid']) { ?>
-									<a class="answer_vote" onclick="AWS.User.disagree_vote($(this), <?php echo $val['answer_id']; ?>)"><i class="icon icon-disagree <?php if ($val['agree_status'] == -1) { ?> active<?php } ?>"></i></a>
+									<a class="answer_vote disagree" onclick="AWS.User.disagree_vote($(this), <?php echo $val['answer_id']; ?>)"><i class="icon icon-disagree <?php if ($val['agree_status'] == -1) { ?> active<?php } ?>"></i></a>
 									<?php } ?>
 								</span>
 								<?php if ($this->user_id) { ?>
