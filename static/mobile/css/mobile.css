@@ -16,7 +16,7 @@ label{font-weight: normal;}
 .btn-large{width: 90px;height: 34px;line-height: 34px;padding:0;}
 .btn-slarge{width: 175px;height: 40px;line-height: 40px;padding:0;font-size: 15px;}
 .btn-gray{background-color: #cccccc;color: #fff;}
-.btn-gray:hover, .btn-gray:active{background-color: #999;}
+.btn-gray:hover, .btn-gray:active{background-color: #999;color: #fff;}
 .btn-stack{width: 24px;height: 24px;padding:0;line-height: 24px;font-size: 16px;}
 .label{font-weight: normal;}
 .label-orange{background-color: #ff8852;}
@@ -74,6 +74,10 @@ input[type="text"], input[type="password"], textarea{-webkit-appearance:none;}
 .operate a{display: inline-block;float:left;height:30px;line-height:30px;padding:0 7px;color: #999;}
 .operate a + a{border-left: 1px solid #fff;}
 .operate a i{line-height: 28px;}
+/* 全局loading样式 */
+#aw-loading{position:fixed;top:50%;left:50%;background:#000;width: 40px;height: 40px;margin: 0 0 0 -20px;z-index: 10001;opacity: 0.75;filter: alpha(opacity=75);border-radius: 5px;}
+#aw-loading-box{width:40px;height:40px;background-image: url('../../common/loading.png');}
+.aw-loading{display:inline-block;height:16px;width:16px;background:url("img/ajax-loader.gif") no-repeat;}
 
 /* header */
 .header{height: 44px;padding:0 10px;background-color: #66b7ff;}
@@ -201,7 +205,6 @@ input[type="text"], input[type="password"], textarea{-webkit-appearance:none;}
 .aw-replay-list ul li .mod-body iframe{width: 100%;}
 .aw-replay-list ul li .mod-footer .meta{margin-bottom: 10px;}
 .aw-replay-list ul li .mod-footer .meta a{color: #999;}
-.aw-replay-list ul li .mod-footer .meta span.pull-right{margin-top: 5px;}
 .aw-comment-box{position:relative;padding:10px 0;background-color: #f5f5f5;border-top: 1px solid #e6e6e6;}
 .aw-comment-box p{color: #333;}
 .aw-comment-box ul li{padding-top: 10px !important;}
@@ -299,6 +302,8 @@ input[type="text"], input[type="password"], textarea{-webkit-appearance:none;}
 .aw-search-result-box .result-mod .mod-body ul li{height:auto;overflow:hidden;padding:10px;border-bottom: 1px solid #e6e6e6;line-height:24px;}
 .aw-search-result-box .result-mod .mod-body ul li .topic-tag{margin:0;}
 .aw-search-result-box .result-mod .mod-footer a{height: 36px;line-height: 36px;background-color: #fafafa;border-bottom: 1px solid #e6e6e6;}
+.aw-search-result-box .result-mod .mod-footer p{height: 36px;line-height: 36px;margin:0;background-color: #fafafa;border-bottom: 1px solid #e6e6e6;}
+.aw-search-result-box .result-mod .mod-footer p a{display: block;color: #666;}
 .aw-search-result-box .aw-load-more{margin:10px 10px 0;}
 
 /* 私信页面 */
