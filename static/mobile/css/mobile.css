@@ -211,6 +211,7 @@ input[type="text"], input[type="password"], textarea{-webkit-appearance:none;}
 .aw-comment-box ul li{padding-top: 10px !important;}
 .aw-comment-box ul li:first-child{padding-top: 0 !important;}
 .aw-comment-box ul li:last-child{border-bottom: none;}
+.aw-comment-box ul li .title a{color: #999;}
 .aw-comment-box i{position:absolute;z-index:1;top:-14px;left:112px;width:0;height:0;margin:0 !important;line-height:0;border-width:7px;border-style:solid;border-color: transparent transparent #f5f5f5 transparent;}
 .aw-comment-box i.active{z-index:0;top:-16px;left:111px;border-color: transparent transparent #e6e6e6 transparent;border-width: 8px;}
 .aw-comment-box .more{display:block;height: 33px;margin-bottom:10px;border-top:1px solid #e6e6e6;border-bottom:1px solid #e6e6e6;text-align: center;color: #9c9c9c;line-height: 33px;}

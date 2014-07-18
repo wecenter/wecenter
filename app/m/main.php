@@ -1180,6 +1180,8 @@ class main extends AWS_CONTROLLER
 	{
 		$this->crumb(AWS_APP::lang()->_t('申请认证'), '/m/verify/');
 
+		TPL::assign('body_class', 'active');
+
 		TPL::assign('verify_apply', $this->model('verify')->fetch_apply($this->user_id));
 
 		TPL::output('m/verify');

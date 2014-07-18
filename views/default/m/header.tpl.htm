@@ -9,8 +9,8 @@
 				<img src="<?php echo get_avatar_url($this->user['uid'], 'mid'); ?>" alt="" class="img" width="25" />
 			</a>
 		<?php } else {?>
-			<a href="m/login/" class="btn btn-mini btn-primary btn-normal">登录</a>
-			<a href="m/register/" class="btn btn-mini btn-success btn-normal">注册</a>
+			<a href="m/login/" class="btn btn-mini btn-primary btn-normal"><?php _e('登录'); ?></a>
+			<a href="m/register/" class="btn btn-mini btn-success btn-normal"><?php _e('注册'); ?></a>
 		<?php } ?>
 	</span>
 </div>
@@ -158,42 +158,3 @@
 	</div>
 </div>
 <!-- end nav -->
-
-<!-- 导航 -->
-<!-- <nav>
-	<ul>
-		<li><a href="m/"><?php _e('首页'); ?></a></li>
-		<li><a href="m/explore/"><?php _e('发现'); ?></a></li>
-		<li><a href="m/topic_square/"><?php _e('话题'); ?></a></li>
-		<li><a href="m/people_list/"><?php _e('用户'); ?></a></li>
-		<?php if ($this->user_id) { ?>
-		<li id="aw-top-nav-profile"><a><?php _e('我'); ?></a><i class="fa fa-caret-down"></i></li>
-		<?php } else { ?>
-		<li><a href="m/login/"><?php _e('我'); ?></a></li>
-		<?php } ?>
-	</ul>
-	<!-- 导航下拉内容 -->
-	<!-- <div class="aw-top-nav-wrap">
-		<!-- 导航下拉 我 -->
-		<div class="aw-top-nav-popup aw-top-nav-profile hide">
-			<ul>
-				<li>
-					<a href="m/people/"><?php _e('我的主页'); ?></a>
-				</li>
-				<li>
-					<a href="m/inbox/"><?php _e('私信'); ?><?php if ($this->user_info['inbox_unread']) { ?><span class="badge badge-info"><?php echo $this->user_info['inbox_unread']; ?></span><?php } ?></a>
-				</li>
-				<li>
-					<a href="m/settings/"><?php _e('设置'); ?></a>
-				</li>
-				<li>
-					<a href="account/logout/"><?php _e('退出'); ?></a>
-				</li>
-			</ul>
-			<span class="slide-close" onclick="$(this).parents('.aw-top-nav-popup').hide();"><i class="fa fa-angle-up"></i></span>
-		</div>
-		<!-- end 导航下拉 我 -->
-	<!--</div> -->
-	<!-- end 导航下拉内容 -->
-<!--</nav> -->
-<!-- end 导航 -->

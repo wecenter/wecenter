@@ -72,7 +72,7 @@ class article extends AWS_ADMIN_CONTROLLER
 
 			$where[] = 'uid = ' . intval($user_info['uid']);
 		}
-		
+
 		if ($_GET['comment_count_min'])
 		{
 			$where[] = 'comments >= ' . intval($_GET['comment_count_min']);
@@ -106,18 +106,8 @@ class article extends AWS_ADMIN_CONTROLLER
 			}
 		}
 
-		$url_param = array();
-
-		foreach($_GET as $key => $val)
-		{
-			if (!in_array($key, array('app', 'c', 'act', 'page')))
-			{
-				$url_param[] = $key . '-' . $val;
-			}
-		}
-		
 		TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
-			'base_url' => get_js_url('/admin/article/list/' . implode('__', $url_param)),
+			'base_url' => get_js_url('/admin/article/list/'),
 			'total_rows' => $search_articles_total,
 			'per_page' => $this->per_page
 		))->create_links());

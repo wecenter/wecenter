@@ -25,7 +25,7 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th><?php _e('删'); ?></th>
+                                <th><input type="checkbox" class="check-all"></th>
                                 <th>ID</th>
                                 <th><?php _e('用户名'); ?></th>
                                 <th><?php _e('邮箱'); ?></th>
@@ -70,7 +70,7 @@
 
                 <div class="mod-table-foot">
                     <div class="col-sm-4 col-xs-12">
-                        <a class="btn btn-primary" onclick="AWS.ajax_post($('#users_form'));"><?php _e('保存设置'); ?></a>
+                        <a class="btn btn-danger" onclick="AWS.ajax_post($('#users_form'));"><?php _e('删除'); ?></a>
                     </div>
                     <div class="col-xs-12 col-sm-8">
                         <?php echo $this->pagination; ?>

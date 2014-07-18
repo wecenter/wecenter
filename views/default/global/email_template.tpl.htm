@@ -12,7 +12,7 @@
 
 <?php if ($this->link) { ?>
 <p style="border-top: 1px solid #DDDDDD;margin: 15px 0 25px;padding: 15px;">
-<?php _e('请点击链接继续'); ?>: <a href="<?php echo $this->link; ?>" target="_blank"><?php echo $this->link_title ? $this->link_title : $this->link; ?></a>
+<?php _e('请点击链接继续'); ?>: <a href="<?php echo $this->link; ?>" target="_blank"><?php echo ($this->link_title) ? $this->link_title : $this->link; ?></a>
 <p>
 <?php } ?>
 

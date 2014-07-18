@@ -5,11 +5,11 @@
 	<ul>
 		<?php if ($this->user_id) { ?>
 		<li class="active">
-			<a href="#my_topic" role="tab" data-toggle="tab">我关注的话题</a>
+			<a href="#my_topic" role="tab" data-toggle="tab"><?php _e('我关注的话题'); ?></a>
 		</li>
 		<?php } ?>
 		<li <?php if (!$this->user_id) { ?>class="active" <?php } ?>>
-			<a href="#hot_topic" role="tab" data-toggle="tab">热门话题</a>
+			<a href="#hot_topic" role="tab" data-toggle="tab"><?php _e('热门话题'); ?></a>
 		</li>
 	</ul>
 </div>
