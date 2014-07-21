@@ -755,11 +755,11 @@ AWS.Dropdown =
 											switch(result[i].type)
 											{
 												case 'questions' :
-													ul.append('<li class="question"><a href="' + decodeURIComponent(result[i].url) + '">' + result[i].name + '<span class="pull-right color-999">' + result[i].detail.answer_count + ' 个回答</span></a></li>');
+													ul.append('<li class="question"><a href="' + decodeURIComponent(result[i].url) + '">' + result[i].name + '&nbsp;<span class="color-999">' + result[i].detail.answer_count + ' 个回答</span></a></li>');
 													break;
 													
 												case 'articles' :
-													ul.append('<li class="question"><a href="' + decodeURIComponent(result[i].url) + '">' + result[i].name + '<span class="pull-right color-999">' + result[i].detail.comments + ' 个评论</span></a></li>');
+													ul.append('<li class="question"><a href="' + decodeURIComponent(result[i].url) + '">' + result[i].name + '&nbsp;<span class="color-999">' + result[i].detail.comments + ' 个评论</span></a></li>');
 													break;
 
 												case 'topics' :
@@ -774,12 +774,14 @@ AWS.Dropdown =
 										
 										ul.show();
 										$('.aw-search-result-box .result-mod .all-result').show();
+										$('.aw-search-result-box .result-mod .all-result a').attr('href', G_BASE_URL + '/m/search/?q=' + $(element).val());
 										$('.aw-search-result-box .result-mod .mod-head, .aw-search-result-box .result-mod .tips').hide();
 									}else
 									{
 										ul.hide();
 										$('.aw-search-result-box .result-mod .all-result').hide();
-										$('.aw-search-result-box .tips').show();
+										$('.aw-search-result-box .tips, .aw-search-result-box .btn-primary').show();
+										$('#search_publish input').val($(element).val());
 									}
 								},'json');
 							break;
