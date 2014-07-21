@@ -26,7 +26,7 @@
 					</div>
 					<div class="mod-body">
 						<ul id="invitation_list"></ul>
-						
+
 						<!-- 加载更多内容 -->
 						<a class="aw-load-more-content" id="invitation_more">
 							<span><?php _e('更多'); ?>...</span>
@@ -37,7 +37,10 @@
 			</div>
 			<!-- 侧边栏 -->
 			<div class="col-sm-12 col-md-3 aw-side-bar">
-				<?php TPL::output('block/sidebar_menu.tpl.htm'); ?>	
+				<?php TPL::output('block/sidebar_menu.tpl.htm'); ?>
+
+				<!-- 友情链接 -->
+				<?php if (!empty($this->links_list)) { TPL::output('block/sidebar_links.tpl.htm'); } ?>
 			</div>
 			<!-- end 侧边栏 -->
 		</div>

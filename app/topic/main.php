@@ -32,7 +32,7 @@ class main extends AWS_CONTROLLER
 
 		return $rule_action;
 	}
-	
+
 	public function index_action()
 	{
 		if (!$_GET['id'])
@@ -40,12 +40,12 @@ class main extends AWS_CONTROLLER
 			$this->square_action();
 			die;
 		}
-		
+
 		if (is_mobile() AND HTTP::get_cookie('_ignore_ua_check') != 'TRUE')
 		{
 			HTTP::redirect('/m/topic/' . $_GET['id']);
 		}
-		
+
 		if (!$topic_info = $this->model('topic')->get_topic_by_title($_GET['id']))
 		{
 			$topic_info = $this->model('topic')->get_topic_by_url_token($_GET['id']);
@@ -115,7 +115,7 @@ class main extends AWS_CONTROLLER
 				$related_topics_ids[$val['topic_id']] = $val['topic_id'];
 			}
 		}
-		
+
 		if ($child_topic_ids = $this->model('topic')->get_child_topic_ids($topic_info['topic_id']))
 		{
 			foreach ($child_topic_ids AS $key => $topic_id)
@@ -163,7 +163,7 @@ class main extends AWS_CONTROLLER
 				$contents_topic_title .= ',' . implode(',', $merged_topic_title);
 			}
 		}
-		
+
 		$contents_related_topic_ids = array_merge($related_topics_ids, explode(',', $contents_topic_id));
 
 		TPL::assign('contents_related_topic_ids', implode(',', $contents_related_topic_ids));
@@ -211,15 +211,30 @@ class main extends AWS_CONTROLLER
 		TPL::assign('redirect_message', $redirect_message);
 
 		TPL::assign('in_features', $this->model('feature')->get_feature_by_id($this->model('feature')->get_topic_in_feature_ids($topic_info['topic_id'])));
-		
+
 		if ($topic_info['parent_id'])
 		{
 			TPL::assign('parent_topic_info', $this->model('topic')->get_topic_by_id($topic_info['parent_id']));
 		}
 
+		// 友情链接
+		$links_setting = get_setting('links_setting');
+
+		if ($links_setting['enabled'] == 'Y' AND $links_setting['show_on_all_page'] == 'Y' AND ($links_setting['hide_when_login'] == 'N' OR $links_setting['hide_when_login'] != 'N' AND !$this->user_id))
+		{
+			$links_list = $this->model('admin')->fetch_all('links', "viable = 'Y'", 'rank ASC');
+
+			if ($links_setting['random'] == 'Y')
+			{
+				shuffle($links_list);
+			}
+
+			TPL::assign('links_list', $links_list);
+		}
+
 		TPL::output('topic/index');
 	}
-	
+
 	public function square_action()
 	{
 		if (is_mobile() AND HTTP::get_cookie('_ignore_ua_check') != 'TRUE')
@@ -324,6 +339,21 @@ class main extends AWS_CONTROLLER
 
 		TPL::assign('new_topics', $this->model('topic')->get_topic_list(null, 'topic_id DESC', 10));
 
+		// 友情链接
+		$links_setting = get_setting('links_setting');
+
+		if ($links_setting['enabled'] == 'Y' AND $links_setting['show_on_all_page'] == 'Y' AND ($links_setting['hide_when_login'] == 'N' OR $links_setting['hide_when_login'] != 'N' AND !$this->user_id))
+		{
+			$links_list = $this->model('admin')->fetch_all('links', "viable = 'Y'", 'rank ASC');
+
+			if ($links_setting['random'] == 'Y')
+			{
+				shuffle($links_list);
+			}
+
+			TPL::assign('links_list', $links_list);
+		}
+
 		TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
 			'base_url' => get_js_url('/topic/square/id-' . $_GET['id'] . '__feature_id-' . $_GET['feature_id']),
 			'total_rows' => $topics_list_total_rows,
@@ -377,6 +407,21 @@ class main extends AWS_CONTROLLER
 			TPL::import_js('js/editor/sets/default/set.js');
 		}
 
+		// 友情链接
+		$links_setting = get_setting('links_setting');
+
+		if ($links_setting['enabled'] == 'Y' AND $links_setting['show_on_all_page'] == 'Y' AND ($links_setting['hide_when_login'] == 'N' OR $links_setting['hide_when_login'] != 'N' AND !$this->user_id))
+		{
+			$links_list = $this->model('admin')->fetch_all('links', "viable = 'Y'", 'rank ASC');
+
+			if ($links_setting['random'] == 'Y')
+			{
+				shuffle($links_list);
+			}
+
+			TPL::assign('links_list', $links_list);
+		}
+
 		TPL::output('topic/edit');
 	}
 
@@ -386,7 +431,7 @@ class main extends AWS_CONTROLLER
 		{
 			H::redirect_msg(AWS_APP::lang()->_t('话题不存在'), '/');
 		}
-		
+
 		$this->crumb(AWS_APP::lang()->_t('话题管理'), '/topic/manage/' . $topic_info['topic_id']);
 		$this->crumb($topic_info['topic_title'], '/topic/' . $topic_info['topic_id']);
 
@@ -415,12 +460,27 @@ class main extends AWS_CONTROLLER
 		TPL::assign('merged_topics_info', $merged_topics_info);
 
 		TPL::assign('topic_info', $topic_info);
-		
+
 		if (!$topic_info['is_parent'])
 		{
 			TPL::assign('parent_topics', $this->model('topic')->get_parent_topics());
 		}
-		
+
+		// 友情链接
+		$links_setting = get_setting('links_setting');
+
+		if ($links_setting['enabled'] == 'Y' AND $links_setting['show_on_all_page'] == 'Y' AND ($links_setting['hide_when_login'] == 'N' OR $links_setting['hide_when_login'] != 'N' AND !$this->user_id))
+		{
+			$links_list = $this->model('admin')->fetch_all('links', "viable = 'Y'", 'rank ASC');
+
+			if ($links_setting['random'] == 'Y')
+			{
+				shuffle($links_list);
+			}
+
+			TPL::assign('links_list', $links_list);
+		}
+
 		TPL::output('topic/manage');
 	}
 }

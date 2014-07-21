@@ -8,7 +8,7 @@
 |   http://www.wecenter.com
 |   ========================================
 |   Support: WeCenter@qq.com
-|   
+|
 +---------------------------------------------------------------------------
 */
 
@@ -24,7 +24,7 @@ class main extends AWS_CONTROLLER
 	{
 		$rule_action['rule_type'] = 'white'; //黑名单,黑名单中的检查  'white'白名单,白名单以外的检查
 		$rule_action['actions'] = array();
-		
+
 		return $rule_action;
 	}
 
@@ -34,9 +34,24 @@ class main extends AWS_CONTROLLER
 		{
 			H::redirect_msg(AWS_APP::lang()->_t('当前帐号没有提供 Email, 此功能不可用'));
 		}
-		
+
 		$this->crumb(AWS_APP::lang()->_t('邀请好友'), '/invitation/');
-		
+
+		// 友情链接
+		$links_setting = get_setting('links_setting');
+
+		if ($links_setting['enabled'] == 'Y' AND $links_setting['show_on_all_page'] == 'Y' AND ($links_setting['hide_when_login'] == 'N' OR $links_setting['hide_when_login'] != 'N' AND !$this->user_id))
+		{
+			$links_list = $this->model('admin')->fetch_all('links', "viable = 'Y'", 'rank ASC');
+
+			if ($links_setting['random'] == 'Y')
+			{
+				shuffle($links_list);
+			}
+
+			TPL::assign('links_list', $links_list);
+		}
+
 		TPL::output('invitation/index');
 	}
 }

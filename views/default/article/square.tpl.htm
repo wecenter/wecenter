@@ -2,11 +2,11 @@
 
 <div class="aw-container-wrap">
 	<?php TPL::output('block/content_nav_menu.tpl.htm'); ?>
-	
+
 	<div class="container">
 		<div class="row aw-content-wrap">
 			<div class="col-sm-12 col-md-9 aw-main-content">
-				
+
 				<div class="aw-mod aw-article-list">
 					<?php if ($this->article_list) { ?>
 					<?php foreach ($this->article_list AS $key => $val) { ?>
@@ -26,14 +26,14 @@
 									<div class="content" id="detail_<?php echo $val['id']; ?>">
 										<div class="hide-content markitup-box">
 											<?php echo FORMAT::parse_attachs(nl2br(FORMAT::parse_markdown($val['message']))); ?>
-											
+
 										</div>
-										
+
 										<?php if (cjk_strlen($val['message']) > 130) { ?>
 							        	<a class="more" href="#" onclick="AWS.content_switcher($('#detail_<?php echo $val['id']; ?>'), $('#detail_more_<?php echo $val['id']; ?>')); return false;"><?php _e('继续阅读'); ?> »</a>
 							        	<?php } ?>
 									</div>
-									
+
 									<div class="content markitup-box hide" id="detail_more_<?php echo $val['id']; ?>">
 										<?php echo FORMAT::parse_attachs(nl2br(FORMAT::parse_markdown($val['message']))); ?>
 										<?php if (cjk_strlen($val['message']) > 130) { ?>
@@ -51,9 +51,9 @@
 						</div>
 					</div>
 					<?php } ?>
-					
+
 					<?php echo $this->pagination; ?>
-					
+
 					<?php } ?>
 				</div>
 				<!-- end 文章列表 -->
@@ -75,6 +75,9 @@
 				</div>
 				<!-- end 热门文章 -->
 				<?php TPL::output('block/sidebar_hot_topics.tpl.htm'); ?>
+
+				<!-- 友情链接 -->
+				<?php if (!empty($this->links_list)) { TPL::output('block/sidebar_links.tpl.htm'); } ?>
 			</div>
 			<!-- end 侧边栏 -->
 		</div>

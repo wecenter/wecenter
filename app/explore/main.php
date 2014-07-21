@@ -89,11 +89,11 @@ class main extends AWS_CONTROLLER
 		// 友情链接
 		$links_setting = get_setting('links_setting');
 
-		if ($links_setting['enabled'] == 'Y' AND ($links_setting['hide_when_login'] == 'Y' AND !$this->user_id OR $links_setting['hide_when_login'] != 'Y'))
+		if ($links_setting['enabled'] == 'Y' AND ($links_setting['hide_when_login'] == 'N' OR $links_setting['hide_when_login'] != 'N' AND !$this->user_id))
 		{
 			$links_list = $this->model('admin')->fetch_all('links', "viable = 'Y'", 'rank ASC');
 
-			if ($links_setting['random'] = 'Y')
+			if ($links_setting['random'] == 'Y')
 			{
 				shuffle($links_list);
 			}
