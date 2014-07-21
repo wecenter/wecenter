@@ -63,7 +63,7 @@ ul,ol{padding:0;list-style:none;}
 .mod-header-user .mod-user li {display: block;}
 .aw-header ul li.username{margin-right:30px;}
 .aw-header .dropdown-menu li .fa{width:27px;vertical-align:middle;}
-.mod-list-head{background: #f4f4f4;text-align: center;line-height: 40px;}
+.mod-list-head{background: #f4f4f4;text-align: center;line-height: 40px;border-bottom: 1px solid #ddd;}
 .mod-user li a{padding: 0}
 
 /*aw-side start*/
