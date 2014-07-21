@@ -4,10 +4,14 @@
 <div class="aw-content-wrap">
     <div class="mod">
         <div class="mod-head">
-            <span class="pull-left"><?php _e('职位设置'); ?></span>
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="admin/user/job_list/"><?php _e('职位列表'); ?></a></li>
+                <li><a href="#add" data-toggle="tab"><?php _e('添加职位'); ?></a></li>
+            </ul>
         </div>
 
         <div class="tab-content mod-body">
+            <div class="tab-pane active" id="list">
             <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
@@ -19,65 +23,55 @@
                     </thead>
                     <tbody>
                     <form id="jobs_form" action="admin/ajax/save_job/" method="post" onsubmit="return false">
-					<?php if ($this->job_list) { ?>
-					<?php foreach ($this->job_list AS $key => $val) { ?>
+                    <?php if ($this->job_list) { ?>
+                    <?php foreach ($this->job_list AS $key => $val) { ?>
                     <tr>
-						<td><?php echo $key; ?></td>
-						<td>
-							<div class="row">
-								<div class="col-sm-12">
-									<input class="job-title form-control" type="text"  name="job_list[<?php echo $key; ?>]" value="<?php echo $val; ?>" />
-								</div>
-							</div>
-						</td>
-						<td><a onclick="AWS.dialog('confirm', {'message': '<?php _e('确认删除?'); ?>'}, function(){AWS.ajax_request(G_BASE_URL + '/admin/ajax/remove_job/', 'id=<?php echo $key; ?>');}); " class="fa fa-trash-o md-tip" data-toggle="tooltip" title="<?php _e('删除'); ?>"></a></td>
+                        <td><?php echo $key; ?></td>
+                        <td>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <input class="job-title form-control" type="text"  name="job_list[<?php echo $key; ?>]" value="<?php echo $val; ?>" />
+                                </div>
+                            </div>
+                        </td>
+                        <td><a onclick="AWS.dialog('confirm', {'message': '<?php _e('确认删除?'); ?>'}, function(){AWS.ajax_request(G_BASE_URL + '/admin/ajax/remove_job/', 'id=<?php echo $key; ?>');}); " class="fa fa-trash-o md-tip" data-toggle="tooltip" title="<?php _e('删除'); ?>"></a></td>
                     </tr>
                     <?php } ?>
-					<?php } ?>
+                    <?php } ?>
                     </form>
                     </tbody>
-					<tfoot>
-					<tr>
-						<td colspan="3">
-							<input type="button" value="<?php _e('保存设置'); ?>" class="btn btn-primary center-block" onclick="AWS.ajax_post($('#category_form'));" />
-						</td>
-					</tr>
-					</tfoot>
+                    <tfoot>
+                    <tr>
+                        <td colspan="3">
+                            <input type="button" value="<?php _e('保存设置'); ?>" class="btn btn-primary center-block" onclick="AWS.ajax_post($('#category_form'));" />
+                        </td>
+                    </tr>
+                    </tfoot>
                 </table>
             </div>
-        </div>
-    </div>
-    <div class="mod">
-    	<div class="mod-head">
-        	<span class="pull-left"><?php _e('职位列表'); ?></span>
-		</div>
-		 <div class="tab-content mod-body">
+            </div>
+
+            <div class="tab-pane" id="add">
             <div class="table-responsive">
-                <form id="_save_form" action="admin/ajax/add_job/" method="post">
-					<table class="table table-striped">
-						<tr>
-							<td>
-								<div class="form-group">
-									<span class="col-sm-4 col-xs-3 control-label"><?php _e('添加新职位'); ?>:</span>
-									<div class="col-sm-5 col-xs-8">
-										<textarea class="form-control" name="jobs" rows="6"></textarea>
-					
-										<span class="help-block"><?php _e('一行一个职位名称'); ?></span>
-									</div>
-								</div>
-							</td>
-						</tr>
-						<tfoot>
-						<tr>
-							<td>
-								<input type="button" value="<?php _e('添加新职位'); ?>" class="btn btn-primary center-block" onclick="AWS.ajax_post($('#_save_form'));" />
-							</td>
-						</tr>
-						</tfoot>
-					</table>
-				</form>
-			</div>	
-		</div>    
+                <form method="post" action="admin/ajax/add_job/" onsubmit="return false;" id="new_job_form" class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <span class="col-sm-2 col-xs-3 control-label"><?php _e('添加新职位'); ?>:</span>
+                        <div class="col-sm-5 col-xs-8">
+                            <textarea class="form-control" name="jobs" rows="6"></textarea>
+
+                            <span class="help-block"><?php _e('一行一个职位名称'); ?></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-5 col-xs-8">
+                            <button type="button" onclick="AWS.ajax_post($('#new_job_form'));" class="btn btn-primary"><?php _e('保存设置'); ?></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            </div>
+        </div>
     </div>
 </div>
 

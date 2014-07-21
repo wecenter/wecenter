@@ -531,11 +531,14 @@ class ajax extends AWS_CONTROLLER
 				unset(AWS_APP::session()->valid_email);
 			}
 
-			$this->model('active')->set_user_email_valid_by_uid($active_data['uid']);
+			$this->model('active')->set_user_email_valid_by_uid($user_info['uid']);
 
 			if (get_setting('register_valid_type') == 'email' OR get_setting('register_valid_type') == 'N')
 			{
-				$this->model('active')->active_user_by_uid($active_data['uid']);
+				if ($user_info['group_id'] == 3)
+				{
+					$this->model('active')->active_user_by_uid($user_info['uid']);
+				}
 
 				// 帐户激活成功，切换为登录状态跳转至首页
 				$this->model('account')->setsession_logout();
@@ -583,7 +586,7 @@ class ajax extends AWS_CONTROLLER
 		$this->model('active')->new_find_password($user_info['uid']);
 
 		AWS_APP::session()->find_password = $user_info['email'];
-		
+
 		if (is_mobile())
 		{
 			$url = get_js_url('/m/find_password_success/');
@@ -638,15 +641,11 @@ class ajax extends AWS_CONTROLLER
 
 		$this->model('account')->update_user_password_ingore_oldpassword($_POST['password'], $uid, $user_info['salt']);
 
-		$this->model('account')->update_users_fields(array(
-			'valid_email' => 1
-		), $uid);
+		$this->model('active')->set_user_email_valid_by_uid($user_info['uid']);
 
 		if ($user_info['group_id'] == 3)
 		{
-			$this->model('account')->update_users_fields(array(
-				'group_id' => 4,
-			), $active_data['uid']);
+			$this->model('active')->active_user_by_uid($user_info['uid']);
 		}
 
 		$this->model('account')->setcookie_logout();

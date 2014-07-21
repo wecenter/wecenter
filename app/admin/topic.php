@@ -118,18 +118,8 @@ class topic extends AWS_ADMIN_CONTROLLER
 			}
 		}
 
-		$url_param = array();
-
-		foreach($_GET AS $key => $val)
-		{
-			if (!in_array($key, array('app', 'c', 'act', 'page')))
-			{
-				$url_param[] = $key . '-' . $val;
-			}
-		}
-
 		TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
-			'base_url' => get_js_url('/admin/topic/list/' . implode('__', $url_param)),
+			'base_url' => get_js_url('/admin/topic/list/'),
 			'total_rows' => $total_rows,
 			'per_page' => $this->per_page
 		))->create_links());
@@ -150,6 +140,37 @@ class topic extends AWS_ADMIN_CONTROLLER
 
 		$total_rows = $this->model('topic')->found_rows();
 
+		if ($topic_list)
+		{
+			foreach ($topic_list AS $key => $topic_info)
+			{
+				$action_log = ACTION_LOG::get_action_by_event_id($topic_info['topic_id'], 1, ACTION_LOG::CATEGORY_TOPIC, implode(',', array(
+					ACTION_LOG::ADD_TOPIC,
+					ACTION_LOG::MOD_TOPIC,
+					ACTION_LOG::MOD_TOPIC_DESCRI,
+					ACTION_LOG::MOD_TOPIC_PIC,
+					ACTION_LOG::DELETE_TOPIC,
+					ACTION_LOG::ADD_RELATED_TOPIC,
+					ACTION_LOG::DELETE_RELATED_TOPIC
+				)), -1);
+
+				$action_log = $action_log[0];
+
+				$topic_list[$key]['last_edited_uid'] = $action_log['uid'];
+
+				$topic_list[$key]['last_edited_time'] = $action_log['add_time'];
+
+				$last_edited_uids[] = $topic_list[$key]['last_edited_uid'];
+			}
+
+			$users_info_query = $this->model('account')->get_user_info_by_uids($last_edited_uids);
+
+			foreach ($users_info_query AS $user_info)
+			{
+				$users_info[$user_info['uid']] = $user_info;
+			}
+		}
+
 		TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
 			'base_url' => get_js_url('/admin/topic/parent/'),
 			'total_rows' => $total_rows,
@@ -157,6 +178,7 @@ class topic extends AWS_ADMIN_CONTROLLER
 		))->create_links());
 
 		TPL::assign('list', $topic_list);
+		TPL::assign('users_info', $users_info);
 
 		TPL::output('admin/topic/parent');
 	}
@@ -172,10 +194,7 @@ class topic extends AWS_ADMIN_CONTROLLER
 
 		TPL::assign('topic_info', $topic_info);
 
-		if (!$topic_info['is_parent'])
-		{
-			TPL::assign('parent_topics', $this->model('topic')->get_parent_topics());
-		}
+		TPL::assign('parent_topics', $this->model('topic')->get_parent_topics());
 
 		TPL::import_js('js/ajaxupload.js');
 
