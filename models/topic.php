@@ -228,7 +228,7 @@ class topic_class extends AWS_MODEL
 
 	public function save_topic($topic_title, $uid = null, $auto_create = true)
 	{
-		$topic_title = str_replace(array('-', '/'), '_', $topic_title);
+		$topic_title = str_replace(array('-', '/'), '_', trim($topic_title));
 
 		if (!$topic_id = $this->get_topic_id_by_title($topic_title) AND $auto_create)
 		{
@@ -487,7 +487,7 @@ class topic_class extends AWS_MODEL
 			$this->delete('related_topic', 'topic_id = ' . intval($topic_id) . ' OR related_id = ' . intval($topic_id));
 			$this->delete('reputation_topic', ' topic_id = ' . intval($topic_id));
 			$this->delete('topic', 'topic_id = ' . intval($topic_id));
-			
+
 			$this->update('topic', array(
 				'parent_id' => 0
 			), 'parent_id = ' . intval($topic_id));
@@ -1120,16 +1120,16 @@ class topic_class extends AWS_MODEL
 					$action_list_uids[$val['uid']] = $val['uid'];
 				}
 			}
-			
+
 			if ($action_list_uids)
 			{
 				$action_list_users_info = $this->model('account')->get_user_info_by_uids($action_list_uids);
 			}
-			
+
 			$answers_info_vote_user = $this->model('answer')->get_vote_user_by_answer_ids($answer_ids);
 
 			$answer_attachs = $this->model('publish')->get_attachs('answer', $answer_ids, 'min');
-			
+
 
 			foreach ($questions_info AS $key => $val)
 			{
@@ -1175,9 +1175,9 @@ class topic_class extends AWS_MODEL
 
 			$result[$key]['title'] = $val['question_info']['question_content'];
 			$result[$key]['link'] = get_js_url('/question/' . $val['question_info']['question_id']);
-			
+
 			$result[$key]['add_time'] = $result[$key]['answer_info']['add_time'];
-			
+
 			$result[$key]['last_action_str'] = ACTION_LOG::format_action_data(ACTION_LOG::ANSWER_QUESTION, $result[$key]['answer_info']['uid'], $result[$key]['user_info']['user_name'], $result[$key]['question_info']);
 		}
 
@@ -1310,7 +1310,7 @@ class topic_class extends AWS_MODEL
 
 		return $result;
 	}
-	
+
 	public function set_is_parent($topic_id, $is_parent)
 	{
 		return $this->update('topic', array(
@@ -1318,19 +1318,19 @@ class topic_class extends AWS_MODEL
 			'parent_id' => 0
 		), 'topic_id = ' . intval($topic_id));
 	}
-	
+
 	public function set_parent_id($topic_id, $parent_id)
 	{
 		return $this->update('topic', array(
 			'parent_id' => intval($parent_id)
 		), 'topic_id = ' . intval($topic_id));
 	}
-	
+
 	public function get_parent_topics()
 	{
 		return $this->fetch_all('topic', 'is_parent = 1', 'topic_title ASC');
 	}
-	
+
 	public function get_child_topic_ids($topic_id)
 	{
 		if ($child_topics = $this->query_all("SELECT topic_id FROM " . get_table('topic') . " WHERE parent_id = " . intval($topic_id)))
@@ -1340,7 +1340,7 @@ class topic_class extends AWS_MODEL
 				$child_topic_ids[] = $val['topic_id'];
 			}
 		}
-		
+
 		return $child_topic_ids;
 	}
 }
