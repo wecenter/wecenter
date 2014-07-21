@@ -73,7 +73,8 @@ input[type="text"], input[type="password"], textarea{-webkit-appearance:none;}
 /* 赞同反对 */
 .operate{display:inline-block;background-color: #f5f5f5;border-radius:4px;}
 .operate.active a{color: #66b7ff;}
-.operate a{display: inline-block;float:left;height:30px;line-height:30px;padding:0 7px;color: #999;}
+.operate.disabled{}
+.operate a{float:left;height:30px;line-height:30px;padding:0 7px;color: #999;}
 .operate a + a{border-left: 1px solid #fff;}
 .operate a i{line-height: 28px;}
 /* 全局loading样式 */
@@ -156,6 +157,7 @@ input[type="text"], input[type="password"], textarea{-webkit-appearance:none;}
 .aw-feed-list li .mod-footer a{display:inline-block;float:left;height:31px;padding:0 14px;border-right:1px solid #e6e6e6;color: #999999;}
 .aw-feed-list li .mod-footer a:active, .aw-feed-list li .mod-footer a:hover{background-color: #66b7ff;color: #fff;}
 .aw-feed-list li .mod-footer a span{margin-left: 3px;}
+.aw-feed-list li .mod-footer .pull-right img{vertical-align: -5px;}
 .aw-feed-list li.article .mod-body .img{width:140px;margin:5px 10px 0 0;}
 .aw-feed-list.active li .mod-body{padding:10px;}
 .aw-feed-list.active li .mod-footer a{padding:0 10px;border:none;}
@@ -202,8 +204,10 @@ input[type="text"], input[type="password"], textarea{-webkit-appearance:none;}
 .aw-question-detail .mod-footer .meta iframe{vertical-align: -8px;}
 .aw-question-detail .mod-footer.active{padding:0 10px;background-color: #fff;}
 .aw-invite-box{padding:10px;background-color: #fafafa;border-bottom: 1px solid #e6e6e6;}
-.aw-invite-box .mod-head{position: relative;padding:0;background-color: #fafafa;}
-.aw-invite-box .mod-head i{position: absolute;right: 17px;top: 7px;font-size: 18px;color: #9b9b9b;}
+.aw-invite-box .mod-head{margin-bottom:5px;padding:0;background-color: transparent;}
+.aw-invite-box .mod-head a{margin:0 5px 0 0;}
+.aw-invite-box .mod-body{position: relative;padding:0;background-color: #fafafa;}
+.aw-invite-box .mod-body i{position: absolute;right: 17px;top: 7px;font-size: 18px;color: #9b9b9b;}
 .aw-replay-list{background-color: #fff;}
 .aw-replay-list > .mod-head{padding:15px 10px 10px;border-bottom: 1px solid #ccc;}
 .aw-replay-list > .mod-head h2{margin:0;}

@@ -395,13 +395,15 @@ AWS.User =
 	    {
 	    	if (result.errno != -1)
 	    	{
-	    		if (selector.parents('.aw-invite-box').find('.invite-list a').length == 0)
+	    		if (selector.parents('.aw-invite-box').find('.users-list a').length == 0)
 	            {
-	                selector.parents('.aw-invite-box').find('.invite-list').show();
+	                selector.parents('.aw-invite-box').find('.users-list').show();
 	            }
-	            selector.parents('.aw-invite-box').find('.invite-list').append(' <a class="aw-text-color-999 invite-list-user" data-toggle="tooltip" data-placement="right" data-original-title="'+ selector.attr('data-value') +'"><img src='+ img +' /></a>');
-	            selector.removeClass('btn-primary').attr('onclick','disinvite_user($(this))').text('取消邀请');
-	            selector.parents('.aw-question-detail-title').find('.aw-invite-replay .badge').text(parseInt(selector.parents('.aw-question-detail-title').find('.aw-invite-replay .badge').text()) + 1);
+
+	            selector.parents('.aw-invite-box').find('.users-list').append(' <a><img class="img" width="20" src='+ img +' /></a>');
+
+	            selector.parents('.aw-invite-box').find('.aw-dropdown-list').hide();
+
 	    	}
 	    	else if (result.errno == -1)
 	        {
