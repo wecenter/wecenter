@@ -6,8 +6,10 @@ $(function () {
      * 禁止日历框输入
      */
 
-    $('.date-start').keydown(function(){ return false});
-    $('.date-end').keydown(function(){ return false});
+     $('.date-end,.date-start').bind("keydown",function(){
+        
+        return false
+    })
     
     $('.aw-content-wrap').find('.date-start').val(dateArr[1]);
     $('.aw-content-wrap').find('.date-end').val(dateArr[0]);
