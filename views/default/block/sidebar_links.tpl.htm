@@ -1,0 +1,15 @@
+<div class="aw-mod">
+    <div class="mod-head">
+        <h3><?php _e('友情链接'); ?></h3>
+    </div>
+
+    <div class="mod-body">
+        <ul>
+            <?php foreach($this->links_list AS $link_info){ ?>
+                <li>
+                    <a href="<?php echo $link_info['url']; ?>" title="<?php echo $link_info['description']; ?>" target="_blank"><?php echo $link_info['name']; ?></a>
+                </li>
+            <?php } ?>
+        </ul>
+    </div>
+</div>

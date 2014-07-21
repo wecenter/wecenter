@@ -21,23 +21,23 @@
 	<ul>
 		<?php if ($this->user_id) { ?>
 		<li>
-			<a href="m/" <?php if ($_GET['app'] == 'explore') { ?>class="active"<?php } ?>><i class="icon icon-home"></i><?php _e('首页'); ?></a>
+			<a href="m/" <?php if ($_GET['act'] == 'index') { ?>class="active"<?php } ?>><i class="icon icon-home"></i><?php _e('首页'); ?></a>
 		</li>
 		<?php } ?>
 		<li>
-			<a href="m/explore/"><i class="icon icon-list"></i><?php _e('发现'); ?></a>
+			<a href="m/explore/"<?php if ($_GET['act'] == 'explore') { ?>class="active"<?php } ?>><i class="icon icon-list"></i><?php _e('发现'); ?></a>
 		</li>
 		<?php if (!$this->user_id) { ?>
 		<li>
-			<a href="m/topic_square/" <?php if ($_GET['app'] == 'topic_square') { ?>class="active"<?php } ?>><i class="icon icon-topic"></i><?php _e('话题'); ?></a>
+			<a href="m/topic_square/" <?php if ($_GET['act'] == 'topic_square') { ?>class="active"<?php } ?>><i class="icon icon-topic"></i><?php _e('话题'); ?></a>
 		</li>
 		<?php } ?>
 		<li>
-			<a href="m/publish/"><i class="icon icon-ask"></i><?php _e('发起'); ?></a>
+			<a href="m/publish/"<?php if ($_GET['act'] == 'publish') { ?>class="active"<?php } ?>><i class="icon icon-ask"></i><?php _e('发起'); ?></a>
 		</li>
 		<?php if (!$this->user_id) { ?>
 		<li>
-			<a href=""><i class="icon icon-search"></i><?php _e('搜索'); ?></a>
+			<a href=""<?php if ($_GET['act'] == 'search') { ?>class="active"<?php } ?>><i class="icon icon-search"></i><?php _e('搜索'); ?></a>
 		</li>
 		<?php }?>
 		<li>

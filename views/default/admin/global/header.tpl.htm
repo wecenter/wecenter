@@ -60,8 +60,6 @@ $(function(){
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle mod-bell" data-toggle="dropdown">
                     <i class="fa fa-bell"></i>
-                    <?php if (!$notifications_texts) { ?><span class="label label-danger"><?php echo count($notifications_texts); ?></span><?php } ?>
-
                     <?php if ($notifications_texts) { ?>
                     <span class="label label-danger"><?php echo count($notifications_texts); ?></span>
                     <?php } ?>
