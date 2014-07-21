@@ -395,13 +395,15 @@ AWS.User =
 	    {
 	    	if (result.errno != -1)
 	    	{
-	    		if (selector.parents('.aw-invite-box').find('.invite-list a').length == 0)
+	    		if (selector.parents('.aw-invite-box').find('.users-list a').length == 0)
 	            {
-	                selector.parents('.aw-invite-box').find('.invite-list').show();
+	                selector.parents('.aw-invite-box').find('.users-list').show();
 	            }
-	            selector.parents('.aw-invite-box').find('.invite-list').append(' <a class="aw-text-color-999 invite-list-user" data-toggle="tooltip" data-placement="right" data-original-title="'+ selector.attr('data-value') +'"><img src='+ img +' /></a>');
-	            selector.removeClass('btn-primary').attr('onclick','disinvite_user($(this))').text('取消邀请');
-	            selector.parents('.aw-question-detail-title').find('.aw-invite-replay .badge').text(parseInt(selector.parents('.aw-question-detail-title').find('.aw-invite-replay .badge').text()) + 1);
+
+	            selector.parents('.aw-invite-box').find('.users-list').append(' <a><img class="img" width="20" src='+ img +' /></a>');
+
+	            selector.parents('.aw-invite-box').find('.aw-dropdown-list').hide();
+
 	    	}
 	    	else if (result.errno == -1)
 	        {
@@ -730,14 +732,7 @@ AWS.Dropdown =
 	// 下拉菜单功能绑定
 	bind_dropdown_list: function(element, type)
 	{
-		if (type == 'search')
-		{
-			var ul = $('#search_result');
-		}
-		else
-		{
-			var ul = $(element).next().find('ul');
-		}
+		var ul = $(element).parent().find('.aw-dropdown-list ul');
 		
 		$(element).keydown(function()
 		{
@@ -750,6 +745,7 @@ AWS.Dropdown =
 						switch (type)
 						{
 							case 'search' : 
+								ul = $('#search_result');
 								$.get(G_BASE_URL + '/search/ajax/search/?q=' + encodeURIComponent($(element).val()) + '&limit=5',function(result)
 								{
 									if (result.length > 0)
@@ -761,11 +757,11 @@ AWS.Dropdown =
 											switch(result[i].type)
 											{
 												case 'questions' :
-													ul.append('<li class="question"><a href="' + decodeURIComponent(result[i].url) + '">' + result[i].name + '<span class="pull-right color-999">' + result[i].detail.answer_count + ' 个回答</span></a></li>');
+													ul.append('<li class="question"><a href="' + decodeURIComponent(result[i].url) + '">' + result[i].name + '&nbsp;<span class="color-999">' + result[i].detail.answer_count + ' 个回答</span></a></li>');
 													break;
 													
 												case 'articles' :
-													ul.append('<li class="question"><a href="' + decodeURIComponent(result[i].url) + '">' + result[i].name + '<span class="pull-right color-999">' + result[i].detail.comments + ' 个评论</span></a></li>');
+													ul.append('<li class="question"><a href="' + decodeURIComponent(result[i].url) + '">' + result[i].name + '&nbsp;<span class="color-999">' + result[i].detail.comments + ' 个评论</span></a></li>');
 													break;
 
 												case 'topics' :
@@ -780,12 +776,14 @@ AWS.Dropdown =
 										
 										ul.show();
 										$('.aw-search-result-box .result-mod .all-result').show();
+										$('.aw-search-result-box .result-mod .all-result a').attr('href', G_BASE_URL + '/m/search/?q=' + $(element).val());
 										$('.aw-search-result-box .result-mod .mod-head, .aw-search-result-box .result-mod .tips').hide();
 									}else
 									{
 										ul.hide();
 										$('.aw-search-result-box .result-mod .all-result').hide();
-										$('.aw-search-result-box .tips').show();
+										$('.aw-search-result-box .tips, .aw-search-result-box .btn-primary').show();
+										$('#search_publish input').val($(element).val());
 									}
 								},'json');
 							break;
@@ -815,6 +813,9 @@ AWS.Dropdown =
 							break;
 
 							case 'invite' : 
+
+								ul = $('.aw-invite-box ul');
+
 								$.get(G_BASE_URL + '/search/ajax/search/?type=users&q=' + encodeURIComponent($(element).val()) + '&limit=10',function(result)
 								{
 									if (result.length > 0)
@@ -823,18 +824,20 @@ AWS.Dropdown =
 										
 										$.each(result ,function(i, e)
 										{
-											ul.append('<li><a data-id="' + result[i].uid + '" data-value="' + result[i].name + '"><img src="' + result[i].detail.avatar_file + '"><span>' + result[i].name + '</span></a></li>')
+											ul.append('<li><a data-id="' + result[i].uid + '" data-value="' + result[i].name + '"><img class="img" width="25" src="' + result[i].detail.avatar_file + '"> ' + result[i].name + '</a></li>')
 										});
 
-										$('.aw-invite-box .dropdown-list ul li a').click(function()
+										$('.aw-invite-box ul li a').click(function()
 										{
 											AWS.User.invite_user($(this),$(this).parents('li').find('img').attr('src'));
 										});
 										
-										$(element).next().show();
+										$(element).parent().find('.aw-dropdown-list').show();
+
+										ul.show();
 									}else
 									{
-										$(element).next().hide();
+										$(element).parent().find('.aw-dropdown-list').hide();
 									}
 								},'json');
 							break;
@@ -870,24 +873,19 @@ AWS.Dropdown =
 										{
 											ul.append('<li><a>' + result[i].name +'</a></li>')
 										});	
-										
-										$('.alert-publish .aw-topic-edit-box .dropdown-list ul li, .aw-mod-publish .aw-topic-edit-box .dropdown-list ul li').click(function()
-										{
-											$(element).parents('.aw-topic-edit-box').find('.aw-topic-box').prepend('<span class="aw-topic-name"><a>' + $(this).text() + '</a><input type="hidden" name="topics[]" value="' + $(this).text() + '"><a href="#"><i onclick="$(this).parents(\'.aw-topic-name\').detach();">X</i></a></span>');
-											$(element).val('');
-											$('.alert-publish .aw-topic-edit-box .dropdown-list, .aw-mod-publish .aw-topic-edit-box .dropdown-list').hide();
-										});
 
-										$('.aw-question-detail-title .aw-topic-edit-box .dropdown-list ul li').click(function()
+										ul.find('li').click(function()
 										{
-											$(this).parents('.aw-topic-box-selector').find('.aw-topic-input').val($(this).text());
-											$(this).parents('.aw-topic-box-selector').find('.btn-success').click();
+											$(this).parents('.aw-topic-bar').find('.topic-text').val($(this).text());
+											$(this).parents('.aw-topic-bar').find('.add').click();
 										});
 										
-										$(element).next().show();
+										$(element).parent().find('.aw-dropdown-list').show();
+
+										ul.show();
 									}else
 									{
-										$(element).next().hide();
+										$(element).parent().find('.aw-dropdown-list').hide();
 									}
 								},'json');
 								
@@ -1149,7 +1147,6 @@ AWS.Init =
 						{
 							$(this).parents('.aw-topic-bar').find('.tag-bar').prepend('<span class="topic-tag"><a class="text">' + $(this).parents('.aw-topic-bar').find('.topic-text').val() + '</a><input type="hidden" name="topics[]" value="' + $(this).parents('.aw-topic-bar').find('.topic-text').val() + '" ><a class="close" onclick="$(this).parents(\'.topic-tag\').detach();"><i class="icon icon-delete"></i></a>');
 							$(this).parents('.aw-topic-bar').find('.topic-text').val('');
-							$(this).parents('.aw-topic-bar').find('.dropdown-list').hide();
 						}
 					break;
 					case 'question' :
@@ -1160,11 +1157,9 @@ AWS.Init =
 							{
 								_this.parents('.aw-topic-bar').find('.tag-bar').prepend('<span class="topic-tag" data-id="'+ result.rsm.topic_id +'"><a class="text">' + _this.parents('.aw-topic-bar').find('.topic-text').val() + '</a><a class="close"><i class="icon icon-delete"></i></a></span>');
 								_this.parents('.aw-topic-bar').find('.topic-text').val('');
-								_this.parents('.aw-topic-bar').find('.dropdown-list').hide();
 							}else
 							{
 								alert(result.err);
-								_this.parents('.aw-topic-bar').find('.dropdown-list').hide();
 							}
 						}, 'json');
 					break;
@@ -1176,29 +1171,29 @@ AWS.Init =
 							{
 								_this.parents('.aw-topic-bar').find('.tag-bar').prepend('<span class="topic-tag" data-id="'+ result.rsm.topic_id +'"><a class="text">' + _this.parents('.aw-topic-bar').find('.topic-text').val() + '</a><a class="close"><i class="icon icon-delete"></i></a></span>');
 								_this.parents('.aw-topic-bar').find('.topic-text').val('');
-								_this.parents('.aw-topic-bar').find('.dropdown-list').hide();
 							}else
 							{
 								alert(result.err);
-								_this.parents('.aw-topic-bar').find('.dropdown-list').hide();
 							}
 						}, 'json');
 					break;
 				}
+				$(this).parents('.aw-topic-bar').find('.aw-dropdown-list').hide();
 			});
 
 			/* 话题编辑取消按钮 */
-			$('.aw-topic-box-selector .cancel').click(function()
+			$('.aw-topic-bar .cancel').click(function()
 			{
-				$(this).parents('.aw-topic-edit-box').find('.aw-add-topic-box').show();
-				$.each($(this).parents('.aw-topic-edit-box').find('.aw-topic-name'), function(i, e)
+				$(this).parents('.aw-topic-bar').find('.aw-add-topic-box').show();
+				$.each($(this).parents('.aw-topic-bar').find('.topic-tag'), function (i, e)
 				{
-					if ($(e).has('i')[0])
+					if ($(e).has('.close')[0])
 					{
-						$(e).find('i').detach();
+						$(e).find('.close').detach();
 					}
 				});
-				$(this).parents('.aw-topic-box-selector').detach();
+				$(this).parents('.aw-topic-bar').removeClass('active');
+				$(this).parents('.editor').detach();
 			});
 		});
 	},

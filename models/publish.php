@@ -209,7 +209,7 @@ class publish_class extends AWS_MODEL
 
 			if (is_array($topics))
 			{
-				foreach ($topics as $key => $topic_title)
+				foreach ($topics AS $topic_title)
 				{
 					$topic_id = $this->model('topic')->save_topic($topic_title, $uid, $create_topic);
 

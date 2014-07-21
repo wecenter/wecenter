@@ -8,7 +8,7 @@
 	</div>
 	<div class="mod-footer active">
 		<a class="aw-user-name" href="m/people/<?php echo $val['user_info']['url_token']; ?>"><?php echo $val['user_info']['user_name']; ?></a><?php _e('邀请你回复'); ?>
-		<span class="color-999 pull-right"><?php echo date_friendly($val['add_time']); ?></span>
+		<span class="color-999 pull-right"><?php echo date_friendly($val['add_time'], 604800, 'Y-m-d'); ?></span>
 	</div>
 </li>
 <?php } ?>

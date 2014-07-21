@@ -76,17 +76,3 @@ CREATE INDEX `account_id` ON `aws_weixin_reply_rule` (`account_id`);
 
 ALTER TABLE `aws_question` ADD `unverified_modify_count` int(10) NOT NULL DEFAULT '0';
 CREATE INDEX `unverified_modify_count` ON `aws_question` (`unverified_modify_count`);
-
-CREATE TABLE `aws_links` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  `url` varchar(255) NOT NULL,
-  `description` varchar(255) DEFAULT NULL,
-  `rank` tinyint(2) NOT NULL DEFAULT '0',
-  `viable` varchar(5) NOT NULL DEFAULT 'Y',
-  PRIMARY KEY `id` (`id`),
-  KEY `rank` (`rank`),
-  KEY `viable` (`viable`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='友情链接';
-
-INSERT INTO `aws_system_setting` (`varname`, `value`) VALUES ('links_setting', 'a:4:{s:7:"enabled";s:1:"N";s:6:"random";s:1:"Y";s:16:"show_on_all_page";s:1:"N";s:15:"hide_when_login";s:1:"Y";}');
