@@ -2,6 +2,15 @@ $(function () {
     // 填入对应日期
     var dateArr = getDate();
 
+    /**
+     * 禁止日历框输入
+     */
+
+     $('.date-end,.date-start').bind("keydown",function(){
+        
+        return false
+    })
+    
     $('.aw-content-wrap').find('.date-start').val(dateArr[1]);
     $('.aw-content-wrap').find('.date-end').val(dateArr[0]);
 
