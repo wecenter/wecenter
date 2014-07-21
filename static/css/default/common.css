@@ -447,7 +447,7 @@ a.aw-load-more-content{display: block;}
 .aw-article-content .aw-feed-list .aw-user-name img{width: 32px;height: 32px;}
 .aw-article-content .aw-feed-list .meta{color: #999;}
 .aw-article-content .aw-feed-list .meta a{margin-right: 15px;color: #999;}
-.aw-article-content .aw-feed-list .article-replay-box{padding:0;}
+.aw-article-content .aw-feed-list .aw-article-replay-box{padding:0;}
 
 /* 发起问题页面 */
 .aw-publish .aw-nav-tabs li{float: left;}
@@ -725,11 +725,11 @@ a.aw-load-more-content{display: block;}
 .aw-mod-replay-box .aw-replay-box-control{position: relative;height: auto;line-height: 34px;}
 .aw-mod-replay-box .aw-replay-box-control .btn-publish-submit{margin-left: 10px;}
 .aw-mod-replay-box .aw-replay-box-control span{position: relative;z-index: 1;}
-.article-replay-box{position:relative;margin-top:20px;padding-left: 40px;}
-.article-replay-box .mod-head{position:absolute;left:0;}
-.article-replay-box .mod-head img{width: 32px;height: 32px;}
-.article-replay-box .mod-body{margin-bottom:10px;}
-.article-replay-box .mod-footer input{width: 80px;}
+.aw-article-replay-box{position:relative;margin-top:20px;padding-left: 40px;}
+.aw-article-replay-box .mod-head{position:absolute;left:0;}
+.aw-article-replay-box .mod-head img{width: 32px;height: 32px;}
+.aw-article-replay-box .mod-body{margin-bottom:10px;}
+.aw-article-replay-box .mod-footer input{width: 80px;}
 .markItUpHeader{overflow: hidden;margin-bottom: 10px;}
 .markItUpHeader ul li {position: relative;float: left;width:17px;margin: 3px 4px;font-size: 16px;text-shadow:0 1px 0 #fff;text-align: center;cursor: pointer;}
 .markItUpHeader ul li:hover{opacity: 0.7;}
