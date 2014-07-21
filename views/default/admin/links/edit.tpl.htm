@@ -77,15 +77,17 @@
                     <div class="form-group">
                         <span class="col-sm-4 col-xs-3 control-label"><?php _e('显示'); ?>:</span>
                         <div class="col-sm-6 col-xs-8">
-                            <label>
-                                <input type="radio" name="viable" value="Y"<?php if (empty($this->link_info) OR $this->link_info['viable'] == 'Y') { ?> checked="checked"<?php } ?> />
-                                <?php _e('是'); ?>
-                            </label>
+                            <div class="btn-group mod-btn">
+                                <label>
+                                    <input type="radio" name="viable" value="Y"<?php if (empty($this->link_info) OR $this->link_info['viable'] == 'Y') { ?> checked="checked"<?php } ?> />
+                                    <?php _e('是'); ?>
+                                </label>
 
-                            <label>
-                                <input type="radio" name="viable" value="N"<?php if (!empty($this->link_info) AND $this->link_info['viable'] == 'N') { ?> checked="checked"<?php } ?> />
-                                <?php _e('否'); ?>
-                            </label>
+                                <label>
+                                    <input type="radio" name="viable" value="N"<?php if (!empty($this->link_info) AND $this->link_info['viable'] == 'N') { ?> checked="checked"<?php } ?> />
+                                    <?php _e('否'); ?>
+                                </label>
+                            </div>
                         </div>
                     </div>
                 </td>
