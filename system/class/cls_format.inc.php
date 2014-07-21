@@ -40,7 +40,7 @@ class FORMAT
 		{
 			preg_match_all('/(www\.[-a-zA-Z0-9@:;%_\+\.~#?&\/\/=]+)/i', $str, $matches);
 		}
-var_dump($matches);
+
 		if ($matches)
 		{
 			foreach($matches as $key => $val)

@@ -431,12 +431,29 @@ class ajax extends AWS_CONTROLLER
             H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('请填写正确的验证码')));
         }
 
-        if ($_POST['topics'] AND get_setting('question_topics_limit') AND sizeof($_POST['topics']) > get_setting('question_topics_limit'))
+        if ($_POST['topics'])
         {
-            H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('单个问题话题数量最多为 %s 个, 请调整话题数量', get_setting('question_topics_limit'))));
+            foreach ($_POST['topics'] AS $key => $topic_title)
+            {
+                $topic_title = trim($topic_title);
+
+                if (empty($topic_title))
+                {
+                    unset($_POST['topics'][$key]);
+                }
+                else
+                {
+                    $_POST['topics'][$key] = $topic_title;
+                }
+            }
+
+            if (get_setting('question_topics_limit') AND sizeof($_POST['topics']) > get_setting('question_topics_limit'))
+            {
+                H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('单个问题话题数量最多为 %s 个, 请调整话题数量', get_setting('question_topics_limit'))));
+            }
         }
 
-        if (get_setting('new_question_force_add_topic') == 'Y' AND !$_POST['topics'])
+        if (!$_POST['topics'] AND get_setting('new_question_force_add_topic') == 'Y')
         {
             H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('请为问题添加话题')));
         }
@@ -588,11 +605,27 @@ class ajax extends AWS_CONTROLLER
             H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('请填写正确的验证码')));
         }
 
-        if ($_POST['topics'] AND get_setting('question_topics_limit') AND sizeof($_POST['topics']) > get_setting('question_topics_limit'))
+        if ($_POST['topics'])
         {
-            H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('单个文章话题数量最多为 %s 个, 请调整话题数量', get_setting('question_topics_limit'))));
-        }
+            foreach ($_POST['topics'] AS $key => $topic_title)
+            {
+                $topic_title = trim($topic_title);
 
+                if (empty($topic_title))
+                {
+                    unset($_POST['topics'][$key]);
+                }
+                else
+                {
+                    $_POST['topics'][$key] = $topic_title;
+                }
+            }
+
+            if (get_setting('question_topics_limit') AND sizeof($_POST['topics']) > get_setting('question_topics_limit'))
+            {
+                H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('单个问题话题数量最多为 %s 个, 请调整话题数量', get_setting('question_topics_limit'))));
+            }
+        }
         if (get_setting('new_question_force_add_topic') == 'Y' AND !$_POST['topics'])
         {
             H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('请为文章添加话题')));
