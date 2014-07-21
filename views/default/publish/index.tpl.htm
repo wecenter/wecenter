@@ -140,12 +140,12 @@
 						<p><b>● <?php _e('问题标题'); ?>:</b> <?php _e('请用准确的语言描述您发布的问题思想'); ?></p>
 						<p><b>● <?php _e('问题补充'); ?>:</b> <?php _e('详细补充您的问题内容, 并提供一些相关的素材以供参与者更多的了解您所要问题的主题思想'); ?></p>
 						<p><b>● <?php _e('选择话题'); ?>:</b> <?php _e('选择一个或者多个合适的话题, 让您发布的问题得到更多有相同兴趣的人参与. 所有人可以在您发布问题之后添加和编辑该问题所属的话题'); ?></p>
-			            <?php if (get_setting('integral_system_enabled') == 'Y') { ?>
+						<?php if (get_setting('integral_system_enabled') == 'Y') { ?>
 						<p><b>● <?php _e('关于积分'); ?>：</b> <?php _e('发起一个问题会消耗您 %s 个积分', -get_setting('integral_system_config_new_question')); ?>, <?php _e('每多一个回复你将获得 %s 个积分的奖励', -get_setting('integral_system_config_new_answer')); ?>, <?php _e('为了您的利益, 在发起问题的时候希望能够更好的描述您的问题以及多使用站内搜索功能'); ?></p>
-			            <?php } ?>
+						<?php } ?>
 					</div>
 				</div>
-				<!-- end 问题状态 -->
+				<!-- end 问题发起指南 -->
 			</div>
 			<!-- end 侧边栏 -->
 		</div>

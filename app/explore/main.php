@@ -8,7 +8,7 @@
 |   http://www.wecenter.com
 |   ========================================
 |   Support: WeCenter@qq.com
-|   
+|
 +---------------------------------------------------------------------------
 */
 
@@ -23,15 +23,15 @@ class main extends AWS_CONTROLLER
 	public function get_access_rule()
 	{
 		$rule_action['rule_type'] = "white"; //'black'黑名单,黑名单中的检查  'white'白名单,白名单以外的检查
-		
+
 		if ($this->user_info['permission']['visit_explore'] AND $this->user_info['permission']['visit_site'])
 		{
 			$rule_action['actions'][] = 'index';
 		}
-		
+
 		return $rule_action;
 	}
-	
+
 	public function index_action()
 	{
 		if (is_mobile() AND HTTP::get_cookie('_ignore_ua_check') != 'TRUE')
@@ -43,7 +43,7 @@ class main extends AWS_CONTROLLER
 		{
 			$this->crumb(AWS_APP::lang()->_t('发现'), '/explore');
 		}
-		
+
 		if ($_GET['category'])
 		{
 			if (is_numeric($_GET['category']))
@@ -55,67 +55,67 @@ class main extends AWS_CONTROLLER
 				$category_info = $this->model('system')->get_category_info_by_url_token($_GET['category']);
 			}
 		}
-		
+
 		// 导航
 		if (TPL::is_output('block/content_nav_menu.tpl.htm', 'explore/index'))
 		{
 			TPL::assign('content_nav_menu', $this->model('menu')->get_nav_menu_list('explore'));
 		}
-		
+
 		// 边栏可能感兴趣的人
 		if (TPL::is_output('block/sidebar_recommend_users_topics.tpl.htm', 'explore/index'))
 		{
 			TPL::assign('sidebar_recommend_users_topics', $this->model('module')->recommend_users_topics($this->user_id));
 		}
-		
+
 		// 边栏热门用户
 		if (TPL::is_output('block/sidebar_hot_users.tpl.htm', 'explore/index'))
 		{
 			TPL::assign('sidebar_hot_users', $this->model('module')->sidebar_hot_users($this->user_id, 5));
 		}
-		
+
 		// 边栏热门话题
 		if (TPL::is_output('block/sidebar_hot_topics.tpl.htm', 'explore/index'))
 		{
 			TPL::assign('sidebar_hot_topics', $this->model('module')->sidebar_hot_topics($category_info['id']));
 		}
-		
+
 		// 边栏专题
 		if (TPL::is_output('block/sidebar_feature.tpl.htm', 'explore/index'))
 		{
 			TPL::assign('feature_list', $this->model('module')->feature_list());
 		}
-		
+
 		if ($category_info)
 		{
 			TPL::assign('category_info', $category_info);
-			
+
 			$this->crumb($category_info['title'], '/explore/category-' . $category_info['id']);
-			
+
 			$meta_description = $category_info['title'];
-			
+
 			if ($category_info['description'])
 			{
 				$meta_description .= ' - ' . $category_info['description'];
 			}
-			
+
 			TPL::set_meta('description', $meta_description);
 		}
-		
+
 		if (! $_GET['sort_type'])
 		{
 			$_GET['sort_type'] = 'new';
 		}
-		
+
 		if ($_GET['sort_type'] == 'hot')
 		{
 			$posts_list = $this->model('posts')->get_hot_posts(null, $category_info['id'], null, $_GET['day'], $_GET['page'], get_setting('contents_per_page'));
 		}
 		else
-		{				
+		{
 			$posts_list = $this->model('posts')->get_posts_list(null, $_GET['page'], get_setting('contents_per_page'), $_GET['sort_type'], null, $category_info['id'], $_GET['answer_count'], $_GET['day'], $_GET['is_recommend']);
 		}
-			
+
 		if ($posts_list)
 		{
 			foreach ($posts_list AS $key => $val)
@@ -126,16 +126,16 @@ class main extends AWS_CONTROLLER
 				}
 			}
 		}
-				
+
 		TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
-			'base_url' => get_js_url('/explore/sort_type-' . preg_replace("/[\(\)\.;']/", '', $_GET['sort_type']) . '__category-' . $category_info['id'] . '__day-' . intval($_GET['day']) . '__is_recommend-' . intval($_GET['is_recommend'])), 
+			'base_url' => get_js_url('/explore/sort_type-' . preg_replace("/[\(\)\.;']/", '', $_GET['sort_type']) . '__category-' . $category_info['id'] . '__day-' . intval($_GET['day']) . '__is_recommend-' . intval($_GET['is_recommend'])),
 			'total_rows' => $this->model('posts')->get_posts_list_total(),
 			'per_page' => get_setting('contents_per_page')
 		))->create_links());
-		
+
 		TPL::assign('posts_list', $posts_list);
 		TPL::assign('posts_list_bit', TPL::output('explore/ajax/list', false));
-		
+
 		TPL::output('explore/index');
 	}
 }

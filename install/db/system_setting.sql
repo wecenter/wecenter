@@ -115,4 +115,3 @@ INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES
 ('weibo_msg_enabled', 's:1:"N";'),
 ('weibo_msg_published_user', 'a:0:"";'),
 ('admin_notifications', 'a:0:"";');
-('links_setting', 'a:4:{s:7:"enabled";s:1:"N";s:6:"random";s:1:"Y";s:16:"show_on_all_page";s:1:"Y";s:15:"hide_when_login";s:1:"N";}');
