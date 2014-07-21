@@ -2,6 +2,15 @@ var document_title = document.title;
 
 $(document).ready(function () {
 
+	// 滚动指定位置
+	if (window.location.hash.indexOf('#!') != -1)
+	{
+		if ($('a[name=' + window.location.hash.replace('#!', '') + ']').length)
+		{
+			$.scrollTo($('a[name=' + window.location.hash.replace('#!', '') + ']').offset()['top'] - 20, 600, {queue:true});
+		}
+	}
+
 	// 导航条小箭头位置修复
 	$('.nav .triangle').css('left', $('.nav li').innerWidth()/2 - 8);
 
@@ -117,9 +126,11 @@ $(document).ready(function () {
 		if ($(this).parents('.aw-question-detail').find('.aw-invite-box').is(':visible'))
 		{
 			$(this).parents('.aw-question-detail').find('.aw-invite-box').hide();
+			$(this).removeClass('active');
 		}else
 		{
 			$(this).parents('.aw-question-detail').find('.aw-invite-box').show();
+			$(this).addClass('active');
 		}
 	});
 	//邀请初始化

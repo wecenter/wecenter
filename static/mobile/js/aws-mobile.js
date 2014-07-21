@@ -1234,14 +1234,18 @@ AWS.Init =
 	            if ($(comment_box_id).css('display') == 'none')
 	            {
 	                $(comment_box_id).fadeIn();
+	                $(this).addClass('active');
 	            }
 	            else
 	            {
 	                $(comment_box_id).fadeOut();
+	                $(this).removeClass('active');
 	            }
 	        }
 	        else
 	        {
+	        	$(this).addClass('active');
+	        	
 	            // 动态插入commentBox
 	            switch ($(this).attr('data-type'))
 	            {
@@ -1307,14 +1311,18 @@ AWS.Init =
 	            if ($(this).parents('.mod-footer').find('.aw-comment-box').css('display') == 'block')
 	            {
 	               $(this).parents('.mod-footer').find('.aw-comment-box').fadeOut();
+	               $(this).removeClass('active');
 	            }
 	            else
 	            {
 	                $(this).parents('.mod-footer').find('.aw-comment-box').fadeIn();
+	                $(this).addClass('active');
 	            }
 	        }
 	        else
 	        {
+	        	$(this).addClass('active');
+
 	            $(this).parents('.mod-footer').append(Hogan.compile(AW_MOBILE_TEMPLATE.articleCommentBox).render(
 	            {
 	                'at_uid' : $(this).attr('data-id'),
@@ -1404,5 +1412,24 @@ function _t(string, replace)
 	        return (s) ? this.before(s).remove() : jQuery("<p>").append(this.eq(0).clone()).html();
 	    }
     });
+
+	$.extend(
+	{
+		// 滚动到指定位置
+		scrollTo : function (type, duration, options)
+		{
+			if (typeof type == 'object')
+			{
+				var type = $(type).offset().top
+			}
+
+			$('html, body').animate({
+				scrollTop: type
+			}, {
+				duration: duration,
+				queue: options.queue
+			});
+		}
+	})
 
 })(jQuery);

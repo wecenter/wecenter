@@ -19,7 +19,7 @@
 					<?php } ?>
 				<?php } ?>
 				<?php if ($this->user_id AND !$this->question_info['lock']) { ?>
-					<a class="icon icon-inverse aw-add-topic-box"><i class="icon icon-edit"></i></a>
+					<a class="icon icon-inverse aw-add-topic-box"><i class="icon icon-edit"></i> <?php if (!count($this->question_topics) > 0) { ?>添加话题<?php } ?></a>
 				<?php } ?>
 			</div>
 		</div>
@@ -96,6 +96,7 @@
 					<?php foreach ($this->answers_list AS $key => $val) { ?>
 					<li uninterested_count="<?php echo $val['uninterested_count']; ?>" force_fold="<?php if ($val['user_rated_uninterested']) { ?>1<?php } else { ?><?php echo $val['force_fold']; ?><?php } ?>" id="answer_list_<?php echo $val['answer_id']; ?>">
 						<div class="mod-head">
+							<a class="anchor" name="answer_<?php echo $val['answer_id']; ?>"></a>
 							<?php if ($this->question_info['best_answer'] == $val['answer_id']) { ?>
 							<!-- 最佳回答 -->
 							<p class="aw-winner-replay"><i class="icon-g-replay"></i><?php _e('最佳回复')?></p>
