@@ -2528,7 +2528,7 @@ AWS.Init =
 	{
 	    $(document).on('click', selector, function ()
 	    {
-	    	var _editor_box = $(this).parents('.aw-item').find('.article-replay-box');
+	    	var _editor_box = $(this).parents('.aw-item').find('.aw-article-replay-box');
 	        if (_editor_box.length)
 	        {
 	            if (_editor_box.css('display') == 'block')
@@ -2545,7 +2545,7 @@ AWS.Init =
 	            $(this).parents('.aw-item-content').append(Hogan.compile(AW_TEMPLATE.articleCommentBox).render(
 	            {
 	                'at_uid' : $(this).attr('data-id'),
-	                'article_id' : $('.aw-mod-article-replay-box input[name="article_id"]').val()
+	                'article_id' : $('.aw-article-replay-box input[name="article_id"]').val()
 	            }));
 	        }
 	    });

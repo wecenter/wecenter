@@ -125,7 +125,7 @@ var AW_TEMPLATE = {
 			'</div>',
 
 	'articleCommentBox' :
-		'<div class="article-replay-box clearfix">'+
+		'<div class="aw-article-replay-box clearfix">'+
 			'<form action="'+ G_BASE_URL +'/article/ajax/save_comment/" onsubmit="return false;" method="post">'+
 				'<div class="mod-body">'+
 					'<input type="hidden" name="at_uid" value="{{at_uid}}">'+
