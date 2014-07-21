@@ -2192,7 +2192,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
             $links_setting[$value] = ($_POST[$value] == 'Y') ? 'Y' : 'N';
         }
 
-        $this->model('setting')->set_vars($links_setting);
+        $this->model('setting')->set_vars(array('links_setting' => $links_setting));
 
         H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('保存成功')));
     }
