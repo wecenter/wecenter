@@ -3,7 +3,8 @@ $(function () {
     $('#captcha').click();
 
     // bs自带方法 TAB切换
-    $('#myTab a').click(function (e) {
+    $('#myTab a').click(function (e) 
+    {
         e.preventDefault();
         $(this).tab('show');
     });
@@ -12,7 +13,8 @@ $(function () {
     // bs自带方法-气泡提示
     $('.aw-content-wrap .md-tip').tooltip('hide');
 
-    $('.aw-header .mod-head-btn').click(function () {
+    $('.aw-header .mod-head-btn').click(function () 
+    {
 
         if ($('#aw-side').is(':hidden')) {
             $('#aw-side').show(0, function () {
@@ -34,7 +36,8 @@ $(function () {
     })
 
     /*日期选择*/
-    if (typeof (DateInput) != 'undefined') {
+    if (typeof (DateInput) != 'undefined') 
+    {
         $('input.mod-data').date_input();
     }
 
@@ -47,7 +50,8 @@ $(function () {
 
 
     // 左侧导航菜单的折叠与展开
-    $('.mod-bar>li>a').click(function () {
+    $('.mod-bar>li>a').click(function () 
+    {
         if ($(this).next().is(':visible')) {
             $(this).next().slideUp('normal');
             $(this).removeClass('collapsed active');
@@ -60,7 +64,8 @@ $(function () {
     });
 
     // input 菜单折叠，展开、拖动
-    $('.aw-nav-menu li .mod-set-head').click(function () {
+    $('.aw-nav-menu li .mod-set-head').click(function () 
+    {
         if ($(this).parents('li').find('.mod-set-body').is(':visible')) {
             $(this).parents('li').find('.mod-set-body').slideUp();
         } else {
@@ -82,56 +87,61 @@ $(function () {
 
 
     // input 单选框全选or 全取消
-    $('.aw-content-wrap .table').find(".check-all").on('ifChecked', function (e) {
+    $('.aw-content-wrap .table').find(".check-all").on('ifChecked', function (e) 
+    {
         e.preventDefault()
         $(this).parents('table').find(".icheckbox_square-blue").iCheck('check');
 
     });
 
-    $('.aw-content-wrap .table').find(".check-all").on('ifUnchecked', function (e) {
+    $('.aw-content-wrap .table').find(".check-all").on('ifUnchecked', function (e) 
+    {
         e.preventDefault()
         $(this).parents('table').find(".icheckbox_square-blue").iCheck('uncheck');
     });
 
 
     //微博发布用户
-$('.aw-admin-weibo-answer').find('.search-input').bind("keydown", function(){
-    if (window.event && window.event.keyCode == 13) {
-                window.event.returnValue = false;
-            }
-});
-$('.aw-admin-weibo-publish').find('.btn-danger').length >0 ? $('.aw-admin-weibo-publish').find('.search-input').hide() : $('.aw-admin-weibo-publish').find('.search-input').show();
+    $('.aw-admin-weibo-answer').find('.search-input').bind("keydown", function()
+    {
+        if (window.event && window.event.keyCode == 13) {
+                    window.event.returnValue = false;
+                }
+    });
+    
+    $('.aw-admin-weibo-publish').find('.btn-danger').length >0 ? $('.aw-admin-weibo-publish').find('.search-input').hide() : $('.aw-admin-weibo-publish').find('.search-input').show();
 
-$('.aw-admin-weibo-publish').find('.delete').click(function()
-    {   
-        $('.aw-admin-weibo-publish').find('.search-input').show('0').val("");
-        $(this).parent().find('.weibo_msg_published_user').val('');
-        $(this).parent().find('.md-tip').show();
-        $(this).prev().detach().end().detach();
+    $('.aw-admin-weibo-publish').find('.delete').click(function()
+        {   
+            $('.aw-admin-weibo-publish').find('.search-input').show('0').val("");
+            $(this).parent().find('.weibo_msg_published_user').val('');
+            $(this).parent().find('.md-tip').show();
+            $(this).prev().detach().end().detach();
+        });
+
     });
 
-});
-
-function weiboPost(obj){
-
-    $.post(G_BASE_URL + '/admin/ajax/weibo_batch/', {'uid': obj.attr('data-id'), 'action':obj.attr('action')}, function (result)
+    function weiboPost(obj)
     {
-        if (result.errno == -1)
+
+        $.post(G_BASE_URL + '/admin/ajax/weibo_batch/', {'uid': obj.attr('data-id'), 'action':obj.attr('action')}, function (result)
         {
-            $('.aw-wechat-send-message .error_message').html(result.err);
-            
-            if ($('.error_message').css('display') != 'none')
+            if (result.errno == -1)
             {
-                AWS.shake($('.error_message'));
+                $('.aw-wechat-send-message .error_message').html(result.err);
+                
+                if ($('.error_message').css('display') != 'none')
+                {
+                    AWS.shake($('.error_message'));
+                }
+                else
+                {
+                    $('.error_message').fadeIn();
+                }
             }
             else
             {
-                $('.error_message').fadeIn();
+                $(".alert-box").modal('hide');
             }
-        }
-        else
-        {
-            $(".alert-box").modal('hide');
-        }
-    }, 'json');
-};
+        }, 'json');
+    };

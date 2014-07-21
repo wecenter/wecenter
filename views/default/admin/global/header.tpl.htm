@@ -67,7 +67,7 @@ $(function(){
                     <?php } ?>
                 </a>
                 <ul class="dropdown-menu mod-chat">
-                <?php if (!$notifications_texts) { ?>
+                <?php if ($notifications_texts) { ?>
                     <div class="mod-list-head">
                         <?php _e('您有 %s 条消息', count($notifications_texts)); ?>
                     </div>
