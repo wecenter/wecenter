@@ -2240,7 +2240,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
         H::ajax_json_output(AWS_APP::RSM(null, 1, null));
     }
 
-    public function edit_link_acion()
+    public function save_link_acion()
     {
         if (!$this->user_info['permission']['is_administortar'])
         {
