@@ -86,21 +86,6 @@ class main extends AWS_CONTROLLER
 			TPL::assign('feature_list', $this->model('module')->feature_list());
 		}
 
-		// 友情链接
-		$links_setting = get_setting('links_setting');
-
-		if ($links_setting['enabled'] == 'Y' AND ($links_setting['hide_when_login'] == 'N' OR $links_setting['hide_when_login'] != 'N' AND !$this->user_id))
-		{
-			$links_list = $this->model('admin')->fetch_all('links', "viable = 'Y'", 'rank ASC');
-
-			if ($links_setting['random'] == 'Y')
-			{
-				shuffle($links_list);
-			}
-
-			TPL::assign('links_list', $links_list);
-		}
-
 		if ($category_info)
 		{
 			TPL::assign('category_info', $category_info);

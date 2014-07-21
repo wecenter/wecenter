@@ -107,21 +107,6 @@ class main extends AWS_CONTROLLER
 
 		TPL::assign('question_related_list', $this->model('question')->get_related_question_list(null, $article_info['title']));
 
-		// 友情链接
-		$links_setting = get_setting('links_setting');
-
-		if ($links_setting['enabled'] == 'Y' AND $links_setting['show_on_all_page'] == 'Y' AND ($links_setting['hide_when_login'] == 'N' OR $links_setting['hide_when_login'] != 'N' AND !$this->user_id))
-		{
-			$links_list = $this->model('admin')->fetch_all('links', "viable = 'Y'", 'rank ASC');
-
-			if ($links_setting['random'] == 'Y')
-			{
-				shuffle($links_list);
-			}
-
-			TPL::assign('links_list', $links_list);
-		}
-
 		$this->model('article')->update_views($article_info['id']);
 
 		TPL::assign('comments', $comments);
@@ -213,21 +198,6 @@ class main extends AWS_CONTROLLER
 		if (TPL::is_output('block/sidebar_hot_topics.tpl.htm', 'article/square'))
 		{
 			TPL::assign('sidebar_hot_topics', $this->model('module')->sidebar_hot_topics($category_info['id']));
-		}
-
-		// 友情链接
-		$links_setting = get_setting('links_setting');
-
-		if ($links_setting['enabled'] == 'Y' AND $links_setting['show_on_all_page'] == 'Y' AND ($links_setting['hide_when_login'] == 'N' OR $links_setting['hide_when_login'] != 'N' AND !$this->user_id))
-		{
-			$links_list = $this->model('admin')->fetch_all('links', "viable = 'Y'", 'rank ASC');
-
-			if ($links_setting['random'] == 'Y')
-			{
-				shuffle($links_list);
-			}
-
-			TPL::assign('links_list', $links_list);
 		}
 
 		if ($category_info)

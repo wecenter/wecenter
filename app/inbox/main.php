@@ -104,21 +104,6 @@ class main extends AWS_CONTROLLER
 
 		TPL::assign('list', $data);
 
-		// 友情链接
-		$links_setting = get_setting('links_setting');
-
-		if ($links_setting['enabled'] == 'Y' AND $links_setting['show_on_all_page'] == 'Y' AND ($links_setting['hide_when_login'] == 'N' OR $links_setting['hide_when_login'] != 'N' AND !$this->user_id))
-		{
-			$links_list = $this->model('admin')->fetch_all('links', "viable = 'Y'", 'rank ASC');
-
-			if ($links_setting['random'] == 'Y')
-			{
-				shuffle($links_list);
-			}
-
-			TPL::assign('links_list', $links_list);
-		}
-
 		TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
 			'base_url' => get_js_url('/inbox/'),
 			'total_rows' => $inbox_total_rows,
@@ -191,21 +176,6 @@ class main extends AWS_CONTROLLER
 
 		TPL::assign('list', $list);
 		TPL::assign('recipient_user', $recipient_user);
-
-		// 友情链接
-		$links_setting = get_setting('links_setting');
-
-		if ($links_setting['enabled'] == 'Y' AND $links_setting['show_on_all_page'] == 'Y' AND ($links_setting['hide_when_login'] == 'N' OR $links_setting['hide_when_login'] != 'N' AND !$this->user_id))
-		{
-			$links_list = $this->model('admin')->fetch_all('links', "viable = 'Y'", 'rank ASC');
-
-			if ($links_setting['random'] == 'Y')
-			{
-				shuffle($links_list);
-			}
-
-			TPL::assign('links_list', $links_list);
-		}
 
 		TPL::output('inbox/read');
 	}

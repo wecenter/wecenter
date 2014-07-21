@@ -217,21 +217,6 @@ class main extends AWS_CONTROLLER
 			TPL::assign('parent_topic_info', $this->model('topic')->get_topic_by_id($topic_info['parent_id']));
 		}
 
-		// 友情链接
-		$links_setting = get_setting('links_setting');
-
-		if ($links_setting['enabled'] == 'Y' AND $links_setting['show_on_all_page'] == 'Y' AND ($links_setting['hide_when_login'] == 'N' OR $links_setting['hide_when_login'] != 'N' AND !$this->user_id))
-		{
-			$links_list = $this->model('admin')->fetch_all('links', "viable = 'Y'", 'rank ASC');
-
-			if ($links_setting['random'] == 'Y')
-			{
-				shuffle($links_list);
-			}
-
-			TPL::assign('links_list', $links_list);
-		}
-
 		TPL::output('topic/index');
 	}
 
@@ -339,21 +324,6 @@ class main extends AWS_CONTROLLER
 
 		TPL::assign('new_topics', $this->model('topic')->get_topic_list(null, 'topic_id DESC', 10));
 
-		// 友情链接
-		$links_setting = get_setting('links_setting');
-
-		if ($links_setting['enabled'] == 'Y' AND $links_setting['show_on_all_page'] == 'Y' AND ($links_setting['hide_when_login'] == 'N' OR $links_setting['hide_when_login'] != 'N' AND !$this->user_id))
-		{
-			$links_list = $this->model('admin')->fetch_all('links', "viable = 'Y'", 'rank ASC');
-
-			if ($links_setting['random'] == 'Y')
-			{
-				shuffle($links_list);
-			}
-
-			TPL::assign('links_list', $links_list);
-		}
-
 		TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
 			'base_url' => get_js_url('/topic/square/id-' . $_GET['id'] . '__feature_id-' . $_GET['feature_id']),
 			'total_rows' => $topics_list_total_rows,
@@ -407,21 +377,6 @@ class main extends AWS_CONTROLLER
 			TPL::import_js('js/editor/sets/default/set.js');
 		}
 
-		// 友情链接
-		$links_setting = get_setting('links_setting');
-
-		if ($links_setting['enabled'] == 'Y' AND $links_setting['show_on_all_page'] == 'Y' AND ($links_setting['hide_when_login'] == 'N' OR $links_setting['hide_when_login'] != 'N' AND !$this->user_id))
-		{
-			$links_list = $this->model('admin')->fetch_all('links', "viable = 'Y'", 'rank ASC');
-
-			if ($links_setting['random'] == 'Y')
-			{
-				shuffle($links_list);
-			}
-
-			TPL::assign('links_list', $links_list);
-		}
-
 		TPL::output('topic/edit');
 	}
 
@@ -464,21 +419,6 @@ class main extends AWS_CONTROLLER
 		if (!$topic_info['is_parent'])
 		{
 			TPL::assign('parent_topics', $this->model('topic')->get_parent_topics());
-		}
-
-		// 友情链接
-		$links_setting = get_setting('links_setting');
-
-		if ($links_setting['enabled'] == 'Y' AND $links_setting['show_on_all_page'] == 'Y' AND ($links_setting['hide_when_login'] == 'N' OR $links_setting['hide_when_login'] != 'N' AND !$this->user_id))
-		{
-			$links_list = $this->model('admin')->fetch_all('links', "viable = 'Y'", 'rank ASC');
-
-			if ($links_setting['random'] == 'Y')
-			{
-				shuffle($links_list);
-			}
-
-			TPL::assign('links_list', $links_list);
 		}
 
 		TPL::output('topic/manage');

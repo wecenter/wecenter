@@ -49,21 +49,6 @@ class main extends AWS_CONTROLLER
 			TPL::assign('sidebar_recommend_users_topics', $recommend_users_topics);
 		}
 
-		// 友情链接
-		$links_setting = get_setting('links_setting');
-
-		if ($links_setting['enabled'] == 'Y' AND $links_setting['show_on_all_page'] == 'Y' AND ($links_setting['hide_when_login'] == 'N' OR $links_setting['hide_when_login'] != 'N' AND !$this->user_id))
-		{
-			$links_list = $this->model('admin')->fetch_all('links', "viable = 'Y'", 'rank ASC');
-
-			if ($links_setting['random'] == 'Y')
-			{
-				shuffle($links_list);
-			}
-
-			TPL::assign('links_list', $links_list);
-		}
-
 		if ($action_list = $this->model('favorite')->get_item_list($_GET['tag'], $this->user_id, calc_page_limit($_GET['page'], get_setting('contents_per_page'))))
 		{
 			foreach ($action_list AS $key => $val)
