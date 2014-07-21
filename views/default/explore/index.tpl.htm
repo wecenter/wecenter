@@ -2,7 +2,7 @@
 
 <div class="aw-container-wrap">
 	<?php TPL::output('block/content_nav_menu.tpl.htm'); ?>
-	
+
 	<div class="container">
 		<div class="row aw-content-wrap">
 			<div class="col-sm-12 col-md-9 aw-main-content">
@@ -28,7 +28,7 @@
 				</div>
 				<!-- end 自定义tab切换 -->
 				<?php } ?>
-				
+
 				<div class="aw-mod">
 					<div class="mod-body">
 						<div class="aw-common-list">
@@ -40,12 +40,13 @@
 					</div>
 				</div>
 			</div>
-			
+
 			<!-- 侧边栏 -->
 			<div class="col-sm-12 col-md-3 aw-side-bar hidden-xs hidden-sm">
 				<?php TPL::output('block/sidebar_feature.tpl.htm'); ?>
 				<?php TPL::output('block/sidebar_hot_topics.tpl.htm'); ?>
 				<?php TPL::output('block/sidebar_hot_users.tpl.htm'); ?>
+				<?php if (!empty($this->links_list)) { TPL::output('block/sidebar_links.tpl.htm'); } ?>
 			</div>
 			<!-- end 侧边栏 -->
 		</div>

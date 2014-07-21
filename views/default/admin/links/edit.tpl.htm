@@ -43,6 +43,8 @@
                         <span class="col-sm-4 col-xs-3 control-label"><?php _e('URL'); ?>:</span>
                         <div class="col-sm-5 col-xs-8">
                             <input type="text" class="form-control" name="url" value="<?php if (!empty($this->link_info)) echo $this->link_info['url']; ?>">
+
+                            <span class="help-block"><?php _e('不要忘了 <code>http://</code> 或 <code>https://</code>。'); ?></span>
                         </div>
                     </div>
                 </td>
@@ -54,6 +56,8 @@
                         <span class="col-sm-4 col-xs-3 control-label"><?php _e('描述'); ?>:</span>
                         <div class="col-sm-5 col-xs-8">
                             <input type="text" class="form-control" name="description" value="<?php if (!empty($this->link_info)) echo $this->link_info['description']; ?>">
+
+                            <span class="help-block"><?php _e('当访客将鼠标光标悬停在链接表链接的上方时，它会显示出来。'); ?></span>
                         </div>
                     </div>
                 </td>
