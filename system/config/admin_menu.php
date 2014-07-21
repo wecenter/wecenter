@@ -68,6 +68,12 @@ $config[] = array(
             'id' => 'SETTINGS_INTERFACE',
             'title' => '界面设置',
             'url' => 'admin/settings/category-interface'
+        ),
+
+        array(
+            'id' => 101,
+            'title' => '友情链接',
+            'url' => 'admin/links/'
         )
     )
 );

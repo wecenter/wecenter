@@ -33,8 +33,8 @@
                         <div class="form-group">
                             <span class="col-sm-4 col-xs-3 control-label"><?php _e('随机排序'); ?>:</span>
                             <div class="col-sm-6 col-xs-8">
-                                <label><input type="radio" name="enabled" value="Y"<?php if ($this->links_setting['random'] == 'Y') { ?> checked="checked"<?php } ?> /> <?php _e('是'); ?></label>
-                                <label><input type="radio" name="enabled" value="N"<?php if ($this->links_setting['random'] == 'N') { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?></label>
+                                <label><input type="radio" name="random" value="Y"<?php if ($this->links_setting['random'] == 'Y') { ?> checked="checked"<?php } ?> /> <?php _e('是'); ?></label>
+                                <label><input type="radio" name="random" value="N"<?php if ($this->links_setting['random'] == 'N') { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?></label>
 
                                 <span class="help-block"><?php _e('启用后，自定义排序失效'); ?></span>
                             </div>

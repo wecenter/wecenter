@@ -22,6 +22,7 @@
                     <?php if ($this->links_total > 0) { ?>
                     <thead>
                     <tr>
+                        <th><input type="checkbox" class="check-all"></th>
                         <th><?php _e('名称'); ?></th>
                         <th>URL</th>
                         <th><?php _e('排序'); ?></th>
@@ -33,6 +34,7 @@
                     <tbody>
                     <?php foreach ($this->links_list AS $link_info) { ?>
                     <tr>
+                        <td><input type="checkbox" value="<?php echo $link_info['id']; ?>" name="link_ids[]"></td>
                         <td><?php echo $link_info['name']; ?></td>
                         <td><?php echo htmlspecialchars($link_info['url']); ?></td>
                         <td><?php echo $link_info['rank']; ?></td>
