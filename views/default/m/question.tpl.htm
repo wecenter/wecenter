@@ -54,8 +54,14 @@
 		
 			<div class="mod-footer">
 				<div class="meta">
-					<a href=""><i class="icon icon-inviteask"></i> <?php _e('邀请回复'); ?></a>
-					<a href=""><i class="icon icon-share"></i> <?php _e('微博分享'); ?></a>
+					<a class="aw-invite-replay"><i class="icon icon-inviteask"></i> <?php _e('邀请回复'); ?></a>
+					<a>
+						<i class="icon icon-share"></i>
+						<?php _e('分享'); ?> :
+						<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+						<wb:share-button addition="simple" type="icon"></wb:share-button>
+					</a>
+
 					<a href="" class="btn btn-success btn-mini pull-right <?php if ($this->question_focus) { ?> active<?php } ?>" onclick="AWS.User.follow($(this), 'question', <?php echo $this->question_info['question_id']; ?>);"><?php if ($this->question_focus) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?></a>
 				</div>
 				<div class="aw-invite-box hide">

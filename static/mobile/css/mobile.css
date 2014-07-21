@@ -186,6 +186,7 @@ input[type="text"], input[type="password"], textarea{-webkit-appearance:none;}
 .aw-question-detail .mod-footer .meta{height:35px;line-height:35px;padding:0 10px;background-color:#fafafa;border-top:1px solid #e6e6e6;border-bottom: 1px solid #e6e6e6;}
 .aw-question-detail .mod-footer .meta a{margin-right:10px;color: #999999;}
 .aw-question-detail .mod-footer .meta .btn{margin:3px 0 0;color: #fff;}
+.aw-question-detail .mod-footer .meta iframe{vertical-align: -8px;}
 .aw-question-detail .mod-footer.active{padding:0 10px;background-color: #fff;}
 .aw-invite-box{padding-top: 10px;background-color: #fafafa;border-bottom: 1px solid #e6e6e6;}
 .aw-invite-box .mod-head{position: relative;background-color: #fafafa;}
@@ -206,6 +207,7 @@ input[type="text"], input[type="password"], textarea{-webkit-appearance:none;}
 .aw-replay-list ul li .mod-body iframe{width: 100%;}
 .aw-replay-list ul li .mod-footer .meta{margin-bottom: 10px;}
 .aw-replay-list ul li .mod-footer .meta a{color: #999;}
+.aw-replay-list ul li .mod-footer .meta .pull-right{margin-top:5px;}
 .aw-comment-box{position:relative;padding:10px 0;background-color: #f5f5f5;border-top: 1px solid #e6e6e6;}
 .aw-comment-box p{color: #333;}
 .aw-comment-box ul li{padding-top: 10px !important;}

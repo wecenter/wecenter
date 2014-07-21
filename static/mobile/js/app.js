@@ -79,28 +79,15 @@ $(document).ready(function () {
         }
     });
 
-	$('.aw-mod-publish .aw-publish-title textarea').autosize();
+	$('.aw-mod-publish .aw-publish-title textarea, .autosize').autosize();
 	
 	AWS.Init.init_comment_box('.aw-add-comment');
 	AWS.Init.init_article_comment_box('.aw-article-comment');
 
-	$('.autosize').autosize();
-	
 	$('img#captcha').attr('src', G_BASE_URL + '/account/captcha/');
 	
 	$('#aw-top-nav-profile').click(function(){
 		$('.aw-top-nav-profile').show();
-	});
-
-
-	/* 点击下拉菜单外得地方隐藏　*/
-	$(document).click(function(e)
-	{
-		var target = $(e.target);
-		if (target.closest('#aw-top-nav-profile, #aw-top-nav-notic').length == 0)
-		{
-			$('.aw-top-nav-popup, .dropdown-list').hide();
-		}
 	});
 
 	/* 话题编辑删除按钮 */
@@ -128,12 +115,12 @@ $(document).ready(function () {
 	//邀请回答按钮
 	$('.aw-invite-replay').click(function()
 	{
-		if ($(this).parents('.aw-question-detail-title').find('.aw-invite-box').is(':visible'))
+		if ($(this).parents('.aw-question-detail').find('.aw-invite-box').is(':visible'))
 		{
-			$(this).parents('.aw-question-detail-title').find('.aw-invite-box').hide();
+			$(this).parents('.aw-question-detail').find('.aw-invite-box').hide();
 		}else
 		{
-			$(this).parents('.aw-question-detail-title').find('.aw-invite-box').show();
+			$(this).parents('.aw-question-detail').find('.aw-invite-box').show();
 		}
 	});
 	//邀请初始化
