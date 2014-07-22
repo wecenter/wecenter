@@ -37,11 +37,11 @@ class main extends AWS_CONTROLLER
 			switch ($_GET['act'])
 			{
 				default:
-					HTTP::redirect('/');
+					HTTP::redirect('/home/');
 				break;
 
 				case 'explore':
-					HTTP::redirect('/explore/');
+					HTTP::redirect('/');
 				break;
 
 				case 'login':
@@ -69,7 +69,7 @@ class main extends AWS_CONTROLLER
 				break;
 
 				case 'article_square':
-					HTTP::redirect('/article/square/');
+					HTTP::redirect('/article/');
 				break;
 
 				case 'topic_square':

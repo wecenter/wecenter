@@ -45,13 +45,13 @@ class menu_class extends AWS_MODEL
 		switch ($app)
 		{
 			case 'explore':
-				$url_prefix = 'explore/';
+				$url_prefix = '';
 				
 				$url_mobile_prefix = 'm/explore/';
 			break;
 			
 			case 'article':
-				$url_prefix = 'article/square/';
+				$url_prefix = 'article/';
 				
 				$url_mobile_prefix = 'm/article_square/';
 			break;
@@ -101,13 +101,13 @@ class menu_class extends AWS_MODEL
 				break;
 				
 				case 'question':
-					$url_prefix = 'question/square/';
+					$url_prefix = 'question/';
 					
 					$url_mobile_prefix = 'm/explore/';
 				break;
 				
 				case 'article':
-					$url_prefix = 'article/square/';
+					$url_prefix = 'article/';
 					
 					$url_mobile_prefix = 'm/article_square/';
 				break;

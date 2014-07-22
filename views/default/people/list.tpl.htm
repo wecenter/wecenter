@@ -7,9 +7,9 @@
 				<h3 class="pull-left"><?php _e('用户推荐'); ?></h3>
 				<ul class="nav nav-tabs aw-nav-tabs pull-right">
 					<?php if ($this->custom_group) { ?>
-					<li<?php if (!$_GET['group_id']) { ?> class="active"<?php } ?>><a href="people/list/"><?php _e('全部'); ?></a></li>
+					<li<?php if (!$_GET['group_id']) { ?> class="active"<?php } ?>><a href="people/"><?php _e('全部'); ?></a></li>
 					<?php foreach ($this->custom_group AS $key => $val) { ?>
-					<li<?php if ($_GET['group_id'] == $val['group_id']) { ?> class="active"<?php } ?>><a href="people/list/group_id-<?php echo $val['group_id']; ?>"><?php echo $val['group_name']; ?></a></li>
+					<li<?php if ($_GET['group_id'] == $val['group_id']) { ?> class="active"<?php } ?>><a href="people/group_id-<?php echo $val['group_id']; ?>"><?php echo $val['group_name']; ?></a></li>
 					<?php } ?>
 					<?php } ?>
 				</ul>
@@ -21,7 +21,7 @@
 					<?php if ($this->feature_list) { ?>
 					<?php foreach ($this->feature_list AS $key => $val) { ?>
 					<li>
-						<a href="people/list/feature_id-<?php echo $val['id']; ?>"<?php if ($_GET['feature_id'] == $val['id']) { ?> class="active"<?php } ?>><?php echo $val['title']; ?></a>
+						<a href="people/feature_id-<?php echo $val['id']; ?>"<?php if ($_GET['feature_id'] == $val['id']) { ?> class="active"<?php } ?>><?php echo $val['title']; ?></a>
 					</li>
 					<?php } ?>
 					<?php } ?>

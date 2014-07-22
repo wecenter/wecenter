@@ -416,13 +416,13 @@
                             <div class="col-sm-10 col-xs-12">
                                 <ul class="mod-site-url">
                                     <li>
-                                        <span class="pull-left"><a href="javascript:;" onclick='$("#request_route_custom").val("/people/list/===/users/\n/account/login/===/login/\n/account/logout/===/logout/\n/account/setting/(:any)/===/setting/(:any)/")'>[ <?php _e('获取规则'); ?> ]</a></span>
+                                        <span class="pull-left"><a href="javascript:;" onclick='$("#request_route_custom").val("/account/login/===/login/\n/account/logout/===/logout/\n/account/setting/(:any)/===/setting/(:any)/")'>[ <?php _e('获取规则'); ?> ]</a></span>
                                         <p class="pull-left">
                                             <?php echo base_url(); ?>/question/123<br /><?php echo base_url(); ?>/topic/123<br /><?php echo base_url(); ?>/people/anwsion<br /><?php echo base_url(); ?>/category/123
                                         </p>
                                     </li>
                                     <li>
-                                        <span class="pull-left"><a href="javascript:;" onclick='$("#request_route_custom").val("/question/(:any)===/q_(:any)\n/topic/(:any)===/t_(:any).html\n/people/(:any)===/p_(:any).html\n/people/list/===/users/\n/account/login/===/login/\n/account/logout/===/logout/\n/account/setting/(:any)/===/setting/(:any)/");'>[ <?php _e('获取规则'); ?> ]</a></span>
+                                        <span class="pull-left"><a href="javascript:;" onclick='$("#request_route_custom").val("/question/(:any)===/q_(:any)\n/topic/(:any)===/t_(:any).html\n/people/(:any)===/p_(:any).html\n/account/login/===/login/\n/account/logout/===/logout/\n/account/setting/(:any)/===/setting/(:any)/");'>[ <?php _e('获取规则'); ?> ]</a></span>
                                         <p class="pull-left">
                                             <?php echo base_url(); ?>/q_123<br /><?php echo base_url(); ?>/t_话题.html<br /><?php echo base_url(); ?>/p_admin.html<br /><?php echo base_url(); ?>/c_123.html
                                         </p>
@@ -1147,7 +1147,7 @@
                 <tr>
                     <td>
                         <div class="form-group">
-                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('SMTP 服务器'); ?>:</span>
+                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('主 SMTP 服务器'); ?>:</span>
                             <div class="col-sm-5 col-xs-8">
                                 <input name="mail_config[server]" type="text" class="form-control" value="<?php echo $this->setting['mail_config']['server']; ?>" />
                             </div>
@@ -1157,7 +1157,7 @@
                 <tr>
                     <td>
                         <div class="form-group">
-                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('使用安全链接(SSL)连接服务器'); ?>::</span>
+                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('使用安全链接(SSL)连接主服务器'); ?>::</span>
                             <div class="col-sm-6 col-xs-8">
                                 <div class="btn-group mod-btn">
                                     <label type="button" class="btn mod-btn-color">
@@ -1175,7 +1175,7 @@
                 <tr>
                     <td>
                         <div class="form-group">
-                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('SMTP 端口'); ?>:</span>
+                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('主 SMTP 端口'); ?>:</span>
                             <div class="col-sm-5 col-xs-8">
                                 <input name="mail_config[port]" type="text" class="form-control" value="<?php echo $this->setting['mail_config']['port']; ?>" />
 
@@ -1187,7 +1187,7 @@
                 <tr>
                     <td>
                         <div class="form-group">
-                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('SMTP 帐户'); ?>:</span>
+                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('主 SMTP 帐户'); ?>:</span>
                             <div class="col-sm-5 col-xs-8">
                                 <input name="mail_config[username]" type="text" class="form-control" value="<?php echo $this->setting['mail_config']['username']; ?>"/>
                             </div>
@@ -1197,13 +1197,75 @@
                 <tr>
                     <td>
                         <div class="form-group">
-                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('SMTP 密码'); ?>:</span>
+                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('主 SMTP 密码'); ?>:</span>
                             <div class="col-sm-5 col-xs-8">
                                 <input name="mail_config[password]" type="password" class="form-control" value="<?php echo $this->setting['mail_config']['password']; ?>"/>
                             </div>
                         </div>
                     </td>
                 </tr>
+                <?php if (!defined('IN_SAE')) { ?>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('次 SMTP 服务器'); ?>:</span>
+                            <div class="col-sm-5 col-xs-8">
+                                <input name="slave_mail_config[server]" type="text" class="form-control" value="<?php echo $this->setting['slave_mail_config']['server']; ?>" />
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('使用安全链接(SSL)连接次服务器'); ?>::</span>
+                            <div class="col-sm-6 col-xs-8">
+                                <div class="btn-group mod-btn">
+                                    <label type="button" class="btn mod-btn-color">
+                                        <input type="radio" name="slave_mail_config[ssl]" value="1"<?php if ($this->setting['slave_mail_config']['ssl'] == 1) { ?> checked="checked"<?php } ?> /> <?php _e('是'); ?>
+                                    </label>
+
+                                    <label type="button" class="btn mod-btn-color">
+                                        <input type="radio" name="slave_mail_config[ssl]" value="0"<?php if ($this->setting['slave_mail_config']['ssl'] == 0) { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('次 SMTP 端口'); ?>:</span>
+                            <div class="col-sm-5 col-xs-8">
+                                <input name="slave_mail_config[port]" type="text" class="form-control" value="<?php echo $this->setting['slave_mail_config']['port']; ?>" />
+
+                                <div class="help-block"><?php _e('留空时默认服务器端口为 25，使用 SSL 协议默认端口为 465，详细参数请询问邮箱服务商'); ?></div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('次 SMTP 帐户'); ?>:</span>
+                            <div class="col-sm-5 col-xs-8">
+                                <input name="slave_mail_config[username]" type="text" class="form-control" value="<?php echo $this->setting['slave_mail_config']['username']; ?>"/>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('次 SMTP 密码'); ?>:</span>
+                            <div class="col-sm-5 col-xs-8">
+                                <input name="slave_mail_config[password]" type="password" class="form-control" value="<?php echo $this->setting['slave_mail_config']['password']; ?>"/>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <?php } ?>
                 <tr>
                     <td>
                         <div class="form-group">

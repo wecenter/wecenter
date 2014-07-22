@@ -177,6 +177,11 @@ class ajax extends AWS_ADMIN_CONTROLLER
             $_POST['new_user_email_setting'] = $email_settings;
         }
 
+        if ($_POST['slave_mail_config']['server'])
+        {
+            $_POST['slave_mail_config']['charset'] = $_POST['mail_config']['charset'];
+        }
+
         $this->model('setting')->set_vars($_POST);
 
         if ($_POST['wecenter_access_token'])

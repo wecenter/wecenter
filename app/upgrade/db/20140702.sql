@@ -20,3 +20,5 @@ DELETE FROM `[#DB_PREFIX#]nav_menu` WHERE `type` = 'feature';
 
 ALTER TABLE `[#DB_PREFIX#]topic` ADD `parent_id` INT( 10 ) NULL DEFAULT '0', ADD INDEX ( `parent_id` );
 ALTER TABLE `[#DB_PREFIX#]topic` ADD `is_parent` TINYINT( 1 ) NULL DEFAULT '0', ADD INDEX ( `is_parent` );
+
+INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES ('slave_mail_config', 's:0:"";');
