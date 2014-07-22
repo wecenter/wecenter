@@ -37,11 +37,11 @@
 		</li>
 		<?php if (!$this->user_id) { ?>
 		<li>
-			<a href=""<?php if ($_GET['act'] == 'search') { ?>class="active"<?php } ?>><i class="icon icon-search"></i><?php _e('搜索'); ?></a>
+			<a href="m/search/"<?php if ($_GET['act'] == 'search') { ?>class="active"<?php } ?>><i class="icon icon-search"></i><?php _e('搜索'); ?></a>
 		</li>
 		<?php }?>
 		<li>
-			<a class="user"><span class="triangle"></span><i class="icon icon-user"></i><?php _e('我'); ?></a>
+			<a class="user"><span class="triangle"></span><i class="icon icon-user"></i><?php _e('我'); ?><?php if (!$this->user_id) { ?><i class="icon-tips"></i><?php } ?></a>
 		</li>
 		<?php if ($this->user_id) { ?>
 		<li>

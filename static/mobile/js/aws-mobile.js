@@ -202,7 +202,8 @@ var AWS =
 
 	                $(_this).addClass('disabled').unbind('click').bind('click', function () { return false; });
 
-	                $(_this).find('span').html(_t('没有更多了'));
+	                //没有内容删除更多按钮
+	                $(_this).detach();
 	    		}
 
 	            if (callback != null)
@@ -777,7 +778,8 @@ AWS.Dropdown =
 										ul.show();
 										$('.aw-search-result-box .result-mod .all-result').show();
 										$('.aw-search-result-box .result-mod .all-result a').attr('href', G_BASE_URL + '/m/search/?q=' + $(element).val());
-										$('.aw-search-result-box .result-mod .mod-head, .aw-search-result-box .result-mod .tips').hide();
+										$('.aw-search-result-box .result-mod .mod-head, .aw-search-result-box .result-mod .tips, .aw-search-result-box .result-mod .aw-load-more').hide();
+										$('.aw-search-result-box .btn-primary').show();
 									}else
 									{
 										ul.hide();
@@ -894,7 +896,8 @@ AWS.Dropdown =
 					}
 					else
 					{
-						$(element).next().hide();
+						ul.hide();
+						$('.aw-search-result-box .result-mod .all-result').hide();
 					}
 				},1000);
 
@@ -1245,7 +1248,7 @@ AWS.Init =
 	        else
 	        {
 	        	$(this).addClass('active');
-	        	
+
 	            // 动态插入commentBox
 	            switch ($(this).attr('data-type'))
 	            {

@@ -52,7 +52,8 @@ $(function()
 					
 				$(_this).addClass('disabled');
 				
-				$(_this).find('span').html(_t('没有更多了'));
+				//没有内容删除更多按钮
+				$(_this).detach();
 			}
 			
 			$(_this).removeClass('loading');
