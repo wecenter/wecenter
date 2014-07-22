@@ -40,7 +40,14 @@ class main extends AWS_CONTROLLER
 			HTTP::redirect('/m/topic/' . $_GET['id']);
 		}
 
-		if (!$topic_info = $this->model('topic')->get_topic_by_title($_GET['id']))
+		if (is_numeric($_GET['id']))
+		{
+			if (!$topic_info = $this->model('topic')->get_topic_by_id($_GET['id']))
+			{
+				$topic_info = $this->model('topic')->get_topic_by_title($_GET['id']);
+			}
+		}
+		else if (!$topic_info = $this->model('topic')->get_topic_by_title($_GET['id']))
 		{
 			$topic_info = $this->model('topic')->get_topic_by_url_token($_GET['id']);
 		}
