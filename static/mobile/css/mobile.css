@@ -158,7 +158,9 @@ input[type="text"], input[type="password"], textarea{-webkit-appearance:none;}
 .aw-feed-list li .mod-body .icon-tips{position: absolute;right: -2px;top: -2px;}
 .aw-feed-list li .mod-footer{height:32px;line-height:32px;padding:0 10px 0 0;border-top: 1px solid #e6e6e6;font-size: 14px;color: #999;}
 .aw-feed-list li .mod-footer a{display:inline-block;float:left;height:31px;padding:0 14px;border-right:1px solid #e6e6e6;color: #999999;}
+.aw-feed-list li .mod-footer a.active{color: #66b7ff;}
 .aw-feed-list li .mod-footer a:active, .aw-feed-list li .mod-footer a:hover{background-color: #66b7ff;color: #fff;}
+.aw-feed-list li .mod-footer a:hover i{color: #fff;}
 .aw-feed-list li .mod-footer a span{margin-left: 3px;}
 .aw-feed-list li .mod-footer .pull-right img{vertical-align: -5px;}
 .aw-feed-list li.article .mod-body .img{width:140px;margin:5px 10px 0 0;}
@@ -167,13 +169,15 @@ input[type="text"], input[type="password"], textarea{-webkit-appearance:none;}
 .aw-feed-list.active li .mod-footer a:active, .aw-feed-list.active li .mod-footer a:hover{background-color: transparent;color: #19558d;}
 
 /* 通知列表 */
-.aw-notifications-list .mod-head{margin-top: 10px;}
+.aw-notifications-list .mod-head{margin:10px 0;}
+.aw-notifications-list .mod-head .btn{margin:0 4px;}
 
 /* 用户页面 */
 .aw-people-detail, .aw-topic-detail{background-color: #fff;}
 .aw-people-detail .mod-head, .aw-topic-detail .mod-head{position: relative;min-height:70px;padding:10px 10px 10px 70px;border-bottom:1px solid #e6e6e6;}
 .aw-people-detail .mod-head h1, .aw-topic-detail .mod-head h1{margin:3px 0 5px 0;font-size: 17px;color: #000000;}
 .aw-people-detail .mod-head .img, .aw-topic-detail .mod-head .img{position: absolute;left: 10px;top: 10px;}
+.aw-people-detail .mod-head .btn{margin-left: 5px;}
 .aw-people-detail .mod-head p, .aw-topic-detail .mod-head p{margin:0;}
 .aw-people-detail .mod-body{padding:10px 20px;border-bottom: 1px solid #e6e6e6;}
 .aw-people-detail .mod-body ul li{float: left;width:25%;font-size: 14px;text-align: center;color: #666666;}
