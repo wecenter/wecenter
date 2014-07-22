@@ -7,9 +7,9 @@
                 <!-- 我关注的话题 -->
                 <div class="aw-mod aw-topic-list">
                     <div class="mod-head">
-                        <?php if ($_GET['id'] == 'hot') { ?>
+                        <?php if ($_GET['channel'] == 'hot') { ?>
                         <h2><?php _e('热门话题'); ?></h2>
-                        <?php } else if ($_GET['id'] == 'feature') { ?>
+                        <?php } else if ($_GET['channel'] == 'feature') { ?>
                         <h2><?php _e('话题分类'); ?></h2>
                         <?php } else { ?>
                         <h2><?php _e('我关注的话题'); ?></h2>
