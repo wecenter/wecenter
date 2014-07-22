@@ -144,8 +144,8 @@ class edm_class extends AWS_MODEL
 			$this->update('edm_taskdata', array(
 				'sent_time' => time()
 			), 'id = ' . $item['id']);
-			
-			AWS_APP::mail()->send($item['email'], $task_data[$item['taskid']]['subject'], $message, $from_name);
+
+            AWS_APP::mail()->send($item['email'], $task_data[$item['taskid']]['subject'], $message, $from_name, null, 'slave');
 		}
 		
 		return true;

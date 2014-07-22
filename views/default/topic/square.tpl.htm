@@ -46,7 +46,7 @@
                         <?php } ?>
                         <?php } ?>
                         <?php if ((!$_GET['id'] OR $_GET['id'] == 'focus') AND $this->user_info['topic_focus_count'] < 5) { ?>
-                        <div class="aw-notopic-sort"><?php _e('你当前的话题较少, 推荐去<a href="topic/square/hot">热门话题</a>看看'); ?></div>
+                        <div class="aw-notopic-sort"><?php _e('你当前的话题较少, 推荐去<a href="topic/">热门话题</a>看看'); ?></div>
                         <?php } ?>
                     </div>
                     <div class="mod-footer">
@@ -62,9 +62,9 @@
                 <div class="aw-mod topic-nav hidden-xs">
                     <div class="mod-body">
                         <ul>
-                            <li><a href="topic/square/focus"<?php if (!$_GET['id'] OR $_GET['id'] == 'focus') { ?> class="active"<?php } ?>><i class="fa fa-tags"></i> <?php _e('我关注的话题'); ?></a></li>
+                            <li><a href="topic/channel-focus"<?php if (!$_GET['id'] OR $_GET['id'] == 'focus') { ?> class="active"<?php } ?>><i class="fa fa-tags"></i> <?php _e('我关注的话题'); ?></a></li>
 
-                            <li><a href="topic/square/hot"<?php if ($_GET['id'] == 'hot') { ?> class="active"<?php } ?>><i class="fa fa-fire"></i> <?php _e('热门话题'); ?></a></li>
+                            <li><a href="topic/channel-hot"<?php if ($_GET['id'] == 'hot') { ?> class="active"<?php } ?>><i class="fa fa-fire"></i> <?php _e('热门话题'); ?></a></li>
                         </ul>
                     </div>
                 </div>
@@ -80,7 +80,7 @@
                         <ul>
                             <?php foreach ($this->feature_list AS $key => $val) { ?>
                             <li>
-                                <a href="topic/square/id-feature__feature_id-<?php echo $val['id']; ?>"<?php if ($_GET['feature_id'] == $val['id']) { ?> class="active"<?php } ?>><?php echo $val['title']; ?></a>
+                                <a href="topic/channel-feature__feature_id-<?php echo $val['id']; ?>"<?php if ($_GET['feature_id'] == $val['id']) { ?> class="active"<?php } ?>><?php echo $val['title']; ?></a>
                             </li>
                             <?php } ?>
                         </ul>
