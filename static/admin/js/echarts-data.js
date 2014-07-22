@@ -6,7 +6,7 @@ $(function () {
      * 禁止日历框输入
      */
 
-     $('.date-end,.date-start').bind("keydown",function(){
+    $('.date-end,.date-start').bind("keydown",function(){
         
         return false
     })
@@ -21,15 +21,16 @@ $(function () {
 
 
     // 左侧菜单收缩重新渲染图表
-    $('.aw-header .mod-head-btn').click(function () {
+    $('.aw-header .mod-head-btn').click(function ()
+    {       
         echart.render();
         echart2.render();
         echart3.render();
-
     });
 
 
-    window.addEventListener("orientationchange", function () {
+    window.addEventListener("orientationchange", function ()
+    {
 
         echart.render();
         echart2.render();
@@ -38,7 +39,8 @@ $(function () {
 
     var oEchart = $('.echart-date');
 
-    for (var i = 0, j = oEchart.length; i < j; i++) {
+    for (var i = 0, j = oEchart.length; i < j; i++) 
+    {
         (function (i) {
             oEchart[i].onclick = function (ev) {
                 var ev = ev || window.event;
