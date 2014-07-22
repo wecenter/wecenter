@@ -191,6 +191,8 @@ input[type="text"], input[type="password"], textarea{-webkit-appearance:none;}
 .card-mod:first-child{margin-top:10px;}
 .card-mod .mod-head{padding:10px;cursor: pointer;}
 .card-mod .mod-head h2{margin:0;font-size:15px;color:#333333;}
+.card-mod .mod-head h2 i{color: #999;}
+.card-mod .mod-head .icon-down.active{transform:scale(1,-1);-webkit-transform:scale(1,-1);}
 .card-mod .mod-body{padding:10px;border-top: 1px solid #e6e6e6;}
 .card-mod .user-list{height: auto;overflow: hidden;}
 .card-mod .user-list li{float: left;width:10%;margin:0 0px 3px;}
@@ -340,6 +342,7 @@ input[type="text"], input[type="password"], textarea{-webkit-appearance:none;}
 .aw-inbox-list ul li .mod-head{position: relative;padding:10px 10px 10px 70px !important;}
 .aw-inbox-list ul li .mod-head .img, .aw-people-list ul li .mod-head .img{position: absolute;left: 10px;top: 10px;}
 .aw-inbox-list ul li .mod-head p, .aw-people-list ul li .mod-head p{margin-top:5px;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;}
+.aw-inbox-list ul li .mod-head p a{color: #666;}
 
 /* 私信详情页 */
 .aw-inbox-read-list{margin-bottom: 25px;padding:0 10px 50px 10px;}
