@@ -798,10 +798,16 @@ a.aw-load-more-content{display: block;}
 .aw-wechat-body .aw-wechat-login-box .info b{color:#ffba61;}
 
 /* 404页面 */
-.aw-404{background:#f4f4f4;}
-.aw-404-wrap{width: 500px;height: 300px;margin:150px auto 0;text-align: center;}
-.aw-404-wrap p{font-size: 18px;}
-.aw-404-wrap p a{font-size:14px;}
+.aw-404 {background:#f4f4f4;}
+.aw-404 .aw-footer-wrap {background-color: #fff;}
+.aw-404-wrap{width: 500px;height: auto;margin:150px auto 350px;text-align: center;}
+.aw-404-wrap p{margin: 45px auto 30px; font-size: 18px;}
+.aw-404-wrap p a{font-size:18px;color: #54BEFF;}
+.aw-404-wrap .aw-search-box {width: 460px;float: none;margin: 0 auto;}
+.aw-404-wrap .aw-search-box .form-control {border-radius: 0;border-color: #54BEFF;}
+.aw-404-wrap .aw-search-box .input-group {margin: 0 auto;}
+.aw-404-wrap .aw-search-box .input-group input {width: 460px;}
+.aw-404-wrap .aw-search-box .input-group-addon {border-radius: 0;border-color: #54BEFF; color: #fff;background-color: #54BEFF;}
 
 /* 字体icon & icon */
 .fa-comment, .fa-share, .fa-edit, .fa-map-marker, .fa-flag, .fa-heart, .fa-user, .fa-home, .fa-thumbs-up, .fa-reply, .fa-signal, .fa-tag, .fa-wrench, .icon-cog, .icon-off, .fa-bookmark, .fa-chevron-down, .icon-mobile-phone, .fa-external-link, .icon-envelope, .icon-check, .fa-thumbs-down, .fa-trash-o, .fa-paperclip, .fa-retweet, .fa-star{margin-right: 3px;color: #B7B7B7;cursor: pointer;}
