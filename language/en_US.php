@@ -1079,7 +1079,7 @@ $language['如果该话题还有其他的表达方式, 您可以为其创建别�
 $language['如果该话题跟另一个话题意义相近, 您可以将此话题合并至其他话题'] = '如果该话题跟另一个话题意义相近, 您可以将此话题合并至其他话题';
 $language['热门话题'] = '热门话题';
 $language['话题分类'] = '话题分类';
-$language['你当前的话题较少, 推荐去<a href="topic/square/hot">热门话题</a>看看'] = '你当前的话题较少, 推荐去<a href="topic/square/hot">热门话题</a>看看';
+$language['你当前的话题较少, 推荐去<a href="topic/">热门话题</a>看看'] = '你当前的话题较少, 推荐去<a href="topic/">热门话题</a>看看';
 $language['进入话题'] = '进入话题';
 $language['新增话题'] = '新增话题';
 $language['请输入正确的帐号或密码'] = 'Please enter the correct account or password';

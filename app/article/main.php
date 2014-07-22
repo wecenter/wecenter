@@ -35,11 +35,6 @@ class main extends AWS_CONTROLLER
 
 	public function index_action()
 	{
-		if (! isset($_GET['id']))
-		{
-			HTTP::redirect('/home/explore/');
-		}
-
 		if ($_GET['notification_id'])
 		{
 			$this->model('notify')->read_notification($_GET['notification_id'], $this->user_id);
@@ -52,7 +47,7 @@ class main extends AWS_CONTROLLER
 
 		if (! $article_info = $this->model('article')->get_article_info_by_id($_GET['id']))
 		{
-			H::redirect_msg(AWS_APP::lang()->_t('文章不存在或已被删除'), '/home/explore/');
+			H::redirect_msg(AWS_APP::lang()->_t('文章不存在或已被删除'), '/');
 		}
 
 		if ($article_info['has_attach'])
@@ -129,14 +124,14 @@ class main extends AWS_CONTROLLER
 		TPL::output('article/index');
 	}
 
-	public function square_action()
+	public function article_square_action()
 	{
 		if (is_mobile() AND HTTP::get_cookie('_ignore_ua_check') != 'TRUE')
 		{
 			HTTP::redirect('/m/article_square/' . $_GET['id']);
 		}
 
-		$this->crumb(AWS_APP::lang()->_t('文章'), '/article/square/');
+		$this->crumb(AWS_APP::lang()->_t('文章'), '/article/');
 
 		if ($_GET['category'])
 		{
@@ -158,7 +153,7 @@ class main extends AWS_CONTROLLER
 
 			if ($feature_info = $this->model('feature')->get_feature_by_id($_GET['feature_id']))
 			{
-				$this->crumb($feature_info['title'], '/article/square/feature_info-' . $category_info['id']);
+				$this->crumb($feature_info['title'], '/article/feature_id-' . $feature_info['id']);
 
 				TPL::assign('feature_info', $feature_info);
 			}
@@ -204,7 +199,7 @@ class main extends AWS_CONTROLLER
 		{
 			TPL::assign('category_info', $category_info);
 
-			$this->crumb($category_info['title'], '/article/square/category-' . $category_info['id']);
+			$this->crumb($category_info['title'], '/article/category-' . $category_info['id']);
 
 			$meta_description = $category_info['title'];
 
@@ -222,7 +217,7 @@ class main extends AWS_CONTROLLER
 		TPL::assign('hot_articles', $this->model('article')->get_articles_list(null, 1, 10, 'votes DESC'));
 
 		TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
-			'base_url' => get_js_url('/article/square/category_id-' . $_GET['category_id'] . '__feature_id-' . $_GET['feature_id']),
+			'base_url' => get_js_url('/article/category_id-' . $_GET['category_id'] . '__feature_id-' . $_GET['feature_id']),
 			'total_rows' => $article_list_total,
 			'per_page' => get_setting('contents_per_page')
 		))->create_links());

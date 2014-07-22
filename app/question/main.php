@@ -37,11 +37,6 @@ class main extends AWS_CONTROLLER
 
 	public function index_action()
 	{
-		if (! isset($_GET['id']))
-		{
-			HTTP::redirect('/question/square/');
-		}
-
 		if ($_GET['notification_id'])
 		{
 			$this->model('notify')->read_notification($_GET['notification_id'], $this->user_id);
@@ -59,7 +54,7 @@ class main extends AWS_CONTROLLER
 
 		if (! $question_info = $this->model('question')->get_question_info_by_id($_GET['id']))
 		{
-			H::redirect_msg(AWS_APP::lang()->_t('问题不存在或已被删除'), '/question/square/');
+			H::redirect_msg(AWS_APP::lang()->_t('问题不存在或已被删除'), '/question/');
 		}
 
 		if (! $_GET['sort'] or $_GET['sort'] != 'ASC')
@@ -399,9 +394,9 @@ class main extends AWS_CONTROLLER
 		TPL::output('question/index');
 	}
 
-	public function square_action()
+	public function index_square_action()
 	{
-		$this->crumb(AWS_APP::lang()->_t('问题'), '/question/square/');
+		$this->crumb(AWS_APP::lang()->_t('问题'), '/question/');
 
 		// 导航
 		if (TPL::is_output('block/content_nav_menu.tpl.htm', 'question/square'))
@@ -449,7 +444,7 @@ class main extends AWS_CONTROLLER
 		{
 			TPL::assign('category_info', $category_info);
 
-			$this->crumb($category_info['title'], '/question/square/category-' . $category_info['id']);
+			$this->crumb($category_info['title'], '/question/category-' . $category_info['id']);
 
 			$meta_description = $category_info['title'];
 
@@ -499,7 +494,7 @@ class main extends AWS_CONTROLLER
 		}
 
 		TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
-			'base_url' => get_js_url('/question/square/sort_type-' . preg_replace("/[\(\)\.;']/", '', $_GET['sort_type']) . '__category-' . $category_info['id'] . '__day-' . intval($_GET['day']) . '__is_recommend-' . $_GET['is_recommend']) . '__feature_id-' . $feature_info['id'],
+			'base_url' => get_js_url('/question/sort_type-' . preg_replace("/[\(\)\.;']/", '', $_GET['sort_type']) . '__category-' . $category_info['id'] . '__day-' . intval($_GET['day']) . '__is_recommend-' . $_GET['is_recommend']) . '__feature_id-' . $feature_info['id'],
 			'total_rows' => $this->model('posts')->get_posts_list_total(),
 			'per_page' => get_setting('contents_per_page')
 		))->create_links());

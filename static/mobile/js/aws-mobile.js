@@ -126,15 +126,15 @@ var AWS =
 		                $('#editor_reply').html(result.answer_content.replace('&amp;', '&'));
 		            }, 'json');
 					
-		            AWS.Init.init_fileuploader('file_uploader_answer_edit', G_BASE_URL + '/publish/ajax/attach_upload/id-answer__attach_access_key-' + ATTACH_ACCESS_KEY);
-		            
-		            if ($("#file_uploader_answer_edit ._ajax_upload-list").length) {
+		            var fileupload = new FileUpload('.alert-commentEdit .aw-upload-box .btn', '.alert-commentEdit .aw-upload-box .upload-container', G_BASE_URL + '/publish/ajax/attach_upload/id-answer__attach_access_key-' + ATTACH_ACCESS_KEY, {'insertTextarea': '.alert-commentEdit #editor_reply', 'deleteBtnTemplate' : '<a class="delete-file"><i class="icon icon-delete"></i></a>', 'insertBtnTemplate' : '<a class="insert-file"><i class="icon icon-insert"></i></a>'});
+
+		            if ($(".alert-commentEdit .upload-list").length) {
 			            $.post(G_BASE_URL + '/publish/ajax/answer_attach_edit_list/', 'answer_id=' + data.answer_id, function (data) {
 			                if (data['err']) {
 			                    return false;
 			                } else {
 			                    $.each(data['rsm']['attachs'], function (i, v) {
-			                        _ajax_uploader_append_file('#file_uploader_answer_edit ._ajax_upload-list', v);
+			                        fileupload.setFileList(v);
 			                    });
 			                }
 			            }, 'json');
@@ -399,6 +399,7 @@ AWS.User =
 	    		if (selector.parents('.aw-invite-box').find('.users-list a').length == 0)
 	            {
 	                selector.parents('.aw-invite-box').find('.users-list').show();
+	                selector.parents('.aw-invite-box').find('.users-list').append('<span class="color-999">' + _t('已邀请') + ':</span>');
 	            }
 
 	            selector.parents('.aw-invite-box').find('.users-list').append(' <a><img class="img" width="20" src='+ img +' /></a>');
@@ -408,7 +409,7 @@ AWS.User =
 	    	}
 	    	else if (result.errno == -1)
 	        {
-	            AWS.alert(result.err);
+	            alert(result.err);
 	        }
 	    }, 'json');
 	},
@@ -580,19 +581,19 @@ AWS.User =
 		$.post(G_BASE_URL + '/question/ajax/answer_vote/', 'answer_id=' + answer_id + '&value=1', function (result) {});
 		
 	    //判断是否投票过  
-	    if (selector.find('.icon').hasClass('active'))
+	    if (selector.hasClass('active'))
 	    {
 	    	selector.find('b').html(parseInt(selector.find('b').html()) - 1);
 
-	    	selector.find('.icon').removeClass('active');
+	    	selector.removeClass('active');
 	    } 
 	    else
 	    {
 	    	selector.find('b').html(parseInt(selector.find('b').html()) + 1);
 
-	    	selector.parents('.mod-footer').find('a.answer_vote .icon').removeClass('active');
+	    	selector.parents('.mod-footer').find('a.answer_vote').removeClass('active');
 
-	    	selector.find('.icon').addClass('active');
+	    	selector.addClass('active');
 	    }
 	},
 
@@ -602,21 +603,21 @@ AWS.User =
 	    $.post(G_BASE_URL + '/question/ajax/answer_vote/', 'answer_id=' + answer_id + '&value=-1', function (result) {});
 	    
 	    //判断是否赞同过
-	    if (selector.parents('.mod-footer').find('.agree .icon').hasClass('active'))
+	    if (selector.parents('.mod-footer').find('.agree').hasClass('active'))
 	    {
 	    	selector.parents('.mod-footer').find('.agree b').html(parseInt(selector.parents('.mod-footer').find('.agree b').html()) - 1);
 
-	    	selector.parents('.mod-footer').find('.agree .icon').removeClass('active');
+	    	selector.parents('.mod-footer').find('.agree').removeClass('active');
 
-			selector.find('.icon').addClass('active');
+			selector.addClass('active');
 	    }
-	    else if (selector.find('.icon').hasClass('active'))
+	    else if (selector.hasClass('active'))
 	    {
-	    	selector.find('.icon').removeClass('active');
+	    	selector.removeClass('active');
 	    }
 	    else
 	    {
-	    	selector.find('.icon').addClass('active');
+	    	selector.addClass('active');
 	    }
 	},
 

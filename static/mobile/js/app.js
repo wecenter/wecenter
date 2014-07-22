@@ -19,16 +19,19 @@ $(document).ready(function () {
 	{
 		$(this).parents('.nav').find('.aw-popover.more').hide();
 		$('.nav ul li .more .triangle').hide();
+		$('.nav ul li .more').removeClass('active');
 
 		if ($(this).parents('li').find('.triangle').css('display') == 'none')
 		{
 			$(this).parents('li').find('.triangle').show();
 			$(this).parents('.nav').find('.aw-popover.user').show();
+			$(this).addClass('active');
 		}
 		else
 		{
 			$(this).parents('li').find('.triangle').hide();
 			$(this).parents('.nav').find('.aw-popover.user').hide();
+			$(this).removeClass('active');
 		}
 	});
 
@@ -36,33 +39,21 @@ $(document).ready(function () {
 	{
 		$(this).parents('.nav').find('.aw-popover.user').hide();
 		$('.nav ul li .user .triangle').hide();
+		$('.nav ul li .user').removeClass('active');
 
 		if ($(this).parents('li').find('.triangle').css('display') == 'none')
 		{
 			$(this).parents('li').find('.triangle').show();
 			$(this).parents('.nav').find('.aw-popover.more').show();
+			$(this).addClass('active');
 		}
 		else
 		{
 			$(this).parents('li').find('.triangle').hide();
-			$(this).parents('.nav').find('.aw-popover.more').hide()
+			$(this).parents('.nav').find('.aw-popover.more').hide();
+			$(this).removeClass('active');
 		}
 	});
-
-	if (typeof (G_NOTIFICATION_INTERVAL) != 'undefined')
-    {
-        AWS.Message.check_notifications();
-
-        //setInterval('check_notifications()', G_NOTIFICATION_INTERVAL);
-    }
-
-	if (window.location.hash.indexOf('#!') != -1)
-	{
-		if ($('a[name=' + window.location.hash.replace('#!', '') + ']').length)
-		{
-			$.scrollTo($('a[name=' + window.location.hash.replace('#!', '') + ']').offset()['top'] - 20, 600, {queue:true});
-		}
-	}
 	
 	$('a[rel=lightbox]').fancybox(
     {
@@ -88,18 +79,25 @@ $(document).ready(function () {
         }
     });
 
-	$('.aw-mod-publish .aw-publish-title textarea, .autosize').autosize();
+	// textarea自动增加高度
+	$('.autosize').autosize();
 	
+	// 问题评论box
 	AWS.Init.init_comment_box('.aw-add-comment');
+
+	// 文章评论box
 	AWS.Init.init_article_comment_box('.aw-article-comment');
 
-	$('img#captcha').attr('src', G_BASE_URL + '/account/captcha/');
-	
-	$('#aw-top-nav-profile').click(function(){
-		$('.aw-top-nav-profile').show();
-	});
+	// 话题编辑box
+	AWS.Init.init_topic_edit_box('.aw-topic-bar .icon-inverse');
 
-	/* 话题编辑删除按钮 */
+	// 搜索下拉菜单
+	AWS.Dropdown.bind_dropdown_list('.aw-search-bar input','search');
+
+	// 邀请下拉菜单
+	AWS.Dropdown.bind_dropdown_list('.aw-invite-box input','invite');
+
+	// 话题编辑删除按钮
 	$(document).on('click', '.aw-topic-bar .tag-bar .topic-tag i', function()
 	{
 		var _this = $(this);
@@ -116,10 +114,6 @@ $(document).ready(function () {
 		return false;
 	});
 
-	AWS.Dropdown.bind_dropdown_list('.aw-search-bar input','search');
-	AWS.Dropdown.bind_dropdown_list('.aw-invite-box input','invite');
-	AWS.Init.init_topic_edit_box('.aw-topic-bar .icon-inverse');
-
 	//邀请回答按钮
 	$('.aw-invite-replay').click(function()
 	{
@@ -133,82 +127,5 @@ $(document).ready(function () {
 			$(this).addClass('active');
 		}
 	});
-	//邀请初始化
-    $('.aw-question-detail-title .aw-invite-box ul li').hide();
-    for (var i = 0; i < 3; i++)
-    {
-    	$('.aw-question-detail-title .aw-invite-box ul li').eq(i).show();
-    }
-    //长度小于3翻页隐藏
-    if ($('.aw-question-detail-title .aw-invite-box ul li').length <=3 )
-    {
-    	$('.aw-question-detail-title .aw-invite-box .aw-mod-footer').hide();
-    }
-	//邀请上一页
-    $('.aw-question-detail-title .aw-invite-box .prev').click(function()
-    {
-    	if (!$(this).hasClass('active'))
-    	{
-    		var attr = [],li_length = $('.aw-question-detail-title .aw-invite-box ul li').length;
-	    	$.each($('.aw-question-detail-title .aw-invite-box ul li'), function (i, e)
-	    	{
-	    		if ($(this).is(':visible') == true)
-	    		{
-	    			attr.push($(this).index());
-	    		}
-	    	});
-	    	$('.aw-question-detail-title .aw-invite-box ul li').hide();
-	    	$.each(attr, function (i, e)
-	    	{
-				if (attr.join('') == '123' || attr.join('') == '234')
-				{
-					$('.aw-question-detail-title .aw-invite-box ul li').eq(0).show();
-					$('.aw-question-detail-title .aw-invite-box ul li').eq(1).show();
-					$('.aw-question-detail-title .aw-invite-box ul li').eq(2).show();
-				}
-				else
-				{
-	    			$('.aw-question-detail-title .aw-invite-box ul li').eq(e-3).show();
-				}
-	    		
-	    		if (e-3 == 0)
-	    		{
-	    			$('.aw-question-detail-title .aw-invite-box .prev').addClass('active');
-	    		}
-	    	});
-	    	$('.aw-question-detail-title .aw-invite-box .next').removeClass('active');
-    	}
-    });
-
-    //邀请下一页
-    $('.aw-question-detail-title .aw-invite-box .next').click(function()
-    {
-    	if (!$(this).hasClass('active'))
-    	{
-			var attr = [], li_length = $('.aw-question-detail-title .aw-invite-box ul li').length;
-	    	$.each($('.aw-question-detail-title .aw-invite-box ul li'), function (i, e)
-	    	{
-	    		if ($(this).is(':visible') == true)
-	    		{
-	    			attr.push($(this).index());
-	    		}
-	    	});
-	    	$.each(attr, function (i, e)
-	    	{
-	    		if (e+3 < li_length)
-	    		{
-	    			$('.aw-question-detail-title .aw-invite-box ul li').eq(e).hide();
-	    			$('.aw-question-detail-title .aw-invite-box ul li').eq(e+3).show();
-	    		}
-	    		if (e+4 == $('.aw-question-detail-title .aw-invite-box ul li').length)
-	    		{
-	    			$('.aw-question-detail-title .aw-invite-box .next').addClass('active');
-	    		}
-	    	});
-	    	$('.aw-question-detail-title .aw-invite-box .prev').removeClass('active');
-    	}
-    });
-
-
-
+	
 });

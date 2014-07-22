@@ -1098,7 +1098,7 @@ class question_class extends AWS_MODEL
 				case ACTION_LOG::MOD_QUESTION_CATEGORY : //修改分类
 
 
-					$title_list = $user_name_string . ' 修改了该问题的分类 <p><a href="home/explore/category-' . $log['associate_attached'] . '">' . $log['associate_content'] . '</a>';
+					$title_list = $user_name_string . ' 修改了该问题的分类 <p><a href="explore/category-' . $log['associate_attached'] . '">' . $log['associate_content'] . '</a>';
 
 					break;
 

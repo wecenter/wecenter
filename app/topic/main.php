@@ -35,18 +35,19 @@ class main extends AWS_CONTROLLER
 
 	public function index_action()
 	{
-		if (!$_GET['id'])
-		{
-			$this->square_action();
-			die;
-		}
-
 		if (is_mobile() AND HTTP::get_cookie('_ignore_ua_check') != 'TRUE')
 		{
 			HTTP::redirect('/m/topic/' . $_GET['id']);
 		}
 
-		if (!$topic_info = $this->model('topic')->get_topic_by_title($_GET['id']))
+		if (is_numeric($_GET['id']))
+		{
+			if (!$topic_info = $this->model('topic')->get_topic_by_id($_GET['id']))
+			{
+				$topic_info = $this->model('topic')->get_topic_by_title($_GET['id']);
+			}
+		}
+		else if (!$topic_info = $this->model('topic')->get_topic_by_title($_GET['id']))
 		{
 			$topic_info = $this->model('topic')->get_topic_by_url_token($_GET['id']);
 		}
@@ -220,7 +221,7 @@ class main extends AWS_CONTROLLER
 		TPL::output('topic/index');
 	}
 
-	public function square_action()
+	public function index_square_action()
 	{
 		if (is_mobile() AND HTTP::get_cookie('_ignore_ua_check') != 'TRUE')
 		{
@@ -244,12 +245,12 @@ class main extends AWS_CONTROLLER
 			TPL::assign('today_topic', $today_topic);
 		}
 
-		if (!$_GET['id'] AND !$this->user_id)
+		if (!$_GET['channel'] AND !$this->user_id)
 		{
-			$_GET['id'] = 'hot';
+			$_GET['channel'] = 'hot';
 		}
 
-		switch ($_GET['id'])
+		switch ($_GET['channel'])
 		{
 			default:
 			case 'focus':
@@ -325,7 +326,7 @@ class main extends AWS_CONTROLLER
 		TPL::assign('new_topics', $this->model('topic')->get_topic_list(null, 'topic_id DESC', 10));
 
 		TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
-			'base_url' => get_js_url('/topic/square/id-' . $_GET['id'] . '__feature_id-' . $_GET['feature_id']),
+			'base_url' => get_js_url('/topic/channel-' . $_GET['id'] . '__feature_id-' . $_GET['feature_id']),
 			'total_rows' => $topics_list_total_rows,
 			'per_page' => get_setting('contents_per_page')
 		))->create_links());

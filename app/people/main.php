@@ -46,40 +46,33 @@ class main extends AWS_CONTROLLER
 			HTTP::redirect('/m/people/' . $_GET['id']);
 		}
 
-		if ($this->user_id AND !$_GET['id'])
-		{
-			$user = $this->user_info;
-		}
-		else
-		{
-			if (is_numeric($_GET['id']))
-			{
-				if (!$user = $this->model('account')->get_user_info_by_uid($_GET['id'], TRUE))
-				{
-					$user = $this->model('account')->get_user_info_by_username($_GET['id'], TRUE);
-				}
-			}
-			else if ($user = $this->model('account')->get_user_info_by_username($_GET['id'], TRUE))
-			{
+        if (is_numeric($_GET['id']))
+        {
+            if (!$user = $this->model('account')->get_user_info_by_uid($_GET['id'], TRUE))
+            {
+                $user = $this->model('account')->get_user_info_by_username($_GET['id'], TRUE);
+            }
+        }
+        else if ($user = $this->model('account')->get_user_info_by_username($_GET['id'], TRUE))
+        {
 
-			}
-			else
-			{
-				$user = $this->model('account')->get_user_info_by_url_token($_GET['id'], TRUE);
-			}
+        }
+        else
+        {
+            $user = $this->model('account')->get_user_info_by_url_token($_GET['id'], TRUE);
+        }
 
-			if (!$user)
-			{
-				H::redirect_msg(AWS_APP::lang()->_t('用户不存在'), '/');
-			}
+        if (!$user)
+        {
+            H::redirect_msg(AWS_APP::lang()->_t('用户不存在'), '/');
+        }
 
-			if (urldecode($user['url_token']) != $_GET['id'])
-			{
-				HTTP::redirect('/people/' . $user['url_token']);
-			}
+        if (urldecode($user['url_token']) != $_GET['id'])
+        {
+            HTTP::redirect('/people/' . $user['url_token']);
+        }
 
-			$this->model('people')->update_views($user['uid']);
-		}
+        $this->model('people')->update_views($user['uid']);
 
 		TPL::assign('user', $user);
 
@@ -141,7 +134,7 @@ class main extends AWS_CONTROLLER
 		TPL::output('people/index');
 	}
 
-	public function list_action()
+	public function index_square_action()
 	{
 		if (is_mobile() AND HTTP::get_cookie('_ignore_ua_check') != 'TRUE')
 		{
@@ -153,7 +146,7 @@ class main extends AWS_CONTROLLER
 			$_GET['page'] = 1;
 		}
 
-		$this->crumb(AWS_APP::lang()->_t('用户列表'), '/people/list/');
+		$this->crumb(AWS_APP::lang()->_t('用户列表'), '/people/');
 
 		if ($_GET['feature_id'])
 		{
@@ -186,7 +179,7 @@ class main extends AWS_CONTROLLER
 			$where[] = 'forbidden = 0 AND group_id <> 3';
 
 			TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
-				'base_url' => get_js_url('/people/list/group_id-' . $_GET['group_id']),
+				'base_url' => get_js_url('/people/group_id-' . $_GET['group_id']),
 				'total_rows' => $this->model('account')->get_user_count(implode(' AND ', $where)),
 				'per_page' => get_setting('contents_per_page')
 			))->create_links());

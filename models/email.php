@@ -75,7 +75,7 @@ class email_class extends AWS_MODEL
 			'FIND_PASSWORD',
 		)))
 		{
-			return $this->send($email, $subject, $message, $link);
+			return $this->send($email, $subject, $message, $link, null,'master');
 		}
 		else
 		{
@@ -98,7 +98,7 @@ class email_class extends AWS_MODEL
 		return TPL::output('global/email_template', false);
 	}
 
-	public function send($email, $subject, $message, $link = null, $link_title = null)
+	public function send($email, $subject, $message, $link = null, $link_title = null, $server = 'master')
 	{
 		if (is_numeric($email))
 		{
@@ -112,7 +112,7 @@ class email_class extends AWS_MODEL
 			$email = $user_info['email'];
 		}
 
-		return AWS_APP::mail()->send($email, $subject, $this->get_mail_template($user_name, $subject, $message, $link, $link_title), get_setting('site_name'), $user_name);
+		return AWS_APP::mail()->send($email, $subject, $this->get_mail_template($user_name, $subject, $message, $link, $link_title), get_setting('site_name'), $user_name, $server);
 	}
 
 	public function send_mail_queue($limit = 10)
@@ -121,7 +121,7 @@ class email_class extends AWS_MODEL
 		{
 			foreach ($mail_queue AS $key => $val)
 			{
-				if ($error_message = AWS_APP::mail()->send($val['send_to'], $val['subject'], $val['message'], get_setting('site_name')))
+				if ($error_message = AWS_APP::mail()->send($val['send_to'], $val['subject'], $val['message'], get_setting('site_name'), null, 'slave'))
 				{
 					$this->shutdown_update('mail_queue', array(
 						'is_error' => 1,
@@ -130,7 +130,7 @@ class email_class extends AWS_MODEL
 				}
 				else
 				{
-					$this->delete('mail_queue', 'id = ' . $val['id']);
+					$this->delete('mail_queue', 'id = ' . intval($val['id']));
 				}
 			}
 		}
