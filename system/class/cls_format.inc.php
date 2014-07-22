@@ -16,7 +16,7 @@ class FORMAT
 {
 	public static function parse_links($str)
 	{
-		$str = @preg_replace_callback('/(?<!["|\'|\)|>])(http[s]?:\/\/[-a-zA-Z0-9@:;%_\+.~#?\&\/\/=!]+)(?!["|\'|\)|>])/i', 'parse_link_callback', $str);
+		$str = @preg_replace_callback('/(?<!!!\[\]\(|"|\'|\)|>)(https?:\/\/[-a-zA-Z0-9@:;%_\+.~#?\&\/\/=!]+)(?!"|\'|\)|>)/i', 'parse_link_callback', $str);
 
 		if (strpos($str, 'http') === FALSE)
 		{
@@ -34,7 +34,7 @@ class FORMAT
 
 		if (strstr($str, 'http'))
 		{
-			preg_match_all('/(?<!(\!\!\[\]|["\'\)>]))(http[s]?:\/\/[-a-zA-Z0-9@:;%_\+.~#?\&\/\/=!]+)(?!["|\'|\)|>])/i', $str, $matches);
+			preg_match_all('/(?<!!!\[\]\(|"|\'|\)|>)(https?:\/\/[-a-zA-Z0-9@:;%_\+.~#?\&\/\/=!]+)(?!"|\'|\)|>)/i', $str, $matches);
 		}
 		else
 		{

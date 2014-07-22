@@ -228,7 +228,7 @@ class topic_class extends AWS_MODEL
 
 	public function save_topic($topic_title, $uid = null, $auto_create = true)
 	{
-		$topic_title = str_replace(array('-', '/'), '_', trim($topic_title));
+		$topic_title = str_replace(array('-', '/'), '_', $topic_title);
 
 		if (!$topic_id = $this->get_topic_id_by_title($topic_title) AND $auto_create)
 		{
