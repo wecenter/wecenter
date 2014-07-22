@@ -22,7 +22,7 @@ class core_uri
 	
 	// 默认控制器
 	var $default_vars = array(
-		'app_dir' => 'home', 
+		'app_dir' => 'explore',
 		'controller' => 'main', 
 		'action' => 'index'
 	);

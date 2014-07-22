@@ -15,6 +15,5 @@ window.onload = function()
 						'</ul>'+
 					'</div>';
 		document.getElementsByTagName('body')[0].appendChild(newNode);
-		// window.location = G_BASE_URL + '/home/browser_not_support/';
 	}
 }

@@ -90,7 +90,7 @@ class main extends AWS_CONTROLLER
 		{
 			TPL::assign('category_info', $category_info);
 
-			$this->crumb($category_info['title'], '/explore/category-' . $category_info['id']);
+			$this->crumb($category_info['title'], '/category-' . $category_info['id']);
 
 			$meta_description = $category_info['title'];
 
@@ -128,7 +128,7 @@ class main extends AWS_CONTROLLER
 		}
 
 		TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
-			'base_url' => get_js_url('/explore/sort_type-' . preg_replace("/[\(\)\.;']/", '', $_GET['sort_type']) . '__category-' . $category_info['id'] . '__day-' . intval($_GET['day']) . '__is_recommend-' . intval($_GET['is_recommend'])),
+			'base_url' => get_js_url('/sort_type-' . preg_replace("/[\(\)\.;']/", '', $_GET['sort_type']) . '__category-' . $category_info['id'] . '__day-' . intval($_GET['day']) . '__is_recommend-' . intval($_GET['is_recommend'])),
 			'total_rows' => $this->model('posts')->get_posts_list_total(),
 			'per_page' => get_setting('contents_per_page')
 		))->create_links());
