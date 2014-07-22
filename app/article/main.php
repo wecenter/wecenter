@@ -124,7 +124,7 @@ class main extends AWS_CONTROLLER
 		TPL::output('article/index');
 	}
 
-	public function article_square_action()
+	public function index_square_action()
 	{
 		if (is_mobile() AND HTTP::get_cookie('_ignore_ua_check') != 'TRUE')
 		{
