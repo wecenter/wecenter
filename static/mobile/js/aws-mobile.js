@@ -399,6 +399,7 @@ AWS.User =
 	    		if (selector.parents('.aw-invite-box').find('.users-list a').length == 0)
 	            {
 	                selector.parents('.aw-invite-box').find('.users-list').show();
+	                selector.parents('.aw-invite-box').find('.users-list').append('<span class="color-999">' + _t('已邀请') + ':</span>');
 	            }
 
 	            selector.parents('.aw-invite-box').find('.users-list').append(' <a><img class="img" width="20" src='+ img +' /></a>');
@@ -408,7 +409,7 @@ AWS.User =
 	    	}
 	    	else if (result.errno == -1)
 	        {
-	            AWS.alert(result.err);
+	            alert(result.err);
 	        }
 	    }, 'json');
 	},
