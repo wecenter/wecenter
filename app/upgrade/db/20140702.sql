@@ -82,6 +82,8 @@ CREATE INDEX `weibo_msg_id` ON `[#DB_PREFIX#]question` (`weibo_msg_id`);
 ALTER TABLE `[#DB_PREFIX#]users_sina` ADD `last_msg_id` bigint(30) DEFAULT NULL;
 CREATE INDEX `last_msg_id` ON `[#DB_PREFIX#]users_sina` (`last_msg_id`);
 
+ALTER TABLE `[#DB_PREFIX#]users_sina` ADD `expires_time` int(10) DEFAULT '0' COMMENT '过期时间';
+
 ALTER TABLE `[#DB_PREFIX#]attach` MODIFY `item_id` bigint(30) DEFAULT '0' COMMENT '关联 ID';
 
 CREATE TABLE `[#DB_PREFIX#]weixin_qr_code` (

@@ -252,7 +252,7 @@ class weibo_class extends AWS_MODEL
         $this->model('setting')->set_vars(array('admin_notifications' => $admin_notifications));
     }
 
-    public function update_service_account($id, $action)
+    public function update_service_account($uid, $action)
     {
         switch ($action)
         {
@@ -267,6 +267,6 @@ class weibo_class extends AWS_MODEL
                 break;
         }
 
-        $this->update('users_sina', array('last_msg_id' => $last_msg_id), 'id = ' . intval($id));
+        $this->update('users_sina', array('last_msg_id' => $last_msg_id), 'uid = ' . intval($id));
     }
 }
