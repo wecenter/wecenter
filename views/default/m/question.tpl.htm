@@ -59,7 +59,7 @@
 					<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
 					<wb:share-button addition="simple" type="icon"></wb:share-button>
 
-					<a href="" class="btn btn-success btn-mini pull-right <?php if ($this->question_focus) { ?> active<?php } ?>" onclick="AWS.User.follow($(this), 'question', <?php echo $this->question_info['question_id']; ?>);"><?php if ($this->question_focus) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?></a>
+					<a class="btn btn-success btn-mini pull-right <?php if ($this->question_focus) { ?> active<?php } ?>" onclick="AWS.User.follow($(this), 'question', <?php echo $this->question_info['question_id']; ?>);"><?php if ($this->question_focus) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?></a>
 				</div>
 				<div class="aw-invite-box hide">
 					<div class="mod-head users-list">
