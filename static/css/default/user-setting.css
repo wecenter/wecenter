@@ -6,6 +6,7 @@
 .aw-user-setting .upload-attach{position:absolute; left:0; top:7px;width: 70px; height:25px; font-size:100px; opacity:0; filter:alpha(opacity=0);cursor:pointer;}
 .aw-user-setting .aw-user-setting-save{margin:20px 0 0 0;}
 .aw-user-setting .mod-body{padding:30px 60px;border-bottom:1px dotted #DFDFDF;}
+.aw-user-setting .mod-body label{min-width: 50px;min-width:60px\0;}
 /* 基本资料 */
 .aw-user-setting .mod-base{position: relative;}
 .aw-user-setting .mod-base dl{height:auto;line-height: 25px;overflow:hidden;margin:0;padding-bottom: 15px;}

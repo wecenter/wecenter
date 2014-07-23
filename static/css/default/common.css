@@ -726,7 +726,8 @@ a.aw-load-more-content{display: block;}
 .aw-mod-replay-box .mod-head > .aw-user-name{position: absolute;left: 0;top:0;}
 .aw-mod-replay-box .mod-head > .aw-user-name img{width: 32px;height: 32px;}
 .aw-mod-replay-box .mod-head p{height: auto;overflow: hidden;margin:0;}
-.aw-mod-replay-box .mod-head p label input{margin-right: 5px;position: relative;top:-1px;top:1px\0;}
+.aw-mod-replay-box .mod-head p label{margin-left: 10px;}
+.aw-mod-replay-box .mod-head p input{margin-right: 5px;position: relative;top:-1px;top:1px\0;}
 .aw-mod-replay-box .mod-body{position:relative;padding:20px;background: #f8f8f8;border: 1px solid #C2CACD;}
 .aw-mod-replay-box .aw-replay-box-control{position: relative;height: auto;line-height: 34px;}
 .aw-mod-replay-box .aw-replay-box-control .btn-publish-submit{margin-left: 10px;}
