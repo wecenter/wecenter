@@ -511,6 +511,10 @@ var AWS =
 			                });
 			            });
 		        	}
+		        	else
+		        	{
+		        		$('.aw-publish-box .aw-publish-title').hide();
+		        	}
 
 		        	if (data.ask_user_id != '' && data.ask_user_id != undefined)
 					{
