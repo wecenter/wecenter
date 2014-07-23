@@ -263,7 +263,7 @@ class weixin_class extends AWS_MODEL
                 {
                     if ($reply_rule = $this->get_reply_rule_by_id(substr($input_message['eventKey'], 11)))
                     {
-                        $response_message = $this->create_response_by_reply_rule_keyword($reply_rule['keyword']);
+                        $response_message = $this->create_response_by_reply_rule_keyword($account_info['id'], $reply_rule['keyword']);
                     }
                     else
                     {
@@ -282,7 +282,7 @@ class weixin_class extends AWS_MODEL
 
                             if ($account_info['weixin_subscribe_message_key'])
                             {
-                                $response_message = $this->create_response_by_reply_rule_keyword($account_info['weixin_subscribe_message_key']);
+                                $response_message = $this->create_response_by_reply_rule_keyword($account_info['id'], $account_info['weixin_subscribe_message_key']);
                             }
 
                             break;
@@ -387,7 +387,7 @@ class weixin_class extends AWS_MODEL
                 break;
 
             default:
-                if ($response_message = $this->create_response_by_reply_rule_keyword($input_message['content']))
+                if ($response_message = $this->create_response_by_reply_rule_keyword($account_info['id'], $input_message['content']))
                 {
                     // response by reply rule keyword...
                 }
@@ -433,7 +433,7 @@ class weixin_class extends AWS_MODEL
                 }
                 else
                 {
-                    if (!$response_message = $this->create_response_by_reply_rule_keyword($account_info['weixin_no_result_message_key']))
+                    if (!$response_message = $this->create_response_by_reply_rule_keyword($account_info['id'], $account_info['weixin_no_result_message_key']))
                     {
                         $response_message = '您的问题: ' . $input_message['content'] . ', 目前没有人提到过, <a href="' . $this->model('openid_weixin')->redirect_url('/m/publish/') . '">点此提问</a>';
                     }
@@ -1179,9 +1179,9 @@ class weixin_class extends AWS_MODEL
         return $this->fetch_all('weixin_reply_rule', 'account_id = ' . intval($account_id), 'keyword ASC');
     }
 
-    public function fetch_unique_reply_rule_list($where = null)
+    public function fetch_unique_reply_rule_list($account_id = 0)
     {
-        return $this->query_all("SELECT * FROM `" . get_table('weixin_reply_rule') . "`", null, null, $where, 'keyword');
+        return $this->query_all("SELECT * FROM `" . get_table('weixin_reply_rule') . "`", null, null, 'account_id = ' . intval($account_id), 'keyword');
     }
 
     public function add_reply_rule($account_id = 0, $keyword, $title, $description = '', $link = '', $image_file = '')
@@ -1211,14 +1211,14 @@ class weixin_class extends AWS_MODEL
         ), 'id = ' . intval($id));
     }
 
-    public function update_reply_rule($id, $account_id, $title, $description = '', $link = '', $image_file = '')
+    public function update_reply_rule($id, $title, $description = '', $link = '', $image_file = '')
     {
         return $this->update('weixin_reply_rule', array(
             'title' => $title,
             'description' => $description,
             'image_file' => $image_file,
             'link' => $link
-        ), 'id = ' . intval($id) . ' AND account_id = ' . intval($account_id));
+        ), 'id = ' . intval($id));
     }
 
     public function get_reply_rule_by_id($id)
@@ -1226,12 +1226,12 @@ class weixin_class extends AWS_MODEL
         return $this->fetch_row('weixin_reply_rule', 'id = ' . intval($id));
     }
 
-    public function get_reply_rule_by_keyword($keyword)
+    public function get_reply_rule_by_keyword($account_id, $keyword)
     {
-        return $this->fetch_row('weixin_reply_rule', "`keyword` = '" . trim($this->quote($keyword)) . "'");
+        return $this->fetch_row('weixin_reply_rule', 'account_id = ' . intval($account_id) ." AND keyword = '" . trim($this->quote($keyword)));
     }
 
-    public function create_response_by_reply_rule_keyword($keyword)
+    public function create_response_by_reply_rule_keyword($account_id, $keyword)
     {
         if (strlen($keyword) == 0)
         {
@@ -1239,12 +1239,12 @@ class weixin_class extends AWS_MODEL
         }
 
         // is text message
-        if ($reply_rule = $this->fetch_row('weixin_reply_rule', "`keyword` = '" . trim($this->quote($keyword)) . "' AND (`image_file` = '' OR `image_file` IS NULL) AND `enabled` = 1"))
+        if ($reply_rule = $this->fetch_row('weixin_reply_rule', 'account_id = ' . intval($account_id) . " AND keyword = '" . trim($this->quote($keyword)) . "' AND (image_file = '' OR image_file IS NULL) AND enabled = 1"))
         {
             return $reply_rule['title'];
         }
 
-        if ($reply_rule = $this->fetch_all('weixin_reply_rule', "`keyword` = '" . trim($this->quote($keyword)) . "' AND `image_file` <> '' AND `enabled` = 1", 'sort_status ASC', 5))
+        if ($reply_rule = $this->fetch_all('weixin_reply_rule', 'account_id = ' . intval($account_id) . " AND keyword = '" . trim($this->quote($keyword)) . "' AND image_file <> '' AND enabled = 1", 'sort_status ASC', 5))
         {
             return $reply_rule;
         }
