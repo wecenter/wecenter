@@ -1961,7 +1961,7 @@ AWS.Dropdown =
 
 	                    $(selector).parent().find('.aw-dropdown-list li').click(function()
 	                    {
-	                    	$('.aw-question-list').append('<li>' + $(this).html() + '</li>');
+	                    	$('.aw-question-list').append('<li data-id="'+$(this).attr('data-id')+'"><div class="col-sm-9">' + $(this).html() + '</div> <div class="col-sm-3"><a class="btn btn-danger btn-xs">删除</a></div></li>');
 
 	                    	$('.aw-question-list li').find("a").attr('href',function(){
 	                    		return $(this).attr("_href")
@@ -1970,11 +1970,11 @@ AWS.Dropdown =
 
 	                    	if ($('.question_ids').val() == '')
 	                    	{
-	                    		$('.question_ids').val($(this).attr('data-id'));
+	                    		$('.question_ids').val($(this).attr('data-id') + ',');
 	                    	}
 	                    	else
 	                    	{
-	                    		$('.question_ids').val($('.question_ids').val() + ',' + $(this).attr('data-id'));
+	                    		$('.question_ids').val($('.question_ids').val() + $(this).attr('data-id') + ',');
 	                    	}
 	                    	$(".alert-box").modal('hide');
 	                    });
@@ -1993,7 +1993,7 @@ AWS.Dropdown =
 	                    });
 	                    $(selector).parent().find('.aw-dropdown-list li').click(function()
 	                    {
-	                    	$('.aw-article-list').append('<li>' + $(this).html() + '</li>');
+	                    	$('.aw-article-list').append('<li  data-id="'+$(this).attr('data-id')+'"><div class="col-sm-9">' + $(this).html() + '</div> <div class="col-sm-3"><a class="btn btn-danger btn-xs">删除</a></div></li>');
 
 	                    	$('.aw-article-list li').find("a").attr('href',function(){
 	                    		return $(this).attr("_href")
@@ -2002,11 +2002,11 @@ AWS.Dropdown =
 
 	                    	if ($('.article_ids').val() == '')
 	                    	{
-	                    		$('.article_ids').val($(this).attr('data-id'));
+	                    		$('.article_ids').val($(this).attr('data-id')+ ',');
 	                    	}
 	                    	else
 	                    	{
-	                    		$('.article_ids').val($('.article_ids').val() + ',' + $(this).attr('data-id'));
+	                    		$('.article_ids').val($('.article_ids').val()+ $(this).attr('data-id') + ',');
 	                    	}
 	                    	$(".alert-box").modal('hide');
 	                    });
