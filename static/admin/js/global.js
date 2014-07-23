@@ -133,18 +133,13 @@ $(function () {
             }
             else if (result.errno == 1)
             {   
-
-                console.log(result.rsm.staus)
                 if (result.rsm.staus == 'bound')
                 {   
-                    $('.mod-weibo-reply li:last .btn-primary').text('更新 Access Token').attr("href",function(){
-                        
-                        return this.href;
-                    })
+                    $('.mod-weibo-reply li:last .btn-primary').text('更新 Access Token');
                 }
                 else
                 {   
-                   $('.mod-weibo-reply li:last .btn-primary').text('绑定新浪微博')   
+                   $('.mod-weibo-reply li:last .btn-primary').text('绑定新浪微博');  
                 }
 
                 $(".alert-box").modal('hide');
