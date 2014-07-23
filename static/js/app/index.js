@@ -3,7 +3,7 @@ $(function()
 	// 检测首页动态更新
 	var checkactionsnew_handle = setInterval(function ()
 	{
-		check_actions_new('0', '<?php echo time(); ?>');
+		check_actions_new('0', new Date().getTime());
 	}, 60000);
 
 	$('.aw-mod.side-nav a').click(function () {
