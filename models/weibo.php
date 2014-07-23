@@ -161,7 +161,7 @@ fclose($fp);
                 continue;
             }
 
-            if ($msgs['error_code'])
+            if ($msgs['error'])
             {
                 if ($msgs['error_code'] == 21332)
                 {

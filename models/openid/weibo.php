@@ -141,14 +141,16 @@ class openid_weibo_class extends AWS_MODEL
 
 			if ($new_msgs_total == 0)
 			{
-				return false;
+				//return false;
+
+				return 'just test';
 			}
 
 			$msgs = array_merge($msgs, $new_msgs);
 
 			$max_id = $msgs[200]['id'] - 1;
 		}
-		while ($new_msgs_total < 200);
+		while ($new_msgs_total > 200);
 
 		return $msgs;
 	}
