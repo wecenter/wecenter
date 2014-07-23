@@ -920,6 +920,10 @@ class notify_class extends AWS_MODEL
 						$data[$key]['message'] .= ' ' . AWS_APP::lang()->_t('在问题') . ' <a href="' . $val['key_url'] . '">' . $val['title'] . '</a> ' . AWS_APP::lang()->_t('中的回答提到了你');
 
 						break;
+						
+					case self::TYPE_ANSWER_COMMENT_AT_ME:
+						$data[$key]['message'] .= ' ' . AWS_APP::lang()->_t('在问题') . ' <a href="' . $val['key_url'] . '">' . $val['title'] . '</a> ' . AWS_APP::lang()->_t('中的回答评论中提到了你');
+					break;
 
 					case self::TYPE_INVITE_QUESTION:
 						$data[$key]['message'] = '<a href="' . $val['p_url'] . '">' . $val['p_user_name'] . '</a> ' . AWS_APP::lang()->_t('邀请你参与问题') . ' <a href="' . $val['key_url'] . '">' . $val['title'] . '</a>';
