@@ -944,10 +944,10 @@ class ajax extends AWS_ADMIN_CONTROLLER
     {
         if (!$_POST['topic_ids'])
         {
-            H::ajax_json_output(AWS_APP::RSM(nul, -1, AWS_APP::lang()->_t('请选择话题进行操作')));
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择话题进行操作')));
         }
 
-        switch($_POST['action_type'])
+        switch($_POST['action'])
         {
             case 'remove' :
                 $this->model('topic')->remove_topic_by_ids($_POST['topic_ids']);
@@ -957,7 +957,6 @@ class ajax extends AWS_ADMIN_CONTROLLER
                 $this->model('topic')->lock_topic_by_ids($_POST['topic_ids'], 1);
             break;
         }
-
 
         H::ajax_json_output(AWS_APP::RSM(null, 1, null));
     }
