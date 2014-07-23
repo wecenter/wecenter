@@ -135,7 +135,7 @@ class weixin extends AWS_CONTROLLER
 
 				if (!$access_user)
 				{
-					H::redirect_msg('远程服务器忙,请稍后再试, Code: get_user_info');
+					H::redirect_msg('远程服务器忙,请稍后再试, Code: get_user_info, OpenId: ' . $access_token['openid']);
 				}
 
 				if ($access_user['errcode'])
