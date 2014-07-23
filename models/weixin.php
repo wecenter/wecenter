@@ -138,6 +138,11 @@ class weixin_class extends AWS_MODEL
                 foreach ($accounts_list AS $account_info)
                 {
                     $accounts_info[$account_info['id']] = $account_info;
+
+                    if (!empty($account_info['weixin_mp_menu']))
+                    {
+                        $accounts_info[$account_info['id']]['weixin_mp_menu'] = unserialize($account_info['weixin_mp_menu']);
+                    }
                 }
             }
         }
@@ -162,7 +167,7 @@ class weixin_class extends AWS_MODEL
         {
             if (!empty($account_info['weixin_mp_menu']))
             {
-                $account_info['weixin_mp_menu'] = json_encode($account_info['weixin_mp_menu']);
+                $account_info['weixin_mp_menu'] = serialize($account_info['weixin_mp_menu']);
             }
 
             return $this->update('weixin_accounts', $account_info, 'id = ' . $account_id);
