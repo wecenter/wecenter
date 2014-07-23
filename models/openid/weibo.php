@@ -124,33 +124,33 @@ class openid_weibo_class extends AWS_MODEL
 
 	public function get_msg_from_sina($access_token, $since_id = 0, $max_id = 0)
 	{
-	    $client = new Services_Weibo_WeiboClient(get_setting('sina_akey'), get_setting('sina_skey'), $access_token);
+		$client = new Services_Weibo_WeiboClient(get_setting('sina_akey'), get_setting('sina_skey'), $access_token);
 
-	    do
-	    {
-	        $result = json_decode($client->mentions(1, 200, $since_id, $max_id), true);
+		do
+		{
+			$result = $client->mentions(1, 200, $since_id, $max_id);
 
-	        if ($result['error'])
-	        {
-	            return $result;
-	        }
+			if ($result['error'])
+			{
+				return $result;
+			}
 
-	        $new_msgs = $result['statuses'];
+			$new_msgs = $result['statuses'];
 
-	        $new_msgs_total = count($new_msgs);
+			$new_msgs_total = count($new_msgs);
 
-	        if ($new_msgs_total == 0)
-	        {
-	            return false;
-	        }
+			if ($new_msgs_total == 0)
+			{
+				return false;
+			}
 
-	        $msgs = array_merge($msgs, $new_msgs);
+			$msgs = array_merge($msgs, $new_msgs);
 
-	        $max_id = $msgs[200]['id'] - 1;
-	    }
-	    while ($new_msgs_total < 200);
+			$max_id = $msgs[200]['id'] - 1;
+		}
+		while ($new_msgs_total < 200);
 
-	    return $msgs;
+		return $msgs;
 	}
 
 	public function create_comment($access_token, $id, $comment)
