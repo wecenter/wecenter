@@ -58,6 +58,7 @@
 			<div class="img pull-right"></div>
 			<?php echo FORMAT::parse_attachs(nl2br(FORMAT::parse_markdown($val['message']))); ?>
 		</div>
+		<a class="more hide" href="article/<?php echo $val['id']; ?>">查看更多</a>
 		<!-- end 文章内容调用 -->
 		<?php } ?>
 	</div>

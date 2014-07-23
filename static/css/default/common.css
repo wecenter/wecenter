@@ -290,9 +290,9 @@ a.aw-load-more-content{display: block;}
 .aw-mod.side-sort .mod-body ul li:first-child{margin-top: 0;}
 .aw-mod.side-sort .mod-body ul li a{display:block;height: 34px;line-height: 34px;padding:0 10px;border-radius: 5px;}
 .aw-mod.side-sort .mod-body ul li a:hover, .aw-mod.side-sort .mod-body ul li a.active{background-color: #eeeeee;}
-.aw-mod.aw-topic-recommend-list {margin: 20px auto;padding: 10px;max-height: 176px;overflow: hidden; border: 1px solid #ddd;border-radius: 5px;background-color: #fafafa;}
-.aw-mod.aw-topic-recommend-list li {padding: 7px 0;border-bottom: 1px dotted #E2E2E2;}
-.aw-mod.aw-topic-recommend-list .aw-common-list {max-height: 112px;overflow: hidden;}
+.aw-mod.aw-topic-recommend-list{margin: 20px auto;padding: 10px;max-height: 176px;overflow: hidden; border: 1px solid #ddd;border-radius: 5px;background-color: #fafafa;}
+.aw-mod.aw-topic-recommend-list li{min-height:36px;padding: 7px 0;border-bottom: 1px dotted #E2E2E2;}
+.aw-mod.aw-topic-recommend-list .aw-common-list{max-height: 112px;overflow: hidden;}
 .aw-mod.aw-topic-recommend-list .mod-footer a{margin-top:10px;font-size: 12px;}
 
 /* 邀请回复 */
