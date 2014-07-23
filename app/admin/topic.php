@@ -118,8 +118,18 @@ class topic extends AWS_ADMIN_CONTROLLER
 			}
 		}
 
+		$url_param = array();
+
+		foreach($_GET as $key => $val)
+		{
+			if (!in_array($key, array('app', 'c', 'act', 'page')))
+			{
+				$url_param[] = $key . '-' . $val;
+			}
+		}
+
 		TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
-			'base_url' => get_js_url('/admin/topic/list/'),
+			'base_url' => get_js_url('/admin/topic/list/') . implode('__', $url_param),
 			'total_rows' => $total_rows,
 			'per_page' => $this->per_page
 		))->create_links());
