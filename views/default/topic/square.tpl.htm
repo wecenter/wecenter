@@ -45,7 +45,7 @@
                         </div>
                         <?php } ?>
                         <?php } ?>
-                        <?php if ((!$_GET['id'] OR $_GET['id'] == 'focus') AND $this->user_info['topic_focus_count'] < 5) { ?>
+                        <?php if ((!$_GET['channel'] OR $_GET['channel'] == 'focus') AND $this->user_info['topic_focus_count'] < 5) { ?>
                         <div class="aw-notopic-sort"><?php _e('你当前的话题较少, 推荐去<a href="topic/channel-hot">热门话题</a>看看'); ?></div>
                         <?php } ?>
                     </div>
@@ -62,9 +62,9 @@
                 <div class="aw-mod topic-nav hidden-xs">
                     <div class="mod-body">
                         <ul>
-                            <li><a href="topic/channel-focus"<?php if (!$_GET['id'] OR $_GET['id'] == 'focus') { ?> class="active"<?php } ?>><i class="fa fa-tags"></i> <?php _e('我关注的话题'); ?></a></li>
+                            <li><a href="topic/channel-focus"<?php if (!$_GET['channel'] OR $_GET['channel'] == 'focus') { ?> class="active"<?php } ?>><i class="fa fa-tags"></i> <?php _e('我关注的话题'); ?></a></li>
 
-                            <li><a href="topic/channel-hot"<?php if ($_GET['id'] == 'hot') { ?> class="active"<?php } ?>><i class="fa fa-fire"></i> <?php _e('热门话题'); ?></a></li>
+                            <li><a href="topic/channel-hot"<?php if ($_GET['channel'] == 'hot') { ?> class="active"<?php } ?>><i class="fa fa-fire"></i> <?php _e('热门话题'); ?></a></li>
                         </ul>
                     </div>
                 </div>
