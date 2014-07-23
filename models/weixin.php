@@ -1800,12 +1800,22 @@ class weixin_class extends AWS_MODEL
             return AWS_APP::lang()->_t('换取二维码失败');
         }
 
-        $img_file = get_setting('upload_dir') . '/weixin_qr_code/' . $scene_id . '.jpg';
+        $img_dir = get_setting('upload_dir') . '/weixin_qr_code/';
 
-        $fp = fopen($img_file, 'w');
+        if (!is_dir($img_dir))
+        {
+            if (!make_dir($img_dir))
+            {
+                H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('创建二维码存储目录失败')));
+            }
+        }
 
-        fwrite($fp, $qr_code);
+        $img_file = $img_dir . $scene_id . '.jpg';
 
-        fclose($fp);
+        $fp = @fopen($img_file, 'w');
+
+        @fwrite($fp, $qr_code);
+
+        @fclose($fp);
     }
 }
