@@ -184,11 +184,14 @@ class main extends AWS_CONTROLLER
 
 		$posts_list = $this->model('posts')->get_posts_list(null, 1, get_setting('contents_per_page'), null, array_merge($related_topics_ids, explode(',', $contents_topic_id)), null, null, 30, true);
 
-		foreach ($posts_list AS $key => $val)
+		if ($posts_list)
 		{
-			if ($val['answer_count'])
+			foreach ($posts_list AS $key => $val)
 			{
-				$posts_list[$key]['answer_users'] = $this->model('question')->get_answer_users_by_question_id($val['question_id'], 2, $val['published_uid']);
+				if ($val['answer_count'])
+				{
+					$posts_list[$key]['answer_users'] = $this->model('question')->get_answer_users_by_question_id($val['question_id'], 2, $val['published_uid']);
+				}
 			}
 		}
 
