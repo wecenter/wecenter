@@ -267,6 +267,6 @@ class weibo_class extends AWS_MODEL
                 break;
         }
 
-        $this->update('users_sina', array('last_msg_id' => $last_msg_id), 'uid = ' . intval($id));
+        $this->update('users_sina', array('last_msg_id' => $last_msg_id), 'uid = ' . intval($uid));
     }
 }
