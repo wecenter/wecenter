@@ -150,11 +150,9 @@ class weibo_class extends AWS_MODEL
 
             $msgs = $this->model('openid_weibo')->get_msg_from_sina($service_info['access_token'], $service_info['last_msg_id']);
 
-$debug = var_export($msgs, true);
-
 $fp = fopen(ROOT_PATH . 'tmp/weibo_debug.txt', 'a');
 
-fwrite($fp, date('Y-m-d H:i:s') . $debug);
+fwrite($fp, date('Y-m-d H:i:s') . "\n" . var_export($service_info, true) . "\n" . var_export($msgs, true) . "\n\n");
 
 fclose($fp);
 
@@ -163,9 +161,12 @@ fclose($fp);
                 continue;
             }
 
-            if ($msgs['error_code'] == 21332)
+            if ($msgs['error_code'])
             {
-                $this->notification_of_refresh_access_token($service_user_info['uid'], $service_user_info['user_name']);
+                if ($msgs['error_code'] == 21332)
+                {
+                    $this->notification_of_refresh_access_token($service_user_info['uid'], $service_user_info['user_name']);
+                }
 
                 continue;
             }
