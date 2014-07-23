@@ -27,7 +27,7 @@
 
             <!-- 问题补充 -->
             <div class="content">
-                <textarea name="question_detail" class="form-control autosize" placeholder="<?php _e('问题详细补充（选填）'); ?>" id="" cols="30" rows="4"><?php echo $this->question_info['question_detail']; ?></textarea>
+                <textarea name="question_detail" class="form-control autosize" placeholder="<?php _e('问题详细补充（选填）'); ?>" id="publish_detail" cols="30" rows="4"><?php echo $this->question_info['question_detail']; ?></textarea>
             </div>
             <!-- end 问题补充 -->
 
@@ -89,6 +89,8 @@
 
     $(document).ready(function () {
 
+        $('.aw-add-topic-box').click();
+
         // 判断是否微信打开
         if (typeof window.WeixinJSBridge != 'undefined')
         {
@@ -97,7 +99,7 @@
 
         if (ATTACH_ACCESS_KEY != '')
         {
-            var fileupload = new FileUpload('.aw-upload-box .icon-pic', '.aw-upload-box .upload-container', G_BASE_URL + '/publish/ajax/attach_upload/id-question__attach_access_key' + '-' + ATTACH_ACCESS_KEY, {'deleteBtnTemplate' : '<a class="delete-file"><i class="icon icon-delete"></i></a>', 'insertBtnTemplate' : '<a class="insert-file"><i class="icon icon-insert"></i></a>'})
+            var fileupload = new FileUpload('.aw-upload-box .icon-pic', '.aw-upload-box .upload-container', G_BASE_URL + '/publish/ajax/attach_upload/id-question__attach_access_key' + '-' + ATTACH_ACCESS_KEY, {'insertTextarea' : '#publish_detail', 'deleteBtnTemplate' : '<a class="delete-file"><i class="icon icon-delete"></i></a>', 'insertBtnTemplate' : '<a class="insert-file"><i class="icon icon-insert"></i></a>'})
         }
 
         if ($('#category_id').length)
@@ -158,7 +160,7 @@
                                 '<div class="content">'+
                                     '<p class="meta">'+
                                         '<span class="color-999">图片已插入</span>'+
-                                        '<a class="insert-file active"><i class="icon icon-insert"></i></a>'+
+                                        '<a class="insert-file disabled"><i class="icon icon-insert"></i></a>'+
                                     '</p>'+
                                 '</div>'+
                             '</li>')
