@@ -56,10 +56,10 @@
 
                             <?php if ($this->service_users_info) { foreach ($this->service_users_info AS $service_user_info) { ?>
                             <li>
-                                <img src="<?php echo get_avatar_url($service_user_info['uid'], 'min'); ?>" alt="" />
-                                <a class="reply-name" href="people/<?php echo $service_user_info['url_token']; ?>" target="_blank"><?php echo $service_user_info['user_name']; ?></a>
-                                <a href="account/sina/binding/uid-<?php echo $service_user_info['uid']; ?>" target="_blank"><?php _e('更新 Access Token'); ?></a>
-                                <a href="javascript:;" onclick="AWS.ajax_request(G_BASE_URL + '/admin/ajax/weibo_batch/', 'action=del_service_user&uid=<?php echo $service_user_info['uid']; ?>')"><?php _e('删除用户'); ?></a>
+                                
+                                <a class="reply-name" href="people/<?php echo $service_user_info['url_token']; ?>" target="_blank"><img src="<?php echo get_avatar_url($service_user_info['uid'], 'min'); ?>" alt="" /><?php echo $service_user_info['user_name']; ?></a>
+                                <a class="btn btn-primary btn-sm" href="account/sina/binding/uid-<?php echo $service_user_info['uid']; ?>" target="_blank"><?php _e('更新 Access Token'); ?></a>
+                                <a class="btn btn-danger btn-sm" href="javascript:;" onclick="AWS.ajax_request(G_BASE_URL + '/admin/ajax/weibo_batch/', 'action=del_service_user&uid=<?php echo $service_user_info['uid']; ?>')"><?php _e('删除用户'); ?></a>
                             </li>
                             <?php } } ?>
                         </ul>
