@@ -1962,7 +1962,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
                     $this->model('weibo')->update_service_account($user_info['uid'], 'add');
 
-                    $rsm = array('satus' => 'bound');
+                    $rsm = array('staus' => 'bound');
                 }
                 else
                 {
@@ -1981,7 +1981,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
                     AWS_APP::cache()->set('tmp_service_account', $tmp_service_account, 86400);
 
-                    $rsm = array('satus' => 'unbound');
+                    $rsm = array('staus' => 'unbound');
                 }
 
                 break;
