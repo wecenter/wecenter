@@ -2044,7 +2044,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
                 break;
         }
 
-        H::ajax_json_output(AWS_APP::RSM(null, 1, $rsm));
+        H::ajax_json_output(AWS_APP::RSM($rsm, 1, null));
     }
 
     public function create_weixin_qr_code_action()
