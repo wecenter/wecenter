@@ -130,12 +130,6 @@ class openid_weibo_class extends AWS_MODEL
 		{
 			$result = $client->mentions(1, 200, $since_id, $max_id);
 
-$fp = fopen(ROOT_PATH . 'tmp/weibo_debug.txt', 'a');
-
-fwrite($fp, date('Y-m-d H:i:s') . "\n" . var_export($result, true) . "\n\n");
-
-fclose($fp);
-
 			if ($result['error'])
 			{
 				return $result;
