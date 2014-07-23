@@ -145,16 +145,18 @@ fclose($fp);
 
 			$new_msgs_total = count($new_msgs);
 
-			if ($new_msgs_total == 0)
-			{
-				//return false;
+			$last_msg = end($new_msgs);
 
-				return 'just test';
+			$max_id = $last_msg['id'] - 1;
+
+			if (empty($msgs))
+			{
+				$msgs = $new_msgs;
+
+				continue;
 			}
 
 			$msgs = array_merge($msgs, $new_msgs);
-
-			$max_id = $msgs[200]['id'] - 1;
 		}
 		while ($new_msgs_total > 200);
 
