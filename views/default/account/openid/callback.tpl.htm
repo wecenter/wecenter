@@ -23,7 +23,7 @@
 			</li>
 		</ul>
 	</form>
-	
+
 	<form id="register_form" method="post" class="aw-register-form" onsubmit="return false" action="">
 		<ul>
 			<li>
@@ -53,7 +53,7 @@
 				<em></em>
 			</li>
 			<li>
-				<button class="pull-right btn btn-large btn-success" onclick="ajax_post($('#register_form'), AWS.ajax_processer, 'error_message'); return false;"><?php _e('确认注册'); ?></button>
+				<button class="pull-right btn btn-large btn-success" onclick="AWS.ajax_post($('#register_form'), AWS.ajax_processer, 'error_message'); return false;"><?php _e('确认注册'); ?></button>
 			</li>
 		</ul>
 	</form>
@@ -63,22 +63,22 @@
 <script type="text/javascript">
 	$(document).ready(function () {
 		$('#login_return_url').val(window.location.href);
-		
+
 		$.get(G_BASE_URL + '/account/ajax/register_agreement/', function (result) { $('#register_agreement').html(result.err); }, 'json');
-		
+
 		$('.aw-register-open-tabs').click(function() {
 			if ($('#login_form').is(':visible'))
 			{
 				$('#login_form').hide();
 				$('#register_form').show();
-				
+
 				$(this).removeClass('active');
 			}
 			else
 			{
 				$('#login_form').show();
 				$('#register_form').hide();
-				
+
 				$(this).addClass('active');
 			}
 		});
