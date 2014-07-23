@@ -330,11 +330,7 @@ class weixin_class extends AWS_MODEL
                 break;
 
             case 'location':
-                if (!$near_by_questions = $this->model('people')->get_near_by_users($input_message['location_X'], $input_message['location_y'], $this->user_id, 5))
-                {
-                    $response_message = '你的附近暂时没有问题';
-                }
-                else
+                if ($near_by_questions = $this->model('people')->get_near_by_users($input_message['location_X'], $input_message['location_y'], $this->user_id, 5))
                 {
                     foreach ($near_by_questions AS $key => $val)
                     {
@@ -354,20 +350,24 @@ class weixin_class extends AWS_MODEL
                         );
                     }
                 }
+                else
+                {
+                    $response_message = '你的附近暂时没有问题';
+                }
 
                 break;
 
             case 'voice':
-                if (!$input_message['recognition'])
-                {
-                    $response_message = '无法识别语音或相关功能未启用';
-                }
-                else
+                if ($input_message['recognition'])
                 {
                     $input_message['content'] = $input_message['recognition'];
                     $input_message['msgType'] = 'text';
 
                     $response_message = $this->response_message($input_message, $account_info);
+                }
+                else
+                {
+                    $response_message = '无法识别语音或相关功能未启用';
                 }
 
                 break;
@@ -378,6 +378,10 @@ class weixin_class extends AWS_MODEL
                     AWS_APP::cache()->set('weixin_pic_url_' . $input_message['mediaID'], $input_message['picUrl'], 259200);
 
                     $response_message = '您想提交图片到社区么？<a href="' . $this->model('openid_weixin')->redirect_url('/m/publish/weixin_media_id-' . $input_message['mediaID']) . '">点击进入提交页面</a>';
+                }
+                else
+                {
+                    $response_message = '无法识别图片';
                 }
 
                 break;
