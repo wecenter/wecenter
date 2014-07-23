@@ -359,7 +359,7 @@ input[type="text"], input[type="password"], textarea{-webkit-appearance:none;}
 .aw-inbox-read-list{margin-bottom: 25px;padding:0 10px 50px 10px;}
 .aw-inbox-read-list ul li{position: relative;margin-top:25px;padding:0 0 0 40px;}
 .aw-inbox-read-list ul li .img{position: absolute;left: 0;top: 0;}
-.aw-inbox-read-list ul li .content{position:relative;padding:10px;background-color: #fafafa;border:1px solid #e6e6e6;border-radius: 5px;}
+.aw-inbox-read-list ul li .content{position:relative;padding:10px;background-color: #fafafa;border:1px solid #e6e6e6;border-radius: 5px;word-wrap: break-word;}
 .aw-inbox-read-list ul li i{position:absolute;z-index:1;top:9px;left:-14px;width:0;height:0;margin:0 !important;line-height:0;border-width:7px;border-style:solid;border-color: transparent #f5fafe transparent transparent;}
 .aw-inbox-read-list ul li i.active{z-index:0;top:8px;left:-16px;border-color: transparent #e6e6e6 transparent transparent;border-width: 8px;}
 .aw-inbox-read-list ul li.active{padding:0 40px 0 0;}
