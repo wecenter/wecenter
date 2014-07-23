@@ -36,6 +36,7 @@
 		var G_USER_NAME = '<?php echo addcslashes($this->user_info['user_name'], "'"); ?>';
 		var G_UNREAD_NOTIFICATION = 0;
 		var G_NOTIFICATION_INTERVAL = <?php echo intval(get_setting('unread_flush_interval')) * 1000; ?>;
+		var G_CAN_CREATE_TOPIC = '<?php echo $this->user_info['permission']['create_topic']; ?>';
 		
 		<?php if (human_valid('question_valid_hour')) { ?>
 		var G_QUICK_PUBLISH_HUMAN_VALID = true;

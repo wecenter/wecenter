@@ -58,30 +58,6 @@ $(document).ready(function () {
 		}
 	});
 	
-	$('a[rel=lightbox]').fancybox(
-    {
-        openEffect: 'none',
-        closeEffect: 'none',
-
-        prevEffect: 'none',
-        nextEffect: 'none',
-
-        closeBtn: false,
-
-        helpers:
-        {
-            buttons:
-            {
-                position: 'bottom'
-            }
-        },
-
-        afterLoad: function ()
-        {
-            this.title = '第 ' + (this.index + 1) + ' 张, 共 ' + this.group.length + ' 张' + (this.title ? ' - ' + this.title : '');
-        }
-    });
-
 	// textarea自动增加高度
 	$('.autosize').autosize();
 	
