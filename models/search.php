@@ -20,9 +20,29 @@ if (!defined('IN_ANWSION'))
 
 class search_class extends AWS_MODEL
 {
-	public function get_all_result($q, $page, $limit = 20)
+	public function get_mixed_result($types, $q, $topic_ids, $page, $limit = 20)
 	{
-		$result = array_merge((array)$this->search_users($q, $page, $limit), (array)$this->search_topics($q, $page, $limit), (array)$this->search_questions($q, null, $page, $limit), (array)$this->search_articles($q, null, $page, $limit));
+		$types = explode(',', $types);
+		
+		if (in_array('users', $types))
+		{
+			$result = array_merge((array)$result, (array)$this->search_users($q, $page, $limit));
+		}
+		
+		if (in_array('topics', $types))
+		{
+			$result = array_merge((array)$result, (array)$this->search_topics($q, $page, $limit));
+		}
+		
+		if (in_array('questions', $types))
+		{
+			$result = array_merge((array)$result, (array)$this->search_questions($q, $topic_ids, $page, $limit));
+		}
+		
+		if (in_array('articles', $types))
+		{
+			$result = array_merge((array)$result, (array)$this->search_articles($q, $topic_ids, $page, $limit));
+		}
 		
 		return $result;
 	}
@@ -78,7 +98,12 @@ class search_class extends AWS_MODEL
 	}
 	
 	public function search($q, $search_type, $page = 1, $limit = 20, $topic_ids = null)
-	{		
+	{
+		if (!$q)
+		{
+			return false;
+		}
+		
 		$q = (array)explode(' ', str_replace('  ', ' ', trim($q)));
 		
 		foreach ($q AS $key => $val)
@@ -94,30 +119,12 @@ class search_class extends AWS_MODEL
 			return false;
 		}
 		
-		switch ($search_type)
+		if (!$search_type)
 		{
-			default :
-				$result_list = $this->get_all_result($q, $page, $limit);
-				break;
-			
-			case 'users' :
-				$result_list = $this->search_users($q, $page, $limit);
-				break;
-			
-			case 'topics' :
-				$result_list = $this->search_topics($q, $page, $limit);
-				break;
-			
-			case 'questions' :
-				$result_list = $this->search_questions($q, $topic_ids, $page, $limit);
-				break;
-				
-			case 'articles' :
-				$result_list = $this->search_articles($q, $topic_ids, $page, $limit);
-				break;
+			$search_type = 'users,topics,questions,articles';
 		}
 		
-		if ($result_list)
+		if ($result_list = $this->get_mixed_result($search_type, $q, $topic_ids, $page, $limit))
 		{
 			foreach ($result_list as $result_info)
 			{

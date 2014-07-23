@@ -122,7 +122,7 @@ CREATE TABLE `[#DB_PREFIX#]attach` (
   `file_location` varchar(255) DEFAULT NULL COMMENT '文件位置',
   `is_image` int(1) DEFAULT '0',
   `item_type` varchar(32) DEFAULT '0' COMMENT '关联类型',
-  `item_id` int(11) DEFAULT '0' COMMENT '关联 ID',
+  `item_id` bigint(30) DEFAULT '0' COMMENT '关联 ID',
   `wait_approval` TINYINT( 1 ) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `access_key` (`access_key`),
@@ -215,50 +215,54 @@ CREATE TABLE `[#DB_PREFIX#]education_experience` (
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8 COMMENT='教育经历';
 
 CREATE TABLE `[#DB_PREFIX#]feature` (
-	`id` INT( 11 ) NULL AUTO_INCREMENT ,
-	`title` VARCHAR( 200 ) NULL DEFAULT NULL COMMENT '专题标题',
-	`description` VARCHAR( 255 ) NULL DEFAULT NULL COMMENT '专题描述',
-	`icon` VARCHAR( 255 ) NULL DEFAULT NULL COMMENT '专题图标',
-	`topic_count` INT( 11 ) NULL DEFAULT '0' COMMENT '话题计数',
-	`css` TEXT NULL DEFAULT NULL COMMENT '自定义CSS',
-	`url_token` VARCHAR( 32 ) NULL DEFAULT NULL,
-	`seo_title` VARCHAR( 255 ) NULL,
-	`enabled` tinyint(1) NULL DEFAULT '0',
-	PRIMARY KEY ( `id` ),
-	KEY `url_token` (`url_token`),
-	KEY `title` (`title`),
-	KEY `enabled` (`enabled`)
+  `id` INT( 11 ) NULL AUTO_INCREMENT ,
+  `title` VARCHAR( 200 ) NULL DEFAULT NULL COMMENT '专题标题',
+  `description` VARCHAR( 255 ) NULL DEFAULT NULL COMMENT '专题描述',
+  `icon` VARCHAR( 255 ) NULL DEFAULT NULL COMMENT '专题图标',
+  `topic_count` INT( 11 ) NULL DEFAULT '0' COMMENT '话题计数',
+  `css` TEXT NULL DEFAULT NULL COMMENT '自定义CSS',
+  `url_token` VARCHAR( 32 ) NULL DEFAULT NULL,
+  `seo_title` VARCHAR( 255 ) NULL,
+  `enabled` tinyint(1) NULL DEFAULT '0',
+  PRIMARY KEY ( `id` ),
+  KEY `url_token` (`url_token`),
+  KEY `title` (`title`),
+  KEY `enabled` (`enabled`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]feature_topic` (
-	`id` INT( 11 ) NULL AUTO_INCREMENT ,
-	`feature_id` INT( 11 ) NULL DEFAULT '0' COMMENT '专题ID',
-	`topic_id` INT( 11 ) NULL DEFAULT '0' COMMENT '话题ID',
-	PRIMARY KEY ( `id` ),
-	KEY `feature_id` (`feature_id`),
-	KEY `topic_id` (`topic_id`)
+  `id` INT( 11 ) NULL AUTO_INCREMENT ,
+  `feature_id` INT( 11 ) NULL DEFAULT '0' COMMENT '专题ID',
+  `topic_id` INT( 11 ) NULL DEFAULT '0' COMMENT '话题ID',
+  PRIMARY KEY ( `id` ),
+  KEY `feature_id` (`feature_id`),
+  KEY `topic_id` (`topic_id`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]favorite` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `uid` int(11) DEFAULT '0',
-  `answer_id` int(11) DEFAULT '0',
+  `item_id` int(11) DEFAULT '0',
   `time` int(10) DEFAULT '0',
+  `type` varchar(16) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `uid` (`uid`),
-  KEY `answer_id` (`answer_id`),
-  KEY `time` (`time`)
+  KEY `time` (`time`),
+  KEY `item_id` (`item_id`),
+  KEY `type` (`type`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]favorite_tag` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `uid` int(11) DEFAULT '0',
   `title` varchar(128) DEFAULT NULL,
-  `answer_id` int(11) DEFAULT NULL,
+  `item_id` int(11) DEFAULT '0',
+  `type` varchar(16) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `uid` (`uid`),
   KEY `title` (`title`),
-  KEY `answer_id` (`answer_id`)
+  KEY `type` (`type`),
+  KEY `item_id` (`item_id`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]invitation` (
@@ -439,27 +443,29 @@ CREATE TABLE `[#DB_PREFIX#]question` (
   `add_time` int(11) NOT NULL COMMENT '添加时间',
   `update_time` int(11) DEFAULT NULL,
   `published_uid` int(11) DEFAULT NULL COMMENT '发布用户UID',
-  `answer_count` int(11) DEFAULT '0' COMMENT '回答计数',
-  `answer_users` int(11) DEFAULT '0' COMMENT '回答人数',
-  `view_count` int(11) DEFAULT '0' COMMENT '浏览次数',
-  `focus_count` int(11) DEFAULT '0' COMMENT '关注数',
-  `comment_count` int(11) DEFAULT '0' COMMENT '评论数',
-  `action_history_id` int(11) DEFAULT '0' COMMENT '动作的记录表的关连id',
-  `category_id` int(11) DEFAULT '0' COMMENT '分类 ID',
-  `agree_count` int(11) DEFAULT '0' COMMENT '回复赞同数总和',
-  `against_count` int(11) DEFAULT '0' COMMENT '回复反对数总和',
-  `best_answer` int(11) DEFAULT '0' COMMENT '最佳回复 ID',
-  `has_attach` tinyint(1) DEFAULT '0' COMMENT '是否存在附件',
+  `answer_count` int(11) NOT NULL DEFAULT '0' COMMENT '回答计数',
+  `answer_users` int(11) NOT NULL DEFAULT '0' COMMENT '回答人数',
+  `view_count` int(11)NOT NULL DEFAULT '0' COMMENT '浏览次数',
+  `focus_count` int(11) NOT NULL DEFAULT '0' COMMENT '关注数',
+  `comment_count` int(11) NOT NULL DEFAULT '0' COMMENT '评论数',
+  `action_history_id` int(11) NOT NULL DEFAULT '0' COMMENT '动作的记录表的关连id',
+  `category_id` int(11) NOT NULL DEFAULT '0' COMMENT '分类 ID',
+  `agree_count` int(11) NOT NULL DEFAULT '0' COMMENT '回复赞同数总和',
+  `against_count` int(11) NOT NULL DEFAULT '0' COMMENT '回复反对数总和',
+  `best_answer` int(11) NOT NULL DEFAULT '0' COMMENT '最佳回复 ID',
+  `has_attach` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否存在附件',
   `unverified_modify` text,
+  `unverified_modify_count` int(10) NOT NULL DEFAULT '0',
   `ip` bigint(11) DEFAULT NULL,
-  `last_answer` int(11) DEFAULT '0' COMMENT '最后回答 ID',
-  `popular_value` DOUBLE NULL DEFAULT '0',
-  `popular_value_update` INT( 10 ) NULL DEFAULT '0',
-  `lock` TINYINT( 1 ) NULL DEFAULT '0' COMMENT '是否锁定',
-  `anonymous` TINYINT( 1 ) NULL DEFAULT '0',
-  `thanks_count` INT( 10 ) NULL DEFAULT '0',
-  `question_content_fulltext` TEXT NULL DEFAULT NULL,
-  `is_recommend` tinyint(1) DEFAULT '0',
+  `last_answer` int(11) NOT NULL DEFAULT '0' COMMENT '最后回答 ID',
+  `popular_value` double NOT NULL DEFAULT '0',
+  `popular_value_update` int(10) NOT NULL DEFAULT '0',
+  `lock` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否锁定',
+  `anonymous` tinyint(1) NOT NULL DEFAULT '0',
+  `thanks_count` int(10) NOT NULL DEFAULT '0',
+  `question_content_fulltext` text,
+  `is_recommend` tinyint(1) NOT NULL DEFAULT '0',
+  `weibo_msg_id` bigint(30) DEFAULT NULL,
   PRIMARY KEY (`question_id`),
   KEY `category_id` (`category_id`),
   KEY `update_time` (`update_time`),
@@ -476,6 +482,8 @@ CREATE TABLE `[#DB_PREFIX#]question` (
   KEY `popular_value_update` (`popular_value_update`),
   KEY `against_count` (`against_count`),
   KEY `is_recommend` (`is_recommend`),
+  KEY `weibo_msg_id` (`weibo_msg_id`),
+  KEY `unverified_modify_count` (`unverified_modify_count`),
   FULLTEXT KEY `question_content_fulltext` (`question_content_fulltext`)
 ) ENGINE=MYISAM DEFAULT CHARSET=utf8 COMMENT='问题列表';
 
@@ -637,6 +645,8 @@ CREATE TABLE `[#DB_PREFIX#]topic` (
   `url_token` VARCHAR(32) DEFAULT NULL,
   `merged_id` INT( 11 ) NULL DEFAULT '0',
   `seo_title` varchar(255) DEFAULT NULL,
+  `parent_id` INT( 10 ) NULL DEFAULT '0',
+  `is_parent` TINYINT( 1 ) NULL DEFAULT '0',
   PRIMARY KEY (`topic_id`),
   UNIQUE KEY `topic_title` (`topic_title`),
   KEY `url_token` (`url_token`),
@@ -645,7 +655,9 @@ CREATE TABLE `[#DB_PREFIX#]topic` (
   KEY `add_time` (`add_time`),
   KEY `user_related` (`user_related`),
   KEY `focus_count` (`focus_count`),
-  KEY `topic_lock` (`topic_lock`)
+  KEY `topic_lock` (`topic_lock`),
+  KEY `parent_id` (`parent_id`),
+  KEY `is_parent` (`is_parent`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8 COMMENT='话题';
 
 CREATE TABLE `[#DB_PREFIX#]topic_focus` (
@@ -856,10 +868,13 @@ CREATE TABLE `[#DB_PREFIX#]users_sina` (
   `profile_image_url` varchar(255) DEFAULT NULL COMMENT 'Sina 自定义头像地址',
   `gender` varchar(8) DEFAULT NULL,
   `add_time` int(10) DEFAULT NULL COMMENT '添加时间',
+  `expires_time` int(10) DEFAULT NULL COMMENT '过期时间',
   `access_token` varchar(64) DEFAULT NULL,
+  `last_msg_id` bigint(30) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `uid` (`uid`),
-  KEY `access_token` (`access_token`)
+  KEY `access_token` (`access_token`),
+  KEY `last_msg_id` (`last_msg_id`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]geo_location` (
@@ -1062,6 +1077,7 @@ CREATE TABLE `[#DB_PREFIX#]verify_apply` (
 
 CREATE TABLE `[#DB_PREFIX#]weixin_reply_rule` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
+  `account_id` int(10) NOT NULL DEFAULT '0',
   `keyword` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `image_file` varchar(255) COLLATE utf8_unicode_ci DEFAULT '',
@@ -1070,10 +1086,71 @@ CREATE TABLE `[#DB_PREFIX#]weixin_reply_rule` (
   `enabled` tinyint(1) DEFAULT '0',
   `sort_status` int(10) DEFAULT '0',
   PRIMARY KEY (`id`),
+  KEY `account_id` (`account_id`),
   KEY `keyword` (`keyword`),
   KEY `enabled` (`enabled`),
   KEY `sort_status` (`sort_status`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
+
+CREATE TABLE `[#DB_PREFIX#]weixin_accounts` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `weixin_mp_token` varchar(255) NOT NULL,
+  `weixin_account_role` varchar(20) DEFAULT 'base',
+  `weixin_app_id` varchar(255) DEFAULT '',
+  `weixin_app_secret` varchar(255) DEFAULT '',
+  `wecenter_access_token` varchar(255) DEFAULT '',
+  `wecenter_access_secret` varchar(255) DEFAULT '',
+  `weixin_mp_menu` text,
+  `weixin_subscribe_message_key` varchar(255) COLLATE utf8_unicode_ci DEFAULT '',
+  `weixin_no_result_message_key` varchar(255) COLLATE utf8_unicode_ci DEFAULT '',
+  PRIMARY KEY (`id`),
+  KEY `weixin_mp_token` (`weixin_mp_token`),
+  KEY `weixin_account_role` (`weixin_account_role`),
+  KEY `weixin_app_id` (`weixin_app_id`)
+) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8 COMMENT='微信多账号设置';
+
+CREATE TABLE `[#DB_PREFIX#]weixin_msg` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `msg_id` bigint(20) NOT NULL,
+  `group_name` varchar(255) NOT NULL DEFAULT '未分组',
+  `status` varchar(15) NOT NULL DEFAULT 'unsent',
+  `error_num` int(10) DEFAULT NULL,
+  `main_msg` text,
+  `articles_info` text,
+  `questions_info` text,
+  `create_time` int(10) NOT NULL,
+  `filter_count` int(10) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `msg_id` (`msg_id`),
+  KEY `group_name` (`group_name`),
+  KEY `status` (`status`)
+) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8 COMMENT='微信群发列表';
+
+CREATE TABLE `[#DB_PREFIX#]weibo_msg` (
+  `id` bigint(30) NOT NULL,
+  `created_at` int(10) NOT NULL,
+  `msg_author_uid` bigint(20) NOT NULL,
+  `text` varchar(255) NOT NULL,
+  `has_attach` tinyint(1) NOT NULL DEFAULT '0',
+  `uid` int(10) NOT NULL,
+  `weibo_uid` bigint(20) NOT NULL,
+  `question_id` int(11) DEFAULT NULL,
+  PRIMARY KEY `id` (`id`),
+  KEY `created_at` (`created_at`),
+  KEY `uid` (`uid`),
+  KEY `weibo_uid` (`weibo_uid`),
+  KEY `question_id` (`question_id`)
+) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8 COMMENT='新浪微博消息列表';
+
+CREATE TABLE `[#DB_PREFIX#]weixin_qr_code` (
+  `scene_id` mediumint(5) NOT NULL AUTO_INCREMENT,
+  `ticket` varchar(255) DEFAULT NULL,
+  `description` varchar(255) NOT NULL,
+  `subscribe_num` int(10) NOT NULL DEFAULT '0',
+  PRIMARY KEY `scene_id` (`scene_id`),
+  KEY `ticket` (`ticket`),
+  KEY `subscribe_num` (`subscribe_num`)
+) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8 COMMENT='微信二维码';
 
 INSERT INTO `[#DB_PREFIX#]category`(`title`,`type`) VALUES
 ('默认分类', 'question');

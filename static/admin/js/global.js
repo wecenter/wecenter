@@ -1,102 +1,147 @@
-$(window).on('hashchange', function() {
-	if (window.location.hash.indexOf('#!') != -1)
-	{
-		if ($('a[name=' + window.location.hash.replace('#!', '') + ']').length)
-		{
-			$.scrollTo($('a[name=' + window.location.hash.replace('#!', '') + ']').offset()['top'] - 20, 600, {queue:true});
-		}
-	}
-});
+$(function () {
 
-$(document).ready(function(){
-	if (typeof(DateInput) != 'undefined')
-	{
-		$('input.date_picker').date_input();
-	}
-	
-	if (window.location.hash.indexOf('#!') != -1)
-	{
-		if ($('a[name=' + window.location.hash.replace('#!', '') + ']').length)
-		{
-			$.scrollTo($('a[name=' + window.location.hash.replace('#!', '') + ']').offset()['top'] - 20, 600, {queue:true});
-		}
-	}
-	
-	$.each($('span.label'), function (i, e) {
-		if ($(e).find('input').length)
-		{
-			$(e).click(function () {
-				$(this).find('input').click();
-			});
-			
-			$(e).css('cursor', 'default').removeClass();
-		}
-	});
-	
-	// fix form bug...
-    $("form[action='']").attr('action', window.location.href);
-	
-	/*左侧导航栏伸缩*/
-	$('.side-nav > ul > li > a').click(function()
-	{
-		if ($(this).next().is(':visible'))
-		{
-			$(this).next().slideUp('normal');
-		}else
-		{
-			$('.side-nav ul li').children('ul').slideUp('normal');
-			$(this).next().slideDown('normal');
-		}
-	});
+    $('#captcha').click();
 
-	/*信息box伸缩*/
-	$('.aw-message-box h3').click(function(){
-		if ($(this).parents('.aw-message-box').find('.aw-mod-body').is(':visible'))
-		{
-			$(this).parents('.aw-message-box').find('.aw-mod-body').slideUp();
-		}else
-		{
-			$(this).parents('.aw-message-box').find('.aw-mod-body').slideDown();
-		}
-	});
-
-	/*导航菜单收缩*/
-	$('.aw-nav-menu li .aw-mod-head').click(function()
-	{
-		if ($(this).parents('li').find('.aw-mod-body').is(':visible'))
-		{
-			$(this).parents('li').find('.aw-mod-body').slideUp();
-		}else
-		{
-			$(this).parents('li').find('.aw-mod-body').slideDown();
-		}
-	});
-	
-	// Check all checkboxes when the one in a table head is checked:
-	$('.check-all').click(function() {
-		var _this = this;
-		
-		$.each($(this).parents('table').find("input[type='checkbox']"), function (i, e) {
-			if ($(e).is(':checked') != $(_this).is(':checked'))
-			{
-				$(e).click();
-			}
-		});
-	});
-});
-
-$(window).scroll(function ()
-{
-    if ($('.aw-back-top').length)
+    // bs自带方法 TAB切换
+    $('#myTab a').click(function (e) 
     {
-        if ($(window).scrollTop() > ($(window).height() / 2))
-        {
-            $('.aw-back-top').fadeIn();
+        e.preventDefault();
+        $(this).tab('show');
+    });
+
+    
+    // bs自带方法-气泡提示
+    $('.aw-content-wrap .md-tip').tooltip('hide');
+
+    $('.aw-header .mod-head-btn').click(function () 
+    {
+
+        if ($('#aw-side').is(':hidden')) {
+            $('#aw-side').show(0, function () {
+                $('.aw-content-wrap, .aw-footer').css("marginLeft", "235px");
+                $('.mod-echat-info').css("marginLeft", "0");
+            });
+        } else {
+            $('#aw-side').hide(0, function () {
+                $('.aw-content-wrap, .aw-footer').css("marginLeft", "0");
+            });
         }
-        else
-        {
-            $('.aw-back-top').fadeOut();
-        }
+    });
+
+
+    $("#aw-side").perfectScrollbar({
+        wheelSpeed: 20,
+        wheelPropagation: true,
+        minScrollbarLength: 20
+    })
+
+    /*日期选择*/
+    if (typeof (DateInput) != 'undefined') 
+    {
+        $('input.mod-data').date_input();
     }
 
-});
+    // 单选框 input checked radio 初始化
+    $('.aw-content-wrap').find("input").iCheck({
+        checkboxClass: 'icheckbox_square-blue',
+        radioClass: 'iradio_square-blue',
+        increaseArea: '20%'
+    });
+
+
+    // 左侧导航菜单的折叠与展开
+    $('.mod-bar>li>a').click(function () 
+    {
+        if ($(this).next().is(':visible')) {
+            $(this).next().slideUp('normal');
+            $(this).removeClass('collapsed active');
+
+        } else {
+            $('#aw-side').find('li').children('ul').hide();
+            $(this).addClass('active collapsed').parent().siblings().find('a').removeClass('active collapsed');
+            $(this).next().slideDown('normal');
+        }
+    });
+
+    // input 菜单折叠，展开、拖动
+    $('.aw-nav-menu li .mod-set-head').click(function () 
+    {
+        if ($(this).parents('li').find('.mod-set-body').is(':visible')) {
+            $(this).parents('li').find('.mod-set-body').slideUp();
+        } else {
+            $(this).parents('li').find('.mod-set-body').slideDown();
+            $(this).parents('li').siblings('li').find('.mod-set-body').slideUp();
+        }
+    });
+
+    $(".aw-nav-menu").find('ul:first').dragsort({
+        dragEnd: function () {
+            var arr = [];
+            $.each($('.aw-nav-menu ul li'), function (i, e) {
+                arr.push($(this).attr('data-sort'));
+            });
+            $('#nav_sort').val(arr.join(','));
+
+        }
+    });
+
+
+    // input 单选框全选or 全取消
+    $('.aw-content-wrap .table').find(".check-all").on('ifChecked', function (e) 
+    {
+        e.preventDefault()
+        $(this).parents('table').find(".icheckbox_square-blue").iCheck('check');
+
+    });
+
+    $('.aw-content-wrap .table').find(".check-all").on('ifUnchecked', function (e) 
+    {
+        e.preventDefault()
+        $(this).parents('table').find(".icheckbox_square-blue").iCheck('uncheck');
+    });
+
+
+    //微博发布用户
+    $('.aw-admin-weibo-answer').find('.search-input').bind("keydown", function()
+    {
+        if (window.event && window.event.keyCode == 13) {
+                    window.event.returnValue = false;
+                }
+    });
+    
+    $('.aw-admin-weibo-publish').find('.btn-danger').length >0 ? $('.aw-admin-weibo-publish').find('.search-input').hide() : $('.aw-admin-weibo-publish').find('.search-input').show();
+
+    $('.aw-admin-weibo-publish').find('.delete').click(function()
+        {   
+            $('.aw-admin-weibo-publish').find('.search-input').show('0').val("");
+            $(this).parent().find('.weibo_msg_published_user').val('');
+            $(this).parent().find('.md-tip').show();
+            $(this).prev().detach().end().detach();
+        });
+
+    });
+
+    function weiboPost(obj)
+    {
+
+        $.post(G_BASE_URL + '/admin/ajax/weibo_batch/', {'uid': obj.attr('data-id'), 'action':obj.attr('action')}, function (result)
+        {
+            if (result.errno == -1)
+            {
+                $('.aw-wechat-send-message .error_message').html(result.err);
+                
+                if ($('.error_message').css('display') != 'none')
+                {
+                    AWS.shake($('.error_message'));
+                }
+                else
+                {
+                    $('.error_message').fadeIn();
+                }
+            }
+            else
+            {
+                $(".alert-box").modal('hide');
+            }
+        }, 'json');
+    };

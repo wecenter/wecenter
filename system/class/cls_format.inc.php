@@ -8,7 +8,7 @@
 |   http://www.wecenter.com
 |   ========================================
 |   Support: WeCenter@qq.com
-|   
+|
 +---------------------------------------------------------------------------
 */
 
@@ -16,31 +16,31 @@ class FORMAT
 {
 	public static function parse_links($str)
 	{
-		$str = @preg_replace_callback('/(?<!["|\'|\)|>])(http[s]?:\/\/[-a-zA-Z0-9@:;%_\+.~#?\&\/\/=!]+)(?!["|\'|\)|>])/i', 'parse_link_callback', $str);
-		
+		$str = @preg_replace_callback('/(?<!!!\[\]\(|"|\'|\)|>)(https?:\/\/[-a-zA-Z0-9@:;%_\+.~#?\&\/\/=!]+)(?!"|\'|\)|>)/i', 'parse_link_callback', $str);
+
 		if (strpos($str, 'http') === FALSE)
 		{
 			$str = @preg_replace_callback('/(www\.[-a-zA-Z0-9@:;%_\+\.~#?&\/\/=]+)/i', 'parse_link_callback', $str);
 		}
-		
+
 		$str = @preg_replace('/([a-z0-9\+_\-]+[\.]?[a-z0-9\+_\-]+@[a-z0-9\-]+\.+[a-z]{2,6}+(\.+[a-z]{2,6})?)/is', '<a href="mailto:\1">\1</a>', $str);
-				
+
 		return $str;
 	}
 
 	public static function outside_url_exists($str)
 	{
 		$str = strtolower($str);
-		
+
 		if (strstr($str, 'http'))
 		{
-			preg_match_all('/(?<!["|\'|\)|>])(http[s]?:\/\/[-a-zA-Z0-9@:;%_\+.~#?\&\/\/=!]+)(?!["|\'|\)|>])/i', $str, $matches);
+			preg_match_all('/(?<!!!\[\]\(|"|\'|\)|>)(https?:\/\/[-a-zA-Z0-9@:;%_\+.~#?\&\/\/=!]+)(?!"|\'|\)|>)/i', $str, $matches);
 		}
 		else
 		{
 			preg_match_all('/(www\.[-a-zA-Z0-9@:;%_\+\.~#?&\/\/=]+)/i', $str, $matches);
 		}
-		
+
 		if ($matches)
 		{
 			foreach($matches as $key => $val)
@@ -49,14 +49,14 @@ class FORMAT
 				{
 					continue;
 				}
-				
+
 				if (!is_inside_url($val[0]))
 				{
 					return true;
 				}
 			}
 		}
-		
+
 		return false;
 	}
 
@@ -65,7 +65,7 @@ class FORMAT
 		if ($get_attachs_id)
 		{
 			preg_match_all('/\[attach\]([0-9]+)\[\/attach]/', $str, $matches);
-			
+
 			return array_unique($matches[1]);
 		}
 		else
@@ -73,17 +73,17 @@ class FORMAT
 			return preg_replace_callback('/\[attach\]([0-9]+)\[\/attach\]/i', 'parse_attachs_callback', $str);
 		}
 	}
-	
+
 	public static function parse_markdown($text)
 	{
 		if (!$text)
 		{
 			return false;
 		}
-		
+
 		return load_class('Services_Markdown')->transform($text);
 	}
-	
+
 	public static function bbcode_2_markdown($text)
 	{
 		$p[] = '#\[img\]([\w]+?://[\w\#$%&~/.\-;:=,' . "'" . '?@\[\]+]*?)\[/img\]#is';
@@ -109,7 +109,7 @@ class FORMAT
 		$p[] = '/\[h3\]([^?].*?)\[\/h3\]/i';
 		$p[] = "#\[code=(.*?)\](.*?)\[/code\]#is";
 		$p[] = "#\[li\](.*?)\[/li\]#is";
-				
+
 		$r[] = '!($1)';
 		$r[] = '!($2)';
 		$r[] = '$1';
@@ -130,9 +130,9 @@ class FORMAT
 		$r[] = '### $1';
 		$r[] = '{{{$2}}}';
 		$r[] = '- $1';
-		
+
 		$text = preg_replace($p, $r, $text);
-		
+
 		$text = str_ireplace(array('[ul]', '[ol]', '[/ul]', '[/ol]'), '', $text);
 
 		preg_match('/\[b\]/i', $text, $_m_b_open);
@@ -184,21 +184,21 @@ class FORMAT
 			$text = str_ireplace('[quote]', '> ', $text);
 			$text = str_ireplace('[/quote]', "\n", $text);
 		}
-		
+
 		$text = preg_replace('/\[(?![\/]?attach)[^\[\]]{1,}\]/', '', $text);
 
 		return $text;
 	}
 
-	public static function sub_url($url, $length) 
+	public static function sub_url($url, $length)
 	{
-		if (strlen($url) > $length) 
+		if (strlen($url) > $length)
 		{
 			$url = str_replace(array('%3A', '%2F'), array(':', '/'), rawurlencode($url));
-			
+
 			$url = substr($url, 0, intval($length * 0.6)) . ' ... ' . substr($url, - intval($length * 0.1));
 		}
-		
+
 		return $url;
 	}
 }

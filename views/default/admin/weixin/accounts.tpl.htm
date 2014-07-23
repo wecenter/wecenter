@@ -1,0 +1,54 @@
+<?php TPL::output('admin/global/header.tpl.htm'); ?>
+<?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
+
+<div class="aw-content-wrap">
+    <div class="mod">
+        <div class="mod-head">
+            <h3>
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="admin/weixin/accounts/"><?php _e('账号列表'); ?></a></li>
+                    <li><a href="admin/weixin/account/"><?php _e('新增账号'); ?></a></li>
+                </ul>
+            </h3>
+        </div>
+
+        <div class="tab-content mod-body">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <?php if ($this->accounts_total > 0) { ?>
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Token</th>
+                        <th><?php _e('角色'); ?></th>
+                        <th><?php _e('操作'); ?></th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <?php foreach ($this->accounts_list AS $account_info) { ?>
+                    <tr>
+                        <td><?php echo $account_info['id']; ?></td>
+                        <td><?php echo $account_info['weixin_mp_token']; ?></td>
+                        <td><?php echo $account_info['weixin_account_role']; ?></td>
+                        <td class="nowrap">
+                            <a href="admin/weixin/account/id-<?php echo $account_info['id']; ?>" data-toggle="tooltip" title="<?php _e('编辑'); ?>" class="fa fa-pencil md-tip"></a>
+                            <a href="admin/weixin/mp_menu/id-<?php echo $account_info['id']; ?>" data-toggle="tooltip" title="<?php _e('菜单管理'); ?>" class="fa fa-list md-tip"></a>
+                            <a href="admin/weixin/reply/id-<?php echo $account_info['id']; ?>" data-toggle="tooltip" title="<?php _e('自定义回复'); ?>" class="fa fa-reply md-tip"></a>
+                            <a href="javascript:;" onclick="AWS.ajax_request(G_BASE_URL + '/admin/ajax/remove_weixin_account/', 'id=<?php echo $account_info['id'] ?>');" data-toggle="tooltip" title="<?php _e('删除'); ?>" class="fa fa-trash-o md-tip"></a>
+                        </td>
+                    </tr>
+                    <?php } ?>
+                    </tbody>
+                    <?php } ?>
+                </table>
+            </div>
+
+            <div class="mod-table-foot">
+                <?php echo $this->pagination; ?>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php TPL::output('admin/global/footer.tpl.htm'); ?>

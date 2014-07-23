@@ -7,27 +7,27 @@ var AW_TEMPLATE = {
 	'userCard':
 			'<div id="aw-card-tips" class="aw-card-tips aw-card-tips-user">'+
 				'<div class="aw-mod">'+
-					'<div class="aw-mod-head">'+
-						'<a href="{{url}}" class="aw-head-img">'+
+					'<div class="mod-head">'+
+						'<a href="{{url}}" class="img">'+
 							'<img src="{{avatar_file}}" alt="" />'+
 						'</a>'+
-						'<p class="title">'+
-							'<a href="{{url}}" class="name" data-id="{{uid}}">{{user_name}}</a>'+
-							'<i class="{{verified_enterprise}}" title="{{verified_title}}"></i>'+
+						'<p class="title clearfix">'+
+							'<a href="{{url}}" class="name pull-left" data-id="{{uid}}">{{user_name}}</a>'+
+							'<i class="{{verified_enterprise}} pull-left" title="{{verified_title}}"></i>'+
 						'</p>'+
 						'<p class="aw-user-center-follow-meta">'+
 							'<span>' + _t('威望') + ': <em class="aw-text-color-green">{{reputation}}</em></span>'+
 							'<span>' + _t('赞同') + ': <em class="aw-text-color-orange">{{agree_count}}</em></span>'+
 						'</p>'+
 					'</div>'+
-					'<div class="aw-mod-body">'+
+					'<div class="mod-body">'+
 						'<p>{{signature}}</p>'+
 					'</div>'+
-					'<div class="aw-mod-footer">'+
+					'<div class="mod-footer">'+
 						'<span class="pull-right">'+
-							'<a href="javascript:;" onclick="$.dialog(\'inbox\', \'{{user_name}}\');">' + _t('私信') + '</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:;" onclick="$.dialog(\'publish\', {category_enable:{{category_enable}}, ask_user_id:{{uid}}, ask_user_name:{{ask_name}}});">' + _t('问Ta') + '</a>'+
+							'<a href="javascript:;" onclick="AWS.dialog(\'inbox\', \'{{user_name}}\');">' + _t('私信') + '</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:;" onclick="AWS.dialog(\'publish\', {category_enable:{{category_enable}}, ask_user_id:{{uid}}, ask_user_name:{{ask_name}} });">' + _t('问Ta') + '</a>'+
 						'</span>'+
-						'<a class="btn btn-mini btn-default focus {{focus}}" onclick="follow_people($(this), {{uid}});">{{focusTxt}}</a>'+
+						'<a class="btn btn-mini btn-default focus {{focus}}" onclick="AWS.User.follow($(this), \'user\', {{uid}});">{{focusTxt}}</a>'+
 					'</div>'+
 				'</div>'+
 			'</div>',
@@ -35,8 +35,8 @@ var AW_TEMPLATE = {
 	'topicCard' : 
 			'<div id="aw-card-tips" class="aw-card-tips aw-card-tips-topic">'+
 				'<div class="aw-mod">'+
-					'<div class="aw-mod-head">'+
-						'<a href="{{url}}" class="aw-head-img">'+
+					'<div class="mod-head">'+
+						'<a href="{{url}}" class="img">'+
 							'<img src="{{topic_pic}}" alt="" title=""/>'+
 						'</a>'+
 						'<p class="title">'+
@@ -46,11 +46,11 @@ var AW_TEMPLATE = {
 							'{{topic_description}}'+
 						'</p>'+
 					'</div>'+
-					'<div class="aw-mod-footer">'+
+					'<div class="mod-footer">'+
 						'<span class="pull-right">'+
 							_t('问题数') + ' {{discuss_count}} • ' + _t('关注者') + ' {{focus_count}}'+
 						'</span>'+
-						'<a class="btn btn-mini btn-default focus {{focus}}" onclick="focus_topic($(this), {{topic_id}});">{{focusTxt}}</a>'+
+						'<a class="btn btn-mini btn-default focus {{focus}}" onclick="AWS.User.follow($(this), \'topic\', {{topic_id}});">{{focusTxt}}</a>'+
 					'</div>'+
 				'</div>'+
 			'</div>',
@@ -80,16 +80,16 @@ var AW_TEMPLATE = {
 						'</div>'+
 						'<div class="modal-body">'+
 							'<form id="addTxtForms">'+
-								'<p>' + _t('链接地址') + '</p>'+
-								'<input class="form-control" type="text" value="http://" name="{{url}}" />'+
 								'<p>' + _t('文字说明') + ':</p>'+
 								'<input class="form-control" type="text" name="{{tips}}"/>'+
+								'<p>' + _t('链接地址') + '</p>'+
+								'<input class="form-control" type="text" value="http://" name="{{url}}" />'+
 							'</form>'+
 							'<p class="aw-text-color-999">{{type_tips}}</p>'+
 						'</div>'+
 						'<div class="modal-footer">'+
 							'<a data-dismiss="modal" aria-hidden="true" class="btn">' + _t('取消') + '</a>'+
-							'<button class="btn btn-large btn-success" data-dismiss="modal" aria-hidden="true" onclick="$.{{add_func}}($.{{add_func}});">' + _t('确定') + '</button>'+
+							'<button class="btn btn-large btn-success" data-dismiss="modal" aria-hidden="true" onclick="AWS.Editor.add_multimedia({{type}});">' + _t('确定') + '</button>'+
 						'</div>'+
 					'</div>'+
 				'</div>'+
@@ -105,15 +105,19 @@ var AW_TEMPLATE = {
 						'</div>'+
 						'<form action="' + G_BASE_URL + '/question/ajax/update_answer/answer_id-{{answer_id}}" method="post" onsubmit="return false" id="answer_edit">'+
 						'<div class="modal-body">'+
+							'<div class="alert alert-danger hide error_message"><i class="fa fa-times"></i> <em></em></div>'+
 							'<input type="hidden" name="attach_access_key" value="{{attach_access_key}}" />'+
 							'<textarea name="answer_content" id="editor_reply" class="form-control" rows="5"></textarea>'+
 							'<div class="aw-file-upload-box">'+
-								'<span id="file_uploader_answer_edit"></span>'+
+								'<div class="aw-upload-box">'+
+									'<a class="btn btn-default">上传附件</a>'+
+									'<div class="upload-container"></div>'+
+								'</div>'+
 							'</div>'+
 						'</div>'+
 						'<div class="modal-footer">'+
 							'<span><input id="aw-do-delete" type="checkbox" value="1" name="do_delete" /><label for="aw-do-delete">' + _t('删除回复') + '</label></span>'+
-							'<button class="btn btn-large btn-success" onclick="ajax_post($(\'#answer_edit\'), _ajax_post_alert_processer);return false;">' + _t('确定') + '</button>'+
+							'<button class="btn btn-large btn-success" onclick="AWS.ajax_post($(\'#answer_edit\'), AWS.ajax_processer, \'ajax_post_alert\');return false;">' + _t('确定') + '</button>'+
 						'</div>'+
 						'</form>'+
 					'</div>'+
@@ -121,42 +125,44 @@ var AW_TEMPLATE = {
 			'</div>',
 
 	'articleCommentBox' :
-		'<div class="aw-article-comment-box clearfix">'+
+		'<div class="aw-article-replay-box clearfix">'+
 			'<form action="'+ G_BASE_URL +'/article/ajax/save_comment/" onsubmit="return false;" method="post">'+
-				'<div class="aw-mod-body">'+
+				'<div class="mod-body">'+
 					'<input type="hidden" name="at_uid" value="{{at_uid}}">'+
 					'<input type="hidden" name="post_hash" value="' + G_POST_HASH + '" />'+
 					'<input type="hidden" name="article_id" value="{{article_id}}" />'+
 					'<textarea placeholder="' + _t('写下你的评论...') + '" class="form-control" id="comment_editor" name="message" rows="2"></textarea>'+
 				'</div>'+
-				'<div class="aw-mod-footer">'+
-					'<a href="javascript:;" onclick="ajax_post($(this).parents(\'form\'));" class="btn btn-large btn-success pull-right btn-submit">' + _t('回复') + '</a>'+
+				'<div class="mod-footer">'+
+					'<a href="javascript:;" onclick="AWS.ajax_post($(this).parents(\'form\'));" class="btn btn-large btn-success pull-right btn-submit">' + _t('回复') + '</a>'+
 				'</div>'+
 			'</form>'+
 		'</div>',
 
 	'favoriteBox' : 
-			'<div class="modal hide fade alert-box aw-favorite-box">'+
-				'<div class="modal-dialog">'+
-					'<div class="modal-content">'+
-						'<div class="modal-header">'+
-							'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
-							'<h3 class="modal-title" id="myModalLabel">' + _t('收藏') + '</h3>'+
-						'</div>'+
-						'<form action="' + G_BASE_URL + '/favorite/ajax/update_favorite_tag/" method="post" onsubmit="return false;">'+
-						'<input type="hidden" name="answer_id" value="{{answer_id}}" />'+
-							'<div class="modal-body">'+
-								'<p>' + _t('添加话题标签') + ': <input type="text" name="tags" id="add_favorite_tags" class="form-control" /></p>'+
-								'<p id="add_favorite_my_tags" class="hide">' + _t('常用标签') + ': </p>'+
-							'</div>'+
-							'<div class="modal-footer">'+
-								'<a href="javascript:;" data-dismiss="modal" aria-hidden="true">' + _t('取消') + '</a>'+
-								'<button href="javascript:;" class="btn btn-large btn-success" onclick="ajax_post($(this).parents(\'form\'), _ajax_post_modal_processer);">' + _t('确认') + '</button>'+
-							'</div>'+
-						'</form>'+
+		'<div class="modal hide fade alert-box aw-favorite-box">'+
+			'<div class="modal-dialog">'+
+				'<div class="modal-content">'+
+					'<div class="modal-header">'+
+						'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
+						'<h3 class="modal-title" id="myModalLabel">' + _t('收藏') + '</h3>'+
 					'</div>'+
+					'<form action="' + G_BASE_URL + '/favorite/ajax/update_favorite_tag/" method="post" onsubmit="return false;">'+
+						'<div class="modal-body">'+
+							'<input type="hidden" name="item_id" value="{{item_id}}" />'+
+							'<input type="hidden" name="item_type" value="{{item_type}}" />'+
+							'<div class="alert alert-danger hide error_message"><i class="fa fa-times"></i> <em></em></div>'+
+							'<p>' + _t('添加话题标签') + ': <input type="text" name="tags" id="add_favorite_tags" class="form-control" /></p>'+
+							'<p id="add_favorite_my_tags" class="hide">' + _t('常用标签') + ': </p>'+
+						'</div>'+
+						'<div class="modal-footer">'+
+							'<a href="javascript:;" data-dismiss="modal" aria-hidden="true">' + _t('取消') + '</a>'+
+							'<button href="javascript:;" class="btn btn-large btn-success" onclick="AWS.ajax_post($(this).parents(\'form\'), AWS.ajax_processer, \'ajax_post_modal\');">' + _t('确认') + '</button>'+
+						'</div>'+
+					'</form>'+
 				'</div>'+
-			'</div>',
+			'</div>'+
+		'</div>',
 
 	'questionRedirect' : 
 		'<div class="modal fade alert-box aw-question-redirect-box">'+
@@ -187,13 +193,13 @@ var AW_TEMPLATE = {
 							'<h3 class="modal-title" id="myModalLabel">' + _t('发起问题') + '</h3>'+
 						'</div>'+
 						'<div class="modal-body">'+
-							'<div id="quick_publish_error" class="alert alert-danger hide error_message"><em></em></div>'+
+							'<div class="alert alert-danger hide error_message"><i class="fa fa-times"></i> <em></em></div>'+
 							'<form action="' + G_BASE_URL + '/publish/ajax/publish_question/" method="post" id="quick_publish" onsubmit="return false">'+
 								'<input type="hidden" id="quick_publish_category_id" name="category_id" value="{{category_id}}" />'+
 								'<input type="hidden" name="post_hash" value="' + G_POST_HASH + '" />'+
 								'<input type="hidden" name="ask_user_id" value="{{ask_user_id}}" />'+
 								'<div>'+
-									'<textarea class="form-control" placeholder="' + _t('写下你的问题') + '..." name="question_content" id="quick_publish_question_content" onkeydown="if (event.keyCode == 13) { return false; }"></textarea>'+
+									'<textarea class="form-control" placeholder="' + _t('写下你的问题') + '..." rows="1" name="question_content" id="quick_publish_question_content" onkeydown="if (event.keyCode == 13) { return false; }"></textarea>'+
 									'<div class="aw-publish-suggest-question hide">'+
 										'<p class="aw-text-color-999">你的问题可能已经有答案</p>'+
 										'<ul class="aw-dropdown-list">'+
@@ -201,12 +207,14 @@ var AW_TEMPLATE = {
 									'</div>'+
 								'</div>'+
 								//'<p onclick="$(this).parents(\'form\').find(\'.aw-publish-box-supplement-content\').fadeIn().focus();$(this).hide();"><span class="aw-publish-box-supplement"><i class="aw-icon i-edit"></i>' + _t('补充说明') + ' »</span></p>'+
-								'<textarea name="question_detail" class="aw-publish-box-supplement-content form-control" placeholder="' + _t('问题背景、条件等详细信息') + '..."></textarea>'+
-								'<div class="aw-publish-title-dropdown" id="quick_publish_category_chooser">'+
-									'<p class="dropdown-toggle" data-toggle="dropdown">'+
-										'<span id="aw-topic-tags-select">' + _t('选择分类') + '</span>'+
+								'<textarea name="question_detail" class="form-control" rows="4" placeholder="' + _t('问题背景、条件等详细信息') + '..."></textarea>'+
+								'<div class="aw-publish-title">'+
+									'<div class="dropdown" id="quick_publish_category_chooser">'+
+									'<div class="dropdown-toggle" data-toggle="dropdown">'+
+										'<span id="aw-topic-tags-select" class="aw-hide-txt">' + _t('选择分类') + '</span>'+
 										'<a><i class="fa fa-chevron-down"></i></a>'+
-									'</p>'+
+									'</div>'+
+								'</div>'+
 								'</div>'+
 								'<div id="quick_publish_topic_chooser">'+
 									'<span class="aw-topic-editor" data-type="publish">'+
@@ -214,7 +222,7 @@ var AW_TEMPLATE = {
 									'</span>'+
 								'</div>'+
 								'<div class="clearfix hide" id="quick_publish_captcha">'+
-									'<input type="text" class="pull-left form-control" name="seccode_verify" placeholder="' + _t('验证码') + '" onfocus="$(\'#qp_captcha\').click();" />'+
+									'<input type="text" class="pull-left form-control" name="seccode_verify" placeholder="' + _t('验证码') + '" />'+
 									'<img id="qp_captcha" class="pull-left" onclick="this.src = \'' +G_BASE_URL + '/account/captcha/\' + Math.floor(Math.random() * 10000);" src="" />'+
 								'</div>'+
 							'</form>'+
@@ -222,7 +230,7 @@ var AW_TEMPLATE = {
 						'<div class="modal-footer">'+
 							'<span class="pull-right">'+
 								'<a data-dismiss="modal" aria-hidden="true">' + _t('取消') + '</a>'+
-								'<button class="btn btn-large btn-success" onclick="ajax_post($(\'#quick_publish\'), _quick_publish_processer);">' + _t('发起') + '</button>'+
+								'<button class="btn btn-large btn-success" onclick="AWS.ajax_post($(\'#quick_publish\'), AWS.ajax_processer, \'error_message\');">' + _t('发起') + '</button>'+
 							'</span>'+
 							'<a href="javascript:;" tabindex="-1" onclick="$(\'form#quick_publish\').attr(\'action\', \'' + G_BASE_URL + '/publish/\');document.getElementById(\'quick_publish\').submit();" class="pull-left">' + _t('高级模式') + '</a>'+
 						'</div>'+
@@ -239,7 +247,7 @@ var AW_TEMPLATE = {
 							'<h3 class="modal-title" id="myModalLabel">' + _t('新私信') + '</h3>'+
 						'</div>'+
 						'<div class="modal-body">'+
-							'<div id="quick_publish_error" class="alert alert-danger hide error_message"><em></em></div>'+
+							'<div class="alert alert-danger hide error_message"> <i class="fa fa-times"></i> <em></em></div>'+
 							'<form action="' + G_BASE_URL + '/inbox/ajax/send/" method="post" id="quick_publish" onsubmit="return false">'+
 								'<input type="hidden" name="post_hash" value="' + G_POST_HASH + '" />'+
 								'<input id="invite-input" class="form-control" type="text" placeholder="' + _t('搜索用户') + '" name="recipient" value="{{recipient}}" />'+
@@ -254,7 +262,7 @@ var AW_TEMPLATE = {
 						'</div>'+
 						'<div class="modal-footer">'+
 							'<a data-dismiss="modal" aria-hidden="true">' + _t('取消') + '</a>'+
-							'<button class="btn btn-large btn-success" onclick="ajax_post($(\'#quick_publish\'), _quick_publish_processer);">' + _t('发送') + '</button>'+
+							'<button class="btn btn-large btn-success" onclick="AWS.ajax_post($(\'#quick_publish\'), AWS.ajax_processer, \'error_message\');">' + _t('发送') + '</button>'+
 						'</div>'+
 					'</div>'+
 				'</div>'+
@@ -269,14 +277,12 @@ var AW_TEMPLATE = {
 							'<h3 class="modal-title" id="myModalLabel">' + _t('分享') + '</h3>'+
 						'</div>'+
 						'<div class="modal-body clearfix">'+
-							'<div class="modal-body">'+
-								'<ul id="bdshare" class="bdshare_t bds_tools get-codes-bdshare">'+
-								'{{#items}}'+
-									'<li><a title="' + _t('分享到') + ' {{title}}" class="{{className}}"><i class="bds"></i>{{name}}</a></li>'+
-								'{{/items}}'+
-								'</ul>'+
-								'<script type="text/javascript" src="http://bdimg.share.baidu.com/static/js/bds_s_v2.js?cdnversion=' + new Date().getHours() + '"></script>'+
-							'</div>'+
+							'<ul id="bdshare" class="bdshare_t bds_tools get-codes-bdshare">'+
+							'{{#items}}'+
+								'<li><a title="' + _t('分享到') + ' {{title}}" class="{{className}}"><i class="bds"></i>{{name}}</a></li>'+
+							'{{/items}}'+
+							'</ul>'+
+							'<script type="text/javascript" src="http://bdimg.share.baidu.com/static/js/bds_s_v2.js?cdnversion=' + new Date().getHours() + '"></script>'+
 						'</div>'+
 					'</div>'+
 				'</div>'+
@@ -322,7 +328,7 @@ var AW_TEMPLATE = {
 						'<h3 class="modal-title" id="myModalLabel">{{title}}</h3>'+
 					'</div>'+
 					'<div class="modal-body">'+
-						'<p>{{data}}</p>'+
+						'{{data}}'+
 					'</div>'+
 				'</div>'+
 			'</div>'+
@@ -336,7 +342,7 @@ var AW_TEMPLATE = {
 						'<textarea class="aw-comment-txt form-control" rows="2" name="message" placeholder="' + _t('评论一下') + '..."></textarea>'+
 						'<div class="aw-comment-box-btn">'+
 							'<span class="pull-right">'+
-								'<a href="javascript:;" class="btn btn-mini btn-success" onclick="save_comment(this);">' + _t('评论') + '</a>'+
+								'<a href="javascript:;" class="btn btn-mini btn-success" onclick="AWS.User.save_comment($(this));">' + _t('评论') + '</a>'+
 								'<a href="javascript:;" class="btn btn-mini btn-default close-comment-box">' + _t('取消') + '</a>'+
 							'</span>'+
 						'</div>'+
@@ -352,9 +358,9 @@ var AW_TEMPLATE = {
 			'</div>',
 
 	'dropdownList' : 
-		'<div aria-labelledby="dropdownMenu" role="menu" class="dropdown-menu aw-category-dropdown">'+
-			'<span><i class="i-dropdown-triangle"></i></span>'+
-			'<ul class="aw-category-dropdown-list">'+
+		'<div aria-labelledby="dropdownMenu" role="menu" class="aw-dropdown">'+
+			'<i class="i-dropdown-triangle"></i>'+
+			'<ul class="aw-dropdown-list">'+
 			'{{#items}}'+
 				'<li><a data-value="{{id}}">{{title}}</a></li>'+
 			'{{/items}}'+
@@ -373,12 +379,12 @@ var AW_TEMPLATE = {
 							'<input type="hidden" name="type" value="{{item_type}}" />'+
 							'<input type="hidden" name="target_id" value="{{item_id}}" />'+
 							'<div class="modal-body">'+
-								'<div id="quick_publish_error" class="alert alert-danger hide error_message"><em></em></div>'+
+								'<div class="alert alert-danger hide error_message"><i class="fa fa-times"></i> <em></em></div>'+
 								'<textarea class="form-control" name="reason" rows="5" placeholder="' + _t('请填写举报理由') + '..."></textarea>'+
 							'</div>'+
 							'<div class="modal-footer">'+
 								'<a data-dismiss="modal" aria-hidden="true">' + _t('取消') + '</a>'+
-								'<button class="btn btn-large btn-success" onclick="ajax_post($(\'#quick_publish\'), _quick_publish_processer);return false;">' + _t('提交') + '</button>'+
+								'<button class="btn btn-large btn-success" onclick="AWS.ajax_post($(\'#quick_publish\'), AWS.ajax_processer, \'error_message\');return false;">' + _t('提交') + '</button>'+
 							'</div>'+
 						'</form>'+
 					'</div>'+
@@ -394,13 +400,13 @@ var AW_TEMPLATE = {
 	'searchDropdownListArticles' : 
 		'<li class="question clearfix"><a class="aw-hide-txt pull-left" href="{{url}}">{{content}} </a><span class="pull-right aw-text-color-999">{{comments}} ' + _t('条评论') + '</span></li>',
 	'inviteDropdownList' :
-		'<li class="user"><a data-id="{{uid}}" data-value="{{name}}"><img class="img" src="{{img}}" />{{name}}</a></li>',
+		'<li class="user"><a data-url="{{url}}" data-id="{{uid}}" action="{{action}}" data-value="{{name}}"><img class="img" src="{{img}}" />{{name}}</a></li>',
 	'editTopicDorpdownList' : 
 		'<li class="question"><a>{{name}}</a></li>',
 	'questionRedirectList' : 
-		'<li class="question"><a class="aw-hide-txt" onclick="ajax_request({{url}})">{{name}}</a></li>',
+		'<li class="question"><a class="aw-hide-txt" onclick="AWS.ajax_request({{url}})">{{name}}</a></li>',
 	'questionDropdownList' : 
-		'<li class="question"><a class="aw-hide-txt" href="{{url}}">{{name}}</a></li>',
+		'<li class="question" data-id="{{id}}"><a class="aw-hide-txt" target="_blank" _href="{{url}}">{{name}}</a></li>',
 
 	'inviteUserList' : 
 		'<li>'+
@@ -414,11 +420,11 @@ var AW_TEMPLATE = {
 	'voteBar' : 
 		'<div class="aw-vote-bar pull-left">'+
 			'<div class="vote-container">'+
-				'<a class="aw-border-radius-5 {{up_class}}" href="javascript:;" onclick="agreeVote(this, \'{{user_name}}\', {{answer_id}})">'+
+				'<a class="aw-border-radius-5 {{up_class}}" href="javascript:;" onclick="AWS.User.agree_vote(this, \'{{user_name}}\', {{answer_id}})">'+
 				'<i data-original-title="' + _t('赞同回复') + '" class="fa fa-thumbs-o-up active" data-toggle="tooltip" title="" data-placement="right"></i>'+
 				'</a>'+
 				'<em class="aw-border-radius-5 aw-vote-bar-count aw-hide-txt active">{{agree_count}}</em>'+
-				'<a class="aw-border-radius-5 {{down_class}}" onclick="disagreeVote(this, \'{{user_name}}\', {{answer_id}})">'+
+				'<a class="aw-border-radius-5 {{down_class}}" onclick="AWS.User.disagree_vote(this, \'{{user_name}}\', {{answer_id}})">'+
 					'<i data-original-title="' + _t('对回复持反对意见') + '" class="fa fa-thumbs-o-down" data-toggle="tooltip" title="" data-placement="right"></i>'+
 				'</a>'+
 			'</div>'+
@@ -433,13 +439,13 @@ var AW_TEMPLATE = {
 	'educateEdit' : 
 			'<td><input type="text" value="{{school}}" class="school form-control"></td>'+
 			'<td><input type="text" value="{{departments}}" class="departments form-control"></td>'+
-			'<td><select class="edityear">'+
+			'<td><select class="year edityear">'+
 				'</select> ' + _t('年') + '</td>'+
-			'<td><a class="delete-educate">' + _t('删除') + '</a>&nbsp;&nbsp;<a class="save-educate">' + _t('保存') + '</a></td>',
+			'<td><a class="delete-educate">' + _t('删除') + '</a>&nbsp;&nbsp;<a class="add-educate">' + _t('保存') + '</a></td>',
 
 	'workInsert' : 
 			'<td class="w1" data-txt="{{company}}">{{company}}</td>'+
-			'<td class="w2" data-txt="{{workid}}">{{work}}</td>'+
+			'<td class="w2" data-txt="{{jobid}}">{{work}}</td>'+
 			'<td class="w3" data-s-val="{{syear}}" data-e-val="{{eyear}}">{{syear}} ' + _t('年') + ' ' + _t('至') + ' {{eyear}}</td>'+
 			'<td><a class="delete-work">' + _t('删除') + '</a>&nbsp;&nbsp;<a class="edit-work">' + _t('编辑') + '</a></td>',
 
@@ -449,12 +455,12 @@ var AW_TEMPLATE = {
 				'<select class="work editwork">'+
 				'</select>'+
 			'</td>'+
-			'<td><select class="editsyear">'+
+			'<td><select class="syear editsyear">'+
 				'</select>&nbsp;&nbsp;' + _t('年') + ' &nbsp;&nbsp; ' + _t('至') + '&nbsp;&nbsp;&nbsp;&nbsp;'+
-				'<select class="editeyear">'+
+				'<select class="eyear editeyear">'+
 				'</select> ' + _t('年') +
 			'</td>'+
-			'<td><a class="delete-work">' + _t('删除') + '</a>&nbsp;&nbsp;<a class="save-work">' + _t('保存') + '</a></td>',
+			'<td><a class="delete-work">' + _t('删除') + '</a>&nbsp;&nbsp;<a class="add-work">' + _t('保存') + '</a></td>',
 
 	'linkBox' : 
 			'<div id="aw-link-box" class="modal alert-box aw-link-box fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">'+
@@ -474,7 +480,7 @@ var AW_TEMPLATE = {
 						'</div>'+
 						'<div class="modal-footer">'+
 							'<a data-dismiss="modal" aria-hidden="true">' + _t('取消') + '</a>'+
-							'<button class="btn btn-large btn-success" data-dismiss="modal" aria-hidden="true" onclick="$.{{add_func}}($.{{add_func}});">' + _t('确定') + '</button>'+
+							'<button class="btn btn-large btn-success" data-dismiss="modal" aria-hidden="true" onclick="AWS.Editor.add_multimedia({{type}});">' + _t('确定') + '</button>'+
 						'</div>'+
 					'</div>'+
 				'</div>'+
@@ -493,6 +499,89 @@ var AW_TEMPLATE = {
 					'</div>'+
 				'</div>'+
 			'</div>'+
+		'</div>',
+
+	'confirmBox' :
+		'<div class="modal fade alert-box aw-confirm-box">'+
+			'<div class="modal-dialog">'+
+				'<div class="modal-content">'+
+					'<div class="modal-header">'+
+						'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
+						'<h3 class="modal-title" id="myModalLabel">' + _t('提示信息') + '</h3>'+
+					'</div>'+
+					'<div class="modal-body">'+
+						'{{message}}'+
+					'</div>'+
+					'<div class="modal-footer">'+
+						'<a class="btn btn-default" data-dismiss="modal" aria-hidden="true">取消</a>'+
+						'<a class="btn btn-success yes">确定</a>'+
+					'</div>'+
+				'</div>'+
+			'</div>'+
+		'</div>',
+
+	// 后台分类移动设置
+	'adminCategoryMove' :
+		'<div class="modal fade alert-box aw-category-move-box">'+
+			'<div class="modal-dialog">'+
+				'<form method="post" id="settings_form" action="' + G_BASE_URL + '/admin/ajax/move_category_contents/">'+
+					'<div class="modal-content">'+
+						'<div class="modal-header">'+
+							'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
+							'<h3 class="modal-title" id="myModalLabel">' + _t('分类移动') + '</h3>'+
+						'</div>'+
+						'<div class="modal-body">'+
+							'<div class="alert alert-danger hide error_message"></div>'+
+							'<div class="row">'+
+								'<div class="col-md-6 hide">'+
+									'<select class="from-category form-control" name="from_id">'+
+										'{{#items}}'+
+											'<option value="{{id}}">{{title}}</option>'+
+										'{{/items}}'+
+									'</select>'+
+								'</div>'+
+								'<div class="col-md-12">'+
+									'<select name="target_id" class="form-control">'+
+										'{{#items}}'+
+											'<option value="{{id}}">{{title}}</option>'+
+										'{{/items}}'+
+									'</select>'+
+								'</div>'+
+							'</div>'+
+						'</div>'+
+						'<div class="modal-footer">'+
+							'<a class="btn btn-default" aria-hidden="true" data-dismiss="modal">' + _t('取消') + '</a>'+
+							'<a class="btn btn-success" onclick="AWS.ajax_post($(\'#settings_form\'), AWS.ajax_processer, \'error_message\')">' + _t('确定') + '</a>'+
+						'</div>'+
+					'</div>'+
+				'</form>'+
+			'</div>'+
+		'</div>',
+
+	// 后台微信群发消息弹窗
+	'adminWechatSendMsg' :
+		'<div class="modal fade alert-box aw-wechat-send-message">'+
+			'<div class="modal-dialog">'+
+				'<form method="post" id="settings_form" action="' + G_BASE_URL + '/admin/ajax/move_category_contents/">'+
+					'<div class="modal-content">'+
+						'<div class="modal-header">'+
+							'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
+							'<h3 class="modal-title" id="myModalLabel">' + _t('搜索消息内容') + '</h3>'+
+						'</div>'+
+						'<div class="modal-body">'+
+							'<div class="aw-dropdown-box">'+
+								'<div class="alert alert-danger hide error_message"></div>'+
+								'<input type="text" class="form-control search-input" />'+
+								'<div class="aw-dropdown"><p class="title">' + _t('没有找到相关结果') + '</p><ul class="aw-dropdown-list"><li><a>123</a></li></ul></div>'+
+							'</div>'+
+						'</div>'+
+						'<div class="modal-footer">'+
+							'<a class="btn btn-default" aria-hidden="true" data-dismiss="modal">' + _t('取消') + '</a>'+
+						'</div>'+
+					'</div>'+
+				'</form>'+
+			'</div>'+
 		'</div>'
+
 
 }

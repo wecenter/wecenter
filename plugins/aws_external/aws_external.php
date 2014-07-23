@@ -35,7 +35,7 @@ class aws_external_class extends AWS_MODEL
 				
 				/***
 					提问者头像调用：get_avatar_url($val['published_uid'], 'mid')
-					回复者头像调用：get_avatar_url($val['answer']['user_info']['uid'], 'mid')
+					回复者头像调用：get_avatar_url($val['answer_info']['user_info']['uid'], 'mid')
 					
 					$val['question_content'] - 问题标题
 					$val['question_detail'] - 问题说明

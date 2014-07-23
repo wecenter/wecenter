@@ -125,7 +125,7 @@ class H
 	{
 		if (!$hash_string)
 		{
-			return array();
+			return false;
 		}
 			
 		// 加密干扰码，加密解密时需要用到的 Key

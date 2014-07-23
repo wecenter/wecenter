@@ -58,5 +58,7 @@ class reader_class extends AWS_MODEL
 			
 			AWS_APP::cache()->set($result_cache_key, $result, get_setting('cache_level_low'));
 		}
+		
+		return $result;
 	}
 }

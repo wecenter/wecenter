@@ -11,7 +11,7 @@
 <title><?php echo $this->page_title; ?></title>
 <base target="_blank" />
 <script type="text/javascript">
-var G_BASE_URL = '<?php echo get_setting('base_url'); ?><?php if (get_setting('url_rewrite_enable') != 'Y') { ?>/<?php echo rtrim(G_INDEX_SCRIPT, '/'); ?><?php } ?>';
+var G_BASE_URL = '<?php echo base_url(); ?><?php if (get_setting('url_rewrite_enable') != 'Y') { ?>/<?php echo rtrim(G_INDEX_SCRIPT, '/'); ?><?php } ?>';
 var G_STATIC_URL = '<?php echo G_STATIC_URL; ?>';
 </script>
 <script src="<?php echo G_STATIC_URL; ?>/js/jquery.js?v=<?php echo G_VERSION_BUILD; ?>" type="text/javascript"></script>
@@ -32,7 +32,7 @@ var G_STATIC_URL = '<?php echo G_STATIC_URL; ?>';
 	
 	<div id="left_panel">
 		<div class="header">
-			<a href="<?php echo get_setting('base_url'); ?>" target="_top" class="back">返回网站</a>
+			<a href="<?php echo base_url(); ?>" target="_top" class="back">返回网站</a>
 			<h1 class="logo"><?php _e('问答阅读'); ?></h1>
 		</div>
 		

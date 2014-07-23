@@ -21,6 +21,30 @@
  * @category	Libraries
  * @author		WeCenter Dev Team
  */
+ 
+/**
+ * 获取站点根目录 URL
+ * 
+ * @return string
+ */
+function base_url()
+{
+	$clean_url = isset($_SERVER['PATH_INFO']) ? $_SERVER['PATH_INFO'] : NULL;
+	$clean_url = dirname(rtrim($_SERVER['PHP_SELF'], $clean_url));
+	$clean_url = rtrim($_SERVER['HTTP_HOST'] . $clean_url, '/\\');
+	$clean_url = rtrim($clean_url, '/\\');
+	
+	if ($_SERVER['SERVER_PORT'] == 443)
+	{
+		$scheme = 'https';
+	}
+	else
+	{
+		$scheme = 'http';
+	}
+	
+	return $scheme . '://' . $clean_url;
+}
 
 /**
  * 根据特定规则对数组进行排序
@@ -515,7 +539,7 @@ function show_error($exception_message, $error_message = '')
 	
 	if (get_setting('report_diagnostics') == 'Y' AND class_exists('AWS_APP', false))
 	{
-		AWS_APP::mail()->send('wecenter_report@outlook.com', '[' . G_VERSION . '][' . G_VERSION_BUILD . '][' . get_setting('base_url') . ']' . $error_message, nl2br($exception_message), get_setting('site_name'), 'WeCenter');
+		AWS_APP::mail()->send('wecenter_report@outlook.com', '[' . G_VERSION . '][' . G_VERSION_BUILD . '][' . base_url() . ']' . $error_message, nl2br($exception_message), get_setting('site_name'), 'WeCenter');
 	}
 	
 	echo _show_error($exception_message);
@@ -694,7 +718,7 @@ function get_js_url($url)
 			}
 		}
 		
-		$url = get_setting('base_url') . '/' . ((get_setting('url_rewrite_enable') != 'Y') ? G_INDEX_SCRIPT : '') . $url;
+		$url = base_url() . '/' . ((get_setting('url_rewrite_enable') != 'Y') ? G_INDEX_SCRIPT : '') . $url;
 	}
 	
 	return $url;
@@ -1086,4 +1110,51 @@ function remove_invisible_characters(&$str, $url_encoded = TRUE)
 		$str = preg_replace($non_displayables, '', $str, -1, $count);
 	}
 	while ($count);
+}
+
+/**
+ * 生成一段时间的月份列表
+ * 
+ * @param string
+ * @param string
+ * @param string
+ * @param string
+ * @return array
+ */
+function get_month_list($timestamp1, $timestamp2, $year_format = 'Y', $month_format = 'm')
+{
+    $yearsyn = date($year_format, $timestamp1);
+    $monthsyn = date($month_format, $timestamp1);
+    $daysyn = date('d', $timestamp1);
+    
+    $yearnow = date($year_format, $timestamp2);
+    $monthnow = date($month_format, $timestamp2);
+    $daynow = date('d', $timestamp2);
+    
+    if ($yearsyn == $yearnow)
+    {
+        $monthinterval = $monthnow - $monthsyn;
+    }
+    else if ($yearsyn < $yearnow)
+    {
+        $yearinterval = $yearnow - $yearsyn -1;
+        $monthinterval = (12 - $monthsyn + $monthnow) + 12 * $yearinterval;
+    }    
+    
+    $timedata = array();
+    for ($i = 0; $i <= $monthinterval; $i++)
+    {
+        $tmptime = mktime(0, 0, 0, $monthsyn + $i, 1, $yearsyn);
+        $timedata[$i]['year'] = date($year_format, $tmptime);
+        $timedata[$i]['month'] = date($month_format, $tmptime);
+        $timedata[$i]['beginday'] = '01';
+        $timedata[$i]['endday'] = date('t', $tmptime);
+    }
+    
+    $timedata[0]['beginday'] = $daysyn;
+    $timedata[$monthinterval]['endday'] = $daynow;
+    
+    unset($tmptime);
+    
+    return $timedata;
 }

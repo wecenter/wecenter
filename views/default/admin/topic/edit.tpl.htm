@@ -1,58 +1,279 @@
 <?php TPL::output('admin/global/header.tpl.htm'); ?>
 <?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
 
-<div class="pull-left right-side">	
-	<div class="aw-box">
-		<div class="aw-mod-head">
-			<h2><?php _e('话题编辑'); ?></h2>
+<div class="aw-content-wrap">
+	<form action="admin/ajax/save_topic/" id="settings_form" method="post" onsubmit="return false">
+	<input type="hidden" name="topic_id" value="<?php echo $this->topic_info['topic_id']; ?>" />
+	<div class="mod">
+		<div class="mod-head">
+			<h3>
+				<span class="pull-left"><?php _e('话题编辑'); ?></span>
+			</h3>
 		</div>
-		<div class="aw-mod-body">	
-			<dl>
-				<dt><h3><?php _e('缩略图'); ?>:</h3></dt>
-				<dd><a href="javascript:;" id="topic_pic_uploader"><img src="<?php echo get_topic_pic_url('mid', $this->topic_info['topic_pic']); ?>" alt="" id="topic_pic" class="img-polaroid" /></a></dd>
-			</dl>
-			<form action="admin/topic/save_ajax/topic_id-<?php echo $this->topic_info['topic_id']; ?>" id="settings_form" method="post">
-	<input type="hidden" name="referer_url" value="<?php echo $_SERVER['HTTP_REFERER']; ?>" />
-			<dl>
-				<dt><h3><?php _e('话题标题'); ?>:</h3></dt>
-				<dd>
-					<div class="row">
-						<div class="col-sm-7">
-							<input type="text" name="topic_title" value="<?php echo $this->topic_info['topic_title']; ?>" class="form-control" />
+
+		<div class="tab-content mod-content">
+			<table class="table table-striped">
+				<tr>
+					<td>
+						<div class="form-group">
+							<span class="col-sm-4 col-xs-3 control-label"><?php _e('缩略图'); ?>:</span>
+							<div class="col-sm-5 col-xs-8">
+								<a id="topic_pic_uploader"><img src="<?php echo get_topic_pic_url('mid', $this->topic_info['topic_pic']); ?>" alt="" id="topic_pic" class="img-polaroid" /></a>
+							</div>
 						</div>
-					</div>
-				</dd>
-			</dl>
-			<dl>
-				<dt><h3><?php _e('话题描述'); ?>:</h3></dt>
-				<dd><textarea class="form-control" name="topic_description"><?php echo $this->topic_info['topic_description']; ?></textarea></dd>
-			</dl>
-			<dl>
-				<dt><h3><?php _e('锁定状态'); ?>:</h3></dt>
-				<dd>
-					<span class="yesno_yes">
-						<label><input type="radio" name="topic_lock" value="1"<?php if ($this->topic_info['topic_lock'] == 1) { ?> checked="checked"<?php } ?> /><?php _e('是'); ?></label>
-					</span>
-					
-					<span class="yesno_no">
-						<label><input type="radio" name="topic_lock" value="0"<?php if ($this->topic_info['topic_lock'] == 0) { ?> checked="checked"<?php } ?> /><?php _e('否'); ?></label>
-					</span>
-				</dd>
-			</dl>
-			</form>
-		</div>
-		<div class="aw-mod-footer">
-			<a href="javascript:;" class="btn btn-inverse btn-normal" onclick="ajax_post($('#settings_form'));"><?php _e('保存'); ?></a>
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+						<div class="form-group">
+							<span class="col-sm-4 col-xs-3 control-label"><?php _e('话题标题'); ?>:</span>
+							<div class="col-sm-5 col-xs-8">
+								<input type="text" name="topic_title" value="<?php echo $this->topic_info['topic_title']; ?>" class="form-control" />
+							</div>
+						</div>
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+						<div class="form-group">
+							<span class="col-sm-4 col-xs-3 control-label"><?php _e('话题描述'); ?>:</span>
+							<div class="col-sm-5 col-xs-8">
+								<textarea class="form-control" name="topic_description" rows="3"><?php echo $this->topic_info['topic_description']; ?></textarea>
+							</div>
+						</div>
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+						<div class="form-group">
+							<span class="col-sm-4 col-xs-3 control-label"><?php _e('锁定状态'); ?>:</span>
+							<div class="col-sm-6 col-xs-8">
+								<div class="btn-group mod-btn">
+									<label type="button" class="btn mod-btn-color">
+										<input type="radio" name="topic_lock" value="1"<?php if ($this->topic_info['topic_lock']) { ?> checked="checked"<?php } ?> /> <?php _e('是'); ?>
+									</label>
+
+									<label type="button" class="btn mod-btn-color">
+										<input type="radio" name="topic_lock" value="0"<?php if (!$this->topic_info['topic_lock']) { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?>
+									</label>
+								</div>
+							</div>
+						</div>
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+						<div class="form-group">
+							<span class="col-sm-4 col-xs-3 control-label"><?php _e('根话题'); ?>:</span>
+							<div class="col-sm-6 col-xs-8">
+								<div class="btn-group mod-btn">
+									<label type="button" class="btn mod-btn-color">
+										<input type="radio" name="is_parent" value="1"<?php if ($this->topic_info['is_parent']) { ?> checked="checked"<?php } ?> /> <?php _e('是'); ?>
+									</label>
+
+									<label type="button" class="btn mod-btn-color">
+										<input type="radio" name="is_parent" value="0"<?php if (!$this->topic_info['is_parent']) { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?>
+									</label>
+								</div>
+							</div>
+						</div>
+					</td>
+				</tr>
+
+				<tr class="parent_topic_tr"<?php if ($this->topic_info['is_parent']) { ?> style="display: none;"<?php } ?>>
+					<td>
+						<div class="form-group">
+							<span class="col-sm-4 col-xs-3 control-label"><?php _e('选择根话题'); ?>:</span>
+							<div class="col-sm-4 col-xs-8">
+								<select id="parent_topic_select" class="hide" name="parent_id">
+								<option value=""> --- </option>
+								<?php foreach ($this->parent_topics AS $key => $val) { ?>
+								<option value="<?php echo $val['topic_id']; ?>"<?php if ($val['topic_id'] == $this->topic_info['parent_id']) { ?> selected="selected"<?php } ?>><?php echo $val['topic_title']; ?></option>
+								<?php } ?>
+								</select>
+
+								<div class="aw-publish-title">
+									<div class="dropdown">
+										<div class="dropdown-toggle">
+											<input class="aw-hide-txt form-control" id="aw-topic-tags-select" placeholder="<?php _e(根话题); ?>" />
+											<a class="triangle"><i class="fa fa-chevron-down"></i></a>
+										</div>
+										<div class="aw-dropdown">
+											<ul class="aw-dropdown-list">
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</td>
+				</tr>
+
+				<tfoot>
+				<tr>
+					<td>
+						<input type="button" value="<?php _e('保存设置'); ?>" class="btn btn-primary center-block" onclick="AWS.ajax_post($('#settings_form'));" />
+					</td>
+				</tr>
+				</tfoot>
+			</table>
 		</div>
 	</div>
+	</form>
 </div>
 
 <script type="text/javascript">
 	$(document).ready(function () {
 		if ($('#topic_pic_uploader').length)
 		{
-			init_img_uploader(G_BASE_URL + '/topic/ajax/upload_topic_pic/topic_id-<?php echo $this->topic_info['topic_id']; ?>', 'topic_pic', $('#topic_pic_uploader'), null, $('#topic_pic'));
+			AWS.Init.init_img_uploader(G_BASE_URL + '/topic/ajax/upload_topic_pic/topic_id-<?php echo $this->topic_info['topic_id']; ?>', 'topic_pic', $('#topic_pic_uploader'), null, $('#topic_pic'));
 		}
+
+		// 根话题选择
+		$.each($('#parent_topic_select option'), function (i, e)
+		{
+			$('.aw-publish-title .aw-dropdown-list').append('<li data-value="' + $(this).attr('value') + '"><a href="javascript:;" >' + $(this).html() + '</a></li>');
+		});
+
+		// 初始化给input赋值
+		if ($('#parent_topic_select option[selected=selected]').text())
+		{
+			$('.aw-publish-title #aw-topic-tags-select').val($('#parent_topic_select option[selected=selected]').text());
+		}
+		else
+		{
+			$('.aw-publish-title #aw-topic-tags-select').val($('#parent_topic_select option').eq(0).text());
+		}
+
+		$('.aw-publish-title .aw-dropdown-list li').click(function()
+		{
+			$('#parent_topic_select').val($(this).data('value'));
+			$('#aw-topic-tags-select').val($(this).text());
+			$('.aw-publish-title .dropdown').removeClass('open');
+			$('.aw-publish-title .aw-dropdown-list li').removeClass('hide');
+			AWS.ajax_request(G_BASE_URL + '/topic/ajax/set_parent_id/', 'topic_id=<?php echo $this->topic_info['topic_id']; ?>&parent_id=' + $(this).data('value'));
+		});
+
+		$('.aw-publish-title .triangle').click(function()
+		{
+			if ($(this).parents('.dropdown').hasClass('open'))
+			{
+				$(this).parents('.dropdown').removeClass('open');
+			}
+			else
+			{
+				$(this).parents('.dropdown').addClass('open');
+			}
+		});
+
+		$('.aw-publish-title #aw-topic-tags-select').bind({
+			focus : function()
+			{
+				$(this).parents('.dropdown').addClass('open');
+			},
+
+			keyup : function()
+			{
+				var value = $(this).val();
+				if (value != '')
+				{
+					$.each($('.aw-publish-title .aw-dropdown-list li'), function (i, e)
+					{
+						if ($(this).text().match(value) == null)
+						{
+							$(this).addClass('hide');
+						}
+						else
+						{
+							$(this).removeClass('hide');
+						}
+					});
+				}
+				else
+				{
+					$('.aw-publish-title .aw-dropdown-list li').removeClass('hide');
+				}
+			}
+		});
+
+		$(document).click(function(e)
+		{
+			var target = $(e.target);
+			if (target.parents('.aw-publish-title').length)
+			{
+				//return false;
+			}
+			else
+			{
+				var _this = $('#aw-topic-tags-select');
+				if (_this.val() == '')
+				{
+					$('#parent_topic_select').val('');
+					$('.aw-publish-title .aw-dropdown-list li').eq(0).click();
+					$('.aw-publish-title .dropdown').removeClass('open');
+				}
+				else
+				{
+					if ($('#parent_topic_select option[selected=selected]').text() != '')
+					{
+						var val = $('#parent_topic_select option[selected=selected]').text();
+					}
+					else
+					{
+						var val = ' --- ';
+					}
+
+					if (_this.val() != val)
+					{
+						if ($('.aw-publish-title .aw-dropdown-list li:not(".hide")').eq(0).text().match(_this.val()))
+						{
+							$('.aw-publish-title .aw-dropdown-list li:not(".hide")').eq(0).click();
+						}
+						else
+						{
+							var flag = false;
+							$.each($('.aw-publish-title .aw-dropdown-list li:not(".hide")'), function (i, e)
+							{
+								if ($(this).text().match(_this.val()))
+								{
+									flag = true;
+									$(this).click();
+								}
+							});
+
+							if (flag == false)
+							{
+								$('.aw-publish-title #aw-topic-tags-select').val($('#parent_topic_select option[selected=selected]').text());
+							}
+						}
+
+						$('.aw-publish-title .dropdown').removeClass('open');
+					}
+					else
+					{
+						$('.aw-publish-title .dropdown').removeClass('open');
+					}
+				}
+
+				$(this).parents('.dropdown').removeClass('open');
+			}
+		});
+
+		$('input[name="is_parent"]').on('ifClicked', function()
+		{
+			if (this.value == 0)
+			{
+				//$('.parent_topic_tr').removeAttr('style');
+			}
+			else
+			{
+				$('.parent_topic_tr').css('display', 'none');
+			}
+		});
 	});
 </script>
 

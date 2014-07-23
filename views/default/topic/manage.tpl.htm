@@ -1,93 +1,249 @@
 <?php TPL::output('global/header.tpl.htm'); ?>
 
 <div class="aw-container-wrap">
-	<div class="aw-container aw-wecenter aw-topic-edit">
-		<div class="container">
-			<div class="row aw-content-wrap aw-topic-content-wrap">
-				<h4><a class="btn btn-mini pull-right" href="topic/<?php echo $this->topic_info['url_token']; ?>"><?php _e('返回话题'); ?> »</a><?php _e('管理话题'); ?> - <?php echo $this->topic_info['topic_title']; ?></h4>
-				<div class="col-sm-9 aw-main-content">
-					<div class="aw-mod-topic-manage">
-						<dl>
+	<div class="container aw-topic-edit">
+		<div class="row">
+			<div class="col-sm-12">
+				<h4><a class="pull-right aw-text-color-999" href="topic/<?php echo $this->topic_info['url_token']; ?>"><?php _e('返回话题'); ?> »</a><?php _e('管理话题'); ?> - <?php echo $this->topic_info['topic_title']; ?></h4>
+			</div>
+		</div>
+		<div class="row aw-content-wrap">
+			<div class="col-sm-9 aw-main-content">
+				<div class="aw-mod-topic-manage">
+					<dl class="dl-horizontal">
 						<form class="form-inline" action="topic/ajax/save_url_token/" method="post" id="url_token_form">
 							<input type="hidden" name="topic_id" value="<?php echo $this->topic_info['topic_id']; ?>" />
 							<dt><?php _e('话题别名'); ?>:</dt>
 							<dd>
-								<a class="btn btn-large btn-success pull-right" href="javascript:;" onclick="ajax_post($('#url_token_form'));" /><?php _e('保存'); ?></a>
-								<script type="text/javascript">document.write(G_BASE_URL);</script>/topic/ 
+								<a class="btn btn-large btn-success pull-right" href="javascript:;" onclick="AWS.ajax_post($('#url_token_form'));" /><?php _e('保存'); ?></a>
+								<script type="text/javascript">document.write(G_BASE_URL);</script>/topic/
 								<input type="text" class="form-control" name="url_token" value="<?php echo $this->topic_info['url_token']; ?>" />
 							</dd>
 						</form>
-						</dl>
-						<dl>
+					</dl>
+					<dl class="dl-horizontal">
 						<form action="topic/ajax/save_seo_title/" method="post" id="seo_title_form">
 							<input type="hidden" name="topic_id" value="<?php echo $this->topic_info['topic_id']; ?>" />
 							<dt><?php _e('页面标题'); ?>:</dt>
 							<dd>
-								<a class="btn btn-large btn-success pull-right" href="javascript:;" onclick="ajax_post($('#seo_title_form'));"><?php _e('保存'); ?></a>
-								<input type="text"  class="form-control" name="seo_title" value="<?php echo $this->topic_info['seo_title']; ?>" />
+								<a class="btn btn-large btn-success pull-right" href="javascript:;" onclick="AWS.ajax_post($('#seo_title_form'));"><?php _e('保存'); ?></a>
+								<input type="text" class="form-control" name="seo_title" value="<?php echo $this->topic_info['seo_title']; ?>" />
 							</dd>
 						</form>
-						</dl>
-						<dl>
+					</dl>
+					<dl class="dl-horizontal">
 						<form action="topic/ajax/merge_topic/" method="post" id="merge_topic_form">
 							<input type="hidden" name="target_id" value="<?php echo $this->topic_info['topic_id']; ?>" />
 							<dt><?php _e('话题合并'); ?>:</dt>
 							<dd>
-								<a class="btn btn-large btn-success pull-right" onclick="ajax_post($('#merge_topic_form'));"><?php _e('话题合并'); ?></a>
+								<a class="btn btn-large btn-success pull-right" onclick="AWS.ajax_post($('#merge_topic_form'));"><?php _e('话题合并'); ?></a>
 								<input type="text" class="form-control" name="topic_title" placeholder="<?php _e('在此输入要与该话题合并的话题'); ?>..."/>
 							</dd>
 						</form>
-						</dl>
-						<?php if ($this->merged_topics_info) { ?>
-						<dl>
-							<dt><?php _e('被合并的话题'); ?>:</dt>
-							<dd>
-								<?php foreach ($this->merged_topics_info AS $key => $val) { ?>
-								<a class="aw-topic-name" href="javascript:;"><span><?php echo $val['topic_title']; ?><button class="close aw-close" onclick="ajax_request(G_BASE_URL + '/topic/ajax/remove_merge_topic/', 'source_id=<?php echo $val['topic_id']; ?>&target_id=<?php echo $this->topic_info['topic_id']; ?>');">×</button></span></a>
-								<?php } ?>
-							</dd>
-						</dl>
-						<?php } ?>
-						
-						<?php if (sizeof($this->feature_list) > 0) { ?>
-						<dl>
-							<form class="form-inline" action="topic/ajax/feature_topic/" method="post" id="feature_topic_form">
-							<input type="hidden" name="topic_id" value="<?php echo $this->topic_info['topic_id']; ?>" />
-							<dt><?php _e('加入专题'); ?>:</dt>
-							<dd>
-								<a class="btn btn-large btn-success pull-right" href="javascript:;" onclick="ajax_post($('#feature_topic_form'));"><?php _e('保存'); ?></a>
-								<div class="topic-list">
-									<div class="checkbox">
-								    <?php foreach($this->feature_list AS $key => $val) { ?>
-									<label><input type="checkbox" name="feature_ids[]" value="<?php echo $val['id']; ?>"<?php if (in_array($val['id'], $this->topic_in_features)) { ?> checked="checked"<?php } ?> /> <?php echo $val['title']; ?></label>
-									<?php } ?>	
-								  </div>
-									
+					</dl>
+					<?php if ($this->merged_topics_info) { ?>
+					<dl class="dl-horizontal">
+						<dt><?php _e('被合并的话题'); ?>:</dt>
+						<dd>
+							<?php foreach ($this->merged_topics_info AS $key => $val) { ?>
+							<a class="aw-topic-name" href="javascript:;"><span><?php echo $val['topic_title']; ?><button class="close aw-close" onclick="AWS.ajax_request(G_BASE_URL + '/topic/ajax/remove_merge_topic/', 'source_id=<?php echo $val['topic_id']; ?>&target_id=<?php echo $this->topic_info['topic_id']; ?>');">×</button></span></a>
+							<?php } ?>
+						</dd>
+					</dl>
+					<?php } ?>
+
+					<?php if ($this->parent_topics) { ?>
+					<dl class="dl-horizontal">
+						<dt><?php _e('根话题'); ?>:</dt>
+						<dd>
+							<select id="parent_topic_select" class="hide" name="parent_id">
+							<option value=""> --- </option>
+							<?php foreach ($this->parent_topics AS $key => $val) { ?>
+							<option value="<?php echo $val['topic_id']; ?>"<?php if ($val['topic_id'] == $this->topic_info['parent_id']) { ?> selected="selected"<?php } ?>><?php echo $val['topic_title']; ?></option>
+							<?php } ?>
+							</select>
+
+							<div class="aw-publish-title">
+								<div class="dropdown">
+									<div class="dropdown-toggle">
+										<input class="aw-hide-txt" id="aw-topic-tags-select" placeholder="<?php _e(根话题); ?>" />
+										<a class="triangle"><i class="fa fa-chevron-down"></i></a>
+									</div>
+									<div class="aw-dropdown">
+										<i class="i-dropdown-triangle"></i>
+										<ul class="aw-dropdown-list">
+										</ul>
+									</div>
 								</div>
-							</dd>
-							</form>
-						</dl>
-						<?php } ?>
-					</div>
-					
+							</div>
+
+						</dd>
+					</dl>
+					<?php } ?>
 				</div>
-				<!-- 侧边栏 -->
-				<div class="col-sm-3 aw-side-bar aw-side-bar-topic aw-side-bar-topic-edit">
-						<div class="aw-side-bar-mod aw-side-bar-mod-topic-edit">
-						<div class="aw-side-bar-mod-head">
-							<h3><?php _e('管理话题指南'); ?></h3>
-						</div>
-						<div class="aw-side-bar-mod-body">
-							<p><b>● <?php _e('话题别名'); ?>:</b> <?php _e('如果该话题还有其他的表达方式, 您可以为其创建别名以便其他人能更好的找到该话题'); ?></p>
-							<p><b>● <?php _e('话题合并'); ?>:</b> <?php _e('如果该话题跟另一个话题意义相近, 您可以将此话题合并至其他话题'); ?></p>
-						</div>
-					</div>
-					
-				</div>
-				<!-- end 侧边栏 -->
 			</div>
+
+			<!-- 侧边栏 -->
+			<div class="col-sm-3 aw-side-bar">
+				<div class="aw-mod topic-edit-help">
+					<div class="mod-head">
+						<h3><?php _e('管理话题指南'); ?></h3>
+					</div>
+					<div class="mod-body">
+						<p><b>● <?php _e('话题别名'); ?>:</b> <?php _e('如果该话题还有其他的表达方式, 您可以为其创建别名以便其他人能更好的找到该话题'); ?></p>
+						<p><b>● <?php _e('话题合并'); ?>:</b> <?php _e('如果该话题跟另一个话题意义相近, 您可以将此话题合并至其他话题'); ?></p>
+					</div>
+				</div>
+
+				<?php if ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?>
+				<div class="aw-mod topic-manage">
+					<div class="mod-body clearfix">
+						<a onclick="AWS.ajax_request(G_BASE_URL + '/topic/ajax/lock/', 'topic_id=<?php echo $this->topic_info['topic_id']; ?>');" class="btn btn-default pull-left <?php if (!$this->topic_info['topic_lock']) { ?>aw-active<?php } ?>"><?php if ($this->topic_info['topic_lock']) { ?><?php _e('解除锁定'); ?><?php } else { ?><?php _e('锁定话题'); ?><?php } ?></a>
+						<a onclick="AWS.dialog('confirm', {'message' : '<?php _e('确认删除?'); ?>'}, function(){AWS.ajax_request(G_BASE_URL + '/topic/ajax/remove/', 'topic_id=<?php echo $this->topic_info['topic_id']; ?>');});" class="btn btn-danger pull-right"><?php _e('删除话题'); ?></a>
+					</div>
+				</div>
+				<?php } ?>
+			</div>
+			<!-- end 侧边栏 -->
 		</div>
 	</div>
 </div>
+
+<script>
+	$(function()
+	{
+		// 根话题选择
+		$.each($('#parent_topic_select option'), function (i, e)
+		{
+			$('.aw-publish-title .aw-dropdown-list').append('<li data-value="' + $(this).attr('value') + '"><a href="javascript:;" >' + $(this).html() + '</a></li>');
+		});
+
+		// 初始化给input赋值
+		if ($('#parent_topic_select option[selected=selected]').text())
+		{
+			$('.aw-publish-title #aw-topic-tags-select').val($('#parent_topic_select option[selected=selected]').text());
+		}
+		else
+		{
+			$('.aw-publish-title #aw-topic-tags-select').val($('#parent_topic_select option').eq(0).text());
+		}
+
+		$('.aw-publish-title .aw-dropdown-list li').click(function()
+		{
+			$('#parent_topic_select').val($(this).data('value'));
+			$('#aw-topic-tags-select').val($(this).text());
+			$('.aw-publish-title .dropdown').removeClass('open');
+			$('.aw-publish-title .aw-dropdown-list li').removeClass('hide');
+			AWS.ajax_request(G_BASE_URL + '/topic/ajax/set_parent_id/', 'topic_id=<?php echo $this->topic_info['topic_id']; ?>&parent_id=' + $(this).data('value'));
+		});
+
+		$('.aw-publish-title .triangle').click(function()
+		{
+			if ($(this).parents('.dropdown').hasClass('open'))
+			{
+				$(this).parents('.dropdown').removeClass('open');
+			}
+			else
+			{
+				$(this).parents('.dropdown').addClass('open');
+			}
+		});
+
+
+		$('.aw-publish-title #aw-topic-tags-select').bind({
+			focus : function()
+			{
+				$(this).parents('.dropdown').addClass('open');
+			},
+
+			keyup : function()
+			{
+				var value = $(this).val();
+				if (value != '')
+				{
+					$.each($('.aw-publish-title .aw-dropdown-list li'), function (i, e)
+					{
+						if ($(this).text().match(value) == null)
+						{
+							$(this).addClass('hide');
+						}
+						else
+						{
+							$(this).removeClass('hide');
+						}
+					});
+				}
+				else
+				{
+					$('.aw-publish-title .aw-dropdown-list li').removeClass('hide');
+				}
+			}
+		});
+
+		$(document).click(function(e)
+			{
+				var target = $(e.target);
+				if (target.parents('.aw-publish-title').length)
+				{
+					//return false;
+				}
+				else
+				{
+					var _this = $('#aw-topic-tags-select');
+					if (_this.val() == '')
+					{
+						$('#parent_topic_select').val('');
+						$('.aw-publish-title .aw-dropdown-list li').eq(0).click();
+						$('.aw-publish-title .dropdown').removeClass('open');
+					}
+					else
+					{
+						if ($('#parent_topic_select option[selected=selected]').text() != '')
+						{
+							var val = $('#parent_topic_select option[selected=selected]').text();
+						}
+						else
+						{
+							var val = ' --- ';
+						}
+
+						if (_this.val() != val)
+						{
+							if ($('.aw-publish-title .aw-dropdown-list li:not(".hide")').eq(0).text().match(_this.val()))
+							{
+								$('.aw-publish-title .aw-dropdown-list li:not(".hide")').eq(0).click();
+							}
+							else
+							{
+								var flag = false;
+								$.each($('.aw-publish-title .aw-dropdown-list li:not(".hide")'), function (i, e)
+								{
+									if ($(this).text().match(_this.val()))
+									{
+										flag = true;
+										$(this).click();
+									}
+								});
+
+								if (flag == false)
+								{
+									$('.aw-publish-title #aw-topic-tags-select').val($('#parent_topic_select option[selected=selected]').text());
+								}
+							}
+
+							$('.aw-publish-title .dropdown').removeClass('open');
+						}
+						else
+						{
+							$('.aw-publish-title .dropdown').removeClass('open');
+						}
+					}
+
+					$(this).parents('.dropdown').removeClass('open');
+				}
+			});
+
+	});
+</script>
 
 <?php TPL::output('global/footer.tpl.htm'); ?>

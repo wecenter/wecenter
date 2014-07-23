@@ -58,7 +58,7 @@ class ajax extends AWS_CONTROLLER
 		}
 		else
 		{
-			$posts_list = $this->model('posts')->get_posts_list($_GET['post_type'], $_GET['page'], $per_page, $_GET['sort_type'], $topic_ids, $_GET['category'], $_GET['answer_count'], $_GET['day']);
+			$posts_list = $this->model('posts')->get_posts_list($_GET['post_type'], $_GET['page'], $per_page, $_GET['sort_type'], $topic_ids, $_GET['category'], $_GET['answer_count'], $_GET['day'], $_GET['is_recommend']);
 		}
 		
 		if ($_GET['template'] != 'm' AND $posts_list)

@@ -54,13 +54,6 @@ class module_class extends AWS_MODEL
 		return array_merge($recommend_users, $recommend_topics);
 	}
 	
-	public function content_category()
-	{
-		$content_category = $this->model('system')->fetch_category('question');
-		
-		return $content_category;
-	}
-	
 	public function sidebar_hot_topics($category_id = 0)
 	{
 		if ($topics = $this->model('topic')->get_hot_topics($category_id, 5))
@@ -75,7 +68,7 @@ class module_class extends AWS_MODEL
 
 	public function sidebar_hot_users($uid = 0, $limit = 5)
 	{
-		if ($users_list = $this->fetch_all('users', 'uid <> ' . intval($uid) . ' AND last_active > ' . (time() - (60 * 60 * 24 * 30)), 'answer_count DESC', ($limit * 4)))
+		if ($users_list = $this->fetch_all('users', 'uid <> ' . intval($uid) . ' AND last_active > ' . (time() - (60 * 60 * 24 * 7)), 'answer_count DESC', ($limit * 4)))
 		{
 			foreach($users_list as $key => $val)
 			{

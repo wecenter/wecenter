@@ -8,7 +8,7 @@
 
 <?php if ($this->approval_item['attachs']) {  ?>
 <p><strong><?php _e('附件'); ?></strong></p>
-<?php if ($this->approval_item['attachs']) {  ?>
+
 <blockquote class="aw-comment-upload-img-list">
 <?php foreach ($this->approval_item['attachs'] AS $attach) { ?>
 <?php if ($attach['is_image']) { ?>
@@ -16,9 +16,7 @@
 <?php } ?>
 <?php } ?>
 </blockquote>
-<?php } ?>
 
-<?php if ($this->approval_item['attachs']) {  ?>
 <blockquote>
 	<ul class="aw-comment-upload-file-list">
 		<?php foreach ($this->approval_item['attachs'] AS $attach) { ?>
@@ -28,8 +26,6 @@
 		<?php } ?>
 	</ul>
 </blockquote>
-<?php } ?>
-
 <?php } ?>
 
 <p align="center"><a class="btn btn-success" onclick="$('#batchs_form input').attr('checked', false); $('#approval_id').val('<?php echo $this->approval_item['id']; ?>'); $('#batch_approval').click();" href="javascript:;"><?php _e('通过审核'); ?></a> &nbsp; <a class="btn btn-danger" onclick="$('#batchs_form input').attr('checked', false); $('#approval_id').val('<?php echo $this->approval_item['id']; ?>'); $('#batch_decline').click();" href="javascript:;"><?php _e('拒绝审核'); ?></a></blockquote>
