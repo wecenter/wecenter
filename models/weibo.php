@@ -150,12 +150,6 @@ class weibo_class extends AWS_MODEL
 
             $msgs = $this->model('openid_weibo')->get_msg_from_sina($service_info['access_token'], $service_info['last_msg_id']);
 
-$fp = fopen(ROOT_PATH . 'tmp/weibo_debug.txt', 'a');
-
-fwrite($fp, date('Y-m-d H:i:s') . "\n" . var_export($service_info, true) . "\n" . var_export($msgs, true) . "\n\n");
-
-fclose($fp);
-
             if (empty($msgs))
             {
                 continue;
