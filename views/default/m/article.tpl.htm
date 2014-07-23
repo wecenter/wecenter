@@ -52,8 +52,8 @@
 			</div>
 			<div class="mod-footer active">
 				<span class="aw-article-vote operate <?php if (!$this->user_id OR $this->user_id == $this->article_info['uid']) { ?> disabled<?php } ?>">
-					<a class="agree" <?php if ($this->user_id != $this->article_info['uid']) { ?>onclick="AWS.User.article_vote($(this), <?php echo $this->article_info['id']; ?>, 1);"<?php } ?>><i class="icon icon-agree <?php if ($this->article_info['vote_info']['rating'] == 1) { ?> active<?php } ?>"></i> <b><?php echo $this->article_info['votes']; ?></b></a>
-					<a class="disagree" <?php if ($this->user_id != $this->article_info['uid']) { ?>onclick="AWS.User.article_vote($(this), <?php echo $this->article_info['id']; ?>, -1);"<?php } ?>><i class="icon icon-disagree <?php if ($this->article_info['vote_info']['rating'] == -1) { ?> active<?php } ?>"></i></a>
+					<a class="agree" <?php if ($this->user_id AND $this->user_id != $this->article_info['uid']) { ?>onclick="AWS.User.article_vote($(this), <?php echo $this->article_info['id']; ?>, 1);"<?php } ?>><i class="icon icon-agree <?php if ($this->article_info['vote_info']['rating'] == 1) { ?> active<?php } ?>"></i> <b><?php echo $this->article_info['votes']; ?></b></a>
+					<a class="disagree" <?php if ($this->user_id AND $this->user_id != $this->article_info['uid']) { ?>onclick="AWS.User.article_vote($(this), <?php echo $this->article_info['id']; ?>, -1);"<?php } ?>><i class="icon icon-disagree <?php if ($this->article_info['vote_info']['rating'] == -1) { ?> active<?php } ?>"></i></a>
 				</span>
 				<!-- 赞同列表 -->
 				<?php if ($this->article_info['vote_users']) { ?>
