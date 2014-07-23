@@ -2086,31 +2086,8 @@ AWS.Dropdown =
 	                    	$('.weibo_msg_published_user').val($(this).attr('data-id'));
 	                    	$(".alert-box").modal('hide');
 	                    	
-	                    	$.getJSON(G_BASE_URL + '/admin/ajax/weibo_batch/',function(result)
-					        {
-					        
-					            if (result.errno == -1)
-								{	
-									console.log(0)
-									return false;
-								}
-								else if (result.errno == 1)
-								{	
-									console.log(1)
-									if (result.rsm.satus == 'bound')
-									{	
-										console.log(2)
-										var oHtml = '<li> <a class="reply-name" href="'+ $(this).attr('data-url') +'">'+$(this).html()+'</a> <a href="/account/sina/binding/uid-'+$(this).attr('data-id')+' "class="btn btn-primary btn-sm" target="_blank">更新 Access Token</a> <a data-id="'+ $(this).attr('data-id')+'" action= "del_service_user" class="delete btn btn-danger btn-sm">删除用户</a> </li>';
-	                    				$('.mod-weibo-reply').append(oHtml);
-									}
-									else
-									{	
-										console.log(3)
-				                    	var oHtml = '<li> <a class="reply-name" href="'+ $(this).attr('data-url') +'">'+$(this).html()+'</a> <a href="/account/sina/binding/uid-'+$(this).attr('data-id')+' "class="btn btn-primary btn-sm" target="_blank">绑定新浪微博</a> <a data-id="'+ $(this).attr('data-id')+'" action= "del_service_user" class="delete btn btn-danger btn-sm">删除用户</a> </li>';
-	                    				$('.mod-weibo-reply').append(oHtml);	
-									}
-								}
-					        });                    
+	                    	var oHtml = '<li> <a class="reply-name" href="'+ $(this).attr('data-url') +'">'+$(this).html()+'</a> <a href="/account/sina/binding/uid-'+$(this).attr('data-id')+' "class="btn btn-primary btn-sm" target="_blank">绑定新浪微博</a> <a data-id="'+ $(this).attr('data-id')+'" action= "del_service_user" class="delete btn btn-danger btn-sm">删除用户</a> </li>';
+	                    	$('.mod-weibo-reply').append(oHtml);	                    
 
 	                    	$('.aw-admin-weibo-answer').find('.search-input').val("");
 	                    	
