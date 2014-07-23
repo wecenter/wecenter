@@ -2,9 +2,6 @@ var document_title = document.title;
 
 $(document).ready(function ()
 {
-    // 文章截断显示更多
-    
-    
     // fix form bug...
     $("form[action='']").attr('action', window.location.href);
 
