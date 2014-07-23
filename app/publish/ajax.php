@@ -485,16 +485,19 @@ class ajax extends AWS_CONTROLLER
 
             if (!is_dir($upload_dir))
             {
-                mkdir($upload_dir, 0755, true);
+                if (!make_dir($upload_dir))
+                {
+                    H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('创建图片存储目录失败')));
+                }
             }
 
             $ori_file = $upload_dir . $file_name;
 
-            $handle = fopen($ori_file, 'w');
+            $handle = @fopen($ori_file, 'w');
 
-            fwrite($handle, $file);
+            @fwrite($handle, $file);
 
-            fclose($handle);
+            @fclose($handle);
 
             foreach (AWS_APP::config()->get('image')->attachment_thumbnail AS $key => $val)
             {

@@ -195,16 +195,19 @@ class weibo_class extends AWS_MODEL
 
                         if (!is_dir($upload_dir))
                         {
-                            mkdir($upload_dir, 0755, true);
+                            if (!make_dir($upload_dir))
+                            {
+                                H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('创建图片存储目录失败')));
+                            }
                         }
 
                         $ori_image = $upload_dir . $pic_url_array[3];
 
-                        $handle = fopen($ori_image, 'w');
+                        $handle = @fopen($ori_image, 'w');
 
-                        fwrite($handle, $result);
+                        @fwrite($handle, $result);
 
-                        fclose($handle);
+                        @fclose($handle);
 
                         foreach (AWS_APP::config()->get('image')->attachment_thumbnail AS $key => $val)
                         {
