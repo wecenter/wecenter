@@ -1419,7 +1419,7 @@
                             <div class="col-sm-5 col-xs-8">
                                 <input name="weixin_mp_token" type="text" class="form-control" value="<?php echo $this->setting['weixin_mp_token']; ?>"/>
 
-                                <span class="help-block"><?php _e('请与微信公众平台后台设置一致'); ?></span>
+                                <span class="help-block"><?php _e('请与微信公众平台后台设置一致，URL 为 <code>%s</code>', get_js_url('/weixin/api/')); ?></span>
                             </div>
                         </div>
                     </td>
