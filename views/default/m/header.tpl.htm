@@ -41,7 +41,7 @@
 		</li>
 		<?php }?>
 		<li>
-			<a class="user"><span class="triangle"></span><i class="icon icon-user"></i><?php _e('我'); ?><?php if (!$this->user_id) { ?><i class="icon-tips"></i><?php } ?></a>
+			<a class="user"><span class="triangle"></span><i class="icon icon-user"></i><?php _e('我'); ?><?php if (!$this->user_id OR $this->user_info['inbox_unread'] != 0) { ?><i class="icon-tips"></i><?php } ?></a>
 		</li>
 		<?php if ($this->user_id) { ?>
 		<li>
@@ -95,10 +95,6 @@
 						<img class="img" alt="<?php echo $this->user_info['user_name']; ?>" src="<?php echo get_avatar_url($this->user_info['uid'], 'mid'); ?>" />
 					</span>
 					<?php echo $this->user_info['user_name']; ?>
-					<?php if ($this->user_info['inbox_unread'] != 0) {?>
-						<span class="badge badge-important"><?php echo $this->user_info['inbox_unread']?></span>
-					<?php } ?>
-
 				</a>
 			</li>
 			<li>
@@ -107,6 +103,9 @@
 						<i class="icon icon-inbox"></i>
 					</span>
 					<?php _e('私信'); ?>
+					<?php if ($this->user_info['inbox_unread'] != 0) {?>
+						<span class="badge badge-danger"><?php echo $this->user_info['inbox_unread']?></span>
+					<?php } ?>
 				</a>
 			</li>
 			<li>

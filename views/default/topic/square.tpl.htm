@@ -62,9 +62,8 @@
                 <div class="aw-mod topic-nav hidden-xs">
                     <div class="mod-body">
                         <ul>
-                            <li><a href="topic/channel-focus"<?php if (!$_GET['id'] OR $_GET['id'] == 'focus') { ?> class="active"<?php } ?>><i class="fa fa-tags"></i> <?php _e('我关注的话题'); ?></a></li>
-
-                            <li><a href="topic/channel-hot"<?php if ($_GET['id'] == 'hot') { ?> class="active"<?php } ?>><i class="fa fa-fire"></i> <?php _e('热门话题'); ?></a></li>
+                            <li><a href="topic/channel-focus"<?php if (!$_GET['id'] OR $_GET['id'] == 'channel-focus') { ?> class="active"<?php } ?>><i class="fa fa-tags"></i> <?php _e('我关注的话题'); ?></a></li>
+                            <li><a href="topic/channel-hot"<?php if ($_GET['id'] == 'channel-hot') { ?> class="active"<?php } ?>><i class="fa fa-fire"></i> <?php _e('热门话题'); ?></a></li>
                         </ul>
                     </div>
                 </div>
