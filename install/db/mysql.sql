@@ -242,21 +242,27 @@ CREATE TABLE `[#DB_PREFIX#]feature_topic` (
 CREATE TABLE `[#DB_PREFIX#]favorite` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `uid` int(11) DEFAULT '0',
-  `answer_id` int(11) DEFAULT '0',
+  `item_id` int(11) DEFAULT '0',
   `time` int(10) DEFAULT '0',
+  `type` varchar(16) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `uid` (`uid`),
-  KEY `answer_id` (`answer_id`),
-  KEY `time` (`time`)
+  KEY `time` (`time`),
+  KEY `item_id` (`item_id`),
+  KEY `type` (`type`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]favorite_tag` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `uid` int(11) DEFAULT '0',
   `title` varchar(128) DEFAULT NULL,
-  `answer_id` int(11) DEFAULT NULL,
+  `item_id` int(11) DEFAULT '0',
+  `type` varchar(16) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
-  KEY `uid` (`uid`)
+  KEY `uid` (`uid`),
+  KEY `title` (`title`),
+  KEY `type` (`type`),
+  KEY `item_id` (`item_id`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]invitation` (
@@ -639,6 +645,8 @@ CREATE TABLE `[#DB_PREFIX#]topic` (
   `url_token` VARCHAR(32) DEFAULT NULL,
   `merged_id` INT( 11 ) NULL DEFAULT '0',
   `seo_title` varchar(255) DEFAULT NULL,
+  `parent_id` INT( 10 ) NULL DEFAULT '0',
+  `is_parent` TINYINT( 1 ) NULL DEFAULT '0',
   PRIMARY KEY (`topic_id`),
   UNIQUE KEY `topic_title` (`topic_title`),
   KEY `url_token` (`url_token`),
@@ -647,7 +655,9 @@ CREATE TABLE `[#DB_PREFIX#]topic` (
   KEY `add_time` (`add_time`),
   KEY `user_related` (`user_related`),
   KEY `focus_count` (`focus_count`),
-  KEY `topic_lock` (`topic_lock`)
+  KEY `topic_lock` (`topic_lock`),
+  KEY `parent_id` (`parent_id`),
+  KEY `is_parent` (`is_parent`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8 COMMENT='话题';
 
 CREATE TABLE `[#DB_PREFIX#]topic_focus` (

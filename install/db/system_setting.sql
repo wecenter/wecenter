@@ -114,4 +114,5 @@ INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES
 ('weixin_account_role', 's:7:"base";'),
 ('weibo_msg_enabled', 's:1:"N";'),
 ('weibo_msg_published_user', 'a:0:"";'),
-('admin_notifications', 'a:0:"";');
+('admin_notifications', 'a:0:"";'),
+('slave_mail_config', 's:0:"";');
