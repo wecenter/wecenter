@@ -133,14 +133,16 @@ $(function () {
             }
             else if (result.errno == 1)
             {   
-                if (result.rsm.staus == 'bound')
-                {   
-                    $('.mod-weibo-reply li:last .btn-primary').text('更新 Access Token');
-                }
-                else
-                {   
-                   $('.mod-weibo-reply li:last .btn-primary').text('绑定新浪微博');  
-                }
+                if(result.rsm != null){
+                    if (result.rsm.staus == 'bound')
+                    {   
+                        $('.mod-weibo-reply li:last .btn-primary').text('更新 Access Token');
+                    }
+                    else
+                    {   
+                       $('.mod-weibo-reply li:last .btn-primary').text('绑定新浪微博');  
+                    }
+                }   
 
                 $(".alert-box").modal('hide');
             }
