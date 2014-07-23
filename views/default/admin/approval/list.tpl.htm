@@ -56,6 +56,7 @@
                                 <a href="people/<?php echo $this->users_info[$approval_info['uid']]['url_token']; ?>" target="_blank"><?php echo $this->users_info[$approval_info['uid']]['user_name']; ?></a>
                             </td>
 
+                            <?php if (in_array($_GET['type'], array('question', 'unverified_modify', 'article'))) { ?>
                             <td><?php
                             switch ($_GET['type']) {
                                 case 'question':
@@ -71,6 +72,7 @@
                                     break;
                             }
                             ?></td>
+                            <?php } ?>
 
                             <td>
                                 <?php if ($_GET['type'] == 'unverified_modify') { echo $approval_info['unverified_modify_count']; } else { ?>
