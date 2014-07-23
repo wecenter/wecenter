@@ -54,7 +54,7 @@ class openid_weixin_class extends AWS_MODEL
 
         AWS_APP::cache()->delete($cached_token);
 
-        return $this->get_access_token();
+        return $this->get_access_token($app_id, $app_secret);
     }
 
     public function get_access_token($app_id, $app_secret)
