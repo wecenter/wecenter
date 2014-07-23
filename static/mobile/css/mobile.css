@@ -395,8 +395,9 @@ input[type="text"], input[type="password"], textarea{-webkit-appearance:none;}
 .aw-login-box .mod-body ul li.meta, .aw-login-box .mod-body ul li.meta a{color: #999;}
 .aw-login-box .mod-body ul li.captcha{position: relative;padding-right:111px;}
 .aw-login-box .mod-body ul li.captcha img{position: absolute;right: 0;top: 0;border-radius: 5px;}
-.aw-login-box .mod-body .btn-primary{height: 40px;line-height: 40px;padding:0;font-size: 15px;}
+.aw-login-box .mod-body .btn{height: 40px;line-height: 40px;padding:0;font-size: 15px;}
 .aw-login-box .mod-body .verify .content{margin:15px 0;padding:15px;background-color: #ebebeb;color: #999999;}
+.aw-login-box .bind-form p, .aw-login-box .register-form p{margin-top: 10px;}
 
 /* 用户列表页 */
 .aw-people-list ul li .mod-head{position:relative;padding:10px 10px 0 70px;}

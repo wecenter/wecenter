@@ -41,15 +41,17 @@ class weixin extends AWS_CONTROLLER
 		TPL::import_clean();
 
 		TPL::import_css(array(
-			'js/mobile/mobile.css',
+			'mobile/css/icon.css',
+			'mobile/css/mobile.css'
 		));
 
 		TPL::import_js(array(
 			'js/jquery.2.js',
 			'js/jquery.form.js',
-			'js/mobile/framework.js',
-			'js/mobile/mobile.js',
-			'js/mobile/aw-mobile-template.js'
+			'mobile/js/framework.js',
+			'mobile/js/aws-mobile.js',
+			'mobile/js/app.js',
+			'mobile/js/aw-mobile-template.js'
 		));
 	}
 
