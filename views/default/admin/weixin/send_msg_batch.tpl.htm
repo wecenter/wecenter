@@ -169,6 +169,18 @@
         });
 
         AWS.Dropdown.bind_dropdown_list($('.mod-article input'), 'adminArticles');
+
+        $('.aw-question-list').delegate('.btn-danger','click',function(){
+            var tempStr =  $('.question_ids').val();
+            $('.question_ids').val(tempStr.replace($(this).parents("li").attr('data-id')+ ',',''));
+            $(this).parents("li").detach();
+        })
+
+        $('.aw-article-list').delegate('.btn-danger','click',function(){
+            var tempStr =  $('.article_ids').val();
+            $('.article_ids').val(tempStr.replace($(this).parents("li").attr('data-id')+ ',',''));
+            $(this).parents("li").detach()
+        })
     })
 </script>
 
