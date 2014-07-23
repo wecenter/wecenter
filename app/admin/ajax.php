@@ -1961,6 +1961,8 @@ class ajax extends AWS_ADMIN_CONTROLLER
                     }
 
                     $this->model('weibo')->update_service_account($user_info['uid'], 'add');
+
+                    $rsm = array('satus' => 'bound');
                 }
                 else
                 {
@@ -1978,6 +1980,8 @@ class ajax extends AWS_ADMIN_CONTROLLER
                     natsort($tmp_service_account);
 
                     AWS_APP::cache()->set('tmp_service_account', $tmp_service_account, 86400);
+
+                    $rsm = array('satus' => 'unbound');
                 }
 
                 break;
@@ -2040,7 +2044,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
                 break;
         }
 
-        H::ajax_json_output(AWS_APP::RSM(null, 1, null));
+        H::ajax_json_output(AWS_APP::RSM(null, 1, $rsm));
     }
 
     public function create_weixin_qr_code_action()
