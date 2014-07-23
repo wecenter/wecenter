@@ -367,7 +367,12 @@ class posts_class extends AWS_MODEL
 		
 		foreach ($post_ids AS $key => $val)
 		{
-			$where[] = "(post_id IN (" . implode(',', $val) . ") AND post_type = '" . $this->quote($key) . "')";
+			$post_id_where[] = "(post_id IN (" . implode(',', $val) . ") AND post_type = '" . $this->quote($key) . "')";
+		}
+		
+		if ($post_id_where)
+		{
+			$where[] = '(' . implode(' OR ', $post_id_where) . ')';
 		}
 		
 		if ($answer_count !== null)
