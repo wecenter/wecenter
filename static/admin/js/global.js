@@ -123,7 +123,6 @@ $(function () {
 
     function weiboPost(obj)
     {
-
         $.post(G_BASE_URL + '/admin/ajax/weibo_batch/', {'uid': obj.attr('data-id'), 'action':obj.attr('action')}, function (result)
         {
             if (result.errno == -1)

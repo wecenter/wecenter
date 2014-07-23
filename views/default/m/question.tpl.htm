@@ -19,7 +19,7 @@
 					<?php } ?>
 				<?php } ?>
 				<?php if ($this->user_id AND !$this->question_info['lock']) { ?>
-					<a class="icon icon-inverse aw-add-topic-box"><i class="icon icon-edit"></i> <?php if (!count($this->question_topics) > 0) { ?>添加话题<?php } ?></a>
+					<a class="icon icon-inverse aw-add-topic-box"><i class="icon icon-edit"></i> <?php if (!count($this->question_topics) > 0) { ?><?php _e('添加话题'); ?><?php } ?></a>
 				<?php } ?>
 			</div>
 		</div>
@@ -46,7 +46,8 @@
 					<?php } ?>
 
 					<?php if ((!$this->question_info['lock'] AND ($this->question_info['published_uid'] == $this->user_id OR $this->user_info['permission']['edit_question'])) OR $this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?>
-					<a href="m/publish/<?php echo $this->question_info['question_id']; ?>" class="btn btn-primary btn-mini">编辑</a>
+					<a href="m/publish/<?php echo $this->question_info['question_id']; ?>" class="icon icon-inverse">	<i class="icon icon-edit"></i><?php _e('编辑'); ?>
+					</a>
 					<?php }?>
 				</div>
 			</div>
@@ -55,12 +56,8 @@
 			<div class="mod-footer">
 				<div class="meta">
 					<a class="aw-invite-replay"><i class="icon icon-inviteask"></i> <?php _e('邀请回复'); ?></a>
-					<a>
-						<i class="icon icon-share"></i>
-						<?php _e('分享'); ?> :
-						<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
-						<wb:share-button addition="simple" type="icon"></wb:share-button>
-					</a>
+					<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+					<wb:share-button addition="simple" type="icon"></wb:share-button>
 
 					<a href="" class="btn btn-success btn-mini pull-right <?php if ($this->question_focus) { ?> active<?php } ?>" onclick="AWS.User.follow($(this), 'question', <?php echo $this->question_info['question_id']; ?>);"><?php if ($this->question_focus) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?></a>
 				</div>
