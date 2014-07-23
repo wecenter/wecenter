@@ -483,12 +483,9 @@ class ajax extends AWS_CONTROLLER
 
             $upload_dir = get_setting('upload_dir') . '/' . 'questions' . '/' . gmdate('Ymd') . '/';
 
-            if (!is_dir($upload_dir))
+            if (!is_dir($upload_dir) AND !make_dir($upload_dir))
             {
-                if (!make_dir($upload_dir))
-                {
-                    H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('创建图片存储目录失败')));
-                }
+                H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('创建图片存储目录失败')));
             }
 
             $ori_file = $upload_dir . $file_name;

@@ -193,12 +193,9 @@ class weibo_class extends AWS_MODEL
 
                         $upload_dir = get_setting('upload_dir') . '/' . 'weibo' . '/' . gmdate('Ymd') . '/';
 
-                        if (!is_dir($upload_dir))
+                        if (!is_dir($upload_dir) AND !make_dir($upload_dir))
                         {
-                            if (!make_dir($upload_dir))
-                            {
-                                H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('创建图片存储目录失败')));
-                            }
+                            break;
                         }
 
                         $ori_image = $upload_dir . $pic_url_array[3];
