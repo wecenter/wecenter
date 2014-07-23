@@ -121,7 +121,7 @@ class email_class extends AWS_MODEL
 		{
 			foreach ($mail_queue AS $key => $val)
 			{
-				if ($error_message = AWS_APP::mail()->send($val['send_to'], $val['subject'], $val['message'], get_setting('site_name'), null, 'slave'))
+				if ($error_message = AWS_APP::mail()->send($val['send_to'], $val['subject'], $val['message'], get_setting('site_name'), null, 'master'))
 				{
 					$this->shutdown_update('mail_queue', array(
 						'is_error' => 1,
