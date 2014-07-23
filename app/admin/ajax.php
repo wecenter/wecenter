@@ -1758,9 +1758,9 @@ class ajax extends AWS_ADMIN_CONTROLLER
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择是否显示封面')));
         }
 
-        $article_ids = array_unique(array_filter(explode(',', $_POST['article_ids'])));
+        $article_ids = array_unique(array_filter(explode(',', trim($_POST['article_ids'], ','))));
 
-        $question_ids = array_unique(array_filter(explode(',', $_POST['question_ids'])));
+        $question_ids = array_unique(array_filter(explode(',', trim($_POST['question_ids'], ','))));
 
 /*
         if (empty($article_ids) AND empty($question_ids))
