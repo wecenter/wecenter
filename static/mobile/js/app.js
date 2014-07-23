@@ -11,6 +11,9 @@ $(document).ready(function () {
 		}
 	}
 
+	// 验证码自动点击
+	$('#captcha').click();
+
 	// 导航条小箭头位置修复
 	$('.nav .triangle').css('left', $('.nav li').innerWidth()/2 - 8);
 

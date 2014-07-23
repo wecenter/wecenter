@@ -295,7 +295,7 @@ input[type="text"], input[type="password"], textarea{-webkit-appearance:none;}
 .aw-publish-box .category{position: relative;margin-top: 15px;}
 .aw-publish-box .category select{width: 100%;height: 34px;padding-left:10px;line-height:34px;background:transparent;border-color:#cccccc;font-size: 15px;color: #999999;border-radius: 5px;}
 .aw-publish-box .category i{position: absolute;width:30px;right: 7px;top: 7px;background-color: #fff;font-size: 20px;color: #cccccc;}
-.aw-publish-box .aw-topic-bar{margin-top:15px;}
+.aw-publish-box .aw-topic-bar{margin-top:5px;}
 .aw-publish-box .aw-topic-bar .tag-bar{padding:0;}
 .aw-publish-box .aw-topic-bar .tag-bar .topic-tag{margin:10px 10px 10px 0;}
 .aw-publish-box .aw-topic-bar .aw-add-topic-box{margin-left: 0;}
@@ -303,7 +303,7 @@ input[type="text"], input[type="password"], textarea{-webkit-appearance:none;}
 .aw-publish-box .aw-topic-bar .editor .mod-head{padding:0;}
 .aw-publish-box .aw-topic-bar .form-group{width: 73%;margin:0;}
 .aw-publish-box .aw-topic-bar .cancel{display: none;}
-.aw-publish-box .command{position:relative;margin-top:35px;text-align: center;}
+.aw-publish-box .command{position:relative;margin-top:5px;text-align: center;}
 .aw-publish-box .command label{position: absolute;left: 0;top: 8px;}
 
 /* 上传控件 */
@@ -312,10 +312,13 @@ input[type="text"], input[type="password"], textarea{-webkit-appearance:none;}
 .aw-upload-box form{width:0;height:0;opacity: 0;}
 .aw-upload-box form input{position:absolute;top:2px;left:0;width: 80px;height: 34px;filter:alpha(opacity=0);}
 .upload-list li{position: relative;min-height:70px;padding:10px 0 0 60px;border-bottom: 1px solid #e6e6e6;}
+.upload-list li .title{color: #333;}
+.upload-list li .size{color: #999;}
 .upload-list .img{position:absolute;left:0;top:10px;width: 50px;height: 50px;background-size: 50px !important;}
 .upload-list .meta{position: absolute;right: 0;top:25px;}
-.upload-list .meta a{display: inline-block;width: 24px;height: 24px;margin-left:5px;border:1px solid #cccccc;text-align: center;border-radius: 12px;color: #ccc;line-height: 24px;}
-.upload-list .meta a.active{background-color: #e6e6e6;color: #fff;border-color: #e6e6e6;}
+.upload-list .meta a{display: inline-block;width: 24px;height: 24px;margin-left:10px;border:1px solid #cccccc;text-align: center;border-radius: 12px;color: #ccc;line-height: 24px;}
+.upload-list .meta a.disabled{background-color: #e6e6e6;color: #fff;border-color: #e6e6e6;}
+.upload-list .meta a:active{background-color: #66b7ff;color: #fff;border-color:#66b7ff;}
 
 /* 搜索页面 */
 .aw-search-bar{position:relative;height: 52px;padding:0 10px 10px;background-color: #66b7ff;border-bottom: 1px solid #5496d1;}
