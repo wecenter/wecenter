@@ -1763,14 +1763,14 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
         $question_ids = array_unique(array_filter(explode(',', $_POST['question_ids'])));
 
+/*
         if (empty($article_ids) AND empty($question_ids))
         {
-            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请添加要群发的文章或问题 id')));
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请添加要群发的文章或问题')));
         }
+*/
 
-        $total = count($article_ids) + count($question_ids);
-
-        if ($total > 9)
+        if (count($article_ids) + count($question_ids) > 9)
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('最多可添加 9 个文章和问题')));
         }
