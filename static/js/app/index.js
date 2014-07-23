@@ -176,7 +176,7 @@ function check_actions_new(uid, time)
 			{
 				if ($('#new_actions_tip').is(':hidden'))
 				{
-					$('#new_actions_tips').fadeIn();
+					$('#new_actions_tip').css('display', 'block');
 				}
 
 				$('#new_action_num').html(result.rsm.new_count);

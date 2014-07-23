@@ -56,9 +56,11 @@
 		<!-- 文章内容调用 -->
 		<div class="markitup-box">
 			<div class="img pull-right"></div>
-			<?php echo FORMAT::parse_attachs(nl2br(FORMAT::parse_markdown($val['message']))); ?>
+			<?php echo cjk_substr(FORMAT::parse_attachs(nl2br(FORMAT::parse_markdown($val['message']))), 0, 130, 'UTF-8', '...'); ?>
 		</div>
-		<a class="more hide" href="article/<?php echo $val['id']; ?>">查看更多</a>
+  		<?php if (cjk_strlen($val['message']) > 130) { ?>
+		<a class="more" href="article/<?php echo $val['id']; ?>">查看更多&gt;&gt;</a>
+    	<?php } ?>
 		<!-- end 文章内容调用 -->
 		<?php } ?>
 	</div>
