@@ -124,7 +124,7 @@ $(function () {
     function weiboPost(obj)
     {
         $.post(G_BASE_URL + '/admin/ajax/weibo_batch/', {'uid': obj.attr('data-id'), 'action':obj.attr('action')}, function (result)
-        {   
+        {  
             if (result.errno == -1)
             {
                 AWS.alert(result.err);
@@ -134,11 +134,12 @@ $(function () {
             else if (result.errno == 1)
             {   
 
-                if (result.rsm.satus == 'bound')
+                console.log(result.rsm.staus)
+                if (result.rsm.staus == 'bound')
                 {   
                     $('.mod-weibo-reply li:last .btn-primary').text('更新 Access Token').attr("href",function(){
-                        var tempLink = this.href;
-                        return tempLink.replace('http://localhost',G_BASE_URL);
+                        
+                        return this.href;
                     })
                 }
                 else
