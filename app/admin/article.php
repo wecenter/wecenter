@@ -106,8 +106,18 @@ class article extends AWS_ADMIN_CONTROLLER
 			}
 		}
 
+		$url_param = array();
+
+		foreach($_GET as $key => $val)
+		{
+			if (!in_array($key, array('app', 'c', 'act', 'page')))
+			{
+				$url_param[] = $key . '-' . $val;
+			}
+		}
+
 		TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
-			'base_url' => get_js_url('/admin/article/list/'),
+			'base_url' => get_js_url('/admin/article/list/') . implode('__', $url_param),
 			'total_rows' => $search_articles_total,
 			'per_page' => $this->per_page
 		))->create_links());
@@ -115,7 +125,6 @@ class article extends AWS_ADMIN_CONTROLLER
 		$this->crumb(AWS_APP::lang()->_t('文章管理'), 'admin/article/list/');
 
 		TPL::assign('articles_count', $search_articles_total);
-		TPL::assign('search_url', $search_url);
 		TPL::assign('list', $articles_list);
 
 		TPL::output('admin/article/list');

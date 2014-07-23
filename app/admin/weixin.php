@@ -91,21 +91,23 @@ class weixin extends AWS_ADMIN_CONTROLLER
 
         $accounts_list = $this->model('weixin')->get_accounts_info();
 
-        if (empty($accounts_list[$_GET['id']]))
+        $account_id = $accounts_list[$_GET['id']]['id'];
+
+        if (empty($accounts_list[$account_id]))
         {
             H::redirect_msg(AWS_APP::lang()->_t('公众账号不存在'), '/admin/weixin/mp_menu/');
         }
 
-        if ($accounts_list[$_GET['id']]['weixin_account_role'] == 'base' OR empty($accounts_list[$_GET['id']]['weixin_app_id']) OR empty($accounts_list[$_GET['id']]['weixin_app_secret']))
+        if ($accounts_list[$account_id]['weixin_account_role'] == 'base' OR empty($accounts_list[$_GET['id']]['weixin_app_id']) OR empty($accounts_list[$_GET['id']]['weixin_app_secret']))
         {
             H::redirect_msg(AWS_APP::lang()->_t('此功能不适用于未通过微信认证的订阅号'), '/admin/');
         }
 
-        $this->model('weixin')->client_list_image_clean($accounts_list[$_GET['id']]['weixin_mp_menu']);
+        $this->model('weixin')->client_list_image_clean($accounts_list[$account_id]['weixin_mp_menu']);
 
-        TPL::assign('account_id', $accounts_list[$_GET['id']]['id']);
+        TPL::assign('account_id', $account_id);
 
-        TPL::assign('mp_menu', $accounts_list[$_GET['id']]['weixin_mp_menu']);
+        TPL::assign('mp_menu', $accounts_list[$account_id]['weixin_mp_menu']);
 
         TPL::assign('accounts_list', $accounts_list);
 
@@ -118,7 +120,7 @@ class weixin extends AWS_ADMIN_CONTROLLER
             TPL::assign('category_data', json_decode($this->model('system')->build_category_json('question'), true));
         }
 
-        TPL::assign('reply_rule_list', $this->model('weixin')->fetch_unique_reply_rule_list());
+        TPL::assign('reply_rule_list', $this->model('weixin')->fetch_unique_reply_rule_list($account_id));
 
         TPL::import_js('js/ajaxupload.js');
 
@@ -216,7 +218,7 @@ class weixin extends AWS_ADMIN_CONTROLLER
                 $rule_info['image_file'] = basename($upload_data['full_path']);
             }
 
-            $this->model('weixin')->update_reply_rule($_POST['id'], $_POST['account_id'], $_POST['title'], $_POST['description'], $_POST['link'], $rule_info['image_file']);
+            $this->model('weixin')->update_reply_rule($_POST['id'], $_POST['title'], $_POST['description'], $_POST['link'], $rule_info['image_file']);
 
             H::ajax_json_output(AWS_APP::RSM(array(
                 'url' => get_js_url('/admin/weixin/reply/id-' . $_POST['account_id'])
@@ -229,7 +231,7 @@ class weixin extends AWS_ADMIN_CONTROLLER
                 H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请输入关键词')));
             }
 
-            if ($this->model('weixin')->get_reply_rule_by_keyword($_POST['keyword']) AND !$_FILES['image']['name'])
+            if ($this->model('weixin')->get_reply_rule_by_keyword($_POST['account_id'], $_POST['keyword']) AND !$_FILES['image']['name'])
             {
                 H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('已经存在相同的文字回应关键词')));
             }

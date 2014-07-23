@@ -116,6 +116,10 @@ class openid_weibo_class extends AWS_MODEL
 		{
 			HTTP::redirect($redirect);
 		}
+		else
+		{
+			H::redirect_msg(AWS_APP::lang()->_t('绑定成功'));
+		}
 	}
 
 	public function get_msg_from_sina($access_token, $since_id = 0, $max_id = 0)

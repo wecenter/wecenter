@@ -3,7 +3,7 @@ $(function()
 	// 检测首页动态更新
 	var checkactionsnew_handle = setInterval(function ()
 	{
-		check_actions_new('0', '<?php echo time(); ?>');
+		check_actions_new('0', new Date().getTime());
 	}, 60000);
 
 	$('.aw-mod.side-nav a').click(function () {
@@ -26,11 +26,11 @@ $(function()
 		}
 	});
 
-	
+
 	$('#bp_more').click(function()
 	{
 		var _this = this;
-		
+
 		switch (window.location.hash)
 		{
 			default:
@@ -45,7 +45,7 @@ $(function()
 							query_string[i] = '';
 						}
 					}
-					
+
 					if (query_string[1])
 					{
 						var cur_filter = query_string[1];
@@ -65,8 +65,10 @@ $(function()
 
 			case '#draft_list__draft':
 				var request_url = G_BASE_URL + '/home/ajax/draft/page-' + $(this).attr('data-page');
-
-				$('#main_title').prepend('<a class="pull-right btn btn-mini btn-success" id="delete-draft" onclick="$.each($(\'a.delete-draft\'), function (i, e) { $(e).click(); });">' + _t('清空所有') + '</a>');
+				if($('#main_title .btn-success').length <=0)
+				{
+					$('#main_title').prepend('<a class="pull-right btn btn-mini btn-success" id="delete-draft" onclick="$.each($(\'.delete-draft\'), function (i, e) { $(e).click(); });">' + _t('清空所有') + '</a>');
+				}
 			break;
 
 			case '#invite_list__invite':
@@ -168,7 +170,7 @@ function welcome_step(step)
 
 function check_actions_new(uid, time)
 {
-	$.get(G_BASE_URL + '/home/ajax/check_actions_new/uid-' + uid + '__time-' + time, function (result) 
+	$.get(G_BASE_URL + '/home/ajax/check_actions_new/uid-' + uid + '__time-' + time, function (result)
 	{
 		if (result.errno == 1)
 		{
@@ -176,7 +178,7 @@ function check_actions_new(uid, time)
 			{
 				if ($('#new_actions_tip').is(':hidden'))
 				{
-					$('#new_actions_tips').fadeIn();
+					$('#new_actions_tip').css('display', 'block');
 				}
 
 				$('#new_action_num').html(result.rsm.new_count);

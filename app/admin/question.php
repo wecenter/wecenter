@@ -119,8 +119,18 @@ class question extends AWS_ADMIN_CONTROLLER
 			}
 		}
 
+		$url_param = array();
+
+		foreach($_GET as $key => $val)
+		{
+			if (!in_array($key, array('app', 'c', 'act', 'page')))
+			{
+				$url_param[] = $key . '-' . $val;
+			}
+		}
+
 		TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
-			'base_url' => get_js_url('/admin/question/question_list/'),
+			'base_url' => get_js_url('/admin/question/question_list/') . implode('__', $url_param),
 			'total_rows' => $total_rows,
 			'per_page' => $this->per_page
 		))->create_links());
@@ -128,7 +138,6 @@ class question extends AWS_ADMIN_CONTROLLER
 		$this->crumb(AWS_APP::lang()->_t('问题管理'), 'admin/question/question_list/');
 
 		TPL::assign('question_count', $total_rows);
-		TPL::assign('search_url', $search_url);
 		TPL::assign('category_list', $this->model('system')->build_category_html('question', 0, 0, null, true));
 		TPL::assign('keyword', $_GET['keyword']);
 		TPL::assign('list', $question_list);

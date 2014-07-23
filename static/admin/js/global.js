@@ -124,22 +124,26 @@ $(function () {
     function weiboPost(obj)
     {
         $.post(G_BASE_URL + '/admin/ajax/weibo_batch/', {'uid': obj.attr('data-id'), 'action':obj.attr('action')}, function (result)
-        {
+        {  
             if (result.errno == -1)
             {
-                $('.aw-wechat-send-message .error_message').html(result.err);
+                AWS.alert(result.err);
+                 $('.mod-weibo-reply li:last').detach()
                 
-                if ($('.error_message').css('display') != 'none')
-                {
-                    AWS.shake($('.error_message'));
-                }
-                else
-                {
-                    $('.error_message').fadeIn();
-                }
             }
-            else
-            {
+            else if (result.errno == 1)
+            {   
+                if(result.rsm != null){
+                    if (result.rsm.staus == 'bound')
+                    {   
+                        $('.mod-weibo-reply li:last .btn-primary').text('更新 Access Token');
+                    }
+                    else
+                    {   
+                       $('.mod-weibo-reply li:last .btn-primary').text('绑定新浪微博');  
+                    }
+                }   
+
                 $(".alert-box").modal('hide');
             }
         }, 'json');

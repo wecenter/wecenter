@@ -90,7 +90,6 @@ class sina extends AWS_CONTROLLER
 
 		//$this->model('openid_weibo')->bind_account($sina_profile, get_js_url('/account/setting/openid/'), $user_id, $last_key['oauth_token'], $last_key['oauth_token_secret'], $sina_token);
 		$this->model('openid_weibo')->bind_account($sina_profile, $redirect, $user_id, $sina_token);
-
 	}
 
 	function del_bind_action()
