@@ -1806,7 +1806,9 @@ class weixin_class extends AWS_MODEL
         {
             if (!make_dir($img_dir))
             {
-                H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('创建二维码存储目录失败')));
+                $this->delete('weixin_qr_code', 'scene_id = ' . intval($scene_id));
+
+                return AWS_APP::lang()->_t('创建二维码存储目录失败');
             }
         }
 
