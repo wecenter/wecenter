@@ -199,6 +199,7 @@ class main extends AWS_CONTROLLER
 		}
 
 		TPL::assign('posts_list', $posts_list);
+		TPL::assign('recommend_list', $posts_list);
 		TPL::assign('recommend_list_bit', TPL::output('explore/ajax/list', false));
 
 		TPL::assign('list', $this->model('topic')->get_topic_best_answer_action_list($contents_topic_id, $this->user_id, get_setting('contents_per_page')));

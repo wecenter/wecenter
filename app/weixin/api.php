@@ -30,12 +30,12 @@ class api extends AWS_CONTROLLER
 
     public function index_action()
     {
-        if (!isset($_GET['account_id']))
+        if (!isset($_GET['id']))
         {
-            $_GET['account_id'] = 0;
+            $_GET['id'] = 0;
         };
 
-        $account_info = $this->model('weixin')->get_account_info_by_id($_GET['account_id']);
+        $account_info = $this->model('weixin')->get_account_info_by_id($_GET['id']);
 
         if (empty($account_info) OR !$this->model('weixin')->check_signature($account_info['weixin_mp_token'], $_GET['signature'], $_GET['timestamp'], $_GET['nonce']))
         {

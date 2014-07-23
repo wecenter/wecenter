@@ -193,18 +193,18 @@ class weibo_class extends AWS_MODEL
 
                         $upload_dir = get_setting('upload_dir') . '/' . 'weibo' . '/' . gmdate('Ymd') . '/';
 
-                        if (!is_dir($upload_dir))
+                        if (!is_dir($upload_dir) AND !make_dir($upload_dir))
                         {
-                            mkdir($upload_dir, 0755, true);
+                            break;
                         }
 
                         $ori_image = $upload_dir . $pic_url_array[3];
 
-                        $handle = fopen($ori_image, 'w');
+                        $handle = @fopen($ori_image, 'w');
 
-                        fwrite($handle, $result);
+                        @fwrite($handle, $result);
 
-                        fclose($handle);
+                        @fclose($handle);
 
                         foreach (AWS_APP::config()->get('image')->attachment_thumbnail AS $key => $val)
                         {
@@ -252,7 +252,7 @@ class weibo_class extends AWS_MODEL
         $this->model('setting')->set_vars(array('admin_notifications' => $admin_notifications));
     }
 
-    public function update_service_account($id, $action)
+    public function update_service_account($uid, $action)
     {
         switch ($action)
         {
@@ -267,6 +267,6 @@ class weibo_class extends AWS_MODEL
                 break;
         }
 
-        $this->update('users_sina', array('last_msg_id' => $last_msg_id), 'id = ' . intval($id));
+        $this->update('users_sina', array('last_msg_id' => $last_msg_id), 'uid = ' . intval($uid));
     }
 }

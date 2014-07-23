@@ -868,7 +868,7 @@ CREATE TABLE `[#DB_PREFIX#]users_sina` (
   `profile_image_url` varchar(255) DEFAULT NULL COMMENT 'Sina 自定义头像地址',
   `gender` varchar(8) DEFAULT NULL,
   `add_time` int(10) DEFAULT NULL COMMENT '添加时间',
-  `expires_time` int(10) DEFAULT NULL COMMENT '过期时间',
+  `expires_time` int(10) DEFAULT '0' COMMENT '过期时间',
   `access_token` varchar(64) DEFAULT NULL,
   `last_msg_id` bigint(30) DEFAULT NULL,
   PRIMARY KEY (`id`),

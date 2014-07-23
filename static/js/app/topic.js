@@ -55,6 +55,11 @@ $(function()
 	check_related_topic($('#c_all_list .aw-item'));
 	check_related_topic($('#c_recommend_list .aw-item'));
 
+	$('.aw-topic-recommend-list #aw-more-recommend').click(function()
+	{
+		$('.aw-topic-list-mod .nav-tabs li:eq(2) a').click();
+	})
+
 	function check_related_topic (selector)
 	{
 		var contents_topic = CONTENTS_TOPIC_ID.split(',');
@@ -73,6 +78,5 @@ $(function()
 				_this.find('.related-topic').show();
 			}
 		});
-
 	}
 });
