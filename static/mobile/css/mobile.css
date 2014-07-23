@@ -203,7 +203,7 @@ input[type="text"], input[type="password"], textarea{-webkit-appearance:none;}
 .aw-topic-detail .mod-footer{padding:0 10px;}
 
 /* 话题列表 */
-.aw-topic-list li .mod-head{position:relative;padding:10px 10px 10px 70px;border-bottom: 1px solid #e6e6e6;}
+.aw-topic-list li .mod-head{position:relative;min-height:70px;padding:10px 10px 10px 70px;border-bottom: 1px solid #e6e6e6;}
 .aw-topic-list li .mod-head .img{position: absolute;left: 10px;top: 10px;}
 .aw-topic-list li .mod-head .topic-tag{float: none;display: block;margin: 0 0 5px;}
 .aw-topic-list li .mod-head p{max-height: 44px;overflow: hidden;margin: 0;}
