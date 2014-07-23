@@ -38,9 +38,15 @@
 							<ul class="nav nav-tabs aw-nav-tabs hidden-xs">
 								<li class="active"><a href="#all" data-toggle="tab"><?php _e('全部内容'); ?></a></li>
 								<li><a href="#best_answers" data-toggle="tab"><?php _e('精华'); ?></a></li>
+								<?php if ($this->all_list_bit) { ?>
 								<li><a href="#recommend" data-toggle="tab"><?php _e('推荐'); ?></a></li>
+								<?php } ?>
+								<?php if ($this->questions) { ?>
 								<li><a href="#questions" data-toggle="tab"><?php _e('问题'); ?></a></li>
+								<?php } ?>
+								<?php if ($this->recommend_list_bit) { ?>
 								<li><a href="#articles" data-toggle="tab"><?php _e('文章'); ?></a></li>
+								<?php } ?>
 								<li><a href="#favorite" id="i_favorite" data-toggle="tab" style="display:none"><?php _e('我的收藏'); ?></a></li>
 								<li><a href="#about" id="i_about" data-toggle="tab"><?php _e('关于话题'); ?></a></li>
 								<div class="aw-search-bar pull-right hidden-xs">
