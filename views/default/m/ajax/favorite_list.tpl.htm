@@ -3,7 +3,7 @@
 <li>
 	<div class="mod-body">
 		<h2>
-			<a href="m/question/<?php echo $val['item_id']; ?>#!answer_form"><?php echo $val['question_info']['question_content']; ?></a>
+			<a href="<?php echo $val['link']; ?>"><?php echo $val['title']; ?></a>
 		</h2>
 		<p class="color-999">
 			<?php echo nl2br(htmlspecialchars($val['data']['message'])); ?>
