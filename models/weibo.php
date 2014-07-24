@@ -125,6 +125,8 @@ class weibo_class extends AWS_MODEL
             return false;
         }
 
+        @set_time_limit(0);
+
         $services_info = $this->get_services_info();
 
         if (empty($services_info))
@@ -265,7 +267,7 @@ class weibo_class extends AWS_MODEL
                                                         'user_name' => $user_name
                                                     );
 
-        $this->model('setting')->set_vars(array('admin_notifications' => $admin_notifications));
+        return $this->model('setting')->set_vars(array('admin_notifications' => $admin_notifications));
     }
 
     public function update_service_account($uid, $action = null, $last_msg_id = 0)
@@ -288,6 +290,6 @@ class weibo_class extends AWS_MODEL
                 break;
         }
 
-        $this->query('UPDATE ' . get_table('users_sina') . ' SET last_msg_id = ' . $last_msg_id . ' WHERE uid = ' . intval($uid));
+        return $this->query('UPDATE ' . get_table('users_sina') . ' SET last_msg_id = ' . $last_msg_id . ' WHERE uid = ' . intval($uid));
     }
 }
