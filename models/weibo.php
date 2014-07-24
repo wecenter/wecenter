@@ -167,15 +167,20 @@ class weibo_class extends AWS_MODEL
 
             foreach ($msgs AS $msg)
             {
+                $now = time();
+
                 $msg_info['created_at'] = strtotime($msg['created_at']);
+
+                if ($now - $msg_info['created_at'] > 604800)
+                {
+                    continue;
+                }
 
                 $msg_info['id'] = $msg['id'];
 
                 $msg_info['text'] = str_replace('@' . $service_info['name'], '', $msg['text']);
 
                 $msg_info['msg_author_uid'] = $msg['user']['id'];
-
-                $now = time();
 
                 $msg_info['access_key'] = md5($service_user_info['uid'] . $now);
 
