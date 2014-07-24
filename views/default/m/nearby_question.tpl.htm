@@ -1,13 +1,36 @@
 <?php TPL::output('m/header.tpl.htm'); ?>
-	<div class="mod nearby-question">
-		<ul>
-			<?php foreach ($this->near_by_questions AS $key => $val) { ?>
-			<li>
-				<h1><a href="m/question/<?php echo $val['question_id']; ?>"><?php echo $val['question_content']; ?></a></h1>
-				<p><i class="glyphicon glyphicon-map-marker"></i> <?php _e('%s 公里以内', $val['distance']); ?> <span><?php echo date_friendly($val['add_time']); ?></span> <a href="m/people/<?php echo $val['user_info']['url_token']; ?>"><?php echo $val['user_info']['user_name']; ?></a></p>
-			</li>
-			<?php } ?>
-		</ul>
+
+<!-- 标题 -->
+<div class="aw-title">
+	<?php _e('附近的人'); ?>
+</div>
+<!-- end 标题 -->
+
+<!-- 内容 -->
+<div class="container">
+	<!-- 问题列表 -->
+	<div class="aw-question-list">
+		<div class="mod-body">
+			<ul>
+				<?php foreach ($this->near_by_questions AS $key => $val) { ?>
+					<li>
+						<div class="mod-body">
+							<h2><a href="m/question/<?php echo $val['question_id']; ?>"><?php echo $val['question_content']; ?></a></h2>
+						</div>
+						<div class="mod-footer">
+							<i class="glyphicon glyphicon-map-marker"></i> <?php _e('%s 公里以内', $val['distance']); ?>
+							<a class="pull-right" href="m/people/<?php echo $val['user_info']['url_token']; ?>">
+								<img class="img" width="20" src="<?php echo get_avatar_url($val['user_info']['uid'], 'max'); ?>" />
+							</a>
+							<span class="pull-right color-999"><?php echo date_friendly($val['add_time']); ?></span>
+						</div>
+					</li>
+				<?php } ?>
+			</ul>
+		</div>
 	</div>
+	<!-- end 问题列表 -->
+</div>
+<!-- end 内容 -->
 </body>
 </html>
