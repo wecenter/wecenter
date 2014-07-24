@@ -112,6 +112,17 @@ class openid_weibo_class extends AWS_MODEL
 
 		$this->refresh_access_token($sina_profile['id'], $sina_token);
 
+		$tmp_service_account = AWS_APP::cache()->get('tmp_service_account');
+
+		if ($tmp_service_account[$uid])
+		{
+			$this->model('weibo')->update_service_account($uid, 'add');
+
+			unset($tmp_service_account[$uid]);
+
+			AWS_APP::cache()->set('tmp_service_account', $tmp_service_account, 86400);
+		}
+
 		if ($redirect)
 		{
 			HTTP::redirect($redirect);

@@ -97,17 +97,6 @@ class sina extends AWS_CONTROLLER
 
 		//$this->model('openid_weibo')->bind_account($sina_profile, get_js_url('/account/setting/openid/'), $user_id, $last_key['oauth_token'], $last_key['oauth_token_secret'], $sina_token);
 		$this->model('openid_weibo')->bind_account($sina_profile, $redirect, $user_id, $sina_token);
-
-		$tmp_service_account = AWS_APP::cache()->get('tmp_service_account');
-
-		if ($tmp_service_account[$user_id])
-		{
-			$this->model('weibo')->update_service_account($user_id, 'add');
-
-			unset($tmp_service_account[$user_id]);
-
-			AWS_APP::cache()->set('tmp_service_account', $tmp_service_account, 86400);
-		}
 	}
 
 	function del_bind_action()
