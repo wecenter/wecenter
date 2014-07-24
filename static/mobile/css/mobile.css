@@ -293,7 +293,7 @@ input[type="text"], input[type="password"], textarea{-webkit-appearance:none;}
 .aw-article-detail .aw-article-voter{margin-top: 5px;}
 
 /* 编辑器效果 */
-.markitup-box{word-wrap:break-all;}
+.markitup-box{word-wrap:break-word;}
 .markitup-box p{line-height: 1.8em;}
 .markitup-box img{max-width: 100%;margin-bottom: 10px;}
 
@@ -322,7 +322,7 @@ input[type="text"], input[type="password"], textarea{-webkit-appearance:none;}
 .upload-list li{position: relative;min-height:70px;padding:10px 0 0 60px;border-bottom: 1px solid #e6e6e6;}
 .upload-list li .title{color: #333;}
 .upload-list li .size{color: #999;}
-.upload-list .img{position:absolute;left:0;top:10px;width: 50px;height: 50px;background-size: 50px !important;background: url('../../common/ajax-loader.gif') center center no-repeat;}
+.upload-list .img{position:absolute;left:0;top:10px;width: 50px;height: 50px;background-size: 16px !important;background: url('../../common/ajax-loader.gif') center center no-repeat;}
 .upload-list .meta{position: absolute;right: 0;top:25px;}
 .upload-list .meta a{display: inline-block;width: 24px;height: 24px;margin-left:10px;border:1px solid #cccccc;text-align: center;border-radius: 12px;color: #ccc;line-height: 24px;}
 .upload-list .meta a.disabled{background-color: #e6e6e6;color: #fff;border-color: #e6e6e6;}
