@@ -115,7 +115,7 @@ class weibo_class extends AWS_MODEL
             return false;
         }
 
-        $this->model('openid_weibo')->create_comment($service_info['access_token'], $msg_info['id'], $comment);
+        return $this->model('openid_weibo')->create_comment($service_info['access_token'], $msg_info['id'], $comment);
     }
 
     public function get_msg_from_sina_crond()
