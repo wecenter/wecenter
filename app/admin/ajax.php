@@ -1781,7 +1781,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
                 H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('图片最大为 1M')));
             }
 
-            $main_msg_img = ROOT_PATH . 'tmp/weixin_img.jpg';
+            $main_msg_img = TEMP_PATH . 'weixin_img.jpg';
 
             if (!is_uploaded_file($_FILES['main_msg_img']['tmp_name']) OR !move_uploaded_file($_FILES['main_msg_img']['tmp_name'], $main_msg_img))
             {

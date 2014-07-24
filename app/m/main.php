@@ -244,7 +244,7 @@ class main extends AWS_CONTROLLER
 			TPL::assign('user', $this->model('account')->get_user_info_by_uid($_GET['uid']));
 		}
 		
-		TPL::output('m/inbox_read');
+		TPL::output('m/inbox_new');
 	}
 
 	public function question_action()

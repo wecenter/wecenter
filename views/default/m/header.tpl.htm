@@ -21,7 +21,7 @@
 	<ul>
 		<?php if ($this->user_id) { ?>
 		<li>
-			<a href="m/" <?php if ($_GET['act'] == 'index') { ?>class="active"<?php } ?>><i class="icon icon-home"></i><?php _e('首页'); ?> <?php if ($this->user_info['notification_unread']) { ?><i class="icon-tips"></i><?php } ?></a>
+			<a href="m/" <?php if ($_GET['act'] == 'index') { ?>class="active"<?php } ?>><i class="icon icon-home"></i><?php _e('首页'); ?> <i class="icon-tips new-action <?php if (!$this->user_info['notification_unread']) { ?>hide<?php } ?>"></i></a>
 		</li>
 		<?php } ?>
 		<li>

@@ -263,7 +263,7 @@ class publish_class extends AWS_MODEL
 
 			$this->update('weibo_msg', array(
 				'question_id' => $question_id
-			), 'id = ' . $this->quote($id));
+			), 'id = ' . $this->quote($weibo_msg_id));
 		}
 
 		return $question_id;
