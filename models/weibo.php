@@ -269,7 +269,7 @@ class weibo_class extends AWS_MODEL
                 break;
 
             case 'del':
-                $last_msg_id = null;
+                $last_msg_id = 'NULL';
 
                 break;
         }
