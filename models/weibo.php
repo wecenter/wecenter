@@ -276,7 +276,7 @@ class weibo_class extends AWS_MODEL
             default:
                 $last_msg_id = $this->quote($last_msg_id);
         }
-echo $last_msg_id;
-        $this->update('users_sina', array('last_msg_id' => $last_msg_id), 'uid = ' . intval($uid));
+
+        $this->query('UPDATE ' . get_table('users_sina') . ' SET last_msg_id = '. $last_msg_id ' WHERE uid = ' . intval($uid);
     }
 }
