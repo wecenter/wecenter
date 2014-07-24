@@ -231,7 +231,14 @@ class main extends AWS_CONTROLLER
 	public function inbox_new_action()
 	{
 		TPL::assign('body_class', 'active');
-
+		
+		$this->crumb(AWS_APP::lang()->_t('新私信'), '/m/inbox_new/');
+		
+		if ($_GET['uid'])
+		{
+			TPL::assign('user', $this->model('account')->get_user_info_by_uid($_GET['uid']));
+		}
+		
 		TPL::output('m/inbox_read');
 	}
 

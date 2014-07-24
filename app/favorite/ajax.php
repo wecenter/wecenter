@@ -43,14 +43,12 @@ class ajax extends AWS_CONTROLLER
 	
 	public function update_favorite_tag_action()
 	{
-		if (rtrim($_POST['tags'], ',') == '')
-		{
-			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('请添加话题标签')));
-		}
-		
 		$this->model('favorite')->add_favorite($_POST['item_id'], $_POST['item_type'], $this->user_id);
 		
-		$this->model('favorite')->update_favorite_tag($_POST['item_id'], $_POST['item_type'], $_POST['tags'], $this->user_id);
+		if (if (rtrim($_POST['tags'], ',') != ''))
+		{
+			$this->model('favorite')->update_favorite_tag($_POST['item_id'], $_POST['item_type'], $_POST['tags'], $this->user_id);
+		}
 		
 		H::ajax_json_output(AWS_APP::RSM(null, 1, null));
 	}
