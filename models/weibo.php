@@ -87,7 +87,7 @@ class weibo_class extends AWS_MODEL
         $this->shutdown_update('attach', array(
             'item_type' => 'question',
             'item_id' => $question_id,
-        ), 'item_type = "weibo_msg" AND item_id = ' . $this->quote($id) . ' AND access_key = ' . $msg_info['access_key']);
+        ), 'item_type = "weibo_msg" AND item_id = ' . $this->quote($id) . ' AND access_key = "' . $msg_info['access_key'] . '"');
 
         $this->shutdown_update('question', array(
             'has_attach' => 1
