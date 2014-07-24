@@ -263,7 +263,7 @@ class weibo_class extends AWS_MODEL
             $this->update_service_account($service_user_info['uid'], null, $last_msg_id);
         }
 
-        @unlink($locker);
+        //@unlink($locker);
 
         return true;
     }
