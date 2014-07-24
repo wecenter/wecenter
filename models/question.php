@@ -387,7 +387,12 @@ class question_class extends AWS_MODEL
 
 		$this->delete('geo_location', "`item_type` = 'question' AND `item_id` = " . intval($question_id));
 
-		return $this->delete('question', 'question_id = ' . intval($question_id));
+		$this->delete('question', 'question_id = ' . intval($question_id));
+
+		if ($question_info['weibo_msg_id'])
+		{
+			$this->model('weibo')->del_msg_by_id($question_info['weibo_msg_id']);
+		}
 	}
 
 	public function add_focus_question($question_id, $uid, $anonymous = 0, $save_action = true)
