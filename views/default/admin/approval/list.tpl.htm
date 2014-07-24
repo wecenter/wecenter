@@ -23,7 +23,6 @@
         <div class="mod-body tab-content">
             <form id="batchs_form" action="admin/ajax/approval_manage/" method="post">
             <input type="hidden" id="batch_type" name="batch_type" value="approval" />
-            <input type="hidden" id="approval_id" name="approval_ids[]" value="" />
 
             <input type="hidden" name="type" value="<?php echo htmlspecialchars($_GET['type']); ?>" />
 
@@ -56,41 +55,27 @@
                                 <a href="people/<?php echo $this->users_info[$approval_info['uid']]['url_token']; ?>" target="_blank"><?php echo $this->users_info[$approval_info['uid']]['user_name']; ?></a>
                             </td>
 
-                            <?php switch ($_GET['type']) {
+                            <?php if (in_array($_GET['type'], array('question', 'unverified_modify', 'article'))) { ?>
+                            <td><?php
+                            switch ($_GET['type']) {
                                 case 'question':
-                            ?>
-                            <td>
-                                <?php echo htmlspecialchars($approval_info['data']['question_content']); ?>
-                            </td>
-                            <?php
+                                    echo htmlspecialchars($approval_info['data']['question_content']);
                                     break;
 
                                 case 'unverified_modify':
-                            ?>
-                            <td>
-                                <?php echo htmlspecialchars($approval_info['question_content']); ?>
-                            </td>
-                            <?php
+                                    echo htmlspecialchars($approval_info['question_content']);
                                     break;
 
                                 case 'article':
-                            ?>
-                            <td>
-                                <?php echo htmlspecialchars($approval_info['data']['title']); ?>
-                            </td>
-                            <?php
+                                    echo htmlspecialchars($approval_info['data']['title']);
                                     break;
-
-                                case 'weibo_msg':
-                            ?>
-                            <td>
-                                <?php echo $approval_info['text']; ?>
-                            </td>
+                            }
+                            ?></td>
                             <?php } ?>
 
                             <td>
                                 <?php if ($_GET['type'] == 'unverified_modify') { echo $approval_info['unverified_modify_count']; } else { ?>
-                                <a onclick="AWS.dialog('ajaxData', {'title':'<?php _e('内容审核'); ?>', 'url':G_BASE_URL + '/admin/approval/preview/<?php if ($_GET['type'] == 'weibo_msg') { ?>type-weibo_msg__<?php } echo $approval_info['id']; ?>'});"><?php
+                                <a onclick="AWS.dialog('ajaxData', {'title':'<?php _e('内容审核'); ?>', 'url':G_BASE_URL + '/admin/approval/preview/<?php if ($_GET['type'] == 'weibo_msg') { ?>type-weibo_msg__id<?php } echo $approval_info['id']; ?>'});"><?php
                                 switch ($_GET['type']) {
                                     case 'question':
                                         echo cjk_substr(htmlspecialchars($approval_info['data']['question_detail']), 0, 128, 'UTF-8', '...');
@@ -114,18 +99,23 @@
                                 <?php } ?>
                             </td>
 
-                            <td>
+                            <td class="nowrap">
                                 <?php if ($_GET['type'] == 'unverified_modify') { ?>
                                 <a href="question/id-<?php echo $approval_info['question_id']; ?>__column-log__rf-false" target="_blank" class="fa fa-search md-tip" data-original-title="<?php _e('查看修改日志'); ?>"></a>
                                 <?php } else { ?>
                                 <a class="fa fa-search md-tip" onclick="AWS.dialog('ajaxData', {'title':'<?php _e('内容审核'); ?>', 'url':G_BASE_URL + '/admin/approval/preview/<?php
                                 if ($_GET['type'] == 'weibo_msg') {
-                                ?>type-weibo_msg__<?php
+                                ?>type-weibo_msg__id-<?php
                                 }
                                 echo $approval_info['id'];
                                 ?>'});" data-original-title="<?php _e('查看内容'); ?>"></a>
 
-                                <a href="admin/approval/preview/action-edit__id-<?php echo $approval_info['id']; ?>" class="fa fa-pencil md-tip" data-original-title="<?php _e('修改内容'); ?>"></a>
+                                <a href="admin/approval/preview/action-edit<?php
+                                if ($_GET['type'] == 'weibo_msg') {
+                                ?>__type-weibo_msg__id-<?php
+                                }
+                                echo $approval_info['id'];
+                                ?>" class="fa fa-pencil md-tip" data-original-title="<?php _e('修改内容'); ?>"></a>
                                 <?php } ?>
                             </td>
                         </tr>

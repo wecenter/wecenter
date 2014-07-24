@@ -49,9 +49,16 @@ class sina extends AWS_CONTROLLER
 	{
 		$oauth = new Services_Weibo_WeiboOAuth(get_setting('sina_akey'), get_setting('sina_skey'));
 
-		if ($_GET['uid'] AND $this->user_info['group_id'] == 1)
+		if ($_GET['uid'] AND $this->user_info['permission']['is_administortar'])
 		{
 			$user_id = intval($_GET['uid']);
+
+			$user_info = $this->model('account')->get_user_info_by_uid($user_id);
+
+			if (empty($user_info))
+			{
+				H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('本地用户不存在，无法绑定')));
+			}
 
 			$sina_token = $oauth->getAccessToken('code', array(
 								'code' => $_GET['code'],

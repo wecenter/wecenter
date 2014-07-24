@@ -81,11 +81,11 @@ class openid_weibo_class extends AWS_MODEL
 			{
 				if ($is_ajax)
 				{
-					H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('此账号已经与另外一个微博绑定')));
+					H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('此微博已经与本站的另外一个账号绑定')));
 				}
 				else
 				{
-					H::redirect_msg(AWS_APP::lang()->_t('此账号已经与另外一个微博绑定'), '/account/logout/');
+					H::redirect_msg(AWS_APP::lang()->_t('此微博已经与本站的另外一个账号绑定'), '/account/logout/');
 				}
 
 			}
@@ -112,6 +112,17 @@ class openid_weibo_class extends AWS_MODEL
 
 		$this->refresh_access_token($sina_profile['id'], $sina_token);
 
+		$tmp_service_account = AWS_APP::cache()->get('tmp_service_account');
+
+		if ($tmp_service_account[$uid])
+		{
+			$this->model('weibo')->update_service_account($uid, 'add');
+
+			unset($tmp_service_account[$uid]);
+
+			AWS_APP::cache()->set('tmp_service_account', $tmp_service_account, 86400);
+		}
+
 		if ($redirect)
 		{
 			HTTP::redirect($redirect);
@@ -124,33 +135,37 @@ class openid_weibo_class extends AWS_MODEL
 
 	public function get_msg_from_sina($access_token, $since_id = 0, $max_id = 0)
 	{
-	    $client = new Services_Weibo_WeiboClient(get_setting('sina_akey'), get_setting('sina_skey'), $access_token);
+		$client = new Services_Weibo_WeiboClient(get_setting('sina_akey'), get_setting('sina_skey'), $access_token);
 
-	    do
-	    {
-	        $result = json_decode($client->mentions(1, 200, $since_id, $max_id), true);
+		do
+		{
+			$result = $client->mentions(1, 200, $since_id, $max_id);
 
-	        if ($result['error'])
-	        {
-	            return $result;
-	        }
+			if ($result['error'])
+			{
+				return $result;
+			}
 
-	        $new_msgs = $result['statuses'];
+			$new_msgs = $result['statuses'];
 
-	        $new_msgs_total = count($new_msgs);
+			$new_msgs_total = count($new_msgs);
 
-	        if ($new_msgs_total == 0)
-	        {
-	            return false;
-	        }
+			$last_msg = end($new_msgs);
 
-	        $msgs = array_merge($msgs, $new_msgs);
+			$max_id = $last_msg['id'] - 1;
 
-	        $max_id = $msgs[200]['id'] - 1;
-	    }
-	    while ($new_msgs_total < 200);
+			if (empty($msgs))
+			{
+				$msgs = $new_msgs;
 
-	    return $msgs;
+				continue;
+			}
+
+			$msgs = array_merge($msgs, $new_msgs);
+		}
+		while ($new_msgs_total > 200);
+
+		return $msgs;
 	}
 
 	public function create_comment($access_token, $id, $comment)

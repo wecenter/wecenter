@@ -1758,9 +1758,9 @@ class ajax extends AWS_ADMIN_CONTROLLER
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择是否显示封面')));
         }
 
-        $article_ids = array_unique(array_filter(explode(',', $_POST['article_ids'])));
+        $article_ids = array_unique(array_filter(explode(',', trim($_POST['article_ids'], ','))));
 
-        $question_ids = array_unique(array_filter(explode(',', $_POST['question_ids'])));
+        $question_ids = array_unique(array_filter(explode(',', trim($_POST['question_ids'], ','))));
 
 /*
         if (empty($article_ids) AND empty($question_ids))
@@ -1781,16 +1781,14 @@ class ajax extends AWS_ADMIN_CONTROLLER
                 H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('只允许上传 jpeg 格式的图片')));
             }
 
-            if ($_FILES['main_msg_img']['size'] > '262144')
+            if ($_FILES['main_msg_img']['size'] > '1048576')
             {
-                H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('图片最大为 256KB')));
+                H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('图片最大为 1M')));
             }
 
-            if (is_uploaded_file($_FILES['main_msg_img']['tmp_name']))
-            {
-                $main_msg_img = $_FILES['main_msg_img']['tmp_name'];
-            }
-            else
+            $main_msg_img = ROOT_PATH . 'tmp/weixin_img.jpg';
+
+            if (!is_uploaded_file($_FILES['main_msg_img']['tmp_name']) OR !move_uploaded_file($_FILES['main_msg_img']['tmp_name'], $main_msg_img))
             {
                 H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('上传失败, 请与管理员联系')));
             }
