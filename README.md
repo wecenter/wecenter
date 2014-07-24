@@ -25,8 +25,8 @@ WeCenter 问答系统是一套开源的社交化问答软件系统。作为国�
  1. 上传 upload 目录中的文件到服务器
  2. 设置目录属性（windows 服务器可忽略这一步）
 以下这些目录需要可读写权限
-> ./ 	
-./system 	
+> ./
+./system
 ./system/config 含子目录
 
  3. 访问站点开始安装
@@ -50,7 +50,7 @@ WeCenter 问答系统是一套开源的社交化问答软件系统。作为国�
  - 支持：http://www.wecenter.com/support/
  - 讨论区：http://wenda.wecenter.com
 
- 
 
-[1]: http://www.wecenter.com/downloads/   
+
+[1]: http://www.wecenter.com/downloads/
 [2]:http://www.wecenter.com/category/support/sae-install/
