@@ -113,7 +113,7 @@
 <script>
     $(function(){
         $('.postBtn').click(function(){
-            AWS.dialog('confirm',{'message': '<?php _e('确定要发送邮件吗?'); ?>'},function(){
+            AWS.dialog('confirm',{'message': '<?php _e('确定要发送邮件吗？'); ?>'},function(){
                 $('.modal-backdrop').css({display:'none'})
                 AWS.ajax_post($('#task_form'))
             })
