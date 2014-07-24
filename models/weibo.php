@@ -148,9 +148,9 @@ fwrite($fp, date('Y-m-d H:i:s'));
 
                 continue;
             }
-fwrite($fp, "\ntest1\n");
+
             $msgs = $this->model('openid_weibo')->get_msg_from_sina($service_info['access_token'], $service_info['last_msg_id']);
-fwrite($fp, var_export($msgs, true));
+
             if (empty($msgs))
             {
                 continue;
@@ -165,7 +165,7 @@ fwrite($fp, var_export($msgs, true));
 
                 continue;
             }
-fwrite($fp, "\ntest2\n");
+
             foreach ($msgs AS $msg)
             {
                 $msg_info['created_at'] = strtotime($msg['created_at']);
@@ -179,7 +179,7 @@ fwrite($fp, "\ntest2\n");
                 $now = time();
 
                 $msg_info['access_key'] = md5($service_user_info['uid'] . $now);
-fwrite($fp, "\ntest3\n");
+
                 if ($msg['pic_urls'] AND get_setting('upload_enable') == 'Y')
                 {
                     foreach ($msg['pic_urls'] AS $pic_url)
@@ -234,17 +234,17 @@ fwrite($fp, "\ntest3\n");
                 }
                 else
                 {
-fwrite($fp, "\ntest4\n");
                     $msg_info['has_attach'] = 0;
                 }
-fwrite($fp, "\ntest5\n");
-                $msg_info['uid'] = $service_info['uid'];
+
+                $msg_info['uid'] = $service_user_info['uid'];
 
                 $msg_info['weibo_uid'] = $service_info['id'];
+fwrite($fp, "\ntest1\n");
 
-                $this->insert('weibo_msg', $msg_info);
+fwrite($fp, var_export($this->insert('weibo_msg', $msg_info), true));
             }
-
+fwrite($fp, "\ntest0\n");
             $last_msg_id = $msgs[0]['id'];
 fwrite($fp, "\ntest_end\n");
 fwrite($fp, "\n$last_msg_id\n");
