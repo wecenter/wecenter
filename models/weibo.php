@@ -124,8 +124,7 @@ class weibo_class extends AWS_MODEL
         {
             return false;
         }
-$fp = fopen(TEMP_PATH . 'debug.txt', 'a');
-fwrite($fp, date('Y-m-d H:i:s'));
+
         $services_info = $this->get_services_info();
 
         if (empty($services_info))
@@ -240,15 +239,11 @@ fwrite($fp, date('Y-m-d H:i:s'));
                 $msg_info['uid'] = $service_user_info['uid'];
 
                 $msg_info['weibo_uid'] = $service_info['id'];
-fwrite($fp, "\ntest1\n");
 
-fwrite($fp, var_export($this->insert('weibo_msg', $msg_info), true));
+                $this->insert('weibo_msg', $msg_info)
             }
-fwrite($fp, "\ntest0\n");
+
             $last_msg_id = $msgs[0]['id'];
-fwrite($fp, "\ntest_end\n");
-fwrite($fp, "\n$last_msg_id\n");
-fclose($fp);
 
             $this->update_service_account($service_user_info['uid'], null, $last_msg_id);
         }
