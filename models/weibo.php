@@ -165,8 +165,6 @@ class weibo_class extends AWS_MODEL
                 continue;
             }
 
-            $last_msg_id = $msgs[0]['id'];
-
             foreach ($msgs AS $msg)
             {
                 $msg_info['created_at'] = strtotime($msg['created_at']);
@@ -244,6 +242,14 @@ class weibo_class extends AWS_MODEL
 
                 $this->insert('weibo_msg', $msg_info);
             }
+
+            $last_msg_id = $msgs[0]['id'];
+
+$fp = fopen(ROOT_PATH . 'tmp/debug.txt', 'a');
+
+fwrite($fp, date('Y-m-d H:i:s') . "\n$last_msg_id\n" . var_export($msgs, true) . "\n\n");
+
+fclose($fp);
 
             $this->update_service_account($service_user_info['uid'], null, $last_msg_id);
         }
