@@ -38,14 +38,27 @@ class weibo_class extends AWS_MODEL
 
     public function del_msg_by_id($id)
     {
-        if (is_array($id))
-        {
-            $id = implode(',', $id);
+        $msg_info = $this->get_msg_info_by_id($id);
 
-            return $this->delete('weibo_msg', 'id IN (' . $this->quote($id) . ')');
+        if (empty($msg_info))
+        {
+            return false;
         }
 
-        return $this->delete('weibo_msg', 'id = ' . $this->quote($id));
+        $this->delete('weibo_msg', 'id = ' . $this->quote($id));
+
+        if ($msg_info['has_attach'] AND $msg_info['access_key'] AND !$msg_info['question_id'])
+        {
+            $attachs = $this->model('publish')->get_attach_by_access_key('weibo_msg', $msg_info['access_key']);
+
+            if ($attachs)
+            {
+                foreach ($attachs AS $attach)
+                {
+                    $this->model('publish')->remove_attach($attach['id'], $attach['access_key']);
+                }
+            }
+        }
     }
 
     public function get_services_info()
@@ -78,20 +91,7 @@ class weibo_class extends AWS_MODEL
             return AWS_APP::lang()->_t('微博发布用户不存在');
         }
 
-        $question_id = $this->model('publish')->publish_question($msg_info['text'], null, null, $published_uid, null, null, null, $msg_info['uid'], null);
-
-        $this->update('weibo_msg', array(
-            'question_id' => $question_id
-        ), 'id = ' . $this->quote($id));
-
-        $this->shutdown_update('attach', array(
-            'item_type' => 'question',
-            'item_id' => $question_id,
-        ), 'item_type = "weibo_msg" AND item_id = ' . $this->quote($id) . ' AND access_key = "' . $msg_info['access_key'] . '"');
-
-        $this->shutdown_update('question', array(
-            'has_attach' => 1
-        ), 'question_id = ' . $question_id);
+        $this->model('publish')->publish_question($msg_info['text'], null, null, $published_uid, null, null, $msg_info['access_key'], $msg_info['uid'], false, $msg_info['id']);
     }
 
     public function reply_answer_to_sina($question_id, $comment)
@@ -132,8 +132,6 @@ class weibo_class extends AWS_MODEL
             return false;
         }
 
-        $now = time();
-
         foreach ($services_info AS $service_info)
         {
             $service_user_info = $this->model('account')->get_user_info_by_uid($service_info['uid']);
@@ -169,8 +167,6 @@ class weibo_class extends AWS_MODEL
 
             $last_msg_id = $msgs[0]['id'];
 
-            $access_key = md5($service_user_info['uid'] . $now);
-
             foreach ($msgs AS $msg)
             {
                 $msg_info['created_at'] = strtotime($msg['created_at']);
@@ -181,9 +177,11 @@ class weibo_class extends AWS_MODEL
 
                 $msg_info['msg_author_uid'] = $msg['user']['id'];
 
-                $msg_info['access_key'] = $access_key;
+                $now = time();
 
-                if (!empty($msg['pic_urls']) AND get_setting('upload_enable') == 'Y')
+                $msg_info['access_key'] = md5($service_user_info['uid'] . $now);
+
+                if ($msg['pic_urls'] AND get_setting('upload_enable') == 'Y')
                 {
                     foreach ($msg['pic_urls'] AS $pic_url)
                     {
@@ -200,7 +198,7 @@ class weibo_class extends AWS_MODEL
                             continue;
                         }
 
-                        $upload_dir = get_setting('upload_dir') . '/' . 'weibo' . '/' . gmdate('Ymd') . '/';
+                        $upload_dir = get_setting('upload_dir') . '/' . 'questions' . '/' . gmdate('Ymd') . '/';
 
                         if (!is_dir($upload_dir) AND !make_dir($upload_dir))
                         {
@@ -229,6 +227,12 @@ class weibo_class extends AWS_MODEL
                         }
 
                         $this->model('publish')->add_attach('weibo_msg', $pic_url_array[3], $msg_info['access_key'], $now, $pic_url_array[3], true);
+
+                        $msg_info['has_attach'] = 1;
+                    }
+                    else
+                    {
+                        $msg_info['has_attach'] = 0;
                     }
 
                     $this->model('publish')->update_attach('weibo_msg', $msg_info['id'], $msg_info['access_key']);
@@ -275,6 +279,8 @@ class weibo_class extends AWS_MODEL
 
             default:
                 $last_msg_id = $this->quote($last_msg_id);
+
+                break;
         }
 
         $this->query('UPDATE ' . get_table('users_sina') . ' SET last_msg_id = ' . $last_msg_id . ' WHERE uid = ' . intval($uid));
