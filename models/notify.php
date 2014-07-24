@@ -922,7 +922,16 @@ class notify_class extends AWS_MODEL
 						break;
 						
 					case self::TYPE_ANSWER_COMMENT_AT_ME:
-						$data[$key]['message'] .= ' ' . AWS_APP::lang()->_t('在问题') . ' <a href="' . $val['key_url'] . '">' . $val['title'] . '</a> ' . AWS_APP::lang()->_t('中的回答评论中提到了你');
+						if ($val['anonymous'])
+						{
+							$data[$key]['message'] = AWS_APP::lang()->_t('匿名用户');
+						}
+						else
+						{
+							$data[$key]['message'] = '<a href="' . $val['p_url'] . '">' . $val['p_user_name'] . '</a>';
+						}
+						
+						$data[$key]['message'] .= ' ' . AWS_APP::lang()->_t('在问题') . ' <a href="' . $val['key_url'] . '">' . $val['title'] . '</a> ' . AWS_APP::lang()->_t('回答评论中提到了你');
 					break;
 
 					case self::TYPE_INVITE_QUESTION:
