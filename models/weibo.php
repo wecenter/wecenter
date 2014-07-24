@@ -169,7 +169,7 @@ class weibo_class extends AWS_MODEL
 
             $last_msg_id = $msgs[0]['id'];
 
-            $access_key = md5($service_info['uid'] . $now);
+            $access_key = md5($service_user_info['uid'] . $now);
 
             foreach ($msgs AS $msg)
             {
@@ -241,7 +241,7 @@ class weibo_class extends AWS_MODEL
                 $this->insert('weibo_msg', $msg_info);
             }
 
-            $this->update_service_account($service_info['uid'], null, $last_msg_id);
+            $this->update_service_account($service_user_info['uid'], null, $last_msg_id);
         }
 
         return true;
