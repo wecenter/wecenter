@@ -230,12 +230,12 @@ class weibo_class extends AWS_MODEL
 
                         $msg_info['has_attach'] = 1;
                     }
-                    else
-                    {
-                        $msg_info['has_attach'] = 0;
-                    }
 
                     $this->model('publish')->update_attach('weibo_msg', $msg_info['id'], $msg_info['access_key']);
+                }
+                else
+                {
+                    $msg_info['has_attach'] = 0;
                 }
 
                 $msg_info['uid'] = $service_info['uid'];
