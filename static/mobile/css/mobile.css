@@ -293,7 +293,7 @@ input[type="text"], input[type="password"], textarea{-webkit-appearance:none;}
 .aw-article-detail .aw-article-voter{margin-top: 5px;}
 
 /* 编辑器效果 */
-.markitup-box{word-wrap:break-all;}
+.markitup-box{word-wrap:break-word;}
 .markitup-box p{line-height: 1.8em;}
 .markitup-box img{max-width: 100%;margin-bottom: 10px;}
 
