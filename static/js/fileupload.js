@@ -138,7 +138,7 @@ FileUpload.prototype =
 	            _this.oncomplete(xhr, li, file);
 	        };
 
-	        var url = this.url + '&aws_upload_file=' + file.name;
+	        var url = this.url + '&aws_upload_file=' + file.name + '&timestamp=' + new Date().getTime();
 
 	        xhr.open("POST", url);
 

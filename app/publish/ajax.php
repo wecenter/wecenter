@@ -80,9 +80,9 @@ class ajax extends AWS_CONTROLLER
             'max_size' => get_setting('upload_size_limit')
         ));
 
-        if (isset($_POST['aws_upload_file']))
+        if (isset($_GET['aws_upload_file']))
         {
-            AWS_APP::upload()->do_upload($_POST['aws_upload_file'], true);
+            AWS_APP::upload()->do_upload($_GET['aws_upload_file'], true);
         }
         else if (isset($_FILES['aws_upload_file']))
         {
