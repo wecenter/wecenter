@@ -176,6 +176,7 @@ textarea{resize:none;}
 .aw-message-box h3{margin:0;padding-left:10px;height:35px;background:#3695D5;color:#fff;font-weight:400;font-size:14px;line-height:35px;line-}
 .aw-message-box .mod-set-body{padding:20px;}
 .aw-message-box a{margin-top:10px;}
+.aw-question-list li,.aw-article-list li{overflow: hidden;margin-bottom: 5px;}
 .aw-article-list a,.aw-question-list a{display:block;max-width:600px;}
 
 /*微信菜单页面*/

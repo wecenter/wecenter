@@ -155,9 +155,12 @@ class weibo_class extends AWS_MODEL
                 continue;
             }
 
-            if ($msgs['error_code'] == 21332)
+            if ($msgs['error'])
             {
-                $this->notification_of_refresh_access_token($service_user_info['uid'], $service_user_info['user_name']);
+                if ($msgs['error_code'] == 21332)
+                {
+                    $this->notification_of_refresh_access_token($service_user_info['uid'], $service_user_info['user_name']);
+                }
 
                 continue;
             }
@@ -233,8 +236,10 @@ class weibo_class extends AWS_MODEL
 
                 $msg_info['weibo_uid'] = $service_info['id'];
 
-                $this->insert('weixin_msg', $msg_info);
+                $this->insert('weibo_msg', $msg_info);
             }
+
+            $this->update_service_account($service_info['uid'], null, $last_msg_id);
         }
 
         return true;
@@ -252,7 +257,7 @@ class weibo_class extends AWS_MODEL
         $this->model('setting')->set_vars(array('admin_notifications' => $admin_notifications));
     }
 
-    public function update_service_account($uid, $action)
+    public function update_service_account($uid, $action, $last_msg_id = 0)
     {
         switch ($action)
         {
@@ -267,6 +272,6 @@ class weibo_class extends AWS_MODEL
                 break;
         }
 
-        $this->update('users_sina', array('last_msg_id' => $last_msg_id), 'uid = ' . intval($uid));
+        $this->update('users_sina', array('last_msg_id' => $this->quote($last_msg_id)), 'uid = ' . intval($uid));
     }
 }

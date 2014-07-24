@@ -33,7 +33,7 @@ class approval extends AWS_ADMIN_CONTROLLER
 
 		switch ($_GET['type'])
 		{
-			case 'weibo':
+			case 'weibo_msg':
 				$approval_list = $this->model('weibo')->fetch_page('weibo_msg', 'question_id IS NULL', 'id ASC', $_GET['page'], $this->per_page);
 
 				$found_rows = $this->model('weibo')->found_rows();

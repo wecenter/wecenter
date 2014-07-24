@@ -3,7 +3,7 @@ $(function()
 	// 检测首页动态更新
 	var checkactionsnew_handle = setInterval(function ()
 	{
-		check_actions_new('0', new Date().getTime());
+		check_actions_new(new Date().getTime());
 	}, 60000);
 
 	$('.aw-mod.side-nav a').click(function () {
@@ -168,9 +168,16 @@ function welcome_step(step)
 	}
 }
 
-function check_actions_new(uid, time)
+function reload_list()
+{	
+	$('#main_contents').html('<p style="padding: 15px 0" align="center"><img src="' + G_STATIC_URL + '/common/loading_b.gif" alt="" /></p>');
+
+	$('#bp_more').attr('data-page', 0).click();
+}
+
+function check_actions_new(time)
 {
-	$.get(G_BASE_URL + '/home/ajax/check_actions_new/uid-' + uid + '__time-' + time, function (result)
+	$.get(G_BASE_URL + '/home/ajax/check_actions_new/time-' + time, function (result)
 	{
 		if (result.errno == 1)
 		{
