@@ -2,6 +2,12 @@ var document_title = document.title;
 
 $(document).ready(function () {
 
+	// 检测首页动态更新
+	var checkactionsnew_handle = setInterval(function ()
+	{
+		check_actions_new(new Date().getTime());
+	}, 60000);
+
 	// 滚动指定位置
 	if (window.location.hash.indexOf('#!') != -1)
 	{
@@ -106,5 +112,26 @@ $(document).ready(function () {
 			$(this).addClass('active');
 		}
 	});
+
+	function check_actions_new(time)
+	{
+		$.get(G_BASE_URL + '/home/ajax/check_actions_new/time-' + time, function (result)
+		{
+			if (result.errno == 1)
+			{
+				if (result.rsm.new_count > 0)
+				{
+					if ($('#new_actions_tip').is(':hidden'))
+					{
+						$('#new_actions_tip').css('display', 'block');
+					}
+
+					$('#new_action_num').html(result.rsm.new_count);
+
+					$('.nav .new-action').show();
+				}
+			}
+		}, 'json');
+	}
 	
 });
