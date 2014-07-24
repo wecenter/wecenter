@@ -228,6 +228,13 @@ class main extends AWS_CONTROLLER
 		}
 	}
 
+	public function inbox_new_action()
+	{
+		TPL::assign('body_class', 'active');
+
+		TPL::output('m/inbox_read');
+	}
+
 	public function question_action()
 	{
 		TPL::assign('body_class', 'active');

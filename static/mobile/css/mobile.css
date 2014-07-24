@@ -8,7 +8,7 @@ label, b{font-weight: normal;}
 .btn-success{border:none;background-color: #58b957;}
 .btn-success:hover, .btn-success:active{background-color: #119E10 !important;color: #fff !important;}
 .btn-success.active{background-color: #ccc;color: #fff;box-shadow: none;}
-.btn-success.active:hover, .btn-success.active:active{background-color: #999 !important;}
+.btn-success.active:hover{background-color: #999 !important;}
 .btn-primary{border:none;background-color: #66b7ff;}
 .btn-primary:hover, .btn-primary:active{background-color: #339DFF;}
 .btn-mini{width:64px;height: 24px;line-height:24px;padding:0;}
@@ -106,7 +106,7 @@ input[type="text"], input[type="password"], textarea{-webkit-appearance:none;}
 .top-nav ul li a{display: block;height: 43px;line-height: 43px;text-align: center;font-size: 16px;color: #666666;}
 .top-nav ul li a.active, .top-nav ul li.active a{border-bottom: 3px solid #19558d;color: #333333;font-weight: bold;}
 .top-nav ul li a i{position: absolute;right: 10px;top: 10px;}
-.top-nav ul li a .badge-tips{top: 5px;}
+.top-nav ul li a .badge{position:absolute;top: 5px;}
 
 /* category */
 .top-category{height: 48px;overflow-y:scroll;background-color: #fafafa;border-bottom:1px solid #cccccc;}
@@ -182,7 +182,7 @@ input[type="text"], input[type="password"], textarea{-webkit-appearance:none;}
 /* 用户页面 */
 .aw-people-detail, .aw-topic-detail{background-color: #fff;}
 .aw-people-detail .mod-head, .aw-topic-detail .mod-head{position: relative;min-height:70px;padding:10px 10px 10px 70px;border-bottom:1px solid #e6e6e6;}
-.aw-people-detail .mod-head h1, .aw-topic-detail .mod-head h1{margin:3px 0 5px 0;font-size: 17px;color: #000000;}
+.aw-people-detail .mod-head h1, .aw-topic-detail .mod-head h1{margin:3px 0 5px 0;font-size: 17px;color: #333;}
 .aw-people-detail .mod-head .img, .aw-topic-detail .mod-head .img{position: absolute;left: 10px;top: 10px;}
 .aw-people-detail .mod-head .btn{margin-left: 5px;}
 .aw-people-detail .mod-head p, .aw-topic-detail .mod-head p{margin:0;}
@@ -400,7 +400,7 @@ input[type="text"], input[type="password"], textarea{-webkit-appearance:none;}
 .aw-login-box .bind-form p, .aw-login-box .register-form p{margin-top: 10px;}
 
 /* 用户列表页 */
-.aw-people-list ul li .mod-head{position:relative;padding:10px 10px 0 70px;}
+.aw-people-list ul li .mod-head{position:relative;min-height:70px;padding:10px 10px 0 70px;}
 .aw-people-list ul li .mod-head .flag{position: absolute;left: 3px;top: -1px;}
 .aw-people-list ul li .mod-head .flag i{font-size: 22px;}
 .aw-people-list ul li .mod-head .flag b{position: absolute;left: 0;top:-1px;z-index: 1px;width:22px;text-align:center;font-weight:normal;color: #fff;}

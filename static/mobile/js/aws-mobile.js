@@ -500,6 +500,18 @@ AWS.User =
 	    }, 'json');
 	},
 
+	// 收藏
+	favorite: function(type, id)
+	{
+		if (type == 'answer')
+		{
+			$.post(G_BASE_URL + '/favorite/ajax/update_favorite_tag/', {'item_type': type, 'item_id': id}, function (i, e)
+			{
+
+			}, 'json');
+		}
+	},
+
 	// 提交评论
 	save_comment: function (selector)
 	{

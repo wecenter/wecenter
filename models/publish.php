@@ -174,6 +174,11 @@ class publish_class extends AWS_MODEL
 
 		$this->model('posts')->set_posts_index($question_id, 'question');
 
+		if ($question_info['weibo_msg_id'])
+		{
+			$this->model('weibo')->reply_answer_to_sina($question_info['question_id'], $answer_content);
+		}
+
 		return $answer_id;
 	}
 
@@ -194,7 +199,7 @@ class publish_class extends AWS_MODEL
 		));
 	}
 
-	public function publish_question($question_content, $question_detail, $category_id, $uid, $topics = null, $anonymous = null, $attach_access_key = null, $ask_user_id = null, $create_topic = true)
+	public function publish_question($question_content, $question_detail, $category_id, $uid, $topics = null, $anonymous = null, $attach_access_key = null, $ask_user_id = null, $create_topic = true, $weibo_msg_id = null)
 	{
 		if ($question_id = $this->model('question')->save_question($question_content, $question_detail, $uid, $anonymous))
 		{
@@ -219,7 +224,14 @@ class publish_class extends AWS_MODEL
 
 			if ($attach_access_key)
 			{
-				$this->model('publish')->update_attach('question', $question_id, $attach_access_key);
+				if ($weibo_msg_id)
+				{
+					$this->model('publish')->update_attach('weibo_msg', $question_id, $attach_access_key, $weibo_msg_id);
+				}
+				else
+				{
+					$this->model('publish')->update_attach('question', $question_id, $attach_access_key);
+				}
 			}
 
 			if ($ask_user_id)
@@ -248,6 +260,10 @@ class publish_class extends AWS_MODEL
 			$this->model('integral')->process($uid, 'NEW_QUESTION', get_setting('integral_system_config_new_question'), '发起问题 #' . $question_id, $question_id);
 
 			$this->model('posts')->set_posts_index($question_id, 'question');
+
+			$this->update('weibo_msg', array(
+				'question_id' => $question_id
+			), 'id = ' . $this->quote($id));
 		}
 
 		return $question_id;
@@ -345,16 +361,30 @@ class publish_class extends AWS_MODEL
 		return $comment_id;
 	}
 
-	public function update_attach($item_type, $item_id, $attach_access_key)
+	public function update_attach($item_type, $item_id, $attach_access_key, $old_id = null)
 	{
 		if (! $attach_access_key)
 		{
 			return false;
 		}
 
-		if ($update_result = $this->update('attach', array(
-			'item_id' => $this->quote($item_id)
-		), "item_type = '" . $this->quote($item_type) . "' AND item_id = 0 AND access_key = '" . $this->quote($attach_access_key) . "'"))
+		if ($item_type = 'weibo_msg' AND $old_id)
+		{
+			$update_result = $this->update('attach', array(
+				'item_type' => 'question',
+				'item_id' => $this->quote($item_id)
+			), 'item_type = "' . $this->quote($item_type) . '" AND item_id = ' . $old_id . ' AND access_key = "' . $this->quote($attach_access_key) . '"');
+
+			$item_type = 'question';
+		}
+		else
+		{
+			$update_result = $this->update('attach', array(
+				'item_id' => $this->quote($item_id)
+			), "item_type = '" . $this->quote($item_type) . "' AND item_id = 0 AND access_key = '" . $this->quote($attach_access_key) . "'");
+		}
+
+		if ($update_result)
 		{
 			switch ($item_type)
 			{
@@ -413,11 +443,14 @@ class publish_class extends AWS_MODEL
 			{
 				default:
 					$update_key = $attach['item_type'] . '_id';
-				break;
+
+					break;
 
 				case 'article':
+				case 'weibo_msg':
 					$update_key = 'id';
-				break;
+
+					break;
 			}
 
 			return $this->shutdown_update($attach['item_type'], array(
@@ -425,7 +458,7 @@ class publish_class extends AWS_MODEL
 			), $update_key . ' = ' . $attach['item_id']);
 		}
 
-		if ($attach['item_type'] == 'question')
+		if ($attach['item_type'] == 'question' OR $attach['item_type'] == 'weibo_msg')
 		{
 			$attach['item_type'] = 'questions';
 		}
@@ -463,7 +496,7 @@ class publish_class extends AWS_MODEL
 
 		foreach ($attach as $key => $data)
 		{
-			if ($item_type == 'question')
+			if ($item_type == 'question' OR $item_type == 'weibo_msg')
 			{
 				$item_type = 'questions';
 			}

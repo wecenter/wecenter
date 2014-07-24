@@ -194,7 +194,12 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
     public function approval_manage_action()
     {
-        if (!is_array($_POST['approval_ids']))
+        if ($_POST['approval_id'])
+        {
+            $_POST['approval_ids'] = array($_POST['approval_id']);
+        }
+
+        if (empty($_POST['approval_ids']) OR !is_array($_POST['approval_ids']))
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择条目进行操作')));
         }
@@ -217,19 +222,9 @@ class ajax extends AWS_ADMIN_CONTROLLER
                     break;
 
                 case 'decline':
-                    $this->model('weibo')->del_msg_by_id($_POST['approval_ids']);
-
                     foreach ($_POST['approval_ids'] AS $approval_id)
                     {
-                        $attachs = $this->model('publish')->get_attach('weibo_msg', $approval_id);
-
-                        if ($attachs)
-                        {
-                            foreach ($attachs AS $attach)
-                            {
-                                $this->model('publish')->remove_attach($attach['id'], $attach['access_key']);
-                            }
-                        }
+                        $this->model('weibo')->del_msg_by_id($approval_id);
                     }
 
                     break;

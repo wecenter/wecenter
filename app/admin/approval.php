@@ -112,12 +112,11 @@ class approval extends AWS_ADMIN_CONTROLLER
 
 	public function preview_action()
 	{
-		if (!$_GET['action'])
+		if (!$_GET['action'] OR $_GET['action'] != 'edit')
 		{
 			$_GET['action'] = 'preview';
 		}
-
-		if ($_GET['action'] == 'edit')
+		else
 		{
 			$this->crumb(AWS_APP::lang()->_t('待审项修改'), 'admin/approval/edit/');
 
