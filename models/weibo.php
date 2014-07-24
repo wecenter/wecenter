@@ -124,7 +124,7 @@ class weibo_class extends AWS_MODEL
         {
             return false;
         }
-$fp = fopen(TEMP_PATH . 'tmp/debug.txt', 'a');
+$fp = fopen(TEMP_PATH . 'debug.txt', 'a');
 fwrite($fp, date('Y-m-d H:i:s'));
         $services_info = $this->get_services_info();
 
