@@ -102,7 +102,7 @@
 
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-5 col-xs-8">
-                            <button type="button" onclick="AWS.ajax_post($('#task_form'));" class="btn btn-primary"><?php _e('创建'); ?></button>
+                            <button type="button" class="btn btn-primary postBtn"><?php _e('创建'); ?></button>
                         </div>
                     </div>
                 </form>
@@ -110,5 +110,14 @@
         </div>
     </div>
 </div>
-
+<script>
+    $(function(){
+        $('.postBtn').click(function(){
+            AWS.dialog('confirm',{'message': '<?php _e('确定要发送邮件吗？'); ?>'},function(){
+                $('.modal-backdrop').css({display:'none'})
+                AWS.ajax_post($('#task_form'))
+            })
+        })
+    })
+</script>
 <?php TPL::output('admin/global/footer.tpl.htm'); ?>

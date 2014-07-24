@@ -81,11 +81,11 @@ class openid_weibo_class extends AWS_MODEL
 			{
 				if ($is_ajax)
 				{
-					H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('此账号已经与另外一个微博绑定')));
+					H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('此微博已经与本站的另外一个账号绑定')));
 				}
 				else
 				{
-					H::redirect_msg(AWS_APP::lang()->_t('此账号已经与另外一个微博绑定'), '/account/logout/');
+					H::redirect_msg(AWS_APP::lang()->_t('此微博已经与本站的另外一个账号绑定'), '/account/logout/');
 				}
 
 			}
@@ -111,6 +111,17 @@ class openid_weibo_class extends AWS_MODEL
 		}
 
 		$this->refresh_access_token($sina_profile['id'], $sina_token);
+
+		$tmp_service_account = AWS_APP::cache()->get('tmp_service_account');
+
+		if ($tmp_service_account[$uid])
+		{
+			$this->model('weibo')->update_service_account($uid, 'add');
+
+			unset($tmp_service_account[$uid]);
+
+			AWS_APP::cache()->set('tmp_service_account', $tmp_service_account, 86400);
+		}
 
 		if ($redirect)
 		{

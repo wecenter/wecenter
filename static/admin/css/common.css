@@ -224,7 +224,7 @@ textarea{resize:none;}
 /*微信消息群发*/
 .mod-file{position:relative;display:inline-block;overflow:hidden;vertical-align:middle;cursor:pointer;*display:inline;*zoom:1;}
 .mod-file .mod-input-file{ position:absolute; top:0;right:0; height:100%;opacity:0;-ms-filter:"alpha(opacity=0)";filter:alpha(opacity=0);cursor:pointer;_font-size:100px; _font-size:12px;_zoom:10;_height:auto;}
-
+.filetext{line-height: 34px;}
 /* 弹窗 */
 .aw-category-move-box .modal-dialog{width:350px;}
 .aw-topic-edit-note-box img{max-width:530px;}

@@ -78,12 +78,15 @@
                     <td>
                         <div class="form-group">
                             <span class="col-sm-4 col-xs-3 control-label"><?php _e('封面图片'); ?>:</span>
-                            <div class="col-sm-5 col-xs-8">
+                            <div class="col-sm-2">
                                 <span class="mod-file">
                                     <input type="button" class="btn btn-primary" value="点击选择图片" />
-                                    <input type="file" name="main_msg_img" exts="png|jpg|bmp|jpeg" class="mod-input-file" />
+                                    <input type="file" name="main_msg_img" exts="jpg|jpeg" class="mod-input-file" />
                                 </span>
+
+                                <span class="help-block"><?php _e('图片只支持 jpeg 格式，最大为 1M'); ?></span>
                             </div>
+                            <span class="col-sm-3 filetext"></span>
                         </div>
                     </td>
                 </tr>
@@ -150,7 +153,7 @@
                 <tfoot>
                 <tr>
                     <td>
-                        <input type="button" value="<?php _e('保存设置'); ?>" class="btn btn-primary center-block" onclick="AWS.ajax_post($('#msg_form'));" />
+                        <input type="button" value="<?php _e('保存设置'); ?>" class="btn btn-primary center-block postBtn" />
                     </td>
                 </tr>
                 </tfoot>
@@ -174,13 +177,24 @@
             var tempStr =  $('.question_ids').val();
             $('.question_ids').val(tempStr.replace($(this).parents("li").attr('data-id')+ ',',''));
             $(this).parents("li").detach();
-        })
+        });
 
         $('.aw-article-list').delegate('.btn-danger','click',function(){
             var tempStr =  $('.article_ids').val();
             $('.article_ids').val(tempStr.replace($(this).parents("li").attr('data-id')+ ',',''));
             $(this).parents("li").detach()
-        })
+        });
+
+        $('.mod-input-file').change(function(){
+            $('.filetext').text($('.mod-input-file').val());
+        });
+
+        $('.postBtn').click(function(){
+            AWS.dialog('confirm',{'message': '<?php _e('确定要群发消息吗？'); ?>'},function(){
+                $('.modal-backdrop').css({display:'none'})
+                AWS.ajax_post($('#msg_form'));
+            })
+        });
     })
 </script>
 
