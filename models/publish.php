@@ -176,7 +176,7 @@ class publish_class extends AWS_MODEL
 
 		if ($question_info['weibo_msg_id'])
 		{
-			var_dump($this->model('weibo')->reply_answer_to_sina($question_info['question_id'], $answer_content));
+			$this->model('weibo')->reply_answer_to_sina($question_info['question_id'], $answer_content);
 		}
 
 		return $answer_id;
@@ -201,7 +201,7 @@ class publish_class extends AWS_MODEL
 
 	public function publish_question($question_content, $question_detail, $category_id, $uid, $topics = null, $anonymous = null, $attach_access_key = null, $ask_user_id = null, $create_topic = true, $weibo_msg_id = null)
 	{
-		if ($question_id = $this->model('question')->save_question($question_content, $question_detail, $uid, $anonymous))
+		if ($question_id = $this->model('question')->save_question($question_content, $question_detail, $uid, $anonymous, null, $weibo_msg_id))
 		{
 			set_human_valid('question_valid_hour');
 
@@ -261,9 +261,12 @@ class publish_class extends AWS_MODEL
 
 			$this->model('posts')->set_posts_index($question_id, 'question');
 
-			$this->update('weibo_msg', array(
-				'question_id' => $question_id
-			), 'id = ' . $this->quote($weibo_msg_id));
+			if ($weibo_msg_id)
+			{
+				$this->update('weibo_msg', array(
+					'question_id' => $question_id
+				), 'id = ' . $this->quote($weibo_msg_id));
+			}
 		}
 
 		return $question_id;
