@@ -124,7 +124,8 @@ class weibo_class extends AWS_MODEL
         {
             return false;
         }
-
+$fp = fopen(TEMP_PATH . 'debug.txt', 'a');
+fwrite($fp, date('Y-m-d H:i:s'));
         $services_info = $this->get_services_info();
 
         if (empty($services_info))
@@ -147,7 +148,7 @@ class weibo_class extends AWS_MODEL
 
                 continue;
             }
-
+fwrite($fp, "\ntest1\n");
             $msgs = $this->model('openid_weibo')->get_msg_from_sina($service_info['access_token'], $service_info['last_msg_id']);
 
             if (empty($msgs))
@@ -164,9 +165,7 @@ class weibo_class extends AWS_MODEL
 
                 continue;
             }
-
-            $last_msg_id = $msgs[0]['id'];
-
+fwrite($fp, "\ntest2\n");
             foreach ($msgs AS $msg)
             {
                 $msg_info['created_at'] = strtotime($msg['created_at']);
@@ -244,6 +243,12 @@ class weibo_class extends AWS_MODEL
 
                 $this->insert('weibo_msg', $msg_info);
             }
+
+            $last_msg_id = $msgs[0]['id'];
+
+fwrite($fp, "\n$last_msg_id\n" . var_export($msgs, true) . "\n\n");
+
+fclose($fp);
 
             $this->update_service_account($service_user_info['uid'], null, $last_msg_id);
         }
