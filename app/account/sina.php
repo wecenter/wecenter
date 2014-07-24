@@ -103,6 +103,10 @@ class sina extends AWS_CONTROLLER
 		if ($tmp_service_account[$user_id])
 		{
 			$this->model('weibo')->update_service_account($user_id, 'add');
+
+			unset($tmp_service_account[$user_id]);
+
+			AWS_APP::cache()->set('tmp_service_account', $tmp_service_account, 86400);
 		}
 	}
 
