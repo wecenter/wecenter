@@ -42,7 +42,7 @@ class weibo_class extends AWS_MODEL
         {
             $id = implode(',', $id);
 
-            return $this->delete('weibo_msg', 'id IN (' . $this->quote($id)) . ')';
+            return $this->delete('weibo_msg', 'id IN (' . $this->quote($id) . ')');
         }
 
         return $this->delete('weibo_msg', 'id = ' . $this->quote($id));
