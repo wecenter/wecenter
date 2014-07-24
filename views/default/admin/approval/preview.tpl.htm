@@ -31,6 +31,8 @@
 <form id="approval_form" action="admin/ajax/approval_manage/" method="post">
     <input type="hidden" id="approval_type" name="batch_type" value="approval" />
 
+    <input type="hidden" name="type" value="<?php echo htmlspecialchars($this->approval_item['type']); ?>" />
+
     <input type="hidden" name="approval_id" value="<?php echo $this->approval_item['id']; ?>" />
 </form>
 
