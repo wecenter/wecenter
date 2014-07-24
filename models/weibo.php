@@ -150,7 +150,7 @@ fwrite($fp, date('Y-m-d H:i:s'));
             }
 fwrite($fp, "\ntest1\n");
             $msgs = $this->model('openid_weibo')->get_msg_from_sina($service_info['access_token'], $service_info['last_msg_id']);
-
+fwrite($fp, var_export($msgs, true));
             if (empty($msgs))
             {
                 continue;
@@ -196,7 +196,7 @@ fwrite($fp, "\ntest3\n");
                         {
                             continue;
                         }
-fwrite($fp, "\ntest4\n");
+
                         $upload_dir = get_setting('upload_dir') . '/' . 'questions' . '/' . gmdate('Ymd') . '/';
 
                         if (!is_dir($upload_dir) AND !make_dir($upload_dir))
@@ -211,7 +211,7 @@ fwrite($fp, "\ntest4\n");
                         @fwrite($handle, $result);
 
                         @fclose($handle);
-fwrite($fp, "\ntest5\n");
+
                         foreach (AWS_APP::config()->get('image')->attachment_thumbnail AS $key => $val)
                         {
                             $thumb_file[$key] = $upload_dir . $val['w'] . 'x' . $val['h'] . '_' . $pic_url_array[3];
@@ -228,16 +228,16 @@ fwrite($fp, "\ntest5\n");
                         $this->model('publish')->add_attach('weibo_msg', $pic_url_array[3], $msg_info['access_key'], $now, $pic_url_array[3], true);
 
                         $msg_info['has_attach'] = 1;
-fwrite($fp, "\ntest6\n");
                     }
 
                     $this->model('publish')->update_attach('weibo_msg', $msg_info['id'], $msg_info['access_key']);
                 }
                 else
                 {
+fwrite($fp, "\ntest4\n");
                     $msg_info['has_attach'] = 0;
                 }
-
+fwrite($fp, "\ntest5\n");
                 $msg_info['uid'] = $service_info['uid'];
 
                 $msg_info['weibo_uid'] = $service_info['id'];
@@ -247,8 +247,7 @@ fwrite($fp, "\ntest6\n");
 
             $last_msg_id = $msgs[0]['id'];
 fwrite($fp, "\ntest_end\n");
-fwrite($fp, "\n$last_msg_id\n" . var_export($msgs, true) . "\n\n");
-
+fwrite($fp, "\n$last_msg_id\n");
 fclose($fp);
 
             $this->update_service_account($service_user_info['uid'], null, $last_msg_id);
