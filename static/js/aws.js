@@ -839,7 +839,7 @@ var AWS =
 	                        //判断是否为游客or自己
 	                        if (G_USER_ID <= 0 || G_USER_ID == result.uid || result.uid < 0)
 	                        {
-	                            $('#aw-card-tips .aw-mod-footer').hide();
+	                            $('#aw-card-tips .mod-footer').hide();
 	                        }
 	                        _init();
 	                        //缓存
@@ -878,7 +878,7 @@ var AWS =
 	                            //判断是否为游客
 	                            if (G_USER_ID == 0)
 	                            {
-	                                $('#aw-card-tips .aw-mod-footer .focus').hide();
+	                                $('#aw-card-tips .mod-footer .focus').hide();
 	                            }
 	                            _init();
 	                            //缓存
