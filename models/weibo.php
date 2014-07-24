@@ -259,8 +259,8 @@ class weibo_class extends AWS_MODEL
         $this->model('setting')->set_vars(array('admin_notifications' => $admin_notifications));
     }
 
-    {    public function update_service_account($uid, $action, $last_msg_id = 'NULL')
-
+    public function update_service_account($uid, $action, $last_msg_id = 0)
+    {
         switch ($action)
         {
             case 'add':
