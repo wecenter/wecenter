@@ -177,7 +177,7 @@ class weibo_class extends AWS_MODEL
 
                 $msg_info['id'] = $msg['id'];
 
-                $msg_info['text'] = str_replace('@' . $service_info['name'], '@' . $service_user_info['user_name'], $msg['text']);
+                $msg_info['text'] = str_replace('@' . $service_info['name'], '', $msg['text']);
 
                 $msg_info['msg_author_uid'] = $msg['user']['id'];
 
