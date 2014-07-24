@@ -1992,7 +1992,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
                     {
                         H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('该用户不是回答用户')));
                     }
-echo 'test';
+
                     $this->model('weibo')->update_service_account($user_info['uid'], 'del');
                 }
                 else
