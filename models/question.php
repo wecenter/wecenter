@@ -114,14 +114,14 @@ class question_class extends AWS_MODEL
 	 *
 	 * @return boolean true|false
 	 */
-	public function save_question($question_content, $question_detail, $published_uid, $anonymous = 0, $ip_address = null)
+	public function save_question($question_content, $question_detail, $published_uid, $anonymous = 0, $ip_address = null, $weibo_msg_id = null)
 	{
 		if (!$ip_address)
 		{
 			$ip_address = fetch_ip();
 		}
 
-		if ($question_id = $this->insert('question', array(
+		$to_save_question = array(
 			'question_content' => htmlspecialchars($question_content),
 			'question_detail' => htmlspecialchars($question_detail),
 			'add_time' => time(),
@@ -129,7 +129,16 @@ class question_class extends AWS_MODEL
 			'published_uid' => intval($published_uid),
 			'anonymous' => intval($anonymous),
 			'ip' => ip2long($ip_address)
-		)))
+		);
+
+		if ($weibo_msg_id)
+		{
+			$to_save_question['weibo_msg_id'] = $weibo_msg_id;
+		}
+
+		$question_id = $this->insert('question', $to_save_question);
+
+		if ($question_id)
 		{
 			$this->shutdown_update('users', array(
 				'question_count' => $this->count('question', 'published_uid = ' . intval($published_uid))
