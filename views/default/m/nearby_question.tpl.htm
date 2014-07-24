@@ -18,11 +18,11 @@
 							<h2><a href="m/question/<?php echo $val['question_id']; ?>"><?php echo $val['question_content']; ?></a></h2>
 						</div>
 						<div class="mod-footer">
-							<i class="glyphicon glyphicon-map-marker"></i> <?php _e('%s 公里以内', $val['distance']); ?>
+							<a><i class="glyphicon glyphicon-map-marker"></i> <?php _e('%s 公里以内', $val['distance']); ?></a>
 							<a class="pull-right" href="m/people/<?php echo $val['user_info']['url_token']; ?>">
 								<img class="img" width="20" src="<?php echo get_avatar_url($val['user_info']['uid'], 'max'); ?>" />
 							</a>
-							<span class="pull-right color-999"><?php echo date_friendly($val['add_time']); ?></span>
+							<span class="pull-right color-999"><?php echo date_friendly($val['add_time']); ?>&nbsp;&nbsp;</span>
 						</div>
 					</li>
 				<?php } ?>
