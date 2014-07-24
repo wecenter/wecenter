@@ -45,7 +45,7 @@ class ajax extends AWS_CONTROLLER
 	{
 		$this->model('favorite')->add_favorite($_POST['item_id'], $_POST['item_type'], $this->user_id);
 		
-		if (if (rtrim($_POST['tags'], ',') != ''))
+		if (rtrim($_POST['tags'], ',') != '')
 		{
 			$this->model('favorite')->update_favorite_tag($_POST['item_id'], $_POST['item_type'], $_POST['tags'], $this->user_id);
 		}
