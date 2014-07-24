@@ -42,7 +42,7 @@ class weibo_class extends AWS_MODEL
         {
             $id = implode(',', $id);
 
-            return $this->delete('weibo_msg', 'id IN (' . $this->quote($id)) . ')';
+            return $this->delete('weibo_msg', 'id IN (' . $this->quote($id) . ')');
         }
 
         return $this->delete('weibo_msg', 'id = ' . $this->quote($id));
@@ -78,7 +78,7 @@ class weibo_class extends AWS_MODEL
             return AWS_APP::lang()->_t('微博发布用户不存在');
         }
 
-        $question_id = $this->model('question')->save_question($msg_info['text'], null, $published_uid, 0, null, $id);
+        $question_id = $this->model('publish')->publish_question($msg_info['text'], null, null, $published_uid, null, null, null, $msg_info['uid'], null);
 
         $this->update('weibo_msg', array(
             'question_id' => $question_id
@@ -87,7 +87,7 @@ class weibo_class extends AWS_MODEL
         $this->shutdown_update('attach', array(
             'item_type' => 'question',
             'item_id' => $question_id,
-        ), 'item_type = "weibo_msg" AND item_id = ' . $this->quote($id));
+        ), 'item_type = "weibo_msg" AND item_id = ' . $this->quote($id) . ' AND access_key = "' . $msg_info['access_key'] . '"');
 
         $this->shutdown_update('question', array(
             'has_attach' => 1
@@ -132,6 +132,8 @@ class weibo_class extends AWS_MODEL
             return false;
         }
 
+        $now = time();
+
         foreach ($services_info AS $service_info)
         {
             $service_user_info = $this->model('account')->get_user_info_by_uid($service_info['uid']);
@@ -167,15 +169,19 @@ class weibo_class extends AWS_MODEL
 
             $last_msg_id = $msgs[0]['id'];
 
+            $access_key = md5($service_info['uid'] . $now);
+
             foreach ($msgs AS $msg)
             {
                 $msg_info['created_at'] = strtotime($msg['created_at']);
 
                 $msg_info['id'] = $msg['id'];
 
-                $msg_info['text'] = str_replace('@' . $service_info['name'], '@' . $service_user_info['user_name'], $msg['text']);
+                $msg_info['text'] = str_replace('@' . $service_info['name'], '', $msg['text']);
 
                 $msg_info['msg_author_uid'] = $msg['user']['id'];
+
+                $msg_info['access_key'] = $access_key;
 
                 if (!empty($msg['pic_urls']) AND get_setting('upload_enable') == 'Y')
                 {
@@ -222,14 +228,10 @@ class weibo_class extends AWS_MODEL
                             ))->resize();
                         }
 
-                        $now = time();
-
-                        $attach_access_key = md5($service_info['uid'] . $now);
-
-                        $this->model('publish')->add_attach('weibo_msg', $pic_url_array[3], $attach_access_key, $now, $pic_url_array[3], true);
+                        $this->model('publish')->add_attach('weibo_msg', $pic_url_array[3], $msg_info['access_key'], $now, $pic_url_array[3], true);
                     }
 
-                    $this->model('publish')->update_attach('weibo_msg', $msg_info['id'], $attach_access_key);
+                    $this->model('publish')->update_attach('weibo_msg', $msg_info['id'], $msg_info['access_key']);
                 }
 
                 $msg_info['uid'] = $service_info['uid'];
@@ -257,7 +259,7 @@ class weibo_class extends AWS_MODEL
         $this->model('setting')->set_vars(array('admin_notifications' => $admin_notifications));
     }
 
-    public function update_service_account($uid, $action, $last_msg_id = 0)
+    public function update_service_account($uid, $action = null, $last_msg_id = 0)
     {
         switch ($action)
         {
@@ -267,11 +269,14 @@ class weibo_class extends AWS_MODEL
                 break;
 
             case 'del':
-                $last_msg_id = null;
+                $last_msg_id = 'NULL';
 
                 break;
+
+            default:
+                $last_msg_id = $this->quote($last_msg_id);
         }
 
-        $this->update('users_sina', array('last_msg_id' => $this->quote($last_msg_id)), 'uid = ' . intval($uid));
+        $this->update('users_sina', array('last_msg_id' => $last_msg_id), 'uid = ' . intval($uid));
     }
 }

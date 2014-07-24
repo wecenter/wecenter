@@ -1131,6 +1131,7 @@ CREATE TABLE `[#DB_PREFIX#]weibo_msg` (
   `created_at` int(10) NOT NULL,
   `msg_author_uid` bigint(20) NOT NULL,
   `text` varchar(255) NOT NULL,
+  `access_key` varchar(32) NOT NULL,
   `has_attach` tinyint(1) NOT NULL DEFAULT '0',
   `uid` int(10) NOT NULL,
   `weibo_uid` bigint(20) NOT NULL,
