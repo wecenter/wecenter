@@ -83,6 +83,7 @@ class main extends AWS_CONTROLLER
 		$this->model('crond')->minute($user_id);
 	}
 
+	// 每五分钟执行
 	public function five_minutes($user_id = null)
 	{
 		$this->model('crond')->five_minutes($user_id);
