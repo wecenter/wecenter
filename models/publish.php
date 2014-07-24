@@ -176,7 +176,7 @@ class publish_class extends AWS_MODEL
 
 		if ($question_info['weibo_msg_id'])
 		{
-			$this->model('weibo')->reply_answer_to_sina($question_info['question_id'], $answer_content);
+			var_dump($this->model('weibo')->reply_answer_to_sina($question_info['question_id'], $answer_content));
 		}
 
 		return $answer_id;
