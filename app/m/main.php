@@ -236,6 +236,11 @@ class main extends AWS_CONTROLLER
 		
 		if ($_GET['uid'])
 		{
+			if ($dialog_info = $this->model('message')->get_dialog_by_user($_GET['uid'], $this->user_id))
+			{
+				HTTP::redirect('/m/inbox/dialog_id-' . $dialog_info['id']);
+			}
+			
 			TPL::assign('user', $this->model('account')->get_user_info_by_uid($_GET['uid']));
 		}
 		
