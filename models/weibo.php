@@ -240,7 +240,7 @@ class weibo_class extends AWS_MODEL
 
                 $msg_info['weibo_uid'] = $service_info['id'];
 
-                $this->insert('weibo_msg', $msg_info)
+                $this->insert('weibo_msg', $msg_info);
             }
 
             $last_msg_id = $msgs[0]['id'];
