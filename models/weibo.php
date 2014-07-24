@@ -120,12 +120,12 @@ class weibo_class extends AWS_MODEL
 
     public function get_msg_from_sina_crond()
     {
-        if (!get_setting('sina_akey') OR !get_setting('sina_skey'))
+        $locker = TEMP_PATH . 'weibo_msg.lock';
+
+        if (file_exists($locker) OR !get_setting('sina_akey') OR !get_setting('sina_skey'))
         {
             return false;
         }
-
-        @set_time_limit(0);
 
         $services_info = $this->get_services_info();
 
@@ -133,6 +133,14 @@ class weibo_class extends AWS_MODEL
         {
             return false;
         }
+
+        @set_time_limit(0);
+
+        $handle = @fopen($locker, 'w');
+
+        @fwrite($handle, null);
+
+        @fclose($handle);
 
         foreach ($services_info AS $service_info)
         {
@@ -254,6 +262,8 @@ class weibo_class extends AWS_MODEL
 
             $this->update_service_account($service_user_info['uid'], null, $last_msg_id);
         }
+
+        @unlink($locker);
 
         return true;
     }
