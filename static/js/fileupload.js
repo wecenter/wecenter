@@ -65,7 +65,7 @@ FileUpload.prototype =
 
 		$(input).attr({
 			'class' : 'file-input',
-			'name' : 'qqfile',
+			'name' : 'aws_upload_file',
 			'multiple' : this.options.multiple ? 'multiple' : false
 		});
 
@@ -138,7 +138,7 @@ FileUpload.prototype =
 	            _this.oncomplete(xhr, li, file);
 	        };
 
-	        var url = this.url + '&qqfile=' + file.name;
+	        var url = this.url + '&aws_upload_file=' + file.name;
 
 	        xhr.open("POST", url);
 
