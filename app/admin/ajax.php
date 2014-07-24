@@ -194,7 +194,12 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
     public function approval_manage_action()
     {
-        if (!is_array($_POST['approval_ids']))
+        if ($_POST['approval_id'])
+        {
+            $_POST['approval_ids'] = array($_POST['approval_id']);
+        }
+
+        if (empty($_POST['approval_ids']) OR !is_array($_POST['approval_ids']))
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择条目进行操作')));
         }
