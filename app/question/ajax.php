@@ -639,11 +639,6 @@ class ajax extends AWS_CONTROLLER
 
 		$this->model('draft')->delete_draft($question_info['question_id'], 'answer', $this->user_id);
 
-		if ($question_info['weibo_msg_id'])
-		{
-			$this->model('weibo')->reply_answer_to_sina($question_info['question_id'], $answer_content);
-		}
-
 		if ($this->publish_approval_valid())
 		{
 			$this->model('publish')->publish_approval('answer', array(
