@@ -1797,11 +1797,11 @@ class ajax extends AWS_ADMIN_CONTROLLER
             'author' => $_POST['main_msg_author'],
             'title' => $_POST['main_msg_title'],
             'url' => $_POST['main_msg_url'],
-            'context' => $_POST['main_msg_context'],
+            'content' => $_POST['main_msg_content'],
             'img' => $main_msg_img,
             'show_cover_pic' => $_POST['show_cover_pic']
         );
-var_dump($main_msg);
+
         $error_msg = $this->model('weixin')->add_main_msg_to_mpnews($main_msg);
 
         if (isset($error_msg))
