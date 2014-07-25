@@ -39,7 +39,12 @@ class weixin_class extends AWS_MODEL
 
     public function replace_post($subject)
     {
-        return preg_replace_callback('#\\\u([0-9a-f]+)#i', array($this, 'transcoding'), $subject);
+        if (empty($subject) OR !is_array($subject))
+        {
+            return false;
+        }
+
+        return preg_replace_callback('#\\\u([0-9a-f]+)#i', array($this, 'transcoding'), json_encode($subject));
     }
 
     public function transcoding($r)
@@ -1375,7 +1380,7 @@ class weixin_class extends AWS_MODEL
                         $account_info['weixin_app_secret'],
                         'menu/create',
                         'POST',
-                        $this->replace_post(json_encode(array('button' => $mp_menu_no_key)))
+                        $this->replace_post(array('button' => $mp_menu_no_key))
                     );
 
         if (empty($result))
@@ -1710,7 +1715,7 @@ class weixin_class extends AWS_MODEL
                         get_setting('weixin_app_secret'),
                         'media/uploadnews',
                         'POST',
-                        $this->replace_post(json_encode($this->mpnews))
+                        $this->replace_post($this->mpnews)
                     );
 
         if (empty($result))
@@ -1743,7 +1748,7 @@ class weixin_class extends AWS_MODEL
                         get_setting('weixin_app_secret'),
                         'message/mass/sendall',
                         'POST',
-                        $this->replace_post(json_encode($msg))
+                        $this->replace_post($msg)
                     );
 
         if (empty($result))
@@ -1785,11 +1790,11 @@ class weixin_class extends AWS_MODEL
                         get_setting('weixin_app_secret'),
                         'qrcode/create',
                         'POST',
-                        $this->replace_post(json_encode(array(
+                        $this->replace_post(array(
                             'action_name' => 'QR_LIMIT_SCENE',
                             'action_info' => array(
                                 'scene' => array('scene_id' => $scene_id)
-                        )))));
+                        ))));
 
         if (!$result)
         {
