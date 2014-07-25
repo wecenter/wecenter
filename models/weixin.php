@@ -1608,7 +1608,14 @@ class weixin_class extends AWS_MODEL
         {
             $user_info = $users_info[$article_info['uid']];
 
-            $result = $this->model('openid_weixin')->upload_file(get_setting('upload_dir') . '/avatar/' . $this->model('account')->get_avatar($user_info['uid'], 'max'), 'image');
+            $img = get_setting('upload_dir') . '/avatar/' . $this->model('account')->get_avatar($user_info['uid'], 'max');
+
+            if (!is_file($img))
+            {
+                $img = ROOT_PATH . 'static/common/avatar-max-img.jpg';
+            }
+
+            $result = $this->model('openid_weixin')->upload_file($img, 'image');
 
             if (empty($result))
             {
@@ -1656,7 +1663,14 @@ class weixin_class extends AWS_MODEL
         {
             $user_info = $users_info[$question_info['published_uid']];
 
-            $result = $this->model('openid_weixin')->upload_file(get_setting('upload_dir') . '/avatar/' . $this->model('account')->get_avatar($user_info['uid'], 'max'), 'image');
+            $img = get_setting('upload_dir') . '/avatar/' . $this->model('account')->get_avatar($user_info['uid'], 'max');
+
+            if (!is_file($img))
+            {
+                $img = ROOT_PATH . 'static/common/avatar-max-img.jpg';
+            }
+
+            $result = $this->model('openid_weixin')->upload_file($img, 'image');
 
             if (empty($result))
             {
