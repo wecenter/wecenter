@@ -232,7 +232,7 @@ class main extends AWS_CONTROLLER
 	{
 		if (is_mobile() AND HTTP::get_cookie('_ignore_ua_check') != 'TRUE')
 		{
-			HTTP::redirect('/m/topic_square/' . $_GET['id']);
+			HTTP::redirect('/m/topic/');
 		}
 
 		if ($today_topics = rtrim(get_setting('today_topics'), ','))
