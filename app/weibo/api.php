@@ -30,6 +30,6 @@ class api extends AWS_CONTROLLER
 
     public function index_action()
     {
-        var_dump($this->model('weibo')->get_msg_from_sina_crond());
+        echo ($this->model('weibo')->get_msg_from_sina_crond()) ? 'success' : 'error';
     }
 }
