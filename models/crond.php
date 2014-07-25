@@ -124,7 +124,7 @@ class crond_class extends AWS_MODEL
         // 拉取微博最新 @用户 消息
         if (get_setting('weibo_msg_enabled') == 'Y')
         {
-            //$this->model('weibo')->get_msg_from_sina_crond();
+            $this->model('weibo')->get_msg_from_sina_crond();
         }
     }
 
