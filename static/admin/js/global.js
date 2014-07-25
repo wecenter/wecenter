@@ -130,9 +130,18 @@ $(function () {
 
     for (var i = leng - 1; i >= 0; i--) {
         
-        txt[i].style.height = txt[i].scrollHeight+"px";
+        if(txt[i].value.length <= 0){
+
+            txt[i].style.height = 52+"px";
+            console.log( txt[i].style.height)
+        }else{
+        
+            txt[i].style.height = txt[i].scrollHeight+"px";
+        }
          
+
         if(typeof txt[i].oninput=="undefined"){
+           
            txt[i].onpropertychange=function(){
              if(event.propertyName=="value"){ 
                this.style.height="20px";
@@ -140,6 +149,7 @@ $(function () {
              }
            }
         }else{
+           
            txt[i].oninput=function(){
              this.style.height="auto";
              this.style.height=this.scrollHeight+"px";
