@@ -29,7 +29,7 @@
                         <div class="form-group">
                             <span class="col-sm-4 col-xs-3 control-label"><?php _e('网站简介'); ?>:</span>
                             <div class="col-sm-5 col-xs-8">
-                                <textarea class="form-control" name="description" rows="3"><?php echo $this->setting['description']; ?></textarea>
+                                <textarea class="form-control textarea" name="description"  ><?php echo $this->setting['description']; ?></textarea>
                             </div>
                         </div>
                     </td>
@@ -39,7 +39,7 @@
                         <div class="form-group">
                             <span class="col-sm-4 col-xs-3 control-label"><?php _e('网站关键词'); ?>:</span>
                             <div class="col-sm-5 col-xs-8">
-                                <textarea class="form-control" name="keywords" rows="3"><?php echo $this->setting['keywords']; ?></textarea>
+                                <textarea class="form-control textarea" name="keywords"  ><?php echo $this->setting['keywords']; ?></textarea>
                             </div>
                         </div>
                     </td>
@@ -261,7 +261,7 @@
                         <div class="form-group">
                             <span class="col-sm-4 col-xs-3 control-label"><?php _e('用户注册协议'); ?>:</span>
                             <div class="col-sm-5 col-xs-8">
-                                <textarea class="form-control" name="register_agreement" rows="3"><?php echo $this->setting['register_agreement']; ?></textarea>
+                                <textarea class="form-control textarea" name="register_agreement"  ><?php echo $this->setting['register_agreement']; ?></textarea>
                             </div>
                         </div>
                     </td>
@@ -271,7 +271,7 @@
                         <div class="form-group">
                             <span class="col-sm-4 col-xs-3 control-label"><?php _e('用户注册名不允许出现以下关键字'); ?>:</span>
                             <div class="col-sm-5 col-xs-8">
-                                <textarea class="form-control" name="censoruser" rows="3"><?php echo $this->setting['censoruser']; ?></textarea>
+                                <textarea class="form-control textarea" name="censoruser"  ><?php echo $this->setting['censoruser']; ?></textarea>
 
                                 <span class="help-block"><?php _e('每行填写一个关键字, 如: admin, 管理员等'); ?></span>
                             </div>
@@ -317,7 +317,7 @@
                         <div class="form-group">
                             <span class="col-sm-4 col-xs-3 control-label"><?php _e('新用户注册系统发送的欢迎内容'); ?>:</span>
                             <div class="col-sm-5 col-xs-8">
-                                <textarea class="form-control" name="welcome_message_pm" rows="3"><?php echo $this->setting['welcome_message_pm']; ?></textarea>
+                                <textarea class="form-control textarea" name="welcome_message_pm"  ><?php echo $this->setting['welcome_message_pm']; ?></textarea>
 
                                 <span class="help-block"><?php _e('新用户注册欢迎内容, 以下变量可作为内容替换: <br />{username}: 用户名<br />{time}: 发送时间<br />{sitename}: 网站名称'); ?></span>
                             </div>
@@ -384,7 +384,7 @@
                         <div class="form-group">
                             <span class="col-sm-4 col-xs-3 control-label"><?php _e('网站公告'); ?>:</span>
                             <div class="col-sm-5 col-xs-8">
-                                <textarea class="form-control" name="site_announce" rows="3"><?php echo htmlspecialchars($this->setting['site_announce']); ?></textarea>
+                                <textarea class="form-control textarea" name="site_announce"  ><?php echo htmlspecialchars($this->setting['site_announce']); ?></textarea>
                             </div>
                         </div>
                     </td>
@@ -430,7 +430,7 @@
                                     <li class="mod-site-rule">
                                         <span class="pull-left"><?php _e('自定义路由'); ?></span>
                                         <div class="pull-left col-sm-8">
-                                            <textarea class="form-control" name="request_route_custom" id="request_route_custom" rows="4" cols="63"><?php echo $this->setting['request_route_custom']; ?></textarea>
+                                            <textarea class="form-control textarea" name="request_route_custom" id="request_route_custom" rows="4" cols="63"><?php echo $this->setting['request_route_custom']; ?></textarea>
                                         </div>
                                         <div class="help-block">
                                             <?php _e('此模式只有开启 Rewrite 后有效, 请填写简略正则表达式, 每行一条规则, 中间使用 === 隔开, 左边为站点默认 URL 模式, 右边为替换后的 URL 模式, 链接以 / 开头, (:num) 代表数字, (:any) 代表任意字符<br />如替换问题规则：<br />/question/(:any)===/q_(:any)<br />(!) 警告: 使用此功能之前请确定你对替换有所把握, 错误的规则将导致站点不能运行'); ?>
@@ -501,7 +501,7 @@
                         <div class="form-group">
                             <span class="col-sm-4 col-xs-3 control-label"><?php _e('网站统计代码'); ?>:</span>
                             <div class="col-sm-5 col-xs-8">
-                                <textarea class="form-control" name="statistic_code" rows="9"><?php echo $this->setting['statistic_code']; ?></textarea>
+                                <textarea class="form-control textarea" name="statistic_code" rows="9"><?php echo $this->setting['statistic_code']; ?></textarea>
                             </div>
                         </div>
                     </td>
@@ -511,7 +511,7 @@
                         <div class="form-group">
                             <span class="col-sm-4 col-xs-3 control-label"><?php _e('问题举报理由选项'); ?>:</span>
                             <div class="col-sm-5 col-xs-8">
-                                <textarea class="form-control" name="report_reason" rows="6"><?php echo get_setting('report_reason'); ?></textarea>
+                                <textarea class="form-control textarea" name="report_reason"  ><?php echo get_setting('report_reason'); ?></textarea>
 
                                 <div class="help-block"><?php _e('每行填写一个举报理由'); ?></div>
                             </div>
@@ -875,7 +875,7 @@
                         <div class="form-group">
                             <span class="col-sm-4 col-xs-3 control-label"><?php _e('敏感词列表'); ?>:</span>
                             <div class="col-sm-5 col-xs-8">
-                                <textarea class="form-control" name="sensitive_words" rows="6"><?php echo $this->setting['sensitive_words']; ?></textarea>
+                                <textarea class="form-control textarea" name="sensitive_words"  ><?php echo $this->setting['sensitive_words']; ?></textarea>
                                 <span class="help-block"><?php _e('内容中出现敏感词将被替换成 * , 每行填写一个词'); ?></span>
                             </div>
                         </div>
