@@ -208,11 +208,20 @@ class weibo_class extends AWS_MODEL
 
                 $msg_info['id'] = $msg['id'];
 
+                if ($this->fetch_row('weibo_msg', $this->quote($msg_info['id'])))
+                {
+                    continue;
+                }
+
                 $msg_info['text'] = str_replace('@' . $service_info['name'], '', $msg['text']);
+
+                $msg_info['uid'] = $service_user_info['uid'];
+
+                $msg_info['weibo_uid'] = $service_info['id'];
 
                 $msg_info['msg_author_uid'] = $msg['user']['id'];
 
-                $msg_info['access_key'] = md5($service_user_info['uid'] . $now);
+                $msg_info['access_key'] = md5($msg_info['uid'] . $now);
 
                 if ($msg['pic_urls'] AND get_setting('upload_enable') == 'Y')
                 {
@@ -271,16 +280,12 @@ class weibo_class extends AWS_MODEL
                     $msg_info['has_attach'] = 0;
                 }
 
-                $msg_info['uid'] = $service_user_info['uid'];
-
-                $msg_info['weibo_uid'] = $service_info['id'];
-
                 $msg_id = $this->insert('weibo_msg', $msg_info);
-var_dump($service_user_info['uid']);
+var_dump($msg_info['uid']);
 var_dump($msg_id);
                 if ($msg_id)
                 {
-                    $this->update_service_account($service_user_info['uid'], null, $msg_id);
+                    $this->update_service_account($msg_info['uid'], null, $msg_id);
                 }
             }
         }
