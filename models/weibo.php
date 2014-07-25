@@ -280,13 +280,9 @@ class weibo_class extends AWS_MODEL
                     $msg_info['has_attach'] = 0;
                 }
 
-                $msg_id = $this->insert('weibo_msg', $msg_info);
-var_dump($msg_info['uid']);
-var_dump($msg_id);
-                if ($msg_id)
-                {
-                    $this->update_service_account($msg_info['uid'], null, $msg_id);
-                }
+                $this->insert('weibo_msg', $msg_info);
+
+                $this->update_service_account($msg_info['uid'], null, $msg_info['id']);
             }
         }
 
