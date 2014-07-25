@@ -234,6 +234,8 @@ textarea{resize:none;}
 .dropdown #dropdownMenu1 .caret{margin-left:5px;}
 .dropdown ul.weixin-dropdown-menu{min-width:100px;}
 
+/*群发消息*/
+#msg_details .msg-que li,#msg_details .msg-arc li{margin-bottom: 10px;}
 /*日期选择控件*/
 .date_selector,.date_selector *{margin:0;padding:0;width:auto;height:auto;border:none;background:none;text-align:left;text-decoration:none;cursor:pointer;}
 .date_selector{position:absolute;z-index:100000;display:none;margin:-1px 0 0;padding:10px;border:1px solid #ccc;background:#fbfbfb;-webkit-box-shadow:0 0 5px #aaa;-moz-box-shadow:0 0 5px #aaa;box-shadow:0 0 5px #aaa;}
