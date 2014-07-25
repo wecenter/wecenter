@@ -1845,6 +1845,11 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
         $msg_id = $this->model('weixin')->save_sent_msg($group_name, $groups[$group_id]['count']);
 
+        if (is_file(TEMP_PATH . 'weixin_img.jpg'))
+        {
+            @unlink(TEMP_PATH . 'weixin_img.jpg');
+        }
+
         H::ajax_json_output(AWS_APP::RSM(array('url' => get_js_url('/admin/weixin/sent_msg_details/id-' . $msg_id)), 1, null));
     }
 

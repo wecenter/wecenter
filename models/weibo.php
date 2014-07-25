@@ -124,7 +124,7 @@ class weibo_class extends AWS_MODEL
 
         $locker = TEMP_PATH . 'weibo_msg.lock';
 
-        if (file_exists($locker))
+        if (is_file($locker))
         {
             $handle = @fopen($locker, 'r');
 
