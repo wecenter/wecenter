@@ -192,6 +192,7 @@ class openid_weibo_class extends AWS_MODEL
 		}
 		while (0);
 */
+
 		return $msgs;
 	}
 
