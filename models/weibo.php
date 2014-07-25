@@ -195,8 +195,6 @@ var_dump($msgs);
                 continue;
             }
 
-            $last_msg_id = $msgs[0]['id'];
-var_dump($last_msg_id);
             foreach ($msgs AS $msg)
             {
                 $now += 1;
@@ -277,10 +275,13 @@ var_dump($last_msg_id);
 
                 $msg_info['weibo_uid'] = $service_info['id'];
 
-                $this->insert('weibo_msg', $msg_info);
-            }
+                $msg_id = $this->insert('weibo_msg', $msg_info);
 
-            $this->update_service_account($service_user_info['uid'], null, $last_msg_id);
+                if ($msg_id)
+                {
+                    $this->update_service_account($service_user_info['uid'], null, $msg_id);
+                }
+            }
         }
 
         @unlink($locker);
