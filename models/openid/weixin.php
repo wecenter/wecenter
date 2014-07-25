@@ -27,7 +27,7 @@ class openid_weixin_class extends AWS_MODEL
     public function access_request($app_id, $app_secret, $url, $method, $contents = NULL)
     {
         $url = 'https://api.weixin.qq.com/cgi-bin/' . $url . '?access_token=' . $this->get_access_token($app_id, $app_secret);
-var_dump($contents);
+
         $result = HTTP::request($url, $method, $contents);
 
         if ($result)
