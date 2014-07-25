@@ -37,11 +37,11 @@ class main extends AWS_CONTROLLER
 			switch ($_GET['act'])
 			{
 				default:
-					HTTP::redirect('/home/');
+					HTTP::redirect('/');
 				break;
 
-				case 'explore':
-					HTTP::redirect('/');
+				case 'home':
+					HTTP::redirect('/home/');
 				break;
 
 				case 'login':
@@ -66,14 +66,6 @@ class main extends AWS_CONTROLLER
 
 				case 'article':
 					HTTP::redirect('/article/' . $_GET['id']);
-				break;
-
-				case 'article_square':
-					HTTP::redirect('/article/');
-				break;
-
-				case 'topic_square':
-					HTTP::redirect('/topic/');
 				break;
 			}
 		}
@@ -106,8 +98,6 @@ class main extends AWS_CONTROLLER
 			case 'search':
 			case 'people':
 			case 'article':
-			case 'article_square':
-			case 'topic_square':
 			case 'find_password':
 			case 'find_password_success':
 			case 'find_password_modify':
@@ -132,16 +122,16 @@ class main extends AWS_CONTROLLER
 		));
 	}
 
-	public function index_action()
+	public function home_action()
 	{
 		if (!$this->user_id)
 		{
-			HTTP::redirect('/m/explore/');
+			HTTP::redirect('/m/');
 		}
 
-		$this->crumb(AWS_APP::lang()->_t('首页'), '/m/');
+		$this->crumb(AWS_APP::lang()->_t('动态'), '/m/');
 
-		TPL::output('m/index');
+		TPL::output('m/home');
 	}
 
 
@@ -157,20 +147,6 @@ class main extends AWS_CONTROLLER
 		$this->crumb(AWS_APP::lang()->_t('邀请我回答的问题'), '/m/invite/');
 
 		TPL::output('m/invite');
-	}
-
-	public function send_pm_action()
-	{
-		if (!$_GET['recipient'])
-		{
-			HTTP::redirect('/m/inbox/');
-		}
-
-		$this->crumb(AWS_APP::lang()->_t('撰写私信'), '/send_pm/');
-
-		TPL::assign('recipient', htmlspecialchars($_GET['recipient']));
-
-		TPL::output('m/send_pm');
 	}
 
 	public function inbox_action()
@@ -640,14 +616,14 @@ class main extends AWS_CONTROLLER
 		TPL::output('m/find_password_modify');
 	}
 
-	public function explore_action()
+	public function index_action()
 	{
 		if (!$this->user_id AND !$this->user_info['permission']['visit_explore'])
 		{
 			HTTP::redirect('/m/login/url-' . base64_encode(get_js_url($_SERVER['QUERY_STRING'])));
 		}
-
-		$this->crumb(AWS_APP::lang()->_t('发现'), '/m/explore/');
+		
+		$this->crumb(AWS_APP::lang()->_t('发现'), '/m/');
 
 		TPL::assign('content_nav_menu', $this->model('menu')->get_nav_menu_list('explore'));
 
@@ -667,7 +643,12 @@ class main extends AWS_CONTROLLER
 			'mobile/js/iscroll.js',
 		));
 
-		TPL::output('m/explore');
+		TPL::output('m/index');
+	}
+	
+	public function explore_action()
+	{
+		HTTP::redirect('/m/');
 	}
 
 	public function people_action()
@@ -862,7 +843,7 @@ class main extends AWS_CONTROLLER
 
 	public function topic_square_action()
 	{
-		$this->crumb(AWS_APP::lang()->_t('话题广场'), '/m/topic_square/');
+		$this->crumb(AWS_APP::lang()->_t('话题广场'), '/m/topic/');
 
 		TPL::assign('topics_hot_list', $this->model('topic')->get_topic_list(null, 'discuss_count DESC', 5));
 
@@ -1136,7 +1117,7 @@ class main extends AWS_CONTROLLER
 
 	public function article_square_action()
 	{
-		$this->crumb(AWS_APP::lang()->_t('文章'), '/m/article_square/');
+		$this->crumb(AWS_APP::lang()->_t('文章'), '/m/article/');
 
 		TPL::assign('content_nav_menu', $this->model('menu')->get_nav_menu_list('article'));
 
@@ -1208,7 +1189,8 @@ class main extends AWS_CONTROLLER
 
 	public function favorite_action()
 	{
+        $this->crumb(AWS_APP::lang()->_t('我的收藏'), '/m/favorite/');
+
 		TPL::output('m/favorite');
 	}
-
 }

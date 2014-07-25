@@ -53,7 +53,7 @@ class menu_class extends AWS_MODEL
 			case 'article':
 				$url_prefix = 'article/';
 				
-				$url_mobile_prefix = 'm/article_square/';
+				$url_mobile_prefix = 'm/article/';
 			break;
 		}
 		
@@ -97,19 +97,19 @@ class menu_class extends AWS_MODEL
 				case 'explore':
 					$url_prefix = 'explore/';
 					
-					$url_mobile_prefix = 'm/explore/';
+					$url_mobile_prefix = 'm/';
 				break;
 				
 				case 'question':
 					$url_prefix = 'question/';
 					
-					$url_mobile_prefix = 'm/explore/';
+					$url_mobile_prefix = 'm/';
 				break;
 				
 				case 'article':
 					$url_prefix = 'article/';
 					
-					$url_mobile_prefix = 'm/article_square/';
+					$url_mobile_prefix = 'm/article/';
 				break;
 			}
 			
