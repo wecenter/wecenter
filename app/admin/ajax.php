@@ -1801,7 +1801,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
             'img' => $main_msg_img,
             'show_cover_pic' => $_POST['show_cover_pic']
         );
-
+var_dump($main_msg);
         $error_msg = $this->model('weixin')->add_main_msg_to_mpnews($main_msg);
 
         if (isset($error_msg))
