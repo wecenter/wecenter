@@ -1561,7 +1561,7 @@ class weixin_class extends AWS_MODEL
 
     public function add_main_msg_to_mpnews($main_msg)
     {
-        $result = $this->model('openid_weixin')->upload_file($main_msg['img'], 'thumb');
+        $result = $this->model('openid_weixin')->upload_file($main_msg['img'], 'image');
 
         if (empty($result))
         {
