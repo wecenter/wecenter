@@ -144,12 +144,12 @@ class openid_weibo_class extends AWS_MODEL
 			return $result;
 		}
 
-		if (empty($new_msgs))
+		$msgs = $result['statuses'];
+
+		if (empty($msgs))
 		{
 			return false;
 		}
-
-		$msgs = $result['statuses'];
 
 /*
 		do
