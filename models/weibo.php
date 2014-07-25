@@ -285,7 +285,7 @@ class weibo_class extends AWS_MODEL
 
         @unlink($locker);
 
-        return true;
+        return $last_msg_id;
     }
 
     public function notification_of_refresh_access_token($uid, $user_name)
