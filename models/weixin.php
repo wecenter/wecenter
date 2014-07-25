@@ -196,7 +196,7 @@ class weixin_class extends AWS_MODEL
                 'mediaID' => $post_object['MediaId'],
                 'format' => $post_object['Format'],
                 'recognition' => $post_object['Recognition'],
-                'msgID' => $post_object['MsgId'],
+                'msgID' => $post_object['MsgID'],
                 'latitude' => $post_object['Latitude'],
                 'longitude' => $post_object['Longitude'],
                 'precision' => $post_object['Precision'],
