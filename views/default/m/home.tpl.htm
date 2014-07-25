@@ -1,0 +1,44 @@
+<?php TPL::output('m/header.tpl.htm'); ?>
+
+<!-- top-nav -->
+<div class="top-nav">
+	<ul>
+		<li>
+			<a href="m/home/" class="active"><?php _e('最新动态'); ?></a>
+		</li>
+		<li>
+			<a href="m/notifications/"><?php _e('消息通知'); ?><?php if ($this->user_info['notification_unread']) { ?><span class="badge badge-danger"><?php echo $this->user_info['notification_unread']; ?></span><?php } ?></a>
+		</li>
+	</ul>
+</div>
+<!-- end top-nav -->
+
+<!-- 提示 -->
+<div id="new_actions_tip" class="alert aw-info hide"><a><span id="new_action_num"></span> 条新动态，点击查看</a></div>
+<!-- end 提示 -->
+
+<!-- 内容 -->
+<div class="container">
+	<!-- 动态列表 -->
+	<div class="aw-feed-list">
+		<div class="mod-body">
+			<ul id="index_listview"></ul>
+		</div>
+		<div class="mod-footer">
+			<a id="load_index_actions" class="aw-load-more"><i class="icon icon-loading fa-spin"></i> <span><?php _e('更多'); ?></span></a>
+		</div>
+	</div>
+	<!-- end 动态列表 -->
+	
+	<?php TPL::output('m/nav_menu.tpl.htm'); ?>
+
+</div>
+<!-- end 内容 -->
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		AWS.load_list_view(G_BASE_URL + '/home/ajax/index_actions/template-m', $('#load_index_actions'), $('#index_listview'));
+	});
+</script>
+
+<?php TPL::output('m/footer.tpl.htm'); ?>
