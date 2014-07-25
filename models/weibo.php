@@ -150,7 +150,7 @@ class weibo_class extends AWS_MODEL
         @set_time_limit(0);
 
         $services_info = $this->get_services_info();
-
+var_dump($services_info);
         if (empty($services_info))
         {
             return false;
@@ -179,7 +179,7 @@ class weibo_class extends AWS_MODEL
             }
 
             $msgs = $this->model('openid_weibo')->get_msg_from_sina($service_info['access_token'], $service_info['last_msg_id']);
-
+var_dump($msgs);
             if (empty($msgs))
             {
                 continue;
@@ -195,6 +195,8 @@ class weibo_class extends AWS_MODEL
                 continue;
             }
 
+            $last_msg_id = $msgs[0]['id'];
+var_dump($last_msg_id);
             foreach ($msgs AS $msg)
             {
                 $now += 1;
@@ -278,14 +280,12 @@ class weibo_class extends AWS_MODEL
                 $this->insert('weibo_msg', $msg_info);
             }
 
-            $last_msg_id = $msgs[0]['id'];
-
             $this->update_service_account($service_user_info['uid'], null, $last_msg_id);
         }
 
         @unlink($locker);
 
-        return $last_msg_id;
+        return true;
     }
 
     public function notification_of_refresh_access_token($uid, $user_name)
