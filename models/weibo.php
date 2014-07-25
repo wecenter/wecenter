@@ -276,7 +276,7 @@ class weibo_class extends AWS_MODEL
                 $msg_info['weibo_uid'] = $service_info['id'];
 
                 $msg_id = $this->insert('weibo_msg', $msg_info);
-val_dump($service_user_info['uid']);
+var_dump($service_user_info['uid']);
 var_dump($msg_id);
                 if ($msg_id)
                 {
