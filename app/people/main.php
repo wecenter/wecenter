@@ -138,7 +138,7 @@ class main extends AWS_CONTROLLER
 	{
 		if (is_mobile() AND HTTP::get_cookie('_ignore_ua_check') != 'TRUE')
 		{
-			HTTP::redirect('/m/people_list/');
+			HTTP::redirect('/m/people/');
 		}
 
 		if (!$_GET['page'])

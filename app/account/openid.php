@@ -241,7 +241,7 @@ class openid extends AWS_CONTROLLER
 
 						TPL::import_css('css/register.css');
 
-						TPL::output("account/openid/callback");
+						TPL::output('account/openid/callback');
 					}
 				}
 			}
@@ -416,7 +416,7 @@ class openid extends AWS_CONTROLLER
 
 						TPL::import_css('css/register.css');
 
-						TPL::output("account/openid/callback");
+						TPL::output('account/openid/callback');
 					}
 				}
 			}
@@ -591,7 +591,7 @@ class openid extends AWS_CONTROLLER
 
 						TPL::import_css('css/register.css');
 
-						TPL::output("account/openid/callback");
+						TPL::output('account/openid/callback');
 					}
 				}
 			}

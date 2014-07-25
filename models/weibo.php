@@ -197,7 +197,7 @@ class weibo_class extends AWS_MODEL
 
             foreach ($msgs AS $msg)
             {
-                $now += 1;
+                $now++;
 
                 $msg_info['created_at'] = strtotime($msg['created_at']);
 

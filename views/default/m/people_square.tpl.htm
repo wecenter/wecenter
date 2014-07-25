@@ -10,9 +10,9 @@
 <?php if ($this->custom_group) { ?>
 <div class="top-category">
 	<ul>
-		<li><a <?php if (!$_GET['group_id']) { ?> class="active"<?php } ?> href="m/people_list/"><?php _e('全部'); ?></a></li>
+		<li><a <?php if (!$_GET['group_id']) { ?> class="active"<?php } ?> href="m/people/"><?php _e('全部'); ?></a></li>
 			<?php foreach ($this->custom_group AS $key => $val) { ?>
-			<li><a <?php if ($_GET['group_id'] == $val['group_id']) { ?> class="active"<?php } ?> href="m/people_list/group_id-<?php echo $val['group_id']; ?>"><?php echo $val['group_name']; ?></a></li>
+			<li><a <?php if ($_GET['group_id'] == $val['group_id']) { ?> class="active"<?php } ?> href="m/people/group_id-<?php echo $val['group_id']; ?>"><?php echo $val['group_name']; ?></a></li>
 			<?php } ?>
 	</ul>
 </div>

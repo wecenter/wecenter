@@ -728,14 +728,14 @@ class main extends AWS_CONTROLLER
 		TPL::output('m/people');
 	}
 
-	public function people_list_action()
+	public function people_square_action()
 	{
 		if (!$_GET['page'])
 		{
 			$_GET['page'] = 1;
 		}
 
-		$this->crumb(AWS_APP::lang()->_t('用户列表'), '/m/people_list/');
+		$this->crumb(AWS_APP::lang()->_t('用户列表'), '/m/people/');
 
 		if ($_GET['feature_id'])
 		{
@@ -768,7 +768,7 @@ class main extends AWS_CONTROLLER
 			$where[] = 'forbidden = 0 AND group_id <> 3';
 
 			TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
-				'base_url' => get_js_url('/m/people_list/group_id-' . $_GET['group_id']),
+				'base_url' => get_js_url('/m/people/group_id-' . $_GET['group_id']),
 				'total_rows' => $this->model('account')->get_user_count(implode(' AND ', $where)),
 				'per_page' => get_setting('contents_per_page'),
 				'num_links' => 1
@@ -818,7 +818,7 @@ class main extends AWS_CONTROLLER
 
 		TPL::assign('custom_group', $this->model('account')->get_user_group_list(0, 1));
 
-		TPL::output('m/people_list');
+		TPL::output('m/people_square');
 	}
 
 	public function search_action()
