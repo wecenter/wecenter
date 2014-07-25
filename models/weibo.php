@@ -120,12 +120,34 @@ class weibo_class extends AWS_MODEL
 
     public function get_msg_from_sina_crond()
     {
+        $now = time();
+
         $locker = TEMP_PATH . 'weibo_msg.lock';
 
-        if (file_exists($locker) OR !get_setting('sina_akey') OR !get_setting('sina_skey'))
+        if (file_exists($locker))
+        {
+            $handle = @fopen($locker, 'r');
+
+            $time = @fread($handle, @filesize($locker));
+
+            @fclose($handle);
+
+            if (empty($time) OR $now - $time > 600)
+            {
+                @unlink($locker);
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        if (!get_setting('sina_akey') OR !get_setting('sina_skey'))
         {
             return false;
         }
+
+        @set_time_limit(0);
 
         $services_info = $this->get_services_info();
 
@@ -134,11 +156,9 @@ class weibo_class extends AWS_MODEL
             return false;
         }
 
-        @set_time_limit(0);
-
         $handle = @fopen($locker, 'w');
 
-        @fwrite($handle, null);
+        @fwrite($handle, $now);
 
         @fclose($handle);
 
@@ -177,7 +197,7 @@ class weibo_class extends AWS_MODEL
 
             foreach ($msgs AS $msg)
             {
-                $now = time();
+                $now += 1;
 
                 $msg_info['created_at'] = strtotime($msg['created_at']);
 
