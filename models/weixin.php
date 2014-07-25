@@ -1561,7 +1561,7 @@ class weixin_class extends AWS_MODEL
 
     public function add_main_msg_to_mpnews($main_msg)
     {
-        $result = $this->model('openid_weixin')->upload_file($main_msg['img'], 'thumb');
+        $result = $this->model('openid_weixin')->upload_file($main_msg['img'], 'image');
 
         if (empty($result))
         {
@@ -1608,7 +1608,7 @@ class weixin_class extends AWS_MODEL
         {
             $user_info = $users_info[$article_info['uid']];
 
-            $result = $this->model('openid_weixin')->upload_file(get_setting('upload_dir') . '/avatar/' . $this->model('account')->get_avatar($user_info['uid'], 'max'), 'thumb');
+            $result = $this->model('openid_weixin')->upload_file(get_setting('upload_dir') . '/avatar/' . $this->model('account')->get_avatar($user_info['uid'], 'max'), 'image');
 
             if (empty($result))
             {
@@ -1656,7 +1656,7 @@ class weixin_class extends AWS_MODEL
         {
             $user_info = $users_info[$question_info['published_uid']];
 
-            $result = $this->model('openid_weixin')->upload_file(get_setting('upload_dir') . '/avatar/' . $this->model('account')->get_avatar($user_info['uid'], 'max'), 'thumb');
+            $result = $this->model('openid_weixin')->upload_file(get_setting('upload_dir') . '/avatar/' . $this->model('account')->get_avatar($user_info['uid'], 'max'), 'image');
 
             if (empty($result))
             {
