@@ -1663,11 +1663,11 @@ class weixin_class extends AWS_MODEL
         }
 
         $users_info = $this->model('account')->get_user_info_by_uids($published_uids);
-var_dump($users_info);
+
         foreach ($questions_info AS $question_info)
         {
             $user_info = $users_info[$question_info['published_uid']];
-var_dump($user_info);
+
             $img = get_setting('upload_dir') . '/avatar/' . $this->model('account')->get_avatar($user_info['uid'], 'max');
 
             if (!is_file($img))
@@ -1709,7 +1709,7 @@ var_dump($user_info);
         {
             return AWS_APP::lang()->_t('没有要群发的内容');
         }
-var_dump($this->mpnews);
+
         $result = $this->model('openid_weixin')->access_request(
                         get_setting('weixin_app_id'),
                         get_setting('weixin_app_secret'),
