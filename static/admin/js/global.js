@@ -119,32 +119,85 @@ $(function () {
             $(this).prev().detach().end().detach();
         });
 
-    });
 
-    function weiboPost(obj)
-    {
-        $.post(G_BASE_URL + '/admin/ajax/weibo_batch/', {'uid': obj.attr('data-id'), 'action':obj.attr('action')}, function (result)
-        {  
-            if (result.errno == -1)
-            {
-                AWS.alert(result.err);
-                 $('.mod-weibo-reply li:last').detach()
-                
-            }
-            else if (result.errno == 1)
-            {   
-                if(result.rsm != null){
-                    if (result.rsm.staus == 'bound')
-                    {   
-                        $('.mod-weibo-reply li:last .btn-primary').text('更新 Access Token');
-                    }
-                    else
-                    {   
-                       $('.mod-weibo-reply li:last .btn-primary').text('绑定新浪微博');  
-                    }
-                }   
+    /**
+     * 所有textarea高度自适应内容
+     * jQuery oninput onpropertychange事件支持不准确。
+     */
 
-                $(".alert-box").modal('hide');
-            }
-        }, 'json');
+    var txt= getClass("textarea", "textarea"),
+        leng = txt.length;
+
+    for (var i = leng - 1; i >= 0; i--) {
+        
+        txt[i].style.height = txt[i].scrollHeight+"px";
+         
+        if(typeof txt[i].oninput=="undefined"){
+           txt[i].onpropertychange=function(){
+             if(event.propertyName=="value"){ 
+               this.style.height="20px";
+               this.style.height=this.scrollHeight+"px";
+             }
+           }
+        }else{
+           txt[i].oninput=function(){
+             this.style.height="auto";
+             this.style.height=this.scrollHeight+"px";
+           }
+        }
     };
+});
+    
+function weiboPost(obj)
+{
+    $.post(G_BASE_URL + '/admin/ajax/weibo_batch/', {'uid': obj.attr('data-id'), 'action':obj.attr('action')}, function (result)
+    {  
+        if (result.errno == -1)
+        {
+            AWS.alert(result.err);
+             $('.mod-weibo-reply li:last').detach()
+            
+        }
+        else if (result.errno == 1)
+        {   
+            if(result.rsm != null){
+                if (result.rsm.staus == 'bound')
+                {   
+                    $('.mod-weibo-reply li:last .btn-primary').text('更新 Access Token');
+                }
+                else
+                {   
+                   $('.mod-weibo-reply li:last .btn-primary').text('绑定新浪微博');  
+                }
+            }   
+
+            $(".alert-box").modal('hide');
+        }
+    }, 'json');
+};
+
+function getClass(tagName, classStr) {
+
+    if (document.getElementsByClassName) {
+        return document.getElementsByClassName(classStr)
+    } else {
+        var nodes = document.getElementsByTagName(tagName),
+            ret = [];
+
+        for (var i = 0; i < nodes.length; i++) {
+            if (hasClass(nodes[i], classStr)) {
+                ret.push(nodes[i])
+            }
+        }
+        return ret;
+    }
+    function hasClass(tagStr, classStr) {
+        var arr = tagStr.className.split(/\s+/);
+        for (var i = 0; i < arr.length; i++) {
+            if (arr[i] == classStr) {
+                return true;
+            }
+        }
+        return false;
+    }
+};
