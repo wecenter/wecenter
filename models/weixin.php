@@ -1574,7 +1574,7 @@ class weixin_class extends AWS_MODEL
         }
 
         $this->mpnews['articles'][] = array(
-                                            'thumb_media_id' => $result['thumb_media_id'],
+                                            'thumb_media_id' => $result['media_id'],
                                             'author' => $main_msg['author'],
                                             'title' => $main_msg['title'],
                                             'content_source_url' => $main_msg['url'],
@@ -1628,7 +1628,7 @@ class weixin_class extends AWS_MODEL
             }
 
             $this->mpnews['articles'][] = array(
-                                                'thumb_media_id' => $result['thumb_media_id'],
+                                                'thumb_media_id' => $result['media_id'],
                                                 'author' => $user_info['user_name'],
                                                 'title' => $article_info['title'],
                                                 'content_source_url' => get_js_url('/m/article/' . $article_info['id']),
@@ -1683,7 +1683,7 @@ class weixin_class extends AWS_MODEL
             }
 
             $this->mpnews['articles'][] = array(
-                                                'thumb_media_id' => $result['thumb_media_id'],
+                                                'thumb_media_id' => $result['media_id'],
                                                 'author' => $user_info['user_name'],
                                                 'title' => $question_info['question_content'],
                                                 'content_source_url' => get_js_url('/m/question/' . $question_info['question_id']),
