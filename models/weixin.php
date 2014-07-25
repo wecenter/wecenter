@@ -1709,7 +1709,7 @@ class weixin_class extends AWS_MODEL
         {
             return AWS_APP::lang()->_t('没有要群发的内容');
         }
-
+var_dump($this->replace_post($this->mpnews));
         $result = $this->model('openid_weixin')->access_request(
                         get_setting('weixin_app_id'),
                         get_setting('weixin_app_secret'),
@@ -1717,7 +1717,7 @@ class weixin_class extends AWS_MODEL
                         'POST',
                         $this->replace_post($this->mpnews)
                     );
-
+var_dump($result);
         if (empty($result))
         {
             return AWS_APP::lang()->_t('远程服务器忙');
