@@ -1738,7 +1738,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请输入封面的作者')));
         }
 
-        if (!$_POST['main_msg_context'])
+        if (!$_POST['main_msg_content'])
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请输入封面的内容')));
         }
