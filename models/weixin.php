@@ -1659,7 +1659,7 @@ class weixin_class extends AWS_MODEL
 
         foreach ($questions_info AS $question_info)
         {
-            $published_uids[] = $question_info['uid'];
+            $published_uids[] = $question_info['published_uid'];
         }
 
         $users_info = $this->model('account')->get_user_info_by_uids($published_uids);
@@ -1667,7 +1667,7 @@ var_dump($users_info);
         foreach ($questions_info AS $question_info)
         {
             $user_info = $users_info[$question_info['published_uid']];
-
+var_dump($user_info);
             $img = get_setting('upload_dir') . '/avatar/' . $this->model('account')->get_avatar($user_info['uid'], 'max');
 
             if (!is_file($img))
