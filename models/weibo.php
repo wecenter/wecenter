@@ -150,7 +150,7 @@ class weibo_class extends AWS_MODEL
         @set_time_limit(0);
 
         $services_info = $this->get_services_info();
-var_dump($services_info);
+
         if (empty($services_info))
         {
             return false;
@@ -179,7 +179,7 @@ var_dump($services_info);
             }
 
             $msgs = $this->model('openid_weibo')->get_msg_from_sina($service_info['access_token'], $service_info['last_msg_id']);
-var_dump($msgs);
+
             if (empty($msgs))
             {
                 continue;
@@ -276,7 +276,8 @@ var_dump($msgs);
                 $msg_info['weibo_uid'] = $service_info['id'];
 
                 $msg_id = $this->insert('weibo_msg', $msg_info);
-
+val_dump($service_user_info['uid']);
+var_dump($msg_id);
                 if ($msg_id)
                 {
                     $this->update_service_account($service_user_info['uid'], null, $msg_id);
