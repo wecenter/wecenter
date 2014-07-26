@@ -18,10 +18,10 @@
 		<div class="row <?php if (!$this->feature_list) { ?>active<?php } ?>">
 			<div class="col-sm-12 col-md-3 side-nav clearfix">
 				<ul>
-					<?php if ($this->feature_list) { ?>
-					<?php foreach ($this->feature_list AS $key => $val) { ?>
+					<?php if ($this->parent_topics) { ?>
+					<?php foreach ($this->parent_topics AS $key => $val) { ?>
 					<li>
-						<a href="people/feature_id-<?php echo $val['id']; ?>"<?php if ($_GET['feature_id'] == $val['id']) { ?> class="active"<?php } ?>><?php echo $val['title']; ?></a>
+						<a href="people/topic_id-<?php echo $val['topic_id']; ?>"<?php if ($_GET['topic_id'] == $val['topic_id']) { ?> class="active"<?php } ?>><?php echo $val['topic_title']; ?></a>
 					</li>
 					<?php } ?>
 					<?php } ?>
