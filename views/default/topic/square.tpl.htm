@@ -9,7 +9,7 @@
                     <div class="mod-head">
                         <?php if ($_GET['channel'] == 'hot') { ?>
                         <h2><?php _e('热门话题'); ?></h2>
-                        <?php } else if ($_GET['channel'] == 'feature') { ?>
+                        <?php } else if ($_GET['channel'] == 'topic') { ?>
                         <h2><?php _e('话题分类'); ?></h2>
                         <?php } else { ?>
                         <h2><?php _e('我关注的话题'); ?></h2>
@@ -71,16 +71,16 @@
                 <?php } ?>
                 <!-- end 话题侧边栏导航 -->
                 <!-- 话题分类 -->
-                <?php if ($this->feature_list) { ?>
+                <?php if ($this->parent_topics) { ?>
                 <div class="aw-mod side-sort hidden-xs">
                     <div class="mod-head">
-                        <h3><?php _e('话题分类'); ?></h3>
+                        <h3><?php _e('根话题'); ?></h3>
                     </div>
                     <div class="mod-body">
                         <ul>
-                            <?php foreach ($this->feature_list AS $key => $val) { ?>
+                            <?php foreach ($this->parent_topics AS $key => $val) { ?>
                             <li>
-                                <a href="topic/channel-feature__feature_id-<?php echo $val['id']; ?>"<?php if ($_GET['feature_id'] == $val['id']) { ?> class="active"<?php } ?>><?php echo $val['title']; ?></a>
+                                <a href="topic/channel-topic__topic_id-<?php echo $val['topic_id']; ?>"<?php if ($_GET['topic_id'] == $val['topic_id']) { ?> class="active"<?php } ?>><?php echo $val['topic_title']; ?></a>
                             </li>
                             <?php } ?>
                         </ul>
