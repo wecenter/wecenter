@@ -926,6 +926,11 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
         $this->model('topic')->set_is_parent($_POST['topic_id'], $_POST['is_parent']);
 
+        if ($_POST['is_parent'] == 0)
+        {
+            $this->model('topic')->set_parent_id($_POST['topic_id'], $_POST['parent_id']);
+        }
+
         $this->model('topic')->lock_topic_by_ids($_POST['topic_id'], $_POST['topic_lock']);
 
         $referer_url = ($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : get_js_url('/admin/topic/list/');
@@ -946,11 +951,23 @@ class ajax extends AWS_ADMIN_CONTROLLER
         {
             case 'remove' :
                 $this->model('topic')->remove_topic_by_ids($_POST['topic_ids']);
-            break;
+
+                break;
 
             case 'lock' :
                 $this->model('topic')->lock_topic_by_ids($_POST['topic_ids'], 1);
-            break;
+
+                break;
+
+            case 'set_parent':
+                $this->model('topic')->set_is_parent($_POST['topic_ids'], 1);
+
+                break;
+
+            case 'cancel_parent':
+                $this->model('topic')->set_is_parent($_POST['topic_ids'], 0);
+
+                break;
         }
 
         H::ajax_json_output(AWS_APP::RSM(null, 1, null));
