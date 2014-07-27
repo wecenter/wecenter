@@ -1318,11 +1318,11 @@ class topic_class extends AWS_MODEL
 			return false;
 		}
 
-		$to_update_topic['is_parent'] == intval($is_parent);
+		$to_update_topic['is_parent'] = intval($is_parent);
 
 		if ($to_update_topic['is_parent'] == 1)
 		{
-			$to_update_topic['parent_id'] == 0;
+			$to_update_topic['parent_id'] = 0;
 		}
 
 		if (is_array($topic_id))
