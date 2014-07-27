@@ -1313,10 +1313,24 @@ class topic_class extends AWS_MODEL
 
 	public function set_is_parent($topic_id, $is_parent)
 	{
-		return $this->update('topic', array(
-			'is_parent' => intval($is_parent),
-			'parent_id' => 0
-		), 'topic_id = ' . intval($topic_id));
+		if (empty($topic_id))
+		{
+			return false;
+		}
+
+		$to_update_topic['is_parent'] == intval($is_parent);
+
+		if ($to_update_topic['is_parent'] == 1)
+		{
+			$to_update_topic['parent_id'] == 0;
+		}
+
+		if (is_array($topic_id))
+		{
+			return $this->update('topic', $to_update_topic, 'topic_id IN (' . $this->quote(implode(',', $topic_id)) . ')');
+		}
+
+		return $this->update('topic', $to_update_topic, 'topic_id = ' . intval($topic_id));
 	}
 
 	public function set_parent_id($topic_id, $parent_id)
