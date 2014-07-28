@@ -48,7 +48,7 @@ class weibo extends AWS_ADMIN_CONTROLLER
 
         TPL::assign('published_user', get_setting('weibo_msg_published_user'));
 
-        TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(901));
+        TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(806));
 
         TPL::output('admin/weibo/msg');
     }

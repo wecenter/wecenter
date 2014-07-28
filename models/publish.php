@@ -226,11 +226,11 @@ class publish_class extends AWS_MODEL
 			{
 				if ($weibo_msg_id)
 				{
-					$this->update_attach('weibo_msg', $question_id, $attach_access_key, $weibo_msg_id);
+					$this->model('weibo')->update_attach($weibo_msg_id, $question_id, $attach_access_key);
 				}
 				else
 				{
-					$this->update_attach('question', $question_id, $attach_access_key);
+					$this->model('publish')->update_attach('question', $question_id, $attach_access_key);
 				}
 			}
 
@@ -364,28 +364,16 @@ class publish_class extends AWS_MODEL
 		return $comment_id;
 	}
 
-	public function update_attach($item_type, $item_id, $attach_access_key, $old_id = null)
+	public function update_attach($item_type, $item_id, $attach_access_key)
 	{
 		if (! $attach_access_key)
 		{
 			return false;
 		}
 
-		if ($item_type = 'weibo_msg' AND $old_id)
-		{
-			$update_result = $this->update('attach', array(
-				'item_type' => 'question',
-				'item_id' => $this->quote($item_id)
-			), 'item_type = "' . $this->quote($item_type) . '" AND item_id = ' . $old_id . ' AND access_key = "' . $this->quote($attach_access_key) . '"');
-
-			$item_type = 'question';
-		}
-		else
-		{
-			$update_result = $this->update('attach', array(
-				'item_id' => $this->quote($item_id)
-			), "item_type = '" . $this->quote($item_type) . "' AND item_id = 0 AND access_key = '" . $this->quote($attach_access_key) . "'");
-		}
+		$update_result = $this->update('attach', array(
+			'item_id' => $this->quote($item_id)
+		), "item_type = '" . $this->quote($item_type) . "' AND item_id = 0 AND access_key = '" . $this->quote($attach_access_key) . "'");
 
 		if ($update_result)
 		{
@@ -398,6 +386,11 @@ class publish_class extends AWS_MODEL
 				case 'question':
 				case 'answer':
 					$update_key = $item_type . '_id';
+				break;
+
+				// Modify by wecenter
+				case 'support':
+					return true;
 				break;
 			}
 

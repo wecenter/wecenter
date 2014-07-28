@@ -325,4 +325,23 @@ class weibo_class extends AWS_MODEL
 
         return $this->query('UPDATE ' . get_table('users_sina') . ' SET last_msg_id = ' . $last_msg_id . ' WHERE uid = ' . intval($uid));
     }
+
+    public function update_attach($weibo_msg_id, $question_id, $attach_access_key)
+    {
+        if (empty($weibo_msg_id) OR empty($question_id) OR empty($attach_access_key))
+        {
+            return false;
+        }
+
+        $update_result = $this->update('attach', array(
+            'item_type' => 'question',
+            'item_id' => intval($question_id),
+        ), 'item_type = "weibo_msg" AND item_id = ' . $this->quote($weibo_msg_id) . ' AND access_key = "' . $this->quote($attach_access_key) . '"');
+
+        $this->shutdown_update('question', array(
+            'has_attach' => 1
+        ), 'question_id = ' . intval($question_id));
+
+        return $update_result;
+    }
 }

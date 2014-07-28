@@ -1945,7 +1945,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
     public function weibo_batch_action()
     {
-        if (!$_POST['action'] OR !$_POST['uid'])
+        if (!$_POST['action'] OR !isset($_POST['uid']))
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('错误的请求')));
         }
