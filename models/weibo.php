@@ -334,12 +334,9 @@ class weibo_class extends AWS_MODEL
         }
 
         $update_result = $this->update('attach', array(
-                'item_type' => 'question',
-                'item_id' => intval($question_id),
-            ), 'item_type = "weibo_msg" AND item_id = ' . $this->quote($weibo_msg_id) . ' AND access_key = "' . $this->quote($attach_access_key) . '"');
-
-            $item_type = 'question';
-        }
+            'item_type' => 'question',
+            'item_id' => intval($question_id),
+        ), 'item_type = "weibo_msg" AND item_id = ' . $this->quote($weibo_msg_id) . ' AND access_key = "' . $this->quote($attach_access_key) . '"');
 
         $this->shutdown_update('question', array(
             'has_attach' => 1
