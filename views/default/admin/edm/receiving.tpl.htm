@@ -1,0 +1,107 @@
+<?php TPL::output('admin/global/header.tpl.htm'); ?>
+<?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
+
+<div class="aw-content-wrap">
+    <div class="mod">
+        <div class="mod-head">
+            <h3>
+                <span class="pull-left"><?php _e('邮件导入'); ?></span>
+            </h3>
+        </div>
+
+        <div class="tab-content mod-content">
+            <form method="post" action="admin/ajax/save_receiving_mail_config/" onsubmit="return false;" id="receiving_form" class="form-horizontal" role="form">
+            <table class="table table-striped">
+                <tr><td>
+                <div class="form-group">
+                    <span class="col-sm-4 col-xs-3 control-label"><?php _e('开启邮件导入'); ?>:</span>
+
+                    <div class="col-sm-6 col-xs-8">
+                        <div class="btn-group mod-btn">
+                            <label type="button" class="btn mod-btn-color">
+                                <input type="radio" name="enabled" value="Y"<?php if $this->receiving_mail_config['enabled'] == 'Y') { ?> checked="checked"<?php } ?> />
+                                <?php _e('是'); ?>
+                            </label>
+
+                            <label type="button" class="btn mod-btn-color">
+                                <input type="radio" name="enabled" value="N"<?php if $this->receiving_mail_config['enabled'] != 'Y') { ?> checked="checked"<?php } ?> />
+                                <?php _e('否'); ?>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                </td></tr>
+
+                <tr><td>
+                <div class="form-group">
+                    <span class="col-sm-4 col-xs-3 control-label"><?php _e('POP3 服务器'); ?>:</span>
+
+                    <div class="col-sm-5 col-xs-8">
+                        <input name="server" type="text" class="form-control" value="<?php echo $this->receiving_mail_config['server']; ?>" />
+                    </div>
+                </div>
+                </td></tr>
+
+                <tr><td>
+                <div class="form-group">
+                    <span class="col-sm-4 col-xs-3 control-label"><?php _e('使用安全链接(SSL)连接服务器'); ?>:</span>
+
+                    <div class="col-sm-6 col-xs-8">
+                        <div class="btn-group mod-btn">
+                            <label type="button" class="btn mod-btn-color">
+                                <input type="radio" name="ssl" value="Y"<?php if ($this->receiving_mail_config['ssl'] == 'Y') { ?> checked="checked"<?php } ?> /> <?php _e('是'); ?>
+                            </label>
+
+                            <label type="button" class="btn mod-btn-color">
+                                <input type="radio" name="ssl" value="N"<?php if ($this->receiving_mail_config['ssl'] != 'Y') { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                </td></tr>
+
+                <tr><td>
+                <div class="form-group">
+                    <span class="col-sm-4 col-xs-3 control-label"><?php _e('POP3 端口'); ?>:</span>
+
+                    <div class="col-sm-5 col-xs-8">
+                        <input name="port" type="text" class="form-control" value="<?php echo $this->receiving_mail_config['port']; ?>" />
+
+                        <div class="help-block"><?php _e('留空时默认服务器端口为 110，使用 SSL 协议默认端口为 995，详细参数请询问邮箱服务商'); ?></div>
+                    </div>
+                </div>
+                </td></tr>
+
+                <tr><td>
+                <div class="form-group">
+                    <span class="col-sm-4 col-xs-3 control-label"><?php _e('POP3 帐户'); ?>:</span>
+
+                    <div class="col-sm-5 col-xs-8">
+                        <input name="username" type="text" class="form-control" value="<?php echo $this->receiving_mail_config['username']; ?>"/>
+                    </div>
+                </div>
+                </td></tr>
+
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('POP3 密码'); ?>:</span>
+                            <div class="col-sm-5 col-xs-8">
+                                <input name="password" type="password" class="form-control" value="<?php echo $this->receiving_mail_config['password']; ?>"/>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            </form>
+        </div>
+
+        <div class="tab-content mod-content mod-one-btn">
+            <div class="center-block">
+                <input type="button" value="<?php _e('保存设置'); ?>" class="btn btn-primary" onclick="AWS.ajax_post($('#receiving_form'));" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php TPL::output('admin/global/footer.tpl.htm'); ?>

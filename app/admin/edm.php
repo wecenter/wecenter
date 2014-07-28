@@ -20,13 +20,10 @@ if (!defined('IN_ANWSION'))
 
 class edm extends AWS_ADMIN_CONTROLLER
 {
-	public function setup()
-	{
-		$this->crumb(AWS_APP::lang()->_t('邮件群发'), "admin/edm/");
-	}
-
 	public function groups_action()
 	{
+		$this->crumb(AWS_APP::lang()->_t('邮件群发'), "admin/edm/groups");
+
 		$groups_list = $this->model('edm')->fetch_groups($_GET['page'], $this->per_page);
 		$total_rows = $this->model('edm')->found_rows();
 
@@ -56,6 +53,8 @@ class edm extends AWS_ADMIN_CONTROLLER
 
 	public function tasks_action()
 	{
+		$this->crumb(AWS_APP::lang()->_t('邮件群发'), "admin/edm/tasks");
+
 		$tasks_list = $this->model('edm')->fetch_tasks($_GET['page'], $this->per_page);
 		$total_rows = $this->model('edm')->found_rows();
 
@@ -86,6 +85,8 @@ class edm extends AWS_ADMIN_CONTROLLER
 
 	public function remove_task_action()
 	{
+		$this->crumb(AWS_APP::lang()->_t('邮件群发'), "admin/edm/remove_task");
+
 		$this->model('edm')->remove_task($_GET['id']);
 
 		H::redirect_msg(AWS_APP::lang()->_t('任务已删除'), '/admin/edm/tasks/');
@@ -93,6 +94,8 @@ class edm extends AWS_ADMIN_CONTROLLER
 
 	public function remove_group_action()
 	{
+		$this->crumb(AWS_APP::lang()->_t('邮件群发'), "admin/edm/remove_group");
+
 		$this->model('edm')->remove_group($_GET['id']);
 
 		H::redirect_msg(AWS_APP::lang()->_t('用户群已删除'), '/admin/edm/groups/');
@@ -100,6 +103,8 @@ class edm extends AWS_ADMIN_CONTROLLER
 
 	public function export_active_users_action()
 	{
+		$this->crumb(AWS_APP::lang()->_t('邮件群发'), "admin/edm/export_active_users");
+
 		if ($export = $this->model('edm')->fetch_task_active_emails($_GET['id']))
 		{
 			HTTP::force_download_header('export.txt');
@@ -113,5 +118,18 @@ class edm extends AWS_ADMIN_CONTROLLER
 		{
 			H::redirect_msg(AWS_APP::lang()->_t('没有活跃用户'), '/admin/edm/tasks/');
 		}
+	}
+
+	public function receiving_action()
+	{
+		$this->crumb(AWS_APP::lang()->_t('邮件导入'), "admin/edm/receiving");
+
+		$receiving_mail_config = get_setting('receiving_mail_config');
+
+		TPL::assign('receiving_mail_config', $receiving_mail_config);
+
+		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(807));
+
+		TPL::output('admin/edm/receiving');
 	}
 }
