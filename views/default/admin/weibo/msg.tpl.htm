@@ -5,14 +5,11 @@
     <div class="mod">
         <div class="mod-head">
             <h3>
-                <span class="pull-left"><?php _e('消息接收'); ?></span>
-
-                <span class="pull-right"><a href="javascript:;" onclick="AWS.ajax_post($('#msg_form'));" class="btn btn-xs btn-primary mod-site-save"><?php _e('快速保存'); ?></a></span>
+                <span class="pull-left"><?php _e('微博消息接收'); ?></span>
             </h3>
         </div>
 
         <div class="tab-content mod-content">
-            <form method="post" action="admin/ajax/save_settings/" onsubmit="return false;" id="msg_form" class="form-horizontal" role="form">
             <table class="table table-striped">
                 <tr><td>
                 <div class="form-group">
@@ -20,12 +17,12 @@
                     <div class="col-sm-6 col-xs-8">
                         <div class="btn-group mod-btn">
                             <label type="button" class="btn mod-btn-color">
-                                <input type="radio" name="weibo_msg_enabled" value="Y"<?php if (get_setting('weibo_msg_enabled') == 'Y') { ?> checked="checked"<?php } ?> onclick="AWS.ajax_request(G_BASE_URL + '/admin/ajax/weibo_batch/', 'action=weibo_msg_enabled&uid=1')" />
+                                <input type="radio" name="weibo_msg_enabled" value="Y"<?php if (get_setting('weibo_msg_enabled') == 'Y') { ?> checked="checked"<?php } ?> />
                                 <?php _e('是'); ?>
                             </label>
 
                             <label type="button" class="btn mod-btn-color">
-                                <input type="radio" name="weibo_msg_enabled" value="N"<?php if (get_setting('weibo_msg_enabled') == 'N') { ?> checked="checked"<?php } ?> onclick="AWS.aaxj_request(G_BASE_URL + '/admin/ajax/weibo_batch/', 'action=weibo_msg_enabled&uid=0')" />
+                                <input type="radio" name="weibo_msg_enabled" value="N"<?php if (get_setting('weibo_msg_enabled') != 'Y') { ?> checked="checked"<?php } ?> />
                                 <?php _e('否'); ?>
                             </label>
                         </div>
@@ -87,22 +84,27 @@
                 </div>
                 </td></tr>
             </table>
-            </form>
-        </div>
-
-        <div class="tab-content mod-content mod-one-btn">
-            <div class="center-block">
-                <input type="button" value="<?php _e('保存设置'); ?>" class="btn btn-primary" onclick="AWS.ajax_post($('#msg_form'));" />
-            </div>
         </div>
     </div>
 </div>
 
 <script>
 $(function(){
+    $('input[name="weibo_msg_enabled"]').on('ifClicked', function()
+    {
+        if (this.value == 'Y')
+        {
+            AWS.ajax_request(G_BASE_URL + '/admin/ajax/weibo_batch/', 'action=weibo_msg_enabled&uid=1');
+        }
+        else
+        {
+            AWS.aaxj_request(G_BASE_URL + '/admin/ajax/weibo_batch/', 'action=weibo_msg_enabled&uid=0')
+        }
+    });
+
     AWS.Dropdown.bind_dropdown_list($('.aw-admin-weibo-publish input'), 'adminPublishUser');
     AWS.Dropdown.bind_dropdown_list($('.aw-admin-weibo-answer input'), 'adminAnswerUser');
-})
+});
 </script>
 
 <?php TPL::output('admin/global/footer.tpl.htm'); ?>
