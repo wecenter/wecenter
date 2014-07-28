@@ -82,7 +82,7 @@ class ajax extends AWS_CONTROLLER
 
         if (isset($_GET['aws_upload_file']))
         {
-            AWS_APP::upload()->do_upload($_GET['aws_upload_file'], true);
+            AWS_APP::upload()->do_upload($_GET['aws_upload_file'], file_get_contents('php://input'));
         }
         else if (isset($_FILES['aws_upload_file']))
         {

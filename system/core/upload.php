@@ -116,7 +116,7 @@ class core_upload {
      *
      * @return  bool
      */
-    public function do_upload($field = 'userfile', $xhr_stream = false)
+    public function do_upload($field = 'userfile', $data_stream = null)
     {
         // Is the upload path valid?
         if ( ! $this->validate_upload_path())
@@ -127,32 +127,23 @@ class core_upload {
 
         clearstatcache();
 
-        if ($xhr_stream)
-        {
-            if (!$stream = fopen('php://input', 'r'))
-            {
-                $this->set_error('upload_no_file_selected');
-
-                return FALSE;
-            }
-
-            $tmp_name = TEMP_PATH . 'xhr_' . md5($field . microtime(TRUE) . rand(1, 999));
-
-            if (!$file_size = stream_copy_to_stream($stream, fopen($tmp_name, 'w')))
+        if ($data_stream)
+        {            
+            $tmp_file = TEMP_PATH . 'xhr_' . md5($field . microtime(TRUE) . rand(1, 999)) . '.stream';
+			
+            if (!file_put_contents($tmp_file, $data_stream))
             {
                 $this->set_error('upload_unable_to_write_file');
 
                 return FALSE;
             }
-
-            fclose($stream);
-
+            
             // Set the uploaded data as class variables
-            $this->file_temp = $tmp_name;
-            $this->file_size = $file_size;
+            $this->file_temp = $tmp_file;
+            $this->file_size = strlen($data_stream);
 
             $this->file_mime_type(array(
-                'tmp_name' => $tmp_name,
+                'tmp_name' => $tmp_file,
                 'type' => 'application/octet-stream'
             ));
 
@@ -315,7 +306,7 @@ class core_upload {
             }
         }
 
-        if ($xhr_stream)
+        if ($data_stream)
         {
             /*if ( ! @rename($this->file_temp, $this->upload_path.$this->file_name))
             {

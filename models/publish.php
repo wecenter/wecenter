@@ -226,11 +226,11 @@ class publish_class extends AWS_MODEL
 			{
 				if ($weibo_msg_id)
 				{
-					$this->model('publish')->update_attach('weibo_msg', $question_id, $attach_access_key, $weibo_msg_id);
+					$this->update_attach('weibo_msg', $question_id, $attach_access_key, $weibo_msg_id);
 				}
 				else
 				{
-					$this->model('publish')->update_attach('question', $question_id, $attach_access_key);
+					$this->update_attach('question', $question_id, $attach_access_key);
 				}
 			}
 
@@ -398,11 +398,6 @@ class publish_class extends AWS_MODEL
 				case 'question':
 				case 'answer':
 					$update_key = $item_type . '_id';
-				break;
-
-				// Modify by wecenter
-				case 'support':
-					return true;
 				break;
 			}
 
