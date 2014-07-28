@@ -10,7 +10,7 @@
 
             <?php if (count($this->accounts_list) > 1) { ?>
             <div class="dropdown pull-right">
-                <a class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+                <a class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
                     <?php if ($this->account_id == 0) { _e('主账号'); } else { _e('子账号 %s', $this->account_id); } ?>
                     <span class="caret"></span>
                 </a>
