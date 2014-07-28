@@ -82,7 +82,7 @@ class ajax extends AWS_CONTROLLER
 
         if (isset($_GET['aws_upload_file']))
         {
-            AWS_APP::upload()->do_upload($_GET['aws_upload_file'], true);
+            AWS_APP::upload()->do_upload($_GET['aws_upload_file'], file_get_contents('php://input'));
         }
         else if (isset($_FILES['aws_upload_file']))
         {
@@ -509,11 +509,7 @@ class ajax extends AWS_CONTROLLER
                 ))->resize();
             }
 
-            $now = time();
-
-            $_POST['attach_access_key'] = md5($this->user_id . $now);
-
-            $this->model('publish')->add_attach('question', $file_name, $_POST['attach_access_key'], $now, $file_name, true);
+            $this->model('publish')->add_attach('question', $file_name, $_POST['attach_access_key'], time(), $file_name, true);
         }
 
         // !注: 来路检测后面不能再放报错提示

@@ -39,7 +39,12 @@ class weixin_class extends AWS_MODEL
 
     public function replace_post($subject)
     {
-        return preg_replace_callback('#\\\u([0-9a-f]+)#i', array($this, 'transcoding'), $subject);
+        if (empty($subject) OR !is_array($subject))
+        {
+            return false;
+        }
+
+        return preg_replace_callback('#\\\u([0-9a-f]+)#i', array($this, 'transcoding'), json_encode($subject));
     }
 
     public function transcoding($r)
@@ -191,7 +196,7 @@ class weixin_class extends AWS_MODEL
                 'mediaID' => $post_object['MediaId'],
                 'format' => $post_object['Format'],
                 'recognition' => $post_object['Recognition'],
-                'msgID' => $post_object['MsgId'],
+                'msgID' => $post_object['MsgID'],
                 'latitude' => $post_object['Latitude'],
                 'longitude' => $post_object['Longitude'],
                 'precision' => $post_object['Precision'],
@@ -1375,7 +1380,7 @@ class weixin_class extends AWS_MODEL
                         $account_info['weixin_app_secret'],
                         'menu/create',
                         'POST',
-                        $this->replace_post(json_encode(array('button' => $mp_menu_no_key)))
+                        $this->replace_post(array('button' => $mp_menu_no_key))
                     );
 
         if (empty($result))
@@ -1561,7 +1566,7 @@ class weixin_class extends AWS_MODEL
 
     public function add_main_msg_to_mpnews($main_msg)
     {
-        $result = $this->model('openid_weixin')->upload_file($main_msg['img'], 'thumb');
+        $result = $this->model('openid_weixin')->upload_file($main_msg['img'], 'image');
 
         if (empty($result))
         {
@@ -1574,7 +1579,7 @@ class weixin_class extends AWS_MODEL
         }
 
         $this->mpnews['articles'][] = array(
-                                            'thumb_media_id' => $result['thumb_media_id'],
+                                            'thumb_media_id' => $result['media_id'],
                                             'author' => $main_msg['author'],
                                             'title' => $main_msg['title'],
                                             'content_source_url' => $main_msg['url'],
@@ -1608,7 +1613,14 @@ class weixin_class extends AWS_MODEL
         {
             $user_info = $users_info[$article_info['uid']];
 
-            $result = $this->model('openid_weixin')->upload_file(get_setting('upload_dir') . '/avatar/' . $this->model('account')->get_avatar($user_info['uid'], 'max'), 'thumb');
+            $img = get_setting('upload_dir') . '/avatar/' . $this->model('account')->get_avatar($user_info['uid'], 'max');
+
+            if (!is_file($img))
+            {
+                $img = ROOT_PATH . 'static/common/avatar-max-img.jpg';
+            }
+
+            $result = $this->model('openid_weixin')->upload_file($img, 'image');
 
             if (empty($result))
             {
@@ -1621,7 +1633,7 @@ class weixin_class extends AWS_MODEL
             }
 
             $this->mpnews['articles'][] = array(
-                                                'thumb_media_id' => $result['thumb_media_id'],
+                                                'thumb_media_id' => $result['media_id'],
                                                 'author' => $user_info['user_name'],
                                                 'title' => $article_info['title'],
                                                 'content_source_url' => get_js_url('/m/article/' . $article_info['id']),
@@ -1647,7 +1659,7 @@ class weixin_class extends AWS_MODEL
 
         foreach ($questions_info AS $question_info)
         {
-            $published_uids[] = $question_info['uid'];
+            $published_uids[] = $question_info['published_uid'];
         }
 
         $users_info = $this->model('account')->get_user_info_by_uids($published_uids);
@@ -1656,7 +1668,14 @@ class weixin_class extends AWS_MODEL
         {
             $user_info = $users_info[$question_info['published_uid']];
 
-            $result = $this->model('openid_weixin')->upload_file(get_setting('upload_dir') . '/avatar/' . $this->model('account')->get_avatar($user_info['uid'], 'max'), 'thumb');
+            $img = get_setting('upload_dir') . '/avatar/' . $this->model('account')->get_avatar($user_info['uid'], 'max');
+
+            if (!is_file($img))
+            {
+                $img = ROOT_PATH . 'static/common/avatar-max-img.jpg';
+            }
+
+            $result = $this->model('openid_weixin')->upload_file($img, 'image');
 
             if (empty($result))
             {
@@ -1669,7 +1688,7 @@ class weixin_class extends AWS_MODEL
             }
 
             $this->mpnews['articles'][] = array(
-                                                'thumb_media_id' => $result['thumb_media_id'],
+                                                'thumb_media_id' => $result['media_id'],
                                                 'author' => $user_info['user_name'],
                                                 'title' => $question_info['question_content'],
                                                 'content_source_url' => get_js_url('/m/question/' . $question_info['question_id']),
@@ -1696,7 +1715,7 @@ class weixin_class extends AWS_MODEL
                         get_setting('weixin_app_secret'),
                         'media/uploadnews',
                         'POST',
-                        $this->replace_post(json_encode($this->mpnews))
+                        $this->replace_post($this->mpnews)
                     );
 
         if (empty($result))
@@ -1729,7 +1748,7 @@ class weixin_class extends AWS_MODEL
                         get_setting('weixin_app_secret'),
                         'message/mass/sendall',
                         'POST',
-                        $this->replace_post(json_encode($msg))
+                        $this->replace_post($msg)
                     );
 
         if (empty($result))
@@ -1771,11 +1790,11 @@ class weixin_class extends AWS_MODEL
                         get_setting('weixin_app_secret'),
                         'qrcode/create',
                         'POST',
-                        $this->replace_post(json_encode(array(
+                        $this->replace_post(array(
                             'action_name' => 'QR_LIMIT_SCENE',
                             'action_info' => array(
                                 'scene' => array('scene_id' => $scene_id)
-                        )))));
+                        ))));
 
         if (!$result)
         {

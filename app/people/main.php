@@ -138,7 +138,7 @@ class main extends AWS_CONTROLLER
 	{
 		if (is_mobile() AND HTTP::get_cookie('_ignore_ua_check') != 'TRUE')
 		{
-			HTTP::redirect('/m/people_list/');
+			HTTP::redirect('/m/people/');
 		}
 
 		if (!$_GET['page'])
@@ -148,9 +148,9 @@ class main extends AWS_CONTROLLER
 
 		$this->crumb(AWS_APP::lang()->_t('用户列表'), '/people/');
 
-		if ($_GET['feature_id'])
+		if ($_GET['topic_id'])
 		{
-			if ($helpful_users = $this->model('topic')->get_helpful_users_by_topic_ids($this->model('feature')->get_topics_by_feature_id($_GET['feature_id']), get_setting('contents_per_page'), 4))
+			if ($helpful_users = $this->model('topic')->get_helpful_users_by_topic_ids($this->model('topic')->get_child_topic_ids($_GET['topic_id']), get_setting('contents_per_page'), 4))
 			{
 				foreach ($helpful_users AS $key => $val)
 				{
@@ -198,7 +198,7 @@ class main extends AWS_CONTROLLER
 				$uids[] = $val['uid'];
 			}
 
-			if (!$_GET['feature_id'])
+			if (!$_GET['topic_id'])
 			{
 				$reputation_topics = $this->model('people')->get_users_reputation_topic($reputation_users_ids, $users_reputations, 5);
 
@@ -223,11 +223,11 @@ class main extends AWS_CONTROLLER
 
 		if (!$_GET['group_id'])
 		{
-			TPL::assign('feature_list', $this->model('feature')->get_enabled_feature_list());
+			TPL::assign('parent_topics', $this->model('topic')->get_parent_topics());
 		}
 
 		TPL::assign('custom_group', $this->model('account')->get_user_group_list(0, 1));
 
-		TPL::output('people/list');
+		TPL::output('people/square');
 	}
 }

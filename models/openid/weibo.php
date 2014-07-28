@@ -137,6 +137,21 @@ class openid_weibo_class extends AWS_MODEL
 	{
 		$client = new Services_Weibo_WeiboClient(get_setting('sina_akey'), get_setting('sina_skey'), $access_token);
 
+		$result = $client->mentions(1, 100, $since_id, $max_id);
+
+		if ($result['error'])
+		{
+			return $result;
+		}
+
+		$msgs = $result['statuses'];
+
+		if (empty($msgs))
+		{
+			return false;
+		}
+
+/*
 		do
 		{
 			$result = $client->mentions(1, 200, $since_id, $max_id);
@@ -148,22 +163,35 @@ class openid_weibo_class extends AWS_MODEL
 
 			$new_msgs = $result['statuses'];
 
-			$new_msgs_total = count($new_msgs);
-
-			$last_msg = end($new_msgs);
-
-			$max_id = $last_msg['id'] - 1;
+			if (empty($new_msgs))
+			{
+				break;
+			}
 
 			if (empty($msgs))
 			{
 				$msgs = $new_msgs;
-
-				continue;
+			}
+			else
+			{
+				$msgs = array_merge($msgs, $new_msgs);
 			}
 
-			$msgs = array_merge($msgs, $new_msgs);
+			$new_msgs_total = count($new_msgs);
+
+			if ($new_msgs_total < 200)
+			{
+				break;
+			}
+			else
+			{
+				$last_msg = end($new_msgs);
+
+				$max_id = $last_msg['id'] - 1;
+			}
 		}
-		while ($new_msgs_total > 200);
+		while (0);
+*/
 
 		return $msgs;
 	}

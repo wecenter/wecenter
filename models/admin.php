@@ -128,7 +128,7 @@ class admin_class extends AWS_MODEL
         if ($notifications['answer_approval'])
         {
             $notifications_texts[] = array(
-                                            'url' => 'admin/approval/list/',
+                                            'url' => 'admin/approval/list/type-answer',
                                             'text' => AWS_APP::lang()->_t('有 %s 个回答待审核', $notifications['answer_approval'])
                                         );
         }
@@ -181,7 +181,7 @@ class admin_class extends AWS_MODEL
                                         );
         }
 
-        if ($this->user_info['is_administortar'] AND $notifications['last_version']['build_day'] > G_VERSION_BUILD)
+        if ($notifications['last_version']['build_day'] > G_VERSION_BUILD AND $this->user_info['is_administortar'])
         {
             $notifications_texts[] = array(
                                             'url' => 'http://www.wecenter.com/downloads/',

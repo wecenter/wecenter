@@ -18,6 +18,9 @@
             <div class="tab-pane active" id="list">
                 <div class="table-responsive">
                 <?php if ($this->list) { ?>
+                <form id="batchs_form" action="admin/ajax/topic_manage/" method="post">
+                    <input type="hidden" id="action" name="action" value="" />
+
                     <table class="table table-striped">
                         <thead>
                             <tr>
@@ -60,14 +63,16 @@
                             <?php } ?>
                         </tbody>
                     </table>
+                </form>
                 <?php } ?>
                 </div>
 
                 <div class="mod-table-foot">
                     <?php echo $this->pagination; ?>
 
-                    <a class="btn btn-danger" onclick="$('#action').val('remove'); AWS.ajax_post($('#batchs_form'));"><?php _e('删除'); ?></a>
-                    <a class="btn btn-primary" onclick="$('#action').val('lock'); AWS.ajax_post($('#batchs_form'));"><?php _e('锁定'); ?></a>
+                    <a class="btn btn-danger" onclick="$('#action').val('remove'); AWS.ajax_post($('#batchs_form'));"><?php _e('删除话题'); ?></a>
+                    <a class="btn btn-primary" onclick="$('#action').val('lock'); AWS.ajax_post($('#batchs_form'));"><?php _e('锁定话题'); ?></a>
+                    <a class="btn btn-primary" onclick="$('#action').val('cancel_parent'); AWS.ajax_post($('#batchs_form'));"><?php _e('取消根话题'); ?></a>
                 </div>
             </div>
 

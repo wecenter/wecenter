@@ -40,7 +40,7 @@
 						<div class="form-group">
 							<span class="col-sm-4 col-xs-3 control-label"><?php _e('话题描述'); ?>:</span>
 							<div class="col-sm-5 col-xs-8">
-								<textarea class="form-control" name="topic_description" rows="3"><?php echo $this->topic_info['topic_description']; ?></textarea>
+								<textarea class="form-control" name="topic_description"  ><?php echo $this->topic_info['topic_description']; ?></textarea>
 							</div>
 						</div>
 					</td>
@@ -90,7 +90,7 @@
 							<span class="col-sm-4 col-xs-3 control-label"><?php _e('选择根话题'); ?>:</span>
 							<div class="col-sm-4 col-xs-8">
 								<select id="parent_topic_select" class="hide" name="parent_id">
-								<option value=""> --- </option>
+								<option value="0"> --- </option>
 								<?php foreach ($this->parent_topics AS $key => $val) { ?>
 								<option value="<?php echo $val['topic_id']; ?>"<?php if ($val['topic_id'] == $this->topic_info['parent_id']) { ?> selected="selected"<?php } ?>><?php echo $val['topic_title']; ?></option>
 								<?php } ?>
@@ -155,7 +155,7 @@
 			$('#aw-topic-tags-select').val($(this).text());
 			$('.aw-publish-title .dropdown').removeClass('open');
 			$('.aw-publish-title .aw-dropdown-list li').removeClass('hide');
-			AWS.ajax_request(G_BASE_URL + '/topic/ajax/set_parent_id/', 'topic_id=<?php echo $this->topic_info['topic_id']; ?>&parent_id=' + $(this).data('value'));
+			//AWS.ajax_request(G_BASE_URL + '/topic/ajax/set_parent_id/', 'topic_id=<?php echo $this->topic_info['topic_id']; ?>&parent_id=' + $(this).data('value'));
 		});
 
 		$('.aw-publish-title .triangle').click(function()
@@ -267,7 +267,7 @@
 		{
 			if (this.value == 0)
 			{
-				//$('.parent_topic_tr').removeAttr('style');
+				$('.parent_topic_tr').removeAttr('style');
 			}
 			else
 			{

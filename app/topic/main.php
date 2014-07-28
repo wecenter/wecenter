@@ -169,9 +169,7 @@ class main extends AWS_CONTROLLER
 
 		TPL::assign('contents_related_topic_ids', implode(',', $contents_related_topic_ids));
 
-		$posts_list = $this->model('posts')->get_posts_list(null, 1, get_setting('contents_per_page'), null, array_merge($related_topics_ids, explode(',', $contents_topic_id)));
-
-		if ($posts_list)
+		if ($posts_list = $this->model('posts')->get_posts_list(null, 1, get_setting('contents_per_page'), null, array_merge($related_topics_ids, explode(',', $contents_topic_id))))
 		{
 			foreach ($posts_list AS $key => $val)
 			{
@@ -185,9 +183,7 @@ class main extends AWS_CONTROLLER
 		TPL::assign('posts_list', $posts_list);
 		TPL::assign('all_list_bit', TPL::output('explore/ajax/list', false));
 
-		$posts_list = $this->model('posts')->get_posts_list(null, 1, get_setting('contents_per_page'), null, array_merge($related_topics_ids, explode(',', $contents_topic_id)), null, null, 30, true);
-
-		if ($posts_list)
+		if ($posts_list = $this->model('posts')->get_posts_list(null, 1, get_setting('contents_per_page'), null, array_merge($related_topics_ids, explode(',', $contents_topic_id)), null, null, 30, true))
 		{
 			foreach ($posts_list AS $key => $val)
 			{
@@ -218,8 +214,6 @@ class main extends AWS_CONTROLLER
 
 		TPL::assign('redirect_message', $redirect_message);
 
-		TPL::assign('in_features', $this->model('feature')->get_feature_by_id($this->model('feature')->get_topic_in_feature_ids($topic_info['topic_id'])));
-
 		if ($topic_info['parent_id'])
 		{
 			TPL::assign('parent_topic_info', $this->model('topic')->get_topic_by_id($topic_info['parent_id']));
@@ -232,7 +226,7 @@ class main extends AWS_CONTROLLER
 	{
 		if (is_mobile() AND HTTP::get_cookie('_ignore_ua_check') != 'TRUE')
 		{
-			HTTP::redirect('/m/topic_square/' . $_GET['id']);
+			HTTP::redirect('/m/topic/');
 		}
 
 		if ($today_topics = rtrim(get_setting('today_topics'), ','))
@@ -299,16 +293,16 @@ class main extends AWS_CONTROLLER
 				TPL::assign('topics_list', $topics_list);
 			break;
 
-			case 'feature':
-				if (!$topics_list = AWS_APP::cache()->get('square_feature_topic_list_' . intval($_GET['feature_id']) . '_' . intval($_GET['page'])))
+			case 'topic':
+				if (!$topics_list = AWS_APP::cache()->get('square_parent_topics_topic_list_' . intval($_GET['feature_id']) . '_' . intval($_GET['page'])))
 				{
-					if ($topic_ids = $this->model('feature')->get_topics_by_feature_id($_GET['feature_id']))
+					if ($topic_ids = $this->model('topic')->get_child_topic_ids($_GET['topic_id']))
 					{
 						if ($topics_list = $this->model('topic')->get_topic_list('topic_id IN(' . implode(',', $topic_ids) . ')', 'discuss_count DESC', get_setting('contents_per_page'), $_GET['page']))
 						{
 							$topics_list_total_rows = $this->model('topic')->found_rows();
 
-							AWS_APP::cache()->set('square_feature_topic_list_' . intval($_GET['feature_id']) . '_total_rows', $topics_list_total_rows, get_setting('cache_level_low'));
+							AWS_APP::cache()->set('square_parent_topics_topic_list_' . intval($_GET['feature_id']) . '_total_rows', $topics_list_total_rows, get_setting('cache_level_low'));
 
 							foreach ($topics_list AS $key => $val)
 							{
@@ -317,18 +311,18 @@ class main extends AWS_CONTROLLER
 						}
 					}
 
-					AWS_APP::cache()->set('square_feature_topic_list_' . intval($_GET['feature_id']) . '_' . intval($_GET['page']), $topics_list, get_setting('cache_level_low'));
+					AWS_APP::cache()->set('square_parent_topics_topic_list_' . intval($_GET['feature_id']) . '_' . intval($_GET['page']), $topics_list, get_setting('cache_level_low'));
 				}
 				else
 				{
-					$topics_list_total_rows = AWS_APP::cache()->get('square_feature_topic_list_' . intval($_GET['feature_id']) . '_total_rows');
+					$topics_list_total_rows = AWS_APP::cache()->get('square_parent_topics_topic_list_' . intval($_GET['feature_id']) . '_total_rows');
 				}
 
 				TPL::assign('topics_list', $topics_list);
 			break;
 		}
 
-		TPL::assign('feature_list', $this->model('feature')->get_enabled_feature_list());
+        TPL::assign('parent_topics', $this->model('topic')->get_parent_topics());
 
 		TPL::assign('new_topics', $this->model('topic')->get_topic_list(null, 'topic_id DESC', 10));
 

@@ -128,7 +128,7 @@ class main extends AWS_CONTROLLER
 	{
 		if (is_mobile() AND HTTP::get_cookie('_ignore_ua_check') != 'TRUE')
 		{
-			HTTP::redirect('/m/article_square/' . $_GET['id']);
+			HTTP::redirect('/m/article/');
 		}
 
 		$this->crumb(AWS_APP::lang()->_t('文章'), '/article/');

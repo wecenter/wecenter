@@ -926,6 +926,11 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
         $this->model('topic')->set_is_parent($_POST['topic_id'], $_POST['is_parent']);
 
+        if ($_POST['is_parent'] == 0)
+        {
+            $this->model('topic')->set_parent_id($_POST['topic_id'], $_POST['parent_id']);
+        }
+
         $this->model('topic')->lock_topic_by_ids($_POST['topic_id'], $_POST['topic_lock']);
 
         $referer_url = ($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : get_js_url('/admin/topic/list/');
@@ -946,11 +951,23 @@ class ajax extends AWS_ADMIN_CONTROLLER
         {
             case 'remove' :
                 $this->model('topic')->remove_topic_by_ids($_POST['topic_ids']);
-            break;
+
+                break;
 
             case 'lock' :
                 $this->model('topic')->lock_topic_by_ids($_POST['topic_ids'], 1);
-            break;
+
+                break;
+
+            case 'set_parent':
+                $this->model('topic')->set_is_parent($_POST['topic_ids'], 1);
+
+                break;
+
+            case 'cancel_parent':
+                $this->model('topic')->set_is_parent($_POST['topic_ids'], 0);
+
+                break;
         }
 
         H::ajax_json_output(AWS_APP::RSM(null, 1, null));
@@ -1738,7 +1755,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请输入封面的作者')));
         }
 
-        if (!$_POST['main_msg_context'])
+        if (!$_POST['main_msg_content'])
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请输入封面的内容')));
         }
@@ -1797,7 +1814,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
             'author' => $_POST['main_msg_author'],
             'title' => $_POST['main_msg_title'],
             'url' => $_POST['main_msg_url'],
-            'context' => $_POST['main_msg_context'],
+            'content' => $_POST['main_msg_content'],
             'img' => $main_msg_img,
             'show_cover_pic' => $_POST['show_cover_pic']
         );
@@ -1844,6 +1861,11 @@ class ajax extends AWS_ADMIN_CONTROLLER
         }
 
         $msg_id = $this->model('weixin')->save_sent_msg($group_name, $groups[$group_id]['count']);
+
+        if (is_file(TEMP_PATH . 'weixin_img.jpg'))
+        {
+            @unlink(TEMP_PATH . 'weixin_img.jpg');
+        }
 
         H::ajax_json_output(AWS_APP::RSM(array('url' => get_js_url('/admin/weixin/sent_msg_details/id-' . $msg_id)), 1, null));
     }
@@ -1923,7 +1945,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
     public function weibo_batch_action()
     {
-        if (!$_POST['action'] OR !$_POST['uid'])
+        if (!$_POST['action'] OR !isset($_POST['uid']))
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('错误的请求')));
         }

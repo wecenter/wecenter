@@ -43,6 +43,13 @@ class crond_class extends AWS_MODEL
             AWS_APP::cache()->set('crond_timer_minute', time(), 60, 'crond');
         }
 
+        if (!AWS_APP::cache()->get('crond_timer_five_minutes'))
+        {
+            $call_actions[] = 'five_minutes';
+
+            AWS_APP::cache()->set('crond_timer_five_minutes', time(), 300, 'crond');
+        }
+
         if (gmdate('YW', AWS_APP::cache()->get('crond_timer_week')) != gmdate('YW', time()))
         {
             $call_actions[] = 'week';
@@ -108,13 +115,17 @@ class crond_class extends AWS_MODEL
 
         $this->model('search_fulltext')->clean_cache();
 
+        $this->model('admin')->notifications_crond();
+    }
+
+    // 每五分钟执行
+    public function five_minutes($uid)
+    {
         // 拉取微博最新 @用户 消息
         if (get_setting('weibo_msg_enabled') == 'Y')
         {
             $this->model('weibo')->get_msg_from_sina_crond();
         }
-
-        $this->model('admin')->notifications_crond();
     }
 
     // 每半小时执行

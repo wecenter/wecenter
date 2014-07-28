@@ -10,14 +10,14 @@
 
             <?php if (count($this->accounts_list) > 1) { ?>
             <div class="dropdown pull-right">
-                <a class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+                <a class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
                     <?php if ($this->account_id == 0) { _e('主账号'); } else { _e('子账号 %s', $this->account_id); } ?>
                     <span class="caret"></span>
                 </a>
 
                 <ul class="dropdown-menu weixin-dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
                     <?php foreach ($this->accounts_list AS $account_info) {
-                        if ($account_info['id'] == $this->account_id) { continue; } ?>
+                        if ($account_info['id'] == $this->account_id OR $account_info['weixin_account_role'] == 'base') { continue; } ?>
                     <li role="presentation">
                         <a role="menuitem" tabindex="-1" href="admin/weixin/mp_menu/id-<?php echo $account_info['id']; ?>"><?php if ($account_info['id'] == 0) { _e('主账号'); } else { _e('子账号 %s', $account_info['id']); } ?></a>
                     </li>
@@ -322,7 +322,7 @@
                                     <?php } ?>
                                     <li data-value="<?php echo get_js_url('/m/register/'); ?>" data-upload="false"><a><?php _e('注册用户'); ?></a></li>
                                     <li data-value="<?php echo get_js_url('/m/explore/'); ?>" data-upload="false"><a><?php _e('发现'); ?></a></li>
-                                    <li data-value="<?php echo get_js_url('/m/topic_square/'); ?>" data-upload="false"><a><?php _e('话题广场'); ?></a></li>
+                                    <li data-value="<?php echo get_js_url('/m/topic/'); ?>" data-upload="false"><a><?php _e('话题广场'); ?></a></li>
                                 </ul>
                             </div>
                         </div>

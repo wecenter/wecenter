@@ -120,10 +120,34 @@ class weibo_class extends AWS_MODEL
 
     public function get_msg_from_sina_crond()
     {
+        $now = time();
+
+        $locker = TEMP_PATH . 'weibo_msg.lock';
+
+        if (is_file($locker))
+        {
+            $handle = @fopen($locker, 'r');
+
+            $time = @fread($handle, @filesize($locker));
+
+            @fclose($handle);
+
+            if (empty($time) OR $now - $time > 600)
+            {
+                @unlink($locker);
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         if (!get_setting('sina_akey') OR !get_setting('sina_skey'))
         {
             return false;
         }
+
+        @set_time_limit(0);
 
         $services_info = $this->get_services_info();
 
@@ -131,6 +155,12 @@ class weibo_class extends AWS_MODEL
         {
             return false;
         }
+
+        $handle = @fopen($locker, 'w');
+
+        @fwrite($handle, $now);
+
+        @fclose($handle);
 
         foreach ($services_info AS $service_info)
         {
@@ -167,17 +197,31 @@ class weibo_class extends AWS_MODEL
 
             foreach ($msgs AS $msg)
             {
+                $now++;
+
                 $msg_info['created_at'] = strtotime($msg['created_at']);
+
+                if ($now - $msg_info['created_at'] > 604800)
+                {
+                    continue;
+                }
 
                 $msg_info['id'] = $msg['id'];
 
+                if ($this->fetch_row('weibo_msg', $this->quote($msg_info['id'])))
+                {
+                    continue;
+                }
+
                 $msg_info['text'] = str_replace('@' . $service_info['name'], '', $msg['text']);
+
+                $msg_info['uid'] = $service_user_info['uid'];
+
+                $msg_info['weibo_uid'] = $service_info['id'];
 
                 $msg_info['msg_author_uid'] = $msg['user']['id'];
 
-                $now = time();
-
-                $msg_info['access_key'] = md5($service_user_info['uid'] . $now);
+                $msg_info['access_key'] = md5($msg_info['uid'] . $now);
 
                 if ($msg['pic_urls'] AND get_setting('upload_enable') == 'Y')
                 {
@@ -236,17 +280,13 @@ class weibo_class extends AWS_MODEL
                     $msg_info['has_attach'] = 0;
                 }
 
-                $msg_info['uid'] = $service_user_info['uid'];
-
-                $msg_info['weibo_uid'] = $service_info['id'];
-
                 $this->insert('weibo_msg', $msg_info);
+
+                $this->update_service_account($msg_info['uid'], null, $msg_info['id']);
             }
-
-            $last_msg_id = $msgs[0]['id'];
-
-            $this->update_service_account($service_user_info['uid'], null, $last_msg_id);
         }
+
+        @unlink($locker);
 
         return true;
     }
@@ -260,7 +300,7 @@ class weibo_class extends AWS_MODEL
                                                         'user_name' => $user_name
                                                     );
 
-        $this->model('setting')->set_vars(array('admin_notifications' => $admin_notifications));
+        return $this->model('setting')->set_vars(array('admin_notifications' => $admin_notifications));
     }
 
     public function update_service_account($uid, $action = null, $last_msg_id = 0)
@@ -283,6 +323,25 @@ class weibo_class extends AWS_MODEL
                 break;
         }
 
-        $this->query('UPDATE ' . get_table('users_sina') . ' SET last_msg_id = ' . $last_msg_id . ' WHERE uid = ' . intval($uid));
+        return $this->query('UPDATE ' . get_table('users_sina') . ' SET last_msg_id = ' . $last_msg_id . ' WHERE uid = ' . intval($uid));
+    }
+
+    public function update_attach($weibo_msg_id, $question_id, $attach_access_key)
+    {
+        if (empty($weibo_msg_id) OR empty($question_id) OR empty($attach_access_key))
+        {
+            return false;
+        }
+
+        $update_result = $this->update('attach', array(
+            'item_type' => 'question',
+            'item_id' => intval($question_id),
+        ), 'item_type = "weibo_msg" AND item_id = ' . $this->quote($weibo_msg_id) . ' AND access_key = "' . $this->quote($attach_access_key) . '"');
+
+        $this->shutdown_update('question', array(
+            'has_attach' => 1
+        ), 'question_id = ' . intval($question_id));
+
+        return $update_result;
     }
 }
