@@ -334,17 +334,14 @@ class question_class extends AWS_MODEL
 
 	public function get_unverified_modify_count($question_id)
 	{
-		$counter = 0;
+		$quesion_info = $this->get_question_info_by_id($question_id, false);
 
-		if ($unverified_modify = $this->get_unverified_modify($question_id))
+		if (empty($quesion_info))
 		{
-			foreach ($unverified_modify AS $key => $val)
-			{
-				$counter = $counter + sizeof($val);
-			}
+			return false;
 		}
 
-		return $counter;
+		return $quesion_info['unverified_modify_count'];
 	}
 
 	public function remove_question($question_id)
