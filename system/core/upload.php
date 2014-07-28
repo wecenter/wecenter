@@ -114,6 +114,10 @@ class core_upload {
     /**
      * Perform the file upload
      *
+     * $filed file name or $_FILES field name, $data_stream are file data string
+     *
+     * @param   string
+     * @param   string
      * @return  bool
      */
     public function do_upload($field = 'userfile', $data_stream = null)
