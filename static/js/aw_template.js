@@ -107,7 +107,7 @@ var AW_TEMPLATE = {
 						'<div class="modal-body">'+
 							'<div class="alert alert-danger hide error_message"><i class="fa fa-times"></i> <em></em></div>'+
 							'<input type="hidden" name="attach_access_key" value="{{attach_access_key}}" />'+
-							'<textarea name="answer_content" id="editor_reply" class="form-control" rows="5"></textarea>'+
+							'<textarea name="answer_content" id="editor_reply" class="form-control" rows="10"></textarea>'+
 							'<div class="aw-file-upload-box">'+
 								'<div class="aw-upload-box">'+
 									'<a class="btn btn-default">上传附件</a>'+

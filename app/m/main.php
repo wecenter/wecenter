@@ -699,9 +699,9 @@ class main extends AWS_CONTROLLER
 		TPL::assign('user_follow_check', $this->model('follow')->user_follow_check($this->user_id, $user['uid']));
 
 		TPL::assign('reputation_topics', $this->model('people')->get_user_reputation_topic($user['uid'], $user['reputation'], 12));
-		TPL::assign('fans_list', $this->model('follow')->get_user_fans($user['uid'], 5));
-		TPL::assign('friends_list', $this->model('follow')->get_user_friends($user['uid'], 5));
-		TPL::assign('focus_topics', $this->model('topic')->get_focus_topic_list($user['uid'], 10));
+		TPL::assign('fans_list', $this->model('follow')->get_user_fans($user['uid'], 20));
+		TPL::assign('friends_list', $this->model('follow')->get_user_friends($user['uid'], 20));
+		TPL::assign('focus_topics', $this->model('topic')->get_focus_topic_list($user['uid'], 8));
 
 		TPL::assign('user_actions_questions', $this->model('actions')->get_user_actions($user['uid'], 5, ACTION_LOG::ADD_QUESTION, $this->user_id));
 		TPL::assign('user_actions_answers', $this->model('actions')->get_user_actions($user['uid'], 5, ACTION_LOG::ANSWER_QUESTION, $this->user_id));
