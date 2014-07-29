@@ -493,7 +493,7 @@ class ajax extends AWS_CONTROLLER
 
             AWS_APP::upload()->initialize(array(
                 'allowed_types' => get_setting('allowed_upload_types'),
-                'upload_path' => get_setting('upload_dir') . '/question/' . gmdate('Ymd'),
+                'upload_path' => get_setting('upload_dir') . '/questions/' . gmdate('Ymd'),
                 'is_image' => TRUE,
                 'max_size' => get_setting('upload_size_limit')
             ));
