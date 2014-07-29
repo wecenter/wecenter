@@ -2201,7 +2201,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
         ), 1, null));
     }
 
-    public function save_today_topics()
+    public function save_today_topics_action()
     {
         $today_topics = trim($_POST['today_topics']);
 
