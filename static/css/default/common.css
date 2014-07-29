@@ -693,7 +693,7 @@ a.aw-load-more-content{display: block;}
 .aw-publish-box .aw-publish-title .dropdown .dropdown-toggle a{width: 10%;}
 .aw-publish-box .dropdown, .aw-question-drodpwon, .aw-inbox form{position: relative;}
 /* 评论修改box */
-.aw-edit-comment-box .modal-dialog{width:690px;}
+.aw-edit-comment-box .modal-dialog{width:745px;}
 .aw-edit-comment-box .modal-body textarea{margin:0;border-radius: 10px 10px 0 0;}
 .aw-edit-comment-box .aw-file-upload-box{padding:20px;border:1px solid #ccc;border-top: none;border-radius: 0 0 10px 10px;}
 .aw-edit-comment-box .modal-footer label{margin-left:5px;}

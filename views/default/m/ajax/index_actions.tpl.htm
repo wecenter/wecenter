@@ -7,6 +7,7 @@
 			<?php echo $val['last_action_str']; ?>
 		<?php } ?>
 		
+		<?php if (!$_GET['filter'] == 'focus') { ?>
 		<a href="m/people/<?php echo $val['user_info']['user_name']?>">
 			<?php if ($val['question_info']['anonymous'] == 0 OR !$val['question_info']) { ?>
 				<img class="img" width="20" src="<?php echo get_avatar_url($val['user_info']['uid'], 'max'); ?>" />
@@ -14,6 +15,7 @@
 				<img class="img" width="20" src="<?php echo G_STATIC_URL; ?>/common/avatar-max-img.png" />
 			<?php } ?>
 		</a>
+		<?php } ?>
 	</div>
 	<div class="mod-body">
 		<h2>

@@ -32,7 +32,7 @@ body{padding-bottom:49px;font-family: "Helvetica Neue",Helvetica,Arial,'Microsof
 body.active{background: transparent;}
 ul, ol{margin:0;list-style: none;}
 a{color: #19558d;text-decoration: none;cursor: pointer;}
-a:hover{text-decoration: none;}
+a:hover, a:active{color:#66B7FF;text-decoration: none;}
 h1, h2, h3, h4, h5, h6{font-size: 100%;}
 textarea{resize:none;}
 a{outline: none;}
@@ -202,9 +202,11 @@ input[type="text"], input[type="password"], textarea{-webkit-appearance:none;}
 .card-mod .mod-head .icon-down.active{transform:scale(1,-1);-webkit-transform:scale(1,-1);}
 .card-mod .mod-body{padding:10px;border-top: 1px solid #e6e6e6;}
 .card-mod .user-list{height: auto;overflow: hidden;}
-.card-mod .user-list li{float: left;width:10%;margin:0 0px 3px;}
+.card-mod .user-list li{float: left;width:10%;margin:0 0px 3px;text-align: center;}
 .card-mod.people-profile ul li{height: 30px;line-height: 30px;}
 .card-mod.people-profile ul li i{color: #999999;}
+.card-mod.focus-topics .mod-body{padding-bottom: 0;}
+.card-mod.focus-topics .topic-tag{margin:0 10px 10px 0;}
 
 /* 话题详情页 */
 .aw-topic-detail .mod-footer{padding:0 10px;}
@@ -292,6 +294,9 @@ input[type="text"], input[type="password"], textarea{-webkit-appearance:none;}
 .aw-article-detail .operate .icon-agree{margin-right: 3px;}
 .aw-article-detail .aw-article-voter{margin-top: 5px;}
 
+/* 邀请我回答的问题 */
+#index_listview .mod-footer a{color: #19558d;}
+
 /* 编辑器效果 */
 .markitup-box{word-wrap:break-word;}
 .markitup-box p{line-height: 1.8em;}
@@ -322,7 +327,7 @@ input[type="text"], input[type="password"], textarea{-webkit-appearance:none;}
 .upload-list li{position: relative;min-height:70px;padding:10px 0 0 60px;border-bottom: 1px solid #e6e6e6;}
 .upload-list li .title{color: #333;}
 .upload-list li .size{color: #999;}
-.upload-list .img{position:absolute;left:0;top:10px;width: 50px;height: 50px;background-size: 16px !important;background: url('../../common/ajax-loader.gif') center center no-repeat;}
+.upload-list .img{position:absolute;left:0;top:10px;width: 50px;height: 50px;background-image: url('../../common/ajax-loader.gif');background-position:center center;background-repeat:no-repeat;background-size: 50px !important;}
 .upload-list .meta{position: absolute;right: 0;top:25px;}
 .upload-list .meta a{display: inline-block;width: 24px;height: 24px;margin-left:10px;border:1px solid #cccccc;text-align: center;border-radius: 12px;color: #ccc;line-height: 24px;}
 .upload-list .meta a.disabled{background-color: #e6e6e6;color: #fff;border-color: #e6e6e6;}
@@ -354,6 +359,7 @@ input[type="text"], input[type="password"], textarea{-webkit-appearance:none;}
 .aw-inbox-list ul li .mod-head .img, .aw-people-list ul li .mod-head .img{position: absolute;left: 10px;top: 10px;}
 .aw-inbox-list ul li .mod-head p, .aw-people-list ul li .mod-head p{margin-top:5px;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;}
 .aw-inbox-list ul li .mod-head p a{color: #666;}
+.aw-inbox-list ul li .mod-head .icon-tips{position: absolute;right: -2px;top:-2px;}
 
 /* 私信详情页 */
 .aw-inbox-read-list{margin-bottom: 25px;padding:0 10px 50px 10px;}
