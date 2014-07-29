@@ -385,7 +385,7 @@ class weixin_class extends AWS_MODEL
                 {
                     AWS_APP::cache()->set('weixin_pic_url_' . md5($input_message['mediaID']), $input_message['picUrl'], 259200);
 
-                    $response_message = '您想提交图片到社区么？<a href="' . $this->model('openid_weixin')->redirect_url('/m/publish/weixin_media_id-' . $input_message['mediaID']) . '">点击进入提交页面</a>';
+                    $response_message = '您想提交图片到社区么？<a href="' . $this->model('openid_weixin')->redirect_url('/m/publish/weixin_media_id-' . base64_encode($input_message['mediaID'])) . '">点击进入提交页面</a>';
                 }
                 else
                 {
