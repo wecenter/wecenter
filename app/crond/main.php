@@ -74,7 +74,7 @@ class main extends AWS_CONTROLLER
 		}
 		else
 		{
-			echo 'receive sina weibo message option is not enabled.'
+			echo 'receive sina weibo message option is not enabled.';
 		}
 	}
 
@@ -85,11 +85,11 @@ class main extends AWS_CONTROLLER
 
 		if ($receiving_mail_config['enabled'] == 'Y')
 		{
-			echo ($this->model('email')->receive_email_crond()) 'success' : 'error';
+			echo ($this->model('email')->receive_email_crond()) ? 'success' : 'error';
 		}
 		else
 		{
-			echo 'receive email option is not enabled.'
+			echo 'receive email option is not enabled.';
 		}
 	}
 

@@ -383,7 +383,7 @@ class weixin_class extends AWS_MODEL
             case 'image':
                 if ($input_message['mediaID'] AND $input_message['picUrl'])
                 {
-                    AWS_APP::cache()->set('weixin_pic_url_' . $input_message['mediaID'], $input_message['picUrl'], 259200);
+                    AWS_APP::cache()->set('weixin_pic_url_' . md5($input_message['mediaID']), $input_message['picUrl'], 259200);
 
                     $response_message = '您想提交图片到社区么？<a href="' . $this->model('openid_weixin')->redirect_url('/m/publish/weixin_media_id-' . $input_message['mediaID']) . '">点击进入提交页面</a>';
                 }
@@ -1822,7 +1822,7 @@ class weixin_class extends AWS_MODEL
             return AWS_APP::lang()->_t('获取 ticket 失败');
         }
 
-        $this->update('weixin_qr_code', array('ticket' => $result['ticket']), 'scene_id = ' . $scene_id);
+        $this->update('weixin_qr_code', array('ticket' => $result['ticket']), 'scene_id = ' . intval($scene_id));
 
         $qr_code = curl_get_contents('https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=' . urlencode($result['ticket']));
 
@@ -1833,21 +1833,48 @@ class weixin_class extends AWS_MODEL
             return AWS_APP::lang()->_t('换取二维码失败');
         }
 
-        $img_dir = get_setting('upload_dir') . '/weixin_qr_code/';
+        $img_file_name = $scene_id . '.jpg';
 
-        if (!is_dir($img_dir) AND !make_dir($img_dir))
+        AWS_APP::upload()->initialize(array(
+            'allowed_types' => 'jpg',
+            'upload_path' => get_setting('upload_dir') . '/weixin_qr_code',
+            'is_image' => TRUE,
+            'overwrite' => TRUE,
+            'file_name' => $img_file_name
+        ));
+
+        AWS_APP::upload()->do_upload($img_file_name, $qr_code);
+
+        $upload_error = AWS_APP::upload()->get_error();
+
+        if ($upload_error)
         {
             $this->delete('weixin_qr_code', 'scene_id = ' . $scene_id);
 
-            return AWS_APP::lang()->_t('创建二维码存储目录失败');
+            return AWS_APP::lang()->_t('保存二维码图片失败，错误为 %s', $upload_error);
         }
 
-        $img_file = $img_dir . $scene_id . '.jpg';
+        $upload_data = AWS_APP::upload()->data();
 
-        $fp = @fopen($img_file, 'w');
+        if (!$upload_data)
+        {
+            $this->delete('weixin_qr_code', 'scene_id = ' . $scene_id);
 
-        @fwrite($fp, $qr_code);
+            return AWS_APP::lang()->_t('保存二维码图片失败，请与管理员联系');
+        }
+    }
 
-        @fclose($fp);
+    public function remove_qr_code($scene_id)
+    {
+        if (empty($scene_id))
+        {
+            return false;
+        }
+
+        $scene_id = intval($scene_id);
+
+        $this->model('weixin')->delete('weixin_qr_code', 'scene_id = ' . $scene_id);
+
+        @unlink(get_setting('upload_dir') . '/weixin_qr_code/' . $scene_id . '.jpg');
     }
 }
