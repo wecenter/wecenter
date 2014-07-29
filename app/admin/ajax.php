@@ -959,13 +959,21 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
                 break;
 
-            case 'set_parent':
-                $this->model('topic')->set_is_parent($_POST['topic_ids'], 1);
+            case 'set_parent_id':
+                $topic_list = $this->model('topic')->get_topics_by_ids($_POST['topic_ids']);
 
-                break;
+                foreach ($topic_list AS $topic_info)
+                {
+                    if ($topic_info['is_parent'] == 0)
+                    {
+                        $to_update_topic_ids[] = $topic_info['topic_id'];
+                    }
+                }
 
-            case 'cancel_parent':
-                $this->model('topic')->set_is_parent($_POST['topic_ids'], 0);
+                if ($to_update_topic_ids)
+                {
+                    $this->model('topic')->set_parent_id($to_update_topic_ids, $_POST['parent_id']);
+                }
 
                 break;
         }
