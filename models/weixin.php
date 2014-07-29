@@ -1833,13 +1833,17 @@ class weixin_class extends AWS_MODEL
             return AWS_APP::lang()->_t('换取二维码失败');
         }
 
+        $img_file_name = $scene_id . '.jpg';
+
         AWS_APP::upload()->initialize(array(
             'allowed_types' => 'jpg',
             'upload_path' => get_setting('upload_dir') . '/weixin_qr_code',
-            'is_image' => TRUE
+            'is_image' => TRUE,
+            'overwrite' => TRUE,
+            'file_name' => $img_file_name
         ));
 
-        AWS_APP::upload()->do_upload($scene_id . '.jpg', $qr_code);
+        AWS_APP::upload()->do_upload($img_file_name, $qr_code);
 
         $upload_error = AWS_APP::upload()->get_error();
 
