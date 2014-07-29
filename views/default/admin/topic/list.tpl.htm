@@ -179,20 +179,42 @@
     </div>
 </div>
 
+<?php if ($this->parent_topic_list) { ?>
+<div id="target-category" class="hide">
+    <?php foreach ($this->parent_topic_list AS $topic_info) { ?>
+    <option value="<?php echo $topic_info['topic_id']; ?>"><?php echo $topic_info['topic_title']; ?></option>
+    <?php } ?>
+</div>
+<?php } ?>
 <script>
     $(function(){
 
-        $('#batchs_post').click(function(){
-            if($('.icheckbox_square-blue').hasClass("checked")){
-                AWS.dialog('batchsPostMsg',null,function(){
-                    $('#parent_id').val($('.modal-body .form-control').val());
-                    $('#action').val('set_parent_id');
-                    AWS.ajax_post($('#batchs_form'));
-                })
-            }else{
-                AWS.alert('请选择话题');
+        var json = '';
+
+        $.each($('#target-category option').toArray(), function (i, e)
+        {
+            if (i >= 1)
+            {
+                json += ',';
             }
-        })
+            
+            json += "{'title':'" + $(e).text() + "', 'id':'" + $(e).val() + "'}";
+        });
+
+        $('#batchs_post').click(function()
+        {   
+            if($('.icheckbox_square-blue').hasClass("checked")){
+                AWS.dialog('adminCategoryMove', eval('[' + json + ']'));
+                $('#myModalLabel').text("选择根话题");
+                $('#parent_id').val($('.modal-body .form-control').val());
+                $('#action').val('set_parent_id');
+                AWS.ajax_post($('#batchs_form'));
+
+            }else{
+                AWS.alert('请勾选话题');
+            }
+
+        });
     })
 </script>
 
