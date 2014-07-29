@@ -39,7 +39,7 @@ class ajax extends AWS_CONTROLLER
     {
         if (get_setting('category_enable') == 'Y')
         {
-            echo $this->model('system')->build_category_json('question', 0, $question_info['category_id']);
+            echo $this->model('system')->build_category_json('question', 0);
         }
         else
         {
