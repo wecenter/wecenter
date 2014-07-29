@@ -503,7 +503,9 @@ AWS.User =
 	// 收藏
 	favorite: function(type, id)
 	{
-		$.post(G_BASE_URL + '/favorite/ajax/update_favorite_tag/', {'item_type': type, 'item_id': id}, function (i, e){}, 'json');
+		$.post(G_BASE_URL + '/favorite/ajax/update_favorite_tag/', {'item_type': type, 'item_id': id}, function (result){
+			alert('收藏成功!');
+		}, 'json');
 	},
 
 	// 提交评论
@@ -1289,7 +1291,7 @@ AWS.Init =
 	            }
 	            else
 	            {
-	                $(this).parent().parent().append(Hogan.compile(AW_MOBILE_TEMPLATE.commentBoxClose).render(
+	                $(this).parents('.mod-footer').append(Hogan.compile(AW_MOBILE_TEMPLATE.commentBoxClose).render(
 	                {
 	                    'comment_form_id': comment_box_id.replace('#', ''),
 	                    'comment_form_action': comment_form_action
@@ -1301,7 +1303,7 @@ AWS.Init =
 	            {
 	                if ($.trim(result) == '')
 	                {
-	                    result = '<p align="center">' + _t('暂无评论') + '</p>';
+	                    result = '<p class="text-center margin-0">' + _t('暂无评论') + '</p>';
 	                }
 
 	                $(comment_box_id).find('.aw-comment-list').html(result);

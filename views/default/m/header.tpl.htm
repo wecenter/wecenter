@@ -25,7 +25,7 @@
 		
 		<?php if ($this->user_id) { ?>
 		<li>
-			<a href="m/home/" <?php if ($_GET['act'] == 'home') { ?>class="active"<?php } ?>><i class="icon icon-list"></i><?php _e('动态'); ?> <i class="icon-tips new-action <?php if (!$this->user_info['notification_unread']) { ?>hide<?php } ?>"></i></a>
+			<a href="m/home/" <?php if ($_GET['act'] == 'home') { ?>class="active"<?php } ?>><i class="icon icon-list"></i><?php _e('动态'); ?> <i class="icon-tips new-action" <?php if ($this->user_info['notification_unread'] <= 0 ) { ?>style="display:none;"<?php } ?>></i> </a>
 		</li>
 		<?php } ?>
 		
