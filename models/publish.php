@@ -633,18 +633,23 @@ class publish_class extends AWS_MODEL
 		return $approval_item;
 	}
 
-    public function insert_attach_is_self_upload($message, $attach_ids)
+    public function insert_attach_is_self_upload($message, $attach_ids = null)
     {
-        if (!$attach_ids OR !$message)
+        if (!$message)
         {
             return true;
+        }
+        
+        if (!$attach_ids)
+        {
+	        $attach_ids = array();
         }
 
         if ($question_attachs_ids = FORMAT::parse_attachs($message, true))
         {
-            foreach ($attach_ids AS $attach_id)
+            foreach ($question_attachs_ids AS $attach_id)
             {
-                if (!in_array($attach_id, $question_attachs_ids))
+                if (!in_array($attach_id, $attach_ids))
                 {
                     return false;
                 }
