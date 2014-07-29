@@ -2216,7 +2216,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
                                         'enabled' => ($_POST['enabled'] == 'Y') ? 'Y' : 'N',
                                         'server' => trim($_POST['server']),
                                         'ssl' => ($_POST['ssl'] == 'Y') ? 'Y' : 'N',
-                                        'port' => (ctype_digit($_POST['port'])) ? intval($_POST['port']) : '',
+                                        'port' => (is_digits($_POST['port'])) ? intval($_POST['port']) : '',
                                         'username' => trim($_POST['username']),
                                         'password' => trim($_POST['password'])
                                     );

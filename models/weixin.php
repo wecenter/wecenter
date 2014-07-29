@@ -326,7 +326,10 @@ class weixin_class extends AWS_MODEL
                                 $msg_details['error_num'] = intval(substr($input_message['status'], 4, 9));
                             }
 
-                            $this->update('weixin_msg', $msg_details, 'msg_id = ' . $this->quote($msg_id));
+                            if (is_digits($msg_id))
+                            {
+                                $this->update('weixin_msg', $msg_details, 'msg_id = ' . $msg_id);
+                            }
 
                             break;
                     }
@@ -1492,7 +1495,7 @@ class weixin_class extends AWS_MODEL
 
         if (!$msgs_details[$msg_id])
         {
-            $msgs_details[$msg_id] = $this->fetch_row('weixin_msg', 'id = ' . $this->quote($msg_id));
+            $msgs_details[$msg_id] = $this->fetch_row('weixin_msg', 'id = ' . intval($msg_id));
 
             if (!$msgs_details[$msg_id])
             {

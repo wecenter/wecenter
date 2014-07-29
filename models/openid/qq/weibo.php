@@ -8,7 +8,7 @@
 |   http://www.wecenter.com
 |   ========================================
 |   Support: WeCenter@qq.com
-|   
+|
 +---------------------------------------------------------------------------
 */
 
@@ -23,8 +23,8 @@ class openid_qq_weibo_class extends AWS_MODEL
 	function update_token($name, $access_token, $oauth_token_secret)
 	{
 		return $this->update('users_qq', array(
-			'access_token' => $this->quote($access_token), 
-			'oauth_token_secret' => $this->quote($oauth_token_secret)
+			'access_token' => $access_token,
+			'oauth_token_secret' => $oauth_token_secret
 		), "type = 'weibo' AND name = '" . $this->quote($name) . "'");
 	}
 
@@ -52,7 +52,7 @@ class openid_qq_weibo_class extends AWS_MODEL
 		$data['location'] = htmlspecialchars($location);
 		$data['gender'] = htmlspecialchars($gender);
 		$data['add_time'] = time();
-		
+
 		return $this->insert('users_qq', $data);
 	}
 
@@ -72,7 +72,7 @@ class openid_qq_weibo_class extends AWS_MODEL
 				}
 			}
 		}
-		
+
 		if (! $users_qq = $this->get_users_qq_by_name($uinfo['data']['name']))
 		{
 			$users_qq = $this->users_qq_add($uid, $uinfo['data']['name'], $uinfo['data']['nick'], $uinfo['data']['location'], $uinfo['data']['sex']);
@@ -88,13 +88,13 @@ class openid_qq_weibo_class extends AWS_MODEL
 				H::redirect_msg(AWS_APP::lang()->_t('此账号已经与另外一个微博绑定'), '/account/setting/openid/');
 			}
 		}
-		
-		
+
+
 		$oauth_access_token_name = Services_Tencent_OpenSDK_Tencent_Weibo::ACCESS_TOKEN;
 		$oauth_access_token_secret_name = Services_Tencent_OpenSDK_Tencent_Weibo::OAUTH_TOKEN_SECRET;
-				
+
 		$this->update_token($uinfo['data']['name'], AWS_APP::session()->$oauth_access_token_name, AWS_APP::session()->$oauth_access_token_secret_name);
-		
+
 		if ($redirect)
 		{
 			HTTP::redirect($redirect);
@@ -104,10 +104,9 @@ class openid_qq_weibo_class extends AWS_MODEL
 	function init($callback)
 	{
 		Services_Tencent_OpenSDK_Tencent_Weibo::init(get_setting('qq_app_key'), get_setting('qq_app_secret'));
-		
+
 		$request_token = Services_Tencent_OpenSDK_Tencent_Weibo::getRequestToken($callback);
-		
+
 		HTTP::redirect(Services_Tencent_OpenSDK_Tencent_Weibo::getAuthorizeURL($request_token));
 	}
 }
-	

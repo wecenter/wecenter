@@ -21,13 +21,13 @@
  * @category	Libraries
  * @author		WeCenter Dev Team
  */
- 
+
 
 /**
  * 获取头像地址
- * 
+ *
  * 举个例子：$uid=12345，那么头像路径很可能(根据您部署的上传文件夹而定)会被存储为/uploads/000/01/23/45_avatar_min.jpg
- * 
+ *
  * @param  int
  * @param  string
  * @return string
@@ -35,24 +35,24 @@
 function get_avatar_url($uid, $size = 'min')
 {
 	$uid = intval($uid);
-	
+
 	if (!$uid)
 	{
 		return G_STATIC_URL . '/common/avatar-' . $size . '-img.png';
 	}
-	
+
 	foreach (AWS_APP::config()->get('image')->avatar_thumbnail as $key => $val)
 	{
 		$all_size[] = $key;
 	}
-	
+
 	$size = in_array($size, $all_size) ? $size : $all_size[0];
-	
+
 	$uid = sprintf("%09d", $uid);
 	$dir1 = substr($uid, 0, 3);
 	$dir2 = substr($uid, 3, 2);
 	$dir3 = substr($uid, 5, 2);
-	
+
 	if (file_exists(get_setting('upload_dir') . '/avatar/' . $dir1 . '/' . $dir2 . '/' . $dir3 . '/' . substr($uid, - 2) . '_avatar_' . $size . '.jpg'))
 	{
 		return get_setting('upload_url') . '/avatar/' . $dir1 . '/' . $dir2 . '/' . $dir3 . '/' . substr($uid, - 2) . '_avatar_' . $size . '.jpg';
@@ -70,7 +70,7 @@ function get_avatar_url($uid, $size = 'min')
  * @return string 附件下载的完整url地址
  */
 function download_url($file_name, $url)
-{	
+{
 	return get_js_url('/file/download/file_name-' . base64_encode($file_name) . '__url-' . base64_encode($url));
 }
 
@@ -81,12 +81,12 @@ function human_valid($permission_tag)
 	{
 		return FALSE;
 	}
-	
+
 	if (! AWS_APP::session()->human_valid[$permission_tag] or ! AWS_APP::session()->permission[$permission_tag])
 	{
 		return FALSE;
 	}
-	
+
 	foreach (AWS_APP::session()->human_valid[$permission_tag] as $time => $val)
 	{
 		if (date('H', $time) != date('H', time()))
@@ -94,12 +94,12 @@ function human_valid($permission_tag)
 			unset(AWS_APP::session()->human_valid[$permission_tag][$time]);
 		}
 	}
-	
+
 	if (sizeof(AWS_APP::session()->human_valid[$permission_tag]) >= AWS_APP::session()->permission[$permission_tag])
 	{
 		return TRUE;
 	}
-	
+
 	return FALSE;
 }
 
@@ -109,9 +109,9 @@ function set_human_valid($permission_tag)
 	{
 		return FALSE;
 	}
-	
+
 	AWS_APP::session()->human_valid[$permission_tag][time()] = TRUE;
-	
+
 	return count(AWS_APP::session()->human_valid[$permission_tag]);
 }
 
@@ -125,7 +125,7 @@ function parse_attachs_callback($matches)
 	if ($attach = AWS_APP::model('publish')->get_attach_by_id($matches[1]))
 	{
 		TPL::assign('attach', $attach);
-		
+
 		return TPL::output('question/ajax/load_attach', false);
 	}
 }
@@ -142,12 +142,12 @@ function get_topic_pic_url($size = null, $pic_file = null)
 	{
 		return get_setting('upload_url') . '/topic/' . $sized_file;
 	}
-	
+
 	if (! $size)
 	{
 		return G_STATIC_URL . '/common/topic-max-img.png';
 	}
-	
+
 	return G_STATIC_URL . '/common/topic-' . $size . '-img.png';
 }
 
@@ -170,29 +170,29 @@ function get_feature_pic_url($size = null, $pic_file = null)
 			$pic_file = str_replace(AWS_APP::config()->get('image')->feature_thumbnail['min']['w'] . '_' . AWS_APP::config()->get('image')->feature_thumbnail['min']['h'], AWS_APP::config()->get('image')->feature_thumbnail[$size]['w'] . '_' . AWS_APP::config()->get('image')->feature_thumbnail[$size]['h'], $pic_file);
 		}
 	}
-	
+
 	return get_setting('upload_url') . '/feature/' . $pic_file;
 }
 
 function get_host_top_domain()
 {
 	$host = strtolower($_SERVER['HTTP_HOST']);
-	
+
 	if (strpos($host, '/') !== false)
 	{
 		$parse = @parse_url($host);
 		$host = $parse['host'];
 	}
-	
+
 	$top_level_domain_db = array('com', 'edu', 'gov', 'int', 'mil', 'net', 'org', 'biz', 'info', 'pro', 'name', 'coop', 'aero', 'xxx', 'idv', 'mobi', 'cc', 'me', 'jp', 'uk', 'ws', 'eu', 'pw', 'kr', 'io', 'us', 'cn');
-	
+
 	foreach ($top_level_domain_db as $v)
 	{
 		$str .= ($str ? '|' : '') . $v;
 	}
-	
+
 	$matchstr = "[^\.]+\.(?:(" . $str . ")|\w{2}|((" . $str . ")\.\w{2}))$";
-	
+
 	if (preg_match('/' . $matchstr . '/ies', $host, $matchs))
 	{
 		$domain = $matchs['0'];
@@ -201,7 +201,7 @@ function get_host_top_domain()
 	{
 		$domain = $host;
 	}
-	
+
 	return $domain;
 }
 
@@ -215,7 +215,7 @@ function parse_link_callback($matches)
 	{
 		$url = $matches[1];
 	}
-	
+
 	if (is_inside_url($url))
 	{
 		return '<a href="' . $url . '">' . FORMAT::sub_url($matches[1], 50) . '</a>';
@@ -232,19 +232,19 @@ function is_inside_url($url)
 	{
 		return false;
 	}
-	
+
 	if (preg_match('/^(?!http).*/i', $url))
 	{
 		$url = 'http://' . $url;
 	}
-	
+
 	$domain = get_host_top_domain();
-	
+
 	if (preg_match('/^http[s]?:\/\/([-_a-zA-Z0-9]+[\.])*?' . $domain . '(?!\.)[-a-zA-Z0-9@:;%_\+.~#?&\/\/=]*$/i', $url))
 	{
 		return true;
 	}
-	
+
 	return false;
 }
 
