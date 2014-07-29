@@ -75,19 +75,24 @@
 									<div class="mod-body">
 										<div class="aw-common-list" id="c_recommend_list">
 											<ul>
-												<?php if (is_array($this->recommend_list)) { ?>
-												<?php foreach ($this->recommend_list AS $key => $val) { ?>
+												<?php foreach ($this->topic_recommend_list AS $key => $val) { ?>
 												<li>
+													<?php if ($val['question_id']) { ?>
 													<a href="question/<?php echo $val['question_id']; ?>"><?php echo $val['question_content']; ?></a>
-													<span class="pull-right aw-text-color-999"><?php echo $val['comment_count']?>个回复</span>
+													<span class="pull-right aw-text-color-999"><?php _e('% 个回复', $val['comment_count']); ?></span>
+													<?php } else { ?>
+													<a href="article/<?php echo $val['id']; ?>"><?php echo $val['title']; ?></a>
+													<span class="pull-right aw-text-color-999"><?php _e('% 评论', $val['comments']); ?></span>
+													<?php } ?>
+													
+													
 												</li>
-												<?php } ?>
 												<?php } ?>
 											</ul>
 										</div>
 									</div>
 									<div class="mod-footer">
-										<a class="pull-right" href="javascript:;" id="aw-more-recommend"><?php _e('更多推荐的问题 >'); ?></a>
+										<a class="pull-right" id="aw-more-recommend"><?php _e('更多推荐内容'); ?> &gt;</a>
 									</div>
 								</div>
 								<?php } ?>
