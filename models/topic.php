@@ -186,12 +186,7 @@ class topic_class extends AWS_MODEL
 
 	public function get_topics_by_ids($topic_ids)
 	{
-		if (! is_array($topic_ids))
-		{
-			return false;
-		}
-
-		if (sizeof($topic_ids) == 0)
+		if (empty($topic_ids) OR !is_array($topic_ids))
 		{
 			return false;
 		}
@@ -1320,29 +1315,61 @@ class topic_class extends AWS_MODEL
 
 		$to_update_topic['is_parent'] = intval($is_parent);
 
-		if ($to_update_topic['is_parent'] == 1)
+		if ($to_update_topic['is_parent'] != 0)
 		{
 			$to_update_topic['parent_id'] = 0;
 		}
 
 		if (is_array($topic_id))
 		{
-			return $this->update('topic', $to_update_topic, 'topic_id IN (' . $this->quote(implode(',', $topic_id)) . ')');
+			array_walk_recursive($topic_id, 'intval_string');
+
+			$where = 'topic_id IN (' . implode(',', $topic_id) . ')';
+		}
+		else
+		{
+			$where = 'topic_id = ' . intval($topic_id);
 		}
 
-		return $this->update('topic', $to_update_topic, 'topic_id = ' . intval($topic_id));
+		return $this->update('topic', $to_update_topic, $where);
 	}
 
 	public function set_parent_id($topic_id, $parent_id)
 	{
-		return $this->update('topic', array(
-			'parent_id' => intval($parent_id)
-		), 'topic_id = ' . intval($topic_id));
+		if (is_array($topic_id))
+		{
+			array_walk_recursive($topic_id, 'intval_string');
+
+			$where = 'topic_id IN (' . implode(',', $topic_id) . ')';
+		}
+		else
+		{
+			$where = 'topic_id = ' . intval($topic_id);
+		}
+
+		return $this->update('topic', array('parent_id' => intval($parent_id)), $where);
 	}
 
 	public function get_parent_topics()
 	{
-		return $this->fetch_all('topic', 'is_parent = 1', 'topic_title ASC');
+		$parent_topic_list_query = $this->fetch_all('topic', 'is_parent = 1', 'topic_title ASC');
+
+		if (empty($parent_topic_list_query))
+		{
+			return false;
+		}
+
+		foreach ($parent_topic_list_query AS $parent_topic_info)
+		{
+			if (!$parent_topic_info['url_token'])
+			{
+				$parent_topic_info['url_token'] = urlencode($parent_topic_info['topic_title']);
+			}
+
+			$parent_topic_list[$parent_topic_info['topic_id']] = $parent_topic_info;
+		}
+
+		return $parent_topic_list;
 	}
 
 	public function get_child_topic_ids($topic_id)
