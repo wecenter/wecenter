@@ -1788,6 +1788,8 @@ class weixin_class extends AWS_MODEL
             return AWS_APP::lang()->_t('scene_id 错误');
         }
 
+        $scene_id = intval($scene_id);
+
         $result = $this->model('openid_weixin')->access_request(
                         get_setting('weixin_app_id'),
                         get_setting('weixin_app_secret'),
@@ -1801,21 +1803,21 @@ class weixin_class extends AWS_MODEL
 
         if (!$result)
         {
-            $this->delete('weixin_qr_code', 'scene_id = ' . intval($scene_id));
+            $this->delete('weixin_qr_code', 'scene_id = ' . $scene_id);
 
             return AWS_APP::lang()->_t('远程服务器忙');
         }
 
         if ($result['errcode'])
         {
-            $this->delete('weixin_qr_code', 'scene_id = ' . intval($scene_id));
+            $this->delete('weixin_qr_code', 'scene_id = ' . $scene_id);
 
             return $result['errmsg'];
         }
 
         if (!$result['ticket'])
         {
-            $this->delete('weixin_qr_code', 'scene_id = ' . intval($scene_id));
+            $this->delete('weixin_qr_code', 'scene_id = ' . $scene_id);
 
             return AWS_APP::lang()->_t('获取 ticket 失败');
         }
@@ -1826,7 +1828,7 @@ class weixin_class extends AWS_MODEL
 
         if (!$qr_code)
         {
-            $this->delete('weixin_qr_code', 'scene_id = ' . intval($scene_id));
+            $this->delete('weixin_qr_code', 'scene_id = ' . $scene_id);
 
             return AWS_APP::lang()->_t('换取二维码失败');
         }
@@ -1835,7 +1837,7 @@ class weixin_class extends AWS_MODEL
 
         if (!is_dir($img_dir) AND !make_dir($img_dir))
         {
-            $this->delete('weixin_qr_code', 'scene_id = ' . intval($scene_id));
+            $this->delete('weixin_qr_code', 'scene_id = ' . $scene_id);
 
             return AWS_APP::lang()->_t('创建二维码存储目录失败');
         }
