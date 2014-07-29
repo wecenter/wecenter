@@ -193,11 +193,11 @@ class main extends AWS_CONTROLLER
 				}
 			}
 		}
-		
+
 		TPL::assign('topic_recommend_list', $posts_list);
 
 		TPL::assign('posts_list', $posts_list);
-		
+
 		TPL::assign('recommend_list_bit', TPL::output('explore/ajax/list', false));
 
 		TPL::assign('list', $this->model('topic')->get_topic_best_answer_action_list($contents_topic_id, $this->user_id, get_setting('contents_per_page')));
@@ -324,12 +324,12 @@ class main extends AWS_CONTROLLER
 			break;
 		}
 
-        TPL::assign('parent_topics', $this->model('topic')->get_parent_topics());
+		TPL::assign('parent_topics', $this->model('topic')->get_parent_topics());
 
 		TPL::assign('new_topics', $this->model('topic')->get_topic_list(null, 'topic_id DESC', 10));
 
 		TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
-			'base_url' => get_js_url('/topic/channel-' . $_GET['id'] . '__topic_id-' . $_GET['topic_id']),
+			'base_url' => get_js_url('/topic/channel-' . $_GET['channel'] . '__topic_id-' . $_GET['topic_id']),
 			'total_rows' => $topics_list_total_rows,
 			'per_page' => get_setting('contents_per_page')
 		))->create_links());
