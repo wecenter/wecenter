@@ -24,6 +24,7 @@
                 <?php if ($this->list) { ?>
                 <form id="batchs_form" action="admin/ajax/topic_manage/" method="post">
                     <input type="hidden" id="action" name="action" value="" />
+                    <input type="hidden" id="parent_id" name="parent_id" value="" />
 
                     <table class="table table-striped">
                         <thead>
@@ -63,7 +64,7 @@
 
 								<td>
                                     <?php if ($topic_info['parent_id']) { ?>
-                                    <a href="topic/<?php echo $this->parent_topics_info[$topic_info['parent_id']]['url_token']; ?>" target="_blank"><?php echo $this->parent_topics_info[$topic_info['parent_id']]['topic_title']; ?></a>
+                                    <a href="topic/<?php echo $this->parent_topic_list[$topic_info['parent_id']]['url_token']; ?>" target="_blank"><?php echo $this->parent_topic_list[$topic_info['parent_id']]['topic_title']; ?></a>
                                     <?php } ?>
                                 </td>
 
@@ -85,7 +86,7 @@
 
                     <a class="btn btn-danger" onclick="$('#action').val('remove'); AWS.ajax_post($('#batchs_form'));"><?php _e('删除话题'); ?></a>
                     <a class="btn btn-primary" onclick="$('#action').val('lock'); AWS.ajax_post($('#batchs_form'));"><?php _e('锁定话题'); ?></a>
-                    <a class="btn btn-primary" onclick="$('#action').val('set_parent'); AWS.ajax_post($('#batchs_form'));"><?php _e('设为根话题'); ?></a>
+                    <a class="btn btn-primary" onclick="$('#action').val('set_parent_id'); AWS.ajax_post($('#batchs_form'));"><?php _e('选择根话题'); ?></a>
                 </div>
             </div>
 
