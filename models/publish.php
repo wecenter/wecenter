@@ -630,7 +630,7 @@ class publish_class extends AWS_MODEL
 
     public function check_insert_attach_is_self($message, $attach_ids)
     {
-        if (!$attach_ids)
+        if (!$attach_ids OR !$message)
         {
             return true;
         }

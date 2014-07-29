@@ -1817,7 +1817,7 @@ class weixin_class extends AWS_MODEL
             return AWS_APP::lang()->_t('获取 ticket 失败');
         }
 
-        $this->update('weixin_qr_code', array('ticket' => $result['ticket']), 'scene_id = ' . $scene_id);
+        $this->update('weixin_qr_code', array('ticket' => $result['ticket']), 'scene_id = ' . intval($scene_id));
 
         $qr_code = curl_get_contents('https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=' . urlencode($result['ticket']));
 
