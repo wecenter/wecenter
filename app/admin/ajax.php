@@ -2207,7 +2207,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
         $this->model('setting')->set_vars(array('today_topics' => $today_topics));
 
-        H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('保存设置成功')));
+        H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('设置已保存')));
     }
 
     public function save_receiving_mail_config_action()

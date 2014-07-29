@@ -633,7 +633,7 @@ class publish_class extends AWS_MODEL
 		return $approval_item;
 	}
 
-    public function check_insert_attach_is_self($message, $attach_ids)
+    public function insert_attach_is_self_upload($message, $attach_ids)
     {
         if (!$attach_ids OR !$message)
         {

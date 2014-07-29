@@ -159,73 +159,6 @@ class ajax extends AWS_CONTROLLER
 		H::ajax_json_output(AWS_APP::RSM(null, 1, null));
 	}
 
-	public function update_answer_action()
-	{
-		if (! $answer_info = $this->model('answer')->get_answer_by_id($_GET['answer_id']))
-		{
-			H::ajax_json_output(AWS_APP::RSM(array(
-				'input' => 'answer_content'
-			), '-2', AWS_APP::lang()->_t('答案不存在')));
-		}
-
-		if ($_POST['do_delete'])
-		{
-			if ($answer_info['uid'] != $this->user_id and ! $this->user_info['permission']['is_administortar'] and ! $this->user_info['permission']['is_moderator'])
-			{
-				H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('你没有权限进行此操作')));
-			}
-
-			$this->model('answer')->remove_answer_by_id($_GET['answer_id']);
-
-			// 通知回复的作者
-			if ($this->user_id != $answer_info['uid'])
-			{
-				$this->model('notify')->send($this->user_id, $answer_info['uid'], notify_class::TYPE_REMOVE_ANSWER, notify_class::CATEGORY_QUESTION, $answer_info['question_id'], array(
-					'from_uid' => $this->user_id,
-					'question_id' => $answer_info['question_id']
-				));
-			}
-
-			$this->model('question')->save_last_answer($answer_info['question_id']);
-
-			H::ajax_json_output(AWS_APP::RSM(null, 1, null));
-		}
-
-		$answer_content = trim($_POST['answer_content'], "\r\n\t");
-
-		if (!$answer_content)
-		{
-			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('请输入回复内容')));
-		}
-
-		if (strlen($answer_content) < get_setting('answer_length_lower'))
-		{
-			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('回复内容字数不得少于 %s 字节', get_setting('answer_length_lower'))));
-		}
-
-		if (! $this->user_info['permission']['publish_url'] AND FORMAT::outside_url_exists($answer_content))
-		{
-			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('你所在的用户组不允许发布站外链接')));
-		}
-
-		if ($answer_info['uid'] != $this->user_id and ! $this->user_info['permission']['is_administortar'] and ! $this->user_info['permission']['is_moderator'])
-		{
-			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('你没有权限编辑这个回复')));
-		}
-
-		if ($answer_info['uid'] == $this->user_id and (time() - $answer_info['add_time'] > get_setting('answer_edit_time') * 60) and get_setting('answer_edit_time') and ! $this->user_info['permission']['is_administortar'] and ! $this->user_info['permission']['is_moderator'])
-		{
-			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('已经超过允许编辑的时限')));
-		}
-
-		$this->model('answer')->update_answer($_GET['answer_id'], $answer_info['question_id'], $answer_content, $_POST['attach_access_key']);
-
-		H::ajax_json_output(AWS_APP::RSM(array(
-			'target_id' => $_GET['target_id'],
-			'display_id' => $_GET['display_id']
-		), 1, null));
-	}
-
 	public function agree_answer_action()
 	{
 		$answer_info = $this->model('answer')->get_answer_by_id($_POST['answer_id']);
@@ -630,6 +563,11 @@ class ajax extends AWS_CONTROLLER
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('请填写正确的验证码')));
 		}
+		
+		if (!$this->model('publish')->insert_attach_is_self_upload($answer_content, $_POST['attach_ids']))
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('只允许插入当前页面上传的附件')));
+        }
 
 		// !注: 来路检测后面不能再放报错提示
 		if (! valid_post_hash($_POST['post_hash']))
@@ -672,6 +610,78 @@ class ajax extends AWS_CONTROLLER
 				'url' => $url
 			), 1, null));
 		}
+	}
+	
+	public function update_answer_action()
+	{
+		if (! $answer_info = $this->model('answer')->get_answer_by_id($_GET['answer_id']))
+		{
+			H::ajax_json_output(AWS_APP::RSM(array(
+				'input' => 'answer_content'
+			), '-2', AWS_APP::lang()->_t('答案不存在')));
+		}
+
+		if ($_POST['do_delete'])
+		{
+			if ($answer_info['uid'] != $this->user_id and ! $this->user_info['permission']['is_administortar'] and ! $this->user_info['permission']['is_moderator'])
+			{
+				H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('你没有权限进行此操作')));
+			}
+
+			$this->model('answer')->remove_answer_by_id($_GET['answer_id']);
+
+			// 通知回复的作者
+			if ($this->user_id != $answer_info['uid'])
+			{
+				$this->model('notify')->send($this->user_id, $answer_info['uid'], notify_class::TYPE_REMOVE_ANSWER, notify_class::CATEGORY_QUESTION, $answer_info['question_id'], array(
+					'from_uid' => $this->user_id,
+					'question_id' => $answer_info['question_id']
+				));
+			}
+
+			$this->model('question')->save_last_answer($answer_info['question_id']);
+
+			H::ajax_json_output(AWS_APP::RSM(null, 1, null));
+		}
+
+		$answer_content = trim($_POST['answer_content'], "\r\n\t");
+
+		if (!$answer_content)
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('请输入回复内容')));
+		}
+
+		if (strlen($answer_content) < get_setting('answer_length_lower'))
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('回复内容字数不得少于 %s 字节', get_setting('answer_length_lower'))));
+		}
+
+		if (! $this->user_info['permission']['publish_url'] AND FORMAT::outside_url_exists($answer_content))
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('你所在的用户组不允许发布站外链接')));
+		}
+
+		if ($answer_info['uid'] != $this->user_id and ! $this->user_info['permission']['is_administortar'] and ! $this->user_info['permission']['is_moderator'])
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('你没有权限编辑这个回复')));
+		}
+
+		if ($answer_info['uid'] == $this->user_id and (time() - $answer_info['add_time'] > get_setting('answer_edit_time') * 60) and get_setting('answer_edit_time') and ! $this->user_info['permission']['is_administortar'] and ! $this->user_info['permission']['is_moderator'])
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('已经超过允许编辑的时限')));
+		}
+		
+		if (!$this->model('publish')->insert_attach_is_self_upload($answer_content, $_POST['attach_ids']))
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('只允许插入当前页面上传的附件')));
+        }
+
+		$this->model('answer')->update_answer($_GET['answer_id'], $answer_info['question_id'], $answer_content, $_POST['attach_access_key']);
+
+		H::ajax_json_output(AWS_APP::RSM(array(
+			'target_id' => $_GET['target_id'],
+			'display_id' => $_GET['display_id']
+		), 1, null));
 	}
 
 	public function log_action()
