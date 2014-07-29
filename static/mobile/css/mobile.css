@@ -334,11 +334,11 @@ input[type="text"], input[type="password"], textarea{-webkit-appearance:none;}
 .upload-list .meta a:active{background-color: #66b7ff;color: #fff;border-color:#66b7ff;}
 
 /* 搜索页面 */
-.aw-search-bar{position:relative;height: 52px;padding:0 10px 10px;background-color: #66b7ff;border-bottom: 1px solid #5496d1;}
+.aw-search-bar{position:relative;height: 62px;padding:10px;background-color: #66b7ff;border-bottom: 1px solid #5496d1;}
 .aw-search-bar.active{background-color: #fafafa;border-bottom-color: #cccccc;}
 .aw-search-bar.active input{border:1px solid #ccc;}
 .aw-search-bar input{height:40px;border:none;font-size: 15px;}
-.aw-search-bar .icon-search{position: absolute;right: 20px;top: 10px;font-size: 18px;color: #999999;}
+.aw-search-bar .icon-search{position: absolute;right: 20px;top: 20px;font-size: 18px;color: #999999;}
 .aw-search-result-box .tips{height: 36px;line-height: 36px;margin:0;background-color:#fafafa;border-bottom: 1px solid #e6e6e6;}
 .aw-search-result-box > .mod-footer{margin-top:15px;}
 .aw-search-result-box .result-mod .mod-head{height:auto;overflow:hidden;padding:0 15px;background-color: #fafafa;border-bottom: 1px solid #999999;}
@@ -355,6 +355,9 @@ input[type="text"], input[type="password"], textarea{-webkit-appearance:none;}
 .aw-search-result-box .aw-load-more{margin:10px 10px 0;}
 
 /* 私信页面 */
+.aw-inbox-search-bar{position:relative;height: 62px;padding:10px;background-color: #fafafa;border-bottom: 1px solid #cccccc;}
+.aw-inbox-search-bar input{height:40px;font-size: 15px;}
+.aw-inbox-search-bar .icon-search{position: absolute;right: 20px;top: 20px;font-size: 18px;color: #999999;}
 .aw-inbox-list ul li .mod-head{position: relative;padding:10px 10px 10px 70px !important;}
 .aw-inbox-list ul li .mod-head .img, .aw-people-list ul li .mod-head .img{position: absolute;left: 10px;top: 10px;}
 .aw-inbox-list ul li .mod-head p, .aw-people-list ul li .mod-head p{margin-top:5px;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;}

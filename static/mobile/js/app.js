@@ -79,6 +79,9 @@ $(document).ready(function () {
 	// 搜索下拉菜单
 	AWS.Dropdown.bind_dropdown_list('.aw-search-bar input','search');
 
+	// 私信搜索下拉菜单
+	AWS.Dropdown.bind_dropdown_list('.aw-inbox-search-bar input','message');
+
 	// 邀请下拉菜单
 	AWS.Dropdown.bind_dropdown_list('.aw-invite-box input','invite');
 
