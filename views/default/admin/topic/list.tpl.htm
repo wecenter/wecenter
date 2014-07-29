@@ -86,7 +86,7 @@
 
                     <a class="btn btn-danger" onclick="$('#action').val('remove'); AWS.ajax_post($('#batchs_form'));"><?php _e('删除话题'); ?></a>
                     <a class="btn btn-primary" onclick="$('#action').val('lock'); AWS.ajax_post($('#batchs_form'));"><?php _e('锁定话题'); ?></a>
-                    <a class="btn btn-primary" onclick="$('#action').val('set_parent_id'); AWS.ajax_post($('#batchs_form'));"><?php _e('选择根话题'); ?></a>
+                    <a class="btn btn-primary" id="batchs_post"><?php _e('选择根话题'); ?></a>
                 </div>
             </div>
 
@@ -178,5 +178,20 @@
         </div>
     </div>
 </div>
+<script>
+    $(function(){
 
+        $('#batchs_post').click(function(){
+            if($('.icheckbox_square-blue').hasClass("checked")){
+                AWS.dialog('batchsPostMsg',null,function(){
+                    $('#parent_id').val($('.modal-body .form-control').val());
+                    $('#action').val('set_parent_id');
+                    AWS.ajax_post($('#batchs_form'));
+                })
+            }else{
+                AWS.alert('请选择话题');
+            }
+        })
+    })
+</script>
 <?php TPL::output('admin/global/footer.tpl.htm'); ?>

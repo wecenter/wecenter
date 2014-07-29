@@ -581,7 +581,31 @@ var AW_TEMPLATE = {
 					'</div>'+
 				'</form>'+
 			'</div>'+
-		'</div>'
+		'</div>',
 
-
+	//话题管理，选择根话题
+	'batchsPostMsg' :
+		'<div class="modal fade alert-box aw-confirm-box">'+
+			'<div class="modal-dialog">'+
+				'<div class="modal-content">'+
+					'<div class="modal-header">'+
+						'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
+						'<h3 class="modal-title" id="myModalLabel">' + _t('选择根话题') + '</h3>'+
+					'</div>'+
+					'<div class="modal-body">'+
+			            '<select class="form-control">'+
+						  '<option>1</option>'+
+						  '<option>2</option>'+
+						  '<option>3</option>'+
+						  '<option>4</option>'+
+						  '<option>5</option>'+
+						'</select>'+
+		        	'</div>'+
+		        	'<div class="modal-footer">'+
+						'<a class="btn btn-default" data-dismiss="modal" aria-hidden="true">取消</a>'+
+						'<a class="btn btn-success yes">确定</a>'+
+					'</div>'+
+				'</div>'+
+		    '</div>'+
+		'</div>',
 }
