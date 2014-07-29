@@ -9,7 +9,7 @@
             </h3>
 
             <?php if (count($this->accounts_list) > 1) { ?>
-            <div class="dropdown pull-right">
+            <div class="dropdown pull-right weixin_dropdown">
                 <a class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
                     <?php if ($this->account_id == 0) { _e('主账号'); } else { _e('子账号 %s', $this->account_id); } ?>
                     <span class="caret"></span>
@@ -692,6 +692,15 @@
             $(this).parents('.aw-wechat-dropdown-box').find('input.input-code').val($(this).attr('data-value'));
             $(this).parents('.aw-wechat-dropdown-box').find('input.attach_key').val('');
         });
+
+        /**
+         * 微信菜单管理，帐号切换
+         * 7月29日
+         */
+
+        if($('.weixin_dropdown .dropdown-menu').find("li").length <= 0){
+            $('.weixin_dropdown').detach();
+         }
     });
 
     /*
