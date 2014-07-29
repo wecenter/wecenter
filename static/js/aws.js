@@ -457,8 +457,10 @@ var AWS =
 			// 后台分类移动设置
 			case 'adminCategoryMove':
 				var template = Hogan.compile(AW_TEMPLATE.adminCategoryMove).render(
-		        {
-		        	items : data
+		        {	
+		        	'items' : data.option,
+		        	'name':data.name,
+		        	'from_id':data.from_id
 		        });
 		    break;
 
@@ -469,6 +471,7 @@ var AWS =
 		        	items : data
 		        });
 		    break;
+
 	    }
 
 	    if (template)
@@ -622,6 +625,19 @@ var AWS =
 		    		$('.aw-confirm-box .yes').click(function()
 		    		{
 		    			callback();
+		    			$(".alert-box").modal('hide');
+		    			return false;
+		    		});
+		    	break;
+
+		    	//后台根话题
+		    	case 'adminCategoryMove':
+		    		$('.aw-category-move-box .yes').click(function()
+		    		{
+		    			if (callback)
+		    			{
+		    				callback();
+		    			}
 		    			$(".alert-box").modal('hide');
 		    			return false;
 		    		});

@@ -262,6 +262,7 @@ textarea{resize:none;}
 
 /* 全局通用下拉列表 */
 .aw-dropdown, .aw-category-dropdown{display:none;position:absolute;left:17px;z-index:9999;width:93%;background: #fff;border:1px solid #ccc;box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);}
+.aw-publish-title .aw-dropdown{width: 100%;left: 0}
 .aw-dropdown .i-dropdown-triangle, .aw-category-dropdown .i-dropdown-triangle{position: absolute;top:-6px;left: 15px;}
 .aw-dropdown p, .aw-category-dropdown p{padding:5px 10px;margin:0;}
 .aw-dropdown .aw-dropdown-list{margin:0;}

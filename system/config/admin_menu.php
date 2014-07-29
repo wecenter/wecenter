@@ -222,9 +222,15 @@ $config[] = array(
         ),
 
         array(
-            'id' => 901,
+            'id' => 806,
             'title' => '微博消息接收',
             'url' => 'admin/weibo/msg/'
+        ),
+
+        array(
+            'id' => 807,
+            'title' => '邮件导入',
+            'url' => 'admin/edm/receiving/'
         )
     )
 );

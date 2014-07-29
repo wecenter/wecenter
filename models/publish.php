@@ -226,7 +226,7 @@ class publish_class extends AWS_MODEL
 			{
 				if ($weibo_msg_id)
 				{
-					$this->model('publish')->update_attach('weibo_msg', $question_id, $attach_access_key, $weibo_msg_id);
+					$this->model('weibo')->update_attach($weibo_msg_id, $question_id, $attach_access_key);
 				}
 				else
 				{
@@ -261,11 +261,11 @@ class publish_class extends AWS_MODEL
 
 			$this->model('posts')->set_posts_index($question_id, 'question');
 
-			if ($weibo_msg_id)
+			if ($weibo_msg_id AND is_digits($weibo_msg_id))
 			{
 				$this->update('weibo_msg', array(
 					'question_id' => $question_id
-				), 'id = ' . $this->quote($weibo_msg_id));
+				), 'id = ' . $weibo_msg_id);
 			}
 		}
 
@@ -364,28 +364,16 @@ class publish_class extends AWS_MODEL
 		return $comment_id;
 	}
 
-	public function update_attach($item_type, $item_id, $attach_access_key, $old_id = null)
+	public function update_attach($item_type, $item_id, $attach_access_key)
 	{
-		if (! $attach_access_key)
+		if (!is_digits($item_id) OR !$attach_access_key)
 		{
 			return false;
 		}
 
-		if ($item_type = 'weibo_msg' AND $old_id)
-		{
-			$update_result = $this->update('attach', array(
-				'item_type' => 'question',
-				'item_id' => $this->quote($item_id)
-			), 'item_type = "' . $this->quote($item_type) . '" AND item_id = ' . $old_id . ' AND access_key = "' . $this->quote($attach_access_key) . '"');
-
-			$item_type = 'question';
-		}
-		else
-		{
-			$update_result = $this->update('attach', array(
-				'item_id' => $this->quote($item_id)
-			), "item_type = '" . $this->quote($item_type) . "' AND item_id = 0 AND access_key = '" . $this->quote($attach_access_key) . "'");
-		}
+		$update_result = $this->update('attach', array(
+			'item_id' => $item_id
+		), "item_type = '" . $this->quote($item_type) . "' AND item_id = 0 AND access_key = '" . $this->quote($attach_access_key) . "'");
 
 		if ($update_result)
 		{
@@ -408,7 +396,7 @@ class publish_class extends AWS_MODEL
 
 			$this->shutdown_update($item_type, array(
 				'has_attach' => 1
-			), $update_key . ' = ' . $this->quote($item_id));
+			), $update_key . ' = ' . $item_id);
 		}
 
 		return $update_result;
@@ -538,7 +526,12 @@ class publish_class extends AWS_MODEL
 
 	public function get_attach($item_type, $item_id, $size = 'square')
 	{
-		$attach = $this->fetch_all('attach', "item_type = '" .  $this->quote($item_type). "' AND item_id = " . $this->quote($item_id), "is_image DESC, id ASC");
+		if (!is_digits($item_id))
+		{
+			return false;
+		}
+
+		$attach = $this->fetch_all('attach', "item_type = '" .  $this->quote($item_type). "' AND item_id = " . $item_id, "is_image DESC, id ASC");
 
 		return $this->parse_attach_data($attach, $item_type, $size);
 	}
@@ -639,4 +632,30 @@ class publish_class extends AWS_MODEL
 
 		return $approval_item;
 	}
+
+    public function insert_attach_is_self_upload($message, $attach_ids = null)
+    {
+        if (!$message)
+        {
+            return true;
+        }
+        
+        if (!$attach_ids)
+        {
+	        $attach_ids = array();
+        }
+
+        if ($question_attachs_ids = FORMAT::parse_attachs($message, true))
+        {
+            foreach ($question_attachs_ids AS $attach_id)
+            {
+                if (!in_array($attach_id, $attach_ids))
+                {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
 }

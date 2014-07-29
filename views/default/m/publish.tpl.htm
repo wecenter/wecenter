@@ -68,7 +68,7 @@
             <?php } ?>
 
             <div class="command">
-                <label class="pull-left"><input type="checkbox" value="" /> <?php _e('匿名'); ?></label>
+                <label class="pull-left"><input type="checkbox"  value="1" name="anonymous" /> <?php _e('匿名'); ?></label>
                 <?php if ($this->question_info['question_id'] AND ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator'])) { ?>
                 <!-- <label class="pull-left"><input type="checkbox"  value="1" name="do_delete" /> <?php _e('删除问题'); ?></label> -->
                 <?php } ?>

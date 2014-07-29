@@ -103,7 +103,7 @@
 
         $('.move').click(function()
         {
-            AWS.dialog('adminCategoryMove', eval('[' + json + ']'));
+            AWS.dialog('adminCategoryMove', {'option':eval('[' + json + ']'), 'name':'分类移动','from_id':'#settings_form'});
             $('.from-category').val($(this).attr('data-id'));
             $('.aw-category-move-box .col-md-12').prepend('<p>将 <b>' + $(this).attr('data-name') + '</b> 的内容批量移动到</p>');
         });

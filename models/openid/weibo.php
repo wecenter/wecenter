@@ -20,14 +20,14 @@ if (!defined('IN_ANWSION'))
 
 class openid_weibo_class extends AWS_MODEL
 {
-	function check_sina_id($sina_id)
-	{
-		return $this->count('users_sina', 'id = ' . $this->quote($sina_id));
-	}
-
 	function get_users_sina_by_id($sina_id)
 	{
-		return $this->fetch_row('users_sina', 'id = ' . $this->quote($sina_id));
+		if (!is_digits($sina_id))
+		{
+			return false;
+		}
+
+		return $this->fetch_row('users_sina', 'id = ' . $sina_id);
 	}
 
 	function get_users_sina_by_uid($uid)
@@ -37,7 +37,7 @@ class openid_weibo_class extends AWS_MODEL
 
 	function refresh_access_token($id, $sina_token)
 	{
-		if (empty($sina_token['access_token']))
+		if (!is_digits($id) OR empty($sina_token['access_token']))
 		{
 			return false;
 		}
@@ -45,7 +45,7 @@ class openid_weibo_class extends AWS_MODEL
 		return $this->update('users_sina', array(
 					'access_token' => $sina_token['access_token'],
 					'expires_time' => time() + $sina_token['expires_in']
-				), 'id = ' . $this->quote($id));
+				), 'id = ' . $id);
 	}
 
 	function del_users_by_uid($uid)

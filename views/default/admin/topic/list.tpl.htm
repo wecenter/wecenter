@@ -24,6 +24,7 @@
                 <?php if ($this->list) { ?>
                 <form id="batchs_form" action="admin/ajax/topic_manage/" method="post">
                     <input type="hidden" id="action" name="action" value="" />
+                    <input type="hidden" id="parent_id" name="parent_id" value="" />
 
                     <table class="table table-striped">
                         <thead>
@@ -63,7 +64,7 @@
 
 								<td>
                                     <?php if ($topic_info['parent_id']) { ?>
-                                    <a href="topic/<?php echo $this->parent_topics_info[$topic_info['parent_id']]['url_token']; ?>" target="_blank"><?php echo $this->parent_topics_info[$topic_info['parent_id']]['topic_title']; ?></a>
+                                    <a href="topic/<?php echo $this->parent_topic_list[$topic_info['parent_id']]['url_token']; ?>" target="_blank"><?php echo $this->parent_topic_list[$topic_info['parent_id']]['topic_title']; ?></a>
                                     <?php } ?>
                                 </td>
 
@@ -85,7 +86,7 @@
 
                     <a class="btn btn-danger" onclick="$('#action').val('remove'); AWS.ajax_post($('#batchs_form'));"><?php _e('删除话题'); ?></a>
                     <a class="btn btn-primary" onclick="$('#action').val('lock'); AWS.ajax_post($('#batchs_form'));"><?php _e('锁定话题'); ?></a>
-                    <a class="btn btn-primary" onclick="$('#action').val('set_parent'); AWS.ajax_post($('#batchs_form'));"><?php _e('设为根话题'); ?></a>
+                    <a class="btn btn-primary" id="batchs_post"><?php _e('选择根话题'); ?></a>
                 </div>
             </div>
 
@@ -177,5 +178,48 @@
         </div>
     </div>
 </div>
+
+<?php if ($this->parent_topic_list) { ?>
+<div id="target-category" class="hide">
+    <?php foreach ($this->parent_topic_list AS $topic_info) { ?>
+    <option value="<?php echo $topic_info['topic_id']; ?>"><?php echo $topic_info['topic_title']; ?></option>
+    <?php } ?>
+</div>
+<?php } ?>
+<script>
+    $(function(){
+
+        var json = '';
+
+        $.each($('#target-category option').toArray(), function (i, e)
+        {
+            if (i >= 1)
+            {
+                json += ',';
+            }
+            
+            json += "{'title':'" + $(e).text() + "', 'id':'" + $(e).val() + "'}";
+        });
+
+        $('#batchs_post').click(function()
+        {   
+            if($('.icheckbox_square-blue').hasClass("checked")){
+                AWS.dialog('adminCategoryMove', {'option':eval('[' + json + ']'), 'name':'选择根话题','from_id':'#batchs_form'});
+
+                $('#parent_id').val($("#aw-ajax-box .form-control:eq(1)").val());
+                $('#action').val('set_parent_id');
+            }else{
+                AWS.alert('请勾选话题');
+            }
+
+        });
+
+        $("#aw-ajax-box").delegate('.form-control:eq(1)','change',function() {
+
+            $('#parent_id').val($("#aw-ajax-box .form-control:eq(1)").val());
+        });
+
+    })
+</script>
 
 <?php TPL::output('admin/global/footer.tpl.htm'); ?>

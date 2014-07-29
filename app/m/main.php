@@ -207,19 +207,19 @@ class main extends AWS_CONTROLLER
 	public function inbox_new_action()
 	{
 		TPL::assign('body_class', 'active');
-		
+
 		$this->crumb(AWS_APP::lang()->_t('新私信'), '/m/inbox_new/');
-		
+
 		if ($_GET['uid'])
 		{
 			if ($dialog_info = $this->model('message')->get_dialog_by_user($_GET['uid'], $this->user_id))
 			{
 				HTTP::redirect('/m/inbox/dialog_id-' . $dialog_info['id']);
 			}
-			
+
 			TPL::assign('user', $this->model('account')->get_user_info_by_uid($_GET['uid']));
 		}
-		
+
 		TPL::output('m/inbox_new');
 	}
 
@@ -607,12 +607,12 @@ class main extends AWS_CONTROLLER
 		{
 			H::redirect_msg(AWS_APP::lang()->_t('链接已失效'), '/');
 		}
-		
+
 		if ($active_code_row['active_time'] OR $active_code_row['active_ip'])
 		{
 			H::redirect_msg(AWS_APP::lang()->_t('链接已失效'), '/');
 		}
-		
+
 		TPL::output('m/find_password_modify');
 	}
 
@@ -622,7 +622,7 @@ class main extends AWS_CONTROLLER
 		{
 			HTTP::redirect('/m/login/url-' . base64_encode(get_js_url($_SERVER['QUERY_STRING'])));
 		}
-		
+
 		$this->crumb(AWS_APP::lang()->_t('发现'), '/m/');
 
 		TPL::assign('content_nav_menu', $this->model('menu')->get_nav_menu_list('explore'));
@@ -645,7 +645,7 @@ class main extends AWS_CONTROLLER
 
 		TPL::output('m/index');
 	}
-	
+
 	public function explore_action()
 	{
 		HTTP::redirect('/m/');
@@ -707,18 +707,18 @@ class main extends AWS_CONTROLLER
 		TPL::assign('user_actions_answers', $this->model('actions')->get_user_actions($user['uid'], 5, ACTION_LOG::ANSWER_QUESTION, $this->user_id));
 
 		$this->crumb(AWS_APP::lang()->_t('%s 的个人主页', $user['user_name']), '/m/people/' . $user['url_token']);
-		
+
 		$job_info = $this->model('account')->get_jobs_by_id($user['job_id']);
-		
+
 		TPL::assign('job_name', $job_info['job_name']);
-		
+
 		if ($user['weibo_visit'])
 		{
 			if ($users_sina = $this->model('openid_weibo')->get_users_sina_by_uid($user['uid']))
 			{
 				TPL::assign('sina_weibo_url', 'http://www.weibo.com/' . $users_sina['id']);
 			}
-			
+
 			if ($users_qq = $this->model('openid_qq_weibo')->get_users_qq_by_uid($user['uid']))
 			{
 				TPL::assign('qq_weibo_url', 'http://t.qq.com/' . $users_qq['name']);
@@ -835,7 +835,7 @@ class main extends AWS_CONTROLLER
 		TPL::assign('body_class', 'active');
 
 		TPL::assign('keyword', $keyword);
-		
+
 		TPL::assign('split_keyword', implode(' ', $this->model('system')->analysis_keyword($keyword)));
 
 		TPL::output('m/search');
@@ -995,7 +995,7 @@ class main extends AWS_CONTROLLER
 		}
 		else if ($_GET['weixin_media_id'])
 		{
-			$weixin_pic_url = AWS_APP::cache()->get('weixin_pic_url_' . $_GET['weixin_media_id']);
+			$weixin_pic_url = AWS_APP::cache()->get('weixin_pic_url_' . md5(base64_decode($_GET['weixin_media_id'])));
 
 			if (!$weixin_pic_url)
 			{

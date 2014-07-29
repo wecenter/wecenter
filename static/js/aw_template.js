@@ -528,7 +528,7 @@ var AW_TEMPLATE = {
 					'<div class="modal-content">'+
 						'<div class="modal-header">'+
 							'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
-							'<h3 class="modal-title" id="myModalLabel">' + _t('分类移动') + '</h3>'+
+							'<h3 class="modal-title" id="myModalLabel">{{name}}</h3>'+
 						'</div>'+
 						'<div class="modal-body">'+
 							'<div class="alert alert-danger hide error_message"></div>'+
@@ -551,7 +551,7 @@ var AW_TEMPLATE = {
 						'</div>'+
 						'<div class="modal-footer">'+
 							'<a class="btn btn-default" aria-hidden="true" data-dismiss="modal">' + _t('取消') + '</a>'+
-							'<a class="btn btn-success" onclick="AWS.ajax_post($(\'#settings_form\'), AWS.ajax_processer, \'error_message\')">' + _t('确定') + '</a>'+
+							'<a class="btn btn-success yes" onclick="AWS.ajax_post($(\'{{from_id}}\'), AWS.ajax_processer, \'error_message\')">' + _t('确定') + '</a>'+
 						'</div>'+
 					'</div>'+
 				'</form>'+
@@ -582,6 +582,4 @@ var AW_TEMPLATE = {
 				'</form>'+
 			'</div>'+
 		'</div>'
-
-
 }

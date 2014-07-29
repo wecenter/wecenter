@@ -12,7 +12,6 @@
 +---------------------------------------------------------------------------
 */
 
-
 if (!defined('IN_ANWSION'))
 {
 	die;
@@ -62,6 +61,35 @@ class main extends AWS_CONTROLLER
 		if (AWS_APP::config()->get('system')->debug)
 		{
 			TPL::output('global/debuger.tpl.htm');
+		}
+	}
+
+	// debug action
+	public function weibo_action()
+	{
+		// 拉取微博最新 @用户 消息
+		if (get_setting('weibo_msg_enabled') == 'Y')
+		{
+			echo ($this->model('weibo')->get_msg_from_sina_crond()) ? 'success' : 'error';
+		}
+		else
+		{
+			echo 'receive sina weibo message option is not enabled.';
+		}
+	}
+
+	// debug action
+	public function receive_email_action()
+	{
+		$receiving_mail_config = get_setting('receiving_mail_config');
+
+		if ($receiving_mail_config['enabled'] == 'Y')
+		{
+			echo ($this->model('email')->receive_email_crond()) ? 'success' : 'error';
+		}
+		else
+		{
+			echo 'receive email option is not enabled.';
 		}
 	}
 

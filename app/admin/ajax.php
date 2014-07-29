@@ -959,13 +959,21 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
                 break;
 
-            case 'set_parent':
-                $this->model('topic')->set_is_parent($_POST['topic_ids'], 1);
+            case 'set_parent_id':
+                $topic_list = $this->model('topic')->get_topics_by_ids($_POST['topic_ids']);
 
-                break;
+                foreach ($topic_list AS $topic_info)
+                {
+                    if ($topic_info['is_parent'] == 0)
+                    {
+                        $to_update_topic_ids[] = $topic_info['topic_id'];
+                    }
+                }
 
-            case 'cancel_parent':
-                $this->model('topic')->set_is_parent($_POST['topic_ids'], 0);
+                if ($to_update_topic_ids)
+                {
+                    $this->model('topic')->set_parent_id($to_update_topic_ids, $_POST['parent_id']);
+                }
 
                 break;
         }
@@ -1945,7 +1953,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
     public function weibo_batch_action()
     {
-        if (!$_POST['action'] OR !$_POST['uid'])
+        if (!$_POST['action'] OR !isset($_POST['uid']))
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('错误的请求')));
         }
@@ -2065,7 +2073,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
     {
         if (!$_POST['description'])
         {
-            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('描述不能为空')));
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请输入描述')));
         }
 
         $scene_id = $this->model('weixin')->insert('weixin_qr_code', array('description' => $_POST['description']));
@@ -2084,12 +2092,10 @@ class ajax extends AWS_ADMIN_CONTROLLER
     {
         if (!$_POST['scene_id'])
         {
-            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('ID 不能为空')));
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择要删除的二维码')));
         }
 
-        $this->model('weixin')->delete('weixin_qr_code', 'scene_id = ' . intval($_POST['scene_id']));
-
-        @unlink(get_setting('upload_dir') . '/weixin_qr_code/' . $_POST['scene_id'] . '.jpg');
+        $this->model('weixin')->remove_qr_code($_POST['scene_id']);
 
         H::ajax_json_output(AWS_APP::RSM(null, 1, null));
     }
@@ -2098,7 +2104,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
     {
         if (!$_POST['id'])
         {
-            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('ID 不能为空')));
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择待审项')));
         }
 
         if (!$_POST['type'])
@@ -2134,12 +2140,12 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
         if (!$_POST['title'] AND ($_POST['type'] == 'question' OR $_POST['type'] == 'article'))
         {
-            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('标题不能为空')));
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请输入标题')));
         }
 
         if (!$_POST['content'])
         {
-            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('内容不能为空')));
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请输入内容')));
         }
 
         switch ($approval_item['type'])
@@ -2193,121 +2199,28 @@ class ajax extends AWS_ADMIN_CONTROLLER
         ), 1, null));
     }
 
-    public function save_today_topics()
+    public function save_today_topics_action()
     {
         $today_topics = trim($_POST['today_topics']);
 
         $this->model('setting')->set_vars(array('today_topics' => $today_topics));
 
-        H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('保存成功')));
+        H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('设置已保存')));
     }
 
-
-    public function save_links_setting_action()
+    public function save_receiving_mail_config_action()
     {
-        if (!$this->user_info['permission']['is_administortar'])
-        {
-            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('你没有访问权限, 请重新登录')));
-        }
+        $receiving_mail_config = array(
+                                        'enabled' => ($_POST['enabled'] == 'Y') ? 'Y' : 'N',
+                                        'server' => trim($_POST['server']),
+                                        'ssl' => ($_POST['ssl'] == 'Y') ? 'Y' : 'N',
+                                        'port' => (is_digits($_POST['port'])) ? $_POST['port'] : '',
+                                        'username' => trim($_POST['username']),
+                                        'password' => trim($_POST['password'])
+                                    );
 
-        foreach (array('enabled', 'random', 'show_on_all_page', 'hide_when_login') AS $value)
-        {
-            $links_setting[$value] = ($_POST[$value] == 'Y') ? 'Y' : 'N';
-        }
+        $this->model('setting')->set_vars(array('receiving_mail_config' => $receiving_mail_config));
 
-        $this->model('setting')->set_vars(array('links_setting' => $links_setting));
-
-        H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('保存成功')));
-    }
-
-    public function links_batch_action()
-    {
-        if (!$this->user_info['permission']['is_administortar'])
-        {
-            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('你没有访问权限, 请重新登录')));
-        }
-
-        if (!$_POST['action'] OR !in_array($_POST['action'], array('viable', 'unviable', 'del')))
-        {
-            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('错误的请求')));
-        }
-
-        if (!$_POST['link_ids'] OR !is_array($_POST['link_ids']))
-        {
-            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择要操作的链接')));
-        }
-
-        foreach ($_POST['link_ids'] AS $key => $id)
-        {
-            $_POST['link_ids']['key'] = intval($id);
-        }
-
-        switch ($_POST['action'])
-        {
-            case 'viable':
-                $this->model('admin')->update('links', array('visible' => 'Y'), 'id IN (' . implode(',', $_POST['link_ids']) . ')');
-
-                break;
-
-            case 'unviable':
-                $this->model('admin')->update('links', array('visible' => 'N'), 'id IN (' . implode(',', $_POST['link_ids']) . ')');
-
-                break;
-
-            case 'del':
-                $this->model('admin')->delete('links', 'id IN (' . implode(',', $_POST['link_ids']) . ')');
-
-                break;
-        }
-
-        H::ajax_json_output(AWS_APP::RSM(null, 1, null));
-    }
-
-    public function save_link_action()
-    {
-        if (!$this->user_info['permission']['is_administortar'])
-        {
-            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('你没有访问权限, 请重新登录')));
-        }
-
-        if (!$_POST['type'] OR $_POST['type'] == 'update' AND !$_POST['id'])
-        {
-            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('错误的请求')));
-        }
-
-        if (!$_POST['viable'] OR $_POST['viable'] != 'Y')
-        {
-            $_POST['viable'] = 'N';
-        }
-
-        $link_info = array(
-                            'name' => trim($_POST['name']),
-                            'url' => htmlspecialchars_decode(trim($_POST['url'])),
-                            'description' => trim($_POST['description']),
-                            'rank' => intval($_POST['rank']),
-                            'viable' => $_POST['viable']
-                        );
-
-        if ($link_info['rank'] < 0 OR $link_info['rank'] > 99)
-        {
-            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('排序值不能小于 0 或大于 99')));
-        }
-
-        switch ($_POST['type'])
-        {
-            case 'add':
-                $link_id = $this->model('admin')->insert('links', $link_info);
-
-                H::ajax_json_output(AWS_APP::RSM(array('url' => get_js_url('/admin/links/edit/id-' . $link_id)), 1, null));
-
-                break;
-
-            case 'update':
-                $this->model('admin')->update('links', $link_info, 'id = ' . intval($_POST['id']));
-
-                H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('保存成功')));
-
-                break;
-        }
+        H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('保存设置成功')));
     }
 }

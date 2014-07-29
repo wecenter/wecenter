@@ -498,6 +498,7 @@ a.aw-load-more-content{display: block;}
 .aw-upload-box .upload-list li .size{margin-bottom:10px !important;font-size: 12px;color: #999;}
 .aw-upload-box .upload-list li .meta a{margin-right:5px;font-size: 13px;}
 .aw-upload-box .upload-list li.error{border-color: #ff6464;}
+.aw-upload-box .upload-list li.error .size{color: #ff6464;}
 
 /* 发起文章 */
 .aw-publish-article .aw-publish-title input{width: 80%;}

@@ -21,8 +21,6 @@ DELETE FROM `[#DB_PREFIX#]nav_menu` WHERE `type` = 'feature';
 ALTER TABLE `[#DB_PREFIX#]topic` ADD `parent_id` INT( 10 ) NULL DEFAULT '0', ADD INDEX ( `parent_id` );
 ALTER TABLE `[#DB_PREFIX#]topic` ADD `is_parent` TINYINT( 1 ) NULL DEFAULT '0', ADD INDEX ( `is_parent` );
 
-INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES ('slave_mail_config', 's:0:"";');
-
 CREATE TABLE `[#DB_PREFIX#]weixin_accounts` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `weixin_mp_token` varchar(255) NOT NULL,
@@ -74,9 +72,6 @@ CREATE TABLE `[#DB_PREFIX#]weibo_msg` (
   KEY `question_id` (`question_id`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8 COMMENT='新浪微博消息列表';
 
-INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES ('weibo_msg_enabled', 's:1:"N";');
-INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES ('weibo_msg_published_user', 'a:0:"";');
-
 ALTER TABLE `[#DB_PREFIX#]question` ADD `weibo_msg_id` bigint(30) DEFAULT NULL;
 CREATE INDEX `weibo_msg_id` ON `[#DB_PREFIX#]question` (`weibo_msg_id`);
 
@@ -97,10 +92,14 @@ CREATE TABLE `[#DB_PREFIX#]weixin_qr_code` (
   KEY `subscribe_num` (`subscribe_num`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8 COMMENT='微信二维码';
 
-INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES ('admin_notifications', 'a:0:"";');
-
 ALTER TABLE `[#DB_PREFIX#]weixin_reply_rule` ADD `account_id` int(10) NOT NULL DEFAULT '0';
 CREATE INDEX `account_id` ON `[#DB_PREFIX#]weixin_reply_rule` (`account_id`);
 
 ALTER TABLE `[#DB_PREFIX#]question` ADD `unverified_modify_count` int(10) NOT NULL DEFAULT '0';
 CREATE INDEX `unverified_modify_count` ON `[#DB_PREFIX#]question` (`unverified_modify_count`);
+
+INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES
+('weibo_msg_enabled', 's:1:"N";'),
+('weibo_msg_published_user', 'a:0:"";'),
+('admin_notifications', 'a:0:"";'),
+('slave_mail_config', 's:0:"";');
