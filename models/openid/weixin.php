@@ -419,7 +419,9 @@ class openid_weixin_class extends AWS_MODEL
 
         $app_secret = get_setting('weixin_app_secret');
 
-        $cached_file = AWS_APP::cache()->get('weixin_get_file_' . $media_id);
+        $media_id_md5 = md5($media_id);
+
+        $cached_file = AWS_APP::cache()->get('weixin_get_file_' . $media_id_md5);
 
         if ($cached_file)
         {
@@ -444,7 +446,7 @@ class openid_weixin_class extends AWS_MODEL
                 return $result;
             }
 
-            AWS_APP::cache()->set('weixin_get_file_' . $media_id, $file, 259200);
+            AWS_APP::cache()->set('weixin_get_file_' . $media_id_md5, $file, 259200);
 
             return $file;
         }

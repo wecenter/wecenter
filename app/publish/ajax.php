@@ -470,6 +470,8 @@ class ajax extends AWS_CONTROLLER
 
         if ($_POST['weixin_media_id'])
         {
+            $_POST['weixin_media_id'] = base64_decode($_POST['weixin_media_id']);
+
             $weixin_pic_url = AWS_APP::cache()->get('weixin_pic_url_' . md5($_POST['weixin_media_id']));
 
             if (!$weixin_pic_url)
@@ -489,37 +491,59 @@ class ajax extends AWS_CONTROLLER
                 H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('获取图片失败，错误为: %s', $file['errmsg'])));
             }
 
-            $file_name = $_POST['weixin_media_id'] . '.jpg';
+            AWS_APP::upload()->initialize(array(
+                'allowed_types' => get_setting('allowed_upload_types'),
+                'upload_path' => get_setting('upload_dir') . '/questions/' . gmdate('Ymd'),
+                'is_image' => TRUE,
+                'max_size' => get_setting('upload_size_limit')
+            ));
 
-            $upload_dir = get_setting('upload_dir') . '/' . 'questions' . '/' . gmdate('Ymd') . '/';
+            AWS_APP::upload()->do_upload($_POST['weixin_media_id'] . '.jpg', $file);
 
-            if (!is_dir($upload_dir) AND !make_dir($upload_dir))
+            $upload_error = AWS_APP::upload()->get_error();
+
+            if ($upload_error)
             {
-                H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('创建图片存储目录失败')));
+                switch ($upload_error)
+                {
+                    default:
+                        H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('保存图片失败，错误为 %s' . $upload_error)));
+
+                        break;
+
+                    case 'upload_invalid_filetype':
+                        H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('保存图片失败，本站不允许上传 jpeg 格式的图片')));
+
+                        break;
+
+                    case 'upload_invalid_filesize':
+                        H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('图片尺寸过大, 最大允许尺寸为 %s KB', get_setting('upload_size_limit'))));
+
+                        break;
+                }
             }
 
-            $ori_file = $upload_dir . $file_name;
+            $upload_data = AWS_APP::upload()->data();
 
-            $handle = @fopen($ori_file, 'w');
-
-            @fwrite($handle, $file);
-
-            @fclose($handle);
+            if (!$upload_data)
+            {
+                H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('保存图片失败，请与管理员联系')));
+            }
 
             foreach (AWS_APP::config()->get('image')->attachment_thumbnail AS $key => $val)
             {
-                $thumb_file[$key] = $upload_dir . $val['w'] . 'x' . $val['h'] . '_' . $file_name;
+                $thumb_file[$key] = $upload_data['file_path'] . $val['w'] . 'x' . $val['h'] . '_' . basename($upload_data['full_path']);
 
                 AWS_APP::image()->initialize(array(
                     'quality' => 90,
-                    'source_image' => $ori_file,
+                    'source_image' => $upload_data['full_path'],
                     'new_image' => $thumb_file[$key],
                     'width' => $val['w'],
                     'height' => $val['h']
                 ))->resize();
             }
 
-            $this->model('publish')->add_attach('question', $file_name, $_POST['attach_access_key'], time(), $file_name, true);
+            $this->model('publish')->add_attach('question', $upload_data['orig_name'], $_POST['attach_access_key'], time(), basename($upload_data['full_path']), true);
         }
 
         // !注: 来路检测后面不能再放报错提示
