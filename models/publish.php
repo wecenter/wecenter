@@ -627,4 +627,25 @@ class publish_class extends AWS_MODEL
 
 		return $approval_item;
 	}
+
+    public function check_insert_attach_is_self($message, $attach_ids)
+    {
+        if (!$attach_ids)
+        {
+            return true;
+        }
+
+        if ($question_attachs_ids = FORMAT::parse_attachs($message, true))
+        {
+            foreach ($attach_ids AS $attach_id)
+            {
+                if (!in_array($attach_id, $question_attachs_ids))
+                {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
 }
