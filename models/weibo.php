@@ -21,11 +21,16 @@ class weibo_class extends AWS_MODEL
 {
     public function get_msg_info_by_id($id)
     {
+        if (!is_digits($id))
+        {
+            return false;
+        }
+
         static $msgs_info;
 
         if (!$msgs_info[$id])
         {
-            $msgs_info[$id] = $this->fetch_row('weibo_msg', 'id = ' . $this->quote($id));
+            $msgs_info[$id] = $this->fetch_row('weibo_msg', 'id = ' . $id);
         }
 
         return $msgs_info[$id];
@@ -318,7 +323,10 @@ class weibo_class extends AWS_MODEL
                 break;
 
             default:
-                $last_msg_id = $this->quote($last_msg_id);
+                if (!is_digits($last_msg_id))
+                {
+                    return false;
+                }
 
                 break;
         }
@@ -328,7 +336,7 @@ class weibo_class extends AWS_MODEL
 
     public function update_attach($weibo_msg_id, $question_id, $attach_access_key)
     {
-        if (empty($weibo_msg_id) OR empty($question_id) OR empty($attach_access_key))
+        if (empty($weibo_msg_id) OR !is_digits($weibo_msg_id) OR empty($question_id) OR empty($attach_access_key))
         {
             return false;
         }
@@ -336,7 +344,7 @@ class weibo_class extends AWS_MODEL
         $update_result = $this->update('attach', array(
             'item_type' => 'question',
             'item_id' => intval($question_id),
-        ), 'item_type = "weibo_msg" AND item_id = ' . $this->quote($weibo_msg_id) . ' AND access_key = "' . $this->quote($attach_access_key) . '"');
+        ), 'item_type = "weibo_msg" AND item_id = ' . $weibo_msg_id . ' AND access_key = "' . $this->quote($attach_access_key) . '"');
 
         $this->shutdown_update('question', array(
             'has_attach' => 1

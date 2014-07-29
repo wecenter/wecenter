@@ -77,6 +77,16 @@ FileUpload.prototype =
 		return input;
 	},
 
+	// 创建隐藏域 (wecenter定制)
+	createHiddenInput : function(attach_id)
+	{
+		var _this = this, input = this.toElement('<input type="hidden" name="attach_ids[]" class="hidden-input" />');
+
+		$(input).val(attach_id);
+
+		return input;
+	},
+
 	// 创建iframe
 	createIframe : function ()
 	{
@@ -251,10 +261,15 @@ FileUpload.prototype =
 
 					$(element).find('.meta').append(btn);
 				}
+
+				// 插入隐藏域(wecenter定制)
+				$(element).append(this.createHiddenInput(json.attach_id));
 			}
 			else
 			{
 				$(element).addClass('error').find('.img').addClass('error').html('<i class="fa fa-times"></i>');
+				
+				$(element).find('.size').text(json.error);
 			}
 		}
 	},
@@ -341,12 +356,14 @@ FileUpload.prototype =
 						'</div>'+
 		    		'</li>', 
 		    insertBtn = this.createInsertBtn(json.attach_id),
-		    deleteBtn = this.createDeleteBtn(json.delete_link);
+		    deleteBtn = this.createDeleteBtn(json.delete_link),
+		    hiddenInput = this.createHiddenInput(json.attach_id);
 
 		template = this.toElement(template), _this = this;
 
 		$(template).find('.meta').append(deleteBtn);
 		$(template).find('.meta').append(insertBtn);
+		$(template).find('.meta').append(hiddenInput);
     	$(this.container).find('.upload-list').append(template);
     }
 }
