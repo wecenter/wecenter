@@ -268,6 +268,8 @@ FileUpload.prototype =
 			else
 			{
 				$(element).addClass('error').find('.img').addClass('error').html('<i class="fa fa-times"></i>');
+				
+				$(element).find('.size').text(json.error);
 			}
 		}
 	},
