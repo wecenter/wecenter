@@ -798,6 +798,7 @@ AWS.Dropdown =
 							break;
 
 							case 'message' :
+								ul = $('#search_result');
 								$.get(G_BASE_URL + '/search/ajax/search/?type=users&q=' + encodeURIComponent($(element).val()) + '&limit=10',function(result)
 								{
 									if (result.length > 0)
@@ -805,18 +806,13 @@ AWS.Dropdown =
 										ul.html('');
 										$.each(result ,function(i, e)
 										{
-											ul.append('<li><a><img src="' + result[i].detail.avatar_file + '"><span>' + result[i].name + '</span></a></li>')
+											ul.append('<li class="user"><a href="' + G_BASE_URL + '/m/inbox_new/uid-' + result[i].uid + '"><img class="img" width="25" src="' + result[i].detail.avatar_file + '" /> <span>' + result[i].name + '</span></a></li>')
 										});	
-										$('.alert-message .dropdown-list ul li a').click(function()
-										{
-											$(element).val($(this).text());
-											$(element).next().hide();
-										});
 										
-										$(element).next().show();
+										ul.show();
 									}else
 									{
-										$(element).next().hide();
+										ul.hide();
 									}
 								},'json');
 							break;

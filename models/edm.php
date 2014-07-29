@@ -217,9 +217,9 @@ class edm_class extends AWS_MODEL
 
 			$received_email['date'] = strtotime($message->getHeader('Date', 'string'));
 
-			$received_email['from'] = strtotime($message->getHeader('From', 'string'));
+			$received_email['from'] = $message->getHeader('From', 'string');
 
-			$received_email['subject'] = strtotime($message->getHeader('Subject', 'string'));
+			$received_email['subject'] = $message->getHeader('Subject', 'string');
 
 			$received_email['content'] = $message->getContent();
 
