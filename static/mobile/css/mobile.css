@@ -385,7 +385,7 @@ input[type="text"], input[type="password"], textarea{-webkit-appearance:none;}
 .aw-login-box .mod-head .register{position: absolute;right: 0;top: 10px;background-color: transparent;border-color: #66b7ff;color: #66b7ff;}
 .aw-login-box .mod-head .register:hover, .aw-login-box .mod-head .register:active{background-color: #66B7FF;color: #fff;}
 .aw-login-box .mod-body{padding:0 20px;}
-.aw-login-box .mod-body ul li{height:40px;line-height:40px;margin-top: 15px;}
+.aw-login-box .mod-body ul li{line-height:40px;margin-top: 15px;}
 .aw-login-box .mod-body ul li input{height: 40px;}
 .aw-login-box .mod-body ul li i{color: #999999;font-size: 18px;}
 .aw-login-box .mod-body ul li.other-signup{margin:5px 0 0;border-bottom: 1px solid #cccccc;}

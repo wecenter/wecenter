@@ -469,6 +469,15 @@ var AWS =
 		        	items : data
 		        });
 		    break;
+
+		    //话题管理，选择根话题
+
+		    case 'batchsPostMsg':
+		    	var template = Hogan.compile(AW_TEMPLATE.batchsPostMsg).render(
+		        {
+		        	
+		        });
+		    break;
 	    }
 
 	    if (template)
@@ -619,6 +628,15 @@ var AWS =
 		    	break;
 
 		    	case 'confirm':
+		    		$('.aw-confirm-box .yes').click(function()
+		    		{
+		    			callback();
+		    			$(".alert-box").modal('hide');
+		    			return false;
+		    		});
+		    	break;
+
+		    	case 'batchsPostMsg':
 		    		$('.aw-confirm-box .yes').click(function()
 		    		{
 		    			callback();
