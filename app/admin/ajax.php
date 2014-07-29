@@ -2073,7 +2073,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
     {
         if (!$_POST['description'])
         {
-            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('描述不能为空')));
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请输入描述')));
         }
 
         $scene_id = $this->model('weixin')->insert('weixin_qr_code', array('description' => $_POST['description']));
@@ -2092,15 +2092,10 @@ class ajax extends AWS_ADMIN_CONTROLLER
     {
         if (!$_POST['scene_id'])
         {
-            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('ID 不能为空')));
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择要删除的二维码')));
         }
 
-        $result = $this->model('weixin')->remove_qr_code($_POST['scene_id']);
-
-        if ($result)
-        {
-            H::ajax_json_output(AWS_APP::RSM(null, -1, $result));
-        }
+        $this->model('weixin')->remove_qr_code($_POST['scene_id']);
 
         H::ajax_json_output(AWS_APP::RSM(null, 1, null));
     }
@@ -2109,7 +2104,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
     {
         if (!$_POST['id'])
         {
-            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('ID 不能为空')));
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择待审项')));
         }
 
         if (!$_POST['type'])
@@ -2145,12 +2140,12 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
         if (!$_POST['title'] AND ($_POST['type'] == 'question' OR $_POST['type'] == 'article'))
         {
-            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('标题不能为空')));
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请输入标题')));
         }
 
         if (!$_POST['content'])
         {
-            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('内容不能为空')));
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请输入内容')));
         }
 
         switch ($approval_item['type'])

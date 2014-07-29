@@ -1855,7 +1855,7 @@ class weixin_class extends AWS_MODEL
     {
         if (empty($scene_id))
         {
-            return AWS_APP::lang()->_t('scene_id 错误');
+            return false;
         }
 
         $scene_id = intval($scene_id);
