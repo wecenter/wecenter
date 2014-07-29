@@ -1833,22 +1833,31 @@ class weixin_class extends AWS_MODEL
             return AWS_APP::lang()->_t('换取二维码失败');
         }
 
-        $img_dir = get_setting('upload_dir') . '/weixin_qr_code/';
+        AWS_APP::upload()->initialize(array(
+            'allowed_types' => 'jpg',
+            'upload_path' => get_setting('upload_dir') . '/weixin_qr_code',
+            'is_image' => TRUE
+        ));
 
-        if (!is_dir($img_dir) AND !make_dir($img_dir))
+        AWS_APP::upload()->do_upload($scene_id . '.jpg', $qr_code);
+
+        $upload_error = AWS_APP::upload()->get_error();
+
+        if ($upload_error)
         {
             $this->delete('weixin_qr_code', 'scene_id = ' . $scene_id);
 
-            return AWS_APP::lang()->_t('创建二维码存储目录失败');
+            return AWS_APP::lang()->_t('保存二维码图片失败，错误为 %s', $upload_error);
         }
 
-        $img_file = $img_dir . $scene_id . '.jpg';
+        $upload_data = AWS_APP::upload()->data();
 
-        $fp = @fopen($img_file, 'w');
+        if (!$upload_data)
+        {
+            $this->delete('weixin_qr_code', 'scene_id = ' . $scene_id);
 
-        @fwrite($fp, $qr_code);
-
-        @fclose($fp);
+            return AWS_APP::lang()->_t('保存二维码图片失败，请与管理员联系');
+        }
     }
 
     public function remove_qr_code($scene_id)
