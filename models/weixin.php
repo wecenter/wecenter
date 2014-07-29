@@ -1850,4 +1850,18 @@ class weixin_class extends AWS_MODEL
 
         @fclose($fp);
     }
+
+    public function remove_qr_code($scene_id)
+    {
+        if (empty($scene_id))
+        {
+            return AWS_APP::lang()->_t('scene_id 错误');
+        }
+
+        $scene_id = intval($scene_id);
+
+        $this->model('weixin')->delete('weixin_qr_code', 'scene_id = ' . $scene_id);
+
+        @unlink(get_setting('upload_dir') . '/weixin_qr_code/' . $scene_id . '.jpg');
+    }
 }
