@@ -460,7 +460,7 @@ class ajax extends AWS_CONTROLLER
 
         if ($_POST['weixin_media_id'])
         {
-            $weixin_pic_url = AWS_APP::cache()->get('weixin_pic_url_' . $_POST['weixin_media_id']);
+            $weixin_pic_url = AWS_APP::cache()->get('weixin_pic_url_' . md5($_POST['weixin_media_id']));
 
             if (!$weixin_pic_url)
             {
