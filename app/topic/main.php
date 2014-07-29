@@ -194,8 +194,10 @@ class main extends AWS_CONTROLLER
 			}
 		}
 
+		TPL::assign('topic_recommend_list', $posts_list);
+
 		TPL::assign('posts_list', $posts_list);
-		TPL::assign('recommend_list', $posts_list);
+
 		TPL::assign('recommend_list_bit', TPL::output('explore/ajax/list', false));
 
 		TPL::assign('list', $this->model('topic')->get_topic_best_answer_action_list($contents_topic_id, $this->user_id, get_setting('contents_per_page')));
@@ -294,15 +296,15 @@ class main extends AWS_CONTROLLER
 			break;
 
 			case 'topic':
-				if (!$topics_list = AWS_APP::cache()->get('square_parent_topics_topic_list_' . intval($_GET['feature_id']) . '_' . intval($_GET['page'])))
+				if (!$topics_list = AWS_APP::cache()->get('square_parent_topics_topic_list_' . intval($_GET['topic_id']) . '_' . intval($_GET['page'])))
 				{
 					if ($topic_ids = $this->model('topic')->get_child_topic_ids($_GET['topic_id']))
 					{
-						if ($topics_list = $this->model('topic')->get_topic_list('topic_id IN(' . implode(',', $topic_ids) . ')', 'discuss_count DESC', get_setting('contents_per_page'), $_GET['page']))
+						if ($topics_list = $this->model('topic')->get_topic_list('topic_id IN(' . implode(',', $topic_ids) . ') AND merged_id = 0', 'discuss_count DESC', get_setting('contents_per_page'), $_GET['page']))
 						{
 							$topics_list_total_rows = $this->model('topic')->found_rows();
 
-							AWS_APP::cache()->set('square_parent_topics_topic_list_' . intval($_GET['feature_id']) . '_total_rows', $topics_list_total_rows, get_setting('cache_level_low'));
+							AWS_APP::cache()->set('square_parent_topics_topic_list_' . intval($_GET['topic_id']) . '_total_rows', $topics_list_total_rows, get_setting('cache_level_low'));
 
 							foreach ($topics_list AS $key => $val)
 							{
@@ -311,23 +313,23 @@ class main extends AWS_CONTROLLER
 						}
 					}
 
-					AWS_APP::cache()->set('square_parent_topics_topic_list_' . intval($_GET['feature_id']) . '_' . intval($_GET['page']), $topics_list, get_setting('cache_level_low'));
+					AWS_APP::cache()->set('square_parent_topics_topic_list_' . intval($_GET['topic_id']) . '_' . intval($_GET['page']), $topics_list, get_setting('cache_level_low'));
 				}
 				else
 				{
-					$topics_list_total_rows = AWS_APP::cache()->get('square_parent_topics_topic_list_' . intval($_GET['feature_id']) . '_total_rows');
+					$topics_list_total_rows = AWS_APP::cache()->get('square_parent_topics_topic_list_' . intval($_GET['topic_id']) . '_total_rows');
 				}
 
 				TPL::assign('topics_list', $topics_list);
 			break;
 		}
 
-        TPL::assign('parent_topics', $this->model('topic')->get_parent_topics());
+		TPL::assign('parent_topics', $this->model('topic')->get_parent_topics());
 
 		TPL::assign('new_topics', $this->model('topic')->get_topic_list(null, 'topic_id DESC', 10));
 
 		TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
-			'base_url' => get_js_url('/topic/channel-' . $_GET['id'] . '__feature_id-' . $_GET['feature_id']),
+			'base_url' => get_js_url('/topic/channel-' . $_GET['channel'] . '__topic_id-' . $_GET['topic_id']),
 			'total_rows' => $topics_list_total_rows,
 			'per_page' => get_setting('contents_per_page')
 		))->create_links());

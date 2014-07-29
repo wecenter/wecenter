@@ -245,35 +245,41 @@ class weibo_class extends AWS_MODEL
                             continue;
                         }
 
-                        $upload_dir = get_setting('upload_dir') . '/' . 'questions' . '/' . gmdate('Ymd') . '/';
+                        AWS_APP::upload()->initialize(array(
+                            'allowed_types' => get_setting('allowed_upload_types'),
+                            'upload_path' => get_setting('upload_dir') . '/questions/' . gmdate('Ymd'),
+                            'is_image' => TRUE,
+                            'max_size' => get_setting('upload_size_limit')
+                        ));
 
-                        if (!is_dir($upload_dir) AND !make_dir($upload_dir))
+                        AWS_APP::upload()->do_upload($pic_url_array[3], $file);
+
+                        if (AWS_APP::upload()->get_error())
                         {
-                            break;
+                            continue;
                         }
 
-                        $ori_image = $upload_dir . $pic_url_array[3];
+                        $upload_data = AWS_APP::upload()->data();
 
-                        $handle = @fopen($ori_image, 'w');
-
-                        @fwrite($handle, $result);
-
-                        @fclose($handle);
+                        if (!$upload_data)
+                        {
+                            continue;
+                        }
 
                         foreach (AWS_APP::config()->get('image')->attachment_thumbnail AS $key => $val)
                         {
-                            $thumb_file[$key] = $upload_dir . $val['w'] . 'x' . $val['h'] . '_' . $pic_url_array[3];
+                            $thumb_file[$key] = $upload_data['file_path'] . $val['w'] . 'x' . $val['h'] . '_' . basename($upload_data['full_path']);
 
                             AWS_APP::image()->initialize(array(
                                 'quality' => 90,
-                                'source_image' => $ori_image,
+                                'source_image' => $upload_data['full_path'],
                                 'new_image' => $thumb_file[$key],
                                 'width' => $val['w'],
                                 'height' => $val['h']
                             ))->resize();
                         }
 
-                        $this->model('publish')->add_attach('weibo_msg', $pic_url_array[3], $msg_info['access_key'], $now, $pic_url_array[3], true);
+                        $this->model('publish')->add_attach('weibo_msg', $upload_data['orig_name'], $msg_info['access_key'], $now, basename($upload_data['full_path']), true);
 
                         $msg_info['has_attach'] = 1;
                     }

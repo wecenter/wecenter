@@ -204,17 +204,21 @@
         $('#batchs_post').click(function()
         {   
             if($('.icheckbox_square-blue').hasClass("checked")){
-                AWS.dialog('adminCategoryMove', eval('[' + json + ']'));
-                $('#myModalLabel').text("选择根话题");
-                $('#parent_id').val($('.modal-body .form-control').val());
-                $('#action').val('set_parent_id');
-                AWS.ajax_post($('#batchs_form'));
+                AWS.dialog('adminCategoryMove', {'option':eval('[' + json + ']'), 'name':'选择根话题','from_id':'#batchs_form'});
 
+                $('#parent_id').val($("#aw-ajax-box .form-control:eq(1)").val());
+                $('#action').val('set_parent_id');
             }else{
                 AWS.alert('请勾选话题');
             }
 
         });
+
+        $("#aw-ajax-box").delegate('.form-control:eq(1)','change',function() {
+
+            $('#parent_id').val($("#aw-ajax-box .form-control:eq(1)").val());
+        });
+
     })
 </script>
 
