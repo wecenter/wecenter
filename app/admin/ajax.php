@@ -2207,9 +2207,9 @@ class ajax extends AWS_ADMIN_CONTROLLER
         H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('设置已保存')));
     }
 
-    public function save_receiving_mail_config_action()
+    public function save_receiving_email_config_action()
     {
-        $receiving_mail_config = array(
+        $receiving_email_config = array(
                                         'enabled' => ($_POST['enabled'] == 'Y') ? 'Y' : 'N',
                                         'server' => trim($_POST['server']),
                                         'ssl' => ($_POST['ssl'] == 'Y') ? 'Y' : 'N',
@@ -2218,7 +2218,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
                                         'password' => trim($_POST['password'])
                                     );
 
-        $this->model('setting')->set_vars(array('receiving_mail_config' => $receiving_mail_config));
+        $this->model('setting')->set_vars(array('receiving_email_config' => $receiving_email_config));
 
         H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('保存设置成功')));
     }
