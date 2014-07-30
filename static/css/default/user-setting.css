@@ -20,6 +20,8 @@
 .aw-user-setting .mod-base .side-bar dd{width: 210px;}
 .aw-user-setting .mod-base .side-bar span {margin-left:10px;}
 .aw-user-setting .mod-base .side-bar span .aw-loading{position:relative;top:4px;margin-right: 5px;}
+.aw-user-setting .mod-base .side-bar form{position:relative;opacity: 0;filter:alpha(opacity=0);width: 0;height: 0;}
+.aw-user-setting .mod-base .side-bar form .file-input{position: absolute;left: 0;top: 0;}
 /*联系方式*/
 .aw-user-setting .mod-contact li{float: left;margin:0 15px 20px 0;min-height: 32px;}
 .aw-user-setting .mod-contact li input{display:inline;width: 280px;}

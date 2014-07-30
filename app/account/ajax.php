@@ -668,7 +668,7 @@ class ajax extends AWS_CONTROLLER
 			'max_size' => get_setting('upload_avatar_size_limit'),
 			'file_name' => $this->model('account')->get_avatar($this->user_id, '', 2),
 			'encrypt_name' => FALSE
-		))->do_upload('user_avatar');
+		))->do_upload('aws_upload_file');
 
 		if (AWS_APP::upload()->get_error())
 		{

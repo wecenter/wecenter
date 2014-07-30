@@ -129,7 +129,8 @@ $(document).ready(function () {
     <?php if ($this->nav_menu_list) { ?>
     <?php foreach($this->nav_menu_list as $key => $val) { ?>
         <?php if ($val['title']) { ?>
-        AWS.Init.init_img_uploader(G_BASE_URL + '/admin/ajax/nav_menu_upload/<?php echo $val['id']; ?>', 'attach', $('#aw-nav-menu-img-upload-<?php echo $val['id']; ?>'), null, $('#aw-nav-menu-img-<?php echo $val['id']; ?>'));
+        var fileUpload = new FileUpload('avatar', $('#aw-nav-menu-img-upload-<?php echo $val['id']; ?>'), $('#aw-nav-menu-img-<?php echo $val['id']; ?>'), G_BASE_URL + '/admin/ajax/nav_menu_upload/<?php echo $val['id']; ?>');
+
         <?php } ?>
     <?php } ?>
     <?php } ?>

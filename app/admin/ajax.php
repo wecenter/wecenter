@@ -714,7 +714,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
             'is_image' => TRUE,
             'file_name' => intval($_GET['id']) . '.jpg',
             'encrypt_name' => FALSE
-        ))->do_upload('attach');
+        ))->do_upload('aws_upload_file');
 
         if (AWS_APP::upload()->get_error())
         {
@@ -748,9 +748,10 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
         $this->model('menu')->update_nav_menu($_GET['id'], array('icon' => basename($upload_data['full_path'])));
 
-        H::ajax_json_output(AWS_APP::RSM(array(
-            'preview' => get_setting('upload_url') . '/nav_menu/' . basename($upload_data['full_path'])
-        ), 1, null));
+        echo htmlspecialchars(json_encode(array(
+            'success' => true,
+            'thumb' => get_setting('upload_url') . '/nav_menu/' . basename($upload_data['full_path'])
+        )), ENT_NOQUOTES);
     }
 
     public function add_page_action()

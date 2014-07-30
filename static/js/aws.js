@@ -622,23 +622,17 @@ var AWS =
 		    	break;
 
 		    	case 'confirm':
-		    		$('.aw-confirm-box .yes').click(function()
-		    		{
-		    			callback();
-		    			$(".alert-box").modal('hide');
-		    			return false;
-		    		});
-		    	break;
-
 		    	//后台根话题
 		    	case 'adminCategoryMove':
-		    		$('.aw-category-move-box .yes').click(function()
+		    		$('.aw-confirm-box .yes, .aw-category-move-box .yes').click(function()
 		    		{
 		    			if (callback)
 		    			{
 		    				callback();
 		    			}
+
 		    			$(".alert-box").modal('hide');
+
 		    			return false;
 		    		});
 		    	break;
