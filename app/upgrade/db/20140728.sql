@@ -5,8 +5,10 @@ CREATE TABLE `[#DB_PREFIX#]received_email` (
   `msg_id` varchar(255) NOT NULL,
   `date` int(10) NOT NULL,
   `from` varchar(255) NOT NULL,
-  `subject` varchar(255) NOT NULL,
+  `subject` varchar(255) DEFAULT NULL,
   `content` text,
+  `question_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `msg_id` (`msg_id`)
+  KEY `msg_id` (`msg_id`),
+  KEY `date` (`date`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8 COMMENT='已导入邮件列表';
