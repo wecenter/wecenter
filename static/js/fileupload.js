@@ -9,7 +9,6 @@ function FileUpload (type, element, container, url, options)
 	this.element = element;
 	this.container = container;
 	this.url = url;
-
     this.options = {
 		'multiple' : true,
 		'deleteBtn' : true,
@@ -66,6 +65,8 @@ FileUpload.prototype =
 			'target' : 'ajaxUpload'
 		});
 
+		this.form = form;
+
 		return form;
 	},
 
@@ -103,8 +104,7 @@ FileUpload.prototype =
 	{
 		var iframe = this.toElement('<iframe></iframe>');
     	$(iframe).attr({
-    		'class': 'hide',
-    		'id': 'upload-iframe',
+    		'class': 'hide upload-iframe',
     		'name': 'ajaxUpload'
     	});
     	return iframe;
@@ -186,30 +186,30 @@ FileUpload.prototype =
         	{
 		        iframe.addEventListener('load', function()
 	        	{
-	        		_this.getIframeContentJSON(iframe);
+	        		_this.getIframeContentJSON(iframe, _this.container);
 	        	}, false);
 		    } else if (iframe.attachEvent)
 		    {
 		        iframe.attachEvent('onload', function()
 	        	{
-	        		_this.getIframeContentJSON(iframe);
+	        		_this.getIframeContentJSON(iframe, _this.container);
 	        	});
 	    	}
 
-    		$('body').append(iframe);
+    		$('#aw-ajax-box').append(iframe);
 
-        	$('#upload-form .submit').click();
+        	$(this.form).find('.submit').click();
         }
 	},
 
 	// 从iframe获取json内容
-	getIframeContentJSON : function (iframe)
+	getIframeContentJSON : function (iframe, container)
 	{
 		var doc = iframe.contentDocument ? iframe.contentDocument: iframe.contentWindow.document,
 			response, filename;
+
 		try
 		{
-
             response = eval("(" + doc.body.innerHTML + ")");
 
             if (this.type == 'file')
@@ -226,18 +226,18 @@ FileUpload.prototype =
 
             	if ($(this.container).attr('src'))
             	{
-            		$(this.container).attr('src', response.thumb + '?' + Math.round(Math.random()*1000));
+            		$(this.container).attr('src', response.thumb + '?' + Math.round(Math.random() * 10000));
             	}
             	else
             	{
             		$(this.container).css(
             		{
-            			'background' : 'url(' + response.thumb + '?' + Math.round(Math.random()*1000) + ')'
+            			'background' : 'url(' + response.thumb + '?' + Math.round(Math.random() * 10000) + ')'
             		});
             	}
             }
 
-           	//$('#upload-iframe').detach();
+           	$('.upload-iframe').detach();
         }
         catch(err)
         {
