@@ -1542,7 +1542,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
         if (empty($user_info))
         {
-            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('该用户不存在')));
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('所选用户不存在')));
         }
         else
         {
@@ -1726,7 +1726,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
             case 'update':
                 $this->model('weixin')->update_setting_or_account($_POST['id'], $account_info);
 
-                H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('保存成功')));
+                H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('保存设置成功')));
 
                 break;
         }
@@ -2116,20 +2116,36 @@ class ajax extends AWS_ADMIN_CONTROLLER
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('类型不能为空')));
         }
 
-        if ($_POST['type'] == 'weibo_msg')
+        switch ($_POST['type'])
         {
-            $approval_item = $this->model('weibo')->get_msg_info_by_id($_POST['id']);
+            case 'weibo_msg':
+                $approval_item = $this->model('weibo')->get_msg_info_by_id($_POST['id']);
 
-            if ($approval_item['question_id'])
-            {
-                H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('该消息已通过审核')));
-            }
+                if ($approval_item['question_id'])
+                {
+                    H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('该消息已通过审核')));
+                }
 
-            $approval_item['type'] = 'weibo_msg';
-        }
-        else
-        {
-            $approval_item = $this->model('publish')->get_approval_item($_POST['id']);
+                $approval_item['type'] = 'weibo_msg';
+
+                break;
+
+            case 'received_email':
+                $approval_item = $this->model('edm')->get_received_email_by_id($_POST['id']);
+
+                if ($approval_item['question_id'])
+                {
+                    H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('该邮件已通过审核')));
+                }
+
+                $approval_item['type'] = 'received_email';
+
+                break;
+
+            default:
+                $approval_item = $this->model('publish')->get_approval_item($_POST['id']);
+
+                break;
         }
 
         if (empty($approval_item))
@@ -2142,7 +2158,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('类型不正确')));
         }
 
-        if (!$_POST['title'] AND ($_POST['type'] == 'question' OR $_POST['type'] == 'article'))
+        if (!$_POST['title'] AND in_array($_POST['type'], array('question', 'article', 'received_email')))
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请输入标题')));
         }
@@ -2179,6 +2195,20 @@ class ajax extends AWS_ADMIN_CONTROLLER
                 $approval_item['data']['message'] = htmlspecialchars_decode($_POST['content']);
 
                 break;
+
+            case 'weibo_msg':
+                $approval_item['text'] = htmlspecialchars_decode($_POST['content']);
+
+                $approval_item['data']['attach_access_key'] = $approval_item['access_key'];
+
+                break;
+
+            case 'received_email':
+                $approval_item['subject'] = htmlspecialchars_decode($_POST['title']);
+
+                $approval_item['content'] = htmlspecialchars_decode($_POST['content']);
+
+                break;
         }
 
         if ($approval_item['type'] != 'article_comment' AND $_POST['remove_attachs'])
@@ -2189,13 +2219,29 @@ class ajax extends AWS_ADMIN_CONTROLLER
             }
         }
 
-        if ($approval_item['type'] == 'weibo_msg')
+        switch ($approval_item['type'])
         {
-            $this->model('weibo')->update('weibo_msg', array('text' => $_POST['content']), 'id = ' . $approval_item['id']);
-        }
-        else
-        {
-            $this->model('publish')->update('approval', array('data' => serialize($approval_item['data'])), 'id = ' . $approval_item['id']);
+            case 'weibo_msg':
+                $this->model('weibo')->update('weibo_msg', array(
+                    'text' => $approval_item['text']
+                ), 'id = ' . $approval_item['id']);
+
+                break;
+
+            case 'received_email':
+                $this->model('edm')->update('received_email', array(
+                    'subject' => $approval_item['subject'],
+                    'content' => $approval_item['content']
+                ), 'id = ' . $approval_item['id']);
+
+                break;
+
+            default:
+                $this->model('publish')->update('approval', array(
+                    'data' => serialize($approval_item['data'])
+                ), 'id = ' . $approval_item['id']);
+
+                break;
         }
 
         H::ajax_json_output(AWS_APP::RSM(array(
@@ -2214,6 +2260,18 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
     public function save_receiving_email_config_action()
     {
+        $_POST['id'] = intval($_POST['id']);
+
+        if ($_POST['id'])
+        {
+            $receiving_email_config = $this->model('edm')->fetch_row('receiving_email_config', 'id = ' . $_POST['id']);
+
+            if (empty($receiving_email_config))
+            {
+                H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('该账号不存在')));
+            }
+        }
+
         $_POST['server'] = trim($_POST['server']);
 
         if (!$_POST['server'])
@@ -2224,6 +2282,11 @@ class ajax extends AWS_ADMIN_CONTROLLER
         if (isset($_POST['port']) AND (!is_digits($_POST['port']) OR $_POST['port'] < 0 OR $_POST['port'] > 65535))
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请输入有效的端口号（0 ~ 65535）')));
+        }
+
+        if (!$_POST['uid'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择此账号对应的用户')));
         }
 
         $user_info = $this->model('account')->get_user_info_by_uid($_POST['uid']);
@@ -2242,13 +2305,25 @@ class ajax extends AWS_ADMIN_CONTROLLER
                                         'uid' => $user_info['uid']
                                     );
 
-        $this->model('edm')->insert('receiving_email_config', $receiving_email_config);
+        if ($_POST['id'])
+        {
+            $this->model('edm')->update('receiving_email_config', $receiving_email_config, 'id = ' . $_POST['id']);
+        }
+        else
+        {
+            $this->model('edm')->insert('receiving_email_config', $receiving_email_config);
+        }
 
         H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('保存设置成功')));
     }
 
-    public function save_receiving_email_global_config()
+    public function save_receiving_email_global_config_action()
     {
+        if (!$_POST['uid'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请设置邮件内容对应提问用户')));
+        }
+
         $user_info = $this->model('account')->get_user_info_by_uid($_POST['uid']);
 
         if (empty($user_info))
@@ -2257,8 +2332,8 @@ class ajax extends AWS_ADMIN_CONTROLLER
         }
 
         $this->model('setting')->set_vars(array(
-            'receiving_email_enabled' => ($_POST['enabled'] == 'Y') ? 'Y' : 'N',
-            'received_email_publish_user' => array(
+            'enabled' => ($_POST['enabled'] == 'Y') ? 'Y' : 'N',
+            'publish_user' => array(
                 'uid' => $user_info['uid'],
                 'user_name' => $user_info['user_name'],
                 'url_token' => $user_info['url_token']
@@ -2266,5 +2341,17 @@ class ajax extends AWS_ADMIN_CONTROLLER
         ));
 
         H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('保存设置成功')));
+    }
+
+    public function remove_receiving_account_action()
+    {
+        if (!$_GET['id'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择要删除的账号')));
+        }
+
+        $this->model('edm')->delete('receiving_email_config', 'id = ' . intval($_GET['id']));
+
+        H::ajax_json_output(AWS_APP::RSM(null, 1, null));
     }
 }

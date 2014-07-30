@@ -32,7 +32,7 @@
                     <tr>
                         <td><?php echo $account_info['server']; ?></td>
                         <td><?php echo $account_info['username']; ?></td>
-                        <td><?php ?></td>
+                        <td><a href="people/<?php echo $users_info[$account_info['uid']]['url_token']; ?>" target="_blank"><?php echo $users_info[$account_info['uid']]['user_name']; ?></a></td>
                         <td class="nowrap">
                             <a href="admin/edm/receiving/id-<?php echo $account_info['id']; ?>" data-toggle="tooltip" title="<?php _e('编辑'); ?>" class="fa fa-pencil md-tip"></a>
 
@@ -61,12 +61,12 @@
                             <div class="col-sm-6 col-xs-8">
                                 <div class="btn-group mod-btn">
                                     <label type="button" class="btn mod-btn-color">
-                                        <input type="radio" name="enabled" value="Y"<?php if ($this->receiving_email_config['enabled'] == 'Y') { ?> checked="checked"<?php } ?> />
+                                        <input type="radio" name="enabled" value="Y"<?php if ($this->receiving_email_global_config['enabled'] == 'Y') { ?> checked="checked"<?php } ?> />
                                         <?php _e('是'); ?>
                                     </label>
 
                                     <label type="button" class="btn mod-btn-color">
-                                        <input type="radio" name="enabled" value="N"<?php if ($this->receiving_email_config['enabled'] != 'Y') { ?> checked="checked"<?php } ?> />
+                                        <input type="radio" name="enabled" value="N"<?php if ($this->receiving_email_global_config['enabled'] != 'Y') { ?> checked="checked"<?php } ?> />
                                         <?php _e('否'); ?>
                                     </label>
                                 </div>
@@ -79,6 +79,7 @@
                             <span class="col-sm-4 col-xs-3 control-label"><?php _e('设置邮件内容对应提问用户'); ?>:</span>
 
                             <div class="col-sm-8 col-xs-8 aw-admin-weibo-publish">
+                                <input name="uid" type="hidden" value="<?php echo $this->receiving_email_global_config['publish_user']['uid']; ?>"/>
                                 <input type="text" class="form-control search-input" placeholder="<?php _e('添加邮件内容对应提问用户'); ?>">
                                 <div class="aw-dropdown">
                                     <p class="title"><?php _e('没有找到相关结果'); ?></p>
@@ -87,8 +88,8 @@
                                     </ul>
                                 </div>
 
-                                <?php if ($this->published_user) { ?>
-                                <a class="push-name" href="people/<?php echo $this->published_user['url_token']; ?>" target="_blank"><img class="img" src="<?php echo get_avatar_url($this->published_user['uid'], 'min'); ?>" alt="" /><?php echo $this->published_user['user_name']; ?></a>
+                                <?php if ($this->receiving_email_global_config['publish_user']['uid']) { ?>
+                                <a class="push-name" href="people/<?php echo $this->receiving_email_global_config['publish_user']['url_token']; ?>" target="_blank"><img class="img" src="<?php echo get_avatar_url($this->receiving_email_global_config['publish_user']['uid'], 'min'); ?>" alt="" /><?php echo $this->receiving_email_global_config['publish_user']['user_name']; ?></a>
                                 <a class="delete btn btn-danger btn-sm" href="javascript:;"><?php _e('删除用户'); ?></a>
                                 <?php } ?>
                             </div>

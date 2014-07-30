@@ -1,9 +1,7 @@
-INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES ('receiving_email_enabled', 's:1:"N";');
-INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES ('received_email_publish_user', 'a:0:"";');
+INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES ('receiving_email_global_config', 'a:2:{s:7:"enabled";s:1:"N";s:12:"publish_user";N;}');
 
 CREATE TABLE `[#DB_PREFIX#]receiving_email_config` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `enabled` tinyint(1) NOT NULL DEFAULT '0',
   `server` varchar(255) NOT NULL,
   `ssl` tinyint(1) NOT NULL DEFAULT '0',
   `port` smallint(5) UNSIGNED DEFAULT NULL,
@@ -19,14 +17,18 @@ CREATE TABLE `[#DB_PREFIX#]receiving_email_config` (
 CREATE TABLE `[#DB_PREFIX#]received_email` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `uid` int(10) NOT NULL,
+  `config_id` int(10) NOT NULL,
   `message_id` varchar(255) NOT NULL,
   `date` int(10) NOT NULL,
   `from` varchar(255) NOT NULL,
   `subject` varchar(255) DEFAULT NULL,
   `content` text,
   `question_id` int(11) DEFAULT NULL,
+  `access_key` varchar(32) NOT NULL,
+  `has_attach` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `uid` (`uid`),
+  KEY `config_id` (`config_id`),
   KEY `message_id` (`message_id`),
   KEY `date` (`date`),
   KEY `question_id` (`question_id`)
