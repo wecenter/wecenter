@@ -1174,10 +1174,7 @@ function get_month_list($timestamp1, $timestamp2, $year_format = 'Y', $month_for
  * EML 文件解码
  *
  * @param string
- * @param string
- * @param string
- * @param string
- * @return array
+ * @return string
  */
 function decode_eml($string)
 {
