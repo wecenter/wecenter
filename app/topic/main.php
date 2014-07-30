@@ -364,7 +364,7 @@ class main extends AWS_CONTROLLER
 		TPL::assign('topic_info', $topic_info);
 		TPL::assign('related_topics', $this->model('topic')->related_topics($_GET['id']));
 
-		TPL::import_js('js/ajaxupload.js');
+		TPL::import_js('js/fileupload.js');
 
 		if (get_setting('advanced_editor_enable') == 'Y')
 		{

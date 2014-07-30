@@ -69,7 +69,7 @@
 	$(document).ready(function () {
 		if ($('#topic_pic_uploader').length)
 		{
-			AWS.Init.init_img_uploader(G_BASE_URL + '/topic/ajax/upload_topic_pic/topic_id-<?php echo $this->topic_info['topic_id']; ?>', 'topic_pic', $('#topic_pic_uploader'), $('#uploading_status'), $('#topic_pic_uploader'));
+			var fileUpload = new FileUpload('avatar', $('#topic_pic_uploader'), $('#topic_pic_uploader'), G_BASE_URL + '/topic/ajax/upload_topic_pic/topic_id-<?php echo $this->topic_info['topic_id']; ?>', {'loading_status' : '#uploading_status'});
 		}
 	});
 </script>

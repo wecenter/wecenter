@@ -3,12 +3,12 @@
  * Copyright 2011-2014 Wecenter, Inc.
  * Date: 2014-06-02
  */
-function FileUpload (element, container, url, options)
+function FileUpload (type, element, container, url, options)
 {
+	this.type = type;
 	this.element = element;
 	this.container = container;
 	this.url = url;
-
     this.options = {
 		'multiple' : true,
 		'deleteBtn' : true,
@@ -24,11 +24,21 @@ function FileUpload (element, container, url, options)
 		    		'</li>',
 		'deleteBtnTemplate' : '<a class="delete-file">删除</a>' ,
 		'insertBtnTemplate' : '<a class="insert-file">插入</a>'
-	},
+	};
 
 	this.options = $.extend(this.options, options);
 
-	this.init(element, container);
+	if (type == 'file')
+	{
+		this.init(element, container);
+	}
+	else
+	{
+		var form = this.createForm(),
+			input = this.createInput();
+
+		$(element).prepend($(form).append(input));
+	}
 }
 
 FileUpload.prototype = 
@@ -54,6 +64,8 @@ FileUpload.prototype =
 			'action' : this.url,
 			'target' : 'ajaxUpload'
 		});
+
+		this.form = form;
 
 		return form;
 	},
@@ -92,8 +104,7 @@ FileUpload.prototype =
 	{
 		var iframe = this.toElement('<iframe></iframe>');
     	$(iframe).attr({
-    		'class': 'hide',
-    		'id': 'upload-iframe',
+    		'class': 'hide upload-iframe',
     		'name': 'ajaxUpload'
     	});
     	return iframe;
@@ -103,7 +114,7 @@ FileUpload.prototype =
 	addFileList : function (input)
 	{
 		var files = $(input)[0].files;
-		if (files)
+		if (files && this.type == 'file')
 		{
 			for (i = 0; i < files.length; i++)
 			{
@@ -115,9 +126,16 @@ FileUpload.prototype =
 		}
 		else
 		{
-			this.li = this.toElement(this.options.template);
-			$(this.container).find('.upload-list').append(this.li);
-			this.upload('', this.li);
+			if (this.type == 'file')
+			{
+				this.li = this.toElement(this.options.template);
+				$(this.container).find('.upload-list').append(this.li);
+				this.upload('', this.li);
+			}
+			else
+			{
+				this.upload('');
+			}
 		}
 		
 	},
@@ -159,42 +177,67 @@ FileUpload.prototype =
         	//低版本ie上传
 			var iframe = this.createIframe();
 
+			if (this.options.loading_status)
+			{
+				$(this.options.loading_status).show();
+			}
+
         	if (iframe.addEventListener)
         	{
 		        iframe.addEventListener('load', function()
 	        	{
-	        		_this.getIframeContentJSON(iframe);
+	        		_this.getIframeContentJSON(iframe, _this.container);
 	        	}, false);
 		    } else if (iframe.attachEvent)
 		    {
 		        iframe.attachEvent('onload', function()
 	        	{
-	        		_this.getIframeContentJSON(iframe);
+	        		_this.getIframeContentJSON(iframe, _this.container);
 	        	});
 	    	}
 
-    		$('body').append(iframe);
+    		$('#aw-ajax-box').append(iframe);
 
-        	$('#upload-form .submit').click();
+        	$(this.form).find('.submit').click();
         }
 	},
 
 	// 从iframe获取json内容
-	getIframeContentJSON : function (iframe)
+	getIframeContentJSON : function (iframe, container)
 	{
 		var doc = iframe.contentDocument ? iframe.contentDocument: iframe.contentWindow.document,
 			response, filename;
+
 		try
 		{
             response = eval("(" + doc.body.innerHTML + ")");
 
-        	this.render(this.li, response);
+            if (this.type == 'file')
+            {
+            	this.render(this.li, response);
 
-           	filename = this.getName($('#upload-form .file-input')[0].value);
+	           	filename = this.getName($('#upload-form .file-input')[0].value);
 
-           	$(this.li).find('.title').html(filename);
+	           	$(this.li).find('.title').html(filename);
+            }
+            else
+            {
+            	$(this.options.loading_status).hide();
 
-           	$('#upload-iframe').detach();
+            	if ($(this.container).attr('src'))
+            	{
+            		$(this.container).attr('src', response.thumb + '?' + Math.round(Math.random() * 10000));
+            	}
+            	else
+            	{
+            		$(this.container).css(
+            		{
+            			'background' : 'url(' + response.thumb + '?' + Math.round(Math.random() * 10000) + ')'
+            		});
+            	}
+            }
+
+           	$('.upload-iframe').detach();
         }
         catch(err)
         {

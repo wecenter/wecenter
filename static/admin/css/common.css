@@ -169,6 +169,8 @@ textarea{resize:none;}
 .aw-content-wrap .aw-nav-menu .mod-set-head span{color:#999;}
 .aw-content-wrap .aw-nav-menu .mod-set-body{display:none;padding: 10px 25px;}
 .aw-content-wrap .aw-nav-menu .aw-nav-menu-tag .aw-nav-menu-img{margin:5px 0 0 15px;width:52px;height:52px;border:1px dashed #999;}
+.aw-content-wrap .aw-nav-menu .aw-nav-menu-tag .aw-nav-menu-img form{position: relative;opacity: 0;filter:alpha(opacity=0);width: 0;height: 0;}
+.aw-content-wrap .aw-nav-menu .aw-nav-menu-tag .aw-nav-menu-img form .file-input{position: absolute;left: 0;top: 0;width: 50px;height: 50px;}
 .aw-content-wrap .aw-nav-menu .aw-nav-menu-descrip input{width:390px;}
 .aw-content-wrap .aw-nav-menu label,.aw-content-wrap .aw-nav-menu input{font-size:13px;}
 .aw-content-wrap .aw-nav-menu input{margin-top:3px;}

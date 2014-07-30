@@ -659,7 +659,7 @@ class ajax extends AWS_CONTROLLER
 		), 1, AWS_APP::lang()->_t('密码修改成功, 请返回登录')));
 	}
 
-	function avatar_upload_action()
+	public function avatar_upload_action()
 	{
 		AWS_APP::upload()->initialize(array(
 			'allowed_types' => 'jpg,jpeg,png,gif',
@@ -668,30 +668,30 @@ class ajax extends AWS_CONTROLLER
 			'max_size' => get_setting('upload_avatar_size_limit'),
 			'file_name' => $this->model('account')->get_avatar($this->user_id, '', 2),
 			'encrypt_name' => FALSE
-		))->do_upload('user_avatar');
+		))->do_upload('aws_upload_file');
 
 		if (AWS_APP::upload()->get_error())
 		{
 			switch (AWS_APP::upload()->get_error())
-			{
-				default:
-					H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('错误代码') . ': ' . AWS_APP::upload()->get_error()));
-				break;
+            {
+                default:
+                    die("{'error':'错误代码: " . AWS_APP::upload()->get_error() . "'}");
+                break;
 
-				case 'upload_invalid_filetype':
-					H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('文件类型无效')));
-				break;
+                case 'upload_invalid_filetype':
+                    die("{'error':'文件类型无效'}");
+                break;
 
-				case 'upload_invalid_filesize':
-					H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('文件尺寸过大, 最大允许尺寸为 %s KB', get_setting('upload_size_limit'))));
-				break;
-			}
+                case 'upload_invalid_filesize':
+                    die("{'error':'文件尺寸过大, 最大允许尺寸为 " . get_setting('upload_size_limit') .  " KB'}");
+                break;
+            }
 		}
 
 		if (! $upload_data = AWS_APP::upload()->data())
-		{
-			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('上传失败, 请与管理员联系')));
-		}
+        {
+            die("{'error':'上传失败, 请与管理员联系'}");
+        }
 
 		if ($upload_data['is_image'] == 1)
 		{
@@ -718,10 +718,11 @@ class ajax extends AWS_CONTROLLER
 		{
 			$this->model('integral')->process($this->user_id, 'UPLOAD_AVATAR', round((get_setting('integral_system_config_profile') * 0.2)), '上传头像');
 		}
-
-		H::ajax_json_output(AWS_APP::RSM(array(
-			'preview' => get_setting('upload_url') . '/avatar/' . $this->model('account')->get_avatar($this->user_id, null, 1) . basename($thumb_file['max'])
-		), 1, null));
+		
+		echo htmlspecialchars(json_encode(array(
+			'success' => true,
+			'thumb' => get_setting('upload_url') . '/avatar/' . $this->model('account')->get_avatar($this->user_id, null, 1) . basename($thumb_file['max'])
+		)), ENT_NOQUOTES);
 	}
 
 	function add_edu_action()

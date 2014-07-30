@@ -5,26 +5,33 @@
     <div class="mod">
         <div class="mod-head">
             <h3>
-                <span class="pull-left"><?php _e('邮件导入'); ?></span>
+                <?php if (empty($this->receiving_email_config)) { ?>
+                <ul class="nav nav-tabs">
+                    <li><a href="admin/edm/receiving_list/"><?php _e('账号列表'); ?></a></li>
+                    <li class="active"><a href="admin/edm/receiving/"><?php _e('新增账号'); ?></a></li>
+                </ul>
+                <?php } else { ?>
+                <span class="pull-left"><?php _e('编辑账号'); ?></span>
+                <?php } ?>
             </h3>
         </div>
 
         <div class="tab-content mod-content">
-            <form method="post" action="admin/ajax/save_receiving_mail_config/" onsubmit="return false;" id="receiving_form" class="form-horizontal" role="form">
+            <form method="post" action="admin/ajax/save_receiving_email_config/" onsubmit="return false;" id="receiving_form" class="form-horizontal" role="form">
             <table class="table table-striped">
                 <tr><td>
                 <div class="form-group">
-                    <span class="col-sm-4 col-xs-3 control-label"><?php _e('开启邮件导入'); ?>:</span>
+                    <span class="col-sm-4 col-xs-3 control-label"><?php _e('启用'); ?>:</span>
 
                     <div class="col-sm-6 col-xs-8">
                         <div class="btn-group mod-btn">
                             <label type="button" class="btn mod-btn-color">
-                                <input type="radio" name="enabled" value="Y"<?php if ($this->receiving_mail_config['enabled'] == 'Y') { ?> checked="checked"<?php } ?> />
+                                <input type="radio" name="enabled" value="Y"<?php if ($this->receiving_email_config['enabled'] == 'Y') { ?> checked="checked"<?php } ?> />
                                 <?php _e('是'); ?>
                             </label>
 
                             <label type="button" class="btn mod-btn-color">
-                                <input type="radio" name="enabled" value="N"<?php if ($this->receiving_mail_config['enabled'] != 'Y') { ?> checked="checked"<?php } ?> />
+                                <input type="radio" name="enabled" value="N"<?php if ($this->receiving_email_config['enabled'] != 'Y') { ?> checked="checked"<?php } ?> />
                                 <?php _e('否'); ?>
                             </label>
                         </div>
@@ -37,7 +44,7 @@
                     <span class="col-sm-4 col-xs-3 control-label"><?php _e('POP3 服务器'); ?>:</span>
 
                     <div class="col-sm-5 col-xs-8">
-                        <input name="server" type="text" class="form-control" value="<?php echo $this->receiving_mail_config['server']; ?>" />
+                        <input name="server" type="text" class="form-control" value="<?php echo $this->receiving_email_config['server']; ?>" />
                     </div>
                 </div>
                 </td></tr>
@@ -49,11 +56,11 @@
                     <div class="col-sm-6 col-xs-8">
                         <div class="btn-group mod-btn">
                             <label type="button" class="btn mod-btn-color">
-                                <input type="radio" name="ssl" value="Y"<?php if ($this->receiving_mail_config['ssl'] == 'Y') { ?> checked="checked"<?php } ?> /> <?php _e('是'); ?>
+                                <input type="radio" name="ssl" value="Y"<?php if ($this->receiving_email_config['ssl'] == 'Y') { ?> checked="checked"<?php } ?> /> <?php _e('是'); ?>
                             </label>
 
                             <label type="button" class="btn mod-btn-color">
-                                <input type="radio" name="ssl" value="N"<?php if ($this->receiving_mail_config['ssl'] != 'Y') { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?>
+                                <input type="radio" name="ssl" value="N"<?php if ($this->receiving_email_config['ssl'] != 'Y') { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?>
                             </label>
                         </div>
                     </div>
@@ -65,7 +72,7 @@
                     <span class="col-sm-4 col-xs-3 control-label"><?php _e('POP3 端口'); ?>:</span>
 
                     <div class="col-sm-5 col-xs-8">
-                        <input name="port" type="text" class="form-control" value="<?php echo $this->receiving_mail_config['port']; ?>" />
+                        <input name="port" type="text" class="form-control" value="<?php echo $this->receiving_email_config['port']; ?>" />
 
                         <div class="help-block"><?php _e('留空时默认服务器端口为 110，使用 SSL 协议默认端口为 995，详细参数请询问邮箱服务商'); ?></div>
                     </div>
@@ -77,7 +84,7 @@
                     <span class="col-sm-4 col-xs-3 control-label"><?php _e('POP3 帐户'); ?>:</span>
 
                     <div class="col-sm-5 col-xs-8">
-                        <input name="username" type="text" class="form-control" value="<?php echo $this->receiving_mail_config['username']; ?>"/>
+                        <input name="username" type="text" class="form-control" value="<?php echo $this->receiving_email_config['username']; ?>"/>
                     </div>
                 </div>
                 </td></tr>
@@ -87,7 +94,7 @@
                         <div class="form-group">
                             <span class="col-sm-4 col-xs-3 control-label"><?php _e('POP3 密码'); ?>:</span>
                             <div class="col-sm-5 col-xs-8">
-                                <input name="password" type="password" class="form-control" value="<?php echo $this->receiving_mail_config['password']; ?>"/>
+                                <input name="password" type="password" class="form-control" value="<?php echo $this->receiving_email_config['password']; ?>"/>
                             </div>
                         </div>
                     </td>

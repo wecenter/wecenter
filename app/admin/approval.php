@@ -40,6 +40,11 @@ class approval extends AWS_ADMIN_CONTROLLER
 
 				break;
 
+			case 'received_email':
+				$approval_list = $this->model('edm')->fetch_page('received_email', 'question_id IS NULL', 'id ASC', $_GET['page'], $this->per_page);
+
+				break;
+
 			case 'unverified_modify':
 				$approval_list = $this->model('question')->fetch_page('question', 'unverified_modify_count <> 0', 'question_id ASC', $_GET['page'], $this->per_page);
 
@@ -64,6 +69,8 @@ class approval extends AWS_ADMIN_CONTROLLER
 		TPL::assign('article_comment_count', $this->model('publish')->count('approval', "type = 'article_comment'"));
 
 		TPL::assign('weibo_msg_count', $this->model('weibo')->count('weibo_msg', 'question_id IS NULL'));
+
+		TPL::assign('received_email_count', $this->model('edm')->count('received_email', 'question_id IS NULL'));
 
 		TPL::assign('unverified_modifies_count', $this->model('question')->count('question', 'unverified_modify_count <> 0'));
 
