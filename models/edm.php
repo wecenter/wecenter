@@ -210,10 +210,10 @@ class edm_class extends AWS_MODEL
 
 			return false;
 		}
-
+var_dump($mail->getRawContent(1)); exit();
 		foreach ($mail AS $num => $message)
 		{
-			$message_id = $message->getHeader('Message-ID', 'string');
+			$received_email['message_id'] = $message->getHeader('Message-ID', 'string');
 
 			$received_email['date'] = strtotime($message->getHeader('Date', 'string'));
 
@@ -223,9 +223,9 @@ class edm_class extends AWS_MODEL
 
 			$received_email['content'] = $message->getContent();
 
-			$this->insert('received_email', $received_email);
+			//$this->insert('received_email', $received_email);
 
-			$mail->removeMessage($num);
+			//$mail->removeMessage($num);
 		}
 
 	}
