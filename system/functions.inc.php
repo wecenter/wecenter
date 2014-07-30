@@ -1169,3 +1169,80 @@ function get_month_list($timestamp1, $timestamp2, $year_format = 'Y', $month_for
 
 	return $timedata;
 }
+
+/**
+ * EML 文件解码
+ *
+ * @param string
+ * @param string
+ * @param string
+ * @param string
+ * @return array
+ */
+function decode_eml($string)
+{
+	$pos = strpos($string, '=?');
+
+	if (!is_int($pos))
+	{
+		return $string;
+	}
+
+	$preceding = substr($string, 0, $pos);	// save any preceding text
+	$search = substr($string, $pos + 2);	// the mime header spec says this is the longest a single encoded word can be
+	$part_1 = strpos($search, '?');
+
+	if (!is_int($part_1))
+	{
+		return $string;
+	}
+
+	$charset = substr($string, $pos + 2, $part_1);	// 取出字符集的定义部分
+	$search = substr($search, $part_1 + 1);	// 字符集定义以后的部分 => $search
+
+	$part_2 = strpos($search, '?');
+
+	if (!is_int($part_2))
+	{
+		return $string;
+	}
+	
+	$encoding = substr($search, 0, $part_2);	// 两个?　之间的部分编码方式: q 或 b　
+	$search = substr($search, $part_2 + 1);
+	$end = strpos($search, '?=');	// $part_2 + 1 与 $end 之间是编码了的内容: => $endcoded_text;
+
+	if (!is_int($end))
+	{
+		return $string;
+	}
+
+	$encoded_text = substr($search, 0, $end);
+	$rest = substr($string, (strlen($preceding . $charset . $encoding . $encoded_text) + 6));	// + 6 是前面去掉的 =????= 六个字符
+
+	switch (strtolower($encoding))
+	{
+		case 'q':
+			$decoded = quoted_printable_decode($encoded_text);
+
+			if (strtolower($charset) == 'windows-1251')
+			{
+				$decoded = convert_cyr_string($decoded, 'w', 'k');
+			}
+		break;
+
+		case 'b':
+			$decoded = base64_decode($encoded_text);
+			
+			if (strtolower($charset) == 'windows-1251')
+			{
+				$decoded = convert_cyr_string($decoded, 'w', 'k');
+			}
+		break;
+
+		default:
+			$decoded = '=?' . $charset . '?' . $encoding . '?' . $encoded_text . '?=';
+		break;
+	}
+	
+	return $preceding . $decoded . decode_mime($rest);
+}

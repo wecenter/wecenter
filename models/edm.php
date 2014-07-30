@@ -180,9 +180,9 @@ class edm_class extends AWS_MODEL
 	{
 		$receiving_mail_config = get_setting('receiving_mail_config');
 
-		if (empty($receiving_mail_config['server']) OR empty($receiving_mail_config['username']) OR empty($receiving_mail_config['password']))
+		if (empty($receiving_mail_config['server']) OR empty($receiving_mail_config['username']))
 		{
-			return false;
+			//return false;
 		}
 
 		$mail_config = array(
@@ -204,15 +204,17 @@ class edm_class extends AWS_MODEL
 		try
 		{
 			$mail = new Zend_Mail_Storage_Pop3($mail_config);
-		} catch (Exception $e)
-		{
+		}
+		catch (Exception $e) {
 			echo $e->getMessage() . "\n";
 
 			return false;
 		}
-var_dump($mail->getRawContent(1)); exit();
+		
 		foreach ($mail AS $num => $message)
 		{
+			echo decode_eml($message->subject); die;
+			
 			$received_email['message_id'] = $message->getHeader('Message-ID', 'string');
 
 			$received_email['date'] = strtotime($message->getHeader('Date', 'string'));
