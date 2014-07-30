@@ -2038,6 +2038,11 @@ class ajax extends AWS_ADMIN_CONTROLLER
                 {
                     $published_user_info = $this->model('account')->get_user_info_by_uid($_POST['uid']);
 
+                    if (empty($published_user_info))
+                    {
+                        H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('所选用户不存在')));
+                    }
+
                     $this->model('setting')->set_vars(array(
                         'weibo_msg_published_user' => array(
                             'uid' => $published_user_info['uid'],
@@ -2209,16 +2214,56 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
     public function save_receiving_email_config_action()
     {
+        $_POST['server'] = trim($_POST['server']);
+
+        if (!$_POST['server'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请输入 POP3 服务器')));
+        }
+
+        if (isset($_POST['port']) AND (!is_digits($_POST['port']) OR $_POST['port'] < 0 OR $_POST['port'] > 65535))
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请输入有效的端口号（0 ~ 65535）')));
+        }
+
+        $user_info = $this->model('account')->get_user_info_by_uid($_POST['uid']);
+
+        if (empty($user_info))
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('所选用户不存在')));
+        }
+
         $receiving_email_config = array(
-                                        'enabled' => ($_POST['enabled'] == 'Y') ? 'Y' : 'N',
-                                        'server' => trim($_POST['server']),
+                                        'server' => $_POST['server'],
                                         'ssl' => ($_POST['ssl'] == 'Y') ? 'Y' : 'N',
-                                        'port' => (is_digits($_POST['port'])) ? $_POST['port'] : '',
+                                        'port' => $_POST['port'],
                                         'username' => trim($_POST['username']),
-                                        'password' => trim($_POST['password'])
+                                        'password' => trim($_POST['password']),
+                                        'uid' => $user_info['uid']
                                     );
 
-        $this->model('setting')->set_vars(array('receiving_email_config' => $receiving_email_config));
+        $this->model('edm')->insert('receiving_email_config', $receiving_email_config);
+
+        H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('保存设置成功')));
+    }
+
+    public function save_receiving_email_global_config()
+    {
+        $user_info = $this->model('account')->get_user_info_by_uid($_POST['uid']);
+
+        if (empty($user_info))
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('所选用户不存在')));
+        }
+
+        $this->model('setting')->set_vars(array(
+            'receiving_email_enabled' => ($_POST['enabled'] == 'Y') ? 'Y' : 'N',
+            'received_email_publish_user' => array(
+                'uid' => $user_info['uid'],
+                'user_name' => $user_info['user_name'],
+                'url_token' => $user_info['url_token']
+            )
+        ));
 
         H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('保存设置成功')));
     }

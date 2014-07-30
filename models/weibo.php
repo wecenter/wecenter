@@ -206,14 +206,9 @@ class weibo_class extends AWS_MODEL
 
                 $msg_info['created_at'] = strtotime($msg['created_at']);
 
-                if ($now - $msg_info['created_at'] > 604800)
-                {
-                    continue;
-                }
-
                 $msg_info['id'] = $msg['id'];
 
-                if ($this->fetch_row('weibo_msg', $this->quote($msg_info['id'])))
+                if ($now - $msg_info['created_at'] > 604800 OR $this->fetch_row('weibo_msg', $this->quote($msg_info['id'])))
                 {
                     continue;
                 }
