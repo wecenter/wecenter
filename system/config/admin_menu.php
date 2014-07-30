@@ -230,7 +230,7 @@ $config[] = array(
         array(
             'id' => 807,
             'title' => '邮件导入',
-            'url' => 'admin/edm/receiving/'
+            'url' => 'admin/edm/receiving_list/'
         )
     )
 );

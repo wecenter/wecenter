@@ -127,9 +127,9 @@ class crond_class extends AWS_MODEL
             $this->model('weibo')->get_msg_from_sina_crond();
         }
 
-        $receiving_mail_config = get_setting('receiving_mail_config');
+        $receiving_email_config = get_setting('receiving_email_enabled');
 
-        if ($receiving_mail_config['enabled'] == 'Y')
+        if ($receiving_email_config['enabled'] == 'Y')
         {
             $this->model('edm')->receive_email_crond();
         }
