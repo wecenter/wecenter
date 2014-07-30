@@ -54,6 +54,7 @@ input[type="text"], input[type="password"], textarea{-webkit-appearance:none;}
 .fa-spin{display:inline-block;-webkit-animation:spin 2s infinite linear;-moz-animation:spin 2s infinite linear;-o-animation:spin 2s infinite linear;animation:spin 2s infinite linear}@-moz-keyframes spin{0%{-moz-transform:rotate(0deg)}100%{-moz-transform:rotate(359deg)}}@-webkit-keyframes spin{0%{-webkit-transform:rotate(0deg)}100%{-webkit-transform:rotate(359deg)}}@-o-keyframes spin{0%{-o-transform:rotate(0deg)}100%{-o-transform:rotate(359deg)}}@keyframes spin{0%{-webkit-transform:rotate(0deg);transform:rotate(0deg)}100%{-webkit-transform:rotate(359deg);transform:rotate(359deg)}}.fa-rotate-90{filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=1);-webkit-transform:rotate(90deg);-moz-transform:rotate(90deg);-ms-transform:rotate(90deg);-o-transform:rotate(90deg);transform:rotate(90deg)}
 .aw-title{height: 43px;padding:0 10px;line-height: 43px;background-color:#fafafa;border-bottom:1px solid #999999;font-size: 16px;color: #333333;}
 .aw-title .btn{margin-top: 10px;}
+.margin-0{margin:0;}
 .padding-0{padding:0;}
 .aw-hide-txt{overflow: hidden;text-overflow:ellipsis;white-space: nowrap;}
 /* 话题栏 */
@@ -77,6 +78,7 @@ input[type="text"], input[type="password"], textarea{-webkit-appearance:none;}
 .operate.active a{color: #66b7ff;}
 .operate.disabled{}
 .operate a{float:left;height:30px;line-height:30px;padding:0 7px;color: #999;}
+.operate a:active, .operate a:hover, .operate a:focus{color: #66b7ff;}
 .operate a + a{border-left: 1px solid #fff;}
 .operate a i{line-height: 28px;}
 /* 全局loading样式 */
@@ -294,9 +296,6 @@ input[type="text"], input[type="password"], textarea{-webkit-appearance:none;}
 .aw-article-detail .operate .icon-agree{margin-right: 3px;}
 .aw-article-detail .aw-article-voter{margin-top: 5px;}
 
-/* 邀请我回答的问题 */
-#index_listview .mod-footer a{color: #19558d;}
-
 /* 编辑器效果 */
 .markitup-box{word-wrap:break-word;}
 .markitup-box p{line-height: 1.8em;}
@@ -334,11 +333,11 @@ input[type="text"], input[type="password"], textarea{-webkit-appearance:none;}
 .upload-list .meta a:active{background-color: #66b7ff;color: #fff;border-color:#66b7ff;}
 
 /* 搜索页面 */
-.aw-search-bar{position:relative;height: 52px;padding:0 10px 10px;background-color: #66b7ff;border-bottom: 1px solid #5496d1;}
+.aw-search-bar{position:relative;height: 62px;padding:10px;background-color: #66b7ff;border-bottom: 1px solid #5496d1;}
 .aw-search-bar.active{background-color: #fafafa;border-bottom-color: #cccccc;}
 .aw-search-bar.active input{border:1px solid #ccc;}
 .aw-search-bar input{height:40px;border:none;font-size: 15px;}
-.aw-search-bar .icon-search{position: absolute;right: 20px;top: 10px;font-size: 18px;color: #999999;}
+.aw-search-bar .icon-search{position: absolute;right: 20px;top: 20px;font-size: 18px;color: #999999;}
 .aw-search-result-box .tips{height: 36px;line-height: 36px;margin:0;background-color:#fafafa;border-bottom: 1px solid #e6e6e6;}
 .aw-search-result-box > .mod-footer{margin-top:15px;}
 .aw-search-result-box .result-mod .mod-head{height:auto;overflow:hidden;padding:0 15px;background-color: #fafafa;border-bottom: 1px solid #999999;}
@@ -355,6 +354,9 @@ input[type="text"], input[type="password"], textarea{-webkit-appearance:none;}
 .aw-search-result-box .aw-load-more{margin:10px 10px 0;}
 
 /* 私信页面 */
+.aw-inbox-search-bar{position:relative;height: 62px;padding:10px;background-color: #fafafa;border-bottom: 1px solid #cccccc;}
+.aw-inbox-search-bar input{height:40px;font-size: 15px;}
+.aw-inbox-search-bar .icon-search{position: absolute;right: 20px;top: 20px;font-size: 18px;color: #999999;}
 .aw-inbox-list ul li .mod-head{position: relative;padding:10px 10px 10px 70px !important;}
 .aw-inbox-list ul li .mod-head .img, .aw-people-list ul li .mod-head .img{position: absolute;left: 10px;top: 10px;}
 .aw-inbox-list ul li .mod-head p, .aw-people-list ul li .mod-head p{margin-top:5px;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;}
@@ -406,7 +408,7 @@ input[type="text"], input[type="password"], textarea{-webkit-appearance:none;}
 .aw-login-box .bind-form p, .aw-login-box .register-form p{margin-top: 10px;}
 
 /* 用户列表页 */
-.aw-people-list ul li .mod-head{position:relative;min-height:70px;padding:10px 10px 0 70px;}
+.aw-people-list ul li .mod-head{position:relative;min-height:60px;padding:10px 10px 0 70px;}
 .aw-people-list ul li .mod-head .flag{position: absolute;left: 3px;top: -1px;}
 .aw-people-list ul li .mod-head .flag i{font-size: 22px;}
 .aw-people-list ul li .mod-head .flag b{position: absolute;left: 0;top:-1px;z-index: 1px;width:22px;text-align:center;font-weight:normal;color: #fff;}
