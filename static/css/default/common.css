@@ -754,12 +754,13 @@ a.aw-load-more-content{display: block;}
 .markItUpHelper .content .tab-pane{display: none;padding:10px;}
 
 /* 编辑器回复样式 */
+.markitup-box strong,.markitup-box em,.markitup-box h2,.markitup-box h3,.markitup-box{font-family:"Helvetica Neue",Helvetica,Arial,'Microsoft YaHei',sans-serif;word-wrap:break-word;}
 .markitup-box{position:relative;z-index:1;line-height: 180%;word-wrap: break-word !important;}
-.markItUpPreviewFrame {margin-top: 20px;padding: 10px;background: #FAFAFA;border: 1px solid #CCCCCC;font-size: 14px;line-height:20px;font-family:"Helvetica Neue",Helvetica,Arial,'Microsoft YaHei',sans-serif;word-wrap:break-word;}
+.markItUpPreviewFrame {margin-top: 20px;padding: 10px;background: #FAFAFA;border: 1px solid #CCCCCC;font-size: 14px;line-height:20px;}
 .markItUpPreviewFrame .title{padding-bottom:5px;border-bottom: 1px solid #E2E2E2;}
-.markitup-box h2, #markItUpPreviewFrames h2, .markitup-box h3, #markItUpPreviewFrames h3 {font-weight: bold;margin: 10px 0;}
-.markitup-box h2, #markItUpPreviewFrames h2 {font-size: 1.5em;line-height: 30px;}
-.markitup-box h3, #markItUpPreviewFrames h3 {font-size: 1.17em;}
+.markitup-box h2, #markItUpPreviewFrames h2, .markitup-box h3, #markItUpPreviewFrames h3 {font-weight: 600;margin: 10px 0;font-family: Helvetica Neue,Microsoft Yahei,Hiragino Sans GB,WenQuanYi Micro Hei,sans-serif;} 
+.markitup-box h2, #markItUpPreviewFrames h2 {font-size: 24px;line-height: 40px;margin: 20px 0 20px;font-weight: 700}
+.markitup-box h3, #markItUpPreviewFrames h3 {margin: 20px 0;font-size: 18px;}
 .markitup-box em, #markItUpPreviewFrames em {font-style: italic;}
 .markitup-box ul, #markItUpPreviewFrames ul{margin-left: 35px;list-style: square;}
 .markitup-box ol, #markItUpPreviewFrames ol {margin-left: 15px;padding: 5px 0 5px 23px;list-style: decimal;}
@@ -767,10 +768,11 @@ a.aw-load-more-content{display: block;}
 .markitup-box ol p, .markitup-box ul p, #markItUpPreviewFrames ol p, #markItUpPreviewFrames ol p {display: inline !important;padding: 0 !important;}
 .markitup-box code, #markItUpPreviewFrames code {background-color: #EDEAD5;display: block;font-family: "Courier New",Courier,monospace;margin: 5px 0;padding: 5px;white-space: normal;text-align: left;}
 .markitup-box img {max-width:570px;}
-.markitup-box blockquote, #markItUpPreviewFrames blockquote{margin:0 0 10px;background-color: #FBFBFB;border-left: 5px solid #E2E2E2;line-height: 22px;margin: 5px 0;padding: 10px;font-size: 14px;}
+.markitup-box blockquote, #markItUpPreviewFrames blockquote{margin:0 0 10px;background-color:rgba(102,128,153,.05);border-left: 5px solid #D6DBDF;line-height: 22px;margin: 5px 0;padding: 10px;font-size: 14px;}
 .markitup-box ul.aw-comment-upload-file-list{margin: 0;padding-left: 0;list-style: none;}
 .markitup-box ul.aw-comment-upload-img-list a{display:inline-block;margin:15px 0;}
 .markitup-box iframe{position: relative;z-index: 1;}
+.markitup-box strong{color: rgb(44, 62, 80)}
 
 /* 自定义页面 */
 .aw-custom-page{padding: 20px;background: #fff;}
