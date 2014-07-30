@@ -1241,5 +1241,5 @@ function decode_eml($string)
 		break;
 	}
 	
-	return $preceding . $decoded . decode_mime($rest);
+	return $preceding . $decoded . decode_eml($rest);
 }
