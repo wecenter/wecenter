@@ -206,7 +206,7 @@ class edm_class extends AWS_MODEL
 			$mail = new Zend_Mail_Storage_Pop3($mail_config);
 		}
 		catch (Exception $e) {
-			echo $e->getMessage() . "\n";
+			// echo $e->getMessage() . "\n";
 
 			return false;
 		}
@@ -216,12 +216,12 @@ class edm_class extends AWS_MODEL
 			$received_email['message_id'] = substr($message->messageID, 1, -1);
 
 			$received_email['date'] = intval(strtotime($message->Date));
-/*
+
 			if ($this->fetch_row(`received_email`, 'message_id = "' . $this->quote($received_email['message_id']) . '" AND date = ' . $received_email['date']))
 			{
 				continue;
 			}
-*/
+
 			if ($message->isMultipart())
 			{
 				for ($i=1; $i<=$message->countParts(); $i++)
@@ -264,7 +264,7 @@ class edm_class extends AWS_MODEL
 
 			$received_email['subject'] = decode_eml($message->Subject);
 
-			preg_match('/<?(.+@.+)>?$/i', $message->From, $matches);
+			preg_match('/<?([^<]+@.+(\.[^>]+)+)>?$/i', $message->From, $matches);
 
 			$received_email['from'] = strtolower($matches[1]);
 
@@ -287,11 +287,14 @@ class edm_class extends AWS_MODEL
 
 				$received_email['content'] = mb_convert_encoding($received_email['content'], 'utf-8', $charset);
 			}
-var_dump($received_email);
-			//$this->insert('received_email', $received_email);
 
-			//$mail->removeMessage($num);
+			$received_email['subject'] = strip_tags($received_email['subject']);
+
+			$received_email['content'] = strip_tags(preg_replace(array('/<p(\s+[^>]*)?>/i', '/<\/p>/i', '/<br\s*\/?>/i'), "\n", $received_email['content']));
+
+			$this->insert('received_email', $received_email);
+
+			$mail->removeMessage($num);
 		}
-
 	}
 }

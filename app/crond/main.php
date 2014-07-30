@@ -80,7 +80,7 @@ class main extends AWS_CONTROLLER
 
 	// debug action
 	public function receive_email_action()
-	{$this->model('edm')->receive_email_crond(); exit();
+	{
 		$receiving_mail_config = get_setting('receiving_mail_config');
 
 		if ($receiving_mail_config['enabled'] == 'Y')
