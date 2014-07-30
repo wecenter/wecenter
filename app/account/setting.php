@@ -74,7 +74,9 @@ class setting extends AWS_CONTROLLER
 		
 		TPL::assign('work_experience_list', $work_experience_list);
 		
-		TPL::import_js('js/ajaxupload.js');
+		//TPL::import_js('js/ajaxupload.js');
+		
+		TPL::import_js('js/fileupload.js');
 		
 		TPL::output('account/setting/profile');
 	}

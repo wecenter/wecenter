@@ -3,8 +3,9 @@
  * Copyright 2011-2014 Wecenter, Inc.
  * Date: 2014-06-02
  */
-function FileUpload (element, container, url, options)
+function FileUpload (type, element, container, url, options)
 {
+	this.type = type;
 	this.element = element;
 	this.container = container;
 	this.url = url;
@@ -24,11 +25,21 @@ function FileUpload (element, container, url, options)
 		    		'</li>',
 		'deleteBtnTemplate' : '<a class="delete-file">删除</a>' ,
 		'insertBtnTemplate' : '<a class="insert-file">插入</a>'
-	},
+	};
 
 	this.options = $.extend(this.options, options);
 
-	this.init(element, container);
+	if (type == 'file')
+	{
+		this.init(element, container);
+	}
+	else
+	{
+		var form = this.createForm(),
+			input = this.createInput();
+
+		$(element).prepend($(form).append(input));
+	}
 }
 
 FileUpload.prototype = 
@@ -65,7 +76,7 @@ FileUpload.prototype =
 
 		$(input).attr({
 			'class' : 'file-input',
-			'name' : 'aws_upload_file',
+			'name' : this.type == 'file' ? 'aws_upload_file' : 'user_avatar',
 			'multiple' : this.options.multiple ? 'multiple' : false
 		});
 
@@ -103,7 +114,7 @@ FileUpload.prototype =
 	addFileList : function (input)
 	{
 		var files = $(input)[0].files;
-		if (files)
+		if (files && this.type == 'file')
 		{
 			for (i = 0; i < files.length; i++)
 			{
@@ -115,9 +126,16 @@ FileUpload.prototype =
 		}
 		else
 		{
-			this.li = this.toElement(this.options.template);
-			$(this.container).find('.upload-list').append(this.li);
-			this.upload('', this.li);
+			if (this.type == 'file')
+			{
+				this.li = this.toElement(this.options.template);
+				$(this.container).find('.upload-list').append(this.li);
+				this.upload('', this.li);
+			}
+			else
+			{
+				this.upload('');
+			}
 		}
 		
 	},
@@ -194,7 +212,7 @@ FileUpload.prototype =
 
            	$(this.li).find('.title').html(filename);
 
-           	$('#upload-iframe').detach();
+           	//$('#upload-iframe').detach();
         }
         catch(err)
         {
