@@ -63,7 +63,7 @@
 </div>
 
 <?php if ($_GET['first_login'] && $this->user_info['is_first_login'] == 1) { ?>
-<script type="text/javascript" src="<?php echo G_STATIC_URL; ?>/js/ajaxupload.js"></script>
+<script type="text/javascript" src="<?php echo G_STATIC_URL; ?>/js/fileupload.js"></script>
 <script type="text/javascript">
 $(document).ready(function () {
 	$.get(G_BASE_URL+'/account/ajax/welcome_message_template/', function (template) {

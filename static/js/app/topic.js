@@ -27,11 +27,6 @@ $(function()
 		}, 'json');
 	}
 	
-	if ($('#topic_pic_uploader').length)
-	{
-		AWS.Init.init_img_uploader(G_BASE_URL + '/topic/ajax/upload_topic_pic/topic_id-' + TOPIC_ID, 'topic_pic', $('#topic_pic_uploader'), $('#uploading_status'), $('#topic_pic'));
-	}
-
 	//问题添加评论
     AWS.Init.init_comment_box('.aw-add-comment');
 

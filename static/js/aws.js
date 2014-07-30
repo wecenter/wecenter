@@ -1849,7 +1849,7 @@ AWS.Dropdown =
 	            switch (type)
 	            {
 	                case 'search' :
-	                    $.each(result, function(i, a)
+	                    $.each(result, function (i, a)
 	                    {
 	                        switch (a.type)
 	                        {
@@ -2005,19 +2005,19 @@ AWS.Dropdown =
 	                    {
 	                    	$('.aw-article-list').append('<li  data-id="'+$(this).attr('data-id')+'"><div class="col-sm-9">' + $(this).html() + '</div> <div class="col-sm-3"><a class="btn btn-danger btn-xs">删除</a></div></li>');
 
-	                    	$('.aw-article-list li').find("a").attr('href',function(){
-	                    		return $(this).attr("_href")
+	                    	$('.aw-article-list li').find('a').attr('href',function(){
+	                    		return $(this).attr('_href')
 	                    	});
-
 
 	                    	if ($('.article_ids').val() == '')
 	                    	{
-	                    		$('.article_ids').val($(this).attr('data-id')+ ',');
+	                    		$('.article_ids').val($(this).attr('data-id') + ',');
 	                    	}
 	                    	else
 	                    	{
-	                    		$('.article_ids').val($('.article_ids').val()+ $(this).attr('data-id') + ',');
+	                    		$('.article_ids').val($('.article_ids').val() + $(this).attr('data-id') + ',');
 	                    	}
+
 	                    	$(".alert-box").modal('hide');
 	                    });
 	                	break;
@@ -2054,23 +2054,19 @@ AWS.Dropdown =
 	                    	
 	                    	$(".alert-box").modal('hide');
 	                    	
-	                    	var oHtml = '<a class="push-name" href="'+ $(this).attr('data-url') +'">'+$(this).html()+'</a> <a class="delete btn btn-danger btn-sm">删除用户</a>';
-
-	                    	$('.aw-admin-weibo-publish').append(oHtml);	                   
+	                    	$('.aw-admin-weibo-publish').append('<a class="push-name" href="'+ $(this).attr('data-url') +'">'+$(this).html()+'</a> <a class="delete btn btn-danger btn-sm">删除用户</a>');	                   
 
 	                    	$('.aw-admin-weibo-publish').find('.search-input').hide('0');
 	                    	
 	                    	$('.aw-admin-weibo-publish').find('.delete').click(function()
 						    {   
-						        $('.aw-admin-weibo-publish').find('.search-input').show('0').val("");
+						        $('.aw-admin-weibo-publish').find('.search-input').show('0').val('');
 						        $(this).parent().find('.weibo_msg_published_user').val('');
 						        $(this).parent().find('.md-tip').show();
 						        $(this).prev().detach().end().detach();
 						    });
 
-	                    	var _this = $(this);
-	                    	
-	                    	weiboPost(_this);
+	                    	weiboPost($(this));
 
                     	});
 
@@ -2092,12 +2088,11 @@ AWS.Dropdown =
 	                    });
 	                    $(selector).parent().find('.aw-dropdown-list li a').click(function()
 	                    {
+	                    	$(".alert-box").modal('hide');
 
 	                    	$('.weibo_msg_published_user').val($(this).attr('data-id'));
-	                    	$(".alert-box").modal('hide');
-	                    	
-	                    	var oHtml = '<li> <a class="reply-name" href="'+ $(this).attr('data-url') +'">'+$(this).html()+'</a> <a href="'+G_BASE_URL +'/account/sina/binding/uid-'+$(this).attr('data-id')+' "class="btn btn-primary btn-sm" target="_blank">绑定新浪微博</a> <a data-id="'+ $(this).attr('data-id')+'" action= "del_service_user" class="delete btn btn-danger btn-sm">删除用户</a> </li>';
-	                    	$('.mod-weibo-reply').append(oHtml);	                    
+
+	                    	$('.mod-weibo-reply').append('<li> <a class="reply-name" href="'+ $(this).attr('data-url') +'">'+$(this).html()+'</a> <a href="'+G_BASE_URL +'/account/sina/binding/uid-'+$(this).attr('data-id')+' "class="btn btn-primary btn-sm" target="_blank">绑定新浪微博</a> <a data-id="'+ $(this).attr('data-id')+'" action= "del_service_user" class="delete btn btn-danger btn-sm">删除用户</a> </li>');	                    
 
 	                    	$('.aw-admin-weibo-answer').find('.search-input').val("");
 	                    	
@@ -2108,10 +2103,7 @@ AWS.Dropdown =
 						        weiboPost($(this));
 						    });
 
-	                    	var _this = $(this);
-	                    	
-	                    	weiboPost(_this);
-	                    	
+	                    	weiboPost($(this));
 	                    });
 	                	break;
 	            }
@@ -2768,85 +2760,6 @@ AWS.Init =
 	        }
 
 	        $(this).hide();
-	    });
-	},
-
-	// 初始化图片上传控件
-	init_img_uploader: function(upload_url, upload_name, upload_element, upload_status_elememt, perview_element)
-	{
-	    return new AjaxUpload(upload_element,
-	    {
-	        action: upload_url,
-	        name: upload_name,
-	        responseType: 'json',
-	        onSubmit: function (file, ext)
-	        {
-	            if (!new RegExp('(png|jpe|jpg|jpeg|gif)$', 'i').test(ext))
-	            {
-	                alert(_t('上传失败: 只支持 jpg、gif、png 格式的图片文件'));
-
-	                return false;
-	            }
-
-	            this.disable();
-
-	            if (upload_status_elememt)
-	            {
-	                upload_status_elememt.show();
-	            }
-	        },
-	        onComplete: function (file, response)
-	        {
-	            this.enable();
-
-	            if (upload_status_elememt)
-	            {
-	                upload_status_elememt.hide();
-	            }
-
-	            if (response.errno == -1)
-	            {
-	                alert(response.err);
-	            }
-	            else if (typeof (response.rsm != 'undefined'))
-	            {
-	                if (typeof (perview_element.attr('src')) != 'undefined' && response.rsm.preview)
-	                {
-	                    perview_element.attr('src', response.rsm.preview + '?' + Math.floor(Math.random() * 10000));
-	                }
-	                else if (response.rsm.preview)
-	                {
-	                    perview_element.css('background-image', 'url(' + response.rsm.preview + '?' + Math.floor(Math.random() * 10000) + ')');
-	                }
-	            }
-	        }
-	    });
-	},
-
-	// 初始化头像上传控件
-	init_avatar_uploader: function(upload_element, upload_status_elememt, avatar_element)
-	{
-	    return AWS.Init.init_img_uploader(G_BASE_URL + '/account/ajax/avatar_upload/', 'user_avatar', upload_element, upload_status_elememt, avatar_element);
-	},
-
-	// 初始化文件上传控件
-	init_fileuploader: function(selector, action_url)
-	{
-	    if (!document.getElementById(selector))
-	    {
-	        return false;
-	    }
-
-	    if (G_UPLOAD_ENABLE == 'Y')
-	    {
-	    	$('.aw-upload-tips').show();
-	    }
-
-	    return new _ajax_uploader.FileUploader(
-	    {
-	        element: document.getElementById(selector),
-	        action: action_url,
-	        debug: false
 	    });
 	}
 }

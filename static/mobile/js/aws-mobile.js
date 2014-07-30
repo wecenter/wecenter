@@ -1210,27 +1210,7 @@ AWS.Init =
 	            $(this).parents('.aw-topic-bar').find('.add').hide();
 	        }
 		});
-	},
-
-	init_fileuploader: function (selector, action_url)
-	{
-	    if (!document.getElementById(selector))
-	    {
-	        return false;
-	    }
-	    
-	    // if (G_UPLOAD_ENABLE == 'Y')
-	    // {
-	    // 	$('.aw-upload-tips').show();
-	    // }
-
-	    return new _ajax_uploader.FileUploader(
-	    {
-	        element: document.getElementById(selector),
-	        action: action_url,
-	        debug: false
-	    });
-	},
+	}
 
 	init_comment_box: function (selector)
 	{
