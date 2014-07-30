@@ -242,7 +242,7 @@ class ajax extends AWS_CONTROLLER
 			'upload_path' => get_setting('upload_dir') . '/topic/' . gmdate('Ymd'),
 			'is_image' => TRUE,
 			'max_size' => get_setting('upload_avatar_size_limit')
-		))->do_upload('topic_pic');
+		))->do_upload('aws_upload_file');
 
 		if (AWS_APP::upload()->get_error())
 		{
@@ -289,9 +289,10 @@ class ajax extends AWS_CONTROLLER
 
 		$this->model('topic')->update_topic($this->user_id, $_GET['topic_id'], null, null, gmdate('Ymd') . '/' . basename($thumb_file['min']));
 
-		H::ajax_json_output(AWS_APP::RSM(array(
-			'preview' => get_setting('upload_url') . '/topic/' . gmdate('Ymd') . '/' . basename($thumb_file['mid'])
-		), 1, null));
+		echo htmlspecialchars(json_encode(array(
+			'success' => true,
+			'thumb' => get_setting('upload_url') . '/topic/' . gmdate('Ymd') . '/' . basename($thumb_file['mid'])
+		)), ENT_NOQUOTES);
 	}
 
 	public function focus_topic_action()

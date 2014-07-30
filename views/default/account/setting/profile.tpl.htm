@@ -271,9 +271,7 @@ $(document).ready(function () {
 		dataUrl: G_BASE_URL + '/account/ajax/areas_json_data/'
     });
 	
-    //AWS.Init.init_avatar_uploader($('#avatar_uploader'), $('#avatar_uploading_status'), $("#avatar_src"));
-    var fileUpload = new FileUpload('avatar', $('#avatar_uploader'), $('#avatar_src'), G_BASE_URL + '/account/ajax/avatar_upload/')
-    //AWS.Init.init_img_uploader(, 'user_avatar', upload_element, upload_status_elememt, avatar_element);
+    var fileUpload = new FileUpload('avatar', $('#avatar_uploader'), $('#avatar_src'), G_BASE_URL + '/account/ajax/avatar_upload/', {'loading_status' : '#avatar_uploading_status'});
 });
 
 <?php if ($this->education_experience_list) { ?>

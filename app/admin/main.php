@@ -128,7 +128,7 @@ class main extends AWS_ADMIN_CONTROLLER
         TPL::assign('setting', get_setting());
 
         TPL::import_js(array(
-            'js/ajaxupload.js',
+            'js/fileupload.js',
         ));
 
         TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(307));

@@ -76,7 +76,7 @@ FileUpload.prototype =
 
 		$(input).attr({
 			'class' : 'file-input',
-			'name' : this.type == 'file' ? 'aws_upload_file' : 'user_avatar',
+			'name' : 'aws_upload_file',
 			'multiple' : this.options.multiple ? 'multiple' : false
 		});
 
@@ -177,6 +177,11 @@ FileUpload.prototype =
         	//低版本ie上传
 			var iframe = this.createIframe();
 
+			if (this.options.loading_status)
+			{
+				$(this.options.loading_status).show();
+			}
+
         	if (iframe.addEventListener)
         	{
 		        iframe.addEventListener('load', function()
@@ -204,13 +209,33 @@ FileUpload.prototype =
 			response, filename;
 		try
 		{
+
             response = eval("(" + doc.body.innerHTML + ")");
 
-        	this.render(this.li, response);
+            if (this.type == 'file')
+            {
+            	this.render(this.li, response);
 
-           	filename = this.getName($('#upload-form .file-input')[0].value);
+	           	filename = this.getName($('#upload-form .file-input')[0].value);
 
-           	$(this.li).find('.title').html(filename);
+	           	$(this.li).find('.title').html(filename);
+            }
+            else
+            {
+            	$(this.options.loading_status).hide();
+
+            	if ($(this.container).attr('src'))
+            	{
+            		$(this.container).attr('src', response.thumb + '?' + Math.round(Math.random()*1000));
+            	}
+            	else
+            	{
+            		$(this.container).css(
+            		{
+            			'background' : 'url(' + response.thumb + '?' + Math.round(Math.random()*1000) + ')'
+            		});
+            	}
+            }
 
            	//$('#upload-iframe').detach();
         }

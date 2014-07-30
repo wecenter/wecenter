@@ -544,6 +544,8 @@ a.aw-load-more-content{display: block;}
 .aw-mod-topic-edit-box .mod-head .img{position: absolute;left: 0;top: 0;width:50px;height:50px;background: url(http://127.0.0.1/anwsion/trunk/static/common/topic-mid-img.png) no-repeat;text-align: center;}
 .aw-mod-topic-edit-box .mod-head .img span{display: block;width: 20px;height: 20px;margin:20px 0 0 25px;background: #fff;opacity: 0.8;filter:alpha(opacity=80);}
 .aw-mod-topic-edit-box .mod-head .img .fa-wrench{position: relative;top: 4px;margin:0;vertical-align: top;}
+.aw-mod-topic-edit-box .mod-head .img form{position: relative;z-index:1;opacity: 0;filter:alpha(opacity=0);width: 0;height: 0;}
+.aw-mod-topic-edit-box .mod-head .img form .file-input{position: absolute;left: 25px;top: 20px;width: 20px;height: 20px;}
 .aw-mod-topic-edit-box .mod-footer{height:auto;overflow:hidden;margin-top:20px;}
 .aw-mod.new-topic .mod-body{margin-top: 10px;}
 .aw-mod.new-topic .aw-topic-name{display: inline-block;margin: 0 4px 8px 0;}
