@@ -99,7 +99,7 @@
 
         if (ATTACH_ACCESS_KEY != '')
         {
-            var fileupload = new FileUpload('.aw-upload-box .icon-pic', '.aw-upload-box .upload-container', G_BASE_URL + '/publish/ajax/attach_upload/id-question__attach_access_key' + '-' + ATTACH_ACCESS_KEY, {'insertTextarea' : '#publish_detail', 'deleteBtnTemplate' : '<a class="delete-file"><i class="icon icon-delete"></i></a>', 'insertBtnTemplate' : '<a class="insert-file"><i class="icon icon-insert"></i></a>'})
+            var fileupload = new FileUpload('file' ,'.aw-upload-box .icon-pic', '.aw-upload-box .upload-container', G_BASE_URL + '/publish/ajax/attach_upload/id-question__attach_access_key' + '-' + ATTACH_ACCESS_KEY, {'insertTextarea' : '#publish_detail', 'deleteBtnTemplate' : '<a class="delete-file"><i class="icon icon-delete"></i></a>', 'insertBtnTemplate' : '<a class="insert-file"><i class="icon icon-insert"></i></a>'})
         }
 
         if ($('#category_id').length)

@@ -66,7 +66,8 @@
 </div>
 
 <script type="text/javascript">
-	$(document).ready(function () {
+	$(function()
+	{
 		if ($('#topic_pic_uploader').length)
 		{
 			var fileUpload = new FileUpload('avatar', $('#topic_pic_uploader'), $('#topic_pic_uploader'), G_BASE_URL + '/topic/ajax/upload_topic_pic/topic_id-<?php echo $this->topic_info['topic_id']; ?>', {'loading_status' : '#uploading_status'});
