@@ -182,7 +182,7 @@ class edm_class extends AWS_MODEL
 
 		if (empty($receiving_mail_config['server']) OR empty($receiving_mail_config['username']))
 		{
-			//return false;
+			return false;
 		}
 
 		$mail_config = array(
@@ -206,29 +206,95 @@ class edm_class extends AWS_MODEL
 			$mail = new Zend_Mail_Storage_Pop3($mail_config);
 		}
 		catch (Exception $e) {
-			echo $e->getMessage() . "\n";
+			// echo $e->getMessage() . "\n";
 
 			return false;
 		}
-		
+
 		foreach ($mail AS $num => $message)
 		{
-			echo decode_eml($message->subject); die;
-			
-			$received_email['message_id'] = $message->getHeader('Message-ID', 'string');
+			$received_email['message_id'] = substr($message->messageID, 1, -1);
 
-			$received_email['date'] = strtotime($message->getHeader('Date', 'string'));
+			$received_email['date'] = intval(strtotime($message->Date));
 
-			$received_email['from'] = $message->getHeader('From', 'string');
+			if ($this->fetch_row(`received_email`, 'message_id = "' . $this->quote($received_email['message_id']) . '" AND date = ' . $received_email['date']))
+			{
+				continue;
+			}
 
-			$received_email['subject'] = $message->getHeader('Subject', 'string');
+			if ($message->isMultipart())
+			{
+				for ($i=1; $i<=$message->countParts(); $i++)
+				{
+					$part = $message->getPart($i);
 
-			$received_email['content'] = $message->getContent();
+					if (substr($part->contentType, 0, 5) == 'text/')
+					{
+						$encoding = $part->contentTransferEncoding;
 
-			//$this->insert('received_email', $received_email);
+						$type = $part->contentType;
 
-			//$mail->removeMessage($num);
+						$received_email['content'] = $part->getContent();
+
+						break;
+					}
+					else
+					{
+						continue;
+					}
+				}
+			}
+			else
+			{
+				$encoding = $message->contentTransferEncoding;
+
+				$type = $message->contentType;
+
+				$received_email['content'] = $message->getContent();
+			}
+
+			if (empty($encoding) OR empty($type))
+			{
+				continue;
+			}
+
+			preg_match('/charset\s?=\s?"?([a-zA-Z0-9-]+)"?$/i', $type, $matches);
+
+			$charset = strtolower($matches[1]);
+
+			$received_email['subject'] = decode_eml($message->Subject);
+
+			preg_match('/<?([^<]+@.+(\.[^>]+)+)>?$/i', $message->From, $matches);
+
+			$received_email['from'] = strtolower($matches[1]);
+
+			switch ($encoding)
+			{
+				case 'base64':
+					$received_email['content'] = base64_decode($received_email['content']);
+
+					break;
+
+				case 'quoted-printable':
+					$received_email['content'] = quoted_printable_decode($received_email['content']);
+
+					break;
+			}
+
+			if ($charset AND $charset != 'utf-8')
+			{
+				$received_email['subject'] = mb_convert_encoding($received_email['subject'], 'utf-8', $charset);
+
+				$received_email['content'] = mb_convert_encoding($received_email['content'], 'utf-8', $charset);
+			}
+
+			$received_email['subject'] = strip_tags($received_email['subject']);
+
+			$received_email['content'] = strip_tags(preg_replace(array('/<p(\s+[^>]*)?>/i', '/<\/p>/i', '/<br\s*\/?>/i'), "\n", $received_email['content']));
+
+			$this->insert('received_email', $received_email);
+
+			$mail->removeMessage($num);
 		}
-
 	}
 }

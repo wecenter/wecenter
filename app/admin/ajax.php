@@ -587,9 +587,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
         $this->model('feature')->update_feature($feature_id, $update_data);
 
-        H::ajax_json_output(AWS_APP::RSM(array(
-            'url' => get_js_url('/admin/feature/list/')
-        ), 1, null));
+        H::ajax_json_output(AWS_APP::RSM(null, 1, null));
     }
 
     public function remove_feature_action()
