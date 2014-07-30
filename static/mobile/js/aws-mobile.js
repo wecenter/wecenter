@@ -503,7 +503,9 @@ AWS.User =
 	// 收藏
 	favorite: function(type, id)
 	{
-		$.post(G_BASE_URL + '/favorite/ajax/update_favorite_tag/', {'item_type': type, 'item_id': id}, function (i, e){}, 'json');
+		$.post(G_BASE_URL + '/favorite/ajax/update_favorite_tag/', {'item_type': type, 'item_id': id}, function (result){
+			alert('收藏成功!');
+		}, 'json');
 	},
 
 	// 提交评论
@@ -798,6 +800,7 @@ AWS.Dropdown =
 							break;
 
 							case 'message' :
+								ul = $('#search_result');
 								$.get(G_BASE_URL + '/search/ajax/search/?type=users&q=' + encodeURIComponent($(element).val()) + '&limit=10',function(result)
 								{
 									if (result.length > 0)
@@ -805,18 +808,13 @@ AWS.Dropdown =
 										ul.html('');
 										$.each(result ,function(i, e)
 										{
-											ul.append('<li><a><img src="' + result[i].detail.avatar_file + '"><span>' + result[i].name + '</span></a></li>')
+											ul.append('<li class="user"><a href="' + G_BASE_URL + '/m/inbox_new/uid-' + result[i].uid + '"><img class="img" width="25" src="' + result[i].detail.avatar_file + '" /> <span>' + result[i].name + '</span></a></li>')
 										});	
-										$('.alert-message .dropdown-list ul li a').click(function()
-										{
-											$(element).val($(this).text());
-											$(element).next().hide();
-										});
 										
-										$(element).next().show();
+										ul.show();
 									}else
 									{
-										$(element).next().hide();
+										ul.hide();
 									}
 								},'json');
 							break;
@@ -1293,7 +1291,7 @@ AWS.Init =
 	            }
 	            else
 	            {
-	                $(this).parent().parent().append(Hogan.compile(AW_MOBILE_TEMPLATE.commentBoxClose).render(
+	                $(this).parents('.mod-footer').append(Hogan.compile(AW_MOBILE_TEMPLATE.commentBoxClose).render(
 	                {
 	                    'comment_form_id': comment_box_id.replace('#', ''),
 	                    'comment_form_action': comment_form_action
@@ -1305,7 +1303,7 @@ AWS.Init =
 	            {
 	                if ($.trim(result) == '')
 	                {
-	                    result = '<p align="center">' + _t('暂无评论') + '</p>';
+	                    result = '<p class="text-center margin-0">' + _t('暂无评论') + '</p>';
 	                }
 
 	                $(comment_box_id).find('.aw-comment-list').html(result);
