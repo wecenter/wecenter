@@ -131,7 +131,7 @@ class crond_class extends AWS_MODEL
 
         if ($receiving_mail_config['enabled'] == 'Y')
         {
-            $this->model('email')->receive_email_crond();
+            $this->model('edm')->receive_email_crond();
         }
     }
 
