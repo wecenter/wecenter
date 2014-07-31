@@ -1,57 +1,53 @@
 <?php TPL::output('global/header_landing_blank.tpl.htm'); ?>
 
-<div id="wrapper" class="clearfix">
-	<div class="aw-login-wrap clearfix">
-		<!-- 登陆框 -->
-		<div class="aw-login-box">
-			<h1 class="logo"></h1>
-			<div class="aw-mod">
-				<div class="aw-mod-head">
-					<a href="account/register/" class="b-new-user pull-right"><?php _e('注册新用户'); ?></a>
-					<i class="fa fa-user"></i>
-					<span class="hidden-xs"><?php _e('登录'); ?></span>
-					<i class="triangle"></i>
-					<i class="triangle active"></i>
-				</div>
-				<div class="aw-mod-body">
-					<form id="login_form" method="post" onsubmit="return false" action="account/ajax/login_process/">
-						<input type="hidden" name="return_url" value="<?php echo $this->return_url; ?>" />
-						<ul>
-							<li>
-								<label class="aw-label-icon pull-left" for="aw-login-user-name"><i class="fa fa-user"></i></label>
-								<input type="text" id="aw-login-user-name" class="form-control" placeholder="<?php _e('邮箱'); ?>/<?php _e('用户名'); ?>" name="user_name" />
-							</li>
-							<li>
-								<label class="aw-label-icon pull-left" for="aw-login-user-password"><i class="fa fa-key"></i></label>
-								<input type="password" id="aw-login-user-password" class="form-control" placeholder="<?php _e('密码'); ?>" name="password" />
-							</li>
-							<li class="alert alert-danger hide error_message">
-								<i class="fa fa-times"></i><em></em>
-							</li>
-							<li class="last">
-								<a href="javascript:;" onclick="AWS.ajax_post($('#login_form'), AWS.ajax_processer, 'error_message');" id="login_submit" class="pull-right btn btn-large btn-success"><?php _e('登录'); ?></a>
-								<input id="login-radio" type="checkbox" value="1" name="net_auto_login" />
-								<label for="login-radio"><?php _e('记住我'); ?></label>
-								<a href="account/find_password/"><?php _e('忘记密码'); ?></a>
-							</li>
-						</ul>
-					</form>
-					<hr />
-				</div>
-				<div class="aw-mod-footer">
-					<a href="reader/" class="pull-right"><?php _e('问答阅读'); ?><i class="fa fa-chevron-right"></i></a>
-					
-					<?php if (get_setting('site_close') != 'Y' && (get_setting('sina_weibo_enabled') == 'Y' OR get_setting('qq_t_enabled') == 'Y' OR get_setting('qq_login_enabled') == 'Y') OR get_setting('weixin_app_id')) { ?>
-						<?php _e('其他登录'); ?>:
-						<?php if (get_setting('sina_weibo_enabled') == 'Y') { ?><a href="account/openid/sina/" class="fa fa-weibo"></a><?php } ?>
-						<?php if (get_setting('qq_t_enabled') == 'Y') { ?><a href="account/openid/qq/" class="fa fa-tencent-weibo"></a><?php } ?>
-						<?php if (get_setting('qq_login_enabled') == 'Y') { ?><a href="account/openid/qq_login/" class="fa fa-qq"></a><?php } ?>
-						<?php if (get_setting('weixin_app_id') AND get_setting('weixin_account_role') == 'service') { ?><a href="account/weixin_login/" class="fa fa-wechat"></a><?php } ?>
+<div id="wrapper">
+	<div class="aw-login-box clearfix">
+		<div class="mod-body">
+			<div class="content pull-left">
+				<h1 class="logo"></h1>
+				<h2><?php echo get_setting('site_name'); ?></h2>
+				<form id="login_form" method="post" onsubmit="return false" action="account/ajax/login_process/">
+					<input type="hidden" name="return_url" value="<?php echo $this->return_url; ?>" />
+					<ul>
+						<li>
+							<input type="text" id="aw-login-user-name" class="form-control" placeholder="<?php _e('邮箱'); ?> / <?php _e('用户名'); ?>" name="user_name" />
+						</li>
+						<li>
+							<input type="password" id="aw-login-user-password" class="form-control" placeholder="<?php _e('密码'); ?>" name="password" />
+						</li>
+						<li class="alert alert-danger hide error_message">
+							<i class="fa fa-times"></i><em></em>
+						</li>
+						<li class="last">
+							<a href="javascript:;" onclick="AWS.ajax_post($('#login_form'), AWS.ajax_processer, 'error_message');" id="login_submit" class="pull-right btn btn-large btn-blue"><?php _e('登录'); ?></a>
+							<input id="login-radio" type="checkbox" value="1" name="net_auto_login" />
+							<label for="login-radio"><?php _e('记住我'); ?></label>
+							<a href="account/find_password/">&nbsp;&nbsp;<?php _e('忘记密码'); ?></a>
+						</li>
+					</ul>
+				</form>
+			</div>
+			<div class="side-bar pull-left">
+				<?php if (get_setting('site_close') != 'Y' && (get_setting('sina_weibo_enabled') == 'Y' OR get_setting('qq_t_enabled') == 'Y' OR get_setting('qq_login_enabled') == 'Y') OR get_setting('weixin_app_id')) { ?>
+					<h3><?php _e('第三方账号登录'); ?></h3>
+					<?php if (get_setting('sina_weibo_enabled') == 'Y') { ?>
+						<a href="account/openid/sina/" class="btn btn-block btn-weibo"><i class="fa fa-weibo"></i> 新浪微博登录</a>
 					<?php } ?>
-				</div>
+					<?php if (get_setting('qq_login_enabled') == 'Y') { ?>
+						<a href="account/openid/qq_login/" class="btn btn-block btn-qq"> <i class="fa fa-qq"></i> QQ登录</a>
+					<?php } ?>
+					<?php if (get_setting('weixin_app_id') AND get_setting('weixin_account_role') == 'service') { ?>
+						<a href="account/weixin_login/" class="btn btn-block btn-wechat"><i class="fa fa-wechat"></i> 微信扫一扫登录</a>
+					<?php } ?>
+				<?php } ?>
 			</div>
 		</div>
-		<!-- end 登陆框 -->
+		<div class="mod-footer">
+			<span>还没有账号?</span>&nbsp;&nbsp;
+			<a href="account/register/"><?php _e('立即注册'); ?></a>&nbsp;&nbsp;•&nbsp;&nbsp;
+			<a href="">游客访问</a>&nbsp;&nbsp;•&nbsp;&nbsp;
+			<a href="reader/"><?php _e('问答阅读'); ?></a>
+		</div>
 	</div>
 </div>
 

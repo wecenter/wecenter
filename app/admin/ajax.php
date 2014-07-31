@@ -2328,7 +2328,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
         $receiving_email_config = array(
                                         'server' => $_POST['server'],
-                                        'ssl' => ($_POST['ssl'] == 'Y') ? 'Y' : 'N',
+                                        'ssl' => ($_POST['ssl'] == '1') ? '1' : '0',
                                         'port' => $_POST['port'],
                                         'username' => trim($_POST['username']),
                                         'password' => trim($_POST['password']),
@@ -2362,13 +2362,14 @@ class ajax extends AWS_ADMIN_CONTROLLER
         }
 
         $this->model('setting')->set_vars(array(
-            'enabled' => ($_POST['enabled'] == 'Y') ? 'Y' : 'N',
-            'publish_user' => array(
-                'uid' => $user_info['uid'],
-                'user_name' => $user_info['user_name'],
-                'url_token' => $user_info['url_token']
+            'receiving_email_global_config' => array(
+                'enabled' => ($_POST['enabled'] == 'Y') ? 'Y' : 'N',
+                'publish_user' => array(
+                    'uid' => $user_info['uid'],
+                    'user_name' => $user_info['user_name'],
+                    'url_token' => $user_info['url_token']
             )
-        ));
+        )));
 
         H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('保存设置成功')));
     }
