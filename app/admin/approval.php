@@ -34,14 +34,10 @@ class approval extends AWS_ADMIN_CONTROLLER
 		switch ($_GET['type'])
 		{
 			case 'weibo_msg':
-				$approval_list = $this->model('weibo')->fetch_page('weibo_msg', 'question_id IS NULL', 'id ASC', $_GET['page'], $this->per_page);
-
-				$found_rows = $this->model('weibo')->found_rows();
-
-				break;
-
 			case 'received_email':
-				$approval_list = $this->model('edm')->fetch_page('received_email', 'question_id IS NULL', 'id ASC', $_GET['page'], $this->per_page);
+				$approval_list = $this->model('admin')->fetch_page($_GET['type'], 'question_id IS NULL', 'id ASC', $_GET['page'], $this->per_page);
+
+				$found_rows = $this->model('admin')->found_rows();
 
 				break;
 
@@ -130,20 +126,36 @@ class approval extends AWS_ADMIN_CONTROLLER
 			TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(300));
 		}
 
-		if ($_GET['type'] == 'weibo_msg')
+		switch ($_GET['type'])
 		{
-			$approval_item = $this->model('weibo')->get_msg_info_by_id($_GET['id']);
+			case 'weibo_msg':
+				$approval_item = $this->model('weibo')->get_msg_info_by_id($_GET['id']);
 
-			if ($approval_item['question_id'])
-			{
-				exit();
-			}
+				if ($approval_item['question_id'])
+				{
+					exit();
+				}
 
-			$approval_item['type'] = 'weibo_msg';
-		}
-		else
-		{
-			$approval_item = $this->model('publish')->get_approval_item($_GET['id']);
+				$approval_item['type'] = 'weibo_msg';
+
+				break;
+
+			case 'received_email':
+				$approval_item = $this->model('edm')->get_received_email_by_id($_GET['id']);
+
+				if ($approval_item['question_id'])
+				{
+					exit();
+				}
+
+				$approval_item['type'] = 'received_email';
+
+				break;
+
+			default:
+				$approval_item = $this->model('publish')->get_approval_item($_GET['id']);
+
+				break;
 		}
 
 		if (empty($approval_item))
@@ -180,12 +192,19 @@ class approval extends AWS_ADMIN_CONTROLLER
 				break;
 
 			case 'weibo_msg':
-				$approval_item['content'] =& $approval_item['text'];
+				$approval_item['content'] = htmlspecialchars($approval_item['text']);
 
 				if ($approval_item['has_attach'])
 				{
 					$approval_item['attachs'] = $this->model('publish')->get_attach('weibo_msg', $_GET['id']);
 				}
+
+				break;
+
+			case 'received_email':
+				$approval_item['title'] = htmlspecialchars($approval_item['subject']);
+
+				$approval_item['content'] = htmlspecialchars($approval_item['content']);
 
 				break;
 		}
@@ -195,7 +214,7 @@ class approval extends AWS_ADMIN_CONTROLLER
 			$approval_item['attachs'] = $this->model('publish')->get_attach_by_access_key($approval_item['type'], $approval_item['data']['attach_access_key']);
 		}
 
-		if ($_GET['action'] != 'edit' AND $_GET['type'] != 'weibo_msg')
+		if ($_GET['action'] != 'edit')
 		{
 			$approval_item['content'] = nl2br(FORMAT::parse_markdown($approval_item['content']));
 		}

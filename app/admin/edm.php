@@ -128,9 +128,25 @@ class edm extends AWS_ADMIN_CONTROLLER
 
 		$total_rows = $this->model('edm')->found_rows();
 
+		if ($receiving_email_list)
+		{
+			foreach ($receiving_email_list AS $receiving_email_config)
+			{
+				$uids[] = $receiving_email_config['uid'];
+			}
+
+			$users_info = $this->model('account')->get_user_info_by_uids($uids);
+
+			TPL::assign('users_info', $users_info);
+		}
+
+		$receiving_email_global_config = get_setting('receiving_email_global_config');
+
 		TPL::assign('receiving_email_list', $receiving_email_list);
 
 		TPL::assign('accounts_total', $total_rows);
+
+		TPL::assign('receiving_email_global_config', $receiving_email_global_config);
 
 		TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
 			'base_url' => get_js_url('/admin/edm/receiving_list/'),
@@ -149,15 +165,23 @@ class edm extends AWS_ADMIN_CONTROLLER
 
 		if ($_GET['id'])
 		{
-			$receiving_email_config = $this->model('edm')->fetch_row('receiving_email_config', 'id = ' . intval($_GET['id']));
+			$receiving_email_config = $this->model('edm')->get_receiving_email_config_by_id($_GET['id']);
 
 			if (empty($receiving_email_config))
 			{
 				H::redirect_msg(AWS_APP::lang()->_t('该账号不存在'), '/admin/edm/receiving_list/');
 			}
 
+			$user_info = $this->model('account')->get_user_info_by_uid($receiving_email_config['uid']);
+
 			TPL::assign('receiving_email_config', $receiving_email_config);
+
+			TPL::assign('user_info', $user_info);
 		}
+
+		$receiving_email_global_config = get_setting('receiving_email_global_config');
+
+		TPL::assign('receiving_email_global_config', $receiving_email_global_config);
 
 		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(807));
 

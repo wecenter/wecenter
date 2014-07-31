@@ -199,7 +199,7 @@ class publish_class extends AWS_MODEL
 		));
 	}
 
-	public function publish_question($question_content, $question_detail, $category_id, $uid, $topics = null, $anonymous = null, $attach_access_key = null, $ask_user_id = null, $create_topic = true, $weibo_msg_id = null)
+	public function publish_question($question_content, $question_detail, $category_id, $uid, $topics = null, $anonymous = null, $attach_access_key = null, $ask_user_id = null, $create_topic = true, $weibo_msg_id = null, $received_email_id = null)
 	{
 		if ($question_id = $this->model('question')->save_question($question_content, $question_detail, $uid, $anonymous, null, $weibo_msg_id))
 		{
@@ -639,7 +639,7 @@ class publish_class extends AWS_MODEL
         {
             return true;
         }
-        
+
         if (!$attach_ids)
         {
 	        $attach_ids = array();

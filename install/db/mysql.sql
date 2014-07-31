@@ -466,6 +466,7 @@ CREATE TABLE `[#DB_PREFIX#]question` (
   `question_content_fulltext` text,
   `is_recommend` tinyint(1) NOT NULL DEFAULT '0',
   `weibo_msg_id` bigint(30) DEFAULT NULL,
+  `received_email_id` int(10) DEFAULT NULL,
   PRIMARY KEY (`question_id`),
   KEY `category_id` (`category_id`),
   KEY `update_time` (`update_time`),
@@ -483,6 +484,7 @@ CREATE TABLE `[#DB_PREFIX#]question` (
   KEY `against_count` (`against_count`),
   KEY `is_recommend` (`is_recommend`),
   KEY `weibo_msg_id` (`weibo_msg_id`),
+  KEY `received_email_id` (`received_email_id`),
   KEY `unverified_modify_count` (`unverified_modify_count`),
   FULLTEXT KEY `question_content_fulltext` (`question_content_fulltext`)
 ) ENGINE=MYISAM DEFAULT CHARSET=utf8 COMMENT='问题列表';
@@ -1152,6 +1154,40 @@ CREATE TABLE `[#DB_PREFIX#]weixin_qr_code` (
   KEY `ticket` (`ticket`),
   KEY `subscribe_num` (`subscribe_num`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8 COMMENT='微信二维码';
+
+CREATE TABLE `[#DB_PREFIX#]receiving_email_config` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `server` varchar(255) NOT NULL,
+  `ssl` tinyint(1) NOT NULL DEFAULT '0',
+  `port` smallint(5) UNSIGNED DEFAULT NULL,
+  `username` varchar(255) NOT NULL DEFAULT '',
+  `password` varchar(255) NOT NULL DEFAULT '',
+  `uid` int(10) NOT NULL,
+  `access_key` varchar(32) NOT NULL,
+  `has_attach` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `enabled` (`enabled`),
+  KEY `uid` (`uid`),
+  KEY `server` (`server`)
+) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8 COMMENT='邮件账号列表';
+
+CREATE TABLE `[#DB_PREFIX#]received_email` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `uid` int(10) NOT NULL,
+  `config_id` int(10) NOT NULL,
+  `message_id` varchar(255) NOT NULL,
+  `date` int(10) NOT NULL,
+  `from` varchar(255) NOT NULL,
+  `subject` varchar(255) DEFAULT NULL,
+  `content` text,
+  `question_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`),
+  KEY `config_id` (`config_id`),
+  KEY `message_id` (`message_id`),
+  KEY `date` (`date`),
+  KEY `question_id` (`question_id`)
+) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8 COMMENT='已导入邮件列表';
 
 INSERT INTO `[#DB_PREFIX#]category`(`title`,`type`) VALUES
 ('默认分类', 'question');

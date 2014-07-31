@@ -89,14 +89,12 @@ class weibo_class extends AWS_MODEL
 
         $published_user = get_setting('weibo_msg_published_user');
 
-        $published_uid = $published_user['uid'];
-
-        if (empty($published_uid))
+        if (empty($published_user['uid']))
         {
             return AWS_APP::lang()->_t('微博发布用户不存在');
         }
 
-        $this->model('publish')->publish_question($msg_info['text'], null, null, $published_uid, null, null, $msg_info['access_key'], $msg_info['uid'], false, $msg_info['id']);
+        $this->model('publish')->publish_question($msg_info['text'], null, null, $published_user['uid'], null, null, $msg_info['access_key'], $msg_info['uid'], false, $msg_info['id']);
     }
 
     public function reply_answer_to_sina($question_id, $comment)
@@ -202,8 +200,6 @@ class weibo_class extends AWS_MODEL
 
             foreach ($msgs AS $msg)
             {
-                $now++;
-
                 $msg_info['created_at'] = strtotime($msg['created_at']);
 
                 $msg_info['id'] = $msg['id'];
@@ -213,13 +209,15 @@ class weibo_class extends AWS_MODEL
                     continue;
                 }
 
-                $msg_info['text'] = str_replace('@' . $service_info['name'], '', $msg['text']);
+                $msg_info['text'] = htmlspecialchars_decode(str_replace('@' . $service_info['name'], '', $msg['text']));
 
                 $msg_info['uid'] = $service_user_info['uid'];
 
                 $msg_info['weibo_uid'] = $service_info['id'];
 
                 $msg_info['msg_author_uid'] = $msg['user']['id'];
+
+                $now++;
 
                 $msg_info['access_key'] = md5($msg_info['uid'] . $now);
 

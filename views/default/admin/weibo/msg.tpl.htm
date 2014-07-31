@@ -76,7 +76,7 @@
                             </ul>
                         </div>
 
-                        <?php if ($this->published_user) { ?>
+                        <?php if ($this->published_user['uid']) { ?>
                         <a class="push-name" href="people/<?php echo $this->published_user['url_token']; ?>" target="_blank"><img class="img" src="<?php echo get_avatar_url($this->published_user['uid'], 'min'); ?>" alt="" /><?php echo $this->published_user['user_name']; ?></a>
                         <a class="delete btn btn-danger btn-sm" href="javascript:;"><?php _e('删除用户'); ?></a>
                         <?php } ?>
