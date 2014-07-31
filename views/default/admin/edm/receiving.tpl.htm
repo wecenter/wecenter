@@ -213,16 +213,10 @@
         });
 
         function addEmail (_this,inputName)
-<<<<<<< HEAD
         {   
             _this.parents('.aw-admin-email').find('.search-input').css({display:'none'});
             
             _this.parents('.aw-admin-email').append('<ul><li><a class="push-name" href="' + _this.attr('data-url') +'">' + _this.html() + '</a> <a class="delete btn btn-danger btn-sm">删除用户</a></li></ul>');                      
-=======
-        {
-            $('.alert-box').modal('hide');
-            _this.parents('.aw-admin-email').append('<ul><li><a class="push-name" href="' + _this.attr('data-url') +'">' + _this.html() + '</a> <a class="delete btn btn-danger btn-sm">删除用户</a></li></ul>');
->>>>>>> 0158496ed346da8291f98b8d1133e6bcfdcc54d7
 
             $(inputName).val(_this.attr("data-id"));
         }
