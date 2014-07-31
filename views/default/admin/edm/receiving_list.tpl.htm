@@ -50,7 +50,7 @@
             </div>
 
             <div class="tab-pane" id="setting">
-                <form method="post" action="admin/ajax/save_receiving_email_global_config/" onsubmit="return false;" id="receiving_form" class="form-horizontal" role="form">
+                <form method="post" action="admin/ajax/save_receiving_email_global_config/" onsubmit="return false;" id="receiving_email_global_config_form" class="form-horizontal" role="form">
                 <table class="table table-striped">
                     <tbody>
                         <tr>
@@ -104,7 +104,7 @@
 
                 <div class="mod-table-foot mod-one-btn">
                     <div class="center-block">
-                        <input type="button" value="<?php _e('保存设置'); ?>" class="btn btn-primary" onclick="AWS.ajax_post($('#receiving_form'));" />
+                        <input type="button" value="<?php _e('保存设置'); ?>" class="btn btn-primary" onclick="AWS.ajax_post($('#receiving_email_global_config_form'));" />
                     </div>
                 </div>
             </div>
@@ -118,7 +118,7 @@
 
         AWS.Dropdown.bind_dropdown_list($('.search-input:eq(0)'), 'adminEmailUser');
 
-            
+
         $('.aw-dropdown-list:eq(0)').delegate('li a','click',function()
         {
             _this = $(this)
@@ -128,12 +128,12 @@
 
 
         $(document).on('click', '.delete:eq(0)', function()
-        {      
+        {
             _this = $(this)
             delEmail(_this);
         });
 
-        
+
         function addEmail (_this,inputName)
         {           
             _this.parents('.aw-admin-email').find('.search-input').css({display:'none'});
@@ -151,7 +151,7 @@
             _this.parents('li').detach();
 
         }
-    
+
     })
 </script>
 <?php TPL::output('admin/global/footer.tpl.htm'); ?>

@@ -19,7 +19,7 @@
 
         <div class="tab-content mod-content">
             <div class="tab-pane active" id="add">
-                <form method="post" action="admin/ajax/save_receiving_email_config/" onsubmit="return false;" id="receiving_form" class="form-horizontal" role="form">
+                <form method="post" action="admin/ajax/save_receiving_email_config/" onsubmit="return false;" id="receiving_email_global_config_form" class="form-horizontal" role="form">
                     <table class="table table-striped">
                         <?php if ($this->receiving_email_config) { ?>
                         <input name="id" type="hidden" value="<?php echo $this->receiving_email_config['id']; ?>"/>
@@ -111,11 +111,16 @@
                         </tr>
                     </table>
                 </form>
+                <div class="mod-table-foot mod-one-btn">
+                <div class="center-block">
+                    <input type="button" value="<?php _e('保存设置'); ?>" class="btn btn-primary" onclick="AWS.ajax_post($('#receiving_email_global_config_form'));" />
+                </div>
+            </div>
             </div>
 
 
             <div class="tab-pane" id="setting">
-                <form method="post" action="admin/ajax/save_receiving_email_global_config/" onsubmit="return false;" id="receiving_form" class="form-horizontal" role="form">
+                <form method="post" action="admin/ajax/save_receiving_email_global_config/" onsubmit="return false;" id="receiving_email_config_form" class="form-horizontal" role="form">
                 <table class="table table-striped">
                     <tr>
                         <td>
@@ -164,12 +169,11 @@
                     </tr>
                 </table>
                 </form>
-            </div>
-
-            <div class="mod-table-foot mod-one-btn">
+                <div class="mod-table-foot mod-one-btn">
                 <div class="center-block">
-                    <input type="button" value="<?php _e('保存设置'); ?>" class="btn btn-primary" onclick="AWS.ajax_post($('#receiving_form'));" />
+                    <input type="button" value="<?php _e('保存设置'); ?>" class="btn btn-primary" onclick="AWS.ajax_post($('#receiving_email_config_form'));" />
                 </div>
+            </div>
             </div>
         </div>
     </div>
@@ -181,7 +185,7 @@
         AWS.Dropdown.bind_dropdown_list($('.search-input:eq(0)'), 'adminEmailUser');
         AWS.Dropdown.bind_dropdown_list($('.search-input:eq(1)'), 'adminEmailUser');
 
-            
+
         $('.aw-dropdown-list:eq(0)').delegate('li a','click',function()
         {
             _this = $(this)
@@ -191,28 +195,34 @@
         $('.aw-dropdown-list:eq(1)').delegate('li a','click',function()
         {
             _this = $(this)
-            
+
             addEmail(_this,'#addEmail');
         });
 
 
         $(document).on('click', '.delete:eq(0)', function()
-        {      
+        {
             _this = $(this)
             delEmail(_this);
         });
 
         $(document).on('click', '.delete:eq(1)', function()
-        {      
+        {
             _this = $(this)
             delEmail(_this);
         });
-        
+
         function addEmail (_this,inputName)
+<<<<<<< HEAD
         {   
             _this.parents('.aw-admin-email').find('.search-input').css({display:'none'});
             
             _this.parents('.aw-admin-email').append('<ul><li><a class="push-name" href="' + _this.attr('data-url') +'">' + _this.html() + '</a> <a class="delete btn btn-danger btn-sm">删除用户</a></li></ul>');                      
+=======
+        {
+            $('.alert-box').modal('hide');
+            _this.parents('.aw-admin-email').append('<ul><li><a class="push-name" href="' + _this.attr('data-url') +'">' + _this.html() + '</a> <a class="delete btn btn-danger btn-sm">删除用户</a></li></ul>');
+>>>>>>> 0158496ed346da8291f98b8d1133e6bcfdcc54d7
 
             $(inputName).val(_this.attr("data-id"));
         }
@@ -223,7 +233,7 @@
 
             _this.parents('li').detach();
         }
-    
+
     })
 </script>
 <?php TPL::output('admin/global/footer.tpl.htm'); ?>
