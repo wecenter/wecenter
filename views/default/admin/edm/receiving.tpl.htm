@@ -42,11 +42,11 @@
                             <div class="col-sm-6 col-xs-8">
                                 <div class="btn-group mod-btn">
                                     <label type="button" class="btn mod-btn-color">
-                                        <input type="radio" name="ssl" value="Y"<?php if ($this->receiving_email_config['ssl'] == 1) { ?> checked="checked"<?php } ?> /> <?php _e('是'); ?>
+                                        <input type="radio" name="ssl" value="1"<?php if ($this->receiving_email_config['ssl'] == 1) { ?> checked="checked"<?php } ?> /> <?php _e('是'); ?>
                                     </label>
 
                                     <label type="button" class="btn mod-btn-color">
-                                        <input type="radio" name="ssl" value="N"<?php if ($this->receiving_email_config['ssl'] != 1) { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?>
+                                        <input type="radio" name="ssl" value="0"<?php if ($this->receiving_email_config['ssl'] != 1) { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?>
                                     </label>
                                 </div>
                             </div>
@@ -213,10 +213,10 @@
         });
 
         function addEmail (_this,inputName)
-        {   
+        {
             _this.parents('.aw-admin-email').find('.search-input').css({display:'none'});
-            
-            _this.parents('.aw-admin-email').append('<ul><li><a class="push-name" href="' + _this.attr('data-url') +'">' + _this.html() + '</a> <a class="delete btn btn-danger btn-sm">删除用户</a></li></ul>');                      
+
+            _this.parents('.aw-admin-email').append('<ul><li><a class="push-name" href="' + _this.attr('data-url') +'">' + _this.html() + '</a> <a class="delete btn btn-danger btn-sm">删除用户</a></li></ul>');
 
             $(inputName).val(_this.attr("data-id"));
         }
