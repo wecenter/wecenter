@@ -9,7 +9,6 @@ CREATE TABLE `[#DB_PREFIX#]receiving_email_config` (
   `password` varchar(255) NOT NULL DEFAULT '',
   `uid` int(10) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `enabled` (`enabled`),
   KEY `uid` (`uid`),
   KEY `server` (`server`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8 COMMENT='邮件账号列表';
