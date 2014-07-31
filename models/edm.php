@@ -193,6 +193,18 @@ class edm_class extends AWS_MODEL
         return $received_email[$id];
     }
 
+    public function remove_received_email($id)
+    {
+        $received_email = $this->get_received_email_by_id($id);
+
+        if (empty($received_email))
+        {
+            return false;
+        }
+
+        $this->delete('received_email', 'id = ' . $received_email['$id']);
+    }
+
     public function get_receiving_email_config_by_id($id)
     {
         if (!is_digits($id))
@@ -263,7 +275,7 @@ class edm_class extends AWS_MODEL
 
         foreach ($receiving_email_accounts AS $receiving_email_config)
         {
-            if (empty($receiving_email_config['server']) OR empty($receiving_email_config['username']) OR empty($receiving_email_config['password']))
+            if (empty($receiving_email_config['server']) OR empty($receiving_email_config['username']) OR empty($receiving_email_config['password']) OR empty($receiving_email_config['uid']))
             {
                 continue;
             }
@@ -413,5 +425,17 @@ class edm_class extends AWS_MODEL
         }
 
         $this->model('publish')->publish_question($received_email['subject'], $received_email['content'], null, $publish_user['uid'], null, null, $received_email['access_key'], $received_email['uid'], false, null, $received_email['id']);
+    }
+
+    public function reply_answer_by_email($question_id, $comment)
+    {
+        $received_email = $this->fetch_row('received_email', 'question_id = ' . intval($question_id));
+
+        if (empty($received_email) OR empty($received_email['from']))
+        {
+            return false;
+        }
+
+        return AWS_APP::mail()->send($received_email['from'], 'RE: ' . $received_email['subject'], $comment, get_setting('site_name'));
     }
 }

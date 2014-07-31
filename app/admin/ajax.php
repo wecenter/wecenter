@@ -194,6 +194,11 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
     public function approval_manage_action()
     {
+        if (!in_array($_POST['batch_type'], array('approval', 'decline')))
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('错误的请求')));
+        }
+
         if ($_POST['approval_id'])
         {
             $_POST['approval_ids'] = array($_POST['approval_id']);
@@ -204,46 +209,71 @@ class ajax extends AWS_ADMIN_CONTROLLER
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择条目进行操作')));
         }
 
-        if ($_POST['type'] == 'weibo_msg')
+        switch ($_POST['type'])
         {
-            switch ($_POST['batch_type'])
-            {
-                case 'approval':
-                    foreach ($_POST['approval_ids'] AS $approval_id)
-                    {
-                        $result = $this->model('weibo')->save_msg_info_to_question($approval_id);
-
-                        if ($result)
+            case 'weibo_msg':
+                switch ($_POST['batch_type'])
+                {
+                    case 'approval':
+                        foreach ($_POST['approval_ids'] AS $approval_id)
                         {
-                            H::ajax_json_output(AWS_APP::RSM(null, -1, $result));
+                            $result = $this->model('weibo')->save_msg_info_to_question($approval_id);
+
+                            if ($result)
+                            {
+                                H::ajax_json_output(AWS_APP::RSM(null, -1, $result));
+                            }
                         }
-                    }
 
-                    break;
+                        break;
 
-                case 'decline':
-                    foreach ($_POST['approval_ids'] AS $approval_id)
-                    {
-                        $this->model('weibo')->del_msg_by_id($approval_id);
-                    }
+                    case 'decline':
+                        foreach ($_POST['approval_ids'] AS $approval_id)
+                        {
+                            $this->model('weibo')->del_msg_by_id($approval_id);
+                        }
 
-                    break;
-            }
-        }
-        else
-        {
-            switch ($_POST['batch_type'])
-            {
-                case 'approval':
-                case 'decline':
-                    $func = $_POST['batch_type'] . '_publish';
+                        break;
+                }
 
-                    foreach ($_POST['approval_ids'] AS $approval_id)
-                    {
-                        $this->model('publish')->$func($approval_id);
-                    }
                 break;
-            }
+
+            case 'received_email':
+                switch ($_POST['batch_type'])
+                {
+                    case 'approval':
+                        foreach ($_POST['approval_ids'] AS $approval_id)
+                        {
+                            $result = $this->model('edm')->save_received_email_to_question($approval_id);
+
+                            if ($result)
+                            {
+                                H::ajax_json_output(AWS_APP::RSM(null, -1, $result));
+                            }
+                        }
+
+                        break;
+
+                    case 'decline':
+                        foreach ($_POST['approval_ids'] AS $approval_id)
+                        {
+                            $this->model('edm')->remove_received_email($approval_id);
+                        }
+
+                        break;
+                }
+
+                break;
+
+            default:
+                $func = $_POST['batch_type'] . '_publish';
+
+                foreach ($_POST['approval_ids'] AS $approval_id)
+                {
+                    $this->model('publish')->$func($approval_id);
+                }
+
+                break;
         }
 
         H::ajax_json_output(AWS_APP::RSM(null, 1, null));
