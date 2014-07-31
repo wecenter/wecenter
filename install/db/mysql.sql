@@ -1166,7 +1166,6 @@ CREATE TABLE `[#DB_PREFIX#]receiving_email_config` (
   `access_key` varchar(32) NOT NULL,
   `has_attach` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
-  KEY `enabled` (`enabled`),
   KEY `uid` (`uid`),
   KEY `server` (`server`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8 COMMENT='邮件账号列表';
