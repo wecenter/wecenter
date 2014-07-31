@@ -114,9 +114,16 @@ $(function () {
     $(document).on('click', '.aw-admin-weibo-publish .delete', function()
     {
         $('.aw-admin-weibo-publish').find('.search-input').val('').show();
-        $(this).parent().find('.weibo_msg_published_user').val('');
-        $(this).parent().find('.md-tip').show();
+
         $(this).parents('li').detach();
+    });
+
+    // 微博接收用户删除
+    $(document).on('click', '.aw-admin-weibo-answer li .delete', function()
+    {
+        $(this).parent().detach();                                                         
+
+        weiboPost($(this));
     });
 
     /**
@@ -162,7 +169,7 @@ $(function () {
     
 function weiboPost(obj)
 {
-    $.post(G_BASE_URL + '/admin/ajax/weibo_batch/', {'uid': obj.attr('data-id'), 'action':obj.attr('action')}, function (result)
+    $.post(G_BASE_URL + '/admin/ajax/weibo_batch/', {'uid': obj.attr('data-id'), 'action':obj.attr('data-actions')}, function (result)
     {  
         if (result.errno == -1)
         {
