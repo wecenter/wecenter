@@ -1210,7 +1210,7 @@ AWS.Init =
 	            $(this).parents('.aw-topic-bar').find('.add').hide();
 	        }
 		});
-	}
+	},
 
 	init_comment_box: function (selector)
 	{
