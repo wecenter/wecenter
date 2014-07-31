@@ -203,7 +203,7 @@ class admin_class extends AWS_MODEL
             foreach ($notifications['sina_users'] AS $sina_user)
             {
                 $notifications_texts[] = array(
-                                                'url' => 'admin/settings/category-openid',
+                                                'url' => 'admin/weibo/msg/',
                                                 'text' => AWS_APP::lang()->_t('用户 %s 的新浪微博账号需要更新 Access Token，请重新授权', $sina_user['user_name'])
                                             );
             }

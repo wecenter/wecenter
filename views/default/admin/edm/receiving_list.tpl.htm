@@ -6,101 +6,152 @@
         <div class="mod-head">
             <h3>
                 <ul class="nav nav-tabs">
-                    <li class="active"><a href="#list"><?php _e('账号列表'); ?></a></li>
-                    <li><a href="#setting"><?php _e('设置'); ?></a></li>
+                    <li class="active"><a href="#list" data-toggle="tab"><?php _e('账号列表'); ?></a></li>
+                    <li><a href="#setting" data-toggle="tab"><?php _e('设置'); ?></a></li>
                     <li><a href="admin/edm/receiving/"><?php _e('新增账号'); ?></a></li>
                 </ul>
             </h3>
         </div>
 
-        <div class="tab-content mod-body">
+        <div class="tab-content mod-content">
             <div class="tab-pane active" id="list">
-            <div class="table-responsive">
-                <table class="table table-striped">
-                    <?php if ($this->accounts_total > 0) { ?>
-                    <thead>
-                    <tr>
-                        <th><?php _e('POP3 服务器'); ?></th>
-                        <th><?php _e('邮箱账号'); ?></th>
-                        <th><?php _e('本地用户'); ?></th>
-                        <th><?php _e('操作'); ?></th>
-                    </tr>
-                    </thead>
-
-                    <tbody>
-                    <?php foreach ($this->receiving_email_list AS $account_info) { ?>
-                    <tr>
-                        <td><?php echo $account_info['server']; ?></td>
-                        <td><?php echo $account_info['username']; ?></td>
-                        <td><a href="people/<?php echo $this->users_info[$account_info['uid']]['url_token']; ?>" target="_blank"><?php echo $this->users_info[$account_info['uid']]['user_name']; ?></a></td>
-                        <td class="nowrap">
-                            <a href="admin/edm/receiving/id-<?php echo $account_info['id']; ?>" data-toggle="tooltip" title="<?php _e('编辑'); ?>" class="fa fa-pencil md-tip"></a>
-
-                            <a href="javascript:;" onclick="AWS.ajax_request(G_BASE_URL + '/admin/ajax/remove_receiving_account/', 'id=<?php echo $account_info['id'] ?>');" data-toggle="tooltip" title="<?php _e('删除'); ?>" class="fa fa-trash-o md-tip"></a>
-                        </td>
-                    </tr>
-                    <?php } ?>
-                    </tbody>
-                    <?php } ?>
-                </table>
-            </div>
-
-            <div class="mod-table-foot">
-                <?php echo $this->pagination; ?>
-            </div>
-            </div>
-
-            <div class="tab-pane active" id="setting">
-                <div class="tab-content mod-content">
-                    <form method="post" action="admin/ajax/save_receiving_email_global_config/" onsubmit="return false;" id="receiving_form" class="form-horizontal" role="form">
+                <div class="table-responsive">
                     <table class="table table-striped">
-                        <tr><td>
-                        <div class="form-group">
-                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('开启邮件导入'); ?>:</span>
+                        <?php if ($this->accounts_total > 0) { ?>
+                        <thead>
+                            <tr>
+                                <th><?php _e('POP3 服务器'); ?></th>
+                                <th><?php _e('邮箱账号'); ?></th>
+                                <th><?php _e('本地用户'); ?></th>
+                                <th><?php _e('操作'); ?></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <?php foreach ($this->receiving_email_list AS $account_info) { ?>
+                        <tr>
+                            <td><?php echo $account_info['server']; ?></td>
+                            <td><?php echo $account_info['username']; ?></td>
+                            <td><a href="people/<?php echo $this->users_info[$account_info['uid']]['url_token']; ?>" target="_blank"><?php echo $this->users_info[$account_info['uid']]['user_name']; ?></a></td>
+                            <td class="nowrap">
+                                <a href="admin/edm/receiving/id-<?php echo $account_info['id']; ?>" data-toggle="tooltip" title="<?php _e('编辑'); ?>" class="fa fa-pencil md-tip"></a>
 
-                            <div class="col-sm-6 col-xs-8">
-                                <div class="btn-group mod-btn">
-                                    <label type="button" class="btn mod-btn-color">
-                                        <input type="radio" name="enabled" value="Y"<?php if ($this->receiving_email_global_config['enabled'] == 'Y') { ?> checked="checked"<?php } ?> />
-                                        <?php _e('是'); ?>
-                                    </label>
+                                <a href="javascript:;" onclick="AWS.ajax_request(G_BASE_URL + '/admin/ajax/remove_receiving_account/', 'id=<?php echo $account_info['id'] ?>');" data-toggle="tooltip" title="<?php _e('删除'); ?>" class="fa fa-trash-o md-tip"></a>
+                                </td>
+                            </tr>
+                            <?php } ?>
+                            </tbody>
+                            <?php } ?>
+                        </table>
+                    </div>
 
-                                    <label type="button" class="btn mod-btn-color">
-                                        <input type="radio" name="enabled" value="N"<?php if ($this->receiving_email_global_config['enabled'] != 'Y') { ?> checked="checked"<?php } ?> />
-                                        <?php _e('否'); ?>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        </td></tr>
-
-                        <tr><td>
-                        <div class="form-group">
-                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('设置邮件内容对应提问用户'); ?>:</span>
-
-                            <div class="col-sm-8 col-xs-8 aw-admin-weibo-publish">
-                                <input name="uid" type="hidden" value="<?php echo $this->receiving_email_global_config['publish_user']['uid']; ?>"/>
-                                <input type="text" class="form-control search-input" placeholder="<?php _e('添加邮件内容对应提问用户'); ?>">
-                                <div class="aw-dropdown">
-                                    <p class="title"><?php _e('没有找到相关结果'); ?></p>
-                                    <ul class="aw-dropdown-list">
-                                        <li></li>
-                                    </ul>
-                                </div>
-
-                                <?php if ($this->receiving_email_global_config['publish_user']['uid']) { ?>
-                                <a class="push-name" href="people/<?php echo $this->receiving_email_global_config['publish_user']['url_token']; ?>" target="_blank"><img class="img" src="<?php echo get_avatar_url($this->receiving_email_global_config['publish_user']['uid'], 'min'); ?>" alt="" /><?php echo $this->receiving_email_global_config['publish_user']['user_name']; ?></a>
-                                <a class="delete btn btn-danger btn-sm" href="javascript:;"><?php _e('删除用户'); ?></a>
-                                <?php } ?>
-                            </div>
-                        </div>
-                        </td></tr>
-                    </table>
-                    </form>
+                <div class="mod-table-foot">
+                    <?php echo $this->pagination; ?>
                 </div>
             </div>
+
+            <div class="tab-pane" id="setting">
+                <form method="post" action="admin/ajax/save_receiving_email_global_config/" onsubmit="return false;" id="receiving_email_global_config_form" class="form-horizontal" role="form">
+                <table class="table table-striped">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="form-group">
+                                    <span class="col-sm-4 col-xs-3 control-label"><?php _e('开启邮件导入'); ?>:</span>
+
+                                    <div class="col-sm-6 col-xs-8">
+                                        <div class="btn-group mod-btn">
+                                            <label type="button" class="btn mod-btn-color">
+                                                <input type="radio" name="enabled" value="Y"<?php if ($this->receiving_email_global_config['enabled'] == 'Y') { ?> checked="checked"<?php } ?> />
+                                                <?php _e('是'); ?>
+                                            </label>
+
+                                            <label type="button" class="btn mod-btn-color">
+                                                <input type="radio" name="enabled" value="N"<?php if ($this->receiving_email_global_config['enabled'] != 'Y') { ?> checked="checked"<?php } ?> />
+                                                <?php _e('否'); ?>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <div class="form-group">
+                                    <span class="col-sm-4 col-xs-3 control-label"><?php _e('设置邮件内容对应提问用户'); ?>:</span>
+
+                                    <div class="col-sm-5 col-xs-8 aw-admin-email">
+                                        <input name="uid" id="addEmail" type="hidden" value="<?php echo $this->receiving_email_global_config['publish_user']['uid']; ?>"/>
+                                        <input type="text" class="form-control search-input" placeholder="<?php _e('添加邮件内容对应提问用户'); ?>">
+                                        <div class="aw-dropdown">
+                                            <p class="title"><?php _e('没有找到相关结果'); ?></p>
+                                            <ul class="aw-dropdown-list">
+                                                <li></li>
+                                            </ul>
+                                        </div>
+
+                                        <?php if ($this->receiving_email_global_config['publish_user']['uid']) { ?>
+                                        <a class="push-name" href="people/<?php echo $this->receiving_email_global_config['publish_user']['url_token']; ?>" target="_blank"><img class="img" src="<?php echo get_avatar_url($this->receiving_email_global_config['publish_user']['uid'], 'min'); ?>" alt="" /><?php echo $this->receiving_email_global_config['publish_user']['user_name']; ?></a>
+                                        <a class="delete btn btn-danger btn-sm" href="javascript:;"><?php _e('删除用户'); ?></a>
+                                        <?php } ?>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                </form>
+
+                <div class="mod-table-foot mod-one-btn">
+                    <div class="center-block">
+                        <input type="button" value="<?php _e('保存设置'); ?>" class="btn btn-primary" onclick="AWS.ajax_post($('#receiving_email_global_config_form'));" />
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
 
+<script>
+    $(function(){
+
+        AWS.Dropdown.bind_dropdown_list($('.search-input:eq(0)'), 'adminEmailUser');
+
+
+        $('.aw-dropdown-list:eq(0)').delegate('li a','click',function()
+        {
+            _this = $(this)
+            addEmail(_this,'#addEmail');
+        });
+
+
+
+        $(document).on('click', '.delete:eq(0)', function()
+        {
+            _this = $(this)
+            delEmail(_this);
+        });
+
+
+        function addEmail (_this,inputName)
+        {           
+            _this.parents('.aw-admin-email').find('.search-input').css({display:'none'});
+            
+            _this.parents('.aw-admin-email').append('<ul><li><a class="push-name" href="' + _this.attr('data-url') +'">' + _this.html() + '</a> <a class="delete btn btn-danger btn-sm">删除用户</a></li></ul>');                      
+
+            $(inputName).val(_this.attr("data-id"));
+        }
+
+        function delEmail(_this)
+        {
+
+            _this.parents('.aw-admin-email').find('.search-input').val('').show('0');
+
+            _this.parents('li').detach();
+
+        }
+
+    })
+</script>
 <?php TPL::output('admin/global/footer.tpl.htm'); ?>

@@ -179,6 +179,11 @@ class publish_class extends AWS_MODEL
 			$this->model('weibo')->reply_answer_to_sina($question_info['question_id'], $answer_content);
 		}
 
+		if ($question_info['received_email_id'])
+		{
+			$this->model('edm')->reply_answer_by_email($question_info['question_id'], $answer_content);
+		}
+
 		return $answer_id;
 	}
 
@@ -201,7 +206,7 @@ class publish_class extends AWS_MODEL
 
 	public function publish_question($question_content, $question_detail, $category_id, $uid, $topics = null, $anonymous = null, $attach_access_key = null, $ask_user_id = null, $create_topic = true, $weibo_msg_id = null, $received_email_id = null)
 	{
-		if ($question_id = $this->model('question')->save_question($question_content, $question_detail, $uid, $anonymous, null, $weibo_msg_id))
+		if ($question_id = $this->model('question')->save_question($question_content, $question_detail, $uid, $anonymous, null, $weibo_msg_id, $received_email_id))
 		{
 			set_human_valid('question_valid_hour');
 
@@ -266,6 +271,13 @@ class publish_class extends AWS_MODEL
 				$this->update('weibo_msg', array(
 					'question_id' => $question_id
 				), 'id = ' . $weibo_msg_id);
+			}
+
+			if ($received_email_id AND is_digits($received_email_id))
+			{
+				$this->update('received_email', array(
+					'question_id' => $question_id
+				), 'id = ' . $received_email_id);
 			}
 		}
 

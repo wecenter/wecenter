@@ -1818,6 +1818,7 @@ AWS.Dropdown =
 	        case 'inbox' :
 	        case 'adminPublishUser' :
 	        case 'adminAnswerUser' :
+	        case 'adminEmailUser':
 	            url = G_BASE_URL + '/search/ajax/search/?type=users&q=' + encodeURIComponent(data) + '&limit=10';
 	        break;
 
@@ -2050,7 +2051,7 @@ AWS.Dropdown =
 	                    {	
 	                    	$(".alert-box").modal('hide');
 	                    	
-	                    	$('.aw-admin-weibo-publish ul').append('<li><a class="push-name" href="'+ $(this).attr('data-url') +'">'+$(this).html()+'</a> <a class="delete btn btn-danger btn-sm">删除用户</a></li>');	                   
+	                    	$('.aw-admin-weibo-publish ul').append('<li><a class="push-name" href="' + $(this).attr('data-url') +'">' + $(this).html() + '</a> <a class="delete btn btn-danger btn-sm">删除用户</a></li>');	                   
 
 	                    	$('.aw-admin-weibo-publish').find('.search-input').hide();
 
@@ -2075,24 +2076,31 @@ AWS.Dropdown =
 	                    });
 	                    $(selector).parent().find('.aw-dropdown-list li a').click(function()
 	                    {
-	                    	$(".alert-box").modal('hide');
+	                    	$('.alert-box').modal('hide');
 
-	                    	$('.weibo_msg_published_user').val($(this).attr('data-id'));
+	                    	$('.mod-weibo-reply').append('<li> <a class="reply-name" href="'+ $(this).attr('data-url') +'">' + $(this).html() + '</a> <a href="' + G_BASE_URL + '/account/sina/binding/uid-' + $(this).attr('data-id') + ' "class="btn btn-primary btn-sm" target="_blank">绑定新浪微博</a> <a data-id="' + $(this).attr('data-id') + '" data-actions="del_service_user" data-id="' + $(this).attr('data-id') + '" class="delete btn btn-danger btn-sm">删除用户</a> </li>');	                    
 
-	                    	$('.mod-weibo-reply').append('<li> <a class="reply-name" href="'+ $(this).attr('data-url') +'">'+$(this).html()+'</a> <a href="'+G_BASE_URL +'/account/sina/binding/uid-'+$(this).attr('data-id')+' "class="btn btn-primary btn-sm" target="_blank">绑定新浪微博</a> <a data-id="'+ $(this).attr('data-id')+'" action= "del_service_user" class="delete btn btn-danger btn-sm">删除用户</a> </li>');	                    
-
-	                    	$('.aw-admin-weibo-answer').find('.search-input').val("");
-	                    	
-	                    	$('.aw-admin-weibo-answer').find('.delete').click(function()
-						    {   
-						        $(this).parent().detach();					        						        
-
-						        weiboPost($(this));
-						    });
+	                    	$('.aw-admin-weibo-answer').find('.search-input').val('');
 
 	                    	weiboPost($(this));
 	                    });
 	                	break;
+
+	                //后台置邮件内容对应提问用户
+		                case 'adminEmailUser' :
+		                	$.each(result, function (i, a)
+		                    {
+		                        $(selector).parent().find('.aw-dropdown-list').append(Hogan.compile(AW_TEMPLATE.inviteDropdownList).render(
+		                        {
+		                            'uid': a.uid,
+		                            'name': a.name,
+		                            'img': a.detail.avatar_file,
+		                            'url': a.url,
+		                        }));
+		                    });
+
+		                	break;
+
 	            }
 	            if (type == 'publish')
 	            {
