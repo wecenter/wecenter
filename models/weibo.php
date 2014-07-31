@@ -36,11 +36,6 @@ class weibo_class extends AWS_MODEL
         return $msgs_info[$id];
     }
 
-    public function get_msg_info_by_question_id($question_id)
-    {
-        return $this->fetch_row('weibo_msg', 'question_id = ' . intval($question_id));
-    }
-
     public function del_msg_by_id($id)
     {
         $msg_info = $this->get_msg_info_by_id($id);
@@ -50,7 +45,7 @@ class weibo_class extends AWS_MODEL
             return false;
         }
 
-        $this->delete('weibo_msg', 'id = ' . $this->quote($id));
+        $this->delete('weibo_msg', 'id = ' . $msg_info['$id']);
 
         if ($msg_info['has_attach'] AND $msg_info['access_key'] AND !$msg_info['question_id'])
         {
@@ -104,7 +99,7 @@ class weibo_class extends AWS_MODEL
             return false;
         }
 
-        $msg_info = $this->get_msg_info_by_question_id($question_id);
+        $msg_info = $this->fetch_row('weibo_msg', 'question_id = ' . intval($question_id));
 
         if (empty($msg_info))
         {

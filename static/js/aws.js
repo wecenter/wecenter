@@ -1818,6 +1818,7 @@ AWS.Dropdown =
 	        case 'inbox' :
 	        case 'adminPublishUser' :
 	        case 'adminAnswerUser' :
+	        case 'adminEmailUser':
 	            url = G_BASE_URL + '/search/ajax/search/?type=users&q=' + encodeURIComponent(data) + '&limit=10';
 	        break;
 
@@ -2084,6 +2085,22 @@ AWS.Dropdown =
 	                    	weiboPost($(this));
 	                    });
 	                	break;
+
+	                //后台置邮件内容对应提问用户
+		                case 'adminEmailUser' :
+		                	$.each(result, function (i, a)
+		                    {
+		                        $(selector).parent().find('.aw-dropdown-list').append(Hogan.compile(AW_TEMPLATE.inviteDropdownList).render(
+		                        {
+		                            'uid': a.uid,
+		                            'name': a.name,
+		                            'img': a.detail.avatar_file,
+		                            'url': a.url,
+		                        }));
+		                    });
+
+		                	break;
+
 	            }
 	            if (type == 'publish')
 	            {

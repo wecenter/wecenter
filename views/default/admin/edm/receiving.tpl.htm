@@ -19,7 +19,7 @@
 
         <div class="tab-content mod-content">
             <div class="tab-pane active" id="add">
-                <form method="post" action="admin/ajax/save_receiving_email_config/" onsubmit="return false;" id="receiving_form" class="form-horizontal" role="form">
+                <form method="post" action="admin/ajax/save_receiving_email_config/" onsubmit="return false;" id="receiving_email_global_config_form" class="form-horizontal" role="form">
                     <table class="table table-striped">
                         <?php if ($this->receiving_email_config) { ?>
                         <input name="id" type="hidden" value="<?php echo $this->receiving_email_config['id']; ?>"/>
@@ -68,27 +68,9 @@
                         <tr><td>
                         <div class="form-group">
                             <span class="col-sm-4 col-xs-3 control-label"><?php _e('POP3 帐户'); ?>:</span>
-
                             <div class="col-sm-5 col-xs-8">
                                 <input name="username" type="text" class="form-control" value="<?php echo $this->receiving_email_config['username']; ?>"/>
-                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('设置此账号对应用户'); ?>:</span>
-
-                            <div class="col-sm-8 col-xs-8 aw-admin-weibo-publish">
-                            <input name="uid" type="hidden" value="<?php echo $this->receiving_email_user_info['uid']; ?>"/>
-                            <input type="text" class="form-control search-input" placeholder="<?php _e('设置此账号对应用户'); ?>">
-                            <div class="aw-dropdown">
-                                <p class="title"><?php _e('没有找到相关结果'); ?></p>
-                                <ul class="aw-dropdown-list">
-                                    <li></li>
-                                </ul>
                             </div>
-
-                            <?php if ($this->receiving_email_user_info) { ?>
-                            <a class="push-name" href="people/<?php echo $this->receiving_email_user_info['url_token']; ?>" target="_blank"><img class="img" src="<?php echo get_avatar_url($this->receiving_email_user_info['uid'], 'min'); ?>" alt="" /><?php echo $this->receiving_email_user_info['user_name']; ?></a>
-                            <a class="delete btn btn-danger btn-sm" href="javascript:;"><?php _e('删除用户'); ?></a>
-                            <?php } ?>
-                            </div>
-                        </div>
                         </td></tr>
 
                         <tr>
@@ -107,8 +89,8 @@
                                 <div class="form-group">
                                     <span class="col-sm-4 col-xs-3 control-label"><?php _e('设置此账号对应用户'); ?>:</span>
 
-                                    <div class="col-sm-8 col-xs-8 aw-admin-weibo-publish">
-                                    <input name="uid" type="hidden" value="<?php echo $this->user_info['uid']; ?>"/>
+                                    <div class="col-sm-5 col-xs-8 aw-admin-email">
+                                    <input name="uid" type="hidden" id="setEmail" value="<?php echo $this->receiving_email_user_info['uid']; ?>"/>
                                     <input type="text" class="form-control search-input" placeholder="<?php _e('设置此账号对应用户'); ?>">
                                     <div class="aw-dropdown">
                                         <p class="title"><?php _e('没有找到相关结果'); ?></p>
@@ -117,9 +99,11 @@
                                         </ul>
                                     </div>
 
-                                    <?php if ($this->user_info) { ?>
-                                    <a class="push-name" href="people/<?php echo $this->user_info['url_token']; ?>" target="_blank"><img class="img" src="<?php echo get_avatar_url($this->user_info['uid'], 'min'); ?>" alt="" /><?php echo $this->user_info['user_name']; ?></a>
-                                    <a class="delete btn btn-danger btn-sm" href="javascript:;"><?php _e('删除用户'); ?></a>
+                                    <?php if ($this->receiving_email_user_info['uid']) { ?>
+                                    <br><p>
+                                        <a class="push-name" href="people/<?php echo $this->receiving_email_user_info['url_token']; ?>" target="_blank"><img class="img" src="<?php echo get_avatar_url($this->receiving_email_user_info['uid'], 'min'); ?>" alt="" /><?php echo $this->receiving_email_user_info['user_name']; ?></a>
+                                        <a class="delete btn btn-danger btn-sm set" href="javascript:;"><?php _e('删除用户'); ?></a>
+                                    </p>
                                     <?php } ?>
                                     </div>
                                 </div>
@@ -127,11 +111,16 @@
                         </tr>
                     </table>
                 </form>
+                <div class="mod-table-foot mod-one-btn">
+                <div class="center-block">
+                    <input type="button" value="<?php _e('保存设置'); ?>" class="btn btn-primary" onclick="AWS.ajax_post($('#receiving_email_global_config_form'));" />
+                </div>
             </div>
-            
+            </div>
+
 
             <div class="tab-pane" id="setting">
-                <form method="post" action="admin/ajax/save_receiving_email_global_config/" onsubmit="return false;" id="receiving_form" class="form-horizontal" role="form">
+                <form method="post" action="admin/ajax/save_receiving_email_global_config/" onsubmit="return false;" id="receiving_email_config_form" class="form-horizontal" role="form">
                 <table class="table table-striped">
                     <tr>
                         <td>
@@ -160,8 +149,8 @@
                             <div class="form-group">
                                 <span class="col-sm-4 col-xs-3 control-label"><?php _e('设置邮件内容对应提问用户'); ?>:</span>
 
-                                <div class="col-sm-8 col-xs-8 aw-admin-weibo-publish">
-                                    <input name="uid" type="hidden" value="<?php echo $this->receiving_email_global_config['uid']; ?>"/>
+                                <div class="col-sm-5 col-xs-8 aw-admin-email">
+                                    <input name="uid"  id="addEmail" type="hidden" value="<?php echo $this->receiving_email_global_config['uid']; ?>"/>
                                     <input type="text" class="form-control search-input" placeholder="<?php _e('添加邮件内容对应提问用户'); ?>">
                                     <div class="aw-dropdown">
                                         <p class="title"><?php _e('没有找到相关结果'); ?></p>
@@ -180,15 +169,65 @@
                     </tr>
                 </table>
                 </form>
-            </div>
-
-            <div class="mod-table-foot mod-one-btn">
+                <div class="mod-table-foot mod-one-btn">
                 <div class="center-block">
-                    <input type="button" value="<?php _e('保存设置'); ?>" class="btn btn-primary" onclick="AWS.ajax_post($('#receiving_form'));" />
+                    <input type="button" value="<?php _e('保存设置'); ?>" class="btn btn-primary" onclick="AWS.ajax_post($('#receiving_email_config_form'));" />
                 </div>
+            </div>
             </div>
         </div>
     </div>
 </div>
 
+<script>
+    $(function(){
+
+        AWS.Dropdown.bind_dropdown_list($('.search-input:eq(0)'), 'adminEmailUser');
+        AWS.Dropdown.bind_dropdown_list($('.search-input:eq(1)'), 'adminEmailUser');
+
+
+        $('.aw-dropdown-list:eq(0)').delegate('li a','click',function()
+        {
+            _this = $(this)
+            addEmail(_this,'#setEmail');
+        });
+
+        $('.aw-dropdown-list:eq(1)').delegate('li a','click',function()
+        {
+            _this = $(this)
+
+            addEmail(_this,'#addEmail');
+        });
+
+
+        $(document).on('click', '.delete:eq(0)', function()
+        {
+            _this = $(this)
+            delEmail(_this);
+        });
+
+        $(document).on('click', '.delete:eq(1)', function()
+        {
+            _this = $(this)
+            delEmail(_this);
+        });
+
+        function addEmail (_this,inputName)
+        {   
+            _this.parents('.aw-admin-email').find('.search-input').css({display:'none'});
+            
+            _this.parents('.aw-admin-email').append('<ul><li><a class="push-name" href="' + _this.attr('data-url') +'">' + _this.html() + '</a> <a class="delete btn btn-danger btn-sm">删除用户</a></li></ul>');                      
+
+            $(inputName).val(_this.attr("data-id"));
+        }
+
+        function delEmail(_this)
+        {
+            _this.parents('.aw-admin-email').find('.search-input').val('').show('0');
+
+            _this.parents('li').detach();
+        }
+
+    })
+</script>
 <?php TPL::output('admin/global/footer.tpl.htm'); ?>

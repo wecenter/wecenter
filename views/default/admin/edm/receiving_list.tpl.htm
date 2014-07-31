@@ -13,7 +13,7 @@
             </h3>
         </div>
 
-        <div class="tab-content mod-body">
+        <div class="tab-content mod-content">
             <div class="tab-pane active" id="list">
                 <div class="table-responsive">
                     <table class="table table-striped">
@@ -50,15 +50,15 @@
             </div>
 
             <div class="tab-pane" id="setting">
-                <form method="post" action="admin/ajax/save_receiving_email_global_config/" onsubmit="return false;" id="receiving_form" class="form-horizontal" role="form">
+                <form method="post" action="admin/ajax/save_receiving_email_global_config/" onsubmit="return false;" id="receiving_email_global_config_form" class="form-horizontal" role="form">
                 <table class="table table-striped">
                     <tbody>
                         <tr>
                             <td>
                                 <div class="form-group">
-                                    <span class="col-sm-3 col-xs-3 control-label"><?php _e('开启邮件导入'); ?>:</span>
+                                    <span class="col-sm-4 col-xs-3 control-label"><?php _e('开启邮件导入'); ?>:</span>
 
-                                    <div class="col-sm-2 col-xs-4">
+                                    <div class="col-sm-6 col-xs-8">
                                         <div class="btn-group mod-btn">
                                             <label type="button" class="btn mod-btn-color">
                                                 <input type="radio" name="enabled" value="Y"<?php if ($this->receiving_email_global_config['enabled'] == 'Y') { ?> checked="checked"<?php } ?> />
@@ -78,10 +78,10 @@
                         <tr>
                             <td>
                                 <div class="form-group">
-                                    <span class="col-sm-3 col-xs-3 control-label"><?php _e('设置邮件内容对应提问用户'); ?>:</span>
+                                    <span class="col-sm-4 col-xs-3 control-label"><?php _e('设置邮件内容对应提问用户'); ?>:</span>
 
-                                    <div class="col-sm-5 col-xs-8 aw-admin-weibo-publish">
-                                        <input name="uid" type="hidden" value="<?php echo $this->receiving_email_global_config['publish_user']['uid']; ?>"/>
+                                    <div class="col-sm-5 col-xs-8 aw-admin-email">
+                                        <input name="uid" id="addEmail" type="hidden" value="<?php echo $this->receiving_email_global_config['publish_user']['uid']; ?>"/>
                                         <input type="text" class="form-control search-input" placeholder="<?php _e('添加邮件内容对应提问用户'); ?>">
                                         <div class="aw-dropdown">
                                             <p class="title"><?php _e('没有找到相关结果'); ?></p>
@@ -104,7 +104,7 @@
 
                 <div class="mod-table-foot mod-one-btn">
                     <div class="center-block">
-                        <input type="button" value="<?php _e('保存设置'); ?>" class="btn btn-primary" onclick="AWS.ajax_post($('#receiving_form'));" />
+                        <input type="button" value="<?php _e('保存设置'); ?>" class="btn btn-primary" onclick="AWS.ajax_post($('#receiving_email_global_config_form'));" />
                     </div>
                 </div>
             </div>
@@ -113,4 +113,45 @@
     </div>
 </div>
 
+<script>
+    $(function(){
+
+        AWS.Dropdown.bind_dropdown_list($('.search-input:eq(0)'), 'adminEmailUser');
+
+
+        $('.aw-dropdown-list:eq(0)').delegate('li a','click',function()
+        {
+            _this = $(this)
+            addEmail(_this,'#addEmail');
+        });
+
+
+
+        $(document).on('click', '.delete:eq(0)', function()
+        {
+            _this = $(this)
+            delEmail(_this);
+        });
+
+
+        function addEmail (_this,inputName)
+        {           
+            _this.parents('.aw-admin-email').find('.search-input').css({display:'none'});
+            
+            _this.parents('.aw-admin-email').append('<ul><li><a class="push-name" href="' + _this.attr('data-url') +'">' + _this.html() + '</a> <a class="delete btn btn-danger btn-sm">删除用户</a></li></ul>');                      
+
+            $(inputName).val(_this.attr("data-id"));
+        }
+
+        function delEmail(_this)
+        {
+
+            _this.parents('.aw-admin-email').find('.search-input').val('').show('0');
+
+            _this.parents('li').detach();
+
+        }
+
+    })
+</script>
 <?php TPL::output('admin/global/footer.tpl.htm'); ?>
