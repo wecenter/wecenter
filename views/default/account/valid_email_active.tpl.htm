@@ -1,25 +1,20 @@
-<?php TPL::output('global/header_landing.tpl.htm'); ?>
-
-<script type="text/javascript">
-	$(document).ready(function () {
-		$('#header_action').append('<?php _e('邮箱验证'); ?>');
-	});
-</script>
+<?php TPL::output('global/header_meta.tpl.htm'); ?>
 
 <div class="aw-register-box">
-	<div class="aw-mod aw-find-pwd">
-		<div class="aw-mod-body">
-			<h3><?php _e('感谢您的注册!'); ?></h3>
-			<p>
-				<?php _e('感谢您的注册, 请点击继续激活你的账户'); ?>
-			</p>
-			<p class="aw-padding10">
-				<form action="account/ajax/valid_email_active/" method="post" id="active_form">
-					<input type="hidden" name="active_code" value="<?php echo $this->active_code; ?>" />
-					<button class="btn btn-large btn-success" onclick="AWS.ajax_post($('#active_form')); return false;"><?php _e('下一步'); ?></button>
-				</form>	
-			</p>
-		</div>
+	<div class="mod-head">
+		<img src="<?php echo G_STATIC_URL; ?>/css/<?php echo $this->template_name; ?>/img/login_logo.png" alt="" />
+		<h1><?php _e('邮箱验证'); ?></h1>
+	</div>
+	<div class="mod-body">
+		<p>
+			<?php _e('感谢您的注册, 请点击继续激活你的账户'); ?>
+		</p>
+		<p class="aw-padding10">
+			<form action="account/ajax/valid_email_active/" method="post" id="active_form">
+				<input type="hidden" name="active_code" value="<?php echo $this->active_code; ?>" />
+				<button class="btn btn-large btn-blue btn-block" onclick="AWS.ajax_post($('#active_form')); return false;"><?php _e('下一步'); ?></button>
+			</form>	
+		</p>
 	</div>
 </div>
 

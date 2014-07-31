@@ -1,10 +1,10 @@
 @font-face {
 	font-family: 'icomoon';
-	src:url('../fonts/icomoon.eot?yrpakc');
-	src:url('../fonts/icomoon.eot?#iefixyrpakc') format('embedded-opentype'),
-		url('../fonts/icomoon.woff?yrpakc') format('woff'),
-		url('../fonts/icomoon.ttf?yrpakc') format('truetype'),
-		url('../fonts/icomoon.svg?yrpakc#icomoon') format('svg');
+	src:url('../fonts/icomoon.eot?-rajrx9');
+	src:url('../fonts/icomoon.eot?#iefix-rajrx9') format('embedded-opentype'),
+		url('../fonts/icomoon.woff?-rajrx9') format('woff'),
+		url('../fonts/icomoon.ttf?-rajrx9') format('truetype'),
+		url('../fonts/icomoon.svg?-rajrx9#icomoon') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -23,6 +23,15 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
+.icon-triangle:before {
+	content: "\e62a";
+}
+.icon-wechat:before {
+	content: "\e628";
+}
+.icon-lock:before {
+	content: "\e629";
+}
 .icon-i:before {
 	content: "\e626";
 }

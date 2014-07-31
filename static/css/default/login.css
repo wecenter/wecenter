@@ -1,33 +1,37 @@
 /* 登陆页面 */
-#wrapper{position: relative;margin-bottom:40px;padding-top:50px;background-color: #e7eff2;}
-.aw-login-wrap{position:relative;bottom:-20px;width: 330px;margin:0 auto;}
-.aw-login-box .logo{width:110px;height:68px;background:url('img/login_logo.png') no-repeat;}
-.aw-login-box .fa-user{color: #999;}
-.aw-login-box .aw-mod-head{position:relative;height: 76px;line-height: 76px;padding:0 40px;background:#e6e6e6;font-size: 16px;font-weight: normal;color: #666;border:1px solid #d9d9d9;border-radius: 5px 5px 0 0;}
-.aw-login-box .aw-mod-head .b-new-user{width:164px;height:46px;line-height:46px;margin-top:15px;font-size: 14px;font-weight: normal;background-color:#67b7fe;color:#fff;text-align: center;text-decoration: none;border: 1px solid #d9d9d9;border-radius: 10px; }
-.aw-login-box .aw-mod-head .b-new-user:hover{background-color: #4fd6fa;}
-.aw-login-box .aw-mod-head .icon-user{color: #fff;}
-.aw-login-box .aw-mod-head .triangle{position:absolute;z-index:1;bottom:-1px;left:60px;width:0;height:0;margin:0 !important;line-height:0;border-width:7px;border-style:solid;border-color: transparent transparent #f5f5f5 transparent;}
-.aw-login-box .aw-mod-head .triangle.active{z-index:0;bottom:-1px;left:59px;border-color: transparent transparent #dadada transparent;border-width: 8px;}
-.aw-login-box .aw-mod-body{padding:35px 35px 0;background:#F5F5F5;border-left:1px solid #d9d9d9;border-right: 1px solid #d9d9d9;}
-.aw-login-box .aw-mod-body ul li{margin-bottom:20px;}
-.aw-login-box .aw-mod-body ul li.last{line-height:38px;margin-bottom:0;}
-.aw-login-box .aw-mod-body ul li.last a, .aw-mod-body ul li.last label{font-size: 13px;color:#999;}
-.aw-login-box .aw-mod-body ul li.last label{margin-right: 5px;}
-.aw-login-box .aw-mod-body ul li.last .btn{font-size:14px;color:#fff;}
-.aw-login-box .aw-mod-body ul li.alert-danger i{margin-right: 5px;}
-.aw-login-box .aw-mod-body label{display: inline-block;}
-.aw-login-box .aw-mod-body hr{height:1px;margin:25px 0 0 0;border:0;background-color: #dadada;}
-.aw-login-box .aw-mod-body #aw-login-user-name, .aw-mod-body #aw-login-user-password{width: 215px;height:40px;box-shadow:none;margin:0;border:1px solid #EBEBEB;border-left:none;border-radius: 0 5px 5px 0;}
-.aw-login-box .aw-mod-body .aw-label-icon{display:inline-block;width:43px;height:40px;line-height:40px;background: #C2E5F3;text-align: center;border-radius: 5px 0 0 5px;}
-.aw-login-box .aw-mod-body .aw-label-icon .i-login-user-no-hover{margin-top:12px;}
-.aw-login-box .aw-mod-body .aw-label-icon i{margin:0;font-size:16px;color: #fff;}
-.aw-login-box .aw-mod-footer{height: 71px;line-height: 71px;padding:0 35px;background:#f5f5f5;border:1px solid #d9d9d9;border-top:none;border-radius: 0 0 5px 5px;}
-.aw-login-box .aw-mod-footer .fa-chevron-right{margin-left: 10px;color: #B7B7B7;}
-.aw-login-box .aw-mod-footer .fa-weibo, .aw-mod-footer .fa-tencent-weibo, .aw-mod-footer .fa-qq, .aw-mod-footer .fa-wechat{font-size: 20px;color: #B7B7B7;vertical-align: middle;margin-left: 5px;}
-.aw-login-box .aw-mod-footer .fa-weibo:hover, .aw-mod-footer .fa-tencent-weibo:hover, .aw-mod-footer .fa-qq:hover{color: #2A6496; }
-.aw-login-box .alert-danger .fa-times{margin-right:5px;color: #c30100;font-size: 16px;vertical-align: middle;}
-.aw-login-footer{position:relative;z-index:9999;margin:95px auto;text-align: center;font-size: 12px;}
+body{background:url('img/login_bg.jpg') no-repeat #E9F0F4;}
+#wrapper{position: relative;margin-bottom:20px;padding-top:100px;}
+.btn-weibo{background-color: #ff6666;color: #fff;}
+.btn-weibo:hover{background-color: #FF4D4D;color: #fff;}
+.btn-weibo:active{background-color: #E64545;color: #fff;}
+.btn-qq{background-color: #418ae2;color: #fff;color: #fff;}
+.btn-qq:hover{background-color: #2D7FE2;color: #fff;}
+.btn-qq:active{background-color: #E64545;color: #fff;}
+.btn-wechat{background-color: #73db42;color: #fff;}
+.btn-wechat:hover{color: #fff;}
+.btn-blue{height:40px;line-height:40px;padding:0;border:none;background-color: #66b7ff;color: #fff !important;}
+.btn-blue:hover{background-color: #4DAAFF;}
+.btn-blue:active{background-color: #339DFF;}
+.aw-login-box{width: 714px;margin:0 auto;background-color: #ffffff;border:1px solid #b3b3b3;border-radius: 3px;}
+.aw-login-box .logo{width:151px;height:94px;background:url('img/login_logo.png') no-repeat;}
+.aw-login-box .mod-body{height:auto;overflow:hidden;padding:50px 60px;}
+.aw-login-box .mod-body .content{width: 300px;margin-right: 60px;}
+.aw-login-box .mod-body .content h2{margin:13px 0 40px;color: #666666;}
+.aw-login-box .mod-body .content ul li{margin-top: 20px;line-height: 30px;}
+.aw-login-box .mod-body .content ul li:first-child{margin-top: 0;}
+.aw-login-box .mod-body .content ul li.last{font-size: 12px;}
+.aw-login-box .mod-body .content ul li.last a{color: #666666;}
+.aw-login-box .mod-body .content ul li .btn-blue{width:112px;}
+.aw-login-box .mod-body .side-bar{height: 326px;padding:60px 0 60px 60px;border-left: 1px solid #e6e6e6;}
+.aw-login-box .mod-body .side-bar h3{margin-bottom:27px;color: #666666;text-align: center;}
+.aw-login-box .mod-body .side-bar .btn{position:relative;width: 170px;height: 40px;line-height: 40px;margin:0 0 20px;padding:0 0 0 15px;}
+.aw-login-box .mod-body .side-bar .btn i{position:absolute;left:15px;top:10px;font-size: 18px;}
+.aw-login-box .mod-body .form-control{height: 40px;line-height: 28px\0;padding-left:15px !important;box-shadow: none;border-color: #e6e6e6;}
+.aw-login-box .mod-footer{height: 70px;line-height:70px;background-color: #f5f5f5;padding:0 60px;color: #66b7ff;}
+.aw-login-box .mod-footer span{color: #666666;}
+.aw-login-box .mod-footer a{color: #66b7ff;}
+.aw-footer-wrap{color: #999999;}
+.aw-footer-wrap a{color: #66b7ff;}
 
 /* iphone竖屏幕 */
 @media (max-width:640px){
