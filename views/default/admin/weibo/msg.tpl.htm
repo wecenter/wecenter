@@ -64,25 +64,31 @@
                 </div>
                 </td></tr>
 
-                <tr><td>
-                <div class="form-group">
-                    <span class="col-sm-4 col-xs-3 control-label"><?php _e('设置微博内容对应提问用户'); ?>:</span>
-                    <div class="col-sm-8 col-xs-8 aw-admin-weibo-publish">
-                        <input type="text" class="form-control search-input" placeholder="<?php _e('添加微博内容对应提问用户'); ?>">
-                        <div class="aw-dropdown">
-                            <p class="title"><?php _e('没有找到相关结果'); ?></p>
-                            <ul class="aw-dropdown-list">
-                                <li></li>
-                            </ul>
-                        </div>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('设置微博内容对应提问用户'); ?>:</span>
+                            <div class="col-sm-8 col-xs-8 aw-admin-weibo-publish">
+                                <input type="text" class="form-control search-input" placeholder="<?php _e('添加微博内容对应提问用户'); ?>">
+                                <div class="aw-dropdown">
+                                    <p class="title"><?php _e('没有找到相关结果'); ?></p>
+                                    <ul class="aw-dropdown-list">
+                                        <li></li>
+                                    </ul>
+                                </div>
 
-                        <?php if ($this->published_user['uid']) { ?>
-                        <a class="push-name" href="people/<?php echo $this->published_user['url_token']; ?>" target="_blank"><img class="img" src="<?php echo get_avatar_url($this->published_user['uid'], 'min'); ?>" alt="" /><?php echo $this->published_user['user_name']; ?></a>
-                        <a class="delete btn btn-danger btn-sm" href="javascript:;"><?php _e('删除用户'); ?></a>
-                        <?php } ?>
-                    </div>
-                </div>
-                </td></tr>
+                                <?php if ($this->published_user['uid']) { ?>
+                                <ul>
+                                    <li>
+                                        <a class="push-name" href="people/<?php echo $this->published_user['url_token']; ?>" target="_blank"><img class="img" src="<?php echo get_avatar_url($this->published_user['uid'], 'min'); ?>" alt="" /><?php echo $this->published_user['user_name']; ?></a>
+                                        <a class="delete btn btn-danger btn-sm" href="javascript:;"><?php _e('删除用户'); ?></a>
+                                    </li>
+                                </ul>
+                                <?php } ?>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
             </table>
         </div>
     </div>
@@ -104,6 +110,15 @@ $(function(){
 
     AWS.Dropdown.bind_dropdown_list($('.aw-admin-weibo-publish input'), 'adminPublishUser');
     AWS.Dropdown.bind_dropdown_list($('.aw-admin-weibo-answer input'), 'adminAnswerUser');
+
+    if ($('.aw-admin-weibo-publish').find('.btn-danger').length > 0)
+    {
+        $('.aw-admin-weibo-publish').find('.search-input').hide();
+    }
+    else
+    {
+        $('.aw-admin-weibo-publish').find('.search-input').show();
+    }
 });
 </script>
 
