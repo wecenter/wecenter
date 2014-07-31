@@ -8,8 +8,8 @@
                 <?php if (empty($this->receiving_email_config)) { ?>
                 <ul class="nav nav-tabs">
                     <li><a href="admin/edm/receiving_list/"><?php _e('账号列表'); ?></a></li>
-                    <li><a href="#setting"><?php _e('设置'); ?></a></li>
-                    <li class="active"><a href="#add"><?php _e('新增账号'); ?></a></li>
+                    <li><a href="#setting" data-toggle="tab"><?php _e('设置'); ?></a></li>
+                    <li class="active"><a href="#add" data-toggle="tab"><?php _e('新增账号'); ?></a></li>
                 </ul>
                 <?php } else { ?>
                 <span class="pull-left"><?php _e('编辑账号'); ?></span>
@@ -17,156 +17,159 @@
             </h3>
         </div>
 
-        <div class="tab-pane active" id="add">
         <div class="tab-content mod-content">
-            <form method="post" action="admin/ajax/save_receiving_email_config/" onsubmit="return false;" id="receiving_form" class="form-horizontal" role="form">
-            <table class="table table-striped">
-                <?php if ($this->receiving_email_config) { ?>
-                <input name="id" type="hidden" value="<?php echo $this->receiving_email_config['id']; ?>"/>
-                <?php } ?>
+            <div class="tab-pane active" id="add">
+                <form method="post" action="admin/ajax/save_receiving_email_config/" onsubmit="return false;" id="receiving_form" class="form-horizontal" role="form">
+                    <table class="table table-striped">
+                        <?php if ($this->receiving_email_config) { ?>
+                        <input name="id" type="hidden" value="<?php echo $this->receiving_email_config['id']; ?>"/>
+                        <?php } ?>
 
-                <tr><td>
-                <div class="form-group">
-                    <span class="col-sm-4 col-xs-3 control-label"><?php _e('POP3 服务器'); ?>:</span>
-
-                    <div class="col-sm-5 col-xs-8">
-                        <input name="server" type="text" class="form-control" value="<?php echo $this->receiving_email_config['server']; ?>" />
-                    </div>
-                </div>
-                </td></tr>
-
-                <tr><td>
-                <div class="form-group">
-                    <span class="col-sm-4 col-xs-3 control-label"><?php _e('使用安全链接(SSL)连接服务器'); ?>:</span>
-
-                    <div class="col-sm-6 col-xs-8">
-                        <div class="btn-group mod-btn">
-                            <label type="button" class="btn mod-btn-color">
-                                <input type="radio" name="ssl" value="Y"<?php if ($this->receiving_email_config['ssl'] == 1) { ?> checked="checked"<?php } ?> /> <?php _e('是'); ?>
-                            </label>
-
-                            <label type="button" class="btn mod-btn-color">
-                                <input type="radio" name="ssl" value="N"<?php if ($this->receiving_email_config['ssl'] != 1) { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-                </td></tr>
-
-                <tr><td>
-                <div class="form-group">
-                    <span class="col-sm-4 col-xs-3 control-label"><?php _e('POP3 端口'); ?>:</span>
-
-                    <div class="col-sm-5 col-xs-8">
-                        <input name="port" type="text" class="form-control" value="<?php echo $this->receiving_email_config['port']; ?>" />
-
-                        <div class="help-block"><?php _e('留空时默认服务器端口为 110，使用 SSL 协议默认端口为 995，详细参数请询问邮箱服务商'); ?></div>
-                    </div>
-                </div>
-                </td></tr>
-
-                <tr><td>
-                <div class="form-group">
-                    <span class="col-sm-4 col-xs-3 control-label"><?php _e('POP3 帐户'); ?>:</span>
-
-                    <div class="col-sm-5 col-xs-8">
-                        <input name="username" type="text" class="form-control" value="<?php echo $this->receiving_email_config['username']; ?>"/>
-                    </div>
-                </div>
-                </td></tr>
-
-                <tr>
-                    <td>
+                        <tr><td>
                         <div class="form-group">
-                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('POP3 密码'); ?>:</span>
+                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('POP3 服务器'); ?>:</span>
+
                             <div class="col-sm-5 col-xs-8">
-                                <input name="password" type="password" class="form-control" value="<?php echo $this->receiving_email_config['password']; ?>"/>
+                                <input name="server" type="text" class="form-control" value="<?php echo $this->receiving_email_config['server']; ?>" />
                             </div>
                         </div>
-                    </td>
-                </tr>
+                        </td></tr>
 
-                <tr>
-                    <td>
+                        <tr><td>
                         <div class="form-group">
-                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('设置此账号对应用户'); ?>:</span>
+                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('使用安全链接(SSL)连接服务器'); ?>:</span>
 
-                            <div class="col-sm-8 col-xs-8 aw-admin-weibo-publish">
-                            <input name="uid" type="hidden" value="<?php echo $this->user_info['uid']; ?>"/>
-                            <input type="text" class="form-control search-input" placeholder="<?php _e('设置此账号对应用户'); ?>">
-                            <div class="aw-dropdown">
-                                <p class="title"><?php _e('没有找到相关结果'); ?></p>
-                                <ul class="aw-dropdown-list">
-                                    <li></li>
-                                </ul>
-                            </div>
+                            <div class="col-sm-6 col-xs-8">
+                                <div class="btn-group mod-btn">
+                                    <label type="button" class="btn mod-btn-color">
+                                        <input type="radio" name="ssl" value="Y"<?php if ($this->receiving_email_config['ssl'] == 1) { ?> checked="checked"<?php } ?> /> <?php _e('是'); ?>
+                                    </label>
 
-                            <?php if ($this->user_info) { ?>
-                            <a class="push-name" href="people/<?php echo $this->user_info['url_token']; ?>" target="_blank"><img class="img" src="<?php echo get_avatar_url($this->user_info['uid'], 'min'); ?>" alt="" /><?php echo $this->user_info['user_name']; ?></a>
-                            <a class="delete btn btn-danger btn-sm" href="javascript:;"><?php _e('删除用户'); ?></a>
-                            <?php } ?>
+                                    <label type="button" class="btn mod-btn-color">
+                                        <input type="radio" name="ssl" value="N"<?php if ($this->receiving_email_config['ssl'] != 1) { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?>
+                                    </label>
+                                </div>
                             </div>
                         </div>
-                    </td>
-                </tr>
-            </table>
-            </form>
-        </div>
+                        </td></tr>
 
-        <div class="tab-content mod-content mod-one-btn">
-            <div class="center-block">
-                <input type="button" value="<?php _e('保存设置'); ?>" class="btn btn-primary" onclick="AWS.ajax_post($('#receiving_form'));" />
+                        <tr><td>
+                        <div class="form-group">
+                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('POP3 端口'); ?>:</span>
+
+                            <div class="col-sm-5 col-xs-8">
+                                <input name="port" type="text" class="form-control" value="<?php echo $this->receiving_email_config['port']; ?>" />
+
+                                <div class="help-block"><?php _e('留空时默认服务器端口为 110，使用 SSL 协议默认端口为 995，详细参数请询问邮箱服务商'); ?></div>
+                            </div>
+                        </div>
+                        </td></tr>
+
+                        <tr><td>
+                        <div class="form-group">
+                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('POP3 帐户'); ?>:</span>
+
+                            <div class="col-sm-5 col-xs-8">
+                                <input name="username" type="text" class="form-control" value="<?php echo $this->receiving_email_config['username']; ?>"/>
+                            </div>
+                        </div>
+                        </td></tr>
+
+                        <tr>
+                            <td>
+                                <div class="form-group">
+                                    <span class="col-sm-4 col-xs-3 control-label"><?php _e('POP3 密码'); ?>:</span>
+                                    <div class="col-sm-5 col-xs-8">
+                                        <input name="password" type="password" class="form-control" value="<?php echo $this->receiving_email_config['password']; ?>"/>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <div class="form-group">
+                                    <span class="col-sm-4 col-xs-3 control-label"><?php _e('设置此账号对应用户'); ?>:</span>
+
+                                    <div class="col-sm-8 col-xs-8 aw-admin-weibo-publish">
+                                    <input name="uid" type="hidden" value="<?php echo $this->user_info['uid']; ?>"/>
+                                    <input type="text" class="form-control search-input" placeholder="<?php _e('设置此账号对应用户'); ?>">
+                                    <div class="aw-dropdown">
+                                        <p class="title"><?php _e('没有找到相关结果'); ?></p>
+                                        <ul class="aw-dropdown-list">
+                                            <li></li>
+                                        </ul>
+                                    </div>
+
+                                    <?php if ($this->user_info) { ?>
+                                    <a class="push-name" href="people/<?php echo $this->user_info['url_token']; ?>" target="_blank"><img class="img" src="<?php echo get_avatar_url($this->user_info['uid'], 'min'); ?>" alt="" /><?php echo $this->user_info['user_name']; ?></a>
+                                    <a class="delete btn btn-danger btn-sm" href="javascript:;"><?php _e('删除用户'); ?></a>
+                                    <?php } ?>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
             </div>
-        </div>
-        </div>
+            
 
-        <div class="tab-pane active" id="setting">
-            <div class="tab-content mod-content">
+            <div class="tab-pane" id="setting">
                 <form method="post" action="admin/ajax/save_receiving_email_global_config/" onsubmit="return false;" id="receiving_form" class="form-horizontal" role="form">
                 <table class="table table-striped">
-                    <tr><td>
-                    <div class="form-group">
-                        <span class="col-sm-4 col-xs-3 control-label"><?php _e('开启邮件导入'); ?>:</span>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <span class="col-sm-4 col-xs-3 control-label"><?php _e('开启邮件导入'); ?>:</span>
 
-                        <div class="col-sm-6 col-xs-8">
-                            <div class="btn-group mod-btn">
-                                <label type="button" class="btn mod-btn-color">
-                                    <input type="radio" name="enabled" value="Y"<?php if ($this->receiving_email_global_config['enabled'] == 'Y') { ?> checked="checked"<?php } ?> />
-                                    <?php _e('是'); ?>
-                                </label>
+                                <div class="col-sm-6 col-xs-8">
+                                    <div class="btn-group mod-btn">
+                                        <label type="button" class="btn mod-btn-color">
+                                            <input type="radio" name="enabled" value="Y"<?php if ($this->receiving_email_global_config['enabled'] == 'Y') { ?> checked="checked"<?php } ?> />
+                                            <?php _e('是'); ?>
+                                        </label>
 
-                                <label type="button" class="btn mod-btn-color">
-                                    <input type="radio" name="enabled" value="N"<?php if ($this->receiving_email_global_config['enabled'] != 'Y') { ?> checked="checked"<?php } ?> />
-                                    <?php _e('否'); ?>
-                                </label>
+                                        <label type="button" class="btn mod-btn-color">
+                                            <input type="radio" name="enabled" value="N"<?php if ($this->receiving_email_global_config['enabled'] != 'Y') { ?> checked="checked"<?php } ?> />
+                                            <?php _e('否'); ?>
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    </td></tr>
+                        </td>
+                    </tr>
 
-                    <tr><td>
-                    <div class="form-group">
-                        <span class="col-sm-4 col-xs-3 control-label"><?php _e('设置邮件内容对应提问用户'); ?>:</span>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <span class="col-sm-4 col-xs-3 control-label"><?php _e('设置邮件内容对应提问用户'); ?>:</span>
 
-                        <div class="col-sm-8 col-xs-8 aw-admin-weibo-publish">
-                            <input name="uid" type="hidden" value="<?php echo $this->receiving_email_global_config['uid']; ?>"/>
-                            <input type="text" class="form-control search-input" placeholder="<?php _e('添加邮件内容对应提问用户'); ?>">
-                            <div class="aw-dropdown">
-                                <p class="title"><?php _e('没有找到相关结果'); ?></p>
-                                <ul class="aw-dropdown-list">
-                                    <li></li>
-                                </ul>
+                                <div class="col-sm-8 col-xs-8 aw-admin-weibo-publish">
+                                    <input name="uid" type="hidden" value="<?php echo $this->receiving_email_global_config['uid']; ?>"/>
+                                    <input type="text" class="form-control search-input" placeholder="<?php _e('添加邮件内容对应提问用户'); ?>">
+                                    <div class="aw-dropdown">
+                                        <p class="title"><?php _e('没有找到相关结果'); ?></p>
+                                        <ul class="aw-dropdown-list">
+                                            <li></li>
+                                        </ul>
+                                    </div>
+
+                                    <?php if ($this->receiving_email_global_config['publish_user']['uid']) { ?>
+                                    <a class="push-name" href="people/<?php echo $this->receiving_email_global_config['publish_user']['url_token']; ?>" target="_blank"><img class="img" src="<?php echo get_avatar_url($this->receiving_email_global_config['publish_user']['uid'], 'min'); ?>" alt="" /><?php echo $this->receiving_email_global_config['publish_user']['user_name']; ?></a>
+                                    <a class="delete btn btn-danger btn-sm" href="javascript:;"><?php _e('删除用户'); ?></a>
+                                    <?php } ?>
+                                </div>
                             </div>
-
-                            <?php if ($this->receiving_email_global_config['publish_user']['uid']) { ?>
-                            <a class="push-name" href="people/<?php echo $this->receiving_email_global_config['publish_user']['url_token']; ?>" target="_blank"><img class="img" src="<?php echo get_avatar_url($this->receiving_email_global_config['publish_user']['uid'], 'min'); ?>" alt="" /><?php echo $this->receiving_email_global_config['publish_user']['user_name']; ?></a>
-                            <a class="delete btn btn-danger btn-sm" href="javascript:;"><?php _e('删除用户'); ?></a>
-                            <?php } ?>
-                        </div>
-                    </div>
-                    </td></tr>
+                        </td>
+                    </tr>
                 </table>
                 </form>
+            </div>
+
+            <div class="mod-table-foot mod-one-btn">
+                <div class="center-block">
+                    <input type="button" value="<?php _e('保存设置'); ?>" class="btn btn-primary" onclick="AWS.ajax_post($('#receiving_form'));" />
+                </div>
             </div>
         </div>
     </div>
