@@ -102,23 +102,22 @@ $(function () {
 
 
     //微博发布用户
-    $('.aw-admin-weibo-answer').find('.search-input').bind("keydown", function()
+    $('.aw-admin-weibo-answer .search-input').bind("keydown", function()
     {
-        if (window.event && window.event.keyCode == 13) {
-                    window.event.returnValue = false;
-                }
+        if (window.event && window.event.keyCode == 13)
+        {
+            return false;
+        }
     });
-    
-    $('.aw-admin-weibo-publish').find('.btn-danger').length >0 ? $('.aw-admin-weibo-publish').find('.search-input').hide() : $('.aw-admin-weibo-publish').find('.search-input').show();
 
-    $('.aw-admin-weibo-publish').find('.delete').click(function()
-        {   
-            $('.aw-admin-weibo-publish').find('.search-input').show('0').val("");
-            $(this).parent().find('.weibo_msg_published_user').val('');
-            $(this).parent().find('.md-tip').show();
-            $(this).prev().detach().end().detach();
-        });
-
+    // 微博提问用户删除
+    $(document).on('click', '.aw-admin-weibo-publish .delete', function()
+    {
+        $('.aw-admin-weibo-publish').find('.search-input').val('').show();
+        $(this).parent().find('.weibo_msg_published_user').val('');
+        $(this).parent().find('.md-tip').show();
+        $(this).parents('li').detach();
+    });
 
     /**
      * 所有textarea高度自适应内容

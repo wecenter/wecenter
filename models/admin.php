@@ -76,7 +76,7 @@ class admin_class extends AWS_MODEL
                                 'article_approval' => $this->count('approval', "type = 'article'"),
                                 'article_comment_approval' => $this->count('approval', "type = 'article_comment'"),
                                 'weibo_msg_approval' => $this->count('weibo_msg', 'question_id IS NULL'),
-                                'received_email_approval', $this->model('edm')->count('received_email', 'question_id IS NULL');
+                                'received_email_approval', $this->model('edm')->count('received_email', 'question_id IS NULL'),
                                 'unverified_modify_count' => $this->count('question', 'unverified_modify_count <> 0'),
 
                                 // 用户举报

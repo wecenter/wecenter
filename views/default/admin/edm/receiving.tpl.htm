@@ -92,7 +92,7 @@
                             <span class="col-sm-4 col-xs-3 control-label"><?php _e('设置此账号对应用户'); ?>:</span>
 
                             <div class="col-sm-8 col-xs-8 aw-admin-weibo-publish">
-                            <input name="uid" type="hidden" value="<?php echo $this->user_info['uid']; ?>"/>
+                            <input name="uid" type="hidden" value="<?php echo $this->receiving_email_user_info['uid']; ?>"/>
                             <input type="text" class="form-control search-input" placeholder="<?php _e('设置此账号对应用户'); ?>">
                             <div class="aw-dropdown">
                                 <p class="title"><?php _e('没有找到相关结果'); ?></p>
@@ -101,8 +101,8 @@
                                 </ul>
                             </div>
 
-                            <?php if ($this->user_info) { ?>
-                            <a class="push-name" href="people/<?php echo $this->user_info['url_token']; ?>" target="_blank"><img class="img" src="<?php echo get_avatar_url($this->user_info['uid'], 'min'); ?>" alt="" /><?php echo $this->user_info['user_name']; ?></a>
+                            <?php if ($this->receiving_email_user_info) { ?>
+                            <a class="push-name" href="people/<?php echo $this->receiving_email_user_info['url_token']; ?>" target="_blank"><img class="img" src="<?php echo get_avatar_url($this->receiving_email_user_info['uid'], 'min'); ?>" alt="" /><?php echo $this->receiving_email_user_info['user_name']; ?></a>
                             <a class="delete btn btn-danger btn-sm" href="javascript:;"><?php _e('删除用户'); ?></a>
                             <?php } ?>
                             </div>

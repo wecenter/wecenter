@@ -1991,6 +1991,20 @@ AWS.Dropdown =
 
 	                    break;
 
+	                case 'inbox' :
+	                case 'invite' :
+	                    $.each(result, function (i, a)
+	                    {
+	                        $(selector).parent().find('.aw-dropdown-list').append(Hogan.compile(AW_TEMPLATE.inviteDropdownList).render(
+	                        {
+	                            'uid': a.uid,
+	                            'name': a.name,
+	                            'img': a.detail.avatar_file
+	                        }));
+	                    });
+	                	break;
+
+	                // 后台微信群发文章
 	                case 'adminArticles' :
 	                    $.each(result, function (i, a)
 	                    {
@@ -2003,11 +2017,7 @@ AWS.Dropdown =
 	                    });
 	                    $(selector).parent().find('.aw-dropdown-list li').click(function()
 	                    {
-	                    	$('.aw-article-list').append('<li  data-id="'+$(this).attr('data-id')+'"><div class="col-sm-9">' + $(this).html() + '</div> <div class="col-sm-3"><a class="btn btn-danger btn-xs">删除</a></div></li>');
-
-	                    	$('.aw-article-list li').find('a').attr('href',function(){
-	                    		return $(this).attr('_href')
-	                    	});
+	                    	$('.aw-article-list').append('<li data-id="'+$(this).attr('data-id')+'"><div class="col-sm-9">' + $(this).text() + '</div> <div class="col-sm-3"><a class="btn btn-danger btn-xs">' + _t('删除') + '</a></div></li>');
 
 	                    	if ($('.article_ids').val() == '')
 	                    	{
@@ -2022,20 +2032,7 @@ AWS.Dropdown =
 	                    });
 	                	break;
 
-	                case 'inbox' :
-	                case 'invite' :
-	                    $.each(result, function (i, a)
-	                    {
-	                        $(selector).parent().find('.aw-dropdown-list').append(Hogan.compile(AW_TEMPLATE.inviteDropdownList).render(
-	                        {
-	                            'uid': a.uid,
-	                            'name': a.name,
-	                            'img': a.detail.avatar_file
-	                        }));
-	                    });
-	                	break;
-
-	                // 后台微博发布用户
+	                // 后台微博提问用户
 	                case 'adminPublishUser' :
 	                	$.each(result, function (i, a)
 	                    {
@@ -2051,23 +2048,13 @@ AWS.Dropdown =
 
 	                    $(selector).parent().find('.aw-dropdown-list li a').click(function()
 	                    {	
-	                    	
 	                    	$(".alert-box").modal('hide');
 	                    	
-	                    	$('.aw-admin-weibo-publish').append('<a class="push-name" href="'+ $(this).attr('data-url') +'">'+$(this).html()+'</a> <a class="delete btn btn-danger btn-sm">删除用户</a>');	                   
+	                    	$('.aw-admin-weibo-publish ul').append('<li><a class="push-name" href="'+ $(this).attr('data-url') +'">'+$(this).html()+'</a> <a class="delete btn btn-danger btn-sm">删除用户</a></li>');	                   
 
-	                    	$('.aw-admin-weibo-publish').find('.search-input').hide('0');
-	                    	
-	                    	$('.aw-admin-weibo-publish').find('.delete').click(function()
-						    {   
-						        $('.aw-admin-weibo-publish').find('.search-input').show('0').val('');
-						        $(this).parent().find('.weibo_msg_published_user').val('');
-						        $(this).parent().find('.md-tip').show();
-						        $(this).prev().detach().end().detach();
-						    });
+	                    	$('.aw-admin-weibo-publish').find('.search-input').hide();
 
 	                    	weiboPost($(this));
-
                     	});
 
 	                	break;

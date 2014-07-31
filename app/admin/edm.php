@@ -172,11 +172,11 @@ class edm extends AWS_ADMIN_CONTROLLER
 				H::redirect_msg(AWS_APP::lang()->_t('该账号不存在'), '/admin/edm/receiving_list/');
 			}
 
-			$user_info = $this->model('account')->get_user_info_by_uid($receiving_email_config['uid']);
+			$receiving_email_user_info = $this->model('account')->get_user_info_by_uid($receiving_email_config['uid']);
 
 			TPL::assign('receiving_email_config', $receiving_email_config);
 
-			TPL::assign('user_info', $user_info);
+			TPL::assign('receiving_email_user_info', $receiving_email_user_info);
 		}
 
 		$receiving_email_global_config = get_setting('receiving_email_global_config');
