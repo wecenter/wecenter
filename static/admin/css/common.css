@@ -207,7 +207,7 @@ textarea{resize:none;}
 .aw-wechat-dropdown-box .ajax-upload,.aw-wechat-dropdown-box .ajax-look{position:absolute;top:4px;right:-30px;}
 .aw-wechat-dropdown-box .ajax-look{right:-60px;}
 .aw-content-wrap .mod-weibo-reply li{margin-top: 10px;}
-.aw-content-wrap .mod-weibo-reply li .reply-name,.aw-admin-weibo-publish .push-name{display: inline-block;min-width: 180px;}
+.aw-content-wrap .mod-weibo-reply li .reply-name,.aw-admin-weibo-publish .push-name ,.aw-admin-email .push-name{display: inline-block;min-width: 180px;}
 .wechat1,.wechat{min-height:inherit;height: auto;}
 .wechat1{margin-top:20px}
 .wechat{margin-top: 0;}
@@ -293,7 +293,7 @@ textarea{resize:none;}
 .aw-publish-title .dropdown i{margin:0;}
 .aw-publish-title .aw-dropdown .aw-dropdown-list a{display:block;padding:5px 10px;max-width: 400px;}
 /* 开放平台设置 */
-.aw-admin-weibo-publish .img,.aw-admin-weibo-answer li img{margin-right: 10px;width: 24px;}
+.aw-admin-weibo-publish .img,.aw-admin-weibo-answer li img,.aw-admin-email li img{margin-right: 10px;width: 24px;}
 
 .aw-admin-weibo-publish .btn{margin-left: 5px;}
 
