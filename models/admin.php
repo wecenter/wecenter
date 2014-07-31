@@ -76,6 +76,7 @@ class admin_class extends AWS_MODEL
                                 'article_approval' => $this->count('approval', "type = 'article'"),
                                 'article_comment_approval' => $this->count('approval', "type = 'article_comment'"),
                                 'weibo_msg_approval' => $this->count('weibo_msg', 'question_id IS NULL'),
+                                'received_email_approval', $this->model('edm')->count('received_email', 'question_id IS NULL');
                                 'unverified_modify_count' => $this->count('question', 'unverified_modify_count <> 0'),
 
                                 // 用户举报
@@ -157,6 +158,14 @@ class admin_class extends AWS_MODEL
                                         );
         }
 
+        if ($notifications['received_email_approval'])
+        {
+            $notifications_texts[] = array(
+                                            'url' => 'admin/approval/list/type-received_email',
+                                            'text' => AWS_APP::lang()->_t('有 %s 个已导入邮件待审核', $notifications['received_email_approval'])
+                                        );
+        }
+
         if ($notifications['user_report'])
         {
             $notifications_texts[] = array(
@@ -189,7 +198,7 @@ class admin_class extends AWS_MODEL
                                         );
         }
 
-        if (get_setting('weibo_msg_enabled') == 'Y' AND $notifications['sina_users'])
+        if (get_setting('sina_weibo_enabled') == 'Y' AND $notifications['sina_users'])
         {
             foreach ($notifications['sina_users'] AS $sina_user)
             {

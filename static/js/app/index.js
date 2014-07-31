@@ -135,7 +135,7 @@ function welcome_step(step)
 	switch (step)
 	{
 		case '1':
-			AWS.Init.init_avatar_uploader($('#welcome_avatar_uploader'), $('#aw-img-uploading'), $("#aw-upload-img"));
+			var fileupload = new FileUpload('avatar', $('#welcome_avatar_uploader'), $("#aw-upload-img"), G_BASE_URL + '/account/ajax/avatar_upload/', {'loading_status' : '#aw-img-uploading'});
 		break;
 
 		case '2':

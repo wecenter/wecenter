@@ -17,6 +17,8 @@
                     <li class="<?php if ($_GET['type'] == 'article_comment') { ?> active<?php } ?>"><a href="admin/approval/list/type-article_comment"><?php _e('文章评论'); ?> (<?php echo $this->article_comment_count; ?>)</a></li>
 
                     <li class="<?php if ($_GET['type'] == 'weibo_msg') { ?> active<?php } ?>"><a href="admin/approval/list/type-weibo_msg"><?php _e('新浪微博'); ?> (<?php echo $this->weibo_msg_count; ?>)</a></li>
+
+                    <li class="<?php if ($_GET['type'] == 'received_email') { ?> active<?php } ?>"><a href="admin/approval/list/type-received_email"><?php _e('已导入邮件'); ?> (<?php echo $this->received_email_count; ?>)</a></li>
                 </ul>
             </h3>
         </div>
@@ -35,7 +37,7 @@
                             <th><input type="checkbox" class="check-all"></th>
                             <?php } ?>
                             <th><?php _e('用户'); ?></th>
-                            <?php if (in_array($_GET['type'], array('question', 'unverified_modify', 'article'))) { ?>
+                            <?php if (in_array($_GET['type'], array('question', 'unverified_modify', 'article', 'received_email'))) { ?>
                             <th><?php _e('标题'); ?></th>
                             <?php } ?>
                             <th><?php if ($_GET['type'] == 'unverified_modify') { _e('待确认修改数'); } else { _e('内容'); } ?></th>
@@ -55,7 +57,7 @@
                                 <a href="people/<?php echo $this->users_info[$approval_info['uid']]['url_token']; ?>" target="_blank"><?php echo $this->users_info[$approval_info['uid']]['user_name']; ?></a>
                             </td>
 
-                            <?php if (in_array($_GET['type'], array('question', 'unverified_modify', 'article'))) { ?>
+                            <?php if (in_array($_GET['type'], array('question', 'unverified_modify', 'article', 'received_email'))) { ?>
                             <td><?php
                             switch ($_GET['type']) {
                                 case 'question':
@@ -69,13 +71,17 @@
                                 case 'article':
                                     echo htmlspecialchars($approval_info['data']['title']);
                                     break;
+
+                                case 'received_email':
+                                    echo htmlspecialchars($approval_info['subject']);
+                                    break;
                             }
                             ?></td>
                             <?php } ?>
 
                             <td>
                                 <?php if ($_GET['type'] == 'unverified_modify') { echo $approval_info['unverified_modify_count']; } else { ?>
-                                <a onclick="AWS.dialog('ajaxData', {'title':'<?php _e('内容审核'); ?>', 'url':G_BASE_URL + '/admin/approval/preview/<?php if ($_GET['type'] == 'weibo_msg') { ?>type-weibo_msg__id<?php } echo $approval_info['id']; ?>'});"><?php
+                                <a onclick="AWS.dialog('ajaxData', {'title':'<?php _e('内容审核'); ?>', 'url':G_BASE_URL + '/admin/approval/preview/<?php if (in_array($_GET['type'], array('weibo_msg', 'received_email'))) { ?>type-<?php echo $_GET['type']; ?>__id<?php } echo $approval_info['id']; ?>'});"><?php
                                 switch ($_GET['type']) {
                                     case 'question':
                                         echo cjk_substr(htmlspecialchars($approval_info['data']['question_detail']), 0, 128, 'UTF-8', '...');
@@ -91,9 +97,12 @@
                                         break;
 
                                     case 'weibo_msg':
-                                        echo cjk_substr($approval_info['text'], 0, 128, 'UTF-8', '...');
+                                        echo cjk_substr(htmlspecialchars($approval_info['text']), 0, 128, 'UTF-8', '...');
                                         break;
 
+                                    case 'received_email':
+                                        echo cjk_substr(htmlspecialchars($approval_info['content']), 0, 128, 'UTF-8', '...');
+                                        break;
                                 }
                                 ?></a>
                                 <?php } ?>
@@ -104,15 +113,15 @@
                                 <a href="question/id-<?php echo $approval_info['question_id']; ?>__column-log__rf-false" target="_blank" class="fa fa-search md-tip" data-original-title="<?php _e('查看修改日志'); ?>"></a>
                                 <?php } else { ?>
                                 <a class="fa fa-search md-tip" onclick="AWS.dialog('ajaxData', {'title':'<?php _e('内容审核'); ?>', 'url':G_BASE_URL + '/admin/approval/preview/<?php
-                                if ($_GET['type'] == 'weibo_msg') {
-                                ?>type-weibo_msg__id-<?php
+                                if (in_array($_GET['type'], array('weibo_msg', 'received_email'))) {
+                                ?>type-<?php echo $_GET['type']; ?>__id-<?php
                                 }
                                 echo $approval_info['id'];
                                 ?>'});" data-original-title="<?php _e('查看内容'); ?>"></a>
 
                                 <a href="admin/approval/preview/action-edit<?php
-                                if ($_GET['type'] == 'weibo_msg') {
-                                ?>__type-weibo_msg<?php
+                                if (in_array($_GET['type'], array('weibo_msg', 'received_email'))) {
+                                ?>__type-<?php echo $_GET['type'];
                                 } ?>__id-<?php
                                 echo $approval_info['id'];
                                 ?>" class="fa fa-pencil md-tip" data-original-title="<?php _e('修改内容'); ?>"></a>

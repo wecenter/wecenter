@@ -176,6 +176,40 @@ class edm_class extends AWS_MODEL
         return $this->query("INSERT INTO `" . get_table('edm_taskdata') . "` (`taskid`, `email`) SELECT '" . intval($task_id) . "' ,  `email` FROM `" . get_table('edm_userdata') . "` WHERE usergroup = " . intval($user_group_id));
     }
 
+    public function get_received_email_by_id($id)
+    {
+        if (!is_digits($id))
+        {
+            return false;
+        }
+
+        static $received_email;
+
+        if (!$received_email[$id])
+        {
+            $received_email[$id] = $this->fetch_row('received_email', 'id = ' . $id);
+        }
+
+        return $received_email[$id];
+    }
+
+    public function get_receiving_email_config_by_id($id)
+    {
+        if (!is_digits($id))
+        {
+            return false;
+        }
+
+        static $receiving_email_config;
+
+        if (!$receiving_email_config[$id])
+        {
+            $receiving_email_config[$id] = $this->fetch_row('receiving_email_config', 'id = ' . $id);
+        }
+
+        return $receiving_email_config[$id];
+    }
+
     public function get_receiving_email_config()
     {
         static $receiving_email_config;
@@ -260,13 +294,17 @@ class edm_class extends AWS_MODEL
                 continue;
             }
 
+            $received_email['config_id'] = $receiving_email_config['id'];
+
+            $received_email['uid'] = $receiving_email_config['uid'];
+
             foreach ($mail AS $num => $message)
             {
                 $received_email['message_id'] = substr($message->messageID, 1, -1);
 
                 $received_email['date'] = intval(strtotime($message->Date));
 
-                if ($this->fetch_row(`received_email`, 'message_id = "' . $this->quote($received_email['message_id']) . '" AND date = ' . $received_email['date']))
+                if ($now - $received_email['date'] > 604800 OR $this->fetch_row(`received_email`, 'message_id = "' . $this->quote($received_email['message_id']) . '" AND date = ' . $received_email['date']))
                 {
                     continue;
                 }
@@ -341,6 +379,10 @@ class edm_class extends AWS_MODEL
 
                 $received_email['content'] = strip_tags(preg_replace(array('/<p(\s+[^>]*)?>/i', '/<\/p>/i', '/<br\s*\/?>/i'), "\n", $received_email['content']));
 
+                $now++;
+
+                $received_email['access_key'] = md5($received_email['uid'] . $now);
+
                 $this->insert('received_email', $received_email);
 
                 $mail->removeMessage($num);
@@ -350,5 +392,26 @@ class edm_class extends AWS_MODEL
         @unlink($locker);
 
         return true;
+    }
+
+    public function save_received_email_to_question($id)
+    {
+        $received_email = $this->get_received_email_by_id($id);
+
+        if (empty($received_email))
+        {
+            return AWS_APP::lang()->_t('已导入邮件不存在');
+        }
+
+        $receiving_email_global_config = get_setting('receiving_email_global_config');
+
+        $publish_user = $receiving_email_global_config['publish_user'];
+
+        if (empty($publish_user['uid']))
+        {
+            return AWS_APP::lang()->_t('邮件发布用户不存在');
+        }
+
+        $this->model('publish')->publish_question($received_email['subject'], $received_email['content'], null, $publish_user['uid'], null, null, $received_email['access_key'], $received_email['uid'], false, null, $received_email['id']);
     }
 }
