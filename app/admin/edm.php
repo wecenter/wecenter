@@ -140,13 +140,9 @@ class edm extends AWS_ADMIN_CONTROLLER
 			TPL::assign('users_info', $users_info);
 		}
 
-		$receiving_email_global_config = get_setting('receiving_email_global_config');
-
 		TPL::assign('receiving_email_list', $receiving_email_list);
 
 		TPL::assign('accounts_total', $total_rows);
-
-		TPL::assign('receiving_email_global_config', $receiving_email_global_config);
 
 		TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
 			'base_url' => get_js_url('/admin/edm/receiving_list/'),
@@ -179,12 +175,21 @@ class edm extends AWS_ADMIN_CONTROLLER
 			TPL::assign('receiving_email_user_info', $receiving_email_user_info);
 		}
 
+		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(807));
+
+		TPL::output('admin/edm/receiving');
+	}
+
+	public function receiving_config_action()
+	{
+		$this->crumb(AWS_APP::lang()->_t('邮件导入全局设置'), "admin/edm/receiving_config");
+
 		$receiving_email_global_config = get_setting('receiving_email_global_config');
 
 		TPL::assign('receiving_email_global_config', $receiving_email_global_config);
 
 		TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(807));
 
-		TPL::output('admin/edm/receiving');
+		TPL::output('admin/edm/receiving_config');
 	}
 }
