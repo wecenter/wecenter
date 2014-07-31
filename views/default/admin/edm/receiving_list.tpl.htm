@@ -32,7 +32,7 @@
                     <tr>
                         <td><?php echo $account_info['server']; ?></td>
                         <td><?php echo $account_info['username']; ?></td>
-                        <td><a href="people/<?php echo $users_info[$account_info['uid']]['url_token']; ?>" target="_blank"><?php echo $users_info[$account_info['uid']]['user_name']; ?></a></td>
+                        <td><a href="people/<?php echo $this->users_info[$account_info['uid']]['url_token']; ?>" target="_blank"><?php echo $this->users_info[$account_info['uid']]['user_name']; ?></a></td>
                         <td class="nowrap">
                             <a href="admin/edm/receiving/id-<?php echo $account_info['id']; ?>" data-toggle="tooltip" title="<?php _e('编辑'); ?>" class="fa fa-pencil md-tip"></a>
 
