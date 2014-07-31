@@ -451,4 +451,9 @@ class openid_weixin_class extends AWS_MODEL
             return $file;
         }
     }
+    
+    public function get_login_qr_url()
+    {
+	    return 'http://mp.wecenter.com/services/qr_code/' . urlencode(base64_encode($this->get_oauth_url(get_js_url('/m/weixin/qr_login/token-' . $this->request_client_login_token(session_id())), 'snsapi_userinfo', 'OAUTH_REDIRECT')));
+    }
 }

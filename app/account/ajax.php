@@ -47,6 +47,13 @@ class ajax extends AWS_CONTROLLER
 	{
 		HTTP::no_cache_header();
 	}
+	
+	public function get_weixin_login_qr_url_action()
+	{
+		H::ajax_json_output(AWS_APP::RSM(array(
+			'url' => $this->model('openid_weixin')->get_login_qr_url()
+		), 1, null));
+	}
 
 	public function check_username_action()
 	{
@@ -472,7 +479,7 @@ class ajax extends AWS_CONTROLLER
 		H::ajax_json_output(AWS_APP::RSM(null, 1, AWS_APP::lang()->_t('已保存草稿, %s', date('H:i:s', time()))));
 	}
 
-	function send_valid_mail_action()
+	public function send_valid_mail_action()
 	{
 		if (!$this->user_id)
 		{
@@ -498,7 +505,7 @@ class ajax extends AWS_CONTROLLER
 		H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('邮件发送成功')));
 	}
 
-	function valid_email_active_action()
+	public function valid_email_active_action()
 	{
 		if (!$active_data = $this->model('active')->get_active_code($_POST['active_code'], 'VALID_EMAIL'))
 		{
@@ -566,7 +573,7 @@ class ajax extends AWS_CONTROLLER
 		}
 	}
 
-	function request_find_password_action()
+	public function request_find_password_action()
 	{
 		if (!H::valid_email($_POST['email']))
 		{
@@ -601,7 +608,7 @@ class ajax extends AWS_CONTROLLER
 		), 1, null));
 	}
 
-	function find_password_modify_action()
+	public function find_password_modify_action()
 	{
 		if (!AWS_APP::captcha()->is_validate($_POST['seccode_verify']))
 		{
