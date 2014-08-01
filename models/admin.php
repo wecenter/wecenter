@@ -76,7 +76,7 @@ class admin_class extends AWS_MODEL
                                 'article_approval' => $this->count('approval', "type = 'article'"),
                                 'article_comment_approval' => $this->count('approval', "type = 'article_comment'"),
                                 'weibo_msg_approval' => $this->count('weibo_msg', 'question_id IS NULL'),
-                                'received_email_approval', $this->count('received_email', 'question_id IS NULL'),
+                                'received_email_approval' => $this->count('received_email', 'question_id IS NULL'),
                                 'unverified_modify_count' => $this->count('question', 'unverified_modify_count <> 0'),
 
                                 // 用户举报
@@ -165,7 +165,7 @@ class admin_class extends AWS_MODEL
         {
             $notifications_texts[] = array(
                                             'url' => 'admin/approval/list/type-received_email',
-                                            'text' => AWS_APP::lang()->_t('有 %s 个已导入邮件待审核', $notifications['received_email_approval'])
+                                            'text' => AWS_APP::lang()->_t('有 %s 个邮件咨询待审核', $notifications['received_email_approval'])
                                         );
         }
 
