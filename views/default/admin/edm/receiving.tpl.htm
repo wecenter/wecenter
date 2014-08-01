@@ -41,11 +41,11 @@
                         <div class="col-sm-6 col-xs-8">
                             <div class="btn-group mod-btn">
                                 <label type="button" class="btn mod-btn-color">
-                                    <input type="radio" name="ssl" value="Y"<?php if ($this->receiving_email_config['ssl'] == 1) { ?> checked="checked"<?php } ?> /> <?php _e('是'); ?>
+                                    <input type="radio" name="ssl" value="1"<?php if ($this->receiving_email_config['ssl'] == 1) { ?> checked="checked"<?php } ?> /> <?php _e('是'); ?>
                                 </label>
 
                                 <label type="button" class="btn mod-btn-color">
-                                    <input type="radio" name="ssl" value="N"<?php if ($this->receiving_email_config['ssl'] != 1) { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?>
+                                    <input type="radio" name="ssl" value="0"<?php if ($this->receiving_email_config['ssl'] != 1) { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?>
                                 </label>
                             </div>
                         </div>
@@ -130,78 +130,22 @@
 
         <?php if (!empty($this->receiving_email_config)) { ?>
 
-            $('.aw-dropdown-list:eq(0)').delegate('li a','click',function()
-            {
-                _this = $(this)
-                addEmail(_this,'#setEmail');
-            });
 
-            $(document).on('click', '.delete:eq(0)', function()
-            {
-                _this = $(this)
-                delEmail(_this);
-            });
-
-            function addEmail (_this,inputName)
-            {
-                _this.parents('.aw-admin-email').find('.search-input').css({display:'none'});
-
-                _this.parents('.aw-admin-email').append('<ul><li><a class="push-name" href="' + _this.attr('data-url') +'">' + _this.html() + '</a> <a class="delete btn btn-danger btn-sm">删除用户</a></li></ul>');
-
-                $(inputName).val(_this.attr("data-id"));
-            }
-
-            function delEmail(_this)
-            {
-                var tempDom = $('<input type="text" class="form-control search-input" placeholder="设置此账号对应用户">');
+        function delEmail(_this)
+        {
+            var tempDom = $('<input type="text" class="form-control search-input" placeholder="设置此账号对应用户">');
 
 
-                tempDom.insertBefore($('.aw-dropdown'));
+            tempDom.insertBefore($('.aw-dropdown'));
 
-                _this.parents('li').detach();
+            _this.parents('li').detach();
 
-                AWS.Dropdown.bind_dropdown_list($('.search-input'), 'adminEmailUser');
-            }
+            AWS.Dropdown.bind_dropdown_list($('.search-input'), 'adminEmailUser');
+        }
 
         <?php } else { ?>
             AWS.Dropdown.bind_dropdown_list($('.search-input:eq(0)'), 'adminEmailUser');
-            AWS.Dropdown.bind_dropdown_list($('.search-input:eq(1)'), 'adminEmailUser');
 
-
-            $('.aw-dropdown-list:eq(0)').delegate('li a','click',function()
-            {
-                _this = $(this)
-                addEmail(_this,'#setEmail');
-            });
-
-            $('.aw-dropdown-list:eq(1)').delegate('li a','click',function()
-            {
-                _this = $(this)
-
-                addEmail(_this,'#addEmail');
-            });
-
-
-            $(document).on('click', '.delete:eq(0)', function()
-            {
-                _this = $(this)
-                delEmail(_this);
-            });
-
-            $(document).on('click', '.delete:eq(1)', function()
-            {
-                _this = $(this)
-                delEmail(_this);
-            });
-
-            function addEmail (_this,inputName)
-            {
-                _this.parents('.aw-admin-email').find('.search-input').css({display:'none'});
-
-                _this.parents('.aw-admin-email').append('<ul><li><a class="push-name" href="' + _this.attr('data-url') +'">' + _this.html() + '</a> <a class="delete btn btn-danger btn-sm">删除用户</a></li></ul>');
-
-                $(inputName).val(_this.attr("data-id"));
-            }
 
             function delEmail(_this)
             {
@@ -211,6 +155,29 @@
             }
 
         <?php } ?>
+
+        $('.aw-dropdown-list:eq(0)').delegate('li a','click',function()
+        {
+            _this = $(this)
+            addEmail(_this,'#setEmail');
+        });
+
+
+        $(document).on('click', '.delete:eq(0)', function()
+        {
+            _this = $(this)
+            delEmail(_this);
+        });
+
+        function addEmail (_this,inputName)
+        {
+            _this.parents('.aw-admin-email').find('.search-input').css({display:'none'});
+
+            _this.parents('.aw-admin-email').append('<ul><li><a class="push-name" href="' + _this.attr('data-url') +'">' + _this.html() + '</a> <a class="delete btn btn-danger btn-sm">删除用户</a></li></ul>');
+
+            $(inputName).val(_this.attr("data-id"));
+        }
+
 
     })
 </script>
