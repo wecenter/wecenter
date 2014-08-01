@@ -116,4 +116,5 @@ INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES
 ('weibo_msg_published_user', 'a:0:"";'),
 ('admin_notifications', 'a:0:"";'),
 ('slave_mail_config', 's:0:"";'),
-('receiving_email_global_config', 'a:2:{s:7:"enabled";s:1:"N";s:12:"publish_user";N;}');
+('receiving_email_global_config', 'a:2:{s:7:"enabled";s:1:"N";s:12:"publish_user";N;}'),
+('wecenter_mp_notification_once', 's:1:"Y";');
