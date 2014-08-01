@@ -101,14 +101,14 @@
                                         </ul>
                                     </div>
 
+                                    <?php if ($this->receiving_email_user_info['uid']) { ?>
                                     <ul>
-                                        <?php if ($this->receiving_email_user_info['uid']) { ?>
                                         <li>
                                             <a class="push-name" href="people/<?php echo $this->receiving_email_user_info['url_token']; ?>" target="_blank"><img class="img" src="<?php echo get_avatar_url($this->receiving_email_user_info['uid'], 'min'); ?>" alt="" /><?php echo $this->receiving_email_user_info['user_name']; ?></a>
                                             <a class="delete btn btn-danger btn-sm set" href="javascript:;"><?php _e('删除用户'); ?></a>
                                         </li>
-                                        <?php } ?>
                                     </ul>
+                                    <?php } ?>
                                 </div>
                             </div>
                         </td>
@@ -121,7 +121,7 @@
                  <?php if ($this->receiving_email_user_info['uid']) { ?>
                     <input type="button" value="<?php _e('保存设置'); ?>" class="btn btn-primary"/>
                  <?php } else { ?>
-                    <input type="button" value="<?php _e('保存设置'); ?>" class="btn btn-primary" onclick="AWS.ajax_post($('#receiving_email_global_config_form'));" />
+                    <input type="button" value="<?php _e('保存设置'); ?>" class="btn btn-primary" />
                  <?php } ?>
                 </div>
             </div>
@@ -133,6 +133,30 @@
     $(function(){
 
         <?php if ($this->receiving_email_user_info['uid']) { ?>
+
+        function delEmail(_this)
+        {
+            var tempDom = $('<input type="text" class="form-control search-input" placeholder="设置此账号对应用户">');
+
+
+            tempDom.insertBefore($('.aw-dropdown'));
+
+            _this.parents('ul').detach();
+
+            AWS.Dropdown.bind_dropdown_list($('.search-input'), 'adminEmailUser');
+        }
+        <?php } else { ?>
+        
+        AWS.Dropdown.bind_dropdown_list($('.search-input:eq(0)'), 'adminEmailUser');
+
+        function delEmail(_this)
+        {
+            _this.parents('.aw-admin-email').find('.search-input').val('').show('0');
+
+            _this.parents('ul').detach();
+        }
+        <?php } ?>
+
 
         $('.center-block .btn-primary').click(function(){
 
@@ -146,28 +170,7 @@
                 AWS.ajax_post($('#receiving_email_global_config_form'));
             }
         });
-            
-        function delEmail(_this)
-        {
-            var tempDom = $('<input type="text" class="form-control search-input" placeholder="设置此账号对应用户">');
-
-
-            tempDom.insertBefore($('.aw-dropdown'));
-
-            _this.parents('ul').detach();
-
-            AWS.Dropdown.bind_dropdown_list($('.search-input'), 'adminEmailUser');
-        }
-        <?php } else { ?>
-        AWS.Dropdown.bind_dropdown_list($('.search-input:eq(0)'), 'adminEmailUser');
-
-        function delEmail(_this)
-        {
-            _this.parents('.aw-admin-email').find('.search-input').val('').show('0');
-
-            _this.parents('ul').detach();
-        }
-        <?php } ?>
+        
 
         $('.aw-dropdown-list:eq(0)').delegate('li a','click',function()
         {
