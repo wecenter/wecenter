@@ -206,7 +206,7 @@ class publish_class extends AWS_MODEL
 
 	public function publish_question($question_content, $question_detail, $category_id, $uid, $topics = null, $anonymous = null, $attach_access_key = null, $ask_user_id = null, $create_topic = true, $from = null, $from_id = null)
 	{
-		if ($question_id = $this->model('question')->save_question($question_content, $question_detail, $uid, $anonymous, null, $from, $from_id $weibo_msg_id, $received_email_id))
+		if ($question_id = $this->model('question')->save_question($question_content, $question_detail, $uid, $anonymous, null, $from, $from_id))
 		{
 			set_human_valid('question_valid_hour');
 
