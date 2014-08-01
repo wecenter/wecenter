@@ -2329,11 +2329,15 @@ class ajax extends AWS_ADMIN_CONTROLLER
         $receiving_email_config = array(
                                         'server' => $_POST['server'],
                                         'ssl' => ($_POST['ssl'] == '1') ? '1' : '0',
-                                        'port' => $_POST['port'],
                                         'username' => trim($_POST['username']),
                                         'password' => trim($_POST['password']),
                                         'uid' => $user_info['uid']
                                     );
+
+        if ($_POST['port'])
+        {
+            $receiving_email_config['port'] = $_POST['port'];
+        }
 
         if ($_POST['id'])
         {
