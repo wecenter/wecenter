@@ -37,7 +37,10 @@
 						<a href="account/openid/qq_login/" class="btn btn-block btn-qq"> <i class="fa fa-qq"></i> QQ登录</a>
 					<?php } ?>
 					<?php if (get_setting('weixin_app_id') AND get_setting('weixin_account_role') == 'service') { ?>
-						<a href="account/weixin_login/" class="btn btn-block btn-wechat"><i class="fa fa-wechat"></i> 微信扫一扫登录</a>
+						<a href="account/weixin_login/" class="btn btn-block btn-wechat">
+							<i class="fa fa-wechat"></i> 微信扫一扫登录
+							<div class="img"></div>
+						</a>
 					<?php } ?>
 				<?php } ?>
 			</div>

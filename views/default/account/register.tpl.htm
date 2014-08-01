@@ -66,7 +66,7 @@
 				</li>
 				<?php } ?>
 				<li class="last">
-					<label><input type="checkbox" checked="checked" value="agree" name="agreement_chk" /> <?php _e('我同意'); ?></label> <a href="javascript:;" onclick="$('.aw-regiter-agreement').show();"><?php _e('用户协议'); ?></a>
+					<label><input type="checkbox" checked="checked" value="agree" name="agreement_chk" /> <?php _e('我同意'); ?></label> <a href="javascript:;" class="aw-agreement-btn"><?php _e('用户协议'); ?></a>
 					<a href="account/login/" class="pull-right">已有账号?</a>
 					<div class="aw-regiter-agreement hide">
 						<div class="aw-register-agreement-txt" id="register_agreement"></div>
@@ -87,9 +87,21 @@ $(document).ready(function ()
 {
 	$.get(G_BASE_URL + '/account/ajax/register_agreement/', function (result) { $('#register_agreement').html(result.err); }, 'json');
 
+	$('.aw-agreement-btn').click(function()
+	{
+		if ($('.aw-regiter-agreement').is(':visible'))
+		{
+			$('.aw-regiter-agreement').hide();
+		}
+		else
+		{
+			$('.aw-regiter-agreement').show();
+		}
+	});
+
 	$('.more-information-btn').click(function()
 	{
-		$('.more-information').slideDown();
+		$('.more-information').fadeIn();
 		$(this).parent().hide();
 	});
 	
