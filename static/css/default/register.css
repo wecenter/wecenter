@@ -3,33 +3,21 @@ body{background:url('img/login_bg.jpg') no-repeat #E9F0F4;}
 .btn-blue{height:40px;line-height:40px;padding:0;border:none;background-color: #66b7ff;color: #fff !important;}
 .btn-blue:hover{background-color: #4DAAFF;}
 .btn-blue:active{background-color: #339DFF;}
-.aw-login-footer{position:relative;z-index:9999;margin:95px auto;text-align: center;font-size: 12px;}
-.aw-register-bg{position:relative;padding-top: 120px;}
-.aw-register-head{position:relative;width: 658px;margin:0 auto;}
-.aw-register-head h1{line-height: 20px;margin:0;padding: 0 0 15px;text-align: justify;color: #CFF1FF;font-size: 100%;font-weight: 500;}
-.aw-register-head h1 img{margin-right: 15px;vertical-align: text-bottom;}
 .aw-register-box{width: 714px;height: auto;margin:100px auto 40px;padding:50px 0;background:#fff;border:1px solid #b3b3b3;border-radius: 3px;text-align: center;}
 .aw-register-box h1{margin:45px 0 0;font-size: 20px;color: #666666;}
-.aw-register-box .mod-body{width: 380px;margin:0 auto;padding: 40px;}
-.aw-register-box ul li{position:relative;width:300px;line-height:30px;margin-bottom: 20px;}
+.aw-register-box .mod-body{width: 390px;margin:0 auto;padding: 40px;}
+.aw-register-box ul li{position:relative;line-height:30px;margin-bottom: 20px;}
 .aw-register-box ul li input[type="text"], .aw-register-box ul li input[type="password"]{width:100%;height: 40px;line-height: 28px\0;padding-left:15px !important;box-shadow: none;border-color: #e6e6e6;}
 .aw-register-box ul li.last{text-align: left;color:#666;}
-.aw-register-box ul li.last a{font-size: 14px;}
-.aw-register-box ul li.last input{width: 13px;width:30px\0;height: auto;}
-.aw-register-box ul li.last label{display: inline-block;}
 .aw-register-box ul li.alert-danger i{margin-right: 5px;}
 .aw-register-box ul li hr{margin:30px 0;}
-.aw-register-box ul .aw-register-verify{text-align: left;}
 .aw-register-box ul .aw-register-verify input{width: 190px !important;}
 .aw-register-box ul .aw-register-verify img{cursor: pointer;}
-.aw-register-box ul .aw-register-verify .auth-img{width: 93px;height: 38px;}
-.aw-register-box .more-information ul{padding:0;}
 .aw-register-box .more-information ul li{padding:5px 0;text-align: left;}
-.aw-register-box .more-information .select_area{max-width: 130px;}
+.aw-register-box .more-information .select_area{max-width: 125px;}
 .aw-register-box .more-information-btn{position: absolute;left: 105px;top:-15px;width: 90px;background-color: #fff;color: #66b7ff;}
 .aw-regiter-agreement{position:relative;width:712px;margin:10px 0 0 -206px;padding: 20px;background:#f5f5f5;}
-.aw-register-agreement-txt{max-height: 110px;overflow-x:hidden;overflow-y:auto;}
-.alert-danger{text-align: left;}
+.aw-register-agreement-txt{max-height: 200px;overflow-x:hidden;overflow-y:auto;}
 /* 注册提示 */
 .aw-register-box li span{position:absolute;top:0;right:-145px;width: 130px;padding:5px;font-size:12px;border-radius: 5px;overflow: hidden;text-align: left;}
 .aw-reg-tips{line-height:15px;background: #EEF7FD;border: 1px solid #CFDDE6;color:#999;}
@@ -53,11 +41,10 @@ body{background:url('img/login_bg.jpg') no-repeat #E9F0F4;}
 /* iphone横屏幕 */
 @media (max-width:640px){
 	/*注册界面*/
-	.aw-register-box, .aw-register-head-title{margin:0 20px;}
-	.aw-register-head, .aw-register-head-title, .aw-register-box, .aw-register-box ul li{width: auto;}
-	.aw-register-box ul{width: auto;margin: 0;padding:20px;}
-	.aw-register-head h1{padding:0 10px 15px;}
+	.aw-register-box .mod-body{width:100%;padding:10px;}
+	.aw-register-box, .aw-register-box ul li{width: auto;}
 }
 @media (max-width:321px){
+	.aw-register-box{width: 270px !important;}
 	.aw-regiter-agreement{width: 240px;margin:10px 0 0;}
 }
