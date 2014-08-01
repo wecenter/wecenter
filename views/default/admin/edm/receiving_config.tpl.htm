@@ -56,14 +56,15 @@
                                             <li></li>
                                         </ul>
                                     </div>
-                                <ul>
-                                    <?php if ($this->receiving_email_global_config['publish_user']['uid']) { ?>
-                                    <li>
-                                        <a class="push-name" href="people/<?php echo $this->receiving_email_global_config['publish_user']['url_token']; ?>" target="_blank"><img class="img" src="<?php echo get_avatar_url($this->receiving_email_global_config['publish_user']['uid'], 'min'); ?>" alt="" /><?php echo $this->receiving_email_global_config['publish_user']['user_name']; ?></a>
-                                        <a class="delete btn btn-danger btn-sm" href="javascript:;"><?php _e('删除用户'); ?></a>
-                                    </li>
-                                    <?php } ?>
-                                </ul>
+
+                                    <ul>
+                                        <?php if ($this->receiving_email_global_config['publish_user']['uid']) { ?>
+                                        <li>
+                                            <a class="push-name" href="people/<?php echo $this->receiving_email_global_config['publish_user']['url_token']; ?>" target="_blank"><img class="img" src="<?php echo get_avatar_url($this->receiving_email_global_config['publish_user']['uid'], 'min'); ?>" alt="" /><?php echo $this->receiving_email_global_config['publish_user']['user_name']; ?></a>
+                                            <a class="delete btn btn-danger btn-sm" href="javascript:;"><?php _e('删除用户'); ?></a>
+                                        </li>
+                                        <?php } ?>
+                                    </ul>
                                 </div>
                             </div>
                         </td>
@@ -84,8 +85,6 @@
     $(function(){
 
         <?php if ($this->receiving_email_global_config['publish_user']['uid']) { ?>
-
-
         function delEmail(_this)
         {
             var tempDom = $('<input type="text" class="form-control search-input" placeholder="设置此账号对应用户">');
@@ -97,18 +96,15 @@
 
             AWS.Dropdown.bind_dropdown_list($('.search-input'), 'adminEmailUser');
         }
-
         <?php } else { ?>
-            AWS.Dropdown.bind_dropdown_list($('.search-input:eq(0)'), 'adminEmailUser');
+        AWS.Dropdown.bind_dropdown_list($('.search-input:eq(0)'), 'adminEmailUser');
 
+        function delEmail(_this)
+        {
+            _this.parents('.aw-admin-email').find('.search-input').val('').show('0');
 
-            function delEmail(_this)
-            {
-                _this.parents('.aw-admin-email').find('.search-input').val('').show('0');
-
-                _this.parents('li').detach();
-            }
-
+            _this.parents('li').detach();
+        }
         <?php } ?>
 
         $('.aw-dropdown-list:eq(0)').delegate('li a','click',function()

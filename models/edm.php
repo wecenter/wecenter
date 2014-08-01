@@ -300,11 +300,14 @@ class edm_class extends AWS_MODEL
             {
                 $mail = new Zend_Mail_Storage_Pop3($mail_config);
             }
-            catch (Exception $e) {
-                // echo $e->getMessage() . "\n";
+            catch (Exception $e)
+            {
+                $this->notification_of_receive_email_error($receiving_email_config['id'], $e->getMessage());
 
                 continue;
             }
+
+            $this->notification_of_receive_email_error($receiving_email_config['id'], 'del');
 
             $received_email['config_id'] = $receiving_email_config['id'];
 
@@ -316,7 +319,7 @@ class edm_class extends AWS_MODEL
 
                 $received_email['date'] = intval(strtotime($message->Date));
 
-                if ($now - $received_email['date'] > 604800 OR $this->fetch_row(`received_email`, 'message_id = "' . $this->quote($received_email['message_id']) . '" AND date = ' . $received_email['date']))
+                if ($now - $received_email['date'] > 604800 OR $this->fetch_row('received_email', 'message_id = "' . $this->quote($received_email['message_id']) . '" AND date = ' . $received_email['date']))
                 {
                     continue;
                 }
@@ -424,7 +427,7 @@ class edm_class extends AWS_MODEL
             return AWS_APP::lang()->_t('邮件发布用户不存在');
         }
 
-        $this->model('publish')->publish_question($received_email['subject'], $received_email['content'], null, $publish_user['uid'], null, null, $received_email['access_key'], $received_email['uid'], false, null, $received_email['id']);
+        $this->model('publish')->publish_question($received_email['subject'], $received_email['content'], null, $publish_user['uid'], null, null, $received_email['access_key'], $received_email['uid'], false, 'received_email', $received_email['id']);
     }
 
     public function reply_answer_by_email($question_id, $comment)
@@ -437,5 +440,24 @@ class edm_class extends AWS_MODEL
         }
 
         return AWS_APP::mail()->send($received_email['from'], 'RE: ' . $received_email['subject'], $comment, get_setting('site_name'));
+    }
+
+    public function notification_of_receive_email_error($id, $msg)
+    {
+        $admin_notifications = get_setting('admin_notifications');
+
+        if ($msg == 'del')
+        {
+            unset($admin_notifications['receive_email_error'][$id]);
+        }
+        else
+        {
+            $admin_notifications['receive_email_error'][$id] = array(
+                'id' => $id,
+                'msg' => $msg
+            );
+        }
+
+        return $this->model('setting')->set_vars(array('admin_notifications' => $admin_notifications));
     }
 }

@@ -204,9 +204,9 @@ class publish_class extends AWS_MODEL
 		));
 	}
 
-	public function publish_question($question_content, $question_detail, $category_id, $uid, $topics = null, $anonymous = null, $attach_access_key = null, $ask_user_id = null, $create_topic = true, $weibo_msg_id = null, $received_email_id = null)
+	public function publish_question($question_content, $question_detail, $category_id, $uid, $topics = null, $anonymous = null, $attach_access_key = null, $ask_user_id = null, $create_topic = true, $from = null, $from_id = null)
 	{
-		if ($question_id = $this->model('question')->save_question($question_content, $question_detail, $uid, $anonymous, null, $weibo_msg_id, $received_email_id))
+		if ($question_id = $this->model('question')->save_question($question_content, $question_detail, $uid, $anonymous, null, $from, $from_id))
 		{
 			set_human_valid('question_valid_hour');
 
@@ -266,18 +266,11 @@ class publish_class extends AWS_MODEL
 
 			$this->model('posts')->set_posts_index($question_id, 'question');
 
-			if ($weibo_msg_id AND is_digits($weibo_msg_id))
+			if ($from AND is_digits($from_id))
 			{
-				$this->update('weibo_msg', array(
+				$this->update($from, array(
 					'question_id' => $question_id
-				), 'id = ' . $weibo_msg_id);
-			}
-
-			if ($received_email_id AND is_digits($received_email_id))
-			{
-				$this->update('received_email', array(
-					'question_id' => $question_id
-				), 'id = ' . $received_email_id);
+				), 'id = ' . $from_id);
 			}
 		}
 
@@ -645,29 +638,29 @@ class publish_class extends AWS_MODEL
 		return $approval_item;
 	}
 
-    public function insert_attach_is_self_upload($message, $attach_ids = null)
-    {
-        if (!$message)
-        {
-            return true;
-        }
+	public function insert_attach_is_self_upload($message, $attach_ids = null)
+	{
+		if (!$message)
+		{
+			return true;
+		}
 
-        if (!$attach_ids)
-        {
-	        $attach_ids = array();
-        }
+		if (!$attach_ids)
+		{
+			$attach_ids = array();
+		}
 
-        if ($question_attachs_ids = FORMAT::parse_attachs($message, true))
-        {
-            foreach ($question_attachs_ids AS $attach_id)
-            {
-                if (!in_array($attach_id, $attach_ids))
-                {
-                    return false;
-                }
-            }
-        }
+		if ($question_attachs_ids = FORMAT::parse_attachs($message, true))
+		{
+			foreach ($question_attachs_ids AS $attach_id)
+			{
+				if (!in_array($attach_id, $attach_ids))
+				{
+					return false;
+				}
+			}
+		}
 
-        return true;
-    }
+		return true;
+	}
 }

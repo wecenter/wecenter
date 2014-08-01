@@ -76,7 +76,7 @@ class admin_class extends AWS_MODEL
                                 'article_approval' => $this->count('approval', "type = 'article'"),
                                 'article_comment_approval' => $this->count('approval', "type = 'article_comment'"),
                                 'weibo_msg_approval' => $this->count('weibo_msg', 'question_id IS NULL'),
-                                'received_email_approval', $this->model('edm')->count('received_email', 'question_id IS NULL'),
+                                'received_email_approval', $this->count('received_email', 'question_id IS NULL'),
                                 'unverified_modify_count' => $this->count('question', 'unverified_modify_count <> 0'),
 
                                 // 用户举报
@@ -95,7 +95,10 @@ class admin_class extends AWS_MODEL
                                                     ),
 
                                 // 新浪微博 Access Token 更新
-                                'sina_users' => $admin_notifications['sina_users']
+                                'sina_users' => $admin_notifications['sina_users'],
+
+                                // 邮件导入失败
+                                'receive_email_error' => $admin_notifications['receive_email_error']
                             );
 
         $this->model('setting')->set_vars(array('admin_notifications' => $notifications));
@@ -198,13 +201,26 @@ class admin_class extends AWS_MODEL
                                         );
         }
 
-        if (get_setting('sina_weibo_enabled') == 'Y' AND $notifications['sina_users'])
+        if (get_setting('weibo_msg_enabled') == 'Y' AND $notifications['sina_users'])
         {
             foreach ($notifications['sina_users'] AS $sina_user)
             {
                 $notifications_texts[] = array(
                                                 'url' => 'admin/weibo/msg/',
                                                 'text' => AWS_APP::lang()->_t('用户 %s 的新浪微博账号需要更新 Access Token，请重新授权', $sina_user['user_name'])
+                                            );
+            }
+        }
+
+        $receiving_email_global_config = get_setting('receiving_email_global_config');
+
+        if ($receiving_email_global_config['enabled'] == 'Y' AND $notifications['receive_email_error'])
+        {
+            foreach ($notifications['receive_email_error'] AS $error_msg)
+            {
+                $notifications_texts[] = array(
+                                                'url' => 'admin/edm/receiving/id-' . $error_msg['id'],
+                                                'text' => AWS_APP::lang()->_t('邮件导入失败，错误为 %s，请重新配置', $error_msg['msg'])
                                             );
             }
         }
