@@ -128,9 +128,7 @@
 <script>
     $(function(){
 
-        <?php if (!empty($this->receiving_email_config)) { ?>
-
-
+        <?php if ($this->receiving_email_user_info['uid']) { ?>
         function delEmail(_this)
         {
             var tempDom = $('<input type="text" class="form-control search-input" placeholder="设置此账号对应用户">');
@@ -142,18 +140,15 @@
 
             AWS.Dropdown.bind_dropdown_list($('.search-input'), 'adminEmailUser');
         }
-
         <?php } else { ?>
-            AWS.Dropdown.bind_dropdown_list($('.search-input:eq(0)'), 'adminEmailUser');
+        AWS.Dropdown.bind_dropdown_list($('.search-input:eq(0)'), 'adminEmailUser');
 
+        function delEmail(_this)
+        {
+            _this.parents('.aw-admin-email').find('.search-input').val('').show('0');
 
-            function delEmail(_this)
-            {
-                _this.parents('.aw-admin-email').find('.search-input').val('').show('0');
-
-                _this.parents('li').detach();
-            }
-
+            _this.parents('li').detach();
+        }
         <?php } ?>
 
         $('.aw-dropdown-list:eq(0)').delegate('li a','click',function()

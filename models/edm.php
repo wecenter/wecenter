@@ -301,7 +301,7 @@ class edm_class extends AWS_MODEL
                 $mail = new Zend_Mail_Storage_Pop3($mail_config);
             }
             catch (Exception $e) {
-                // echo $e->getMessage() . "\n";
+                echo $e->getMessage() . "\n";
 
                 continue;
             }
