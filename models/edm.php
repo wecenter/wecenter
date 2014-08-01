@@ -300,11 +300,14 @@ class edm_class extends AWS_MODEL
             {
                 $mail = new Zend_Mail_Storage_Pop3($mail_config);
             }
-            catch (Exception $e) {
-                echo $e->getMessage() . "\n";
+            catch (Exception $e)
+            {
+                $this->notification_of_receive_email_error($receiving_email_config['id'], $e->getMessage());
 
                 continue;
             }
+
+            $this->notification_of_receive_email_error($receiving_email_config['id'], 'del');
 
             $received_email['config_id'] = $receiving_email_config['id'];
 
@@ -437,5 +440,24 @@ class edm_class extends AWS_MODEL
         }
 
         return AWS_APP::mail()->send($received_email['from'], 'RE: ' . $received_email['subject'], $comment, get_setting('site_name'));
+    }
+
+    public function notification_of_receive_email_error($id, $msg)
+    {
+        $admin_notifications = get_setting('admin_notifications');
+
+        if ($msg == 'del')
+        {
+            @unset($admin_notifications['receive_email_error'][$id]);
+        }
+        else
+        {
+            $admin_notifications['receive_email_error'][$id] = array(
+                'id' => $id,
+                'msg' => $msg
+            );
+        }
+
+        return $this->model('setting')->set_vars(array('admin_notifications' => $admin_notifications));
     }
 }
