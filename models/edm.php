@@ -427,7 +427,7 @@ class edm_class extends AWS_MODEL
             return AWS_APP::lang()->_t('邮件发布用户不存在');
         }
 
-        $this->model('publish')->publish_question($received_email['subject'], $received_email['content'], null, $publish_user['uid'], null, null, $received_email['access_key'], $received_email['uid'], false, null, $received_email['id']);
+        $this->model('publish')->publish_question($received_email['subject'], $received_email['content'], null, $publish_user['uid'], null, null, $received_email['access_key'], $received_email['uid'], false, 'received_email', $received_email['id']);
     }
 
     public function reply_answer_by_email($question_id, $comment)
