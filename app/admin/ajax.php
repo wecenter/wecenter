@@ -2381,7 +2381,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择要删除的账号')));
         }
 
-        $this->model('edm')->delete('receiving_email_config', 'id = ' . intval($_GET['id']));
+        $this->model('edm')->delete('receiving_email_config', 'id = ' . intval($_POST['id']));
 
         H::ajax_json_output(AWS_APP::RSM(null, 1, null));
     }
