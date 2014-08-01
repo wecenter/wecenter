@@ -448,7 +448,7 @@ class edm_class extends AWS_MODEL
 
         if ($msg == 'del')
         {
-            @unset($admin_notifications['receive_email_error'][$id]);
+            unset($admin_notifications['receive_email_error'][$id]);
         }
         else
         {
