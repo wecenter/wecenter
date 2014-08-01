@@ -121,11 +121,13 @@ class question_class extends AWS_MODEL
 			$ip_address = fetch_ip();
 		}
 
+		$now = time();
+
 		$to_save_question = array(
 			'question_content' => htmlspecialchars($question_content),
 			'question_detail' => htmlspecialchars($question_detail),
-			'add_time' => time(),
-			'update_time' => time(),
+			'add_time' => $now,
+			'update_time' => $now,
 			'published_uid' => intval($published_uid),
 			'anonymous' => intval($anonymous),
 			'ip' => ip2long($ip_address)
