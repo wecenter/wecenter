@@ -56,11 +56,14 @@
                                             <li></li>
                                         </ul>
                                     </div>
-
+                                <ul>
                                     <?php if ($this->receiving_email_global_config['publish_user']['uid']) { ?>
-                                    <a class="push-name" href="people/<?php echo $this->receiving_email_global_config['publish_user']['url_token']; ?>" target="_blank"><img class="img" src="<?php echo get_avatar_url($this->receiving_email_global_config['publish_user']['uid'], 'min'); ?>" alt="" /><?php echo $this->receiving_email_global_config['publish_user']['user_name']; ?></a>
-                                    <a class="delete btn btn-danger btn-sm" href="javascript:;"><?php _e('删除用户'); ?></a>
+                                    <li>
+                                        <a class="push-name" href="people/<?php echo $this->receiving_email_global_config['publish_user']['url_token']; ?>" target="_blank"><img class="img" src="<?php echo get_avatar_url($this->receiving_email_global_config['publish_user']['uid'], 'min'); ?>" alt="" /><?php echo $this->receiving_email_global_config['publish_user']['user_name']; ?></a>
+                                        <a class="delete btn btn-danger btn-sm" href="javascript:;"><?php _e('删除用户'); ?></a>
+                                    </li>
                                     <?php } ?>
+                                </ul>
                                 </div>
                             </div>
                         </td>
@@ -78,32 +81,26 @@
     </div>
 </div>
 <script>
-	$(function(){
-		AWS.Dropdown.bind_dropdown_list($('.search-input:eq(0)'), 'adminEmailUser');
-            AWS.Dropdown.bind_dropdown_list($('.search-input:eq(1)'), 'adminEmailUser');
+    $(function(){
+
+        <?php if ($this->receiving_email_global_config['publish_user']['uid']) { ?>
 
 
-            $('.aw-dropdown-list:eq(0)').delegate('li a','click',function()
-            {
-                _this = $(this)
-                addEmail(_this,'#setEmail');
-            });
-
-            $(document).on('click', '.delete:eq(0)', function()
-            {
-                _this = $(this)
-                delEmail(_this);
-            });
+        function delEmail(_this)
+        {
+            var tempDom = $('<input type="text" class="form-control search-input" placeholder="设置此账号对应用户">');
 
 
-            function addEmail (_this,inputName)
-            {
-                _this.parents('.aw-admin-email').find('.search-input').css({display:'none'});
+            tempDom.insertBefore($('.aw-dropdown'));
 
-                _this.parents('.aw-admin-email').append('<ul><li><a class="push-name" href="' + _this.attr('data-url') +'">' + _this.html() + '</a> <a class="delete btn btn-danger btn-sm">删除用户</a></li></ul>');
+            _this.parents('li').detach();
 
-                $(inputName).val(_this.attr("data-id"));
-            }
+            AWS.Dropdown.bind_dropdown_list($('.search-input'), 'adminEmailUser');
+        }
+
+        <?php } else { ?>
+            AWS.Dropdown.bind_dropdown_list($('.search-input:eq(0)'), 'adminEmailUser');
+
 
             function delEmail(_this)
             {
@@ -111,6 +108,32 @@
 
                 _this.parents('li').detach();
             }
-	})
+
+        <?php } ?>
+
+        $('.aw-dropdown-list:eq(0)').delegate('li a','click',function()
+        {
+            _this = $(this)
+            addEmail(_this,'#setEmail');
+        });
+
+
+        $(document).on('click', '.delete:eq(0)', function()
+        {
+            _this = $(this)
+            delEmail(_this);
+        });
+
+        function addEmail (_this,inputName)
+        {
+            _this.parents('.aw-admin-email').find('.search-input').css({display:'none'});
+
+            _this.parents('.aw-admin-email').append('<ul><li><a class="push-name" href="' + _this.attr('data-url') +'">' + _this.html() + '</a> <a class="delete btn btn-danger btn-sm">删除用户</a></li></ul>');
+
+            $(inputName).val(_this.attr("data-id"));
+        }
+
+
+    })
 </script>
 <?php TPL::output('admin/global/footer.tpl.htm'); ?>
