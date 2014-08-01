@@ -47,17 +47,19 @@
                                 <div class="col-sm-5 col-xs-8 aw-admin-email">
                                     <input name="uid" id="addEmail" type="hidden" value="<?php echo $this->receiving_email_global_config['publish_user']['uid']; ?>"/>
 
-                                    <?php if ($this->receiving_email_global_config['publish_user']['uid']) { ?>
-                                    <a class="push-name" href="people/<?php echo $this->receiving_email_global_config['publish_user']['url_token']; ?>" target="_blank"><img class="img" src="<?php echo get_avatar_url($this->receiving_email_global_config['publish_user']['uid'], 'min'); ?>" alt="" /><?php echo $this->receiving_email_global_config['publish_user']['user_name']; ?></a>
-                                    <a class="delete btn btn-danger btn-sm" href="javascript:;"><?php _e('删除用户'); ?></a>
-                                    <?php } else { ?>
+                                    <?php if (!$this->receiving_email_global_config['publish_user']['uid']) { ?>
                                     <input type="text" class="form-control search-input" placeholder="<?php _e('添加邮件内容对应提问用户'); ?>">
+                                    <?php } ?>
                                     <div class="aw-dropdown">
                                         <p class="title"><?php _e('没有找到相关结果'); ?></p>
                                         <ul class="aw-dropdown-list">
                                             <li></li>
                                         </ul>
                                     </div>
+
+                                    <?php if ($this->receiving_email_global_config['publish_user']['uid']) { ?>
+                                    <a class="push-name" href="people/<?php echo $this->receiving_email_global_config['publish_user']['url_token']; ?>" target="_blank"><img class="img" src="<?php echo get_avatar_url($this->receiving_email_global_config['publish_user']['uid'], 'min'); ?>" alt="" /><?php echo $this->receiving_email_global_config['publish_user']['user_name']; ?></a>
+                                    <a class="delete btn btn-danger btn-sm" href="javascript:;"><?php _e('删除用户'); ?></a>
                                     <?php } ?>
                                 </div>
                             </div>
