@@ -202,7 +202,7 @@ class edm_class extends AWS_MODEL
             return false;
         }
 
-        $this->delete('received_email', 'id = ' . $received_email['$id']);
+        $this->delete('received_email', 'id = ' . $received_email['id']);
     }
 
     public function get_receiving_email_config_by_id($id)
