@@ -114,7 +114,7 @@ class question_class extends AWS_MODEL
 	 *
 	 * @return boolean true|false
 	 */
-	public function save_question($question_content, $question_detail, $published_uid, $anonymous = 0, $ip_address = null, $weibo_msg_id = null, $received_email_id = null)
+	public function save_question($question_content, $question_detail, $published_uid, $anonymous = 0, $ip_address = null, $from = null, $from_id = null)
 	{
 		if (!$ip_address)
 		{
@@ -131,14 +131,9 @@ class question_class extends AWS_MODEL
 			'ip' => ip2long($ip_address)
 		);
 
-		if ($weibo_msg_id)
+		if ($from AND is_digits($from_id))
 		{
-			$to_save_question['weibo_msg_id'] = $weibo_msg_id;
-		}
-
-		if ($received_email_id)
-		{
-			$to_save_question['received_email_id'] = $received_email_id;
+			$to_save_question[$from . '_id'] = $from_id;
 		}
 
 		$question_id = $this->insert('question', $to_save_question);
