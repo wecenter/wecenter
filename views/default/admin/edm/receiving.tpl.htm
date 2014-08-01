@@ -101,14 +101,10 @@
                                         </ul>
                                     </div>
 
-                                    <ul>
-                                        <?php if ($this->receiving_email_user_info['uid']) { ?>
-                                        <li>
-                                            <a class="push-name" href="people/<?php echo $this->receiving_email_user_info['url_token']; ?>" target="_blank"><img class="img" src="<?php echo get_avatar_url($this->receiving_email_user_info['uid'], 'min'); ?>" alt="" /><?php echo $this->receiving_email_user_info['user_name']; ?></a>
-                                            <a class="delete btn btn-danger btn-sm set" href="javascript:;"><?php _e('删除用户'); ?></a>
-                                        </li>
-                                        <?php } ?>
-                                    </ul>
+                                    <?php if ($this->receiving_email_user_info['uid']) { ?>
+                                    <a class="push-name" href="people/<?php echo $this->receiving_email_user_info['url_token']; ?>" target="_blank"><img class="img" src="<?php echo get_avatar_url($this->receiving_email_user_info['uid'], 'min'); ?>" alt="" /><?php echo $this->receiving_email_user_info['user_name']; ?></a>
+                                    <a class="delete btn btn-danger btn-sm set" href="javascript:;"><?php _e('删除用户'); ?></a>
+                                    <?php } ?>
                                 </div>
                             </div>
                         </td>
