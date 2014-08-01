@@ -83,7 +83,7 @@ class main extends AWS_CONTROLLER
 	{
 		$receiving_email_global_config = get_setting('receiving_email_global_config');
 
-		if (get_setting('receiving_email_global_config') == 'Y')
+		if ($receiving_email_global_config['enabled'] == 'Y')
 		{
 			echo ($this->model('edm')->receive_email_crond()) ? 'success' : 'error';
 		}
