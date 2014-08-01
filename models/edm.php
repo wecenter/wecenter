@@ -319,7 +319,7 @@ class edm_class extends AWS_MODEL
 
                 $received_email['date'] = intval(strtotime($message->Date));
 
-                if ($now - $received_email['date'] > 604800 OR $this->fetch_row(`received_email`, 'message_id = "' . $this->quote($received_email['message_id']) . '" AND date = ' . $received_email['date']))
+                if ($now - $received_email['date'] > 604800 OR $this->fetch_row('received_email', 'message_id = "' . $this->quote($received_email['message_id']) . '" AND date = ' . $received_email['date']))
                 {
                     continue;
                 }
