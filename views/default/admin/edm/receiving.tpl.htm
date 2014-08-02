@@ -38,16 +38,14 @@
                     <div class="form-group">
                         <span class="col-sm-4 col-xs-3 control-label"><?php _e('协议'); ?>:</span>
 
-                        <div class="col-sm-6 col-xs-8">
-                            <div class="btn-group mod-btn">
-                                <label type="button" class="btn mod-btn-color">
-                                    <input type="radio" name="protocol" value="pop3"<?php if (!$this->receiving_email_config['protocol'] OR $this->receiving_email_config['protocol'] == 'pop3') { ?> checked="checked"<?php } ?> /> POP3
-                                </label>
+                        <div class="col-sm-8 col-xs-8">
+                            <label class="checkbox-inline">
+                                <input type="radio" name="protocol" value="pop3"<?php if (!$this->receiving_email_config['protocol'] OR $this->receiving_email_config['protocol'] == 'pop3') { ?> checked="checked"<?php } ?> /> POP3
+                            </label>
 
-                                <label type="button" class="btn mod-btn-color">
-                                    <input type="radio" name="protocol" value="imap"<?php if ($this->receiving_email_config['protocol'] == 'imap') { ?> checked="checked"<?php } ?> /> IMAP
-                                </label>
-                            </div>
+                            <label class="checkbox-inline">
+                                <input type="radio" name="protocol" value="imap"<?php if ($this->receiving_email_config['protocol'] == 'imap') { ?> checked="checked"<?php } ?> /> IMAP
+                            </label>
 
                             <div class="help-block"><?php _e('使用 POP3 协议时，请在服务商处设置“允许收信软件删信”，否则已读邮件会重复收取。'); ?></div>
                         </div>
