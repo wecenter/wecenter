@@ -238,24 +238,11 @@ class edm_class extends AWS_MODEL
     {
         $now = time();
 
-        $locker = TEMP_PATH . 'receive_email.lock';
+        $lock_time = AWS_APP::cache()->get('receive_email_locker');
 
-        if (is_file($locker))
+        if ($lock_time AND $now - $time <= 600)
         {
-            $handle = @fopen($locker, 'r');
-
-            $time = @fread($handle, @filesize($locker));
-
-            @fclose($handle);
-
-            if (empty($time) OR $now - $time > 600)
-            {
-                @unlink($locker);
-            }
-            else
-            {
-                return false;
-            }
+            return false;
         }
 
         @set_time_limit(0);
@@ -267,11 +254,7 @@ class edm_class extends AWS_MODEL
             return false;
         }
 
-        $handle = @fopen($locker, 'w');
-
-        @fwrite($handle, $now);
-
-        @fclose($handle);
+        AWS_APP::cache()->set('receive_email_locker', $now, 600);
 
         foreach ($receiving_email_accounts AS $receiving_email_config)
         {
@@ -307,104 +290,111 @@ class edm_class extends AWS_MODEL
                 continue;
             }
 
-            $this->notification_of_receive_email_error($receiving_email_config['id'], 'del');
-
             $received_email['config_id'] = $receiving_email_config['id'];
 
             $received_email['uid'] = $receiving_email_config['uid'];
 
             foreach ($mail AS $num => $message)
             {
-                $received_email['message_id'] = substr($message->messageID, 1, -1);
-
-                $received_email['date'] = intval(strtotime($message->Date));
-
-                if ($now - $received_email['date'] > 604800 OR $this->fetch_row('received_email', 'message_id = "' . $this->quote($received_email['message_id']) . '" AND date = ' . $received_email['date']))
+                try
                 {
-                    continue;
-                }
+                    $received_email['message_id'] = substr($message->messageID, 1, -1);
 
-                if ($message->isMultipart())
-                {
-                    for ($i=1; $i<=$message->countParts(); $i++)
+                    $received_email['date'] = intval(strtotime($message->Date));
+
+                    if ($now - $received_email['date'] > 604800 OR $this->fetch_row('received_email', 'message_id = "' . $this->quote($received_email['message_id']) . '" AND date = ' . $received_email['date']))
                     {
-                        $part = $message->getPart($i);
+                        continue;
+                    }
 
-                        if (substr($part->contentType, 0, 5) == 'text/')
+                    if ($message->isMultipart())
+                    {
+                        for ($i=1; $i<=$message->countParts(); $i++)
                         {
-                            $encoding = $part->contentTransferEncoding;
+                            $part = $message->getPart($i);
 
-                            $type = $part->contentType;
+                            if (substr($part->contentType, 0, 5) == 'text/')
+                            {
+                                $encoding = $part->contentTransferEncoding;
 
-                            $received_email['content'] = $part->getContent();
+                                $type = $part->contentType;
 
-                            break;
-                        }
-                        else
-                        {
-                            continue;
+                                $received_email['content'] = $part->getContent();
+
+                                break;
+                            }
+                            else
+                            {
+                                continue;
+                            }
                         }
                     }
+                    else
+                    {
+                        $encoding = $message->contentTransferEncoding;
+
+                        $type = $message->contentType;
+
+                        $received_email['content'] = $message->getContent();
+                    }
+
+                    if (empty($encoding) OR empty($type))
+                    {
+                        continue;
+                    }
+
+                    preg_match('/charset\s?=\s?"?([a-zA-Z0-9-]+)"?$/i', $type, $matches);
+
+                    $charset = strtolower($matches[1]);
+
+                    $received_email['subject'] = decode_eml($message->Subject);
+
+                    preg_match('/<?([^<]+@.+(\.[^>]+)+)>?$/i', $message->From, $matches);
+
+                    $received_email['from'] = strtolower($matches[1]);
+
+                    switch ($encoding)
+                    {
+                        case 'base64':
+                            $received_email['content'] = base64_decode($received_email['content']);
+
+                            break;
+
+                        case 'quoted-printable':
+                            $received_email['content'] = quoted_printable_decode($received_email['content']);
+
+                            break;
+                    }
+
+                    if ($charset AND $charset != 'utf-8')
+                    {
+                        $received_email['subject'] = mb_convert_encoding($received_email['subject'], 'utf-8', $charset);
+
+                        $received_email['content'] = mb_convert_encoding($received_email['content'], 'utf-8', $charset);
+                    }
+
+                    $received_email['subject'] = strip_tags($received_email['subject']);
+
+                    $received_email['content'] = strip_tags(preg_replace(array('/<p(\s+[^>]*)?>/i', '/<\/p>/i', '/<br\s*\/?>/i'), "\n", $received_email['content']));
+
+                    $now++;
+
+                    $received_email['access_key'] = md5($received_email['uid'] . $now);
+
+                    $this->insert('received_email', $received_email);
+
+                    $mail->removeMessage($num);
                 }
-                else
-                {
-                    $encoding = $message->contentTransferEncoding;
-
-                    $type = $message->contentType;
-
-                    $received_email['content'] = $message->getContent();
-                }
-
-                if (empty($encoding) OR empty($type))
+                catch (Exception $e)
                 {
                     continue;
                 }
-
-                preg_match('/charset\s?=\s?"?([a-zA-Z0-9-]+)"?$/i', $type, $matches);
-
-                $charset = strtolower($matches[1]);
-
-                $received_email['subject'] = decode_eml($message->Subject);
-
-                preg_match('/<?([^<]+@.+(\.[^>]+)+)>?$/i', $message->From, $matches);
-
-                $received_email['from'] = strtolower($matches[1]);
-
-                switch ($encoding)
-                {
-                    case 'base64':
-                        $received_email['content'] = base64_decode($received_email['content']);
-
-                        break;
-
-                    case 'quoted-printable':
-                        $received_email['content'] = quoted_printable_decode($received_email['content']);
-
-                        break;
-                }
-
-                if ($charset AND $charset != 'utf-8')
-                {
-                    $received_email['subject'] = mb_convert_encoding($received_email['subject'], 'utf-8', $charset);
-
-                    $received_email['content'] = mb_convert_encoding($received_email['content'], 'utf-8', $charset);
-                }
-
-                $received_email['subject'] = strip_tags($received_email['subject']);
-
-                $received_email['content'] = strip_tags(preg_replace(array('/<p(\s+[^>]*)?>/i', '/<\/p>/i', '/<br\s*\/?>/i'), "\n", $received_email['content']));
-
-                $now++;
-
-                $received_email['access_key'] = md5($received_email['uid'] . $now);
-
-                $this->insert('received_email', $received_email);
-
-                $mail->removeMessage($num);
             }
+
+            $this->notification_of_receive_email_error($receiving_email_config['id'], 'del');
         }
 
-        @unlink($locker);
+        AWS_APP::cache()->delete('receive_email_locker');
 
         return true;
     }

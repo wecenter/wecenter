@@ -120,24 +120,11 @@ class weibo_class extends AWS_MODEL
     {
         $now = time();
 
-        $locker = TEMP_PATH . 'weibo_msg.lock';
+        $lock_time = AWS_APP::cache()->get('weibo_msg_locker');
 
-        if (is_file($locker))
+        if ($lock_time AND $now - $time <= 600)
         {
-            $handle = @fopen($locker, 'r');
-
-            $time = @fread($handle, @filesize($locker));
-
-            @fclose($handle);
-
-            if (empty($time) OR $now - $time > 600)
-            {
-                @unlink($locker);
-            }
-            else
-            {
-                return false;
-            }
+            return false;
         }
 
         if (!get_setting('sina_akey') OR !get_setting('sina_skey'))
@@ -154,11 +141,7 @@ class weibo_class extends AWS_MODEL
             return false;
         }
 
-        $handle = @fopen($locker, 'w');
-
-        @fwrite($handle, $now);
-
-        @fclose($handle);
+        AWS_APP::cache()->set('weibo_msg_locker', $now, 600);
 
         foreach ($services_info AS $service_info)
         {
@@ -285,7 +268,7 @@ class weibo_class extends AWS_MODEL
             }
         }
 
-        @unlink($locker);
+        AWS_APP::cache()->delete('weibo_msg_locker');
 
         return true;
     }

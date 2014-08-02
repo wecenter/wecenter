@@ -75,7 +75,11 @@
 
             <div class="mod-table-foot mod-one-btn">
                 <div class="center-block">
-                    <input type="button" value="<?php _e('保存设置'); ?>" class="btn btn-primary" onclick="AWS.ajax_post($('#receiving_email_global_config_form'));" />
+                <?php if ($this->receiving_email_global_config['publish_user']['uid']) { ?>
+					 <input type="button" value="<?php _e('保存设置'); ?>" class="btn btn-primary"/>
+                <?php } else { ?>
+                     <input type="button" value="<?php _e('保存设置'); ?>" class="btn btn-primary" onclick="AWS.ajax_post($('#receiving_email_global_config_form'));" />
+                <?php } ?>
                 </div>
             </div>
         </div>
@@ -85,6 +89,19 @@
     $(function(){
 
         <?php if ($this->receiving_email_global_config['publish_user']['uid']) { ?>
+        $('.center-block .btn-primary').click(function(){
+
+	        if($('.aw-admin-email ul:eq(1)').find("li").length <=0){
+
+	        	AWS.alert('请设置邮件内容对应提问用户！')
+
+	        	return false;
+	        }else{
+	        	
+	        	AWS.ajax_post($('#receiving_email_global_config_form'));
+	        }
+        });
+        
         function delEmail(_this)
         {
             var tempDom = $('<input type="text" class="form-control search-input" placeholder="设置此账号对应用户">');
@@ -92,18 +109,20 @@
 
             tempDom.insertBefore($('.aw-dropdown'));
 
-            _this.parents('li').detach();
+            _this.parents('ul').detach();
 
             AWS.Dropdown.bind_dropdown_list($('.search-input'), 'adminEmailUser');
         }
+        
         <?php } else { ?>
+        
         AWS.Dropdown.bind_dropdown_list($('.search-input:eq(0)'), 'adminEmailUser');
 
         function delEmail(_this)
         {
             _this.parents('.aw-admin-email').find('.search-input').val('').show('0');
 
-            _this.parents('li').detach();
+            _this.parents('ul').detach();
         }
         <?php } ?>
 
