@@ -122,7 +122,7 @@ class weibo_class extends AWS_MODEL
 
         $lock_time = AWS_APP::cache()->get('weibo_msg_locker');
 
-        if ($lock_time AND $now - $time <= 600)
+        if ($lock_time AND $now - $lock_time <= 600)
         {
             return false;
         }
