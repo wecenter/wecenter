@@ -258,7 +258,7 @@ class edm_class extends AWS_MODEL
 
         foreach ($receiving_email_accounts AS $receiving_email_config)
         {
-            if (empty($receiving_email_config['server']) OR empty($receiving_email_config['username']) OR empty($receiving_email_config['password']) OR empty($receiving_email_config['uid']))
+            if (!$receiving_email_config['server'] OR !$receiving_email_config['protocol'] OR !$receiving_email_config['username'] OR !$receiving_email_config['password'] OR !$receiving_email_config['uid'])
             {
                 continue;
             }

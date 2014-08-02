@@ -152,7 +152,7 @@ class weibo_class extends AWS_MODEL
                 continue;
             }
 
-            if (empty($service_info['access_token']) OR $service_info['expires_time'] <= time())
+            if (!$service_info['access_token'] OR $service_info['expires_time'] <= time())
             {
                 $this->notification_of_refresh_access_token($service_user_info['uid'], $service_user_info['user_name']);
 
