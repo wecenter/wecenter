@@ -48,7 +48,7 @@ class ajax extends AWS_CONTROLLER
 	{
 		HTTP::no_cache_header();
 	}
-	
+
 	public function get_weixin_login_qr_url_action()
 	{
 		H::ajax_json_output(AWS_APP::RSM(array(
@@ -726,7 +726,7 @@ class ajax extends AWS_CONTROLLER
 		{
 			$this->model('integral')->process($this->user_id, 'UPLOAD_AVATAR', round((get_setting('integral_system_config_profile') * 0.2)), '上传头像');
 		}
-		
+
 		echo htmlspecialchars(json_encode(array(
 			'success' => true,
 			'thumb' => get_setting('upload_url') . '/avatar/' . $this->model('account')->get_avatar($this->user_id, null, 1) . basename($thumb_file['max'])
@@ -1064,11 +1064,7 @@ class ajax extends AWS_CONTROLLER
 			$update_attrib_data['signature'] = htmlspecialchars($_POST['signature']);
 		}
 
-		if ($_POST['job_id'])
-		{
-			$update_data['job_id'] = intval($_POST['job_id']);
-		}
-
+		$update_data['job_id'] = intval($_POST['job_id']);
 
 		if ($_POST['signature'] AND !$this->model('integral')->fetch_log($this->user_id, 'UPDATE_SIGNATURE'))
 		{
