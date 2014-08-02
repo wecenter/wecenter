@@ -1987,7 +1987,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('错误的请求')));
         }
 
-        if ($_POST['action'] == 'add_service_user' OR $_POST['action'] == 'del_service_user')
+        if (in_array($_POST['action'], array('add_service_user', 'del_service_user')))
         {
             $user_info = $this->model('account')->get_user_info_by_uid($_POST['uid']);
 

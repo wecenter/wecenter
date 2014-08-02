@@ -203,6 +203,8 @@ class edm_class extends AWS_MODEL
         }
 
         $this->delete('received_email', 'id = ' . $received_email['id']);
+
+        $this->notification_of_receive_email_error($received_email['id'], null);
     }
 
     public function get_receiving_email_config_by_id($id)
@@ -305,6 +307,8 @@ class edm_class extends AWS_MODEL
 
                 continue;
             }
+
+            $this->notification_of_receive_email_error($receiving_email_config['id'], null);
 
             $received_email['config_id'] = $receiving_email_config['id'];
 
@@ -419,8 +423,6 @@ class edm_class extends AWS_MODEL
                     continue;
                 }
             }
-
-            $this->notification_of_receive_email_error($receiving_email_config['id'], 'del');
         }
 
         AWS_APP::cache()->delete('receive_email_locker');
@@ -465,7 +467,7 @@ class edm_class extends AWS_MODEL
     {
         $admin_notifications = get_setting('admin_notifications');
 
-        if ($msg == 'del')
+        if ($msg === NULL)
         {
             unset($admin_notifications['receive_email_error'][$id]);
         }
