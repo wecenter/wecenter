@@ -301,8 +301,6 @@ class edm_class extends AWS_MODEL
             }
             catch (Exception $e)
             {
-                echo $e->getMessage();
-
                 $this->notification_of_receive_email_error($receiving_email_config['id'], $e->getMessage());
 
                 continue;
