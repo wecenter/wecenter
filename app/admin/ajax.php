@@ -2348,13 +2348,17 @@ class ajax extends AWS_ADMIN_CONTROLLER
         if ($_POST['id'])
         {
             $this->model('edm')->update('receiving_email_config', $receiving_email_config, 'id = ' . $_POST['id']);
+
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('保存设置成功')));
         }
         else
         {
-            $this->model('edm')->insert('receiving_email_config', $receiving_email_config);
-        }
+            $config_id = $this->model('edm')->insert('receiving_email_config', $receiving_email_config);
 
-        H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('保存设置成功')));
+            H::ajax_json_output(AWS_APP::RSM(array(
+                'url' => get_js_url('/admin/edm/receiving/id-' . $config_id)
+            ), 1, null));
+        }
     }
 
     public function save_receiving_email_global_config_action()

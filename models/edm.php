@@ -316,6 +316,7 @@ class edm_class extends AWS_MODEL
                     if ($receiving_email_config['protocol'] == 'imap')
                     {
                         // test
+                        echo "flags are: \n";
                         var_dump($message->getFlags());
                     }
 
