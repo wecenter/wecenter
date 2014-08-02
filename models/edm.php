@@ -4,7 +4,7 @@
 |   WeCenter [#RELEASE_VERSION#]
 |   ========================================
 |   by WeCenter Software
-|   © 2011 - 2013 WeCenter. All Rights Reserved
+|   © 2011 - 2014 WeCenter. All Rights Reserved
 |   http://www.wecenter.com
 |   ========================================
 |   Support: WeCenter@qq.com
@@ -269,7 +269,7 @@ class edm_class extends AWS_MODEL
                                 'password' => $receiving_email_config['password']
                             );
 
-            if ($receiving_email_config['ssl'] == 'Y')
+            if ($receiving_email_config['ssl'] == 1)
             {
                 $mail_config['ssl'] = 'SSL';
             }
@@ -296,10 +296,11 @@ class edm_class extends AWS_MODEL
                     default:
                         continue 2;
                 }
-
             }
             catch (Exception $e)
             {
+                echo $e->getMessage();
+
                 $this->notification_of_receive_email_error($receiving_email_config['id'], $e->getMessage());
 
                 continue;
@@ -313,11 +314,9 @@ class edm_class extends AWS_MODEL
             {
                 try
                 {
-                    if ($receiving_email_config['protocol'] == 'imap')
+                    if ($receiving_email_config['protocol'] == 'imap' AND $message->hasFlag(Zend_Mail_Storage::FLAG_SEEN))
                     {
-                        // test
-                        echo "flags are: \n";
-                        var_dump($message->getFlags());
+                        continue;
                     }
 
                     $received_email['message_id'] = substr($message->messageID, 1, -1);
