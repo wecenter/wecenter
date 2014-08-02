@@ -2306,7 +2306,12 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
         if (!$_POST['server'])
         {
-            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请输入 POP3 服务器')));
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请输入服务器地址')));
+        }
+
+        if (!$_POST['protocol'] OR !in_array($_POST['protocol'], array('pop3', 'imap')))
+        {
+             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择协议')));
         }
 
         if ($_POST['port'] AND (!is_digits($_POST['port']) OR $_POST['port'] < 0 OR $_POST['port'] > 65535))
@@ -2328,6 +2333,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
         $receiving_email_config = array(
                                         'server' => $_POST['server'],
+                                        'protocol' => $_POST['protocol'],
                                         'ssl' => ($_POST['ssl'] == '1') ? '1' : '0',
                                         'username' => trim($_POST['username']),
                                         'password' => trim($_POST['password']),

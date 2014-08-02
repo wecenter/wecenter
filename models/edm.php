@@ -281,7 +281,22 @@ class edm_class extends AWS_MODEL
 
             try
             {
-                $mail = new Zend_Mail_Storage_Pop3($mail_config);
+                switch ($receiving_email_config['protocol'])
+                {
+                    case 'pop3':
+                        $mail = new Zend_Mail_Storage_Pop3($mail_config);
+
+                        break;
+
+                    case 'imap':
+                        $mail = new Zend_Mail_Storage_Imap($mail_config);
+
+                        break;
+
+                    default:
+                        continue 2;
+                }
+
             }
             catch (Exception $e)
             {
@@ -298,6 +313,12 @@ class edm_class extends AWS_MODEL
             {
                 try
                 {
+                    if ($receiving_email_config['protocol'] == 'imap')
+                    {
+                        // test
+                        var_dump($message->getFlags());
+                    }
+
                     $received_email['message_id'] = substr($message->messageID, 1, -1);
 
                     $received_email['date'] = intval(strtotime($message->Date));
@@ -383,7 +404,15 @@ class edm_class extends AWS_MODEL
 
                     $this->insert('received_email', $received_email);
 
-                    $mail->removeMessage($num);
+                    if ($receiving_email_config['protocol'] == 'pop3')
+                    {
+                        $mail->removeMessage($num);
+                    }
+
+                    if ($receiving_email_config['protocol'] == 'imap')
+                    {
+                        $mail->setFlags($num, array(Zend_Mail_Storage::FLAG_SEEN));
+                    }
                 }
                 catch (Exception $e)
                 {
