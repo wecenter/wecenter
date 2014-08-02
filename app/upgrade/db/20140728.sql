@@ -1,10 +1,12 @@
 INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES ('receiving_email_global_config', 'a:2:{s:7:"enabled";s:1:"N";s:12:"publish_user";N;}');
+INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES ('wecenter_mp_notification_once', 's:1:"Y";');
 
 CREATE TABLE `[#DB_PREFIX#]receiving_email_config` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
+  `protocol` varchar(10) NOT NULL,
   `server` varchar(255) NOT NULL,
   `ssl` tinyint(1) NOT NULL DEFAULT '0',
-  `port` smallint(5) UNSIGNED DEFAULT NULL,
+  `port` smallint(5) DEFAULT NULL,
   `username` varchar(255) NOT NULL DEFAULT '',
   `password` varchar(255) NOT NULL DEFAULT '',
   `uid` int(10) NOT NULL,

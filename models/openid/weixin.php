@@ -325,6 +325,11 @@ class openid_weixin_class extends AWS_MODEL
 
     public function process_client_login($token, $uid)
     {
+    	if ($this->fetch_row('weixin_login', 'uid = ' . intval($uid) . " AND token = '" . intval($token) . "'"))
+    	{
+	    	return true;
+    	}
+    	
         return $this->update('weixin_login', array(
             'uid' => intval($uid)
         ), "token = '" . intval($token) . "'");

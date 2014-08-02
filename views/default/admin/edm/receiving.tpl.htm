@@ -26,10 +26,28 @@
 
                     <tr><td>
                     <div class="form-group">
-                        <span class="col-sm-4 col-xs-3 control-label"><?php _e('POP3 服务器'); ?>:</span>
+                        <span class="col-sm-4 col-xs-3 control-label"><?php _e('服务器'); ?>:</span>
 
                         <div class="col-sm-5 col-xs-8">
                             <input name="server" type="text" class="form-control" value="<?php echo $this->receiving_email_config['server']; ?>" />
+                        </div>
+                    </div>
+                    </td></tr>
+
+                    <tr><td>
+                    <div class="form-group">
+                        <span class="col-sm-4 col-xs-3 control-label"><?php _e('协议'); ?>:</span>
+
+                        <div class="col-sm-6 col-xs-8 email-protocol">
+                            <label>
+                                <input type="radio" name="protocol" value="pop3"<?php if (!$this->receiving_email_config['protocol'] OR $this->receiving_email_config['protocol'] == 'pop3') { ?> checked="checked"<?php } ?> /> POP3
+                            </label>
+
+                            <label class="col-md-offset-1">
+                                <input type="radio" name="protocol" value="imap"<?php if ($this->receiving_email_config['protocol'] == 'imap') { ?> checked="checked"<?php } ?> /> IMAP
+                            </label>
+
+                            <div class="help-block"><?php _e('使用 POP3 协议时，请在服务商处设置“允许收信软件删信”，否则已读邮件会重复收取。'); ?></div>
                         </div>
                     </div>
                     </td></tr>
@@ -54,19 +72,19 @@
 
                     <tr><td>
                     <div class="form-group">
-                        <span class="col-sm-4 col-xs-3 control-label"><?php _e('POP3 端口'); ?>:</span>
+                        <span class="col-sm-4 col-xs-3 control-label"><?php _e('端口'); ?>:</span>
 
                         <div class="col-sm-5 col-xs-8">
                             <input name="port" type="text" class="form-control" value="<?php echo $this->receiving_email_config['port']; ?>" />
 
-                            <div class="help-block"><?php _e('留空时默认服务器端口为 110，使用 SSL 协议默认端口为 995，详细参数请询问邮箱服务商'); ?></div>
+                            <div class="help-block"><?php _e('POP3 默认端口为 110，使用 SSL 协议时默认端口为 995；IMAP 默认端口为 143，使用 SSL 协议时默认端口为 993。留空时使用默认端口。'); ?></div>
                         </div>
                     </div>
                     </td></tr>
 
                     <tr><td>
                     <div class="form-group">
-                        <span class="col-sm-4 col-xs-3 control-label"><?php _e('POP3 帐户'); ?>:</span>
+                        <span class="col-sm-4 col-xs-3 control-label"><?php _e('帐户'); ?>:</span>
                         <div class="col-sm-5 col-xs-8">
                             <input name="username" type="text" class="form-control" value="<?php echo $this->receiving_email_config['username']; ?>"/>
                         </div>
@@ -75,7 +93,7 @@
                     <tr>
                         <td>
                             <div class="form-group">
-                                <span class="col-sm-4 col-xs-3 control-label"><?php _e('POP3 密码'); ?>:</span>
+                                <span class="col-sm-4 col-xs-3 control-label"><?php _e('密码'); ?>:</span>
                                 <div class="col-sm-5 col-xs-8">
                                     <input name="password" type="password" class="form-control" value="<?php echo $this->receiving_email_config['password']; ?>"/>
                                 </div>
@@ -101,14 +119,14 @@
                                         </ul>
                                     </div>
 
+                                    <?php if ($this->receiving_email_user_info['uid']) { ?>
                                     <ul>
-                                        <?php if ($this->receiving_email_user_info['uid']) { ?>
                                         <li>
                                             <a class="push-name" href="people/<?php echo $this->receiving_email_user_info['url_token']; ?>" target="_blank"><img class="img" src="<?php echo get_avatar_url($this->receiving_email_user_info['uid'], 'min'); ?>" alt="" /><?php echo $this->receiving_email_user_info['user_name']; ?></a>
                                             <a class="delete btn btn-danger btn-sm set" href="javascript:;"><?php _e('删除用户'); ?></a>
                                         </li>
-                                        <?php } ?>
                                     </ul>
+                                    <?php } ?>
                                 </div>
                             </div>
                         </td>
@@ -118,7 +136,11 @@
 
             <div class="mod-table-foot mod-one-btn">
                 <div class="center-block">
-                    <input type="button" value="<?php _e('保存设置'); ?>" class="btn btn-primary" onclick="AWS.ajax_post($('#receiving_email_global_config_form'));" />
+                 <?php if ($this->receiving_email_user_info['uid']) { ?>
+                    <input type="button" value="<?php _e('保存设置'); ?>" class="btn btn-primary"/>
+                 <?php } else { ?>
+                    <input type="button" value="<?php _e('保存设置'); ?>" class="btn btn-primary" />
+                 <?php } ?>
                 </div>
             </div>
         </div>
@@ -128,8 +150,7 @@
 <script>
     $(function(){
 
-        <?php if (!empty($this->receiving_email_config)) { ?>
-
+        <?php if ($this->receiving_email_user_info['uid']) { ?>
 
         function delEmail(_this)
         {
@@ -138,23 +159,36 @@
 
             tempDom.insertBefore($('.aw-dropdown'));
 
-            _this.parents('li').detach();
+            _this.parents('ul').detach();
 
             AWS.Dropdown.bind_dropdown_list($('.search-input'), 'adminEmailUser');
         }
-
         <?php } else { ?>
-            AWS.Dropdown.bind_dropdown_list($('.search-input:eq(0)'), 'adminEmailUser');
 
+        AWS.Dropdown.bind_dropdown_list($('.search-input:eq(0)'), 'adminEmailUser');
 
-            function delEmail(_this)
-            {
-                _this.parents('.aw-admin-email').find('.search-input').val('').show('0');
+        function delEmail(_this)
+        {
+            _this.parents('.aw-admin-email').find('.search-input').val('').show('0');
 
-                _this.parents('li').detach();
-            }
-
+            _this.parents('ul').detach();
+        }
         <?php } ?>
+
+
+        $('.center-block .btn-primary').click(function(){
+
+            if($('.aw-admin-email ul:eq(1)').find("li").length <=0){
+
+                AWS.alert('请设置此账号对应用户！')
+
+                return false;
+            }else{
+
+                AWS.ajax_post($('#receiving_email_global_config_form'));
+            }
+        });
+
 
         $('.aw-dropdown-list:eq(0)').delegate('li a','click',function()
         {

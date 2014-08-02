@@ -27,7 +27,7 @@
 				</label>
 				<label>
 					<input name="sex" id="sex" value="3" type="radio"<?php if (!$this->user_info['sex'] OR $this->user_info['sex'] == 3) { ?> checked="checked"<?php } ?> /> <?php _e('保密'); ?>
-				</label> 
+				</label>
 			</dd>
 		</dl>
 		<dl>
@@ -41,18 +41,18 @@
 				<select name="birthday_m">
 					<option value=""></option>
 					<?php echo H::display_options(array(
-						0 => '', 
-						1 => 1, 
-						2 => 2, 
-						3 => 3, 
-						4 => 4, 
-						5 => 5, 
-						6 => 6, 
-						7 => 7, 
-						8 => 8, 
-						9 => 9, 
-						10 => 10, 
-						11 => 11, 
+						0 => '',
+						1 => 1,
+						2 => 2,
+						3 => 3,
+						4 => 4,
+						5 => 5,
+						6 => 6,
+						7 => 7,
+						8 => 8,
+						9 => 9,
+						10 => 10,
+						11 => 11,
 						12 => 12
 					), date('m', $this->user_info['birthday'])); ?>
 				</select>
@@ -74,7 +74,7 @@
 			<dt><label><?php _e('职业'); ?>:</label></dt>
 			<dd>
 				<select name="job_id">
-					<option value="">--</option>
+					<option value="0">--</option>
 					<?php echo H::display_options($this->job_list, $this->user_info['job_id']); ?>
 				</select>
 			</dd>
@@ -243,7 +243,7 @@
 							<option value=""></option>
 							<?php echo H::display_options($this->birthday_y); ?>
 						</select>
-						&nbsp;&nbsp;<?php _e('年'); ?> &nbsp;&nbsp; <?php _e('至'); ?>&nbsp;&nbsp; 
+						&nbsp;&nbsp;<?php _e('年'); ?> &nbsp;&nbsp; <?php _e('至'); ?>&nbsp;&nbsp;
 						<select class="eyear">
 							<option value=""></option>
 							<?php echo H::display_options($this->birthday_y); ?>
@@ -270,7 +270,7 @@ $(document).ready(function () {
         },
 		dataUrl: G_BASE_URL + '/account/ajax/areas_json_data/'
     });
-	
+
     var fileUpload = new FileUpload('avatar', $('#avatar_uploader'), $('#avatar_src'), G_BASE_URL + '/account/ajax/avatar_upload/', {'loading_status' : '#avatar_uploading_status'});
 });
 

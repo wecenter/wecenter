@@ -1987,7 +1987,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('错误的请求')));
         }
 
-        if ($_POST['action'] == 'add_service_user' OR $_POST['action'] == 'del_service_user')
+        if (in_array($_POST['action'], array('add_service_user', 'del_service_user')))
         {
             $user_info = $this->model('account')->get_user_info_by_uid($_POST['uid']);
 
@@ -2306,10 +2306,15 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
         if (!$_POST['server'])
         {
-            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请输入 POP3 服务器')));
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请输入服务器地址')));
         }
 
-        if (isset($_POST['port']) AND (!is_digits($_POST['port']) OR $_POST['port'] < 0 OR $_POST['port'] > 65535))
+        if (!$_POST['protocol'] OR !in_array($_POST['protocol'], array('pop3', 'imap')))
+        {
+             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择协议')));
+        }
+
+        if ($_POST['port'] AND (!is_digits($_POST['port']) OR $_POST['port'] < 0 OR $_POST['port'] > 65535))
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请输入有效的端口号（0 ~ 65535）')));
         }
@@ -2328,23 +2333,32 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
         $receiving_email_config = array(
                                         'server' => $_POST['server'],
+                                        'protocol' => $_POST['protocol'],
                                         'ssl' => ($_POST['ssl'] == '1') ? '1' : '0',
-                                        'port' => $_POST['port'],
                                         'username' => trim($_POST['username']),
                                         'password' => trim($_POST['password']),
                                         'uid' => $user_info['uid']
                                     );
 
+        if ($_POST['port'])
+        {
+            $receiving_email_config['port'] = $_POST['port'];
+        }
+
         if ($_POST['id'])
         {
             $this->model('edm')->update('receiving_email_config', $receiving_email_config, 'id = ' . $_POST['id']);
+
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('保存设置成功')));
         }
         else
         {
-            $this->model('edm')->insert('receiving_email_config', $receiving_email_config);
-        }
+            $config_id = $this->model('edm')->insert('receiving_email_config', $receiving_email_config);
 
-        H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('保存设置成功')));
+            H::ajax_json_output(AWS_APP::RSM(array(
+                'url' => get_js_url('/admin/edm/receiving/id-' . $config_id)
+            ), 1, null));
+        }
     }
 
     public function save_receiving_email_global_config_action()

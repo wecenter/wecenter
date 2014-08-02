@@ -1322,7 +1322,8 @@ class weixin_class extends AWS_MODEL
         return $this->model('wecenter')->mp_server_query('send_text_message', array(
             'openid' => $openid,
             'message' => $message,
-            'url' => $url
+            'url' => $url,
+            'notification_once' => get_setting('wecenter_mp_notification_once')
         ));
     }
 

@@ -151,7 +151,8 @@ class openid extends AWS_CONTROLLER
 
 			if ($uid)
 			{
-				$this->model('openid_weibo')->bind_account(AWS_APP::session()->sina_profile, null, $uid, true);
+				$this->model('openid_weibo')->bind_account(AWS_APP::session()->sina_profile, null, $uid, AWS_APP::session()->sina_token, true);
+
 				if (AWS_APP::session()->sina_profile['profile_image_url'])
 				{
 					$this->model('account')->associate_remote_avatar($uid, str_replace('/50/', '/180/', AWS_APP::session()->sina_profile['profile_image_url']));
@@ -217,7 +218,7 @@ class openid extends AWS_CONTROLLER
 			{
 				if ($this->user_id)
 				{
-					$this->model('openid_weibo')->bind_account(AWS_APP::session()->sina_profile, '/', $this->user_id);
+					$this->model('openid_weibo')->bind_account(AWS_APP::session()->sina_profile, '/', $this->user_id, AWS_APP::session()->sina_token);
 				}
 				else
 				{

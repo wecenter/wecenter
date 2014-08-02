@@ -45,7 +45,7 @@ class weibo_class extends AWS_MODEL
             return false;
         }
 
-        $this->delete('weibo_msg', 'id = ' . $msg_info['$id']);
+        $this->delete('weibo_msg', 'id = ' . $msg_info['id']);
 
         if ($msg_info['has_attach'] AND $msg_info['access_key'] AND !$msg_info['question_id'])
         {
@@ -89,7 +89,7 @@ class weibo_class extends AWS_MODEL
             return AWS_APP::lang()->_t('微博发布用户不存在');
         }
 
-        $this->model('publish')->publish_question($msg_info['text'], null, null, $published_user['uid'], null, null, $msg_info['access_key'], $msg_info['uid'], false, $msg_info['id']);
+        $this->model('publish')->publish_question($msg_info['text'], null, null, $published_user['uid'], null, null, $msg_info['access_key'], $msg_info['uid'], false, 'weibo_msg', $msg_info['id']);
     }
 
     public function reply_answer_to_sina($question_id, $comment)
@@ -120,24 +120,11 @@ class weibo_class extends AWS_MODEL
     {
         $now = time();
 
-        $locker = TEMP_PATH . 'weibo_msg.lock';
+        $lock_time = AWS_APP::cache()->get('weibo_msg_locker');
 
-        if (is_file($locker))
+        if ($lock_time AND $now - $lock_time <= 600)
         {
-            $handle = @fopen($locker, 'r');
-
-            $time = @fread($handle, @filesize($locker));
-
-            @fclose($handle);
-
-            if (empty($time) OR $now - $time > 600)
-            {
-                @unlink($locker);
-            }
-            else
-            {
-                return false;
-            }
+            return false;
         }
 
         if (!get_setting('sina_akey') OR !get_setting('sina_skey'))
@@ -154,11 +141,7 @@ class weibo_class extends AWS_MODEL
             return false;
         }
 
-        $handle = @fopen($locker, 'w');
-
-        @fwrite($handle, $now);
-
-        @fclose($handle);
+        AWS_APP::cache()->set('weibo_msg_locker', $now, 600);
 
         foreach ($services_info AS $service_info)
         {
@@ -169,7 +152,7 @@ class weibo_class extends AWS_MODEL
                 continue;
             }
 
-            if (empty($service_info['access_token']) OR $service_info['expires_time'] <= time())
+            if (!$service_info['access_token'] OR $service_info['expires_time'] <= time())
             {
                 $this->notification_of_refresh_access_token($service_user_info['uid'], $service_user_info['user_name']);
 
@@ -192,6 +175,8 @@ class weibo_class extends AWS_MODEL
 
                 continue;
             }
+
+            $this->notification_of_refresh_access_token($service_user_info['uid'], null);
 
             foreach ($msgs AS $msg)
             {
@@ -285,19 +270,31 @@ class weibo_class extends AWS_MODEL
             }
         }
 
-        @unlink($locker);
+        AWS_APP::cache()->delete('weibo_msg_locker');
 
         return true;
     }
 
     public function notification_of_refresh_access_token($uid, $user_name)
     {
+        if (!is_digits($uid))
+        {
+            return false;
+        }
+
         $admin_notifications = get_setting('admin_notifications');
 
-        $admin_notifications['sina_users'][$uid] = array(
-                                                        'uid' => $uid,
-                                                        'user_name' => $user_name
-                                                    );
+        if ($user_name === NULL)
+        {
+            unset($admin_notifications['sina_users'][$uid]);
+        }
+        else
+        {
+            $admin_notifications['sina_users'][$uid] = array(
+                                                            'uid' => $uid,
+                                                            'user_name' => $user_name
+                                                        );
+        }
 
         return $this->model('setting')->set_vars(array('admin_notifications' => $admin_notifications));
     }
@@ -325,7 +322,12 @@ class weibo_class extends AWS_MODEL
                 break;
         }
 
-        return $this->query('UPDATE ' . get_table('users_sina') . ' SET last_msg_id = ' . $last_msg_id . ' WHERE uid = ' . intval($uid));
+        $this->query('UPDATE ' . get_table('users_sina') . ' SET last_msg_id = ' . $last_msg_id . ' WHERE uid = ' . intval($uid));
+
+        if ($action == 'del')
+        {
+            $this->notification_of_refresh_access_token($uid, null);
+        }
     }
 
     public function update_attach($weibo_msg_id, $question_id, $attach_access_key)

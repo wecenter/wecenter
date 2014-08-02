@@ -4,7 +4,7 @@
 |   WeCenter [#RELEASE_VERSION#]
 |   ========================================
 |   by WeCenter Software
-|   © 2011 - 2013 WeCenter. All Rights Reserved
+|   © 2011 - 2014 WeCenter. All Rights Reserved
 |   http://www.wecenter.com
 |   ========================================
 |   Support: WeCenter@qq.com
@@ -202,7 +202,9 @@ class edm_class extends AWS_MODEL
             return false;
         }
 
-        $this->delete('received_email', 'id = ' . $received_email['$id']);
+        $this->delete('received_email', 'id = ' . $received_email['id']);
+
+        $this->notification_of_receive_email_error($received_email['id'], null);
     }
 
     public function get_receiving_email_config_by_id($id)
@@ -238,24 +240,11 @@ class edm_class extends AWS_MODEL
     {
         $now = time();
 
-        $locker = TEMP_PATH . 'receive_email.lock';
+        $lock_time = AWS_APP::cache()->get('receive_email_locker');
 
-        if (is_file($locker))
+        if ($lock_time AND $now - $lock_time <= 600)
         {
-            $handle = @fopen($locker, 'r');
-
-            $time = @fread($handle, @filesize($locker));
-
-            @fclose($handle);
-
-            if (empty($time) OR $now - $time > 600)
-            {
-                @unlink($locker);
-            }
-            else
-            {
-                return false;
-            }
+            return false;
         }
 
         @set_time_limit(0);
@@ -267,15 +256,11 @@ class edm_class extends AWS_MODEL
             return false;
         }
 
-        $handle = @fopen($locker, 'w');
-
-        @fwrite($handle, $now);
-
-        @fclose($handle);
+        AWS_APP::cache()->set('receive_email_locker', $now, 600);
 
         foreach ($receiving_email_accounts AS $receiving_email_config)
         {
-            if (empty($receiving_email_config['server']) OR empty($receiving_email_config['username']) OR empty($receiving_email_config['password']) OR empty($receiving_email_config['uid']))
+            if (!$receiving_email_config['server'] OR !$receiving_email_config['protocol'] OR !$receiving_email_config['username'] OR !$receiving_email_config['password'] OR !$receiving_email_config['uid'])
             {
                 continue;
             }
@@ -286,7 +271,7 @@ class edm_class extends AWS_MODEL
                                 'password' => $receiving_email_config['password']
                             );
 
-            if ($receiving_email_config['ssl'] == 'Y')
+            if ($receiving_email_config['ssl'] == 1)
             {
                 $mail_config['ssl'] = 'SSL';
             }
@@ -298,13 +283,30 @@ class edm_class extends AWS_MODEL
 
             try
             {
-                $mail = new Zend_Mail_Storage_Pop3($mail_config);
+                switch ($receiving_email_config['protocol'])
+                {
+                    case 'pop3':
+                        $mail = new Zend_Mail_Storage_Pop3($mail_config);
+
+                        break;
+
+                    case 'imap':
+                        $mail = new Zend_Mail_Storage_Imap($mail_config);
+
+                        break;
+
+                    default:
+                        continue 2;
+                }
             }
-            catch (Exception $e) {
-                // echo $e->getMessage() . "\n";
+            catch (Exception $e)
+            {
+                $this->notification_of_receive_email_error($receiving_email_config['id'], $e->getMessage());
 
                 continue;
             }
+
+            $this->notification_of_receive_email_error($receiving_email_config['id'], null);
 
             $received_email['config_id'] = $receiving_email_config['id'];
 
@@ -312,96 +314,116 @@ class edm_class extends AWS_MODEL
 
             foreach ($mail AS $num => $message)
             {
-                $received_email['message_id'] = substr($message->messageID, 1, -1);
-
-                $received_email['date'] = intval(strtotime($message->Date));
-
-                if ($now - $received_email['date'] > 604800 OR $this->fetch_row(`received_email`, 'message_id = "' . $this->quote($received_email['message_id']) . '" AND date = ' . $received_email['date']))
+                try
                 {
-                    continue;
-                }
-
-                if ($message->isMultipart())
-                {
-                    for ($i=1; $i<=$message->countParts(); $i++)
+                    if ($receiving_email_config['protocol'] == 'imap' AND $message->hasFlag(Zend_Mail_Storage::FLAG_SEEN))
                     {
-                        $part = $message->getPart($i);
+                        continue;
+                    }
 
-                        if (substr($part->contentType, 0, 5) == 'text/')
+                    $received_email['message_id'] = substr($message->messageID, 1, -1);
+
+                    $received_email['date'] = intval(strtotime($message->Date));
+
+                    if ($now - $received_email['date'] > 604800 OR $this->fetch_row('received_email', 'message_id = "' . $this->quote($received_email['message_id']) . '" AND date = ' . $received_email['date']))
+                    {
+                        continue;
+                    }
+
+                    if ($message->isMultipart())
+                    {
+                        for ($i=1; $i<=$message->countParts(); $i++)
                         {
-                            $encoding = $part->contentTransferEncoding;
+                            $part = $message->getPart($i);
 
-                            $type = $part->contentType;
+                            if (substr($part->contentType, 0, 5) == 'text/')
+                            {
+                                $encoding = $part->contentTransferEncoding;
 
-                            $received_email['content'] = $part->getContent();
+                                $type = $part->contentType;
 
-                            break;
-                        }
-                        else
-                        {
-                            continue;
+                                $received_email['content'] = $part->getContent();
+
+                                break;
+                            }
+                            else
+                            {
+                                continue;
+                            }
                         }
                     }
+                    else
+                    {
+                        $encoding = $message->contentTransferEncoding;
+
+                        $type = $message->contentType;
+
+                        $received_email['content'] = $message->getContent();
+                    }
+
+                    if (empty($encoding) OR empty($type))
+                    {
+                        continue;
+                    }
+
+                    preg_match('/charset\s?=\s?"?([a-zA-Z0-9-]+)"?$/i', $type, $matches);
+
+                    $charset = strtolower($matches[1]);
+
+                    $received_email['subject'] = decode_eml($message->Subject);
+
+                    preg_match('/<?([^<]+@.+(\.[^>]+)+)>?$/i', $message->From, $matches);
+
+                    $received_email['from'] = strtolower($matches[1]);
+
+                    switch ($encoding)
+                    {
+                        case 'base64':
+                            $received_email['content'] = base64_decode($received_email['content']);
+
+                            break;
+
+                        case 'quoted-printable':
+                            $received_email['content'] = quoted_printable_decode($received_email['content']);
+
+                            break;
+                    }
+
+                    if ($charset AND $charset != 'utf-8')
+                    {
+                        $received_email['subject'] = mb_convert_encoding($received_email['subject'], 'utf-8', $charset);
+
+                        $received_email['content'] = mb_convert_encoding($received_email['content'], 'utf-8', $charset);
+                    }
+
+                    $received_email['subject'] = strip_tags($received_email['subject']);
+
+                    $received_email['content'] = strip_tags(preg_replace(array('/<p(\s+[^>]*)?>/i', '/<\/p>/i', '/<br\s*\/?>/i'), "\n", $received_email['content']));
+
+                    $now++;
+
+                    $received_email['access_key'] = md5($received_email['uid'] . $now);
+
+                    $this->insert('received_email', $received_email);
+
+                    if ($receiving_email_config['protocol'] == 'pop3')
+                    {
+                        $mail->removeMessage($num);
+                    }
+
+                    if ($receiving_email_config['protocol'] == 'imap')
+                    {
+                        $mail->setFlags($num, array(Zend_Mail_Storage::FLAG_SEEN));
+                    }
                 }
-                else
-                {
-                    $encoding = $message->contentTransferEncoding;
-
-                    $type = $message->contentType;
-
-                    $received_email['content'] = $message->getContent();
-                }
-
-                if (empty($encoding) OR empty($type))
+                catch (Exception $e)
                 {
                     continue;
                 }
-
-                preg_match('/charset\s?=\s?"?([a-zA-Z0-9-]+)"?$/i', $type, $matches);
-
-                $charset = strtolower($matches[1]);
-
-                $received_email['subject'] = decode_eml($message->Subject);
-
-                preg_match('/<?([^<]+@.+(\.[^>]+)+)>?$/i', $message->From, $matches);
-
-                $received_email['from'] = strtolower($matches[1]);
-
-                switch ($encoding)
-                {
-                    case 'base64':
-                        $received_email['content'] = base64_decode($received_email['content']);
-
-                        break;
-
-                    case 'quoted-printable':
-                        $received_email['content'] = quoted_printable_decode($received_email['content']);
-
-                        break;
-                }
-
-                if ($charset AND $charset != 'utf-8')
-                {
-                    $received_email['subject'] = mb_convert_encoding($received_email['subject'], 'utf-8', $charset);
-
-                    $received_email['content'] = mb_convert_encoding($received_email['content'], 'utf-8', $charset);
-                }
-
-                $received_email['subject'] = strip_tags($received_email['subject']);
-
-                $received_email['content'] = strip_tags(preg_replace(array('/<p(\s+[^>]*)?>/i', '/<\/p>/i', '/<br\s*\/?>/i'), "\n", $received_email['content']));
-
-                $now++;
-
-                $received_email['access_key'] = md5($received_email['uid'] . $now);
-
-                $this->insert('received_email', $received_email);
-
-                $mail->removeMessage($num);
             }
         }
 
-        @unlink($locker);
+        AWS_APP::cache()->delete('receive_email_locker');
 
         return true;
     }
@@ -424,7 +446,7 @@ class edm_class extends AWS_MODEL
             return AWS_APP::lang()->_t('邮件发布用户不存在');
         }
 
-        $this->model('publish')->publish_question($received_email['subject'], $received_email['content'], null, $publish_user['uid'], null, null, $received_email['access_key'], $received_email['uid'], false, null, $received_email['id']);
+        $this->model('publish')->publish_question($received_email['subject'], $received_email['content'], null, $publish_user['uid'], null, null, $received_email['access_key'], $received_email['uid'], false, 'received_email', $received_email['id']);
     }
 
     public function reply_answer_by_email($question_id, $comment)
@@ -437,5 +459,24 @@ class edm_class extends AWS_MODEL
         }
 
         return AWS_APP::mail()->send($received_email['from'], 'RE: ' . $received_email['subject'], $comment, get_setting('site_name'));
+    }
+
+    public function notification_of_receive_email_error($id, $msg)
+    {
+        $admin_notifications = get_setting('admin_notifications');
+
+        if ($msg === NULL)
+        {
+            unset($admin_notifications['receive_email_error'][$id]);
+        }
+        else
+        {
+            $admin_notifications['receive_email_error'][$id] = array(
+                'id' => $id,
+                'msg' => $msg
+            );
+        }
+
+        return $this->model('setting')->set_vars(array('admin_notifications' => $admin_notifications));
     }
 }
