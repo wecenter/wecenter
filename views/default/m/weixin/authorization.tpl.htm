@@ -22,6 +22,10 @@
 							<a class="btn btn-primary btn-block" onclick="AWS.ajax_post($('#login_form'));"><?php _e('绑定微信'); ?></a>	
 						</li>
 						<li>
+							<p class="text-center color-999"><?php _e('或者点击下面的按钮生成帐号'); ?></p>
+							<a href="<?php echo $this->register_url; ?>" class="btn-submit btn-success btn btn-block"><?php _e('生成帐号')?></a>
+						</li>
+						<li>
 							<p class="text-center color-999"><?php _e('如果您还未注册, 请先注册问答账号'); ?></p>
 							<a class="btn btn-success btn-block" onclick="$('.bind-confirm, .bind-form').hide();$('.register-confirm, .register-form').show();"><?php _e('注册')?></a>
 						</li>
