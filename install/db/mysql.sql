@@ -1157,6 +1157,7 @@ CREATE TABLE `[#DB_PREFIX#]weixin_qr_code` (
 
 CREATE TABLE `[#DB_PREFIX#]receiving_email_config` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
+  `protocol` varchar(10) NOT NULL,
   `server` varchar(255) NOT NULL,
   `ssl` tinyint(1) NOT NULL DEFAULT '0',
   `port` smallint(5) DEFAULT NULL,

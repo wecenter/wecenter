@@ -26,10 +26,28 @@
 
                     <tr><td>
                     <div class="form-group">
-                        <span class="col-sm-4 col-xs-3 control-label"><?php _e('POP3 服务器'); ?>:</span>
+                        <span class="col-sm-4 col-xs-3 control-label"><?php _e('服务器'); ?>:</span>
 
                         <div class="col-sm-5 col-xs-8">
                             <input name="server" type="text" class="form-control" value="<?php echo $this->receiving_email_config['server']; ?>" />
+                        </div>
+                    </div>
+                    </td></tr>
+
+                    <tr><td>
+                    <div class="form-group">
+                        <span class="col-sm-4 col-xs-3 control-label"><?php _e('协议'); ?>:</span>
+
+                        <div class="col-sm-6 col-xs-8">
+                            <label>
+                                <input type="radio" name="protocol" value="pop3"<?php if (!$this->receiving_email_config['protocol'] OR $this->receiving_email_config['protocol'] == 'pop3') { ?> checked="checked"<?php } ?> /> POP3
+                            </label>
+
+                            <label class="col-md-offset-1">
+                                <input type="radio" name="protocol" value="imap"<?php if ($this->receiving_email_config['protocol'] == 'imap') { ?> checked="checked"<?php } ?> /> IMAP
+                            </label>
+
+                            <div class="help-block"><?php _e('使用 POP3 协议时，请在服务商处设置“允许收信软件删信”，否则已读邮件会重复收取。'); ?></div>
                         </div>
                     </div>
                     </td></tr>
@@ -54,19 +72,19 @@
 
                     <tr><td>
                     <div class="form-group">
-                        <span class="col-sm-4 col-xs-3 control-label"><?php _e('POP3 端口'); ?>:</span>
+                        <span class="col-sm-4 col-xs-3 control-label"><?php _e('端口'); ?>:</span>
 
                         <div class="col-sm-5 col-xs-8">
                             <input name="port" type="text" class="form-control" value="<?php echo $this->receiving_email_config['port']; ?>" />
 
-                            <div class="help-block"><?php _e('留空时默认服务器端口为 110，使用 SSL 协议默认端口为 995，详细参数请询问邮箱服务商'); ?></div>
+                            <div class="help-block"><?php _e('POP3 默认端口为 110，使用 SSL 协议时默认端口为 995；IMAP 默认端口为 143，使用 SSL 协议时默认端口为 993。留空时使用默认端口。'); ?></div>
                         </div>
                     </div>
                     </td></tr>
 
                     <tr><td>
                     <div class="form-group">
-                        <span class="col-sm-4 col-xs-3 control-label"><?php _e('POP3 帐户'); ?>:</span>
+                        <span class="col-sm-4 col-xs-3 control-label"><?php _e('帐户'); ?>:</span>
                         <div class="col-sm-5 col-xs-8">
                             <input name="username" type="text" class="form-control" value="<?php echo $this->receiving_email_config['username']; ?>"/>
                         </div>
@@ -75,7 +93,7 @@
                     <tr>
                         <td>
                             <div class="form-group">
-                                <span class="col-sm-4 col-xs-3 control-label"><?php _e('POP3 密码'); ?>:</span>
+                                <span class="col-sm-4 col-xs-3 control-label"><?php _e('密码'); ?>:</span>
                                 <div class="col-sm-5 col-xs-8">
                                     <input name="password" type="password" class="form-control" value="<?php echo $this->receiving_email_config['password']; ?>"/>
                                 </div>
@@ -146,7 +164,7 @@
             AWS.Dropdown.bind_dropdown_list($('.search-input'), 'adminEmailUser');
         }
         <?php } else { ?>
-        
+
         AWS.Dropdown.bind_dropdown_list($('.search-input:eq(0)'), 'adminEmailUser');
 
         function delEmail(_this)
@@ -166,11 +184,11 @@
 
                 return false;
             }else{
-                
+
                 AWS.ajax_post($('#receiving_email_global_config_form'));
             }
         });
-        
+
 
         $('.aw-dropdown-list:eq(0)').delegate('li a','click',function()
         {

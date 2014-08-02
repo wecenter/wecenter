@@ -4,7 +4,7 @@
 |   WeCenter [#RELEASE_VERSION#]
 |   ========================================
 |   by WeCenter Software
-|   © 2011 - 2013 WeCenter. All Rights Reserved
+|   © 2011 - 2014 WeCenter. All Rights Reserved
 |   http://www.wecenter.com
 |   ========================================
 |   Support: WeCenter@qq.com
@@ -203,6 +203,8 @@ class edm_class extends AWS_MODEL
         }
 
         $this->delete('received_email', 'id = ' . $received_email['id']);
+
+        $this->notification_of_receive_email_error($received_email['id'], null);
     }
 
     public function get_receiving_email_config_by_id($id)
@@ -258,7 +260,7 @@ class edm_class extends AWS_MODEL
 
         foreach ($receiving_email_accounts AS $receiving_email_config)
         {
-            if (empty($receiving_email_config['server']) OR empty($receiving_email_config['username']) OR empty($receiving_email_config['password']) OR empty($receiving_email_config['uid']))
+            if (!$receiving_email_config['server'] OR !$receiving_email_config['protocol'] OR !$receiving_email_config['username'] OR !$receiving_email_config['password'] OR !$receiving_email_config['uid'])
             {
                 continue;
             }
@@ -269,7 +271,7 @@ class edm_class extends AWS_MODEL
                                 'password' => $receiving_email_config['password']
                             );
 
-            if ($receiving_email_config['ssl'] == 'Y')
+            if ($receiving_email_config['ssl'] == 1)
             {
                 $mail_config['ssl'] = 'SSL';
             }
@@ -281,14 +283,32 @@ class edm_class extends AWS_MODEL
 
             try
             {
-                $mail = new Zend_Mail_Storage_Pop3($mail_config);
+                switch ($receiving_email_config['protocol'])
+                {
+                    case 'pop3':
+                        $mail = new Zend_Mail_Storage_Pop3($mail_config);
+
+                        break;
+
+                    case 'imap':
+                        $mail = new Zend_Mail_Storage_Imap($mail_config);
+
+                        break;
+
+                    default:
+                        continue 2;
+                }
             }
             catch (Exception $e)
             {
+                echo $e->getMessage();
+
                 $this->notification_of_receive_email_error($receiving_email_config['id'], $e->getMessage());
 
                 continue;
             }
+
+            $this->notification_of_receive_email_error($receiving_email_config['id'], null);
 
             $received_email['config_id'] = $receiving_email_config['id'];
 
@@ -298,6 +318,11 @@ class edm_class extends AWS_MODEL
             {
                 try
                 {
+                    if ($receiving_email_config['protocol'] == 'imap' AND $message->hasFlag(Zend_Mail_Storage::FLAG_SEEN))
+                    {
+                        continue;
+                    }
+
                     $received_email['message_id'] = substr($message->messageID, 1, -1);
 
                     $received_email['date'] = intval(strtotime($message->Date));
@@ -383,15 +408,21 @@ class edm_class extends AWS_MODEL
 
                     $this->insert('received_email', $received_email);
 
-                    $mail->removeMessage($num);
+                    if ($receiving_email_config['protocol'] == 'pop3')
+                    {
+                        $mail->removeMessage($num);
+                    }
+
+                    if ($receiving_email_config['protocol'] == 'imap')
+                    {
+                        $mail->setFlags($num, array(Zend_Mail_Storage::FLAG_SEEN));
+                    }
                 }
                 catch (Exception $e)
                 {
                     continue;
                 }
             }
-
-            $this->notification_of_receive_email_error($receiving_email_config['id'], 'del');
         }
 
         AWS_APP::cache()->delete('receive_email_locker');
@@ -436,7 +467,7 @@ class edm_class extends AWS_MODEL
     {
         $admin_notifications = get_setting('admin_notifications');
 
-        if ($msg == 'del')
+        if ($msg === NULL)
         {
             unset($admin_notifications['receive_email_error'][$id]);
         }

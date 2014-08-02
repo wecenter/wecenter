@@ -45,7 +45,7 @@ class weibo_class extends AWS_MODEL
             return false;
         }
 
-        $this->delete('weibo_msg', 'id = ' . $msg_info['$id']);
+        $this->delete('weibo_msg', 'id = ' . $msg_info['id']);
 
         if ($msg_info['has_attach'] AND $msg_info['access_key'] AND !$msg_info['question_id'])
         {
@@ -152,7 +152,7 @@ class weibo_class extends AWS_MODEL
                 continue;
             }
 
-            if (empty($service_info['access_token']) OR $service_info['expires_time'] <= time())
+            if (!$service_info['access_token'] OR $service_info['expires_time'] <= time())
             {
                 $this->notification_of_refresh_access_token($service_user_info['uid'], $service_user_info['user_name']);
 
@@ -175,6 +175,8 @@ class weibo_class extends AWS_MODEL
 
                 continue;
             }
+
+            $this->notification_of_refresh_access_token($service_user_info['uid'], null);
 
             foreach ($msgs AS $msg)
             {
@@ -275,12 +277,24 @@ class weibo_class extends AWS_MODEL
 
     public function notification_of_refresh_access_token($uid, $user_name)
     {
+        if (!is_digits($uid))
+        {
+            return false;
+        }
+
         $admin_notifications = get_setting('admin_notifications');
 
-        $admin_notifications['sina_users'][$uid] = array(
-                                                        'uid' => $uid,
-                                                        'user_name' => $user_name
-                                                    );
+        if ($user_name === NULL)
+        {
+            unset($admin_notifications['sina_users'][$uid]);
+        }
+        else
+        {
+            $admin_notifications['sina_users'][$uid] = array(
+                                                            'uid' => $uid,
+                                                            'user_name' => $user_name
+                                                        );
+        }
 
         return $this->model('setting')->set_vars(array('admin_notifications' => $admin_notifications));
     }
@@ -308,7 +322,12 @@ class weibo_class extends AWS_MODEL
                 break;
         }
 
-        return $this->query('UPDATE ' . get_table('users_sina') . ' SET last_msg_id = ' . $last_msg_id . ' WHERE uid = ' . intval($uid));
+        $this->query('UPDATE ' . get_table('users_sina') . ' SET last_msg_id = ' . $last_msg_id . ' WHERE uid = ' . intval($uid));
+
+        if ($action == 'del')
+        {
+            $this->notification_of_refresh_access_token($uid, null);
+        }
     }
 
     public function update_attach($weibo_msg_id, $question_id, $attach_access_key)

@@ -401,6 +401,11 @@ class question_class extends AWS_MODEL
 		{
 			$this->model('weibo')->del_msg_by_id($question_info['weibo_msg_id']);
 		}
+
+		if ($question_info['received_email_id'])
+		{
+			$this->model('edm')->remove_received_email($question_info['received_email_id']);
+		}
 	}
 
 	public function add_focus_question($question_id, $uid, $anonymous = 0, $save_action = true)
