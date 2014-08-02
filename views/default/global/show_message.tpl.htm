@@ -11,19 +11,22 @@
 		<link rel="stylesheet" type="text/css" href="<?php echo G_STATIC_URL; ?>/mobile/css/icon.css" />
 		
 		<style type="text/css">
-		body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td{margin:0;padding:0;}
+		*{margin:0;padding:0;}
 		h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:400;}
 		body{background:#f1f1f1;color:#1c2837;font:normal 15px arial, verdana, tahoma, sans-serif;position:relative;}
 		a{color:#284b72;}
 		a:hover{color:#528f6c;text-decoration:underline;}
-		#aws_body.redirector{width:400px;margin:80px auto 0;}
+		.aw-error-box{max-width: 400px;margin:80px auto 0;}
 		.aw-error-box .mod-head{position: relative;margin-bottom: 15px;padding-left: 10px;}
 		.aw-error-box .mod-head .icon-bubble{font-size: 60px;color: #66b7ff;}
 		.aw-error-box .mod-head .icon-i{position:absolute;left:15px;top:4px;font-size: 50px;color: #fff;}
 		.aw-error-box .mod-body{padding:40px;background-color: #ebebeb;border-radius: 10px;}
-		</style>
 		
-		<!--/CSS-->
+		@media (max-width:640px) {
+   			.aw-error-box{padding:0 20px;}
+		}
+
+		</style>
 		
 		<?php if ($this->url_bit) { ?>
 		<script type='text/javascript'>
@@ -48,7 +51,7 @@
 		<?php } ?>
 	</head>
 
-	<body id='aws_body' class='redirector'>
+	<body>
 		<div class="aw-error-box">
 			<div class="mod-head">
 				<i class="icon icon-bubble"></i>
