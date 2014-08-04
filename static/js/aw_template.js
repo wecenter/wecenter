@@ -3,6 +3,9 @@ var AW_TEMPLATE = {
 		'<div id="aw-loading" class="hide">'+
 			'<div id="aw-loading-box"></div>'+
 		'</div>',
+
+	'loadingMiniBox':
+		'<div id="aw-loading-mini-box"></div>',
 	
 	'userCard':
 			'<div id="aw-card-tips" class="aw-card-tips aw-card-tips-user">'+

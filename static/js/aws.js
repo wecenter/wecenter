@@ -37,6 +37,37 @@ var AWS =
 		}
 	},
 
+	loading_mini: function (selector, type)
+	{
+		if (!selector.find('#aw-loading-mini-box').length)
+		{
+			selector.append(AW_TEMPLATE.loadingMiniBox);
+		}
+
+		if (type == 'show')
+		{
+			selector.find('#aw-loading-mini-box').fadeIn();
+
+			AWS.G.loading_timer = setInterval(function ()
+			{
+				AWS.G.loading_mini_bg_count -= 1;
+
+				$('#aw-loading-mini-box').css('background-position', '0px ' + AWS.G.loading_mini_bg_count * 16 + 'px');
+
+				if (AWS.G.loading_mini_bg_count == 1)
+				{
+					AWS.G.loading_mini_bg_count = 9;
+				}
+			}, 100);
+		}
+		else
+		{
+			selector.find('#aw-loading-mini-box').fadeOut();
+
+			clearInterval(AWS.G.loading_timer);
+		}
+	},
+
 	ajax_request: function(url, params)
 	{
 		AWS.loading('show');
@@ -1196,6 +1227,7 @@ AWS.G =
 	dropdown_list_xhr: '',
 	loading_timer: '',
 	loading_bg_count: 12,
+	loading_mini_bg_count: 9,
 	notification_timer: ''
 }
 
