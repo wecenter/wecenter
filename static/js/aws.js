@@ -2153,13 +2153,13 @@ AWS.Editor =
 			case 'img' :
 				var title = 'imgsAlt',
 					url = 'imgsUrl',
-					textFeildValue = '\n![' + ($('#addTxtForms :input[name="' + title + '"]').val()) + '](' + $('#addTxtForms :input[name="' + url + '"]').val() + ')';
+					textFeildValue = '![' + ($('#addTxtForms :input[name="' + title + '"]').val()) + '](' + $('#addTxtForms :input[name="' + url + '"]').val() + ')';
 			break;
 
 			case 'video' :
 				var title = 'videoTitle',
 					url = 'videoUrl',
-					textFeildValue = '\n!![' + ($('#addTxtForms :input[name="' + title + '"]').val()) + '](' + $('#addTxtForms :input[name="' + url + '"]').val() + ')';
+					textFeildValue = '!![' + ($('#addTxtForms :input[name="' + title + '"]').val()) + '](' + $('#addTxtForms :input[name="' + url + '"]').val() + ')';
 			break;
 
 			case 'link' :

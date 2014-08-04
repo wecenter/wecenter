@@ -741,6 +741,8 @@ a.aw-load-more-content{display: block;}
 .aw-article-replay-box .mod-head img{width: 32px;height: 32px;}
 .aw-article-replay-box .mod-body{margin-bottom:10px;}
 .aw-article-replay-box .mod-footer input{width: 80px;}
+.advanced_editor{padding: 10px !important;}
+.advanced_editor, #markItUpPreviewFrames{font-family: Menlo,Monaco,Consolas,"Courier New",monospace;line-height: 1.5;}
 .markItUpHeader{overflow: hidden;margin-bottom: 10px;}
 .markItUpHeader ul li {position: relative;float: left;width:17px;margin: 3px 4px;font-size: 16px;text-shadow:0 1px 0 #fff;text-align: center;cursor: pointer;}
 .markItUpHeader ul li:hover{opacity: 0.7;}
@@ -757,7 +759,7 @@ a.aw-load-more-content{display: block;}
 .markItUpHelper .content .tab-pane{display: none;padding:10px;}
 
 /* 编辑器回复样式 */
-.markitup-box{position:relative;z-index:1;line-height: 180%;word-wrap: break-word !important;}
+.markitup-box{position:relative;z-index:1;line-height: 180%;word-wrap: break-word !important;font-family: Menlo,Monaco,Consolas,"Courier New",monospace;}
 .markItUpPreviewFrame {margin-top: 20px;padding: 10px;background: #FAFAFA;border: 1px solid #CCCCCC;font-size: 14px;line-height:20px;font-family:"Helvetica Neue",Helvetica,Arial,'Microsoft YaHei',sans-serif;word-wrap:break-word;}
 .markItUpPreviewFrame .title{padding-bottom:5px;border-bottom: 1px solid #E2E2E2;}
 .markitup-box h2, #markItUpPreviewFrames h2, .markitup-box h3, #markItUpPreviewFrames h3 {font-weight: bold;margin: 10px 0;}
@@ -765,7 +767,7 @@ a.aw-load-more-content{display: block;}
 .markitup-box h3, #markItUpPreviewFrames h3 {font-size: 1.17em;}
 .markitup-box em, #markItUpPreviewFrames em {font-style: italic;}
 .markitup-box ul, #markItUpPreviewFrames ul{margin-left: 35px;list-style: square;}
-.markitup-box ol, #markItUpPreviewFrames ol {margin-left: 15px;padding: 5px 0 5px 23px;list-style: decimal;}
+.markitup-box ol, #markItUpPreviewFrames ol {margin-left: 25px;padding: 5px 0 5px 20px;list-style: decimal;}
 .markitup-box p, #markItUpPreviewFrames p {padding: 5px;}
 .markitup-box ol p, .markitup-box ul p, #markItUpPreviewFrames ol p, #markItUpPreviewFrames ol p {display: inline !important;padding: 0 !important;}
 .markitup-box code, #markItUpPreviewFrames code {background-color: #EDEAD5;display: block;font-family: "Courier New",Courier,monospace;margin: 5px 0;padding: 5px;white-space: normal;text-align: left;}
