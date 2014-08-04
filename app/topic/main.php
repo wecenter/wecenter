@@ -303,17 +303,17 @@ class main extends AWS_CONTROLLER
 					if ($child_topic_ids = $this->model('topic')->get_child_topic_ids($_GET['topic_id']))
 					{
 						$topic_ids = array_merge($child_topic_ids, $topic_ids);
+					}
 						
-						if ($topics_list = $this->model('topic')->get_topic_list('topic_id IN(' . implode(',', $topic_ids) . ') AND merged_id = 0', 'discuss_count DESC', get_setting('contents_per_page'), $_GET['page']))
+					if ($topics_list = $this->model('topic')->get_topic_list('topic_id IN(' . implode(',', $topic_ids) . ') AND merged_id = 0', 'discuss_count DESC', get_setting('contents_per_page'), $_GET['page']))
+					{
+						$topics_list_total_rows = $this->model('topic')->found_rows();
+
+						AWS_APP::cache()->set('square_parent_topics_topic_list_' . intval($_GET['topic_id']) . '_total_rows', $topics_list_total_rows, get_setting('cache_level_low'));
+
+						foreach ($topics_list AS $key => $val)
 						{
-							$topics_list_total_rows = $this->model('topic')->found_rows();
-
-							AWS_APP::cache()->set('square_parent_topics_topic_list_' . intval($_GET['topic_id']) . '_total_rows', $topics_list_total_rows, get_setting('cache_level_low'));
-
-							foreach ($topics_list AS $key => $val)
-							{
-								$topics_list[$key]['action_list'] = $this->model('posts')->get_posts_list('question', 1, 3, 'new', explode(',', $val['topic_id']));
-							}
+							$topics_list[$key]['action_list'] = $this->model('posts')->get_posts_list('question', 1, 3, 'new', explode(',', $val['topic_id']));
 						}
 					}
 
