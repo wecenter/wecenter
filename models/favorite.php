@@ -51,7 +51,14 @@ class favorite_class extends AWS_MODEL
 		
 		foreach ($tags AS $key => $tag)
 		{
-			if (!$this->fetch_one('favorite_tag', 'id', "item_id = " . intval($item_id) . " AND `type` = '" . $this->quote($item_type) . "' AND `title` = '" . trim($this->quote(htmlspecialchars($tag))) . "' AND uid = " . intval($uid)))
+			$tag = trim($this->quote(htmlspecialchars($tag)));
+			
+			if (!$tag)
+			{
+				continue;
+			}
+			
+			if (!$this->fetch_one('favorite_tag', 'id', "item_id = " . intval($item_id) . " AND `type` = '" . $this->quote($item_type) . "' AND `title` = '" . $tag . "' AND uid = " . intval($uid)))
 			{
 				$this->insert('favorite_tag', array(
 					'item_id' => intval($item_id),
@@ -65,7 +72,7 @@ class favorite_class extends AWS_MODEL
 		return true;
 	}
 	
-	public function remove_favorite_tag($item_id, $tag, $uid)
+	public function remove_favorite_tag($item_id, $item_type, $tag, $uid)
 	{
 		if ($tag)
 		{
@@ -77,6 +84,7 @@ class favorite_class extends AWS_MODEL
 			$where[] = "item_id = " . intval($item_id);
 		}
 		
+		$where[] = "`type` = '" . $this->quote($item_type) . "'";
 		$where[] = 'uid = ' . intval($uid);
 		
 		return $this->delete('favorite_tag', implode(' AND ', $where));
