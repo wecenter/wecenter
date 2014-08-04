@@ -298,9 +298,11 @@ class main extends AWS_CONTROLLER
 			case 'topic':
 				if (!$topics_list = AWS_APP::cache()->get('square_parent_topics_topic_list_' . intval($_GET['topic_id']) . '_' . intval($_GET['page'])))
 				{
-					if ($topic_ids = $this->model('topic')->get_child_topic_ids($_GET['topic_id']))
+					$topic_ids[] = intval($_GET['topic_id']);
+					
+					if ($child_topic_ids = $this->model('topic')->get_child_topic_ids($_GET['topic_id']))
 					{
-						$topic_ids[] = intval($_GET['topic_id']);
+						$topic_ids = array_merge($child_topic_ids, $topic_ids);
 						
 						if ($topics_list = $this->model('topic')->get_topic_list('topic_id IN(' . implode(',', $topic_ids) . ') AND merged_id = 0', 'discuss_count DESC', get_setting('contents_per_page'), $_GET['page']))
 						{
