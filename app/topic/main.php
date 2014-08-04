@@ -300,6 +300,8 @@ class main extends AWS_CONTROLLER
 				{
 					if ($topic_ids = $this->model('topic')->get_child_topic_ids($_GET['topic_id']))
 					{
+						$topic_ids[] = intval($_GET['topic_id']);
+						
 						if ($topics_list = $this->model('topic')->get_topic_list('topic_id IN(' . implode(',', $topic_ids) . ') AND merged_id = 0', 'discuss_count DESC', get_setting('contents_per_page'), $_GET['page']))
 						{
 							$topics_list_total_rows = $this->model('topic')->found_rows();
