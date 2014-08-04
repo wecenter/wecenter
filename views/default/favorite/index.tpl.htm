@@ -89,7 +89,7 @@
 						<div class="meta">
 							<a class="pull-right btn btn-mini btn-default" onclick="AWS.ajax_request(G_BASE_URL + '/favorite/ajax/remove_favorite_item/', 'item_type=<?php echo $val['item_type']; ?>&item_id=<?php echo $val['item_id']; ?>');"><?php _e('取消收藏'); ?></a>
 
-							<span class="aw-topic-editor" data-type="favorite" data-item-type="answer" data-id="<?php echo $val['answer_info']['answer_id']; ?>">
+							<span class="aw-topic-editor" data-type="favorite" data-item-type="<?php echo $val['item_type']; ?>" data-id="<?php echo $val['item_id']; ?>">
 							<?php if ($this->favorite_items_tags[$val['item_id']]) { ?>
 							<?php foreach ($this->favorite_items_tags[$val['item_id']] AS $k => $v) { ?>
 							<a class="aw-topic-name"><span><?php echo $v['title']; ?></span></a>
