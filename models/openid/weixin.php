@@ -186,10 +186,8 @@ class openid_weixin_class extends AWS_MODEL
         }
 
         $this->associate_avatar($uid, $access_user['headimgurl']);
-
-        $this->model('account')->associate_remote_avatar($uid, $access_user['headimgurl']);
-
-        return $this->insert('users_weixin', array(
+        
+        $this->insert('users_weixin', array(
             'uid' => intval($uid),
             'openid' => $access_token['openid'],
             'expires_in' => (time() + $access_token['expires_in']),
@@ -204,6 +202,10 @@ class openid_weixin_class extends AWS_MODEL
             'country' => $access_user['country'],
             'add_time' => time()
         ));
+
+        $this->model('account')->associate_remote_avatar($uid, $access_user['headimgurl']);
+
+        return true;
     }
 
     public function weixin_unbind($uid)

@@ -42,6 +42,11 @@ class main extends AWS_CONTROLLER
 		if ($this->user_id)
 		{
 			$this->crumb(AWS_APP::lang()->_t('发现'), '/explore');
+			
+			if (! $this->user_info['email'])
+			{
+				HTTP::redirect('/account/complete_profile/');
+			}
 		}
 
 		if ($_GET['category'])
