@@ -185,6 +185,7 @@ var AWS =
 				case 'default':
 				case 'comments_form':
 					AWS.alert(result.err);
+					$('.aw-comment-box-btn .btn-success').removeClass('disabled');
 				break;
 
 				case 'ajax_post_alert':
@@ -224,7 +225,6 @@ var AWS =
 			if (type == 'comments_form')
 			{
 				AWS.reload_comments_list(result.rsm.item_id, result.rsm.item_id, result.rsm.type_name);
-	        	$('#aw-comment-box-' + result.rsm.type_name + '-' + result.rsm.item_id + ' form input').val('');
 	        	$('#aw-comment-box-' + result.rsm.type_name + '-' + result.rsm.item_id + ' form textarea').val('');
 	        	$('.aw-comment-box-btn .btn-success').removeClass('disabled');
 			}
@@ -1592,7 +1592,7 @@ AWS.User =
 	// 提交评论
 	save_comment: function(selector)
 	{
-	    selector.attr('_onclick', selector.attr('onclick')).addClass('disabled _save_comment').removeAttr('onclick');
+	    selector.addClass('disabled');
 
 	    AWS.ajax_post(selector.parents('form'), AWS.ajax_processer, 'comments_form');
 	},
@@ -2548,7 +2548,8 @@ AWS.Init =
 	            });
 
 	            // 给三角形定位
-	            $(comment_box_id).find('.i-dropdown-triangle').css('left', $(this).position().left + 14);
+	            console.log(parseInt($(this).width())/2);
+	            $(comment_box_id).find('.i-dropdown-triangle').css('left', $(this).position().left);
 	            // textarae自动增高
 	            $(comment_box_id).find('.aw-comment-txt').autosize();
 	        }

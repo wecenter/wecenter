@@ -31,7 +31,7 @@ select{width: auto;}
 /* 公共部分 */
 html{height: 100%;}
 body{margin: 0;height: 100%;font-size:14px; line-height:160%;color: #666;}
-body, input, button, select, textarea, h1, h2, h3, h4, h5, h6{font-family: 'Heiti SC', 'Microsoft YaHei', 'Helvetica Neue',Helvetica,Arial,sans-serif;}
+body, input, button, select, textarea, h1, h2, h3, h4, h5, h6{font-family:'Microsoft YaHei', 'Helvetica Neue',Helvetica,Arial,sans-serif;}
 ul, ol{margin:0;padding:0;list-style:none;}
 h1, h2, h3, h4, h5, h6{margin-top:0;font-size:100%;line-height: 20px;}
 dd{margin-left: 10px;}
@@ -359,6 +359,7 @@ a.aw-load-more-content{display: block;}
 .aw-comment-box-main textarea{height: 32px;margin:0;}
 .aw-comment-box-main .aw-comment-box-btn{display:none;height:auto;overflow:hidden;margin-top:10px;}
 .aw-comment-box-main .aw-comment-box-btn .btn{margin-left:10px;}
+.aw-comment-box-main .aw-comment-box-btn .btn.disbaled{pointer-events:none;}
 .aw-comment-list{padding:0 10px;}
 .aw-comment-list li{position: relative;padding:15px 0 15px 42px;border-top:1px dotted #E2E2E2;}
 .aw-comment-list li > .aw-user-name{position: absolute;left: 0;top: 20px;}
