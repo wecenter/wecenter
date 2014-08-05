@@ -580,7 +580,7 @@ var AWS =
 		        case 'shareIn':
 		        case 'shareOut':
 		        	AWS.Dropdown.bind_dropdown_list($('.aw-share-box #invite-input'), 'inbox');
-
+					
 					switch (data.item_type)
 					{
 						case 'question':
@@ -588,8 +588,9 @@ var AWS =
 						case 'article':
 							var request_uri = G_BASE_URL + '/question/ajax/fetch_share_data/type-' + data.item_type + '__item_id-' + data.item_id;
 						break;
-					}
-
+					};
+					
+		            
 		            $.get(request_uri, function (result)
 		            {
 		            	$('#share_out_content').val(result.rsm.share_txt.message);

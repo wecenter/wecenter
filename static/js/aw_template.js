@@ -280,33 +280,22 @@ var AW_TEMPLATE = {
 							'<h3 class="modal-title" id="myModalLabel">' + _t('分享') + '</h3>'+
 						'</div>'+
 						'<div class="modal-body clearfix">'+
-							'<ul id="bdshare" class="bdshare_t bds_tools get-codes-bdshare">'+
+							'<div class="jiathis_style_24x24">'+
 							'{{#items}}'+
-								'<li><a title="' + _t('分享到') + ' {{title}}" class="{{className}}"><i class="bds"></i>{{name}}</a></li>'+
+								'<a title="' + _t('分享到') + ' {{title}}" class="{{className}}">{{name}}</a>'+
 							'{{/items}}'+
-							'</ul>'+
-							'<script type="text/javascript" src="http://bdimg.share.baidu.com/static/js/bds_s_v2.js?cdnversion=' + new Date().getHours() + '"></script>'+
+							'</div>'+
+							'<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1407152042077789" charset="utf-8"></script>'+
 						'</div>'+
 					'</div>'+
 				'</div>'+
 			'</div>',
 		
 	'shareList' : [ //分享外网icon列表
-		{'className':'bds_qzone','name':'QQ空间','title':'QQ空间'},
-		{'className':'bds_tsina','name':'新浪微博','title':'新浪微博'},
-		{'className':'bds_tqq','name':'腾讯微博','title':'腾讯微博'},
-		{'className':'bds_baidu-zone','name':'百度空间','title':'百度空间'},
-		{'className':'bds_t163','name':'网易微博','title':'网易微博'},
-		{'className':'bds_tqf','name':'朋友网','title':'朋友网'},
-		{'className':'bds_kaixin','name':'开心网','title':'开心网'},
-		{'className':'bds_renren','name':'人人网','title':'人人网'},
-		{'className':'bds_douban','name':'豆瓣网','title':'人人网'},
-		{'className':'bds_taobao','name':'淘宝网','title':'淘宝网'},
-		{'className':'bds_fbook','name':'Facebook','title':'Facebook'},
-		{'className':'bds_twi','name':'Twitter','title':'Twitter'},
-		{'className':'bds_ms','name':'Myspace','title':'Myspace'},
-		{'className':'bds_deli','name':'Delicious','title':'Delicious'},
-		{'className':'bds_linkedin','name':'linkedin','title':'linkedin'}
+		{'className':'jiathis_button_qzone','name':'QQ空间','title':'QQ空间'},
+		{'className':'jiathis_button_tsina','name':'新浪微博','title':'新浪微博'},
+		{'className':'jiathis_button_weixin','name':'微信','title':'微信'}
+
 	],
 	
 	'editTopicBox' : 

@@ -683,9 +683,7 @@ a.aw-load-more-content{display: block;}
 /* 微信绑定弹窗box */
 .aw-alert-img-box .modal-body{background:none;}
 .aw-alert-img-box .modal-body img{max-width: 328px;}
-/* 分享box */
-.aw-share-box #bdshare li{float: left;min-width: 70px;margin:0 36px 20px 0;}
-.aw-share-box #bdshare li a{padding:0px !important;background: none !important;}
+
 /* 发起box */
 .aw-publish-box .modal-content{width: 470px;}
 .aw-publish-box input{width:170px !important;}
@@ -844,22 +842,8 @@ a.aw-load-more-content{display: block;}
 .fa-retweet{font-size: 14px;}
 
 /*分享icon*/
-.bds{position:relative;top:3px;display:inline-block;width:16px;height:16px;margin-right:5px;background-image: url(img/bds-icon-sprite.png);background-repeat: no-repeat;}
-.bds_qzone i{background-position: -4px -80px;}
-.bds_tsina i{background-position: -4px -120px;}
-.bds_tqq i{background-position: -4px -240px;}
-.bds_baidu-zone i{background-position: -4px -360px;}
-.bds_t163 i{background-position: -4px -720px;}
-.bds_tqf i{background-position: -4px -320px;}
-.bds_kaixin i{background-position: -4px -280px;}
-.bds_renren i{background-position: -4px -200px;}
-.bds_douban i{background-position: -4px -400px;}
-.bds_taobao i{background-position: -4px -560px;}
-.bds_fbook i{background-position: -4px -1120px;}
-.bds_twi i{background-position: -4px -1160px;}
-.bds_ms i{background-position: -4px -1200px;}
-.bds_deli i{background-position: -4px -1240px;}
-.bds_linkedin i{background-position: -4px -1359px;}
+.jiathis_style_24x24 a span{font-size: 14px !important;padding: 0 20px;line-height: 26px !important;}
+.jiathis_style_24x24 a i{margin-left: 5px;}
 
 /* 不兼容页面提示 */
 #browser-not-support{position: fixed;bottom: 0;left:0;z-index:9999;width:100%;margin:0;padding:20px 0 10px;background: #F2DEDE;border:1px solid #EED3D7;color: #B94A48;}
