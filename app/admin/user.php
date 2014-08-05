@@ -201,6 +201,8 @@ class user extends AWS_ADMIN_CONTROLLER
     {
         $this->crumb(AWS_APP::lang()->_t('添加用户'), "admin/user/list/user_add/");
 
+        TPL::assign('job_list', $this->model('work')->get_jobs_list());
+
         TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(402));
 
         TPL::assign('system_group', $this->model('account')->get_user_group_list(0));
