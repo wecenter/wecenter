@@ -40,6 +40,8 @@ class AWS_CONTROLLER
 			{
 				date_default_timezone_set($this->user_info['default_timezone']);
 			}
+			
+			$this->model('online')->online_active($this->user_id, $this->user_info['last_active']);
 		}
 		else if ($this->user_id)
 		{

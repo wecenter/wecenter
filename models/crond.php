@@ -109,13 +109,14 @@ class crond_class extends AWS_MODEL
         {
             $this->model('weixin')->get_weixin_app_id_setting_var();
         }
-
-        $this->model('online')->online_active($uid);
+		
         $this->model('email')->send_mail_queue(120);
 
         $this->model('search_fulltext')->clean_cache();
 
         $this->model('admin')->notifications_crond();
+        
+        $this->model('online')->delete_expire_users();
     }
 
     // 每五分钟执行

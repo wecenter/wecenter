@@ -20,17 +20,15 @@ if (!defined('IN_ANWSION'))
 
 class online_class extends AWS_MODEL
 {
-	var $db_update_intval = 60;	// 计划任务执行间隔
-	
-	public function online_active($uid)
-	{
-		if (!$uid)
+	public function online_active($uid, $last_active)
+	{		
+		if (!$uid OR $last_active + 60 > time())
 		{
 			return false;
 		}
 		
 		$data = array(
-			'uid' => $uid,
+			'uid' => intval($uid),
 			'last_active' => time(),
 			'ip' => ip2long(fetch_ip()),
 			'user_agent' => $_SERVER['HTTP_USER_AGENT'],
@@ -46,9 +44,14 @@ class online_class extends AWS_MODEL
 			$this->insert('users_online', $data);
 		}
 		
-		$this->delete_expire_users();
+		$online_time = time() - $last_active;
 		
-		$this->shutdown_query("UPDATE " . get_table('users') . ' SET online_time = online_time + ' . intval($this->db_update_intval) . ', last_active = ' . time() . ' WHERE uid = ' . intval($uid));
+		if ($online_time > 300)
+		{
+			$online_time = 1;
+		}
+		
+		$this->shutdown_query("UPDATE " . get_table('users') . ' SET online_time = online_time + ' . intval($online_time) . ', last_active = ' . time() . ' WHERE uid = ' . intval($uid));
 		
 		return true;
 	}
