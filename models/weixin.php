@@ -1314,17 +1314,10 @@ class weixin_class extends AWS_MODEL
 
     public function send_text_message($openid, $message, $url = null)
     {
-        if (get_setting('weixin_account_rule') != 'service')
+        if (get_setting('weixin_account_role') != 'service')
         {
             return false;
         }
-		
-		AWS_APP::mail()->send('jack_ch@icloud.com', 'DEBUG', json_encode(array(
-            'openid' => $openid,
-            'message' => $message,
-            'url' => $url,
-            'notification_once' => get_setting('wecenter_mp_notification_once')
-        )), get_setting('site_name'), 'WeCenter');
 		
         return $this->model('wecenter')->mp_server_query('send_text_message', array(
             'openid' => $openid,
