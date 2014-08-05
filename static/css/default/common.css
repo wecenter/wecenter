@@ -106,6 +106,7 @@ a.aw-load-more-content{display: block;}
 #aw-loading{position:fixed;top:50%;left:50%;background:#000;width: 40px;height: 40px;margin: 0 0 0 -20px;z-index: 10001;opacity: 0.75;filter: alpha(opacity=75);}
 #aw-loading-box{width:40px;height:40px;background-image: url('../../common/loading.png');}
 .aw-loading{display:inline-block;height:16px;width:16px;background:url("img/ajax-loader.gif") no-repeat;}
+#aw-loading-mini-box{width: 16px;height: 16px;margin:0 auto;background-image: url('../../common/loading-mini.png');}
 /* 全局通用下拉列表 */
 .aw-dropdown, .aw-category-dropdown{display:none;position:absolute;left:0;z-index:9999;width:100%;background: #fff;border:1px solid #ccc;box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);}
 .aw-dropdown .i-dropdown-triangle, .aw-category-dropdown .i-dropdown-triangle{position: absolute;top:-6px;left: 15px;}
@@ -224,7 +225,7 @@ a.aw-load-more-content{display: block;}
 .aw-feed-list .more-operate > a{height:20px;line-height:20px;margin-right:15px;font-size:12px;}
 .aw-feed-list .aw-vote-count{position:relative;display:block;min-width:25px;height:25px;line-height:25px;padding:0 3px;padding:0\0;background:#E9F5FF;font-size:14px;text-align:center;cursor: pointer;}
 .aw-feed-list .aw-vote-count.disabled{background: #F2F2F2;color: #999;}
-.aw-feed-list .aw-comment-upload-img-list{height: auto;overflow: hidden;margin:0 0 10px;}
+.aw-feed-list .aw-comment-upload-img-list{height: auto;overflow: hidden;margin:10px 0 0;}
 .aw-feed-list .aw-comment-upload-img-list img{display:block;max-width:570px;margin:0 0 10px 0;}
 .aw-feed-list .aw-comment-upload-img-list.active img{width: auto;height: auto;display:block;}
 .aw-feed-list .aw-feed-list-content{width:90%;max-width:90%;margin-left:10px;word-break:break-all;}
@@ -739,6 +740,8 @@ a.aw-load-more-content{display: block;}
 .aw-article-replay-box .mod-head img{width: 32px;height: 32px;}
 .aw-article-replay-box .mod-body{margin-bottom:10px;}
 .aw-article-replay-box .mod-footer input{width: 80px;}
+.advanced_editor{padding: 10px !important;}
+.advanced_editor, #markItUpPreviewFrames{font-family: Menlo,Monaco,Consolas,"Courier New",monospace;line-height: 1.5;}
 .markItUpHeader{overflow: hidden;margin-bottom: 10px;}
 .markItUpHeader ul li {position: relative;float: left;width:17px;margin: 3px 4px;font-size: 16px;text-shadow:0 1px 0 #fff;text-align: center;cursor: pointer;}
 .markItUpHeader ul li:hover{opacity: 0.7;}
@@ -755,7 +758,7 @@ a.aw-load-more-content{display: block;}
 .markItUpHelper .content .tab-pane{display: none;padding:10px;}
 
 /* 编辑器回复样式 */
-.markitup-box{position:relative;z-index:1;line-height: 180%;word-wrap: break-word !important;}
+.markitup-box{position:relative;z-index:1;line-height: 180%;word-wrap: break-word !important;font-family: Menlo,Monaco,Consolas,"Courier New",monospace;}
 .markItUpPreviewFrame {margin-top: 20px;padding: 10px;background: #FAFAFA;border: 1px solid #CCCCCC;font-size: 14px;line-height:20px;font-family:"Helvetica Neue",Helvetica,Arial,'Microsoft YaHei',sans-serif;word-wrap:break-word;}
 .markItUpPreviewFrame .title{padding-bottom:5px;border-bottom: 1px solid #E2E2E2;}
 .markitup-box h2, #markItUpPreviewFrames h2, .markitup-box h3, #markItUpPreviewFrames h3 {font-weight: bold;margin: 10px 0;}
@@ -763,7 +766,7 @@ a.aw-load-more-content{display: block;}
 .markitup-box h3, #markItUpPreviewFrames h3 {font-size: 1.17em;}
 .markitup-box em, #markItUpPreviewFrames em {font-style: italic;}
 .markitup-box ul, #markItUpPreviewFrames ul{margin-left: 35px;list-style: square;}
-.markitup-box ol, #markItUpPreviewFrames ol {margin-left: 15px;padding: 5px 0 5px 23px;list-style: decimal;}
+.markitup-box ol, #markItUpPreviewFrames ol {margin-left: 25px;padding: 5px 0 5px 20px;list-style: decimal;}
 .markitup-box p, #markItUpPreviewFrames p {padding: 5px;}
 .markitup-box ol p, .markitup-box ul p, #markItUpPreviewFrames ol p, #markItUpPreviewFrames ol p {display: inline !important;padding: 0 !important;}
 .markitup-box code, #markItUpPreviewFrames code {background-color: #EDEAD5;display: block;font-family: "Courier New",Courier,monospace;margin: 5px 0;padding: 5px;white-space: normal;text-align: left;}
@@ -817,6 +820,9 @@ a.aw-load-more-content{display: block;}
 .aw-404-wrap .aw-search-box .input-group {margin: 0 auto;}
 .aw-404-wrap .aw-search-box .input-group input {width: 460px;}
 .aw-404-wrap .aw-search-box .input-group-addon {border-radius: 0;border-color: #54BEFF; color: #fff;background-color: #54BEFF;}
+
+/* noscript 提示 */
+.aw-noscript{position: absolute;z-index: 100;width: 100%;height: 100%;background-color: #f5f5f5;overflow: hidden;}
 
 /* 字体icon & icon */
 .fa-comment, .fa-share, .fa-edit, .fa-map-marker, .fa-flag, .fa-heart, .fa-user, .fa-home, .fa-thumbs-up, .fa-reply, .fa-signal, .fa-tag, .fa-wrench, .icon-cog, .icon-off, .fa-bookmark, .fa-chevron-down, .icon-mobile-phone, .fa-external-link, .icon-envelope, .icon-check, .fa-thumbs-down, .fa-trash-o, .fa-paperclip, .fa-retweet, .fa-star{margin-right: 3px;color: #B7B7B7;cursor: pointer;}
