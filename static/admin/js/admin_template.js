@@ -93,26 +93,6 @@ var AW_TEMPLATE = {
 					'</div>'+
 				'</div>'+
 			'</div>',
-
-	'shareBox' : 
-			'<div class="modal fade alert-box aw-share-box">'+
-				'<div class="modal-dialog">'+
-					'<div class="modal-content">'+
-						'<div class="modal-header">'+
-							'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
-							'<h3 class="modal-title" id="myModalLabel">' + _t('分享') + '</h3>'+
-						'</div>'+
-						'<div class="modal-body clearfix">'+
-							'<ul id="bdshare" class="bdshare_t bds_tools get-codes-bdshare">'+
-							'{{#items}}'+
-								'<li><a title="' + _t('分享到') + ' {{title}}" class="{{className}}"><i class="bds"></i>{{name}}</a></li>'+
-							'{{/items}}'+
-							'</ul>'+
-							'<script type="text/javascript" src="http://bdimg.share.baidu.com/static/js/bds_s_v2.js?cdnversion=' + new Date().getHours() + '"></script>'+
-						'</div>'+
-					'</div>'+
-				'</div>'+
-			'</div>',
 	
 	'editTopicBox' : 
 		'<div class="aw-edit-topic-box form-inline">'+

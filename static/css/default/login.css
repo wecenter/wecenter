@@ -14,7 +14,7 @@ body{background:url('img/login_bg.jpg') no-repeat #E9F0F4;}
 .btn-blue:active{background-color: #339DFF;}
 .aw-login-box{width: 714px;margin:0 auto;background-color: #ffffff;border:1px solid #b3b3b3;border-radius: 3px;}
 .aw-login-box .logo{width:151px;height:94px;background:url('img/login_logo.png') no-repeat;}
-.aw-login-box .mod-body{height:437px;padding:50px 60px;}
+.aw-login-box .mod-body{height:auto;min-height:427px;overflow:visible;padding:50px 60px;}
 .aw-login-box .mod-body .content{width: 300px;margin-right: 60px;}
 .aw-login-box .mod-body .content h2{margin:13px 0 40px;color: #666666;}
 .aw-login-box .mod-body .content ul li{margin-top: 20px;line-height: 30px;}
@@ -28,8 +28,9 @@ body{background:url('img/login_bg.jpg') no-repeat #E9F0F4;}
 .aw-login-box .mod-body .side-bar .btn i{position:absolute;left:15px;top:10px;font-size: 18px;}
 .aw-login-box .mod-body .side-bar .btn-wechat .img{display: none;}
 .aw-login-box .mod-body .side-bar .btn-wechat.active{position: relative;height:200px;background-color: #4d4d4d;}
-.aw-login-box .mod-body .side-bar .btn-wechat.active .img{display:block;position: absolute;left: 10px;top: 40px;width:148px;height: 148px;background:url('img/ajax-loader.gif') no-repeat center center;}
+.aw-login-box .mod-body .side-bar .btn-wechat.active .img{display:block;position: absolute;left: 10px;top: 40px;width:148px;height: 148px;}
 .aw-login-box .mod-body .side-bar .btn-wechat.active img{max-width: 148px;}
+.aw-login-box .mod-body .side-bar .btn-wechat.active #aw-loading-mini-box{margin-top: 55px;}
 .aw-login-box .mod-body .form-control{height: 40px;line-height: 28px\0;padding-left:15px !important;box-shadow: none;border-color: #e6e6e6;}
 .aw-login-box .mod-footer{height: 70px;line-height:70px;background-color: #f5f5f5;padding:0 60px;color: #66b7ff;}
 .aw-login-box .mod-footer span{color: #666666;}

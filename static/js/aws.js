@@ -37,6 +37,37 @@ var AWS =
 		}
 	},
 
+	loading_mini: function (selector, type)
+	{
+		if (!selector.find('#aw-loading-mini-box').length)
+		{
+			selector.append(AW_TEMPLATE.loadingMiniBox);
+		}
+
+		if (type == 'show')
+		{
+			selector.find('#aw-loading-mini-box').fadeIn();
+
+			AWS.G.loading_timer = setInterval(function ()
+			{
+				AWS.G.loading_mini_bg_count -= 1;
+
+				$('#aw-loading-mini-box').css('background-position', '0px ' + AWS.G.loading_mini_bg_count * 16 + 'px');
+
+				if (AWS.G.loading_mini_bg_count == 1)
+				{
+					AWS.G.loading_mini_bg_count = 9;
+				}
+			}, 100);
+		}
+		else
+		{
+			selector.find('#aw-loading-mini-box').fadeOut();
+
+			clearInterval(AWS.G.loading_timer);
+		}
+	},
+
 	ajax_request: function(url, params)
 	{
 		AWS.loading('show');
@@ -154,6 +185,7 @@ var AWS =
 				case 'default':
 				case 'comments_form':
 					AWS.alert(result.err);
+					$('.aw-comment-box-btn .btn-success').removeClass('disabled');
 				break;
 
 				case 'ajax_post_alert':
@@ -193,7 +225,6 @@ var AWS =
 			if (type == 'comments_form')
 			{
 				AWS.reload_comments_list(result.rsm.item_id, result.rsm.item_id, result.rsm.type_name);
-	        	$('#aw-comment-box-' + result.rsm.type_name + '-' + result.rsm.item_id + ' form input').val('');
 	        	$('#aw-comment-box-' + result.rsm.type_name + '-' + result.rsm.item_id + ' form textarea').val('');
 	        	$('.aw-comment-box-btn .btn-success').removeClass('disabled');
 			}
@@ -549,7 +580,7 @@ var AWS =
 		        case 'shareIn':
 		        case 'shareOut':
 		        	AWS.Dropdown.bind_dropdown_list($('.aw-share-box #invite-input'), 'inbox');
-
+					
 					switch (data.item_type)
 					{
 						case 'question':
@@ -557,8 +588,9 @@ var AWS =
 						case 'article':
 							var request_uri = G_BASE_URL + '/question/ajax/fetch_share_data/type-' + data.item_type + '__item_id-' + data.item_id;
 						break;
-					}
-
+					};
+					
+		            
 		            $.get(request_uri, function (result)
 		            {
 		            	$('#share_out_content').val(result.rsm.share_txt.message);
@@ -599,7 +631,7 @@ var AWS =
 		                $('#editor_reply').html(result.answer_content.replace('&amp;', '&'));
 		            }, 'json');
 
-					var fileupload = new FileUpload('.aw-edit-comment-box .aw-upload-box .btn', '.aw-edit-comment-box .aw-upload-box .upload-container', G_BASE_URL + '/publish/ajax/attach_upload/id-answer__attach_access_key-' + ATTACH_ACCESS_KEY, {'insertTextarea': '.aw-edit-comment-box #editor_reply'});
+					var fileupload = new FileUpload('file', '.aw-edit-comment-box .aw-upload-box .btn', '.aw-edit-comment-box .aw-upload-box .upload-container', G_BASE_URL + '/publish/ajax/attach_upload/id-answer__attach_access_key-' + ATTACH_ACCESS_KEY, {'insertTextarea': '.aw-edit-comment-box #editor_reply'});
 
 		            if ($(".aw-edit-comment-box .upload-list").length) {
 			            $.post(G_BASE_URL + '/publish/ajax/answer_attach_edit_list/', 'answer_id=' + data.answer_id, function (data) {
@@ -1196,6 +1228,7 @@ AWS.G =
 	dropdown_list_xhr: '',
 	loading_timer: '',
 	loading_bg_count: 12,
+	loading_mini_bg_count: 9,
 	notification_timer: ''
 }
 
@@ -1559,7 +1592,7 @@ AWS.User =
 	// 提交评论
 	save_comment: function(selector)
 	{
-	    selector.attr('_onclick', selector.attr('onclick')).addClass('disabled _save_comment').removeAttr('onclick');
+	    selector.addClass('disabled');
 
 	    AWS.ajax_post(selector.parents('form'), AWS.ajax_processer, 'comments_form');
 	},
@@ -2153,13 +2186,13 @@ AWS.Editor =
 			case 'img' :
 				var title = 'imgsAlt',
 					url = 'imgsUrl',
-					textFeildValue = '\n![' + ($('#addTxtForms :input[name="' + title + '"]').val()) + '](' + $('#addTxtForms :input[name="' + url + '"]').val() + ')';
+					textFeildValue = '![' + ($('#addTxtForms :input[name="' + title + '"]').val()) + '](' + $('#addTxtForms :input[name="' + url + '"]').val() + ')';
 			break;
 
 			case 'video' :
 				var title = 'videoTitle',
 					url = 'videoUrl',
-					textFeildValue = '\n!![' + ($('#addTxtForms :input[name="' + title + '"]').val()) + '](' + $('#addTxtForms :input[name="' + url + '"]').val() + ')';
+					textFeildValue = '!![' + ($('#addTxtForms :input[name="' + title + '"]').val()) + '](' + $('#addTxtForms :input[name="' + url + '"]').val() + ')';
 			break;
 
 			case 'link' :
@@ -2515,7 +2548,8 @@ AWS.Init =
 	            });
 
 	            // 给三角形定位
-	            $(comment_box_id).find('.i-dropdown-triangle').css('left', $(this).position().left + 14);
+	            console.log(parseInt($(this).width())/2);
+	            $(comment_box_id).find('.i-dropdown-triangle').css('left', $(this).position().left);
 	            // textarae自动增高
 	            $(comment_box_id).find('.aw-comment-txt').autosize();
 	        }
