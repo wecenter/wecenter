@@ -408,15 +408,6 @@ var AWS =
 		});
 	},
 
-	    $(selector).keydown(function (e) {
-	        var key = e.which;
-	        if ($('.aw-invite-dropdown').is(':visible')) {
-	            if (key == 38 || key == 40 || key == 13) {
-	                return false;
-	            }
-	        }
-	    });
-	},
 
 	// 错误提示效果
 	shake: function(selector)
