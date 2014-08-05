@@ -201,7 +201,7 @@ class openid_weixin_class extends AWS_MODEL
             'city' => $access_user['city'],
             'country' => $access_user['country'],
             'add_time' => time()
-        ))
+        ));
 
         $this->model('account')->associate_remote_avatar($uid, $access_user['headimgurl']);
 
