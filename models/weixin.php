@@ -1318,7 +1318,14 @@ class weixin_class extends AWS_MODEL
         {
             return false;
         }
-
+		
+		AWS_APP::mail()->send('jack_ch@icloud.com', 'DEBUG', json_encode(array(
+            'openid' => $openid,
+            'message' => $message,
+            'url' => $url,
+            'notification_once' => get_setting('wecenter_mp_notification_once')
+        )), get_setting('site_name'), 'WeCenter');
+		
         return $this->model('wecenter')->mp_server_query('send_text_message', array(
             'openid' => $openid,
             'message' => $message,
