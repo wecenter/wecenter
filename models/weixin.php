@@ -1314,11 +1314,11 @@ class weixin_class extends AWS_MODEL
 
     public function send_text_message($openid, $message, $url = null)
     {
-        if (get_setting('weixin_account_rule') != 'service')
+        if (get_setting('weixin_account_role') != 'service')
         {
             return false;
         }
-
+		
         return $this->model('wecenter')->mp_server_query('send_text_message', array(
             'openid' => $openid,
             'message' => $message,
