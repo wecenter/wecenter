@@ -349,8 +349,8 @@ class AWS_ADMIN_CONTROLLER extends AWS_CONTROLLER
 		}
 
 		TPL::import_js(array(
-			'admin/js/admin_aws.js',
-			'admin/js/admin_template.js',
+			'admin/js/aws_admin.js',
+			'admin/js/aws_admin_template.js',
 			'js/jquery.form.js',
 			'admin/js/framework.js',
 			'admin/js/global.js',
