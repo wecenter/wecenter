@@ -485,24 +485,6 @@ var AWS =
 				});
 			break;
 
-			// 后台分类移动设置
-			case 'adminCategoryMove':
-				var template = Hogan.compile(AW_TEMPLATE.adminCategoryMove).render(
-		        {	
-		        	'items' : data.option,
-		        	'name':data.name,
-		        	'from_id':data.from_id
-		        });
-		    break;
-
-		    // 后台微信群发消息
-		    case 'adminWechatSendMsg':
-		    	var template = Hogan.compile(AW_TEMPLATE.adminWechatSendMsg).render(
-		        {
-		        	items : data
-		        });
-		    break;
-
 	    }
 
 	    if (template)
@@ -654,25 +636,6 @@ var AWS =
 		    	break;
 
 		    	case 'confirm':
-		    	//后台根话题
-		    	case 'adminCategoryMove':
-		    		$('.aw-confirm-box .yes, .aw-category-move-box .yes').click(function()
-		    		{
-		    			if (callback)
-		    			{
-		    				callback();
-		    			}
-
-		    			$(".alert-box").modal('hide');
-
-		    			return false;
-		    		});
-		    	break;
-
-		    	// 后台微信群发消息
-		    	case 'adminWechatSendMsg':
-		    		AWS.Dropdown.bind_dropdown_list($('.aw-wechat-send-message .search-input'), data.type);
-		    	break;
 	        }
 
 	        $(".alert-box").modal('show');
@@ -1849,9 +1812,6 @@ AWS.Dropdown =
 
 	        case 'invite' :
 	        case 'inbox' :
-	        case 'adminPublishUser' :
-	        case 'adminAnswerUser' :
-	        case 'adminEmailUser':
 	            url = G_BASE_URL + '/search/ajax/search/?type=users&q=' + encodeURIComponent(data) + '&limit=10';
 	        break;
 
@@ -1864,12 +1824,10 @@ AWS.Dropdown =
 	        break;
 
 	        case 'questions' :
-	        case 'adminQuestions' :
 	        	url = G_BASE_URL + '/search/ajax/search/?type=questions&q=' + encodeURIComponent(data) + '&limit=10';
 	        break;
 
 	        case 'articles' :
-	        case 'adminArticles' :
 	        	url = G_BASE_URL + '/search/ajax/search/?type=articles&q=' + encodeURIComponent(data) + '&limit=10';
 	        break;
 
@@ -1992,17 +1950,6 @@ AWS.Dropdown =
 	                    });
 	                	break;
 
-	                case 'adminQuestions' :
-	                	$.each(result, function (i, a)
-	                    {
-	                        $(selector).parent().find('.aw-dropdown-list').append(Hogan.compile(AW_TEMPLATE.questionDropdownList).render(
-	                        {
-	                        	'id': a['search_id'],
-	                            'url': a['url'],
-	                            'name': a['name']
-	                        }));
-	                    });
-
 	                    $(selector).parent().find('.aw-dropdown-list li').click(function()
 	                    {
 	                    	$('.aw-question-list').append('<li data-id="'+$(this).attr('data-id')+'"><div class="col-sm-9">' + $(this).html() + '</div> <div class="col-sm-3"><a class="btn btn-danger btn-xs">删除</a></div></li>');
@@ -2037,102 +1984,6 @@ AWS.Dropdown =
 	                        }));
 	                    });
 	                	break;
-
-	                // 后台微信群发文章
-	                case 'adminArticles' :
-	                    $.each(result, function (i, a)
-	                    {
-	                        $(selector).parent().find('.aw-dropdown-list').append(Hogan.compile(AW_TEMPLATE.questionDropdownList).render(
-	                        {
-	                        	'id': a['search_id'],
-	                            'url': a['url'],
-	                            'name': a['name']
-	                        }));
-	                    });
-	                    $(selector).parent().find('.aw-dropdown-list li').click(function()
-	                    {
-	                    	$('.aw-article-list').append('<li data-id="'+$(this).attr('data-id')+'"><div class="col-sm-9">' + $(this).text() + '</div> <div class="col-sm-3"><a class="btn btn-danger btn-xs">' + _t('删除') + '</a></div></li>');
-
-	                    	if ($('.article_ids').val() == '')
-	                    	{
-	                    		$('.article_ids').val($(this).attr('data-id') + ',');
-	                    	}
-	                    	else
-	                    	{
-	                    		$('.article_ids').val($('.article_ids').val() + $(this).attr('data-id') + ',');
-	                    	}
-
-	                    	$(".alert-box").modal('hide');
-	                    });
-	                	break;
-
-	                // 后台微博提问用户
-	                case 'adminPublishUser' :
-	                	$.each(result, function (i, a)
-	                    {
-	                        $(selector).parent().find('.aw-dropdown-list').append(Hogan.compile(AW_TEMPLATE.inviteDropdownList).render(
-	                        {
-	                            'uid': a.uid,
-	                            'name': a.name,
-	                            'img': a.detail.avatar_file,
-	                            'url': a.url,
-	                            'action':'add_published_user'
-	                        }));
-	                    });
-
-	                    $(selector).parent().find('.aw-dropdown-list li a').click(function()
-	                    {	
-	                    	$(".alert-box").modal('hide');
-	                    	
-	                    	$('.aw-admin-weibo-publish ul').append('<li><a class="push-name" href="' + $(this).attr('data-url') +'">' + $(this).html() + '</a> <a class="delete btn btn-danger btn-sm">删除用户</a></li>');	                   
-
-	                    	$('.aw-admin-weibo-publish').find('.search-input').hide();
-
-	                    	weiboPost($(this));
-                    	});
-
-	                	break;
-
-	                // 后台微博回答用户
-	                case 'adminAnswerUser' :
-	                	
-	                	$.each(result, function (i, a)
-	                    {
-	                        $(selector).parent().find('.aw-dropdown-list').append(Hogan.compile(AW_TEMPLATE.inviteDropdownList).render(
-	                        {
-	                            'uid': a.uid,
-	                            'name': a.name,
-	                            'img': a.detail.avatar_file,
-	                            'url': a.url,
-	                            'action':'add_service_user'
-	                        }));
-	                    });
-	                    $(selector).parent().find('.aw-dropdown-list li a').click(function()
-	                    {
-	                    	$('.alert-box').modal('hide');
-
-	                    	$('.mod-weibo-reply').append('<li> <a class="reply-name" href="'+ $(this).attr('data-url') +'">' + $(this).html() + '</a> <a href="' + G_BASE_URL + '/account/sina/binding/uid-' + $(this).attr('data-id') + ' "class="btn btn-primary btn-sm" target="_blank">绑定新浪微博</a> <a data-id="' + $(this).attr('data-id') + '" data-actions="del_service_user" data-id="' + $(this).attr('data-id') + '" class="delete btn btn-danger btn-sm">删除用户</a> </li>');	                    
-
-	                    	$('.aw-admin-weibo-answer').find('.search-input').val('');
-
-	                    	weiboPost($(this));
-	                    });
-	                	break;
-
-	                //后台置邮件内容对应提问用户
-		                case 'adminEmailUser' :
-		                	$.each(result, function (i, a)
-		                    {
-		                        $(selector).parent().find('.aw-dropdown-list').append(Hogan.compile(AW_TEMPLATE.inviteDropdownList).render(
-		                        {
-		                            'uid': a.uid,
-		                            'name': a.name,
-		                            'img': a.detail.avatar_file,
-		                            'url': a.url,
-		                        }));
-		                    });
-
-		                	break;
 
 	            }
 	            if (type == 'publish')
