@@ -44,12 +44,19 @@ class weixin_class extends AWS_MODEL
             return false;
         }
 
-        return preg_replace_callback('#\\\u([0-9a-f]+)#i', array($this, 'transcoding'), json_encode($subject));
+        return urldecode(json_encode($this->array_urlencode($subject)));
     }
 
-    public function transcoding($r)
+    public function array_urlencode($array)
     {
-        return convert_encoding(pack('H4', $r[1]), 'UCS-2', 'UTF-8');
+        $new_array = array();
+
+        foreach ($array as $key => $value)
+        {
+            $new_array[urlencode($key)] = is_array($value) ? $this->array_urlencode($value) : urlencode($value);
+        }
+
+        return $new_array;
     }
 
     public function get_account_info_by_id($account_id, $column = null)
@@ -1318,7 +1325,7 @@ class weixin_class extends AWS_MODEL
         {
             return false;
         }
-		
+
         return $this->model('wecenter')->mp_server_query('send_text_message', array(
             'openid' => $openid,
             'message' => $message,
