@@ -636,6 +636,18 @@ var AWS =
 		    	break;
 
 		    	case 'confirm':
+		    		$('.aw-confirm-box .yes').click(function()
+		    		{
+		    			if (callback)
+		    			{
+		    				callback();
+		    			}
+
+		    			$(".alert-box").modal('hide');
+
+		    			return false;
+		    		});
+		    	break;
 	        }
 
 	        $(".alert-box").modal('show');
