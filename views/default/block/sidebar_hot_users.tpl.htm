@@ -1,8 +1,8 @@
-<div class="aw-side-bar-mod aw-text-align-justify aw-no-border-bottom">
-	<div class="aw-mod-head">
+<div class="aw-mod aw-text-align-justify">
+	<div class="mod-head">
 		<h3><?php _e('热门用户'); ?></h3>
 	</div>
-	<div class="aw-mod-body">
+	<div class="mod-body">
 		<?php if (is_array($this->sidebar_hot_users)) { ?>
 		<?php foreach($this->sidebar_hot_users AS $key => $val) {?>		
 		<dl>
@@ -22,7 +22,7 @@
 				
 			</dt>
 			<dd class="pull-left">
-				<a href="people/list/" class="btn btn-small btn-success"><?php _e('更多用户'); ?></a>
+				<a href="people/" class="btn btn-small btn-success"><?php _e('更多用户'); ?></a>
 			</dd>
 		</dl>
 	</div>

@@ -1,73 +1,149 @@
 <?php TPL::output('admin/global/header.tpl.htm'); ?>
 <?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
 
-<div class="pull-left right-side">
-	<div class="aw-mod-head">
-		<h2>
-			<span class="pull-left"><?php _e('内容审核'); ?></span>
-			
-			<ul class="nav nav-tabs pull-left">
-			    <li class="<?php if ($_GET['type'] == 'question') { ?> active<?php } ?>"><a href="admin/approval/list/"><?php _e('问题'); ?> (<?php echo $this->question_count; ?>)</a></li>
-			    <li class="<?php if ($_GET['type'] == 'answer') { ?> active<?php } ?>"><a href="admin/approval/list/type-answer"><?php _e('回答'); ?> (<?php echo $this->answer_count; ?>)</a></li>
-			    <li class="<?php if ($_GET['type'] == 'article') { ?> active<?php } ?>"><a href="admin/approval/list/type-article"><?php _e('文章'); ?> (<?php echo $this->article_count; ?>)</a></li>
-			    <li class="<?php if ($_GET['type'] == 'article_comment') { ?> active<?php } ?>"><a href="admin/approval/list/type-article_comment"><?php _e('文章评论'); ?> (<?php echo $this->article_comment_count; ?>)</a></li>
-			</ul>
-		</h2>
-	</div>
-	<div class="aw-mod-body">				
-		<form id="batchs_form" action="admin/approval/batch/" method="post">
-		<input type="hidden" id="batch_type" name="batch_type" value="approval" />
-		<input type="hidden" id="approval_id" name="approval_ids[]" value="" />
-			
-			<table class="aw-table">
-				<?php if ($_GET['type'] == 'answer' OR $_GET['type'] == 'article_comment') { ?>
-				<thead>
-					<tr>
-						<th style="width:20px;"><input type="checkbox" class="check-all"></th>
-						<th style="width:100px;"><?php _e('用户'); ?></th>
-						<th><?php _e('内容'); ?></th>
-					</tr>
-				</thead>
-				<?php } else { ?>
-				<thead>
-					<tr>
-						<th style="width:20px;"><input type="checkbox" class="check-all"></th>
-						<th><?php _e('用户'); ?></th>
-						<th style="width:280px;"><?php _e('标题'); ?></th>
-						<th><?php _e('内容'); ?></th>
-					</tr>
-				</thead>
-				<?php } ?>
-				<?php if ($this->approval_list) { ?>
-				<tbody>
-					<?php foreach ($this->approval_list AS $key => $val) { ?>
-					<tr>
-						<td><input type="checkbox" name="approval_ids[]" value="<?php echo $val['id']; ?>"></td>
-						<td><a href="people/<?php echo $this->users_info[$val['uid']]['url_token']; ?>" target="_blank"><?php echo $this->users_info[$val['uid']]['user_name']; ?></a></td>
-						
-						<?php if ($_GET['type'] == 'question') { ?>
-						<td><a href="javascript:;" onclick="$.dialog('ajaxData', {'title':'<?php _e('内容审核'); ?>', 'url':G_BASE_URL + '/admin/approval/preview/<?php echo $val['id']; ?>'});"><i class="aw-icon zoom"></i></a> &nbsp; <?php echo htmlspecialchars($val['data']['question_content']); ?></td>
-						<?php } else if ($_GET['type'] == 'article') { ?>
-						<td><a href="javascript:;" onclick="$.dialog('ajaxData', {'title':'<?php _e('内容审核'); ?>', 'url':G_BASE_URL + '/admin/approval/preview/<?php echo $val['id']; ?>'});"><i class="aw-icon zoom"></i></a> &nbsp; <?php echo htmlspecialchars($val['data']['title']); ?></td>
-						<?php } ?>
-						
-						<td><a href="javascript:;" onclick="$.dialog('ajaxData', {'title':'<?php _e('内容审核'); ?>', 'url':G_BASE_URL + '/admin/approval/preview/<?php echo $val['id']; ?>'});"><?php if ($_GET['type'] == 'answer') { echo cjk_substr(htmlspecialchars($val['data']['answer_content']), 0, 128, 'UTF-8', '...'); } else if ($_GET['type'] == 'article' OR $_GET['type'] == 'article_comment') { echo cjk_substr(htmlspecialchars($val['data']['message']), 0, 128, 'UTF-8', '...'); } else { echo cjk_substr(htmlspecialchars($val['data']['question_detail']), 0, 128, 'UTF-8', '...'); } ?></a></td>
-					</tr>
-					<?php } ?>
-				</tbody>
-				<?php } ?>
-				<tfoot>
-					<tr>
-						<td colspan="<?php if ($_GET['type'] == 'answer' OR $_GET['type'] == 'article_comment') { ?>3<?php } else { ?>4<?php } ?>">
-							<span class="pull-right"><?php echo $this->pagination; ?></span>
-							
-							<a class="btn btn-inverse" onClick="$('#batch_type').val('approval'); ajax_post($('#batchs_form'));" href="javascript:;" id="batch_approval"><?php _e('通过审核'); ?></a> <a class="btn btn-inverse" onClick="$('#batch_type').val('decline'); ajax_post($('#batchs_form'));" href="javascript:;" id="batch_decline"><?php _e('拒绝审核'); ?></a>
-						</td>
-					</tr>
-				</tfoot>
-			</table>
-		</form>
-	</div>
+<div class="aw-content-wrap">
+    <div class="mod">
+        <div class="mod-head table-striped" id="approval">
+            <h3>
+                <ul class="nav nav-tabs">
+                    <li class="<?php if ($_GET['type'] == 'question') { ?> active<?php } ?>"><a href="admin/approval/list/"><?php _e('问题'); ?> (<?php echo $this->question_count; ?>)</a></li>
+
+                    <li class="<?php if ($_GET['type'] == 'unverified_modify') { ?> active<?php } ?>"><a href="admin/approval/list/type-unverified_modify"><?php _e('问题修改'); ?> (<?php echo $this->unverified_modifies_count; ?>)</a></li>
+
+                    <li class="<?php if ($_GET['type'] == 'answer') { ?> active<?php } ?>"><a href="admin/approval/list/type-answer"><?php _e('回答'); ?> (<?php echo $this->answer_count; ?>)</a></li>
+
+                    <li class="<?php if ($_GET['type'] == 'article') { ?> active<?php } ?>"><a href="admin/approval/list/type-article"><?php _e('文章'); ?> (<?php echo $this->article_count; ?>)</a></li>
+
+                    <li class="<?php if ($_GET['type'] == 'article_comment') { ?> active<?php } ?>"><a href="admin/approval/list/type-article_comment"><?php _e('文章评论'); ?> (<?php echo $this->article_comment_count; ?>)</a></li>
+
+                    <li class="<?php if ($_GET['type'] == 'weibo_msg') { ?> active<?php } ?>"><a href="admin/approval/list/type-weibo_msg"><?php _e('新浪微博'); ?> (<?php echo $this->weibo_msg_count; ?>)</a></li>
+
+                    <li class="<?php if ($_GET['type'] == 'received_email') { ?> active<?php } ?>"><a href="admin/approval/list/type-received_email"><?php _e('邮件咨询'); ?> (<?php echo $this->received_email_count; ?>)</a></li>
+                </ul>
+            </h3>
+        </div>
+        <div class="mod-body tab-content">
+            <form id="batchs_form" action="admin/ajax/approval_manage/" method="post">
+            <input type="hidden" id="batch_type" name="batch_type" value="approval" />
+
+            <input type="hidden" name="type" value="<?php echo htmlspecialchars($_GET['type']); ?>" />
+
+            <div class="table-responsive">
+            <?php if ($this->approval_list) { ?>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <?php if ($_GET['type'] != 'unverified_modify') { ?>
+                            <th><input type="checkbox" class="check-all"></th>
+                            <?php } ?>
+                            <th><?php _e('用户'); ?></th>
+                            <?php if (in_array($_GET['type'], array('question', 'unverified_modify', 'article', 'received_email'))) { ?>
+                            <th><?php _e('标题'); ?></th>
+                            <?php } ?>
+                            <th><?php if ($_GET['type'] == 'unverified_modify') { _e('待确认修改数'); } else { _e('内容'); } ?></th>
+                            <th><?php _e('操作')?></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($this->approval_list AS $approval_info) { ?>
+                        <tr>
+                            <?php if ($_GET['type'] != 'unverified_modify') { ?>
+                            <td>
+                                <input type="checkbox" name="approval_ids[]" value="<?php echo $approval_info['id']; ?>">
+                            </td>
+                            <?php } ?>
+
+                            <td>
+                                <a href="people/<?php echo $this->users_info[$approval_info['uid']]['url_token']; ?>" target="_blank"><?php echo $this->users_info[$approval_info['uid']]['user_name']; ?></a>
+                            </td>
+
+                            <?php if (in_array($_GET['type'], array('question', 'unverified_modify', 'article', 'received_email'))) { ?>
+                            <td><?php
+                            switch ($_GET['type']) {
+                                case 'question':
+                                    echo htmlspecialchars($approval_info['data']['question_content']);
+                                    break;
+
+                                case 'unverified_modify':
+                                    echo htmlspecialchars($approval_info['question_content']);
+                                    break;
+
+                                case 'article':
+                                    echo htmlspecialchars($approval_info['data']['title']);
+                                    break;
+
+                                case 'received_email':
+                                    echo htmlspecialchars($approval_info['subject']);
+                                    break;
+                            }
+                            ?></td>
+                            <?php } ?>
+
+                            <td>
+                                <?php if ($_GET['type'] == 'unverified_modify') { echo $approval_info['unverified_modify_count']; } else { ?>
+                                <a onclick="AWS.dialog('ajaxData', {'title':'<?php _e('内容审核'); ?>', 'url':G_BASE_URL + '/admin/approval/preview/<?php if (in_array($_GET['type'], array('weibo_msg', 'received_email'))) { ?>type-<?php echo $_GET['type']; ?>__id<?php } echo $approval_info['id']; ?>'});"><?php
+                                switch ($_GET['type']) {
+                                    case 'question':
+                                        echo cjk_substr(htmlspecialchars($approval_info['data']['question_detail']), 0, 128, 'UTF-8', '...');
+                                        break;
+
+                                    case 'answer':
+                                        echo cjk_substr(htmlspecialchars($approval_info['data']['answer_content']), 0, 128, 'UTF-8', '...');
+                                        break;
+
+                                    case 'article':
+                                    case 'article_comment':
+                                        echo cjk_substr(htmlspecialchars($approval_info['data']['message']), 0, 128, 'UTF-8', '...');
+                                        break;
+
+                                    case 'weibo_msg':
+                                        echo cjk_substr(htmlspecialchars($approval_info['text']), 0, 128, 'UTF-8', '...');
+                                        break;
+
+                                    case 'received_email':
+                                        echo cjk_substr(htmlspecialchars($approval_info['content']), 0, 128, 'UTF-8', '...');
+                                        break;
+                                }
+                                ?></a>
+                                <?php } ?>
+                            </td>
+
+                            <td class="nowrap">
+                                <?php if ($_GET['type'] == 'unverified_modify') { ?>
+                                <a href="question/id-<?php echo $approval_info['question_id']; ?>__column-log__rf-false" target="_blank" class="fa fa-search md-tip" data-original-title="<?php _e('查看修改日志'); ?>"></a>
+                                <?php } else { ?>
+                                <a class="fa fa-search md-tip" onclick="AWS.dialog('ajaxData', {'title':'<?php _e('内容审核'); ?>', 'url':G_BASE_URL + '/admin/approval/preview/<?php
+                                if (in_array($_GET['type'], array('weibo_msg', 'received_email'))) {
+                                ?>type-<?php echo $_GET['type']; ?>__id-<?php
+                                }
+                                echo $approval_info['id'];
+                                ?>'});" data-original-title="<?php _e('查看内容'); ?>"></a>
+
+                                <a href="admin/approval/preview/action-edit<?php
+                                if (in_array($_GET['type'], array('weibo_msg', 'received_email'))) {
+                                ?>__type-<?php echo $_GET['type'];
+                                } ?>__id-<?php
+                                echo $approval_info['id'];
+                                ?>" class="fa fa-pencil md-tip" data-original-title="<?php _e('修改内容'); ?>"></a>
+                                <?php } ?>
+                            </td>
+                        </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
+            <?php } ?>
+            </div>
+            </form>
+            <div class="mod-table-foot">
+                <span class="pull-right mod-page"><?php echo $this->pagination; ?></span>
+
+                <?php if ($_GET['type'] != 'unverified_modify') { ?>
+                <a class="btn btn-primary" onclick="$('#batch_type').val('approval'); AWS.ajax_post($('#batchs_form'));" id="batch_approval"><?php _e('通过审核'); ?></a>
+                <a class="btn btn-danger" onclick="$('#batch_type').val('decline'); AWS.ajax_post($('#batchs_form'));" id="batch_decline"><?php _e('拒绝审核'); ?></a>
+                <?php } ?>
+            </div>
+        </div>
+    </div>
 </div>
 
 <?php TPL::output('admin/global/footer.tpl.htm'); ?>

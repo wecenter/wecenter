@@ -1,15 +1,50 @@
 <!doctype html>
 <html>
-	<head>
-		<meta charset="utf-8" />
-		<title><?php _e('文件未找到'); ?></title>
-		<link rel="stylesheet" type="text/css" href="<?php echo G_STATIC_URL; ?>/css/default/common.css" />
-	</head>
-	<body class="aw-404">
-		<div class="aw-404-wrap">
-			<img src="<?php echo G_STATIC_URL; ?>/css/default/img/404-logo.png"/>
-			<p><?php _e('你访问的页面不存在'); ?></p>
-			<p><a href="<?php echo get_setting('base_url'); ?>"><?php _e('返回网站首页'); ?></a></p>
+<head>
+	<meta charset="utf-8" />
+	<title><?php _e('文件未找到'); ?></title>
+	<link rel="stylesheet" type="text/css" href="<?php echo G_STATIC_URL; ?>/css/bootstrap.css" />
+	<link rel="stylesheet" type="text/css" href="<?php echo G_STATIC_URL; ?>/css/font-awesome.css" />
+	<link rel="stylesheet" type="text/css" href="<?php echo G_STATIC_URL; ?>/css/default/common.css" />
+	<script type="text/javascript">
+	var _<?php echo $post_hash_var_name; ?>='<?php echo new_post_hash(); ?>';
+	var G_POST_HASH=_<?php echo $post_hash_var_name; ?>;
+	var G_INDEX_SCRIPT = '<?php if (get_setting('url_rewrite_enable') != 'Y') { ?><?php echo G_INDEX_SCRIPT; ?><?php } ?>';
+	var G_SITE_NAME = '<?php echo addcslashes(get_setting('site_name'), "'"); ?>';
+	var G_BASE_URL = '<?php echo base_url(); ?><?php if (get_setting('url_rewrite_enable') != 'Y') { ?>/<?php echo rtrim(G_INDEX_SCRIPT, '/'); ?><?php } ?>';
+	var G_STATIC_URL = '<?php echo G_STATIC_URL; ?>';
+	var G_UPLOAD_URL = '<?php echo get_setting('upload_url'); ?>';
+	var G_USER_ID = '<?php echo $this->user_id; ?>';
+	var G_USER_NAME = '<?php echo addcslashes($this->user_info['user_name'], "'"); ?>';
+	var G_UPLOAD_ENABLE = '<?php echo get_setting('upload_enable'); ?>';
+	var G_UNREAD_NOTIFICATION = 0;
+	var G_NOTIFICATION_INTERVAL = <?php echo intval(get_setting('unread_flush_interval')) * 1000; ?>;
+	var G_CAN_CREATE_TOPIC = '<?php echo $this->user_info['permission']['create_topic']; ?>';
+
+	<?php if (human_valid('question_valid_hour')) { ?>
+	var G_QUICK_PUBLISH_HUMAN_VALID = true;
+	<?php } ?>
+</script>
+	<script src="<?php echo G_STATIC_URL; ?>/js/jquery.2.js" type="text/javascript"></script>
+<!--[if lte IE 8]>
+	<script type="text/javascript" src="<?php echo G_STATIC_URL; ?>/js/respond.js"></script>
+	<![endif]-->
+</head>
+<body class="aw-404">
+	<div class="aw-404-wrap container">
+		<div class="row">
+			<img src="<?php echo G_STATIC_URL; ?>/common/404.jpg" alt="404">
+			<p><?php _e('你访问的页面不存在'); ?>，<?php _e('请'); ?><a href="javascript:history.go(-1)"><?php _e('返回'); ?></a><?php _e('或搜索相关内容'); ?></p>
+			<div class="aw-search-box  hidden-sm">
+				<form class="navbar-search" action="search/" id="global_search_form" method="post">
+					<div class="input-group">
+						<input class="form-control search-query" type="text" placeholder="<?php _e('搜索问题、话题或人'); ?>" autocomplete="off" name="q" id="aw-search-query" />
+						<span class="input-group-addon" title="<?php _e('搜索'); ?>" id="global_search_btns" onClick="$('#global_search_form').submit();"><i class="fa fa-search"></i></span>
+
+					</div>
+				</form>
+			</div>
 		</div>
-	</body>
-</html>
+	</div>
+	<?php TPL::output('global/footer.tpl.htm'); ?>
+

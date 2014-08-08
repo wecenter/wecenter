@@ -4,11 +4,11 @@
 |   WeCenter [#RELEASE_VERSION#]
 |   ========================================
 |   by WeCenter Software
-|   © 2011 - 2013 WeCenter. All Rights Reserved
+|   © 2011 - 2014 WeCenter. All Rights Reserved
 |   http://www.wecenter.com
 |   ========================================
 |   Support: WeCenter@qq.com
-|   
+|
 +---------------------------------------------------------------------------
 */
 
@@ -27,7 +27,7 @@ class ajax extends AWS_CONTROLLER
 	public function get_access_rule()
 	{
 		$rule_action['rule_type'] = 'white'; //'black'黑名单,黑名单中的检查  'white'白名单,白名单以外的检查
-				
+
 		return $rule_action;
 	}
 
@@ -37,14 +37,14 @@ class ajax extends AWS_CONTROLLER
 		{
 			$this->per_page = get_setting('index_per_page');
 		}
-		
+
 		HTTP::no_cache_header();
 	}
 
 	public function notifications_action()
 	{
 		H::ajax_json_output(AWS_APP::RSM(array(
-			'inbox_num' => $this->user_info['inbox_unread'], 
+			'inbox_num' => $this->user_info['inbox_unread'],
 			'notifications_num' => $this->user_info['notification_unread']
 		), '1', null));
 	}
@@ -53,33 +53,33 @@ class ajax extends AWS_CONTROLLER
 	{
 		//if ($_GET['filter'] == 'publish')
 		if ($_GET['filter'] == 'focus')
-		{			
+		{
 			if ($result = $this->model('question')->get_user_focus($this->user_id, (intval($_GET['page']) * $this->per_page) . ", {$this->per_page}"))
-			{				
+			{
 				foreach ($result as $key => $val)
 				{
 					$question_ids[] = $val['question_id'];
 				}
-				
+
 				$topics_questions = $this->model('topic')->get_topics_by_item_ids($question_ids, 'question');
-				
+
 				foreach ($result as $key => $val)
 				{
 					if (! $user_info_list[$val['published_uid']])
 					{
 						$user_info_list[$val['published_uid']] = $this->model('account')->get_user_info_by_uid($val['published_uid'], true);
 					}
-					
+
 					$data[$key]['user_info'] = $user_info_list[$val['published_uid']];
-					
-					$data[$key]['associate_type'] = 1;	
-										
+
+					$data[$key]['associate_type'] = 1;
+
 					$data[$key]['topics'] = $topics_questions[$val['question_id']];
-					
-					
+
+
 					$data[$key]['link'] = get_js_url('/question/' . $val['question_id']);
 					$data[$key]['title'] = $val['question_content'];
-					
+
 					$data[$key]['question_info'] = $val;
 				}
 			}
@@ -97,9 +97,9 @@ class ajax extends AWS_CONTROLLER
 		{
 			$data = array();
 		}
-		
+
 		TPL::assign('list', $data);
-		
+
 		if ($_GET['template'] == 'm')
 		{
 			TPL::output('m/ajax/index_actions');
@@ -111,9 +111,9 @@ class ajax extends AWS_CONTROLLER
 	}
 
 	public function check_actions_new_action()
-	{	
+	{
 		$new_count = 0;
-		
+
 		if ($data = $this->model('actions')->home_activity($this->user_id, $this->per_page))
 		{
 			foreach ($data as $key => $val)
@@ -128,7 +128,7 @@ class ajax extends AWS_CONTROLLER
 			'new_count' => $new_count
 		), 1, null));
 	}
-	
+
 	public function draft_action()
 	{
 		if ($drafts = $this->model('draft')->get_all('answer', $this->user_id, intval($_GET['page']) * $this->per_page .', '. $this->per_page))
@@ -138,9 +138,9 @@ class ajax extends AWS_CONTROLLER
 				$drafts[$key]['question_info'] = $this->model("question")->get_question_info_by_id($val['item_id']);
 			}
 		}
-		
+
 		TPL::assign('drafts', $drafts);
-		
+
 		if ($_GET['template'] == 'm')
 		{
 			TPL::output('m/ajax/draft');
@@ -150,7 +150,7 @@ class ajax extends AWS_CONTROLLER
 			TPL::output('home/ajax/draft');
 		}
 	}
-	
+
 	public function invite_action()
 	{
 		if ($list = $this->model('question')->get_invite_question_list($this->user_id, intval($_GET['page']) * $this->per_page .', '. $this->per_page))
@@ -159,25 +159,25 @@ class ajax extends AWS_CONTROLLER
 			{
 				$uids[] = $val['sender_uid'];
 			}
-				
+
 			if ($uids)
 			{
 				$users_info = $this->model('account')->get_user_info_by_uids($uids);
 			}
-			
+
 			foreach($list as $key => $val)
 			{
 				$list[$key]['user_info'] = $users_info[$val['sender_uid']];
 			}
 		}
-		
+
 		if ($this->user_info['invite_count'] != count($list))
 		{
 			$this->model('account')->update_question_invite_count($this->user_id);
 		}
-		
+
 		TPL::assign('list', $list);
-		
+
 		if ($_GET['template'] == 'm')
 		{
 			TPL::output('m/ajax/invite');

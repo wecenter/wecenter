@@ -1,16 +1,21 @@
-	</div>
-	
-	<div class="footer">
-		<small>Copyright © <?php echo date('Y'); ?> - Powered By <a href="http://www.wecenter.com/?copyright" target="blank">WeCenter <?php echo G_VERSION; ?></a></small>
-	</div>
-	
-	<div class="clearfix">
-		<?php TPL::output('global/debuger.tpl.htm'); ?>
-	</div>
-	
-	<a class="aw-back-top" onclick="$.scrollTo(1, 600, {queue:true});" href="javascript:;"><i class="aw-btn b-go-to-top"></i></a>
-	<!-- DO NOT REMOVE -->
-	<div id="aw-ajax-box" class="aw-ajax-box"></div>
-	<!-- / DO NOT REMOVE -->
+<div class="aw-footer">
+    <p>Copyright &copy; <?php echo date('Y'); ?> - Powered By <a href="http://www.wecenter.com/?copyright" target="blank">WeCenter <?php echo G_VERSION; ?></a></p>
+</div>
+
+<!-- DO NOT REMOVE -->
+<div id="aw-ajax-box" class="aw-ajax-box"></div>
+
+<div style="display:none;" id="__crond">
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$('#__crond').html(unescape('%3Cimg%20src%3D%22' + G_BASE_URL + '/crond/run/<?php echo time(); ?>%22%20width%3D%221%22%20height%3D%221%22%20/%3E'));
+		});
+
+	</script>
+</div>
+
+<?php TPL::output('global/debuger.tpl.htm'); ?>
+<!-- / DO NOT REMOVE -->
+
 </body>
 </html>

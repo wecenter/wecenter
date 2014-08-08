@@ -6,7 +6,7 @@
  *
  * @package     WeCenter Framework
  * @author      WeCenter Dev Team
- * @copyright   Copyright (c) 20011 - 2013, WeCenter, Inc.
+ * @copyright   Copyright (c) 2011 - 2014, WeCenter, Inc.
  * @license     http://www.wecenter.com/license/
  * @link        http://www.wecenter.com/
  * @since       Version 1.0
@@ -310,7 +310,7 @@ class account_class extends AWS_MODEL
         {
             return false;
         }
-        
+
         if ($attrib)
         {
 	        if ($user_attrib = $this->fetch_row('users_attrib', 'uid = ' . intval($uid)))
@@ -333,7 +333,7 @@ class account_class extends AWS_MODEL
         }
         else
         {
-	        $user_info['email_settings'] = array();
+            $user_info['email_settings'] = array();
         }
 
         if ($user_info['weixin_settings'])
@@ -342,7 +342,7 @@ class account_class extends AWS_MODEL
         }
         else
         {
-	        $user_info['weixin_settings'] = array();
+            $user_info['weixin_settings'] = array();
         }
 
         $users_info[$uid] = $user_info;
@@ -412,7 +412,7 @@ class account_class extends AWS_MODEL
                 }
                 else
                 {
-	                $val['email_settings'] = array();
+                    $val['email_settings'] = array();
                 }
 
                 if ($val['weixin_settings'])
@@ -421,7 +421,7 @@ class account_class extends AWS_MODEL
                 }
                 else
                 {
-	                $val['weixin_settings'] = array();
+                    $val['weixin_settings'] = array();
                 }
 
                 $data[$val['uid']] = $val;
@@ -494,16 +494,6 @@ class account_class extends AWS_MODEL
     }
 
     /**
-     * 更新邀请名额
-     *
-     * @param int
-     */
-    public function consume_invitation_available($uid)
-    {
-        return $this->query("UPDATE " . $this->get_table('users') . " SET invitation_available = invitation_available - 1 WHERE uid = " . intval($uid));
-    }
-
-    /**
      * 插入用户数据
      *
      * @param string
@@ -520,7 +510,7 @@ class account_class extends AWS_MODEL
             return false;
         }
 
-        if ($user_info = $this->get_user_info_by_username($user_name, false, false))
+        if ($this->check_username($user_name))
         {
             return false;
         }
@@ -824,7 +814,7 @@ class account_class extends AWS_MODEL
 
     public function check_username_char($user_name)
     {
-        if (ctype_digit($user_name))
+        if (is_digits($user_name))
         {
             return AWS_APP::lang()->_t('用户名不能为纯数字');
         }
@@ -886,11 +876,11 @@ class account_class extends AWS_MODEL
         {
             if ($where)
             {
-                $where = '(' . $where . ') AND uid <> ' . USER::get_client_uid();
+                $where = '(' . $where . ') AND uid <> ' . AWS_APP::user()->get_info('uid');
             }
             else
             {
-                $where = 'uid <> ' . USER::get_client_uid();
+                $where = 'uid <> ' . AWS_APP::user()->get_info('uid');
             }
         }
 
@@ -1392,57 +1382,57 @@ class account_class extends AWS_MODEL
             'agree_count' => ($this->count('answer_vote', 'vote_value = 1 AND answer_uid = ' . intval($uid)) + $this->count('article_vote', 'rating = 1 AND item_uid = ' . intval($uid)))
         ), 'uid = ' . intval($uid));
     }
-    
-	public function associate_remote_avatar($uid, $headimgurl)
-	{
-		if ($headimgurl)
-		{
-			if (!$user_info = $this->model('account')->get_user_info_by_uid($uid))
-			{
-				return false;
-			}
-			
-			if ($user_info['avatar_file'])
-			{
-				return false;
-			}
-			
-			if ($avatar_stream = curl_get_contents($headimgurl, 1))
-			{
-				$avatar_location = get_setting('upload_dir') . '/avatar/' . $this->model('account')->get_avatar($uid, '', 1) . $this->model('account')->get_avatar($uid, '', 2);
-				
-				$avatar_dir = str_replace(basename($avatar_location), '', $avatar_location);
-				
-				if ( ! is_dir($avatar_dir))
-				{
-					make_dir($avatar_dir);
-				}
-				
-				if (@file_put_contents($avatar_location, $avatar_stream))
-				{
-					foreach(AWS_APP::config()->get('image')->avatar_thumbnail AS $key => $val)
-					{			
-						$thumb_file[$key] = $avatar_dir . $this->model('account')->get_avatar($uid, $key, 2);
-						
-						AWS_APP::image()->initialize(array(
-							'quality' => 90,
-							'source_image' => $avatar_location,
-							'new_image' => $thumb_file[$key],
-							'width' => $val['w'],
-							'height' => $val['h']
-						))->resize();	
-					}
-					
-					$avatar_file = $this->model('account')->get_avatar($uid, null, 1) . basename($thumb_file['min']);
-				}
-			}
-		}
-		
-		if ($avatar_file)
-		{
-			return $this->model('account')->update('users', array(
-				'avatar_file' => $avatar_file
-			), 'uid = ' . intval($uid));
-		}
-	}
+
+    public function associate_remote_avatar($uid, $headimgurl)
+    {
+        if ($headimgurl)
+        {
+            if (!$user_info = $this->model('account')->get_user_info_by_uid($uid))
+            {
+                return false;
+            }
+
+            if ($user_info['avatar_file'])
+            {
+                return false;
+            }
+
+            if ($avatar_stream = curl_get_contents($headimgurl, 1))
+            {
+                $avatar_location = get_setting('upload_dir') . '/avatar/' . $this->model('account')->get_avatar($uid, '', 1) . $this->model('account')->get_avatar($uid, '', 2);
+
+                $avatar_dir = str_replace(basename($avatar_location), '', $avatar_location);
+
+                if ( ! is_dir($avatar_dir))
+                {
+                    make_dir($avatar_dir);
+                }
+
+                if (@file_put_contents($avatar_location, $avatar_stream))
+                {
+                    foreach(AWS_APP::config()->get('image')->avatar_thumbnail AS $key => $val)
+                    {
+                        $thumb_file[$key] = $avatar_dir . $this->model('account')->get_avatar($uid, $key, 2);
+
+                        AWS_APP::image()->initialize(array(
+                            'quality' => 90,
+                            'source_image' => $avatar_location,
+                            'new_image' => $thumb_file[$key],
+                            'width' => $val['w'],
+                            'height' => $val['h']
+                        ))->resize();
+                    }
+
+                    $avatar_file = $this->model('account')->get_avatar($uid, null, 1) . basename($thumb_file['min']);
+                }
+            }
+        }
+
+        if ($avatar_file)
+        {
+            return $this->model('account')->update('users', array(
+                'avatar_file' => $avatar_file
+            ), 'uid = ' . intval($uid));
+        }
+    }
 }

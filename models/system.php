@@ -4,11 +4,11 @@
 |   WeCenter [#RELEASE_VERSION#]
 |   ========================================
 |   by WeCenter Software
-|   © 2011 - 2013 WeCenter. All Rights Reserved
+|   © 2011 - 2014 WeCenter. All Rights Reserved
 |   http://www.wecenter.com
 |   ========================================
 |   Support: WeCenter@qq.com
-|   
+|
 +---------------------------------------------------------------------------
 */
 
@@ -23,7 +23,7 @@ class system_class extends AWS_MODEL
 	public function fetch_category_data($type, $parent_id = 0, $order = 'sort ASC,id ASC')
 	{
 		static $category_list_all;
-		
+
 		if (!$category_list_all[$type])
 		{
 			if ($type)
@@ -34,7 +34,7 @@ class system_class extends AWS_MODEL
 			{
 				$category_list_all_query = $this->fetch_all('category', '', $order);
 			}
-			
+
 			if ($category_list_all_query)
 			{
 				foreach ($category_list_all_query AS $key => $val)
@@ -43,25 +43,25 @@ class system_class extends AWS_MODEL
 				}
 			}
 		}
-		
+
 		if (!$category_all = $category_list_all[$type][$parent_id])
 		{
 			return array();
 		}
-		
+
 		return $category_all;
 	}
-	
+
 	/* 获取分类数组 */
 	public function fetch_category($type, $parent_id = 0)
 	{
 		$category_list = array();
-		
+
 		if (!$category_all = $this->fetch_category_data($type, $parent_id))
 		{
 			return $category_list;
 		}
-		
+
 		foreach ($category_all AS $key => $val)
 		{
 			if (!$val['icon'])
@@ -72,7 +72,7 @@ class system_class extends AWS_MODEL
 			{
 				$val['icon'] = get_setting('upload_url') . '/category/' . $val['icon'];
 			}
-			
+
 			$category_list[$val['id']] = array(
 				'id' => $val['id'],
 				'title' => $val['title'],
@@ -82,29 +82,29 @@ class system_class extends AWS_MODEL
 				'sort' => $val['sort'],
 				'url_token' => $val['url_token']
 			);
-			
+
 			if ($child_list = $this->fetch_category($type, $val['id']))
 			{
 				$category_list[$val['id']]['child'] = $child_list;
 			}
 		}
-		
+
 		return $category_list;
 	}
-	
+
 	/* 获取分类 HTML 数据 */
 	public function build_category_html($type, $parent_id = 0, $selected_id = 0, $prefix = '', $child = true)
-	{		
+	{
 		if (!$category_list = $this->fetch_category($type, $parent_id))
 		{
 			return false;
 		}
-		
+
 		if ($prefix)
 		{
 			$_prefix = $prefix . ' ';
 		}
-		
+
 		foreach ($category_list AS $category_id => $val)
 		{
 			if ($selected_id == $val['id'])
@@ -115,7 +115,7 @@ class system_class extends AWS_MODEL
 			{
 				$html .= '<option value="' . $category_id . '">' . $_prefix . $val['title'] . '</option>';
 			}
-			
+
 			if ($child AND $val['child'])
 			{
 				$html .= $this->build_category_html($type, $val['id'], $selected_id, $prefix . '--');
@@ -125,10 +125,10 @@ class system_class extends AWS_MODEL
 				unset($prefix);
 			}
 		}
-			
+
 		return $html;
 	}
-	
+
 	/* 获取分类 JSON 数据 */
 	public function build_category_json($type, $parent_id = 0, $prefix = '')
 	{
@@ -136,12 +136,12 @@ class system_class extends AWS_MODEL
 		{
 			return false;
 		}
-		
+
 		if ($prefix)
 		{
 			$_prefix = $prefix . ' ';
 		}
-		
+
 		foreach ($category_list AS $category_id => $val)
 		{
 			$data[] = array(
@@ -152,7 +152,7 @@ class system_class extends AWS_MODEL
 				'parent_id' => $val['parent_id'],
 				'url_token' => $val['url_token']
 			);
-			
+
 			if ($val['child'])
 			{
 				$data = array_merge($data, json_decode($this->build_category_json($type, $val['id'], $prefix . '--'), true));
@@ -162,10 +162,10 @@ class system_class extends AWS_MODEL
 				unset($prefix);
 			}
 		}
-			
+
 		return json_encode($data);
 	}
-	
+
 	/* 获取数组信息 */
 	public function get_category_info($category_id)
 	{
@@ -181,15 +181,15 @@ class system_class extends AWS_MODEL
 					{
 						$val['url_token'] = $val['id'];
 					}
-					
+
 					$all_category[$val['id']] = $val;
 				}
 			}
 		}
-		
+
 		return $all_category[$category_id];
 	}
-	
+
 	/* 获取数组信息 */
 	public function get_category_info_by_url_token($url_token)
 	{
@@ -205,46 +205,46 @@ class system_class extends AWS_MODEL
 					{
 						$val['url_token'] = $val['id'];
 					}
-					
+
 					$all_category[$val['url_token']] = $val;
 				}
 			}
 		}
-		
+
 		return $all_category[$url_token];
 	}
-	
+
 	public function get_category_list($type)
 	{
 		$category_list = array();
-		
+
 		$category_all = $this->fetch_all('category', '`type` = \'' . $this->quote($type) . '\'', 'id ASC');
-		
+
 		foreach($category_all as $key => $val)
 		{
 			if (!$val['url_token'])
 			{
 				$val['url_token'] = $val['id'];
 			}
-		
+
 			$category_list[$val['id']] = $val;
 		}
-		
+
 		return $category_list;
 	}
-	
+
 	public function get_category_with_child_ids($type, $category_id)
 	{
 		$category_ids[] = intval($category_id);
-		
+
 		if ($child_ids = $this->fetch_category_data($type, $category_id))
 		{
 			$category_ids = array_merge($category_ids, fetch_array_value($child_ids, 'id'));
 		}
-		
+
 		return $category_ids;
 	}
-	
+
 	public function clean_break_attach()
 	{
 		if ($attachs = $this->query_all("SELECT `id`, `access_key` FROM " . get_table('attach') . " WHERE item_id = 0 AND wait_approval = 0 AND add_time < " . (time() - 3600 * 24)))
@@ -254,29 +254,29 @@ class system_class extends AWS_MODEL
 				$this->model('publish')->remove_attach($val['id'], $val['access_key']);
 			}
 		}
-		
+
 		return true;
 	}
-	
+
 	public function check_stop_keyword($keyword)
 	{
 		$keyword = trim($keyword);
-		
+
 		if ($keyword == '')
 		{
 			return false;
 		}
-		
+
 		if (cjk_strlen($keyword) == 1)
 		{
 			return false;
 		}
-		
+
 		if (strstr($keyword, '了') OR strstr($keyword, '的') OR strstr($keyword, '有'))
 		{
 			return false;
 		}
-		
+
 		$stop_words_list = array(
 			'末', '啊', '阿', '哎', '哎呀', '哎哟', '唉', '俺',
 			'俺们', '按', '按照', '吧', '吧哒', '把', '被', '本',
@@ -401,28 +401,28 @@ class system_class extends AWS_MODEL
 			'wonder', 'would', 'wouldn\'t', 'yes', 'yet', 'you', 'you\'d', 'you\'ll',
 			'you\'re', 'you\'ve', 'your', 'yours', 'yourself', 'yourselves', 'zero'
 		);
-		
+
 		if (in_array($keyword, $stop_words_list))
 		{
 			return false;
 		}
-		
+
 		return true;
 	}
-	
+
 	public function analysis_keyword($string)
 	{
 		$analysis = load_class('Services_Phpanalysis_Phpanalysis');
-		
+
 		$analysis->SetSource(strtolower($string));
 		$analysis->StartAnalysis();
-		
+
 		if ($result = explode(',', $analysis->GetFinallyResult(',')))
-		{			
+		{
 			$result = array_unique($result);
-			
+
 			foreach ($result as $key => $keyword)
-			{			
+			{
 				if (!$this->check_stop_keyword($keyword))
 				{
 					unset($result[$key]);
@@ -433,17 +433,17 @@ class system_class extends AWS_MODEL
 				}
 			}
 		}
-		
+
 		return $result;
 	}
-	
+
 	public function update_associate_fresh_action($page, $limit = 100)
-	{		
+	{
 		if (!$action_history_data = $this->fetch_page('user_action_history', null, 'history_id ASC', $page, $limit))
 		{
 			return false;
 		}
-		
+
 		foreach ($action_history_data AS $key => $val)
 		{
 			if ($val['fold_status'] == 0)
@@ -451,15 +451,15 @@ class system_class extends AWS_MODEL
 				ACTION_LOG::associate_fresh_action($val['history_id'], $val['associate_id'], $val['associate_type'], $val['associate_action'], $val['uid'], $val['anonymous'], $val['add_time']);
 			}
 		}
-		
+
 		return true;
 	}
-	
+
 	public function clean_session()
 	{
 		return $this->delete('sessions', '`modified` < ' . (time() - 3600));
 	}
-	
+
 	public function remove_user_by_uid($uid, $remove_user_data = false)
 	{
 		$delete_tables = array(
@@ -488,13 +488,13 @@ class system_class extends AWS_MODEL
 			'users_weixin',
 			'users'
 		);
-		
+
 		$update_tables = array(
 			'redirect',
 			'topic_merge',
 			'topic_relation'
 		);
-		
+
 		if ($remove_user_data)
 		{
 			if ($user_answers = $this->query_all("SELECT answer_id FROM " . get_table('answer') . " WHERE uid = " . intval($uid)))
@@ -503,12 +503,12 @@ class system_class extends AWS_MODEL
 				{
 					$answer_ids[] = $val['answer_id'];
 				}
-				
+
 				$this->update('attach', array(
 					'item_id' => 0
 				), "item_id IN (" . implode(',', $answer_ids) . ") AND item_type = 'answer'");
 			}
-			
+
 			if ($user_articles = $this->query_all("SELECT id FROM " . get_table('article') . " WHERE uid = " . intval($uid)))
 			{
 				foreach ($user_articles AS $key => $val)
@@ -516,7 +516,7 @@ class system_class extends AWS_MODEL
 					$this->model('article')->remove_article($val['id']);
 				}
 			}
-			
+
 			if ($user_questions = $this->query_all("SELECT question_id FROM " . get_table('question') . " WHERE published_uid = " . intval($uid)))
 			{
 				foreach ($user_questions AS $key => $val)
@@ -524,17 +524,17 @@ class system_class extends AWS_MODEL
 					$this->model('question')->remove_question($val['question_id']);
 				}
 			}
-			
+
 			$update_tables[] = 'answer';
 			$update_tables[] = 'article';
-			
+
 			$delete_tables[] = 'answer_comments';
 			$delete_tables[] = 'answer_thanks';
 			$delete_tables[] = 'article_comments';
 			$delete_tables[] = 'article_vote';
 			$delete_tables[] = 'question_comments';
 			$delete_tables[] = 'question_thanks';
-			
+
 			if ($inbox_dialog = $this->fetch_all('inbox_dialog', 'recipient_uid = ' . intval($uid) . ' OR sender_uid = ' . intval($uid)))
 			{
 				foreach ($inbox_dialog AS $key => $val)
@@ -555,37 +555,111 @@ class system_class extends AWS_MODEL
 			$update_tables[] = 'question_comments';
 			$update_tables[] = 'question_thanks';
 			$delete_tables[] = 'inbox';
-			
+
 			$this->update('question', array(
 				'published_uid' => '-1'
 			), 'published_uid = ' . intval($uid));
 		}
-		
+
 		foreach ($delete_tables AS $key => $table)
 		{
 			$this->delete($table, 'uid = ' . intval($uid));
 		}
-		
+
 		foreach ($update_tables AS $key => $table)
 		{
 			$this->update($table, array(
 				'uid' => '-1'
 			), 'uid = ' . intval($uid));
 		}
-		
+
 		$this->update('answer_vote', array(
 			'vote_uid' => '-1'
 		), 'vote_uid = ' . intval($uid));
-		
+
 		$this->model('verify')->remove_apply($uid);
 		$this->model('notify')->delete_notify('sender_uid = ' . intval($uid) . ' OR recipient_uid = ' . intval($uid));
-		
+
 		$this->delete('question_invite', 'sender_uid = ' . intval($uid) . ' OR recipients_uid = ' . intval($uid));
-		
+
 		ACTION_LOG::delete_action_history('uid = ' . intval($uid));
-		
+
 		$this->delete('user_follow', 'fans_uid = ' . intval($uid) . ' OR friend_uid = ' . intval($uid));
-		
+
 		return true;
+	}
+
+	public function statistic($tag, $start_time = null, $end_time = null)
+	{
+		if (!$start_time)
+		{
+			$start_time = strtotime('-6 months');
+		}
+
+		if (!$end_time)
+		{
+			$end_time = strtotime('Today');
+		}
+
+		$data = array();
+
+		switch ($tag)
+		{
+			case 'new_user':
+				$query = "SELECT COUNT(uid) AS count, FROM_UNIXTIME(reg_time, '%y-%m') AS statistic_date FROM " . get_table('users') . " WHERE reg_time BETWEEN " . intval($start_time) . " AND " . intval($end_time) . " GROUP BY statistic_date ASC";
+			break;
+
+			case 'user_valid':
+				$query = "SELECT COUNT(uid) AS count, FROM_UNIXTIME(reg_time, '%y-%m') AS statistic_date FROM " . get_table('users') . " WHERE valid_email = 1 AND reg_time BETWEEN " . intval($start_time) . " AND " . intval($end_time) . " GROUP BY statistic_date ASC";
+			break;
+
+			case 'new_question':
+				$query = "SELECT COUNT(question_id) AS count, FROM_UNIXTIME(add_time, '%y-%m') AS statistic_date FROM " . get_table('question') . " WHERE add_time BETWEEN " . intval($start_time) . " AND " . intval($end_time) . " GROUP BY statistic_date ASC";
+			break;
+
+			case 'new_answer':
+				$query = "SELECT COUNT(answer_id) AS count, FROM_UNIXTIME(add_time, '%y-%m') AS statistic_date FROM " . get_table('answer') . " WHERE add_time BETWEEN " . intval($start_time) . " AND " . intval($end_time) . " GROUP BY statistic_date ASC";
+			break;
+
+			case 'new_topic':
+				$query = "SELECT COUNT(topic_id) AS count, FROM_UNIXTIME(add_time, '%y-%m') AS statistic_date FROM " . get_table('topic') . " WHERE add_time BETWEEN " . intval($start_time) . " AND " . intval($end_time) . " GROUP BY statistic_date ASC";
+			break;
+
+			case 'new_answer_vote':
+				$query = "SELECT COUNT(voter_id) AS count, FROM_UNIXTIME(add_time, '%y-%m') AS statistic_date FROM " . get_table('answer_vote') . " WHERE add_time BETWEEN " . intval($start_time) . " AND " . intval($end_time) . " GROUP BY statistic_date ASC";
+			break;
+
+			case 'new_question_thanks':
+				$query = "SELECT COUNT(id) AS count, FROM_UNIXTIME(time, '%y-%m') AS statistic_date FROM " . get_table('question_thanks') . " WHERE time BETWEEN " . intval($start_time) . " AND " . intval($end_time) . " GROUP BY statistic_date ASC";
+			break;
+
+			case 'new_answer_thanks':
+				$query = "SELECT COUNT(id) AS count, FROM_UNIXTIME(time, '%y-%m') AS statistic_date FROM " . get_table('answer_thanks') . " WHERE time BETWEEN " . intval($start_time) . " AND " . intval($end_time) . " GROUP BY statistic_date ASC";
+			break;
+
+			case 'new_favorite_item':
+				$query = "SELECT COUNT(id) AS count, FROM_UNIXTIME(time, '%y-%m') AS statistic_date FROM " . get_table('favorite') . " WHERE time BETWEEN " . intval($start_time) . " AND " . intval($end_time) . " GROUP BY statistic_date ASC";
+			break;
+
+			case 'new_question_redirect':
+				$query = "SELECT COUNT(id) AS count, FROM_UNIXTIME(time, '%y-%m') AS statistic_date FROM " . get_table('redirect') . " WHERE time BETWEEN " . intval($start_time) . " AND " . intval($end_time) . " GROUP BY statistic_date ASC";
+			break;
+		}
+
+		if ($query)
+		{
+			if ($result = $this->query_all($query))
+			{
+				foreach ($result AS $key => $val)
+				{
+					$data[] = array(
+						'date' => $val['statistic_date'],
+						'count' => $val['count']
+					);
+				}
+			}
+		}
+
+		return $data;
 	}
 }

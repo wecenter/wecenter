@@ -1,72 +1,42 @@
-var cur_page = 0;
-
-var bp_more_inner_o = '';
-
-var cur_filter = '';
-
-
-function reload_list()
-{	
-	cur_page = 0;
-
-	$('#main_contents').html('<p style="padding: 15px 0" align="center"><img src="' + G_STATIC_URL + '/common/loading_b.gif" alt="" /></p>');
-
-	$('#bp_more').html(bp_more_inner_o);
-
-	$('#bp_more').click();
-}
-
-$(document).ready(function()
+$(function()
 {
-	if (Number($('#announce_num').html()) > 0)
+	// 检测首页动态更新
+	var checkactionsnew_handle = setInterval(function ()
 	{
-		$.get(G_BASE_URL + '/notifications/ajax/list/flag-0__page-0', function (response) {
-			if (response.length)
-			{
-				$("#notification_list").html(response);
+		check_actions_new(new Date().getTime());
+	}, 60000);
 
-				notification_show(5);
-			}
-		});
-	}
-
-	bp_more_inner_o = $('#bp_more').html();
-
-	$('.aw-side-bar-mod.side-nav a').click(function () {
-		$("#delete-draft").remove();
+	$('.aw-mod.side-nav a').click(function () {
 
 		if ($('#main_title').attr('id') != null && $(this).attr('rel'))
 		{
-
-			$('.aw-side-bar-mod.side-nav a, .aw-side-bar-mod.side-nav li').removeClass('active');
-
-			window.location.hash = $(this).attr('rel');
-
-			$('#main_title').html($(this).html());
+			$('.aw-mod.side-nav a').removeClass('active');
 
 			$(this).addClass('active');
 
-			$(this).parents('li').addClass('active');
+			window.location.hash = $(this).attr('rel');
 
-			reload_list();
+			$('#main_title').html($(this).html()).find('i').detach();
+
+			$('#main_contents').html('<p style="padding: 15px 0" align="center"><img src="' + G_STATIC_URL + '/common/loading_b.gif" alt="" /></p>');
+
+			$('#bp_more').attr('data-page', 0).click();
 
 			return false;
 		}
 	});
 
-	
+
 	$('#bp_more').click(function()
 	{
 		var _this = this;
-		
-		$("#delete-draft").remove();		
 
 		switch (window.location.hash)
 		{
 			default:
 				if (window.location.hash != '#all')
 				{
-					query_string = window.location.hash.replace(/#/g, '').split('__');
+					var query_string = window.location.hash.replace(/#/g, '').split('__');
 
 					for (i = 0; i < 3; i++)
 					{
@@ -75,45 +45,44 @@ $(document).ready(function()
 							query_string[i] = '';
 						}
 					}
-					
 
 					if (query_string[1])
 					{
-						cur_filter = query_string[1];
+						var cur_filter = query_string[1];
 					}
 					else
 					{
-						cur_filter = '';
+						var cur_filter = '';
 					}
 				}
 				else
 				{
-					cur_filter = '';
+					var cur_filter = '';
 				}
 
-				var request_url = G_BASE_URL + '/home/ajax/index_actions/page-' + cur_page + '__filter-' + cur_filter;
+				var request_url = G_BASE_URL + '/home/ajax/index_actions/page-' + $(this).attr('data-page') + '__filter-' + cur_filter;
 			break;
 
 			case '#draft_list__draft':
-				var request_url = G_BASE_URL + '/home/ajax/draft/page-' + cur_page;
-
-				$('#main_title').prepend('<a class="pull-right btn btn-mini btn-success" id="delete-draft" onclick="$.each($(\'a.delete-draft\'), function (i, e) { $(e).click(); });">' + _t('清空所有') + '</a>');
+				var request_url = G_BASE_URL + '/home/ajax/draft/page-' + $(this).attr('data-page');
+				if($('#main_title .btn-success').length <=0)
+				{
+					$('#main_title').prepend('<a class="pull-right btn btn-mini btn-success" id="delete-draft" onclick="$.each($(\'.delete-draft\'), function (i, e) { $(e).click(); });">' + _t('清空所有') + '</a>');
+				}
 			break;
 
 			case '#invite_list__invite':
-				var request_url = G_BASE_URL + '/home/ajax/invite/page-' + cur_page;
+				var request_url = G_BASE_URL + '/home/ajax/invite/page-' + $(this).attr('data-page');
 			break;
 		}
 
 		$(this).addClass('loading');
 
-		$(this).find('span').html('Loading...');
-
 		$.get(request_url, function (response)
 		{
 			if (response.length)
 			{
-				if (cur_page == 0)
+				if ($(_this).attr('data-page') == 0)
 				{
 					$('#main_contents').html(response);
 				}
@@ -122,13 +91,11 @@ $(document).ready(function()
 					$('#main_contents').append(response);
 				}
 
-				cur_page++;
-
-				$(_this).html(bp_more_inner_o); 
+				$(_this).attr('data-page', parseInt($(_this).attr('data-page')) + 1);
 			}
 			else
 			{
-				if (cur_page == 0)
+				if ($(_this).attr('data-page') == 0)
 				{
 					$('#main_contents').html('<p style="padding: 15px 0" align="center">' + _t('没有内容') + '</p>');
 				}
@@ -144,70 +111,73 @@ $(document).ready(function()
 		return false;
 	});
 
-	if ($('.aw-side-bar-mod.side-nav a[rel=' + window.location.hash.replace(/#/g, '') + ']').attr('href'))
+
+	if ($('.aw-mod.side-nav a[rel="' + window.location.hash.replace(/#/g, '') + '"]').attr('href'))
 	{
-		$('.aw-side-bar-mod.side-nav a[rel=' + window.location.hash.replace(/#/g, '') + ']').click();
+		$('.aw-mod.side-nav a[rel="' + window.location.hash.replace(/#/g, '') + '"]').click();
 	}
 	else
 	{
-		$('.aw-side-bar-mod.side-nav a[rel=all]').click();
+		$('.aw-mod.side-nav a[rel=all]').click();
 	}
 
 	//问题添加评论
-    init_comment_box('.aw-add-comment');
+    AWS.Init.init_comment_box('.aw-add-comment');
 });
 
 function _welcome_step_1_form_processer(result)
 {
-	welcome_step_2_load();
+	welcome_step('2');
 }
 
-function welcome_step_1_load()
+function welcome_step(step)
 {
-	init_avatar_uploader($('#welcome_avatar_uploader'), $('#aw-img-uploading'), $("#aw-upload-img"));
-
-	$('.aw-first-login').css({
-		left : $(window).width() / 2 - ($('.aw-first-login').width() + 42) / 2
-	});
-}
-
-function welcome_step_2_load()
-{
-	$('#welcome_topics_list').html('<p style="padding: 15px 0" align="center"><img src="' + G_STATIC_URL + '/common/loading_b.gif" alt="" /></p>');
-
-	$('.aw-first-login').hide().siblings().eq(1).show();
-
-	$.get(G_BASE_URL + '/account/ajax/welcome_get_topics/', function (result) {
-		$('#welcome_topics_list').html(result);
-	});
-}
-
-function welcome_step_3_load()
-{
-	$('#welcome_users_list').html('<p style="padding: 15px 0" align="center"><img src="' + G_STATIC_URL + '/common/loading_b.gif" alt="" /></p>');
-
-	$('.aw-first-login').hide().siblings().eq(2).show();
-
-	$.get(G_BASE_URL + '/account/ajax/welcome_get_users/', function (result) {
-		$('#welcome_users_list').html(result);
-	});
-}
-
-function welcome_step_finish()
-{
-	$('#aw-ajax-box').html('');
-	$('.modal-backdrop').detach();
-	$('body').removeClass('modal-open');
-
-	$.get(G_BASE_URL + '/account/ajax/clean_first_login/', function (result)
+	switch (step)
 	{
-		//window.location = G_BASE_URL + '/home/';
-	});
+		case '1':
+			var fileupload = new FileUpload('avatar', $('#welcome_avatar_uploader'), $("#aw-upload-img"), G_BASE_URL + '/account/ajax/avatar_upload/', {'loading_status' : '#aw-img-uploading'});
+		break;
+
+		case '2':
+			$('#welcome_topics_list').html('<p style="padding: 15px 0" align="center"><img src="' + G_STATIC_URL + '/common/loading_b.gif" alt="" /></p>');
+
+			$('.aw-first-login').hide().siblings().eq(1).show();
+
+			$.get(G_BASE_URL + '/account/ajax/welcome_get_topics/', function (result) {
+				$('#welcome_topics_list').html(result);
+			});
+		break;
+
+		case '3':
+			$('#welcome_users_list').html('<p style="padding: 15px 0" align="center"><img src="' + G_STATIC_URL + '/common/loading_b.gif" alt="" /></p>');
+
+			$('.aw-first-login').hide().siblings().eq(2).show();
+
+			$.get(G_BASE_URL + '/account/ajax/welcome_get_users/', function (result) {
+				$('#welcome_users_list').html(result);
+			});
+		break;
+
+		case 'finish':
+			$('#aw-ajax-box').html('');
+			$('.modal-backdrop').detach();
+			$('body').removeClass('modal-open');
+
+			$.get(G_BASE_URL + '/account/ajax/clean_first_login/', function (result){});
+		break;
+	}
 }
 
-function check_actions_new(uid, time)
+function reload_list()
+{	
+	$('#main_contents').html('<p style="padding: 15px 0" align="center"><img src="' + G_STATIC_URL + '/common/loading_b.gif" alt="" /></p>');
+
+	$('#bp_more').attr('data-page', 0).click();
+}
+
+function check_actions_new(time)
 {
-	$.get(G_BASE_URL + '/home/ajax/check_actions_new/uid-' + uid + '__time-' + time, function (result) 
+	$.get(G_BASE_URL + '/home/ajax/check_actions_new/time-' + time, function (result)
 	{
 		if (result.errno == 1)
 		{
@@ -215,7 +185,7 @@ function check_actions_new(uid, time)
 			{
 				if ($('#new_actions_tip').is(':hidden'))
 				{
-					$('#new_actions_tips').fadeIn();
+					$('#new_actions_tip').css('display', 'block');
 				}
 
 				$('#new_action_num').html(result.rsm.new_count);

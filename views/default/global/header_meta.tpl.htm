@@ -8,12 +8,11 @@
 <title><?php echo $this->page_title; ?></title>
 <meta name="keywords" content="<?php echo $this->_meta_keywords; ?>" />
 <meta name="description" content="<?php echo $this->_meta_description; ?>"  />
-<base href="<?php echo get_setting('base_url');?>/<?php if (get_setting('url_rewrite_enable') != 'Y') { ?><?php echo G_INDEX_SCRIPT; ?><?php } ?>" /><!--[if IE]></base><![endif]-->
+<base href="<?php echo base_url();?>/<?php if (get_setting('url_rewrite_enable') != 'Y') { ?><?php echo G_INDEX_SCRIPT; ?><?php } ?>" /><!--[if IE]></base><![endif]-->
 <link href="<?php echo G_STATIC_URL; ?>/css/<?php echo $this->template_name; ?>/img/favicon.png?v=<?php echo G_VERSION_BUILD; ?>" rel="shortcut icon" type="image/x-icon" />
 
 <link rel="stylesheet" type="text/css" href="<?php echo G_STATIC_URL; ?>/css/bootstrap.css" />
 <link rel="stylesheet" type="text/css" href="<?php echo G_STATIC_URL; ?>/css/font-awesome.css" />
-<link rel="stylesheet" type="text/css" href="<?php echo G_STATIC_URL; ?>/css/aw-font.css" />
 
 <?php if (is_array($this->_import_css_files)) { ?>
 <?php foreach ($this->_import_css_files AS $import_css) { ?>
@@ -31,10 +30,10 @@
 	var G_POST_HASH=_<?php echo $post_hash_var_name; ?>;
 	var G_INDEX_SCRIPT = '<?php if (get_setting('url_rewrite_enable') != 'Y') { ?><?php echo G_INDEX_SCRIPT; ?><?php } ?>';
 	var G_SITE_NAME = '<?php echo addcslashes(get_setting('site_name'), "'"); ?>';
-	var G_BASE_URL = '<?php echo get_setting('base_url'); ?><?php if (get_setting('url_rewrite_enable') != 'Y') { ?>/<?php echo rtrim(G_INDEX_SCRIPT, '/'); ?><?php } ?>';
-	var G_STATIC_URL = '<?php echo G_STATIC_URL; ?>';
+	var G_BASE_URL = '<?php echo base_url(); ?><?php if (get_setting('url_rewrite_enable') != 'Y') { ?>/<?php echo rtrim(G_INDEX_SCRIPT, '/'); ?><?php } ?>';
+	var G_STATIC_URL = '<?php echo G_STATIC_URL; ?><?php if (get_setting('url_rewrite_enable') != 'Y') { ?>/<?php echo rtrim(G_INDEX_SCRIPT, '/'); ?><?php } ?>';
 	var G_UPLOAD_URL = '<?php echo get_setting('upload_url'); ?>';
-	var G_USER_ID = <?php echo $this->user_id; ?>;
+	var G_USER_ID = '<?php echo $this->user_id; ?>';
 	var G_USER_NAME = '<?php echo addcslashes($this->user_info['user_name'], "'"); ?>';
 	var G_UPLOAD_ENABLE = '<?php echo get_setting('upload_enable'); ?>';
 	var G_UNREAD_NOTIFICATION = 0;
@@ -54,4 +53,7 @@
 <!--[if lte IE 8]>
 	<script type="text/javascript" src="<?php echo G_STATIC_URL; ?>/js/respond.js"></script>
 <![endif]-->
+<noscript unselectable="on">
+	<meta http-equiv="refresh" content="0; url=<?php echo base_url(); ?>/static/common/error_js.html" />
+</noscript>
 </head>

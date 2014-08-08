@@ -1,7 +1,1 @@
-<?php if ($this->list) { ?>
-<?php foreach($this->list AS $key => $val) { ?>
-<li>
-	<?php echo strip_tags($val['message']); ?>
-</li>
-<?php } ?>
-<?php } ?>
+<?php if ($this->list) { ?><?php foreach($this->list AS $key => $val) { ?><li>	<div class="mod-body">		<?php if ($val['read_flag'] != 1) { ?>		<i class="icon-tips"></i>		<?php } ?>		<p>			<?php echo $val['message']; ?>			<!-- <a href="m/people/<?php echo $val['p_user_name']; ?>"><?php echo $val['p_user_name']; ?></a> <?php _e('邀请你参与问题'); ?> <a href="<?php echo $val['key_url']; ?>"><?php echo $val['title']?></a> -->		</p>	</div>	<div class="mod-footer active">		<?php if ($val['read_flag'] != 1) { ?>		<a onclick="AWS.Message.read_notification($(this).parents('li'), <?php echo $val['notification_id']; ?>, false);"><?php _e('标为已读'); ?></a>		<?php } else { ?>		<a><?php _e('已读'); ?></a>		<?php } ?>		<span class="color-999 pull-right"><?php echo date_friendly($val['add_time'], 604800, 'Y-m-d'); ?></span>	</div></li><?php } ?><?php } ?>

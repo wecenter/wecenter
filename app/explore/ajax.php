@@ -4,11 +4,11 @@
 |   WeCenter [#RELEASE_VERSION#]
 |   ========================================
 |   by WeCenter Software
-|   © 2011 - 2013 WeCenter. All Rights Reserved
+|   © 2011 - 2014 WeCenter. All Rights Reserved
 |   http://www.wecenter.com
 |   ========================================
 |   Support: WeCenter@qq.com
-|   
+|
 +---------------------------------------------------------------------------
 */
 
@@ -23,15 +23,15 @@ class ajax extends AWS_CONTROLLER
 	public function get_access_rule()
 	{
 		$rule_action['rule_type'] = 'white';
-		
+
 		if ($this->user_info['permission']['visit_explore'])
 		{
 			$rule_action['actions'][] = 'list';
 		}
-		
+
 		return $rule_action;
 	}
-	
+
 	public function list_action()
 	{
 		if ($_GET['feature_id'])
@@ -42,7 +42,7 @@ class ajax extends AWS_CONTROLLER
 		{
 			$topic_ids = explode(',', $_GET['topic_id']);
 		}
-		
+
 		if ($_GET['per_page'])
 		{
 			$per_page = intval($_GET['per_page']);
@@ -51,16 +51,16 @@ class ajax extends AWS_CONTROLLER
 		{
 			$per_page = get_setting('contents_per_page');
 		}
-		
+
 		if ($_GET['sort_type'] == 'hot')
 		{
 			$posts_list = $this->model('posts')->get_hot_posts($_GET['post_type'], $_GET['category'], $topic_ids, $_GET['day'], $_GET['page'], $per_page);
 		}
 		else
 		{
-			$posts_list = $this->model('posts')->get_posts_list($_GET['post_type'], $_GET['page'], $per_page, $_GET['sort_type'], $topic_ids, $_GET['category'], $_GET['answer_count'], $_GET['day']);
+			$posts_list = $this->model('posts')->get_posts_list($_GET['post_type'], $_GET['page'], $per_page, $_GET['sort_type'], $topic_ids, $_GET['category'], $_GET['answer_count'], $_GET['day'], $_GET['is_recommend']);
 		}
-		
+
 		if ($_GET['template'] != 'm' AND $posts_list)
 		{
 			foreach ($posts_list AS $key => $val)
@@ -71,9 +71,9 @@ class ajax extends AWS_CONTROLLER
 				}
 			}
 		}
-		
+
 		TPL::assign('posts_list', $posts_list);
-		
+
 		if ($_GET['template'] == 'm')
 		{
 			TPL::output('m/ajax/explore_list');

@@ -4,18 +4,18 @@
 |   WeCenter [#RELEASE_VERSION#]
 |   ========================================
 |   by WeCenter Software
-|   © 2011 - 2013 WeCenter. All Rights Reserved
+|   © 2011 - 2014 WeCenter. All Rights Reserved
 |   http://www.wecenter.com
 |   ========================================
 |   Support: WeCenter@qq.com
-|   
+|
 +---------------------------------------------------------------------------
 */
 
 class core_config
 {
 	private $config = array();
-			
+
 	function get($config_id)
 	{
 		if (defined('IN_SAE'))
@@ -43,7 +43,7 @@ class core_config
 				break;
 			}
 		}
-		
+
 		if (isset($this->config[$config_id]))
 		{
 			return $this->config[$config_id];
@@ -63,27 +63,27 @@ class core_config
 		else
 		{
 			include (AWS_PATH . 'config/' . $config_id . '.php');
-			
+
 			if (! is_array($config))
 			{
 				throw new Zend_Exception('Your config/' . $config_id . '.php file does not appear to contain a valid configuration array.');
 			}
-			
+
 			$this->config[$config_id] = (object)$config;
-			
+
 			return $this->config[$config_id];
 		}
 	}
-	
+
 	public function set($config_id, $data)
 	{
 		if (empty($data) || (! is_array($data)))
 		{
 			throw new Zend_Exception('config data type error');
 		}
-		
+
 		$content = "<?php\n\n";
-		
+
 		foreach($data as $key => $val)
 		{
 			if (is_array($val))
@@ -94,24 +94,24 @@ class core_config
 			{
 				$content .= "\$config['{$key}'] = " . ($val ? 'true' : 'false') . ";";
 			}
-			else 
+			else
 			{
 				$content .= "\$config['{$key}'] = '" . addcslashes($val, "'") . "';";
 			}
-			
+
 			$content .= "\r\n";
 		}
-		
+
 		$config_path = AWS_PATH . 'config/' . $config_id . '.php';
-		
+
 		$fp = @fopen($config_path, "w");
-		
+
 		@chmod($config_path, 0777);
-		
+
 		$fwlen = @fwrite($fp, $content);
-		
+
 		@fclose($fp);
-		
+
 		return $fwlen;
 	}
 }

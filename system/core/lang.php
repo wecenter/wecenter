@@ -4,43 +4,43 @@
 |   WeCenter [#RELEASE_VERSION#]
 |   ========================================
 |   by WeCenter Software
-|   © 2011 - 2013 WeCenter. All Rights Reserved
+|   © 2011 - 2014 WeCenter. All Rights Reserved
 |   http://www.wecenter.com
 |   ========================================
 |   Support: WeCenter@qq.com
-|   
+|
 +---------------------------------------------------------------------------
 */
 
 class core_lang
 {
 	private $lang = array();
-	
+
 	public function __construct()
 	{
 		if (!defined('SYSTEM_LANG'))
 		{
 			return false;
 		}
-		
+
 		if (SYSTEM_LANG == '')
 		{
 			return false;
 		}
-		
+
 		$language_file = ROOT_PATH . 'language/' . SYSTEM_LANG . '.php';
-		
+
 		if (file_exists($language_file))
 		{
 			require $language_file;
 		}
-		
+
 		if (is_array($language))
 		{
 			$this->lang = $language;
 		}
 	}
-	
+
 	public function translate($string, $replace = null, $display = false)
 	{
 		if ($translate = $this->lang[trim($string)])
@@ -49,12 +49,12 @@ class core_lang
 			{
 				$translate = str_replace('%s', $replace, $translate);
 			}
-			
+
 			if (!$display)
 			{
 				return $translate;
 			}
-			
+
 			echo $translate;
 		}
 		else
@@ -63,11 +63,11 @@ class core_lang
 			{
 				$string = str_replace('%s', $replace, $string);
 			}
-			
+
 			return $string;
 		}
 	}
-	
+
 	public function _t($string, $replace = null, $display = false)
 	{
 		return $this->translate($string, $replace, $display);

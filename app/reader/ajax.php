@@ -4,11 +4,11 @@
 |   WeCenter [#RELEASE_VERSION#]
 |   ========================================
 |   by Tatfook Network Team
-|   © 2011 - 2013 WeCenter. All Rights Reserved
+|   © 2011 - 2014 WeCenter. All Rights Reserved
 |   http://www.wecenter.com
 |   ========================================
 |   Support: WeCenter@qq.com
-|   
+|
 +---------------------------------------------------------------------------
 */
 
@@ -25,9 +25,9 @@ class ajax extends AWS_CONTROLLER
 	public function get_access_rule()
 	{
 		$rule_action['rule_type'] = 'black';
-		
+
 		$rule_action['actions'] = array();
-		
+
 		return $rule_action;
 	}
 
@@ -35,13 +35,13 @@ class ajax extends AWS_CONTROLLER
 	{
 		HTTP::no_cache_header();
 	}
-	
+
 	public function questions_list_action()
 	{
 		if ($_GET['feature_id'])
 		{
 			$topic_ids = $this->model('feature')->get_topics_by_feature_id($_GET['feature_id']);
-			
+
 			if ($topic_ids)
 			{
 				$answers = $this->model('reader')->fetch_answers_list_by_topic_ids($topic_ids, $_GET['page'], 20);
@@ -51,9 +51,9 @@ class ajax extends AWS_CONTROLLER
 		{
 			$answers = $this->model('reader')->fetch_answers_list($_GET['page'], 20);
 		}
-		
+
 		$output = array();
-		
+
 		if ($answers)
 		{
 			foreach ($answers AS $key => $val)
@@ -61,13 +61,13 @@ class ajax extends AWS_CONTROLLER
 				$question_ids[$val['question_id']] = $val['question_id'];
 				$uids[$val['uid']] = $val['uid'];
 			}
-			
+
 			$questions_info = $this->model('question')->get_question_info_by_ids($question_ids);
-			
+
 			$question_topics = $this->model('topic')->get_topics_by_item_ids($question_ids, 'question');
-			
+
 			$users_info = $this->model('account')->get_user_info_by_uids($uids, TRUE);
-			
+
 			foreach ($answers AS $key => $val)
 			{
 				$output['answers'][$val['answer_id']] = array(
@@ -83,7 +83,7 @@ class ajax extends AWS_CONTROLLER
 					'uid' => $val['uid'],
 				);
 			}
-			
+
 			foreach ($questions_info AS $key => $val)
 			{
 				$output['questions'][$val['question_id']] = array(
@@ -97,7 +97,7 @@ class ajax extends AWS_CONTROLLER
 				);
 			}
 		}
-		
+
 		echo json_encode($output);
 	}
 }

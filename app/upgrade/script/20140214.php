@@ -21,12 +21,12 @@ switch ($_GET['post_type'])
 				$this->model('posts')->set_posts_index($val['question_id'], 'question', $val);
 			}
 			
-			H::redirect_msg(AWS_APP::lang()->_t('正在升级问题数据库') . ', ' . AWS_APP::lang()->_t('批次: %s', $_GET['page']), '?/upgrade/script/post_type-question__page-' . ($_GET['page'] + 1));
+			H::redirect_msg(AWS_APP::lang()->_t('正在升级问题数据库') . ', ' . AWS_APP::lang()->_t('批次: %s', $_GET['page']), '/upgrade/script/post_type-question__page-' . ($_GET['page'] + 1));
 			die;
 		}
 		else
 		{
-			HTTP::redirect('?/upgrade/script/post_type-article__page-1');
+			HTTP::redirect('/upgrade/script/post_type-article__page-1');
 			die;
 		}
 	break;
@@ -39,7 +39,7 @@ switch ($_GET['post_type'])
 				$this->model('posts')->set_posts_index($val['id'], 'article', $val);
 			}
 			
-			H::redirect_msg(AWS_APP::lang()->_t('正在升级文章数据库') . ', ' . AWS_APP::lang()->_t('批次: %s', $_GET['page']), '?/upgrade/script/post_type-article__page-' . ($_GET['page'] + 1));
+			H::redirect_msg(AWS_APP::lang()->_t('正在升级文章数据库') . ', ' . AWS_APP::lang()->_t('批次: %s', $_GET['page']), '/upgrade/script/post_type-article__page-' . ($_GET['page'] + 1));
 			die;
 		}
 		else

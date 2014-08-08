@@ -1,115 +1,225 @@
 <?php TPL::output('admin/global/header.tpl.htm'); ?>
 <?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
 
-<div class="pull-left right-side">
-	<div class="aw-mod-head">
-		<h2>
-			<span class="pull-left"><?php _e('话题管理'); ?></span>
-			
-			<ul class="nav nav-tabs pull-left">
-			    <li class="active"><a href="#list" data-toggle="tab"><?php _e('话题列表'); ?></a></li>
-			    <li><a href="#search" data-toggle="tab"><?php _e('搜索'); ?></a></li>
-			</ul>
-		</h2>
-	</div>
-	<div class="aw-mod-body tab-content">
-		<div class="tab-pane active" id="list">
-			<?php if ($_GET['action'] == 'search') { ?>
-			<div class="alert alert-info" style="margin:10px 0"><?php _e('找到 %s 条符合条件的内容', intval($this->topic_num)); ?></div>
-			<?php } ?>
-			
-			<?php if ($this->list) { ?>
-			<form id="batchs_form" action="admin/topic/topic_batch/" method="post">
-			<input type="hidden" name='action_type' id="action_type" value="" />
-				<table class="aw-table">
-					<thead>
-						<tr>
-							<th width="30" align="center"><input type="checkbox" class="check-all"></th>
-							<th width="40%" align="left"><?php _e('话题标题'); ?></th>
-							<th align="center"><a href="<?php echo $this->search_url; ?>__sort_key-discuss_count__order-<?php if ($_GET['sort_key'] == 'discuss_count' && $_GET['order'] == 'DESC') { ?>ASC<?php } else { ?>DESC<?php } ?>"><?php _e('问题'); ?><?php if ($_GET['sort_key'] == 'discuss_count') { ?><?php if ($_GET['order'] == 'ASC') { ?><i class="aw-icon triangle_up"></i><?php } else { ?><i class="aw-icon triangle_down"></i><?php } ?><?php } ?></a></th>
-							<th align="center"><?php _e('状态'); ?></th>
-							<th align="center"><?php _e('操作'); ?></th>
-						</tr>
-					</thead>
-					<tbody>
-						<?php foreach ($this->list AS $key => $val) { ?>
-						<tr>
-							<td align="center"><input type="checkbox" name="topic_ids[]" value="<?php echo $val['topic_id']; ?>"></td>
-							<td align="left"><a href="topic/<?php echo $val['url_token']; ?>" target="_blank"><?php echo $val['topic_title']; ?></a></td>
-							<td align="center">
-								<a href="admin/question/question_list/action-search__topic-<?php echo rawurlencode($val['topic_title']); ?>"><?php echo $val['discuss_count']; ?></a>
-							</td>
-							<td align="center">
-							<?php if ($val['topic_lock'] == 1) { ?>
-								<a href="javascript:;" onclick="ajax_request(G_BASE_URL + '/admin/topic/topic_lock/topic_id-<?php echo $val['topic_id']; ?>__status-0');" title="<?php _e('解除锁定'); ?>"><i class="aw-icon lock"></i></a>
-							<?php } else { ?>
-								<a href="javascript:;" onClick="ajax_request(G_BASE_URL + '/admin/topic/topic_lock/topic_id-<?php echo $val['topic_id']; ?>__status-1');" title="<?php _e('锁定话题'); ?>"><i class="aw-icon lock-open"></i></a>
-							<?php } ?>
-							</td>
-							<td align="center">
-								<a href="admin/topic/edit/topic_id-<?php echo $val['topic_id']; ?>" title="<?php _e('编辑'); ?>"><i class="aw-icon page-edit"></i></a>
-							</td>
-						<?php } ?>
-					</tbody>
-					<tfoot>
-						<tr>
-							<td colspan="5">
-								<span class="pull-right"><?php echo $this->pagination; ?></span>
-								<a class="btn btn-inverse" onclick="$('#action_type').val('remove'); ajax_post($('#batchs_form'));" href="javascript:;"><?php _e('删除所选'); ?></a>
-								<a class="btn btn-inverse" onclick="$('#action_type').val('lock'); ajax_post($('#batchs_form'));" href="javascript:;"><?php _e('锁定所选'); ?></a>
-							</td>
-						</tr>
-					</tfoot>
-				</table>
-			</form>
-			<?php } ?>
-		</div>
-	
-		<div class="tab-pane" id="search">
-			<form method="post" action="admin/topic/list/" onsubmit="return false;" id="search_form">
-				<input name="action" type="hidden" value="search" />
-				<div class="aw-box aw-no-border-top">
-					<dl>
-						<dt><h3><?php _e('关键词'); ?>:</h3></dt>
-						<dd>
-							<div class="row">
-								<div class="col-sm-7">
-									<input class="form-control" type="text" value="<?php echo rawurldecode($_GET['keyword']); ?>" name="keyword" />
-								</div>
-							</div>
-						</dd>
-					</dl>
-					<dl>
-						<dt><h3><?php _e('包含问题数'); ?>:</h3></dt>
-						<dd>
-							<input type="text" name="question_count_min" value="<?php echo $_GET['question_count_min']; ?>" />
-							-
-							<input type="text" name="question_count_max" value="<?php echo $_GET['question_count_max']; ?>" />
-						</dd>
-					</dl>
-					<dl>
-						<dt><h3><?php _e('是否有图片'); ?>:</h3></dt>
-						<dd>
-						<label><input type="radio" value="YES" name="topic_pic"<?php if ($_GET['topic_pic'] == 'YES') { ?> checked="checked"<?php } ?>> <?php _e('有'); ?></label>
-						<label><input type="radio" value="NO" name="topic_pic"<?php if ($_GET['topic_pic'] == 'NO') { ?> checked="checked"<?php } ?>> <?php _e('没有'); ?></label>
-						<label><input type="radio" value="0" name="topic_pic"<?php if (!$_GET['topic_pic']) { ?> checked="checked"<?php } ?>> <?php _e('不限制'); ?></label></dd>
-					</dl>
-					<dl>
-						<dt><h3><?php _e('是否有描述内容'); ?>:</h3></dt>
-						
-						<dd>
-						<label><input type="radio" value="YES" name="topic_description"<?php if ($_GET['topic_description'] == 'YES') { ?> checked="checked"<?php } ?>> <?php _e('有'); ?></label>
-						<label><input type="radio" value="NO" name="topic_description"<?php if ($_GET['topic_description'] == 'NO') { ?> checked="checked"<?php } ?>> <?php _e('没有'); ?></label>
-						<label><input type="radio" value="0" name="topic_description"<?php if (!$_GET['topic_description']) { ?> checked="checked"<?php } ?>> <?php _e('不限制'); ?></label>
-						</dd>
-					</dl>
-					<div class="aw-mod-footer">
-						<a href="javascript:;" class="btn btn-inverse btn-normal" onclick="ajax_post($('#search_form'));"><?php _e('搜索'); ?></a>
-					</div>
-				</div>
-			</form>
-		</div>
-	</div>
+<div class="aw-content-wrap">
+    <div class="mod">
+        <div class="mod-head">
+            <h3>
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#list" data-toggle="tab"><?php _e('话题列表'); ?></a></li>
+                    <li><a href="admin/topic/parent/"><?php _e('根话题'); ?></a></li>
+                    <li><a href="#search" data-toggle="tab"><?php _e('搜索'); ?></a></li>
+                    <li><a href="#today-topics" data-toggle="tab"><?php _e('今日话题'); ?></a></li>
+                </ul>
+            </h3>
+        </div>
+
+        <div class="mod-body tab-content">
+            <div class="tab-pane active" id="list">
+                <?php if ($_GET['action'] == 'search') { ?>
+                <div class="alert alert-info"><?php _e('找到 %s 条符合条件的内容', intval($this->topics_count)); ?></div>
+                <?php } ?>
+
+                <div class="table-responsive">
+                <?php if ($this->list) { ?>
+                <form id="batchs_form" action="admin/ajax/topic_manage/" method="post">
+                    <input type="hidden" id="action" name="action" value="" />
+                    <input type="hidden" id="parent_id" name="parent_id" value="" />
+
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox" class="check-all"></th>
+                                <th><?php _e('话题标题'); ?></th>
+                                <th><?php _e('讨论'); ?></th>
+                                <th><?php _e('关注'); ?></th>
+                                <th><?php _e('合并'); ?></th>
+                                <th><?php _e('状态'); ?></th>
+                                <th><?php _e('根话题'); ?></th>
+                                <th><?php _e('最后编辑用户'); ?></th>
+                                <th><?php _e('最后编辑时间'); ?></th>
+                                <th><?php _e('操作'); ?></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($this->list AS $topic_info) { ?>
+                            <tr>
+                                <td><input type="checkbox" name="topic_ids[]" value="<?php echo $topic_info['topic_id']; ?>"></td>
+
+                                <td><a href="topic/<?php echo $topic_info['url_token']; ?>" target="_blank"><?php echo $topic_info['topic_title']; ?></a></td>
+
+                                <td><?php echo $topic_info['discuss_count']; ?></td>
+
+                                <td><?php echo $topic_info['focus_count']; ?></td>
+
+                                <td><?php if ($topic_info['merged_id']) { ?><?php _e('是'); ?><?php } else { ?><?php _e('否'); ?><?php } ?></td>
+
+                                <td>
+                                    <?php if ($topic_info['topic_lock']) { ?>
+                                    <a onclick="AWS.ajax_request(G_BASE_URL + '/admin/ajax/lock_topic/', 'topic_id=<?php echo $topic_info['topic_id']; ?>&status=0');" title="<?php _e('解除锁定'); ?>" data-toggle="tooltip" class="fa fa-lock md-tip"></a>
+                                    <?php } else { ?>
+                                    <a href="javascript:;" onclick="AWS.ajax_request(G_BASE_URL + '/admin/ajax/lock_topic/', 'topic_id=<?php echo $topic_info['topic_id']; ?>&status=1');" data-toggle="tooltip" title="<?php _e('锁定话题'); ?>" class="fa fa-unlock md-tip"></a>
+                                    <?php } ?>
+                                </td>
+
+								<td>
+                                    <?php if ($topic_info['parent_id']) { ?>
+                                    <a href="topic/<?php echo $this->parent_topic_list[$topic_info['parent_id']]['url_token']; ?>" target="_blank"><?php echo $this->parent_topic_list[$topic_info['parent_id']]['topic_title']; ?></a>
+                                    <?php } ?>
+                                </td>
+
+                                <td><a href="people/<?php echo $this->users_info[$topic_info['last_edited_uid']]['url_token']; ?>" target="_blank"><?php echo $this->users_info[$topic_info['last_edited_uid']]['user_name'] ?></a></td>
+
+                                <td><?php echo date_friendly($topic_info['last_edited_time']); ?></td>
+
+                                <td><a href="admin/topic/edit/topic_id-<?php echo $topic_info['topic_id']; ?>" class="fa fa-pencil md-tip" title="<?php _e('编辑'); ?>" data-toggle="tooltip"></a></td>
+                            </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+                </form>
+                <?php } ?>
+                </div>
+
+                <div class="mod-table-foot">
+                    <?php echo $this->pagination; ?>
+
+                    <a class="btn btn-danger" onclick="$('#action').val('remove'); AWS.ajax_post($('#batchs_form'));"><?php _e('删除话题'); ?></a>
+                    <a class="btn btn-primary" onclick="$('#action').val('lock'); AWS.ajax_post($('#batchs_form'));"><?php _e('锁定话题'); ?></a>
+                    <a class="btn btn-primary" id="batchs_post"><?php _e('选择根话题'); ?></a>
+                </div>
+            </div>
+
+            <div class="tab-pane" id="search">
+                <form method="post" action="admin/topic/list/" onsubmit="return false;" id="search_form" class="form-horizontal" role="form">
+
+                    <input name="action" type="hidden" value="search" />
+
+                    <div class="form-group">
+                        <label class="col-sm-2 col-xs-3 control-label"><?php _e('关键词'); ?>:</label>
+
+                        <div class="col-sm-5 col-xs-8">
+                            <input class="form-control" type="text" value="<?php echo rawurldecode($_GET['keyword']); ?>" name="keyword" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 col-xs-3 control-label"><?php _e('添加时间范围'); ?>:</label>
+
+                        <div class="col-sm-6 col-xs-9">
+                            <div class="row">
+                                <div class="col-xs-11  col-sm-5 mod-double">
+                                    <input type="text" class="form-control mod-data" value="<?php echo base64_decode($_GET['start_date']); ?>" name="start_date" />
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <span class="mod-symbol col-xs-1 col-sm-1">
+                                -
+                                </span>
+                                <div class="col-xs-11 col-sm-5">
+                                    <input type="text" class="form-control mod-data" value="<?php echo base64_decode($_GET['end_date']); ?>" name="end_date" />
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 col-xs-3 control-label"><?php _e('作者'); ?>:</label>
+
+                        <div class="col-sm-5 col-xs-8">
+                            <input class="form-control" type="text" value="<?php echo $_GET['user_name']; ?>" name="user_name" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 col-xs-3 control-label"><?php _e('讨论数'); ?>:</label>
+
+                        <div class="col-sm-6 col-xs-9">
+                            <div class="row">
+                                <div class="col-xs-11  col-sm-5 mod-double">
+                                    <input type="text" class="form-control" name="question_count_min" value="<?php echo $_GET['question_count_min']; ?>" />
+                                </div>
+                                <span class="mod-symbol col-xs-1 col-sm-1">
+                                -
+                                </span>
+                                <div class="col-xs-11 col-sm-5">
+                                    <input type="text" class="form-control" name="question_count_max" value="<?php echo $_GET['question_count_max']; ?>" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-5 col-xs-8">
+                            <button type="button" onclick="AWS.ajax_post($('#search_form'));" class="btn btn-primary"><?php _e('搜索'); ?></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="tab-pane" id="today-topics">
+                <form method="post" action="admin/ajax/save_today_topics/" onsubmit="return false;" id="today_topics_form" class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <span class="col-sm-2 col-xs-3 control-label"><?php _e('今日话题'); ?>:</span>
+                        <div class="col-sm-5 col-xs-8">
+                            <input type="text" name="today_topics" class="form-control" value="<?php echo get_setting('today_topics'); ?>" />
+
+                            <span class="help-block"><?php _e('填写话题名称, 系统每天随机选出一个作为今日话题, 留空则不显示今日话题, 可填写一个或多个话题, 多个话题请用 , 分隔'); ?></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-5 col-xs-8">
+                            <button type="button" onclick="AWS.ajax_post($('#today_topics_form'));" class="btn btn-primary"><?php _e('保存设置'); ?></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
+
+<?php if ($this->parent_topic_list) { ?>
+<div id="target-category" class="hide">
+    <?php foreach ($this->parent_topic_list AS $topic_info) { ?>
+    <option value="<?php echo $topic_info['topic_id']; ?>"><?php echo $topic_info['topic_title']; ?></option>
+    <?php } ?>
+</div>
+<?php } ?>
+<script>
+    $(function(){
+
+        var json = '';
+
+        $.each($('#target-category option').toArray(), function (i, e)
+        {
+            if (i >= 1)
+            {
+                json += ',';
+            }
+            
+            json += "{'title':'" + $(e).text() + "', 'id':'" + $(e).val() + "'}";
+        });
+
+        $('#batchs_post').click(function()
+        {   
+            if($('.icheckbox_square-blue').hasClass("checked")){
+                AWS.dialog('adminCategoryMove', {'option':eval('[' + json + ']'), 'name':'选择根话题','from_id':'#batchs_form'});
+
+                $('#parent_id').val($("#aw-ajax-box .form-control:eq(1)").val());
+                $('#action').val('set_parent_id');
+            }else{
+                AWS.alert('请勾选话题');
+            }
+
+        });
+
+        $("#aw-ajax-box").delegate('.form-control:eq(1)','change',function() {
+
+            $('#parent_id').val($("#aw-ajax-box .form-control:eq(1)").val());
+        });
+
+    })
+</script>
 
 <?php TPL::output('admin/global/footer.tpl.htm'); ?>
