@@ -4,11 +4,11 @@
 |   WeCenter [#RELEASE_VERSION#]
 |   ========================================
 |   by WeCenter Software
-|   © 2011 - 2013 WeCenter. All Rights Reserved
+|   © 2011 - 2014 WeCenter. All Rights Reserved
 |   http://www.wecenter.com
 |   ========================================
 |   Support: WeCenter@qq.com
-|   
+|
 +---------------------------------------------------------------------------
 */
 
@@ -30,12 +30,12 @@ class related_class extends AWS_MODEL
 			'add_time' => time()
 		));
 	}
-	
+
 	public function remove_related_link($id, $item_id)
 	{
 		return $this->delete('related_links', 'id = ' . intval($id) . ' AND item_id = ' . intval($item_id));
 	}
-	
+
 	public function get_related_links($item_type, $item_id)
 	{
 		return $this->fetch_all('related_links', "item_type = '" . $this->quote($item_type) . "' AND item_id = " . intval($item_id));

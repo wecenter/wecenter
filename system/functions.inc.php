@@ -6,7 +6,7 @@
  *
  * @package		WeCenter Framework
  * @author		WeCenter Dev Team
- * @copyright	Copyright (c) 20011 - 2013, WeCenter, Inc.
+ * @copyright	Copyright (c) 2011 - 2014, WeCenter, Inc.
  * @license		http://www.wecenter.com/license/
  * @link		http://www.wecenter.com/
  * @since		Version 1.0
@@ -1203,7 +1203,7 @@ function decode_eml($string)
 	{
 		return $string;
 	}
-	
+
 	$encoding = substr($search, 0, $part_2);	// 两个?　之间的部分编码方式: q 或 b　
 	$search = substr($search, $part_2 + 1);
 	$end = strpos($search, '?=');	// $part_2 + 1 与 $end 之间是编码了的内容: => $endcoded_text;
@@ -1229,7 +1229,7 @@ function decode_eml($string)
 
 		case 'b':
 			$decoded = base64_decode($encoded_text);
-			
+
 			if (strtolower($charset) == 'windows-1251')
 			{
 				$decoded = convert_cyr_string($decoded, 'w', 'k');
@@ -1240,6 +1240,6 @@ function decode_eml($string)
 			$decoded = '=?' . $charset . '?' . $encoding . '?' . $encoded_text . '?=';
 		break;
 	}
-	
+
 	return $preceding . $decoded . decode_eml($rest);
 }
