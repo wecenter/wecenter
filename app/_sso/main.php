@@ -43,11 +43,7 @@ class main extends AWS_CONTROLLER
 			$user_info = $this->model('account')->check_login($_GET['user_name'], $_GET['password']);
 		}
 
-		if (! $user_info)
-		{
-			echo jsonp_encode(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请输入正确的帐号或密码')));
-		}
-		else
+		if ($user_info)
 		{
 			if ($user_info['forbidden'] == 1)
 			{
@@ -65,6 +61,10 @@ class main extends AWS_CONTROLLER
 			$this->model('account')->setcookie_login($user_info['uid'], $_GET['user_name'], $_GET['password'], $user_info['salt'], $expire);
 
 			echo jsonp_encode(AWS_APP::RSM(null, 1, null));
+		}
+		else
+		{
+			echo jsonp_encode(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请输入正确的帐号或密码')));
 		}
 	}
 
