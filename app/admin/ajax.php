@@ -352,13 +352,13 @@ class ajax extends AWS_ADMIN_CONTROLLER
             }
         }
 
-        if (! $_POST['category_id'])
+        if ($_POST['category_id'])
         {
-            $category_id = $this->model('category')->add_category('question', $_POST['title'], $_POST['parent_id']);
+            $category_id = intval($_POST['category_id']);
         }
         else
         {
-            $category_id = intval($_POST['category_id']);
+            $category_id = $this->model('category')->add_category('question', $_POST['title'], $_POST['parent_id']);
         }
 
         $category = $this->model('system')->get_category_info($category_id);
