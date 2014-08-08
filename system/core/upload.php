@@ -4,7 +4,7 @@
 |   WeCenter [#RELEASE_VERSION#]
 |   ========================================
 |   by WeCenter Software
-|   © 2011 - 2013 WeCenter. All Rights Reserved
+|   © 2011 - 2014 WeCenter. All Rights Reserved
 |   http://www.wecenter.com
 |   ========================================
 |   Support: WeCenter@qq.com
@@ -132,16 +132,16 @@ class core_upload {
         clearstatcache();
 
         if ($data_stream)
-        {            
+        {
             $tmp_file = TEMP_PATH . 'xhr_' . md5($field . microtime(TRUE) . rand(1, 999)) . '.stream';
-			
+
             if (!file_put_contents($tmp_file, $data_stream))
             {
                 $this->set_error('upload_unable_to_write_file');
 
                 return FALSE;
             }
-            
+
             // Set the uploaded data as class variables
             $this->file_temp = $tmp_file;
             $this->file_size = strlen($data_stream);

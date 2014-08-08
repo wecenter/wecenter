@@ -4,11 +4,11 @@
 |   WeCenter [#RELEASE_VERSION#]
 |   ========================================
 |   by WeCenter Software
-|   © 2011 - 2013 WeCenter. All Rights Reserved
+|   © 2011 - 2014 WeCenter. All Rights Reserved
 |   http://www.wecenter.com
 |   ========================================
 |   Support: WeCenter@qq.com
-|   
+|
 +---------------------------------------------------------------------------
 */
 
@@ -44,9 +44,9 @@ class core_pagination
 	var $num_tag_close		= '';
 	var $query_string_segment = 'page';
 	var $display_pages		= TRUE;
-	
+
 	var $page_base_url = '';
-	
+
 	/**
 	 * Constructor
 	 *
@@ -54,7 +54,7 @@ class core_pagination
 	 * @param	array	initialization parameters
 	 */
 	public function __construct($params = array())
-	{		
+	{
 		if (file_exists(ROOT_PATH . 'views/' . get_setting('ui_style') . '/config/pagination.php'))
 		{
 			include(ROOT_PATH . 'views/' . get_setting('ui_style') . '/config/pagination.php');
@@ -63,9 +63,9 @@ class core_pagination
 		{
 			include(ROOT_PATH . 'views/default/config/pagination.php');
 		}
-		
+
 		$this->initialize($config);
-		
+
 		if (count($params) > 0)
 		{
 			$this->initialize($params);
@@ -98,7 +98,7 @@ class core_pagination
 				}
 			}
 		}
-		
+
 		return $this;
 	}
 
@@ -185,7 +185,7 @@ class core_pagination
 		if  ($this->first_link !== FALSE AND $this->cur_page > ($this->num_links + 1))
 		{
 			$first_url = ($this->first_url == '') ? $this->base_url : $this->first_url;
-			
+
 			$output .= $this->first_tag_open.'<a '.$this->anchor_class.'href="'.$first_url.'">'.$this->first_link.'</a>'.$this->first_tag_close;
 		}
 
@@ -201,7 +201,7 @@ class core_pagination
 			else
 			{
 				$i = ($i == 0) ? '' : $this->prefix.$i.$this->suffix;
-				
+
 				$output .= $this->prev_tag_open.'<a '.$this->anchor_class.'href="'.$this->page_base_url.$i.'">'.$this->prev_link . '</a>'.$this->prev_tag_close;
 			}
 
@@ -224,7 +224,7 @@ class core_pagination
 					else
 					{
 						$n = ($i == 0) ? '' : $i;
-						
+
 						$n = $n / $this->per_page + 1;	// by Anwsion
 
 						if ($n == 1)
@@ -255,7 +255,7 @@ class core_pagination
 			$i = $num_pages;
 			$output .= $this->last_tag_open.'<a '.$this->anchor_class.'href="'.$this->page_base_url.$this->prefix.$i.$this->suffix.'">'.$this->last_link.'</a>'.$this->last_tag_close;
 		}
-		
+
 		// Kill double slashes.  Note: Sometimes we can end up with a double slash
 		// in the penultimate link so we'll kill all double slashes.
 		$output = preg_replace("#([^:])//+#", "\\1/", $output);

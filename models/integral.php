@@ -4,11 +4,11 @@
 |   WeCenter [#RELEASE_VERSION#]
 |   ========================================
 |   by WeCenter Software
-|   © 2011 - 2013 WeCenter. All Rights Reserved
+|   © 2011 - 2014 WeCenter. All Rights Reserved
 |   http://www.wecenter.com
 |   ========================================
 |   Support: WeCenter@qq.com
-|   
+|
 +---------------------------------------------------------------------------
 */
 
@@ -26,26 +26,26 @@ class integral_class extends AWS_MODEL
 		{
 			return false;
 		}*/
-		
+
 		if ($integral == 0)
 		{
 			return false;
 		}
-		
+
 		$log_id = $this->log($uid, $action, $integral, $note, $item_id);
-		
+
 		$this->sum_integral($uid);
-		
+
 		return $log_id;
 	}
-	
+
 	public function fetch_log($uid, $action)
 	{
 		return $this->fetch_row('integral_log', 'uid = ' . intval($uid) . ' AND action = \'' . $this->quote($action) . '\'');
 	}
-	
+
 	public function log($uid, $action, $integral, $note = '', $item_id = null)
-	{		
+	{
 		if ($user_info = $this->model('account')->get_user_info_by_uid($uid))
 		{
 			return $this->insert('integral_log', array(
@@ -59,7 +59,7 @@ class integral_class extends AWS_MODEL
 			));
 		}
 	}
-	
+
 	// 根据日志计算积分
 	public function sum_integral($uid)
 	{
@@ -67,21 +67,21 @@ class integral_class extends AWS_MODEL
 			'integral' => $this->sum('integral_log', 'integral', 'uid = ' . intval($uid))
 		), 'uid = ' . intval($uid));
 	}
-	
+
 	public function parse_log_item($parse_items)
 	{
 		if (!is_array($parse_items))
 		{
 			return false;
 		}
-		
+
 		foreach ($parse_items AS $log_id => $item)
 		{
 			if (strstr($item['action'], 'ANSWER_FOLD_'))
 			{
 				$item['action'] = 'ANSWER_FOLD';
 			}
-			
+
 			switch ($item['action'])
 			{
 				case 'NEWS_QUESTION':
@@ -93,47 +93,47 @@ class integral_class extends AWS_MODEL
 				case 'QUESTION_THANKS':
 					$question_ids[] = $item['item_id'];
 				break;
-				
+
 				case 'ANSWER_THANKS':
 				case 'THANKS_ANSWER':
 				case 'ANSWER_FOLD':
 				case 'BEST_ANSWER':
 					$answer_ids[] = $item['item_id'];
 				break;
-				
+
 				case 'INVITE':
 					$user_ids[] = $item['item_id'];
 				break;
 			}
 		}
-		
+
 		if ($question_ids)
 		{
 			$questions_info = $this->model('question')->get_question_info_by_ids($question_ids);
 		}
-		
+
 		if ($answer_ids)
 		{
 			$answers_info = $this->model('answer')->get_answers_by_ids($answer_ids);
 		}
-		
+
 		if ($user_ids)
 		{
 			$users_info = $this->model('account')->get_user_info_by_uids($user_ids);
 		}
-		
+
 		foreach ($parse_items AS $log_id => $item)
 		{
 			if (!$item['item_id'])
 			{
 				continue;
 			}
-			
+
 			if (strstr($item['action'], 'ANSWER_FOLD_'))
 			{
 				$item['action'] = 'ANSWER_FOLD';
 			}
-			
+
 			switch ($item['action'])
 			{
 				case 'NEWS_QUESTION':
@@ -150,9 +150,9 @@ class integral_class extends AWS_MODEL
 							'url' => get_js_url('/question/' . $item['item_id'])
 						);
 					}
-					
+
 				break;
-				
+
 				case 'ANSWER_THANKS':
 				case 'THANKS_ANSWER':
 				case 'ANSWER_FOLD':
@@ -165,7 +165,7 @@ class integral_class extends AWS_MODEL
 						);
 					}
 				break;
-				
+
 				case 'INVITE':
 					if ($users_info[$item['item_id']])
 					{
@@ -177,7 +177,7 @@ class integral_class extends AWS_MODEL
 				break;
 			}
 		}
-		
+
 		return $result;
 	}
 }

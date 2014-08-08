@@ -4,7 +4,7 @@
 |   WeCenter [#RELEASE_VERSION#]
 |   ========================================
 |   by WeCenter Software
-|   © 2011 - 2013 WeCenter. All Rights Reserved
+|   © 2011 - 2014 WeCenter. All Rights Reserved
 |   http://www.wecenter.com
 |   ========================================
 |   Support: WeCenter@qq.com
@@ -129,7 +129,7 @@ class main extends AWS_CONTROLLER
 		}
 
 		$this->crumb(AWS_APP::lang()->_t('微信登录'), '/account/weixin_login/');
-		
+
 		TPL::assign('qr_code_url', $this->model('openid_weixin')->get_login_qr_url());
 
 		TPL::output('account/weixin_login');

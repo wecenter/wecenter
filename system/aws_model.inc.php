@@ -6,7 +6,7 @@
  *
  * @package		WeCenter Framework
  * @author		WeCenter Dev Team
- * @copyright	Copyright (c) 20011 - 2013, WeCenter, Inc.
+ * @copyright	Copyright (c) 2011 - 2014, WeCenter, Inc.
  * @license		http://www.wecenter.com/license/
  * @link		http://www.wecenter.com/
  * @since		Version 1.0
@@ -771,7 +771,7 @@ class AWS_MODEL
 		{
 			$select->where($where);
 		}
-		
+
 		if ($order)
 		{
 			if (strstr($order, ','))
@@ -999,12 +999,12 @@ class AWS_MODEL
 		if (is_object($this->db()))
 		{
 			$_quote = $this->db()->quote($string);
-			
+
 			if (substr($_quote, 0, 1) == "'")
 			{
 				$_quote = substr(substr($_quote, 1), 0, -1);
 			}
-			
+
 			return $_quote;
 		}
 

@@ -4,11 +4,11 @@
 |   WeCenter [#RELEASE_VERSION#]
 |   ========================================
 |   by WeCenter Software
-|   © 2011 - 2013 WeCenter. All Rights Reserved
+|   © 2011 - 2014 WeCenter. All Rights Reserved
 |   http://www.wecenter.com
 |   ========================================
 |   Support: WeCenter@qq.com
-|   
+|
 +---------------------------------------------------------------------------
 */
 
@@ -26,13 +26,13 @@ class draft_class extends AWS_MODEL
 		{
 			return false;
 		}
-		
+
 		if ($draft = $this->get_draft($item_id, $type, $uid))
 		{
 			$this->update('draft', array(
 				'data' => serialize($data)
 			), 'id = ' . intval($draft['id']));
-			
+
 			return $draft['id'];
 		}
 		else
@@ -44,50 +44,50 @@ class draft_class extends AWS_MODEL
 				'data' => serialize($data),
 				'time' => time()
 			));
-			
+
 			$this->shutdown_update('users', array(
 				'draft_count' => $this->get_draft_count('answer', $uid)
 			), 'uid = ' . intval($uid));
-			
+
 			return $draft_id;
 		}
 	}
-	
+
 	public function get_draft($item_id, $type, $uid)
 	{
 		$draft = $this->fetch_row('draft', "item_id = " . intval($item_id) . " AND uid = " . intval($uid) . " AND `type` = '" . $this->quote($type) . "'");
-		
+
 		if ($draft['data'])
 		{
 			$draft['data'] = unserialize($draft['data']);
 		}
-		
+
 		return $draft;
 	}
-	
+
 	public function get_draft_count($type, $uid)
 	{
 		return $this->count('draft', "uid = " . intval($uid) . " AND `type` = '" . $this->quote($type) . "'");
 	}
-	
+
 	public function delete_draft($item_id, $type, $uid)
 	{
 		$this->delete('draft', "item_id = " . intval($item_id) . " AND uid = " . intval($uid) . " AND `type` = '" . $this->quote($type) . "'");
-		
+
 		$this->shutdown_update('users', array(
 			'draft_count' => $this->get_draft_count('answer', $uid)
 		), 'uid = ' . intval($uid));
-		
+
 		return true;
 	}
-	
+
 	public function get_data($item_id, $type, $uid)
 	{
 		$draft = $this->get_draft($item_id, $type, $uid);
-		
+
 		return $draft['data'];
 	}
-	
+
 	public function get_all($type, $uid, $page = null)
 	{
 		if ($draft = $this->fetch_all('draft', "uid = " . intval($uid) . " AND `type` = '" . $this->quote($type) . "'", 'time DESC', $page))
@@ -100,7 +100,7 @@ class draft_class extends AWS_MODEL
 				}
 			}
 		}
-		
+
 		return $draft;
 	}
 }

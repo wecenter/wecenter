@@ -4,7 +4,7 @@
 |   WeCenter [#RELEASE_VERSION#]
 |   ========================================
 |   by WeCenter Software
-|   © 2011 - 2013 WeCenter. All Rights Reserved
+|   © 2011 - 2014 WeCenter. All Rights Reserved
 |   http://www.wecenter.com
 |   ========================================
 |   Support: WeCenter@qq.com
@@ -308,7 +308,7 @@ class ajax extends AWS_CONTROLLER
 
 		H::ajax_json_output(AWS_APP::RSM(null, 1));
 	}
-	
+
 	public function set_parent_id_action()
 	{
 		if (!($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']))
@@ -327,22 +327,22 @@ class ajax extends AWS_CONTROLLER
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('话题不存在')));
 		}
-		
+
 		if ($topic_info['is_parent'])
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('不允许为根话题设置根话题')));
 		}
-		
+
 		if ($topic_info['topic_id'] == intval($_POST['parent_id']))
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('不允许将根话题设置为自己')));
 		}
-		
+
 		$this->model('topic')->set_parent_id($topic_info['topic_id'], $_POST['parent_id']);
-		
+
 		H::ajax_json_output(AWS_APP::RSM(null, -1, null));
 	}
-	
+
 	public function save_url_token_action()
 	{
 		if (!($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']))

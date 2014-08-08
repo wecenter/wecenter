@@ -4,11 +4,11 @@
 |   WeCenter [#RELEASE_VERSION#]
 |   ========================================
 |   by WeCenter Software
-|   © 2011 - 2013 WeCenter. All Rights Reserved
+|   © 2011 - 2014 WeCenter. All Rights Reserved
 |   http://www.wecenter.com
 |   ========================================
 |   Support: WeCenter@qq.com
-|   
+|
 +---------------------------------------------------------------------------
 */
 
@@ -30,10 +30,10 @@ class ajax extends AWS_CONTROLLER
 		$rule_action['actions'] = array(
 			'hot_topics_list'
 		);
-		
+
 		return $rule_action;
 	}
-	
+
 	public function setup()
 	{
 		HTTP::no_cache_header();
@@ -52,7 +52,7 @@ class ajax extends AWS_CONTROLLER
 			{
 				$item_ids[] = $val['item_id'];
 			}
-			
+
 			TPL::assign('list', $action_list);
 		}
 		else
@@ -65,7 +65,7 @@ class ajax extends AWS_CONTROLLER
 
 		TPL::output('m/ajax/favorite_list');
 	}
-	
+
 	public function inbox_list_action()
 	{
 		if ($inbox_dialog = $this->model('message')->get_inbox_message($_GET['page'], get_setting('contents_per_page'), $this->user_id))
@@ -84,7 +84,7 @@ class ajax extends AWS_CONTROLLER
 				}
 			}
 		}
-				
+
 		if ($inbox_dialog_uids)
 		{
 			if ($users_info_query = $this->model('account')->get_user_info_by_uids($inbox_dialog_uids))
@@ -95,12 +95,12 @@ class ajax extends AWS_CONTROLLER
 				}
 			}
 		}
-		
+
 		if ($dialog_ids)
 		{
 			$last_message = $this->model('message')->get_last_messages($dialog_ids);
 		}
-				
+
 		if ($inbox_dialog)
 		{
 			foreach ($inbox_dialog as $key => $value)
@@ -109,33 +109,33 @@ class ajax extends AWS_CONTROLLER
 				{
 					$data[$key]['user_name'] = $users_info[$value['sender_uid']]['user_name'];
 					$data[$key]['url_token'] = $users_info[$value['sender_uid']]['url_token'];
-					
+
 					$data[$key]['unread'] = $value['recipient_unread'];
 					$data[$key]['count'] = $value['recipient_count'];
-					
+
 					$data[$key]['uid'] = $value['sender_uid'];
 				}
 				else if ($value['sender_uid'] == $this->user_id AND $value['sender_count']) // 当前处于发送用户
 				{
 					$data[$key]['user_name'] = $users_info[$value['recipient_uid']]['user_name'];
 					$data[$key]['url_token'] = $users_info[$value['recipient_uid']]['url_token'];
-					
+
 					$data[$key]['unread'] = $value['sender_unread'];
 					$data[$key]['count'] = $value['sender_count'];
 					$data[$key]['uid'] = $value['recipient_uid'];
 				}
-				
+
 				$data[$key]['last_message'] = $last_message[$value['id']];
 				$data[$key]['update_time'] = $value['update_time'];
 				$data[$key]['id'] = $value['id'];
 			}
 		}
-		
+
 		TPL::assign('list', $data);
 
 		TPL::output('m/ajax/inbox_list');
 	}
-	
+
 	public function focus_topics_list_action()
 	{
 		if ($topics_list = $this->model('topic')->get_focus_topic_list($this->user_id, intval($_GET['page']) * 5 . ', ' . 5))
@@ -145,16 +145,16 @@ class ajax extends AWS_CONTROLLER
 				$topics_list[$key]['action_list'] = $this->model('posts')->get_posts_list('question', 1, 3, 'new', explode(',', $val['topic_id']));
 			}
 		}
-		
+
 		TPL::assign('topics_list', $topics_list);
-		
+
 		TPL::output('m/ajax/focus_topics_list');
 	}
 
 	public function hot_topics_list_action()
-	{		
+	{
 		TPL::assign('hot_topics_list', $this->model('topic')->get_topic_list(null, 'discuss_count DESC', 5, $_GET['page']));
-		
+
 		TPL::output('m/ajax/hot_topics_list');
 	}
 

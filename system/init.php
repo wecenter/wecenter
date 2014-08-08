@@ -4,7 +4,7 @@
 |   WeCenter [#RELEASE_VERSION#]
 |   ========================================
 |   by WeCenter Software
-|   © 2011 - 2013 WeCenter. All Rights Reserved
+|   © 2011 - 2014 WeCenter. All Rights Reserved
 |   http://www.wecenter.com
 |   ========================================
 |   Support: WeCenter@qq.com
@@ -48,13 +48,13 @@ define('ROOT_PATH', dirname(dirname(__FILE__)) . '/');
 if (defined('IN_SAE'))
 {
 	error_reporting(0);
-	
+
 	define('TEMP_PATH', rtrim(SAE_TMP_PATH, '/') . '/');
 }
 else
 {
 	error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT);
-	
+
 	define('TEMP_PATH', dirname(dirname(__FILE__)) . '/tmp/');
 }
 
