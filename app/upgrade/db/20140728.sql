@@ -37,3 +37,6 @@ CREATE TABLE `[#DB_PREFIX#]received_email` (
 
 ALTER TABLE `[#DB_PREFIX#]question` ADD `received_email_id` int(10) DEFAULT NULL;
 CREATE INDEX `received_email_id` ON `[#DB_PREFIX#]question` (`received_email_id`);
+
+ALTER TABLE `[#DB_PREFIX#]topic` ADD `discuss_count_last_week` INT( 10 ) NULL DEFAULT '0', ADD INDEX ( `discuss_count_last_week` );
+ALTER TABLE `[#DB_PREFIX#]topic` ADD `discuss_count_last_month` INT( 10 ) NULL DEFAULT '0', ADD INDEX ( `discuss_count_last_month` );

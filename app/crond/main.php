@@ -54,7 +54,7 @@ class main extends AWS_CONTROLLER
 
 				$call_function = $call_action;
 
-				$this->$call_function($this->user_id);
+				$this->model('crond')->$call_function();
 			}
 		}
 
@@ -62,82 +62,5 @@ class main extends AWS_CONTROLLER
 		{
 			TPL::output('global/debuger.tpl.htm');
 		}
-	}
-
-	// debug action
-	public function weibo_action()
-	{
-		// 拉取微博最新 @用户 消息
-		if (get_setting('weibo_msg_enabled') == 'Y')
-		{
-			echo ($this->model('weibo')->get_msg_from_sina_crond()) ? 'success' : 'error';
-		}
-		else
-		{
-			echo 'receive sina weibo message option is not enabled.';
-		}
-	}
-
-	// debug action
-	public function receive_email_action()
-	{
-		$receiving_email_global_config = get_setting('receiving_email_global_config');
-
-		if ($receiving_email_global_config['enabled'] == 'Y')
-		{
-			echo ($this->model('edm')->receive_email_crond()) ? 'success' : 'error';
-		}
-		else
-		{
-			echo 'receive email option is not enabled.';
-		}
-	}
-
-	// 每秒执行
-	public function second($user_id = null)
-	{
-		$this->model('crond')->second($user_id);
-	}
-
-	// 每半分钟执行
-	public function half_minute($user_id = null)
-	{
-		$this->model('crond')->half_minute($user_id);
-	}
-
-	// 每分钟执行
-	public function minute($user_id = null)
-	{
-		$this->model('crond')->minute($user_id);
-	}
-
-	// 每五分钟执行
-	public function five_minutes($user_id = null)
-	{
-		$this->model('crond')->five_minutes($user_id);
-	}
-
-	// 每半小时执行
-	public function half_hour($user_id = null)
-	{
-		$this->model('crond')->half_hour($user_id);
-	}
-
-	// 每小时执行
-	public function hour($user_id = null)
-	{
-		$this->model('crond')->hour($user_id);
-	}
-
-	// 每日时执行
-	public function day($user_id = null)
-	{
-		$this->model('crond')->day($user_id);
-	}
-
-	// 每周执行
-	public function week($user_id = null)
-	{
-		$this->model('crond')->week($user_id);
 	}
 }

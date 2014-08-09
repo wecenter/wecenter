@@ -775,7 +775,7 @@ AWS.Dropdown =
 													break;
 
 												case 'topics' :
-													ul.append('<li class="topic"><span class="topic-tag"><a class="text" href="' + decodeURIComponent(result[i].url) + '">' + result[i].name  + '</a></span>&nbsp;<span class="color-999">' + result[i].detail.discuss_count + ' 个问题</span></li>');
+													ul.append('<li class="topic"><span class="topic-tag"><a class="text" href="' + decodeURIComponent(result[i].url) + '">' + result[i].name  + '</a></span>&nbsp;<span class="color-999">' + result[i].detail.discuss_count + ' 个讨论</span></li>');
 													break;
 
 												case 'users' :

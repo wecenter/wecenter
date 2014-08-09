@@ -425,10 +425,12 @@ class topic_class extends AWS_MODEL
 		{
 			return false;
 		}
-
-		$this->shutdown_query("UPDATE " . $this->get_table('topic') . " SET discuss_count = (SELECT COUNT(*) FROM " . $this->get_table('topic_relation') . " WHERE topic_id = " . intval($topic_id) . ") WHERE topic_id = " . intval($topic_id));
-
-		return true;
+		
+		$this->update('topic', array(
+			'discuss_count' => $this->count('topic_relation', 'topic_id = ' . intval($topic_id)),
+            'discuss_count_last_week' => $this->count('topic_relation', 'add_time > ' . (time() - 604800) . ' AND topic_id = ' . intval($topic_id)),
+            'discuss_count_last_month' => $this->count('topic_relation', 'add_time > ' . (time() - 2592000) . ' AND topic_id = ' . intval($topic_id))
+		), 'topic_id = ' . intval($topic_id));
 	}
 
 	/**
