@@ -5,7 +5,7 @@
 |   WeCenter [#RELEASE_VERSION#]
 |   ========================================
 |   by WeCenter Software
-|   © 2011 - 2013 WeCenter. All Rights Reserved
+|   © 2011 - 2014 WeCenter. All Rights Reserved
 |   http://www.wecenter.com
 |   ========================================
 |   Support: WeCenter@qq.com
@@ -29,11 +29,11 @@
 *   </product>
 *  </productgroup>
 * </productlist>
-* 	
+*
 * Creating...
 * $xml = new Services_XML('utf-8');
 * $xml->new_document();
-* 
+*
 * /* Create a root element * /
 * $xml->add_element('productlist', '', array('name' => 'myname', 'version' => '1.0'));
 * /* Add a child.... * /
@@ -52,25 +52,25 @@
 * 												   'room'		 => array('104', array('store' => 2))
 * 												)
 * 						);
-* 						
+*
 * $xml_data = $xml->fetch_document();
-* 
+*
 * /*Convering XML into an array * /
 * $xml->load_xml($xml_data);
-* 
+*
 * /* Grabbing specific data values from all 'products'... * /
 * foreach($xml->fetch_elements('product') as $products)
 * {
 * 	print $xml->fetch_item($products, 'title') . "\\";
 * }
-* 
+*
 * /* Prints... * /
 * Baked Beans
 * Green Beans
-* 
+*
 * /* Print all array data - auto converts XML_TEXT_NODE and XML_CDATA_SECTION_NODE into #alltext for brevity * /
-* print_r($xml->fetch_xml_as_array());					
-* 
+* print_r($xml->fetch_xml_as_array());
+*
 * /* Prints * /
 * Array
 * (
@@ -139,7 +139,7 @@
 *                )
 *        )
 *)
-* 
+*
 * </code>
 *
 */
@@ -218,7 +218,7 @@ class Services_XML
     public function add_element($tag, $parent_tag = '', $attributes = array(), $namespace_uri = '')
     {
         $this->_dom_objects[$tag] = $this->_node($parent_tag)->appendChild(new DOMElement($tag, '', $namespace_uri));
-        
+
         $this->add_attributes($tag, $attributes);
     }
 

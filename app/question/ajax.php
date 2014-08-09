@@ -4,7 +4,7 @@
 |   WeCenter [#RELEASE_VERSION#]
 |   ========================================
 |   by Tatfook Network Team
-|   © 2011 - 2013 WeCenter. All Rights Reserved
+|   © 2011 - 2014 WeCenter. All Rights Reserved
 |   http://www.wecenter.com
 |   ========================================
 |   Support: WeCenter@qq.com
@@ -563,7 +563,7 @@ class ajax extends AWS_CONTROLLER
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('请填写正确的验证码')));
 		}
-		
+
 		if (!$this->model('publish')->insert_attach_is_self_upload($answer_content, $_POST['attach_ids']))
         {
             H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('只允许插入当前页面上传的附件')));
@@ -611,7 +611,7 @@ class ajax extends AWS_CONTROLLER
 			), 1, null));
 		}
 	}
-	
+
 	public function update_answer_action()
 	{
 		if (! $answer_info = $this->model('answer')->get_answer_by_id($_GET['answer_id']))
@@ -670,7 +670,7 @@ class ajax extends AWS_CONTROLLER
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('已经超过允许编辑的时限')));
 		}
-		
+
 		if (!$this->model('publish')->insert_attach_is_self_upload($answer_content, $_POST['attach_ids']))
         {
             H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('只允许插入当前页面上传的附件')));

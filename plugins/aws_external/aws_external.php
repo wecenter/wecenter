@@ -4,11 +4,11 @@
 |   WeCenter [#RELEASE_VERSION#]
 |   ========================================
 |   by WeCenter Software
-|   © 2011 - 2013 WeCenter. All Rights Reserved
+|   © 2011 - 2014 WeCenter. All Rights Reserved
 |   http://www.wecenter.com
 |   ========================================
 |   Support: WeCenter@qq.com
-|   
+|
 +---------------------------------------------------------------------------
 */
 
@@ -23,7 +23,7 @@ class aws_external_class extends AWS_MODEL
 	public function format_js_question_ul_output($ul_class, $data)
 	{
 		$output = '<ul class="' . $ul_class . '">';
-		
+
 		if ($data)
 		{
 			foreach ($data AS $key => $val)
@@ -32,11 +32,11 @@ class aws_external_class extends AWS_MODEL
 				{
 					$val['question_content'] = $val['title'];
 				}
-				
+
 				/***
 					提问者头像调用：get_avatar_url($val['published_uid'], 'mid')
 					回复者头像调用：get_avatar_url($val['answer_info']['user_info']['uid'], 'mid')
-					
+
 					$val['question_content'] - 问题标题
 					$val['question_detail'] - 问题说明
 					$val['published_uid'] - 发布用户UID
@@ -53,60 +53,60 @@ class aws_external_class extends AWS_MODEL
 					$val['lock'] - 是否锁定
 					$val['thanks_count'] - 感谢数
 				***/
-				
+
 				$output .= '<li><a href="' . get_js_url('/question/' . $val['question_id']) . '" target="_blank">' . $val['question_content'] . '</a></li>';
-			}	
+			}
 		}
-		
+
 		$output .= '</ul>';
-		
+
 		return "document.write('" . addcslashes($output, "'") . "');";
 	}
-	
+
 	public function format_js_users_ul_output($ul_class, $data)
 	{
 		$output = '<ul class="' . $ul_class . '">';
-		
+
 		if ($data)
 		{
 			foreach ($data AS $key => $val)
-			{	
+			{
 				/***
 					头像调用：get_avatar_url($val['uid'], 'mid')
-					
+
 					$val['signature'] - 个人介绍
 				***/
-				
+
 				$output .= '<li><a href="' . get_js_url('/people/' . $val['url_token']) . '" target="_blank">' . $val['user_name'] . '</a></li>';
-			}	
+			}
 		}
-		
+
 		$output .= '</ul>';
-		
+
 		return "document.write('" . addcslashes($output, "'") . "');";
 	}
-	
+
 	public function format_js_topics_ul_output($ul_class, $data)
 	{
 		$output = '<ul class="' . $ul_class . '">';
-		
+
 		if ($data)
 		{
 			foreach ($data AS $key => $val)
-			{				
+			{
 				/***
 					话题图片调用：get_topic_pic_url($val['uid'], $val['topic_pic'])
-					
+
 					$val['topic_description'] - 话题简介
 					$val['discuss_count'] - 讨论数量
 				***/
-				
+
 				$output .= '<li><a href="' . get_js_url('/topic/' . $val['url_token']) . '" target="_blank">' . $val['topic_title'] . '</a></li>';
-			}	
+			}
 		}
-		
+
 		$output .= '</ul>';
-		
+
 		return "document.write('" . addcslashes($output, "'") . "');";
 	}
 }

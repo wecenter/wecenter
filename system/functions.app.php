@@ -6,7 +6,7 @@
  *
  * @package		WeCenter Framework
  * @author		WeCenter Dev Team
- * @copyright	Copyright (c) 20011 - 2013, WeCenter, Inc.
+ * @copyright	Copyright (c) 2011 - 2014, WeCenter, Inc.
  * @license		http://www.wecenter.com/license/
  * @link		http://www.wecenter.com/
  * @since		Version 1.0

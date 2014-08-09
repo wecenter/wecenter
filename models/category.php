@@ -4,11 +4,11 @@
 |   WeCenter [#RELEASE_VERSION#]
 |   ========================================
 |   by WeCenter Software
-|   © 2011 - 2013 WeCenter. All Rights Reserved
+|   © 2011 - 2014 WeCenter. All Rights Reserved
 |   http://www.wecenter.com
 |   ========================================
 |   Support: WeCenter@qq.com
-|   
+|
 +---------------------------------------------------------------------------
 */
 
@@ -28,14 +28,14 @@ class category_class extends AWS_MODEL
 			'url_token' => $url_token
 		), 'id = ' . intval($category_id));
 	}
-	
+
 	public function set_category_sort($category_id, $sort)
 	{
 		return $this->update('category', array(
 			'sort' => intval($sort)
 		), 'id = ' . intval($category_id));
 	}
-	
+
 	public function add_category($type, $title, $parent_id)
 	{
 		return $this->insert('category', array(
@@ -48,7 +48,7 @@ class category_class extends AWS_MODEL
 	public function delete_category($type, $category_id)
 	{
 		$childs = $this->model('system')->fetch_category_data($type, $category_id);
-		
+
 		if ($childs)
 		{
 			foreach($childs as $key => $val)
@@ -56,11 +56,11 @@ class category_class extends AWS_MODEL
 				$this->delete_category($type, $val['id']);
 			}
 		}
-		
+
 		$this->delete('reputation_category', 'category_id = ' . intval($category_id));
-		
+
 		$this->delete('nav_menu', "type = 'category' AND type_id = " . intval($category_id));
-		
+
 		return $this->delete('category', 'id = ' . intval($category_id));
 	}
 
@@ -71,27 +71,27 @@ class category_class extends AWS_MODEL
 			return true;
 		}
 	}
-	
+
 	public function check_url_token($url_token, $category_id)
 	{
 		return $this->count('category', "url_token = '" . $this->quote($url_token) . "' AND id != " . intval($category_id));
 	}
-	
+
 	public function move_contents($from_id, $target_id)
 	{
 		if (!$from_id OR !$target_id)
 		{
 			return false;
 		}
-		
+
 		$this->update('question', array(
 			'category_id' => intval($target_id)
 		), 'category_id = ' . intval($from_id));
-		
+
 		$this->update('article', array(
 			'category_id' => intval($target_id)
 		), 'category_id = ' . intval($from_id));
-		
+
 		$this->update('posts_index', array(
 			'category_id' => intval($target_id)
 		), 'category_id = ' . intval($from_id));
