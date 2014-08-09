@@ -15,7 +15,7 @@
 		<?php } else if ($val['type'] == 'articles') { ?>
 		<a class="aw-search-result-tags"><?php _e('文章'); ?></a> <?php _e('%s 个回复', $val['detail']['comments']); ?> • <?php _e('%s 次查看', $val['detail']['views']); ?>
 		<?php } else if ($val['type'] == 'topics') { ?>
-		<a class="aw-search-result-tags"><?php _e('话题'); ?></a> <?php _e('%s 个问题', $val['detail']['discuss_count']); ?> • <?php _e('%s 人关注', $val['detail']['focus_count']); ?>
+		<a class="aw-search-result-tags"><?php _e('话题'); ?></a> <?php _e('%s 个讨论', $val['detail']['discuss_count']); ?> • <?php _e('%s 人关注', $val['detail']['focus_count']); ?>
 		<?php } else if ($val['type'] == 'users') { ?>
 		<a class="aw-search-result-tags"><?php _e('用户'); ?></a> <?php echo $val['detail']['reputation']; ?> <?php _e('威望'); ?> • <?php _e('%s 次赞同', $val['detail']['agree_count']); ?> • <?php echo $val['detail']['thanks_count']; ?> <?php _e('感谢'); ?> • <?php echo $val['detail']['focus_count']; ?> <?php _e('关注'); ?>
 		<?php } ?>

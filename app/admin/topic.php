@@ -53,14 +53,14 @@ class topic extends AWS_ADMIN_CONTROLLER
 			$where[] = "topic_title LIKE '" . $this->model('topic')->quote($_GET['keyword']) . "%'";
 		}
 
-		if ($_GET['question_count_min'] OR $_GET['question_count_min'] == '0')
+		if ($_GET['discuss_count_min'] OR $_GET['discuss_count_min'] == '0')
 		{
-			$where[] = 'discuss_count >= ' . intval($_GET['question_count_min']);
+			$where[] = 'discuss_count >= ' . intval($_GET['discuss_count_min']);
 		}
 
-		if ($_GET['question_count_max'] OR $_GET['question_count_max'] == '0')
+		if ($_GET['discuss_count_max'] OR $_GET['discuss_count_max'] == '0')
 		{
-			$where[] = 'discuss_count <= ' . intval($_GET['question_count_max']);
+			$where[] = 'discuss_count <= ' . intval($_GET['discuss_count_max']);
 		}
 
 		if (base64_decode($_GET['start_date']))

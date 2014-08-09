@@ -158,7 +158,7 @@ var AW_TEMPLATE = {
 	'searchDropdownListQuestions' : 
 		'<li class="{{active}} question clearfix"><i class="icon-g-replay pull-left"></i><a class="aw-hide-txt pull-left" href="{{url}}">{{content}} </a><span class="pull-right aw-text-color-999">{{discuss_count}} ' + _t('个回复') + '</span></li>',
 	'searchDropdownListTopics' : 
-		'<li class="topic clearfix"><a href="{{url}}" class="aw-topic-name" data-id="{{topic_id}}"><span>{{name}}</span></a> <span class="pull-right aw-text-color-999">{{discuss_count}} ' + _t('个问题') + '</span></li>',
+		'<li class="topic clearfix"><a href="{{url}}" class="aw-topic-name" data-id="{{topic_id}}"><span>{{name}}</span></a> <span class="pull-right aw-text-color-999">{{discuss_count}} ' + _t('个讨论') + '</span></li>',
 	'searchDropdownListUsers' : 
 		'<li class="user clearfix"><a href="{{url}}"><img src="{{img}}" />{{name}}<span class="aw-hide-txt">{{intro}}</span></a></li>',
 	'searchDropdownListArticles' : 
