@@ -2427,12 +2427,12 @@ class ajax extends AWS_ADMIN_CONTROLLER
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择要删除的规则')));
         }
 
-        if(!$this->model('weixin')->fetch_row('weixin_third_party_access_rule', 'id = ' . intval($_GET['id'])))
+        if(!$this->model('weixin')->fetch_row('weixin_third_party_access_rule', 'id = ' . intval($_POST['id'])))
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('接入规则不存在')));
         }
 
-        $this->model('weixin')->delete('weixin_third_party_access_rule', 'id = ' . intval($_GET['id']));
+        $this->model('weixin')->delete('weixin_third_party_access_rule', 'id = ' . intval($_POST['id']));
 
         H::ajax_json_output(AWS_APP::RSM(null, 1, null));
     }
@@ -2456,7 +2456,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
         if ($_POST['id'])
         {
-            $rule_info = $this->model('weixin')->fetch_row('weixin_third_party_access_rule', 'id = ' . intval($_GET['id']));
+            $rule_info = $this->model('weixin')->fetch_row('weixin_third_party_access_rule', 'id = ' . intval($_POST['id']));
 
             if (!$rule_info)
             {
