@@ -22,7 +22,11 @@ class posts_class extends AWS_MODEL
 {
 	public function set_posts_index($post_id, $post_type, $data = null)
 	{
-		if (!$data)
+		if ($data)
+		{
+			$result = $data;
+		}
+		else
 		{
 			switch ($post_type)
 			{
@@ -39,10 +43,6 @@ class posts_class extends AWS_MODEL
 			{
 				return false;
 			}
-		}
-		else
-		{
-			$result = $data;
 		}
 
 		switch ($post_type)
