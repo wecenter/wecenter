@@ -2444,7 +2444,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请输入关键词')));
         }
 
-        if (!$_POST['url'] OR substr($_POST['url'], 0, 7) != 'http://' OR substr($_POST['url'], 0, 8) != 'https://')
+        if (!$_POST['url'] OR substr($_POST['url'], 0, 7) != 'http://' AND substr($_POST['url'], 0, 8) != 'https://')
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请输入正确的 URL')));
         }
