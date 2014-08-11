@@ -22,13 +22,6 @@ class crond_class extends AWS_MODEL
 {
     public function start()
     {
-        if (!AWS_APP::cache()->get('crond_timer_second'))
-        {
-            $call_actions[] = 'second';
-
-            AWS_APP::cache()->set('crond_timer_second', time(), 1, 'crond');
-        }
-
         if (!AWS_APP::cache()->get('crond_timer_half_minute'))
         {
             $call_actions[] = 'half_minute';
@@ -78,20 +71,14 @@ class crond_class extends AWS_MODEL
         return $call_actions;
     }
 
-    // 每秒执行
-    public function second($uid)
-    {
-
-    }
-
     // 每半分钟执行
-    public function half_minute($uid)
+    public function half_minute()
     {
         $this->model('edm')->run_task();
     }
 
     // 每分钟执行
-    public function minute($uid)
+    public function minute()
     {
         @unlink(TEMP_PATH . 'plugins_table.php');
         @unlink(TEMP_PATH . 'plugins_model.php');
@@ -109,17 +96,14 @@ class crond_class extends AWS_MODEL
         {
             $this->model('weixin')->get_weixin_app_id_setting_var();
         }
-
-        $this->model('online')->online_active($uid);
+		
         $this->model('email')->send_mail_queue(120);
-
-        $this->model('search_fulltext')->clean_cache();
-
-        $this->model('admin')->notifications_crond();
+        
+        $this->model('online')->delete_expire_users();
     }
 
     // 每五分钟执行
-    public function five_minutes($uid)
+    public function five_minutes()
     {
         // 拉取微博最新 @用户 消息
         if (get_setting('weibo_msg_enabled') == 'Y')
@@ -133,16 +117,18 @@ class crond_class extends AWS_MODEL
         {
             $this->model('edm')->receive_email_crond();
         }
+
+        $this->model('admin')->notifications_crond();
     }
 
     // 每半小时执行
-    public function half_hour($uid)
+    public function half_hour()
     {
-
+        $this->model('search_fulltext')->clean_cache();
     }
 
     // 每小时执行
-    public function hour($uid)
+    public function hour()
     {
         $this->model('system')->clean_session();
 
@@ -153,7 +139,7 @@ class crond_class extends AWS_MODEL
     }
 
     // 每日时执行
-    public function day($uid)
+    public function day()
     {
         $this->model('answer')->calc_best_answer();
         $this->model('question')->auto_lock_question();
@@ -168,7 +154,7 @@ class crond_class extends AWS_MODEL
     }
 
     // 每周执行
-    public function week($uid)
+    public function week()
     {
         $this->model('system')->clean_break_attach();
         $this->model('email')->mail_queue_error_clean();
