@@ -3,7 +3,7 @@
 
 <div class="aw-content-wrap">
 	<form action="admin/weixin/rule_save/" enctype="multipart/form-data" id="reply_form" method="post" onsubmit="return false">
-	<?php if (!empty($this->rule_info['id'])) { ?>
+	<?php if ($this->rule_info['id']) { ?>
 	<input type="hidden" name="id" value="<?php echo $this->rule_info['id']; ?>" />
 	<?php } ?>
 
@@ -35,9 +35,7 @@
 						<div class="form-group">
 							<span class="col-sm-4 col-xs-3 control-label"><?php _e('关键词'); ?>:</span>
 							<div class="col-sm-5 col-xs-8">
-								<?php if (!empty($this->rule_info['id'])) { ?><?php echo $this->rule_info['keyword']; ?><?php } else { ?>
-								<input type="text" name="keyword" class="form-control" value="" />
-								<?php } ?>
+								<input type="text" name="keyword" class="form-control" value="<?php echo $this->rule_info['keyword']; ?>" />
 							</div>
 						</div>
 					</td>
@@ -47,7 +45,7 @@
 						<div class="form-group">
 							<span class="col-sm-4 col-xs-3 control-label"><?php _e('回应内容'); ?>:</span>
 							<div class="col-sm-5 col-xs-8">
-								<textarea class="form-control" name="title"  ><?php echo htmlspecialchars($this->rule_info['title']); ?></textarea>
+								<textarea class="form-control" name="title"><?php echo htmlspecialchars($this->rule_info['title']); ?></textarea>
 							</div>
 						</div>
 					</td>
@@ -70,7 +68,7 @@
 						<div class="form-group">
 							<span class="col-sm-4 col-xs-3 control-label"><?php _e('图片简介'); ?>:</span>
 							<div class="col-sm-5 col-xs-8">
-								<textarea class="form-control" name="description"  ><?php echo htmlspecialchars($this->rule_info['description']); ?></textarea>
+								<textarea class="form-control" name="description"><?php echo htmlspecialchars($this->rule_info['description']); ?></textarea>
 
 								<span class="help-block"><?php _e('文字消息忽略此选项'); ?>, <?php _e('只在单条图片回应下显示'); ?></span>
 							</div>

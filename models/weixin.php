@@ -37,6 +37,8 @@ class weixin_class extends AWS_MODEL
 
     private $to_save_questions;
 
+    private $post_data;
+
     public function replace_post($subject)
     {
         if (empty($subject) OR !is_array($subject))
@@ -188,9 +190,9 @@ class weixin_class extends AWS_MODEL
 
     public function fetch_message()
     {
-        if ($post_data = file_get_contents('php://input'))
+        if ($this->post_data = file_get_contents('php://input'))
         {
-            $post_object = (array)simplexml_load_string($post_data, 'SimpleXMLElement', LIBXML_NOCDATA);
+            $post_object = (array)simplexml_load_string($this->post_data, 'SimpleXMLElement', LIBXML_NOCDATA);
 
             $input_message = array(
                 'fromUsername' => $post_object['FromUserName'],
@@ -406,6 +408,12 @@ class weixin_class extends AWS_MODEL
                 {
                     // response by reply rule keyword...
                 }
+                else if ($response = $this->send_message_to_third_party($account_info['id'], $input_message['content']))
+                {
+                    echo $response;
+
+                    exit();
+                }
                 else if ($response = $this->message_parser($input_message, $account_info))
                 {
                     // Success...
@@ -466,7 +474,7 @@ class weixin_class extends AWS_MODEL
             echo $this->create_txt_response($input_message, $response_message, $action);
         }
 
-        die;
+        exit();
     }
 
     public function create_txt_response($input_message, $response_message, $action = null)
@@ -1243,12 +1251,12 @@ class weixin_class extends AWS_MODEL
 
     public function get_reply_rule_by_keyword($account_id, $keyword)
     {
-        return $this->fetch_row('weixin_reply_rule', 'account_id = ' . intval($account_id) ." AND keyword = '" . trim($this->quote($keyword)));
+        return $this->fetch_row('weixin_reply_rule', 'account_id = ' . intval($account_id) . ' AND keyword = "' . trim($this->quote($keyword)) . '"');
     }
 
     public function create_response_by_reply_rule_keyword($account_id, $keyword)
     {
-        if (strlen($keyword) == 0)
+        if (!$keyword)
         {
             return false;
         }
@@ -1269,15 +1277,17 @@ class weixin_class extends AWS_MODEL
     {
         $reply_rule_info = $this->get_reply_rule_by_id($id);
 
-        if (!empty($reply_rule_info))
+        if (!$reply_rule_info)
         {
-            $this->delete('weixin_reply_rule', 'id = ' . $reply_rule_info['id']);
+            return false;
+        }
 
-            if ($reply_rule_info['image_file'])
-            {
-                unlink(get_setting('upload_dir') . '/weixin/' . $reply_rule_info['image_file']);
-                unlink(get_setting('upload_dir') . '/weixin/square_' . $reply_rule_info['image_file']);
-            }
+        $this->delete('weixin_reply_rule', 'id = ' . $reply_rule_info['id']);
+
+        if ($reply_rule_info['image_file'])
+        {
+            unlink(get_setting('upload_dir') . '/weixin/' . $reply_rule_info['image_file']);
+            unlink(get_setting('upload_dir') . '/weixin/square_' . $reply_rule_info['image_file']);
         }
     }
 
@@ -1884,5 +1894,29 @@ class weixin_class extends AWS_MODEL
         $this->model('weixin')->delete('weixin_qr_code', 'scene_id = ' . $scene_id);
 
         @unlink(get_setting('upload_dir') . '/weixin_qr_code/' . $scene_id . '.jpg');
+    }
+
+    public function send_message_to_third_party($account_id, $keyword)
+    {
+        if (!$keyword)
+        {
+            return false;
+        }
+
+        $rule = $this->fetch_row('weixin_third_party_access_rule', 'account_id = ' . intval($account_id) . ' AND keyword = "' . trim($this->quote($keyword)) . '" AND enabled = 1', 'rank ASC');
+
+        if (!$rule OR !$rule['url'])
+        {
+            return false;
+        }
+
+        $response = HTTP::request($rule['url'], 'POST', $this->post_data, 5);
+
+        if (!$response)
+        {
+            return false;
+        }
+
+        return $response;
     }
 }
