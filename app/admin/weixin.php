@@ -93,7 +93,7 @@ class weixin extends AWS_ADMIN_CONTROLLER
 
         $account_id = $accounts_list[$_GET['id']]['id'];
 
-        if (empty($accounts_list[$account_id]))
+        if (!$accounts_list[$account_id])
         {
             H::redirect_msg(AWS_APP::lang()->_t('公众账号不存在'), '/admin/weixin/mp_menu/');
         }
@@ -393,6 +393,19 @@ class weixin extends AWS_ADMIN_CONTROLLER
     public function third_party_access_action()
     {
         $this->crumb(AWS_APP::lang()->_t('第三方接入'), 'admin/weixin/third_party_access/');
+
+        $_GET['id'] = intval($_GET['id']);
+
+        $accounts_list = $this->model('weixin')->get_accounts_info();
+
+        $account_id = $accounts_list[$_GET['id']]['id'];
+
+        if (!$accounts_list[$account_id])
+        {
+            H::redirect_msg(AWS_APP::lang()->_t('公众账号不存在'), '/admin/weixin/mp_menu/');
+        }
+
+        TPL::assign('account_id', $account_id);
 
         $rule_list = $this->model('weixin')->fetch_all('weixin_third_party_access_rule', 'account_id = ' . intval($_GET['id']), 'keyword ASC');
 
