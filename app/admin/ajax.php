@@ -2429,7 +2429,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
         if(!$this->model('weixin')->fetch_row('weixin_third_party_access_rule', 'id = ' . intval($_GET['id'])))
         {
-            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('规则不存在')));
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('接入规则不存在')));
         }
 
         $this->model('weixin')->delete('weixin_third_party_access_rule', 'id = ' . intval($_GET['id']));
@@ -2456,7 +2456,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
         if ($_POST['id'])
         {
-            $rule_info = $this->model('weixin')->get_reply_rule_by_id($_POST['id']);
+            $rule_info = $this->model('weixin')->fetch_row('weixin_third_party_access_rule', 'id = ' . intval($_GET['id']));
 
             if (!$rule_info)
             {
