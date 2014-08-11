@@ -33,6 +33,7 @@
             <div class="table-responsive">
                 <form action="admin/ajax/weixin_save_third_party_access_rule_status/" method="post" id="rule_list_form" onsubmit="return false">
                 <table class="table table-striped">
+                    <?php if ($this->rule_list) { ?>
                     <thead>
                     <tr>
                         <th><?php _e('启用'); ?></th>
@@ -42,10 +43,11 @@
                         <th><?php _e('操作'); ?></th>
                     </tr>
                     </thead>
+
                     <tbody>
                     <input type="hidden" name="account_id" value="<?php echo $this->account_id; ?>" />
 
-                    <?php if ($this->rule_list) { foreach ($this->rule_list AS $rule_info) { ?>
+                    <?php foreach ($this->rule_list AS $rule_info) { ?>
                     <input type="hidden" name="rule_ids[]" value="<?php echo $rule_info['id']; ?>" />
                     <tr>
                         <td><input type="checkbox" class="enabled-status" name="enabled[<?php echo $rule_info['id']; ?>]" value="1"<?php if ($rule_info['enabled']) { ?> checked="checked"<?php } ?> /></td>
@@ -58,8 +60,9 @@
                             <a onclick="AWS.ajax_request(G_BASE_URL + '/admin/ajax/weixin_remove_third_party_access_rule/', 'id=<?php echo $rule_info['id']; ?>');" data-toggle="tooltip" class="fa fa-trash-o md-tip" title="<?php _e('删除'); ?>"></a>
                         </td>
                     </tr>
-                    <?php } } ?>
+                    <?php } ?>
                     </tbody>
+                    <?php } ?>
                 </table>
                 </form>
                 <div class="mod-table-foot mod-one-btn">
