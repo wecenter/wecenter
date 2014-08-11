@@ -2414,7 +2414,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
             $this->model('weixin')->update('weixin_third_party_access_rule', array(
                 'enabled' => ($_POST['enabled'][$rule_id] == 1) ? 1 : 0,
                 'rank' => (is_digits($_POST['rank'][$rule_id]) AND $_POST['rank'][$rule_id] >= 0 AND $_POST['rank'][$rule_id] <= 99) ? $_POST['rank'][$rule_id] : 0
-            ), 'id = ' . intval($rule_id)));
+            ), 'id = ' . intval($rule_id));
         }
 
         H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('规则状态已自动保存')));
