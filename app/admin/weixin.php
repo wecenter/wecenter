@@ -400,7 +400,7 @@ class weixin extends AWS_ADMIN_CONTROLLER
 
         TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(808));
 
-        TPL::output('admin/weixin/edit_third_party_access_rule');
+        TPL::output('admin/weixin/third_party_access');
     }
 
     public function edit_third_party_access_rule_action()
@@ -439,6 +439,6 @@ class weixin extends AWS_ADMIN_CONTROLLER
 
         TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(808));
 
-        TPL::output('admin/weixin/third_party_access');
+        TPL::output('admin/weixin/edit_third_party_access_rule');
     }
 }
