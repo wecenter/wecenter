@@ -210,6 +210,12 @@ $config[] = array(
         ),
 
         array(
+            'id' => 808,
+            'title' => '微信第三方接入',
+            'url' => 'admin/weixin/third_party_access/'
+        ),
+
+        array(
             'id' => 805,
             'title' => '微信二维码管理',
             'url' => 'admin/weixin/qr_code/'
