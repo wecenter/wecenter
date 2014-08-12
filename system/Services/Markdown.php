@@ -171,10 +171,12 @@ class Services_Markdown {
 		
 		$text = str_replace(array(
 			"</ol>\n\n",
-			"</ul>\n\n"
+			"</ul>\n\n",
+			"</code>\n\n"
 		), array(
 			"</ol>",
-			"</ul>"
+			"</ul>",
+			"</code>\n"
 		), $text);
 		
 		$this->teardown();
@@ -998,6 +1000,7 @@ class Services_Markdown {
 		), $codeblock);
 
 		$codeblock = "<code>$codeblock\n</code>";
+		
 		return $this->hashBlock($codeblock);
 	}
 
@@ -1007,6 +1010,7 @@ class Services_Markdown {
 	# Create a code span markup for $code. Called from handleSpanToken.
 	#
 		$code = htmlspecialchars(trim($code), ENT_NOQUOTES);
+		
 		return $this->hashPart("<code>$code</code>");
 	}
 
