@@ -755,18 +755,47 @@ class topic_class extends AWS_MODEL
 	 */
 	public function get_hot_topics($category_id = 0, $limit = 5, $section = null)
 	{
+        $where[] = array();
+
+        if ($category_id)
+        {
+            if ($questions = $this->query_all("SELECT question_id FROM " . get_table('question') . " WHERE category_id IN(" . implode(',', $this->model('system')->get_category_with_child_ids('question', $category_id)) . ') ORDER BY add_time DESC LIMIT 200'))
+            {
+                foreach ($questions AS $key => $val)
+                {
+                    $question_ids[] = $val['question_id'];
+                }
+            }
+
+            if (!$topic_relation = $this->fetch_all('topic_relation', 'item_id IN(' . implode(',', $question_ids) . ") AND `type` = 'question'"))
+            {
+                return false;
+            }
+
+            foreach ($topic_relation AS $key => $val)
+            {
+                $topic_ids[] = $val['topic_id'];
+            }
+
+            $where[] = 'topic_id IN(' . implode(',', $topic_ids) . ')';
+        }
+
 		switch ($section)
         {
             default:
-                return $this->fetch_all('topic', null, 'discuss_count DESC', $limit);
+                return $this->fetch_all('topic', implode(' AND ', $where), 'discuss_count DESC', $limit);
             break;
 
             case 'week':
-                return $this->fetch_all('topic', 'discuss_count_update > ' . (time() - 604801), 'discuss_count_last_week DESC', $limit);
+                $where[] = 'discuss_count_update > ' . (time() - 604801);
+
+                return $this->fetch_all('topic', implode(' AND ', $where), 'discuss_count_last_week DESC', $limit);
             break;
 
             case 'month':
-                return $this->fetch_all('topic', 'discuss_count_update > ' . (time() - 2592001), 'discuss_count_last_month DESC', $limit);
+                $where[] = 'discuss_count_update > ' . (time() - 2592001);
+
+                return $this->fetch_all('topic', implode(' AND ', $where), 'discuss_count_last_month DESC', $limit);
             break;
         }
 	}
