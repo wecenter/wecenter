@@ -170,13 +170,11 @@ class Services_Markdown {
 		}
 		
 		$text = str_replace(array(
-			"</ol>\n\n",
-			"</ul>\n\n",
-			"</code>\n\n"
+			"\n\n<",
+			">\n\n"
 		), array(
-			"</ol>",
-			"</ul>",
-			"</code>\n"
+			"\n<",
+			">\n"
 		), $text);
 		
 		$this->teardown();
