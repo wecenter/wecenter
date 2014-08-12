@@ -114,7 +114,7 @@ class js extends AWS_CONTROLLER
 
 		if ($hot_topics = $this->model('topic')->get_hot_topics($_GET['category_id'], $_GET['limit']))
 		{
-			echo $this->model('aws_external')->format_js_topics_ul_output($_GET['ul_class'], $hot_topics['topics']);
+			echo $this->model('aws_external')->format_js_topics_ul_output($_GET['ul_class'], $hot_topics);
 		}
 	}
 }

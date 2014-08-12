@@ -24,7 +24,7 @@ class tools extends AWS_ADMIN_CONTROLLER
     {
         if (!$this->user_info['permission']['is_administortar'])
         {
-            H::redirect_msg(AWS_APP::lang()->_t('你没有访问权限, 请重新登录'), '/');
+            H::redirect_msg(AWS_APP::lang()->_t('你没有访问权限, 请重新登录'));
         }
 
         @set_time_limit(0);
@@ -170,6 +170,18 @@ class tools extends AWS_ADMIN_CONTROLLER
         else
         {
             H::redirect_msg(AWS_APP::lang()->_t('最新动态更新完成'), '/admin/tools/');
+        }
+    }
+
+    public function update_topic_discuss_count_action()
+    {
+        if ($this->model('system')->update_topic_discuss_count($_GET['page'], $_GET['per_page']))
+        {
+            H::redirect_msg(AWS_APP::lang()->_t('正在更新话题统计') . ', ' . AWS_APP::lang()->_t('批次: %s', $_GET['page']), '/admin/tools/update_topic_discuss_count/page-' . ($_GET['page'] + 1) . '__per_page-' . $_GET['per_page']);
+        }
+        else
+        {
+            H::redirect_msg(AWS_APP::lang()->_t('话题统计更新完成'), '/admin/tools/');
         }
     }
 
