@@ -78,7 +78,7 @@ $(function()
 	$('.aw-edit-topic').click();
 	
     // 自动保存草稿
-	$('textarea#advanced_editor').bind('blur', function() {
+	$('textarea.wmd-input').bind('blur', function() {
 		if ($(this).val() != '')
 		{
 			$.post(G_BASE_URL + '/account/ajax/save_draft/item_id-1__type-' +　PUBLISH_TYPE, 'message=' + $(this).val(), function (result) {
