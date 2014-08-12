@@ -13,7 +13,7 @@ function FileUpload (type, element, container, url, options)
 		'multiple' : true,
 		'deleteBtn' : true,
 		'insertBtn' : true,
-		'insertTextarea' : '.advanced_editor',
+		'insertTextarea' : '.wmd-input',
 		'template' : '<li>'+
 		    			'<div class="img"></div>'+
 						'<div class="content">'+
