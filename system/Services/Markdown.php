@@ -173,8 +173,8 @@ class Services_Markdown {
 			"</ol>\n\n",
 			"</ul>\n\n"
 		), array(
-			"</ol>\n",
-			"</ul>\n"
+			"</ol>",
+			"</ul>"
 		), $text);
 		
 		$this->teardown();
