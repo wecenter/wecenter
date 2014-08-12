@@ -755,7 +755,7 @@ class topic_class extends AWS_MODEL
 	 */
 	public function get_hot_topics($category_id = 0, $limit = 5, $section = null)
 	{
-        $where[] = array();
+        $where = array();
 
         if ($category_id)
         {
