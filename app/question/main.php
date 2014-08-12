@@ -78,7 +78,7 @@ class main extends AWS_CONTROLLER
 			$target_question = $this->model('question')->get_question_info_by_id($question_info['redirect']['target_id']);
 		}
 
-		if (is_numeric($_GET['rf']) and $_GET['rf'])
+		if (is_digits($_GET['rf']) and $_GET['rf'])
 		{
 			if ($from_question = $this->model('question')->get_question_info_by_id($_GET['rf']))
 			{
@@ -135,7 +135,7 @@ class main extends AWS_CONTROLLER
 			$this->model('question')->calc_popular_value($question_info['question_id']);
 			$this->model('question')->update_views($question_info['question_id']);
 
-			if (is_numeric($_GET['uid']))
+			if (is_digits($_GET['uid']))
 			{
 				$answer_list_where[] = 'uid = ' . intval($_GET['uid']);
 				$answer_count_where = 'uid = ' . intval($_GET['uid']);
@@ -372,18 +372,14 @@ class main extends AWS_CONTROLLER
 
 		if (get_setting('advanced_editor_enable') == 'Y')
 		{
-			// codemirror
-			TPL::import_css('js/editor/codemirror/lib/codemirror.css');
-			TPL::import_js('js/editor/codemirror/lib/codemirror.js');
-			TPL::import_js('js/editor/codemirror/lib/util/continuelist.js');
-			TPL::import_js('js/editor/codemirror/mode/xml/xml.js');
-			TPL::import_js('js/editor/codemirror/mode/markdown/markdown.js');
-
 			// editor
-			TPL::import_js('js/editor/jquery.markitup.js');
-			TPL::import_js('js/editor/markdown.js');
-			TPL::import_js('js/editor/sets/default/set.js');
+			TPL::import_js('js/editor/Markdown.Converter.js');
+			TPL::import_js('js/editor/Markdown.Sanitizer.js');
+			TPL::import_js('js/editor/Markdown.Editor.js');
+		}
 
+		if (get_setting('upload_enable') == 'Y')
+		{
 			// fileupload
 			TPL::import_js('js/fileupload.js');
 		}
@@ -430,7 +426,7 @@ class main extends AWS_CONTROLLER
 
 		if ($_GET['category'])
 		{
-			if (is_numeric($_GET['category']))
+			if (is_digits($_GET['category']))
 			{
 				$category_info = $this->model('system')->get_category_info($_GET['category']);
 			}

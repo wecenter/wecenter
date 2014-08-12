@@ -45,7 +45,7 @@ $(function()
 	    });
 		
 		//自动保存草稿
-		$('textarea#advanced_editor').bind('blur', function() {
+		$('textarea.wmd-input').bind('blur', function() {
 			if ($(this).val() != '')
 			{
 				$.post(G_BASE_URL + '/account/ajax/save_draft/item_id-' + QUESTION_ID + '__type-answer', 'message=' + $(this).val(), function (result) {

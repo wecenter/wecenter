@@ -254,7 +254,7 @@ class main extends AWS_CONTROLLER
 			$target_question = $this->model('question')->get_question_info_by_id($question_info['redirect']['target_id']);
 		}
 
-		if (is_numeric($_GET['rf']) and $_GET['rf'])
+		if (is_digits($_GET['rf']) and $_GET['rf'])
 		{
 			if ($from_question = $this->model('question')->get_question_info_by_id($_GET['rf']))
 			{
@@ -658,14 +658,14 @@ class main extends AWS_CONTROLLER
 			$this->model('notify')->read_notification($_GET['notification_id'], $this->user_id);
 		}
 
-		//if ((is_numeric($_GET['id']) AND intval($_GET['id']) == $this->user_id AND $this->user_id) OR ($this->user_id AND !$_GET['id']))
+		//if ((is_digits($_GET['id']) AND intval($_GET['id']) == $this->user_id AND $this->user_id) OR ($this->user_id AND !$_GET['id']))
 		if ($this->user_id AND !$_GET['id'])
 		{
 			$user = $this->user_info;
 		}
 		else
 		{
-			if (is_numeric($_GET['id']))
+			if (is_digits($_GET['id']))
 			{
 				if (!$user = $this->model('account')->get_user_info_by_uid($_GET['id'], TRUE))
 				{
@@ -852,7 +852,7 @@ class main extends AWS_CONTROLLER
 
 	public function topic_action()
 	{
-		if (is_numeric($_GET['id']))
+		if (is_digits($_GET['id']))
 		{
 			if (!$topic_info = $this->model('topic')->get_topic_by_id($_GET['id']))
 			{
@@ -886,7 +886,7 @@ class main extends AWS_CONTROLLER
 			HTTP::redirect('/m/topic/' . $topic_info['url_token'] . '?rf=' . $_GET['rf']);
 		}
 
-		if (is_numeric($_GET['rf']) and $_GET['rf'])
+		if (is_digits($_GET['rf']) and $_GET['rf'])
 		{
 			if ($from_topic = $this->model('topic')->get_topic_by_id($_GET['rf']))
 			{

@@ -51,27 +51,23 @@
 							<h3><?php _e('文章内容'); ?>:</h3>
 							<div class="aw-mod aw-editor-box">
 								<div class="mod-head">
-									<textarea name="message" id="advanced_editor" rows="20" class="autosize form-control advanced_editor"><?php echo $this->article_info['message']; ?></textarea>
-									<p class="aw-text-color-999"><span class="pull-right" id="article_message">&nbsp;</span></p>
+									<div class="wmd-panel">
+							            <div id="wmd-button-bar"></div>
+							            <textarea class="wmd-input form-control autosize" id="wmd-input" rows="15" name="message"><?php echo $this->article_info['message']; ?></textarea>
+							        </div>
 								</div>
 								<div class="mod-body">
-									<span id="file_uploader_question"></span>
-
-									<span class="aw-text-color-999 aw-upload-tips hide hidden-xs"><?php _e('允许的附件文件类型'); ?>: <?php echo get_setting('allowed_upload_types'); ?></span>
-
+									<p class="aw-text-color-999"><span class="pull-right" id="question_detail_message">&nbsp;</span></p>
 									<?php if (get_setting('upload_enable') == 'Y' AND get_setting('advanced_editor_enable' == 'Y')) { ?>
 									<div class="aw-upload-box">
 										<a class="btn btn-default">上传附件</a>
 										<div class="upload-container"></div>
+										<span class="aw-text-color-999 aw-upload-tips hidden-xs"><?php _e('允许的附件文件类型'); ?>: <?php echo get_setting('allowed_upload_types'); ?></span>
 									</div>
 									<?php } ?>
-
-									<div id="markItUpPreviewFrame" class="markItUpPreviewFrame">
-										<h2 class="title">
-											<?php _e('预览模式'); ?>:
-										</h2>
-										<div id="markItUpPreviewFrames" class="markItUpPreviewFrames"></div>
-									</div>
+								</div>
+								<div class="mod-footer">
+									<div id="wmd-preview" class="wmd-panel wmd-preview"></div>
 								</div>
 							</div>
 

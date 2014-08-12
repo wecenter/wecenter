@@ -102,7 +102,7 @@ class ACTION_LOG
 			return false;
 		}
 
-		if (is_numeric($action_attch))
+		if (is_digits($action_attch))
 		{
 			$action_attch_insert = $action_attch;
 		}

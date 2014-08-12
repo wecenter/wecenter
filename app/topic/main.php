@@ -40,7 +40,7 @@ class main extends AWS_CONTROLLER
 			HTTP::redirect('/m/topic/' . $_GET['id']);
 		}
 
-		if (is_numeric($_GET['id']))
+		if (is_digits($_GET['id']))
 		{
 			if (!$topic_info = $this->model('topic')->get_topic_by_id($_GET['id']))
 			{
@@ -74,7 +74,7 @@ class main extends AWS_CONTROLLER
 			HTTP::redirect('/topic/' . $topic_info['url_token'] . '?rf=' . $_GET['rf']);
 		}
 
-		if (is_numeric($_GET['rf']) and $_GET['rf'])
+		if (is_digits($_GET['rf']) and $_GET['rf'])
 		{
 			if ($from_topic = $this->model('topic')->get_topic_by_id($_GET['rf']))
 			{
@@ -372,17 +372,10 @@ class main extends AWS_CONTROLLER
 
 		if (get_setting('advanced_editor_enable') == 'Y')
 		{
-			// codemirror
-			TPL::import_css('js/editor/codemirror/lib/codemirror.css');
-			TPL::import_js('js/editor/codemirror/lib/codemirror.js');
-			TPL::import_js('js/editor/codemirror/lib/util/continuelist.js');
-			TPL::import_js('js/editor/codemirror/mode/xml/xml.js');
-			TPL::import_js('js/editor/codemirror/mode/markdown/markdown.js');
-
 			// editor
-			TPL::import_js('js/editor/jquery.markitup.js');
-			TPL::import_js('js/editor/markdown.js');
-			TPL::import_js('js/editor/sets/default/set.js');
+			TPL::import_js('js/editor/Markdown.Converter.js');
+			TPL::import_js('js/editor/Markdown.Sanitizer.js');
+			TPL::import_js('js/editor/Markdown.Editor.js');
 		}
 
 		TPL::output('topic/edit');
