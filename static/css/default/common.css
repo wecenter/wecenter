@@ -732,7 +732,7 @@ a.aw-load-more-content{display: block;}
 .aw-replay-box .mod-head p{height: auto;overflow: hidden;margin:0;}
 .aw-replay-box .mod-head p label{margin-left: 10px;}
 .aw-replay-box .mod-head p input{margin-right: 5px;position: relative;top:-1px;top:1px\0;}
-.aw-replay-box .mod-body{position:relative;padding:20px;background: #f8f8f8;border: 1px solid #C2CACD;}
+.aw-replay-box .mod-body{position:relative;}
 .aw-replay-box .aw-replay-box-control{position: relative;height: auto;line-height: 34px;}
 .aw-replay-box .aw-replay-box-control .btn-publish-submit{margin-left: 10px;}
 .aw-article-replay-box{position:relative;margin-top:20px;padding-left: 40px;}
