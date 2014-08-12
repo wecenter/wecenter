@@ -1602,7 +1602,7 @@ AWS.User =
 		    {
 				if (rating == 0)
 				{
-	                selector.find('b').html(parseInt(selector.find('b').html()) - 1).removeClass('active');
+	                selector.removeClass('active').find('b').html(parseInt(selector.find('b').html()) - 1);
 				}
 	            else if (rating == -1)
 	            {
@@ -1611,6 +1611,7 @@ AWS.User =
 	                    selector.parents('.aw-article-vote').find('b').html(parseInt(selector.parents('.aw-article-vote').find('b').html()) - 1);
 	                    selector.parents('.aw-article-vote').find('a').removeClass('active');
 	                }
+	                
 	                selector.addClass('active');
 	            }
 				else
