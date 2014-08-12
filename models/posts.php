@@ -110,19 +110,23 @@ class posts_class extends AWS_MODEL
 
 	public function get_posts_list($post_type, $page = 1, $per_page = 10, $sort = null, $topic_ids = null, $category_id = null, $answer_count = null, $day = 30, $is_recommend = false)
 	{
-		if ($sort == 'unresponsive')
-		{
-			$answer_count = 0;
-		}
+		$order_key = 'add_time DESC';
 
 		switch ($sort)
 		{
-			default :
-				$order_key = 'add_time DESC';
+			case 'responsed':
+				$answer_count > 0;
+
+				break;
+
+			case 'unresponsive':
+				$answer_count = 0;
+
 				break;
 
 			case 'new' :
 				$order_key = 'update_time DESC';
+
 				break;
 		}
 
