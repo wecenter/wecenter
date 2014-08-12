@@ -425,7 +425,7 @@ class topic_class extends AWS_MODEL
 		{
 			return false;
 		}
-		
+
 		$this->update('topic', array(
 			'discuss_count' => $this->count('topic_relation', 'topic_id = ' . intval($topic_id)),
             'discuss_count_last_week' => $this->count('topic_relation', 'add_time > ' . (time() - 604800) . ' AND topic_id = ' . intval($topic_id)),
@@ -823,12 +823,12 @@ class topic_class extends AWS_MODEL
 				$uid_list[] = $log['uid'];
 			}
 
-			if (! empty($log['associate_attached']) AND is_numeric($log['associate_attached']) AND ! in_array($log['associate_attached'], $topic_list))
+			if (! empty($log['associate_attached']) AND is_digits($log['associate_attached']) AND ! in_array($log['associate_attached'], $topic_list))
 			{
 				$topic_list[] = $log['associate_attached'];
 			}
 
-			if (! empty($log['associate_content']) AND is_numeric($log['associate_content']) AND ! in_array($log['associate_content'], $topic_list))
+			if (! empty($log['associate_content']) AND is_digits($log['associate_content']) AND ! in_array($log['associate_content'], $topic_list))
 			{
 				$topic_list[] = $log['associate_content'];
 			}

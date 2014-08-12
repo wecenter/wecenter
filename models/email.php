@@ -100,7 +100,7 @@ class email_class extends AWS_MODEL
 
 	public function send($email, $subject, $message, $link = null, $link_title = null, $server = 'master')
 	{
-		if (is_numeric($email))
+		if (is_digits($email))
 		{
 			if (! $user_info = $this->model('account')->get_user_info_by_uid($email))
 			{

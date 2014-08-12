@@ -609,7 +609,7 @@ class notify_class extends AWS_MODEL
 		{
 			foreach($notification_ids as $key => $val)
 			{
-				if (!is_numeric($val))
+				if (!is_digits($val))
 				{
 					return false;
 				}

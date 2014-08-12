@@ -40,7 +40,7 @@ class main extends AWS_CONTROLLER
 			HTTP::redirect('/m/topic/' . $_GET['id']);
 		}
 
-		if (is_numeric($_GET['id']))
+		if (is_digits($_GET['id']))
 		{
 			if (!$topic_info = $this->model('topic')->get_topic_by_id($_GET['id']))
 			{
@@ -74,7 +74,7 @@ class main extends AWS_CONTROLLER
 			HTTP::redirect('/topic/' . $topic_info['url_token'] . '?rf=' . $_GET['rf']);
 		}
 
-		if (is_numeric($_GET['rf']) and $_GET['rf'])
+		if (is_digits($_GET['rf']) and $_GET['rf'])
 		{
 			if ($from_topic = $this->model('topic')->get_topic_by_id($_GET['rf']))
 			{
