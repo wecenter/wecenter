@@ -46,7 +46,7 @@ class main extends AWS_CONTROLLER
 			HTTP::redirect('/m/people/' . $_GET['id']);
 		}
 
-        if (is_numeric($_GET['id']))
+        if (is_digits($_GET['id']))
         {
             if (!$user = $this->model('account')->get_user_info_by_uid($_GET['id'], TRUE))
             {

@@ -41,7 +41,7 @@ class main extends AWS_CONTROLLER
 
 	public function index_action()
 	{
-		if (is_numeric($_GET['id']))
+		if (is_digits($_GET['id']))
 		{
 			if (! $feature_info = $this->model('feature')->get_feature_by_id($_GET['id']))
 			{
