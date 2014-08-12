@@ -56,14 +56,7 @@ class module_class extends AWS_MODEL
 
 	public function sidebar_hot_topics($category_id = 0)
 	{
-		if ($topics = $this->model('topic')->get_hot_topics($category_id, 5))
-		{
-			return $topics['topics'];
-		}
-		else
-		{
-			return array();
-		}
+		return $this->model('topic')->get_hot_topics($category_id, 5, 'week');
 	}
 
 	public function sidebar_hot_users($uid = 0, $limit = 5)

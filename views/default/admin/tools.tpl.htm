@@ -164,6 +164,30 @@
 					</form>
                 </td>
             </tr>
+
+            <tr>
+                <td>
+                    <form action="admin/tools/init/" method="post" target="_blank">
+                        <input type="hidden" name="action" value="update_topic_discuss_count" />
+                        <div class="form-group">
+                            <span class="col-sm-3 col-xs-3 control-label middle"><?php _e('更新话题统计'); ?>:</span>
+                            <div class="col-sm-7 col-xs-8 middle">
+                                <?php _e('话题统计数据一般情况下会自动更新, 如果需要使统计立即生效可以使用此工具'); ?>
+
+                                <div class="row">
+                                    <span class="col-sm-1 mod-text-inline"><?php _e('每次处理数量'); ?>:</span>
+                                    <div class="col-sm-6">
+                                        <input type="text" value="500" name="per_page" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-2 col-xs-12">
+                                <input type="submit" class="btn btn-primary" value="<?php _e('开始处理'); ?>">
+                            </div>
+                        </div>
+                    </form>
+                </td>
+            </tr>
 			
             <tr>
                 <td>
