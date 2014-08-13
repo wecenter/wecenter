@@ -408,7 +408,7 @@ class weixin_class extends AWS_MODEL
                 {
                     // response by reply rule keyword...
                 }
-                else if ($response = $this->send_message_to_third_party($account_info['id'])
+                else if ($response = $this->send_message_to_third_party($account_info['id']))
                 {
                     exit($response);
                 }
