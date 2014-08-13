@@ -1908,6 +1908,57 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
         H::ajax_json_output(AWS_APP::RSM(array('url' => get_js_url('/admin/weixin/sent_msg_details/id-' . $msg_id)), 1, null));
     }
+    
+    public function topic_statistic_action()
+    {
+    	switch ($_GET['order'])
+    	{
+	    	case 'ASC':
+	    	case 'DESC':
+	    		$order = $_GET['order'];
+	    	break;
+	    	
+	    	default:
+	    		$order = 'DESC';
+	    	break;
+    	}
+    	
+    	switch ($_GET['tag'])
+    	{
+	    	default:
+                $topic_list = $this->fetch_all('topic', implode(' AND ', $where), 'discuss_count ' . $order, $_GET['limit']);
+            break;
+
+            case 'week':
+                $where[] = 'discuss_count_update > ' . (time() - 604801);
+
+                $topic_list = $this->fetch_all('topic', implode(' AND ', $where), 'discuss_count_last_week ' . $order, $_GET['limit']);
+            break;
+
+            case 'month':
+                $where[] = 'discuss_count_update > ' . (time() - 2592001);
+
+                $topic_list = $this->fetch_all('topic', implode(' AND ', $where), 'discuss_count_last_month ' . $order, $_GET['limit']);
+            break;
+    	}
+    	
+    	$topic_statistic = array();
+    	
+    	if ($topic_list)
+    	{
+	    	foreach ($topic_list AS $key => $val)
+	    	{
+		    	$topic_statistic[] = array(
+		    		'title' => $val['topic_title'],
+		    		'week' => $val['discuss_count_last_week'],
+		    		'month' => $val['discuss_count_last_month'],
+		    		'all' => $val['discuss_count']
+		    	);
+	    	}
+    	}
+    	
+	    echo json_encode($topic_statistic)
+    }
 
     public function statistic_action()
     {
