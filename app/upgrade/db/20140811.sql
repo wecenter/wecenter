@@ -1,4 +1,4 @@
-CREATE TABLE `[#DB_PREFIX#]weixin_third_party_access_rule` (
+CREATE TABLE `[#DB_PREFIX#]weixin_third_party_api` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `account_id` int(10) NOT NULL DEFAULT '0',
   `url` varchar(255) NOT NULL,

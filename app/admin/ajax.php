@@ -2431,7 +2431,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
         foreach ($_POST['rule_ids'] AS $rule_id)
         {
-            $this->model('weixin')->update('weixin_third_party_access_rule', array(
+            $this->model('weixin')->update('weixin_third_party_api', array(
                 'enabled' => ($_POST['enabled'][$rule_id] == 1) ? 1 : 0,
                 'rank' => (is_digits($_POST['rank'][$rule_id]) AND $_POST['rank'][$rule_id] >= 0 AND $_POST['rank'][$rule_id] <= 99) ? $_POST['rank'][$rule_id] : 0
             ), 'id = ' . intval($rule_id));
@@ -2447,12 +2447,12 @@ class ajax extends AWS_ADMIN_CONTROLLER
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择要删除的规则')));
         }
 
-        if(!$this->model('weixin')->fetch_row('weixin_third_party_access_rule', 'id = ' . intval($_POST['id'])))
+        if(!$this->model('weixin')->fetch_row('weixin_third_party_api', 'id = ' . intval($_POST['id'])))
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('接入规则不存在')));
         }
 
-        $this->model('weixin')->delete('weixin_third_party_access_rule', 'id = ' . intval($_POST['id']));
+        $this->model('weixin')->delete('weixin_third_party_api', 'id = ' . intval($_POST['id']));
 
         H::ajax_json_output(AWS_APP::RSM(null, 1, null));
     }
@@ -2478,14 +2478,14 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
         if ($_POST['id'])
         {
-            $rule_info = $this->model('weixin')->fetch_row('weixin_third_party_access_rule', 'id = ' . intval($_POST['id']));
+            $rule_info = $this->model('weixin')->fetch_row('weixin_third_party_api', 'id = ' . intval($_POST['id']));
 
             if (!$rule_info)
             {
                 H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('接入规则不存在')));
             }
 
-            $this->model('weixin')->update('weixin_third_party_access_rule', $to_save_rule, 'id = ' . $rule_info['id']);
+            $this->model('weixin')->update('weixin_third_party_api', $to_save_rule, 'id = ' . $rule_info['id']);
         }
         else
         {
@@ -2500,7 +2500,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
             $to_save_rule['enabled'] = 1;
 
-            $this->model('weixin')->insert('weixin_third_party_access_rule', $to_save_rule);
+            $this->model('weixin')->insert('weixin_third_party_api', $to_save_rule);
         }
 
         H::ajax_json_output(AWS_APP::RSM(array(

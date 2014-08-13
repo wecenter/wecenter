@@ -1907,7 +1907,7 @@ class weixin_class extends AWS_MODEL
 
     public function send_message_to_third_party($account_id)
     {
-        $rules = $this->fetch_all('weixin_third_party_access_rule', 'account_id = ' . intval($account_id) . '" AND enabled = 1', 'rank ASC');
+        $rules = $this->fetch_all('weixin_third_party_api', 'account_id = ' . intval($account_id) . '" AND enabled = 1', 'rank ASC');
 
         if (!$rules)
         {
