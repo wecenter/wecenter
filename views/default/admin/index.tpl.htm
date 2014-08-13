@@ -96,7 +96,7 @@
             <div class="mod">
                 <div class="mod-head">
                     <h3>
-                        <span class="pull-left"><?php _e('新增话题数'); ?></span>
+                        <span class="pull-left"><?php _e('热门话题'); ?></span>
                     </h3>
                 </div>
                 <div class="mod-body tab-content">
@@ -119,60 +119,13 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <?php for ($i=0; $i < 10; $i++) { ?>
                             <tr>
+                                <?php for ($j=0; $j < 4; $j++) { ?>
                                 <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <?php } ?>
                             </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
+                            <?php } ?>
                         </tbody>
                     </table>
                 </div>
