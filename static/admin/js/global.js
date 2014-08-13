@@ -213,7 +213,6 @@ $(function () {
                         tempObj.find('td:eq(1)').text(value.week)
                         tempObj.find('td:eq(0)').text(value.title)
                     });
-
                }  
             });
         }
