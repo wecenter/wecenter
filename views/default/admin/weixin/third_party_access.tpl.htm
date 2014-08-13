@@ -39,6 +39,7 @@
                         <th><?php _e('启用'); ?></th>
                         <th width="20%"><?php _e('关键词'); ?></th>
                         <th>URL</th>
+                        <th>Token</th>
                         <th><?php _e('排序'); ?></th>
                         <th><?php _e('操作'); ?></th>
                     </tr>
@@ -53,6 +54,7 @@
                         <td><input type="checkbox" class="enabled-status" name="enabled[<?php echo $rule_info['id']; ?>]" value="1"<?php if ($rule_info['enabled']) { ?> checked="checked"<?php } ?> /></td>
                         <td><?php echo $rule_info['keyword']; ?></td>
                         <td><?php echo $rule_info['url']; ?></td>
+                        <td><?php echo $rule_info['token']; ?></td>
                         <td>
                             <input type="text" class="form-control sort-action sort-status input-mini" name="rank[<?php echo $rule_info['id']; ?>]" value="<?php echo $rule_info['rank']; ?>" />
                         </td>

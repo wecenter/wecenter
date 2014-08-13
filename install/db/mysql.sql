@@ -1194,6 +1194,7 @@ CREATE TABLE `[#DB_PREFIX#]weixin_third_party_access_rule` (
   `account_id` int(10) NOT NULL DEFAULT '0',
   `keyword` varchar(255) NOT NULL,
   `url` varchar(255) NOT NULL,
+  `token` varchar(255) NOT NULL,
   `enabled` tinyint(1) DEFAULT '0',
   `rank` tinyint(2) UNSIGNED DEFAULT '0',
   PRIMARY KEY (`id`),

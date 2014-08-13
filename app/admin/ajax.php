@@ -2449,9 +2449,17 @@ class ajax extends AWS_ADMIN_CONTROLLER
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请输入正确的 URL')));
         }
 
+        $_POST['token'] = trim($_POST['token']);
+
+        if (!$_POST['token'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('第三方公众平台接口 Token')));
+        }
+
         $to_save_rule = array(
             'keyword' => $_POST['keyword'],
-            'url' => $_POST['url']
+            'url' => $_POST['url'],
+            'token' => $_POST['token']
         );
 
         if ($_POST['id'])
