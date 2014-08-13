@@ -1494,15 +1494,17 @@
             group6.className = group6.className + " pull-right";
             buttons.eye = makeButton("wmd-quote-button", "开关预览模式", "fa fa-eye", null, group6);
             buttons.eye.execute = function (manager) {
+                $(this).toggleClass('hover');
+ 
                 if ($(panels.preview).is(':visible'))
                 {
-                    $(this).addClass('hover');
                     $(panels.preview).fadeOut();
+                    $.cookie('data_editor_preview', false);
                 }
                 else
                 {
-                    $(this).removeClass('hover');
                     $(panels.preview).fadeIn();
+                    $.cookie('data_editor_preview', true);
                 }
             };
             buttons.help = makeButton("wmd-quote-button", "编辑器语法帮助", "fa fa-question", null, group6);

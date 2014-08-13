@@ -2025,22 +2025,18 @@ AWS.Editor =
 	// 设置编辑器预览状态
     set_editor_preview: function ()
     {
-        if ($.cookie('data_editor_preview') != 'false')
-        {
-            $('.markItUpButton13').removeClass('cur');
-        }
-        else
-        {
-        	$('.markItUpButton13').addClass('cur');
-			if ($('.markItUpPreviewFrame').css('display') == 'none')
-			{
-				$('.markItUpPreviewFrame').fadeIn();
-			}
-            else
-			{
-				$('.markItUpPreviewFrame').fadeOut();
-			}
-        }
+    	if ($.cookie('data_editor_preview') == 'true')
+    	{
+    		$('.fa-eye').parents('button').removeClass('hover');
+
+    		$('.wmd-preview').fadeIn();
+    	}
+    	else
+    	{
+    		$('.fa-eye').parents('button').addClass('hover');
+
+    		$('.wmd-preview').fadeOut();
+    	}
     },
 
 	// 向编辑器插入多媒体内容(图片,视频,超链接)
@@ -2444,7 +2440,7 @@ AWS.Init =
 	            $(this).parents('.aw-item-content').append(Hogan.compile(AW_TEMPLATE.articleCommentBox).render(
 	            {
 	                'at_uid' : $(this).attr('data-id'),
-	                'article_id' : $('.aw-article-replay-box input[name="article_id"]').val()
+	                'article_id' : $('.aw-topic-editor').attr('data-id')
 	            }));
 	        }
 	    });

@@ -20,6 +20,8 @@ $(document).ready(function ()
         
         editor1.run();
 
+        AWS.Editor.set_editor_preview();
+
     }
 
     //响应式导航条效果
