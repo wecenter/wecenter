@@ -7,7 +7,6 @@ CREATE TABLE `[#DB_PREFIX#]weixin_third_party_access_rule` (
   `rank` tinyint(2) UNSIGNED DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `account_id` (`account_id`),
-  KEY `keyword` (`keyword`),
   KEY `enabled` (`enabled`),
   KEY `rank` (`rank`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8 COMMENT='微信第三方接入';

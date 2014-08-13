@@ -1907,9 +1907,9 @@ class weixin_class extends AWS_MODEL
 
     public function send_message_to_third_party($account_id)
     {
-        $rule = $this->fetch_row('weixin_third_party_access_rule', 'account_id = ' . intval($account_id) . '" AND enabled = 1', 'rank ASC');
+        $rules = $this->fetch_all('weixin_third_party_access_rule', 'account_id = ' . intval($account_id) . '" AND enabled = 1', 'rank ASC');
 
-        if (!$rule OR !$rule['url'] OR !$rule['token'])
+        if (!$rules)
         {
             return false;
         }
@@ -1918,22 +1918,30 @@ class weixin_class extends AWS_MODEL
 
         $nonce = mt_rand(1000000000, 9999999999);
 
-        $signature = $this->generate_signature($rule['token'], $timestamp, $nonce);
-
-        if (!$signature)
+        foreach ($rules AS $rule)
         {
-            return false;
+            if (!$rule['url'] OR !$rule['token'])
+            {
+                continue;
+            }
+
+            $signature = $this->generate_signature($rule['token'], $timestamp, $nonce);
+
+            if (!$signature)
+            {
+                continue;
+            }
+
+            $url = $rule['url'] . '?signature=' . $signature . '&timestamp=' . $timestamp . '&nonce=' . $nonce;
+
+            $response = HTTP::request($url, 'POST', $this->post_data, 5);
+
+            if ($response)
+            {
+                return $response;
+            }
         }
 
-        $url = $rule['url'] . '?signature=' . $signature . '&timestamp=' . $timestamp . '&nonce=' . $nonce;
-
-        $response = HTTP::request($url, 'POST', $this->post_data, 5);
-
-        if (!$response)
-        {
-            return false;
-        }
-
-        return $response;
+        return false;
     }
 }
