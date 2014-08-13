@@ -1909,6 +1909,26 @@ class ajax extends AWS_ADMIN_CONTROLLER
         H::ajax_json_output(AWS_APP::RSM(array('url' => get_js_url('/admin/weixin/sent_msg_details/id-' . $msg_id)), 1, null));
     }
 
+    public function topic_statistic_action()
+    {
+    	$topic_statistic = array();
+
+    	if ($topic_list = $this->model('topic')->get_hot_topics(null, $_GET['limit'], $_GET['tag']))
+    	{
+	    	foreach ($topic_list AS $key => $val)
+	    	{
+		    	$topic_statistic[] = array(
+		    		'title' => $val['topic_title'],
+		    		'week' => $val['discuss_count_last_week'],
+		    		'month' => $val['discuss_count_last_month'],
+		    		'all' => $val['discuss_count']
+		    	);
+	    	}
+    	}
+
+	    echo json_encode($topic_statistic);
+    }
+
     public function statistic_action()
     {
         if (!$start_time = strtotime($_GET['start_date']))
@@ -2449,9 +2469,17 @@ class ajax extends AWS_ADMIN_CONTROLLER
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请输入正确的 URL')));
         }
 
+        $_POST['token'] = trim($_POST['token']);
+
+        if (!$_POST['token'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请输入第三方公众平台接口 Token')));
+        }
+
         $to_save_rule = array(
             'keyword' => $_POST['keyword'],
-            'url' => $_POST['url']
+            'url' => $_POST['url'],
+            'token' => $_POST['token']
         );
 
         if ($_POST['id'])

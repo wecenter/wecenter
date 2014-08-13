@@ -1112,30 +1112,34 @@ class weixin_class extends AWS_MODEL
 
     public function check_signature($mp_token, $signature, $timestamp, $nonce)
     {
-        $mp_token = trim($mp_token);
+        $tmp_signature = $this->generate_signature($mp_token, $timestamp, $nonce);
 
-        if (empty($mp_token))
+        if (!$tmp_signature OR $tmp_signature != $signature)
         {
             return false;
         }
 
-        $tmpArr = array(
-            $mp_token,
+        return true;
+    }
+
+    public function generate_signature($token, $timestamp, $nonce)
+    {
+        $token = trim($token);
+
+        if (!$token OR !$timestamp OR !$nonce)
+        {
+            return false;
+        }
+
+        $tmp_arr = array(
+            $token,
             $timestamp,
             $nonce
         );
 
-        sort($tmpArr, SORT_STRING);
+        sort($tmp_arr, SORT_STRING);
 
-        $tmpStr = implode($tmpArr);
-        $tmpStr = sha1($tmpStr);
-
-        if ($tmpStr == $signature)
-        {
-            return true;
-        }
-
-        return false;
+        return sha1(implode('', $tmp_arr));
     }
 
     public function is_language($string, $type)
@@ -1910,12 +1914,18 @@ class weixin_class extends AWS_MODEL
 
         $rule = $this->fetch_row('weixin_third_party_access_rule', 'account_id = ' . intval($account_id) . ' AND keyword = "' . trim($this->quote($keyword)) . '" AND enabled = 1', 'rank ASC');
 
-        if (!$rule OR !$rule['url'])
+        if (!$rule OR !$rule['url'] OR !$rule['token'])
         {
             return false;
         }
 
-        $response = HTTP::request($rule['url'], 'POST', $this->post_data, 5);
+        $timestamp = time();
+
+        $nonce = mt_rand(1000000000, 9999999999);
+
+        $signature = $this->generate_signature($rule['token'], $timestamp, $nonce);
+
+        $response = HTTP::request($rule['url'] . '?signature=' . $signature . '&timestamp=' . $timestamp . '&nonce=' . $nonce, 'POST', $this->post_data, 5);
 
         if (!$response)
         {
