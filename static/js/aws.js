@@ -2028,7 +2028,7 @@ AWS.Editor =
     	if ($.cookie('data_editor_preview') == 'true')
     	{
     		$('.fa-eye').parents('button').removeClass('hover');
-    		
+
     		$('.wmd-preview').fadeIn();
     	}
     	else
@@ -2440,7 +2440,7 @@ AWS.Init =
 	            $(this).parents('.aw-item-content').append(Hogan.compile(AW_TEMPLATE.articleCommentBox).render(
 	            {
 	                'at_uid' : $(this).attr('data-id'),
-	                'article_id' : $('.aw-article-replay-box input[name="article_id"]').val()
+	                'article_id' : $('.aw-topic-editor').attr('data-id')
 	            }));
 	        }
 	    });
