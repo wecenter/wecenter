@@ -1910,41 +1910,10 @@ class ajax extends AWS_ADMIN_CONTROLLER
     }
     
     public function topic_statistic_action()
-    {
-    	switch ($_GET['order'])
-    	{
-	    	case 'ASC':
-	    	case 'DESC':
-	    		$order = $_GET['order'];
-	    	break;
-	    	
-	    	default:
-	    		$order = 'DESC';
-	    	break;
-    	}
-    	
-    	switch ($_GET['tag'])
-    	{
-	    	default:
-                $topic_list = $this->fetch_all('topic', implode(' AND ', $where), 'discuss_count ' . $order, $_GET['limit']);
-            break;
-
-            case 'week':
-                $where[] = 'discuss_count_update > ' . (time() - 604801);
-
-                $topic_list = $this->fetch_all('topic', implode(' AND ', $where), 'discuss_count_last_week ' . $order, $_GET['limit']);
-            break;
-
-            case 'month':
-                $where[] = 'discuss_count_update > ' . (time() - 2592001);
-
-                $topic_list = $this->fetch_all('topic', implode(' AND ', $where), 'discuss_count_last_month ' . $order, $_GET['limit']);
-            break;
-    	}
-    	
+    {    	
     	$topic_statistic = array();
     	
-    	if ($topic_list)
+    	if ($topic_list = $this->model('topic')->get_hot_topics(null, $_GET['limit'], $_GET['tag']))
     	{
 	    	foreach ($topic_list AS $key => $val)
 	    	{
@@ -1957,7 +1926,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 	    	}
     	}
     	
-	    echo json_encode($topic_statistic)
+	    echo json_encode($topic_statistic);
     }
 
     public function statistic_action()
