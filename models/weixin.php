@@ -408,7 +408,7 @@ class weixin_class extends AWS_MODEL
                 {
                     // response by reply rule keyword...
                 }
-                else if ($response = $this->send_message_to_third_party($account_info['id'], $input_message['content']))
+                else if ($response = $this->send_message_to_third_party($account_info['id']))
                 {
                     exit($response);
                 }
@@ -1905,14 +1905,9 @@ class weixin_class extends AWS_MODEL
         @unlink(get_setting('upload_dir') . '/weixin_qr_code/' . $scene_id . '.jpg');
     }
 
-    public function send_message_to_third_party($account_id, $keyword)
+    public function send_message_to_third_party($account_id)
     {
-        if (!$keyword)
-        {
-            return false;
-        }
-
-        $rule = $this->fetch_row('weixin_third_party_access_rule', 'account_id = ' . intval($account_id) . ' AND keyword = "' . trim($this->quote($keyword)) . '" AND enabled = 1', 'rank ASC');
+        $rule = $this->fetch_row('weixin_third_party_access_rule', 'account_id = ' . intval($account_id) . '" AND enabled = 1', 'rank ASC');
 
         if (!$rule OR !$rule['url'] OR !$rule['token'])
         {
@@ -1925,7 +1920,14 @@ class weixin_class extends AWS_MODEL
 
         $signature = $this->generate_signature($rule['token'], $timestamp, $nonce);
 
-        $response = HTTP::request($rule['url'] . '?signature=' . $signature . '&timestamp=' . $timestamp . '&nonce=' . $nonce, 'POST', $this->post_data, 5);
+        if (!$signature)
+        {
+            return false;
+        }
+
+        $url = $rule['url'] . '?signature=' . $signature . '&timestamp=' . $timestamp . '&nonce=' . $nonce;
+
+        $response = HTTP::request($url, 'POST', $this->post_data, 5);
 
         if (!$response)
         {
