@@ -23,7 +23,7 @@ if ($question_list)
             }
 
             $this->model('question')->update('question', array(
-                'unverified_modify_count' => $counter;
+                'unverified_modify_count' => $counter
             ), 'question_id = ' . $question_info['question_id']);
         }
     }
