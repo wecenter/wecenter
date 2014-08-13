@@ -96,6 +96,117 @@
             <div class="mod">
                 <div class="mod-head">
                     <h3>
+                        <span class="pull-left"><?php _e('新增话题数'); ?></span>
+                    </h3>
+                </div>
+                <div class="mod-body tab-content">
+                    <table  class="table table-striped" id="sorttable">
+                        <thead align="center">
+                            <tr>
+                                <td>话题名称</td>
+                                <td>
+                                    本周（新增）
+                                    <i class="fa fa-sort-desc"></i>
+                                </td>
+                                <td>
+                                    本月（新增）
+                                    <i class="fa"></i>
+                                </td>
+                                <td>
+                                    全部（新增）
+                                    <i class="fa"></i>
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="mod">
+                <div class="mod-head">
+                    <h3>
+                        <span class="pull-left"><?php _e('系统信息'); ?></span>
+                    </h3>
+                </div>
+                <div class="tab-content mod-content">
+                    <table  class="table table-striped">
+                        <tbody>
+                        	<tr>
+                                <td><?php _e('操作系统'); ?></td>
+                                <td><?php echo php_uname('s'); ?> <?php echo php_uname('r'); ?></td>
+                            </tr>
+                            <tr>
+                                <td><?php _e('PHP 版本'); ?></td>
+                                <td><?php echo PHP_VERSION; ?></td>
+                            </tr>
+                            <tr>
+                                <td><?php _e('MySQL 版本'); ?></td>
+                                <td><?php echo MYSQL_VERSION; ?></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="mod">
+                <div class="mod-head">
+                    <h3>
                         <span class="pull-left"><?php _e('用户数据'); ?></span>
                     </h3>
                 </div>
@@ -147,35 +258,9 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
-            <div class="mod">
-                <div class="mod-head">
-                    <h3>
-                        <span class="pull-left"><?php _e('系统信息'); ?></span>
-                    </h3>
-                </div>
-                <div class="tab-content mod-content">
-                    <table  class="table table-striped">
-                        <tbody>
-                        	<tr>
-                                <td><?php _e('操作系统'); ?></td>
-                                <td><?php echo php_uname('s'); ?> <?php echo php_uname('r'); ?></td>
-                            </tr>
-                            <tr>
-                                <td><?php _e('PHP 版本'); ?></td>
-                                <td><?php echo PHP_VERSION; ?></td>
-                            </tr>
-                            <tr>
-                                <td><?php _e('MySQL 版本'); ?></td>
-                                <td><?php echo MYSQL_VERSION; ?></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
+
 <script type="text/javascript" src="<?php echo G_STATIC_URL; ?>/admin/js/echarts-data.js"></script>
 <script type="text/javascript" src="<?php echo G_STATIC_URL; ?>/admin/js/echarts.js"></script>
 <?php TPL::output('admin/global/footer.tpl.htm'); ?>
