@@ -408,6 +408,8 @@ class HTTP
 			curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, FALSE);
 		}
 
+		curl_setopt($curl, CURLOPT_USERAGENT, 'WeCenter/' . G_VERSION);
+
 		$response = curl_exec($curl);
 
 		curl_close($curl);
