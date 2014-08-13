@@ -115,7 +115,7 @@ class posts_class extends AWS_MODEL
 		switch ($sort)
 		{
 			case 'responsed':
-				$answer_count > 0;
+				$answer_count = 1;
 
 				break;
 
@@ -149,9 +149,16 @@ class posts_class extends AWS_MODEL
 		{
 			$where = array();
 
-			if (isset($answer_count))
+			if (is_digits($answer_count))
 			{
-				$where[] = 'answer_count = ' . intval($answer_count);
+				if ($answer_count == 0)
+				{
+					$where[] = "answer_count = " . $answer_count;
+				}
+				else if ($answer_count > 0)
+				{
+					$where[] = "answer_count >= " . $answer_count;
+				}
 			}
 
 			if ($is_recommend)
@@ -379,9 +386,16 @@ class posts_class extends AWS_MODEL
 			$where[] = '(' . implode(' OR ', $post_id_where) . ')';
 		}
 
-		if ($answer_count !== null)
+		if (is_digits($answer_count))
 		{
-			$where[] = "answer_count = " . intval($answer_count);
+			if ($answer_count == 0)
+			{
+				$where[] = "answer_count = " . $answer_count;
+			}
+			else if ($answer_count > 0)
+			{
+				$where[] = "answer_count >= " . $answer_count;
+			}
 		}
 
 		if ($is_recommend)

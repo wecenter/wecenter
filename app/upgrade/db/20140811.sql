@@ -11,3 +11,5 @@ CREATE TABLE `[#DB_PREFIX#]weixin_third_party_access_rule` (
   KEY `enabled` (`enabled`),
   KEY `rank` (`rank`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8 COMMENT='微信第三方接入';
+
+ALTER TABLE `[#DB_PREFIX#]weixin_message` MODIFY `action` text;
