@@ -191,21 +191,32 @@ $(function () {
                 subjectData('all')
             }       
         }
-        
         function subjectData(type){
-            $.getJSON(G_BASE_URL + '/admin/ajax/topic_statistic/tag-'+ type +'__limit-10',function(data)
-            {   
-                $.each(data,function(key,value){
-                    var tempObj = $('#sorttable tbody tr:eq('+ key +')');                    
-                    tempObj.find('td:eq(3)').text(value.all)
-                    tempObj.find('td:eq(2)').text(value.month)
-                    tempObj.find('td:eq(1)').text(value.week)
-                    tempObj.find('td:eq(0)').text(value.title)
-                });
-            })
+            $.ajax({
+               url: G_BASE_URL + '/admin/ajax/topic_statistic/tag-'+ type +'__limit-10',
+               dataType:"json",
+               type: "GET",
+               beforeSend:function(){
+
+                    AWS.loading('show');
+                    $('#aw-loading').css({left:'39%'})
+               }, 
+               success:function(data)
+               {
+                    AWS.loading('hide')
+                    $.each(data,function(key,value){
+                        var tempObj = $('#sorttable tbody tr:eq('+ key +')');                    
+                        tempObj.find('td:eq(3)').text(value.all)
+                        tempObj.find('td:eq(2)').text(value.month)
+                        tempObj.find('td:eq(1)').text(value.week)
+                        tempObj.find('td:eq(0)').text(value.title)
+                    });
+
+               }  
+            });
         }
     });
-    $('#sorttable thead td:eq(1)').click();
+    $('#sorttable thead td:eq(2)').click();
 
 });
     
