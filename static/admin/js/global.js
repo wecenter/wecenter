@@ -199,7 +199,9 @@ $(function () {
                beforeSend:function(){
 
                     AWS.loading('show');
-                    $('#aw-loading').css({left:'39%'})
+                    var tempTop = $('#sorttable').offset().top + $('#sorttable').height()/2 - 50;
+                    var tempLeft = $('#sorttable').offset().left + $('#sorttable').width()/2;
+                    $('#aw-loading').css({top:tempTop+'px',left:tempLeft+'px',position:'absolute'})
                }, 
                success:function(data)
                {

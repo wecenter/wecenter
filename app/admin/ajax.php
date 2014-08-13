@@ -2496,11 +2496,6 @@ class ajax extends AWS_ADMIN_CONTROLLER
                 H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('公众账号不存在')));
             }
 
-            if ($this->model('weixin')->fetch_row('weixin_third_party_access_rule', 'account_id = ' . intval($_POST['account_id']) . ' AND keyword = "' . trim($this->model('weixin')->quote($_POST['keyword'])) . '"'))
-            {
-                H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('已经存在相同的关键词')));
-            }
-
             $to_save_rule['account_id'] = $account_info['id'];
 
             $to_save_rule['enabled'] = 1;
