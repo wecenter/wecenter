@@ -37,6 +37,8 @@ class weixin_class extends AWS_MODEL
 
     private $to_save_questions;
 
+    private $post_data;
+
     public function replace_post($subject)
     {
         if (empty($subject) OR !is_array($subject))
@@ -188,9 +190,9 @@ class weixin_class extends AWS_MODEL
 
     public function fetch_message()
     {
-        if ($post_data = file_get_contents('php://input'))
+        if ($this->post_data = file_get_contents('php://input'))
         {
-            $post_object = (array)simplexml_load_string($post_data, 'SimpleXMLElement', LIBXML_NOCDATA);
+            $post_object = (array)simplexml_load_string($this->post_data, 'SimpleXMLElement', LIBXML_NOCDATA);
 
             $input_message = array(
                 'fromUsername' => $post_object['FromUserName'],
@@ -406,6 +408,10 @@ class weixin_class extends AWS_MODEL
                 {
                     // response by reply rule keyword...
                 }
+                else if ($response = $this->send_message_to_third_party($account_info['id']))
+                {
+                    exit($response);
+                }
                 else if ($response = $this->message_parser($input_message, $account_info))
                 {
                     // Success...
@@ -424,27 +430,6 @@ class weixin_class extends AWS_MODEL
                     $this->delete('weixin_message', "weixin_id = '" . $this->quote($input_message['fromUsername']) . "'");
 
                     $response_message = '好的, 还有什么可以帮您的吗?';
-                }
-                else if ($search_result = $this->model('search')->search_questions($input_message['content'], null, 1, 5))
-                {
-                    foreach ($search_result AS $key => $val)
-                    {
-                        if (!$response_message)
-                        {
-                            $image_file = AWS_APP::config()->get('weixin')->default_list_image;
-                        }
-                        else
-                        {
-                            $image_file = get_avatar_url($val['published_uid'], 'max');
-
-                        }
-
-                        $response_message[] = array(
-                            'title' => $val['question_content'],
-                            'link' => get_js_url('/m/question/' . $val['question_id']),
-                            'image_file' => $image_file
-                        );
-                    }
                 }
                 else
                 {
@@ -466,7 +451,7 @@ class weixin_class extends AWS_MODEL
             echo $this->create_txt_response($input_message, $response_message, $action);
         }
 
-        die;
+        exit();
     }
 
     public function create_txt_response($input_message, $response_message, $action = null)
@@ -569,45 +554,63 @@ class weixin_class extends AWS_MODEL
                         }
                     }
                 }
-                else
+                else if ($topic_info = $this->model('topic')->get_topic_by_title($input_message['content']))
                 {
-                    if ($topic_info = $this->model('topic')->get_topic_by_title($input_message['content']))
+                    $response_message[] = array(
+                        'title' => $topic_info['topic_title'],
+                        'link' => get_js_url('/m/topic/' . $topic_info['url_token']),
+                        'image_file' => get_topic_pic_url('', $topic_info['topic_pic'])
+                    );
+
+                    if ($topic_posts = $this->model('posts')->get_posts_list(null, $param, 4, 'new', array($topic_info['topic_id'])))
                     {
-                        $response_message[] = array(
-                            'title' => $topic_info['topic_title'],
-                            'link' => get_js_url('/m/topic/' . $topic_info['url_token']),
-                            'image_file' => get_topic_pic_url('', $topic_info['topic_pic'])
-                        );
-
-                        if ($topic_posts = $this->model('posts')->get_posts_list(null, $param, 4, 'new', array($topic_info['topic_id'])))
+                        foreach ($topic_posts AS $key => $val)
                         {
-                            foreach ($topic_posts AS $key => $val)
+                            if ($val['uid'])
                             {
-                                if ($val['uid'])
-                                {
-                                    $image_file = get_avatar_url($val['uid'], 'max');
+                                $image_file = get_avatar_url($val['uid'], 'max');
 
-                                    $title = $val['title'];
-                                    $link = get_js_url('/m/article/' . $val['id']);
-                                }
-                                else
-                                {
-                                    $image_file = get_avatar_url($val['published_uid'], 'max');
-
-                                    $title = $val['question_content'];
-                                    $link = get_js_url('/m/question/' . $val['question_id']);
-                                }
-
-                                $response_message[] = array(
-                                    'title' => $title,
-                                    'link' => $link,
-                                    'image_file' => $image_file
-                                );
+                                $title = $val['title'];
+                                $link = get_js_url('/m/article/' . $val['id']);
                             }
+                            else
+                            {
+                                $image_file = get_avatar_url($val['published_uid'], 'max');
+
+                                $title = $val['question_content'];
+                                $link = get_js_url('/m/question/' . $val['question_id']);
+                            }
+
+                            $response_message[] = array(
+                                'title' => $title,
+                                'link' => $link,
+                                'image_file' => $image_file
+                            );
                         }
                     }
                 }
-            break;
+                else if ($search_result = $this->model('search')->search_questions($input_message['content'], null, $param, 5))
+                {
+                    foreach ($search_result AS $key => $val)
+                    {
+                        if (!$response_message)
+                        {
+                            $image_file = AWS_APP::config()->get('weixin')->default_list_image;
+                        }
+                        else
+                        {
+                            $image_file = get_avatar_url($val['published_uid'], 'max');
+                        }
+
+                        $response_message[] = array(
+                            'title' => $val['question_content'],
+                            'link' => get_js_url('/m/question/' . $val['question_id']),
+                            'image_file' => $image_file
+                        );
+                    }
+                }
+
+                break;
 
             case 'NEW_ARTICLE':
                 if ($input_message['param'])
@@ -651,7 +654,8 @@ class weixin_class extends AWS_MODEL
                         'image_file' => $image_file
                     );
                 }
-            break;
+
+                break;
 
             case 'HOT_QUESTION':
                 if ($input_message['param'])
@@ -697,7 +701,8 @@ class weixin_class extends AWS_MODEL
                 {
                     $response_message = '暂无问题';
                 }
-            break;
+
+                break;
 
             case 'NEW_QUESTION':
                 if ($input_message['param'])
@@ -762,7 +767,9 @@ class weixin_class extends AWS_MODEL
                 {
                     $response_message = '暂无问题';
                 }
-            break;
+
+
+                break;
 
             case 'NEW_POSTS':
                 if ($input_message['param'])
@@ -827,7 +834,8 @@ class weixin_class extends AWS_MODEL
                 {
                     $response_message = '暂无内容';
                 }
-            break;
+
+                break;
 
             case 'NO_ANSWER_QUESTION':
                 if ($input_message['param'])
@@ -892,7 +900,8 @@ class weixin_class extends AWS_MODEL
                 {
                     $response_message = '暂无问题';
                 }
-            break;
+
+                break;
 
             case 'RECOMMEND_QUESTION':
                 if ($input_message['param'])
@@ -957,7 +966,8 @@ class weixin_class extends AWS_MODEL
                 {
                     $response_message = '暂无问题';
                 }
-            break;
+
+                break;
 
             case 'HOME_ACTIONS':
                 if ($this->user_id)
@@ -1003,7 +1013,8 @@ class weixin_class extends AWS_MODEL
                 {
                     $response_message = $this->bind_message;
                 }
-            break;
+
+                break;
 
             case 'NOTIFICATIONS':
                 if ($this->user_id)
@@ -1037,7 +1048,8 @@ class weixin_class extends AWS_MODEL
                 {
                     $response_message = $this->bind_message;
                 }
-            break;
+
+                break;
 
             case 'MY_QUESTION':
                 if ($this->user_id)
@@ -1083,7 +1095,8 @@ class weixin_class extends AWS_MODEL
                 {
                     $response_message = $this->bind_message;
                 }
-            break;
+
+                break;
         }
 
         if (!$response_message)
@@ -1099,30 +1112,34 @@ class weixin_class extends AWS_MODEL
 
     public function check_signature($mp_token, $signature, $timestamp, $nonce)
     {
-        $mp_token = trim($mp_token);
+        $tmp_signature = $this->generate_signature($mp_token, $timestamp, $nonce);
 
-        if (empty($mp_token))
+        if (!$tmp_signature OR $tmp_signature != $signature)
         {
             return false;
         }
 
-        $tmpArr = array(
-            $mp_token,
+        return true;
+    }
+
+    public function generate_signature($token, $timestamp, $nonce)
+    {
+        $token = trim($token);
+
+        if (!$token OR !$timestamp OR !$nonce)
+        {
+            return false;
+        }
+
+        $tmp_arr = array(
+            $token,
             $timestamp,
             $nonce
         );
 
-        sort($tmpArr, SORT_STRING);
+        sort($tmp_arr, SORT_STRING);
 
-        $tmpStr = implode($tmpArr);
-        $tmpStr = sha1($tmpStr);
-
-        if ($tmpStr == $signature)
-        {
-            return true;
-        }
-
-        return false;
+        return sha1(implode('', $tmp_arr));
     }
 
     public function is_language($string, $type)
@@ -1243,12 +1260,12 @@ class weixin_class extends AWS_MODEL
 
     public function get_reply_rule_by_keyword($account_id, $keyword)
     {
-        return $this->fetch_row('weixin_reply_rule', 'account_id = ' . intval($account_id) ." AND keyword = '" . trim($this->quote($keyword)));
+        return $this->fetch_row('weixin_reply_rule', 'account_id = ' . intval($account_id) . ' AND keyword = "' . trim($this->quote($keyword)) . '"');
     }
 
     public function create_response_by_reply_rule_keyword($account_id, $keyword)
     {
-        if (strlen($keyword) == 0)
+        if (!$keyword)
         {
             return false;
         }
@@ -1269,15 +1286,17 @@ class weixin_class extends AWS_MODEL
     {
         $reply_rule_info = $this->get_reply_rule_by_id($id);
 
-        if (!empty($reply_rule_info))
+        if (!$reply_rule_info)
         {
-            $this->delete('weixin_reply_rule', 'id = ' . $reply_rule_info['id']);
+            return false;
+        }
 
-            if ($reply_rule_info['image_file'])
-            {
-                unlink(get_setting('upload_dir') . '/weixin/' . $reply_rule_info['image_file']);
-                unlink(get_setting('upload_dir') . '/weixin/square_' . $reply_rule_info['image_file']);
-            }
+        $this->delete('weixin_reply_rule', 'id = ' . $reply_rule_info['id']);
+
+        if ($reply_rule_info['image_file'])
+        {
+            unlink(get_setting('upload_dir') . '/weixin/' . $reply_rule_info['image_file']);
+            unlink(get_setting('upload_dir') . '/weixin/square_' . $reply_rule_info['image_file']);
         }
     }
 
@@ -1884,5 +1903,45 @@ class weixin_class extends AWS_MODEL
         $this->model('weixin')->delete('weixin_qr_code', 'scene_id = ' . $scene_id);
 
         @unlink(get_setting('upload_dir') . '/weixin_qr_code/' . $scene_id . '.jpg');
+    }
+
+    public function send_message_to_third_party($account_id)
+    {
+        $rules = $this->fetch_all('weixin_third_party_api', 'account_id = ' . intval($account_id) . ' AND enabled = 1', 'rank ASC');
+
+        if (!$rules)
+        {
+            return false;
+        }
+
+        $timestamp = time();
+
+        $nonce = mt_rand(1000000000, 9999999999);
+
+        foreach ($rules AS $rule)
+        {
+            if (!$rule['url'] OR !$rule['token'])
+            {
+                continue;
+            }
+
+            $signature = $this->generate_signature($rule['token'], $timestamp, $nonce);
+
+            if (!$signature)
+            {
+                continue;
+            }
+
+            $url = $rule['url'] . '?signature=' . $signature . '&timestamp=' . $timestamp . '&nonce=' . $nonce;
+
+            $response = HTTP::request($url, 'POST', $this->post_data, 5);
+
+            if ($response)
+            {
+                return $response;
+            }
+        }
+
+        return false;
     }
 }

@@ -105,17 +105,10 @@ class main extends AWS_CONTROLLER
 
 		if (get_setting('advanced_editor_enable') == 'Y')
 		{
-			// codemirror
-			TPL::import_css('js/editor/codemirror/lib/codemirror.css');
-			TPL::import_js('js/editor/codemirror/lib/codemirror.js');
-			TPL::import_js('js/editor/codemirror/lib/util/continuelist.js');
-			TPL::import_js('js/editor/codemirror/mode/xml/xml.js');
-			TPL::import_js('js/editor/codemirror/mode/markdown/markdown.js');
-
 			// editor
-			TPL::import_js('js/editor/jquery.markitup.js');
-			TPL::import_js('js/editor/markdown.js');
-			TPL::import_js('js/editor/sets/default/set.js');
+			TPL::import_js('js/editor/Markdown.Converter.js');
+			TPL::import_js('js/editor/Markdown.Sanitizer.js');
+			TPL::import_js('js/editor/Markdown.Editor.js');
 		}
 
 		if (get_setting('upload_enable') == 'Y')
@@ -186,18 +179,14 @@ class main extends AWS_CONTROLLER
 
 		if (get_setting('advanced_editor_enable') == 'Y')
 		{
-			// codemirror
-			TPL::import_css('js/editor/codemirror/lib/codemirror.css');
-			TPL::import_js('js/editor/codemirror/lib/codemirror.js');
-			TPL::import_js('js/editor/codemirror/lib/util/continuelist.js');
-			TPL::import_js('js/editor/codemirror/mode/xml/xml.js');
-			TPL::import_js('js/editor/codemirror/mode/markdown/markdown.js');
-
 			// editor
-			TPL::import_js('js/editor/jquery.markitup.js');
-			TPL::import_js('js/editor/markdown.js');
-			TPL::import_js('js/editor/sets/default/set.js');
+			TPL::import_js('js/editor/Markdown.Converter.js');
+			TPL::import_js('js/editor/Markdown.Sanitizer.js');
+			TPL::import_js('js/editor/Markdown.Editor.js');
+		}
 
+		if (get_setting('upload_enable') == 'Y')
+		{
 			// fileupload
 			TPL::import_js('js/fileupload.js');
 		}

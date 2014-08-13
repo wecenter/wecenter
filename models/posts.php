@@ -110,19 +110,23 @@ class posts_class extends AWS_MODEL
 
 	public function get_posts_list($post_type, $page = 1, $per_page = 10, $sort = null, $topic_ids = null, $category_id = null, $answer_count = null, $day = 30, $is_recommend = false)
 	{
-		if ($sort == 'unresponsive')
-		{
-			$answer_count = 0;
-		}
+		$order_key = 'add_time DESC';
 
 		switch ($sort)
 		{
-			default :
-				$order_key = 'add_time DESC';
+			case 'responsed':
+				$answer_count = 1;
+
+				break;
+
+			case 'unresponsive':
+				$answer_count = 0;
+
 				break;
 
 			case 'new' :
 				$order_key = 'update_time DESC';
+
 				break;
 		}
 
@@ -145,9 +149,16 @@ class posts_class extends AWS_MODEL
 		{
 			$where = array();
 
-			if (isset($answer_count))
+			if (is_digits($answer_count))
 			{
-				$where[] = 'answer_count = ' . intval($answer_count);
+				if ($answer_count == 0)
+				{
+					$where[] = "answer_count = " . $answer_count;
+				}
+				else if ($answer_count > 0)
+				{
+					$where[] = "answer_count >= " . $answer_count;
+				}
 			}
 
 			if ($is_recommend)
@@ -375,9 +386,16 @@ class posts_class extends AWS_MODEL
 			$where[] = '(' . implode(' OR ', $post_id_where) . ')';
 		}
 
-		if ($answer_count !== null)
+		if (is_digits($answer_count))
 		{
-			$where[] = "answer_count = " . intval($answer_count);
+			if ($answer_count == 0)
+			{
+				$where[] = "answer_count = " . $answer_count;
+			}
+			else if ($answer_count > 0)
+			{
+				$where[] = "answer_count >= " . $answer_count;
+			}
 		}
 
 		if ($is_recommend)

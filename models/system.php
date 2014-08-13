@@ -662,4 +662,19 @@ class system_class extends AWS_MODEL
 
 		return $data;
 	}
+
+    public function update_topic_discuss_count($page, $limit = 100)
+    {
+        if (!$topics_list = $this->fetch_page('topic', null, 'topic_id ASC', $page, $limit))
+        {
+            return false;
+        }
+
+        foreach ($topics_list AS $key => $val)
+        {
+            $this->model('topic')->update_discuss_count($val['topic_id']);
+        }
+
+        return true;
+    }
 }

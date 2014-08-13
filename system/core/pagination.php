@@ -148,7 +148,7 @@ class core_pagination
 			throw new Zend_Exception('Your number of links must be a positive number.');
 		}
 
-		if ( ! is_numeric($this->cur_page))
+		if ( ! is_digits($this->cur_page))
 		{
 			$this->cur_page = 0;
 		}

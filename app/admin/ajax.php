@@ -1028,12 +1028,12 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
                 if ($val['reputation_factor'])
                 {
-                    if (!is_numeric($val['reputation_factor']) || floatval($val['reputation_factor']) < 0)
+                    if (!is_digits($val['reputation_factor']) || floatval($val['reputation_factor']) < 0)
                     {
                         H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('威望系数必须为大于或等于 0')));
                     }
 
-                    if (!is_numeric($val['reputation_lower']) || floatval($val['reputation_lower']) < 0 || !is_numeric($val['reputation_higer']) || floatval($val['reputation_higer']) < 0)
+                    if (!is_digits($val['reputation_lower']) || floatval($val['reputation_lower']) < 0 || !is_digits($val['reputation_higer']) || floatval($val['reputation_higer']) < 0)
                     {
                         H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('威望介于值必须为大于或等于 0')));
                     }
@@ -1622,27 +1622,29 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
     public function weixin_save_reply_rule_status_action()
     {
-        if ($_POST['rule_ids'])
+        if (!$_POST['rule_ids'])
         {
-            foreach ($_POST['rule_ids'] AS $rule_id => $val)
-            {
-                $this->model('weixin')->update_reply_rule_enabled($rule_id, $_POST['enabled_status'][$rule_id]);
-
-                $this->model('weixin')->update_reply_rule_sort($rule_id, $_POST['sort_status'][$rule_id]);
-            }
-
-            if ($_POST['is_subscribe'])
-            {
-                $account_info['weixin_subscribe_message_key'] = $_POST['is_subscribe'];
-            }
-
-            if ($_POST['is_no_result'])
-            {
-                $account_info['weixin_no_result_message_key'] = $_POST['is_no_result'];
-            }
-
-            $this->model('weixin')->update_setting_or_account($_POST['account_id'], $account_info);
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择要操作的规则')));
         }
+
+        foreach ($_POST['rule_ids'] AS $rule_id)
+        {
+            $this->model('weixin')->update_reply_rule_enabled($rule_id, $_POST['enabled_status'][$rule_id]);
+
+            $this->model('weixin')->update_reply_rule_sort($rule_id, $_POST['sort_status'][$rule_id]);
+        }
+
+        if ($_POST['is_subscribe'])
+        {
+            $account_info['weixin_subscribe_message_key'] = $_POST['is_subscribe'];
+        }
+
+        if ($_POST['is_no_result'])
+        {
+            $account_info['weixin_no_result_message_key'] = $_POST['is_no_result'];
+        }
+
+        $this->model('weixin')->update_setting_or_account($_POST['account_id'], $account_info);
 
         H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('规则状态已自动保存')));
     }
@@ -1905,6 +1907,26 @@ class ajax extends AWS_ADMIN_CONTROLLER
         }
 
         H::ajax_json_output(AWS_APP::RSM(array('url' => get_js_url('/admin/weixin/sent_msg_details/id-' . $msg_id)), 1, null));
+    }
+
+    public function topic_statistic_action()
+    {
+    	$topic_statistic = array();
+
+    	if ($topic_list = $this->model('topic')->get_hot_topics(null, $_GET['limit'], $_GET['tag']))
+    	{
+	    	foreach ($topic_list AS $key => $val)
+	    	{
+		    	$topic_statistic[] = array(
+		    		'title' => $val['topic_title'],
+		    		'week' => $val['discuss_count_last_week'],
+		    		'month' => $val['discuss_count_last_month'],
+		    		'all' => $val['discuss_count']
+		    	);
+	    	}
+    	}
+
+	    echo json_encode($topic_statistic);
     }
 
     public function statistic_action()
@@ -2398,5 +2420,91 @@ class ajax extends AWS_ADMIN_CONTROLLER
         $this->model('edm')->delete('receiving_email_config', 'id = ' . intval($_POST['id']));
 
         H::ajax_json_output(AWS_APP::RSM(null, 1, null));
+    }
+
+    public function weixin_save_third_party_access_rule_status_action()
+    {
+        if (!$_POST['rule_ids'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择要操作的规则')));
+        }
+
+        foreach ($_POST['rule_ids'] AS $rule_id)
+        {
+            $this->model('weixin')->update('weixin_third_party_api', array(
+                'enabled' => ($_POST['enabled'][$rule_id] == 1) ? 1 : 0,
+                'rank' => (is_digits($_POST['rank'][$rule_id]) AND $_POST['rank'][$rule_id] >= 0 AND $_POST['rank'][$rule_id] <= 99) ? $_POST['rank'][$rule_id] : 0
+            ), 'id = ' . intval($rule_id));
+        }
+
+        H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('规则状态已自动保存')));
+    }
+
+    public function weixin_remove_third_party_access_rule_action()
+    {
+        if (!$_POST['id'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择要删除的规则')));
+        }
+
+        if(!$this->model('weixin')->fetch_row('weixin_third_party_api', 'id = ' . intval($_POST['id'])))
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('接入规则不存在')));
+        }
+
+        $this->model('weixin')->delete('weixin_third_party_api', 'id = ' . intval($_POST['id']));
+
+        H::ajax_json_output(AWS_APP::RSM(null, 1, null));
+    }
+
+    public function save_third_party_access_rule_action()
+    {
+        if (!$_POST['url'] OR substr($_POST['url'], 0, 7) != 'http://' AND substr($_POST['url'], 0, 8) != 'https://')
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请输入正确的 URL')));
+        }
+
+        $_POST['token'] = trim($_POST['token']);
+
+        if (!$_POST['token'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请输入第三方公众平台接口 Token')));
+        }
+
+        $to_save_rule = array(
+            'url' => $_POST['url'],
+            'token' => $_POST['token']
+        );
+
+        if ($_POST['id'])
+        {
+            $rule_info = $this->model('weixin')->fetch_row('weixin_third_party_api', 'id = ' . intval($_POST['id']));
+
+            if (!$rule_info)
+            {
+                H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('接入规则不存在')));
+            }
+
+            $this->model('weixin')->update('weixin_third_party_api', $to_save_rule, 'id = ' . $rule_info['id']);
+        }
+        else
+        {
+            $account_info = $this->model('weixin')->get_account_info_by_id($_POST['account_id']);
+
+            if (!$account_info)
+            {
+                H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('公众账号不存在')));
+            }
+
+            $to_save_rule['account_id'] = $account_info['id'];
+
+            $to_save_rule['enabled'] = 1;
+
+            $this->model('weixin')->insert('weixin_third_party_api', $to_save_rule);
+        }
+
+        H::ajax_json_output(AWS_APP::RSM(array(
+            'url' => get_js_url('admin/weixin/third_party_access/id-' . $_POST['account_id'])
+        ), 1, null));
     }
 }

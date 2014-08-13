@@ -425,12 +425,12 @@ class topic_class extends AWS_MODEL
 		{
 			return false;
 		}
-		
+
 		$this->update('topic', array(
 			'discuss_count' => $this->count('topic_relation', 'topic_id = ' . intval($topic_id)),
             'discuss_count_last_week' => $this->count('topic_relation', 'add_time > ' . (time() - 604800) . ' AND topic_id = ' . intval($topic_id)),
             'discuss_count_last_month' => $this->count('topic_relation', 'add_time > ' . (time() - 2592000) . ' AND topic_id = ' . intval($topic_id)),
-            'discuss_count_update' => time()
+            'discuss_count_update' => intval($this->fetch_one('topic_relation', 'add_time', 'topic_id = ' . intval($topic_id), 'add_time DESC'))
 		), 'topic_id = ' . intval($topic_id));
 	}
 
@@ -753,91 +753,51 @@ class topic_class extends AWS_MODEL
 	 * @param  $category
 	 * @param  $limit
 	 */
-	public function get_hot_topics($category_id = 0, $limit = 5)
+	public function get_hot_topics($category_id = 0, $limit = 5, $section = null)
 	{
-		if ($hot_topics = AWS_APP::cache()->get('hot_topics_' . intval($category_id) . '_' . intval($limit)))
-		{
-			return $hot_topics;
-		}
+        $where = array();
 
-		if ($category_id)
-		{
-			$questions = $this->query_all("SELECT question_id FROM " . get_table('question') . " WHERE answer_count > 0 AND category_id IN(" . implode(',', $this->model('system')->get_category_with_child_ids('question', $category_id)) . ') ORDER BY add_time DESC LIMIT 200');
-		}
-		else
-		{
-			$questions = $this->query_all("SELECT question_id FROM " . get_table('question') . " WHERE  answer_count > 0 ORDER BY add_time DESC LIMIT 200");
-		}
+        if ($category_id)
+        {
+            if ($questions = $this->query_all("SELECT question_id FROM " . get_table('question') . " WHERE category_id IN(" . implode(',', $this->model('system')->get_category_with_child_ids('question', $category_id)) . ') ORDER BY add_time DESC LIMIT 200'))
+            {
+                foreach ($questions AS $key => $val)
+                {
+                    $question_ids[] = $val['question_id'];
+                }
+            }
 
-		if ($questions)
-		{
-			foreach ($questions AS $key => $val)
-			{
-				$question_ids[] = $val['question_id'];
-			}
-		}
+            if (!$topic_relation = $this->fetch_all('topic_relation', 'item_id IN(' . implode(',', $question_ids) . ") AND `type` = 'question'"))
+            {
+                return false;
+            }
 
-		if (!$question_ids)
-		{
-			return false;
-		}
+            foreach ($topic_relation AS $key => $val)
+            {
+                $topic_ids[] = $val['topic_id'];
+            }
 
-		if (!$topic_ids_query = $this->fetch_all('topic_relation', 'item_id IN(' . implode(',', $question_ids) . ") AND `type` = 'question'"))
-		{
-			return false;
-		}
+            $where[] = 'topic_id IN(' . implode(',', $topic_ids) . ')';
+        }
 
-		foreach ($topic_ids_query AS $key => $val)
-		{
-			$topic_ids[] = $val['topic_id'];
+		switch ($section)
+        {
+            default:
+                return $this->fetch_all('topic', implode(' AND ', $where), 'discuss_count DESC', $limit);
+            break;
 
-			$topic_question[$val['topic_id']][$val['item_id']] = $val['item_id'];
-		}
+            case 'week':
+                $where[] = 'discuss_count_update > ' . (time() - 604801);
 
-		if ($result = $this->get_topics_by_ids($topic_ids))
-		{
-			foreach ($result as $key => $val)
-			{
-				$topics[$val['topic_id']] = $val;
-				$topics[$val['topic_id']]['question_count'] = sizeof($topic_question[$val['topic_id']]);
-				$topics[$val['topic_id']]['scores'] = $val['focus_count'] + $topics[$val['topic_id']]['question_count'];
-			}
-		}
+                return $this->fetch_all('topic', implode(' AND ', $where), 'discuss_count_last_week DESC', $limit);
+            break;
 
-		if (is_array($topics))
-		{
-			$topics = aasort($topics, 'scores', 'DESC');
+            case 'month':
+                $where[] = 'discuss_count_update > ' . (time() - 2592001);
 
-			$topics_count = count($topics);
-
-			if ($topics)
-			{
-				if (strstr($limit, ','))
-				{
-					$limit = explode(',', $limit, 2);
-
-					$topics = array_slice($topics, $limit[0], trim($limit[1]));
-				}
-				else
-				{
-					$topics = array_slice($topics, 0, $limit);
-				}
-
-				$hot_topics = array(
-					'topics' => $topics,
-					'topics_count' => $topics_count
-				);
-			}
-		}
-
-		if (!$hot_topics)
-		{
-			$hot_topics = array();
-		}
-
-		AWS_APP::cache()->set('hot_topics_' . intval($category_id) . '_' . intval($limit), $hot_topics, get_setting('cache_level_low'));
-
-		return $hot_topics;
+                return $this->fetch_all('topic', implode(' AND ', $where), 'discuss_count_last_month DESC', $limit);
+            break;
+        }
 	}
 
 	/**
@@ -863,12 +823,12 @@ class topic_class extends AWS_MODEL
 				$uid_list[] = $log['uid'];
 			}
 
-			if (! empty($log['associate_attached']) AND is_numeric($log['associate_attached']) AND ! in_array($log['associate_attached'], $topic_list))
+			if (! empty($log['associate_attached']) AND is_digits($log['associate_attached']) AND ! in_array($log['associate_attached'], $topic_list))
 			{
 				$topic_list[] = $log['associate_attached'];
 			}
 
-			if (! empty($log['associate_content']) AND is_numeric($log['associate_content']) AND ! in_array($log['associate_content'], $topic_list))
+			if (! empty($log['associate_content']) AND is_digits($log['associate_content']) AND ! in_array($log['associate_content'], $topic_list))
 			{
 				$topic_list[] = $log['associate_content'];
 			}

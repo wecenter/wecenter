@@ -285,7 +285,7 @@ var AW_TEMPLATE = {
 								'<a title="' + _t('分享到') + ' {{title}}" class="{{className}}">{{name}}</a>'+
 							'{{/items}}'+
 							'</div>'+
-							'<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1407152042077789" charset="utf-8"></script>'+
+							'<script src="http://v3.jiathis.com/code/jia.js"></script>'+
 						'</div>'+
 					'</div>'+
 				'</div>'+
@@ -398,7 +398,7 @@ var AW_TEMPLATE = {
 	'questionRedirectList' : 
 		'<li class="question"><a class="aw-hide-txt" onclick="AWS.ajax_request({{url}})">{{name}}</a></li>',
 	'questionDropdownList' : 
-		'<li class="question" data-id="{{id}}"><a class="aw-hide-txt" target="_blank" _href="{{url}}">{{name}}</a></li>',
+		'<li class="question" data-id="{{id}}"><a class="aw-hide-txt" href="{{url}}">{{name}}</a></li>',
 
 	'inviteUserList' : 
 		'<li>'+

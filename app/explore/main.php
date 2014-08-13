@@ -51,7 +51,7 @@ class main extends AWS_CONTROLLER
 
 		if ($_GET['category'])
 		{
-			if (is_numeric($_GET['category']))
+			if (is_digits($_GET['category']))
 			{
 				$category_info = $this->model('system')->get_category_info($_GET['category']);
 			}
@@ -59,6 +59,22 @@ class main extends AWS_CONTROLLER
 			{
 				$category_info = $this->model('system')->get_category_info_by_url_token($_GET['category']);
 			}
+		}
+
+		if ($category_info)
+		{
+			TPL::assign('category_info', $category_info);
+
+			$this->crumb($category_info['title'], '/category-' . $category_info['id']);
+
+			$meta_description = $category_info['title'];
+
+			if ($category_info['description'])
+			{
+				$meta_description .= ' - ' . $category_info['description'];
+			}
+
+			TPL::set_meta('description', $meta_description);
 		}
 
 		// 导航
@@ -89,22 +105,6 @@ class main extends AWS_CONTROLLER
 		if (TPL::is_output('block/sidebar_feature.tpl.htm', 'explore/index'))
 		{
 			TPL::assign('feature_list', $this->model('module')->feature_list());
-		}
-
-		if ($category_info)
-		{
-			TPL::assign('category_info', $category_info);
-
-			$this->crumb($category_info['title'], '/category-' . $category_info['id']);
-
-			$meta_description = $category_info['title'];
-
-			if ($category_info['description'])
-			{
-				$meta_description .= ' - ' . $category_info['description'];
-			}
-
-			TPL::set_meta('description', $meta_description);
 		}
 
 		if (! $_GET['sort_type'])

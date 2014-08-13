@@ -165,6 +165,60 @@ $(function () {
            }
         }
     };
+
+
+    /*概述页面，新增话题数，点击排序*/
+    
+    $('#sorttable thead').delegate("td","click",function()
+    {   
+        if($(this).index()==0)
+        {
+            return false;
+        }else{
+            $(this).find('i').addClass('fa-sort-desc');
+            $(this).siblings('td').find('i').removeClass('fa-sort-desc');
+            
+            if($(this).index()==1)
+            {
+                subjectData('week')
+            }
+            else if ($(this).index()==2)
+            {
+                subjectData('month')
+            }
+            else if ($(this).index()==3)
+            {
+                subjectData('all')
+            }       
+        }
+        function subjectData(type){
+            $.ajax({
+               url: G_BASE_URL + '/admin/ajax/topic_statistic/tag-'+ type +'__limit-10',
+               dataType:"json",
+               type: "GET",
+               beforeSend:function(){
+
+                    AWS.loading('show');
+                    var tempTop = $('#sorttable').offset().top + $('#sorttable').height()/2 - 50;
+                    var tempLeft = $('#sorttable').offset().left + $('#sorttable').width()/2;
+                    $('#aw-loading').css({top:tempTop+'px',left:tempLeft+'px',position:'absolute'})
+               }, 
+               success:function(data)
+               {
+                    AWS.loading('hide')
+                    $.each(data,function(key,value){
+                        var tempObj = $('#sorttable tbody tr:eq('+ key +')');                    
+                        tempObj.find('td:eq(3)').text(value.all)
+                        tempObj.find('td:eq(2)').text(value.month)
+                        tempObj.find('td:eq(1)').text(value.week)
+                        tempObj.find('td:eq(0)').text(value.title)
+                    });
+               }  
+            });
+        }
+    });
+    $('#sorttable thead td:eq(2)').click();
+
 });
     
 function weiboPost(obj)

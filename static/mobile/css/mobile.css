@@ -73,6 +73,7 @@ input[type="text"], input[type="password"], textarea{-webkit-appearance:none;}
 .aw-topic-bar .editor .form-group{position:relative;float: left;width: 46%;margin-bottom: 10px;}
 .aw-topic-bar .editor .form-group i{position: absolute;right: 8px;top: 7px;font-size: 18px;color: #ababab;}
 .aw-topic-bar .editor .btn{float: right;}
+.aw-topic-bar .editor .add{margin-right: 10px;}
 /* 赞同反对 */
 .operate{display:inline-block;background-color: #f5f5f5;border-radius:4px;}
 .operate.active a{color: #66b7ff;}

@@ -52,12 +52,14 @@ class weixin extends AWS_ADMIN_CONTROLLER
         {
             $rule_info = $this->model('weixin')->get_reply_rule_by_id($_GET['id']);
 
-            if (empty($rule_info))
+            if (!$rule_info)
             {
-                H::redirect_msg(AWS_APP::lang()->_t('自定义回复规则不存在'), '/admin/weixin/reply/account_id-' . $rule_info['account_id']);
+                H::redirect_msg(AWS_APP::lang()->_t('自定义回复规则不存在'), '/admin/weixin/reply/');
             }
 
             TPL::assign('account_id', $rule_info['account_id']);
+
+            TPL::assign('rule_info', $rule_info);
         }
         else
         {
@@ -68,7 +70,7 @@ class weixin extends AWS_ADMIN_CONTROLLER
 
             $account_info = $this->model('weixin')->get_account_info_by_id($_GET['account_id']);
 
-            if (empty($account_info))
+            if (!$account_info)
             {
                 H::redirect_msg(AWS_APP::lang()->_t('公众账号不存在'), '/admin/weixin/reply/');
             }
@@ -77,8 +79,6 @@ class weixin extends AWS_ADMIN_CONTROLLER
         }
 
         TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(801));
-
-        TPL::assign('rule_info', $rule_info);
 
         TPL::output('admin/weixin/reply_edit');
     }
@@ -93,7 +93,7 @@ class weixin extends AWS_ADMIN_CONTROLLER
 
         $account_id = $accounts_list[$_GET['id']]['id'];
 
-        if (empty($accounts_list[$account_id]))
+        if (!$accounts_list[$account_id])
         {
             H::redirect_msg(AWS_APP::lang()->_t('公众账号不存在'), '/admin/weixin/mp_menu/');
         }
@@ -157,6 +157,11 @@ class weixin extends AWS_ADMIN_CONTROLLER
     {
         define('IN_AJAX', TRUE);
 
+        if (!$_POST['keyword'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请输入关键词')));
+        }
+
         if (!$_POST['title'])
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请输入回应内容')));
@@ -164,125 +169,85 @@ class weixin extends AWS_ADMIN_CONTROLLER
 
         if ($_POST['id'])
         {
-            if (!$rule_info = $this->model('weixin')->get_reply_rule_by_id($_POST['id']))
+            $rule_info = $this->model('weixin')->get_reply_rule_by_id($_POST['id']);
+
+            if (!$rule_info)
             {
                 H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('自定义回复规则不存在')));
             }
-
-            if ($_FILES['image']['name'])
-            {
-                AWS_APP::upload()->initialize(array(
-                    'allowed_types' => 'jpg,jpeg,png',
-                    'upload_path' => get_setting('upload_dir') . '/weixin/',
-                    'is_image' => TRUE
-                ))->do_upload('image');
-
-
-                if (AWS_APP::upload()->get_error())
-                {
-                    switch (AWS_APP::upload()->get_error())
-                    {
-                        default:
-                            H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('错误代码') . ': ' . AWS_APP::upload()->get_error()));
-                        break;
-
-                        case 'upload_invalid_filetype':
-                            H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('文件类型无效')));
-                        break;
-                    }
-                }
-
-                if (! $upload_data = AWS_APP::upload()->data())
-                {
-                    H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('上传失败, 请与管理员联系')));
-                }
-
-                AWS_APP::image()->initialize(array(
-                    'quality' => 90,
-                    'source_image' => $upload_data['full_path'],
-                    'new_image' => $upload_data['full_path'],
-                    'width' => 640,
-                    'height' => 320
-                ))->resize();
-
-                AWS_APP::image()->initialize(array(
-                    'quality' => 90,
-                    'source_image' => $upload_data['full_path'],
-                    'new_image' => get_setting('upload_dir') . '/weixin/square_' . basename($upload_data['full_path']),
-                    'width' => 80,
-                    'height' => 80
-                ))->resize();
-
-                unlink(get_setting('upload_dir') . '/weixin/' . $rule_info['image_file']);
-
-                $rule_info['image_file'] = basename($upload_data['full_path']);
-            }
-
-            $this->model('weixin')->update_reply_rule($_POST['id'], $_POST['title'], $_POST['description'], $_POST['link'], $rule_info['image_file']);
-
-            H::ajax_json_output(AWS_APP::RSM(array(
-                'url' => get_js_url('/admin/weixin/reply/id-' . $_POST['account_id'])
-            ), 1, null));
         }
         else
         {
-            if (!$_POST['keyword'])
+            if (!$this->model('weixin')->get_account_info_by_id($_POST['account_id']))
             {
-                H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请输入关键词')));
+                H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('公众账号不存在')));
             }
 
             if ($this->model('weixin')->get_reply_rule_by_keyword($_POST['account_id'], $_POST['keyword']) AND !$_FILES['image']['name'])
             {
                 H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('已经存在相同的文字回应关键词')));
             }
+        }
 
-            if ($_FILES['image']['name'])
+        if ($_FILES['image']['name'])
+        {
+            AWS_APP::upload()->initialize(array(
+                'allowed_types' => 'jpg,jpeg,png',
+                'upload_path' => get_setting('upload_dir') . '/weixin/',
+                'is_image' => TRUE
+            ))->do_upload('image');
+
+            if (AWS_APP::upload()->get_error())
             {
-                AWS_APP::upload()->initialize(array(
-                    'allowed_types' => 'jpg,jpeg,png',
-                    'upload_path' => get_setting('upload_dir') . '/weixin/',
-                    'is_image' => TRUE
-                ))->do_upload('image');
-
-
-                if (AWS_APP::upload()->get_error())
+                switch (AWS_APP::upload()->get_error())
                 {
-                    switch (AWS_APP::upload()->get_error())
-                    {
-                        default:
-                            H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('错误代码') . ': ' . AWS_APP::upload()->get_error()));
-                        break;
+                    default:
+                        H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('错误代码') . ': ' . AWS_APP::upload()->get_error()));
+                    break;
 
-                        case 'upload_invalid_filetype':
-                            H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('文件类型无效')));
-                        break;
-                    }
+                    case 'upload_invalid_filetype':
+                        H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('文件类型无效')));
+                    break;
                 }
-
-                if (! $upload_data = AWS_APP::upload()->data())
-                {
-                    H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('上传失败, 请与管理员联系')));
-                }
-
-                AWS_APP::image()->initialize(array(
-                    'quality' => 90,
-                    'source_image' => $upload_data['full_path'],
-                    'new_image' => $upload_data['full_path'],
-                    'width' => 640,
-                    'height' => 320
-                ))->resize();
-
-                AWS_APP::image()->initialize(array(
-                    'quality' => 90,
-                    'source_image' => $upload_data['full_path'],
-                    'new_image' => get_setting('upload_dir') . '/weixin/square_' . basename($upload_data['full_path']),
-                    'width' => 80,
-                    'height' => 80
-                ))->resize();
-
-                $image_file = basename($upload_data['full_path']);
             }
 
+            $upload_data = AWS_APP::upload()->data();
+
+            if (!$upload_data)
+            {
+                H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('上传失败, 请与管理员联系')));
+            }
+
+            AWS_APP::image()->initialize(array(
+                'quality' => 90,
+                'source_image' => $upload_data['full_path'],
+                'new_image' => $upload_data['full_path'],
+                'width' => 640,
+                'height' => 320
+            ))->resize();
+
+            AWS_APP::image()->initialize(array(
+                'quality' => 90,
+                'source_image' => $upload_data['full_path'],
+                'new_image' => get_setting('upload_dir') . '/weixin/square_' . basename($upload_data['full_path']),
+                'width' => 80,
+                'height' => 80
+            ))->resize();
+
+            if ($rule_info['image_file'])
+            {
+                @unlink(get_setting('upload_dir') . '/weixin/' . $rule_info['image_file']);
+            }
+
+            $image_file = basename($upload_data['full_path']);
+        }
+
+        if ($_POST['id'])
+        {
+            $this->model('weixin')->update_reply_rule($rule_info['id'], $_POST['title'], $_POST['description'], $_POST['link'], $image_file);
+        }
+        else
+        {
             $this->model('weixin')->add_reply_rule($_POST['account_id'], $_POST['keyword'], $_POST['title'], $_POST['description'], $_POST['link'], $image_file);
         }
 
@@ -412,6 +377,8 @@ class weixin extends AWS_ADMIN_CONTROLLER
 
         $qr_code_rows = $this->model('weixin')->found_rows();
 
+        TPL::assign('qr_code_list', $qr_code_list);
+
         TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
             'base_url' => get_js_url('/admin/weixin/qr_code/'),
             'total_rows' => $qr_code_rows,
@@ -420,8 +387,71 @@ class weixin extends AWS_ADMIN_CONTROLLER
 
         TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(805));
 
-        TPL::assign('qr_code_list', $qr_code_list);
-
         TPL::output('admin/weixin/qr_code');
+    }
+
+    public function third_party_access_action()
+    {
+        $this->crumb(AWS_APP::lang()->_t('第三方接入'), 'admin/weixin/third_party_access/');
+
+        $_GET['id'] = intval($_GET['id']);
+
+        $accounts_list = $this->model('weixin')->get_accounts_info();
+
+        $account_id = $accounts_list[$_GET['id']]['id'];
+
+        if (!$accounts_list[$account_id])
+        {
+            H::redirect_msg(AWS_APP::lang()->_t('公众账号不存在'), '/admin/weixin/mp_menu/');
+        }
+
+        TPL::assign('account_id', $account_id);
+
+        $rule_list = $this->model('weixin')->fetch_all('weixin_third_party_api', 'account_id = ' . intval($_GET['id']));
+
+        TPL::assign('rule_list', $rule_list);
+
+        TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(808));
+
+        TPL::output('admin/weixin/third_party_access');
+    }
+
+    public function edit_third_party_access_rule_action()
+    {
+        $this->crumb(AWS_APP::lang()->_t('接入规则编辑'), 'admin/weixin/third_party_access/');
+
+        if ($_GET['id'])
+        {
+            $rule_info = $this->model('weixin')->fetch_row('weixin_third_party_api', 'id = ' . intval($_GET['id']));
+
+            if (!$rule_info)
+            {
+                H::redirect_msg(AWS_APP::lang()->_t('自定义回复规则不存在'), '/admin/weixin/reply/');
+            }
+
+            TPL::assign('account_id', $rule_info['account_id']);
+
+            TPL::assign('rule_info', $rule_info);
+        }
+        else
+        {
+            if (!isset($_GET['account_id']))
+            {
+                $_GET['account_id'] = 0;
+            };
+
+            $account_info = $this->model('weixin')->get_account_info_by_id($_GET['account_id']);
+
+            if (!$account_info)
+            {
+                H::redirect_msg(AWS_APP::lang()->_t('公众账号不存在'), '/admin/weixin/reply/');
+            }
+
+            TPL::assign('account_id', $account_info['id']);
+        }
+
+        TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(808));
+
+        TPL::output('admin/weixin/edit_third_party_access_rule');
     }
 }

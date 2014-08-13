@@ -699,7 +699,6 @@ class question_class extends AWS_MODEL
 		{
 			return false;
 		}
-
 	}
 
 	/**

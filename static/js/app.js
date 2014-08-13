@@ -12,15 +12,16 @@ $(document).ready(function ()
     $('.autosize').autosize();
 
     //编辑器初始化
-    if (typeof (myMarkdownSettings) != 'undefined' && $('.advanced_editor'))
+    if (typeof Markdown != 'undefined' && $('#wmd-input').length)
     {
-        $('.advanced_editor').markItUp(myMarkdownSettings);
+        var converter1 = new Markdown.Converter();
+        
+        var editor1 = new Markdown.Editor(converter1, $('.wmd-panel'), $('#wmd-preview'));
+        
+        editor1.run();
 
         AWS.Editor.set_editor_preview();
-    }
-    else if ($('.markItUpPreviewFrame'))
-    {
-        $('.markItUpPreviewFrame').hide();
+
     }
 
     //响应式导航条效果
@@ -158,6 +159,10 @@ $(document).ready(function ()
 
     //搜索下拉
     AWS.Dropdown.bind_dropdown_list('#aw-search-query', 'search');
+
+    var jiathis_config = { 
+        appkey:{"tsina":"<?php echo (get_setting('sina_akey')) ? get_setting('sina_akey') : 726571307; ?>"
+    }};
 	
     //ie浏览器下input,textarea兼容
     if (document.all)

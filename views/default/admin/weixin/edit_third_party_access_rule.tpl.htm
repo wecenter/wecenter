@@ -1,0 +1,56 @@
+<?php TPL::output('admin/global/header.tpl.htm'); ?>
+<?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
+
+<div class="aw-content-wrap">
+    <form action="admin/ajax/save_third_party_access_rule/" enctype="multipart/form-data" id="rule_form" method="post" onsubmit="return false">
+    <?php if ($this->rule_info['id']) { ?>
+    <input type="hidden" name="id" value="<?php echo $this->rule_info['id']; ?>" />
+    <?php } ?>
+
+    <input type="hidden" name="account_id" value="<?php echo $this->account_id; ?>" />
+
+    <div class="mod">
+        <div class="mod-head">
+            <h3>
+                <span class="pull-left"><?php _e('接入规则编辑'); ?></span>
+            </h3>
+        </div>
+
+        <div class="tab-content mod-content">
+            <table class="table table-striped">
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('第三方公众平台接口 URL'); ?>:</span>
+                            <div class="col-sm-5 col-xs-8">
+                                <input type="text" name="url" class="form-control" value="<?php echo $this->rule_info['url']; ?>" />
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('第三方公众平台接口 Token'); ?>:</span>
+                            <div class="col-sm-5 col-xs-8">
+                                <input type="text" name="token" class="form-control" value="<?php echo $this->rule_info['token']; ?>" />
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tfoot>
+                <tr>
+                    <td>
+                        <input type="button" value="<?php _e('保存设置'); ?>" class="btn btn-primary center-block" onclick="AWS.ajax_post($('#rule_form'));" />
+                    </td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+    </form>
+</div>
+
+<?php TPL::output('admin/global/footer.tpl.htm'); ?>

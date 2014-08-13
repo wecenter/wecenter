@@ -792,7 +792,7 @@ CREATE TABLE `[#DB_PREFIX#]weixin_message` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `weixin_id` varchar(32) NOT NULL,
   `content` varchar(255) NOT NULL,
-  `action` varchar(32) DEFAULT NULL,
+  `action` text,
   `time` int(10) DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `weixin_id` (`weixin_id`),
@@ -1188,6 +1188,19 @@ CREATE TABLE `[#DB_PREFIX#]received_email` (
   KEY `date` (`date`),
   KEY `question_id` (`question_id`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8 COMMENT='已导入邮件列表';
+
+CREATE TABLE `[#DB_PREFIX#]weixin_third_party_api` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `account_id` int(10) NOT NULL DEFAULT '0',
+  `url` varchar(255) NOT NULL,
+  `token` varchar(255) NOT NULL,
+  `enabled` tinyint(1) DEFAULT '0',
+  `rank` tinyint(2) UNSIGNED DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `account_id` (`account_id`),
+  KEY `enabled` (`enabled`),
+  KEY `rank` (`rank`)
+) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8 COMMENT='微信第三方接入';
 
 INSERT INTO `[#DB_PREFIX#]category`(`title`,`type`) VALUES
 ('默认分类', 'question');
