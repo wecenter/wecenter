@@ -165,6 +165,48 @@ $(function () {
            }
         }
     };
+
+
+    /*概述页面，新增话题数，点击排序*/
+    
+    $('#sorttable thead').delegate("td","click",function()
+    {   
+        if($(this).index()==0)
+        {
+            return false;
+        }else{
+            $(this).find('i').addClass('fa-sort-desc');
+            $(this).siblings('td').find('i').removeClass('fa-sort-desc');
+            
+            if($(this).index()==1)
+            {
+                subjectData('week')
+            }
+            else if ($(this).index()==2)
+            {
+                subjectData('month')
+            }
+            else if ($(this).index()==3)
+            {
+                subjectData('all')
+            }       
+        }
+        
+        function subjectData(type){
+            $.getJSON(G_BASE_URL + '/admin/ajax/topic_statistic/tag-'+ type +'__limit-10',function(data)
+            {   
+                $.each(data,function(key,value){
+                    var tempObj = $('#sorttable tbody tr:eq('+ key +')');                    
+                    tempObj.find('td:eq(3)').text(value.all)
+                    tempObj.find('td:eq(2)').text(value.month)
+                    tempObj.find('td:eq(1)').text(value.week)
+                    tempObj.find('td:eq(0)').text(value.title)
+                });
+            })
+        }
+    });
+    $('#sorttable thead td:eq(1)').click();
+
 });
     
 function weiboPost(obj)
