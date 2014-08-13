@@ -37,7 +37,6 @@
                     <thead>
                     <tr>
                         <th><?php _e('启用'); ?></th>
-                        <th width="20%"><?php _e('关键词'); ?></th>
                         <th>URL</th>
                         <th>Token</th>
                         <th><?php _e('排序'); ?></th>
@@ -52,7 +51,6 @@
                     <input type="hidden" name="rule_ids[]" value="<?php echo $rule_info['id']; ?>" />
                     <tr>
                         <td><input type="checkbox" class="enabled-status" name="enabled[<?php echo $rule_info['id']; ?>]" value="1"<?php if ($rule_info['enabled']) { ?> checked="checked"<?php } ?> /></td>
-                        <td><?php echo $rule_info['keyword']; ?></td>
                         <td><?php echo $rule_info['url']; ?></td>
                         <td><?php echo $rule_info['token']; ?></td>
                         <td>
