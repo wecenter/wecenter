@@ -758,7 +758,7 @@ a.aw-load-more-content{display: block;}
 
 /* 编辑器回复样式 */
 .wmd-input{margin:10px 0;}
-#wmd-button-bar .btn-group .btn{background-color: #f0f0f0;}
+#wmd-button-bar .btn-group .btn{background-color: #f0f0f0;border-radius: 0;}
 #wmd-button-bar .btn-group .btn i{color: #333;}
 #wmd-button-bar .btn-group .btn.hover i{color:#787878;}
 #wmd-button-bar .btn-group .btn + .btn{margin:0;}
