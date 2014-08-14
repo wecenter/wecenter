@@ -1294,7 +1294,7 @@
                     case "l":
                         doClick(buttons.link);
                         break;
-                    case "q":
+                    case "x":
                         doClick(buttons.quote);
                         break;
                     case "k":
@@ -1490,44 +1490,54 @@
                 return group
             }
 
+            var agent = navigator.appVersion.indexOf('Mac') > -1;
+            if (agent)
+            {
+                var keys = '⌘'
+            }
+            else
+            {
+                var keys = 'Ctrl'
+            }
+
             group1 = makeGroup(1);
-            buttons.bold = makeButton("wmd-bold-button", "加粗 - Ctrl+B", "fa fa-bold", bindCommand("doBold"), group1);
-            buttons.italic = makeButton("wmd-italic-button", "斜体 - Ctrl+I", "fa fa-italic", bindCommand("doItalic"), group1);
-            buttons.heading = makeButton("wmd-heading-button", "标题 - Ctrl+H", "fa fa-header", bindCommand("doHeading"), group1);
+            buttons.bold = makeButton("wmd-bold-button", "加粗 - " + keys + "+B", "fa fa-bold", bindCommand("doBold"), group1);
+            buttons.italic = makeButton("wmd-italic-button", "斜体 - " + keys + "+I", "fa fa-italic", bindCommand("doItalic"), group1);
+            buttons.heading = makeButton("wmd-heading-button", "标题 - " + keys + "+H", "fa fa-header", bindCommand("doHeading"), group1);
             
             group2 = makeGroup(2);
-            buttons.olist = makeButton("wmd-olist-button", "数字列表 - Ctrl+O", "fa fa-list-ol", bindCommand(function (chunk, postProcessing) {
+            buttons.olist = makeButton("wmd-olist-button", "数字列表 - " + keys + "+O", "fa fa-list-ol", bindCommand(function (chunk, postProcessing) {
                 this.doList(chunk, postProcessing, true);
             }), group2);
-            buttons.ulist = makeButton("wmd-ulist-button", "普通列表 - Ctrl+U", "fa fa-list", bindCommand(function (chunk, postProcessing) {
+            buttons.ulist = makeButton("wmd-ulist-button", "普通列表 - " + keys + "+U", "fa fa-list", bindCommand(function (chunk, postProcessing) {
                 this.doList(chunk, postProcessing, false);
             }), group2);
 
             group3 = makeGroup(3);
-            buttons.link = makeButton("wmd-link-button", "链接 - Ctrl+L", "fa fa-link", bindCommand(function (chunk, postProcessing) {
+            buttons.link = makeButton("wmd-link-button", "链接 - " + keys + "+L", "fa fa-link", bindCommand(function (chunk, postProcessing) {
                 return this.doLinkOrImage(chunk, postProcessing, false);
             }), group3);
-            buttons.image = makeButton("wmd-image-button", "图片 - Ctrl+G", "fa fa-image", bindCommand(function (chunk, postProcessing) {
+            buttons.image = makeButton("wmd-image-button", "图片 - " + keys + "+G", "fa fa-image", bindCommand(function (chunk, postProcessing) {
                 return this.doLinkOrImage(chunk, postProcessing, true);
             }), group3);
-            buttons.video = makeButton("wmd-video-button", "视频 - Ctrl+E", "fa fa-toggle-right", bindCommand(function (chunk, postProcessing) {
+            buttons.video = makeButton("wmd-video-button", "视频 - " + keys + "+E", "fa fa-toggle-right", bindCommand(function (chunk, postProcessing) {
                 return this.doVideo(chunk, postProcessing, true)
             }), group3);
 
             group4 = makeGroup(4);
-            buttons.quote = makeButton("wmd-quote-button", "引用 - Ctrl+Q", "fa fa-quote-left", bindCommand("doBlockquote"), group4);
-            buttons.code = makeButton("wmd-code-button", "代码 - Ctrl+K", "fa fa-code", bindCommand("doCode"), group4);
+            buttons.quote = makeButton("wmd-quote-button", "引用 - " + keys + "+X", "fa fa-quote-left", bindCommand("doBlockquote"), group4);
+            buttons.code = makeButton("wmd-code-button", "代码 - " + keys + "+K", "fa fa-code", bindCommand("doCode"), group4);
 
             
             //buttons.hr = makeButton("wmd-hr-button", "Horizontal Rule - Ctrl+R", "fa fa-hr-line", bindCommand("doHorizontalRule"), group3);
             
             group5 = makeGroup(5);
-            buttons.undo = makeButton("wmd-undo-button", "Undo - Ctrl+Z", "fa fa-undo", null, group5);
+            buttons.undo = makeButton("wmd-undo-button", "Undo - " + keys + "+Z", "fa fa-undo", null, group5);
             buttons.undo.execute = function (manager) { if (manager) manager.undo(); };
 
             var redoTitle = /win/.test(nav.platform.toLowerCase()) ?
-                "Redo - Ctrl+Y" :
-                "Redo - Ctrl+Shift+Z"; // mac and other non-Windows platforms
+                "Redo - " + keys + "+Y" :
+                "Redo - " + keys + "+Shift+Z"; // mac and other non-Windows platforms
 
             buttons.redo = makeButton("wmd-redo-button", redoTitle, "fa fa-repeat", null, group5);
             buttons.redo.execute = function (manager) { if (manager) manager.redo(); };
