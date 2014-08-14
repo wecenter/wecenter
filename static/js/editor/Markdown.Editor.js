@@ -1185,7 +1185,7 @@
                 if ($('.upload-container .upload-list li').length != 0 && num > 0)
                 {
                     $(form).append('<p style="margin:0 auto;width:80%">插入附件中的图片</p>');
-                    $(form).append('<div class="dropdown" style="margin-left:55px;">'+
+                    $(form).append('<div class="dropdown" style="margin:0 0 30px 55px;">'+
                       '<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"> 请选择 '+
                         '<span class="caret"></span>'+
                       '</button>'+
