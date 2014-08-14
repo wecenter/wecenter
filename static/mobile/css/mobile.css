@@ -254,11 +254,15 @@ input[type="text"], input[type="password"], textarea{-webkit-appearance:none;}
 .aw-invite-box .mod-head a{margin:0 5px 0 0;}
 .aw-invite-box .mod-body{position: relative;padding:0;background-color: #fafafa;}
 .aw-invite-box .mod-body i{position: absolute;right: 17px;top: 7px;font-size: 18px;color: #9b9b9b;}
+.aw-best-replay{position: relative;margin:0;}
+.aw-best-replay i{position: absolute;}
+.aw-best-replay .icon-flag{right:-20px;top:-10px;font-size: 24px;color: #63b6fd;}
+.aw-best-replay .icon-best{right:-15px;top:-8px;z-index:1;font-size: 16px;color: #fff;}
 .aw-replay-list{background-color: #fff;}
 .aw-replay-list > .mod-head{padding:15px 10px 10px;border-bottom: 1px solid #ccc;}
 .aw-replay-list > .mod-head h2{margin:0;}
 .aw-replay-list ul li{padding:10px 0 0;border-bottom:1px solid #e6e6e6;}
-.aw-replay-list ul li .mod-head{margin-bottom: 5px;}
+.aw-replay-list ul li .mod-head{margin-bottom: 5px;padding-right: 30px !important;}
 .aw-replay-list ul li .mod-head, .aw-replay-list ul li .mod-footer{color: #999;}
 .aw-replay-list ul li > .mod-head, .aw-replay-list ul li > .mod-body, .aw-replay-list ul li .mod-footer .meta, .aw-comment-box .mod-head ul li, .aw-comment-box .mod-body, .aw-comment-box .mod-footer{padding:0 10px;}
 .aw-replay-list ul li .mod-body{margin-bottom: 5px;}

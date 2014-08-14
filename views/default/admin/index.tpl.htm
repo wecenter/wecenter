@@ -9,7 +9,7 @@
 	<?php } ?>
 	<?php } ?>
 	<?php } ?>
-	
+
     <div class="row">
         <div class="col-md-12">
             <div class="row">
@@ -90,8 +90,8 @@
             </div>
         </div>
     </div>
-    
-    <div class="aw-content-wrap mod-echat-info">
+
+    <div class="row mod-echat-info">
         <div class="col-md-6">
             <div class="mod">
                 <div class="mod-head">
@@ -119,9 +119,10 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php for ($i=0; $i < 10; $i++) { ?>
+                            <?php $tr_num = ($this->topic_count > 10) ? 10 : $this->topic_count;
+                            for ($tr=0; $tr<$tr_num; $tr++) { ?>
                             <tr>
-                                <?php for ($j=0; $j < 4; $j++) { ?>
+                                <?php for ($td=0; $td<4; $td++) { ?>
                                 <td></td>
                                 <?php } ?>
                             </tr>

@@ -1050,7 +1050,7 @@
     // callback: The function which is executed when the prompt is dismissed, either via OK or Cancel.
     //      It receives a single argument; either the entered text (if OK was chosen) or null (if Cancel
     //      was chosen).
-    ui.prompt = function (title, text, defaultInputText, callback) {
+    ui.prompt = function (type, title, text, defaultInputText, callback) {
 
         // These variables need to be declared at this level since they are used
         // in multiple functions.
@@ -1074,12 +1074,18 @@
         // Dismisses the hyperlink input box.
         // isCancel is true if we don't care about the input text.
         // isCancel is false if we are going to keep the text.
-        var close = function (isCancel) {
+        var close = function (isCancel, isAttach) {
             util.removeEvent(doc.body, "keydown", checkEscape);
             var text = input.value;
 
             if (isCancel) {
-                text = null;
+                if (isAttach) {
+                    text = isAttach;
+                }
+                else
+                {
+                    text = null;
+                }
             }
             else {
                 // Fixes common pasting errors.
@@ -1089,7 +1095,7 @@
             }
 
             $(dialog).modal('hide');
-            callback(text);
+            callback(text, isAttach);
             return false;
         };
 
@@ -1164,6 +1170,42 @@
             style.display = "block";
             style.width = "80%";
             style.marginLeft = style.marginRight = "auto";
+
+            if (type == 'image')
+            {
+                var num = 0;
+                $.each($('.upload-container .upload-list li .img'), function (i, e)
+                {
+                    if ($(this).attr('style') != undefined)
+                    {
+                        num += 1;
+                    }
+                });
+
+                if ($('.upload-container .upload-list li').length != 0 && num > 0)
+                {
+                    $(form).append('<p style="margin:0 auto;width:80%">插入附件中的图片</p>');
+                    $(form).append('<div class="dropdown" style="margin:0 0 30px 55px;">'+
+                      '<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"> 请选择 '+
+                        '<span class="caret"></span>'+
+                      '</button>'+
+                      '<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1"></ul>'+
+                    '</div>');
+                    $.each($('.upload-container .upload-list li'), function (i, e)
+                    {
+                        if ($(this).find('.img').attr('style') != undefined)
+                        {
+                            $(form).find('.dropdown-menu').append('<li><a data-id="' + $(this).find('.hidden-input').val() + '">附件' + (parseInt(i) + 1) + '</a></li>');
+                        }
+                    });
+                    $(form).find('.dropdown-menu li a').click(function()
+                    {
+                        close(true, '[attach]' + $(this).attr('data-id') + '[/attach]');
+                    });
+                }
+                $(form).append('<p style="margin:0 auto;width:80%">插入站外图片</p>');
+            }
+
             form.appendChild(input);
 
             // The ok button
@@ -1804,7 +1846,7 @@
             }
             postProcessing();
         };
-        ui.prompt('插入视频', linkDialogText, linkDefaultText, videoEnteredCallback);
+        ui.prompt('video', '插入视频', linkDialogText, linkDefaultText, videoEnteredCallback);
     };
 
     commandProto.doLinkOrImage = function (chunk, postProcessing, isImage) {
@@ -1835,7 +1877,7 @@
             var that = this;
             // The function to be executed when you enter a link and press OK or Cancel.
             // Marks up the link and adds the ref.
-            var linkEnteredCallback = function (link) {
+            var linkEnteredCallback = function (link, isAttach) {
 
                 if (link !== null) {
                     // (                          $1
@@ -1856,21 +1898,29 @@
                     // this by anchoring with ^, because in the case that the selection starts with two brackets, this
                     // would mean a zero-width match at the start. Since zero-width matches advance the string position,
                     // the first bracket could then not act as the "not a backslash" for the second.
-                    chunk.selection = (" " + chunk.selection).replace(/([^\\](?:\\\\)*)(?=[[\]])/g, "$1\\").substr(1);
+                    if (isAttach)
+                    {
+                        chunk.selection = link;
+                    }
+                    else
+                    {
+                        chunk.selection = (" " + chunk.selection).replace(/([^\\](?:\\\\)*)(?=[[\]])/g, "$1\\").substr(1);
                     
-                    var linkDef = " [999]: " + properlyEncoded(link);
+                        var linkDef = " [999]: " + properlyEncoded(link);
 
-                    //var num = that.addLinkDef(chunk, linkDef);
-                    chunk.startTag = isImage ? "![" : "[";
-                    chunk.endTag = "](" + link + ")";
-                    if (!chunk.selection) {
-                        if (isImage) {
-                            chunk.selection = "请输入图片名称";
-                        }
-                        else {
-                            chunk.selection = "请输入链接描述";
+                        //var num = that.addLinkDef(chunk, linkDef);
+                        chunk.startTag = isImage ? "![" : "[";
+                        chunk.endTag = "](" + link + ")";
+                        if (!chunk.selection) {
+                            if (isImage) {
+                                chunk.selection = "请输入图片名称";
+                            }
+                            else {
+                                chunk.selection = "请输入链接描述";
+                            }
                         }
                     }
+                    
                 }
                 postProcessing();
             };
@@ -1878,10 +1928,10 @@
 
             if (isImage) {
                 if (!this.hooks.insertImageDialog(linkEnteredCallback))
-                    ui.prompt('插入图片', imageDialogText, imageDefaultText, linkEnteredCallback);
+                    ui.prompt('image', '插入图片', imageDialogText, imageDefaultText, linkEnteredCallback);
             }
             else {
-                ui.prompt('插入链接', linkDialogText, linkDefaultText, linkEnteredCallback);
+                ui.prompt('link', '插入链接', linkDialogText, linkDefaultText, linkEnteredCallback);
             }
             return true;
         }
