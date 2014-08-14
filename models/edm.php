@@ -197,7 +197,7 @@ class edm_class extends AWS_MODEL
     {
         $received_email = $this->get_received_email_by_id($id);
 
-        if (empty($received_email))
+        if (!$received_email)
         {
             return false;
         }
@@ -478,5 +478,31 @@ class edm_class extends AWS_MODEL
         }
 
         return $this->model('setting')->set_vars(array('admin_notifications' => $admin_notifications));
+    }
+
+    public function update_receiving_email_config($id = null, $action, $receiving_email_config = array())
+    {
+        if ($action == 'update' AND !is_digits($id))
+        {
+            return false;
+        }
+
+        switch ($action)
+        {
+            case 'add':
+                return $this->insert('receiving_email_config', $receiving_email_config);
+
+                break;
+
+            case 'update':
+                return $this->update('receiving_email_config', $receiving_email_config, 'id = ' . $id);
+
+                break;
+
+            default:
+                return false;
+
+                break;
+        }
     }
 }

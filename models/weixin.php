@@ -408,7 +408,7 @@ class weixin_class extends AWS_MODEL
                 {
                     // response by reply rule keyword...
                 }
-                else if ($response = $this->send_message_to_third_party($account_info['id']))
+                else if ($response = $this->model('openid_weixin_third')->send_message_to_third_party($account_info['id'], $this->post_data))
                 {
                     exit($response);
                 }
@@ -1313,7 +1313,7 @@ class weixin_class extends AWS_MODEL
 
         $reply_rules_info = $this->fetch_all('weixin_reply_rule', 'account_id = ' . $account_id);
 
-        if (!empty($reply_rules_info))
+        if ($reply_rules_info)
         {
             $this->delete('weixin_reply_rule', 'account_id = ' . $account_id);
 
@@ -1326,6 +1326,8 @@ class weixin_class extends AWS_MODEL
                 }
             }
         }
+
+        $this->model('openid_weixin_third')->remove_third_party_api_by_account_id($account_id);
     }
 
     public function get_weixin_rule_image($image_file, $size = '')
@@ -1893,7 +1895,7 @@ class weixin_class extends AWS_MODEL
 
     public function remove_qr_code($scene_id)
     {
-        if (empty($scene_id))
+        if (!$scene_id)
         {
             return false;
         }
@@ -1903,45 +1905,5 @@ class weixin_class extends AWS_MODEL
         $this->model('weixin')->delete('weixin_qr_code', 'scene_id = ' . $scene_id);
 
         @unlink(get_setting('upload_dir') . '/weixin_qr_code/' . $scene_id . '.jpg');
-    }
-
-    public function send_message_to_third_party($account_id)
-    {
-        $rules = $this->fetch_all('weixin_third_party_api', 'account_id = ' . intval($account_id) . ' AND enabled = 1', 'rank ASC');
-
-        if (!$rules)
-        {
-            return false;
-        }
-
-        $timestamp = time();
-
-        $nonce = mt_rand(1000000000, 9999999999);
-
-        foreach ($rules AS $rule)
-        {
-            if (!$rule['url'] OR !$rule['token'])
-            {
-                continue;
-            }
-
-            $signature = $this->generate_signature($rule['token'], $timestamp, $nonce);
-
-            if (!$signature)
-            {
-                continue;
-            }
-
-            $url = $rule['url'] . '?signature=' . $signature . '&timestamp=' . $timestamp . '&nonce=' . $nonce;
-
-            $response = HTTP::request($url, 'POST', $this->post_data, 5);
-
-            if ($response)
-            {
-                return $response;
-            }
-        }
-
-        return false;
     }
 }
