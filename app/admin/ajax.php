@@ -2431,10 +2431,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
         foreach ($_POST['rule_ids'] AS $rule_id)
         {
-            $this->model('weixin')->update('weixin_third_party_api', array(
-                'enabled' => ($_POST['enabled'][$rule_id] == 1) ? 1 : 0,
-                'rank' => (is_digits($_POST['rank'][$rule_id]) AND $_POST['rank'][$rule_id] >= 0 AND $_POST['rank'][$rule_id] <= 99) ? $_POST['rank'][$rule_id] : 0
-            ), 'id = ' . intval($rule_id));
+            $this->model('openid_weixin_third')->update_third_party_api($rule_id, 'update', null, null, $_POST['enabled'][$rule_id], null, $_POST['rank'][$rule_id]);
         }
 
         H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('规则状态已自动保存')));
@@ -2447,12 +2444,12 @@ class ajax extends AWS_ADMIN_CONTROLLER
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择要删除的规则')));
         }
 
-        if(!$this->model('weixin')->fetch_row('weixin_third_party_api', 'id = ' . intval($_POST['id'])))
+        if(!$this->model('openid_weixin_third')->get_third_party_api_by_id($_POST['id']))
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('接入规则不存在')));
         }
 
-        $this->model('weixin')->delete('weixin_third_party_api', 'id = ' . intval($_POST['id']));
+        $this->model('openid_weixin_third')->remove_third_party_api_by_id($_POST['id']);
 
         H::ajax_json_output(AWS_APP::RSM(null, 1, null));
     }
@@ -2471,21 +2468,16 @@ class ajax extends AWS_ADMIN_CONTROLLER
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请输入第三方公众平台接口 Token')));
         }
 
-        $to_save_rule = array(
-            'url' => $_POST['url'],
-            'token' => $_POST['token']
-        );
-
         if ($_POST['id'])
         {
-            $rule_info = $this->model('weixin')->fetch_row('weixin_third_party_api', 'id = ' . intval($_POST['id']));
+            $rule_info = $$this->model('openid_weixin_third')->get_third_party_api_by_id($_POST['id']);
 
             if (!$rule_info)
             {
                 H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('接入规则不存在')));
             }
 
-            $this->model('weixin')->update('weixin_third_party_api', $to_save_rule, 'id = ' . $rule_info['id']);
+            $this->model('openid_weixin_third')->update_third_party_api($rule_info['id'], 'update', $_POST['url'], $_POST['token']);
         }
         else
         {
@@ -2496,11 +2488,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
                 H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('公众账号不存在')));
             }
 
-            $to_save_rule['account_id'] = $account_info['id'];
-
-            $to_save_rule['enabled'] = 1;
-
-            $this->model('weixin')->insert('weixin_third_party_api', $to_save_rule);
+            $this->model('openid_weixin_third')->update_third_party_api(null, 'add', $_POST['url'], $_POST['token'], 1, $account_info['id']);
         }
 
         H::ajax_json_output(AWS_APP::RSM(array(

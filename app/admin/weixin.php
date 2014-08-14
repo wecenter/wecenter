@@ -407,7 +407,7 @@ class weixin extends AWS_ADMIN_CONTROLLER
 
         TPL::assign('account_id', $account_id);
 
-        $rule_list = $this->model('weixin')->fetch_all('weixin_third_party_api', 'account_id = ' . intval($_GET['id']));
+        $rule_list = $this->model('openid_weixin_third')->get_third_party_api_by_account_id($_GET['id']);
 
         TPL::assign('rule_list', $rule_list);
 
@@ -422,7 +422,7 @@ class weixin extends AWS_ADMIN_CONTROLLER
 
         if ($_GET['id'])
         {
-            $rule_info = $this->model('weixin')->fetch_row('weixin_third_party_api', 'id = ' . intval($_GET['id']));
+            $rule_info = $this->model('openid_weixin_third')->get_third_party_api_by_id($_GET['id']);
 
             if (!$rule_info)
             {
