@@ -647,8 +647,11 @@ CREATE TABLE `[#DB_PREFIX#]topic` (
   `url_token` VARCHAR(32) DEFAULT NULL,
   `merged_id` INT( 11 ) NULL DEFAULT '0',
   `seo_title` varchar(255) DEFAULT NULL,
-  `parent_id` INT( 10 ) NULL DEFAULT '0',
-  `is_parent` TINYINT( 1 ) NULL DEFAULT '0',
+  `parent_id` INT(10) NULL DEFAULT '0',
+  `is_parent` TINYINT(1) NULL DEFAULT '0',
+  `discuss_count_last_week` INT(10) NULL DEFAULT '0',
+  `discuss_count_last_month` INT(10) NULL DEFAULT '0',
+  `discuss_count_update` INT(10) NULL DEFAULT '0',
   PRIMARY KEY (`topic_id`),
   UNIQUE KEY `topic_title` (`topic_title`),
   KEY `url_token` (`url_token`),
@@ -659,7 +662,10 @@ CREATE TABLE `[#DB_PREFIX#]topic` (
   KEY `focus_count` (`focus_count`),
   KEY `topic_lock` (`topic_lock`),
   KEY `parent_id` (`parent_id`),
-  KEY `is_parent` (`is_parent`)
+  KEY `is_parent` (`is_parent`),
+  KEY `discuss_count_last_week` (`discuss_count_last_week`),
+  KEY `discuss_count_last_month` (`discuss_count_last_month`),
+  KEY `discuss_count_update` (`discuss_count_update`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8 COMMENT='话题';
 
 CREATE TABLE `[#DB_PREFIX#]topic_focus` (
