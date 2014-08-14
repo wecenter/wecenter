@@ -1193,7 +1193,6 @@
                     '</div>');
                     $.each($('.upload-container .upload-list li'), function (i, e)
                     {
-                        console.log($(this).find('.img').attr('style'));
                         if ($(this).find('.img').attr('style') != undefined)
                         {
                             $(form).find('.dropdown-menu').append('<li><a data-id="' + $(this).find('.hidden-input').val() + '">附件' + (parseInt(i) + 1) + '</a></li>');
