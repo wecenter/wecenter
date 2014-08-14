@@ -119,7 +119,7 @@ class openid_weixin_third_class extends AWS_MODEL
 
     public function update_third_party_api($id = null, $action, $url, $token, $enabled = null, $account_id = null, $rank = null)
     {
-        if ($id AND !is_digits($id) OR !$id AND !is_digits($account_id))
+        if ($action == 'update' AND !is_digits($id) OR $action == 'add' AND !is_digits($account_id))
         {
             return false;
         }
