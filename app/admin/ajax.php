@@ -2312,13 +2312,11 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
     public function save_receiving_email_config_action()
     {
-        $_POST['id'] = intval($_POST['id']);
-
         if ($_POST['id'])
         {
-            $receiving_email_config = $this->model('edm')->fetch_row('receiving_email_config', 'id = ' . $_POST['id']);
+            $receiving_email_config = $this->model('edm')->get_receiving_email_config_by_id($_POST['id']);
 
-            if (empty($receiving_email_config))
+            if (!$receiving_email_config)
             {
                 H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('该账号不存在')));
             }
@@ -2348,7 +2346,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
         $user_info = $this->model('account')->get_user_info_by_uid($_POST['uid']);
 
-        if (empty($user_info))
+        if (!$user_info)
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('所选用户不存在')));
         }
@@ -2369,13 +2367,13 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
         if ($_POST['id'])
         {
-            $this->model('edm')->update('receiving_email_config', $receiving_email_config, 'id = ' . $_POST['id']);
+            $this->model('edm')->update_receiving_email_config($_POST['id'], 'update', $receiving_email_config);
 
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('保存设置成功')));
         }
         else
         {
-            $config_id = $this->model('edm')->insert('receiving_email_config', $receiving_email_config);
+            $config_id = $this->model('edm')->update_receiving_email_config(null, 'add', $receiving_email_config);
 
             H::ajax_json_output(AWS_APP::RSM(array(
                 'url' => get_js_url('/admin/edm/receiving/id-' . $config_id)
