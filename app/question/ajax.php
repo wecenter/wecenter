@@ -559,15 +559,15 @@ class ajax extends AWS_CONTROLLER
 			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('你所在的用户组不允许发布站外链接')));
 		}
 
+		if (!$this->model('publish')->insert_attach_is_self_upload($answer_content, $_POST['attach_ids']))
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('只允许插入当前页面上传的附件')));
+		}
+
 		if (human_valid('answer_valid_hour') and ! AWS_APP::captcha()->is_validate($_POST['seccode_verify']))
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('请填写正确的验证码')));
 		}
-
-		if (!$this->model('publish')->insert_attach_is_self_upload($answer_content, $_POST['attach_ids']))
-        {
-            H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('只允许插入当前页面上传的附件')));
-        }
 
 		// !注: 来路检测后面不能再放报错提示
 		if (! valid_post_hash($_POST['post_hash']))
@@ -661,6 +661,11 @@ class ajax extends AWS_CONTROLLER
 			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('你所在的用户组不允许发布站外链接')));
 		}
 
+		if (!$this->model('publish')->insert_attach_is_self_upload($answer_content, $_POST['attach_ids']))
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('只允许插入当前页面上传的附件')));
+		}
+
 		if ($answer_info['uid'] != $this->user_id and ! $this->user_info['permission']['is_administortar'] and ! $this->user_info['permission']['is_moderator'])
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('你没有权限编辑这个回复')));
@@ -670,11 +675,6 @@ class ajax extends AWS_CONTROLLER
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('已经超过允许编辑的时限')));
 		}
-
-		if (!$this->model('publish')->insert_attach_is_self_upload($answer_content, $_POST['attach_ids']))
-        {
-            H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('只允许插入当前页面上传的附件')));
-        }
 
 		$this->model('answer')->update_answer($_GET['answer_id'], $answer_info['question_id'], $answer_content, $_POST['attach_access_key']);
 
