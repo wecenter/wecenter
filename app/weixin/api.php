@@ -33,7 +33,7 @@ class api extends AWS_CONTROLLER
         if (!isset($_GET['id']))
         {
             $_GET['id'] = 0;
-        };
+        }
 
         $account_info = $this->model('weixin')->get_account_info_by_id($_GET['id']);
 

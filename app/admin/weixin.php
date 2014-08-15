@@ -27,15 +27,15 @@ class weixin extends AWS_ADMIN_CONTROLLER
         if (!isset($_GET['id']))
         {
             $_GET['id'] = 0;
-        };
+        }
 
         $accounts_list = $this->model('weixin')->get_accounts_info();
 
         $account_id = $accounts_list[$_GET['id']]['id'];
 
-        if (!$account_id)
+        if (!isset($account_id))
         {
-            H::redirect_msg(AWS_APP::lang()->_t('公众账号不存在'), '/admin/weixin/reply/');
+            H::redirect_msg(AWS_APP::lang()->_t('公众账号不存在'));
         }
 
         TPL::assign('account_id', $account_id);
@@ -71,7 +71,7 @@ class weixin extends AWS_ADMIN_CONTROLLER
             if (!isset($_GET['account_id']))
             {
                 $_GET['account_id'] = 0;
-            };
+            }
 
             $account_info = $this->model('weixin')->get_account_info_by_id($_GET['account_id']);
 
@@ -95,15 +95,15 @@ class weixin extends AWS_ADMIN_CONTROLLER
         if (!isset($_GET['id']))
         {
             $_GET['id'] = 0;
-        };
+        }
 
         $accounts_list = $this->model('weixin')->get_accounts_info();
 
         $account_id = $accounts_list[$_GET['id']]['id'];
 
-        if (!$account_id)
+        if (!isset($account_id))
         {
-            H::redirect_msg(AWS_APP::lang()->_t('公众账号不存在'), '/admin/weixin/mp_menu/');
+            H::redirect_msg(AWS_APP::lang()->_t('公众账号不存在'));
         }
 
         if ($accounts_list[$account_id]['weixin_account_role'] == 'base' OR !$accounts_list[$account_id]['weixin_app_id'] OR !$accounts_list[$account_id]['weixin_app_secret'])
@@ -144,7 +144,7 @@ class weixin extends AWS_ADMIN_CONTROLLER
         if (!isset($_POST['account_id']))
         {
             $_POST['account_id'] = 0;
-        };
+        }
 
         if ($_POST['button'])
         {
@@ -402,13 +402,16 @@ class weixin extends AWS_ADMIN_CONTROLLER
     {
         $this->crumb(AWS_APP::lang()->_t('第三方接入'), 'admin/weixin/third_party_access/');
 
-        $_GET['id'] = intval($_GET['id']);
+        if (!isset($_GET['id']))
+        {
+            $_GET['id'] = 0;
+        }
 
         $accounts_list = $this->model('weixin')->get_accounts_info();
 
         $account_id = $accounts_list[$_GET['id']]['id'];
 
-        if (!$accounts_list[$account_id])
+        if (!isset($account_id))
         {
             H::redirect_msg(AWS_APP::lang()->_t('公众账号不存在'), '/admin/weixin/mp_menu/');
         }
