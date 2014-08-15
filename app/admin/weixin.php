@@ -24,16 +24,23 @@ class weixin extends AWS_ADMIN_CONTROLLER
     {
         $this->crumb(AWS_APP::lang()->_t('自定义回复'), 'admin/weixin/reply/');
 
+        if (!isset($_GET['id']))
+        {
+            $_GET['id'] = 0;
+        };
+
         $accounts_list = $this->model('weixin')->get_accounts_info();
 
-        if (empty($accounts_list[$_GET['id']]))
+        $account_id = $accounts_list[$_GET['id']]['id'];
+
+        if (!$account_id)
         {
             H::redirect_msg(AWS_APP::lang()->_t('公众账号不存在'), '/admin/weixin/reply/');
         }
 
-        TPL::assign('account_id', $accounts_list[$_GET['id']]['id']);
+        TPL::assign('account_id', $account_id);
 
-        TPL::assign('rule_list', $this->model('weixin')->fetch_reply_rule_list($accounts_list[$_GET['id']]['id']));
+        TPL::assign('rule_list', $this->model('weixin')->fetch_reply_rule_list($account_id));
 
         TPL::assign('accounts_list', $accounts_list);
 
@@ -85,16 +92,21 @@ class weixin extends AWS_ADMIN_CONTROLLER
     {
         $this->crumb(AWS_APP::lang()->_t('菜单管理'), 'admin/weixin/mp_menu/');
 
+        if (!isset($_GET['id']))
+        {
+            $_GET['id'] = 0;
+        };
+
         $accounts_list = $this->model('weixin')->get_accounts_info();
 
         $account_id = $accounts_list[$_GET['id']]['id'];
 
-        if (!$accounts_list[$account_id])
+        if (!$account_id)
         {
             H::redirect_msg(AWS_APP::lang()->_t('公众账号不存在'), '/admin/weixin/mp_menu/');
         }
 
-        if ($accounts_list[$account_id]['weixin_account_role'] == 'base' OR empty($accounts_list[$_GET['id']]['weixin_app_id']) OR empty($accounts_list[$_GET['id']]['weixin_app_secret']))
+        if ($accounts_list[$account_id]['weixin_account_role'] == 'base' OR !$accounts_list[$account_id]['weixin_app_id'] OR !$accounts_list[$account_id]['weixin_app_secret'])
         {
             H::redirect_msg(AWS_APP::lang()->_t('此功能不适用于未通过微信认证的订阅号'), '/admin/');
         }
