@@ -204,15 +204,22 @@ $(function () {
                     $('#aw-loading').css({top:tempTop+'px',left:tempLeft+'px',position:'absolute'})
                }, 
                success:function(data)
-               {
+               {	
                     AWS.loading('hide')
-                    $.each(data,function(key,value){
-                        var tempObj = $('#sorttable tbody tr:eq('+ key +')');                    
-                        tempObj.find('td:eq(3)').text(value.all)
-                        tempObj.find('td:eq(2)').text(value.month)
-                        tempObj.find('td:eq(1)').text(value.week)
-                        tempObj.find('td:eq(0)').text(value.title)
-                    });
+                    if(data == '')
+                    {
+                    	$('.sorttable-mask').show();
+                    
+                    }else{
+                    	$('.sorttable-mask').hide();
+	                    $.each(data,function(key,value){
+	                        var tempObj = $('#sorttable tbody tr:eq('+ key +')');                    
+	                        tempObj.find('td:eq(3)').text(value.all)
+	                        tempObj.find('td:eq(2)').text(value.month)
+	                        tempObj.find('td:eq(1)').text(value.week)
+	                        tempObj.find('td:eq(0)').text(value.title)
+	                    });
+                	}
                }  
             });
         }

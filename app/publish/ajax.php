@@ -442,7 +442,7 @@ class ajax extends AWS_CONTROLLER
             {
                 $topic_title = trim($topic_title);
 
-                if (empty($topic_title))
+                if (!$topic_title)
                 {
                     unset($_POST['topics'][$key]);
                 }
@@ -481,7 +481,7 @@ class ajax extends AWS_CONTROLLER
 
             $file = $this->model('openid_weixin')->get_file($_POST['weixin_media_id']);
 
-            if (empty($file))
+            if (!$file)
             {
                 H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('远程服务器忙')));
             }

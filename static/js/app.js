@@ -54,6 +54,10 @@ $(document).ready(function ()
             $(this).find('img').next().detach().end().prev().detach();
             $(this).find('.markitup-box img').eq(0).css({'z-index':'999'});
         }
+        else
+        {
+            $(this).find('.img.pull-right').hide();
+        }
     });
 
     $('a[rel=lightbox]').fancybox(

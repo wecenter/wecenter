@@ -132,4 +132,52 @@ class active_class extends AWS_MODEL
 			'group_id' => 4,
 		), 'uid = ' . intval($uid));
 	}
+
+	public function send_valid_email_crond()
+	{
+		$now = time();
+
+		$lock_time = AWS_APP::cache()->get('send_valid_email_locker');
+
+		if ($lock_time AND $now - $lock_time <= 300)
+		{
+			return false;
+		}
+
+		$where[] = 'valid_email <> 1';
+
+		$where[] = 'reg_time < ' . ($now - 604800);
+
+		$last_sent_id = get_setting('last_sent_valid_email_id');
+
+		if ($last_sent_id)
+		{
+			$where[] = 'id > ' . $last_sent_id;
+		}
+
+		$invalid_email_users = $this->fetch_all('users', implode(' AND ', $where), null, 200);
+
+		if (!$invalid_email_users)
+		{
+			return false;
+		}
+
+		AWS_APP::cache()->set('send_valid_email_locker', $now, 300);
+
+		foreach ($invalid_email_users AS $invalid_email_user)
+		{
+			if ($invalid_email_user['email'])
+			{
+				$this->new_valid_email($invalid_email_user['uid'], $invalid_email_user['email']);
+			}
+
+			$this->model('setting')->set_vars(array(
+				'last_sent_valid_email_id' => $invalid_email_user['uid']
+			));
+		}
+
+		AWS_APP::cache()->delete('send_valid_email_locker');
+
+		return true;
+	}
 }
