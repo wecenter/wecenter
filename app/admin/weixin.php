@@ -24,8 +24,6 @@ class weixin extends AWS_ADMIN_CONTROLLER
     {
         $this->crumb(AWS_APP::lang()->_t('自定义回复'), 'admin/weixin/reply/');
 
-        $_GET['id'] = intval($_GET['id']);
-
         $accounts_list = $this->model('weixin')->get_accounts_info();
 
         if (empty($accounts_list[$_GET['id']]))
@@ -86,8 +84,6 @@ class weixin extends AWS_ADMIN_CONTROLLER
     public function mp_menu_action()
     {
         $this->crumb(AWS_APP::lang()->_t('菜单管理'), 'admin/weixin/mp_menu/');
-
-        $_GET['id'] = intval($_GET['id']);
 
         $accounts_list = $this->model('weixin')->get_accounts_info();
 
@@ -438,7 +434,7 @@ class weixin extends AWS_ADMIN_CONTROLLER
             if (!isset($_GET['account_id']))
             {
                 $_GET['account_id'] = 0;
-            };
+            }
 
             $account_info = $this->model('weixin')->get_account_info_by_id($_GET['account_id']);
 
