@@ -247,11 +247,9 @@ class edm_class extends AWS_MODEL
             return false;
         }
 
-        @set_time_limit(0);
-
         $receiving_email_accounts = $this->get_receiving_email_config();
 
-        if (empty($receiving_email_accounts))
+        if (!$receiving_email_accounts)
         {
             return false;
         }
@@ -361,7 +359,7 @@ class edm_class extends AWS_MODEL
                         $received_email['content'] = $message->getContent();
                     }
 
-                    if (empty($encoding) OR empty($type))
+                    if (!$encoding OR !$type)
                     {
                         continue;
                     }
@@ -432,7 +430,7 @@ class edm_class extends AWS_MODEL
     {
         $received_email = $this->get_received_email_by_id($id);
 
-        if (empty($received_email))
+        if (!$received_email)
         {
             return AWS_APP::lang()->_t('已导入邮件不存在');
         }
@@ -441,7 +439,7 @@ class edm_class extends AWS_MODEL
 
         $publish_user = $receiving_email_global_config['publish_user'];
 
-        if (empty($publish_user['uid']))
+        if (!$publish_user['uid'])
         {
             return AWS_APP::lang()->_t('邮件发布用户不存在');
         }
@@ -453,7 +451,7 @@ class edm_class extends AWS_MODEL
     {
         $received_email = $this->fetch_row('received_email', 'question_id = ' . intval($question_id));
 
-        if (empty($received_email) OR empty($received_email['from']))
+        if (!$received_email OR !$received_email['from'])
         {
             return false;
         }
