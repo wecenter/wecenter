@@ -166,15 +166,13 @@ class active_class extends AWS_MODEL
 
 		foreach ($invalid_email_users AS $invalid_email_user)
 		{
-			if (!$invalid_email_user['email'])
+			if ($invalid_email_user['email'])
 			{
-				continue;
+				$this->new_valid_email($invalid_email_user['uid'], $invalid_email_user['email']);
 			}
 
-			$this->new_valid_email($invalid_email_user['uid'], $invalid_email_user['email']);
-
 			$this->model('setting')->set_vars(array(
-				'last_sent_valid_email_id', $invalid_email_user['uid']
+				'last_sent_valid_email_id' => $invalid_email_user['uid']
 			));
 		}
 
