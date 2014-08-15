@@ -71,20 +71,18 @@ class openid_weixin_third_class extends AWS_MODEL
             return false;
         }
 
+        $where[] = 'account_id = ' . $account_id;
+
         if ($enabled === true)
         {
-            $enabled = 'AND enabled = 1';
+            $where[] = 'enabled = 1';
         }
         else if ($enabled === false)
         {
-            $enabled = 'AND enabled = 0';
-        }
-        else
-        {
-            $enabled = '';
+            $where[] = 'enabled = 0';
         }
 
-        return $this->fetch_all('weixin_third_party_api', 'account_id = ' . $account_id . $enabled, $order);
+        return $this->fetch_all('weixin_third_party_api', implode(' AND ', $where), $order);
     }
 
     public function get_third_party_api_by_id($id)

@@ -12,3 +12,5 @@ CREATE TABLE `[#DB_PREFIX#]weixin_third_party_api` (
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8 COMMENT='微信第三方接入';
 
 ALTER TABLE `[#DB_PREFIX#]weixin_message` MODIFY `action` text;
+
+INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES ('last_sent_valid_email_id', 'i:0;');
