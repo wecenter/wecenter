@@ -33,7 +33,7 @@ class weixin extends AWS_ADMIN_CONTROLLER
 
         $account_id = $accounts_list[$_GET['id']]['id'];
 
-        if (!$account_id)
+        if (!isset($account_id))
         {
             H::redirect_msg(AWS_APP::lang()->_t('公众账号不存在'));
         }
@@ -101,7 +101,7 @@ class weixin extends AWS_ADMIN_CONTROLLER
 
         $account_id = $accounts_list[$_GET['id']]['id'];
 
-        if (!$account_id)
+        if (!isset($account_id))
         {
             H::redirect_msg(AWS_APP::lang()->_t('公众账号不存在'));
         }
@@ -402,13 +402,16 @@ class weixin extends AWS_ADMIN_CONTROLLER
     {
         $this->crumb(AWS_APP::lang()->_t('第三方接入'), 'admin/weixin/third_party_access/');
 
-        $_GET['id'] = intval($_GET['id']);
+        if (!isset($_GET['id']))
+        {
+            $_GET['id'] = 0;
+        }
 
         $accounts_list = $this->model('weixin')->get_accounts_info();
 
         $account_id = $accounts_list[$_GET['id']]['id'];
 
-        if (!$accounts_list[$account_id])
+        if (!isset($account_id))
         {
             H::redirect_msg(AWS_APP::lang()->_t('公众账号不存在'), '/admin/weixin/mp_menu/');
         }
