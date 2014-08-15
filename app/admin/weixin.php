@@ -27,7 +27,7 @@ class weixin extends AWS_ADMIN_CONTROLLER
         if (!isset($_GET['id']))
         {
             $_GET['id'] = 0;
-        };
+        }
 
         $accounts_list = $this->model('weixin')->get_accounts_info();
 
@@ -71,7 +71,7 @@ class weixin extends AWS_ADMIN_CONTROLLER
             if (!isset($_GET['account_id']))
             {
                 $_GET['account_id'] = 0;
-            };
+            }
 
             $account_info = $this->model('weixin')->get_account_info_by_id($_GET['account_id']);
 
@@ -95,7 +95,7 @@ class weixin extends AWS_ADMIN_CONTROLLER
         if (!isset($_GET['id']))
         {
             $_GET['id'] = 0;
-        };
+        }
 
         $accounts_list = $this->model('weixin')->get_accounts_info();
 
@@ -144,7 +144,7 @@ class weixin extends AWS_ADMIN_CONTROLLER
         if (!isset($_POST['account_id']))
         {
             $_POST['account_id'] = 0;
-        };
+        }
 
         if ($_POST['button'])
         {
