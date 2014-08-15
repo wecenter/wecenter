@@ -35,7 +35,7 @@ class weixin extends AWS_ADMIN_CONTROLLER
 
         if (!$account_id)
         {
-            H::redirect_msg(AWS_APP::lang()->_t('公众账号不存在'), '/admin/weixin/reply/');
+            H::redirect_msg(AWS_APP::lang()->_t('公众账号不存在'));
         }
 
         TPL::assign('account_id', $account_id);
@@ -103,7 +103,7 @@ class weixin extends AWS_ADMIN_CONTROLLER
 
         if (!$account_id)
         {
-            H::redirect_msg(AWS_APP::lang()->_t('公众账号不存在'), '/admin/weixin/mp_menu/');
+            H::redirect_msg(AWS_APP::lang()->_t('公众账号不存在'));
         }
 
         if ($accounts_list[$account_id]['weixin_account_role'] == 'base' OR !$accounts_list[$account_id]['weixin_app_id'] OR !$accounts_list[$account_id]['weixin_app_secret'])

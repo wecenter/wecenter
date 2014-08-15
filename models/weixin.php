@@ -147,13 +147,13 @@ class weixin_class extends AWS_MODEL
 
             $accounts_list = $this->model('setting')->fetch_all('weixin_accounts');
 
-            if (!empty($accounts_list))
+            if ($accounts_list)
             {
                 foreach ($accounts_list AS $account_info)
                 {
                     $accounts_info[$account_info['id']] = $account_info;
 
-                    if (!empty($account_info['weixin_mp_menu']))
+                    if ($account_info['weixin_mp_menu'])
                     {
                         $accounts_info[$account_info['id']]['weixin_mp_menu'] = unserialize($account_info['weixin_mp_menu']);
                     }
