@@ -132,8 +132,6 @@ class weibo_class extends AWS_MODEL
             return false;
         }
 
-        @set_time_limit(0);
-
         $services_info = $this->get_services_info();
 
         if (!$services_info)

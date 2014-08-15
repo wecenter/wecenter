@@ -146,7 +146,7 @@ class active_class extends AWS_MODEL
 
 		$where[] = 'valid_email <> 1';
 
-		$where[] = 'reg_time < ' . $now - 604800;
+		$where[] = 'reg_time < ' . ($now - 604800);
 
 		$last_sent_id = get_setting('last_sent_valid_email_id');
 
@@ -155,7 +155,7 @@ class active_class extends AWS_MODEL
 			$where[] = 'id > ' . $last_sent_id;
 		}
 
-		$invalid_email_users = $this->fetch_all('users', implode(' AND ', $where), null, 300);
+		$invalid_email_users = $this->fetch_all('users', implode(' AND ', $where), null, 200);
 
 		if (!$invalid_email_users)
 		{

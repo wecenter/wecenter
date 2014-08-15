@@ -247,8 +247,6 @@ class edm_class extends AWS_MODEL
             return false;
         }
 
-        @set_time_limit(0);
-
         $receiving_email_accounts = $this->get_receiving_email_config();
 
         if (empty($receiving_email_accounts))
