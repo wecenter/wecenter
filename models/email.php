@@ -35,7 +35,7 @@ class email_class extends AWS_MODEL
 	REGISTER_DECLINE // 注册被拒绝
 	*/
 
-	public function action_email($action, $email, $link, $data = array())
+	public function action_email($action, $email, $link, $data = array(), $server = 'master')
 	{
 		if (!H::valid_email($email))
 		{
@@ -75,7 +75,7 @@ class email_class extends AWS_MODEL
 			'FIND_PASSWORD',
 		)))
 		{
-			return $this->send($email, $subject, $message, $link, null,'master');
+			return $this->send($email, $subject, $message, $link, null, $server);
 		}
 		else
 		{
