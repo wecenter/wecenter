@@ -112,7 +112,7 @@ ul,ol{padding:0;list-style:none;}
 #sorttable thead td{cursor: pointer;}
 #sorttable .fa {width:inherit; height: inherit;border-radius: inherit;background: transparent; color: #000;text-align: inherit;line-height: inherit; }
 #sorttable .fa-sort-desc{position: relative;top: -3px;}
-.sorttable-mask{background: #aaa;width: 573px;height: 387px;color: #fff;position: absolute;top: 111px;font-size: 18px;text-align: center;line-height: 187px;}
+.sorttable-mask{background: #aaa;height: 387px;color: #fff;position: absolute;top: 111px;font-size: 18px;text-align: center;line-height: 187px;}
 
 *页面底部区域 start*/
 .aw-footer{clear:both;overflow:hidden;margin:-40px 0 0 225px;height:50px;background:#efefef;text-align:center;line-height:52px;}
