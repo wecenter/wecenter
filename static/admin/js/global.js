@@ -207,7 +207,7 @@ $(function () {
                {	
                     AWS.loading('hide')
                     if(data == '')
-                    {
+                    {   $('.sorttable-mask').css({width:$('.sorttable-mask').parents('.mod').width(),height:$('.sorttable-mask').parents('.mod').height()-100})
                     	$('.sorttable-mask').show();
                     
                     }else{
