@@ -140,9 +140,7 @@ class openid_weibo_class extends AWS_MODEL
         {
             if ($is_ajax)
             {
-                H::ajax_json_output(AWS_APP::RSM(array(
-                    'url' => base_url()
-                ), 1, null));
+                H::redirect_msg('/');
             }
             else
             {
