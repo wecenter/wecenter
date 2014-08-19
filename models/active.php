@@ -152,7 +152,7 @@ class active_class extends AWS_MODEL
 
 		if ($last_sent_id)
 		{
-			$where[] = 'uid > ' . $last_sent_id;
+			$where[] = 'uid > ' . intval($last_sent_id);
 		}
 
 		$invalid_email_users = $this->fetch_all('users', implode(' AND ', $where), null, 200);

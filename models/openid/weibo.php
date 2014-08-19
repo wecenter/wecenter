@@ -138,7 +138,16 @@ class openid_weibo_class extends AWS_MODEL
         }
         else
         {
-            H::redirect_msg(AWS_APP::lang()->_t('绑定成功'));
+            if ($is_ajax)
+            {
+                H::ajax_json_output(AWS_APP::RSM(array(
+                    'url' => '/'
+                ), 1, null));
+            }
+            else
+            {
+                H::redirect_msg(AWS_APP::lang()->_t('绑定成功'));
+            }
         }
     }
 
