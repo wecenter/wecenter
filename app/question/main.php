@@ -376,6 +376,9 @@ class main extends AWS_CONTROLLER
 			TPL::import_js('js/editor/Markdown.Converter.js');
 			TPL::import_js('js/editor/Markdown.Sanitizer.js');
 			TPL::import_js('js/editor/Markdown.Editor.js');
+			TPL::import_js('css/prettify.js');
+			TPL::import_js('css/lang-sql.js');
+			TPL::import_css('css/prettify.css');
 		}
 
 		if (get_setting('upload_enable') == 'Y')
