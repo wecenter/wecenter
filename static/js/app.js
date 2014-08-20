@@ -13,7 +13,7 @@ $(document).ready(function ()
     
     //编辑器实时语法高亮
     $('#wmd-input').on('keyup',function()
-    {    $('.prettyprint').addClass('linenums').attr('style', 'overflow:auto');
+    {    
          prettyPrint();
     });
 
