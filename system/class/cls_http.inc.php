@@ -18,8 +18,8 @@ class HTTP
 	/**
 	 * NO CACHE 文件头
 	 *
-	 * @param string  $type
-	 * @param string $charset
+	 * @param $type
+	 * @param $charset
 	 */
 	public static function no_cache_header($type = 'text/html', $charset = 'utf-8')
 	{
@@ -31,9 +31,9 @@ class HTTP
 	}
 
 	/**
-	 * 获取COOKIE
+	 * 获取 COOKIE
 	 *
-	 * @param string $name
+	 * @param $name
 	 */
 	public static function get_cookie($name)
 	{
@@ -47,21 +47,23 @@ class HTTP
 
 	/**
 	 * 设置 COOKIE
-	 * @param string $name
-	 * @param string $value
-	 * @param int $expire
-	 * @param string $path
-	 * @param string $domain
-	 * @param string $secure
+	 * 
+	 * @param $name
+	 * @param $value
+	 * @param $expire
+	 * @param $path
+	 * @param $domain
+	 * @param $secure
+	 * @param $httponly
 	 */
-	public static function set_cookie($name, $value = '', $expire = null, $path = '/', $domain = null, $secure = false)
+	public static function set_cookie($name, $value = '', $expire = null, $path = '/', $domain = null, $secure = false, $httponly = false)
 	{
 		if (! $domain and G_COOKIE_DOMAIN)
 		{
 			$domain = G_COOKIE_DOMAIN;
 		}
 
-		return setcookie(G_COOKIE_PREFIX . $name, $value, $expire, $path, $domain, $secure);
+		return setcookie(G_COOKIE_PREFIX . $name, $value, $expire, $path, $domain, $secure, $httponly);
 	}
 
 	public static function error_404()

@@ -40,7 +40,7 @@ class weibo_class extends AWS_MODEL
     {
         $msg_info = $this->get_msg_info_by_id($id);
 
-        if (empty($msg_info))
+        if (!$msg_info)
         {
             return false;
         }
@@ -77,14 +77,14 @@ class weibo_class extends AWS_MODEL
     {
         $msg_info = $this->get_msg_info_by_id($id);
 
-        if (empty($msg_info))
+        if (!$msg_info)
         {
             return AWS_APP::lang()->_t('微博消息 ID 不存在');
         }
 
         $published_user = get_setting('weibo_msg_published_user');
 
-        if (empty($published_user['uid']))
+        if (!$published_user['uid'])
         {
             return AWS_APP::lang()->_t('微博发布用户不存在');
         }
@@ -101,14 +101,14 @@ class weibo_class extends AWS_MODEL
 
         $msg_info = $this->fetch_row('weibo_msg', 'question_id = ' . intval($question_id));
 
-        if (empty($msg_info))
+        if (!$msg_info)
         {
             return false;
         }
 
         $service_info = $this->model('openid_weibo')->get_users_sina_by_id($msg_info['weibo_uid']);
 
-        if (empty($service_info))
+        if (!$service_info)
         {
             return false;
         }
@@ -132,11 +132,9 @@ class weibo_class extends AWS_MODEL
             return false;
         }
 
-        @set_time_limit(0);
-
         $services_info = $this->get_services_info();
 
-        if (empty($services_info))
+        if (!$services_info)
         {
             return false;
         }
@@ -147,7 +145,7 @@ class weibo_class extends AWS_MODEL
         {
             $service_user_info = $this->model('account')->get_user_info_by_uid($service_info['uid']);
 
-            if (empty($service_user_info))
+            if (!$service_user_info)
             {
                 continue;
             }
@@ -161,7 +159,7 @@ class weibo_class extends AWS_MODEL
 
             $msgs = $this->model('openid_weibo')->get_msg_from_sina($service_info['access_token'], $service_info['last_msg_id']);
 
-            if (empty($msgs))
+            if (!$msgs)
             {
                 continue;
             }
@@ -213,7 +211,7 @@ class weibo_class extends AWS_MODEL
 
                         $result = curl_get_contents($pic_url);
 
-                        if (empty($result))
+                        if (!$result)
                         {
                             continue;
                         }
@@ -332,7 +330,7 @@ class weibo_class extends AWS_MODEL
 
     public function update_attach($weibo_msg_id, $question_id, $attach_access_key)
     {
-        if (empty($weibo_msg_id) OR !is_digits($weibo_msg_id) OR empty($question_id) OR empty($attach_access_key))
+        if (!$weibo_msg_id OR !is_digits($weibo_msg_id) OR !$question_id OR !$attach_access_key)
         {
             return false;
         }

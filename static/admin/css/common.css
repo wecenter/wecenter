@@ -99,7 +99,7 @@ ul,ol{padding:0;list-style:none;}
 .aw-content-wrap{margin:70px 0 0 235px;padding:0 15px 20px;min-height:100%;height:auto;}
 .aw-content-wrap .echart-date{margin-top:20px;padding-left:5px;}
 .aw-content-wrap .echart-date .nopadding{padding:0;line-height:36px;}
-.aw-content-wrap .mod-echat-info{margin:20px 0 0 0;padding: 0;}
+.aw-content-wrap .mod-echat-info{margin-top:20px;padding: 0;}
 .aw-content-wrap .mod-double{margin-bottom:10px;}
 .aw-content-wrap .mod-double .fa-calendar{left: 20px;}
 .aw-content-wrap .date-seach{padding: 7px 10px}
@@ -112,7 +112,9 @@ ul,ol{padding:0;list-style:none;}
 #sorttable thead td{cursor: pointer;}
 #sorttable .fa {width:inherit; height: inherit;border-radius: inherit;background: transparent; color: #000;text-align: inherit;line-height: inherit; }
 #sorttable .fa-sort-desc{position: relative;top: -3px;}
-/*页面底部区域 start*/
+.sorttable-mask{background: #e7e7e7;opacity: .8; filter:alpha(opacity="80");position: absolute;top: 111px;font-size: 18px;text-align: center;line-height: 187px;}
+
+*页面底部区域 start*/
 .aw-footer{clear:both;overflow:hidden;margin:-40px 0 0 225px;height:50px;background:#efefef;text-align:center;line-height:52px;}
 .aw-footer p{font-size:12px;}
 

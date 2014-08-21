@@ -778,11 +778,11 @@ class account_class extends AWS_MODEL
 
         if (! $expire)
         {
-            HTTP::set_cookie('_user_login', get_login_cookie_hash($user_name, $password, $salt, $uid, $hash_password));
+            HTTP::set_cookie('_user_login', get_login_cookie_hash($user_name, $password, $salt, $uid, $hash_password), null, '/', null, false, true);
         }
         else
         {
-            HTTP::set_cookie('_user_login', get_login_cookie_hash($user_name, $password, $salt, $uid, $hash_password), (time() + $expire));
+            HTTP::set_cookie('_user_login', get_login_cookie_hash($user_name, $password, $salt, $uid, $hash_password), (time() + $expire), '/', null, false, true);
         }
 
         return true;
