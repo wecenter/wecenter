@@ -166,11 +166,11 @@ class core_uri
 				{
 					if (! strstr($val, '%'))
 					{
-						$_GET[$key] = $v;
+						$_GET[$key] = $val;
 					}
 					else
 					{
-						$_GET[$key] = urldecode($v);
+						$_GET[$key] = urldecode($val);
 					}
 				}
 			}
