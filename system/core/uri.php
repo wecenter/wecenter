@@ -164,7 +164,14 @@ class core_uri
 			{
 				if (!$_GET[$key])
 				{
-					$_GET[$key] = $val;
+					if (! strstr($val, '%'))
+					{
+						$_GET[$key] = $v;
+					}
+					else
+					{
+						$_GET[$key] = urldecode($v);
+					}
 				}
 			}
 		}
