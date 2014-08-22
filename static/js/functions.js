@@ -11,7 +11,7 @@ function ajax_post(formEl, processer) // 表单对象，用 jQuery 获取，回�
     if (typeof (processer) != 'function')
     {
         processer = _ajax_post_processer;
-        
+
         AWS.loading('show');
     }
 
@@ -29,7 +29,7 @@ function ajax_post(formEl, processer) // 表单对象，用 jQuery 获取，回�
             if ($.trim(error.responseText) != '')
             {
             	AWS.loading('hide');
-            	
+
                 alert(_t('发生错误, 返回的信息:') + ' ' + error.responseText);
             }
         }
@@ -39,7 +39,7 @@ function ajax_post(formEl, processer) // 表单对象，用 jQuery 获取，回�
 function _ajax_post_processer(result)
 {
 	AWS.loading('hide');
-	
+
     if (typeof (result.errno) == 'undefined')
     {
         AWS.alert(result);
@@ -168,7 +168,7 @@ function _error_message_form_processer(result)
     	{
 	    	 $('.error_message').html(result.err);
     	}
-    	
+
     	if ($('.error_message').css('display') != 'none')
     	{
 	    	shake($('.error_message'));
@@ -258,12 +258,12 @@ function follow_people(el, uid)
 
 function check_notifications()
 {
-    return AWS.Message.check_notifications();   
+    return AWS.Message.check_notifications();
 }
 
 function read_notification(notification_id, el, reload)
 {
-    return AWS.Message.read_notification(notification_id, el, reload);   
+    return AWS.Message.read_notification(notification_id, el, reload);
 }
 
 function notification_show(length)
@@ -375,7 +375,7 @@ function question_thanks(question_id, element)
 
 function answer_user_rate(answer_id, type, element)
 {
-    return AWS.User.answer_user_rate(answer_id, type, element);
+    return AWS.User.answer_user_rate(element, type, answer_id);
 }
 
 function init_comment_box(selector)

@@ -249,31 +249,36 @@ class weixin extends AWS_CONTROLLER
 
 	public function oauth_redirect_action()
 	{
+		if (strstr($_GET['uri'], '%'))
+		{
+			$_GET['uri'] = urldecode($_GET['uri']);
+		}
+		
 		if (!$_GET['uri'])
 		{
-			$redirect_uri = urlencode($_SERVER['HTTP_REFERER']);
+			$redirect_uri = $_SERVER['HTTP_REFERER'];
 		}
 		else
 		{
-			$redirect_uri = urlencode(get_js_url($_GET['uri']));
+			$redirect_uri = get_js_url($_GET['uri']);
 		}
 
 		if (get_setting('weixin_account_role') != 'service')
 		{
-			HTTP::redirect(urldecode($redirect_uri));
+			HTTP::redirect($redirect_uri);
 		}
 
-		$redirect_info = parse_url(urldecode($redirect_uri));
+		$redirect_info = parse_url($redirect_uri);
 
 		if ($redirect_info['host'] == 'mp.wecenter.com')
 		{
-			$redirect_uri = get_js_url('/m/weixin/mp_redirect/?uri=' . urlencode(base64_encode(urldecode($redirect_uri))));
+			$redirect_uri = get_js_url('/m/weixin/mp_redirect/?uri=' . urlencode(base64_encode($redirect_uri)));
 		}
-
+		
 		$this->model('account')->setcookie_logout();	// 清除 COOKIE
 		$this->model('account')->setsession_logout();	// 清除 Session
 
-		HTTP::redirect('https://open.weixin.qq.com/connect/oauth2/authorize?appid=' . get_setting('weixin_app_id') . '&redirect_uri=' . $redirect_uri . '&response_type=code&scope=' . urlencode($_GET['scope']) . '&state=' . urlencode($_GET['state']) . '#wechat_redirect');
+		HTTP::redirect('https://open.weixin.qq.com/connect/oauth2/authorize?appid=' . get_setting('weixin_app_id') . '&redirect_uri=' . urlencode($redirect_uri) . '&response_type=code&scope=' . urlencode($_GET['scope']) . '&state=' . urlencode($_GET['state']) . '#wechat_redirect');
 	}
 
 	public function mp_redirect_action()

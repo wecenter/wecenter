@@ -2408,7 +2408,6 @@ AWS.Init =
 	            });
 
 	            // 给三角形定位
-	            console.log(parseInt($(this).width())/2);
 	            $(comment_box_id).find('.i-dropdown-triangle').css('left', $(this).position().left);
 	            // textarae自动增高
 	            $(comment_box_id).find('.aw-comment-txt').autosize();
