@@ -777,6 +777,39 @@ a.aw-load-more-content{display: block;}
 .wmd-preview h2{font-size: 1.5em;line-height: 30px;}
 .wmd-preview code, .markitup-box code{background-color: #EDEAD5;display: block;font-family: "Courier New",Courier,monospace;margin: 5px 0;padding: 5px;white-space: normal;text-align: left;font-size: 14px;}
 .wmd-preview p{margin:0;}
+
+/* 编辑器回复代码高亮 */
+.pln { color: #000 }
+
+@media screen {
+  .str { color: #080 }
+  .kwd { color: #008 }
+  .com { color: #800 }
+  .typ { color: #606 }
+  .lit { color: #066 }
+  .pun, .opn, .clo { color: #660 }
+  .tag { color: #008 }
+  .atn { color: #606 }
+  .atv { color: #080 }
+  .dec, .var { color: #606 }
+  .fun { color: red }
+}
+@media print, projection {
+  .str { color: #060 }
+  .kwd { color: #006; font-weight: bold }
+  .com { color: #600; font-style: italic }
+  .typ { color: #404; font-weight: bold }
+  .lit { color: #044 }
+  .pun, .opn, .clo { color: #440 }
+  .tag { color: #006; font-weight: bold }
+  .atn { color: #404 }
+  .atv { color: #060 }
+}
+pre.prettyprint { padding: 12px;border: 1px solid #e7e7e7; }
+ol.linenums { margin-top: 0; margin-bottom: 0 } /* IE indents via margin-left */
+li.L0,li.L1,li.L2,li.L3,li.L5,li.L6,li.L7,li.L8 { list-style-type: none }
+li.L1,li.L3,li.L5,li.L7,li.L9 { background: #eee }
+
 /* new */
 .markitup-box{position:relative;z-index:1;line-height: 180%;word-wrap: break-word !important;}
 .markItUpPreviewFrame {margin-top: 20px;padding: 10px;background: #FAFAFA;border: 1px solid #CCCCCC;font-size: 14px;line-height:20px;}

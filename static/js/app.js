@@ -12,6 +12,10 @@ $(document).ready(function ()
     $('.autosize').autosize();
     
     //编辑器实时语法高亮
+    window.onload = function()
+    {
+        prettyPrint();
+    }
     $('#wmd-input').on('keyup',function()
     {    
          prettyPrint();

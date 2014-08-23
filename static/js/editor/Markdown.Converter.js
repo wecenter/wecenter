@@ -1041,10 +1041,6 @@ else
                 )
             /gm, function(){...});
             */
-            window.onload = function()
-            {
-                prettyPrint();
-            }
             text = text.replace(/((^[ \t]*>[ \t]?.+\n(.+\n)*\n*)+)/gm,
                 function (wholeMatch, m1) {
                     var bq = m1;
