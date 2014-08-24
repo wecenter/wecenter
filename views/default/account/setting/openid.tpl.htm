@@ -1,7 +1,7 @@
 <?php TPL::output('global/header.tpl.htm'); ?>
 <?php TPL::output('account/setting/setting_header.tpl.htm'); ?>
 
-<?php if ((!$this->sina_weibo AND get_setting('sina_weibo_enabled') == 'Y') OR (!$this->qq AND get_setting('qq_login_enabled') == 'Y') OR (!$this->weixin AND get_setting('weixin_app_id')) { ?>
+<?php if ((!$this->sina_weibo AND get_setting('sina_weibo_enabled') == 'Y') OR (!$this->qq AND get_setting('qq_login_enabled') == 'Y') OR (!$this->weixin AND get_setting('weixin_app_id'))) { ?>
 <div class="aw-mod mod-setting-bind">
 	<div class="mod-head">
 		<h3><?php _e('未绑定账号'); ?></h3>
