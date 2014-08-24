@@ -86,11 +86,6 @@ class main extends AWS_CONTROLLER
 			{
 				TPL::assign('sina_weibo_url', 'http://www.weibo.com/' . $users_sina['id']);
 			}
-
-			if ($users_qq = $this->model('openid_qq_weibo')->get_users_qq_by_uid($user['uid']))
-			{
-				TPL::assign('qq_weibo_url', 'http://t.qq.com/' . $users_qq['name']);
-			}
 		}
 
 		TPL::assign('education_experience_list', $this->model('education')->get_education_experience_list($user['uid']));

@@ -28,7 +28,7 @@
 				</form>
 			</div>
 			<div class="side-bar pull-left">
-				<?php if (get_setting('site_close') != 'Y' && (get_setting('sina_weibo_enabled') == 'Y' OR get_setting('qq_t_enabled') == 'Y' OR get_setting('qq_login_enabled') == 'Y') OR get_setting('weixin_app_id')) { ?>
+				<?php if (get_setting('site_close') != 'Y' AND (get_setting('sina_weibo_enabled') == 'Y' OR get_setting('qq_login_enabled') == 'Y') OR get_setting('weixin_app_id')) { ?>
 					<h3><?php _e('第三方账号登录'); ?></h3>
 					<?php if (get_setting('sina_weibo_enabled') == 'Y') { ?>
 						<a href="account/openid/sina/" class="btn btn-block btn-weibo"><i class="fa fa-weibo"></i> 新浪微博登录</a>

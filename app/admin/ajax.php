@@ -125,7 +125,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
             $_POST['sensitive_words'] = trim($_POST['sensitive_words']);
         }
 
-        $curl_require_setting = array('qq_login_enabled', 'sina_weibo_enabled', 'qq_t_enabled');
+        $curl_require_setting = array('qq_login_enabled', 'sina_weibo_enabled');
 
         if (array_intersect(array_keys($_POST), $curl_require_setting))
         {
