@@ -53,7 +53,11 @@
 <!--[if lte IE 8]>
 	<script type="text/javascript" src="<?php echo G_STATIC_URL; ?>/js/respond.js"></script>
 <![endif]-->
-<noscript unselectable="on">
-	<meta http-equiv="refresh" content="0; url=<?php echo base_url(); ?>/static/common/error_js.html" />
-</noscript>
 </head>
+<noscript unselectable="on" id="noscript">
+    <style type="text/css">#noscript { position:fixed;z-index:100;margin:0;width:100%;height:100%;min-width:800px;text-align:center;overflow:hidden;background-color:#f4f4f4;cursor:default;-moz-user-select:-moz-none;-khtml-user-select:none;-webkit-user-select:none;user-select:none; }</style>
+    <div class="aw-404 aw-404-wrap container">
+        <img src="<?php echo G_STATIC_URL; ?>/common/no-js.jpg">
+        <p>你的浏览器禁用了JavaScript, 请开启后刷新浏览器获得更好的体验!</p>
+    </div>
+</noscript>
