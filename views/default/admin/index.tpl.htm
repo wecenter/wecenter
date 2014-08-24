@@ -121,15 +121,7 @@
                                 </td>
                             </tr>
                         </thead>
-                        <tbody>
-                            <?php $tr_num = ($this->topic_count > 10) ? 10 : $this->topic_count;
-                            for ($tr=0; $tr<$tr_num; $tr++) { ?>
-                            <tr>
-                                <?php for ($td=0; $td<4; $td++) { ?>
-                                <td></td>
-                                <?php } ?>
-                            </tr>
-                            <?php } ?>
+                        <tbody id="sorttbody">
                         </tbody>
                     </table>
                 </div>

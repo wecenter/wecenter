@@ -205,10 +205,17 @@ $(function () {
                }, 
                success:function(data)
                {	
+                    var tempLyout = '' ;
+                    
+                    for (var i = data.length - 1; i >= 0; i--) {
+                        tempLyout += '<tr><td></td><td></td><td></td><td></td></tr>';
+                    };
+                    $('#sorttbody').html(tempLyout);
+                    
                     AWS.loading('hide')
                     if(data == '')
                     {   var tempWidth = $('.sorttable-mask').parents('.mod').width();
-                        var tempHeight = $('.sorttable-mask').parents('.mod').height()-100;
+                        var tempHeight = $('.sorttable-mask').parents('.mod').height()-100 > 50 ? $('.sorttable-mask').parents('.mod').height()-100 : 50;
                         $('.sorttable-mask').css({width:tempWidth,height:tempHeight,lineHeight:tempHeight+'px'})
                     	$('.sorttable-mask').show();
                     
