@@ -363,7 +363,14 @@ switch ($_POST['step'])
 		}
 		else
 		{
-			$insert_query = str_replace('[#UPLOAD_URL#]', serialize(base_url() . "/uploads"), $insert_query);
+			$base_url = strtolower(base_url());
+
+			if (substr($base_url, -8) == '/install')
+			{
+				$base_url = str_replace('/install', '', $base_url);
+			}
+
+			$insert_query = str_replace('[#UPLOAD_URL#]', serialize($base_url . "/uploads"), $insert_query);
 			$insert_query = str_replace('[#UPLOAD_DIR#]', serialize(str_replace("\\", "/", ROOT_PATH) . "uploads"), $insert_query);
 		}
 

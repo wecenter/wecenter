@@ -14,3 +14,6 @@ CREATE TABLE `[#DB_PREFIX#]weixin_third_party_api` (
 ALTER TABLE `[#DB_PREFIX#]weixin_message` MODIFY `action` text;
 
 INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES ('last_sent_valid_email_id', 'i:0;');
+
+DELETE FROM `[#DB_PREFIX#]system_setting` WHERE `varname` IN ('qq_t_enabled', 'qq_app_key', 'qq_app_secret');
+DELETE FROM `[#DB_PREFIX#]users_qq` WHERE `type` = 'weibo';

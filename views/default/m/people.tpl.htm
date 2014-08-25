@@ -201,9 +201,8 @@
 							<li>
 								<i class="icon icon-bind"></i>
 								<span class="color-666"><?php _e('绑定'); ?>  :</span>
-								<?php if ((get_setting('qq_t_enabled') == 'Y' OR get_setting('sina_weibo_enabled') == 'Y') AND ($this->sina_weibo_url OR $this->qq_weibo_url)) { ?>
+								<?php if (get_setting('sina_weibo_enabled') == 'Y' AND $this->sina_weibo_url) { ?>
 									<?php if ($this->sina_weibo_url AND get_setting('sina_weibo_enabled') == 'Y') { ?><a href="<?php if ($this->sina_weibo_url) { ?><?php echo $this->sina_weibo_url; ?><?php } else { ?>javascript:;<?php } ?>" title="<?php _e('新浪微博'); ?>"><?php _e('新浪微博'); ?></a><?php } ?>
-									<?php if ($this->qq_weibo_url AND get_setting('qq_t_enabled') == 'Y') { ?><a href="<?php if ($this->user_info['weibo_visit']) { ?><?php echo $this->qq_weibo_url; ?><?php } else { ?>javascript:;<?php } ?>" title="<?php _e('腾讯微博'); ?>"><?php _e('腾讯微博'); ?></a><?php } ?>
 								<?php } ?>
 							</li>
 						</ul>

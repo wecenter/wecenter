@@ -378,14 +378,6 @@ class ajax extends AWS_CONTROLLER
 			}
 		}
 
-		if (get_setting('qq_t_enabled') == 'Y')
-		{
-			if ($qq_weibo = $this->model("qq_weibo")->get_users_qq_by_uid($this->user_id))
-			{
-				$data['qq_weibo']['name'] = $qq_weibo['name'];
-			}
-		}
-
 		if (get_setting('qq_login_enabled') == 'Y')
 		{
 			if ($qq = $this->model("qq")->get_user_info_by_uid($this->user_id))
@@ -395,7 +387,6 @@ class ajax extends AWS_CONTROLLER
 		}
 
 		$data['sina_weibo']['enabled'] = get_setting('sina_weibo_enabled');
-		$data['qq_weibo']['enabled'] = get_setting('qq_t_enabled');
 		$data['qq']['enabled'] = get_setting('qq_login_enabled');
 
 		H::ajax_json_output(AWS_APP::RSM($data, 1, null));
