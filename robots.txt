@@ -11,3 +11,4 @@ Disallow: /system/
 Disallow: /tmp/
 Disallow: /views/
 Disallow: /static/
+Disallow: /?/admin/
