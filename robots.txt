@@ -10,3 +10,4 @@ Disallow: /models/
 Disallow: /system/
 Disallow: /tmp/
 Disallow: /views/
+Disallow: /static/
