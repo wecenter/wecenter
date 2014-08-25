@@ -367,7 +367,7 @@ switch ($_POST['step'])
 
 			if (substr($base_url, -8) == '/install')
 			{
-				$base_url = str_replace('/install', '', $base_url);
+				$base_url = substr_replace($base_url, '', -8);
 			}
 
 			$insert_query = str_replace('[#UPLOAD_URL#]', serialize($base_url . "/uploads"), $insert_query);
