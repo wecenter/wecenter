@@ -104,7 +104,7 @@
                 <tr>
                     <td>
                         <div class="form-group">
-                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('默认时区'); ?>:</span>
+                            <span class="col-sm-3 col-xs-3 control-label"><?php _e('默认时区'); ?>:</span>
                             <div class="col-sm-5 col-xs-8">
                                 <select name="default_timezone" class="form-control">
                                     <option value='Etc/GMT+12'<?php if ($this->setting['default_timezone'] == 'Etc/GMT+12') { ?> selected="selected"<?php } ?>><?php _e('(GMT - 12:00 小时) 安尼威托克岛，卡瓦加兰'); ?></option>
@@ -146,7 +146,7 @@
                 <tr>
                     <td>
                         <div class="form-group">
-                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('站点关闭'); ?>:</span>
+                            <span class="col-sm-3 col-xs-3 control-label"><?php _e('站点关闭'); ?>:</span>
                             <div class="col-sm-6 col-xs-8">
                                 <div class="btn-group mod-btn">
                                     <label type="button" class="btn mod-btn-color">
@@ -164,7 +164,7 @@
                 <tr>
                     <td>
                         <div class="form-group">
-                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('站点关闭的提示'); ?>:</span>
+                            <span class="col-sm-3 col-xs-3 control-label"><?php _e('站点关闭的提示'); ?>:</span>
                             <div class="col-sm-5 col-xs-8">
                                 <input type="text" class="form-control" name="close_notice" value="<?php echo $this->setting['close_notice']; ?>" />
                             </div>
@@ -174,7 +174,7 @@
                 <tr>
                     <td>
                         <div class="form-group">
-                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('新用户注册显示验证码'); ?>:</span>
+                            <span class="col-sm-3 col-xs-3 control-label"><?php _e('新用户注册显示验证码'); ?>:</span>
                             <div class="col-sm-6 col-xs-8">
                                 <div class="btn-group mod-btn">
                                     <label type="button" class="btn mod-btn-color">
@@ -192,7 +192,7 @@
                 <tr>
                     <td>
                         <div class="form-group">
-                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('新用户注册验证类型'); ?>:</span>
+                            <span class="col-sm-3 col-xs-3 control-label"><?php _e('新用户注册验证类型'); ?>:</span>
                             <div class="col-sm-8 col-xs-8">
                                 <label class="checkbox-inline"><input type="radio" name="register_valid_type" value="email"<?php if ($this->setting['register_valid_type'] == 'email') { ?> checked="checked"<?php } ?> /> <?php _e('邮件验证'); ?></label>
 
@@ -206,7 +206,7 @@
                 <tr>
                     <td>
                         <div class="form-group">
-                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('注册类型'); ?>:</span>
+                            <span class="col-sm-3 col-xs-3 control-label"><?php _e('注册类型'); ?>:</span>
                             <div class="col-sm-8 col-xs-8">
                                 <label class="checkbox-inline"><input type="radio" name="register_type" value="open"<?php if ($this->setting['register_type'] == 'open') { ?> checked="checked"<?php } ?> /> <?php _e('开放注册'); ?></label>
 
@@ -224,7 +224,7 @@
                 <tr>
                     <td>
                         <div class="form-group">
-                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('用户名规则'); ?>:</span>
+                            <span class="col-sm-3 col-xs-3 control-label"><?php _e('用户名规则'); ?>:</span>
                             <div class="col-sm-8 col-xs-8">
                                 <label class="checkbox-inline"><input type="radio" value="0" name="username_rule"<?php if ($this->setting['username_rule'] == 0) { ?> checked="checked"<?php } ?> /> <?php _e('不限制'); ?></label>
                                 <label class="checkbox-inline"><input type="radio" value="1" name="username_rule"<?php if ($this->setting['username_rule'] == 1) { ?> checked="checked"<?php } ?> /> <?php _e('汉字/字母/数字/下划线'); ?></label>
@@ -237,7 +237,7 @@
                 <tr>
                     <td>
                         <div class="form-group">
-                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('用户名最少字符数'); ?>:</span>
+                            <span class="col-sm-3 col-xs-3 control-label"><?php _e('用户名最少字符数'); ?>:</span>
                             <div class="col-sm-5 col-xs-8">
                                 <input name="username_length_min" class="form-control" type="text" value="<?php echo $this->setting['username_length_min']; ?>"/>
                             </div>
@@ -247,7 +247,7 @@
                 <tr>
                     <td>
                         <div class="form-group">
-                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('用户名最多字符数'); ?>:</span>
+                            <span class="col-sm-3 col-xs-3 control-label"><?php _e('用户名最多字符数'); ?>:</span>
                             <div class="col-sm-5 col-xs-8">
                                 <input name="username_length_max" class="form-control" type="text" value="<?php echo $this->setting['username_length_max']; ?>"/>
 
@@ -259,8 +259,8 @@
                 <tr>
                     <td>
                         <div class="form-group">
-                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('用户注册协议'); ?>:</span>
-                            <div class="col-sm-5 col-xs-8">
+                            <span class="col-sm-3 col-xs-3 control-label"><?php _e('用户注册协议'); ?>:</span>
+                            <div class="col-sm-7 col-xs-8">
                                 <textarea class="form-control textarea" name="register_agreement"  ><?php echo $this->setting['register_agreement']; ?></textarea>
                             </div>
                         </div>
@@ -269,8 +269,8 @@
                 <tr>
                     <td>
                         <div class="form-group">
-                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('用户注册名不允许出现以下关键字'); ?>:</span>
-                            <div class="col-sm-5 col-xs-8">
+                            <span class="col-sm-3 col-xs-3 control-label"><?php _e('用户注册名不允许出现以下关键字'); ?>:</span>
+                            <div class="col-sm-7 col-xs-8">
                                 <textarea class="form-control textarea" name="censoruser"  ><?php echo $this->setting['censoruser']; ?></textarea>
 
                                 <span class="help-block"><?php _e('每行填写一个关键字, 如: admin, 管理员等'); ?></span>
@@ -281,7 +281,7 @@
                 <tr>
                     <td>
                         <div class="form-group">
-                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('用户注册后默认关注的用户 ID'); ?>:</span>
+                            <span class="col-sm-3 col-xs-3 control-label"><?php _e('用户注册后默认关注的用户 ID'); ?>:</span>
                             <div class="col-sm-5 col-xs-8">
                                 <input name="def_focus_uids" class="form-control" type="text" value="<?php echo $this->setting['def_focus_uids']; ?>"/>
 
@@ -293,7 +293,7 @@
                 <tr>
                     <td>
                         <div class="form-group">
-                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('首次登录推荐用户列表'); ?>:</span>
+                            <span class="col-sm-3 col-xs-3 control-label"><?php _e('首次登录推荐用户列表'); ?>:</span>
                             <div class="col-sm-5 col-xs-8">
                                 <input name="welcome_recommend_users" class="form-control" type="text" value="<?php echo $this->setting['welcome_recommend_users']; ?>"/>
 
@@ -305,7 +305,7 @@
                 <tr>
                     <td>
                         <div class="form-group">
-                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('新用户注册获得邀请数量'); ?>:</span>
+                            <span class="col-sm-3 col-xs-3 control-label"><?php _e('新用户注册获得邀请数量'); ?>:</span>
                             <div class="col-sm-5 col-xs-8">
                                 <input name="newer_invitation_num" type="text" class="form-control" value="<?php echo $this->setting['newer_invitation_num']; ?>"/>
                             </div>
@@ -315,8 +315,8 @@
                 <tr>
                     <td>
                         <div class="form-group">
-                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('新用户注册系统发送的欢迎内容'); ?>:</span>
-                            <div class="col-sm-5 col-xs-8">
+                            <span class="col-sm-3 col-xs-3 control-label"><?php _e('新用户注册系统发送的欢迎内容'); ?>:</span>
+                            <div class="col-sm-7 col-xs-8">
                                 <textarea class="form-control textarea" name="welcome_message_pm"  ><?php echo $this->setting['welcome_message_pm']; ?></textarea>
 
                                 <span class="help-block"><?php _e('新用户注册欢迎内容, 以下变量可作为内容替换: <br />{username}: 用户名<br />{time}: 发送时间<br />{sitename}: 网站名称'); ?></span>
