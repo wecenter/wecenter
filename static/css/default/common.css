@@ -303,8 +303,7 @@ a.aw-load-more-content{display: block;}
 
 /* 附件上传 */
 #upload-form{position: relative;width: 0;height: 0;opacity: 0;filter:alpha(opacity=0);}
-#upload-form .file-input{position: absolute;left: 0;top: 0;}
-.aw-upload-box #upload-form .file-input{position:absolute;top:-7px;left:-12px;width: 80px;height: 34px;filter:alpha(opacity=0);}
+#upload-form .file-input{position:absolute;top:-7px;left:-12px;width: 80px;height: 34px;filter:alpha(opacity=0);}
 .aw-upload-box .upload-list{width:688px;height: auto;overflow: hidden;}
 .aw-upload-box .upload-list li{position:relative;float: left;width: 214px;height: 115px;padding:15px 15px 15px 110px;margin:15px 15px 0 0;background: #F5FAFF;border:1px solid #DCEDFA;border-radius: 5px;}
 .aw-upload-box .upload-list li .img{position:absolute;left:10px;top:10px;width: 90px;height: 90px;background: url('img/ajax-loader.gif') center center no-repeat;text-align: center;line-height: 90px;border-radius: 5px;}
@@ -842,7 +841,7 @@ a.aw-load-more-content{display: block;}
 .aw-404-wrap .aw-search-box .input-group-addon {border-radius: 0;border-color: #54BEFF; color: #fff;background-color: #54BEFF;}
 
 /* noscript 提示 */
-.aw-noscript{position: absolute;z-index: 100;width: 100%;height: 100%;background-color: #f5f5f5;overflow: hidden;}
+#noscript{position:fixed;z-index:9999;margin:0;width:100%;height:100%;min-width:800px;text-align:center;overflow:hidden;background-color:#f4f4f4;cursor:default;-moz-user-select:-moz-none;-khtml-user-select:none;-webkit-user-select:none;user-select:none;}
 
 /* 字体icon & icon */
 .fa-comment, .fa-share, .fa-edit, .fa-map-marker, .fa-flag, .fa-heart, .fa-user, .fa-home, .fa-thumbs-up, .fa-reply, .fa-signal, .fa-tag, .fa-wrench, .icon-cog, .icon-off, .fa-bookmark, .fa-chevron-down, .icon-mobile-phone, .fa-external-link, .icon-envelope, .icon-check, .fa-thumbs-down, .fa-trash-o, .fa-paperclip, .fa-retweet, .fa-star{margin-right: 3px;color: #B7B7B7;cursor: pointer;}
@@ -866,7 +865,7 @@ a.aw-load-more-content{display: block;}
 .jiathis_style_24x24 a i{margin-left: 5px;}
 
 /* 不兼容页面提示 */
-#browser-not-support{position: fixed;bottom: 0;left:0;z-index:9999;width:100%;margin:0;padding:20px 0 10px;background: #F2DEDE;border:1px solid #EED3D7;color: #B94A48;}
+#browser-not-support{position: fixed;top: 0;left:0;z-index:9999;width:100%;margin:0;padding:20px 0 10px;background: #F2DEDE;border:1px solid #EED3D7;color: #B94A48;}
 #browser-not-support .content{width: 600px;margin-left: 20px;}
 
 @media not all, (min-resolution: 192dpi) {
