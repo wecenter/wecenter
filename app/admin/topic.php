@@ -102,9 +102,12 @@ class topic extends AWS_ADMIN_CONTROLLER
 
 			$users_info_query = $this->model('account')->get_user_info_by_uids($last_edited_uids);
 
-			foreach ($users_info_query AS $user_info)
+			if ($users_info_query)
 			{
-				$users_info[$user_info['uid']] = $user_info;
+				foreach ($users_info_query AS $user_info)
+				{
+					$users_info[$user_info['uid']] = $user_info;
+				}
 			}
 		}
 
