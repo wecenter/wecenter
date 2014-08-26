@@ -766,6 +766,11 @@ class topic_class extends AWS_MODEL
                     $question_ids[] = $val['question_id'];
                 }
             }
+            
+            if (!$question_ids)
+            {
+	            return false;
+            }
 
             if (!$topic_relation = $this->fetch_all('topic_relation', 'item_id IN(' . implode(',', $question_ids) . ") AND `type` = 'question'"))
             {
