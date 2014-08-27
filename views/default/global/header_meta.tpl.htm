@@ -32,7 +32,7 @@
 	var G_INDEX_SCRIPT = '<?php if (get_setting('url_rewrite_enable') != 'Y') { ?><?php echo G_INDEX_SCRIPT; ?><?php } ?>';
 	var G_SITE_NAME = '<?php echo addcslashes(get_setting('site_name'), "'"); ?>';
 	var G_BASE_URL = '<?php echo base_url(); ?><?php if (get_setting('url_rewrite_enable') != 'Y') { ?>/<?php echo rtrim(G_INDEX_SCRIPT, '/'); ?><?php } ?>';
-	var G_STATIC_URL = '<?php echo G_STATIC_URL; ?><?php if (get_setting('url_rewrite_enable') != 'Y') { ?>/<?php echo rtrim(G_INDEX_SCRIPT, '/'); ?><?php } ?>';
+	var G_STATIC_URL = '<?php echo G_STATIC_URL; ?>';
 	var G_UPLOAD_URL = '<?php echo get_setting('upload_url'); ?>';
 	var G_USER_ID = '<?php echo $this->user_id; ?>';
 	var G_USER_NAME = '<?php echo addcslashes($this->user_info['user_name'], "'"); ?>';
