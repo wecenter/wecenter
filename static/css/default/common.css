@@ -225,6 +225,7 @@ a.aw-load-more-content{display: block;}
 .common-head h2 > i{margin-right: 10px;}
 .common-head a.pull-right{margin:18px 0 0 10px;}
 .common-head span{font-size: 12px;}
+.common-head span .btn{margin-left: 10px;}
 .common-head .badge{position: relative;top: -3px;}
 .aw-feed-list{padding:0 20px;}
 .aw-feed-list .aw-load-more-content{margin:20px 0;}
