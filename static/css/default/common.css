@@ -474,8 +474,9 @@ a.aw-load-more-content{display: block;}
 .aw-article-list .aw-item .mod-body .content-wrap .content .hide-content{max-height: 440px;overflow: hidden;}
 .aw-article-list .aw-item .mod-body .content-wrap .markitup-box img{max-width: 100% !important;}
 .aw-article-list .aw-item .mod-footer span{color: #999;font-size: 12px;}
+.aw-article-list .aw-item .mod-footer span a i {font-size: 12px;}
 .aw-article-list .aw-item .mod-footer span a{margin-left:15px;color: #999;}
-.aw-article-list .aw-item .mod-footer span a:hover{color: #2A6496;}
+.aw-article-list .aw-item .mod-footer span a:hover{color: #66B7FF;}
 .aw-article-list .aw-item .more{font-size: 12px;}
 
 /* 文章详情页 */
