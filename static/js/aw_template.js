@@ -179,7 +179,7 @@ var AW_TEMPLATE = {
 						'<p>' + _t('将问题重定向至') + '</p>'+
 						'<div class="aw-question-drodpwon">'+
 							'<input id="question-input" class="form-control" type="text" data-id="{{data_id}}" placeholder="' + _t('搜索问题') + '" />'+
-							'<div class="aw-dropdown"><i class="aw-icon i-dropdown-triangle active"></i><p class="title">' + _t('没有找到相关结果') + '</p><ul class="aw-dropdown-list"></ul></div>'+
+							'<div class="aw-dropdown"><p class="title">' + _t('没有找到相关结果') + '</p><ul class="aw-dropdown-list"></ul></div>'+
 						'</div>'+
 						'<p class="clearfix"><a href="javascript:;" class="btn btn-large btn-success pull-right" onclick="$(\'.alert-box\').modal(\'hide\');">' + _t('放弃操作') + '</a></p>'+
 					'</div>'+
@@ -255,7 +255,6 @@ var AW_TEMPLATE = {
 								'<input type="hidden" name="post_hash" value="' + G_POST_HASH + '" />'+
 								'<input id="invite-input" class="form-control" type="text" placeholder="' + _t('搜索用户') + '" name="recipient" value="{{recipient}}" />'+
 								'<div class="aw-dropdown">'+
-									'<i class="aw-icon i-dropdown-triangle"></i>'+
 									'<p class="title">' + _t('没有找到相关结果') + '</p>'+
 									'<ul class="aw-dropdown-list">'+
 									'</ul>'+
@@ -304,7 +303,6 @@ var AW_TEMPLATE = {
 			'<a class="btn btn-large btn-success submit-edit">' + _t('添加') + '</a>'+
 			'<a class="btn btn-large btn-default close-edit">' + _t('取消') + '</a>'+
 			'<div class="aw-dropdown">'+
-				'<i class="aw-icon i-dropdown-triangle active"></i>'+
 				'<p class="title">' + _t('没有找到相关结果') + '</p>'+
 				'<ul class="aw-dropdown-list">'+
 				'</ul>'+
@@ -340,18 +338,15 @@ var AW_TEMPLATE = {
 						'</div>'+
 					'</div>'+
 				'</form>'+
-				'<i class="i-dropdown-triangle"></i>'+
 			'</div>',
 			
 	'commentBoxClose' : 
 			'<div class="aw-comment-box" id="{{comment_form_id}}">'+
 				'<div class="aw-comment-list"><p align="center" class="aw-padding10"><i class="aw-loading"></i></p></div>'+
-				'<i class="i-dropdown-triangle"></i>'+
 			'</div>',
 
 	'dropdownList' : 
 		'<div aria-labelledby="dropdownMenu" role="menu" class="aw-dropdown">'+
-			'<i class="i-dropdown-triangle"></i>'+
 			'<ul class="aw-dropdown-list">'+
 			'{{#items}}'+
 				'<li><a data-value="{{id}}">{{title}}</a></li>'+
