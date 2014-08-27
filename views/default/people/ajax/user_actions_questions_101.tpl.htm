@@ -8,7 +8,9 @@
 			</h4>
 		</div>
 		<div class="mod-body">
-			<p class="aw-text-color-999"><?php echo $val['question_info']['answer_count']; ?> <?php _e('回复'); ?> • <?php _e('%s 次浏览', $val['question_info']['view_count']); ?> • <?php _e('%s 个关注', $val['question_info']['focus_count']); ?> • <?php echo date_friendly($val['add_time']); ?></p>
+			<span class="aw-border-radius-5 count pull-left"><i class="icon icon-reply"></i><?php echo $val['question_info']['answer_count']; ?></span>
+			<p class="text-color-999"><?php _e('%s 次浏览', $val['question_info']['view_count']); ?> • <?php _e('%s 个关注', $val['question_info']['focus_count']); ?></p>
+			<p class="text-color-999"><?php echo date_friendly($val['add_time']); ?></p>
 		</div>
 	</div>
 </div>

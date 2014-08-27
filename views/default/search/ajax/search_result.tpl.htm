@@ -6,25 +6,38 @@
 	<?php } else if ($val['type'] == 'users') { ?>
 	<a href="<?php echo $val['url']; ?>" class="aw-user-img" data-id="<?php echo $val['search_id']; ?>"><img src="<?php echo $val['detail']['avatar_file']; ?>" alt="" /></a>
 	<?php } ?>
-	<p class="aw-title">
-		<?php if ($val['detail']['best_answer'] > 0 AND $val['type'] == 'questions') { ?><i class="icon-g-replay"></i><?php } ?><a href="<?php echo $val['url']; ?>" target="_blank"><?php echo $val['name']; ?></a> <?php if ($val['type'] == 'users' AND $val['detail']['signature']) { ?><span class="aw-text-color-999"><?php echo $val['detail']['signature']; ?></span><?php } else if ($val['type'] == 'topics' AND $val['detail']['topic_description']) { ?><span class="aw-text-color-999"><?php echo cjk_substr($val['detail']['topic_description'], 0, 48, 'UTF-8', '...'); ?></span><?php } ?>
-	</p>
-	<p class="aw-hide-text aw-text-color-666">
-		<?php if ($val['type'] == 'questions') { ?>
-		<a class="aw-search-result-tags"><?php _e('问题'); ?></a> <?php _e('%s 个回复', $val['detail']['answer_count']); ?> • <?php _e('%s 人关注', $val['detail']['focus_count']); ?>
-		<?php } else if ($val['type'] == 'articles') { ?>
-		<a class="aw-search-result-tags"><?php _e('文章'); ?></a> <?php _e('%s 个回复', $val['detail']['comments']); ?> • <?php _e('%s 次查看', $val['detail']['views']); ?>
-		<?php } else if ($val['type'] == 'topics') { ?>
-		<a class="aw-search-result-tags"><?php _e('话题'); ?></a> <?php _e('%s 个讨论', $val['detail']['discuss_count']); ?> • <?php _e('%s 人关注', $val['detail']['focus_count']); ?>
-		<?php } else if ($val['type'] == 'users') { ?>
-		<a class="aw-search-result-tags"><?php _e('用户'); ?></a> <?php echo $val['detail']['reputation']; ?> <?php _e('威望'); ?> • <?php _e('%s 次赞同', $val['detail']['agree_count']); ?> • <?php echo $val['detail']['thanks_count']; ?> <?php _e('感谢'); ?> • <?php echo $val['detail']['focus_count']; ?> <?php _e('关注'); ?>
-		<?php } ?>
-	</p>
 	<?php if ($this->user_id) { ?>
 		<?php if ($this->user['search_id'] != $this->user_id AND $val['type'] == 'users') { ?>
-		<a href="javascript:;" onclick="AWS.User.follow($(this), 'user', <?php echo $val['search_id']; ?>);" class="btn btn-mini btn-default aw-btn-follow<?php if (!$val['focus']) { ?> aw-active<?php } ?>"><?php if ($val['focus']) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?></a>
+		<a href="javascript:;" onclick="AWS.User.follow($(this), 'user', <?php echo $val['search_id']; ?>);" class="btn btn-normal btn-gray follow<?php if (!$val['focus']) { ?> active<?php } ?>"><?php if ($val['focus']) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?> <em>|</em> <b><?php echo $val['detail']['fans_count']; ?></b></a>
 		<?php } ?>
 	<?php } ?>
+	<p class="aw-title">
+		<?php if ($val['detail']['best_answer'] > 0 AND $val['type'] == 'questions') { ?><i class="icon-g-replay"></i><?php } ?><a href="<?php echo $val['url']; ?>" target="_blank"><?php echo $val['name']; ?></a>
+	</p>
+
+	<?php if ($val['type'] == 'users' AND $val['detail']['signature']) { ?>
+	<p class="aw-text-color-999"><?php echo $val['detail']['signature']; ?></p>
+	<?php } ?>
+
+	<p class="aw-text-color-666">
+		<?php if ($val['type'] == 'questions') { ?>
+		<i class="icon icon-reply"></i> <?php _e('%s 个回复', $val['detail']['answer_count']); ?> • <?php _e('%s 人关注', $val['detail']['focus_count']); ?>
+		<?php } else if ($val['type'] == 'articles') { ?>
+		<i class="icon icon-comment"></i> <?php _e('%s 个回复', $val['detail']['comments']); ?> • <?php _e('%s 次查看', $val['detail']['views']); ?>
+		<?php } else if ($val['type'] == 'topics') { ?>
+		<i class="icon icon-topic"></i> <?php _e('%s 个讨论', $val['detail']['discuss_count']); ?>
+		<?php } else if ($val['type'] == 'users') { ?>
+		<span>
+			<i class="icon icon-prestige"></i><?php _e('威望'); ?><?php echo $val['detail']['reputation']; ?>
+		</span>
+		<span>
+			<i class="icon icon-agree"></i> <?php _e('赞同'); ?> <?php echo $val['detail']['agree_count']; ?>
+		</span>
+		<span>
+			<i class="icon icon-thank"></i><?php _e('感谢'); ?> <?php echo $val['detail']['thanks_count']; ?>
+		</span>
+		<?php } ?>
+	</p>
 </div>
 <?php } ?>
 <?php } ?>
