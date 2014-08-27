@@ -81,7 +81,7 @@ class main extends AWS_CONTROLLER
 			TPL::assign('sidebar_hot_users', $sidebar_hot_users);
 		}
 
-		$this->crumb(AWS_APP::lang()->_t('首页'), '/');
+		$this->crumb(AWS_APP::lang()->_t('动态'), '/home/');
 
 		TPL::import_js('js/app/index.js');
 
