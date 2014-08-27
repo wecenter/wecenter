@@ -10,21 +10,21 @@
 			<?php if ($val['last_action_str']) { ?><?php echo $val['last_action_str']; ?> • <?php echo date_friendly($val['add_time']); ?> • <?php } ?>
 			
 			<?php if (isset($val['article_info']['comments'])) { ?>
-				<a href="<?php echo $val['link']; ?>" class="aw-text-color-999"><?php _e('%s 个评论', $val['article_info']['comments']); ?></a>
+				<a href="<?php echo $val['link']; ?>" class="text-color-999"><?php _e('%s 个评论', $val['article_info']['comments']); ?></a>
 			<?php } else { ?>
-				<a href="<?php echo $val['link']; ?>" class="aw-text-color-999"><?php _e('%s 个回复', $val['question_info']['answer_count']); ?></a>
+				<a href="<?php echo $val['link']; ?>" class="text-color-999"><?php _e('%s 个回复', $val['question_info']['answer_count']); ?></a>
 					<?php if ($this->user_id AND !$_GET['filter']) { ?>
 				</a>
 				<?php } ?>
 				<?php if ($_GET['filter'] == 'focus') { ?>
 					 • <?php if ($val['topics']) { ?><?php _e('已添加到'); ?> 
 					<?php foreach($val['topics'] as $t_key => $t_val) { if ($t_key > 2) { break; } ?><a href="topic/<?php echo $t_val['url_token']; ?>" class="aw-topic-name" data-id="<?php echo $t_val['topic_id']; ?>"><?php echo $t_val['topic_title']; ?></a> <?php } ?><?php if (sizeof($val['topics']) > 3) { ?> <?php _e('等'); ?> <?php _e('%s 个话题', sizeof($val['topics'])); ?><?php } else { ?><?php _e('话题'); ?><?php } ?>
-					<?php } else { ?><a href="question/<?php echo $val['question_info']['question_id']; ?>" class="aw-text-color-999"><?php _e('添加话题'); ?></a><?php } ?>
-				<?php } else if (!$_GET['filter']) { ?><span class="pull-right hide"><a class="aw-text-color-999" href="javascript:;" onClick="AWS.question_uninterested($(this).parents('div.aw-item'), <?php echo $val['question_info']['question_id']; ?>);"><?php _e('不感兴趣'); ?></a></span><?php } ?>
+					<?php } else { ?><a href="question/<?php echo $val['question_info']['question_id']; ?>" class="text-color-999"><?php _e('添加话题'); ?></a><?php } ?>
+				<?php } else if (!$_GET['filter']) { ?><span class="pull-right hide"><a class="text-color-999" href="javascript:;" onClick="AWS.question_uninterested($(this).parents('div.aw-item'), <?php echo $val['question_info']['question_id']; ?>);"><?php _e('不感兴趣'); ?></a></span><?php } ?>
 			<?php } ?>
 		</p>
 		<h4><a href="<?php echo $val['link']; ?>"><?php echo $val['title']; ?></a></h4>
-		<p class="aw-text-color-999 aw-agree-by<?php if (count($val['answer_info']['agree_users']) == 0) { ?> hide<?php } ?>">
+		<p class="text-color-999 aw-agree-by<?php if (count($val['answer_info']['agree_users']) == 0) { ?> hide<?php } ?>">
 			<?php _e('赞同来自'); ?>:
 			<?php if ($val['answer_info']['agree_users']) { $count = 0; ?>
 			<?php foreach ($val['answer_info']['agree_users'] as $uid => $user) { ?>
@@ -98,14 +98,14 @@
 			</span>
 			<!-- end 投票栏 -->
 			<span class="operate">
-				<a class="aw-add-comment aw-text-color-999" href="javascript:;" data-id="<?php echo $val['answer_info']['answer_id']; ?>" data-type="answer"><i class="icon icon-comment"></i><?php echo $val['answer_info']['comment_count']; ?></a>
+				<a class="aw-add-comment text-color-999" href="javascript:;" data-id="<?php echo $val['answer_info']['answer_id']; ?>" data-type="answer"><i class="icon icon-comment"></i><?php echo $val['answer_info']['comment_count']; ?></a>
 			</span>
 			<span class="pull-right more-operate">
-				<a data-toggle="dropdown" class="aw-text-color-999 dropdown-toggle" onclick="AWS.dialog('shareOut', {item_type:'answer', item_id:<?php echo $val['answer_info']['answer_id']; ?>});"><i class="icon icon-share" ></i><?php _e('分享'); ?></a>
+				<a data-toggle="dropdown" class="text-color-999 dropdown-toggle" onclick="AWS.dialog('shareOut', {item_type:'answer', item_id:<?php echo $val['answer_info']['answer_id']; ?>});"><i class="icon icon-share" ></i><?php _e('分享'); ?></a>
 				<?php if ($this->user_id != $val['uid']) { ?>
-				<a href="javascript:;"<?php if (!$val['user_rated_thanks']) { ?> onclick="AWS.User.answer_user_rate($(this), 'thanks', <?php echo $val['answer_info']['answer_id']; ?>);"<?php } ?> class="aw-icon-thank-tips aw-text-color-999" data-original-title="<?php _e('感谢热心的回复者'); ?>" data-toggle="tooltip" title="" data-placement="bottom"><i class="icon icon-thank"></i><?php if ($val['user_rated_thanks']) { ?><?php _e('已感谢'); ?><?php } else { ?><?php _e('感谢'); ?><?php } ?></a>
+				<a href="javascript:;"<?php if (!$val['user_rated_thanks']) { ?> onclick="AWS.User.answer_user_rate($(this), 'thanks', <?php echo $val['answer_info']['answer_id']; ?>);"<?php } ?> class="aw-icon-thank-tips text-color-999" data-original-title="<?php _e('感谢热心的回复者'); ?>" data-toggle="tooltip" title="" data-placement="bottom"><i class="icon icon-thank"></i><?php if ($val['user_rated_thanks']) { ?><?php _e('已感谢'); ?><?php } else { ?><?php _e('感谢'); ?><?php } ?></a>
 				<?php } ?>
-				<a href="javascript:;" onclick="AWS.dialog('favorite', {item_id:<?php echo $val['answer_info']['answer_id']; ?>, item_type:'answer'});" class="aw-text-color-999"><i class="icon icon-favor"></i><?php _e('收藏'); ?></a>
+				<a href="javascript:;" onclick="AWS.dialog('favorite', {item_id:<?php echo $val['answer_info']['answer_id']; ?>, item_type:'answer'});" class="text-color-999"><i class="icon icon-favor"></i><?php _e('收藏'); ?></a>
 			</span>
 		</div>
 		<!-- end 社交操作 -->	

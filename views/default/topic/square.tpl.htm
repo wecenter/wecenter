@@ -10,9 +10,23 @@
                         <li><a href=""><?php _e('30天'); ?></a></li>
                         <li><a href=""><?php _e('7天'); ?></a></li>
                         <li class="active"><a href=""><?php _e('全部'); ?></a></li>
+                        <?php if ($_GET['channel'] == 'focus') { ?>
+                        <h2 class="hidden-xs"><i class="icon icon-topic"></i> <?php _e('我关注的话题'); ?></h2>
+                        <?php } else { ?>
                         <h2 class="hidden-xs"><i class="icon icon-topic"></i> 热门话题</h2>
+                        <?php } ?>
                     </ul>
                     <!-- end tab切换 -->
+
+                     <!-- <div class="mod-head common-head">
+                            <?php if ($_GET['channel'] == 'hot') { ?>
+                            <h2><?php _e('热门话题'); ?></h2>
+                            <?php } else if ($_GET['channel'] == 'topic') { ?>
+                            <h2><?php _e('话题分类'); ?></h2>
+                            <?php } else { ?>
+                            <h2><?php _e('我关注的话题'); ?></h2>
+                            <?php } ?>
+                        </div> -->
 
                     <!-- 话题分类 -->
                     <?php if ($this->parent_topics) { ?>
@@ -35,15 +49,6 @@
 
                     <!-- 我关注的话题 -->
                     <div class="aw-mod aw-topic-list">
-                        <!-- <div class="mod-head common-head">
-                            <?php if ($_GET['channel'] == 'hot') { ?>
-                            <h2><?php _e('热门话题'); ?></h2>
-                            <?php } else if ($_GET['channel'] == 'topic') { ?>
-                            <h2><?php _e('话题分类'); ?></h2>
-                            <?php } else { ?>
-                            <h2><?php _e('我关注的话题'); ?></h2>
-                            <?php } ?>
-                        </div> -->
                         <div class="mod-body clearfix">
                             <?php if ($this->topics_list) { ?>
                             <?php foreach ($this->topics_list AS $key => $val) { ?>
@@ -69,15 +74,16 @@
                             </div>
                             <?php } ?>
                             <?php } ?>
-                            <?php if ((!$_GET['channel'] OR $_GET['channel'] == 'focus') AND $this->user_info['topic_focus_count'] < 5) { ?>
-                            <div class="aw-notopic-sort"><?php _e('你当前的话题较少, 推荐去<a href="topic/channel-hot">热门话题</a>看看'); ?></div>
-                            <?php } ?>
                         </div>
                         <div class="mod-footer">
                             <?php echo $this->pagination; ?>
                         </div>
                     </div>
                     <!-- end 我关注的话题 -->
+
+                     <?php if ((!$_GET['channel'] OR $_GET['channel'] == 'focus') AND $this->user_info['topic_focus_count'] < 5) { ?>
+                            <div class="aw-notopic-sort"><?php _e('你当前的话题较少, 推荐去<a href="topic/channel-hot">热门话题</a>看看'); ?></div>
+                            <?php } ?>
                 </div>
                 <!-- 侧边栏 -->
                 <div class="col-sm-3 col-md-3 aw-side-bar hidden-sm hidden-xs">
@@ -132,6 +138,11 @@
                         </div>
                     </div>
                     <!-- end 新增话题 -->
+                    <div class="aw-mod">
+                        <div class="mod-body">
+                            <a href="/topic/channel-focus"><?php _e('我关注的话题'); ?></a>
+                        </div>
+                    </div>
                 </div>
                 <!-- end 侧边栏 -->
             </div>

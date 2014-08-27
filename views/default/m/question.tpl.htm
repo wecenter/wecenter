@@ -138,7 +138,7 @@
 								
 								<?php if (($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) OR ($val['uid'] == $this->user_id AND ((time() - $val['add_time']) < (get_setting('answer_edit_time') * 60) OR (!get_setting('answer_edit_time'))))) { ?>
 								<span class="operate">
-									<a class="aw-text-color-999" href="javascript:;" onclick="AWS.dialog('commentEdit', {answer_id:<?php echo $val['answer_id']; ?>,attach_access_key:'<?php echo $this->attach_access_key; ?>'});"><i class="icon icon-edit"></i></a>
+									<a class="text-color-999" href="javascript:;" onclick="AWS.dialog('commentEdit', {answer_id:<?php echo $val['answer_id']; ?>,attach_access_key:'<?php echo $this->attach_access_key; ?>'});"><i class="icon icon-edit"></i></a>
 								</span>
 								<?php } ?>
 

@@ -16,7 +16,7 @@
                             <?php } ?>
                         </span>
                         <h1><?php echo $this->user['user_name']; ?> <?php if ($this->user['verified']) { ?><i class="icon-v <?php if ($this->user['verified'] == 'enterprise') { ?> i-ve<?php } ?>" title="<?php if ($this->user['verified'] == 'enterprise') { ?>企业认证<?php } else { ?>个人认证<?php } ?>"></i><?php } ?></h1>
-                        <p class="aw-text-color-999"><?php echo $this->user['signature']; ?></p>
+                        <p class="text-color-999"><?php echo $this->user['signature']; ?></p>
                         <p class="aw-user-flag">
                             <?php if ($this->user['province']) { ?>
                             <span>
@@ -140,7 +140,7 @@
                                         <?php foreach ($this->user_actions_answers AS $key => $val) { ?>
                                         <li>
                                             <p>
-                                                <span class="pull-right aw-text-color-999"><?php echo date_friendly($val['add_time'], 604800, 'Y-m-d'); ?></span>
+                                                <span class="pull-right text-color-999"><?php echo date_friendly($val['add_time'], 604800, 'Y-m-d'); ?></span>
                                                 <em class="pull-left"><?php echo $val['last_action_str']; ?>,</em>
                                                 <a class="aw-hide-txt" href="question/<?php echo $val['question_info']['question_id']; ?>"><?php echo $val['question_info']['question_content']; ?></a>
                                             </p>
@@ -280,8 +280,8 @@
                                     <?php if ((get_setting('qq_t_enabled') == 'Y' OR get_setting('sina_weibo_enabled') == 'Y') AND ($this->sina_weibo_url OR $this->qq_weibo_url)) { ?>
                                     <dl>
                                         <dt><span><?php _e('绑定认证'); ?>:</span></dt>
-                                        <?php if ($this->sina_weibo_url AND get_setting('sina_weibo_enabled') == 'Y') { ?><dd><a href="<?php if ($this->sina_weibo_url) { ?><?php echo $this->sina_weibo_url; ?><?php } else { ?>javascript:;<?php } ?>" class="aw-text-color-999"><i class="icon icon-weibo"></i><?php _e('新浪微博'); ?></a></dd><?php } ?>
-                                        <?php if ($this->qq_weibo_url AND get_setting('qq_t_enabled') == 'Y') { ?><dd><a href="<?php if ($this->user_info['weibo_visit']) { ?><?php echo $this->qq_weibo_url; ?><?php } else { ?>javascript:;<?php } ?>" class="aw-text-color-999"><i class="icon icon-txweibo"></i><?php _e('腾讯微博'); ?></a></dd><?php } ?>
+                                        <?php if ($this->sina_weibo_url AND get_setting('sina_weibo_enabled') == 'Y') { ?><dd><a href="<?php if ($this->sina_weibo_url) { ?><?php echo $this->sina_weibo_url; ?><?php } else { ?>javascript:;<?php } ?>" class="text-color-999"><i class="icon icon-weibo"></i><?php _e('新浪微博'); ?></a></dd><?php } ?>
+                                        <?php if ($this->qq_weibo_url AND get_setting('qq_t_enabled') == 'Y') { ?><dd><a href="<?php if ($this->user_info['weibo_visit']) { ?><?php echo $this->qq_weibo_url; ?><?php } else { ?>javascript:;<?php } ?>" class="text-color-999"><i class="icon icon-txweibo"></i><?php _e('腾讯微博'); ?></a></dd><?php } ?>
                                     </dl>
                                     <?php } ?>
                                 <dl>

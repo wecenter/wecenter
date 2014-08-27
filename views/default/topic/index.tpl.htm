@@ -25,7 +25,7 @@
 						<div class="mod-body">
 							<img src="<?php echo get_topic_pic_url('mid', $this->topic_info['topic_pic']); ?>" alt="<?php echo $this->topic_info['topic_title']; ?>" />
 							<h2 class="pull-left"><?php echo $this->topic_info['topic_title']; ?> <?php if ($this->topic_info['topic_lock']) { ?><i class="aw-icon i-lock" title="<?php _e('已锁定'); ?>"></i><?php } ?></h2>
-							<div class="aw-topic-operate aw-text-color-999">
+							<div class="aw-topic-operate text-color-999">
 								<?php _e('%s 人关注该话题', $this->topic_info['focus_count']); ?><br />
 								<?php if ($this->user_id) { ?>
 								<a href="javascript:;" onclick="AWS.User.follow($(this), 'topic', <?php echo $this->topic_info['topic_id']; ?>);" class="btn btn-mini btn-default<?php if (!$this->topic_info['has_focus']) { ?> active<?php } ?>"><?php if ($this->topic_info['has_focus']) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?></a>
@@ -80,10 +80,10 @@
 													<li>
 														<?php if ($val['question_id']) { ?>
 														<a href="question/<?php echo $val['question_id']; ?>"><?php echo $val['question_content']; ?></a>
-														<span class="pull-right aw-text-color-999"><?php _e('% 个回复', $val['comment_count']); ?></span>
+														<span class="pull-right text-color-999"><?php _e('% 个回复', $val['comment_count']); ?></span>
 														<?php } else { ?>
 														<a href="article/<?php echo $val['id']; ?>"><?php echo $val['title']; ?></a>
-														<span class="pull-right aw-text-color-999"><?php _e('% 评论', $val['comments']); ?></span>
+														<span class="pull-right text-color-999"><?php _e('% 评论', $val['comments']); ?></span>
 														<?php } ?>
 														
 														
@@ -272,7 +272,7 @@
 								<?php if ($this->log_list) { ?>
 								<?php foreach ($this->log_list as $key => $val) { ?>
 								<li onclick="AWS.dialog('topicEditHistory', decodeURIComponent('<?php echo rawurlencode($val['add_time'] . ': ' . $val['title']); ?>'));">
-									<span class="pull-right aw-text-color-999"><?php echo $val['add_time']; ?></span>
+									<span class="pull-right text-color-999"><?php echo $val['add_time']; ?></span>
 									<a href="javascript:;" data-id="<?php echo $val['uid']; ?>" class="aw-user-name pull-left"><?php echo $val['user_name']; ?></a>
 								</li>
 								<?php } ?>
