@@ -8,9 +8,9 @@
 			</h4>
 		</div>
 		<div class="mod-body">
-			<a href="<?php echo $val['link']; ?>" class="aw-border-radius-5 count"><?php echo $val['answer_info']['agree_count']; ?></a>
-			<p class="aw-hide-txt"><?php echo cjk_substr($val['answer_info']['answer_content'], 0, 130, 'UTF-8', '...'); ?></p>
-			<p class="aw-text-color-999"><?php echo date_friendly($val['answer_info']['add_time']); ?></p>
+			<span class="aw-border-radius-5 count pull-left"><i class="icon icon-agree"></i><?php echo $val['answer_info']['agree_count']; ?></span>
+			<p class="text-color-999"><?php echo cjk_substr($val['answer_info']['answer_content'], 0, 130, 'UTF-8', '...'); ?></p>
+			<p class="text-color-999"><?php echo date_friendly($val['answer_info']['add_time']); ?></p>
 		</div>
 	</div>
 </div>

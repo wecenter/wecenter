@@ -88,7 +88,7 @@ var AW_TEMPLATE = {
 								'<p>' + _t('链接地址') + '</p>'+
 								'<input class="form-control" type="text" value="http://" name="{{url}}" />'+
 							'</form>'+
-							'<p class="aw-text-color-999">{{type_tips}}</p>'+
+							'<p class="text-color-999">{{type_tips}}</p>'+
 						'</div>'+
 						'<div class="modal-footer">'+
 							'<a data-dismiss="modal" aria-hidden="true" class="btn">' + _t('取消') + '</a>'+
@@ -179,7 +179,7 @@ var AW_TEMPLATE = {
 						'<p>' + _t('将问题重定向至') + '</p>'+
 						'<div class="aw-question-drodpwon">'+
 							'<input id="question-input" class="form-control" type="text" data-id="{{data_id}}" placeholder="' + _t('搜索问题') + '" />'+
-							'<div class="aw-dropdown"><i class="aw-icon i-dropdown-triangle active"></i><p class="title">' + _t('没有找到相关结果') + '</p><ul class="aw-dropdown-list"></ul></div>'+
+							'<div class="aw-dropdown"><p class="title">' + _t('没有找到相关结果') + '</p><ul class="aw-dropdown-list"></ul></div>'+
 						'</div>'+
 						'<p class="clearfix"><a href="javascript:;" class="btn btn-large btn-success pull-right" onclick="$(\'.alert-box\').modal(\'hide\');">' + _t('放弃操作') + '</a></p>'+
 					'</div>'+
@@ -204,7 +204,7 @@ var AW_TEMPLATE = {
 								'<div>'+
 									'<textarea class="form-control" placeholder="' + _t('写下你的问题') + '..." rows="1" name="question_content" id="quick_publish_question_content" onkeydown="if (event.keyCode == 13) { return false; }"></textarea>'+
 									'<div class="aw-publish-suggest-question hide">'+
-										'<p class="aw-text-color-999">你的问题可能已经有答案</p>'+
+										'<p class="text-color-999">你的问题可能已经有答案</p>'+
 										'<ul class="aw-dropdown-list">'+
 										'</ul>'+
 									'</div>'+
@@ -255,7 +255,6 @@ var AW_TEMPLATE = {
 								'<input type="hidden" name="post_hash" value="' + G_POST_HASH + '" />'+
 								'<input id="invite-input" class="form-control" type="text" placeholder="' + _t('搜索用户') + '" name="recipient" value="{{recipient}}" />'+
 								'<div class="aw-dropdown">'+
-									'<i class="aw-icon i-dropdown-triangle"></i>'+
 									'<p class="title">' + _t('没有找到相关结果') + '</p>'+
 									'<ul class="aw-dropdown-list">'+
 									'</ul>'+
@@ -304,7 +303,6 @@ var AW_TEMPLATE = {
 			'<a class="btn btn-large btn-success submit-edit">' + _t('添加') + '</a>'+
 			'<a class="btn btn-large btn-default close-edit">' + _t('取消') + '</a>'+
 			'<div class="aw-dropdown">'+
-				'<i class="aw-icon i-dropdown-triangle active"></i>'+
 				'<p class="title">' + _t('没有找到相关结果') + '</p>'+
 				'<ul class="aw-dropdown-list">'+
 				'</ul>'+
@@ -340,18 +338,15 @@ var AW_TEMPLATE = {
 						'</div>'+
 					'</div>'+
 				'</form>'+
-				'<i class="i-dropdown-triangle"></i>'+
 			'</div>',
 			
 	'commentBoxClose' : 
 			'<div class="aw-comment-box" id="{{comment_form_id}}">'+
 				'<div class="aw-comment-list"><p align="center" class="aw-padding10"><i class="aw-loading"></i></p></div>'+
-				'<i class="i-dropdown-triangle"></i>'+
 			'</div>',
 
 	'dropdownList' : 
 		'<div aria-labelledby="dropdownMenu" role="menu" class="aw-dropdown">'+
-			'<i class="i-dropdown-triangle"></i>'+
 			'<ul class="aw-dropdown-list">'+
 			'{{#items}}'+
 				'<li><a data-value="{{id}}">{{title}}</a></li>'+
@@ -384,13 +379,13 @@ var AW_TEMPLATE = {
 			'</div>',
 
 	'searchDropdownListQuestions' : 
-		'<li class="{{active}} question clearfix"><i class="icon-g-replay pull-left"></i><a class="aw-hide-txt pull-left" href="{{url}}">{{content}} </a><span class="pull-right aw-text-color-999">{{discuss_count}} ' + _t('个回复') + '</span></li>',
+		'<li class="{{active}} question clearfix"><i class="icon-g-replay pull-left"></i><a class="aw-hide-txt pull-left" href="{{url}}">{{content}} </a><span class="pull-right text-color-999">{{discuss_count}} ' + _t('个回复') + '</span></li>',
 	'searchDropdownListTopics' : 
-		'<li class="topic clearfix"><a href="{{url}}" class="aw-topic-name" data-id="{{topic_id}}"><span>{{name}}</span></a> <span class="pull-right aw-text-color-999">{{discuss_count}} ' + _t('个讨论') + '</span></li>',
+		'<li class="topic clearfix"><a href="{{url}}" class="aw-topic-name" data-id="{{topic_id}}"><span>{{name}}</span></a> <span class="pull-right text-color-999">{{discuss_count}} ' + _t('个讨论') + '</span></li>',
 	'searchDropdownListUsers' : 
 		'<li class="user clearfix"><a href="{{url}}"><img src="{{img}}" />{{name}}<span class="aw-hide-txt">{{intro}}</span></a></li>',
 	'searchDropdownListArticles' : 
-		'<li class="question clearfix"><a class="aw-hide-txt pull-left" href="{{url}}">{{content}} </a><span class="pull-right aw-text-color-999">{{comments}} ' + _t('条评论') + '</span></li>',
+		'<li class="question clearfix"><a class="aw-hide-txt pull-left" href="{{url}}">{{content}} </a><span class="pull-right text-color-999">{{comments}} ' + _t('条评论') + '</span></li>',
 	'inviteDropdownList' :
 		'<li class="user"><a data-url="{{url}}" data-id="{{uid}}" data-actions="{{action}}" data-value="{{name}}"><img class="img" src="{{img}}" />{{name}}</a></li>',
 	'editTopicDorpdownList' : 
