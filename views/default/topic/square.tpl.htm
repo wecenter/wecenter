@@ -75,15 +75,15 @@
                             <?php } ?>
                             <?php } ?>
                         </div>
-                        <div class="mod-footer">
+                        <div class="mod-footer clearfix">
                             <?php echo $this->pagination; ?>
                         </div>
                     </div>
                     <!-- end 我关注的话题 -->
 
-                     <?php if ((!$_GET['channel'] OR $_GET['channel'] == 'focus') AND $this->user_info['topic_focus_count'] < 5) { ?>
-                            <div class="aw-notopic-sort"><?php _e('你当前的话题较少, 推荐去<a href="topic/channel-hot">热门话题</a>看看'); ?></div>
-                            <?php } ?>
+                    <?php if ((!$_GET['channel'] OR $_GET['channel'] == 'focus') AND $this->user_info['topic_focus_count'] < 5) { ?>
+                        <!-- <div class="aw-notopic-sort"><?php _e('你当前的话题较少, 推荐去<a href="topic/channel-hot">热门话题</a>看看'); ?></div> -->
+                    <?php } ?>
                 </div>
                 <!-- 侧边栏 -->
                 <div class="col-sm-3 col-md-3 aw-side-bar hidden-sm hidden-xs">
