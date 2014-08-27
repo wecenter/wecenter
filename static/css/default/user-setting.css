@@ -1,19 +1,21 @@
+.aw-user-setting .tab-content{padding:0 40px;}
+.aw-user-setting .aw-mod .mod-footer{margin-bottom: 30px;}
+.aw-user-setting .aw-mod .aw-mod{padding:30px 0;border-top: 1px solid #e6e6e6;}
+.aw-user-setting .aw-mod .aw-mod:first-child{border-top: none;}
+.aw-user-setting .aw-mod .form-group{margin:15px 0;line-height: 30px;}
 /* 用户设置页面 */
-.aw-user-setting h3{height:40px;line-height:40px;background: #F7F7F7;margin:0;padding-left: 20px;color: #666;}
+.aw-user-setting h3{font-size: 16px;color: #333333;}
 .aw-user-setting .form-horizontal .control-group{position: relative;}
 .aw-user-setting .form-horizontal p{margin: 0;}
 .aw-user-setting .form-horizontal p span{margin-left: 10px;}
 .aw-user-setting .upload-attach{position:absolute; left:0; top:7px;width: 70px; height:25px; font-size:100px; opacity:0; filter:alpha(opacity=0);cursor:pointer;}
-.aw-user-setting .aw-user-setting-save{margin:20px 0 0 0;}
-.aw-user-setting .mod-body{padding:30px 60px;border-bottom:1px dotted #DFDFDF;}
-.aw-user-setting .mod-body label{min-width: 50px;min-width:60px\0;}
 /* 基本资料 */
 .aw-user-setting .mod-base{position: relative;}
 .aw-user-setting .mod-base dl{height:auto;line-height: 25px;overflow:hidden;margin:0;padding-bottom: 15px;}
 .aw-user-setting .mod-base dl dt, .aw-user-setting .mod-base dl dd{float: left;line-height: 30px;}
 .aw-user-setting .mod-base dl dt{width: 80px;text-align: right;font-weight: normal;}
 .aw-user-setting .mod-base .introduce input{width: 250px;}
-.aw-user-setting .mod-base dl dd select{width:100px;margin:0;}
+.aw-user-setting .mod-base dl dd select{width:110px;margin:0;}
 .aw-user-setting .mod-base .time{width: 380px !important;}
 .aw-user-setting .mod-base .side-bar{position: absolute;right: 0;top: 70px;}
 .aw-user-setting .mod-base .side-bar dt{width: 100px;height: 100px;}
@@ -22,26 +24,32 @@
 .aw-user-setting .mod-base .side-bar span .aw-loading{position:relative;top:4px;margin-right: 5px;}
 .aw-user-setting .mod-base .side-bar form{position:relative;opacity: 0;filter:alpha(opacity=0);width: 0;height: 0;}
 .aw-user-setting .mod-base .side-bar form .file-input{position: absolute;left: 0;top: 0;}
-/*联系方式*/
-.aw-user-setting .mod-contact li{float: left;margin:0 15px 20px 0;min-height: 32px;}
+/* 联系方式 */
+.aw-user-setting .mod-contact li{margin-top:20px;min-height: 32px;}
+.aw-user-setting .mod-contact li:first-child{margin-top: 0;}
 .aw-user-setting .mod-contact li input{display:inline;width: 280px;}
 .aw-user-setting .mod-contact label{width: 70px;text-align: right;}
-/**/
-.aw-user-educate table th, .aw-user-educate table td, .aw-user-work table th, .aw-user-work table td{text-align: center;font-size: 13px;vertical-align: middle;}
-.aw-user-educate table td, .aw-user-work table td{padding:10px;}
+/* 教育经历, 工作 */
+.aw-user-educate table, .aw-user-work table{border:1px solid #e6e6e6;}
+.aw-user-educate table thead, .aw-user-work table thead{background-color: #fafafa;}
+.aw-user-educate table thead th, .aw-user-work table thead th{border-bottom: 1px solid #e6e6e6;text-align: center;}
+.aw-user-educate table td, .aw-user-work table td{padding:10px !important;border-top: 1px solid #e6e6e6 !important;text-align: center;}
 .aw-user-educate input, .aw-user-work input{width:80%;margin:0 auto;}
 .aw-user-educate select, .aw-user-work select{width: 70px;margin:0;}
+/* 隐私,提醒 */
+.aw-user-setting .mod-setting-privacy .aw-mod dl dt{float: left;width: 180px;font-weight: normal;}
+.aw-user-setting .mod-setting-privacy .aw-mod dl dd{padding-left: 180px;}
+.aw-user-setting .mod-setting-privacy .aw-mod dl dd label{margin:0 30px 20px 0;}
 /* 账号绑定 */
-.aw-user-setting .mod-setting-bind .aw-mod-body{padding:20px 30px;overflow:hidden;border-bottom:1px dotted #C1CAD4;}
-.aw-user-setting .mod-setting-bind ul li{min-height: 36px;padding:20px 0;border-top:1px dotted #C1CAD4;color:#666;}
-.aw-user-setting .mod-setting-bind ul li:first-child{border-top: none;}
-.aw-user-setting .mod-setting-bind .form-group{line-height: 36px;}
-.aw-user-setting .mod-setting-bind .form-group .col-lg-4, .aw-user-setting .mod-setting-bind .form-group .col-lg-8, .aw-user-setting .mod-setting-bind .form-group .col-lg-10{padding-left: 0px;}
-.aw-user-setting .mod-setting-bind i{font-size: 20px;}
-.aw-user-setting .mod-setting-bind .fa-weibo{color: #da2420;}
-.aw-user-setting .mod-setting-bind .fa-tencent-weibo{color: #44b8e8;}
-.aw-user-setting .mod-setting-bind .fa-qq{color: #5caada;}
-.aw-user-setting .mod-setting-bind .fa-wechat{font-size:16px;color: #86C76D;}
+.aw-user-setting .mod-setting-bind{padding:80px 0 !important;}
+.aw-user-setting .mod-setting-bind ul{text-align: center;}
+.aw-user-setting .mod-setting-bind ul li{display: inline-block;margin:0 65px;}
+.aw-user-setting .mod-setting-bind ul li i{display:block;width:50px;height:50px;margin:0 auto;line-height:50px;border-radius:4px;font-size: 32px;color: #fff;text-align: center;}
+.aw-user-setting .mod-setting-bind ul li p{height: 20px;margin-top: 5px;}
+.aw-user-setting .mod-setting-bind ul li a{margin-top: 15px;}
+.aw-user-setting .mod-setting-bind .icon-weibo{background-color: #ff6161;}
+.aw-user-setting .mod-setting-bind .icon-qq{background-color: #3c88e5;}
+.aw-user-setting .mod-setting-bind .icon-wechat{background-color: #73db42;}
 /* 我的积分 */
 .aw-user-setting-points table{margin:20px 0;font-size:13px;color: #666;}
 .aw-user-setting-points table .info th{background-color: #F5FAFE !important;border-top: none;font-weight: normal;}

@@ -11,21 +11,19 @@
 			<!-- 搜索框 -->
 			<div class="aw-search-box  hidden-xs hidden-sm">
 				<form class="navbar-search" action="search/" id="global_search_form" method="post">
-					<div class="input-group">
-						<input class="form-control search-query" type="text" placeholder="<?php _e('搜索问题、话题或人'); ?>" autocomplete="off" name="q" id="aw-search-query" />
-						<span class="input-group-addon" title="<?php _e('搜索'); ?>" id="global_search_btns" onClick="$('#global_search_form').submit();"><i class="fa fa-search"></i></span>
-						<div class="aw-dropdown">
-							<div class="mod-head">
-								<i class="i-dropdown-triangle"></i>
-							</div>
-							<div class="mod-body">
-								<p class="title"><?php _e('输入关键字进行搜索'); ?></p>
-								<ul class="aw-dropdown-list hide"></ul>
-								<p class="search"><span><?php _e('搜索'); ?>:</span><a onClick="$('#global_search_form').submit();"></a></p>
-							</div>
-							<div class="mod-footer">
-								<a href="<?php if (get_setting('quick_publish') == 'Y' && $this->user_id) { ?>javascript:;<? } else { ?>publish<?php } ?>" onClick="$('#header_publish').click();" class="pull-right btn btn-normal btn-success publish"><?php _e('发起问题'); ?></a>
-							</div>
+					<input class="form-control search-query" type="text" placeholder="<?php _e('搜索问题、话题或人'); ?>" autocomplete="off" name="q" id="aw-search-query" />
+					<span title="<?php _e('搜索'); ?>" id="global_search_btns" onClick="$('#global_search_form').submit();"><i class="icon icon-search"></i></span>
+					<div class="aw-dropdown">
+						<div class="mod-head">
+							<i class="i-dropdown-triangle"></i>
+						</div>
+						<div class="mod-body">
+							<p class="title"><?php _e('输入关键字进行搜索'); ?></p>
+							<ul class="aw-dropdown-list hide"></ul>
+							<p class="search"><span><?php _e('搜索'); ?>:</span><a onClick="$('#global_search_form').submit();"></a></p>
+						</div>
+						<div class="mod-footer">
+							<a href="<?php if (get_setting('quick_publish') == 'Y' && $this->user_id) { ?>javascript:;<? } else { ?>publish<?php } ?>" onClick="$('#header_publish').click();" class="pull-right btn btn-normal btn-success publish"><?php _e('发起问题'); ?></a>
 						</div>
 					</div>
 				</form>
@@ -57,10 +55,15 @@
 
 					<?php if ($this->user_id) { ?>
 					<li>
-						<a href="notifications/" class="<?php if ($_GET['app'] == 'notifications') { ?>active<?php } ?>"><?php _e('通知'); ?><span class="badge badge-important" style="display:none" id="notifications_unread"><?php echo $this->user_info['notification_unread']; ?></span></a>
+						<a href="notifications/" class="<?php if ($_GET['app'] == 'notifications') { ?>active<?php } ?>"><?php _e('通知'); ?></a>
+						<span class="badge badge-important" style="display:none" id="notifications_unread"><?php echo $this->user_info['notification_unread']; ?></span>
 						<div class="aw-dropdown hidden-xs">
-							<span><i class="i-dropdown-triangle active"></i></span>
-							<ul id="header_notification_list"></ul>
+							<div class="mod-body">
+								<ul id="header_notification_list"></ul>
+							</div>
+							<div class="mod-footer">
+								<a href="notifications/"><?php _e('查看全部'); ?></a>
+							</div>
 						</div>
 					</li>
 					<?php } ?>
@@ -72,9 +75,8 @@
 			<div class="aw-user-nav">
 				<!-- 登陆&注册栏 -->
 				<?php if ($this->user_id) { ?>
-					<a href="people/<?php echo $this->user_info['url_token']; ?>" class="aw-user-nav-dropdown aw-hide-txt">
+					<a href="people/<?php echo $this->user_info['url_token']; ?>" class="aw-user-nav-dropdown">
 						<img alt="<?php echo $this->user_info['user_name']; ?>" src="<?php echo get_avatar_url($this->user_info['uid'], 'mid'); ?>" />
-						<?php echo $this->user_info['user_name']; ?>
 						<?php if ($this->user_info['inbox_unread'] != 0) {?>
 							<span class="badge badge-important"><?php echo $this->user_info['inbox_unread']?></span>
 						<?php } ?>
@@ -82,18 +84,18 @@
 					</a>
 					<div class="dropdown-list pull-right">
 						<ul>
-							<li><a href="inbox/"><i class="fa fa-envelope"></i> <?php _e('私信'); ?><span class="badge badge-important hide" id="inbox_unread">0</span></a></li>
-							<li class="hidden-xs"><a href="account/setting/profile/"><i class="fa fa-cog"></i> <?php _e('设置'); ?></a></li>
+							<li><a href="inbox/"><i class="icon icon-inbox"></i> <?php _e('私信'); ?><span class="badge badge-important hide" id="inbox_unread">0</span></a></li>
+							<li class="hidden-xs"><a href="account/setting/profile/"><i class="icon icon-setting"></i> <?php _e('设置'); ?></a></li>
 							<?php if ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?>
-							<li class="hidden-xs"><a href="admin/"><i class="fa fa-wrench"></i> <?php _e('管理'); ?></a></li>
+							<li class="hidden-xs"><a href="admin/"><i class="icon icon-job"></i> <?php _e('管理'); ?></a></li>
 							<?php } ?>
-							<li><a href="account/logout/"><i class="fa fa-power-off"></i> <?php _e('退出'); ?></a></li>
+							<li><a href="account/logout/"><i class="icon icon-logout"></i> <?php _e('退出'); ?></a></li>
 						</ul>
 					</div>
 				<?php } else { ?>
 					<span>
-						<a href="account/register/"><?php _e('注册'); ?></a>
-						<a href="account/login/"><?php _e('登录'); ?></a>
+						<a class="register btn btn-success" href="account/register/"><?php _e('注册'); ?></a>
+						<a class="login btn btn-primary" href="account/login/"><?php _e('登录'); ?></a>
 					</span>
 				<?php } ?>
 				<!-- end 登陆&注册栏 -->
@@ -102,7 +104,7 @@
 			<!-- 发起 -->
 			<?php if ($this->user_id) { ?>
 			<div class="aw-publish-btn">
-				<a id="header_publish"<?php if (get_setting('quick_publish') == 'Y' AND $this->user_id) { ?>href="publish/"<?php } else { ?>href="publish/<?php if ($_GET['category']) { ?>category_id-<?php echo intval($_GET['category']); ?>__<?php } ?><?php if ($this->topic_info) { ?>topic_title-<?php echo urlencode($this->topic_info['topic_title']); ?>__<?php } ?>"<?php } ?> class="<?php if ($_GET['app'] == 'publish') { ?> active<?php } ?>"<?php if (get_setting('quick_publish') == 'Y' && $this->user_id) { ?> onclick="AWS.dialog('publish', {'category_enable':'<?php echo (get_setting('category_enable') == 'Y') ? '1' : '0'; ?>', 'category_id':'<?php echo intval($_GET['category']); ?>', 'topic_title':'<?php echo $this->topic_info['topic_title']; ?>'}); return false;"<?php } ?>><i class="fa fa-edit"></i><?php _e('发起'); ?></a>
+				<a id="header_publish"<?php if (get_setting('quick_publish') == 'Y' AND $this->user_id) { ?>href="publish/"<?php } else { ?>href="publish/<?php if ($_GET['category']) { ?>category_id-<?php echo intval($_GET['category']); ?>__<?php } ?><?php if ($this->topic_info) { ?>topic_title-<?php echo urlencode($this->topic_info['topic_title']); ?>__<?php } ?>"<?php } ?> class="btn-primary"<?php if (get_setting('quick_publish') == 'Y' && $this->user_id) { ?> onclick="AWS.dialog('publish', {'category_enable':'<?php echo (get_setting('category_enable') == 'Y') ? '1' : '0'; ?>', 'category_id':'<?php echo intval($_GET['category']); ?>', 'topic_title':'<?php echo $this->topic_info['topic_title']; ?>'}); return false;"<?php } ?>><i class="icon icon-ask"></i><?php _e('发起'); ?></a>
 			</div>
 			<?php }?>
 			<!-- end 发起 -->

@@ -6,12 +6,13 @@ body{background:url('img/login_bg.jpg') no-repeat #E9F0F4;}
 .btn-weibo:active{background-color: #E64545;color: #fff;}
 .btn-qq{background-color: #418ae2;color: #fff;color: #fff;}
 .btn-qq:hover{background-color: #2D7FE2;color: #fff;}
-.btn-qq:active{background-color: #E64545;color: #fff;}
+.btn-qq:active{background-color: #1773E2;color: #fff;}
 .btn-wechat{background-color: #73db42;color: #fff;}
 .btn-wechat:hover{color: #fff;}
 .btn-blue{height:40px;line-height:40px;padding:0;border:none;background-color: #66b7ff;color: #fff !important;}
 .btn-blue:hover{background-color: #4DAAFF;}
 .btn-blue:active{background-color: #339DFF;}
+.btn:active, .btn.active{box-shadow: none;}
 .aw-login-box{width: 714px;margin:0 auto;background-color: #ffffff;border:1px solid #b3b3b3;border-radius: 3px;}
 .aw-login-box .logo{width:151px;height:94px;background:url('img/login_logo.png') no-repeat;}
 .aw-login-box .mod-body{padding:50px 60px;}
