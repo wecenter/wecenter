@@ -248,14 +248,8 @@ class main extends AWS_CONTROLLER
 			TPL::assign('today_topic', $today_topic);
 		}
 
-		if (!$_GET['channel'] AND !$this->user_id)
-		{
-			$_GET['channel'] = 'hot';
-		}
-
 		switch ($_GET['channel'])
 		{
-			default:
 			case 'focus':
 				if ($topics_list = $this->model('topic')->get_focus_topic_list($this->user_id, calc_page_limit($_GET['page'], get_setting('contents_per_page'))))
 				{
@@ -270,6 +264,7 @@ class main extends AWS_CONTROLLER
 				TPL::assign('topics_list', $topics_list);
 			break;
 
+            default:
 			case 'hot':
 				if (!$topics_list = AWS_APP::cache()->get('square_hot_topic_list_' . intval($_GET['page'])))
 				{
