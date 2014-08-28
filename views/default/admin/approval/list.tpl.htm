@@ -40,7 +40,7 @@
                             <?php if (in_array($_GET['type'], array('question', 'unverified_modify', 'article', 'received_email'))) { ?>
                             <th><?php _e('标题'); ?></th>
                             <?php } ?>
-                            <th><?php if ($_GET['type'] == 'unverified_modify') { _e('待确认修改数'); } else { _e('内容'); } ?></th>
+                            <th width="50%"><?php if ($_GET['type'] == 'unverified_modify') { _e('待确认修改数'); } else { _e('内容'); } ?></th>
                             <th><?php _e('操作')?></th>
                         </tr>
                     </thead>
