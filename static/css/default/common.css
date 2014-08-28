@@ -37,7 +37,7 @@ select{width: auto;}
 .btn.follow.btn-gray em{color: #d9d9d9;}
 .btn.follow.btn-success em, .btn.follow.btn-gray.active em{color: #78c779;}
 .form-control{padding: 6px;resize:none;box-shadow: none;border-color: #ccc;}
-.form-control:focus{border-color:#66b7ff;box-shadow: none;}
+.form-control:focus{border-color:#499ef3;box-shadow: none;}
 
 /* 公共部分 */
 html{height: 100%;}
@@ -47,7 +47,7 @@ ul, ol{margin:0;padding:0;list-style:none;}
 h1, h2, h3, h4, h5, h6{margin-top:0;font-size:100%;line-height: 1.7;}
 dd{margin-left: 10px;}
 a{cursor: pointer;color: #155faa;}
-a:hover{text-decoration: none;color: #66B7FF;}
+a:hover{text-decoration: none;color: #499ef3;}
 a:focus{outline: none;}
 table td{vertical-align: middle !important;}
 .container{width: 990px !important;}
@@ -93,14 +93,14 @@ a.aw-load-more-content{display: block;}
 .aw-topic-name span:hover{background:#C1E8F9;text-decoration:none;}
 .aw-topic-name .aw-close{margin-left:5px;margin-top:3px\0;color: #295477;opacity: 1;}
 /* tabs切换样式 */
-.aw-nav-tabs{position:relative;z-index:1;min-height:62px;min-height:32px\0;margin:0;padding: 30px 20px 0;border-color: #e6e6e6;}
+.aw-nav-tabs{position:relative;z-index:1;min-height:63px;min-height:33px\0;margin:0;padding: 30px 20px 0;border-color: #e6e6e6;}
 .aw-nav-tabs.active > li{float: right;}
 .aw-nav-tabs > li{margin:0 4px 0 0;font-size: 14px;}
-.aw-nav-tabs > li > a{line-height:40px;padding:0 13px;background-color: #fff;border: none;cursor: pointer;}
+.aw-nav-tabs > li > a{line-height:30px;padding:0 13px;background-color: #fff;border: none;cursor: pointer;}
 .aw-nav-tabs > li > a:hover{border:none;border-bottom:2px solid #155faa;background-color: #fff;color: #333;}
-.aw-nav-tabs > li.active a{line-height:40px;background-color: #fff;border:none;border-bottom:2px solid #155faa;font-weight: bold;color: #333;}
+.aw-nav-tabs > li.active a{line-height:30px;background-color: #fff;border:none;border-bottom:2px solid #155faa;font-weight: bold;color: #333;}
 .aw-nav-tabs > li.active a:hover, .aw-nav-tabs > li.active a:focus{border:none;border-bottom:2px solid #155faa;}
-.aw-nav-tabs h2{position:absolute;top:20px;left:20px;margin:0;font-size:20px;}
+.aw-nav-tabs h2{position:absolute;top:16px;left:20px;margin:0;font-size:20px;}
 .aw-nav-tabs .fa-caret-up, .aw-nav-tabs .fa-caret-down{position: relative;top: -2px;margin-left:5px;}
 /* 自定义tab切换 */
 .aw-tabs{height:38px;line-height:38px;padding:0 20px;border-bottom: 1px solid #e6e6e6;}
@@ -135,11 +135,11 @@ a.aw-load-more-content{display: block;}
 .aw-edit-topic-box .aw-dropdown .aw-dropdown-list{max-height: 296px;overflow-y: auto;}
 /* 翻页 */
 .page-control{text-align: center;}
-.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus{background-color: #66b7ff;color: #fff;border-color: #66b7ff;}
+.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus{background-color: #499ef3;color: #fff;border-color: #499ef3;}
 .pagination > li > a, .pagination > li > span{background-color: #fafafa;color: #999999;border-color: #e6e6e6;}
 
 /* 顶部 */
-.aw-top-menu-wrap{position:relative;z-index:1001;width:100%;min-height:50px;margin-bottom:30px;background-color:#66b7ff;}
+.aw-top-menu-wrap{position:relative;z-index:1001;width:100%;min-height:50px;margin-bottom:30px;background-color:#499ef3;}
 .aw-logo, .aw-search-box,  .aw-top-nav{float: left;}
 .aw-publish-btn, .aw-user-nav, .aw-top-notification{position:relative;float: right;margin:10px 0 10px 10px;}
 .aw-logo{width:90px;height:40px;margin:9px 0 0 0;}
@@ -252,7 +252,7 @@ a.aw-load-more-content{display: block;}
 .aw-feed-list .operate + .operate{margin-left: 5px;}
 .aw-feed-list .operate a{float:left;height:28px;padding:0 10px;color: #999;line-height: 28px;}
 .aw-feed-list .operate a + a{border-left: 1px solid #EBEBEB;}
-.aw-feed-list .operate a.active, .aw-feed-list .operate a.active i{color: #66b7ff;}
+.aw-feed-list .operate a.active, .aw-feed-list .operate a.active i{color: #499ef3;}
 .aw-feed-list .aw-vote-count{position:relative;display:block;min-width:25px;height:25px;line-height:25px;padding:0 3px;padding:0\0;background:#E9F5FF;font-size:14px;text-align:center;cursor: pointer;}
 .aw-feed-list .aw-vote-count.disabled{background: #F2F2F2;color: #999;}
 .aw-feed-list .aw-comment-upload-img-list{height: auto;overflow: hidden;margin:10px 0 0;}
@@ -290,9 +290,9 @@ a.aw-load-more-content{display: block;}
 /* 导航条 */
 .aw-mod.side-nav ul li a{display: block;padding-left:10px;line-height: 30px;color: #666;}
 .aw-mod.side-nav ul li a:hover{background-color:#f5f5f5;}
-.aw-mod.side-nav ul li a.active{background-color:#66b7ff;color: #fff;}
+.aw-mod.side-nav ul li a.active{background-color:#499ef3;color: #fff;}
 .aw-mod.side-nav ul li a .badge{background-color: #ccc;}
-.aw-mod.side-nav ul li a.active .badge{background-color: #fff;color: #66b7ff;}
+.aw-mod.side-nav ul li a.active .badge{background-color: #fff;color: #499ef3;}
 .aw-mod.side-nav ul li a.active i{color: #fff;}
 .aw-mod.side-nav i{position:relative;top:1px;margin-right:10px;color: #999999;font-size: 16px;}
 /* 用户列表 */
@@ -349,7 +349,7 @@ a.aw-load-more-content{display: block;}
 .aw-question-detail .mod-head .operate{position: absolute;right: 0;top: 0;}
 .aw-question-detail .mod-head .operate > a{margin:0 5px 0 0;}
 .aw-question-detail .mod-head .operate .btn-group .btn{width:46px;height:32px;line-height: 18px;padding:0;background-color: #ccc;color: #fff;border:none;font-size: 26px;box-shadow: none;}
-.aw-question-detail .mod-head .operate .btn-group.open .btn{background-color:#66b7ff}
+.aw-question-detail .mod-head .operate .btn-group.open .btn{background-color:#499ef3}
 .aw-question-detail .mod-head .operate .btn-group .icon-cog{margin-right: 0px;color: #666;}
 .aw-question-detail .mod-head .operate .dropdown-menu ul li{padding:5px 10px;}
 .aw-question-detail .mod-head .operate .dropdown-menu ul li a{display: block;}
@@ -364,7 +364,7 @@ a.aw-load-more-content{display: block;}
 .aw-question-detail .more-operate a, .aw-question-detail .more-operate em{margin-left: 15px;}
 .aw-question-detail:hover .more-operate{display: block;}
 .aw-question-detail .aw-edit-topic-box .aw-dropdown{width: 418px;}
-.aw-question-detail .meta a:hover i, .meta a:hover i, .aw-article-list .mod-footer a:hover i,.aw-article-content .aw-feed-list .meta a:hover,.aw-article-content .aw-feed-list .meta a.active:hover i{color: #66b7ff;}
+.aw-question-detail .meta a:hover i, .meta a:hover i, .aw-article-list .mod-footer a:hover i,.aw-article-content .aw-feed-list .meta a:hover,.aw-article-content .aw-feed-list .meta a.active:hover i{color: #499ef3;}
 .aw-article-content .aw-feed-list .meta a.active i {color: #999;}
 
 /* 问题修改日志 */
@@ -474,8 +474,9 @@ a.aw-load-more-content{display: block;}
 .aw-article-list .aw-item .mod-body .content-wrap .content .hide-content{max-height: 440px;overflow: hidden;}
 .aw-article-list .aw-item .mod-body .content-wrap .markitup-box img{max-width: 100% !important;}
 .aw-article-list .aw-item .mod-footer span{color: #999;font-size: 12px;}
+.aw-article-list .aw-item .mod-footer span a i {font-size: 12px;}
 .aw-article-list .aw-item .mod-footer span a{margin-left:15px;color: #999;}
-.aw-article-list .aw-item .mod-footer span a:hover{color: #2A6496;}
+.aw-article-list .aw-item .mod-footer span a:hover{color: #66B7FF;}
 .aw-article-list .aw-item .more{font-size: 12px;}
 
 /* 文章详情页 */
@@ -553,7 +554,7 @@ a.aw-load-more-content{display: block;}
 .aw-topic-detail-title .aw-topic-operate{position:absolute;right:0;top:0;text-align: right;}
 .aw-topic-list-mod .aw-nav-tabs ul{position: relative;}
 .aw-topic-list-mod .aw-nav-tabs > li{float:left;}
-.aw-topic-list-mod .aw-nav-tabs .aw-search-bar{position: absolute;right: 20px;width:240px;}
+.aw-topic-list-mod .aw-nav-tabs .aw-search-bar{position: absolute;right: 20px;bottom: 5px;width:240px;}
 .aw-topic-list-mod .aw-nav-tabs .aw-search-bar input{height: 32px;padding-right: 30px !important;}
 .aw-topic-list-mod .aw-nav-tabs .aw-search-bar .icon-search{position: absolute;right: 8px;top: 8px;font-size: 16px;}
 .aw-topic-list-mod .aw-nav-tabs .aw-search-bar .aw-dropdown-list{max-height: 329px;overflow-y:scroll;}

@@ -91,7 +91,7 @@ class notify_class extends AWS_MODEL
 			'recipient_uid' => intval($recipient_uid),
 			'action_type' => intval($action_type),
 			'model_type' => intval($model_type),
-			'source_id' => intval($source_id),
+			'source_id' => $source_id,
 			'add_time' => time(),
 			'read_flag' => 0
 		)))
