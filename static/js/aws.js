@@ -1286,13 +1286,26 @@ AWS.User =
 	// 删除草稿
 	delete_draft: function(item_id, type)
 	{
-	    $.post(G_BASE_URL + '/account/ajax/delete_draft/', 'item_id=' + item_id + '&type=' + type, function (result)
-	    {
-	        if (result.errno != 1)
-	        {
-	            AWS.alert(result.err);
-	        }
-	    }, 'json');
+		if (type == 'clean')
+		{
+			$.post(G_BASE_URL + '/account/ajax/delete_draft/', 'type=' + type, function (result)
+		    {
+		        if (result.errno != 1)
+		        {
+		            AWS.alert(result.err);
+		        }
+		    }, 'json');
+		}
+		else
+		{
+			$.post(G_BASE_URL + '/account/ajax/delete_draft/', 'item_id=' + item_id + '&type=' + type, function (result)
+		    {
+		        if (result.errno != 1)
+		        {
+		            AWS.alert(result.err);
+		        }
+		    }, 'json');
+		}
 	},
 
 	// 赞成投票
