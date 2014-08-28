@@ -215,7 +215,7 @@ var AW_TEMPLATE = {
 									'<div class="dropdown" id="quick_publish_category_chooser">'+
 									'<div class="dropdown-toggle" data-toggle="dropdown">'+
 										'<span id="aw-topic-tags-select" class="aw-hide-txt">' + _t('选择分类') + '</span>'+
-										'<a><i class="fa fa-chevron-down"></i></a>'+
+										'<a><i class="icon icon-down"></i></a>'+
 									'</div>'+
 								'</div>'+
 								'</div>'+
@@ -333,7 +333,7 @@ var AW_TEMPLATE = {
 						'<div class="aw-comment-box-btn">'+
 							'<span class="pull-right">'+
 								'<a href="javascript:;" class="btn btn-mini btn-success" onclick="AWS.User.save_comment($(this));">' + _t('评论') + '</a>'+
-								'<a href="javascript:;" class="btn btn-mini btn-default close-comment-box">' + _t('取消') + '</a>'+
+								'<a href="javascript:;" class="btn btn-mini btn-gray close-comment-box">' + _t('取消') + '</a>'+
 							'</span>'+
 						'</div>'+
 					'</div>'+
