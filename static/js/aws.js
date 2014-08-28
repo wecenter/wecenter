@@ -811,12 +811,12 @@ var AWS =
 
 	                        if (focus == 1)
 	                        {
-	                            focus = '';
+	                            focus = 'active';
 	                            focusTxt = '取消关注';
 	                        }
 	                        else
 	                        {
-	                            focus = 'aw-active';
+	                            focus = '';
 	                            focusTxt = '关注';
 	                        }
 
@@ -869,15 +869,15 @@ var AWS =
 	                    {
 	                        var focus = result.focus,
 	                            focusTxt;
-	                            if (focus > 0)
+	                            if (focus == false)
 	                            {
-	                                focus = '';
-	                                focusTxt = _t('取消关注');
+	                            	focus = '';
+	                                focusTxt = _t('关注');
 	                            }
 	                            else
 	                            {
-	                                focus = 'aw-active';
-	                                focusTxt = _t('关注');
+	                                focus = 'active';
+	                                focusTxt = _t('取消关注');
 	                            }
 	                            //动态插入盒子
 	                            $('#aw-ajax-box').html(Hogan.compile(AW_TEMPLATE.topicCard).render(
@@ -1214,18 +1214,22 @@ AWS.User =
 	{
 		if (selector.html())
 	    {
-	        if (!selector.hasClass('aw-active'))
+	        if (selector.hasClass('active'))
 	        {
-	            selector.html(_t('关注'));
+	        	selector.find('span').html(_t('关注'));
+
+	        	selector.find('b').html(parseInt(selector.find('b').html()) - 1);
 	        }
 	        else
 	        {
-	            selector.html(_t('取消关注'));
+	        	selector.find('span').html(_t('取消关注'));
+
+	        	selector.find('b').html(parseInt(selector.find('b').html()) + 1);
 	        }
 	    }
 	    else
 	    {
-	        if (!selector.hasClass('aw-active'))
+	        if (selector.hasClass('active'))
 	        {
 	            selector.attr('data-original-title', _t('关注'));
 	        }
@@ -2207,7 +2211,7 @@ AWS.Message =
 	        {
 	            if ($('#header_notification_list').length)
 	            {
-	                $("#header_notification_list").html('<p style="padding: 0" align="center">' + _t('没有未读通知') + '</p>');
+	                $("#header_notification_list").html('<p class="aw-padding10" align="center">' + _t('没有未读通知') + '</p>');
 	            }
 
 	            if ($("#index_notification").length)
@@ -2291,7 +2295,7 @@ AWS.Message =
 	            }
 	            else
 	            {
-	                $("#header_notification_list").html('<p style="padding: 0" align="center">' + _t('没有未读通知') + '</p>');
+	                $("#header_notification_list").html('<p class="aw-padding10" align="center">' + _t('没有未读通知') + '</p>');
 	            }
 	        });
 	    }

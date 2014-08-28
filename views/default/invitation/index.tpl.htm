@@ -2,44 +2,46 @@
 
 <div class="aw-container-wrap">
 	<div class="container">
-		<div class="row aw-content-wrap">
-			<div class="col-sm-12 col-md-9 aw-main-content">
-				<div class="aw-mod aw-mod-invite-friend">
-					<div class="mod-head common-head">
-						<h2><?php _e('邀请好友加入社区'); ?></h2>
+		<div class="row">
+			<div class="aw-content-wrap clearfix">
+				<div class="col-sm-12 col-md-9 aw-main-content">
+					<div class="aw-mod aw-mod-invite-friend">
+						<div class="mod-head common-head">
+							<h2><?php _e('邀请好友加入社区'); ?></h2>
+						</div>
+						<div class="mod-body">
+							<form id="invitation_form" method="post" action="invitation/ajax/invite/" onsubmit="return false">
+								<div class="content">
+									<input class="form-control" type="text" name="email" placeholder="<?php _e('请输入好友邮箱'); ?>..." />
+									<p>
+										<a class="pull-right btn btn-mini btn-success" onclick="AWS.ajax_post($('#invitation_form')); return false;"><?php _e('发送邀请'); ?></a>
+										<?php _e('你还有'); ?> <?php _e('%s 个邀请名额', '<span class="aw-text-color-blue">' . $this->user_info['invitation_available'] . '</span>'); ?>
+									</p>
+								</div>
+							</form>
+						</div>
 					</div>
-					<div class="mod-body">
-						<form id="invitation_form" method="post" action="invitation/ajax/invite/" onsubmit="return false">
-							<div class="content">
-								<input class="form-control" type="text" name="email" placeholder="<?php _e('请输入好友邮箱'); ?>..." />
-								<p>
-									<a class="pull-right btn btn-mini btn-success" onclick="AWS.ajax_post($('#invitation_form')); return false;"><?php _e('发送邀请'); ?></a>
-									<?php _e('你还有'); ?> <?php _e('%s 个邀请名额', '<span class="aw-text-color-blue">' . $this->user_info['invitation_available'] . '</span>'); ?>
-								</p>
-							</div>
-						</form>
-					</div>
-				</div>
-				<div class="aw-mod aw-invite-list">
-					<div class="mod-head common-head">
-						<h2><?php _e('已邀请好友'); ?></h2>
-					</div>
-					<div class="mod-body">
-						<ul id="invitation_list"></ul>
+					<div class="aw-mod aw-invite-list">
+						<div class="mod-head common-head">
+							<h2><?php _e('已邀请好友'); ?></h2>
+						</div>
+						<div class="mod-body">
+							<ul id="invitation_list"></ul>
 
-						<!-- 加载更多内容 -->
-						<a class="aw-load-more-content" id="invitation_more">
-							<span><?php _e('更多'); ?>...</span>
-						</a>
-						<!-- end 加载更多内容 -->
+							<!-- 加载更多内容 -->
+							<a class="aw-load-more-content" id="invitation_more">
+								<span><?php _e('更多'); ?>...</span>
+							</a>
+							<!-- end 加载更多内容 -->
+						</div>
 					</div>
 				</div>
+				<!-- 侧边栏 -->
+				<div class="col-sm-12 col-md-3 aw-side-bar">
+					<?php TPL::output('block/sidebar_menu.tpl.htm'); ?>
+				</div>
+				<!-- end 侧边栏 -->
 			</div>
-			<!-- 侧边栏 -->
-			<div class="col-sm-12 col-md-3 aw-side-bar">
-				<?php TPL::output('block/sidebar_menu.tpl.htm'); ?>
-			</div>
-			<!-- end 侧边栏 -->
 		</div>
 	</div>
 </div>

@@ -46,7 +46,7 @@
 
 							<?php if ($this->user_id) { ?>
 							<div class="operate clearfix">
-								<a href="javascript:;" onclick="AWS.User.follow($(this), 'question', <?php echo $this->question_info['question_id']; ?>);" class="follow btn btn-normal btn-gray pull-left <?php if (!$this->question_focus) { ?> active<?php } ?>"><?php if ($this->question_focus) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?> <em>|</em> <b><?php echo $this->question_info['focus_count']?></b></a>
+								<a href="javascript:;" onclick="AWS.User.follow($(this), 'question', <?php echo $this->question_info['question_id']; ?>);" class="follow btn btn-normal btn-success pull-left <?php if ($this->question_focus) { ?> active<?php } ?>"><span><?php if ($this->question_focus) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?></span> <em>|</em> <b><?php echo $this->question_info['focus_count']?></b></a>
 								<!-- 下拉菜单 -->
 								<div class="btn-group pull-left">
 									<a class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" href="javascript:;">...</a>
@@ -486,7 +486,7 @@
 										<i class="icon-v<?php if ($this->question_info['user_info']['verified'] == 'enterprise') { ?> i-ve<?php } ?>" title="<?php if ($this->question_info['user_info']['verified'] == 'enterprise') { ?>企业认证<?php } else { ?>个人认证<?php } ?>"></i>
 									<?php } ?>
 									<?php if ($this->question_info['user_info']['uid'] != $this->user_id AND $this->user_id) { ?>
-									<a class="icon-inverse follow tooltips icon icon-plus <?php if ($this->user_follow_check) { ?> active<?php } ?>" onclick="AWS.User.follow($(this), 'user', <?php echo $this->question_info['user_info']['uid']; ?>);"></a>
+									<a class="icon-inverse follow tooltips icon icon-plus <?php if ($this->user_follow_check) { ?> active<?php } ?>" onclick="AWS.User.follow($(this), 'user', <?php echo $this->question_info['user_info']['uid']; ?>);" data-original-title="<?php if ($this->user_follow_check) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?>"></a>
 									<?php } ?>
 									<p><?php echo $this->question_info['user_info']['signature']; ?></p>
 								</dd>

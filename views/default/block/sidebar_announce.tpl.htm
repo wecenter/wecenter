@@ -1,26 +1,28 @@
 <?php if (get_setting('site_announce')) { ?>
-<script type="text/javascript">
-var ANNOUNCE_CLOSE = '<?php echo substr(md5(get_setting('site_announce')), 0, 10); ?>';
+	<?php if ($_COOKIE['announce_close'] != substr(md5(get_setting('site_announce')), 0, 10)) { ?>
+		<script type="text/javascript">
+		var ANNOUNCE_CLOSE = '<?php echo substr(md5(get_setting('site_announce')), 0, 10); ?>';
 
-$(document).ready(function()
-{
-	if (ANNOUNCE_CLOSE != $.cookie('announce_close'))
-	{
-		$('#aw-site-announce').show();
-	}
-});
-</script>
+		$(document).ready(function()
+		{
+			if (ANNOUNCE_CLOSE != $.cookie('announce_close'))
+			{
+				$('#aw-site-announce').show();
+			}
+		});
+		</script>
 
-<div class="aw-mod new-announce hide" id="aw-site-announce">
-	<div class="mod-head">
-		<h3>
-			<a href="javascript:;" onclick="$('#aw-site-announce').fadeOut(); $.cookie('announce_close', ANNOUNCE_CLOSE, { expires: 30 });"><i class="close">×</i></a>
-			
-			<?php _e('公告'); ?>
-		</h3>
-	</div>
-	<div class="mod-body">
-		<?php echo get_setting('site_announce'); ?>
-	</div>
-</div>
+		<div class="aw-mod new-announce hide" id="aw-site-announce">
+			<div class="mod-head">
+				<h3>
+					<a href="javascript:;" onclick="$('#aw-site-announce').fadeOut(); $.cookie('announce_close', ANNOUNCE_CLOSE, { expires: 30 });"><i class="close">×</i></a>
+					
+					<?php _e('公告'); ?>
+				</h3>
+			</div>
+			<div class="mod-body">
+				<?php echo get_setting('site_announce'); ?>
+			</div>
+		</div>
+	<?php } ?>
 <?php } ?>

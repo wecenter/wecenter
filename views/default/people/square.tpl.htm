@@ -31,7 +31,7 @@
 								
 								<?php if ($val['uid'] != $this->user_id AND $this->user_id) { ?>
 								<div class="operate">
-									<a href="javascript:;" onclick="AWS.User.follow($(this), 'user', <?php echo $val['uid'];?>);" class="follow btn btn-normal btn-gray<?php if (!$val['focus']) { ?> active<?php } ?>"><?php if ($val['focus']) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?> <em>|</em> <b><?php echo $val['fans_count']; ?></b></a>
+									<a href="javascript:;" onclick="AWS.User.follow($(this), 'user', <?php echo $val['uid'];?>);" class="follow btn btn-normal btn-success<?php if ($val['focus']) { ?> active<?php } ?>"><span><?php if ($val['focus']) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?></span> <em>|</em> <b><?php echo $val['fans_count']; ?></b></a>
 									<a onclick="AWS.dialog('publish', {category_enable:<?php echo (get_setting('category_enable') == 'Y') ? '1' : '0'; ?>, ask_user_id:<?php echo $val['uid']; ?>, ask_user_name:'<?php echo $val['user_name']; ?>'});" class="text-color-999"><?php _e('问Ta'); ?></a>
 									<em class="text-color-999">•</em>	 
 									<a onclick="AWS.dialog('inbox', '<?php echo $val['user_name']; ?>');" class="text-color-999"><?php _e('私信'); ?></a>

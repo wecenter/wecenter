@@ -114,7 +114,7 @@ $(document).ready(function ()
     });
 
     //用户小卡片关注更新缓存
-    $(document).on('click', '.aw-card-tips-user .focus', function ()
+    $(document).on('click', '.aw-card-tips-user .follow', function ()
     {
         var uid = $(this).parents('.aw-card-tips').find('.name').attr('data-id');
        
@@ -135,7 +135,7 @@ $(document).ready(function ()
     });
 
     //话题小卡片关注更新缓存
-    $(document).on('click', '.aw-card-tips-topic .focus', function ()
+    $(document).on('click', '.aw-card-tips-topic .follow', function ()
     {
         var topic_id = $(this).parents('.aw-card-tips').find('.name').attr('data-id');
         
@@ -156,7 +156,7 @@ $(document).ready(function ()
     });
     
     /*icon tooltips提示*/
-    $(document).on('mouseover', '.voter, .fa-check, .fa-thumbs-o-up , .fa-thumbs-o-down, .aw-icon-thank-tips, .invite-list-user', function ()
+    $(document).on('mouseover', '.follow, .voter, .fa-check, .fa-thumbs-o-up , .fa-thumbs-o-down, .aw-icon-thank-tips, .invite-list-user', function ()
     {
         $(this).tooltip('show');
     });

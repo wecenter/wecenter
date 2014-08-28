@@ -20,24 +20,28 @@ select{width: auto;}
 /* modal */
 .modal-backdrop, .modal-backdrop.fade.in{filter:alpha(opacity=20);opacity: 0.2; }
 /* 重载bootstrap按钮 */
+.btn{border: none !important;}
 .btn:active, .btn.active{box-shadow: none;}
 .btn-mini{min-width: 64px;height:24px;padding:0 10px;line-height:24px;font-weight: normal;font-size:12px;}
 .btn-normal{min-width:76px;height:32px;padding:0 10px;line-height: 32px;font-size: 14px;}
 .btn-large{min-width:120px;height:38px;padding:0 10px;line-height:38px;font-size:14px;}
 .close{font-size: 18px;}
-.btn-success, .btn-gray.active{border:none;background-color: #58b957;}
-.btn-success:hover, .btn-success:active, .btn-gray.active:hover{background-color: #119E10 !important;color: #fff !important;}
-.btn-success.active{background-color: #ccc;color: #fff;box-shadow: none;}
-.btn-success.active:hover{background-color: #999 !important;}
-.btn-primary{border:none;background-color: #59b0ff;}
+.btn-success, .btn-gray.active{background-color: #5bbf5a;color: #fff;}
+.btn-success:hover, .btn-gray.active:hover{background-color: #38b836 !important;color: #fff !important;}
+.btn-success:active, .btn-success:focus{background-color: #32a831 !important;}
+.btn-success.active{background-color: #eee;color: #999;box-shadow: none;}
+.btn-success.active:hover{background-color: #e6e6e6 !important;color: #999 !important;}
+.btn-success.active:active, .btn-success.active:focus{background-color: #d9d9d9 !important;color: #999;}
+.btn-primary{background-color: #59b0ff;}
 .btn-primary:hover{background-color: #4daaff;}
 .btn-primary:active, .btn-primary:focus{background-color: #1a90ff;}
-.btn-gray{background-color: #cccccc;color: #fff;}
-.btn-gray:hover{color: #fff;}
-.btn.follow b{font-size: 12px;font-weight: normal;}
-.btn.follow em{margin:0 3px;}
-.btn.follow.btn-gray em{color: #d9d9d9;}
-.btn.follow.btn-success em, .btn.follow.btn-gray.active em{color: #78c779;}
+.btn-gray{background-color: #eeeeee;color: #999;}
+.btn-gray:hover{background-color: #e6e6e6;color: #999;}
+.btn-gray:active, .btn-gray:focus{background-color: #d9d9d9;}
+.btn.follow b{position:relative;top:-1px;font-size: 12px;font-weight: normal;}
+.btn.follow em{position:relative;top:-1px;margin:0 3px;font-size: 12px;}
+.btn.follow.btn-gray em{color: #e0e0e0;}
+.btn.follow.btn-success em, .btn.follow.btn-gray.active em{color: #e0e0e0;}
 .form-control{padding: 6px;resize:none;box-shadow: none;border-color: #ccc;}
 .form-control:focus{border-color:#499ef3;box-shadow: none;}
 
@@ -50,7 +54,7 @@ h1, h2, h3, h4, h5, h6{margin-top:0;font-size:100%;line-height: 1.7;}
 dd{margin-left: 10px;}
 a{cursor: pointer;color: #155faa;}
 a:hover{text-decoration: none;color: #499ef3;}
-a:focus{outline: none;}
+a:focus{outline: none !important;}
 table td{vertical-align: middle !important;}
 .container{width: 990px !important;}
 .aw-wecenter{margin:0 auto;}/*兼容2.5*/
@@ -60,7 +64,7 @@ table td{vertical-align: middle !important;}
 .aw-side-bar{margin-left:-1px;padding:20px;border-left: 1px solid #e6e6e6;}
 .aw-mod .mod-head h4, .aw-mod .mod-head h4 a{font-size:14px;}
 .aw-back-top{position:fixed;display:none;padding:0 5px;right:20px;bottom:20px;background-color: #d9d9d9;border-radius: 3px;}
-.aw-back-top .fa-arrow-up{padding:10px;color: #a6a6a6;font-size: 20px;}
+.aw-back-top .icon-up{display:block;padding:10px;color: #a6a6a6;font-size: 20px;}
 .aw-back-top:hover{background-color: #d0d0d0;}
 .aw-text-align-justify{text-align: justify;}
 .text-color-999{font-size: 12px;color: #999;}
@@ -95,7 +99,7 @@ a.aw-load-more-content{display: block;}
 .aw-topic-name span:hover{background:#C1E8F9;text-decoration:none;}
 .aw-topic-name .aw-close{margin-left:5px;margin-top:3px\0;color: #295477;opacity: 1;}
 /* tabs切换样式 */
-.aw-nav-tabs{position:relative;z-index:1;min-height:63px;min-height:33px\0;margin:0;padding: 30px 20px 0;border-color: #e6e6e6;}
+.aw-nav-tabs{position:relative;z-index:1;min-height:63px;min-height:32px\0;margin:0;padding: 30px 20px 0;border-color: #e6e6e6;}
 .aw-nav-tabs.active > li{float: right;}
 .aw-nav-tabs > li{margin:0 4px 0 0;font-size: 14px;}
 .aw-nav-tabs > li > a{line-height:30px;padding:0 13px;background-color: #fff;border: none;cursor: pointer;}
@@ -156,16 +160,18 @@ a.aw-load-more-content{display: block;}
 .aw-top-nav > nav > ul > li > a{padding:16px;color: #fff;}
 .aw-top-nav > nav > ul > li > a.active{background: #4dabff;font-weight: bold;}
 .aw-top-nav > nav > ul > li > a:hover, .aw-top-nav > nav > ul > li > a:focus{background: #4dabff;}
+.aw-top-nav > nav > ul > li > a i{position:relative;top:2px;font-size: 16px;}
+.aw-top-nav > nav > ul > li > a i.icon-home{top: 1px;}
 .aw-top-nav .badge{position: absolute;top: 4px;right: 2px;}
 .aw-top-nav ul li:hover .aw-dropdown{display: block;}
 .aw-top-nav .aw-dropdown{display:none;left:auto;right:0;z-index: 9999;min-width:300px;border-top: none;border-radius: 0 0 4px 4px;}
-.aw-top-nav .aw-dropdown p{margin: 0;padding:0;}
 .aw-top-nav .aw-dropdown .more{font-size: 12px;}
 .aw-top-nav .aw-dropdown .close{display: none;}
 .aw-top-nav .aw-dropdown ul li{padding:5px 10px;border-top:1px solid #f5f5f5;}
 .aw-top-nav .aw-dropdown ul li:first-child{border-top: none;}
 .aw-top-nav .aw-dropdown ul li:hover{background: #F5FAFF;}
 .aw-top-nav .aw-dropdown ul li:hover .read{display: inline-block;}
+.aw-top-nav .aw-dropdown ul li p{margin: 0;padding:0;}
 .aw-top-nav .aw-dropdown ul li .message{display:inline-block;width: 260px;font-size: 12px;}
 .aw-top-nav .aw-dropdown ul li .read{display: none;}
 .aw-top-nav .aw-dropdown ul li:last-child{border-radius: 0 0 4px 4px;}
@@ -353,7 +359,7 @@ a.aw-load-more-content{display: block;}
 .aw-question-detail .mod-head h1{max-width:500px;margin:0;font-size:20px;line-height: 30px;}
 .aw-question-detail .mod-head .operate{position: absolute;right: 0;top: 0;}
 .aw-question-detail .mod-head .operate > a{margin:0 5px 0 0;}
-.aw-question-detail .mod-head .operate .btn-group .btn{width:46px;height:32px;line-height: 18px;padding:0;background-color: #ccc;color: #fff;border:none;font-size: 26px;box-shadow: none;}
+.aw-question-detail .mod-head .operate .btn-group .btn{width:46px;height:32px;line-height: 18px;padding:0;background-color: #eee;color: #999;border:none;font-size: 26px;box-shadow: none;}
 .aw-question-detail .mod-head .operate .btn-group.open .btn{background-color:#499ef3}
 .aw-question-detail .mod-head .operate .btn-group .icon-cog{margin-right: 0px;color: #666;}
 .aw-question-detail .mod-head .operate .dropdown-menu ul li{padding:5px 10px;}
@@ -637,12 +643,13 @@ a.aw-load-more-content{display: block;}
 .aw-notifications-list ul li:first-child{border-top: none;}
 .aw-notifications-list ul li.active{font-weight: bold;color: #333333;}
 .aw-notifications-list ul li.active span{font-weight: normal;}
+.aw-notifications-list ul li.active .icon-tips{display: block;}
 .aw-notifications-list ul li p{margin:0;}
 .aw-notifications-list ul li p.moreContent{margin:0 0 5px;}
 .aw-notifications-list ul li .read, .aw-notifications-list ul li .more{font-size: 12px;color: #999;font-weight: normal;}
 .aw-notifications-list ul li .read{display:none;}
 .aw-notifications-list ul li:hover .read{display: inline-block;}
-.aw-notifications-list ul li .icon-tips{position: absolute;right: 0;top: 15px;}
+.aw-notifications-list ul li .icon-tips{display:none;position: absolute;right: 0;top: 15px;}
 
 /* 邀请好友加入社区 */
 .aw-mod-invite-friend .content{width: 400px;margin:0 auto;padding:40px 0;}
