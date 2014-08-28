@@ -30,7 +30,7 @@ var AW_TEMPLATE = {
 						'<span class="pull-right">'+
 							'<a href="javascript:;" onclick="AWS.dialog(\'inbox\', \'{{user_name}}\');">' + _t('私信') + '</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:;" onclick="AWS.dialog(\'publish\', {category_enable:{{category_enable}}, ask_user_id:{{uid}}, ask_user_name:{{ask_name}} });">' + _t('问Ta') + '</a>'+
 						'</span>'+
-						'<a class="btn btn-mini btn-default focus {{focus}}" onclick="AWS.User.follow($(this), \'user\', {{uid}});">{{focusTxt}}</a>'+
+						'<a class="btn btn-mini btn-success follow {{focus}}" onclick="AWS.User.follow($(this), \'user\', {{uid}});"><span>{{focusTxt}}</span></a>'+
 					'</div>'+
 				'</div>'+
 			'</div>',
@@ -53,7 +53,7 @@ var AW_TEMPLATE = {
 						'<span class="pull-right">'+
 							_t('问题数') + ' {{discuss_count}} • ' + _t('关注者') + ' {{focus_count}}'+
 						'</span>'+
-						'<a class="btn btn-mini btn-default focus {{focus}}" onclick="AWS.User.follow($(this), \'topic\', {{topic_id}});">{{focusTxt}}</a>'+
+						'<a class="btn btn-mini btn-success follow {{focus}}" onclick="AWS.User.follow($(this), \'topic\', {{topic_id}});"><span>{{focusTxt}}</span></a>'+
 					'</div>'+
 				'</div>'+
 			'</div>',
@@ -300,8 +300,8 @@ var AW_TEMPLATE = {
 	'editTopicBox' : 
 		'<div class="aw-edit-topic-box form-inline">'+
 			'<input type="text" class="form-control" id="aw_edit_topic_title" autocomplete="off"  placeholder="' + _t('创建或搜索添加新话题') + '...">'+
-			'<a class="btn btn-large btn-success submit-edit">' + _t('添加') + '</a>'+
-			'<a class="btn btn-large btn-default close-edit">' + _t('取消') + '</a>'+
+			'<a class="btn btn-normal btn-success submit-edit">' + _t('添加') + '</a>'+
+			'<a class="btn btn-normal btn-gray close-edit">' + _t('取消') + '</a>'+
 			'<div class="aw-dropdown">'+
 				'<p class="title">' + _t('没有找到相关结果') + '</p>'+
 				'<ul class="aw-dropdown-list">'+
