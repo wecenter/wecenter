@@ -2,130 +2,140 @@
 
 <div class="aw-container-wrap">
 	<div class="container">
-		<div class="row aw-content-wrap">
-			<div class="col-sm-12 col-md-9 aw-main-content">
-				<div class="mod-head common-head">
-					<h2><?php _e('我的收藏'); ?></h2>
-				</div>
-				<div class="mod-body aw-feed-list">
-					<?php if (sizeof($this->favorite_tags) > 0) { ?>
-					<div class="aw-tag-meta clearfix">
-						<span class="pull-left"><?php _e('标签'); ?>:</span>
-						<?php foreach ($this->favorite_tags AS $key => $val) { ?>
-						<a class="aw-topic-name" href="favorite/tag-<?php echo urlencode($val['title']); ?>"><span><?php echo $val['title']; ?></span></a>
-						<?php } ?>
-					</div>
-					<?php } ?>
-					<?php if (sizeof ($this->list) > 0) { ?>
-					<?php foreach ($this->list AS $key => $val) { ?>
-					<div class="aw-item">
-						<?php if ($val['answer_info']['anonymous'] == 0) { ?><a data-id="<?php echo $val['user_info']['uid']; ?>" class="aw-user-img aw-border-radius-5 pull-right" data-id="<?php echo $val['user_info']['uid']; ?>" href="people/<?php echo $val['user_info']['url_token']; ?>"><img src="<?php echo get_avatar_url($val['user_info']['uid'], 'mid'); ?>" alt="<?php echo $val['user_info']['user_name']; ?>" /></a><?php } else { ?><a href="javascript:;" class="aw-user-img aw-border-radius-5 pull-right"><img src="<?php echo G_STATIC_URL; ?>/common/avatar-mid-img.png" alt="<?php _e('匿名用户'); ?>" /></a><?php } ?>
-
-						<h4><a href="<?php echo $val['link']; ?>"><?php echo $val['title']; ?></a></h4>
-
-						<p class="aw-text-color-999">
-							<?php if ($val['last_action_str']) { ?><?php echo $val['last_action_str']; ?> • <?php echo date_friendly($val['add_time']); ?><?php } ?>
-						</p>
-
-						<?php if ($val['answer_info']) { ?>
-						<p class="aw-text-color-999">
-							<a class="aw-user-name" data-id="<?php echo $val['user_info']['uid']; ?>" href="people/<?php echo $val['answer_info']['url_token']; ?>"><?php echo $val['user_info']['user_name']; ?></a><?php if ($val['user_info']['signature']) { ?> - <?php echo $val['user_info']['signature']; ?><?php } ?>
-						</p>
-
-						<!-- 评论内容 -->
-						<div class="content">
-							<div id="detail_<?php echo md5($val['item_id'] . $val['item_type']); ?>">
-					      		<?php echo nl2br(strip_ubb(cjk_substr($val['answer_info']['answer_content'], 0, 130, 'UTF-8', '...'))); ?>
-					      		<?php if (cjk_strlen($val['answer_info']['answer_content']) > 130) { ?>
-					        	<a href="javascript:;" class="showMore" onclick="content_switcher($('#detail_<?php echo md5($val['item_id'] . $val['item_type']); ?>'), $('#detail_more_<?php echo md5($val['item_id'] . $val['item_type']); ?>'));"><?php _e('显示全部'); ?> »</a>
-					        	<?php } ?>
-
-								<?php if ($val['answer_info']['attachs']) { ?>
-									<div class="aw-comment-upload-img-list width-auto">
-										<?php foreach($val['answer_info']['attachs'] AS $t_key => $v) { ?>
-										<?php if ($v['is_image']): ?>
-											<a href="javascript:;" onclick="content_switcher($('#detail_<?php echo md5($val['item_id'] . $val['item_type']); ?>'), $('#detail_more_<?php echo md5($val['item_id'] . $val['item_type']); ?>'));">
-												<img class="img-polaroid" src="<?php echo $v[thumb]; ?>" alt="<?php echo $v['file_name']; ?>" />
-											</a>
-										<?php endif; ?>
-									  <?php } ?>
-									</div>
-
-									<div class="aw-comment-upload-file-list">
-										<?php foreach($val['answer_info']['attachs'] AS $t_key => $v) { ?>
-										<?php if (!$v['is_image']): ?>
-											<li><a href="<?php echo download_url($v['file_name'], $v['attachment']); ?>"><em class="aw-icon i-upload-file"></em><?php echo $v['file_name']; ?></a></li>
-										<?php endif; ?>
-									  <?php } ?>
-									</div>
+		<div class="row">
+			<div class="aw-content-wrap clearfix">
+				<div class="col-sm-12 col-md-9 aw-main-content">
+					<div class="mod mod-favorite">
+						<div class="mod-head common-head">
+							<h2><?php _e('我的收藏'); ?> <span class="badge"><?php echo count($this->list); ?></span></h2>
+						</div>
+						<div class="mod-body">
+							<?php if (sizeof($this->favorite_tags) > 0) { ?>
+							<div class="aw-tag-list clearfix">
+								<span class="pull-left"><?php _e('标签'); ?>:</span>
+								<?php foreach ($this->favorite_tags AS $key => $val) { ?>
+								<a class="aw-topic-name" href="favorite/tag-<?php echo urlencode($val['title']); ?>"><span><?php echo $val['title']; ?></span></a>
 								<?php } ?>
 							</div>
-
-							<div id="detail_more_<?php echo md5($val['item_id'] . $val['item_type']); ?>" class="hide">
-					      		<?php echo nl2br(strip_ubb($val['answer_info']['answer_content'])); ?>
-
-								<?php if ($val['answer_info']['attachs']) { ?>
-									<div class="aw-comment-upload-img-list active">
-										<?php foreach($val['answer_info']['attachs'] AS $k => $v) { ?>
-										<?php if ($v['is_image']): ?>
-											<a href="<?php echo $v['attachment']; ?>" target="lightbox" data-fancybox-group="thumb" rel="lightbox"><img class="img-polaroid" src="<?php echo $v['attachment']; ?>" alt="" /></a>
-										<?php endif; ?>
-									  <?php } ?>
+							<?php } ?>
+							<div class="aw-feed-list">
+								<?php if (sizeof ($this->list) > 0) { ?>
+								<?php foreach ($this->list AS $key => $val) { ?>
+								<div class="aw-item">
+									<div class="mod-head">
+										<?php if ($val['answer_info']['anonymous'] == 0) { ?><a data-id="<?php echo $val['user_info']['uid']; ?>" class="aw-user-img aw-border-radius-5 pull-right" data-id="<?php echo $val['user_info']['uid']; ?>" href="people/<?php echo $val['user_info']['url_token']; ?>"><img src="<?php echo get_avatar_url($val['user_info']['uid'], 'mid'); ?>" alt="<?php echo $val['user_info']['user_name']; ?>" /></a><?php } else { ?><a href="javascript:;" class="aw-user-img aw-border-radius-5 pull-right"><img src="<?php echo G_STATIC_URL; ?>/common/avatar-mid-img.png" alt="<?php _e('匿名用户'); ?>" /></a><?php } ?>
+										<p class="text-color-999">
+											<?php if ($val['last_action_str']) { ?><?php echo $val['last_action_str']; ?> • <?php echo date_friendly($val['add_time']); ?><?php } ?>
+										</p>
+										<h4><a href="<?php echo $val['link']; ?>"><?php echo $val['title']; ?></a></h4>
 									</div>
+									<div class="mod-body">
+										<?php if ($val['answer_info']) { ?>
+										<p class="text-color-999">
+											<a class="aw-user-name" data-id="<?php echo $val['user_info']['uid']; ?>" href="people/<?php echo $val['answer_info']['url_token']; ?>"><?php echo $val['user_info']['user_name']; ?></a><?php if ($val['user_info']['signature']) { ?> - <?php echo $val['user_info']['signature']; ?><?php } ?>
+										</p>
 
-									<div class="aw-comment-upload-file-list">
-										<?php foreach($val['answer_info']['attachs'] AS $k => $v) { ?>
-										<?php if (!$v['is_image']): ?>
-											<li><a href="<?php echo download_url($v['file_name'], $v['attachment']); ?>"><em class="aw-icon i-upload-file"></em><?php echo $v['file_name']; ?></a></li>
-										<?php endif; ?>
-									  <?php } ?>
+										<!-- 评论内容 -->
+										<div class="content">
+											<div id="detail_<?php echo md5($val['item_id'] . $val['item_type']); ?>">
+									      		<?php echo nl2br(strip_ubb(cjk_substr($val['answer_info']['answer_content'], 0, 130, 'UTF-8', '...'))); ?>
+									      		<?php if (cjk_strlen($val['answer_info']['answer_content']) > 130) { ?>
+									        	<a href="javascript:;" class="showMore" onclick="content_switcher($('#detail_<?php echo md5($val['item_id'] . $val['item_type']); ?>'), $('#detail_more_<?php echo md5($val['item_id'] . $val['item_type']); ?>'));"><?php _e('显示全部'); ?> »</a>
+									        	<?php } ?>
+
+												<?php if ($val['answer_info']['attachs']) { ?>
+													<div class="aw-comment-upload-img-list width-auto">
+														<?php foreach($val['answer_info']['attachs'] AS $t_key => $v) { ?>
+														<?php if ($v['is_image']): ?>
+															<a href="javascript:;" onclick="content_switcher($('#detail_<?php echo md5($val['item_id'] . $val['item_type']); ?>'), $('#detail_more_<?php echo md5($val['item_id'] . $val['item_type']); ?>'));">
+																<img class="img-polaroid" src="<?php echo $v[thumb]; ?>" alt="<?php echo $v['file_name']; ?>" />
+															</a>
+														<?php endif; ?>
+													  <?php } ?>
+													</div>
+
+													<div class="aw-comment-upload-file-list">
+														<?php foreach($val['answer_info']['attachs'] AS $t_key => $v) { ?>
+														<?php if (!$v['is_image']): ?>
+															<li><a href="<?php echo download_url($v['file_name'], $v['attachment']); ?>"><em class="aw-icon i-upload-file"></em><?php echo $v['file_name']; ?></a></li>
+														<?php endif; ?>
+													  <?php } ?>
+													</div>
+												<?php } ?>
+											</div>
+
+											<div id="detail_more_<?php echo md5($val['item_id'] . $val['item_type']); ?>" class="hide">
+									      		<?php echo nl2br(strip_ubb($val['answer_info']['answer_content'])); ?>
+
+												<?php if ($val['answer_info']['attachs']) { ?>
+													<div class="aw-comment-upload-img-list active">
+														<?php foreach($val['answer_info']['attachs'] AS $k => $v) { ?>
+														<?php if ($v['is_image']): ?>
+															<a href="<?php echo $v['attachment']; ?>" target="lightbox" data-fancybox-group="thumb" rel="lightbox"><img class="img-polaroid" src="<?php echo $v['attachment']; ?>" alt="" /></a>
+														<?php endif; ?>
+													  <?php } ?>
+													</div>
+
+													<div class="aw-comment-upload-file-list">
+														<?php foreach($val['answer_info']['attachs'] AS $k => $v) { ?>
+														<?php if (!$v['is_image']): ?>
+															<li><a href="<?php echo download_url($v['file_name'], $v['attachment']); ?>"><em class="aw-icon i-upload-file"></em><?php echo $v['file_name']; ?></a></li>
+														<?php endif; ?>
+													  <?php } ?>
+													</div>
+												<?php } ?>
+											</div>
+										</div>
+										<!-- end 评论内容 -->
+										<?php } ?>
 									</div>
+									<div class="mod-footer">
+										<div class="meta">
+											<a class="pull-right text-color-999" onclick="AWS.ajax_request(G_BASE_URL + '/favorite/ajax/remove_favorite_item/', 'item_type=<?php echo $val['item_type']; ?>&item_id=<?php echo $val['item_id']; ?>');"><?php _e('取消收藏'); ?></a>
+
+
+
+											<div class="aw-topic-editor" data-type="favorite" data-item-type="<?php echo $val['item_type']; ?>" data-id="<?php echo $val['item_id']; ?>">
+												<?php if ($this->favorite_items_tags[$val['item_id']]) { ?>
+												<?php foreach ($this->favorite_items_tags[$val['item_id']] AS $k => $v) { ?>
+												<a class="aw-topic-name"><span><?php echo $v['title']; ?></span></a>
+												<?php } ?>
+												<?php } ?>
+											
+												<span class="icon-inverse aw-edit-topic"><i class="icon icon-edit"></i><?php if (!$this->favorite_items_tags[$val['item_id']]) { ?><?php _e('添加话题'); ?><?php } else { ?><?php _e('编辑'); ?><?php } ?></span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<?php } ?>
 								<?php } ?>
 							</div>
 						</div>
-						<!-- end 评论内容 -->
-						<?php } ?>
-
-						<div class="meta">
-							<a class="pull-right btn btn-mini btn-default" onclick="AWS.ajax_request(G_BASE_URL + '/favorite/ajax/remove_favorite_item/', 'item_type=<?php echo $val['item_type']; ?>&item_id=<?php echo $val['item_id']; ?>');"><?php _e('取消收藏'); ?></a>
-
-							<span class="aw-topic-editor" data-type="favorite" data-item-type="<?php echo $val['item_type']; ?>" data-id="<?php echo $val['item_id']; ?>">
-							<?php if ($this->favorite_items_tags[$val['item_id']]) { ?>
-							<?php foreach ($this->favorite_items_tags[$val['item_id']] AS $k => $v) { ?>
-							<a class="aw-topic-name"><span><?php echo $v['title']; ?></span></a>
-							<?php } ?>
-							<?php } ?>
-
-							<span class="aw-edit-topic"><i class="fa fa-edit"></i><?php _e('编辑话题'); ?></span>
-							</span>
+						<div class="mod-footer">
+							<?php echo $this->pagination; ?>
 						</div>
 					</div>
-					<?php } ?>
-					<?php } ?>
 				</div>
-				<div class="mod-footer">
-					<?php echo $this->pagination; ?>
-				</div>
-			</div>
-			<!-- 侧边栏 -->
-			<div class="col-sm-12 col-md-3 aw-side-bar">
-				<?php TPL::output('block/sidebar_announce.tpl.htm'); ?>
+				<!-- 侧边栏 -->
+				<div class="col-sm-12 col-md-3 aw-side-bar">
+					<?php TPL::output('block/sidebar_announce.tpl.htm'); ?>
 
-				<?php TPL::output('block/sidebar_menu.tpl.htm'); ?>
+					<?php TPL::output('block/sidebar_menu.tpl.htm'); ?>
 
-				<div class="aw-mod invite-join">
-					<div class="mod-head">
-						<h3><?php _e('邀请好友加入社区'); ?><?php if ($this->user_info['invitation_available']) { ?><em class="badge badge-info"><?php echo $this->user_info['invitation_available']; ?></em><?php } ?></h3>
+					<div class="aw-mod invite-join">
+						<div class="mod-head">
+							<h3><?php _e('邀请好友加入社区'); ?><?php if ($this->user_info['invitation_available']) { ?><em class="badge badge-info"><?php echo $this->user_info['invitation_available']; ?></em><?php } ?></h3>
+						</div>
+						<div class="mod-body">
+							<a href="invitation/" class="btn btn-mini btn-success"><?php _e('发送邀请'); ?></a>
+						</div>
 					</div>
-					<div class="mod-body">
-						<a href="invitation/" class="btn btn-mini btn-success"><?php _e('发送邀请'); ?></a>
-					</div>
-				</div>
 
-				<!-- 可能感兴趣的人/或话题 -->
-				<?php TPL::output('block/sidebar_recommend_users_topics.tpl.htm'); ?>
+					<!-- 可能感兴趣的人/或话题 -->
+					<?php TPL::output('block/sidebar_recommend_users_topics.tpl.htm'); ?>
+				</div>
+				<!-- end 侧边栏 -->
 			</div>
-			<!-- end 侧边栏 -->
 		</div>
 	</div>
 </div>

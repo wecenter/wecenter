@@ -1,76 +1,83 @@
 <?php TPL::output('global/header.tpl.htm'); ?>
 <?php TPL::output('account/setting/setting_header.tpl.htm'); ?>
 
-<div class="aw-mod mod-setting-bind">
-	<div class="mod-head">
-		<h3><?php _e('申请认证'); ?></h3>
-	</div>
-	<form id="verify_form" method="post" action="account/ajax/verify/" enctype="multipart/form-data" class="form-horizontal">
-		<div class="mod-body">
-			<div class="form-group">
-				<label class="col-lg-2 control-label"><?php _e('当前状态'); ?>:</label>
-				<div class="col-lg-10">
-					<?php if ($this->user_info['verified']) { ?>
-					<?php _e('已认证'); ?>
-					<?php } else if (!isset($this->verify_apply['status'])) { ?>
-					<?php _e('未认证'); ?>
-					<?php } else if ($this->verify_apply['status'] == 0) { ?>
-					<?php _e('正在审核'); ?>
-					<?php } else if ($this->verify_apply['status'] == 1) { ?>
-					<?php _e('已认证'); ?>
-					<?php } else if ($this->verify_apply['status'] == -1) { ?>
-					<?php _e('认证被拒绝'); ?>
-					<?php } ?>
-				</div>
+<div class="aw-mod">
+	<div class="mod-body">
+		<div class="aw-mod">
+			<div class="mod-head">
+				<h3><?php _e('申请认证'); ?></h3>
 			</div>
-			<div class="form-group">
-				<label class="col-lg-2 control-label"><?php _e('认证类型'); ?>:</label>
-				<div class="col-lg-10">
-				    <input name="type" class="apply-type" type="radio" value="personal" id="type_personal"<?php if (!$this->verify_apply['type'] OR $this->verify_apply['type'] == 'personal') { ?> checked="checked"<?php } ?> /> <?php _e('个人认证'); ?> &nbsp;
-				    <input name="type" class="apply-type" type="radio" value="enterprise" id="type_enterprise"<?php if ($this->verify_apply['type'] == 'enterprise') { ?> checked="checked"<?php } ?> /> <?php _e('机构认证'); ?>
+			<form id="verify_form" method="post" action="account/ajax/verify/" enctype="multipart/form-data" class="form-horizontal">
+				<div class="mod-body">
+					<div class="form-group">
+						<label class="col-lg-2 control-label"><?php _e('当前状态'); ?>:</label>
+						<div class="col-lg-10">
+							<?php if ($this->user_info['verified']) { ?>
+							<?php _e('已认证'); ?>
+							<?php } else if (!isset($this->verify_apply['status'])) { ?>
+							<?php _e('未认证'); ?>
+							<?php } else if ($this->verify_apply['status'] == 0) { ?>
+							<?php _e('正在审核'); ?>
+							<?php } else if ($this->verify_apply['status'] == 1) { ?>
+							<?php _e('已认证'); ?>
+							<?php } else if ($this->verify_apply['status'] == -1) { ?>
+							<?php _e('认证被拒绝'); ?>
+							<?php } ?>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-lg-2 control-label"><?php _e('认证类型'); ?>:</label>
+						<div class="col-lg-10">
+						    <input name="type" class="apply-type" type="radio" value="personal" id="type_personal"<?php if (!$this->verify_apply['type'] OR $this->verify_apply['type'] == 'personal') { ?> checked="checked"<?php } ?> /> <?php _e('个人认证'); ?> &nbsp;
+						    <input name="type" class="apply-type" type="radio" value="enterprise" id="type_enterprise"<?php if ($this->verify_apply['type'] == 'enterprise') { ?> checked="checked"<?php } ?> /> <?php _e('机构认证'); ?>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-lg-2 control-label verify-name"><span><?php _e('真实姓名'); ?></span>:</label>
+						<div class="col-lg-4">
+						    <input class="form-control" name="name" type="text" value="<?php echo $this->verify_apply['name']; ?>" />
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="col-lg-2 control-label verify-code">
+							<span><?php _e('身份证号码'); ?></span>:</label>
+						<div class="col-lg-4">
+						    <input class="form-control" name="id_code" type="text" value="<?php echo $this->verify_apply['data']['id_code']; ?>" />
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="col-lg-2 control-label"><?php _e('联系方式'); ?>:</label>
+						<div class="col-lg-8">
+						    <input class="form-control" name="contact" type="text" value="<?php echo $this->verify_apply['data']['contact']; ?>" />
+						</div>
+					</div>   
+					<div class="form-group">
+						<label class="col-lg-2 control-label"><?php _e('认证说明'); ?>:</label>
+						<div class="col-lg-8">
+						    <input class="form-control" name="reason" type="text" value="<?php echo $this->verify_apply['reason']; ?>" />
+						</div>
+					</div> 
+					<div class="form-group" id="upload-attach">
+						<label class="col-lg-2 control-label"><?php _e('附件'); ?>:</label>
+						<div class="col-lg-8">
+							<a class="btn btn-mini btn-default"><?php _e('上传附件'); ?></a>
+							<span class="text-color-999 upload-url"></span>
+							<p class="text-color-999"><?php _e('请提交对应的身份证或者组织机构代码证件扫描'); ?></p>
+							<input name="attach" type="file" class="upload-attach form-control hide" onchange="$('.upload-url').html($(this).val());"/>
+						</div>
+					</div>  
 				</div>
+			</form>
+			<div class="mod-footer clearfix">
+				<a href="javascript:;" id="submit-form" class="btn btn-large btn-success pull-right" onclick="AWS.ajax_post($('#verify_form'))"><?php _e('提交'); ?></a>
 			</div>
-			<div class="form-group">
-				<label class="col-lg-2 control-label verify-name"><span><?php _e('真实姓名'); ?></span>:</label>
-				<div class="col-lg-4">
-				    <input class="form-control" name="name" type="text" value="<?php echo $this->verify_apply['name']; ?>" />
-				</div>
-			</div>
-			
-			<div class="form-group">
-				<label class="col-lg-2 control-label verify-code">
-					<span><?php _e('身份证号码'); ?></span>:</label>
-				<div class="col-lg-4">
-				    <input class="form-control" name="id_code" type="text" value="<?php echo $this->verify_apply['data']['id_code']; ?>" />
-				</div>
-			</div>
-			
-			<div class="form-group">
-				<label class="col-lg-2 control-label"><?php _e('联系方式'); ?>:</label>
-				<div class="col-lg-8">
-				    <input class="form-control" name="contact" type="text" value="<?php echo $this->verify_apply['data']['contact']; ?>" />
-				</div>
-			</div>   
-			<div class="form-group">
-				<label class="col-lg-2 control-label"><?php _e('认证说明'); ?>:</label>
-				<div class="col-lg-8">
-				    <input class="form-control" name="reason" type="text" value="<?php echo $this->verify_apply['reason']; ?>" />
-				</div>
-			</div> 
-			<div class="form-group" id="upload-attach">
-				<label class="col-lg-2 control-label"><?php _e('附件'); ?>:</label>
-				<div class="col-lg-8">
-					<a class="btn btn-mini btn-default"><?php _e('上传附件'); ?></a>
-					<span class="aw-text-color-999 upload-url"></span>
-					<p class="aw-text-color-999"><?php _e('请提交对应的身份证或者组织机构代码证件扫描'); ?></p>
-					<input name="attach" type="file" class="upload-attach form-control hide" onchange="$('.upload-url').html($(this).val());"/>
-				</div>
-			</div>  
 		</div>
-		
-		<a href="javascript:;" id="submit-form" class="btn btn-large btn-success pull-right aw-user-setting-save" onclick="AWS.ajax_post($('#verify_form'))"><?php _e('提交'); ?></a>
-	</form>
+	</div>
 </div>
+
+
 
 <script type="text/javascript">
 	$(function()

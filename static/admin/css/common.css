@@ -21,7 +21,7 @@ a:hover,a:focus{text-decoration:none;cursor:pointer;}
 body{background:#eff0f4;}
 ul,ol{padding:0;list-style:none;}
 .middle{line-height:32px;}
-.aw-text-color-999{margin:2px 0 0;color:#999;font-size:11px;}
+.text-color-999{margin:2px 0 0;color:#999;font-size:11px;}
 .aw-hide-txt{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .nopadding{padding:0;}
 .textwrap{ word-break: break-all;overflow: height: ;}

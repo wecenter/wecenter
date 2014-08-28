@@ -34,7 +34,7 @@ var AW_TEMPLATE = {
 								'<p>' + _t('链接地址') + '</p>'+
 								'<input class="form-control" type="text" value="http://" name="{{url}}" />'+
 							'</form>'+
-							'<p class="aw-text-color-999">{{type_tips}}</p>'+
+							'<p class="text-color-999">{{type_tips}}</p>'+
 						'</div>'+
 						'<div class="modal-footer">'+
 							'<a data-dismiss="modal" aria-hidden="true" class="btn">' + _t('取消') + '</a>'+
@@ -156,13 +156,13 @@ var AW_TEMPLATE = {
 		'</div>',
 
 	'searchDropdownListQuestions' : 
-		'<li class="{{active}} question clearfix"><i class="icon-g-replay pull-left"></i><a class="aw-hide-txt pull-left" href="{{url}}">{{content}} </a><span class="pull-right aw-text-color-999">{{discuss_count}} ' + _t('个回复') + '</span></li>',
+		'<li class="{{active}} question clearfix"><i class="icon-g-replay pull-left"></i><a class="aw-hide-txt pull-left" href="{{url}}">{{content}} </a><span class="pull-right text-color-999">{{discuss_count}} ' + _t('个回复') + '</span></li>',
 	'searchDropdownListTopics' : 
-		'<li class="topic clearfix"><a href="{{url}}" class="aw-topic-name" data-id="{{topic_id}}"><span>{{name}}</span></a> <span class="pull-right aw-text-color-999">{{discuss_count}} ' + _t('个讨论') + '</span></li>',
+		'<li class="topic clearfix"><a href="{{url}}" class="aw-topic-name" data-id="{{topic_id}}"><span>{{name}}</span></a> <span class="pull-right text-color-999">{{discuss_count}} ' + _t('个讨论') + '</span></li>',
 	'searchDropdownListUsers' : 
 		'<li class="user clearfix"><a href="{{url}}"><img src="{{img}}" />{{name}}<span class="aw-hide-txt">{{intro}}</span></a></li>',
 	'searchDropdownListArticles' : 
-		'<li class="question clearfix"><a class="aw-hide-txt pull-left" href="{{url}}">{{content}} </a><span class="pull-right aw-text-color-999">{{comments}} ' + _t('条评论') + '</span></li>',
+		'<li class="question clearfix"><a class="aw-hide-txt pull-left" href="{{url}}">{{content}} </a><span class="pull-right text-color-999">{{comments}} ' + _t('条评论') + '</span></li>',
 	'inviteDropdownList' :
 		'<li class="user"><a data-url="{{url}}" data-id="{{uid}}" data-actions="{{action}}" data-value="{{name}}"><img class="img" src="{{img}}" />{{name}}</a></li>',
 	'editTopicDorpdownList' : 

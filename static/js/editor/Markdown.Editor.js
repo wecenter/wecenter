@@ -1050,7 +1050,7 @@
     // callback: The function which is executed when the prompt is dismissed, either via OK or Cancel.
     //      It receives a single argument; either the entered text (if OK was chosen) or null (if Cancel
     //      was chosen).
-    ui.prompt = function (type, title, text, defaultInputText, callback) {
+    ui.prompt = function (title, text, defaultInputText, callback) {
 
         // These variables need to be declared at this level since they are used
         // in multiple functions.
@@ -1074,18 +1074,12 @@
         // Dismisses the hyperlink input box.
         // isCancel is true if we don't care about the input text.
         // isCancel is false if we are going to keep the text.
-        var close = function (isCancel, isAttach) {
+        var close = function (isCancel) {
             util.removeEvent(doc.body, "keydown", checkEscape);
             var text = input.value;
 
             if (isCancel) {
-                if (isAttach) {
-                    text = isAttach;
-                }
-                else
-                {
-                    text = null;
-                }
+                text = null;
             }
             else {
                 // Fixes common pasting errors.
@@ -1095,7 +1089,7 @@
             }
 
             $(dialog).modal('hide');
-            callback(text, isAttach);
+            callback(text);
             return false;
         };
 
@@ -1170,42 +1164,6 @@
             style.display = "block";
             style.width = "80%";
             style.marginLeft = style.marginRight = "auto";
-
-            if (type == 'image')
-            {
-                var num = 0;
-                $.each($('.upload-container .upload-list li .img'), function (i, e)
-                {
-                    if ($(this).attr('style') != undefined)
-                    {
-                        num += 1;
-                    }
-                });
-
-                if ($('.upload-container .upload-list li').length != 0 && num > 0)
-                {
-                    $(form).append('<p style="margin:0 auto;width:80%">插入附件中的图片</p>');
-                    $(form).append('<div class="dropdown" style="margin:0 0 30px 55px;">'+
-                      '<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"> 请选择 '+
-                        '<span class="caret"></span>'+
-                      '</button>'+
-                      '<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1"></ul>'+
-                    '</div>');
-                    $.each($('.upload-container .upload-list li'), function (i, e)
-                    {
-                        if ($(this).find('.img').attr('style') != undefined)
-                        {
-                            $(form).find('.dropdown-menu').append('<li><a data-id="' + $(this).find('.hidden-input').val() + '">附件' + (parseInt(i) + 1) + '</a></li>');
-                        }
-                    });
-                    $(form).find('.dropdown-menu li a').click(function()
-                    {
-                        close(true, '[attach]' + $(this).attr('data-id') + '[/attach]');
-                    });
-                }
-                $(form).append('<p style="margin:0 auto;width:80%">插入站外图片</p>');
-            }
-
             form.appendChild(input);
 
             // The ok button
@@ -1294,7 +1252,7 @@
                     case "l":
                         doClick(buttons.link);
                         break;
-                    case "x":
+                    case "q":
                         doClick(buttons.quote);
                         break;
                     case "k":
@@ -1490,84 +1448,77 @@
                 return group
             }
 
-            var agent = navigator.appVersion.indexOf('Mac') > -1;
-            if (agent)
-            {
-                var keys = '⌘'
-            }
-            else
-            {
-                var keys = 'Ctrl'
-            }
-
             group1 = makeGroup(1);
-            buttons.bold = makeButton("wmd-bold-button", "加粗 - " + keys + "+B", "fa fa-bold", bindCommand("doBold"), group1);
-            buttons.italic = makeButton("wmd-italic-button", "斜体 - " + keys + "+I", "fa fa-italic", bindCommand("doItalic"), group1);
-            buttons.heading = makeButton("wmd-heading-button", "标题 - " + keys + "+H", "fa fa-header", bindCommand("doHeading"), group1);
+            buttons.bold = makeButton("wmd-bold-button", "加粗 - Ctrl+B", "icon icon-bold", bindCommand("doBold"), group1);
+            buttons.italic = makeButton("wmd-italic-button", "斜体 - Ctrl+I", "icon icon-italic", bindCommand("doItalic"), group1);
+            buttons.heading = makeButton("wmd-heading-button", "标题 - Ctrl+H", "icon icon-h", bindCommand("doHeading"), group1);
             
             group2 = makeGroup(2);
-            buttons.olist = makeButton("wmd-olist-button", "数字列表 - " + keys + "+O", "fa fa-list-ol", bindCommand(function (chunk, postProcessing) {
+            buttons.olist = makeButton("wmd-olist-button", "数字列表 - Ctrl+O", "icon icon-ol", bindCommand(function (chunk, postProcessing) {
                 this.doList(chunk, postProcessing, true);
             }), group2);
-            buttons.ulist = makeButton("wmd-ulist-button", "普通列表 - " + keys + "+U", "fa fa-list", bindCommand(function (chunk, postProcessing) {
+            buttons.ulist = makeButton("wmd-ulist-button", "普通列表 - Ctrl+U", "icon icon-ul", bindCommand(function (chunk, postProcessing) {
                 this.doList(chunk, postProcessing, false);
             }), group2);
 
+            group4 = makeGroup(4);
+            buttons.quote = makeButton("wmd-quote-button", "引用 - Ctrl+Q", "icon icon-quote", bindCommand("doBlockquote"), group4);
+            buttons.code = makeButton("wmd-code-button", "代码 - Ctrl+K", "icon icon-code", bindCommand("doCode"), group4);
+
             group3 = makeGroup(3);
-            buttons.link = makeButton("wmd-link-button", "链接 - " + keys + "+L", "fa fa-link", bindCommand(function (chunk, postProcessing) {
-                return this.doLinkOrImage(chunk, postProcessing, false);
-            }), group3);
-            buttons.image = makeButton("wmd-image-button", "图片 - " + keys + "+G", "fa fa-image", bindCommand(function (chunk, postProcessing) {
+            buttons.image = makeButton("wmd-image-button", "图片 - Ctrl+G", "icon icon-image", bindCommand(function (chunk, postProcessing) {
                 return this.doLinkOrImage(chunk, postProcessing, true);
             }), group3);
-            buttons.video = makeButton("wmd-video-button", "视频 - " + keys + "+E", "fa fa-toggle-right", bindCommand(function (chunk, postProcessing) {
+            buttons.video = makeButton("wmd-video-button", "视频 - Ctrl+E", "icon icon-video", bindCommand(function (chunk, postProcessing) {
                 return this.doVideo(chunk, postProcessing, true)
             }), group3);
+            buttons.link = makeButton("wmd-link-button", "链接 - Ctrl+L", "icon icon-bind", bindCommand(function (chunk, postProcessing) {
+                return this.doLinkOrImage(chunk, postProcessing, false);
+            }), group3);
 
-            group4 = makeGroup(4);
-            buttons.quote = makeButton("wmd-quote-button", "引用 - " + keys + "+X", "fa fa-quote-left", bindCommand("doBlockquote"), group4);
-            buttons.code = makeButton("wmd-code-button", "代码 - " + keys + "+K", "fa fa-code", bindCommand("doCode"), group4);
-
-            
             //buttons.hr = makeButton("wmd-hr-button", "Horizontal Rule - Ctrl+R", "fa fa-hr-line", bindCommand("doHorizontalRule"), group3);
             
             group5 = makeGroup(5);
-            buttons.undo = makeButton("wmd-undo-button", "Undo - " + keys + "+Z", "fa fa-undo", null, group5);
+            buttons.undo = makeButton("wmd-undo-button", "撤销 - Ctrl+Z", "icon icon-undo", null, group5);
             buttons.undo.execute = function (manager) { if (manager) manager.undo(); };
 
             var redoTitle = /win/.test(nav.platform.toLowerCase()) ?
-                "Redo - " + keys + "+Y" :
-                "Redo - " + keys + "+Shift+Z"; // mac and other non-Windows platforms
+                "Redo - Ctrl+Y" :
+                "Redo - Ctrl+Shift+Z"; // mac and other non-Windows platforms
 
-            buttons.redo = makeButton("wmd-redo-button", redoTitle, "fa fa-repeat", null, group5);
+            buttons.redo = makeButton("wmd-redo-button", "重做 - Ctrl+Y", "icon icon-redo", null, group5);
             buttons.redo.execute = function (manager) { if (manager) manager.redo(); };
 
             group6 = makeGroup(6);
             group6.className = group6.className + " pull-right";
-            buttons.eye = makeButton("wmd-quote-button", "开关预览模式", "fa fa-eye", null, group6);
+            buttons.eye = makeButton("wmd-quote-button", "开关预览模式", "icon icon-preview", null, group6);
             buttons.eye.execute = function (manager) {
                 $(this).toggleClass('hover');
  
                 if ($(panels.preview).is(':visible'))
                 {
-                    $(panels.preview).fadeOut();
+                    $(panels.preview).hide();
                     $.cookie('data_editor_preview', false);
+                    $(this).removeClass('active');
                 }
                 else
                 {
-                    $(panels.preview).fadeIn();
+                    $(panels.preview).show();
                     $.cookie('data_editor_preview', true);
+                    $(this).addClass('active');
                 }
             };
-            buttons.help = makeButton("wmd-quote-button", "编辑器语法帮助", "fa fa-question", null, group6);
+            buttons.help = makeButton("wmd-quote-button", "编辑器语法帮助", "icon icon-help", null, group6);
             buttons.help.execute = function (manager) {
                 if ($(buttonBar).find('.wmd-helper').is(':visible'))
                 {
-                    $(buttonBar).find('.wmd-helper').fadeOut();
+                    $(this).removeClass('active');
+                    $(buttonBar).find('.wmd-helper').hide();
                 }
                 else
                 {
-                    $(buttonBar).find('.wmd-helper').fadeIn();
+                    $(this).addClass('active');
+                    $(buttonBar).find('.wmd-helper').show();
                 }
             };
 
@@ -1603,24 +1554,24 @@
 
             helperRow.innerHTML = 
                 '<ul class="clearfix">'+
-                    '<li>标题 / 粗斜体</li>'+
+                    '<li class="active">标题 / 粗斜体</li>'+
                     '<li>代码片段</li>'+
                     '<li>超链接 / 图片 / 视频</li>'+
                     '<li>列表 / 引用</li>'+
                 '</ul>'+
                 '<div class="content">'+
-                    '<div class="tab-pane">'+
+                    '<div class="tab-pane active">'+
                         '<p>文章内容较多时，可以用标题分段 : </p>'+
                         '<pre>## 大标题 <br/>### 小标题</pre>'+
                         '<p>斜体 / 粗体 : </p>'+
                         '<pre>**粗体** <br/>*斜体* <br/>***粗斜体*** </pre>'+
                     '</div>'+
-                    '<div class="tab-pane">'+
+                    '<div class="tab-pane hide">'+
                         '<p>代码片段 : </p>'+
                         '<pre>{{{<br/>代码片段<br/>}}}'+
                         '</pre>'+
                     '</div>'+
-                    '<div class="tab-pane">'+
+                    '<div class="tab-pane hide">'+
                         '<p>超链接 : </p>'+
                         '<pre>[链接文字](链接地址) 例: [百度](http://www.baidu.com)</pre>'+
                         '<p>图片 : </p>'+
@@ -1628,7 +1579,7 @@
                         '<p>视频 : </p>'+
                         '<pre>!![视频说明](视频地址) 例: !![优酷视频](http://youku.com)</pre>'+
                     '</div>'+
-                    '<div class="tab-pane">'+
+                    '<div class="tab-pane hide">'+
                         '<p>有序列表 : </p>'+
                         '<pre>1. 123<br/>2. 123<br/>3. 123</pre>'+
                         '<p>无序列表 : </p>'+
@@ -1856,7 +1807,7 @@
             }
             postProcessing();
         };
-        ui.prompt('video', '插入视频', linkDialogText, linkDefaultText, videoEnteredCallback);
+        ui.prompt('插入视频', linkDialogText, linkDefaultText, videoEnteredCallback);
     };
 
     commandProto.doLinkOrImage = function (chunk, postProcessing, isImage) {
@@ -1887,7 +1838,7 @@
             var that = this;
             // The function to be executed when you enter a link and press OK or Cancel.
             // Marks up the link and adds the ref.
-            var linkEnteredCallback = function (link, isAttach) {
+            var linkEnteredCallback = function (link) {
 
                 if (link !== null) {
                     // (                          $1
@@ -1908,29 +1859,21 @@
                     // this by anchoring with ^, because in the case that the selection starts with two brackets, this
                     // would mean a zero-width match at the start. Since zero-width matches advance the string position,
                     // the first bracket could then not act as the "not a backslash" for the second.
-                    if (isAttach)
-                    {
-                        chunk.selection = link;
-                    }
-                    else
-                    {
-                        chunk.selection = (" " + chunk.selection).replace(/([^\\](?:\\\\)*)(?=[[\]])/g, "$1\\").substr(1);
+                    chunk.selection = (" " + chunk.selection).replace(/([^\\](?:\\\\)*)(?=[[\]])/g, "$1\\").substr(1);
                     
-                        var linkDef = " [999]: " + properlyEncoded(link);
+                    var linkDef = " [999]: " + properlyEncoded(link);
 
-                        //var num = that.addLinkDef(chunk, linkDef);
-                        chunk.startTag = isImage ? "![" : "[";
-                        chunk.endTag = "](" + link + ")";
-                        if (!chunk.selection) {
-                            if (isImage) {
-                                chunk.selection = "请输入图片名称";
-                            }
-                            else {
-                                chunk.selection = "请输入链接描述";
-                            }
+                    //var num = that.addLinkDef(chunk, linkDef);
+                    chunk.startTag = isImage ? "![" : "[";
+                    chunk.endTag = "](" + link + ")";
+                    if (!chunk.selection) {
+                        if (isImage) {
+                            chunk.selection = "请输入图片名称";
+                        }
+                        else {
+                            chunk.selection = "请输入链接描述";
                         }
                     }
-                    
                 }
                 postProcessing();
             };
@@ -1938,10 +1881,10 @@
 
             if (isImage) {
                 if (!this.hooks.insertImageDialog(linkEnteredCallback))
-                    ui.prompt('image', '插入图片', imageDialogText, imageDefaultText, linkEnteredCallback);
+                    ui.prompt('插入图片', imageDialogText, imageDefaultText, linkEnteredCallback);
             }
             else {
-                ui.prompt('link', '插入链接', linkDialogText, linkDefaultText, linkEnteredCallback);
+                ui.prompt('插入链接', linkDialogText, linkDefaultText, linkEnteredCallback);
             }
             return true;
         }

@@ -160,6 +160,7 @@ class search_class extends AWS_MODEL
 				'reputation' =>  $user_info['reputation'],	// 威望
 				'agree_count' =>  $user_info['agree_count'],	// 赞同
 				'thanks_count' =>  $user_info['thanks_count'],	// 感谢
+				'fans_count' =>  $user_info['fans_count'],	// 关注数
 			);
 		}
 		else if ($result_info['topic_id'])
