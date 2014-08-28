@@ -1468,7 +1468,7 @@ AWS.User =
 	            {
 	                selector.parents('.aw-invite-box').find('.invite-list').show();
 	            }
-	            selector.parents('.aw-invite-box').find('.invite-list').append(' <a class="aw-text-color-999 invite-list-user" data-toggle="tooltip" data-placement="bottom" data-original-title="'+ selector.attr('data-value') +'"><img src='+ img +' /></a>');
+	            selector.parents('.aw-invite-box').find('.invite-list').append(' <a class="text-color-999 invite-list-user" data-toggle="tooltip" data-placement="bottom" data-original-title="'+ selector.attr('data-value') +'"><img src='+ img +' /></a>');
 	            selector.removeClass('aw-active').attr('onclick','AWS.User.disinvite_user($(this))').text('取消邀请');
 	            selector.parents('.aw-question-detail-title').find('.aw-invite-replay .badge').text(parseInt(selector.parents('.aw-question-detail-title').find('.aw-invite-replay .badge').text()) + 1);
 	        }
@@ -2407,8 +2407,6 @@ AWS.Init =
 	                $(comment_box_id).find('.aw-comment-list').html(result);
 	            });
 
-	            // 给三角形定位
-	            $(comment_box_id).find('.i-dropdown-triangle').css('left', $(this).position().left);
 	            // textarae自动增高
 	            $(comment_box_id).find('.aw-comment-txt').autosize();
 	        }
