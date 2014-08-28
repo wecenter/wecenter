@@ -266,7 +266,7 @@ class main extends AWS_CONTROLLER
 
             default:
 			case 'hot':
-				if ($_GET['day'])
+				switch ($_GET['day'])
 				{
 					case 'month':
 						$order = 'discuss_count_last_month DESC';
