@@ -301,7 +301,7 @@ var AW_TEMPLATE = {
 		'<div class="aw-edit-topic-box form-inline">'+
 			'<input type="text" class="form-control" id="aw_edit_topic_title" autocomplete="off"  placeholder="' + _t('创建或搜索添加新话题') + '...">'+
 			'<a class="btn btn-normal btn-success submit-edit">' + _t('添加') + '</a>'+
-			'<a class="btn btn-normal btn-default close-edit">' + _t('取消') + '</a>'+
+			'<a class="btn btn-normal btn-gray close-edit">' + _t('取消') + '</a>'+
 			'<div class="aw-dropdown">'+
 				'<p class="title">' + _t('没有找到相关结果') + '</p>'+
 				'<ul class="aw-dropdown-list">'+
