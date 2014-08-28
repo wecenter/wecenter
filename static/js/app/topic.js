@@ -31,7 +31,7 @@ $(function()
     AWS.Init.init_comment_box('.aw-add-comment');
 
 	//侧边栏话题编辑记录收缩
-	$('.topic-edit-notes .fa-chevron-down').click(function() {
+	$('.topic-edit-notes .icon-down').click(function() {
 		if (!$(this).parents('.topic-edit-notes').find('.mod-body').is(':visible'))
 		{
 			$(this).parents('.topic-edit-notes').find('.mod-body').fadeIn();

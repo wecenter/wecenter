@@ -26,9 +26,8 @@
 							<img src="<?php echo get_topic_pic_url('mid', $this->topic_info['topic_pic']); ?>" alt="<?php echo $this->topic_info['topic_title']; ?>" />
 							<h2 class="pull-left"><?php echo $this->topic_info['topic_title']; ?> <?php if ($this->topic_info['topic_lock']) { ?><i class="aw-icon i-lock" title="<?php _e('已锁定'); ?>"></i><?php } ?></h2>
 							<div class="aw-topic-operate text-color-999">
-								<?php _e('%s 人关注该话题', $this->topic_info['focus_count']); ?><br />
 								<?php if ($this->user_id) { ?>
-								<a href="javascript:;" onclick="AWS.User.follow($(this), 'topic', <?php echo $this->topic_info['topic_id']; ?>);" class="btn btn-mini btn-default<?php if (!$this->topic_info['has_focus']) { ?> active<?php } ?>"><?php if ($this->topic_info['has_focus']) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?></a>
+								<a href="javascript:;" onclick="AWS.User.follow($(this), 'topic', <?php echo $this->topic_info['topic_id']; ?>);" class="follow btn btn-normal btn-gray<?php if (!$this->topic_info['has_focus']) { ?> active<?php } ?>"><?php if ($this->topic_info['has_focus']) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?> <em>|</em> <b><?php echo $this->topic_info['focus_count']; ?></b></a>
 								<?php } ?>
 							</div>
 						</div>
@@ -265,7 +264,7 @@
 					<?php if ($this->user_id) {?>
 					<div class="aw-mod topic-edit-notes">
 						<div class="mod-head">
-							<h3><i class="fa fa-chevron-down pull-right"></i><?php _e('话题修改记录'); ?></h3>
+							<h3><i class="icon icon-down pull-right"></i><?php _e('话题修改记录'); ?></h3>
 						</div>
 						<div class="mod-body hide">
 							<ul>

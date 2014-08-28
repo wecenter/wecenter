@@ -1258,11 +1258,11 @@ AWS.User =
 	        {
 	            if (result.rsm.type == 'add')
 	            {
-	                selector.removeClass('aw-active');
+	                selector.addClass('active');
 	            }
 	            else
 	            {
-	                selector.addClass('aw-active');
+	                selector.removeClass('active');
 	            }
 	        }
 	        else
@@ -1335,9 +1335,9 @@ AWS.User =
 
 	        $(selector).removeClass('active');
 
-	        if (parseInt($(selector).parents('.aw-item').find('.aw-vote-bar-count').html()) != 0)
+	        if (parseInt($(selector).parents('.operate').find('.count').html()) != 0)
 	        {
-	            $(selector).parents('.aw-item').find('.aw-vote-bar-count').html(parseInt($(selector).parents('.aw-item').find('.aw-vote-bar-count').html())-1);
+	        	$(selector).parents('.operate').find('.count').html(parseInt($(selector).parents('.operate').find('.count').html()) - 1);
 	        }
 
 	        if ($(selector).parents('.aw-item').find('.aw-agree-by a').length == 0)
@@ -1354,13 +1354,15 @@ AWS.User =
 	        }
 	        else
 	        {
-	            // 插入动画效果
 	            $(selector).parents('.aw-item').find('.aw-agree-by').append('<em>、</em><a class="aw-user-name">' + user_name + '</a>');
 	        }
 
-	        $(selector).parents('.aw-item').find('.aw-vote-bar-count').html(parseInt($(selector).parents('.aw-item').find('.aw-vote-bar-count').html())+1);
+	        $(selector).parents('.operate').find('.count').html(parseInt($(selector).parents('.operate').find('.count').html()) + 1);
+
 	        $(selector).parents('.aw-item').find('.aw-agree-by').show();
+
 	        $(selector).parents('.aw-item').find('a.active').removeClass('active');
+
 	        $(selector).addClass('active');
 	    }
 	},
@@ -1370,47 +1372,49 @@ AWS.User =
 	{
 	    $.post(G_BASE_URL + '/question/ajax/answer_vote/', 'answer_id=' + answer_id + '&value=-1', function (result) {});
 
-	    // 判断是否投票过
-	    if (!$(selector).hasClass('active'))// 没点亮反对
+	    if ($(selector).hasClass('active'))
 	    {
-	        // 删除赞同操作
-	        $.each($(selector).parents('.aw-item').find('.aw-user-name'), function (i, e)
-	        {
-	            if ($(e).html() == user_name)
-	            {
-	                if ($(e).prev())
-	                {
-	                    $(e).prev().remove();
-	                }
-	                else
-	                {
-	                    $(e).next().remove();
-	                }
-
-	                $(e).remove();
-	            }
-	        });
-
-	        if ($(selector).prev().prev().hasClass('active'))
-	        {
-	            if (parseInt($(selector).parents('.aw-item').find('.aw-vote-bar-count').html()) != 0)
-	            {
-	                $(selector).parents('.aw-item').find('.aw-vote-bar-count').html(parseInt($(selector).parents('.aw-item').find('.aw-vote-bar-count').html())-1);
-	            }
-	        }
-
-	        $(selector).parents('.aw-item').find('a.active').removeClass('active');
-	        $(selector).addClass('active');
-
-	        // 判断赞同来自内是否有人
-	        if ($(selector).parents('.aw-item').find('.aw-agree-by a').length == 0)
-	        {
-	            $(selector).parents('.aw-item').find('.aw-agree-by').hide();
-	        }
+	    	$(selector).removeClass('active');
 	    }
 	    else
 	    {
-	        $(selector).removeClass('active');
+	    	// 判断是否有赞同过
+	    	if ($(selector).parents('.operate').find('.agree').hasClass('active'))
+	    	{
+	    		// 删除赞同操作
+		        $.each($(selector).parents('.aw-item').find('.aw-user-name'), function (i, e)
+		        {
+		            if ($(e).html() == user_name)
+		            {
+		                if ($(e).prev())
+		                {
+		                    $(e).prev().remove();
+		                }
+		                else
+		                {
+		                    $(e).next().remove();
+		                }
+
+		                $(e).remove();
+		            }
+		        });
+
+		        // 判断赞同来自内是否有人
+		        if ($(selector).parents('.aw-item').find('.aw-agree-by a').length == 0)
+		        {
+		            $(selector).parents('.aw-item').find('.aw-agree-by').hide();
+		        }
+
+		        $(selector).parents('.operate').find('.count').html(parseInt($(selector).parents('.operate').find('.count').html()) - 1);
+
+		        $(selector).parents('.operate').find('.agree').removeClass('active');
+
+		        $(selector).addClass('active');
+	    	}
+	    	else
+	    	{
+	    		$(selector).addClass('active');
+	    	}
 	    }
 	},
 
@@ -2348,10 +2352,13 @@ AWS.Init =
 	        {
 	            if ($(comment_box_id).css('display') == 'none')
 	            {
+	            	$(this).addClass('active');
+
 	                $(comment_box_id).fadeIn();
 	            }
 	            else
 	            {
+	            	$(this).removeClass('active');
 	                $(comment_box_id).fadeOut();
 	            }
 	        }
@@ -2370,9 +2377,10 @@ AWS.Init =
 		                var comment_data_url = G_BASE_URL + '/question/ajax/get_answer_comments/answer_id-' + $(this).attr('data-id');
 		                break;
 	            }
+
 	            if (G_USER_ID)
 	            {
-	                $(this).parents('.aw-item').append(Hogan.compile(AW_TEMPLATE.commentBox).render(
+	                $(this).parents('.aw-item').find('.mod-footer').append(Hogan.compile(AW_TEMPLATE.commentBox).render(
 	                {
 	                    'comment_form_id': comment_box_id.replace('#', ''),
 	                    'comment_form_action': comment_form_action
@@ -2402,7 +2410,7 @@ AWS.Init =
 	            }
 	            else
 	            {
-	                $(this).parent().parent().append(Hogan.compile(AW_TEMPLATE.commentBoxClose).render(
+	                $(this).parents('.aw-item').find('.mod-footer').append(Hogan.compile(AW_TEMPLATE.commentBoxClose).render(
 	                {
 	                    'comment_form_id': comment_box_id.replace('#', ''),
 	                    'comment_form_action': comment_form_action
@@ -2422,6 +2430,8 @@ AWS.Init =
 
 	            // textarae自动增高
 	            $(comment_box_id).find('.aw-comment-txt').autosize();
+
+	            $(this).addClass('active');
 	        }
 
 	        AWS.at_user_lists($(this).parents('.aw-item').find('.aw-comment-txt'));
