@@ -449,12 +449,19 @@ class ajax extends AWS_CONTROLLER
 
 	public function delete_draft_action()
 	{
-		if (!$_POST['item_id'] OR !$_POST['type'])
+		if (!$_POST['type'])
 		{
 			die;
 		}
-
-		$this->model('draft')->delete_draft($_POST['item_id'], $_POST['type'], $this->user_id);
+		
+		if ($_POST['type'] == 'clean')
+		{
+			$this->model('draft')->clean_draft($this->user_id);
+		}
+		else
+		{
+			$this->model('draft')->delete_draft($_POST['item_id'], $_POST['type'], $this->user_id);
+		}
 
 		H::ajax_json_output(AWS_APP::RSM(null, 1, null));
 	}
