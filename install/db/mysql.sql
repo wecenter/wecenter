@@ -362,7 +362,7 @@ CREATE TABLE `[#DB_PREFIX#]notification` (
   `recipient_uid` int(11) DEFAULT '0' COMMENT '接收者ID',
   `action_type` int(4) DEFAULT NULL COMMENT '操作类型',
   `model_type` smallint(11) NOT NULL DEFAULT '0',
-  `source_id` int(11) NOT NULL DEFAULT '0' COMMENT '问题或比赛ID',
+  `source_id` varchar(16) NOT NULL DEFAULT '0' COMMENT '关联 ID',
   `add_time` int(10) DEFAULT NULL COMMENT '添加时间',
   `read_flag` TINYINT( 1 ) NULL DEFAULT '0' COMMENT '阅读状态',
   PRIMARY KEY (`notification_id`),

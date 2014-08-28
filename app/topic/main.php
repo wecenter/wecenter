@@ -266,9 +266,26 @@ class main extends AWS_CONTROLLER
 
             default:
 			case 'hot':
-				if (!$topics_list = AWS_APP::cache()->get('square_hot_topic_list_' . intval($_GET['page'])))
+				switch ($_GET['day'])
 				{
-					if ($topics_list = $this->model('topic')->get_topic_list(null, 'discuss_count DESC', get_setting('contents_per_page'), $_GET['page']))
+					case 'month':
+						$order = 'discuss_count_last_month DESC';
+					break;
+					
+					case 'week':
+						$order = 'discuss_count_last_week DESC';
+					break;
+					
+					default:
+						$order = 'discuss_count DESC';
+					break;
+				}
+				
+				$cache_key = 'square_hot_topic_list' . md5($order) . '_' . intval($_GET['page']);
+				
+				if (!$topics_list = AWS_APP::cache()->get($cache_key))
+				{
+					if ($topics_list = $this->model('topic')->get_topic_list(null, $order, get_setting('contents_per_page'), $_GET['page']))
 					{
 						$topics_list_total_rows = $this->model('topic')->found_rows();
 
@@ -280,7 +297,7 @@ class main extends AWS_CONTROLLER
 						}
 					}
 
-					AWS_APP::cache()->set('square_hot_topic_list_' . intval($_GET['page']), $topics_list, get_setting('cache_level_low'));
+					AWS_APP::cache()->set($cache_key, $topics_list, get_setting('cache_level_low'));
 				}
 				else
 				{
