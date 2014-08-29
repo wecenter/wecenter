@@ -546,6 +546,8 @@ var AWS =
 
 		            $('#quick_publish .aw-edit-topic').click();
 
+		            $('#quick_publish .close-edit').hide();
+
 		            if (data.topic_title)
 		            {
 		                $('#quick_publish .aw-edit-topic').parents('.aw-topic-editor').prepend('<a href="javascript:;" class="aw-topic-name"><span>' + data.topic_title + '</span><input type="hidden" value="' + data.topic_title + '" name="topics[]" /></a>')
@@ -811,12 +813,12 @@ var AWS =
 
 	                        if (focus == 1)
 	                        {
-	                            focus = '';
+	                            focus = 'active';
 	                            focusTxt = '取消关注';
 	                        }
 	                        else
 	                        {
-	                            focus = 'aw-active';
+	                            focus = '';
 	                            focusTxt = '关注';
 	                        }
 
@@ -854,7 +856,7 @@ var AWS =
 	                        }));
 
 	                        //判断是否为游客or自己
-	                        if (G_USER_ID <= 0 || G_USER_ID == result.uid || result.uid < 0)
+	                        if (G_USER_ID == '' || G_USER_ID == result.uid || result.uid < 0)
 	                        {
 	                            $('#aw-card-tips .mod-footer').hide();
 	                        }
@@ -869,15 +871,15 @@ var AWS =
 	                    {
 	                        var focus = result.focus,
 	                            focusTxt;
-	                            if (focus > 0)
+	                            if (focus == false)
 	                            {
-	                                focus = '';
-	                                focusTxt = _t('取消关注');
+	                            	focus = '';
+	                                focusTxt = _t('关注');
 	                            }
 	                            else
 	                            {
-	                                focus = 'aw-active';
-	                                focusTxt = _t('关注');
+	                                focus = 'active';
+	                                focusTxt = _t('取消关注');
 	                            }
 	                            //动态插入盒子
 	                            $('#aw-ajax-box').html(Hogan.compile(AW_TEMPLATE.topicCard).render(
@@ -893,9 +895,9 @@ var AWS =
 	                                'url' : result.url
 	                            }));
 	                            //判断是否为游客
-	                            if (G_USER_ID == 0)
+	                            if (G_USER_ID == '')
 	                            {
-	                                $('#aw-card-tips .mod-footer .focus').hide();
+	                                $('#aw-card-tips .mod-footer .follow').hide();
 	                            }
 	                            _init();
 	                            //缓存
@@ -1214,18 +1216,22 @@ AWS.User =
 	{
 		if (selector.html())
 	    {
-	        if (!selector.hasClass('aw-active'))
+	        if (selector.hasClass('active'))
 	        {
-	            selector.html(_t('关注'));
+	        	selector.find('span').html(_t('关注'));
+
+	        	selector.find('b').html(parseInt(selector.find('b').html()) - 1);
 	        }
 	        else
 	        {
-	            selector.html(_t('取消关注'));
+	        	selector.find('span').html(_t('取消关注'));
+
+	        	selector.find('b').html(parseInt(selector.find('b').html()) + 1);
 	        }
 	    }
 	    else
 	    {
-	        if (!selector.hasClass('aw-active'))
+	        if (selector.hasClass('active'))
 	        {
 	            selector.attr('data-original-title', _t('关注'));
 	        }
@@ -1258,11 +1264,11 @@ AWS.User =
 	        {
 	            if (result.rsm.type == 'add')
 	            {
-	                selector.removeClass('aw-active');
+	                selector.addClass('active');
 	            }
 	            else
 	            {
-	                selector.addClass('aw-active');
+	                selector.removeClass('active');
 	            }
 	        }
 	        else
@@ -1286,13 +1292,26 @@ AWS.User =
 	// 删除草稿
 	delete_draft: function(item_id, type)
 	{
-	    $.post(G_BASE_URL + '/account/ajax/delete_draft/', 'item_id=' + item_id + '&type=' + type, function (result)
-	    {
-	        if (result.errno != 1)
-	        {
-	            AWS.alert(result.err);
-	        }
-	    }, 'json');
+		if (type == 'clean')
+		{
+			$.post(G_BASE_URL + '/account/ajax/delete_draft/', 'type=' + type, function (result)
+		    {
+		        if (result.errno != 1)
+		        {
+		            AWS.alert(result.err);
+		        }
+		    }, 'json');
+		}
+		else
+		{
+			$.post(G_BASE_URL + '/account/ajax/delete_draft/', 'item_id=' + item_id + '&type=' + type, function (result)
+		    {
+		        if (result.errno != 1)
+		        {
+		            AWS.alert(result.err);
+		        }
+		    }, 'json');
+		}
 	},
 
 	// 赞成投票
@@ -1322,9 +1341,9 @@ AWS.User =
 
 	        $(selector).removeClass('active');
 
-	        if (parseInt($(selector).parents('.aw-item').find('.aw-vote-bar-count').html()) != 0)
+	        if (parseInt($(selector).parents('.operate').find('.count').html()) != 0)
 	        {
-	            $(selector).parents('.aw-item').find('.aw-vote-bar-count').html(parseInt($(selector).parents('.aw-item').find('.aw-vote-bar-count').html())-1);
+	        	$(selector).parents('.operate').find('.count').html(parseInt($(selector).parents('.operate').find('.count').html()) - 1);
 	        }
 
 	        if ($(selector).parents('.aw-item').find('.aw-agree-by a').length == 0)
@@ -1341,13 +1360,15 @@ AWS.User =
 	        }
 	        else
 	        {
-	            // 插入动画效果
 	            $(selector).parents('.aw-item').find('.aw-agree-by').append('<em>、</em><a class="aw-user-name">' + user_name + '</a>');
 	        }
 
-	        $(selector).parents('.aw-item').find('.aw-vote-bar-count').html(parseInt($(selector).parents('.aw-item').find('.aw-vote-bar-count').html())+1);
+	        $(selector).parents('.operate').find('.count').html(parseInt($(selector).parents('.operate').find('.count').html()) + 1);
+
 	        $(selector).parents('.aw-item').find('.aw-agree-by').show();
+
 	        $(selector).parents('.aw-item').find('a.active').removeClass('active');
+
 	        $(selector).addClass('active');
 	    }
 	},
@@ -1357,47 +1378,49 @@ AWS.User =
 	{
 	    $.post(G_BASE_URL + '/question/ajax/answer_vote/', 'answer_id=' + answer_id + '&value=-1', function (result) {});
 
-	    // 判断是否投票过
-	    if (!$(selector).hasClass('active'))// 没点亮反对
+	    if ($(selector).hasClass('active'))
 	    {
-	        // 删除赞同操作
-	        $.each($(selector).parents('.aw-item').find('.aw-user-name'), function (i, e)
-	        {
-	            if ($(e).html() == user_name)
-	            {
-	                if ($(e).prev())
-	                {
-	                    $(e).prev().remove();
-	                }
-	                else
-	                {
-	                    $(e).next().remove();
-	                }
-
-	                $(e).remove();
-	            }
-	        });
-
-	        if ($(selector).prev().prev().hasClass('active'))
-	        {
-	            if (parseInt($(selector).parents('.aw-item').find('.aw-vote-bar-count').html()) != 0)
-	            {
-	                $(selector).parents('.aw-item').find('.aw-vote-bar-count').html(parseInt($(selector).parents('.aw-item').find('.aw-vote-bar-count').html())-1);
-	            }
-	        }
-
-	        $(selector).parents('.aw-item').find('a.active').removeClass('active');
-	        $(selector).addClass('active');
-
-	        // 判断赞同来自内是否有人
-	        if ($(selector).parents('.aw-item').find('.aw-agree-by a').length == 0)
-	        {
-	            $(selector).parents('.aw-item').find('.aw-agree-by').hide();
-	        }
+	    	$(selector).removeClass('active');
 	    }
 	    else
 	    {
-	        $(selector).removeClass('active');
+	    	// 判断是否有赞同过
+	    	if ($(selector).parents('.operate').find('.agree').hasClass('active'))
+	    	{
+	    		// 删除赞同操作
+		        $.each($(selector).parents('.aw-item').find('.aw-user-name'), function (i, e)
+		        {
+		            if ($(e).html() == user_name)
+		            {
+		                if ($(e).prev())
+		                {
+		                    $(e).prev().remove();
+		                }
+		                else
+		                {
+		                    $(e).next().remove();
+		                }
+
+		                $(e).remove();
+		            }
+		        });
+
+		        // 判断赞同来自内是否有人
+		        if ($(selector).parents('.aw-item').find('.aw-agree-by a').length == 0)
+		        {
+		            $(selector).parents('.aw-item').find('.aw-agree-by').hide();
+		        }
+
+		        $(selector).parents('.operate').find('.count').html(parseInt($(selector).parents('.operate').find('.count').html()) - 1);
+
+		        $(selector).parents('.operate').find('.agree').removeClass('active');
+
+		        $(selector).addClass('active');
+	    	}
+	    	else
+	    	{
+	    		$(selector).addClass('active');
+	    	}
 	    }
 	},
 
@@ -2190,7 +2213,7 @@ AWS.Message =
 	        {
 	            if ($('#header_notification_list').length)
 	            {
-	                $("#header_notification_list").html('<p style="padding: 0" align="center">' + _t('没有未读通知') + '</p>');
+	                $("#header_notification_list").html('<p class="aw-padding10" align="center">' + _t('没有未读通知') + '</p>');
 	            }
 
 	            if ($("#index_notification").length)
@@ -2274,7 +2297,7 @@ AWS.Message =
 	            }
 	            else
 	            {
-	                $("#header_notification_list").html('<p style="padding: 0" align="center">' + _t('没有未读通知') + '</p>');
+	                $("#header_notification_list").html('<p class="aw-padding10" align="center">' + _t('没有未读通知') + '</p>');
 	            }
 	        });
 	    }
@@ -2335,10 +2358,13 @@ AWS.Init =
 	        {
 	            if ($(comment_box_id).css('display') == 'none')
 	            {
+	            	$(this).addClass('active');
+
 	                $(comment_box_id).fadeIn();
 	            }
 	            else
 	            {
+	            	$(this).removeClass('active');
 	                $(comment_box_id).fadeOut();
 	            }
 	        }
@@ -2357,9 +2383,10 @@ AWS.Init =
 		                var comment_data_url = G_BASE_URL + '/question/ajax/get_answer_comments/answer_id-' + $(this).attr('data-id');
 		                break;
 	            }
+
 	            if (G_USER_ID)
 	            {
-	                $(this).parents('.aw-item').append(Hogan.compile(AW_TEMPLATE.commentBox).render(
+	                $(this).parents('.aw-item').find('.mod-footer').append(Hogan.compile(AW_TEMPLATE.commentBox).render(
 	                {
 	                    'comment_form_id': comment_box_id.replace('#', ''),
 	                    'comment_form_action': comment_form_action
@@ -2389,7 +2416,7 @@ AWS.Init =
 	            }
 	            else
 	            {
-	                $(this).parent().parent().append(Hogan.compile(AW_TEMPLATE.commentBoxClose).render(
+	                $(this).parents('.aw-item').find('.mod-footer').append(Hogan.compile(AW_TEMPLATE.commentBoxClose).render(
 	                {
 	                    'comment_form_id': comment_box_id.replace('#', ''),
 	                    'comment_form_action': comment_form_action
@@ -2409,6 +2436,8 @@ AWS.Init =
 
 	            // textarae自动增高
 	            $(comment_box_id).find('.aw-comment-txt').autosize();
+
+	            $(this).addClass('active');
 	        }
 
 	        AWS.at_user_lists($(this).parents('.aw-item').find('.aw-comment-txt'));

@@ -15,6 +15,7 @@
 .aw-user-setting .mod-base dl dt, .aw-user-setting .mod-base dl dd{float: left;line-height: 30px;}
 .aw-user-setting .mod-base dl dt{width: 80px;text-align: right;font-weight: normal;}
 .aw-user-setting .mod-base .introduce input{width: 250px;}
+.aw-user-setting .mod-base dl dd label{min-width: 50px;}
 .aw-user-setting .mod-base dl dd select{width:110px;margin:0;}
 .aw-user-setting .mod-base .time{width: 380px !important;}
 .aw-user-setting .mod-base .side-bar{position: absolute;right: 0;top: 70px;}
