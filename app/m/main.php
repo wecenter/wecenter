@@ -108,7 +108,6 @@ class main extends AWS_CONTROLLER
 		TPL::import_clean();
 
 		TPL::import_css(array(
-			'mobile/css/icon.css',
 			'mobile/css/mobile.css'
 		));
 

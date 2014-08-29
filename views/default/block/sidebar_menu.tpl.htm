@@ -5,6 +5,7 @@
 			<li><a href="home/#draft_list__draft" rel="draft_list__draft"><i class="icon icon-draft"></i><?php _e('我的草稿'); ?><?php if ($this->user_info['draft_count']) { ?><span class="badge"><?php echo $this->user_info['draft_count']; ?></span><?php } ?></a></li>
 			<li><a href="favorite/"<?php if ($_GET['app'] == 'favorite') { ?> class="active"<?php } ?>><i class="icon icon-favor"></i><?php _e('我的收藏'); ?></a></li>
 			<li><a href="home/#all__focus" rel="all__focus"><i class="icon icon-check"></i><?php _e('我关注的问题'); ?></a></li>
+			<li><a href="topic/channel-focus"><i class="icon icon-mytopic"></i><?php _e('我关注的话题'); ?></a></li>
 			<li><a href="home/#invite_list__invite" rel="invite_list__invite"><i class="icon icon-invite"></i><?php _e('邀请我回复的问题'); ?><?php if ($this->user_info['invite_count']) { ?><span class="badge"><?php echo $this->user_info['invite_count']; ?></span><?php } ?></a></li>
 		</ul>
 	</div>

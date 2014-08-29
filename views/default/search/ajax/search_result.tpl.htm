@@ -8,7 +8,7 @@
 	<?php } ?>
 	<?php if ($this->user_id) { ?>
 		<?php if ($this->user['search_id'] != $this->user_id AND $val['type'] == 'users') { ?>
-		<a href="javascript:;" onclick="AWS.User.follow($(this), 'user', <?php echo $val['search_id']; ?>);" class="btn btn-normal btn-gray follow<?php if (!$val['focus']) { ?> active<?php } ?>"><?php if ($val['focus']) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?> <em>|</em> <b><?php echo $val['detail']['fans_count']; ?></b></a>
+		<a href="javascript:;" onclick="AWS.User.follow($(this), 'user', <?php echo $val['search_id']; ?>);" class="btn btn-normal btn-success follow<?php if ($val['focus']) { ?> active<?php } ?>"><span><?php if ($val['focus']) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?></span> <em>|</em> <b><?php echo $val['detail']['fans_count']; ?></b></a>
 		<?php } ?>
 	<?php } ?>
 	<p class="aw-title">

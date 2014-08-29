@@ -70,12 +70,15 @@
                     <div class="mod-footer">
                         <ul class="nav nav-tabs aw-nav-tabs hidden-xs">
                             <li class="active"><a href="#overview" id="page_overview" data-toggle="tab"><?php _e('概述'); ?></a></li>
-                            <li><a href="#questions" id="page_questions" data-toggle="tab"><?php _e('发问'); ?><span class="badge">10</span></a></li>
-                            <li><a href="#answers" id="page_answers" data-toggle="tab"><?php _e('回复'); ?><span class="badge">10</span></a></li>
-                            <li><a href="#articles" id="page_articles" data-toggle="tab"><?php _e('文章'); ?><span class="badge">10</span></a></li>
+                            <li><a href="#questions" id="page_questions" data-toggle="tab"><?php _e('发问'); ?><span class="badge"><?php echo $this->user['question_count']; ?></span></a></li>
+                            <li><a href="#answers" id="page_answers" data-toggle="tab"><?php _e('回复'); ?><span class="badge"><?php echo $this->user['answer_count']; ?></span></span></a></li>
+                            <li><a href="#articles" id="page_articles" data-toggle="tab"><?php _e('文章'); ?></a></li>
                             <li><a href="#focus" id="page_focus" data-toggle="tab"><?php _e('关注'); ?></a></li>
                             <li><a href="#actions" id="page_actions" data-toggle="tab"><?php _e('动态'); ?></a></li>
                             <li><a href="#detail" id="page_detail" data-toggle="tab"><?php _e('详细资料'); ?></a></li>
+                            <?php if (get_setting('integral_system_enabled') == 'Y') { ?>
+                            <li><a href="#integral" id="page_integral" data-toggle="tab"><?php _e('我的积分'); ?></a></li>
+                            <?php } ?>
                         </ul>
                     </div>
                 </div>
@@ -161,7 +164,7 @@
                                 <div class="mod-footer">
                                     <!-- 加载更多内容 -->
                                     <a class="aw-load-more-content" id="bp_user_actions_questions_more">
-                                        <span><?php _e('更多'); ?>...</span>
+                                        <span><?php _e('更多'); ?></span>
                                     </a>
                                     <!-- end 加载更多内容 -->
                                 </div>
@@ -178,7 +181,7 @@
                                 <div class="mod-footer">
                                     <!-- 加载更多内容 -->
                                     <a class="aw-load-more-content" id="bp_user_actions_answers_more">
-                                        <span><?php _e('更多'); ?>...</span>
+                                        <span><?php _e('更多'); ?></span>
                                     </a>
                                     <!-- end 加载更多内容 -->
                                 </div>
@@ -195,7 +198,7 @@
                                 <div class="mod-footer">
                                     <!-- 加载更多内容 -->
                                     <a class="aw-load-more-content" id="bp_user_actions_articles_more">
-                                        <span><?php _e('更多'); ?>...</span>
+                                        <span><?php _e('更多'); ?></span>
                                     </a>
                                     <!-- end 加载更多内容 -->
                                 </div>
@@ -220,7 +223,7 @@
                                             <div class="mod-footer">
                                                 <!-- 加载更多内容 -->
                                                 <a class="aw-load-more-content" id="bp_user_follows_more">
-                                                    <span><?php _e('更多'); ?>...</span>
+                                                    <span><?php _e('更多'); ?></span>
                                                 </a>
                                                 <!-- end 加载更多内容 -->
                                             </div>
@@ -232,7 +235,7 @@
                                             <div class="mod-footer">
                                                 <!-- 加载更多内容 -->
                                                 <a class="aw-load-more-content" id="bp_user_fans_more">
-                                                    <span><?php _e('更多'); ?>...</span>
+                                                    <span><?php _e('更多'); ?></span>
                                                 </a>
                                                 <!-- end 加载更多内容 -->
                                             </div>
@@ -244,7 +247,7 @@
                                             <div class="mod-footer">
                                                 <!-- 加载更多内容 -->
                                                 <a class="aw-load-more-content" id="bp_user_topics_more">
-                                                    <span><?php _e('更多'); ?>...</span>
+                                                    <span><?php _e('更多'); ?></span>
                                                 </a>
                                                 <!-- end 加载更多内容 -->
                                             </div>
@@ -265,7 +268,7 @@
                                 <div class="mod-footer">
                                     <!-- 加载更多内容 -->
                                     <a class="aw-load-more-content" id="bp_user_actions_more">
-                                        <span><?php _e('更多'); ?>...</span>
+                                        <span><?php _e('更多'); ?></span>
                                     </a>
                                     <!-- end 加载更多内容 -->
                                 </div>
@@ -361,6 +364,37 @@
                                 </div>
                             </div>
                         </div>
+                        <?php if (get_setting('integral_system_enabled') == 'Y') { ?>
+                        <div class="tab-pane" id="integral">
+                            <div class="aw-mod">
+                                <div class="mod-head">
+                                    <h3><i class="icon icon-point"></i><?php _e('我的积分'); ?></h3>
+                                </div>
+                                <div class="mod-body">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr class="info">
+                                                <th width="14%"><?php _e('时间'); ?></th> 
+                                                <th width="8%"><?php _e('数额'); ?></th>
+                                                <th width="8%"><?php _e('余额'); ?></th>
+                                                <th width="17%"><?php _e('描述'); ?></th>
+                                                <th width="40%"><?php _e('相关信息'); ?></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="contents_user_integral">
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="mod-footer">
+                                    <!-- 加载更多内容 -->
+                                    <a class="aw-load-more-content" id="bp_user_integral">
+                                        <span><?php _e('更多'); ?></span>
+                                    </a>
+                                    <!-- end 加载更多内容 -->
+                                </div>
+                            </div>
+                        </div>
+                        <?php } ?>
                     </div>
                 </div>
             </div>

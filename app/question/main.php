@@ -326,7 +326,7 @@ class main extends AWS_CONTROLLER
 				}
 			}
 
-			if ($helpful_users = $this->model('topic')->get_helpful_users_by_topic_ids($question_topic_ids, 12))
+			if ($helpful_users = $this->model('topic')->get_helpful_users_by_topic_ids($question_topic_ids, 16))
 			{
 				foreach ($helpful_users AS $key => $val)
 				{
@@ -376,6 +376,7 @@ class main extends AWS_CONTROLLER
 			TPL::import_js('js/editor/Markdown.Converter.js');
 			TPL::import_js('js/editor/Markdown.Sanitizer.js');
 			TPL::import_js('js/editor/Markdown.Editor.js');
+			TPL::import_js('js/editor/prettify.js');
 		}
 
 		if (get_setting('upload_enable') == 'Y')
