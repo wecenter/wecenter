@@ -188,9 +188,9 @@
 											<a class="aw-user-img pull-left" data-id="<?php echo $val['user_info']['uid']; ?>" href="people/<?php echo $val['user_info']['url_token']; ?>"><img class="img" alt="" src="<?php echo get_avatar_url($val['user_info']['uid'], 'mid'); ?>" /></a>
 											<div class="main">
 												<?php if ($val['has_invite']) { ?>
-													<a class="pull-right btn btn-mini btn-default" data-value="<?php echo $val['user_info']['user_name']; ?>" data-id="<?php echo $val['user_info']['uid']; ?>" onclick="AWS.User.disinvite_user($(this))"><?php _e('取消邀请'); ?></a>
+													<a class="pull-right btn btn-mini btn-success active" data-value="<?php echo $val['user_info']['user_name']; ?>" data-id="<?php echo $val['user_info']['uid']; ?>" onclick="AWS.User.disinvite_user($(this))"><?php _e('取消邀请'); ?></a>
 												<?php } else { ?>
-													<a class="pull-right btn btn-mini btn-gray active" data-value="<?php echo $val['user_info']['user_name']; ?>" data-id="<?php echo $val['user_info']['uid']; ?>" onclick="AWS.User.invite_user($(this),$(this).parents('li').find('img').attr('src'));"><?php _e('邀请'); ?></a>
+													<a class="pull-right btn btn-mini btn-success" data-value="<?php echo $val['user_info']['user_name']; ?>" data-id="<?php echo $val['user_info']['uid']; ?>" onclick="AWS.User.invite_user($(this),$(this).parents('li').find('img').attr('src'));"><?php _e('邀请'); ?></a>
 												<?php } ?>
 
 												<a class="aw-user-name" data-id="<?php echo $val['user_info']['uid']; ?>" href="people/<?php echo $val['user_info']['url_token']; ?>"><?php echo $val['user_info']['user_name']; ?><?php if ($val['user_info']['verified']) { ?><i class="icon-v<?php if ($val['user_info']['verified'] == 'enterprise') { ?> i-ve<?php } ?>" title="<?php if ($val['user_info']['verified'] == 'enterprise') { ?>企业认证<?php } else { ?>个人认证<?php } ?>"></i><?php } ?></a>
@@ -204,7 +204,7 @@
 								</ul>
 							</div>
 							<div class="mod-footer">
-								<a class="prev active"><?php _e('上一页'); ?></a> &nbsp; <a class="next"><?php _e('下一页'); ?></a>
+								<a class="next pull-right">&gt;</a> <a class="prev active pull-right">&lt;</a>
 							</div>
 							<?php } ?>
 						</div>
