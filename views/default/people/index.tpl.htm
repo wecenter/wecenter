@@ -76,6 +76,7 @@
                             <li><a href="#focus" id="page_focus" data-toggle="tab"><?php _e('关注'); ?></a></li>
                             <li><a href="#actions" id="page_actions" data-toggle="tab"><?php _e('动态'); ?></a></li>
                             <li><a href="#detail" id="page_detail" data-toggle="tab"><?php _e('详细资料'); ?></a></li>
+                            <li><a href="#integral" id="page_integral" data-toggle="tab"><?php _e('我的积分'); ?></a></li>
                         </ul>
                     </div>
                 </div>
@@ -358,6 +359,35 @@
                                     </dd>
                                 </dl>
                                 <?php } ?>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="integral">
+                            <div class="aw-mod">
+                                <div class="mod-head">
+                                    <h3><i class="icon icon-point"></i><?php _e('我的积分'); ?></h3>
+                                </div>
+                                <div class="mod-body">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr class="info">
+                                                <th width="14%"><?php _e('时间'); ?></th> 
+                                                <th width="8%"><?php _e('数额'); ?></th>
+                                                <th width="8%"><?php _e('余额'); ?></th>
+                                                <th width="17%"><?php _e('描述'); ?></th>
+                                                <th width="40%"><?php _e('相关信息'); ?></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="contents_user_integral">
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="mod-footer">
+                                    <!-- 加载更多内容 -->
+                                    <a class="aw-load-more-content" id="bp_user_integral">
+                                        <span><?php _e('更多'); ?></span>
+                                    </a>
+                                    <!-- end 加载更多内容 -->
                                 </div>
                             </div>
                         </div>
