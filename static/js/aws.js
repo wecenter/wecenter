@@ -2584,7 +2584,7 @@ AWS.Init =
 		                                return false;
 		                            }
 
-		                            _topic_editor.prepend('<a href="' + G_BASE_URL + '/favorite/tag-' + encodeURIComponent(_topic_editor.find('#aw_edit_topic_title').val()) + '" class="aw-topic-name"><span>' + _topic_editor.find('#aw_edit_topic_title').val() + '<button class="close aw-close">x</button></span></a>').hide().fadeIn();
+		                            _topic_editor.prepend('<a href="' + G_BASE_URL + '/favorite/tag-' + encodeURIComponent(_topic_editor.find('#aw_edit_topic_title').val()) + '" class="aw-topic-name"><span>' + _topic_editor.find('#aw_edit_topic_title').val() + '<button class="close aw-close">×</button></span></a>').hide().fadeIn();
 
 		                            _topic_editor.find('#aw_edit_topic_title').val('');
 		                        }, 'json');
@@ -2600,7 +2600,7 @@ AWS.Init =
 		                                return false;
 		                            }
 
-		                            _topic_editor.prepend('<a href="' + G_BASE_URL + '/favorite/tag-' + encodeURIComponent(_topic_editor.find('#aw_edit_topic_title').val()) + '" class="aw-topic-name"><span>' + _topic_editor.find('#aw_edit_topic_title').val() + '<button class="close aw-close">x</button></span></a>').hide().fadeIn();
+		                            _topic_editor.prepend('<a href="' + G_BASE_URL + '/favorite/tag-' + encodeURIComponent(_topic_editor.find('#aw_edit_topic_title').val()) + '" class="aw-topic-name"><span>' + _topic_editor.find('#aw_edit_topic_title').val() + '<button class="close aw-close">×</button></span></a>').hide().fadeIn();
 
 		                            _topic_editor.find('#aw_edit_topic_title').val('');
 		                        }, 'json');

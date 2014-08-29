@@ -49,8 +49,8 @@
 								<a href="javascript:;" onclick="AWS.User.follow($(this), 'question', <?php echo $this->question_info['question_id']; ?>);" class="follow btn btn-normal btn-success pull-left <?php if ($this->question_focus) { ?> active<?php } ?>"><span><?php if ($this->question_focus) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?></span> <em>|</em> <b><?php echo $this->question_info['focus_count']?></b></a>
 								<!-- 下拉菜单 -->
 								<div class="btn-group pull-left">
-									<a class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" href="javascript:;">...</a>
-									<div class="dropdown-menu aw-dropdown pull-right" role="menu" aria-labelledby="dropdownMenu">
+									<a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="javascript:;">...</a>
+									<div class="aw-dropdown pull-right" role="menu" aria-labelledby="dropdownMenu">
 										<ul class="aw-dropdown-list">
 											<li>
 												<?php if ($_GET['column'] == 'log') { ?>
@@ -152,7 +152,9 @@
 									<?php if ($this->user_id != $this->question_info['published_uid'] AND $this->user_id) { ?><a <?php if (!$this->question_thanks) { ?>data-placement="bottom" title="" data-toggle="tooltip" data-original-title="<?php _e('感谢提问者'); ?>" onclick="AWS.User.question_thanks($(this), <?php echo $this->question_info['question_id']; ?>);"<?php } ?> class="aw-icon-thank-tips text-color-999"><i class="icon icon-thank"></i><?php if ($this->question_thanks) { ?><?php _e('已感谢'); ?><?php } else { ?><?php _e('感谢'); ?><?php } ?></a>
 									<?php } ?>
 
-									<a class="text-color-999" onclick="AWS.dialog('shareOut', {item_type:'question', item_id:<?php echo $this->question_info['question_id']; ?>});"><i class="icon icon-share"></i><?php _e('分享'); ?></a>
+									<a class="text-color-999"  onclick="AWS.dialog('shareOut', {item_type:'question', item_id:<?php echo $this->question_info['question_id']; ?>});">
+										<i class="icon icon-share"></i><?php _e('分享'); ?>
+									</a>
 
 									<?php if ($this->user_id) { ?><a href="javascript:;" class="text-color-999" onclick="AWS.dialog('report', {item_type:'question', item_id:<?php echo $this->question_info['question_id']; ?>})"><i class="icon icon-report"></i><?php _e('举报'); ?></a><?php } ?>
 								</span>
@@ -167,7 +169,7 @@
 										<p class="title"><?php _e('没有找到相关结果'); ?></p>
 										<ul class="aw-dropdown-list"></ul>
 									</div>
-									<i class="fa fa-search"></i>
+									<i class="icon icon-search"></i>
 								</div>
 								<div class="invite-list pull-left<?php if (!$this->invite_users) { ?> hide<?php } ?>">
 									<?php _e('已邀请'); ?>:
@@ -248,7 +250,7 @@
 								<!--<li><a href="question/<?php echo $this->question_info['question_id']; ?>"><?php _e('全部回答'); ?></a></li>-->
 								<?php } else if (($this->answer_count OR $_GET['uid']) AND $this->user_id) { ?>
 								<li<?php if ($_GET['uid'] == 'focus') { ?> class="active"<?php } ?>><a href="question/<?php echo $this->question_info['question_id']; ?>?uid=focus"><?php _e('关注的人'); ?></a></li>
-								<li<?php if ($_GET['sort_key'] == 'add_time') { ?> class="active"<?php } ?>><a href="question/<?php echo $this->question_info['question_id']; ?>?sort_key=add_time&sort=<?php if (($_GET['sort_key'] == 'add_time') && $_GET['sort'] == 'ASC') { ?>DESC<?php } else { ?>ASC<?php } ?>"><?php _e('时间'); ?><?php if (($_GET['sort_key'] == 'add_time') && $_GET['sort'] == 'DESC') { ?><i class="icon icon-down"></i><?php } else { ?><i class="icon icon-up"></i><?php } ?></a></li>
+								<li<?php if ($_GET['sort_key'] == 'add_time') { ?> class="active"<?php } ?>><a href="question/<?php echo $this->question_info['question_id']; ?>?sort_key=add_time&sort=<?php if (($_GET['sort_key'] == 'add_time') && $_GET['sort'] == 'ASC') { ?>DESC<?php } else { ?>ASC<?php } ?>"><?php _e('时间'); ?><?php if (($_GET['sort_key'] == 'add_time') && $_GET['sort'] == 'DESC') { ?> <i class="icon icon-down"></i><?php } else { ?> <i class="icon icon-up"></i><?php } ?></a></li>
 								<li<?php if ((!$_GET['uid'] && !$_GET['sort_key']) || $_GET['sort_key'] == 'agree_count') { ?> class="active"<?php } ?>><a href="question/<?php echo $this->question_info['question_id']; ?>&sort_key=agree_count&sort=DESC"><?php _e('票数'); ?></a></li>
 								<?php } ?>
 

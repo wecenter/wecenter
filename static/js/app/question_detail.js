@@ -219,7 +219,7 @@ $(function()
     $('.markitup-box a').attr('target','_blank');
 	
 	//编辑器@人
-    AWS.at_user_lists('#advanced_editor');
+    AWS.at_user_lists('#wmd-input');
 
     //赞同反对fixed滚动
     $(window).scroll(function()
