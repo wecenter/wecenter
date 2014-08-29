@@ -80,6 +80,17 @@ class draft_class extends AWS_MODEL
 
 		return true;
 	}
+	
+	public function clean_draft($uid)
+	{
+		$this->delete('draft', "uid = " . intval($uid));
+
+		$this->shutdown_update('users', array(
+			'draft_count' => 0
+		), 'uid = ' . intval($uid));
+
+		return true;
+	}
 
 	public function get_data($item_id, $type, $uid)
 	{
