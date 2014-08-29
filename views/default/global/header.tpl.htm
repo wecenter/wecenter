@@ -100,6 +100,12 @@
 			<?php if ($this->user_id) { ?>
 			<div class="aw-publish-btn">
 				<a id="header_publish"<?php if (get_setting('quick_publish') == 'Y' AND $this->user_id) { ?>href="publish/"<?php } else { ?>href="publish/<?php if ($_GET['category']) { ?>category_id-<?php echo intval($_GET['category']); ?>__<?php } ?><?php if ($this->topic_info) { ?>topic_title-<?php echo urlencode($this->topic_info['topic_title']); ?>__<?php } ?>"<?php } ?> class="btn-primary"<?php if (get_setting('quick_publish') == 'Y' && $this->user_id) { ?> onclick="AWS.dialog('publish', {'category_enable':'<?php echo (get_setting('category_enable') == 'Y') ? '1' : '0'; ?>', 'category_id':'<?php echo intval($_GET['category']); ?>', 'topic_title':'<?php echo $this->topic_info['topic_title']; ?>'}); return false;"<?php } ?>><i class="icon icon-ask"></i><?php _e('发起'); ?></a>
+				<div class="dropdown-list pull-right">
+					<ul>
+						<li><a href="publish/"><?php _e('问题'); ?></a></li>
+						<li><a href="publish/article/"><?php _e('文章'); ?></a></li>
+					</ul>
+				</div>
 			</div>
 			<?php }?>
 			<!-- end 发起 -->

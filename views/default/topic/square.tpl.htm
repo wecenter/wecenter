@@ -117,7 +117,6 @@
                                 </dt>
                                 <dd class="pull-left">
                                     <?php echo $this->today_topic['topic_title']; ?>
-                                    <a class="icon-inverse follow tooltips icon icon-plus" data-placement="bottom" title="" data-toggle="tooltip" data-original-title="<?php _e('关注'); ?>" onclick="AWS.User.follow($(this), 'topic', <?php echo $this->today_topic['topic_id']; ?>);AWS.ajax_request(G_BASE_URL + '/account/ajax/clean_user_recommend_cache/');"></a>
                                 </dd>
                             </dl>
                             <!-- 话题描述 -->
@@ -139,11 +138,13 @@
                         </div>
                     </div>
                     <!-- end 新增话题 -->
+                    <?php if ($this->user_id) { ?>
                     <div class="aw-mod">
                         <div class="mod-body">
                             <a href="topic/channel-focus"><?php _e('我关注的话题'); ?></a>
                         </div>
                     </div>
+                    <?php } ?>
                 </div>
                 <!-- end 侧边栏 -->
             </div>

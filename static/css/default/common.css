@@ -150,10 +150,16 @@ a.aw-load-more-content{display: block;}
 .aw-logo{width:90px;height:40px;margin:9px 0 0 0;}
 .aw-logo a{display:block;width: 57px;height: 35px;background:url('img/logo.png') no-repeat;}
 .aw-logo h1{height:25px;line-height:25px;margin:-2px 0 2px 0;font-size:14px;}
-.aw-publish-btn{width:80px;}
+.aw-publish-btn{position:relative;width:80px;}
 .aw-publish-btn a{display:block;width:80px;height: 32px;line-height: 32px;font-size: 14px;text-align: center;border-radius: 3px;}
 .aw-publish-btn i{position:relative;top:1px;margin-right: 10px;font-size: 16px;}
 .aw-publish-btn .fa-edit{margin-right:10px;vertical-align:-1px;font-size: 15px;color: #fff;}
+.aw-publish-btn:hover #header_publish{border-radius: 4px 4px 0 0;}
+.aw-publish-btn:hover .dropdown-list{display: block;}
+.aw-publish-btn .dropdown-list{position: absolute;display: none;}
+.aw-publish-btn .dropdown-list a{background-color: #4dabff;border-radius: 0;color: #fff;}
+.aw-publish-btn .dropdown-list a:hover{background-color: #339dff;}
+.aw-publish-btn .dropdown-list ul li:last-child a{border-radius: 0 0 4px 4px;}
 .aw-top-nav{margin:0;border: none;}
 .aw-top-nav .icon-bar{background-color: #fff;}
 .aw-top-nav > nav > ul > li > a{padding:16px;color: #fff;}

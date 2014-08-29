@@ -51,7 +51,7 @@ var AW_TEMPLATE = {
 					'</div>'+
 					'<div class="mod-footer">'+
 						'<span class="pull-right">'+
-							_t('问题数') + ' {{discuss_count}} • ' + _t('关注者') + ' {{focus_count}}'+
+							_t('讨论数') + ' {{discuss_count}} • ' + _t('关注者') + ' {{focus_count}}'+
 						'</span>'+
 						'<a class="btn btn-mini btn-success follow {{focus}}" onclick="AWS.User.follow($(this), \'topic\', {{topic_id}});"><span>{{focusTxt}}</span></a>'+
 					'</div>'+
