@@ -546,6 +546,8 @@ var AWS =
 
 		            $('#quick_publish .aw-edit-topic').click();
 
+		            $('#quick_publish .close-edit').hide();
+
 		            if (data.topic_title)
 		            {
 		                $('#quick_publish .aw-edit-topic').parents('.aw-topic-editor').prepend('<a href="javascript:;" class="aw-topic-name"><span>' + data.topic_title + '</span><input type="hidden" value="' + data.topic_title + '" name="topics[]" /></a>')
@@ -854,7 +856,7 @@ var AWS =
 	                        }));
 
 	                        //判断是否为游客or自己
-	                        if (G_USER_ID <= 0 || G_USER_ID == result.uid || result.uid < 0)
+	                        if (G_USER_ID == '' || G_USER_ID == result.uid || result.uid < 0)
 	                        {
 	                            $('#aw-card-tips .mod-footer').hide();
 	                        }
@@ -893,9 +895,9 @@ var AWS =
 	                                'url' : result.url
 	                            }));
 	                            //判断是否为游客
-	                            if (G_USER_ID == 0)
+	                            if (G_USER_ID == '')
 	                            {
-	                                $('#aw-card-tips .mod-footer .focus').hide();
+	                                $('#aw-card-tips .mod-footer .follow').hide();
 	                            }
 	                            _init();
 	                            //缓存

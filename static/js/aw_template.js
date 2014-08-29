@@ -51,7 +51,7 @@ var AW_TEMPLATE = {
 					'</div>'+
 					'<div class="mod-footer">'+
 						'<span class="pull-right">'+
-							_t('问题数') + ' {{discuss_count}} • ' + _t('关注者') + ' {{focus_count}}'+
+							_t('讨论数') + ' {{discuss_count}} • ' + _t('关注者') + ' {{focus_count}}'+
 						'</span>'+
 						'<a class="btn btn-mini btn-success follow {{focus}}" onclick="AWS.User.follow($(this), \'topic\', {{topic_id}});"><span>{{focusTxt}}</span></a>'+
 					'</div>'+
@@ -63,7 +63,7 @@ var AW_TEMPLATE = {
 				'<div class="modal-dialog">'+
 					'<div class="modal-content">'+
 						'<div class="modal-header">'+
-							'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
+							'<a type="button" class="close icon icon-delete" data-dismiss="modal" aria-hidden="true"></a>'+
 							'<h3 class="modal-title" id="myModalLabel">' + _t('提示信息') + '</h3>'+
 						'</div>'+
 						'<div class="modal-body">'+
@@ -78,7 +78,7 @@ var AW_TEMPLATE = {
 				'<div class="modal-dialog">'+
 					'<div class="modal-content">'+
 						'<div class="modal-header">'+
-							'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
+							'<a type="button" class="close icon icon-delete" data-dismiss="modal" aria-hidden="true"></a>'+
 							'<h3 class="modal-title" id="myModalLabel">{{title}}</h3>'+
 						'</div>'+
 						'<div class="modal-body">'+
@@ -91,7 +91,7 @@ var AW_TEMPLATE = {
 							'<p class="text-color-999">{{type_tips}}</p>'+
 						'</div>'+
 						'<div class="modal-footer">'+
-							'<a data-dismiss="modal" aria-hidden="true" class="btn">' + _t('取消') + '</a>'+
+							'<a data-dismiss="modal" aria-hidden="true" class="btn text-color-999">' + _t('取消') + '</a>'+
 							'<button class="btn btn-large btn-success" data-dismiss="modal" aria-hidden="true" onclick="AWS.Editor.add_multimedia({{type}});">' + _t('确定') + '</button>'+
 						'</div>'+
 					'</div>'+
@@ -103,7 +103,7 @@ var AW_TEMPLATE = {
 				'<div class="modal-dialog">'+
 					'<div class="modal-content">'+
 						'<div class="modal-header">'+
-							'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
+							'<a type="button" class="close icon icon-delete" data-dismiss="modal" aria-hidden="true"></a>'+
 							'<h3 class="modal-title" id="myModalLabel">' + _t('编辑回复') + '</h3>'+
 						'</div>'+
 						'<form action="' + G_BASE_URL + '/question/ajax/update_answer/answer_id-{{answer_id}}" method="post" onsubmit="return false" id="answer_edit">'+
@@ -147,7 +147,7 @@ var AW_TEMPLATE = {
 			'<div class="modal-dialog">'+
 				'<div class="modal-content">'+
 					'<div class="modal-header">'+
-						'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
+						'<a type="button" class="close icon icon-delete" data-dismiss="modal" aria-hidden="true"></a>'+
 						'<h3 class="modal-title" id="myModalLabel">' + _t('收藏') + '</h3>'+
 					'</div>'+
 					'<form action="' + G_BASE_URL + '/favorite/ajax/update_favorite_tag/" method="post" onsubmit="return false;">'+
@@ -159,7 +159,7 @@ var AW_TEMPLATE = {
 							'<p id="add_favorite_my_tags" class="hide">' + _t('常用标签') + ': </p>'+
 						'</div>'+
 						'<div class="modal-footer">'+
-							'<a href="javascript:;" data-dismiss="modal" aria-hidden="true">' + _t('取消') + '</a>'+
+							'<a href="javascript:;" data-dismiss="modal" aria-hidden="true" class="text-color-999">' + _t('取消') + '</a>'+
 							'<button href="javascript:;" class="btn btn-large btn-success" onclick="AWS.ajax_post($(this).parents(\'form\'), AWS.ajax_processer, \'ajax_post_modal\');">' + _t('确认') + '</button>'+
 						'</div>'+
 					'</form>'+
@@ -172,7 +172,7 @@ var AW_TEMPLATE = {
 			'<div class="modal-dialog">'+
 				'<div class="modal-content">'+
 					'<div class="modal-header">'+
-						'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
+						'<a type="button" class="close icon icon-delete" data-dismiss="modal" aria-hidden="true"></a>'+
 						'<h3 class="modal-title" id="myModalLabel">' + _t('问题重定向至') + '</h3>'+
 					'</div>'+
 					'<div class="modal-body">'+
@@ -192,7 +192,7 @@ var AW_TEMPLATE = {
 				'<div class="modal-dialog">'+
 					'<div class="modal-content">'+
 						'<div class="modal-header">'+
-							'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
+							'<a type="button" class="close icon icon-delete" data-dismiss="modal" aria-hidden="true"></a>'+
 							'<h3 class="modal-title" id="myModalLabel">' + _t('发起问题') + '</h3>'+
 						'</div>'+
 						'<div class="modal-body">'+
@@ -232,7 +232,7 @@ var AW_TEMPLATE = {
 						'</div>'+
 						'<div class="modal-footer">'+
 							'<span class="pull-right">'+
-								'<a data-dismiss="modal" aria-hidden="true">' + _t('取消') + '</a>'+
+								'<a data-dismiss="modal" aria-hidden="true" class="text-color-999">' + _t('取消') + '</a>'+
 								'<button class="btn btn-large btn-success" onclick="AWS.ajax_post($(\'#quick_publish\'), AWS.ajax_processer, \'error_message\');">' + _t('发起') + '</button>'+
 							'</span>'+
 							'<a href="javascript:;" tabindex="-1" onclick="$(\'form#quick_publish\').attr(\'action\', \'' + G_BASE_URL + '/publish/\');document.getElementById(\'quick_publish\').submit();" class="pull-left">' + _t('高级模式') + '</a>'+
@@ -246,7 +246,7 @@ var AW_TEMPLATE = {
 				'<div class="modal-dialog">'+
 					'<div class="modal-content">'+
 						'<div class="modal-header">'+
-							'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
+							'<a type="button" class="close icon icon-delete" data-dismiss="modal" aria-hidden="true"></a>'+
 							'<h3 class="modal-title" id="myModalLabel">' + _t('新私信') + '</h3>'+
 						'</div>'+
 						'<div class="modal-body">'+
@@ -263,7 +263,7 @@ var AW_TEMPLATE = {
 							'</form>'+
 						'</div>'+
 						'<div class="modal-footer">'+
-							'<a data-dismiss="modal" aria-hidden="true">' + _t('取消') + '</a>'+
+							'<a data-dismiss="modal" aria-hidden="true" class="text-color-999">' + _t('取消') + '</a>'+
 							'<button class="btn btn-large btn-success" onclick="AWS.ajax_post($(\'#quick_publish\'), AWS.ajax_processer, \'error_message\');">' + _t('发送') + '</button>'+
 						'</div>'+
 					'</div>'+
@@ -275,7 +275,7 @@ var AW_TEMPLATE = {
 				'<div class="modal-dialog">'+
 					'<div class="modal-content">'+
 						'<div class="modal-header">'+
-							'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
+							'<a type="button" class="close icon icon-delete" data-dismiss="modal" aria-hidden="true"></a>'+
 							'<h3 class="modal-title" id="myModalLabel">' + _t('分享') + '</h3>'+
 						'</div>'+
 						'<div class="modal-body clearfix">'+
@@ -314,7 +314,7 @@ var AW_TEMPLATE = {
 			'<div class="modal-dialog">'+
 				'<div class="modal-content">'+
 					'<div class="modal-header">'+
-						'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
+						'<a type="button" class="close icon icon-delete" data-dismiss="modal" aria-hidden="true"></a>'+
 						'<h3 class="modal-title" id="myModalLabel">{{title}}</h3>'+
 					'</div>'+
 					'<div class="modal-body">'+
@@ -359,7 +359,7 @@ var AW_TEMPLATE = {
 				'<div class="modal-dialog">'+
 					'<div class="modal-content">'+
 						'<div class="modal-header">'+
-							'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
+							'<a type="button" class="close icon icon-delete" data-dismiss="modal" aria-hidden="true"></a>'+
 							'<h3 class="modal-title" id="myModalLabel">' + _t('举报问题') + '</h3>'+
 						'</div>'+
 						'<form id="quick_publish" method="post" action="' + G_BASE_URL + '/question/ajax/save_report/">'+
@@ -370,7 +370,7 @@ var AW_TEMPLATE = {
 								'<textarea class="form-control" name="reason" rows="5" placeholder="' + _t('请填写举报理由') + '..."></textarea>'+
 							'</div>'+
 							'<div class="modal-footer">'+
-								'<a data-dismiss="modal" aria-hidden="true">' + _t('取消') + '</a>'+
+								'<a data-dismiss="modal" aria-hidden="true" class="text-color-999">' + _t('取消') + '</a>'+
 								'<button class="btn btn-large btn-success" onclick="AWS.ajax_post($(\'#quick_publish\'), AWS.ajax_processer, \'error_message\');return false;">' + _t('提交') + '</button>'+
 							'</div>'+
 						'</form>'+
@@ -454,7 +454,7 @@ var AW_TEMPLATE = {
 				'<div class="modal-dialog">'+
 					'<div class="modal-content">'+
 						'<div class="modal-header">'+
-							'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
+							'<a type="button" class="close icon icon-delete" data-dismiss="modal" aria-hidden="true"></a>'+
 							'<h3 id="myModalLabel">{{title}}</h3>'+
 						'</div>'+
 						'<div class="modal-body">'+
@@ -466,7 +466,7 @@ var AW_TEMPLATE = {
 							'</form>'+
 						'</div>'+
 						'<div class="modal-footer">'+
-							'<a data-dismiss="modal" aria-hidden="true">' + _t('取消') + '</a>'+
+							'<a data-dismiss="modal" aria-hidden="true" class="text-color-999">' + _t('取消') + '</a>'+
 							'<button class="btn btn-large btn-success" data-dismiss="modal" aria-hidden="true" onclick="AWS.Editor.add_multimedia({{type}});">' + _t('确定') + '</button>'+
 						'</div>'+
 					'</div>'+
@@ -477,7 +477,7 @@ var AW_TEMPLATE = {
 			'<div class="modal-dialog">'+
 				'<div class="modal-content">'+
 					'<div class="modal-header">'+
-						'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
+						'<a type="button" class="close icon icon-delete" data-dismiss="modal" aria-hidden="true"></a>'+
 						'<h3 class="modal-title" id="myModalLabel">' + _t('提示信息') + '</h3>'+
 					'</div>'+
 					'<div class="modal-body">'+
@@ -493,14 +493,14 @@ var AW_TEMPLATE = {
 			'<div class="modal-dialog">'+
 				'<div class="modal-content">'+
 					'<div class="modal-header">'+
-						'<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'+
+						'<a type="button" class="close icon icon-delete" data-dismiss="modal" aria-hidden="true"></a>'+
 						'<h3 class="modal-title" id="myModalLabel">' + _t('提示信息') + '</h3>'+
 					'</div>'+
 					'<div class="modal-body">'+
 						'{{message}}'+
 					'</div>'+
 					'<div class="modal-footer">'+
-						'<a class="btn btn-default" data-dismiss="modal" aria-hidden="true">取消</a>'+
+						'<a class="btn btn-gray" data-dismiss="modal" aria-hidden="true">取消</a>'+
 						'<a class="btn btn-success yes">确定</a>'+
 					'</div>'+
 				'</div>'+
