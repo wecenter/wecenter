@@ -173,7 +173,7 @@ a.aw-load-more-content{display: block;}
 .aw-top-nav > nav > ul > li > a i.icon-home{top: 1px;}
 .aw-top-nav .badge{position: absolute;top: 4px;right: 2px;}
 .aw-top-nav ul li:hover .aw-dropdown{display: block;}
-.aw-top-nav .aw-dropdown{display:none;min-width:300px;border-top: none;border-radius: 0 0 4px 4px;}
+.aw-top-nav .aw-dropdown{display:none;top:100%;min-width:300px;border-top: none;border-radius: 0 0 4px 4px;}
 .aw-top-nav .aw-dropdown .more{font-size: 12px;}
 .aw-top-nav .aw-dropdown .close{display: none;}
 .aw-top-nav .aw-dropdown ul li{padding:5px 10px;border-top:1px solid #f5f5f5;}
