@@ -546,6 +546,8 @@ var AWS =
 
 		            $('#quick_publish .aw-edit-topic').click();
 
+		            $('#quick_publish .close-edit').hide();
+
 		            if (data.topic_title)
 		            {
 		                $('#quick_publish .aw-edit-topic').parents('.aw-topic-editor').prepend('<a href="javascript:;" class="aw-topic-name"><span>' + data.topic_title + '</span><input type="hidden" value="' + data.topic_title + '" name="topics[]" /></a>')

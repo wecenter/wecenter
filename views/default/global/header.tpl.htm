@@ -20,7 +20,7 @@
 							<p class="search"><span><?php _e('搜索'); ?>:</span><a onClick="$('#global_search_form').submit();"></a></p>
 						</div>
 						<div class="mod-footer">
-							<a href="<?php if (get_setting('quick_publish') == 'Y' && $this->user_id) { ?>javascript:;<? } else { ?>publish<?php } ?>" onClick="$('#header_publish').click();" class="pull-right btn btn-normal btn-success publish"><?php _e('发起问题'); ?></a>
+							<a href="<?php if (get_setting('quick_publish') == 'Y' && $this->user_id) { ?>javascript:;<? } else { ?>publish<?php } ?>" onClick="$('#header_publish').click();" class="pull-right btn btn-mini btn-success publish"><?php _e('发起问题'); ?></a>
 						</div>
 					</div>
 				</form>
@@ -52,7 +52,7 @@
 					<li>
 						<a href="notifications/" class="<?php if ($_GET['app'] == 'notifications') { ?>active<?php } ?>"><i class="icon icon-bell"></i> <?php _e('通知'); ?></a>
 						<span class="badge badge-important" style="display:none" id="notifications_unread"><?php echo $this->user_info['notification_unread']; ?></span>
-						<div class="aw-dropdown hidden-xs">
+						<div class="aw-dropdown pull-right hidden-xs">
 							<div class="mod-body">
 								<ul id="header_notification_list"></ul>
 							</div>
@@ -77,7 +77,7 @@
 						<?php } ?>
 
 					</a>
-					<div class="dropdown-list pull-right">
+					<div class="aw-dropdown dropdown-list pull-right">
 						<ul>
 							<li><a href="inbox/"><i class="icon icon-inbox"></i> <?php _e('私信'); ?><span class="badge badge-important hide" id="inbox_unread">0</span></a></li>
 							<li class="hidden-xs"><a href="account/setting/profile/"><i class="icon icon-setting"></i> <?php _e('设置'); ?></a></li>
