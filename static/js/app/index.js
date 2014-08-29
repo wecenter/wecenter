@@ -67,7 +67,7 @@ $(function()
 				var request_url = G_BASE_URL + '/home/ajax/draft/page-' + $(this).attr('data-page');
 				if($('#main_title .btn-success').length <=0)
 				{
-					$('#main_title').prepend('<a class="pull-right btn btn-mini btn-success" id="delete-draft" onclick="$.each($(\'.delete-draft\'), function (i, e) { $(e).click(); });">' + _t('清空所有') + '</a>');
+					$('#main_title').prepend('<a class="pull-right btn btn-mini btn-success" onclick="AWS.User.delete_draft(\'\', \'clean\');">' + _t('清空所有') + '</a>');
 				}
 			break;
 

@@ -16,7 +16,7 @@
 								<input type="hidden" name="topic_id" value="<?php echo $this->topic_info['topic_id']; ?>" />
 								<dt><?php _e('话题别名'); ?>:</dt>
 								<dd>
-									<a class="btn btn-large btn-success pull-right" href="javascript:;" onclick="AWS.ajax_post($('#url_token_form'));" /><?php _e('保存'); ?></a>
+									<a class="btn btn-normal btn-success pull-right" href="javascript:;" onclick="AWS.ajax_post($('#url_token_form'));" /><?php _e('保存'); ?></a>
 									<script type="text/javascript">document.write(G_BASE_URL);</script>/topic/
 									<input type="text" class="form-control" name="url_token" value="<?php echo $this->topic_info['url_token']; ?>" />
 								</dd>
@@ -27,7 +27,7 @@
 								<input type="hidden" name="topic_id" value="<?php echo $this->topic_info['topic_id']; ?>" />
 								<dt><?php _e('页面标题'); ?>:</dt>
 								<dd>
-									<a class="btn btn-large btn-success pull-right" href="javascript:;" onclick="AWS.ajax_post($('#seo_title_form'));"><?php _e('保存'); ?></a>
+									<a class="btn btn-normal btn-success pull-right" href="javascript:;" onclick="AWS.ajax_post($('#seo_title_form'));"><?php _e('保存'); ?></a>
 									<input type="text" class="form-control" name="seo_title" value="<?php echo $this->topic_info['seo_title']; ?>" />
 								</dd>
 							</form>
@@ -37,7 +37,7 @@
 								<input type="hidden" name="target_id" value="<?php echo $this->topic_info['topic_id']; ?>" />
 								<dt><?php _e('话题合并'); ?>:</dt>
 								<dd>
-									<a class="btn btn-large btn-success pull-right" onclick="AWS.ajax_post($('#merge_topic_form'));"><?php _e('合并'); ?></a>
+									<a class="btn btn-normal btn-success pull-right" onclick="AWS.ajax_post($('#merge_topic_form'));"><?php _e('合并'); ?></a>
 									<input type="text" class="form-control" name="topic_title" placeholder="<?php _e('在此输入要与该话题合并的话题'); ?>..."/>
 								</dd>
 							</form>
@@ -68,7 +68,7 @@
 									<div class="dropdown">
 										<div class="dropdown-toggle">
 											<input class="aw-hide-txt" id="aw-topic-tags-select" placeholder="<?php _e(根话题); ?>" />
-											<a class="triangle"><i class="fa fa-chevron-down"></i></a>
+											<a class="triangle"><i class="icon icon-down"></i></a>
 										</div>
 										<div class="aw-dropdown">
 											<i class="i-dropdown-triangle"></i>
@@ -96,7 +96,7 @@
 						</div>
 						<div class="mod-footer">
 							<?php if ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?>
-							<a onclick="AWS.ajax_request(G_BASE_URL + '/topic/ajax/lock/', 'topic_id=<?php echo $this->topic_info['topic_id']; ?>');" class="btn btn-default <?php if (!$this->topic_info['topic_lock']) { ?>active<?php } ?>"><?php if ($this->topic_info['topic_lock']) { ?><?php _e('解除锁定'); ?><?php } else { ?><?php _e('锁定话题'); ?><?php } ?></a>&nbsp;
+							<a onclick="AWS.ajax_request(G_BASE_URL + '/topic/ajax/lock/', 'topic_id=<?php echo $this->topic_info['topic_id']; ?>');" class="btn btn-success <?php if ($this->topic_info['topic_lock']) { ?>active<?php } ?>"><?php if ($this->topic_info['topic_lock']) { ?><?php _e('解除锁定'); ?><?php } else { ?><?php _e('锁定话题'); ?><?php } ?></a>&nbsp;
 							<a onclick="AWS.dialog('confirm', {'message' : '<?php _e('确认删除?'); ?>'}, function(){AWS.ajax_request(G_BASE_URL + '/topic/ajax/remove/', 'topic_id=<?php echo $this->topic_info['topic_id']; ?>');});" class="btn btn-gray"><?php _e('删除话题'); ?></a>
 							<?php } ?>
 						</div>

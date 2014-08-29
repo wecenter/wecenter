@@ -9,9 +9,9 @@ body{background:url('img/login_bg.jpg') no-repeat #E9F0F4;}
 .btn-qq:active{background-color: #1773E2;color: #fff;}
 .btn-wechat{background-color: #73db42;color: #fff;}
 .btn-wechat:hover{color: #fff;}
-.btn-blue{height:40px;line-height:40px;padding:0;border:none;background-color: #66b7ff;color: #fff !important;}
-.btn-blue:hover{background-color: #4DAAFF;}
-.btn-blue:active{background-color: #339DFF;}
+.btn-primary{border:none;background-color: #59b0ff;}
+.btn-primary:hover{background-color: #4daaff;}
+.btn-primary:active, .btn-primary:focus{background-color: #1a90ff;}
 .btn:active, .btn.active{box-shadow: none;}
 .aw-login-box{width: 714px;margin:0 auto;background-color: #ffffff;border:1px solid #b3b3b3;border-radius: 3px;}
 .aw-login-box .logo{width:151px;height:94px;background:url('img/login_logo.png') no-repeat;}
@@ -22,7 +22,7 @@ body{background:url('img/login_bg.jpg') no-repeat #E9F0F4;}
 .aw-login-box .mod-body .content ul li:first-child{margin-top: 0;}
 .aw-login-box .mod-body .content ul li.last{font-size: 12px;line-height: 40px;}
 .aw-login-box .mod-body .content ul li.last a{color: #666666;}
-.aw-login-box .mod-body .content ul li .btn-blue{width:112px;}
+.aw-login-box .mod-body .content ul li .btn-primary{width:112px;color: #fff !important;}
 .aw-login-box .mod-body .side-bar{height: 326px;padding:60px 0 60px 60px;border-left: 1px solid #e6e6e6;}
 .aw-login-box .mod-body .side-bar h3{margin-bottom:27px;color: #666666;text-align: center;}
 .aw-login-box .mod-body .side-bar .btn{position:relative;width: 170px;height: 40px;line-height: 40px;margin:0 0 20px;padding:0 0 0 15px;}

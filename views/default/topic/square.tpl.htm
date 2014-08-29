@@ -7,13 +7,15 @@
                 <div class="col-sm-12 col-md-9 aw-main-content">
                     <!-- tab切换 -->
                     <ul class="nav nav-tabs aw-nav-tabs active hidden-xs">
-                        <li><a href="topic/channel-topic__day-30"><?php _e('30天'); ?></a></li>
-                        <li><a href="topic/channel-topic__day-7"><?php _e('7天'); ?></a></li>
-                        <li class="active"><a href="topic/channel-topic__day-all"><?php _e('全部'); ?></a></li>
+                        <?php if (!$_GET['topic_id']) { ?>
+                        <li <?php if ($_GET['day'] == 'month') { ?>class="active"<?php } ?>><a href="topic/channel-topic__day-month"><?php _e('%s 天', 30); ?></a></li>
+                        <li <?php if ($_GET['day'] == 'week') { ?>class="active"<?php } ?>><a href="topic/channel-topic__day-week"><?php _e('%s 天', 7); ?></a></li>
+                        <li <?php if (!$_GET['day']) { ?>class="active"<?php } ?>><a href="topic/channel-topic"><?php _e('全部'); ?></a></li>
+                        <?php } ?>
                         <?php if ($_GET['channel'] == 'focus') { ?>
                         <h2 class="hidden-xs"><i class="icon icon-topic"></i> <?php _e('我关注的话题'); ?></h2>
                         <?php } else { ?>
-                        <h2 class="hidden-xs"><i class="icon icon-topic"></i> 热门话题</h2>
+                        <h2 class="hidden-xs"><i class="icon icon-topic"></i> <?php _e('热门话题'); ?></h2>
                         <?php } ?>
                     </ul>
                     <!-- end tab切换 -->
@@ -62,14 +64,13 @@
                                     <!-- 话题内容 -->
                                     <a class="aw-topic-name" href="topic/<?php echo $val['url_token']; ?>" data-id="<?php echo $val['topic_id']; ?>"><span><?php echo $val['topic_title']; ?></span></a>
                                     <!-- end 话题内容 -->
-                                    <a class="icon-inverse follow tooltips icon icon-plus" data-placement="bottom" title="" data-toggle="tooltip" data-original-title="<?php _e('关注'); ?>" onclick="AWS.User.follow($(this), 'topic' <?php echo $val['topic_id']; ?>);AWS.ajax_request(G_BASE_URL + '/account/ajax/clean_user_recommend_cache/');"></a>
                                 </p>
                                 <p class="text-color-999">
                                     <span><?php _e('%s 个讨论', $val['discuss_count']); ?></span>
                                     <span><?php _e('%s 个关注', $val['focus_count']); ?></span>
                                 </p>
                                 <p class="text-color-999">
-                                    7天增加xx个问题, 30天增加xx个问题
+                                    <?php _e('7 天新增 %s 个讨论', $val['discuss_count_last_week']); ?>, <?php _e('30 天新增 %s 个讨论', $val['discuss_count_last_month']); ?>
                                 </p>
                             </div>
                             <?php } ?>
@@ -80,26 +81,9 @@
                         </div>
                     </div>
                     <!-- end 我关注的话题 -->
-
-                    <?php if ((!$_GET['channel'] OR $_GET['channel'] == 'focus') AND $this->user_info['topic_focus_count'] < 5) { ?>
-                        <!-- <div class="aw-notopic-sort"><?php _e('你当前的话题较少, 推荐去<a href="topic/channel-hot">热门话题</a>看看'); ?></div> -->
-                    <?php } ?>
                 </div>
                 <!-- 侧边栏 -->
                 <div class="col-sm-3 col-md-3 aw-side-bar hidden-sm hidden-xs">
-                    <!-- 话题侧边栏导航 -->
-                    <?php if ($this->user_id) { ?>
-                    <!-- <div class="aw-mod topic-nav hidden-xs">
-                        <div class="mod-body">
-                            <ul>
-                                <li><a href="topic/channel-focus"<?php if (!$_GET['channel'] OR $_GET['channel'] == 'focus') { ?> class="active"<?php } ?>><i class="fa fa-tags"></i> <?php _e('我关注的话题'); ?></a></li>
-
-                                <li><a href="topic/channel-hot"<?php if ($_GET['channel'] == 'hot') { ?> class="active"<?php } ?>><i class="fa fa-fire"></i> <?php _e('热门话题'); ?></a></li>
-                            </ul>
-                        </div>
-                    </div> -->
-                    <?php } ?>
-                    <!-- end 话题侧边栏导航 -->
                     <!-- 今日话题 -->
                     <div class="aw-mod topic-daily hidden-xs">
                         <div class="mod-head">
@@ -116,7 +100,6 @@
                                 </dt>
                                 <dd class="pull-left">
                                     <?php echo $this->today_topic['topic_title']; ?>
-                                    <a class="icon-inverse follow tooltips icon icon-plus" data-placement="bottom" title="" data-toggle="tooltip" data-original-title="<?php _e('关注'); ?>" onclick="AWS.User.follow($(this), 'topic' <?php echo $this->today_topic['topic_id']; ?>);AWS.ajax_request(G_BASE_URL + '/account/ajax/clean_user_recommend_cache/');"></a>
                                 </dd>
                             </dl>
                             <!-- 话题描述 -->
@@ -138,11 +121,13 @@
                         </div>
                     </div>
                     <!-- end 新增话题 -->
+                    <?php if ($this->user_id) { ?>
                     <div class="aw-mod">
                         <div class="mod-body">
                             <a href="topic/channel-focus"><?php _e('我关注的话题'); ?></a>
                         </div>
                     </div>
+                    <?php } ?>
                 </div>
                 <!-- end 侧边栏 -->
             </div>

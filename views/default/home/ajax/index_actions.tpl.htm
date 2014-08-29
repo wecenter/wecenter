@@ -91,9 +91,9 @@
 		<div class="meta">
 			<!-- 投票栏 -->
 			<span class="operate">
-				<a class="<?php if ($val['answer_info']['agree_status'] == 1) { ?>active<?php } ?>" onclick="AWS.User.agree_vote(this, '<?php echo $this->user_info['user_name']; ?>', <?php echo $val['answer_info']['answer_id']; ?>);"><i data-original-title="赞同回复" class="icon icon-agree" data-toggle="tooltip" title="" data-placement="right"></i> <?php echo $val['answer_info']['agree_count']; ?></a>
+				<a class="agree <?php if ($this->user_id == $val['answer_info']['uid']) { ?> disabled<?php } ?> <?php if ($val['answer_info']['agree_status'] == 1) { ?>active<?php } ?>" <?php if ($this->user_id != $val['answer_info']['uid']) { ?>onclick="AWS.User.agree_vote(this, '<?php echo $this->user_info['user_name']; ?>', <?php echo $val['answer_info']['answer_id']; ?>);"<?php } ?>><i data-original-title="赞同回复" class="icon icon-agree" data-toggle="tooltip" title="" data-placement="right"></i> <b class="count"><?php echo $val['answer_info']['agree_count']; ?></b></a>
 				<?php if ($this->user_id != $val['answer_info']['uid']) { ?>
-				<a class="<?php if ($val['answer_info']['agree_status'] == -1) { ?>active<?php } ?>" onclick="AWS.User.disagree_vote(this, '<?php echo $this->user_info['user_name']; ?>', <?php echo $val['answer_info']['answer_id']; ?>)"><i data-original-title="对回复持反对意见" class="icon icon-disagree" data-toggle="tooltip" title="" data-placement="right"></i></a>
+				<a class="disagree <?php if ($val['answer_info']['agree_status'] == -1) { ?>active<?php } ?>" onclick="AWS.User.disagree_vote(this, '<?php echo $this->user_info['user_name']; ?>', <?php echo $val['answer_info']['answer_id']; ?>)"><i data-original-title="对回复持反对意见" class="icon icon-disagree" data-toggle="tooltip" title="" data-placement="right"></i></a>
 				<?php } ?>
 			</span>
 			<!-- end 投票栏 -->
