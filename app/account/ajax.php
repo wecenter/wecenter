@@ -1149,7 +1149,7 @@ class ajax extends AWS_CONTROLLER
 
 	public function integral_log_action()
 	{
-		if ($log = $this->model('integral')->fetch_all('integral_log', 'uid = ' . $this->user_id, 'time DESC', (intval($_GET['page']) * 50) . ', 50'))
+		if ($log = $this->model('integral')->fetch_all('integral_log', 'uid = ' . $this->user_id, 'time DESC', (intval($_GET['page']) * 10) . ', 10'))
 		{
 			foreach ($log AS $key => $val)
 			{

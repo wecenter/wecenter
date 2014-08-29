@@ -6,9 +6,6 @@
 					<div class="tabbable">
 						<ul class="nav nav-tabs aw-nav-tabs active">
 							<li<?php if ($_GET['act'] == 'verify') { ?> class="active"<?php } ?>><a href="account/setting/verify/"><?php _e('申请认证'); ?></a></li>
-							<?php if (get_setting('integral_system_enabled') == 'Y') { ?>
-			            	<li<?php if ($_GET['act'] == 'integral') { ?> class="active"<?php } ?>><a href="account/setting/integral/"><?php _e('我的积分'); ?></a></li>
-			            	<?php } ?>
 							<li<?php if ($_GET['act'] == 'security') { ?> class="active"<?php } ?>><a href="account/setting/security/"><?php _e('安全设置'); ?></a></li>
 							<li<?php if ($_GET['act'] == 'openid') { ?> class="active"<?php } ?>><a href="account/setting/openid/"><?php _e('账号绑定'); ?></a></li>
 							<li<?php if ($_GET['act'] == 'privacy') { ?> class="active"<?php } ?>><a href="account/setting/privacy/"><?php _e('隐私/提醒'); ?></a></li>

@@ -14,12 +14,18 @@ $(document).ready(function ()
     //编辑器实时语法高亮
     window.onload = function()
     {
-        prettyPrint();
+        if ($('#wmd-input').length)
+        {
+            prettyPrint();
+        }
     }
-    $('#wmd-input').on('keyup',function()
-    {    
-         prettyPrint();
-    });
+    if ($('#wmd-input').length)
+    {
+        $('#wmd-input').on('keyup',function()
+        {    
+             prettyPrint();
+        });
+    }
 
     //编辑器初始化
     if (typeof Markdown != 'undefined' && $('#wmd-input').length)

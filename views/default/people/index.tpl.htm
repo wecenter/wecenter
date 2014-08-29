@@ -76,7 +76,9 @@
                             <li><a href="#focus" id="page_focus" data-toggle="tab"><?php _e('关注'); ?></a></li>
                             <li><a href="#actions" id="page_actions" data-toggle="tab"><?php _e('动态'); ?></a></li>
                             <li><a href="#detail" id="page_detail" data-toggle="tab"><?php _e('详细资料'); ?></a></li>
+                            <?php if (get_setting('integral_system_enabled') == 'Y') { ?>
                             <li><a href="#integral" id="page_integral" data-toggle="tab"><?php _e('我的积分'); ?></a></li>
+                            <?php } ?>
                         </ul>
                     </div>
                 </div>
@@ -362,6 +364,7 @@
                                 </div>
                             </div>
                         </div>
+                        <?php if (get_setting('integral_system_enabled') == 'Y') { ?>
                         <div class="tab-pane" id="integral">
                             <div class="aw-mod">
                                 <div class="mod-head">
@@ -391,6 +394,7 @@
                                 </div>
                             </div>
                         </div>
+                        <?php } ?>
                     </div>
                 </div>
             </div>
