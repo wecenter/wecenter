@@ -10,6 +10,16 @@ $(document).ready(function ()
     
     // 输入框自动增高
     $('.autosize').autosize();
+    
+    //编辑器实时语法高亮
+    window.onload = function()
+    {
+        prettyPrint();
+    }
+    $('#wmd-input').on('keyup',function()
+    {    
+         prettyPrint();
+    });
 
     //编辑器初始化
     if (typeof Markdown != 'undefined' && $('#wmd-input').length)
