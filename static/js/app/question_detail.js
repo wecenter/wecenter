@@ -5,7 +5,6 @@ var UNINTERESTED_COUNT;
 
 $(function()
 {
-	
     //问题页添加评论
     AWS.Init.init_comment_box('.aw-add-comment');
 
@@ -112,13 +111,13 @@ $(function()
     });
     
     //邀请初始化
-    for (var i = 0; i < 3; i++)
+    for (var i = 0; i < 4; i++)
     {
     	$('.aw-question-detail .aw-invite-box ul li').eq(i).show();
     }
     
     // 邀请翻页
-    if ($('.aw-question-detail .aw-invite-box .mod-body ul li').length <=3 )
+    if ($('.aw-question-detail .aw-invite-box .mod-body ul li').length <=4 )
     {
     	//长度小于3翻页隐藏
     	$('.aw-question-detail .aw-invite-box .aw-mod-footer').hide();
@@ -149,10 +148,10 @@ $(function()
 					}
 					else
 					{
-		    			$('.aw-question-detail .aw-invite-box .mod-body ul li').eq(e-3).show();
+		    			$('.aw-question-detail .aw-invite-box .mod-body ul li').eq(e-4).show();
 					}
 		    		
-		    		if (e-3 == 0)
+		    		if (e-4 == 0)
 		    		{
 		    			$('.aw-question-detail .aw-invite-box .prev').addClass('active');
 		    		}
@@ -176,12 +175,12 @@ $(function()
 		    	});
 		    	$.each(attr, function (i, e)
 		    	{
-		    		if (e+3 < li_length)
+		    		if (e+4 < li_length)
 		    		{
 		    			$('.aw-question-detail .aw-invite-box .mod-body ul li').eq(e).hide();
-		    			$('.aw-question-detail .aw-invite-box .mod-body ul li').eq(e+3).show();
+		    			$('.aw-question-detail .aw-invite-box .mod-body ul li').eq(e+4).show();
 		    		}
-		    		if (e+4 == $('.aw-question-detail .aw-invite-box .mod-body ul li').length)
+		    		if (e+5 == $('.aw-question-detail .aw-invite-box .mod-body ul li').length)
 		    		{
 		    			$('.aw-question-detail .aw-invite-box .next').addClass('active');
 		    		}
@@ -219,7 +218,7 @@ $(function()
     $('.markitup-box a').attr('target','_blank');
 	
 	//编辑器@人
-    AWS.at_user_lists('#advanced_editor');
+    AWS.at_user_lists('#wmd-input');
 
     //赞同反对fixed滚动
     $(window).scroll(function()

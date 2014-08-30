@@ -45,7 +45,7 @@ $(function()
 	});
 
 	//话题问题搜索下拉绑定
-	AWS.Dropdown.bind_dropdown_list($('.aw-topic-search #question-input'), 'topic_question');
+	AWS.Dropdown.bind_dropdown_list($('.aw-search-bar #question-input'), 'topic_question');
 
 	check_related_topic($('#c_all_list .aw-item'));
 	check_related_topic($('#c_recommend_list .aw-item'));

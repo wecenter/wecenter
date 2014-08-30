@@ -917,7 +917,7 @@ else
                     codeblock = codeblock.replace(/\n+$/g, ""); // trim trailing whitespace
                     codeblock = codeblock.replace(/\n/g, '<br/>');
                     
-                    return '\n\n<code>' + codeblock + '</code>\n\n';
+                    return '\n\n<pre class="prettyprint">' + codeblock + '</pre>\n\n';
                 }
             );
 
@@ -1041,7 +1041,6 @@ else
                 )
             /gm, function(){...});
             */
-
             text = text.replace(/((^[ \t]*>[ \t]?.+\n(.+\n)*\n*)+)/gm,
                 function (wholeMatch, m1) {
                     var bq = m1;
@@ -1307,5 +1306,4 @@ else
         }
 
     }; // end of the Markdown.Converter constructor
-
 })();

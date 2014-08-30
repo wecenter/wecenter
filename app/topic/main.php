@@ -388,6 +388,7 @@ class main extends AWS_CONTROLLER
 			TPL::import_js('js/editor/Markdown.Converter.js');
 			TPL::import_js('js/editor/Markdown.Sanitizer.js');
 			TPL::import_js('js/editor/Markdown.Editor.js');
+			TPL::import_js('js/editor/prettify.js');
 		}
 
 		TPL::output('topic/edit');

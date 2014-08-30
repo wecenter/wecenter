@@ -271,7 +271,7 @@ var AWS =
 		}
 		else
 		{
-			selector.attr('data-page', parents(selector.attr('data-page')) + 1);
+			selector.attr('data-page', parseInt(selector.attr('data-page')) + 1);
 		}
 
 	    selector.bind('click', function ()
@@ -1492,8 +1492,8 @@ AWS.User =
 	                selector.parents('.aw-invite-box').find('.invite-list').show();
 	            }
 	            selector.parents('.aw-invite-box').find('.invite-list').append(' <a class="text-color-999 invite-list-user" data-toggle="tooltip" data-placement="bottom" data-original-title="'+ selector.attr('data-value') +'"><img src='+ img +' /></a>');
-	            selector.removeClass('aw-active').attr('onclick','AWS.User.disinvite_user($(this))').text('取消邀请');
-	            selector.parents('.aw-question-detail-title').find('.aw-invite-replay .badge').text(parseInt(selector.parents('.aw-question-detail-title').find('.aw-invite-replay .badge').text()) + 1);
+	            selector.addClass('active').attr('onclick','AWS.User.disinvite_user($(this))').text('取消邀请');
+	            selector.parents('.aw-question-detail').find('.aw-invite-replay .badge').text(parseInt(selector.parents('.aw-question-detail').find('.aw-invite-replay .badge').text()) + 1);
 	        }
 	        else if (result.errno == -1)
 	        {
@@ -1509,15 +1509,15 @@ AWS.User =
 	    {
 	        if (result.errno != -1)
 	        {
-	            $.each($('.aw-question-detail-title .invite-list a'), function (i, e)
+	            $.each($('.aw-question-detail .invite-list a'), function (i, e)
 	            {
 	                if ($(this).attr('data-original-title') == selector.parents('.main').find('.aw-user-name').text())
 	                {
 	                    $(this).detach();
 	                }
 	            });
-	            selector.addClass('aw-active').attr('onclick','AWS.User.invite_user($(this),$(this).parents(\'li\').find(\'img\').attr(\'src\'))').text('邀请');
-	            selector.parents('.aw-question-detail-title').find('.aw-invite-replay .badge').text(parseInt(selector.parents('.aw-question-detail-title').find('.aw-invite-replay .badge').text()) - 1);
+	            selector.removeClass('active').attr('onclick','AWS.User.invite_user($(this),$(this).parents(\'li\').find(\'img\').attr(\'src\'))').text('邀请');
+	            selector.parents('.aw-question-detail').find('.aw-invite-replay .badge').text(parseInt(selector.parents('.aw-question-detail').find('.aw-invite-replay .badge').text()) - 1);
 	            if (selector.parents('.aw-invite-box').find('.invite-list').children().length == 0)
 	            {
 	                selector.parents('.aw-invite-box').find('.invite-list').hide();
@@ -2584,7 +2584,7 @@ AWS.Init =
 		                                return false;
 		                            }
 
-		                            _topic_editor.prepend('<a href="' + G_BASE_URL + '/favorite/tag-' + encodeURIComponent(_topic_editor.find('#aw_edit_topic_title').val()) + '" class="aw-topic-name"><span>' + _topic_editor.find('#aw_edit_topic_title').val() + '<button class="close aw-close">x</button></span></a>').hide().fadeIn();
+		                            _topic_editor.prepend('<a href="' + G_BASE_URL + '/favorite/tag-' + encodeURIComponent(_topic_editor.find('#aw_edit_topic_title').val()) + '" class="aw-topic-name"><span>' + _topic_editor.find('#aw_edit_topic_title').val() + '<button class="close aw-close">×</button></span></a>').hide().fadeIn();
 
 		                            _topic_editor.find('#aw_edit_topic_title').val('');
 		                        }, 'json');
@@ -2600,7 +2600,7 @@ AWS.Init =
 		                                return false;
 		                            }
 
-		                            _topic_editor.prepend('<a href="' + G_BASE_URL + '/favorite/tag-' + encodeURIComponent(_topic_editor.find('#aw_edit_topic_title').val()) + '" class="aw-topic-name"><span>' + _topic_editor.find('#aw_edit_topic_title').val() + '<button class="close aw-close">x</button></span></a>').hide().fadeIn();
+		                            _topic_editor.prepend('<a href="' + G_BASE_URL + '/favorite/tag-' + encodeURIComponent(_topic_editor.find('#aw_edit_topic_title').val()) + '" class="aw-topic-name"><span>' + _topic_editor.find('#aw_edit_topic_title').val() + '<button class="close aw-close">×</button></span></a>').hide().fadeIn();
 
 		                            _topic_editor.find('#aw_edit_topic_title').val('');
 		                        }, 'json');

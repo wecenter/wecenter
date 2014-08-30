@@ -169,6 +169,8 @@ class ajax extends AWS_CONTROLLER
 		if ($_POST['email'] == $invitation['invitation_email'])
 		{
 			$this->model('active')->set_user_email_valid_by_uid($uid);
+
+			$this->model('active')->active_user_by_uid($uid);
 		}
 
 		if (isset($_POST['sex']))
@@ -453,7 +455,7 @@ class ajax extends AWS_CONTROLLER
 		{
 			die;
 		}
-		
+
 		if ($_POST['type'] == 'clean')
 		{
 			$this->model('draft')->clean_draft($this->user_id);
@@ -1149,7 +1151,7 @@ class ajax extends AWS_CONTROLLER
 
 	public function integral_log_action()
 	{
-		if ($log = $this->model('integral')->fetch_all('integral_log', 'uid = ' . $this->user_id, 'time DESC', (intval($_GET['page']) * 50) . ', 50'))
+		if ($log = $this->model('integral')->fetch_all('integral_log', 'uid = ' . $this->user_id, 'time DESC', (intval($_GET['page']) * 10) . ', 10'))
 		{
 			foreach ($log AS $key => $val)
 			{
