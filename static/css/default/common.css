@@ -86,6 +86,7 @@ table td{vertical-align: middle !important;}
 a.aw-load-more-content{display: block;}
 .aw-load-more-content > a{display: inline;}
 .aw-load-more-content:hover{background: #499ef3;color: #fff;}
+.aw-load-more-content:hover a, .aw-load-more-content:hover span{color: #fff;}
 .aw-load-more-content.loading{background-image: url(img/ajax-loader.gif);background-repeat:no-repeat;background-position:center center;background-color: #f6f6f6;}
 .aw-load-more-content.loading span{font-size: 0px;}
 .aw-load-more-content.loading img{opacity: 1;}
@@ -151,8 +152,8 @@ a.aw-load-more-content{display: block;}
 .aw-top-menu-wrap{position:relative;z-index:1001;width:100%;min-height:50px;margin-bottom:30px;background-color:#499ef3;}
 .aw-logo, .aw-search-box,  .aw-top-nav{float: left;}
 .aw-publish-btn, .aw-user-nav, .aw-top-notification{position:relative;float: right;margin:10px 0 10px 10px;}
-.aw-logo{width:90px;height:40px;margin:9px 0 0 0;}
-.aw-logo a{display:block;width: 57px;height: 35px;background:url('img/logo.png') no-repeat;}
+.aw-logo{width:90px;height:40px;margin:7px 0 0 0;}
+.aw-logo a{display:block;width: 60px;height: 38px;background:url('img/logo.png') no-repeat;}
 .aw-logo h1{height:25px;line-height:25px;margin:-2px 0 2px 0;font-size:14px;}
 .aw-publish-btn{position:relative;width:80px;}
 .aw-publish-btn a{display:block;width:80px;height: 32px;line-height: 32px;font-size: 14px;text-align: center;border-radius: 3px;}
@@ -260,14 +261,14 @@ a.aw-load-more-content{display: block;}
 .aw-feed-list .meta{min-height:32px;margin-top:10px;font-size: 12px;}
 .aw-feed-list .meta i, .aw-question-detail .meta i{position:relative;top:2px;font-size: 16px;}
 .aw-feed-list .meta > a.active, .aw-feed-list .meta > a.active i, .aw-question-detail .meta a.active, .aw-question-detail .meta a.active i{color: #2A6496;}
-.aw-feed-list .more-operate{display:none;margin-left:10px;line-height: 32px;}
+.aw-feed-list .more-operate{display:none;line-height: 28px;}
 .aw-feed-list .more-operate > a{height:20px;line-height:20px;margin-left:15px;font-size:12px;}
 .aw-feed-list .operate{display:inline-block;float:left;background-color: #f5f5f5;border-radius: 4px;}
 .aw-feed-list .operate + .operate{margin-left: 5px;}
-.aw-feed-list .operate a{float:left;height:28px;padding:0 10px;color: #999;line-height: 28px;border-radius: 4px;text-decoration: none;}
+.aw-feed-list .operate a{float:left;height:28px;padding:0 10px;color: #999;line-height: 28px;text-decoration: none;}
 .aw-feed-list .operate a + a{border-left: 1px solid #EBEBEB;}
 .aw-feed-list .operate a.active, .aw-feed-list .operate a.active i{color: #499ef3;}
-.aw-feed-list .operate a.disabled{background-color: #fff;border:1px solid #f5f5f5;}
+.aw-feed-list .operate a.disabled{background-color: #fff;border:1px solid #f5f5f5;border-radius: 4px;}
 .aw-feed-list .operate .aw-add-comment.active{background-color: #499ef3;color: #fff;}
 .aw-feed-list .operate .aw-add-comment.active i{color: #fff;}
 .aw-feed-list .operate a b{font-weight: normal;}
@@ -299,14 +300,14 @@ a.aw-load-more-content{display: block;}
 .aw-side-bar .aw-mod dd{width:155px;font-size:12px;}
 .aw-side-bar .aw-mod p{margin-bottom:0;}
 .aw-side-bar .aw-mod p.signature{max-height: 34px;overflow: hidden;}
-.aw-side-bar .aw-mod ul li{padding:3px 0;}
+.aw-side-bar .aw-mod ul li{padding:3px 0;font-size: 12px;}
 .aw-mod.user-detail ul li{padding:3px 0;}
 .aw-mod.user-detail ul li .aw-topic-name{display:inline-block;margin:0 5px 5px 0;}
 .aw-mod.invite-join .mod-body{margin: 10px 0;}
 .aw-mod.new-announce{margin-bottom:20px;padding:10px;background: #FCFDDB;border: 1px solid #F9F2A7 !important;}
 .aw-mod.new-announce .mod-head h3{margin:0;}
 /* 导航条 */
-.aw-mod.side-nav ul li a{display: block;padding-left:10px;line-height: 30px;color: #666;}
+.aw-mod.side-nav ul li a{display: block;padding-left:10px;line-height: 30px;color: #666;font-size: 14px;}
 .aw-mod.side-nav ul li a:hover{background-color:#f5f5f5;}
 .aw-mod.side-nav ul li a.active{background-color:#499ef3;color: #fff;}
 .aw-mod.side-nav ul li a .badge{background-color: #ccc;}
@@ -367,7 +368,7 @@ a.aw-load-more-content{display: block;}
 .aw-question-detail .mod-head h1{max-width:500px;margin:0;font-size:20px;line-height: 30px;}
 .aw-question-detail .mod-head .operate{position: absolute;right: 0;top: 0;}
 .aw-question-detail .mod-head .operate > a{margin:0 5px 0 0;}
-.aw-question-detail .mod-head .operate .btn-group .btn{width:46px;height:32px;line-height: 18px;padding:0;background-color: #eee;color: #999;border:none;font-size: 26px;box-shadow: none;}
+.aw-question-detail .mod-head .operate .btn-group .btn{width:46px;height:34px;line-height: 20px;padding:0;background-color: #eee;color: #999;border:none;font-size: 26px;box-shadow: none;}
 .aw-question-detail .mod-head .operate .btn-group.open .btn{background-color:#499ef3;color: #fff;}
 .aw-question-detail .mod-head .operate .btn-group .icon-cog{margin-right: 0px;color: #666;}
 .aw-question-detail .mod-head .operate .dropdown-menu ul li{padding:5px 10px;}
@@ -928,7 +929,7 @@ li.L1,li.L3,li.L5,li.L7,li.L9 { background: #eee }
 .aw-point-rule .red{color: #ff5d61;}
 
 /* 微信登陆页面 */
-.aw-wechat-body{background-color: #333;}
+.aw-wechat-body{background: #333;}
 .aw-wechat-body h1{margin-bottom:20px;font-size: 20px;text-shadow:0 2px 0 #333;color:#fff;text-align: center;}
 .aw-wechat-body .aw-wechat-login-box{width: 500px;margin:60px auto 0;text-shadow:0 1px 1px #333333;text-align: center;}
 .aw-wechat-body .aw-wechat-login-box .icon-wechat{display:block;font-size: 200px;}
@@ -985,7 +986,7 @@ li.L1,li.L3,li.L5,li.L7,li.L9 { background: #eee }
 @media not all, (min-resolution: 192dpi) {
 	.aw-logo a {
 	    background-image: url("img/logo@2x.png");
-	    background-size: 57px auto;
+	    background-size: 60px auto;
 	}
 }
 
