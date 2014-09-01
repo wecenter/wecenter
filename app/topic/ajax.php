@@ -678,7 +678,7 @@ class ajax extends AWS_CONTROLLER
 		), 1, null));
 	}
 
-	public function get_recommend_questions_action()
+	public function recommend_questions_action()
 	{
 		$topic_info = $this->model('topic')->get_topic_by_id($_GET['id']);
 
@@ -739,7 +739,7 @@ class ajax extends AWS_CONTROLLER
 
 		$contents_related_topic_ids = array_merge($related_topics_ids, explode(',', $contents_topic_id));
 
-		$question_list = $this->model('posts')->get_posts_list(null, 1, 10, null, $contents_related_topic_ids);
+		$question_list = $posts_list = $this->model('posts')->get_posts_list(null, 1, 10, null, $contents_related_topic_ids, null, null, 30, true);
 
 		if ($question_list)
 		{
