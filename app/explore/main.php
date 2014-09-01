@@ -107,7 +107,7 @@ class main extends AWS_CONTROLLER
 			TPL::assign('feature_list', $this->model('module')->feature_list());
 		}
 
-		if (! $_GET['sort_type'])
+		if (! $_GET['sort_type'] AND !$_GET['is_recommend'])
 		{
 			$_GET['sort_type'] = 'new';
 		}

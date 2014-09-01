@@ -12,20 +12,20 @@ $(document).ready(function ()
     $('.autosize').autosize();
     
     //编辑器实时语法高亮
-    window.onload = function()
-    {
-        if ($('#wmd-input').length)
-        {
-            prettyPrint();
-        }
-    }
-    if ($('#wmd-input').length)
-    {
-        $('#wmd-input').on('keyup',function()
-        {    
-             prettyPrint();
-        });
-    }
+    // window.onload = function()
+    // {
+    //     if ($('#wmd-input').length)
+    //     {
+    //         prettyPrint();
+    //     }
+    // }
+    // if ($('#wmd-input').length)
+    // {
+    //     $('#wmd-input').on('keyup',function()
+    //     {    
+    //          prettyPrint();
+    //     });
+    // }
 
     //编辑器初始化
     if (typeof Markdown != 'undefined' && $('#wmd-input').length)
