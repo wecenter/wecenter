@@ -677,4 +677,84 @@ class ajax extends AWS_CONTROLLER
 			'topic_url' => get_js_url('topic/' . $topic_id)
 		), 1, null));
 	}
+
+	public function get_recommend_questions_action()
+	{
+		$topic_info = $this->model('topic')->get_topic_by_id($_GET['id']);
+
+		if (!$topic_info)
+		{
+			exit();
+		}
+
+		if ($topic_info['merged_id'] AND $topic_info['merged_id'] != $topic_info['topic_id'])
+		{
+			$merged_topic_info = $this->model('topic')->get_topic_by_id($topic_info['merged_id']);
+
+			if ($merged_topic_info)
+			{
+				$topic_info = $merged_topic_info;
+			}
+			else
+			{
+				$this->model('topic')->remove_merge_topic($topic_info['topic_id'], $topic_info['merged_id']);
+			}
+		}
+
+		$related_topics_ids = array();
+
+		$related_topics = $this->model('topic')->related_topics($topic_info['topic_id']);
+
+		if ($related_topics)
+		{
+			foreach ($related_topics AS $related_topic)
+			{
+				$related_topics_ids[$related_topic['topic_id']] = $related_topic['topic_id'];
+			}
+		}
+
+		$child_topic_ids = $this->model('topic')->get_child_topic_ids($topic_info['topic_id']);
+
+		if ($child_topic_ids)
+		{
+			foreach ($child_topic_ids AS $topic_id)
+			{
+				$related_topics_ids[$topic_id] = $topic_id;
+			}
+		}
+
+		$contents_topic_id = $topic_info['topic_id'];
+
+		$merged_topics = $this->model('topic')->get_merged_topic_ids($topic_info['topic_id']);
+
+		if ($merged_topics)
+		{
+			foreach ($merged_topics AS $merged_topic)
+			{
+				$merged_topic_ids[] = $merged_topic['source_id'];
+			}
+
+			$contents_topic_id .= ',' . implode(',', $merged_topic_ids);
+		}
+
+		$contents_related_topic_ids = array_merge($related_topics_ids, explode(',', $contents_topic_id));
+
+		$question_list = $this->model('posts')->get_posts_list(null, 1, 10, null, $contents_related_topic_ids);
+
+		if ($question_list)
+		{
+			foreach ($question_list AS $question_info)
+			{
+				$recommend_questions[] = array(
+					'id' => $question_info['question_id'],
+					'title' => $question_info['question_content']
+				);
+			}
+		}
+
+		if ($recommend_questions)
+		{
+			exit(json_encode($recommend_questions));
+		}
+	}
 }
