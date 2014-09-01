@@ -1352,4 +1352,60 @@ class topic_class extends AWS_MODEL
 
 		return $child_topic_ids;
 	}
+
+    public function get_related_topic_ids_by_id($topic_id)
+    {
+        if (!$topic_info = $this->model('topic')->get_topic_by_id($topic_id))
+        {
+            return false;
+        }
+
+        if ($topic_info['merged_id'] AND $topic_info['merged_id'] != $topic_info['topic_id'])
+        {
+            $merged_topic_info = $this->model('topic')->get_topic_by_id($topic_info['merged_id']);
+
+            if ($merged_topic_info)
+            {
+                $topic_info = $merged_topic_info;
+            }
+        }
+
+        $related_topics_ids = array();
+
+        $related_topics = $this->model('topic')->related_topics($topic_info['topic_id']);
+
+        if ($related_topics)
+        {
+            foreach ($related_topics AS $related_topic)
+            {
+                $related_topics_ids[$related_topic['topic_id']] = $related_topic['topic_id'];
+            }
+        }
+
+        $child_topic_ids = $this->model('topic')->get_child_topic_ids($topic_info['topic_id']);
+
+        if ($child_topic_ids)
+        {
+            foreach ($child_topic_ids AS $topic_id)
+            {
+                $related_topics_ids[$topic_id] = $topic_id;
+            }
+        }
+
+        $contents_topic_id = $topic_info['topic_id'];
+
+        $merged_topics = $this->model('topic')->get_merged_topic_ids($topic_info['topic_id']);
+
+        if ($merged_topics)
+        {
+            foreach ($merged_topics AS $merged_topic)
+            {
+                $merged_topic_ids[] = $merged_topic['source_id'];
+            }
+
+            $contents_topic_id .= ',' . implode(',', $merged_topic_ids);
+        }
+
+        return array_merge($related_topics_ids, explode(',', $contents_topic_id));
+    }
 }
