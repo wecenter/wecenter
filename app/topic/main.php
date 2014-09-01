@@ -169,7 +169,7 @@ class main extends AWS_CONTROLLER
 
 		TPL::assign('contents_related_topic_ids', implode(',', $contents_related_topic_ids));
 
-		if ($posts_list = $this->model('posts')->get_posts_list(null, 1, get_setting('contents_per_page'), null, array_merge($related_topics_ids, explode(',', $contents_topic_id))))
+		if ($posts_list = $this->model('posts')->get_posts_list(null, 1, get_setting('contents_per_page'), null, $contents_related_topic_ids))
 		{
 			foreach ($posts_list AS $key => $val)
 			{
@@ -183,7 +183,7 @@ class main extends AWS_CONTROLLER
 		TPL::assign('posts_list', $posts_list);
 		TPL::assign('all_list_bit', TPL::output('explore/ajax/list', false));
 
-		if ($posts_list = $this->model('posts')->get_posts_list(null, 1, get_setting('contents_per_page'), null, array_merge($related_topics_ids, explode(',', $contents_topic_id)), null, null, 30, true))
+		if ($posts_list = $this->model('posts')->get_posts_list(null, 1, get_setting('contents_per_page'), null, $contents_related_topic_ids, null, null, 30, true))
 		{
 			foreach ($posts_list AS $key => $val)
 			{
@@ -271,18 +271,18 @@ class main extends AWS_CONTROLLER
 					case 'month':
 						$order = 'discuss_count_last_month DESC';
 					break;
-					
+
 					case 'week':
 						$order = 'discuss_count_last_week DESC';
 					break;
-					
+
 					default:
 						$order = 'discuss_count DESC';
 					break;
 				}
-				
+
 				$cache_key = 'square_hot_topic_list' . md5($order) . '_' . intval($_GET['page']);
-				
+
 				if (!$topics_list = AWS_APP::cache()->get($cache_key))
 				{
 					if ($topics_list = $this->model('topic')->get_topic_list(null, $order, 20, $_GET['page']))
