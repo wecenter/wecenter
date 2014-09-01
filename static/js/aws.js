@@ -357,7 +357,6 @@ var AWS =
 	/**
 	 *	公共弹窗
 	 *	publish     : 发起
-	 *	shareOut    : 站外分享
 	 *	redirect    : 问题重定向
 	 *	imageBox    : 插入图片
 	 *	videoBox    : 插入视频
@@ -385,13 +384,6 @@ var AWS =
 		        {
 		            'category_id': data.category_id,
 		            'ask_user_id': data.ask_user_id
-		        });
-		    break;
-
-		    case 'shareOut':
-		        var template = Hogan.compile(AW_TEMPLATE.shareBox).render(
-		        {
-		            'items': AW_TEMPLATE.shareList
 		        });
 		    break;
 
@@ -558,30 +550,6 @@ var AWS =
 			            $('#quick_publish_captcha').show();
 			            $('#captcha').click();
 		            }
-		            break;
-				break;
-
-		        case 'shareIn':
-		        case 'shareOut':
-		        	AWS.Dropdown.bind_dropdown_list($('.aw-share-box #invite-input'), 'inbox');
-					
-					switch (data.item_type)
-					{
-						case 'question':
-						case 'answer':
-						case 'article':
-							var request_uri = G_BASE_URL + '/question/ajax/fetch_share_data/type-' + data.item_type + '__item_id-' + data.item_id;
-						break;
-					};
-					
-		            
-		            $.get(request_uri, function (result)
-		            {
-		            	$('#share_out_content').val(result.rsm.share_txt.message);
-
-		                $('#bdshare').attr('data', '{text:\'' + result.rsm.share_txt.message.replace(' ' + result.rsm.share_txt.url, '') + '\', url:\'' + result.rsm.share_txt.url + '\', \'bdPic\': \'\'}');
-		            }, 'json');
-
 		            break;
 				break;
 
