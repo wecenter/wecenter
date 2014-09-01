@@ -748,7 +748,8 @@ class ajax extends AWS_CONTROLLER
 			{
 				$recommend_questions[] = array(
 					'id' => $question_info['question_id'],
-					'title' => $question_info['question_content']
+					'title' => $question_info['question_content'],
+					'url' => get_js_url('/question/' . $question_info['question_id'])
 				);
 			}
 		}
