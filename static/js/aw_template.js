@@ -137,7 +137,7 @@ var AW_TEMPLATE = {
 					'<textarea placeholder="' + _t('写下你的评论...') + '" class="form-control" id="comment_editor" name="message" rows="2"></textarea>'+
 				'</div>'+
 				'<div class="mod-footer">'+
-					'<a href="javascript:;" onclick="AWS.ajax_post($(this).parents(\'form\'));" class="btn btn-large btn-success pull-right btn-submit">' + _t('回复') + '</a>'+
+					'<a href="javascript:;" onclick="AWS.ajax_post($(this).parents(\'form\'));" class="btn btn-normal btn-success pull-right btn-submit">' + _t('回复') + '</a>'+
 				'</div>'+
 			'</form>'+
 		'</div>',

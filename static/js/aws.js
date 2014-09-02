@@ -2449,7 +2449,7 @@ AWS.Init =
 	        }
 	        else
 	        {
-	            $(this).parents('.aw-item-content').append(Hogan.compile(AW_TEMPLATE.articleCommentBox).render(
+	            $(this).parents('.content').append(Hogan.compile(AW_TEMPLATE.articleCommentBox).render(
 	            {
 	                'at_uid' : $(this).attr('data-id'),
 	                'article_id' : $('.aw-topic-editor').attr('data-id')

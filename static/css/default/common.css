@@ -812,7 +812,8 @@ a.aw-load-more-content{display: block;}
 .aw-article-replay-box{position:relative;margin:20px 20px 20px 0;padding-left: 60px;}
 .aw-article-replay-box .mod-head{position:absolute;left:20px;}
 .aw-article-replay-box .mod-head img{width: 32px;height: 32px;}
-.aw-article-replay-box .mod-body{margin-bottom:10px;}
+.aw-article-replay-box .mod-body{margin-bottom:10px;padding:0 !important;}
+.aw-article-replay-box .mod-footer{padding:0 !important;}
 .aw-article-replay-box .mod-footer input{width: 80px;}
 .advanced_editor{padding: 10px !important;}
 .markItUpHeader{overflow: hidden;margin-bottom: 10px;}
