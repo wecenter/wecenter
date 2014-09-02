@@ -428,9 +428,9 @@ class topic_class extends AWS_MODEL
 
 		$this->update('topic', array(
 			'discuss_count' => $this->count('topic_relation', 'topic_id = ' . intval($topic_id)),
-            'discuss_count_last_week' => $this->count('topic_relation', 'add_time > ' . (time() - 604800) . ' AND topic_id = ' . intval($topic_id)),
-            'discuss_count_last_month' => $this->count('topic_relation', 'add_time > ' . (time() - 2592000) . ' AND topic_id = ' . intval($topic_id)),
-            'discuss_count_update' => intval($this->fetch_one('topic_relation', 'add_time', 'topic_id = ' . intval($topic_id), 'add_time DESC'))
+			'discuss_count_last_week' => $this->count('topic_relation', 'add_time > ' . (time() - 604800) . ' AND topic_id = ' . intval($topic_id)),
+			'discuss_count_last_month' => $this->count('topic_relation', 'add_time > ' . (time() - 2592000) . ' AND topic_id = ' . intval($topic_id)),
+			'discuss_count_update' => intval($this->fetch_one('topic_relation', 'add_time', 'topic_id = ' . intval($topic_id), 'add_time DESC'))
 		), 'topic_id = ' . intval($topic_id));
 	}
 
@@ -755,54 +755,54 @@ class topic_class extends AWS_MODEL
 	 */
 	public function get_hot_topics($category_id = 0, $limit = 5, $section = null)
 	{
-        $where = array();
+		$where = array();
 
-        if ($category_id)
-        {
-            if ($questions = $this->query_all("SELECT question_id FROM " . get_table('question') . " WHERE category_id IN(" . implode(',', $this->model('system')->get_category_with_child_ids('question', $category_id)) . ') ORDER BY add_time DESC LIMIT 200'))
-            {
-                foreach ($questions AS $key => $val)
-                {
-                    $question_ids[] = $val['question_id'];
-                }
-            }
-            
-            if (!$question_ids)
-            {
-	            return false;
-            }
+		if ($category_id)
+		{
+			if ($questions = $this->query_all("SELECT question_id FROM " . get_table('question') . " WHERE category_id IN(" . implode(',', $this->model('system')->get_category_with_child_ids('question', $category_id)) . ') ORDER BY add_time DESC LIMIT 200'))
+			{
+				foreach ($questions AS $key => $val)
+				{
+					$question_ids[] = $val['question_id'];
+				}
+			}
 
-            if (!$topic_relation = $this->fetch_all('topic_relation', 'item_id IN(' . implode(',', $question_ids) . ") AND `type` = 'question'"))
-            {
-                return false;
-            }
+			if (!$question_ids)
+			{
+				return false;
+			}
 
-            foreach ($topic_relation AS $key => $val)
-            {
-                $topic_ids[] = $val['topic_id'];
-            }
+			if (!$topic_relation = $this->fetch_all('topic_relation', 'item_id IN(' . implode(',', $question_ids) . ") AND `type` = 'question'"))
+			{
+				return false;
+			}
 
-            $where[] = 'topic_id IN(' . implode(',', $topic_ids) . ')';
-        }
+			foreach ($topic_relation AS $key => $val)
+			{
+				$topic_ids[] = $val['topic_id'];
+			}
+
+			$where[] = 'topic_id IN(' . implode(',', $topic_ids) . ')';
+		}
 
 		switch ($section)
-        {
-            default:
-                return $this->fetch_all('topic', implode(' AND ', $where), 'discuss_count DESC', $limit);
-            break;
+		{
+			default:
+				return $this->fetch_all('topic', implode(' AND ', $where), 'discuss_count DESC', $limit);
+			break;
 
-            case 'week':
-                $where[] = 'discuss_count_update > ' . (time() - 604801);
+			case 'week':
+				$where[] = 'discuss_count_update > ' . (time() - 604801);
 
-                return $this->fetch_all('topic', implode(' AND ', $where), 'discuss_count_last_week DESC', $limit);
-            break;
+				return $this->fetch_all('topic', implode(' AND ', $where), 'discuss_count_last_week DESC', $limit);
+			break;
 
-            case 'month':
-                $where[] = 'discuss_count_update > ' . (time() - 2592001);
+			case 'month':
+				$where[] = 'discuss_count_update > ' . (time() - 2592001);
 
-                return $this->fetch_all('topic', implode(' AND ', $where), 'discuss_count_last_month DESC', $limit);
-            break;
-        }
+				return $this->fetch_all('topic', implode(' AND ', $where), 'discuss_count_last_month DESC', $limit);
+			break;
+		}
 	}
 
 	/**
@@ -1353,59 +1353,59 @@ class topic_class extends AWS_MODEL
 		return $child_topic_ids;
 	}
 
-    public function get_related_topic_ids_by_id($topic_id)
-    {
-        if (!$topic_info = $this->model('topic')->get_topic_by_id($topic_id))
-        {
-            return false;
-        }
+	public function get_related_topic_ids_by_id($topic_id)
+	{
+		if (!$topic_info = $this->model('topic')->get_topic_by_id($topic_id))
+		{
+			return false;
+		}
 
-        if ($topic_info['merged_id'] AND $topic_info['merged_id'] != $topic_info['topic_id'])
-        {
-            $merged_topic_info = $this->model('topic')->get_topic_by_id($topic_info['merged_id']);
+		if ($topic_info['merged_id'] AND $topic_info['merged_id'] != $topic_info['topic_id'])
+		{
+			$merged_topic_info = $this->model('topic')->get_topic_by_id($topic_info['merged_id']);
 
-            if ($merged_topic_info)
-            {
-                $topic_info = $merged_topic_info;
-            }
-        }
+			if ($merged_topic_info)
+			{
+				$topic_info = $merged_topic_info;
+			}
+		}
 
-        $related_topics_ids = array();
+		$related_topics_ids = array();
 
-        $related_topics = $this->model('topic')->related_topics($topic_info['topic_id']);
+		$related_topics = $this->model('topic')->related_topics($topic_info['topic_id']);
 
-        if ($related_topics)
-        {
-            foreach ($related_topics AS $related_topic)
-            {
-                $related_topics_ids[$related_topic['topic_id']] = $related_topic['topic_id'];
-            }
-        }
+		if ($related_topics)
+		{
+			foreach ($related_topics AS $related_topic)
+			{
+				$related_topics_ids[$related_topic['topic_id']] = $related_topic['topic_id'];
+			}
+		}
 
-        $child_topic_ids = $this->model('topic')->get_child_topic_ids($topic_info['topic_id']);
+		$child_topic_ids = $this->model('topic')->get_child_topic_ids($topic_info['topic_id']);
 
-        if ($child_topic_ids)
-        {
-            foreach ($child_topic_ids AS $topic_id)
-            {
-                $related_topics_ids[$topic_id] = $topic_id;
-            }
-        }
+		if ($child_topic_ids)
+		{
+			foreach ($child_topic_ids AS $topic_id)
+			{
+				$related_topics_ids[$topic_id] = $topic_id;
+			}
+		}
 
-        $contents_topic_id = $topic_info['topic_id'];
+		$contents_topic_id = $topic_info['topic_id'];
 
-        $merged_topics = $this->model('topic')->get_merged_topic_ids($topic_info['topic_id']);
+		$merged_topics = $this->model('topic')->get_merged_topic_ids($topic_info['topic_id']);
 
-        if ($merged_topics)
-        {
-            foreach ($merged_topics AS $merged_topic)
-            {
-                $merged_topic_ids[] = $merged_topic['source_id'];
-            }
+		if ($merged_topics)
+		{
+			foreach ($merged_topics AS $merged_topic)
+			{
+				$merged_topic_ids[] = $merged_topic['source_id'];
+			}
 
-            $contents_topic_id .= ',' . implode(',', $merged_topic_ids);
-        }
+			$contents_topic_id .= ',' . implode(',', $merged_topic_ids);
+		}
 
-        return array_merge($related_topics_ids, explode(',', $contents_topic_id));
-    }
+		return array_merge($related_topics_ids, explode(',', $contents_topic_id));
+	}
 }
