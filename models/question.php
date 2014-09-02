@@ -77,15 +77,15 @@ class question_class extends AWS_MODEL
 
 		array_walk_recursive($question_ids, 'intval_string');
 
-	    if ($questions_list = $this->fetch_all('question', "question_id IN(" . implode(',', $question_ids) . ")"))
-	    {
-		    foreach ($questions_list AS $key => $val)
-		    {
-		    	$result[$val['question_id']] = $val;
-		    }
-	    }
+		if ($questions_list = $this->fetch_all('question', "question_id IN(" . implode(',', $question_ids) . ")"))
+		{
+			foreach ($questions_list AS $key => $val)
+			{
+				$result[$val['question_id']] = $val;
+			}
+		}
 
-	    return $result;
+		return $result;
 	}
 
 	/**
@@ -1514,5 +1514,27 @@ class question_class extends AWS_MODEL
 		}
 
 		return $near_by_questions;
+	}
+
+	public function get_recommend_questions_by_topic_ids($topic_ids)
+	{
+		if (!$topic_ids OR !is_array($topic_ids))
+		{
+			return false;
+		}
+
+		$related_topic_ids = array();
+
+		foreach ($topic_ids AS $topic_id)
+		{
+			$related_topic_ids = array_merge($related_topic_ids, $this->model('topic')->get_related_topic_ids_by_id($topic_id));
+		}
+
+		if ($related_topic_ids)
+		{
+			$recommend_questions = $this->model('posts')->get_posts_list('question', 1, 10, null, $related_topic_ids, null, null, 30, true);
+		}
+
+		return $recommend_questions;
 	}
 }

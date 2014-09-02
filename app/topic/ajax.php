@@ -29,8 +29,7 @@ class ajax extends AWS_CONTROLLER
 		$rule_action['actions'] = array(
 			'topic_info',
 			'question_list',
-			'get_focus_users',
-			'recommend_questions'
+			'get_focus_users'
 		);
 
 		return $rule_action;
@@ -677,32 +676,5 @@ class ajax extends AWS_CONTROLLER
 			'topic_id' => $topic_id,
 			'topic_url' => get_js_url('topic/' . $topic_id)
 		), 1, null));
-	}
-
-	public function recommend_questions_action()
-	{
-		if ($related_topic_ids = $this->model('topic')->get_related_topic_ids_by_id($_GET['topic_id']))
-        {
-            $question_list = $posts_list = $this->model('posts')->get_posts_list(null, 1, 10, null, $related_topic_ids, null, null, 30, true);
-        }
-
-        $recommend_questions = array();
-
-		if ($question_list)
-		{
-			foreach ($question_list AS $question_info)
-			{
-				$recommend_questions[] = array(
-					'id' => $question_info['question_id'],
-					'title' => $question_info['question_content'],
-					'url' => get_js_url('/question/' . $question_info['question_id'])
-				);
-			}
-		}
-
-		if ($recommend_questions)
-		{
-			exit(json_encode($recommend_questions));
-		}
 	}
 }

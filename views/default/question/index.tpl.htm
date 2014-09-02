@@ -482,7 +482,7 @@
 									<div id="wmd-preview" class="wmd-panel wmd-preview"></div>
 								</div>
 							</div>
-							
+
 						</div>
 						</form>
 						<?php } ?>
@@ -535,6 +535,23 @@
 						</div>
 					</div>
 					<!-- end 邀请别人回复 -->
+					<?php } ?>
+
+					<?php if ($this->recommend_questions) { ?>
+					<!-- 推荐问题 -->
+					<div class="aw-mod">
+						<div class="mod-head">
+							<h3><?php _e('推荐问题'); ?></h3>
+						</div>
+						<div class="mod-body">
+							<ul>
+								<?php foreach($this->recommend_questions AS $key => $val) { ?>
+								<li><a href="question/<?php echo $val['question_id']; ?>"><?php echo $val['question_content']; ?></a></li>
+								<?php } ?>
+							</ul>
+						</div>
+					</div>
+					<!-- end 推荐问题 -->
 					<?php } ?>
 
 					<?php if ($this->question_related_list) { ?>
