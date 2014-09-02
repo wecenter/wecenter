@@ -759,7 +759,7 @@ a.aw-load-more-content{display: block;}
 .aw-tips-box .modal-body{background: url(img/warmming.png) no-repeat right 5px;}
 .aw-tips-box .modal-body p{margin: 10px 0;}
 /* 微信绑定弹窗box */
-.aw-alert-img-box .modal-body{background:none;}
+.aw-alert-img-box .modal-body{background:none;text-align: center;}
 .aw-alert-img-box .modal-body img{max-width: 328px;}
 
 /* 发起box */
