@@ -388,6 +388,8 @@ class main extends AWS_CONTROLLER
 		TPL::assign('attach_access_key', md5($this->user_id . time()));
 		TPL::assign('redirect_message', $redirect_message);
 
+		TPL::assign('recommend_questions', $this->model('question')->get_recommend_questions_by_topic_ids($question_topic_ids));
+
 		TPL::output('question/index');
 	}
 
