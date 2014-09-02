@@ -388,7 +388,22 @@ class main extends AWS_CONTROLLER
 		TPL::assign('attach_access_key', md5($this->user_id . time()));
 		TPL::assign('redirect_message', $redirect_message);
 
-		TPL::assign('recommend_questions', $this->model('question')->get_recommend_questions_by_topic_ids($question_topic_ids));
+		$recommend_questions = $this->model('question')->get_recommend_questions_by_topic_ids($question_topic_ids);
+
+		if ($recommend_questions)
+		{
+			foreach ($recommend_questions as $key => $value)
+			{
+				if ($value['question_id'] == $question_info['question_id'])
+				{
+					unset($recommend_questions[$key]);
+
+					break;
+				}
+			}
+
+			TPL::assign('recommend_questions', $recommend_questions);
+		}
 
 		TPL::output('question/index');
 	}
