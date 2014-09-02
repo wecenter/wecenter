@@ -15,7 +15,7 @@ select{width: auto;}
 .form-horizontal .control-label, .form-horizontal .controls{height: 30px;line-height: 30px;padding-top:0;}
 .badge{padding:2px 6px;margin-left: 5px;background: #cccccc;}
 .badge.badge-info{background: #499ef3;}
-.badge.badge-important{background: #D90000;}
+.badge.badge-important{background: #ff3333;}
 .table-bordered > thead > tr > th, .table-bordered > thead > tr > td{border-bottom-width:1px;}
 /* modal */
 .modal-backdrop, .modal-backdrop.fade.in{filter:alpha(opacity=20);opacity: 0.2; }
@@ -837,7 +837,7 @@ a.aw-load-more-content{display: block;}
 .aw-editor-box .mod-head .btn-toolbar{margin:0;background-color: #f5f5f5;border-bottom: 1px solid #e6e6e6;}
 .aw-editor-box .mod-head .btn-toolbar > .btn-group{margin:0;}
 .aw-editor-box .mod-head .btn-toolbar .btn-group .btn + .btn{margin:0;}
-.aw-editor-box .mod-head .btn-toolbar .btn{background-color: transparent;border-radius: 0;font-size: 16px;}
+.aw-editor-box .mod-head .btn-toolbar .btn{padding:6px 10px;background-color: transparent;border-radius: 0;font-size: 16px;}
 .aw-editor-box .mod-head .btn-toolbar .btn i{color: #666;}
 .aw-editor-box .mod-head .btn-toolbar .btn.active i{color: #67b7ff;}
 .aw-editor-box .mod-head .btn-toolbar .btn:hover{background-color: #ebebeb;}
