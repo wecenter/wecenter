@@ -16,9 +16,10 @@ $(function()
 	
 	$('#search_result_more').click(function()
 	{
-		var _this = this;
+		var _this = this,
+			page = parseInt($(this).attr('data-page')) || 1
 				
-		var request_url = G_BASE_URL + '/search/ajax/search_result/search_type-' +  window.location.hash.replace(/#/g, '') + '__q-' + encodeURIComponent(search_query) + '__template-' + ajax_template + '__page-' + $(this).attr('data-page');
+		var request_url = G_BASE_URL + '/search/ajax/search_result/search_type-' +  window.location.hash.replace(/#/g, '') + '__q-' + encodeURIComponent(search_query) + '__template-' + ajax_template + '__page-' + page;
 		
 		$(this).addClass('loading');
 		
@@ -37,7 +38,7 @@ $(function()
 				
 				$('#search_result .aw-title a').highText(split_query, 'span', 'aw-text-color-red');
 					
-				$(this).attr('data-page', parseInt($(this).attr('data-page')) + 1);
+				$(_this).attr('data-page', parseInt($(_this).attr('data-page')) + 1);
 				
 			}
 			else
