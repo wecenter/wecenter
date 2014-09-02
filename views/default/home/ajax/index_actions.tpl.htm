@@ -101,11 +101,20 @@
 				<a class="aw-add-comment text-color-999" href="javascript:;" data-id="<?php echo $val['answer_info']['answer_id']; ?>" data-type="answer"><i class="icon icon-comment"></i><?php echo $val['answer_info']['comment_count']; ?></a>
 			</span>
 			<span class="pull-right more-operate">
-				<a data-toggle="dropdown" class="text-color-999 dropdown-toggle" onclick="AWS.dialog('shareOut', {item_type:'answer', item_id:<?php echo $val['answer_info']['answer_id']; ?>});"><i class="icon icon-share" ></i><?php _e('分享'); ?></a>
 				<?php if ($this->user_id != $val['uid']) { ?>
 				<a href="javascript:;"<?php if (!$val['user_rated_thanks']) { ?> onclick="AWS.User.answer_user_rate($(this), 'thanks', <?php echo $val['answer_info']['answer_id']; ?>);"<?php } ?> class="aw-icon-thank-tips text-color-999" data-original-title="<?php _e('感谢热心的回复者'); ?>" data-toggle="tooltip" title="" data-placement="bottom"><i class="icon icon-thank"></i><?php if ($val['user_rated_thanks']) { ?><?php _e('已感谢'); ?><?php } else { ?><?php _e('感谢'); ?><?php } ?></a>
 				<?php } ?>
 				<a href="javascript:;" onclick="AWS.dialog('favorite', {item_id:<?php echo $val['answer_info']['answer_id']; ?>, item_type:'answer'});" class="text-color-999"><i class="icon icon-favor"></i><?php _e('收藏'); ?></a>
+				<a class="text-color-999 dropdown-toggle" data-toggle="dropdown">
+					<i class="icon icon-share"></i><?php _e('分享'); ?>
+				</a>
+				<div aria-labelledby="dropdownMenu" role="menu" class="aw-dropdown shareout pull-right">
+					<ul class="aw-dropdown-list">
+						<li><a onclick="AWS.User.share_out('tsina', $(this).parents('.aw-item').find('.markitup-box').eq(0).text(), '<?php echo $val['link']; ?>');"><i class="icon icon-weibo"></i> <?php _e('新浪微博'); ?></a></li>
+						<li><a onclick="AWS.User.share_out('qzone', $(this).parents('.aw-item').find('.markitup-box').eq(0).text(), '<?php echo $val['link']; ?>');"><i class="icon icon-qzone"></i> <?php _e('qq空间'); ?></a></li>
+						<li><a onclick="AWS.User.share_out('weixin', $(this).parents('.aw-item').find('.markitup-box').eq(0).text(), '<?php echo $val['link']; ?>');"><i class="icon icon-wechat"></i> <?php _e('微信'); ?></a></li>
+					</ul>
+				</div>
 			</span>
 		</div>
 		<!-- end 社交操作 -->	

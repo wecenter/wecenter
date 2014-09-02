@@ -269,33 +269,6 @@ var AW_TEMPLATE = {
 					'</div>'+
 				'</div>'+
 			'</div>',
-
-	'shareBox' : 
-			'<div class="modal fade alert-box aw-share-box">'+
-				'<div class="modal-dialog">'+
-					'<div class="modal-content">'+
-						'<div class="modal-header">'+
-							'<a type="button" class="close icon icon-delete" data-dismiss="modal" aria-hidden="true"></a>'+
-							'<h3 class="modal-title" id="myModalLabel">' + _t('分享') + '</h3>'+
-						'</div>'+
-						'<div class="modal-body clearfix">'+
-							'<div class="jiathis_style_24x24">'+
-							'{{#items}}'+
-								'<a title="' + _t('分享到') + ' {{title}}" class="{{className}}">{{name}}</a>'+
-							'{{/items}}'+
-							'</div>'+
-							'<script src="http://v3.jiathis.com/code/jia.js"></script>'+
-						'</div>'+
-					'</div>'+
-				'</div>'+
-			'</div>',
-		
-	'shareList' : [ //分享外网icon列表
-		{'className':'jiathis_button_qzone','name':'QQ空间','title':'QQ空间'},
-		{'className':'jiathis_button_tsina','name':'新浪微博','title':'新浪微博'},
-		{'className':'jiathis_button_weixin','name':'微信','title':'微信'}
-
-	],
 	
 	'editTopicBox' : 
 		'<div class="aw-edit-topic-box form-inline">'+

@@ -32,14 +32,20 @@
 							</div>
 						</div>
 						<div class="mod-body">
-							<form id="topic_form" action="topic/ajax/edit_topic/" method="post" onsubmit="return false">
-								<input type="hidden" name="topic_id" value="<?php echo $this->topic_info['topic_id']; ?>" />
-								<div class="wmd-panel">
-						            <div id="wmd-button-bar"></div>
-						            <textarea class="wmd-input form-control autosize" id="wmd-input" rows="15" name="topic_description"><?php echo $this->topic_info['topic_description']; ?></textarea>
-						        </div>
-							</form>
-							<div id="wmd-preview" class="wmd-panel wmd-preview"></div>		
+							<div class="aw-mod aw-editor-box">
+								<div class="mod-head">
+									<form id="topic_form" action="topic/ajax/edit_topic/" method="post" onsubmit="return false">
+											<div class="wmd-panel">
+									            <div id="wmd-button-bar"></div>
+									            <textarea class="wmd-input form-control autosize" id="wmd-input" rows="15" name="topic_description"><?php echo $this->topic_info['topic_description']; ?></textarea>
+									        </div>
+										<input type="hidden" name="topic_id" value="<?php echo $this->topic_info['topic_id']; ?>" />
+									</form>
+								</div>
+								<div class="mod-footer">
+									<div id="wmd-preview" class="wmd-panel wmd-preview"></div>	
+								</div>
+							</div>
 						</div>
 						<div class="mod-footer">
 							<a class="btn btn-normal btn-success pull-right" href="javascript:;" onclick="AWS.ajax_post($('#topic_form'));"><?php _e('确定'); ?></a>
