@@ -1,4 +1,3 @@
-var cur_page = 1;
 var search_query = '';
 var split_query = '';
 var ajax_template = '';
@@ -10,8 +9,6 @@ $(function()
 		
 		$('#aw-search-type').html($(this).text());
 		
-		cur_page = 1;
-	
 		$('#search_result').html('<p style="padding: 15px 0" align="center"><img src="' + G_STATIC_URL + '/common/loading_b.gif" alt="" /></p>');
 		
 		$('#search_result_more').click();
@@ -21,7 +18,7 @@ $(function()
 	{
 		var _this = this;
 				
-		var request_url = G_BASE_URL + '/search/ajax/search_result/search_type-' +  window.location.hash.replace(/#/g, '') + '__q-' + encodeURIComponent(search_query) + '__template-' + ajax_template + '__page-' + cur_page;
+		var request_url = G_BASE_URL + '/search/ajax/search_result/search_type-' +  window.location.hash.replace(/#/g, '') + '__q-' + encodeURIComponent(search_query) + '__template-' + ajax_template + '__page-' + $(this).attr('data-page');
 		
 		$(this).addClass('loading');
 		
@@ -29,7 +26,7 @@ $(function()
 		{
 			if (response.length)
 			{
-				if (cur_page == 1)
+				if ($(_this).attr('data-page') == 1)
 				{
 					$('#search_result').html(response);
 				}
@@ -40,12 +37,12 @@ $(function()
 				
 				$('#search_result .aw-title a').highText(split_query, 'span', 'aw-text-color-red');
 					
-				cur_page++;
+				$(this).attr('data-page', parseInt($(this).attr('data-page')) + 1);
 				
 			}
 			else
 			{
-				if (cur_page == 1)
+				if ($(this).attr('data-page') == 1)
 				{
 					$('#search_result').html('<p style="padding: 15px 0" align="center">' + _t('没有内容') + '</p>');
 				}
@@ -68,6 +65,7 @@ $(function()
 		case '#questions':
 		case '#topics':
 		case '#users':
+		case '#articles':
 			$("#list_nav a[href='" + window.location.hash + "']").click();
 		break;
 
