@@ -7,8 +7,8 @@
 			<h3>
 				<ul class="nav nav-tabs">
 					<li class="active"><a href="#_members" data-toggle="tab" id="members"><?php _e('会员组'); ?></a></li>
-	   			    <li><a href="#_system" data-toggle="tab" id="system"><?php _e('系统组'); ?></a></li>
-	   			    <li><a href="#_custom" data-toggle="tab" id="custom"><?php _e('特殊组'); ?></a></li>
+					<li><a href="#_system" data-toggle="tab" id="system"><?php _e('系统组'); ?></a></li>
+					<li><a href="#_custom" data-toggle="tab" id="custom"><?php _e('特殊组'); ?></a></li>
 				</ul>
 			</h3>
 		</div>
@@ -54,7 +54,7 @@
 									<td class="form-inline">
 										<div class="form-group">
 											<input class="new_input" type="text" name="group_new[reputation_lower][]" />
-										 	~ <input type="text" class="input-small max-value form-control" name="group_new[reputation_higer][]" />
+											~ <input type="text" class="input-small max-value form-control" name="group_new[reputation_higer][]" />
 										</div>
 									</td>
 									<td><input type="text" class="input-small form-control" name="group_new[reputation_factor][]" /></td>
@@ -123,8 +123,8 @@
 				</table>
 				</form>
 				<div class="mod-table-foot">
-					<a class="btn btn-danger" onclick="AWS.ajax_post($('#custom_form'));"><?php _e('删除'); ?></a>
 					<a class="btn btn-primary" onclick="$('#custom_table').append('<tr>' + $('#custom_add_form').html() + '</tr>')"><?php _e('新增'); ?></a>
+					<a class="btn btn-primary" onclick="AWS.ajax_post($('#custom_form'));"><?php _e('保存'); ?></a>
 				</div>
 			</div>
 		</div>
