@@ -16,7 +16,7 @@
 		<ul>
 			<li><a href="topic/"><i class="icon icon-topic"></i><?php _e('所有话题'); ?></a></li>
 			<li><a href="people/"><i class="icon icon-user"></i><?php _e('所有用户'); ?></a></li>
-			<li><a href="invitation/"><i class="icon icon-inviteask"></i><?php _e('邀请好友加入'); ?> <?php if ($this->user_info['invitation_available']) { ?><em class="badge"><?php echo $this->user_info['invitation_available']; ?></em><?php } ?></a></li>
+			<li><a href="invitation/"<?php if ($_GET['app'] == 'invite') { ?> class="active"<?php } ?>><i class="icon icon-inviteask"></i><?php _e('邀请好友加入'); ?> <?php if ($this->user_info['invitation_available']) { ?><em class="badge"><?php echo $this->user_info['invitation_available']; ?></em><?php } ?></a></li>
 		</ul>
 	</div>
 </div>
