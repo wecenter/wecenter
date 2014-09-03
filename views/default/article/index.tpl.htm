@@ -90,12 +90,12 @@
 											<li><a onclick="AWS.User.share_out('weixin');"><i class="icon icon-wechat"></i> <?php _e('微信'); ?></a></li>
 										</ul>
 									</div>
-									
-									<em class="text-color-999"><?php echo date_friendly($this->article_info['add_time'], 604800, 'Y-m-d'); ?></em>	
-								</span>
-								
 
-								
+									<em class="text-color-999"><?php echo date_friendly($this->article_info['add_time'], 604800, 'Y-m-d'); ?></em>
+								</span>
+
+
+
 							</div>
 						</div>
 						<div class="mod-footer">
@@ -223,6 +223,30 @@
 					</div>
 					<?php } ?>
 					<!-- end 发起人 -->
+
+					<?php if ($this->recommend_posts) { ?>
+					<!-- 推荐内容 -->
+					<div class="aw-mod">
+						<div class="mod-head">
+							<h3><?php _e('推荐内容'); ?></h3>
+						</div>
+						<div class="mod-body">
+							<ul>
+								<?php foreach($this->recommend_posts AS $key => $val) { ?>
+								<li>
+									<?php if ($val['question_id']) { ?>
+									<a href="question/<?php echo $val['question_id']; ?>"><?php echo $val['question_content']; ?></a>
+									<?php } else { ?>
+									<a href="article/<?php echo $val['id']; ?>"><?php echo $val['title']; ?></a>
+									<?php } ?>
+								</li>
+								<?php } ?>
+							</ul>
+						</div>
+					</div>
+					<!-- end 推荐内容 -->
+					<?php } ?>
+
 					<?php if ($this->question_related_list) { ?>
 					<!-- 相关问题 -->
 					<div class="aw-mod aw-text-align-justify question-related-list">

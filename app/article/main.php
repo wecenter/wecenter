@@ -70,7 +70,17 @@ class main extends AWS_CONTROLLER
 
 		TPL::assign('article_info', $article_info);
 
-		TPL::assign('article_topics', $this->model('topic')->get_topics_by_item_id($article_info['id'], 'article'));
+		$article_topics = $this->model('topic')->get_topics_by_item_id($article_info['id'], 'article');
+
+		if ($article_topics)
+		{
+			TPL::assign('article_topics', $article_topics);
+
+			foreach ($article_topics AS $topic_info)
+			{
+				$article_topic_ids[] = $topic_info['topic_id'];
+			}
+		}
 
 		TPL::assign('reputation_topics', $this->model('people')->get_user_reputation_topic($article_info['user_info']['uid'], $user['reputation'], 5));
 
@@ -120,6 +130,23 @@ class main extends AWS_CONTROLLER
 		TPL::set_meta('description', $article_info['title'] . ' - ' . cjk_substr(str_replace("\r\n", ' ', strip_tags($article_info['message'])), 0, 128, 'UTF-8', '...'));
 
 		TPL::assign('attach_access_key', md5($this->user_id . time()));
+
+		$recommend_posts = $this->model('posts')->get_recommend_posts_by_topic_ids($article_topic_ids);
+
+		if ($recommend_posts)
+		{
+			foreach ($recommend_posts as $key => $value)
+			{
+				if ($value['id'] AND $value['id'] == $article_info['id'])
+				{
+					unset($recommend_posts[$key]);
+
+					break;
+				}
+			}
+
+			TPL::assign('recommend_posts', $recommend_posts);
+		}
 
 		TPL::output('article/index');
 	}
