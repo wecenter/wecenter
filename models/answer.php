@@ -441,9 +441,9 @@ class answer_class extends AWS_MODEL
 
 		$vote_value = ($type == 'agree') ? '1' : '-1';
 
-		$count = $this->count('answer_vote', 'answer_id = ' . $answer_id . ' AND vote_value = ' . $vote_value);
+		$count = $this->count('answer_vote', 'answer_id = ' . intval($answer_id) . ' AND vote_value = ' . $vote_value);
 
-		return $this->query("UPDATE " . $this->get_table('answer') . " SET {$type}_count = {$count} WHERE answer_id = " . $answer_id);
+		return $this->query("UPDATE " . $this->get_table('answer') . " SET {$type}_count = {$count} WHERE answer_id = " . intval($answer_id));
 	}
 
 	public function update_question_vote_count($question_id)
