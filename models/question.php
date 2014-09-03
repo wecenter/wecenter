@@ -1515,26 +1515,4 @@ class question_class extends AWS_MODEL
 
 		return $near_by_questions;
 	}
-
-	public function get_recommend_questions_by_topic_ids($topic_ids)
-	{
-		if (!$topic_ids OR !is_array($topic_ids))
-		{
-			return false;
-		}
-
-		$related_topic_ids = array();
-
-		foreach ($topic_ids AS $topic_id)
-		{
-			$related_topic_ids = array_merge($related_topic_ids, $this->model('topic')->get_related_topic_ids_by_id($topic_id));
-		}
-
-		if ($related_topic_ids)
-		{
-			$recommend_questions = $this->model('posts')->get_posts_list('question', 1, 10, null, $related_topic_ids, null, null, 30, true);
-		}
-
-		return $recommend_questions;
-	}
 }
