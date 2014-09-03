@@ -92,7 +92,10 @@ class publish_class extends AWS_MODEL
 			return false;
 		}
 
-		$answer_id = $this->model('answer')->save_answer($question_id, $answer_content, $uid, $anonymous);
+		if (!$answer_id = $this->model('answer')->save_answer($question_id, $answer_content, $uid, $anonymous))
+		{
+			return false;
+		}
 
 		if ($at_users = $this->model('question')->parse_at_user($answer_content, false, true))
 		{
@@ -127,7 +130,10 @@ class publish_class extends AWS_MODEL
 		{
 			$this->model('integral')->process($uid, 'ANSWER_QUESTION', get_setting('integral_system_config_new_answer'), '回答问题 #' . $question_id, $question_id);
 
-			$this->model('integral')->process($question_info['published_uid'], 'QUESTION_ANSWER', - get_setting('integral_system_config_new_answer'), '问题被回答 #' . $question_id, $question_id);
+			if (get_setting('integral_system_config_new_answer') < 0)
+			{
+				$this->model('integral')->process($question_info['published_uid'], 'QUESTION_ANSWER', - get_setting('integral_system_config_new_answer'), '问题被回答 #' . $question_id, $question_id);
+			}
 		}
 
 		$this->model('question')->save_last_answer($question_id, $answer_id);

@@ -537,21 +537,27 @@
 					<!-- end 邀请别人回复 -->
 					<?php } ?>
 
-					<?php if ($this->recommend_questions) { ?>
-					<!-- 推荐问题 -->
+					<?php if ($this->recommend_posts) { ?>
+					<!-- 推荐内容 -->
 					<div class="aw-mod">
 						<div class="mod-head">
-							<h3><?php _e('推荐问题'); ?></h3>
+							<h3><?php _e('推荐内容'); ?></h3>
 						</div>
 						<div class="mod-body">
 							<ul>
-								<?php foreach($this->recommend_questions AS $key => $val) { ?>
-								<li><a href="question/<?php echo $val['question_id']; ?>"><?php echo $val['question_content']; ?></a></li>
+								<?php foreach($this->recommend_posts AS $key => $val) { ?>
+								<li>
+									<?php if ($val['question_id']) { ?>
+									<a href="question/<?php echo $val['question_id']; ?>"><?php echo $val['question_content']; ?></a>
+									<?php } else { ?>
+									<a href="article/<?php echo $val['id']; ?>"><?php echo $val['title']; ?></a>
+									<?php } ?>
+								</li>
 								<?php } ?>
 							</ul>
 						</div>
 					</div>
-					<!-- end 推荐问题 -->
+					<!-- end 推荐内容 -->
 					<?php } ?>
 
 					<?php if ($this->question_related_list) { ?>
