@@ -1,6 +1,6 @@
 <?php TPL::output('global/header_meta.tpl.htm'); ?>
 
-<body>
+<body<?php if (in_array(G_STATIC_URL . '/js/editor/prettify.js', $this->_import_js_files)) { ?> onload="prettyPrint()"<?php } ?>>
 	<div class="aw-top-menu-wrap">
 		<div class="container">
 			<!-- logo -->
