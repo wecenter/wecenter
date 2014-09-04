@@ -257,7 +257,7 @@ a.aw-load-more-content{display: block;}
 .aw-feed-list .aw-item.active{margin:0 -20px;padding:14px 20px;background-color: #FFFED1;}
 .aw-feed-list .aw-item .mod-head, .aw-feed-list .aw-item .mod-body, .aw-feed-list .aw-item .mod-footer{position: relative;width:100%;padding-left: 50px;}
 .aw-feed-list .aw-item .mod-footer{min-height:28px;line-height: 28px;}
-.aw-feed-list .aw-item .aw-user-img{position:absolute;left:0;top:5px;width: 40px;height: 40px;}
+.aw-feed-list .aw-item .aw-user-img{position:absolute;left:0;top:3px;width: 40px;height: 40px;}
 .aw-feed-list .aw-item .aw-user-img img{width: 40px;height: 40px;}
 .aw-feed-list .aw-item .close{display: none;}
 .aw-feed-list .aw-item:hover .more-operate, .aw-feed-list .aw-item:hover .mod-head span.pull-right{display:block;}
@@ -279,7 +279,7 @@ a.aw-load-more-content{display: block;}
 .aw-feed-list .operate a + a{border-left: 1px solid #EBEBEB;}
 .aw-feed-list .operate a.active, .aw-feed-list .operate a.active i{color: #499ef3;}
 .aw-feed-list .operate a.disabled{background-color: #fff;border:1px solid #f5f5f5;border-radius: 4px;}
-.aw-feed-list .operate .aw-add-comment.active{background-color: #499ef3;color: #fff;}
+.aw-feed-list .operate .aw-add-comment.active{background-color: #499ef3;color: #fff;border-radius: 4px;}
 .aw-feed-list .operate .aw-add-comment.active i{color: #fff;}
 .aw-feed-list .operate a b{font-weight: normal;}
 .aw-feed-list .aw-vote-count{position:relative;display:block;min-width:25px;height:25px;line-height:25px;padding:0 3px;padding:0\0;background:#E9F5FF;font-size:14px;text-align:center;cursor: pointer;}
@@ -483,7 +483,7 @@ a.aw-load-more-content{display: block;}
 .aw-common-list .aw-question-content .contribute img{border-radius: 12px;}
 .aw-common-list .aw-question-content .aw-topic-name{display:inline-block;margin:0 2px 3px;}
 /* 问题列表用户头像 */
-.aw-common-list .aw-item > .aw-user-name{position:absolute;left:0;top:15px;}
+.aw-common-list .aw-item > .aw-user-name{position:absolute;left:0;top:18px;}
 .aw-common-list .aw-question-content .aw-user-name img{width: 24px;height: 24px;}
 /* 问题列表问题标签 */
 .aw-question-tags{position:relative;margin-right:10px;padding:1px 5px 0 15px;background-color:#f2f2f2;cursor:pointer;font-size: 14px;}
