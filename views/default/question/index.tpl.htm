@@ -49,7 +49,7 @@
 								<a href="javascript:;" onclick="AWS.User.follow($(this), 'question', <?php echo $this->question_info['question_id']; ?>);" class="follow btn btn-normal btn-success pull-left <?php if ($this->question_focus) { ?> active<?php } ?>"><span><?php if ($this->question_focus) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?></span> <em>|</em> <b><?php echo $this->question_info['focus_count']?></b></a>
 								<!-- 下拉菜单 -->
 								<div class="btn-group pull-left">
-									<a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="javascript:;">...</a>
+									<a class="btn btn-gray dropdown-toggle" data-toggle="dropdown" href="javascript:;">...</a>
 									<div class="aw-dropdown pull-right" role="menu" aria-labelledby="dropdownMenu">
 										<ul class="aw-dropdown-list">
 											<li>
@@ -344,7 +344,7 @@
 											<!-- 投票栏 -->
 											<span class="operate">
 												<a class="agree<?php if ($this->user_info['user_name'] == $val['user_name']) { ?> disabled<?php } ?> <?php if ($val['agree_status'] == 1) { ?>active<?php } ?>" <?php if ($this->user_info['user_name'] != $val['user_name']) { ?>onclick="AWS.User.agree_vote(this, '<?php echo $this->user_info['user_name']; ?>', <?php echo $val['answer_id']; ?>);"<?php } ?>><i data-placement="right" title="" data-toggle="tooltip" class="icon icon-agree" data-original-title="赞同回复"></i> <b class="count"><?php echo $val['agree_count']; ?></b></a>
-												<?php if ($this->user_info['user_name'] != $val['user_name']) { ?>
+												<?php if ($this->user_id AND $this->user_info['user_name'] != $val['user_name']) { ?>
 												<a class="disagree <?php if ($val['agree_status'] == -1) { ?>active<?php } ?>" onclick="AWS.User.disagree_vote(this, '<?php echo $this->user_info['user_name']; ?>', <?php echo $val['answer_id']; ?>)"><i data-placement="right" title="" data-toggle="tooltip" class="icon icon-disagree" data-original-title="对回复持反对意见"></i></a>
 												<?php } ?>
 											</span>
