@@ -77,15 +77,15 @@ class question_class extends AWS_MODEL
 
 		array_walk_recursive($question_ids, 'intval_string');
 
-	    if ($questions_list = $this->fetch_all('question', "question_id IN(" . implode(',', $question_ids) . ")"))
-	    {
-		    foreach ($questions_list AS $key => $val)
-		    {
-		    	$result[$val['question_id']] = $val;
-		    }
-	    }
+		if ($questions_list = $this->fetch_all('question', "question_id IN(" . implode(',', $question_ids) . ")"))
+		{
+			foreach ($questions_list AS $key => $val)
+			{
+				$result[$val['question_id']] = $val;
+			}
+		}
 
-	    return $result;
+		return $result;
 	}
 
 	/**

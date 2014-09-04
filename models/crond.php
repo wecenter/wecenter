@@ -100,8 +100,6 @@ class crond_class extends AWS_MODEL
         $this->model('email')->send_mail_queue(120);
 
         $this->model('online')->delete_expire_users();
-
-        $this->model('active')->send_valid_email_crond();
     }
 
     // 每五分钟执行
@@ -121,6 +119,8 @@ class crond_class extends AWS_MODEL
         }
 
         $this->model('admin')->notifications_crond();
+
+        $this->model('active')->send_valid_email_crond();
     }
 
     // 每半小时执行
