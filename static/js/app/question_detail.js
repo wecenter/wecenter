@@ -7,9 +7,6 @@ $(function()
 {
     //问题页添加评论
     AWS.Init.init_comment_box('.aw-add-comment');
-
-    //投票栏展开
-	$('.aw-vote-count').click();
 	
 	if ($('#c_log_list').attr('id'))
 	{

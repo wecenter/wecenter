@@ -4,7 +4,7 @@
 .aw-common-list .aw-question-replay-count em, .markItUpPreviewFrame .title, h1, h2, h3{color: #333;}
 .aw-message-tooltip, .aw-top-menu-wrap .aw-pulish a, .aw-nav-main li a,.aw-side-bar-mod-nav ul li a:hover, .aw-side-bar-mod-nav ul li a.active, .aw-common-list .aw-question-replay-count.active, .aw-first-login .aw-mod-head ul li em, .markItUpHeader ul ul a:hover{color:#fff;}
 .aw-load-more-content.warmming{color:#999;}
-.aw-feed-list .aw-vote-count, .aw-vote-bar .aw-vote-bar-count, .aw-vote-bar .aw-vote-bar-count.active{color:#2586CD;}
+.aw-vote-bar .aw-vote-bar-count, .aw-vote-bar .aw-vote-bar-count.active{color:#2586CD;}
 .aw-text-color-red{color:red;}
 .aw-placeholder{color: #999 !important;}
 .aw-winner-replay{color:#1A9F00;}
@@ -15,6 +15,5 @@
 .category .title a{color: #17344A;}
 .aw-nav-main li a:hover{color:#93E2F3;}
 .aw-search-dropdown-list li a:hover{color: #005580;}
-.aw-feed-list .aw-vote-count.disable, .aw-vote-bar .aw-vote-bar-count.enable, .aw-vote-count.enable{color: #A7A7A7;}
 .aw-agree-by .aw-user-name{color: #999 !important;}
 .aw-ie6 .pull-right h1 span{color: #c20200;}
