@@ -18,6 +18,8 @@
 		    <a class="aw-user-name" data-id="<?php echo $answer_user['uid']; ?>" href="people/<?php echo $answer_user['url_token']; ?>" rel="nofollow"><img src="<?php echo get_avatar_url($answer_user['uid'], 'mid'); ?>" alt="" /></a>
 		    <?php } ?>
 		</div>
+		<?php } else if ($val['question_id']) { ?>
+		<a href="question/<?php echo $val['question_id']; ?>#!answer_form" class="pull-right text-color-999"><?php _e('回复'); ?></a>
 		<?php } ?>
 		
 		<p>
