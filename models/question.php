@@ -1431,7 +1431,17 @@ class question_class extends AWS_MODEL
 
 			foreach ($topic_ids_query AS $key => $val)
 			{
+				if ($val['merged_id'])
+				{
+					continue;
+				}
+
 				$topic_hits[$val['topic_id']] = intval($topic_hits[$val['topic_id']]) + 1;
+			}
+
+			if (!$topic_hits)
+			{
+				return false;
 			}
 
 			arsort($topic_hits);

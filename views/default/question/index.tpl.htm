@@ -403,7 +403,7 @@
 							<?php } else { ?>
 								<div class="aw-load-more-content hide" id="load_uninterested_answers">
 									<span class="text-color-999 aw-alert-box text-color-999" href="javascript:;" tabindex="-1" onclick="AWS.alert('<?php _e('被折叠的回复是被你或者被大多数用户认为没有帮助的回复'); ?>');"><?php _e('为什么被折叠?'); ?></span>
-									<a href="javascript:;"><?php _e('%s 个回复被折叠', '<span class="hide_answers_count">0</span>'); ?></a>
+									<a href="javascript:;" class="aw-load-more-content"><?php _e('%s 个回复被折叠', '<span class="hide_answers_count">0</span>'); ?></a>
 								</div>
 
 								<div class="hide aw-feed-list" id="uninterested_answers_list"></div>
@@ -566,7 +566,7 @@
 						<div class="mod-head">
 							<h3><?php _e('相关问题'); ?></h3>
 						</div>
-						<div class="mod-body">
+						<div class="mod-body font-size-12">
 							<ul>
 								<?php foreach($this->question_related_list AS $key => $val) { ?>
 								<li><a href="question/<?php echo $val['question_id']; ?>"><?php echo $val['question_content']; ?></a></li>

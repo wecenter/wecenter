@@ -20,7 +20,7 @@
 					 • <?php if ($val['topics']) { ?><?php _e('已添加到'); ?> 
 					<?php foreach($val['topics'] as $t_key => $t_val) { if ($t_key > 2) { break; } ?><a href="topic/<?php echo $t_val['url_token']; ?>" class="aw-topic-name" data-id="<?php echo $t_val['topic_id']; ?>"><?php echo $t_val['topic_title']; ?></a> <?php } ?><?php if (sizeof($val['topics']) > 3) { ?> <?php _e('等'); ?> <?php _e('%s 个话题', sizeof($val['topics'])); ?><?php } else { ?><?php _e('话题'); ?><?php } ?>
 					<?php } else { ?><a href="question/<?php echo $val['question_info']['question_id']; ?>" class="text-color-999"><?php _e('添加话题'); ?></a><?php } ?>
-				<?php } else if (!$_GET['filter']) { ?><span class="pull-right hide"><a class="text-color-999" href="javascript:;" onClick="AWS.question_uninterested($(this).parents('div.aw-item'), <?php echo $val['question_info']['question_id']; ?>);"><?php _e('不感兴趣'); ?></a></span><?php } ?>
+				<?php } else if (!$_GET['filter']) { ?><span class="pull-right hide"><a class="text-color-999" href="javascript:;" onClick="AWS.User.question_uninterested($(this).parents('div.aw-item'), <?php echo $val['question_info']['question_id']; ?>);"><?php _e('不感兴趣'); ?></a></span><?php } ?>
 			<?php } ?>
 		</p>
 		<h4><a href="<?php echo $val['link']; ?>"><?php echo $val['title']; ?></a></h4>
