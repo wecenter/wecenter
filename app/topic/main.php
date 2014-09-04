@@ -255,10 +255,10 @@ class main extends AWS_CONTROLLER
 				{
 					$topics_list_total_rows = $this->user_info['topic_focus_count'];
 
-					foreach ($topics_list AS $key => $val)
+					/*foreach ($topics_list AS $key => $val)
 					{
 						$topics_list[$key]['action_list'] = $this->model('posts')->get_posts_list('question', 1, 3, 'new', explode(',', $val['topic_id']));
-					}
+					}*/
 				}
 
 				TPL::assign('topics_list', $topics_list);

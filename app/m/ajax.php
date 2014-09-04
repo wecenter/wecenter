@@ -136,21 +136,6 @@ class ajax extends AWS_CONTROLLER
 		TPL::output('m/ajax/inbox_list');
 	}
 
-	public function focus_topics_list_action()
-	{
-		if ($topics_list = $this->model('topic')->get_focus_topic_list($this->user_id, intval($_GET['page']) * 5 . ', ' . 5))
-		{
-			foreach ($topics_list AS $key => $val)
-			{
-				$topics_list[$key]['action_list'] = $this->model('posts')->get_posts_list('question', 1, 3, 'new', explode(',', $val['topic_id']));
-			}
-		}
-
-		TPL::assign('topics_list', $topics_list);
-
-		TPL::output('m/ajax/focus_topics_list');
-	}
-
 	public function hot_topics_list_action()
 	{
 		TPL::assign('hot_topics_list', $this->model('topic')->get_topic_list(null, 'discuss_count DESC', 5, $_GET['page']));
