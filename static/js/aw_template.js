@@ -376,19 +376,6 @@ var AW_TEMPLATE = {
 			'</a>'+
 			'<span class="aw-text-color-666">{{name}}</span>'+
 		'</li>',
-	
-	'voteBar' : 
-		'<div class="aw-vote-bar pull-left">'+
-			'<div class="vote-container">'+
-				'<a class="aw-border-radius-5 {{up_class}}" href="javascript:;" onclick="AWS.User.agree_vote(this, \'{{user_name}}\', {{answer_id}})">'+
-				'<i data-original-title="' + _t('赞同回复') + '" class="fa fa-thumbs-o-up active" data-toggle="tooltip" title="" data-placement="right"></i>'+
-				'</a>'+
-				'<em class="aw-border-radius-5 aw-vote-bar-count aw-hide-txt active">{{agree_count}}</em>'+
-				'<a class="aw-border-radius-5 {{down_class}}" onclick="AWS.User.disagree_vote(this, \'{{user_name}}\', {{answer_id}})">'+
-					'<i data-original-title="' + _t('对回复持反对意见') + '" class="fa fa-thumbs-o-down" data-toggle="tooltip" title="" data-placement="right"></i>'+
-				'</a>'+
-			'</div>'+
-		'</div>',
 
 	'educateInsert' :
 			'<td class="e1" data-txt="{{school}}">{{school}}</td>'+

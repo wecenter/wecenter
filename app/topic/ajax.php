@@ -677,4 +677,26 @@ class ajax extends AWS_CONTROLLER
 			'topic_url' => get_js_url('topic/' . $topic_id)
 		), 1, null));
 	}
+	
+	public function focus_topics_list_action()
+	{
+		if ($topics_list = $this->model('topic')->get_focus_topic_list($this->user_id, intval($_GET['page']) * 10 . ', 10'))
+		{
+			foreach ($topics_list AS $key => $val)
+			{
+				$topics_list[$key]['action_list'] = $this->model('posts')->get_posts_list('question', 1, 3, 'new', explode(',', $val['topic_id']));
+			}
+		}
+
+		TPL::assign('topics_list', $topics_list);
+
+		if ($_GET['template'] == 'm')
+		{
+			TPL::output('m/ajax/focus_topics_list');
+		}
+		else
+		{
+			TPL::output('topic/ajax/focus_topics_list');
+		}
+	}
 }

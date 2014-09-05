@@ -11,7 +11,7 @@ $(function()
 		
 		$('#search_result').html('<p style="padding: 15px 0" align="center"><img src="' + G_STATIC_URL + '/common/loading_b.gif" alt="" /></p>');
 		
-		$('#search_result_more').click();
+		$('#search_result_more').attr('data-page', 1).click();
 	});
 	
 	$('#search_result_more').click(function()
@@ -43,15 +43,13 @@ $(function()
 			}
 			else
 			{
-				if ($(this).attr('data-page') == 1)
+				if ($(_this).attr('data-page') == 1)
 				{
 					$('#search_result').html('<p style="padding: 15px 0" align="center">' + _t('没有内容') + '</p>');
 				}
 					
 				$(_this).addClass('disabled');
 				
-				//没有内容删除更多按钮
-				$(_this).detach();
 			}
 			
 			$(_this).removeClass('loading');
