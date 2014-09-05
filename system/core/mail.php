@@ -128,6 +128,8 @@ class core_mail
         {
             $transport_error = $this->transport_error;
             $transport = $this->transport;
+
+            $mail_config = $this->master_config;
         }
         else
         {

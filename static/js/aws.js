@@ -1353,7 +1353,7 @@ AWS.User =
 
 	        $(selector).parents('.aw-item').find('.aw-agree-by').show();
 
-	        $(selector).parents('.aw-item').find('a.active').removeClass('active');
+	        $(selector).parents('.operate').find('a.active').removeClass('active');
 
 	        $(selector).addClass('active');
 	    }
