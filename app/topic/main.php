@@ -255,10 +255,10 @@ class main extends AWS_CONTROLLER
 				{
 					$topics_list_total_rows = $this->user_info['topic_focus_count'];
 
-					foreach ($topics_list AS $key => $val)
+					/*foreach ($topics_list AS $key => $val)
 					{
 						$topics_list[$key]['action_list'] = $this->model('posts')->get_posts_list('question', 1, 3, 'new', explode(',', $val['topic_id']));
-					}
+					}*/
 				}
 
 				TPL::assign('topics_list', $topics_list);
@@ -291,10 +291,10 @@ class main extends AWS_CONTROLLER
 
 						AWS_APP::cache()->set('square_hot_topic_list_total_rows', $topics_list_total_rows, get_setting('cache_level_low'));
 
-						foreach ($topics_list AS $key => $val)
+						/*foreach ($topics_list AS $key => $val)
 						{
 							$topics_list[$key]['action_list'] = $this->model('posts')->get_posts_list('question', 1, 3, 'new', explode(',', $val['topic_id']));
-						}
+						}*/
 					}
 
 					AWS_APP::cache()->set($cache_key, $topics_list, get_setting('cache_level_low'));
@@ -323,10 +323,10 @@ class main extends AWS_CONTROLLER
 
 						AWS_APP::cache()->set('square_parent_topics_topic_list_' . intval($_GET['topic_id']) . '_total_rows', $topics_list_total_rows, get_setting('cache_level_low'));
 
-						foreach ($topics_list AS $key => $val)
+						/*foreach ($topics_list AS $key => $val)
 						{
 							$topics_list[$key]['action_list'] = $this->model('posts')->get_posts_list('question', 1, 3, 'new', explode(',', $val['topic_id']));
-						}
+						}*/
 					}
 
 					AWS_APP::cache()->set('square_parent_topics_topic_list_' . intval($_GET['topic_id']) . '_' . intval($_GET['page']), $topics_list, get_setting('cache_level_low'));

@@ -2458,39 +2458,6 @@ AWS.Init =
 	    });
 	},
 
-	// 初始化投票框
-	init_vote_bar: function(data)
-	{
-	    switch (data.flag)
-	    {
-		    case 1:
-		        var up_class = 'active';
-		        var down_class = '';
-		        break;
-
-		    case -1:
-		        var up_class = '';
-		        var down_class = 'active';
-		        break;
-
-		    case 0:
-		        var up_class = '';
-		        var down_class = '';
-		        break;
-	    }
-
-	    $(data.element).parent().prepend(Hogan.compile(AW_TEMPLATE.voteBar).render(
-	    {
-	        'agree_count': data.agree_count,
-	        'up_class': up_class,
-	        'down_class': down_class,
-	        'user_name': data.user_name,
-	        'answer_id': data.answer_id
-	    }));
-
-	    $(data.element).detach();
-	},
-
 	// 初始化话题编辑box
 	init_topic_edit_box: function(selector) //selector -> .aw-edit-topic
 	{
