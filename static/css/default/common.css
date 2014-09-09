@@ -448,7 +448,7 @@ a.aw-load-more-content{display: block;}
 .aw-invite-box .mod-head input{width: 240px;}
 .aw-invite-box .mod-head .icon-search{position: absolute;right: 10px;top: 10px;}
 .aw-invite-box .mod-body{padding:0 14px;border-top: 1px solid #f2f2f2;}
-.aw-invite-box .mod-body ul{max-height: 156px;overflow: hidden;}
+.aw-invite-box .mod-body ul{max-height: 185px;overflow: hidden;}
 .aw-invite-box .mod-body ul li{display:none;position:relative;float: left;width:50%;padding:14px 10px;border-bottom: 1px solid #e6e6e6;}
 .aw-invite-box .mod-body ul li .main{padding-left: 40px;}
 .aw-invite-box .mod-body ul li p{margin:3px 0 0 0;font-size: 13px;color: #999;}
