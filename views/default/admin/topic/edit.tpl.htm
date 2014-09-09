@@ -91,9 +91,9 @@
 							<div class="col-sm-4 col-xs-8">
 								<select id="parent_topic_select" class="hide" name="parent_id">
 								<option value="0"> --- </option>
-								<?php foreach ($this->parent_topics AS $key => $val) { ?>
+								<?php if ($this->parent_topics) { foreach ($this->parent_topics AS $val) { ?>
 								<option value="<?php echo $val['topic_id']; ?>"<?php if ($val['topic_id'] == $this->topic_info['parent_id']) { ?> selected="selected"<?php } ?>><?php echo $val['topic_title']; ?></option>
-								<?php } ?>
+								<?php } } ?>
 								</select>
 
 								<div class="aw-publish-title">
