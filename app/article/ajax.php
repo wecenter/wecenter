@@ -129,7 +129,7 @@ class ajax extends AWS_CONTROLLER
 		{
 			if ($this->user_id != $article_info['uid'])
 			{
-				$this->model('account')->send_delete_message($article_info['uid'], $article_info['title'], $$article_info['message']);
+				$this->model('account')->send_delete_message($article_info['uid'], $article_info['title'], $article_info['message']);
 			}
 
 			$this->model('article')->remove_article($article_info['id']);
