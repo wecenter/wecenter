@@ -101,7 +101,7 @@ class main extends AWS_CONTROLLER
 			}
 		}
 
-		if (is_mobile() AND HTTP::get_cookie('_ignore_ua_check') != 'TRUE')
+		if (is_mobile())
 		{
 			HTTP::redirect('/m/login/url-' . $_GET['url']);
 		}
@@ -137,7 +137,7 @@ class main extends AWS_CONTROLLER
 
 	public function register_action()
 	{
-		if (is_mobile() AND HTTP::get_cookie('_ignore_ua_check') != 'TRUE' AND !$_GET['ignore_ua_check'])
+		if (is_mobile() AND !$_GET['ignore_ua_check'])
 		{
 			HTTP::redirect('/m/register/?email=' . $_GET['email'] . '&icode=' . $_GET['icode']);
 		}

@@ -2468,7 +2468,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
         if ($_POST['id'])
         {
-            $rule_info = $$this->model('openid_weixin_third')->get_third_party_api_by_id($_POST['id']);
+            $rule_info = $this->model('openid_weixin_third')->get_third_party_api_by_id($_POST['id']);
 
             if (!$rule_info)
             {
