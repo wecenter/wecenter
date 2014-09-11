@@ -100,7 +100,7 @@ class ajax extends AWS_CONTROLLER
 
 		TPL::assign('list', $data);
 
-		if ($_GET['template'] == 'm')
+		if (is_mobile())
 		{
 			TPL::output('m/ajax/index_actions');
 		}
@@ -141,7 +141,7 @@ class ajax extends AWS_CONTROLLER
 
 		TPL::assign('drafts', $drafts);
 
-		if ($_GET['template'] == 'm')
+		if (is_mobile())
 		{
 			TPL::output('m/ajax/draft');
 		}
@@ -178,7 +178,7 @@ class ajax extends AWS_CONTROLLER
 
 		TPL::assign('list', $list);
 
-		if ($_GET['template'] == 'm')
+		if (is_mobile())
 		{
 			TPL::output('m/ajax/invite');
 		}
