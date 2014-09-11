@@ -73,28 +73,43 @@
 								</div>
 								<?php if (!$this->question_info['question_id']) { ?>
 								<h3><?php _e('添加话题'); ?>:</h3>
-								<span class="aw-topic-editor" data-type="publish">
-									<?php if ($_GET['topic_title']) { ?>
-									<a href="javascript:;" class="aw-topic-name"><span><?php echo urldecode($_GET['topic_title']); ?><button class="close aw-close" onclick="$(this).parents('.aw-topic-name').remove();">×</button></span><input type="hidden" value="<?php echo urldecode($_GET['topic_title']); ?>" name="topics[]" /></a>
-									<?php } ?>
-
-									<?php if ($_POST['topics']) { ?>
-									<?php foreach ($_POST['topics'] AS $key => $val) { ?>
-									<a href="javascript:;" class="aw-topic-name"><span><?php echo $val; ?></span><input type="hidden" value="<?php echo $val; ?>" name="topics[]" /></a>
-									<?php } ?>
-									<?php } ?>
-
-									<span class="aw-edit-topic icon-inverse"><i class="icon icon-edit"></i><?php _e('编辑话题'); ?></span>
-									</span>
-
-									<?php if ($this->recent_topics) { ?>
-									<h3><?php _e('最近话题'); ?>:</h3>
-									<div class="clearfix">
-										<?php foreach($this->recent_topics as $key => $val) { ?>
-										<a href="javascript:;" onclick="$('#aw_edit_topic_title').val('<?php echo $val; ?>');$('.submit-edit').click();$(this).hide();" class="aw-topic-name"><span><?php echo $val; ?></span></a>
+								<div class="aw-topic-bar" data-type="publish">
+									<div class="tag-bar clearfix">
+										<?php if ($_GET['topic_title']) { ?>
+										<span class="topic-tag">
+											<a class="text"><?php echo urldecode($_GET['topic_title']); ?></a>
+											<a class="close" onclick="$(this).parents('.topic-tag').remove();">
+												<i class="icon icon-delete"></i>
+											</a>
+											<input type="hidden" value="<?php echo urldecode($_GET['topic_title']); ?>" name="topics[]" />
+										</span>
 										<?php } ?>
+
+										<?php if ($_POST['topics']) { ?>
+										<?php foreach ($_POST['topics'] AS $key => $val) { ?>
+										<span class="topic-tag">
+											<a class="text"><?php echo $val; ?></a>
+											<input type="hidden" value="<?php echo $val; ?>" name="topics[]" />
+										</span>
+										<?php } ?>
+										<?php } ?>
+
+										<span class="aw-edit-topic icon-inverse"><i class="icon icon-edit"></i><?php _e('编辑话题'); ?></span>
+										</span>
 									</div>
+								</div>
+								<?php if ($this->recent_topics) { ?>
+								<h3><?php _e('最近话题'); ?>:</h3>
+								<div class="clearfix">
+									<?php foreach($this->recent_topics as $key => $val) { ?>
+									<span class="topic-tag" onclick="$('#aw_edit_topic_title').val('<?php echo $val; ?>');$('.add').click();$(this).hide();">
+										<a class="text">
+											<?php echo $val; ?>
+										</a>
+									</span>
 									<?php } ?>
+								</div>
+								<?php } ?>
 								<?php } ?>
 								<?php if ($this->human_valid) { ?>
 								<div class="aw-auth-img clearfix">

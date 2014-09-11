@@ -108,12 +108,54 @@ $(document).ready(function ()
     /*用户头像提示box*/
     AWS.show_card_box('.aw-user-name, .aw-user-img', 'user');
 
-    AWS.show_card_box('.aw-topic-name, .aw-topic-img', 'topic');
+    AWS.show_card_box('.topic-tag, .aw-topic-name, .aw-topic-img', 'topic');
     
     //文章页添加评论, 话题添加 绑定事件
     AWS.Init.init_article_comment_box('.aw-article-content .aw-article-comment');
 
     AWS.Init.init_topic_edit_box('.aw-edit-topic');
+
+    //话题编辑下拉菜单click事件
+    $(document).on('click', '.aw-edit-topic-box .aw-dropdown-list li', function ()
+    {
+        $(this).parents('.aw-edit-topic-box').find('#aw_edit_topic_title').val($(this).text());
+        $(this).parents('.aw-edit-topic-box').find('.add').click();
+        $(this).parents('.aw-edit-topic-box').find('.aw-dropdown').hide();
+    });
+
+    //话题删除按钮
+    $(document).on('click', '.topic-tag .close',  function()
+    {
+        var data_type = $(this).parents('.aw-topic-bar').attr('data-type'),
+            data_id = $(this).parents('.aw-topic-bar').attr('data-id');
+        switch (data_type)
+        {
+            case 'question':
+                $.post(G_BASE_URL + '/topic/ajax/remove_topic_relation/', 'type=question&item_id=' + data_id + '&topic_id=' + $(this).parents('.topic-tag').attr('data-id'),function(){
+                    $('#aw-ajax-box').empty();
+                });
+                break;
+
+            case 'topic':
+                $.get(G_BASE_URL + '/topic/ajax/remove_related_topic/related_id-' + $(this).parents('.topic-tag').attr('data-id') + '__topic_id-' + data_id);
+                break;
+
+            case 'favorite':
+                $.post(G_BASE_URL + '/favorite/ajax/remove_favorite_tag/', 'item_id=' + data_id + '&item_type=' + _topic_editor.attr('data-item-type') + '&tags=' + $(this).parents('.topic-tag').text().substring(0, $(this).parents('.topic-tag').text().length - 1));
+                break;
+
+            case 'article':
+                $.post(G_BASE_URL + '/topic/ajax/remove_topic_relation/', 'type=article&item_id=' + data_id + '&topic_id=' + $(this).parents('.topic-tag').attr('data-id'),function(){
+                    $('#aw-ajax-box').empty();
+                });
+                break;
+
+        }
+
+        $(this).parents('.topic-tag').remove();
+
+        return false;
+    });
 	
     //小卡片mouseover
     $(document).on('mouseover', '#aw-card-tips', function ()
@@ -179,10 +221,6 @@ $(document).ready(function ()
 
     //搜索下拉
     AWS.Dropdown.bind_dropdown_list('#aw-search-query', 'search');
-
-    var jiathis_config = { 
-        appkey:{"tsina":"<?php echo (get_setting('sina_akey')) ? get_setting('sina_akey') : 726571307; ?>"
-    }};
 	
     //ie浏览器下input,textarea兼容
     if (document.all)
