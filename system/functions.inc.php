@@ -1027,8 +1027,13 @@ function fetch_file_lists($dir, $file_type = null)
  *
  * @return boolean
  */
-function is_mobile()
+function is_mobile($ignore_cookie = false)
 {
+    if (HTTP::get_cookie('_ignore_ua_check') == 'TRUE' AND !$ignore_cookie)
+    {
+        return false;
+    }
+
 	$user_agent = strtolower($_SERVER['HTTP_USER_AGENT']);
 
 	if (preg_match('/playstation/i', $user_agent) OR preg_match('/ipad/i', $user_agent) OR preg_match('/ucweb/i', $user_agent))

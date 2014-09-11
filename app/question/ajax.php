@@ -307,7 +307,7 @@ class ajax extends AWS_CONTROLLER
 
 		TPL::assign('comments', $comments);
 
-		if ($_GET['template'] == 'm')
+		if (is_mobile())
 		{
 			TPL::output("m/ajax/question_comments");
 		}

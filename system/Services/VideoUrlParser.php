@@ -58,13 +58,13 @@
  * http://www.youtube.com/watch?v=n6NLtldvGCk
  * <embed src="http://www.youtube.com/v/n6NLtldvGCk?version=3&hl=th_TH" type="application/x-shockwave-flash" width="560" height="315" allowscriptaccess="always" allowfullscreen="true"></embed>
  */
- 
+
 
 class Services_VideoUrlParser
 {
 	const USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.93 Safari/537.36";
 	const CHECK_URL_VALID = "/(youku\.com|tudou\.com|ku6\.com|56\.com|letv\.com|video\.sina\.com\.cn|(my\.)?tv\.sohu\.com|v\.qq\.com|youtube\.com)/";
-	
+
 	/**
 	 * parse
 	 *
@@ -76,19 +76,19 @@ class Services_VideoUrlParser
 	static public function parse($url = '')
 	{
 		$lowerurl = strtolower($url);
-		
+
 		if (strstr($lowerurl, '.swf'))
 		{
 			return '<p><object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,28,0" width="560" height="360"><param name="movie" value="' . $url . '" /><param name="quality" value="high" /><param name="wmode" value="transparent" /><embed src="' . $url . '" quality="high" pluginspage="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="460" height="360" wmode="transparent"></embed></object></p>';
 		}
-		
+
 		preg_match(self::CHECK_URL_VALID, $lowerurl, $matches);
-		
+
 		if (!$matches)
 		{
 			return '<p><img src="' . G_STATIC_URL .  '/common/video_parser_unsupport.png" alt="" /></p>';
 		}
-		
+
 		if (!$data = AWS_APP::cache()->get('video_parse_' . md5($url)))
 		{
 			switch ($matches[1])
@@ -125,14 +125,14 @@ class Services_VideoUrlParser
 				default :
 					return $url;
 			}
-			
+
 			if ($data)
 			{
 				AWS_APP::cache()->set('video_parse_' . md5($url), $data, 3600, 'video_parser');
 			}
-			
+
 		}
-		
+
 		if ($data)
 		{
 			if ($data['iframe'])
@@ -144,10 +144,10 @@ class Services_VideoUrlParser
 				return '<p><object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,28,0" width="560" height="360"><param name="movie" value="' . $data['swf'] . '" /><param name="quality" value="high" /><param name="wmode" value="transparent" /><embed src="' . $data['swf'] . '" quality="high" pluginspage="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="460" height="360" wmode="transparent"></embed></object></p>';
 			}
 		}
-		
+
 		return '<p><img src="' . G_STATIC_URL .  '/common/video_parser_unsupport.png" alt="" /></p>';
 	}
-	
+
 	/**
 	 * 腾讯视频
 	 * http://v.qq.com/cover/o/o9tab7nuu0q3esh.html?vid=97abu74o4w3_0
@@ -180,13 +180,13 @@ class Services_VideoUrlParser
 		}
 		$query = str_replace('"+vid+"', $vid, $query);
 		parse_str($query, $output);
-		$data['img'] = "http://vpic.video.qq.com/{$$output['cid']}/{$vid}_1.jpg";
+		$data['img'] = "http://vpic.video.qq.com/{$output['cid']}/{$vid}_1.jpg";
 		$data['url'] = $url;
 		$data['title'] = $output['title'];
 		$data['swf'] = "http://imgcache.qq.com/tencentvideo_v1/player/TencentPlayer.swf?" . $query;
 		return $data;
 	}
-	
+
 	/**
 	 * 优酷网
 	 * http://v.youku.com/v_show/id_XMjI4MDM4NDc2.html
@@ -195,33 +195,33 @@ class Services_VideoUrlParser
 	private function _parseYouku($url)
 	{
 		preg_match("#id\_(\w+)#", $url, $matches);
-		
+
 		if (empty($matches))
 		{
 			preg_match("#v_playlist\/#", $url, $mat);
 			if (!$mat)
 				return false;
-			
+
 			$html = self::_fget($url);
-			
+
 			preg_match("#videoId2\s*=\s*\'(\w+)\'#", $html, $matches);
 			if (!$matches)
 				return false;
 		}
-		
+
 		$link = "http://v.youku.com/player/getPlayList/VideoIDS/{$matches[1]}/timezone/+08/version/5/source/out?password=&ran=2513&n=3";
-		
+
 		$retval = self::_cget($link);
-		
+
 		if ($retval)
 		{
 			$json = json_decode($retval, true);
-			
+
 			$data['img'] = $json['data'][0]['logo'];
 			$data['title'] = $json['data'][0]['title'];
 			$data['url'] = $url;
 			$data['iframe'] = "http://player.youku.com/embed/{$matches[1]}";
-			
+
 			return $data;
 		}
 		else
@@ -229,7 +229,7 @@ class Services_VideoUrlParser
 			return false;
 		}
 	}
-	
+
 	/**
 	 * 土豆网
 	 * http://www.tudou.com/programs/view/Wtt3FjiDxEE/
@@ -241,12 +241,12 @@ class Services_VideoUrlParser
 	private function _parseTudou($url)
 	{
 		preg_match("#view/([-\w]+)/#", $url, $matches);
-		
+
 		if (empty($matches))
 		{
 			if (strpos($url, "/playlist/") == false)
 				return false;
-			
+
 			if (strpos($url, 'iid=') !== false)
 			{
 				$quarr = explode("iid=", $lowerurl);
@@ -258,28 +258,28 @@ class Services_VideoUrlParser
 				if (empty($quarr[1]))
 					return false;
 			}
-			
+
 			$html = self::_fget($url);
 			$html = iconv("GB2312", "UTF-8", $html);
-			
+
 			preg_match("/lid_code\s=\slcode\s=\s[\'\"]([^\'\"]+)/s", $html, $matches);
 			$icode = $matches[1];
-			
+
 			preg_match("/iid\s=\s.*?\|\|\s(\d+)/sx", $html, $matches);
 			$iid = $matches[1];
-			
+
 			preg_match("/listData\s=\s(\[\{.*\}\])/sx", $html, $matches);
-			
+
 			$find = array(
-				"/\n/", 
-				'/\s/', 
-				"/:[^\d\"]\w+[^\,]*,/i", 
+				"/\n/",
+				'/\s/',
+				"/:[^\d\"]\w+[^\,]*,/i",
 				"/(\{|,)(\w+):/"
 			);
 			$replace = array(
-				"", 
-				"", 
-				':"",', 
+				"",
+				"",
+				':"",',
 				'\\1"\\2":'
 			);
 			$str = preg_replace($find, $replace, $matches[1]);
@@ -296,34 +296,34 @@ class Services_VideoUrlParser
 					}
 				}
 			}
-			
+
 			$data['img'] = $val->pic;
 			$data['title'] = $val->title;
 			$data['url'] = $url;
 			$data['swf'] = "http://www.tudou.com/l/{$icode}/&iid={$iid}/v.swf";
-			
+
 			return $data;
 		}
-		
+
 		$host = "www.tudou.com";
 		$path = "/v/{$matches[1]}/v.swf";
-		
+
 		$ret = self::_fsget($path, $host);
-		
+
 		if (preg_match("#\nLocation: (.*)\n#", $ret, $mat))
 		{
 			parse_str(parse_url(urldecode($mat[1]), PHP_URL_QUERY));
-			
+
 			$data['img'] = $snap_pic;
 			$data['title'] = $title;
 			$data['url'] = $url;
 			$data['swf'] = "http://www.tudou.com/v/{$matches[1]}/v.swf";
-			
+
 			return $data;
 		}
 		return false;
 	}
-	
+
 	/**
 	 * 酷6网
 	 * http://v.ku6.com/film/show_520/3X93vo4tIS7uotHg.html
@@ -338,18 +338,18 @@ class Services_VideoUrlParser
 			preg_match("#/([-\w]+)\.html#", $url, $matches);
 			$url = "http://v.ku6.com/fetchVideo4Player/{$matches[1]}.html";
 			$html = self::_fget($url);
-			
+
 			if ($html)
 			{
 				$json = json_decode($html, true);
 				if (!$json)
 					return false;
-				
+
 				$data['img'] = $json['data']['picpath'];
 				$data['title'] = $json['data']['t'];
 				$data['url'] = $url;
 				$data['swf'] = "http://player.ku6.com/refer/{$matches[1]}/v.swf";
-				
+
 				return $data;
 			}
 			else
@@ -377,11 +377,11 @@ class Services_VideoUrlParser
 			$query = str_replace("&amp;", '&', $matches[1]);
 			preg_match("/\/\/player\.ku6cdn\.com[^\"\']+/", $html, $matches);
 			$data['swf'] = 'http:' . $matches[0] . '?' . $query;
-			
+
 			return $data;
 		}
 	}
-	
+
 	/**
 	 * 56网
 	 * http://www.56.com/u73/v_NTkzMDcwNDY.html
@@ -390,22 +390,22 @@ class Services_VideoUrlParser
 	private function _parse56($url)
 	{
 		preg_match("#/v_(\w+)\.html#", $url, $matches);
-		
+
 		if (empty($matches))
 			return false;
-		
+
 		$link = "http://vxml.56.com/json/{$matches[1]}/?src=out";
 		$retval = self::_cget($link);
-		
+
 		if ($retval)
 		{
 			$json = json_decode($retval, true);
-			
+
 			$data['img'] = $json['info']['img'];
 			$data['title'] = $json['info']['Subject'];
 			$data['url'] = $url;
 			$data['swf'] = "http://player.56.com/v_{$matches[1]}.swf";
-			
+
 			return $data;
 		}
 		else
@@ -413,7 +413,7 @@ class Services_VideoUrlParser
 			return false;
 		}
 	}
-	
+
 	/**
 	 * 乐视网
 	 * http://www.letv.com/ptv/vplay/1168109.html
@@ -429,10 +429,10 @@ class Services_VideoUrlParser
 		$data['title'] = $title;
 		$data['url'] = $url;
 		$data['swf'] = "http://www.letv.com/player/x{$matches[1]}.swf";
-		
+
 		return $data;
 	}
-	
+
 	// 搜狐TV http://my.tv.sohu.com/u/vw/5101536
 	private function _parseSohu($url)
 	{
@@ -445,7 +445,7 @@ class Services_VideoUrlParser
 		$data['swf'] = $matches[1][2];
 		return $data;
 	}
-	
+
 	/*
      * 新浪播客
      * http://video.sina.com.cn/v/b/48717043-1290055681.html
@@ -454,39 +454,39 @@ class Services_VideoUrlParser
 	private function _parseSina($url)
 	{
 		preg_match("/(\d+)(?:\-|\_)(\d+)/", $url, $matches);
-		
+
 		$url = "http://video.sina.com.cn/v/b/{$matches[1]}-{$matches[2]}.html";
 		$html = self::_fget($url);
-		
+
 		preg_match("/video\s?:\s?([^<]+)}/", $html, $matches);
-		
+
 		$find = array(
-			"/\n/", 
-			"/\s*/", 
-			"/\'/", 
-			"/\{([^:,]+):/", 
-			"/,([^:]+):/", 
+			"/\n/",
+			"/\s*/",
+			"/\'/",
+			"/\{([^:,]+):/",
+			"/,([^:]+):/",
 			"/:[^\d\"]\w+[^\,]*,/i"
 		);
 		$replace = array(
-			'', 
-			'', 
-			'"', 
-			'{"\\1":', 
-			',"\\1":', 
+			'',
+			'',
+			'"',
+			'{"\\1":',
+			',"\\1":',
 			':"",'
 		);
 		$str = preg_replace($find, $replace, $matches[1]);
 		$arr = json_decode($str, true);
-		
+
 		$data['img'] = $arr['pic'];
 		$data['title'] = $arr['title'];
 		$data['url'] = $url;
 		$data['swf'] = $arr['swfOutsideUrl'];
-		
+
 		return $data;
 	}
-	
+
 	private function _parseYoutube($url)
 	{
 		preg_match("#\?v=([0-9a-zA-Z_\-]+)#", $url, $matches);
@@ -494,11 +494,11 @@ class Services_VideoUrlParser
 		$link = "http://www.youtube.com/v/{$matches[1]}?version=3&hl=th_TH";
 
 		$retval = self::_cget($link);
-		
+
 		if ($retval)
 		{
 			$contents = self::_fget($url);
-			
+
 			preg_match_all("#<title>([^<]+)<\/title>#", $contents, $contentMatches);
 
 			$data['img'] = "http://img.youtube.com/vi/{$matches[1]}/0.jpg";
@@ -513,7 +513,7 @@ class Services_VideoUrlParser
 			return false;
 		}
 	}
-	
+
 	/*
      * 通过 file_get_contents 获取内容
      */
@@ -528,7 +528,7 @@ class Services_VideoUrlParser
 		else
 			return $html;
 	}
-	
+
 	/*
      * 通过 fsockopen 获取内容
      */
@@ -537,7 +537,7 @@ class Services_VideoUrlParser
 		if (!$path || !$host)
 			return false;
 		$user_agent = $user_agent ? $user_agent : self::USER_AGENT;
-		
+
 		$out = <<<HEADER
 GET $path HTTP/1.1
 Host: $host
@@ -562,7 +562,7 @@ HEADER;
 		else
 			return $html;
 	}
-	
+
 	/*
      * 通过 curl 获取内容
      */
@@ -570,20 +570,20 @@ HEADER;
 	{
 		if (!$url)
 			return;
-		
+
 		$user_agent = $user_agent ? $user_agent : self::USER_AGENT;
-		
+
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $url);
 		curl_setopt($ch, CURLOPT_HEADER, 0);
 		if (strlen($user_agent))
 			curl_setopt($ch, CURLOPT_USERAGENT, $user_agent);
-		
+
 		ob_start();
 		curl_exec($ch);
 		$html = ob_get_contents();
 		ob_end_clean();
-		
+
 		if (curl_errno($ch))
 		{
 			curl_close($ch);
@@ -601,7 +601,7 @@ HEADER;
 		else
 			return $html;
 	}
-	
+
 	private function _vita_get_url_content($url)
 	{
 		$ch = curl_init();
@@ -613,7 +613,7 @@ HEADER;
 		curl_close($ch);
 		return $file_contents;
 	}
-	
+
 	private function _gzdecode($data)
 	{
 		$len = strlen($data);
@@ -652,7 +652,7 @@ HEADER;
 			$extra = substr($data, 10, $extralen);
 			$headerlen += 2 + $extralen;
 		}
-		
+
 		$filenamelen = 0;
 		$filename = "";
 		if ($flags & 8)
@@ -670,7 +670,7 @@ HEADER;
 			$filename = substr($data, $headerlen, $filenamelen);
 			$headerlen += $filenamelen + 1;
 		}
-		
+
 		$commentlen = 0;
 		$comment = "";
 		if ($flags & 16)
@@ -688,7 +688,7 @@ HEADER;
 			$comment = substr($data, $headerlen, $commentlen);
 			$headerlen += $commentlen + 1;
 		}
-		
+
 		$headercrc = "";
 		if ($flags & 1)
 		{
@@ -706,13 +706,13 @@ HEADER;
 			}
 			$headerlen += 2;
 		}
-		
+
 		// GZIP FOOTER - These be negative due to PHP's limitations
 		$datacrc = unpack("V", substr($data, -8, 4));
 		$datacrc = $datacrc[1];
 		$isize = unpack("V", substr($data, -4));
 		$isize = $isize[1];
-		
+
 		// Perform the decompression:
 		$bodylen = $len - $headerlen - 8;
 		if ($bodylen < 1)
@@ -739,7 +739,7 @@ HEADER;
 		{
 			//...
 		}
-		
+
 		if ($isize != strlen($data) || crc32($data) != $datacrc)
 		{
 			// Bad format!  Length or CRC doesn't match!
