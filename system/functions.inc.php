@@ -1027,9 +1027,9 @@ function fetch_file_lists($dir, $file_type = null)
  *
  * @return boolean
  */
-function is_mobile()
+function is_mobile($ignore_cookie = false)
 {
-    if (HTTP::get_cookie('_ignore_ua_check') == 'TRUE')
+    if (HTTP::get_cookie('_ignore_ua_check') == 'TRUE' AND !$ignore_cookie)
     {
         return false;
     }
