@@ -49,7 +49,7 @@ class reputation_class extends AWS_MODEL
 			if ($articles_ids)
 			{
 				$articles_vote_agree_users = $this->model('article')->get_article_vote_by_ids('article', $articles_ids, 1);
-				$articles_vote_against_users = $this->model('article')->get_article_vote_by_ids('article', $$articles_ids, -1);
+				$articles_vote_against_users = $this->model('article')->get_article_vote_by_ids('article', $articles_ids, -1);
 
 				if ($article_topics_query = $this->query_all('SELECT item_id, topic_id FROM ' . get_table('topic_relation') . ' WHERE item_id IN(' . implode(',', $articles_ids) . ") AND `type` = 'article'"))
 				{
