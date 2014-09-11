@@ -35,7 +35,7 @@ class main extends AWS_CONTROLLER
 
 	public function index_action()
 	{
-		if (is_mobile() AND HTTP::get_cookie('_ignore_ua_check') != 'TRUE')
+		if (is_mobile())
 		{
 			HTTP::redirect('/m/topic/' . $_GET['id']);
 		}
@@ -226,7 +226,7 @@ class main extends AWS_CONTROLLER
 
 	public function index_square_action()
 	{
-		if (is_mobile() AND HTTP::get_cookie('_ignore_ua_check') != 'TRUE')
+		if (is_mobile())
 		{
 			HTTP::redirect('/m/topic/');
 		}

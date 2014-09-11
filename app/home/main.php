@@ -37,7 +37,7 @@ class main extends AWS_CONTROLLER
 
 	public function setup()
 	{
-		if (is_mobile() AND HTTP::get_cookie('_ignore_ua_check') != 'TRUE' AND !$_GET['ignore_ua_check'])
+		if (is_mobile() AND !$_GET['ignore_ua_check'])
 		{
 			switch ($_GET['app'])
 			{

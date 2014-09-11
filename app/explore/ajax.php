@@ -61,7 +61,7 @@ class ajax extends AWS_CONTROLLER
 			$posts_list = $this->model('posts')->get_posts_list($_GET['post_type'], $_GET['page'], $per_page, $_GET['sort_type'], $topic_ids, $_GET['category'], $_GET['answer_count'], $_GET['day'], $_GET['is_recommend']);
 		}
 
-		if ($_GET['template'] != 'm' AND $posts_list)
+		if (!is_mobile() AND $posts_list)
 		{
 			foreach ($posts_list AS $key => $val)
 			{
@@ -74,7 +74,7 @@ class ajax extends AWS_CONTROLLER
 
 		TPL::assign('posts_list', $posts_list);
 
-		if ($_GET['template'] == 'm')
+		if (is_mobile())
 		{
 			TPL::output('m/ajax/explore_list');
 		}
