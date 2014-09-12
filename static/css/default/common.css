@@ -591,6 +591,7 @@ a.aw-load-more-content{display: block;}
 .aw-topic-list .aw-item{position:relative;float:left;width:50%;min-height:90px;padding:20px 5px 20px 65px;border-bottom:1px solid #f5f5f5;}
 .aw-topic-list .aw-item .img{position: absolute;left: 5px;top: 20px;}
 .aw-topic-list .aw-item p + p{margin:5px 0 0;}
+.aw-topic-list .aw-item:last-child{border-bottom: 1px solid #f5f5f5;}
 .aw-topic-list .aw-notopic-sort{margin-top: 14px;}
 
 /* 话题侧边栏导航 */
