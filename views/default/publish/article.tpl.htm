@@ -43,7 +43,7 @@
 										</div>
 									</div>
 									<?php } ?>
-							</div>
+								</div>
 								<!-- end 文章标题 -->
 
 								<h3><?php _e('文章内容'); ?>:</h3>
@@ -70,23 +70,25 @@
 								</div>
 
 								<h3><?php _e('添加话题'); ?>:</h3>
-								<span class="aw-topic-editor" data-type="publish">
-									<?php if ($_GET['topic_title']) { ?>
-									<a href="javascript:;" class="aw-topic-name"><span><?php echo urldecode($_GET['topic_title']); ?><button class="close aw-close" onclick="$(this).parents('.aw-topic-name').remove();">×</button></span><input type="hidden" value="<?php echo urldecode($_GET['topic_title']); ?>" name="topics[]" /></a>
-									<?php } ?>
+								<div class="aw-topic-bar" data-type="publish">
+									<div class="tag-bar clearfix">
+										<?php if ($_GET['topic_title']) { ?>
+										<a href="javascript:;" class="topic-tag"><span><?php echo urldecode($_GET['topic_title']); ?><button class="close aw-close" onclick="$(this).parents('.topic-tag').remove();">×</button></span><input type="hidden" value="<?php echo urldecode($_GET['topic_title']); ?>" name="topics[]" /></a>
+										<?php } ?>
 
-									<?php if ($_POST['topics']) { ?>
-									<?php foreach ($_POST['topics'] AS $key => $val) { ?>
-									<a href="javascript:;" class="aw-topic-name"><span><?php echo $val; ?></span><input type="hidden" value="<?php echo $val; ?>" name="topics[]" /></a>
-									<?php } ?>
-									<?php } else if ($this->article_topics) { ?>
-									<?php foreach ($this->article_topics AS $key => $val) { ?>
-									<a href="javascript:;" class="aw-topic-name"><span><?php echo $val['topic_title']; ?></span><input type="hidden" value="<?php echo $val['topic_title']; ?>" name="topics[]" /></a>
-									<?php } ?>
-									<?php } ?>
+										<?php if ($_POST['topics']) { ?>
+										<?php foreach ($_POST['topics'] AS $key => $val) { ?>
+										<a href="javascript:;" class="topic-tag"><span><?php echo $val; ?></span><input type="hidden" value="<?php echo $val; ?>" name="topics[]" /></a>
+										<?php } ?>
+										<?php } else if ($this->article_topics) { ?>
+										<?php foreach ($this->article_topics AS $key => $val) { ?>
+										<a href="javascript:;" class="topic-tag"><span><?php echo $val['topic_title']; ?></span><input type="hidden" value="<?php echo $val['topic_title']; ?>" name="topics[]" /></a>
+										<?php } ?>
+										<?php } ?>
 
-									<span class="aw-edit-topic"><i class="icon-edit"></i><?php _e('编辑话题'); ?></span>
-								</span>
+										<span class="aw-edit-topic"><i class="icon-edit"></i><?php _e('编辑话题'); ?></span>
+									</div>
+								</div>
 
 								<?php if ($this->human_valid) { ?>
 								<div class="aw-auth-img clearfix">

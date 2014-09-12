@@ -542,7 +542,7 @@ var AWS =
 
 		            if (data.topic_title)
 		            {
-		                $('#quick_publish .aw-edit-topic').parents('.aw-topic-editor').prepend('<a href="javascript:;" class="aw-topic-name"><span>' + data.topic_title + '</span><input type="hidden" value="' + data.topic_title + '" name="topics[]" /></a>')
+		                $('#quick_publish .aw-edit-topic').parents('.aw-topic-bar').prepend('<span class="topic-tag"><a class="text">' + data.topic_title + '</a><a class="close" onclick="$(this).parents(\'.topic-tag\').detach();"><i class="icon icon-delete"></i></a><input type="hidden" value="' + data.topic_title + '" name="topics[]" /></span>')
 		            }
 
 		            if (typeof(G_QUICK_PUBLISH_HUMAN_VALID) != 'undefined')
@@ -563,7 +563,7 @@ var AWS =
 
 		                $.each(result, function (i, a)
 		                {
-		                    $('#add_favorite_my_tags').append('<a href="javascript:;" onclick="$(\'#add_favorite_tags\').val($(\'#add_favorite_tags\').val() + \'' + a['title'] + ',\');" class="aw-topic-name"><span>' + a['title'] + '</span></a> ');
+		                    $('#add_favorite_my_tags').append('<a href="javascript:;" onclick="$(\'#add_favorite_tags\').val($(\'#add_favorite_tags\').val() + \'' + a['title'] + ',\');" class="topic-tag"><span>' + a['title'] + '</span></a> ');
 		                });
 		            }, 'json');
 		            break;
@@ -714,7 +714,7 @@ var AWS =
 	 *	top     : 焦点距离文档上偏移量
 	 **
 	 */
-	show_card_box: function(selector, type, time) //selector -> .aw-user-name/.aw-topic-name
+	show_card_box: function(selector, type, time) //selector -> .aw-user-name/.topic-tag
 	{
 		if (!time)
 		{
@@ -1704,7 +1704,7 @@ AWS.Dropdown =
 	                {
 	                    $('.aw-edit-topic-box #aw_edit_topic_title').val( $('.aw-edit-topic-box #aw_edit_topic_title').val().substring(0,$('.aw-edit-topic-box #aw_edit_topic_title').val().length-1));
 	                    $('.aw-edit-topic-box .aw-dropdown').hide();
-	                    $('.aw-edit-topic-box .submit-edit').click();
+	                    $('.aw-edit-topic-box .add').click();
 	                }
 	                return false;
 	            }
@@ -1713,7 +1713,7 @@ AWS.Dropdown =
 	            if (e.which == 13)
 	            {
 	            	$('.aw-edit-topic-box .aw-dropdown').hide();
-	                $('.aw-edit-topic-box .submit-edit').click();
+	                $('.aw-edit-topic-box .add').click();
 	            	return false;
 	            }
 
@@ -2452,7 +2452,7 @@ AWS.Init =
 	            $(this).parents('.content').append(Hogan.compile(AW_TEMPLATE.articleCommentBox).render(
 	            {
 	                'at_uid' : $(this).attr('data-id'),
-	                'article_id' : $('.aw-topic-editor').attr('data-id')
+	                'article_id' : $('.aw-topic-bar').attr('data-id')
 	            }));
 	        }
 	    });
@@ -2463,17 +2463,22 @@ AWS.Init =
 	{
 	    $(selector).click(function ()
 	    {
-	        var _topic_editor = $(this).parents('.aw-topic-editor'),
+	        var _topic_editor = $(this).parents('.aw-topic-bar'),
 	        	data_id = _topic_editor.attr('data-id'),
 	        	data_type = _topic_editor.attr('data-type');
 
-	        if (!_topic_editor.find('.aw-topic-name').children('span').hasClass('aw-close'))
+	        if (!_topic_editor.hasClass('active'))
 	        {
-	            _topic_editor.find('.aw-topic-name').children('span').append('<button type="button" class="close aw-close">×</button>');
+	        	_topic_editor.addClass('active');
+
+	        	if (!_topic_editor.find('.topic-tag .close').length)
+	        	{
+	            	_topic_editor.find('.topic-tag').append('<a class="close"><i class="icon icon-delete"></i></a>');
+	        	}
 	        }
 	        else
 	        {
-	            _topic_editor.find('.aw-close').show();
+	            _topic_editor.addClass('active');
 	        }
 
 	        // 判断插入编辑box
@@ -2482,14 +2487,14 @@ AWS.Init =
 	            _topic_editor.append(AW_TEMPLATE.editTopicBox);
 
 	            // 给编辑box添加按钮添加事件
-	            _topic_editor.find('.submit-edit').click(function ()
+	            _topic_editor.find('.add').click(function ()
 	            {
 	                if (_topic_editor.find('#aw_edit_topic_title').val() != '')
 	                {
 	                    switch (data_type)
 	                    {
 	                    	case 'publish':
-		                        _topic_editor.prepend('<a href="javascript:;" class="aw-topic-name"><span>' + _topic_editor.find('#aw_edit_topic_title').val() + '<button class="close aw-close" type="button" onclick="$(this).parents(\'.aw-topic-name\').remove();">×</button></span><input type="hidden" value="' + _topic_editor.find('#aw_edit_topic_title').val() + '" name="topics[]" /></a>').hide().fadeIn();
+		                        _topic_editor.find('.tag-bar').prepend('<span class="topic-tag"><a class="text">' + _topic_editor.find('#aw_edit_topic_title').val() + '</a><a class="close" onclick="$(this).parents(\'.topic-tag\').remove();"><i class="icon icon-delete"></i></a><input type="hidden" value="' + _topic_editor.find('#aw_edit_topic_title').val() + '" name="topics[]" /></span>').hide().fadeIn();
 
 		                        _topic_editor.find('#aw_edit_topic_title').val('');
 	                        break;
@@ -2504,7 +2509,7 @@ AWS.Init =
 		                                return false;
 		                            }
 
-		                            _topic_editor.prepend('<a href="' + G_BASE_URL + '/topic/' + result.rsm.topic_id + '" class="aw-topic-name" data-id="' + result.rsm.topic_id + '"><span>' + _topic_editor.find('#aw_edit_topic_title').val() + '<button class="close aw-close">×</button></span></a>').hide().fadeIn();
+		                            _topic_editor.find('.tag-bar').prepend('<span class="topic-tag" data-id="' + result.rsm.topic_id + '"><a href="' + G_BASE_URL + '/topic/' + result.rsm.topic_id + '" class="text">' + _topic_editor.find('#aw_edit_topic_title').val() + '</a><a class="close"><i class="icon icon-delete"></i></a></span>').hide().fadeIn();
 
 		                            _topic_editor.find('#aw_edit_topic_title').val('');
 		                        }, 'json');
@@ -2520,7 +2525,7 @@ AWS.Init =
 		                                return false;
 		                            }
 
-		                            _topic_editor.prepend('<a href="' + G_BASE_URL + '/topic/' + result.rsm.topic_id + '" class="aw-topic-name" data-id="' + result.rsm.topic_id + '"><span>' + _topic_editor.find('#aw_edit_topic_title').val() + '<button class="close aw-close">×</button></span></a>').hide().fadeIn();
+		                            _topic_editor.find('.tag-bar').prepend('<span class="topic-tag" data-id="' + result.rsm.topic_id + '"><a href="' + G_BASE_URL + '/topic/' + result.rsm.topic_id + '" class="text">' + _topic_editor.find('#aw_edit_topic_title').val() + '</a><a class="close"><i class="icon icon-delete"></i></a></span>').hide().fadeIn();
 
 		                            _topic_editor.find('#aw_edit_topic_title').val('');
 		                        }, 'json');
@@ -2537,7 +2542,7 @@ AWS.Init =
 		                                return false;
 		                            }
 
-		                            _topic_editor.prepend('<a href="' + G_BASE_URL + '/favorite/tag-' + encodeURIComponent(_topic_editor.find('#aw_edit_topic_title').val()) + '" class="aw-topic-name"><span>' + _topic_editor.find('#aw_edit_topic_title').val() + '<button class="close aw-close">×</button></span></a>').hide().fadeIn();
+		                            _topic_editor.find('.tag-bar').prepend('<span class="topic-tag"><a href="' + G_BASE_URL + '/favorite/tag-' + encodeURIComponent(_topic_editor.find('#aw_edit_topic_title').val()) + '" class="text">' + _topic_editor.find('#aw_edit_topic_title').val() + '</a><a class="close"><i class="icon icon-delete"></i></a></span>').hide().fadeIn();
 
 		                            _topic_editor.find('#aw_edit_topic_title').val('');
 		                        }, 'json');
@@ -2553,7 +2558,7 @@ AWS.Init =
 		                                return false;
 		                            }
 
-		                            _topic_editor.prepend('<a href="' + G_BASE_URL + '/favorite/tag-' + encodeURIComponent(_topic_editor.find('#aw_edit_topic_title').val()) + '" class="aw-topic-name"><span>' + _topic_editor.find('#aw_edit_topic_title').val() + '<button class="close aw-close">×</button></span></a>').hide().fadeIn();
+		                            _topic_editor.find('.tag-bar').prepend('<span class="topic-tag"><a href="' + G_BASE_URL + '/favorite/tag-' + encodeURIComponent(_topic_editor.find('#aw_edit_topic_title').val()) + '" class="text">' + _topic_editor.find('#aw_edit_topic_title').val() + '</a><a class="close"><i class="icon icon-delete"></i></a></span>').hide().fadeIn();
 
 		                            _topic_editor.find('#aw_edit_topic_title').val('');
 		                        }, 'json');
@@ -2565,66 +2570,20 @@ AWS.Init =
 	            // 给编辑box取消按钮添加事件
 	            _topic_editor.find('.close-edit').click(function ()
 	            {
-	                _topic_editor.find('.aw-edit-topic-box, .aw-close').hide();
+	            	_topic_editor.removeClass('active');
+	                _topic_editor.find('.aw-edit-topic-box').hide();
 	                _topic_editor.find('.aw-edit-topic').show();
 	            });
 
-	       		AWS.Dropdown.bind_dropdown_list($(this).parents('.aw-topic-editor').find('#aw_edit_topic_title'),'topic');
+	       		AWS.Dropdown.bind_dropdown_list($(this).parents('.aw-topic-bar').find('#aw_edit_topic_title'),'topic');
 	        }
 
-    		//话题编辑下拉菜单mouseover click事件
-	        $(document).on('mouseover', '.aw-edit-topic-box .aw-dropdown-list li', function ()
-		    {
-		        $(this).parents('.aw-edit-topic-box').find('#aw_edit_topic_title').val($(this).text());
-		    });
-
-		    $(document).on('click', '.aw-edit-topic-box .aw-dropdown-list li', function ()
-		    {
-		        $(this).parents('.aw-edit-topic-box').find('#aw_edit_topic_title').val($(this).text());
-		        $(this).parents('.aw-edit-topic-box').find('.submit-edit').click();
-		        $(this).parents('.aw-edit-topic-box').find('.aw-dropdown').hide();
-		    });
-
-		    //话题删除按钮
-		    $(document).on('click', '.aw-topic-name .aw-close',  function()
-		    {
-		        var data_type = $(this).parents('.aw-topic-editor').attr('data-type'),
-		            data_id = $(this).parents('.aw-topic-editor').attr('data-id');
-		        switch (data_type)
-		        {
-		            case 'question':
-		                $.post(G_BASE_URL + '/topic/ajax/remove_topic_relation/', 'type=question&item_id=' + data_id + '&topic_id=' + $(this).parents('.aw-topic-name').attr('data-id'),function(){
-		                    $('#aw-ajax-box').empty();
-		                });
-		                break;
-
-		            case 'topic':
-		                $.get(G_BASE_URL + '/topic/ajax/remove_related_topic/related_id-' + $(this).parents('.aw-topic-name').attr('data-id') + '__topic_id-' + data_id);
-		                break;
-
-		            case 'favorite':
-		                $.post(G_BASE_URL + '/favorite/ajax/remove_favorite_tag/', 'item_id=' + data_id + '&item_type=' + _topic_editor.attr('data-item-type') + '&tags=' + $(this).parents('.aw-topic-name').text().substring(0, $(this).parents('.aw-topic-name').text().length - 1));
-		                break;
-
-		            case 'article':
-		                $.post(G_BASE_URL + '/topic/ajax/remove_topic_relation/', 'type=article&item_id=' + data_id + '&topic_id=' + $(this).parents('.aw-topic-name').attr('data-id'),function(){
-		                    $('#aw-ajax-box').empty();
-		                });
-		                break;
-
-		        }
-
-		        $(this).parents('.aw-topic-name').remove();
-
-		        return false;
-		    });
-
-	        $(this).parents('.aw-topic-editor').find('.aw-edit-topic-box').fadeIn();
+	        $(this).parents('.aw-topic-bar').find('.aw-edit-topic-box').fadeIn();
 
 	        // 是否允许创建新话题
 	        if (!G_CAN_CREATE_TOPIC)
 	        {
-	            $(this).parents('.aw-topic-editor').find('.submit-edit').hide();
+	            $(this).parents('.aw-topic-bar').find('.add').hide();
 	        }
 
 	        $(this).hide();
