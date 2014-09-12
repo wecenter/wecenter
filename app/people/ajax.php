@@ -113,7 +113,8 @@ class ajax extends AWS_CONTROLLER
 			'is_me' => (($this->user_id == $user_info['uid']) ? true : false),
 			'url' => get_js_url('/people/' . $user_info['url_token']),
 			'category_enable' => ((get_setting('category_enable') == 'Y') ? 1 : 0),
-			'verified' => $user_info['verified']
+			'verified' => $user_info['verified'],
+			'fans_count' => $user_info['fans_count']
 		));
 	}
 

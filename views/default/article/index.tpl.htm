@@ -5,11 +5,13 @@
 		<div class="row">
 			<div class="aw-content-wrap clearfix">
 				<div class="col-sm-12 col-md-9 aw-main-content aw-article-content">
-					<div class="aw-mod aw-topic-bar">
-						<div class="aw-topic-editor" id="question_topic_editor" data-type="article" data-id="<?php echo $this->article_info['id']; ?>">
+					<div class="aw-mod aw-topic-bar" id="question_topic_editor" data-type="article" data-id="<?php echo $this->article_info['id']; ?>">
+						<div class="tag-bar clearfix">
 							<?php if ($this->article_topics) { ?>
 							<?php foreach($this->article_topics as $key => $val) { ?>
-							<a href="topic/<?php echo $val['url_token']; ?>" class="aw-topic-name" data-id="<?php echo $val['topic_id']; ?>"><span><?php echo $val['topic_title']; ?></span></a>
+							<span class="topic-tag" data-id="<?php echo $val['topic_id']; ?>">
+								<a class="text" href="topic/<?php echo $val['url_token']; ?>"><?php echo $val['topic_title']; ?></a>
+							</span>
 							<?php } ?>
 							<?php } ?>
 
