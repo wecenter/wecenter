@@ -56,12 +56,9 @@ class AWS_APP
 
 		load_class('core_uri')->set_rewrite();
 
-		if (!$app_dir = load_class('core_uri')->app_dir)
-		{
-			$app_dir = ROOT_PATH . 'app/home/';
-		}
+        $app_dir = load_class('core_uri')->app_dir;
 
-		// 传入应用目录,返回控制器对象
+		// 传入应用目录, 返回控制器对象
 		$handle_controller = self::create_controller(load_class('core_uri')->controller, $app_dir);
 
 		$action_method = load_class('core_uri')->action . '_action';
@@ -157,9 +154,14 @@ class AWS_APP
 			date_default_timezone_set($default_timezone);
 		}
 
-		$img_url = get_setting('img_url');
-
-		! empty($img_url) ? define('G_STATIC_URL', $img_url) : define('G_STATIC_URL', base_url() . '/static');
+		if ($img_url = get_setting('img_url'))
+        {
+            define('G_STATIC_URL', $img_url);
+        }
+        else
+        {
+            define('G_STATIC_URL', base_url() . '/static');
+        }
 
 		if (self::config()->get('system')->debug)
 		{
@@ -188,7 +190,7 @@ class AWS_APP
 	 */
 	public static function create_controller($controller, $app_dir)
 	{
-		if (trim($app_dir) == '' OR trim($controller, '/') === '')
+		if ($app_dir == '' OR trim($controller, '/') === '')
 		{
 			return false;
 		}
@@ -533,8 +535,7 @@ class AWS_APP
 
 		if (! isset(self::$models[$model_class]))
 		{
-			$model = new $model_class();
-			self::$models[$model_class] = $model;
+			self::$models[$model_class] = new $model_class();
 		}
 
 		return self::$models[$model_class];
