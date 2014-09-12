@@ -74,9 +74,23 @@ $(function()
 			case '#invite_list__invite':
 				var request_url = G_BASE_URL + '/home/ajax/invite/page-' + $(this).attr('data-page');
 			break;
+
+			case '#focus_topic__focus':
+				var request_url = G_BASE_URL + '/topic/ajax/focus_topics_list/page-' + $(this).attr('data-page');
+			break;
 		}
 
 		$(this).addClass('loading');
+
+		if (window.location.hash == '#focus_topic__focus')
+		{
+			$('.aw-feed-list').addClass('aw-topic-list');
+
+		}
+		else
+		{
+			$('.aw-feed-list').removeClass('aw-topic-list');
+		}
 
 		$.get(request_url, function (response)
 		{
@@ -90,6 +104,7 @@ $(function()
 				{
 					$('#main_contents').append(response);
 				}
+
 
 				$(_this).attr('data-page', parseInt($(_this).attr('data-page')) + 1);
 			}

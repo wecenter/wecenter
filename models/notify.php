@@ -738,7 +738,7 @@ class notify_class extends AWS_MODEL
 
 		if ($recipient_uid)
 		{
-			$where[] = 'recipient_uid = ' . $recipient_uid;
+			$where[] = 'recipient_uid = ' . intval($recipient_uid);
 		}
 
 		if (!$notification = $this->fetch_all('notification', implode(' AND ', $where)))

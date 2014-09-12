@@ -820,7 +820,8 @@ var AWS =
 	                            'category_enable' : result.category_enable,
 	                            'focus': focus,
 	                            'focusTxt': focusTxt,
-	                            'ask_name': "'" + result.user_name + "'"
+	                            'ask_name': "'" + result.user_name + "'",
+	                            'fansCount': result.fans_count
 	                        }));
 
 	                        //判断是否为游客or自己
@@ -860,7 +861,8 @@ var AWS =
 	                                'focus_count': result.focus_count,
 	                                'focus': focus,
 	                                'focusTxt': focusTxt,
-	                                'url' : result.url
+	                                'url' : result.url,
+	                                'fansCount': result.fans_count
 	                            }));
 	                            //判断是否为游客
 	                            if (G_USER_ID == '')
