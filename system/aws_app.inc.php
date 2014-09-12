@@ -56,10 +56,8 @@ class AWS_APP
 
 		load_class('core_uri')->set_rewrite();
 
-        $app_dir = load_class('core_uri')->app_dir;
-
 		// 传入应用目录, 返回控制器对象
-		$handle_controller = self::create_controller(load_class('core_uri')->controller, $app_dir);
+		$handle_controller = self::create_controller(load_class('core_uri')->controller, load_class('core_uri')->app_dir);
 
 		$action_method = load_class('core_uri')->action . '_action';
 
