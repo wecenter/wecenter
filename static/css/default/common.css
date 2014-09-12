@@ -21,9 +21,9 @@ select{width: auto;}
 .modal-backdrop, .modal-backdrop.fade.in{filter:alpha(opacity=20);opacity: 0.2; }
 /* 重载bootstrap按钮 */
 .btn:active, .btn.active{box-shadow: none;}
-.btn-mini{min-width: 64px;height:24px;padding:0 10px;line-height:24px;font-weight: normal;font-size:12px;}
-.btn-normal{min-width:76px;height:34px;padding:0 10px;line-height: 34px;font-size: 14px;}
-.btn-large{min-width:120px;height:38px;padding:0 10px;line-height:38px;font-size:14px;}
+.btn-mini{min-width: 64px;min-width:44px\0;height:24px;padding:0 10px;line-height:24px;font-weight: normal;font-size:12px;}
+.btn-normal{min-width:76px;min-width:56px\0;height:34px;padding:0 10px;line-height: 34px;font-size: 14px;}
+.btn-large{min-width:120px;min-width:100px\0;height:38px;padding:0 10px;line-height:38px;font-size:14px;}
 .close{font-size: 18px;}
 .btn-success, .btn-gray.active{border: none !important;background-color: #5bbf5a;color: #fff;}
 .btn-success:hover, .btn-gray.active:hover{background-color: #38b836 !important;color: #fff !important;}
@@ -464,7 +464,7 @@ a.aw-load-more-content{display: block;}
 .aw-invite-box .mod-body ul li p .aw-topic-name span{max-width: 133px;height:20px;overflow: hidden;}
 .aw-invite-box .mod-body ul li img{width: 30px;height: 30px;border-radius: 4px;}
 .aw-invite-box .mod-body .btn-normal{width:60px;padding:2px 0;font-size: 12px;}
-.aw-invite-box .mod-footer{height:34px;line-height:34px;padding:0 14px;}
+.aw-invite-box .mod-footer{height:34px;line-height:34px;margin-top:10px;padding:0 14px;}
 .aw-invite-box .mod-footer a{display: inline-block;width: 28px;height: 24px;line-height:22px;background-color: #66b7ff;text-align: center;border-radius: 4px;color: #fff;}
 .aw-invite-box .mod-footer .next{margin-left: 10px;}
 .aw-invite-box .mod-footer a.active{background-color:#e6e6e6;cursor: default;}
