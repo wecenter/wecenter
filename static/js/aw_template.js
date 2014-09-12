@@ -26,11 +26,11 @@ var AW_TEMPLATE = {
 					'<div class="mod-body">'+
 						'<p>{{signature}}</p>'+
 					'</div>'+
-					'<div class="mod-footer">'+
-						'<span class="pull-right">'+
-							'<a href="javascript:;" onclick="AWS.dialog(\'inbox\', \'{{user_name}}\');">' + _t('私信') + '</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:;" onclick="AWS.dialog(\'publish\', {category_enable:{{category_enable}}, ask_user_id:{{uid}}, ask_user_name:{{ask_name}} });">' + _t('问Ta') + '</a>'+
+					'<div class="mod-footer clearfix">'+
+						'<span>'+
+							'<a class="text-color-999" onclick="AWS.dialog(\'inbox\', \'{{user_name}}\');"><i class="icon icon-inbox"></i> ' + _t('私信') + '</a>&nbsp;&nbsp;&nbsp;&nbsp;<a  class="text-color-999" onclick="AWS.dialog(\'publish\', {category_enable:{{category_enable}}, ask_user_id:{{uid}}, ask_user_name:{{ask_name}} });"><i class="icon icon-at"></i> ' + _t('问Ta') + '</a>'+
 						'</span>'+
-						'<a class="btn btn-mini btn-success follow {{focus}}" onclick="AWS.User.follow($(this), \'user\', {{uid}});"><span>{{focusTxt}}</span></a>'+
+						'<a class="btn btn-normal btn-success follow {{focus}} pull-right" onclick="AWS.User.follow($(this), \'user\', {{uid}});"><span>{{focusTxt}}</span> <em>|</em> <b>{{fansCount}}</b></a>'+
 					'</div>'+
 				'</div>'+
 			'</div>',
@@ -45,15 +45,13 @@ var AW_TEMPLATE = {
 						'<p class="title">'+
 							'<a href="{{url}}" class="name" data-id="{{topic_id}}">{{topic_title}}</a>'+
 						'</p>'+
-						'<p>'+
+						'<p class="desc">'+
 							'{{topic_description}}'+
 						'</p>'+
 					'</div>'+
 					'<div class="mod-footer">'+
-						'<span class="pull-right">'+
-							_t('讨论数') + ' {{discuss_count}} • ' + _t('关注者') + ' {{focus_count}}'+
-						'</span>'+
-						'<a class="btn btn-mini btn-success follow {{focus}}" onclick="AWS.User.follow($(this), \'topic\', {{topic_id}});"><span>{{focusTxt}}</span></a>'+
+						'<span>'+ _t('讨论数') + ': {{discuss_count}}</span>'+
+						'<a class="btn btn-normal btn-success follow {{focus}} pull-right" onclick="AWS.User.follow($(this), \'topic\', {{topic_id}});"><span>{{focusTxt}}</span> <em>|</em> <b>{{focus_count}}</b></a>'+
 					'</div>'+
 				'</div>'+
 			'</div>',

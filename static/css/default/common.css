@@ -755,12 +755,15 @@ a.aw-load-more-content{display: block;}
 .aw-mod-search-result .aw-load-more-content{margin:20px 0 0;}
 
 /* 小卡片提示box */
-.aw-card-tips{display:none;position:absolute;z-index:9999;width: 270px;padding:15px;background: #FFF;border:1px solid #ccc;box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);}
-.aw-card-tips .mod-head{position: relative;min-height:60px;padding-left: 60px;}
+.aw-card-tips{display:none;position:absolute;z-index:9999;width: 290px;background: #FFF;border:1px solid #ccc;box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);}
+.aw-card-tips .mod-head{position: relative;min-height:70px;padding: 10px 10px 0 70px;}
 .aw-card-tips .mod-head p{margin: 0;}
 .aw-card-tips .mod-head p span:first-child {margin-right: 15px;}
-.aw-card-tips .mod-head .img{position: absolute;left: 0;top: 0;}
-.aw-card-tips .mod-footer{line-height: 26px;margin-top:10px;padding-top:10px;border-top: 1px dotted #E2E2E2;}
+.aw-card-tips .mod-head .img{position: absolute;left: 10px;top: 10px;}
+.aw-card-tips .mod-head .desc{max-height: 65px;overflow: hidden;margin-bottom: 10px;}
+.aw-card-tips .mod-body{padding:0 10px;}
+.aw-card-tips .mod-footer{padding:10px;background-color: #fafafa;border-top: 1px solid #e6e6e6;border-radius: 0 0 4px 4px;line-height: 34px;}
+.aw-card-tips .mod-footer i{position:relative;top:2px;font-size: 16px;}
 .aw-card-tips .icon-v{margin:4px 0 0 3px;}
 
 /* @用户下拉 */
