@@ -50,7 +50,7 @@ class geo_class extends AWS_MODEL
 
 		return $this->insert('geo_location', array(
 			'item_type' => $item_type,
-			'item_id' => $item_id,
+			'item_id' => intval($item_id),
 			'longitude' => $longitude,
 			'latitude' => $latitude,
 			'add_time' => time()
