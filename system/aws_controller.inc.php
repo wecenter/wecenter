@@ -23,7 +23,6 @@
  */
 class AWS_CONTROLLER
 {
-
 	public $user_id;
 	public $user_info;
 
@@ -192,20 +191,6 @@ class AWS_CONTROLLER
 	 */
 	public function crumb($name, $url = null)
 	{
-		$this->_crumb(htmlspecialchars_decode($name), $url);
-	}
-
-	/**
-	 * 产生面包屑导航数据
-	 *
-	 * 产生面包屑导航数据并生成浏览器标题供前端使用
-	 *
-	 * @access	private
-	 * @param	string
-	 * @param	string
-	 */
-	private function _crumb($name, $url = null)
-	{
 		if (is_array($name))
 		{
 			foreach ($name as $key => $value)
@@ -215,6 +200,8 @@ class AWS_CONTROLLER
 
 			return $this;
 		}
+		
+		$name = htmlspecialchars_decode($name);
 
 		$crumb_template = $this->crumb;
 
@@ -285,6 +272,7 @@ class AWS_CONTROLLER
 					{
 						date_default_timezone_set($this->user_info['default_timezone']);
 					}
+					
 					return true;
 				}
 			}

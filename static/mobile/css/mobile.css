@@ -432,6 +432,8 @@ input[type="text"], input[type="password"], textarea{-webkit-appearance:none;}
 .aw-people-list .page-control li{border:none;}
 
 /* icon */
+.icon-v{color: #a3d700;font-size: 16px;}
+.icon-v.i-ve{color: #ffca3f;}
 .icon-inverse{display:inline-block;height: 25px;padding:0 5px;line-height:24px;background-color: #cccccc;color: #fff;text-align: center;}
 .icon-agree.active, .icon-disagree.active{color: #66b7ff;}
 .icon-tips{display:block;width: 6px;height: 6px;border-radius: 6px;background-color: #ff5428;}

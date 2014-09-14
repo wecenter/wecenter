@@ -1252,7 +1252,7 @@
                     case "l":
                         doClick(buttons.link);
                         break;
-                    case "q":
+                    case "h":
                         doClick(buttons.quote);
                         break;
                     case "k":
@@ -1448,45 +1448,55 @@
                 return group
             }
 
+            // Mac 键盘按键提示判断
+            if (navigator.appVersion.indexOf('Mac') > -1)
+            {
+                var ckeys = '⌘';
+            }
+            else
+            {
+                var ckeys = 'Ctrl';
+            }
+
             group1 = makeGroup(1);
-            buttons.bold = makeButton("wmd-bold-button", "加粗 - Ctrl+B", "icon icon-bold", bindCommand("doBold"), group1);
-            buttons.italic = makeButton("wmd-italic-button", "斜体 - Ctrl+I", "icon icon-italic", bindCommand("doItalic"), group1);
-            buttons.heading = makeButton("wmd-heading-button", "标题 - Ctrl+H", "icon icon-h", bindCommand("doHeading"), group1);
+            buttons.bold = makeButton("wmd-bold-button", "加粗 - " + ckeys + "+B", "icon icon-bold", bindCommand("doBold"), group1);
+            buttons.italic = makeButton("wmd-italic-button", "斜体 - " + ckeys + "+I", "icon icon-italic", bindCommand("doItalic"), group1);
+            buttons.heading = makeButton("wmd-heading-button", "标题 - " + ckeys + "+H", "icon icon-h", bindCommand("doHeading"), group1);
             
             group2 = makeGroup(2);
-            buttons.olist = makeButton("wmd-olist-button", "数字列表 - Ctrl+O", "icon icon-ol", bindCommand(function (chunk, postProcessing) {
+            buttons.olist = makeButton("wmd-olist-button", "数字列表 - " + ckeys + "+O", "icon icon-ol", bindCommand(function (chunk, postProcessing) {
                 this.doList(chunk, postProcessing, true);
             }), group2);
-            buttons.ulist = makeButton("wmd-ulist-button", "普通列表 - Ctrl+U", "icon icon-ul", bindCommand(function (chunk, postProcessing) {
+            buttons.ulist = makeButton("wmd-ulist-button", "普通列表 - " + ckeys + "+U", "icon icon-ul", bindCommand(function (chunk, postProcessing) {
                 this.doList(chunk, postProcessing, false);
             }), group2);
 
             group4 = makeGroup(4);
-            buttons.quote = makeButton("wmd-quote-button", "引用 - Ctrl+Q", "icon icon-quote", bindCommand("doBlockquote"), group4);
-            buttons.code = makeButton("wmd-code-button", "代码 - Ctrl+K", "icon icon-code", bindCommand("doCode"), group4);
+            buttons.quote = makeButton("wmd-quote-button", "引用 - " + ckeys + "+H", "icon icon-quote", bindCommand("doBlockquote"), group4);
+            buttons.code = makeButton("wmd-code-button", "代码 - " + ckeys + "+K", "icon icon-code", bindCommand("doCode"), group4);
 
             group3 = makeGroup(3);
-            buttons.image = makeButton("wmd-image-button", "图片 - Ctrl+G", "icon icon-image", bindCommand(function (chunk, postProcessing) {
+            buttons.image = makeButton("wmd-image-button", "图片 - " + ckeys + "+G", "icon icon-image", bindCommand(function (chunk, postProcessing) {
                 return this.doLinkOrImage(chunk, postProcessing, true);
             }), group3);
-            buttons.video = makeButton("wmd-video-button", "视频 - Ctrl+E", "icon icon-video", bindCommand(function (chunk, postProcessing) {
+            buttons.video = makeButton("wmd-video-button", "视频 - " + ckeys + "+E", "icon icon-video", bindCommand(function (chunk, postProcessing) {
                 return this.doVideo(chunk, postProcessing, true)
             }), group3);
-            buttons.link = makeButton("wmd-link-button", "链接 - Ctrl+L", "icon icon-bind", bindCommand(function (chunk, postProcessing) {
+            buttons.link = makeButton("wmd-link-button", "链接 - " + ckeys + "+L", "icon icon-bind", bindCommand(function (chunk, postProcessing) {
                 return this.doLinkOrImage(chunk, postProcessing, false);
             }), group3);
 
             //buttons.hr = makeButton("wmd-hr-button", "Horizontal Rule - Ctrl+R", "fa fa-hr-line", bindCommand("doHorizontalRule"), group3);
             
             group5 = makeGroup(5);
-            buttons.undo = makeButton("wmd-undo-button", "撤销 - Ctrl+Z", "icon icon-undo", null, group5);
+            buttons.undo = makeButton("wmd-undo-button", "撤销 - " + ckeys + "+Z", "icon icon-undo", null, group5);
             buttons.undo.execute = function (manager) { if (manager) manager.undo(); };
 
             var redoTitle = /win/.test(nav.platform.toLowerCase()) ?
-                "Redo - Ctrl+Y" :
-                "Redo - Ctrl+Shift+Z"; // mac and other non-Windows platforms
+                "Redo - " + ckeys + "+Y" :
+                "Redo - " + ckeys + "+Shift+Z"; // mac and other non-Windows platforms
 
-            buttons.redo = makeButton("wmd-redo-button", "重做 - Ctrl+Y", "icon icon-redo", null, group5);
+            buttons.redo = makeButton("wmd-redo-button", "重做 - " + ckeys + "+Y", "icon icon-redo", null, group5);
             buttons.redo.execute = function (manager) { if (manager) manager.redo(); };
 
             group6 = makeGroup(6);

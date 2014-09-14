@@ -26,11 +26,11 @@ var AW_TEMPLATE = {
 					'<div class="mod-body">'+
 						'<p>{{signature}}</p>'+
 					'</div>'+
-					'<div class="mod-footer">'+
-						'<span class="pull-right">'+
-							'<a href="javascript:;" onclick="AWS.dialog(\'inbox\', \'{{user_name}}\');">' + _t('私信') + '</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:;" onclick="AWS.dialog(\'publish\', {category_enable:{{category_enable}}, ask_user_id:{{uid}}, ask_user_name:{{ask_name}} });">' + _t('问Ta') + '</a>'+
+					'<div class="mod-footer clearfix">'+
+						'<span>'+
+							'<a class="text-color-999" onclick="AWS.dialog(\'inbox\', \'{{user_name}}\');"><i class="icon icon-inbox"></i> ' + _t('私信') + '</a>&nbsp;&nbsp;&nbsp;&nbsp;<a  class="text-color-999" onclick="AWS.dialog(\'publish\', {category_enable:{{category_enable}}, ask_user_id:{{uid}}, ask_user_name:{{ask_name}} });"><i class="icon icon-at"></i> ' + _t('问Ta') + '</a>'+
 						'</span>'+
-						'<a class="btn btn-mini btn-success follow {{focus}}" onclick="AWS.User.follow($(this), \'user\', {{uid}});"><span>{{focusTxt}}</span></a>'+
+						'<a class="btn btn-normal btn-success follow {{focus}} pull-right" onclick="AWS.User.follow($(this), \'user\', {{uid}});"><span>{{focusTxt}}</span> <em>|</em> <b>{{fansCount}}</b></a>'+
 					'</div>'+
 				'</div>'+
 			'</div>',
@@ -45,15 +45,13 @@ var AW_TEMPLATE = {
 						'<p class="title">'+
 							'<a href="{{url}}" class="name" data-id="{{topic_id}}">{{topic_title}}</a>'+
 						'</p>'+
-						'<p>'+
+						'<p class="desc">'+
 							'{{topic_description}}'+
 						'</p>'+
 					'</div>'+
 					'<div class="mod-footer">'+
-						'<span class="pull-right">'+
-							_t('讨论数') + ' {{discuss_count}} • ' + _t('关注者') + ' {{focus_count}}'+
-						'</span>'+
-						'<a class="btn btn-mini btn-success follow {{focus}}" onclick="AWS.User.follow($(this), \'topic\', {{topic_id}});"><span>{{focusTxt}}</span></a>'+
+						'<span>'+ _t('讨论数') + ': {{discuss_count}}</span>'+
+						'<a class="btn btn-normal btn-success follow {{focus}} pull-right" onclick="AWS.User.follow($(this), \'topic\', {{topic_id}});"><span>{{focusTxt}}</span> <em>|</em> <b>{{focus_count}}</b></a>'+
 					'</div>'+
 				'</div>'+
 			'</div>',
@@ -209,20 +207,19 @@ var AW_TEMPLATE = {
 										'</ul>'+
 									'</div>'+
 								'</div>'+
-								//'<p onclick="$(this).parents(\'form\').find(\'.aw-publish-box-supplement-content\').fadeIn().focus();$(this).hide();"><span class="aw-publish-box-supplement"><i class="aw-icon i-edit"></i>' + _t('补充说明') + ' »</span></p>'+
 								'<textarea name="question_detail" class="form-control" rows="4" placeholder="' + _t('问题背景、条件等详细信息') + '..."></textarea>'+
 								'<div class="aw-publish-title">'+
 									'<div class="dropdown" id="quick_publish_category_chooser">'+
-									'<div class="dropdown-toggle" data-toggle="dropdown">'+
-										'<span id="aw-topic-tags-select" class="aw-hide-txt">' + _t('选择分类') + '</span>'+
-										'<a><i class="icon icon-down"></i></a>'+
+										'<div class="dropdown-toggle" data-toggle="dropdown">'+
+											'<span id="aw-topic-tags-select" class="aw-hide-txt">' + _t('选择分类') + '</span>'+
+											'<a><i class="icon icon-down"></i></a>'+
+										'</div>'+
 									'</div>'+
 								'</div>'+
-								'</div>'+
-								'<div id="quick_publish_topic_chooser">'+
-									'<span class="aw-topic-editor" data-type="publish">'+
-									'<span class="aw-edit-topic"><i class="fa fa-edit"></i>' + _t('编辑话题') + '</span>'+
-									'</span>'+
+								'<div class="aw-topic-bar" data-type="publish">'+
+									'<div class="tag-bar clearfix">'+
+										'<span class="aw-edit-topic"><i class="icon icon-edit"></i>' + _t('编辑话题') + '</span>'+
+									'</div>'+
 								'</div>'+
 								'<div class="clearfix hide" id="quick_publish_captcha">'+
 									'<input type="text" class="pull-left form-control" name="seccode_verify" placeholder="' + _t('验证码') + '" />'+
@@ -273,7 +270,7 @@ var AW_TEMPLATE = {
 	'editTopicBox' : 
 		'<div class="aw-edit-topic-box form-inline">'+
 			'<input type="text" class="form-control" id="aw_edit_topic_title" autocomplete="off"  placeholder="' + _t('创建或搜索添加新话题') + '...">'+
-			'<a class="btn btn-normal btn-success submit-edit">' + _t('添加') + '</a>'+
+			'<a class="btn btn-normal btn-success add">' + _t('添加') + '</a>'+
 			'<a class="btn btn-normal btn-gray close-edit">' + _t('取消') + '</a>'+
 			'<div class="aw-dropdown">'+
 				'<p class="title">' + _t('没有找到相关结果') + '</p>'+
