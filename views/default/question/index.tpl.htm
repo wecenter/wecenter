@@ -206,7 +206,7 @@
 												<a class="aw-user-name" data-id="<?php echo $val['user_info']['uid']; ?>" href="people/<?php echo $val['user_info']['url_token']; ?>"><?php echo $val['user_info']['user_name']; ?><?php if ($val['user_info']['verified']) { ?><i class="icon-v<?php if ($val['user_info']['verified'] == 'enterprise') { ?> i-ve<?php } ?>" title="<?php if ($val['user_info']['verified'] == 'enterprise') { ?>企业认证<?php } else { ?>个人认证<?php } ?>"></i><?php } ?></a>
 
 												<p>
-													
+
 													<?php _e('在 %s 话题下', '<span class="topic-tag"><a class="text" data-id="' . $val['experience']['topic_info']['topic_id'] . '" href="topic/' . $val['experience']['topic_info']['url_token'] . '">' . $val['experience']['topic_info']['topic_title'] . '</a></span>'); ?> <?php _e('获得 %s 个赞同', $val['experience']['agree_count']); ?>
 												</p>
 											</div>
@@ -342,7 +342,7 @@
 									</div>
 									<div class="mod-footer">
 										<!-- 社交操作 -->
-										<div class="meta">
+										<div class="met clearfix">
 											<span class="text-color-999 pull-right"><?php echo date_friendly($val['add_time'], 604800, 'Y-m-d'); ?></span>
 											<!-- 投票栏 -->
 											<span class="operate">
