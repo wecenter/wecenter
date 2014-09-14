@@ -160,14 +160,34 @@ function valid_ip($ip)
 }
 
 /**
- * 检查字符串是否为纯数字
+ * 检查字符串或数组内的字符串是否为纯数字
  *
- * @param string
+ * @param string or array
  * @return boolean
  */
 function is_digits($num)
 {
-	return Zend_Validate::is($num, 'Digits');
+    if (!$num)
+    {
+        return false;
+    }
+
+    if (is_array($num))
+    {
+        foreach ($num AS $val)
+        {
+            if (!is_digits($val))
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+    else
+    {
+        return Zend_Validate::is($num, 'Digits');
+    }
 }
 
 if (! function_exists('iconv'))
