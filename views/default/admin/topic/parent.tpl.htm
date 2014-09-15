@@ -17,10 +17,10 @@
         <div class="mod-body tab-content">
             <div class="tab-pane active" id="list">
                 <div class="table-responsive">
-                <?php if ($this->list) { ?>
                 <form id="batchs_form" action="admin/ajax/topic_manage/" method="post">
                     <input type="hidden" id="action" name="action" value="" />
 
+                <?php if ($this->list) { ?>
                     <table class="table table-striped">
                         <thead>
                             <tr>
@@ -63,8 +63,8 @@
                             <?php } ?>
                         </tbody>
                     </table>
-                </form>
                 <?php } ?>
+                </form>
                 </div>
 
                 <div class="mod-table-foot">
