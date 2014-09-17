@@ -191,7 +191,7 @@ class posts_class extends AWS_MODEL
 			$add_time = strtotime('-' . $day . ' Day');
 		}
 
-		$where[] = "add_time > " . intval($add_time) . " AND agree_count > 0 AND answer_count > 0";
+		$where[] = 'add_time > ' . intval($add_time);
 
 		if ($post_type)
 		{
