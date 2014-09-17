@@ -149,8 +149,10 @@ class posts_class extends AWS_MODEL
 		{
 			$where = array();
 
-			if (is_digits($answer_count))
+			if (isset($answer_count))
 			{
+				$answer_count = intval($answer_count);
+
 				if ($answer_count == 0)
 				{
 					$where[] = "answer_count = " . $answer_count;
