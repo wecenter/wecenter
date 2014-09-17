@@ -1,6 +1,4 @@
 /*改写bootstrap部分*/
-.aw-content-wrap .fa{width:25px;height:25px;border-radius:5px;background:#8bbf61;color:#fff;text-align:center;line-height:25px;line-line-line-;}
-.aw-content-wrap .fa.disabled{background-color: #c5c5c5;}
 .tooltip-inner{background:#246594;}
 .tooltip.top .tooltip-arrow{border-top-color:#246594;}
 .nav-tabs > li > a:hover{border-color:transparent;}
@@ -24,8 +22,9 @@ ul,ol{padding:0;list-style:none;}
 .text-color-999{margin:2px 0 0;color:#999;font-size:11px;}
 .aw-hide-txt{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .nopadding{padding:0;}
-.textwrap{ word-break: break-all;overflow: height: ;}
-/*.nopadding input{margin-left:-10px;}*/
+.textwrap{ word-break: break-all;overflow: hidden}
+.aw-content-wrap .icon{display:inline-block;width:25px;height:25px;border-radius:5px;background:#8bbf61;color:#fff;text-align:center;line-height:25px;}
+.aw-content-wrap .icon.disabled{background-color: #c5c5c5;}
 /* 警告提示box */
 .aw-tips-box .modal-dialog, .aw-image-box .modal-dialog, .aw-link-box .modal-dialog, .aw-confirm-box .modal-dialog{width: 370px;}
 .aw-tips-box .modal-body{background: url(../img/warmming.png) no-repeat right 5px;}
@@ -62,6 +61,7 @@ ul,ol{padding:0;list-style:none;}
 .mod-header-user ul li ul li{margin-top: 0;padding: 0 15px;}
 .mod-header-user ul li ul li:hover,.mod-user li:hover{background: #f6f6f6;}
 .mod-header-user ul li ul li a{line-height: 25px;white-space: normal;padding: 10px 0}
+.mod-header-user ul li ul li a i{margin-right: 10px;}
 .mod-user{width: 150px;}
 .mod-header-user .mod-user li {display: block;}
 .aw-header ul li.username{margin-right:30px;}
@@ -76,7 +76,6 @@ ul,ol{padding:0;list-style:none;}
 .aw-side .mod-message{padding:8px 5px 0 10px;height:55px;background:#3f3f3f;}
 .aw-side .mod-message a{position:relative;padding:0;width:35px;height:35px;border-color:#323232;background:#323232;color:#fff;line-height:35px;line-line-line-;}
 .aw-side .mod-message a:hover{background:#3695D5;}
-.aw-side .mod-message .fa-home:before{font-size:18px;}
 .aw-side .mod-message a span{position:absolute;top:-5px;right:-7px;z-index:2;padding:3px 5px;border:none;background:#3695d5;}
 .aw-side .mod-logo img{display:block;width:57px;height:36px;}
 .aw-side .mod-logo span{padding-left:10px;color:#fff;font-size:22px;line-height:40px;}
@@ -86,13 +85,12 @@ ul,ol{padding:0;list-style:none;}
 .aw-side ul li ul li a{border:none;text-indent:40px;}
 .aw-side ul li ul li a.active{border:none;border-color:#323232;}
 .aw-side ul li a{position:relative;display:block;padding-left:25px;height:48px;outline:none;border-right:4px solid #353535;border-left:4px solid #353535;background:#3f3f3f;color:#999;font-size:14px;line-height:48px;line-line-line-;}
-.aw-side .fa:before{display:inline-block;width:35px;vertical-align:middle;text-align:center;font-size:22px;}
-.aw-side .fa-home:before{font-size:28px;}
+.aw-side .icon:before{display:inline-block;width:35px;vertical-align:middle;text-align:center;font-size:22px;}
 .aw-side ul li a:hover,.aw-side ul li ul li a:hover,.aw-side ul li ul li a.active,.aw-side ul li ul li a.active:hover{background:#323232;color:#fff;}
 .aw-side ul li ul{display:none;}
 .aw-side ul li ul.block{display:block;}
-.aw-side ul li a.collapsed[data=icon]:after{position:absolute;right:15px;content:"\f056";}
-.aw-side ul li a[data=icon]:after{position:absolute;right:15px;content:"\f054";}
+.aw-side ul li a.collapsed[data="icon"]:after{position:absolute;right:15px;content:"\e621";}
+.aw-side ul li a[data="icon"]:after{position:absolute;right:15px;content:"\e651";}
 
 /*数据内容区域 start*/
 
@@ -100,8 +98,9 @@ ul,ol{padding:0;list-style:none;}
 .aw-content-wrap .echart-date{margin-top:20px;padding-left:5px;}
 .aw-content-wrap .echart-date .nopadding{padding:0;line-height:36px;}
 .aw-content-wrap .mod-echat-info{margin-top:20px;padding: 0;}
+.aw-content-wrap .mod-echat-info .icon{background-color: #fff;color: #080808;line-height: 18px;}
 .aw-content-wrap .mod-double{margin-bottom:10px;}
-.aw-content-wrap .mod-double .fa-calendar{left: 20px;}
+.aw-content-wrap .mod-double .icon-date{left: 20px;}
 .aw-content-wrap .date-seach{padding: 7px 10px}
 #main,#main2,#main3{height: 240px;border: 2px solid #fff; background: #fff!important;}
 #main:hover,#main2:hover,#main3:hover{border: 2px solid #3695D5;}
@@ -111,7 +110,6 @@ ul,ol{padding:0;list-style:none;}
 #sorttable thead td:first-child{cursor: inherit;}
 #sorttable thead td{cursor: pointer;}
 #sorttable .fa {width:inherit; height: inherit;border-radius: inherit;background: transparent; color: #000;text-align: inherit;line-height: inherit; }
-#sorttable .fa-sort-desc{position: relative;top: -3px;}
 .sorttable-mask{background: #e7e7e7;opacity: .8; filter:alpha(opacity="80");position: absolute;top: 111px;font-size: 18px;text-align: center;}
 
 /*页面底部区域 start*/
@@ -126,7 +124,7 @@ ul,ol{padding:0;list-style:none;}
 .aw-content-wrap .mod-head .nav-tabs{border-bottom:none;}
 .aw-content-wrap .mod-head .nav-tabs li{min-width:89px;height:42px;border-right:1px solid #DDD;list-style:none;text-align:center;cursor:default;}
 .aw-content-wrap .mod-head .nav-tabs li a{margin-top:0;margin-left:0;padding:8px 15px;outline:none;border:none;background:transparent;line-height:29px;}
-.aw-content-wrap .mod > .mod-head,.mod-echat-info .mod-head{margin:10px 0 0;height:44px;border:1px solid #e2e1e1;background:#f4f4f4;color:#333;}
+.aw-content-wrap .mod > .mod-head, .mod-echat-info .mod-head{margin:10px 0 0;height:44px;border:1px solid #e2e1e1;background:#f4f4f4;color:#333;}
 .mod-head .dropdown{margin: 5px 10px 0 0}
 .aw-content-wrap .mod-site-save{margin:10px 15px 0 0;}
 .aw-content-wrap .mod-head .pull-left{margin-right:20px;padding-left:15px;font-size:14px;line-height:45px;}
@@ -142,7 +140,7 @@ textarea{resize:none;}
 .mod-body table thead th,.mod-body table tbody td{vertical-align:middle;text-align:center;}
 .mod-content table thead th,.mod-content table tbody td{text-align:left;}
 #search{margin-top:25px;}
-.aw-content-wrap .fa-calendar{position:absolute;top:5px;left:20px;background:#2780bb!important;}
+.aw-content-wrap .icon-date{position:absolute;top:5px;left:20px;background:#2780bb!important;}
 .aw-content-wrap .mod-data{padding:3px 0 0 20px;text-align: center;}
 .aw-content-wrap input[type=radio],.aw-content-wrap input[type=checkbox]{margin-right:5px;}
 .aw-content-wrap .tab-content th{border:none;color:#000;font-weight:400;}
@@ -195,7 +193,7 @@ textarea{resize:none;}
 .chat-symbol{padding:0;line-height:34px;}
 .aw-wechat-dropdown-box{position:relative;width:230px;height:34px;line-height:34px;line-line-line-;}
 .aw-wechat-dropdown-box input{padding-right:30px!important;width:230px;}
-.aw-wechat-dropdown-box .fa-sort{position:absolute;top:5px;right:5px;z-index:2;background:transparent;color:#666;font-size:16px;cursor:pointer;}
+.aw-wechat-dropdown-box .icon-down{position:absolute;top:5px;right:5px;z-index:2;background:transparent;color:#666;font-size:16px;cursor:pointer;}
 .aw-wechat-dropdown-box span{position:relative;z-index:3;}
 .aw-wechat-dropdown-box .input-bg{position:absolute;left:0;z-index:1;width:100%;height:34px;border:1px solid #ccc;border-radius:5px;background-color:#fff;}
 .aw-wechat-dropdown-box .dropdown-menu{right:20px;padding:10px;width:64%;}

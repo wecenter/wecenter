@@ -17,10 +17,14 @@
 							<div class="aw-content">
 								<div class="mod-body">
 									<h2><a href="article/<?php echo $val['id']; ?>"><?php echo $val['title']; ?></a></h2>
-									<div class="topics">
-										<?php foreach($this->article_topics[$val['id']] as $topic_key => $topic_val) { ?>
-										<a href="topic/<?php echo $topic_val['url_token']; ?>" class="aw-topic-name" data-id="<?php echo $topic_val['topic_id']; ?>"><span><?php echo $topic_val['topic_title']; ?></span></a>
-										<?php } ?>
+									<div class="topic-bar">
+										<div class="tag-bar clearfix">
+											<?php foreach($this->article_topics[$val['id']] as $topic_key => $topic_val) { ?>
+											<span class="topic-tag" data-id="<?php echo $topic_val['topic_id']; ?>">
+												<a href="topic/<?php echo $topic_val['url_token']; ?>" class="text"><?php echo $topic_val['topic_title']; ?></a>
+											</span>
+											<?php } ?>
+										</div>
 									</div>
 									<div class="content-wrap">
 										<div class="content" id="detail_<?php echo $val['id']; ?>">

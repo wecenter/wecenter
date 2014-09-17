@@ -26,7 +26,7 @@ body{background:url('img/login_bg.jpg') no-repeat #E9F0F4;}
 .aw-login-box .mod-body .side-bar{height: 326px;padding:60px 0 60px 60px;border-left: 1px solid #e6e6e6;}
 .aw-login-box .mod-body .side-bar h3{margin-bottom:27px;color: #666666;text-align: center;}
 .aw-login-box .mod-body .side-bar .btn{position:relative;width: 170px;height: 40px;line-height: 40px;margin:0 0 20px;padding:0 0 0 15px;}
-.aw-login-box .mod-body .side-bar .btn i{position:absolute;left:15px;top:10px;font-size: 18px;}
+.aw-login-box .mod-body .side-bar .btn i{position:absolute;left:15px;top:10px;font-size: 18px;color: #fff;}
 .aw-login-box .mod-body .side-bar .btn-wechat .img{display: none;}
 .aw-login-box .mod-body .side-bar .btn-wechat.active{position: relative;height:200px;background-color: #4d4d4d;}
 .aw-login-box .mod-body .side-bar .btn-wechat.active .img{display:block;position: absolute;left: 10px;top: 40px;width:148px;height: 148px;}

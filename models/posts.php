@@ -149,8 +149,10 @@ class posts_class extends AWS_MODEL
 		{
 			$where = array();
 
-			if (is_digits($answer_count))
+			if (isset($answer_count))
 			{
+				$answer_count = intval($answer_count);
+
 				if ($answer_count == 0)
 				{
 					$where[] = "answer_count = " . $answer_count;
@@ -191,7 +193,7 @@ class posts_class extends AWS_MODEL
 			$add_time = strtotime('-' . $day . ' Day');
 		}
 
-		$where[] = "add_time > " . intval($add_time) . " AND agree_count > 0 AND answer_count > 0";
+		$where[] = 'add_time > ' . intval($add_time);
 
 		if ($post_type)
 		{

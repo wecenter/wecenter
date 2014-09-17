@@ -61,18 +61,18 @@ class actions_class extends AWS_MODEL
 
 		if ($user_focus_topics_article_ids)
 		{
-			// 发表文章
-			$where_in[] = "(associate_id IN (" . implode(',', $user_focus_topics_article_ids) . ") AND associate_action = " . ACTION_LOG::ADD_ARTICLE . " AND uid <> " . $uid . ")";
+			// 发表文章, 文章评论
+			$where_in[] = "(associate_id IN (" . implode(',', $user_focus_topics_article_ids) . ") AND associate_action IN (" . ACTION_LOG::ADD_ARTICLE . ", " . ACTION_LOG::ADD_COMMENT_ARTICLE . ") AND uid <> " . $uid . ")";
 		}
 
 		// 我关注的人
 		if ($user_follow_uids = $this->model('follow')->get_user_friends_ids($uid))
 		{
 			// 添加问题, 回复问题, 添加文章
-			$where_in[] = "(uid IN (" . implode(',', $user_follow_uids) . ") AND associate_action IN(" . ACTION_LOG::ADD_QUESTION . ',' . ACTION_LOG::ANSWER_QUESTION . ',' . ACTION_LOG::ADD_ARTICLE . '))';
+			$where_in[] = "(uid IN (" . implode(',', $user_follow_uids) . ") AND associate_action IN(" . ACTION_LOG::ADD_QUESTION . ',' . ACTION_LOG::ANSWER_QUESTION . ',' . ACTION_LOG::ADD_ARTICLE . ',' . ACTION_LOG::ADD_COMMENT_ARTICLE . '))';
 
-			// 增加赞同
-			$where_in[] = "(uid IN (" . implode(',', $user_follow_uids) . ") AND associate_action IN(" . ACTION_LOG::ADD_AGREE .", " . ACTION_LOG::ADD_AGREE_ARTICLE . ") AND uid <> " . $uid . ")";
+			// 增加赞同, 文章评论
+			$where_in[] = "(uid IN (" . implode(',', $user_follow_uids) . ") AND associate_action IN(" . ACTION_LOG::ADD_AGREE .", " . ACTION_LOG::ADD_COMMENT_ARTICLE . ") AND uid <> " . $uid . ")";
 
 			// 添加问题关注
 			if ($user_focus_questions_ids)
@@ -109,20 +109,26 @@ class actions_class extends AWS_MODEL
 		{
 			$where = implode(' OR ', $where_in);
 		}
-
+		
 		if (! $action_list = ACTION_LOG::get_actions_fresh_by_where($where, $limit))
 		{
 			return false;
 		}
-
+		
 		foreach ($action_list as $key => $val)
 		{
 			if (in_array($val['associate_action'], array(
 				ACTION_LOG::ADD_ARTICLE,
-				ACTION_LOG::ADD_AGREE_ARTICLE
+				ACTION_LOG::ADD_AGREE_ARTICLE,
+				ACTION_LOG::ADD_COMMENT_ARTICLE
 			)))
 			{
 				$action_list_article_ids[] = $val['associate_id'];
+				
+				if ($val['associate_action'] == ACTION_LOG::ADD_COMMENT_ARTICLE AND $val['associate_attached'])
+				{
+					$action_list_article_comment_ids[] = $val['associate_attached'];
+				}
 			}
 			else
 			{
@@ -164,6 +170,11 @@ class actions_class extends AWS_MODEL
 		{
 			$article_infos = $this->model('article')->get_article_info_by_ids($action_list_article_ids);
 		}
+		
+		if ($action_list_article_comment_ids)
+		{
+			$article_comment = $this->model('article')->get_comments_by_ids($action_list_article_comment_ids);
+		}
 
 		// 重组信息
 		foreach ($action_list as $key => $val)
@@ -183,12 +194,18 @@ class actions_class extends AWS_MODEL
 			{
 				case ACTION_LOG::ADD_ARTICLE:
 				case ACTION_LOG::ADD_AGREE_ARTICLE:
+				case ACTION_LOG::ADD_COMMENT_ARTICLE:
 					$article_info = $article_infos[$val['associate_id']];
 
 					$action_list[$key]['title'] = $article_info['title'];
 					$action_list[$key]['link'] = get_js_url('/article/' . $article_info['id']);
 
 					$action_list[$key]['article_info'] = $article_info;
+					
+					if ($val['associate_action'] == ACTION_LOG::ADD_COMMENT_ARTICLE)
+					{
+						$action_list[$key]['comment_info'] = $article_comment[$val['associate_attached']];
+					}
 				break;
 
 				default:
@@ -318,7 +335,10 @@ class actions_class extends AWS_MODEL
 			switch ($val['associate_type'])
 			{
 				case ACTION_LOG::CATEGORY_QUESTION:
-					if ($val['associate_action'] == ACTION_LOG::ADD_ARTICLE)
+					if (in_array($val['associate_action'], array(
+						ACTION_LOG::ADD_ARTICLE,
+						ACTION_LOG::ADD_COMMENT_ARTICLE
+					)))
 					{
 						$article_ids[] = $val['associate_id'];
 					}
@@ -372,6 +392,7 @@ class actions_class extends AWS_MODEL
 					switch ($val['associate_action'])
 					{
 						case ACTION_LOG::ADD_ARTICLE:
+						case ACTION_LOG::ADD_COMMENT_ARTICLE:
 							$article_info = $action_articles_info[$val['associate_id']];
 
 							$action_list[$key]['title'] = $article_info['title'];

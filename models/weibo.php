@@ -182,7 +182,7 @@ class weibo_class extends AWS_MODEL
 
                 $msg_info['id'] = $msg['id'];
 
-                if ($now - $msg_info['created_at'] > 604800 OR $this->fetch_row('weibo_msg', $this->quote($msg_info['id'])))
+                if ($now - $msg_info['created_at'] > 604800 OR $this->fetch_row('weibo_msg', 'id = "' . $this->quote($msg_info['id']) . '"'))
                 {
                     continue;
                 }
@@ -280,7 +280,12 @@ class weibo_class extends AWS_MODEL
             return false;
         }
 
-        $admin_notifications = get_setting('admin_notifications');
+        $admin_notifications = AWS_APP::cache()->get('admin_notifications');
+
+        if (!$admin_notifications)
+        {
+            $admin_notifications = get_setting('admin_notifications');
+        }
 
         if ($user_name === NULL)
         {
@@ -293,6 +298,8 @@ class weibo_class extends AWS_MODEL
                                                             'user_name' => $user_name
                                                         );
         }
+
+        AWS_APP::cache()->set('admin_notifications', $admin_notifications, 600);
 
         return $this->model('setting')->set_vars(array('admin_notifications' => $admin_notifications));
     }
