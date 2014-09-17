@@ -175,8 +175,8 @@ $(function () {
         {
             return false;
         }else{
-            $(this).find('i').addClass('fa-sort-desc');
-            $(this).siblings('td').find('i').removeClass('fa-sort-desc');
+            $(this).find('i').addClass('icon-down').show();
+            $(this).siblings('td').find('i').removeClass('icon-down').hide();
             
             if($(this).index()==1)
             {
