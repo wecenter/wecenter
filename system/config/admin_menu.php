@@ -8,7 +8,7 @@ $config[] = array(
 
 $config[] = array(
     'title' => '全局设置',
-    'cname' => 'flag',
+    'cname' => 'setting',
     'children' => array(
         array(
             'id' => 'SETTINGS_SITE',
@@ -74,7 +74,7 @@ $config[] = array(
 
 $config[] = array(
     'title' => '内容管理',
-    'cname' => 'briefcase',
+    'cname' => 'reply',
     'children' => array(
         array(
             'id' => 301,
@@ -128,7 +128,7 @@ $config[] = array(
 
 $config[] = array(
     'title' => '审核管理',
-    'cname' => 'tasks',
+    'cname' => 'report',
     'children' => array(
         array(
             'id' => 300,
@@ -158,7 +158,7 @@ $config[] = array(
 
 $config[] = array(
     'title' => '内容设置',
-    'cname' => 'bookmark',
+    'cname' => 'signup',
     'children' => array(
         array(
             'id' => 307,
@@ -189,7 +189,7 @@ $config[] = array(
 
 $config[] = array(
     'title' => '微信微博',
-    'cname' => 'send',
+    'cname' => 'share',
     'children' => array(
         array(
             'id' => 802,
@@ -243,7 +243,7 @@ $config[] = array(
 
 $config[] = array(
     'title' => '邮件群发',
-    'cname' => 'envelope',
+    'cname' => 'inbox',
     'children' => array(
         array(
             'id' => 702,
@@ -261,7 +261,7 @@ $config[] = array(
 
 $config[] = array(
     'title' => '工具',
-    'cname' => 'wrench',
+    'cname' => 'job',
     'children' => array(
         array(
             'id' => 501,
