@@ -60,6 +60,26 @@ class article_class extends AWS_MODEL
 
 		return $comment;
 	}
+	
+	public function get_comments_by_ids($comment_ids)
+	{
+		if (!is_array($comment_ids) OR !$comment_ids)
+		{
+			return false;
+		}
+		
+		array_walk_recursive($comment_ids, 'intval_string');
+		
+		if ($comments = $this->fetch_all('article_comments', 'id IN (' . implode(',', $comment_ids) . ')'))
+		{
+			foreach ($comments AS $key => $val)
+			{
+				$article_comments[$val['id']] = $val;
+			}
+		}
+
+		return $article_comments;
+	}
 
 	public function get_comments($article_id, $page, $per_page)
 	{
@@ -101,7 +121,7 @@ class article_class extends AWS_MODEL
 
 		$this->delete('topic_relation', "`type` = 'article' AND item_id = " . intval($article_id));		// 删除话题关联
 
-		ACTION_LOG::delete_action_history('associate_type = ' . ACTION_LOG::CATEGORY_QUESTION . ' AND associate_action IN(' . ACTION_LOG::ADD_ARTICLE . ', ' . ACTION_LOG::ADD_AGREE_ARTICLE . ') AND associate_id = ' . intval($article_id));	// 删除动作
+		ACTION_LOG::delete_action_history('associate_type = ' . ACTION_LOG::CATEGORY_QUESTION . ' AND associate_action IN(' . ACTION_LOG::ADD_ARTICLE . ', ' . ACTION_LOG::ADD_AGREE_ARTICLE . ', ' . ACTION_LOG::ADD_COMMENT_ARTICLE . ') AND associate_id = ' . intval($article_id));	// 删除动作
 
 		// 删除附件
 		if ($attachs = $this->model('publish')->get_attach('article', $article_id))

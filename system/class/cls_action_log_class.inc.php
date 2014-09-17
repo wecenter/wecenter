@@ -66,6 +66,8 @@ class ACTION_LOG
 	const ADD_ARTICLE = 501;	// 添加文章
 
 	const ADD_AGREE_ARTICLE = 502;	// 赞同文章
+	
+	const ADD_COMMENT_ARTICLE = 503;	// 评论文章
 
 
 	public static function associate_fresh_action($history_id, $associate_id, $associate_type, $associate_action, $uid, $anonymous, $add_time)
@@ -77,7 +79,8 @@ class ACTION_LOG
 			self::ADD_AGREE,
 			self::ANSWER_QUESTION,
 			self::ADD_REQUESTION_FOCUS,
-			self::ADD_AGREE_ARTICLE
+			self::ADD_AGREE_ARTICLE,
+			self::ADD_COMMENT_ARTICLE
 		)))
 		{
 			// 删除相同关联 ID 下相同动作的旧动态
@@ -451,6 +454,17 @@ class ACTION_LOG
 				else
 				{
 					$action_string = '<a href="' . $user_profile_url . '" ' . $user_link_attr . '>' . $user_name . '</a> ' . AWS_APP::lang()->_t('赞同了该文章');
+				}
+				break;
+				
+			case self::ADD_COMMENT_ARTICLE :
+				if ($associate_topic_info)
+				{
+					$action_string = '<a href="' . $user_profile_url . '" ' . $user_link_attr . '>' . $user_name . '</a> 在 <a href="' . $topic_url . '" ' . $topic_link_attr . '>' . $associate_topic_info['topic_title'] . '</a> ' . AWS_APP::lang()->_t('话题添加了一个文章评论');
+				}
+				else
+				{
+					$action_string = '<a href="' . $user_profile_url . '" ' . $user_link_attr . '>' . $user_name . '</a> ' . AWS_APP::lang()->_t('评论了该文章');
 				}
 				break;
 		}
