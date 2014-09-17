@@ -1,6 +1,4 @@
 /*改写bootstrap部分*/
-.aw-content-wrap .icon{width:25px;height:25px;border-radius:5px;background:#8bbf61;color:#fff;text-align:center;line-height:25px;line-line-line-;}
-.aw-content-wrap .icon.disabled{background-color: #c5c5c5;}
 .tooltip-inner{background:#246594;}
 .tooltip.top .tooltip-arrow{border-top-color:#246594;}
 .nav-tabs > li > a:hover{border-color:transparent;}
@@ -24,8 +22,9 @@ ul,ol{padding:0;list-style:none;}
 .text-color-999{margin:2px 0 0;color:#999;font-size:11px;}
 .aw-hide-txt{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .nopadding{padding:0;}
-.textwrap{ word-break: break-all;overflow: height: ;}
-/*.nopadding input{margin-left:-10px;}*/
+.textwrap{ word-break: break-all;overflow: hidden}
+.aw-content-wrap .icon{display:inline-block;width:25px;height:25px;border-radius:5px;background:#8bbf61;color:#fff;text-align:center;line-height:25px;}
+.aw-content-wrap .icon.disabled{background-color: #c5c5c5;}
 /* 警告提示box */
 .aw-tips-box .modal-dialog, .aw-image-box .modal-dialog, .aw-link-box .modal-dialog, .aw-confirm-box .modal-dialog{width: 370px;}
 .aw-tips-box .modal-body{background: url(../img/warmming.png) no-repeat right 5px;}

@@ -37,7 +37,7 @@
 							<td><a href="page/<?php echo $val['url_token']; ?>" target="_blank"><?php echo $val['title']; ?></a></td>
 							<td width="50%"><?php echo $val['description']; ?></td>
 							<td>
-								<a href="admin/page/edit/id-<?php echo $val['id']; ?>" title="<?php _e('编辑'); ?>" data-toggle="tooltip" class="fa fa-pencil md-tip"></a>
+								<a href="admin/page/edit/id-<?php echo $val['id']; ?>" title="<?php _e('编辑'); ?>" data-toggle="tooltip" class="icon icon-edit md-tip"></a>
 								<a onclick="AWS.ajax_request(G_BASE_URL + '/admin/ajax/remove_page/', 'id=<?php echo $val['id']; ?>');" title="<?php _e('删除'); ?>" data-toggle="tooltip" class="fa fa-trash-o md-tip"></a>
 							</td>
 						</tr>

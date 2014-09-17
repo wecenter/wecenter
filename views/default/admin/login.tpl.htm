@@ -12,7 +12,7 @@
 <title><?php echo $this->page_title; ?></title>
 
 <link type="text/css" rel="stylesheet" href="<?php echo G_STATIC_URL; ?>/css/bootstrap.css?v=<?php echo G_VERSION_BUILD; ?>" />
-<link type="text/css" rel="stylesheet" href="<?php echo G_STATIC_URL; ?>/css/font-awesome.css?v=<?php echo G_VERSION_BUILD; ?>" />
+<link type="text/css" rel="stylesheet" href="<?php echo G_STATIC_URL; ?>/css/icon.css?v=<?php echo G_VERSION_BUILD; ?>" />
 <link type="text/css" rel="stylesheet" href="<?php echo G_STATIC_URL; ?>/admin/css/login.css?v=<?php echo G_VERSION_BUILD; ?>" />
 <script type="text/javascript">
     var G_INDEX_SCRIPT = "<?php echo G_INDEX_SCRIPT; ?>";
@@ -47,12 +47,12 @@
             <div class="form-group">
                 <label><?php _e('邮箱'); ?></label>
                 <input type="text" class="form-control" placeholder="<?php _e('邮箱'); ?>" value="<?php echo $this->user_info['email']; ?>" disabled="disabled" />
-                <i class="fa fa-user"></i>
+                <i class="icon icon-user"></i>
             </div>
             <div class="form-group">
                 <label><?php _e('密码'); ?></label>
                 <input type="password" class="form-control" placeholder="<?php _e('密码'); ?>" type="password" name="password" onkeydown="if (event.keyCode == 13) { document.getElementById('login_submit').click(); };" autofocus/>
-                <i class="fa fa-lock"></i>
+                <i class="icon icon-lock"></i>
             </div>
             <?php if (get_setting('admin_login_seccode') == 'Y') { ?>
             <div class="form-group">
@@ -70,6 +70,6 @@
             <button type="submit" class="btn btn-primary" id="login_submit" onclick="AWS.ajax_post($('#login_form'), AWS.ajax_processer, 'error_message');"><?php _e('登录'); ?></button>
         </form>
 
-        <h2>WeCenter Admin Control</h2>
+        <h2 class="text-center text-color-999">WeCenter Admin Control</h2>
     </div>
 </div>

@@ -36,7 +36,7 @@
                             <td><a href="people/<?php echo $this->users_info[$account_info['uid']]['url_token']; ?>" target="_blank"><?php echo $this->users_info[$account_info['uid']]['user_name']; ?></a></td>
 
                             <td class="nowrap">
-                                <a href="admin/edm/receiving/id-<?php echo $account_info['id']; ?>" data-toggle="tooltip" title="<?php _e('编辑'); ?>" class="fa fa-pencil md-tip"></a>
+                                <a href="admin/edm/receiving/id-<?php echo $account_info['id']; ?>" data-toggle="tooltip" title="<?php _e('编辑'); ?>" class="icon icon-edit md-tip"></a>
 
                                 <a href="javascript:;" onclick="AWS.ajax_request(G_BASE_URL + '/admin/ajax/remove_receiving_account/', 'id=<?php echo $account_info['id'] ?>');" data-toggle="tooltip" title="<?php _e('删除'); ?>" class="fa fa-trash-o md-tip"></a>
                             </td>
