@@ -12,7 +12,7 @@
 <title><?php echo $this->page_title; ?></title>
 <base href="<?php echo base_url();?>/<?php echo G_INDEX_SCRIPT; ?>" />
 <link type="text/css" rel="stylesheet" href="<?php echo G_STATIC_URL; ?>/css/bootstrap.css?v=<?php echo G_VERSION_BUILD; ?>" />
-<link type="text/css" rel="stylesheet" href="<?php echo G_STATIC_URL; ?>/css/font-awesome.css?v=<?php echo G_VERSION_BUILD; ?>" />
+<link type="text/css" rel="stylesheet" href="<?php echo G_STATIC_URL; ?>/css/icon.css?v=<?php echo G_VERSION_BUILD; ?>" />
 <script type="text/javascript">
     var G_INDEX_SCRIPT = "<?php echo G_INDEX_SCRIPT; ?>";
     var G_BASE_URL = "<?php echo base_url(); ?>/<?php echo rtrim(G_INDEX_SCRIPT, '/'); ?>";
@@ -91,15 +91,15 @@ $(function(){
 
                 <ul class="dropdown-menu pull-right mod-user">
                     <li>
-                        <a href="<?php echo base_url(); ?>" target="_blank"><i class="fa fa-home"></i><?php _e('首页'); ?></a>
+                        <a href="<?php echo base_url(); ?>" target="_blank"><i class="icon icon-home"></i><?php _e('首页'); ?></a>
                     </li>
 
                     <li>
-                        <a href="admin/"><i class="fa fa-file-text"></i><?php _e('概述'); ?></a>
+                        <a href="admin/"><i class="icon icon-ul"></i><?php _e('概述'); ?></a>
                     </li>
 
                     <li>
-                        <a href="admin/logout/"><i class="fa fa-sign-out"></i><?php _e('退出'); ?></a>
+                        <a href="admin/logout/"><i class="icon icon-logout"></i><?php _e('退出'); ?></a>
                     </li>
                 </ul>
             </li>

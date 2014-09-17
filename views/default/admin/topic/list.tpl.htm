@@ -21,10 +21,10 @@
                 <?php } ?>
 
                 <div class="table-responsive">
-                <?php if ($this->list) { ?>
                 <form id="batchs_form" action="admin/ajax/topic_manage/" method="post">
                     <input type="hidden" id="action" name="action" value="" />
                     <input type="hidden" id="parent_id" name="parent_id" value="" />
+                <?php if ($this->list) { ?>
 
                     <table class="table table-striped">
                         <thead>
@@ -77,8 +77,8 @@
                             <?php } ?>
                         </tbody>
                     </table>
-                </form>
                 <?php } ?>
+                </form>
                 </div>
 
                 <div class="mod-table-foot">
@@ -110,14 +110,14 @@
                             <div class="row">
                                 <div class="col-xs-11  col-sm-5 mod-double">
                                     <input type="text" class="form-control mod-data" value="<?php echo base64_decode($_GET['start_date']); ?>" name="start_date" />
-                                    <i class="fa fa-calendar"></i>
+                                    <i class="icon icon-date"></i>
                                 </div>
                                 <span class="mod-symbol col-xs-1 col-sm-1">
                                 -
                                 </span>
                                 <div class="col-xs-11 col-sm-5">
                                     <input type="text" class="form-control mod-data" value="<?php echo base64_decode($_GET['end_date']); ?>" name="end_date" />
-                                    <i class="fa fa-calendar"></i>
+                                    <i class="icon icon-date"></i>
                                 </div>
                             </div>
                         </div>

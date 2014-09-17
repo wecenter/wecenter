@@ -67,7 +67,12 @@ class admin_class extends AWS_MODEL
     {
         $last_version = json_decode(curl_get_contents('http://wenda.wecenter.com/api/version_check.php'), true);
 
-        $admin_notifications = get_setting('admin_notifications');
+        $admin_notifications = AWS_APP::cache()->get('admin_notifications');
+
+        if (!$admin_notifications)
+        {
+            $admin_notifications = get_setting('admin_notifications');
+        }
 
         $notifications = array(
                                 // 内容审核
@@ -101,7 +106,9 @@ class admin_class extends AWS_MODEL
                                 'receive_email_error' => $admin_notifications['receive_email_error']
                             );
 
-        $this->model('setting')->set_vars(array('admin_notifications' => $notifications));
+        AWS_APP::cache()->set('admin_notifications', $admin_notifications, 600);
+
+        return $this->model('setting')->set_vars(array('admin_notifications' => $notifications));
     }
 
     public function get_notifications_texts()
