@@ -40,7 +40,7 @@
 							<td><?php echo $val['description']; ?></td>
 							<td><?php if ($val['topic_count']) { ?><?php _e('%s 个话题', $val['topic_count']); ?><?php } else { ?> - <?php } ?></td>
 							<td><a href="admin/feature/edit/feature_id-<?php echo $val['id']; ?>" title="<?php _e('编辑'); ?>" class="icon icon-edit md-tip"></a>
-							<a onclick="AWS.ajax_request(G_BASE_URL + '/admin/ajax/remove_feature/', 'feature_id=<?php echo $val['id']; ?>');" title="<?php _e('删除'); ?>" class="fa fa-trash-o md-tip"></td>
+							<a onclick="AWS.ajax_request(G_BASE_URL + '/admin/ajax/remove_feature/', 'feature_id=<?php echo $val['id']; ?>');" title="<?php _e('删除'); ?>" class="icon icon-trash md-tip"></td>
 						</tr>
 						<?php } ?>
 					</tbody>
