@@ -439,4 +439,27 @@ input[type="text"], input[type="password"], textarea{-webkit-appearance:none;}
 .icon-tips{display:block;width: 6px;height: 6px;border-radius: 6px;background-color: #ff5428;}
 .icon-flag.active{color: #ffc000;}
 .triangle{position:absolute;top:-1px;display: none;width:0;height:0;margin:0 !important;line-height:0;border-width:8px;border-style:solid;border-color: #66b7ff transparent transparent transparent;}
-
+.icon-spin {
+  -webkit-animation: icon-spin 2s infinite linear;
+  animation: icon-spin 2s infinite linear;
+}
+@-webkit-keyframes icon-spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}
+@keyframes icon-spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}

@@ -172,10 +172,11 @@ a.aw-load-more-content{display: block;}
 .icon-v{color: #a3d700;font-size: 16px;}
 .icon-v.i-ve{color: #ffca3f;}
 .icon-down.active:before{content:"\e634";}
-.fa-mobile-phone{margin-left:5px;font-size: 21px;color:#9d9c9c;vertical-align: -2px;}
 .icon-add-alt{font-size: 18px;margin-right: 10px;}
 .icon-register-arrow{display: inline-block;width: 20px;height: 48px;background-image: url('img/register-triangle.png');background-color:#fff;background-repeat: no-repeat;}
 .i-private-replay-triangle{width: 8px;height: 10px;background: url('img/icon-angle-right.png') no-repeat;}
+.icon-delete{position: relative;top: 1px;}
+
 /* email未验证提示 */
 .aw-email-verify{height:38px;line-height:38px;background-color: #fff07b;border-bottom: 1px solid #d9cda7;color: #988328;}
 
@@ -231,7 +232,7 @@ a.aw-load-more-content{display: block;}
 /* 搜索框 */
 .aw-search-box{position:relative;margin:10px 0;}
 .aw-search-box input{width: 260px;height: 32px;padding-right:30px;border:none;}
-.aw-search-box #global_search_btns{position: absolute;right: 5px;top: 6px;font-size: 18px;color: #999;}
+.aw-search-box #global_search_btns{position: absolute;right: 5px;top: 5px;font-size: 18px;color: #999;}
 .aw-search-box .aw-dropdown{width: 350px;}
 .aw-search-box .aw-dropdown i{display:none;margin:14px 5px 0 0;font-size: 16px;color: }
 .aw-search-box .aw-dropdown p{height: 38px;line-height: 38px;margin:0;padding:0 10px;font-weight: normal;border-bottom: 1px solid #f0f0f0;}
@@ -385,8 +386,8 @@ a.aw-load-more-content{display: block;}
 .aw-upload-box .upload-list li{position:relative;float: left;width: 214px;height: 115px;padding:15px 15px 15px 110px;margin:15px 15px 0 0;background: #F5FAFF;border:1px solid #DCEDFA;border-radius: 5px;}
 .aw-upload-box .upload-list li .img{position:absolute;left:10px;top:10px;width: 90px;height: 90px;background: url('img/ajax-loader.gif') center center no-repeat;text-align: center;line-height: 90px;border-radius: 5px;}
 .aw-upload-box .upload-list li .img.error, .aw-upload-box .upload-list li .img.file{background: none;}
-.aw-upload-box .upload-list li .img .fa-file-o{font-size: 48px;vertical-align: middle;color: #aac6e1;}
-.aw-upload-box .upload-list li .img .fa-times{font-size: 24px;color: #ff6464;}
+.aw-upload-box .upload-list li .img .icon-file{font-size: 48px;vertical-align: middle;color: #aac6e1;}
+.aw-upload-box .upload-list li .img .icon-delete{font-size: 24px;color: #ff6464;}
 .aw-upload-box .upload-list li .content p{margin:0;line-height: 16px;}
 .aw-upload-box .upload-list li .title{height: 34px;overflow:hidden;word-wrap:break-word;font-size:12px;color: #666;}
 .aw-upload-box .upload-list li .size{margin-bottom:10px !important;font-size: 12px;color: #999;}
@@ -506,10 +507,12 @@ a.aw-load-more-content{display: block;}
 .aw-question-tags{position:relative;margin-right:10px;padding:1px 5px 0 15px;background-color:#f2f2f2;cursor:pointer;font-size: 14px;}
 .aw-question-tags:hover{background-color:#dddddd;}
 .aw-question-tags:hover i{color:#dddddd;}
-.aw-question-tags i{position:absolute;left:0;top:-4px;width:8px;background-color: #fff;color:#f2f2f2;font-size: 25px;}
+.aw-question-tags i{position:absolute;left:0;top:-0;width:0;height:0;border-top: 8px solid transparent;border-bottom: 8px solid transparent;border-right: 8px solid #f2f2f2;background-color: #fff;}
+
 
 /* 文章广场 */
 .aw-article-list .aw-item{position: relative;margin-top:20px;padding:0 20px 20px 70px;border-bottom:1px solid #e1e1e1;}
+.aw-article-list .aw-item .aw-topic-bar{margin:0;}
 .aw-article-list .aw-item .aw-user-name{position: absolute;left: 20px;top: 0;}
 .aw-article-list .aw-item h2 a{color: #333;font-size: 20px;line-height: 26px;}
 .aw-article-list .aw-item h2 a:hover, .aw-article-list .aw-item .aw-mod-footer span a:hover{color: #4d8bcd;}
@@ -978,7 +981,7 @@ li.L1,li.L3,li.L5,li.L7,li.L9 { background: #eee }
 .aw-404-wrap .aw-search-box .form-control {border-radius: 0;border-color: #54BEFF;}
 .aw-404-wrap .aw-search-box .input-group {margin: 0 auto;}
 .aw-404-wrap .aw-search-box .input-group input {width: 460px;}
-.aw-404-wrap .aw-search-box .input-group-addon {border-radius: 0;border-color: #54BEFF; color: #fff;background-color: #54BEFF;}
+.aw-404-wrap .aw-search-box .input-group-addon {top:0 !important;right:0 !important;z-index:10;width:40px !important;border-radius: 0;border-color: #54BEFF; color: #fff !important;background-color: #54BEFF;}
 
 /* noscript 提示 */
 .aw-noscript{position: absolute;z-index: 100;width: 100%;height: 100%;background-color: #f5f5f5;overflow: hidden;}

@@ -275,7 +275,7 @@ FileUpload.prototype =
 				switch (json.class_name)
 				{
 					case 'txt':
-						$(element).find('.img').addClass('file').html('<i class="fa fa-file-o"></i>');
+						$(element).find('.img').addClass('file').html('<i class="icon icon-file"></i>');
 					break;
 
 					default :
@@ -310,7 +310,7 @@ FileUpload.prototype =
 			}
 			else
 			{
-				$(element).addClass('error').find('.img').addClass('error').html('<i class="fa fa-times"></i>');
+				$(element).addClass('error').find('.img').addClass('error').html('<i class="icon icon-delete"></i>');
 				
 				$(element).find('.size').text(json.error);
 			}

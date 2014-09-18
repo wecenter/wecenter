@@ -19,6 +19,7 @@ body{background:url('img/login_bg.jpg') no-repeat #E9F0F4;}
 .aw-login-box .mod-body .content{width: 300px;margin-right: 60px;}
 .aw-login-box .mod-body .content h2{margin:13px 0 40px;color: #666666;}
 .aw-login-box .mod-body .content ul li{margin-top: 20px;line-height: 30px;}
+.aw-login-box .mod-body .content ul li i{position: relative;top: 1px;}
 .aw-login-box .mod-body .content ul li:first-child{margin-top: 0;}
 .aw-login-box .mod-body .content ul li.last{font-size: 12px;line-height: 40px;}
 .aw-login-box .mod-body .content ul li.last a{color: #666666;}
