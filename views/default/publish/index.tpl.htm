@@ -100,14 +100,16 @@
 								</div>
 								<?php if ($this->recent_topics) { ?>
 								<h3><?php _e('最近话题'); ?>:</h3>
-								<div class="clearfix">
-									<?php foreach($this->recent_topics as $key => $val) { ?>
-									<span class="topic-tag" onclick="$('#aw_edit_topic_title').val('<?php echo $val; ?>');$('.add').click();$(this).hide();">
-										<a class="text">
-											<?php echo $val; ?>
-										</a>
-									</span>
-									<?php } ?>
+								<div class="aw-topic-bar">
+									<div class="topic-bar clearfix">
+										<?php foreach($this->recent_topics as $key => $val) { ?>
+										<span class="topic-tag" onclick="$('#aw_edit_topic_title').val('<?php echo $val; ?>');$('.add').click();$(this).hide();">
+											<a class="text">
+												<?php echo $val; ?>
+											</a>
+										</span>
+										<?php } ?>
+									</div>
 								</div>
 								<?php } ?>
 								<?php } ?>
