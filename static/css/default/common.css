@@ -100,7 +100,7 @@ a.aw-load-more-content{display: block;}
 .aw-topic-bar .close{display: none;}
 .aw-topic-bar.active .topic-tag .text{border-radius: 4px 0 0 4px;}
 .aw-topic-bar.active .topic-tag .close{display: inline-block;}
-.topic-tag{float: left;margin:0 10px 10px 0;}
+.aw-topic-bar .topic-tag{float: left;margin:0 10px 10px 0;}
 .topic-tag a{float: left;}
 .topic-tag .text{display:inline-block;height:20px;line-height:16px;padding:2px 5px;background-color:#99cfff;font-size:12px;color: #fff;border-radius: 4px;}
 .topic-tag .text:hover, .topic-tag .text:active, .topic-tag .close:hover, .topic-tag .close:active{background-color: #339DFF;}

@@ -11,6 +11,6 @@ body{background:#eff0f4;}
 .aw-login .mod form label{color:#666;}
 .aw-login .mod form .icon{position:absolute;left:10px;top:34px;color:#d5d5d5;font-size:18px;}
 .aw-login .mod h2{margin-top:30px;font-size:14px;}
-.aw-login img.verification{width:100px;height:40px;border:none;}
+.aw-login img.verification{width:100px;height:34px;border:none;}
 
 @media only screen and (max-width: 320px){.aw-login .mod{margin-top: 40px; width: 310px;}}
