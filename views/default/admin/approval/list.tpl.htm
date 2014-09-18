@@ -81,7 +81,7 @@
 
                             <td>
                                 <?php if ($_GET['type'] == 'unverified_modify') { echo $approval_info['unverified_modify_count']; } else { ?>
-                                <a onclick="AWS.dialog('ajaxData', {'title':'<?php _e('内容审核'); ?>', 'url':G_BASE_URL + '/admin/approval/preview/<?php if (in_array($_GET['type'], array('weibo_msg', 'received_email'))) { ?>type-<?php echo $_GET['type']; ?>__id<?php } echo $approval_info['id']; ?>'});"><?php
+                                <a onclick="AWS.dialog('ajaxData', {'title':'<?php _e('内容审核'); ?>', 'url':G_BASE_URL + '/admin/approval/preview/<?php if (in_array($_GET['type'], array('weibo_msg', 'received_email'))) { ?>type-<?php echo $_GET['type']; ?>__id-<?php } echo $approval_info['id']; ?>'});"><?php
                                 switch ($_GET['type']) {
                                     case 'question':
                                         echo cjk_substr(htmlspecialchars($approval_info['data']['question_detail']), 0, 128, 'UTF-8', '...');

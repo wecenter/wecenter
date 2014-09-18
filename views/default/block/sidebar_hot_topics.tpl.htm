@@ -11,7 +11,11 @@
 					<a href="topic/<?php echo $val['topic_title'];?>"><img alt="" src="<?php echo get_topic_pic_url('mid', $val['topic_pic']); ?>" /></a>
 				</dt>
 				<dd class="pull-left">
-					<a href="topic/<?php echo $val['topic_title'];?>" class="aw-topic-name" data-id="<?php echo $val['topic_id']; ?>"><span><?php echo $val['topic_title'];?></span></a>
+					<p class="clearfix">
+						<span class="topic-tag" data-id="<?php echo $val['topic_id']; ?>">
+							<a href="topic/<?php echo $val['topic_title'];?>" class="text"><?php echo $val['topic_title'];?></a>
+						</span>
+					</p>
 					<p><?php _e('%s 个问题', '<b>' . $val['discuss_count'] . '</b>'); ?>, <?php _e('%s 人关注', '<b>' . $val['focus_count'] . '</b>'); ?></p>
 				</dd>
 			</dl>
