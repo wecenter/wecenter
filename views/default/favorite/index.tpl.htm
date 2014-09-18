@@ -14,7 +14,9 @@
 							<div class="aw-tag-list clearfix">
 								<span class="pull-left"><?php _e('标签'); ?>:</span>
 								<?php foreach ($this->favorite_tags AS $key => $val) { ?>
-								<a class="aw-topic-name" href="favorite/tag-<?php echo urlencode($val['title']); ?>"><span><?php echo $val['title']; ?></span></a>
+								<span class="topic-tag">
+									<a href="favorite/tag-<?php echo urlencode($val['title']); ?>" class="text"><?php echo $val['title']; ?></a>
+								</span>
 								<?php } ?>
 							</div>
 							<?php } ?>
