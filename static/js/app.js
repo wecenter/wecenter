@@ -141,7 +141,7 @@ $(document).ready(function ()
                 break;
 
             case 'favorite':
-                $.post(G_BASE_URL + '/favorite/ajax/remove_favorite_tag/', 'item_id=' + data_id + '&item_type=' + _topic_editor.attr('data-item-type') + '&tags=' + $(this).parents('.topic-tag').text().substring(0, $(this).parents('.topic-tag').text().length - 1));
+                $.post(G_BASE_URL + '/favorite/ajax/remove_favorite_tag/', 'item_id=' + data_id + '&item_type=' + data_type + '&tags=' + $.trim($(this).parents('.topic-tag').text()));
                 break;
 
             case 'article':

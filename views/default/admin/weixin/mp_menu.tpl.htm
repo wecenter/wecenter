@@ -361,7 +361,7 @@
 
                             <input type="hidden" class="attach_key" name="button[{MENU_ID}][attach_key]" value="" />
                             <a class="ajax-upload"><i class="icon icon-image"></i></a>
-                            <a class="ajax-look" onclick="if ($(this).parent().find('input.attach_key').val() != '') { AWS.dialog('imagePreview', {'title':'图片预览', 'image':'<?php echo get_setting('upload_url'); ?>/weixin/list_image/' + $(this).parent().find('input.attach_key').val() + '.jpg?'+ Math.random() }) } else { AWS.alert('<?php _e('当前菜单没有上传图片'); ?>'); }"><i class="fa fa-picture-o disabled"></i></a>
+                            <a class="ajax-look" onclick="if ($(this).parent().find('input.attach_key').val() != '') { AWS.dialog('imagePreview', {'title':'图片预览', 'image':'<?php echo get_setting('upload_url'); ?>/weixin/list_image/' + $(this).parent().find('input.attach_key').val() + '.jpg?'+ Math.random() }) } else { AWS.alert('<?php _e('当前菜单没有上传图片'); ?>'); }"><i class="icon icon-search disabled"></i></a>
                         </div>
                     </td>
                     <td align="center">
@@ -392,8 +392,8 @@
                             <a class="icon icon-down" data-toggle="dropdown"></a>
 
                             <input type="hidden" class="attach_key" name="button[{MENU_TOP_ID}][sub_button][{MENU_SUB_ID}][attach_key]" value="" />
-                            <a class="ajax-upload hide"><i class="fa fa-upload"></i></a>
-                            <a class="ajax-look hide" onclick="if ($(this).parent().find('input.attach_key').val() != '') { AWS.dialog('imagePreview', {'title':'图片预览', 'image':'<?php echo get_setting('upload_url'); ?>/weixin/list_image/' + $(this).parent().find('input.attach_key').val() + '.jpg?'+ Math.random()}) } else { AWS.alert('<?php _e('当前菜单没有上传图片'); ?>'); }"><i class="fa fa-picture-o disabled"></i></a>
+                            <a class="ajax-upload hide"><i class="icon icon-image"></i></a>
+                            <a class="ajax-look hide" onclick="if ($(this).parent().find('input.attach_key').val() != '') { AWS.dialog('imagePreview', {'title':'图片预览', 'image':'<?php echo get_setting('upload_url'); ?>/weixin/list_image/' + $(this).parent().find('input.attach_key').val() + '.jpg?'+ Math.random()}) } else { AWS.alert('<?php _e('当前菜单没有上传图片'); ?>'); }"><i class="icon icon-search disabled"></i></a>
                         </div>
                     </td>
                     <td align="center">
@@ -431,8 +431,8 @@
                                         <input class="form-control input-code hide" readonly type="text" name="button[<?php echo $key; ?>][key]" value="<?php echo $val['key']; ?>" placeholder="点击右侧按钮选择命令" />
                                         <a class="icon icon-down" data-toggle="dropdown"></a>
                                         <input type="hidden" class="attach_key" name="button[<?php echo $key; ?>][attach_key]" value="<?php echo $val['attach_key']; ?>" />
-                                        <a class="ajax-upload"><i class="fa fa-upload"></i></a>
-                                        <a class="ajax-look" onclick="if ($(this).parent().find('input.attach_key').val() != '') { AWS.dialog('imagePreview', {'title':'图片预览', 'image':'<?php echo get_setting('upload_url'); ?>/weixin/list_image/' + $(this).parent().find('input.attach_key').val() + '.jpg?'+ Math.random()}) } else { AWS.alert('<?php _e('当前菜单没有上传图片'); ?>'); }"><i class="fa fa-picture-o <?php if (!$sub_val['attach_key']) { ?>disabled<?php } ?>"></i></a>
+                                        <a class="ajax-upload"><i class="icon icon-image"></i></a>
+                                        <a class="ajax-look" onclick="if ($(this).parent().find('input.attach_key').val() != '') { AWS.dialog('imagePreview', {'title':'图片预览', 'image':'<?php echo get_setting('upload_url'); ?>/weixin/list_image/' + $(this).parent().find('input.attach_key').val() + '.jpg?'+ Math.random()}) } else { AWS.alert('<?php _e('当前菜单没有上传图片'); ?>'); }"><i class="icon icon-search <?php if (!$sub_val['attach_key']) { ?>disabled<?php } ?>"></i></a>
                                     </div>
 
                                 </td>
@@ -463,8 +463,8 @@
                                             <a class="icon icon-down" data-toggle="dropdown"></a>
 
                                             <input type="hidden" class="attach_key" name="button[<?php echo $key; ?>][sub_button][<?php echo $sub_key; ?>][attach_key]" value="<?php echo $sub_val['attach_key']; ?>" />
-                                            <a class="ajax-upload"><i class="fa fa-upload"></i></a>
-                                            <a class="ajax-look" onclick="if ($(this).parent().find('input.attach_key').val() != '') { AWS.dialog('imagePreview', {'title':'图片预览', 'image':'<?php echo get_setting('upload_url'); ?>/weixin/list_image/' + $(this).parent().find('input.attach_key').val() + '.jpg?'+ Math.random()}) } else { AWS.alert('<?php _e('当前菜单没有上传图片'); ?>'); }"><i class="fa fa-picture-o <?php if (!$sub_val['attach_key']) { ?>disabled<?php } ?>"></i></a>
+                                            <a class="ajax-upload"><i class="icon icon-image"></i></a>
+                                            <a class="ajax-look" onclick="if ($(this).parent().find('input.attach_key').val() != '') { AWS.dialog('imagePreview', {'title':'图片预览', 'image':'<?php echo get_setting('upload_url'); ?>/weixin/list_image/' + $(this).parent().find('input.attach_key').val() + '.jpg?'+ Math.random()}) } else { AWS.alert('<?php _e('当前菜单没有上传图片'); ?>'); }"><i class="icon icon-search <?php if (!$sub_val['attach_key']) { ?>disabled<?php } ?>"></i></a>
                                         </div>
                                     </td>
                                     <td align="center">
@@ -657,7 +657,7 @@
         });
 
         // 点击显示下拉菜单时,将菜单默认选中的选项添加hover状态
-        $(document).on('click', '.aw-wechat-dropdown-box span, .aw-wechat-dropdown-box input.input-bg, .aw-wechat-dropdown-box .fa-sort', function ()
+        $(document).on('click', '.aw-wechat-dropdown-box span, .aw-wechat-dropdown-box input.input-bg, .aw-wechat-dropdown-box .icon-down', function ()
         {
             $.each($(this).parents('.aw-wechat-dropdown-box').find('.dropdown-menu ul li'), function (i, e)
             {
@@ -752,7 +752,7 @@
             // 判断上一次选择自定义 URL选项
             if (element.find('.aw-wechat-dropdown-box input.input-code').is(':visible'))
             {
-                element.find('.aw-wechat-dropdown-box .fa-sort, .aw-wechat-dropdown-box input.input-bg').show();
+                element.find('.aw-wechat-dropdown-box .icon-down, .aw-wechat-dropdown-box input.input-bg').show();
                 element.find('.aw-wechat-dropdown-box input.input-code').val('').attr('readonly','readonly').hide();
             }
             if (type == '自定义 URL' && defined_url == true)

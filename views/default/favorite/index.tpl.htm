@@ -12,9 +12,11 @@
 						<div class="mod-body">
 							<?php if (sizeof($this->favorite_tags) > 0) { ?>
 							<div class="aw-tag-list clearfix">
-								<span class="pull-left"><?php _e('标签'); ?>:</span>
+								<span class="pull-left"><?php _e('标签'); ?>&nbsp;:&nbsp;</span>
 								<?php foreach ($this->favorite_tags AS $key => $val) { ?>
-								<a class="aw-topic-name" href="favorite/tag-<?php echo urlencode($val['title']); ?>"><span><?php echo $val['title']; ?></span></a>
+								<span class="topic-tag">
+									<a href="favorite/tag-<?php echo urlencode($val['title']); ?>" class="text"><?php echo $val['title']; ?></a>
+								</span>
 								<?php } ?>
 							</div>
 							<?php } ?>
@@ -90,19 +92,19 @@
 										<?php } ?>
 									</div>
 									<div class="mod-footer">
-										<div class="meta">
-											<a class="pull-right text-color-999" onclick="AWS.ajax_request(G_BASE_URL + '/favorite/ajax/remove_favorite_item/', 'item_type=<?php echo $val['item_type']; ?>&item_id=<?php echo $val['item_id']; ?>');"><?php _e('取消收藏'); ?></a>
+										<a class="pull-right text-color-999" onclick="AWS.ajax_request(G_BASE_URL + '/favorite/ajax/remove_favorite_item/', 'item_type=<?php echo $val['item_type']; ?>&item_id=<?php echo $val['item_id']; ?>');"><?php _e('取消收藏'); ?></a>
 
-
-
-											<div class="aw-topic-editor" data-type="favorite" data-item-type="<?php echo $val['item_type']; ?>" data-id="<?php echo $val['item_id']; ?>">
+										<div class="aw-topic-bar" data-type="favorite" data-item-type="<?php echo $val['item_type']; ?>" data-id="<?php echo $val['item_id']; ?>">
+											<div class="tag-bar clearfix">
 												<?php if ($this->favorite_items_tags[$val['item_id']]) { ?>
 												<?php foreach ($this->favorite_items_tags[$val['item_id']] AS $k => $v) { ?>
-												<a class="aw-topic-name"><span><?php echo $v['title']; ?></span></a>
+												<span class="topic-tag">
+													<a class="text"><?php echo $v['title']; ?></a>
+												</span>
 												<?php } ?>
 												<?php } ?>
 											
-												<span class="icon-inverse aw-edit-topic"><i class="icon icon-edit"></i><?php if (!$this->favorite_items_tags[$val['item_id']]) { ?><?php _e('添加话题'); ?><?php } else { ?><?php _e('编辑'); ?><?php } ?></span>
+												<span class="icon-inverse aw-edit-topic"><i class="icon icon-edit"></i> <?php if (!$this->favorite_items_tags[$val['item_id']]) { ?><?php _e('添加话题'); ?><?php } else { ?><?php _e('编辑'); ?><?php } ?></span>
 											</div>
 										</div>
 									</div>
