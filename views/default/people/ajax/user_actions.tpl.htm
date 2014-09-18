@@ -1,6 +1,6 @@
 <?php if (is_array($this->list)) { ?>
 <?php foreach ($this->list AS $key => $val) { ?>
-<?php if ($val['article_info']) { ?>
+<?php if ($val['article_info'] AND $val['associate_action'] != ACTION_LOG::ADD_COMMENT_ARTICLE) { ?>
 <div class="aw-item">
 	<div class="aw-mod">
 		<div class="mod-head">
@@ -19,6 +19,7 @@
 	<p>
 		<span class="pull-right text-color-999"><?php echo date_friendly($val['add_time'], 604800, 'Y-m-d'); ?></span>
 		<em class="pull-left"><?php echo $val['last_action_str']; ?>:</em>
+		
 		<a class="aw-hide-txt" href="<?php echo $val['link']; ?>"><?php echo cjk_substr($val['title'], 0, 40, 'UTF-8', '...'); ?></a>
 
 	</p>

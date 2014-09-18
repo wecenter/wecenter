@@ -8,15 +8,15 @@
         <div class="mod-message">
             <div class="message">
                 <a class="btn btn-sm" href="<?php echo base_url(); ?>" target="_blank" title="<?php _e('首页'); ?>">
-                    <i class="fa fa-home"></i>
+                    <i class="icon icon-home"></i>
                 </a>
 
                 <a class="btn btn-sm" href="admin/" title="<?php _e('概述'); ?>">
-                    <i class="fa fa-file-text"></i>
+                    <i class="icon icon-ul"></i>
                 </a>
 
                 <a class="btn btn-sm" href="admin/logout/" title="<?php _e('退出'); ?>">
-                    <i class="fa fa-sign-out"></i>
+                    <i class="icon icon-logout"></i>
                 </a>
             </div>
         </div>
@@ -25,7 +25,7 @@
             <input type="hidden" id="hide_values" val="0" />
             <?php foreach ($this->menu_list as $key => $val) { ?>
             <li>
-                <a href="<?php if ($val['url'] AND !$val['children']) { echo $val['url']; } else { ?>javascript:;<?php } ?>" class=" fa fa-<?php echo $val['cname']; if ($val['select']) { ?> active collapsed<?php } ?>"<?php if ($val['children']) { ?> data="icon"<?php } ?>>
+                <a href="<?php if ($val['url'] AND !$val['children']) { echo $val['url']; } else { ?>javascript:;<?php } ?>" class=" icon icon-<?php echo $val['cname']; if ($val['select']) { ?> active collapsed<?php } ?>"<?php if ($val['children']) { ?> data="icon"<?php } ?>>
                     <span><?php echo $val['title']; ?></span>
                 </a>
                 <?php if ($val['children']) { ?>

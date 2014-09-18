@@ -104,8 +104,6 @@ $(function()
     	}
     	else
     	{
-    		/*给邀请三角形定位*/
-    		$('.aw-question-detail .aw-invite-box > .i-dropdown-triangle').css('left', $(this).position().left + 14);
     		$('.aw-question-detail .aw-invite-box').fadeIn();
     	}
     });
@@ -119,8 +117,8 @@ $(function()
     // 邀请翻页
     if ($('.aw-question-detail .aw-invite-box .mod-body ul li').length <=4 )
     {
-    	//长度小于3翻页隐藏
-    	$('.aw-question-detail .aw-invite-box .aw-mod-footer').hide();
+    	//长度小于4翻页隐藏
+    	$('.aw-question-detail .aw-invite-box .mod-footer').hide();
     }
     else
     {

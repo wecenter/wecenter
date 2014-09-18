@@ -34,7 +34,21 @@
 			<?php } ?>
 		</p>
 	</div>
-	<?php if ($val['answer_info']) { ?>
+	<?php if ($val['comment_info']) { ?>
+	<div class="mod-body clearfix">
+		<!-- 文章评论内容 -->
+		<div id="detail_<?php echo $val['history_id']; ?>" class="markitup-box">
+      		<?php echo nl2br(strip_ubb(cjk_substr($val['comment_info']['message'], 0, 130, 'UTF-8', '...'))); ?>
+      		<?php if (cjk_strlen($val['answer_info']['answer_content']) > 130) { ?>
+        	<a href="javascript:;" class="showMore" onclick="AWS.content_switcher($('#detail_<?php echo $val['history_id']; ?>'), $('#detail_more_<?php echo $val['history_id']; ?>'));"><?php _e('显示全部'); ?> »</a>
+        	<?php } ?>
+		</div>
+		<div id="detail_more_<?php echo $val['history_id']; ?>" class="hide markitup-box">
+      		<?php echo nl2br(strip_ubb($val['comment_info']['message'])); ?>
+		</div>    
+		<!-- end 文章评论内容 -->
+	</div>
+	<?php } else if ($val['answer_info']) { ?>
 	<div class="mod-body clearfix">
 		<!-- 评论内容 -->
 		<div id="detail_<?php echo $val['history_id']; ?>" class="markitup-box">
@@ -88,7 +102,7 @@
 	</div>
 	<div class="mod-footer">
 		<!-- 社交操作 -->
-		<div class="meta">
+		<div class="meta clearfix">
 			<!-- 投票栏 -->
 			<span class="operate">
 				<a class="agree <?php if ($this->user_id == $val['answer_info']['uid']) { ?> disabled<?php } ?> <?php if ($val['answer_info']['agree_status'] == 1) { ?>active<?php } ?>" <?php if ($this->user_id != $val['answer_info']['uid']) { ?>onclick="AWS.User.agree_vote(this, '<?php echo $this->user_info['user_name']; ?>', <?php echo $val['answer_info']['answer_id']; ?>);"<?php } ?>><i data-original-title="赞同回复" class="icon icon-agree" data-toggle="tooltip" title="" data-placement="right"></i> <b class="count"><?php echo $val['answer_info']['agree_count']; ?></b></a>

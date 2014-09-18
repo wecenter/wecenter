@@ -58,7 +58,7 @@
 
                                 <td><?php echo date_friendly($topic_info['last_edited_time']); ?></td>
 
-                                <td><a href="admin/topic/edit/topic_id-<?php echo $topic_info['topic_id']; ?>" class="fa fa-pencil md-tip" title="<?php _e('编辑'); ?>" data-toggle="tooltip"></a></td>
+                                <td><a href="admin/topic/edit/topic_id-<?php echo $topic_info['topic_id']; ?>" class="icon icon-edit md-tip" title="<?php _e('编辑'); ?>" data-toggle="tooltip"></a></td>
                             </tr>
                             <?php } ?>
                         </tbody>
@@ -95,14 +95,14 @@
                             <div class="row">
                                 <div class="col-xs-11  col-sm-5 mod-double">
                                     <input type="text" class="form-control mod-data" value="<?php echo base64_decode($_GET['start_date']); ?>" name="start_date" />
-                                    <i class="fa fa-calendar"></i>
+                                    <i class="icon icon-date"></i>
                                 </div>
                                 <span class="mod-symbol col-xs-1 col-sm-1">
                                 -
                                 </span>
                                 <div class="col-xs-11 col-sm-5">
                                     <input type="text" class="form-control mod-data" value="<?php echo base64_decode($_GET['end_date']); ?>" name="end_date" />
-                                    <i class="fa fa-calendar"></i>
+                                    <i class="icon icon-date"></i>
                                 </div>
                             </div>
                         </div>

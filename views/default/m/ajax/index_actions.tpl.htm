@@ -37,7 +37,7 @@
 			<i class="icon icon-disagree"></i>
 		</a> 
 		<?php } else if (isset($val['article_info']['comments'])) { ?>
-			<a href="m/article/<?php echo $val['article_info']['id']; ?>"><i class="icon icon-replay"></i> <?php if ($val['article_info']['comments'] == 0) { ?> <?php _e('添加回复'); ?> <?php } else { ?><?php echo $val['article_info']['comments']; ?><?php } ?></a>
+			<a href="m/article/<?php echo $val['article_info']['id']; ?>"><i class="icon icon-reply"></i> <?php if ($val['article_info']['comments'] == 0) { ?> <?php _e('添加回复'); ?> <?php } else { ?><?php echo $val['article_info']['comments']; ?><?php } ?></a>
 
 		<?php } else if ($_GET['filter'] == 'focus') { ?>
 			<a onclick="AWS.ajax_request(G_BASE_URL + '/question/ajax/focus/question_id-<?php echo $val['question_info']['question_id']; ?>');"><?php _e('取消关注'); ?></a>

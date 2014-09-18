@@ -57,8 +57,8 @@
                             <input type="text" class="form-control sort-action sort-status input-mini" name="rank[<?php echo $rule_info['id']; ?>]" value="<?php echo $rule_info['rank']; ?>" />
                         </td>
                         <td class="nowrap">
-                            <a href="admin/weixin/edit_third_party_access_rule/id-<?php echo $rule_info['id']; ?>" data-toggle="tooltip" class="fa fa-pencil md-tip" title="<?php _e('编辑'); ?>"></a>
-                            <a onclick="AWS.ajax_request(G_BASE_URL + '/admin/ajax/weixin_remove_third_party_access_rule/', 'id=<?php echo $rule_info['id']; ?>');" data-toggle="tooltip" class="fa fa-trash-o md-tip" title="<?php _e('删除'); ?>"></a>
+                            <a href="admin/weixin/edit_third_party_access_rule/id-<?php echo $rule_info['id']; ?>" data-toggle="tooltip" class="icon icon-edit md-tip" title="<?php _e('编辑'); ?>"></a>
+                            <a onclick="AWS.ajax_request(G_BASE_URL + '/admin/ajax/weixin_remove_third_party_access_rule/', 'id=<?php echo $rule_info['id']; ?>');" data-toggle="tooltip" class="icon icon-trash md-tip" title="<?php _e('删除'); ?>"></a>
                         </td>
                     </tr>
                     <?php } ?>

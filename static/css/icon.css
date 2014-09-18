@@ -1,10 +1,10 @@
 @font-face {
 	font-family: 'icomoon';
-	src:url('../fonts/icomoon.eot?-e98mga');
-	src:url('../fonts/icomoon.eot?#iefix-e98mga') format('embedded-opentype'),
-		url('../fonts/icomoon.woff?-e98mga') format('woff'),
-		url('../fonts/icomoon.ttf?-e98mga') format('truetype'),
-		url('../fonts/icomoon.svg?-e98mga#icomoon') format('svg');
+	src:url('../fonts/icomoon.eot?lnnxh5');
+	src:url('../fonts/icomoon.eot?#iefixlnnxh5') format('embedded-opentype'),
+		url('../fonts/icomoon.woff?lnnxh5') format('woff'),
+		url('../fonts/icomoon.ttf?lnnxh5') format('truetype'),
+		url('../fonts/icomoon.svg?lnnxh5#icomoon') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -23,6 +23,18 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
+.icon-home:before {
+	content: "\e601";
+}
+.icon-bar:before {
+	content: "\e653";
+}
+.icon-right:before {
+	content: "\e651";
+}
+.icon-left:before {
+	content: "\e652";
+}
 .icon-unlock:before {
 	content: "\e650";
 }
@@ -229,9 +241,6 @@
 }
 .icon-inviteask:before {
 	content: "\e60c";
-}
-.icon-home:before {
-	content: "\e601";
 }
 .icon-list:before {
 	content: "\e602";
