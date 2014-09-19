@@ -597,17 +597,23 @@ class ajax extends AWS_CONTROLLER
 
 			if ($_POST['_is_mobile'])
 			{
-				$url = get_js_url('/m/question/id-' . $question_info['question_id'] . '__item_id-' . $answer_id . '__rf-false');
+				//$url = get_js_url('/m/question/id-' . $question_info['question_id'] . '__item_id-' . $answer_id . '__rf-false');
 
 				$this->model('answer')->set_answer_publish_source($answer_id, 'mobile');
 			}
 			else
 			{
-				$url = get_js_url('/question/' . $question_info['question_id'] . '?item_id=' . $answer_id . '&rf=false');
+				//$url = get_js_url('/question/' . $question_info['question_id'] . '?item_id=' . $answer_id . '&rf=false');
 			}
+			
+			$answer_info = $this->model('answer')->get_answer_by_id($answer_id);
+			
+			$answer_info['attachs'] = $this->model('publish')->get_attach('answer', $answer_id, 'min');
+			
+			TPL::assign('answer_info', $answer_info);
 
 			H::ajax_json_output(AWS_APP::RSM(array(
-				'url' => $url
+				'ajax_html' => TPL::output('question/ajax/answer', false)
 			), 1, null));
 		}
 	}
