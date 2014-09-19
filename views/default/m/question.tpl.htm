@@ -56,8 +56,7 @@
 			<div class="mod-footer">
 				<div class="meta">
 					<a class="aw-invite-replay"><i class="icon icon-inviteask"></i> <?php _e('邀请回复'); ?></a>
-					<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
-					<wb:share-button addition="simple" type="icon"></wb:share-button>
+					<a onclick="AWS.User.share_out('tsina');"><i class="icon icon-weibo"></i></a>
 
 					<a class="btn btn-success btn-mini pull-right <?php if ($this->question_focus) { ?> active<?php } ?>" onclick="AWS.User.follow($(this), 'question', <?php echo $this->question_info['question_id']; ?>);"><?php if ($this->question_focus) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?></a>
 				</div>
