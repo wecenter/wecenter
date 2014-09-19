@@ -281,8 +281,6 @@ textarea{resize:none;}
 .aw-dropdown .aw-dropdown-list li:hover, .aw-dropdown .aw-dropdown-list li.active, .aw-category-dropdown .aw-category-dropdown-list li:hover{background-color: #F5FAFF;}
 .aw-dropdown .aw-dropdown-list li.topic{line-height:24px;padding:5px 10px;}
 .aw-dropdown .aw-dropdown-list li.question{line-height:32px;padding:0 10px;}
-.aw-dropdown .aw-dropdown-list li.question.active .icon-g-replay{display: inline-block;}
-.aw-dropdown .aw-dropdown-list li.question .icon-g-replay{display: none;margin:9px 5px 0 0;}
 .aw-dropdown .aw-dropdown-list li.question a{display: block;line-height: 32px;font-size: 13px;}
 .aw-dropdown .aw-dropdown-list li.question b{line-height: 30px;}
 .aw-dropdown .aw-dropdown-list li.user a{display: block;line-height:22px;padding: 5px 10px;font-size: 13px;}
