@@ -30,7 +30,7 @@
 					</div>
 									
 					<?php if ($this->article_info['attachs']) {  ?>
-					<div class="aw-comment-upload-img-list">
+					<div class="aw-upload-img-list">
 					<?php foreach ($this->article_info['attachs'] AS $attach) { ?>
 					<?php if ($attach['is_image'] AND !in_array($attach['id'], $this->article_info['attachs_ids'])) { ?>
 						<a href="<?php echo $attach['attachment']; ?>" target="_blank" data-fancybox-group="thumb" rel="lightbox"><img src="<?php echo $attach['attachment']; ?>" class="img-polaroid" alt="<?php echo $attach['attach_name']; ?>" /></a>
@@ -40,10 +40,10 @@
 					<?php } ?>
 					
 					<?php if ($this->article_info['attachs']) {  ?>
-					<ul class="aw-comment-upload-file-list">
+					<ul class="aw-upload-file-list">
 						<?php foreach ($this->article_info['attachs'] AS $attach) { ?>
 						<?php if (!$attach['is_image'] AND !in_array($attach['id'], $this->article_info['attachs_ids'])) { ?>
-							<li><a href="<?php echo download_url($attach['file_name'], $attach['attachment']); ?>"><em class="aw-icon i-upload-file"></em><?php echo $attach['file_name']; ?></a></li>
+							<li><a href="<?php echo download_url($attach['file_name'], $attach['attachment']); ?>"><i class="icon icon-attach"></i> <?php echo $attach['file_name']; ?></a></li>
 						<?php } ?>
 						<?php } ?>
 					</ul>

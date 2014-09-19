@@ -65,7 +65,7 @@ input[type="text"], input[type="password"], textarea{-webkit-appearance:none;}
 .aw-topic-bar .tag-bar .aw-add-topic-box{margin:10px 0 0 10px;}
 .topic-tag{float: left;margin:10px 0 10px 10px;}
 .topic-tag a{float: left;}
-.topic-tag .text{display:inline-block;height:24px;line-height:18px;padding:2px 5px;background-color:#99cfff;font-size:15px;color: #ffffff;}
+.topic-tag .text{display:inline-block;height:24px;line-height:22px;padding:2px 5px;background-color:#99cfff;font-size:15px;color: #ffffff;}
 .topic-tag .text:hover, .topic-tag .text:active, .topic-tag .close:hover, .topic-tag .close:active{background-color: #339DFF;}
 .topic-tag .close{width: 24px;height: 24px;background-color: #66b7ff;text-align: center;line-height:25px;color: #fff;font-size: 14px;opacity: 1;filter:alpha(opacity=100);border-radius: 0 4px 4px 0;}
 .aw-topic-bar .editor{height:55px;margin-bottom:10px;background-color: #fafafa;border-bottom: 1px solid #e6e6e6;}
@@ -282,6 +282,7 @@ input[type="text"], input[type="password"], textarea{-webkit-appearance:none;}
 .aw-comment-box i.active{z-index:0;top:-16px;left:111px;border-color: transparent transparent #e6e6e6 transparent;border-width: 8px;}
 .aw-comment-box .more{display:block;height: 33px;margin-bottom:10px;border-top:1px solid #e6e6e6;border-bottom:1px solid #e6e6e6;text-align: center;color: #9c9c9c;line-height: 33px;}
 .aw-comment-box .mod-footer{margin-top: 10px;}
+.aw-upload-file-list{margin:10px 0;}
 .aw-replay-box{padding:10px;background-color: #fafafa;}
 .aw-replay-box p{margin:0;}
 .aw-replay-box .mod-head label{margin-left: 10px;color: #666666;}
@@ -436,7 +437,7 @@ input[type="text"], input[type="password"], textarea{-webkit-appearance:none;}
 /* icon */
 .icon-v{color: #a3d700;font-size: 16px;}
 .icon-v.i-ve{color: #ffca3f;}
-.icon-inverse{display:inline-block;height: 25px;padding:0 5px;line-height:24px;background-color: #cccccc;color: #fff;text-align: center;}
+.icon-inverse{display:inline-block;height: 24px;padding:0 5px;line-height:24px;background-color: #cccccc;color: #fff;text-align: center;}
 .icon-agree.active, .icon-disagree.active{color: #66b7ff;}
 .icon-tips{display:block;width: 6px;height: 6px;border-radius: 6px;background-color: #ff5428;}
 .icon-flag.active{color: #ffc000;}

@@ -36,7 +36,7 @@
 					<div id="weixin-desc" style="display:none;"><?=cjk_substr(str_replace(array("\r","\n"),array(' ',' '), strip_tags($this->question_info['question_detail'])), 0, 130, 'UTF-8', '...');?></div>
 					
 					<?php if ($this->question_info['attachs']) {  ?>
-						<div class="aw-comment-upload-img-list">
+						<div class="aw-upload-img-list">
 						<?php foreach ($this->question_info['attachs'] AS $key => $attach) { ?>
 						<?php if ($attach['is_image'] AND !in_array($attach['id'], $this->question_info['attachs_ids'])) { ?>
 							<a href="<?php echo $attach['attachment']; ?>" target="_blank"><img src="<?php echo $attach['attachment']; ?>" alt="<?php echo $attach['attach_name']; ?>" class="img-polaroid" /></a>
@@ -45,8 +45,18 @@
 						</div>
 					<?php } ?>
 
+					<?php if ($this->question_info['attachs']) {  ?>
+					<ul class="aw-upload-file-list">
+						<?php foreach ($this->question_info['attachs'] AS $attach) { ?>
+						<?php if (!$attach['is_image'] AND !in_array($attach['id'], $this->question_info['attachs_ids'])) { ?>
+							<li><a href="<?php echo download_url($attach['file_name'], $attach['attachment']); ?>"><i class="icon icon-attach"></i> <?php echo $attach['file_name']; ?></a></li>
+						<?php } ?>
+						<?php } ?>
+					</ul>
+					<?php } ?>
+
 					<?php if ((!$this->question_info['lock'] AND ($this->question_info['published_uid'] == $this->user_id OR $this->user_info['permission']['edit_question'])) OR $this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?>
-					<a href="m/publish/<?php echo $this->question_info['question_id']; ?>" class="icon icon-inverse">	<i class="icon icon-edit"></i><?php _e('编辑'); ?>
+					<a href="m/publish/<?php echo $this->question_info['question_id']; ?>" class="icon icon-inverse">	<i class="icon icon-edit"></i> <?php _e('编辑'); ?>
 					</a>
 					<?php }?>
 				</div>
