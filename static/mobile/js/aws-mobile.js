@@ -734,7 +734,25 @@ AWS.User =
 				}
 		    }
 		}, 'json');
-	}
+	},
+
+	share_out: function(webid, title, url)
+	{
+		var url = url || window.location.href;
+
+		if (title)
+		{
+			var title = title + ' - ' + G_SITE_NAME;
+		}
+		else
+		{
+			var title = $('title').text();
+		}
+		
+		shareURL = 'http://www.jiathis.com/send/?webid=' + webid + '&url=' + url + '&title=' + title + '';
+
+		window.open(shareURL);
+	},
 }
 
 AWS.Dropdown = 

@@ -2038,13 +2038,13 @@ AWS.Editor =
     {
     	if ($.cookie('data_editor_preview') == 'true')
     	{
-    		$('.fa-eye').parents('button').removeClass('hover');
+    		$('.icon-preview').parents('button').addClass('active');
 
     		$('.wmd-preview').fadeIn();
     	}
     	else
     	{
-    		$('.fa-eye').parents('button').addClass('hover');
+    		$('.icon-preview').parents('button').removeClass('active');
 
     		$('.wmd-preview').fadeOut();
     	}

@@ -68,25 +68,37 @@
 										<div id="wmd-preview" class="wmd-panel wmd-preview"></div>
 									</div>
 								</div>
-
+								
 								<h3><?php _e('添加话题'); ?>:</h3>
 								<div class="aw-topic-bar" data-type="publish">
 									<div class="tag-bar clearfix">
 										<?php if ($_GET['topic_title']) { ?>
-										<a href="javascript:;" class="topic-tag"><span><?php echo urldecode($_GET['topic_title']); ?><button class="close aw-close" onclick="$(this).parents('.topic-tag').remove();">×</button></span><input type="hidden" value="<?php echo urldecode($_GET['topic_title']); ?>" name="topics[]" /></a>
+										<span class="topic-tag">
+											<a class="text"><?php echo urldecode($_GET['topic_title']); ?></a>
+											<a class="close" onclick="$(this).parents('.topic-tag').remove();">
+												<i class="icon icon-delete"></i>
+											</a>
+											<button class="close aw-close" onclick="">×</button></span><input type="hidden" value="<?php echo urldecode($_GET['topic_title']); ?>" name="topics[]" />
+										</span>
 										<?php } ?>
 
 										<?php if ($_POST['topics']) { ?>
 										<?php foreach ($_POST['topics'] AS $key => $val) { ?>
-										<a href="javascript:;" class="topic-tag"><span><?php echo $val; ?></span><input type="hidden" value="<?php echo $val; ?>" name="topics[]" /></a>
+										<span class="topic-tag">
+											<a class="text"><?php echo $val; ?></a>
+											<input type="hidden" value="<?php echo $val; ?>" name="topics[]" />
+										</span>
 										<?php } ?>
 										<?php } else if ($this->article_topics) { ?>
 										<?php foreach ($this->article_topics AS $key => $val) { ?>
-										<a href="javascript:;" class="topic-tag"><span><?php echo $val['topic_title']; ?></span><input type="hidden" value="<?php echo $val['topic_title']; ?>" name="topics[]" /></a>
+										<span class="topic-tag">
+											<a class="text"><?php echo $val['topic_title']; ?></a>
+											<input type="hidden" value="<?php echo $val['topic_title']; ?>" name="topics[]" />
+										</span>
 										<?php } ?>
 										<?php } ?>
 
-										<span class="aw-edit-topic"><i class="icon-edit"></i><?php _e('编辑话题'); ?></span>
+										<span class="aw-edit-topic icon-inverse"><i class="icon icon-edit"></i> <?php _e('编辑话题'); ?></span>
 									</div>
 								</div>
 

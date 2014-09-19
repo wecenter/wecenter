@@ -10,8 +10,8 @@
 .aw-user-detail-box .mod-body .meta .aw-text-color-green, .meta .aw-text-color-orange{font-size:13px;font-weight: bold;}
 .aw-user-detail-box .mod-body .good-at-topics{padding:20px;border-top: 1px solid #E6E6E6;}
 .aw-user-detail-box .mod-body .good-at-topics ul li{float:left;width:205px;margin:0 10px 15px 0;}
-.aw-user-detail-box .mod-body .good-at-topics ul li a{min-width: 70px;}
-.aw-user-detail-box .mod-body .good-at-topics ul li a span{max-width: 65px;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;}
+.aw-user-detail-box .mod-body .good-at-topics ul li .topic-tag{margin-right: 10px;}
+.aw-user-detail-box .mod-body .good-at-topics ul li .topic-tag a{max-width: 65px;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;}
 .aw-user-detail-box .mod-footer{border-top: 1px solid #E3E3E3;}
 .aw-user-detail-box .mod-footer .aw-nav-tabs{padding-top: 20px;min-height: 52px;}
 
@@ -67,4 +67,4 @@
 /* 侧边栏 */
 .aw-mod.people-following p{margin-top: 10px;}
 .aw-mod.people-following .aw-user-name img{width: 24px;height: 24px;}
-.aw-mod.people-following .aw-topic-name{display:inline-block;margin:0 4px 4px 0;}
+.aw-mod.people-following .aw-topic-bar{margin:10px 0 0 0;}
