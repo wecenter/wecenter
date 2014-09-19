@@ -252,16 +252,12 @@ a.aw-load-more-content{display: block;}
 .category dl dd{width:130px;overflow: hidden;}
 .category dl dd a{display: block;max-height: 20px;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;}
 .category dl dd span{display:block;height:38px;font-size: 12px;word-wrap:break-word;}
-.category dl .aw-dropdown{top: 110%;left: 0;}
 .category dl .aw-dropdown span, .category ul li .aw-dropdown span{position:absolute;top:-10px;left:0;display: inline-block;width: 100%;height:10px;}
-.category dl .aw-dropdown span i, .category ul li .aw-dropdown span i{top: 4px;}
 .category .list > li{float: left;position:relative;height: 30px;line-height: 30px;margin:0 10px 10px 0;font-size:14px;text-align: center;cursor: pointer;border-radius: 5px;}
 .category .list > li > a{display:block;padding:0 10px;color:#17344A;}
 .category .list > li.active, .category .list > li:hover{background: #494a4b;}
 .category .list > li.active > a, .category .list > li:hover > a{color: #fff;}
 .category ul li .aw-dropdown{width: 120px;}
-.category ul li .aw-dropdown ul li, .category dl .aw-dropdown ul li{padding:5px 10px;}
-.category .title a, .category-dropdown a.active{font-weight: bold;}
 
 /* 发现页 */
 .aw-explore-list{padding:0 20px;}
@@ -286,9 +282,8 @@ a.aw-load-more-content{display: block;}
 .aw-feed-list .aw-item .close{display: none;}
 .aw-feed-list .aw-item:hover .more-operate, .aw-feed-list .aw-item:hover .mod-head span.pull-right{display:block;}
 .aw-feed-list .aw-item h4, .aw-feed-list .aw-item p{margin:0;}
-.aw-feed-list .aw-item .aw-best-answer{position: absolute;right: 0;top: -16px;font-size: 12px;text-align: center;color: #69b5ff;}
-.aw-feed-list .aw-item .icon-bestbg{display:block;font-size: 46px;}
-.aw-feed-list .aw-feed-list-content{width: 100%;}
+.aw-feed-list .aw-item .aw-best-answer{position: absolute;right: 0;top: -14px;font-size: 12px;text-align: center;color: #69b5ff;}
+.aw-feed-list .aw-item .icon-bestbg{font-size: 40px;}
 .aw-feed-list .aw-user-name{color: #666;}
 .aw-feed-list .meta i, .aw-question-detail .meta i{position:relative;top:2px;font-size: 16px;}
 .aw-feed-list .more-operate{display:none;line-height: 28px;}
@@ -1050,7 +1045,6 @@ li.L1,li.L3,li.L5,li.L7,li.L9 { background: #eee }
 	.aw-file-uploader{width: 100%;}
 	.aw-file-uploader dl{float: none;width:100%;height:auto;overflow:hidden;margin-right:0;}
 	.aw-question-detail .operate{position: relative !important;left: 0;top: 0;margin-bottom: 10px;}
-	.aw-question-comment-box .aw-feed-list-content p{max-width: 330px;}
 	/*文章广场*/
 	.aw-article-list .aw-item{padding-left: 0;}
 	/*通知*/
