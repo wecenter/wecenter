@@ -1,0 +1,23 @@
+<div class="aw-item">
+	<a class="aw-user-name" href="people/<?php echo $this->comment_info['user_info']['url_token']; ?>">
+		<img src="<?php echo get_avatar_url($this->comment_info['uid'], 'mid'); ?>" alt="<?php echo $this->comment_info['user_info']['user_name']; ?>" />
+	</a>
+	<div class="content">
+		<p>
+			<a href="people/<?php echo $this->comment_info['user_info']['url_token']; ?>"><?php echo $this->comment_info['user_info']['user_name']; ?></a><?php if ($this->comment_info['at_user_info']) { ?> <?php _e('回复'); ?> <a href="people/<?php echo $this->comment_info['at_user_info']['url_token']; ?>"><?php echo $this->comment_info['at_user_info']['user_name']; ?></a><?php } ?>
+		</p>
+		<div class="markitup-box">
+			<?php echo nl2br($this->comment_info['message']); ?>
+		</div>
+		<div class="meta">
+			<span class="pull-right text-color-999"><?php echo date_friendly($this->comment_info['add_time']); ?></span>
+			<?php if ($this->user_id) { ?>
+				<a class="text-color-999 <?php if ($this->comment_info['vote_info']['rating'] == 1) { ?> active<?php } ?>" onclick="AWS.User.article_comment_vote($(this), <?php echo $this->comment_info['id']; ?>, 1)"><i class="icon icon-agree"></i> <?php echo $this->comment_info['votes']; ?> <?php if ($this->comment_info['vote_info']['rating'] == 1) { ?><?php _e('我已赞'); ?><?php } else { ?><?php _e('赞'); ?><?php } ?></a>
+				<a class="aw-article-comment text-color-999" data-id="<?php echo $this->comment_info['user_info']['uid']; ?>"><i class="icon icon-comment"></i> <?php _e('回复'); ?></a>
+				<?php if ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?>
+				<a class="text-color-999" onclick="AWS.dialog('confirm', {'message' : '<?php _e('确认删除?'); ?>'}, function(){AWS.ajax_request(G_BASE_URL + '/article/ajax/remove_comment/', 'comment_id=<?php echo $this->comment_info['id']; ?>');});"><i class="icon icon-trash"></i> <?php _e('删除'); ?></a>
+				<?php } ?>
+			<?php } ?>
+		</div>
+	</div>
+</div>
