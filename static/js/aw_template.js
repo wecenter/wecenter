@@ -106,7 +106,7 @@ var AW_TEMPLATE = {
 						'</div>'+
 						'<form action="' + G_BASE_URL + '/question/ajax/update_answer/answer_id-{{answer_id}}" method="post" onsubmit="return false" id="answer_edit">'+
 						'<div class="modal-body">'+
-							'<div class="alert alert-danger hide error_message"><i class="fa fa-times"></i> <em></em></div>'+
+							'<div class="alert alert-danger hide error_message"><i class="icon icon-delete"></i> <em></em></div>'+
 							'<input type="hidden" name="attach_access_key" value="{{attach_access_key}}" />'+
 							'<textarea name="answer_content" id="editor_reply" class="form-control" rows="10"></textarea>'+
 							'<div class="aw-file-upload-box">'+
@@ -152,7 +152,7 @@ var AW_TEMPLATE = {
 						'<div class="modal-body">'+
 							'<input type="hidden" name="item_id" value="{{item_id}}" />'+
 							'<input type="hidden" name="item_type" value="{{item_type}}" />'+
-							'<div class="alert alert-danger hide error_message"><i class="fa fa-times"></i> <em></em></div>'+
+							'<div class="alert alert-danger hide error_message"><i class="icon icon-delete"></i> <em></em></div>'+
 							'<p>' + _t('添加话题标签') + ': <input type="text" name="tags" id="add_favorite_tags" class="form-control" /></p>'+
 							'<p id="add_favorite_my_tags" class="hide">' + _t('常用标签') + ': </p>'+
 						'</div>'+
@@ -194,7 +194,7 @@ var AW_TEMPLATE = {
 							'<h3 class="modal-title" id="myModalLabel">' + _t('发起问题') + '</h3>'+
 						'</div>'+
 						'<div class="modal-body">'+
-							'<div class="alert alert-danger hide error_message"><i class="fa fa-times"></i> <em></em></div>'+
+							'<div class="alert alert-danger hide error_message"><i class="icon icon-delete"></i> <em></em></div>'+
 							'<form action="' + G_BASE_URL + '/publish/ajax/publish_question/" method="post" id="quick_publish" onsubmit="return false">'+
 								'<input type="hidden" id="quick_publish_category_id" name="category_id" value="{{category_id}}" />'+
 								'<input type="hidden" name="post_hash" value="' + G_POST_HASH + '" />'+
@@ -247,7 +247,7 @@ var AW_TEMPLATE = {
 							'<h3 class="modal-title" id="myModalLabel">' + _t('新私信') + '</h3>'+
 						'</div>'+
 						'<div class="modal-body">'+
-							'<div class="alert alert-danger hide error_message"> <i class="fa fa-times"></i> <em></em></div>'+
+							'<div class="alert alert-danger hide error_message"> <i class="icon icon-delete"></i> <em></em></div>'+
 							'<form action="' + G_BASE_URL + '/inbox/ajax/send/" method="post" id="quick_publish" onsubmit="return false">'+
 								'<input type="hidden" name="post_hash" value="' + G_POST_HASH + '" />'+
 								'<input id="invite-input" class="form-control" type="text" placeholder="' + _t('搜索用户') + '" name="recipient" value="{{recipient}}" />'+
@@ -336,7 +336,7 @@ var AW_TEMPLATE = {
 							'<input type="hidden" name="type" value="{{item_type}}" />'+
 							'<input type="hidden" name="target_id" value="{{item_id}}" />'+
 							'<div class="modal-body">'+
-								'<div class="alert alert-danger hide error_message"><i class="fa fa-times"></i> <em></em></div>'+
+								'<div class="alert alert-danger hide error_message"><i class="icon icon-delete"></i> <em></em></div>'+
 								'<textarea class="form-control" name="reason" rows="5" placeholder="' + _t('请填写举报理由') + '..."></textarea>'+
 							'</div>'+
 							'<div class="modal-footer">'+
@@ -351,7 +351,7 @@ var AW_TEMPLATE = {
 	'searchDropdownListQuestions' : 
 		'<li class="{{active}} question clearfix"><i class="icon icon-bestbg pull-left"></i><a class="aw-hide-txt pull-left" href="{{url}}">{{content}} </a><span class="pull-right text-color-999">{{discuss_count}} ' + _t('个回复') + '</span></li>',
 	'searchDropdownListTopics' : 
-		'<li class="topic clearfix"><a href="{{url}}" class="aw-topic-name" data-id="{{topic_id}}"><span>{{name}}</span></a> <span class="pull-right text-color-999">{{discuss_count}} ' + _t('个讨论') + '</span></li>',
+		'<li class="topic clearfix"><span class="topic-tag" data-id="{{topic_id}}"><a href="{{url}}" class="text">{{name}}</a></span> <span class="pull-right text-color-999">{{discuss_count}} ' + _t('个讨论') + '</span></li>',
 	'searchDropdownListUsers' : 
 		'<li class="user clearfix"><a href="{{url}}"><img src="{{img}}" />{{name}}<span class="aw-hide-txt">{{intro}}</span></a></li>',
 	'searchDropdownListArticles' : 

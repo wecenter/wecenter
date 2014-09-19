@@ -73,7 +73,7 @@ var AW_TEMPLATE = {
 							'<h3 class="modal-title" id="myModalLabel">' + _t('新私信') + '</h3>'+
 						'</div>'+
 						'<div class="modal-body">'+
-							'<div class="alert alert-danger hide error_message"> <i class="fa fa-times"></i> <em></em></div>'+
+							'<div class="alert alert-danger hide error_message"> <i class="icon icon-delete"></i> <em></em></div>'+
 							'<form action="' + G_BASE_URL + '/inbox/ajax/send/" method="post" id="quick_publish" onsubmit="return false">'+
 								'<input type="hidden" name="post_hash" value="' + G_POST_HASH + '" />'+
 								'<input id="invite-input" class="form-control" type="text" placeholder="' + _t('搜索用户') + '" name="recipient" value="{{recipient}}" />'+
@@ -156,7 +156,7 @@ var AW_TEMPLATE = {
 		'</div>',
 
 	'searchDropdownListQuestions' : 
-		'<li class="{{active}} question clearfix"><i class="icon-g-replay pull-left"></i><a class="aw-hide-txt pull-left" href="{{url}}">{{content}} </a><span class="pull-right text-color-999">{{discuss_count}} ' + _t('个回复') + '</span></li>',
+		'<li class="{{active}} question clearfix"><i class="icon icon-bestbg pull-left"></i><a class="aw-hide-txt pull-left" href="{{url}}">{{content}} </a><span class="pull-right text-color-999">{{discuss_count}} ' + _t('个回复') + '</span></li>',
 	'searchDropdownListTopics' : 
 		'<li class="topic clearfix"><a href="{{url}}" class="aw-topic-name" data-id="{{topic_id}}"><span>{{name}}</span></a> <span class="pull-right text-color-999">{{discuss_count}} ' + _t('个讨论') + '</span></li>',
 	'searchDropdownListUsers' : 

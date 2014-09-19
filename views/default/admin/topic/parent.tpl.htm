@@ -50,7 +50,7 @@
 
                                 <td>
                                     <?php if ($topic_info['topic_lock']) { ?>
-                                    <a onclick="AWS.ajax_request(G_BASE_URL + '/admin/ajax/lock_topic/', 'topic_id=<?php echo $topic_info['topic_id']; ?>&status=0');" title="<?php _e('解除锁定'); ?>" data-toggle="tooltip" class="fa fa-lock md-tip"></a><?php } else { ?><a href="javascript:;" onclick="AWS.ajax_request(G_BASE_URL + '/admin/ajax/lock_topic/', 'topic_id=<?php echo $topic_info['topic_id']; ?>&status=1');" data-toggle="tooltip" title="<?php _e('锁定话题'); ?>" class="fa fa-unlock md-tip"></a>
+                                    <a onclick="AWS.ajax_request(G_BASE_URL + '/admin/ajax/lock_topic/', 'topic_id=<?php echo $topic_info['topic_id']; ?>&status=0');" title="<?php _e('解除锁定'); ?>" data-toggle="tooltip" class="icon icon-lock md-tip"></a><?php } else { ?><a href="javascript:;" onclick="AWS.ajax_request(G_BASE_URL + '/admin/ajax/lock_topic/', 'topic_id=<?php echo $topic_info['topic_id']; ?>&status=1');" data-toggle="tooltip" title="<?php _e('锁定话题'); ?>" class="icon icon-lock md-tip"></a>
                                     <?php } ?>
                                 </td>
 

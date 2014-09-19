@@ -214,7 +214,7 @@ $(document).ready(function ()
     });
     
     /*icon tooltips提示*/
-    $(document).on('mouseover', '.follow, .voter, .fa-thumbs-o-up , .fa-thumbs-o-down, .aw-icon-thank-tips, .invite-list-user', function ()
+    $(document).on('mouseover', '.follow, .voter, .aw-icon-thank-tips, .invite-list-user', function ()
     {
         $(this).tooltip('show');
     });

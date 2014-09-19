@@ -12,7 +12,14 @@
 		<?php } ?>
 	<?php } ?>
 	<p class="aw-title">
-		<?php if ($val['detail']['best_answer'] > 0 AND $val['type'] == 'questions') { ?><i class="icon-g-replay"></i><?php } ?><a href="<?php echo $val['url']; ?>" target="_blank"><?php echo $val['name']; ?></a>
+		<?php if ($val['detail']['best_answer'] > 0 AND $val['type'] == 'questions') { ?><i class="icon icon-bestbg"></i><?php } ?>
+		<?php if ($val['type'] == 'topics') { ?>
+		<span class="topic-tag">
+			<a href="<?php echo $val['url']; ?>" class="text" target="_blank"><?php echo $val['name']; ?></a>
+		</span>
+		<?php } else { ?>
+		<a href="<?php echo $val['url']; ?>" target="_blank"><?php echo $val['name']; ?></a>
+		<?php } ?>
 	</p>
 
 	<?php if ($val['type'] == 'users' AND $val['detail']['signature']) { ?>
