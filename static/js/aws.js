@@ -246,6 +246,22 @@ var AWS =
 					case 'ajax_post_modal':
 						$('#aw-ajax-box div.modal').modal('hide');
 					break;
+
+					// 问题回复, 文章回复
+					case 'reply':
+						if (result.rsm.ajax_html)
+						{
+							$('.aw-feed-list').append(result.rsm.ajax_html);
+						}
+						else if(result.rsm.url)
+						{
+							window.location = decodeURIComponent(result.rsm.url);
+						}
+						else
+						{
+							window.location.reload();
+						}
+					break;
 	        	}
 	        }
 		}
