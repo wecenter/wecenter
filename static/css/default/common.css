@@ -389,6 +389,7 @@ a.aw-load-more-content{display: block;}
 
 /* 问题详情页 */
 .aw-notopic-sort{margin:20px 20px 0;padding:5px 10px;background-color: #fafafa;font-size: 12px;}
+.aw-notopic-sort .topic-tag .text{margin:0 3px;}
 .aw-topic-bar .aw-notopic-sort{margin:0;}
 .aw-question-detail{margin-bottom:30px;padding:10px 20px 0;}
 .aw-question-detail > .mod-head{position: relative;padding-bottom:14px;border-bottom:1px solid #f5f5f5;}
@@ -640,6 +641,7 @@ a.aw-load-more-content{display: block;}
 /* 收藏页面 */
 .mod-favorite .aw-topic-name span{background-color: #cccccc;}
 .mod-favorite .aw-tag-list{padding:10px 20px 0;border-bottom: 1px solid #e6e6e6;}
+.mod-favorite .aw-tag-list .aw-topic-bar{margin:0;}
 .mod-favorite .aw-tag-list .topic-tag .text, .mod-favorite .aw-feed-list .aw-topic-bar .topic-tag .text{background-color: #ccc;}
 .mod-favorite .aw-feed-list .aw-topic-bar .topic-tag .close{background-color:#b3b3b3}
 .mod-favorite .aw-feed-list .aw-topic-bar{margin:0;}
