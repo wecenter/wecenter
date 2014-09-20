@@ -13,11 +13,15 @@
 							<?php if (sizeof($this->favorite_tags) > 0) { ?>
 							<div class="aw-tag-list clearfix">
 								<span class="pull-left"><?php _e('标签'); ?>&nbsp;:&nbsp;</span>
-								<?php foreach ($this->favorite_tags AS $key => $val) { ?>
-								<span class="topic-tag">
-									<a href="favorite/tag-<?php echo urlencode($val['title']); ?>" class="text"><?php echo $val['title']; ?></a>
-								</span>
-								<?php } ?>
+								<div class="aw-topic-bar">
+									<div class="topic-bar clearfix">
+										<?php foreach ($this->favorite_tags AS $key => $val) { ?>
+										<span class="topic-tag">
+											<a href="favorite/tag-<?php echo urlencode($val['title']); ?>" class="text"><?php echo $val['title']; ?></a>
+										</span>
+										<?php } ?>
+									</div>
+								</div>
 							</div>
 							<?php } ?>
 							<div class="aw-feed-list">
