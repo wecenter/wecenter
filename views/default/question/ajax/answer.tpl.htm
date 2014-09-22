@@ -15,15 +15,15 @@
 		<div class="title">
 			<p>
 				<?php if ($this->answer_info['anonymous'] == 0) { ?>
-					<a class="aw-user-name" href="people/<?php echo $this->answer_info['url_token']; ?>" data-id="<?php echo $this->answer_info['uid']; ?>"><?php echo $this->answer_info['user_name']; ?></a>
+					<a class="aw-user-name" href="people/<?php echo $this->answer_info['url_token']; ?>" data-id="<?php echo $this->answer_info['uid']; ?>"><?php echo $this->answer_info['user_info']['user_name']; ?></a>
 				<?php } else { ?>
 					<a class="aw-user-name" href="javascript:;"><?php _e('匿名用户'); ?></a>
 				<?php } ?>
 				<?php if ($this->answer_info['anonymous'] == 0) { ?>
-					<?php if ($this->answer_info['verified']) { ?>
-						<i class="icon-v<?php if ($this->answer_info['verified'] == 'enterprise') { ?> i-ve<?php } ?>" title="<?php if ($this->answer_info['verified'] == 'enterprise') { ?>企业认证<?php } else { ?>个人认证<?php } ?>"></i>
+					<?php if ($this->answer_info['user_info']['verified']) { ?>
+						<i class="icon-v<?php if ($this->answer_info['user_info']['verified'] == 'enterprise') { ?> i-ve<?php } ?>" title="<?php if ($this->answer_info['user_info']['verified'] == 'enterprise') { ?>企业认证<?php } else { ?>个人认证<?php } ?>"></i>
 					<?php } ?>
-					<?php if ($this->answer_info['signature']) { ?> - <span class="text-color-999"><?php echo $this->answer_info['signature']; ?></span><?php } ?>
+					<?php if ($this->answer_info['user_info']['signature']) { ?> - <span class="text-color-999"><?php echo $this->answer_info['user_info']['signature']; ?></span><?php } ?>
 				<?php } ?>
 				<?php if ($this->answer_info['publish_source'] == 'mobile') { ?>
 					<i class="icon icon-phone"></i>
@@ -74,8 +74,8 @@
 			<span class="text-color-999 pull-right"><?php echo date_friendly($this->answer_info['add_time'], 604800, 'Y-m-d'); ?></span>
 			<!-- 投票栏 -->
 			<span class="operate">
-				<a class="agree<?php if ($this->user_info['user_name'] == $this->answer_info['user_name']) { ?> disabled<?php } ?> <?php if ($this->answer_info['agree_status'] == 1) { ?>active<?php } ?>" <?php if ($this->user_info['user_name'] != $this->answer_info['user_name']) { ?>onclick="AWS.User.agree_vote(this, '<?php echo $this->user_info['user_name']; ?>', <?php echo $this->answer_info['answer_id']; ?>);"<?php } ?>><i data-placement="right" title="" data-toggle="tooltip" class="icon icon-agree" data-original-title="赞同回复"></i> <b class="count"><?php echo $this->answer_info['agree_count']; ?></b></a>
-				<?php if ($this->user_id AND $this->user_info['user_name'] != $this->answer_info['user_name']) { ?>
+				<a class="agree<?php if ($this->user_info['user_name'] == $this->answer_info['user_info']['user_name']) { ?> disabled<?php } ?> <?php if ($this->answer_info['agree_status'] == 1) { ?>active<?php } ?>" <?php if ($this->user_info['user_name'] != $this->answer_info['user_info']['user_name']) { ?>onclick="AWS.User.agree_vote(this, '<?php echo $this->user_info['user_name']; ?>', <?php echo $this->answer_info['answer_id']; ?>);"<?php } ?>><i data-placement="right" title="" data-toggle="tooltip" class="icon icon-agree" data-original-title="赞同回复"></i> <b class="count"><?php echo $this->answer_info['agree_count']; ?></b></a>
+				<?php if ($this->user_id AND $this->user_info['user_name'] != $this->answer_info['user_info']['user_name']) { ?>
 				<a class="disagree <?php if ($this->answer_info['agree_status'] == -1) { ?>active<?php } ?>" onclick="AWS.User.disagree_vote(this, '<?php echo $this->user_info['user_name']; ?>', <?php echo $this->answer_info['answer_id']; ?>)"><i data-placement="right" title="" data-toggle="tooltip" class="icon icon-disagree" data-original-title="对回复持反对意见"></i></a>
 				<?php } ?>
 			</span>
