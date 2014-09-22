@@ -162,7 +162,7 @@
 		<!-- end 回复列表 -->
 
 		<!-- 回复box -->
-		<div class="aw-replay-box">
+		<div class="aw-replay-box question">
 			<a name="answer_form"></a>
 			<?php if ($_GET['single']) { ?>
 			<a href="question/<?php echo $this->question_info['question_id']; ?>" class="aw-load-more"><?php _e('查看全部回答'); ?></a>
@@ -179,7 +179,7 @@
 			<?php } else if ((get_setting('answer_self_question') == 'N') && ($this->user_id == $this->question_info['published_uid'])) { ?>
 			<p align="center"><?php _e('不能回复自己发布的问题, 你可以修改问题内容'); ?></p>
 			<?php } else { ?>
-			<form action="question/ajax/save_answer/" onsubmit="return false;" method="post" id="answer_form">
+			<form action="question/ajax/save_answer/" onsubmit="return false;" method="post" id="answer_form" class="question_answer_form">
 				<input type="hidden" name="attach_access_key" value="<?php echo $this->attach_access_key; ?>" />
 				<input type="hidden" name="post_hash" value="<?php echo new_post_hash(); ?>" />
 				<input type="hidden" name="question_id" value="<?php echo $this->question_info['question_id']; ?>" />

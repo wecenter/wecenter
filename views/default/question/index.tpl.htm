@@ -428,7 +428,7 @@
 
 					<?php if ($_GET['column'] != 'log') { ?>
 					<!-- 回复编辑器 -->
-					<div class="aw-mod aw-replay-box">
+					<div class="aw-mod aw-replay-box question">
 						<a name="answer_form"></a>
 						<?php if ($this->question_info['lock']) { ?>
 						<p align="center"><?php _e('该问题目前已经被锁定, 无法添加新回复'); ?></p>
@@ -439,7 +439,7 @@
 						<?php } else if ((get_setting('answer_self_question') == 'N') && ($this->user_id == $this->question_info['published_uid'])) { ?>
 						<p align="center"><?php _e('不能回复自己发布的问题, 你可以修改问题内容'); ?></p>
 						<?php } else { ?>
-						<form action="question/ajax/save_answer/" onsubmit="return false;" method="post" id="answer_form">
+						<form action="question/ajax/save_answer/" onsubmit="return false;" method="post" id="answer_form" class="question_answer_form">
 			        	<input type="hidden" name="post_hash" value="<?php echo new_post_hash(); ?>" />
 			        	<input type="hidden" name="question_id" value="<?php echo $this->question_info['question_id']; ?>" />
 			        	<input type="hidden" name="attach_access_key" value="<?php echo $this->attach_access_key; ?>" />

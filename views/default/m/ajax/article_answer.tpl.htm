@@ -1,0 +1,21 @@
+<li>
+	<div class="mod-head">
+		<span class="pull-right"><?php echo date_friendly($this->comment_info['add_time']); ?></span>
+		<a href="m/people/<?php echo $this->comment_info['user_info']['url_token']; ?>"><img class="img" alt="" src="<?php echo get_avatar_url($this->comment_info['uid'], 'mid'); ?>" width="20" /></a>
+		<a href="m/people/<?php echo $this->comment_info['user_info']['url_token']; ?>"><?php echo $this->comment_info['user_info']['user_name']; ?></a>
+		<?php if ($this->comment_info['at_user_info']) { ?> <?php _e('回复'); ?> <a href="people/<?php echo $this->comment_info['at_user_info']['url_token']; ?>"><?php echo $this->comment_info['at_user_info']['user_name']; ?></a><?php } ?>
+	</div>
+	<div class="mod-body">
+		<div class="markitup-box clearfix">
+			<?php echo nl2br($this->comment_info['message']); ?>
+		</div>
+	</div>
+	<div class="mod-footer">
+		<div class="meta">
+			<?php if ($this->user_id) { ?>
+			<a onclick="AWS.User.article_comment_vote($(this), <?php echo $this->comment_info['id']; ?>, 1)"<?php if ($this->comment_info['vote_info']['rating'] == 1) { ?> class="active"<?php } ?>><?php if ($this->comment_info['vote_info']['rating'] == 1) { ?><?php _e('我已赞'); ?><?php } else { ?><?php _e('赞'); ?><?php } ?> (<b><?php echo $this->comment_info['votes']; ?></b>)</a>&nbsp; • &nbsp;
+			<a class="aw-article-comment" data-id="<?php echo $this->comment_info['user_info']['uid']; ?>">回复</a>
+			<?php } ?>
+		</div>
+	</div>
+</li>

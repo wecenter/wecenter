@@ -616,7 +616,7 @@ class ajax extends AWS_CONTROLLER
 			if (is_mobile())
 			{
 				H::ajax_json_output(AWS_APP::RSM(array(
-					'ajax_html' => TPL::output('m/ajax/answer', false)
+					'ajax_html' => TPL::output('m/ajax/question_answer', false)
 				), 1, null));
 			}
 			else
