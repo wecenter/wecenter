@@ -29,7 +29,7 @@
                         <div class="form-group">
                             <span class="col-sm-4 col-xs-3 control-label"><?php _e('网站简介'); ?>:</span>
                             <div class="col-sm-5 col-xs-8">
-                                <textarea class="form-control textarea" name="description"  ><?php echo $this->setting['description']; ?></textarea>
+                                <textarea class="form-control textarea" rows="4" name="description"  ><?php echo $this->setting['description']; ?></textarea>
                             </div>
                         </div>
                     </td>
@@ -39,7 +39,7 @@
                         <div class="form-group">
                             <span class="col-sm-4 col-xs-3 control-label"><?php _e('网站关键词'); ?>:</span>
                             <div class="col-sm-5 col-xs-8">
-                                <textarea class="form-control textarea" name="keywords"  ><?php echo $this->setting['keywords']; ?></textarea>
+                                <textarea class="form-control textarea" rows="4" name="keywords"  ><?php echo $this->setting['keywords']; ?></textarea>
                             </div>
                         </div>
                     </td>
@@ -261,7 +261,7 @@
                         <div class="form-group">
                             <span class="col-sm-3 col-xs-3 control-label"><?php _e('用户注册协议'); ?>:</span>
                             <div class="col-sm-7 col-xs-8">
-                                <textarea class="form-control textarea" name="register_agreement"  ><?php echo $this->setting['register_agreement']; ?></textarea>
+                                <textarea class="form-control textarea" rows="8" name="register_agreement"  ><?php echo $this->setting['register_agreement']; ?></textarea>
                             </div>
                         </div>
                     </td>
@@ -271,7 +271,7 @@
                         <div class="form-group">
                             <span class="col-sm-3 col-xs-3 control-label"><?php _e('用户注册名不允许出现以下关键字'); ?>:</span>
                             <div class="col-sm-7 col-xs-8">
-                                <textarea class="form-control textarea" name="censoruser"  ><?php echo $this->setting['censoruser']; ?></textarea>
+                                <textarea class="form-control textarea" rows="5" name="censoruser"  ><?php echo $this->setting['censoruser']; ?></textarea>
 
                                 <span class="help-block"><?php _e('每行填写一个关键字, 如: admin, 管理员等'); ?></span>
                             </div>
@@ -317,7 +317,7 @@
                         <div class="form-group">
                             <span class="col-sm-3 col-xs-3 control-label"><?php _e('新用户注册系统发送的欢迎内容'); ?>:</span>
                             <div class="col-sm-7 col-xs-8">
-                                <textarea class="form-control textarea" name="welcome_message_pm"  ><?php echo $this->setting['welcome_message_pm']; ?></textarea>
+                                <textarea class="form-control textarea" rows="4" name="welcome_message_pm"  ><?php echo $this->setting['welcome_message_pm']; ?></textarea>
 
                                 <span class="help-block"><?php _e('新用户注册欢迎内容, 以下变量可作为内容替换: <br />{username}: 用户名<br />{time}: 发送时间<br />{sitename}: 网站名称'); ?></span>
                             </div>
@@ -881,7 +881,7 @@
                         <div class="form-group">
                             <span class="col-sm-4 col-xs-3 control-label"><?php _e('敏感词列表'); ?>:</span>
                             <div class="col-sm-5 col-xs-8">
-                                <textarea class="form-control textarea" name="sensitive_words"  ><?php echo $this->setting['sensitive_words']; ?></textarea>
+                                <textarea class="form-control textarea" rows="5" name="sensitive_words"  ><?php echo $this->setting['sensitive_words']; ?></textarea>
                                 <span class="help-block"><?php _e('内容中出现敏感词将被替换成 * , 每行填写一个词'); ?></span>
                             </div>
                         </div>

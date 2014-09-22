@@ -15,13 +15,14 @@ body{background:url('img/login_bg.jpg') no-repeat #E9F0F4;}
 .btn:active, .btn.active{box-shadow: none;}
 .aw-login-box{width: 714px;margin:0 auto;background-color: #ffffff;border:1px solid #b3b3b3;border-radius: 3px;}
 .aw-login-box .logo{width:151px;height:94px;background:url('img/login_logo.png') no-repeat;}
+.aw-login-box .logo a{display: block;width: 151px;height: 94px;}
 .aw-login-box .mod-body{padding:50px 60px;}
 .aw-login-box .mod-body .content{width: 300px;margin-right: 60px;}
 .aw-login-box .mod-body .content h2{margin:13px 0 40px;color: #666666;}
 .aw-login-box .mod-body .content ul li{margin-top: 20px;line-height: 30px;}
-.aw-login-box .mod-body .content ul li i{position: relative;top: 1px;}
 .aw-login-box .mod-body .content ul li:first-child{margin-top: 0;}
 .aw-login-box .mod-body .content ul li.last{font-size: 12px;line-height: 40px;}
+.aw-login-box .mod-body .content ul li.last input{vertical-align: -2px\0;}
 .aw-login-box .mod-body .content ul li.last a{color: #666666;}
 .aw-login-box .mod-body .content ul li .btn-primary{width:112px;color: #fff !important;}
 .aw-login-box .mod-body .side-bar{height: 326px;padding:60px 0 60px 60px;border-left: 1px solid #e6e6e6;}

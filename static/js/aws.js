@@ -252,6 +252,14 @@ var AWS =
 						if (result.rsm.ajax_html)
 						{
 							$('.aw-feed-list').append(result.rsm.ajax_html);
+
+							// 文章
+							$('#comment_editor').val('');
+
+							// 问题
+							$('.question_answer_form').detach();
+
+							$('.aw-replay-box').append('<p align="center">一个问题只能回复一次, 你可以在发言后 640000 分钟内编辑回复过的内容</p>');
 						}
 						else if(result.rsm.url)
 						{

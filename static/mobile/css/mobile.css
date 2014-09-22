@@ -308,6 +308,7 @@ input[type="text"], input[type="password"], textarea{-webkit-appearance:none;}
 .markitup-box{word-wrap:break-word;}
 .markitup-box p{line-height: 1.8em;}
 .markitup-box img{max-width: 100%;margin-bottom: 10px;}
+.markitup-box .aw-upload-img-list a{display: block;}
 
 /* 发起页面 */
 .aw-publish-box{margin:15px 0 35px;}

@@ -39,7 +39,8 @@
 						<div class="aw-upload-img-list">
 						<?php foreach ($this->question_info['attachs'] AS $key => $attach) { ?>
 						<?php if ($attach['is_image'] AND !in_array($attach['id'], $this->question_info['attachs_ids'])) { ?>
-							<a href="<?php echo $attach['attachment']; ?>" target="_blank"><img src="<?php echo $attach['attachment']; ?>" alt="<?php echo $attach['attach_name']; ?>" class="img-polaroid" /></a>
+							<a href="<?php echo $attach['attachment']; ?>" target="_blank">
+							<img src="<?php echo $attach['attachment']; ?>" alt="<?php echo $attach['attach_name']; ?>" class="img-thumbnail" /></a>
 						<?php } ?>
 						<?php } ?>
 						</div>
@@ -109,16 +110,16 @@
 							<!-- end 最佳回答 -->
 							<?php } ?>
 							<a href="<?php if ($val['anonymous']) { ?>javascript:;<?php } else { ?>m/people/<?php echo $val['uid']; ?><?php } ?>"><img class="img" width="20" src="<?php if ($val['anonymous']) { ?><?php echo G_STATIC_URL; ?>/common/avatar-mid-img.png<?php } else { ?><?php echo get_avatar_url($val['uid'], 'mid'); ?><?php } ?>" alt="" /></a>
-							<a href="<?php if ($val['anonymous']) { ?>javascript:;<?php } else { ?>m/people/<?php echo $val['uid']; ?><?php } ?>"><?php if ($val['anonymous']) { ?><?php _e('匿名用户'); ?><?php } else { ?><?php echo $val['user_name']; ?><?php } ?></a><?php if (!$val['anonymous']) { ?>
-								<?php if ($val['verified']) { ?> <i class="icon-v<?php if ($val['verified'] == 'enterprise') { ?> i-ve<?php } ?>" title="<?php if ($this->user['verified'] == 'enterprise') { ?>个人认证<?php } else { ?>企业认证<?php } ?>"></i><?php } ?>
-								<?php echo $val['signature']; ?><?php } ?>
+							<a href="<?php if ($val['anonymous']) { ?>javascript:;<?php } else { ?>m/people/<?php echo $val['uid']; ?><?php } ?>"><?php if ($val['anonymous']) { ?><?php _e('匿名用户'); ?><?php } else { ?><?php echo $val['user_info']['user_name']; ?><?php } ?></a><?php if (!$val['anonymous']) { ?>
+								<?php if ($val['user_info']['verified']) { ?> <i class="icon-v<?php if ($val['user_info']['verified'] == 'enterprise') { ?> i-ve<?php } ?>" title="<?php if ($this->user['verified'] == 'enterprise') { ?>个人认证<?php } else { ?>企业认证<?php } ?>"></i><?php } ?>
+								<?php echo $val['user_info']['signature']; ?><?php } ?>
 						</div>
 						<div class="mod-body">
 							<div class="markitup-box clearfix">
 								<?php echo nl2br($val['answer_content']); ?>
 							
 								<?php if ($val['attachs']) {  ?>
-								<div class="aw-comment-upload-img-list">
+								<div class="aw-upload-img-list">
 								<?php foreach ($val['attachs'] AS $attach) { ?>
 								<?php if ($attach['is_image'] AND !in_array($attach['id'], $val['insert_attach_ids'])) { ?>
 								<a href="<?php echo $attach['attachment']; ?>" target="_blank" data-fancybox-group="thumb" rel="lightbox"><img src="<?php echo $attach['attachment']; ?>" class="img-polaroid" alt="<?php echo $attach['attach_name']; ?>" /></a>
@@ -162,7 +163,7 @@
 		<!-- end 回复列表 -->
 
 		<!-- 回复box -->
-		<div class="aw-replay-box">
+		<div class="aw-replay-box question">
 			<a name="answer_form"></a>
 			<?php if ($_GET['single']) { ?>
 			<a href="question/<?php echo $this->question_info['question_id']; ?>" class="aw-load-more"><?php _e('查看全部回答'); ?></a>
@@ -179,7 +180,7 @@
 			<?php } else if ((get_setting('answer_self_question') == 'N') && ($this->user_id == $this->question_info['published_uid'])) { ?>
 			<p align="center"><?php _e('不能回复自己发布的问题, 你可以修改问题内容'); ?></p>
 			<?php } else { ?>
-			<form action="question/ajax/save_answer/" onsubmit="return false;" method="post" id="answer_form">
+			<form action="question/ajax/save_answer/" onsubmit="return false;" method="post" id="answer_form" class="question_answer_form">
 				<input type="hidden" name="attach_access_key" value="<?php echo $this->attach_access_key; ?>" />
 				<input type="hidden" name="post_hash" value="<?php echo new_post_hash(); ?>" />
 				<input type="hidden" name="question_id" value="<?php echo $this->question_info['question_id']; ?>" />
@@ -204,7 +205,7 @@
 					<textarea class="autosize form-control textarea_content" rows="5" name="answer_content"><?php echo htmlspecialchars($this->draft_content['message']); ?></textarea>
 				</div>
 				<div class="mod-footer">
-					<a class="btn btn-success btn-normal pull-right" onclick="AWS.ajax_post($('#answer_form'));"><?php _e('回复'); ?></a>
+					<a class="btn btn-success btn-normal pull-right" onclick="AWS.ajax_post($('#answer_form'), AWS.ajax_processer, 'reply');"><?php _e('回复'); ?></a>
 
 					<?php if ($this->human_valid) { ?>
 					<div class="captcha pull-right clearfix">

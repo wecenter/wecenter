@@ -107,7 +107,7 @@
 								<?php echo $this->question_info['question_detail']; ?>
 
 								<?php if ($this->question_info['attachs']) {  ?>
-								<div class="aw-comment-upload-img-list">
+								<div class="aw-upload-img-list">
 								<?php foreach ($this->question_info['attachs'] AS $attach) { ?>
 								<?php if ($attach['is_image'] AND !in_array($attach['id'], $this->question_info['attachs_ids'])) { ?>
 									<a href="<?php echo $attach['attachment']; ?>" target="_blank" data-fancybox-group="thumb" rel="lightbox"><img src="<?php echo $attach['attachment']; ?>" class="img-thumbnail" alt="<?php echo $attach['file_name']; ?>" /></a>
@@ -117,7 +117,7 @@
 								<?php } ?>
 
 								<?php if ($this->question_info['attachs']) {  ?>
-								<ul class="aw-comment-upload-file-list">
+								<ul class="aw-upload-file-list">
 									<?php foreach ($this->question_info['attachs'] AS $attach) { ?>
 									<?php if (!$attach['is_image'] AND !in_array($attach['id'], $this->question_info['attachs_ids'])) { ?>
 										<li><a href="<?php echo download_url($attach['file_name'], $attach['attachment']); ?>"><i class="icon icon-attach"></i> <?php echo $attach['file_name']; ?></a></li>
@@ -293,15 +293,15 @@
 										<div class="title">
 											<p>
 												<?php if ($val['anonymous'] == 0) { ?>
-													<a class="aw-user-name" href="people/<?php echo $val['url_token']; ?>" data-id="<?php echo $val['uid']; ?>"><?php echo $val['user_name']; ?></a>
+													<a class="aw-user-name" href="people/<?php echo $val['url_token']; ?>" data-id="<?php echo $val['uid']; ?>"><?php echo $val['user_info']['user_name']; ?></a>
 												<?php } else { ?>
 													<a class="aw-user-name" href="javascript:;"><?php _e('匿名用户'); ?></a>
 												<?php } ?>
 												<?php if ($val['anonymous'] == 0) { ?>
-													<?php if ($val['verified']) { ?>
-														<i class="icon-v<?php if ($val['verified'] == 'enterprise') { ?> i-ve<?php } ?>" title="<?php if ($val['verified'] == 'enterprise') { ?>企业认证<?php } else { ?>个人认证<?php } ?>"></i>
+													<?php if ($val['user_info']['verified']) { ?>
+														<i class="icon-v<?php if ($val['user_info']['verified'] == 'enterprise') { ?> i-ve<?php } ?>" title="<?php if ($val['user_info']['verified'] == 'enterprise') { ?>企业认证<?php } else { ?>个人认证<?php } ?>"></i>
 													<?php } ?>
-													<?php if ($val['signature']) { ?> - <span class="text-color-999"><?php echo $val['signature']; ?></span><?php } ?>
+													<?php if ($val['user_info']['signature']) { ?> - <span class="text-color-999"><?php echo $val['user_info']['signature']; ?></span><?php } ?>
 												<?php } ?>
 												<?php if ($val['publish_source'] == 'mobile') { ?>
 													<i class="icon icon-phone"></i>
@@ -326,7 +326,7 @@
 										</div>
 
 										<?php if ($val['attachs']) {  ?>
-										<div class="aw-comment-upload-img-list">
+										<div class="aw-upload-img-list">
 										<?php foreach ($val['attachs'] AS $attach) { ?>
 										<?php if ($attach['is_image'] AND !in_array($attach['id'], $val['insert_attach_ids'])) { ?>
 											<a href="<?php echo $attach['attachment']; ?>" target="_blank" data-fancybox-group="thumb" rel="lightbox"><img src="<?php echo $attach['attachment']; ?>" class="img-thumbnail" alt="<?php echo $attach['attach_name']; ?>" /></a>
@@ -336,7 +336,7 @@
 										<?php } ?>
 
 										<?php if ($val['attachs']) {  ?>
-										<ul class="aw-comment-upload-file-list">
+										<ul class="aw-upload-file-list">
 											<?php foreach ($val['attachs'] AS $attach) { ?>
 											<?php if (!$attach['is_image'] AND !in_array($attach['id'], $val['insert_attach_ids'])) { ?>
 												<li><a href="<?php echo download_url($attach['file_name'], $attach['attachment']); ?>"><i class="icon icon-attach"></i><?php echo $attach['file_name']; ?></a></li>
@@ -352,8 +352,8 @@
 											<span class="text-color-999 pull-right"><?php echo date_friendly($val['add_time'], 604800, 'Y-m-d'); ?></span>
 											<!-- 投票栏 -->
 											<span class="operate">
-												<a class="agree<?php if ($this->user_info['user_name'] == $val['user_name']) { ?> disabled<?php } ?> <?php if ($val['agree_status'] == 1) { ?>active<?php } ?>" <?php if ($this->user_info['user_name'] != $val['user_name']) { ?>onclick="AWS.User.agree_vote(this, '<?php echo $this->user_info['user_name']; ?>', <?php echo $val['answer_id']; ?>);"<?php } ?>><i data-placement="right" title="" data-toggle="tooltip" class="icon icon-agree" data-original-title="赞同回复"></i> <b class="count"><?php echo $val['agree_count']; ?></b></a>
-												<?php if ($this->user_id AND $this->user_info['user_name'] != $val['user_name']) { ?>
+												<a class="agree<?php if ($this->user_info['user_name'] == $val['user_info']['user_name']) { ?> disabled<?php } ?> <?php if ($val['agree_status'] == 1) { ?>active<?php } ?> <?php if (!$this->user_id) { ?>disabled<?php } ?>" <?php if ($this->user_id && $this->user_info['user_name'] != $val['user_info']['user_name']) { ?>onclick="AWS.User.agree_vote(this, '<?php echo $this->user_info['user_name']; ?>', <?php echo $val['answer_id']; ?>);"<?php } ?>><i data-placement="right" title="" data-toggle="tooltip" class="icon icon-agree" data-original-title="赞同回复"></i> <b class="count"><?php echo $val['agree_count']; ?></b></a>
+												<?php if ($this->user_id AND $this->user_info['user_name'] != $val['user_info']['user_name']) { ?>
 												<a class="disagree <?php if ($val['agree_status'] == -1) { ?>active<?php } ?>" onclick="AWS.User.disagree_vote(this, '<?php echo $this->user_info['user_name']; ?>', <?php echo $val['answer_id']; ?>)"><i data-placement="right" title="" data-toggle="tooltip" class="icon icon-disagree" data-original-title="对回复持反对意见"></i></a>
 												<?php } ?>
 											</span>
@@ -428,7 +428,7 @@
 
 					<?php if ($_GET['column'] != 'log') { ?>
 					<!-- 回复编辑器 -->
-					<div class="aw-mod aw-replay-box">
+					<div class="aw-mod aw-replay-box question">
 						<a name="answer_form"></a>
 						<?php if ($this->question_info['lock']) { ?>
 						<p align="center"><?php _e('该问题目前已经被锁定, 无法添加新回复'); ?></p>
@@ -439,7 +439,7 @@
 						<?php } else if ((get_setting('answer_self_question') == 'N') && ($this->user_id == $this->question_info['published_uid'])) { ?>
 						<p align="center"><?php _e('不能回复自己发布的问题, 你可以修改问题内容'); ?></p>
 						<?php } else { ?>
-						<form action="question/ajax/save_answer/" onsubmit="return false;" method="post" id="answer_form">
+						<form action="question/ajax/save_answer/" onsubmit="return false;" method="post" id="answer_form" class="question_answer_form">
 			        	<input type="hidden" name="post_hash" value="<?php echo new_post_hash(); ?>" />
 			        	<input type="hidden" name="question_id" value="<?php echo $this->question_info['question_id']; ?>" />
 			        	<input type="hidden" name="attach_access_key" value="<?php echo $this->attach_access_key; ?>" />
@@ -478,7 +478,7 @@
 									</div>
 									<?php } ?>
 									<span class="pull-right">
-										<a href="javascript:;" onclick="AWS.ajax_post($('#answer_form'));" class="btn btn-normal btn-success"><?php _e('回复'); ?></a>
+										<a href="javascript:;" onclick="AWS.ajax_post($('#answer_form'), AWS.ajax_processer, 'reply');" class="btn btn-normal btn-success"><?php _e('回复'); ?></a>
 									</span>
 									<span class="pull-right text-color-999" id="answer_content_message">&nbsp;</span>
 									<?php if (get_setting('upload_enable') == 'Y') { ?>
