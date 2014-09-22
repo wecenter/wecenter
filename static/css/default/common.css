@@ -294,6 +294,7 @@ a.aw-load-more-content{display: block;}
 .aw-feed-list .operate a + a{border-left: 1px solid #EBEBEB;}
 .aw-feed-list .operate a.agree{border-radius: 4px 0 0 4px;}
 .aw-feed-list .operate a.disagree{border-radius: 0 4px 4px 0;}
+.aw-feed-list .operate a.visiter{border-radius: 4px;}
 .aw-feed-list .operate a:hover, .aw-feed-list .operate a.active{background-color: #499ef3;color: #fff;}
 .aw-feed-list .operate a:hover i, .aw-feed-list .operate a.active i{color: #fff;}
 .aw-feed-list .operate a.disabled{background-color: #fff;border:1px solid #f5f5f5;border-radius: 4px;}
