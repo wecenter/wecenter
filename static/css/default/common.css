@@ -301,9 +301,9 @@ a.aw-load-more-content{display: block;}
 .aw-feed-list .operate .aw-add-comment:hover, .aw-feed-list .operate .aw-add-comment.active{background-color: #499ef3;color: #fff;border-radius: 4px;}
 .aw-feed-list .operate .aw-add-comment.active i{color: #fff;}
 .aw-feed-list .operate b{font-weight: 500;}
-.aw-feed-list .aw-comment-upload-img-list{height: auto;overflow: hidden;margin:10px 0 0;}
-.aw-feed-list .aw-comment-upload-img-list img{display:block;max-width:570px;margin:0 0 10px 0;}
-.aw-feed-list .aw-comment-upload-img-list.active img{width: auto;height: auto;display:block;}
+.aw-feed-list .aw-upload-img-list{height: auto;overflow: hidden;margin:10px 0 0;}
+.aw-feed-list .aw-upload-img-list img{display:block;max-width:570px;margin:0 0 10px 0;}
+.aw-feed-list .aw-upload-img-list.active img{width: auto;height: auto;display:block;}
 
 /* 动态首页新通知提示box */
 .aw-notification-box{padding-bottom: 20px;border-bottom: 1px solid #e6e6e6;}
@@ -478,8 +478,8 @@ a.aw-load-more-content{display: block;}
 .aw-common-list .aw-item{position:relative;z-index:0;;min-height:45px;padding:14px 0 14px 50px;}
 .aw-common-list .aw-item.article .markitup-box{max-height: 130px;overflow: hidden;}
 .aw-common-list .aw-item.article .img{display:none;width: 200px;height: 130px;margin-left: 10px;}
-.aw-common-list .aw-item.article .aw-comment-upload-img-list{position: absolute;right: 10px;top: 0;width: 200px;}
-.aw-common-list .aw-item.article .aw-comment-upload-img-list img{max-width: 200px;}
+.aw-common-list .aw-item.article .aw-upload-img-list{position: absolute;right: 10px;top: 0;width: 200px;}
+.aw-common-list .aw-item.article .aw-upload-img-list img{max-width: 200px;}
 .aw-common-list .aw-item.article .markitup-box img{position: absolute;right: 0;top: 0;width: 200px;}
 .aw-common-list .aw-item.article .more{font-size: 12px;}
 .aw-common-list .aw-item .aw-question-content .aw-user-name{color: #666;}
@@ -928,8 +928,8 @@ li.L1,li.L3,li.L5,li.L7,li.L9 { background: #eee }
 .markitup-box code, #markItUpPreviewFrames code {background-color: #EDEAD5;display: block;font-family: "Courier New",Courier,monospace;margin: 5px 0;padding: 5px;white-space: normal;text-align: left;}
 .markitup-box img {max-width:570px;margin-bottom: 15px;}
 .markitup-box blockquote, #markItUpPreviewFrames blockquote{margin:0 0 10px;background-color: #FBFBFB;border-left: 5px solid #E2E2E2;line-height: 22px;margin: 5px 0;padding: 10px;font-size: 14px;}
-.markitup-box .aw-comment-upload-file-list{margin: 0;padding-left: 0;list-style: none;}
-.markitup-box .aw-comment-upload-img-list a{display:block;}
+.markitup-box .aw-upload-file-list{margin: 0;padding-left: 0;list-style: none;}
+.markitup-box .aw-upload-img-list a{display:block;}
 .markitup-box iframe{position: relative;z-index: 1;}
 
 /* 自定义页面 */

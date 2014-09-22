@@ -66,7 +66,7 @@ $(document).ready(function ()
         if ($(this).find('img').length > 1)
         {
             $(this).find('.img.pull-right').show();
-            $(this).find('.aw-comment-upload-img-list').next().detach();
+            $(this).find('.aw-upload-img-list').next().detach();
             $(this).find('img').next().detach().end().prev().detach();
             $(this).find('.markitup-box img').eq(0).css({'z-index':'999'});
         }

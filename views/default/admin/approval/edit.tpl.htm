@@ -11,76 +11,88 @@
 
         <div class="tab-content mod-content">
             <form action="admin/ajax/save_approval_item/" id="approval_form" method="post" onsubmit="return false">
+                <input name="id" type="hidden" value="<?php echo $this->approval_item['id']; ?>" />
+                <input type="hidden" name="type" value="<?php echo $this->approval_item['type']; ?>" />
+
                 <table class="table table-striped">
-                    <input name="id" type="hidden" value="<?php echo $this->approval_item['id']; ?>" />
-
-                    <input type="hidden" name="type" value="<?php echo $this->approval_item['type']; ?>" />
-
                     <?php if (in_array($this->approval_item['type'], array('question', 'article', 'received_email'))) { ?>
-                    <tr><td>
-                    <div class="form-group">
-                        <span class="col-sm-4 col-xs-3 control-label"><?php _e('标题'); ?>:</span>
-                        <div class="col-sm-5 col-xs-8">
-                            <input class="form-control" name="title" type="text" value="<?php echo $this->approval_item['title']; ?>" />
-                        </div>
-                    </div>
-                    </td></tr>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <span class="col-sm-4 col-xs-3 control-label"><?php _e('标题'); ?>:</span>
+                                <div class="col-sm-5 col-xs-8">
+                                    <input class="form-control" name="title" type="text" value="<?php echo $this->approval_item['title']; ?>" />
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
                     <?php } ?>
 
-                    <tr><td>
-                    <div class="form-group">
-                        <span class="col-sm-4 col-xs-3 control-label"><?php _e('内容'); ?>:</span>
-                        <div class="col-sm-5 col-xs-8">
-                            <textarea class="form-control textarea" name="content"  ><?php echo $this->approval_item['content']; ?></textarea>
+                    <tr>
+                        <td>
+                        <div class="form-group">
+                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('内容'); ?>:</span>
+                            <div class="col-sm-5 col-xs-8">
+                                <textarea class="form-control textarea" name="content"  ><?php echo $this->approval_item['content']; ?></textarea>
+                            </div>
                         </div>
-                    </div>
-                    </td></tr>
+                        </td>
+                    </tr>
 
                     <?php if ($this->approval_item['type'] == 'question') { ?>
-                    <tr><td>
-                    <div class="form-group">
-                        <span class="col-sm-4 col-xs-3 control-label"><?php _e('话题'); ?>:</span>
-                        <div class="col-sm-5 col-xs-8">
-                            <input class="form-control" name="topics" type="text" value="<?php echo $this->approval_item['topics']; ?>" />
+                    <tr>
+                        <td>
+                        <div class="form-group">
+                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('话题'); ?>:</span>
+                            <div class="col-sm-5 col-xs-8">
+                                <input class="form-control" name="topics" type="text" value="<?php echo $this->approval_item['topics']; ?>" />
 
-                            <span class="help-block">多个话题请用 , 分隔</span>
+                                <span class="help-block">多个话题请用 , 分隔</span>
+                            </div>
                         </div>
-                    </div>
-                    </td></tr>
+                        </td>
+                    </tr>
                     <?php } ?>
-                    <tr><td>
+
                     <?php if ($this->approval_item['attachs']) { ?>
-                    <p><strong><?php _e('附件'); ?></strong></p>
+                    <tr>
+                        <td>
+                            <p><strong><?php _e('附件'); ?></strong></p>
 
-                    <blockquote>
-                        <ul class="aw-comment-upload-img-list">
-                            <?php foreach ($this->approval_item['attachs'] AS $attach) { if ($attach['is_image']) { ?>
-                            <li>
-                                <input name="attachs[]" type="hidden" value="<?php echo $attach['id']; ?>" />
+                            <blockquote>
+                                <ul class="aw-upload-img-list">
+                                    <?php foreach ($this->approval_item['attachs'] AS $attach) { ?>
+                                        <?php if ($attach['is_image']) { ?>
+                                        <li>
+                                            <input name="attachs[]" type="hidden" value="<?php echo $attach['id']; ?>" />
 
-                                <a href="<?php echo $attach['attachment']; ?>" target="_blank" data-fancybox-group="thumb" rel="lightbox"><img src="<?php echo $attach['attachment']; ?>" class="img-polaroid" alt="<?php echo $attach['attach_name']; ?>" /></a>
+                                            <a href="<?php echo $attach['attachment']; ?>" target="_blank" data-fancybox-group="thumb" rel="lightbox"><img src="<?php echo $attach['attachment']; ?>" class="img-polaroid" alt="<?php echo $attach['attach_name']; ?>" /></a>
 
-                                <a href="javascript:;" class="btn btn-danger"><?php _e('删除'); ?></a>
-                            </li>
-                            <?php } } ?>
-                        </ul>
-                    </blockquote>
+                                            <a href="javascript:;" class="btn btn-danger" ><?php _e('删除'); ?></a>
+                                        </li>
+                                        <?php } ?>
+                                    <?php } ?>
+                                </ul>
+                            </blockquote>
 
-                    <blockquote>
-                        <ul class="aw-comment-upload-file-list">
-                            <?php foreach ($this->approval_item['attachs'] AS $attach) { if (!$attach['is_image']) { ?>
-                            <li>
-                                <input name="attachs[]" type="hidden" value="<?php echo $attach['id']; ?>" />
+                            <blockquote>
+                                <ul class="aw-upload-file-list">
+                                    <?php foreach ($this->approval_item['attachs'] AS $attach) { ?>
+                                        <?php if (!$attach['is_image']) { ?>
+                                        <li>
+                                            <input name="attachs[]" type="hidden" value="<?php echo $attach['id']; ?>" />
 
-                                <a href="<?php echo download_url($attach['file_name'], $attach['attachment']); ?>"><em class="aw-icon i-upload-file"></em><?php echo $attach['file_name']; ?></a>
+                                            <a href="<?php echo download_url($attach['file_name'], $attach['attachment']); ?>"><em class="aw-icon i-upload-file"></em><?php echo $attach['file_name']; ?></a>
 
-                                <a class="btn btn-danger btn-sm" href="javascript:;"><?php _e('删除'); ?></a>
-                            </li>
-                            <?php } } ?>
-                        </ul>
-                    </blockquote>
+                                            <a class="btn btn-danger btn-sm" href="javascript:;" ><?php _e('删除'); ?></a>
+                                        </li>
+                                        <?php } ?>
+                                    <?php } ?>
+                                </ul>
+                            </blockquote>
+                        </td>
+                    </tr>
                     <?php } ?>
-                 </td></tr>
                 </table>
             </form>
         </div>
@@ -96,31 +108,14 @@
 <script>
     $(function(){
 
-        deleteList($('.aw-comment-upload-img-list li'));
-         deleteList($('.aw-comment-upload-file-list li'));
+        // 附件删除功能
+        $('.btn-danger').click(function()
+        {
+            $(this).parents('li').hide();
 
-        function deleteList(obj){
+            $(this).parents('li').find('input').attr('name', 'remove_' + $(this).parents('li').find('input').attr('name'));
+        });
 
-            obj.find(".btn-danger").on("click",function(){
-                var tempName = 'remove_'+ $(this).siblings("input").attr("name");
-                $(this).siblings("input").attr("name",tempName);
-
-                $(this).parents("li").css({display:"none"})
-            })
-        };
-
-        if($('.aw-comment-upload-file-list').find('li').length == 0){
-            $('.aw-comment-upload-file-list').parent('blockquote').css({display:"none"});
-        }else{
-            $('.aw-comment-upload-file-list').parent('blockquote').css({display:"block"});
-        };
-
-        if($('.aw-comment-upload-img-list').find('li').length == 0){
-            $('.aw-comment-upload-img-list').parent('blockquote').css({display:"none"});
-        }else{
-            $('.aw-comment-upload-img-list').parent('blockquote').css({display:"block"});
-        };
-
-    })
+    });
 </script>
 <?php TPL::output('admin/global/footer.tpl.htm'); ?>

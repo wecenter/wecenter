@@ -118,7 +118,7 @@
 								<?php echo nl2br($val['answer_content']); ?>
 							
 								<?php if ($val['attachs']) {  ?>
-								<div class="aw-comment-upload-img-list">
+								<div class="aw-upload-img-list">
 								<?php foreach ($val['attachs'] AS $attach) { ?>
 								<?php if ($attach['is_image'] AND !in_array($attach['id'], $val['insert_attach_ids'])) { ?>
 								<a href="<?php echo $attach['attachment']; ?>" target="_blank" data-fancybox-group="thumb" rel="lightbox"><img src="<?php echo $attach['attachment']; ?>" class="img-polaroid" alt="<?php echo $attach['attach_name']; ?>" /></a>

@@ -222,11 +222,11 @@ textarea{resize:none;}
 #import .col-xs-8  label{margin-right: 10px;}
 #option_last_active .col-xs-8{margin-top: 0}
 /*preview/action-edit  限制附件*/
-.aw-comment-upload-img-list  ul{margin-top: -30px;}
-.aw-comment-upload-img-list img{max-width: 200px;min-height: 150px;max-height: 150px;display: block;margin: 0 auto;}
-.aw-comment-upload-img-list li{text-align: center;display: inline-block;margin: 30px 15px 0 30px;width: 20%;height: 150px;}
-.aw-comment-upload-img-list .btn{margin-top: 15px;}
-.aw-comment-upload-file-list li{display: inline-block;margin: 0px 20px 10px 20px}
+.aw-upload-img-list  ul{margin-top: -30px;}
+.aw-upload-img-list img{max-width: 200px;min-height: 150px;max-height: 150px;display: block;margin: 0 auto;}
+.aw-upload-img-list li{text-align: center;display: inline-block;margin: 30px 15px 0 30px;width: 20%;height: 150px;}
+.aw-upload-img-list .btn{margin-top: 15px;}
+.aw-upload-file-list li{display: inline-block;margin: 0px 20px 10px 20px}
 /*编辑用户资料*/
 #remove_user_form label{margin-right:15px;}
 #integral_form span.mod-category-foot{padding:0;text-align:right;line-height:35px;}
