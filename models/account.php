@@ -423,6 +423,8 @@ class account_class extends AWS_MODEL
                 {
                     $val['weixin_settings'] = array();
                 }
+                
+                unset($val['password'], $val['salt']);
 
                 $data[$val['uid']] = $val;
 
