@@ -609,6 +609,7 @@ class ajax extends AWS_CONTROLLER
 			$answer_info = $this->model('answer')->get_answer_by_id($answer_id);
 			
 			$answer_info['attachs'] = $this->model('publish')->get_attach('answer', $answer_id, 'min');
+			$answer_info['user_info'] = $this->user_info;
 			
 			TPL::assign('answer_info', $answer_info);
 

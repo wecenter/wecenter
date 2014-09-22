@@ -98,7 +98,7 @@ class ajax extends AWS_CONTROLLER
 			TPL::assign('comment_info', $this->model('article')->get_comment_by_id($comment_id));
 
 			H::ajax_json_output(AWS_APP::RSM(array(
-				'ajax_html' => TPL::output('article/ajax/comment')
+				'ajax_html' => TPL::output('article/ajax/comment', false)
 			), 1, null));
 		}
 	}
