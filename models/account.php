@@ -892,6 +892,8 @@ class account_class extends AWS_MODEL
         {
             foreach ($result AS $key => $val)
             {
+            	unset($val['password'], $val['salt']);
+            	
                 $data[$val['uid']] = $val;
 
                 if (!$val['url_token'] AND $val['user_name'])
