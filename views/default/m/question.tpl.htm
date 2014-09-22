@@ -204,7 +204,7 @@
 					<textarea class="autosize form-control textarea_content" rows="5" name="answer_content"><?php echo htmlspecialchars($this->draft_content['message']); ?></textarea>
 				</div>
 				<div class="mod-footer">
-					<a class="btn btn-success btn-normal pull-right" onclick="AWS.ajax_post($('#answer_form'));"><?php _e('回复'); ?></a>
+					<a class="btn btn-success btn-normal pull-right" onclick="AWS.ajax_post($('#answer_form'), AWS.ajax_processer, 'reply');"><?php _e('回复'); ?></a>
 
 					<?php if ($this->human_valid) { ?>
 					<div class="captcha pull-right clearfix">

@@ -613,9 +613,20 @@ class ajax extends AWS_CONTROLLER
 			
 			TPL::assign('answer_info', $answer_info);
 
-			H::ajax_json_output(AWS_APP::RSM(array(
-				'ajax_html' => TPL::output('question/ajax/answer', false)
-			), 1, null));
+			if (is_mobile())
+			{
+				H::ajax_json_output(AWS_APP::RSM(array(
+					'ajax_html' => TPL::output('m/ajax/answer', false)
+				), 1, null));
+			}
+			else
+			{
+				H::ajax_json_output(AWS_APP::RSM(array(
+					'ajax_html' => TPL::output('question/ajax/answer', false)
+				), 1, null));
+			}
+
+			
 		}
 	}
 
