@@ -91,6 +91,8 @@ a.aw-load-more-content{display: block;}
 .aw-load-more-content.loading{background-image: url(img/ajax-loader.gif);background-repeat:no-repeat;background-position:center center;background-color: #f6f6f6;}
 .aw-load-more-content.loading span{font-size: 0px;}
 .aw-load-more-content.loading img{opacity: 1;}
+.aw-load-more-content.disabled{background-color: #fff;border:1px solid #f5f5f5;}
+.aw-load-more-content.disabled:hover span{background-color: transparent;color: #999999;}
 .aw-load-more-content.warmming{display:none;background:#F4FBFF;border:1px solid #CBE1F0;font-size: 12px;}
 .aw-load-more-content .aw-alert-box{position: absolute;right: 10px;top:0;}
 /* 分类小标签 */
@@ -106,7 +108,7 @@ a.aw-load-more-content{display: block;}
 .topic-tag .text:hover, .topic-tag .text:active, .topic-tag .close:hover, .topic-tag .close:active{background-color: #339DFF;}
 .topic-tag .close{width: 20px;height: 20px;background-color: #66b7ff;text-align: center;line-height:20px;color: #fff;font-size: 10px;opacity: 1;filter:alpha(opacity=100);border-radius: 0 4px 4px 0;}
 /* tabs切换样式 */
-.aw-nav-tabs{position:relative;z-index:1;min-height:63px;min-height:32px\0;margin:0;padding: 30px 20px 0;border-color: #e6e6e6;}
+.aw-nav-tabs{position:relative;z-index:1;min-height:63px;min-height:32px\9;margin:0;padding: 30px 20px 0;border-color: #e6e6e6;}
 .aw-nav-tabs.active > li{float: right;}
 .aw-nav-tabs > li{margin:0 4px 0 0;font-size: 14px;}
 .aw-nav-tabs > li > a{line-height:30px;padding:0 13px;background-color: #fff;border: none;cursor: pointer;}
@@ -294,7 +296,6 @@ a.aw-load-more-content{display: block;}
 .aw-feed-list .operate a + a{border-left: 1px solid #EBEBEB;}
 .aw-feed-list .operate a.agree{border-radius: 4px 0 0 4px;}
 .aw-feed-list .operate a.disagree{border-radius: 0 4px 4px 0;}
-.aw-feed-list .operate a.visiter{border-radius: 4px;}
 .aw-feed-list .operate a:hover, .aw-feed-list .operate a.active{background-color: #499ef3;color: #fff;}
 .aw-feed-list .operate a:hover i, .aw-feed-list .operate a.active i{color: #fff;}
 .aw-feed-list .operate a.disabled{background-color: #fff;border:1px solid #f5f5f5;border-radius: 4px;}
