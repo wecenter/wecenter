@@ -328,8 +328,7 @@ a.aw-load-more-content{display: block;}
 .aw-side-bar .aw-mod p{margin-bottom:0;}
 .aw-side-bar .aw-mod p.signature{max-height: 34px;overflow: hidden;color: #666;}
 .aw-side-bar .aw-mod ul li{padding:3px 0;}
-.aw-mod.user-detail ul li{padding:3px 0;}
-.aw-mod.user-detail ul li .aw-topic-name{display:inline-block;margin:0 5px 5px 0;}
+.aw-mod.user-detail .aw-topic-bar{margin:0;}
 .aw-mod.invite-join .mod-body{margin: 10px 0;}
 .aw-mod.new-announce{margin-bottom:20px;padding:10px;background: #FCFDDB;border: 1px solid #F9F2A7 !important;}
 .aw-mod.new-announce .mod-head h3{margin:0;}
