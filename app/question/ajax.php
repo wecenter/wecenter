@@ -609,12 +609,24 @@ class ajax extends AWS_CONTROLLER
 			$answer_info = $this->model('answer')->get_answer_by_id($answer_id);
 			
 			$answer_info['attachs'] = $this->model('publish')->get_attach('answer', $answer_id, 'min');
+			$answer_info['user_info'] = $this->user_info;
 			
 			TPL::assign('answer_info', $answer_info);
 
-			H::ajax_json_output(AWS_APP::RSM(array(
-				'ajax_html' => TPL::output('question/ajax/answer', false)
-			), 1, null));
+			if (is_mobile())
+			{
+				H::ajax_json_output(AWS_APP::RSM(array(
+					'ajax_html' => TPL::output('m/ajax/question_answer', false)
+				), 1, null));
+			}
+			else
+			{
+				H::ajax_json_output(AWS_APP::RSM(array(
+					'ajax_html' => TPL::output('question/ajax/answer', false)
+				), 1, null));
+			}
+
+			
 		}
 	}
 

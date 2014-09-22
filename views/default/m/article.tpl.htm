@@ -126,7 +126,7 @@
 		<a class="aw-load-more" id="load_index_actions" href="account/login/"><?php _e('登录进行回复'); ?></a>
 		<?php } else { ?>
 		<!-- 回复box -->
-		<div class="aw-replay-box">
+		<div class="aw-replay-box article">
 			<form action="article/ajax/save_comment/" onsubmit="return false;" method="post" id="answer_form">
 				<input type="hidden" name="post_hash" value="<?php echo new_post_hash(); ?>" />
 			    <input type="hidden" name="article_id" value="<?php echo $this->article_info['id']; ?>" />
@@ -137,7 +137,7 @@
 					<textarea class="form-control autosize" rows="5" name="message"></textarea>
 				</div>
 				<div class="mod-footer clearfix">
-					<a class="btn btn-success btn-normal pull-right" onclick="AWS.ajax_post($('#answer_form'));"><?php _e('回复'); ?></a>
+					<a class="btn btn-success btn-normal pull-right" onclick="AWS.ajax_post($('#answer_form'), AWS.ajax_processer, 'reply');"><?php _e('回复'); ?></a>
 					<?php if ($this->human_valid) { ?>
 					<div class="captcha pull-right clearfix">
 						<input type="text" class="form-control" name="seccode_verify" placeholder="<?php _e('验证码'); ?>" />

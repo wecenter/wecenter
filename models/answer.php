@@ -83,11 +83,7 @@ class answer_class extends AWS_MODEL
 			{
 				foreach($answer_list as $key => $val)
 				{
-					$answer_list[$key]['user_name'] = $users_info[$val['uid']]['user_name'];
-					$answer_list[$key]['verified'] = $users_info[$val['uid']]['verified'];
-					$answer_list[$key]['group_id'] = $users_info[$val['uid']]['group_id'];
-					$answer_list[$key]['url_token'] = $users_info[$val['uid']]['url_token'];
-					$answer_list[$key]['signature'] = $users_info[$val['uid']]['signature'];
+					$answer_list[$key]['user_info'] = $users_info[$val['uid']];
 				}
 			}
 		}

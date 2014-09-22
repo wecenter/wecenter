@@ -50,7 +50,7 @@
 									        	<?php } ?>
 
 												<?php if ($val['answer_info']['attachs']) { ?>
-													<div class="aw-comment-upload-img-list width-auto">
+													<div class="aw-upload-img-list width-auto">
 														<?php foreach($val['answer_info']['attachs'] AS $t_key => $v) { ?>
 														<?php if ($v['is_image']): ?>
 															<a href="javascript:;" onclick="content_switcher($('#detail_<?php echo md5($val['item_id'] . $val['item_type']); ?>'), $('#detail_more_<?php echo md5($val['item_id'] . $val['item_type']); ?>'));">
@@ -60,7 +60,7 @@
 													  <?php } ?>
 													</div>
 
-													<div class="aw-comment-upload-file-list">
+													<div class="aw-upload-file-list">
 														<?php foreach($val['answer_info']['attachs'] AS $t_key => $v) { ?>
 														<?php if (!$v['is_image']): ?>
 															<li><a href="<?php echo download_url($v['file_name'], $v['attachment']); ?>"><em class="aw-icon i-upload-file"></em><?php echo $v['file_name']; ?></a></li>
@@ -74,7 +74,7 @@
 									      		<?php echo nl2br(strip_ubb($val['answer_info']['answer_content'])); ?>
 
 												<?php if ($val['answer_info']['attachs']) { ?>
-													<div class="aw-comment-upload-img-list active">
+													<div class="aw-upload-img-list active">
 														<?php foreach($val['answer_info']['attachs'] AS $k => $v) { ?>
 														<?php if ($v['is_image']): ?>
 															<a href="<?php echo $v['attachment']; ?>" target="lightbox" data-fancybox-group="thumb" rel="lightbox"><img class="img-polaroid" src="<?php echo $v['attachment']; ?>" alt="" /></a>
@@ -82,7 +82,7 @@
 													  <?php } ?>
 													</div>
 
-													<div class="aw-comment-upload-file-list">
+													<div class="aw-upload-file-list">
 														<?php foreach($val['answer_info']['attachs'] AS $k => $v) { ?>
 														<?php if (!$v['is_image']): ?>
 															<li><a href="<?php echo download_url($v['file_name'], $v['attachment']); ?>"><em class="aw-icon i-upload-file"></em><?php echo $v['file_name']; ?></a></li>

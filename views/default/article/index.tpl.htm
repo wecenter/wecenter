@@ -52,7 +52,7 @@
 								<?php echo $this->article_info['message']; ?>
 
 								<?php if ($this->article_info['attachs']) {  ?>
-								<div class="aw-comment-upload-img-list">
+								<div class="aw-upload-img-list">
 								<?php foreach ($this->article_info['attachs'] AS $attach) { ?>
 								<?php if ($attach['is_image'] AND !in_array($attach['id'], $this->article_info['attachs_ids'])) { ?>
 									<a href="<?php echo $attach['attachment']; ?>" target="_blank" data-fancybox-group="thumb" rel="lightbox"><img src="<?php echo $attach['attachment']; ?>" class="img-polaroid" alt="<?php echo $attach['file_name']; ?>" /></a>
@@ -62,7 +62,7 @@
 								<?php } ?>
 
 								<?php if ($this->article_info['attachs']) {  ?>
-								<ul class="aw-comment-upload-file-list">
+								<ul class="aw-upload-file-list">
 									<?php foreach ($this->article_info['attachs'] AS $attach) { ?>
 									<?php if (!$attach['is_image'] AND !in_array($attach['id'], $this->article_info['attachs_ids'])) { ?>
 										<li><a href="<?php echo download_url($attach['file_name'], $attach['attachment']); ?>"><i class="icon icon-attach"></i> <?php echo $attach['file_name']; ?></a></li>
@@ -184,7 +184,7 @@
 							<textarea rows="3" name="message" id="comment_editor" class="form-control autosize" placeholder="写下你的评论..."  /></textarea>
 						</div>
 						<div class="mod-footer clearfix">
-							<a href="javascript:;" onclick="AWS.ajax_post($('#answer_form'));" class="btn btn-normal btn-success pull-right btn-submit"><?php _e('回复'); ?></a>
+							<a href="javascript:;" onclick="AWS.ajax_post($('#answer_form'), AWS.ajax_processer, 'reply');" class="btn btn-normal btn-success pull-right btn-submit"><?php _e('回复'); ?></a>
 							<?php if ($this->human_valid) { ?>
 							<em class="auth-img pull-right"><img src="" onclick="this.src = G_BASE_URL + '/account/captcha/' + Math.floor(Math.random() * 10000);" id="captcha" /></em>
 							<input class="pull-right form-control" type="text" name="seccode_verify" placeholder="<?php _e('验证码'); ?>" />
@@ -218,13 +218,20 @@
 							</dl>
 						</div>
 						<div class="mod-footer">
-							<ul class="text-color-999">
-								<?php if ($this->reputation_topics) { ?>
-								<li>
-									<?php _e('擅长话题'); ?>: <?php foreach ($this->reputation_topics AS $key => $val) { ?><a class="aw-topic-name" href="topic/<?php echo $val['url_token']; ?>" data-id="<?php echo $val['topic_id']; ?>"><span><?php echo $val['topic_title']; ?></span></a> <?php } ?>
-								</li>
-								<?php } ?>
-							</ul>
+							<?php if ($this->reputation_topics) { ?>
+							<div class="aw-topic-bar">
+								<div class="topic-tag clearfix">
+									<span class="pull-left text-color-999">
+										<?php _e('擅长话题'); ?> : &nbsp; 
+									</span>
+									<?php foreach ($this->reputation_topics AS $key => $val) { ?>
+									<span class="topic-tag" data-id="<?php echo $val['topic_id']; ?>">
+										<a href="topic/<?php echo $val['url_token']; ?>" class="text"><?php echo $val['topic_title']; ?></a>
+									</span>
+									<?php } ?>
+								</div>
+							</div>
+							<?php } ?>
 						</div>
 					</div>
 					<?php } ?>

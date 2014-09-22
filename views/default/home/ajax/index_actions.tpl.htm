@@ -58,7 +58,7 @@
         	<?php } ?>
         	
 			<?php if ($val['answer_info']['attachs']) { ?>
-				<div class="aw-comment-upload-img-list width-auto">
+				<div class="aw-upload-img-list width-auto">
 					<?php foreach($val['answer_info']['attachs'] AS $t_key => $t_val) { ?>
 					<?php if ($t_val['is_image']): ?>
 						<a href="javascript:;" onclick="AWS.content_switcher($('#detail_<?php echo $val['history_id']; ?>'), $('#detail_more_<?php echo $val['history_id']; ?>'));">
@@ -68,7 +68,7 @@
 				  <?php } ?>
 				</div>
 				
-				<div class="aw-comment-upload-file-list">
+				<div class="aw-upload-file-list">
 					<?php foreach($val['answer_info']['attachs'] AS $t_key => $t_val) { ?>
 					<?php if (!$t_val['is_image']): ?>
 						<li><a href="<?php echo download_url($t_val['file_name'], $t_val['attachment']); ?>"><em class="aw-icon i-upload-file"></em><?php echo $t_val['file_name']; ?></a></li>
@@ -81,7 +81,7 @@
       		<?php echo nl2br(strip_ubb($val['answer_info']['answer_content'])); ?>
         	
 			<?php if ($val['answer_info']['attachs']) { ?>
-				<div class="aw-comment-upload-img-list active">
+				<div class="aw-upload-img-list active">
 					<?php foreach($val['answer_info']['attachs'] AS $t_key => $t_val) { ?>
 					<?php if ($t_val['is_image']): ?>								
 						<a href="<?php echo $t_val['attachment']; ?>" target="lightbox" data-fancybox-group="thumb" rel="lightbox"><img class="img-thumbnail" src="<?php echo $t_val['attachment']; ?>" alt="" /></a>
@@ -89,7 +89,7 @@
 				  <?php } ?>
 				</div>
 				
-				<div class="aw-comment-upload-file-list">
+				<div class="aw-upload-file-list">
 					<?php foreach($val['answer_info']['attachs'] AS $t_key => $t_val) { ?>
 					<?php if (!$t_val['is_image']): ?>
 						<li><a href="<?php echo download_url($t_val['file_name'], $t_val['attachment']); ?>"><em class="aw-icon i-upload-file"></em><?php echo $t_val['file_name']; ?></a></li>
