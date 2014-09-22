@@ -275,15 +275,15 @@ Echarts.prototype = {
                 break;
 
             case 'new_answer_vote':
-                arr.push('新增答案投票');
+                arr.push('新增回复投票');
                 break;
 
             case 'new_answer_thanks':
-                arr.push('新增答案感谢');
+                arr.push('新增回复感谢');
                 break;
 
             case 'new_favorite_item':
-                arr.push('新增收藏条目');
+                arr.push('新增收藏');
                 break;
 
             case 'new_question_thanks':

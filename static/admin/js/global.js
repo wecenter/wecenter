@@ -6,36 +6,38 @@ $(function () {
     $('#myTab a').click(function (e) 
     {
         e.preventDefault();
+
         $(this).tab('show');
     });
-
     
     // bs自带方法-气泡提示
     $('.aw-content-wrap .md-tip').tooltip('hide');
 
+    // 顶部按钮收缩左侧菜单
     $('.aw-header .mod-head-btn').click(function () 
     {
+        if ($('#aw-side').is(':visible'))
+        {
+            $('#aw-side').hide();
 
-        if ($('#aw-side').is(':hidden')) {
-            $('#aw-side').show(0, function () {
-                $('.aw-content-wrap, .aw-footer').css("marginLeft", "235px");
-                $('.mod-echat-info').css("marginLeft", "0");
-            });
-        } else {
-            $('#aw-side').hide(0, function () {
-                $('.aw-content-wrap, .aw-footer').css("marginLeft", "0");
-            });
+            $('.aw-content-wrap, .aw-footer').addClass('active');
+        }
+        else
+        {
+            $('#aw-side').show();
+
+            $('.aw-content-wrap, .aw-footer').removeClass('active');
         }
     });
 
-
+    // 左侧导航模拟滚动条
     $("#aw-side").perfectScrollbar({
         wheelSpeed: 20,
         wheelPropagation: true,
         minScrollbarLength: 20
     })
 
-    /*日期选择*/
+    // 日期选择
     if (typeof (DateInput) != 'undefined') 
     {
         $('input.mod-data').date_input();
@@ -50,26 +52,35 @@ $(function () {
 
 
     // 左侧导航菜单的折叠与展开
-    $('.mod-bar>li>a').click(function () 
+    $('.mod-bar > li > a').click(function () 
     {
-        if ($(this).next().is(':visible')) {
-            $(this).next().slideUp('normal');
+        if ($(this).next().is(':visible'))
+        {
+            $(this).next().slideUp('');
+
             $(this).removeClass('collapsed active');
 
-        } else {
+        } else
+        {
             $('#aw-side').find('li').children('ul').hide();
+
             $(this).addClass('active collapsed').parent().siblings().find('a').removeClass('active collapsed');
-            $(this).next().slideDown('normal');
+
+            $(this).next().slideDown('');
         }
     });
 
     // input 菜单折叠，展开、拖动
     $('.aw-nav-menu li .mod-set-head').click(function () 
     {
-        if ($(this).parents('li').find('.mod-set-body').is(':visible')) {
+        if ($(this).parents('li').find('.mod-set-body').is(':visible'))
+        {
             $(this).parents('li').find('.mod-set-body').slideUp();
-        } else {
+        }
+        else
+        {
             $(this).parents('li').find('.mod-set-body').slideDown();
+
             $(this).parents('li').siblings('li').find('.mod-set-body').slideUp();
         }
     });
@@ -89,14 +100,15 @@ $(function () {
     // input 单选框全选or 全取消
     $('.aw-content-wrap .table').find(".check-all").on('ifChecked', function (e) 
     {
-        e.preventDefault()
-        $(this).parents('table').find(".icheckbox_square-blue").iCheck('check');
+        e.preventDefault();
 
+        $(this).parents('table').find(".icheckbox_square-blue").iCheck('check');
     });
 
     $('.aw-content-wrap .table').find(".check-all").on('ifUnchecked', function (e) 
     {
-        e.preventDefault()
+        e.preventDefault();
+
         $(this).parents('table').find(".icheckbox_square-blue").iCheck('uncheck');
     });
 
@@ -126,116 +138,79 @@ $(function () {
         weiboPost($(this));
     });
 
-    /**
-     * 所有textarea高度自适应内容
-     * jQuery oninput onpropertychange事件支持不准确。
-     */
 
-    var txt= getClass("textarea", "textarea"),
-        leng = txt.length;
-
-    for (var i = leng - 1; i >= 0; i--)
-    {
-        
-        if(txt[i].value.length <= 0){
-
-            txt[i].style.height = 52+"px";
-        }else{
-        
-            txt[i].style.height = txt[i].scrollHeight+"px";
-        }
-         
-
-        if(typeof txt[i].oninput=="undefined")
-        {
-           
-           txt[i].onpropertychange=function()
-           {
-             if(event.propertyName=="value"){ 
-               this.style.height="20px";
-               this.style.height=this.scrollHeight+"px";
-             }
-           }
-        }else{
-           
-           txt[i].oninput=function()
-           {
-             this.style.height="auto";
-             this.style.height=this.scrollHeight+"px";
-           }
-        }
-    };
-
-
-    /*概述页面，新增话题数，点击排序*/
-    
+    // 概述页面，新增话题数，点击排序
     $('#sorttable thead').delegate("td","click",function()
     {   
         if($(this).index()==0)
         {
             return false;
-        }else{
+        }
+        else
+        {
             $(this).find('i').addClass('icon-down').show();
+
             $(this).siblings('td').find('i').removeClass('icon-down').hide();
             
             if($(this).index()==1)
             {
-                subjectData('week')
+                subjectData('week');
             }
             else if ($(this).index()==2)
             {
-                subjectData('month')
+                subjectData('month');
             }
             else if ($(this).index()==3)
             {
-                subjectData('all')
+                subjectData('all');
             }       
         }
-        function subjectData(type){
-            $.ajax({
-               url: G_BASE_URL + '/admin/ajax/topic_statistic/tag-'+ type +'__limit-10',
-               dataType:"json",
-               type: "GET",
-               beforeSend:function(){
-
-                    AWS.loading('show');
-                    var tempTop = $('#sorttable').offset().top + $('#sorttable').height()/2 - 50;
-                    var tempLeft = $('#sorttable').offset().left + $('#sorttable').width()/2;
-                    $('#aw-loading').css({top:tempTop+'px',left:tempLeft+'px',position:'absolute'})
-               }, 
-               success:function(data)
-               {	
-                    var tempLyout = '' ;
-                    
-                    for (var i = data.length - 1; i >= 0; i--) {
-                        tempLyout += '<tr><td></td><td></td><td></td><td></td></tr>';
-                    };
-                    $('#sorttbody').html(tempLyout);
-                    
-                    AWS.loading('hide')
-                    if(data == '')
-                    {   var tempWidth = $('.sorttable-mask').parents('.mod').width();
-                        var tempHeight = $('.sorttable-mask').parents('.mod').height()-100 > 50 ? $('.sorttable-mask').parents('.mod').height()-100 : 50;
-                        $('.sorttable-mask').css({width:tempWidth,height:tempHeight,lineHeight:tempHeight+'px'})
-                    	$('.sorttable-mask').show();
-                    
-                    }else{
-                    	$('.sorttable-mask').hide();
-	                    $.each(data,function(key,value){
-	                        var tempObj = $('#sorttable tbody tr:eq('+ key +')');                    
-	                        tempObj.find('td:eq(3)').text(value.all)
-	                        tempObj.find('td:eq(2)').text(value.month)
-	                        tempObj.find('td:eq(1)').text(value.week)
-	                        tempObj.find('td:eq(0)').text(value.title)
-	                    });
-                	}
-               }  
-            });
-        }
     });
+
     $('#sorttable thead td:eq(2)').click();
 
 });
+
+function subjectData(type)
+{
+    AWS.loading('show');
+
+    var tempTop = $('#sorttable').offset().top + $('#sorttable').height()/2 - 50;
+
+    var tempLeft = $('#sorttable').offset().left + $('#sorttable').width()/2;
+
+    $('#aw-loading').css({top:tempTop+'px',left:tempLeft+'px',position:'absolute'});
+
+    $.get(G_BASE_URL + '/admin/ajax/topic_statistic/tag-'+ type +'__limit-10', function (result)
+    {
+        var tempLyout = '' ;
+
+        for (var i = result.length - 1; i >= 0; i--) {
+            tempLyout += '<tr><td></td><td></td><td></td><td></td></tr>';
+        };
+        $('#sorttbody').html(tempLyout);
+        
+        AWS.loading('hide');
+
+        if(result == '')
+        {   
+            $('.sorttable-mask').show();
+        }
+        else
+        {
+            $('.sorttable-mask').hide();
+
+            $.each(result, function(key,value)
+            {
+                var tempObj = $('#sorttable tbody tr:eq('+ key +')');                    
+                tempObj.find('td:eq(3)').text(value.all);
+                tempObj.find('td:eq(2)').text(value.month);
+                tempObj.find('td:eq(1)').text(value.week);
+                tempObj.find('td:eq(0)').text(value.title);
+            });
+        }
+    }, 'json');
+}
     
 function weiboPost(obj)
 {
@@ -244,12 +219,13 @@ function weiboPost(obj)
         if (result.errno == -1)
         {
             AWS.alert(result.err);
-             $('.mod-weibo-reply li:last').detach()
-            
+
+             $('.mod-weibo-reply li:last').detach();
         }
         else if (result.errno == 1)
         {   
-            if(result.rsm != null){
+            if(result.rsm != null)
+            {
                 if (result.rsm.staus == 'bound')
                 {   
                     $('.mod-weibo-reply li:last .btn-primary').text('更新 Access Token');
@@ -263,30 +239,4 @@ function weiboPost(obj)
             $(".alert-box").modal('hide');
         }
     }, 'json');
-};
-
-function getClass(tagName, classStr) {
-
-    if (document.getElementsByClassName) {
-        return document.getElementsByClassName(classStr)
-    } else {
-        var nodes = document.getElementsByTagName(tagName),
-            ret = [];
-
-        for (var i = 0; i < nodes.length; i++) {
-            if (hasClass(nodes[i], classStr)) {
-                ret.push(nodes[i])
-            }
-        }
-        return ret;
-    }
-    function hasClass(tagStr, classStr) {
-        var arr = tagStr.className.split(/\s+/);
-        for (var i = 0; i < arr.length; i++) {
-            if (arr[i] == classStr) {
-                return true;
-            }
-        }
-        return false;
-    }
 };
