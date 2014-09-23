@@ -46,9 +46,16 @@
 						<dl class="dl-horizontal">
 							<dt><?php _e('被合并的话题'); ?>:</dt>
 							<dd>
-								<?php foreach ($this->merged_topics_info AS $key => $val) { ?>
-								<a class="aw-topic-name" href="javascript:;"><span><?php echo $val['topic_title']; ?><button class="close aw-close" onclick="AWS.ajax_request(G_BASE_URL + '/topic/ajax/remove_merge_topic/', 'source_id=<?php echo $val['topic_id']; ?>&target_id=<?php echo $this->topic_info['topic_id']; ?>');">×</button></span></a>
-								<?php } ?>
+								<div class="aw-topic-bar active">
+									<div class="topic-bar clearfix">
+										<?php foreach ($this->merged_topics_info AS $key => $val) { ?>
+										<span class="topic-tag">
+											<a href="" class="text"><?php echo $val['topic_title']; ?></a>
+											<a class="close" onclick="AWS.ajax_request(G_BASE_URL + '/topic/ajax/remove_merge_topic/', 'source_id=<?php echo $val['topic_id']; ?>&target_id=<?php echo $this->topic_info['topic_id']; ?>');"><i class="icon icon-delete"></i></a>
+										</span>
+										<?php } ?>
+									</div>
+								</div>
 							</dd>
 						</dl>
 						<?php } ?>
