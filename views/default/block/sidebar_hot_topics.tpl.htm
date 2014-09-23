@@ -12,8 +12,8 @@
 				</dt>
 				<dd class="pull-left">
 					<p class="clearfix">
-						<span class="topic-tag" data-id="<?php echo $val['topic_id']; ?>">
-							<a href="topic/<?php echo $val['topic_title'];?>" class="text"><?php echo $val['topic_title'];?></a>
+						<span class="topic-tag">
+							<a href="topic/<?php echo $val['topic_title'];?>" class="text" data-id="<?php echo $val['topic_id']; ?>"><?php echo $val['topic_title'];?></a>
 						</span>
 					</p>
 					<p><?php _e('%s 个问题', '<b>' . $val['discuss_count'] . '</b>'); ?>, <?php _e('%s 人关注', '<b>' . $val['focus_count'] . '</b>'); ?></p>
