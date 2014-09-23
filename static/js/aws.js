@@ -184,6 +184,7 @@ var AWS =
 			{
 				case 'default':
 				case 'comments_form':
+				case 'reply':
 					AWS.alert(result.err);
 					$('.aw-comment-box-btn .btn-success').removeClass('disabled');
 				break;
@@ -415,39 +416,6 @@ var AWS =
 		        var template = Hogan.compile(AW_TEMPLATE.questionRedirect).render(
 		        {
 		            'data_id': data
-		        });
-		    break;
-
-		    case 'imageBox':
-		        var template = Hogan.compile(AW_TEMPLATE.imagevideoBox).render(
-		        {
-		            'title': _t('插入图片'),
-		            'url': 'imgsUrl',
-		            'tips': 'imgsAlt',
-		            'type': "'img'",
-		            'upload' : ''
-		        });
-		    break;
-
-		    case 'videoBox':
-		        var template = Hogan.compile(AW_TEMPLATE.imagevideoBox).render(
-		        {
-		            'title': _t('插入视频'),
-		            'url': 'videoUrl',
-		            'tips': 'videoTitle',
-		            'type_tips' : _t('我们目前支持: 优酷、酷六、土豆、56、新浪播客、乐视、Youtube 与 SWF 文件'),
-		            'type': "'video'",
-		            'upload' : 'hide'
-		        });
-		    break;
-
-		    case 'linkbox':
-		    	var template = Hogan.compile(AW_TEMPLATE.linkBox).render(
-		        {
-		            'title': _t('插入链接'),
-		            'text' : 'linkText',
-		            'url'  : 'linkUrl',
-		            'type' : "'link'"
 		        });
 		    break;
 
@@ -2081,7 +2049,7 @@ AWS.Editor =
 			case 'img' :
 				var title = 'imgsAlt',
 					url = 'imgsUrl',
-					textFeildValue = '![' + ($('#addTxtForms :input[name="' + title + '"]').val()) + '](' + $('#addTxtForms :input[name="' + url + '"]').val() + ')';
+					textFeildValue = '![请输入图片名字](' + $('#addTxtForms :input[name="' + url + '"]').val() + ')';
 			break;
 
 			case 'video' :
@@ -2100,19 +2068,12 @@ AWS.Editor =
     	{
     		return false;
     	}
-    	if ($('.aw-mod-replay-box .advanced_editor').length)
-        {
-        	var selector = $('.aw-mod-replay-box .advanced_editor');
-        }
-        else if ($('.aw-mod-publish .advanced_editor').length)
-        {
-        	var selector = $('.aw-mod-publish .advanced_editor');
-        }
-        else if ($('.aw-mod-topic-edit-box .advanced_editor').length)
-        {
-        	var selector = $('.aw-mod-topic-edit-box .advanced_editor');
-        }
-        selector.insertAtCaret(textFeildValue);
+    	
+        $('.wmd-input').insertAtCaret(textFeildValue);
+
+        chunk.selection = (" " + chunk.selection).replace(/([^\\](?:\\\\)*)(?=[[\]])/g, "$1\\").substr(1);
+        
+        console.log(chunk);
 	},
 
     // 向编辑器插入文本
