@@ -55,8 +55,8 @@
                                 <ul>
                                     <?php foreach ($this->reputation_topics AS $key => $val) { ?>
                                     <li>
-                                        <span class="topic-tag" data-id="<?php echo $val['topic_id']; ?>">
-                                            <a href="topic/<?php echo $val['url_token']; ?>" class="text"><?php echo $val['topic_title']; ?></a>
+                                        <span class="topic-tag">
+                                            <a href="topic/<?php echo $val['url_token']; ?>" class="text" data-id="<?php echo $val['topic_id']; ?>"><?php echo $val['topic_title']; ?></a>
                                         </span>
                                         <span>
                                             <i class="icon icon-agree"></i> <?php echo $val['agree_count']; ?>&nbsp;&nbsp;
@@ -366,7 +366,9 @@
                                         <dd class="aw-user-center-details-good-topic">
                                             <?php foreach ($this->reputation_topics AS $key => $val) { ?>
                                             <div>
-                                                <a href="topic/<?php echo $val['url_token']; ?>" data-id="<?php echo $val['topic_id']; ?>" class="aw-topic-name pull-left"><span><?php echo $val['topic_title']; ?></span></a>
+                                                <span class="topic-tag">
+                                                    <a href="topic/<?php echo $val['url_token']; ?>" class="text" data-id="<?php echo $val['topic_id']; ?>"><?php echo $val['topic_title']; ?></a>
+                                                </span>
                                                 <span>
                                                     <i class="icon icon-agree"></i> <?php echo $val['agree_count']; ?>&nbsp;&nbsp;
                                                     <i class="icon icon-thank"></i> <?php echo $val['thanks_count']; ?>
@@ -455,8 +457,8 @@
                             <div class="aw-topic-bar">
                                 <div class="tag-bar clearfix">
                                     <?php foreach ($this->focus_topics AS $key => $val) { ?>
-                                        <span class="topic-tag" data-id="<?php echo $val['topic_id']; ?>">
-                                            <a href="topic/<?php echo $val['url_token']; ?>" class="text"><?php echo $val['topic_title']; ?></a>
+                                        <span class="topic-tag">
+                                            <a href="topic/<?php echo $val['url_token']; ?>" class="text" data-id="<?php echo $val['topic_id']; ?>"><?php echo $val['topic_title']; ?></a>
                                         </span>
                                     <?php } ?>
                                 </div>

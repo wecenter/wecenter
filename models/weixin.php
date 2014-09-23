@@ -41,7 +41,7 @@ class weixin_class extends AWS_MODEL
 
     public function replace_post($subject)
     {
-        if (empty($subject) OR !is_array($subject))
+        if (!$subject OR !is_array($subject))
         {
             return false;
         }
@@ -168,7 +168,7 @@ class weixin_class extends AWS_MODEL
     {
         $account_id = intval($account_id);
 
-        if (empty($account_info))
+        if (!$account_info)
         {
             return false;
         }
@@ -179,7 +179,7 @@ class weixin_class extends AWS_MODEL
         }
         else
         {
-            if (!empty($account_info['weixin_mp_menu']))
+            if ($account_info['weixin_mp_menu'])
             {
                 $account_info['weixin_mp_menu'] = serialize($account_info['weixin_mp_menu']);
             }
@@ -1357,7 +1357,7 @@ class weixin_class extends AWS_MODEL
 
     public function update_client_menu($account_info)
     {
-        if (empty($account_info['weixin_mp_menu']))
+        if (!$account_info['weixin_mp_menu'])
         {
             return false;
         }
@@ -1415,7 +1415,7 @@ class weixin_class extends AWS_MODEL
                         $this->replace_post(array('button' => $mp_menu_no_key))
                     );
 
-        if (empty($result))
+        if (!$result)
         {
             return AWS_APP::lang()->_t('远程服务器忙,请稍后再试');
         }
@@ -1531,7 +1531,7 @@ class weixin_class extends AWS_MODEL
                 return false;
             }
 
-            if (empty($msgs_details[$msg_id]['main_msg']))
+            if (!$msgs_details[$msg_id]['main_msg'])
             {
                 unset($msgs_details[$msg_id]['main_msg']);
             }
@@ -1540,7 +1540,7 @@ class weixin_class extends AWS_MODEL
                 $msgs_details[$msg_id]['main_msg'] = unserialize($msgs_details[$msg_id]['main_msg']);
             }
 
-            if (empty($msgs_details[$msg_id]['articles_info']))
+            if (!$msgs_details[$msg_id]['articles_info'])
             {
                 unset($msgs_details[$msg_id]['articles_info']);
             }
@@ -1549,7 +1549,7 @@ class weixin_class extends AWS_MODEL
                 $msgs_details[$msg_id]['articles_info'] = unserialize($msgs_details[$msg_id]['articles_info']);
             }
 
-            if (empty($msgs_details[$msg_id]['questions_info']))
+            if (!$msgs_details[$msg_id]['questions_info'])
             {
                 unset($msgs_details[$msg_id]['questions_info']);
             }
@@ -1575,7 +1575,7 @@ class weixin_class extends AWS_MODEL
                             'GET'
                         );
 
-            if (empty($result))
+            if (!$result)
             {
                 return AWS_APP::lang()->_t('远程服务器忙');
             }
@@ -1600,7 +1600,7 @@ class weixin_class extends AWS_MODEL
     {
         $result = $this->model('openid_weixin')->upload_file($main_msg['img'], 'image');
 
-        if (empty($result))
+        if (!$result)
         {
             return AWS_APP::lang()->_t('远程服务器忙');
         }
@@ -1629,7 +1629,7 @@ class weixin_class extends AWS_MODEL
     {
         $articles_info = $this->model('article')->get_article_info_by_ids($article_ids);
 
-        if (empty($articles_info))
+        if (!$articles_info)
         {
             return false;
         }
@@ -1654,7 +1654,7 @@ class weixin_class extends AWS_MODEL
 
             $result = $this->model('openid_weixin')->upload_file($img, 'image');
 
-            if (empty($result))
+            if (!$result)
             {
                 return AWS_APP::lang()->_t('远程服务器忙');
             }
@@ -1684,7 +1684,7 @@ class weixin_class extends AWS_MODEL
     {
         $questions_info = $this->model('question')->get_question_info_by_ids($question_ids);
 
-        if (empty($questions_info))
+        if (!$questions_info)
         {
             return false;
         }
@@ -1709,7 +1709,7 @@ class weixin_class extends AWS_MODEL
 
             $result = $this->model('openid_weixin')->upload_file($img, 'image');
 
-            if (empty($result))
+            if (!$result)
             {
                 return AWS_APP::lang()->_t('远程服务器忙');
             }
@@ -1737,7 +1737,7 @@ class weixin_class extends AWS_MODEL
 
     public function upload_mpnews()
     {
-        if (empty($this->mpnews))
+        if (!$this->mpnews)
         {
             return AWS_APP::lang()->_t('没有要群发的内容');
         }
@@ -1750,7 +1750,7 @@ class weixin_class extends AWS_MODEL
                         $this->replace_post($this->mpnews)
                     );
 
-        if (empty($result))
+        if (!$result)
         {
             return AWS_APP::lang()->_t('远程服务器忙');
         }
@@ -1783,7 +1783,7 @@ class weixin_class extends AWS_MODEL
                         $this->replace_post($msg)
                     );
 
-        if (empty($result))
+        if (!$result)
         {
             return AWS_APP::lang()->_t('远程服务器忙');
         }

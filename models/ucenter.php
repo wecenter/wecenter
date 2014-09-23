@@ -172,6 +172,57 @@ class ucenter_class extends AWS_MODEL
 							'username' => $username,
 							'email' => $email
 						));
+
+						if (uc_check_avatar($uc_uid, 'big'))
+						{
+							$avatar = @file_get_contents(UC_API . '/avatar.php?uid=' . $uc_uid . '&size=big');
+
+							if ($avatar)
+							{
+								AWS_APP::upload()->initialize(array(
+									'allowed_types' => 'jpg,jpeg,png,gif',
+									'upload_path' => get_setting('upload_dir') . '/avatar/' . $this->model('account')->get_avatar($new_user_id, '', 1),
+									'is_image' => TRUE,
+									'max_size' => get_setting('upload_avatar_size_limit'),
+									'file_name' => $this->model('account')->get_avatar($new_user_id, '', 2),
+									'encrypt_name' => FALSE
+								))->do_upload('aws_upload_file', $avatar);
+
+								if (!AWS_APP::upload()->get_error())
+								{
+									$upload_data = AWS_APP::upload()->data();
+
+									if ($upload_data)
+									{
+										if ($upload_data['is_image'] == 1)
+										{
+											foreach(AWS_APP::config()->get('image')->avatar_thumbnail AS $key => $val)
+											{
+												$thumb_file[$key] = $upload_data['file_path'] . $this->model('account')->get_avatar($new_user_id, $key, 2);
+
+												AWS_APP::image()->initialize(array(
+													'quality' => 90,
+													'source_image' => $upload_data['full_path'],
+													'new_image' => $thumb_file[$key],
+													'width' => $val['w'],
+													'height' => $val['h']
+												))->resize();
+											}
+										}
+
+										$update_data['avatar_file'] = $this->model('account')->get_avatar($new_user_id, null, 1) . basename($thumb_file['min']);
+
+										// 更新主表
+										$this->model('account')->update_users_fields($update_data, $new_user_id);
+
+										if (!$this->model('integral')->fetch_log($new_user_id, 'UPLOAD_AVATAR'))
+										{
+											$this->model('integral')->process($new_user_id, 'UPLOAD_AVATAR', round((get_setting('integral_system_config_profile') * 0.2)), '上传头像');
+										}
+									}
+								}
+							}
+						}
 					}
 
 					$user_info = $this->model('account')->get_user_info_by_uid($new_user_id, true, false);
