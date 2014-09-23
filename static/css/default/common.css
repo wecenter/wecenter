@@ -154,7 +154,7 @@ a.aw-load-more-content{display: block;}
 .pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus{background-color: #499ef3;color: #fff;border-color: #499ef3;}
 .pagination > li > a, .pagination > li > span{background-color: #fafafa;color: #999999;border-color: #e6e6e6;}
 /* 话题编辑box */
-.aw-edit-topic{float:left;display:inline-block;font-size: 12px;cursor: pointer;line-height: 18px !important;}
+.aw-edit-topic{float:left;display:inline-block;font-size: 12px;cursor: pointer;}
 .aw-edit-topic-box{display:none;position:relative;}
 .aw-edit-topic-box input, .aw-edit-topic-box > a{margin:0 10px 10px 0;}
 .aw-edit-topic-box input{width: 250px !important;}
