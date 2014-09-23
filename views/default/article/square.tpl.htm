@@ -20,8 +20,8 @@
 									<div class="aw-topic-bar">
 										<div class="tag-bar clearfix">
 											<?php foreach($this->article_topics[$val['id']] as $topic_key => $topic_val) { ?>
-											<span class="topic-tag" data-id="<?php echo $topic_val['topic_id']; ?>">
-												<a href="topic/<?php echo $topic_val['url_token']; ?>" class="text"><?php echo $topic_val['topic_title']; ?></a>
+											<span class="topic-tag">
+												<a href="topic/<?php echo $topic_val['url_token']; ?>" class="text" data-id="<?php echo $topic_val['topic_id']; ?>"><?php echo $topic_val['topic_title']; ?></a>
 											</span>
 											<?php } ?>
 										</div>

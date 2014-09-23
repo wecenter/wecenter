@@ -40,10 +40,16 @@
 
 								<?php if ($val['reputation_topics']) { ?>
 								<p>
-									<?php _e('擅长话题'); ?>:
-									<?php foreach($val['reputation_topics'] as $t_key => $t_val) { ?>
-										<a href="topic/<?php echo $t_val['url_token']; ?>" class="aw-topic-name" data-id="<?php echo $t_val['topic_id']; ?>"><span><?php echo $t_val['topic_title']; ?></span></a>
-									<?php } ?>
+									<span class="pull-left"><?php _e('擅长话题'); ?>:</span>
+									<div class="aw-topic-bar">
+										<div class="topic-bar clearfix">
+											<?php foreach($val['reputation_topics'] as $t_key => $t_val) { ?>
+												<span class="topic-tag">
+													<a href="topic/<?php echo $t_val['url_token']; ?>" class="text" data-id="<?php echo $t_val['topic_id']; ?>"><?php echo $t_val['topic_title']; ?></a>
+												</span>
+											<?php } ?>
+										</div>
+									</div>
 								</p>
 								<?php } else if ($val['experience']) { ?>
 								<p class="text-color-999">
