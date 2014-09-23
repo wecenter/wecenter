@@ -250,7 +250,7 @@ a.aw-load-more-content{display: block;}
 .category dl dt, .category dl dt img{width: 50px;height: 50px;}
 .category dl dd{width:130px;overflow: hidden;}
 .category dl dd a{display: block;max-height: 20px;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;}
-.category dl dd span{display:block;height:38px;font-size: 12px;word-wrap:break-word;}
+.category dl dd span{display:block;height:36px;font-size: 12px;word-wrap:break-word;}
 .category dl .aw-dropdown span, .category ul li .aw-dropdown span{position:absolute;top:-10px;left:0;display: inline-block;width: 100%;height:10px;}
 .category .list > li{float: left;position:relative;height: 30px;line-height: 30px;margin:0 10px 10px 0;font-size:14px;text-align: center;cursor: pointer;border-radius: 5px;}
 .category .list > li > a{display:block;padding:0 10px;color:#17344A;}
@@ -784,10 +784,11 @@ a.aw-load-more-content{display: block;}
 .alert-box .modal-footer{padding-top:0;line-height: 34px;border-top: none;}
 .alert-box .modal-footer button{margin:0 0 0 20px;}
 .modal-dialog textarea, .modal-dialog input{margin-bottom: 10px;}
-.aw-share-box .modal-dialog, .aw-question-redirect-box .modal-dialog, .aw-inbox .modal-dialog, .aw-topic-edit-note-box .modal-dialog{width: 470px;}
+.aw-imageVideo-box .modal-dialog, .aw-share-box .modal-dialog, .aw-question-redirect-box .modal-dialog, .aw-inbox .modal-dialog, .aw-topic-edit-note-box .modal-dialog{width: 470px;}
+.aw-imageVideo-box .modal-dialog p{width:95%;margin:0 auto;color: #999;}
 .aw-publish-box .modal-dialog{width: 540px;}
 /* 警告提示box */
-.aw-tips-box .modal-dialog, .aw-image-box .modal-dialog, .aw-link-box .modal-dialog, .aw-confirm-box .modal-dialog{width: 370px;}
+.aw-tips-box .modal-dialog, .aw-confirm-box .modal-dialog{width: 370px;}
 .aw-tips-box .modal-body{background: url(img/warmming.png) no-repeat right 5px;}
 .aw-tips-box .modal-body p{margin: 10px 0;}
 /* 微信绑定弹窗box */

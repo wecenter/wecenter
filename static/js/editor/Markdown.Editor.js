@@ -1116,6 +1116,11 @@
             dialog.className = "modal hide fade";
             dialog.style.display = "none";
 
+            if (title == '插入图片' || title == '插入视频')
+            {
+                dialog.className += ' aw-imageVideo-box';
+            }
+
             // The box
             var box = doc.createElement("div");
             box.className = "modal-dialog";
@@ -1162,7 +1167,7 @@
             input.value = defaultInputText;
             style = input.style;
             style.display = "block";
-            style.width = "80%";
+            style.width = "95%";
             style.marginLeft = style.marginRight = "auto";
             form.appendChild(input);
 
@@ -1175,13 +1180,28 @@
 
             // The cancel button
             var cancelButton = doc.createElement("button");
-            cancelButton.className = "btn btn-primary";
+            cancelButton.className = "btn btn-gray";
             // cancelButton.type = "button";
             cancelButton.onclick = function () { return close(true); };
             cancelButton.innerHTML = "取消";
 
             footer.appendChild(okButton);
             footer.appendChild(cancelButton);
+
+            // Modify by kk
+            if (title == '插入图片')
+            {
+                var tips = doc.createElement('p');
+                tips.innerHTML = '如需要插入本地图片, 请用编辑器下面上传附件功能上传后再插入!';
+                form.appendChild(tips);
+            }
+            else if (title == '插入视频')
+            {
+                var tips = doc.createElement('p');
+                tips.innerHTML = '我们目前支持: 优酷、酷六、土豆、56、新浪播客、乐视、Youtube 与 SWF 文件!';
+                form.appendChild(tips);
+            }
+
 
             util.addEvent(doc.body, "keydown", checkEscape);
 
