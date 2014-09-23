@@ -704,6 +704,8 @@ a.aw-load-more-content{display: block;}
 .aw-people-list .aw-item p{margin:0;}
 .aw-people-list .aw-item .meta{margin:3px 0;}
 .aw-people-list .aw-item .meta span{margin-right: 10px;}
+.aw-people-list .aw-item .aw-topic-bar{margin:5px 0 0;}
+.aw-people-list .aw-item .aw-topic-bar .topic-tag{margin:0 0 10px 10px;}
 
 /* 用户排名 */
 .aw-user-sort .aw-user-sort-title{height:50px;padding:0 20px;background-color: #f5f5f5;border-bottom: 1px solid #dcdcdc;}
@@ -725,9 +727,6 @@ a.aw-load-more-content{display: block;}
 .aw-user-sort .aw-user-sort-count.active{background:#FFF4DE;}
 .aw-user-sort .aw-user-img{position: absolute;left: 80px;top:30px;}
 .aw-user-sort .aw-topic-name{display: inline-block;margin-bottom: 10px;}
-
-.aw-user-center-details-list .aw-topic-name, .aw-user-center-details .aw-topic-name{min-width: 70px;margin-right: 5px;}
-.aw-user-center-details-list .aw-icon, .aw-user-center-details .aw-icon{margin-left: 5px;}
 
 /* 专题页面 */
 .aw-feature-title{width: 930px;margin-bottom: 20px;}
