@@ -390,15 +390,24 @@ FileUpload.prototype =
    	// 初始化文件列表
     setFileList : function (json)
     {
-    	var template = '<li>'+
-		    			'<div class="img" style="background:url(' + json.thumb + ')"></div>'+
-						'<div class="content">'+
+    	var template = '<li>';
+    	
+    	if (!json.is_image)
+		{
+			template += '<div class="img file"><i class="icon icon-file"></i></div>';
+		}
+		else
+		{
+			template += '<div class="img" style="background:url(' + json.thumb + ')"></div>';
+		}
+
+		template += '<div class="content">'+
 							'<p class="title">' + json.file_name + '</p>'+
 							'<p class="size"></p>'+
 							'<p class="meta"></p>'+
 						'</div>'+
-		    		'</li>', 
-		    insertBtn = this.createInsertBtn(json.attach_id),
+		    		'</li>';
+		var insertBtn = this.createInsertBtn(json.attach_id),
 		    deleteBtn = this.createDeleteBtn(json.delete_link),
 		    hiddenInput = this.createHiddenInput(json.attach_id);
 
