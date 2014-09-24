@@ -65,9 +65,15 @@ $(document).ready(function ()
     {
         if ($(this).find('img').length > 1)
         {
+            if ($.trim($(this).find('.markitup-box').text()) == '')
+            {
+                $(this).find('.aw-upload-img-list, .markitup-box img').css({
+                    'right': 'auto',
+                    'left': 0
+                });
+            }
             $(this).find('.img.pull-right').show();
             $(this).find('.aw-upload-img-list').next().detach();
-            $(this).find('img').next().detach().end().prev().detach();
             $(this).find('.markitup-box img').eq(0).css({'z-index':'999'});
         }
         else
