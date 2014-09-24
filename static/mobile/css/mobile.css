@@ -407,7 +407,7 @@ input[type="text"], input[type="password"], textarea{-webkit-appearance:none;}
 .aw-login-box .mod-body ul li i{color: #999999;font-size: 18px;}
 .aw-login-box .mod-body ul li.other-signup{margin:5px 0 0;border-bottom: 1px solid #cccccc;}
 .aw-login-box .mod-body ul li.other-signup a{margin:0 20px;color: #666;}
-.aw-login-box .mod-body ul li.other-signup i{vertical-align: -2px;}
+.aw-login-box .mod-body ul li.other-signup i{position: relative;top: 2px;}
 .aw-login-box .mod-body ul li.meta{margin:0;}
 .aw-login-box .mod-body ul li.meta, .aw-login-box .mod-body ul li.meta a{color: #999;}
 .aw-login-box .mod-body ul li.captcha{position: relative;padding-right:111px;}
