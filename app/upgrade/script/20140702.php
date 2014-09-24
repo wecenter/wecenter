@@ -5,8 +5,7 @@ if (!defined('IN_ANWSION'))
     die;
 }
 
-//$question_list = $this->model('question')->fetch_all('question', 'unverified_modify IS NOT NULL AND unverified_modify <> "a:0:{}"');
-$question_list = $this->model('question')->query_all('SELECT `question_id`, `unverified_modify`,  FROM ' . get_table('question') . ' WHERE unverified_modify IS NOT NULL AND unverified_modify <> "a:0:{}"');
+$question_list = $this->model('question')->query_all('SELECT `question_id`, `unverified_modify` FROM ' . get_table('question') . ' WHERE unverified_modify IS NOT NULL AND unverified_modify <> "a:0:{}"');
 
 if ($question_list)
 {

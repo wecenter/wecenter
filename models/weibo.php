@@ -223,7 +223,7 @@ class weibo_class extends AWS_MODEL
                             'max_size' => get_setting('upload_size_limit')
                         ));
 
-                        AWS_APP::upload()->do_upload($pic_url_array[3], $file);
+                        AWS_APP::upload()->do_upload($pic_url_array[3], $result);
 
                         if (AWS_APP::upload()->get_error())
                         {
