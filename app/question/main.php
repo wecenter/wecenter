@@ -326,7 +326,7 @@ class main extends AWS_CONTROLLER
 				}
 			}
 
-			if ($helpful_users = $this->model('topic')->get_helpful_users_by_topic_ids($question_topic_ids, 16))
+			if ($helpful_users = $this->model('topic')->get_helpful_users_by_topic_ids($question_topic_ids, 17))
 			{
 				foreach ($helpful_users AS $key => $val)
 				{
