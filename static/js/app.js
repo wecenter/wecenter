@@ -69,10 +69,10 @@ $(document).ready(function ()
             {
                 $(this).find('.aw-upload-img-list, .markitup-box img').css({
                     'right': 'auto',
-                    'left': 0
+                    'left': 0,
+                    'top': 10
                 });
             }
-            $(this).find('.img.pull-right').show();
             $(this).find('.aw-upload-img-list').next().detach();
             $(this).find('.markitup-box img').eq(0).css({'z-index':'999'});
         }
