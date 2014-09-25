@@ -79,7 +79,7 @@ class Services_VideoUrlParser
 
 		if (strstr($lowerurl, '.swf'))
 		{
-			return '<p><object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,28,0" width="560" height="360"><param name="movie" value="' . $url . '" /><param name="quality" value="high" /><param name="wmode" value="transparent" /><embed src="' . $url . '" quality="high" pluginspage="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="460" height="360" wmode="transparent"></embed></object></p>';
+			return '<p><object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,28,0" width="560" height="360"><param name="movie" value="' . $url . '" /><param name="quality" value="high" /><param name="wmode" value="transparent" /><param name="allowFullScreen" value="true" /><embed src="' . $url . '" quality="high" pluginspage="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="460" height="360" wmode="transparent" allowfullscreen="true"></embed></object></p>';
 		}
 
 		preg_match(self::CHECK_URL_VALID, $lowerurl, $matches);
@@ -141,7 +141,7 @@ class Services_VideoUrlParser
 			}
 			else
 			{
-				return '<p><object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,28,0" width="560" height="360"><param name="movie" value="' . $data['swf'] . '" /><param name="quality" value="high" /><param name="wmode" value="transparent" /><embed src="' . $data['swf'] . '" quality="high" pluginspage="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="460" height="360" wmode="transparent"></embed></object></p>';
+				return '<p><object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,28,0" width="560" height="360"><param name="movie" value="' . $data['swf'] . '" /><param name="quality" value="high" /><param name="wmode" value="transparent" /><param name="allowFullScreen" value="true" /><embed src="' . $data['swf'] . '" quality="high" pluginspage="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="460" height="360" wmode="transparent" allowfullscreen="true"></embed></object></p>';
 			}
 		}
 
@@ -158,32 +158,22 @@ class Services_VideoUrlParser
 	 */
 	private function _parseQq($url)
 	{
-		if (preg_match("/\/play\//", $url))
-		{
-			$html = self::_fget($url);
-			preg_match("/url=[^\"]+/", $html, $matches);
-			if (!$matches)
-				;
-			return false;
-			$url = $matches[0];
-		}
-		preg_match("/vid=([^\_]+)/", $url, $matches);
-		$vid = $matches[1];
 		$html = self::_fget($url);
-		// query
-		preg_match("/flashvars\s=\s\"([^;]+)/s", $html, $matches);
-		$query = $matches[1];
-		if (!$vid)
-		{
-			preg_match("/vid\s?=\s?vid\s?\|\|\s?\"(\w+)\";/i", $html, $matches);
-			$vid = $matches[1];
-		}
-		$query = str_replace('"+vid+"', $vid, $query);
-		parse_str($query, $output);
-		$data['img'] = "http://vpic.video.qq.com/{$output['cid']}/{$vid}_1.jpg";
+
+		preg_match('/vid:"(\w+)"/i', $html, $matches);
+		$vid = $matches[1];
+		if (!$vid) return false;
+
+		preg_match('/<h1 class="mod_player_title" title="(.+)" id="h1_title">/i', $html, $matches);
+		$data['title'] = $matches[1];
+
+		preg_match('/pic :"(.+)"/i', $html, $matches);
+		$data['img'] = $matches[1];
+
 		$data['url'] = $url;
-		$data['title'] = $output['title'];
-		$data['swf'] = "http://imgcache.qq.com/tencentvideo_v1/player/TencentPlayer.swf?" . $query;
+
+		$data['swf'] = 'http://static.video.qq.com/TPout.swf?vid=' . $vid . '&auto=0';
+
 		return $data;
 	}
 
@@ -240,88 +230,23 @@ class Services_VideoUrlParser
 	 */
 	private function _parseTudou($url)
 	{
-		preg_match("#view/([-\w]+)/#", $url, $matches);
+		$html = self::_fget($url);
 
-		if (empty($matches))
-		{
-			if (strpos($url, "/playlist/") == false)
-				return false;
+		preg_match('/icode: \'(\w+)\'/i', $html, $matches);
+		$icode = $matches[1];
+		if (!$icode) return false;
 
-			if (strpos($url, 'iid=') !== false)
-			{
-				$quarr = explode("iid=", $lowerurl);
-				if (empty($quarr[1]))
-					return false;
-			}
-			elseif (preg_match("#p\/l(\d+).#", $lowerurl, $quarr))
-			{
-				if (empty($quarr[1]))
-					return false;
-			}
+		preg_match('/kw: \'(.+)\'/i', $html, $matches);
+		$data['title'] = $matches[1];
 
-			$html = self::_fget($url);
-			$html = iconv("GB2312", "UTF-8", $html);
+		preg_match('/pic: \'(.+)\'/i', $html, $matches);
+		$data['img'] = $matches[1];
 
-			preg_match("/lid_code\s=\slcode\s=\s[\'\"]([^\'\"]+)/s", $html, $matches);
-			$icode = $matches[1];
+		$data['url'] = $url;
 
-			preg_match("/iid\s=\s.*?\|\|\s(\d+)/sx", $html, $matches);
-			$iid = $matches[1];
+		$data['swf'] = 'http://www.tudou.com/v/' . $icode . '/';
 
-			preg_match("/listData\s=\s(\[\{.*\}\])/sx", $html, $matches);
-
-			$find = array(
-				"/\n/",
-				'/\s/',
-				"/:[^\d\"]\w+[^\,]*,/i",
-				"/(\{|,)(\w+):/"
-			);
-			$replace = array(
-				"",
-				"",
-				':"",',
-				'\\1"\\2":'
-			);
-			$str = preg_replace($find, $replace, $matches[1]);
-			//var_dump($str);
-			$json = json_decode($str);
-			//var_dump($json);exit;
-			if (is_array($json) || is_object($json) && !empty($json))
-			{
-				foreach ($json as $val)
-				{
-					if ($val->iid == $iid)
-					{
-						break;
-					}
-				}
-			}
-
-			$data['img'] = $val->pic;
-			$data['title'] = $val->title;
-			$data['url'] = $url;
-			$data['swf'] = "http://www.tudou.com/l/{$icode}/&iid={$iid}/v.swf";
-
-			return $data;
-		}
-
-		$host = "www.tudou.com";
-		$path = "/v/{$matches[1]}/v.swf";
-
-		$ret = self::_fsget($path, $host);
-
-		if (preg_match("#\nLocation: (.*)\n#", $ret, $mat))
-		{
-			parse_str(parse_url(urldecode($mat[1]), PHP_URL_QUERY));
-
-			$data['img'] = $snap_pic;
-			$data['title'] = $title;
-			$data['url'] = $url;
-			$data['swf'] = "http://www.tudou.com/v/{$matches[1]}/v.swf";
-
-			return $data;
-		}
-		return false;
+		return $data;
 	}
 
 	/**
