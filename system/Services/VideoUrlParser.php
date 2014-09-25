@@ -256,7 +256,7 @@ class Services_VideoUrlParser
 
 		$data['url'] = $url;
 
-		$data['swf'] = 'http://www.tudou.com/' . $icode . '/';
+		$data['swf'] = 'http://www.tudou.com/v/' . $icode . '/';
 
 		return $data;
 	}
