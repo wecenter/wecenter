@@ -148,11 +148,6 @@ class main extends AWS_CONTROLLER
 			TPL::assign('recommend_posts', $recommend_posts);
 		}
 
-		if (get_setting('advanced_editor_enable') == 'Y')
-		{
-			TPL::import_js('js/editor/prettify.js');
-		}
-
 		TPL::output('article/index');
 	}
 

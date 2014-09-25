@@ -228,27 +228,6 @@ $(function()
 	//编辑器@人
     AWS.at_user_lists('#wmd-input');
 
-    //赞同反对fixed滚动
-    $(window).scroll(function()
-    {
-    	if ($('.aw-question-comment .aw-vote-bar').css('position') == 'relative')
-    	{
-    		$.each($('.anchor'), function (i, e)
-	    	{
-	    		if ($(this).parents('.aw-item').height() > parseInt($(this).parents('.aw-item').find('.markitup-box').css('line-height')) * 10)
-	    		{
-	    			if ($(window).scrollTop() > $(this).offset().top && $(window).scrollTop() < $(this).offset().top + $(this).parents('.aw-item').height() - $(this).parents('.aw-item').find('.vote-container').height() - 10)
-		    		{
-		    			$(this).parents('.aw-item').find('.aw-vote-bar').addClass('fixed');
-		    		}
-		    		else 
-		    		{
-		    			$(this).parents('.aw-item').find('.aw-vote-bar').removeClass('fixed');
-		    		}
-	    		}
-	    	});
-    	}
-    });
 });
 
 function one_click_add_topic(selector, topic_title, question_id)

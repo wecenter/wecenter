@@ -911,7 +911,6 @@ else
             text = text.replace(reg,
                 function (wholeMatch, m1, m2, m3, m4) {
                     var codeblock = m3;
-
                     codeblock = _EncodeCode(_Outdent(codeblock));
                     codeblock = _Detab(codeblock);
                     codeblock = codeblock.replace(/^\n+/g, ""); // trim leading newlines
@@ -919,8 +918,8 @@ else
                     codeblock = codeblock.replace(/\n/g, '<br/>');
 
                     // Modify by kk
-                    codeblock = codeblock.replace(/\&lt;\/p\&gt;\<br\/\>\<br\/\>/g, "");
-                    codeblock = codeblock.replace(/\<br\/\>\&lt;\p\&gt;/g, "");
+                    codeblock = codeblock.replace(/\&lt;\/p\&gt;/g, "");
+                    codeblock = codeblock.replace(/&lt;\p\&gt;/g, "");
                     codeblock = codeblock.replace(/\&lt;br\&gt;/g, "");
                     
                     return '\n\n<pre class="prettyprint">' + codeblock + '</pre>\n\n';
