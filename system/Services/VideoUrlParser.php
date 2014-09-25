@@ -240,88 +240,25 @@ class Services_VideoUrlParser
 	 */
 	private function _parseTudou($url)
 	{
-		preg_match("#view/([-\w]+)/#", $url, $matches);
+		$html = self::_fget($url);
 
-		if (empty($matches))
+		if (!preg_match('/icode: \'(\w+)\'/i', $html, $matches))
 		{
-			if (strpos($url, "/playlist/") == false)
-				return false;
-
-			if (strpos($url, 'iid=') !== false)
-			{
-				$quarr = explode("iid=", $lowerurl);
-				if (empty($quarr[1]))
-					return false;
-			}
-			elseif (preg_match("#p\/l(\d+).#", $lowerurl, $quarr))
-			{
-				if (empty($quarr[1]))
-					return false;
-			}
-
-			$html = self::_fget($url);
-			$html = iconv("GB2312", "UTF-8", $html);
-
-			preg_match("/lid_code\s=\slcode\s=\s[\'\"]([^\'\"]+)/s", $html, $matches);
-			$icode = $matches[1];
-
-			preg_match("/iid\s=\s.*?\|\|\s(\d+)/sx", $html, $matches);
-			$iid = $matches[1];
-
-			preg_match("/listData\s=\s(\[\{.*\}\])/sx", $html, $matches);
-
-			$find = array(
-				"/\n/",
-				'/\s/',
-				"/:[^\d\"]\w+[^\,]*,/i",
-				"/(\{|,)(\w+):/"
-			);
-			$replace = array(
-				"",
-				"",
-				':"",',
-				'\\1"\\2":'
-			);
-			$str = preg_replace($find, $replace, $matches[1]);
-			//var_dump($str);
-			$json = json_decode($str);
-			//var_dump($json);exit;
-			if (is_array($json) || is_object($json) && !empty($json))
-			{
-				foreach ($json as $val)
-				{
-					if ($val->iid == $iid)
-					{
-						break;
-					}
-				}
-			}
-
-			$data['img'] = $val->pic;
-			$data['title'] = $val->title;
-			$data['url'] = $url;
-			$data['swf'] = "http://www.tudou.com/l/{$icode}/&iid={$iid}/v.swf";
-
-			return $data;
+			return false;
 		}
+		$icode = $matches[1];
 
-		$host = "www.tudou.com";
-		$path = "/v/{$matches[1]}/v.swf";
+		preg_match('/kw: \'(.+)\'/i', $html, $matches);
+		$data['title'] = $matches[1];
 
-		$ret = self::_fsget($path, $host);
+		preg_match('/pic: \'(.+)\'/i', $html, $matches);
+		$data['img'] = $matches[1];
 
-		if (preg_match("#\nLocation: (.*)\n#", $ret, $mat))
-		{
-			parse_str(parse_url(urldecode($mat[1]), PHP_URL_QUERY));
+		$data['url'] = $url;
 
-			$data['img'] = $snap_pic;
-			$data['title'] = $title;
-			$data['url'] = $url;
-			$data['swf'] = "http://www.tudou.com/v/{$matches[1]}/v.swf";
+		$data['swf'] = 'http://www.tudou.com/' . $icode . '/';
 
-			return $data;
-		}
-		return false;
+		return $data;
 	}
 
 	/**
