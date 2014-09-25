@@ -83,8 +83,6 @@
 														<a href="article/<?php echo $val['id']; ?>"><?php echo $val['title']; ?></a>
 														<span class="pull-right text-color-999"><?php _e('% 评论', $val['comments']); ?></span>
 														<?php } ?>
-														
-														
 													</li>
 													<?php } ?>
 												</ul>
@@ -271,7 +269,7 @@
 								<?php foreach ($this->log_list as $key => $val) { ?>
 								<li onclick="AWS.dialog('topicEditHistory', decodeURIComponent('<?php echo rawurlencode($val['add_time'] . ': ' . $val['title']); ?>'));">
 									<span class="pull-right text-color-999"><?php echo $val['add_time']; ?></span>
-									<a href="javascript:;" data-id="<?php echo $val['uid']; ?>" class="aw-user-name pull-left"><?php echo $val['user_name']; ?></a>
+									<a href="javascript:;" data-id="<?php echo $val['uid']; ?>" class="aw-user-name"><?php echo $val['user_name']; ?></a>
 								</li>
 								<?php } ?>
 								<?php } ?>
