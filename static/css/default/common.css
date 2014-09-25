@@ -961,6 +961,7 @@ a.aw-load-more-content{display: block;}
 	.aw-question-detail-txt iframe{max-width: 100%;}
 	.aw-top-nav .navbar-collapse.active{left: 0;}
 	.aw-common-list .aw-item{padding:14px 0;}
+	.aw-global-tips{margin:0 0 15px;padding:0;}
 	/* 分类导航 */
 	.category dl{padding:0;}
 	.category dl dd{width: 80px;}
@@ -968,4 +969,14 @@ a.aw-load-more-content{display: block;}
 	.aw-publish-title input, .aw-publish-article .aw-publish-title input{width: 58%;}
 	.aw-publish-title .dropdown{width: 40%;}
 	.aw-mod-publish .mod-footer .aw-anonymity{margin:0 20px 0 0;}
+	/* 问题详情页 */
+	.aw-question-detail .mod-head h1{font-size: 16px;}
+	.aw-question-detail .mod-head .operate, .aw-topic-detail-title .aw-topic-operate{position: relative;}
+	.aw-feed-list .aw-item .mod-footer{padding:0;}
+	/* 话题列表 */
+	.aw-topic-list .aw-item{height:152px;padding:20px 5px 20px 0;}
+	.aw-topic-list .aw-item .img{position: relative;left: 0;top: 0;float: left;margin-right: 10px;}
+	.aw-topic-list .aw-item .img img{width: 30px;height: 30px;}
+
+	.aw-footer{padding:20px 0 0px;}
 }
