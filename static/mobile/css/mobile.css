@@ -435,6 +435,9 @@ input[type="text"], input[type="password"], textarea{-webkit-appearance:none;}
 .aw-people-list .page-control .pagination{float: none !important;}
 .aw-people-list .page-control li{border:none;}
 
+/* footer */
+footer{color: #999;font-size: 12px;}
+
 /* icon */
 .icon-v{color: #a3d700;font-size: 16px;}
 .icon-v.i-ve{color: #ffca3f;}
