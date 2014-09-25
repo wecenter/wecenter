@@ -32,6 +32,11 @@ class main extends AWS_CONTROLLER
 
 	public function setup()
 	{
+		if ($_GET['ignore_ua_check'] == 'FALSE')
+		{
+			HTTP::set_cookie('_ignore_ua_check', 'FALSE');
+		}
+		
 		if (!is_mobile())
 		{
 			switch ($_GET['act'])
@@ -68,11 +73,6 @@ class main extends AWS_CONTROLLER
 					HTTP::redirect('/article/' . $_GET['id']);
 				break;
 			}
-		}
-
-		if ($_GET['ignore_ua_check'] == 'FALSE')
-		{
-			HTTP::set_cookie('_ignore_ua_check', 'FALSE');
 		}
 
 		if (!$this->user_id AND !$this->user_info['permission']['visit_site'] AND $_GET['act'] != 'login' AND $_GET['act'] != 'register')
