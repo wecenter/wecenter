@@ -393,7 +393,6 @@ else
             text = text.replace(/^[ ]{0,2}([ ]?_[ ]?){3,}[ \t]*$/gm, replacement);
 
             text = _DoLists(text);
-            text = _DoCodeBlocks(text);
             text = _DoBlockQuotes(text);
 
             // We already ran _HashHTMLBlocks() before, in Markdown(), but that
@@ -402,6 +401,8 @@ else
             // <p> tags around block-level tags.
             text = _HashHTMLBlocks(text);
             text = _FormParagraphs(text, doNotUnhash);
+
+            text = _DoCodeBlocks(text);
 
             return text;
         }
@@ -910,12 +911,16 @@ else
             text = text.replace(reg,
                 function (wholeMatch, m1, m2, m3, m4) {
                     var codeblock = m3;
-
                     codeblock = _EncodeCode(_Outdent(codeblock));
                     codeblock = _Detab(codeblock);
                     codeblock = codeblock.replace(/^\n+/g, ""); // trim leading newlines
                     codeblock = codeblock.replace(/\n+$/g, ""); // trim trailing whitespace
                     codeblock = codeblock.replace(/\n/g, '<br/>');
+
+                    // Modify by kk
+                    codeblock = codeblock.replace(/\&lt;\/p\&gt;/g, "");
+                    codeblock = codeblock.replace(/&lt;\p\&gt;/g, "");
+                    codeblock = codeblock.replace(/\&lt;br\&gt;/g, "");
                     
                     return '\n\n<pre class="prettyprint">' + codeblock + '</pre>\n\n';
                 }

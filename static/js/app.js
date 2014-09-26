@@ -10,22 +10,6 @@ $(document).ready(function ()
     
     // 输入框自动增高
     $('.autosize').autosize();
-    
-    //编辑器实时语法高亮
-    // window.onload = function()
-    // {
-    //     if ($('#wmd-input').length)
-    //     {
-    //         prettyPrint();
-    //     }
-    // }
-    // if ($('#wmd-input').length)
-    // {
-    //     $('#wmd-input').on('keyup',function()
-    //     {    
-    //          prettyPrint();
-    //     });
-    // }
 
     //编辑器初始化
     if (typeof Markdown != 'undefined' && $('#wmd-input').length)
@@ -65,9 +49,15 @@ $(document).ready(function ()
     {
         if ($(this).find('img').length > 1)
         {
-            $(this).find('.img.pull-right').show();
+            if ($.trim($(this).find('.markitup-box').text()) == '')
+            {
+                $(this).find('.aw-upload-img-list, .markitup-box img').css({
+                    'right': 'auto',
+                    'left': 0,
+                    'top': 10
+                });
+            }
             $(this).find('.aw-upload-img-list').next().detach();
-            $(this).find('img').next().detach().end().prev().detach();
             $(this).find('.markitup-box img').eq(0).css({'z-index':'999'});
         }
         else

@@ -132,6 +132,11 @@ class AWS_CONTROLLER
 			H::redirect_msg(get_setting('close_notice'), '/account/login/');
 		}
 
+		if ($_GET['ignore_ua_check'] == 'TRUE')
+		{
+			HTTP::set_cookie('_ignore_ua_check', 'TRUE', (time() + 3600 * 24 * 7));
+		}
+		
 		// 执行控制器 Setup 动作
 		if ($process_setup)
 		{

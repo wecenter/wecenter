@@ -127,33 +127,35 @@ $(function()
 	    {
 	    	if (!$(this).hasClass('active'))
 	    	{
-	    		var attr = [];
-		    	$.each($('.aw-question-detail .aw-invite-box .mod-body ul li'), function (i, e)
+	    		var flag = 0, list = $('.aw-question-detail .aw-invite-box ul li');
+
+	    		$.each(list, function (i, e)
 		    	{
 		    		if ($(this).is(':visible') == true)
 		    		{
-		    			attr.push($(this).index());
+		    			flag = $(this).index();
+
+		    			return false;
 		    		}
 		    	});
-		    	$('.aw-question-detail .aw-invite-box .mod-body ul li').hide();
-		    	$.each(attr, function (i, e)
-		    	{
-					if (attr.join('') == '123' || attr.join('') == '234')
-					{
-						$('.aw-question-detail .aw-invite-box .mod-body ul li').eq(0).show();
-						$('.aw-question-detail .aw-invite-box .mod-body ul li').eq(1).show();
-						$('.aw-question-detail .aw-invite-box .mod-body ul li').eq(2).show();
-					}
-					else
-					{
-		    			$('.aw-question-detail .aw-invite-box .mod-body ul li').eq(e-4).show();
-					}
-		    		
-		    		if (e-4 == 0)
-		    		{
-		    			$('.aw-question-detail .aw-invite-box .prev').addClass('active');
-		    		}
-		    	});
+
+		    	list.hide();
+
+		    	for (var i = 0; i < 4; i++)
+	    		{
+	    			flag--;
+
+	    			if (flag >= 0)
+	    			{
+	    				list.eq(flag).show();
+	    			}
+	    		}
+
+	    		if (flag <= 0)
+				{
+					$('.aw-question-detail .aw-invite-box .prev').addClass('active');
+				}
+
 		    	$('.aw-question-detail .aw-invite-box .next').removeClass('active');
 	    	}
 	    });
@@ -163,27 +165,35 @@ $(function()
 	    {
 	    	if (!$(this).hasClass('active'))
 	    	{
-				var attr = [], li_length = $('.aw-question-detail .aw-invite-box .mod-body ul li').length;
-		    	$.each($('.aw-question-detail .aw-invite-box ul li'), function (i, e)
+	    		var flag = 0, list = $('.aw-question-detail .aw-invite-box ul li');
+
+	    		$.each(list, function (i, e)
 		    	{
 		    		if ($(this).is(':visible') == true)
 		    		{
-		    			attr.push($(this).index());
+		    			flag = $(this).index();
 		    		}
 		    	});
-		    	$.each(attr, function (i, e)
-		    	{
-		    		if (e+4 < li_length)
-		    		{
-		    			$('.aw-question-detail .aw-invite-box .mod-body ul li').eq(e).hide();
-		    			$('.aw-question-detail .aw-invite-box .mod-body ul li').eq(e+4).show();
-		    		}
-		    		if (e+5 == $('.aw-question-detail .aw-invite-box .mod-body ul li').length)
-		    		{
-		    			$('.aw-question-detail .aw-invite-box .next').addClass('active');
-		    		}
-		    	});
-		    	$('.aw-question-detail .aw-invite-box .prev').removeClass('active');
+
+	    		list.hide();
+
+	    		for (var i = 0; i < 4; i++)
+	    		{
+	    			if (flag + 1 <= list.length)
+	    			{
+	    				flag++;
+
+	    				list.eq(flag).show();
+
+	    				if (flag == list.length)
+	    				{
+	    					$('.aw-question-detail .aw-invite-box .next').addClass('active');
+	    				}
+	    			}
+	    		}
+
+		 		$('.aw-question-detail .aw-invite-box .prev').removeClass('active');
+
 	    	}
 	    });
     }
@@ -218,27 +228,6 @@ $(function()
 	//编辑器@人
     AWS.at_user_lists('#wmd-input');
 
-    //赞同反对fixed滚动
-    $(window).scroll(function()
-    {
-    	if ($('.aw-question-comment .aw-vote-bar').css('position') == 'relative')
-    	{
-    		$.each($('.anchor'), function (i, e)
-	    	{
-	    		if ($(this).parents('.aw-item').height() > parseInt($(this).parents('.aw-item').find('.markitup-box').css('line-height')) * 10)
-	    		{
-	    			if ($(window).scrollTop() > $(this).offset().top && $(window).scrollTop() < $(this).offset().top + $(this).parents('.aw-item').height() - $(this).parents('.aw-item').find('.vote-container').height() - 10)
-		    		{
-		    			$(this).parents('.aw-item').find('.aw-vote-bar').addClass('fixed');
-		    		}
-		    		else 
-		    		{
-		    			$(this).parents('.aw-item').find('.aw-vote-bar').removeClass('fixed');
-		    		}
-	    		}
-	    	});
-    	}
-    });
 });
 
 function one_click_add_topic(selector, topic_title, question_id)
