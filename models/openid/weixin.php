@@ -54,7 +54,23 @@ class openid_weixin_class extends AWS_MODEL
 
         AWS_APP::cache()->delete($cached_token);
 
-        return $this->get_access_token($app_id, $app_secret);
+        if ($app_id == get_setting('weixin_app_id'))
+        {
+            $access_token = $this->model('wecenter')->mp_server_query('refresh_access_token');
+
+            if (!$access_token)
+            {
+                return false;
+            }
+
+            AWS_APP::cache()->set($cached_token, $access_token, 60);
+
+            return $access_token;
+        }
+        else
+        {
+            return $this->get_access_token($app_id, $app_secret);
+        }
     }
 
     public function get_access_token($app_id, $app_secret)
@@ -71,31 +87,36 @@ class openid_weixin_class extends AWS_MODEL
             return $access_token;
         }
 
-        if ($result = curl_get_contents('https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=' . $app_id . '&secret=' . $app_secret))
+        if ($app_id == get_setting('weixin_app_id'))
         {
+            $access_token = $this->model('wecenter')->mp_server_query('get_access_token');
+        }
+        else
+        {
+            $result = curl_get_contents('https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=' . $app_id . '&secret=' . $app_secret);
+
+            if (!$result)
+            {
+                return false;
+            }
+
             $result = json_decode($result, true);
 
-            if ($result['access_token'])
-            {
-                AWS_APP::cache()->set($cached_token, $result['access_token'], $result['expires_in']);
-
-                return $result['access_token'];
-            }
-            else
-            {
-                AWS_APP::cache()->delete($cached_token);
-            }
+            $access_token = $result['access_token'];
         }
-    }
-    
-    public function mp_get_access_token()
-    {
-	    return $this->model('wecenter')->mp_server_query('get_access_token');
-    }
-    
-    public function mp_refresh_access_token()
-    {
-	    return $this->model('wecenter')->mp_server_query('refresh_access_token');
+
+        if ($access_token)
+        {
+            AWS_APP::cache()->set($cached_token, $access_token, 60);
+
+            return $access_token;
+        }
+        else
+        {
+            AWS_APP::cache()->delete($cached_token);
+
+            return false;
+        }
     }
 
     public function get_user_info_by_openid_from_mp($openid)
@@ -410,7 +431,7 @@ class openid_weixin_class extends AWS_MODEL
 
         $result = HTTP::request($url, 'POST', $post_data);
 
-        if (!empty($result))
+        if ($result)
         {
             $result = json_decode($result, true);
 
@@ -449,11 +470,11 @@ class openid_weixin_class extends AWS_MODEL
 
         $file = curl_get_contents($url);
 
-        if (!empty($file))
+        if ($file)
         {
             $result = json_decode($file, true);
 
-            if (!empty($result))
+            if ($result)
             {
                 if ($result['errcode'] == 40001)
                 {

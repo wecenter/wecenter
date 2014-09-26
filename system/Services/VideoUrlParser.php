@@ -89,8 +89,8 @@ class Services_VideoUrlParser
 			return '<p><img src="' . G_STATIC_URL .  '/common/video_parser_unsupport.png" alt="" /></p>';
 		}
 
-		/*if (!$data = AWS_APP::cache()->get('video_parse_' . md5($url)))
-		{*/
+		if (!$data = AWS_APP::cache()->get('video_parse_' . md5($url)))
+		{
 			switch ($matches[1])
 			{
 				case 'youku.com' :
@@ -131,7 +131,7 @@ class Services_VideoUrlParser
 				AWS_APP::cache()->set('video_parse_' . md5($url), $data, 3600, 'video_parser');
 			}
 
-		//}
+		}
 
 		if ($data)
 		{
