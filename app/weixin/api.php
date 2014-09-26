@@ -37,9 +37,9 @@ class api extends AWS_CONTROLLER
 
         $account_info = $this->model('weixin')->get_account_info_by_id($_GET['id']);
 
-        if (empty($account_info) OR !$this->model('weixin')->check_signature($account_info['weixin_mp_token'], $_GET['signature'], $_GET['timestamp'], $_GET['nonce']))
+        if (!$account_info OR !$this->model('weixin')->check_signature($account_info['weixin_mp_token'], $_GET['signature'], $_GET['timestamp'], $_GET['nonce']))
         {
-            exit;
+            exit();
         }
 
         if ($_GET['echostr'])
@@ -49,7 +49,7 @@ class api extends AWS_CONTROLLER
 
         $input_message = $this->model('weixin')->fetch_message();
 
-        if ($account_info['weixin_account_role'] == 'base' OR empty($account_info['weixin_app_id']) OR empty($account_info['weixin_app_secret']))
+        if ($account_info['weixin_account_role'] == 'base' OR !$account_info['weixin_app_id'] OR !$account_info['weixin_app_secret'])
         {
             $account_info['weixin_mp_menu'] = null;
         }
