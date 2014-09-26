@@ -136,5 +136,28 @@ $(document).ready(function () {
 			}
 		}, 'json');
 	}
+
+	// textarea获取焦点时兼容导航溢出
+	$('textarea').bind({
+		focus : function()
+		{
+			$('.nav').css({
+	        	'position' : 'relative',
+	        	'bottom' : - (parseInt($(document).height()) - parseInt($('.nav').offset().top))
+	        });
+
+	        $('body').addClass('focus');
+		},
+
+		blur : function()
+		{
+			$('.nav').css({
+	        	'position' : 'fixed',
+	        	'bottom' : 0
+	        });
+
+	        $('body').removeClass('focus');
+		}
+	})
 	
 });
