@@ -258,53 +258,24 @@ class Services_VideoUrlParser
 	 */
 	private function _parseKu6($url)
 	{
-		if (preg_match("/show\_/", $url))
-		{
-			preg_match("#/([-\w]+)\.html#", $url, $matches);
-			$url = "http://v.ku6.com/fetchVideo4Player/{$matches[1]}.html";
-			$html = self::_fget($url);
+		$html = self::_fget($url);
 
-			if ($html)
-			{
-				$json = json_decode($html, true);
-				if (!$json)
-					return false;
+		preg_match('/id: "([a-zA-Z-]+..)"/i', $html, $matches);
+		$vid = $matches[1];
+		if (!$vid) return false;
 
-				$data['img'] = $json['data']['picpath'];
-				$data['title'] = $json['data']['t'];
-				$data['url'] = $url;
-				$data['swf'] = "http://player.ku6.com/refer/{$matches[1]}/v.swf";
+		preg_match('/<h1 title="(.+)">/i', $html, $matches);
+		$data['title'] = $matches[1];
 
-				return $data;
-			}
-			else
-			{
-				return false;
-			}
-		}
-		elseif (preg_match("/show\//", $url, $matches))
-		{
-			$html = self::_fget($url);
-			preg_match("/ObjectInfo\s?=\s?([^\n]*)};/si", $html, $matches);
-			$str = $matches[1];
-			// img
-			preg_match("/cover\s?:\s?\"([^\"]+)\"/", $str, $matches);
-			$data['img'] = $matches[1];
-			// title
-			preg_match("/title\"?\s?:\s?\"([^\"]+)\"/", $str, $matches);
-			$jsstr = "{\"title\":\"{$matches[1]}\"}";
-			$json = json_decode($jsstr, true);
-			$data['title'] = $json['title'];
-			// url
-			$data['url'] = $url;
-			// query
-			preg_match("/\"(vid=[^\"]+)\"\sname=\"flashVars\"/s", $html, $matches);
-			$query = str_replace("&amp;", '&', $matches[1]);
-			preg_match("/\/\/player\.ku6cdn\.com[^\"\']+/", $html, $matches);
-			$data['swf'] = 'http:' . $matches[0] . '?' . $query;
+		preg_match('/"bigpicpath":".+?\.jpg"/i', $html, $matches);
+		$data['img'] = json_decode('{' . $matches[0] . '}', true);
+		$data['img'] = $data['img']['bigpicpath'];
 
-			return $data;
-		}
+		$data['url'] = $url;
+
+		$data['swf'] = 'http://player.ku6.com/refer/' . $vid . '/v.swf';
+
+		return $data;
 	}
 
 	/**
