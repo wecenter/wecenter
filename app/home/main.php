@@ -46,11 +46,6 @@ class main extends AWS_CONTROLLER
 				break;
 			}
 		}
-
-		if ($_GET['ignore_ua_check'] == 'TRUE')
-		{
-			HTTP::set_cookie('_ignore_ua_check', 'TRUE', (time() + 3600 * 24 * 7));
-		}
 	}
 
 	public function index_action()
