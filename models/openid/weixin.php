@@ -87,6 +87,16 @@ class openid_weixin_class extends AWS_MODEL
             }
         }
     }
+    
+    public function mp_get_access_token()
+    {
+	    return $this->model('wecenter')->mp_server_query('get_access_token');
+    }
+    
+    public function mp_refresh_access_token()
+    {
+	    return $this->model('wecenter')->mp_server_query('refresh_access_token');
+    }
 
     public function get_user_info_by_openid_from_mp($openid)
     {
