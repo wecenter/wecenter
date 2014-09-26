@@ -50,7 +50,7 @@ class openid_weixin_class extends AWS_MODEL
             return false;
         }
 
-        $cached_token = 'weixin_access_token_' . md5(get_setting('weixin_app_id') . get_setting('weixin_app_secret'));
+        $cached_token = 'weixin_access_token_' . md5($app_id . $app_secret);
 
         AWS_APP::cache()->delete($cached_token);
 

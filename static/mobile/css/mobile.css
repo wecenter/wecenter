@@ -5,6 +5,7 @@
 .aw-info a{display: block;color: #999999;}
 label, b{font-weight: normal;}
 .form-control{box-shadow: none;border-color: #cccccc;}
+textarea.form-control{padding:6px;}
 .btn-success{border:none;background-color: #58b957;}
 .btn-success:hover, .btn-success:active{background-color: #119E10 !important;color: #fff !important;}
 .btn-success.active{background-color: #ccc;color: #fff;box-shadow: none;}
@@ -436,7 +437,7 @@ input[type="text"], input[type="password"], textarea{-webkit-appearance:none;}
 .aw-people-list .page-control li{border:none;}
 
 /* footer */
-footer{color: #999;font-size: 12px;}
+footer{padding-bottom:10px;color: #999;font-size: 12px;}
 footer p{margin:0;}
 
 /* icon */
