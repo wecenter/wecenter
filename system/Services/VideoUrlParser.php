@@ -89,8 +89,8 @@ class Services_VideoUrlParser
 			return '<p><img src="' . G_STATIC_URL .  '/common/video_parser_unsupport.png" alt="" /></p>';
 		}
 
-		if (!$data = AWS_APP::cache()->get('video_parse_' . md5($url)))
-		{
+		/*if (!$data = AWS_APP::cache()->get('video_parse_' . md5($url)))
+		{*/
 			switch ($matches[1])
 			{
 				case 'youku.com' :
@@ -131,7 +131,7 @@ class Services_VideoUrlParser
 				AWS_APP::cache()->set('video_parse_' . md5($url), $data, 3600, 'video_parser');
 			}
 
-		}
+		//}
 
 		if ($data)
 		{
@@ -258,9 +258,9 @@ class Services_VideoUrlParser
 	 */
 	private function _parseKu6($url)
 	{
-		$html = self::_fget($url);
+		$html = iconv('GBK', 'UTF-8', self::_fget($url));
 
-		preg_match('/id: "([a-zA-Z-]+..)"/i', $html, $matches);
+		preg_match('/id: "([a-zA-Z0-9]+\.\.)"/i', $html, $matches);
 		$vid = $matches[1];
 		if (!$vid) return false;
 
@@ -332,13 +332,15 @@ class Services_VideoUrlParser
 	// 搜狐TV http://my.tv.sohu.com/u/vw/5101536
 	private function _parseSohu($url)
 	{
-		$html = self::_fget($url);
-		$html = iconv("GB2312", "UTF-8", $html);
-		preg_match_all("/og:(?:title|image|videosrc)\"\scontent=\"([^\"]+)\"/s", $html, $matches);
-		$data['img'] = $matches[1][1];
-		$data['title'] = $matches[1][0];
+		$html = iconv('GBK', 'UTF-8', self::_fget($url));
+
+		preg_match_all('#<meta property="og:(title|image|videosrc)" content="(.+)" />#i', $html, $matches);
+
+		$data['img'] = $matches[2][2];
+		$data['title'] = $matches[2][1];
 		$data['url'] = $url;
-		$data['swf'] = $matches[1][2];
+		$data['swf'] = $matches[2][0];
+
 		return $data;
 	}
 
