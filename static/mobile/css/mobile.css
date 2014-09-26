@@ -123,9 +123,9 @@ input[type="text"], input[type="password"], textarea{-webkit-appearance:none;}
 .nav{position:fixed;z-index:9999;bottom:0;width:100%;height:49px;border-top: 1px solid #cccccc;}
 .nav > ul{position: relative;z-index: 1;height:49px;background-color:#f1f1f1;}
 .nav ul li{position:relative;float: left;width: 20%;text-align: center;}
-.nav ul li a{display: block;height: 49px;font-size: 12px;color: #808080;}
+.nav ul li a{display: block;height: 49px;padding-top:7px;font-size: 12px;color: #808080;}
 .nav ul li a.active, .nav ul li a.active i{color: #339fff;}
-.nav ul li i{display: block;margin:7px 0 2px;font-size: 20px;}
+.nav ul li i{display: block;margin:0 0 2px;font-size: 20px;}
 .nav ul li .icon-tips{position: absolute;right: 10px;top: 5px;margin:0;}
 .nav .aw-popover{display:none;position:absolute;bottom:49px;z-index:0;width:100%;height: 102px;background-color:#66b7ff;border-top: 1px solid #4dabff;}
 .nav .aw-popover.active ul li{width: 25%;}
