@@ -56,7 +56,14 @@ class openid_weixin_class extends AWS_MODEL
 
         if ($app_id == get_setting('weixin_app_id'))
         {
-            $access_token = $this->model('wecenter')->mp_server_query('refresh_access_token');
+            $result = $this->model('wecenter')->mp_server_query('refresh_access_token');
+
+            if (!$result OR $result['status'] != 'success')
+            {
+                return false;
+            }
+
+            $access_token = unserialize($result['data']);
 
             if (!$access_token)
             {
@@ -89,7 +96,14 @@ class openid_weixin_class extends AWS_MODEL
 
         if ($app_id == get_setting('weixin_app_id'))
         {
-            $access_token = $this->model('wecenter')->mp_server_query('get_access_token');
+            $result = $this->model('wecenter')->mp_server_query('get_access_token');
+
+            if (!$result OR $result['status'] != 'success')
+            {
+                return false;
+            }
+
+            $access_token = unserialize($result['data']);
         }
         else
         {
