@@ -302,6 +302,7 @@ a.aw-load-more-content{display: block;}
 
 /* 动态首页新通知提示box */
 .aw-notification-box{padding-bottom: 20px;border-bottom: 1px solid #e6e6e6;}
+.aw-notification-box .icon-tips{display: none;}
 .aw-notification-box .mod-body, .aw-notification-box .mod-footer{padding:0 20px;}
 .aw-notification-box .mod-body ul li{position:relative;padding:10px 0;border-top:1px dotted #E2E2E2;line-height: 14px;}
 .aw-notification-box .mod-body ul li:first-child{border-top: none;}

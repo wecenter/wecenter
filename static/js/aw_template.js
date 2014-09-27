@@ -129,7 +129,12 @@ var AW_TEMPLATE = {
 							'<input type="hidden" name="item_type" value="{{item_type}}" />'+
 							'<div class="alert alert-danger hide error_message"><i class="icon icon-delete"></i> <em></em></div>'+
 							'<p>' + _t('添加话题标签') + ': <input type="text" name="tags" id="add_favorite_tags" class="form-control" /></p>'+
-							'<p id="add_favorite_my_tags" class="hide">' + _t('常用标签') + ': </p>'+
+							'<div id="add_favorite_my_tags" class="hide">' +
+								'<span class="pull-left">' + _t('常用标签') + ':</span>'+
+								'<div class="aw-topic-bar">'+
+									'<div class="topic-bar"></div>'+
+								'</div>'+
+							'</div>'+
 						'</div>'+
 						'<div class="modal-footer">'+
 							'<a href="javascript:;" data-dismiss="modal" aria-hidden="true" class="text-color-999">' + _t('取消') + '</a>'+

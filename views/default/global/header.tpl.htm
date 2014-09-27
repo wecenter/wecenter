@@ -114,7 +114,7 @@
 	<?php if ($this->user_id AND $this->user_info['email'] AND !$this->user_info['valid_email']) { ?>
 	<div class="aw-email-verify">
 		<div class="container text-center">
-			你的邮箱 <?php echo $this->user_info['email']; ?> 还未验证 , 请尽快查收邮件.
+			<?php _e('你的邮箱 %s 还未验证 , 请尽快查收邮件', $this->user_info['email']); ?>.
 		</div>
 	</div>
 	<?php } ?>

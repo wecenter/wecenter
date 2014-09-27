@@ -555,7 +555,7 @@ var AWS =
 
 		                $.each(result, function (i, a)
 		                {
-		                    $('#add_favorite_my_tags').append('<a href="javascript:;" onclick="$(\'#add_favorite_tags\').val($(\'#add_favorite_tags\').val() + \'' + a['title'] + ',\');" class="topic-tag"><span>' + a['title'] + '</span></a> ');
+		                    $('#add_favorite_my_tags .topic-bar').append('<span href="javascript:;" onclick="$(\'#add_favorite_tags\').val($(\'#add_favorite_tags\').val() + \'' + a['title'] + ',\');" class="topic-tag"><a class="text">' + a['title'] + '</a></span> ');
 		                });
 		            }, 'json');
 		            break;
