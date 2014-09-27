@@ -105,6 +105,19 @@ class favorite_class extends AWS_MODEL
 	{
 		return $this->query_all('SELECT DISTINCT title FROM ' . $this->get_table('favorite_tag') . ' WHERE uid = ' . intval($uid) . ' ORDER BY id DESC', $limit);
 	}
+	
+	public function get_item_tags_by_item_id($item_id, $item_type)
+	{
+		if ($favorite_tags = $this->fetch_all('favorite_tag', 'item_id = ' . intval($item_id) . " AND item_type = '" . $this->quote($item_type) . "'"))
+		{
+			foreach ($favorite_tags AS $key => $val)
+			{
+				$item_tags[] = $val['title'];
+			}
+		}
+
+		return $item_tags;
+	}
 
 	public function get_favorite_items_tags_by_item_id($uid, $item_ids)
 	{
