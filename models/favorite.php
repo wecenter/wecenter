@@ -108,7 +108,7 @@ class favorite_class extends AWS_MODEL
 	
 	public function get_item_tags_by_item_id($item_id, $item_type)
 	{
-		if ($favorite_tags = $this->fetch_all('favorite_tag', 'item_id = ' . intval($item_id) . " AND item_type = '" . $this->quote($item_type) . "'"))
+		if ($favorite_tags = $this->fetch_all('favorite_tag', 'item_id = ' . intval($item_id) . " AND `type` = '" . $this->quote($item_type) . "'"))
 		{
 			foreach ($favorite_tags AS $key => $val)
 			{
