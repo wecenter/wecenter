@@ -43,6 +43,13 @@ class crond_class extends AWS_MODEL
             AWS_APP::cache()->set('crond_timer_five_minutes', time(), 300, 'crond');
         }
 
+        if (!AWS_APP::cache()->get('crond_timer_ten_minutes'))
+        {
+            $call_actions[] = 'ten_minutes';
+
+            AWS_APP::cache()->set('crond_timer_ten_minutes', time(), 600, 'crond');
+        }
+
         if (gmdate('YW', AWS_APP::cache()->get('crond_timer_week')) != gmdate('YW', time()))
         {
             $call_actions[] = 'week';
@@ -100,6 +107,8 @@ class crond_class extends AWS_MODEL
         $this->model('email')->send_mail_queue(120);
 
         $this->model('online')->delete_expire_users();
+
+        $this->model('admin')->notifications_crond();
     }
 
     // 每五分钟执行
@@ -111,16 +120,18 @@ class crond_class extends AWS_MODEL
             $this->model('weibo')->get_msg_from_sina_crond();
         }
 
+        $this->model('active')->send_valid_email_crond();
+    }
+
+    // 每十分钟执行
+    public function ten_minutes()
+    {
         $receiving_email_global_config = get_setting('receiving_email_global_config');
 
         if ($receiving_email_global_config['enabled'] == 'Y')
         {
             $this->model('edm')->receive_email_crond();
         }
-
-        $this->model('admin')->notifications_crond();
-
-        $this->model('active')->send_valid_email_crond();
     }
 
     // 每半小时执行
