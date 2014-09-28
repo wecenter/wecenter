@@ -123,22 +123,28 @@ var AW_TEMPLATE = {
 						'<a type="button" class="close icon icon-delete" data-dismiss="modal" aria-hidden="true"></a>'+
 						'<h3 class="modal-title" id="myModalLabel">' + _t('收藏') + '</h3>'+
 					'</div>'+
-					'<form action="' + G_BASE_URL + '/favorite/ajax/update_favorite_tag/" method="post" onsubmit="return false;">'+
-						'<div class="modal-body">'+
-							'<input type="hidden" name="item_id" value="{{item_id}}" />'+
-							'<input type="hidden" name="item_type" value="{{item_type}}" />'+
-							'<div class="alert alert-danger hide error_message"><i class="icon icon-delete"></i> <em></em></div>'+
-							'<p>' + _t('添加话题标签') + ': <input type="text" name="tags" id="add_favorite_tags" class="form-control" /></p>'+
-							'<div id="add_favorite_my_tags" class="hide">' +
-								'<span class="pull-left">' + _t('常用标签') + ':</span>'+
-								'<div class="aw-topic-bar">'+
-									'<div class="topic-bar"></div>'+
-								'</div>'+
+					'<form id="favorite_form" action="' + G_BASE_URL + '/favorite/ajax/update_favorite_tag/" method="post" onsubmit="return false;">'+
+						'<input type="hidden" name="item_id" value="{{item_id}}" />'+
+						'<input type="hidden" name="item_type" value="{{item_type}}" />'+
+						'<input type="text" name="tags" id="add_favorite_tags" class="hide" />'+
+						'<div class="mod aw-favorite-tag-list">'+
+							'<div class="modal-body">'+
+								'<div class="mod-body"><ul></ul></div>'+
+								'<div class="alert alert-danger hide error_message"><i class="icon icon-delete"></i> <em></em></div>'+
+							'</div>'+
+							'<div class="modal-footer">'+
+								'<a class="pull-left" onclick="$(\'.aw-favorite-box .aw-favorite-tag-list\').hide();$(\'.aw-favorite-box .aw-favorite-tag-add\').show();">' + _t('创建标签') + '</a>'+
+								'<button href="javascript:;"  data-dismiss="modal" aria-hidden="true" class="btn btn-large btn-gray">' + _t('取消') + '</button>'+
 							'</div>'+
 						'</div>'+
-						'<div class="modal-footer">'+
-							'<a href="javascript:;" data-dismiss="modal" aria-hidden="true" class="text-color-999">' + _t('取消') + '</a>'+
-							'<button href="javascript:;" class="btn btn-large btn-success" onclick="AWS.ajax_post($(this).parents(\'form\'), AWS.ajax_processer, \'ajax_post_modal\');">' + _t('确认') + '</button>'+
+						'<div class="mod aw-favorite-tag-add hide">'+
+							'<div class="modal-body">'+
+								'<input type="text" class="form-control add-input" placeholder="' + _t('标签名字') + '" />'+
+							'</div>'+
+							'<div class="modal-footer">'+
+								'<a onclick="$(\'.aw-favorite-box .aw-favorite-tag-list\').show();$(\'.aw-favorite-box .aw-favorite-tag-add\').hide();">' + _t('取消') + '</a>'+
+								'<button href="javascript:;" class="btn btn-large btn-success" onclick="AWS.User.add_favorite_tag()">' + _t('确认创建') + '</button>'+
+							'</div>'+
 						'</div>'+
 					'</form>'+
 				'</div>'+
