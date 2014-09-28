@@ -40,6 +40,11 @@ class ajax extends AWS_CONTROLLER
 	{
 		echo json_encode($this->model('favorite')->get_favorite_tags($this->user_id, 10));
 	}
+	
+	public function get_item_tags_action()
+	{
+		echo json_encode($this->model('favorite')->get_item_tags_by_item_id($_POST['item_id'], $_POST['item_type']));
+	}
 
 	public function update_favorite_tag_action()
 	{

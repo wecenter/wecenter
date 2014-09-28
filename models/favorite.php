@@ -105,6 +105,19 @@ class favorite_class extends AWS_MODEL
 	{
 		return $this->query_all('SELECT DISTINCT title FROM ' . $this->get_table('favorite_tag') . ' WHERE uid = ' . intval($uid) . ' ORDER BY id DESC', $limit);
 	}
+	
+	public function get_item_tags_by_item_id($item_id, $item_type)
+	{
+		if ($favorite_tags = $this->fetch_all('favorite_tag', 'item_id = ' . intval($item_id) . " AND `type` = '" . $this->quote($item_type) . "'"))
+		{
+			foreach ($favorite_tags AS $key => $val)
+			{
+				$item_tags[] = $val['title'];
+			}
+		}
+
+		return $item_tags;
+	}
 
 	public function get_favorite_items_tags_by_item_id($uid, $item_ids)
 	{
@@ -194,17 +207,17 @@ class favorite_class extends AWS_MODEL
 					$article_ids[] = $data['item_id'];
 				break;
 			}
-
-			$favorite_uids[$data['uid']] = $data['uid'];
 		}
 
 		if ($answer_ids)
 		{
 			if ($answer_infos = $this->model('answer')->get_answers_by_ids($answer_ids))
 			{
-				foreach ($answer_infos AS $key => $val)
+				foreach ($answer_infos AS $key => $data)
 				{
-					$question_ids[$val['question_id']] = $val['question_id'];
+					$question_ids[$val['question_id']] = $data['question_id'];
+					
+					$favorite_uids[$data['uid']] = $data['uid'];
 				}
 
 				$answer_attachs = $this->model('publish')->get_attachs('answer', $answer_ids, 'min');
@@ -216,6 +229,11 @@ class favorite_class extends AWS_MODEL
 		if ($article_ids)
 		{
 			$article_infos = $this->model('article')->get_article_info_by_ids($article_ids);
+			
+			foreach ($article_infos AS $key => $data)
+			{
+				$favorite_uids[$data['uid']] = $data['uid'];
+			}
 		}
 
 		$users_info = $this->model('account')->get_user_info_by_uids($favorite_uids);
@@ -237,6 +255,7 @@ class favorite_class extends AWS_MODEL
 					}
 
 					$favorite_list_data[$key]['question_info'] = $question_infos[$answer_infos[$data['item_id']]['question_id']];
+					$favorite_list_data[$key]['user_info'] = $users_info[$answer_infos[$data['item_id']]['uid']];
 				break;
 
 				case 'article':
@@ -247,12 +266,13 @@ class favorite_class extends AWS_MODEL
 					$favorite_list_data[$key]['article_info'] = $article_infos[$data['item_id']];
 
 					$favorite_list_data[$key]['last_action_str'] = ACTION_LOG::format_action_data(ACTION_LOG::ADD_ARTICLE, $data['uid'], $users_info[$data['uid']]['user_name']);
+					
+					$favorite_list_data[$key]['user_info'] = $users_info[$article_infos[$data['item_id']]['uid']];
 				break;
 			}
 
 			$favorite_list_data[$key]['item_id'] = $data['item_id'];
 			$favorite_list_data[$key]['item_type'] = $data['type'];
-			$favorite_list_data[$key]['user_info'] = $users_info[$data['uid']];
 		}
 
 		return $favorite_list_data;

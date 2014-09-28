@@ -548,15 +548,68 @@ var AWS =
 		        case 'favorite':
 		            $.get(G_BASE_URL + '/favorite/ajax/get_favorite_tags/', function (result)
 		            {
-		                if (result.length > 0)
-		                {
-		                    $('#add_favorite_my_tags').show();
-		                }
 
-		                $.each(result, function (i, a)
+		                $.each(result, function (i, e)
 		                {
-		                    $('#add_favorite_my_tags').append('<a href="javascript:;" onclick="$(\'#add_favorite_tags\').val($(\'#add_favorite_tags\').val() + \'' + a['title'] + ',\');" class="topic-tag"><span>' + a['title'] + '</span></a> ');
+		                    $('.aw-favorite-tag-list ul').append('<li><a data-value="' + e['title'] + '"><span class="title">' + e['title'] + '</span></a><i class="icon icon-followed"></i></li>');
 		                });
+
+		                $.post(G_BASE_URL + '/favorite/ajax/get_item_tags/', {
+		                	'item_id' : $('#favorite_form input[name="item_id"]').val(),
+		                	'item_type' : $('#favorite_form input[name="item_type"]').val()
+		                }, function (result)
+		                {
+		                	$.each(result, function (i, e)
+		                	{
+		                		var index = i;
+
+		                		$.each($('.aw-favorite-tag-list ul li .title'), function (i, e)
+			                	{
+			                		if ($(this).text() == result[index])
+			                		{
+			                			$(this).parents('li').addClass('active');
+			                		}
+			                	});
+		                	});
+		                }, 'json');
+
+		                $(document).on('click', '.aw-favorite-tag-list ul li a', function()
+		                {
+		                	var _this = this,
+		                		addClassFlag = true,
+		                		params = {
+									'item_id' : $('#favorite_form input[name="item_id"]').val(),
+			                		'item_type' : $('#favorite_form input[name="item_type"]').val(),
+			                		'tags' : $(_this).attr('data-value')
+		                		};
+
+		                	if ($(this).parents('li').hasClass('active'))
+		                	{
+		                		var url = G_BASE_URL + '/favorite/ajax/remove_favorite_tag/'; 
+
+		                		addClassFlag = false;
+		                	}
+		                	else
+		                	{
+		                		var url = G_BASE_URL + '/favorite/ajax/update_favorite_tag/';
+		                	}
+		                	
+		                	$.post(url, params , function (result)
+		                	{
+		                		if (result.errno == 1)
+		                		{
+		                			if (addClassFlag)
+		                			{
+		                				$(_this).parents('li').addClass('active');
+		                			}
+		                			else
+		                			{
+			                			$(_this).parents('li').removeClass('active');
+		                			}
+		                		}
+		                	}, 'json');
+		                });
+
 		            }, 'json');
 		            break;
 				break;
@@ -1655,6 +1708,25 @@ AWS.User =
 					selector.html(selector.html().replace(_t('赞'), _t('我已赞'))).addClass('active');
 				}
 		    }
+		}, 'json');
+	},
+
+	// 创建收藏标签
+	add_favorite_tag: function()
+	{
+		$.post(G_BASE_URL + '/favorite/ajax/update_favorite_tag/', {
+			'item_id' : $('#favorite_form input[name="item_id"]').val(),
+    		'item_type' : $('#favorite_form input[name="item_type"]').val(),
+    		'tags' : $('#favorite_form .add-input').val()
+		}, function (result)
+		{
+			if (result.errno == 1)
+    		{
+    			$('.aw-favorite-box .aw-favorite-tag-list').show();
+    			$('.aw-favorite-box .aw-favorite-tag-add').hide();
+
+    			$('.aw-favorite-tag-list ul').prepend('<li class="active"><a data-value="' + $('#favorite_form .add-input').val() + '"><span class="title">' + $('#favorite_form .add-input').val() + '</span></a><i class="icon icon-followed"></i></li>');
+    		}
 		}, 'json');
 	}
 }
