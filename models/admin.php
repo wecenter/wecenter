@@ -23,7 +23,7 @@ class admin_class extends AWS_MODEL
     {
         $admin_menu = (array)AWS_APP::config()->get('admin_menu');
 
-        if (empty($admin_menu))
+        if (!$admin_menu)
         {
             return false;
         }
@@ -106,16 +106,21 @@ class admin_class extends AWS_MODEL
                                 'receive_email_error' => $admin_notifications['receive_email_error']
                             );
 
-        AWS_APP::cache()->set('admin_notifications', $admin_notifications, 600);
+        AWS_APP::cache()->set('admin_notifications', $admin_notifications, 1800);
 
         return $this->model('setting')->set_vars(array('admin_notifications' => $notifications));
     }
 
     public function get_notifications_texts()
     {
-        $notifications = get_setting('admin_notifications');
+        $notifications = AWS_APP::cache()->get('admin_notifications');
 
-        if (empty($notifications))
+        if (!$notifications)
+        {
+            $notifications = get_setting('admin_notifications');
+        }
+
+        if (!$notifications)
         {
             return false;
         }

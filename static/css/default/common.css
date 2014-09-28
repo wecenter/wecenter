@@ -302,6 +302,7 @@ a.aw-load-more-content{display: block;}
 
 /* 动态首页新通知提示box */
 .aw-notification-box{padding-bottom: 20px;border-bottom: 1px solid #e6e6e6;}
+.aw-notification-box .icon-tips{display: none;}
 .aw-notification-box .mod-body, .aw-notification-box .mod-footer{padding:0 20px;}
 .aw-notification-box .mod-body ul li{position:relative;padding:10px 0;border-top:1px dotted #E2E2E2;line-height: 14px;}
 .aw-notification-box .mod-body ul li:first-child{border-top: none;}
@@ -741,7 +742,7 @@ a.aw-load-more-content{display: block;}
 .alert-box .modal-footer{padding-top:0;line-height: 34px;border-top: none;}
 .alert-box .modal-footer button{margin:0 0 0 20px;}
 .modal-dialog textarea, .modal-dialog input{margin-bottom: 10px;}
-.aw-imageVideo-box .modal-dialog, .aw-share-box .modal-dialog, .aw-question-redirect-box .modal-dialog, .aw-inbox .modal-dialog, .aw-topic-edit-note-box .modal-dialog{width: 470px;}
+.aw-imageVideo-box .modal-dialog, .aw-share-box .modal-dialog, .aw-question-redirect-box .modal-dialog, .aw-inbox .modal-dialog, .aw-topic-edit-note-box .modal-dialog, .aw-favorite-box .modal-dialog{width: 470px;}
 .aw-imageVideo-box .modal-dialog p{width:95%;margin:0 auto;color: #999;}
 .aw-publish-box .modal-dialog{width: 540px;}
 .aw-publish-box .aw-publish-title{margin-bottom: 10px;}
@@ -770,7 +771,13 @@ a.aw-load-more-content{display: block;}
 .aw-edit-comment-box .aw-file-upload-box{padding:20px;border:1px solid #ccc;border-top: none;border-radius: 0 0 10px 10px;}
 .aw-edit-comment-box .modal-footer label{margin-left:5px;}
 /* 回复收藏box */
-.aw-favorite-box .aw-topic-name{display:inline-block;margin:0 3px 5px 3px;}
+.aw-favorite-tag-list ul{width: 452px;height: auto;overflow: hidden;}
+.aw-favorite-tag-list ul li{position:relative;float:left;width:47%;margin:0 10px 10px 0;}
+.aw-favorite-tag-list ul li a{display: block;padding:15px;border:1px solid #ddd;border-radius: 4px;color: #666;background-color: #fff;}
+.aw-favorite-tag-list ul li a:hover{background-color: #f5f5f5;}
+.aw-favorite-tag-list ul li span{display:block;}
+.aw-favorite-tag-list ul li i{display:none;position: absolute;right: 10px;top: 14px;width:24px;height:24px;background-color: #499ef3;color: #fff;text-align: center;line-height: 24px;border-radius: 12px;font-size: 20px;}
+.aw-favorite-tag-list ul li.active i{display: block;}
 
 /* 用户初次登陆提示box */
 .aw-first-login .mod-head{margin-bottom:10px;}
@@ -841,7 +848,7 @@ a.aw-load-more-content{display: block;}
 .wmd-preview h3, .markitup-box h3{font-size: 1.17em;}
 .wmd-preview code, .markitup-box code, .markitup-box code{background-color: #EDEAD5;display: block;font-family: "Courier New",Courier,monospace;margin: 5px 0;padding: 5px;white-space: normal;text-align: left;font-size: 14px;}
 .wmd-preview p{margin:0;}
-.wmd-preview img, .markitup-box img {max-width:570px;margin-bottom: 15px;}
+.wmd-preview img, .markitup-box img {max-width:625px;margin-bottom: 15px;}
 .markitup-box{position:relative;z-index:1;line-height: 180%;word-wrap: break-word !important;}
 .markitup-box .aw-upload-file-list{margin: 0;padding-left: 0;list-style: none;}
 .markitup-box .aw-upload-img-list a{display:block;}

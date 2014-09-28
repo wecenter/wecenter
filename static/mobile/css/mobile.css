@@ -325,12 +325,16 @@ input[type="text"], input[type="password"], textarea{-webkit-appearance:none;}
 .aw-publish-box .aw-topic-bar .editor .mod-head{padding:0;}
 .aw-publish-box .aw-topic-bar .form-group{width: 73%;margin:0;}
 .aw-publish-box .aw-topic-bar .cancel{display: none;}
+.aw-publish-box .aw-topic-bar .add{background-color: #cccccc;color: #fff;}
+.aw-publish-box .aw-topic-bar .add:hover, .aw-publish-box .aw-topic-bar .add:active{background-color: #999 !important;color: #fff;}
 .aw-publish-box .command{position:relative;margin-top:5px;text-align: center;}
 .aw-publish-box .command label{position: absolute;left: 0;top: 8px;}
 
 /* 上传控件 */
 .aw-upload-box{position:relative;margin:10px 0;padding:0;background-color: transparent;}
+.aw-upload-box > a:focus, .aw-upload-box > a:focus span{color: #155faa !important;}
 .aw-upload-box .icon-pic{font-size: 24px;color: #cdcdcd;}
+.aw-upload-box .tips{position: absolute;left: 30px;top: 5px;z-index: 0;font-size: 14px;color: #999;}
 .aw-upload-box form{width:0;height:0;opacity: 0;}
 .aw-upload-box form input{position:absolute;top:2px;left:0;width: 80px;height: 34px;filter:alpha(opacity=0);}
 .upload-list li{position: relative;min-height:70px;padding:10px 0 0 60px;border-bottom: 1px solid #e6e6e6;}
@@ -437,7 +441,7 @@ input[type="text"], input[type="password"], textarea{-webkit-appearance:none;}
 .aw-people-list .page-control li{border:none;}
 
 /* footer */
-footer{padding-bottom:10px;color: #999;font-size: 12px;}
+footer{padding:10px 0;color: #999;font-size: 12px;}
 footer p{margin:0;}
 
 /* icon */

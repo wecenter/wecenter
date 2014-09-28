@@ -150,7 +150,6 @@ $(function()
 	    				list.eq(flag).show();
 	    			}
 	    		}
-
 	    		if (flag <= 0)
 				{
 					$('.aw-question-detail .aw-invite-box .prev').addClass('active');
@@ -185,7 +184,7 @@ $(function()
 
 	    				list.eq(flag).show();
 
-	    				if (flag == list.length)
+	    				if (flag + 1 == list.length)
 	    				{
 	    					$('.aw-question-detail .aw-invite-box .next').addClass('active');
 	    				}
