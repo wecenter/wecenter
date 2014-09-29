@@ -124,7 +124,7 @@ class publish_class extends AWS_MODEL
 		}
 
 		ACTION_LOG::save_action($uid, $answer_id, ACTION_LOG::CATEGORY_ANSWER, ACTION_LOG::ANSWER_QUESTION, htmlspecialchars($answer_content), $question_id);
-		
+
 		ACTION_LOG::save_action($uid, $question_id, ACTION_LOG::CATEGORY_QUESTION, ACTION_LOG::ANSWER_QUESTION, htmlspecialchars($answer_content), $answer_id, 0, intval($anonymous));
 
 		if ($question_info['published_uid'] != $uid)
@@ -183,12 +183,12 @@ class publish_class extends AWS_MODEL
 
 		if ($question_info['weibo_msg_id'])
 		{
-			$this->model('weibo')->reply_answer_to_sina($question_info['question_id'], $answer_content);
+			$this->model('weibo')->reply_answer_to_sina($question_info['question_id'], cjk_substr($answer_content, 0, 110, 'UTF-8', '...'));
 		}
 
 		if ($question_info['received_email_id'])
 		{
-			$this->model('edm')->reply_answer_by_email($question_info['question_id'], $answer_content);
+			$this->model('edm')->reply_answer_by_email($question_info['question_id'], nl2br(FORMAT::parse_markdown($answer_content)));
 		}
 
 		return $answer_id;
@@ -370,7 +370,7 @@ class publish_class extends AWS_MODEL
 				$this->model('weixin')->send_text_message($weixin_user['openid'], "您的文章 [" . $article_info['title'] . "] 收到了新的评论:\n\n" . strip_tags($message), $this->model('openid_weixin')->redirect_url('/article/' . $article_info['id']));
 			}
 		}
-		
+
 		ACTION_LOG::save_action($uid, $article_info['id'], ACTION_LOG::CATEGORY_QUESTION, ACTION_LOG::ADD_COMMENT_ARTICLE, htmlspecialchars($message), $comment_id);
 
 		$this->model('posts')->set_posts_index($article_info['id'], 'article');

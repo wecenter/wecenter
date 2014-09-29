@@ -113,6 +113,8 @@ class weibo_class extends AWS_MODEL
             return false;
         }
 
+        $comment .= ' (' . AWS_APP::lang()->_t('来自')  . ' ' . get_js_url('/question/' . $question_id) . ' )';
+
         return $this->model('openid_weibo')->create_comment($service_info['access_token'], $msg_info['id'], $comment);
     }
 

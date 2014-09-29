@@ -76,10 +76,10 @@ class admin_class extends AWS_MODEL
 
         $notifications = array(
                                 // 内容审核
-                                'answer_approval' => $this->count('approval', "type = 'answer'"),
-                                'question_approval' => $this->count('approval', "type = 'question'"),
-                                'article_approval' => $this->count('approval', "type = 'article'"),
-                                'article_comment_approval' => $this->count('approval', "type = 'article_comment'"),
+                                'answer_approval' => $this->count('approval', 'type = "answer"'),
+                                'question_approval' => $this->count('approval', 'type = "question"'),
+                                'article_approval' => $this->count('approval', 'type = "article"'),
+                                'article_comment_approval' => $this->count('approval', 'type = "article_comment"'),
                                 'weibo_msg_approval' => $this->count('weibo_msg', 'question_id IS NULL'),
                                 'received_email_approval' => $this->count('received_email', 'question_id IS NULL'),
                                 'unverified_modify_count' => $this->count('question', 'unverified_modify_count <> 0'),
