@@ -37,7 +37,7 @@ class openid_weibo_class extends AWS_MODEL
 
     function refresh_access_token($id, $sina_token)
     {
-        if (!is_digits($id) OR empty($sina_token['access_token']))
+        if (!is_digits($id) OR !$sina_token['access_token'])
         {
             return false;
         }
@@ -55,7 +55,7 @@ class openid_weibo_class extends AWS_MODEL
 
     function users_sina_add($id, $uid, $name, $location, $description, $url, $profile_image_url, $gender)
     {
-        if (empty($uid) OR empty($id))
+        if (!$uid OR !$id)
         {
             return false;
         }
@@ -93,7 +93,7 @@ class openid_weibo_class extends AWS_MODEL
 
         $user_sina = $this->get_users_sina_by_id($sina_profile['id']);
 
-        if (empty($user_sina))
+        if (!$user_sina)
         {
             $this->users_sina_add($sina_profile['id'], $uid, $sina_profile['screen_name'], $sina_profile['location'], $sina_profile['description'], $sina_profile['profile_url'], $sina_profile['profile_image_url'], $sina_profile['gender']);
 
@@ -123,14 +123,7 @@ class openid_weibo_class extends AWS_MODEL
             AWS_APP::cache()->set('tmp_service_account', $tmp_service_account, 86400);
         }
 
-        $admin_notifications = get_setting('admin_notifications');
-
-        if ($admin_notifications['sina_users'][$uid])
-        {
-            unset($admin_notifications['sina_users'][$uid]);
-        }
-
-        $this->model('setting')->set_vars(array('admin_notifications' => $admin_notifications));
+        $this->model('weibo')->notification_of_refresh_access_token($uid, null);
 
         if ($redirect)
         {
@@ -164,7 +157,7 @@ class openid_weibo_class extends AWS_MODEL
 
         $msgs = $result['statuses'];
 
-        if (empty($msgs))
+        if (!$msgs)
         {
             return false;
         }
@@ -181,12 +174,12 @@ class openid_weibo_class extends AWS_MODEL
 
             $new_msgs = $result['statuses'];
 
-            if (empty($new_msgs))
+            if (!$new_msgs)
             {
                 break;
             }
 
-            if (empty($msgs))
+            if (!$msgs)
             {
                 $msgs = $new_msgs;
             }

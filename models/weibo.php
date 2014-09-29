@@ -299,7 +299,7 @@ class weibo_class extends AWS_MODEL
                                                         );
         }
 
-        AWS_APP::cache()->set('admin_notifications', $admin_notifications, 600);
+        AWS_APP::cache()->set('admin_notifications', $admin_notifications, 1800);
 
         return $this->model('setting')->set_vars(array('admin_notifications' => $admin_notifications));
     }
