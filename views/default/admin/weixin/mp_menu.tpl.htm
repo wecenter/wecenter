@@ -767,59 +767,15 @@
 
     function ajax_upload_reload()
     {
-        $.each($('.ajax-upload'), function (i, e) {
-            init_list_img_uploader(G_BASE_URL + '/admin/ajax/weixin_mp_menu_list_image_upload/', 'list_image', $(e));
-        });
-    }
-
-    function init_list_img_uploader(upload_url, upload_name, upload_element, upload_status_elememt, perview_element)
-    {
-        var attach_key = hex_md5(new Date().getTime() + ' ' + Math.random());
-
-        return new AjaxUpload(upload_element,
+        $.each($('.ajax-upload'), function (i, e) 
         {
-            action: upload_url + '?attach_access_key='+ attach_key,
-            name: upload_name,
-            responseType: 'json',
+            var _this = this, attach_key = hex_md5(new Date().getTime() + ' ' + Math.random());
 
-            onSubmit: function (file, ext)
-            {
-                AWS.loading('show');
-                if (!new RegExp('(png|jpe|jpg|jpeg|gif)$', 'i').test(ext))
+            var fileupload = new FileUpload('avatar', $(this), '', G_BASE_URL + '/admin/ajax/weixin_mp_menu_list_image_upload/?attach_access_key=' + attach_key, '', function()
                 {
-                    AWS.alert(_t('上传失败: 只支持 jpg、gif、png 格式的图片文件'));
-
-                    return false;
-                }
-
-                this.disable();
-
-                if (upload_status_elememt)
-                {
-                    upload_status_elememt.show();
-                }
-            },
-
-            onComplete: function (file, response)
-            {
-                AWS.loading('hide');
-                this.enable();
-
-                if (upload_status_elememt)
-                {
-                    upload_status_elememt.hide();
-                }
-
-                if (response.errno == -1)
-                {
-                    AWS.alert(response.err);
-                }
-                else
-                {
-                    upload_element.prev().val(attach_key);
-                    upload_element.next().find('i').removeClass('disabled');
-                }
-            }
+                    $(_this).prev().val(attach_key);
+                    $(_this).next().find('i').removeClass('disabled');
+                });
         });
     }
 </script>
