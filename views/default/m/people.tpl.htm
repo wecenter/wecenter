@@ -13,7 +13,7 @@
 				
 				<?php if ($this->user['uid'] != $this->user_id AND $this->user_id) { ?>
 				<span class="pull-right">
-					<a class="btn btn-success btn-mini <?php if (!$this->user_follow_check) { ?> aw-active<?php } ?>" onclick="AWS.User.follow($(this), 'user', <?php echo $this->user['uid']; ?>);"><?php if ($this->user_follow_check) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?></a>
+					<a class="btn btn-success btn-mini <?php if ($this->user_follow_check) { ?> active<?php } ?>" onclick="AWS.User.follow($(this), 'user', <?php echo $this->user['uid']; ?>);"><?php if ($this->user_follow_check) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?></a>
 					<a class="btn btn-success btn-stack" href="m/inbox_new/uid-<?php echo $this->user['uid']; ?>"><i class="icon icon-inbox"></i></a>
 				</span>
 				<?php } ?>

@@ -282,7 +282,7 @@ FileUpload.prototype =
 						$(element).find('.img').css(
 						{
 			                'background': 'url("' + json.thumb + '")'
-			            });
+			            }).addClass('active');
 			        break;
 				}
 
