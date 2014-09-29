@@ -1668,7 +1668,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
         if ($_GET['attach_access_key'])
         {
-            AWS_APP::upload()->do_upload('list_image');
+            AWS_APP::upload()->do_upload('aws_upload_file');
         }
         else
         {

@@ -130,7 +130,7 @@ class weixin extends AWS_ADMIN_CONTROLLER
 
         TPL::assign('reply_rule_list', $this->model('weixin')->fetch_unique_reply_rule_list($account_id));
 
-        TPL::import_js('js/ajaxupload.js');
+        TPL::import_js('js/fileupload.js');
 
         TPL::import_js('js/md5.js');
 

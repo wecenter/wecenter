@@ -80,11 +80,6 @@ class main extends AWS_CONTROLLER
 
 		TPL::import_js('js/app/index.js');
 
-		if ($_GET['first_login'])
-		{
-			TPL::import_js('js/ajaxupload.js');
-		}
-
 		TPL::output('home/index');
 	}
 
