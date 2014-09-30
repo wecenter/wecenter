@@ -43,25 +43,6 @@ var AWS =
 		
 		switch (type)
 		{
-			case 'publish' : 
-				template = Hogan.compile(AW_MOBILE_TEMPLATE.publish).render({
-		            'category_id': data.category_id,
-		            'ask_user_id': data.ask_user_id
-		        });
-			break;
-
-			case 'redirect' : 
-				template = Hogan.compile(AW_MOBILE_TEMPLATE.redirect).render({
-					'data-id' : data
-				});
-			break;
-
-			case 'message' :
-				template = Hogan.compile(AW_MOBILE_TEMPLATE.message).render({
-					'data-name' : data
-				});
-			break;
-
 			case 'commentEdit':
 		        var template = Hogan.compile(AW_MOBILE_TEMPLATE.editCommentBox).render(
 		        {
@@ -76,50 +57,6 @@ var AWS =
 			
 			switch (type)
 			{
-				case 'message' :
-					AWS.Dropdown.bind_dropdown_list('.aw-message-input','message');
-				break;
-				
-				case 'redirect' : 
-					AWS.Dropdown.bind_dropdown_list('.aw-redirect-input','redirect');
-				break;
-
-				case 'publish' :
-					if (parseInt(data.category_enable) == 1)
-		        	{
-			        	$.get(G_BASE_URL + '/publish/ajax/fetch_question_category/', function (result)
-			            {
-			                AWS.Dropdown.set_dropdown_list('.alert-publish .aw-publish-dropdown', eval(result), data.category_id);
-
-			                $('.alert-publish .aw-publish-dropdown li a').click(function ()
-			                {
-			                    $('#quick_publish_category_id').val($(this).attr('data-value'));
-			                });
-			            });
-			            
-			            $('#quick_publish_topic_chooser').hide();
-		        	}
-		        	else
-		        	{
-			        	$('#quick_publish_category_chooser').hide();
-		        	}
-		
-		            if ($('#aw-search-query').val() && $('#aw-search-query').val() != $('#aw-search-query').attr('placeholder'))
-		            {
-			            $('#quick_publish_question_content').val($('#aw-search-query').val());
-		            }
-		            
-		            AWS.Init.init_topic_edit_box('.alert-publish .aw-topic-edit-box .aw-add-topic-box', 'publish');
-					
-		            $('#quick_publish .aw-add-topic-box').click();
-		            
-		            if (typeof(G_QUICK_PUBLISH_HUMAN_VALID) != 'undefined')
-		            {
-			            $('#quick_publish_captcha').show();
-			            $('#captcha').click();
-		            }
-				break;
-
 				case 'commentEdit':
 		            $.get(G_BASE_URL + '/question/ajax/fetch_answer_data/' + data.answer_id, function (result)
 		            {
@@ -891,26 +828,6 @@ AWS.Dropdown =
 								},'json');
 							break;
 
-							case 'redirect' :
-								$.get(G_BASE_URL + '/search/ajax/search/?q=' + encodeURIComponent($(element).val()) + '&type=questions&limit-30',function(result)
-								{
-									if (result.length > 0)
-									{
-										ul.html('');
-										
-										$.each(result ,function(i, e)
-										{
-											ul.append('<li><a onclick="AWS.ajax_request(' + "'" + G_BASE_URL + "/question/ajax/redirect/', 'item_id=" + $(element).attr('data-id') + "&target_id=" + result[i].search_id + "'" +')">' + result[i].name +'</a></li>')
-										});	
-										
-										$(element).next().show();
-									}else
-									{
-										$(element).next().hide();
-									}
-								},'json');
-							break;
-
 							case 'topic' :
 								$.get(G_BASE_URL + '/search/ajax/search/?type=topics&q=' + encodeURIComponent($(element).val()) + '&limit=10',function(result)
 								{
@@ -1330,10 +1247,6 @@ AWS.Init =
 
 	                $(comment_box_id).find('.aw-comment-list').html(result);
 	            });
-
-	            /*给三角形定位*/
-	            $(comment_box_id).find('i').css('left', $(this).width()/2 + $(this).position().left);
-	            $(comment_box_id).find('i.active').css('left', $(this).width()/2 + $(this).position().left - 1);
 	        }
 	    });
 	},

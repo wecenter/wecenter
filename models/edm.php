@@ -456,6 +456,8 @@ class edm_class extends AWS_MODEL
             return false;
         }
 
+        $comment .= ' <br /> <a href="' . get_js_url('/question/' . $question_id) . ' target="_blank">' . AWS_APP::lang()->_t('查看问题详情') . '</a>';
+
         return AWS_APP::mail()->send($received_email['from'], 'RE: ' . $received_email['subject'], $comment, get_setting('site_name'));
     }
 

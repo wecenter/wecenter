@@ -126,13 +126,11 @@
 	</form>
 </div>
 
-<script type="text/javascript" src="<?php echo G_STATIC_URL?>/js/fileupload.js"></script>
-
 <script type="text/javascript">
 	$(document).ready(function () {
 		if ($('#topic_pic_uploader').length)
 		{
-			var fileupload = new FileUpload('avatar', $('#topic_pic_uploader'), $('#topic_pic'), G_BASE_URL + '/topic/ajax/upload_topic_pic/topic_id-<?php echo $this->topic_info['topic_id']; ?>', 'topic_pic')
+			var fileupload = new FileUpload('avatar', $('#topic_pic_uploader'), $('#topic_pic'), G_BASE_URL + '/topic/ajax/upload_topic_pic/topic_id-<?php echo $this->topic_info['topic_id']; ?>', 'topic_pic');
 		}
 
 		// 根话题选择
