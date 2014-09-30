@@ -107,18 +107,12 @@ class crond_class extends AWS_MODEL
         $this->model('email')->send_mail_queue(120);
 
         $this->model('online')->delete_expire_users();
-
-        $this->model('admin')->notifications_crond();
     }
 
     // 每五分钟执行
     public function five_minutes()
     {
-        // 拉取微博最新 @用户 消息
-        if (get_setting('weibo_msg_enabled') == 'Y')
-        {
-            $this->model('weibo')->get_msg_from_sina_crond();
-        }
+        $this->model('admin')->notifications_crond();
 
         $this->model('active')->send_valid_email_crond();
     }
@@ -126,11 +120,9 @@ class crond_class extends AWS_MODEL
     // 每十分钟执行
     public function ten_minutes()
     {
-        $receiving_email_global_config = get_setting('receiving_email_global_config');
-
-        if ($receiving_email_global_config['enabled'] == 'Y')
+        if (get_setting('weibo_msg_enabled') == 'Y')
         {
-            $this->model('edm')->receive_email_crond();
+            $this->model('weibo')->get_msg_from_sina_crond();
         }
     }
 
@@ -138,6 +130,13 @@ class crond_class extends AWS_MODEL
     public function half_hour()
     {
         $this->model('search_fulltext')->clean_cache();
+
+        $receiving_email_global_config = get_setting('receiving_email_global_config');
+
+        if ($receiving_email_global_config['enabled'] == 'Y')
+        {
+            $this->model('edm')->receive_email_crond();
+        }
     }
 
     // 每小时执行
