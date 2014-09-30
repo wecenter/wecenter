@@ -121,7 +121,7 @@
 								<?php if ($val['attachs']) {  ?>
 								<div class="aw-upload-img-list">
 								<?php foreach ($val['attachs'] AS $attach) { ?>
-								<?php if ($attach['is_image'] AND $val['insert_attach_ids'] AND !in_array($attach['id'], $val['insert_attach_ids'])) { ?>
+								<?php if ($attach['is_image'] AND !($val['insert_attach_ids'] AND in_array($attach['id'], $val['insert_attach_ids']))) { ?>
 								<a href="<?php echo $attach['attachment']; ?>" target="_blank" data-fancybox-group="thumb" rel="lightbox"><img src="<?php echo $attach['attachment']; ?>" class="img-polaroid" alt="<?php echo $attach['attach_name']; ?>" /></a>
 								<?php } ?>
 								<?php } ?>
