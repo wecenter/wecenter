@@ -74,7 +74,7 @@ class admin_class extends AWS_MODEL
             $admin_notifications = get_setting('admin_notifications');
         }
 
-        $notifications = array(
+        $admin_notifications = array(
                                 // 内容审核
                                 'answer_approval' => $this->count('approval', 'type = "answer"'),
                                 'question_approval' => $this->count('approval', 'type = "question"'),
@@ -108,7 +108,7 @@ class admin_class extends AWS_MODEL
 
         AWS_APP::cache()->set('admin_notifications', $admin_notifications, 1800);
 
-        return $this->model('setting')->set_vars(array('admin_notifications' => $notifications));
+        return $this->model('setting')->set_vars(array('admin_notifications' => $admin_notifications));
     }
 
     public function get_notifications_texts()
