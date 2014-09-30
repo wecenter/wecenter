@@ -36,7 +36,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
         if (get_setting('admin_login_seccode') == 'Y' AND !AWS_APP::captcha()->is_validate($_POST['seccode_verify']))
         {
-            H::ajax_json_output(AWS_APP::RSM(null, -1, '请填写正确的验证码'));
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请填写正确的验证码')));
         }
 
         if (get_setting('ucenter_enabled') == 'Y')
@@ -1668,7 +1668,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
         if ($_GET['attach_access_key'])
         {
-            AWS_APP::upload()->do_upload('list_image');
+            AWS_APP::upload()->do_upload('aws_upload_file');
         }
         else
         {

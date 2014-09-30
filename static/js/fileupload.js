@@ -3,7 +3,7 @@
  * Copyright 2011-2014 Wecenter, Inc.
  * Date: 2014-06-02
  */
-function FileUpload (type, element, container, url, options)
+function FileUpload (type, element, container, url, options, callback)
 {
 	this.type = type;
 	this.element = element;
@@ -27,6 +27,8 @@ function FileUpload (type, element, container, url, options)
 	};
 
 	this.options = $.extend(this.options, options);
+
+	this.callback = callback;
 
 	if (type == 'file')
 	{
@@ -208,8 +210,6 @@ FileUpload.prototype =
 		var doc = iframe.contentDocument ? iframe.contentDocument: iframe.contentWindow.document,
 			response, filename;
 
-		try
-		{
             response = eval("(" + doc.body.innerHTML + ")");
 
             if (this.type == 'file')
@@ -238,11 +238,11 @@ FileUpload.prototype =
             }
 
            	$('.upload-iframe').detach();
-        }
-        catch(err)
-        {
-            response = {};
-        }
+
+           	if (this.callback)
+           	{
+           		this.callback();
+           	}
 	},
 
 	// ajax完成callback
@@ -282,7 +282,7 @@ FileUpload.prototype =
 						$(element).find('.img').css(
 						{
 			                'background': 'url("' + json.thumb + '")'
-			            });
+			            }).addClass('active');
 			        break;
 				}
 
@@ -307,6 +307,11 @@ FileUpload.prototype =
 
 				// 插入隐藏域(wecenter定制)
 				$(element).append(this.createHiddenInput(json.attach_id));
+
+				if (this.callback)
+				{
+					this.callback();
+				}
 			}
 			else
 			{
