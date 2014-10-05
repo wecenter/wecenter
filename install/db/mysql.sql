@@ -1,19 +1,4 @@
-CREATE TABLE `[#DB_PREFIX#]active_data` (
-  `active_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `uid` int(11) DEFAULT '0',
-  `expire_time` int(10) DEFAULT NULL,
-  `active_code` varchar(32) DEFAULT NULL,
-  `active_type_code` varchar(16) DEFAULT NULL,
-  `add_time` int(10) DEFAULT NULL,
-  `add_ip` bigint(12) DEFAULT NULL,
-  `active_time` int(10) DEFAULT NULL,
-  `active_ip` bigint(12) DEFAULT NULL,
-  PRIMARY KEY (`active_id`),
-  KEY `active_code` (`active_code`),
-  KEY `active_type_code` (`active_type_code`),
-  KEY `uid` (`uid`)
-) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
-
+﻿
 CREATE TABLE `[#DB_PREFIX#]answer` (
   `answer_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '回答id',
   `question_id` int(11) NOT NULL COMMENT '问题id',
