@@ -1,19 +1,4 @@
-CREATE TABLE `[#DB_PREFIX#]active_data` (
-  `active_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `uid` int(11) DEFAULT '0',
-  `expire_time` int(10) DEFAULT NULL,
-  `active_code` varchar(32) DEFAULT NULL,
-  `active_type_code` varchar(16) DEFAULT NULL,
-  `add_time` int(10) DEFAULT NULL,
-  `add_ip` bigint(12) DEFAULT NULL,
-  `active_time` int(10) DEFAULT NULL,
-  `active_ip` bigint(12) DEFAULT NULL,
-  PRIMARY KEY (`active_id`),
-  KEY `active_code` (`active_code`),
-  KEY `active_type_code` (`active_type_code`),
-  KEY `uid` (`uid`)
-) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
-
+﻿
 CREATE TABLE `[#DB_PREFIX#]answer` (
   `answer_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '回答id',
   `question_id` int(11) NOT NULL COMMENT '问题id',
@@ -215,7 +200,7 @@ CREATE TABLE `[#DB_PREFIX#]education_experience` (
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8 COMMENT='教育经历';
 
 CREATE TABLE `[#DB_PREFIX#]feature` (
-  `id` INT( 11 ) NULL AUTO_INCREMENT ,
+  `id` INT( 11 ) NOT NULL AUTO_INCREMENT ,
   `title` VARCHAR( 200 ) NULL DEFAULT NULL COMMENT '专题标题',
   `description` VARCHAR( 255 ) NULL DEFAULT NULL COMMENT '专题描述',
   `icon` VARCHAR( 255 ) NULL DEFAULT NULL COMMENT '专题图标',
@@ -231,7 +216,7 @@ CREATE TABLE `[#DB_PREFIX#]feature` (
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]feature_topic` (
-  `id` INT( 11 ) NULL AUTO_INCREMENT ,
+  `id` INT( 11 ) NOT NULL AUTO_INCREMENT ,
   `feature_id` INT( 11 ) NULL DEFAULT '0' COMMENT '专题ID',
   `topic_id` INT( 11 ) NULL DEFAULT '0' COMMENT '话题ID',
   PRIMARY KEY ( `id` ),
