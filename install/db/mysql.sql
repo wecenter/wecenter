@@ -215,7 +215,7 @@ CREATE TABLE `[#DB_PREFIX#]education_experience` (
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8 COMMENT='教育经历';
 
 CREATE TABLE `[#DB_PREFIX#]feature` (
-  `id` INT( 11 ) NULL AUTO_INCREMENT ,
+  `id` INT( 11 ) NOT NULL AUTO_INCREMENT ,
   `title` VARCHAR( 200 ) NULL DEFAULT NULL COMMENT '专题标题',
   `description` VARCHAR( 255 ) NULL DEFAULT NULL COMMENT '专题描述',
   `icon` VARCHAR( 255 ) NULL DEFAULT NULL COMMENT '专题图标',
@@ -231,7 +231,7 @@ CREATE TABLE `[#DB_PREFIX#]feature` (
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]feature_topic` (
-  `id` INT( 11 ) NULL AUTO_INCREMENT ,
+  `id` INT( 11 ) NOT NULL AUTO_INCREMENT ,
   `feature_id` INT( 11 ) NULL DEFAULT '0' COMMENT '专题ID',
   `topic_id` INT( 11 ) NULL DEFAULT '0' COMMENT '话题ID',
   PRIMARY KEY ( `id` ),
