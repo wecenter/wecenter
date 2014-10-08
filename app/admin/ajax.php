@@ -619,7 +619,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
         {
 	        $redirect = array(
             	'url' => get_js_url('/admin/page/')
-			)
+			);
         }
 
         H::ajax_json_output(AWS_APP::RSM($redirect, 1, null));
