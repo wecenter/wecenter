@@ -22,7 +22,7 @@
 					<?php if (sizeof($this->question_topics) == 0 AND $this->user_id AND !$this->question_info['lock'] && $this->user_info['permission']['edit_topic']) { ?>
 					<div class="aw-notopic-sort">
 						<?php if ($this->related_topics) { ?>
-						<span class="pull-left"><?php _e('可能属于这些话题'); ?>&nbsp;:&nbsp;</span> 
+						<span class="pull-left"><?php _e('可能属于这些话题'); ?>&nbsp;:&nbsp;</span>
 						<?php foreach ($this->related_topics AS $key => $topic_title) { ?>
 						<span class="topic-tag">
 							<a onclick="one_click_add_topic($(this), '<?php echo $topic_title; ?>', <?php echo $this->question_info['question_id'];?>);" class="text"><?php echo $topic_title; ?></a>
@@ -328,7 +328,7 @@
 										<?php if ($val['attachs']) {  ?>
 										<div class="aw-upload-img-list">
 										<?php foreach ($val['attachs'] AS $attach) { ?>
-										<?php if ($attach['is_image'] AND !in_array($attach['id'], $val['insert_attach_ids'])) { ?>
+										<?php if ($attach['is_image'] AND !($val['insert_attach_ids'] AND in_array($attach['id'], $val['insert_attach_ids']))) { ?>
 											<a href="<?php echo $attach['attachment']; ?>" target="_blank" data-fancybox-group="thumb" rel="lightbox"><img src="<?php echo $attach['attachment']; ?>" class="img-thumbnail" alt="<?php echo $attach['attach_name']; ?>" /></a>
 										<?php } ?>
 										<?php } ?>
@@ -338,7 +338,7 @@
 										<?php if ($val['attachs']) {  ?>
 										<ul class="aw-upload-file-list">
 											<?php foreach ($val['attachs'] AS $attach) { ?>
-											<?php if (!$attach['is_image'] AND !in_array($attach['id'], $val['insert_attach_ids'])) { ?>
+											<?php if (!$attach['is_image'] AND !($val['insert_attach_ids'] AND in_array($attach['id'], $val['insert_attach_ids']))) { ?>
 												<li><a href="<?php echo download_url($attach['file_name'], $attach['attachment']); ?>"><i class="icon icon-attach"></i><?php echo $attach['file_name']; ?></a></li>
 											<?php } ?>
 											<?php } ?>

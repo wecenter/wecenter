@@ -34,7 +34,7 @@
 				<div class="markitup-box clearfix">
 					<?php echo $this->question_info['question_detail']; ?>
 					<div id="weixin-desc" style="display:none;"><?=cjk_substr(str_replace(array("\r","\n"),array(' ',' '), strip_tags($this->question_info['question_detail'])), 0, 130, 'UTF-8', '...');?></div>
-					
+
 					<?php if ($this->question_info['attachs']) {  ?>
 						<div class="aw-upload-img-list">
 						<?php foreach ($this->question_info['attachs'] AS $key => $attach) { ?>
@@ -63,7 +63,7 @@
 				</div>
 			</div>
 			<?php if ($this->user_id) { ?>
-		
+
 			<div class="mod-footer">
 				<div class="meta">
 					<a class="aw-invite-replay"><i class="icon icon-inviteask"></i> <?php _e('邀请回复'); ?></a>
@@ -117,11 +117,11 @@
 						<div class="mod-body">
 							<div class="markitup-box clearfix">
 								<?php echo nl2br($val['answer_content']); ?>
-							
+
 								<?php if ($val['attachs']) {  ?>
 								<div class="aw-upload-img-list">
 								<?php foreach ($val['attachs'] AS $attach) { ?>
-								<?php if ($attach['is_image'] AND !in_array($attach['id'], $val['insert_attach_ids'])) { ?>
+								<?php if ($attach['is_image'] AND !($val['insert_attach_ids'] AND in_array($attach['id'], $val['insert_attach_ids']))) { ?>
 								<a href="<?php echo $attach['attachment']; ?>" target="_blank" data-fancybox-group="thumb" rel="lightbox"><img src="<?php echo $attach['attachment']; ?>" class="img-polaroid" alt="<?php echo $attach['attach_name']; ?>" /></a>
 								<?php } ?>
 								<?php } ?>
@@ -145,7 +145,7 @@
 									<a onclick="AWS.User.favorite('answer', <?php echo $val['answer_id']; ?>)"><i class="icon icon-favor"></i></a>
 								</span>
 								<?php } ?>
-								
+
 								<?php if (($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) OR ($val['uid'] == $this->user_id AND ((time() - $val['add_time']) < (get_setting('answer_edit_time') * 60) OR (!get_setting('answer_edit_time'))))) { ?>
 								<span class="operate">
 									<a class="text-color-999" href="javascript:;" onclick="AWS.dialog('commentEdit', {answer_id:<?php echo $val['answer_id']; ?>,attach_access_key:'<?php echo $this->attach_access_key; ?>'});"><i class="icon icon-edit"></i></a>
@@ -170,7 +170,7 @@
 			<?php } else if ($this->next_page) { ?>
 			<a href="m/question/<?php echo $this->question_info['question_id']; ?>?page=<?php echo $this->next_page; ?>" class="aw-load-more"><?php _e('下一页'); ?></a>
 			<?php } ?>
-			
+
 			<?php if (!$this->user_id) { ?>
 			<a class="aw-load-more no-border" id="load_index_actions" href="account/login/"><?php _e('登录进行回复'); ?></a>
 			<?php } else if ($this->question_info['lock']) { ?>
@@ -221,7 +221,7 @@
 		                </a>
 		            </div>
 		            <!-- end 上传控件 -->
-					
+
 		            <div class="upload-container"></div>
 
 				</div>
@@ -237,7 +237,7 @@
 	var QUESTION_ID = <?php echo $this->question_info['question_id'];?>;
 	var UNINTERESTED_COUNT = <?php echo get_setting('uninterested_fold'); ?>;
 	var ATTACH_ACCESS_KEY = '<?php echo $this->attach_access_key; ?>';
-	
+
 	$(document).ready(function () {
         var fileupload = new FileUpload('file', '.aw-upload-box .icon-pic', '.aw-replay-box .upload-container', G_BASE_URL + '/publish/ajax/attach_upload/id-answer__attach_access_key' + '-' + ATTACH_ACCESS_KEY, {'deleteBtnTemplate' : '<a class="delete-file"><i class="icon icon-delete"></i></a>', 'insertBtnTemplate' : '<a class="insert-file"><i class="icon icon-insert"></i></a>'})
 
@@ -253,13 +253,13 @@
 				}
 			});
 		}
-		
+
 		// 折叠回复
 		$.each($('li.aw-item'), function (i, e) {
 			if ($(this).attr('uninterested_count') >= UNINTERESTED_COUNT || $(this).attr('force_fold') == 1)
 			{
 				$('#uninterested_answers_list').append('<li class="aw-item">' + $(e).html() + '</li>');
-				
+
 				$(e).remove();
 			}
 		});
@@ -276,14 +276,14 @@
 	            $('#uninterested_answers_list').show();
 	        }
 	    });
-		
+
 		if ($('#uninterested_answers_list li.aw-item').length > 0)
 		{
 			$('#load_uninterested_answers span.hide_answers_count').html($('#uninterested_answers_list li.aw-item').length);
 			$('#load_uninterested_answers').fadeIn();
 		}
 	});
-	
+
 	function answer_force_fold(answer_id, element)
 	{
 		$.post(G_BASE_URL + '/question/ajax/answer_force_fold/', 'answer_id=' + answer_id, function (result) {
@@ -305,7 +305,7 @@
 		}, 'json');
 	}
 
-	
+
 </script>
 
 <?php TPL::output('m/footer.tpl.htm'); ?>

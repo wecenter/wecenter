@@ -215,15 +215,15 @@ CREATE TABLE `[#DB_PREFIX#]education_experience` (
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8 COMMENT='教育经历';
 
 CREATE TABLE `[#DB_PREFIX#]feature` (
-  `id` INT( 11 ) NULL AUTO_INCREMENT ,
-  `title` VARCHAR( 200 ) NULL DEFAULT NULL COMMENT '专题标题',
-  `description` VARCHAR( 255 ) NULL DEFAULT NULL COMMENT '专题描述',
-  `icon` VARCHAR( 255 ) NULL DEFAULT NULL COMMENT '专题图标',
-  `topic_count` INT( 11 ) NULL DEFAULT '0' COMMENT '话题计数',
-  `css` TEXT NULL DEFAULT NULL COMMENT '自定义CSS',
-  `url_token` VARCHAR( 32 ) NULL DEFAULT NULL,
-  `seo_title` VARCHAR( 255 ) NULL,
-  `enabled` tinyint(1) NULL DEFAULT '0',
+  `id` INT(11) NOT NULL AUTO_INCREMENT ,
+  `title` VARCHAR(200) DEFAULT NULL COMMENT '专题标题',
+  `description` VARCHAR(255) DEFAULT NULL COMMENT '专题描述',
+  `icon` VARCHAR(255) DEFAULT NULL COMMENT '专题图标',
+  `topic_count` INT(11) NOT NULL DEFAULT '0' COMMENT '话题计数',
+  `css` TEXT COMMENT '自定义CSS',
+  `url_token` VARCHAR(32) DEFAULT NULL,
+  `seo_title` VARCHAR(255) DEFAULT NULL,
+  `enabled` TINYINT(1) NOT NULL DEFAULT '0',
   PRIMARY KEY ( `id` ),
   KEY `url_token` (`url_token`),
   KEY `title` (`title`),
@@ -231,10 +231,10 @@ CREATE TABLE `[#DB_PREFIX#]feature` (
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]feature_topic` (
-  `id` INT( 11 ) NULL AUTO_INCREMENT ,
-  `feature_id` INT( 11 ) NULL DEFAULT '0' COMMENT '专题ID',
-  `topic_id` INT( 11 ) NULL DEFAULT '0' COMMENT '话题ID',
-  PRIMARY KEY ( `id` ),
+  `id` INT(11) NOT NULL AUTO_INCREMENT ,
+  `feature_id` INT(11) NOT NULL DEFAULT '0' COMMENT '专题ID',
+  `topic_id` INT(11) NOT NULL DEFAULT '0' COMMENT '话题ID',
+  PRIMARY KEY (`id`),
   KEY `feature_id` (`feature_id`),
   KEY `topic_id` (`topic_id`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;

@@ -14,11 +14,11 @@
 	<div class="mod-body">
 		<div class="markitup-box clearfix">
 			<?php echo nl2br($this->answer_info['answer_content']); ?>
-		
+
 			<?php if ($this->answer_info['attachs']) {  ?>
 			<div class="aw-upload-img-list">
 			<?php foreach ($this->answer_info['attachs'] AS $attach) { ?>
-			<?php if ($attach['is_image'] AND !in_array($attach['id'], $this->answer_info['insert_attach_ids'])) { ?>
+			<?php if ($attach['is_image'] AND !($this->answer_info['insert_attach_ids'] AND in_array($attach['id'], $this->answer_info['insert_attach_ids']))) { ?>
 			<a href="<?php echo $attach['attachment']; ?>" target="_blank" data-fancybox-group="thumb" rel="lightbox"><img src="<?php echo $attach['attachment']; ?>" class="img-polaroid" alt="<?php echo $attach['attach_name']; ?>" /></a>
 			<?php } ?>
 			<?php } ?>
@@ -42,7 +42,7 @@
 				<a onclick="AWS.User.favorite('answer', <?php echo $this->answer_info['answer_id']; ?>)"><i class="icon icon-favor"></i></a>
 			</span>
 			<?php } ?>
-			
+
 			<?php if (($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) OR ($this->answer_info['uid'] == $this->user_id AND ((time() - $this->answer_info['add_time']) < (get_setting('answer_edit_time') * 60) OR (!get_setting('answer_edit_time'))))) { ?>
 			<span class="operate">
 				<a class="text-color-999" href="javascript:;" onclick="AWS.dialog('commentEdit', {answer_id:<?php echo $this->answer_info['answer_id']; ?>,attach_access_key:'<?php echo $this->attach_access_key; ?>'});"><i class="icon icon-edit"></i></a>
