@@ -1219,6 +1219,11 @@
             if (input.selectionStart !== undefined) {
                 input.selectionStart = 0;
                 input.selectionEnd = defTextLen;
+                input.focus();
+                setTimeout(function()
+                {
+                    $('.modal .form-control').focus();
+                }, 300);
             }
             else if (input.createTextRange) {
                 var range = input.createTextRange();
@@ -1227,7 +1232,7 @@
                 range.moveEnd("character", defTextLen);
                 range.select();
             }
-            
+
             $(dialog).on('shown', function () {
                 input.focus();
             })
@@ -1237,6 +1242,9 @@
             })
 
             $(dialog).modal()
+
+            $('.modal .form-control').focus();
+
 
         }, 0);
     };
@@ -1273,7 +1281,7 @@
                         doClick(buttons.link);
                         break;
                     case "h":
-                        doClick(buttons.quote);
+                        doClick(buttons.heading);
                         break;
                     case "k":
                         doClick(buttons.code);
@@ -1286,6 +1294,9 @@
                         break;
                     case "u":
                         doClick(buttons.ulist);
+                        break;
+                    case "y":
+                        doClick(buttons.quote);
                         break;
                     // case "h":
                     //     doClick(buttons.heading);
@@ -1492,7 +1503,7 @@
             }), group2);
 
             group4 = makeGroup(4);
-            buttons.quote = makeButton("wmd-quote-button", "引用 - " + ckeys + "+H", "icon icon-quote", bindCommand("doBlockquote"), group4);
+            buttons.quote = makeButton("wmd-quote-button", "引用 - " + ckeys + "+Y", "icon icon-quote", bindCommand("doBlockquote"), group4);
             buttons.code = makeButton("wmd-code-button", "代码 - " + ckeys + "+K", "icon icon-code", bindCommand("doCode"), group4);
 
             group3 = makeGroup(3);
@@ -1574,6 +1585,7 @@
             setUndoRedoButtonStates();
         }
 
+        // Modify by kk
         function makeHelperRow()
         {
             var buttonBar = panels.buttonBar;
@@ -1860,7 +1872,6 @@
             // link text. linkEnteredCallback takes care of escaping any brackets.
             chunk.selection = chunk.startTag + chunk.selection + chunk.endTag;
             chunk.startTag = chunk.endTag = "";
-
             if (/\n\n/.test(chunk.selection)) {
                 this.addLinkDef(chunk, null);
                 return;
