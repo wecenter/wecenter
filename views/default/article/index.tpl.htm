@@ -186,7 +186,7 @@
 							<textarea rows="3" name="message" id="comment_editor" class="form-control autosize" placeholder="写下你的评论..."  /></textarea>
 						</div>
 						<div class="mod-footer clearfix">
-							<a href="javascript:;" onclick="AWS.ajax_post($('#answer_form'), AWS.ajax_processer, 'reply');" class="btn btn-normal btn-success pull-right btn-submit"><?php _e('回复'); ?></a>
+							<a href="javascript:;" onclick="AWS.ajax_post($('#answer_form'), AWS.ajax_processer, 'reply');" class="btn btn-normal btn-success pull-right btn-submit btn-reply"><?php _e('回复'); ?></a>
 							<?php if ($this->human_valid) { ?>
 							<em class="auth-img pull-right"><img src="" onclick="this.src = G_BASE_URL + '/account/captcha/' + Math.floor(Math.random() * 10000);" id="captcha" /></em>
 							<input class="pull-right form-control" type="text" name="seccode_verify" placeholder="<?php _e('验证码'); ?>" />
