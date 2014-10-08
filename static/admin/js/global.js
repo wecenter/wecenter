@@ -40,12 +40,14 @@ $(function () {
         }
         else
         {
-            $('#aw-side').find('li').children('ul').hide();
+            $('#aw-side').find('li').children('ul').slideUp('slow');
 
             $(this).addClass('active').parent().siblings().find('a').removeClass('active');
 
             $(this).next().slideDown('');
         }
+
+        $("#aw-side").perfectScrollbar('update');
     });
 
     // 日期选择
