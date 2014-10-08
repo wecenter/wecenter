@@ -992,7 +992,7 @@ var AWS =
 	},
 
 	// @人功能
-	at_user_lists: function(selector) {
+	at_user_lists: function(selector, limit) {
 	    $(selector).keyup(function (e) {
 	        var _this = $(this),
 	            flag = _getCursorPosition($(this)[0]).start;
@@ -1078,7 +1078,7 @@ var AWS =
 	                                break;
 	                            }
 	                        }
-	                        $.get(G_BASE_URL + '/search/ajax/search/?type=users&q=' + encodeURIComponent($(this).val().substring(flag, ti).replace('@', '')) + '&limit=10', function (result)
+	                        $.get(G_BASE_URL + '/search/ajax/search/?type=users&q=' + encodeURIComponent($(this).val().substring(flag, ti).replace('@', '')) + '&limit=' + limit, function (result)
 	                        {
 	                            if ($('.aw-invite-dropdown')[0])
 	                            {
@@ -2483,6 +2483,8 @@ AWS.Init =
 	            $(comment_box_id).find('.aw-comment-txt').autosize();
 
 	            $(this).addClass('active');
+
+	            AWS.at_user_lists(comment_box_id + ' .aw-comment-txt', 5);
 	        }
 
 	        AWS.at_user_lists($(this).parents('.aw-item').find('.aw-comment-txt'));
@@ -2508,7 +2510,7 @@ AWS.Init =
 	        }
 	        else
 	        {
-	            $(this).parents('.content').append(Hogan.compile(AW_TEMPLATE.articleCommentBox).render(
+	            $(this).parents('.mod-footer').append(Hogan.compile(AW_TEMPLATE.articleCommentBox).render(
 	            {
 	                'at_uid' : $(this).attr('data-id'),
 	                'article_id' : $('.aw-topic-bar').attr('data-id')

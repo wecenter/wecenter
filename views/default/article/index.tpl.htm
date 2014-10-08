@@ -124,16 +124,20 @@
 
 								<?php foreach ($this->comments AS $key => $val) { ?>
 								<div class="aw-item">
-									<a class="aw-user-name" href="people/<?php echo $val['user_info']['url_token']; ?>">
-										<img src="<?php echo get_avatar_url($val['uid'], 'mid'); ?>" alt="<?php echo $val['user_info']['user_name']; ?>" />
-									</a>
-									<div class="content">
+									<div class="mod-head">
+										<a class="aw-user-img aw-border-radius-5" href="people/<?php echo $val['user_info']['url_token']; ?>">
+											<img src="<?php echo get_avatar_url($val['uid'], 'mid'); ?>" alt="<?php echo $val['user_info']['user_name']; ?>" />
+										</a>
 										<p>
 											<a href="people/<?php echo $val['user_info']['url_token']; ?>"><?php echo $val['user_info']['user_name']; ?></a><?php if ($val['at_user_info']) { ?> <?php _e('回复'); ?> <a href="people/<?php echo $val['at_user_info']['url_token']; ?>"><?php echo $val['at_user_info']['user_name']; ?></a><?php } ?>
 										</p>
+									</div>
+									<div class="mod-body">
 										<div class="markitup-box">
 											<?php echo nl2br($val['message']); ?>
 										</div>
+									</div>
+									<div class="mod-footer">
 										<div class="meta">
 											<span class="pull-right text-color-999"><?php echo date_friendly($val['add_time']); ?></span>
 											<?php if ($this->user_id) { ?>
