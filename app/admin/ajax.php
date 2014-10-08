@@ -614,15 +614,10 @@ class ajax extends AWS_ADMIN_CONTROLLER
         }
 
         $this->model('feature')->update_feature($feature_id, $update_data);
-        
-        if (!$_GET['feature_id'])
-        {
-	        $redirect = array(
-            	'url' => get_js_url('/admin/page/')
-			);
-        }
 
-        H::ajax_json_output(AWS_APP::RSM($redirect, 1, null));
+        H::ajax_json_output(AWS_APP::RSM(array(
+            'url' => get_js_url('/admin/page/')
+		), 1, null));
     }
 
     public function remove_feature_action()
