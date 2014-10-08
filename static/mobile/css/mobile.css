@@ -351,7 +351,7 @@ textarea.form-control{padding:6px;}
 .aw-search-bar.active{background-color: #fafafa;border-bottom-color: #cccccc;}
 .aw-search-bar.active input{border:1px solid #ccc;}
 .aw-search-bar input{height:40px;border:none;font-size: 15px;}
-.aw-search-bar .icon-search{position: absolute;right: 20px;top: 20px;font-size: 18px;color: #999999;}
+.aw-search-bar .icon-search{position: absolute;right: 20px;top: 20px;font-size: 18px;color: #999999;border:none;background-color: transparent;}
 .aw-search-result-box .tips{height: 36px;line-height: 36px;margin:0;background-color:#fafafa;border-bottom: 1px solid #e6e6e6;}
 .aw-search-result-box > .mod-footer{margin-top:15px;}
 .aw-search-result-box .result-mod .mod-head{height:auto;overflow:hidden;padding:0 15px;background-color: #fafafa;border-bottom: 1px solid #999999;}
