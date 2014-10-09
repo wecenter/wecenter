@@ -162,48 +162,6 @@ class openid_weibo_class extends AWS_MODEL
             return false;
         }
 
-/*
-        do
-        {
-            $result = $client->mentions(1, 200, $since_id, $max_id);
-
-            if ($result['error'])
-            {
-                return $result;
-            }
-
-            $new_msgs = $result['statuses'];
-
-            if (!$new_msgs)
-            {
-                break;
-            }
-
-            if (!$msgs)
-            {
-                $msgs = $new_msgs;
-            }
-            else
-            {
-                $msgs = array_merge($msgs, $new_msgs);
-            }
-
-            $new_msgs_total = count($new_msgs);
-
-            if ($new_msgs_total < 200)
-            {
-                break;
-            }
-            else
-            {
-                $last_msg = end($new_msgs);
-
-                $max_id = $last_msg['id'] - 1;
-            }
-        }
-        while (0);
-*/
-
         return $msgs;
     }
 

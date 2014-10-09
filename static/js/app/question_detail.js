@@ -223,9 +223,6 @@ $(function()
 
     //回复内容超链接新窗口打开
     $('.markitup-box a').attr('target','_blank');
-	
-	//编辑器@人
-    AWS.at_user_lists('#wmd-input');
 
 });
 

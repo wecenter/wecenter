@@ -102,6 +102,8 @@ class main extends AWS_CONTROLLER
 			foreach ($comments AS $key => $val)
 			{
 				$comments[$key]['vote_info'] = $this->model('article')->get_article_vote_by_id('comment', $val['id'], 1, $this->user_id);
+				$comments[$key]['message'] = $this->model('question')->parse_at_user($val['message']);
+				
 			}
 		}
 

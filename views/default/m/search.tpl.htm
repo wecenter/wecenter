@@ -2,9 +2,9 @@
 
 <!-- 搜索栏 -->
 <div class="aw-search-bar">
-	<form action="m/search/" method="post">
+	<form id="search_form" action="m/search/" method="post">
 		<input type="text" class="form-control" name="q" placeholder="搜索话题、问题或用户" autocomplete="off" value="<?php echo $this->keyword; ?>" />
-		<i class="icon icon-search"></i>
+		<button class="icon icon-search" type="submit"></button>
 	</form>
 </div>
 <!-- end 搜索栏 -->

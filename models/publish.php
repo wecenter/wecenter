@@ -349,6 +349,21 @@ class publish_class extends AWS_MODEL
 				'item_id' => $comment_id
 			));
 		}
+		
+		if ($at_users = $this->model('question')->parse_at_user($message, false, true))
+		{
+			foreach ($at_users as $user_id)
+			{
+				if ($user_id != $uid)
+				{
+					$this->model('notify')->send($uid, $user_id, notify_class::TYPE_ARTICLE_COMMENT_AT_ME, notify_class::CATEGORY_ARTICLE, $article_info['id'], array(
+						'from_uid' => $uid,
+						'article_id' => $article_info['id'],
+						'item_id' => $answer_id
+					));
+				}
+			}
+		}
 
 		set_human_valid('answer_valid_hour');
 

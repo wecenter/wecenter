@@ -509,17 +509,15 @@ class ajax extends AWS_ADMIN_CONTROLLER
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('你没有访问权限, 请重新登录')));
         }
-
-        $feature_id = intval($_GET['feature_id']);
-
+		
         if (trim($_POST['title']) == '')
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('专题标题不能为空')));
         }
 
-        if ($feature_id)
+        if ($_GET['feature_id'])
         {
-            $feature = $this->model('feature')->get_feature_by_id($feature_id);
+            $feature = $this->model('feature')->get_feature_by_id($_GET['feature_id']);
         }
 
         if ($_POST['url_token'])
@@ -529,18 +527,18 @@ class ajax extends AWS_ADMIN_CONTROLLER
                 H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('专题别名只允许输入英文或数字')));
             }
 
-            if (preg_match("/^[\d]+$/i", $_POST['url_token']) AND ($feature_id != $_POST['url_token']))
+            if (preg_match("/^[\d]+$/i", $_POST['url_token']) AND ($_GET['feature_id'] != $_POST['url_token']))
             {
                 H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('专题别名不可以全为数字')));
             }
 
-            if ($this->model('feature')->check_url_token($_POST['url_token'], $feature_id))
+            if ($this->model('feature')->check_url_token($_POST['url_token'], $_GET['feature_id']))
             {
                 H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('专题别名已经被占用请更换一个')));
             }
         }
 
-        if (! $feature_id)
+        if (! $_GET['feature_id'])
         {
             $feature_id = $this->model('feature')->add_feature($_POST['title']);
         }
@@ -617,7 +615,9 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
         $this->model('feature')->update_feature($feature_id, $update_data);
 
-        H::ajax_json_output(AWS_APP::RSM(null, 1, null));
+        H::ajax_json_output(AWS_APP::RSM(array(
+            'url' => get_js_url('/admin/feature/list/')
+		), 1, null));
     }
 
     public function remove_feature_action()

@@ -72,7 +72,7 @@ table td{vertical-align: middle !important;}
 .aw-hide-txt{overflow: hidden;text-overflow:ellipsis;white-space: nowrap;}
 .aw-placeholder{color: #999 !important;}
 .aw-dropdown-menu li:first-child, .dropdown-menu li.first, .aw-comment-list li:first-child, .aw-edit-comment-box .aw-file-upload-box, .aw-li-border-bottom li:first-child{border-top:none;}
-.aw-dropdown-list li.user a img, .aw-question-tags, .aw-mod.topic-nav ul > li > p a, .aw-mod.topic-nav ul > li > a, .aw-border-radius-5, .aw-border-radius-5 img, .aw-load-more-content, .aw-user-name img, .aw-topic-name img, .aw-topic-name span, .aw-topic-img img, .aw-dropdown-menu img, .aw-login-register a img, .aw-login-register .aw-user-head img, .aw-dropdown, .category dl dt img, .category .span12 > ul > li, .aw-mod.side-nav ul li a, .topic-edit-notes li, .aw-notopic-sort, .aw-comment-box, .aw-topic-detail-title .mod-body img, .aw-topic-search, .aw-mod-topic-edit-box .mod-head .img, .aw-mod-topic-edit-box .mod-head .img span, .aw-inbox-read .mod-footer li .aw-item, .aw-inbox .mod-footer li .aw-user-img img, .aw-invite-list ul li img, .aw-mod-search-result .aw-item .aw-user-img img, .aw-mod-search-result .aw-item .aw-topic-img img, .aw-mod-search-result .aw-search-result-tags, .aw-file-uploader dl, .aw-card-tips, .aw-card-tips .mod-head .img img, .aw-first-login .aw-complete-data .side-bar img, .aw-first-login .aw-card-box-list .aw-topic-img img, .aw-first-login .aw-card-box-list .img img, .aw-first-login .aw-card-box-list li > span, .aw-replay-box .mod-body, .aw-publish-box .aw-publish-title .dropdown .dropdown-toggle, .markitup-box code, #markItUpPreviewFrames code, .aw-publish-title.active input, #aw-loading, .aw-user-nav > a img{border-radius: 4px;}
+.aw-dropdown-list li.user a img, .aw-question-tags, .aw-mod.topic-nav ul > li > p a, .aw-mod.topic-nav ul > li > a, .aw-border-radius-5, .aw-border-radius-5 img, .aw-load-more-content, .aw-user-name img, .aw-topic-name img, .aw-topic-name span, .aw-topic-img img, .aw-dropdown-menu img, .aw-login-register a img, .aw-login-register .aw-user-head img, .aw-dropdown, .category dl dt img, .category .span12 > ul > li, .aw-mod.side-nav ul li a, .topic-edit-notes li, .aw-notopic-sort, .aw-comment-box, .aw-topic-detail-title .mod-body img, .aw-topic-search, .aw-mod-topic-edit-box .mod-head .img, .aw-inbox-read .mod-footer li .aw-item, .aw-inbox .mod-footer li .aw-user-img img, .aw-invite-list ul li img, .aw-mod-search-result .aw-item .aw-user-img img, .aw-mod-search-result .aw-item .aw-topic-img img, .aw-mod-search-result .aw-search-result-tags, .aw-file-uploader dl, .aw-card-tips, .aw-card-tips .mod-head .img img, .aw-first-login .aw-complete-data .side-bar img, .aw-first-login .aw-card-box-list .aw-topic-img img, .aw-first-login .aw-card-box-list .img img, .aw-first-login .aw-card-box-list li > span, .aw-replay-box .mod-body, .aw-publish-box .aw-publish-title .dropdown .dropdown-toggle, .markitup-box code, #markItUpPreviewFrames code, .aw-publish-title.active input, #aw-loading, .aw-user-nav > a img{border-radius: 4px;}
 .category dl, .aw-mod.new-announce, .aw-first-login .mod-head ul, .aw-first-login .aw-complete-data, .aw-first-login .aw-card-box-list li{border-radius: 10px;}
 .aw-publish-title .dropdown .dropdown-toggle, .aw-publish-title .dropdown .dropdown-toggle a{border-radius: 0 5px 5px 0;}
 .aw-nav-main li:first-child a.active{border-radius:10px 0 0 0;}
@@ -269,6 +269,7 @@ a.aw-load-more-content{display: block;}
 .aw-feed-list .aw-item:last-child{border-bottom:none;}
 .aw-feed-list .aw-item.active{margin:0 -20px;padding:14px 20px;background-color: #FFFED1;}
 .aw-feed-list .aw-item .mod-head, .aw-feed-list .aw-item .mod-body, .aw-feed-list .aw-item .mod-footer{position: relative;width:100%;padding-left: 50px;}
+.aw-feed-list .aw-item .mod-head{z-index: 1;}
 .aw-feed-list .aw-item .mod-footer{min-height:28px;line-height: 28px;margin-top:10px;font-size: 12px;}
 .aw-feed-list .aw-item .aw-user-img{position:absolute;left:0;top:3px;width: 40px;height: 40px;}
 .aw-feed-list .aw-item .aw-user-img img{width: 40px;height: 40px;}
@@ -368,7 +369,7 @@ a.aw-load-more-content{display: block;}
 
 /* 附件上传 */
 #upload-form{position: relative;width: 0;height: 0;opacity: 0;filter:alpha(opacity=0);}
-#upload-form .file-input{position:absolute;top:-7px;left:-12px;width: 80px;height: 34px;filter:alpha(opacity=0);}
+#upload-form .file-input{position:absolute;top:-7px;left:-12px;width: 80px;height: 34px;filter:alpha(opacity=0);cursor: pointer;}
 .aw-upload-box #upload-form .file-input{position:absolute;top:-7px;left:-12px;width: 80px;height: 34px;filter:alpha(opacity=0);}
 .aw-upload-box .upload-list{width:694px;height: auto;overflow: hidden;}
 .aw-upload-box .upload-list li{position:relative;float: left;width: 216px;height: 115px;padding:15px 15px 15px 110px;margin:15px 15px 0 0;background: #F5FAFF;border:1px solid #DCEDFA;border-radius: 5px;}
@@ -526,10 +527,9 @@ a.aw-load-more-content{display: block;}
 .aw-article-content .aw-question-detail .meta{line-height: 38px;}
 .aw-article-content .aw-question-detail .mod-footer a img{width: 25px;height: 25px;margin-bottom:10px;border-radius: 15px;}
 .aw-article-content .aw-question-detail .mod-footer a.more-voters{display: inline-block;width: 25px;height: 25px;line-height:18px;border-radius: 15px;background-color: #f1f2f3;text-align: center;vertical-align: middle;color: #cdcecf;}
-.aw-article-content .aw-feed-list .aw-item{padding: 14px 0 14px 40px;}
-.aw-article-content .aw-feed-list .aw-user-name{position: absolute;left: 0;top: 15px;}
-.aw-article-content .aw-feed-list .aw-user-name img{width: 32px;height: 32px;}
+.aw-article-content .aw-feed-list .aw-user-img img{width: 32px;height: 32px;}
 .aw-article-content .aw-feed-list .meta a{margin-right: 15px;}
+.aw-article-content .aw-feed-list .mod-footer{margin:0;}
 .aw-article-content .aw-feed-list .aw-article-replay-box{margin:10px 0 0;padding:0;}
 
 /* 发起问题页面 */
@@ -597,10 +597,11 @@ a.aw-load-more-content{display: block;}
 .aw-mod-topic-edit-box{padding:20px;}
 .aw-mod-topic-edit-box > .mod-head{position: relative;margin:0 0 30px 0;padding:0 0 0 60px;}
 .aw-mod-topic-edit-box .aw-topic-bar{margin:0 0 0 10px;}
-.aw-mod-topic-edit-box #upload-form .file-input{width: 20px;height: 20px;}
+.aw-mod-topic-edit-box #upload-form .file-input{width: 50px;height: 20px;left: 0 !important;}
 .aw-mod-topic-edit-box .mod-head h3{font-size: 20px;line-height: 20px;}
 .aw-mod-topic-edit-box .mod-head .img{position: absolute;left: 0;top: 0;width:50px;height:50px;background: url(http://127.0.0.1/anwsion/trunk/static/common/topic-mid-img.png) no-repeat;text-align: center;}
-.aw-mod-topic-edit-box .mod-head .img span{display: block;width: 20px;height: 20px;margin:20px 0 0 25px;background: #fff;opacity: 0.8;filter:alpha(opacity=80);}
+.aw-mod-topic-edit-box .mod-head .img .mask{position:absolute;bottom:0;display: block;width: 50px;height: 20px;background: #000;opacity: 0.7;filter:alpha(opacity=70);border-radius: 0 0 4px 4px;}
+.aw-mod-topic-edit-box .mod-head .img b{position: absolute;bottom: 0;display: block;width:50px;text-align: center;color: #fff;font-weight: normal;font-size: 12px;}
 .aw-mod-topic-edit-box .mod-head .img .icon-edit{position: relative;top: 1px;margin:0;}
 .aw-mod-topic-edit-box .mod-head .img form{z-index:1;}
 .aw-mod-topic-edit-box .mod-head .img form .file-input{left: 25px !important;top: 20px !important;width: 20px;height: 20px;}
@@ -850,6 +851,7 @@ a.aw-load-more-content{display: block;}
 .wmd-preview p{margin:0;}
 .wmd-preview img, .markitup-box img {max-width:625px;margin-bottom: 15px;}
 .markitup-box{position:relative;z-index:1;line-height: 180%;word-wrap: break-word !important;}
+.markitup-box .aw-user-name{font-size: 14px;}
 .markitup-box .aw-upload-file-list{margin: 0;padding-left: 0;list-style: none;}
 .markitup-box .aw-upload-img-list a{display:block;}
 .markitup-box p{padding: 5px;}

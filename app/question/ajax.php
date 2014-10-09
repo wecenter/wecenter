@@ -608,8 +608,16 @@ class ajax extends AWS_CONTROLLER
 			
 			$answer_info = $this->model('answer')->get_answer_by_id($answer_id);
 			
-			$answer_info['attachs'] = $this->model('publish')->get_attach('answer', $answer_id, 'min');
+			
+			if ($answer_info['has_attach'])
+			{
+				$answer_info['attachs'] = $this->model('publish')->get_attach('answer', $answer_id, 'min');
+				$answer_info['insert_attach_ids'] = FORMAT::parse_attachs($answer_info['answer_content'], true);
+			}
+			
 			$answer_info['user_info'] = $this->user_info;
+			
+			$answer_info['answer_content'] = $this->model('question')->parse_at_user(FORMAT::parse_attachs(nl2br(FORMAT::parse_markdown($answer_info['answer_content']))));
 			
 			TPL::assign('answer_info', $answer_info);
 
@@ -634,9 +642,7 @@ class ajax extends AWS_CONTROLLER
 	{
 		if (! $answer_info = $this->model('answer')->get_answer_by_id($_GET['answer_id']))
 		{
-			H::ajax_json_output(AWS_APP::RSM(array(
-				'input' => 'answer_content'
-			), '-2', AWS_APP::lang()->_t('答案不存在')));
+			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('答案不存在')));
 		}
 
 		if ($_POST['do_delete'])
