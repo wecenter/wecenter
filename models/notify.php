@@ -818,7 +818,7 @@ class notify_class extends AWS_MODEL
 							break;
 
 						case self::TYPE_ARTICLE_COMMENT_AT_ME:
-							$data[$key]['extend_message'][] = AWS_APP::lang()->_t('他们在文章中的评论回复了你') . ': ' . $users_list;
+							$data[$key]['extend_message'][] = AWS_APP::lang()->_t('他们在文章中的评论提到了你') . ': ' . $users_list;
 
 							break;
 

@@ -94,8 +94,12 @@ class ajax extends AWS_CONTROLLER
 			$comment_id = $this->model('publish')->publish_article_comment($_POST['article_id'], $message, $this->user_id, $_POST['at_uid']);
 
 			//$url = get_js_url('/article/' . intval($_POST['article_id']) . '?item_id=' . $comment_id);
+			
+			$comment_info = $this->model('article')->get_comment_by_id($comment_id);
+			
+			$comment_info['message'] = $this->model('question')->parse_at_user($comment_info['message']);
 
-			TPL::assign('comment_info', $this->model('article')->get_comment_by_id($comment_id));
+			TPL::assign('comment_info', $comment_info);
 
 			if (is_mobile())
 			{

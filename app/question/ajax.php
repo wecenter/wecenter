@@ -642,9 +642,7 @@ class ajax extends AWS_CONTROLLER
 	{
 		if (! $answer_info = $this->model('answer')->get_answer_by_id($_GET['answer_id']))
 		{
-			H::ajax_json_output(AWS_APP::RSM(array(
-				'input' => 'answer_content'
-			), '-2', AWS_APP::lang()->_t('答案不存在')));
+			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('答案不存在')));
 		}
 
 		if ($_POST['do_delete'])
