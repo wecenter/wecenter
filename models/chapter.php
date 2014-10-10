@@ -181,6 +181,10 @@ class chapter_class extends AWS_MODEL
             return false;
         }
 
+        $this->query('UPDATE ' . $this->get_table('question') . ' SET `chapter_id` = NULL, `sort` = "0"', null, null, 'chapter_id = ' . $id);
+
+        $this->query('UPDATE ' . $this->get_table('article') . ' SET `chapter_id` = NULL, `sort` = "0"', null, null, 'chapter_id = ' . $id);
+
         @unlink(get_setting('upload_dir') . '/chapter/' . $id . '.jpg');
 
         return true;

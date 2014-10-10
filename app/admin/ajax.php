@@ -2508,7 +2508,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
         if ($_POST['id'])
         {
-            $chapter_info = $this->model('chapter')->get_chapter_by_id($_GET['id']);
+            $chapter_info = $this->model('chapter')->get_chapter_by_id($_POST['id']);
 
             if (!$chapter_info)
             {
@@ -2518,10 +2518,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
         if ($chapter_info)
         {
-            if (!$this->model('chapter')->save_chapter($chapter_info['id'], $_POST['title'], $_POST['description'], $_POST['url_token']))
-            {
-                H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('保存失败')));
-            }
+            $this->model('chapter')->save_chapter($chapter_info['id'], $_POST['title'], $_POST['description'], $_POST['url_token']);
 
             $id = $chapter_info['id'];
         }
@@ -2604,5 +2601,20 @@ class ajax extends AWS_ADMIN_CONTROLLER
         }
 
         H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('章节排序已自动保存')));
+    }
+
+    public function remove_chapter_action()
+    {
+        if (!$this->user_info['permission']['is_administortar'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('你没有访问权限, 请重新登录')));
+        }
+
+        if (!$this->model('chapter')->remove_chapter($_POST['id']))
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('删除章节失败')));
+        }
+
+        H::ajax_json_output(AWS_APP::RSM(null, 1, null));
     }
 }
