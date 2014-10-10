@@ -176,10 +176,8 @@ var AWS =
 	// ajax提交callback
 	ajax_processer: function (type, result)
 	{
-		if (type == 'default')
-		{
-			AWS.loading('hide');
-		}
+		AWS.loading('hide');
+
 		if (typeof (result.errno) == 'undefined')
 		{
 			AWS.alert(result);
@@ -193,9 +191,7 @@ var AWS =
 				case 'reply':
 					AWS.alert(result.err);
 
-					AWS.loading('hide');
-
-					$('.aw-comment-box-btn .btn-success').removeClass('disabled');
+					$('.aw-comment-box-btn .btn-success, .btn-reply').removeClass('disabled');
 				break;
 
 				case 'ajax_post_alert':

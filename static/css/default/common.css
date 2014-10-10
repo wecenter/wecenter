@@ -56,7 +56,7 @@ a{cursor: pointer;color: #155faa;}
 a:hover{text-decoration: none;color: #499ef3;}
 a:focus{outline: none !important;}
 table td{vertical-align: middle !important;}
-.container{width: 990px !important;}
+.container{width: 1010px !important;}
 .aw-wecenter{margin:0 auto;}/*兼容2.5*/
 .aw-padding10{padding:10px;}
 .aw-content-wrap{margin:0 15px;background-color: #fff;border:1px solid #e6e6e6;border-radius:4px;}
@@ -322,7 +322,7 @@ a.aw-load-more-content{display: block;}
 .aw-side-bar .aw-mod dl{height:auto;overflow:hidden;margin:10px 0;}
 .aw-side-bar .aw-mod h3{margin-bottom:0;}
 .aw-side-bar .aw-mod dt, .aw-side-bar .aw-mod dt img{width:32px;height:32px;}
-.aw-side-bar .aw-mod dd{width:155px;font-size:12px;}
+.aw-side-bar .aw-mod dd{width:160px;font-size:12px;}
 .aw-side-bar .aw-mod p{margin-bottom:0;}
 .aw-side-bar .aw-mod p.signature{max-height: 34px;overflow: hidden;color: #666;}
 .aw-side-bar .aw-mod ul li{padding:3px 0;}
