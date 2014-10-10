@@ -259,3 +259,17 @@ function import_editor_static_files()
 	TPL::import_js('js/editor/Markdown.Sanitizer.js');
 	TPL::import_js('js/editor/Markdown.Editor.js');
 }
+
+public function get_chapter_icon_url($id, $size = 'max', $default = true)
+{
+	if (file_exists(get_setting('upload_dir') . '/chapter/' . $id . '-' . $size . '.jpg'))
+	{
+		return get_setting('upload_url') . '/chapter/' . $id . '-' . $size . '.jpg';
+	}
+	else if ($default)
+	{
+		return G_STATIC_URL . '/common/chapter-' . $size . '-img.png';
+	}
+
+	return false;
+}

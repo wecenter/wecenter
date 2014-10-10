@@ -9,7 +9,7 @@ CREATE TABLE `aws_chapter` (
   `title` varchar(255) NOT NULL,
   `description` text,
   `url_token` varchar(32) DEFAULT NULL,
-  `sort` tinyint(2) UNSIGNED NOT NULL DEFAULT '0'
+  `sort` tinyint(2) UNSIGNED NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `title` (`title`),
   KEY `url_token` (`url_token`),

@@ -43,7 +43,7 @@ class chapter extends AWS_ADMIN_CONTROLLER
     {
         if ($_GET['id'])
         {
-            $chapter_info = $this->model('chapter')->get_chapter_by_id($_GET['id'])
+            $chapter_info = $this->model('chapter')->get_chapter_by_id($_GET['id']);
 
             if (!$chapter_info)
             {

@@ -186,15 +186,15 @@ class chapter_class extends AWS_MODEL
         return true;
     }
 
-    public function get_chapter_icon($id)
+    public function set_chapter_sort($id, $sort)
     {
-        if (file_exists(get_setting('upload_dir') . '/chapter/' . $id . '.jpg'))
+        if (!is_digits($id))
         {
-            return get_setting('upload_url') . '/chapter/' . $id . '.jpg';
+            return false;
         }
-        else
-        {
-            return G_STATIC_URL . '/common/chapter-img.png';
-        }
+
+        return $this->update('chapter', array(
+            'sort' => intval($sort)
+        ), 'id = ' . $id);
     }
 }
