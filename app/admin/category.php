@@ -22,7 +22,7 @@ class category extends AWS_ADMIN_CONTROLLER
 {
     public function setup()
     {
-        $this->crumb(AWS_APP::lang()->_t('分类设置'), "admin/category/list/");
+        $this->crumb(AWS_APP::lang()->_t('分类管理'), "admin/category/list/");
 
         if (!$this->user_info['permission']['is_administortar'])
         {
