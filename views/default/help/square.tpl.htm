@@ -1,0 +1,100 @@
+<?php TPL::output('global/header.tpl.htm'); ?>
+
+<div class="aw-container-wrap">
+	<?php TPL::output('block/content_nav_menu.tpl.htm'); ?>
+
+	<div class="container">
+		<div class="row">
+			<div class="aw-content-wrap clearfix">
+				<div class="col-sm-12 col-md-9 aw-main-content">
+					<div class="aw-mod aw-article-list">
+						<?php if ($this->article_list) { ?>
+						<?php foreach ($this->article_list AS $key => $val) { ?>
+						<div class="aw-item">
+							<a class="aw-user-name hidden-xs" href="people/<?php echo $val['user_info']['url_token']; ?>">
+								<img alt="" src="<?php echo get_avatar_url($val['uid'], 'mid'); ?>" />
+							</a>
+							<div class="aw-content">
+								<div class="mod-body">
+									<h2><a href="article/<?php echo $val['id']; ?>"><?php echo $val['title']; ?></a></h2>
+									<div class="aw-topic-bar">
+										<div class="tag-bar clearfix">
+											<?php foreach($this->article_topics[$val['id']] as $topic_key => $topic_val) { ?>
+											<span class="topic-tag">
+												<a href="topic/<?php echo $topic_val['url_token']; ?>" class="text" data-id="<?php echo $topic_val['topic_id']; ?>"><?php echo $topic_val['topic_title']; ?></a>
+											</span>
+											<?php } ?>
+										</div>
+									</div>
+									<div class="content-wrap">
+										<div class="content" id="detail_<?php echo $val['id']; ?>">
+											<div class="hide-content markitup-box">
+												<?php echo FORMAT::parse_attachs(nl2br(FORMAT::parse_markdown($val['message']))); ?>
+
+											</div>
+
+											<?php if (cjk_strlen($val['message']) > 130) { ?>
+								        	<a class="more" href="#" onclick="AWS.content_switcher($('#detail_<?php echo $val['id']; ?>'), $('#detail_more_<?php echo $val['id']; ?>')); return false;"><?php _e('继续阅读'); ?> »</a>
+								        	<?php } ?>
+										</div>
+
+										<div class="content markitup-box hide" id="detail_more_<?php echo $val['id']; ?>">
+											<?php echo FORMAT::parse_attachs(nl2br(FORMAT::parse_markdown($val['message']))); ?>
+											<?php if (cjk_strlen($val['message']) > 130) { ?>
+								        	<a class="more" href="#" onclick="AWS.content_switcher($('#detail_more_<?php echo $val['id']; ?>'), $('#detail_<?php echo $val['id']; ?>')); return false;"><?php _e('收起阅读'); ?> »</a>
+								        	<?php } ?>
+										</div>
+									</div>
+								</div>
+								<div class="mod-footer clearfix">
+									<span class="pull-right more-operate text-color-999">
+										<?php echo $val['user_info']['user_name']; ?> 发表于 : <?php echo date_friendly($val['add_time']); ?>
+
+										<a class="text-color-999" href="article/<?php echo $val['id']; ?>"><i class="icon icon-comment"></i> <?php _e('评论'); ?> (<?php echo $val['comments']; ?>)</a>
+										<a class="text-color-999 dropdown-toggle" data-toggle="dropdown">
+											<i class="icon icon-share"></i> <?php _e('分享'); ?>
+										</a>
+										<div aria-labelledby="dropdownMenu" role="menu" class="aw-dropdown shareout pull-right">
+											<ul class="aw-dropdown-list">
+												<li><a onclick="AWS.User.share_out('tsina', $(this).parents('.aw-item').find('h2').text(), '<?php echo base_url(); ?>/article/<?php echo $val['id']; ?>');"><i class="icon icon-weibo"></i> <?php _e('新浪微博'); ?></a></li>
+												<li><a onclick="AWS.User.share_out('qzone', $(this).parents('.aw-item').find('h2').text(), '<?php echo base_url(); ?>/article/<?php echo $val['id']; ?>');"><i class="icon icon-qzone"></i> <?php _e('QZONE'); ?></a></li>
+												<li><a onclick="AWS.User.share_out('weixin', $(this).parents('.aw-item').find('h2').text(), '<?php echo base_url(); ?>/article/<?php echo $val['id']; ?>');"><i class="icon icon-wechat"></i> <?php _e('微信'); ?></a></li>
+											</ul>
+										</div>
+									</span>
+								</div>
+							</div>
+						</div>
+						<?php } ?>
+
+						<?php echo $this->pagination; ?>
+
+						<?php } ?>
+					</div>
+					<!-- end 文章列表 -->
+				</div>
+				<!-- 侧边栏 -->
+				<div class="col-sm-3 col-md-3 aw-side-bar hidden-xs hidden-sm">
+					<!-- 热门文章 -->
+					<div class="aw-mod aw-text-align-justify">
+						<div class="mod-head">
+							<h3><?php _e('热门文章'); ?></h3>
+						</div>
+						<div class="mod-body">
+							<ul>
+								<?php foreach($this->hot_articles AS $key => $val) { ?>
+								<li><a href="article/<?php echo $val['id']; ?>"><?php echo $val['title']; ?></a></li>
+								<?php } ?>
+							</ul>
+						</div>
+					</div>
+					<!-- end 热门文章 -->
+					<?php TPL::output('block/sidebar_hot_topics.tpl.htm'); ?>
+				</div>
+				<!-- end 侧边栏 -->
+			</div>
+		</div>
+	</div>
+</div>
+
+<?php TPL::output('global/footer.tpl.htm'); ?>

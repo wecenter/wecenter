@@ -1,0 +1,55 @@
+<?php TPL::output('global/header.tpl.htm'); ?>
+
+<div class="aw-container-wrap">
+	<div class="container">
+		<div class="row">
+			<div class="aw-content-wrap clearfix">
+				<div class="col-sm-12 col-md-9 aw-main-content">
+					<div class="aw-mod aw-help-list">
+						<div class="mod-head">
+							<h3><?php _e('帮助中心'); ?></h3>
+						</div>
+						<div class="mod-body">
+							<div class="mod-head">
+								<a href=""><img src="" alt=""></a>
+								<h4>Wecenter 3.0相关</h4>
+							</div>
+							<div class="mod-body">
+								<ul>
+									<li><a href="">邮件设置后按设置好后，测试没有返回信息，也没发送成功，应该怎么解决？</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- 侧边栏 -->
+				<div class="col-sm-12 col-md-3 aw-side-bar hidden-xs hidden-sm">
+					<div class="aw-mod">
+						<div class="mod-head">
+
+						</div>
+						<div class="mod-body">
+
+						</div>
+					</div>
+				</div>
+				<!-- end 侧边栏 -->
+			</div>
+		</div>
+	</div>
+</div>
+
+<?php if ($_GET['first_login'] && $this->user_info['is_first_login'] == 1) { ?>
+<script type="text/javascript" src="<?php echo G_STATIC_URL; ?>/js/fileupload.js"></script>
+<script type="text/javascript">
+	$(document).ready(function () {
+		$.get(G_BASE_URL+'/account/ajax/welcome_message_template/', function (template) {
+			$('#aw-ajax-box').html(template);
+			$('body').addClass('modal-open');
+			welcome_step('1');
+		});
+	});
+</script>
+<?php } ?>
+
+<?php TPL::output('global/footer.tpl.htm'); ?>

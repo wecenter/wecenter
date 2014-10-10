@@ -255,6 +255,13 @@ a.aw-load-more-content{display: block;}
 /* 发现页 */
 .aw-explore-list{padding:0 20px;}
 
+/* 发现和文章列表页面显示文章样式 */
+.aw-explore-list .markitup-box h2, .aw-explore-list .markitup-box h3, .aw-explore-list .markitup-box strong, .aw-explore-list .markitup-box em,
+.aw-explore-list .markitup-box ul li,.aw-explore-list .markitup-box ol li, .aw-article-list .markitup-box ol li,.aw-article-list .markitup-box ul li,
+.aw-article-list .markitup-box h2, .aw-article-list .markitup-box h3, .aw-article-list .markitup-box strong, .aw-article-list .markitup-box em {display: inline;margin: 0;padding: 0;line-height: 25px;font-size: 14px;font-style: normal;font-weight: 400;color: #666;}
+.aw-explore-list .markitup-box br, .aw-article-list .markitup-box br {display: none;}
+.aw-explore-list .markitup-box ul, .aw-explore-list .markitup-box ol, .aw-article-list .markitup-box ol, .aw-article-list .markitup-box ul {padding: 0;margin: 0;}
+
 /* 动态首页 */
 .common-head{padding:0 20px;border-bottom: 1px solid #e6e6e6;}
 .common-head h2{height:60px;line-height:60px;margin:0;font-size: 20px;color: #333333;}
