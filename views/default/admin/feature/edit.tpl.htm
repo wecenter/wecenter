@@ -64,10 +64,10 @@
 									<input type="button" class="btn btn-primary" value="点击选择图片" />
 									<input type="file" name="icon" exts="png|jpg|bmp|jpeg" class="mod-input-file" />
 								</span>
-								<?php if ($this->feature['icon']) { ?><p class="filetext"><?php echo get_feature_pic_url('max', $this->feature['icon']); ?></p><?php } ?>
 								<span class="help-block"><?php _e('规格'); ?>: 900px x 240px, <?php _e('支持上传图片类型'); ?>: jpg,jpeg,gif,png</span>
+								</div>
 							</div>
-							<span class="col-sm-3 filetext"></span>
+							<span class="col-sm-3 filetext"><?php if ($this->feature['icon']) echo get_feature_pic_url('max', $this->feature['icon']); ?></span>
 						</div>
 					</td>
 				</tr>
@@ -105,6 +105,7 @@
 		</div>
 	</form>
 </div>
+
 <script>
 	$(function(){
 		 $('.mod-input-file').change(function(){
@@ -112,4 +113,5 @@
 		});
 	})
 </script>
+
 <?php TPL::output('admin/global/footer.tpl.htm'); ?>
