@@ -252,3 +252,10 @@ function get_weixin_rule_image($image_file, $size = '')
 {
 	return AWS_APP::model('weixin')->get_weixin_rule_image($image_file, $size);
 }
+
+function import_editor_static_files()
+{
+	TPL::import_js('js/editor/Markdown.Converter.js');
+	TPL::import_js('js/editor/Markdown.Sanitizer.js');
+	TPL::import_js('js/editor/Markdown.Editor.js');
+}
