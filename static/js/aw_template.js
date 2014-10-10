@@ -134,7 +134,7 @@ var AW_TEMPLATE = {
 							'</div>'+
 							'<div class="modal-footer">'+
 								'<a class="pull-left" onclick="$(\'.aw-favorite-box .aw-favorite-tag-list\').hide();$(\'.aw-favorite-box .aw-favorite-tag-add\').show();">' + _t('创建标签') + '</a>'+
-								'<button href="javascript:;"  data-dismiss="modal" aria-hidden="true" class="btn btn-large btn-gray">' + _t('取消') + '</button>'+
+								'<button href="javascript:;"  data-dismiss="modal" aria-hidden="true" class="btn btn-large btn-gray">' + _t('关闭') + '</button>'+
 							'</div>'+
 						'</div>'+
 						'<div class="mod aw-favorite-tag-add hide">'+
