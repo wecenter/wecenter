@@ -260,7 +260,7 @@ function import_editor_static_files()
 	TPL::import_js('js/editor/Markdown.Editor.js');
 }
 
-public function get_chapter_icon_url($id, $size = 'max', $default = true)
+function get_chapter_icon_url($id, $size = 'max', $default = true)
 {
 	if (file_exists(get_setting('upload_dir') . '/chapter/' . $id . '-' . $size . '.jpg'))
 	{
