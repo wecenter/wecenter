@@ -24,6 +24,7 @@
                         <th><?php _e('操作'); ?></th>
                     </tr>
                     </thead>
+                    <?php if ($this->chapter_list) { ?>
                     <tbody>
                     <form id="chapter_form" action="admin/ajax/save_chapter_sort/" method="post" onsubmit="return false">
                     <?php foreach ($this->chapter_list AS $chapter_info) { ?>
@@ -44,6 +45,7 @@
                     <?php } ?>
                     </form>
                     </tbody>
+                    <?php } ?>
                 </table>
             </div>
         </div>
