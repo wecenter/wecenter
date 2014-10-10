@@ -597,9 +597,10 @@ a.aw-load-more-content{display: block;}
 .aw-mod-topic-edit-box{padding:20px;}
 .aw-mod-topic-edit-box > .mod-head{position: relative;margin:0 0 30px 0;padding:0 0 0 60px;}
 .aw-mod-topic-edit-box .aw-topic-bar{margin:0 0 0 10px;}
-.aw-mod-topic-edit-box #upload-form .file-input{width: 50px;height: 20px;left: 0 !important;}
+.aw-mod-topic-edit-box #upload-form .file-input{width: 50px;height: 20px;left: 0 !important;top: 30px !important;}
+.aw-mod-topic-edit-box #upload-form .submit{display: none;}
 .aw-mod-topic-edit-box .mod-head h3{font-size: 20px;line-height: 20px;}
-.aw-mod-topic-edit-box .mod-head .img{position: absolute;left: 0;top: 0;width:50px;height:50px;background: url(http://127.0.0.1/anwsion/trunk/static/common/topic-mid-img.png) no-repeat;text-align: center;}
+.aw-mod-topic-edit-box .mod-head .img{position: absolute;left: 0;top: 0;width:50px;height:50px;text-align: center;}
 .aw-mod-topic-edit-box .mod-head .img .mask{position:absolute;bottom:0;display: block;width: 50px;height: 20px;background: #000;opacity: 0.7;filter:alpha(opacity=70);border-radius: 0 0 4px 4px;}
 .aw-mod-topic-edit-box .mod-head .img b{position: absolute;bottom: 0;display: block;width:50px;text-align: center;color: #fff;font-weight: normal;font-size: 12px;}
 .aw-mod-topic-edit-box .mod-head .img .icon-edit{position: relative;top: 1px;margin:0;}
@@ -840,21 +841,27 @@ a.aw-load-more-content{display: block;}
 #wmd-button-bar .wmd-helper ul li.active{height:33px;line-height:33px;margin-bottom:-1px;border-left: 1px solid #e6e6e6;border-right: 1px solid #e6e6e6;}
 #wmd-button-bar .wmd-helper ul li:hover, #wmd-button-bar .wmd-helper ul li.active, #wmd-button-bar .wmd-helper .content{background-color: #ffffff;}
 #wmd-button-bar .wmd-helper .content .tab-pane{padding:10px;}
-.wmd-preview{min-height:20px;margin-top:15px;padding: 19px;line-height:30px;background-color: #fafafa;border:1px solid #e3e3e3;border-radius: 4px;text-align: left;}
+.wmd-preview{min-height:20px;margin-top:15px;padding: 19px;line-height:25px;background-color: #fafafa;border:1px solid #e3e3e3;border-radius: 4px;text-align: left;}
 .wmd-preview em, .markitup-box em{font-style: italic;}
-.wmd-preview ul, .wmd-preview ol, .markitup-box ul, .markitup-box ol{margin-bottom:10px;padding-left: 40px;list-style: decimal;line-height: 30px;}
-.wmd-preview ul, .markitup-box ul{list-style: disc;}
-.wmd-preview ol, .markitup-box ol{margin-left: 25px;padding: 5px 0 5px 20px;list-style: decimal;}
-.wmd-preview h2, .markitup-box h2{font-size: 1.5em;line-height: 30px;}
-.wmd-preview h3, .markitup-box h3{font-size: 1.17em;}
+.wmd-preview ul, .wmd-preview ol, .markitup-box ul, .markitup-box ol{margin-bottom:16px;padding-left: 32px;list-style: decimal;line-height: 30px;}
+.wmd-preview ul, .markitup-box ul {list-style: disc;}
+.wmd-preview ol, .markitup-box ol{list-style: decimal;}
+.wmd-preview ul li, .markitup-box ul li, .wmd-preview ol li, .markitup-box ol li {line-height: 25px;}
+.wmd-preview h2, .markitup-box h2{margin: 16px 0;font-size: 1.75em;line-height: 30px;}
+.wmd-preview h3, .markitup-box h3{margin: 16px 0;font-size: 1.5em;}
+.wmd-preview h4, .markitup-box h4 {margin: 16px 0;font-size: 1.25em;}
 .wmd-preview code, .markitup-box code, .markitup-box code{background-color: #EDEAD5;display: block;font-family: "Courier New",Courier,monospace;margin: 5px 0;padding: 5px;white-space: normal;text-align: left;font-size: 14px;}
-.wmd-preview p{margin:0;}
+.wmd-preview p, .markitup-box p {margin:0 0 16px;}
 .wmd-preview img, .markitup-box img {max-width:625px;margin-bottom: 15px;}
 .markitup-box{position:relative;z-index:1;line-height: 180%;word-wrap: break-word !important;}
 .markitup-box .aw-user-name{font-size: 14px;}
 .markitup-box .aw-upload-file-list{margin: 0;padding-left: 0;list-style: none;}
 .markitup-box .aw-upload-img-list a{display:block;}
 .markitup-box p{padding: 5px;}
+.wmd-preview pre, .markitup-box pre {padding: 16px;line-height: 20px;overflow: hidden; border: none; border-radius: 3px; background-color: #f7f7f7;font-size: 14px;}
+blockquote {margin: 0 0 16px;padding: 0 15px;font-size: 14px;color: #777;border-left: 4px solid #ddd;}
+.markitup-box pre br {display: none;}
+.wmd-preview b, .markitup-box b, .wmd-preview strong, .markitup-box strong {color: #333;}
 
 /* 自定义页面 */
 .aw-custom-page{padding: 20px;background: #fff;}
