@@ -342,28 +342,15 @@ var AW_TEMPLATE = {
 							'<a type="button" class="close icon icon-delete" data-dismiss="modal" aria-hidden="true"></a>'+
 							'<h3 class="modal-title" id="myModalLabel">' + _t('推荐到帮助中心') + '</h3>'+
 						'</div>'+
-						'<form id="help_form" action="' + G_BASE_URL + '/help/ajax/add" method="post" onsubmit="return false;">'+
-						'<input type="hidden" name="item_id" value="{{question_id}}" />'+
+						'<form id="help_form" action="' + G_BASE_URL + '/help/ajax/add_data/" method="post" onsubmit="return false;">'+
+						'<input type="hidden" name="item_id" value="{{id}}" />'+
 						'<input type="hidden" name="item_type" value="{{question}}" />'+
 						'<div class="mod">'+
 						'<div class="modal-body clearfix">'+
 							'<div class="alert alert-danger hide error_message"><i class="icon icon-delete"></i> <em></em></div>'+
 							'<div class="mod-body">'+
-							'<h4>'+'请选择章节'+'</h4>'+
-								'<ul>'+
-									'<li>'+
-									'<img src="'+G_STATIC_URL+'/common/chapter-min-img.png" class="pull-left" alt="ddd">'+
-									'<span>'+
-										'<a>'+'Wecenter 3.0 相关'+'</a>'+
-									'</span>'+
-									'</li>'+
-									'<li>'+
-										'<img src="'+G_STATIC_URL+'/common/chapter-min-img.png" class="pull-left" alt="ddd">'+
-										'<span>'+
-										'<a>'+'Wecenter 3.0 相关'+'</a>'+
-										'</span>'+
-									'</li>'+
-								'</ul>'+
+							'<h4>'+'选择章节'+'</h4>'+
+								'<ul></ul>'+
 							'</div>'+
 						'</div>'+
 						'</div>'+

@@ -636,58 +636,33 @@ var AWS =
 				break;
 
 				case 'recommend':
-					 $.get(G_BASE_URL + '/help/ajax/add/', function (result)
+
+					 $.get(G_BASE_URL + '/help/ajax/list/', function (result)
 		            {
 
 		                $.each(result, function (i, e)
 		                {
-		                    $('.aw-recommend-box ul').append('<li><img src="'+G_STATIC_URL+'/common/chapter-min-img.png" class="pull-left" alt="ddd"><span><a>'+''+'</a></span><i class="icon icon-followed"></i></li>');
+		                    $('.aw-recommend-box ul').append('<li><img src="'+G_STATIC_URL+'/common/chapter-min-img.png" class="pull-left" alt="ddd"><span><a data-id="">'+e['title']+'</a></span><i class="icon icon-followed"></i></li>');
 		                });
 
-		                $.post(G_BASE_URL + '/help/ajax/add/', {
-		                	'item_id' : $('#help_form input[name="item_id"]').val(),
-		                	'item_type' : $('#help_form input[name="item_type"]').val()
-		                }, function (result)
-		                {
-		                	$.each(result, function (i, e)
-		                	{
-		                		var index = i;
-
-		                		$.each($('.aw-recommend-box ul li .title'), function (i, e)
-			                	{
-			                		if ($(this).text() == result[index])
-			                		{
-			                			$(this).parents('li').addClass('active');
-			                		}
-			                	});
-		                	});
-		                }, 'json');
 
 		                $(document).on('click', '.aw-recommend-box ul li a', function()
 		                {
-		                	var _this = this,
-		                		addClassFlag = true,
-		                		params = {
-									'item_id' : $('#help_form input[name="item_id"]').val(),
-			                		'item_type' : $('#help_form input[name="item_type"]').val(),
-		                		};
-
-		                	if ($(this).parents('li').hasClass('active'))
+		                	var _this = this;
+		                	if($(this).dataId=="id")
 		                	{
-		                		var url = G_BASE_URL + '/help/ajax/add/';
-
-		                		addClassFlag = false;
+		                		$(_this).parents('li').addClass('active');
+		                		var url = G_BASE_URL + '/help/ajax/add-data/';
 		                	}
 		                	else
 		                	{
-		                		var url = G_BASE_URL + '/help/ajax/add/';
+		                		var url =  G_BASE_URL + '/help/ajax/remove_data/';
 		                	}
-
-		                	$.post(url, params , function (result)
+		                	$.post(url, function (result)
 		                	{
 		                		if (result.errno == 1)
 		                		{
-		                			if (addClassFlag)
+		                			if ($(this).dataId=="id")
 		                			{
 		                				$(_this).parents('li').addClass('active');
 		                			}
