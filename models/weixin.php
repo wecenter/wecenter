@@ -41,16 +41,23 @@ class weixin_class extends AWS_MODEL
 
     public function replace_post($subject)
     {
-        if (!$subject OR !is_array($subject))
+        $subject = $this->array_urlencode($subject);
+
+        if (!$subject)
         {
             return false;
         }
 
-        return urldecode(json_encode($this->array_urlencode($subject)));
+        return urldecode(json_encode($subject));
     }
 
     public function array_urlencode($array)
     {
+        if (!$array OR !is_array($array))
+        {
+            return false;
+        }
+
         $new_array = array();
 
         foreach ($array as $key => $value)
