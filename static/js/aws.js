@@ -642,17 +642,20 @@ var AWS =
 
 		                $.each(result, function (i, e)
 		                {
-		                    $('.aw-recommend-box ul').append('<li><img src="'+G_STATIC_URL+'/common/chapter-min-img.png" class="pull-left" alt="ddd"><span><a data-id="">'+e['title']+'</a></span><i class="icon icon-followed"></i></li>');
+		                    $('.aw-recommend-box ul').append('<li><img src="'+G_STATIC_URL+'/common/chapter-min-img.png" class="pull-left" alt="ddd"><span><a data-id="id">'+e['title']+'</a></span><i class="icon icon-followed"></i></li>');
 		                });
 
 
 		                $(document).on('click', '.aw-recommend-box ul li a', function()
 		                {
-		                	var _this = this;
-		                	if($(this).dataId=="id")
+
+		                	var addClassFlag = true;
+
+		                	if($('.awRecommendBox ul li a').attr('data-id="question_info[\'chapter_id\']"'))
 		                	{
-		                		$(_this).parents('li').addClass('active');
+		                		$('.awRecommendBox ul li a').parents('li').addClass('active');
 		                		var url = G_BASE_URL + '/help/ajax/add-data/';
+		                		addClassFlag = false;
 		                	}
 		                	else
 		                	{
@@ -660,15 +663,16 @@ var AWS =
 		                	}
 		                	$.post(url, function (result)
 		                	{
+
 		                		if (result.errno == 1)
 		                		{
-		                			if ($(this).dataId=="id")
+		                			if ($('.awRecommendBox ul li a').attr('data-id="question_info[\'chapter_id\']"'))
 		                			{
-		                				$(_this).parents('li').addClass('active');
+		                				$('.awRecommendBox ul li a').parents('li').addClass('active');
 		                			}
 		                			else
 		                			{
-			                			$(_this).parents('li').removeClass('active');
+			                			$('.awRecommendBox ul li a').parents('li').removeClass('active');
 		                			}
 		                		}
 		                	}, 'json');
