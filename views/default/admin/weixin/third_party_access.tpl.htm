@@ -31,7 +31,7 @@
             <div class="alert alert-success hide error_message"></div>
 
             <div class="table-responsive">
-                <form action="admin/ajax/weixin_save_third_party_access_rule_status/" method="post" id="rule_list_form" onsubmit="return false">
+                <form action="admin/ajax/weixin/save_third_party_access_rule_status/" method="post" id="rule_list_form" onsubmit="return false">
                 <table class="table table-striped">
                     <?php if ($this->rule_list) { ?>
                     <thead>
@@ -58,7 +58,7 @@
                         </td>
                         <td class="nowrap">
                             <a href="admin/weixin/edit_third_party_access_rule/id-<?php echo $rule_info['id']; ?>" data-toggle="tooltip" class="icon icon-edit md-tip" title="<?php _e('编辑'); ?>"></a>
-                            <a onclick="AWS.ajax_request(G_BASE_URL + '/admin/ajax/weixin_remove_third_party_access_rule/', 'id=<?php echo $rule_info['id']; ?>');" data-toggle="tooltip" class="icon icon-trash md-tip" title="<?php _e('删除'); ?>"></a>
+                            <a onclick="AWS.ajax_request(G_BASE_URL + '/admin/ajax/weixin/remove_third_party_access_rule/', 'id=<?php echo $rule_info['id']; ?>');" data-toggle="tooltip" class="icon icon-trash md-tip" title="<?php _e('删除'); ?>"></a>
                         </td>
                     </tr>
                     <?php } ?>
