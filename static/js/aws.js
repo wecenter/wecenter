@@ -639,45 +639,48 @@ var AWS =
 
 					 $.get(G_BASE_URL + '/help/ajax/list/', function (result)
 		            {
+		            	if (result)
+						{
+							$.each(result, function (i, e)
+			                {
+			                    $('.aw-recommend-box ul').append('<li><img src="'+G_STATIC_URL+'/common/chapter-min-img.png" class="pull-left" alt="ddd"><span><a data-id="' + e.id + '">'+e.title+'</a></span><i class="icon icon-followed"></i></li>');
+			                });
 
-		                $.each(result, function (i, e)
-		                {
-		                    $('.aw-recommend-box ul').append('<li><img src="'+G_STATIC_URL+'/common/chapter-min-img.png" class="pull-left" alt="ddd"><span><a data-id="id">'+e['title']+'</a></span><i class="icon icon-followed"></i></li>');
-		                });
+			                $(document).on('click', '.aw-recommend-box ul li a', function()
+			                {
+			                	var addClassFlag = true, _this = $(this);
+			                	if ($(this).attr('data-id'))
+			                	{
+			                		$(this).parents('li').addClass('active');
+			                		var url = G_BASE_URL + '/help/ajax/add-data/';
+			                		addClassFlag = false;
+			                	}
+			                	else
+			                	{
+			                		var url =  G_BASE_URL + '/help/ajax/remove_data/';
+			                	}
 
+			                	$.post(url, {
+			                		'id': _this.attr('data-id'),
+			                		'title': _this.text(),
+			                		'type': ""
+			                	}, function (result)
+			                	{
 
-		                $(document).on('click', '.aw-recommend-box ul li a', function()
-		                {
+			                		if (result.errno == 1)
+			                		{
+			                			$(this).removeClass('active');
 
-		                	var addClassFlag = true;
+			                			_this.addClass('active');
 
-		                	if($('.awRecommendBox ul li a').attr('data-id="question_info[\'chapter_id\']"'))
-		                	{
-		                		$('.awRecommendBox ul li a').parents('li').addClass('active');
-		                		var url = G_BASE_URL + '/help/ajax/add-data/';
-		                		addClassFlag = false;
-		                	}
-		                	else
-		                	{
-		                		var url =  G_BASE_URL + '/help/ajax/remove_data/';
-		                	}
-		                	$.post(url, function (result)
-		                	{
-
-		                		if (result.errno == 1)
-		                		{
-		                			if ($('.awRecommendBox ul li a').attr('data-id="question_info[\'chapter_id\']"'))
-		                			{
-		                				$('.awRecommendBox ul li a').parents('li').addClass('active');
-		                			}
-		                			else
-		                			{
-			                			$('.awRecommendBox ul li a').parents('li').removeClass('active');
-		                			}
-		                		}
-		                	}, 'json');
-		                });
-
+			                		}
+			                	}, 'json');
+			                });
+						}
+						else
+						{
+							$('.aw-recommend-box').append('<p>' + _t('123') + '</p>');
+						}
 		            }, 'json');
 		            break;
 				break;
