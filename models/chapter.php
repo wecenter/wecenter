@@ -41,6 +41,11 @@ class chapter_class extends AWS_MODEL
         return $chapter_list[$id];
     }
 
+    public function get_chapter_by_url_token($url_token)
+    {
+        return $this->fetch_row('chapter', 'url_token = "' . $this->quote($url_token) . '"');
+    }
+
     public function get_data_list($chapter_id = null, $max_num = null, $sort = false)
     {
         if (isset($chapter_id))

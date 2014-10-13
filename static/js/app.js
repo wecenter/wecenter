@@ -98,7 +98,7 @@ $(document).ready(function ()
     /*用户头像提示box*/
     AWS.show_card_box('.aw-user-name, .aw-user-img', 'user');
 
-    AWS.show_card_box('.topic-tag .text, .aw-topic-name, .aw-topic-img', 'topic');
+    AWS.show_card_box('.topic-tag, .aw-topic-name, .aw-topic-img', 'topic');
     
     //文章页添加评论, 话题添加 绑定事件
     AWS.Init.init_article_comment_box('.aw-article-content .aw-article-comment');
