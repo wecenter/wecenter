@@ -11,19 +11,22 @@
 						</div>
 						<div class="mod-body aw-help-list">
 							<div class="mod-head">
-								<a href=""><img src="<?php echo G_STATIC_URL; ?>/common/chapter-max-img.png" alt=""></a>
-								<h4>Wecenter 3.0相关</h4>
+								<a href="help/<?php echo ($this->chapter_info['url_token']) ? $this->chapter_info['url_token'] : $this->chapter_info['id']; ?>"><img src="<?php echo get_chapter_icon_url($this->chapter_info['id']); ?>" alt="<?php echo $this->chapter_info['title']; ?>"></a>
+								<h4><?php echo $this->chapter_info['title']; ?></h4>
 							</div>
+							<?php if ($this->data_list) { ?>
 							<div class="mod-body">
 								<ul>
-									<li><a href="">邮件设置后按设置好后，测试没有返回信息，也没发送成功，应该怎么解决？</a></li>
-									<li><a href="">邮件设置后按设置好后，测试没有返回信息，也没发送成功，应该怎么解决？</a></li>
-									<li><a href="">邮件设置后按设置好后，测试没有返回信息，也没发送成功，应该怎么解决？</a></li>
+									<?php foreach ($this->data_list AS $data_info) { ?>
+									<li><a href="<?php echo $data_info['type']; ?>/<?php echo $data_info['id']; ?>"><?php echo $data_info['title']; ?></a></li>
+									<?php } ?>
 								</ul>
 							</div>
+							<?php } ?>
 						</div>
 					</div>
 				</div>
+
 				<!-- 侧边栏 -->
 				<div class="col-sm-12 col-md-3 aw-side-bar aw-help-side hidden-xs hidden-sm">
 					<div class="aw-mod">
