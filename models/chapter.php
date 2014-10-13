@@ -41,6 +41,11 @@ class chapter_class extends AWS_MODEL
         return $chapter_list[$id];
     }
 
+    public function get_chapter_by_url_token($url_token)
+    {
+        return $this->fetch_row('chapter', 'url_token = "' . $this->quote($url_token) . '"');
+    }
+
     public function get_data_list($chapter_id = null, $max_num = null, $sort = false)
     {
         if (isset($chapter_id))
@@ -185,14 +190,16 @@ class chapter_class extends AWS_MODEL
 
         $this->query('UPDATE ' . $this->get_table('article') . ' SET `chapter_id` = NULL, `sort` = "0"', null, null, 'chapter_id = ' . $id);
 
-        @unlink(get_setting('upload_dir') . '/chapter/' . $id . '.jpg');
+        @unlink(get_setting('upload_dir') . '/chapter/' . $id . '-max.jpg');
+
+        @unlink(get_setting('upload_dir') . '/chapter/' . $id . '-min.jpg');
 
         return true;
     }
 
     public function set_chapter_sort($id, $sort)
     {
-        if (!is_digits($id))
+        if (!is_digits($id) OR !is_digits($sort) OR $sort < 0 OR $sort > 99)
         {
             return false;
         }
@@ -200,5 +207,79 @@ class chapter_class extends AWS_MODEL
         return $this->update('chapter', array(
             'sort' => intval($sort)
         ), 'id = ' . $id);
+    }
+
+    public function add_data($id, $type, $item_id)
+    {
+        $chapter_info = $this->get_chapter_by_id($id);
+
+        if (!$chapter_info)
+        {
+            return false;
+        }
+
+        switch ($type)
+        {
+            case 'question':
+                $question_info = $this->model('question')->get_question_info_by_id($item_id);
+
+                if ($question_info['chapter_id'])
+                {
+                    $this->query('UPDATE ' . $this->get_table('question') . ' SET `chapter_id` = NULL, `sort` = "0"', null, null, 'question_id = ' . $question_info['question_id']);
+                }
+                else
+                {
+                    $this->update('question', array('chapter_id' => $chapter_info['id']), 'question_id = ' . $question_info['question_id']);
+                }
+
+                break;
+
+            case 'article':
+                $article_info =  $this->model('article')->get_article_info_by_id($item_id);
+
+                if ($article_info['chapter_id'])
+                {
+                    $this->query('UPDATE ' . $this->get_table('article') . ' SET `chapter_id` = NULL, `sort` = "0"', null, null, 'id = ' . $article_info['id']);
+                }
+                else
+                {
+                    $this->update('article', array('chapter_id' => $chapter_info['id']), 'id = ' . $article_info['id']);
+                }
+
+                break;
+
+            default:
+                return false;
+
+                break;
+        }
+
+        return true;
+    }
+
+    public function set_data_sort($item_id, $type, $sort)
+    {
+        if (!is_digits($item_id) OR !is_digits($sort) OR $sort < 0 OR $sort > 99)
+        {
+            return false;
+        }
+
+        switch ($type)
+        {
+            case 'question':
+                return $this->update('question', array('sort' => $sort), 'question_id = ' . $item_id);
+
+                break;
+
+            case 'article':
+                return $this->update('article', array('sort' => $sort), 'id = ' . $item_id);
+
+                break;
+
+            default:
+                return false;
+
+                break;
+        }
     }
 }

@@ -26,7 +26,7 @@
                     </thead>
                     <?php if ($this->chapter_list) { ?>
                     <tbody>
-                    <form id="chapter_form" action="admin/ajax/save_chapter_sort/" method="post" onsubmit="return false">
+                    <form id="chapter_form" action="admin/ajax/chapter/save_chapter_sort/" method="post" onsubmit="return false">
                     <?php foreach ($this->chapter_list AS $chapter_info) { ?>
                     <tr>
                         <td>
@@ -39,7 +39,7 @@
                         </td>
                         <td >
                             <a href="admin/chapter/edit/<?php echo $chapter_info['id']; ?>" data-toggle="tooltip" class="icon icon-edit md-tip" title="<?php _e('编辑'); ?>"></a>
-                            <a onclick="AWS.ajax_request(G_BASE_URL + '/admin/ajax/remove_chapter/', 'id=<?php echo $chapter_info['id'];?>');" data-toggle="tooltip" class="icon icon-trash md-tip" title="<?php _e('删除'); ?>"></a>
+                            <a onclick="AWS.ajax_request(G_BASE_URL + '/admin/ajax/chapter/remove_chapter/', 'id=<?php echo $chapter_info['id'];?>');" data-toggle="tooltip" class="icon icon-trash md-tip" title="<?php _e('删除'); ?>"></a>
                         </td>
                     </tr>
                     <?php } ?>
