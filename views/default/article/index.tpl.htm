@@ -9,8 +9,8 @@
 						<div class="tag-bar clearfix">
 							<?php if ($this->article_topics) { ?>
 							<?php foreach($this->article_topics as $key => $val) { ?>
-							<span class="topic-tag">
-								<a class="text" href="topic/<?php echo $val['url_token']; ?>" data-id="<?php echo $val['topic_id']; ?>"><?php echo $val['topic_title']; ?></a>
+							<span class="topic-tag" data-id="<?php echo $val['topic_id']; ?>">
+								<a class="text" href="topic/<?php echo $val['url_token']; ?>"><?php echo $val['topic_title']; ?></a>
 							</span>
 							<?php } ?>
 							<?php } ?>
