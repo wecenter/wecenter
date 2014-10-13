@@ -912,8 +912,8 @@ blockquote {margin: 0 0 16px;padding: 0 15px;font-size: 14px;color: #777;border-
 .aw-404-wrap .aw-search-box {width: 460px;float: none;margin: 0 auto;}
 .aw-404-wrap .aw-search-box .form-control {border-radius: 0;border-color: #54BEFF;}
 .aw-404-wrap .aw-search-box .input-group {margin: 0 auto;}
-.aw-404-wrap .aw-search-box .input-group input {width: 460px;}
-.aw-404-wrap .aw-search-box .input-group-addon {top:0 !important;right:0 !important;z-index:10;width:40px !important;border-radius: 0;border-color: #54BEFF; color: #fff !important;background-color: #54BEFF;}
+.aw-404-wrap .aw-search-box .input-group input {width: 460px;padding-right: 50px;}
+.aw-404-wrap .aw-search-box #global_search_btns {top:0;right:0;z-index:10;width:40px;height:32px;border-radius: 0;border-color: #54BEFF; color: #fff;background-color: #54BEFF;}
 
 /* 帮助中心 */
 .aw-help > .mod-head {height: 220px;padding: 42px 0 35px;margin: 0 auto;border-bottom: 1px solid #e6e6e6;}
