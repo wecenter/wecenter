@@ -5,7 +5,7 @@
 		<div class="row">
 			<div class="aw-content-wrap clearfix">
 				<div class="col-sm-12 col-md-12 aw-main-content">
-					<div class="aw-mod aw-help">
+					<div class="aw-mod aw-help-center">
 						<div class="mod-head">
 							<h2><i class="icon icon-bulb"></i><?php _e('帮助中心'); ?></h2>
 							<div class="aw-search-box  hidden-xs hidden-sm">
@@ -31,22 +31,15 @@
 							<?php foreach ($this->chapter_list AS $chapter_info) { ?>
 							<div class="col-sm-4 col-md-4">
 								<div class="aw-item">
-									<div class="mod-head">
-										<a href="help/<?php echo ($chapter_info['url_token']) ? $chapter_info['url_token'] : $chapter_info['id']; ?>"><img src="<?php echo get_chapter_icon_url($chapter_info['id'], 'min'); ?>" alt="<?php echo $chapter_info['title']; ?>"></a>
-										<h4><?php echo $chapter_info['title']; ?></h4>
-									</div>
+									<h4><a href="help/<?php echo ($chapter_info['url_token']) ? $chapter_info['url_token'] : $chapter_info['id']; ?>"><img src="<?php echo get_chapter_icon_url($chapter_info['id'], 'min'); ?>" alt="<?php echo $chapter_info['title']; ?>"></a><?php echo $chapter_info['title']; ?></h4>
 									<?php if ($this->data_list[$chapter_info['id']]) { ?>
-									<div class="mod-body">
-										<ul>
-											<?php foreach ($this->data_list[$chapter_info['id']] AS $data_info) { ?>
-											<li><a href="<?php echo $data_info['type']; ?>/<?php echo $data_info['id']; ?>"><?php echo $data_info['title']; ?></a></li>
-											<?php } ?>
-										</ul>
-									</div>
+									<ul>
+										<?php foreach ($this->data_list[$chapter_info['id']] AS $data_info) { ?>
+										<li><a href="<?php echo $data_info['type']; ?>/<?php echo $data_info['id']; ?>"><?php echo $data_info['title']; ?></a></li>
+										<?php } ?>
+									</ul>
 									<?php } ?>
-									<div class="mod-footer">
-										<a href="help/<?php echo ($chapter_info['url_token']) ? $chapter_info['url_token'] : $chapter_info['id']; ?>"><?php _e('更多'); ?></a>
-									</div>
+									<a href="help/<?php echo ($chapter_info['url_token']) ? $chapter_info['url_token'] : $chapter_info['id']; ?>"><?php _e('更多'); ?></a>
 								</div>
 							</div>
 							<?php } ?>

@@ -5,25 +5,23 @@
 		<div class="row">
 			<div class="aw-content-wrap clearfix">
 				<div class="col-sm-12 col-md-9 aw-main-content">
-					<div class="aw-mod ">
-						<div class="mod-head  aw-help-center">
-							<h3><?php _e('帮助中心'); ?></h3>
+					<div class="common-head">
+						<h2><?php _e('帮助中心'); ?></h2>
+					</div>
+					<div class="aw-mod aw-help-list">
+						<div class="mod-head">
+							<a href="help/<?php echo ($this->chapter_info['url_token']) ? $this->chapter_info['url_token'] : $this->chapter_info['id']; ?>"><img src="<?php echo get_chapter_icon_url($this->chapter_info['id']); ?>" alt="<?php echo $this->chapter_info['title']; ?>"></a>
+								<h3><?php echo $this->chapter_info['title']; ?></h3>
 						</div>
-						<div class="mod-body aw-help-list">
-							<div class="mod-head">
-								<a href="help/<?php echo ($this->chapter_info['url_token']) ? $this->chapter_info['url_token'] : $this->chapter_info['id']; ?>"><img src="<?php echo get_chapter_icon_url($this->chapter_info['id']); ?>" alt="<?php echo $this->chapter_info['title']; ?>"></a>
-								<h4><?php echo $this->chapter_info['title']; ?></h4>
-							</div>
-							<?php if ($this->data_list) { ?>
-							<div class="mod-body">
-								<ul>
+					<?php if ($this->data_list) { ?>
+						<div class="mod-body">
+							<ul>
 									<?php foreach ($this->data_list AS $data_info) { ?>
 									<li><a href="<?php echo $data_info['type']; ?>/<?php echo $data_info['id']; ?>"><?php echo $data_info['title']; ?></a></li>
 									<?php } ?>
 								</ul>
-							</div>
-							<?php } ?>
 						</div>
+						<?php } ?>
 					</div>
 				</div>
 
