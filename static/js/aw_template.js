@@ -342,7 +342,7 @@ var AW_TEMPLATE = {
 							'<a type="button" class="close icon icon-delete" data-dismiss="modal" aria-hidden="true"></a>'+
 							'<h3 class="modal-title" id="myModalLabel">' + _t('推荐到帮助中心') + '</h3>'+
 						'</div>'+
-						'<form id="help_form" action="' + G_BASE_URL + '/chapter/ajax/" method="post" onsubmit="return false;">'+
+						'<form id="help_form" action="' + G_BASE_URL + '/help/ajax/add" method="post" onsubmit="return false;">'+
 						'<input type="hidden" name="item_id" value="{{question_id}}" />'+
 						'<input type="hidden" name="item_type" value="{{question}}" />'+
 						'<div class="mod">'+

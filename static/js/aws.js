@@ -636,12 +636,12 @@ var AWS =
 				break;
 
 				case 'recommend':
-					 $.get(G_BASE_URL + '/help/ajax/', function (result)
+					 $.get(G_BASE_URL + '/help/ajax/add/', function (result)
 		            {
 
 		                $.each(result, function (i, e)
 		                {
-		                    $('.aw-recommend-box ul').append('<li><img src="'+G_STATIC_URL+'/common/chapter-min-img.png" class="pull-left" alt="ddd"><span><a>'+'$chapter_info[\'title\']'+'</a><i class="icon icon-followed"></i></span></li>');
+		                    $('.aw-recommend-box ul').append('<li><img src="'+G_STATIC_URL+'/common/chapter-min-img.png" class="pull-left" alt="ddd"><span><a>'+''+'</a></span><i class="icon icon-followed"></i></li>');
 		                });
 
 		                $.post(G_BASE_URL + '/help/ajax/add/', {
