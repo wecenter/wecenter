@@ -88,4 +88,25 @@ class ajax extends AWS_CONTROLLER
 
         H::ajax_json_output(AWS_APP::RSM(null, 1, null));
     }
+
+    public function list_action()
+    {
+        $chapter_list = $this->model('chapter')->get_chapter_list();
+
+        if (!$chapter_list)
+        {
+            exit();
+        }
+
+        foreach ($chapter_list as $chapter_info)
+        {
+            $output[$chapter_info['id']] = array(
+                'id' => $chapter_info['id'],
+                'title' => $chapter_info['title'],
+                'icon' => get_chapter_icon_url($chapter_info['id'], 'min')
+            );
+        }
+
+        echo json_encode($output);
+    }
 }
