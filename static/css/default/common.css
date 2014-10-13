@@ -403,6 +403,7 @@ a.aw-load-more-content{display: block;}
 .aw-question-detail .mod-head .operate .btn-group .btn{width:46px;height:34px;line-height: 20px;padding:0;font-size: 26px;box-shadow: none;}
 .aw-question-detail .mod-head .operate .btn-group.open .btn{background-color:#499ef3;color: #fff;}
 .aw-question-detail .mod-head .operate .btn-group .icon-cog{margin-right: 0px;color: #666;}
+.aw-question-detail .mod-head .operate .aw-dropdown {min-width: 120px;}
 .aw-question-detail .mod-head .operate .dropdown-menu ul li{padding:5px 10px;}
 .aw-question-detail .mod-head .operate .dropdown-menu ul li a{display: block;}
 .aw-question-detail .mod-body:hover .more-operate{display: block;}
@@ -916,28 +917,33 @@ blockquote {margin: 0 0 16px;padding: 0 15px;font-size: 14px;color: #777;border-
 .aw-404-wrap .aw-search-box .input-group-addon {top:0 !important;right:0 !important;z-index:10;width:40px !important;border-radius: 0;border-color: #54BEFF; color: #fff !important;background-color: #54BEFF;}
 
 /* 帮助中心 */
-.aw-help > .mod-head {height: 220px;padding: 42px 0 35px;margin: 0 auto;border-bottom: 1px solid #e6e6e6;}
-.aw-help .mod-head h2 {font-size: 32px; text-align: center;color: #666;}
-.aw-help .mod-head h2 i {padding-right: 10px;}
-.aw-help > .mod-head .aw-search-box {float:  none;margin: 33px auto 0;width: 505px;border-radius: 4px;border: 7px solid #f5f5f5;}
-.aw-help > .mod-head .aw-search-box form {border: 1px solid #e6e6e6; border-radius: 4px;}
-.aw-help > .mod-body {padding: 40px 25px 20px;}
-.aw-help > .mod-body .aw-item .mod-head {position: relative;height: 32px;margin-bottom: 15px;}
-.aw-help > .mod-body .aw-item img {position: absolute;left: 0;top: 0;width: 32px;height: 32px;border-radius: 4px;}
-.aw-help > .mod-body .aw-item h4 {padding-left: 42px;font-size: 16px;color: #333;}
-.aw-help > .mod-body .aw-item ul {list-style-type: disc;padding-left: 20px;line-height: 25px;overflow: hidden; }
-.aw-help > .mod-body .aw-item ul li {margin: 5px 0;word-break: break-word;}
-.aw-help > .mod-body .aw-item .mod-footer a {display: block;margin-top: 10px; color: #999;text-align: left;}
-.aw-help-center {padding: 28px 0 14px 28px; border-bottom: 1px solid #e6e6e6;}
-.aw-help-center h3 {margin: 0;font-size: 20px;color: #333;}
+.aw-help-center .mod-head {height: 220px;padding: 42px 0 35px;margin: 0 auto;border-bottom: 1px solid #e6e6e6;}
+.aw-help-center .mod-head h2 {font-size: 32px; text-align: center;color: #666;}
+.aw-help-center .mod-head h2 i {padding-right: 10px;}
+.aw-help-center .mod-head .aw-search-box {float:  none;margin: 33px auto 0;width: 505px;border-radius: 4px;border: 7px solid #f5f5f5;}
+.aw-help-center .mod-head .aw-search-box form {border: 1px solid #e6e6e6; border-radius: 4px;}
+.aw-help-center .mod-body {padding: 40px 25px 20px;}
+.aw-help-center .mod-body .aw-item img {position: absolute;left: 0;top: 0;width: 32px;height: 32px;border-radius: 4px;}
+.aw-help-center .mod-body .aw-item h4 { position: relative; padding-left: 42px;margin-bottom: 18px;font-size: 16px;font-weight: bold; color: #333;}
+.aw-help-center .mod-body .aw-item ul {list-style-type: disc;padding-left: 20px;line-height: 25px;overflow: hidden; }
+.aw-help-center .mod-body .aw-item ul li {margin: 5px 0;word-break: break-word;}
+.aw-help-center .mod-body .aw-item > a {display: block;margin-top: 10px; color: #999;text-align: left;}
 .aw-help-list {padding: 20px;}
-.aw-help-list .mod-head {position: relative;padding-left: 62px;margin-bottom: 25px;height: 50px;}
+.aw-help-list .mod-head {position: relative;padding-left: 62px;margin-bottom: 10px;height: 50px;}
 .aw-help-list .mod-head img {position: absolute;left: 0;top: 0;width: 50px;border-radius: 4px;}
-.aw-help-list .mod-head h4 {line-height: 50px;font-size: 20px;color: #333;}
+.aw-help-list .mod-head h3 {line-height: 50px;font-size: 20px;font-weight: bold; color: #333;}
 .aw-help-list .mod-body {overflow: hidden;}
 .aw-help-list .mod-body ul li {padding: 12px 0;line-height: 21px;border-bottom: 1px solid #e6e6e6;}
-.aw-help-side .mod-head h4 {margin-top: 8px;margin-bottom: 10px;color: #333;}
+.aw-help-side .mod-head h4 {margin-top: 8px;margin-bottom: 0;color: #333;}
 .aw-help-side .mod-body dd {padding-left: 40px;line-height: 32px;}
+.aw-recommend-box ul li {float: left;width: 47%;margin: 0 10px 10px 0;background: #F0F0F0;height: 40px;position: relative;}
+.aw-recommend-box .modal-dialog {width: 524px;}
+.aw-recommend-box h4 {color: #999;font-size: 14px;}
+.aw-recommend-box ul {width: 505px;}
+.aw-recommend-box ul li span {display: block;}
+.aw-recommend-box ul li img {width: 32px;height: 32px;padding-left: 5px;margin-top: 5px; border-radius: 4px;vertical-align: middle;}
+.aw-recommend-box ul li a {display:block;padding-left: 40px; cursor: pointer; line-height: 40px;font-size: 12px; color: #333;}
+
 /* noscript 提示 */
 .aw-noscript{position: absolute;z-index: 100;width: 100%;height: 100%;background-color: #f5f5f5;overflow: hidden;}
 
