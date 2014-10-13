@@ -2,7 +2,7 @@
 <?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
 
 <div class="aw-content-wrap">
-    <form action="admin/ajax/save_third_party_access_rule/" enctype="multipart/form-data" id="rule_form" method="post" onsubmit="return false">
+    <form action="admin/ajax/weixin/save_third_party_access_rule/" enctype="multipart/form-data" id="rule_form" method="post" onsubmit="return false">
     <?php if ($this->rule_info['id']) { ?>
     <input type="hidden" name="id" value="<?php echo $this->rule_info['id']; ?>" />
     <?php } ?>

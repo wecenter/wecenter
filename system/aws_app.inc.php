@@ -58,7 +58,7 @@ class AWS_APP
 
 		// 传入应用目录, 返回控制器对象
 		$handle_controller = self::create_controller(load_class('core_uri')->controller, load_class('core_uri')->app_dir);
-
+		
 		$action_method = load_class('core_uri')->action . '_action';
 
 		// 判断
@@ -194,20 +194,22 @@ class AWS_APP
 		}
 
 		$class_file = $app_dir . $controller . '.php';
+		
+		$controller_class = str_replace('/', '_', $controller);
 
 		if (! file_exists($class_file))
 		{
 			return false;
 		}
 
-		if (! class_exists($controller, false))
+		if (! class_exists($controller_class, false))
 		{
 			require_once ($class_file);
 		}
 
-		if (class_exists($controller, false))
+		if (class_exists($controller_class, false))
 		{
-			return new $controller();
+			return new $controller_class();
 		}
 
 		return false;
