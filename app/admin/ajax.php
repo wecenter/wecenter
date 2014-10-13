@@ -1168,6 +1168,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
             'visit_topic',
             'visit_feature',
             'visit_people',
+            'visit_chapter',
             'answer_show',
             'function_interval',
             'publish_article',
