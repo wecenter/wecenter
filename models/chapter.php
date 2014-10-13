@@ -199,7 +199,7 @@ class chapter_class extends AWS_MODEL
 
     public function set_chapter_sort($id, $sort)
     {
-        if (!is_digits($id))
+        if (!is_digits($id) OR !is_digits($sort) OR $sort < 0 OR $sort > 99)
         {
             return false;
         }
@@ -255,5 +255,31 @@ class chapter_class extends AWS_MODEL
         }
 
         return true;
+    }
+
+    public function set_data_sort($item_id, $type, $sort)
+    {
+        if (!is_digits($item_id) OR !is_digits($sort) OR $sort < 0 OR $sort > 99)
+        {
+            return false;
+        }
+
+        switch ($type)
+        {
+            case 'question':
+                return $this->update('question', array('sort' => $sort), 'question_id = ' . $item_id);
+
+                break;
+
+            case 'article':
+                return $this->update('article', array('sort' => $sort), 'id = ' . $item_id);
+
+                break;
+
+            default:
+                return false;
+
+                break;
+        }
     }
 }

@@ -141,4 +141,19 @@ class ajax_weixin extends AWS_ADMIN_CONTROLLER
 
         H::ajax_json_output(AWS_APP::RSM(null, 1, null));
     }
+
+    public function save_data_sort_action()
+    {
+        if (!$_POST['sort'] OR !is_array($_POST['sort']))
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('错误的请求')));
+        }
+
+        foreach ($_POST['sort'] AS $item_id => $sort)
+        {
+            $this->model('chapter')->set_data_sort($item_id, $sort);
+        }
+
+        H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('数据排序已自动保存')));
+    }
 }
