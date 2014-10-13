@@ -156,4 +156,16 @@ class ajax_weixin extends AWS_ADMIN_CONTROLLER
 
         H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('数据排序已自动保存')));
     }
+
+    public function remove_data_action()
+    {
+        if (!$_POST['id'] OR !$_POST['type'] OR !$_POST['item_id'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('错误的请求')));
+        }
+
+        $this->model('chapter')->add_data($_POST['id'], $_POST['type'], $_POST['item_id']);
+
+        H::ajax_json_output(AWS_APP::RSM(null, 1, null));
+    }
 }
