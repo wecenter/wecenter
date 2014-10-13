@@ -164,7 +164,7 @@ class ajax_chapter extends AWS_ADMIN_CONTROLLER
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('错误的请求')));
         }
 
-        $this->model('chapter')->add_data($_POST['id'], $_POST['type'], $_POST['item_id']);
+        $this->model('chapter')->remove_data($_POST['id'], $_POST['type'], $_POST['item_id']);
 
         H::ajax_json_output(AWS_APP::RSM(null, 1, null));
     }
