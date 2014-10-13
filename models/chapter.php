@@ -223,28 +223,68 @@ class chapter_class extends AWS_MODEL
             case 'question':
                 $question_info = $this->model('question')->get_question_info_by_id($item_id);
 
-                if ($question_info['chapter_id'])
+                if (!$question_info)
                 {
-                    $this->query('UPDATE ' . $this->get_table('question') . ' SET `chapter_id` = NULL, `sort` = "0"', null, null, 'question_id = ' . $question_info['question_id']);
+                    return false;
                 }
-                else
-                {
-                    $this->update('question', array('chapter_id' => $chapter_info['id']), 'question_id = ' . $question_info['question_id']);
-                }
+
+                $this->update('question', array('chapter_id' => $chapter_info['id']), 'question_id = ' . $question_info['question_id']);
 
                 break;
 
             case 'article':
                 $article_info =  $this->model('article')->get_article_info_by_id($item_id);
 
-                if ($article_info['chapter_id'])
+                if (!$article_info)
                 {
-                    $this->query('UPDATE ' . $this->get_table('article') . ' SET `chapter_id` = NULL, `sort` = "0"', null, null, 'id = ' . $article_info['id']);
+                    return false;
                 }
-                else
+
+                $this->update('article', array('chapter_id' => $chapter_info['id']), 'id = ' . $article_info['id']);
+
+                break;
+
+            default:
+                return false;
+
+                break;
+        }
+
+        return true;
+    }
+
+    public function remove_data($id, $type, $item_id)
+    {
+        $chapter_info = $this->get_chapter_by_id($id);
+
+        if (!$chapter_info)
+        {
+            return false;
+        }
+
+        switch ($type)
+        {
+            case 'question':
+                $question_info = $this->model('question')->get_question_info_by_id($item_id);
+
+                if (!$question_info OR !$question_info['chapter_id'])
                 {
-                    $this->update('article', array('chapter_id' => $chapter_info['id']), 'id = ' . $article_info['id']);
+                    return false;
                 }
+
+                $this->query('UPDATE ' . $this->get_table('question') . ' SET `chapter_id` = NULL, `sort` = "0"', null, null, 'question_id = ' . $question_info['question_id']);
+
+                break;
+
+            case 'article':
+                $article_info =  $this->model('article')->get_article_info_by_id($item_id);
+
+                if (!$article_info OR !$article_info['chapter_id'])
+                {
+                    return false;
+                }
+
+                $this->query('UPDATE ' . $this->get_table('article') . ' SET `chapter_id` = NULL, `sort` = "0"', null, null, 'id = ' . $article_info['id']);
 
                 break;
 
