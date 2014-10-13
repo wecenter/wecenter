@@ -113,7 +113,7 @@ class ajax_chapter extends AWS_ADMIN_CONTROLLER
         }
 
         H::ajax_json_output(AWS_APP::RSM(array(
-            'url' => get_js_url('admin/chapter/edit/' . $id)
+            'url' => get_js_url('/admin/chapter/edit/' . $id)
         ), 1, null));
     }
 
