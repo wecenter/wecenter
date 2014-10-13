@@ -14,7 +14,6 @@
 
 define('IN_AJAX', TRUE);
 
-
 if (!defined('IN_ANWSION'))
 {
     die;
@@ -26,7 +25,7 @@ class ajax_weixin extends AWS_ADMIN_CONTROLLER
     {
         HTTP::no_cache_header();
     }
- 	
+
     public function save_third_party_access_rule_status_action()
     {
         if (!$_POST['rule_ids'])
@@ -100,7 +99,7 @@ class ajax_weixin extends AWS_ADMIN_CONTROLLER
             'url' => get_js_url('admin/weixin/third_party_access/id-' . $_POST['account_id'])
         ), 1, null));
     }
-    
+
     public function create_qr_code_action()
     {
         if (!$_POST['description'])
@@ -131,7 +130,7 @@ class ajax_weixin extends AWS_ADMIN_CONTROLLER
 
         H::ajax_json_output(AWS_APP::RSM(null, 1, null));
     }
-    
+
    public function save_reply_rule_status_action()
    {
         if (!$_POST['rule_ids'])
@@ -326,7 +325,7 @@ class ajax_weixin extends AWS_ADMIN_CONTROLLER
         $question_ids = array_unique(array_filter(explode(',', trim($_POST['question_ids'], ','))));
 
 /*
-        if (empty($article_ids) AND empty($question_ids))
+        if (!$article_ids AND !$question_ids)
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请添加要群发的文章或问题')));
         }
