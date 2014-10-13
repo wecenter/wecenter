@@ -91,16 +91,9 @@ class ajax extends AWS_CONTROLLER
 
     public function remove_data_action()
     {
-        if (!$_POST['id'] OR !$_POST['type'] OR !$_POST['item_id'])
+        if (!$_POST['type'] OR !$_POST['item_id'])
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('错误的请求')));
-        }
-
-        $chapter_info = $this->model('chapter')->get_chapter_by_id($_POST['id']);
-
-        if (!$chapter_info)
-        {
-            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('指定章节不存在')));
         }
 
         switch ($_POST['type'])
@@ -118,7 +111,7 @@ class ajax extends AWS_CONTROLLER
                     H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('指定问题不在帮助中心中')));
                 }
 
-                $this->model('chapter')->remove_data($chapter_info['id'], 'question', $question_info['question_id']);
+                $this->model('chapter')->remove_data('question', $question_info['question_id']);
 
                 break;
 
@@ -135,7 +128,7 @@ class ajax extends AWS_CONTROLLER
                     H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('指定文章不在帮助中心中')));
                 }
 
-                $this->model('chapter')->remove_data($chapter_info['id'], 'article', $article_info['id']);
+                $this->model('chapter')->remove_data('article', $article_info['id']);
 
                 break;
 

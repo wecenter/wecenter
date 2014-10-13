@@ -83,6 +83,8 @@
                 </table>
             </form>
         </div>
+
+        <?php if ($this->data_list) { ?>
         <!-- 文章章节列表 -->
         <div class="tab-content mod-body">
         <div class="alert alert-success hide error_message"></div>
@@ -98,26 +100,30 @@
                     </thead>
 
                     <tbody>
-                        <form id="chapter_form" action="admin/ajax/chapter/save_chapter_sort/" method="post" onsubmit="return false" class="clearfix">
+                        <form id="chapter_form" action="admin/ajax/chapter/save_data_sort/" method="post" onsubmit="return false" class="clearfix">
+                            <?php foreach ($this->data_list AS $data_info) { ?>
                             <tr>
+                                <input type="hidden" ame="data[<?php echo $data_info['id']; ?>][id]" value="<?php echo $data_info['id']; ?>" />
+                                <input type="hidden" ame="data[<?php echo $data_info['id']; ?>][type]" value="<?php echo $data_info['type']; ?>" />
                                 <td class="col-sm-5 col-md-5">
-                                    <a href="help/<?php echo $chapter_info['id']; ?>"><?php echo $chapter_info['title']; ?></a>
+                                    <a href="<?php echo $data_info['type']; ?>/<?php echo $data_info['id']; ?>"><?php echo $data_info['title']; ?></a>
                                 </td>
                                 <td class="col-sm-2 col-md-2">
                                     <div class="col-lg-offset-3">
-                                        <input type="text" class="form-control sort-action" name="sort[<?php echo $chapter_info['id']; ?>]" value="<?php echo $chapter_info['sort']; ?>" />
+                                        <input type="text" class="form-control sort-action" name="data[<?php echo $data_info['id']; ?>][sort]" value="<?php echo $data_info['sort']; ?>" />
                                     </div>
                                 </td>
                                 <td class="col-sm-5 col-md-5">
-                                    <a href="admin/chapter/edit/<?php echo $chapter_info['id']; ?>" data-toggle="tooltip" class="icon icon-edit md-tip" title="<?php _e('编辑'); ?>"></a>
-                                    <a onclick="AWS.ajax_request(G_BASE_URL + '/admin/ajax/chapter/remove_chapter/', 'id=<?php echo $chapter_info['id'];?>');" data-toggle="tooltip" class="icon icon-trash md-tip" title="<?php _e('删除'); ?>"></a>
+                                    <a onclick="AWS.ajax_request(G_BASE_URL + '/admin/ajax/chapter/remove_data/', 'id=<?php echo $data_info['id'];?>&type=<?php echo $data_info['type']; ?>');" data-toggle="tooltip" class="icon icon-trash md-tip" title="<?php _e('删除'); ?>"></a>
                                 </td>
                             </tr>
+                            <?php } ?>
                         </form>
                     </tbody>
                 </table>
             </div>
         </div>
+        <?php } ?>
     </div>
 </div>
 

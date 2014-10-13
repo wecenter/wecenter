@@ -253,15 +253,8 @@ class chapter_class extends AWS_MODEL
         return true;
     }
 
-    public function remove_data($id, $type, $item_id)
+    public function remove_data($type, $item_id)
     {
-        $chapter_info = $this->get_chapter_by_id($id);
-
-        if (!$chapter_info)
-        {
-            return false;
-        }
-
         switch ($type)
         {
             case 'question':
