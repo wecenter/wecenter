@@ -19,7 +19,7 @@ if (!defined('IN_ANWSION'))
     die;
 }
 
-class ajax_weixin extends AWS_ADMIN_CONTROLLER
+class ajax_chapter extends AWS_ADMIN_CONTROLLER
 {
     public function setup()
     {
