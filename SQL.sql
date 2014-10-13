@@ -1,7 +1,7 @@
-ALTER TABLE `aws_article` ADD `chapter_id` int(10) DEFAULT NULL, ADD INDEX (`chapter_id`);
+ALTER TABLE `aws_article` ADD `chapter_id` int(10) UNSIGNED DEFAULT NULL, ADD INDEX (`chapter_id`);
 ALTER TABLE `aws_article` ADD `sort` tinyint(2) UNSIGNED NOT NULL DEFAULT '0', ADD INDEX (`sort`);
 
-ALTER TABLE `aws_question` ADD `chapter_id` int(10) DEFAULT NULL, ADD INDEX (`chapter_id`);
+ALTER TABLE `aws_question` ADD `chapter_id` int(10) UNSIGNED DEFAULT NULL, ADD INDEX (`chapter_id`);
 ALTER TABLE `aws_question` ADD `sort` tinyint(2) UNSIGNED NOT NULL DEFAULT '0', ADD INDEX (`sort`);
 
 CREATE TABLE `aws_chapter` (

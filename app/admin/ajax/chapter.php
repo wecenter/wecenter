@@ -79,11 +79,13 @@ class ajax_weixin extends AWS_ADMIN_CONTROLLER
                 {
                     default:
                         H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('错误代码') . ': ' . AWS_APP::upload()->get_error()));
-                    break;
+
+                        break;
 
                     case 'upload_invalid_filetype':
                         H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('文件类型无效')));
-                    break;
+
+                        break;
                 }
             }
 
