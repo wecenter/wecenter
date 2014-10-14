@@ -10,7 +10,7 @@
 					</div>
 					<div class="aw-mod aw-help-list">
 						<div class="mod-head">
-							<img src="<?php echo get_chapter_icon_url($this->chapter_info['id']); ?>" alt="<?php echo $this->chapter_info['title']; ?>">
+							<img class="aw-border-radius-5"> src="<?php echo get_chapter_icon_url($this->chapter_info['id']); ?>" alt="<?php echo $this->chapter_info['title']; ?>">
 							<h3><?php echo $this->chapter_info['title']; ?></h3>
 						</div>
 
@@ -39,7 +39,7 @@
 							<dl>
 								<dt class="pull-left">
 									<a href="help/<?php echo ($chapter_info['url_token']) ? $chapter_info['url_token'] : $chapter_info['id']; ?>">
-										<img src="<?php echo get_chapter_icon_url($chapter_info['id'], 'min'); ?>" alt="<?php echo $chapter_info['title']; ?>">
+										<img class="aw-border-radius-5" src="<?php echo get_chapter_icon_url($chapter_info['id'], 'min'); ?>" alt="<?php echo $chapter_info['title']; ?>">
 									</a>
 								</dt>
 								<dd>

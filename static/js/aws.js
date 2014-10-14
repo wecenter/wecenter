@@ -597,7 +597,7 @@ var AWS =
 		                		addClassFlag = false;
 		                	}
 
-		                	$.post(url, 
+		                	$.post(url,
 		                	{
 								'item_id' : $('#favorite_form input[name="item_id"]').val(),
 		                		'item_type' : $('#favorite_form input[name="item_type"]').val(),
@@ -679,7 +679,7 @@ var AWS =
 						{
 							$.each(result, function (i, e)
 							{
-								$('.aw-recommend-box ul').append('<li><img src="' + G_STATIC_URL + '/common/chapter-min-img.png"><a data-id="' + e.id + '">' + e.title + '</a><i class="icon icon-followed"></i></li>');
+								$('.aw-recommend-box ul').append('<li class="aw-border-radius-5"><img class="aw-border-radius-5" src="' + G_STATIC_URL + '/common/chapter-min-img.png"><a data-id="' + e.id + '">' + e.title + '</a><i class="icon icon-followed"></i></li>');
 							});
 
 							$.each($('.aw-recommend-box ul li'), function (i, e)
