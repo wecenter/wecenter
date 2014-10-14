@@ -19,9 +19,11 @@ if (!defined('IN_ANWSION'))
 
 class chapter_class extends AWS_MODEL
 {
-    public function get_chapter_list()
+    public function get_chapter_list($sort = false)
     {
-        $chapter_query = $this->fetch_all('help_chapter', null, 'sort ASC');
+        $sort = ($sort) ? 'sort ASC' : 'id ASC';
+
+        $chapter_query = $this->fetch_all('help_chapter', null, $sort);
 
         if (!$chapter_query)
         {
