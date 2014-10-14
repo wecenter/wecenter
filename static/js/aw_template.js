@@ -335,33 +335,32 @@ var AW_TEMPLATE = {
 			'</div>',
 
 	'recommend' :
-			'<div class="modal fade alert-box aw-recommend-box" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'+
-				'<div class="modal-dialog">'+
-					'<div class="modal-content">'+
-						'<div class="modal-header">'+
-							'<a type="button" class="close icon icon-delete" data-dismiss="modal" aria-hidden="true"></a>'+
-							'<h3 class="modal-title" id="myModalLabel">' + _t('推荐到帮助中心') + '</h3>'+
-						'</div>'+
-						'<form id="help_form" action="' + G_BASE_URL + '/help/ajax/add_data/" method="post" onsubmit="return false;">'+
-						'<input type="hidden" name="item_id" value="{{item_id}}" />'+
-						'<input type="hidden" name="item_type" value="{{question}}" />'+
-						'<input type="hidden" name="item_type" value="{{article}}" />'+
-						'<div class="mod">'+
-						'<div class="modal-body clearfix">'+
-							'<div class="alert alert-danger hide error_message"><i class="icon icon-delete"></i> <em></em></div>'+
-							'<div class="mod-body">'+
-							'<h4>'+'选择章节'+'</h4>'+
-								'<ul></ul>'+
-							'</div>'+
-						'</div>'+
-						'</div>'+
-						'<div class="modal-footer">'+
-							'<button href="javascript:;"  data-dismiss="modal" aria-hidden="true" class="btn btn-normal btn-gray">' + _t('关闭') + '</button>'+
-						'</div>'+
-						'</form>'+
+		'<div class="modal fade alert-box aw-recommend-box">'+
+			'<div class="modal-dialog">'+
+				'<div class="modal-content">'+
+					'<div class="modal-header">'+
+						'<a type="button" class="close icon icon-delete" data-dismiss="modal" aria-hidden="true"></a>'+
+						'<h3 class="modal-title" id="myModalLabel">' + _t('推荐到帮助中心') + '</h3>'+
 					'</div>'+
+					'<form id="help_form" action="' + G_BASE_URL + '/help/ajax/add_data/" method="post" onsubmit="return false;">'+
+					'<input type="hidden" name="item_id" value="{{item_id}}" />'+
+					'<input type="hidden" name="item_type" value="{{question}}" />'+
+					'<input type="hidden" name="item_type" value="{{article}}" />'+
+					'<div class="mod">'+
+					'<div class="modal-body clearfix">'+
+						'<div class="alert alert-danger hide error_message"><i class="icon icon-delete"></i> <em></em></div>'+
+						'<div class="mod-body">'+
+							'<ul></ul>'+
+						'</div>'+
+					'</div>'+
+					'</div>'+
+					'<div class="modal-footer">'+
+						'<button href="javascript:;"  data-dismiss="modal" aria-hidden="true" class="btn btn-normal btn-gray">' + _t('关闭') + '</button>'+
+					'</div>'+
+					'</form>'+
 				'</div>'+
-			'</div>',
+			'</div>'+
+		'</div>',
 
 	'searchDropdownListQuestions' :
 		'<li class="{{active}} question clearfix"><i class="icon icon-bestbg pull-left"></i><a class="aw-hide-txt pull-left" href="{{url}}">{{content}} </a><span class="pull-right text-color-999">{{discuss_count}} ' + _t('个回复') + '</span></li>',
