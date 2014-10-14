@@ -935,7 +935,7 @@ blockquote {margin: 0 0 16px;padding: 0 15px;font-size: 14px;color: #777;border-
 .aw-help-center .mod-body .col-md-4 {margin-bottom: 20px;height: 232px;}
 .aw-help-center .mod-body .aw-item img {position: absolute;left: 0;top: 0;width: 32px;height: 32px;}
 .aw-help-center .mod-body .aw-item h3 { position: relative; padding-left: 42px;margin-bottom: 18px;font-size: 16px;font-weight: bold;}
-.aw-help-center .mod-body .aw-item h3 a {color: #333;}
+.aw-help-center .mod-body .aw-item h3 a {display: block;color: #333;}
 .aw-help-center .mod-body .aw-item ul {list-style-type: disc;padding-left: 20px;line-height: 25px;overflow: hidden; }
 .aw-help-center .mod-body .aw-item ul li {margin: 5px 0;list-style-position: inside;}
 .aw-help-center .mod-body .aw-item > a {display: block;margin-top: 10px; color: #999;text-align: left;}
