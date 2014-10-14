@@ -21,7 +21,19 @@ class chapter_class extends AWS_MODEL
 {
     public function get_chapter_list()
     {
-        return $this->fetch_all('chapter', null, 'sort ASC');
+        $chapter_query = $this->fetch_all('chapter', null, 'sort ASC');
+
+        if (!$chapter_query)
+        {
+            return false;
+        }
+
+        foreach ($chapter_query AS $chapter_info)
+        {
+            $chapter_list[$chapter_info['id']] = $chapter_info;
+        }
+
+        return $chapter_list;
     }
 
     public function get_chapter_by_id($id)

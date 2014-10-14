@@ -597,7 +597,7 @@ var AWS =
 
 		                	if ($(this).parents('li').hasClass('active'))
 		                	{
-		                		var url = G_BASE_URL + '/favorite/ajax/remove_favorite_tag/'; 
+		                		var url = G_BASE_URL + '/favorite/ajax/remove_favorite_tag/';
 
 		                		addClassFlag = false;
 		                	}
@@ -605,7 +605,7 @@ var AWS =
 		                	{
 		                		var url = G_BASE_URL + '/favorite/ajax/update_favorite_tag/';
 		                	}
-		                	
+
 		                	$.post(url, params , function (result)
 		                	{
 		                		if (result.errno == 1)
@@ -683,7 +683,7 @@ var AWS =
 						{
 							$.each(result, function (i, e)
 							{
-								$('.aw-recommend-box ul').append('<li><img src="' + G_STATIC_URL + '/common/chapter-min-img.png" class="pull-left"><span><a data-id="' + e.id + '">' + e.title + '</a></span><i class="icon icon-followed"></i></li>');
+								$('.aw-recommend-box ul').append('<li><img src="' + G_STATIC_URL + '/common/chapter-min-img.png" class="pull-left"><a data-id="' + e.id + '">' + e.title + '</a><i class="icon icon-followed"></i></li>');
 							});
 
 							$.each($('.aw-recommend-box ul li'), function (i, e)
@@ -704,7 +704,7 @@ var AWS =
 									removeClass = true;
 								}
 
-								$.post(url, 
+								$.post(url,
 								{
 									'item_id' : data.item_id,
 									'id' : _this.attr('data-id'),
@@ -1396,7 +1396,7 @@ AWS.User =
 		{
 			var title = $('title').text();
 		}
-		
+
 		shareURL = 'http://www.jiathis.com/send/?webid=' + webid + '&url=' + url + '&title=' + title + '';
 
 		window.open(shareURL);
@@ -1747,7 +1747,7 @@ AWS.User =
 	                    selector.parents('.aw-article-vote').find('b').html(parseInt(selector.parents('.aw-article-vote').find('b').html()) - 1);
 	                    selector.parents('.aw-article-vote').find('a').removeClass('active');
 	                }
-	                
+
 	                selector.addClass('active');
 	            }
 				else
@@ -2220,11 +2220,11 @@ AWS.Editor =
     	{
     		return false;
     	}
-    	
+
         $('.wmd-input').insertAtCaret(textFeildValue);
 
         chunk.selection = (" " + chunk.selection).replace(/([^\\](?:\\\\)*)(?=[[\]])/g, "$1\\").substr(1);
-        
+
         console.log(chunk);
 	},
 

@@ -40,21 +40,36 @@ class main extends AWS_CONTROLLER
 
         if ($_GET['id'])
         {
-            $chapter_info = $this->model('chapter')->get_chapter_by_url_token($_GET['id']);
+            $chapter_list = $this->model('chapter')->get_chapter_list();
 
-            if (!$chapter_info)
+            if (!$chapter_list)
             {
-                $chapter_info = $this->model('chapter')->get_chapter_by_id($_GET['id']);
+                H::redirect_msg(AWS_APP::lang()->_t('指定章节不存在'), '/');
             }
 
-            if (!$chapter_info)
+            foreach ($chapter_list AS $chapter_info)
+            {
+                if ($chapter_info['url_token'] == $_GET['id'])
+                {
+                    $chapter = $chapter_info;
+
+                    break;
+                }
+            }
+
+            if (!$chapter)
+            {
+                $chapter = $chapter_list[$_GET['id']];
+            }
+
+            if (!$chapter)
             {
                 H::redirect_msg(AWS_APP::lang()->_t('指定章节不存在'), '/chapter/');
             }
 
-            TPL::assign('chapter_info', $chapter_info);
+            TPL::assign('chapter_info', $chapter);
 
-            $data_list = $this->model('chapter')->get_data_list($chapter_info['id'], null, true);
+            $data_list = $this->model('chapter')->get_data_list($chapter['id'], null, true);
 
             if ($data_list)
             {

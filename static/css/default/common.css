@@ -916,6 +916,7 @@ blockquote {margin: 0 0 16px;padding: 0 15px;font-size: 14px;color: #777;border-
 .aw-404-wrap .aw-search-box #global_search_btns {top:0;right:0;z-index:10;width:40px;height:32px;border-radius: 0;border-color: #54BEFF; color: #fff;background-color: #54BEFF;}
 
 /* 帮助中心 */
+.common-head h2 a {color: #333;}
 .aw-help-center .mod-head {height: 220px;padding: 42px 0 35px;margin: 0 auto;border-bottom: 1px solid #e6e6e6;}
 .aw-help-center .mod-head h2 {font-size: 32px; text-align: center;color: #666;}
 .aw-help-center .mod-head h2 i {padding-right: 10px;}
@@ -923,7 +924,8 @@ blockquote {margin: 0 0 16px;padding: 0 15px;font-size: 14px;color: #777;border-
 .aw-help-center .mod-head .aw-search-box form {border: 1px solid #e6e6e6; border-radius: 4px;}
 .aw-help-center .mod-body {padding: 40px 25px 20px;}
 .aw-help-center .mod-body .aw-item img {position: absolute;left: 0;top: 0;width: 32px;height: 32px;border-radius: 4px;}
-.aw-help-center .mod-body .aw-item h4 { position: relative; padding-left: 42px;margin-bottom: 18px;font-size: 16px;font-weight: bold; color: #333;}
+.aw-help-center .mod-body .aw-item h3 { position: relative; padding-left: 42px;margin-bottom: 18px;font-size: 16px;font-weight: bold; color: #333;}
+.aw-help-center .mod-body .aw-item h3 a {color: #333;}
 .aw-help-center .mod-body .aw-item ul {list-style-type: disc;padding-left: 20px;line-height: 25px;overflow: hidden; }
 .aw-help-center .mod-body .aw-item ul li {margin: 5px 0;word-break: break-word;}
 .aw-help-center .mod-body .aw-item > a {display: block;margin-top: 10px; color: #999;text-align: left;}
@@ -934,14 +936,15 @@ blockquote {margin: 0 0 16px;padding: 0 15px;font-size: 14px;color: #777;border-
 .aw-help-list .mod-head h3 {line-height: 50px;font-size: 20px;font-weight: bold; color: #333;}
 .aw-help-list .mod-body {overflow: hidden;}
 .aw-help-list .mod-body ul li {padding: 12px 0;line-height: 21px;border-bottom: 1px solid #e6e6e6;}
+.aw-help-side .mod-head h4 {margin-top: 8px;margin-bottom: 0;color: #333;}
+.aw-help-side .mod-body dd {padding-left: 40px;line-height: 32px;}
 .aw-recommend-box ul li {position: relative;float: left;width: 47%;height: 40px;margin: 0 10px 10px 0;background: #F0F0F0;border-radius: 4px;}
 .aw-recommend-box ul li:hover{background-color: #e6e6e6;}
 .aw-recommend-box .modal-dialog {width: 524px;}
 .aw-recommend-box h4 {color: #999;font-size: 14px;}
 .aw-recommend-box ul {width: 505px;}
-.aw-recommend-box ul li span {display: block;}
-.aw-recommend-box ul li img {width: 32px;height: 32px;padding-left: 5px;margin-top: 5px; border-radius: 4px;vertical-align: middle;}
-.aw-recommend-box ul li a {display:block;padding-left: 10px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; cursor: pointer; line-height: 40px;font-size: 12px; color: #333;}
+.aw-recommend-box ul li img {position: absolute; width: 32px;height: 32px;left: 4px;top: 4px; border-radius: 4px;}
+.aw-recommend-box ul li a {display:block;padding-left: 46px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; cursor: pointer; line-height: 40px;font-size: 12px; color: #333;}
 .aw-recommend-box ul li i {display: none;position: absolute;right: 10px;top: 10px;width: 24px;height: 24px;color: #499ef3;;text-align: center;line-height: 24px;border-radius: 12px;font-size: 20px;}
 .aw-recommend-box ul li.active i {display: block;}
 
