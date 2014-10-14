@@ -47,7 +47,6 @@
 					<li><a href="article/" class="<?php if ($_GET['app'] == 'article') { ?>active<?php } ?>"><?php _e('文章'); ?></a></li> -->
 
 					<li><a href="topic/" <?php if ($_GET['app'] == 'topic') { ?>class="active"<?php } ?>><i class="icon icon-topic"></i> <?php _e('话题'); ?></a></li>
-
 					<?php if ($this->user_id) { ?>
 					<li>
 						<a href="notifications/" class="<?php if ($_GET['app'] == 'notifications') { ?>active<?php } ?>"><i class="icon icon-bell"></i> <?php _e('通知'); ?></a>
@@ -62,6 +61,7 @@
 						</div>
 					</li>
 					<?php } ?>
+					<li><a href="help/" <?php if ($_GET['app'] == 'help') { ?>class="active"<?php } ?>><i class="icon icon-bulb"></i> <?php _e('帮助'); ?></a></li>
 			      </ul>
 			    </nav>
 			</div>
@@ -118,4 +118,4 @@
 		</div>
 	</div>
 	<?php } ?>
-		
+
