@@ -87,7 +87,8 @@
         <?php if ($this->data_list) { ?>
         <!-- 文章章节列表 -->
         <div class="tab-content mod-body">
-        <div class="alert alert-success hide error_message"></div>
+            <div class="alert alert-success hide error_message"></div>
+
             <div class="table-responsive">
                 <h4><?php _e('章节文章列表')?></h4>
                 <table class="table table-striped">
@@ -100,7 +101,7 @@
                     </thead>
 
                     <tbody>
-                        <form id="chapter_form" action="admin/ajax/chapter/save_data_sort/" method="post" onsubmit="return false" class="clearfix">
+                        <form id="sort_form" action="admin/ajax/chapter/save_data_sort/" method="post" onsubmit="return false" class="clearfix">
                             <?php foreach ($this->data_list AS $data_info) { ?>
                             <tr>
                                 <input type="hidden" ame="data[<?php echo $data_info['id']; ?>][id]" value="<?php echo $data_info['id']; ?>" />
@@ -129,10 +130,19 @@
 
 <script>
     $(function(){
-     $('.mod-input-file').change(function(){
-        $('.filetext').text($('.mod-input-file').val());
-    });
- })
+        $('.mod-input-file').change(function(){
+            $('.filetext').text($('.mod-input-file').val());
+        });
+
+        <?php if ($this->data_list) { ?>
+        $('input.sort-action').keyup(function () {
+            if ($(this).val() != '')
+            {
+                AWS.ajax_post($('#sort_form'), AWS.ajax_processer, 'error_message');
+            }
+        });
+        <?php } ?>
+    })
 </script>
 
 <?php TPL::output('admin/global/footer.tpl.htm'); ?>
