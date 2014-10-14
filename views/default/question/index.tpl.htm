@@ -80,7 +80,7 @@
 												<li><a href="javascript:;" onclick="AWS.ajax_request(G_BASE_URL + '/question/ajax/set_recommend/', 'action=<?php if ($this->question_info['is_recommend']) { ?>un<?php } ?>set&question_id=<?php echo $this->question_info['question_id']; ?>');"><?php if ($this->question_info['is_recommend']) { ?><?php _e('取消推荐'); ?><?php } else { ?><?php _e('推荐问题'); ?><?php } ?></a>
 												</li>
 												<li>
-													<a href="javascript:;" onclick="AWS.dialog('recommend', {'type': 'question', 'item_id' : <?php echo $this->question_info['question_id']?>, 'focus_id' : <?php if ($this->question_info['chapter_id']) { ?><?php echo $this->question_info['chapter_id']; ?><?php } else { ?><?php echo "''" ?><?php } ?>});"><?php _e('添加到帮助中心'); ?></a>
+													<a href="javascript:;" onclick="AWS.dialog('recommend', {'type': 'question', 'item_id': <?php echo $this->question_info['question_id']?>, 'focus_id': <?php if ($this->question_info['chapter_id']) { echo $this->question_info['chapter_id']; } else { ?>''<?php } ?>});"><?php _e('添加到帮助中心'); ?></a>
 												</li>
 											<?php } ?>
 											<?php if (($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator'] OR (!$this->question_info['lock'] AND $this->user_info['permission']['redirect_question'])) AND $this->user_id) { ?>
