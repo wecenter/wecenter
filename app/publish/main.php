@@ -105,10 +105,7 @@ class main extends AWS_CONTROLLER
 
 		if (get_setting('advanced_editor_enable') == 'Y')
 		{
-			// editor
-			TPL::import_js('js/editor/Markdown.Converter.js');
-			TPL::import_js('js/editor/Markdown.Sanitizer.js');
-			TPL::import_js('js/editor/Markdown.Editor.js');
+			import_editor_static_files();
 		}
 
 		if (get_setting('upload_enable') == 'Y')
@@ -179,10 +176,7 @@ class main extends AWS_CONTROLLER
 
 		if (get_setting('advanced_editor_enable') == 'Y')
 		{
-			// editor
-			TPL::import_js('js/editor/Markdown.Converter.js');
-			TPL::import_js('js/editor/Markdown.Sanitizer.js');
-			TPL::import_js('js/editor/Markdown.Editor.js');
+			import_editor_static_files();
 		}
 
 		if (get_setting('upload_enable') == 'Y')

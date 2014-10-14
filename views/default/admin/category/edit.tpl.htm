@@ -2,7 +2,7 @@
 <?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
 
 <div class="aw-content-wrap">
-	<form action="admin/ajax/save_category/" id="settings_form" method="post" onsubmit="return false">
+	<form action="admin/ajax/save_category/" id="category_form" method="post" onsubmit="return false">
 	<input type="hidden" name="category_id" value="<?php echo $this->category['id']; ?>" />
 	<div class="mod">
 		<div class="mod-head">
@@ -24,14 +24,12 @@
 				</tr>
 				<tr>
 					<td>
-						<div class="row">
-							<div class="form-group">
-								<span class="col-sm-4 col-xs-3 control-label"><?php _e('别名'); ?>:</span>
-								<div class="col-sm-5 col-xs-8">
-		                            <span class="col-sm-1 mod-text-inline">/category/</span>
-		                            <div class="col-xs-11 col-sm-8 pull-right nopadding">
-										<input type="text" name="url_token" class="form-control" value="<?php echo $this->category['url_token']; ?>" />
-									</div>
+						<div class="form-group">
+							<span class="col-sm-4 col-xs-3 control-label"><?php _e('分类别名'); ?>:</span>
+							<div class="col-sm-5 col-xs-8">
+								<span class="col-sm-1 mod-text-inline">/category/</span>
+								<div class="col-xs-11 col-sm-8 pull-right nopadding">
+									<input type="text" name="url_token" class="form-control" value="<?php echo $this->category['url_token']; ?>" />
 								</div>
 							</div>
 						</div>
@@ -53,7 +51,7 @@
 				<tfoot>
 				<tr>
 					<td>
-						<input type="button" value="<?php _e('保存设置'); ?>" class="btn btn-primary center-block" onclick="AWS.ajax_post($('#settings_form'));" />
+						<input type="button" value="<?php _e('保存设置'); ?>" class="btn btn-primary center-block" onclick="AWS.ajax_post($('#category_form'));" />
 					</td>
 				</tr>
 				</tfoot>

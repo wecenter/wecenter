@@ -64,6 +64,16 @@
 <script type="text/javascript">
 	$(document).ready(function () {
 		AWS.load_list_view(G_BASE_URL + '/explore/ajax/list/sort_type-new__feature_id-<?php echo $this->feature_info['id']; ?>__category-<?php echo $this->category_info['id']; ?>', $('#load_explore'), $('#explore_listview'), 1);
+
+		
+		var length = 0;
+
+		$.each($('.top-category li'), function (i, e)
+		{
+			length += $(this).innerWidth();
+		});
+
+		$('.top-category ul').css('width', length + 10)
 		
 		var myScroll = new IScroll('.top-category', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false });
 	});

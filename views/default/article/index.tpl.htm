@@ -9,8 +9,8 @@
 						<div class="tag-bar clearfix">
 							<?php if ($this->article_topics) { ?>
 							<?php foreach($this->article_topics as $key => $val) { ?>
-							<span class="topic-tag">
-								<a class="text" href="topic/<?php echo $val['url_token']; ?>" data-id="<?php echo $val['topic_id']; ?>"><?php echo $val['topic_title']; ?></a>
+							<span class="topic-tag" data-id="<?php echo $val['topic_id']; ?>">
+								<a class="text" href="topic/<?php echo $val['url_token']; ?>"><?php echo $val['topic_title']; ?></a>
 							</span>
 							<?php } ?>
 							<?php } ?>
@@ -35,10 +35,13 @@
 												<a href="javascript:;" onclick="AWS.ajax_request(G_BASE_URL + '/article/ajax/lock/', 'article_id=<?php echo $this->article_info['id']; ?>');"><?php if ($this->article_info['lock']) { ?><?php _e('解除锁定'); ?><?php } else { ?><?php _e('锁定文章'); ?><?php } ?></a>
 											</li>
 											<li>
+												<a href="javascript:;" onclick="AWS.dialog('confirm', {'message' : '<?php _e('确认删除?'); ?>'}, function(){AWS.ajax_request(G_BASE_URL + '/article/ajax/remove_article/', 'article_id=<?php echo $this->article_info['id']; ?>');});"><?php _e('删除文章'); ?></a>
+											</li>
+											<li>
 												<a href="javascript:;" onclick="AWS.ajax_request(G_BASE_URL + '/article/ajax/set_recommend/', 'action=<?php if ($this->article_info['is_recommend']) { ?>un<?php } ?>set&article_id=<?php echo $this->article_info['id']; ?>');"><?php if ($this->article_info['is_recommend']) { ?><?php _e('取消推荐'); ?><?php } else { ?><?php _e('推荐文章'); ?><?php } ?></a>
 											</li>
 											<li>
-												<a href="javascript:;" onclick="AWS.dialog('confirm', {'message' : '<?php _e('确认删除?'); ?>'}, function(){AWS.ajax_request(G_BASE_URL + '/article/ajax/remove_article/', 'article_id=<?php echo $this->article_info['id']; ?>');});"><?php _e('删除文章'); ?></a>
+												<a href="javascript:;" onclick="AWS.dialog('recommend', {'type': 'article', 'item_id': <?php echo $this->article_info['id']; ?>, 'focus_id': <?php if ($this->article_info['chapter_id']) { echo $this->article_info['chapter_id']; } else { ?>''<?php } ?>});"><?php _e('添加到帮助中心'); ?></a>
 											</li>
 										</ul>
 									</div>
@@ -224,7 +227,7 @@
 							<div class="aw-topic-bar">
 								<div class="topic-bar clearfix">
 									<span class="pull-left text-color-999">
-										<?php _e('擅长话题'); ?> : &nbsp; 
+										<?php _e('擅长话题'); ?> : &nbsp;
 									</span>
 									<?php foreach ($this->reputation_topics AS $key => $val) { ?>
 									<span class="topic-tag">

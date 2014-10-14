@@ -176,10 +176,8 @@ var AWS =
 	// ajax提交callback
 	ajax_processer: function (type, result)
 	{
-		if (type == 'default')
-		{
-			AWS.loading('hide');
-		}
+		AWS.loading('hide');
+
 		if (typeof (result.errno) == 'undefined')
 		{
 			AWS.alert(result);
@@ -193,9 +191,7 @@ var AWS =
 				case 'reply':
 					AWS.alert(result.err);
 
-					AWS.loading('hide');
-
-					$('.aw-comment-box-btn .btn-success').removeClass('disabled');
+					$('.aw-comment-box-btn .btn-success, .btn-reply').removeClass('disabled');
 				break;
 
 				case 'ajax_post_alert':
@@ -482,6 +478,9 @@ var AWS =
 				});
 			break;
 
+			case 'recommend':
+	 			var template = Hogan.compile(AW_TEMPLATE.recommend).render();
+	 		break;
 	    }
 
 	    if (template)
@@ -589,25 +588,21 @@ var AWS =
 		                $(document).on('click', '.aw-favorite-tag-list ul li a', function()
 		                {
 		                	var _this = this,
-		                		addClassFlag = true,
-		                		params = {
-									'item_id' : $('#favorite_form input[name="item_id"]').val(),
-			                		'item_type' : $('#favorite_form input[name="item_type"]').val(),
-			                		'tags' : $(_this).attr('data-value')
-		                		};
+		                		addClassFlag = true, url = G_BASE_URL + '/favorite/ajax/update_favorite_tag/';
 
 		                	if ($(this).parents('li').hasClass('active'))
 		                	{
-		                		var url = G_BASE_URL + '/favorite/ajax/remove_favorite_tag/'; 
+		                		var url = G_BASE_URL + '/favorite/ajax/remove_favorite_tag/';
 
 		                		addClassFlag = false;
 		                	}
-		                	else
+
+		                	$.post(url, 
 		                	{
-		                		var url = G_BASE_URL + '/favorite/ajax/update_favorite_tag/';
-		                	}
-		                	
-		                	$.post(url, params , function (result)
+								'item_id' : $('#favorite_form input[name="item_id"]').val(),
+		                		'item_type' : $('#favorite_form input[name="item_type"]').val(),
+		                		'tags' : $(_this).attr('data-value')
+		                	}, function (result)
 		                	{
 		                		if (result.errno == 1)
 		                		{
@@ -676,6 +671,74 @@ var AWS =
 		    			return false;
 		    		});
 		    	break;
+
+		    	case 'recommend':
+					$.get(G_BASE_URL + '/help/ajax/list/', function (result)
+					{
+						if (result && result != 0)
+						{
+							$.each(result, function (i, e)
+							{
+								$('.aw-recommend-box ul').append('<li><img src="' + G_STATIC_URL + '/common/chapter-min-img.png"><a data-id="' + e.id + '">' + e.title + '</a><i class="icon icon-followed"></i></li>');
+							});
+
+							$.each($('.aw-recommend-box ul li'), function (i, e)
+							{
+								if (data.focus_id == $(this).find('a').attr('data-id'))
+								{
+									$(this).addClass('active');
+								}
+							});
+
+							$(document).on('click', '.aw-recommend-box ul li a', function()
+							{
+								var _this = $(this), url = G_BASE_URL + '/help/ajax/add_data/', removeClass = false;
+
+								if ($(this).parents('li').hasClass('active'))
+								{
+									var url =  G_BASE_URL + '/help/ajax/remove_data/',
+									removeClass = true;
+								}
+
+								$.post(url,
+								{
+									'item_id' : data.item_id,
+									'id' : _this.attr('data-id'),
+									'title' : _this.text(),
+									'type' : data.type
+								}, function (result)
+								{
+									if (result.errno == 1)
+									{
+										if (removeClass)
+										{
+											_this.parents('li').removeClass('active');
+										}
+										else
+										{
+											$('.aw-recommend-box ul li').removeClass('active');
+
+											_this.parents('li').addClass('active');
+										}
+									}
+								}, 'json');
+							});
+						}
+						else
+						{
+							$('.error_message').html(_t('请先去后台创建好章节'));
+
+							if ($('.error_message').css('display') != 'none')
+					    	{
+						    	AWS.shake($('.error_message'));
+					    	}
+					    	else
+					    	{
+						    	$('.error_message').fadeIn();
+					    	}
+						}
+					}, 'json');
+				break;
 	        }
 
 	        $(".alert-box").modal('show');
@@ -1329,7 +1392,7 @@ AWS.User =
 		{
 			var title = $('title').text();
 		}
-		
+
 		shareURL = 'http://www.jiathis.com/send/?webid=' + webid + '&url=' + url + '&title=' + title + '';
 
 		window.open(shareURL);
@@ -1680,7 +1743,7 @@ AWS.User =
 	                    selector.parents('.aw-article-vote').find('b').html(parseInt(selector.parents('.aw-article-vote').find('b').html()) - 1);
 	                    selector.parents('.aw-article-vote').find('a').removeClass('active');
 	                }
-	                
+
 	                selector.addClass('active');
 	            }
 				else
@@ -2153,11 +2216,11 @@ AWS.Editor =
     	{
     		return false;
     	}
-    	
+
         $('.wmd-input').insertAtCaret(textFeildValue);
 
         chunk.selection = (" " + chunk.selection).replace(/([^\\](?:\\\\)*)(?=[[\]])/g, "$1\\").substr(1);
-        
+
         console.log(chunk);
 	},
 
