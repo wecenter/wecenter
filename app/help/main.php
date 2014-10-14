@@ -47,6 +47,8 @@ class main extends AWS_CONTROLLER
                 H::redirect_msg(AWS_APP::lang()->_t('指定章节不存在'), '/');
             }
 
+            TPL::assign('chapter_list', $chapter_list);
+
             foreach ($chapter_list AS $chapter_info)
             {
                 if ($chapter_info['url_token'] == $_GET['id'])
