@@ -31,7 +31,14 @@
 							<?php foreach ($this->chapter_list AS $chapter_info) { ?>
 							<div class="col-sm-4 col-md-4">
 								<div class="aw-item">
-									<h4><a href="help/<?php echo ($chapter_info['url_token']) ? $chapter_info['url_token'] : $chapter_info['id']; ?>"><img src="<?php echo get_chapter_icon_url($chapter_info['id'], 'min'); ?>" alt="<?php echo $chapter_info['title']; ?>"></a><?php echo $chapter_info['title']; ?></h4>
+									<h4>
+										<a href="help/<?php echo ($chapter_info['url_token']) ? $chapter_info['url_token'] : $chapter_info['id']; ?>">
+											<img src="<?php echo get_chapter_icon_url($chapter_info['id'], 'min'); ?>" alt="<?php echo $chapter_info['title']; ?>">
+										</a>
+										<a href="help/<?php echo ($chapter_info['url_token']) ? $chapter_info['url_token'] : $chapter_info['id']; ?>">
+											<?php echo $chapter_info['title']; ?>
+										</a>
+									</h4>
 									<?php if ($this->data_list[$chapter_info['id']]) { ?>
 									<ul>
 										<?php foreach ($this->data_list[$chapter_info['id']] AS $data_info) { ?>
