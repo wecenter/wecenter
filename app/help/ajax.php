@@ -147,7 +147,7 @@ class ajax extends AWS_CONTROLLER
 
         if (!$chapter_list)
         {
-            H::ajax_json_output(array());
+            exit();
         }
 
         foreach ($chapter_list AS $chapter_info)

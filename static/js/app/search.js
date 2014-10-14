@@ -23,7 +23,7 @@ $(function()
 
 		if (search_recommend)
 		{
-			var request_url += '__is_recommend-1';
+			var request_url = request_url + '__is_recommend-1';
 		}
 
 		$(this).addClass('loading');
