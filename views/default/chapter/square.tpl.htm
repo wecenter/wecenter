@@ -33,7 +33,7 @@
 								<div class="aw-item">
 									<h3>
 										<a href="help/<?php echo ($chapter_info['url_token']) ? $chapter_info['url_token'] : $chapter_info['id']; ?>">
-											<img class="aw-border-radius-5"> src="<?php echo get_chapter_icon_url($chapter_info['id'], 'min'); ?>" alt="<?php echo $chapter_info['title']; ?>">
+											<img class="aw-border-radius-5" src="<?php echo get_chapter_icon_url($chapter_info['id'], 'min'); ?>" alt="<?php echo $chapter_info['title']; ?>">
 										</a>
 										<a href="help/<?php echo ($chapter_info['url_token']) ? $chapter_info['url_token'] : $chapter_info['id']; ?>">
 											<?php echo $chapter_info['title']; ?>
@@ -42,7 +42,7 @@
 									<?php if ($this->data_list[$chapter_info['id']]) { ?>
 									<ul>
 										<?php foreach ($this->data_list[$chapter_info['id']] AS $data_info) { ?>
-										<li><a href="<?php echo $data_info['type']; ?>/<?php echo $data_info['id']; ?>"><?php echo $data_info['title']; ?></a></li>
+										<li class="aw-hide-txt"><a href="<?php echo $data_info['type']; ?>/<?php echo $data_info['id']; ?>"><?php echo $data_info['title']; ?></a></li>
 										<?php } ?>
 									</ul>
 									<?php } ?>
