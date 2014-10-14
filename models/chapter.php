@@ -114,7 +114,7 @@ class chapter_class extends AWS_MODEL
         {
             foreach ($data_raw AS $data_info)
             {
-                $data_list[$data_info['chapter_id']] = $data_info;
+                $data_list[$data_info['chapter_id']][] = $data_info;
             }
 
             if ($sort)
