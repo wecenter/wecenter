@@ -771,7 +771,7 @@
         {
             var _this = this, attach_key = hex_md5(new Date().getTime() + ' ' + Math.random());
 
-            var fileupload = new FileUpload('avatar', $(this), '', G_BASE_URL + '/admin/ajax/weixin_mp_menu_list_image_upload/?attach_access_key=' + attach_key, '', function()
+            var fileupload = new FileUpload('avatar', $(this), '', G_BASE_URL + '/admin/ajax/weixin/mp_menu_list_image_upload/?attach_access_key=' + attach_key, '', function()
                 {
                     $(_this).prev().val(attach_key);
                     $(_this).next().find('i').removeClass('disabled');

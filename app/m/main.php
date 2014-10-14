@@ -915,14 +915,16 @@ class main extends AWS_CONTROLLER
 
 		TPL::assign('contents_topic_id', $contents_topic_id);
 		TPL::assign('contents_topic_title', $contents_topic_title);
-
-		$topic_info['has_focus'] = $this->model('topic')->has_focus_topic($this->user_id, $topic_info['topic_id']);
+		
+		if ($this->user_id)
+		{
+			$topic_info['has_focus'] = $this->model('topic')->has_focus_topic($this->user_id, $topic_info['topic_id']);
+		}
 
 		TPL::assign('topic_info', $topic_info);
 
 		$this->crumb(AWS_APP::lang()->_t('话题'), '/m/topic/');
-
-		$this->crumb($topic_info['topic_title'], '/m/topic/' . rawurlencode($topic_info['topic_title']));
+		$this->crumb($topic_info['topic_title'], '/m/topic/' . $topic_info['topic_title']);
 
 		TPL::assign('redirect_message', $redirect_message);
 

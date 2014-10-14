@@ -22,7 +22,19 @@ class article_class extends AWS_MODEL
 {
 	public function get_article_info_by_id($article_id)
 	{
-		return $this->fetch_row('article', 'id = ' . intval($article_id));
+		if (!is_digits($article_id))
+		{
+			return false;
+		}
+
+		static $articles;
+
+		if (!$articles[$article_id])
+		{
+			$articles[$article_id] = $this->fetch_row('article', 'id = ' . $article_id);
+		}
+
+		return $articles[$article_id];
 	}
 
 	public function get_article_info_by_ids($article_ids)
@@ -34,15 +46,15 @@ class article_class extends AWS_MODEL
 
 		array_walk_recursive($article_ids, 'intval_string');
 
-	    if ($articles_list = $this->fetch_all('article', 'id IN(' . implode(',', $article_ids) . ')'))
-	    {
-		    foreach ($articles_list AS $key => $val)
-		    {
-		    	$result[$val['id']] = $val;
-		    }
-	    }
+		if ($articles_list = $this->fetch_all('article', 'id IN(' . implode(',', $article_ids) . ')'))
+		{
+			foreach ($articles_list AS $key => $val)
+			{
+				$result[$val['id']] = $val;
+			}
+		}
 
-	    return $result;
+		return $result;
 	}
 
 	public function get_comment_by_id($comment_id)
@@ -60,16 +72,16 @@ class article_class extends AWS_MODEL
 
 		return $comment;
 	}
-	
+
 	public function get_comments_by_ids($comment_ids)
 	{
 		if (!is_array($comment_ids) OR !$comment_ids)
 		{
 			return false;
 		}
-		
+
 		array_walk_recursive($comment_ids, 'intval_string');
-		
+
 		if ($comments = $this->fetch_all('article_comments', 'id IN (' . implode(',', $comment_ids) . ')'))
 		{
 			foreach ($comments AS $key => $val)

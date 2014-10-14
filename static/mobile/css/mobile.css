@@ -115,7 +115,7 @@ textarea.form-control{padding:6px;}
 
 /* category */
 .top-category{height: 48px;overflow-y:scroll;background-color: #fafafa;border-bottom:1px solid #cccccc;}
-.top-category ul{width: 500px;}
+.top-category ul{min-width: 500px;}
 .top-category ul li{float: left;}
 .top-category ul li a{display: block;height: 48px;margin:0 10px;line-height: 48px;font-size: 15px;color:#666666;}
 .top-category ul li a.active{border-bottom: 3px solid #19558d;color: #333333;font-weight: bold;}
