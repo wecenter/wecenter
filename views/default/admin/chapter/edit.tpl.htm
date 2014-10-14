@@ -115,7 +115,7 @@
                                     </div>
                                 </td>
                                 <td class="col-sm-5 col-md-5">
-                                    <a onclick="AWS.ajax_request(G_BASE_URL + '/admin/ajax/chapter/remove_data/', 'id=<?php echo $data_info['id'];?>&type=<?php echo $data_info['type']; ?>');" data-toggle="tooltip" class="icon icon-trash md-tip" title="<?php _e('删除'); ?>"></a>
+                                    <a onclick="AWS.ajax_request(G_BASE_URL + '/admin/ajax/chapter/remove_data/', 'id=<?php echo $this->chapter_info['id']; ?>&type=<?php echo $data_info['type']; ?>&item_id=<?php echo $data_info['id'];?>');" data-toggle="tooltip" class="icon icon-trash md-tip" title="<?php _e('删除'); ?>"></a>
                                 </td>
                             </tr>
                             <?php } ?>
