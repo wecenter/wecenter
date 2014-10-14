@@ -36,4 +36,4 @@
     <input type="hidden" name="approval_id" value="<?php echo $this->approval_item['id']; ?>" />
 </form>
 
-<p align="center"><a class="btn btn-success" onclick="$('#approval_type').val('approval'); AWS.ajax_post($('#approval_form'));" href="javascript:;"><?php _e('通过审核'); ?></a> &nbsp; <a class="btn btn-danger" onclick="$('#approval_type').val('approval'); AWS.ajax_post($('#approval_form'));" href="javascript:;"><?php _e('拒绝审核'); ?></a></blockquote>
+<p align="center"><a class="btn btn-success" onclick="$('#approval_type').val('approval'); AWS.ajax_post($('#approval_form'));" href="javascript:;"><?php _e('通过审核'); ?></a> &nbsp; <a class="btn btn-danger" onclick="$('#approval_type').val('decline'); AWS.ajax_post($('#approval_form'));" href="javascript:;"><?php _e('拒绝审核'); ?></a></blockquote>
