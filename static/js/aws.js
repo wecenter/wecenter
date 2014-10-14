@@ -588,12 +588,7 @@ var AWS =
 		                $(document).on('click', '.aw-favorite-tag-list ul li a', function()
 		                {
 		                	var _this = this,
-		                		addClassFlag = true,
-		                		params = {
-									'item_id' : $('#favorite_form input[name="item_id"]').val(),
-			                		'item_type' : $('#favorite_form input[name="item_type"]').val(),
-			                		'tags' : $(_this).attr('data-value')
-		                		};
+		                		addClassFlag = true, url = G_BASE_URL + '/favorite/ajax/update_favorite_tag/';
 
 		                	if ($(this).parents('li').hasClass('active'))
 		                	{
@@ -601,12 +596,13 @@ var AWS =
 
 		                		addClassFlag = false;
 		                	}
-		                	else
-		                	{
-		                		var url = G_BASE_URL + '/favorite/ajax/update_favorite_tag/';
-		                	}
 
-		                	$.post(url, params , function (result)
+		                	$.post(url, 
+		                	{
+								'item_id' : $('#favorite_form input[name="item_id"]').val(),
+		                		'item_type' : $('#favorite_form input[name="item_type"]').val(),
+		                		'tags' : $(_this).attr('data-value')
+		                	}, function (result)
 		                	{
 		                		if (result.errno == 1)
 		                		{
@@ -683,7 +679,7 @@ var AWS =
 						{
 							$.each(result, function (i, e)
 							{
-								$('.aw-recommend-box ul').append('<li><img src="' + G_STATIC_URL + '/common/chapter-min-img.png" class="pull-left"><a data-id="' + e.id + '">' + e.title + '</a><i class="icon icon-followed"></i></li>');
+								$('.aw-recommend-box ul').append('<li><img src="' + G_STATIC_URL + '/common/chapter-min-img.png"><a data-id="' + e.id + '">' + e.title + '</a><i class="icon icon-followed"></i></li>');
 							});
 
 							$.each($('.aw-recommend-box ul li'), function (i, e)
