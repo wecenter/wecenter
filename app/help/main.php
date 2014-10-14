@@ -47,6 +47,8 @@ class main extends AWS_CONTROLLER
                 H::redirect_msg(AWS_APP::lang()->_t('指定章节不存在'), '/');
             }
 
+            TPL::assign('chapter_list', $chapter_list);
+
             foreach ($chapter_list AS $chapter_info)
             {
                 if ($chapter_info['url_token'] == $_GET['id'])
@@ -76,6 +78,8 @@ class main extends AWS_CONTROLLER
                 TPL::assign('data_list', $data_list);
             }
 
+            $this->crumb($chapter['title'], '/help/' . ($chapter['url_token']) ? $chapter['url_token'] : $chapter['id']);
+
             TPL::output('chapter/index');
         }
         else
@@ -93,6 +97,8 @@ class main extends AWS_CONTROLLER
             {
                 TPL::assign('data_list', $data_list);
             }
+
+            $this->crumb(AWS_APP::lang()->_t('帮助中心'), '/help/');
 
             TPL::output('chapter/square');
         }
