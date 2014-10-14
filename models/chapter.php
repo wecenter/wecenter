@@ -28,7 +28,7 @@ class chapter_class extends AWS_MODEL
             return false;
         }
 
-        foreach ($chapter_list AS $chapter_info)
+        foreach ($chapter_query AS $chapter_info)
         {
             $chapter_list[$chapter_info['id']] = $chapter_info;
         }
