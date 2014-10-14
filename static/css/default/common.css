@@ -932,7 +932,7 @@ blockquote {margin: 0 0 16px;padding: 0 15px;font-size: 14px;color: #777;border-
 .aw-help-center .mod-head .aw-search-box {float:  none;margin: 33px auto 0;width: 505px;border-radius: 4px;border: 7px solid #f5f5f5;}
 .aw-help-center .mod-head .aw-search-box form {border: 1px solid #e6e6e6; border-radius: 4px;}
 .aw-help-center .mod-body {padding: 40px 25px 20px;}
-.aw-help-center .mod-body .aw-item {margin-bottom: 10px;}
+.aw-help-center .mod-body .col-md-4 {margin-bottom: 10px;min-height: 232px;}
 .aw-help-center .mod-body .aw-item img {position: absolute;left: 0;top: 0;width: 32px;height: 32px;border-radius: 4px;}
 .aw-help-center .mod-body .aw-item h3 { position: relative; padding-left: 42px;margin-bottom: 18px;font-size: 16px;font-weight: bold;}
 .aw-help-center .mod-body .aw-item h3 a {color: #333;}
