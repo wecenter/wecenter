@@ -140,13 +140,15 @@ class search_fulltext_class extends AWS_MODEL
 
 			array_walk_recursive($topic_ids, 'intval_string');
 
-			$where = '`id` IN (SELECT `item_id` FROM ' . $this->get_table('topic_relation') . ' WHERE topic_id IN(' . implode(',', $topic_ids) . ') AND `type` = "article")';
+			$where[] = '`id` IN (SELECT `item_id` FROM ' . $this->get_table('topic_relation') . ' WHERE topic_id IN(' . implode(',', $topic_ids) . ') AND `type` = "article")';
 		}
 
 		if ($is_recommend)
 		{
-			$where .= ' AND (`is_recommend` = "1" OR `chapter_id` IS NOT NULL)';
+			$where[] = '(`is_recommend` = "1" OR `chapter_id` IS NOT NULL)';
 		}
+
+		$where = implode(' AND ', $where);
 
 		$search_hash = $this->get_search_hash('article', 'title', $q, $where);
 
