@@ -179,15 +179,15 @@ $config[] = array(
         ),
 
         array(
-            'id' => 305,
-            'title' => '章节管理',
-            'url' => 'admin/chapter/list/'
-        ),
-
-        array(
             'id' => 308,
             'title' => '页面管理',
             'url' => 'admin/page/'
+        ),
+
+        array(
+            'id' => 305,
+            'title' => '帮助中心',
+            'url' => 'admin/chapter/list/'
         )
     )
 );

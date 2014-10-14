@@ -27,31 +27,30 @@
 				</div>
 
 				<!-- 侧边栏 -->
-				<!-- <div class="col-sm-12 col-md-3 aw-side-bar aw-help-side hidden-xs hidden-sm">
+				<div class="col-sm-12 col-md-3 aw-side-bar aw-help-side hidden-xs hidden-sm">
+					<?php if ($this->chapter_list) { ?>
 					<div class="aw-mod">
 						<div class="mod-head">
-							<h4><?php _e('其他章节'); ?></h4>
+							<h4><?php _e('所有章节'); ?></h4>
 						</div>
+
 						<div class="mod-body">
+							<?php foreach ($this->chapter_list AS $chapter_info) { ?>
 							<dl>
 								<dt class="pull-left">
-									<a href=""><img src="<?php echo G_STATIC_URL; ?>/common/chapter-min-img.png"  alt=""></a>
+									<a href="help/<?php echo ($chapter_info['url_token']) ? $chapter_info['url_token'] : $chapter_info['id']; ?>">
+										<img src="<?php echo get_chapter_icon_url($chapter_info['id'], 'min'); ?>" alt="<?php echo $chapter_info['title']; ?>">
+									</a>
 								</dt>
 								<dd>
-									<a href="">wecenter 个人开发</a>
+									<a href="help/<?php echo ($chapter_info['url_token']) ? $chapter_info['url_token'] : $chapter_info['id']; ?>"><?php echo $chapter_info['title']; ?></a>
 								</dd>
 							</dl>
-							<dl>
-								<dt class="pull-left">
-									<a href=""><img src="<?php echo G_STATIC_URL; ?>/common/chapter-min-img.png"  alt=""></a>
-								</dt>
-								<dd>
-									<a href="">wecenter 个人开发</a>
-								</dd>
-							</dl>
+							<?php } ?>
 						</div>
 					</div>
-				</div> -->
+					<?php } ?>
+				</div>
 				<!-- end 侧边栏 -->
 			</div>
 		</div>

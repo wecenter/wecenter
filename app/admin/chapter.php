@@ -22,7 +22,7 @@ class chapter extends AWS_ADMIN_CONTROLLER
 {
     public function setup()
     {
-        $this->crumb(AWS_APP::lang()->_t('章节管理'), "admin/chapter/list/");
+        $this->crumb(AWS_APP::lang()->_t('帮助中心'), "admin/chapter/list/");
 
         if (!$this->user_info['permission']['is_administortar'])
         {
