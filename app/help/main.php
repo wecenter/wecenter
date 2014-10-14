@@ -40,7 +40,7 @@ class main extends AWS_CONTROLLER
 
         if ($_GET['id'])
         {
-            $chapter_list = $this->model('chapter')->get_chapter_list();
+            $chapter_list = $this->model('chapter')->get_chapter_list(true);
 
             if (!$chapter_list)
             {
@@ -84,7 +84,7 @@ class main extends AWS_CONTROLLER
         }
         else
         {
-            $chapter_list = $this->model('chapter')->get_chapter_list();
+            $chapter_list = $this->model('chapter')->get_chapter_list(true);
 
             if ($chapter_list)
             {
