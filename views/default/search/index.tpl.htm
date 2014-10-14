@@ -46,7 +46,7 @@
 <script type="text/javascript">
 	search_query = '<?php echo addslashes($this->keyword); ?>';
 	split_query = '<?php echo addslashes($this->split_keyword); ?>';
-	<?php if ($_GET['is_recommend']) { ?>search_recommend = 1;<?php } ?>
+	<?php if ($_GET['is_recommend']) { ?>search_recommend = true;<?php } ?>
 </script>
 
 <?php TPL::output('global/footer.tpl.htm'); ?>

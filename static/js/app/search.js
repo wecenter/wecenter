@@ -21,7 +21,7 @@ $(function()
 
 		var request_url = G_BASE_URL + '/search/ajax/search_result/search_type-' +  window.location.hash.replace(/#/g, '') + '__q-' + encodeURIComponent(search_query) + '__template-' + ajax_template + '__page-' + page;
 
-		if (search_recommend)
+		if (typeof search_recommend != 'undefined')
 		{
 			var request_url = request_url + '__is_recommend-1';
 		}
