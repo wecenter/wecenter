@@ -644,7 +644,7 @@ var AWS =
 				{
 					$.each(result, function (i, e)
 					{
-					$('.aw-recommend-box ul').append('<li><img src="'+G_STATIC_URL+'/common/chapter-min-img.png" class="pull-left" alt="ddd"><span><a data-id="' + e.id + '">'+e.title+'</a></span><i class="icon icon-followed"></i></li>');
+						$('.aw-recommend-box ul').append('<li><img src="'+G_STATIC_URL+'/common/chapter-min-img.png" class="pull-left" alt="ddd"><span><a data-id="' + e.id + '">'+e.title+'</a></span><i class="icon icon-followed"></i></li>');
 
 					});
 
@@ -686,10 +686,15 @@ var AWS =
 						}}, 'json');
 						});
 				}
+				else if (('.aw-recommend-box .modal-body ul').text('').trim())
+				{
+					$('.aw-recommend-box .modal-body .mod-body ').append('<p>' + '<strong>' + _t('请先去后台创建好章节') + '</strong>' + '</p>');
+				}
 				else
 				{
-					$('.aw-recommend-box .modal-body .mod-body').append('<p>' + '<strong>' + _t('请先去后台创建好章节') + '</strong>' + '</p>');
+					$('.aw-recommend-box .modal-body .mod-body ').append('<p>' + '<strong>' + _t('请先去后台创建好章节') + '</strong>' + '</p>');
 				}
+
 				}, 'json');
 				break;
 			break;
