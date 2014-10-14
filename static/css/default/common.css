@@ -864,7 +864,6 @@ a.aw-load-more-content{display: block;}
 .markitup-box{position:relative;z-index:1;line-height: 180%;word-wrap: break-word !important;}
 .markitup-box .aw-user-name{font-size: 14px;}
 .markitup-box .aw-upload-file-list{margin: 0;padding-left: 0;list-style: none;}
-.markitup-box .aw-upload-img-list a{display:block;}
 .markitup-box p{padding: 5px;}
 .wmd-preview pre, .markitup-box pre {padding: 16px;line-height: 20px;overflow: hidden; border: none; border-radius: 3px; background-color: #f7f7f7;font-size: 14px;}
 blockquote {margin: 0 0 16px;padding: 0 15px;font-size: 14px;color: #777;border-left: 4px solid #ddd;}
