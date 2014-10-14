@@ -24,12 +24,12 @@ class search_class extends AWS_MODEL
 	{
 		$types = explode(',', $types);
 
-		if (in_array('users', $types))
+		if (in_array('users', $types) AND !$is_recommend)
 		{
 			$result = array_merge((array)$result, (array)$this->search_users($q, $page, $limit));
 		}
 
-		if (in_array('topics', $types))
+		if (in_array('topics', $types) AND !$is_recommend)
 		{
 			$result = array_merge((array)$result, (array)$this->search_topics($q, $page, $limit));
 		}
