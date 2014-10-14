@@ -679,7 +679,7 @@ var AWS =
 		    	case 'recommend':
 					$.get(G_BASE_URL + '/help/ajax/list/', function (result)
 					{
-						if (result)
+						if (result.length)
 						{
 							$.each(result, function (i, e)
 							{
