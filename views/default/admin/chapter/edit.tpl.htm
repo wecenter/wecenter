@@ -130,12 +130,12 @@
 
 <script>
     $(function(){
-        $('.mod-input-file').change(function(){
+        $('.mod-input-file').change(function() {
             $('.filetext').text($('.mod-input-file').val());
         });
 
         <?php if ($this->data_list) { ?>
-        $('input.sort-action').keyup(function () {
+        $('input.sort-action').keyup(function() {
             if ($(this).val() != '')
             {
                 AWS.ajax_post($('#sort_form'), AWS.ajax_processer, 'error_message');
