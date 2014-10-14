@@ -664,7 +664,6 @@ var AWS =
 							var url =  G_BASE_URL + '/help/ajax/remove_data/',
 							removeClass = true;
 						}
-
 						$.post(url, {
 							item_id: data.item_id,
 							id: _this.attr('data-id'),
@@ -686,7 +685,8 @@ var AWS =
 							}
 						}}, 'json');
 						});
-				}else
+				}
+				else
 				{
 					$('.aw-recommend-box .modal-body .mod-body').append('<p>' + '<strong>' + _t('请先去后台创建好章节') + '</strong>' + '</p>');
 				}
