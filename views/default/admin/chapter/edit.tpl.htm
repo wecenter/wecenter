@@ -104,8 +104,8 @@
                         <form id="sort_form" action="admin/ajax/chapter/save_data_sort/" method="post" onsubmit="return false" class="clearfix">
                             <?php foreach ($this->data_list AS $data_info) { ?>
                             <tr>
-                                <input type="hidden" ame="data[<?php echo $data_info['id']; ?>][id]" value="<?php echo $data_info['id']; ?>" />
-                                <input type="hidden" ame="data[<?php echo $data_info['id']; ?>][type]" value="<?php echo $data_info['type']; ?>" />
+                                <input type="hidden" name="data[<?php echo $data_info['id']; ?>][id]" value="<?php echo $data_info['id']; ?>" />
+                                <input type="hidden" name="data[<?php echo $data_info['id']; ?>][type]" value="<?php echo $data_info['type']; ?>" />
                                 <td class="col-sm-5 col-md-5">
                                     <a href="<?php echo $data_info['type']; ?>/<?php echo $data_info['id']; ?>"><?php echo $data_info['title']; ?></a>
                                 </td>
