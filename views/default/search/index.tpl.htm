@@ -25,7 +25,7 @@
 							<div class="tab-content">
 								<div class="tab-pane active">
 									<div id="search_result"></div>
-									
+
 									<!-- 加载更多内容 -->
 									<a class="aw-load-more-content" id="search_result_more" data-page="1">
 										<span><?php _e('更多'); ?>...</span>
@@ -46,6 +46,7 @@
 <script type="text/javascript">
 	search_query = '<?php echo addslashes($this->keyword); ?>';
 	split_query = '<?php echo addslashes($this->split_keyword); ?>';
+	<?php if ($_GET['is_recommend']) { ?>search_recommend = 1;<?php } ?>
 </script>
 
 <?php TPL::output('global/footer.tpl.htm'); ?>

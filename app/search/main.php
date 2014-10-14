@@ -45,7 +45,14 @@ class main extends AWS_CONTROLLER
 	{
 		if ($_POST['q'])
 		{
-			HTTP::redirect('/search/q-' . base64_encode($_POST['q']));
+			$url = '/search/q-' . base64_encode($_POST['q']);
+
+			if ($_GET['is_recommend'])
+			{
+				$url .= '__is_recommend-1';
+			}
+
+			HTTP::redirect($url);
 		}
 
 		$keyword = htmlspecialchars(base64_decode($_GET['q']));
