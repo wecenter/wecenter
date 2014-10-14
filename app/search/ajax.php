@@ -43,28 +43,12 @@ class ajax extends AWS_CONTROLLER
 
 	public function search_result_action()
 	{
-		switch ($_GET['search_type'])
+		if (!in_array($_GET['search_type'], array('questions', 'topics', 'users', 'articles')))
 		{
-			case 'all':
-				$search_result = $this->model('search')->search($_GET['q'], null, $_GET['page'], get_setting('contents_per_page'));
-			break;
-
-			case 'questions':
-				$search_result = $this->model('search')->search($_GET['q'], 'questions', $_GET['page'], get_setting('contents_per_page'));
-			break;
-
-			case 'topics':
-				$search_result = $this->model('search')->search($_GET['q'], 'topics', $_GET['page'], get_setting('contents_per_page'));
-			break;
-
-			case 'users':
-				$search_result = $this->model('search')->search($_GET['q'], 'users', $_GET['page'], get_setting('contents_per_page'));
-			break;
-
-			case 'articles':
-				$search_result = $this->model('search')->search($_GET['q'], 'articles', $_GET['page'], get_setting('contents_per_page'));
-			break;
+			$_GET['search_type'] = null;
 		}
+
+		$search_result = $this->model('search')->search($_GET['q'], $_GET['search_type'], $_GET['page'], get_setting('contents_per_page'), null, $_GET['is_recommend']);
 
 		if ($this->user_id AND $search_result)
 		{
@@ -74,15 +58,18 @@ class ajax extends AWS_CONTROLLER
 				{
 					case 'questions':
 						$search_result[$key]['focus'] = $this->model('question')->has_focus_question($val['search_id'], $this->user_id);
-					break;
+
+						break;
 
 					case 'topics':
 						$search_result[$key]['focus'] = $this->model('topic')->has_focus_topic($this->user_id, $val['search_id']);
-					break;
+
+						break;
 
 					case 'users':
 						$search_result[$key]['focus'] = $this->model('follow')->user_follow_check($this->user_id, $val['search_id']);
-					break;
+
+						break;
 				}
 			}
 		}
@@ -101,7 +88,9 @@ class ajax extends AWS_CONTROLLER
 
 	public function search_action()
 	{
-		if ($result = $this->model('search')->search($_GET['q'], $_GET['type'], 1, $_GET['limit'], $_GET['topic_ids']))
+		$result = $this->model('search')->search($_GET['q'], $_GET['type'], 1, $_GET['limit'], $_GET['topic_ids'], $_GET['is_recommend']);
+
+		if ($result)
 		{
 			H::ajax_json_output($result);
 		}

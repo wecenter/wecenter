@@ -6,7 +6,7 @@ var AW_TEMPLATE = {
 
 	'loadingMiniBox':
 		'<div id="aw-loading-mini-box"></div>',
-	
+
 	'userCard':
 			'<div id="aw-card-tips" class="aw-card-tips aw-card-tips-user">'+
 				'<div class="aw-mod">'+
@@ -34,8 +34,8 @@ var AW_TEMPLATE = {
 					'</div>'+
 				'</div>'+
 			'</div>',
-	
-	'topicCard' : 
+
+	'topicCard' :
 			'<div id="aw-card-tips" class="aw-card-tips aw-card-tips-topic">'+
 				'<div class="aw-mod">'+
 					'<div class="mod-head">'+
@@ -56,7 +56,7 @@ var AW_TEMPLATE = {
 				'</div>'+
 			'</div>',
 
-	'alertBox' : 
+	'alertBox' :
 			'<div class="modal fade alert-box aw-tips-box">'+
 				'<div class="modal-dialog">'+
 					'<div class="modal-content">'+
@@ -71,7 +71,7 @@ var AW_TEMPLATE = {
 				'</div>'+
 			'</div>',
 
-	'editCommentBox' : 
+	'editCommentBox' :
 				'<div class="modal fade alert-box aw-edit-comment-box">'+
 				'<div class="modal-dialog">'+
 					'<div class="modal-content">'+
@@ -115,7 +115,7 @@ var AW_TEMPLATE = {
 			'</form>'+
 		'</div>',
 
-	'favoriteBox' : 
+	'favoriteBox' :
 		'<div class="modal hide fade alert-box aw-favorite-box">'+
 			'<div class="modal-dialog">'+
 				'<div class="modal-content">'+
@@ -151,7 +151,7 @@ var AW_TEMPLATE = {
 			'</div>'+
 		'</div>',
 
-	'questionRedirect' : 
+	'questionRedirect' :
 		'<div class="modal fade alert-box aw-question-redirect-box">'+
 			'<div class="modal-dialog">'+
 				'<div class="modal-content">'+
@@ -171,7 +171,7 @@ var AW_TEMPLATE = {
 			'</div>'+
 		'</div>',
 
-	'publishBox' : 
+	'publishBox' :
 			'<div class="modal fade alert-box aw-publish-box">'+
 				'<div class="modal-dialog">'+
 					'<div class="modal-content">'+
@@ -252,8 +252,8 @@ var AW_TEMPLATE = {
 					'</div>'+
 				'</div>'+
 			'</div>',
-	
-	'editTopicBox' : 
+
+	'editTopicBox' :
 		'<div class="aw-edit-topic-box form-inline">'+
 			'<input type="text" class="form-control" id="aw_edit_topic_title" autocomplete="off"  placeholder="' + _t('创建或搜索添加新话题') + '...">'+
 			'<a class="btn btn-normal btn-success add">' + _t('添加') + '</a>'+
@@ -264,7 +264,7 @@ var AW_TEMPLATE = {
 				'</ul>'+
 			'</div>'+
 		'</div>',
-			
+
 	'ajaxData' :
 		'<div class="modal fade alert-box aw-topic-edit-note-box aw-question-edit" aria-labelledby="myModalLabel" role="dialog">'+
 			'<div class="modal-dialog">'+
@@ -280,7 +280,7 @@ var AW_TEMPLATE = {
 			'</div>'+
 		'</div>',
 
-	'commentBox' : 
+	'commentBox' :
 			'<div class="aw-comment-box" id="{{comment_form_id}}">'+
 				'<div class="aw-comment-list"><p align="center" class="aw-padding10"><i class="aw-loading"></i></p></div>'+
 				'<form action="{{comment_form_action}}" method="post" onsubmit="return false">'+
@@ -295,13 +295,13 @@ var AW_TEMPLATE = {
 					'</div>'+
 				'</form>'+
 			'</div>',
-			
-	'commentBoxClose' : 
+
+	'commentBoxClose' :
 			'<div class="aw-comment-box" id="{{comment_form_id}}">'+
 				'<div class="aw-comment-list"><p align="center" class="aw-padding10"><i class="aw-loading"></i></p></div>'+
 			'</div>',
 
-	'dropdownList' : 
+	'dropdownList' :
 		'<div aria-labelledby="dropdownMenu" role="menu" class="aw-dropdown">'+
 			'<ul class="aw-dropdown-list">'+
 			'{{#items}}'+
@@ -334,24 +334,53 @@ var AW_TEMPLATE = {
 				'</div>'+
 			'</div>',
 
-	'searchDropdownListQuestions' : 
+	'recommend' :
+			'<div class="modal fade alert-box aw-recommend-box" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">'+
+				'<div class="modal-dialog">'+
+					'<div class="modal-content">'+
+						'<div class="modal-header">'+
+							'<a type="button" class="close icon icon-delete" data-dismiss="modal" aria-hidden="true"></a>'+
+							'<h3 class="modal-title" id="myModalLabel">' + _t('推荐到帮助中心') + '</h3>'+
+						'</div>'+
+						'<form id="help_form" action="' + G_BASE_URL + '/help/ajax/add_data/" method="post" onsubmit="return false;">'+
+						'<input type="hidden" name="item_id" value="{{id}}" />'+
+						'<input type="hidden" name="item_type" value="{{question}}" />'+
+						'<div class="mod">'+
+						'<div class="modal-body clearfix">'+
+							'<div class="alert alert-danger hide error_message"><i class="icon icon-delete"></i> <em></em></div>'+
+							'<div class="mod-body">'+
+							'<h4>'+'选择章节'+'</h4>'+
+								'<ul></ul>'+
+							'</div>'+
+						'</div>'+
+						'</div>'+
+						'<div class="modal-footer">'+
+							'<a data-dismiss="modal" aria-hidden="true" class="text-color-999">' + _t('取消') + '</a>'+
+							'<button class="btn btn-normal btn-success" onclick="AWS.ajax_request(G_BASE_URL + \'/question/ajax/set_recommend/\', \'action=<?php if ($this->question_info[\'is_recommend\']) { ?>un<?php } ?>set&question_id=<?php echo $this->question_info[\'question_id\']; ?>\');">' + _t('确认') + '</button>'+
+						'</div>'+
+						'</form>'+
+					'</div>'+
+				'</div>'+
+			'</div>',
+
+	'searchDropdownListQuestions' :
 		'<li class="{{active}} question clearfix"><i class="icon icon-bestbg pull-left"></i><a class="aw-hide-txt pull-left" href="{{url}}">{{content}} </a><span class="pull-right text-color-999">{{discuss_count}} ' + _t('个回复') + '</span></li>',
-	'searchDropdownListTopics' : 
+	'searchDropdownListTopics' :
 		'<li class="topic clearfix"><span class="topic-tag" data-id="{{topic_id}}"><a href="{{url}}" class="text">{{name}}</a></span> <span class="pull-right text-color-999">{{discuss_count}} ' + _t('个讨论') + '</span></li>',
-	'searchDropdownListUsers' : 
+	'searchDropdownListUsers' :
 		'<li class="user clearfix"><a href="{{url}}"><img src="{{img}}" />{{name}}<span class="aw-hide-txt">{{intro}}</span></a></li>',
-	'searchDropdownListArticles' : 
+	'searchDropdownListArticles' :
 		'<li class="question clearfix"><a class="aw-hide-txt pull-left" href="{{url}}">{{content}} </a><span class="pull-right text-color-999">{{comments}} ' + _t('条评论') + '</span></li>',
 	'inviteDropdownList' :
 		'<li class="user"><a data-url="{{url}}" data-id="{{uid}}" data-actions="{{action}}" data-value="{{name}}"><img class="img" src="{{img}}" />{{name}}</a></li>',
-	'editTopicDorpdownList' : 
+	'editTopicDorpdownList' :
 		'<li class="question"><a>{{name}}</a></li>',
-	'questionRedirectList' : 
+	'questionRedirectList' :
 		'<li class="question"><a class="aw-hide-txt" onclick="AWS.ajax_request({{url}})">{{name}}</a></li>',
-	'questionDropdownList' : 
+	'questionDropdownList' :
 		'<li class="question" data-id="{{id}}"><a class="aw-hide-txt" href="{{url}}">{{name}}</a></li>',
 
-	'inviteUserList' : 
+	'inviteUserList' :
 		'<li>'+
 			'<a class="pull-right btn btn-mini btn-default" onclick="disinvite_user($(this),{{uid}});$(this).parent().detach();">' + _t('取消邀请') + '</a>'+
 			'<a class="aw-user-name" data-id="{{uid}}">'+
@@ -366,20 +395,20 @@ var AW_TEMPLATE = {
 			'<td class="e3" data-txt="{{year}}">{{year}} ' + _t('年') + '</td>'+
 			'<td><a class="delete-educate">' + _t('删除') + '</a>&nbsp;&nbsp;<a class="edit-educate">' + _t('编辑') + '</a></td>',
 
-	'educateEdit' : 
+	'educateEdit' :
 			'<td><input type="text" value="{{school}}" class="school form-control"></td>'+
 			'<td><input type="text" value="{{departments}}" class="departments form-control"></td>'+
 			'<td><select class="year edityear">'+
 				'</select> ' + _t('年') + '</td>'+
 			'<td><a class="delete-educate">' + _t('删除') + '</a>&nbsp;&nbsp;<a class="add-educate">' + _t('保存') + '</a></td>',
 
-	'workInsert' : 
+	'workInsert' :
 			'<td class="w1" data-txt="{{company}}">{{company}}</td>'+
 			'<td class="w2" data-txt="{{jobid}}">{{work}}</td>'+
 			'<td class="w3" data-s-val="{{syear}}" data-e-val="{{eyear}}">{{syear}} ' + _t('年') + ' ' + _t('至') + ' {{eyear}}</td>'+
 			'<td><a class="delete-work">' + _t('删除') + '</a>&nbsp;&nbsp;<a class="edit-work">' + _t('编辑') + '</a></td>',
 
-	'workEidt' : 
+	'workEidt' :
 			'<td><input type="text" value="{{company}}" class="company form-control"></td>'+
 			'<td>'+
 				'<select class="work editwork">'+

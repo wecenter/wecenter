@@ -458,6 +458,10 @@ var AWS =
 		            'item_id': data.item_id
 		        });
 		    break;
+		    case 'recommend':
+		    	var template = Hogan.compile(AW_TEMPLATE.recommend).render();
+		    break;
+		    AWS.dialog('recommend');
 
 		    case 'topicEditHistory':
 		        var template = AW_TEMPLATE.ajaxData.replace('{{title}}', _t('编辑记录')).replace('{{data}}', data);
@@ -594,7 +598,7 @@ var AWS =
 
 		                	if ($(this).parents('li').hasClass('active'))
 		                	{
-		                		var url = G_BASE_URL + '/favorite/ajax/remove_favorite_tag/'; 
+		                		var url = G_BASE_URL + '/favorite/ajax/remove_favorite_tag/';
 
 		                		addClassFlag = false;
 		                	}
@@ -602,7 +606,7 @@ var AWS =
 		                	{
 		                		var url = G_BASE_URL + '/favorite/ajax/update_favorite_tag/';
 		                	}
-		                	
+
 		                	$.post(url, params , function (result)
 		                	{
 		                		if (result.errno == 1)
@@ -628,6 +632,56 @@ var AWS =
 		            {
 		                $('.aw-report-box textarea').text($(this).attr('value'));
 		            });
+		            break;
+				break;
+
+				case 'recommend':
+
+					 $.get(G_BASE_URL + '/help/ajax/list/', function (result)
+		            {
+		            	if (result)
+						{
+							$.each(result, function (i, e)
+			                {
+			                    $('.aw-recommend-box ul').append('<li><img src="'+G_STATIC_URL+'/common/chapter-min-img.png" class="pull-left" alt="ddd"><span><a data-id="' + e.id + '">'+e.title+'</a></span><i class="icon icon-followed"></i></li>');
+			                });
+
+			                $(document).on('click', '.aw-recommend-box ul li a', function()
+			                {
+			                	var addClassFlag = true, _this = $(this);
+			                	if ($(this).attr('data-id'))
+			                	{
+			                		$(this).parents('li').addClass('active');
+			                		var url = G_BASE_URL + '/help/ajax/add-data/';
+			                		addClassFlag = false;
+			                	}
+			                	else
+			                	{
+			                		var url =  G_BASE_URL + '/help/ajax/remove_data/';
+			                	}
+
+			                	$.post(url, {
+			                		'id': _this.attr('data-id'),
+			                		'title': _this.text(),
+			                		'type': ""
+			                	}, function (result)
+			                	{
+
+			                		if (result.errno == 1)
+			                		{
+			                			$(this).removeClass('active');
+
+			                			_this.addClass('active');
+
+			                		}
+			                	}, 'json');
+			                });
+						}
+						else
+						{
+							$('.aw-recommend-box').append('<p>' + _t('123') + '</p>');
+						}
+		            }, 'json');
 		            break;
 				break;
 
@@ -1325,7 +1379,7 @@ AWS.User =
 		{
 			var title = $('title').text();
 		}
-		
+
 		shareURL = 'http://www.jiathis.com/send/?webid=' + webid + '&url=' + url + '&title=' + title + '';
 
 		window.open(shareURL);
@@ -1676,7 +1730,7 @@ AWS.User =
 	                    selector.parents('.aw-article-vote').find('b').html(parseInt(selector.parents('.aw-article-vote').find('b').html()) - 1);
 	                    selector.parents('.aw-article-vote').find('a').removeClass('active');
 	                }
-	                
+
 	                selector.addClass('active');
 	            }
 				else
@@ -2149,11 +2203,11 @@ AWS.Editor =
     	{
     		return false;
     	}
-    	
+
         $('.wmd-input').insertAtCaret(textFeildValue);
 
         chunk.selection = (" " + chunk.selection).replace(/([^\\](?:\\\\)*)(?=[[\]])/g, "$1\\").substr(1);
-        
+
         console.log(chunk);
 	},
 

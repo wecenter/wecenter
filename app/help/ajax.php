@@ -40,7 +40,7 @@ class ajax extends AWS_CONTROLLER
         }
     }
 
-    public function add_action()
+    public function add_data_action()
     {
         if (!$_POST['id'] OR !$_POST['type'] OR !$_POST['item_id'])
         {
@@ -87,5 +87,78 @@ class ajax extends AWS_CONTROLLER
         }
 
         H::ajax_json_output(AWS_APP::RSM(null, 1, null));
+    }
+
+    public function remove_data_action()
+    {
+        if (!$_POST['type'] OR !$_POST['item_id'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('错误的请求')));
+        }
+
+        switch ($_POST['type'])
+        {
+            case 'question':
+                $question_info = $this->model('question')->get_question_info_by_id($_POST['item_id']);
+
+                if (!$question_info)
+                {
+                    H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('指定问题不存在')));
+                }
+
+                if (!$question_info['chapter_id'])
+                {
+                    H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('指定问题不在帮助中心中')));
+                }
+
+                $this->model('chapter')->remove_data('question', $question_info['question_id']);
+
+                break;
+
+            case 'article':
+                $article_info =  $this->model('article')->get_article_info_by_id($_POST['item_id']);
+
+                if (!$article_info)
+                {
+                    H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('指定文章不存在')));
+                }
+
+                if (!$article_info['chapter_id'])
+                {
+                    H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('指定文章不在帮助中心中')));
+                }
+
+                $this->model('chapter')->remove_data('article', $article_info['id']);
+
+                break;
+
+            default:
+                H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('错误的请求')));
+
+                break;
+        }
+
+        H::ajax_json_output(AWS_APP::RSM(null, 1, null));
+    }
+
+    public function list_action()
+    {
+        $chapter_list = $this->model('chapter')->get_chapter_list();
+
+        if (!$chapter_list)
+        {
+            H::ajax_json_output(array());
+        }
+
+        foreach ($chapter_list AS $chapter_info)
+        {
+            $output[$chapter_info['id']] = array(
+                'id' => $chapter_info['id'],
+                'title' => $chapter_info['title'],
+                'icon' => get_chapter_icon_url($chapter_info['id'], 'min')
+            );
+        }
+
+        H::ajax_json_output($output);
     }
 }

@@ -38,6 +38,9 @@
 												<a href="javascript:;" onclick="AWS.ajax_request(G_BASE_URL + '/article/ajax/set_recommend/', 'action=<?php if ($this->article_info['is_recommend']) { ?>un<?php } ?>set&article_id=<?php echo $this->article_info['id']; ?>');"><?php if ($this->article_info['is_recommend']) { ?><?php _e('取消推荐'); ?><?php } else { ?><?php _e('推荐文章'); ?><?php } ?></a>
 											</li>
 											<li>
+												<a href="javascript:;" data-id="<?php echo $this->question_info['chapter_id']; ?>" onclick="AWS.dialog('recommend')"><?php if ($this->question_info['chapter_id']) { ?><?php _e('从帮助中心删除') ?><?php } else { ?><?php _e('添加到帮助中心'); ?><?php } ?></a>
+											</li>
+											<li>
 												<a href="javascript:;" onclick="AWS.dialog('confirm', {'message' : '<?php _e('确认删除?'); ?>'}, function(){AWS.ajax_request(G_BASE_URL + '/article/ajax/remove_article/', 'article_id=<?php echo $this->article_info['id']; ?>');});"><?php _e('删除文章'); ?></a>
 											</li>
 										</ul>
@@ -224,7 +227,7 @@
 							<div class="aw-topic-bar">
 								<div class="topic-bar clearfix">
 									<span class="pull-left text-color-999">
-										<?php _e('擅长话题'); ?> : &nbsp; 
+										<?php _e('擅长话题'); ?> : &nbsp;
 									</span>
 									<?php foreach ($this->reputation_topics AS $key => $val) { ?>
 									<span class="topic-tag">

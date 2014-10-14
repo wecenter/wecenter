@@ -19,7 +19,7 @@ if (!defined('IN_ANWSION'))
     die;
 }
 
-class ajax_weixin extends AWS_ADMIN_CONTROLLER
+class ajax_chapter extends AWS_ADMIN_CONTROLLER
 {
     public function setup()
     {
@@ -113,7 +113,7 @@ class ajax_weixin extends AWS_ADMIN_CONTROLLER
         }
 
         H::ajax_json_output(AWS_APP::RSM(array(
-            'url' => get_js_url('admin/chapter/edit/' . $id)
+            'url' => get_js_url('/admin/chapter/edit/' . $id)
         ), 1, null));
     }
 
@@ -144,16 +144,28 @@ class ajax_weixin extends AWS_ADMIN_CONTROLLER
 
     public function save_data_sort_action()
     {
-        if (!$_POST['sort'] OR !is_array($_POST['sort']))
+        if (!$_POST['data'] OR !is_array($_POST['data']))
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('错误的请求')));
         }
 
-        foreach ($_POST['sort'] AS $item_id => $sort)
+        foreach ($_POST['data'] AS $data_info)
         {
-            $this->model('chapter')->set_data_sort($item_id, $sort);
+            $this->model('chapter')->set_data_sort($data_info['id'], $data_info['type'], $data_info['sort']);
         }
 
         H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('数据排序已自动保存')));
+    }
+
+    public function remove_data_action()
+    {
+        if (!$_POST['type'] OR !$_POST['item_id'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('错误的请求')));
+        }
+
+        $this->model('chapter')->remove_data($_POST['type'], $_POST['item_id']);
+
+        H::ajax_json_output(AWS_APP::RSM(null, 1, null));
     }
 }
