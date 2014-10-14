@@ -259,7 +259,7 @@ a.aw-load-more-content{display: block;}
 .common-head{padding:0 20px;border-bottom: 1px solid #e6e6e6;}
 .common-head h2{height:60px;line-height:60px;margin:0;font-size: 20px;color: #333333;}
 .common-head h2 > i{margin-right: 10px;}
-.common-head h2 a {color: #333;}
+.common-head h2 > a {color: #333;}
 .common-head .btn.pull-right{margin:18px 0 0 10px;}
 .common-head span{font-size: 12px;}
 .common-head span .btn{margin-left: 10px;}
