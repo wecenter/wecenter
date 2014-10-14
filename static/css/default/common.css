@@ -266,6 +266,7 @@ a.aw-load-more-content{display: block;}
 .common-head{padding:0 20px;border-bottom: 1px solid #e6e6e6;}
 .common-head h2{height:60px;line-height:60px;margin:0;font-size: 20px;color: #333333;}
 .common-head h2 > i{margin-right: 10px;}
+.common-head h2 a {color: #333;}
 .common-head .btn.pull-right{margin:18px 0 0 10px;}
 .common-head span{font-size: 12px;}
 .common-head span .btn{margin-left: 10px;}
@@ -916,7 +917,6 @@ blockquote {margin: 0 0 16px;padding: 0 15px;font-size: 14px;color: #777;border-
 .aw-404-wrap .aw-search-box #global_search_btns {top:0;right:0;z-index:10;width:40px;height:32px;border-radius: 0;border-color: #54BEFF; color: #fff;background-color: #54BEFF;}
 
 /* 帮助中心 */
-.common-head h2 a {color: #333;}
 .aw-help-center .mod-head {height: 220px;padding: 42px 0 35px;margin: 0 auto;border-bottom: 1px solid #e6e6e6;}
 .aw-help-center .mod-head h2 {font-size: 32px; text-align: center;color: #666;}
 .aw-help-center .mod-head h2 i {padding-right: 10px;}
