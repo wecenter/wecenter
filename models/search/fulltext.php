@@ -104,7 +104,10 @@ class search_fulltext_class extends AWS_MODEL
 			$where[] = '(`is_recommend` = "1" OR `chapter_id` IS NOT NULL)';
 		}
 
-		$where = implode(' AND ', $where);
+		if ($where)
+		{
+			$where = implode(' AND ', $where);
+		}
 
 		$search_hash = $this->get_search_hash('question', 'question_content', $q, $where);
 
@@ -150,7 +153,10 @@ class search_fulltext_class extends AWS_MODEL
 			$where[] = '(`is_recommend` = "1" OR `chapter_id` IS NOT NULL)';
 		}
 
-		$where = implode(' AND ', $where);
+		if ($where)
+		{
+			$where = implode(' AND ', $where);
+		}
 
 		$search_hash = $this->get_search_hash('article', 'title', $q, $where);
 
