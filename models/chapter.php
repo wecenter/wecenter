@@ -23,7 +23,7 @@ class chapter_class extends AWS_MODEL
     {
         $sort = ($sort) ? 'sort ASC' : 'id ASC';
 
-        $chapter_query = $this->fetch_all('help_chapter', null, 'sort ASC');
+        $chapter_query = $this->fetch_all('help_chapter', null, $sort);
 
         if (!$chapter_query)
         {
