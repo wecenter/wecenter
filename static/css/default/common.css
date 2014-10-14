@@ -935,8 +935,6 @@ blockquote {margin: 0 0 16px;padding: 0 15px;font-size: 14px;color: #777;border-
 .aw-help-list .mod-head h3 {line-height: 50px;font-size: 20px;font-weight: bold; color: #333;}
 .aw-help-list .mod-body {overflow: hidden;}
 .aw-help-list .mod-body ul li {padding: 12px 0;line-height: 21px;border-bottom: 1px solid #e6e6e6;}
-.aw-help-side .mod-head h4 {margin-top: 8px;margin-bottom: 0;color: #333;}
-.aw-help-side .mod-body dd {padding-left: 40px;line-height: 32px;}
 .aw-recommend-box ul li {position: relative;float: left;width: 47%;height: 40px;margin: 0 10px 10px 0;background: #F0F0F0;border-radius: 4px;}
 .aw-recommend-box .modal-dialog {width: 524px;}
 .aw-recommend-box h4 {color: #999;font-size: 14px;}
