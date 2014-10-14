@@ -460,6 +460,7 @@ var AWS =
 		    break;
 		    case 'recommend':
 		    	var template = Hogan.compile(AW_TEMPLATE.recommend).render();
+
 		    break;
 		    AWS.dialog('recommend');
 
@@ -644,42 +645,53 @@ var AWS =
 							$.each(result, function (i, e)
 			                {
 			                    $('.aw-recommend-box ul').append('<li><img src="'+G_STATIC_URL+'/common/chapter-min-img.png" class="pull-left" alt="ddd"><span><a data-id="' + e.id + '">'+e.title+'</a></span><i class="icon icon-followed"></i></li>');
+
+			                });
+
+			                $.each($('.aw-recommend-box ul li'), function (i, e)
+			                {
+			                	if (data.focus_id == $(this).find('a').attr('data-id'))
+			                	{
+			                		$(this).addClass('active');
+			                	}
 			                });
 
 			                $(document).on('click', '.aw-recommend-box ul li a', function()
 			                {
-			                	var addClassFlag = true, _this = $(this);
-			                	if ($(this).attr('data-id'))
+			                	var _this = $(this), url = G_BASE_URL + '/help/ajax/add_data/', removeClass = false;
+
+			                	if ($(this).parents('li').hasClass('active'))
 			                	{
-			                		$(this).parents('li').addClass('active');
-			                		var url = G_BASE_URL + '/help/ajax/add-data/';
-			                		addClassFlag = false;
-			                	}
-			                	else
-			                	{
-			                		var url =  G_BASE_URL + '/help/ajax/remove_data/';
+			                		var url =  G_BASE_URL + '/help/ajax/remove_data/',
+			                			removeClass = true;
 			                	}
 
 			                	$.post(url, {
-			                		'id': _this.attr('data-id'),
-			                		'title': _this.text(),
-			                		'type': ""
+			                		item_id: data.item_id,
+			                		id: _this.attr('data-id'),
+			                		title: _this.text(),
+			                		type: data.type
 			                	}, function (result)
 			                	{
-
 			                		if (result.errno == 1)
 			                		{
-			                			$(this).removeClass('active');
+			                			if (removeClass)
+			                			{
+			                				_this.parents('li').removeClass('active');
+			                			}
+			                			else
+			                			{
+			                				$('.aw-recommend-box ul li').removeClass('active');
 
-			                			_this.addClass('active');
-
+			                				_this.parents('li').addClass('active');
+			                			}
 			                		}
 			                	}, 'json');
 			                });
 						}
 						else
 						{
-							$('.aw-recommend-box').append('<p>' + _t('123') + '</p>');
+							$('.aw-recommend-box .modal-body .mod-body').append('<p>' + '<strong>' + _t('请先去后台创建好章节') + '</strong>' + '</p>');
 						}
 		            }, 'json');
 		            break;

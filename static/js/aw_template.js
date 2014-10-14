@@ -343,8 +343,9 @@ var AW_TEMPLATE = {
 							'<h3 class="modal-title" id="myModalLabel">' + _t('推荐到帮助中心') + '</h3>'+
 						'</div>'+
 						'<form id="help_form" action="' + G_BASE_URL + '/help/ajax/add_data/" method="post" onsubmit="return false;">'+
-						'<input type="hidden" name="item_id" value="{{id}}" />'+
+						'<input type="hidden" name="item_id" value="{{item_id}}" />'+
 						'<input type="hidden" name="item_type" value="{{question}}" />'+
+						'<input type="hidden" name="item_type" value="{{article}}" />'+
 						'<div class="mod">'+
 						'<div class="modal-body clearfix">'+
 							'<div class="alert alert-danger hide error_message"><i class="icon icon-delete"></i> <em></em></div>'+
@@ -355,8 +356,7 @@ var AW_TEMPLATE = {
 						'</div>'+
 						'</div>'+
 						'<div class="modal-footer">'+
-							'<a data-dismiss="modal" aria-hidden="true" class="text-color-999">' + _t('取消') + '</a>'+
-							'<button class="btn btn-normal btn-success" onclick="AWS.ajax_request(G_BASE_URL + \'/question/ajax/set_recommend/\', \'action=<?php if ($this->question_info[\'is_recommend\']) { ?>un<?php } ?>set&question_id=<?php echo $this->question_info[\'question_id\']; ?>\');">' + _t('确认') + '</button>'+
+							'<button href="javascript:;"  data-dismiss="modal" aria-hidden="true" class="btn btn-normal btn-gray">' + _t('关闭') + '</button>'+
 						'</div>'+
 						'</form>'+
 					'</div>'+
