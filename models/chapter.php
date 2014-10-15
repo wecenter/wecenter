@@ -19,7 +19,7 @@ if (!defined('IN_ANWSION'))
 
 class chapter_class extends AWS_MODEL
 {
-    public function get_chapter_list($sort = false)
+    public function get_chapter_list($sort = true)
     {
         $sort = ($sort) ? 'sort ASC' : 'id ASC';
 
@@ -60,7 +60,7 @@ class chapter_class extends AWS_MODEL
         return $this->fetch_row('help_chapter', 'url_token = "' . $this->quote($url_token) . '"');
     }
 
-    public function get_data_list($chapter_id = null, $max_num = null, $sort = false)
+    public function get_data_list($chapter_id = null, $max_num = null, $sort = true)
     {
         if (isset($chapter_id))
         {
