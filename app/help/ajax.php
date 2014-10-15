@@ -143,7 +143,7 @@ class ajax extends AWS_CONTROLLER
 
     public function list_action()
     {
-        $chapter_list = $this->model('chapter')->get_chapter_list(true);
+        $chapter_list = $this->model('chapter')->get_chapter_list();
 
         if (!$chapter_list)
         {
