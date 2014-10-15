@@ -217,11 +217,10 @@ a.aw-load-more-content{display: block;}
 .aw-top-nav .aw-dropdown .mod-footer a{display: block;height:40px;text-align: center;background-color: #fafafa;color: #999999;font-size: 12px;line-height:40px;border-radius: 0 0 4px 4px;border-top: 1px solid #f5f5f5;}
 .aw-user-nav{margin:10px 0 0 10px;}
 .aw-user-nav:hover .dropdown-list{display: block;}
-.aw-user-nav > a{display:block;height:42px;}
 .aw-user-nav img{width: 32px;height: 32px;}
-.aw-user-nav > span > a{display:inline-block;float:right;height:32px;color: #fff;}
-.aw-user-nav > span > .login{margin-right: 10px;}
-.aw-user-nav > a .badge{position: absolute;top: -8px;right: -8px;}
+.aw-user-nav .login{margin-right: 10px;}
+.aw-user-nav .aw-user-nav-dropdown{display:block;height: 42px;}
+.aw-user-nav .aw-user-nav-dropdown .badge{position: absolute;top: -8px;right: -8px;}
 .aw-user-nav .dropdown-list{top:100%;width:122px;border-top:none;border-radius: 0 0 4px 4px;}
 .aw-user-nav .dropdown-list ul li a i{vertical-align:-2px;margin-right: 5px;font-size: 16px;}
 .aw-search-box{margin:10px 0;}
@@ -259,7 +258,6 @@ a.aw-load-more-content{display: block;}
 .common-head{padding:0 20px;border-bottom: 1px solid #e6e6e6;}
 .common-head h2{height:60px;line-height:60px;margin:0;font-size: 20px;color: #333333;}
 .common-head h2 > i{margin-right: 10px;}
-.common-head h2 > a {color: #333;}
 .common-head .btn.pull-right{margin:18px 0 0 10px;}
 .common-head span{font-size: 12px;}
 .common-head span .btn{margin-left: 10px;}
@@ -926,28 +924,25 @@ blockquote {margin: 0 0 16px;padding: 0 15px;font-size: 14px;color: #777;border-
 .aw-404-wrap .aw-search-box #global_search_btns {top:0;right:0;z-index:10;width:40px;height:32px;border-radius: 0;border-color: #54BEFF; color: #fff;background-color: #54BEFF;}
 
 /* 帮助中心 */
-.aw-help-center .mod-head {height: 220px;padding: 42px 0 35px;margin: 0 auto;border-bottom: 1px solid #e6e6e6;}
+.aw-help-center .mod-head {padding: 40px 0;}
 .aw-help-center .mod-head h2 {font-size: 32px; text-align: center;color: #666;}
-.aw-help-center .mod-head h2 i {padding-right: 10px;}
-.aw-help-center .mod-head .aw-search-box {float:  none;margin: 33px auto 0;width: 505px;border: 7px solid #f5f5f5;}
+.aw-help-center .mod-head h2 i {margin-right: 10px;}
+.aw-help-center .mod-head .aw-search-box {float:  none;margin: 35px auto 0;width: 510px;border: 8px solid #f5f5f5;}
 .aw-help-center .mod-head .aw-search-box form {border: 1px solid #e6e6e6;}
-.aw-help-center .mod-body {padding: 40px 25px 20px;}
+.aw-help-center .mod-body {padding: 40px 25px 20px;border-top: 1px solid #e6e6e6;}
 .aw-help-center .mod-body .col-md-4 {margin-bottom: 20px;height: 232px;}
 .aw-help-center .mod-body .aw-item img {position: absolute;left: 0;top: 0;width: 32px;height: 32px;}
 .aw-help-center .mod-body .aw-item h3 { position: relative; padding-left: 42px;margin-bottom: 18px;font-size: 16px;font-weight: bold;}
-.aw-help-center .mod-body .aw-item h3 a {display: block;color: #333;}
-.aw-help-center .mod-body .aw-item ul {list-style-type: disc;padding-left: 20px;line-height: 25px;overflow: hidden; }
+.aw-help-center .mod-body .aw-item h3 a {color: #333;}
+.aw-help-center .mod-body .aw-item ul {list-style-type: disc;padding-left: 5px;line-height: 25px;overflow: hidden; }
 .aw-help-center .mod-body .aw-item ul li {margin: 5px 0;list-style-position: inside;}
-.aw-help-center .mod-body .aw-item > a {display: block;margin-top: 10px; color: #999;text-align: left;}
 .aw-help-center .aw-search-box #global_search_btns {top: 7px;}
-.aw-help-center .aw-search-box input {width: 490px;}
+.aw-help-center .aw-search-box input {width: 489px;}
 .aw-help-list {padding: 20px;}
-.aw-help-list .mod-head {position: relative;padding-left: 62px;margin-bottom: 10px;height: 50px;}
+.aw-help-list .mod-head {position: relative;padding-left: 60px;margin-bottom: 10px;height: 50px;}
 .aw-help-list .mod-head img {position: absolute;left: 0;top: 0;width: 50px;}
 .aw-help-list .mod-head h3 {line-height: 50px;font-size: 20px;font-weight: bold;}
-.aw-help-list .mod-body {overflow: hidden;}
-.aw-help-list .mod-body ul li {padding: 12px 0;line-height: 21px;border-bottom: 1px solid #e6e6e6;}
-.aw-help-side .mod-head h4 {margin:8px 0 0;color: #333;}
+.aw-help-list .mod-body ul li {padding: 12px 0;line-height: 22px;border-bottom: 1px solid #e6e6e6;}
 .aw-help-side .mod-body dd {width: auto;padding-left: 40px;margin-left: 0;line-height: 32px;}
 
 /* noscript 提示 */
