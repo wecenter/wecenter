@@ -19,9 +19,11 @@ if (!defined('IN_ANWSION'))
 
 class chapter_class extends AWS_MODEL
 {
-    public function get_chapter_list()
+    public function get_chapter_list($sort = false)
     {
-        $chapter_query = $this->fetch_all('chapter', null, 'sort ASC');
+        $sort = ($sort) ? 'sort ASC' : 'id ASC';
+
+        $chapter_query = $this->fetch_all('help_chapter', null, $sort);
 
         if (!$chapter_query)
         {
@@ -47,7 +49,7 @@ class chapter_class extends AWS_MODEL
 
         if (!$chapter_list[$id])
         {
-            $chapter_list[$id] = $this->fetch_row('chapter', 'id = ' . $id);
+            $chapter_list[$id] = $this->fetch_row('help_chapter', 'id = ' . $id);
         }
 
         return $chapter_list[$id];
@@ -55,7 +57,7 @@ class chapter_class extends AWS_MODEL
 
     public function get_chapter_by_url_token($url_token)
     {
-        return $this->fetch_row('chapter', 'url_token = "' . $this->quote($url_token) . '"');
+        return $this->fetch_row('help_chapter', 'url_token = "' . $this->quote($url_token) . '"');
     }
 
     public function get_data_list($chapter_id = null, $max_num = null, $sort = false)
@@ -183,17 +185,17 @@ class chapter_class extends AWS_MODEL
 
         if ($id)
         {
-            return $this->update('chapter', $chapter_info, 'id = ' . $id);
+            return $this->update('help_chapter', $chapter_info, 'id = ' . $id);
         }
         else
         {
-            return $this->insert('chapter', $chapter_info);
+            return $this->insert('help_chapter', $chapter_info);
         }
     }
 
     public function remove_chapter($id)
     {
-        if (!is_digits($id) OR !$this->delete('chapter', 'id = ' . $id))
+        if (!is_digits($id) OR !$this->delete('help_chapter', 'id = ' . $id))
         {
             return false;
         }
@@ -216,7 +218,7 @@ class chapter_class extends AWS_MODEL
             return false;
         }
 
-        return $this->update('chapter', array(
+        return $this->update('help_chapter', array(
             'sort' => intval($sort)
         ), 'id = ' . $id);
     }
