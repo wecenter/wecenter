@@ -69,6 +69,8 @@ CREATE TABLE `[#DB_PREFIX#]article` (
   `title_fulltext` text,
   `category_id` int(10) DEFAULT '0',
   `is_recommend` tinyint(1) DEFAULT '0',
+  `chapter_id` int(10) UNSIGNED DEFAULT NULL,
+  `sort` tinyint(2) UNSIGNED NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `has_attach` (`has_attach`),
   KEY `uid` (`uid`),
@@ -79,6 +81,8 @@ CREATE TABLE `[#DB_PREFIX#]article` (
   KEY `votes` (`votes`),
   KEY `category_id` (`category_id`),
   KEY `is_recommend` (`is_recommend`),
+  KEY `chapter_id` (`chapter_id`),
+  KEY `sort` (`sort`),
   FULLTEXT KEY `title_fulltext` (`title_fulltext`)
 ) ENGINE=MYISAM DEFAULT CHARSET=utf8;
 
@@ -467,6 +471,8 @@ CREATE TABLE `[#DB_PREFIX#]question` (
   `is_recommend` tinyint(1) NOT NULL DEFAULT '0',
   `weibo_msg_id` bigint(30) DEFAULT NULL,
   `received_email_id` int(10) DEFAULT NULL,
+  `chapter_id` int(10) UNSIGNED DEFAULT NULL,
+  `sort` tinyint(2) UNSIGNED NOT NULL DEFAULT '0',
   PRIMARY KEY (`question_id`),
   KEY `category_id` (`category_id`),
   KEY `update_time` (`update_time`),
@@ -486,6 +492,8 @@ CREATE TABLE `[#DB_PREFIX#]question` (
   KEY `weibo_msg_id` (`weibo_msg_id`),
   KEY `received_email_id` (`received_email_id`),
   KEY `unverified_modify_count` (`unverified_modify_count`),
+  KEY `chapter_id` (`chapter_id`),
+  KEY `sort` (`sort`),
   FULLTEXT KEY `question_content_fulltext` (`question_content_fulltext`)
 ) ENGINE=MYISAM DEFAULT CHARSET=utf8 COMMENT='问题列表';
 
@@ -1208,6 +1216,18 @@ CREATE TABLE `[#DB_PREFIX#]weixin_third_party_api` (
   KEY `rank` (`rank`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8 COMMENT='微信第三方接入';
 
+CREATE TABLE `[#DB_PREFIX#]help_chapter` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) NOT NULL,
+  `description` text,
+  `url_token` varchar(32) DEFAULT NULL,
+  `sort` tinyint(2) UNSIGNED NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `title` (`title`),
+  KEY `url_token` (`url_token`),
+  KEY `sort` (`sort`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='帮助中心';
+
 INSERT INTO `[#DB_PREFIX#]category`(`title`,`type`) VALUES
 ('默认分类', 'question');
 
@@ -1266,4 +1286,4 @@ INSERT INTO `[#DB_PREFIX#]users_group` (`group_id`, `type`, `custom`, `group_nam
 (7, 1, 0, '中级会员', 200, 500, 1, 'a:9:{s:16:"publish_question";s:1:"1";s:21:"publish_approval_time";a:2:{s:5:"start";s:0:"";s:3:"end";s:0:"";}s:10:"edit_topic";s:1:"1";s:12:"create_topic";s:1:"1";s:17:"redirect_question";s:1:"1";s:13:"upload_attach";s:1:"1";s:11:"publish_url";s:1:"1";s:15:"publish_article";s:1:"1";s:15:"publish_comment";s:1:"1";}'),
 (8, 1, 0, '高级会员', 500, 1000, 1, 'a:11:{s:16:"publish_question";s:1:"1";s:21:"publish_approval_time";a:2:{s:5:"start";s:0:"";s:3:"end";s:0:"";}s:13:"edit_question";s:1:"1";s:10:"edit_topic";s:1:"1";s:12:"create_topic";s:1:"1";s:17:"redirect_question";s:1:"1";s:13:"upload_attach";s:1:"1";s:11:"publish_url";s:1:"1";s:15:"publish_article";s:1:"1";s:19:"edit_question_topic";s:1:"1";s:15:"publish_comment";s:1:"1";}'),
 (9, 1, 0, '核心会员', 1000, 999999, 1, 'a:12:{s:16:"publish_question";s:1:"1";s:21:"publish_approval_time";a:2:{s:5:"start";s:0:"";s:3:"end";s:0:"";}s:13:"edit_question";s:1:"1";s:10:"edit_topic";s:1:"1";s:12:"manage_topic";s:1:"1";s:12:"create_topic";s:1:"1";s:17:"redirect_question";s:1:"1";s:13:"upload_attach";s:1:"1";s:11:"publish_url";s:1:"1";s:15:"publish_article";s:1:"1";s:19:"edit_question_topic";s:1:"1";s:15:"publish_comment";s:1:"1";}'),
-(99, 0, 0, '游客', 0, 0, 0, 'a:8:{s:10:"visit_site";s:1:"1";s:13:"visit_explore";s:1:"1";s:12:"search_avail";s:1:"1";s:14:"visit_question";s:1:"1";s:11:"visit_topic";s:1:"1";s:13:"visit_feature";s:1:"1";s:12:"visit_people";s:1:"1";s:11:"answer_show";s:1:"1";}');
+(99, 0, 0, '游客', 0, 0, 0, 'a:9:{s:10:"visit_site";s:1:"1";s:13:"visit_explore";s:1:"1";s:12:"search_avail";s:1:"1";s:14:"visit_question";s:1:"1";s:11:"visit_topic";s:1:"1";s:13:"visit_feature";s:1:"1";s:12:"visit_people";s:1:"1";s:13:"visit_chapter";s:1:"1";s:11:"answer_show";s:1:"1";}');
