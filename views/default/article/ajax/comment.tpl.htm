@@ -1,14 +1,16 @@
-<div class="aw-item">
-	<a class="aw-user-name" href="people/<?php echo $this->comment_info['user_info']['url_token']; ?>">
-		<img src="<?php echo get_avatar_url($this->comment_info['uid'], 'mid'); ?>" alt="<?php echo $this->comment_info['user_info']['user_name']; ?>" />
-	</a>
-	<div class="content">
+<div class="aw-item" id="answer_list_<?php echo $this->comment_info['id']; ?>">
+	<div class="mod-head">
+		<a class="aw-user-img aw-border-radius-5" href="people/<?php echo $this->comment_info['user_info']['url_token']; ?>">
+			<img src="<?php echo get_avatar_url($this->comment_info['uid'], 'mid'); ?>" alt="<?php echo $this->comment_info['user_info']['user_name']; ?>" />
+		</a>
 		<p>
 			<a href="people/<?php echo $this->comment_info['user_info']['url_token']; ?>"><?php echo $this->comment_info['user_info']['user_name']; ?></a><?php if ($this->comment_info['at_user_info']) { ?> <?php _e('回复'); ?> <a href="people/<?php echo $this->comment_info['at_user_info']['url_token']; ?>"><?php echo $this->comment_info['at_user_info']['user_name']; ?></a><?php } ?>
 		</p>
-		<div class="markitup-box">
-			<?php echo nl2br($this->comment_info['message']); ?>
-		</div>
+	</div>
+	<div class="mod-body">
+		<?php echo nl2br($this->comment_info['message']); ?>
+	</div>
+	<div class="mod-footer">
 		<div class="meta">
 			<span class="pull-right text-color-999"><?php echo date_friendly($this->comment_info['add_time']); ?></span>
 			<?php if ($this->user_id) { ?>
