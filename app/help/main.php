@@ -40,7 +40,7 @@ class main extends AWS_CONTROLLER
 
         if ($_GET['id'])
         {
-            $chapter_list = $this->model('chapter')->get_chapter_list(true);
+            $chapter_list = $this->model('chapter')->get_chapter_list();
 
             if (!$chapter_list)
             {
@@ -71,7 +71,7 @@ class main extends AWS_CONTROLLER
 
             TPL::assign('chapter_info', $chapter);
 
-            $data_list = $this->model('chapter')->get_data_list($chapter['id'], null, true);
+            $data_list = $this->model('chapter')->get_data_list($chapter['id']);
 
             if ($data_list)
             {
@@ -84,14 +84,14 @@ class main extends AWS_CONTROLLER
         }
         else
         {
-            $chapter_list = $this->model('chapter')->get_chapter_list(true);
+            $chapter_list = $this->model('chapter')->get_chapter_list();
 
             if ($chapter_list)
             {
                 TPL::assign('chapter_list', $chapter_list);
             }
 
-            $data_list = $this->model('chapter')->get_data_list(null, 5, true);
+            $data_list = $this->model('chapter')->get_data_list(null, 5);
 
             if ($data_list)
             {
