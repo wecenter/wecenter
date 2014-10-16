@@ -859,7 +859,7 @@ a.aw-load-more-content{display: block;}
 .wmd-preview h2, .markitup-box h2{margin: 16px 0;font-size: 1.75em;line-height: 30px;}
 .wmd-preview h3, .markitup-box h3{margin: 16px 0;font-size: 1.5em;}
 .wmd-preview h4, .markitup-box h4 {margin: 16px 0;font-size: 1.25em;}
-.wmd-preview code, .markitup-box code, .markitup-box code{background-color: #EDEAD5;display: block;font-family: "Courier New",Courier,monospace;margin: 5px 0;padding: 5px;white-space: normal;text-align: left;font-size: 14px;}
+.wmd-preview code, .markitup-box code, .markitup-box code{background-color: #EDEAD5;display: inline-block;font-family: "Courier New",Courier,monospace;margin: 0;padding: 0 5px;white-space: normal;text-align: left;font-size: 14px;}
 .wmd-preview p, .markitup-box p {margin:0 0 16px;}
 .wmd-preview img, .markitup-box img {max-width:625px;margin-bottom: 15px;}
 .markitup-box{position:relative;z-index:1;line-height: 180%;word-wrap: break-word !important;}
