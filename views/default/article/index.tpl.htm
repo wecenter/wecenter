@@ -126,7 +126,7 @@
 							<?php if ($this->comments) { ?>
 
 								<?php foreach ($this->comments AS $key => $val) { ?>
-								<div class="aw-item">
+								<div class="aw-item" id="answer_list_<?php echo $val['id']; ?>">
 									<div class="mod-head">
 										<a class="aw-user-img aw-border-radius-5" href="people/<?php echo $val['user_info']['url_token']; ?>">
 											<img src="<?php echo get_avatar_url($val['uid'], 'mid'); ?>" alt="<?php echo $val['user_info']['user_name']; ?>" />
@@ -289,6 +289,8 @@
 </div>
 
 <script type="text/javascript">
+	ANSWER_EDIT_TIME = <?php echo get_setting('answer_edit_time'); ?>;
+	
 	$(document).ready(function () {
 		if ($('.aw-article-vote.disabled').length)
 		{
