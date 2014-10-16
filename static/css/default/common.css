@@ -42,7 +42,7 @@ select{width: auto;}
 .btn.follow.btn-gray em, .btn.follow.btn-gray.active em, .btn.follow.btn-success.active em{color: #e0e0e0;}
 .btn.follow.btn-success em{color: #78c779;}
 .form-control{padding: 6px;resize:none;box-shadow: none;border-color: #ccc;}
-.form-control:focus{border-color:#499ef3;box-shadow: none;}
+.form-control:focus{border-color:#499ef3 !important;box-shadow: none;}
 .btn-group.open .aw-dropdown, .aw-feed-list .more-operate.open .aw-dropdown, .aw-question-detail .more-operate.open .aw-dropdown, .aw-article-list .aw-item .mod-footer .more-operate.open .aw-dropdown{display: block;}
 
 /* 公共部分 */
@@ -928,7 +928,6 @@ blockquote {margin: 0 0 16px;padding: 0 15px;font-size: 14px;color: #777;border-
 .aw-help-center .mod-head h2 {font-size: 32px; text-align: center;color: #666;}
 .aw-help-center .mod-head h2 i {margin-right: 10px;}
 .aw-help-center .mod-head .aw-search-box {float:  none;margin: 35px auto 0;width: 510px;border: 8px solid #f5f5f5;}
-.aw-help-center .mod-head .aw-search-box form {border: 1px solid #e6e6e6;}
 .aw-help-center .mod-body {padding: 40px 25px 20px;border-top: 1px solid #e6e6e6;}
 .aw-help-center .mod-body .col-md-4 {margin-bottom: 20px;height: 232px;}
 .aw-help-center .mod-body .aw-item img {position: absolute;left: 0;top: 0;width: 32px;height: 32px;}
@@ -937,7 +936,7 @@ blockquote {margin: 0 0 16px;padding: 0 15px;font-size: 14px;color: #777;border-
 .aw-help-center .mod-body .aw-item ul {list-style-type: disc;padding-left: 5px;line-height: 25px;overflow: hidden; }
 .aw-help-center .mod-body .aw-item ul li {margin: 5px 0;list-style-position: inside;}
 .aw-help-center .aw-search-box #global_search_btns {top: 7px;}
-.aw-help-center .aw-search-box input {width: 489px;}
+.aw-help-center .aw-search-box input {width: 494px;border:1px solid #e6e6e6;}
 .aw-help-list {padding: 20px;}
 .aw-help-list .mod-head {position: relative;padding-left: 60px;margin-bottom: 10px;height: 50px;}
 .aw-help-list .mod-head img {position: absolute;left: 0;top: 0;width: 50px;}
