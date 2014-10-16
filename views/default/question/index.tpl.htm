@@ -117,21 +117,27 @@
 								<?php } ?>
 								</div>
 								<?php } ?>
-
-								<?php if ($this->question_info['attachs']) {  ?>
-								<ul class="aw-upload-file-list">
-									<?php foreach ($this->question_info['attachs'] AS $attach) { ?>
-									<?php if (!$attach['is_image'] AND !in_array($attach['id'], $this->question_info['attachs_ids'])) { ?>
-										<li><a href="<?php echo download_url($attach['file_name'], $attach['attachment']); ?>"><i class="icon icon-attach"></i> <?php echo $attach['file_name']; ?></a></li>
-									<?php } ?>
-									<?php } ?>
-								</ul>
-								<?php } ?>
 							</div>
-							<?php if ($this->question_related_links) { ?>
-							<div class="aw-question-related-list">
+							<?php if ($this->question_info['attachs']) {  ?>
+							<div class="aw-mod aw-upload-file-list">
 								<div class="mod-head">
-									<h3><?php _e('相关链接'); ?> : </h3>
+									<h3><i class="icon icon-attach"></i> <?php _e('相关链接'); ?> :</h3>
+								</div>
+								<div class="mod-body">
+									<ul>
+										<?php foreach ($this->question_info['attachs'] AS $attach) { ?>
+										<?php if (!$attach['is_image'] AND !in_array($attach['id'], $this->question_info['attachs_ids'])) { ?>
+											<li><a href="<?php echo download_url($attach['file_name'], $attach['attachment']); ?>"><?php echo $attach['file_name']; ?></a></li>
+										<?php } ?>
+										<?php } ?>
+									</ul>
+								</div>
+							</div>
+							<?php } ?>
+							<?php if ($this->question_related_links) { ?>
+							<div class="aw-mod aw-question-related-list">
+								<div class="mod-head">
+									<h3><i class="icon icon-bind"></i> <?php _e('相关链接'); ?> : </h3>
 								</div>
 								<div class="mod-body">
 									<ul>
