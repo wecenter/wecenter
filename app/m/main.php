@@ -638,6 +638,22 @@ class main extends AWS_CONTROLLER
 			TPL::assign('category_info', $this->model('system')->get_category_info($_GET['category']));
 		}
 
+		if (! $_GET['sort_type'] AND !$_GET['is_recommend'])
+		{
+			$_GET['sort_type'] = 'new';
+		}
+
+		if ($_GET['sort_type'] == 'hot')
+		{
+			$posts_list = $this->model('posts')->get_hot_posts(null, $category_info['id'], null, $_GET['day'], $_GET['page'], get_setting('contents_per_page'));
+		}
+		else
+		{
+			$posts_list = $this->model('posts')->get_posts_list(null, $_GET['page'], get_setting('contents_per_page'), $_GET['sort_type'], null, $category_info['id'], $_GET['answer_count'], $_GET['day'], $_GET['is_recommend']);
+		}
+
+		TPL::assign('posts_list', $posts_list);
+
 		TPL::import_js(array(
 			'mobile/js/iscroll.js',
 		));
