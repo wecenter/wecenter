@@ -18,11 +18,11 @@ if (!defined('IN_ANWSION'))
     die;
 }
 
-class chapter extends AWS_ADMIN_CONTROLLER
+class help extends AWS_ADMIN_CONTROLLER
 {
     public function setup()
     {
-        $this->crumb(AWS_APP::lang()->_t('帮助中心'), "admin/chapter/list/");
+        $this->crumb(AWS_APP::lang()->_t('帮助中心'), "admin/help/list/");
 
         if (!$this->user_info['permission']['is_administortar'])
         {
@@ -34,25 +34,25 @@ class chapter extends AWS_ADMIN_CONTROLLER
 
     public function list_action()
     {
-        TPL::assign('chapter_list', $this->model('chapter')->get_chapter_list());
+        TPL::assign('chapter_list', $this->model('help')->get_chapter_list());
 
-        TPL::output('admin/chapter/list');
+        TPL::output('admin/help/list');
     }
 
     public function edit_action()
     {
         if ($_GET['id'])
         {
-            $chapter_info = $this->model('chapter')->get_chapter_by_id($_GET['id']);
+            $chapter_info = $this->model('help')->get_chapter_by_id($_GET['id']);
 
             if (!$chapter_info)
             {
-                H::redirect_msg(AWS_APP::lang()->_t('指定章节不存在'), '/admin/chapter/list/');
+                H::redirect_msg(AWS_APP::lang()->_t('指定章节不存在'), '/admin/help/list/');
             }
 
             TPL::assign('chapter_info', $chapter_info);
 
-            $data_list = $this->model('chapter')->get_data_list($chapter_info['id']);
+            $data_list = $this->model('help')->get_data_list($chapter_info['id']);
 
             if ($data_list)
             {
@@ -60,6 +60,6 @@ class chapter extends AWS_ADMIN_CONTROLLER
             }
         }
 
-        TPL::output('admin/chapter/edit');
+        TPL::output('admin/help/edit');
     }
 }

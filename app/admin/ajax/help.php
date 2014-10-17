@@ -19,7 +19,7 @@ if (!defined('IN_ANWSION'))
     die;
 }
 
-class ajax_chapter extends AWS_ADMIN_CONTROLLER
+class ajax_help extends AWS_ADMIN_CONTROLLER
 {
     public function setup()
     {
@@ -40,7 +40,7 @@ class ajax_chapter extends AWS_ADMIN_CONTROLLER
 
         if ($_POST['id'])
         {
-            $chapter_info = $this->model('chapter')->get_chapter_by_id($_POST['id']);
+            $chapter_info = $this->model('help')->get_chapter_by_id($_POST['id']);
 
             if (!$chapter_info)
             {
@@ -50,13 +50,13 @@ class ajax_chapter extends AWS_ADMIN_CONTROLLER
 
         if ($chapter_info)
         {
-            $this->model('chapter')->save_chapter($chapter_info['id'], $_POST['title'], $_POST['description'], $_POST['url_token']);
+            $this->model('help')->save_chapter($chapter_info['id'], $_POST['title'], $_POST['description'], $_POST['url_token']);
 
             $id = $chapter_info['id'];
         }
         else
         {
-            $id = $this->model('chapter')->save_chapter(null, $_POST['title'], $_POST['description'], $_POST['url_token']);
+            $id = $this->model('help')->save_chapter(null, $_POST['title'], $_POST['description'], $_POST['url_token']);
 
             if (!$id)
             {
@@ -113,7 +113,7 @@ class ajax_chapter extends AWS_ADMIN_CONTROLLER
         }
 
         H::ajax_json_output(AWS_APP::RSM(array(
-            'url' => get_js_url('/admin/chapter/list/')
+            'url' => get_js_url('/admin/help/list/')
         ), 1, null));
     }
 
@@ -126,7 +126,7 @@ class ajax_chapter extends AWS_ADMIN_CONTROLLER
 
         foreach ($_POST['sort'] AS $id => $sort)
         {
-            $this->model('chapter')->set_chapter_sort($id, $sort);
+            $this->model('help')->set_chapter_sort($id, $sort);
         }
 
         H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('章节排序已自动保存')));
@@ -134,7 +134,7 @@ class ajax_chapter extends AWS_ADMIN_CONTROLLER
 
     public function remove_chapter_action()
     {
-        if (!$this->model('chapter')->remove_chapter($_POST['id']))
+        if (!$this->model('help')->remove_chapter($_POST['id']))
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('删除章节失败')));
         }
@@ -151,7 +151,7 @@ class ajax_chapter extends AWS_ADMIN_CONTROLLER
 
         foreach ($_POST['data'] AS $data_info)
         {
-            $this->model('chapter')->set_data_sort($data_info['id'], $data_info['type'], $data_info['sort']);
+            $this->model('help')->set_data_sort($data_info['id'], $data_info['type'], $data_info['sort']);
         }
 
         H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('数据排序已自动保存')));
@@ -164,7 +164,7 @@ class ajax_chapter extends AWS_ADMIN_CONTROLLER
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('错误的请求')));
         }
 
-        $this->model('chapter')->remove_data($_POST['type'], $_POST['item_id']);
+        $this->model('help')->remove_data($_POST['type'], $_POST['item_id']);
 
         H::ajax_json_output(AWS_APP::RSM(null, 1, null));
     }

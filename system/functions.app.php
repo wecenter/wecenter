@@ -268,7 +268,7 @@ function get_chapter_icon_url($id, $size = 'max', $default = true)
 	}
 	else if ($default)
 	{
-		return G_STATIC_URL . '/common/chapter-' . $size . '-img.png';
+		return G_STATIC_URL . '/common/help-chapter-' . $size . '-img.png';
 	}
 
 	return false;

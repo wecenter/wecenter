@@ -187,7 +187,7 @@ $config[] = array(
         array(
             'id' => 305,
             'title' => '帮助中心',
-            'url' => 'admin/chapter/list/'
+            'url' => 'admin/help/list/'
         )
     )
 );

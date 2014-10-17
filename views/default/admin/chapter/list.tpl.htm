@@ -6,8 +6,8 @@
         <div class="mod-head">
             <h3>
                 <ul class="nav nav-tabs">
-                    <li class="active"><a href="admin/chapter/list/"><?php _e('章节管理'); ?></a></li>
-                    <li><a href="admin/chapter/edit/"><?php _e('新建章节'); ?></a></li>
+                    <li class="active"><a href="admin/help/list/"><?php _e('章节管理'); ?></a></li>
+                    <li><a href="admin/help/edit/"><?php _e('新建章节'); ?></a></li>
                 </ul>
             </h3>
         </div>
@@ -26,7 +26,7 @@
                     </thead>
                     <?php if ($this->chapter_list) { ?>
                     <tbody>
-                    <form id="chapter_form" action="admin/ajax/chapter/save_chapter_sort/" method="post" onsubmit="return false">
+                    <form id="chapter_form" action="admin/ajax/help/save_chapter_sort/" method="post" onsubmit="return false">
                     <?php foreach ($this->chapter_list AS $chapter_info) { ?>
                     <tr>
                         <td>
@@ -38,8 +38,8 @@
                             </div>
                         </td>
                         <td >
-                            <a href="admin/chapter/edit/<?php echo $chapter_info['id']; ?>" data-toggle="tooltip" class="icon icon-edit md-tip" title="<?php _e('编辑'); ?>"></a>
-                            <a onclick="AWS.ajax_request(G_BASE_URL + '/admin/ajax/chapter/remove_chapter/', 'id=<?php echo $chapter_info['id'];?>');" data-toggle="tooltip" class="icon icon-trash md-tip" title="<?php _e('删除'); ?>"></a>
+                            <a href="admin/help/edit/<?php echo $chapter_info['id']; ?>" data-toggle="tooltip" class="icon icon-edit md-tip" title="<?php _e('编辑'); ?>"></a>
+                            <a onclick="AWS.ajax_request(G_BASE_URL + '/admin/ajax/help/remove_chapter/', 'id=<?php echo $chapter_info['id'];?>');" data-toggle="tooltip" class="icon icon-trash md-tip" title="<?php _e('删除'); ?>"></a>
                         </td>
                     </tr>
                     <?php } ?>
