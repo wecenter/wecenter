@@ -397,6 +397,11 @@ class weixin_class extends AWS_MODEL
                 break;
 
             case 'image':
+                if (get_setting('weixin_account_role') != 'service')
+                {
+                    break;
+                }
+
                 if ($input_message['mediaID'] AND $input_message['picUrl'])
                 {
                     AWS_APP::cache()->set('weixin_pic_url_' . md5($input_message['mediaID']), $input_message['picUrl'], 259200);
