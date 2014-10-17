@@ -33,14 +33,9 @@ class main extends AWS_CONTROLLER
 
     public function index_action()
     {
-        if (is_mobile())
-        {
-            HTTP::redirect('/m/chapter/' . $_GET['id']);
-        }
-
         if ($_GET['id'])
         {
-            $chapter_list = $this->model('chapter')->get_chapter_list();
+            $chapter_list = $this->model('help')->get_chapter_list();
 
             if (!$chapter_list)
             {
@@ -66,12 +61,12 @@ class main extends AWS_CONTROLLER
 
             if (!$chapter)
             {
-                H::redirect_msg(AWS_APP::lang()->_t('指定章节不存在'), '/chapter/');
+                H::redirect_msg(AWS_APP::lang()->_t('指定章节不存在'), '/help/');
             }
 
             TPL::assign('chapter_info', $chapter);
 
-            $data_list = $this->model('chapter')->get_data_list($chapter['id']);
+            $data_list = $this->model('help')->get_data_list($chapter['id']);
 
             if ($data_list)
             {
@@ -80,18 +75,18 @@ class main extends AWS_CONTROLLER
 
             $this->crumb($chapter['title'], '/help/' . ($chapter['url_token']) ? $chapter['url_token'] : $chapter['id']);
 
-            TPL::output('chapter/index');
+            TPL::output('help/index');
         }
         else
         {
-            $chapter_list = $this->model('chapter')->get_chapter_list();
+            $chapter_list = $this->model('help')->get_chapter_list();
 
             if ($chapter_list)
             {
                 TPL::assign('chapter_list', $chapter_list);
             }
 
-            $data_list = $this->model('chapter')->get_data_list(null, 5);
+            $data_list = $this->model('help')->get_data_list(null, 5);
 
             if ($data_list)
             {
@@ -100,7 +95,7 @@ class main extends AWS_CONTROLLER
 
             $this->crumb(AWS_APP::lang()->_t('帮助中心'), '/help/');
 
-            TPL::output('chapter/square');
+            TPL::output('help/square');
         }
     }
 }

@@ -47,7 +47,7 @@ class ajax extends AWS_CONTROLLER
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('错误的请求')));
         }
 
-        $chapter_info = $this->model('chapter')->get_chapter_by_id($_POST['id']);
+        $chapter_info = $this->model('help')->get_chapter_by_id($_POST['id']);
 
         if (!$chapter_info)
         {
@@ -64,7 +64,7 @@ class ajax extends AWS_CONTROLLER
                     H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('指定问题不存在')));
                 }
 
-                $this->model('chapter')->add_data($chapter_info['id'], 'question', $question_info['question_id']);
+                $this->model('help')->add_data($chapter_info['id'], 'question', $question_info['question_id']);
 
                 break;
 
@@ -76,7 +76,7 @@ class ajax extends AWS_CONTROLLER
                     H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('指定文章不存在')));
                 }
 
-                $this->model('chapter')->add_data($chapter_info['id'], 'article', $article_info['id']);
+                $this->model('help')->add_data($chapter_info['id'], 'article', $article_info['id']);
 
                 break;
 
@@ -111,7 +111,7 @@ class ajax extends AWS_CONTROLLER
                     H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('指定问题不在帮助中心中')));
                 }
 
-                $this->model('chapter')->remove_data('question', $question_info['question_id']);
+                $this->model('help')->remove_data('question', $question_info['question_id']);
 
                 break;
 
@@ -128,7 +128,7 @@ class ajax extends AWS_CONTROLLER
                     H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('指定文章不在帮助中心中')));
                 }
 
-                $this->model('chapter')->remove_data('article', $article_info['id']);
+                $this->model('help')->remove_data('article', $article_info['id']);
 
                 break;
 
@@ -143,7 +143,7 @@ class ajax extends AWS_CONTROLLER
 
     public function list_action()
     {
-        $chapter_list = $this->model('chapter')->get_chapter_list();
+        $chapter_list = $this->model('help')->get_chapter_list();
 
         if (!$chapter_list)
         {
