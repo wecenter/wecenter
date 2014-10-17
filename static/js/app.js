@@ -7,7 +7,7 @@ $(document).ready(function ()
 
     // 验证码
     $('img#captcha').attr('src', G_BASE_URL + '/account/captcha/');
-    
+
     // 输入框自动增高
     $('.autosize').autosize();
 
@@ -15,9 +15,9 @@ $(document).ready(function ()
     if (typeof Markdown != 'undefined' && $('#wmd-input').length)
     {
         var converter1 = new Markdown.Converter();
-        
+
         var editor1 = new Markdown.Editor(converter1, $('.wmd-panel'), $('#wmd-preview'));
-        
+
         editor1.run();
 
         AWS.Editor.set_editor_preview();
@@ -86,20 +86,20 @@ $(document).ready(function ()
             this.title = '第 ' + (this.index + 1) + ' 张, 共 ' + this.group.length + ' 张' + (this.title ? ' - ' + this.title : '');
         }
     });
-	
-	if (window.location.hash.indexOf('#!') != -1)
-	{
-		if ($('a[name=' + window.location.hash.replace('#!', '') + ']').length)
-		{
-			$.scrollTo($('a[name=' + window.location.hash.replace('#!', '') + ']').offset()['top'] - 20, 600, {queue:true});
-		}
-	}
-	
+
+    if (window.location.hash.indexOf('#!') != -1)
+    {
+        if ($('a[name=' + window.location.hash.replace('#!', '') + ']').length)
+        {
+            $.scrollTo($('a[name=' + window.location.hash.replace('#!', '') + ']').offset()['top'] - 20, 600, {queue:true});
+        }
+    }
+
     /*用户头像提示box*/
     AWS.show_card_box('.aw-user-name, .aw-user-img', 'user');
 
     AWS.show_card_box('.topic-tag, .aw-topic-name, .aw-topic-img', 'topic');
-    
+
     //文章页添加评论, 话题添加 绑定事件
     AWS.Init.init_article_comment_box('.aw-article-content .aw-article-comment');
 
@@ -146,12 +146,12 @@ $(document).ready(function ()
 
         return false;
     });
-	
+
     //小卡片mouseover
     $(document).on('mouseover', '#aw-card-tips', function ()
     {
         clearTimeout(AWS.G.card_box_hide_timer);
-        
+
         $(this).show();
     });
 
@@ -165,7 +165,7 @@ $(document).ready(function ()
     $(document).on('click', '.aw-card-tips-user .follow', function ()
     {
         var uid = $(this).parents('.aw-card-tips').find('.name').attr('data-id');
-       
+
         $.each(AWS.G.cashUserData, function (i, a)
         {
             if (a.match('data-id="' + uid + '"'))
@@ -186,7 +186,7 @@ $(document).ready(function ()
     $(document).on('click', '.aw-card-tips-topic .follow', function ()
     {
         var topic_id = $(this).parents('.aw-card-tips').find('.name').attr('data-id');
-        
+
         $.each(AWS.G.cashTopicData, function (i, a)
         {
             if (a.match('data-id="' + topic_id + '"'))
@@ -202,7 +202,7 @@ $(document).ready(function ()
             }
         });
     });
-    
+
     /*icon tooltips提示*/
     $(document).on('mouseover', '.follow, .voter, .aw-icon-thank-tips, .invite-list-user', function ()
     {
@@ -214,7 +214,7 @@ $(document).ready(function ()
 
     //编辑器@人
     AWS.at_user_lists('#wmd-input, .aw-article-replay-box #comment_editor', 5);
-	
+
     //ie浏览器下input,textarea兼容
     if (document.all)
     {
