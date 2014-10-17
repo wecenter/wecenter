@@ -9,15 +9,15 @@
                 <span class="pull-left"><?php _e('章节编辑'); ?></span>
                 <?php } else { ?>
                 <ul class="nav nav-tabs">
-                    <li><a href="admin/chapter/list/"><?php _e('章节管理'); ?></a></li>
-                    <li class="active"><a href="admin/chapter/edit/"><?php _e('新建章节'); ?></a></li>
+                    <li><a href="admin/help/list/"><?php _e('章节管理'); ?></a></li>
+                    <li class="active"><a href="admin/help/edit/"><?php _e('新建章节'); ?></a></li>
                 </ul>
                 <?php } ?>
             </h3>
         </div>
 
         <div class="tab-content mod-content">
-            <form action="admin/ajax/chapter/save_chapter/" id="chapter_form" method="post" onsubmit="return false">
+            <form action="admin/ajax/help/save_chapter/" id="chapter_form" method="post" onsubmit="return false">
                 <table class="table table-striped">
                     <?php if ($this->chapter_info) { ?>
                     <input type="hidden" name="id" value="<?php echo $this->chapter_info['id']; ?>" />
@@ -101,7 +101,7 @@
                     </thead>
 
                     <tbody>
-                        <form id="sort_form" action="admin/ajax/chapter/save_data_sort/" method="post" onsubmit="return false" class="clearfix">
+                        <form id="sort_form" action="admin/ajax/help/save_data_sort/" method="post" onsubmit="return false" class="clearfix">
                             <?php foreach ($this->data_list AS $data_info) { ?>
                             <tr>
                                 <input type="hidden" name="data[<?php echo $data_info['id']; ?>][id]" value="<?php echo $data_info['id']; ?>" />
@@ -115,7 +115,7 @@
                                     </div>
                                 </td>
                                 <td class="col-sm-5 col-md-5">
-                                    <a onclick="AWS.ajax_request(G_BASE_URL + '/admin/ajax/chapter/remove_data/', 'id=<?php echo $this->chapter_info['id']; ?>&type=<?php echo $data_info['type']; ?>&item_id=<?php echo $data_info['id'];?>');" data-toggle="tooltip" class="icon icon-trash md-tip" title="<?php _e('删除'); ?>"></a>
+                                    <a onclick="AWS.ajax_request(G_BASE_URL + '/admin/ajax/help/remove_data/', 'id=<?php echo $this->chapter_info['id']; ?>&type=<?php echo $data_info['type']; ?>&item_id=<?php echo $data_info['id'];?>');" data-toggle="tooltip" class="icon icon-trash md-tip" title="<?php _e('删除'); ?>"></a>
                                 </td>
                             </tr>
                             <?php } ?>

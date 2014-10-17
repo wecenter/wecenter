@@ -17,7 +17,7 @@ if (!defined('IN_ANWSION'))
     die;
 }
 
-class chapter_class extends AWS_MODEL
+class help_class extends AWS_MODEL
 {
     public function get_chapter_list($sort = true)
     {
