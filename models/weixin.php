@@ -226,7 +226,7 @@ class weixin_class extends AWS_MODEL
                 'picUrl' => $post_object['PicUrl']
             );
 
-            $weixin_info = $this->model('openid_weixin')->get_user_info_by_openid($input_message['fromUsername']);
+            $weixin_info = $this->model('openid_weixin_weixin')->get_user_info_by_openid($input_message['fromUsername']);
 
             if ($weixin_info)
             {
@@ -235,7 +235,7 @@ class weixin_class extends AWS_MODEL
 
             if (get_setting('weixin_account_role') == 'service')
             {
-                $this->bind_message = '你的微信帐号没有绑定 ' . get_setting('site_name') . ' 的帐号, 请<a href="' . $this->model('openid_weixin')->get_oauth_url(get_js_url('/m/weixin/authorization/')) . '">点此绑定</a>';
+                $this->bind_message = '你的微信帐号没有绑定 ' . get_setting('site_name') . ' 的帐号, 请<a href="' . $this->model('openid_weixin_weixin')->get_oauth_url(get_js_url('/m/weixin/authorization/')) . '">点此绑定</a>';
             }
 
             return $input_message;
@@ -406,7 +406,7 @@ class weixin_class extends AWS_MODEL
                 {
                     AWS_APP::cache()->set('weixin_pic_url_' . md5($input_message['mediaID']), $input_message['picUrl'], 259200);
 
-                    $response_message = '您想提交图片到社区么？<a href="' . $this->model('openid_weixin')->redirect_url('/m/publish/weixin_media_id-' . base64_encode($input_message['mediaID'])) . '">点击进入提交页面</a>';
+                    $response_message = '您想提交图片到社区么？<a href="' . $this->model('openid_weixin_weixin')->redirect_url('/m/publish/weixin_media_id-' . base64_encode($input_message['mediaID'])) . '">点击进入提交页面</a>';
                 }
                 else
                 {
@@ -447,7 +447,7 @@ class weixin_class extends AWS_MODEL
                 {
                     if (!$response_message = $this->create_response_by_reply_rule_keyword($account_info['id'], $account_info['weixin_no_result_message_key']))
                     {
-                        $response_message = '您的问题: ' . $input_message['content'] . ', 目前没有人提到过, <a href="' . $this->model('openid_weixin')->redirect_url('/m/publish/') . '">点此提问</a>';
+                        $response_message = '您的问题: ' . $input_message['content'] . ', 目前没有人提到过, <a href="' . $this->model('openid_weixin_weixin')->redirect_url('/m/publish/') . '">点此提问</a>';
                     }
                 }
 
@@ -1390,7 +1390,7 @@ class weixin_class extends AWS_MODEL
 
                         if (strstr($sub_val['url'], base_url()) AND (!$account_role OR $account_role == 'service'))
                         {
-                            $sub_val['url'] = $this->model('openid_weixin')->redirect_url($sub_val['url']);
+                            $sub_val['url'] = $this->model('openid_weixin_weixin')->redirect_url($sub_val['url']);
                         }
                     }
 
@@ -1412,14 +1412,14 @@ class weixin_class extends AWS_MODEL
 
                 if (strstr($val['url'], base_url()) AND $account_role == 'service')
                 {
-                    $val['url'] = $this->model('openid_weixin')->redirect_url($val['url']);
+                    $val['url'] = $this->model('openid_weixin_weixin')->redirect_url($val['url']);
                 }
             }
 
             $mp_menu_no_key[] = $val;
         }
 
-        $result = $this->model('openid_weixin')->access_request(
+        $result = $this->model('openid_weixin_weixin')->access_request(
                         $account_info['weixin_app_id'],
                         $account_info['weixin_app_secret'],
                         'menu/create',
@@ -1580,7 +1580,7 @@ class weixin_class extends AWS_MODEL
 
         if (!$groups)
         {
-            $result = $this->model('openid_weixin')->access_request(
+            $result = $this->model('openid_weixin_weixin')->access_request(
                             get_setting('weixin_app_id'),
                             get_setting('weixin_app_secret'),
                             'groups/get',
@@ -1610,7 +1610,7 @@ class weixin_class extends AWS_MODEL
 
     public function add_main_msg_to_mpnews($main_msg)
     {
-        $result = $this->model('openid_weixin')->upload_file($main_msg['img'], 'image');
+        $result = $this->model('openid_weixin_weixin')->upload_file($main_msg['img'], 'image');
 
         if (!$result)
         {
@@ -1664,7 +1664,7 @@ class weixin_class extends AWS_MODEL
                 $img = ROOT_PATH . 'static/common/avatar-max-img.jpg';
             }
 
-            $result = $this->model('openid_weixin')->upload_file($img, 'image');
+            $result = $this->model('openid_weixin_weixin')->upload_file($img, 'image');
 
             if (!$result)
             {
@@ -1719,7 +1719,7 @@ class weixin_class extends AWS_MODEL
                 $img = ROOT_PATH . 'static/common/avatar-max-img.jpg';
             }
 
-            $result = $this->model('openid_weixin')->upload_file($img, 'image');
+            $result = $this->model('openid_weixin_weixin')->upload_file($img, 'image');
 
             if (!$result)
             {
@@ -1754,7 +1754,7 @@ class weixin_class extends AWS_MODEL
             return AWS_APP::lang()->_t('没有要群发的内容');
         }
 
-        $result = $this->model('openid_weixin')->access_request(
+        $result = $this->model('openid_weixin_weixin')->access_request(
                         get_setting('weixin_app_id'),
                         get_setting('weixin_app_secret'),
                         'media/uploadnews',
@@ -1787,7 +1787,7 @@ class weixin_class extends AWS_MODEL
                     'msgtype' => $msgtype
                 );
 
-        $result = $this->model('openid_weixin')->access_request(
+        $result = $this->model('openid_weixin_weixin')->access_request(
                         get_setting('weixin_app_id'),
                         get_setting('weixin_app_secret'),
                         'message/mass/sendall',
@@ -1829,7 +1829,7 @@ class weixin_class extends AWS_MODEL
             return AWS_APP::lang()->_t('scene_id 错误');
         }
 
-        $result = $this->model('openid_weixin')->access_request(
+        $result = $this->model('openid_weixin_weixin')->access_request(
                         get_setting('weixin_app_id'),
                         get_setting('weixin_app_secret'),
                         'qrcode/create',

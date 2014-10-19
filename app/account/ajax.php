@@ -52,7 +52,7 @@ class ajax extends AWS_CONTROLLER
 	public function get_weixin_login_qr_url_action()
 	{
 		H::ajax_json_output(AWS_APP::RSM(array(
-			'url' => $this->model('openid_weixin')->get_login_qr_url()
+			'url' => $this->model('openid_weixin_weixin')->get_login_qr_url()
 		), 1, null));
 	}
 
@@ -1241,7 +1241,7 @@ class ajax extends AWS_CONTROLLER
 			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('当前系统设置不允许解除绑定')));
 		}
 
-		$this->model('openid_weixin')->weixin_unbind($this->user_id);
+		$this->model('openid_weixin_weixin')->weixin_unbind($this->user_id);
 
 		H::ajax_json_output(AWS_APP::RSM(null, 1, null));
 	}
@@ -1253,7 +1253,7 @@ class ajax extends AWS_CONTROLLER
 			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('当前微信公众号暂不支持此功能')));
 		}
 
-		if ($user_info = $this->model('openid_weixin')->weixin_login_process(session_id()))
+		if ($user_info = $this->model('openid_weixin_weixin')->weixin_login_process(session_id()))
 		{
 			$this->model('account')->setcookie_login($user_info['uid'], $user_info['user_name'], $user_info['password'], $user_info['salt'], null, false);
 

@@ -18,7 +18,7 @@ if (!defined('IN_ANWSION'))
     die;
 }
 
-class openid_weixin_class extends AWS_MODEL
+class openid_weixin_weixin_class extends AWS_MODEL
 {
     private $app_id;
 
@@ -213,7 +213,7 @@ class openid_weixin_class extends AWS_MODEL
             }
         }
 
-        if ($openid_info = $this->model('openid_weixin')->get_user_info_by_uid($uid))
+        if ($openid_info = $this->get_user_info_by_uid($uid))
         {
             if ($openid_info['opendid'] != $access_user['openid'])
             {
