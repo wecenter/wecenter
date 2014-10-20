@@ -42,18 +42,38 @@ class google extends AWS_CONTROLLER
 
     public function bind_action()
     {
-        unset(AWS_APP::session()->google_user);
+        if (AWS_APP::session()->google_user)
+        {
+            $google_user_info = AWS_APP::session()->google_user;
+
+            unset(AWS_APP::session()->google_user);
+        }
+
+        if ($this->user_id)
+        {
+            $google_user = $this->model('openid_google')->get_google_user_by_uid($this->user_id);
+
+            if ($google_user)
+            {
+                H::redirect_msg(AWS_APP::lang()->_t('此账号已绑定 Google 账号'));
+            }
+        }
 
         if ($_GET['code'])
         {
-            $error_msg = $this->model('openid_google')->oauth2_login($_GET['code'], '/account/google/bind/');
-
-            if (isset($error_msg))
+            if ($google_user_info['authorization_code'] != $_GET['code'])
             {
-                H::redirect_msg($error_msg);
+                $error_msg = $this->model('openid_google')->oauth2_login($_GET['code'], '/account/google/bind/');
+
+                if (isset($error_msg))
+                {
+                    H::redirect_msg($error_msg);
+                }
+
+                $google_user_info = $this->model('openid_google')->user_info;
             }
 
-            $google_user = $this->model('openid_google')->get_google_user_by_id($this->model('openid_google')->user_info['id']);
+            $google_user = $this->model('openid_google')->get_google_user_by_id($google_user_info['id']);
 
             if ($this->user_id)
             {
@@ -62,14 +82,7 @@ class google extends AWS_CONTROLLER
                     H::redirect_msg(AWS_APP::lang()->_t('此 Google 账号已被绑定'));
                 }
 
-                $google_user = $this->model('openid_google')->get_google_user_by_uid($this->user_id);
-
-                if ($google_user)
-                {
-                    H::redirect_msg(AWS_APP::lang()->_t('此账号已绑定 Google 账号'));
-                }
-
-                $this->model('openid_google')->bind_account($this->model('openid_google')->user_info, $this->user_id);
+                $this->model('openid_google')->bind_account($google_user_info, $this->user_id);
 
                 if (!$this->model('integral')->fetch_log($this->user_id, 'BIND_OPENID'))
                 {
@@ -80,24 +93,6 @@ class google extends AWS_CONTROLLER
             }
             else
             {
-                switch (get_setting('register_type'))
-                {
-                    case 'close':
-                        H::redirect_msg(AWS_APP::lang()->_t('本站目前关闭注册'), '/account/login/');
-
-                        break;
-
-                    case 'invite':
-                        H::redirect_msg(AWS_APP::lang()->_t('本站只能通过邀请注册'), '/account/login/');
-
-                        break;
-
-                    case 'weixin':
-                        H::redirect_msg(AWS_APP::lang()->_t('本站只能通过微信注册'), '/account/login/');
-
-                        break;
-                }
-
                 if ($google_user)
                 {
                     $user = $this->model('account')->get_user_info_by_uid($google_user['uid']);
@@ -109,7 +104,7 @@ class google extends AWS_CONTROLLER
                         H::redirect_msg(AWS_APP::lang()->_t('用户不存在'), '/account/login/');
                     }
 
-                    $this->model('openid_google')->update_user_info($google_user['id'], $this->model('openid_google')->user_info);
+                    $this->model('openid_google')->update_user_info($google_user['id'], $google_user_info);
 
                     HTTP::set_cookie('_user_login', get_login_cookie_hash($user['user_name'], $user['password'], $user['salt'], $user['uid'], false));
 
@@ -117,7 +112,25 @@ class google extends AWS_CONTROLLER
                 }
                 else
                 {
-                    AWS_APP::session()->google_user = $this->model('openid_google')->user_info;
+                    switch (get_setting('register_type'))
+                    {
+                        case 'close':
+                            H::redirect_msg(AWS_APP::lang()->_t('本站目前关闭注册'), '/account/login/');
+
+                            break;
+
+                        case 'invite':
+                            H::redirect_msg(AWS_APP::lang()->_t('本站只能通过邀请注册'), '/account/login/');
+
+                            break;
+
+                        case 'weixin':
+                            H::redirect_msg(AWS_APP::lang()->_t('本站只能通过微信注册'), '/account/login/');
+
+                            break;
+                    }
+
+                    AWS_APP::session()->google_user = $google_user_info;
 
                     $this->crumb(AWS_APP::lang()->_t('完善资料'), '/account/login/');
 

@@ -113,11 +113,14 @@ class ajax_google extends AWS_CONTROLLER
         {
             $uid = $this->model('account')->user_register($_POST['user_name'], $_POST['password'], $_POST['email']);
 
+            if (get_setting('register_valid_type') != 'approval')
+            {
+                $this->model('active')->active_user_by_uid($uid);
+            }
+
             if (AWS_APP::session()->google_user['email'] == $_POST['email'] AND AWS_APP::session()->google_user['verified_email'] == true)
             {
                 $this->model('active')->set_user_email_valid_by_uid($uid);
-
-                $this->model('active')->active_user_by_uid($uid);
             }
             else if (get_setting('register_valid_type') == 'email')
             {
