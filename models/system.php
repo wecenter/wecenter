@@ -486,6 +486,7 @@ class system_class extends AWS_MODEL
 			'users_sina',
 			'users_ucenter',
 			'users_weixin',
+			'users_google'
 			'users'
 		);
 

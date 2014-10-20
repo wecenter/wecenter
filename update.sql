@@ -15,3 +15,8 @@ CREATE TABLE `[#DB_PREFIX#]users_google` (
   UNIQUE KEY `uid` (`uid`),
   KEY `access_token` (`access_token`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
+
+INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES
+('google_login_enabled', 's:1:"N";'),
+('google_client_id', 's:0:"";'),
+('google_client_secret', 's:0:"";');

@@ -21,9 +21,11 @@ class main extends AWS_CONTROLLER
 {
     public function get_access_rule()
     {
-        $rule_action['rule_type'] = 'black';
+        $rule_action['rule_type'] = 'white';
 
-        $rule_action['actions'] = array();
+        $rule_action['actions'] = array(
+            'bind'
+        );
 
         return $rule_action;
     }
@@ -32,19 +34,49 @@ class main extends AWS_CONTROLLER
     {
         HTTP::no_cache_header();
 
-        if (get_setting('google_enabled') != 'Y' OR !get_setting('google_client_id') OR !get_setting('google_client_secret'))
+        if (get_setting('google_login_enabled') != 'Y' OR !get_setting('google_client_id') OR !get_setting('google_client_secret'))
         {
-            H::redirect_msg(AWS_APP::lang()->_t('本站未开通 Google 登录'), '/account/login/');
+            H::redirect_msg(AWS_APP::lang()->_t('本站未开通 Google 登录'));
         }
     }
 
-    public function login_action()
+    public function bind_action()
     {
+        unset(AWS_APP::session()->google_user);
+
         if ($_GET['code'])
         {
+            $error_msg = $this->model('openid_google')->oauth2_login($_GET['code']);
+
+            if (isset($error_msg))
+            {
+                H::redirect_msg($error_msg);
+            }
+
+            $google_user = $this->model('openid_google')->get_google_user_by_id($this->model('openid_google')->user_info['id']);
+
             if ($this->user_id)
             {
+                if ($google_user)
+                {
+                    H::redirect_msg(AWS_APP::lang()->_t('此 Google 账号已被绑定'));
+                }
 
+                $google_user = $this->model('openid_google')->get_google_user_by_uid($this->user_id);
+
+                if ($google_user)
+                {
+                    H::redirect_msg(AWS_APP::lang()->_t('此账号已绑定 Google 账号'));
+                }
+
+                $this->model('openid_google')->bind_account($this->model('openid_google')->user_info, $this->user_id);
+
+                if (!$this->model('integral')->fetch_log($this->user_id, 'BIND_OPENID'))
+                {
+                    $this->model('integral')->process($this->user_id, 'BIND_OPENID', round((get_setting('integral_system_config_profile') * 0.2)), '绑定 OPEN ID');
+                }
+
+                HTTP::redirect('/account/setting/openid/');
             }
             else
             {
@@ -66,15 +98,6 @@ class main extends AWS_CONTROLLER
                         break;
                 }
 
-                $error_msg = $this->model('openid_google')->oauth2_login($_GET['code']);
-
-                if (isset($error_msg))
-                {
-                    H::redirect_msg($error_msg, '/account/login/');
-                }
-
-                $google_user = $this->model('openid_google')->get_google_user_by_id($this->model('openid_google')->user_info['id']);
-
                 if ($google_user)
                 {
                     $user = $this->model('account')->get_user_info_by_uid($google_user['uid']);
@@ -89,6 +112,8 @@ class main extends AWS_CONTROLLER
                     $this->model('openid_google')->update_user_info($google_user['id'], $this->model('openid_google')->user_info);
 
                     HTTP::set_cookie('_user_login', get_login_cookie_hash($user['user_name'], $user['password'], $user['salt'], $user['uid'], false));
+
+                    HTTP::redirect('/');
                 }
                 else
                 {
@@ -110,7 +135,14 @@ class main extends AWS_CONTROLLER
         }
         else
         {
-            HTTP::redirect($this->model('openid_google')->get_redirect_url(get_js_url('/account/google/login/')));
+            HTTP::redirect($this->model('openid_google')->get_redirect_url(get_js_url('/account/google/bind/')));
         }
+    }
+
+    public function unbind_action()
+    {
+        $this->model('openid_google')->unbind_account($this->user_id);
+
+        HTTP::redirect('/account/setting/openid/');
     }
 }

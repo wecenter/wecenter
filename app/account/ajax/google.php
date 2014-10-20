@@ -21,13 +21,34 @@ if (!defined('IN_ANWSION'))
 
 class ajax_google extends AWS_CONTROLLER
 {
+    public function get_access_rule()
+    {
+        $rule_action['rule_type'] = 'white'; //黑名单,黑名单中的检查  'white'白名单,白名单以外的检查
+
+        $rule_action['actions'] = array(
+            'register'
+        );
+
+        return $rule_action;
+    }
+
     public function setup()
     {
         HTTP::no_cache_header();
+
+        if (get_setting('google_login_enabled') != 'Y' OR !get_setting('google_client_id') OR !get_setting('google_client_secret'))
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('本站未开通 Google 登录')));
+        }
     }
 
     public function register_action()
     {
+        if ($this->user_id)
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('您已登录')));
+        }
+
         switch (get_setting('register_type'))
         {
             case 'close':
@@ -53,7 +74,7 @@ class ajax_google extends AWS_CONTROLLER
 
         if ($this->model('openid_google')->get_google_user_by_id($google_user['id']))
         {
-            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('此 Google 账号已绑定')));
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('此 Google 账号已被绑定')));
         }
 
         if ($this->model('account')->check_email($_POST['email']))
@@ -111,10 +132,7 @@ class ajax_google extends AWS_CONTROLLER
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('注册失败')));
         }
 
-        if (!$this->model('openid_google')->bind_account(AWS_APP::session()->google_user, $uid))
-        {
-            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('绑定失败')));
-        }
+        $this->model('openid_google')->bind_account(AWS_APP::session()->google_user, $uid);
 
         if (AWS_APP::session()->google_user['picture'])
         {

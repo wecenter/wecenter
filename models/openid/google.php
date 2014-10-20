@@ -183,7 +183,7 @@ class openid_google_class extends AWS_MODEL
             return false;
         }
 
-        $this->insert('users_google', array(
+        return $this->insert('users_google', array(
             'id' => htmlspecialchars($google_user['id']),
             'uid' => intval($uid),
             'name' => htmlspecialchars($google_user['name']),
@@ -196,6 +196,16 @@ class openid_google_class extends AWS_MODEL
             'refresh_token' => htmlspecialchars($google_user['refresh_token']),
             'expires_time' => intval($google_user['expires_time'])
         ));
+    }
+
+    public function unbind_account($uid)
+    {
+        if (!is_digits($uid))
+        {
+            return false;
+        }
+
+        return $this->delete('users_google', 'uid = ' . $uid);
     }
 
     public function update_user_info($id, $google_user)
