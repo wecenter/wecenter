@@ -25,7 +25,7 @@ class openid_google_class extends AWS_MODEL
 
     const OAUTH2_TOKEN_VALIDATION_URL = 'https://www.googleapis.com/oauth2/v2/tokeninfo';
 
-    const OAUTH2_USER_INFO_URL 'https://www.googleapis.com/oauth2/v2/userinfo';
+    const OAUTH2_USER_INFO_URL = 'https://www.googleapis.com/oauth2/v2/userinfo';
 
     public $user_info;
 
@@ -33,7 +33,7 @@ class openid_google_class extends AWS_MODEL
     {
         $args = array(
             'client_id' => get_setting('google_client_id'),
-            'redirect_uri' => $redirect_uri,
+            'redirect_uri' => get_js_url($redirect_uri),
             'response_type' => 'code',
             'scope' => 'profile email'
         );
@@ -41,7 +41,7 @@ class openid_google_class extends AWS_MODEL
         return self::OAUTH2_AUTH_URL . '?' .http_build_query($args);
     }
 
-    public function get_access_token($code, $redirect_uri)
+    public function oauth2_login($code, $redirect_uri)
     {
         if (!$code)
         {
@@ -53,7 +53,7 @@ class openid_google_class extends AWS_MODEL
             'client_secret' => get_setting('google_client_secret'),
             'code' => $code,
             'grant_type' => 'authorization_code',
-            'redirect_uri' => $redirect_uri
+            'redirect_uri' => get_js_url($redirect_uri)
         );
 
         $result = HTTP::request(self::OAUTH2_TOKEN_URI, 'POST', $args);
@@ -188,13 +188,14 @@ class openid_google_class extends AWS_MODEL
             'uid' => intval($uid),
             'name' => htmlspecialchars($google_user['name']),
             'locale' => htmlspecialchars($google_user['locale']),
-            'picture' => urlencode($google_user['picture']),
+            'picture' => htmlspecialchars($google_user['picture']),
             'gender' => htmlspecialchars($google_user['gender']),
             'email' => htmlspecialchars($google_user['email']),
-            'link' => urlencode($google_user['link']),
+            'link' => htmlspecialchars($google_user['link']),
             'access_token' => htmlspecialchars($google_user['access_token']),
             'refresh_token' => htmlspecialchars($google_user['refresh_token']),
-            'expires_time' => intval($google_user['expires_time'])
+            'expires_time' => intval($google_user['expires_time']),
+            'add_time' => time()
         ));
     }
 
@@ -218,10 +219,10 @@ class openid_google_class extends AWS_MODEL
         return $this->update('users_google', array(
             'name' => htmlspecialchars($google_user['name']),
             'locale' => htmlspecialchars($google_user['locale']),
-            'picture' => urlencode($google_user['picture']),
+            'picture' => htmlspecialchars($google_user['picture']),
             'gender' => htmlspecialchars($google_user['gender']),
             'email' => htmlspecialchars($google_user['email']),
-            'link' => urlencode($google_user['link']),
+            'link' => htmlspecialchars($google_user['link']),
             'access_token' => htmlspecialchars($google_user['access_token']),
             'refresh_token' => htmlspecialchars($google_user['refresh_token']),
             'expires_time' => intval($google_user['expires_time'])

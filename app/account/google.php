@@ -17,7 +17,7 @@ if (!defined('IN_ANWSION'))
     die;
 }
 
-class main extends AWS_CONTROLLER
+class google extends AWS_CONTROLLER
 {
     public function get_access_rule()
     {
@@ -46,7 +46,7 @@ class main extends AWS_CONTROLLER
 
         if ($_GET['code'])
         {
-            $error_msg = $this->model('openid_google')->oauth2_login($_GET['code']);
+            $error_msg = $this->model('openid_google')->oauth2_login($_GET['code'], '/account/google/bind/');
 
             if (isset($error_msg))
             {
@@ -135,7 +135,7 @@ class main extends AWS_CONTROLLER
         }
         else
         {
-            HTTP::redirect($this->model('openid_google')->get_redirect_url(get_js_url('/account/google/bind/')));
+            HTTP::redirect($this->model('openid_google')->get_redirect_url('/account/google/bind/'));
         }
     }
 
