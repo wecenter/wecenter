@@ -121,16 +121,17 @@ class openid_google_class extends AWS_MODEL
         }
 
         $this->user_info = array(
-            'id' => htmlspecialchars($result['id']),
-            'name' => htmlspecialchars($result['name']),
-            'locale' => htmlspecialchars($result['locale']),
-            'picture' => urlencode($result['picture']),
-            'gender' => htmlspecialchars($result['gender']),
-            'email' => htmlspecialchars($result['email']),
-            'link' => urlencode($result['link']),
-            'access_token' => htmlspecialchars($access_token),
-            'refresh_token' => htmlspecialchars($refresh_token),
-            'expires_time' => intval($expires_time)
+            'id' => $result['id'],
+            'name' => $result['name'],
+            'locale' => $result['locale'],
+            'picture' => $result['picture'],
+            'gender' => $result['gender'],
+            'email' => $result['email'],
+            'link' => $result['link'],
+            'access_token' => $access_token,
+            'refresh_token' => $refresh_token,
+            'expires_time' => $expires_time,
+            'verified_email' => $result['verified_email']
         );
     }
 
@@ -170,24 +171,61 @@ class openid_google_class extends AWS_MODEL
         }
 
         $this->update('users_google',  array(
-            'access_token' => $access_token,
+            'access_token' => htmlspecialchars($access_token),
             'expires_time' => time() + intval($result['expires_in'])
         ), 'id = ' . $id);
     }
 
-    public function bind_account()
+    public function bind_account($google_user, $uid)
     {
+        if ($this->get_google_user_by_id($google_user['id']) OR $this->get_google_user_by_uid($uid))
+        {
+            return false;
+        }
 
+        $this->insert('users_google', array(
+            'id' => htmlspecialchars($google_user['id']),
+            'uid' => intval($uid),
+            'name' => htmlspecialchars($google_user['name']),
+            'locale' => htmlspecialchars($google_user['locale']),
+            'picture' => urlencode($google_user['picture']),
+            'gender' => htmlspecialchars($google_user['gender']),
+            'email' => htmlspecialchars($google_user['email']),
+            'link' => urlencode($google_user['link']),
+            'access_token' => htmlspecialchars($google_user['access_token']),
+            'refresh_token' => htmlspecialchars($google_user['refresh_token']),
+            'expires_time' => intval($google_user['expires_time'])
+        ));
     }
 
-    public function update_user_info($id, $data)
+    public function update_user_info($id, $google_user)
     {
         if (!is_digits($id))
         {
             return false;
         }
 
-        return $this->update('users_google', $data, 'id = ' . $id);
+        return $this->update('users_google', array(
+            'name' => htmlspecialchars($google_user['name']),
+            'locale' => htmlspecialchars($google_user['locale']),
+            'picture' => urlencode($google_user['picture']),
+            'gender' => htmlspecialchars($google_user['gender']),
+            'email' => htmlspecialchars($google_user['email']),
+            'link' => urlencode($google_user['link']),
+            'access_token' => htmlspecialchars($google_user['access_token']),
+            'refresh_token' => htmlspecialchars($google_user['refresh_token']),
+            'expires_time' => intval($google_user['expires_time'])
+        ), 'id = ' . $id);
+    }
+
+    public function remove_google_user($id)
+    {
+        if (!is_digits($id))
+        {
+            return false;
+        }
+
+        return $this->delete('users_google', 'id = ' . $id);
     }
 
     public function get_google_user_by_id($id)
@@ -197,7 +235,30 @@ class openid_google_class extends AWS_MODEL
             return false;
         }
 
-        return $this->fetch_row('users_google', 'id = ' . $id);
+        static $google_user_info;
+
+        if (!$google_user_info[$id])
+        {
+            $google_user_info[$id] = $this->fetch_row('users_google', 'id = ' . $id);
+        }
+
+        return $google_user_info[$id];
     }
 
+    public function get_google_user_by_uid($uid)
+    {
+        if (!is_digits($uid))
+        {
+            return false;
+        }
+
+        static $google_user_info;
+
+        if (!$google_user_info[$uid])
+        {
+            $google_user_info[$uid] = $this->fetch_row('users_google', 'uid = ' . $uid);
+        }
+
+        return $google_user_info[$uid];
+    }
 }
