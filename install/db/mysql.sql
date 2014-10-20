@@ -126,7 +126,7 @@ CREATE TABLE `[#DB_PREFIX#]attach` (
   `file_location` varchar(255) DEFAULT NULL COMMENT '文件位置',
   `is_image` int(1) DEFAULT '0',
   `item_type` varchar(32) DEFAULT '0' COMMENT '关联类型',
-  `item_id` bigint(30) DEFAULT '0' COMMENT '关联 ID',
+  `item_id` bigint(20) DEFAULT '0' COMMENT '关联 ID',
   `wait_approval` TINYINT( 1 ) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `access_key` (`access_key`),
@@ -469,7 +469,7 @@ CREATE TABLE `[#DB_PREFIX#]question` (
   `thanks_count` int(10) NOT NULL DEFAULT '0',
   `question_content_fulltext` text,
   `is_recommend` tinyint(1) NOT NULL DEFAULT '0',
-  `weibo_msg_id` bigint(30) DEFAULT NULL,
+  `weibo_msg_id` bigint(20) DEFAULT NULL,
   `received_email_id` int(10) DEFAULT NULL,
   `chapter_id` int(10) UNSIGNED DEFAULT NULL,
   `sort` tinyint(2) UNSIGNED NOT NULL DEFAULT '0',
@@ -886,7 +886,7 @@ CREATE TABLE `[#DB_PREFIX#]users_sina` (
   `add_time` int(10) DEFAULT NULL COMMENT '添加时间',
   `expires_time` int(10) DEFAULT '0' COMMENT '过期时间',
   `access_token` varchar(64) DEFAULT NULL,
-  `last_msg_id` bigint(30) DEFAULT NULL,
+  `last_msg_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `uid` (`uid`),
   KEY `access_token` (`access_token`),
@@ -1143,7 +1143,7 @@ CREATE TABLE `[#DB_PREFIX#]weixin_msg` (
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8 COMMENT='微信群发列表';
 
 CREATE TABLE `[#DB_PREFIX#]weibo_msg` (
-  `id` bigint(30) NOT NULL,
+  `id` bigint(20) NOT NULL,
   `created_at` int(10) NOT NULL,
   `msg_author_uid` bigint(20) NOT NULL,
   `text` varchar(255) NOT NULL,
