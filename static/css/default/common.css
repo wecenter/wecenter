@@ -483,7 +483,7 @@ a.aw-load-more-content{display: block;}
 .aw-common-list .aw-question-content .aw-user-name img{max-width: 24px;}
 .aw-common-list .aw-question-content p{margin:0;color: #999;}
 .aw-common-list .aw-question-content .contribute{position:relative;margin-left: 20px;}
-.aw-common-list .aw-question-content .contribute span{position: absolute;right:0;top:-20px;min-width: 25px;}
+.aw-common-list .aw-question-content .contribute span{position: absolute;right:0;top:-20px;}
 .aw-common-list .aw-question-content .contribute img{border-radius: 12px;}
 .aw-common-list .aw-question-content .aw-topic-name{display:inline-block;margin:0 2px 3px;}
 /* 问题列表用户头像 */
