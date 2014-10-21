@@ -64,6 +64,8 @@ class openid extends AWS_CONTROLLER
 
 		if ($this->is_post() and AWS_APP::session()->sina_profile and ! AWS_APP::session()->sina_token['error'])
 		{
+			define('IN_AJAX', TRUE);
+
 			if (get_setting('register_type') == 'close')
 			{
 				H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('本站目前关闭注册')));
@@ -116,23 +118,23 @@ class openid extends AWS_CONTROLLER
 				), -1, AWS_APP::lang()->_t('密码长度不符合规则')));
 			}
 
-			if (! $_POST['agreement_chk'])
+			if (!$_POST['agreement_chk'])
 			{
 				H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('你必需同意用户协议才能继续')));
 			}
 
 			if (get_setting('ucenter_enabled') == 'Y')
 			{
-				$result = $this->model('ucenter')->register($_POST['user_name'], $_POST['password'], $_POST['email'], true);
+				$result = $this->model('ucenter')->register($_POST['user_name'], $_POST['password'], $_POST['email']);
 
-				if (is_array($result))
+				if (!is_array($result))
 				{
-					$uid = $result['user_info']['uid'];
+					H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('UCenter 同步失败，错误为：%s', $result)));
 				}
-				else
-				{
-					H::ajax_json_output(AWS_APP::RSM(null, - 1, $result));
-				}
+
+				$uid = $result['user_info']['uid'];
+
+				$redirect_url = '/account/sync_login/';
 			}
 			else
 			{
@@ -147,23 +149,32 @@ class openid extends AWS_CONTROLLER
 				{
 					$this->model('active')->active_user_by_uid($uid);
 				}
+
+				$redirect_url = '/';
 			}
 
-			if ($uid)
-			{
-				$this->model('openid_weibo')->bind_account(AWS_APP::session()->sina_profile, null, $uid, AWS_APP::session()->sina_token, true);
-
-				if (AWS_APP::session()->sina_profile['profile_image_url'])
-				{
-					$this->model('account')->associate_remote_avatar($uid, str_replace('/50/', '/180/', AWS_APP::session()->sina_profile['profile_image_url']));
-				}
-
-				H::ajax_json_output(AWS_APP::RSM(null, 1, null));
-			}
-			else
+			if (!$uid)
 			{
 				H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('与微博通信出错 (Register), 请重新登录')));
 			}
+
+			$this->model('openid_weibo')->bind_account(AWS_APP::session()->sina_profile, null, $uid, AWS_APP::session()->sina_token, true);
+
+			if (AWS_APP::session()->sina_profile['profile_image_url'])
+			{
+				$this->model('account')->associate_remote_avatar($uid, str_replace('/50/', '/180/', AWS_APP::session()->sina_profile['profile_image_url']));
+			}
+
+			$user_info = $this->model('account')->get_user_info_by_uid($uid);
+
+			HTTP::set_cookie('_user_login', get_login_cookie_hash($user_info['user_name'], $user_info['password'], $user_info['salt'], $user_info['uid'], false));
+
+			unset(AWS_APP::session()->sina_profile);
+			unset(AWS_APP::session()->sina_token);
+
+			H::ajax_json_output(AWS_APP::RSM(array(
+				'url' => get_js_url($redirect_url)
+			), 1, null));
 		}
 		else
 		{
@@ -207,12 +218,14 @@ class openid extends AWS_CONTROLLER
 
 				if (get_setting('ucenter_enabled') == 'Y')
 				{
-					HTTP::redirect('/account/sync_login/');
+					$redirect_url = '/account/sync_login/';
 				}
 				else
 				{
-					HTTP::redirect('/');
+					$redirect_url = '/';
 				}
+
+				HTTP::redirect($redirect_url);
 			}
 			else
 			{
@@ -319,7 +332,7 @@ class openid extends AWS_CONTROLLER
 
 			if (get_setting('ucenter_enabled') == 'Y')
 			{
-				$result = $this->model('ucenter')->register($_POST['user_name'], $_POST['password'], $_POST['email'], true);
+				$result = $this->model('ucenter')->register($_POST['user_name'], $_POST['password'], $_POST['email']);
 
 				if (is_array($result))
 				{

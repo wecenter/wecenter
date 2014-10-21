@@ -65,8 +65,8 @@ class openid_weibo_class extends AWS_MODEL
         $data['name'] = htmlspecialchars($name);
         $data['location'] = htmlspecialchars($location);
         $data['description'] = htmlspecialchars($description);
-        $data['url'] = urlencode($url);
-        $data['profile_image_url'] = urlencode($profile_image_url);
+        $data['url'] = htmlspecialchars($url);
+        $data['profile_image_url'] = htmlspecialchars($profile_image_url);
         $data['gender'] = htmlspecialchars($gender);
         $data['add_time'] = time();
 
