@@ -7,11 +7,11 @@
 				<div class="col-sm-12 col-md-9 aw-main-content">
 					<!-- tab 切换 -->
 					<ul class="nav nav-tabs aw-nav-tabs active">
-						<li><a href="publish/order/"><?php _e('工单'); ?></a></li>
+						<li class="active"><a href="publish/order/"><?php _e('工单'); ?></a></li>
 						<?php if ($this->user_info['permission']['publish_article']) { ?>
 						<li><a href="publish/article/"><?php _e('文章'); ?></a></li>
 						<?php } ?>
-						<li class="active"><a href="publish/"><?php _e('问题'); ?></a></li>
+						<li><a href="publish/"><?php _e('问题'); ?></a></li>
 						<h2 class="hidden-xs"><i class="icon icon-ask"></i> <?php _e('发起'); ?></h2>
 					</ul>
 					<!-- end tab 切换 -->

@@ -188,6 +188,11 @@ class main extends AWS_CONTROLLER
 		TPL::output('publish/article');
 	}
 
+	public function order_action()
+	{
+		TPL::output('publish/order');
+	}
+
 	public function wait_approval_action()
 	{
 		if ($_GET['question_id'])

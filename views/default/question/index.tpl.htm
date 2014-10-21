@@ -34,19 +34,6 @@
 					</div>
 					<?php } ?>
 					<!-- 话题推荐bar -->
-					<!-- 话题bar -->
-					<div class="aw-mod aw-topic-bar" id="question_topic_editor" data-type="question" data-id="<?php echo $this->question_info['question_id']; ?>">
-						<div class="tag-bar clearfix">
-							<?php foreach($this->question_topics as $key => $val) { ?>
-							<span class="topic-tag" data-id="<?php echo $val['topic_id']; ?>">
-								<a href="topic/<?php echo $val['url_token']; ?>" class="text"><?php echo $val['topic_title']; ?></a>
-							</span>
-							<?php } ?>
-
-							<?php if ($this->user_id AND ((!$this->question_info['lock'] AND $this->user_info['permission']['edit_question_topic']) OR $this->user_id == $this->question_info['published_uid'])) { ?><span class="icon-inverse aw-edit-topic"<?php if (sizeof($this->question_topics) == 0) { ?> style="display:none"<?php } ?>><i class="icon icon-edit"></i></span><?php } ?>
-						</div>
-					</div>
-					<!-- end 话题bar -->
 					<div class="aw-mod aw-question-detail aw-item">
 						<div class="mod-head">
 							<h1>
@@ -509,9 +496,69 @@
 				</div>
 				<!-- 侧边栏 -->
 				<div class="col-md-3 aw-side-bar hidden-xs hidden-sm">
+					<div class="aw-mod order-status">
+						<div class="mod-body">
+							<ul>
+								<li>序号 : #13</li>
+								<li>来源 : 微博</li>
+								<li>请求人 : 陈德隆</li>
+								<li>处理人 : 郑强</li>
+							</ul>
+						</div>	
+					</div>
+
+					<div class="aw-mod order-operate">
+						<div class="mod-body">
+							<ul>
+								<li>
+									<h3>邀请 :</h3>
+									<input type="text" class="form-control" />
+								</li>
+								<li>
+									<h3>优先级 :</h3>
+									<select name="" id="" class="form-control">
+										<option value="">紧急</option>
+										<option value="">一般</option>
+									</select>
+								</li>
+								<li>
+									<h3>话题 : </h3>
+									<!-- 话题bar -->
+									<div class="aw-topic-bar" id="question_topic_editor" data-type="question" data-id="<?php echo $this->question_info['question_id']; ?>">
+										<div class="tag-bar clearfix">
+											<?php foreach($this->question_topics as $key => $val) { ?>
+											<span class="topic-tag" data-id="<?php echo $val['topic_id']; ?>">
+												<a href="topic/<?php echo $val['url_token']; ?>" class="text"><?php echo $val['topic_title']; ?></a>
+											</span>
+											<?php } ?>
+
+											<?php if ($this->user_id AND ((!$this->question_info['lock'] AND $this->user_info['permission']['edit_question_topic']) OR $this->user_id == $this->question_info['published_uid'])) { ?><span class="icon-inverse aw-edit-topic"<?php if (sizeof($this->question_topics) == 0) { ?> style="display:none"<?php } ?>><i class="icon icon-edit"></i></span><?php } ?>
+										</div>
+									</div>
+									<!-- end 话题bar -->
+								</li>
+								<li>
+									<h3>显示 :</h3>
+									<select name="" id="" class="form-control">
+										<option value="">所有人可见</option>
+										<option value="">不可见</option>
+									</select>
+								</li>
+								<li>
+									<h3>工单状态 :</h3>
+									<select name="" id="" class="form-control">
+										<option value="">受理中</option>
+										<option value="">未受理</option>
+										<option value="">已完成</option>
+									</select>
+								</li>
+							</ul>
+						</div>
+					</div>
+
 					<!-- 发起人 -->
 					<?php if ($this->question_info['anonymous'] == 0) { ?>
-					<div class="aw-mod">
+					<!-- <div class="aw-mod">
 						<div class="mod-head">
 							<h3><?php _e('发起人'); ?></h3>
 						</div>
@@ -532,7 +579,7 @@
 								</dd>
 							</dl>
 						</div>
-					</div>
+					</div> -->
 					<?php } ?>
 					<!-- end 发起人 -->
 
