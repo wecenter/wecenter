@@ -44,13 +44,16 @@
 /* 账号绑定 */
 .aw-user-setting .mod-setting-bind{padding:80px 0 !important;}
 .aw-user-setting .mod-setting-bind ul{text-align: center;}
-.aw-user-setting .mod-setting-bind ul li{display: inline-block;margin:0 65px;}
+.aw-user-setting .mod-setting-bind ul li{display: inline-block;margin:0 25px;}
 .aw-user-setting .mod-setting-bind ul li i{display:block;width:50px;height:50px;margin:0 auto;line-height:50px;border-radius:4px;font-size: 32px;color: #fff;text-align: center;}
 .aw-user-setting .mod-setting-bind ul li p{height: 20px;margin-top: 5px;}
 .aw-user-setting .mod-setting-bind ul li a{margin-top: 15px;}
 .aw-user-setting .mod-setting-bind .icon-weibo{background-color: #ff6161;}
 .aw-user-setting .mod-setting-bind .icon-qq{background-color: #3c88e5;}
 .aw-user-setting .mod-setting-bind .icon-wechat{background-color: #73db42;}
+.aw-user-setting .mod-setting-bind .icon-google{background-color: #e25d4a;}
+.aw-user-setting .mod-setting-bind .icon-facebook{background-color: #3a5799;}
+.aw-user-setting .mod-setting-bind .icon-twitter{background-color: #1eb5ee;}
 /* 我的积分 */
 .aw-user-setting-points table{margin:20px 0;font-size:13px;color: #666;}
 .aw-user-setting-points table .info th{background-color: #F5FAFE !important;border-top: none;font-weight: normal;}

@@ -1,14 +1,22 @@
 /* 登陆页面 */
 body{background:url('img/login_bg.jpg') no-repeat #E9F0F4;}
 #wrapper{position: relative;margin-bottom:20px;padding-top:100px;}
-.btn-weibo{background-color: #ff6666;color: #fff;}
-.btn-weibo:hover{background-color: #FF4D4D;color: #fff;}
-.btn-weibo:active{background-color: #E64545;color: #fff;}
-.btn-qq{background-color: #418ae2;color: #fff;color: #fff;}
-.btn-qq:hover{background-color: #2D7FE2;color: #fff;}
-.btn-qq:active{background-color: #1773E2;color: #fff;}
-.btn-wechat{background-color: #73db42;color: #fff;}
-.btn-wechat:hover{color: #fff;}
+.btn-weibo{background-color: #ff6666;color: #fff !important;}
+.btn-weibo:hover{background-color: #FF4D4D;}
+.btn-weibo:active{background-color: #E64545;}
+.btn-qq{background-color: #418ae2;color: #fff !important;}
+.btn-qq:hover{background-color: #2D7FE2;}
+.btn-qq:active{background-color: #1773E2;}
+.btn-google{background-color: #e25d4a;color: #fff !important;}
+.btn-google:hover{background-color: #E34A33;}
+.btn-google:active{background-color: #CA422D;}
+.btn-facebook{background-color: #3a5799;color: #fff !important;}
+.btn-facebook:hover{background-color: #264A9B;}
+.btn-facebook:active{background-color: #244081;}
+.btn-twitter{background-color: #1eb5ee;color: #fff !important;}
+.btn-twitter:hover{background-color: #00ACE6;}
+.btn-twitter:active{background-color: #009DD2;}
+.btn-wechat{background-color: #73db42;color: #fff !important;}
 .btn-primary{border:none;background-color: #59b0ff;}
 .btn-primary:hover{background-color: #4daaff;}
 .btn-primary:active, .btn-primary:focus{background-color: #1a90ff;}
