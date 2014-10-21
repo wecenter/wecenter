@@ -36,7 +36,7 @@ class main extends AWS_CONTROLLER
 		{
 			HTTP::set_cookie('_ignore_ua_check', 'FALSE');
 		}
-		
+
 		if (!is_mobile())
 		{
 			switch ($_GET['act'])
@@ -527,7 +527,7 @@ class main extends AWS_CONTROLLER
 
 		if (in_weixin() AND get_setting('weixin_app_id') AND get_setting('weixin_account_role') == 'service')
 		{
-			HTTP::redirect($this->model('openid_weixin')->redirect_url($return_url));
+			HTTP::redirect($this->model('openid_weixin_weixin')->redirect_url($return_url));
 		}
 
 		TPL::assign('body_class', 'explore-body');
@@ -931,7 +931,7 @@ class main extends AWS_CONTROLLER
 
 		TPL::assign('contents_topic_id', $contents_topic_id);
 		TPL::assign('contents_topic_title', $contents_topic_title);
-		
+
 		if ($this->user_id)
 		{
 			$topic_info['has_focus'] = $this->model('topic')->has_focus_topic($this->user_id, $topic_info['topic_id']);
@@ -1150,7 +1150,7 @@ class main extends AWS_CONTROLLER
 	{
 		$this->crumb(AWS_APP::lang()->_t('附近的人'), '/m/nearby_people/');
 
-		if ($weixin_user = $this->model('openid_weixin')->get_user_info_by_uid($this->user_id))
+		if ($weixin_user = $this->model('openid_weixin_weixin')->get_user_info_by_uid($this->user_id))
 		{
 			if (!$near_by_users = $this->model('people')->get_near_by_users($weixin_user['longitude'], $weixin_user['latitude'], $this->user_id, 20))
 			{
@@ -1171,7 +1171,7 @@ class main extends AWS_CONTROLLER
 	{
 		$this->crumb(AWS_APP::lang()->_t('附近的问题'), '/m/nearby_question/');
 
-		if ($weixin_user = $this->model('openid_weixin')->get_user_info_by_uid($this->user_id))
+		if ($weixin_user = $this->model('openid_weixin_weixin')->get_user_info_by_uid($this->user_id))
 		{
 			if (!$near_by_questions = $this->model('question')->get_near_by_questions($weixin_user['longitude'], $weixin_user['latitude'], $this->user_id, 20))
 			{

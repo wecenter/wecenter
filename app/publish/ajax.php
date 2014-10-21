@@ -479,7 +479,7 @@ class ajax extends AWS_CONTROLLER
                 H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('图片已过期或 media_id 无效')));
             }
 
-            $file = $this->model('openid_weixin')->get_file($_POST['weixin_media_id']);
+            $file = $this->model('openid_weixin_weixin')->get_file($_POST['weixin_media_id']);
 
             if (!$file)
             {
@@ -577,7 +577,7 @@ class ajax extends AWS_CONTROLLER
 
             if ($_POST['_is_mobile'])
             {
-                if ($weixin_user = $this->model('openid_weixin')->get_user_info_by_uid($this->user_id))
+                if ($weixin_user = $this->model('openid_weixin_weixin')->get_user_info_by_uid($this->user_id))
                 {
                     if ($weixin_user['location_update'] > time() - 7200)
                     {

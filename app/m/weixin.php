@@ -59,14 +59,14 @@ class weixin extends AWS_CONTROLLER
 	{
 		if ($_GET['code'] AND get_setting('weixin_app_id'))
 		{
-			if ($access_token = $this->model('openid_weixin')->get_sns_access_token_by_authorization_code($_GET['code']))
+			if ($access_token = $this->model('openid_weixin_weixin')->get_sns_access_token_by_authorization_code($_GET['code']))
 			{
 				if ($access_token['errcode'])
 				{
 					H::redirect_msg('授权失败: Redirect ' . $access_token['errcode'] . ' ' . $access_token['errmsg'] . ', Code: ' . htmlspecialchars($_GET['code']));
 				}
 
-				if ($weixin_user = $this->model('openid_weixin')->get_user_info_by_openid($access_token['openid']))
+				if ($weixin_user = $this->model('openid_weixin_weixin')->get_user_info_by_openid($access_token['openid']))
 				{
 					$user_info = $this->model('account')->get_user_info_by_uid($weixin_user['uid']);
 
@@ -82,7 +82,7 @@ class weixin extends AWS_CONTROLLER
 					}
 					else
 					{
-						HTTP::redirect($this->model('openid_weixin')->get_oauth_url('/m/weixin/authorization/?redirect=' . urlencode($_GET['redirect'])));
+						HTTP::redirect($this->model('openid_weixin_weixin')->get_oauth_url('/m/weixin/authorization/?redirect=' . urlencode($_GET['redirect'])));
 					}
 				}
 			}
@@ -116,7 +116,7 @@ class weixin extends AWS_CONTROLLER
 			}
 			else
 			{
-				$access_token = $this->model('openid_weixin')->get_sns_access_token_by_authorization_code($_GET['code']);
+				$access_token = $this->model('openid_weixin_weixin')->get_sns_access_token_by_authorization_code($_GET['code']);
 			}
 
 			if ($access_token)
@@ -128,11 +128,11 @@ class weixin extends AWS_CONTROLLER
 
 				if ($_GET['state'] == 'OAUTH' OR $_GET['state'] == 'OAUTH_REDIRECT')
 				{
-					$access_user = $this->model('openid_weixin')->get_user_info_by_oauth_openid_from_mp($access_token['access_token'], $access_token['openid']);
+					$access_user = $this->model('openid_weixin_weixin')->get_user_info_by_oauth_openid_from_mp($access_token['access_token'], $access_token['openid']);
 				}
 				else
 				{
-					$access_user = $this->model('openid_weixin')->get_user_info_by_openid_from_mp($access_token['openid']);
+					$access_user = $this->model('openid_weixin_weixin')->get_user_info_by_openid_from_mp($access_token['openid']);
 				}
 
 				if (!$access_user)
@@ -144,7 +144,7 @@ class weixin extends AWS_CONTROLLER
 				{
 					if ($access_user['errcode'] == 48001)
 					{
-						$this->model('weixin')->send_text_message($access_token['openid'], '当前微信没有绑定社区帐号, 请<a href="' . $this->model('openid_weixin')->get_oauth_url(get_js_url('/m/weixin/authorization/'), 'snsapi_userinfo') . '">点此绑定</a>或<a href="' . get_js_url('/m/register/') . '">注册新账户</a>, 使用全部功能');
+						$this->model('weixin')->send_text_message($access_token['openid'], '当前微信没有绑定社区帐号, 请<a href="' . $this->model('openid_weixin_weixin')->get_oauth_url(get_js_url('/m/weixin/authorization/'), 'snsapi_userinfo') . '">点此绑定</a>或<a href="' . get_js_url('/m/register/') . '">注册新账户</a>, 使用全部功能');
 
 						H::redirect_msg(AWS_APP::lang()->_t('当前微信没有绑定社区帐号, 请返回进行绑定后访问本内容'));
 					}
@@ -164,7 +164,7 @@ class weixin extends AWS_CONTROLLER
 					H::redirect_msg(AWS_APP::lang()->_t('您当前没有关注本公众号, 无法使用全部功能'));
 				}
 
-				if ($weixin_user = $this->model('openid_weixin')->get_user_info_by_openid($access_token['openid']))
+				if ($weixin_user = $this->model('openid_weixin_weixin')->get_user_info_by_openid($access_token['openid']))
 				{
 					$user_info = $this->model('account')->get_user_info_by_uid($weixin_user['uid']);
 
@@ -182,7 +182,7 @@ class weixin extends AWS_CONTROLLER
 
 				if (get_setting('register_type') == 'weixin')
 				{
-					if ($user_info = $this->model('openid_weixin')->weixin_auto_register($access_token, $access_user))
+					if ($user_info = $this->model('openid_weixin_weixin')->weixin_auto_register($access_token, $access_user))
 					{
 						if ($_GET['redirect'])
 						{
@@ -208,7 +208,7 @@ class weixin extends AWS_CONTROLLER
 					TPL::assign('access_token', $access_token);
 					TPL::assign('access_user', $access_user);
 
-					TPL::assign('register_url', $this->model('openid_weixin')->get_oauth_url(get_js_url('/m/weixin/register/redirect-' . urlencode($_GET['redirect'])), 'snsapi_userinfo'));
+					TPL::assign('register_url', $this->model('openid_weixin_weixin')->get_oauth_url(get_js_url('/m/weixin/register/redirect-' . urlencode($_GET['redirect'])), 'snsapi_userinfo'));
 
 					TPL::assign('body_class', 'explore-body');
 
@@ -230,7 +230,7 @@ class weixin extends AWS_CONTROLLER
 	{
 		if (AWS_APP::session()->WXConnect['access_token']['openid'])
 		{
-			$this->model('openid_weixin')->bind_account(AWS_APP::session()->WXConnect['access_user'], AWS_APP::session()->WXConnect['access_token'], $this->user_id);
+			$this->model('openid_weixin_weixin')->bind_account(AWS_APP::session()->WXConnect['access_user'], AWS_APP::session()->WXConnect['access_token'], $this->user_id);
 
 			if ($_GET['redirect'])
 			{
@@ -253,7 +253,7 @@ class weixin extends AWS_CONTROLLER
 		{
 			$_GET['uri'] = urldecode($_GET['uri']);
 		}
-		
+
 		if (!$_GET['uri'])
 		{
 			$redirect_uri = $_SERVER['HTTP_REFERER'];
@@ -274,7 +274,7 @@ class weixin extends AWS_CONTROLLER
 		{
 			$redirect_uri = get_js_url('/m/weixin/mp_redirect/?uri=' . urlencode(base64_encode($redirect_uri)));
 		}
-		
+
 		$this->model('account')->setcookie_logout();	// 清除 COOKIE
 		$this->model('account')->setsession_logout();	// 清除 Session
 
@@ -299,7 +299,7 @@ class weixin extends AWS_CONTROLLER
 	{
 		if ($_GET['code'] AND get_setting('weixin_app_id'))
 		{
-			if (!$access_token = $this->model('openid_weixin')->get_sns_access_token_by_authorization_code($_GET['code']))
+			if (!$access_token = $this->model('openid_weixin_weixin')->get_sns_access_token_by_authorization_code($_GET['code']))
 			{
 				H::redirect_msg('远程服务器忙,请稍后再试, Code: ' . htmlspecialchars($_GET['code']));
 			}
@@ -309,7 +309,7 @@ class weixin extends AWS_CONTROLLER
 				H::redirect_msg('授权失败: Register ' . $access_token['errcode'] . ' ' . $access_token['errmsg'] . ', Code: ' . htmlspecialchars($_GET['code']));
 			}
 
-			if (!$access_user = $this->model('openid_weixin')->get_user_info_by_oauth_openid_from_mp($access_token['access_token'], $access_token['openid']))
+			if (!$access_user = $this->model('openid_weixin_weixin')->get_user_info_by_oauth_openid_from_mp($access_token['access_token'], $access_token['openid']))
 			{
 				H::redirect_msg('远程服务器忙,请稍后再试, Code: get_user_info');
 			}
@@ -324,7 +324,7 @@ class weixin extends AWS_CONTROLLER
 				H::redirect_msg(AWS_APP::lang()->_t('获取用户信息失败'));
 			}
 
-			if ($weixin_user = $this->model('openid_weixin')->get_user_info_by_openid($access_token['openid']))
+			if ($weixin_user = $this->model('openid_weixin_weixin')->get_user_info_by_openid($access_token['openid']))
 			{
 				$user_info = $this->model('account')->get_user_info_by_uid($weixin_user['uid']);
 
@@ -336,7 +336,7 @@ class weixin extends AWS_CONTROLLER
 				}
 			}
 
-			if ($user_info = $this->model('openid_weixin')->weixin_auto_register($access_token, $access_user))
+			if ($user_info = $this->model('openid_weixin_weixin')->weixin_auto_register($access_token, $access_user))
 			{
 				if ($_GET['redirect'])
 				{
@@ -365,7 +365,7 @@ class weixin extends AWS_CONTROLLER
 			HTTP::redirect(get_js_url('/m/weixin/authorization/?redirect=' . urlencode(base64_encode(get_js_url('/m/weixin/qr_login/?token=' . $_GET['token']))) . '&code=' . $_GET['code'] . '&state=' . $_GET['state']));
 		}
 
-		if ($this->model('openid_weixin')->process_client_login($_GET['token'], $this->user_id))
+		if ($this->model('openid_weixin_weixin')->process_client_login($_GET['token'], $this->user_id))
 		{
 			H::redirect_msg('你已成功登录网站', '/m/');
 		}

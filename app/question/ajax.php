@@ -141,9 +141,9 @@ class ajax extends AWS_CONTROLLER
 
 		$this->model('account')->update_question_invite_count($invite_user_info['uid']);
 
-		if ($weixin_user = $this->model('openid_weixin')->get_user_info_by_uid($invite_user_info['uid']) AND $invite_user_info['weixin_settings']['QUESTION_INVITE'] != 'N')
+		if ($weixin_user = $this->model('openid_weixin_weixin')->get_user_info_by_uid($invite_user_info['uid']) AND $invite_user_info['weixin_settings']['QUESTION_INVITE'] != 'N')
 		{
-			$this->model('weixin')->send_text_message($weixin_user['openid'], "有会员在问题 [" . $question_info['question_content'] . "] 邀请了你进行回答", $this->model('openid_weixin')->redirect_url('/m/question/' . $question_info['question_id']));
+			$this->model('weixin')->send_text_message($weixin_user['openid'], "有会员在问题 [" . $question_info['question_content'] . "] 邀请了你进行回答", $this->model('openid_weixin_weixin')->redirect_url('/m/question/' . $question_info['question_id']));
 		}
 
 		$notification_id = $this->model('notify')->send($this->user_id, $invite_user_info['uid'], notify_class::TYPE_INVITE_QUESTION, notify_class::CATEGORY_QUESTION, intval($_POST['question_id']), array(
@@ -605,20 +605,20 @@ class ajax extends AWS_CONTROLLER
 			{
 				//$url = get_js_url('/question/' . $question_info['question_id'] . '?item_id=' . $answer_id . '&rf=false');
 			}
-			
+
 			$answer_info = $this->model('answer')->get_answer_by_id($answer_id);
-			
-			
+
+
 			if ($answer_info['has_attach'])
 			{
 				$answer_info['attachs'] = $this->model('publish')->get_attach('answer', $answer_id, 'min');
 				$answer_info['insert_attach_ids'] = FORMAT::parse_attachs($answer_info['answer_content'], true);
 			}
-			
+
 			$answer_info['user_info'] = $this->user_info;
-			
+
 			$answer_info['answer_content'] = $this->model('question')->parse_at_user(FORMAT::parse_attachs(nl2br(FORMAT::parse_markdown($answer_info['answer_content']))));
-			
+
 			TPL::assign('answer_info', $answer_info);
 
 			if (is_mobile())
@@ -634,7 +634,7 @@ class ajax extends AWS_CONTROLLER
 				), 1, null));
 			}
 
-			
+
 		}
 	}
 

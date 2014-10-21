@@ -169,13 +169,13 @@ class publish_class extends AWS_MODEL
 
 		$this->model('question')->delete_question_uninterested($uid, $question_id);
 
-		if ($weixin_user = $this->model('openid_weixin')->get_user_info_by_uid($question_info['published_uid']) AND $question_info['published_uid'] != $uid)
+		if ($weixin_user = $this->model('openid_weixin_weixin')->get_user_info_by_uid($question_info['published_uid']) AND $question_info['published_uid'] != $uid)
 		{
 			$weixin_user_info = $this->model('account')->get_user_info_by_uid($weixin_user['uid']);
 
 			if ($weixin_user_info['weixin_settings']['NEW_ANSWER'] != 'N')
 			{
-				$this->model('weixin')->send_text_message($weixin_user['openid'], "您的问题 [" . $question_info['question_content'] . "] 收到了新的回答:\n\n" . strip_tags($answer_content), $this->model('openid_weixin')->redirect_url('/m/question/' . $question_id));
+				$this->model('weixin')->send_text_message($weixin_user['openid'], "您的问题 [" . $question_info['question_content'] . "] 收到了新的回答:\n\n" . strip_tags($answer_content), $this->model('openid_weixin_weixin')->redirect_url('/m/question/' . $question_id));
 			}
 		}
 
@@ -349,7 +349,7 @@ class publish_class extends AWS_MODEL
 				'item_id' => $comment_id
 			));
 		}
-		
+
 		if ($at_users = $this->model('question')->parse_at_user($message, false, true))
 		{
 			foreach ($at_users as $user_id)
@@ -376,13 +376,13 @@ class publish_class extends AWS_MODEL
 			));
 		}
 
-		if ($weixin_user = $this->model('openid_weixin')->get_user_info_by_uid($article_info['uid']) AND $article_info['uid'] != $uid)
+		if ($weixin_user = $this->model('openid_weixin_weixin')->get_user_info_by_uid($article_info['uid']) AND $article_info['uid'] != $uid)
 		{
 			$weixin_user_info = $this->model('account')->get_user_info_by_uid($weixin_user['uid']);
 
 			if ($weixin_user_info['weixin_settings']['NEW_ARTICLE_COMMENT'] != 'N')
 			{
-				$this->model('weixin')->send_text_message($weixin_user['openid'], "您的文章 [" . $article_info['title'] . "] 收到了新的评论:\n\n" . strip_tags($message), $this->model('openid_weixin')->redirect_url('/article/' . $article_info['id']));
+				$this->model('weixin')->send_text_message($weixin_user['openid'], "您的文章 [" . $article_info['title'] . "] 收到了新的评论:\n\n" . strip_tags($message), $this->model('openid_weixin_weixin')->redirect_url('/article/' . $article_info['id']));
 			}
 		}
 

@@ -48,7 +48,10 @@ class core_autoload
 		{
 			if (class_exists('AWS_APP', false))
 			{
-				self::$aliases = array_merge(self::$aliases, AWS_APP::plugins()->model());
+				if (AWS_APP::plugins()->model())
+				{
+					self::$aliases = array_merge(self::$aliases, AWS_APP::plugins()->model());
+				}
 			}
 
 			if (isset(self::$aliases[$class_name]))

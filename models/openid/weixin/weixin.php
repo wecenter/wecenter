@@ -18,15 +18,17 @@ if (!defined('IN_ANWSION'))
     die;
 }
 
-class openid_weixin_class extends AWS_MODEL
+class openid_weixin_weixin_class extends AWS_MODEL
 {
-    private $app_id;
+    const WEIXIN_API = 'https://api.weixin.qq.com/cgi-bin/';
 
-    private $app_secret;
+    const WEIXIN_FILE_API = 'http://file.api.weixin.qq.com/cgi-bin/';
+
+    const WECENTER_MP_API = 'http://mp.wecenter.com/services/';
 
     public function access_request($app_id, $app_secret, $url, $method, $contents = NULL)
     {
-        $url = 'https://api.weixin.qq.com/cgi-bin/' . $url . '?access_token=' . $this->get_access_token($app_id, $app_secret);
+        $url = self::WEIXIN_API . $url . '?access_token=' . $this->get_access_token($app_id, $app_secret);
 
         $result = HTTP::request($url, $method, $contents);
 
@@ -107,7 +109,7 @@ class openid_weixin_class extends AWS_MODEL
         }
         else
         {
-            $result = curl_get_contents('https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=' . $app_id . '&secret=' . $app_secret);
+            $result = curl_get_contents(self::WEIXIN_API . 'token?grant_type=client_credential&appid=' . $app_id . '&secret=' . $app_secret);
 
             if (!$result)
             {
@@ -213,7 +215,7 @@ class openid_weixin_class extends AWS_MODEL
             }
         }
 
-        if ($openid_info = $this->model('openid_weixin')->get_user_info_by_uid($uid))
+        if ($openid_info = $this->get_user_info_by_uid($uid))
         {
             if ($openid_info['opendid'] != $access_user['openid'])
             {
@@ -372,10 +374,10 @@ class openid_weixin_class extends AWS_MODEL
 
     public function process_client_login($token, $uid)
     {
-    	if ($this->fetch_row('weixin_login', 'uid = ' . intval($uid) . " AND token = '" . intval($token) . "'"))
-    	{
-	    	return true;
-    	}
+        if ($this->fetch_row('weixin_login', 'uid = ' . intval($uid) . " AND token = '" . intval($token) . "'"))
+        {
+            return true;
+        }
 
         return $this->update('weixin_login', array(
             'uid' => intval($uid)
@@ -441,7 +443,7 @@ class openid_weixin_class extends AWS_MODEL
                             'media' => '@' . $file
                         );
 
-        $url = 'http://file.api.weixin.qq.com/cgi-bin/media/upload?access_token=' . $this->get_access_token($app_id, $app_secret) . '&type=' . $type;
+        $url = self::WEIXIN_API . 'media/upload?access_token=' . $this->get_access_token($app_id, $app_secret) . '&type=' . $type;
 
         $result = HTTP::request($url, 'POST', $post_data);
 
@@ -480,7 +482,7 @@ class openid_weixin_class extends AWS_MODEL
             return $cached_file;
         }
 
-        $url = 'http://file.api.weixin.qq.com/cgi-bin/media/get?access_token=' . $this->get_access_token($app_id, $app_secret) . '&media_id=' . $media_id;
+        $url = self::WEIXIN_FILE_API . 'media/get?access_token=' . $this->get_access_token($app_id, $app_secret) . '&media_id=' . $media_id;
 
         $file = curl_get_contents($url);
 
@@ -506,6 +508,6 @@ class openid_weixin_class extends AWS_MODEL
 
     public function get_login_qr_url()
     {
-	    return 'http://mp.wecenter.com/services/qr_code/' . urlencode(base64_encode($this->get_oauth_url(get_js_url('/m/weixin/qr_login/token-' . $this->request_client_login_token(session_id())), 'snsapi_userinfo', 'OAUTH_REDIRECT')));
+        return self::WECENTER_MP_API . 'qr_code/' . urlencode(base64_encode($this->get_oauth_url(get_js_url('/m/weixin/qr_login/token-' . $this->request_client_login_token(session_id())), 'snsapi_userinfo', 'OAUTH_REDIRECT')));
     }
 }

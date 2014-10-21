@@ -204,7 +204,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
             $_POST['approval_ids'] = array($_POST['approval_id']);
         }
 
-        if (empty($_POST['approval_ids']) OR !is_array($_POST['approval_ids']))
+        if (!$_POST['approval_ids'] OR !is_array($_POST['approval_ids']))
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择条目进行操作')));
         }
@@ -1021,7 +1021,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
         {
             foreach ($group_data as $key => $val)
             {
-                if (empty($val['group_name']))
+                if (!$val['group_name'])
                 {
                     H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请输入用户组名称')));
                 }
@@ -1089,7 +1089,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
         {
             foreach ($group_data as $key => $val)
             {
-                if (empty($val['group_name']))
+                if (!$val['group_name'])
                 {
                     H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请输入用户组名称')));
                 }
@@ -1432,7 +1432,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
             {
                 $job_name = trim(strtolower($job));
 
-                if (!empty($job_name))
+                if ($job_name)
                 {
                     $job_list[] = $job_name;
                 }
@@ -1571,7 +1571,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
         $user_info = $this->model('account')->get_user_info_by_uid($_POST['uid']);
 
-        if (empty($user_info))
+        if (!$user_info)
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('所选用户不存在')));
         }
@@ -1603,11 +1603,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
         {
             $user_info = $this->model('account')->get_user_info_by_uid($uid);
 
-            if (empty($user_info))
-            {
-                continue;
-            }
-            else
+            if ($user_info)
             {
                 if ($user_info['group_id'] == 1)
                 {
@@ -1615,6 +1611,10 @@ class ajax extends AWS_ADMIN_CONTROLLER
                 }
 
                 $this->model('system')->remove_user_by_uid($uid, true);
+            }
+            else
+            {
+                continue;
             }
         }
 
@@ -1725,7 +1725,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
         {
             $user_info = $this->model('account')->get_user_info_by_uid($_POST['uid']);
 
-            if (empty($user_info))
+            if (!$user_info)
             {
                 H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('所选用户不存在')));
             }
@@ -1802,7 +1802,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
                 {
                     $published_user_info = $this->model('account')->get_user_info_by_uid($_POST['uid']);
 
-                    if (empty($published_user_info))
+                    if (!$published_user_info)
                     {
                         H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('所选用户不存在')));
                     }
@@ -1881,7 +1881,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
                 break;
         }
 
-        if (empty($approval_item))
+        if (!$approval_item)
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('待审项不存在')));
         }
@@ -2071,7 +2071,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
         $user_info = $this->model('account')->get_user_info_by_uid($_POST['uid']);
 
-        if (empty($user_info))
+        if (!$user_info)
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('所选用户不存在')));
         }
