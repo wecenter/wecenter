@@ -47,7 +47,7 @@ class HTTP
 
 	/**
 	 * 设置 COOKIE
-	 * 
+	 *
 	 * @param $name
 	 * @param $value
 	 * @param $expire
@@ -363,7 +363,7 @@ class HTTP
 		return 0;
 	}
 
-	public static function request($url, $method, $post_fields = NULL, $time_out = 15)
+	public static function request($url, $method, $post_fields = NULL, $time_out = 15, $header = array())
 	{
 		if (!function_exists('curl_init'))
 		{
@@ -401,9 +401,14 @@ class HTTP
 		curl_setopt($curl, CURLOPT_URL, $url);
 		curl_setopt($curl, CURLINFO_HEADER_OUT, TRUE);
 
-		curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-			'API-RemoteIP: ' . fetch_ip()
-		));
+		if (isset($header) AND !is_array($header))
+		{
+			unset($header);
+		}
+
+		$header[] = 'API-RemoteIP: ' . fetch_ip();
+
+		curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
 
 		if (substr($url, 0, 8) == 'https://')
 		{

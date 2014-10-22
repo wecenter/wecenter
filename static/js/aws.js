@@ -560,11 +560,14 @@ var AWS =
 		        case 'favorite':
 		            $.get(G_BASE_URL + '/favorite/ajax/get_favorite_tags/', function (result)
 		            {
+		            	var html = ''
 
 		                $.each(result, function (i, e)
 		                {
-		                    $('.aw-favorite-tag-list ul').append('<li><a data-value="' + e['title'] + '"><span class="title">' + e['title'] + '</span></a><i class="icon icon-followed"></i></li>');
+		                	html += '<li><a data-value="' + e['title'] + '"><span class="title">' + e['title'] + '</span></a><i class="icon icon-followed"></i></li>';
 		                });
+
+		                $('.aw-favorite-tag-list ul').append(html);
 
 		                $.post(G_BASE_URL + '/favorite/ajax/get_item_tags/', {
 		                	'item_id' : $('#favorite_form input[name="item_id"]').val(),
@@ -592,7 +595,7 @@ var AWS =
 
 		                	if ($(this).parents('li').hasClass('active'))
 		                	{
-		                		var url = G_BASE_URL + '/favorite/ajax/remove_favorite_tag/';
+		                		url = G_BASE_URL + '/favorite/ajax/remove_favorite_tag/';
 
 		                		addClassFlag = false;
 		                	}
@@ -677,10 +680,14 @@ var AWS =
 					{
 						if (result && result != 0)
 						{
+							var html = '';
+
 							$.each(result, function (i, e)
 							{
-								$('.aw-recommend-box ul').append('<li class="aw-border-radius-5"><img class="aw-border-radius-5" src="' + e.icon + '"><a data-id="' + e.id + '" class="aw-hide-txt">' + e.title + '</a><i class="icon icon-followed"></i></li>');
+								html += '<li class="aw-border-radius-5"><img class="aw-border-radius-5" src="' + e.icon + '"><a data-id="' + e.id + '" class="aw-hide-txt">' + e.title + '</a><i class="icon icon-followed"></i></li>'
 							});
+
+							$('.aw-recommend-box ul').append(html);
 
 							$.each($('.aw-recommend-box ul li'), function (i, e)
 							{
@@ -696,7 +703,8 @@ var AWS =
 
 								if ($(this).parents('li').hasClass('active'))
 								{
-									var url =  G_BASE_URL + '/help/ajax/remove_data/',
+									url =  G_BASE_URL + '/help/ajax/remove_data/';
+
 									removeClass = true;
 								}
 
@@ -1160,12 +1168,19 @@ var AWS =
 	                            {
 	                                if (result.length != 0)
 	                                {
+	                                    var html = '';
+
 	                                    $('.aw-invite-dropdown').html('');
+
 	                                    $.each(result, function (i, a)
 	                                    {
-	                                        $('.aw-invite-dropdown').append('<li><img src="' + a.detail.avatar_file + '"/><a>' + a.name + '</a></li>')
+	                                    	html += '<li><img src="' + a.detail.avatar_file + '"/><a>' + a.name + '</a></li>'
 	                                    });
+
+	                                    $('.aw-invite-dropdown').append(html);
+
 	                                    _display();
+
 	                                    $('.aw-invite-dropdown li').click(function ()
 	                                    {
 	                                        _this.val(_this.val().substring(0, ti) + '@' + $(this).find('a').html() + " ").focus();
@@ -2026,7 +2041,7 @@ AWS.Dropdown =
 	                                    'content': a.name,
 	                                    'discuss_count': a.detail.answer_count
 	                                }));
-	                                break;
+	                            break;
 
 								case 'articles':
 	                                $(selector).parent().find('.aw-dropdown-list').append(Hogan.compile(AW_TEMPLATE.searchDropdownListArticles).render(
@@ -2035,7 +2050,7 @@ AWS.Dropdown =
 	                                    'content': a.name,
 	                                    'comments': a.detail.comments
 	                                }));
-	                                break;
+	                            break;
 
 	                            case 'topics':
 	                                $(selector).parent().find('.aw-dropdown-list').append(Hogan.compile(AW_TEMPLATE.searchDropdownListTopics).render(
@@ -2045,7 +2060,7 @@ AWS.Dropdown =
 	                                    'discuss_count': a.detail.discuss_count,
 	                                    'topic_id': a.detail.topic_id
 	                                }));
-	                                break;
+	                            break;
 
 	                            case 'users':
 	                                if (a.detail.signature == '')
@@ -2064,7 +2079,7 @@ AWS.Dropdown =
 	                                    'name': a.name,
 	                                    'intro': signature
 	                                }));
-	                                break;
+	                            break;
 	                        }
 	                    });
 	                break;

@@ -70,7 +70,9 @@
             <?php } ?>
 
             <div class="command">
+                <?php if (get_setting('anonymous_enable') == 'Y') { ?>
                 <label class="pull-left"><input type="checkbox"  value="1" name="anonymous" /> <?php _e('匿名'); ?></label>
+                <?php } ?>
                 <?php if ($this->question_info['question_id'] AND ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator'])) { ?>
                 <!-- <label class="pull-left"><input type="checkbox"  value="1" name="do_delete" /> <?php _e('删除问题'); ?></label> -->
                 <?php } ?>

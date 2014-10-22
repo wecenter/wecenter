@@ -30,6 +30,8 @@ class sina extends AWS_CONTROLLER
 
 	public function setup()
 	{
+		HTTP::no_cache_header();
+
 		if (get_setting('sina_weibo_enabled') != 'Y' OR !get_setting('sina_akey') OR !get_setting('sina_skey'))
 		{
 			H::redirect_msg(AWS_APP::lang()->_t('本站未开通微博登录'), '/');
@@ -55,7 +57,7 @@ class sina extends AWS_CONTROLLER
 
 			$user_info = $this->model('account')->get_user_info_by_uid($user_id);
 
-			if (empty($user_info))
+			if (!$user_info)
 			{
 				H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('本地用户不存在，无法绑定')));
 			}
@@ -87,7 +89,7 @@ class sina extends AWS_CONTROLLER
 
 		if ($sina_profile['error'])
 		{
-			H::redirect_msg(AWS_APP::lang()->_t('与微博通信出错, 错误代码: %s', $sina_profile['error']), "/account/setting/openid/");
+			H::redirect_msg(AWS_APP::lang()->_t('与微博通信出错, 错误代码: %s', $sina_profile['error']), '/account/setting/openid/');
 		}
 
 		if (!$this->model('integral')->fetch_log($user_id, 'BIND_OPENID'))
@@ -103,6 +105,6 @@ class sina extends AWS_CONTROLLER
 	{
 		$this->model('openid_weibo')->del_users_by_uid($this->user_id);
 
-		HTTP::redirect("/account/setting/openid/");
+		HTTP::redirect('/account/setting/openid/');
 	}
 }
