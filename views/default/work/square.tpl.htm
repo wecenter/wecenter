@@ -1,0 +1,97 @@
+<?php TPL::output('global/header.tpl.htm'); ?>
+<div class="aw-container-wrap aw-work-wrap">
+	<?php TPL::output('block/content_nav_menu.tpl.htm'); ?>
+
+	<div class="container">
+		<div class="row">
+			<div class="aw-content-wrap clearfix">
+				<!-- 侧边栏 -->
+				<div class="col-sm-12 col-md-3 aw-side-bar hidden-xs hidden-sm">
+					<div class="aw-mod side-nav">
+						<h2><i class="icon icon-order"></i>工单</h2>
+						<ul>
+							<li>
+								<a class="active">我的待处理工单<span class="badge">23</span></a>
+							</li>
+							<li>
+								<a>未分配工单</a>
+							</li>
+							<li>
+								<a>所有待处理工单</a>
+							</li>
+							<li><a>所有工单</a></li>
+							<li><a >全部人可见工单</a></li>
+						</ul>
+					</div>
+					<div class="aw-mod side-nav">
+						<h2><i class="icon icon-count"></i>统计分析</h2>
+						<ul>
+							<li>
+								<a>综合数据表</a>
+							</li>
+							<li>
+								<a>业绩报表</a>
+							</li>
+							<li>
+								<a>热门话题</a>
+							</li>
+						</ul>
+					</div>
+					<div class="aw-mod side-nav">
+						<h2><i class="icon icon-job"></i>管理中心</h2>
+						<ul>
+							<li>
+								<a>渠道管理</a>
+							</li>
+							<li>
+								<a>客服组管理</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<!-- end 侧边栏 -->
+
+				<div class="col-sm-12 col-md-9 aw-main-content">
+					<div class="aw-mod">
+						<div class="mod-head">
+							<i class="icon icon-order"></i>
+							我的待处理工单
+							<span class="badge">23</span>
+							<div class="pull-right">
+								本周工单统计：好 (5)    差 (5)    已解决 (5)
+							</div>
+						</div>
+						<div class="mod-body">
+							<table class="table table-hover aw-table">
+                                <tr>
+                                    <th>优先级</th> 
+                                    <th>状态</th>
+                                    <th>ID</th>
+                                    <th>标题</th>
+                                    <th>请求者</th>
+                                    <th>来源</th>
+                                    <th>更新时间</th>
+                                    <th>处理人</th>
+                                </tr>
+                                <tr>
+                                	<td>一般</td>
+                                	<td>待处理</td>
+                                	<td>#12</td>
+                                	<td><a href="">问答与文章能相互转换吗？</a></td>
+                                	<td>陈德隆</td>
+                                	<td>微博</td>
+                                	<td>10分钟前</td>
+                                	<td>kk</td>
+                                </tr>
+							</table>
+						</div>
+						<div class="mod-footer">
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<?php TPL::output('global/footer.tpl.htm'); ?>
