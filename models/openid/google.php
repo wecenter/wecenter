@@ -21,19 +21,23 @@ class openid_google_class extends AWS_MODEL
 {
     const OAUTH2_AUTH_URL = 'https://accounts.google.com/o/oauth2/auth';
 
-    const OAUTH2_TOKEN_URI = 'https://accounts.google.com/o/oauth2/token';
+    const OAUTH2_TOKEN_URL = 'https://accounts.google.com/o/oauth2/token';
 
     const OAUTH2_TOKEN_VALIDATION_URL = 'https://www.googleapis.com/oauth2/v2/tokeninfo';
 
     const OAUTH2_USER_INFO_URL = 'https://www.googleapis.com/oauth2/v2/userinfo';
 
-    private $authorization_code;
+    public $authorization_code;
 
-    private $access_token;
+    public $access_token;
 
-    private $refresh_token;
+    public $redirect_url;
 
-    private $expires_time;
+    public $refresh_token;
+
+    public $expires_time;
+
+    public $error_msg;
 
     public $user_info;
 
@@ -49,26 +53,45 @@ class openid_google_class extends AWS_MODEL
         return self::OAUTH2_AUTH_URL . '?' .http_build_query($args);
     }
 
-    public function oauth2_login($authorization_code, $redirect_url)
+    public function oauth2_login()
     {
-        if (!$authorization_code)
+        if (!$this->get_access_token() OR !$this->validate_access_token() OR !$this->get_user_info())
         {
-            return 'authorization code 为空';
+            if (!$this->error_msg)
+            {
+                $this->error_msg = AWS_APP::lang()->_t('Google 登录失败');
+            }
+
+            return false;
+        }
+
+        return true;
+    }
+
+    public function get_access_token()
+    {
+        if (!$this->authorization_code)
+        {
+            $this->error_msg = AWS_APP::lang()->_t('authorization code 为空');
+
+            return false;
         }
 
         $args = array(
             'client_id' => get_setting('google_client_id'),
             'client_secret' => get_setting('google_client_secret'),
-            'code' => $authorization_code,
+            'code' => $this->authorization_code,
             'grant_type' => 'authorization_code',
-            'redirect_uri' => get_js_url($redirect_url)
+            'redirect_uri' => get_js_url($this->redirect_url)
         );
 
-        $result = HTTP::request(self::OAUTH2_TOKEN_URI, 'POST', $args);
+        $result = HTTP::request(self::OAUTH2_TOKEN_URL, 'POST', $args);
 
         if (!$result)
         {
-            return '获取 access token 时，与 Google 通信失败';
+            $this->error_msg = AWS_APP::lang()->_t('获取 access token 时，与 Google 通信失败');
+
+            return false;
         }
 
         $result = json_decode($result, true);
@@ -80,49 +103,51 @@ class openid_google_class extends AWS_MODEL
                 $result['error_description'] = $result['error'];
             }
 
-            return '获取 access token 失败，错误为：' . $result['error_description'];
-        }
+            $this->error_msg = AWS_APP::lang()->_t('获取 access token 失败，错误为：%s', $result['error_description']);
 
-        $this->authorization_code = $authorization_code;
+            return false;
+        }
 
         $this->access_token = $result['access_token'];
 
         $this->refresh_token = $result['refresh_token'];
 
-        return $this->validate_access_token();
+        return true;
     }
 
     public function validate_access_token()
     {
         if (!$this->access_token)
         {
-            return 'access token 为空';
+            $this->error_msg = AWS_APP::lang()->_t('access token 为空');
         }
 
         $result = curl_get_contents(self::OAUTH2_TOKEN_VALIDATION_URL . '?access_token=' . $this->access_token);
 
         if (!$result)
         {
-            return '验证 access token 时，与 Google 通信失败';
+            $this->error_msg = AWS_APP::lang()->_t('验证 access token 时，与 Google 通信失败');
         }
 
         $result = json_decode($result, true);
 
         if ($result['error_description'])
         {
-            return '验证 access token 失败，错误为：' . $result['error_description'];
+            $this->error_msg = AWS_APP::lang()->_t('验证 access token 失败，错误为：', $result['error_description']);
         }
 
         $this->expires_time = time() + intval($result['expires_in']);
 
-        return $this->get_user_info();
+        return true;
     }
 
     public function get_user_info()
     {
         if (!$this->access_token)
         {
-            return 'access token 为空';
+            $this->error_msg = AWS_APP::lang()->_t('access token 为空');
+
+            return false;
         }
 
         $header = array('Authorization: Bearer ' . $this->access_token);
@@ -131,14 +156,18 @@ class openid_google_class extends AWS_MODEL
 
         if (!$result)
         {
-            return '获取个人资料时，与 Google 通信失败';
+            $this->error_msg = AWS_APP::lang()->_t('获取个人资料时，与 Google 通信失败');
+
+            return false;
         }
 
         $result = json_decode($result, true);
 
         if ($result['error'])
         {
-            return '获取个人资料失败，错误为：' . $result['error']['message'];
+            $this->error_msg = AWS_APP::lang()->_t('获取个人资料失败，错误为：%s', $result['error']['message']);
+
+            return false;
         }
 
         $this->user_info = array(
@@ -155,6 +184,8 @@ class openid_google_class extends AWS_MODEL
             'refresh_token' => $this->refresh_token,
             'expires_time' => $this->expires_time
         );
+
+        return true;
     }
 
     public function refresh_access_token($id)
@@ -163,26 +194,32 @@ class openid_google_class extends AWS_MODEL
 
         if (!$user_info)
         {
-            return 'Google 账号未绑定';
+            $this->error_msg = AWS_APP::lang()->_t('Google 账号未绑定');
+
+            return false;
         }
 
         if (!$user_info['refresh_token'])
         {
-            return 'refresh token 为空';
+            $this->error_msg = AWS_APP::lang()->_t('refresh token 为空');
+
+            return false;
         }
 
         $args = array(
             'client_id' => get_setting('google_client_id'),
             'client_secret' => get_setting('google_client_secret'),
-            'refresh_token' => $user_info['refresh_token'],
+            'refresh_token' => htmlspecialchars_decode($user_info['refresh_token']),
             'grant_type' => 'refresh_token'
         );
 
-        $result = HTTP::request(self::OAUTH2_TOKEN_URI, 'POST', $args);
+        $result = HTTP::request(self::OAUTH2_TOKEN_URL, 'POST', $args);
 
         if (!$result)
         {
-            return '更新 access token 时，与 Google 通信失败';
+            $this->error_msg = AWS_APP::lang()->_t('更新 access token 时，与 Google 通信失败');
+
+            return false;
         }
 
         $result = json_decode($result, true);
@@ -194,13 +231,17 @@ class openid_google_class extends AWS_MODEL
                 $result['error_description'] = $result['error'];
             }
 
-            return '更新 access token 失败，错误为：' . $result['error_description'];
+            $this->error_msg = AWS_APP::lang()->_t('更新 access token 失败，错误为：', $result['error_description']);
+
+            return false;
         }
 
         $this->update('users_google',  array(
             'access_token' => htmlspecialchars($result['access_token']),
             'expires_time' => time() + intval($result['expires_in'])
         ), 'id = ' . $id);
+
+        return true;
     }
 
     public function bind_account($google_user, $uid)
@@ -226,16 +267,6 @@ class openid_google_class extends AWS_MODEL
         ));
     }
 
-    public function unbind_account($uid)
-    {
-        if (!is_digits($uid))
-        {
-            return false;
-        }
-
-        return $this->delete('users_google', 'uid = ' . $uid);
-    }
-
     public function update_user_info($id, $google_user)
     {
         if (!is_digits($id))
@@ -256,14 +287,14 @@ class openid_google_class extends AWS_MODEL
         ), 'id = ' . $id);
     }
 
-    public function remove_google_user($id)
+    public function unbind_account($uid)
     {
-        if (!is_digits($id))
+        if (!is_digits($uid))
         {
             return false;
         }
 
-        return $this->delete('users_google', 'id = ' . $id);
+        return $this->delete('users_google', 'uid = ' . $uid);
     }
 
     public function get_google_user_by_id($id)

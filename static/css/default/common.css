@@ -175,7 +175,6 @@ a.aw-load-more-content{display: block;}
 .i-private-replay-triangle{width: 8px;height: 10px;background: url('img/icon-angle-right.png') no-repeat;}
 .aw-table th{background-color: #fafafa !important;border-bottom: none !important;}
 
-
 /* email未验证提示 */
 .aw-email-verify{height:38px;line-height:38px;background-color: #fff07b;border-bottom: 1px solid #d9cda7;color: #988328;}
 
@@ -435,11 +434,12 @@ a.aw-load-more-content{display: block;}
 .aw-comment-list li p{margin:0;word-break:break-all;}
 
 /* 邀请box */
-.aw-invite-box{position:relative;width:100%;}
-.aw-invite-box .mod-head .search-box{position:relative;}
+.aw-invite-box{position:relative;width:100%;margin:10px auto;border:1px solid #e6e6e6;border-radius: 4px;}
+.aw-invite-box .mod-head{padding:15px;background-color: #fafafa;}
+.aw-invite-box .mod-head .search-box{position:relative;margin:0 10px 0 0;}
 .aw-invite-box .mod-head .invite-list{max-width:435px;height:32px;line-height: 32px;overflow:hidden;margin:0;font-size: 12px;}
 .aw-invite-box .mod-head .invite-list img{width:24px;height: 24px;border-radius: 4px;}
-.aw-invite-box .mod-head input{width: 100%;}
+.aw-invite-box .mod-head input{width: 240px;}
 .aw-invite-box .mod-head .icon-search{position: absolute;right: 10px;top: 10px;}
 .aw-invite-box .mod-body{padding:0 14px;margin-bottom:-1px;border-top: 1px solid #f2f2f2;}
 .aw-invite-box .mod-body ul{max-height: 185px;overflow: hidden;}
