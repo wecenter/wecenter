@@ -15,10 +15,6 @@
 .aw-user-detail-box .mod-footer{border-top: 1px solid #E3E3E3;}
 .aw-user-detail-box .mod-footer .aw-nav-tabs{padding-top: 20px;min-height: 52px;}
 
-/* 我的积分 */
-#integral table th{background-color: #f5f5f5;border-bottom: none;}
-
-
 /* 用户页面公共模块 */
 .aw-user-center-tab .tab-pane > .aw-mod > .mod-head{padding:0 20px;}
 .aw-user-center-tab .tab-pane > .aw-mod > .mod-head h3{margin:20px 0;font-size: 20px;line-height: 20px;}
