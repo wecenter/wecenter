@@ -243,16 +243,17 @@ class openid_twitter_class extends AWS_MODEL
 
         return $this->insert('users_twitter', array(
             'id' => intval($twitter_user['id']),
+            'uid' => intval($uid),
             'name' => htmlspecialchars($twitter_user['name']),
             'screen_name' => htmlspecialchars($twitter_user['screen_name']),
             'location' => htmlspecialchars($twitter_user['location']),
             'time_zone' => htmlspecialchars($twitter_user['time_zone']),
             'lang' => htmlspecialchars($twitter_user['lang']),
             'profile_image_url' => htmlspecialchars(str_ireplace('_normal.', '_400x400.', $twitter_user['profile_image_url'])),
-            'access_token' => array(
+            'access_token' => serialize(array(
                 'oauth_token' => htmlspecialchars($twitter_user['access_token']['oauth_token']),
                 'oauth_token_secret' => htmlspecialchars($twitter_user['access_token']['oauth_token_secret'])
-            ),
+            )),
             'add_time' => time()
         ));
     }
@@ -271,10 +272,10 @@ class openid_twitter_class extends AWS_MODEL
             'time_zone' => htmlspecialchars($twitter_user['time_zone']),
             'lang' => htmlspecialchars($twitter_user['lang']),
             'profile_image_url' => htmlspecialchars(str_ireplace('_normal.', '_400x400.', $twitter_user['profile_image_url'])),
-            'access_token' => array(
+            'access_token' => serialize(array(
                 'oauth_token' => htmlspecialchars($twitter_user['access_token']['oauth_token']),
                 'oauth_token_secret' => htmlspecialchars($twitter_user['access_token']['oauth_token_secret'])
-            )
+            ))
         ), 'id = ' . $id);
     }
 

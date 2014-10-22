@@ -67,7 +67,7 @@ class twitter extends AWS_CONTROLLER
 
             if ($twitter_user)
             {
-                H::redirect_msg(AWS_APP::lang()->_t('此账号已绑定 twitter 账号'), '/');
+                H::redirect_msg(AWS_APP::lang()->_t('此账号已绑定 Twitter 账号'), '/');
             }
         }
 
@@ -108,7 +108,7 @@ class twitter extends AWS_CONTROLLER
             {
                 if ($twitter_user)
                 {
-                    H::redirect_msg(AWS_APP::lang()->_t('此 twitter 账号已被绑定'));
+                    H::redirect_msg(AWS_APP::lang()->_t('此 Twitter 账号已被绑定'));
                 }
 
                 $this->model('openid_twitter')->bind_account($twitter_user_info, $this->user_id);
