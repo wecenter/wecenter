@@ -46,24 +46,21 @@ class openid_twitter_class extends AWS_MODEL
 
         $args['oauth_version'] = '1.0';
 
-        natcasesort($args);
+        ksort($args);
 
         $parm_str = http_build_query($args, '', '&', PHP_QUERY_RFC3986);
 
-        $sign_base_str = $request_method . '&' . rawurlencode($request_url) . '&' . $parm_str;
+        $sign_base_str = $request_method . '&' . rawurlencode($request_url) . '&' . rawurlencode($parm_str);
 
-        $sign_key = get_setting('twitter_consumer_secret');
+        $sign_key = rawurlencode(get_setting('twitter_consumer_secret'));
 
-        if ($args['oauth_token'])
-        {
-            $sign_key .= '&' . $args['oauth_token'];
-        }
+        $sign_key .= '&' . rawurlencode($args['oauth_token']);
 
         $args['oauth_signature'] = base64_encode(hash_hmac('sha1', $sign_base_str, $sign_key, true));
 
-        natcasesort($args);
+        ksort($args);
 
-        $auth_header = 'OAuth ';
+        $auth_header = 'Authorization: OAuth ';
 
         foreach ($args AS $key => $value)
         {
@@ -79,20 +76,15 @@ class openid_twitter_class extends AWS_MODEL
             'oauth_callback' => get_js_url($oauth_callback)
         );
 
-        $header['Authorization'] = $this->build_auth_header($args, self::OAUTH_REQUEST_TOKEN_URL, 'POST');
+        $header = array($this->build_auth_header($args, self::OAUTH_REQUEST_TOKEN_URL, 'POST'));
 
-        $result = HTTP::request(self::OAUTH2_USER_INFO_URL, 'POST', null, 10, $header);
+        $result = HTTP::request(self::OAUTH_REQUEST_TOKEN_URL, 'POST', null, 10, $header);
 
         if (!$result)
         {
             return '获取 request token 时，与 Twitter 通信失败';
         }
 
-        $result = json_decode($result, true);
 
-        if ($result['error'])
-        {
-            return '获取 request token 失败，错误为：' . $result['error']['message'];
-        }
     }
 }
