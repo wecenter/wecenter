@@ -51,7 +51,7 @@ class google extends AWS_CONTROLLER
 
         if ($_GET['error'] == 'access_denied')
         {
-            H::redirect_msg(AWS_APP::lang()->_t('授权失败'));
+            H::redirect_msg(AWS_APP::lang()->_t('授权失败'), '/');
         }
 
         if ($this->user_id)
@@ -60,7 +60,7 @@ class google extends AWS_CONTROLLER
 
             if ($google_user)
             {
-                H::redirect_msg(AWS_APP::lang()->_t('此账号已绑定 Google 账号'));
+                H::redirect_msg(AWS_APP::lang()->_t('此账号已绑定 Google 账号'), '/');
             }
         }
 
@@ -68,11 +68,13 @@ class google extends AWS_CONTROLLER
         {
             if ($_GET['code'] != $google_user_info['authorization_code'])
             {
-                $error_msg = $this->model('openid_google')->oauth2_login($_GET['code'], '/account/google/bind/');
+                $this->model('openid_google')->authorization_code = $_GET['code'];
 
-                if (isset($error_msg))
+                $this->model('openid_google')->redirect_url = '/account/google/bind/';
+
+                if (!$this->model('openid_google')->oauth2_login())
                 {
-                    H::redirect_msg($error_msg);
+                    H::redirect_msg($this->model('openid_google')->error_msg);
                 }
 
                 $google_user_info = $this->model('openid_google')->user_info;
@@ -109,7 +111,7 @@ class google extends AWS_CONTROLLER
 
                     if (!$user)
                     {
-                        $this->model('openid_google')->remove_google_user($google_user['id']);
+                        $this->model('openid_google')->unbind_account($google_user['uid']);
 
                         H::redirect_msg(AWS_APP::lang()->_t('用户不存在'), '/account/login/');
                     }
