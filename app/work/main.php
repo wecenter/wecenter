@@ -48,4 +48,9 @@ class main extends AWS_CONTROLLER
 		TPL::output('work/square');
 	}
 
+	public function data_action()
+	{
+		TPL::output('work/data');
+	}
+
 }
