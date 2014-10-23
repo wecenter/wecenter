@@ -4,6 +4,13 @@
 .aw-mod.order-operate .aw-topic-bar{margin:0;}
 .aw-mod.order-operate .aw-topic-bar input{width: 100% !important;}
 
+/* 问题详情页 */
+.aw-invite-box{border:none;}
+.aw-invite-box .mod-head{padding:0;background-color: #fff;}
+.aw-invite-box .mod-head .invite-list{margin:0 0 5px;}
+.aw-invite-box .mod-head .search-box{margin:0;}
+.aw-invite-box .mod-head input{width: 100%;}
+
 /* 工单页面 */
 .aw-work-wrap .container{width: 100% !important;padding-left: 30px;padding-right: 30px;}
 .aw-work-wrap .container .aw-side-bar{position:relative;z-index:1;width: 250px;margin-right:-1px;border-left: none;border-right: 1px solid #e6e6e6;}

@@ -434,9 +434,10 @@ a.aw-load-more-content{display: block;}
 .aw-comment-list li p{margin:0;word-break:break-all;}
 
 /* 邀请box */
-.aw-invite-box{position:relative;width:100%;}
-.aw-invite-box .mod-head .search-box{position:relative;}
-.aw-invite-box .mod-head .invite-list{max-width:435px;margin-bottom:5px;line-height: 32px;overflow:hidden;margin:0;font-size: 12px;}
+.aw-invite-box{position:relative;width:100%;margin:10px auto;border:1px solid #e6e6e6;border-radius: 4px;}
+.aw-invite-box .mod-head{padding:15px;background-color: #fafafa;}
+.aw-invite-box .mod-head .search-box{position:relative;margin:0 10px 0 0;}
+.aw-invite-box .mod-head .invite-list{max-width:435px;height:32px;line-height: 32px;overflow:hidden;margin:0;font-size: 12px;}
 .aw-invite-box .mod-head .invite-list img{width:24px;height: 24px;border-radius: 4px;}
 .aw-invite-box .mod-head input{width: 240px;}
 .aw-invite-box .mod-head .icon-search{position: absolute;right: 10px;top: 10px;}
