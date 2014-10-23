@@ -7,10 +7,26 @@ CREATE TABLE `[#DB_PREFIX#]users_google` (
   `gender` varchar(8) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
   `link` varchar(255) DEFAULT NULL,
-  `add_time` int(10) UNSIGNED DEFAULT NULL,
+  `add_time` int(10) UNSIGNED NOT NULL DEFAULT '0',
   `access_token` varchar(128) DEFAULT NULL,
   `refresh_token` varchar(128) DEFAULT NULL,
-  `expires_time` int(10) UNSIGNED DEFAULT '0',
+  `expires_time` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uid` (`uid`),
+  KEY `access_token` (`access_token`)
+) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
+
+CREATE TABLE `[#DB_PREFIX#]users_twitter` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `uid` int(11) UNSIGNED NOT NULL,
+  `name` varchar(128) DEFAULT NULL,
+  `screen_name` varchar(128) DEFAULT NULL,
+  `location` varchar(64) DEFAULT NULL,
+  `time_zone` varchar(64) DEFAULT NULL,
+  `lang` varchar(16) DEFAULT NULL,
+  `profile_image_url` varchar(255) DEFAULT NULL,
+  `add_time` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `access_token` varchar(255) NOT NULL DEFAULT 'a:2:{s:11:"oauth_token";s:0:"";s:18:"oauth_token_secret";s:0:"";}',
   PRIMARY KEY (`id`),
   UNIQUE KEY `uid` (`uid`),
   KEY `access_token` (`access_token`)
@@ -19,4 +35,7 @@ CREATE TABLE `[#DB_PREFIX#]users_google` (
 INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES
 ('google_login_enabled', 's:1:"N";'),
 ('google_client_id', 's:0:"";'),
-('google_client_secret', 's:0:"";');
+('google_client_secret', 's:0:"";'),
+('twitter_login_enabled', 's:1:"N";'),
+('twitter_consumer_key', 's:0:"";'),
+('twitter_consumer_secret', 's:0:"";');
