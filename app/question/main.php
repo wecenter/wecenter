@@ -275,7 +275,11 @@ class main extends AWS_CONTROLLER
 			{
 				if ($this->model('answer')->has_answer_by_uid($question_info['question_id'], $this->user_id))
 				{
-					TPL::assign('user_answered', TRUE);
+					TPL::assign('user_answered', 1);
+				}
+				else
+				{
+					TPL::assign('user_answered', 0);
 				}
 			}
 
