@@ -36,7 +36,7 @@ class twitter extends AWS_CONTROLLER
 
         if (get_setting('twitter_login_enabled') != 'Y' OR !get_setting('twitter_consumer_key') OR !get_setting('twitter_consumer_secret'))
         {
-            H::redirect_msg(AWS_APP::lang()->_t('本站未开通 Twitter 登录'));
+            H::redirect_msg(AWS_APP::lang()->_t('本站未开通 Twitter 登录'), '/');
         }
     }
 

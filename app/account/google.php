@@ -36,7 +36,7 @@ class google extends AWS_CONTROLLER
 
         if (get_setting('google_login_enabled') != 'Y' OR !get_setting('google_client_id') OR !get_setting('google_client_secret'))
         {
-            H::redirect_msg(AWS_APP::lang()->_t('本站未开通 Google 登录'));
+            H::redirect_msg(AWS_APP::lang()->_t('本站未开通 Google 登录'), '/');
         }
     }
 
