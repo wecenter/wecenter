@@ -173,6 +173,7 @@ a.aw-load-more-content{display: block;}
 .icon-add-alt{font-size: 18px;margin-right: 10px;}
 .icon-register-arrow{display: inline-block;width: 20px;height: 48px;background-image: url('img/register-triangle.png');background-color:#fff;background-repeat: no-repeat;}
 .i-private-replay-triangle{width: 8px;height: 10px;background: url('img/icon-angle-right.png') no-repeat;}
+.aw-table th{background-color: #fafafa !important;border-bottom: none !important;}
 
 /* email未验证提示 */
 .aw-email-verify{height:38px;line-height:38px;background-color: #fff07b;border-bottom: 1px solid #d9cda7;color: #988328;}

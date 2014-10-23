@@ -17,18 +17,16 @@ CREATE TABLE `[#DB_PREFIX#]users_google` (
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]users_twitter` (
-  `id` varchar(64) NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
   `uid` int(11) UNSIGNED NOT NULL,
   `name` varchar(128) DEFAULT NULL,
-  `locale` varchar(16) DEFAULT NULL,
-  `picture` varchar(255) DEFAULT NULL,
-  `gender` varchar(8) DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `link` varchar(255) DEFAULT NULL,
+  `screen_name` varchar(128) DEFAULT NULL,
+  `location` varchar(64) DEFAULT NULL,
+  `time_zone` varchar(64) DEFAULT NULL,
+  `lang` varchar(16) DEFAULT NULL,
+  `profile_image_url` varchar(255) DEFAULT NULL,
   `add_time` int(10) UNSIGNED NOT NULL DEFAULT '0',
-  `access_token` varchar(128) DEFAULT NULL,
-  `refresh_token` varchar(128) DEFAULT NULL,
-  `expires_time` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `access_token` varchar(255) NOT NULL DEFAULT 'a:2:{s:11:"oauth_token";s:0:"";s:18:"oauth_token_secret";s:0:"";}',
   PRIMARY KEY (`id`),
   UNIQUE KEY `uid` (`uid`),
   KEY `access_token` (`access_token`)
