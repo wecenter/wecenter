@@ -237,7 +237,15 @@ var AWS =
 
 			if (result.rsm && result.rsm.url)
 	        {
-	            window.location = decodeURIComponent(result.rsm.url);
+	        	// 判断返回url跟当前url是否相同
+	        	if (window.location.href == result.rsm.url)
+	        	{
+	        		window.location.reload();
+	        	}
+	        	else
+	        	{
+	            	window.location = decodeURIComponent(result.rsm.url);
+	        	}
 	        }
 	        else
 	        {
