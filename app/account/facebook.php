@@ -17,7 +17,7 @@ if (!defined('IN_ANWSION'))
     die;
 }
 
-class google extends AWS_CONTROLLER
+class facebook extends AWS_CONTROLLER
 {
     public function get_access_rule()
     {
@@ -34,19 +34,19 @@ class google extends AWS_CONTROLLER
     {
         HTTP::no_cache_header();
 
-        if (get_setting('google_login_enabled') != 'Y' OR !get_setting('google_client_id') OR !get_setting('google_client_secret'))
+        if (get_setting('facebook_login_enabled') != 'Y' OR !get_setting('facebook_app_id') OR !get_setting('facebook_app_secret'))
         {
-            H::redirect_msg(AWS_APP::lang()->_t('本站未开通 Google 登录'), '/');
+            H::redirect_msg(AWS_APP::lang()->_t('本站未开通 Facebook 登录'), '/');
         }
     }
 
     public function bind_action()
     {
-        if (AWS_APP::session()->google_user)
+        if (AWS_APP::session()->facebook_user)
         {
-            $google_user_info = AWS_APP::session()->google_user;
+            $facebook_user_info = AWS_APP::session()->facebook_user;
 
-            unset(AWS_APP::session()->google_user);
+            unset(AWS_APP::session()->facebook_user);
         }
 
         if ($_GET['error'] == 'access_denied')
@@ -56,45 +56,45 @@ class google extends AWS_CONTROLLER
 
         if ($this->user_id)
         {
-            $google_user = $this->model('openid_google')->get_google_user_by_uid($this->user_id);
+            $facebook_user = $this->model('openid_facebook')->get_facebook_user_by_uid($this->user_id);
 
-            if ($google_user)
+            if ($facebook_user)
             {
-                H::redirect_msg(AWS_APP::lang()->_t('此账号已绑定 Google 账号'), '/');
+                H::redirect_msg(AWS_APP::lang()->_t('此账号已绑定 Facebook 账号'), '/');
             }
         }
 
         if ($_GET['code'])
         {
-            if ($_GET['code'] != $google_user_info['authorization_code'])
+            if ($_GET['code'] != $facebook_user_info['authorization_code'])
             {
-                $this->model('openid_google')->authorization_code = $_GET['code'];
+                $this->model('openid_facebook')->authorization_code = $_GET['code'];
 
-                $this->model('openid_google')->redirect_url = '/account/google/bind/';
+                $this->model('openid_facebook')->redirect_url = '/account/facebook/bind/';
 
-                if (!$this->model('openid_google')->oauth2_login())
+                if (!$this->model('openid_facebook')->oauth2_login())
                 {
-                    H::redirect_msg($this->model('openid_google')->error_msg);
+                    H::redirect_msg($this->model('openid_facebook')->error_msg);
                 }
 
-                $google_user_info = $this->model('openid_google')->user_info;
+                $facebook_user_info = $this->model('openid_facebook')->user_info;
             }
 
-            if (!$google_user_info)
+            if (!$facebook_user_info)
             {
-                H::redirect_msg(AWS_APP::lang()->_t('Google 登录失败'));
+                H::redirect_msg(AWS_APP::lang()->_t('Facebook 登录失败'));
             }
 
-            $google_user = $this->model('openid_google')->get_google_user_by_id($google_user_info['id']);
+            $facebook_user = $this->model('openid_facebook')->get_facebook_user_by_id($facebook_user_info['id']);
 
             if ($this->user_id)
             {
-                if ($google_user)
+                if ($facebook_user)
                 {
-                    H::redirect_msg(AWS_APP::lang()->_t('此 Google 账号已被绑定'));
+                    H::redirect_msg(AWS_APP::lang()->_t('此 Facebook 账号已被绑定'));
                 }
 
-                $this->model('openid_google')->bind_account($google_user_info, $this->user_id);
+                $this->model('openid_facebook')->bind_account($facebook_user_info, $this->user_id);
 
                 if (!$this->model('integral')->fetch_log($this->user_id, 'BIND_OPENID'))
                 {
@@ -105,18 +105,18 @@ class google extends AWS_CONTROLLER
             }
             else
             {
-                if ($google_user)
+                if ($facebook_user)
                 {
-                    $user = $this->model('account')->get_user_info_by_uid($google_user['uid']);
+                    $user = $this->model('account')->get_user_info_by_uid($facebook_user['uid']);
 
                     if (!$user)
                     {
-                        $this->model('openid_google')->unbind_account($google_user['uid']);
+                        $this->model('openid_facebook')->unbind_account($facebook_user['uid']);
 
                         H::redirect_msg(AWS_APP::lang()->_t('用户不存在'), '/account/login/');
                     }
 
-                    $this->model('openid_google')->update_user_info($google_user['id'], $google_user_info);
+                    $this->model('openid_facebook')->update_user_info($facebook_user['id'], $facebook_user_info);
 
                     HTTP::set_cookie('_user_login', get_login_cookie_hash($user['user_name'], $user['password'], $user['salt'], $user['uid'], false));
 
@@ -142,15 +142,15 @@ class google extends AWS_CONTROLLER
                             break;
                     }
 
-                    AWS_APP::session()->google_user = $google_user_info;
+                    AWS_APP::session()->facebook_user = $facebook_user_info;
 
                     $this->crumb(AWS_APP::lang()->_t('完善资料'), '/account/login/');
 
-                    TPL::assign('register_url', '/account/ajax/google/register/');
+                    TPL::assign('register_url', '/account/ajax/facebook/register/');
 
-                    TPL::assign('user_name', AWS_APP::session()->google_user['name']);
+                    TPL::assign('user_name', AWS_APP::session()->facebook_user['name']);
 
-                    TPL::assign('email', AWS_APP::session()->google_user['email']);
+                    TPL::assign('email', AWS_APP::session()->facebook_user['email']);
 
                     TPL::import_css('css/register.css');
 
@@ -160,13 +160,13 @@ class google extends AWS_CONTROLLER
         }
         else
         {
-            HTTP::redirect($this->model('openid_google')->get_redirect_url('/account/google/bind/'));
+            HTTP::redirect($this->model('openid_facebook')->get_redirect_url('/account/facebook/bind/'));
         }
     }
 
     public function unbind_action()
     {
-        $this->model('openid_google')->unbind_account($this->user_id);
+        $this->model('openid_facebook')->unbind_account($this->user_id);
 
         HTTP::redirect('/account/setting/openid/');
     }

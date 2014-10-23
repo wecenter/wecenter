@@ -50,7 +50,7 @@ class openid_google_class extends AWS_MODEL
             'scope' => 'profile email'
         );
 
-        return self::OAUTH2_AUTH_URL . '?' .http_build_query($args);
+        return self::OAUTH2_AUTH_URL . '?' . http_build_query($args);
     }
 
     public function oauth2_login()
@@ -133,7 +133,7 @@ class openid_google_class extends AWS_MODEL
 
         if ($result['error_description'])
         {
-            $this->error_msg = AWS_APP::lang()->_t('验证 access token 失败，错误为：', $result['error_description']);
+            $this->error_msg = AWS_APP::lang()->_t('验证 access token 失败，错误为：%s', $result['error_description']);
         }
 
         $this->expires_time = time() + intval($result['expires_in']);
@@ -231,7 +231,7 @@ class openid_google_class extends AWS_MODEL
                 $result['error_description'] = $result['error'];
             }
 
-            $this->error_msg = AWS_APP::lang()->_t('更新 access token 失败，错误为：', $result['error_description']);
+            $this->error_msg = AWS_APP::lang()->_t('更新 access token 失败，错误为：%s', $result['error_description']);
 
             return false;
         }
