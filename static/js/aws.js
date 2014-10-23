@@ -269,7 +269,10 @@ var AWS =
 							// 问题
 							$('.question_answer_form').detach();
 
-							$('.aw-replay-box').append('<p align="center">一个问题只能回复一次, 你可以在发言后 ' + ANSWER_EDIT_TIME + ' 分钟内编辑回复过的内容</p>');
+							if (USER_ANSWERED)
+							{
+								$('.aw-replay-box').append('<p align="center">一个问题只能回复一次, 你可以在发言后 ' + ANSWER_EDIT_TIME + ' 分钟内编辑回复过的内容</p>');
+							}
 						}
 						else if(result.rsm.url)
 						{
