@@ -64,20 +64,13 @@ class google extends AWS_CONTROLLER
             }
         }
 
-        $callback_url = '/account/google/bind/';
-
-        if ($_GET['return_url'])
-        {
-            $callback_url .= 'return_url-' . $_GET['return_url'];
-        }
-
         if ($_GET['code'])
         {
             if ($_GET['code'] != $google_user_info['authorization_code'])
             {
                 $this->model('openid_google')->authorization_code = $_GET['code'];
 
-                $this->model('openid_google')->redirect_url = $callback_url;
+                $this->model('openid_google')->redirect_url = '/account/google/bind/';
 
                 if (!$this->model('openid_google')->oauth2_login())
                 {
@@ -127,18 +120,23 @@ class google extends AWS_CONTROLLER
 
                     HTTP::set_cookie('_user_login', get_login_cookie_hash($user['user_name'], $user['password'], $user['salt'], $user['uid'], false));
 
+                    if ($_GET['state'])
+                    {
+                        $return_url = $this->model('openid_google')->base64_url_decode($_GET['state']);
+                    }
+
                     if (get_setting('ucenter_enabled') == 'Y')
                     {
                         $redirect_url = '/account/sync_login/';
 
-                        if ($_GET['return_url'])
+                        if ($return_url['return_url'])
                         {
-                            $redirect_url .= 'url-' . $_GET['return_url'];
+                            $redirect_url .= 'url-' . base64_encode($return_url['return_url']);
                         }
                     }
-                    else if ($_GET['return_url'])
+                    else if ($return_url['return_url'])
                     {
-                        $redirect_url = base64_decode($_GET['return_url']);
+                        $redirect_url = $return_url['return_url'];
                     }
                     else
                     {
@@ -185,7 +183,9 @@ class google extends AWS_CONTROLLER
         }
         else
         {
-            HTTP::redirect($this->model('openid_google')->get_redirect_url($callback_url));
+            $state = ($_GET['return_url']) ? array('return_url' => base64_decode($_GET['return_url'])) : array();
+
+            HTTP::redirect($this->model('openid_google')->get_redirect_url('/account/google/bind/'), $state);
         }
     }
 
