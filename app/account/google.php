@@ -64,13 +64,20 @@ class google extends AWS_CONTROLLER
             }
         }
 
+        $callback_url = '/account/google/bind/';
+
+        if ($_GET['return_url'])
+        {
+            $callback_url .= 'return_url-' . $_GET['return_url'];
+        }
+
         if ($_GET['code'])
         {
             if ($_GET['code'] != $google_user_info['authorization_code'])
             {
                 $this->model('openid_google')->authorization_code = $_GET['code'];
 
-                $this->model('openid_google')->redirect_url = '/account/google/bind/';
+                $this->model('openid_google')->redirect_url = $callback_url;
 
                 if (!$this->model('openid_google')->oauth2_login())
                 {
@@ -178,14 +185,7 @@ class google extends AWS_CONTROLLER
         }
         else
         {
-            $url = '/account/google/bind/';
-
-            if ($_GET['return_url'])
-            {
-                $url .= 'return_url-' . $_GET['return_url'];
-            }
-
-            HTTP::redirect($this->model('openid_google')->get_redirect_url($url));
+            HTTP::redirect($this->model('openid_google')->get_redirect_url($callback_url));
         }
     }
 

@@ -64,13 +64,20 @@ class facebook extends AWS_CONTROLLER
             }
         }
 
+        $callback_url = '/account/facebook/bind/';
+
+        if ($_GET['return_url'])
+        {
+            $callback_url .= 'return_url-' . $_GET['return_url'];
+        }
+
         if ($_GET['code'])
         {
             if ($_GET['code'] != $facebook_user_info['authorization_code'])
             {
                 $this->model('openid_facebook')->authorization_code = $_GET['code'];
 
-                $this->model('openid_facebook')->redirect_url = '/account/facebook/bind/';
+                $this->model('openid_facebook')->redirect_url = $callback_url;
 
                 if (!$this->model('openid_facebook')->oauth2_login())
                 {
@@ -178,14 +185,7 @@ class facebook extends AWS_CONTROLLER
         }
         else
         {
-            $url = '/account/facebook/bind/';
-
-            if ($_GET['return_url'])
-            {
-                $url .= 'return_url-' . $_GET['return_url'];
-            }
-
-            HTTP::redirect($this->model('openid_facebook')->get_redirect_url($url));
+            HTTP::redirect($this->model('openid_facebook')->get_redirect_url($callback_url));
         }
     }
 

@@ -189,9 +189,16 @@ class openid extends AWS_CONTROLLER
 			{
 				$oauth = new Services_Weibo_WeiboOAuth(get_setting('sina_akey'), get_setting('sina_skey'));
 
+				$callback_url = '/account/openid/sina_callback/';
+
+				if ($_GET['return_url'])
+				{
+					$callback_url .= 'return_url-' . $_GET['return_url'];
+				}
+
 				AWS_APP::session()->sina_token = $oauth->getAccessToken('code', array(
 					'code' => $_GET['code'],
-					'redirect_uri' => get_js_url('/account/openid/sina_callback/')
+					'redirect_uri' => get_js_url($callback_url)
 				));
 
 				$client = new Services_Weibo_WeiboClient(get_setting('sina_akey'), get_setting('sina_skey'), AWS_APP::session()->sina_token['access_token']);
@@ -406,7 +413,14 @@ class openid extends AWS_CONTROLLER
 
 			if (! AWS_APP::session()->QQConnect['access_token'])
 			{
-				if (! $this->model('openid_qq')->request_access_token(get_js_url('/account/openid/qq_login_callback/')))
+				$callback_url = '/account/openid/qq_login_callback/';
+
+				if ($_GET['return_url'])
+				{
+					$callback_url .= 'return_url-' . $_GET['return_url'];
+				}
+
+				if (! $this->model('openid_qq')->request_access_token(get_js_url($callback_url)))
 				{
 					H::redirect_msg(AWS_APP::lang()->_t('与 QQ 通信出错, 请重新登录'), "/account/login/");
 				}
