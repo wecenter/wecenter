@@ -267,7 +267,7 @@ class openid_weixin_weixin_class extends AWS_MODEL
 
     public function redirect_url($redirect_uri)
     {
-        if (!get_setting('weixin_app_id'))
+        if (!get_setting('weixin_app_id') OR !get_setting('weixin_app_secret') OR get_setting('weixin_account_role') != 'service')
         {
             return get_js_url($redirect_uri);
         }
