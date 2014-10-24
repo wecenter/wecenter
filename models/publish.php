@@ -448,7 +448,7 @@ class publish_class extends AWS_MODEL
 		));
 	}
 
-	public function remove_attach($id, $access_key)
+	public function remove_attach($id, $access_key, $update_associate_table = true)
 	{
 		if (! $attach = $this->fetch_row('attach', "id = " . intval($id) . " AND access_key = '" . $this->quote($access_key) . "'"))
 		{
@@ -457,7 +457,7 @@ class publish_class extends AWS_MODEL
 
 		$this->delete('attach', "id = " . intval($id) . " AND access_key = '" . $this->quote($access_key) . "'");
 
-		if (!$this->fetch_row('attach', 'item_id = ' . $attach['item_id']))
+		if (!$this->fetch_row('attach', 'item_id = ' . $attach['item_id']) AND $update_associate_table)
 		{
 			switch ($attach['item_type'])
 			{
