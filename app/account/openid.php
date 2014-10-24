@@ -52,7 +52,14 @@ class openid extends AWS_CONTROLLER
 
 		$oauth = new Services_Weibo_WeiboOAuth(get_setting('sina_akey'), get_setting('sina_skey'));
 
-		HTTP::redirect($oauth->getAuthorizeURL(get_js_url('/account/openid/sina_callback/')));
+		$url = '/account/openid/sina_callback/';
+
+		if ($_GET['return_url'])
+		{
+			$url .= 'return_url-' . $_GET['return_url'];
+		}
+
+		HTTP::redirect($oauth->getAuthorizeURL(get_js_url($url)));
 	}
 
 	public function sina_callback_action()
@@ -219,6 +226,15 @@ class openid extends AWS_CONTROLLER
 				if (get_setting('ucenter_enabled') == 'Y')
 				{
 					$redirect_url = '/account/sync_login/';
+
+					if ($_GET['return_url'])
+					{
+						$redirect_url .= 'url-' . $_GET['return_url'];
+					}
+				}
+				else if ($_GET['return_url'])
+				{
+					$redirect_url = base64_decode($_GET['return_url']);
 				}
 				else
 				{
@@ -266,7 +282,14 @@ class openid extends AWS_CONTROLLER
 	{
 		unset(AWS_APP::session()->QQConnect);
 
-		HTTP::redirect($this->model('openid_qq')->qq_login(get_js_url('/account/openid/qq_login_callback/')));
+		$url = '/account/openid/qq_login_callback/';
+
+		if ($_GET['return_url'])
+		{
+			$url .= 'return_url-' . $_GET['return_url'];
+		}
+
+		HTTP::redirect($this->model('openid_qq')->qq_login(get_js_url($url)));
 	}
 
 	public function qq_login_callback_action()
@@ -404,7 +427,25 @@ class openid extends AWS_CONTROLLER
 
 				$this->model('openid_qq')->update_token($qq_user['name'], AWS_APP::session()->QQConnect['access_token']);
 
-				HTTP::redirect('/');
+				if (get_setting('ucenter_enabled') == 'Y')
+				{
+					$redirect_url = '/account/sync_login/';
+
+					if ($_GET['return_url'])
+					{
+						$redirect_url .= 'url-' . $_GET['return_url'];
+					}
+				}
+				else if ($_GET['return_url'])
+				{
+					$redirect_url = base64_decode($_GET['return_url']);
+				}
+				else
+				{
+					$redirect_url = '/';
+				}
+
+				HTTP::redirect($redirect_url);
 			}
 			else
 			{

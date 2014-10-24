@@ -120,7 +120,25 @@ class facebook extends AWS_CONTROLLER
 
                     HTTP::set_cookie('_user_login', get_login_cookie_hash($user['user_name'], $user['password'], $user['salt'], $user['uid'], false));
 
-                    HTTP::redirect('/');
+                    if (get_setting('ucenter_enabled') == 'Y')
+                    {
+                        $redirect_url = '/account/sync_login/';
+
+                        if ($_GET['return_url'])
+                        {
+                            $redirect_url .= 'url-' . $_GET['return_url'];
+                        }
+                    }
+                    else if ($_GET['return_url'])
+                    {
+                        $redirect_url = base64_decode($_GET['return_url']);
+                    }
+                    else
+                    {
+                        $redirect_url = '/';
+                    }
+
+                    HTTP::redirect($redirect_url);
                 }
                 else
                 {
@@ -160,7 +178,14 @@ class facebook extends AWS_CONTROLLER
         }
         else
         {
-            HTTP::redirect($this->model('openid_facebook')->get_redirect_url('/account/facebook/bind/'));
+            $url = '/account/facebook/bind/';
+
+            if ($_GET['return_url'])
+            {
+                $url .= 'return_url-' . $_GET['return_url'];
+            }
+
+            HTTP::redirect($this->model('openid_facebook')->get_redirect_url($url));
         }
     }
 
