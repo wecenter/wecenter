@@ -53,4 +53,9 @@ class main extends AWS_CONTROLLER
 		TPL::output('work/data');
 	}
 
+	public function topic_action()
+	{
+		TPL::output('work/topic');
+	}
+
 }
