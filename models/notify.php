@@ -52,6 +52,11 @@ class notify_class extends AWS_MODEL
 	const TYPE_ARTICLE_NEW_COMMENT	= 117; // 文章有新评论
 	const TYPE_ARTICLE_COMMENT_AT_ME	= 118; // 文章评论提到我
 
+	const TYPE_ARTICLE_APPROVED = 131; // 文章通过审核
+	const TYPE_ARTICLE_REFUSED = 132; // 文章未通过审核
+	const TYPE_QUESTION_APPROVED = 133; // 问题通过审核
+	const TYPE_QUESTION_REFUSED = 134; // 问题未通过审核
+
 	public $notify_actions = array();
 	public $notify_action_details;
 
@@ -224,7 +229,23 @@ class notify_class extends AWS_MODEL
 			switch ($notify['model_type'])
 			{
 				case self::CATEGORY_ARTICLE :
-					$tmp_data['title'] = $article_list[$data['article_id']]['title'];
+					if ($notify['action_type'] == self::TYPE_ARTICLE_REFUSED)
+					{
+						$tmp_data['title'] = $data['title'];
+					}
+					else
+					{
+						if (!$question_list[$data['article_id']])
+						{
+							continue;
+						}
+
+						$tmp_data['title'] = $article_list[$data['article_id']]['title'];
+					}
+
+					$querys = array();
+
+					$querys[] = $token;
 
 					if ($notify['extends'])
 					{
@@ -248,26 +269,33 @@ class notify_class extends AWS_MODEL
 						}
 
 						$tmp_data['extend_details'] = $this->format_extend_detail($notify['extend_details'], $user_infos);
-						$tmp_data['key_url'] = get_js_url('/article/' . $data['article_id'] . '?' . $token);
 					}
-					else
+					else if ($data['item_id'])
 					{
-						$tmp_data['key_url'] = get_js_url('/article/' . $data['article_id'] . '?' . $token . '&item_id=' . $data['item_id']);
+						$querys[] = 'item_id=' . $data['item_id'];
 					}
-				break;
+
+					$tmp_data['key_url'] = get_js_url('/article/' . $data['article_id'] . '?' . implode('&', $querys));
+
+					break;
 
 				case self::CATEGORY_QUESTION :
 					switch ($notify['action_type'])
 					{
 						default :
-							if (!$question_list[$data['question_id']])
+							if ($notify['action_type'] == self::TYPE_QUESTION_REFUSED)
 							{
-								unset($tmp);
-
-								continue;
+								$tmp_data['title'] = $data['title'];
 							}
+							else
+							{
+								if (!$question_list[$data['question_id']])
+								{
+									continue;
+								}
 
-							$tmp_data['title'] = $question_list[$data['question_id']]['question_content'];
+								$tmp_data['title'] = $question_list[$data['question_id']]['question_content'];
+							}
 
 							$rf = false;
 
@@ -341,24 +369,31 @@ class notify_class extends AWS_MODEL
 							}
 							else
 							{
-								if ($notify['action_type'] != self::TYPE_REDIRECT_QUESTION)
+								switch ($notify['action_type'])
 								{
-									$querys[] = 'rf=false';
-								}
+									case self::TYPE_REDIRECT_QUESTION:
+									case self::TYPE_QUESTION_REFUSED:
+										break;
 
-								if ($notify['action_type'] == self::TYPE_MOD_QUESTION)
-								{
-									$querys[] = 'column=log';
-								}
+									case self::TYPE_MOD_QUESTION:
+										$querys[] = 'column=log';
 
-								if ($notify['action_type'] == self::TYPE_INVITE_QUESTION)
-								{
-									$querys[] = 'source=' . base64_encode($data['from_uid']);
-								}
+										break;
 
-								if ($notify['action_type'] == self::TYPE_QUESTION_COMMENT OR $notify['action_type'] == self::TYPE_COMMENT_AT_ME)
-								{
-									$querys[] = 'comment_unfold=question';
+									case self::TYPE_INVITE_QUESTION:
+										$querys[] = 'source=' . base64_encode($data['from_uid']);
+
+										break;
+
+									case self::TYPE_QUESTION_COMMENT:
+									case self::TYPE_COMMENT_AT_ME:
+										$querys[] = 'comment_unfold=question';
+										break;
+
+									default:
+										$querys[] = 'rf=false';
+
+										break;
 								}
 
 								if ($data['item_id'])
@@ -405,7 +440,7 @@ class notify_class extends AWS_MODEL
 
 	function format_extend_detail($extends, $user_infos)
 	{
-		if (empty($extends) OR ! is_array($extends))
+		if (!$extends OR ! is_array($extends))
 		{
 			return $extends;
 		}
@@ -536,7 +571,7 @@ class notify_class extends AWS_MODEL
 	 */
 	public function check_notification_setting($recipient_uid, $action_type)
 	{
-		if (! in_array($action_type, $this->notify_actions))
+		if (!in_array($action_type, $this->notify_actions))
 		{
 			return false;
 		}
@@ -544,7 +579,7 @@ class notify_class extends AWS_MODEL
 		$notification_setting = $this->model('account')->get_notification_setting_by_uid($recipient_uid);
 
 		// 默认不认置则全部都发送
-		if (empty($notification_setting['data']))
+		if (!$notification_setting['data'])
 		{
 			return true;
 		}
@@ -981,6 +1016,26 @@ class notify_class extends AWS_MODEL
 
 					case self::TYPE_CONTEXT:
 						$data[$key]['message'] = $val['content'];
+
+						break;
+
+					case self::TYPE_ARTICLE_APPROVED:
+						$data[$key]['message'] = AWS_APP::lang()->_t('你发起的文章 %s 审核通过', '<a href="' . $val['key_url'] . '">' . $val['title'] . '</a>');
+
+						break;
+
+					case self::TYPE_ARTICLE_REFUSED:
+						$data[$key]['message'] = AWS_APP::lang()->_t('你发起的文章 %s 审核未通过', $val['title']);
+
+						break;
+
+					case self::TYPE_QUESTION_APPROVED:
+						$data[$key]['message'] = AWS_APP::lang()->_t('你发起的问题 %s 审核通过', '<a href="' . $val['key_url'] . '">' . $val['title'] . '</a>');
+
+						break;
+
+					case self::TYPE_QUESTION_REFUSED:
+						$data[$key]['message'] = AWS_APP::lang()->_t('你发起的问题 %s 审核未通过', $val['title']);
 
 						break;
 				}

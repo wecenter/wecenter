@@ -30,20 +30,28 @@ class publish_class extends AWS_MODEL
 		switch ($approval_item['type'])
 		{
 			case 'question':
-				$this->publish_question($approval_item['data']['question_content'], $approval_item['data']['question_detail'], $approval_item['data']['category_id'], $approval_item['uid'], $approval_item['data']['topics'], $approval_item['data']['anonymous'], $approval_item['data']['attach_access_key'], $approval_item['data']['ask_user_id'], $approval_item['data']['permission_create_topic']);
-			break;
+				$question_id = $this->publish_question($approval_item['data']['question_content'], $approval_item['data']['question_detail'], $approval_item['data']['category_id'], $approval_item['uid'], $approval_item['data']['topics'], $approval_item['data']['anonymous'], $approval_item['data']['attach_access_key'], $approval_item['data']['ask_user_id'], $approval_item['data']['permission_create_topic']);
+
+				$this->model('notify')->send(0, $approval_item['uid'], notify_class::TYPE_QUESTION_APPROVED, notify_class::CATEGORY_QUESTION, 0, array('question_id' => $question_id));
+
+				break;
 
 			case 'answer':
-				$this->publish_answer($approval_item['data']['question_id'], $approval_item['data']['answer_content'], $approval_item['uid'], $approval_item['data']['anonymous'], $approval_item['data']['attach_access_key'], $approval_item['data']['auto_focus']);
-			break;
+				$answer_id = $this->publish_answer($approval_item['data']['question_id'], $approval_item['data']['answer_content'], $approval_item['uid'], $approval_item['data']['anonymous'], $approval_item['data']['attach_access_key'], $approval_item['data']['auto_focus']);
+
+				break;
 
 			case 'article':
-				$this->publish_article($approval_item['data']['title'], $approval_item['data']['message'], $approval_item['uid'], $approval_item['data']['topics'], $approval_item['data']['category_id'], $approval_item['data']['attach_access_key'], $approval_item['data']['permission_create_topic']);
-			break;
+				$article_id = $this->publish_article($approval_item['data']['title'], $approval_item['data']['message'], $approval_item['uid'], $approval_item['data']['topics'], $approval_item['data']['category_id'], $approval_item['data']['attach_access_key'], $approval_item['data']['permission_create_topic']);
+
+				$this->model('notify')->send(0, $approval_item['uid'], notify_class::TYPE_ARTICLE_APPROVED, notify_class::CATEGORY_ARTICLE, 0, array('article_id' => $article_id));
+
+				break;
 
 			case 'article_comment':
-				$this->publish_article_comment($approval_item['data']['article_id'], $approval_item['data']['message'], $approval_item['uid'], $approval_item['data']['at_uid']);
-			break;
+				$article_comment_id = $this->publish_article_comment($approval_item['data']['article_id'], $approval_item['data']['message'], $approval_item['uid'], $approval_item['data']['at_uid']);
+
+				break;
 		}
 
 		$this->delete('approval', 'id = ' . intval($id));
@@ -53,7 +61,9 @@ class publish_class extends AWS_MODEL
 
 	public function decline_publish($id)
 	{
-		if (!$approval_item = $this->get_approval_item($id))
+		$approval_item = $this->get_approval_item($id);
+
+		if (!$approval_item)
 		{
 			return false;
 		}
@@ -63,7 +73,7 @@ class publish_class extends AWS_MODEL
 			case 'question':
 			case 'answer':
 			case 'article':
-				$this->delete('approval', 'id = ' . intval($id));
+				$this->delete('approval', 'id = ' . $approval_item['id']);
 
 				if ($approval_item['data']['attach_access_key'])
 				{
@@ -75,11 +85,26 @@ class publish_class extends AWS_MODEL
 						}
 					}
 				}
-			break;
+
+				break;
 
 			case 'article_comment':
-				$this->delete('approval', 'id = ' . intval($id));
-			break;
+				$this->delete('approval', 'id = ' . $approval_item['id']);
+
+				break;
+		}
+
+		switch ($approval_item['type'])
+		{
+			case 'question':
+				$this->model('notify')->send(0, $approval_item['uid'], notify_class::TYPE_QUESTION_REFUSED, notify_class::CATEGORY_QUESTION, 0, array('title' => $approval_item['data']['question_content']));
+
+				break;
+
+			case 'article':
+				$this->model('notify')->send(0, $approval_item['uid'], notify_class::TYPE_ARTICLE_REFUSED, notify_class::CATEGORY_ARTICLE, 0, array('title' => $approval_item['data']['title']));
+
+				break;
 		}
 
 		return true;
@@ -448,7 +473,7 @@ class publish_class extends AWS_MODEL
 		));
 	}
 
-	public function remove_attach($id, $access_key)
+	public function remove_attach($id, $access_key, $update_associate_table = true)
 	{
 		if (! $attach = $this->fetch_row('attach', "id = " . intval($id) . " AND access_key = '" . $this->quote($access_key) . "'"))
 		{
@@ -457,7 +482,7 @@ class publish_class extends AWS_MODEL
 
 		$this->delete('attach', "id = " . intval($id) . " AND access_key = '" . $this->quote($access_key) . "'");
 
-		if (!$this->fetch_row('attach', 'item_id = ' . $attach['item_id']))
+		if (!$this->fetch_row('attach', 'item_id = ' . $attach['item_id']) AND $update_associate_table)
 		{
 			switch ($attach['item_type'])
 			{
