@@ -113,6 +113,16 @@ class setting extends AWS_CONTROLLER
 			TPL::assign('google', $this->model('openid_google')->get_google_user_by_uid($this->user_id));
 		}
 
+		if (get_setting('facebook_login_enabled') == 'Y')
+		{
+			TPL::assign('facebook', $this->model('openid_facebook')->get_facebook_user_by_uid($this->user_id));
+		}
+
+		if (get_setting('twitter_login_enabled') == 'Y')
+		{
+			TPL::assign('twitter', $this->model('openid_twitter')->get_twitter_user_by_uid($this->user_id));
+		}
+
 		TPL::output('account/setting/openid');
 	}
 

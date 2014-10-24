@@ -1248,7 +1248,7 @@ class ajax extends AWS_CONTROLLER
 
 	public function weixin_login_process_action()
 	{
-		if (!get_setting('weixin_app_id'))
+		if (!get_setting('weixin_app_id') OR !get_setting('weixin_app_secret') OR get_setting('weixin_account_role') != 'service')
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('当前微信公众号暂不支持此功能')));
 		}

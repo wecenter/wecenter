@@ -17,7 +17,7 @@ if (!defined('IN_ANWSION'))
     die;
 }
 
-class google extends AWS_CONTROLLER
+class twitter extends AWS_CONTROLLER
 {
     public function get_access_rule()
     {
@@ -34,74 +34,84 @@ class google extends AWS_CONTROLLER
     {
         HTTP::no_cache_header();
 
-        if (get_setting('google_login_enabled') != 'Y' OR !get_setting('google_client_id') OR !get_setting('google_client_secret'))
+        if (get_setting('twitter_login_enabled') != 'Y' OR !get_setting('twitter_consumer_key') OR !get_setting('twitter_consumer_secret'))
         {
-            H::redirect_msg(AWS_APP::lang()->_t('本站未开通 Google 登录'), '/');
+            H::redirect_msg(AWS_APP::lang()->_t('本站未开通 Twitter 登录'), '/');
         }
     }
 
     public function bind_action()
     {
-        if (AWS_APP::session()->google_user)
+        if (AWS_APP::session()->twitter_request_token)
         {
-            $google_user_info = AWS_APP::session()->google_user;
+            $twitter_request_token = AWS_APP::session()->twitter_request_token;
 
-            unset(AWS_APP::session()->google_user);
+            unset(AWS_APP::session()->twitter_request_token);
         }
 
-        if ($_GET['error'] == 'access_denied')
+        if (AWS_APP::session()->twitter_user)
+        {
+            $twitter_user_info = AWS_APP::session()->twitter_user;
+
+            unset(AWS_APP::session()->twitter_user);
+        }
+
+        if ($_GET['denied'])
         {
             H::redirect_msg(AWS_APP::lang()->_t('授权失败'), '/');
         }
 
         if ($this->user_id)
         {
-            $google_user = $this->model('openid_google')->get_google_user_by_uid($this->user_id);
+            $twitter_user = $this->model('openid_twitter')->get_twitter_user_by_uid($this->user_id);
 
-            if ($google_user)
+            if ($twitter_user)
             {
-                H::redirect_msg(AWS_APP::lang()->_t('此账号已绑定 Google 账号'), '/');
+                H::redirect_msg(AWS_APP::lang()->_t('此账号已绑定 Twitter 账号'), '/');
             }
         }
 
-        $callback_url = '/account/google/bind/';
-
-        if ($_GET['return_url'])
+        if ($_GET['oauth_token'])
         {
-            $callback_url .= 'return_url-' . $_GET['return_url'];
-        }
-
-        if ($_GET['code'])
-        {
-            if ($_GET['code'] != $google_user_info['authorization_code'])
+            if (!$twitter_user_info)
             {
-                $this->model('openid_google')->authorization_code = $_GET['code'];
-
-                $this->model('openid_google')->redirect_url = $callback_url;
-
-                if (!$this->model('openid_google')->oauth2_login())
+                if ($_GET['oauth_token'] != $twitter_request_token['oauth_token'])
                 {
-                    H::redirect_msg($this->model('openid_google')->error_msg);
+                    H::redirect_msg(AWS_APP::lang()->_t('oauth token 不一致'));
                 }
 
-                $google_user_info = $this->model('openid_google')->user_info;
+                if (!$_GET['oauth_verifier'])
+                {
+                    H::redirect_msg(AWS_APP::lang()->_t('oauth verifier 为空'));
+                }
+
+                $this->model('openid_twitter')->request_token = $twitter_request_token;
+
+                $this->model('openid_twitter')->request_token['oauth_verifier'] = $_GET['oauth_verifier'];
+
+                if (!$this->model('openid_twitter')->get_user_info())
+                {
+                    H::redirect_msg($this->model('openid_twitter')->error_msg);
+                }
+
+                $twitter_user_info = $this->model('openid_twitter')->user_info;
             }
 
-            if (!$google_user_info)
+            if (!$twitter_user_info)
             {
-                H::redirect_msg(AWS_APP::lang()->_t('Google 登录失败'));
+                H::redirect_msg(AWS_APP::lang()->_t('Twitter 登录失败'));
             }
 
-            $google_user = $this->model('openid_google')->get_google_user_by_id($google_user_info['id']);
+            $twitter_user = $this->model('openid_twitter')->get_twitter_user_by_id($twitter_user_info['id']);
 
             if ($this->user_id)
             {
-                if ($google_user)
+                if ($twitter_user)
                 {
-                    H::redirect_msg(AWS_APP::lang()->_t('此 Google 账号已被绑定'));
+                    H::redirect_msg(AWS_APP::lang()->_t('此 Twitter 账号已被绑定'));
                 }
 
-                $this->model('openid_google')->bind_account($google_user_info, $this->user_id);
+                $this->model('openid_twitter')->bind_account($twitter_user_info, $this->user_id);
 
                 if (!$this->model('integral')->fetch_log($this->user_id, 'BIND_OPENID'))
                 {
@@ -112,18 +122,18 @@ class google extends AWS_CONTROLLER
             }
             else
             {
-                if ($google_user)
+                if ($twitter_user)
                 {
-                    $user = $this->model('account')->get_user_info_by_uid($google_user['uid']);
+                    $user = $this->model('account')->get_user_info_by_uid($twitter_user['uid']);
 
                     if (!$user)
                     {
-                        $this->model('openid_google')->unbind_account($google_user['uid']);
+                        $this->model('openid_twitter')->unbind_account($twitter_user['uid']);
 
                         H::redirect_msg(AWS_APP::lang()->_t('用户不存在'), '/account/login/');
                     }
 
-                    $this->model('openid_google')->update_user_info($google_user['id'], $google_user_info);
+                    $this->model('openid_twitter')->update_user_info($twitter_user['id'], $twitter_user_info);
 
                     HTTP::set_cookie('_user_login', get_login_cookie_hash($user['user_name'], $user['password'], $user['salt'], $user['uid'], false));
 
@@ -167,15 +177,13 @@ class google extends AWS_CONTROLLER
                             break;
                     }
 
-                    AWS_APP::session()->google_user = $google_user_info;
+                    AWS_APP::session()->twitter_user = $twitter_user_info;
 
                     $this->crumb(AWS_APP::lang()->_t('完善资料'), '/account/login/');
 
-                    TPL::assign('register_url', '/account/ajax/google/register/');
+                    TPL::assign('register_url', '/account/ajax/twitter/register/');
 
-                    TPL::assign('user_name', AWS_APP::session()->google_user['name']);
-
-                    TPL::assign('email', AWS_APP::session()->google_user['email']);
+                    TPL::assign('user_name', AWS_APP::session()->twitter_user['name']);
 
                     TPL::import_css('css/register.css');
 
@@ -185,13 +193,27 @@ class google extends AWS_CONTROLLER
         }
         else
         {
-            HTTP::redirect($this->model('openid_google')->get_redirect_url($callback_url));
+            $this->model('openid_twitter')->oauth_callback = '/account/twitter/bind/';
+
+            if ($_GET['return_url'])
+            {
+                $this->model('openid_twitter')->oauth_callback .= 'return_url-' . $_GET['return_url'];
+            }
+
+            if (!$this->model('openid_twitter')->oauth_redirect())
+            {
+                H::redirect_msg($this->model('openid_twitter')->error_msg);
+            }
+
+            AWS_APP::session()->twitter_request_token = $this->model('openid_twitter')->request_token;
+
+            HTTP::redirect($this->model('openid_twitter')->redirect_url);
         }
     }
 
     public function unbind_action()
     {
-        $this->model('openid_google')->unbind_account($this->user_id);
+        $this->model('openid_twitter')->unbind_account($this->user_id);
 
         HTTP::redirect('/account/setting/openid/');
     }
