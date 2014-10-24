@@ -1494,7 +1494,7 @@
                             <div class="col-sm-5 col-xs-8">
                                 <input name="google_client_id" type="text" class="form-control" value="<?php echo $this->setting['google_client_id']; ?>"/>
 
-                                <span class="help-block"><?php _e('请到 <a href="https://console.developers.google.com" target="_blank">Google Developers Console</a> 申请'); ?></span>
+                                <span class="help-block"><?php _e('请到 <a href="https://console.developers.google.com" target="_blank">Google Developers Console</a> 申请。Redirect URI 必填，值为 <code>%s</code>', get_js_url('/account/google/bind/')); ?></span>
                             </div>
                         </div>
                     </td>
@@ -1576,7 +1576,7 @@
                             <div class="col-sm-5 col-xs-8">
                                 <input name="twitter_consumer_key" type="text" class="form-control" value="<?php echo $this->setting['twitter_consumer_key']; ?>"/>
 
-                                <span class="help-block"><?php _e('请到 <a href="https://apps.twitter.com" target="_blank">Twitter Application Management</a> 申请；Callback URL 必须设置，值可为任意 URL'); ?></span>
+                                <span class="help-block"><?php _e('请到 <a href="https://apps.twitter.com" target="_blank">Twitter Application Management</a> 申请。Callback URL 必须设置，值可为任意 URL。'); ?></span>
                             </div>
                         </div>
                     </td>
