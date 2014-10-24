@@ -235,7 +235,7 @@ class notify_class extends AWS_MODEL
 					}
 					else
 					{
-						if (!$question_list[$data['article_id']])
+						if (!$article_list[$data['article_id']])
 						{
 							continue;
 						}
