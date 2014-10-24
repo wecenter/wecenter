@@ -123,7 +123,7 @@ class main extends AWS_CONTROLLER
 
 	public function weixin_login_action()
 	{
-		if ($this->user_id OR !get_setting('weixin_app_id') OR get_setting('weixin_account_role') != 'service')
+		if ($this->user_id OR !get_setting('weixin_app_id') OR !get_setting('weixin_app_secret') OR get_setting('weixin_account_role') != 'service')
 		{
 			HTTP::redirect('/');
 		}

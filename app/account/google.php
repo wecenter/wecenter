@@ -120,7 +120,30 @@ class google extends AWS_CONTROLLER
 
                     HTTP::set_cookie('_user_login', get_login_cookie_hash($user['user_name'], $user['password'], $user['salt'], $user['uid'], false));
 
-                    HTTP::redirect('/');
+                    if ($_GET['state'])
+                    {
+                        $return_url = $this->model('openid_google')->base64_url_decode($_GET['state']);
+                    }
+
+                    if (get_setting('ucenter_enabled') == 'Y')
+                    {
+                        $redirect_url = '/account/sync_login/';
+
+                        if ($return_url['return_url'])
+                        {
+                            $redirect_url .= 'url-' . base64_encode($return_url['return_url']);
+                        }
+                    }
+                    else if ($return_url['return_url'])
+                    {
+                        $redirect_url = $return_url['return_url'];
+                    }
+                    else
+                    {
+                        $redirect_url = '/';
+                    }
+
+                    HTTP::redirect($redirect_url);
                 }
                 else
                 {
@@ -160,7 +183,9 @@ class google extends AWS_CONTROLLER
         }
         else
         {
-            HTTP::redirect($this->model('openid_google')->get_redirect_url('/account/google/bind/'));
+            $state = ($_GET['return_url']) ? array('return_url' => base64_decode($_GET['return_url'])) : array();
+
+            HTTP::redirect($this->model('openid_google')->get_redirect_url('/account/google/bind/', $state));
         }
     }
 
