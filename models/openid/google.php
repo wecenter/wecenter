@@ -348,6 +348,6 @@ class openid_google_class extends AWS_MODEL
 
     public function base64_url_decode($parm)
     {
-        return base64_decode(strtr(json_decode($parm, true), '-_,', '+/='));
+        return json_decode(base64_decode(strtr($parm, '-_,', '+/=')), true);
     }
 }

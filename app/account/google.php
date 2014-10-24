@@ -185,7 +185,7 @@ class google extends AWS_CONTROLLER
         {
             $state = ($_GET['return_url']) ? array('return_url' => base64_decode($_GET['return_url'])) : array();
 
-            HTTP::redirect($this->model('openid_google')->get_redirect_url('/account/google/bind/'), $state);
+            HTTP::redirect($this->model('openid_google')->get_redirect_url('/account/google/bind/', $state));
         }
     }
 
