@@ -237,6 +237,8 @@
 	var QUESTION_ID = <?php echo $this->question_info['question_id'];?>;
 	var UNINTERESTED_COUNT = <?php echo get_setting('uninterested_fold'); ?>;
 	var ATTACH_ACCESS_KEY = '<?php echo $this->attach_access_key; ?>';
+	var ANSWER_EDIT_TIME = <?php echo get_setting('answer_edit_time'); ?>;
+	var USER_ANSWERED = '<?php echo $this->user_answered; ?>';
 
 	$(document).ready(function () {
         var fileupload = new FileUpload('file', '.aw-upload-box .icon-pic', '.aw-replay-box .upload-container', G_BASE_URL + '/publish/ajax/attach_upload/id-answer__attach_access_key' + '-' + ATTACH_ACCESS_KEY, {'deleteBtnTemplate' : '<a class="delete-file"><i class="icon icon-delete"></i></a>', 'insertBtnTemplate' : '<a class="insert-file"><i class="icon icon-insert"></i></a>'})
@@ -283,28 +285,6 @@
 			$('#load_uninterested_answers').fadeIn();
 		}
 	});
-
-	function answer_force_fold(answer_id, element)
-	{
-		$.post(G_BASE_URL + '/question/ajax/answer_force_fold/', 'answer_id=' + answer_id, function (result) {
-			if (result.errno != 1)
-			{
-				AWS.alert(result.err);
-			}
-			else if (result.errno == 1)
-			{
-				if (result.rsm.action == 'fold')
-				{
-					$(element).html($(element).html().replace(_t('折叠'), _t('撤消折叠')));
-				}
-				else
-				{
-					$(element).html($(element).html().replace(_t('撤消折叠'), _t('折叠')));
-				}
-			}
-		}, 'json');
-	}
-
 
 </script>
 

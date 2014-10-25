@@ -309,6 +309,7 @@ textarea.form-control{padding:6px;}
 .markitup-box img{max-width: 100%;margin-bottom: 10px;}
 .markitup-box iframe{width: 100%;}
 .markitup-box .aw-upload-img-list a{display: block;}
+.markitup-box br:first-child{display: none;}
 
 /* 发起页面 */
 .aw-publish-box{margin:15px 0 35px;}
