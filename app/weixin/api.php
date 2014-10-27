@@ -54,6 +54,8 @@ class api extends AWS_CONTROLLER
             $account_info['weixin_mp_menu'] = null;
         }
 
-        $this->model('weixin')->response_message($input_message, $account_info);
+        $this->model('weixin')->account_info = $account_info;
+
+        $this->model('weixin')->response_message($input_message);
     }
 }

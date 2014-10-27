@@ -59,4 +59,7 @@ INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES
 ('facebook_app_secret', 's:0:"";'),
 ('twitter_login_enabled', 's:1:"N";'),
 ('twitter_consumer_key', 's:0:"";'),
-('twitter_consumer_secret', 's:0:"";');
+('twitter_consumer_secret', 's:0:"";'),
+('weixin_encoding_aes_key', 's:0:"";');
+
+ALTER TABLE `[#DB_PREFIX#]weixin_accounts` ADD `weixin_encoding_aes_key` varchar(43) DEFAULT NULL;
