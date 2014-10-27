@@ -216,7 +216,7 @@
 								<dd class="pull-left">
 									<a class="aw-user-name" href="people/<?php echo $this->article_info['user_info']['url_token']; ?>" data-id="<?php echo $this->article_info['user_info']['uid']; ?>"><?php echo $this->article_info['user_info']['user_name'];?></a><?php if ($this->article_info['user_info']['verified']) { ?><i class="icon-v<?php if ($this->article_info['user_info']['verified'] == 'enterprise') { ?> i-ve<?php } ?>" title="<?php if ($this->user['verified'] == 'enterprise') { ?>企业认证<?php } else { ?>个人认证<?php } ?>"></i><?php } ?>
 									<?php if ($this->article_info['user_info']['uid'] != $this->user_id AND $this->user_id) { ?>
-									<a class="icon-inverse follow tooltips icon icon-plus <?php if (!$this->user_follow_check) { ?> active<?php } ?>" onclick="AWS.User.follow($(this), 'user', <?php echo $this->article_info['user_info']['uid']; ?>);"></a>
+									<a class="icon-inverse follow tooltips icon icon-plus <?php if ($this->user_follow_check) { ?> active<?php } ?>" onclick="AWS.User.follow($(this), 'user', <?php echo $this->article_info['user_info']['uid']; ?>);"></a>
 									<?php } ?>
 									<p><?php echo $this->article_info['user_info']['signature']; ?></p>
 								</dd>

@@ -325,8 +325,10 @@ textarea.form-control{padding:6px;}
 .aw-publish-box .aw-topic-bar .editor .mod-head{padding:0;}
 .aw-publish-box .aw-topic-bar .form-group{width: 73%;margin:0;}
 .aw-publish-box .aw-topic-bar .cancel{display: none;}
-.aw-publish-box .aw-topic-bar .add{background-color: #cccccc;color: #fff;}
+.aw-publish-box .aw-topic-bar .add{margin:0;background-color: #cccccc;color: #fff;}
 .aw-publish-box .aw-topic-bar .add:hover, .aw-publish-box .aw-topic-bar .add:active{background-color: #999 !important;color: #fff;}
+.aw-publish-box .aw-auth-img input{width: 80px;}
+.aw-publish-box .aw-auth-img img{height: 34px;}
 .aw-publish-box .command{position:relative;margin-top:5px;text-align: center;}
 .aw-publish-box .command label{position: absolute;left: 0;top: 8px;}
 
