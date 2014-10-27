@@ -53,8 +53,7 @@ class Services_Weixin_WXBizMsgCrypt
 	public function encryptMsg($replyMsg, $timeStamp, $nonce, &$encryptMsg)
 	{
 		$pc = new Services_Weixin_Prpcrypt($this->encodingAesKey);
-$txt = var_export('22' . $this->encodingAesKey, true);
-file_put_contents('/home/www/root/wecenter/123.txt', $txt);
+
 		//加密
 		$array = $pc->encrypt($replyMsg, $this->appId);
 		$ret = $array[0];
