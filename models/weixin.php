@@ -83,7 +83,7 @@ class weixin_class extends AWS_MODEL
             'weixin_mp_menu' => get_setting('weixin_mp_menu'),
             'weixin_subscribe_message_key' => get_setting('weixin_subscribe_message_key'),
             'weixin_no_result_message_key' => get_setting('weixin_no_result_message_key'),
-            'weixin_encoding_aes_key' => get_setting('encoding_aes_key')
+            'weixin_encoding_aes_key' => get_setting('weixin_encoding_aes_key')
         );
     }
 
@@ -172,7 +172,7 @@ class weixin_class extends AWS_MODEL
 
             if ($_GET['encrypt_type'] == 'aes')
             {
-                $post_object = $this->decrypt_msg($post_object['Encrypt'], $post_object['MsgSignature']);
+                $post_object = $this->decrypt_msg($post_object['Encrypt']);
             }
 
             $input_message = array(
@@ -460,7 +460,14 @@ class weixin_class extends AWS_MODEL
             ));
         }
 
-        return sprintf($this->xml_template_text, $input_message['fromUsername'], $input_message['toUsername'], $input_message['time'], 'text', $response_message);
+        $response = sprintf($this->xml_template_text, $input_message['fromUsername'], $input_message['toUsername'], $input_message['time'], 'text', $response_message);
+
+        if ($input_message['encryption'])
+        {
+            $response = $this->encrypt_msg($response);
+        }
+
+        return $response;
     }
 
     public function create_image_response($input_message, $article_data = array(), $action = null)
@@ -1897,9 +1904,9 @@ class weixin_class extends AWS_MODEL
         @unlink(get_setting('upload_dir') . '/weixin_qr_code/' . intval($scene_id) . '.jpg');
     }
 
-    public function decrypt_msg($encrypt, $msg_signature)
+    public function decrypt_msg($encrypt)
     {
-        $pc = new WXBizMsgCrypt($this->account_info['weixin_mp_token'], $this->account_info['encoding_aes_key'], $this->account_info['weixin_app_id']);
+        $pc = new Services_Weixin_WXBizMsgCrypt($this->account_info['weixin_mp_token'], $this->account_info['weixin_encoding_aes_key'], $this->account_info['weixin_app_id']);
 
         $format = '<xml><ToUserName><![CDATA[toUser]]></ToUserName><Encrypt><![CDATA[%s]]></Encrypt></xml>';
 
@@ -1907,7 +1914,7 @@ class weixin_class extends AWS_MODEL
 
         $decrypted_msg = '';
 
-        $err_code = $pc->decryptMsg($msg_signature, $_GET['timestamp'], $_GET['nonce'], $from_xml, $decrypted_msg);
+        $err_code = $pc->decryptMsg($_GET['msg_signature'], $_GET['timestamp'], $_GET['nonce'], $from_xml, $decrypted_msg);
 
         if ($err_code != 0)
         {
@@ -1919,7 +1926,7 @@ class weixin_class extends AWS_MODEL
 
     public function encrypt_msg($msg)
     {
-        $pc = new WXBizMsgCrypt($this->account_info['weixin_mp_token'], $this->account_info['encoding_aes_key'], $this->account_info['weixin_app_id']);
+        $pc = new Services_Weixin_WXBizMsgCrypt($this->account_info['weixin_mp_token'], $this->account_info['weixin_encoding_aes_key'], $this->account_info['weixin_app_id']);
 
         $encrypted_msg = '';
 
