@@ -30,12 +30,12 @@ class main extends AWS_CONTROLLER
 
     public function rule_action()
     {
+        $this->crumb(AWS_APP::lang()->_t('%s 积分规则', get_setting('site_name')));
+
         if (get_setting('integral_system_enabled') != 'Y')
         {
-            H::redirect_msg(AWS_APP::lang()->_t('本站未启用积分系统'));
+            H::redirect_msg(AWS_APP::lang()->_t('本站未启用积分系统'), '/');
         }
-
-        $this->crumb(AWS_APP::lang()->_t('%s 积分规则', get_setting('site_name')));
 
         TPL::output('integral/rule');
     }
