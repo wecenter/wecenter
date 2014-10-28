@@ -429,16 +429,14 @@ class weixin_class extends AWS_MODEL
                 break;
         }
 
-        if (is_array($response_message))
-        {
-            echo $this->create_image_response($input_message, $response_message, $action);
-        }
-        else
-        {
-            echo $this->create_txt_response($input_message, $response_message, $action);
-        }
+        $response = (is_array($response_message)) ? $this->create_image_response($input_message, $response_message, $action) : $this->create_txt_response($input_message, $response_message, $action);
 
-        exit();
+        if ($input_message['encryption'])
+        {
+            $response = $this->encrypt_msg($response);
+        }
+$a=var_export($response, true);file_put_contents('/home/www/root/wecenter/123.txt', $response);
+        exit($response);
     }
 
     public function create_txt_response($input_message, $response_message, $action = null)
@@ -460,14 +458,7 @@ class weixin_class extends AWS_MODEL
             ));
         }
 
-        $response = sprintf($this->xml_template_text, $input_message['fromUsername'], $input_message['toUsername'], $input_message['time'], 'text', $response_message);
-
-        if ($input_message['encryption'])
-        {
-            $response = $this->encrypt_msg($response);
-        }
-
-        return $response;
+        return sprintf($this->xml_template_text, $input_message['fromUsername'], $input_message['toUsername'], $input_message['time'], 'text', $response_message);
     }
 
     public function create_image_response($input_message, $article_data = array(), $action = null)
@@ -505,14 +496,7 @@ class weixin_class extends AWS_MODEL
             $article_xml .= sprintf('<item><Title><![CDATA[%s]]></Title><Description><![CDATA[%s]]></Description><PicUrl><![CDATA[%s]]></PicUrl><Url><![CDATA[%s]]></Url></item>', $val['title'], $val['description'], $val['image_file'], $val['link']);
         }
 
-        $response = sprintf('<xml><ToUserName><![CDATA[%s]]></ToUserName><FromUserName><![CDATA[%s]]></FromUserName><CreateTime>%s</CreateTime><MsgType><![CDATA[%s]]></MsgType><ArticleCount>%s</ArticleCount><Articles>%s</Articles></xml>', $input_message['fromUsername'], $input_message['toUsername'], $input_message['time'], 'news', sizeof($article_data), $article_xml);
-
-        if ($input_message['encryption'])
-        {
-            $response = $this->encrypt_msg($response);
-        }
-
-        return $response;
+        return sprintf('<xml><ToUserName><![CDATA[%s]]></ToUserName><FromUserName><![CDATA[%s]]></FromUserName><CreateTime>%s</CreateTime><MsgType><![CDATA[%s]]></MsgType><ArticleCount>%s</ArticleCount><Articles>%s</Articles></xml>', $input_message['fromUsername'], $input_message['toUsername'], $input_message['time'], 'news', sizeof($article_data), $article_xml);
     }
 
     public function message_parser($input_message, $param = null)
@@ -1930,7 +1914,7 @@ class weixin_class extends AWS_MODEL
 
         $encrypted_msg = '';
 
-        $err_code = $pc->encryptMsg($msg, time(), mt_rand(1000000000, 9999999999), $encrypted_msg);
+        $err_code = $pc->encryptMsg($msg, $_GET['timestamp'], $_GET['nonce'], $encrypted_msg);
 
         if ($err_code != 0)
         {
