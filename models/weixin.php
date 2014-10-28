@@ -1914,7 +1914,7 @@ class weixin_class extends AWS_MODEL
 
         $encrypted_msg = '';
 
-        $err_code = $pc->encryptMsg($msg, $_GET['timestamp'], $_GET['nonce'], $encrypted_msg);
+        $err_code = $pc->encryptMsg($msg, time(), mt_rand(1000000000, 9999999999), $encrypted_msg);
 
         if ($err_code != 0)
         {
