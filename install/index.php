@@ -1,7 +1,7 @@
 <?php
 /*
 +--------------------------------------------------------------------------
-|   WeCenter [#RELEASE_VERSION#]
+|   WeCenter [#RELEA    SE_VERSION#]
 |   ========================================
 |   by WeCenter Software
 |   © 2011 - 2014 WeCenter. All Rights Reserved
