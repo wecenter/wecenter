@@ -435,7 +435,7 @@ class weixin_class extends AWS_MODEL
         {
             $response = $this->encrypt_msg($response);
         }
-$a=var_export($response, true);file_put_contents('/home/www/root/wecenter/123.txt', $response);
+
         exit($response);
     }
 
