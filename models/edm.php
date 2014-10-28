@@ -104,7 +104,7 @@ class edm_class extends AWS_MODEL
 
     public function add_user_data($group_id, $email)
     {
-        if (!H::valid_email($email))
+        if (!H::valid_email($email) OR $this->is_unsubscription($email))
         {
             return false;
         }
@@ -138,6 +138,8 @@ class edm_class extends AWS_MODEL
             {
                 $from_name = $task_data[$item['taskid']]['from_name'];
             }
+            
+            $task_data[$item['taskid']]['message'] = str_replace('[#UNSUBSCRIPTION_LINK#]', get_js_url('/account/edm/unsubscription/' . urlencode(base64_encode($item['email'])) . ',' . md5($item['email'] . G_SECUKEY)), $task_data[$item['taskid']]['message']);
 
             $message = $task_data[$item['taskid']]['message'] . '<p><center>为确保我们的邮件不被当做垃圾邮件处理，请把 ' . get_setting('from_email') . ' 添加为你的联系人。</center></p><p><center>如果内容显示不正确, 请<a href="' . get_js_url('/account/edm/mail/' . $item['taskid']) . '">点此查看在线版</a>。<img src="' . get_js_url('/account/edm/ping/' . urlencode(base64_encode($item['email'])) . '|' . md5($item['email'] . G_SECUKEY)) . '|' . $item['taskid'] . '" alt="" width="1" height="1" /></center></p>';
 
@@ -153,7 +155,7 @@ class edm_class extends AWS_MODEL
 
     public function import_system_email_by_reputation_group($group_id, $user_group_id)
     {
-        return $this->query("INSERT INTO `" . get_table('edm_userdata') . "` (`usergroup`, `email`) SELECT '" . $group_id . "' ,  `email` FROM `" . get_table('users') . "` WHERE email != '' AND reputation_group = " . intval($user_group_id));
+        return $this->query("INSERT INTO `" . get_table('edm_userdata') . "` (`usergroup`, `email`) SELECT '" . intval($group_id) . "' ,  `email` FROM `" . get_table('users') . "` WHERE email != '' AND reputation_group = " . intval($user_group_id));
     }
 
     public function import_system_email_by_user_group($group_id, $user_group_id)
@@ -512,4 +514,20 @@ class edm_class extends AWS_MODEL
                 break;
         }
     }
+    
+	public function is_unsubscription($email)
+	{
+		return $this->fetch_one('edm_unsubscription', 'id', "`email` = '" . $this->quote($email) . "'");
+	}
+	
+	public function unsubscription_user($email)
+	{		
+		$this->delete('edm_taskdata', "`email` = '" . $this->quote($email) . "'");
+		$this->delete('edm_userdata', "`email` = '" . $this->quote($email) . "'");
+		
+		$this->insert('edm_unsubscription', array(
+			'email' => $email,
+			'time' => time()
+		));
+	}
 }

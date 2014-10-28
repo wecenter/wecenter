@@ -56,4 +56,36 @@ class edm extends AWS_CONTROLLER
 			echo 'Success';
 		}
 	}
+	
+	public function unsubscription_action()
+	{
+		if ($_GET['id'])
+		{
+			$arg = explode(',', $_GET['id']);
+			
+			$email = base64_decode($arg[0]);
+			
+			$human_verify = $arg[2];
+		}
+		
+		if (md5($email . G_SECUKEY) == $arg[1])
+		{
+			if ($human_verify == ip2long(fetch_ip()))
+			{
+				$this->model('edm')->unsubscription($email);
+				
+				H::redirect_msg(AWS_APP::lang()->_t('%s 退订邮件成功', $email));
+			}
+			else
+			{
+				$unsubscription_link = get_js_url('/account/edm/unsubscription/' . $arg[0] . ',' . $arg[1] . ',' . ip2long(fetch_ip()));
+				
+				H::redirect_msg(AWS_APP::lang()->_t('是否确认退订邮件订阅? &nbsp; ( <a href="%s">继续</a> )', $unsubscription_link));
+			}
+		}
+		else
+		{
+			$message = '抱歉, 退订链接无效';
+		}
+	}
 }
