@@ -435,7 +435,7 @@ class weixin_class extends AWS_MODEL
         {
             $response = $this->encrypt_msg($response);
         }
-$a=var_export($response, true);file_put_contents('/home/www/root/wecenter/123.txt', $response);
+
         exit($response);
     }
 
@@ -1914,7 +1914,7 @@ $a=var_export($response, true);file_put_contents('/home/www/root/wecenter/123.tx
 
         $encrypted_msg = '';
 
-        $err_code = $pc->encryptMsg($msg, $_GET['timestamp'], $_GET['nonce'], $encrypted_msg);
+        $err_code = $pc->encryptMsg($msg, time(), mt_rand(1000000000, 9999999999), $encrypted_msg);
 
         if ($err_code != 0)
         {
