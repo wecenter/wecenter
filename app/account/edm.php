@@ -85,7 +85,7 @@ class edm extends AWS_CONTROLLER
 		}
 		else
 		{
-			$message = '抱歉, 退订链接无效';
+			H::redirect_msg(AWS_APP::lang()->_t('退订链接无效'));
 		}
 	}
 }
