@@ -14,7 +14,7 @@
 /* 工单页面 */
 .aw-work-wrap .container{width: 100% !important;padding-left: 30px;padding-right: 30px;}
 .aw-work-wrap .container .aw-side-bar{position:absolute;width: 250px;margin-right:-1px;border-left: none;border-right: 1px solid #e6e6e6;}
-.aw-work-wrap .container .aw-main-content{float:none;width:auto;margin-left:248px;padding:30px;border-right: none;border-left: 1px solid #e6e6e6;}
+.aw-work-wrap .container .aw-main-content{float:none;width:auto;margin-left:248px;padding:30px;min-height:603px;border-right: none;border-left: 1px solid #e6e6e6;}
 .aw-work-wrap .container h1 .icon{font-size: 24px;vertical-align: -5px;}
 .aw-work-wrap .aw-nav-tabs{height: 33px;min-height: 33px;padding:0;}
 .aw-work-wrap .aw-nav-tabs h2{top: -15px;left: 0;}
