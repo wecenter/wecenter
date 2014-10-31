@@ -122,21 +122,21 @@ class google extends AWS_CONTROLLER
 
                     if ($_GET['state'])
                     {
-                        $return_url = $this->model('openid_google')->base64_url_decode($_GET['state']);
+                        $state = base64_url_decode($_GET['state']);
                     }
 
                     if (get_setting('ucenter_enabled') == 'Y')
                     {
                         $redirect_url = '/account/sync_login/';
 
-                        if ($return_url['return_url'])
+                        if ($state['return_url'])
                         {
-                            $redirect_url .= 'url-' . base64_encode($return_url['return_url']);
+                            $redirect_url .= 'url-' . base64_encode($state['return_url']);
                         }
                     }
-                    else if ($return_url['return_url'])
+                    else if ($state['return_url'])
                     {
-                        $redirect_url = $return_url['return_url'];
+                        $redirect_url = $state['return_url'];
                     }
                     else
                     {
@@ -183,7 +183,7 @@ class google extends AWS_CONTROLLER
         }
         else
         {
-            $state = ($_GET['return_url']) ? array('return_url' => base64_decode($_GET['return_url'])) : array();
+            $state = ($_GET['return_url']) ? base64_url_encode(array('return_url' => base64_decode($_GET['return_url']))) : null;
 
             HTTP::redirect($this->model('openid_google')->get_redirect_url('/account/google/bind/', $state));
         }
