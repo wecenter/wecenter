@@ -41,7 +41,7 @@ class openid_google_class extends AWS_MODEL
 
     public $user_info;
 
-    public function get_redirect_url($redirect_url, $state = array())
+    public function get_redirect_url($redirect_url, $state = null)
     {
         $args = array(
             'client_id' => get_setting('google_client_id'),
@@ -52,7 +52,7 @@ class openid_google_class extends AWS_MODEL
 
         if ($state)
         {
-            $args['state'] = $this->base64_url_encode($state);
+            $args['state'] = $state;
         }
 
         return self::OAUTH2_AUTH_URL . '?' . http_build_query($args);
@@ -334,20 +334,5 @@ class openid_google_class extends AWS_MODEL
         }
 
         return $google_user_info[$uid];
-    }
-
-    public function base64_url_encode($parm)
-    {
-        if (!is_array($parm))
-        {
-            return false;
-        }
-
-        return strtr(base64_encode(json_encode($parm)), '+/=', '-_,');
-    }
-
-    public function base64_url_decode($parm)
-    {
-        return json_decode(base64_decode(strtr($parm, '-_,', '+/=')), true);
     }
 }

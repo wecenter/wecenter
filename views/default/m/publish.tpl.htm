@@ -63,9 +63,9 @@
             <!-- end 话题bar -->
 
             <?php if ($this->human_valid) { ?>
-            <div class="aw-auth-img pull-left">
-                <em class="auth-img pull-left"><img src="" onclick="this.src = G_BASE_URL + '/account/captcha/' + Math.floor(Math.random() * 10000);" id="captcha"  /></em>
+            <div class="aw-auth-img clearfix">
                 <input class="form-control pull-left" type="text" name="seccode_verify" placeholder="验证码" />
+                <em class="auth-img pull-left"><img src="" onclick="this.src = G_BASE_URL + '/account/captcha/' + Math.floor(Math.random() * 10000);" id="captcha"  /></em>
             </div>
             <?php } ?>
 

@@ -273,3 +273,18 @@ function get_chapter_icon_url($id, $size = 'max', $default = true)
 
 	return false;
 }
+
+function base64_url_encode($parm)
+{
+	if (!is_array($parm))
+	{
+		return false;
+	}
+
+	return strtr(base64_encode(json_encode($parm)), '+/=', '-_,');
+}
+
+function base64_url_decode($parm)
+{
+	return json_decode(base64_decode(strtr($parm, '-_,', '+/=')), true);
+}

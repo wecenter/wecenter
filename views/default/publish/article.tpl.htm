@@ -68,7 +68,7 @@
 										<div id="wmd-preview" class="wmd-panel wmd-preview"></div>
 									</div>
 								</div>
-								
+
 								<h3><?php _e('添加话题'); ?>:</h3>
 								<div class="aw-topic-bar" data-type="publish">
 									<div class="tag-bar clearfix">
@@ -110,7 +110,7 @@
 								<?php } ?>
 							</div>
 							<div class="mod-footer clearfix">
-								<a href="page/integral" target="_blank">[积分规则]</a>
+								<?php if (get_setting('integral_system_enabled') == 'Y') { ?><a href="/integral/rule/" target="_blank">[<?php _e('积分规则'); ?>]</a><?php } ?>
 								<span class="aw-anonymity">
 									<?php if ($this->article_info['id'] AND ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator'])) { ?>
 									<label><input type="checkbox" class="pull-left" value="1" name="do_delete" />

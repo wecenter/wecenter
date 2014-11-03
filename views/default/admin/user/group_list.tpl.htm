@@ -65,6 +65,7 @@
 						<div class="mod-table-foot">
 							<a class="btn btn-primary add"><?php _e('新增'); ?></a>
 							<a class="btn btn-primary" onclick="AWS.ajax_post($('#batchs_form'));"><?php _e('保存'); ?></a>
+							<a class="btn btn-danger" onclick="AWS.ajax_post($('#custom_form'));"><?php _e('删除'); ?></a>
 						</div>
 					</form>
 				</div>
@@ -125,6 +126,7 @@
 				<div class="mod-table-foot">
 					<a class="btn btn-primary" onclick="$('#custom_table').append('<tr>' + $('#custom_add_form').html() + '</tr>')"><?php _e('新增'); ?></a>
 					<a class="btn btn-primary" onclick="AWS.ajax_post($('#custom_form'));"><?php _e('保存'); ?></a>
+					<a class="btn btn-danger" onclick="AWS.ajax_post($('#custom_form'));"><?php _e('删除'); ?></a>
 				</div>
 			</div>
 		</div>
@@ -133,13 +135,6 @@
 
 <script type="text/javascript">
 	$(document).ready(function () {
-		if (window.location.hash)
-		{
-			if (document.getElementById(window.location.hash.replace('#', '')))
-			{
-				document.getElementById(window.location.hash.replace('#', '')).click();
-			}
-		}
 
 		// 遍历生成select的option
 		var select_arr = get_select_arr(), input_arr = [], template = get_select_template(select_arr);

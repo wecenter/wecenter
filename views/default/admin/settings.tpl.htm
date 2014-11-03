@@ -941,7 +941,7 @@
                 <tr>
                     <td>
                         <div class="form-group">
-                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('用户完善资料获得积分'); ?>:</span>
+                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('用户完善资料获得积分（包括头像，一句话介绍，履历等资料）'); ?>:</span>
                             <div class="col-sm-5 col-xs-8">
                                 <input name="integral_system_config_profile" type="text" class="form-control" value="<?php echo $this->setting['integral_system_config_profile']; ?>"/>
                             </div>
@@ -951,29 +951,9 @@
                 <tr>
                     <td>
                         <div class="form-group">
-                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('用户邀请注册并成功邀请'); ?>:</span>
+                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('用户邀请他人注册且被邀请人成功注册'); ?>:</span>
                             <div class="col-sm-5 col-xs-8">
                                 <input name="integral_system_config_invite" type="text" class="form-control" value="<?php echo $this->setting['integral_system_config_invite']; ?>"/>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="form-group">
-                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('最佳回复'); ?>:</span>
-                            <div class="col-sm-5 col-xs-8">
-                                <input name="integral_system_config_best_answer" type="text" class="form-control" value="<?php echo $this->setting['integral_system_config_best_answer']; ?>"/>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="form-group">
-                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('回复被折叠'); ?>:</span>
-                            <div class="col-sm-5 col-xs-8">
-                                <input name="integral_system_config_answer_fold" type="text" class="form-control" value="<?php echo $this->setting['integral_system_config_answer_fold']; ?>"/>
                             </div>
                         </div>
                     </td>
@@ -1001,6 +981,16 @@
                 <tr>
                     <td>
                         <div class="form-group">
+                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('回复被评为最佳回复'); ?>:</span>
+                            <div class="col-sm-5 col-xs-8">
+                                <input name="integral_system_config_best_answer" type="text" class="form-control" value="<?php echo $this->setting['integral_system_config_best_answer']; ?>"/>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
                             <span class="col-sm-4 col-xs-3 control-label"><?php _e('感谢回复'); ?>:</span>
                             <div class="col-sm-5 col-xs-8">
                                 <input name="integral_system_config_thanks" type="text" class="form-control" value="<?php echo $this->setting['integral_system_config_thanks']; ?>"/>
@@ -1011,7 +1001,17 @@
                 <tr>
                     <td>
                         <div class="form-group">
-                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('发起者邀请别人回答问题并回答'); ?>:</span>
+                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('回复被折叠'); ?>:</span>
+                            <div class="col-sm-5 col-xs-8">
+                                <input name="integral_system_config_answer_fold" type="text" class="form-control" value="<?php echo $this->setting['integral_system_config_answer_fold']; ?>"/>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('发起者邀请用户回答问题且收到答案'); ?>:</span>
                             <div class="col-sm-5 col-xs-8">
                                 <input name="integral_system_config_invite_answer" type="text" class="form-control" value="<?php echo $this->setting['integral_system_config_invite_answer']; ?>"/>
                             </div>
@@ -1385,6 +1385,17 @@
                                 <input name="weixin_mp_token" type="text" class="form-control" value="<?php echo $this->setting['weixin_mp_token']; ?>"/>
 
                                 <span class="help-block"><?php _e('请与微信公众平台后台设置一致，URL 为 <code>%s</code>', get_js_url('/weixin/api/')); ?></span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('微信公众平台接口 EncodingAESKey'); ?>:</span>
+                            <div class="col-sm-5 col-xs-8">
+                                <input type="text" class="form-control" name="weixin_encoding_aes_key" value="<?php echo $this->setting['weixin_encoding_aes_key']; ?>">
                             </div>
                         </div>
                     </td>

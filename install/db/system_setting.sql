@@ -115,4 +115,14 @@ INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES
 ('slave_mail_config', 's:0:"";'),
 ('receiving_email_global_config', 'a:2:{s:7:"enabled";s:1:"N";s:12:"publish_user";N;}'),
 ('wecenter_mp_notification_once', 's:1:"Y";'),
-('last_sent_valid_email_id', 'i:0;');
+('last_sent_valid_email_id', 'i:0;'),
+('google_login_enabled', 's:1:"N";'),
+('google_client_id', 's:0:"";'),
+('google_client_secret', 's:0:"";'),
+('facebook_login_enabled', 's:1:"N";'),
+('facebook_app_id', 's:0:"";'),
+('facebook_app_secret', 's:0:"";'),
+('twitter_login_enabled', 's:1:"N";'),
+('twitter_consumer_key', 's:0:"";'),
+('twitter_consumer_secret', 's:0:"";'),
+('weixin_encoding_aes_key', 's:0:"";');

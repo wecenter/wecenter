@@ -41,7 +41,7 @@ class openid_facebook_class extends AWS_MODEL
 
     public $user_info;
 
-    public function get_redirect_url($redirect_url)
+    public function get_redirect_url($redirect_url, $state = null)
     {
         $args = array(
             'client_id' => get_setting('facebook_app_id'),
@@ -49,6 +49,11 @@ class openid_facebook_class extends AWS_MODEL
             'response_type' => 'code',
             'scope' => 'public_profile email'
         );
+
+        if ($state)
+        {
+            $args['state'] = $state;
+        }
 
         return self::OAUTH2_AUTH_URL . '?' . http_build_query($args);
     }
