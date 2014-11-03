@@ -363,7 +363,7 @@ class HTTP
 		return 0;
 	}
 
-	public static function request($url, $method, $post_fields = NULL, $time_out = 15, $header = array())
+	public static function request($url, $method, $post_fields = null, $time_out = 15, $header = null, $cookie = null)
 	{
 		if (!function_exists('curl_init'))
 		{
@@ -414,9 +414,16 @@ class HTTP
 		{
 			curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
 			curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, FALSE);
+
+			curl_setopt($curl, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1);
 		}
 
 		curl_setopt($curl, CURLOPT_USERAGENT, 'WeCenter/' . G_VERSION);
+
+		if ($cookie AND is_array($cookie))
+		{
+			curl_setopt($curl, CURLOPT_COOKIE, urldecode(http_build_query($cookie, '', '; ')));
+		}
 
 		$response = curl_exec($curl);
 

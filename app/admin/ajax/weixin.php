@@ -243,6 +243,11 @@ class ajax_weixin extends AWS_ADMIN_CONTROLLER
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('微信公众平台接口 Token 不能为空')));
         }
 
+        if ($_POST['weixin_encoding_aes_key'] AND strlen($_POST['weixin_encoding_aes_key']) != 43)
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('微信公众平台接口 EncodingAESKey 应为 43 位')));
+        }
+
         if (!$_POST['weixin_account_role'] OR !in_array($_POST['weixin_account_role'], array('base', 'subscription', 'general', 'service')))
         {
             $_POST['weixin_account_role'] = 'base';

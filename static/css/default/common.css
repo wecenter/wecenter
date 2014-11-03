@@ -422,6 +422,7 @@ a.aw-load-more-content{display: block;}
 .aw-comment-box{position:relative;margin:10px auto;border:1px solid #e6e6e6;background-color: #fff;}
 .aw-comment-box .aw-comment-list{padding:15px 15px 0;border-bottom: 1px solid #f2f2f2;}
 .aw-comment-box .aw-comment-list .aw-padding10{padding-top: 0;}
+.aw-comment-box .aw-comment-list a{color: #155faa;}
 .aw-comment-box form{padding:15px;background-color: #fafafa;}
 .aw-comment-box textarea{height: 32px;margin:0;}
 .aw-comment-box .aw-comment-box-btn{display:none;height:auto;overflow:hidden;margin-top:10px;}

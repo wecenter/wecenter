@@ -1112,6 +1112,8 @@ function curl_get_contents($url, $timeout = 10)
 	{
 		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
 		curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, FALSE);
+
+		curl_setopt($curl, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1);
 	}
 
 	$result = curl_exec($curl);

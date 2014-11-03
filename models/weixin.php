@@ -19,7 +19,7 @@ if (! defined('IN_ANWSION'))
 
 class weixin_class extends AWS_MODEL
 {
-    private $xml_template_text = '<xml><ToUserName><![CDATA[%s]]></ToUserName><FromUserName><![CDATA[%s]]></FromUserName><CreateTime>%s</CreateTime><MsgType><![CDATA[%s]]></MsgType><Content><![CDATA[%s]]></Content><FuncFlag>0</FuncFlag></xml>';
+    private $xml_template_text = '<xml><ToUserName><![CDATA[%s]]></ToUserName><FromUserName><![CDATA[%s]]></FromUserName><CreateTime>%s</CreateTime><MsgType><![CDATA[%s]]></MsgType><Content><![CDATA[%s]]></Content></xml>';
 
     private $bind_message;
 
@@ -38,6 +38,8 @@ class weixin_class extends AWS_MODEL
     private $to_save_questions;
 
     private $post_data;
+
+    public $account_info;
 
     public function replace_post($subject)
     {
@@ -68,38 +70,30 @@ class weixin_class extends AWS_MODEL
         return $new_array;
     }
 
-    public function get_account_info_by_id($account_id, $column = null)
+    public function get_master_account_info()
+    {
+        return array(
+            'id' => 0,
+            'weixin_mp_token' => get_setting('weixin_mp_token'),
+            'weixin_account_role' => get_setting('weixin_account_role'),
+            'weixin_app_id' => get_setting('weixin_app_id'),
+            'weixin_app_secret' => get_setting('weixin_app_secret'),
+            'wecenter_access_token' => get_setting('wecenter_access_token'),
+            'wecenter_access_secret' => get_setting('wecenter_access_secret'),
+            'weixin_mp_menu' => get_setting('weixin_mp_menu'),
+            'weixin_subscribe_message_key' => get_setting('weixin_subscribe_message_key'),
+            'weixin_no_result_message_key' => get_setting('weixin_no_result_message_key'),
+            'weixin_encoding_aes_key' => get_setting('weixin_encoding_aes_key')
+        );
+    }
+
+    public function get_account_info_by_id($account_id)
     {
         $account_id = intval($account_id);
 
         if ($account_id == 0)
         {
-            if ($column)
-            {
-                if (is_array($column))
-                {
-                    foreach ($column as $value)
-                    {
-                        $result[$value] = get_setting($value);
-                    }
-                    return $result;
-                }
-
-                return get_setting($column);
-            }
-
-            return array(
-                'id' => 0,
-                'weixin_mp_token' => get_setting('weixin_mp_token'),
-                'weixin_account_role' => get_setting('weixin_account_role'),
-                'weixin_app_id' => get_setting('weixin_app_id'),
-                'weixin_app_secret' => get_setting('weixin_app_secret'),
-                'wecenter_access_token' => get_setting('wecenter_access_token'),
-                'wecenter_access_secret' => get_setting('wecenter_access_secret'),
-                'weixin_mp_menu' => get_setting('weixin_mp_menu'),
-                'weixin_subscribe_message_key' => get_setting('weixin_subscribe_message_key'),
-                'weixin_no_result_message_key' => get_setting('weixin_no_result_message_key')
-            );
+            return $this->get_master_account_info();
         }
 
         static $account_info;
@@ -116,20 +110,6 @@ class weixin_class extends AWS_MODEL
             $account_info[$account_id]['weixin_mp_menu'] = json_decode($account_info[$account_id]['weixin_mp_menu'], true);
         }
 
-        if ($column)
-        {
-            if (is_array($column))
-            {
-                foreach ($column as $value)
-                {
-                    $result[$value] = $account_info[$account_id][$value];
-                }
-                return $result;
-            }
-
-            return $account_info[$account_id][$column];
-        }
-
         return $account_info[$account_id];
     }
 
@@ -139,18 +119,7 @@ class weixin_class extends AWS_MODEL
 
         if (!$accounts_info)
         {
-            $accounts_info[0] = array(
-                'id' => 0,
-                'weixin_mp_token' => get_setting('weixin_mp_token'),
-                'weixin_account_role' => get_setting('weixin_mp_token'),
-                'weixin_app_id' => get_setting('weixin_app_id'),
-                'weixin_app_secret' => get_setting('weixin_app_secret'),
-                'wecenter_access_token' => get_setting('wecenter_access_token'),
-                'wecenter_access_secret' => get_setting('wecenter_access_secret'),
-                'weixin_mp_menu' => get_setting('weixin_mp_menu'),
-                'weixin_subscribe_message_key' => get_setting('weixin_subscribe_message_key'),
-                'weixin_no_result_message_key' => get_setting('weixin_no_result_message_key')
-            );
+            $accounts_info[0] = $this->get_master_account_info();
 
             $accounts_list = $this->model('setting')->fetch_all('weixin_accounts');
 
@@ -201,6 +170,11 @@ class weixin_class extends AWS_MODEL
         {
             $post_object = (array)simplexml_load_string($this->post_data, 'SimpleXMLElement', LIBXML_NOCDATA);
 
+            if ($_GET['encrypt_type'] == 'aes')
+            {
+                $post_object = $this->decrypt_msg($post_object['Encrypt']);
+            }
+
             $input_message = array(
                 'fromUsername' => $post_object['FromUserName'],
                 'toUsername' => $post_object['ToUserName'],
@@ -223,7 +197,8 @@ class weixin_class extends AWS_MODEL
                 'createTime' => $post_object['CreateTime'],
                 'status' => $post_object['Status'],
                 'filterCount' => $post_object['FilterCount'],
-                'picUrl' => $post_object['PicUrl']
+                'picUrl' => $post_object['PicUrl'],
+                'encryption' => ($_GET['encrypt_type'] == 'aes') ? true : false
             );
 
             $weixin_info = $this->model('openid_weixin_weixin')->get_user_info_by_openid($input_message['fromUsername']);
@@ -242,7 +217,7 @@ class weixin_class extends AWS_MODEL
         }
     }
 
-    public function response_message($input_message, $account_info)
+    public function response_message($input_message)
     {
         switch ($input_message['msgType'])
         {
@@ -254,7 +229,7 @@ class weixin_class extends AWS_MODEL
                         $input_message['content'] = 'yes';
                         $input_message['msgType'] = 'text';
 
-                        $response = $this->response_message($input_message, $account_info);
+                        $response = $this->response_message($input_message);
                     }
                     else
                     {
@@ -274,7 +249,7 @@ class weixin_class extends AWS_MODEL
                             'content' => $content,
                             'fromUsername' => $input_message['fromUsername'],
                             'param' => $param
-                        ), $account_info);
+                        ));
                     }
 
                     $response_message = $response['message'];
@@ -284,7 +259,7 @@ class weixin_class extends AWS_MODEL
                 {
                     if ($reply_rule = $this->get_reply_rule_by_id(substr($input_message['eventKey'], 11)))
                     {
-                        $response_message = $this->create_response_by_reply_rule_keyword($account_info['id'], $reply_rule['keyword']);
+                        $response_message = $this->create_response_by_reply_rule_keyword($reply_rule['keyword']);
                     }
                     else
                     {
@@ -301,9 +276,9 @@ class weixin_class extends AWS_MODEL
                                 $this->query('UPDATE ' . get_table('weixin_qr_code') . ' SET subscribe_num = subscribe_num + 1 WHERE scene_id = ' . intval(substr($input_message['eventKey'], 8)));
                             }
 
-                            if ($account_info['weixin_subscribe_message_key'])
+                            if ($this->account_info['weixin_subscribe_message_key'])
                             {
-                                $response_message = $this->create_response_by_reply_rule_keyword($account_info['id'], $account_info['weixin_subscribe_message_key']);
+                                $response_message = $this->create_response_by_reply_rule_keyword($this->account_info['weixin_subscribe_message_key']);
                             }
 
                             break;
@@ -387,7 +362,7 @@ class weixin_class extends AWS_MODEL
                     $input_message['content'] = $input_message['recognition'];
                     $input_message['msgType'] = 'text';
 
-                    $response_message = $this->response_message($input_message, $account_info);
+                    $response_message = $this->response_message($input_message);
                 }
                 else
                 {
@@ -416,15 +391,15 @@ class weixin_class extends AWS_MODEL
                 break;
 
             default:
-                if ($response_message = $this->create_response_by_reply_rule_keyword($account_info['id'], $input_message['content']))
+                if ($response_message = $this->create_response_by_reply_rule_keyword($input_message['content']))
                 {
                     // response by reply rule keyword...
                 }
-                else if ($response = $this->model('openid_weixin_third')->send_message_to_third_party($account_info['id'], $this->post_data))
+                else if ($response = $this->model('openid_weixin_third')->send_message_to_third_party($this->account_info['id'], $this->post_data))
                 {
                     exit($response);
                 }
-                else if ($response = $this->message_parser($input_message, $account_info))
+                else if ($response = $this->message_parser($input_message))
                 {
                     // Success...
                     $response_message = $response['message'];
@@ -432,7 +407,7 @@ class weixin_class extends AWS_MODEL
                 }
                 else if ($this->is_language($input_message['content'], 'ok'))
                 {
-                    $response = $this->process_last_action($input_message['fromUsername'], $account_info);
+                    $response = $this->process_last_action($input_message['fromUsername']);
 
                     $response_message = $response['message'];
                     $action = $response['action'];
@@ -445,7 +420,7 @@ class weixin_class extends AWS_MODEL
                 }
                 else
                 {
-                    if (!$response_message = $this->create_response_by_reply_rule_keyword($account_info['id'], $account_info['weixin_no_result_message_key']))
+                    if (!$response_message = $this->create_response_by_reply_rule_keyword($this->account_info['weixin_no_result_message_key']))
                     {
                         $response_message = '您的问题: ' . $input_message['content'] . ', 目前没有人提到过, <a href="' . $this->model('openid_weixin_weixin')->redirect_url('/m/publish/') . '">点此提问</a>';
                     }
@@ -454,16 +429,14 @@ class weixin_class extends AWS_MODEL
                 break;
         }
 
-        if (is_array($response_message))
+        $response = (is_array($response_message)) ? $this->create_image_response($input_message, $response_message, $action) : $this->create_txt_response($input_message, $response_message, $action);
+
+        if ($input_message['encryption'])
         {
-            echo $this->create_image_response($input_message, $response_message, $action);
-        }
-        else
-        {
-            echo $this->create_txt_response($input_message, $response_message, $action);
+            $response = $this->encrypt_msg($response);
         }
 
-        exit();
+        exit($response);
     }
 
     public function create_txt_response($input_message, $response_message, $action = null)
@@ -523,10 +496,10 @@ class weixin_class extends AWS_MODEL
             $article_xml .= sprintf('<item><Title><![CDATA[%s]]></Title><Description><![CDATA[%s]]></Description><PicUrl><![CDATA[%s]]></PicUrl><Url><![CDATA[%s]]></Url></item>', $val['title'], $val['description'], $val['image_file'], $val['link']);
         }
 
-        return sprintf('<xml><ToUserName><![CDATA[%s]]></ToUserName><FromUserName><![CDATA[%s]]></FromUserName><CreateTime>%s</CreateTime><MsgType><![CDATA[%s]]></MsgType><ArticleCount>%s</ArticleCount><Articles>%s</Articles><FuncFlag>1</FuncFlag></xml>', $input_message['fromUsername'], $input_message['toUsername'], $input_message['time'], 'news', sizeof($article_data), $article_xml);
+        return sprintf('<xml><ToUserName><![CDATA[%s]]></ToUserName><FromUserName><![CDATA[%s]]></FromUserName><CreateTime>%s</CreateTime><MsgType><![CDATA[%s]]></MsgType><ArticleCount>%s</ArticleCount><Articles>%s</Articles></xml>', $input_message['fromUsername'], $input_message['toUsername'], $input_message['time'], 'news', sizeof($article_data), $article_xml);
     }
 
-    public function message_parser($input_message, $account_info, $param = null)
+    public function message_parser($input_message, $param = null)
     {
         $message_code = strtoupper(trim($input_message['content']));
 
@@ -650,7 +623,7 @@ class weixin_class extends AWS_MODEL
                 {
                     if (!$response_message)
                     {
-                        if (!$image_file = $this->get_client_list_image_by_command('COMMAND_' . $message_code, $account_info['weixin_mp_menu']))
+                        if (!$image_file = $this->get_client_list_image_by_command('COMMAND_' . $message_code))
                         {
                             $image_file = AWS_APP::config()->get('weixin')->default_list_image;
                         }
@@ -692,7 +665,7 @@ class weixin_class extends AWS_MODEL
                     {
                         if (!$response_message)
                         {
-                            if (!$image_file = $this->get_client_list_image_by_command('COMMAND_' . $message_code, $account_info['weixin_mp_menu']))
+                            if (!$image_file = $this->get_client_list_image_by_command('COMMAND_' . $message_code))
                             {
                                 $image_file = AWS_APP::config()->get('weixin')->default_list_image;
                             }
@@ -739,7 +712,7 @@ class weixin_class extends AWS_MODEL
                     {
                         if (!$response_message)
                         {
-                            if (!$image_file = $this->get_client_list_image_by_command('COMMAND_' . $message_code, $account_info['weixin_mp_menu']))
+                            if (!$image_file = $this->get_client_list_image_by_command('COMMAND_' . $message_code))
                             {
                                 $image_file = AWS_APP::config()->get('weixin')->default_list_image;
                             }
@@ -806,7 +779,7 @@ class weixin_class extends AWS_MODEL
                     {
                         if (!$response_message)
                         {
-                            if (!$image_file = $this->get_client_list_image_by_command('COMMAND_' . $message_code, $account_info['weixin_mp_menu']))
+                            if (!$image_file = $this->get_client_list_image_by_command('COMMAND_' . $message_code))
                             {
                                 $image_file = AWS_APP::config()->get('weixin')->default_list_image;
                             }
@@ -872,7 +845,7 @@ class weixin_class extends AWS_MODEL
                     {
                         if (!$response_message)
                         {
-                            if (!$image_file = $this->get_client_list_image_by_command('COMMAND_' . $message_code, $account_info['weixin_mp_menu']))
+                            if (!$image_file = $this->get_client_list_image_by_command('COMMAND_' . $message_code))
                             {
                                 $image_file = AWS_APP::config()->get('weixin')->default_list_image;
                             }
@@ -938,7 +911,7 @@ class weixin_class extends AWS_MODEL
                     {
                         if (!$response_message)
                         {
-                            if (!$image_file = $this->get_client_list_image_by_command('COMMAND_' . $message_code, $account_info['weixin_mp_menu']))
+                            if (!$image_file = $this->get_client_list_image_by_command('COMMAND_' . $message_code))
                             {
                                 $image_file = AWS_APP::config()->get('weixin')->default_list_image;
                             }
@@ -990,7 +963,7 @@ class weixin_class extends AWS_MODEL
                         {
                             if (!$response_message)
                             {
-                                if (!$image_file = $this->get_client_list_image_by_command('COMMAND_' . $message_code, $account_info['weixin_mp_menu']))
+                                if (!$image_file = $this->get_client_list_image_by_command('COMMAND_' . $message_code))
                                 {
                                     $image_file = AWS_APP::config()->get('weixin')->default_list_image;
                                 }
@@ -1072,7 +1045,7 @@ class weixin_class extends AWS_MODEL
                         {
                             if (!$response_message)
                             {
-                                if (!$image_file = $this->get_client_list_image_by_command('COMMAND_' . $message_code, $account_info['weixin_mp_menu']))
+                                if (!$image_file = $this->get_client_list_image_by_command('COMMAND_' . $message_code))
                                 {
                                     $image_file = AWS_APP::config()->get('weixin')->default_list_image;
                                 }
@@ -1172,7 +1145,7 @@ class weixin_class extends AWS_MODEL
         }
     }
 
-    public function process_last_action($weixin_id, $account_info)
+    public function process_last_action($weixin_id)
     {
         if (!$last_action = $this->get_last_message($weixin_id))
         {
@@ -1197,7 +1170,7 @@ class weixin_class extends AWS_MODEL
         if ($response = $this->message_parser(array(
             'content' => $last_action['action'],
             'fromUsername' => $weixin_id
-        ), $account_info, $last_action_param))
+        ), $last_action_param))
         {
             $response_message = $response['message'];
             $action = $response['action'];
@@ -1275,7 +1248,7 @@ class weixin_class extends AWS_MODEL
         return $this->fetch_row('weixin_reply_rule', 'account_id = ' . intval($account_id) . ' AND keyword = "' . trim($this->quote($keyword)) . '"');
     }
 
-    public function create_response_by_reply_rule_keyword($account_id, $keyword)
+    public function create_response_by_reply_rule_keyword($keyword)
     {
         if (!$keyword)
         {
@@ -1283,12 +1256,12 @@ class weixin_class extends AWS_MODEL
         }
 
         // is text message
-        if ($reply_rule = $this->fetch_row('weixin_reply_rule', 'account_id = ' . intval($account_id) . " AND keyword = '" . trim($this->quote($keyword)) . "' AND (image_file = '' OR image_file IS NULL) AND enabled = 1"))
+        if ($reply_rule = $this->fetch_row('weixin_reply_rule', 'account_id = ' . intval($this->account_info['id']) . " AND keyword = '" . trim($this->quote($keyword)) . "' AND (image_file = '' OR image_file IS NULL) AND enabled = 1"))
         {
             return $reply_rule['title'];
         }
 
-        if ($reply_rule = $this->fetch_all('weixin_reply_rule', 'account_id = ' . intval($account_id) . " AND keyword = '" . trim($this->quote($keyword)) . "' AND image_file <> '' AND enabled = 1", 'sort_status ASC', 5))
+        if ($reply_rule = $this->fetch_all('weixin_reply_rule', 'account_id = ' . intval($this->account_info['id']) . " AND keyword = '" . trim($this->quote($keyword)) . "' AND image_file <> '' AND enabled = 1", 'sort_status ASC', 5))
         {
             return $reply_rule;
         }
@@ -1438,14 +1411,14 @@ class weixin_class extends AWS_MODEL
         }
     }
 
-    public function get_client_list_image_by_command($command, $mp_menu)
+    public function get_client_list_image_by_command($command)
     {
-        if (!$mp_menu)
+        if (!$this->account_info['weixin_mp_menu'])
         {
             return false;
         }
 
-        foreach ($mp_menu AS $key => $val)
+        foreach ($this->account_info['weixin_mp_menu'] AS $key => $val)
         {
             if ($val['sub_button'])
             {
@@ -1913,5 +1886,41 @@ class weixin_class extends AWS_MODEL
         $this->model('weixin')->delete('weixin_qr_code', 'scene_id = ' . intval($scene_id));
 
         @unlink(get_setting('upload_dir') . '/weixin_qr_code/' . intval($scene_id) . '.jpg');
+    }
+
+    public function decrypt_msg($encrypt)
+    {
+        $pc = new Services_Weixin_WXBizMsgCrypt($this->account_info['weixin_mp_token'], $this->account_info['weixin_encoding_aes_key'], $this->account_info['weixin_app_id']);
+
+        $format = '<xml><ToUserName><![CDATA[toUser]]></ToUserName><Encrypt><![CDATA[%s]]></Encrypt></xml>';
+
+        $from_xml = sprintf($format, $encrypt);
+
+        $decrypted_msg = '';
+
+        $err_code = $pc->decryptMsg($_GET['msg_signature'], $_GET['timestamp'], $_GET['nonce'], $from_xml, $decrypted_msg);
+
+        if ($err_code != 0)
+        {
+            return false;
+        }
+
+        return (array)simplexml_load_string($decrypted_msg, 'SimpleXMLElement', LIBXML_NOCDATA);
+    }
+
+    public function encrypt_msg($msg)
+    {
+        $pc = new Services_Weixin_WXBizMsgCrypt($this->account_info['weixin_mp_token'], $this->account_info['weixin_encoding_aes_key'], $this->account_info['weixin_app_id']);
+
+        $encrypted_msg = '';
+
+        $err_code = $pc->encryptMsg($msg, time(), mt_rand(1000000000, 9999999999), $encrypted_msg);
+
+        if ($err_code != 0)
+        {
+            return false;
+        }
+
+        return $encrypted_msg;
     }
 }
