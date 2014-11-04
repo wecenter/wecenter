@@ -98,7 +98,7 @@ class Services_Weixin_WXBizMsgCrypt
 	 *
 	 * @return int 成功0，失败返回对应的错误码
 	 */
-	public function decryptMsg($msgSignature, $timestamp = null, $nonce, $postData, &$msg)
+	public function decryptMsg($msgSignature, $timestamp = null, $nonce, $postData, &$msg, &$appid)
 	{
 		if (strlen($this->encodingAesKey) != 43) {
 			return Services_Weixin_ErrorCode::$IllegalAesKey;
@@ -141,6 +141,7 @@ class Services_Weixin_WXBizMsgCrypt
 			return $result[0];
 		}
 		$msg = $result[1];
+		$appid = $result[2];
 
 		return Services_Weixin_ErrorCode::$OK;
 	}
