@@ -4,7 +4,7 @@
 			<p><a href="<?php echo base_url(); ?>/<?php if (get_setting('url_rewrite_enable') != 'Y') { ?><?php echo G_INDEX_SCRIPT; ?><?php } ?>ignore_ua_check-TRUE"><?php _e('访问桌面版网站'); ?></a></p>
 		</footer>
 		<!-- end 底部 -->
-		
+
 		<!-- DO NOT REMOVE -->
 		<div id="aw-ajax-box" class="aw-ajax-box"></div>
 
@@ -20,17 +20,17 @@
 				<li>
 					<a href="m/" <?php if ($_GET['act'] == 'index') { ?>class="active"<?php } ?>><i class="icon icon-home"></i><?php _e('发现'); ?></a>
 				</li>
-				
+
 				<?php if (!$this->user_id) { ?>
 				<li>
 					<a href="m/topic/" <?php if ($_GET['act'] == 'topic') { ?>class="active"<?php } ?>><i class="icon icon-topic"></i><?php _e('话题'); ?></a>
 				</li>
 				<?php } ?>
-				
+
 				<li>
 					<a href="m/publish/"<?php if ($_GET['act'] == 'publish') { ?>class="active"<?php } ?>><i class="icon icon-ask"></i><?php _e('发起'); ?></a>
 				</li>
-				
+
 				<?php if (!$this->user_id) { ?>
 				<li>
 					<a href="m/search/"<?php if ($_GET['act'] == 'search') { ?>class="active"<?php } ?>><i class="icon icon-search"></i><?php _e('搜索'); ?></a>
@@ -39,7 +39,7 @@
 				<li>
 					<a class="user"><span class="triangle"></span><i class="icon icon-user"></i><?php _e('我'); ?><?php if (!$this->user_id OR $this->user_info['inbox_unread'] != 0) { ?><i class="icon-tips"></i><?php } ?></a>
 				</li>
-				
+
 				<?php if ($this->user_id) { ?>
 				<li>
 					<a class="more"><span class="triangle"></span><i class="icon icon-more"></i><?php _e('更多'); ?></a>
@@ -159,7 +159,7 @@
 			<?php echo get_setting('statistic_code'); ?>
 		</div>
 		<!-- / DO NOT REMOVE -->
-		
+
 		<script type="text/javascript">
 		$(function()
 		{
@@ -182,14 +182,14 @@
 				{
 					if (typeof G_IN_WEIXIN != 'undefined' && G_IN_WEIXIN == true)
 					{
-						if (WEIXIN_APP_ID && WEIXIN_APP_USER == 'service')
+						/*if (WEIXIN_APP_ID && WEIXIN_APP_USER == 'service')
 						{
 							var link = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + WEIXIN_APP_ID + '&redirect_uri=' + encodeURIComponent(G_BASE_URL + '/m/weixin/redirect/?redirect=' + $.base64.encode(location.href)) + '&response_type=code&scope=snsapi_userinfo&state=OAUTH#wechat_redirect';
 						}
 						else
-						{
+						{*/
 							var link = location.href;
-						}
+						//}
 
 						WeixinJSBridge.on('menu:share:timeline', function(argv) {
 	                        WeixinJSBridge.invoke('shareTimeline', {
