@@ -38,7 +38,7 @@ class verify_class extends AWS_MODEL
 		));
 	}
 
-	public function update_apply($uid, $name, $reason, $data = array(), $attach = null)
+	public function update_apply($uid, $name = null, $reason = null, $data = null, $attach = null, $type = null)
 	{
 		if ($attach)
 		{
@@ -55,11 +55,29 @@ class verify_class extends AWS_MODEL
 			}
 		}
 
-		return $this->update('verify_apply', array(
-			'name' => htmlspecialchars($name),
-			'reason' => htmlspecialchars($reason),
-			'data' => serialize($data),
-		), 'uid = ' . intval($uid));
+		$to_update_apply = array();
+
+		if (isset($name))
+		{
+			$to_update_apply['name'] = htmlspecialchars($name);
+		}
+
+		if (isset($reason))
+		{
+			$to_update_apply['reason'] = htmlspecialchars($reason);
+		}
+
+		if (isset($data) AND is_array($data))
+		{
+			$to_update_apply['data'] = serialize($data);
+		}
+
+		if (isset($type))
+		{
+			$to_update_apply['type'] = $type;
+		}
+
+		return $this->update('verify_apply', $to_update_apply, 'uid = ' . intval($uid));
 	}
 
 	public function fetch_apply($uid)
