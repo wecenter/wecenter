@@ -48,44 +48,7 @@
 			</ul>
 			<div class="aw-popover user active">
 				<ul>
-					<?php if (!$this->user_id) { ?>
-						<li>
-							<a href="m/login/">
-								<span class="label">
-									<i class="icon icon-login"></i>
-								</span>
-								<?php _e('登录'); ?>
-							</a>
-						</li>
-						<?php if (get_setting('sina_weibo_enabled') == 'Y') { ?>
-						<li>
-							<a href="">
-								<span class="label">
-									<i class="icon icon-weibo"></i>
-								</span>
-								<?php _e('微博登录'); ?>
-							</a>
-						</li>
-						<?php } ?>
-						<?php if (get_setting('qq_login_enabled') == 'Y') { ?>
-						<li>
-							<a href="">
-								<span class="label">
-									<i class="icon icon-qq"></i>
-								</span>
-								<?php _e('QQ登录'); ?>
-							</a>
-						</li>
-						<?php } ?>
-						<li>
-							<a href="m/register/">
-								<span class="label">
-									<i class="icon icon-signup"></i>
-								</span>
-								<?php _e('注册'); ?>
-							</a>
-						</li>
-					<?php } else { ?>
+					<?php if ($this->user_id) { ?>
 					<li>
 						<a href="people/<?php echo $this->user_info['url_token']; ?>">
 							<span class="label">
@@ -121,6 +84,45 @@
 							<?php _e('退出'); ?>
 						</a>
 					</li>
+					<?php } else { ?>
+					<li>
+						<a href="m/login/">
+							<span class="label">
+								<i class="icon icon-login"></i>
+							</span>
+							<?php _e('登录'); ?>
+						</a>
+					</li>
+					<?php if (get_setting('sina_weibo_enabled') == 'Y') { ?>
+					<li>
+						<a href="">
+							<span class="label">
+								<i class="icon icon-weibo"></i>
+							</span>
+							<?php _e('微博登录'); ?>
+						</a>
+					</li>
+					<?php } ?>
+					<?php if (get_setting('qq_login_enabled') == 'Y') { ?>
+					<li>
+						<a href="">
+							<span class="label">
+								<i class="icon icon-qq"></i>
+							</span>
+							<?php _e('QQ登录'); ?>
+						</a>
+					</li>
+					<?php } ?>
+					<?php if (get_setting('register_type') == 'open') { ?>
+					<li>
+						<a href="m/register/">
+							<span class="label">
+								<i class="icon icon-signup"></i>
+							</span>
+							<?php _e('注册'); ?>
+						</a>
+					</li>
+					<?php } ?>
 					<?php } ?>
 				</ul>
 			</div>
