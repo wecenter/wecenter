@@ -68,7 +68,7 @@ class ajax extends AWS_CONTROLLER
 			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('用户名已被注册')));
 		}
 
-		H::ajax_json_output(AWS_APP::RSM(null, 1, AWS_APP::lang()->_t('该用户名可以使用')));
+		H::ajax_json_output(AWS_APP::RSM(null, 1, null));
 	}
 
 	public function check_email_action()
@@ -83,7 +83,7 @@ class ajax extends AWS_CONTROLLER
 			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('邮箱地址已被使用')));
 		}
 
-		H::ajax_json_output(AWS_APP::RSM(null, 1, AWS_APP::lang()->_t('该邮箱可以使用')));
+		H::ajax_json_output(AWS_APP::RSM(null, 1, null));
 	}
 
 	public function register_process_action()

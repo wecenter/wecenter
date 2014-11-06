@@ -86,7 +86,7 @@ class core_uri
 
 		$base_script = basename($_SERVER['SCRIPT_NAME']);
 
-		if (!strstr($request_main, '/') AND !strstr($request_main, '-') AND !strstr($request_main, '.'))
+		if (!strstr($request_main, '=') AND !strstr($request_main, '/') AND !strstr($request_main, '-') AND !strstr($request_main, '.'))
 		{
 			$request_main .= '/';
 		}
