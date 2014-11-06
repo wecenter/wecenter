@@ -1284,6 +1284,19 @@ class ajax extends AWS_ADMIN_CONTROLLER
             }
 
             $update_data['verified'] = $_POST['verified'];
+
+            $verify_apply = $this->model('verify')->fetch_apply($user_info['uid']);
+
+            if ($verify_apply AND $verify_apply['type'] != $update_data['verified'])
+            {
+                if (!$update_data['verified'])
+                {
+                    $this->model('verify')->decline_verify($user_info['uid']);
+                }
+
+                $this->model('verify')->update_apply($user_info['uid'], null, null, null, null, $update_data['verified']);
+            }
+
             $update_data['valid_email'] = intval($_POST['valid_email']);
             $update_data['forbidden'] = intval($_POST['forbidden']);
 

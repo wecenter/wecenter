@@ -1898,11 +1898,18 @@ class weixin_class extends AWS_MODEL
 
         $decrypted_msg = '';
 
-        $err_code = $pc->decryptMsg($_GET['msg_signature'], $_GET['timestamp'], $_GET['nonce'], $from_xml, $decrypted_msg);
+        $app_id = '';
+
+        $err_code = $pc->decryptMsg($_GET['msg_signature'], $_GET['timestamp'], $_GET['nonce'], $from_xml, $decrypted_msg, $app_id);
 
         if ($err_code != 0)
         {
             return false;
+        }
+
+        if (!$this->account_info['weixin_app_id'])
+        {
+            $this->account_info['weixin_app_id'] = $app_id;
         }
 
         return (array)simplexml_load_string($decrypted_msg, 'SimpleXMLElement', LIBXML_NOCDATA);

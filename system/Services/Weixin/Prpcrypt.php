@@ -89,14 +89,15 @@ class Services_Weixin_Prpcrypt
             $xml_len = $len_list[1];
             $xml_content = substr($content, 4, $xml_len);
             $from_appid = substr($content, $xml_len + 4);
+            if (!$appid)
+                $appid = $from_appid;
         } catch (Exception $e) {
             //print $e;
             return array(Services_Weixin_ErrorCode::$IllegalBuffer, null);
         }
         if ($from_appid != $appid)
             return array(Services_Weixin_ErrorCode::$ValidateAppidError, null);
-        return array(0, $xml_content);
-
+        return array(0, $xml_content, $appid);
     }
 
 
