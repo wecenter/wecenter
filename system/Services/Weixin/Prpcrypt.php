@@ -44,11 +44,11 @@ class Services_Weixin_Prpcrypt
             mcrypt_generic_deinit($module);
             mcrypt_module_close($module);
 
-            print(base64_encode($encrypted));
+            //print(base64_encode($encrypted));
             //使用BASE64对加密后的字符串进行编码
             return array(Services_Weixin_ErrorCode::$OK, base64_encode($encrypted));
         } catch (Exception $e) {
-            print $e;
+            //print $e;
             return array(Services_Weixin_ErrorCode::$EncryptAESError, null);
         }
     }
@@ -89,14 +89,15 @@ class Services_Weixin_Prpcrypt
             $xml_len = $len_list[1];
             $xml_content = substr($content, 4, $xml_len);
             $from_appid = substr($content, $xml_len + 4);
+            if (!$appid)
+                $appid = $from_appid;
         } catch (Exception $e) {
-            print $e;
+            //print $e;
             return array(Services_Weixin_ErrorCode::$IllegalBuffer, null);
         }
         if ($from_appid != $appid)
             return array(Services_Weixin_ErrorCode::$ValidateAppidError, null);
-        return array(0, $xml_content);
-
+        return array(0, $xml_content, $appid);
     }
 
 

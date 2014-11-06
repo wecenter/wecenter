@@ -29,7 +29,7 @@ class Services_Weixin_XMLParse
 			$tousername = $array_a->item(0)->nodeValue;
 			return array(0, $encrypt, $tousername);
 		} catch (Exception $e) {
-			print $e . "\n";
+			//print $e . "\n";
 			return array(Services_Weixin_ErrorCode::$ParseXmlError, null, null);
 		}
 	}

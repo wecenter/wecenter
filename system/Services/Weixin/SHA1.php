@@ -28,7 +28,7 @@ class Services_Weixin_SHA1
 			$str = implode($array);
 			return array(Services_Weixin_ErrorCode::$OK, sha1($str));
 		} catch (Exception $e) {
-			print $e . "\n";
+			//print $e . "\n";
 			return array(Services_Weixin_ErrorCode::$ComputeSignatureError, null);
 		}
 	}
