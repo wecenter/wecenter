@@ -10,7 +10,7 @@
 			</a>
 		<?php } else {?>
 			<a href="m/login/" class="btn btn-mini btn-primary btn-normal"><?php _e('登录'); ?></a>
-			<a href="m/register/" class="btn btn-mini btn-success btn-normal"><?php _e('注册'); ?></a>
+			<?php if (get_setting('register_type') == 'open') { ?><a href="m/register/" class="btn btn-mini btn-success btn-normal"><?php _e('注册'); ?></a><?php } ?>
 		<?php } ?>
 	</span>
 </div>

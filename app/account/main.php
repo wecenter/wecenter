@@ -144,7 +144,7 @@ class main extends AWS_CONTROLLER
 
 		if (get_setting('register_type') == 'close')
 		{
-			H::redirect_msg(AWS_APP::lang()->_t('本站目前关闭注册'));
+			H::redirect_msg(AWS_APP::lang()->_t('本站目前关闭注册'), '/');
 		}
 		else if (get_setting('register_type') == 'invite' AND !$_GET['icode'])
 		{
@@ -153,11 +153,11 @@ class main extends AWS_CONTROLLER
 				HTTP::redirect('/account/weixin_login/command-REGISTER');
 			}
 
-			H::redirect_msg(AWS_APP::lang()->_t('本站只接受邀请注册'));
+			H::redirect_msg(AWS_APP::lang()->_t('本站只接受邀请注册'), '/');
 		}
 		else if (get_setting('register_type') == 'weixin')
 		{
-			H::redirect_msg(AWS_APP::lang()->_t('本站只能通过微信注册'));
+			H::redirect_msg(AWS_APP::lang()->_t('本站只能通过微信注册'), '/');
 		}
 
 		if ($_GET['icode'])
@@ -168,7 +168,7 @@ class main extends AWS_CONTROLLER
 			}
 			else
 			{
-				H::redirect_msg(AWS_APP::lang()->_t('邀请码无效或已经使用, 请使用新的邀请码'));
+				H::redirect_msg(AWS_APP::lang()->_t('邀请码无效或已经使用, 请使用新的邀请码'), '/');
 			}
 		}
 
