@@ -140,6 +140,13 @@ class openid_weixin_weixin_class extends AWS_MODEL
 
         $result = curl_get_contents(WEIXIN_OAUTH_API . 'oauth2/access_token?appid=' . get_setting('weixin_app_id') . '&secret=' . get_setting('weixin_app_secret') . '&code=' . $code . '&grant_type=authorization_code');
 
+        if (!$result)
+        {
+            return false;
+        }
+
+        $result = json_decode($result, true);
+
         if (!$sns_access_token['errcode'])
         {
             AWS_APP::cache()->set($cache_key, $sns_access_token, 60);
