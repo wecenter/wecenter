@@ -56,7 +56,7 @@ CREATE TABLE `[#DB_PREFIX#]weixin_msg` (
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8 COMMENT='微信群发列表';
 
 CREATE TABLE `[#DB_PREFIX#]weibo_msg` (
-  `id` bigint(30) NOT NULL,
+  `id` bigint(20) NOT NULL,
   `created_at` int(10) NOT NULL,
   `msg_author_uid` bigint(20) NOT NULL,
   `text` varchar(255) NOT NULL,
@@ -72,15 +72,15 @@ CREATE TABLE `[#DB_PREFIX#]weibo_msg` (
   KEY `question_id` (`question_id`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8 COMMENT='新浪微博消息列表';
 
-ALTER TABLE `[#DB_PREFIX#]question` ADD `weibo_msg_id` bigint(30) DEFAULT NULL;
+ALTER TABLE `[#DB_PREFIX#]question` ADD `weibo_msg_id` bigint(20) DEFAULT NULL;
 CREATE INDEX `weibo_msg_id` ON `[#DB_PREFIX#]question` (`weibo_msg_id`);
 
-ALTER TABLE `[#DB_PREFIX#]users_sina` ADD `last_msg_id` bigint(30) DEFAULT NULL;
+ALTER TABLE `[#DB_PREFIX#]users_sina` ADD `last_msg_id` bigint(20) DEFAULT NULL;
 CREATE INDEX `last_msg_id` ON `[#DB_PREFIX#]users_sina` (`last_msg_id`);
 
 ALTER TABLE `[#DB_PREFIX#]users_sina` ADD `expires_time` int(10) DEFAULT '0' COMMENT '过期时间';
 
-ALTER TABLE `[#DB_PREFIX#]attach` MODIFY `item_id` bigint(30) DEFAULT '0' COMMENT '关联 ID';
+ALTER TABLE `[#DB_PREFIX#]attach` MODIFY `item_id` bigint(20) DEFAULT '0' COMMENT '关联 ID';
 
 CREATE TABLE `[#DB_PREFIX#]weixin_qr_code` (
   `scene_id` mediumint(5) NOT NULL AUTO_INCREMENT,

@@ -167,27 +167,27 @@ function valid_ip($ip)
  */
 function is_digits($num)
 {
-    if (!isset($num))
-    {
-        return false;
-    }
+	if (!isset($num))
+	{
+		return false;
+	}
 
-    if (is_array($num))
-    {
-        foreach ($num AS $val)
-        {
-            if (!is_digits($val))
-            {
-                return false;
-            }
-        }
+	if (is_array($num))
+	{
+		foreach ($num AS $val)
+		{
+			if (!is_digits($val))
+			{
+				return false;
+			}
+		}
 
-        return true;
-    }
-    else
-    {
-        return Zend_Validate::is($num, 'Digits');
-    }
+		return true;
+	}
+	else
+	{
+		return Zend_Validate::is($num, 'Digits');
+	}
 }
 
 if (! function_exists('iconv'))
@@ -1049,10 +1049,10 @@ function fetch_file_lists($dir, $file_type = null)
  */
 function is_mobile($ignore_cookie = false)
 {
-    if (HTTP::get_cookie('_ignore_ua_check') == 'TRUE' AND !$ignore_cookie)
-    {
-        return false;
-    }
+	if (HTTP::get_cookie('_ignore_ua_check') == 'TRUE' AND !$ignore_cookie)
+	{
+		return false;
+	}
 
 	$user_agent = strtolower($_SERVER['HTTP_USER_AGENT']);
 
@@ -1112,6 +1112,8 @@ function curl_get_contents($url, $timeout = 10)
 	{
 		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
 		curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, FALSE);
+
+		curl_setopt($curl, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1);
 	}
 
 	$result = curl_exec($curl);
@@ -1267,4 +1269,14 @@ function decode_eml($string)
 	}
 
 	return $preceding . $decoded . decode_eml($rest);
+}
+
+function array_key_sort_asc_callback($a, $b)
+{
+	if ($a['sort'] == $b['sort'])
+	{
+		return 0;
+	}
+
+	return ($a['sort'] < $b['sort']) ? -1 : 1;
 }

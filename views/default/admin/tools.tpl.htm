@@ -14,21 +14,6 @@
             <tbody>
             <tr>
                 <td>
-					<form action="admin/tools/mp_services_check/" method="post" id="mp_services_check_form">
-	                    <div class="form-group">
-	                        <span class="col-sm-3 col-xs-3 control-label middle"><?php _e('WeCenter 微信服务状态查询'); ?>:</span>
-	                        <div class="col-sm-7 col-xs-8 middle">
-	                        	<?php _e('可以在这里对 http://mp.wecenter.com 的微信服务进行状态查询'); ?>
-	                        </div>
-	                        <div class="col-sm-2 col-xs-12">
-	                            <input type="button" class="btn btn-primary" onclick="AWS.ajax_post($('#mp_services_check_form'))" value="<?php _e('开始处理'); ?>">
-	                        </div>
-	                    </div>
-					</form>
-                </td>
-            </tr>
-            <tr>
-                <td>
 					<form action="admin/tools/init/" method="post">
 						<input type="hidden" name="action" value="cache_clean" />
 	                    <div class="form-group">
@@ -198,7 +183,7 @@
 	                    <div class="form-group">
 	                        <span class="col-sm-3 col-xs-3 control-label middle"><?php _e('BBCode 转换'); ?>:</span>
 	                        <div class="col-sm-7 col-xs-8 middle">
-	                        	<?php _e('威望数据一般情况下会自动更新, 如果更改了威望设置需要立即生效可以使用此工具'); ?>
+	                        	<?php _e('此工具可以将系统内容中的 BBCode 语法转换为 Markdown 语法'); ?>
 
 	                            <div class="row">
 	                                <span class="col-sm-1 mod-text-inline"><?php _e('&nbsp 每次处理数量'); ?>:</span>

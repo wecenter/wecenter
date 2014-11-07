@@ -46,6 +46,17 @@
             <tr>
                 <td>
                     <div class="form-group">
+                        <span class="col-sm-4 col-xs-3 control-label"><?php _e('微信公众平台接口 EncodingAESKey'); ?>:</span>
+                        <div class="col-sm-5 col-xs-8">
+                            <input type="text" class="form-control" name="weixin_encoding_aes_key" value="<?php if ($this->account_info) echo $this->account_info['weixin_encoding_aes_key']; ?>">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <div class="form-group">
                         <span class="col-sm-4 col-xs-3 control-label"><?php _e('微信公众平台帐号角色'); ?>:</span>
                         <div class="col-sm-8 col-xs-8">
                             <label class="checkbox-inline">
@@ -89,29 +100,6 @@
                         <span class="col-sm-4 col-xs-3 control-label"><?php _e('微信公众平台 AppSecret'); ?>:</span>
                         <div class="col-sm-5 col-xs-8">
                             <input type="text" class="form-control" name="weixin_app_secret" value="<?php if ($this->account_info) echo $this->account_info['weixin_app_secret']; ?>">
-                        </div>
-                    </div>
-                </td>
-            </tr>
-
-            <tr>
-                <td>
-                    <div class="form-group">
-                        <span class="col-sm-4 col-xs-3 control-label"><?php _e('WeCenter 微信服务 Access token'); ?>:</span>
-                        <div class="col-sm-5 col-xs-8">
-                            <input type="text" class="form-control" name="wecenter_access_token" value="<?php if ($this->account_info) echo $this->account_info['wecenter_access_token']; ?>">
-                            <span class="help-block"><?php _e('请到 %s 申请', '<a href="http://mp.wecenter.com" target="_blank">http://mp.wecenter.com</a>'); ?></span>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-
-            <tr>
-                <td>
-                    <div class="form-group">
-                        <span class="col-sm-4 col-xs-3 control-label"><?php _e('WeCenter 微信服务 Access secret'); ?>:</span>
-                        <div class="col-sm-5 col-xs-8">
-                            <input type="text" class="form-control" name="wecenter_access_secret" value="<?php if ($this->account_info) echo $this->account_info['wecenter_access_secret']; ?>">
                         </div>
                     </div>
                 </td>

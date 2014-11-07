@@ -46,14 +46,14 @@
 											<div id="detail_<?php echo md5($val['item_id'] . $val['item_type']); ?>">
 									      		<?php echo nl2br(strip_ubb(cjk_substr($val['answer_info']['answer_content'], 0, 130, 'UTF-8', '...'))); ?>
 									      		<?php if (cjk_strlen($val['answer_info']['answer_content']) > 130) { ?>
-									        	<a href="javascript:;" class="showMore" onclick="content_switcher($('#detail_<?php echo md5($val['item_id'] . $val['item_type']); ?>'), $('#detail_more_<?php echo md5($val['item_id'] . $val['item_type']); ?>'));"><?php _e('显示全部'); ?> »</a>
+									        	<a href="javascript:;" class="showMore" onclick="AWS.content_switcher($('#detail_<?php echo md5($val['item_id'] . $val['item_type']); ?>'), $('#detail_more_<?php echo md5($val['item_id'] . $val['item_type']); ?>'));"><?php _e('显示全部'); ?> »</a>
 									        	<?php } ?>
 
 												<?php if ($val['answer_info']['attachs']) { ?>
 													<div class="aw-upload-img-list width-auto">
 														<?php foreach($val['answer_info']['attachs'] AS $t_key => $v) { ?>
 														<?php if ($v['is_image']): ?>
-															<a href="javascript:;" onclick="content_switcher($('#detail_<?php echo md5($val['item_id'] . $val['item_type']); ?>'), $('#detail_more_<?php echo md5($val['item_id'] . $val['item_type']); ?>'));">
+															<a href="javascript:;" onclick="AWS.content_switcher($('#detail_<?php echo md5($val['item_id'] . $val['item_type']); ?>'), $('#detail_more_<?php echo md5($val['item_id'] . $val['item_type']); ?>'));">
 																<img class="img-polaroid" src="<?php echo $v[thumb]; ?>" alt="<?php echo $v['file_name']; ?>" />
 															</a>
 														<?php endif; ?>
@@ -107,7 +107,7 @@
 												</span>
 												<?php } ?>
 												<?php } ?>
-											
+
 												<span class="icon-inverse aw-edit-topic"><i class="icon icon-edit"></i> <?php if (!$this->favorite_items_tags[$val['item_id']]) { ?><?php _e('添加标签'); ?><?php } else { ?><?php _e('编辑'); ?><?php } ?></span>
 											</div>
 										</div>
@@ -145,5 +145,4 @@
 		</div>
 	</div>
 </div>
-
 <?php TPL::output('global/footer.tpl.htm'); ?>

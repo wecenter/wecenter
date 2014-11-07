@@ -154,7 +154,7 @@
                                     </label>
 
                                     <label type="button" class="btn mod-btn-color">
-                                        <input type="radio" name="site_close" value="N"<?php if ($this->setting['site_close'] == 'N') { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?>
+                                        <input type="radio" name="site_close" value="N"<?php if ($this->setting['site_close'] != 'Y') { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?>
                                     </label>
                                 </div>
                             </div>
@@ -182,7 +182,7 @@
                                     </label>
 
                                     <label type="button" class="btn mod-btn-color">
-                                        <input type="radio" name="register_seccode" value="N"<?php if ($this->setting['register_seccode'] == 'N') { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?>
+                                        <input type="radio" name="register_seccode" value="N"<?php if ($this->setting['register_seccode'] != 'Y') { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?>
                                     </label>
                                 </div>
                             </div>
@@ -198,7 +198,7 @@
 
                                 <label class="checkbox-inline"><input type="radio" name="register_valid_type" value="approval"<?php if ($this->setting['register_valid_type'] == 'approval') { ?> checked="checked"<?php } ?> /> <?php _e('邮件验证 + 后台审核'); ?></label>
 
-                                <label class="checkbox-inline"><input type="radio" name="register_valid_type" value="N"<?php if ($this->setting['register_valid_type'] == 'N') { ?> checked="checked"<?php } ?> /> <?php _e('不验证'); ?></label>
+                                <label class="checkbox-inline"><input type="radio" name="register_valid_type" value="N"<?php if ($this->setting['register_valid_type'] != 'Y') { ?> checked="checked"<?php } ?> /> <?php _e('不验证'); ?></label>
                             </div>
                         </div>
                     </td>
@@ -400,7 +400,7 @@
                                     </label>
 
                                     <label type="button" class="btn mod-btn-color">
-                                        <input type="radio" name="url_rewrite_enable" value="N"<?php if ($this->setting['url_rewrite_enable'] == 'N') { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?>
+                                        <input type="radio" name="url_rewrite_enable" value="N"<?php if ($this->setting['url_rewrite_enable'] != 'Y') { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?>
                                     </label>
 
                                     <span class="help-block"><?php _e('Rewrite 开启方法请见 ReadMe 说明文件'); ?></span>
@@ -470,7 +470,7 @@
                                     </label>
 
                                     <label type="button" class="btn mod-btn-color">
-                                        <input type="radio" name="ucenter_enabled" value="N"<?php if ($this->setting['ucenter_enabled'] == 'N') { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?>
+                                        <input type="radio" name="ucenter_enabled" value="N"<?php if ($this->setting['ucenter_enabled'] != 'Y') { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?>
                                     </label>
                                 </div>
                             </div>
@@ -542,7 +542,7 @@
                             <span class="col-sm-4 col-xs-3 control-label"><?php _e('系统时间显示格式'); ?>:</span>
                             <div class="col-sm-6 col-xs-8">
                                 <label><input type="radio" name="time_style" value="Y"<?php if ($this->setting['time_style'] == 'Y') { ?> checked="checked"<?php } ?> /> <?php _e('xx 分钟前形式'); ?></label>
-                                <label class="col-md-offset-1"><input type="radio" name="time_style" value="N"<?php if ($this->setting['time_style'] == 'N') { ?> checked="checked"<?php } ?> /> <?php _e('完整日期形式'); ?></label>
+                                <label class="col-md-offset-1"><input type="radio" name="time_style" value="N"<?php if ($this->setting['time_style'] != 'Y') { ?> checked="checked"<?php } ?> /> <?php _e('完整日期形式'); ?></label>
                             </div>
                         </div>
                     </td>
@@ -558,7 +558,7 @@
                                     </label>
 
                                     <label type="button" class="btn mod-btn-color">
-                                        <input type="radio" name="admin_login_seccode" value="N"<?php if ($this->setting['admin_login_seccode'] == 'N') { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?>
+                                        <input type="radio" name="admin_login_seccode" value="N"<?php if ($this->setting['admin_login_seccode'] != 'Y') { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?>
                                     </label>
                                 </div>
                             </div>
@@ -576,7 +576,7 @@
                                     </label>
 
                                     <label type="button" class="btn mod-btn-color">
-                                        <input type="radio" name="report_diagnostics" value="N"<?php if ($this->setting['report_diagnostics'] == 'N') { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?>
+                                        <input type="radio" name="report_diagnostics" value="N"<?php if ($this->setting['report_diagnostics'] != 'Y') { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?>
                                     </label>
                                 </div>
                             </div>
@@ -602,7 +602,7 @@
                             <span class="col-sm-4 col-xs-3 control-label"><?php _e('发起问题模式'); ?>:</span>
                             <div class="col-sm-6 col-xs-8">
                                 <label><input type="radio" name="quick_publish" value="Y"<?php if ($this->setting['quick_publish'] == 'Y') { ?> checked="checked"<?php } ?> /> <?php _e('快捷模式'); ?></label>
-                                <label class="col-md-offset-1"><input type="radio" name="quick_publish" value="N"<?php if ($this->setting['quick_publish'] == 'N') { ?> checked="checked"<?php } ?> /> <?php _e('高级模式'); ?></label>
+                                <label class="col-md-offset-1"><input type="radio" name="quick_publish" value="N"<?php if ($this->setting['quick_publish'] != 'Y') { ?> checked="checked"<?php } ?> /> <?php _e('高级模式'); ?></label>
                             </div>
                         </div>
                     </td>
@@ -613,7 +613,7 @@
                             <span class="col-sm-4 col-xs-3 control-label"><?php _e('编辑器设置'); ?>:</span>
                             <div class="col-sm-6 col-xs-8">
                                 <label><input type="radio" name="advanced_editor_enable" value="Y"<?php if ($this->setting['advanced_editor_enable'] == 'Y') { ?> checked="checked"<?php } ?> /> <?php _e('Markdown 编辑器'); ?></label>
-                                <label class="col-md-offset-1"><input type="radio" name="advanced_editor_enable" value="N"<?php if ($this->setting['advanced_editor_enable'] == 'N') { ?> checked="checked"<?php } ?> /> <?php _e('纯文本编辑器'); ?></label>
+                                <label class="col-md-offset-1"><input type="radio" name="advanced_editor_enable" value="N"<?php if ($this->setting['advanced_editor_enable'] != 'Y') { ?> checked="checked"<?php } ?> /> <?php _e('纯文本编辑器'); ?></label>
                             </div>
                         </div>
                     </td>
@@ -629,7 +629,7 @@
                                     </label>
 
                                     <label type="button" class="btn mod-btn-color">
-                                        <input type="radio" name="category_enable" value="N"<?php if ($this->setting['category_enable'] == 'N') { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?>
+                                        <input type="radio" name="category_enable" value="N"<?php if ($this->setting['category_enable'] != 'Y') { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?>
                                     </label>
                                 </div>
                             </div>
@@ -647,7 +647,7 @@
                                     </label>
 
                                     <label type="button" class="btn mod-btn-color">
-                                        <input type="radio" name="upload_enable" value="N"<?php if ($this->setting['upload_enable'] == 'N') { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?>
+                                        <input type="radio" name="upload_enable" value="N"<?php if ($this->setting['upload_enable'] != 'Y') { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?>
                                     </label>
                                 </div>
                             </div>
@@ -711,7 +711,7 @@
                                     </label>
 
                                     <label type="button" class="btn mod-btn-color">
-                                        <input type="radio" name="new_question_force_add_topic" value="N"<?php if ($this->setting['new_question_force_add_topic'] == 'N') { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?>
+                                        <input type="radio" name="new_question_force_add_topic" value="N"<?php if ($this->setting['new_question_force_add_topic'] != 'Y') { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?>
                                     </label>
                                 </div>
                             </div>
@@ -741,7 +741,7 @@
                                     </label>
 
                                     <label type="button" class="btn mod-btn-color">
-                                        <input type="radio" name="unfold_question_comments" value="N"<?php if ($this->setting['unfold_question_comments'] == 'N') { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?>
+                                        <input type="radio" name="unfold_question_comments" value="N"<?php if ($this->setting['unfold_question_comments'] != 'Y') { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?>
                                     </label>
                                 </div>
                             </div>
@@ -869,7 +869,7 @@
                                     </label>
 
                                     <label type="button" class="btn mod-btn-color">
-                                        <input type="radio" name="auto_create_social_topics" value="N"<?php if ($this->setting['auto_create_social_topics'] == 'N') { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?>
+                                        <input type="radio" name="auto_create_social_topics" value="N"<?php if ($this->setting['auto_create_social_topics'] != 'Y') { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?>
                                     </label>
                                 </div>
                             </div>
@@ -911,7 +911,7 @@
                                     </label>
 
                                     <label type="button" class="btn mod-btn-color">
-                                        <input type="radio" name="integral_system_enabled" value="N"<?php if ($this->setting['integral_system_enabled'] == 'N') { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?>
+                                        <input type="radio" name="integral_system_enabled" value="N"<?php if ($this->setting['integral_system_enabled'] != 'Y') { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?>
                                     </label>
                                 </div>
                             </div>
@@ -941,7 +941,7 @@
                 <tr>
                     <td>
                         <div class="form-group">
-                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('用户完善资料获得积分'); ?>:</span>
+                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('用户完善资料获得积分（包括头像，一句话介绍，履历等资料）'); ?>:</span>
                             <div class="col-sm-5 col-xs-8">
                                 <input name="integral_system_config_profile" type="text" class="form-control" value="<?php echo $this->setting['integral_system_config_profile']; ?>"/>
                             </div>
@@ -951,29 +951,9 @@
                 <tr>
                     <td>
                         <div class="form-group">
-                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('用户邀请注册并成功邀请'); ?>:</span>
+                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('用户邀请他人注册且被邀请人成功注册'); ?>:</span>
                             <div class="col-sm-5 col-xs-8">
                                 <input name="integral_system_config_invite" type="text" class="form-control" value="<?php echo $this->setting['integral_system_config_invite']; ?>"/>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="form-group">
-                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('最佳回复'); ?>:</span>
-                            <div class="col-sm-5 col-xs-8">
-                                <input name="integral_system_config_best_answer" type="text" class="form-control" value="<?php echo $this->setting['integral_system_config_best_answer']; ?>"/>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="form-group">
-                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('回复被折叠'); ?>:</span>
-                            <div class="col-sm-5 col-xs-8">
-                                <input name="integral_system_config_answer_fold" type="text" class="form-control" value="<?php echo $this->setting['integral_system_config_answer_fold']; ?>"/>
                             </div>
                         </div>
                     </td>
@@ -1001,6 +981,16 @@
                 <tr>
                     <td>
                         <div class="form-group">
+                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('回复被评为最佳回复'); ?>:</span>
+                            <div class="col-sm-5 col-xs-8">
+                                <input name="integral_system_config_best_answer" type="text" class="form-control" value="<?php echo $this->setting['integral_system_config_best_answer']; ?>"/>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
                             <span class="col-sm-4 col-xs-3 control-label"><?php _e('感谢回复'); ?>:</span>
                             <div class="col-sm-5 col-xs-8">
                                 <input name="integral_system_config_thanks" type="text" class="form-control" value="<?php echo $this->setting['integral_system_config_thanks']; ?>"/>
@@ -1011,7 +1001,17 @@
                 <tr>
                     <td>
                         <div class="form-group">
-                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('发起者邀请别人回答问题并回答'); ?>:</span>
+                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('回复被折叠'); ?>:</span>
+                            <div class="col-sm-5 col-xs-8">
+                                <input name="integral_system_config_answer_fold" type="text" class="form-control" value="<?php echo $this->setting['integral_system_config_answer_fold']; ?>"/>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('发起者邀请用户回答问题且收到答案'); ?>:</span>
                             <div class="col-sm-5 col-xs-8">
                                 <input name="integral_system_config_invite_answer" type="text" class="form-control" value="<?php echo $this->setting['integral_system_config_invite_answer']; ?>"/>
                             </div>
@@ -1069,7 +1069,7 @@
                             <span class="col-sm-4 col-xs-3 control-label"><?php _e('用户对每个问题的回复限制'); ?>:</span>
                             <div class="col-sm-6 col-xs-8">
                                 <label><input type="radio" name="answer_unique" value="Y"<?php if ($this->setting['answer_unique'] == 'Y') { ?> checked="checked"<?php } ?> /><?php _e('只允许回复一次'); ?></label>
-                                <label class="col-md-offset-1"><input type="radio" name="answer_unique" value="N"<?php if ($this->setting['answer_unique'] == 'N') { ?> checked="checked"<?php } ?> /><?php _e('不限制'); ?></label>
+                                <label class="col-md-offset-1"><input type="radio" name="answer_unique" value="N"<?php if ($this->setting['answer_unique'] != 'Y') { ?> checked="checked"<?php } ?> /><?php _e('不限制'); ?></label>
                             </div>
                         </div>
                     </td>
@@ -1085,7 +1085,7 @@
                                     </label>
 
                                     <label type="button" class="btn mod-btn-color">
-                                        <input type="radio" name="answer_self_question" value="N"<?php if ($this->setting['answer_self_question'] == 'N') { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?>
+                                        <input type="radio" name="answer_self_question" value="N"<?php if ($this->setting['answer_self_question'] != 'Y') { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?>
                                     </label>
                                 </div>
                             </div>
@@ -1103,7 +1103,7 @@
                                     </label>
 
                                     <label type="button" class="btn mod-btn-color">
-                                        <input type="radio" name="anonymous_enable" value="N"<?php if ($this->setting['anonymous_enable'] == 'N') { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?>
+                                        <input type="radio" name="anonymous_enable" value="N"<?php if ($this->setting['anonymous_enable'] != 'Y') { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?>
                                     </label>
                                 </div>
                             </div>
@@ -1306,7 +1306,7 @@
                                     </label>
 
                                     <label type="button" class="btn mod-btn-color">
-                                        <input type="radio" name="qq_login_enabled" value="N"<?php if ($this->setting['qq_login_enabled'] == 'N') { ?> checked="checked"<?php } ?>/> <?php _e('否'); ?>
+                                        <input type="radio" name="qq_login_enabled" value="N"<?php if ($this->setting['qq_login_enabled'] != 'Y') { ?> checked="checked"<?php } ?>/> <?php _e('否'); ?>
                                     </label>
                                 </div>
                             </div>
@@ -1347,7 +1347,7 @@
                                     </label>
 
                                     <label type="button" class="btn mod-btn-color">
-                                        <input type="radio" name="sina_weibo_enabled" value="N"<?php if ($this->setting['sina_weibo_enabled'] == 'N') { ?> checked="checked"<?php } ?>/> <?php _e('否'); ?>
+                                        <input type="radio" name="sina_weibo_enabled" value="N"<?php if ($this->setting['sina_weibo_enabled'] != 'Y') { ?> checked="checked"<?php } ?>/> <?php _e('否'); ?>
                                     </label>
                                 </div>
                             </div>
@@ -1393,6 +1393,17 @@
                 <tr>
                     <td>
                         <div class="form-group">
+                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('微信公众平台接口 EncodingAESKey'); ?>:</span>
+                            <div class="col-sm-5 col-xs-8">
+                                <input type="text" class="form-control" name="weixin_encoding_aes_key" value="<?php echo $this->setting['weixin_encoding_aes_key']; ?>">
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <div class="form-group">
                             <span class="col-sm-4 col-xs-3 control-label"><?php _e('微信公众平台帐号角色'); ?>:</span>
                             <div class="col-sm-8 col-xs-8">
                                 <label class="checkbox-inline"><input type="radio" name="weixin_account_role" value="base"<?php if (!$this->setting['weixin_account_role'] OR $this->setting['weixin_account_role'] == 'base') { ?> checked="checked"<?php } ?> /> <?php _e('普通订阅号'); ?></label>
@@ -1429,41 +1440,121 @@
                 <tr>
                     <td>
                         <div class="form-group">
-                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('WeCenter 微信服务 Access token'); ?>:</span>
-                            <div class="col-sm-5 col-xs-8">
-                                <input name="wecenter_access_token" type="text" class="form-control" value="<?php echo $this->setting['wecenter_access_token']; ?>"/>
-
-                                <span class="help-block"><?php _e('请到 %s 申请', '<a href="http://mp.wecenter.com" target="_blank">http://mp.wecenter.com</a>'); ?></span>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        <div class="form-group">
-                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('WeCenter 微信服务 Access secret'); ?>:</span>
-                            <div class="col-sm-5 col-xs-8">
-                                <input name="wecenter_access_secret" type="text" class="form-control" value="<?php echo $this->setting['wecenter_access_secret']; ?>"/>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        <div class="form-group">
-                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('微信公众平台 24 小时后重发未读通知'); ?>:</span>
+                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('开启 Google 登录功能'); ?>:</span>
                             <div class="col-sm-6 col-xs-8">
                                 <div class="btn-group mod-btn">
                                     <label type="button" class="btn mod-btn-color">
-                                        <input type="radio" name="wecenter_mp_notification_once" value="Y"<?php if ($this->setting['wecenter_mp_notification_once'] == 'Y') { ?> checked="checked"<?php } ?>/> <?php _e('是'); ?>
+                                        <input type="radio" name="google_login_enabled" value="Y"<?php if ($this->setting['google_login_enabled'] == 'Y') { ?> checked="checked"<?php } ?>/> <?php _e('是'); ?>
                                     </label>
 
                                     <label type="button" class="btn mod-btn-color">
-                                        <input type="radio" name="wecenter_mp_notification_once" value="N"<?php if ($this->setting['wecenter_mp_notification_once'] == 'N') { ?> checked="checked"<?php } ?>/> <?php _e('否'); ?>
+                                        <input type="radio" name="google_login_enabled" value="N"<?php if ($this->setting['google_login_enabled'] != 'Y') { ?> checked="checked"<?php } ?>/> <?php _e('否'); ?>
                                     </label>
                                 </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <span class="col-sm-4 col-xs-3 control-label textwrap">Google Client ID:</span>
+                            <div class="col-sm-5 col-xs-8">
+                                <input name="google_client_id" type="text" class="form-control" value="<?php echo $this->setting['google_client_id']; ?>"/>
+
+                                <span class="help-block"><?php _e('请到 <a href="https://console.developers.google.com" target="_blank">Google Developers Console</a> 申请。Redirect URI 必填，值为 <code>%s</code>', get_js_url('/account/google/bind/')); ?></span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <span class="col-sm-4 col-xs-3 control-label textwrap">Google Client Secret:</span>
+                            <div class="col-sm-5 col-xs-8">
+                                <input name="google_client_secret" type="text" class="form-control" value="<?php echo $this->setting['google_client_secret']; ?>"/>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('开启 Facebook 登录功能'); ?>:</span>
+                            <div class="col-sm-6 col-xs-8">
+                                <div class="btn-group mod-btn">
+                                    <label type="button" class="btn mod-btn-color">
+                                        <input type="radio" name="facebook_login_enabled" value="Y"<?php if ($this->setting['facebook_login_enabled'] == 'Y') { ?> checked="checked"<?php } ?>/> <?php _e('是'); ?>
+                                    </label>
+
+                                    <label type="button" class="btn mod-btn-color">
+                                        <input type="radio" name="facebook_login_enabled" value="N"<?php if ($this->setting['facebook_login_enabled'] != 'Y') { ?> checked="checked"<?php } ?>/> <?php _e('否'); ?>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <span class="col-sm-4 col-xs-3 control-label textwrap">Facebook APP ID:</span>
+                            <div class="col-sm-5 col-xs-8">
+                                <input name="facebook_app_id" type="text" class="form-control" value="<?php echo $this->setting['facebook_app_id']; ?>"/>
+
+                                <span class="help-block"><?php _e('请到 <a href="https://developers.facebook.com" target="_blank">Facebook Developers</a> 申请'); ?></span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <span class="col-sm-4 col-xs-3 control-label textwrap">Facebook APP Secret:</span>
+                            <div class="col-sm-5 col-xs-8">
+                                <input name="facebook_app_secret" type="text" class="form-control" value="<?php echo $this->setting['facebook_app_secret']; ?>"/>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('开启 Twitter 登录功能'); ?>:</span>
+                            <div class="col-sm-6 col-xs-8">
+                                <div class="btn-group mod-btn">
+                                    <label type="button" class="btn mod-btn-color">
+                                        <input type="radio" name="twitter_login_enabled" value="Y"<?php if ($this->setting['twitter_login_enabled'] == 'Y') { ?> checked="checked"<?php } ?>/> <?php _e('是'); ?>
+                                    </label>
+
+                                    <label type="button" class="btn mod-btn-color">
+                                        <input type="radio" name="twitter_login_enabled" value="N"<?php if ($this->setting['twitter_login_enabled'] != 'Y') { ?> checked="checked"<?php } ?>/> <?php _e('否'); ?>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <span class="col-sm-4 col-xs-3 control-label textwrap">Twitter Consumer Key:</span>
+                            <div class="col-sm-5 col-xs-8">
+                                <input name="twitter_consumer_key" type="text" class="form-control" value="<?php echo $this->setting['twitter_consumer_key']; ?>"/>
+
+                                <span class="help-block"><?php _e('请到 <a href="https://apps.twitter.com" target="_blank">Twitter Application Management</a> 申请。Callback URL 必须设置，值可为任意 URL。'); ?></span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <span class="col-sm-4 col-xs-3 control-label textwrap">Twitter Consumer Secret:</span>
+                            <div class="col-sm-5 col-xs-8">
+                                <input name="twitter_consumer_secret" type="text" class="form-control" value="<?php echo $this->setting['twitter_consumer_secret']; ?>"/>
                             </div>
                         </div>
                     </td>

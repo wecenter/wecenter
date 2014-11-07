@@ -23,13 +23,13 @@
 			</ul>
 		</form>
 
-		<form id="register_form" method="post" class="aw-register-form" onsubmit="return false" action="">
+		<form id="register_form" method="post" class="aw-register-form" onsubmit="return false" action="<?php echo $this->register_url; ?>">
 			<ul>
 				<li>
 					<input name="user_name" class="aw-register-name form-control" type="text" placeholder="<?php _e('用户名'); ?>" value="<?php echo $this->user_name; ?>" />
 				</li>
 				<li>
-					<input name="email" class="aw-register-email form-control" type="text" placeholder="<?php _e('邮箱'); ?>"/>
+					<input name="email" class="aw-register-email form-control" type="text" placeholder="<?php _e('邮箱'); ?>" value="<?php echo $this->email; ?>" />
 				</li>
 				<li>
 					<input name="password" class="aw-register-pwd form-control" type="password" placeholder="<?php _e('密码'); ?>" />

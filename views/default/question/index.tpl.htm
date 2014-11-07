@@ -465,7 +465,7 @@
 								</label>
 								<?php } ?>
 								<label class="pull-right">
-									<a href="page/integral" target="_blank">积分规则</a>
+									<?php if (get_setting('integral_system_enabled') == 'Y') { ?><a href="/integral/rule/" target="_blank"><?php _e('积分规则'); ?></a><?php } ?>
 								</label>
 								<?php echo $this->user_info['user_name']; ?>
 							</p>
@@ -626,6 +626,8 @@
 	UNINTERESTED_COUNT = <?php echo get_setting('uninterested_fold'); ?>;
 
 	ANSWER_EDIT_TIME = <?php echo get_setting('answer_edit_time'); ?>;
+
+	USER_ANSWERED = '<?php echo $this->user_answered; ?>';
 </script>
 
 <script type="text/javascript" src="<?php echo G_STATIC_URL; ?>/js/app/question_detail.js"></script>
