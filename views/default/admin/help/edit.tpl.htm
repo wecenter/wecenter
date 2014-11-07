@@ -1,0 +1,148 @@
+<?php TPL::output('admin/global/header.tpl.htm'); ?>
+<?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
+
+<div class="aw-content-wrap">
+    <div class="mod">
+        <div class="mod-head">
+            <h3>
+                <?php if ($this->chapter_info) { ?>
+                <span class="pull-left"><?php _e('章节编辑'); ?></span>
+                <?php } else { ?>
+                <ul class="nav nav-tabs">
+                    <li><a href="admin/help/list/"><?php _e('章节管理'); ?></a></li>
+                    <li class="active"><a href="admin/help/edit/"><?php _e('新建章节'); ?></a></li>
+                </ul>
+                <?php } ?>
+            </h3>
+        </div>
+
+        <div class="tab-content mod-content">
+            <form action="admin/ajax/help/save_chapter/" id="chapter_form" method="post" onsubmit="return false">
+                <table class="table table-striped">
+                    <?php if ($this->chapter_info) { ?>
+                    <input type="hidden" name="id" value="<?php echo $this->chapter_info['id']; ?>" />
+                    <?php } ?>
+
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <span class="col-sm-4 col-xs-3 control-label"><?php _e('章节标题'); ?>:</span>
+                                <div class="col-sm-5 col-xs-8">
+                                    <input class="form-control" type="text" name="title" value="<?php if ($this->chapter_info) echo $this->chapter_info['title']; ?>" />
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <span class="col-sm-4 col-xs-3 control-label"><?php _e('章节描述'); ?>:</span>
+                                <div class="col-sm-5 col-xs-8">
+                                    <input class="form-control" type="text" name="description" value="<?php if ($this->chapter_info) echo $this->chapter_info['description']; ?>" />
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <span class="col-sm-4 col-xs-3 control-label"><?php _e('章节别名'); ?>:</span>
+                                <div class="col-sm-5 col-xs-8">
+                                    <span class="col-sm-1 mod-text-inline">/help/</span>
+                                    <div class="col-xs-11 col-sm-8 pull-right nopadding">
+                                        <input type="text" name="url_token" class="form-control" value="<?php if ($this->chapter_info) echo $this->chapter_info['url_token']; ?>" />
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <span class="col-sm-4 col-xs-3 control-label"><?php _e('章节图片'); ?>:</span>
+                                <div class="col-sm-5 col-xs-8 nopadding">
+                                    <div class="col-sm-5">
+                                        <span class="mod-file">
+                                            <input type="button" class="btn btn-primary" value="点击选择图片" />
+                                            <input type="file" name="icon" exts="png|jpg|bmp|jpeg" class="mod-input-file" />
+                                        </span>
+                                        <span class="help-block"><?php _e('支持上传图片类型'); ?>: jpg,jpeg,gif,png</span>
+                                    </div>
+                                    <span class="col-sm-3 filetext"><?php if ($this->chapter_info && get_chapter_icon_url($this->chapter_info['id'], 'max', false)) echo get_chapter_icon_url($this->chapter_info['id'], 'max', false); ?></span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tfoot>
+                        <tr>
+                            <td>
+                                <input type="button" value="<?php _e('保存设置'); ?>" class="btn btn-primary center-block" onclick="AWS.ajax_post($('#chapter_form'));" />
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </form>
+        </div>
+
+        <?php if ($this->data_list) { ?>
+        <!-- 文章章节列表 -->
+        <div class="tab-content mod-body">
+            <div class="alert alert-success hide error_message"></div>
+
+            <div class="table-responsive">
+                <h4><?php _e('章节文章列表')?></h4>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th><?php _e('标题'); ?></th>
+                            <th><?php _e('排序'); ?></th>
+                            <th><?php _e('操作'); ?></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <form id="sort_form" action="admin/ajax/help/save_data_sort/" method="post" onsubmit="return false" class="clearfix">
+                            <?php foreach ($this->data_list AS $data_info) { ?>
+                            <tr>
+                                <input type="hidden" name="data[<?php echo $data_info['id']; ?>][id]" value="<?php echo $data_info['id']; ?>" />
+                                <input type="hidden" name="data[<?php echo $data_info['id']; ?>][type]" value="<?php echo $data_info['type']; ?>" />
+                                <td class="col-sm-5 col-md-5">
+                                    <a href="<?php echo $data_info['type']; ?>/<?php echo $data_info['id']; ?>"><?php echo $data_info['title']; ?></a>
+                                </td>
+                                <td class="col-sm-2 col-md-2">
+                                    <div class="col-lg-offset-3">
+                                        <input type="text" class="form-control sort-action" name="data[<?php echo $data_info['id']; ?>][sort]" value="<?php echo $data_info['sort']; ?>" />
+                                    </div>
+                                </td>
+                                <td class="col-sm-5 col-md-5">
+                                    <a onclick="AWS.ajax_request(G_BASE_URL + '/admin/ajax/help/remove_data/', 'id=<?php echo $this->chapter_info['id']; ?>&type=<?php echo $data_info['type']; ?>&item_id=<?php echo $data_info['id'];?>');" data-toggle="tooltip" class="icon icon-trash md-tip" title="<?php _e('删除'); ?>"></a>
+                                </td>
+                            </tr>
+                            <?php } ?>
+                        </form>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <?php } ?>
+    </div>
+</div>
+
+<script>
+    $(function(){
+        $('.mod-input-file').change(function() {
+            $('.filetext').text($('.mod-input-file').val());
+        });
+
+        <?php if ($this->data_list) { ?>
+        $('input.sort-action').keyup(function() {
+            if ($(this).val() != '')
+            {
+                AWS.ajax_post($('#sort_form'), AWS.ajax_processer, 'error_message');
+            }
+        });
+        <?php } ?>
+    })
+</script>
+
+<?php TPL::output('admin/global/footer.tpl.htm'); ?>

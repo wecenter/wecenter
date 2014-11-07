@@ -275,7 +275,11 @@ class main extends AWS_CONTROLLER
 			{
 				if ($this->model('answer')->has_answer_by_uid($question_info['question_id'], $this->user_id))
 				{
-					TPL::assign('user_answered', TRUE);
+					TPL::assign('user_answered', 1);
+				}
+				else
+				{
+					TPL::assign('user_answered', 0);
 				}
 			}
 
@@ -372,10 +376,7 @@ class main extends AWS_CONTROLLER
 
 		if (get_setting('advanced_editor_enable') == 'Y')
 		{
-			// editor
-			TPL::import_js('js/editor/Markdown.Converter.js');
-			TPL::import_js('js/editor/Markdown.Sanitizer.js');
-			TPL::import_js('js/editor/Markdown.Editor.js');
+			import_editor_static_files();
 		}
 
 		if (get_setting('upload_enable') == 'Y')

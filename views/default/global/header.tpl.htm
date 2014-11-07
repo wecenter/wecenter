@@ -20,7 +20,7 @@
 							<p class="search"><span><?php _e('搜索'); ?>:</span><a onClick="$('#global_search_form').submit();"></a></p>
 						</div>
 						<div class="mod-footer">
-							<a href="<?php if (get_setting('quick_publish') == 'Y' && $this->user_id) { ?>javascript:;<? } else { ?>publish<?php } ?>" onClick="$('#header_publish').click();" class="pull-right btn btn-mini btn-success publish"><?php _e('发起问题'); ?></a>
+							<a href="<?php if (get_setting('quick_publish') == 'Y' && $this->user_id) { ?>javascript:;<?php } else { ?>publish<?php } ?>" onClick="$('#header_publish').click();" class="pull-right btn btn-mini btn-success publish"><?php _e('发起问题'); ?></a>
 						</div>
 					</div>
 				</form>
@@ -47,7 +47,6 @@
 					<li><a href="article/" class="<?php if ($_GET['app'] == 'article') { ?>active<?php } ?>"><?php _e('文章'); ?></a></li> -->
 
 					<li><a href="topic/" <?php if ($_GET['app'] == 'topic') { ?>class="active"<?php } ?>><i class="icon icon-topic"></i> <?php _e('话题'); ?></a></li>
-
 					<?php if ($this->user_id) { ?>
 					<li>
 						<a href="notifications/" class="<?php if ($_GET['app'] == 'notifications') { ?>active<?php } ?>"><i class="icon icon-bell"></i> <?php _e('通知'); ?></a>
@@ -62,6 +61,7 @@
 						</div>
 					</li>
 					<?php } ?>
+					<li><a href="help/" <?php if ($_GET['app'] == 'help') { ?>class="active"<?php } ?>><i class="icon icon-bulb"></i> <?php _e('帮助'); ?></a></li>
 			      </ul>
 			    </nav>
 			</div>
@@ -88,10 +88,8 @@
 						</ul>
 					</div>
 				<?php } else { ?>
-					<span>
-						<a class="register btn btn-normal btn-success" href="account/register/"><?php _e('注册'); ?></a>
-						<a class="login btn btn-normal btn-primary" href="account/login/"><?php _e('登录'); ?></a>
-					</span>
+					<a class="login btn btn-normal btn-primary" href="account/login/"><?php _e('登录'); ?></a>
+					<?php if (get_setting('register_type') == 'open') { ?><a class="register btn btn-normal btn-success" href="account/register/"><?php _e('注册'); ?></a><?php } ?>
 				<?php } ?>
 				<!-- end 登陆&注册栏 -->
 			</div>
@@ -111,11 +109,11 @@
 			<!-- end 发起 -->
 		</div>
 	</div>
-	<?php if ($this->user_id AND $this->user_info['email'] AND !$this->user_info['valid_email']) { ?>
+	<?php if ($this->user_id AND $this->user_info['email'] AND !$this->user_info['valid_email'] AND get_setting('register_valid_type') != 'N') { ?>
 	<div class="aw-email-verify">
 		<div class="container text-center">
 			<?php _e('你的邮箱 %s 还未验证 , 请尽快查收邮件', $this->user_info['email']); ?>.
 		</div>
 	</div>
 	<?php } ?>
-		
+

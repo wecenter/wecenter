@@ -2,14 +2,6 @@ $(function () {
 
     $('#captcha').click();
 
-    // bs自带方法 TAB切换
-    $('#myTab a').click(function (e) 
-    {
-        e.preventDefault();
-
-        $(this).tab('show');
-    });
-    
     // bs自带方法-气泡提示
     $('.aw-content-wrap .md-tip').tooltip('hide');
 
@@ -35,7 +27,28 @@ $(function () {
         wheelSpeed: 20,
         wheelPropagation: true,
         minScrollbarLength: 20
-    })
+    });
+
+    // 左侧导航菜单的折叠与展开
+    $('.mod-bar > li > a').click(function () 
+    {
+        if ($(this).next().is(':visible'))
+        {
+            $(this).next().slideUp('');
+
+            $(this).removeClass('active');
+        }
+        else
+        {
+            $('#aw-side').find('li').children('ul').slideUp('slow');
+
+            $(this).addClass('active').parent().siblings().find('a').removeClass('active');
+
+            $(this).next().slideDown('');
+        }
+
+        $("#aw-side").perfectScrollbar('update');
+    });
 
     // 日期选择
     if (typeof (DateInput) != 'undefined') 
@@ -48,26 +61,6 @@ $(function () {
         checkboxClass: 'icheckbox_square-blue',
         radioClass: 'iradio_square-blue',
         increaseArea: '20%'
-    });
-
-
-    // 左侧导航菜单的折叠与展开
-    $('.mod-bar > li > a').click(function () 
-    {
-        if ($(this).next().is(':visible'))
-        {
-            $(this).next().slideUp('');
-
-            $(this).removeClass('collapsed active');
-
-        } else
-        {
-            $('#aw-side').find('li').children('ul').hide();
-
-            $(this).addClass('active collapsed').parent().siblings().find('a').removeClass('active collapsed');
-
-            $(this).next().slideDown('');
-        }
     });
 
     // input 菜单折叠，展开、拖动

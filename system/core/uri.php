@@ -86,7 +86,7 @@ class core_uri
 
 		$base_script = basename($_SERVER['SCRIPT_NAME']);
 
-		if (!strstr($request_main, '/') AND !strstr($request_main, '-') AND !strstr($request_main, '.'))
+		if (!strstr($request_main, '=') AND !strstr($request_main, '/') AND !strstr($request_main, '-') AND !strstr($request_main, '.'))
 		{
 			$request_main .= '/';
 		}
@@ -136,7 +136,7 @@ class core_uri
 
 		$request_main = $this->request_main;
 
-		if (empty($request_main) or $this->index_script == $request_main)
+		if (!$request_main OR $this->index_script == $request_main)
 		{
 			$this->controller = 'main';
 			$this->action = 'index';
@@ -205,7 +205,7 @@ class core_uri
 		}
 
 		$args_count = count($uri['first']['args']);
-
+		
 		switch ($args_count)
 		{
 			default:
@@ -223,6 +223,7 @@ class core_uri
 
 			case 3:
 				$args_var_str = $uri['first']['args'][2];
+				
 				$__app_dir = $uri['first']['args'][0] ? $uri['first']['args'][0] : $this->default_vars['app_dir'];	// 应用目录
 
 				if (file_exists(ROOT_PATH . 'app/' . $__app_dir . '/' . $uri['first']['args'][1] . '.php'))
@@ -238,19 +239,28 @@ class core_uri
 
 			case 4:
 				$args_var_str = $uri['first']['args'][3];
+				
 				$__app_dir = $uri['first']['args'][0] ? $uri['first']['args'][0] : $this->default_vars['app_dir'];	// 应用目录
 				$this->controller = $uri['first']['args'][1] ? $uri['first']['args'][1] : $this->default_vars['controller'];	// 控制器
 				$this->action = $uri['first']['args'][2] ? $uri['first']['args'][2] : $this->default_vars['action'];	// 动作
 			break;
+			
+			case 5:
+				$args_var_str = $uri['first']['args'][4];
+						
+				$__app_dir = $uri['first']['args'][0] ? $uri['first']['args'][0] : $this->default_vars['app_dir'];	// 应用目录
+				$this->controller = $uri['first']['args'][2] ? $uri['first']['args'][1] . '/' . $uri['first']['args'][2] : $this->default_vars['controller'];	// 控制器
+				$this->action = $uri['first']['args'][3] ? $uri['first']['args'][3] : $this->default_vars['action'];	// 动作
+			break;
 		}
-
+		
 		$this->app_dir = ROOT_PATH . 'app/' . $__app_dir . '/';
 
 		$_GET['c'] = $this->controller;
 		$_GET['act'] = $this->action;
 		$_GET['app'] = $__app_dir;
 
-		if (! empty($args_var_str))
+		if ($args_var_str)
 		{
 			if (substr($args_var_str, 0, strlen($this->params['sep_var'])) == $this->params['sep_var'])
 			{

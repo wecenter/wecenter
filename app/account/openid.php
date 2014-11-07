@@ -52,7 +52,14 @@ class openid extends AWS_CONTROLLER
 
 		$oauth = new Services_Weibo_WeiboOAuth(get_setting('sina_akey'), get_setting('sina_skey'));
 
-		HTTP::redirect($oauth->getAuthorizeURL(get_js_url('/account/openid/sina_callback/')));
+		$url = '/account/openid/sina_callback/';
+
+		if ($_GET['return_url'])
+		{
+			$url .= 'return_url-' . $_GET['return_url'];
+		}
+
+		HTTP::redirect($oauth->getAuthorizeURL(get_js_url($url)));
 	}
 
 	public function sina_callback_action()
@@ -64,6 +71,8 @@ class openid extends AWS_CONTROLLER
 
 		if ($this->is_post() and AWS_APP::session()->sina_profile and ! AWS_APP::session()->sina_token['error'])
 		{
+			define('IN_AJAX', TRUE);
+
 			if (get_setting('register_type') == 'close')
 			{
 				H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('本站目前关闭注册')));
@@ -116,23 +125,23 @@ class openid extends AWS_CONTROLLER
 				), -1, AWS_APP::lang()->_t('密码长度不符合规则')));
 			}
 
-			if (! $_POST['agreement_chk'])
+			if (!$_POST['agreement_chk'])
 			{
 				H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('你必需同意用户协议才能继续')));
 			}
 
 			if (get_setting('ucenter_enabled') == 'Y')
 			{
-				$result = $this->model('ucenter')->register($_POST['user_name'], $_POST['password'], $_POST['email'], true);
+				$result = $this->model('ucenter')->register($_POST['user_name'], $_POST['password'], $_POST['email']);
 
-				if (is_array($result))
+				if (!is_array($result))
 				{
-					$uid = $result['user_info']['uid'];
+					H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('UCenter 同步失败，错误为：%s', $result)));
 				}
-				else
-				{
-					H::ajax_json_output(AWS_APP::RSM(null, - 1, $result));
-				}
+
+				$uid = $result['user_info']['uid'];
+
+				$redirect_url = '/account/sync_login/';
 			}
 			else
 			{
@@ -147,23 +156,32 @@ class openid extends AWS_CONTROLLER
 				{
 					$this->model('active')->active_user_by_uid($uid);
 				}
+
+				$redirect_url = '/';
 			}
 
-			if ($uid)
-			{
-				$this->model('openid_weibo')->bind_account(AWS_APP::session()->sina_profile, null, $uid, AWS_APP::session()->sina_token, true);
-
-				if (AWS_APP::session()->sina_profile['profile_image_url'])
-				{
-					$this->model('account')->associate_remote_avatar($uid, str_replace('/50/', '/180/', AWS_APP::session()->sina_profile['profile_image_url']));
-				}
-
-				H::ajax_json_output(AWS_APP::RSM(null, 1, null));
-			}
-			else
+			if (!$uid)
 			{
 				H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('与微博通信出错 (Register), 请重新登录')));
 			}
+
+			$this->model('openid_weibo')->bind_account(AWS_APP::session()->sina_profile, null, $uid, AWS_APP::session()->sina_token, true);
+
+			if (AWS_APP::session()->sina_profile['profile_image_url'])
+			{
+				$this->model('account')->associate_remote_avatar($uid, str_replace('/50/', '/180/', AWS_APP::session()->sina_profile['profile_image_url']));
+			}
+
+			$user_info = $this->model('account')->get_user_info_by_uid($uid);
+
+			HTTP::set_cookie('_user_login', get_login_cookie_hash($user_info['user_name'], $user_info['password'], $user_info['salt'], $user_info['uid'], false));
+
+			unset(AWS_APP::session()->sina_profile);
+			unset(AWS_APP::session()->sina_token);
+
+			H::ajax_json_output(AWS_APP::RSM(array(
+				'url' => get_js_url($redirect_url)
+			), 1, null));
 		}
 		else
 		{
@@ -171,9 +189,16 @@ class openid extends AWS_CONTROLLER
 			{
 				$oauth = new Services_Weibo_WeiboOAuth(get_setting('sina_akey'), get_setting('sina_skey'));
 
+				$callback_url = '/account/openid/sina_callback/';
+
+				if ($_GET['return_url'])
+				{
+					$callback_url .= 'return_url-' . $_GET['return_url'];
+				}
+
 				AWS_APP::session()->sina_token = $oauth->getAccessToken('code', array(
 					'code' => $_GET['code'],
-					'redirect_uri' => get_js_url('/account/openid/sina_callback/')
+					'redirect_uri' => get_js_url($callback_url)
 				));
 
 				$client = new Services_Weibo_WeiboClient(get_setting('sina_akey'), get_setting('sina_skey'), AWS_APP::session()->sina_token['access_token']);
@@ -207,12 +232,23 @@ class openid extends AWS_CONTROLLER
 
 				if (get_setting('ucenter_enabled') == 'Y')
 				{
-					HTTP::redirect('/account/sync_login/');
+					$redirect_url = '/account/sync_login/';
+
+					if ($_GET['return_url'])
+					{
+						$redirect_url .= 'url-' . $_GET['return_url'];
+					}
+				}
+				else if ($_GET['return_url'])
+				{
+					$redirect_url = base64_decode($_GET['return_url']);
 				}
 				else
 				{
-					HTTP::redirect('/');
+					$redirect_url = '/';
 				}
+
+				HTTP::redirect($redirect_url);
 			}
 			else
 			{
@@ -253,7 +289,14 @@ class openid extends AWS_CONTROLLER
 	{
 		unset(AWS_APP::session()->QQConnect);
 
-		HTTP::redirect($this->model('openid_qq')->qq_login(get_js_url('/account/openid/qq_login_callback/')));
+		$url = '/account/openid/qq_login_callback/';
+
+		if ($_GET['return_url'])
+		{
+			$url .= 'return_url-' . $_GET['return_url'];
+		}
+
+		HTTP::redirect($this->model('openid_qq')->qq_login(get_js_url($url)));
 	}
 
 	public function qq_login_callback_action()
@@ -319,7 +362,7 @@ class openid extends AWS_CONTROLLER
 
 			if (get_setting('ucenter_enabled') == 'Y')
 			{
-				$result = $this->model('ucenter')->register($_POST['user_name'], $_POST['password'], $_POST['email'], true);
+				$result = $this->model('ucenter')->register($_POST['user_name'], $_POST['password'], $_POST['email']);
 
 				if (is_array($result))
 				{
@@ -370,7 +413,14 @@ class openid extends AWS_CONTROLLER
 
 			if (! AWS_APP::session()->QQConnect['access_token'])
 			{
-				if (! $this->model('openid_qq')->request_access_token(get_js_url('/account/openid/qq_login_callback/')))
+				$callback_url = '/account/openid/qq_login_callback/';
+
+				if ($_GET['return_url'])
+				{
+					$callback_url .= 'return_url-' . $_GET['return_url'];
+				}
+
+				if (! $this->model('openid_qq')->request_access_token(get_js_url($callback_url)))
 				{
 					H::redirect_msg(AWS_APP::lang()->_t('与 QQ 通信出错, 请重新登录'), "/account/login/");
 				}
@@ -391,7 +441,25 @@ class openid extends AWS_CONTROLLER
 
 				$this->model('openid_qq')->update_token($qq_user['name'], AWS_APP::session()->QQConnect['access_token']);
 
-				HTTP::redirect('/');
+				if (get_setting('ucenter_enabled') == 'Y')
+				{
+					$redirect_url = '/account/sync_login/';
+
+					if ($_GET['return_url'])
+					{
+						$redirect_url .= 'url-' . $_GET['return_url'];
+					}
+				}
+				else if ($_GET['return_url'])
+				{
+					$redirect_url = base64_decode($_GET['return_url']);
+				}
+				else
+				{
+					$redirect_url = '/';
+				}
+
+				HTTP::redirect($redirect_url);
 			}
 			else
 			{

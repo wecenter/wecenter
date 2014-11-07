@@ -99,11 +99,6 @@ class crond_class extends AWS_MODEL
             AWS_APP::cache()->set('reputation_calculate_start', 0, 604800);
         }
 
-        if (!get_setting('wecenter_access_token'))
-        {
-            $this->model('weixin')->get_weixin_app_id_setting_var();
-        }
-
         $this->model('email')->send_mail_queue(120);
 
         $this->model('online')->delete_expire_users();
@@ -143,11 +138,6 @@ class crond_class extends AWS_MODEL
     public function hour()
     {
         $this->model('system')->clean_session();
-
-        if (get_setting('wecenter_access_token'))
-        {
-            $this->model('weixin')->get_weixin_app_id_setting_var();
-        }
     }
 
     // 每日时执行

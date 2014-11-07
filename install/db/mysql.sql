@@ -69,6 +69,8 @@ CREATE TABLE `[#DB_PREFIX#]article` (
   `title_fulltext` text,
   `category_id` int(10) DEFAULT '0',
   `is_recommend` tinyint(1) DEFAULT '0',
+  `chapter_id` int(10) UNSIGNED DEFAULT NULL,
+  `sort` tinyint(2) UNSIGNED NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `has_attach` (`has_attach`),
   KEY `uid` (`uid`),
@@ -79,6 +81,8 @@ CREATE TABLE `[#DB_PREFIX#]article` (
   KEY `votes` (`votes`),
   KEY `category_id` (`category_id`),
   KEY `is_recommend` (`is_recommend`),
+  KEY `chapter_id` (`chapter_id`),
+  KEY `sort` (`sort`),
   FULLTEXT KEY `title_fulltext` (`title_fulltext`)
 ) ENGINE=MYISAM DEFAULT CHARSET=utf8;
 
@@ -122,7 +126,7 @@ CREATE TABLE `[#DB_PREFIX#]attach` (
   `file_location` varchar(255) DEFAULT NULL COMMENT '文件位置',
   `is_image` int(1) DEFAULT '0',
   `item_type` varchar(32) DEFAULT '0' COMMENT '关联类型',
-  `item_id` bigint(30) DEFAULT '0' COMMENT '关联 ID',
+  `item_id` bigint(20) DEFAULT '0' COMMENT '关联 ID',
   `wait_approval` TINYINT( 1 ) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `access_key` (`access_key`),
@@ -465,8 +469,10 @@ CREATE TABLE `[#DB_PREFIX#]question` (
   `thanks_count` int(10) NOT NULL DEFAULT '0',
   `question_content_fulltext` text,
   `is_recommend` tinyint(1) NOT NULL DEFAULT '0',
-  `weibo_msg_id` bigint(30) DEFAULT NULL,
+  `weibo_msg_id` bigint(20) DEFAULT NULL,
   `received_email_id` int(10) DEFAULT NULL,
+  `chapter_id` int(10) UNSIGNED DEFAULT NULL,
+  `sort` tinyint(2) UNSIGNED NOT NULL DEFAULT '0',
   PRIMARY KEY (`question_id`),
   KEY `category_id` (`category_id`),
   KEY `update_time` (`update_time`),
@@ -486,6 +492,8 @@ CREATE TABLE `[#DB_PREFIX#]question` (
   KEY `weibo_msg_id` (`weibo_msg_id`),
   KEY `received_email_id` (`received_email_id`),
   KEY `unverified_modify_count` (`unverified_modify_count`),
+  KEY `chapter_id` (`chapter_id`),
+  KEY `sort` (`sort`),
   FULLTEXT KEY `question_content_fulltext` (`question_content_fulltext`)
 ) ENGINE=MYISAM DEFAULT CHARSET=utf8 COMMENT='问题列表';
 
@@ -878,7 +886,7 @@ CREATE TABLE `[#DB_PREFIX#]users_sina` (
   `add_time` int(10) DEFAULT NULL COMMENT '添加时间',
   `expires_time` int(10) DEFAULT '0' COMMENT '过期时间',
   `access_token` varchar(64) DEFAULT NULL,
-  `last_msg_id` bigint(30) DEFAULT NULL,
+  `last_msg_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `uid` (`uid`),
   KEY `access_token` (`access_token`),
@@ -941,6 +949,58 @@ CREATE TABLE `[#DB_PREFIX#]users_ucenter` (
   KEY `uid` (`uid`),
   KEY `uc_uid` (`uc_uid`),
   KEY `email` (`email`)
+) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
+
+CREATE TABLE `[#DB_PREFIX#]users_google` (
+  `id` varchar(64) NOT NULL,
+  `uid` int(11) UNSIGNED NOT NULL,
+  `name` varchar(128) DEFAULT NULL,
+  `locale` varchar(16) DEFAULT NULL,
+  `picture` varchar(255) DEFAULT NULL,
+  `gender` varchar(8) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `link` varchar(255) DEFAULT NULL,
+  `add_time` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `access_token` varchar(128) DEFAULT NULL,
+  `refresh_token` varchar(128) DEFAULT NULL,
+  `expires_time` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uid` (`uid`),
+  KEY `access_token` (`access_token`)
+) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
+
+CREATE TABLE `[#DB_PREFIX#]users_facebook` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `uid` int(11) UNSIGNED NOT NULL,
+  `name` varchar(128) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `link` varchar(255) DEFAULT NULL,
+  `gender` varchar(8) DEFAULT NULL,
+  `locale` varchar(16) DEFAULT NULL,
+  `timezone` tinyint(3) DEFAULT NULL,
+  `picture` varchar(255) DEFAULT NULL,
+  `access_token` varchar(255) DEFAULT NULL,
+  `expires_time` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `add_time` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uid` (`uid`),
+  KEY `access_token` (`access_token`)
+) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
+
+CREATE TABLE `[#DB_PREFIX#]users_twitter` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `uid` int(11) UNSIGNED NOT NULL,
+  `name` varchar(128) DEFAULT NULL,
+  `screen_name` varchar(128) DEFAULT NULL,
+  `location` varchar(64) DEFAULT NULL,
+  `time_zone` varchar(64) DEFAULT NULL,
+  `lang` varchar(16) DEFAULT NULL,
+  `profile_image_url` varchar(255) DEFAULT NULL,
+  `add_time` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `access_token` varchar(255) NOT NULL DEFAULT 'a:2:{s:11:"oauth_token";s:0:"";s:18:"oauth_token_secret";s:0:"";}',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uid` (`uid`),
+  KEY `access_token` (`access_token`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]user_action_history` (
@@ -1066,6 +1126,14 @@ CREATE TABLE `[#DB_PREFIX#]edm_usergroup` (
   PRIMARY KEY (`id`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
 
+CREATE TABLE `[#DB_PREFIX#]edm_unsubscription` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `email` varchar(255) NOT NULL,
+  `time` int(10) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `email` (`email`)
+) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
+
 CREATE TABLE `[#DB_PREFIX#]verify_apply` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `uid` int(11) NOT NULL,
@@ -1106,11 +1174,10 @@ CREATE TABLE `[#DB_PREFIX#]weixin_accounts` (
   `weixin_account_role` varchar(20) DEFAULT 'base',
   `weixin_app_id` varchar(255) DEFAULT '',
   `weixin_app_secret` varchar(255) DEFAULT '',
-  `wecenter_access_token` varchar(255) DEFAULT '',
-  `wecenter_access_secret` varchar(255) DEFAULT '',
   `weixin_mp_menu` text,
   `weixin_subscribe_message_key` varchar(255) COLLATE utf8_unicode_ci DEFAULT '',
   `weixin_no_result_message_key` varchar(255) COLLATE utf8_unicode_ci DEFAULT '',
+  `weixin_encoding_aes_key` varchar(43) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `weixin_mp_token` (`weixin_mp_token`),
   KEY `weixin_account_role` (`weixin_account_role`),
@@ -1135,7 +1202,7 @@ CREATE TABLE `[#DB_PREFIX#]weixin_msg` (
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8 COMMENT='微信群发列表';
 
 CREATE TABLE `[#DB_PREFIX#]weibo_msg` (
-  `id` bigint(30) NOT NULL,
+  `id` bigint(20) NOT NULL,
   `created_at` int(10) NOT NULL,
   `msg_author_uid` bigint(20) NOT NULL,
   `text` varchar(255) NOT NULL,
@@ -1200,13 +1267,25 @@ CREATE TABLE `[#DB_PREFIX#]weixin_third_party_api` (
   `account_id` int(10) NOT NULL DEFAULT '0',
   `url` varchar(255) NOT NULL,
   `token` varchar(255) NOT NULL,
-  `enabled` tinyint(1) DEFAULT '0',
-  `rank` tinyint(2) UNSIGNED DEFAULT '0',
+  `enabled` tinyint(1) NOT NULL DEFAULT '0',
+  `rank` tinyint(2) UNSIGNED NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `account_id` (`account_id`),
   KEY `enabled` (`enabled`),
   KEY `rank` (`rank`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8 COMMENT='微信第三方接入';
+
+CREATE TABLE `[#DB_PREFIX#]help_chapter` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) NOT NULL,
+  `description` text,
+  `url_token` varchar(32) DEFAULT NULL,
+  `sort` tinyint(2) UNSIGNED NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `title` (`title`),
+  KEY `url_token` (`url_token`),
+  KEY `sort` (`sort`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='帮助中心';
 
 INSERT INTO `[#DB_PREFIX#]category`(`title`,`type`) VALUES
 ('默认分类', 'question');
@@ -1266,4 +1345,4 @@ INSERT INTO `[#DB_PREFIX#]users_group` (`group_id`, `type`, `custom`, `group_nam
 (7, 1, 0, '中级会员', 200, 500, 1, 'a:9:{s:16:"publish_question";s:1:"1";s:21:"publish_approval_time";a:2:{s:5:"start";s:0:"";s:3:"end";s:0:"";}s:10:"edit_topic";s:1:"1";s:12:"create_topic";s:1:"1";s:17:"redirect_question";s:1:"1";s:13:"upload_attach";s:1:"1";s:11:"publish_url";s:1:"1";s:15:"publish_article";s:1:"1";s:15:"publish_comment";s:1:"1";}'),
 (8, 1, 0, '高级会员', 500, 1000, 1, 'a:11:{s:16:"publish_question";s:1:"1";s:21:"publish_approval_time";a:2:{s:5:"start";s:0:"";s:3:"end";s:0:"";}s:13:"edit_question";s:1:"1";s:10:"edit_topic";s:1:"1";s:12:"create_topic";s:1:"1";s:17:"redirect_question";s:1:"1";s:13:"upload_attach";s:1:"1";s:11:"publish_url";s:1:"1";s:15:"publish_article";s:1:"1";s:19:"edit_question_topic";s:1:"1";s:15:"publish_comment";s:1:"1";}'),
 (9, 1, 0, '核心会员', 1000, 999999, 1, 'a:12:{s:16:"publish_question";s:1:"1";s:21:"publish_approval_time";a:2:{s:5:"start";s:0:"";s:3:"end";s:0:"";}s:13:"edit_question";s:1:"1";s:10:"edit_topic";s:1:"1";s:12:"manage_topic";s:1:"1";s:12:"create_topic";s:1:"1";s:17:"redirect_question";s:1:"1";s:13:"upload_attach";s:1:"1";s:11:"publish_url";s:1:"1";s:15:"publish_article";s:1:"1";s:19:"edit_question_topic";s:1:"1";s:15:"publish_comment";s:1:"1";}'),
-(99, 0, 0, '游客', 0, 0, 0, 'a:8:{s:10:"visit_site";s:1:"1";s:13:"visit_explore";s:1:"1";s:12:"search_avail";s:1:"1";s:14:"visit_question";s:1:"1";s:11:"visit_topic";s:1:"1";s:13:"visit_feature";s:1:"1";s:12:"visit_people";s:1:"1";s:11:"answer_show";s:1:"1";}');
+(99, 0, 0, '游客', 0, 0, 0, 'a:9:{s:10:"visit_site";s:1:"1";s:13:"visit_explore";s:1:"1";s:12:"search_avail";s:1:"1";s:14:"visit_question";s:1:"1";s:11:"visit_topic";s:1:"1";s:13:"visit_feature";s:1:"1";s:12:"visit_people";s:1:"1";s:13:"visit_chapter";s:1:"1";s:11:"answer_show";s:1:"1";}');

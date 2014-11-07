@@ -223,9 +223,6 @@ $(function()
 
     //回复内容超链接新窗口打开
     $('.markitup-box a').attr('target','_blank');
-	
-	//编辑器@人
-    AWS.at_user_lists('#wmd-input');
 
 });
 
@@ -238,7 +235,7 @@ function one_click_add_topic(selector, topic_title, question_id)
 		}
 		else
 		{
-			$('.aw-topic-editor').prepend('<a href="topic/' + result.rsm.topic_id + '" class="aw-topic-name"><span>' + topic_title + '</span></a>').hide().fadeIn();
+			$('.aw-topic-bar .tag-bar').prepend('<span class="topic-tag" data-id="' + result.rsm.topic_id + '"><a class="text" href="topic/' + result.rsm.topic_id + '">' + topic_title + '</a></a></span>').hide().fadeIn();
 			
 			selector.hide();
 		}

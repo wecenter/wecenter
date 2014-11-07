@@ -294,8 +294,7 @@ class user extends AWS_ADMIN_CONTROLLER
 
         TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(401));
 
-        $this->crumb(AWS_APP::lang()->_t('认证审核'), 'admin/user/verify_approval_list/');
-        $this->crumb($this->user['user_name'], 'admin/user/verify_approval_edit/' . $_GET['id']);
+        $this->crumb(AWS_APP::lang()->_t('编辑认证审核资料'), 'admin/user/verify_approval_list/');
 
         TPL::output('admin/user/verify_approval_edit');
     }

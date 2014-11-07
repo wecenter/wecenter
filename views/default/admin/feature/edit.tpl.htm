@@ -34,7 +34,7 @@
 				<tr>
 					<td>
 						<div class="form-group">
-							<span class="col-sm-4 col-xs-3 control-label"><?php _e('别名'); ?>:</span>
+							<span class="col-sm-4 col-xs-3 control-label"><?php _e('专题别名'); ?>:</span>
 							<div class="col-sm-5 col-xs-8">
 								<span class="col-sm-1  col-xs-12 mod-text-inline">/feature/</span>
 								<div class="col-sm-9 pull-right nopadding">
@@ -58,14 +58,16 @@
 					<td>
 						<div class="form-group">
 							<span class="col-sm-4 col-xs-3 control-label"><?php _e('专题图片'); ?>:</span>
-							<div class="col-sm-5 col-xs-8">
-                                <span class="mod-file">
-                                    <input type="button" class="btn btn-primary" value="点击选择图片" />
-                                    <input type="file" name="icon" exts="png|jpg|bmp|jpeg" class="mod-input-file" />
-                                </span>
-                                <p class="filetext"></p>
+							<div class="col-sm-5 col-xs-8 nopadding">
+								<div class="col-sm-5">
+								<span class="mod-file">
+									<input type="button" class="btn btn-primary" value="点击选择图片" />
+									<input type="file" name="icon" exts="png|jpg|bmp|jpeg" class="mod-input-file" />
+								</span>
 								<span class="help-block"><?php _e('规格'); ?>: 900px x 240px, <?php _e('支持上传图片类型'); ?>: jpg,jpeg,gif,png</span>
+								</div>
 							</div>
+							<span class="col-sm-3 filetext"><?php if ($this->feature['icon']) echo get_feature_pic_url('max', $this->feature['icon']); ?></span>
 						</div>
 					</td>
 				</tr>
@@ -74,7 +76,7 @@
 						<div class="form-group">
 							<span class="col-sm-4 col-xs-3 control-label"><?php _e('专题话题'); ?>:</span>
 							<div class="col-sm-5 col-xs-8">
-								<textarea class="form-control" name="topics"  ><?php echo htmlspecialchars($this->feature_topics); ?></textarea>
+								<textarea class="form-control" name="topics" rows="5"><?php echo htmlspecialchars($this->feature_topics); ?></textarea>
 
 								<span class="help-block">一行一个话题</span>
 							</div>
@@ -86,7 +88,7 @@
 						<div class="form-group">
 							<span class="col-sm-4 col-xs-3 control-label"><?php _e('自定义页面样式(CSS)'); ?>:</span>
 							<div class="col-sm-5 col-xs-8">
-								<textarea class="form-control" name="css"  ><?php echo htmlspecialchars($this->feature['css']); ?></textarea>
+								<textarea class="form-control" name="css" rows="15" ><?php echo htmlspecialchars($this->feature['css']); ?></textarea>
 							</div>
 						</div>
 					</td>
@@ -103,11 +105,13 @@
 		</div>
 	</form>
 </div>
+
 <script>
 	$(function(){
 		 $('.mod-input-file').change(function(){
-            $('.filetext').text($('.mod-input-file').val());
-        });
+			$('.filetext').text($('.mod-input-file').val());
+		});
 	})
 </script>
+
 <?php TPL::output('admin/global/footer.tpl.htm'); ?>

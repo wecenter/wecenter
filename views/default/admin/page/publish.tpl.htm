@@ -21,7 +21,7 @@
 							<div class="col-sm-5 col-xs-8">
 	                            <span class="col-sm-1 col-xs-12 mod-text-inline">/page/</span>
 	                            <div class="col-sm-10 pull-right nopadding">
-									<input type="text" name="url_token" class="form-control" value="<?php echo $this->feature['url_token']; ?>" />
+									<input type="text" name="url_token" class="form-control" value="<?php echo $this->page_info['url_token']; ?>" />
 								</div>
 							</div>
 						</div>
@@ -62,7 +62,7 @@
 						<div class="form-group">
 							<span class="col-sm-4 col-xs-3 control-label"><?php _e('页面内容'); ?>:</span>
 							<div class="col-sm-5 col-xs-8">
-								<textarea class="form-control" name="contents"  ><?php echo $this->page_info['contents']; ?></textarea>
+								<textarea class="form-control" name="contents"  rows="15"><?php echo $this->page_info['contents']; ?></textarea>
 							</div>
 						</div>
 					</td>

@@ -36,7 +36,7 @@ class main extends AWS_CONTROLLER
 		{
 			HTTP::set_cookie('_ignore_ua_check', 'FALSE');
 		}
-		
+
 		if (!is_mobile())
 		{
 			switch ($_GET['act'])
@@ -527,7 +527,7 @@ class main extends AWS_CONTROLLER
 
 		if (in_weixin() AND get_setting('weixin_app_id') AND get_setting('weixin_account_role') == 'service')
 		{
-			HTTP::redirect($this->model('openid_weixin')->redirect_url($return_url));
+			HTTP::redirect($this->model('openid_weixin_weixin')->redirect_url($return_url));
 		}
 
 		TPL::assign('body_class', 'explore-body');
@@ -637,6 +637,22 @@ class main extends AWS_CONTROLLER
 		{
 			TPL::assign('category_info', $this->model('system')->get_category_info($_GET['category']));
 		}
+
+		if (! $_GET['sort_type'] AND !$_GET['is_recommend'])
+		{
+			$_GET['sort_type'] = 'new';
+		}
+
+		if ($_GET['sort_type'] == 'hot')
+		{
+			$posts_list = $this->model('posts')->get_hot_posts(null, $category_info['id'], null, $_GET['day'], $_GET['page'], get_setting('contents_per_page'));
+		}
+		else
+		{
+			$posts_list = $this->model('posts')->get_posts_list(null, $_GET['page'], get_setting('contents_per_page'), $_GET['sort_type'], null, $category_info['id'], $_GET['answer_count'], $_GET['day'], $_GET['is_recommend']);
+		}
+
+		TPL::assign('posts_list', $posts_list);
 
 		TPL::import_js(array(
 			'mobile/js/iscroll.js',
@@ -916,13 +932,15 @@ class main extends AWS_CONTROLLER
 		TPL::assign('contents_topic_id', $contents_topic_id);
 		TPL::assign('contents_topic_title', $contents_topic_title);
 
-		$topic_info['has_focus'] = $this->model('topic')->has_focus_topic($this->user_id, $topic_info['topic_id']);
+		if ($this->user_id)
+		{
+			$topic_info['has_focus'] = $this->model('topic')->has_focus_topic($this->user_id, $topic_info['topic_id']);
+		}
 
 		TPL::assign('topic_info', $topic_info);
 
 		$this->crumb(AWS_APP::lang()->_t('话题'), '/m/topic/');
-
-		$this->crumb($topic_info['topic_title'], '/m/topic/' . rawurlencode($topic_info['topic_title']));
+		$this->crumb($topic_info['topic_title'], '/m/topic/' . $topic_info['topic_title']);
 
 		TPL::assign('redirect_message', $redirect_message);
 
@@ -1132,7 +1150,7 @@ class main extends AWS_CONTROLLER
 	{
 		$this->crumb(AWS_APP::lang()->_t('附近的人'), '/m/nearby_people/');
 
-		if ($weixin_user = $this->model('openid_weixin')->get_user_info_by_uid($this->user_id))
+		if ($weixin_user = $this->model('openid_weixin_weixin')->get_user_info_by_uid($this->user_id))
 		{
 			if (!$near_by_users = $this->model('people')->get_near_by_users($weixin_user['longitude'], $weixin_user['latitude'], $this->user_id, 20))
 			{
@@ -1153,7 +1171,7 @@ class main extends AWS_CONTROLLER
 	{
 		$this->crumb(AWS_APP::lang()->_t('附近的问题'), '/m/nearby_question/');
 
-		if ($weixin_user = $this->model('openid_weixin')->get_user_info_by_uid($this->user_id))
+		if ($weixin_user = $this->model('openid_weixin_weixin')->get_user_info_by_uid($this->user_id))
 		{
 			if (!$near_by_questions = $this->model('question')->get_near_by_questions($weixin_user['longitude'], $weixin_user['latitude'], $this->user_id, 20))
 			{

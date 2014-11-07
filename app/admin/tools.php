@@ -201,44 +201,23 @@ class tools extends AWS_ADMIN_CONTROLLER
     {
         $accounts_info = $this->model('weixin')->get_accounts_info();
 
-        foreach ($accounts_info AS $account_info) {
-            if ($account_info['id'] != 0)
-            {
-                $account_info['weixin_mp_menu'] = json_decode($account_info['weixin_mp_menu']);
-            }
-
+        foreach ($accounts_info AS $account_info)
+        {
             if ($error_message = $this->model('weixin')->update_client_menu($account_info))
             {
                 $messages .= '<br />' . $error_message;
             }
         }
 
-        if (empty($messages))
-        {
-            $messages = '更新微信菜单完成';
-        }
-        else
+        if ($messages)
         {
             $messages = '更新微信菜单出现错误：<br />' . $messages;
         }
-
-        H::redirect_msg(AWS_APP::lang()->_t($messages), '/admin/weixin/mp_menu/');
-    }
-
-    public function mp_services_check_action()
-    {
-        if ($service_status = $this->model('wecenter')->mp_server_query('check_service_status'))
-        {
-            if ($service_status['status'] == 'error')
-            {
-                H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('服务异常, 返回的信息: %s', $service_status['message'])));
-            }
-
-            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('服务状态正常')));
-        }
         else
         {
-            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('远程服务器当前无响应')));
+            $messages = '更新微信菜单完成';
         }
+
+        H::redirect_msg(AWS_APP::lang()->_t($messages), '/admin/weixin/mp_menu/');
     }
 }

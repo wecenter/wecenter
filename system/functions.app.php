@@ -252,3 +252,39 @@ function get_weixin_rule_image($image_file, $size = '')
 {
 	return AWS_APP::model('weixin')->get_weixin_rule_image($image_file, $size);
 }
+
+function import_editor_static_files()
+{
+	TPL::import_js('js/editor/Markdown.Converter.js');
+	TPL::import_js('js/editor/Markdown.Sanitizer.js');
+	TPL::import_js('js/editor/Markdown.Editor.js');
+}
+
+function get_chapter_icon_url($id, $size = 'max', $default = true)
+{
+	if (file_exists(get_setting('upload_dir') . '/chapter/' . $id . '-' . $size . '.jpg'))
+	{
+		return get_setting('upload_url') . '/chapter/' . $id . '-' . $size . '.jpg';
+	}
+	else if ($default)
+	{
+		return G_STATIC_URL . '/common/help-chapter-' . $size . '-img.png';
+	}
+
+	return false;
+}
+
+function base64_url_encode($parm)
+{
+	if (!is_array($parm))
+	{
+		return false;
+	}
+
+	return strtr(base64_encode(json_encode($parm)), '+/=', '-_,');
+}
+
+function base64_url_decode($parm)
+{
+	return json_decode(base64_decode(strtr($parm, '-_,', '+/=')), true);
+}

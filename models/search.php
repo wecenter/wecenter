@@ -20,28 +20,28 @@ if (!defined('IN_ANWSION'))
 
 class search_class extends AWS_MODEL
 {
-	public function get_mixed_result($types, $q, $topic_ids, $page, $limit = 20)
+	public function get_mixed_result($types, $q, $topic_ids, $page, $limit = 20, $is_recommend = false)
 	{
 		$types = explode(',', $types);
 
-		if (in_array('users', $types))
+		if (in_array('users', $types) AND !$is_recommend)
 		{
 			$result = array_merge((array)$result, (array)$this->search_users($q, $page, $limit));
 		}
 
-		if (in_array('topics', $types))
+		if (in_array('topics', $types) AND !$is_recommend)
 		{
 			$result = array_merge((array)$result, (array)$this->search_topics($q, $page, $limit));
 		}
 
 		if (in_array('questions', $types))
 		{
-			$result = array_merge((array)$result, (array)$this->search_questions($q, $topic_ids, $page, $limit));
+			$result = array_merge((array)$result, (array)$this->search_questions($q, $topic_ids, $page, $limit, $is_recommend));
 		}
 
 		if (in_array('articles', $types))
 		{
-			$result = array_merge((array)$result, (array)$this->search_articles($q, $topic_ids, $page, $limit));
+			$result = array_merge((array)$result, (array)$this->search_articles($q, $topic_ids, $page, $limit, $is_recommend));
 		}
 
 		return $result;
@@ -87,17 +87,17 @@ class search_class extends AWS_MODEL
 		return $result;
 	}
 
-	public function search_questions($q, $topic_ids = null, $page = 1, $limit = 20)
+	public function search_questions($q, $topic_ids = null, $page = 1, $limit = 20, $is_recommend = false)
 	{
-		return $this->model('search_fulltext')->search_questions($q, $topic_ids, $page, $limit);
+		return $this->model('search_fulltext')->search_questions($q, $topic_ids, $page, $limit, $is_recommend);
 	}
 
-	public function search_articles($q, $topic_ids = null, $page = 1, $limit = 20)
+	public function search_articles($q, $topic_ids = null, $page = 1, $limit = 20, $is_recommend = false)
 	{
-		return $this->model('search_fulltext')->search_articles($q, $topic_ids, $page, $limit);
+		return $this->model('search_fulltext')->search_articles($q, $topic_ids, $page, $limit, $is_recommend);
 	}
 
-	public function search($q, $search_type, $page = 1, $limit = 20, $topic_ids = null)
+	public function search($q, $search_type, $page = 1, $limit = 20, $topic_ids = null, $is_recommend = false)
 	{
 		if (!$q)
 		{
@@ -114,7 +114,7 @@ class search_class extends AWS_MODEL
 			}
 		}
 
-		if (sizeof($q) == 0)
+		if (!$q)
 		{
 			return false;
 		}
@@ -124,7 +124,9 @@ class search_class extends AWS_MODEL
 			$search_type = 'users,topics,questions,articles';
 		}
 
-		if ($result_list = $this->get_mixed_result($search_type, $q, $topic_ids, $page, $limit))
+		$result_list = $this->get_mixed_result($search_type, $q, $topic_ids, $page, $limit, $is_recommend);
+
+		if ($result_list)
 		{
 			foreach ($result_list as $result_info)
 			{

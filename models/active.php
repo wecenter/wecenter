@@ -121,6 +121,11 @@ class active_class extends AWS_MODEL
 
 	public function set_user_email_valid_by_uid($uid)
 	{
+		if (!$uid)
+		{
+			return false;
+		}
+
 		return $this->update('users', array(
 			'valid_email' => 1,
 		), 'uid = ' . intval($uid));
@@ -128,6 +133,11 @@ class active_class extends AWS_MODEL
 
 	public function active_user_by_uid($uid)
 	{
+		if (!$uid)
+		{
+			return false;
+		}
+
 		return $this->update('users', array(
 			'group_id' => 4,
 		), 'uid = ' . intval($uid));

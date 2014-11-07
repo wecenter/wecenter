@@ -1009,7 +1009,7 @@ class Services_Markdown {
 	#
 		$code = htmlspecialchars(trim($code), ENT_NOQUOTES);
 
-		return $this->hashPart("<pre class=\"prettyprint\">$code</pre>");
+		return $this->hashPart("<code class=\"prettyprint\">$code</code>");
 	}
 
 
@@ -1241,9 +1241,10 @@ class Services_Markdown {
 		foreach ($grafs as $key => $value) {
 			if (!preg_match('/^B\x1A[0-9]+B$/', $value)) {
 				# Is a paragraph.
+				# Modify By WeCenter
 				$value = $this->runSpanGamut($value);
-				/*$value = preg_replace('/^([ ]*)/', "<p>", $value);
-				$value .= "</p>";*/
+				$value = preg_replace('/^([ ]*)/', "<br/>", $value);
+				//$value .= "</p>";
 				$grafs[$key] = $this->unhash($value);
 			}
 			else {

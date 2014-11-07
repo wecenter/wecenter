@@ -38,8 +38,8 @@
 					<div class="aw-mod aw-topic-bar" id="question_topic_editor" data-type="question" data-id="<?php echo $this->question_info['question_id']; ?>">
 						<div class="tag-bar clearfix">
 							<?php foreach($this->question_topics as $key => $val) { ?>
-							<span class="topic-tag">
-								<a href="topic/<?php echo $val['url_token']; ?>" class="text" data-id="<?php echo $val['topic_id']; ?>"><?php echo $val['topic_title']; ?></a>
+							<span class="topic-tag" data-id="<?php echo $val['topic_id']; ?>">
+								<a href="topic/<?php echo $val['url_token']; ?>" class="text"><?php echo $val['topic_title']; ?></a>
 							</span>
 							<?php } ?>
 
@@ -76,11 +76,6 @@
 												<a href="javascript:;" onclick="AWS.dialog('confirm', {'message' : '<?php _e('确认删除?'); ?>'}, function(){AWS.ajax_request(G_BASE_URL + '/question/ajax/remove_question/', 'question_id=<?php echo $this->question_info['question_id']; ?>');});"><?php _e('删除问题'); ?></a>
 											</li>
 											<?php } ?>
-											<?php if ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?>
-												<li>
-													<a href="javascript:;" onclick="AWS.ajax_request(G_BASE_URL + '/question/ajax/set_recommend/', 'action=<?php if ($this->question_info['is_recommend']) { ?>un<?php } ?>set&question_id=<?php echo $this->question_info['question_id']; ?>');"><?php if ($this->question_info['is_recommend']) { ?><?php _e('取消推荐'); ?><?php } else { ?><?php _e('推荐问题'); ?><?php } ?></a>
-												</li>
-											<?php } ?>
 											<?php if (($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator'] OR (!$this->question_info['lock'] AND $this->user_info['permission']['redirect_question'])) AND $this->user_id) { ?>
 											<li class="hidden-xs">
 											<?php if ($this->question_info['redirect']) { ?>
@@ -93,6 +88,13 @@
 											<?php if (($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) AND $this->question_info['ip']) { ?>
 												<li>
 													<a href="javascript:;" title="<?php echo long2ip($this->question_info['ip']); ?>" onclick="AWS.alert('<?php _e('系统记录的 IP 地址为'); ?>: <?php echo long2ip($this->question_info['ip']); ?>');"><?php _e('IP 地址'); ?></a>
+												</li>
+											<?php } ?>
+											<?php if ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?>
+												<li><a href="javascript:;" onclick="AWS.ajax_request(G_BASE_URL + '/question/ajax/set_recommend/', 'action=<?php if ($this->question_info['is_recommend']) { ?>un<?php } ?>set&question_id=<?php echo $this->question_info['question_id']; ?>');"><?php if ($this->question_info['is_recommend']) { ?><?php _e('取消推荐'); ?><?php } else { ?><?php _e('推荐问题'); ?><?php } ?></a>
+												</li>
+												<li>
+													<a href="javascript:;" onclick="AWS.dialog('recommend', {'type': 'question', 'item_id': <?php echo $this->question_info['question_id']?>, 'focus_id': <?php if ($this->question_info['chapter_id']) { echo $this->question_info['chapter_id']; } else { ?>''<?php } ?>});"><?php _e('添加到帮助中心'); ?></a>
 												</li>
 											<?php } ?>
 										</ul>
@@ -115,26 +117,32 @@
 								<?php } ?>
 								</div>
 								<?php } ?>
-
-								<?php if ($this->question_info['attachs']) {  ?>
-								<ul class="aw-upload-file-list">
-									<?php foreach ($this->question_info['attachs'] AS $attach) { ?>
-									<?php if (!$attach['is_image'] AND !in_array($attach['id'], $this->question_info['attachs_ids'])) { ?>
-										<li><a href="<?php echo download_url($attach['file_name'], $attach['attachment']); ?>"><i class="icon icon-attach"></i> <?php echo $attach['file_name']; ?></a></li>
-									<?php } ?>
-									<?php } ?>
-								</ul>
-								<?php } ?>
 							</div>
+							<?php if ($this->question_info['attachs']) {  ?>
+							<div class="aw-mod aw-upload-file-list">
+								<!-- <div class="mod-head">
+									<h3><i class="icon icon-attach"></i> <?php _e('附件'); ?> :</h3>
+								</div> -->
+								<div class="mod-body">
+									<ul>
+										<?php foreach ($this->question_info['attachs'] AS $attach) { ?>
+										<?php if (!$attach['is_image'] AND !in_array($attach['id'], $this->question_info['attachs_ids'])) { ?>
+											<li><a href="<?php echo download_url($attach['file_name'], $attach['attachment']); ?>"><?php echo $attach['file_name']; ?></a></li>
+										<?php } ?>
+										<?php } ?>
+									</ul>
+								</div>
+							</div>
+							<?php } ?>
 							<?php if ($this->question_related_links) { ?>
-							<div class="aw-question-related-list">
+							<div class="aw-mod aw-question-related-list">
 								<div class="mod-head">
-									<h3><?php _e('相关链接'); ?> : </h3>
+									<h3><i class="icon icon-bind"></i> <?php _e('相关链接'); ?> : </h3>
 								</div>
 								<div class="mod-body">
 									<ul>
 										<?php foreach ($this->question_related_links AS $key => $val) { ?>
-										<li><a href="<?php echo $val['link']; ?>" rel="nofollow" target="_blank"><?php echo $val['link']; ?></a> &nbsp; <?php if ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator'] OR $this->user_id == $this->question_info['published_uid']) { ?><a onclick="AWS.ajax_request(G_BASE_URL + '/publish/ajax/remove_related_link/', 'item_id=<?php echo $this->question_info['question_id']; ?>&id=<?php echo $val['id']; ?>');">x</a><?php } ?></li>
+										<li><a href="<?php echo $val['link']; ?>" rel="nofollow" target="_blank"><?php echo $val['link']; ?></a> &nbsp; <?php if ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator'] OR $this->user_id == $this->question_info['published_uid']) { ?><a class="text-color-999" onclick="AWS.ajax_request(G_BASE_URL + '/publish/ajax/remove_related_link/', 'item_id=<?php echo $this->question_info['question_id']; ?>&id=<?php echo $val['id']; ?>');">删除</a><?php } ?></li>
 										<?php } ?>
 									</ul>
 								</div>
@@ -457,7 +465,7 @@
 								</label>
 								<?php } ?>
 								<label class="pull-right">
-									<a href="page/integral" target="_blank">积分规则</a>
+									<?php if (get_setting('integral_system_enabled') == 'Y') { ?><a href="/integral/rule/" target="_blank"><?php _e('积分规则'); ?></a><?php } ?>
 								</label>
 								<?php echo $this->user_info['user_name']; ?>
 							</p>
@@ -477,7 +485,7 @@
 											<em class="auth-img pull-right"><img src="" onclick="this.src = G_BASE_URL + '/account/captcha/' + Math.floor(Math.random() * 10000);" id="captcha" /></em>
 									</div>
 									<?php } ?>
-									<a href="javascript:;" onclick="AWS.ajax_post($('#answer_form'), AWS.ajax_processer, 'reply');" class="btn btn-normal btn-success pull-right"><?php _e('回复'); ?></a>
+									<a href="javascript:;" onclick="AWS.ajax_post($('#answer_form'), AWS.ajax_processer, 'reply');" class="btn btn-normal btn-success pull-right btn-reply"><?php _e('回复'); ?></a>
 									<span class="pull-right text-color-999" id="answer_content_message">&nbsp;</span>
 									<?php if (get_setting('upload_enable') == 'Y') { ?>
 									<div class="aw-upload-box">
@@ -616,6 +624,10 @@
 
 	QUESTION_ID = <?php echo $this->question_info['question_id'];?>;
 	UNINTERESTED_COUNT = <?php echo get_setting('uninterested_fold'); ?>;
+
+	ANSWER_EDIT_TIME = <?php echo get_setting('answer_edit_time'); ?>;
+
+	USER_ANSWERED = '<?php echo $this->user_answered; ?>';
 </script>
 
 <script type="text/javascript" src="<?php echo G_STATIC_URL; ?>/js/app/question_detail.js"></script>

@@ -5,13 +5,13 @@
     <div class="mod">
         <div class="mod-head">
             <h3>
-                <span class="pull-left"><?php _e('分类设置'); ?></span>
+                <span class="pull-left"><?php _e('分类管理'); ?></span>
             </h3>
         </div>
 
         <div class="tab-content mod-body">
-        	<div class="alert alert-success hide error_message"></div>
-        	
+            <div class="alert alert-success hide error_message"></div>
+
             <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
@@ -26,7 +26,7 @@
                     <?php foreach ($this->list AS $key => $val) { ?>
                     <tr>
                         <td>
-                            <a href="admin/category/edit/category_id-<?php echo $val['id']; ?>"><?php echo $val['title']; ?></a>
+                            <a href="explore/category-<?php echo ($val['url_token']) ? $val['url_token'] : $val['id']; ?>"><?php echo $val['title']; ?></a>
                         </td>
                         <td>
                             <div class="col-sm-6 clo-xs-12 col-lg-offset-3">
@@ -57,9 +57,9 @@
                                 <span class="col-sm-3 col-xs-12 mod-category-foot"><?php _e('父级分类') ?>:</span>
                                 <div class="col-sm-6 col-xs-12">
                                     <select name="parent_id" class="form-control">
-										<option value="0"><?php _e('无'); ?></option>
-										<?php echo $this->category_option; ?>
-									</select>
+                                        <option value="0"><?php _e('无'); ?></option>
+                                        <?php echo $this->category_option; ?>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-sm-2 col-xs-12">
@@ -80,13 +80,13 @@
 
 
 <script type="text/javascript">
-	$(document).ready(function () {
-		$('input.sort-action').keyup(function () {
-			if ($(this).val() != '')
-			{
-				AWS.ajax_post($('#category_form'), AWS.ajax_processer, 'error_message');
-			}
-		});
+    $(document).ready(function () {
+        $('input.sort-action').keyup(function () {
+            if ($(this).val() != '')
+            {
+                AWS.ajax_post($('#category_form'), AWS.ajax_processer, 'error_message');
+            }
+        });
 
         var json = '';
 
@@ -96,7 +96,7 @@
             {
                 json += ',';
             }
-            
+
             json += "{'title':'" + $(e).text() + "', 'id':'" + $(e).val() + "'}";
         });
 
@@ -107,7 +107,7 @@
             $('.from-category').val($(this).attr('data-id'));
             $('.aw-category-move-box .col-md-12').prepend('<p>将 <b>' + $(this).attr('data-name') + '</b> 的内容批量移动到</p>');
         });
-	});
+    });
 </script>
 
 <?php TPL::output('admin/global/footer.tpl.htm'); ?>

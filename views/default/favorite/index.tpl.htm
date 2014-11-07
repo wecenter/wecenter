@@ -29,7 +29,7 @@
 								<?php foreach ($this->list AS $key => $val) { ?>
 								<div class="aw-item">
 									<div class="mod-head">
-										<?php if ($val['answer_info']['anonymous'] == 0) { ?><a data-id="<?php echo $val['user_info']['uid']; ?>" class="aw-user-img aw-border-radius-5 pull-right" data-id="<?php echo $val['user_info']['uid']; ?>" href="people/<?php echo $val['user_info']['url_token']; ?>"><img src="<?php echo get_avatar_url($val['user_info']['uid'], 'mid'); ?>" alt="<?php echo $val['user_info']['user_name']; ?>" /></a><?php } else { ?><a href="javascript:;" class="aw-user-img aw-border-radius-5 pull-right"><img src="<?php echo G_STATIC_URL; ?>/common/avatar-mid-img.png" alt="<?php _e('匿名用户'); ?>" /></a><?php } ?>
+										<?php if ($val['answer_info']['anonymous'] == 0) { ?><a data-id="<?php echo $val['user_info']['uid']; ?>" class="aw-user-img aw-border-radius-5" data-id="<?php echo $val['user_info']['uid']; ?>" href="people/<?php echo $val['user_info']['url_token']; ?>"><img src="<?php echo get_avatar_url($val['user_info']['uid'], 'mid'); ?>" alt="<?php echo $val['user_info']['user_name']; ?>" /></a><?php } else { ?><a href="javascript:;" class="aw-user-img aw-border-radius-5"><img src="<?php echo G_STATIC_URL; ?>/common/avatar-mid-img.png" alt="<?php _e('匿名用户'); ?>" /></a><?php } ?>
 										<p class="text-color-999">
 											<?php if ($val['last_action_str']) { ?><?php echo $val['last_action_str']; ?> • <?php echo date_friendly($val['add_time']); ?><?php } ?>
 										</p>
@@ -38,7 +38,7 @@
 									<div class="mod-body">
 										<?php if ($val['answer_info']) { ?>
 										<p class="text-color-999">
-											<a class="aw-user-name" data-id="<?php echo $val['user_info']['uid']; ?>" href="people/<?php echo $val['answer_info']['url_token']; ?>"><?php echo $val['user_info']['user_name']; ?></a><?php if ($val['user_info']['signature']) { ?> - <?php echo $val['user_info']['signature']; ?><?php } ?>
+											<a class="aw-user-name" data-id="<?php echo $val['user_info']['uid']; ?>" href="people/<?php echo $val['user_info']['url_token']; ?>"><?php echo $val['user_info']['user_name']; ?></a><?php if ($val['user_info']['signature']) { ?> - <?php echo $val['user_info']['signature']; ?><?php } ?>
 										</p>
 
 										<!-- 评论内容 -->
@@ -46,14 +46,14 @@
 											<div id="detail_<?php echo md5($val['item_id'] . $val['item_type']); ?>">
 									      		<?php echo nl2br(strip_ubb(cjk_substr($val['answer_info']['answer_content'], 0, 130, 'UTF-8', '...'))); ?>
 									      		<?php if (cjk_strlen($val['answer_info']['answer_content']) > 130) { ?>
-									        	<a href="javascript:;" class="showMore" onclick="content_switcher($('#detail_<?php echo md5($val['item_id'] . $val['item_type']); ?>'), $('#detail_more_<?php echo md5($val['item_id'] . $val['item_type']); ?>'));"><?php _e('显示全部'); ?> »</a>
+									        	<a href="javascript:;" class="showMore" onclick="AWS.content_switcher($('#detail_<?php echo md5($val['item_id'] . $val['item_type']); ?>'), $('#detail_more_<?php echo md5($val['item_id'] . $val['item_type']); ?>'));"><?php _e('显示全部'); ?> »</a>
 									        	<?php } ?>
 
 												<?php if ($val['answer_info']['attachs']) { ?>
 													<div class="aw-upload-img-list width-auto">
 														<?php foreach($val['answer_info']['attachs'] AS $t_key => $v) { ?>
 														<?php if ($v['is_image']): ?>
-															<a href="javascript:;" onclick="content_switcher($('#detail_<?php echo md5($val['item_id'] . $val['item_type']); ?>'), $('#detail_more_<?php echo md5($val['item_id'] . $val['item_type']); ?>'));">
+															<a href="javascript:;" onclick="AWS.content_switcher($('#detail_<?php echo md5($val['item_id'] . $val['item_type']); ?>'), $('#detail_more_<?php echo md5($val['item_id'] . $val['item_type']); ?>'));">
 																<img class="img-polaroid" src="<?php echo $v[thumb]; ?>" alt="<?php echo $v['file_name']; ?>" />
 															</a>
 														<?php endif; ?>
@@ -107,8 +107,8 @@
 												</span>
 												<?php } ?>
 												<?php } ?>
-											
-												<span class="icon-inverse aw-edit-topic"><i class="icon icon-edit"></i> <?php if (!$this->favorite_items_tags[$val['item_id']]) { ?><?php _e('添加话题'); ?><?php } else { ?><?php _e('编辑'); ?><?php } ?></span>
+
+												<span class="icon-inverse aw-edit-topic"><i class="icon icon-edit"></i> <?php if (!$this->favorite_items_tags[$val['item_id']]) { ?><?php _e('添加标签'); ?><?php } else { ?><?php _e('编辑'); ?><?php } ?></span>
 											</div>
 										</div>
 									</div>
@@ -145,5 +145,4 @@
 		</div>
 	</div>
 </div>
-
 <?php TPL::output('global/footer.tpl.htm'); ?>

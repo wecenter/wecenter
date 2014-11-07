@@ -47,13 +47,15 @@ class api extends AWS_CONTROLLER
             exit(htmlspecialchars($_GET['echostr']));
         }
 
-        $input_message = $this->model('weixin')->fetch_message();
-
         if ($account_info['weixin_account_role'] == 'base' OR !$account_info['weixin_app_id'] OR !$account_info['weixin_app_secret'])
         {
             $account_info['weixin_mp_menu'] = null;
         }
 
-        $this->model('weixin')->response_message($input_message, $account_info);
+        $this->model('weixin')->account_info = $account_info;
+
+        $input_message = $this->model('weixin')->fetch_message();
+
+        $this->model('weixin')->response_message($input_message);
     }
 }
