@@ -82,8 +82,6 @@ class weixin_class extends AWS_MODEL
             'weixin_account_role' => get_setting('weixin_account_role'),
             'weixin_app_id' => get_setting('weixin_app_id'),
             'weixin_app_secret' => get_setting('weixin_app_secret'),
-            'wecenter_access_token' => get_setting('wecenter_access_token'),
-            'wecenter_access_secret' => get_setting('wecenter_access_secret'),
             'weixin_mp_menu' => get_setting('weixin_mp_menu'),
             'weixin_subscribe_message_key' => get_setting('weixin_subscribe_message_key'),
             'weixin_no_result_message_key' => get_setting('weixin_no_result_message_key'),
@@ -1331,17 +1329,39 @@ class weixin_class extends AWS_MODEL
 
     public function send_text_message($openid, $message, $url = null)
     {
-        if (get_setting('weixin_account_role') != 'service')
+        if (get_setting('weixin_app_id') OR get_setting('weixin_app_secret') OR get_setting('weixin_account_role') != 'service')
         {
             return false;
         }
 
-        return $this->model('wecenter')->mp_server_query('send_text_message', array(
-            'openid' => $openid,
-            'message' => $message,
-            'url' => $url,
-            'notification_once' => get_setting('wecenter_mp_notification_once')
-        ));
+        if ($url)
+        {
+            $message_body = array(
+                'touser' => $openid,
+                'msgtype' => 'news',
+                'news' => array(
+                    'articles' => array(
+                        array(
+                            'title' => '通知消息',
+                            'description' => $message,
+                            'url' => $url
+                        )
+                    )
+                )
+            );
+        }
+        else
+        {
+            $message_body = array(
+                'touser' => $openid,
+                'msgtype' => 'text',
+                'text' => array(
+                    'content' => $message
+                )
+            );
+        }
+
+        return $this->access_request(get_setting('weixin_app_id'), get_setting('weixin_app_secret'), 'message/custom/send', 'POST', $this->replace_post($message_body));
     }
 
     public function update_client_menu($account_info)

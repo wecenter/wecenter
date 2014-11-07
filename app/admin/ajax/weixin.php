@@ -257,9 +257,7 @@ class ajax_weixin extends AWS_ADMIN_CONTROLLER
                             'weixin_mp_token' => trim($_POST['weixin_mp_token']),
                             'weixin_account_role' => $_POST['weixin_account_role'],
                             'weixin_app_id' => trim($_POST['weixin_app_id']),
-                            'weixin_app_secret' => trim($_POST['weixin_app_secret']),
-                            'wecenter_access_token' => trim($_POST['wecenter_access_token']),
-                            'wecenter_access_secret' => trim($_POST['wecenter_access_secret'])
+                            'weixin_app_secret' => trim($_POST['weixin_app_secret'])
                         );
 
         switch ($_POST['type'])

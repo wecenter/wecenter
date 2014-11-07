@@ -106,8 +106,6 @@ INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES
 ('report_diagnostics', 's:1:"Y";'),
 ('weixin_app_id', 's:0:"";'),
 ('weixin_app_secret', 's:0:"";'),
-('wecenter_access_token', 's:0:"";'),
-('wecenter_access_secret', 's:0:"";'),
 ('weixin_account_role', 's:7:"base";'),
 ('weibo_msg_enabled', 's:1:"N";'),
 ('weibo_msg_published_user', 'a:0:"";'),
