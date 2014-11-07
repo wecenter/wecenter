@@ -21,6 +21,10 @@ class weixin_class extends AWS_MODEL
 {
     private $xml_template_text = '<xml><ToUserName><![CDATA[%s]]></ToUserName><FromUserName><![CDATA[%s]]></FromUserName><CreateTime>%s</CreateTime><MsgType><![CDATA[%s]]></MsgType><Content><![CDATA[%s]]></Content></xml>';
 
+    private $xml_template_image = '<xml><ToUserName><![CDATA[%s]]></ToUserName><FromUserName><![CDATA[%s]]></FromUserName><CreateTime>%s</CreateTime><MsgType><![CDATA[%s]]></MsgType><ArticleCount>%s</ArticleCount><Articles>%s</Articles></xml>';
+
+    private $xml_template_article = '<item><Title><![CDATA[%s]]></Title><Description><![CDATA[%s]]></Description><PicUrl><![CDATA[%s]]></PicUrl><Url><![CDATA[%s]]></Url></item>';
+
     private $bind_message;
 
     private $user_id;
@@ -493,10 +497,10 @@ class weixin_class extends AWS_MODEL
 
         foreach ($article_data AS $key => $val)
         {
-            $article_xml .= sprintf('<item><Title><![CDATA[%s]]></Title><Description><![CDATA[%s]]></Description><PicUrl><![CDATA[%s]]></PicUrl><Url><![CDATA[%s]]></Url></item>', $val['title'], $val['description'], $val['image_file'], $val['link']);
+            $article_xml .= sprintf($this->xml_template_article, $val['title'], $val['description'], $val['image_file'], $val['link']);
         }
 
-        return sprintf('<xml><ToUserName><![CDATA[%s]]></ToUserName><FromUserName><![CDATA[%s]]></FromUserName><CreateTime>%s</CreateTime><MsgType><![CDATA[%s]]></MsgType><ArticleCount>%s</ArticleCount><Articles>%s</Articles></xml>', $input_message['fromUsername'], $input_message['toUsername'], $input_message['time'], 'news', sizeof($article_data), $article_xml);
+        return sprintf($this->xml_template_image, $input_message['fromUsername'], $input_message['toUsername'], $input_message['time'], 'news', sizeof($article_data), $article_xml);
     }
 
     public function message_parser($input_message, $param = null)
@@ -1469,38 +1473,61 @@ class weixin_class extends AWS_MODEL
         }
     }
 
-    public function get_weixin_app_id_setting_var()
-    {
-        if (!get_setting('wecenter_access_token'))
-        {
-            return $this->model('setting')->set_vars(array(
-                'weixin_app_id' => '',
-                'weixin_app_secret' => ''
-            ));
-        }
-
-        if ($result = $this->model('wecenter')->mp_server_query('get_app_id'))
-        {
-            if ($result['status'] == 'success')
-            {
-                $app_id_setting = unserialize($result['data']);
-
-                $this->model('setting')->set_vars(array(
-                    'weixin_app_id' => $app_id_setting['weixin_app_id'],
-                    'weixin_app_secret' => $app_id_setting['weixin_app_secret']
-                ));
-            }
-        }
-    }
-
     public function process_mp_menu_post_data($mp_menu_post_data)
     {
-        if ($result = $this->model('wecenter')->mp_server_query('process_mp_menu_post_data', array(
-            'mp_menu_post_data' => serialize($mp_menu_post_data)
-        )))
+        if (!$mp_menu_post_data)
         {
-            return $result['data'];
+            $mp_menu_post_data = array();
         }
+
+        uasort($mp_menu_post_data, 'array_key_sort_asc_callback');
+
+        foreach ($mp_menu_post_data AS $key => $val)
+        {
+            if ($val['sub_button'])
+            {
+                unset($mp_menu_post_data[$key]['key']);
+
+                uasort($mp_menu_post_data[$key]['sub_button'], 'array_key_sort_asc_callback');
+
+                foreach ($mp_menu_post_data[$key]['sub_button'] AS $sub_key => $sub_value)
+                {
+                    if ($mp_menu_post_data[$key]['sub_button'][$sub_key]['name'] == '' OR $mp_menu_post_data[$key]['sub_button'][$sub_key]['key'] == '')
+                    {
+                        unset($mp_menu_post_data[$key]['sub_button'][$sub_key]);
+
+                        continue;
+                    }
+
+                    if (substr($mp_menu_post_data[$key]['sub_button'][$sub_key]['key'], 0, 7) == 'http://' OR substr($mp_menu_post_data[$key]['sub_button'][$sub_key]['key'], 0, 8) == 'https://')
+                    {
+                        $mp_menu_post_data[$key]['sub_button'][$sub_key]['type'] = 'view';
+                        $mp_menu_post_data[$key]['sub_button'][$sub_key]['url'] = $mp_menu_post_data[$key]['sub_button'][$sub_key]['key'];
+                    }
+                    else
+                    {
+                        $mp_menu_post_data[$key]['sub_button'][$sub_key]['type'] = 'click';
+                    }
+                }
+            }
+            else
+            {
+                $mp_menu_post_data[$key]['type'] = 'click';
+            }
+
+            if ($mp_menu_post_data[$key]['name'] == '')
+            {
+                unset($mp_menu_post_data[$key]);
+            }
+
+            if (substr($mp_menu_post_data[$key]['key'], 0, 7) == 'http://' OR substr($mp_menu_post_data[$key]['key'], 0, 8) == 'https://')
+            {
+                $mp_menu_post_data[$key]['type'] = 'view';
+                $mp_menu_post_data[$key]['url'] = $mp_menu_post_data[$key]['key'];
+            }
+        }
+
+        return $mp_menu_post_data;
     }
 
     public function get_msg_details_by_id($msg_id)

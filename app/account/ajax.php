@@ -37,8 +37,7 @@ class ajax extends AWS_CONTROLLER
 			'request_find_password',
 			'find_password_modify',
 			'weixin_login_process',
-			'areas_json_data',
-			'get_weixin_login_qr_url'
+			'areas_json_data'
 		);
 
 		return $rule_action;
@@ -47,13 +46,6 @@ class ajax extends AWS_CONTROLLER
 	public function setup()
 	{
 		HTTP::no_cache_header();
-	}
-
-	public function get_weixin_login_qr_url_action()
-	{
-		H::ajax_json_output(AWS_APP::RSM(array(
-			'url' => $this->model('openid_weixin_weixin')->get_login_qr_url()
-		), 1, null));
 	}
 
 	public function check_username_action()

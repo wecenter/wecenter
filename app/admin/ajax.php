@@ -189,11 +189,6 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
         $this->model('setting')->set_vars($_POST);
 
-        if ($_POST['wecenter_access_token'])
-        {
-            $this->model('weixin')->get_weixin_app_id_setting_var();
-        }
-
         H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('保存设置成功')));
     }
 
