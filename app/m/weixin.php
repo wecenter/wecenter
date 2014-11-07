@@ -132,7 +132,7 @@ class weixin extends AWS_CONTROLLER
 				}
 				else
 				{
-					$access_user = $this->model('openid_weixin_weixin')->get_user_info_by_openid($access_token['openid']);
+					$access_user = $this->model('openid_weixin_weixin')->get_user_info_by_openid_from_weixin($access_token['openid']);
 				}
 
 				if (!$access_user)

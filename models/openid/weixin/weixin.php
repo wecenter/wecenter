@@ -94,7 +94,7 @@ class openid_weixin_weixin_class extends AWS_MODEL
         return $access_token;
     }
 
-    public function get_user_info_by_openid($openid)
+    public function get_user_info_by_openid_from_weixin($openid)
     {
         $result = curl_get_contents(self::WEIXIN_API . 'user/info?access_token=' . $this->get_access_token() . '&openid=' . $openid);
 
