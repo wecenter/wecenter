@@ -1329,7 +1329,11 @@ class weixin_class extends AWS_MODEL
 
     public function send_text_message($openid, $message, $url = null)
     {
-        if (get_setting('weixin_app_id') OR get_setting('weixin_app_secret') OR get_setting('weixin_account_role') != 'service')
+        $app_id = get_setting('weixin_app_id');
+
+        $app_secret = get_setting('weixin_app_secret');
+
+        if (!$app_id OR !$app_secret OR get_setting('weixin_account_role') != 'service')
         {
             return false;
         }
@@ -1361,7 +1365,19 @@ class weixin_class extends AWS_MODEL
             );
         }
 
-        return $this->access_request(get_setting('weixin_app_id'), get_setting('weixin_app_secret'), 'message/custom/send', 'POST', $this->replace_post($message_body));
+        $result = $this->model('openid_weixin_weixin')->access_request($app_id, $app_secret, 'message/custom/send', 'POST', $this->replace_post($message_body));
+
+        if (!$result)
+        {
+            return false;
+        }
+
+        if ($result['errcode'] == 40001)
+        {
+            return $this->send_text_message($openid, $message, $url);
+        }
+
+        return $result;
     }
 
     public function update_client_menu($account_info)
