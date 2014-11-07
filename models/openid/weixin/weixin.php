@@ -411,7 +411,7 @@ class openid_weixin_weixin_class extends AWS_MODEL
             'media' => '@' . $file
         );
 
-        $result = HTTP::request(self::WEIXIN_API . 'media/upload?access_token=' . $this->get_access_token($app_id, $app_secret) . '&type=' . $type, 'POST', $post_data);
+        $result = HTTP::request(self::WEIXIN_FILE_API . 'media/upload?access_token=' . $this->get_access_token($app_id, $app_secret) . '&type=' . $type, 'POST', $post_data);
 
         if (!$result)
         {
@@ -425,6 +425,8 @@ class openid_weixin_weixin_class extends AWS_MODEL
             if ($result['errcode'] == 40001)
             {
                 $this->refresh_access_token($app_id, $app_secret);
+
+                return $this->upload_file($file, $type);
             }
         }
         else
