@@ -46,7 +46,9 @@
 					<?php if (get_setting('weixin_app_id') && get_setting('weixin_app_secret') && get_setting('weixin_account_role') == 'service') { ?>
 						<a href="account/weixin_login/<?php echo $return_url; ?>" class="btn btn-block btn-wechat">
 							<i class="icon icon-wechat"></i> 微信扫一扫登录
-							<div class="img"></div>
+							<div class="img">
+								<img src="<?php echo get_js_url('/weixin/login_qr_code/'); ?>" />
+							</div>
 						</a>
 					<?php } ?>
 
