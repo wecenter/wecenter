@@ -379,7 +379,7 @@ class ajax_weixin extends AWS_ADMIN_CONTROLLER
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('上传封面图失败, 错误信息: %s', $error_msg)));
         }
 
-        if (!empty($article_ids))
+        if ($article_ids)
         {
             $error_msg = $this->model('weixin')->add_articles_to_mpnews($article_ids);
 
@@ -389,7 +389,7 @@ class ajax_weixin extends AWS_ADMIN_CONTROLLER
             }
         }
 
-        if (!empty($question_ids))
+        if ($question_ids)
         {
             $error_msg = $this->model('weixin')->add_questions_to_mpnews($question_ids);
 

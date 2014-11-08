@@ -627,7 +627,7 @@ class notify_class extends AWS_MODEL
 
 			$notification_ids = array();
 
-			if (empty($notifications))
+			if (!$notifications)
 			{
 				$notification_ids[] = $notification_id;
 			}

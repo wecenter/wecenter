@@ -158,7 +158,7 @@ class approval extends AWS_ADMIN_CONTROLLER
 				break;
 		}
 
-		if (empty($approval_item))
+		if (!$approval_item)
 		{
 			exit();
 		}

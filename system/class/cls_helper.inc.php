@@ -212,7 +212,7 @@ class H
 			return $content;
 		}
 
-		if (is_array($content) && !empty($content))
+		if (is_array($content) && $content)
 		{
 			foreach($content as $key => $val)
 			{
@@ -228,7 +228,7 @@ class H
 		{
 			$word = trim($word);
 
-			if (empty($word))
+			if (!$word)
 			{
 				continue;
 			}
@@ -277,7 +277,7 @@ class H
 		{
 			$word = trim($word);
 
-			if (empty($word))
+			if (!$word)
 			{
 				continue;
 			}

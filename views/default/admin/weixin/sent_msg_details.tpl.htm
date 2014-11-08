@@ -136,7 +136,7 @@
             </tr>
             <?php } ?>
 
-            <?php if (!empty($this->msg_details['main_msg'])) { ?>
+            <?php if ($this->msg_details['main_msg']) { ?>
             <tr>
                 <td>
                     <div class="form-group">
@@ -149,7 +149,7 @@
             </tr>
             <?php } ?>
 
-            <?php if (!empty($this->msg_details['articles_info'])) { ?>
+            <?php if ($this->msg_details['articles_info']) { ?>
             <tr>
                 <td>
                     <div class="form-group msg_arc">
@@ -169,7 +169,7 @@
             </tr>
             <?php } ?>
 
-            <?php if (!empty($this->msg_details['questions_info'])) { ?>
+            <?php if ($this->msg_details['questions_info']) { ?>
             <tr>
                 <td>
                     <div class="form-group msg-que">

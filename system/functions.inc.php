@@ -854,7 +854,7 @@ function get_request_route($positive = true)
 		{
 			$val = trim($val);
 
-			if (empty($val))
+			if (!$val)
 			{
 				continue;
 			}
@@ -927,7 +927,7 @@ function array_random($arr)
  */
 function fetch_array_value($array, $key)
 {
-	if (! is_array($array) || empty($array))
+	if (!$array || ! is_array($array))
 	{
 		return array();
 	}
