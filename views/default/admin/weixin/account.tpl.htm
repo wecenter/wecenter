@@ -19,7 +19,7 @@
         <div class="tab-content mod-content">
         <form action="admin/ajax/weixin/save_account/" id="account_form" method="post" onsubmit="return false">
         <table class="table table-striped">
-            <input name="type" type="hidden" value="<?php echo (empty($this->account_info)) ? 'add' : 'update'; ?>" />
+            <input name="type" type="hidden" value="<?php if ($this->account_info) { ?>update<?php } else { ?>add<?php } ?>" />
 
             <?php if ($this->account_info) { ?>
             <input name="id" type="hidden" value="<?php echo $this->account_info['id']; ?>" />

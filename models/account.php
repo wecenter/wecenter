@@ -423,7 +423,7 @@ class account_class extends AWS_MODEL
                 {
                     $val['weixin_settings'] = array();
                 }
-                
+
                 unset($val['password'], $val['salt']);
 
                 $data[$val['uid']] = $val;
@@ -480,14 +480,14 @@ class account_class extends AWS_MODEL
     {
         $setting = $this->fetch_row('users_notification_setting', 'uid = ' . intval($uid));
 
-        if (empty($setting))
+        if (!$setting)
         {
             return array('data' => array());
         }
 
         $setting['data'] = unserialize($setting['data']);
 
-        if (empty($setting['data']))
+        if (!$setting['data'])
         {
             $setting['data'] = array();
         }
@@ -893,7 +893,7 @@ class account_class extends AWS_MODEL
             foreach ($result AS $key => $val)
             {
             	unset($val['password'], $val['salt']);
-            	
+
                 $data[$val['uid']] = $val;
 
                 if (!$val['url_token'] AND $val['user_name'])
