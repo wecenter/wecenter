@@ -45,7 +45,7 @@ class FORMAT
 		{
 			foreach($matches as $key => $val)
 			{
-				if (empty($val))
+				if (!$val)
 				{
 					continue;
 				}

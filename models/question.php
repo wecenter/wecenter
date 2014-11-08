@@ -338,7 +338,7 @@ class question_class extends AWS_MODEL
 	{
 		$quesion_info = $this->get_question_info_by_id($question_id, false);
 
-		if (empty($quesion_info))
+		if (!$quesion_info)
 		{
 			return false;
 		}
@@ -1031,7 +1031,7 @@ class question_class extends AWS_MODEL
 	 */
 	public function analysis_log($log_list, $published_uid = 0, $anonymous = 0)
 	{
-		if (empty($log_list))
+		if (!$log_list)
 		{
 			return $log_list;
 		}
@@ -1145,7 +1145,7 @@ class question_class extends AWS_MODEL
 					break;
 			}
 
-			(! empty($title_list)) ? $data_list[] = array(
+			$data_list[] = ($title_list) ? array(
 				'title' => $title_list,
 				'add_time' => date('Y-m-d H:i:s', $log['add_time']),
 				'log_id' => sprintf('%06s', $log['history_id'])

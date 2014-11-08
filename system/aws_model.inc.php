@@ -650,7 +650,7 @@ class AWS_MODEL
 			}
 		}
 
-		if (empty($page))
+		if (!$page)
 		{
 			$page = 1;
 		}

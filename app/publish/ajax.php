@@ -646,7 +646,7 @@ class ajax extends AWS_CONTROLLER
             {
                 $topic_title = trim($topic_title);
 
-                if (empty($topic_title))
+                if (!$topic_title)
                 {
                     unset($_POST['topics'][$key]);
                 }
