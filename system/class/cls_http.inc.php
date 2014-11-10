@@ -171,7 +171,7 @@ class HTTP
 	{
 		$range = 0;
 
-		if (!empty($_SERVER['HTTP_RANGE']))
+		if ($_SERVER['HTTP_RANGE'])
 		{
 			list($range) = explode('-',(str_replace('bytes=', '', $_SERVER['HTTP_RANGE'])));
 		}
@@ -188,7 +188,7 @@ class HTTP
 
 		if ($filesize)
 		{
-			if (!empty($_SERVER['HTTP_RANGE']))
+			if ($_SERVER['HTTP_RANGE'])
 			{
 				$rangesize = ($filesize - $range) > 0 ?  ($filesize - $range) : 0;
 

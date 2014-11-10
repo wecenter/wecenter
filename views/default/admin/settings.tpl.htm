@@ -1440,49 +1440,6 @@
                 <tr>
                     <td>
                         <div class="form-group">
-                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('WeCenter 微信服务 Access token'); ?>:</span>
-                            <div class="col-sm-5 col-xs-8">
-                                <input name="wecenter_access_token" type="text" class="form-control" value="<?php echo $this->setting['wecenter_access_token']; ?>"/>
-
-                                <span class="help-block"><?php _e('请到 %s 申请', '<a href="http://mp.wecenter.com" target="_blank">http://mp.wecenter.com</a>'); ?></span>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        <div class="form-group">
-                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('WeCenter 微信服务 Access secret'); ?>:</span>
-                            <div class="col-sm-5 col-xs-8">
-                                <input name="wecenter_access_secret" type="text" class="form-control" value="<?php echo $this->setting['wecenter_access_secret']; ?>"/>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        <div class="form-group">
-                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('微信公众平台 24 小时后重发未读通知'); ?>:</span>
-                            <div class="col-sm-6 col-xs-8">
-                                <div class="btn-group mod-btn">
-                                    <label type="button" class="btn mod-btn-color">
-                                        <input type="radio" name="wecenter_mp_notification_once" value="Y"<?php if ($this->setting['wecenter_mp_notification_once'] == 'Y') { ?> checked="checked"<?php } ?>/> <?php _e('是'); ?>
-                                    </label>
-
-                                    <label type="button" class="btn mod-btn-color">
-                                        <input type="radio" name="wecenter_mp_notification_once" value="N"<?php if ($this->setting['wecenter_mp_notification_once'] != 'Y') { ?> checked="checked"<?php } ?>/> <?php _e('否'); ?>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        <div class="form-group">
                             <span class="col-sm-4 col-xs-3 control-label"><?php _e('开启 Google 登录功能'); ?>:</span>
                             <div class="col-sm-6 col-xs-8">
                                 <div class="btn-group mod-btn">

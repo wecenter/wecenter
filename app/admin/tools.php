@@ -220,21 +220,4 @@ class tools extends AWS_ADMIN_CONTROLLER
 
         H::redirect_msg(AWS_APP::lang()->_t($messages), '/admin/weixin/mp_menu/');
     }
-
-    public function mp_services_check_action()
-    {
-        if ($service_status = $this->model('wecenter')->mp_server_query('check_service_status'))
-        {
-            if ($service_status['status'] == 'error')
-            {
-                H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('服务异常, 返回的信息: %s', $service_status['message'])));
-            }
-
-            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('服务状态正常')));
-        }
-        else
-        {
-            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('远程服务器当前无响应')));
-        }
-    }
 }

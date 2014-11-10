@@ -186,7 +186,7 @@ class topic_class extends AWS_MODEL
 
 	public function get_topics_by_ids($topic_ids)
 	{
-		if (empty($topic_ids) OR !is_array($topic_ids))
+		if (!$topic_ids OR !is_array($topic_ids))
 		{
 			return false;
 		}
@@ -273,17 +273,17 @@ class topic_class extends AWS_MODEL
 			return false;
 		}
 
-		if (! empty($topic_title))
+		if ($topic_title)
 		{
 			$data['topic_title'] = htmlspecialchars(trim($topic_title));
 		}
 
-		if (! empty($topic_description))
+		if ($topic_description)
 		{
 			$data['topic_description'] = htmlspecialchars($topic_description);
 		}
 
-		if (! empty($topic_pic))
+		if ($topic_pic)
 		{
 			$data['topic_pic'] = htmlspecialchars($topic_pic);
 		}
@@ -816,7 +816,7 @@ class topic_class extends AWS_MODEL
 		$uid_list = array();
 		$topic_list = array();
 
-		if (empty($log_list))
+		if (!$log_list)
 		{
 			return false;
 		}
@@ -828,12 +828,12 @@ class topic_class extends AWS_MODEL
 				$uid_list[] = $log['uid'];
 			}
 
-			if (! empty($log['associate_attached']) AND is_digits($log['associate_attached']) AND ! in_array($log['associate_attached'], $topic_list))
+			if ($log['associate_attached'] AND is_digits($log['associate_attached']) AND !in_array($log['associate_attached'], $topic_list))
 			{
 				$topic_list[] = $log['associate_attached'];
 			}
 
-			if (! empty($log['associate_content']) AND is_digits($log['associate_content']) AND ! in_array($log['associate_content'], $topic_list))
+			if ($log['associate_content'] AND is_digits($log['associate_content']) AND !in_array($log['associate_content'], $topic_list))
 			{
 				$topic_list[] = $log['associate_content'];
 			}
@@ -915,7 +915,7 @@ class topic_class extends AWS_MODEL
 					break;
 			}
 
-			(! empty($title_list)) ? $data_list[] = array(
+			$data_list[] = ($title_list) ? array(
 				'user_name' => $user_name,
 				'title' => $title_list,
 				'add_time' => date('Y-m-d', $log['add_time']),
@@ -1276,7 +1276,7 @@ class topic_class extends AWS_MODEL
 
 	public function set_is_parent($topic_id, $is_parent)
 	{
-		if (empty($topic_id))
+		if (!$topic_id)
 		{
 			return false;
 		}
@@ -1322,7 +1322,7 @@ class topic_class extends AWS_MODEL
 	{
 		$parent_topic_list_query = $this->fetch_all('topic', 'is_parent = 1', 'topic_title ASC');
 
-		if (empty($parent_topic_list_query))
+		if (!$parent_topic_list_query)
 		{
 			return false;
 		}

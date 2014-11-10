@@ -257,9 +257,7 @@ class ajax_weixin extends AWS_ADMIN_CONTROLLER
                             'weixin_mp_token' => trim($_POST['weixin_mp_token']),
                             'weixin_account_role' => $_POST['weixin_account_role'],
                             'weixin_app_id' => trim($_POST['weixin_app_id']),
-                            'weixin_app_secret' => trim($_POST['weixin_app_secret']),
-                            'wecenter_access_token' => trim($_POST['wecenter_access_token']),
-                            'wecenter_access_secret' => trim($_POST['wecenter_access_secret'])
+                            'weixin_app_secret' => trim($_POST['weixin_app_secret'])
                         );
 
         switch ($_POST['type'])
@@ -381,7 +379,7 @@ class ajax_weixin extends AWS_ADMIN_CONTROLLER
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('上传封面图失败, 错误信息: %s', $error_msg)));
         }
 
-        if (!empty($article_ids))
+        if ($article_ids)
         {
             $error_msg = $this->model('weixin')->add_articles_to_mpnews($article_ids);
 
@@ -391,7 +389,7 @@ class ajax_weixin extends AWS_ADMIN_CONTROLLER
             }
         }
 
-        if (!empty($question_ids))
+        if ($question_ids)
         {
             $error_msg = $this->model('weixin')->add_questions_to_mpnews($question_ids);
 

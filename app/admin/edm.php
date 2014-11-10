@@ -163,7 +163,7 @@ class edm extends AWS_ADMIN_CONTROLLER
 		{
 			$receiving_email_config = $this->model('edm')->get_receiving_email_config_by_id($_GET['id']);
 
-			if (empty($receiving_email_config))
+			if (!$receiving_email_config)
 			{
 				H::redirect_msg(AWS_APP::lang()->_t('该账号不存在'), '/admin/edm/receiving_list/');
 			}

@@ -1174,8 +1174,6 @@ CREATE TABLE `[#DB_PREFIX#]weixin_accounts` (
   `weixin_account_role` varchar(20) DEFAULT 'base',
   `weixin_app_id` varchar(255) DEFAULT '',
   `weixin_app_secret` varchar(255) DEFAULT '',
-  `wecenter_access_token` varchar(255) DEFAULT '',
-  `wecenter_access_secret` varchar(255) DEFAULT '',
   `weixin_mp_menu` text,
   `weixin_subscribe_message_key` varchar(255) COLLATE utf8_unicode_ci DEFAULT '',
   `weixin_no_result_message_key` varchar(255) COLLATE utf8_unicode_ci DEFAULT '',

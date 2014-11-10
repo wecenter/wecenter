@@ -128,11 +128,11 @@ class weixin extends AWS_CONTROLLER
 
 				if ($_GET['state'] == 'OAUTH' OR $_GET['state'] == 'OAUTH_REDIRECT')
 				{
-					$access_user = $this->model('openid_weixin_weixin')->get_user_info_by_oauth_openid_from_mp($access_token['access_token'], $access_token['openid']);
+					$access_user = $this->model('openid_weixin_weixin')->get_user_info_by_oauth_openid($access_token['access_token'], $access_token['openid']);
 				}
 				else
 				{
-					$access_user = $this->model('openid_weixin_weixin')->get_user_info_by_openid_from_mp($access_token['openid']);
+					$access_user = $this->model('openid_weixin_weixin')->get_user_info_by_openid_from_weixin($access_token['openid']);
 				}
 
 				if (!$access_user)
@@ -309,7 +309,7 @@ class weixin extends AWS_CONTROLLER
 				H::redirect_msg('授权失败: Register ' . $access_token['errcode'] . ' ' . $access_token['errmsg'] . ', Code: ' . htmlspecialchars($_GET['code']));
 			}
 
-			if (!$access_user = $this->model('openid_weixin_weixin')->get_user_info_by_oauth_openid_from_mp($access_token['access_token'], $access_token['openid']))
+			if (!$access_user = $this->model('openid_weixin_weixin')->get_user_info_by_oauth_openid($access_token['access_token'], $access_token['openid']))
 			{
 				H::redirect_msg('远程服务器忙,请稍后再试, Code: get_user_info');
 			}

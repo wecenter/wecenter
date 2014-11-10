@@ -27,7 +27,7 @@ class weibo extends AWS_ADMIN_CONTROLLER
 
         $services_info = $this->model('weibo')->get_services_info();
 
-        if (!empty($services_info))
+        if ($services_info)
         {
             foreach ($services_info AS $service_info)
             {
@@ -41,7 +41,7 @@ class weibo extends AWS_ADMIN_CONTROLLER
 
         $tmp_service_users_info = AWS_APP::cache()->get('tmp_service_account');
 
-        if (!empty($tmp_service_users_info))
+        if ($tmp_service_users_info)
         {
             TPL::assign('tmp_service_users_info', $tmp_service_users_info);
         }

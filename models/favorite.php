@@ -228,11 +228,12 @@ class favorite_class extends AWS_MODEL
 
 		if ($article_ids)
 		{
-			$article_infos = $this->model('article')->get_article_info_by_ids($article_ids);
-			
-			foreach ($article_infos AS $key => $data)
+			if ($article_infos = $this->model('article')->get_article_info_by_ids($article_ids))
 			{
-				$favorite_uids[$data['uid']] = $data['uid'];
+				foreach ($article_infos AS $key => $data)
+				{
+					$favorite_uids[$data['uid']] = $data['uid'];
+				}
 			}
 		}
 

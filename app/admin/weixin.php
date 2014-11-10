@@ -295,7 +295,7 @@ class weixin extends AWS_ADMIN_CONTROLLER
         {
             $account_info = $this->model('weixin')->get_account_info_by_id($_GET['id']);
 
-            if (empty($account_info))
+            if (!$account_info)
             {
                 H::redirect_msg(AWS_APP::lang()->_t('该账号不存在'), '/admin/weixin/accounts/');
             }
@@ -337,7 +337,7 @@ class weixin extends AWS_ADMIN_CONTROLLER
 
         $msg_details = $this->model('weixin')->get_msg_details_by_id($_GET['id']);
 
-        if (empty($msg_details))
+        if (!$msg_details)
         {
             H::redirect_msg(AWS_APP::lang()->_t('群发消息不存在'), '/admin/weixin/sent_msgs_list/');
         }
