@@ -198,7 +198,7 @@
 
                                 <label class="checkbox-inline"><input type="radio" name="register_valid_type" value="approval"<?php if ($this->setting['register_valid_type'] == 'approval') { ?> checked="checked"<?php } ?> /> <?php _e('邮件验证 + 后台审核'); ?></label>
 
-                                <label class="checkbox-inline"><input type="radio" name="register_valid_type" value="N"<?php if ($this->setting['register_valid_type'] != 'Y') { ?> checked="checked"<?php } ?> /> <?php _e('不验证'); ?></label>
+                                <label class="checkbox-inline"><input type="radio" name="register_valid_type" value="N"<?php if ($this->setting['register_valid_type'] == 'N') { ?> checked="checked"<?php } ?> /> <?php _e('不验证'); ?></label>
                             </div>
                         </div>
                     </td>
