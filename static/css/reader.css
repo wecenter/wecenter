@@ -73,7 +73,7 @@ input, select, textarea { font: normal 12px Verdana, Arial; }
 .aw-reader-content .answer-vote-info a { color: #999; }
 .aw-reader-content span.vote-info-num { font-size: 12px; line-height: 14px; width: 20px; height: 14px; padding: 3px 10px; color: #fff; border-radius: 4px; background: #ccc; }
 .aw-reader-content .vote-info-users-list li { display: inline; margin: 0; padding: 0; list-style: none; }
-.aw-reader-content.answer-text { font-size: 15px; line-height: 28px; padding: 5px 0 5px; color: #333; }
+.aw-reader-content .answer-text { font-size: 14px; line-height: 28px; padding: 0; color: #333; }
 .aw-reader-content .answer-text strong, .aw-reader-content .answer-text b { font-weight: bold; }
 .aw-reader-content .answer-text img { display: block; max-width: 100%; height: auto; margin: 10px 0; box-shadow: 0 1px 2px rgba(0, 0, 0, .3); }
 .aw-reader-content .answer-text ol, .aw-reader-content .answer-text ul { margin: 10px 0; padding: 0 15px; }
