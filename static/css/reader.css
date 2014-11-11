@@ -69,7 +69,7 @@ input, select, textarea { font: normal 12px Verdana, Arial; }
 .aw-reader-content .aw-answer .aw-answer-info .author-intro { margin: 5px 0 0 0; color: #999; }
 .aw-reader-content .aw-answer .aw-answer-body { position: relative; padding: 15px; }
 .aw-reader-content .vote-info-users-list { display: inline; margin: 0; padding: 0; }
-.aw-reader-content .answer-vote-info { zoom: 1; margin: -15px 0 20px; color: #999; }
+.aw-reader-content .answer-vote-info { margin: -15px 0 20px -5px; color: #999; }
 .aw-reader-content .answer-vote-info a { color: #999; }
 .aw-reader-content span.vote-info-num { font-size: 12px; line-height: 14px; width: 20px; height: 14px; padding: 3px 10px; color: #fff; border-radius: 4px; background: #ccc; }
 .aw-reader-content .vote-info-users-list li { display: inline; margin: 0; padding: 0; list-style: none; }
