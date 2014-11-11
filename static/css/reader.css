@@ -10,6 +10,7 @@ input, select, textarea { font: normal 12px Verdana, Arial; }
 .hide { display: none; }
 
 /* 左侧内容导航 */
+
 .aw-reader-side { position: fixed; z-index: 10; top: 0; bottom: 0; left: 0; max-width: 320px; border-right: 1px solid #e6e6e6; background: #f0f0f0; }
 .aw-reader-side .header { padding: 15px 0; }
 .aw-reader-side .logo { font-size: 18px; line-height: 30px; width: 118px; height: 31px; margin: 0; padding: 0; color: #666; }
