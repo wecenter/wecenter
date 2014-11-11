@@ -118,29 +118,41 @@ class google extends AWS_CONTROLLER
 
                     $this->model('openid_google')->update_user_info($google_user['id'], $google_user_info);
 
-                    HTTP::set_cookie('_user_login', get_login_cookie_hash($user['user_name'], $user['password'], $user['salt'], $user['uid'], false));
-
-                    if ($_GET['state'])
+                    if (get_setting('register_valid_type') == 'approval' AND $user['group_id'] == 3)
                     {
-                        $state = base64_url_decode($_GET['state']);
-                    }
-
-                    if (get_setting('ucenter_enabled') == 'Y')
-                    {
-                        $redirect_url = '/account/sync_login/';
-
-                        if ($state['return_url'])
-                        {
-                            $redirect_url .= 'url-' . base64_encode($state['return_url']);
-                        }
-                    }
-                    else if ($state['return_url'])
-                    {
-                        $redirect_url = $state['return_url'];
+                        $redirect_url = '/account/valid_approval/';
                     }
                     else
                     {
-                        $redirect_url = '/';
+                        if ($_GET['state'])
+                        {
+                            $state = base64_url_decode($_GET['state']);
+                        }
+
+                        if (get_setting('ucenter_enabled') == 'Y')
+                        {
+                            $redirect_url = '/account/sync_login/';
+
+                            if ($state['return_url'])
+                            {
+                                $redirect_url .= 'url-' . base64_encode($state['return_url']);
+                            }
+                        }
+                        else if ($state['return_url'])
+                        {
+                            $redirect_url = $state['return_url'];
+                        }
+                        else
+                        {
+                            $redirect_url = '/';
+                        }
+
+                        HTTP::set_cookie('_user_login', get_login_cookie_hash($user['user_name'], $user['password'], $user['salt'], $user['uid'], false));
+
+                        if (get_setting('register_valid_type') == 'email' AND !$user['valid_email'])
+                        {
+                            AWS_APP::session()->valid_email = $user['email'];
+                        }
                     }
 
                     HTTP::redirect($redirect_url);
