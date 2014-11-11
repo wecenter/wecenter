@@ -42,9 +42,9 @@ class openid extends AWS_CONTROLLER
 
 	public function sina_action()
 	{
-		if (get_setting('sina_weibo_enabled') != 'Y')
+		if (get_setting('sina_weibo_enabled') != 'Y' OR !get_setting('sina_akey') OR !get_setting('sina_skey'))
 		{
-			HTTP::redirect('/account/login/');
+			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('本站未开通微博登录')));
 		}
 
 		unset(AWS_APP::session()->sina_profile);
@@ -73,17 +73,22 @@ class openid extends AWS_CONTROLLER
 		{
 			define('IN_AJAX', TRUE);
 
-			if (get_setting('register_type') == 'close')
+			switch (get_setting('register_type'))
 			{
-				H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('本站目前关闭注册')));
-			}
-			else if (get_setting('register_type') == 'invite')
-			{
-				H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('本站只能通过邀请注册')));
-			}
-			else if (get_setting('register_type') == 'weixin')
-			{
-				H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('本站只能通过微信注册')));
+				case 'close':
+					H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('本站目前关闭注册')));
+
+					break;
+
+				case 'invite':
+					H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('本站只能通过邀请注册')));
+
+					break;
+
+				case 'weixin':
+					H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('本站只能通过微信注册')));
+
+					break;
 			}
 
 			if (trim($_POST['user_name']) == '')
@@ -147,14 +152,14 @@ class openid extends AWS_CONTROLLER
 			{
 				$uid = $this->model('account')->user_register($_POST['user_name'], $_POST['password'], $_POST['email']);
 
-				if (get_setting('register_valid_type') == 'email')
-				{
-					$this->model('active')->new_valid_email($uid);
-				}
-
 				if (get_setting('register_valid_type') != 'approval')
 				{
 					$this->model('active')->active_user_by_uid($uid);
+				}
+
+				if (get_setting('register_valid_type') == 'email')
+				{
+					$this->model('active')->new_valid_email($uid);
 				}
 
 				$redirect_url = '/';
@@ -162,7 +167,7 @@ class openid extends AWS_CONTROLLER
 
 			if (!$uid)
 			{
-				H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('与微博通信出错 (Register), 请重新登录')));
+				H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('注册失败')));
 			}
 
 			$this->model('openid_weibo')->bind_account(AWS_APP::session()->sina_profile, null, $uid, AWS_APP::session()->sina_token, true);
@@ -174,7 +179,19 @@ class openid extends AWS_CONTROLLER
 
 			$user_info = $this->model('account')->get_user_info_by_uid($uid);
 
-			HTTP::set_cookie('_user_login', get_login_cookie_hash($user_info['user_name'], $user_info['password'], $user_info['salt'], $user_info['uid'], false));
+			if (get_setting('register_valid_type') == 'approval')
+			{
+				$redirect_url = '/account/valid_approval/';
+			}
+			else
+			{
+				HTTP::set_cookie('_user_login', get_login_cookie_hash($user_info['user_name'], $user_info['password'], $user_info['salt'], $user_info['uid'], false));
+
+				if (get_setting('register_valid_type') == 'email')
+				{
+					AWS_APP::session()->valid_email = $user_info['email'];
+				}
+			}
 
 			unset(AWS_APP::session()->sina_profile);
 			unset(AWS_APP::session()->sina_token);
@@ -185,7 +202,7 @@ class openid extends AWS_CONTROLLER
 		}
 		else
 		{
-			if ($_GET['code'] and (! AWS_APP::session()->sina_token or AWS_APP::session()->sina_token['error']))
+			if ($_GET['code'] and (!AWS_APP::session()->sina_token OR AWS_APP::session()->sina_token['error']))
 			{
 				$oauth = new Services_Weibo_WeiboOAuth(get_setting('sina_akey'), get_setting('sina_skey'));
 
@@ -214,39 +231,60 @@ class openid extends AWS_CONTROLLER
 				AWS_APP::session()->sina_profile = $sina_profile;
 			}
 
-			if (! AWS_APP::session()->sina_profile)
+			if (!AWS_APP::session()->sina_profile)
 			{
 				H::redirect_msg(AWS_APP::lang()->_t('与微博通信出错, 请重新登录'), '/account/login/');
 			}
 
-			if ($sina_user = $this->model('openid_weibo')->get_users_sina_by_id(AWS_APP::session()->sina_profile['id']))
+			$sina_user = $this->model('openid_weibo')->get_users_sina_by_id(AWS_APP::session()->sina_profile['id']);
+
+			if ($sina_user)
 			{
 				$user_info = $this->model('account')->get_user_info_by_uid($sina_user['uid']);
 
-				HTTP::set_cookie('_user_login', get_login_cookie_hash($user_info['user_name'], $user_info['password'], $user_info['salt'], $user_info['uid'], false));
+				if (!$user_info)
+				{
+					$this->model('openid_weibo')->del_users_by_uid($sina_user['uid']);
+
+					H::redirect_msg(AWS_APP::lang()->_t('用户不存在'), '/account/login/');
+				}
 
 				$this->model('openid_weibo')->refresh_access_token($sina_user['id'], AWS_APP::session()->sina_token);
 
-				unset(AWS_APP::session()->sina_profile);
-				unset(AWS_APP::session()->sina_token);
-
-				if (get_setting('ucenter_enabled') == 'Y')
+				if (get_setting('register_valid_type') == 'approval' AND $user_info['group_id'] == 3)
 				{
-					$redirect_url = '/account/sync_login/';
-
-					if ($_GET['return_url'])
-					{
-						$redirect_url .= 'url-' . $_GET['return_url'];
-					}
-				}
-				else if ($_GET['return_url'])
-				{
-					$redirect_url = base64_decode($_GET['return_url']);
+					$redirect_url = '/account/valid_approval/';
 				}
 				else
 				{
-					$redirect_url = '/';
+					if (get_setting('ucenter_enabled') == 'Y')
+					{
+						$redirect_url = '/account/sync_login/';
+
+						if ($_GET['return_url'])
+						{
+							$redirect_url .= 'url-' . $_GET['return_url'];
+						}
+					}
+					else if ($_GET['return_url'])
+					{
+						$redirect_url = base64_decode($_GET['return_url']);
+					}
+					else
+					{
+						$redirect_url = '/';
+					}
+
+					HTTP::set_cookie('_user_login', get_login_cookie_hash($user_info['user_name'], $user_info['password'], $user_info['salt'], $user_info['uid'], false));
+
+					if (get_setting('register_valid_type') == 'email' AND !$user_info['valid_email'])
+					{
+						AWS_APP::session()->valid_email = $user_info['email'];
+					}
 				}
+
+				unset(AWS_APP::session()->sina_profile);
+				unset(AWS_APP::session()->sina_token);
 
 				HTTP::redirect($redirect_url);
 			}
@@ -258,28 +296,31 @@ class openid extends AWS_CONTROLLER
 				}
 				else
 				{
-					if (get_setting('register_type') == 'close')
+					switch (get_setting('register_type'))
 					{
-						H::redirect_msg(AWS_APP::lang()->_t('本站目前关闭注册'));
-					}
-					else if (get_setting('register_type') == 'invite')
-					{
-						H::redirect_msg(AWS_APP::lang()->_t('本站只能通过邀请注册'));
-					}
-					else if (get_setting('register_type') == 'weixin')
-					{
-						H::redirect_msg(AWS_APP::lang()->_t('本站只能通过微信注册'));
-					}
-					else
-					{
-						$this->crumb(AWS_APP::lang()->_t('完善资料'), '/account/login/');
+						case 'close':
+							H::redirect_msg(AWS_APP::lang()->_t('本站目前关闭注册'), '/account/login/');
 
-						TPL::assign('user_name', AWS_APP::session()->sina_profile['screen_name']);
+							break;
 
-						TPL::import_css('css/register.css');
+						case 'invite':
+							H::redirect_msg(AWS_APP::lang()->_t('本站只能通过邀请注册'), '/account/login/');
 
-						TPL::output('account/openid/callback');
+							break;
+
+						case 'weixin':
+							H::redirect_msg(AWS_APP::lang()->_t('本站只能通过微信注册'), '/account/login/');
+
+							break;
 					}
+
+					$this->crumb(AWS_APP::lang()->_t('完善资料'), '/account/login/');
+
+					TPL::assign('user_name', AWS_APP::session()->sina_profile['screen_name']);
+
+					TPL::import_css('css/register.css');
+
+					TPL::output('account/openid/callback');
 				}
 			}
 		}
@@ -287,6 +328,12 @@ class openid extends AWS_CONTROLLER
 
 	public function qq_login_action()
 	{
+		if (get_setting('qq_login_enabled') != 'Y' OR !get_setting('qq_login_app_id') OR !get_setting('qq_login_app_key'))
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('本站未开通 QQ 登录')));
+		}
+
+		unset(AWS_APP::session()->qq_profile);
 		unset(AWS_APP::session()->QQConnect);
 
 		$url = '/account/openid/qq_login_callback/';
@@ -301,19 +348,24 @@ class openid extends AWS_CONTROLLER
 
 	public function qq_login_callback_action()
 	{
-		if ($this->is_post() and AWS_APP::session()->qq_profile and AWS_APP::session()->QQConnect)
+		if ($this->is_post() AND AWS_APP::session()->qq_profile AND AWS_APP::session()->QQConnect)
 		{
-			if (get_setting('register_type') == 'close')
+			switch (get_setting('register_type'))
 			{
-				H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('本站目前关闭注册')));
-			}
-			else if (get_setting('register_type') == 'invite')
-			{
-				H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('本站只能通过邀请注册')));
-			}
-			else if (get_setting('register_type') == 'weixin')
-			{
-				H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('本站只能通过微信注册')));
+				case 'close':
+					H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('本站目前关闭注册')));
+
+					break;
+
+				case 'invite':
+					H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('本站只能通过邀请注册')));
+
+					break;
+
+				case 'weixin':
+					H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('本站只能通过微信注册')));
+
+					break;
 			}
 
 			if (trim($_POST['user_name']) == '')
@@ -355,7 +407,7 @@ class openid extends AWS_CONTROLLER
 				), -1, AWS_APP::lang()->_t('密码长度不符合规则')));
 			}
 
-			if (! $_POST['agreement_chk'])
+			if (!$_POST['agreement_chk'])
 			{
 				H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('你必需同意用户协议才能继续')));
 			}
@@ -364,54 +416,75 @@ class openid extends AWS_CONTROLLER
 			{
 				$result = $this->model('ucenter')->register($_POST['user_name'], $_POST['password'], $_POST['email']);
 
-				if (is_array($result))
+				if (!is_array($result))
 				{
-					$uid = $result['user_info']['uid'];
+					H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('UCenter 同步失败，错误为：%s', $result)));
 				}
-				else
-				{
-					H::ajax_json_output(AWS_APP::RSM(null, -1, $result));
-				}
+
+				$uid = $result['user_info']['uid'];
+
+				$redirect_url = '/account/sync_login/';
 			}
 			else
 			{
 				$uid = $this->model('account')->user_register($_POST['user_name'], $_POST['password'], $_POST['email']);
+
+				if (get_setting('register_valid_type') != 'approval')
+				{
+					$this->model('active')->active_user_by_uid($uid);
+				}
 
 				if (get_setting('register_valid_type') == 'email')
 				{
 					$this->model('active')->new_valid_email($uid);
 				}
 
-				if (get_setting('register_valid_type') != 'approval')
-				{
-					$this->model('active')->active_user_by_uid($uid);
-				}
+				$redirect_url = '/';
 			}
 
-			if ($uid)
+			if (!$uid)
 			{
-				$this->model('openid_qq')->bind_account(AWS_APP::session()->qq_profile, null, $uid, true);
+				H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('注册失败')));
+			}
 
-				if (AWS_APP::session()->qq_profile['figureurl_2'])
-				{
-					$this->model('account')->associate_remote_avatar($uid, AWS_APP::session()->qq_profile['figureurl_2']);
-				}
+			$this->model('openid_qq')->bind_account(AWS_APP::session()->qq_profile, null, $uid, true);
 
-				H::ajax_json_output(AWS_APP::RSM(null, 1, null));
+			if (AWS_APP::session()->qq_profile['figureurl_2'])
+			{
+				$this->model('account')->associate_remote_avatar($uid, AWS_APP::session()->qq_profile['figureurl_2']);
+			}
+
+			if (get_setting('register_valid_type') == 'approval')
+			{
+				$redirect_url = '/account/valid_approval/';
 			}
 			else
 			{
-				H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('与 QQ 通信出错 (Register), 请重新登录')));
+				$user_info = $this->model('account')->get_user_info_by_uid($uid);
+
+				HTTP::set_cookie('_user_login', get_login_cookie_hash($user_info['user_name'], $user_info['password'], $user_info['salt'], $user_info['uid'], false));
+
+				if (get_setting('register_valid_type') == 'email')
+				{
+					AWS_APP::session()->valid_email = $user_info['email'];
+				}
 			}
+
+			unset(AWS_APP::session()->qq_profile);
+			unset(AWS_APP::session()->QQConnect);
+
+			H::ajax_json_output(AWS_APP::RSM(array(
+				'url' => get_js_url($redirect_url)
+			), 1, null));
 		}
 		else
 		{
-			if (! $_GET['code'])
+			if (!$_GET['code'])
 			{
-				H::redirect_msg(AWS_APP::lang()->_t('与 QQ 通信出错, 请重新登录'), "/account/login/");
+				H::redirect_msg(AWS_APP::lang()->_t('与 QQ 通信出错, code 为空'), '/account/login/');
 			}
 
-			if (! AWS_APP::session()->QQConnect['access_token'])
+			if (!AWS_APP::session()->QQConnect['access_token'])
 			{
 				$callback_url = '/account/openid/qq_login_callback/';
 
@@ -420,73 +493,103 @@ class openid extends AWS_CONTROLLER
 					$callback_url .= 'return_url-' . $_GET['return_url'];
 				}
 
-				if (! $this->model('openid_qq')->request_access_token(get_js_url($callback_url)))
+				if (!$this->model('openid_qq')->request_access_token(get_js_url($callback_url)))
 				{
-					H::redirect_msg(AWS_APP::lang()->_t('与 QQ 通信出错, 请重新登录'), "/account/login/");
+					H::redirect_msg(AWS_APP::lang()->_t('与 QQ 通信出错, 获取 access token 失败'), '/account/login/');
 				}
 			}
 
-			if (! AWS_APP::session()->QQConnect['access_token'] OR ! $uinfo = $this->model('openid_qq')->request_user_info())
+			$uinfo = $this->model('openid_qq')->request_user_info();
+
+			if (!$uinfo OR !AWS_APP::session()->QQConnect['access_token'])
 			{
-				H::redirect_msg(AWS_APP::lang()->_t('与 QQ 通信出错, 请重新登录'), "/account/login/");
+				H::redirect_msg(AWS_APP::lang()->_t('与 QQ 通信出错, 获取个人资料失败'), '/account/login/');
 			}
 
 			AWS_APP::session()->qq_profile = $uinfo;
 
-			if ($qq_user = $this->model('openid_qq')->get_user_info_by_open_id(load_class('Services_Tencent_QQConnect_V2')->get_openid()))
+			$qq_user = $this->model('openid_qq')->get_user_info_by_open_id(load_class('Services_Tencent_QQConnect_V2')->get_openid());
+
+			if ($qq_user)
 			{
 				$user_info = $this->model('account')->get_user_info_by_uid($qq_user['uid']);
 
-				HTTP::set_cookie('_user_login', get_login_cookie_hash($user_info['user_name'], $user_info['password'], $user_info['salt'], $user_info['uid'], false));
+				if (!$user_info)
+				{
+					$this->model('openid_qq')->del_user_by_uid($qq_user['uid']);
+
+					H::redirect_msg(AWS_APP::lang()->_t('用户不存在'), '/account/login/');
+				}
 
 				$this->model('openid_qq')->update_token($qq_user['name'], AWS_APP::session()->QQConnect['access_token']);
 
-				if (get_setting('ucenter_enabled') == 'Y')
+				if (get_setting('register_valid_type') == 'approval' AND $user_info['group_id'] == 3)
 				{
-					$redirect_url = '/account/sync_login/';
-
-					if ($_GET['return_url'])
-					{
-						$redirect_url .= 'url-' . $_GET['return_url'];
-					}
-				}
-				else if ($_GET['return_url'])
-				{
-					$redirect_url = base64_decode($_GET['return_url']);
+					$redirect_url = '/account/valid_approval/';
 				}
 				else
 				{
-					$redirect_url = '/';
+					if (get_setting('ucenter_enabled') == 'Y')
+					{
+						$redirect_url = '/account/sync_login/';
+
+						if ($_GET['return_url'])
+						{
+							$redirect_url .= 'url-' . $_GET['return_url'];
+						}
+					}
+					else if ($_GET['return_url'])
+					{
+						$redirect_url = base64_decode($_GET['return_url']);
+					}
+					else
+					{
+						$redirect_url = '/';
+					}
+
+					HTTP::set_cookie('_user_login', get_login_cookie_hash($user_info['user_name'], $user_info['password'], $user_info['salt'], $user_info['uid'], false));
+
+					if (get_setting('register_valid_type') == 'email' AND !$user['valid_email'])
+					{
+						AWS_APP::session()->valid_email = $user_info['email'];
+					}
 				}
 
 				HTTP::redirect($redirect_url);
 			}
 			else
 			{
-			    if ($this->user_id)
+				if ($this->user_id)
 				{
 					$this->model('openid_qq')->bind_account($this->model('openid_qq')->request_user_info(), '/', $this->user_id);
 				}
 				else
 				{
-					if (get_setting('register_type') == 'close')
+					switch (get_setting('register_type'))
 					{
-						H::redirect_msg(AWS_APP::lang()->_t('本站目前关闭注册'));
-					}
-					else if (get_setting('register_type') == 'invite')
-					{
-						H::redirect_msg(AWS_APP::lang()->_t('本站只能通过邀请注册'));
-					}
-					else
-					{
-						$this->crumb(AWS_APP::lang()->_t('完善资料'), '/account/login/');
+						case 'close':
+							H::redirect_msg(AWS_APP::lang()->_t('本站目前关闭注册'), '/account/login/');
 
-						TPL::assign('user_name', str_replace(' ', '_', AWS_APP::session()->qq_profile['nickname']));
+							break;
 
-						TPL::import_css('css/register.css');
+						case 'invite':
+							H::redirect_msg(AWS_APP::lang()->_t('本站只能通过邀请注册'), '/account/login/');
 
-						TPL::output('account/openid/callback');
+							break;
+
+						case 'weixin':
+							H::redirect_msg(AWS_APP::lang()->_t('本站只能通过微信注册'), '/account/login/');
+
+							break;
 					}
+
+					$this->crumb(AWS_APP::lang()->_t('完善资料'), '/account/login/');
+
+					TPL::assign('user_name', str_replace(' ', '_', AWS_APP::session()->qq_profile['nickname']));
+
+					TPL::import_css('css/register.css');
+
+					TPL::output('account/openid/callback');
 				}
 			}
 		}
