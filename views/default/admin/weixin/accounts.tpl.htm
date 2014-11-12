@@ -35,7 +35,7 @@
                             <a href="admin/weixin/account/id-<?php echo $account_info['id']; ?>" data-toggle="tooltip" title="<?php _e('编辑'); ?>" class="icon icon-edit md-tip"></a>
                             <a href="admin/weixin/mp_menu/id-<?php echo $account_info['id']; ?>" data-toggle="tooltip" title="<?php _e('菜单管理'); ?>" class="icon icon-ul md-tip"></a>
                             <a href="admin/weixin/reply/id-<?php echo $account_info['id']; ?>" data-toggle="tooltip" title="<?php _e('自定义回复'); ?>" class="icon icon-reply md-tip"></a>
-                            <a href="javascript:;" onclick="AWS.ajax_request(G_BASE_URL + '/admin/ajax/remove_weixin_account/', 'id=<?php echo $account_info['id'] ?>');" data-toggle="tooltip" title="<?php _e('删除'); ?>" class="icon icon-trash md-tip"></a>
+                            <a href="javascript:;" onclick="AWS.ajax_request(G_BASE_URL + '/admin/ajax/weixin/remove_weixin_account/', 'id=<?php echo $account_info['id'] ?>');" data-toggle="tooltip" title="<?php _e('删除'); ?>" class="icon icon-trash md-tip"></a>
                         </td>
                     </tr>
                     <?php } ?>
