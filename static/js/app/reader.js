@@ -70,8 +70,7 @@ function load_questions_list() {
  		if (data == '') {
 	 		stop_load = true;
  		}
-
-		$('#data_lister li.loading').remove();
+ 		$('#data_lister li.loading').remove();
 
 		$.each(data.questions, function (i, a) {
 			questions_list[i] = a;
@@ -100,11 +99,6 @@ function load_questions_list() {
 		$('#feature_selecter').attr('disabled', false);
 
 		cur_page++;
-
-		// 如果签名为空隐藏前面的横杠
-		if ($('.aw-reader-side .aw-mod p span').html() == '') {
-			$('.aw-reader-side .aw-mod p span').css('display','none')
-		}
 	});
 }
 

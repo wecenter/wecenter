@@ -43,7 +43,7 @@ input, select, textarea { font: normal 12px Verdana, Arial; }
 .aw-reader-side .aw-mod p img { width: 16px; height: 16px; margin: 0 3px 0 0; vertical-align: text-bottom; border-radius: 4px; }
 .aw-reader-side .aw-mod p strong { font-weight: normal; color: #999; }
 .aw-reader-side .aw-mod p span { color: #999; }
-.aw-reader-side .aw-mod p span::before { padding: 0 3px 0 0; content: ' -'; }
+.aw-reader-side .aw-mod p span::before { padding: 0 3px 0 0; content: '-'; }
 .aw-reader-side .vote-count { font-size: 12px; position: absolute; top: 0; right: 0; display: block; width: 35px; height: 40px; padding-left: 10px; text-align: center; color: #999; border-left: 1px solid #e6e6e6; }
 
 /* 右侧阅读区域 */
