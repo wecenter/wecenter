@@ -80,17 +80,25 @@ function load_questions_list() {
 			if (questions_list[a['question_id']]) {
 				answers_list[i] = a;
 
-				$('#data_lister').append('<li>' +
+				template = '<li>' +
 					'<a href="javascript:;" id="show_answer" data_id="' + a['answer_id'] + '">' +
 						'<h2>' + questions_list[a['question_id']]['question_content'] + '</h2>' +
 							'<p>' +
 								'<img src="' + a['avatar'] + '" alt="" />' +
-								'<strong>' + a['user_name'] + '</strong>' +
-								'<span>' + a['signature'] + '</span>' +
+								'<strong>' + a['user_name'] + '</strong>';
+
+				if (a['signature'])
+				{
+					template += ' -';
+				}
+
+				template += '<span> ' + a['signature'] + '</span>' +
 							'</p>' +
 							'<span class="vote-count">' + a['agree_count'] + '<i class="icon icon-agree"></i>' + '</span>' +
 					'</a>' +
-				'</li>');
+				'</li>';
+
+				$('#data_lister').append(template);
 			}
 		});
 

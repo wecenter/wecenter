@@ -39,11 +39,10 @@ input, select, textarea { font: normal 12px Verdana, Arial; }
 .aw-reader-side .aw-mod ul li a { position: relative; display: block; padding: 0; cursor: pointer; }
 .aw-reader-side .aw-mod ul li a i { position: absolute; left: 15px; top: 25px; }
 .aw-reader-side .aw-mod h2 { font-size: 14px; line-height: 20px; overflow: hidden; max-width: 245px; max-height: 40px; margin: 0; padding: 0; text-overflow: ellipsis; color: #333; }
-.aw-reader-side .aw-mod p { font-size: 12px; overflow: hidden; margin: 5px 0 0 0; white-space: nowrap; text-overflow: ellipsis; }
+.aw-reader-side .aw-mod p { font-size: 12px; overflow: hidden; margin: 5px 0 0 0; white-space: nowrap; text-overflow: ellipsis; color: #999; }
 .aw-reader-side .aw-mod p img { width: 16px; height: 16px; margin: 0 3px 0 0; vertical-align: text-bottom; border-radius: 4px; }
 .aw-reader-side .aw-mod p strong { font-weight: normal; color: #999; }
 .aw-reader-side .aw-mod p span { color: #999; }
-.aw-reader-side .aw-mod p span::before { padding: 0 3px 0 0; content: '-'; }
 .aw-reader-side .vote-count { font-size: 12px; position: absolute; top: 0; right: 0; display: block; width: 35px; height: 40px; padding-left: 10px; text-align: center; color: #999; border-left: 1px solid #e6e6e6; }
 
 /* 右侧阅读区域 */
