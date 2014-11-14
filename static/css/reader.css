@@ -40,7 +40,7 @@ input, select, textarea { font: normal 12px Verdana, Arial; }
 .aw-reader-side .aw-mod ul li a i { position: absolute; left: 15px; top: 20px; }
 .aw-reader-side .aw-mod h2 { font-size: 14px; line-height: 20px; overflow: hidden; max-width: 245px; max-height: 40px; margin: 0; padding: 0; text-overflow: ellipsis; color: #333; }
 .aw-reader-side .aw-mod p { font-size: 12px; overflow: hidden; margin: 5px 0 0 0; white-space: nowrap; text-overflow: ellipsis; }
-.aw-reader-side .aw-mod p img { width: 16px; height: 16px; margin: 0 3px 0 0; vertical-align: text-bottom; }
+.aw-reader-side .aw-mod p img { width: 16px; height: 16px; margin: 0 3px 0 0; vertical-align: text-bottom; border-radius: 4px; }
 .aw-reader-side .aw-mod p strong { font-weight: normal; color: #999; }
 .aw-reader-side .aw-mod p span { color: #999; }
 .aw-reader-side .aw-mod p span::before { padding: 0 3px 0 0; content: ' ·'; }
@@ -49,7 +49,7 @@ input, select, textarea { font: normal 12px Verdana, Arial; }
 /* 右侧阅读区域 */
 
 .aw-reader-content { position: fixed; top: 0; bottom: -5px; left: 315px; overflow: hidden; min-width: 600px; max-width: 850px; margin: 0 10px 0 0; padding: 0 0 0 5px; background: #fff; }
-.aw-reader-content .header { font-size: 12px; line-height: 60px; height: 60px; margin: 0 30px; -webkit-user-select: none; -moz-user-select: none; user-select: none; color: #999; border-bottom: 1px solid #f0f0f0; text-shadow: 0 1px 0 white; -khtml-user-select: none; }
+.aw-reader-content .header { font-size: 12px; line-height: 60px; height: 60px; margin: 0 40px; -webkit-user-select: none; -moz-user-select: none; user-select: none; color: #999; border-bottom: 1px solid #f0f0f0; text-shadow: 0 1px 0 white; -khtml-user-select: none; }
 .aw-reader-content .header span { color: #999; }
 .aw-reader-content .header .top-actions { float: right; margin: 0 0 0 15px; color: #3474b5; }
 /* 问题 */
@@ -63,7 +63,7 @@ input, select, textarea { font: normal 12px Verdana, Arial; }
 /* 回答 */
 .aw-reader-content .aw-answer { position: relative; padding: 30px 0 40px; color: #333; }
 .aw-reader-content .aw-answer .aw-answer-info {border-bottom: none; }
-.aw-reader-content .aw-answer .aw-answer-info .author-img { float: left; width: 32px; height: 32px; margin: 0 10px 0 0; }
+.aw-reader-content .aw-answer .aw-answer-info .author-img { float: left; width: 32px; height: 32px; margin: 0 10px 0 0;border-radius: 4px; }
 .aw-reader-content .aw-answer .aw-answer-info .author-name { margin: 2px 0 0 0; color: #145faa; }
 .aw-reader-content .aw-answer .aw-answer-info span { line-height: 1; display: block; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
 .aw-reader-content .aw-answer .aw-answer-info .author-intro { margin: 5px 0 0 0; color: #999; }
