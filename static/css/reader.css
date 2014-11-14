@@ -48,7 +48,7 @@ input, select, textarea { font: normal 12px Verdana, Arial; }
 
 /* 右侧阅读区域 */
 
-.aw-reader-content { position: fixed; top: 0; bottom: -5px; left: 315px; overflow: hidden; min-width: 600px; max-width: 850px; margin: 0 10px 0 0; padding: 0 0 0 5px; background: #fff; }
+.aw-reader-content { position: fixed; top: 0; bottom: -5px; left: 315px; overflow: hidden; max-width: 850px; margin: 0 10px 0 0; padding: 0 0 0 5px; background: #fff; }
 .aw-reader-content .header { font-size: 12px; line-height: 60px; height: 60px; margin: 0 40px; -webkit-user-select: none; -moz-user-select: none; user-select: none; color: #999; border-bottom: 1px solid #f0f0f0; text-shadow: 0 1px 0 white; -khtml-user-select: none; }
 .aw-reader-content .header span { color: #999; }
 .aw-reader-content .header .top-actions { float: right; margin: 0 0 0 15px; color: #3474b5; }
