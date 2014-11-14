@@ -59,7 +59,8 @@ input, select, textarea { font: normal 12px Verdana, Arial; }
 .aw-reader-content .question-tags ul { padding: 0; list-style-type: none; }
 .aw-reader-content .question-tags ul li { float: left; margin-right: 5px; }
 .aw-reader-content .question-tags ul li a { font-size: 12px; line-height: 16px; display: inline-block; height: 20px; padding: 2px 5px; color: #fff; border-radius: 4px; background-color: #99cfff; }
-.aw-reader-content .question-description { font-size: 14px; padding: 0 0 30px; color: #666; border-bottom: 1px solid #f0f0f0; }
+.aw-reader-content .question-description { font-size: 14px; padding: 0 0 30px; color: #666;}
+.aw-reader-content .mod-body {margin-right: -15px; border-bottom: 1px solid #f0f0f0;}
 /* 回答 */
 .aw-reader-content .aw-answer { position: relative; padding: 30px 0 40px; color: #333; }
 .aw-reader-content .aw-answer .aw-answer-info {border-bottom: none; }
