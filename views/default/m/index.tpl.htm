@@ -107,18 +107,21 @@
 
 
 <script type="text/javascript">
-	$(document).ready(function () {
-		
-		var length = 0;
-
-		$.each($('.top-category li'), function (i, e)
+	$(document).ready(function () 
+	{
+		if ($('.top-category').length)
 		{
-			length += $(this).innerWidth();
-		});
+			var length = 0;
 
-		$('.top-category ul').css('width', length + 10)
-		
-		var myScroll = new IScroll('.top-category', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false });
+			$.each($('.top-category li'), function (i, e)
+			{
+				length += $(this).innerWidth();
+			});
+
+			$('.top-category ul').css('width', length + 10)
+			
+			var myScroll = new IScroll('.top-category', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false });
+		}
 	});
 
 			
