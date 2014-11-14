@@ -296,7 +296,7 @@
 										<?php } ?>
 										<a class="anchor" name="answer_<?php echo $val['answer_id']; ?>"></a>
 										<!-- 用户头像 -->
-										<?php if ($val['anonymous'] == 0) { ?><a class="aw-user-img aw-border-radius-5 pull-right" href="people/<?php echo $val['user_info']['url_token']; ?>" data-id="<?php echo $val['uid']; ?>"><img src="<?php echo get_avatar_url($val['uid'], 'mid'); ?>" alt="" /></a><?php } else { ?><a class="aw-user-img aw-border-radius-5 pull-right" href="javascript:;"><img src="<?php echo G_STATIC_URL; ?>/common/avatar-mid-img.png" alt="<?php _e('匿名用户'); ?>" /></a><?php } ?>
+										<?php if ($val['anonymous'] == 0) { ?><a class="aw-user-img aw-border-radius-5" href="people/<?php echo $val['user_info']['url_token']; ?>" data-id="<?php echo $val['uid']; ?>"><img src="<?php echo get_avatar_url($val['uid'], 'mid'); ?>" alt="" /></a><?php } else { ?><a class="aw-user-img aw-border-radius-5" href="javascript:;"><img src="<?php echo G_STATIC_URL; ?>/common/avatar-mid-img.png" alt="<?php _e('匿名用户'); ?>" /></a><?php } ?>
 										<!-- end 用户头像 -->
 										<div class="title">
 											<p>
