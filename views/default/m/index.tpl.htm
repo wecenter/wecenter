@@ -22,7 +22,7 @@
 		<!-- 问题列表 -->
 		<div class="aw-question-list">
 			<div class="mod-body">
-				<ul>
+				<ul id="load_explore_list">
 					<?php if ($this->posts_list) { ?>
 					<?php foreach($this->posts_list as $key => $val) { ?>
 					<li>
@@ -109,6 +109,9 @@
 <script type="text/javascript">
 	$(document).ready(function () 
 	{
+
+		AWS.load_list_view(G_BASE_URL + '/explore/ajax/list/', $('#load_explore'), $('#load_explore_list'));
+
 		if ($('.top-category').length)
 		{
 			var length = 0;
