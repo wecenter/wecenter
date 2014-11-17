@@ -61,7 +61,7 @@ class user extends AWS_ADMIN_CONTROLLER
             $where[] = 'group_id = ' . intval($_GET['group_id']);
         }
 
-        if ($_GET['ip'] AND preg_match('/(\d{1,3}\.){3}[\d{1,3}\*]/', $_GET['ip']))
+        if ($_GET['ip'] AND preg_match('/(\d{1,3}\.){3}(\d{1,3}|\*)/', $_GET['ip']))
         {
             if (substr($_GET['ip'], -1, 2) == '.*')
             {
