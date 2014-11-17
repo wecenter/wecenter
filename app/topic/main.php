@@ -81,7 +81,7 @@ class main extends AWS_CONTROLLER
 				$redirect_message[] = AWS_APP::lang()->_t('话题 (%s) 已与当前话题合并', $from_topic['topic_title']);
 			}
 		}
-		
+
 		if ($topic_info['seo_title'])
 		{
 			TPL::assign('page_title', $topic_info['seo_title']);
@@ -90,12 +90,12 @@ class main extends AWS_CONTROLLER
 		{
 			$this->crumb($topic_info['topic_title'], '/topic/' . $topic_info['url_token']);
 		}
-		
+
 		if ($this->user_id)
 		{
 			$topic_info['has_focus'] = $this->model('topic')->has_focus_topic($this->user_id, $topic_info['topic_id']);
 		}
-		
+
 		if ($topic_info['topic_description'])
 		{
 			TPL::set_meta('description', $topic_info['topic_title'] . ' - ' . cjk_substr(str_replace("\r\n", ' ', strip_tags($topic_info['topic_description'])), 0, 128, 'UTF-8', '...'));
@@ -104,14 +104,14 @@ class main extends AWS_CONTROLLER
 		$topic_info['topic_description'] = nl2br(FORMAT::parse_markdown($topic_info['topic_description']));
 
 		TPL::assign('topic_info', $topic_info);
-		
+
 		TPL::assign('best_answer_users', $this->model('topic')->get_best_answer_users_by_topic_id($topic_info['topic_id'], 5));
-		
+
 		switch ($topic_info['model_type'])
 		{
 			default:
 				$related_topics_ids = array();
-		
+
 				if ($related_topics = $this->model('topic')->related_topics($topic_info['topic_id']))
 				{
 					foreach ($related_topics AS $key => $val)
@@ -119,7 +119,7 @@ class main extends AWS_CONTROLLER
 						$related_topics_ids[$val['topic_id']] = $val['topic_id'];
 					}
 				}
-		
+
 				if ($child_topic_ids = $this->model('topic')->get_child_topic_ids($topic_info['topic_id']))
 				{
 					foreach ($child_topic_ids AS $key => $topic_id)
@@ -127,9 +127,9 @@ class main extends AWS_CONTROLLER
 						$related_topics_ids[$topic_id] = $topic_id;
 					}
 				}
-		
+
 				TPL::assign('related_topics', $related_topics);
-		
+
 				$log_list = ACTION_LOG::get_action_by_event_id($topic_info['topic_id'], 10, ACTION_LOG::CATEGORY_TOPIC, implode(',', array(
 					ACTION_LOG::ADD_TOPIC,
 					ACTION_LOG::MOD_TOPIC,
@@ -139,21 +139,21 @@ class main extends AWS_CONTROLLER
 					ACTION_LOG::ADD_RELATED_TOPIC,
 					ACTION_LOG::DELETE_RELATED_TOPIC
 				)), -1);
-		
+
 				$log_list = $this->model('topic')->analysis_log($log_list);
-		
+
 				$contents_topic_id = $topic_info['topic_id'];
 				$contents_topic_title = $topic_info['topic_title'];
-		
+
 				if ($merged_topics = $this->model('topic')->get_merged_topic_ids($topic_info['topic_id']))
 				{
 					foreach ($merged_topics AS $key => $val)
 					{
 						$merged_topic_ids[] = $val['source_id'];
 					}
-		
+
 					$contents_topic_id .= ',' . implode(',', $merged_topic_ids);
-		
+
 					if ($merged_topics_info = $this->model('topic')->get_topics_by_ids($merged_topic_ids))
 					{
 						foreach($merged_topics_info AS $key => $val)
@@ -161,18 +161,18 @@ class main extends AWS_CONTROLLER
 							$merged_topic_title[] = $val['topic_title'];
 						}
 					}
-		
+
 					if ($merged_topic_title)
 					{
 						$contents_topic_title .= ',' . implode(',', $merged_topic_title);
 					}
 				}
-		
+
 				$contents_related_topic_ids = array_merge($related_topics_ids, explode(',', $contents_topic_id));
-		
+
 				TPL::assign('contents_related_topic_ids', implode(',', $contents_related_topic_ids));
-		
-				if ($posts_list = $this->model('posts')->get_posts_list(null, 1, get_setting('contents_per_page'), null, $contents_related_topic_ids))
+
+				if ($posts_list = $this->model('posts')->get_posts_list(null, 1, get_setting('contents_per_page'), 'new', $contents_related_topic_ids))
 				{
 					foreach ($posts_list AS $key => $val)
 					{
@@ -182,10 +182,10 @@ class main extends AWS_CONTROLLER
 						}
 					}
 				}
-		
+
 				TPL::assign('posts_list', $posts_list);
 				TPL::assign('all_list_bit', TPL::output('explore/ajax/list', false));
-		
+
 				if ($posts_list = $this->model('posts')->get_posts_list(null, 1, get_setting('contents_per_page'), null, $contents_related_topic_ids, null, null, 30, true))
 				{
 					foreach ($posts_list AS $key => $val)
@@ -196,34 +196,32 @@ class main extends AWS_CONTROLLER
 						}
 					}
 				}
-		
+
 				TPL::assign('topic_recommend_list', $posts_list);
-		
 				TPL::assign('posts_list', $posts_list);
-		
 				TPL::assign('recommend_list_bit', TPL::output('explore/ajax/list', false));
-		
+
 				TPL::assign('list', $this->model('topic')->get_topic_best_answer_action_list($contents_topic_id, $this->user_id, get_setting('contents_per_page')));
 				TPL::assign('best_questions_list_bit', TPL::output('home/ajax/index_actions', false));
-		
+
 				TPL::assign('posts_list', $this->model('posts')->get_posts_list('question', 1, get_setting('contents_per_page'), 'new', explode(',', $contents_topic_id)));
 				TPL::assign('all_questions_list_bit', TPL::output('explore/ajax/list', false));
-		
+
 				TPL::assign('posts_list', $this->model('posts')->get_posts_list('article', 1, get_setting('contents_per_page'), 'new', explode(',', $contents_topic_id)));
 				TPL::assign('articles_list_bit', TPL::output('explore/ajax/list', false));
-		
+
 				TPL::assign('contents_topic_id', $contents_topic_id);
 				TPL::assign('contents_topic_title', $contents_topic_title);
-		
+
 				TPL::assign('log_list', $log_list);
-		
+
 				TPL::assign('redirect_message', $redirect_message);
-		
+
 				if ($topic_info['parent_id'])
 				{
 					TPL::assign('parent_topic_info', $this->model('topic')->get_topic_by_id($topic_info['parent_id']));
 				}
-		
+
 				TPL::output('topic/index');
 			break;
 		}
