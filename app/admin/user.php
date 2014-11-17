@@ -63,9 +63,9 @@ class user extends AWS_ADMIN_CONTROLLER
 
         if ($_GET['ip'] AND preg_match('/(\d{1,3}\.){3}(\d{1,3}|\*)/', $_GET['ip']))
         {
-            if (substr($_GET['ip'], -1, 2) == '.*')
+            if (substr($_GET['ip'], -2, 2) == '.*')
             {
-                $ip_base = ip2long(str_replace('*', '0', $_GET['ip']));
+                $ip_base = ip2long(str_replace('.*', '.0', $_GET['ip']));
 
                 if ($ip_base)
                 {
