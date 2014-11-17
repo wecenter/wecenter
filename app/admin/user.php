@@ -61,17 +61,25 @@ class user extends AWS_ADMIN_CONTROLLER
             $where[] = 'group_id = ' . intval($_GET['group_id']);
         }
 
-        if ($_GET['ip'])
+        if ($_GET['ip'] AND preg_match('/(\d{1,3}\.){3}[\d{1,3}\*]/', $_GET['ip']))
         {
-            if (preg_match('/.*\.\\*$/i', $_GET['ip']))
+            if (substr($_GET['ip'], -1, 2) == '.*')
             {
                 $ip_base = ip2long(str_replace('*', '0', $_GET['ip']));
 
-                $where[] = 'last_ip BETWEEN ' . $this->model('people')->quote($_GET['ip_base']) . ' AND ' . ($this->model('people')->quote($_GET['ip_base']) + 255);
+                if ($ip_base)
+                {
+                    $where[] = 'last_ip BETWEEN ' . $ip_base . ' AND ' . ($ip_base + 255);
+                }
             }
             else
             {
-                $where[] = 'last_ip = ' . ip2long($_GET['ip']);
+                $ip_base = ip2long($_GET['ip']);
+
+                if ($ip_base)
+                {
+                    $where[] = 'last_ip = ' . $ip_base;
+                }
             }
         }
 
