@@ -14,9 +14,9 @@ input, select, textarea { font: normal 12px Verdana, Arial; }
 .aw-reader-side { position: fixed; z-index: 10; top: 0; bottom: 0; left: 0; max-width: 320px; border-right: 1px solid #e6e6e6; background: #f0f0f0; }
 .aw-reader-side .header { padding: 15px 0; }
 .aw-reader-side .logo { font-size: 18px; line-height: 30px; width: 118px; height: 30px; margin: 0; padding: 0; color: #666; }
-.aw-reader-side .logo i { font-size: 20px; vertical-align: -2px; }
+.aw-reader-side .logo i { font-size: 24px; vertical-align: -4px; }
 .aw-reader-side .header a { font-size: 14px; line-height: 25px; float: right; padding: 3px 10px; color: #999; }
-.aw-reader-side .header a i { margin-right: 5px; }
+.aw-reader-side .header a i { margin-right: 5px; font-size: 16px;vertical-align: -1px;}
 /* 下拉菜单 */
 .aw-reader-side .filter { line-height: 20px; height: 40px; margin: 0 -15px; padding: 0; color: #999; border-top: 1px solid white; background: #fff; }
 .aw-reader-side .filter .dropdown-list-wrap { position: relative; margin-top: 7px; }
@@ -37,18 +37,17 @@ input, select, textarea { font: normal 12px Verdana, Arial; }
 .aw-reader-side .aw-mod ul li:hover a h2, .aw-reader-side .aw-mod ul li:hover p, .aw-reader-side .aw-mod ul li:hover p strong, .aw-reader-side .aw-mod ul li:hover a span, .aw-reader-side .aw-mod ul li.current a h2, .aw-reader-side .aw-mod ul li.current p, .aw-reader-side .aw-mod ul li.current p strong, .aw-reader-side .aw-mod ul li.current a span { color: #fff; }
 .aw-reader-side .aw-mod ul .loading { line-height: 42px; height: 42px; text-align: center; color: #999; background: url(../common/reader_loading.gif) no-repeat 90px center; }
 .aw-reader-side .aw-mod ul li a { position: relative; display: block; padding: 0; cursor: pointer; }
-.aw-reader-side .aw-mod ul li a i { position: absolute; left: 15px; top: 20px; }
+.aw-reader-side .aw-mod ul li a i { position: absolute; left: 15px; top: 25px; }
 .aw-reader-side .aw-mod h2 { font-size: 14px; line-height: 20px; overflow: hidden; max-width: 245px; max-height: 40px; margin: 0; padding: 0; text-overflow: ellipsis; color: #333; }
-.aw-reader-side .aw-mod p { font-size: 12px; overflow: hidden; margin: 5px 0 0 0; white-space: nowrap; text-overflow: ellipsis; }
+.aw-reader-side .aw-mod p { font-size: 12px; overflow: hidden; margin: 5px 0 0 0; white-space: nowrap; text-overflow: ellipsis; color: #999; }
 .aw-reader-side .aw-mod p img { width: 16px; height: 16px; margin: 0 3px 0 0; vertical-align: text-bottom; border-radius: 4px; }
 .aw-reader-side .aw-mod p strong { font-weight: normal; color: #999; }
 .aw-reader-side .aw-mod p span { color: #999; }
-.aw-reader-side .aw-mod p span::before { padding: 0 3px 0 0; content: ' ·'; }
-.aw-reader-side .vote-count { font-size: 12px; position: absolute; top: 0; right: 0; display: block; width: 35px; padding-left: 10px; text-align: center; color: #999; border-left: 1px solid #e6e6e6; }
+.aw-reader-side .vote-count { font-size: 12px; position: absolute; top: 0; right: 0; display: block; width: 35px; height: 40px; padding-left: 10px; text-align: center; color: #999; border-left: 1px solid #e6e6e6; }
 
 /* 右侧阅读区域 */
 
-.aw-reader-content { position: fixed; top: 0; bottom: -5px; left: 315px; overflow: hidden; min-width: 600px; max-width: 850px; margin: 0 10px 0 0; padding: 0 0 0 5px; background: #fff; }
+.aw-reader-content { position: fixed; top: 0; bottom: -5px; left: 315px; overflow: hidden; max-width: 850px; margin: 0 10px 0 0; padding: 0 0 0 5px; background: #fff; }
 .aw-reader-content .header { font-size: 12px; line-height: 60px; height: 60px; margin: 0 40px; -webkit-user-select: none; -moz-user-select: none; user-select: none; color: #999; border-bottom: 1px solid #f0f0f0; text-shadow: 0 1px 0 white; -khtml-user-select: none; }
 .aw-reader-content .header span { color: #999; }
 .aw-reader-content .header .top-actions { float: right; margin: 0 0 0 15px; color: #3474b5; }
@@ -59,7 +58,8 @@ input, select, textarea { font: normal 12px Verdana, Arial; }
 .aw-reader-content .question-tags ul { padding: 0; list-style-type: none; }
 .aw-reader-content .question-tags ul li { float: left; margin-right: 5px; }
 .aw-reader-content .question-tags ul li a { font-size: 12px; line-height: 16px; display: inline-block; height: 20px; padding: 2px 5px; color: #fff; border-radius: 4px; background-color: #99cfff; }
-.aw-reader-content .question-description { font-size: 14px; padding: 0 0 30px; color: #666; border-bottom: 1px solid #f0f0f0; }
+.aw-reader-content .question-description { font-size: 14px; padding: 0 0 30px; color: #666;}
+.aw-reader-content .mod-body {margin-right: -15px; border-bottom: 1px solid #f0f0f0;}
 /* 回答 */
 .aw-reader-content .aw-answer { position: relative; padding: 30px 0 40px; color: #333; }
 .aw-reader-content .aw-answer .aw-answer-info {border-bottom: none; }
