@@ -132,6 +132,7 @@ class user extends AWS_ADMIN_CONTROLLER
 
         $this->crumb(AWS_APP::lang()->_t('会员列表'), "admin/user/list/");
 
+        TPL::assign('mem_group', $this->model('account')->get_user_group_list(1));
         TPL::assign('system_group', $this->model('account')->get_user_group_list(0));
         TPL::assign('job_list', $this->model('work')->get_jobs_list());
         TPL::assign('total_rows', $total_rows);
@@ -187,11 +188,9 @@ class user extends AWS_ADMIN_CONTROLLER
         $this->crumb(AWS_APP::lang()->_t('编辑用户资料'), "admin/user/edit/");
 
         TPL::assign('job_list', $this->model('work')->get_jobs_list());
-
+        TPL::assign('mem_group', $this->model('account')->get_user_group_by_id($user['reputation_group']));
         TPL::assign('system_group', $this->model('account')->get_user_group_list(0));
-
         TPL::assign('user', $user);
-
         TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(402));
 
         TPL::output('admin/user/edit');
