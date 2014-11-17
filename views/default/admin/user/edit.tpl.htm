@@ -212,7 +212,20 @@
                     <tr>
                         <td>
                             <div class="form-group">
-                                <label class="col-sm-4 col-xs-3 control-label"><?php _e('用户组'); ?>:</label>
+                                <span class="col-sm-4 col-xs-3 control-label"><?php _e('会员组'); ?>:</span>
+                                <div class="col-sm-6 col-xs-8">
+                                    <div class="btn-group mod-btn">
+                                        <?php echo $this->mem_group['group_name']; ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                <label class="col-sm-4 col-xs-3 control-label"><?php _e('系统组'); ?>:</label>
 
                                 <div class="col-sm-5 col-xs-8">
                                     <select name="group_id" class="form-control">
@@ -244,6 +257,7 @@
                             </div>
                         </td>
                     </tr>
+
                     <tr>
                         <td>
                             <div class="form-group">
@@ -256,6 +270,7 @@
                             </div>
                         </td>
                     </tr>
+
                     <?php if ($this->user['reg_ip']) { ?>
                     <tr>
                         <td>
@@ -270,6 +285,7 @@
                         </td>
                     </tr>
                     <?php } ?>
+
                     <?php if ($this->user['last_ip']) { ?>
                     <tr>
                         <td>
@@ -284,6 +300,8 @@
                         </td>
                     </tr>
                     <?php } ?>
+
+                    <?php if ($this->user['last_login']) { ?>
                     <tr>
                         <td>
                             <div class="form-group">
@@ -296,6 +314,8 @@
                             </div>
                         </td>
                     </tr>
+                    <?php } ?>
+
                     <tr>
                         <td>
                             <div class="form-group">
@@ -308,6 +328,7 @@
                             </div>
                         </td>
                     </tr>
+
                     <tr>
                         <td>
                             <div class="form-group">
@@ -319,6 +340,7 @@
                             </div>
                         </td>
                     </tr>
+
                 <tfoot>
                 <tr>
                     <td>

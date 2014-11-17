@@ -647,7 +647,7 @@ var AWS =
 		                $('#editor_reply').html(result.answer_content.replace('&amp;', '&'));
 		            }, 'json');
 
-		            if ($(".aw-edit-comment-box .upload-list").length) 
+		            if ($(".aw-edit-comment-box .upload-list").length)
 		            {
 						var fileupload = new FileUpload('file', '.aw-edit-comment-box .aw-upload-box .btn', '.aw-edit-comment-box .aw-upload-box .upload-container', G_BASE_URL + '/publish/ajax/attach_upload/id-answer__attach_access_key-' + ATTACH_ACCESS_KEY, {'insertTextarea': '.aw-edit-comment-box #editor_reply'});
 
@@ -2236,7 +2236,7 @@ AWS.Editor =
 			case 'link' :
 				var title = 'linkText',
 					url = 'linkUrl',
-					textFeildValue = '[' + ($('#addTxtForms :input[name="' + title + '"]').val()) + '](' + $('#addTxtForms :input[name="' + url + '"]').val() + ')';;
+					textFeildValue = '[' + ($('#addTxtForms :input[name="' + title + '"]').val()) + '](' + $('#addTxtForms :input[name="' + url + '"]').val() + ')';
 			break;
 		}
 		if($('#addTxtForms :input[name="' + url + '"]').val() == '')
