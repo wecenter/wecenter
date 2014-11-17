@@ -202,7 +202,7 @@
                                         <input type="button" class="btn btn-primary" value="点击更换头像">
                                         <input type="file" name="user_avatar" exts="png|jpg|bmp|jpeg" class="mod-input-file">
                                     </span><br>
-                                     <p class="filetext"></p>
+                                    <p class="filetext"></p>
                                     <label><input name="delete_avatar" type="checkbox" value="1" /> <?php _e('删除头像'); ?></label>
                                 </div>
                             </div>
@@ -257,6 +257,7 @@
                             </div>
                         </td>
                     </tr>
+
                     <tr>
                         <td>
                             <div class="form-group">
@@ -269,6 +270,7 @@
                             </div>
                         </td>
                     </tr>
+
                     <?php if ($this->user['reg_ip']) { ?>
                     <tr>
                         <td>
@@ -283,6 +285,7 @@
                         </td>
                     </tr>
                     <?php } ?>
+
                     <?php if ($this->user['last_ip']) { ?>
                     <tr>
                         <td>
@@ -297,6 +300,8 @@
                         </td>
                     </tr>
                     <?php } ?>
+
+                    <?php if ($this->user['last_login']) { ?>
                     <tr>
                         <td>
                             <div class="form-group">
@@ -309,6 +314,8 @@
                             </div>
                         </td>
                     </tr>
+                    <?php } ?>
+
                     <tr>
                         <td>
                             <div class="form-group">
@@ -321,6 +328,7 @@
                             </div>
                         </td>
                     </tr>
+
                     <tr>
                         <td>
                             <div class="form-group">
@@ -332,6 +340,7 @@
                             </div>
                         </td>
                     </tr>
+
                 <tfoot>
                 <tr>
                     <td>
