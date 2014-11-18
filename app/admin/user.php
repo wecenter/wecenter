@@ -61,17 +61,25 @@ class user extends AWS_ADMIN_CONTROLLER
             $where[] = 'group_id = ' . intval($_GET['group_id']);
         }
 
-        if ($_GET['ip'])
+        if ($_GET['ip'] AND preg_match('/(\d{1,3}\.){3}(\d{1,3}|\*)/', $_GET['ip']))
         {
-            if (preg_match('/.*\.\\*$/i', $_GET['ip']))
+            if (substr($_GET['ip'], -2, 2) == '.*')
             {
-                $ip_base = ip2long(str_replace('*', '0', $_GET['ip']));
+                $ip_base = ip2long(str_replace('.*', '.0', $_GET['ip']));
 
-                $where[] = 'last_ip BETWEEN ' . $this->model('people')->quote($_GET['ip_base']) . ' AND ' . ($this->model('people')->quote($_GET['ip_base']) + 255);
+                if ($ip_base)
+                {
+                    $where[] = 'last_ip BETWEEN ' . $ip_base . ' AND ' . ($ip_base + 255);
+                }
             }
             else
             {
-                $where[] = 'last_ip = ' . ip2long($_GET['ip']);
+                $ip_base = ip2long($_GET['ip']);
+
+                if ($ip_base)
+                {
+                    $where[] = 'last_ip = ' . $ip_base;
+                }
             }
         }
 
@@ -132,6 +140,7 @@ class user extends AWS_ADMIN_CONTROLLER
 
         $this->crumb(AWS_APP::lang()->_t('会员列表'), "admin/user/list/");
 
+        TPL::assign('mem_group', $this->model('account')->get_user_group_list(1));
         TPL::assign('system_group', $this->model('account')->get_user_group_list(0));
         TPL::assign('job_list', $this->model('work')->get_jobs_list());
         TPL::assign('total_rows', $total_rows);
@@ -187,11 +196,9 @@ class user extends AWS_ADMIN_CONTROLLER
         $this->crumb(AWS_APP::lang()->_t('编辑用户资料'), "admin/user/edit/");
 
         TPL::assign('job_list', $this->model('work')->get_jobs_list());
-
+        TPL::assign('mem_group', $this->model('account')->get_user_group_by_id($user['reputation_group']));
         TPL::assign('system_group', $this->model('account')->get_user_group_list(0));
-
         TPL::assign('user', $user);
-
         TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(402));
 
         TPL::output('admin/user/edit');

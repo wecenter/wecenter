@@ -565,7 +565,6 @@ var AWS =
 			            $('#quick_publish_captcha').show();
 			            $('#captcha').click();
 		            }
-		            break;
 				break;
 
 		        case 'favorite':
@@ -633,7 +632,6 @@ var AWS =
 		                });
 
 		            }, 'json');
-		            break;
 				break;
 
 		        case 'report':
@@ -641,7 +639,6 @@ var AWS =
 		            {
 		                $('.aw-report-box textarea').text($(this).attr('value'));
 		            });
-		            break;
 				break;
 
 		        case 'commentEdit':
@@ -650,9 +647,10 @@ var AWS =
 		                $('#editor_reply').html(result.answer_content.replace('&amp;', '&'));
 		            }, 'json');
 
-					var fileupload = new FileUpload('file', '.aw-edit-comment-box .aw-upload-box .btn', '.aw-edit-comment-box .aw-upload-box .upload-container', G_BASE_URL + '/publish/ajax/attach_upload/id-answer__attach_access_key-' + ATTACH_ACCESS_KEY, {'insertTextarea': '.aw-edit-comment-box #editor_reply'});
+		            if ($(".aw-edit-comment-box .upload-list").length)
+		            {
+						var fileupload = new FileUpload('file', '.aw-edit-comment-box .aw-upload-box .btn', '.aw-edit-comment-box .aw-upload-box .upload-container', G_BASE_URL + '/publish/ajax/attach_upload/id-answer__attach_access_key-' + ATTACH_ACCESS_KEY, {'insertTextarea': '.aw-edit-comment-box #editor_reply'});
 
-		            if ($(".aw-edit-comment-box .upload-list").length) {
 			            $.post(G_BASE_URL + '/publish/ajax/answer_attach_edit_list/', 'answer_id=' + data.answer_id, function (data) {
 			                if (data['err']) {
 			                    return false;
@@ -663,7 +661,10 @@ var AWS =
 			                }
 			            }, 'json');
 			        }
-		            break;
+			        else
+			        {
+			        	$('.aw-edit-comment-box .aw-file-upload-box').hide();
+			        }
 		        break;
 
 		        case 'ajaxData':
@@ -2235,7 +2236,7 @@ AWS.Editor =
 			case 'link' :
 				var title = 'linkText',
 					url = 'linkUrl',
-					textFeildValue = '[' + ($('#addTxtForms :input[name="' + title + '"]').val()) + '](' + $('#addTxtForms :input[name="' + url + '"]').val() + ')';;
+					textFeildValue = '[' + ($('#addTxtForms :input[name="' + title + '"]').val()) + '](' + $('#addTxtForms :input[name="' + url + '"]').val() + ')';
 			break;
 		}
 		if($('#addTxtForms :input[name="' + url + '"]').val() == '')
