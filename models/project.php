@@ -901,4 +901,27 @@ class project_class extends AWS_MODEL
             }
         }
     }
+
+    public function update_order($order_id, $order_info)
+    {
+        if (!is_digits($order_id))
+        {
+            return false;
+        }
+
+        $to_update_order = array(
+            'shipping_address' => htmlspecialchars($order_info['shipping_address']),
+            'shipping_name' => htmlspecialchars($order_info['shipping_name']),
+            'shipping_province' => htmlspecialchars($order_info['shipping_province']),
+            'shipping_city' => htmlspecialchars($order_info['shipping_city']),
+            'shipping_mobile' => htmlspecialchars($order_info['shipping_mobile']),
+            'shipping_zipcode' => htmlspecialchars($order_info['shipping_zipcode']),
+            'track_no' => htmlspecialchars($order_info['track_no']),
+            'track_branch' => htmlspecialchars($order_info['track_branch']),
+            'note' => htmlspecialchars($order_info['note']),
+            'address' => htmlspecialchars($order_info['address'])
+        );
+
+        return $this->update('product_order', $to_update_order, 'id = ' . $order_id);
+    }
 }
