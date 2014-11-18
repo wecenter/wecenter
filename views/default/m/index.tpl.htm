@@ -109,8 +109,11 @@
 <script type="text/javascript">
 	$(document).ready(function () 
 	{
-
+		<?php if ($_GET['category']) { ?>
+		AWS.load_list_view(G_BASE_URL + '/explore/ajax/list/sort_type-new__category' + '-' + <?php echo $_GET['category']; ?> + '__day-0__is_recommend-0', $('#load_explore'), $('#load_explore_list'), 2);
+		<?php } else { ?>
 		AWS.load_list_view(G_BASE_URL + '/explore/ajax/list/', $('#load_explore'), $('#load_explore_list'), 1);
+		<?php } ?>
 
 		if ($('.top-category').length)
 		{
