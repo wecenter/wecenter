@@ -77,7 +77,7 @@ class core_config
 
 	public function set($config_id, $data)
 	{
-		if (empty($data) || (! is_array($data)))
+		if (!$data || ! is_array($data))
 		{
 			throw new Zend_Exception('config data type error');
 		}

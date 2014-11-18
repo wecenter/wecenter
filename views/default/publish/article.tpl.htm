@@ -68,7 +68,7 @@
 										<div id="wmd-preview" class="wmd-panel wmd-preview"></div>
 									</div>
 								</div>
-								
+
 								<h3><?php _e('添加话题'); ?>:</h3>
 								<div class="aw-topic-bar" data-type="publish">
 									<div class="tag-bar clearfix">
@@ -110,7 +110,7 @@
 								<?php } ?>
 							</div>
 							<div class="mod-footer clearfix">
-								<a href="page/integral" target="_blank">[积分规则]</a>
+								<?php if (get_setting('integral_system_enabled') == 'Y') { ?><a href="/integral/rule/" target="_blank">[<?php _e('积分规则'); ?>]</a><?php } ?>
 								<span class="aw-anonymity">
 									<?php if ($this->article_info['id'] AND ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator'])) { ?>
 									<label><input type="checkbox" class="pull-left" value="1" name="do_delete" />
@@ -133,9 +133,6 @@
 							<p><b>• <?php _e('文章标题'); ?>:</b> <?php _e('请用准确的语言描述您发布的文章思想'); ?></p>
 							<p><b>• <?php _e('文章补充'); ?>:</b> <?php _e('详细补充您的文章内容, 并提供一些相关的素材以供参与者更多的了解您所要文章的主题思想'); ?></p>
 							<p><b>• <?php _e('选择话题'); ?>:</b> <?php _e('选择一个或者多个合适的话题, 让您发布的文章得到更多有相同兴趣的人参与. 所有人可以在您发布文章之后添加和编辑该文章所属的话题'); ?></p>
-							<?php if (get_setting('integral_system_enabled') == 'Y') { ?>
-							<p><b>• <?php _e('关于积分'); ?>：</b> <?php _e('发起一个文章会消耗您 %s 个积分', -get_setting('integral_system_config_new_question')); ?>, <?php _e('每多一个回复你将获得 %s 个积分的奖励', -get_setting('integral_system_config_new_answer')); ?>, <?php _e('为了您的利益, 在发起文章的时候希望能够更好的描述您的文章以及多使用站内搜索功能'); ?></p>
-							<?php } ?>
 						</div>
 					</div>
 					<!-- end 文章发起指南 -->

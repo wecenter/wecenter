@@ -142,9 +142,21 @@ class ajax_google extends AWS_CONTROLLER
             $this->model('account')->associate_remote_avatar($uid, AWS_APP::session()->google_user['picture']);
         }
 
-        $user_info = $this->model('account')->get_user_info_by_uid($uid);
+        if (get_setting('register_valid_type') == 'approval')
+        {
+            $redirect_url = '/account/valid_approval/';
+        }
+        else
+        {
+            $user_info = $this->model('account')->get_user_info_by_uid($uid);
 
-        HTTP::set_cookie('_user_login', get_login_cookie_hash($user_info['user_name'], $user_info['password'], $user_info['salt'], $user_info['uid'], false));
+            HTTP::set_cookie('_user_login', get_login_cookie_hash($user_info['user_name'], $user_info['password'], $user_info['salt'], $user_info['uid'], false));
+
+            if (get_setting('register_valid_type') == 'email')
+            {
+                AWS_APP::session()->valid_email = $user_info['email'];
+            }
+        }
 
         unset(AWS_APP::session()->google_user);
 

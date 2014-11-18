@@ -78,7 +78,7 @@ class main extends AWS_CONTROLLER
 		TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
 			'base_url' => get_js_url('/favorite/tag-' . $_GET['tag']),
 			'total_rows' => $this->model('favorite')->count_favorite_items($this->user_id, $_GET['tag']),
-			'per_page' => $this->per_page
+			'per_page' => get_setting('contents_per_page')
 		))->create_links());
 
 		TPL::output('favorite/index');

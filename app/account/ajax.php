@@ -37,8 +37,7 @@ class ajax extends AWS_CONTROLLER
 			'request_find_password',
 			'find_password_modify',
 			'weixin_login_process',
-			'areas_json_data',
-			'get_weixin_login_qr_url'
+			'areas_json_data'
 		);
 
 		return $rule_action;
@@ -47,13 +46,6 @@ class ajax extends AWS_CONTROLLER
 	public function setup()
 	{
 		HTTP::no_cache_header();
-	}
-
-	public function get_weixin_login_qr_url_action()
-	{
-		H::ajax_json_output(AWS_APP::RSM(array(
-			'url' => $this->model('openid_weixin_weixin')->get_login_qr_url()
-		), 1, null));
 	}
 
 	public function check_username_action()
@@ -68,7 +60,7 @@ class ajax extends AWS_CONTROLLER
 			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('用户名已被注册')));
 		}
 
-		H::ajax_json_output(AWS_APP::RSM(null, 1, AWS_APP::lang()->_t('该用户名可以使用')));
+		H::ajax_json_output(AWS_APP::RSM(null, 1, null));
 	}
 
 	public function check_email_action()
@@ -83,7 +75,7 @@ class ajax extends AWS_CONTROLLER
 			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('邮箱地址已被使用')));
 		}
 
-		H::ajax_json_output(AWS_APP::RSM(null, 1, AWS_APP::lang()->_t('该邮箱可以使用')));
+		H::ajax_json_output(AWS_APP::RSM(null, 1, null));
 	}
 
 	public function register_process_action()
@@ -305,58 +297,49 @@ class ajax extends AWS_CONTROLLER
 				H::ajax_json_output(AWS_APP::RSM(null, -1, get_setting('close_notice')));
 			}
 
-			if (!$user_info['valid_email'] AND get_setting('register_valid_type') == 'email')
+			if (get_setting('register_valid_type') == 'approval' AND $user_info['group_id'] == 3)
 			{
-				AWS_APP::session()->valid_email = $user_info['email'];
-
-				H::ajax_json_output(AWS_APP::RSM(array(
-					'url' => get_js_url('/account/valid_email/')
-				), 1, null));
+				$url = get_js_url('/account/valid_approval/');
 			}
-			else if (get_setting('register_valid_type') == 'approval' AND $user_info['group_id'] == 3)
+			else
 			{
-				H::ajax_json_output(AWS_APP::RSM(array(
-					'url' => get_js_url('/account/valid_approval/')
-				), 1, null));
-			}
-
-			if ($_POST['net_auto_login'])
-			{
-				$expire = 60 * 60 * 24 * 360;
-			}
-
-			$this->model('account')->update_user_last_login($user_info['uid']);
-			$this->model('account')->setcookie_logout();
-
-			$this->model('account')->setcookie_login($user_info['uid'], $_POST['user_name'], $_POST['password'], $user_info['salt'], $expire);
-
-			if ($user_info['is_first_login'] AND !$_POST['_is_mobile'])
-			{
-				$url = get_js_url('/home/first_login-TRUE');
-			}
-
-			if ($_POST['return_url'] AND !strstr($_POST['return_url'], '/logout'))
-			{
-				$url = strip_tags($_POST['return_url']);
-
-				if ($_POST['_is_mobile'] AND !strstr($_POST['return_url'], '/m/'))
+				if ($_POST['net_auto_login'])
 				{
-					unset($url);
+					$expire = 60 * 60 * 24 * 360;
 				}
-				else if (strstr($_POST['return_url'], '://') AND !strstr($_POST['return_url'], base_url()))
+
+				$this->model('account')->update_user_last_login($user_info['uid']);
+				$this->model('account')->setcookie_logout();
+
+				$this->model('account')->setcookie_login($user_info['uid'], $_POST['user_name'], $_POST['password'], $user_info['salt'], $expire);
+
+				if (get_setting('register_valid_type') == 'email' AND !$user_info['valid_email'])
 				{
-					unset($url);
+					AWS_APP::session()->valid_email = $user_info['email'];
+
+					$url = get_js_url('/account/valid_email/');
 				}
-			}
+				else if ($user_info['is_first_login'] AND !$_POST['_is_mobile'])
+				{
+					$url = get_js_url('/home/first_login-TRUE');
+				}
+				else if ($_POST['return_url'] AND !strstr($_POST['return_url'], '/logout') AND
+					($_POST['_is_mobile'] AND strstr($_POST['return_url'], '/m/') OR
+					strstr($_POST['return_url'], '://') AND strstr($_POST['return_url'], base_url())))
+				{
+					$url = strip_tags($_POST['return_url']);
+				}
+				else if ($_POST['_is_mobile'])
+				{
+					$url = get_js_url('/m/');
+				}
 
-			if (!$url AND $_POST['_is_mobile'])
-			{
-				$url = get_js_url('/m/');
-			}
+				if (get_setting('ucenter_enabled') == 'Y')
+				{
+					$sync_url = get_js_url('/account/sync_login/');
 
-			if (get_setting('ucenter_enabled') == 'Y')
-			{
-				$url = get_js_url('/account/sync_login/url-' . @base64_encode($url));
+					$url = ($url) ? $sync_url . 'url-' . base64_encode($url) : $sync_url;
+				}
 			}
 
 			H::ajax_json_output(AWS_APP::RSM(array(

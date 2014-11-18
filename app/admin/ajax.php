@@ -138,6 +138,11 @@ class ajax extends AWS_ADMIN_CONTROLLER
             }
         }
 
+        if ($_POST['weixin_encoding_aes_key'] AND strlen($_POST['weixin_encoding_aes_key']) != 43)
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('微信公众平台接口 EncodingAESKey 应为 43 位')));
+        }
+
         if ($_POST['set_notification_settings'])
         {
             if ($notify_actions = $this->model('notify')->notify_action_details)
@@ -183,11 +188,6 @@ class ajax extends AWS_ADMIN_CONTROLLER
         }
 
         $this->model('setting')->set_vars($_POST);
-
-        if ($_POST['wecenter_access_token'])
-        {
-            $this->model('weixin')->get_weixin_app_id_setting_var();
-        }
 
         H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('保存设置成功')));
     }
@@ -1279,6 +1279,19 @@ class ajax extends AWS_ADMIN_CONTROLLER
             }
 
             $update_data['verified'] = $_POST['verified'];
+
+            $verify_apply = $this->model('verify')->fetch_apply($user_info['uid']);
+
+            if ($verify_apply AND $verify_apply['type'] != $update_data['verified'])
+            {
+                if (!$update_data['verified'])
+                {
+                    $this->model('verify')->decline_verify($user_info['uid']);
+                }
+
+                $this->model('verify')->update_apply($user_info['uid'], null, null, null, null, $update_data['verified']);
+            }
+
             $update_data['valid_email'] = intval($_POST['valid_email']);
             $update_data['forbidden'] = intval($_POST['forbidden']);
 

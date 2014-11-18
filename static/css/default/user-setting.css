@@ -4,7 +4,7 @@
 .aw-user-setting .aw-mod .aw-mod:first-child{border-top: none;}
 .aw-user-setting .aw-mod .form-group{margin:15px 0;line-height: 30px;}
 /* 用户设置页面 */
-.aw-user-setting h3{font-size: 16px;color: #333333;}
+.aw-user-setting h3{font-size: 16px;color: #333;}
 .aw-user-setting .form-horizontal .control-group{position: relative;}
 .aw-user-setting .form-horizontal p{margin: 0;}
 .aw-user-setting .form-horizontal p span{margin-left: 10px;}
@@ -56,8 +56,8 @@
 .aw-user-setting .mod-setting-bind .icon-twitter{background-color: #1eb5ee;}
 /* 我的积分 */
 .aw-user-setting-points table{margin:20px 0;font-size:13px;color: #666;}
-.aw-user-setting-points table .info th{background-color: #F5FAFE !important;border-top: none;font-weight: normal;}
-.aw-user-setting-points .table th, .aw-user-setting-points .table td{border-top: 1px solid #DCEDFA;}
+.aw-user-setting-points table .info th{background-color: #f5fafe !important;border-top: none;font-weight: normal;}
+.aw-user-setting-points .table th, .aw-user-setting-points .table td{border-top: 1px solid #dcedfa;}
 /*响应式*/
 @media (max-width: 640px) {
 	.aw-nav-tabs h2 {position: static;}

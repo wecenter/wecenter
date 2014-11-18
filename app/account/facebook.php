@@ -125,24 +125,41 @@ class facebook extends AWS_CONTROLLER
 
                     $this->model('openid_facebook')->update_user_info($facebook_user['id'], $facebook_user_info);
 
-                    HTTP::set_cookie('_user_login', get_login_cookie_hash($user['user_name'], $user['password'], $user['salt'], $user['uid'], false));
-
-                    if (get_setting('ucenter_enabled') == 'Y')
+                    if (get_setting('register_valid_type') == 'approval' AND $user['group_id'] == 3)
                     {
-                        $redirect_url = '/account/sync_login/';
-
-                        if ($_GET['return_url'])
-                        {
-                            $redirect_url .= 'url-' . $_GET['return_url'];
-                        }
-                    }
-                    else if ($_GET['return_url'])
-                    {
-                        $redirect_url = base64_decode($_GET['return_url']);
+                        $redirect_url = '/account/valid_approval/';
                     }
                     else
                     {
-                        $redirect_url = '/';
+                        if ($_GET['state'])
+                        {
+                            $state = base64_url_decode($_GET['state']);
+                        }
+
+                        if (get_setting('ucenter_enabled') == 'Y')
+                        {
+                            $redirect_url = '/account/sync_login/';
+
+                            if ($state['return_url'])
+                            {
+                                $redirect_url .= 'url-' . base64_encode($state['return_url']);
+                            }
+                        }
+                        else if ($state['return_url'])
+                        {
+                            $redirect_url = $state['return_url'];
+                        }
+                        else
+                        {
+                            $redirect_url = '/';
+                        }
+
+                        HTTP::set_cookie('_user_login', get_login_cookie_hash($user['user_name'], $user['password'], $user['salt'], $user['uid'], false));
+
+                        if (get_setting('register_valid_type') == 'email' AND !$user['valid_email'])
+                        {
+                            AWS_APP::session()->valid_email = $user['email'];
+                        }
                     }
 
                     HTTP::redirect($redirect_url);
@@ -185,7 +202,14 @@ class facebook extends AWS_CONTROLLER
         }
         else
         {
-            HTTP::redirect($this->model('openid_facebook')->get_redirect_url($callback_url));
+            if (get_setting('url_rewrite_enable') != 'Y')
+            {
+                H::redirect_msg(AWS_APP::lang()->_t('本接口只有当伪静态启用时才可以使用，请联系管理员开启伪静态'), '/account/login/');
+            }
+
+            $state = ($_GET['return_url']) ? base64_url_encode(array('return_url' => base64_decode($_GET['return_url']))) : null;
+
+            HTTP::redirect($this->model('openid_facebook')->get_redirect_url('/account/facebook/bind/', $state));
         }
     }
 

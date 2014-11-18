@@ -130,8 +130,6 @@ class main extends AWS_CONTROLLER
 
 		$this->crumb(AWS_APP::lang()->_t('微信登录'), '/account/weixin_login/');
 
-		TPL::assign('qr_code_url', $this->model('openid_weixin_weixin')->get_login_qr_url());
-
 		TPL::output('account/weixin_login');
 	}
 
@@ -144,7 +142,7 @@ class main extends AWS_CONTROLLER
 
 		if (get_setting('register_type') == 'close')
 		{
-			H::redirect_msg(AWS_APP::lang()->_t('本站目前关闭注册'));
+			H::redirect_msg(AWS_APP::lang()->_t('本站目前关闭注册'), '/');
 		}
 		else if (get_setting('register_type') == 'invite' AND !$_GET['icode'])
 		{
@@ -153,11 +151,11 @@ class main extends AWS_CONTROLLER
 				HTTP::redirect('/account/weixin_login/command-REGISTER');
 			}
 
-			H::redirect_msg(AWS_APP::lang()->_t('本站只接受邀请注册'));
+			H::redirect_msg(AWS_APP::lang()->_t('本站只接受邀请注册'), '/');
 		}
 		else if (get_setting('register_type') == 'weixin')
 		{
-			H::redirect_msg(AWS_APP::lang()->_t('本站只能通过微信注册'));
+			H::redirect_msg(AWS_APP::lang()->_t('本站只能通过微信注册'), '/');
 		}
 
 		if ($_GET['icode'])
@@ -168,7 +166,7 @@ class main extends AWS_CONTROLLER
 			}
 			else
 			{
-				H::redirect_msg(AWS_APP::lang()->_t('邀请码无效或已经使用, 请使用新的邀请码'));
+				H::redirect_msg(AWS_APP::lang()->_t('邀请码无效或已经使用, 请使用新的邀请码'), '/');
 			}
 		}
 
@@ -279,7 +277,7 @@ class main extends AWS_CONTROLLER
 
 	public function valid_approval_action()
 	{
-		if ($this->user_info['group_id'] == 3)
+		if ($this->user_id AND $this->user_info['group_id'] != 3)
 		{
 			HTTP::redirect('/');
 		}
