@@ -70,7 +70,7 @@
 				</ul>
 			</div>
 			<div class="mod-footer">
-				<a id="load_explore" class="aw-load-more"><i class="icon icon-loading icon-spin"></i> <span><?php _e('更多'); ?></span></a>
+				<a id="load_explore" class="aw-load-more" auto-load="false"><i class="icon icon-loading icon-spin"></i> <span><?php _e('更多'); ?></span></a>
 			</div>
 		</div>
 		<!-- end 问题列表 -->
@@ -110,7 +110,7 @@
 	$(document).ready(function () 
 	{
 
-		AWS.load_list_view(G_BASE_URL + '/explore/ajax/list/', $('#load_explore'), $('#load_explore_list'));
+		AWS.load_list_view(G_BASE_URL + '/explore/ajax/list/', $('#load_explore'), $('#load_explore_list'), 1);
 
 		if ($('.top-category').length)
 		{
