@@ -635,7 +635,9 @@ class main extends AWS_CONTROLLER
 
 		if ($_GET['category'])
 		{
-			TPL::assign('category_info', $this->model('system')->get_category_info($_GET['category']));
+			$category_info = $this->model('system')->get_category_info($_GET['category']);
+
+			TPL::assign('category_info', $category_info);
 		}
 
 		if (! $_GET['sort_type'] AND !$_GET['is_recommend'])
