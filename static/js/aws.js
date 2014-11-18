@@ -647,9 +647,9 @@ var AWS =
 		                $('#editor_reply').html(result.answer_content.replace('&amp;', '&'));
 		            }, 'json');
 
-		            if ($(".aw-edit-comment-box .upload-list").length)
+		            if (UPLOAD_ENABLE == 'Y')
 		            {
-						var fileupload = new FileUpload('file', '.aw-edit-comment-box .aw-upload-box .btn', '.aw-edit-comment-box .aw-upload-box .upload-container', G_BASE_URL + '/publish/ajax/attach_upload/id-answer__attach_access_key-' + ATTACH_ACCESS_KEY, {'insertTextarea': '.aw-edit-comment-box #editor_reply'});
+		            	var fileupload = new FileUpload('file', '.aw-edit-comment-box .aw-upload-box .btn', '.aw-edit-comment-box .aw-upload-box .upload-container', G_BASE_URL + '/publish/ajax/attach_upload/id-answer__attach_access_key-' + ATTACH_ACCESS_KEY, {'insertTextarea': '.aw-edit-comment-box #editor_reply'});
 
 			            $.post(G_BASE_URL + '/publish/ajax/answer_attach_edit_list/', 'answer_id=' + data.answer_id, function (data) {
 			                if (data['err']) {
@@ -660,11 +660,11 @@ var AWS =
 			                    });
 			                }
 			            }, 'json');
-			        }
-			        else
-			        {
-			        	$('.aw-edit-comment-box .aw-file-upload-box').hide();
-			        }
+		            }
+		            else
+		            {
+		            	$('.aw-edit-comment-box .aw-file-upload-box').hide();
+		            }
 		        break;
 
 		        case 'ajaxData':
