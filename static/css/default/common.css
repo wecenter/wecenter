@@ -601,6 +601,7 @@ a.aw-load-more-content{display: block;}
 .aw-topic-list-mod .aw-nav-tabs .aw-search-bar .aw-dropdown-list{max-height: 336px;overflow-y:scroll;}
 .aw-topic-list-mod .tab-pane .aw-mod > .mod-body{padding:0 20px;}
 .aw-topic-detail-about{padding:20px;}
+.aw-topic-list-mod .markitup-box br {display: none;}
 /* 话题编辑页面 */
 .aw-mod-topic-edit-box{padding:20px;}
 .aw-mod-topic-edit-box > .mod-head{position: relative;margin:0 0 30px 0;padding:0 0 0 60px;}
