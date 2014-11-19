@@ -197,14 +197,19 @@ class article_class extends AWS_MODEL
 		return true;
 	}
 
-	public function get_articles_list($category_id, $page, $per_page, $order_by)
+	public function get_articles_list($category_id, $page, $per_page, $order_by, $day = null)
 	{
 		if ($category_id)
 		{
-			$where = 'category_id = ' . intval($category_id);
+			$where[] = 'category_id = ' . intval($category_id);
 		}
 
-		return $this->fetch_page('article', $where, $order_by, $page, $per_page);
+		if (is_digits($day))
+		{
+			$where[] = 'add_time > ' . (time() - $day * 24 * 60 * 60);
+		}
+
+		return $this->fetch_page('article', implode(' AND ', $where), $order_by, $page, $per_page);
 	}
 
 	public function get_articles_list_by_topic_ids($page, $per_page, $order_by, $topic_ids)
