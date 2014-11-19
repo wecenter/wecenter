@@ -981,6 +981,16 @@
                 <tr>
                     <td>
                         <div class="form-group">
+                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('问题被回复时增加发起者积分'); ?>:</span>
+                            <div class="col-sm-5 col-xs-8">
+                                <input name="integral_system_config_answer_change_source" type="text" class="form-control" value="<?php echo $this->setting['integral_system_config_answer_change_source']; ?>"/>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="form-group">
                             <span class="col-sm-4 col-xs-3 control-label"><?php _e('回复被评为最佳回复'); ?>:</span>
                             <div class="col-sm-5 col-xs-8">
                                 <input name="integral_system_config_best_answer" type="text" class="form-control" value="<?php echo $this->setting['integral_system_config_best_answer']; ?>"/>
