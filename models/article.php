@@ -199,12 +199,14 @@ class article_class extends AWS_MODEL
 
 	public function get_articles_list($category_id, $page, $per_page, $order_by, $day = null)
 	{
+		$where = array();
+
 		if ($category_id)
 		{
 			$where[] = 'category_id = ' . intval($category_id);
 		}
 
-		if (is_digits($day))
+		if ($day)
 		{
 			$where[] = 'add_time > ' . (time() - $day * 24 * 60 * 60);
 		}
