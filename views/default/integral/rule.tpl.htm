@@ -27,10 +27,12 @@
                         <dt><?php _e('回复问题'); ?></dt>
                         <dd><span class="<?php if (get_setting('integral_system_config_new_answer') >= 0) { ?>green<?php } else { ?>red<?php } ?>"><?php _e('%s 分', get_setting('integral_system_config_new_answer')); ?></span></dd>
                     </dl>
+                    <?php if (get_setting('integral_system_config_answer_change_source') == 'Y' AND get_setting('integral_system_config_new_answer') <= 0) { ?>
                     <dl>
                         <dt><?php _e('问题被回复'); ?></dt>
-                        <dd><span class="<?php if (-get_setting('integral_system_config_new_answer') >= 0) { ?>green<?php } else { ?>red<?php } ?>"><?php _e('%s 分', -get_setting('integral_system_config_new_answer')); ?></span></dd>
+                        <dd><span class="green"><?php _e('%s 分', -get_setting('integral_system_config_new_answer')); ?></span></dd>
                     </dl>
+                    <?php } ?>
                     <dl>
                         <dt><?php _e('回复被评为最佳回复'); ?></dt>
                         <dd><span class="<?php if (get_setting('integral_system_config_best_answer') >= 0) { ?>green<?php } else { ?>red<?php } ?>"><?php _e('%s 分', get_setting('integral_system_config_best_answer')); ?></span></dd>
