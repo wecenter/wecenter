@@ -30,7 +30,7 @@
 				</form>
 			</div>
 			<div class="side-bar pull-left">
-				<?php if (get_setting('site_close') != 'Y' && (get_setting('sina_weibo_enabled') == 'Y' || get_setting('qq_login_enabled') == 'Y' || get_setting('google_login_enabled') == 'Y' || get_setting('weixin_app_id') && get_setting('weixin_account_role') == 'service')) { ?>
+				<?php if (get_setting('site_close') != 'Y' && (get_setting('sina_weibo_enabled') == 'Y' || get_setting('qq_login_enabled') == 'Y' || get_setting('google_login_enabled') == 'Y' || get_setting('facebook_login_enabled') == 'Y' || get_setting('weixin_app_id') && get_setting('weixin_account_role') == 'service')) { ?>
 
 					<?php if ($this->return_url) $return_url = 'return_url-' . base64_encode($this->return_url); ?>
 
