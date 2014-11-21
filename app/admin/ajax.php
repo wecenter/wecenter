@@ -1909,7 +1909,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请输入标题')));
         }
 
-        if (!$_POST['content'])
+        if (!$_POST['content']AND in_array($_POST['type'], array('answer', 'article_comment')))
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请输入内容')));
         }
