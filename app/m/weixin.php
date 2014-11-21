@@ -176,7 +176,7 @@ class weixin extends AWS_CONTROLLER
 					}
 					else
 					{
-						H::redirect_msg(AWS_APP::lang()->_t('绑定微信成功'));
+						H::redirect_msg(AWS_APP::lang()->_t('绑定微信成功'), '/m/');
 					}
 				}
 
@@ -190,7 +190,7 @@ class weixin extends AWS_CONTROLLER
 						}
 						else
 						{
-							H::redirect_msg(AWS_APP::lang()->_t('绑定微信成功'));
+							H::redirect_msg(AWS_APP::lang()->_t('绑定微信成功'), '/m/');
 						}
 					}
 					else
@@ -238,7 +238,7 @@ class weixin extends AWS_CONTROLLER
 			}
 			else
 			{
-				H::redirect_msg(AWS_APP::lang()->_t('绑定微信成功'));
+				H::redirect_msg(AWS_APP::lang()->_t('绑定微信成功'), '/m/');
 			}
 		}
 		else
@@ -344,7 +344,7 @@ class weixin extends AWS_CONTROLLER
 				}
 				else
 				{
-					H::redirect_msg(AWS_APP::lang()->_t('绑定微信成功'));
+					H::redirect_msg(AWS_APP::lang()->_t('绑定微信成功'), '/m/');
 				}
 			}
 			else
