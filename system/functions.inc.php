@@ -429,7 +429,7 @@ function date_friendly($timestamp, $time_limit = 604800, $out_format = 'Y-m-d H:
 
 	if ($formats == null)
 	{
-		$formats = array('YEAR' => '%s 年前', 'MONTH' => '%s 月前', 'DAY' => '%s 天前', 'HOUR' => '%s 小时前', 'MINUTE' => '%s 分钟前', 'SECOND' => '%s 秒前');
+	$formats = array('YEAR' => AWS_APP::lang()->_t("%s 年前"), 'MONTH' => AWS_APP::lang()->_t("%s 月前"), 'DAY' => AWS_APP::lang()->_t("%s 天前"), 'HOUR' => AWS_APP::lang()->_t("%s 小时前"), 'MINUTE' => AWS_APP::lang()->_t("%s 分钟前"), 'SECOND' => AWS_APP::lang()->_t("%s 秒前"));
 	}
 
 	$time_now = $time_now == null ? time() : $time_now;
