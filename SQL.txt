@@ -1,0 +1,20 @@
+CREATE TABLE `aws_ticket` (
+`id` int(10) NOT NULL,
+  `priority` enum('LOW','NORMAL','HIGH','URGENT') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'NORMAL',
+  `status` enum('PENDING','CLOSED','','') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'PENDING',
+  `uid` int(10) NOT NULL DEFAULT '0',
+  `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `message` text COLLATE utf8_unicode_ci,
+  `source` varchar(16) COLLATE utf8_unicode_ci NOT NULL,
+  `time` int(10) NOT NULL,
+  `rating` enum('BAD','GOOD','','') COLLATE utf8_unicode_ci DEFAULT '',
+  `question_id` int(10) NOT NULL DEFAULT '0'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+CREATE TABLE `aws_ticket_log` (
+`id` int(10) NOT NULL,
+  `ticket_id` int(10) NOT NULL,
+  `uid` int(10) NOT NULL,
+  `note` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `time` int(10) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
