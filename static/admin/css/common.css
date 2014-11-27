@@ -53,6 +53,7 @@ ul,ol{padding:0;list-style:none;}
 .mod-chat:after,.mod-chat:before{bottom: 100%;left: 92%;border: solid transparent;content: " ";height: 0;width: 0;position: absolute;pointer-events: none;border-color: rgba(255, 255, 255, 0);border-bottom-color: #f4f4f4;border-width: 7px;margin-left: -7px;}
 .mod-chat:before{border-bottom-color: #ccc;border-width: 8px;margin-left: -8px;}
 .mod-media a{padding:2px;}
+.btn-group.mod-btn {display: block;}
 .mod-btn a{color:#fff;}
 .mod-btn a:hover{background:#3695d5;}
 .mod-chat .thumb{display:block;padding:3px;border:1px solid #e2e1e1;background:#fff;}

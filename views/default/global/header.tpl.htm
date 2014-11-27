@@ -61,7 +61,7 @@
 						</div>
 					</li>
 					<?php } ?>
-					<li><a href="help/" <?php if ($_GET['app'] == 'help') { ?>class="active"<?php } ?>><i class="icon icon-bulb"></i> <?php _e('帮助'); ?></a></li>
+					<?php if (get_setting('enable_help_center') == 'Y') { ?><li><a href="help/"<?php if ($_GET['app'] == 'help') { ?> class="active"<?php } ?>><i class="icon icon-bulb"></i> <?php _e('帮助'); ?></a></li><?php } ?>
 			      </ul>
 			    </nav>
 			</div>

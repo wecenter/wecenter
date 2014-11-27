@@ -1,10 +1,11 @@
 // Translate by dup (286090923@qq.com)
+// modify by ytlreal
 
 var aws_lang = new Array();
 
 aws_lang['没有内容'] = 'No content';
 aws_lang['清空所有'] = 'Clear all';
-aws_lang['没有更多了'] = 'No more of the';
+aws_lang['没有更多了'] = 'no more';
 aws_lang['删除草稿'] = 'Delete Draft';
 aws_lang['匿名用户'] = 'Anonymous User';
 aws_lang['威望'] = 'Prestige';
@@ -28,20 +29,20 @@ aws_lang['将问题重定向至'] = 'The problem is redirected to';
 aws_lang['搜索问题'] = 'Searching questions';
 aws_lang['没有找到相关结果'] = 'No result found';
 aws_lang['放弃操作'] = 'Abort the operation';
-aws_lang['发起问题'] = 'Initiate problem';
+aws_lang['发起问题'] = 'Ask question';
 aws_lang['写下你的问题'] = 'Write your question';
-aws_lang['问题背景、条件等详细信息'] = 'For more information on the problem context, conditions, etc.';
+aws_lang['问题背景、条件等详细信息'] = 'Question background,condition or some more information';
 aws_lang['选择分类'] = 'Select Category';
 aws_lang['编辑话题'] = 'Edit topic';
 aws_lang['验证码'] = 'Confirmation code';
-aws_lang['发起'] = 'Initiated';
+aws_lang['发起'] = 'Post';
 aws_lang['高级模式'] = 'Advanced Mode';
 aws_lang['新私信'] = 'New message';
 aws_lang['搜索用户'] = 'Search Users';
 aws_lang['私信内容...'] = 'Private letter contents ...';
 aws_lang['发送'] = 'Send';
-aws_lang['创建或搜索添加新话题'] = 'Create or add a new topic search';
-aws_lang['添加'] = 'Add to';
+aws_lang['创建或搜索添加新话题'] = 'search or create tags';
+aws_lang['添加'] = 'Add';
 aws_lang['评论一下'] = 'Comment';
 aws_lang['评论'] = 'Comment';
 aws_lang['举报问题'] = 'Report problem';
@@ -71,3 +72,4 @@ aws_lang['赞'] = 'Like';
 aws_lang['暂无介绍'] = 'No Introduction';
 aws_lang['没有未读通知'] = 'No unread notifications';
 aws_lang['暂无评论'] = 'No comments';
+aws_lang['帮助中心'] = 'Help';
