@@ -60,15 +60,15 @@ class main extends AWS_CONTROLLER
 			$url = $return_url;
 		}
 
-        if ($_GET['key'] != md5(session_id()))
-        {
-            H::redirect_msg(AWS_APP::lang()->_t('正在准备退出, 请稍候...'), '/account/logout/?return_url=' . urlencode($url) . '&key=' . md5(session_id()));
-        }
+		if ($_GET['key'] != md5(session_id()))
+		{
+			H::redirect_msg(AWS_APP::lang()->_t('正在准备退出, 请稍候...'), '/account/logout/?return_url=' . urlencode($url) . '&key=' . md5(session_id()));
+		}
 
-        $this->model('account')->setcookie_logout();	// 清除 COOKIE
-        $this->model('account')->setsession_logout();	// 清除 Session
+		$this->model('account')->setcookie_logout();    // 清除 COOKIE
+		$this->model('account')->setsession_logout();   // 清除 Session
 
-        $this->model('admin')->admin_logout();
+		$this->model('admin')->admin_logout();
 
 		if (get_setting('ucenter_enabled') == 'Y')
 		{
@@ -199,7 +199,9 @@ class main extends AWS_CONTROLLER
 			$url = base64_decode($_GET['url']);
 		}
 
-		if ((strstr($url, '://') AND substr($url, 0, strlen(base_url())) != base_url() OR !$url)
+		$base_url = base_url();
+
+		if (!$url OR strstr($url, '://') AND substr($url, 0, strlen($base_url)) != $base_url)
 		{
 			$url = '/';
 		}
