@@ -199,7 +199,7 @@ class main extends AWS_CONTROLLER
 			$url = base64_decode($_GET['url']);
 		}
 
-		if ((strstr($url, '://') AND !strstr($url, base_url())) OR !$url)
+		if ((strstr($url, '://') AND substr($url, 0, strlen(base_url())) != base_url() OR !$url)
 		{
 			$url = '/';
 		}
