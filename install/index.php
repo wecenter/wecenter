@@ -363,7 +363,7 @@ switch ($_POST['step'])
 		}
 		else
 		{
-			$base_url = strtolower(base_url());
+			$base_url = base_url();
 
 			if (substr($base_url, -8) == '/install')
 			{

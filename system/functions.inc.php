@@ -160,7 +160,7 @@ function valid_ip($ip)
 }
 
 /**
- * 检查字符串或数组内的字符串是否为纯数字
+ * 检查字符串或数组内的字符串是否为纯数字（十进制数字，不包括负数和小数）
  *
  * @param string or array
  * @return boolean
@@ -184,10 +184,8 @@ function is_digits($num)
 
 		return true;
 	}
-	else
-	{
-		return Zend_Validate::is($num, 'Digits');
-	}
+
+	return Zend_Validate::is($num, 'Digits');
 }
 
 if (! function_exists('iconv'))

@@ -31,6 +31,14 @@ class main extends AWS_CONTROLLER
         return $rule_action;
     }
 
+    public function setup()
+    {
+        if (get_setting('enable_help_center') != 'Y')
+        {
+            H::redirect_msg(AWS_APP::lang()->_t('本站未启用帮助中心'), '/');
+        }
+    }
+
     public function index_action()
     {
         if ($_GET['id'])
