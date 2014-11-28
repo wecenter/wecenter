@@ -3,7 +3,7 @@
 +--------------------------------------------------------------------------
 |   WeCenter [#RELEASE_VERSION#]
 |   ========================================
-|   by Tatfook Network Team
+|   by WeCenter Software
 |   © 2011 - 2014 WeCenter. All Rights Reserved
 |   http://www.wecenter.com
 |   ========================================
@@ -12,31 +12,23 @@
 +---------------------------------------------------------------------------
 */
 
-define('IN_AJAX', TRUE);
 
 if (!defined('IN_ANWSION'))
 {
-	die;
+    die;
 }
 
-class ajax extends AWS_CONTROLLER
+class main extends AWS_CONTROLLER
 {
-	public function get_access_rule()
-	{
-		$rule_action['rule_type'] = 'white';
+    public function get_access_rule()
+    {
+        $rule_action['rule_type'] = 'white'; //黑名单,黑名单中的检查  'white'白名单,白名单以外的检查
+        $rule_action['actions'] = array();
+        return $rule_action;
+    }
 
-		$rule_action['actions'] = array(
-			
-		);
-
-		return $rule_action;
-	}
-
-	public function setup()
-	{
-		HTTP::no_cache_header();
-	}
-
-	
-	
+    public function setup()
+    {
+        $this->crumb(AWS_APP::lang()->_t('提交工单'), '/ticket/publish');
+    }
 }

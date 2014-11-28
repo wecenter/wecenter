@@ -7,7 +7,7 @@
 				<div class="col-sm-12 col-md-9 aw-main-content">
 					<!-- tab 切换 -->
 					<ul class="nav nav-tabs aw-nav-tabs active">
-						<li class="active"><a href="publish/order/"><?php _e('工单'); ?></a></li>
+						<li class="active"><a href="publish/ticket/"><?php _e('工单'); ?></a></li>
 						<?php if ($this->user_info['permission']['publish_article']) { ?>
 						<li><a href="publish/article/"><?php _e('文章'); ?></a></li>
 						<?php } ?>
@@ -15,51 +15,36 @@
 						<h2 class="hidden-xs"><i class="icon icon-ask"></i> <?php _e('发起'); ?></h2>
 					</ul>
 					<!-- end tab 切换 -->
-					<form action="publish/ajax/<?php if ($this->question_info['question_id']) { ?>modify<?php } else { ?>publish<?php } ?>_question/" method="post" id="question_form" onsubmit="return false;">
+					<form action="publish/ajax/ticket/publish_ticket/" method="post" id="ticket_form" onsubmit="return false;">
 						<input type="hidden" name="post_hash" value="<?php echo new_post_hash(); ?>" />
 						<input type="hidden" name="attach_access_key" value="<?php echo $this->attach_access_key; ?>" />
-						<input type="hidden" name="question_id" id="question_id" value="<?php echo $this->question_info['question_id']; ?>" />
-						<input type="hidden" name="ask_user_id" value="<?php echo $_POST['ask_user_id']; ?>" />
-						<?php if ($this->question_category_list) { ?>
-						<select name="category_id" class="hide" id="category_id">
-							<option value="0">- <?php _e('请选择分类'); ?> -</option>
-							<?php echo $this->question_category_list; ?>
-						</select>
-						<?php } ?>
+
 						<div class="aw-mod aw-mod-publish">
 							<div class="mod-body">
 								<h3><?php _e('问题标题'); ?>:</h3>
 								<!-- 问题标题 -->
-								<div class="aw-publish-title<?php if (!$this->question_category_list) { ?> active<?php } ?>">
+								<div class="aw-publish-title active">
 									<div>
-										<input type="text" placeholder="<?php _e('问题标题'); ?>..." name="question_content" id="question_contents" value="<?php echo $this->question_info['question_content']; ?>" class="form-control" />
-										<div class="aw-publish-suggest-question hide">
+										<input type="text" placeholder="<?php _e('工单标题'); ?>..." name="ticket_content" id="ticket_contents" value="<?php echo $this->ticket_info['ticket_content']; ?>" class="form-control" />
+										<div class="aw-publish-suggest-ticket hide">
 											<p class="text-color-999">你的问题可能已经有答案</p>
 											<ul class="aw-dropdown-list">
 											</ul>
 										</div>
 									</div>
-									<?php if ($this->question_category_list) { ?>
-									<div class="dropdown">
-										<div class="dropdown-toggle" data-toggle="dropdown">
-											<span id="aw-topic-tags-select" class="aw-hide-txt"><?php _e('选择分类'); ?></span>
-											<a href="javascript:;"><i class="icon icon-down"></i></a></a>
-										</div>
-									</div>
-									<?php } ?>
 								</div>
 								<!-- end 问题标题 -->
 
-								<h3><?php _e('问题补充 (选填)'); ?>:</h3>
+								<h3><?php _e('补充说明 (选填)'); ?>:</h3>
 								<div class="aw-mod aw-editor-box">
 									<div class="mod-head">
 										<div class="wmd-panel">
 								            <div id="wmd-button-bar"></div>
-								            <textarea class="wmd-input form-control autosize" id="wmd-input" rows="15" name="question_detail"><?php echo $this->question_info['question_detail']; ?></textarea>
+								            <textarea class="wmd-input form-control autosize" id="wmd-input" rows="15" name="ticket_detail"><?php echo $this->ticket_info['ticket_detail']; ?></textarea>
 								        </div>
 									</div>
 									<div class="mod-body">
-										<span class="pull-right text-color-999" id="question_detail_message">&nbsp;</span>
+										<span class="pull-right text-color-999" id="ticket_detail_message">&nbsp;</span>
 										<?php if (get_setting('upload_enable') == 'Y') { ?>
 										<div class="aw-upload-box">
 											<a class="btn btn-default">上传附件</a>
@@ -69,10 +54,10 @@
 										<?php } ?>
 									</div>
 									<div class="mod-footer">
-										<div id="wmd-preview" class="wmd-panel wmd-preview"></div>		
+										<div id="wmd-preview" class="wmd-panel wmd-preview"></div>
 									</div>
 								</div>
-								<?php if (!$this->question_info['question_id']) { ?>
+								<?php if (!$this->ticket_info['ticket_id']) { ?>
 								<h3><?php _e('添加话题'); ?>:</h3>
 								<div class="aw-topic-bar" data-type="publish">
 									<div class="tag-bar clearfix">
@@ -124,38 +109,24 @@
 							<div class="mod-footer clearfix">
 								<a href="page/integral" target="_blank">[积分规则]</a>
 								<span class="aw-anonymity">
-									<?php if ($this->question_info['question_id'] AND ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator'])) { ?>
+									<?php if ($this->ticket_info['ticket_id'] AND ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator'])) { ?>
 									<label><input type="checkbox" class="pull-left" value="1" name="do_delete" />
 										<?php _e('删除问题'); ?></label>
 									<?php } ?>
-									<?php if (!$this->question_info['question_id'] AND get_setting('anonymous_enable') == 'Y') { ?>
+									<?php if (!$this->ticket_info['ticket_id'] AND get_setting('anonymous_enable') == 'Y') { ?>
 									<label><input type="checkbox" class="pull-left" value="1" name="anonymous" />
 										<?php _e('匿名'); ?></label>
 									<?php } ?>
 
 								</span>
-								<a class="btn btn-large btn-success btn-publish-submit" id="publish_submit" onclick="AWS.ajax_post($('#question_form')); return false;"><?php _e('确认发起'); ?></a>
+								<a class="btn btn-large btn-success btn-publish-submit" id="publish_submit" onclick="AWS.ajax_post($('#ticket_form')); return false;"><?php _e('确认发起'); ?></a>
 							</div>
 						</div>
 					</form>
 				</div>
 				<!-- 侧边栏 -->
 				<div class="col-sm-12 col-md-3 aw-side-bar hidden-xs">
-					<!-- 问题发起指南 -->
-					<div class="aw-mod publish-help">
-						<div class="mod-head">
-							<h3><?php _e('问题发起指南'); ?></h3>
-						</div>
-						<div class="mod-body">
-							<p><b>• <?php _e('问题标题'); ?>:</b> <?php _e('请用准确的语言描述您发布的问题思想'); ?></p>
-							<p><b>• <?php _e('问题补充'); ?>:</b> <?php _e('详细补充您的问题内容, 并提供一些相关的素材以供参与者更多的了解您所要问题的主题思想'); ?></p>
-							<p><b>• <?php _e('选择话题'); ?>:</b> <?php _e('选择一个或者多个合适的话题, 让您发布的问题得到更多有相同兴趣的人参与. 所有人可以在您发布问题之后添加和编辑该问题所属的话题'); ?></p>
-							<?php if (get_setting('integral_system_enabled') == 'Y') { ?>
-							<p><b>• <?php _e('关于积分'); ?>：</b> <?php _e('发起一个问题会消耗您 %s 个积分', -get_setting('integral_system_config_new_question')); ?>, <?php _e('每多一个回复你将获得 %s 个积分的奖励', -get_setting('integral_system_config_new_answer')); ?>, <?php _e('为了您的利益, 在发起问题的时候希望能够更好的描述您的问题以及多使用站内搜索功能'); ?></p>
-							<?php } ?>
-						</div>
-					</div>
-					<!-- end 问题发起指南 -->
+
 				</div>
 				<!-- end 侧边栏 -->
 			</div>
@@ -166,7 +137,7 @@
 <script type="text/javascript">
 	var ATTACH_ACCESS_KEY = '<?php echo $this->attach_access_key; ?>';
 	var CATEGORY_ID = <?php echo intval($_POST['category_id']); ?>;
-	var PUBLISH_TYPE = 'question';
+	var PUBLISH_TYPE = 'ticket';
 </script>
 
 <?php TPL::output('global/footer.tpl.htm'); ?>
