@@ -38,7 +38,6 @@ class main extends AWS_CONTROLLER
     {
         $this->crumb(AWS_APP::lang()->_t('工单'), '/ticket/');
 
-
         TPL::output('ticket/square');
     }
 
@@ -50,5 +49,10 @@ class main extends AWS_CONTROLLER
     public function topic_action()
     {
         TPL::output('ticket/topic');
+    }
+
+    public function publish_action()
+    {
+        TPL::output('ticket/publish');
     }
 }
