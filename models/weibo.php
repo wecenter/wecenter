@@ -337,21 +337,21 @@ class weibo_class extends AWS_MODEL
         }
     }
 
-    public function update_attach($weibo_msg_id, $question_id, $attach_access_key)
+    public function update_attach($weibo_msg_id, $item_type, $item_id, $attach_access_key)
     {
-        if (!$weibo_msg_id OR !is_digits($weibo_msg_id) OR !$question_id OR !$attach_access_key)
+        if (!is_digits($weibo_msg_id) OR !is_digits($item_id) OR !$attach_access_key)
         {
             return false;
         }
 
         $update_result = $this->update('attach', array(
-            'item_type' => 'question',
-            'item_id' => intval($question_id),
+            'item_type' => $item_type,
+            'item_id' => $item_id,
         ), 'item_type = "weibo_msg" AND item_id = ' . $weibo_msg_id . ' AND access_key = "' . $this->quote($attach_access_key) . '"');
 
-        $this->shutdown_update('question', array(
+        $this->shutdown_update($item_type, array(
             'has_attach' => 1
-        ), 'question_id = ' . intval($question_id));
+        ), $item_type . '_id = ' . $item_id);
 
         return $update_result;
     }

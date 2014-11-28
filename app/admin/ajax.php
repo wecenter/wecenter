@@ -518,6 +518,8 @@ class ajax extends AWS_ADMIN_CONTROLLER
         if ($_GET['feature_id'])
         {
             $feature = $this->model('feature')->get_feature_by_id($_GET['feature_id']);
+
+            $feature_id = $feature['id'];
         }
 
         if ($_POST['url_token'])
@@ -538,7 +540,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
             }
         }
 
-        if (! $_GET['feature_id'])
+        if (!$_GET['feature_id'])
         {
             $feature_id = $this->model('feature')->add_feature($_POST['title']);
         }

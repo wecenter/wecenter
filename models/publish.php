@@ -223,7 +223,7 @@ class publish_class extends AWS_MODEL
 	{
 		if ($attach_access_key)
 		{
-			$this->shutdown_update('attach', array(
+			$this->update('attach', array(
 				'wait_approval' => 1
 			), "access_key = '" . $this->quote($attach_access_key) . "'");
 		}
@@ -263,7 +263,7 @@ class publish_class extends AWS_MODEL
 			{
 				if ($weibo_msg_id)
 				{
-					$this->model('weibo')->update_attach($weibo_msg_id, $question_id, $attach_access_key);
+					$this->model('weibo')->update_attach($weibo_msg_id, 'qusetion', $question_id, $attach_access_key);
 				}
 				else
 				{
@@ -448,7 +448,7 @@ class publish_class extends AWS_MODEL
 				break;
 			}
 
-			$this->shutdown_update($item_type, array(
+			$this->update($item_type, array(
 				'has_attach' => 1
 			), $update_key . ' = ' . $item_id);
 		}
@@ -498,7 +498,7 @@ class publish_class extends AWS_MODEL
 					break;
 			}
 
-			return $this->shutdown_update($attach['item_type'], array(
+			return $this->update($attach['item_type'], array(
 				'has_attach' => 0
 			), $update_key . ' = ' . $attach['item_id']);
 		}
