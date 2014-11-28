@@ -263,7 +263,7 @@ class publish_class extends AWS_MODEL
 			{
 				if ($weibo_msg_id)
 				{
-					$this->model('weibo')->update_attach($weibo_msg_id, $question_id, $attach_access_key);
+					$this->model('weibo')->update_attach($weibo_msg_id, 'qusetion', $question_id, $attach_access_key);
 				}
 				else
 				{
