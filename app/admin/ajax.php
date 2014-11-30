@@ -138,6 +138,10 @@ class ajax extends AWS_ADMIN_CONTROLLER
             }
         }
 
+        $_POST['weixin_mp_token'] = trim($_POST['weixin_mp_token']);
+
+        $_POST['weixin_encoding_aes_key'] = trim($_POST['weixin_encoding_aes_key']);
+
         if ($_POST['weixin_encoding_aes_key'] AND strlen($_POST['weixin_encoding_aes_key']) != 43)
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('微信公众平台接口 EncodingAESKey 应为 43 位')));
