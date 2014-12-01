@@ -167,7 +167,7 @@ function valid_ip($ip)
  */
 function is_digits($num)
 {
-	if (!isset($num))
+	if (!$num AND $num !== '0')
 	{
 		return false;
 	}
