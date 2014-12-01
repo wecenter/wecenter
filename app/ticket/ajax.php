@@ -25,9 +25,7 @@ class ajax extends AWS_CONTROLLER
     {
         $rule_action['rule_type'] = 'white';
 
-        $rule_action['actions'] = array(
-
-        );
+        $rule_action['actions'] = array();
 
         return $rule_action;
     }
@@ -37,19 +35,19 @@ class ajax extends AWS_CONTROLLER
         HTTP::no_cache_header();
     }
 
-    public function publish_ticket_action()
+    public function publish_action()
     {
         if (!$this->user_info['permission']['publish_ticket'])
         {
-            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('你没有权限发布问题')));
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('你没有权限发布工单')));
         }
 
         if (!$_POST['title'])
         {
-            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请输入问题标题')));
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请输入工单标题')));
         }
 
-        if (human_valid('ticket_valid_hour') AND !AWS_APP::captcha()->is_validate($_POST['seccode_verify']))
+        if (human_valid('question_valid_hour') AND !AWS_APP::captcha()->is_validate($_POST['seccode_verify']))
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请填写正确的验证码')));
         }
@@ -99,5 +97,97 @@ class ajax extends AWS_CONTROLLER
         H::ajax_json_output(AWS_APP::RSM(array(
             'url' => get_js_url('/ticket/' . $ticket_id)
         ), 1, null));
+    }
+
+    public function change_priority_action()
+    {
+        if (!$this->user_info['permission']['is_administortar'] AND !$this->user_info['permission']['is_service'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('你没有权限更改工单')));
+        }
+
+        if (!$_POST['id'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择工单')));
+        }
+
+        if (!$_POST['priority'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择工单优先级')));
+        }
+
+        $ticekt_info = $this->model('ticket')->get_ticket_by_id($_POST['id']);
+
+        if (!$ticekt_info)
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('工单不存在')));
+        }
+
+        $this->model('ticket')->change_priority($ticekt_info['id'], $this->user_id, $_POST['priority']);
+
+        H::ajax_json_output(AWS_APP::RSM(null, -1, null));
+    }
+
+    public function change_status_action()
+    {
+        if (!$this->user_info['permission']['is_administortar'] AND !$this->user_info['permission']['is_service'] AND $_POST['status'] != 'closed')
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('你没有权限更改工单')));
+        }
+
+        if (!$_POST['id'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择工单')));
+        }
+
+        if (!$_POST['status'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择工单状态')));
+        }
+
+        $ticekt_info = $this->model('ticket')->get_ticket_by_id($_POST['id']);
+
+        if (!$ticekt_info)
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('工单不存在')));
+        }
+
+        if ($ticekt_info['uid'] != $this->user_id AND !$this->user_info['permission']['is_administortar'] AND !$this->user_info['permission']['is_service'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('你没有权限更改工单')));
+        }
+
+        $this->model('ticket')->change_status($ticekt_info['id'], $this->user_id, $_POST['status']);
+
+        H::ajax_json_output(AWS_APP::RSM(null, -1, null));
+    }
+
+    public function change_rating_action()
+    {
+        if (!$this->user_info['permission']['is_administortar'] AND !$this->user_info['permission']['is_service'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('你没有权限更改工单')));
+        }
+
+        if (!$_POST['id'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择工单')));
+        }
+
+        if (!$_POST['rating'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择工单评级')));
+        }
+
+        $ticekt_info = $this->model('ticket')->get_ticket_by_id($_POST['id']);
+
+        if (!$ticekt_info)
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('工单不存在')));
+        }
+
+        $this->model('ticket')->change_rating($ticekt_info['id'], $this->user_id, $_POST['rating']);
+
+        H::ajax_json_output(AWS_APP::RSM(null, -1, null));
     }
 }

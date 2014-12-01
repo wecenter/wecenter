@@ -15,7 +15,7 @@
 						<h2 class="hidden-xs"><i class="icon icon-ask"></i> <?php _e('发起'); ?></h2>
 					</ul>
 					<!-- end tab 切换 -->
-					<form action="publish/ajax/ticket/publish_ticket/" method="post" id="ticket_form" onsubmit="return false;">
+					<form action="publish/ajax/ticket/publish/" method="post" id="ticket_form" onsubmit="return false;">
 						<input type="hidden" name="post_hash" value="<?php echo new_post_hash(); ?>" />
 						<input type="hidden" name="attach_access_key" value="<?php echo $this->attach_access_key; ?>" />
 
