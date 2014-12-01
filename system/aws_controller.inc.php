@@ -113,7 +113,7 @@ class AWS_CONTROLLER
 			'js/app.js',
 		));
 
-		if (defined(ENTERPRISE_EDITION))
+		if (defined('ENTERPRISE_EDITION'))
 		{
 			TPL::import_js('js/enterprise.js');
 		}
