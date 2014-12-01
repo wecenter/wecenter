@@ -60,7 +60,7 @@ class crond_class extends AWS_MODEL
         {
             $call_actions[] = 'day';
 
-            AWS_APP::cache()->set('crond_timer_day', time(), 259200, 'crond');
+            AWS_APP::cache()->set('crond_timer_day', time(), 86400, 'crond');
         }
         else if (!AWS_APP::cache()->get('crond_timer_hour'))
         {
