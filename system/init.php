@@ -58,6 +58,11 @@ else
 	define('TEMP_PATH', dirname(dirname(__FILE__)) . '/tmp/');
 }
 
+if (file_exists(ROOT_PATH . 'static/js/enterprise.js'))
+{
+	define('ENTERPRISE_EDITION', true);
+}
+
 if (function_exists('get_magic_quotes_gpc'))
 {
 	if (@get_magic_quotes_gpc()) // GPC 进行反向处理
