@@ -38,7 +38,7 @@
 	var G_UPLOAD_ENABLE = "<?php echo get_setting('upload_enable'); ?>";
 	var G_UNREAD_NOTIFICATION = 0;
 	var G_NOTIFICATION_INTERVAL = <?php echo intval(get_setting('unread_flush_interval')) * 1000; ?>;
-	var G_CAN_CREATE_TOPIC = <?php echo $this->user_info['permission']['create_topic']; ?>;
+	var G_CAN_CREATE_TOPIC = "<?php echo $this->user_info['permission']['create_topic']; ?>";
 	var G_REQUEST_URL = "/<?php echo $_GET['app']; ?>/<?php if ($_GET['act'] && $_GET['act'] != 'index') { echo $_GET['act']; ?>/<?php } ?>";
 
 	<?php if (human_valid('question_valid_hour')) { ?>
