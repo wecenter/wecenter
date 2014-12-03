@@ -18,7 +18,7 @@
     var G_BASE_URL = "<?php echo base_url(); ?>/<?php echo rtrim(G_INDEX_SCRIPT, '/'); ?>";
     var G_STATIC_URL = "<?php echo G_STATIC_URL; ?>";
     var G_UPLOAD_URL = "<?php echo get_setting('upload_url'); ?>";
-    var G_USER_ID = <?php echo $this->user_id; ?>;
+    var G_USER_ID = "<?php echo $this->user_id; ?>";
     var G_POST_HASH = "";
 </script>
 <?php if (is_array($this->_import_css_files)) { ?>

@@ -34,12 +34,6 @@
 				<li>
 					<input name="password" class="aw-register-pwd form-control" type="password" placeholder="<?php _e('密码'); ?>" />
 				</li>
-				<?php if (get_setting('register_seccode') == 'Y') { ?>
-				<li class="aw-register-verify">
-					<em class="auth-img pull-right"><img id="captcha" onclick="this.src = G_BASE_URL + '/account/captcha/' + Math.floor(Math.random() * 10000);" src="" /></em>
-					<input class="form-control" type="text" name="seccode_verify" placeholder="<?php _e('验证码'); ?>" />
-				</li>
-				<?php } ?>
 				<li class="last">
 					<label><input type="checkbox" checked="checked" value="agree" name="agreement_chk" /> <?php _e('我同意'); ?></label> <a href="javascript:;" onclick="$('.aw-regiter-agreement').show();"><?php _e('用户协议'); ?></a>
 					<div class="aw-regiter-agreement hide">
