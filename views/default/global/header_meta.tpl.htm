@@ -33,7 +33,7 @@
 	var G_BASE_URL = "<?php echo base_url(); if (get_setting('url_rewrite_enable') != 'Y') { ?>/<?php echo rtrim(G_INDEX_SCRIPT, '/'); } ?>";
 	var G_STATIC_URL = "<?php echo G_STATIC_URL; ?>";
 	var G_UPLOAD_URL = "<?php echo get_setting('upload_url'); ?>";
-	var G_USER_ID = <?php echo $this->user_id; ?>;
+	var G_USER_ID = "<?php echo $this->user_id; ?>";
 	var G_USER_NAME = "<?php echo addcslashes($this->user_info['user_name'], '\"'); ?>";
 	var G_UPLOAD_ENABLE = "<?php echo get_setting('upload_enable'); ?>";
 	var G_UNREAD_NOTIFICATION = 0;
