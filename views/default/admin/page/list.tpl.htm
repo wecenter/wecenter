@@ -6,7 +6,7 @@
         <div class="mod-head">
             <h3>
 				<ul class="nav nav-tabs">
-					<li class="<?php if ($_GET['act'] == 'index') { ?> active<?php } ?>"><a href="admin/page/list/"><?php _e('页面列表'); ?></a></li>
+					<li class="<?php if ($_GET['act'] == 'index') { ?> active<?php } ?>"><a href="admin/page/"><?php _e('页面列表'); ?></a></li>
 				    <li class="<?php if ($_GET['act'] == 'add') { ?> active<?php } ?>"><a href="admin/page/add/"><?php _e('添加页面'); ?></a></li>
 				</ul>
             </h3>
@@ -14,7 +14,7 @@
 
 		<div class="mod-body tab-content">
 			<div class="alert alert-success hide error_message"></div>
-			
+
 			<form action="admin/ajax/save_page_status/" method="post" id="page_list_form">
 			<div class="table-responsive">
 			<?php if ($this->page_list) { ?>
