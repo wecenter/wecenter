@@ -58,6 +58,11 @@ else
 	define('TEMP_PATH', dirname(dirname(__FILE__)) . '/tmp/');
 }
 
+if (file_exists(AWS_PATH . 'enterprise.php'))
+{
+	require_once(AWS_PATH . 'enterprise.php');
+}
+
 if (function_exists('get_magic_quotes_gpc'))
 {
 	if (@get_magic_quotes_gpc()) // GPC 进行反向处理
