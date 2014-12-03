@@ -58,9 +58,9 @@ else
 	define('TEMP_PATH', dirname(dirname(__FILE__)) . '/tmp/');
 }
 
-if (file_exists(ROOT_PATH . 'static/js/enterprise.js'))
+if (file_exists(AWS_PATH . 'enterprise.php'))
 {
-	define('ENTERPRISE_EDITION', true);
+	require_once(AWS_PATH . 'enterprise.php');
 }
 
 if (function_exists('get_magic_quotes_gpc'))

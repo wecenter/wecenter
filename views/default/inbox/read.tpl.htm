@@ -34,7 +34,7 @@
 								<li<?php if ($val['uid'] == $this->user_id) { ?> class="active"<?php } ?>>
 									<a href="people/<?php if ($val['uid'] == $this->user_id) { ?><?php echo $this->user_info['url_token']; ?><?php } else { ?><?php echo $val['url_token']; ?><?php } ?>" data-id="<?php echo $val['uid']; ?>" class="aw-user-img aw-border-radius-5"><img src="<?php echo get_avatar_url($val['uid'], 'mid'); ?>" alt="" /></a>
 									<div class="aw-item">
-										<p><a href="people/<?php if ($val['uid'] == $this->user_id) { ?><?php echo $this->user_info['url_token']; ?><?php } else { ?><?php echo $val['url_token']; ?><?php } ?>"><?php if ($val['uid'] == $this->user_id) { ?><?php _e('我'); ?><?php } else { ?><?php echo $val['user_name']; ?><?php } ?></a>: <?php echo nl2br($val['message']); ?></p>
+										<p class="aw-hide-txt"><a href="people/<?php if ($val['uid'] == $this->user_id) { ?><?php echo $this->user_info['url_token']; ?><?php } else { ?><?php echo $val['url_token']; ?><?php } ?>"><?php if ($val['uid'] == $this->user_id) { ?><?php _e('我'); ?><?php } else { ?><?php echo $val['user_name']; ?><?php } ?></a>: <?php echo nl2br($val['message']); ?></p>
 										<p class="text-color-999">
 											<?php if ($val['uid'] != $this->user_id) { ?><span class="pull-right aw-replay"><a href="javascript:;" onclick="$.scrollTo(($('#recipient_form').offset()['top']) - 20, 600, {queue:true});"><?php _e('回复'); ?></a></span><?php } ?>
 											<?php echo date_friendly($val['add_time']); ?><?php if ($val['receipt'] AND $val['uid'] == $this->user_id) { ?> (<?php _e('对方于 %s 已读', date_friendly($val['receipt'])); ?>)<?php } ?>
