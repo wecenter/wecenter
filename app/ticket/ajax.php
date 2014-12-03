@@ -52,33 +52,6 @@ class ajax extends AWS_CONTROLLER
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请填写正确的验证码')));
         }
 
-        if ($_POST['topics'])
-        {
-            foreach ($_POST['topics'] AS $key => $topic_title)
-            {
-                $topic_title = trim($topic_title);
-
-                if (!$topic_title)
-                {
-                    unset($_POST['topics'][$key]);
-                }
-                else
-                {
-                    $_POST['topics'][$key] = $topic_title;
-                }
-            }
-
-            if (get_setting('question_topics_limit') AND sizeof($_POST['topics']) > get_setting('question_topics_limit'))
-            {
-                H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('单个工单话题数量最多为 %s 个, 请调整话题数量', get_setting('question_topics_limit'))));
-            }
-        }
-
-        if (!$_POST['topics'] AND get_setting('new_question_force_add_topic') == 'Y')
-        {
-            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请为工单添加话题')));
-        }
-
         if (!$this->model('publish')->insert_attach_is_self_upload($_POST['message'], $_POST['attach_ids']))
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('只允许插入当前页面上传的附件')));
@@ -92,7 +65,7 @@ class ajax extends AWS_CONTROLLER
 
         $this->model('draft')->delete_draft(1, 'ticket', $this->user_id);
 
-        $ticket_id = $this->model('publish')->publish_ticket($_POST['title'], $_POST['message'], $this->user_id, $_POST['topics'], $_POST['priority'], $_POST['attach_access_key'], $this->user_info['permission']['create_topic']);
+        $ticket_id = $this->model('publish')->publish_ticket($_POST['title'], $_POST['message'], $this->user_id, $_POST['attach_access_key']);
 
         H::ajax_json_output(AWS_APP::RSM(array(
             'url' => get_js_url('/ticket/' . $ticket_id)
@@ -189,5 +162,24 @@ class ajax extends AWS_CONTROLLER
         $this->model('ticket')->change_rating($ticekt_info['id'], $this->user_id, $_POST['rating']);
 
         H::ajax_json_output(AWS_APP::RSM(null, -1, null));
+    }
+
+    public function remove_ticket_action()
+    {
+        if (!$this->user_info['permission']['is_administortar'] AND !$this->user_info['permission']['is_service'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('你没有权限更改工单')));
+        }
+
+        if (!$_POST['id'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择工单')));
+        }
+
+        $this->model('ticket')->remove_ticket($_POST['id']);
+
+        H::ajax_json_output(AWS_APP::RSM(array(
+            'url' => get_js_url('/ticket/')
+        ), 1, null));
     }
 }
