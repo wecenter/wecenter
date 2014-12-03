@@ -96,8 +96,10 @@ class AWS_CONTROLLER
 
 		if (HTTP::is_browser('ie', 8))
 		{
-			TPL::import_js('js/jquery.js');
-			TPL::import_js('js/respond.js');
+			TPL::import_js(array(
+				'js/jquery.js',
+				'js/respond.js'
+			));
 		}
 		else
 		{
@@ -115,6 +117,8 @@ class AWS_CONTROLLER
 
 		if (defined('ENTERPRISE_EDITION'))
 		{
+			TPL::import_css('css/enterprise.css');
+
 			TPL::import_js('js/enterprise.js');
 		}
 
