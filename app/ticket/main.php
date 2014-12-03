@@ -53,6 +53,35 @@ class main extends AWS_CONTROLLER
 
     public function publish_action()
     {
+        if (!$this->user_info['permission']['publish_ticket'])
+        {
+            H::redirect_msg(AWS_APP::lang()->_t('你所在用户组没有权限发布问题'));
+        }
+
+        $draft_content = $this->model('draft')->get_data(1, 'ticket', $this->user_id);
+
+        if ($draft_content)
+        {
+            TPL::assign('message', $draft_content['message']);
+        }
+
+        TPL::assign('attach_access_key', md5($this->user_id . time()));
+
+        TPL::assign('human_valid', human_valid('question_valid_hour'));
+
+        TPL::import_js('js/app/publish.js');
+
+        if (get_setting('advanced_editor_enable') == 'Y')
+        {
+            import_editor_static_files();
+        }
+
+        if (get_setting('upload_enable') == 'Y')
+        {
+            // fileupload
+            TPL::import_js('js/fileupload.js');
+        }
+
         TPL::output('ticket/publish');
     }
 }
