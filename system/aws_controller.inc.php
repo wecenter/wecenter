@@ -39,7 +39,7 @@ class AWS_CONTROLLER
 			{
 				date_default_timezone_set($this->user_info['default_timezone']);
 			}
-			
+
 			$this->model('online')->online_active($this->user_id, $this->user_info['last_active']);
 		}
 		else if ($this->user_id)
@@ -96,8 +96,10 @@ class AWS_CONTROLLER
 
 		if (HTTP::is_browser('ie', 8))
 		{
-			TPL::import_js('js/jquery.js');
-			TPL::import_js('js/respond.js');
+			TPL::import_js(array(
+				'js/jquery.js',
+				'js/respond.js'
+			));
 		}
 		else
 		{
@@ -112,6 +114,13 @@ class AWS_CONTROLLER
 			'js/aw_template.js',
 			'js/app.js',
 		));
+
+		if (defined('ENTERPRISE_EDITION'))
+		{
+			TPL::import_css('css/enterprise.css');
+
+			TPL::import_js('js/enterprise.js');
+		}
 
 		// 产生面包屑导航数据
 		$this->crumb(get_setting('site_name'), base_url());
@@ -136,7 +145,7 @@ class AWS_CONTROLLER
 		{
 			HTTP::set_cookie('_ignore_ua_check', 'TRUE', (time() + 3600 * 24 * 7));
 		}
-		
+
 		// 执行控制器 Setup 动作
 		if ($process_setup)
 		{
@@ -205,7 +214,7 @@ class AWS_CONTROLLER
 
 			return $this;
 		}
-		
+
 		$name = htmlspecialchars_decode($name);
 
 		$crumb_template = $this->crumb;
@@ -277,7 +286,7 @@ class AWS_CONTROLLER
 					{
 						date_default_timezone_set($this->user_info['default_timezone']);
 					}
-					
+
 					return true;
 				}
 			}
