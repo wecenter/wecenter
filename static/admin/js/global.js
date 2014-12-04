@@ -6,7 +6,7 @@ $(function () {
     $('.aw-content-wrap .md-tip').tooltip('hide');
 
     // 顶部按钮收缩左侧菜单
-    $('.aw-header .mod-head-btn').click(function () 
+    $('.aw-header .mod-head-btn').click(function ()
     {
         if ($('#aw-side').is(':visible'))
         {
@@ -30,7 +30,7 @@ $(function () {
     });
 
     // 左侧导航菜单的折叠与展开
-    $('.mod-bar > li > a').click(function () 
+    $('.mod-bar > li > a').click(function ()
     {
         if ($(this).next().is(':visible'))
         {
@@ -51,7 +51,7 @@ $(function () {
     });
 
     // 日期选择
-    if (typeof (DateInput) != 'undefined') 
+    if (typeof (DateInput) != 'undefined')
     {
         $('input.mod-data').date_input();
     }
@@ -64,7 +64,7 @@ $(function () {
     });
 
     // input 菜单折叠，展开、拖动
-    $('.aw-nav-menu li .mod-set-head').click(function () 
+    $('.aw-nav-menu li .mod-set-head').click(function ()
     {
         if ($(this).parents('li').find('.mod-set-body').is(':visible'))
         {
@@ -91,14 +91,14 @@ $(function () {
 
 
     // input 单选框全选or 全取消
-    $('.aw-content-wrap .table').find(".check-all").on('ifChecked', function (e) 
+    $('.aw-content-wrap .table').find(".check-all").on('ifChecked', function (e)
     {
         e.preventDefault();
 
         $(this).parents('table').find(".icheckbox_square-blue").iCheck('check');
     });
 
-    $('.aw-content-wrap .table').find(".check-all").on('ifUnchecked', function (e) 
+    $('.aw-content-wrap .table').find(".check-all").on('ifUnchecked', function (e)
     {
         e.preventDefault();
 
@@ -126,7 +126,7 @@ $(function () {
     // 微博接收用户删除
     $(document).on('click', '.aw-admin-weibo-answer li .delete', function()
     {
-        $(this).parent().detach();                                                         
+        $(this).parent().detach();
 
         weiboPost($(this));
     });
@@ -134,7 +134,7 @@ $(function () {
 
     // 概述页面，新增话题数，点击排序
     $('#sorttable thead').delegate("td","click",function()
-    {   
+    {
         if($(this).index()==0)
         {
             return false;
@@ -144,7 +144,7 @@ $(function () {
             $(this).find('i').addClass('icon-down').show();
 
             $(this).siblings('td').find('i').removeClass('icon-down').hide();
-            
+
             if($(this).index()==1)
             {
                 subjectData('week');
@@ -156,7 +156,7 @@ $(function () {
             else if ($(this).index()==3)
             {
                 subjectData('all');
-            }       
+            }
         }
     });
 
@@ -182,11 +182,11 @@ function subjectData(type)
             tempLyout += '<tr><td></td><td></td><td></td><td></td></tr>';
         };
         $('#sorttbody').html(tempLyout);
-        
+
         AWS.loading('hide');
 
         if(result == '')
-        {   
+        {
             $('.sorttable-mask').show();
         }
         else
@@ -195,7 +195,7 @@ function subjectData(type)
 
             $.each(result, function(key,value)
             {
-                var tempObj = $('#sorttable tbody tr:eq('+ key +')');                    
+                var tempObj = $('#sorttable tbody tr:eq('+ key +')');
                 tempObj.find('td:eq(3)').text(value.all);
                 tempObj.find('td:eq(2)').text(value.month);
                 tempObj.find('td:eq(1)').text(value.week);
@@ -204,11 +204,11 @@ function subjectData(type)
         }
     }, 'json');
 }
-    
+
 function weiboPost(obj)
 {
     $.post(G_BASE_URL + '/admin/ajax/weibo_batch/', {'uid': obj.attr('data-id'), 'action':obj.attr('data-actions')}, function (result)
-    {  
+    {
         if (result.errno == -1)
         {
             AWS.alert(result.err);
@@ -216,18 +216,18 @@ function weiboPost(obj)
              $('.mod-weibo-reply li:last').detach();
         }
         else if (result.errno == 1)
-        {   
+        {
             if(result.rsm != null)
             {
                 if (result.rsm.staus == 'bound')
-                {   
+                {
                     $('.mod-weibo-reply li:last .btn-primary').text('更新 Access Token');
                 }
                 else
-                {   
-                   $('.mod-weibo-reply li:last .btn-primary').text('绑定新浪微博');  
+                {
+                   $('.mod-weibo-reply li:last .btn-primary').text('绑定微博');
                 }
-            }   
+            }
 
             $(".alert-box").modal('hide');
         }

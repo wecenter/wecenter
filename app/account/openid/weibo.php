@@ -17,7 +17,7 @@ if (!defined('IN_ANWSION'))
     die;
 }
 
-class facebook extends AWS_CONTROLLER
+class weibo extends AWS_CONTROLLER
 {
     public function get_access_rule()
     {
@@ -34,37 +34,37 @@ class facebook extends AWS_CONTROLLER
     {
         HTTP::no_cache_header();
 
-        if (get_setting('facebook_login_enabled') != 'Y' OR !get_setting('facebook_app_id') OR !get_setting('facebook_app_secret'))
+        if (get_setting('sina_weibo_enabled') != 'Y' OR !get_setting('sina_akey') OR !get_setting('sina_skey'))
         {
-            H::redirect_msg(AWS_APP::lang()->_t('本站未开通 Facebook 登录'), '/');
+            H::redirect_msg(AWS_APP::lang()->_t('本站未开通微博登录'), '/');
         }
     }
 
     public function bind_action()
     {
-        if (AWS_APP::session()->facebook_user)
+        if (AWS_APP::session()->weibo_user)
         {
-            $facebook_user_info = AWS_APP::session()->facebook_user;
+            $weibo_user_info = AWS_APP::session()->weibo_user;
 
-            unset(AWS_APP::session()->facebook_user);
+            unset(AWS_APP::session()->weibo_user);
         }
 
         if ($_GET['error'] == 'access_denied')
         {
-            H::redirect_msg(AWS_APP::lang()->_t('授权失败'), '/');
+            H::redirect_msg(AWS_APP::lang()->_t('授权失败'), '/account/login/');
         }
 
         if ($this->user_id)
         {
-            $facebook_user = $this->model('openid_facebook')->get_facebook_user_by_uid($this->user_id);
+            $weibo_user = $this->model('openid_weibo_oauth')->get_weibo_user_by_uid($this->user_id);
 
-            if ($facebook_user)
+            if ($weibo_user)
             {
-                H::redirect_msg(AWS_APP::lang()->_t('此账号已绑定 Facebook 账号'), '/');
+                H::redirect_msg(AWS_APP::lang()->_t('此账号已绑定微博账号'), '/account/login/');
             }
         }
 
-        $callback_url = '/account/facebook/bind/';
+        $callback_url = '/account/openid/weibo/bind/';
 
         if ($_GET['return_url'])
         {
@@ -73,35 +73,35 @@ class facebook extends AWS_CONTROLLER
 
         if ($_GET['code'])
         {
-            if ($_GET['code'] != $facebook_user_info['authorization_code'])
+            if ($_GET['code'] != $weibo_user_info['authorization_code'])
             {
-                $this->model('openid_facebook')->authorization_code = $_GET['code'];
+                $this->model('openid_weibo_oauth')->authorization_code = $_GET['code'];
 
-                $this->model('openid_facebook')->redirect_url = $callback_url;
+                $this->model('openid_weibo_oauth')->redirect_url = $callback_url;
 
-                if (!$this->model('openid_facebook')->oauth2_login())
+                if (!$this->model('openid_weibo_oauth')->oauth2_login())
                 {
-                    H::redirect_msg($this->model('openid_facebook')->error_msg);
+                    H::redirect_msg($this->model('openid_weibo_oauth')->error_msg, '/account/login/');
                 }
 
-                $facebook_user_info = $this->model('openid_facebook')->user_info;
+                $weibo_user_info = $this->model('openid_weibo_oauth')->user_info;
             }
 
-            if (!$facebook_user_info)
+            if (!$weibo_user_info)
             {
-                H::redirect_msg(AWS_APP::lang()->_t('Facebook 登录失败'));
+                H::redirect_msg(AWS_APP::lang()->_t('微博登录失败，用户信息不存在'), '/account/login/');
             }
 
-            $facebook_user = $this->model('openid_facebook')->get_facebook_user_by_id($facebook_user_info['id']);
+            $weibo_user = $this->model('openid_weibo_oauth')->get_weibo_user_by_id($weibo_user_info['id']);
 
             if ($this->user_id)
             {
-                if ($facebook_user)
+                if ($weibo_user)
                 {
-                    H::redirect_msg(AWS_APP::lang()->_t('此 Facebook 账号已被绑定'));
+                    H::redirect_msg(AWS_APP::lang()->_t('此微博账号已被绑定'), '/account/login/');
                 }
 
-                $this->model('openid_facebook')->bind_account($facebook_user_info, $this->user_id);
+                $this->model('openid_weibo_oauth')->bind_account($weibo_user_info, $this->user_id);
 
                 if (!$this->model('integral')->fetch_log($this->user_id, 'BIND_OPENID'))
                 {
@@ -112,18 +112,18 @@ class facebook extends AWS_CONTROLLER
             }
             else
             {
-                if ($facebook_user)
+                if ($weibo_user)
                 {
-                    $user = $this->model('account')->get_user_info_by_uid($facebook_user['uid']);
+                    $user = $this->model('account')->get_user_info_by_uid($weibo_user['uid']);
 
                     if (!$user)
                     {
-                        $this->model('openid_facebook')->unbind_account($facebook_user['uid']);
+                        $this->model('openid_weibo_oauth')->unbind_account($weibo_user['uid']);
 
-                        H::redirect_msg(AWS_APP::lang()->_t('用户不存在'), '/account/login/');
+                        H::redirect_msg(AWS_APP::lang()->_t('本地用户不存在'), '/account/login/');
                     }
 
-                    $this->model('openid_facebook')->update_user_info($facebook_user['id'], $facebook_user_info);
+                    $this->model('openid_weibo_oauth')->update_user_info($weibo_user['id'], $weibo_user_info);
 
                     if (get_setting('register_valid_type') == 'approval' AND $user['group_id'] == 3)
                     {
@@ -184,15 +184,15 @@ class facebook extends AWS_CONTROLLER
                             break;
                     }
 
-                    AWS_APP::session()->facebook_user = $facebook_user_info;
+                    AWS_APP::session()->weibo_user = $weibo_user_info;
 
                     $this->crumb(AWS_APP::lang()->_t('完善资料'), '/account/login/');
 
-                    TPL::assign('register_url', '/account/ajax/facebook/register/');
+                    TPL::assign('register_url', '/account/ajax/weibo/register/');
 
-                    TPL::assign('user_name', AWS_APP::session()->facebook_user['name']);
+                    TPL::assign('user_name', AWS_APP::session()->weibo_user['name']);
 
-                    TPL::assign('email', AWS_APP::session()->facebook_user['email']);
+                    TPL::assign('email', AWS_APP::session()->weibo_user['email']);
 
                     TPL::import_css('css/register.css');
 
@@ -202,20 +202,15 @@ class facebook extends AWS_CONTROLLER
         }
         else
         {
-            if (get_setting('url_rewrite_enable') != 'Y')
-            {
-                H::redirect_msg(AWS_APP::lang()->_t('本接口只有当伪静态启用时才可以使用，请联系管理员开启伪静态'), '/account/login/');
-            }
-
             $state = ($_GET['return_url']) ? base64_url_encode(array('return_url' => base64_decode($_GET['return_url']))) : null;
 
-            HTTP::redirect($this->model('openid_facebook')->get_redirect_url('/account/facebook/bind/', $state));
+            HTTP::redirect($this->model('openid_weibo_oauth')->get_redirect_url('/account/openid/weibo/bind/', $state));
         }
     }
 
     public function unbind_action()
     {
-        $this->model('openid_facebook')->unbind_account($this->user_id);
+        $this->model('openid_weibo_oauth')->unbind_account($this->user_id);
 
         HTTP::redirect('/account/setting/openid/');
     }

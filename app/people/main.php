@@ -82,7 +82,7 @@ class main extends AWS_CONTROLLER
 
 		if ($user['weibo_visit'])
 		{
-			if ($users_sina = $this->model('openid_weibo')->get_users_sina_by_uid($user['uid']))
+			if ($users_sina = $this->model('openid_weibo_oauth')->get_users_sina_by_uid($user['uid']))
 			{
 				TPL::assign('sina_weibo_url', 'http://www.weibo.com/' . $users_sina['id']);
 			}

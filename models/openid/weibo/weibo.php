@@ -17,7 +17,7 @@ if (!defined('IN_ANWSION'))
     exit();
 }
 
-class weibo_class extends AWS_MODEL
+class openid_weibo_weibo_class extends AWS_MODEL
 {
     public function get_msg_info_by_id($id)
     {
@@ -106,7 +106,7 @@ class weibo_class extends AWS_MODEL
             return false;
         }
 
-        $service_info = $this->model('openid_weibo')->get_users_sina_by_id($msg_info['weibo_uid']);
+        $service_info = $this->model('openid_weibo_oauth')->get_users_sina_by_id($msg_info['weibo_uid']);
 
         if (!$service_info)
         {
@@ -115,7 +115,7 @@ class weibo_class extends AWS_MODEL
 
         $comment .= ' (' . AWS_APP::lang()->_t('来自')  . ' ' . get_js_url('/question/' . $question_id) . ' )';
 
-        return $this->model('openid_weibo')->create_comment($service_info['access_token'], $msg_info['id'], $comment);
+        return $this->model('openid_weibo_oauth')->create_comment($service_info['access_token'], $msg_info['id'], $comment);
     }
 
     public function get_msg_from_sina_crond()
@@ -159,7 +159,7 @@ class weibo_class extends AWS_MODEL
                 continue;
             }
 
-            $msgs = $this->model('openid_weibo')->get_msg_from_sina($service_info['access_token'], $service_info['last_msg_id']);
+            $msgs = $this->model('openid_weibo_oauth')->get_msg_from_sina($service_info['access_token'], $service_info['last_msg_id']);
 
             if (!$msgs)
             {

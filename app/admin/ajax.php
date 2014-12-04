@@ -221,7 +221,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
                     case 'approval':
                         foreach ($_POST['approval_ids'] AS $approval_id)
                         {
-                            $result = $this->model('weibo')->save_msg_info_to_question($approval_id);
+                            $result = $this->model('openid_weibo_weibo')->save_msg_info_to_question($approval_id);
 
                             if ($result)
                             {
@@ -234,7 +234,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
                     case 'decline':
                         foreach ($_POST['approval_ids'] AS $approval_id)
                         {
-                            $this->model('weibo')->del_msg_by_id($approval_id);
+                            $this->model('openid_weibo_weibo')->del_msg_by_id($approval_id);
                         }
 
                         break;
@@ -1749,7 +1749,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
                 H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('所选用户不存在')));
             }
 
-            $service_info = $this->model('openid_weibo')->get_users_sina_by_uid($user_info['uid']);
+            $service_info = $this->model('openid_weibo_oauth')->get_users_sina_by_uid($user_info['uid']);
 
             $tmp_service_account = AWS_APP::cache()->get('tmp_service_account');
         }
@@ -1764,7 +1764,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
                         H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('该用户已是回答用户')));
                     }
 
-                    $this->model('weibo')->update_service_account($user_info['uid'], 'add');
+                    $this->model('openid_weibo_weibo')->update_service_account($user_info['uid'], 'add');
 
                     $rsm = array('staus' => 'bound');
                 }
@@ -1798,7 +1798,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
                         H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('该用户不是回答用户')));
                     }
 
-                    $this->model('weibo')->update_service_account($user_info['uid'], 'del');
+                    $this->model('openid_weibo_weibo')->update_service_account($user_info['uid'], 'del');
                 }
                 else
                 {
@@ -1871,7 +1871,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
         switch ($_POST['type'])
         {
             case 'weibo_msg':
-                $approval_item = $this->model('weibo')->get_msg_info_by_id($_POST['id']);
+                $approval_item = $this->model('openid_weibo_weibo')->get_msg_info_by_id($_POST['id']);
 
                 if ($approval_item['question_id'])
                 {
@@ -1974,7 +1974,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
         switch ($approval_item['type'])
         {
             case 'weibo_msg':
-                $this->model('weibo')->update('weibo_msg', array(
+                $this->model('openid_weibo_weibo')->update('weibo_msg', array(
                     'text' => $approval_item['text']
                 ), 'id = ' . $approval_item['id']);
 

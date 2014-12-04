@@ -97,12 +97,12 @@ class sina extends AWS_CONTROLLER
 			$this->model('integral')->process($user_id, 'BIND_OPENID', round((get_setting('integral_system_config_profile') * 0.2)), '绑定 OPEN ID');
 		}
 
-		$this->model('openid_weibo')->bind_account($sina_profile, $redirect, $user_id, $sina_token);
+		$this->model('openid_weibo_oauth')->bind_account($sina_profile, $redirect, $user_id, $sina_token);
 	}
 
 	function del_bind_action()
 	{
-		$this->model('openid_weibo')->del_users_by_uid($this->user_id);
+		$this->model('openid_weibo_oauth')->del_users_by_uid($this->user_id);
 
 		HTTP::redirect('/account/setting/openid/');
 	}

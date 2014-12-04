@@ -111,14 +111,9 @@ switch ($_POST['step'])
 
 		if (!defined('IN_SAE'))
 		{
-			if (!@file_get_contents('http://dev.t.qq.com/'))
-			{
-				$error_messages[] = load_class('core_lang')->_t('你的主机无法与腾讯微博通讯, 相关功能将不能使用');
-			}
-
 			if (!@file_get_contents('http://api.weibo.com/'))
 			{
-				$error_messages[] = load_class('core_lang')->_t('你的主机无法与新浪微博通讯, 相关功能将不能使用');
+				$error_messages[] = load_class('core_lang')->_t('你的主机无法与微博通讯, 相关功能将不能使用');
 			}
 
 			if (!@gethostbyname('graph.qq.com'))

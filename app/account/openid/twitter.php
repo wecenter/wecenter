@@ -58,7 +58,7 @@ class twitter extends AWS_CONTROLLER
 
         if ($_GET['denied'])
         {
-            H::redirect_msg(AWS_APP::lang()->_t('授权失败'), '/');
+            H::redirect_msg(AWS_APP::lang()->_t('授权失败'), '/account/login/');
         }
 
         if ($this->user_id)
@@ -67,7 +67,7 @@ class twitter extends AWS_CONTROLLER
 
             if ($twitter_user)
             {
-                H::redirect_msg(AWS_APP::lang()->_t('此账号已绑定 Twitter 账号'), '/');
+                H::redirect_msg(AWS_APP::lang()->_t('此账号已绑定 Twitter 账号'), '/account/login/');
             }
         }
 
@@ -77,12 +77,12 @@ class twitter extends AWS_CONTROLLER
             {
                 if ($_GET['oauth_token'] != $twitter_request_token['oauth_token'])
                 {
-                    H::redirect_msg(AWS_APP::lang()->_t('oauth token 不一致'));
+                    H::redirect_msg(AWS_APP::lang()->_t('oauth token 不一致'), '/account/login/');
                 }
 
                 if (!$_GET['oauth_verifier'])
                 {
-                    H::redirect_msg(AWS_APP::lang()->_t('oauth verifier 为空'));
+                    H::redirect_msg(AWS_APP::lang()->_t('oauth verifier 为空'), '/account/login/');
                 }
 
                 $this->model('openid_twitter')->request_token = $twitter_request_token;
@@ -91,7 +91,7 @@ class twitter extends AWS_CONTROLLER
 
                 if (!$this->model('openid_twitter')->get_user_info())
                 {
-                    H::redirect_msg($this->model('openid_twitter')->error_msg);
+                    H::redirect_msg($this->model('openid_twitter')->error_msg, '/account/login/');
                 }
 
                 $twitter_user_info = $this->model('openid_twitter')->user_info;
@@ -99,7 +99,7 @@ class twitter extends AWS_CONTROLLER
 
             if (!$twitter_user_info)
             {
-                H::redirect_msg(AWS_APP::lang()->_t('Twitter 登录失败'));
+                H::redirect_msg(AWS_APP::lang()->_t('Twitter 登录失败，用户信息不存在'), '/account/login/');
             }
 
             $twitter_user = $this->model('openid_twitter')->get_twitter_user_by_id($twitter_user_info['id']);
@@ -108,7 +108,7 @@ class twitter extends AWS_CONTROLLER
             {
                 if ($twitter_user)
                 {
-                    H::redirect_msg(AWS_APP::lang()->_t('此 Twitter 账号已被绑定'));
+                    H::redirect_msg(AWS_APP::lang()->_t('此 Twitter 账号已被绑定'), '/account/login/');
                 }
 
                 $this->model('openid_twitter')->bind_account($twitter_user_info, $this->user_id);
@@ -130,7 +130,7 @@ class twitter extends AWS_CONTROLLER
                     {
                         $this->model('openid_twitter')->unbind_account($twitter_user['uid']);
 
-                        H::redirect_msg(AWS_APP::lang()->_t('用户不存在'), '/account/login/');
+                        H::redirect_msg(AWS_APP::lang()->_t('本地用户不存在'), '/account/login/');
                     }
 
                     $this->model('openid_twitter')->update_user_info($twitter_user['id'], $twitter_user_info);
@@ -205,7 +205,7 @@ class twitter extends AWS_CONTROLLER
         }
         else
         {
-            $this->model('openid_twitter')->oauth_callback = '/account/twitter/bind/';
+            $this->model('openid_twitter')->oauth_callback = '/account/openid/twitter/bind/';
 
             if ($_GET['return_url'])
             {
@@ -214,7 +214,7 @@ class twitter extends AWS_CONTROLLER
 
             if (!$this->model('openid_twitter')->oauth_redirect())
             {
-                H::redirect_msg($this->model('openid_twitter')->error_msg);
+                H::redirect_msg($this->model('openid_twitter')->error_msg, '/account/login/');
             }
 
             AWS_APP::session()->twitter_request_token = $this->model('openid_twitter')->request_token;
