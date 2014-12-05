@@ -353,30 +353,6 @@ class ajax extends AWS_CONTROLLER
 		H::ajax_json_output(AWS_APP::RSM(null, 1, nl2br(get_setting('register_agreement'))));
 	}
 
-	public function get_weibo_bind_status_action()
-	{
-		if (get_setting('sina_weibo_enabled') == 'Y')
-		{
-			if ($sina_weibo = $this->model("sina_weibo")->get_users_sina_by_uid($this->user_id))
-			{
-				$data['sina_weibo']['name'] = $sina_weibo['name'];
-			}
-		}
-
-		if (get_setting('qq_login_enabled') == 'Y')
-		{
-			if ($qq = $this->model("qq")->get_user_info_by_uid($this->user_id))
-			{
-				$data['qq']['name'] = $qq['nick'];
-			}
-		}
-
-		$data['sina_weibo']['enabled'] = get_setting('sina_weibo_enabled');
-		$data['qq']['enabled'] = get_setting('qq_login_enabled');
-
-		H::ajax_json_output(AWS_APP::RSM($data, 1, null));
-	}
-
 	public function welcome_message_template_action()
 	{
 		TPL::assign('job_list', $this->model('work')->get_jobs_list());

@@ -17,7 +17,7 @@ if (!defined('IN_ANWSION'))
     die;
 }
 
-class twitter extends AWS_CONTROLLER
+class openid_qq extends AWS_CONTROLLER
 {
     public function get_access_rule()
     {
@@ -34,84 +34,74 @@ class twitter extends AWS_CONTROLLER
     {
         HTTP::no_cache_header();
 
-        if (get_setting('twitter_login_enabled') != 'Y' OR !get_setting('twitter_consumer_key') OR !get_setting('twitter_consumer_secret'))
+        if (get_setting('qq_login_enabled') != 'Y' OR !get_setting('qq_login_app_id') OR !get_setting('qq_login_app_key'))
         {
-            H::redirect_msg(AWS_APP::lang()->_t('本站未开通 Twitter 登录'), '/');
+            H::redirect_msg(AWS_APP::lang()->_t('本站未开通 QQ 登录'), '/');
         }
     }
 
     public function bind_action()
     {
-        if (AWS_APP::session()->twitter_request_token)
+        if (AWS_APP::session()->qq_user)
         {
-            $twitter_request_token = AWS_APP::session()->twitter_request_token;
+            $qq_user_info = AWS_APP::session()->qq_user;
 
-            unset(AWS_APP::session()->twitter_request_token);
+            unset(AWS_APP::session()->qq_user);
         }
 
-        if (AWS_APP::session()->twitter_user)
+        if ($_GET['usercancel'])
         {
-            $twitter_user_info = AWS_APP::session()->twitter_user;
-
-            unset(AWS_APP::session()->twitter_user);
-        }
-
-        if ($_GET['denied'])
-        {
-            H::redirect_msg(AWS_APP::lang()->_t('授权失败'), '/');
+            H::redirect_msg(AWS_APP::lang()->_t('授权失败'), '/account/login/');
         }
 
         if ($this->user_id)
         {
-            $twitter_user = $this->model('openid_twitter')->get_twitter_user_by_uid($this->user_id);
+            $qq_user = $this->model('openid_qq')->get_qq_user_by_uid($this->user_id);
 
-            if ($twitter_user)
+            if ($qq_user)
             {
-                H::redirect_msg(AWS_APP::lang()->_t('此账号已绑定 Twitter 账号'), '/');
+                H::redirect_msg(AWS_APP::lang()->_t('此账号已绑定 QQ 账号'), '/account/login/');
             }
         }
 
-        if ($_GET['oauth_token'])
+        $callback_url = '/account/openid/qq/bind/';
+
+        if ($_GET['return_url'])
         {
-            if (!$twitter_user_info)
+            $callback_url .= 'return_url-' . $_GET['return_url'];
+        }
+
+        if ($_GET['code'])
+        {
+            if ($_GET['code'] != $qq_user_info['authorization_code'])
             {
-                if ($_GET['oauth_token'] != $twitter_request_token['oauth_token'])
+                $this->model('openid_qq')->authorization_code = $_GET['code'];
+
+                $this->model('openid_qq')->redirect_url = $callback_url;
+
+                if (!$this->model('openid_qq')->oauth2_login())
                 {
-                    H::redirect_msg(AWS_APP::lang()->_t('oauth token 不一致'));
+                    H::redirect_msg($this->model('openid_qq')->error_msg, '/account/login/');
                 }
 
-                if (!$_GET['oauth_verifier'])
-                {
-                    H::redirect_msg(AWS_APP::lang()->_t('oauth verifier 为空'));
-                }
-
-                $this->model('openid_twitter')->request_token = $twitter_request_token;
-
-                $this->model('openid_twitter')->request_token['oauth_verifier'] = $_GET['oauth_verifier'];
-
-                if (!$this->model('openid_twitter')->get_user_info())
-                {
-                    H::redirect_msg($this->model('openid_twitter')->error_msg);
-                }
-
-                $twitter_user_info = $this->model('openid_twitter')->user_info;
+                $qq_user_info = $this->model('openid_qq')->user_info;
             }
 
-            if (!$twitter_user_info)
+            if (!$qq_user_info)
             {
-                H::redirect_msg(AWS_APP::lang()->_t('Twitter 登录失败'));
+                H::redirect_msg(AWS_APP::lang()->_t('QQ 登录失败，用户信息不存在'), '/account/login/');
             }
 
-            $twitter_user = $this->model('openid_twitter')->get_twitter_user_by_id($twitter_user_info['id']);
+            $qq_user = $this->model('openid_qq')->get_qq_user_by_openid($qq_user_info['openid']);
 
             if ($this->user_id)
             {
-                if ($twitter_user)
+                if ($qq_user)
                 {
-                    H::redirect_msg(AWS_APP::lang()->_t('此 Twitter 账号已被绑定'));
+                    H::redirect_msg(AWS_APP::lang()->_t('此 QQ 账号已被绑定'), '/account/login/');
                 }
 
-                $this->model('openid_twitter')->bind_account($twitter_user_info, $this->user_id);
+                $this->model('openid_qq')->bind_account($qq_user_info, $this->user_id);
 
                 if (!$this->model('integral')->fetch_log($this->user_id, 'BIND_OPENID'))
                 {
@@ -122,18 +112,18 @@ class twitter extends AWS_CONTROLLER
             }
             else
             {
-                if ($twitter_user)
+                if ($qq_user)
                 {
-                    $user = $this->model('account')->get_user_info_by_uid($twitter_user['uid']);
+                    $user = $this->model('account')->get_user_info_by_uid($qq_user['uid']);
 
                     if (!$user)
                     {
-                        $this->model('openid_twitter')->unbind_account($twitter_user['uid']);
+                        $this->model('openid_qq')->unbind_account($qq_user['uid']);
 
-                        H::redirect_msg(AWS_APP::lang()->_t('用户不存在'), '/account/login/');
+                        H::redirect_msg(AWS_APP::lang()->_t('本地用户不存在'), '/account/login/');
                     }
 
-                    $this->model('openid_twitter')->update_user_info($twitter_user['id'], $twitter_user_info);
+                    $this->model('openid_qq')->update_user_info($qq_user['id'], $qq_user_info);
 
                     if (get_setting('register_valid_type') == 'approval' AND $user['group_id'] == 3)
                     {
@@ -141,13 +131,18 @@ class twitter extends AWS_CONTROLLER
                     }
                     else
                     {
+                        if ($_GET['state'])
+                        {
+                            $state = base64_url_decode($_GET['state']);
+                        }
+
                         if (get_setting('ucenter_enabled') == 'Y')
                         {
                             $redirect_url = '/account/sync_login/';
 
-                            if ($_GET['return_url'])
+                            if ($state['return_url'])
                             {
-                                $redirect_url .= 'url-' . $_GET['return_url'];
+                                $redirect_url .= 'url-' . base64_encode($state['return_url']);
                             }
                         }
                         else if ($state['return_url'])
@@ -189,13 +184,13 @@ class twitter extends AWS_CONTROLLER
                             break;
                     }
 
-                    AWS_APP::session()->twitter_user = $twitter_user_info;
+                    AWS_APP::session()->qq_user = $qq_user_info;
 
                     $this->crumb(AWS_APP::lang()->_t('完善资料'), '/account/login/');
 
-                    TPL::assign('register_url', '/account/ajax/twitter/register/');
+                    TPL::assign('register_url', '/account/ajax/qq/register/');
 
-                    TPL::assign('user_name', AWS_APP::session()->twitter_user['name']);
+                    TPL::assign('user_name', AWS_APP::session()->qq_user['nickname']);
 
                     TPL::import_css('css/register.css');
 
@@ -205,27 +200,15 @@ class twitter extends AWS_CONTROLLER
         }
         else
         {
-            $this->model('openid_twitter')->oauth_callback = '/account/twitter/bind/';
+            $state = ($_GET['return_url']) ? base64_url_encode(array('return_url' => base64_decode($_GET['return_url']))) : null;
 
-            if ($_GET['return_url'])
-            {
-                $this->model('openid_twitter')->oauth_callback .= 'return_url-' . $_GET['return_url'];
-            }
-
-            if (!$this->model('openid_twitter')->oauth_redirect())
-            {
-                H::redirect_msg($this->model('openid_twitter')->error_msg);
-            }
-
-            AWS_APP::session()->twitter_request_token = $this->model('openid_twitter')->request_token;
-
-            HTTP::redirect($this->model('openid_twitter')->redirect_url);
+            HTTP::redirect($this->model('openid_qq')->get_redirect_url('/account/openid/qq/bind/', $state));
         }
     }
 
     public function unbind_action()
     {
-        $this->model('openid_twitter')->unbind_account($this->user_id);
+        $this->model('openid_qq')->unbind_account($this->user_id);
 
         HTTP::redirect('/account/setting/openid/');
     }

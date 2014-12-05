@@ -208,7 +208,7 @@ class publish_class extends AWS_MODEL
 
 		if ($question_info['weibo_msg_id'])
 		{
-			$this->model('weibo')->reply_answer_to_sina($question_info['question_id'], cjk_substr($answer_content, 0, 110, 'UTF-8', '...'));
+			$this->model('openid_weibo_weibo')->reply_answer_to_sina($question_info['question_id'], cjk_substr($answer_content, 0, 110, 'UTF-8', '...'));
 		}
 
 		if ($question_info['received_email_id'])
@@ -263,7 +263,7 @@ class publish_class extends AWS_MODEL
 			{
 				if ($weibo_msg_id)
 				{
-					$this->model('weibo')->update_attach($weibo_msg_id, 'qusetion', $question_id, $attach_access_key);
+					$this->model('openid_weibo_weibo')->update_attach($weibo_msg_id, 'qusetion', $question_id, $attach_access_key);
 				}
 				else
 				{

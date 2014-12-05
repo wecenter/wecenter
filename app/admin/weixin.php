@@ -353,9 +353,9 @@ class weixin extends AWS_ADMIN_CONTROLLER
     {
         $this->crumb(AWS_APP::lang()->_t('群发消息'), "admin/weixin/send_msg_batch/");
 
-        if (get_setting('weixin_account_role') != 'service' OR !get_setting('weixin_app_id') OR !get_setting('weixin_app_secret'))
+        if (get_setting('weixin_account_role') != 'subscription' AND get_setting('weixin_account_role') != 'service' OR !get_setting('weixin_app_id') OR !get_setting('weixin_app_secret'))
         {
-            H::redirect_msg(AWS_APP::lang()->_t('此功能只适用于通过微信认证的服务号'), '/admin/weixin/sent_msgs_list/');
+            H::redirect_msg(AWS_APP::lang()->_t('此功能只适用于通过微信认证的公众号'), '/admin/weixin/sent_msgs_list/');
         }
 
         $groups = $this->model('weixin')->get_groups();

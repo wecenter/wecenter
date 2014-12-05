@@ -652,6 +652,7 @@ a.aw-load-more-content{display: block;}
 .aw-inbox-read .mod-footer li{position: relative;padding:15px 60px;}
 .aw-inbox-read .mod-footer li .aw-item{position:relative;padding:12px 15px;background: #fafafa;border:1px solid #e6e6e6;}
 .aw-inbox-read .mod-footer li .aw-item p:first-child{margin-bottom: 10px;}
+.aw-inbox-read .mod-footer li .aw-item p {word-wrap: break-word;}
 .aw-inbox-read .mod-footer li .i-private-replay-triangle{position: absolute;right: -8px;top: 10px;border-left:1px solid #fafafa;}
 .aw-inbox-read .mod-footer li .aw-user-img{position:absolute;top:15px;right: 18px;}
 .aw-inbox-read .mod-footer li .aw-user-img img{width: 32px;height: 32px;}

@@ -19,7 +19,7 @@ if (!defined('IN_ANWSION'))
     die;
 }
 
-class ajax_google extends AWS_CONTROLLER
+class ajax_weibo extends AWS_CONTROLLER
 {
     public function get_access_rule()
     {
@@ -36,9 +36,9 @@ class ajax_google extends AWS_CONTROLLER
     {
         HTTP::no_cache_header();
 
-        if (get_setting('google_login_enabled') != 'Y' OR !get_setting('google_client_id') OR !get_setting('google_client_secret'))
+        if (get_setting('sina_weibo_enabled') != 'Y' OR !get_setting('sina_akey') OR !get_setting('sina_skey'))
         {
-            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('本站未开通 Google 登录')));
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('本站未开通微博登录')));
         }
     }
 
@@ -67,14 +67,14 @@ class ajax_google extends AWS_CONTROLLER
                 break;
         }
 
-        if (!AWS_APP::session()->google_user)
+        if (!AWS_APP::session()->weibo_user)
         {
-            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('Google 账号信息不存在')));
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('微博账号信息不存在')));
         }
 
-        if ($this->model('openid_google')->get_google_user_by_id(AWS_APP::session()->google_user['id']))
+        if ($this->model('openid_weibo_oauth')->get_weibo_user_by_id(AWS_APP::session()->weibo_user['id']))
         {
-            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('此 Google 账号已被绑定')));
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('此微博账号已被绑定')));
         }
 
         if ($this->model('account')->check_email($_POST['email']))
@@ -118,7 +118,7 @@ class ajax_google extends AWS_CONTROLLER
                 $this->model('active')->active_user_by_uid($uid);
             }
 
-            if (AWS_APP::session()->google_user['email'] == $_POST['email'] AND AWS_APP::session()->google_user['verified_email'] == true)
+            if (AWS_APP::session()->weibo_user['email'] == $_POST['email'] AND AWS_APP::session()->weibo_user['verified'] == true)
             {
                 $this->model('active')->set_user_email_valid_by_uid($uid);
             }
@@ -135,11 +135,11 @@ class ajax_google extends AWS_CONTROLLER
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('注册失败')));
         }
 
-        $this->model('openid_google')->bind_account(AWS_APP::session()->google_user, $uid);
+        $this->model('openid_weibo_oauth')->bind_account(AWS_APP::session()->weibo_user, $uid);
 
-        if (AWS_APP::session()->google_user['picture'])
+        if (AWS_APP::session()->weibo_user['profile_image_url'])
         {
-            $this->model('account')->associate_remote_avatar($uid, AWS_APP::session()->google_user['picture']);
+            $this->model('account')->associate_remote_avatar($uid, AWS_APP::session()->weibo_user['profile_image_url']);
         }
 
         if (get_setting('register_valid_type') == 'approval')
@@ -158,7 +158,7 @@ class ajax_google extends AWS_CONTROLLER
             }
         }
 
-        unset(AWS_APP::session()->google_user);
+        unset(AWS_APP::session()->weibo_user);
 
         H::ajax_json_output(AWS_APP::RSM(array(
             'url' => get_js_url($redirect_url)
