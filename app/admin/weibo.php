@@ -25,7 +25,7 @@ class weibo extends AWS_ADMIN_CONTROLLER
     {
         $this->crumb(AWS_APP::lang()->_t('消息接收'), 'admin/weibo/msg/');
 
-        $services_info = $this->model('weibo')->get_services_info();
+        $services_info = $this->model('openid_weibo_weibo')->get_services_info();
 
         if ($services_info)
         {

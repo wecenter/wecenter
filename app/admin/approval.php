@@ -64,7 +64,7 @@ class approval extends AWS_ADMIN_CONTROLLER
 
 		TPL::assign('article_comment_count', $this->model('publish')->count('approval', "type = 'article_comment'"));
 
-		TPL::assign('weibo_msg_count', $this->model('weibo')->count('weibo_msg', 'question_id IS NULL'));
+		TPL::assign('weibo_msg_count', $this->model('openid_weibo_weibo')->count('weibo_msg', 'question_id IS NULL'));
 
 		TPL::assign('received_email_count', $this->model('edm')->count('received_email', 'question_id IS NULL'));
 
@@ -129,7 +129,7 @@ class approval extends AWS_ADMIN_CONTROLLER
 		switch ($_GET['type'])
 		{
 			case 'weibo_msg':
-				$approval_item = $this->model('weibo')->get_msg_info_by_id($_GET['id']);
+				$approval_item = $this->model('openid_weibo_weibo')->get_msg_info_by_id($_GET['id']);
 
 				if ($approval_item['question_id'])
 				{

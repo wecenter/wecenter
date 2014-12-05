@@ -169,7 +169,7 @@ class admin_class extends AWS_MODEL
         {
             $notifications_texts[] = array(
                                             'url' => 'admin/approval/list/type-weibo_msg',
-                                            'text' => AWS_APP::lang()->_t('有 %s 个新浪微博消息待审核', $notifications['weibo_msg_approval'])
+                                            'text' => AWS_APP::lang()->_t('有 %s 个微博消息待审核', $notifications['weibo_msg_approval'])
                                         );
         }
 
@@ -219,7 +219,7 @@ class admin_class extends AWS_MODEL
             {
                 $notifications_texts[] = array(
                                                 'url' => 'admin/weibo/msg/',
-                                                'text' => AWS_APP::lang()->_t('用户 %s 的新浪微博账号需要更新 Access Token，请重新授权', $sina_user['user_name'])
+                                                'text' => AWS_APP::lang()->_t('用户 %s 的微博账号需要更新 Access Token，请重新授权', $sina_user['user_name'])
                                             );
             }
         }

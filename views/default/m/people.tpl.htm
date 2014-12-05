@@ -10,7 +10,7 @@
 					<?php echo $this->user['user_name']; ?>
 					<?php if ($this->user['verified']) { ?><i class="icon-v<?php if ($this->user['verified'] == 'enterprise') { ?> i-ve<?php } ?>" title="<?php if ($this->user['verified'] == 'enterprise') { ?>企业认证<?php } else { ?>个人认证<?php } ?>"></i><?php } ?>
 				</h1>
-				
+
 				<?php if ($this->user['uid'] != $this->user_id AND $this->user_id) { ?>
 				<span class="pull-right">
 					<a class="btn btn-success btn-mini <?php if ($this->user_follow_check) { ?> active<?php } ?>" onclick="AWS.User.follow($(this), 'user', <?php echo $this->user['uid']; ?>);"><?php if ($this->user_follow_check) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?></a>
@@ -188,7 +188,7 @@
 						<ul>
 							<li>
 								<i class="icon icon-location"></i>
-								<span class="color-666"> <?php _e('现居'); ?> :</span> 
+								<span class="color-666"> <?php _e('现居'); ?> :</span>
 								<?php if ($this->user['province']) { ?>
 									<?php echo $this->user['province']; ?>
 									<?php echo $this->user['city']; ?>
@@ -202,7 +202,7 @@
 								<i class="icon icon-bind"></i>
 								<span class="color-666"><?php _e('绑定'); ?>  :</span>
 								<?php if (get_setting('sina_weibo_enabled') == 'Y' AND $this->sina_weibo_url) { ?>
-									<?php if ($this->sina_weibo_url AND get_setting('sina_weibo_enabled') == 'Y') { ?><a href="<?php if ($this->sina_weibo_url) { ?><?php echo $this->sina_weibo_url; ?><?php } else { ?>javascript:;<?php } ?>" title="<?php _e('新浪微博'); ?>"><?php _e('新浪微博'); ?></a><?php } ?>
+									<?php if ($this->sina_weibo_url AND get_setting('sina_weibo_enabled') == 'Y') { ?><a href="<?php if ($this->sina_weibo_url) { ?><?php echo $this->sina_weibo_url; ?><?php } else { ?>javascript:;<?php } ?>" title="<?php _e('微博'); ?>"><?php _e('微博'); ?></a><?php } ?>
 								<?php } ?>
 							</li>
 						</ul>
@@ -232,9 +232,9 @@
 
 	$(function()
 	{
-		
+
 		AWS.load_list_view(G_BASE_URL + '/people/ajax/user_actions/uid-' + PEOPLE_USER_ID + '__actions-201', $('#load_join'), $('#join_listview'), 1);	// 参与的问题
-			  
+
 		AWS.load_list_view(G_BASE_URL + '/people/ajax/user_actions/uid-' + PEOPLE_USER_ID + '__actions-101', $('#load_publish'), $('#publish_listview'), 1);	// 发起的问题
 	});
 </script>
