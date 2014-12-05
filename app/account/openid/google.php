@@ -17,7 +17,7 @@ if (!defined('IN_ANWSION'))
     die;
 }
 
-class google extends AWS_CONTROLLER
+class openid_google extends AWS_CONTROLLER
 {
     public function get_access_rule()
     {

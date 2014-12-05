@@ -17,7 +17,7 @@ if (!defined('IN_ANWSION'))
     die;
 }
 
-class facebook extends AWS_CONTROLLER
+class openid_facebook extends AWS_CONTROLLER
 {
     public function get_access_rule()
     {
