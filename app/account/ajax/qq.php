@@ -72,7 +72,7 @@ class ajax_qq extends AWS_CONTROLLER
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('QQ 账号信息不存在')));
         }
 
-        if ($this->model('openid_qq')->get_qq_user_by_id(AWS_APP::session()->qq_user['id']))
+        if ($this->model('openid_qq')->get_qq_user_by_openid(AWS_APP::session()->qq_user['openid']))
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('此 QQ 账号已被绑定')));
         }

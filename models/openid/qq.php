@@ -284,7 +284,7 @@ class openid_qq_class extends AWS_MODEL
 
     public function bind_account($qq_user, $uid)
     {
-        if ($this->get_qq_user_by_id($qq_user['id']) OR $this->get_qq_user_by_uid($uid))
+        if ($this->get_qq_user_by_openid($qq_user['openid']) OR $this->get_qq_user_by_uid($uid))
         {
             return false;
         }
