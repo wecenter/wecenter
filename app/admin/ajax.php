@@ -1749,7 +1749,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
                 H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('所选用户不存在')));
             }
 
-            $service_info = $this->model('openid_weibo_oauth')->get_users_sina_by_uid($user_info['uid']);
+            $service_info = $this->model('openid_weibo_oauth')->get_weibo_user_by_uid($user_info['uid']);
 
             $tmp_service_account = AWS_APP::cache()->get('tmp_service_account');
         }

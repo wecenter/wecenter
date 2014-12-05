@@ -62,7 +62,7 @@ class openid_weibo_oauth_class extends AWS_MODEL
 
     public function oauth2_login()
     {
-        if (!$this->get_access_token() OR !$this->get_user_info())
+        if (!$this->get_access_token() OR !$this->validate_access_token() OR !$this->get_user_info())
         {
             if (!$this->error_msg)
             {

@@ -106,7 +106,7 @@ class openid_weibo_weibo_class extends AWS_MODEL
             return false;
         }
 
-        $service_info = $this->model('openid_weibo_oauth')->get_users_sina_by_id($msg_info['weibo_uid']);
+        $service_info = $this->model('openid_weibo_oauth')->get_weibo_user_by_id($msg_info['weibo_uid']);
 
         if (!$service_info)
         {
