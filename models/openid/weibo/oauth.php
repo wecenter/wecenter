@@ -92,7 +92,7 @@ class openid_weibo_oauth_class extends AWS_MODEL
             'redirect_uri' => get_js_url($this->redirect_url)
         );
 
-        $result = HTTP::request(self::OAUTH2_TOKEN_URL, 'POST', $args);
+        $result = HTTP::request(self::OAUTH2_TOKEN_URL, 'POST', http_build_query($args));
 
         if (!$result)
         {
@@ -126,7 +126,7 @@ class openid_weibo_oauth_class extends AWS_MODEL
             'access_token' => $this->access_token
         );
 
-        $result = HTTP::request(self::OAUTH2_TOKEN_INFO_URL, 'POST', $args);
+        $result = HTTP::request(self::OAUTH2_TOKEN_INFO_URL, 'POST', http_build_query($args));
 
         if (!$result)
         {
@@ -341,7 +341,7 @@ class openid_weibo_oauth_class extends AWS_MODEL
             'id' => $id
         );
 
-        $result = HTTP::request(self::COMMENTS_CREATE_URL, 'POST', $args);
+        $result = HTTP::request(self::COMMENTS_CREATE_URL, 'POST', http_build_query($args));
 
         if (!$result)
         {
