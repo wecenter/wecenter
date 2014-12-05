@@ -87,7 +87,7 @@ class openid_weibo_oauth_class extends AWS_MODEL
         $args = array(
             'client_id' => get_setting('sina_akey'),
             'client_secret' => get_setting('sina_skey'),
-            'grant_type' => 'authorization_code'
+            'grant_type' => 'authorization_code',
             'code' => $this->authorization_code,
             'redirect_uri' => get_js_url($this->redirect_url)
         );
