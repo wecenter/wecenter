@@ -106,7 +106,7 @@ class weixin extends AWS_CONTROLLER
 
 		if (get_setting('weixin_account_role') != 'service')
 		{
-			H::redirect_msg(AWS_APP::lang()->_t('微信订阅号不支持账户绑定'));
+			H::redirect_msg(AWS_APP::lang()->_t('此功能只适用于通过微信认证的服务号'));
 		}
 		else if ($_GET['code'] OR $_GET['state'] == 'OAUTH')
 		{

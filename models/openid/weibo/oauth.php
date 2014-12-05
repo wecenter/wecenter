@@ -27,6 +27,10 @@ class openid_weibo_oauth_class extends AWS_MODEL
 
     const OAUTH2_USER_INFO_URL = 'https://api.weibo.com/2/users/show.json';
 
+    const STATUSES_MENTIONS_URL = 'https://api.weibo.com/2/statuses/mentions.json';
+
+    const COMMENTS_CREATE_URL = 'https://api.weibo.com/2/comments/create.json';
+
     public $authorization_code;
 
     public $access_token;
@@ -302,29 +306,48 @@ class openid_weibo_oauth_class extends AWS_MODEL
 
     public function get_msg_from_sina($access_token, $since_id = 0, $max_id = 0)
     {
-        $client = new Services_Weibo_WeiboClient(get_setting('sina_akey'), get_setting('sina_skey'), $access_token);
-
-        $result = $client->mentions(1, 100, $since_id, $max_id);
-
-        if ($result['error'])
-        {
-            return $result;
-        }
-
-        $msgs = $result['statuses'];
-
-        if (!$msgs)
+        if (!$access_token)
         {
             return false;
         }
 
-        return $msgs;
+        $args = array(
+            'access_token' => $access_token,
+            'since_id' => $since_id,
+            'max_id' => $max_id,
+            'count' => 100
+        );
+
+        $result = curl_get_contents(self::STATUSES_MENTIONS_URL . '?' . http_build_query($args));
+
+        if (!$result)
+        {
+            return false;
+        }
+
+        return json_decode($result, true);
     }
 
     public function create_comment($access_token, $id, $comment)
     {
-        $client = new Services_Weibo_WeiboClient(get_setting('sina_akey'), get_setting('sina_skey'), $access_token);
+        if (!$access_token)
+        {
+            return false;
+        }
 
-        return $client->send_comment($id, $comment);
+        $args = array(
+            'access_token' => $access_token,
+            'comment' => $comment,
+            'id' => $id
+        );
+
+        $result = HTTP::request(self::COMMENTS_CREATE_URL, 'POST', $args);
+
+        if (!$result)
+        {
+            return false;
+        }
+
+        return json_decode($result, true);
     }
 }

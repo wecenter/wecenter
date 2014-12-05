@@ -115,7 +115,14 @@ class openid_weibo_weibo_class extends AWS_MODEL
 
         $comment .= ' (' . AWS_APP::lang()->_t('来自')  . ' ' . get_js_url('/question/' . $question_id) . ' )';
 
-        return $this->model('openid_weibo_oauth')->create_comment($service_info['access_token'], $msg_info['id'], $comment);
+        $result = $this->model('openid_weibo_oauth')->create_comment($service_info['access_token'], $msg_info['id'], $comment);
+
+        if ($result['error_code'] == 21332)
+        {
+            $this->notification_of_refresh_access_token($service_user_info['uid'], $service_user_info['user_name']);
+        }
+
+        return $result;
     }
 
     public function get_msg_from_sina_crond()
@@ -159,16 +166,16 @@ class openid_weibo_weibo_class extends AWS_MODEL
                 continue;
             }
 
-            $msgs = $this->model('openid_weibo_oauth')->get_msg_from_sina($service_info['access_token'], $service_info['last_msg_id']);
+            $result = $this->model('openid_weibo_oauth')->get_msg_from_sina($service_info['access_token'], $service_info['last_msg_id']);
 
-            if (!$msgs)
+            if (!$result)
             {
                 continue;
             }
 
-            if ($msgs['error'])
+            if ($result['error_code'])
             {
-                if ($msgs['error_code'] == 21332)
+                if ($result['error_code'] == 21332)
                 {
                     $this->notification_of_refresh_access_token($service_user_info['uid'], $service_user_info['user_name']);
                 }
@@ -178,7 +185,7 @@ class openid_weibo_weibo_class extends AWS_MODEL
 
             $this->notification_of_refresh_access_token($service_user_info['uid'], null);
 
-            foreach ($msgs AS $msg)
+            foreach ($result['statuses'] AS $msg)
             {
                 $msg_info['created_at'] = strtotime($msg['created_at']);
 
