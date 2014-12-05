@@ -85,7 +85,7 @@ class openid_qq_class extends AWS_MODEL
         }
 
         $args = array(
-            'grant_type' => 'authorization_code'
+            'grant_type' => 'authorization_code',
             'client_id' => get_setting('qq_login_app_id'),
             'client_secret' => get_setting('qq_login_app_key'),
             'code' => $this->authorization_code,
@@ -163,7 +163,7 @@ class openid_qq_class extends AWS_MODEL
 
     public function get_user_info()
     {
-        if (!$this->oepnid)
+        if (!$this->openid)
         {
             $this->error_msg = AWS_APP::lang()->_t('openid 为空');
 
@@ -197,7 +197,7 @@ class openid_qq_class extends AWS_MODEL
         switch ($result['gender'])
         {
             case '男':
-                $result['gender'] = 'male'
+                $result['gender'] = 'male';
 
                 break;
 
@@ -290,11 +290,11 @@ class openid_qq_class extends AWS_MODEL
         }
 
         return $this->insert('users_qq', array(
+            'uid' => intval($uid),
             'nickname' => htmlspecialchars($qq_user['nickname']),
             'openid' => htmlspecialchars($qq_user['openid']),
             'gender' => htmlspecialchars($qq_user['gender']),
             'figureurl' => htmlspecialchars($qq_user['figureurl']),
-            'authorization_code' => htmlspecialchars($qq_user['authorization_code']),
             'access_token' => htmlspecialchars($qq_user['access_token']),
             'refresh_token' => htmlspecialchars($qq_user['refresh_token']),
             'expires_time' => intval($qq_user['expires_time']),
@@ -314,7 +314,6 @@ class openid_qq_class extends AWS_MODEL
             'openid' => htmlspecialchars($qq_user['openid']),
             'gender' => htmlspecialchars($qq_user['gender']),
             'figureurl' => htmlspecialchars($qq_user['figureurl']),
-            'authorization_code' => htmlspecialchars($qq_user['authorization_code']),
             'access_token' => htmlspecialchars($qq_user['access_token']),
             'refresh_token' => htmlspecialchars($qq_user['refresh_token']),
             'expires_time' => intval($qq_user['expires_time']),

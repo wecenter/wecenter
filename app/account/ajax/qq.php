@@ -137,9 +137,9 @@ class ajax_qq extends AWS_CONTROLLER
 
         $this->model('openid_qq')->bind_account(AWS_APP::session()->qq_user, $uid);
 
-        if (AWS_APP::session()->qq_user['picture'])
+        if (AWS_APP::session()->qq_user['figureurl'])
         {
-            $this->model('account')->associate_remote_avatar($uid, AWS_APP::session()->qq_user['picture']);
+            $this->model('account')->associate_remote_avatar($uid, AWS_APP::session()->qq_user['figureurl']);
         }
 
         if (get_setting('register_valid_type') == 'approval')

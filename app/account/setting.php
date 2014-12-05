@@ -95,7 +95,7 @@ class setting extends AWS_CONTROLLER
 
 		if (get_setting('qq_login_enabled') == 'Y')
 		{
-			TPL::assign('qq', $this->model('openid_qq')->get_user_info_by_uid($this->user_id));
+			TPL::assign('qq', $this->model('openid_qq')->get_qq_user_by_uid($this->user_id));
 		}
 
 		if (get_setting('sina_weibo_enabled') == 'Y')
