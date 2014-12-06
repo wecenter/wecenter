@@ -974,7 +974,6 @@ blockquote {margin: 0 0 16px;padding: 0 15px;font-size: 14px;color: #777;border-
 	.aw-main-content {border:none;}
 	/*导航条*/
 	.aw-publish-btn{display: none;}
-    .navbar-collapse {position: absolute;left: -15px;width: 120px;background-color: #499ef3;}
 	.navbar-collapse.active{display: block;}
 }
 /* iphone横屏幕 */
