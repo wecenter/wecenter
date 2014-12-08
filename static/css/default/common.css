@@ -973,7 +973,6 @@ blockquote {margin: 0 0 16px;padding: 0 15px;font-size: 14px;color: #777;border-
 	.aw-feed-list .aw-item .more-operate{display:inline-block;}
 	.aw-main-content {border:none;}
 	/*导航条*/
-	.aw-publish-btn{display: none;}
 	.navbar-collapse.active{display: block;}
     .navbar-collapse {
         position: absolute;
