@@ -50,8 +50,7 @@
 								<div class="aw-mod aw-editor-box">
 									<div class="mod-head">
 										<div class="wmd-panel">
-								            <div id="wmd-button-bar"></div>
-								            <textarea class="wmd-input form-control autosize" id="wmd-input" rows="15" name="message"><?php echo $this->article_info['message']; ?></textarea>
+											<textarea class="wmd-input form-control autosize editor" id="wmd-input" rows="15" name="message"><?php echo $this->article_info['message']; ?></textarea>
 								        </div>
 									</div>
 									<div class="mod-body">
@@ -63,9 +62,6 @@
 											<span class="text-color-999 aw-upload-tips hidden-xs"><?php _e('允许的附件文件类型'); ?>: <?php echo get_setting('allowed_upload_types'); ?></span>
 										</div>
 										<?php } ?>
-									</div>
-									<div class="mod-footer">
-										<div id="wmd-preview" class="wmd-panel wmd-preview"></div>
 									</div>
 								</div>
 

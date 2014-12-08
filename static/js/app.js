@@ -12,17 +12,17 @@ $(document).ready(function ()
     $('.autosize').autosize();
 
     //编辑器初始化
-    // if (typeof Markdown != 'undefined' && $('#wmd-input').length)
-    // {
-    //     var converter1 = new Markdown.Converter();
 
-    //     var editor1 = new Markdown.Editor(converter1, $('.wmd-panel'), $('#wmd-preview'));
+    $.each($('.editor'), function ()
+    {
+        var editor = CKEDITOR.replace( $(this).attr('name') ), _this = $(this);
 
-    //     editor1.run();
-
-    //     AWS.Editor.set_editor_preview();
-
-    // }
+        // The "change" event is fired whenever a change is made in the editor.
+        editor.on( 'change', function( evt ) {
+            // getData() returns CKEditor's HTML content.
+            _this.val(evt.editor.getData());
+        });
+    })
 
     //响应式导航条效果
     $('.aw-top-nav .navbar-toggle').click(function()
