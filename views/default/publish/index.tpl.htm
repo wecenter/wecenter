@@ -117,7 +117,7 @@
 								<?php } ?>
 							</div>
 							<div class="mod-footer clearfix">
-								<?php if (get_setting('integral_system_enabled') == 'Y') { ?><a href="/integral/rule/" target="_blank">[<?php _e('积分规则'); ?>]</a><?php } ?>
+								<?php if (get_setting('integral_system_enabled') == 'Y') { ?><a href="integral/rule/" target="_blank">[<?php _e('积分规则'); ?>]</a><?php } ?>
 								<span class="aw-anonymity">
 									<?php if ($this->question_info['question_id'] AND ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator'])) { ?>
 									<label><input type="checkbox" class="pull-left" value="1" name="do_delete" />

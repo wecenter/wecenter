@@ -399,7 +399,7 @@ class question_class extends AWS_MODEL
 
 		if ($question_info['weibo_msg_id'])
 		{
-			$this->model('weibo')->del_msg_by_id($question_info['weibo_msg_id']);
+			$this->model('openid_weibo_weibo')->del_msg_by_id($question_info['weibo_msg_id']);
 		}
 
 		if ($question_info['received_email_id'])

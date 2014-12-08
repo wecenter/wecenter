@@ -175,7 +175,7 @@
 									</a>
 									<div aria-labelledby="dropdownMenu" role="menu" class="aw-dropdown shareout pull-right">
 										<ul class="aw-dropdown-list">
-											<li><a onclick="AWS.User.share_out('tsina');"><i class="icon icon-weibo"></i> <?php _e('新浪微博'); ?></a></li>
+											<li><a onclick="AWS.User.share_out('tsina');"><i class="icon icon-weibo"></i> <?php _e('微博'); ?></a></li>
 											<li><a onclick="AWS.User.share_out('qzone');"><i class="icon icon-qzone"></i> <?php _e('QZONE'); ?></a></li>
 											<li><a onclick="AWS.User.share_out('weixin');"><i class="icon icon-wechat"></i> <?php _e('微信'); ?></a></li>
 										</ul>
@@ -393,7 +393,7 @@
 													</a>
 													<div aria-labelledby="dropdownMenu" role="menu" class="aw-dropdown shareout pull-right">
 														<ul class="aw-dropdown-list">
-															<li><a onclick="AWS.User.share_out('tsina', $(this).parents('.aw-item').find('.markitup-box').text());"><i class="icon icon-weibo"></i> <?php _e('新浪微博'); ?></a></li>
+															<li><a onclick="AWS.User.share_out('tsina', $(this).parents('.aw-item').find('.markitup-box').text());"><i class="icon icon-weibo"></i> <?php _e('微博'); ?></a></li>
 															<li><a onclick="AWS.User.share_out('qzone', $(this).parents('.aw-item').find('.markitup-box').text());"><i class="icon icon-qzone"></i> <?php _e('QZONE'); ?></a></li>
 															<li><a onclick="AWS.User.share_out('weixin', $(this).parents('.aw-item').find('.markitup-box').text());"><i class="icon icon-wechat"></i> <?php _e('微信'); ?></a></li>
 														</ul>
@@ -465,7 +465,7 @@
 								</label>
 								<?php } ?>
 								<label class="pull-right">
-									<?php if (get_setting('integral_system_enabled') == 'Y') { ?><a href="/integral/rule/" target="_blank"><?php _e('积分规则'); ?></a><?php } ?>
+									<?php if (get_setting('integral_system_enabled') == 'Y') { ?><a href="integral/rule/" target="_blank"><?php _e('积分规则'); ?></a><?php } ?>
 								</label>
 								<?php echo $this->user_info['user_name']; ?>
 							</p>
@@ -626,7 +626,7 @@
 	USER_ANSWERED = '<?php echo $this->user_answered; ?>';
 
 	UPLOAD_ENABLE = '<?php echo get_setting('upload_enable') ?>';
-	
+
 </script>
 
 <script type="text/javascript" src="<?php echo G_STATIC_URL; ?>/js/app/question_detail.js"></script>

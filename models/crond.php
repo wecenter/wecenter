@@ -117,7 +117,7 @@ class crond_class extends AWS_MODEL
     {
         if (get_setting('weibo_msg_enabled') == 'Y')
         {
-            $this->model('weibo')->get_msg_from_sina_crond();
+            $this->model('openid_weibo_weibo')->get_msg_from_sina_crond();
         }
     }
 

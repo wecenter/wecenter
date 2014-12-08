@@ -72,7 +72,7 @@ class ajax_facebook extends AWS_CONTROLLER
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('Facebook 账号信息不存在')));
         }
 
-        if ($this->model('openid_facebook')->get_facebook_user_by_id($facebook_user['id']))
+        if ($this->model('openid_facebook')->get_facebook_user_by_id(AWS_APP::session()->facebook_user['id']))
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('此 Facebook 账号已被绑定')));
         }

@@ -652,6 +652,7 @@ a.aw-load-more-content{display: block;}
 .aw-inbox-read .mod-footer li{position: relative;padding:15px 60px;}
 .aw-inbox-read .mod-footer li .aw-item{position:relative;padding:12px 15px;background: #fafafa;border:1px solid #e6e6e6;}
 .aw-inbox-read .mod-footer li .aw-item p:first-child{margin-bottom: 10px;}
+.aw-inbox-read .mod-footer li .aw-item p {word-wrap: break-word;}
 .aw-inbox-read .mod-footer li .i-private-replay-triangle{position: absolute;right: -8px;top: 10px;border-left:1px solid #fafafa;}
 .aw-inbox-read .mod-footer li .aw-user-img{position:absolute;top:15px;right: 18px;}
 .aw-inbox-read .mod-footer li .aw-user-img img{width: 32px;height: 32px;}
@@ -1039,9 +1040,20 @@ a.cke_button{padding:8px 10px !important;cursor: pointer !important;border-radiu
 	.aw-feed-list .aw-item .more-operate{display:inline-block;}
 	.aw-main-content {border:none;}
 	/*导航条*/
-	.aw-publish-btn{display: none;}
-    .navbar-collapse {position: absolute;left: -15px;width: 120px;background-color: #499ef3;}
 	.navbar-collapse.active{display: block;}
+    .navbar-collapse {
+        position: absolute;
+        width: 120px;
+        left: -15px;
+        background: #499ef3;
+    }
+}
+@media (min-width: 768px) {
+    .navbar-collapse {
+        position: static;
+        width: auto;
+        background: #499ef3;
+    }
 }
 /* iphone横屏幕 */
 @media (max-width:736px) {

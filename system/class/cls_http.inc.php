@@ -376,6 +376,7 @@ class HTTP
 		curl_setopt($curl, CURLOPT_TIMEOUT, $time_out);
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
 		curl_setopt($curl, CURLOPT_HEADER, FALSE);
+		curl_setopt($curl, CURLOPT_FOLLOWLOCATION, TRUE);
 
 		switch ($method)
 		{
