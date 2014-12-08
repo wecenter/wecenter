@@ -17,12 +17,11 @@ $(document).ready(function ()
     {
         var editor = CKEDITOR.replace( $(this).attr('name') ), _this = $(this);
 
-        // The "change" event is fired whenever a change is made in the editor.
-        editor.on( 'change', function( evt ) {
-            // getData() returns CKEditor's HTML content.
+        editor.on( 'blur', function( evt ) {
             _this.val(evt.editor.getData());
-        });
-    })
+        } );
+
+    });
 
     //响应式导航条效果
     $('.aw-top-nav .navbar-toggle').click(function()

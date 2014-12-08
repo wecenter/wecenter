@@ -3,7 +3,7 @@ CKEDITOR.plugins.add( 'codeTag', {
   init: function( editor ) {
     editor.addCommand( 'wrapCode', {
       exec: function( editor ) {
-        editor.insertHtml( '<pre>' + editor.getSelection().getSelectedText() + '</pre>' );
+        editor.insertHtml( '<code>&nbsp;&nbsp;' + editor.getSelection().getSelectedText() + '</code>' );
       }
     });
     editor.ui.addButton( 'Code', {
