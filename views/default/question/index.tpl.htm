@@ -474,8 +474,7 @@
 							<div class="aw-mod aw-editor-box">
 								<div class="mod-head">
 									<div class="wmd-panel">
-							            <div id="wmd-button-bar"></div>
-							            <textarea class="wmd-input form-control autosize" id="wmd-input" rows="15" name="answer_content"><?php echo htmlspecialchars($this->draft_content['message']); ?></textarea>
+							           <textarea class="wmd-input form-control autosize editor" id="wmd-input" rows="15" name="answer_content"><?php echo htmlspecialchars($this->draft_content['message']); ?></textarea>
 							        </div>
 								</div>
 								<div class="mod-body clearfix">
@@ -634,5 +633,21 @@
 </script>
 
 <script type="text/javascript" src="<?php echo G_STATIC_URL; ?>/js/app/question_detail.js"></script>
+
+<script>
+	$(function ()
+	{
+		$.each($('.editor'), function ()
+        {
+            var editor = CKEDITOR.replace( $(this).attr('name') ), _this = $(this);
+
+            // The "change" event is fired whenever a change is made in the editor.
+            editor.on( 'change', function( evt ) {
+                // getData() returns CKEditor's HTML content.
+                _this.val(evt.editor.getData());
+            });
+        })
+	});
+</script>
 
 <?php TPL::output('global/footer.tpl.htm'); ?>
