@@ -72,7 +72,7 @@ class ajax_twitter extends AWS_CONTROLLER
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('Twitter 账号信息不存在')));
         }
 
-        if ($this->model('openid_twitter')->get_twitter_user_by_id($twitter_user['id']))
+        if ($this->model('openid_twitter')->get_twitter_user_by_id(AWS_APP::session()->twitter_user['id']))
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('此 Twitter 账号已被绑定')));
         }
