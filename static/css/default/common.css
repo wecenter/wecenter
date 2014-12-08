@@ -959,12 +959,15 @@ blockquote {margin: 0 0 16px;padding: 0 15px;font-size: 14px;color: #777;border-
 .aw-noscript{position: absolute;z-index: 100;width: 100%;height: 100%;background-color: #f5f5f5;overflow: hidden;}
 
 .cke_chrome{padding:0 !important;}
+.cke_top{position: relative !important;}
 .cke_chrome, .cke_toolgroup{background: none !important;border:none !important;}
 .cke_contents{border:none !important;border-radius: 0px;}
 .cke_top{padding-top:0 !important;background-color:#f5f5f5 !important;border-bottom: 1px solid #e6e6e6 !important;}
 a.cke_button{padding:8px 10px !important;cursor: pointer !important;border-radius: 0px !important;}
 .cke_button_on, a.cke_button_disabled:active, a.cke_button_disabled:focus, a.cke_button_disabled:hover, a.cke_button_off:active, a.cke_button_off:focus, a.cke_button_off:hover{background-color: #ebebeb !important;}
 .cke_toolgroup{margin:0 !important;padding:0 !important;}
+.cke_combo__fontsize{margin:3px 5px 0 5px !important;}
+.cke_combo__fontsize a{margin: 0 !important;}
 
 .cke_button_icon{
 	font-family: 'icomoon' !important;
@@ -991,9 +994,8 @@ a.cke_button{padding:8px 10px !important;cursor: pointer !important;border-radiu
 }
 
 .cke_button__strike_icon:before {
-	content: "\e63c";
+	content: "\e65e";
 }
-
 
 .cke_button__underline_icon:before {
 	content: "\e63c";
@@ -1027,6 +1029,7 @@ a.cke_button{padding:8px 10px !important;cursor: pointer !important;border-radiu
 	content: "\e609";
 }
 
+.cke_button__maximize{position: absolute !important;right: 0;top: 0;}
 .cke_button__maximize_icon:before {
 	content: "\e65d";
 }

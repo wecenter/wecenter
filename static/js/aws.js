@@ -131,6 +131,11 @@ var AWS =
 
 	ajax_post: function(formEl, processer, type) // 表单对象，用 jQuery 获取，回调函数名
 	{
+		// 若有编辑器的话就更新编辑器内容再提交
+		for ( instance in CKEDITOR.instances ) {
+			CKEDITOR.instances[instance].updateElement();
+		}
+
 	    if (typeof (processer) != 'function')
 	    {
 	        var processer = AWS.ajax_processer;

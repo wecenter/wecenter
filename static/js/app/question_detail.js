@@ -18,22 +18,6 @@ $(function()
 
 		var editor = CKEDITOR.replace( 'wmd-input' );
 
-		// for ( instance in CKEDITOR.instances ) {
-		// CKEDITOR.instances[instance].updateElement();
-		// }
-
-		editor.on( 'change', function( evt ) {
-			for ( instance in CKEDITOR.instances ) {
-				CKEDITOR.instances[instance].updateElement();
-			}
-		});
-
-		
-
-	    // editor.on( 'blur', function( evt ) {
-	    //     CKEDITOR.instances.editor.updateElement();
-	    // } );
-
 		if ($('.aw-upload-box').length)
 		{
 			var fileupload = new FileUpload('file', '.aw-upload-box .btn', '.aw-upload-box .upload-container', G_BASE_URL + '/publish/ajax/attach_upload/id-answer__attach_access_key-' + ATTACH_ACCESS_KEY, {

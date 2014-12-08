@@ -139,7 +139,8 @@
 						if ( stylesMap[ part ] ) {
 							// Font size represents percentage.
 							if ( part == 'size' )
-								optionPart += '%';
+								// Modify by wecenter
+								optionPart += 'px';
 
 							styles[ stylesMap[ part ] ] = optionPart;
 							attribs.style = serializeStyleText( styles );
@@ -656,7 +657,8 @@
 								tagName = 'color';
 								value = CKEDITOR.tools.convertRgbToHex( value );
 							} else if ( ( value = style[ 'font-size' ] ) ) {
-								var percentValue = value.match( /(\d+)%$/ );
+								var percentValue = value.match( /(\d+)%$/ ) ? value.match( /(\d+)%$/ ) : value.match( /(\d+)px$/ );
+								console.log(percentValue);
 								if ( percentValue ) {
 									value = percentValue[ 1 ];
 									tagName = 'size';

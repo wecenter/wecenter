@@ -7,7 +7,7 @@ CKEDITOR.editorConfig = function( config ) {
 	
 	// %REMOVE_START%
 	// The configuration options below are needed when running CKEditor from source files.
-	config.plugins = 'blockquote,maximize,basicstyles,button,toolbar,enterkey,entities,floatingspace,wysiwygarea,image,fakeobjects,link,list,undo,bbcode,sourcearea,codeTag';
+	config.plugins = 'font,blockquote,maximize,basicstyles,button,toolbar,enterkey,entities,floatingspace,wysiwygarea,image,fakeobjects,link,list,undo,bbcode,sourcearea,codeTag';
 	config.skin = 'bootstrapck';
 
 	config.height = '250';
@@ -37,7 +37,7 @@ CKEDITOR.editorConfig = function( config ) {
 	config.toolbar = 'Full';
 
 	config.toolbar_Full = [
-		 ['Bold','Italic','Strike','Underline','NumberedList','BulletedList', 'Blockquote', 'Code', 'Image', 'Link', 'Maximize', 'Source']
+		 ['FontSize','Cleanup','Bold','Italic','Strike','Underline','NumberedList','BulletedList', 'Blockquote', 'Code', 'Image', 'Link', 'Maximize', 'Source']
 
 	]
 

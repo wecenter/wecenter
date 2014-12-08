@@ -1,5 +1,5 @@
 
-<blockquote class="decoda-quote">
+<blockquote>
 	<?php if (!empty($author) || !empty($date)) { ?>
 		<div class="decoda-quoteHead">
 			<?php if (!empty($date)) { ?>
