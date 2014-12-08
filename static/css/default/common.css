@@ -974,8 +974,20 @@ blockquote {margin: 0 0 16px;padding: 0 15px;font-size: 14px;color: #777;border-
 	.aw-main-content {border:none;}
 	/*导航条*/
 	.aw-publish-btn{display: none;}
-    .navbar-collapse {position: absolute;left: -15px;width: 120px;background-color: #499ef3;}
 	.navbar-collapse.active{display: block;}
+    .navbar-collapse {
+        position: absolute;
+        width: 120px;
+        left: -15px;
+        background: #499ef3;
+    }
+}
+@media (min-width: 768px) {
+    .navbar-collapse {
+        position: static;
+        width: auto;
+        background: #499ef3;
+    }
 }
 /* iphone横屏幕 */
 @media (max-width:736px) {
