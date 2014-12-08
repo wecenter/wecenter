@@ -31,6 +31,25 @@ class main extends AWS_CONTROLLER
 
     public function index_action()
     {
+        $ticket_info = $this->model('ticket')->get_ticket_by_id($_GET['id']);
+
+        if (!$ticket_info)
+        {
+            H::redirect_msg(AWS_APP::lang()->_t('问题不存在或已被删除'), '/');
+        }
+
+        TPL::assign('ticket_info', $ticket_info);
+
+        if ($_GET['column'] == 'log')
+        {
+            if (!$this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_service'])
+            {
+                HTTP::redirect('/ticket/' . $ticket_info['id']);
+            }
+
+            TPL::assign('ticket_log', $this->model('ticket')->parse_ticket_log($ticket_info['id']));
+        }
+
         TPL::output('ticket/index');
     }
 

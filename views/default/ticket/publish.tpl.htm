@@ -1,143 +1,89 @@
 <?php TPL::output('global/header.tpl.htm'); ?>
 
 <div class="aw-container-wrap">
-	<div class="container aw-publish">
-		<div class="row">
-			<div class="aw-content-wrap clearfix">
-				<div class="col-sm-12 col-md-9 aw-main-content">
-					<!-- tab 切换 -->
-					<ul class="nav nav-tabs aw-nav-tabs active">
-						<li class="active"><a href="publish/ticket/"><?php _e('工单'); ?></a></li>
-						<?php if ($this->user_info['permission']['publish_article']) { ?>
-						<li><a href="publish/article/"><?php _e('文章'); ?></a></li>
-						<?php } ?>
-						<li><a href="publish/"><?php _e('问题'); ?></a></li>
-						<h2 class="hidden-xs"><i class="icon icon-ask"></i> <?php _e('发起'); ?></h2>
-					</ul>
-					<!-- end tab 切换 -->
-					<form action="publish/ajax/ticket/publish/" method="post" id="ticket_form" onsubmit="return false;">
-						<input type="hidden" name="post_hash" value="<?php echo new_post_hash(); ?>" />
-						<input type="hidden" name="attach_access_key" value="<?php echo $this->attach_access_key; ?>" />
+    <div class="container aw-publish">
+        <div class="row">
+            <div class="aw-content-wrap clearfix">
+                <div class="col-sm-12 col-md-9 aw-main-content">
+                    <!-- tab 切换 -->
+                    <ul class="nav nav-tabs aw-nav-tabs active">
+                        <li class="active"><a href="publish/ticket/"><?php _e('工单'); ?></a></li>
+                        <?php if ($this->user_info['permission']['publish_article']) { ?>
+                        <li><a href="publish/article/"><?php _e('文章'); ?></a></li>
+                        <?php } ?>
+                        <li><a href="publish/"><?php _e('问题'); ?></a></li>
+                        <h2 class="hidden-xs"><i class="icon icon-ask"></i> <?php _e('发起'); ?></h2>
+                    </ul>
+                    <!-- end tab 切换 -->
+                    <form action="ticket/ajax/publish/" method="post" id="ticket_form" onsubmit="return false;">
+                        <input type="hidden" name="post_hash" value="<?php echo new_post_hash(); ?>" />
+                        <input type="hidden" name="attach_access_key" value="<?php echo $this->attach_access_key; ?>" />
 
-						<div class="aw-mod aw-mod-publish">
-							<div class="mod-body">
-								<h3><?php _e('问题标题'); ?>:</h3>
-								<!-- 问题标题 -->
-								<div class="aw-publish-title active">
-									<div>
-										<input type="text" placeholder="<?php _e('工单标题'); ?>..." name="ticket_content" id="ticket_contents" value="<?php echo $this->ticket_info['ticket_content']; ?>" class="form-control" />
-										<div class="aw-publish-suggest-ticket hide">
-											<p class="text-color-999">你的问题可能已经有答案</p>
-											<ul class="aw-dropdown-list">
-											</ul>
-										</div>
-									</div>
-								</div>
-								<!-- end 问题标题 -->
+                        <div class="aw-mod aw-mod-publish">
+                            <div class="mod-body">
+                                <h3><?php _e('标题'); ?>:</h3>
+                                <!-- 问题标题 -->
+                                <div class="aw-publish-title active">
+                                    <div>
+                                        <input type="text" placeholder="<?php _e('标题'); ?>..." name="title" value="" class="form-control" />
+                                        <div class="aw-publish-suggest-question hide">
+                                            <p class="text-color-999">你的问题可能已经有答案</p>
+                                            <ul class="aw-dropdown-list">
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end 问题标题 -->
 
-								<h3><?php _e('补充说明 (选填)'); ?>:</h3>
-								<div class="aw-mod aw-editor-box">
-									<div class="mod-head">
-										<div class="wmd-panel">
-								            <div id="wmd-button-bar"></div>
-								            <textarea class="wmd-input form-control autosize" id="wmd-input" rows="15" name="ticket_detail"><?php echo $this->ticket_info['ticket_detail']; ?></textarea>
-								        </div>
-									</div>
-									<div class="mod-body">
-										<span class="pull-right text-color-999" id="ticket_detail_message">&nbsp;</span>
-										<?php if (get_setting('upload_enable') == 'Y') { ?>
-										<div class="aw-upload-box">
-											<a class="btn btn-default">上传附件</a>
-											<div class="upload-container"></div>
-											<span class="text-color-999 aw-upload-tips hidden-xs"><?php _e('允许'); ?> : <?php echo get_setting('allowed_upload_types'); ?></span>
-										</div>
-										<?php } ?>
-									</div>
-									<div class="mod-footer">
-										<div id="wmd-preview" class="wmd-panel wmd-preview"></div>
-									</div>
-								</div>
-								<?php if (!$this->ticket_info['ticket_id']) { ?>
-								<h3><?php _e('添加话题'); ?>:</h3>
-								<div class="aw-topic-bar" data-type="publish">
-									<div class="tag-bar clearfix">
-										<?php if ($_GET['topic_title']) { ?>
-										<span class="topic-tag">
-											<a class="text"><?php echo urldecode($_GET['topic_title']); ?></a>
-											<a class="close" onclick="$(this).parents('.topic-tag').remove();">
-												<i class="icon icon-delete"></i>
-											</a>
-											<input type="hidden" value="<?php echo urldecode($_GET['topic_title']); ?>" name="topics[]" />
-										</span>
-										<?php } ?>
+                                <h3><?php _e('补充说明 (选填)'); ?>:</h3>
+                                <div class="aw-mod aw-editor-box">
+                                    <div class="mod-head">
+                                        <div class="wmd-panel">
+                                            <div id="wmd-button-bar"></div>
+                                            <textarea class="wmd-input form-control autosize" id="wmd-input" rows="15" name="message"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="mod-body">
+                                        <span class="pull-right text-color-999" id="question_detail_message">&nbsp;</span>
+                                        <?php if (get_setting('upload_enable') == 'Y') { ?>
+                                        <div class="aw-upload-box">
+                                            <a class="btn btn-default">上传附件</a>
+                                            <div class="upload-container"></div>
+                                            <span class="text-color-999 aw-upload-tips hidden-xs"><?php _e('允许'); ?> : <?php echo get_setting('allowed_upload_types'); ?></span>
+                                        </div>
+                                        <?php } ?>
+                                    </div>
+                                    <div class="mod-footer">
+                                        <div id="wmd-preview" class="wmd-panel wmd-preview"></div>
+                                    </div>
+                                </div>
+                                <?php if ($this->human_valid) { ?>
+                                <div class="aw-auth-img clearfix">
+                                    <input class="form-control pull-right" type="text" name="seccode_verify" placeholder="验证码" />
+                                    <em class="auth-img pull-right"><img src="" onclick="this.src = G_BASE_URL + '/account/captcha/' + Math.floor(Math.random() * 10000);" id="captcha"  /></em>
+                                </div>
+                                <?php } ?>
+                            </div>
+                            <div class="mod-footer clearfix">
+                                <a class="btn btn-large btn-success btn-publish-submit" id="publish_submit" onclick="AWS.ajax_post($('#ticket_form')); return false;"><?php _e('确认发起'); ?></a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- 侧边栏 -->
+                <div class="col-sm-12 col-md-3 aw-side-bar hidden-xs">
 
-										<?php if ($_POST['topics']) { ?>
-										<?php foreach ($_POST['topics'] AS $key => $val) { ?>
-										<span class="topic-tag">
-											<a class="text"><?php echo $val; ?></a>
-											<input type="hidden" value="<?php echo $val; ?>" name="topics[]" />
-										</span>
-										<?php } ?>
-										<?php } ?>
-
-										<span class="aw-edit-topic icon-inverse"><i class="icon icon-edit"></i> <?php _e('编辑话题'); ?></span>
-										</span>
-									</div>
-								</div>
-								<?php if ($this->recent_topics) { ?>
-								<h3><?php _e('最近话题'); ?>:</h3>
-								<div class="aw-topic-bar">
-									<div class="topic-bar clearfix">
-										<?php foreach($this->recent_topics as $key => $val) { ?>
-										<span class="topic-tag" onclick="$('#aw_edit_topic_title').val('<?php echo $val; ?>');$('.add').click();$(this).hide();">
-											<a class="text">
-												<?php echo $val; ?>
-											</a>
-										</span>
-										<?php } ?>
-									</div>
-								</div>
-								<?php } ?>
-								<?php } ?>
-								<?php if ($this->human_valid) { ?>
-								<div class="aw-auth-img clearfix">
-									<input class="form-control pull-right" type="text" name="seccode_verify" placeholder="验证码" />
-									<em class="auth-img pull-right"><img src="" onclick="this.src = G_BASE_URL + '/account/captcha/' + Math.floor(Math.random() * 10000);" id="captcha"  /></em>
-								</div>
-								<?php } ?>
-							</div>
-							<div class="mod-footer clearfix">
-								<a href="page/integral" target="_blank">[积分规则]</a>
-								<span class="aw-anonymity">
-									<?php if ($this->ticket_info['ticket_id'] AND ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator'])) { ?>
-									<label><input type="checkbox" class="pull-left" value="1" name="do_delete" />
-										<?php _e('删除问题'); ?></label>
-									<?php } ?>
-									<?php if (!$this->ticket_info['ticket_id'] AND get_setting('anonymous_enable') == 'Y') { ?>
-									<label><input type="checkbox" class="pull-left" value="1" name="anonymous" />
-										<?php _e('匿名'); ?></label>
-									<?php } ?>
-
-								</span>
-								<a class="btn btn-large btn-success btn-publish-submit" id="publish_submit" onclick="AWS.ajax_post($('#ticket_form')); return false;"><?php _e('确认发起'); ?></a>
-							</div>
-						</div>
-					</form>
-				</div>
-				<!-- 侧边栏 -->
-				<div class="col-sm-12 col-md-3 aw-side-bar hidden-xs">
-
-				</div>
-				<!-- end 侧边栏 -->
-			</div>
-		</div>
-	</div>
+                </div>
+                <!-- end 侧边栏 -->
+            </div>
+        </div>
+    </div>
 </div>
 
 <script type="text/javascript">
-	var ATTACH_ACCESS_KEY = '<?php echo $this->attach_access_key; ?>';
-	var CATEGORY_ID = <?php echo intval($_POST['category_id']); ?>;
-	var PUBLISH_TYPE = 'ticket';
+    var ATTACH_ACCESS_KEY = '<?php echo $this->attach_access_key; ?>';
+    var CATEGORY_ID = <?php echo intval($_POST['category_id']); ?>;
+    var PUBLISH_TYPE = 'ticket';
 </script>
 
 <?php TPL::output('global/footer.tpl.htm'); ?>

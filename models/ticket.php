@@ -72,7 +72,7 @@ class ticket_class extends AWS_MODEL
             'title' => htmlspecialchars($title),
             'message' => htmlspecialchars($message),
             'time' => time(),
-            'uid' => intval($uid)
+            'uid' => intval($uid),
             'ip' => ip2long($ip_address),
             'priority' => 'normal',
             'status' => 'pending'
@@ -83,7 +83,7 @@ class ticket_class extends AWS_MODEL
             $to_save_ticket[$from . '_id'] = $from_id;
         }
 
-        $ticket_id = $this->insert('question', $to_save_ticket);
+        $ticket_id = $this->insert('ticket', $to_save_ticket);
 
         if ($ticket_id)
         {
@@ -123,7 +123,7 @@ class ticket_class extends AWS_MODEL
 
         $this->delete('ticket', 'id = ' . $ticket_info['id']);
 
-        $this->delete('ticket_log', 'ticket_id' = $ticket_info['id']);
+        $this->delete('ticket_log', 'ticket_id = ' . $ticket_info['id']);
 
         $attachs = $this->model('publish')->get_attach('ticket', $question_id);
 
@@ -285,7 +285,7 @@ class ticket_class extends AWS_MODEL
                         ),
 
                         'time' => $log_data['time']
-                    )
+                    );
 
                     break;
 
@@ -297,7 +297,7 @@ class ticket_class extends AWS_MODEL
                         ),
 
                         'time' => $log_data['time']
-                    )
+                    );
 
                     break;
 
@@ -310,7 +310,7 @@ class ticket_class extends AWS_MODEL
                         ),
 
                         'time' => $log_data['time']
-                    )
+                    );
 
                     break;
 

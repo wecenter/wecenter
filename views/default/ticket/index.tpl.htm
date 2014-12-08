@@ -37,12 +37,11 @@
                     <div class="aw-mod aw-question-detail aw-item">
                         <div class="mod-head">
                             <h1>
-                                <?php echo $this->question_info['question_content']; ?>
+                                <?php echo $this->ticket_info['message']; ?>
                             </h1>
 
                             <?php if ($this->user_id) { ?>
                             <div class="operate clearfix">
-                                <a href="javascript:;" onclick="AWS.User.follow($(this), 'question', <?php echo $this->question_info['question_id']; ?>);" class="follow btn btn-normal btn-success pull-left <?php if ($this->question_focus) { ?> active<?php } ?>"><span><?php if ($this->question_focus) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?></span> <em>|</em> <b><?php echo $this->question_info['focus_count']?></b></a>
                                 <!-- 下拉菜单 -->
                                 <div class="btn-group pull-left">
                                     <a class="btn btn-gray dropdown-toggle" data-toggle="dropdown" href="javascript:;">...</a>
@@ -50,9 +49,9 @@
                                         <ul class="aw-dropdown-list">
                                             <li>
                                                 <?php if ($_GET['column'] == 'log') { ?>
-                                                    <a href="question/<?php echo $this->question_info['question_id']; ?>"><?php _e('问题讨论'); ?></a>
+                                                    <a href="ticket/<?php echo $this->ticket_info['id']; ?>"><?php _e('工单详情'); ?></a>
                                                 <?php } else { ?>
-                                                    <a href="question/<?php echo $this->question_info['question_id']; ?>?column=log&rf=false" rel="nofollow"><?php _e('修改记录'); ?></a>
+                                                    <a href="ticket/<?php echo $this->ticket_info['id']; ?>?column=log" rel="nofollow"><?php _e('修改记录'); ?></a>
                                                 <?php } ?>
                                             </li>
                                             <?php if ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?>
@@ -65,14 +64,9 @@
                                             <?php } ?>
                                             <?php if (($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator'] OR (!$this->question_info['lock'] AND $this->user_info['permission']['redirect_question'])) AND $this->user_id) { ?>
                                             <li class="hidden-xs">
-                                            <?php if ($this->question_info['redirect']) { ?>
-                                                <a href="javascript:;" onclick="AWS.ajax_request(G_BASE_URL + '/question/ajax/redirect/', 'item_id=<?php echo $this->question_info['question_id']; ?>');"><?php _e('撤消重定向'); ?></a>
-                                            <?php } else { ?>
-                                                <a href="javascript:;" onclick="AWS.dialog('redirect', <?php echo $this->question_info['question_id']; ?>);"><?php _e('问题重定向'); ?></a>
-                                            <?php } ?>
                                             </li>
                                             <?php } ?>
-                                            <?php if (($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) AND $this->question_info['ip']) { ?>
+                                            <?php if (($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_service']) AND $this->question_info['ip']) { ?>
                                                 <li>
                                                     <a href="javascript:;" title="<?php echo long2ip($this->question_info['ip']); ?>" onclick="AWS.alert('<?php _e('系统记录的 IP 地址为'); ?>: <?php echo long2ip($this->question_info['ip']); ?>');"><?php _e('IP 地址'); ?></a>
                                                 </li>

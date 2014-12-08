@@ -65,7 +65,7 @@ class ajax extends AWS_CONTROLLER
 
         $this->model('draft')->delete_draft(1, 'ticket', $this->user_id);
 
-        $ticket_id = $this->model('publish')->publish_ticket($_POST['title'], $_POST['message'], $this->user_id, $_POST['attach_access_key']);
+        $ticket_id = $this->model('ticket')->save_ticket($_POST['title'], $_POST['message'], $this->user_id, $_POST['attach_access_key']);
 
         H::ajax_json_output(AWS_APP::RSM(array(
             'url' => get_js_url('/ticket/' . $ticket_id)
