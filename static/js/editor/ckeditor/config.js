@@ -10,6 +10,10 @@ CKEDITOR.editorConfig = function( config ) {
 	config.plugins = 'blockquote,maximize,basicstyles,button,toolbar,enterkey,entities,floatingspace,wysiwygarea,image,fakeobjects,link,list,undo,bbcode,sourcearea,codeTag';
 	config.skin = 'bootstrapck';
 
+	config.height = '250';
+
+	config.autoUpdateElement = true;
+
 	// %REMOVE_END%
 
 	// Define changes to default configuration here.
@@ -33,14 +37,14 @@ CKEDITOR.editorConfig = function( config ) {
 	config.toolbar = 'Full';
 
 	config.toolbar_Full = [
-		 ['Bold','Italic','NumberedList','BulletedList', 'Blockquote', 'Code', 'Image', 'Link', 'Maximize', 'Source']
+		 ['Bold','Italic','Strike','Underline','NumberedList','BulletedList', 'Blockquote', 'Code', 'Image', 'Link', 'Maximize', 'Source']
 
 	]
 
 
 	// The default plugins included in the basic setup define some buttons that
 	// are not needed in a basic editor. They are removed here.
-	config.removeButtons = 'Cut,Copy,Paste,Undo,Redo,Anchor,Underline,Strike,Subscript,Superscript';
+	config.removeButtons = 'Cut,Copy,Paste,Undo,Redo,Anchor,Subscript,Superscript';
 
 	// Dialog windows are also simplified.
 	config.removeDialogTabs = 'link:advanced';

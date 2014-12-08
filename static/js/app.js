@@ -11,18 +11,6 @@ $(document).ready(function ()
     // 输入框自动增高
     $('.autosize').autosize();
 
-    //编辑器初始化
-
-    $.each($('.editor'), function ()
-    {
-        var editor = CKEDITOR.replace( $(this).attr('name') ), _this = $(this);
-
-        editor.on( 'blur', function( evt ) {
-            _this.val(evt.editor.getData());
-        } );
-
-    });
-
     //响应式导航条效果
     $('.aw-top-nav .navbar-toggle').click(function()
     {

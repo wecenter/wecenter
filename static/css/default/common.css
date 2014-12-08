@@ -965,7 +965,6 @@ blockquote {margin: 0 0 16px;padding: 0 15px;font-size: 14px;color: #777;border-
 a.cke_button{padding:8px 10px !important;cursor: pointer !important;border-radius: 0px !important;}
 .cke_button_on, a.cke_button_disabled:active, a.cke_button_disabled:focus, a.cke_button_disabled:hover, a.cke_button_off:active, a.cke_button_off:focus, a.cke_button_off:hover{background-color: #ebebeb !important;}
 .cke_toolgroup{margin:0 !important;padding:0 !important;}
-.cke_contents{height: 320px !important;}
 
 .cke_button_icon{
 	font-family: 'icomoon' !important;
@@ -989,6 +988,15 @@ a.cke_button{padding:8px 10px !important;cursor: pointer !important;border-radiu
 
 .cke_button__italic_icon:before {
 	content: "\e63b";
+}
+
+.cke_button__strike_icon:before {
+	content: "\e63c";
+}
+
+
+.cke_button__underline_icon:before {
+	content: "\e63c";
 }
 
 .cke_button__numberedlist_icon:before {

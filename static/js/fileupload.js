@@ -5,6 +5,7 @@
  */
 function FileUpload (type, element, container, url, options, callback)
 {
+	var _this = this;
 	this.type = type;
 	this.element = element;
 	this.container = container;
@@ -25,6 +26,11 @@ function FileUpload (type, element, container, url, options, callback)
 		'deleteBtnTemplate' : '<a class="delete-file">删除</a>' ,
 		'insertBtnTemplate' : '<a class="insert-file">插入</a>'
 	};
+
+	if (options.editor)
+	{
+		this.editor = options.editor;
+	}
 
 	this.options = $.extend(this.options, options);
 
@@ -359,7 +365,9 @@ FileUpload.prototype =
 
     	$(btn).click(function()
 		{
-			$(_this.options.insertTextarea).insertAtCaret("\n[attach]" + attach_id + "[/attach]\n");
+			_this.editor.insertText("\n[attach]" + attach_id + "[/attach]\n");
+
+			//$(_this.options.insertTextarea).insertAtCaret("\n[attach]" + attach_id + "[/attach]\n");
 		});
 
 		return btn;
