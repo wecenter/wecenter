@@ -1,0 +1,106 @@
+{
+	"en-us": {
+		"spoiler": "Spoiler",
+		"hide": "Hide",
+		"show": "Show",
+		"link": "link",
+		"mail": "mail",
+		"quoteBy": "Quote by {author}"
+	},
+	"es-mx": {
+		"spoiler": "Alerón",
+		"hide": "Ocultar",
+		"show": "Mostrar",
+		"link": "enlace",
+		"mail": "correo",
+		"quoteBy": "Cita por {author}"
+	},
+	"fr-fr": {
+		"spoiler": "becquet",
+		"hide": "Cacher",
+		"show": "Montrent",
+		"link": "lien",
+		"mail": "email",
+		"quoteBy": "Citation de {author}"
+	},
+	"it-it": {
+		"spoiler": "Spoiler",
+		"hide": "Nascondere",
+		"show": "Spettacolo",
+		"link": "collegamento",
+		"mail": "posta",
+		"quoteBy": "Quote da {author}"
+	},
+	"de-de": {
+		"spoiler": "Spoiler",
+		"hide": "Verbergen",
+		"show": "Zeigen",
+		"link": "link",
+		"mail": "post",
+		"quoteBy": "Zitat von {author}"
+	},
+	"sv-se": {
+		"spoiler": "Spoiler",
+		"hide": "Dölja",
+		"show": "Visa",
+		"link": "länk",
+		"mail": "e-post",
+		"quoteBy": "Citat från {author}"
+	},
+	"el-gr": {
+		"spoiler": "αεροτομή",
+		"hide": "Απόκρυψη",
+		"show": "Εμφάνιση",
+		"link": "σύνδεσμος",
+		"mail": "ταχυδρομείο",
+		"quoteBy": "Παράθεση από {author}"
+	},
+	"bg-bg": {
+		"spoiler": "спойлер",
+		"hide": "крия",
+		"show": "шоу",
+		"link": "връзка",
+		"mail": "поща",
+		"quoteBy": "цитат от {author}"
+	},
+	"ru-ru": {
+		"spoiler": "спойлер",
+		"hide": "скрывать",
+		"show": "шоу",
+		"link": "ссылка",
+		"mail": "почта",
+		"quoteBy": "цитата {author}"
+	},
+	"zh-cn": {
+		"spoiler": "扰流板",
+		"hide": "隐藏",
+		"show": "显示",
+		"link": "链接",
+		"mail": "电子邮件",
+		"quoteBy": "引用由 {author}"
+	},
+	"ja-jp": {
+		"spoiler": "スポイラー",
+		"hide": "隠す",
+		"show": "表示",
+		"link": "のリンク",
+		"mail": "メール",
+		"quoteBy": "{author}によって引用"
+	},
+	"ko-kr": {
+		"spoiler": "스포일러",
+		"hide": "숨기기",
+		"show": "표시",
+		"link": "링크",
+		"mail": "우편",
+		"quoteBy": "{author}에 의해 견적"
+	},
+	"id-id": {
+		"spoiler": "Spoiler",
+		"hide": "Menyembunyikan",
+		"show": "Tampilkan",
+		"link": "link",
+		"mail": "email",
+		"quoteBy": "Quote by {author}"
+	}
+}

@@ -73,6 +73,21 @@ class FORMAT
 			return preg_replace_callback('/\[attach\]([0-9]+)\[\/attach\]/i', 'parse_attachs_callback', $str);
 		}
 	}
+	
+	public static function parse_bbcode($text)
+	{
+		$Decoda = new Services_Decoda($text, array(
+			'xhtmlOutput' => true,
+			'strictMode' => false,
+			'escapeHtml' => true
+		));
+		
+		$Decoda->defaults();
+		
+		$Decoda->whitelist('color', 'b', 'i', 'u', 'list', 'quote', 'code', 'img', 'url');
+		
+		return $Decoda->parse();
+	}
 
 	public static function parse_markdown($text)
 	{
@@ -80,6 +95,8 @@ class FORMAT
 		{
 			return false;
 		}
+		
+		return self::parse_bbcode($text);
 
 		return load_class('Services_Markdown')->transform($text);
 	}
