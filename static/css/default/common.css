@@ -1034,6 +1034,10 @@ a.cke_button{padding:8px 10px !important;cursor: pointer !important;border-radiu
 	content: "\e65d";
 }
 
+.cke_button__removeformat_icon:before {
+	content: "\e65f";
+}
+
 
 
 @media not all, (min-resolution: 192dpi) {
