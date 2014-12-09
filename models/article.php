@@ -148,6 +148,10 @@ class article_class extends AWS_MODEL
 
 		$this->model('posts')->remove_posts_index($article_id, 'article');
 
+		$this->shutdown_update('users', array(
+			'article_count' => $this->count('article', 'uid = ' . intval($uid))
+		), 'uid = ' . intval($uid));
+
 		return $this->delete('article', 'id = ' . intval($article_id));
 	}
 
