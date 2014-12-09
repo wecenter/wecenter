@@ -970,6 +970,7 @@ a.cke_button{padding:8px 10px !important;cursor: pointer !important;border-radiu
 .cke_toolgroup{margin:0 !important;padding:0 !important;}
 .cke_combo__fontsize{margin:3px 5px 0 5px !important;}
 .cke_combo__fontsize a{margin: 0 !important;}
+.cke_combopanel{height: 78px !important;}
 
 .cke_button_icon{
 	font-family: 'icomoon' !important;
