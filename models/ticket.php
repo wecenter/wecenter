@@ -306,7 +306,7 @@ class ticket_class extends AWS_MODEL
         $users_info = $this->model('account')->get_user_info_by_uids($uids);
 
         $ticket_log = array(array(
-            'text' => ,
+            'text' => AWS_APP::lang()->_t('%s 创建了工单', '<a href="' . get_js_url('/people/' . $users_info[$ticket_info['uid']]['url_token']) . '" target="_blank">' . $users_info[$ticket_info['uid']]['user_name'] . '</a>'),
             'time' => $ticket_info['time']
         ));
 
