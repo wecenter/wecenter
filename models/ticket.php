@@ -37,43 +37,46 @@ class ticket_class extends AWS_MODEL
         return $tickets[$id];
     }
 
-    public function get_tickets_by_priority($priority, $date = null)
+    public function get_ticket_list($uid = null, $service = null, $priority = null, $status = null, $date = null)
     {
-        $where[] = 'priority = "' . $this->quote($priority);
+        $where = array();
+
+        if (is_digits($uid))
+        {
+            $where[] = 'uid = ' . $uid;
+        }
+
+        if (is_digits($service))
+        {
+            $where[] = 'service = ' . $service;
+        }
+
+        if ($priority AND in_array($priority, array('low', 'normal', 'high', 'urgent')))
+        {
+            $where[] = 'priority = "' . $priority . '"';
+        }
+
+        if ($status AND in_array($status, array('pending', 'closed')))
+        {
+            $where[] = 'status = "' . $status . '"';
+        }
 
         if ($date)
         {
-            $where[] = 'time > '. (time() - $date * 24 * 60 * 60);
+            $where[] = 'time > '. (time() - intval($date) * 24 * 60 * 60);
         }
 
         return $this->fetch_all('ticket', implode(' AND ', $where) . '"');
     }
 
-    public function get_tickets_by_status($status, $date = null)
+    public function save_ticket($title, $message, $uid, $attach_access_key = null, $$from = null, $from_id = null)
     {
-        $where[] = 'status = "' . $this->quote($status);
-
-        if ($date)
-        {
-            $where[] = 'time > '. (time() - $date * 24 * 60 * 60);
-        }
-
-        return $this->fetch_all('ticket', implode(' AND ', $where) . '"');
-    }
-
-    public function save_ticket($title, $message, $uid, $attach_access_key = null, $from = null, $from_id = null)
-    {
-        if (!$ip_address)
-        {
-            $ip_address = fetch_ip();
-        }
-
         $to_save_ticket = array(
             'title' => htmlspecialchars($title),
             'message' => htmlspecialchars($message),
             'time' => time(),
             'uid' => intval($uid),
-            'ip' => ip2long($ip_address),
+            'ip' => ip2long(fetch_ip()),
             'priority' => 'normal',
             'status' => 'pending'
         );
@@ -110,6 +113,36 @@ class ticket_class extends AWS_MODEL
         }
 
         return $ticket_id;
+    }
+
+    public function reply_ticket($ticket_id, $message, $uid, $attach_access_key = null)
+    {
+        $ticket_info = $this->get_ticket_by_id($ticket_id);
+
+        if (!$ticket_info OR $ticket_info['status'] != 'pending')
+        {
+            return false;
+        }
+
+        $reply_id = $this->insert('ticket_reply', array(
+            'ticket_id' => $ticket_info['id'],
+            'uid' => intval($uid),
+            'time' => time(),
+            'uid' => intval($uid),
+            'ip' => ip2long(fetch_ip())
+        ));
+
+        if ($reply_id)
+        {
+            set_human_valid('answer_valid_hour');
+
+            if ($attach_access_key)
+            {
+                $this->model('publish')->update_attach('ticket_reply', $reply_id, $attach_access_key);
+            }
+        }
+
+        return $reply_id;
     }
 
     public function remove_ticket($id)
@@ -263,6 +296,8 @@ class ticket_class extends AWS_MODEL
 
         $log_data['data'] = unserialize($log_data['data']);
 
+        $uids = array($ticket_info['uid']);
+
         foreach ($log_data AS $log_info)
         {
             $uids[] = $log_info['uid'];
@@ -270,7 +305,10 @@ class ticket_class extends AWS_MODEL
 
         $users_info = $this->model('account')->get_user_info_by_uids($uids);
 
-        $ticket_log = array();
+        $ticket_log = array(array(
+            'text' => ,
+            'time' => $ticket_info['time']
+        ));
 
         foreach ($log_data AS $log_info)
         {

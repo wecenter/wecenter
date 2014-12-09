@@ -29,13 +29,21 @@ class main extends AWS_CONTROLLER
         return $rule_action;
     }
 
+    public function setup()
+    {
+        if (get_setting('ticket_enabled') != 'Y')
+        {
+            H::redirect_msg(AWS_APP::lang()->_t('工单系统未启用'), '/');
+        }
+    }
+
     public function index_action()
     {
         $ticket_info = $this->model('ticket')->get_ticket_by_id($_GET['id']);
 
         if (!$ticket_info)
         {
-            H::redirect_msg(AWS_APP::lang()->_t('问题不存在或已被删除'), '/');
+            H::redirect_msg(AWS_APP::lang()->_t('工单不存在或已被删除'), '/');
         }
 
         TPL::assign('ticket_info', $ticket_info);
@@ -57,6 +65,10 @@ class main extends AWS_CONTROLLER
     {
         $this->crumb(AWS_APP::lang()->_t('工单'), '/ticket/');
 
+        $ticket_list = $this->model('ticket')->get_ticket_list();
+
+        TPL::assign('ticket_list', $ticket_list);
+
         TPL::output('ticket/square');
     }
 
@@ -74,7 +86,7 @@ class main extends AWS_CONTROLLER
     {
         if (!$this->user_info['permission']['publish_ticket'])
         {
-            H::redirect_msg(AWS_APP::lang()->_t('你所在用户组没有权限发布问题'));
+            H::redirect_msg(AWS_APP::lang()->_t('你所在用户组没有权限发布工单'));
         }
 
         $draft_content = $this->model('draft')->get_data(1, 'ticket', $this->user_id);

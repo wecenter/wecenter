@@ -24,6 +24,19 @@ CREATE TABLE `[#DB_PREFIX#]ticket` (
   KEY `received_email_id` (`received_email_id`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
 
+CREATE TABLE `[#DB_PREFIX#]ticket_reply` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `ticket_id` int(10) UNSIGNED NOT NULL,
+  `message` text,
+  `uid` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `time` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `ticket_id` (`ticket_id`),
+  KEY `status` (`status`),
+  KEY `uid` (`uid`),
+  KEY `time` (`time`)
+) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
+
 CREATE TABLE `[#DB_PREFIX#]ticket_log` (
   `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `ticket_id` int(10) UNSIGNED NOT NULL,
@@ -41,3 +54,5 @@ CREATE TABLE `[#DB_PREFIX#]ticket_log` (
 INSERT INTO `[#DB_PREFIX#]users_group` (`group_id`, `type`, `custom`, `group_name`, `reputation_lower`, `reputation_higer`, `reputation_factor`, `permission`) VALUES (10, 0, 0, '客服组', 0, 0, 4, 'a:15:{s:16:"publish_question";s:1:"1";s:21:"publish_approval_time";a:2:{s:5:"start";s:0:"";s:3:"end";s:0:"";}s:13:"edit_question";s:1:"1";s:10:"edit_topic";s:1:"1";s:12:"manage_topic";s:1:"1";s:12:"create_topic";s:1:"1";s:17:"redirect_question";s:1:"1";s:13:"upload_attach";s:1:"1";s:11:"publish_url";s:1:"1";s:15:"publish_article";s:1:"1";s:12:"edit_article";s:1:"1";s:19:"edit_question_topic";s:1:"1";s:15:"publish_comment";s:1:"1";s:10:"is_service";s:1:"1";s:14:"publish_ticket";s:1:"1";}');
 
 UPDATE `[#DB_PREFIX#]users_group` SET `permission` = 'a:17:{s:16:"is_administortar";s:1:"1";s:12:"is_moderator";s:1:"1";s:16:"publish_question";s:1:"1";s:21:"publish_approval_time";a:2:{s:5:"start";s:0:"";s:3:"end";s:0:"";}s:13:"edit_question";s:1:"1";s:10:"edit_topic";s:1:"1";s:12:"manage_topic";s:1:"1";s:12:"create_topic";s:1:"1";s:17:"redirect_question";s:1:"1";s:13:"upload_attach";s:1:"1";s:11:"publish_url";s:1:"1";s:15:"publish_article";s:1:"1";s:12:"edit_article";s:1:"1";s:19:"edit_question_topic";s:1:"1";s:15:"publish_comment";s:1:"1";s:10:"is_service";s:1:"1";s:14:"publish_ticket";s:1:"1";}' WHERE `group_id` = 1;
+
+INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES ('ticket_enabled', 's:1:"N";');

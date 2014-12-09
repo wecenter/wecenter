@@ -33,6 +33,11 @@ class ajax extends AWS_CONTROLLER
     public function setup()
     {
         HTTP::no_cache_header();
+
+        if (get_setting('ticket_enabled') != 'Y')
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('工单系统未启用')));
+        }
     }
 
     public function publish_action()
@@ -41,6 +46,8 @@ class ajax extends AWS_CONTROLLER
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('你没有权限发布工单')));
         }
+
+        $_POST['title'] = trim($_POST['title']);
 
         if (!$_POST['title'])
         {
@@ -70,6 +77,42 @@ class ajax extends AWS_CONTROLLER
         H::ajax_json_output(AWS_APP::RSM(array(
             'url' => get_js_url('/ticket/' . $ticket_id)
         ), 1, null));
+    }
+
+    public function reply_action()
+    {
+        $_POST['message'] = trim($_POST['message']);
+
+        if (!$_POST['message'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请输入回复内容')));
+        }
+
+        if (!$_POST['id'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择要回复的工单')));
+        }
+
+        $ticket_info = $this->model('ticket')->get_ticket_by_id($_POST['id']);
+
+        if (!$ticket_info)
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('工单不存在')));
+        }
+
+        if ($ticket_info['status'] != 'pending')
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('工单已关闭')));
+        }
+
+        if (!$this->user_info['permission']['is_administortar'] AND !$this->user_info['permission']['is_service'] AND $ticket_info['uid'] != $this->user_id)
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('你没有权限回复此工单')));
+        }
+
+        $this->model('ticket')->reply_ticket($ticket_info['id'], $_POST['message'], $this->user_id);
+
+        H::ajax_json_output(AWS_APP::RSM(null, 1, null));
     }
 
     public function change_priority_action()
@@ -164,11 +207,11 @@ class ajax extends AWS_CONTROLLER
         H::ajax_json_output(AWS_APP::RSM(null, -1, null));
     }
 
-    public function remove_ticket_action()
+    public function remove_action()
     {
         if (!$this->user_info['permission']['is_administortar'] AND !$this->user_info['permission']['is_service'])
         {
-            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('你没有权限更改工单')));
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('你没有权限删除工单')));
         }
 
         if (!$_POST['id'])
@@ -180,6 +223,98 @@ class ajax extends AWS_CONTROLLER
 
         H::ajax_json_output(AWS_APP::RSM(array(
             'url' => get_js_url('/ticket/')
+        ), 1, null));
+    }
+
+    public function save_topic_relation_action()
+    {
+        if (!$this->user_info['permission']['is_administortar'] AND !$this->user_info['permission']['is_service'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('你没有权限为工单添加话题')));
+        }
+
+        $_POST['topic_title'] = trim($_POST['topic_title']);
+
+        if (!$_POST['topic_title'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('请输入话题标题')));
+        }
+
+        if (!$_POST['ticket_id'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择工单')));
+        }
+
+        if (strstr($_POST['topic_title'], '/') OR strstr($_POST['topic_title'], '-'))
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('话题标题不能包含 / 与 -')));
+        }
+
+        if (!$this->user_info['permission']['edit_question_topic'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('你没有权限进行此操作')));
+        }
+
+        $ticket_info = $this->model('ticket')->get_ticket_info_by_id($_POST['ticket_id']);
+
+        if (!$ticket_info)
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('该工单不存在')));
+        }
+
+        if (!$this->model('topic')->get_topic_id_by_title($_POST['topic_title']) AND get_setting('topic_title_limit') AND cjk_strlen($_POST['topic_title']) > get_setting('topic_title_limit'))
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('话题标题字数不得超过 %s 字节', get_setting('topic_title_limit'))));
+        }
+
+        if (count($this->model('topic')->get_topics_by_item_id($_POST['item_id'], 'ticket')) >= get_setting('question_topics_limit') AND get_setting('question_topics_limit'))
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('单个工单话题数量最多为 %s 个, 请调整话题数量', get_setting('question_topics_limit'))));
+        }
+
+        $topic_id = $this->model('topic')->save_topic($_POST['topic_title'], $this->user_id, $this->user_info['permission']['create_topic']);
+
+        if (!$topic_id)
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('话题已锁定或没有创建话题权限, 不能添加话题')));
+        }
+
+        $this->model('topic')->save_topic_relation($this->user_id, $topic_id, $ticket_info['id'], 'ticket');
+
+        H::ajax_json_output(AWS_APP::RSM(array(
+            'topic_id' => $topic_id,
+            'topic_url' => get_js_url('topic/' . $topic_id)
+        ), 1, null));
+    }
+
+    public function remove_topic_relation_action()
+    {
+        if (!$_POST['topic_id'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('请选择话题')));
+        }
+
+        if (!$_POST['ticket_id'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('请选择工单')));
+        }
+
+        if (!$this->user_info['permission']['edit_question_topic'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('你没有权限进行此操作')));
+        }
+
+        $ticket_info = $this->model('ticket')->get_ticket_info_by_id($_POST['ticket_id']);
+
+        if (!$ticket_info)
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('该工单不存在')));
+        }
+
+        $this->model('topic')->remove_topic_relation($this->user_id, $_POST['topic_id'], $ticket_info['id'], 'ticket');
+
+        H::ajax_json_output(AWS_APP::RSM(array(
+            'topic_id' => $_POST['topic_id']
         ), 1, null));
     }
 }
