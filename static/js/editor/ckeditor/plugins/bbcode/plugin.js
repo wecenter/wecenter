@@ -328,6 +328,8 @@
 				newPendingInline = [],
 				candidate = currentNode;
 
+
+
 			while ( candidate.type && candidate.name != tagName ) {
 				// If this is an inline element, add it to the pending list, if we're
 				// really closing one of the parents element later, they will continue
@@ -369,6 +371,9 @@
 			if ( !currentDtd || currentDtd[ '#' ] ) {
 				checkPendingBrs();
 				checkPending();
+
+				// Modify by wecenter
+				text = text.replace( /\[\/\*\]/g, '' );
 
 				text.replace( /(\r\n|[\r\n])|[^\r\n]*/g, function( piece, lineBreak ) {
 					if ( lineBreak !== undefined && lineBreak.length )
@@ -494,12 +499,14 @@
 				}
 			},
 
+			// Modify by wecenter
 			closeTag: function( tag ) {
 				if ( tag in bbcodeMap ) {
-					if ( this.getRule( tag, 'breakBeforeClose' ) )
+					if ( this.getRule( tag, 'breakBeforeClose' ) && tag != '*' )
 						this.lineBreak( 1 );
 
-					tag != '*' && this.write( '[/', tag, ']' );
+					//tag != '*' && this.write( '[/', tag, ']' );
+					this.write( '[/', tag, ']' );
 
 					if ( this.getRule( tag, 'breakAfterClose' ) )
 						this.lineBreak( 1 );

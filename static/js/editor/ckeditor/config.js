@@ -37,7 +37,9 @@ CKEDITOR.editorConfig = function( config ) {
 	config.toolbar = 'Full';
 
 	config.toolbar_Full = [
-		 ['FontSize','Cleanup','Bold','Italic','Strike','Underline','NumberedList','BulletedList', 'Blockquote', 'Code', 'Image', 'Link', 'Maximize', 'RemoveFormat', 'Source']
+		 ['FontSize','Cleanup','Bold','Italic',
+		 // 'Strike','Underline',
+		 'NumberedList','BulletedList', 'Blockquote', 'Code', 'Image', 'Link', 'Maximize', 'RemoveFormat', 'Source']
 
 	]
 
