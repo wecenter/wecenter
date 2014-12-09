@@ -18,22 +18,6 @@
         <div class="row">
             <div class="aw-content-wrap clearfix">
                 <div class="col-sm-12 col-md-9 aw-main-content">
-                    <!-- 话题推荐bar -->
-                    <?php if (sizeof($this->question_topics) == 0 AND $this->user_id AND !$this->question_info['lock'] && $this->user_info['permission']['edit_topic']) { ?>
-                    <div class="aw-notopic-sort">
-                        <?php if ($this->related_topics) { ?>
-                        <span class="pull-left"><?php _e('可能属于这些话题'); ?>&nbsp;:&nbsp;</span>
-                        <?php foreach ($this->related_topics AS $key => $topic_title) { ?>
-                        <span class="topic-tag">
-                            <a onclick="one_click_add_topic($(this), '<?php echo $topic_title; ?>', <?php echo $this->question_info['question_id'];?>);" class="text"><?php echo $topic_title; ?></a>
-                        </span>
-                        <?php } ?>, <?php _e('都不是'); ?>? <a href="javascript:;" onclick="$('#question_topic_editor .aw-edit-topic').click();$(this).parents('.aw-notopic-sort').hide();"> <?php _e('点此添加话题'); ?></a>
-                        <?php } else { ?>
-                        <?php _e('没有归属话题, 请帮问题添加话题'); ?>, <a href="javascript:;" onclick="$('#question_topic_editor .aw-edit-topic').click(); $(this).parents('.aw-notopic-sort').hide();"><?php _e('点此添加话题'); ?></a>
-                        <?php } ?>
-                    </div>
-                    <?php } ?>
-                    <!-- 话题推荐bar -->
                     <div class="aw-mod aw-question-detail aw-item">
                         <div class="mod-head">
                             <h1>
@@ -142,28 +126,6 @@
 
                                 <?php if ((!$this->question_info['lock'] AND ($this->question_info['published_uid'] == $this->user_id OR $this->user_info['permission']['edit_question'])) OR $this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?><a class="text-color-999" href="publish/<?php echo $this->question_info['question_id']; ?>"><i class="icon icon-edit"></i><?php _e('编辑'); ?></a><?php } ?>
                                 <?php if ($this->user_id AND $this->question_info['unverified_modify_count']) { ?><a href="question/<?php echo $this->question_info['question_id']; ?>?column=log&rf=false" class="text-color-999 aw-question-wait-edit"><i class="icon-check"></i><?php _e('待确认'); ?> <em class="badge badge-info"><?php echo $this->question_info['unverified_modify_count']; ?></em></a><?php } ?>
-
-                                <?php if ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator'] OR $this->user_id == $this->question_info['published_uid']) { ?>
-                                <a class="text-color-999 aw-add-question-related hidden-xs"><i class="icon icon-bind"></i> <?php _e('相关链接'); ?></a>
-                                <?php } ?>
-                                <div class="pull-right more-operate">
-                                    <?php if ($this->user_id != $this->question_info['published_uid'] AND $this->user_id) { ?><a <?php if (!$this->question_thanks) { ?>data-placement="bottom" title="" data-toggle="tooltip" data-original-title="<?php _e('感谢提问者'); ?>" onclick="AWS.User.question_thanks($(this), <?php echo $this->question_info['question_id']; ?>);"<?php } ?> class="aw-icon-thank-tips text-color-999"><i class="icon icon-thank"></i><?php if ($this->question_thanks) { ?><?php _e('已感谢'); ?><?php } else { ?><?php _e('感谢'); ?><?php } ?></a>
-                                    <?php } ?>
-
-                                    <!-- <a class="text-color-999"  onclick="AWS.dialog('shareOut', {item_type:'question', item_id:<?php echo $this->question_info['question_id']; ?>});"> -->
-                                    <a class="text-color-999 dropdown-toggle" data-toggle="dropdown">
-                                        <i class="icon icon-share"></i><?php _e('分享'); ?>
-                                    </a>
-                                    <div aria-labelledby="dropdownMenu" role="menu" class="aw-dropdown shareout pull-right">
-                                        <ul class="aw-dropdown-list">
-                                            <li><a onclick="AWS.User.share_out('tsina');"><i class="icon icon-weibo"></i> <?php _e('新浪微博'); ?></a></li>
-                                            <li><a onclick="AWS.User.share_out('qzone');"><i class="icon icon-qzone"></i> <?php _e('QZONE'); ?></a></li>
-                                            <li><a onclick="AWS.User.share_out('weixin');"><i class="icon icon-wechat"></i> <?php _e('微信'); ?></a></li>
-                                        </ul>
-                                    </div>
-
-                                    <?php if ($this->user_id) { ?><a href="javascript:;" class="text-color-999" onclick="AWS.dialog('report', {item_type:'question', item_id:<?php echo $this->question_info['question_id']; ?>})"><i class="icon icon-report"></i><?php _e('举报'); ?></a><?php } ?>
-                                </div>
                             </div>
                         </div>
                         <!-- 相关链接 -->
@@ -203,13 +165,6 @@
                     <div class="aw-mod aw-question-comment">
                         <div class="mod-head">
                             <ul class="nav nav-tabs aw-nav-tabs active">
-                                <?php if ($_GET['single']) { ?>
-                                <!--<li><a href="question/<?php echo $this->question_info['question_id']; ?>"><?php _e('全部回答'); ?></a></li>-->
-                                <?php } else if (($this->answer_count OR $_GET['uid']) AND $this->user_id) { ?>
-                                <li<?php if ($_GET['uid'] == 'focus') { ?> class="active"<?php } ?>><a href="question/<?php echo $this->question_info['question_id']; ?>?uid=focus"><?php _e('关注的人'); ?></a></li>
-                                <li<?php if ($_GET['sort_key'] == 'add_time') { ?> class="active"<?php } ?>><a href="question/<?php echo $this->question_info['question_id']; ?>?sort_key=add_time&sort=<?php if (($_GET['sort_key'] == 'add_time') && $_GET['sort'] == 'ASC') { ?>DESC<?php } else { ?>ASC<?php } ?>"><?php _e('时间'); ?><?php if (($_GET['sort_key'] == 'add_time') && $_GET['sort'] == 'DESC') { ?> <i class="icon icon-down"></i><?php } else { ?> <i class="icon icon-up"></i><?php } ?></a></li>
-                                <li<?php if ((!$_GET['uid'] && !$_GET['sort_key']) || $_GET['sort_key'] == 'agree_count') { ?> class="active"<?php } ?>><a href="question/<?php echo $this->question_info['question_id']; ?>&sort_key=agree_count&sort=DESC"><?php _e('票数'); ?></a></li>
-                                <?php } ?>
 
                                 <h2 class="hidden-xs"><?php if ($_GET['single']) { ?><?php _e('查看单个回答'); ?><?php } else { ?><?php _e('%s 个回复', $this->answer_count); ?><?php } ?></h2>
                             </ul>
@@ -284,60 +239,6 @@
                                         </ul>
                                         <?php } ?>
                                         <!-- end 评论内容 -->
-                                    </div>
-                                    <div class="mod-footer">
-                                        <!-- 社交操作 -->
-                                        <div class="meta clearfix">
-                                            <span class="text-color-999 pull-right"><?php echo date_friendly($val['add_time'], 604800, 'Y-m-d'); ?></span>
-                                            <!-- 投票栏 -->
-                                            <span class="operate">
-                                                <a class="agree<?php if ($this->user_info['user_name'] == $val['user_info']['user_name']) { ?> disabled<?php } ?> <?php if ($val['agree_status'] == 1) { ?>active<?php } ?> <?php if (!$this->user_id) { ?>disabled<?php } ?>" <?php if ($this->user_id && $this->user_info['user_name'] != $val['user_info']['user_name']) { ?>onclick="AWS.User.agree_vote(this, '<?php echo $this->user_info['user_name']; ?>', <?php echo $val['answer_id']; ?>);"<?php } ?>><i data-placement="right" title="" data-toggle="tooltip" class="icon icon-agree" data-original-title="赞同回复"></i> <b class="count"><?php echo $val['agree_count']; ?></b></a>
-                                                <?php if ($this->user_id AND $this->user_info['user_name'] != $val['user_info']['user_name']) { ?>
-                                                <a class="disagree <?php if ($val['agree_status'] == -1) { ?>active<?php } ?>" onclick="AWS.User.disagree_vote(this, '<?php echo $this->user_info['user_name']; ?>', <?php echo $val['answer_id']; ?>)"><i data-placement="right" title="" data-toggle="tooltip" class="icon icon-disagree" data-original-title="对回复持反对意见"></i></a>
-                                                <?php } ?>
-                                            </span>
-                                            <!-- end 投票栏 -->
-                                            <span class="operate">
-                                                <a class="aw-add-comment" data-id="<?php echo $val['answer_id']; ?>" data-type="answer" data-comment-count="<?php echo $val['comment_count']; ?>" data-first-click="<?php if ($val['comment_count'] == 0) {?>hide<?php }?>" href="javascript:;"><i class="icon icon-comment"></i> <?php if ($val['comment_count']) { ?><?php echo $val['comment_count']; ?><?php } else { ?>0<?php } ?></a>
-                                            </span>
-                                            <!-- 可显示/隐藏的操作box -->
-                                            <div class="more-operate">
-                                                <?php if ($this->user_id) { ?>
-                                                    <?php if (($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) OR ($val['uid'] == $this->user_id AND ((time() - $val['add_time']) < (get_setting('answer_edit_time') * 60) OR (!get_setting('answer_edit_time'))))) { ?>
-                                                    <a class="text-color-999" href="javascript:;" onclick="AWS.dialog('commentEdit', {answer_id:<?php echo $val['answer_id']; ?>,attach_access_key:'<?php echo $this->attach_access_key; ?>'});"><i class="icon icon-edit"></i> <?php _e('编辑'); ?></a>
-                                                    <?php } ?>
-                                                    <?php if ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?>
-                                                    <a href="javascript:;" onclick="AWS.User.answer_force_fold($(this), <?php echo $val['answer_id']; ?>);" class="text-color-999"><i class="icon icon-fold"></i> <?php if ($val['force_fold']) { ?><?php _e('撤消折叠'); ?><?php } else { ?><?php _e('折叠'); ?><?php } ?></a>
-                                                    <?php } else { ?>
-                                                    <a class="aw-icon-thank-tips text-color-999" data-original-title="<?php _e('这是一个没有价值的回复'); ?>" data-toggle="tooltip" title="" data-placement="bottom" onclick="AWS.User.answer_user_rate($(this), 'uninterested', <?php echo $val['answer_id']; ?>);"><i class="icon icon-fold"></i><?php if ($val['user_rated_uninterested']) { ?><?php _e('撤消没有帮助'); ?><?php } else { ?><?php _e('没有帮助'); ?><?php } ?></a>
-                                                    <?php } ?>
-
-                                                    <a href="javascript:;" onclick="AWS.dialog('favorite', {item_id:<?php echo $val['answer_id']; ?>, item_type:'answer'});" class="text-color-999"><i class="icon icon-favor"></i> <?php _e('收藏'); ?></a>
-                                                <?php } ?>
-
-                                                <?php if ($this->user_id != $val['uid'] AND $this->user_id) { ?>
-                                                <a href="javascript:;"<?php if (!$val['user_rated_thanks']) { ?> onclick="AWS.User.answer_user_rate($(this), 'thanks', <?php echo $val['answer_id']; ?>);"<?php } ?> class="aw-icon-thank-tips text-color-999" data-original-title="<?php _e('感谢热心的回复者'); ?>" data-toggle="tooltip" title="" data-placement="bottom"><i class="icon icon-thank"></i> <?php if ($val['user_rated_thanks']) { ?><?php _e('已感谢'); ?><?php } else { ?><?php _e('感谢'); ?><?php } ?></a>
-                                                <?php } ?>
-                                                <div class="btn-group pull-left">
-                                                    <a class="text-color-999 dropdown-toggle" data-toggle="dropdown">
-                                                        <i class="icon icon-share"></i> <?php _e('分享'); ?>
-                                                    </a>
-                                                    <div aria-labelledby="dropdownMenu" role="menu" class="aw-dropdown shareout pull-right">
-                                                        <ul class="aw-dropdown-list">
-                                                            <li><a onclick="AWS.User.share_out('tsina', $(this).parents('.aw-item').find('.markitup-box').text());"><i class="icon icon-weibo"></i> <?php _e('新浪微博'); ?></a></li>
-                                                            <li><a onclick="AWS.User.share_out('qzone', $(this).parents('.aw-item').find('.markitup-box').text());"><i class="icon icon-qzone"></i> <?php _e('QZONE'); ?></a></li>
-                                                            <li><a onclick="AWS.User.share_out('weixin', $(this).parents('.aw-item').find('.markitup-box').text());"><i class="icon icon-wechat"></i> <?php _e('微信'); ?></a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                                <?php if (($this->user_info['permission']['is_moderator'] OR $this->user_info['permission']['is_administortar']) AND !$this->question_info['best_answer']) { ?>
-                                                <a href="javascript:;" onclick="AWS.ajax_request(G_BASE_URL + '/question/ajax/set_best_answer/', 'answer_id=<?php echo $val['answer_id']; ?>');" class="text-color-999"><i class="icon icon-best"></i><?php _e('最佳回复'); ?></a>
-                                                <?php } ?>
-                                            </div>
-                                            <!-- end 可显示/隐藏的操作box -->
-
-                                        </div>
-                                        <!-- end 社交操作 -->
                                     </div>
                                 </div>
                                 <?php } ?>
