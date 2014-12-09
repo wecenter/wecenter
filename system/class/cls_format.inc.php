@@ -84,7 +84,7 @@ class FORMAT
 		
 		$Decoda->defaults();
 		
-		$Decoda->whitelist('color', 'b', 'i', 'u', 'list', 'quote', 'code', 'img', 'url');
+		$Decoda->whitelist('size', 'b', 'i', 'u', 'list', 'quote', 'code', 'img', 'url');
 		
 		return $Decoda->parse();
 	}
