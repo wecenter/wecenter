@@ -7,7 +7,7 @@ CKEDITOR.editorConfig = function( config ) {
 	
 	// %REMOVE_START%
 	// The configuration options below are needed when running CKEditor from source files.
-	config.plugins = 'removeformat,font,blockquote,maximize,basicstyles,button,toolbar,enterkey,entities,floatingspace,wysiwygarea,image,fakeobjects,link,list,undo,bbcode,sourcearea,codeTag';
+	config.plugins = 'wecenterimage,wecenterlink,wecentervideo,removeformat,font,blockquote,maximize,basicstyles,button,toolbar,enterkey,entities,floatingspace,wysiwygarea,fakeobjects,link,list,undo,bbcode,sourcearea,codeTag';
 	config.skin = 'bootstrapck';
 
 	config.height = '250';
@@ -39,10 +39,11 @@ CKEDITOR.editorConfig = function( config ) {
 	config.toolbar_Full = [
 		 ['FontSize','Cleanup','Bold','Italic',
 		 // 'Strike','Underline',
-		 'NumberedList','BulletedList', 'Blockquote', 'Code', 'Image', 'Link', 'Maximize', 'RemoveFormat', 'Source']
+		 'NumberedList','BulletedList', 'Blockquote', 'Code', 'WecenterImage', 'WecenterLink', 'WecenterVideo', 'Maximize', 'RemoveFormat', 'Source']
 
 	]
 
+	config.fontSize_sizes = '14/14px;16/16px;';
 
 	// The default plugins included in the basic setup define some buttons that
 	// are not needed in a basic editor. They are removed here.
@@ -50,4 +51,5 @@ CKEDITOR.editorConfig = function( config ) {
 
 	// Dialog windows are also simplified.
 	config.removeDialogTabs = 'link:advanced';
+
 };

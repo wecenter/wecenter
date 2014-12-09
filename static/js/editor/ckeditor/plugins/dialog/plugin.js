@@ -1999,11 +1999,13 @@ CKEDITOR.DIALOG_RESIZE_BOTH = 3;
 
 		if ( !coverElement ) {
 			var html = [
-				'<div tabIndex="-1" style="position: ', ( CKEDITOR.env.ie6Compat ? 'absolute' : 'fixed' ),
-				'; z-index: ', baseFloatZIndex,
-				'; top: 0px; left: 0px; ',
-				( !CKEDITOR.env.ie6Compat ? 'background-color: ' + backgroundColorStyle : '' ),
-				'" class="cke_dialog_background_cover">'
+				// Modify by wecenter
+				// '<div tabIndex="-1" style="position: ', ( CKEDITOR.env.ie6Compat ? 'absolute' : 'fixed' ),
+				// '; z-index: ', baseFloatZIndex,
+				// '; top: 0px; left: 0px; ',
+				// ( !CKEDITOR.env.ie6Compat ? 'background-color: ' + backgroundColorStyle : '' ),
+				// '" class="cke_dialog_background_cover">'
+				'<div class="modal-backdrop">'
 				];
 
 			if ( CKEDITOR.env.ie6Compat ) {

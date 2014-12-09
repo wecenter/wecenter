@@ -20,25 +20,24 @@ body
 
 .cke_editable
 {
-	font-size: 13px;
-	line-height: 1.6;
+	font-size: 14px;
+	line-height: 180%;
 }
 
 blockquote
 {
-	font-style: italic;
-	font-family: Georgia, Times, "Times New Roman", serif;
-	padding: 2px 0;
+	padding: 4px 0;
 	border-style: solid;
-	border-color: #ccc;
+	border-color: #ddd;
 	border-width: 0;
 }
 
 .cke_contents_ltr blockquote
 {
+	margin:0;
 	padding-left: 20px;
 	padding-right: 8px;
-	border-left-width: 5px;
+	border-left-width: 4px;
 }
 
 .cke_contents_rtl blockquote
@@ -50,7 +49,7 @@ blockquote
 
 a
 {
-	color: #666;
+	color: #155faa;
 	text-decoration: none;
 }
 

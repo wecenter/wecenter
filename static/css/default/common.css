@@ -18,7 +18,7 @@ select{width: auto;}
 .badge.badge-important{background: #ff3333;}
 .table-bordered > thead > tr > th, .table-bordered > thead > tr > td{border-bottom-width:1px;}
 /* modal */
-.modal-backdrop, .modal-backdrop.fade.in{filter:alpha(opacity=20);opacity: 0.2; }
+.modal-backdrop, .modal-backdrop.fade.in{filter:alpha(opacity=20) !important;opacity: 0.2 !important; }
 /* 重载bootstrap按钮 */
 .btn:active, .btn.active{box-shadow: none;}
 .btn-mini{min-width: 64px;min-width:44px\0;height:24px;padding:0 10px;line-height:24px;font-weight: normal;font-size:12px;}
@@ -863,10 +863,9 @@ a.aw-load-more-content{display: block;}
 #wmd-button-bar .wmd-helper .content .tab-pane{padding:10px;}
 .wmd-preview{min-height:20px;margin-top:15px;padding: 19px;line-height:25px;background-color: #fafafa;border:1px solid #e3e3e3;border-radius: 4px;text-align: left;}
 .wmd-preview em, .markitup-box em{font-style: italic;}
-.wmd-preview ul, .wmd-preview ol, .markitup-box ul, .markitup-box ol{margin-bottom:16px;padding-left: 32px;list-style: decimal;line-height: 30px;}
+.wmd-preview ul, .wmd-preview ol, .markitup-box ul, .markitup-box ol{margin:10px 0;padding-left: 40px;list-style: decimal;line-height: 30px;}
 .wmd-preview ul, .markitup-box ul {list-style: disc;}
 .wmd-preview ol, .markitup-box ol{list-style: decimal;}
-.wmd-preview ul li, .markitup-box ul li, .wmd-preview ol li, .markitup-box ol li {line-height: 25px;}
 .wmd-preview h2, .markitup-box h2{margin: 16px 0;font-size: 1.75em;line-height: 30px;}
 .wmd-preview h3, .markitup-box h3{margin: 16px 0;font-size: 1.5em;}
 .wmd-preview h4, .markitup-box h4 {margin: 16px 0;font-size: 1.25em;}
@@ -879,7 +878,6 @@ a.aw-load-more-content{display: block;}
 .wmd-preview pre, .markitup-box pre {padding: 16px;line-height: 20px;overflow: hidden; border: none; border-radius: 3px; background-color: #f7f7f7;font-size: 14px;}
 blockquote {margin: 0 0 16px;padding: 0 15px;font-size: 14px;color: #777;border-left: 4px solid #ddd;}
 .markitup-box pre br, .markitup-box ul + br, .markitup-box ol + br {display: none;}
- .markitup-box ul, .markitup-box ol {margin-bottom: 0;}
 .wmd-preview b, .markitup-box b, .wmd-preview strong, .markitup-box strong {color: #333;}
 
 /* 发现和文章列表文章摘要 */
@@ -970,6 +968,7 @@ a.cke_button{padding:8px 10px !important;cursor: pointer !important;border-radiu
 .cke_toolgroup{margin:0 !important;padding:0 !important;}
 .cke_combo__fontsize{margin:3px 5px 0 5px !important;}
 .cke_combo__fontsize a{margin: 0 !important;}
+.cke_combopanel{height: 78px !important;}
 
 .cke_button_icon{
 	font-family: 'icomoon' !important;
@@ -1019,13 +1018,18 @@ a.cke_button{padding:8px 10px !important;cursor: pointer !important;border-radiu
 	content: "\e642";
 }
 
-.cke_button__image_icon:before {
+.cke_button__wecenterimage_icon:before {
 	content: "\e63f";
 }
 
-.cke_button__link_icon:before {
+.cke_button__wecenterlink_icon:before {
 	content: "\e61f";
 }
+
+.cke_button__wecentervideo_icon:before {
+	content: "\e640";
+}
+
 
 .cke_button__source_icon:before {
 	content: "\e609";

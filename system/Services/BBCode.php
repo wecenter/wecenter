@@ -26,7 +26,7 @@ class Services_BBCode
 	
 	private function _size_callback($match)
 	{
-		return "<span style=\"font-size:$match[1]%\">$match[2]</span>";
+		return "<span style=\"font-size:$match[1]px\">$match[2]</span>";
 	}
 	
 	private function _s_callback($match)
