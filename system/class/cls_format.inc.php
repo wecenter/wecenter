@@ -75,18 +75,8 @@ class FORMAT
 	}
 	
 	public static function parse_bbcode($text)
-	{
-		$Decoda = new Services_Decoda($text, array(
-			'xhtmlOutput' => true,
-			'strictMode' => false,
-			'escapeHtml' => true
-		));
-		
-		$Decoda->defaults();
-		
-		$Decoda->whitelist('size', 'b', 'i', 'u', 'list', 'quote', 'code', 'img', 'url');
-		
-		return $Decoda->parse();
+	{		
+		return load_class('Services_BBCode')->parse($text);
 	}
 
 	public static function parse_markdown($text)
