@@ -132,8 +132,11 @@ var AWS =
 	ajax_post: function(formEl, processer, type) // 表单对象，用 jQuery 获取，回调函数名
 	{
 		// 若有编辑器的话就更新编辑器内容再提交
-		for ( instance in CKEDITOR.instances ) {
-			CKEDITOR.instances[instance].updateElement();
+		if (typeof CKEDITOR != 'undefined')
+		{
+			for ( instance in CKEDITOR.instances ) {
+				CKEDITOR.instances[instance].updateElement();
+			}
 		}
 
 	    if (typeof (processer) != 'function')
@@ -650,26 +653,30 @@ var AWS =
 		            $.get(G_BASE_URL + '/question/ajax/fetch_answer_data/' + data.answer_id, function (result)
 		            {
 		                $('#editor_reply').html(result.answer_content.replace('&amp;', '&'));
+
+		                var editor = CKEDITOR.replace( 'editor_reply' );
+
+			            if (UPLOAD_ENABLE == 'Y')
+			            {
+			            	var fileupload = new FileUpload('file', '.aw-edit-comment-box .aw-upload-box .btn', '.aw-edit-comment-box .aw-upload-box .upload-container', G_BASE_URL + '/publish/ajax/attach_upload/id-answer__attach_access_key-' + ATTACH_ACCESS_KEY, {'insertTextarea': '.aw-edit-comment-box #editor_reply'}, {
+			            		'editor' : editor
+			            	});
+
+				            $.post(G_BASE_URL + '/publish/ajax/answer_attach_edit_list/', 'answer_id=' + data.answer_id, function (data) {
+				                if (data['err']) {
+				                    return false;
+				                } else {
+				                    $.each(data['rsm']['attachs'], function (i, v) {
+				                        fileupload.setFileList(v);
+				                    });
+				                }
+				            }, 'json');
+			            }
+			            else
+			            {
+			            	$('.aw-edit-comment-box .aw-file-upload-box').hide();
+			            }
 		            }, 'json');
-
-		            if (UPLOAD_ENABLE == 'Y')
-		            {
-		            	var fileupload = new FileUpload('file', '.aw-edit-comment-box .aw-upload-box .btn', '.aw-edit-comment-box .aw-upload-box .upload-container', G_BASE_URL + '/publish/ajax/attach_upload/id-answer__attach_access_key-' + ATTACH_ACCESS_KEY, {'insertTextarea': '.aw-edit-comment-box #editor_reply'});
-
-			            $.post(G_BASE_URL + '/publish/ajax/answer_attach_edit_list/', 'answer_id=' + data.answer_id, function (data) {
-			                if (data['err']) {
-			                    return false;
-			                } else {
-			                    $.each(data['rsm']['attachs'], function (i, v) {
-			                        fileupload.setFileList(v);
-			                    });
-			                }
-			            }, 'json');
-		            }
-		            else
-		            {
-		            	$('.aw-edit-comment-box .aw-file-upload-box').hide();
-		            }
 		        break;
 
 		        case 'ajaxData':
