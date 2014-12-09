@@ -66,6 +66,11 @@ class Services_BBCode
 		return "<li>" . preg_replace("/[\n\r?]$/", "", $match[1]) . "</li>";
 	}
 	
+	private function _video_callback($match)
+	{
+		return load_class('Services_VideoUrlParser')->parse($match[1]);
+	}
+	
 	private function _list_advance_callback($match)
 	{
 		if ($match[1] == '1')
@@ -120,6 +125,9 @@ class Services_BBCode
         
         // Replace [img]...[/img] with <img src="..."/>
         $this->bbcode_table["/\[img\](.*?)\[\/img\]/is"] = '_img_callback';
+        
+        // Replace [video]...[/video] with swf video player
+        $this->bbcode_table["/\[video\](.*?)\[\/video\]/is"] = '_video_callback';
         
         // Replace [list]...[/list] with <ul><li>...</li></ul>
         $this->bbcode_table["/\[list\](.*?)\[\/list\]/is"] = '_list_callback';
