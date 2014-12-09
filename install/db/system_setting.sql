@@ -123,4 +123,5 @@ INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES
 ('twitter_consumer_key', 's:0:"";'),
 ('twitter_consumer_secret', 's:0:"";'),
 ('weixin_encoding_aes_key', 's:0:"";'),
-('integral_system_config_answer_change_source', 's:1:"Y";');
+('integral_system_config_answer_change_source', 's:1:"Y";'),
+('enable_help_center', 's:1:"N";');
