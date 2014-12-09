@@ -863,10 +863,9 @@ a.aw-load-more-content{display: block;}
 #wmd-button-bar .wmd-helper .content .tab-pane{padding:10px;}
 .wmd-preview{min-height:20px;margin-top:15px;padding: 19px;line-height:25px;background-color: #fafafa;border:1px solid #e3e3e3;border-radius: 4px;text-align: left;}
 .wmd-preview em, .markitup-box em{font-style: italic;}
-.wmd-preview ul, .wmd-preview ol, .markitup-box ul, .markitup-box ol{margin-bottom:16px;padding-left: 32px;list-style: decimal;line-height: 30px;}
+.wmd-preview ul, .wmd-preview ol, .markitup-box ul, .markitup-box ol{margin:10px 0;padding-left: 40px;list-style: decimal;line-height: 30px;}
 .wmd-preview ul, .markitup-box ul {list-style: disc;}
 .wmd-preview ol, .markitup-box ol{list-style: decimal;}
-.wmd-preview ul li, .markitup-box ul li, .wmd-preview ol li, .markitup-box ol li {line-height: 25px;}
 .wmd-preview h2, .markitup-box h2{margin: 16px 0;font-size: 1.75em;line-height: 30px;}
 .wmd-preview h3, .markitup-box h3{margin: 16px 0;font-size: 1.5em;}
 .wmd-preview h4, .markitup-box h4 {margin: 16px 0;font-size: 1.25em;}
@@ -879,7 +878,6 @@ a.aw-load-more-content{display: block;}
 .wmd-preview pre, .markitup-box pre {padding: 16px;line-height: 20px;overflow: hidden; border: none; border-radius: 3px; background-color: #f7f7f7;font-size: 14px;}
 blockquote {margin: 0 0 16px;padding: 0 15px;font-size: 14px;color: #777;border-left: 4px solid #ddd;}
 .markitup-box pre br, .markitup-box ul + br, .markitup-box ol + br {display: none;}
- .markitup-box ul, .markitup-box ol {margin-bottom: 0;}
 .wmd-preview b, .markitup-box b, .wmd-preview strong, .markitup-box strong {color: #333;}
 
 /* 发现和文章列表文章摘要 */
