@@ -18,7 +18,7 @@ select{width: auto;}
 .badge.badge-important{background: #ff3333;}
 .table-bordered > thead > tr > th, .table-bordered > thead > tr > td{border-bottom-width:1px;}
 /* modal */
-.modal-backdrop, .modal-backdrop.fade.in{filter:alpha(opacity=20);opacity: 0.2; }
+.modal-backdrop, .modal-backdrop.fade.in{filter:alpha(opacity=20) !important;opacity: 0.2 !important; }
 /* 重载bootstrap按钮 */
 .btn:active, .btn.active{box-shadow: none;}
 .btn-mini{min-width: 64px;min-width:44px\0;height:24px;padding:0 10px;line-height:24px;font-weight: normal;font-size:12px;}
@@ -1020,13 +1020,18 @@ a.cke_button{padding:8px 10px !important;cursor: pointer !important;border-radiu
 	content: "\e642";
 }
 
-.cke_button__image_icon:before {
+.cke_button__wecenterimage_icon:before {
 	content: "\e63f";
 }
 
-.cke_button__link_icon:before {
+.cke_button__wecenterlink_icon:before {
 	content: "\e61f";
 }
+
+.cke_button__wecentervideo_icon:before {
+	content: "\e640";
+}
+
 
 .cke_button__source_icon:before {
 	content: "\e609";

@@ -6,7 +6,7 @@ textarea.cke_dialog_ui_input_textarea
        -moz-box-sizing: border-box;
             box-sizing: border-box;
     width: 100%;
-    height: 30px;
+    height: 34px;
     padding: 4px 10px;
 
     border: 1px solid #ddd;
@@ -27,13 +27,15 @@ textarea.cke_dialog_ui_input_textarea:focus
 }.cke_dialog
 {
     visibility: visible;
+    top: 30px !important;
 }.cke_dialog_body
 {
     z-index: 1;
 
-    border: 1px solid #ddd;
+    border: 1px solid #999;
     border-radius: 4px;
     background: #fafafa;
+    box-shadow: 0 20px 20px rgba(0, 0, 0, 0.3);
 }.cke_browser_gecko19 .cke_dialog_body
 {
     position: relative;
@@ -43,7 +45,6 @@ textarea.cke_dialog_ui_input_textarea:focus
 }.cke_dialog_title
 {
     font-size: 14px;
-    font-weight: 700;
 
     position: relative;
 
@@ -69,7 +70,7 @@ textarea.cke_dialog_ui_input_textarea:focus
     overflow: auto;
 
     margin-top: 22px;
-    padding: 17px 10px 5px;
+    padding: 17px 30px 5px;
     background: #fafafa;
 }.cke_dialog_footer
 {
@@ -182,13 +183,15 @@ textarea.cke_dialog_ui_input_textarea:focus
     cursor: pointer;
     text-align: center;
 
-    background-image: url(images/close.png);
     background-repeat: no-repeat;
     background-position: 0 0;
-}.cke_hidpi .cke_dialog_close_button
-{
-    background-image: url(images/hidpi/close.png);
-    background-size: 16px;
+
+    font-size: 18px;
+    color: #000;
+    opacity: 0.2;
+}
+.cke_dialog_close_button::before, .cke_hidpi .cke_dialog_close_button::before{
+    content: '×';
 }.cke_dialog_close_button span
 {
     display: none;
@@ -217,12 +220,6 @@ textarea.cke_dialog_ui_input_textarea:focus
 .cke_dialog_ui_vbox table
 {
     margin: auto;
-}.cke_dialog_ui_vbox
-{
-    margin-top: 5px;
-}.cke_dialog_ui_vbox_child
-{
-    padding: 5px 0;
 }.cke_dialog_ui_hbox
 {
     width: 100%;
@@ -522,7 +519,7 @@ a.cke_dialog_ui_button_ok:hover
     display: none;
 }.cke_dialog_body label
 {
-    display: inline-block;
+    display: none;
 
     margin-bottom: 3px;
 
@@ -533,6 +530,7 @@ a.cke_dialog_ui_button_ok:hover
 }.cke_dialog_ui_html
 {
     line-height: 150%;
+    white-space: normal;
 }a.cke_smile
 {
     display: block;

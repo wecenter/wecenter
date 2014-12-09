@@ -1,9 +1,9 @@
 ﻿(function () {
-    function WecenterImageDialog(editor) {
+    function WecenterVideoDialog(editor) {
  
         return {
-            title: '插入图片',
-            minWidth: 470,
+            title: '插入视频',
+            minWidth: 400,
             minHeight: 110,
             buttons: [
                 CKEDITOR.dialog.okButton,
@@ -20,14 +20,12 @@
                             required: true,
                             validate: CKEDITOR.dialog.validate.notEmpty('链接地址不能为空'),
                             commit: function () {
-                                this.imageElement = editor.document.createElement( 'img' );
-                                this.imageElement.setAttribute( 'src', this.getValue() );
-                                editor.insertElement( this.imageElement );
+                                editor.insertText( '!![视频名称](' + this.getValue() + ')' );
                             }
                         },
                         {
                             type: 'html',
-                            html : '<p style="font-size:14px;color:#999;">如需要插入本地图片, 请用编辑器下面上传附件功能上传后再插入!</p>'
+                            html : '<p style="font-size:14px;color:#999;">我们目前支持: 优酷、酷六、土豆、56、新浪播客、乐视、Youtube 与 SWF 文件!</p>'
                         }
                     ]
                 }
@@ -51,7 +49,7 @@
         };
     }
  
-    CKEDITOR.dialog.add('WecenterImage', function (editor) {
-        return WecenterImageDialog(editor);
+    CKEDITOR.dialog.add('WecenterVideo', function (editor) {
+        return WecenterVideoDialog(editor);
     });
 })();

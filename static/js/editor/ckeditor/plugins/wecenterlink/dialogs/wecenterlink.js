@@ -1,8 +1,8 @@
 ﻿(function () {
-    function WecenterImageDialog(editor) {
+    function WecenterLinkDialog(editor) {
  
         return {
-            title: '插入图片',
+            title: '插入超链接',
             minWidth: 470,
             minHeight: 110,
             buttons: [
@@ -12,6 +12,7 @@
             contents:
             [
                 {
+                    id: 'info',
                     elements:
                     [
                         {
@@ -20,14 +21,12 @@
                             required: true,
                             validate: CKEDITOR.dialog.validate.notEmpty('链接地址不能为空'),
                             commit: function () {
-                                this.imageElement = editor.document.createElement( 'img' );
-                                this.imageElement.setAttribute( 'src', this.getValue() );
-                                editor.insertElement( this.imageElement );
+                                var element = editor.document.createElement( 'a' );
+                                element.setAttribute( 'href', this.getValue() );
+                                element.setHtml(this.getValue());
+                                console.log(element);
+                                editor.insertElement( element );
                             }
-                        },
-                        {
-                            type: 'html',
-                            html : '<p style="font-size:14px;color:#999;">如需要插入本地图片, 请用编辑器下面上传附件功能上传后再插入!</p>'
                         }
                     ]
                 }
@@ -51,7 +50,7 @@
         };
     }
  
-    CKEDITOR.dialog.add('WecenterImage', function (editor) {
-        return WecenterImageDialog(editor);
+    CKEDITOR.dialog.add('WecenterLink', function (editor) {
+        return WecenterLinkDialog(editor);
     });
 })();
