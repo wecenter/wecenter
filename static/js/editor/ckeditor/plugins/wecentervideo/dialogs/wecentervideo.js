@@ -18,9 +18,10 @@
                             id: 'text',
                             type: 'text',
                             required: true,
-                            validate: CKEDITOR.dialog.validate.notEmpty('链接地址不能为空'),
                             commit: function () {
-                                editor.insertText( '!![视频名称](' + this.getValue() + ')' );
+                                if (this.getValue()) {
+                                    editor.insertText( '!![视频名称](' + this.getValue() + ')' );
+                                }
                             }
                         },
                         {

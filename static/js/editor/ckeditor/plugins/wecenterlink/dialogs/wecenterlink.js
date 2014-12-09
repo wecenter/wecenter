@@ -19,13 +19,14 @@
                             id: 'text',
                             type: 'text',
                             required: true,
-                            validate: CKEDITOR.dialog.validate.notEmpty('链接地址不能为空'),
                             commit: function () {
-                                var element = editor.document.createElement( 'a' );
-                                element.setAttribute( 'href', this.getValue() );
-                                element.setHtml(this.getValue());
-                                console.log(element);
-                                editor.insertElement( element );
+                                if (this.getValue()) {
+                                    var element = editor.document.createElement( 'a' );
+                                    element.setAttribute( 'href', this.getValue() );
+                                    element.setHtml(this.getValue());
+                                    console.log(element);
+                                    editor.insertElement( element );
+                                }
                             }
                         }
                     ]

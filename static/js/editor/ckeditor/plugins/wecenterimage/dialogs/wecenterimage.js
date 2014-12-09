@@ -18,11 +18,12 @@
                             id: 'text',
                             type: 'text',
                             required: true,
-                            validate: CKEDITOR.dialog.validate.notEmpty('链接地址不能为空'),
                             commit: function () {
-                                this.imageElement = editor.document.createElement( 'img' );
-                                this.imageElement.setAttribute( 'src', this.getValue() );
-                                editor.insertElement( this.imageElement );
+                                if (this.getValue()) {
+                                    this.imageElement = editor.document.createElement( 'img' );
+                                    this.imageElement.setAttribute( 'src', this.getValue() );
+                                    editor.insertElement( this.imageElement );
+                                }
                             }
                         },
                         {
