@@ -53,7 +53,14 @@ if (defined('IN_SAE'))
 }
 else
 {
-	error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT);
+	if (version_compare(PHP_VERSION, '5.3', '>='))
+	{
+		error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT);
+	}
+	else
+	{
+		error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT & ~E_WARNING);
+	}
 
 	define('TEMP_PATH', dirname(dirname(__FILE__)) . '/tmp/');
 }
