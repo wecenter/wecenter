@@ -342,6 +342,10 @@ class publish_class extends AWS_MODEL
 			ACTION_LOG::save_action($uid, $article_id, ACTION_LOG::CATEGORY_QUESTION, ACTION_LOG::ADD_ARTICLE, htmlspecialchars($title), htmlspecialchars($message), 0);
 
 			$this->model('posts')->set_posts_index($article_id, 'article');
+
+			$this->shutdown_update('users', array(
+				'article_count' => $this->count('article', 'uid = ' . intval($uid))
+			), 'uid = ' . intval($uid));
 		}
 
 		return $article_id;
