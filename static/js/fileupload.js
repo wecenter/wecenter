@@ -245,10 +245,7 @@ FileUpload.prototype =
 
            	$('.upload-iframe').detach();
 
-           	if (this.callback)
-           	{
-           		this.callback();
-           	}
+           	this.oncallback();
 	},
 
 	// ajax完成callback
@@ -271,6 +268,15 @@ FileUpload.prototype =
 		}
 	},
 
+	// 此功能配合编辑器
+	oncallback : function ()
+	{
+		if (this.callback)
+       	{
+       		this.callback();
+       	}
+	},
+
 	// 渲染缩略列表
 	render : function (element, json, filesize)
 	{
@@ -288,7 +294,7 @@ FileUpload.prototype =
 						$(element).find('.img').css(
 						{
 			                'background': 'url("' + json.thumb + '")'
-			            }).addClass('active');
+			            }).addClass('active').attr('data-img', json.thumb);
 			        break;
 				}
 
@@ -314,10 +320,7 @@ FileUpload.prototype =
 				// 插入隐藏域(wecenter定制)
 				$(element).append(this.createHiddenInput(json.attach_id));
 
-				if (this.callback)
-				{
-					this.callback();
-				}
+				this.oncallback();
 			}
 			else
 			{
@@ -365,6 +368,7 @@ FileUpload.prototype =
 
     	$(btn).click(function()
 		{
+			// _this.editor.insertHtml("<attach>" + attach_id + "</attach>");
 			_this.editor.insertText("\n[attach]" + attach_id + "[/attach]\n");
 
 			//$(_this.options.insertTextarea).insertAtCaret("\n[attach]" + attach_id + "[/attach]\n");
@@ -411,7 +415,7 @@ FileUpload.prototype =
 		}
 		else
 		{
-			template += '<div class="img" style="background:url(' + json.thumb + ')"></div>';
+			template += '<div class="img" data-img="' + json.thumb + '" style="background:url(' + json.thumb + ')"></div>';
 		}
 
 		template += '<div class="content">'+

@@ -157,6 +157,10 @@ a.aw-load-more-content{display: block;}
 .aw-dropdown.shareout i.icon-weibo{background-color: #ff6161;}
 .aw-dropdown.shareout i.icon-qzone{background-color: #ffc333;}
 .aw-dropdown.shareout i.icon-wechat{background-color: #73db42;}
+/* 编辑器附件下拉 */
+.aw-editor-dropdown li a{white-space:nowrap;overflow: hidden;}
+.aw-editor-dropdown img{margin-right: 5px;}
+
 /* 翻页 */
 .page-control{text-align: center;}
 .pagination{margin:20px 0 0;}
@@ -1030,6 +1034,9 @@ a.cke_button{padding:8px 10px !important;cursor: pointer !important;border-radiu
 	content: "\e640";
 }
 
+.cke_button__wecenterattach_icon:before {
+	content: "\e631";
+}
 
 .cke_button__source_icon:before {
 	content: "\e609";

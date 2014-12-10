@@ -24,6 +24,7 @@ $(function()
 				'editor' : editor
 			});
 		}
+
 		
 		//折叠回复
 		$.each($('.aw-question-comment .aw-item'), function (i, e) 

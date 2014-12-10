@@ -5,7 +5,7 @@
         editor.addCommand(pluginName, new CKEDITOR.dialogCommand(pluginName));
         editor.ui.addButton(pluginName,
         {
-            label: editor.lang.common.link,
+            label: editor.lang.link.menu,
             command: pluginName
         });
     }

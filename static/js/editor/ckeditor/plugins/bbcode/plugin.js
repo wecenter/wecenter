@@ -26,7 +26,7 @@
 		}
 	} );
 
-	var bbcodeMap = { b: 'strong', u: 'u', i: 'em', color: 'span', size: 'span', quote: 'blockquote', code: 'code', url: 'a', email: 'span', img: 'span', '*': 'li', list: 'ol', pre: 'pre' },
+	var bbcodeMap = { b: 'strong', u: 'u', i: 'em', color: 'span', size: 'span', quote: 'blockquote', code: 'code', url: 'a', email: 'span', img: 'span', '*': 'li', list: 'ol', pre: 'pre', video: 'video'},
 		convertMap = { strong: 'b', b: 'b', u: 'u', em: 'i', i: 'i', code: 'code', li: '*' },
 		tagnameMap = { strong: 'b', em: 'i', u: 'u', li: '*', ul: 'list', ol: 'list', code: 'code', a: 'link', img: 'img', blockquote: 'quote' },
 		stylesMap = { color: 'color', size: 'font-size' },
@@ -428,6 +428,13 @@
 			} );
 
 			this.setRules( 'quote', {
+				breakBeforeOpen: 1,
+				breakAfterOpen: 0,
+				breakBeforeClose: 0,
+				breakAfterClose: 1
+			} );
+
+			this.setRules( 'video', {
 				breakBeforeOpen: 1,
 				breakAfterOpen: 0,
 				breakBeforeClose: 0,

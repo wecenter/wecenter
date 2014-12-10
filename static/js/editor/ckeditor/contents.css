@@ -136,5 +136,11 @@ a > img {
 pre, code {display:block;padding: 16px;line-height: 20px;overflow: hidden; border: none; border-radius: 3px; background-color: #f7f7f7;font-size: 14px;}
 pre br:first-child{display: none;}
 
+video{
+	width: 560px;
+	height: 360px;
+	background: url('video.png') no-repeat center center #f5f5f5;
+}
+
 
 
