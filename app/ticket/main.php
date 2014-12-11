@@ -95,7 +95,7 @@ class main extends AWS_CONTROLLER
 
             TPL::assign('attach_access_key', md5($this->user_id . time()));
 
-            TPL::assign('human_valid', human_valid('question_valid_hour'));
+            TPL::assign('human_valid', human_valid('answer_valid_hour'));
 
             TPL::import_js('js/app/publish.js');
 
