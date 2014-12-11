@@ -1,37 +1,37 @@
- <div class="aw-item" id="replies_list_<?php echo $reply_info['id']; ?>">
+ <div class="aw-item" id="answer_list_<?php echo $this->reply_info['id']; ?>">
     <div class="mod-head">
-    <a class="anchor" name="answer_<?php echo $reply_info['id']; ?>"></a>
+    <a class="anchor" name="answer_<?php echo $this->reply_info['id']; ?>"></a>
         <!-- 用户头像 -->
-        <a class="aw-user-img aw-border-radius-5 pull-right" href="people/<?php echo $reply_info['user_info']['url_token']; ?>" data-id="<?php echo $reply_info['user_info']['uid']; ?>"><img src="<?php echo get_avatar_url($reply_info['user_info']['uid'], 'mid'); ?>" alt="" /></a>
+        <a class="aw-user-img aw-border-radius-5 pull-right" href="people/<?php echo $this->reply_info['user_info']['url_token']; ?>" data-id="<?php echo $this->reply_info['user_info']['uid']; ?>"><img src="<?php echo get_avatar_url($this->reply_info['user_info']['uid'], 'mid'); ?>" alt="" /></a>
         <!-- end 用户头像 -->
         <div class="title">
             <p>
-                <a class="aw-user-name" href="people/<?php echo $reply_info['user_info']['url_token']; ?>" data-id="<?php echo $reply_info['user_info']['uid']; ?>"><?php echo $reply_info['user_info']['user_name']; ?></a>
-                <?php if ($reply_info['user_info']['verified']) { ?><i class="icon-v<?php if ($reply_info['user_info']['verified'] == 'enterprise') { ?> i-ve<?php } ?>" title="<?php if ($reply_info['user_info']['verified'] == 'enterprise') { ?>企业认证<?php } else { ?>个人认证<?php } ?>"></i><?php } ?>
-                <?php if ($reply_info['user_info']['signature']) { ?> - <span class="text-color-999"><?php echo $reply_info['user_info']['signature']; ?></span><?php } ?>
+                <a class="aw-user-name" href="people/<?php echo $this->reply_info['user_info']['url_token']; ?>" data-id="<?php echo $this->reply_info['user_info']['uid']; ?>"><?php echo $this->reply_info['user_info']['user_name']; ?></a>
+                <?php if ($this->reply_info['user_info']['verified']) { ?><i class="icon-v<?php if ($this->reply_info['user_info']['verified'] == 'enterprise') { ?> i-ve<?php } ?>" title="<?php if ($this->reply_info['user_info']['verified'] == 'enterprise') { ?>企业认证<?php } else { ?>个人认证<?php } ?>"></i><?php } ?>
+                <?php if ($this->reply_info['user_info']['signature']) { ?> - <span class="text-color-999"><?php echo $this->reply_info['user_info']['signature']; ?></span><?php } ?>
             </p>
         </div>
     </div>
     <div class="mod-body clearfix">
         <!-- 评论内容 -->
         <div class="markitup-box">
-            <?php echo $reply_info['message']; ?>
+            <?php echo $this->reply_info['message']; ?>
         </div>
 
-        <?php if ($reply_info['attachs']) {  ?>
+        <?php if ($this->reply_info['attachs']) {  ?>
         <div class="aw-upload-img-list">
-            <?php foreach ($reply_info['attachs'] AS $attach) { ?>
-            <?php if ($attach['is_image'] AND !($reply_info['insert_attach_ids'] AND in_array($attach['id'], $reply_info['insert_attach_ids']))) { ?>
+            <?php foreach ($this->reply_info['attachs'] AS $attach) { ?>
+            <?php if ($attach['is_image'] AND !($this->reply_info['insert_attach_ids'] AND in_array($attach['id'], $this->reply_info['insert_attach_ids']))) { ?>
             <a href="<?php echo $attach['attachment']; ?>" target="_blank" data-fancybox-group="thumb" rel="lightbox"><img src="<?php echo $attach['attachment']; ?>" class="img-thumbnail" alt="<?php echo $attach['attach_name']; ?>" /></a>
             <?php } ?>
             <?php } ?>
         </div>
         <?php } ?>
 
-        <?php if ($reply_info['attachs']) {  ?>
+        <?php if ($this->reply_info['attachs']) {  ?>
         <ul class="aw-upload-file-list">
-            <?php foreach ($reply_info['attachs'] AS $attach) { ?>
-            <?php if (!$attach['is_image'] AND !($reply_info['insert_attach_ids'] AND in_array($attach['id'], $reply_info['insert_attach_ids']))) { ?>
+            <?php foreach ($this->reply_info['attachs'] AS $attach) { ?>
+            <?php if (!$attach['is_image'] AND !($this->reply_info['insert_attach_ids'] AND in_array($attach['id'], $this->reply_info['insert_attach_ids']))) { ?>
             <li><a href="<?php echo download_url($attach['file_name'], $attach['attachment']); ?>"><i class="icon icon-attach"></i><?php echo $attach['file_name']; ?></a></li>
             <?php } ?>
             <?php } ?>

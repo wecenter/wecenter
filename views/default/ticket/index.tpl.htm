@@ -121,7 +121,7 @@
                         <div class="mod-body aw-feed-list">
                             <?php if ($this->replies_list) {
                                 foreach ($this->replies_list AS $reply) { ?>
-                                <div class="aw-item" id="reply_list_<?php echo $reply['id']; ?>">
+                                <div class="aw-item" id="answer_list_<?php echo $reply['id']; ?>">
                                     <div class="mod-head">
                                         <a class="anchor" name="answer_<?php echo $reply['id']; ?>"></a>
                                         <!-- 用户头像 -->
@@ -282,13 +282,15 @@
 
                                 <li>
                                     <h3><?php _e('优先级'); ?>:</h3>
-                                    <form action="ticket/ajax/change_priority/">
+                                    <form action="ticket/ajax/change_priority/" id="priority">
                                         <select name="rating" class="form-control">
                                             <option value="low"<?php if ($this->ticket_info['priority'] == 'low') { ?> selected="selected"<?php } ?>><?php _e('低'); ?></option>
                                             <option value="normal"<?php if ($this->ticket_info['priority'] == 'normal') { ?> selected="selected"<?php } ?>><?php _e('中'); ?></option>
                                             <option value="high"<?php if ($this->ticket_info['priority'] == 'high') { ?> selected="selected"<?php } ?>><?php _e('高'); ?></option>
                                             <option value="urgent"<?php if ($this->ticket_info['priority'] == 'urgent') { ?> selected="selected"<?php } ?>><?php _e('紧急'); ?></option>
                                         </select>
+                                        <input type="text" name="id" value="<?php echo $this->ticket_info['id']; ?>">
+
                                     </form>
                                 </li>
 
@@ -336,5 +338,10 @@
 </script>
 
 <script type="text/javascript" src="<?php echo G_STATIC_URL; ?>/js/app/question_detail.js"></script>
+<script>
+    $(function () {
+
+    })
+</script>
 
 <?php TPL::output('global/footer.tpl.htm'); ?>
