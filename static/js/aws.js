@@ -2679,6 +2679,22 @@ AWS.Init =
 		                        }, 'json');
 	                        break;
 
+	                        case 'ticket'://添加工单话题编辑
+		                        $.post(G_BASE_URL + '/topic/ajax/save_topic_relation/', 'type=question&item_id=' + data_id + '&topic_title=' + encodeURIComponent(_topic_editor.find('#aw_edit_topic_title').val()), function (result)
+		                        {
+		                            if (result.errno != 1)
+		                            {
+		                                AWS.alert(result.err);
+
+		                                return false;
+		                            }
+
+		                            _topic_editor.find('.tag-bar').prepend('<span class="topic-tag" data-id="' + result.rsm.topic_id + '"><a href="' + G_BASE_URL + '/topic/' + result.rsm.topic_id + '" class="text">' + _topic_editor.find('#aw_edit_topic_title').val() + '</a><a class="close"><i class="icon icon-delete"></i></a></span>').hide().fadeIn();
+
+		                            _topic_editor.find('#aw_edit_topic_title').val('');
+		                        }, 'json');
+	                        break;
+
 	                    	case 'article':
 		                        $.post(G_BASE_URL + '/topic/ajax/save_topic_relation/', 'type=article&item_id=' + data_id + '&topic_title=' + encodeURIComponent(_topic_editor.find('#aw_edit_topic_title').val()), function (result)
 		                        {
