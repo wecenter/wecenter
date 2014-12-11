@@ -48,6 +48,12 @@ class main extends AWS_CONTROLLER
             H::redirect_msg(AWS_APP::lang()->_t('工单不存在或已被删除'), '/');
         }
 
+        if (!$this->user_info['permission']['is_administortar'] AND !$this->user_info['permission']['is_service']
+            AND $ticket_info['uid'] != $this->user_id AND !$this->model('ticket')->has_invited($this->user_id))
+        {
+            H::redirect_msg(AWS_APP::lang()->_t('你没有权限查看该工单'));
+        }
+
         $uids[] = $ticket_info['uid'];
 
         if ($ticket_info['service'])
@@ -111,6 +117,16 @@ class main extends AWS_CONTROLLER
             }
         }
 
+        $invite_users = $this->model('ticket')->get_invite_users($ticket_info['id']);
+
+        if ($invite_users)
+        {
+            foreach ($invite_users AS $invite_info)
+            {
+                $uids[] = $invite_info['recipient_uid'];
+            }
+        }
+
         $users_list = $this->model('account')->get_user_info_by_uids($uids);
 
         $ticket_info['user_info'] = $users_list[$ticket_info['uid']];
@@ -143,6 +159,16 @@ class main extends AWS_CONTROLLER
             ))->create_links());
         }
 
+        if ($invite_users)
+        {
+            foreach ($invite_users AS $key => $invite_info)
+            {
+                $invite_users[$key]['recipient_info'] = $users_list[$invite_info['recipient_uid']];
+            }
+
+            TPL::assign('invite_users', $invite_users);
+        }
+
         TPL::assign('ticket_info', $ticket_info);
 
         TPL::output('ticket/index');
@@ -150,6 +176,11 @@ class main extends AWS_CONTROLLER
 
     public function index_square_action()
     {
+        if (!$this->user_info['permission']['is_administortar'] AND !$this->user_info['permission']['is_service'])
+        {
+            H::redirect_msg(AWS_APP::lang()->_t('你所在用户组没有权限查看工单'));
+        }
+
         $this->crumb(AWS_APP::lang()->_t('工单'), '/ticket/');
 
         $ticket_list = $this->model('ticket')->get_ticket_list();
@@ -161,11 +192,21 @@ class main extends AWS_CONTROLLER
 
     public function data_action()
     {
+        if (!$this->user_info['permission']['is_administortar'] AND !$this->user_info['permission']['is_service'])
+        {
+            H::redirect_msg(AWS_APP::lang()->_t('你所在用户组没有权限查看工单'));
+        }
+
         TPL::output('ticket/data');
     }
 
     public function topic_action()
     {
+        if (!$this->user_info['permission']['is_administortar'] AND !$this->user_info['permission']['is_service'])
+        {
+            H::redirect_msg(AWS_APP::lang()->_t('你所在用户组没有权限查看工单'));
+        }
+
         TPL::output('ticket/topic');
     }
 
