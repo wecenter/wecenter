@@ -1,0 +1,42 @@
+                                <div class="aw-item" id="replies_list_<?php echo $reply['id']; ?>">
+                                    <div class="mod-head">
+                                        <a class="anchor" name="answer_<?php echo $reply['id']; ?>"></a>
+                                        <!-- 用户头像 -->
+                                        <a class="aw-user-img aw-border-radius-5 pull-right" href="people/<?php echo $reply['user_info']['url_token']; ?>" data-id="<?php echo $reply['user_info']['uid']; ?>"><img src="<?php echo get_avatar_url($reply['user_info']['uid'], 'mid'); ?>" alt="" /></a>
+                                        <!-- end 用户头像 -->
+                                        <div class="title">
+                                            <p>
+                                                <a class="aw-user-name" href="people/<?php echo $reply['user_info']['url_token']; ?>" data-id="<?php echo $reply['user_info']['uid']; ?>"><?php echo $reply['user_info']['user_name']; ?></a>
+                                                <?php if ($reply['user_info']['verified']) { ?><i class="icon-v<?php if ($reply['user_info']['verified'] == 'enterprise') { ?> i-ve<?php } ?>" title="<?php if ($reply['user_info']['verified'] == 'enterprise') { ?>企业认证<?php } else { ?>个人认证<?php } ?>"></i><?php } ?>
+                                                <?php if ($reply['user_info']['signature']) { ?> - <span class="text-color-999"><?php echo $reply['user_info']['signature']; ?></span><?php } ?>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="mod-body clearfix">
+                                        <!-- 评论内容 -->
+                                        <div class="markitup-box">
+                                            <?php echo $reply['message']; ?>
+                                        </div>
+
+                                        <?php if ($reply['attachs']) {  ?>
+                                        <div class="aw-upload-img-list">
+                                            <?php foreach ($reply['attachs'] AS $attach) { ?>
+                                            <?php if ($attach['is_image'] AND !($reply['insert_attach_ids'] AND in_array($attach['id'], $reply['insert_attach_ids']))) { ?>
+                                            <a href="<?php echo $attach['attachment']; ?>" target="_blank" data-fancybox-group="thumb" rel="lightbox"><img src="<?php echo $attach['attachment']; ?>" class="img-thumbnail" alt="<?php echo $attach['attach_name']; ?>" /></a>
+                                            <?php } ?>
+                                            <?php } ?>
+                                        </div>
+                                        <?php } ?>
+
+                                        <?php if ($reply['attachs']) {  ?>
+                                        <ul class="aw-upload-file-list">
+                                            <?php foreach ($reply['attachs'] AS $attach) { ?>
+                                            <?php if (!$attach['is_image'] AND !($reply['insert_attach_ids'] AND in_array($attach['id'], $reply['insert_attach_ids']))) { ?>
+                                            <li><a href="<?php echo download_url($attach['file_name'], $attach['attachment']); ?>"><i class="icon icon-attach"></i><?php echo $attach['file_name']; ?></a></li>
+                                            <?php } ?>
+                                            <?php } ?>
+                                        </ul>
+                                        <?php } ?>
+                                        <!-- end 评论内容 -->
+                                    </div>
+                                </div>
