@@ -6,7 +6,7 @@ class Services_BBCode
     
 	private function _code_callback($match)
 	{
-		return "<pre><code>" . str_replace('[', '<span>[</span>', $match[1]) . "</code></pre>";
+		return "<pre>" . str_replace('[', '<span>[</span>', $match[1]) . "</pre>";
 	}
 	
 	private function _b_callback($match)

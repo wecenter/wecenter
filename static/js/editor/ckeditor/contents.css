@@ -15,7 +15,7 @@ body
 	/* Remove the background color to make it transparent */
 	background-color: #fff;
 
-	margin: 20px;
+	margin: 10px;
 }
 
 .cke_editable
@@ -133,7 +133,7 @@ a > img {
   border-radius: 4px;
 }*/
 
-pre, code {display:block;padding: 16px;line-height: 20px;overflow: hidden; border: none; border-radius: 3px; background-color: #f7f7f7;font-size: 14px;}
+pre, code {display:block;padding: 16px;line-height: 20px;overflow: hidden; border: none; border-radius: 3px; background-color: #f7f7f7;font-size: 14px;font-family: monospace;}
 pre br:first-child{display: none;}
 
 video{
