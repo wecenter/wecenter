@@ -137,6 +137,8 @@ class main extends AWS_CONTROLLER
 
         $ticket_info['service_info'] = $users_list[$ticket_info['service']];
 
+        $ticket_info['message'] = FORMAT::parse_attachs(nl2br(FORMAT::parse_markdown($ticket_info['message'])));
+
         if ($ticket_log)
         {
             foreach ($ticket_log AS $key => $log_info)
@@ -152,6 +154,8 @@ class main extends AWS_CONTROLLER
             foreach ($replies_list AS $key => $reply_info)
             {
                 $replies_list[$key]['user_info'] = $users_list[$reply_info['uid']];
+
+                $replies_list[$key]['message'] = FORMAT::parse_attachs(nl2br(FORMAT::parse_markdown($reply_info['message'])));
             }
 
             TPL::assign('replies_list', $replies_list);

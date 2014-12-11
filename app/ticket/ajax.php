@@ -111,13 +111,31 @@ class ajax extends AWS_CONTROLLER
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('你没有权限回复该工单')));
         }
 
-        $this->model('ticket')->reply_ticket($ticket_info['id'], $_POST['message'], $this->user_id);
+        $reply_id = $this->model('ticket')->reply_ticket($ticket_info['id'], $_POST['message'], $this->user_id);
+
+        if (!$reply_id)
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('回复失败')));
+        }
+
+        $reply_info = $this->model('ticket')->get_ticket_reply_by_id($reply_id);
+
+        $reply_info['user_info'] = $this->user_info;
+
+        $reply_info['message'] = FORMAT::parse_attachs(nl2br(FORMAT::parse_markdown($reply_info['message'])));
+
+        if ($reply_info['has_attach'])
+        {
+            $reply_info['attachs'] = $this->model('publish')->get_attach('ticket', $reply_info['id'], 'min');
+
+            $reply_info['insert_attach_ids'] = FORMAT::parse_attachs($reply_info['message'], true);
+        }
+
+        TPL::assign('reply_info', $reply_info);
 
         H::ajax_json_output(AWS_APP::RSM(array(
-                    'ajax_html' => TPL::output('ticket/ajax/reply', false)
-                ), 1, null));
-
-
+            'ajax_html' => TPL::output('ticket/ajax/reply', false)
+        ), -1, null));
     }
 
     public function change_priority_action()
