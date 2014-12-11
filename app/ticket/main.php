@@ -41,6 +41,8 @@ class main extends AWS_CONTROLLER
 
     public function index_action()
     {
+        $this->pre_page = 100;
+
         $ticket_info = $this->model('ticket')->get_ticket_by_id($_GET['id']);
 
         if (!$ticket_info)
@@ -53,6 +55,8 @@ class main extends AWS_CONTROLLER
         {
             H::redirect_msg(AWS_APP::lang()->_t('你没有权限查看该工单'));
         }
+
+        $this->crumb($ticket_info['title'], '/ticket/' . $ticket_info['id']);
 
         $uids[] = $ticket_info['uid'];
 
@@ -153,7 +157,7 @@ class main extends AWS_CONTROLLER
             TPL::assign('replies_list', $replies_list);
 
             TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
-                'base_url' => get_js_url('/ticket/' . $ticket_info['id']),
+                'base_url' => get_js_url('/ticket/id-' . $ticket_info['id']),
                 'total_rows' => $replies_count,
                 'per_page' => $this->pre_page
             ))->create_links());
@@ -183,9 +187,34 @@ class main extends AWS_CONTROLLER
 
         $this->crumb(AWS_APP::lang()->_t('工单'), '/ticket/');
 
-        $ticket_list = $this->model('ticket')->get_ticket_list();
+        if ($_GET['uid'] === 'me')
+        {
+            $_GET['uid'] = $this->user_id;
+        }
 
-        TPL::assign('ticket_list', $ticket_list);
+        if ($_GET['service'] === 'me')
+        {
+            $_GET['service'] = $this->user_id;
+        }
+
+        if (!$_GET['page'])
+        {
+            $_GET['page'] = 1;
+        }
+
+        $tickets_list = $this->model('ticket')->get_tickets_list($_GET['uid'], $_GET['service'], $_GET['priority'], $_GET['status'], $_GET['days'], $_GET['page'], $this->per_page);
+
+        $tickets_count = $this->model('ticket')->found_rows();
+
+        TPL::assign('tickets_list', $tickets_list);
+
+        TPL::assign('tickets_count', $tickets_count);
+
+        TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
+            'base_url' => get_js_url('/ticket/' . 'uid-' . $_GET['uid'] . '__service-' . $_GET['service'] . '__priority-' . $_GET['priority'] . '__status-' . $_GET['status'] . '__days-' . $_GET['days'] . '__page-' . $_GET['page']),
+            'total_rows' => $tickets_count,
+            'per_page' => $this->pre_page
+        ))->create_links());
 
         TPL::output('ticket/square');
     }

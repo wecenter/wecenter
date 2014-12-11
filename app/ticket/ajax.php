@@ -100,14 +100,15 @@ class ajax extends AWS_CONTROLLER
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('工单不存在')));
         }
 
-        if ($ticket_info['status'] != 'pending')
+        if ($ticket_info['status'] == 'closed')
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('工单已关闭')));
         }
 
-        if (!$this->user_info['permission']['is_administortar'] AND !$this->user_info['permission']['is_service'] AND $ticket_info['uid'] != $this->user_id)
+        if (!$this->user_info['permission']['is_administortar'] AND !$this->user_info['permission']['is_service']
+            AND $ticket_info['uid'] != $this->user_id AND !$this->model('ticket')->has_invited($this->user_id))
         {
-            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('你没有权限回复此工单')));
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('你没有权限回复该工单')));
         }
 
         $this->model('ticket')->reply_ticket($ticket_info['id'], $_POST['message'], $this->user_id);
@@ -400,7 +401,43 @@ class ajax extends AWS_CONTROLLER
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('该用户未被邀请')));
         }
 
-        $this->model('question')->cancel_invite($_POST['ticket_id'], $_POST['uid']);
+        $this->model('ticket')->cancel_invite($_POST['ticket_id'], $_POST['uid']);
+
+        H::ajax_json_output(AWS_APP::RSM(null, -1, null));
+    }
+
+    public function assign_service_action()
+    {
+        if (!$this->user_info['permission']['is_administortar'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('你没有权限分配工单')));
+        }
+
+        if (!$_POST['ticket_id'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择工单')));
+        }
+
+        if (!$_POST['uid'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择客服')));
+        }
+
+        $ticket_info = $this->model('ticket')->get_ticket_info_by_id($_POST['ticket_id']);
+
+        if (!$ticket_info)
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('该工单不存在')));
+        }
+
+        $user_info = $this->model('account')->get_user_info_by_uid($_POST['uid']);
+
+        if (!$user_info OR $user_info['group_id'] != 1 AND $user_info['group_id'] != 10)
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('客服不存在')));
+        }
+
+        $this->model('ticket')->assign_service($ticket_info['id'], $user_info['uid']);
 
         H::ajax_json_output(AWS_APP::RSM(null, -1, null));
     }

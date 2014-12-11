@@ -37,7 +37,7 @@ class ticket_class extends AWS_MODEL
         return $tickets[$id];
     }
 
-    public function get_ticket_list($uid = null, $service = null, $priority = null, $status = null, $date = null, $page, $per_page)
+    public function get_tickets_list($uid = null, $service = null, $priority = null, $status = null, $days = null, $page, $per_page, $count = false)
     {
         $where = array();
 
@@ -61,9 +61,14 @@ class ticket_class extends AWS_MODEL
             $where[] = 'status = "' . $status . '"';
         }
 
-        if ($date)
+        if ($days)
         {
-            $where[] = 'time > '. (time() - intval($date) * 24 * 60 * 60);
+            $where[] = 'time > '. (time() - intval($days) * 24 * 60 * 60);
+        }
+
+        if ($count)
+        {
+            return $this->count('ticket', implode(' AND ', $where));
         }
 
         return $this->fetch_page('ticket', implode(' AND ', $where), 'time DESC', $page, $per_page);
@@ -159,7 +164,7 @@ class ticket_class extends AWS_MODEL
     {
         $ticket_info = $this->get_ticket_by_id($ticket_id);
 
-        if (!$ticket_info OR $ticket_info['status'] != 'pending')
+        if (!$ticket_info OR $ticket_info['status'] == 'closed')
         {
             return false;
         }
@@ -442,7 +447,9 @@ class ticket_class extends AWS_MODEL
     {
         $ticket_info = $this->get_ticket_by_id($ticket_id);
 
-        if (!$ticket_info OR !is_digits($sender_uid) OR !is_digits($recipient_uid))
+        $recipient_info = $this->model('account')->get_user_info_by_uid($recipient_uid);
+
+        if (!$ticket_info OR !is_digits($sender_uid) OR !$recipient_info)
         {
             return false;
         }
@@ -450,7 +457,7 @@ class ticket_class extends AWS_MODEL
         return $this->insert('ticket_invite', array(
             'ticket_id' => $ticket_info['id'],
             'sender_uid' => $sender_uid,
-            'recipient_uid' => $recipient_uid,
+            'recipient_uid' => $recipient_info['uid'],
             'time' => time()
         ));
     }
@@ -473,5 +480,19 @@ class ticket_class extends AWS_MODEL
         }
 
         return $this->delete('ticket_invite', 'ticket_id = ' . $ticket_id . ' AND recipient_uid = ' . $recipient_uid);
+    }
+
+    public function assign_service($ticket_id, $service_uid)
+    {
+        $ticket_info = $this->get_ticket_by_id($ticket_id);
+
+        $user_info = $this->model('account')->get_user_info_by_uid($service_uid);
+
+        if (!$ticket_info OR !$user_info OR $user_info['group_id'] != 1 AND $user_info['group_id'] != 10)
+        {
+            return false;
+        }
+
+        return $this->update('ticket', array('service' => $user_info['uid']), 'id = ' . $ticket_info['id']);
     }
 }
