@@ -250,11 +250,6 @@ class ajax extends AWS_CONTROLLER
             H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('话题标题不能包含 / 与 -')));
         }
 
-        if (!$this->user_info['permission']['edit_question_topic'])
-        {
-            H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('你没有权限进行此操作')));
-        }
-
         $ticket_info = $this->model('ticket')->get_ticket_info_by_id($_POST['ticket_id']);
 
         if (!$ticket_info)
@@ -299,11 +294,6 @@ class ajax extends AWS_CONTROLLER
             H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('请选择工单')));
         }
 
-        if (!$this->user_info['permission']['edit_question_topic'])
-        {
-            H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('你没有权限进行此操作')));
-        }
-
         $ticket_info = $this->model('ticket')->get_ticket_info_by_id($_POST['ticket_id']);
 
         if (!$ticket_info)
@@ -316,5 +306,29 @@ class ajax extends AWS_CONTROLLER
         H::ajax_json_output(AWS_APP::RSM(array(
             'topic_id' => $_POST['topic_id']
         ), 1, null));
+    }
+
+    public function remove_reply_action()
+    {
+        if (!$this->user_info['permission']['is_administortar'] AND !$this->user_info['permission']['is_service'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('你没有权限删除回复')));
+        }
+
+        if (!$_POST['id'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('请选择回复')));
+        }
+
+        $reply_info = $this->model('ticket')->get_ticket_reply_by_id($_POST['id']);
+
+        if (!$reply_info)
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('回复不存在')));
+        }
+
+        $this->model('ticket')->remove_ticket_reply($reply_info['id']);
+
+        H::ajax_json_output(AWS_APP::RSM(null, 1, null));
     }
 }

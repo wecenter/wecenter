@@ -30,9 +30,9 @@ CREATE TABLE `[#DB_PREFIX#]ticket_reply` (
   `message` text,
   `uid` int(10) UNSIGNED NOT NULL DEFAULT '0',
   `time` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `ip` bigint(11) UNSIGNED DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `ticket_id` (`ticket_id`),
-  KEY `status` (`status`),
   KEY `uid` (`uid`),
   KEY `time` (`time`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
@@ -48,6 +48,19 @@ CREATE TABLE `[#DB_PREFIX#]ticket_log` (
   KEY `ticket_id` (`ticket_id`),
   KEY `uid` (`uid`),
   KEY `action` (`action`),
+  KEY `time` (`time`)
+) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
+
+CREATE TABLE `[#DB_PREFIX#]ticket_invite` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `ticket_id` int(10) UNSIGNED NOT NULL,
+  `sender_uid` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `recipient_uid` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `time` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `ticket_id` (`ticket_id`),
+  KEY `sender_uid` (`sender_uid`),
+  KEY `recipient_uid` (`recipient_uid`),
   KEY `time` (`time`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
 

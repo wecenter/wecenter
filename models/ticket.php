@@ -37,7 +37,7 @@ class ticket_class extends AWS_MODEL
         return $tickets[$id];
     }
 
-    public function get_ticket_list($uid = null, $service = null, $priority = null, $status = null, $date = null)
+    public function get_ticket_list($uid = null, $service = null, $priority = null, $status = null, $date = null, $page, $per_page)
     {
         $where = array();
 
@@ -66,10 +66,22 @@ class ticket_class extends AWS_MODEL
             $where[] = 'time > '. (time() - intval($date) * 24 * 60 * 60);
         }
 
-        return $this->fetch_all('ticket', implode(' AND ', $where) . '"');
+        return $this->fetch_page('ticket', implode(' AND ', $where) . '"', 'time DESC', $page, $per_page);
     }
 
-    public function save_ticket($title, $message, $uid, $attach_access_key = null, $$from = null, $from_id = null)
+    public function get_replies_list_by_ticket_id($ticket_id, $page, $per_page)
+    {
+        $ticket_info = $this->get_ticket_by_id($ticket_id);
+
+        if (!$ticket_info)
+        {
+            return false;
+        }
+
+        return $this->fetch_page('ticket_reply', 'ticket_id = ' . $ticket_id, 'time ASC', $page, $per_page);
+    }
+
+    public function save_ticket($title, $message, $uid, $attach_access_key = null, $from = null, $from_id = null)
     {
         $to_save_ticket = array(
             'title' => htmlspecialchars($title),
@@ -115,36 +127,6 @@ class ticket_class extends AWS_MODEL
         return $ticket_id;
     }
 
-    public function reply_ticket($ticket_id, $message, $uid, $attach_access_key = null)
-    {
-        $ticket_info = $this->get_ticket_by_id($ticket_id);
-
-        if (!$ticket_info OR $ticket_info['status'] != 'pending')
-        {
-            return false;
-        }
-
-        $reply_id = $this->insert('ticket_reply', array(
-            'ticket_id' => $ticket_info['id'],
-            'uid' => intval($uid),
-            'time' => time(),
-            'uid' => intval($uid),
-            'ip' => ip2long(fetch_ip())
-        ));
-
-        if ($reply_id)
-        {
-            set_human_valid('answer_valid_hour');
-
-            if ($attach_access_key)
-            {
-                $this->model('publish')->update_attach('ticket_reply', $reply_id, $attach_access_key);
-            }
-        }
-
-        return $reply_id;
-    }
-
     public function remove_ticket($id)
     {
         $ticket_info = $this->get_ticket_by_id($id);
@@ -171,6 +153,59 @@ class ticket_class extends AWS_MODEL
         return true;
     }
 
+    public function reply_ticket($ticket_id, $message, $uid, $attach_access_key = null)
+    {
+        $ticket_info = $this->get_ticket_by_id($ticket_id);
+
+        if (!$ticket_info OR $ticket_info['status'] != 'pending')
+        {
+            return false;
+        }
+
+        $reply_id = $this->insert('ticket_reply', array(
+            'ticket_id' => $ticket_info['id'],
+            'message' => htmlspecialchars($message),
+            'uid' => intval($uid),
+            'time' => time(),
+            'uid' => intval($uid),
+            'ip' => ip2long(fetch_ip())
+        ));
+
+        if ($reply_id)
+        {
+            set_human_valid('answer_valid_hour');
+
+            if ($attach_access_key)
+            {
+                $this->model('publish')->update_attach('ticket_reply', $reply_id, $attach_access_key);
+            }
+        }
+
+        return $reply_id;
+    }
+
+    public function get_ticket_reply_by_id($id)
+    {
+        if (!is_digits($id))
+        {
+            return false;
+        }
+
+        return $this->fetch_row('ticket_reply', 'id = ' . $id);
+    }
+
+    public function remove_ticket_reply($id)
+    {
+        $reply_info = $this->get_ticket_reply_by_id($id);
+
+        if ($reply_info)
+        {
+            return false;
+        }
+
+        return $this->delete('ticket_reply', 'id = ' . $reply_info['id']);
+    }
+
     public function change_priority($id, $uid, $priority)
     {
         $ticket_info = $this->get_ticket_by_id($id);
@@ -192,7 +227,7 @@ class ticket_class extends AWS_MODEL
 
         $this->update('ticket', array('priority' => $priority), 'id = ' . $ticket_info['id']);
 
-        $this->save_modify_log($ticket_info['id'], $uid, 'change_priority', array(
+        $this->save_ticket_log($ticket_info['id'], $uid, 'change_priority', array(
             'old' => $ticket_info['priority'],
             'new' => $priority
         ));
@@ -219,12 +254,12 @@ class ticket_class extends AWS_MODEL
             return true;
         }
 
-        $this->update('ticket', array('status' => $status), 'id = ' . $ticket_info['id'], array(
+        $this->update('ticket', array('status' => $status), 'id = ' . $ticket_info['id']);
+
+        $this->save_ticket_log($ticket_info['id'], $uid, 'change_status', array(
             'old' => $ticket_info['status'],
             'new' => $status
         ));
-
-        $this->save_modify_log($ticket_info['id'], $uid, 'change_status');
 
         return true;
     }
@@ -250,7 +285,7 @@ class ticket_class extends AWS_MODEL
 
         $this->update('ticket', array('rating' => $rating), 'id = ' . $ticket_info['id']);
 
-        $this->save_modify_log($ticket_info['id'], $uid, 'change_rating', array(
+        $this->save_ticket_log($ticket_info['id'], $uid, 'change_rating', array(
             'old' => $ticket_info['rating'],
             'new' => $rating
         ));
@@ -280,7 +315,7 @@ class ticket_class extends AWS_MODEL
 
     public function parse_ticket_log($ticket_id)
     {
-        $ticket_info = $this->get_ticket_by_id($id);
+        $ticket_info = $this->get_ticket_by_id($ticket_id);
 
         if (!$ticket_info)
         {
@@ -294,60 +329,53 @@ class ticket_class extends AWS_MODEL
             return false;
         }
 
-        $log_data['data'] = unserialize($log_data['data']);
-
-        $uids = array($ticket_info['uid']);
-
-        foreach ($log_data AS $log_info)
-        {
-            $uids[] = $log_info['uid'];
-        }
-
-        $users_info = $this->model('account')->get_user_info_by_uids($uids);
-
         $ticket_log = array(array(
-            'text' => AWS_APP::lang()->_t('%s 创建了工单', '<a href="' . get_js_url('/people/' . $users_info[$ticket_info['uid']]['url_token']) . '" target="_blank">' . $users_info[$ticket_info['uid']]['user_name'] . '</a>'),
+            'uid' => $ticket_info['uid'],
+            'text' => AWS_APP::lang()->_t('创建了工单'),
             'time' => $ticket_info['time']
         ));
 
         foreach ($log_data AS $log_info)
         {
+            $log_info['data'] = unserialize($log_info['data']);
+
             switch ($log_info['action'])
             {
                 case 'change_priority':
                     $ticket_log[] = array(
-                        'text' => AWS_APP::lang()->_t('%s 把优先级从 %s 改为 %s', array(
-                            '<a href="' . get_js_url('/people/' . $users_info[$log_info['uid']]['url_token']) . '" target="_blank">' . $users_info[$log_info['uid']]['user_name'] . '</a>',
-                            $this->translate($log_data['data']['old']),
-                            $this->translate($log_data['data']['new']))
-                        ),
+                        'uid' => $log_info['uid'],
 
-                        'time' => $log_data['time']
+                        'text' => AWS_APP::lang()->_t('把优先级从 %s0 改为 %s1', array(
+                            $this->translate($log_info['data']['old']),
+                            $this->translate($log_info['data']['new'])
+                        )),
+
+                        'time' => $log_info['time']
                     );
 
                     break;
 
                 case 'change_status':
                     $ticket_log[] = array(
-                        'text' => AWS_APP::lang()->_t('%s %s了工单', array(
-                            '<a href="' . get_js_url('/people/' . $users_info[$log_info['uid']]['url_token']) . '" target="_blank">' . $users_info[$log_info['uid']]['user_name'] . '</a>',
-                            $this->translate($log_data['data']['new']))
-                        ),
+                        'uid' => $log_info['uid'],
 
-                        'time' => $log_data['time']
+                        'text' => AWS_APP::lang()->_t('%s了工单', $this->translate($log_info['data']['new'])),
+
+                        'time' => $log_info['time']
                     );
 
                     break;
 
                 case 'change_rating':
                     $ticket_log[] = array(
-                        'text' => AWS_APP::lang()->_t('%s 把评级从 %s 改为 %s', array(
-                            '<a href="' . get_js_url('/people/' . $users_info[$log_info['uid']]['url_token']) . '" target="_blank">' . $users_info[$log_info['uid']]['user_name'] . '</a>',
-                            $this->translate($log_data['data']['old']),
-                            $this->translate($log_data['data']['new']))
-                        ),
+                        'uid' => $log_info['uid'],
 
-                        'time' => $log_data['time']
+                        'text' => AWS_APP::lang()->_t('把评级从 %s0 改为 %s1', array(
+                            $this->translate($log_info['data']['old']),
+                            $this->translate($log_info['data']['new'])
+                        )),
+
+                        'time' => $log_info['time']
                     );
 
                     break;
