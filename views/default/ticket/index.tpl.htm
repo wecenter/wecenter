@@ -121,7 +121,7 @@
                         <div class="mod-body aw-feed-list">
                             <?php if ($this->replies_list) {
                                 foreach ($this->replies_list AS $reply) { ?>
-                                <div class="aw-item" id="replies_list_<?php echo $reply['id']; ?>">
+                                <div class="aw-item" id="reply_list_<?php echo $reply['id']; ?>">
                                     <div class="mod-head">
                                         <a class="anchor" name="answer_<?php echo $reply['id']; ?>"></a>
                                         <!-- 用户头像 -->
@@ -332,6 +332,7 @@
 
     TICKET_ID = <?php echo $this->ticket_info['id'];?>;
     var PUBLISH_TYPE = 'ticket';
+    var USER_ANSWERED = 0;
 </script>
 
 <script type="text/javascript" src="<?php echo G_STATIC_URL; ?>/js/app/question_detail.js"></script>
