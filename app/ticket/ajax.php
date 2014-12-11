@@ -135,7 +135,7 @@ class ajax extends AWS_CONTROLLER
 
         H::ajax_json_output(AWS_APP::RSM(array(
             'ajax_html' => TPL::output('ticket/ajax/reply', false)
-        ), -1, null));
+        ), 1, null));
     }
 
     public function change_priority_action()
