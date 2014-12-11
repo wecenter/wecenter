@@ -289,7 +289,7 @@
                                             <option value="high"<?php if ($this->ticket_info['priority'] == 'high') { ?> selected="selected"<?php } ?>><?php _e('高'); ?></option>
                                             <option value="urgent"<?php if ($this->ticket_info['priority'] == 'urgent') { ?> selected="selected"<?php } ?>><?php _e('紧急'); ?></option>
                                         </select>
-                                        <input type="text" name="id" value="<?php echo $this->ticket_info['id']; ?>">
+                                        <input type="hidden" name="id" value="<?php echo $this->ticket_info['id']; ?>">
 
                                     </form>
                                 </li>
