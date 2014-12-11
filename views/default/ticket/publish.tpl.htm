@@ -40,7 +40,7 @@
                                     <div class="mod-head">
                                         <div class="wmd-panel">
                                             <div id="wmd-button-bar"></div>
-                                            <textarea class="wmd-input form-control autosize" id="wmd-input" rows="15" name="message"></textarea>
+                                            <textarea class="wmd-input form-control autosize" id="wmd-input" rows="15" name="message"><?php echo htmlspecialchars($this->draft_content['message']); ?></textarea>
                                         </div>
                                     </div>
                                     <div class="mod-body">

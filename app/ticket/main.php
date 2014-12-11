@@ -88,6 +88,10 @@ class main extends AWS_CONTROLLER
             }
 
             $replies_count = $this->model('ticket')->found_rows();
+
+            TPL::assign('replies_count', $replies_count);
+
+            TPL::assign('draft_content', $this->model('draft')->get_data(1, 'ticket_reply', $this->user_id));
         }
 
         $users_list = $this->model('account')->get_user_info_by_uids($uids);
@@ -124,8 +128,6 @@ class main extends AWS_CONTROLLER
 
         TPL::assign('ticket_info', $ticket_info);
 
-        TPL::assign('replies_count', $replies_count);
-
         TPL::output('ticket/index');
     }
 
@@ -157,12 +159,7 @@ class main extends AWS_CONTROLLER
             H::redirect_msg(AWS_APP::lang()->_t('你所在用户组没有权限发布工单'));
         }
 
-        $draft_content = $this->model('draft')->get_data(1, 'ticket', $this->user_id);
-
-        if ($draft_content)
-        {
-            TPL::assign('message', $draft_content['message']);
-        }
+        TPL::assign('draft_content', $this->model('draft')->get_data(1, 'ticket', $this->user_id));
 
         TPL::assign('attach_access_key', md5($this->user_id . time()));
 
