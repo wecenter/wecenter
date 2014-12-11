@@ -92,6 +92,23 @@ class main extends AWS_CONTROLLER
             TPL::assign('replies_count', $replies_count);
 
             TPL::assign('draft_content', $this->model('draft')->get_data(1, 'ticket_reply', $this->user_id));
+
+            TPL::assign('attach_access_key', md5($this->user_id . time()));
+
+            TPL::assign('human_valid', human_valid('question_valid_hour'));
+
+            TPL::import_js('js/app/publish.js');
+
+            if (get_setting('advanced_editor_enable') == 'Y')
+            {
+                import_editor_static_files();
+            }
+
+            if (get_setting('upload_enable') == 'Y')
+            {
+                // fileupload
+                TPL::import_js('js/fileupload.js');
+            }
         }
 
         $users_list = $this->model('account')->get_user_info_by_uids($uids);
