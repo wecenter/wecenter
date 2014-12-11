@@ -738,6 +738,7 @@ CREATE TABLE `[#DB_PREFIX#]users` (
   `fans_count` int(10) NOT NULL DEFAULT '0' COMMENT '粉丝数',
   `friend_count` int(10) NOT NULL DEFAULT '0' COMMENT '观众数',
   `invite_count` int(10) NOT NULL DEFAULT '0' COMMENT '邀请我回答数量',
+  `article_count` int(10) NOT NULL DEFAULT '0' COMMENT '文章数量',
   `question_count` int(10) NOT NULL DEFAULT '0' COMMENT '问题数量',
   `answer_count` int(10) NOT NULL DEFAULT '0' COMMENT '回答数量',
   `topic_focus_count` int(10) NOT NULL DEFAULT '0' COMMENT '关注话题数量',

@@ -16,7 +16,7 @@
 	</div>
 	<!-- end 分类 -->
 	<?php } ?>
-	
+
 	<!-- 内容 -->
 	<div class="container">
 		<!-- 问题列表 -->
@@ -34,20 +34,18 @@
 							<?php } ?>
 						</div>
 						<div class="mod-footer">
-							<?php if ($val['anonymous'] == 0) { ?>
-								<?php if ($val['question_id']) { ?>
-									<?php if ($val['answer_count'] > 0) { ?>
-										<a data-id="<?php echo $val['answer_info']['user_info']['uid']; ?>" href="people/<?php echo $val['answer_info']['user_info']['url_token']; ?>" rel="nofollow">
-											<img class="img" src="<?php echo get_avatar_url($val['answer_info']['user_info']['uid'], 'max'); ?>" alt="" width="20" />
-										</a>
-									<?php } else { ?>
-										<a data-id="<?php echo $val['user_info']['uid']; ?>" href="people/<?php echo $val['user_info']['url_token']; ?>" rel="nofollow">
-											<img class="img" src="<?php echo get_avatar_url($val['user_info']['uid'], 'max'); ?>" alt="" width="20" />
-										</a>
-									<?php } ?>
+							<?php if ($val['question_id']) { ?>
+    						<?php if ($val['answer_count'] > 0) { ?>
+        						<?php if ($val['anonymous'] == 0) { ?>
+	    							<a data-id="<?php echo $val['user_info']['uid']; ?>" href="people/<?php echo $val['user_info']['url_token']; ?>" rel="nofollow">
+                					<img class="img" src="<?php echo get_avatar_url($val['user_info']['uid'], 'max'); ?>" alt="" width="20" /></a>
+                				<?php } else { ?>
+								<a><img width="20" src="<?php echo G_STATIC_URL; ?>/common/avatar-max-img.png" alt="<?php _e('匿名用户'); ?>" title="<?php _e('匿名用户'); ?>" /></a>
 								<?php } ?>
-							<?php } else { ?>
-							<a><img width="20" src="<?php echo G_STATIC_URL; ?>/common/avatar-max-img.png" alt="<?php _e('匿名用户'); ?>" title="<?php _e('匿名用户'); ?>" /></a>
+   							 <?php } else { ?>
+             				<a data-id="<?php echo $val['answer_info']['user_info']['uid']; ?>" href="people/<?php echo $val['answer_info']['user_info']['url_token']; ?>" rel="nofollow">
+            				<img class="img" src="<?php echo get_avatar_url($val['answer_info']['user_info']['uid'], 'max'); ?>" alt="" width="20" />
+							<?php } ?>
 							<?php } ?>
 							<?php if ($val['question_id']) { ?>
 							<?php if ($val['answer_count'] > 0) { ?>
@@ -58,7 +56,7 @@
 									<span class="pull-right color-999"><?php echo date_friendly($val['add_time'], 604800, 'Y-m-d'); ?></span>
 							<?php } ?>
 							<?php } else { ?>
-								<a href="m/people/<?php echo $val['user_info']['url_token']; ?>"><?php echo $val['user_info']['user_name']; ?></a> 
+								<a href="m/people/<?php echo $val['user_info']['url_token']; ?>"><?php echo $val['user_info']['user_name']; ?></a>
 								<?php _e('发起了文章'); ?>
 								<span class="pull-right color-999"><?php echo date_friendly($val['add_time'], 604800, 'Y-m-d'); ?></span>
 							<?php } ?>
@@ -107,7 +105,7 @@
 
 
 <script type="text/javascript">
-	$(document).ready(function () 
+	$(document).ready(function ()
 	{
 		<?php if ($_GET['category']) { ?>
 		AWS.load_list_view(G_BASE_URL + '/explore/ajax/list/sort_type-new__category' + '-' + <?php echo $_GET['category']; ?> + '__day-0__is_recommend-0', $('#load_explore'), $('#load_explore_list'), 2);
@@ -125,12 +123,12 @@
 			});
 
 			$('.top-category ul').css('width', length + 10)
-			
+
 			var myScroll = new IScroll('.top-category', { eventPassthrough: true, scrollX: true, scrollY: false, preventDefault: false });
 		}
 	});
 
-			
+
 </script>
 
 <?php TPL::output('m/footer.tpl.htm'); ?>

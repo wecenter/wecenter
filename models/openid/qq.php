@@ -216,7 +216,7 @@ class openid_qq_class extends AWS_MODEL
             'nickname' => $result['nickname'],
             'openid' => $this->openid,
             'gender' => $result['gender'],
-            'figureurl' => $result['figureurl_2'],
+            'figureurl' => $result['figureurl_qq_2'],
             'authorization_code' => $this->authorization_code,
             'access_token' => $this->access_token,
             'refresh_token' => $this->refresh_token,
