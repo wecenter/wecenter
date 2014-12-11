@@ -2680,7 +2680,7 @@ AWS.Init =
 	                        break;
 
 	                        case 'ticket'://  modify by wecenter添加工单话题编辑
-		                        $.post(G_BASE_URL + '/topic/ajax/save_topic_relation/', 'type=question&item_id=' + data_id + '&topic_title=' + encodeURIComponent(_topic_editor.find('#aw_edit_topic_title').val()), function (result)
+		                        $.post(G_BASE_URL + '/topic/ajax/save_topic_relation/', 'type=ticket&item_id=' + data_id + '&topic_title=' + encodeURIComponent(_topic_editor.find('#aw_edit_topic_title').val()), function (result)
 		                        {
 		                            if (result.errno != 1)
 		                            {

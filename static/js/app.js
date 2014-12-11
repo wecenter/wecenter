@@ -129,6 +129,12 @@ $(document).ready(function ()
             case 'topic':
                 $.get(G_BASE_URL + '/topic/ajax/remove_related_topic/related_id-' + $(this).parents('.topic-tag').attr('data-id') + '__topic_id-' + data_id);
                 break;
+            // modify by wecenter 删除工单话题
+            case 'ticket':
+                $.get(G_BASE_URL + '/topic/ajax/remove_topic_relation/', 'type=ticket&item_id=' + data_id + '&topic_id=' + $(this).parents('.topic-tag').attr('data-id'),function(){
+                    $('#aw-ajax-box').empty();
+                });
+                break;
 
             case 'favorite':
                 $.post(G_BASE_URL + '/favorite/ajax/remove_favorite_tag/', 'item_id=' + data_id + '&item_type=' + data_type + '&tags=' + $.trim($(this).parents('.topic-tag').text()));

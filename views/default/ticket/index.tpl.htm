@@ -340,6 +340,11 @@
 <script type="text/javascript" src="<?php echo G_STATIC_URL; ?>/js/app/question_detail.js"></script>
 <script>
     $(function () {
+        $('#priority .form-control').change(function () {
+            $.post(G_BASE_URL + '/ticket/ajax/change_priority/'), $('#priority input').attr('value'),function () {
+
+            }
+        })
 
     })
 </script>
