@@ -261,7 +261,7 @@
                                                 <?php _e('已邀请'); ?>:
                                                 <?php if ($this->invite_users) {
                                                     foreach($this->invite_users AS $invite_user) { ?>
-                                                    <a class="text-color-999 invite-list-user" data-id="<?php echo $invite_user['uid']; ?>" href="people/<?php echo $invite_user['url_token']; ?>" data-id="<?php echo $invite_user['uid']; ?>" data-original-title="<?php echo $invite_user['user_name']; ?>" data-placement="bottom" data-toggle="tooltip"><img src="<?php echo get_avatar_url($invite_user['uid'], 'mid'); ?>" /></a><?php
+                                                    <a class="text-color-999 invite-list-user" data-id="<?php echo $invite_user['recipient_info']['uid']; ?>" href="people/<?php echo $invite_user['recipient_info']['url_token']; ?>" data-id="<?php echo $invite_user['recipient_info']['uid']; ?>" data-original-title="<?php echo $invite_user['recipient_info']['user_name']; ?>" data-placement="bottom" data-toggle="tooltip"><img src="<?php echo get_avatar_url($invite_user['recipient_info']['uid'], 'mid'); ?>" /></a><?php
                                                     }
                                                 } ?>
                                             </div>

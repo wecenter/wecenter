@@ -66,7 +66,7 @@ class ticket_class extends AWS_MODEL
             $where[] = 'time > '. (time() - intval($date) * 24 * 60 * 60);
         }
 
-        return $this->fetch_page('ticket', implode(' AND ', $where) . '"', 'time DESC', $page, $per_page);
+        return $this->fetch_page('ticket', implode(' AND ', $where), 'time DESC', $page, $per_page);
     }
 
     public function get_replies_list_by_ticket_id($ticket_id, $page, $per_page)
@@ -139,6 +139,8 @@ class ticket_class extends AWS_MODEL
         $this->delete('ticket', 'id = ' . $ticket_info['id']);
 
         $this->delete('ticket_log', 'ticket_id = ' . $ticket_info['id']);
+
+        $this->delete('ticket_log', 'ticket_invite = ' . $ticket_info['id']);
 
         $attachs = $this->model('publish')->get_attach('ticket', $question_id);
 
@@ -422,5 +424,54 @@ class ticket_class extends AWS_MODEL
             default:
                 return AWS_APP::lang()->_t($string);
         }
+    }
+
+    public function get_invite_users($ticket_id)
+    {
+        $ticket_info = $this->get_ticket_by_id($ticket_id);
+
+        if (!$ticket_info)
+        {
+            return false;
+        }
+
+        return $this->fetch_all('ticket_invite', 'ticket_id = ' . $ticket_info['id']);
+    }
+
+    public function invite_user($ticket_id, $sender_uid, $recipient_uid)
+    {
+        $ticket_info = $this->get_ticket_by_id($ticket_id);
+
+        if (!$ticket_info OR !is_digits($sender_uid) OR !is_digits($recipient_uid))
+        {
+            return false;
+        }
+
+        return $this->insert('ticket_invite', array(
+            'ticket_id' => $ticket_info['id'],
+            'sender_uid' => $sender_uid,
+            'recipient_uid' => $recipient_uid,
+            'time' => time()
+        ));
+    }
+
+    public function has_invited($ticket_id, $recipient_uid)
+    {
+        if (!is_digits($ticket_id) OR !is_digits($recipient_uid))
+        {
+            return false;
+        }
+
+        return $this->fetch_one('ticket_invite', 'recipient_uid', 'ticket_id = ' . $ticket_id . ' AND recipient_uid = ' . $recipient_uid);
+    }
+
+    public function cancel_invite($ticket_id, $recipient_uid)
+    {
+        if (!is_digits($ticket_id) OR !is_digits($recipient_uid))
+        {
+            return false;
+        }
+
+        return $this->delete('ticket_invite', 'ticket_id = ' . $ticket_id . ' AND recipient_uid = ' . $recipient_uid);
     }
 }

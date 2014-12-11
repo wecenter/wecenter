@@ -241,7 +241,7 @@ class ajax extends AWS_CONTROLLER
 
         if (!$_POST['topic_title'])
         {
-            H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('请输入话题标题')));
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请输入话题标题')));
         }
 
         if (!$_POST['ticket_id'])
@@ -251,7 +251,7 @@ class ajax extends AWS_CONTROLLER
 
         if (strstr($_POST['topic_title'], '/') OR strstr($_POST['topic_title'], '-'))
         {
-            H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('话题标题不能包含 / 与 -')));
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('话题标题不能包含 / 与 -')));
         }
 
         $ticket_info = $this->model('ticket')->get_ticket_info_by_id($_POST['ticket_id']);
@@ -263,19 +263,19 @@ class ajax extends AWS_CONTROLLER
 
         if (!$this->model('topic')->get_topic_id_by_title($_POST['topic_title']) AND get_setting('topic_title_limit') AND cjk_strlen($_POST['topic_title']) > get_setting('topic_title_limit'))
         {
-            H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('话题标题字数不得超过 %s 字节', get_setting('topic_title_limit'))));
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('话题标题字数不得超过 %s 字节', get_setting('topic_title_limit'))));
         }
 
         if (count($this->model('topic')->get_topics_by_item_id($_POST['item_id'], 'ticket')) >= get_setting('question_topics_limit') AND get_setting('question_topics_limit'))
         {
-            H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('单个工单话题数量最多为 %s 个, 请调整话题数量', get_setting('question_topics_limit'))));
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('单个工单话题数量最多为 %s 个, 请调整话题数量', get_setting('question_topics_limit'))));
         }
 
         $topic_id = $this->model('topic')->save_topic($_POST['topic_title'], $this->user_id, $this->user_info['permission']['create_topic']);
 
         if (!$topic_id)
         {
-            H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('话题已锁定或没有创建话题权限, 不能添加话题')));
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('话题已锁定或没有创建话题权限, 不能添加话题')));
         }
 
         $this->model('topic')->save_topic_relation($this->user_id, $topic_id, $ticket_info['id'], 'ticket');
@@ -290,12 +290,12 @@ class ajax extends AWS_CONTROLLER
     {
         if (!$_POST['topic_id'])
         {
-            H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('请选择话题')));
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择话题')));
         }
 
         if (!$_POST['ticket_id'])
         {
-            H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('请选择工单')));
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择工单')));
         }
 
         $ticket_info = $this->model('ticket')->get_ticket_info_by_id($_POST['ticket_id']);
@@ -321,18 +321,91 @@ class ajax extends AWS_CONTROLLER
 
         if (!$_POST['id'])
         {
-            H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('请选择回复')));
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择回复')));
         }
 
         $reply_info = $this->model('ticket')->get_ticket_reply_by_id($_POST['id']);
 
         if (!$reply_info)
         {
-            H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('回复不存在')));
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('回复不存在')));
         }
 
         $this->model('ticket')->remove_ticket_reply($reply_info['id']);
 
         H::ajax_json_output(AWS_APP::RSM(null, 1, null));
+    }
+
+    public function invite_user_action()
+    {
+        if (!$this->user_info['permission']['is_administortar'] AND !$this->user_info['permission']['is_service'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('你没有权限邀请用户')));
+        }
+
+        if (!$_POST['ticket_id'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择工单')));
+        }
+
+        if (!$_POST['uid'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择受邀用户')));
+        }
+
+        $ticket_info = $this->model('ticket')->get_ticket_info_by_id($_POST['ticket_id']);
+
+        if (!$ticket_info)
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('该工单不存在')));
+        }
+
+        $user_info = $this->model('account')->get_user_info_by_uid($_POST['uid']);
+
+        if (!$user_info)
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('受邀用户不存在')));
+        }
+
+        if ($user_info['uid'] == $this->user_id OR $user_info['uid'] == $ticket_info['uid'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('不能邀请自己或工单发起人')));
+        }
+
+        if ($this->model('ticket')->has_invited($ticket_info['id'], $user_info['uid']))
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('该用户已被邀请')));
+        }
+
+        $this->model('question')->invite_user($ticket_info['id'], $this->user_id, $user_info['uid']);
+
+        H::ajax_json_output(AWS_APP::RSM(null, -1, null));
+    }
+
+    public function cancel_invite_action()
+    {
+        if (!$this->user_info['permission']['is_administortar'] AND !$this->user_info['permission']['is_service'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('你没有权限取消邀请')));
+        }
+
+        if (!$_POST['ticket_id'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择工单')));
+        }
+
+        if (!$_POST['uid'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择受邀用户')));
+        }
+
+        if (!$this->model('ticket')->has_invited($_POST['ticket_id'], $_POST['uid']))
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('该用户未被邀请')));
+        }
+
+        $this->model('question')->cancel_invite($_POST['ticket_id'], $_POST['uid']);
+
+        H::ajax_json_output(AWS_APP::RSM(null, -1, null));
     }
 }
