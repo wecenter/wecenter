@@ -2679,8 +2679,13 @@ AWS.Init =
 		                        }, 'json');
 	                        break;
 
-	                        case 'ticket'://  modify by wecenter添加工单话题编辑
-		                        $.post(G_BASE_URL + '/topic/ajax/save_topic_relation/', 'type=ticket&item_id=' + data_id + '&topic_title=' + encodeURIComponent(_topic_editor.find('#aw_edit_topic_title').val()), function (result)
+	                        // modify by wecenter 添加工单话题
+	                        case 'ticket':
+		                        $.post(G_BASE_URL + '/ticket/ajax/save_topic_relation/',
+
+		                        'ticket_id=' + data_id + '&topic_title=' + encodeURIComponent(_topic_editor.find('#aw_edit_topic_title').val()),
+
+		                        function (result)
 		                        {
 		                            if (result.errno != 1)
 		                            {
@@ -2688,7 +2693,6 @@ AWS.Init =
 
 		                                return false;
 		                            }
-
 		                            _topic_editor.find('.tag-bar').prepend('<span class="topic-tag" data-id="' + result.rsm.topic_id + '"><a href="' + G_BASE_URL + '/topic/' + result.rsm.topic_id + '" class="text">' + _topic_editor.find('#aw_edit_topic_title').val() + '</a><a class="close"><i class="icon icon-delete"></i></a></span>').hide().fadeIn();
 
 		                            _topic_editor.find('#aw_edit_topic_title').val('');
