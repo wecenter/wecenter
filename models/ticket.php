@@ -66,32 +66,36 @@ class ticket_class extends AWS_MODEL
             $where[] = 'source = "' . $filter['source'] . '"';
         }
 
-        if (is_digits($filter['days']))
+        if (isset($filter['days']))
         {
-            $where[] = 'time > ' . (time() - $filter['days'] * 24 * 60 * 60);
+            $where[] = '`time` > ' . (time() - $filter['days'] * 24 * 60 * 60);
         }
 
-        if (is_digits($filter['reply_took_hours']['min']))
+        if (isset($filter['reply_took_hours']['min']))
         {
-            if (is_digits($filter['reply_took_hours']['max'] AND $filter['reply_took_hours']['min'] < $filter['reply_took_hours']['max']))
+            $where[] = '`reply_time` <> 0';
+
+            if (isset($filter['reply_took_hours']['max']) AND $filter['reply_took_hours']['min'] < $filter['reply_took_hours']['max'])
             {
                 $where[] = '`reply_time` - `time` BETWEEN ' . ($filter['reply_took_hours']['min'] * 60 * 60) . ' AND ' . ($filter['reply_took_hours']['max'] * 60 * 60);
             }
             else
             {
-                $where[] = '`reply_time` <> 0 AND reply_time` - `time` > ' . ($filter['reply_took_hours']['min'] * 60 * 60);
+                $where[] = '`reply_time` - `time` > ' . ($filter['reply_took_hours']['min'] * 60 * 60);
             }
         }
 
-        if (is_digits($filter['close_took_hours']['min']))
+        if (isset($filter['close_took_hours']['min']))
         {
-            if (is_digits($filter['close_took_hours']['max'] AND $filter['close_took_hours']['min'] < $filter['close_took_hours']['max']))
+            $where[] = '`close_time` <> 0';
+
+            if (isset($filter['close_took_hours']['max']) AND $filter['close_took_hours']['min'] < $filter['close_took_hours']['max'])
             {
                 $where[] = '`close_time` - `time` BETWEEN ' . ($filter['close_took_hours']['min'] * 60 * 60) . ' AND ' . ($filter['close_took_hours']['max'] * 60 * 60);
             }
             else
             {
-                $where[] = '`close_time` <> 0 AND `close_time` - `time` > ' . ($filter['close_took_hours']['min'] * 60 * 60);
+                $where[] = '`close_time` - `time` > ' . ($filter['close_took_hours']['min'] * 60 * 60);
             }
         }
 
@@ -604,13 +608,13 @@ class ticket_class extends AWS_MODEL
             {
                 $date = gmdate('Y-m-d', strtotime('-' . ($days - $i). ' days'));
 
-                $data[$date] = 0;
+                $data[$i] = 0;
 
                 foreach ($result AS $val)
                 {
                     if ($val['close_date'] == '1970-01-01' OR strtotime($val['close_date']) > strtotime($date))
                     {
-                        $data[$date] += $val['count'];
+                        $data[$i] += $val['count'];
                     }
                 }
             }
@@ -621,13 +625,13 @@ class ticket_class extends AWS_MODEL
             {
                 $date = gmdate('Y-m-d', strtotime('-' . ($days - $i). ' days'));
 
-                $data[$date] = 0;
+                $data[$i] = 0;
 
                 foreach ($result AS $val)
                 {
                     if ($val['statistic_date'] == $date)
                     {
-                        $data[$date] += $val['count'];
+                        $data[$i] += $val['count'];
                     }
                 }
             }
