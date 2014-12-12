@@ -79,7 +79,7 @@ class ticket_class extends AWS_MODEL
             }
             else
             {
-                $where[] = '`reply_time` - `time` > ' . ($filter['reply_took_hours']['min'] * 60 * 60);
+                $where[] = '`reply_time` <> 0 AND reply_time` - `time` > ' . ($filter['reply_took_hours']['min'] * 60 * 60);
             }
         }
 
@@ -91,7 +91,7 @@ class ticket_class extends AWS_MODEL
             }
             else
             {
-                $where[] = '`close_time` - `time` > ' . ($filter['close_took_hours']['min'] * 60 * 60);
+                $where[] = '`close_time` <> 0 AND `close_time` - `time` > ' . ($filter['close_took_hours']['min'] * 60 * 60);
             }
         }
 
@@ -602,15 +602,15 @@ class ticket_class extends AWS_MODEL
         {
             for ($i=0; $i<=$days; $i++)
             {
-                $data[$i] = 0;
-
                 $date = gmdate('Y-m-d', strtotime('-' . ($days - $i). ' days'));
+
+                $data[$date] = 0;
 
                 foreach ($result AS $val)
                 {
                     if ($val['close_date'] == '1970-01-01' OR strtotime($val['close_date']) > strtotime($date))
                     {
-                        $data[$i] += $val['count'];
+                        $data[$date] += $val['count'];
                     }
                 }
             }
@@ -619,15 +619,15 @@ class ticket_class extends AWS_MODEL
         {
             for ($i=0; $i<=$days; $i++)
             {
-                $data[$i] = 0;
-
                 $date = gmdate('Y-m-d', strtotime('-' . ($days - $i). ' days'));
+
+                $data[$date] = 0;
 
                 foreach ($result AS $val)
                 {
                     if ($val['statistic_date'] == $date)
                     {
-                        $data[$i] += $val['count'];
+                        $data[$date] += $val['count'];
                     }
                 }
             }
