@@ -9,7 +9,7 @@ CREATE TABLE `[#DB_PREFIX#]ticket` (
   `rating` enum('valid', 'invalid', 'undefined') NOT NULL DEFAULT 'undefined',
   `service` int(10) UNSIGNED NOT NULL DEFAULT '0',
   `ip` bigint(11) UNSIGNED DEFAULT NULL,
-  'source' enum('local', 'weibo', 'weixin', 'email') NOT NULL DEFAULT 'local',
+  `source` enum('local', 'weibo', 'weixin', 'email') NOT NULL DEFAULT 'local',
   `question_id` int(10) UNSIGNED DEFAULT NULL,
   `weibo_msg_id` bigint(20) UNSIGNED DEFAULT NULL,
   `received_email_id` int(10) UNSIGNED DEFAULT NULL,
