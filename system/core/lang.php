@@ -43,11 +43,23 @@ class core_lang
 
 	public function translate($string, $replace = null, $display = false)
 	{
+		$search = '%s';
+
+		if (is_array($replace))
+		{
+			$search = array();
+
+			for ($i=0; $i<count($replace); $i++)
+			{
+				$search[] = '%s' . $i;
+			};
+		}
+
 		if ($translate = $this->lang[trim($string)])
 		{
 			if (isset($replace))
 			{
-				$translate = str_replace('%s', $replace, $translate);
+				$translate = str_replace($search, $replace, $translate);
 			}
 
 			if (!$display)
@@ -61,7 +73,7 @@ class core_lang
 		{
 			if (isset($replace))
 			{
-				$string = str_replace('%s', $replace, $string);
+				$string = str_replace($search, $replace, $string);
 			}
 
 			return $string;
