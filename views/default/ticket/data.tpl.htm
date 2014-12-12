@@ -111,6 +111,18 @@
 <script>
 	$(function()
 	{
+
+		$.get(G_BASE_URL + '/ticket/ajax/ticket_statistic/', {
+			'days' : 30
+		}, function (result)
+		{
+			$.each(result, function (i, e)
+			{
+			});
+		}, 'json');
+
+
+
 		var echart1 = new Echarts('.count .mod-body', 'line', G_BASE_URL + '/admin/ajax/statistic/?tag=new_user,user_valid&start_date=10&end_date=20');
 
 		// 工单来源统计
