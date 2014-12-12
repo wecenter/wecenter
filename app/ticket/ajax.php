@@ -93,7 +93,7 @@ class ajax extends AWS_CONTROLLER
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择要回复的工单')));
         }
 
-        $ticket_info = $this->model('ticket')->get_ticket_by_id($_POST['id']);
+        $ticket_info = $this->model('ticket')->get_ticket_info_by_id($_POST['id']);
 
         if (!$ticket_info)
         {
@@ -155,7 +155,7 @@ class ajax extends AWS_CONTROLLER
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择工单优先级')));
         }
 
-        $ticekt_info = $this->model('ticket')->get_ticket_by_id($_POST['id']);
+        $ticekt_info = $this->model('ticket')->get_ticket_info_by_id($_POST['id']);
 
         if (!$ticekt_info)
         {
@@ -184,7 +184,7 @@ class ajax extends AWS_CONTROLLER
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择工单状态')));
         }
 
-        $ticekt_info = $this->model('ticket')->get_ticket_by_id($_POST['id']);
+        $ticekt_info = $this->model('ticket')->get_ticket_info_by_id($_POST['id']);
 
         if (!$ticekt_info)
         {
@@ -218,7 +218,7 @@ class ajax extends AWS_CONTROLLER
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择工单评级')));
         }
 
-        $ticekt_info = $this->model('ticket')->get_ticket_by_id($_POST['id']);
+        $ticekt_info = $this->model('ticket')->get_ticket_info_by_id($_POST['id']);
 
         if (!$ticekt_info)
         {
@@ -232,7 +232,7 @@ class ajax extends AWS_CONTROLLER
 
     public function remove_action()
     {
-        if (!$this->user_info['permission']['is_administortar'] AND !$this->user_info['permission']['is_service'])
+        if (!$this->user_info['permission']['is_administortar'])
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('你没有权限删除工单')));
         }
@@ -333,7 +333,7 @@ class ajax extends AWS_CONTROLLER
 
     public function remove_reply_action()
     {
-        if (!$this->user_info['permission']['is_administortar'] AND !$this->user_info['permission']['is_service'])
+        if (!$this->user_info['permission']['is_administortar'])
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('你没有权限删除回复')));
         }
@@ -462,5 +462,169 @@ class ajax extends AWS_CONTROLLER
         $this->model('ticket')->assign_service($ticket_info['id'], $user_info['uid']);
 
         H::ajax_json_output(AWS_APP::RSM(null, -1, null));
+    }
+
+    public function ticket_statistic_action()
+    {
+        if (!$this->user_info['permission']['is_administortar'])
+        {
+            exit();
+        }
+
+        if (!$_GET['days'])
+        {
+            $_GET['days'] = 7;
+        }
+
+        $new_tickets_count = $this->model('ticket')->ticket_statistic('new_ticket', $_GET['days']);
+
+        $closed_tickets_count = $this->model('ticket')->ticket_statistic('closed_ticket', $_GET['days']);
+
+        $pending_tickets_count = $this->model('ticket')->ticket_statistic('pending_ticket', $_GET['days']);
+
+        $ticket_replies_count = $this->model('ticket')->ticket_statistic('ticket_replies', $_GET['days']);
+
+        exit(json_encode(array(
+            $new_tickets_count,
+            $closed_tickets_count,
+            $pending_tickets_count,
+            $ticket_replies_count
+        )));
+    }
+
+    public function ticket_source_statistic_action()
+    {
+        if (!$this->user_info['permission']['is_administortar'])
+        {
+            exit();
+        }
+
+        if (!$_GET['days'])
+        {
+            $_GET['days'] = 7;
+        }
+
+        $filter['days'] = $_GET['days'];
+
+        $filter['source'] = 'local';
+
+        $from_local_count = $this->model('ticket')->get_tickets_list($filter, null, null, true);
+
+        $filter['source'] = 'weibo';
+
+        $from_weibo_count = $this->model('ticket')->get_tickets_list($filter, null, null, true);
+
+        $filter['source'] = 'weixin';
+
+        $from_weixin_count = $this->model('ticket')->get_tickets_list($filter, null, null, true);
+
+        $filter['source'] = 'email';
+
+        $from_email_count = $this->model('ticket')->get_tickets_list($filter, null, null, true);
+
+        exit(json_encode(array(
+            $from_local_count,
+            $from_weibo_count,
+            $from_weixin_count,
+            $from_email_count
+        )));
+    }
+
+    public function first_reply_statistic_action()
+    {
+        if (!$this->user_info['permission']['is_administortar'])
+        {
+            exit();
+        }
+
+        if (!$_GET['days'])
+        {
+            $_GET['days'] = 7;
+        }
+
+        $filter['days'] = $_GET['days'];
+
+        $filter['reply_took_hours'] = array(
+            'min' => 0,
+            'max' => 1
+        );
+
+        $zero_to_one_hour_count = $this->model('ticket')->get_tickets_list($filter, null, null, true);
+
+        $filter['reply_took_hours'] = array(
+            'min' => 1,
+            'max' => 8
+        );
+
+        $one_to_eight_hours_count = $this->model('ticket')->get_tickets_list($filter, null, null, true);
+
+        $filter['reply_took_hours'] = array(
+            'min' => 8,
+            'max' => 24
+        );
+
+        $eight_to_twenty_four_hours_count = $this->model('ticket')->get_tickets_list($filter, null, null, true);
+
+        $filter['reply_took_hours'] = array(
+            'min' => 24
+        );
+
+        $more_than_twenty_four_hours_count = $this->model('ticket')->get_tickets_list($filter, null, null, true);
+
+        exit(json_encode(array(
+            $zero_to_one_hour_count,
+            $one_to_eight_hours_count,
+            $eight_to_twenty_four_hours_count,
+            $more_than_twenty_four_hours_count
+        )));
+    }
+
+    public function end_ticket_statistic_action()
+    {
+        if (!$this->user_info['permission']['is_administortar'])
+        {
+            exit();
+        }
+
+        if (!$_GET['days'])
+        {
+            $_GET['days'] = 7;
+        }
+
+        $filter['days'] = $_GET['days'];
+
+        $filter['close_took_hours'] = array(
+            'min' => 0,
+            'max' => 6
+        );
+
+        $zero_to_six_hours_count = $this->model('ticket')->get_tickets_list($filter, null, null, true);
+
+        $filter['close_took_hours'] = array(
+            'min' => 6,
+            'max' => 24
+        );
+
+        $six_to_twenty_four_hours_count = $this->model('ticket')->get_tickets_list($filter, null, null, true);
+
+        $filter['close_took_hours'] = array(
+            'min' => 24,
+            'max' => 48
+        );
+
+        $twenty_four_to_forty_eight_hours_count = $this->model('ticket')->get_tickets_list($filter, null, null, true);
+
+        $filter['close_took_hours'] = array(
+            'min' => 48
+        );
+
+        $more_than_forty_eight_hours_count = $this->model('ticket')->get_tickets_list($filter, null, null, true);
+
+        exit(json_encode(array(
+            $zero_to_six_hours_count,
+            $six_to_twenty_four_hours_count,
+            $twenty_four_to_forty_eight_hours_count,
+            $more_than_forty_eight_hours_count
+        )));
     }
 }

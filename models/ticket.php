@@ -20,7 +20,7 @@ if (!defined('IN_ANWSION'))
 
 class ticket_class extends AWS_MODEL
 {
-    public function get_ticket_by_id($id)
+    public function get_ticket_info_by_id($id)
     {
         if (!is_digits($id))
         {
@@ -37,38 +37,69 @@ class ticket_class extends AWS_MODEL
         return $tickets[$id];
     }
 
-    public function get_tickets_list($uid = null, $service = null, $priority = null, $status = null, $days = null, $page, $per_page, $count = false)
+    public function get_tickets_list($filter = array(), $page = null, $per_page = null, $count = false)
     {
         $where = array();
 
-        if (is_digits($uid))
+        if (is_digits($filter['uid']))
         {
-            $where[] = 'uid = ' . $uid;
+            $where[] = 'uid = ' . $filter['uid'];
         }
 
-        if (is_digits($service))
+        if (is_digits($filter['service']))
         {
-            $where[] = 'service = ' . $service;
+            $where[] = 'service = ' . $filter['service'];
         }
 
-        if ($priority AND in_array($priority, array('low', 'normal', 'high', 'urgent')))
+        if ($filter['priority'] AND in_array($filter['priority'], array('low', 'normal', 'high', 'urgent')))
         {
-            $where[] = 'priority = "' . $priority . '"';
+            $where[] = 'priority = "' . $filter['priority'] . '"';
         }
 
-        if ($status AND in_array($status, array('pending', 'closed')))
+        if ($filter['status'] AND in_array($filter['status'], array('pending', 'closed')))
         {
-            $where[] = 'status = "' . $status . '"';
+            $where[] = 'status = "' . $filter['status'] . '"';
         }
 
-        if ($days)
+        if ($filter['source'] AND in_array($filter['source'], array('local', 'weibo', 'weixin', 'email')))
         {
-            $where[] = 'time > '. (time() - intval($days) * 24 * 60 * 60);
+            $where[] = 'source = "' . $filter['source'] . '"';
+        }
+
+        if (is_digits($filter['days']))
+        {
+            $where[] = 'time > ' . (time() - $filter['days'] * 24 * 60 * 60);
+        }
+
+        if (is_digits($filter['reply_took_hours']['min']))
+        {
+            if (is_digits($filter['reply_took_hours']['max'] AND $filter['reply_took_hours']['min'] < $filter['reply_took_hours']['max']))
+            {
+                $where[] = '`reply_time` - `time` BETWEEN ' . ($filter['reply_took_hours']['min'] * 60 * 60) . ' AND ' . ($filter['reply_took_hours']['max'] * 60 * 60);
+            }
+            else
+            {
+                $where[] = '`reply_time` - `time` > ' . ($filter['reply_took_hours']['min'] * 60 * 60);
+            }
+        }
+
+        if (is_digits($filter['close_took_hours']['min']))
+        {
+            if (is_digits($filter['close_took_hours']['max'] AND $filter['close_took_hours']['min'] < $filter['close_took_hours']['max']))
+            {
+                $where[] = '`close_time` - `time` BETWEEN ' . ($filter['close_took_hours']['min'] * 60 * 60) . ' AND ' . ($filter['close_took_hours']['max'] * 60 * 60);
+            }
+            else
+            {
+                $where[] = '`close_time` - `time` > ' . ($filter['close_took_hours']['min'] * 60 * 60);
+            }
         }
 
         if ($count)
         {
-            return $this->count('ticket', implode(' AND ', $where));
+            $result = $this->query_row('SELECT COUNT(*) AS count FROM ' . get_table('ticket') . ' WHERE ' . implode(' AND ', $where));
+
+            return $result['count'];
         }
 
         return $this->fetch_page('ticket', implode(' AND ', $where), 'time DESC', $page, $per_page);
@@ -76,7 +107,7 @@ class ticket_class extends AWS_MODEL
 
     public function get_replies_list_by_ticket_id($ticket_id, $page, $per_page)
     {
-        $ticket_info = $this->get_ticket_by_id($ticket_id);
+        $ticket_info = $this->get_ticket_info_by_id($ticket_id);
 
         if (!$ticket_info)
         {
@@ -134,7 +165,7 @@ class ticket_class extends AWS_MODEL
 
     public function remove_ticket($id)
     {
-        $ticket_info = $this->get_ticket_by_id($id);
+        $ticket_info = $this->get_ticket_info_by_id($id);
 
         if (!$ticket_info)
         {
@@ -162,18 +193,20 @@ class ticket_class extends AWS_MODEL
 
     public function reply_ticket($ticket_id, $message, $uid, $attach_access_key = null)
     {
-        $ticket_info = $this->get_ticket_by_id($ticket_id);
+        $ticket_info = $this->get_ticket_info_by_id($ticket_id);
 
         if (!$ticket_info OR $ticket_info['status'] == 'closed')
         {
             return false;
         }
 
+        $now = time();
+
         $reply_id = $this->insert('ticket_reply', array(
             'ticket_id' => $ticket_info['id'],
             'message' => htmlspecialchars($message),
             'uid' => intval($uid),
-            'time' => time(),
+            'time' => $now,
             'uid' => intval($uid),
             'ip' => ip2long(fetch_ip())
         ));
@@ -185,6 +218,11 @@ class ticket_class extends AWS_MODEL
             if ($attach_access_key)
             {
                 $this->model('publish')->update_attach('ticket_reply', $reply_id, $attach_access_key);
+            }
+
+            if (!$ticket_info['reply_time'])
+            {
+                $this->shutdown_update('ticket', array('reply_time' => $now), 'id = ' . $ticket_info['id']);
             }
         }
 
@@ -215,7 +253,7 @@ class ticket_class extends AWS_MODEL
 
     public function change_priority($id, $uid, $priority)
     {
-        $ticket_info = $this->get_ticket_by_id($id);
+        $ticket_info = $this->get_ticket_info_by_id($id);
 
         if (!$ticket_info)
         {
@@ -244,7 +282,7 @@ class ticket_class extends AWS_MODEL
 
     public function change_status($id, $uid, $status)
     {
-        $ticket_info = $this->get_ticket_by_id($id);
+        $ticket_info = $this->get_ticket_info_by_id($id);
 
         if (!$ticket_info)
         {
@@ -268,12 +306,17 @@ class ticket_class extends AWS_MODEL
             'new' => $status
         ));
 
+        if (!$ticket_info['close_time'])
+        {
+            $this->shutdown_update('ticket', array('close_time' => time()), 'id = ' . $ticket_info['id']);
+        }
+
         return true;
     }
 
     public function change_rating($id, $uid, $rating)
     {
-        $ticket_info = $this->get_ticket_by_id($id);
+        $ticket_info = $this->get_ticket_info_by_id($id);
 
         if (!$ticket_info)
         {
@@ -322,25 +365,21 @@ class ticket_class extends AWS_MODEL
 
     public function parse_ticket_log($ticket_id)
     {
-        $ticket_info = $this->get_ticket_by_id($ticket_id);
+        $ticket_info = $this->get_ticket_info_by_id($ticket_id);
 
         if (!$ticket_info)
         {
             return false;
         }
 
-        $log_data = $this->fetch_all('ticket_log', 'ticket_id = ' . $ticket_info['id']);
+        $log_data = $this->fetch_all('ticket_log', 'ticket_id = ' . $ticket_info['id'], 'time DESC');
 
         if (!$log_data)
         {
             return false;
         }
 
-        $ticket_log = array(array(
-            'uid' => $ticket_info['uid'],
-            'text' => AWS_APP::lang()->_t('创建了工单'),
-            'time' => $ticket_info['time']
-        ));
+        $ticket_log = array();
 
         foreach ($log_data AS $log_info)
         {
@@ -392,6 +431,12 @@ class ticket_class extends AWS_MODEL
             }
         }
 
+        $ticket_log[] = array(
+            'uid' => $ticket_info['uid'],
+            'text' => AWS_APP::lang()->_t('创建了工单'),
+            'time' => $ticket_info['time']
+        );
+
         return $ticket_log;
     }
 
@@ -433,7 +478,7 @@ class ticket_class extends AWS_MODEL
 
     public function get_invite_users($ticket_id)
     {
-        $ticket_info = $this->get_ticket_by_id($ticket_id);
+        $ticket_info = $this->get_ticket_info_by_id($ticket_id);
 
         if (!$ticket_info)
         {
@@ -445,7 +490,7 @@ class ticket_class extends AWS_MODEL
 
     public function invite_user($ticket_id, $sender_uid, $recipient_uid)
     {
-        $ticket_info = $this->get_ticket_by_id($ticket_id);
+        $ticket_info = $this->get_ticket_info_by_id($ticket_id);
 
         $recipient_info = $this->model('account')->get_user_info_by_uid($recipient_uid);
 
@@ -484,7 +529,7 @@ class ticket_class extends AWS_MODEL
 
     public function assign_service($ticket_id, $service_uid)
     {
-        $ticket_info = $this->get_ticket_by_id($ticket_id);
+        $ticket_info = $this->get_ticket_info_by_id($ticket_id);
 
         $user_info = $this->model('account')->get_user_info_by_uid($service_uid);
 
@@ -494,5 +539,100 @@ class ticket_class extends AWS_MODEL
         }
 
         return $this->update('ticket', array('service' => $user_info['uid']), 'id = ' . $ticket_info['id']);
+    }
+
+    public function count_ticket_replies($ticket_id = null, $uid = null, $days = null)
+    {
+        $where = array();
+
+        if (is_digits($ticket_id))
+        {
+            $where[] = 'ticket_id = ' . $ticket_id;
+        }
+
+        if (is_digits($uid))
+        {
+            $where[] = 'uid = ' . $uid;
+        }
+
+        if (is_digits($days))
+        {
+            $where[] = 'time > '. (time() - $days * 24 * 60 * 60);
+        }
+
+        return $this->count('ticket_reply', implode(' AND ', $where));
+    }
+
+    public function ticket_statistic($filter, $days)
+    {
+        if (!is_digits($days))
+        {
+            return false;
+        }
+
+        switch ($filter)
+        {
+            case 'new_ticket':
+                $query = 'SELECT COUNT(*) AS count, FROM_UNIXTIME(`time`, "%Y-%m-%d") AS statistic_date FROM ' . get_table('ticket') . ' WHERE `time` BETWEEN ' . strtotime('-' . $days . ' days') . ' AND ' . time() . ' GROUP BY statistic_date ASC';
+
+                break;
+
+            case 'closed_ticket':
+                $query = 'SELECT COUNT(*) AS count, FROM_UNIXTIME(`close_time`, "%Y-%m-%d") AS statistic_date FROM ' . get_table('ticket') . ' WHERE `close_time` BETWEEN ' . strtotime('-' . $days . ' days') . ' AND ' . time() . ' GROUP BY statistic_date ASC';
+
+                break;
+
+            case 'pending_ticket':
+                $query = 'SELECT COUNT(*) AS count, FROM_UNIXTIME(`close_time`, "%Y-%m-%d") AS close_date FROM ' . get_table('ticket') . ' WHERE `close_time` BETWEEN ' . strtotime('-' . ($days + 1) . ' days') . ' AND ' . strtotime('Today') . ' OR `close_time` = 0 GROUP BY close_date ASC';
+
+                break;
+
+            case 'ticket_replies':
+                $query = 'SELECT COUNT(*) AS count, FROM_UNIXTIME(`time`, "%Y-%m-%d") AS statistic_date FROM ' . get_table('ticket_reply') . ' WHERE `time` BETWEEN ' . strtotime('-' . $days . ' days') . ' AND ' . time() . ' GROUP BY statistic_date ASC';
+
+                break;
+
+            default:
+                return false;
+        }
+
+        $result = $this->query_all($query);
+
+        if ($filter == 'pending_ticket')
+        {
+            for ($i=0; $i<=$days; $i++)
+            {
+                $data[$i] = 0;
+
+                $date = gmdate('Y-m-d', strtotime('-' . ($days - $i). ' days'));
+
+                foreach ($result AS $val)
+                {
+                    if ($val['close_date'] == '1970-01-01' OR strtotime($val['close_date']) > strtotime($date))
+                    {
+                        $data[$i] += $val['count'];
+                    }
+                }
+            }
+        }
+        else
+        {
+            for ($i=0; $i<=$days; $i++)
+            {
+                $data[$i] = 0;
+
+                $date = gmdate('Y-m-d', strtotime('-' . ($days - $i). ' days'));
+
+                foreach ($result AS $val)
+                {
+                    if ($val['statistic_date'] == $date)
+                    {
+                        $data[$i] += $val['count'];
+                    }
+                }
+            }
+        }
+
+        return $data;
     }
 }

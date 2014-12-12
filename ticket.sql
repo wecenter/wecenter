@@ -14,6 +14,7 @@ CREATE TABLE `[#DB_PREFIX#]ticket` (
   `weibo_msg_id` bigint(20) UNSIGNED DEFAULT NULL,
   `received_email_id` int(10) UNSIGNED DEFAULT NULL,
   `reply_time` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `close_time` int(10) UNSIGNED NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `priority` (`priority`),
   KEY `status` (`status`),
@@ -25,7 +26,8 @@ CREATE TABLE `[#DB_PREFIX#]ticket` (
   KEY `question_id` (`question_id`),
   KEY `weibo_msg_id` (`weibo_msg_id`),
   KEY `received_email_id` (`received_email_id`),
-  KEY `reply_time` (`reply_time`)
+  KEY `reply_time` (`reply_time`),
+  KEY `close_time` (`close_time`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]ticket_reply` (
