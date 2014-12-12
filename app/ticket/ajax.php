@@ -485,10 +485,10 @@ class ajax extends AWS_CONTROLLER
         $ticket_replies_count = $this->model('ticket')->ticket_statistic('ticket_replies', $_GET['days']);
 
         exit(json_encode(array(
-            $new_tickets_count,
-            $closed_tickets_count,
-            $pending_tickets_count,
-            $ticket_replies_count
+            'new_tickets_count' => $new_tickets_count,
+            'closed_tickets_count' => $closed_tickets_count,
+            'pending_tickets_count' => $pending_tickets_count,
+            'ticket_replies_count' => $ticket_replies_count
         )));
     }
 
@@ -523,10 +523,10 @@ class ajax extends AWS_CONTROLLER
         $from_email_count = $this->model('ticket')->get_tickets_list($filter, null, null, true);
 
         exit(json_encode(array(
-            $from_local_count,
-            $from_weibo_count,
-            $from_weixin_count,
-            $from_email_count
+            'from_local_count' => $from_local_count,
+            'from_weibo_count' => $from_weibo_count,
+            'from_weixin_count' => $from_weixin_count,
+            'from_email_count' => $from_email_count
         )));
     }
 
@@ -572,10 +572,10 @@ class ajax extends AWS_CONTROLLER
         $more_than_twenty_four_hours_count = $this->model('ticket')->get_tickets_list($filter, null, null, true);
 
         exit(json_encode(array(
-            $zero_to_one_hour_count,
-            $one_to_eight_hours_count,
-            $eight_to_twenty_four_hours_count,
-            $more_than_twenty_four_hours_count
+            'zero_to_one_hour_count' => $zero_to_one_hour_count,
+            'one_to_eight_hours_count' => $one_to_eight_hours_count,
+            'eight_to_twenty_four_hours_count' => $eight_to_twenty_four_hours_count,
+            'more_than_twenty_four_hours_count' => $more_than_twenty_four_hours_count
         )));
     }
 
@@ -621,10 +621,10 @@ class ajax extends AWS_CONTROLLER
         $more_than_forty_eight_hours_count = $this->model('ticket')->get_tickets_list($filter, null, null, true);
 
         exit(json_encode(array(
-            $zero_to_six_hours_count,
-            $six_to_twenty_four_hours_count,
-            $twenty_four_to_forty_eight_hours_count,
-            $more_than_forty_eight_hours_count
+            'zero_to_six_hours_count' => $zero_to_six_hours_count,
+            'six_to_twenty_four_hours_count' => $six_to_twenty_four_hours_count,
+            'twenty_four_to_forty_eight_hours_count' => $twenty_four_to_forty_eight_hours_count,
+            'more_than_forty_eight_hours_count' => $more_than_forty_eight_hours_count
         )));
     }
 }
