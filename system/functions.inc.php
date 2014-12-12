@@ -438,7 +438,7 @@ function date_friendly($timestamp, $time_limit = 604800, $out_format = 'Y-m-d H:
 		$seconds = 1;
 	}
 
-	if ($time_limit != null && $seconds > $time_limit)
+	if (!$time_limit OR $seconds > $time_limit)
 	{
 		return date($out_format, $timestamp);
 	}
