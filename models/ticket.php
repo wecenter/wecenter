@@ -66,14 +66,16 @@ class ticket_class extends AWS_MODEL
             $where[] = 'source = "' . $filter['source'] . '"';
         }
 
-        if (is_digits($filter['days']))
+        if (isset($filter['days']))
         {
-            $where[] = 'time > ' . (time() - $filter['days'] * 24 * 60 * 60);
+            $where[] = '`time` > ' . (time() - $filter['days'] * 24 * 60 * 60);
         }
 
-        if (is_digits($filter['reply_took_hours']['min']))
+        if (isset($filter['reply_took_hours']['min']))
         {
-            if (is_digits($filter['reply_took_hours']['max'] AND $filter['reply_took_hours']['min'] < $filter['reply_took_hours']['max']))
+            $where[] = '`reply_time` <> 0';
+
+            if (isset($filter['reply_took_hours']['max']) AND $filter['reply_took_hours']['min'] < $filter['reply_took_hours']['max'])
             {
                 $where[] = '`reply_time` - `time` BETWEEN ' . ($filter['reply_took_hours']['min'] * 60 * 60) . ' AND ' . ($filter['reply_took_hours']['max'] * 60 * 60);
             }
@@ -83,9 +85,11 @@ class ticket_class extends AWS_MODEL
             }
         }
 
-        if (is_digits($filter['close_took_hours']['min']))
+        if (isset($filter['close_took_hours']['min']))
         {
-            if (is_digits($filter['close_took_hours']['max'] AND $filter['close_took_hours']['min'] < $filter['close_took_hours']['max']))
+            $where[] = '`close_time` <> 0';
+
+            if (isset($filter['close_took_hours']['max']) AND $filter['close_took_hours']['min'] < $filter['close_took_hours']['max'])
             {
                 $where[] = '`close_time` - `time` BETWEEN ' . ($filter['close_took_hours']['min'] * 60 * 60) . ' AND ' . ($filter['close_took_hours']['max'] * 60 * 60);
             }
@@ -602,9 +606,9 @@ class ticket_class extends AWS_MODEL
         {
             for ($i=0; $i<=$days; $i++)
             {
-                $data[$i] = 0;
-
                 $date = gmdate('Y-m-d', strtotime('-' . ($days - $i). ' days'));
+
+                $data[$i] = 0;
 
                 foreach ($result AS $val)
                 {
@@ -619,9 +623,9 @@ class ticket_class extends AWS_MODEL
         {
             for ($i=0; $i<=$days; $i++)
             {
-                $data[$i] = 0;
-
                 $date = gmdate('Y-m-d', strtotime('-' . ($days - $i). ' days'));
+
+                $data[$i] = 0;
 
                 foreach ($result AS $val)
                 {
