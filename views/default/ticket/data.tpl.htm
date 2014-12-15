@@ -326,7 +326,6 @@
 			chart.setOption(option);
 		}, 'json');
 
-
 		// 结单耗时
 		$.get(G_BASE_URL + '/ticket/ajax/end_ticket_statistic/', {
 			'days' : 30
@@ -371,50 +370,54 @@
 		}, 'json');
 
 		// 代理月度报表
-        var chart5 = echarts.init($('.agent .mod-body')[0]);
-        var option5 = {
-		    tooltip : {
-		        trigger: 'axis'
-		    },
-		    legend: {
-		        data:['蒸发量']
-		    },
-		    toolbox: {
-		        show : false,
-		        feature : {
-		            mark : {show: true},
-		            dataView : {show: true, readOnly: false},
-		            magicType : {show: true, type: ['line', 'bar']},
-		            restore : {show: true},
-		            saveAsImage : {show: true}
-		        }
-		    },
-		    calculable : true,
-		    xAxis : [
-		        {
-		            type : 'category',
-		            data : ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
-		        }
-		    ],
-		    yAxis : [
-		        {
-		            type : 'value'
-		        }
-		    ],
-		    series : [
-		        {
-		            name:'蒸发量',
-		            type:'bar',
-		            data:[2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3]
-		        },
-		        {
-		            name:'排水量',
-		            type:'bar',
-		            data:[2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3]
-		        }
-		    ]
-		};
-		chart5.setOption(option5);
+		$.get(G_BASE_URL + '/ticket/ajax/end_ticket_statistic/', {
+			'days' : 30
+		}, function (result)
+		{
+			var chart = echarts.init($('.agent .mod-body')[0]);
+	        var option = {
+			    tooltip : {
+			        trigger: 'item',
+			        formatter: "{b} <br>{a} : {c} " //({d}%)
+			    },
+			    toolbox: {
+			        show : false,
+			        feature : {
+			            mark : {show: true},
+			            dataView : {show: true, readOnly: false},
+			            magicType : {show: true, type: ['line', 'bar']},
+			            restore : {show: true},
+			            saveAsImage : {show: true}
+			        }
+			    },
+			    calculable : true,
+			    xAxis : [
+			        {
+			            type : 'category',
+			            data : ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
+			        }
+			    ],
+			    yAxis : [
+			        {
+			            type : 'value'
+			        }
+			    ],
+			    series : [
+			        {
+			            name:'处理工单',
+			            type:'bar',
+			            data:[2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3]
+			        },
+			        {
+			            name:'处理工单',
+			            type:'bar',
+			            data:[2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3]
+			        }
+			    ]
+			};
+			chart.setOption(option);
+		}, 'json');
+        
                     
 	});
 </script>
