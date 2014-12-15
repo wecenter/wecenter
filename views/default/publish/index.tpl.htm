@@ -53,8 +53,7 @@
 								<div class="aw-mod aw-editor-box">
 									<div class="mod-head">
 										<div class="wmd-panel">
-								            <div id="wmd-button-bar"></div>
-								            <textarea class="wmd-input form-control autosize" id="wmd-input" rows="15" name="question_detail"><?php echo $this->question_info['question_detail']; ?></textarea>
+								            <textarea class="wmd-input form-control autosize editor" id="wmd-input" rows="15" name="question_detail">&nbsp;&nbsp;<?php echo $this->question_info['question_detail']; ?></textarea>
 								        </div>
 									</div>
 									<div class="mod-body">
@@ -66,9 +65,6 @@
 											<span class="text-color-999 aw-upload-tips hidden-xs"><?php _e('允许'); ?> : <?php echo get_setting('allowed_upload_types'); ?></span>
 										</div>
 										<?php } ?>
-									</div>
-									<div class="mod-footer">
-										<div id="wmd-preview" class="wmd-panel wmd-preview"></div>
 									</div>
 								</div>
 								<?php if (!$this->question_info['question_id']) { ?>

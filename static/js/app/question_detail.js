@@ -16,9 +16,13 @@ $(function()
 	{
 		ITEM_IDS = ITEM_IDS.split(',');
 
+		var editor = CKEDITOR.replace( 'wmd-input' );
+
 		if ($('.aw-upload-box').length)
 		{
-			var fileupload = new FileUpload('file', '.aw-upload-box .btn', '.aw-upload-box .upload-container', G_BASE_URL + '/publish/ajax/attach_upload/id-answer__attach_access_key-' + ATTACH_ACCESS_KEY)
+			var fileupload = new FileUpload('file', '.aw-upload-box .btn', '.aw-upload-box .upload-container', G_BASE_URL + '/publish/ajax/attach_upload/id-answer__attach_access_key-' + ATTACH_ACCESS_KEY, {
+				'editor' : editor
+			});
 		}
 
 		//折叠回复

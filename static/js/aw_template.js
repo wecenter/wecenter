@@ -72,7 +72,7 @@ var AW_TEMPLATE = {
 			'</div>',
 
 	'editCommentBox' :
-				'<div class="modal fade alert-box aw-edit-comment-box">'+
+				'<div class="modal fade alert-box aw-edit-comment-box aw-editor-box">'+
 				'<div class="modal-dialog">'+
 					'<div class="modal-content">'+
 						'<div class="modal-header">'+
