@@ -124,24 +124,32 @@
 			        trigger: 'item',
 			        formatter: "{b} <br>{a} : {c} " //({d}%)
 			    },
+			    color: ['#66b7ff', '#999999', '#79cc47', '#ffaa00'],
 				grid: {
 		            x: 45,
 		            y: 65,
-		            x2: 15,
-		            y2: 35,
+		            x2: 150,
+		            y2: 50,
 		            backgroundColor: '#fff',
 		            borderColor: '#fff'
 		        },
 				calculable: false,
 			    legend: {
-			        data:['新建工单','已解决工单','待办工单','互动次数']
+			        data:['新建工单','已解决工单','待办工单','互动次数'],
+			        orient : 'vertical',
+			        x : 'right',
+			        y : 'center',
+			        padding: 15
 			    },
 			    calculable : true,
 			    xAxis : [
 			        {
 			            type : 'category',
 			            boundaryGap : false,
-			            data : result.labels
+			            data : result.labels,
+			            splitLine: {
+			                show: false
+			            }
 			        }
 			    ],
 			    yAxis : [
@@ -158,8 +166,8 @@
 			            splitLine: {
 			                show: true,
 			                lineStyle: {
-			                    color: 'rgba(0,0,0,0.1)',
-			                    type: 'dashed',
+			                    color: '#f5f5f5',
+			                    type: 'solid',
 			                    width: 1
 			                }
 			            }
@@ -170,10 +178,11 @@
 			            name:'新建工单',
 			            type:'line',
 			            symbol: 'none',
-			            temStyle: {
+			            itemStyle: {
 	                        normal: {
 	                            lineStyle: {
-	                                width: 4,
+	                                width: 2,
+	                                color: '#66b7ff'
 	                            }
 	                        },
 	                    },
@@ -183,10 +192,11 @@
 			            name:'已解决工单',
 			            type:'line',
 			            symbol: 'none',
-			            temStyle: {
+			            itemStyle: {
 	                        normal: {
 	                            lineStyle: {
-	                                width: 4,
+	                                width: 2,
+	                                color: '#999999'
 	                            }
 	                        },
 	                    },
@@ -196,10 +206,11 @@
 			            name:'待办工单',
 			            type:'line',
 			            symbol: 'none',
-			            temStyle: {
+			            itemStyle: {
 	                        normal: {
 	                            lineStyle: {
-	                                width: 4,
+	                                width: 2,
+	                                color: '#79cc47'
 	                            }
 	                        },
 	                    },
@@ -209,10 +220,11 @@
 			            name:'互动次数',
 			            type:'line',
 			            symbol: 'none',
-			            temStyle: {
+			            itemStyle: {
 	                        normal: {
 	                            lineStyle: {
-	                                width: 4,
+	                                width: 2,
+	                                color: '#ffaa00'
 	                            }
 	                        },
 	                    },
