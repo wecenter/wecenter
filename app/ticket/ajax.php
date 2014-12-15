@@ -491,7 +491,7 @@ class ajax extends AWS_CONTROLLER
 
         for ($i=0; $i<=$_GET['days']; $i++)
         {
-            $date[] = gmdate('Y-m-d', strtotime('-' . ($_GET['days'] - $i). ' days'));
+            $date[] = gmdate('m' . AWS_APP::lang()->_t('月') . 'd' . AWS_APP::lang()->_t('日'), strtotime('-' . ($_GET['days'] - $i). ' days'));
         }
 
         exit(json_encode(array(
