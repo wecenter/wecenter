@@ -61,6 +61,11 @@ class ticket_class extends AWS_MODEL
             $where[] = 'status = "' . $filter['status'] . '"';
         }
 
+        if ($filter['rating'] AND in_array($filter['rating'], array('valid', 'invalid', 'undefined')))
+        {
+            $where[] = 'rating = "' . $filter['rating'] . '"';
+        }
+
         if ($filter['source'] AND in_array($filter['source'], array('local', 'weibo', 'weixin', 'email')))
         {
             $where[] = 'source = "' . $filter['source'] . '"';
@@ -101,7 +106,16 @@ class ticket_class extends AWS_MODEL
 
         if ($count)
         {
-            $result = $this->query_row('SELECT COUNT(*) AS count FROM ' . get_table('ticket') . ' WHERE ' . implode(' AND ', $where));
+            $count = ($filter['distinct']) ? 'DISTINCT `' . $this->quote($filter['distinct']) . '`' : '*';
+
+            $query = 'SELECT COUNT(' . $count . ') AS count FROM ' . get_table('ticket');
+
+            if ($where)
+            {
+                $query .= ' WHERE ' . implode(' AND ', $where);
+            }
+
+            $result = $this->query_row($query);
 
             return $result['count'];
         }

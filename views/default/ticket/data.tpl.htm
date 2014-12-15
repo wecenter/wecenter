@@ -11,31 +11,36 @@
                         <h2><i class="icon icon-order"></i><?php _e('工单'); ?></h2>
                         <ul>
                             <li>
-                                <a class="active"><?php _e('我的待处理工单'); ?><span class="badge">23</span></a>
+                                <a href="ticket/service-me__status-pending"><?php _e('我的待处理工单'); ?><span class="badge"><?php echo $this->my_pending_tickets; ?></span></a>
                             </li>
                             <li>
-                                <a><?php _e('未分配工单'); ?></a>
+                                <a href="ticket/service-0__status-pending"><?php _e('未分配工单'); ?></a>
                             </li>
                             <li>
-                                <a><?php _e('所有待处理工单'); ?></a>
+                                <a href="ticket/status-pending"><?php _e('所有待处理工单'); ?></a>
                             </li>
-                            <li><a><?php _e('所有工单'); ?></a></li>
+                            <li>
+                                <a href="ticket/"><?php _e('所有工单'); ?></a>
+                            </li>
                         </ul>
                     </div>
+
+                    <?php if ($this->user_info['permission']['is_administortar']) { ?>
                     <div class="aw-mod side-nav">
                         <h2><i class="icon icon-count"></i><?php _e('统计分析'); ?></h2>
                         <ul>
                             <li>
-                                <a><?php _e('综合数据表'); ?></a>
+                                <a href="ticket/data/" class="active"><?php _e('综合数据表'); ?></a>
                             </li>
                             <li>
-                                <a><?php _e('业绩报表'); ?></a>
+                                <a href="ticket/data/"><?php _e('业绩报表'); ?></a>
                             </li>
                             <li>
-                                <a><?php _e('热门话题'); ?></a>
+                                <a href="ticket/topic/"><?php _e('热门话题'); ?></a>
                             </li>
                         </ul>
                     </div>
+
                     <div class="aw-mod side-nav">
                         <h2><i class="icon icon-job"></i><?php _e('管理中心'); ?></h2>
                         <ul>
@@ -47,6 +52,7 @@
                             </li>
                         </ul>
                     </div>
+                    <?php } ?>
                 </div>
                 <!-- end 侧边栏 -->
 
@@ -61,8 +67,25 @@
                                     <h3><?php _e('工单统计'); ?></h3>
                                 </div>
                                 <div class="mod-body" style="height:350px;"></div>
-                                <div class="mod-footer">
-
+                                <div class="mod-footer clearfix">
+                                    <ul>
+                                        <li>
+                                            <b><?php echo $this->pending_tickets_count; ?></b>
+                                            <?php _e('待办工单'); ?>
+                                        </li>
+                                        <li>
+                                            <b><?php echo $this->closed_tickets_count; ?></b>
+                                            <?php _e('已解决工单'); ?>
+                                        </li>
+                                        <li>
+                                            <b><?php echo $this->tickets_count; ?></b>
+                                            <?php _e('工单总量'); ?>
+                                        </li>
+                                        <li>
+                                            <b><?php echo $this->users_count; ?></b>
+                                            <?php _e('客户'); ?>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
@@ -111,107 +134,109 @@
     {
         // 工单统计
         $.get(G_BASE_URL + '/ticket/ajax/ticket_statistic/', {
-            'days' : 30
+            'days' : 7
         }, function (result)
         {
-
             var chart = echarts.init($('.count .mod-body')[0]);
             var option = {
                 animation: false,
                 addDataAnimation: false,
                 tooltip : {
+                    show: true,
+                    showContent: true,
                     trigger: 'item',
                     formatter: "{b} <br>{a} : {c} " //({d}%)
                 },
+                calculable : true,
+                color: ['#66b7ff', '#999999', '#79cc47', '#ffaa00'],
                 grid: {
-                    x: 45,
+                    x: 50,
                     y: 65,
-                    x2: 15,
-                    y2: 35,
+                    x2: 150,
+                    y2: 50,
                     backgroundColor: '#fff',
                     borderColor: '#fff'
                 },
-                calculable: false,
                 legend: {
-                    data:["<?php _e('新建工单'); ?>", "<?php _e('已解决工单'); ?>", "<?php _e('待办工单'); ?>", "<?php _e('互动次数'); ?>"]
+                    data:['<?php _e("新建工单"); ?>','<?php _e("已解决工单"); ?>','<?php _e("待办工单"); ?>','<?php _e("互动次数"); ?>'],
+                    orient : 'vertical',
+                    x : 'right',
+                    y : 'center',
+                    padding: 15
                 },
-                calculable : true,
                 xAxis : [
                     {
                         type : 'category',
                         boundaryGap : false,
-                        data : result.labels
+                        data : result.labels,
+                        splitLine: {
+                            show: false
+                        },
+                        nameTextStyle: {
+                            color: 'red'
+                        }
                     }
                 ],
                 yAxis : [
                     {
                         type : 'value',
                         splitLine: {
-                            show: false,
-                        },
-
-                        axisLine: {
-                            show: false
-                        },
-
-                        splitLine: {
-                            show: true,
-                            lineStyle: {
-                                color: 'rgba(0,0,0,0.1)',
-                                type: 'dashed',
-                                width: 1
-                            }
+                            show: true
                         }
                     }
                 ],
                 series : [
                     {
-                        name:"<?php _e('新建工单'); ?>",
+                        name:'<?php _e("新建工单"); ?>',
                         type:'line',
                         symbol: 'none',
-                        temStyle: {
+                        itemStyle: {
                             normal: {
                                 lineStyle: {
-                                    width: 4,
+                                    width: 2,
+                                    color: '#66b7ff'
                                 }
                             },
                         },
                         data:result.data[0]
                     },
                     {
-                        name:"<?php _e('已解决工单'); ?>",
+                        name:'<?php _e("已解决工单"); ?>',
                         type:'line',
                         symbol: 'none',
-                        temStyle: {
+                        itemStyle: {
                             normal: {
                                 lineStyle: {
-                                    width: 4,
+                                    width: 2,
+                                    color: '#999999'
                                 }
                             },
                         },
                         data:result.data[1]
                     },
                     {
-                        name:"<?php _e('待办工单'); ?>",
+                        name:'<?php _e("待办工单"); ?>',
                         type:'line',
                         symbol: 'none',
-                        temStyle: {
+                        itemStyle: {
                             normal: {
                                 lineStyle: {
-                                    width: 4,
+                                    width: 2,
+                                    color: '#79cc47'
                                 }
                             },
                         },
                         data:result.data[2]
                     },
                     {
-                        name:"<?php _e('互动次数'); ?>",
+                        name:'<?php _e("互动次数"); ?>',
                         type:'line',
                         symbol: 'none',
-                        temStyle: {
+                        itemStyle: {
                             normal: {
                                 lineStyle: {
-                                    width: 4,
+                                    width: 2,
+                                    color: '#ffaa00'
                                 }
                             },
                         },
@@ -221,9 +246,6 @@
             };
             chart.setOption(option);
         }, 'json');
-
-        //var echart1 = new Echarts('.count .mod-body', 'line', G_BASE_URL + '/ticket_statistic?days=30');
-
 
         // 工单来源统计
         $.get(G_BASE_URL + '/ticket/ajax/ticket_source_statistic/', {
@@ -239,9 +261,11 @@
                 },
                 legend: {
                     orient : 'vertical',
-                    x : 'left',
+                    x : 'right',
+                    y : 'center',
                     data:["<?php _e('本站'); ?>", "<?php _e('微博'); ?>", "<?php _e('微信'); ?>", "<?php _e('邮件'); ?>"]
                 },
+                color: ['#999999', '#ff7373', '#79cc47', '#66b7ff'],
                 toolbox: {
                     show : false,
                     feature : {
@@ -256,7 +280,6 @@
                     {
                         name: "<?php _e('来自'); ?>",
                         type:'pie',
-                        radius : ['50%', '70%'],
                         itemStyle : {
                             normal : {
                                 label : {
@@ -299,11 +322,15 @@
                 tooltip : {
                     trigger: 'axis'
                 },
+                color: ['#66b7ff'],
                 calculable : true,
                 xAxis : [
                     {
                         type : 'category',
-                        data : ["<?php _e('0-1小时'); ?>", "<?php _e('1-8小时'); ?>", "<?php _e('8-24小时'); ?>", "<?php _e('>24小时'); ?>"]
+                        data : ["<?php _e('%s0-%s1小时', array('0', '1')); ?>", "<?php _e('%s0-%s1小时', array('1', '8')); ?>", "<?php _e('%s0-%s1小时', array('8', '24')); ?>", "<?php _e('>%s小时', '24'); ?>"],
+                        splitLine: {
+                            show: false
+                        }
                     }
                 ],
                 yAxis : [
@@ -342,11 +369,23 @@
                         saveAsImage : {show: true}
                     }
                 },
+                grid: {
+                    x: 50,
+                    y: 65,
+                    x2: 50,
+                    y2: 50,
+                    backgroundColor: '#fff',
+                    borderColor: '#fff'
+                },
+                color: ['#79cc47'],
                 calculable : true,
                 xAxis : [
                     {
                         type : 'category',
-                        data : ["<?php _e('0-6小时'); ?>", "<?php _e('6-24小时'); ?>", "<?php _e('24-48小时'); ?>", "<?php _e('>48小时'); ?>"]
+                        data : ["<?php _e('%s0-%s1小时', array('0', '6')); ?>", "<?php _e('%s0-%s1小时', array('6', '24')); ?>", "<?php _e('%s0-%s1小时', array('24', '48')); ?>", "<?php _e('>%s小时', '48'); ?>"],
+                        splitLine: {
+                            show: false
+                        }
                     }
                 ],
                 yAxis : [
@@ -376,6 +415,7 @@
                     trigger: 'item',
                     formatter: "{b} <br>{a} : {c} " //({d}%)
                 },
+                color: ['#79cc47', '#66b7ff'],
                 toolbox: {
                     show : false,
                     feature : {
@@ -413,8 +453,6 @@
             };
             chart.setOption(option);
         }, 'json');
-
-
     });
 </script>
 
