@@ -23,6 +23,7 @@
 .aw-work-list .mod-body table tr td{padding:14px 8px;}
 .title-mod{margin:0 0 30px;border:1px solid #e6e6e6;}
 .title-mod .mod-head h3{height:50px;margin:0;padding:0 20px;line-height:50px;background-color: #fafafa;border-bottom: 1px solid #e6e6e6;}
+.ticket_topic_editor .aw-dropdown {top: 35px;}
 
 /* 热门话题 */
 .aw-work-wrap .aw-topic-list{margin-bottom: 30px;}
