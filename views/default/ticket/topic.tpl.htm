@@ -1,68 +1,73 @@
 <?php TPL::output('global/header.tpl.htm'); ?>
 <div class="aw-container-wrap aw-work-wrap">
-	<?php TPL::output('block/content_nav_menu.tpl.htm'); ?>
+    <?php TPL::output('block/content_nav_menu.tpl.htm'); ?>
 
-	<div class="container">
-		<div class="row">
-			<div class="aw-content-wrap clearfix">
-				<!-- 侧边栏 -->
-				<div class="col-sm-12 col-md-3 aw-side-bar hidden-xs hidden-sm">
-					<div class="aw-mod side-nav">
-						<h2><i class="icon icon-order"></i>工单</h2>
-						<ul>
-							<li>
-								<a>我的待处理工单<span class="badge">23</span></a>
-							</li>
-							<li>
-								<a>未分配工单</a>
-							</li>
-							<li>
-								<a>所有待处理工单</a>
-							</li>
-							<li><a>所有工单</a></li>
-							<li><a >全部人可见工单</a></li>
-						</ul>
-					</div>
-					<div class="aw-mod side-nav">
-						<h2><i class="icon icon-count"></i>统计分析</h2>
-						<ul>
-							<li>
-								<a>综合数据表</a>
-							</li>
-							<li>
-								<a>业绩报表</a>
-							</li>
-							<li>
-								<a class="active">热门话题</a>
-							</li>
-						</ul>
-					</div>
-					<div class="aw-mod side-nav">
-						<h2><i class="icon icon-job"></i>管理中心</h2>
-						<ul>
-							<li>
-								<a>渠道管理</a>
-							</li>
-							<li>
-								<a>客服组管理</a>
-							</li>
-						</ul>
-					</div>
-				</div>
-				<!-- end 侧边栏 -->
+    <div class="container">
+        <div class="row">
+            <div class="aw-content-wrap clearfix">
+                <!-- 侧边栏 -->
+                <div class="col-sm-12 col-md-3 aw-side-bar hidden-xs hidden-sm">
+                    <div class="aw-mod side-nav">
+                        <h2><i class="icon icon-order"></i>工单</h2>
+                        <ul>
+                            <li>
+                                <a href="ticket/service-me__status-pending"><?php _e('我的待处理工单'); ?><span class="badge"><?php echo $this->my_pending_tickets; ?></span></a>
+                            </li>
+                            <li>
+                                <a href="ticket/service-0__status-pending"><?php _e('未分配工单'); ?></a>
+                            </li>
+                            <li>
+                                <a href="ticket/status-pending"><?php _e('所有待处理工单'); ?></a>
+                            </li>
+                            <li>
+                                <a href="ticket/"><?php _e('所有工单'); ?></a>
+                            </li>
+                        </ul>
+                    </div>
 
-				<div class="col-sm-12 col-md-9 aw-main-content">
-					<div class="aw-mod aw-topic-list">
-						<div class="mod-head">
-							<ul class="nav nav-tabs aw-nav-tabs active hidden-xs">
+                    <?php if ($this->user_info['permission']['is_administortar']) { ?>
+                    <div class="aw-mod side-nav">
+                        <h2><i class="icon icon-count"></i><?php _e('统计分析'); ?></h2>
+                        <ul>
+                            <li>
+                                <a href="ticket/data/"><?php _e('综合数据表'); ?></a>
+                            </li>
+                            <li>
+                                <a href="ticket/data/"><?php _e('业绩报表'); ?></a>
+                            </li>
+                            <li>
+                                <a href="ticket/topic/" class="active"><?php _e('热门话题'); ?></a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="aw-mod side-nav">
+                        <h2><i class="icon icon-job"></i><?php _e('管理中心'); ?></h2>
+                        <ul>
+                            <li>
+                                <a><?php _e('渠道管理'); ?></a>
+                            </li>
+                            <li>
+                                <a><?php _e('客服组管理'); ?></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <?php } ?>
+                </div>
+                <!-- end 侧边栏 -->
+
+                <div class="col-sm-12 col-md-9 aw-main-content">
+                    <div class="aw-mod aw-topic-list">
+                        <div class="mod-head">
+                            <ul class="nav nav-tabs aw-nav-tabs active hidden-xs">
                                 <li><a href="">30 天</a></li>
-                        		<li><a href="">7 天</a></li>
-                        		<li class="active"><a href="">全部</a></li>
-                        		<h2>
-									<i class="icon icon-count"></i> 热门话题
-								</h2>
+                                <li><a href="">7 天</a></li>
+                                <li class="active"><a href="">全部</a></li>
+                                <h2>
+                                    <i class="icon icon-count"></i> 热门话题
+                                </h2>
                             </ul>
-						</div>
+                        </div>
                         <div class="mod-body clearfix">
                             <div class="aw-item">
                                 <!-- 话题图片 -->
@@ -129,7 +134,7 @@
                                     <!-- end 话题内容 -->
                                 </p>
                                 <p class="text-color-999">
-                                	本周有 <b>510</b> 个相关工单 • <b>1020</b> 个已解决 • <b>2</b> 个处理中 • <b>2</b> 个未解决
+                                    本周有 <b>510</b> 个相关工单 • <b>1020</b> 个已解决 • <b>2</b> 个处理中 • <b>2</b> 个未解决
                                 </p>
                             </div>
                             <div class="aw-item">
@@ -203,22 +208,22 @@
                         </div>
                         <div class="mod-footer clearfix">
                             <div class="page-control">
-                            	<ul class="pagination pull-right">
-                            		<li class="active">
-                            			<a href="javascript:;">1</a>
-                            		</li>
-                            		<li><a href="">2</a></li>
-                            		<li><a href="">3</a></li>
-                            		<li><a href="">4</a></li>
-                            		<li><a href="">&gt;</a></li>
-                            		<li><a href="">&gt;&gt;</a></li>
-                            	</ul>
-                            </div>                        
+                                <ul class="pagination pull-right">
+                                    <li class="active">
+                                        <a href="javascript:;">1</a>
+                                    </li>
+                                    <li><a href="">2</a></li>
+                                    <li><a href="">3</a></li>
+                                    <li><a href="">4</a></li>
+                                    <li><a href="">&gt;</a></li>
+                                    <li><a href="">&gt;&gt;</a></li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
-				</div>
-			</div>
-		</div>
-	</div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <?php TPL::output('global/footer.tpl.htm'); ?>
