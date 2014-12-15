@@ -131,7 +131,7 @@ $(document).ready(function ()
                 break;
             // modify by wecenter 删除工单话题
             case 'ticket':
-                $.get(G_BASE_URL + '/ticket/ajax/remove_topic_relation/', 'ticket_id=' + data_id + '&topic_title=' + $(this).prev('.text').text(),function()
+                $.get(G_BASE_URL + '/ticket/ajax/remove_topic_relation/', 'ticket_id=' + data_id ,function()
                 {
                     $('#aw-ajax-box').empty();
                 });
