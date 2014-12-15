@@ -31,16 +31,16 @@ class weixin extends AWS_ADMIN_CONTROLLER
 
         $accounts_list = $this->model('weixin')->get_accounts_info();
 
-        $account_id = $accounts_list[$_GET['id']]['id'];
+        $account_info = $accounts_list[$_GET['id']];
 
-        if (!isset($account_id))
+        if (!$account_info)
         {
             H::redirect_msg(AWS_APP::lang()->_t('公众账号不存在'));
         }
 
-        TPL::assign('account_id', $account_id);
+        TPL::assign('account_info', $account_info);
 
-        TPL::assign('rule_list', $this->model('weixin')->fetch_reply_rule_list($account_id));
+        TPL::assign('rule_list', $this->model('weixin')->fetch_reply_rule_list($account_info['id']));
 
         TPL::assign('accounts_list', $accounts_list);
 
@@ -260,7 +260,7 @@ class weixin extends AWS_ADMIN_CONTROLLER
         }
 
         H::ajax_json_output(AWS_APP::RSM(array(
-            'url' => get_js_url('admin/weixin/reply/id-' . $_POST['account_id'])
+            'url' => get_js_url('/admin/weixin/reply/id-' . $_POST['account_id'])
         ), 1, null));
     }
 

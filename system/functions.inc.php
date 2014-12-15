@@ -160,14 +160,14 @@ function valid_ip($ip)
 }
 
 /**
- * 检查字符串或数组内的字符串是否为纯数字（十进制数字，不包括负数和小数）
+ * 检查整型、字符串或数组内的字符串是否为纯数字（十进制数字，不包括负数和小数）
  *
- * @param string or array
+ * @param integer or string or array
  * @return boolean
  */
 function is_digits($num)
 {
-	if (!$num AND $num !== '0')
+	if (!$num AND $num !== 0 AND $num !== '0')
 	{
 		return false;
 	}
