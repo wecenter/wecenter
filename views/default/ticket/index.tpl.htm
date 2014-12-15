@@ -350,13 +350,13 @@
             {
                 if (result.errno != 1)
                  {
-                    $('#priority').append('<p>选择成功</p>');
-                    $('#priority p').css('color','#398439').fadeOut();
 
+                    AWS.alert(result.err);
                 }
                 else
                 {
-                    AWS.alert(result.err);
+                    $('.aw-tips-box .modal-body p').html('选择成功')
+
                 }
             }, 'json');
         })

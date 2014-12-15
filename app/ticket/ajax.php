@@ -164,7 +164,7 @@ class ajax extends AWS_CONTROLLER
 
         $this->model('ticket')->change_priority($ticekt_info['id'], $this->user_id, $_POST['priority']);
 
-        H::ajax_json_output(AWS_APP::RSM(null, -1, null));
+        H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('优先级选择成功')));
     }
 
     public function change_status_action()
