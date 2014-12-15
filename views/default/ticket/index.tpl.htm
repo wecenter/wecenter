@@ -283,13 +283,27 @@
                                 <li>
                                     <h3><?php _e('优先级'); ?>:</h3>
                                     <form action="ticket/ajax/change_priority/" id="priority">
+                                        <input type="hidden" name="id" value="<?php echo $this->ticket_info['id']; ?>">
+
                                         <select name="rating" class="form-control" id="priSelect">
                                             <option value="low"<?php if ($this->ticket_info['priority'] == 'low') { ?> selected="selected"<?php } ?>><?php _e('低'); ?></option>
                                             <option value="normal"<?php if ($this->ticket_info['priority'] == 'normal') { ?> selected="selected"<?php } ?>><?php _e('中'); ?></option>
                                             <option value="high"<?php if ($this->ticket_info['priority'] == 'high') { ?> selected="selected"<?php } ?>><?php _e('高'); ?></option>
                                             <option value="urgent"<?php if ($this->ticket_info['priority'] == 'urgent') { ?> selected="selected"<?php } ?>><?php _e('紧急'); ?></option>
                                         </select>
+                                    </form>
+                                </li>
+
+                                <li>
+                                    <h3><?php _e('评级'); ?>:</h3>
+                                    <form action="ticket/ajax/change_rating/" id="rating">
                                         <input type="hidden" name="id" value="<?php echo $this->ticket_info['id']; ?>">
+
+                                        <select name="rating" class="form-control" id="priSelect">
+                                            <option value="valid"<?php if ($this->ticket_info['rating'] == 'valid') { ?> selected="selected"<?php } ?>><?php _e('有效'); ?></option>
+                                            <option value="invalid"<?php if ($this->ticket_info['rating'] == 'invalid') { ?> selected="selected"<?php } ?>><?php _e('无效'); ?></option>
+                                            <option value="undefined"<?php if ($this->ticket_info['rating'] == 'undefined') { ?> selected="selected"<?php } ?>><?php _e('未评级'); ?></option>
+                                        </select>
                                     </form>
                                 </li>
 
