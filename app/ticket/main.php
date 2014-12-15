@@ -272,10 +272,22 @@ class main extends AWS_CONTROLLER
             H::redirect_msg(AWS_APP::lang()->_t('你所在用户组没有权限查看工单统计'));
         }
 
-        TPL::assign('my_pending_tickets',
+        TPL::assign('pending_tickets_count',
             $this->model('ticket')->get_tickets_list(array(
-                'service' => $this->user_id,
                 'status' => 'pending'
+        ), null, null, true));
+
+        TPL::assign('closed_tickets_count',
+            $this->model('ticket')->get_tickets_list(array(
+                'status' => 'closed'
+        ), null, null, true));
+
+        TPL::assign('tickets_count',
+            $this->model('ticket')->get_tickets_list(null, null, null, true));
+
+        TPL::assign('users_count',
+            $this->model('ticket')->get_tickets_list(array(
+                'distinct' => 'uid'
         ), null, null, true));
 
         TPL::output('ticket/data');

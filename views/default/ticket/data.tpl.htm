@@ -70,20 +70,20 @@
                                 <div class="mod-footer clearfix">
 									<ul>
 										<li>
-											<b>30</b>
-											待办工单
+											<b><?php echo $this->pending_tickets_count; ?></b>
+											<?php _e('待办工单'); ?>
 										</li>
 										<li>
-											<b>30</b>
-											已解决工单
+											<b><?php echo $this->closed_tickets_count; ?></b>
+											<?php _e('已解决工单'); ?>
 										</li>
 										<li>
-											<b>30</b>
-											工单总量
+											<b><?php echo $this->tickets_count; ?></b>
+											<?php _e('工单总量'); ?>
 										</li>
 										<li>
-											<b>30</b>
-											客户
+											<b><?php echo $this->users_count; ?></b>
+											<?php _e('客户'); ?>
 										</li>
 									</ul>
                                 </div>
