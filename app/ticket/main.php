@@ -196,16 +196,20 @@ class main extends AWS_CONTROLLER
             H::redirect_msg(AWS_APP::lang()->_t('你所在用户组没有权限查看工单'));
         }
 
-        $this->crumb(AWS_APP::lang()->_t('工单'), '/ticket/');
+        $this->crumb(AWS_APP::lang()->_t('工单列表'), '/ticket/');
 
-        if ($_GET['uid'] === 'me')
+        if ($_GET['uid'] == 'me')
         {
-            $_GET['uid'] = $this->user_id;
+            $filter['uid'] = $this->user_id;
         }
 
-        if ($_GET['service'] === 'me')
+        if ($_GET['service'] == 'me')
         {
-            $_GET['service'] = $this->user_id;
+            $filter['service'] = $this->user_id;
+        }
+        else if ($_GET['service'] == 'none')
+        {
+            $filter['service'] = 0;
         }
 
         if (!$_GET['page'])
@@ -213,18 +217,34 @@ class main extends AWS_CONTROLLER
             $_GET['page'] = 1;
         }
 
-        $filter = array(
-            'uid' => $_GET['uid'],
-            'service' => $_GET['service'],
-            'priority' => $_GET['priority'],
-            'status' => $_GET['status'],
-            'source' => $_GET['source'],
-            'days' => $_GET['days']
-        );
-
         $tickets_list = $this->model('ticket')->get_tickets_list($filter, $_GET['page'], $this->per_page);
 
         $tickets_count = $this->model('ticket')->found_rows();
+
+        if ($tickets_list)
+        {
+            foreach ($tickets_list AS $ticket_info)
+            {
+                $uids[] = $ticket_info['uid'];
+
+                if ($ticket_info['service'])
+                {
+                    $uids[] = $ticket_info['service'];
+                }
+            }
+
+            $users_list = $this->model('account')->get_user_info_by_uids($uids);
+
+            foreach ($tickets_list AS $key => $ticket_info)
+            {
+                $tickets_list[$key]['user_info'] = $users_list[$ticket_info['uid']];
+
+                if ($ticket_info['service'])
+                {
+                    $tickets_list[$key]['service_info'] = $users_list[$ticket_info['service']];
+                }
+            }
+        }
 
         TPL::assign('tickets_list', $tickets_list);
 
@@ -237,7 +257,7 @@ class main extends AWS_CONTROLLER
         ), null, null, true));
 
         TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
-            'base_url' => get_js_url('/ticket/' . 'uid-' . $_GET['uid'] . '__service-' . $_GET['service'] . '__priority-' . $_GET['priority'] . '__status-' . $_GET['status'] . '__days-' . $_GET['days']),
+            'base_url' => get_js_url('/ticket/' . 'uid-' . $_GET['uid'] . '__service-' . $_GET['service'] . '__status-' . $_GET['status']),
             'total_rows' => $tickets_count,
             'per_page' => $this->pre_page
         ))->create_links());
