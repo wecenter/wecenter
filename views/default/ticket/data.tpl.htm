@@ -115,6 +115,7 @@
 			'days' : 30
 		}, function (result)
 		{
+
 			var chart = echarts.init($('.count .mod-body')[0]);
 			var option = {
 				animation: false,
@@ -168,7 +169,6 @@
 			        {
 			            name:'新建工单',
 			            type:'line',
-			            stack: '总量',
 			            symbol: 'none',
 			            temStyle: {
 	                        normal: {
@@ -182,7 +182,6 @@
 			        {
 			            name:'已解决工单',
 			            type:'line',
-			            stack: '总量',
 			            symbol: 'none',
 			            temStyle: {
 	                        normal: {
@@ -196,7 +195,6 @@
 			        {
 			            name:'待办工单',
 			            type:'line',
-			            stack: '总量',
 			            symbol: 'none',
 			            temStyle: {
 	                        normal: {
@@ -210,7 +208,6 @@
 			        {
 			            name:'互动次数',
 			            type:'line',
-			            stack: '总量',
 			            symbol: 'none',
 			            temStyle: {
 	                        normal: {
