@@ -23,6 +23,10 @@
 .aw-work-list .mod-body table tr td{padding:14px 8px;}
 .title-mod{margin:0 0 30px;border:1px solid #e6e6e6;}
 .title-mod .mod-head h3{height:50px;margin:0;padding:0 20px;line-height:50px;background-color: #fafafa;border-bottom: 1px solid #e6e6e6;}
+.title-mod.count .mod-footer{border-top: 1px solid #e6e6e6;}
+.title-mod.count .mod-footer ul li{float: left;width: 25%;height:100px;padding:20px 0;background: #fafafa;border-left:1px solid #e6e6e6;text-align: center;color: #999;}
+.title-mod.count .mod-footer ul li:first-child{border-left: none;}
+.title-mod.count .mod-footer ul li b{display: block;margin-bottom:10px;font-size: 26px;color: #666;}
 .ticket_topic_editor .aw-dropdown {top: 35px;}
 
 /* 热门话题 */
