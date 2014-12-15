@@ -121,6 +121,13 @@ class main extends AWS_CONTROLLER
             }
         }
 
+        $ticket_topics = $this->model('topic')->get_topics_by_item_id($ticket_info['id'], 'ticket');
+
+        if ($ticket_topics)
+        {
+            TPL::assign('ticket_topics', $ticket_topics);
+        }
+
         $invite_users = $this->model('ticket')->get_invite_users($ticket_info['id']);
 
         if ($invite_users)
