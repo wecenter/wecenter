@@ -1689,6 +1689,7 @@ AWS.User =
 	            selector.parents('.aw-invite-box').find('.invite-list').append(' <a class="text-color-999 invite-list-user" data-toggle="tooltip" data-placement="bottom" data-original-title="'+ selector.attr('data-value') +'"><img src='+ img +' /></a>');
 	            selector.addClass('active').attr('onclick','AWS.User.disinvite_user($(this))').text('取消邀请');
 	            selector.parents('.aw-question-detail').find('.aw-invite-replay .badge').text(parseInt(selector.parents('.aw-question-detail').find('.aw-invite-replay .badge').text()) + 1);
+	            console.log(selector.parents('.aw-invite-box'))
 	        }
 	        else if (result.errno == -1)
 	        {
@@ -1698,7 +1699,34 @@ AWS.User =
 
 	},
 
-	// 取消邀请回答工单
+	// modify by wecenter 邀请特殊组
+	ticket_invite_spec_user: function(selector, img) {
+		$.post(G_BASE_URL + '/ticket/ajax/assign_service/',
+	    {
+	        'ticket_id': TICKET_ID,
+	        'uid': selector.attr('data-id')
+	    }, function (result)
+	    {
+	        if (result.errno != -1)
+	        {
+	            if (selector.parents('.aw-invite-box').find('.invite-list a').length == 0)
+	            {
+	                selector.parents('.aw-invite-box').find('.invite-list').show();
+	            }
+	            selector.parents('.aw-invite-box').find('.invite-list').append(' <a class="text-color-999 invite-list-user" data-toggle="tooltip" data-placement="bottom" data-original-title="'+ selector.attr('data-value') +'"><img src='+ img +' /></a>');
+	            selector.addClass('active').attr('onclick','AWS.User.disinvite_user($(this))').text('取消邀请');
+	            selector.parents('.aw-question-detail').find('.aw-invite-replay .badge').text(parseInt(selector.parents('.aw-question-detail').find('.aw-invite-replay .badge').text()) + 1);
+	            console.log(selector.parents('.aw-invite-box'))
+	        }
+	        else if (result.errno == -1)
+	        {
+	            AWS.alert(result.err);
+	        }
+	    }, 'json')
+
+	},
+
+	// modify by wecenter 取消邀请回答工单
 	ticket_disinvite_user: function(selector) {
 		$.post(G_BASE_URL + '/ticket/ajax/cancel_invite/' + TICKET_ID + "__recipients_uid-" + selector.attr('data-id'), function (result)
 	    {
@@ -1720,6 +1748,7 @@ AWS.User =
 	        }
 	    });
 	},
+
 
 	// 问题感谢
 	question_thanks: function(selector, question_id)
@@ -1898,6 +1927,7 @@ AWS.Dropdown =
 	// 下拉菜单功能绑定
 	bind_dropdown_list: function(selector, type)
 	{
+		console.log(type);
 	    if (type == 'search')
 	    {
 	        $(selector).focus(function()
@@ -1922,6 +1952,7 @@ AWS.Dropdown =
 	        {
 	           $(selector).parent().find('.aw-dropdown').hide();
 	        }
+
 
 	        if (type == 'topic')
 	        {
@@ -2008,6 +2039,7 @@ AWS.Dropdown =
 
 	            }
 	        }
+
 	    });
 
 	    $(selector).blur(function()
@@ -2062,6 +2094,7 @@ AWS.Dropdown =
 
 	        case 'invite' :
 	        case 'inbox' :
+	        case 'ticket' :
 	            url = G_BASE_URL + '/search/ajax/search/?type=users&q=' + encodeURIComponent(data) + '&limit=10';
 	        break;
 
@@ -2224,6 +2257,7 @@ AWS.Dropdown =
 
 	                case 'inbox' :
 	                case 'invite' :
+	                case 'ticket' :
 	                    $.each(result, function (i, a)
 	                    {
 	                        $(selector).parent().find('.aw-dropdown-list').append(Hogan.compile(AW_TEMPLATE.inviteDropdownList).render(
