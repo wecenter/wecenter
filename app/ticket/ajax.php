@@ -326,9 +326,7 @@ class ajax extends AWS_CONTROLLER
 
         $this->model('topic')->remove_topic_relation($this->user_id, $_POST['topic_id'], $ticket_info['id'], 'ticket');
 
-        H::ajax_json_output(AWS_APP::RSM(array(
-            'topic_id' => $_POST['topic_id']
-        ), 1, null));
+        H::ajax_json_output(AWS_APP::RSM(null, -1, null));
     }
 
     public function remove_reply_action()
@@ -454,9 +452,16 @@ class ajax extends AWS_CONTROLLER
 
         $user_info = $this->model('account')->get_user_info_by_uid($_POST['uid']);
 
-        if (!$user_info OR $user_info['group_id'] != 1 AND $user_info['group_id'] != 10)
+        if (!$user_info)
         {
-            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('客服不存在')));
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('用户不存在')));
+        }
+
+        $user_group_info = $this->model('account')->get_user_group_by_id($user_info['group_id']);
+
+        if (!$user_group_info['permission']['is_service'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('该用户不属于客服组')));
         }
 
         $this->model('ticket')->assign_service($ticket_info['id'], $user_info['uid']);
