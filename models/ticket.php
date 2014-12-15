@@ -61,6 +61,11 @@ class ticket_class extends AWS_MODEL
             $where[] = 'status = "' . $filter['status'] . '"';
         }
 
+        if ($filter['rating'] AND in_array($filter['rating'], array('valid', 'invalid', 'undefined')))
+        {
+            $where[] = 'rating = "' . $filter['rating'] . '"';
+        }
+
         if ($filter['source'] AND in_array($filter['source'], array('local', 'weibo', 'weixin', 'email')))
         {
             $where[] = 'source = "' . $filter['source'] . '"';

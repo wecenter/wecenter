@@ -250,6 +250,27 @@ class main extends AWS_CONTROLLER
 
         TPL::assign('tickets_count', $tickets_count);
 
+        if (!$_GET['service'] AND !$_GET['status'])
+        {
+            TPL::assign('valid_tickets_count',
+                $this->model('ticket')->get_tickets_list(array(
+                    'rating' => 'valid',
+                    'days' => 7
+            ), null, null, true));
+
+            TPL::assign('invalid_tickets_count',
+                $this->model('ticket')->get_tickets_list(array(
+                    'rating' => 'invalid',
+                    'days' => 7
+            ), null, null, true));
+
+            TPL::assign('closed_tickets_count',
+                $this->model('ticket')->get_tickets_list(array(
+                    'status' => 'closed',
+                    'days' => 7
+            ), null, null, true));
+        }
+
         TPL::assign('my_pending_tickets',
             $this->model('ticket')->get_tickets_list(array(
                 'service' => $this->user_id,
@@ -290,6 +311,12 @@ class main extends AWS_CONTROLLER
                 'distinct' => 'uid'
         ), null, null, true));
 
+        TPL::assign('my_pending_tickets',
+            $this->model('ticket')->get_tickets_list(array(
+                'service' => $this->user_id,
+                'status' => 'pending'
+        ), null, null, true));
+
         TPL::output('ticket/data');
     }
 
@@ -299,6 +326,12 @@ class main extends AWS_CONTROLLER
         {
             H::redirect_msg(AWS_APP::lang()->_t('你所在用户组没有权限查看工单话题'));
         }
+
+        TPL::assign('my_pending_tickets',
+            $this->model('ticket')->get_tickets_list(array(
+                'service' => $this->user_id,
+                'status' => 'pending'
+        ), null, null, true));
 
         TPL::output('ticket/topic');
     }

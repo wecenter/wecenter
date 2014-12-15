@@ -59,9 +59,11 @@
                 <div class="col-sm-12 col-md-9 aw-main-content">
                     <div class="aw-mod aw-work-list">
                         <div class="mod-head">
+                            <?php if (!$_GET['service'] AND !$_GET['status']) { ?>
                             <div class="pull-right">
-                                <?php _e('本周工单统计'); ?>: <?php _e('有效'); ?> (5)&nbsp;&nbsp;&nbsp;<?php _e('无效'); ?> (5)&nbsp;&nbsp;&nbsp;<?php _e('已解决'); ?> (5)
+                                <?php _e('本周工单统计'); ?>: <?php _e('有效'); ?> (<?php echo $this->valid_tickets_count; ?>)&nbsp;&nbsp;&nbsp;<?php _e('无效'); ?> (<?php echo $this->invalid_tickets_count; ?>)&nbsp;&nbsp;&nbsp;<?php _e('已解决'); ?> (<?php echo $this->closed_tickets_count; ?>)
                             </div>
+                             <?php } ?>
                             <h1>
                                 <i class="icon icon-order"></i> 工单列表
                             </h1>
