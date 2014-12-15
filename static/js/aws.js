@@ -131,6 +131,14 @@ var AWS =
 
 	ajax_post: function(formEl, processer, type) // 表单对象，用 jQuery 获取，回调函数名
 	{
+		// 若有编辑器的话就更新编辑器内容再提交
+		if (typeof CKEDITOR != 'undefined')
+		{
+			for ( instance in CKEDITOR.instances ) {
+				CKEDITOR.instances[instance].updateElement();
+			}
+		}
+
 	    if (typeof (processer) != 'function')
 	    {
 	        var processer = AWS.ajax_processer;
@@ -645,26 +653,28 @@ var AWS =
 		            $.get(G_BASE_URL + '/question/ajax/fetch_answer_data/' + data.answer_id, function (result)
 		            {
 		                $('#editor_reply').html(result.answer_content.replace('&amp;', '&'));
+
+		                var editor = CKEDITOR.replace( 'editor_reply' );
+
+			            if (UPLOAD_ENABLE == 'Y')
+			            {
+			            	var fileupload = new FileUpload('file', '.aw-edit-comment-box .aw-upload-box .btn', '.aw-edit-comment-box .aw-upload-box .upload-container', G_BASE_URL + '/publish/ajax/attach_upload/id-answer__attach_access_key-' + ATTACH_ACCESS_KEY, {'insertTextarea': '.aw-edit-comment-box #editor_reply', 'editor' : editor});
+
+				            $.post(G_BASE_URL + '/publish/ajax/answer_attach_edit_list/', 'answer_id=' + data.answer_id, function (data) {
+				                if (data['err']) {
+				                    return false;
+				                } else {
+				                    $.each(data['rsm']['attachs'], function (i, v) {
+				                        fileupload.setFileList(v);
+				                    });
+				                }
+				            }, 'json');
+			            }
+			            else
+			            {
+			            	$('.aw-edit-comment-box .aw-file-upload-box').hide();
+			            }
 		            }, 'json');
-
-		            if (UPLOAD_ENABLE == 'Y')
-		            {
-		            	var fileupload = new FileUpload('file', '.aw-edit-comment-box .aw-upload-box .btn', '.aw-edit-comment-box .aw-upload-box .upload-container', G_BASE_URL + '/publish/ajax/attach_upload/id-answer__attach_access_key-' + ATTACH_ACCESS_KEY, {'insertTextarea': '.aw-edit-comment-box #editor_reply'});
-
-			            $.post(G_BASE_URL + '/publish/ajax/answer_attach_edit_list/', 'answer_id=' + data.answer_id, function (data) {
-			                if (data['err']) {
-			                    return false;
-			                } else {
-			                    $.each(data['rsm']['attachs'], function (i, v) {
-			                        fileupload.setFileList(v);
-			                    });
-			                }
-			            }, 'json');
-		            }
-		            else
-		            {
-		            	$('.aw-edit-comment-box .aw-file-upload-box').hide();
-		            }
 		        break;
 
 		        case 'ajaxData':
@@ -1635,13 +1645,62 @@ AWS.User =
 	        {
 	            AWS.alert(result.err);
 	        }
-	    }, 'json');
+	    }, 'json')
 	},
 
 	// 取消邀请用户回答问题
 	disinvite_user: function(selector)
 	{
 	    $.get(G_BASE_URL + '/question/ajax/cancel_question_invite/question_id-' + QUESTION_ID + "__recipients_uid-" + selector.attr('data-id'), function (result)
+	    {
+	        if (result.errno != -1)
+	        {
+	            $.each($('.aw-question-detail .invite-list a'), function (i, e)
+	            {
+	                if ($(this).attr('data-original-title') == selector.parents('.main').find('.aw-user-name').text())
+	                {
+	                    $(this).detach();
+	                }
+	            });
+	            selector.removeClass('active').attr('onclick','AWS.User.invite_user($(this),$(this).parents(\'li\').find(\'img\').attr(\'src\'))').text('邀请');
+	            selector.parents('.aw-question-detail').find('.aw-invite-replay .badge').text(parseInt(selector.parents('.aw-question-detail').find('.aw-invite-replay .badge').text()) - 1);
+	            if (selector.parents('.aw-invite-box').find('.invite-list').children().length == 0)
+	            {
+	                selector.parents('.aw-invite-box').find('.invite-list').hide();
+	            }
+	        }
+	    });
+	},
+
+	// modify by wecenter 邀请别人回答工单
+	ticket_invite_user: function(selector, img) {
+		$.post(G_BASE_URL + '/ticket/ajax/invite_user/',
+	    {
+	        'ticket_id': TICKET_ID,
+	        'uid': selector.attr('data-id')
+	    }, function (result)
+	    {
+	        if (result.errno != -1)
+	        {
+	            if (selector.parents('.aw-invite-box').find('.invite-list a').length == 0)
+	            {
+	                selector.parents('.aw-invite-box').find('.invite-list').show();
+	            }
+	            selector.parents('.aw-invite-box').find('.invite-list').append(' <a class="text-color-999 invite-list-user" data-toggle="tooltip" data-placement="bottom" data-original-title="'+ selector.attr('data-value') +'"><img src='+ img +' /></a>');
+	            selector.addClass('active').attr('onclick','AWS.User.disinvite_user($(this))').text('取消邀请');
+	            selector.parents('.aw-question-detail').find('.aw-invite-replay .badge').text(parseInt(selector.parents('.aw-question-detail').find('.aw-invite-replay .badge').text()) + 1);
+	        }
+	        else if (result.errno == -1)
+	        {
+	            AWS.alert(result.err);
+	        }
+	    }, 'json')
+
+	},
+
+	// 取消邀请回答工单
+	ticket_disinvite_user: function(selector) {
+		$.post(G_BASE_URL + '/ticket/ajax/cancel_invite/' + TICKET_ID + "__recipients_uid-" + selector.attr('data-id'), function (result)
 	    {
 	        if (result.errno != -1)
 	        {

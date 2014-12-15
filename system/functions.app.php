@@ -255,9 +255,8 @@ function get_weixin_rule_image($image_file, $size = '')
 
 function import_editor_static_files()
 {
-	TPL::import_js('js/editor/Markdown.Converter.js');
-	TPL::import_js('js/editor/Markdown.Sanitizer.js');
-	TPL::import_js('js/editor/Markdown.Editor.js');
+	TPL::import_js('js/editor/ckeditor/ckeditor.js');
+	TPL::import_js('js/editor/ckeditor/adapters/jquery.js');
 }
 
 function get_chapter_icon_url($id, $size = 'max', $default = true)

@@ -5,6 +5,7 @@
  */
 function FileUpload (type, element, container, url, options, callback)
 {
+	var _this = this;
 	this.type = type;
 	this.element = element;
 	this.container = container;
@@ -25,6 +26,11 @@ function FileUpload (type, element, container, url, options, callback)
 		'deleteBtnTemplate' : '<a class="delete-file">删除</a>' ,
 		'insertBtnTemplate' : '<a class="insert-file">插入</a>'
 	};
+
+	if (options.editor)
+	{
+		this.editor = options.editor;
+	}
 
 	this.options = $.extend(this.options, options);
 
@@ -239,10 +245,7 @@ FileUpload.prototype =
 
            	$('.upload-iframe').detach();
 
-           	if (this.callback)
-           	{
-           		this.callback();
-           	}
+           	this.oncallback();
 	},
 
 	// ajax完成callback
@@ -265,6 +268,15 @@ FileUpload.prototype =
 		}
 	},
 
+	// 此功能配合编辑器
+	oncallback : function ()
+	{
+		if (this.callback)
+       	{
+       		this.callback();
+       	}
+	},
+
 	// 渲染缩略列表
 	render : function (element, json, filesize)
 	{
@@ -282,7 +294,7 @@ FileUpload.prototype =
 						$(element).find('.img').css(
 						{
 			                'background': 'url("' + json.thumb + '")'
-			            }).addClass('active');
+			            }).addClass('active').attr('data-img', json.thumb);
 			        break;
 				}
 
@@ -308,10 +320,7 @@ FileUpload.prototype =
 				// 插入隐藏域(wecenter定制)
 				$(element).append(this.createHiddenInput(json.attach_id));
 
-				if (this.callback)
-				{
-					this.callback();
-				}
+				this.oncallback();
 			}
 			else
 			{
@@ -359,7 +368,10 @@ FileUpload.prototype =
 
     	$(btn).click(function()
 		{
-			$(_this.options.insertTextarea).insertAtCaret("\n[attach]" + attach_id + "[/attach]\n");
+			// _this.editor.insertHtml("<attach>" + attach_id + "</attach>");
+			_this.editor.insertText("\n[attach]" + attach_id + "[/attach]\n");
+
+			//$(_this.options.insertTextarea).insertAtCaret("\n[attach]" + attach_id + "[/attach]\n");
 		});
 
 		return btn;
@@ -403,7 +415,7 @@ FileUpload.prototype =
 		}
 		else
 		{
-			template += '<div class="img" style="background:url(' + json.thumb + ')"></div>';
+			template += '<div class="img" data-img="' + json.thumb + '" style="background:url(' + json.thumb + ')"></div>';
 		}
 
 		template += '<div class="content">'+

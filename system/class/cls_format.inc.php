@@ -73,6 +73,11 @@ class FORMAT
 			return preg_replace_callback('/\[attach\]([0-9]+)\[\/attach\]/i', 'parse_attachs_callback', $str);
 		}
 	}
+	
+	public static function parse_bbcode($text)
+	{		
+		return load_class('Services_BBCode')->parse($text);
+	}
 
 	public static function parse_markdown($text)
 	{
@@ -80,6 +85,8 @@ class FORMAT
 		{
 			return false;
 		}
+		
+		return self::parse_bbcode($text);
 
 		return load_class('Services_Markdown')->transform($text);
 	}
