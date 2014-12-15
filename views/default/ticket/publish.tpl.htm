@@ -39,7 +39,6 @@
                                 <div class="aw-mod aw-editor-box">
                                     <div class="mod-head">
                                         <div class="wmd-panel">
-                                            <div id="wmd-button-bar"></div>
                                             <textarea class="wmd-input form-control autosize" id="wmd-input" rows="15" name="message"><?php echo htmlspecialchars($this->draft_content['message']); ?></textarea>
                                         </div>
                                     </div>
@@ -52,9 +51,6 @@
                                             <span class="text-color-999 aw-upload-tips hidden-xs"><?php _e('允许'); ?> : <?php echo get_setting('allowed_upload_types'); ?></span>
                                         </div>
                                         <?php } ?>
-                                    </div>
-                                    <div class="mod-footer">
-                                        <div id="wmd-preview" class="wmd-panel wmd-preview"></div>
                                     </div>
                                 </div>
                                 <?php if ($this->human_valid) { ?>
