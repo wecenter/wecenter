@@ -227,7 +227,7 @@ class ajax extends AWS_CONTROLLER
 
         $this->model('ticket')->change_rating($ticekt_info['id'], $this->user_id, $_POST['rating']);
 
-        H::ajax_json_output(AWS_APP::RSM(null, -1, null));
+        H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('修改评级成功')));
     }
 
     public function remove_action()
