@@ -208,11 +208,18 @@ $(function()
     //邀请用户下拉绑定
 
     AWS.Dropdown.bind_dropdown_list($('.aw-invite-box #invite-input'), 'invite');
-    AWS.Dropdown.bind_dropdown_list($('.aw-invite-box #ticket-invite-input'), 'ticket');
-    AWS.Dropdown.bind_dropdown_list($('.aw-invite-box #ticket-input'), 'ticket');
+    // modify by wecenter
+    AWS.Dropdown.bind_dropdown_list($('#aw-spec-invite-box #ticket-invite-input'), 'ticket');
+    AWS.Dropdown.bind_dropdown_list($('#aw-ticket-invite #ticket-input'), 'ticket');
 
     // modify by wecenter
-    $(document).on('click', '.aw-invite-box.aw-ticket-invite .aw-dropdown-list a', function () {
+     $(document).on('click', '#aw-spec-invite-box .aw-dropdown-list a', function () {
+
+        AWS.User.ticket_invite_spec_user($(this),$(this).find('img').attr('src'));
+    });
+
+    //  modify by wecenter
+    $(document).on('click', '#aw-ticket-invite .aw-dropdown-list a', function () {
 
         AWS.User.ticket_invite_user($(this),$(this).find('img').attr('src'));
     });

@@ -1633,11 +1633,11 @@ AWS.User =
 	    {
 	        if (result.errno != -1)
 	        {
-	            if (selector.parents('.aw-invite-box').find('.invite-list a').length == 0)
+	            if (selector.parents('.aw-question-detail .aw-invite-box').find('.invite-list a').length == 0)
 	            {
-	                selector.parents('.aw-invite-box').find('.invite-list').show();
+	                selector.parents('.aw-question-detail .aw-invite-box').find('.invite-list').show();
 	            }
-	            selector.parents('.aw-invite-box').find('.invite-list').append(' <a class="text-color-999 invite-list-user" data-toggle="tooltip" data-placement="bottom" data-original-title="'+ selector.attr('data-value') +'"><img src='+ img +' /></a>');
+	            selector.parents('.aw-question-detail .aw-invite-box').find('.invite-list').append(' <a class="text-color-999 invite-list-user" data-toggle="tooltip" data-placement="bottom" data-original-title="'+ selector.attr('data-value') +'"><img src='+ img +' /></a>');
 	            selector.addClass('active').attr('onclick','AWS.User.disinvite_user($(this))').text('取消邀请');
 	            selector.parents('.aw-question-detail').find('.aw-invite-replay .badge').text(parseInt(selector.parents('.aw-question-detail').find('.aw-invite-replay .badge').text()) + 1);
 	        }
@@ -1664,9 +1664,9 @@ AWS.User =
 	            });
 	            selector.removeClass('active').attr('onclick','AWS.User.invite_user($(this),$(this).parents(\'li\').find(\'img\').attr(\'src\'))').text('邀请');
 	            selector.parents('.aw-question-detail').find('.aw-invite-replay .badge').text(parseInt(selector.parents('.aw-question-detail').find('.aw-invite-replay .badge').text()) - 1);
-	            if (selector.parents('.aw-invite-box').find('.invite-list').children().length == 0)
+	            if (selector.parents('.aw-question-detail .aw-invite-box').find('.invite-list').children().length == 0)
 	            {
-	                selector.parents('.aw-invite-box').find('.invite-list').hide();
+	                selector.parents('.aw-question-detail .aw-invite-box').find('.invite-list').hide();
 	            }
 	        }
 	    });
@@ -1682,14 +1682,12 @@ AWS.User =
 	    {
 	        if (result.errno != -1)
 	        {
-	            if (selector.parents('.aw-invite-box').find('.invite-list a').length == 0)
+	            if (selector.parents('#aw-ticket-invite').find('.invite-list a').length == 0)
 	            {
-	                selector.parents('.aw-invite-box').find('.invite-list').show();
+	                selector.parents('#aw-ticket-invite').find('.invite-list').show();
 	            }
-	            selector.parents('.aw-invite-box').find('.invite-list').append(' <a class="text-color-999 invite-list-user" data-toggle="tooltip" data-placement="bottom" data-original-title="'+ selector.attr('data-value') +'"><img src='+ img +' /></a>');
-	            selector.addClass('active').attr('onclick','AWS.User.disinvite_user($(this))').text('取消邀请');
-	            selector.parents('.aw-question-detail').find('.aw-invite-replay .badge').text(parseInt(selector.parents('.aw-question-detail').find('.aw-invite-replay .badge').text()) + 1);
-	            console.log(selector.parents('.aw-invite-box'))
+	            selector.parents('#aw-ticket-invite').find('.invite-list').append(' <a class="text-color-999 invite-list-user" data-toggle="tooltip" data-placement="bottom" data-original-title="'+ selector.attr('data-value') +'"><img src='+ img +' /></a>');
+	            selector.addClass('active').attr('onclick','AWS.User.ticket_disinvite_user($(this))').text('取消邀请');
 	        }
 	        else if (result.errno == -1)
 	        {
@@ -1698,8 +1696,7 @@ AWS.User =
 	    }, 'json')
 
 	},
-
-	// modify by wecenter 邀请特殊组
+	// modify by wecenter 邀请客服
 	ticket_invite_spec_user: function(selector, img) {
 		$.post(G_BASE_URL + '/ticket/ajax/assign_service/',
 	    {
@@ -1709,14 +1706,12 @@ AWS.User =
 	    {
 	        if (result.errno != -1)
 	        {
-	            if (selector.parents('.aw-invite-box').find('.invite-list a').length == 0)
+	            if (selector.parents('#aw-spec-invite-box').find('.invite-list a').length == 0)
 	            {
-	                selector.parents('.aw-invite-box').find('.invite-list').show();
+	                selector.parents('#aw-spec-invite-box').find('.invite-list').show();
 	            }
-	            selector.parents('.aw-invite-box').find('.invite-list').append(' <a class="text-color-999 invite-list-user" data-toggle="tooltip" data-placement="bottom" data-original-title="'+ selector.attr('data-value') +'"><img src='+ img +' /></a>');
-	            selector.addClass('active').attr('onclick','AWS.User.disinvite_user($(this))').text('取消邀请');
-	            selector.parents('.aw-question-detail').find('.aw-invite-replay .badge').text(parseInt(selector.parents('.aw-question-detail').find('.aw-invite-replay .badge').text()) + 1);
-	            console.log(selector.parents('.aw-invite-box'))
+	            selector.parents('#aw-spec-invite-box').find('.ticket-invite-list').append(' <a class="text-color-999 invite-list-user" data-toggle="tooltip" data-placement="bottom" data-original-title="'+ selector.attr('data-value') +'"><img src='+ img +' /></a>');
+	            selector.addClass('active').attr('onclick','AWS.User.ticket_disinvite_user($(this))').text('取消邀请');
 	        }
 	        else if (result.errno == -1)
 	        {
@@ -1732,7 +1727,7 @@ AWS.User =
 	    {
 	        if (result.errno != -1)
 	        {
-	            $.each($('.aw-question-detail .invite-list a'), function (i, e)
+	            $.each($('.aw-ticket-invite .invite-list a'), function (i, e)
 	            {
 	                if ($(this).attr('data-original-title') == selector.parents('.main').find('.aw-user-name').text())
 	                {
@@ -1741,9 +1736,9 @@ AWS.User =
 	            });
 	            selector.removeClass('active').attr('onclick','AWS.User.invite_user($(this),$(this).parents(\'li\').find(\'img\').attr(\'src\'))').text('邀请');
 	            selector.parents('.aw-question-detail').find('.aw-invite-replay .badge').text(parseInt(selector.parents('.aw-question-detail').find('.aw-invite-replay .badge').text()) - 1);
-	            if (selector.parents('.aw-invite-box').find('.invite-list').children().length == 0)
+	            if (selector.parents('#aw-ticket-invite').find('.invite-list').children().length == 0)
 	            {
-	                selector.parents('.aw-invite-box').find('.invite-list').hide();
+	                selector.parents('#aw-ticket-invite').find('.invite-list').hide();
 	            }
 	        }
 	    });
@@ -1927,7 +1922,7 @@ AWS.Dropdown =
 	// 下拉菜单功能绑定
 	bind_dropdown_list: function(selector, type)
 	{
-		console.log(type);
+
 	    if (type == 'search')
 	    {
 	        $(selector).focus(function()
@@ -2094,7 +2089,7 @@ AWS.Dropdown =
 
 	        case 'invite' :
 	        case 'inbox' :
-	        case 'ticket' :
+	        case 'ticket' : //modify by wecenter
 	            url = G_BASE_URL + '/search/ajax/search/?type=users&q=' + encodeURIComponent(data) + '&limit=10';
 	        break;
 
