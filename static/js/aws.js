@@ -1635,13 +1635,62 @@ AWS.User =
 	        {
 	            AWS.alert(result.err);
 	        }
-	    }, 'json');
+	    }, 'json')
 	},
 
 	// 取消邀请用户回答问题
 	disinvite_user: function(selector)
 	{
 	    $.get(G_BASE_URL + '/question/ajax/cancel_question_invite/question_id-' + QUESTION_ID + "__recipients_uid-" + selector.attr('data-id'), function (result)
+	    {
+	        if (result.errno != -1)
+	        {
+	            $.each($('.aw-question-detail .invite-list a'), function (i, e)
+	            {
+	                if ($(this).attr('data-original-title') == selector.parents('.main').find('.aw-user-name').text())
+	                {
+	                    $(this).detach();
+	                }
+	            });
+	            selector.removeClass('active').attr('onclick','AWS.User.invite_user($(this),$(this).parents(\'li\').find(\'img\').attr(\'src\'))').text('邀请');
+	            selector.parents('.aw-question-detail').find('.aw-invite-replay .badge').text(parseInt(selector.parents('.aw-question-detail').find('.aw-invite-replay .badge').text()) - 1);
+	            if (selector.parents('.aw-invite-box').find('.invite-list').children().length == 0)
+	            {
+	                selector.parents('.aw-invite-box').find('.invite-list').hide();
+	            }
+	        }
+	    });
+	},
+
+	// modify by wecenter 邀请别人回答工单
+	ticket_invite_user: function(selector, img) {
+		$.post(G_BASE_URL + '/ticket/ajax/invite_user/',
+	    {
+	        'ticket_id': TICKET_ID,
+	        'uid': selector.attr('data-id')
+	    }, function (result)
+	    {
+	        if (result.errno != -1)
+	        {
+	            if (selector.parents('.aw-invite-box').find('.invite-list a').length == 0)
+	            {
+	                selector.parents('.aw-invite-box').find('.invite-list').show();
+	            }
+	            selector.parents('.aw-invite-box').find('.invite-list').append(' <a class="text-color-999 invite-list-user" data-toggle="tooltip" data-placement="bottom" data-original-title="'+ selector.attr('data-value') +'"><img src='+ img +' /></a>');
+	            selector.addClass('active').attr('onclick','AWS.User.disinvite_user($(this))').text('取消邀请');
+	            selector.parents('.aw-question-detail').find('.aw-invite-replay .badge').text(parseInt(selector.parents('.aw-question-detail').find('.aw-invite-replay .badge').text()) + 1);
+	        }
+	        else if (result.errno == -1)
+	        {
+	            AWS.alert(result.err);
+	        }
+	    }, 'json')
+
+	},
+
+	// 取消邀请回答工单
+	ticket_disinvite_user: function(selector) {
+		$.post(G_BASE_URL + '/ticket/ajax/cancel_invite/' + TICKET_ID + "__recipients_uid-" + selector.attr('data-id'), function (result)
 	    {
 	        if (result.errno != -1)
 	        {
