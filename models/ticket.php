@@ -621,18 +621,20 @@ class ticket_class extends AWS_MODEL
         }
         else
         {
+            foreach ($result AS $val)
+            {
+                $res[$val['statistic_date']] = $val;
+            }
+
             for ($i=0; $i<=$days; $i++)
             {
                 $date = gmdate('Y-m-d', strtotime('-' . ($days - $i). ' days'));
 
                 $data[$i] = 0;
 
-                foreach ($result AS $val)
+                if ($res[$date])
                 {
-                    if ($val['statistic_date'] == $date)
-                    {
-                        $data[$i] += $val['count'];
-                    }
+                    $data[$i] += $res[$date]['count'];
                 }
             }
         }
