@@ -230,6 +230,12 @@ class main extends AWS_CONTROLLER
 
         TPL::assign('tickets_count', $tickets_count);
 
+        TPL::assign('my_pending_tickets',
+            $this->model('ticket')->get_tickets_list(array(
+                'service' => $this->user_id,
+                'status' => 'pending'
+        ), null, null, true));
+
         TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
             'base_url' => get_js_url('/ticket/' . 'uid-' . $_GET['uid'] . '__service-' . $_GET['service'] . '__priority-' . $_GET['priority'] . '__status-' . $_GET['status'] . '__days-' . $_GET['days']),
             'total_rows' => $tickets_count,
@@ -243,8 +249,14 @@ class main extends AWS_CONTROLLER
     {
         if (!$this->user_info['permission']['is_administortar'])
         {
-            H::redirect_msg(AWS_APP::lang()->_t('你所在用户组没有权限查看工单'));
+            H::redirect_msg(AWS_APP::lang()->_t('你所在用户组没有权限查看工单统计'));
         }
+
+        TPL::assign('my_pending_tickets',
+            $this->model('ticket')->get_tickets_list(array(
+                'service' => $this->user_id,
+                'status' => 'pending'
+        ), null, null, true));
 
         TPL::output('ticket/data');
     }
@@ -253,7 +265,7 @@ class main extends AWS_CONTROLLER
     {
         if (!$this->user_info['permission']['is_administortar'] AND !$this->user_info['permission']['is_service'])
         {
-            H::redirect_msg(AWS_APP::lang()->_t('你所在用户组没有权限查看工单'));
+            H::redirect_msg(AWS_APP::lang()->_t('你所在用户组没有权限查看工单话题'));
         }
 
         TPL::output('ticket/topic');

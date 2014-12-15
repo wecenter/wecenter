@@ -476,7 +476,7 @@ class ajax extends AWS_CONTROLLER
             exit();
         }
 
-        if (!$_GET['days'])
+        if (!is_digits($_GET['days']))
         {
             $_GET['days'] = 7;
         }
