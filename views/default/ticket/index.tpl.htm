@@ -240,7 +240,7 @@
                                 <li><?php _e('序号'); ?>: <?php echo $this->ticket_info['id']; ?></li>
                                 <!-- <li><?php _e('来源'); ?>: <?php echo $this->ticket_info['source']; ?></li> -->
                                 <li><?php _e('请求人'); ?>: <a class="aw-user-name" href="people/<?php echo $this->ticket_info['user_info']['url_token']; ?>" data-id="<?php echo $this->ticket_info['user_info']['uid']; ?>"><?php echo $this->ticket_info['user_info']['user_name'];?></a></li>
-                                <li><?php _e('处理人'); ?>: <?php if ($this->ticket_info['service_info']) { ?><a class="aw-user-name" href="people/<?php echo $this->ticket_info['service_info']['url_token']; ?>" data-id="<?php echo $this->ticket_info['service_info']['uid']; ?>"><?php echo $this->ticket_info['service_info']['user_name'];?></a><?php } else { _e('未分配'); } ?></li>
+                                <li><?php _e('处理人'); ?>: <?php if ($this->ticket_info['service_info']) { ?><a class="aw-user-name" id="deal-ticket-user" href="people/<?php echo $this->ticket_info['service_info']['url_token']; ?>" data-id="<?php echo $this->ticket_info['service_info']['uid']; ?>"><?php echo $this->ticket_info['service_info']['user_name'];?></a><?php } else { _e('未分配'); } ?></li>
                             </ul>
                         </div>
                     </div>
@@ -255,7 +255,6 @@
                                     <!-- 客服邀请 -->
                                     <div class="aw-invite-box" id="aw-spec-invite-box">
                                         <div class="mod-head clearfix">
-
                                             <div class="search-box">
                                                 <input id="ticket-invite-input" class="form-control" type="text"  placeholder="<?php _e('分配工单给客服...'); ?>"/>
                                                 <div class="aw-dropdown">
@@ -264,6 +263,7 @@
                                                 </div>
                                                 <i class="icon icon-search"></i>
                                             </div>
+
                                         </div>
                                     </div>
                                     <!-- end 邀请 -->

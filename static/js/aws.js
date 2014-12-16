@@ -1681,7 +1681,7 @@ AWS.User =
 	        'uid': selector.attr('data-id')
 	    }, function (result)
 	    {
-	        if (result.errno == 1)
+	        if (result.errno == -1)
 	        {
 	            if (selector.parents('#aw-ticket-invite').find('.invite-list a').length == 0)
 	            {
@@ -1691,7 +1691,7 @@ AWS.User =
 	            // selector.parents('#aw-ticket-invite').find('.invite-list' ).append('<span class="cancel-invite">' + 取消 +'</span>').attr('onclick','AWS.User.ticket_disinvite_user($(this))')
 
 	        }
-	        else if (result.errno == -1)
+	        else if (result.errno != -1)
 	        {
 	            AWS.alert(result.err);
 	        }
@@ -1707,15 +1707,10 @@ AWS.User =
 	        'uid': selector.attr('data-id')
 	    }, function (result)
 	    {
+	    	;
 	        if (result.errno == 1)
 	        {
-	            if (selector.parents('#aw-spec-invite-box').find('.invite-list-user a').length == 0)
-	            {
-	                selector.parents('#aw-spec-invite-box').find('.invite-list-user').show();
-	            }
-	            selector.parents('#aw-spec-invite-box').find('.invite-list-user').append('<a class="text-color-999 invite-list-user" data-toggle="tooltip" data-placement="bottom" data-original-title="'+ selector.attr('data-value') +'"><img src='+ img +' /></a>');
-
-	            selector.addClass('active').attr('onclick','AWS.User.ticket_disinvite_user($(this))');
+	        	var deal_ticket = $('.aw-side-bar .order-status #deal-ticket-user').text(selector.attr('data-value'))
 	        }
 	        else if (result.errno == -1)
 	        {

@@ -37,3 +37,4 @@
 .aw-work-wrap .aw-topic-list{margin-bottom: 30px;}
 .aw-work-wrap .aw-topic-list .mod-body{padding:0;}
 .aw-topic-list .aw-item{float: none;width: 100%;}
+.aw-nav-tabs > li > a.active {border-bottom: 2px solid #155faa;}
