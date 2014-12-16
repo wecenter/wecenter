@@ -1674,20 +1674,22 @@ AWS.User =
 
 	// modify by wecenter 邀请别人回答工单
 	ticket_invite_user: function(selector, img) {
+
 		$.post(G_BASE_URL + '/ticket/ajax/invite_user/',
 	    {
 	        'ticket_id': TICKET_ID,
 	        'uid': selector.attr('data-id')
 	    }, function (result)
 	    {
-	        if (result.errno != -1)
+	        if (result.errno == 1)
 	        {
 	            if (selector.parents('#aw-ticket-invite').find('.invite-list a').length == 0)
 	            {
 	                selector.parents('#aw-ticket-invite').find('.invite-list').show();
 	            }
-	            selector.parents('#aw-ticket-invite').find('.invite-list').append(' <a class="text-color-999 invite-list-user" data-toggle="tooltip" data-placement="bottom" data-original-title="'+ selector.attr('data-value') +'"><img src='+ img +' /></a>');
-	            selector.addClass('active').attr('onclick','AWS.User.ticket_disinvite_user($(this))').text('取消邀请');
+	            selector.parents('#aw-ticket-invite').find('.invite-list').append(' <div class="ticket-invite-user" "><a class="text-color-999 invite-list-user" data-toggle="tooltip" data-placement="right" data-original-title="'+ selector.attr('data-value') +'"><img src='+ img +' /></a><span class="cancel-invite"  onclick="AWS.User.ticket_disinvite_user($(this))" ></span></div>');
+	            // selector.parents('#aw-ticket-invite').find('.invite-list' ).append('<span class="cancel-invite">' + 取消 +'</span>').attr('onclick','AWS.User.ticket_disinvite_user($(this))')
+
 	        }
 	        else if (result.errno == -1)
 	        {
@@ -1696,6 +1698,7 @@ AWS.User =
 	    }, 'json')
 
 	},
+
 	// modify by wecenter 邀请客服回答工单
 	ticket_invite_spec_user: function(selector, img) {
 		$.post(G_BASE_URL + '/ticket/ajax/assign_service/',
@@ -1704,14 +1707,15 @@ AWS.User =
 	        'uid': selector.attr('data-id')
 	    }, function (result)
 	    {
-	        if (result.errno != -1)
+	        if (result.errno == 1)
 	        {
-	            if (selector.parents('#aw-spec-invite-box').find('.invite-list a').length == 0)
+	            if (selector.parents('#aw-spec-invite-box').find('.invite-list-user a').length == 0)
 	            {
-	                selector.parents('#aw-spec-invite-box').find('.invite-list').show();
+	                selector.parents('#aw-spec-invite-box').find('.invite-list-user').show();
 	            }
-	            selector.parents('#aw-spec-invite-box').find('.ticket-invite-list').append(' <a class="text-color-999 invite-list-user" data-toggle="tooltip" data-placement="bottom" data-original-title="'+ selector.attr('data-value') +'"><img src='+ img +' /></a>');
-	            selector.addClass('active').attr('onclick','AWS.User.ticket_disinvite_user($(this))').text('取消邀请');
+	            selector.parents('#aw-spec-invite-box').find('.invite-list-user').append('<a class="text-color-999 invite-list-user" data-toggle="tooltip" data-placement="bottom" data-original-title="'+ selector.attr('data-value') +'"><img src='+ img +' /></a>');
+
+	            selector.addClass('active').attr('onclick','AWS.User.ticket_disinvite_user($(this))');
 	        }
 	        else if (result.errno == -1)
 	        {
@@ -1723,23 +1727,21 @@ AWS.User =
 
 	// modify by wecenter 取消邀请回答工单
 	ticket_disinvite_user: function(selector) {
-		$.post(G_BASE_URL + '/ticket/ajax/cancel_invite/' + TICKET_ID + "__recipients_uid-" + selector.attr('data-id'), function (result)
+		$.post(G_BASE_URL + '/ticket/ajax/cancel_invite/',
+		{
+		 	'ticket_id': TICKET_ID,
+	        'uid': selector.attr('data-id')
+	    }, function (result)
 	    {
 	        if (result.errno != -1)
 	        {
-	            $.each($('.aw-ticket-invite .invite-list a'), function (i, e)
+	            $.each($('#aw-ticket-invite .ticket-invite-user'), function (i, e)
 	            {
-	                if ($(this).attr('data-original-title') == selector.parents('.main').find('.aw-user-name').text())
+	                if ($('#aw-ticket-invite .ticket-invite-user').attr('data-id') == selector.attr('data-id'))
 	                {
 	                    $(this).detach();
 	                }
 	            });
-	            selector.removeClass('active').attr('onclick','AWS.User.invite_user($(this),$(this).parents(\'li\').find(\'img\').attr(\'src\'))').text('邀请');
-	            selector.parents('.aw-question-detail').find('.aw-invite-replay .badge').text(parseInt(selector.parents('.aw-question-detail').find('.aw-invite-replay .badge').text()) - 1);
-	            if (selector.parents('#aw-ticket-invite').find('.invite-list').children().length == 0)
-	            {
-	                selector.parents('#aw-ticket-invite').find('.invite-list').hide();
-	            }
 	        }
 	    });
 	},

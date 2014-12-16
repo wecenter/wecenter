@@ -29,6 +29,9 @@
 .title-mod.count .mod-footer ul li:first-child{border-left: none;}
 .title-mod.count .mod-footer ul li b{display: block;margin-bottom:10px;font-size: 26px;color: #666;}
 .ticket_topic_editor .aw-dropdown {top: 35px;}
+.invite-list {position: relative; overflow: inherit!important;}
+.cancel-invite {position: absolute;top: 25px;left: 0;z-index: 2;line-height: 25px; cursor: pointer;}
+.ticket-invite-user {position: relative;display: inline-block;}
 
 /* 热门话题 */
 .aw-work-wrap .aw-topic-list{margin-bottom: 30px;}

@@ -252,12 +252,12 @@
                                 <?php if ($this->ticket_info['status'] != 'closed') { ?>
                                 <li>
                                      <h3><?php _e('工单分配'); ?>:</h3>
-                                    <!-- 特殊组邀请 -->
+                                    <!-- 客服邀请 -->
                                     <div class="aw-invite-box" id="aw-spec-invite-box">
                                         <div class="mod-head clearfix">
 
                                             <div class="search-box">
-                                                <input id="ticket-invite-input" class="form-control" type="text"  placeholder="<?php _e('搜索你想邀请的人...'); ?>"/>
+                                                <input id="ticket-invite-input" class="form-control" type="text"  placeholder="<?php _e('分配工单给客服...'); ?>"/>
                                                 <div class="aw-dropdown">
                                                     <p class="title"><?php _e('没有找到相关结果'); ?></p>
                                                     <ul class="aw-dropdown-list"></ul>
@@ -286,11 +286,18 @@
                                             <?php } ?>
                                               <div class="invite-list <?php if (!$this->invite_users) { ?> hide<?php } ?> ticket-invite-list">
                                                 <?php _e('已邀请'); ?>:
+
                                                 <?php if ($this->invite_users) {
                                                     foreach($this->invite_users AS $invite_user) { ?>
-                                                    <a class="text-color-999 invite-list-user" data-id="<?php echo $invite_user['recipient_info']['uid']; ?>" href="people/<?php echo $invite_user['recipient_info']['url_token']; ?>" data-id="<?php echo $invite_user['recipient_info']['uid']; ?>" data-original-title="<?php echo $invite_user['recipient_info']['user_name']; ?>" data-placement="bottom" data-toggle="tooltip"><img src="<?php echo get_avatar_url($invite_user['recipient_info']['uid'], 'mid'); ?>" /></a><?php
-                                                    }
+                                                    <div class="ticket-invite-user" data-id="<?php echo $invite_user['recipient_info']['uid']; ?>">
+                                                    <a class="text-color-999 invite-list-user" data-id="<?php echo $invite_user['recipient_info']['uid']; ?>" href="people/<?php echo $invite_user['recipient_info']['url_token']; ?>" data-id="<?php echo $invite_user['recipient_info']['uid']; ?>" data-original-title="<?php echo $invite_user['recipient_info']['user_name']; ?>" data-placement="right" data-toggle="tooltip"><img src="<?php echo get_avatar_url($invite_user['recipient_info']['uid'], 'mid'); ?>" /></a>
+                                                    <span class="cancel-invite" data-id="<?php echo $invite_user['recipient_info']['uid']; ?>" onclick="AWS.User.ticket_disinvite_user($(this))">取消</span>
+                                                    </div>
+                                                    <?php
+                                                }
+
                                                 } ?>
+
                                             </div>
                                         </div>
                                     </div>
@@ -338,7 +345,7 @@
                                                 }
                                             } ?>
 
-                                            <span class="icon-inverse aw-edit-topic"<?php if (!$this->ticket_topics) { ?> style="display:none"<?php } ?>><i class="icon icon-edit"></i></span>
+                                            <span class="icon-inverse aw-edit-topic"<?php if (!$this->ticket_topics) { ?><?php } ?>><i class="icon icon-edit"></i></span>
                                         </div>
                                     </div>
                                     <!-- end 话题bar -->
