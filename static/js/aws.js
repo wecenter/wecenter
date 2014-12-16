@@ -1673,7 +1673,7 @@ AWS.User =
 	},
 
 	// modify by wecenter 邀请别人回答工单
-	ticket_invite_user: function(selector, img) {
+	ticket_invite_user: function(selector, img, url) {
 
 		$.post(G_BASE_URL + '/ticket/ajax/invite_user/',
 	    {
@@ -1681,13 +1681,15 @@ AWS.User =
 	        'uid': selector.attr('data-id')
 	    }, function (result)
 	    {
+	    	var url = selector.parents('.aw-dropdown').find('.aw-dropdown-list a').attr('data-url');
+	    	var uid = selector.parents('.aw-dropdown').find('.aw-dropdown-list a').attr('data-id');
 	        if (result.errno == -1)
 	        {
 	            if (selector.parents('#aw-ticket-invite').find('.invite-list a').length == 0)
 	            {
 	                selector.parents('#aw-ticket-invite').find('.invite-list').show();
 	            }
-	            selector.parents('#aw-ticket-invite').find('.invite-list').append(' <div class="ticket-invite-user" "><a class="text-color-999 invite-list-user" data-toggle="tooltip" data-placement="right" data-original-title="'+ selector.attr('data-value') +'"><img src='+ img +' /></a><span class="cancel-invite"  onclick="AWS.User.ticket_disinvite_user($(this))" ></span></div>');
+	            selector.parents('#aw-ticket-invite').find('.invite-list').append(' <div class="ticket-invite-user" "><a class="text-color-999 invite-list-user" href="'+ url +'" data-toggle="tooltip" data-placement="right" data-original-title="'+ selector.attr('data-value') +'"><img src='+ img +' /></a><span class="cancel-invite" data-id="'+ uid +'" onclick="AWS.User.ticket_disinvite_user($(this))" ></span></div>');
 	            // selector.parents('#aw-ticket-invite').find('.invite-list' ).append('<span class="cancel-invite">' + 取消 +'</span>').attr('onclick','AWS.User.ticket_disinvite_user($(this))')
 
 	        }
@@ -2121,6 +2123,7 @@ AWS.Dropdown =
 	                        switch (a.type)
 	                        {
 	                            case 'questions':
+
 	                                if (a.detail.best_answer > 0)
 	                                {
 	                                    var active = 'active';
@@ -2254,6 +2257,7 @@ AWS.Dropdown =
 	                    {
 	                        $(selector).parent().find('.aw-dropdown-list').append(Hogan.compile(AW_TEMPLATE.inviteDropdownList).render(
 	                        {
+	                        	'url': a.url,
 	                            'uid': a.uid,
 	                            'name': a.name,
 	                            'img': a.detail.avatar_file
