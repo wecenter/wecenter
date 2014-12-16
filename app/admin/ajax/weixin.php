@@ -96,7 +96,7 @@ class ajax_weixin extends AWS_ADMIN_CONTROLLER
         }
 
         H::ajax_json_output(AWS_APP::RSM(array(
-            'url' => get_js_url('admin/weixin/third_party_access/id-' . $_POST['account_id'])
+            'url' => get_js_url('/admin/weixin/third_party_access/id-' . $_POST['account_id'])
         ), 1, null));
     }
 
