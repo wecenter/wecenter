@@ -64,6 +64,10 @@
                         <div class="col-sm-12">
                             <div class="aw-mod title-mod count">
                                 <div class="mod-head">
+                                	<select class="form-control pull-right date-picker count" data-type="ticket_statistic">
+                                    	<option value="7" checked>最近7天</option>
+                                    	<option value="30">最近30天</option>
+                                    </select>
                                     <h3><?php _e('工单统计'); ?></h3>
                                 </div>
                                 <div class="mod-body" style="height:350px;"></div>
@@ -92,6 +96,10 @@
                         <div class="col-sm-6">
                             <div class="aw-mod title-mod source">
                                 <div class="mod-head">
+                                	<select class="form-control pull-right date-picker" data-type="ticket_source_statistic">
+                                    	<option value="7" checked>最近7天</option>
+                                    	<option value="30">最近30天</option>
+                                    </select>
                                     <h3><?php _e('工单来源统计'); ?></h3>
                                 </div>
                                 <div class="mod-body" style="height:250px;"></div>
@@ -100,6 +108,10 @@
                         <div class="col-sm-6">
                             <div class="aw-mod title-mod reply-time">
                                 <div class="mod-head">
+                                	<select class="form-control pull-right date-picker" data-type="first_reply_statistic">
+                                    	<option value="7" checked>最近7天</option>
+                                    	<option value="30">最近30天</option>
+                                    </select>
                                     <h3><?php _e('首次回复时间'); ?></h3>
                                 </div>
                                 <div class="mod-body" style="height:250px;"></div>
@@ -108,6 +120,10 @@
                         <div class="col-sm-6">
                             <div class="aw-mod title-mod consuming">
                                 <div class="mod-head">
+                                	<select class="form-control pull-right date-picker" data-type="end_ticket_statistic">
+                                    	<option value="7" checked>最近7天</option>
+                                    	<option value="30">最近30天</option>
+                                    </select>
                                     <h3><?php _e('结单耗时'); ?></h3>
                                 </div>
                                 <div class="mod-body" style="height:250px;"></div>
@@ -116,6 +132,10 @@
                         <div class="col-sm-6">
                             <div class="aw-mod title-mod agent">
                                 <div class="mod-head">
+                                	<select class="form-control pull-right date-picker">
+                                    	<option value="7" checked>最近7天</option>
+                                    	<option value="30">最近30天</option>
+                                    </select>
                                     <h3><?php _e('代理月度报表（处理工单数）'); ?></h3>
                                 </div>
                                 <div class="mod-body" style="height:250px;"></div>
@@ -132,285 +152,325 @@
 <script>
     $(function()
     {
-        // 工单统计
-        $.get(G_BASE_URL + '/ticket/ajax/ticket_statistic/', {
-            'days' : 7
-        }, function (result)
-        {
-            var chart = echarts.init($('.count .mod-body')[0]);
-            var option = {
-                animation: false,
-                addDataAnimation: false,
-                tooltip : {
-                    show: true,
-                    showContent: true,
-                    trigger: 'item',
-                    formatter: "{b} <br>{a} : {c} " //({d}%)
-                },
-                calculable : true,
-                color: ['#66b7ff', '#999999', '#79cc47', '#ffaa00'],
-                grid: {
-                    x: 50,
-                    y: 65,
-                    x2: 150,
-                    y2: 50,
-                    backgroundColor: '#fff',
-                    borderColor: '#fff'
-                },
-                legend: {
-                    data:['<?php _e("新建工单"); ?>','<?php _e("已解决工单"); ?>','<?php _e("待办工单"); ?>','<?php _e("互动次数"); ?>'],
-                    orient : 'vertical',
-                    x : 'right',
-                    y : 'center',
-                    padding: 15
-                },
-                xAxis : [
-                    {
-                        type : 'category',
-                        boundaryGap : false,
-                        data : result.labels,
-                        splitLine: {
-                            show: false
-                        },
-                        nameTextStyle: {
-                            color: 'red'
-                        }
-                    }
-                ],
-                yAxis : [
-                    {
-                        type : 'value',
-                        splitLine: {
-                            show: true
-                        }
-                    }
-                ],
-                series : [
-                    {
-                        name:'<?php _e("新建工单"); ?>',
-                        type:'line',
-                        symbol: 'none',
-                        itemStyle: {
-                            normal: {
-                                lineStyle: {
-                                    width: 2,
-                                    color: '#66b7ff'
-                                }
-                            },
-                        },
-                        data:result.data[0]
-                    },
-                    {
-                        name:'<?php _e("已解决工单"); ?>',
-                        type:'line',
-                        symbol: 'none',
-                        itemStyle: {
-                            normal: {
-                                lineStyle: {
-                                    width: 2,
-                                    color: '#999999'
-                                }
-                            },
-                        },
-                        data:result.data[1]
-                    },
-                    {
-                        name:'<?php _e("待办工单"); ?>',
-                        type:'line',
-                        symbol: 'none',
-                        itemStyle: {
-                            normal: {
-                                lineStyle: {
-                                    width: 2,
-                                    color: '#79cc47'
-                                }
-                            },
-                        },
-                        data:result.data[2]
-                    },
-                    {
-                        name:'<?php _e("互动次数"); ?>',
-                        type:'line',
-                        symbol: 'none',
-                        itemStyle: {
-                            normal: {
-                                lineStyle: {
-                                    width: 2,
-                                    color: '#ffaa00'
-                                }
-                            },
-                        },
-                        data:result.data[3]
-                    }
-                ]
-            };
-            chart.setOption(option);
-        }, 'json');
+    	var echart = {
+    		// 工单统计
+    		ticket_statistic : function (days)
+    		{
+    			$.get(G_BASE_URL + '/ticket/ajax/ticket_statistic/', {
+		            'days' : days
+		        }, function (result)
+		        {
+		            var chart = echarts.init($('.count .mod-body')[0]);
+		            var option = {
+		                animation: false,
+		                addDataAnimation: false,
+		                tooltip : {
+		                    show: true,
+		                    showContent: true,
+		                    trigger: 'item',
+		                    formatter: "{b} <br>{a} : {c} " //({d}%)
+		                },
+		                calculable : true,
+		                color: ['#66b7ff', '#999999', '#79cc47', '#ffaa00'],
+		                grid: {
+		                    x: 50,
+		                    y: 65,
+		                    x2: 150,
+		                    y2: 50,
+		                    backgroundColor: '#fff',
+		                    borderColor: '#fff'
+		                },
+		                legend: {
+		                    data:['<?php _e("新建工单"); ?>','<?php _e("已解决工单"); ?>','<?php _e("待办工单"); ?>','<?php _e("互动次数"); ?>'],
+		                    orient : 'vertical',
+		                    x : 'right',
+		                    y : 'center',
+		                    padding: 15
+		                },
+		                xAxis : [
+		                    {
+		                        type : 'category',
+		                        boundaryGap : false,
+		                        data : result.labels,
+		                        splitLine: {
+		                            show: false
+		                        },
+		                        nameTextStyle: {
+		                            color: 'red'
+		                        }
+		                    }
+		                ],
+		                yAxis : [
+		                    {
+		                        type : 'value',
+		                        splitLine: {
+		                            show: true
+		                        }
+		                    }
+		                ],
+		                series : [
+		                    {
+		                        name:'<?php _e("新建工单"); ?>',
+		                        type:'line',
+		                        symbol: 'none',
+		                        itemStyle: {
+		                            normal: {
+		                                lineStyle: {
+		                                    width: 2,
+		                                    color: '#66b7ff'
+		                                }
+		                            },
+		                        },
+		                        data:result.data[0]
+		                    },
+		                    {
+		                        name:'<?php _e("已解决工单"); ?>',
+		                        type:'line',
+		                        symbol: 'none',
+		                        itemStyle: {
+		                            normal: {
+		                                lineStyle: {
+		                                    width: 2,
+		                                    color: '#999999'
+		                                }
+		                            },
+		                        },
+		                        data:result.data[1]
+		                    },
+		                    {
+		                        name:'<?php _e("待办工单"); ?>',
+		                        type:'line',
+		                        symbol: 'none',
+		                        itemStyle: {
+		                            normal: {
+		                                lineStyle: {
+		                                    width: 2,
+		                                    color: '#79cc47'
+		                                }
+		                            },
+		                        },
+		                        data:result.data[2]
+		                    },
+		                    {
+		                        name:'<?php _e("互动次数"); ?>',
+		                        type:'line',
+		                        symbol: 'none',
+		                        itemStyle: {
+		                            normal: {
+		                                lineStyle: {
+		                                    width: 2,
+		                                    color: '#ffaa00'
+		                                }
+		                            },
+		                        },
+		                        data:result.data[3]
+		                    }
+		                ]
+		            };
+		            chart.setOption(option);
+		        }, 'json');
+    		},
 
-        // 工单来源统计
-        $.get(G_BASE_URL + '/ticket/ajax/ticket_source_statistic/', {
-            'days' : 30
-        }, function (result)
-        {
-            // 工单来源统计
-            var chart = echarts.init($('.source .mod-body')[0]);
-            var option = {
-                tooltip : {
-                    trigger: 'item',
-                    formatter: "{a}{b} : {c} " //({d}%)
-                },
-                legend: {
-                    orient : 'vertical',
-                    x : 'right',
-                    y : 'center',
-                    data:["<?php _e('本站'); ?>", "<?php _e('微博'); ?>", "<?php _e('微信'); ?>", "<?php _e('邮件'); ?>"]
-                },
-                color: ['#999999', '#ff7373', '#79cc47', '#66b7ff'],
-                toolbox: {
-                    show : false,
-                    feature : {
-                        mark : {show: true},
-                        dataView : {show: true, readOnly: false},
-                        restore : {show: true},
-                        saveAsImage : {show: true}
-                    }
-                },
-                calculable : true,
-                series : [
-                    {
-                        name: "<?php _e('来自'); ?>",
-                        type:'pie',
-                        itemStyle : {
-                            normal : {
-                                label : {
-                                    show : false
-                                },
-                                labelLine : {
-                                    show : false
-                                }
-                            },
-                            emphasis : {
-                                label : {
-                                    show : true,
-                                    position : 'center',
-                                    textStyle : {
-                                        fontSize : '30',
-                                        fontWeight : 'bold'
-                                    }
-                                }
-                            }
-                        },
-                        data:[
-                            {value:result.data[0], name:"<?php _e('本站'); ?>"},
-                            {value:result.data[1], name:"<?php _e('微博'); ?>"},
-                            {value:result.data[2], name:"<?php _e('微信'); ?>"},
-                            {value:result.data[3], name:"<?php _e('邮件'); ?>"}
-                        ]
-                    }
-                ]
-            };
-            chart.setOption(option);
-        }, 'json');
+    		// 工单来源统计
+    		ticket_source_statistic : function (days)
+    		{
+    			$.get(G_BASE_URL + '/ticket/ajax/ticket_source_statistic/', {
+		            'days' : days
+		        }, function (result)
+		        {
+		            // 工单来源统计
+		            var chart = echarts.init($('.source .mod-body')[0]);
+		            var option = {
+		                tooltip : {
+		                    trigger: 'item',
+		                    formatter: "{a}{b} : {c} " //({d}%)
+		                },
+		                legend: {
+		                    orient : 'vertical',
+		                    x : 'right',
+		                    y : 'center',
+		                    data:["<?php _e('本站'); ?>", "<?php _e('微博'); ?>", "<?php _e('微信'); ?>", "<?php _e('邮件'); ?>"]
+		                },
+		                color: ['#999999', '#ff7373', '#79cc47', '#66b7ff'],
+		                toolbox: {
+		                    show : false,
+		                    feature : {
+		                        mark : {show: true},
+		                        dataView : {show: true, readOnly: false},
+		                        restore : {show: true},
+		                        saveAsImage : {show: true}
+		                    }
+		                },
+		                calculable : true,
+		                series : [
+		                    {
+		                        name: "<?php _e('来自'); ?>",
+		                        type:'pie',
+		                        itemStyle : {
+		                            normal : {
+		                                label : {
+		                                    show : false
+		                                },
+		                                labelLine : {
+		                                    show : false
+		                                }
+		                            },
+		                            emphasis : {
+		                                label : {
+		                                    show : true,
+		                                    position : 'center',
+		                                    textStyle : {
+		                                        fontSize : '30',
+		                                        fontWeight : 'bold'
+		                                    }
+		                                }
+		                            }
+		                        },
+		                        data:[
+		                            {value:result.data[0], name:"<?php _e('本站'); ?>"},
+		                            {value:result.data[1], name:"<?php _e('微博'); ?>"},
+		                            {value:result.data[2], name:"<?php _e('微信'); ?>"},
+		                            {value:result.data[3], name:"<?php _e('邮件'); ?>"}
+		                        ]
+		                    }
+		                ]
+		            };
+		            chart.setOption(option);
+		        }, 'json');
+			},
 
-        // 首次回复时间
-        $.get(G_BASE_URL + '/ticket/ajax/first_reply_statistic/', {
-            'days' : 30
-        }, function (result)
-        {
-            var chart = echarts.init($('.reply-time .mod-body')[0]);
-            var option = {
-                tooltip : {
-                    trigger: 'axis'
-                },
-                color: ['#66b7ff'],
-                calculable : true,
-                grid: {
-		            x: 50,
-		            y: 65,
-		            x2: 50,
-		            y2: 50,
-		            backgroundColor: '#fff',
-		            borderColor: '#fff'
-		        },
-                xAxis : [
-                    {
-                        type : 'category',
-                        data : ["<?php _e('%s0-%s1小时', array('0', '1')); ?>", "<?php _e('%s0-%s1小时', array('1', '8')); ?>", "<?php _e('%s0-%s1小时', array('8', '24')); ?>", "<?php _e('>%s小时', '24'); ?>"],
-                        splitLine: {
-                            show: false
-                        }
-                    }
-                ],
-                yAxis : [
-                    {
-                        type : 'value'
-                    }
-                ],
-                series : [
-                    {
-                        name:"<?php _e('得到首次回复的工单'); ?>",
-                        type:'bar',
-                        data: result.data
-                    }
-                ]
-            };
-            chart.setOption(option);
-        }, 'json');
+			// 首次回复时间
+			first_reply_statistic : function (days)
+			{
+				$.get(G_BASE_URL + '/ticket/ajax/first_reply_statistic/', {
+		            'days' : days
+			        }, function (result)
+			        {
+			            var chart = echarts.init($('.reply-time .mod-body')[0]);
+			            var option = {
+			                tooltip : {
+			                    trigger: 'axis'
+			                },
+			                color: ['#66b7ff'],
+			                calculable : true,
+			                grid: {
+					            x: 50,
+					            y: 65,
+					            x2: 50,
+					            y2: 50,
+					            backgroundColor: '#fff',
+					            borderColor: '#fff'
+					        },
+			                xAxis : [
+			                    {
+			                        type : 'category',
+			                        data : ["<?php _e('%s0-%s1小时', array('0', '1')); ?>", "<?php _e('%s0-%s1小时', array('1', '8')); ?>", "<?php _e('%s0-%s1小时', array('8', '24')); ?>", "<?php _e('>%s小时', '24'); ?>"],
+			                        splitLine: {
+			                            show: false
+			                        }
+			                    }
+			                ],
+			                yAxis : [
+			                    {
+			                        type : 'value'
+			                    }
+			                ],
+			                series : [
+			                    {
+			                        name:"<?php _e('得到首次回复的工单'); ?>",
+			                        type:'bar',
+			                        data: result.data
+			                    }
+			                ]
+			            };
+			            chart.setOption(option);
+			        }, 'json');
+			},
 
-        // 结单耗时
-        $.get(G_BASE_URL + '/ticket/ajax/end_ticket_statistic/', {
-            'days' : 30
-        }, function (result)
-        {
-            var chart = echarts.init($('.consuming .mod-body')[0]);
-            var option = {
-                tooltip : {
-                    trigger: 'axis'
-                },
-                toolbox: {
-                    show : false,
-                    feature : {
-                        mark : {show: true},
-                        dataView : {show: true, readOnly: false},
-                        magicType : {show: true, type: ['line', 'bar']},
-                        restore : {show: true},
-                        saveAsImage : {show: true}
-                    }
-                },
-                grid: {
-                    x: 50,
-                    y: 65,
-                    x2: 50,
-                    y2: 50,
-                    backgroundColor: '#fff',
-                    borderColor: '#fff'
-                },
-                color: ['#79cc47'],
-                calculable : true,
-                xAxis : [
-                    {
-                        type : 'category',
-                        data : ["<?php _e('%s0-%s1小时', array('0', '6')); ?>", "<?php _e('%s0-%s1小时', array('6', '24')); ?>", "<?php _e('%s0-%s1小时', array('24', '48')); ?>", "<?php _e('>%s小时', '48'); ?>"],
-                        splitLine: {
-                            show: false
-                        }
-                    }
-                ],
-                yAxis : [
-                    {
-                        type : 'value'
-                    }
-                ],
-                series : [
-                    {
-                        name:"<?php _e('结束的工单'); ?>",
-                        type:'bar',
-                        data:result.data
-                    }
-                ]
-            };
-            chart.setOption(option);
-        }, 'json');
+			// 结单耗时
+			end_ticket_statistic : function (days)
+			{
+				$.get(G_BASE_URL + '/ticket/ajax/end_ticket_statistic/', {
+		            'days' : days
+		        }, function (result)
+		        {
+		            var chart = echarts.init($('.consuming .mod-body')[0]);
+		            var option = {
+		                tooltip : {
+		                    trigger: 'axis'
+		                },
+		                toolbox: {
+		                    show : false,
+		                    feature : {
+		                        mark : {show: true},
+		                        dataView : {show: true, readOnly: false},
+		                        magicType : {show: true, type: ['line', 'bar']},
+		                        restore : {show: true},
+		                        saveAsImage : {show: true}
+		                    }
+		                },
+		                grid: {
+		                    x: 50,
+		                    y: 65,
+		                    x2: 50,
+		                    y2: 50,
+		                    backgroundColor: '#fff',
+		                    borderColor: '#fff'
+		                },
+		                color: ['#79cc47'],
+		                calculable : true,
+		                xAxis : [
+		                    {
+		                        type : 'category',
+		                        data : ["<?php _e('%s0-%s1小时', array('0', '6')); ?>", "<?php _e('%s0-%s1小时', array('6', '24')); ?>", "<?php _e('%s0-%s1小时', array('24', '48')); ?>", "<?php _e('>%s小时', '48'); ?>"],
+		                        splitLine: {
+		                            show: false
+		                        }
+		                    }
+		                ],
+		                yAxis : [
+		                    {
+		                        type : 'value'
+		                    }
+		                ],
+		                series : [
+		                    {
+		                        name:"<?php _e('结束的工单'); ?>",
+		                        type:'bar',
+		                        data:result.data
+		                    }
+		                ]
+		            };
+		            chart.setOption(option);
+		        }, 'json');
+			}
+
+    	}
+
+    	echart.ticket_statistic(7);
+    	echart.ticket_source_statistic(7);
+    	echart.first_reply_statistic(7);
+    	echart.end_ticket_statistic(7);
+
+    	$('.date-picker').change(function ()
+    	{
+    		switch ($(this).data('type'))
+    		{
+    			case 'ticket_statistic':
+    				echart.ticket_statistic($(this).val());
+    				break;
+
+    			case 'ticket_source_statistic':
+    				echart.ticket_source_statistic($(this).val());
+    				break;
+    			case 'first_reply_statistic':
+    				echart.first_reply_statistic($(this).val());
+    				break;
+    			case 'end_ticket_statistic':
+    				echart.end_ticket_statistic($(this).val());
+    				break;
+    		}
+    	});
 
         // 代理月度报表
         $.get(G_BASE_URL + '/ticket/ajax/end_ticket_statistic/', {
