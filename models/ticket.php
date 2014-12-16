@@ -510,9 +510,14 @@ class ticket_class extends AWS_MODEL
     {
         $ticket_info = $this->get_ticket_info_by_id($ticket_id);
 
+        if (!$ticket_info OR !is_digits($sender_uid))
+        {
+            return false;
+        }
+
         $recipient_info = $this->model('account')->get_user_info_by_uid($recipient_uid);
 
-        if (!$ticket_info OR !is_digits($sender_uid) OR !$recipient_info)
+        if (!$recipient_info OR $this->has_invited($ticket_info['id'], $recipient_info['uid']))
         {
             return false;
         }
@@ -549,9 +554,21 @@ class ticket_class extends AWS_MODEL
     {
         $ticket_info = $this->get_ticket_info_by_id($ticket_id);
 
+        if (!$ticket_info OR $ticket_info['status'] == 'closed' OR $ticket_info['service'] == $service_uid)
+        {
+            return false;
+        }
+
         $user_info = $this->model('account')->get_user_info_by_uid($service_uid);
 
-        if (!$ticket_info OR !$user_info OR $user_info['group_id'] != 1 AND $user_info['group_id'] != 10)
+        if (!$user_info)
+        {
+            return false;
+        }
+
+        $user_group_info = $this->model('account')->get_user_group_by_id($user_info['group_id']);
+
+        if (!$user_group_info['permission']['is_service'])
         {
             return false;
         }
