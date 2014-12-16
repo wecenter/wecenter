@@ -377,6 +377,7 @@
 
 <script type="text/javascript" src="<?php echo G_STATIC_URL; ?>/js/app/question_detail.js"></script>
 <script>
+    // 修改工单优先级和评级
     $(function ()
     {
         $('#pri_select').change(function ()
@@ -390,10 +391,6 @@
                 if (result.errno != 1)
                  {
                     AWS.alert(result.err);
-                }
-                else
-                {
-
                 }
             }, 'json');
         });
@@ -409,10 +406,6 @@
                 if (result.errno != 1)
                  {
                     AWS.alert(result.err);
-                }
-                else
-                {
-
                 }
             }, 'json');
         });
