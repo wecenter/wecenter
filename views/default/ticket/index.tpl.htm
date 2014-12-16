@@ -240,7 +240,7 @@
                                 <li><?php _e('序号'); ?>: <?php echo $this->ticket_info['id']; ?></li>
                                 <!-- <li><?php _e('来源'); ?>: <?php echo $this->ticket_info['source']; ?></li> -->
                                 <li><?php _e('请求人'); ?>: <a class="aw-user-name" href="people/<?php echo $this->ticket_info['user_info']['url_token']; ?>" data-id="<?php echo $this->ticket_info['user_info']['uid']; ?>"><?php echo $this->ticket_info['user_info']['user_name'];?></a></li>
-                                <li><?php _e('处理人'); ?>: <?php if ($this->ticket_info['service_info']) { ?><a class="aw-user-name" id="deal-ticket-user" href="people/<?php echo $this->ticket_info['service_info']['url_token']; ?>" data-id="<?php echo $this->ticket_info['service_info']['uid']; ?>"><?php echo $this->ticket_info['service_info']['user_name'];?></a><?php } else { _e('未分配'); } ?></li>
+                                <li><?php _e('处理人'); ?>: <?php if ($this->ticket_info['service_info']) { ?><a class="aw-user-name" id="deal-ticket-user" href="people/<?php echo $this->ticket_info['service_info']['url_token']; ?>" data-id="<?php echo $this->ticket_info['service_info']['uid']; ?>"><?php echo $this->ticket_info['service_info']['user_name'];?></a><?php } else { ?><a id="deal-ticket-user"><?php _e('未分配'); }?></a></li>
                             </ul>
                         </div>
                     </div>
