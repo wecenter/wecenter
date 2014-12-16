@@ -401,7 +401,7 @@ class ajax extends AWS_CONTROLLER
 
         $this->model('ticket')->invite_user($ticket_info['id'], $this->user_id, $user_info['uid']);
 
-        H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('邀请成功')));
+        H::ajax_json_output(AWS_APP::RSM(null, 1, AWS_APP::lang()->_t('邀请成功')));
     }
 
     public function cancel_invite_action()

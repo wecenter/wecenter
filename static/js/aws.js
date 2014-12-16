@@ -1696,7 +1696,7 @@ AWS.User =
 	    }, 'json')
 
 	},
-	// modify by wecenter 邀请客服
+	// modify by wecenter 邀请客服回答工单
 	ticket_invite_spec_user: function(selector, img) {
 		$.post(G_BASE_URL + '/ticket/ajax/assign_service/',
 	    {
