@@ -1707,10 +1707,10 @@ AWS.User =
 	        'uid': selector.attr('data-id')
 	    }, function (result)
 	    {
-	    	;
+	    	var deal_ticket = $('.aw-side-bar .order-status #deal-ticket-user').text();
 	        if (result.errno == 1)
 	        {
-	        	var deal_ticket = $('.aw-side-bar .order-status #deal-ticket-user').text(selector.attr('data-value'))
+	        	deal_ticket = $('.aw-side-bar .order-status #deal-ticket-user').text(selector.attr('data-value'));
 	        }
 	        else if (result.errno == -1)
 	        {
