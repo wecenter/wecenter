@@ -1708,13 +1708,14 @@ AWS.User =
 	    }, function (result)
 	    {
 	    	var deal_ticket = $('.aw-side-bar .order-status #deal-ticket-user').text();
-	        if (result.errno == 1)
-	        {
-	        	deal_ticket = $('.aw-side-bar .order-status #deal-ticket-user').text(selector.attr('data-value'));
-	        }
-	        else if (result.errno == -1)
+
+	        if (result.err)
 	        {
 	            AWS.alert(result.err);
+	        }
+	        else
+	        {
+	        	deal_ticket = $('.aw-side-bar .order-status #deal-ticket-user').text(selector.attr('data-value'));
 	        }
 	    }, 'json')
 
