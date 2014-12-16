@@ -109,12 +109,12 @@ class actions_class extends AWS_MODEL
 		{
 			$where = implode(' OR ', $where_in);
 		}
-		
+
 		if (! $action_list = ACTION_LOG::get_actions_fresh_by_where($where, $limit))
 		{
 			return false;
 		}
-		
+
 		foreach ($action_list as $key => $val)
 		{
 			if (in_array($val['associate_action'], array(
@@ -124,7 +124,7 @@ class actions_class extends AWS_MODEL
 			)))
 			{
 				$action_list_article_ids[] = $val['associate_id'];
-				
+
 				if ($val['associate_action'] == ACTION_LOG::ADD_COMMENT_ARTICLE AND $val['associate_attached'])
 				{
 					$action_list_article_comment_ids[] = $val['associate_attached'];
@@ -170,7 +170,7 @@ class actions_class extends AWS_MODEL
 		{
 			$article_infos = $this->model('article')->get_article_info_by_ids($action_list_article_ids);
 		}
-		
+
 		if ($action_list_article_comment_ids)
 		{
 			$article_comment = $this->model('article')->get_comments_by_ids($action_list_article_comment_ids);
@@ -201,7 +201,7 @@ class actions_class extends AWS_MODEL
 					$action_list[$key]['link'] = get_js_url('/article/' . $article_info['id']);
 
 					$action_list[$key]['article_info'] = $article_info;
-					
+
 					if ($val['associate_action'] == ACTION_LOG::ADD_COMMENT_ARTICLE)
 					{
 						$action_list[$key]['comment_info'] = $article_comment[$val['associate_attached']];
@@ -264,6 +264,9 @@ class actions_class extends AWS_MODEL
 		{
 			$answer_agree_users = $this->model('answer')->get_vote_user_by_answer_ids($final_list_answer_ids);
 			$answer_vote_status = $this->model('answer')->get_answer_vote_status($final_list_answer_ids, $uid);
+
+			$answer_users_rated_thanks = $this->model('answer')->users_rated('thanks', $final_list_answer_ids, $uid);
+			$answer_users_rated_uninterested = $this->model('answer')->users_rated('uninterested', $final_list_answer_ids, $uid);
 		}
 
 		foreach ($action_list as $key => $val)
@@ -280,6 +283,16 @@ class actions_class extends AWS_MODEL
 				if (isset($answer_vote_status[$answer_id]))
 				{
 					$action_list[$key]['answer_info']['agree_status'] = $answer_vote_status[$answer_id];
+				}
+
+				if (isset($answer_users_rated_thanks[$answer_id]))
+				{
+					$action_list[$key]['answer_info']['user_rated_thanks'] = $answer_users_rated_thanks[$answer_id];
+				}
+
+				if (isset($answer_users_rated_uninterested[$answer_id]))
+				{
+					$action_list[$key]['answer_info']['user_rated_uninterested'] = $answer_users_rated_uninterested[$answer_id];
 				}
 			}
 		}
