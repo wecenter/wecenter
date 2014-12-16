@@ -116,7 +116,7 @@
 			</span>
 			<span class="pull-right more-operate">
 				<?php if ($this->user_id != $val['uid']) { ?>
-				<a href="javascript:;"<?php if (!$val['user_rated_thanks']) { ?> onclick="AWS.User.answer_user_rate($(this), 'thanks', <?php echo $val['answer_info']['answer_id']; ?>);"<?php } ?> class="aw-icon-thank-tips text-color-999" data-original-title="<?php _e('感谢热心的回复者'); ?>" data-toggle="tooltip" title="" data-placement="bottom"><i class="icon icon-thank"></i><?php if ($val['user_rated_thanks']) { ?><?php _e('已感谢'); ?><?php } else { ?><?php _e('感谢'); ?><?php } ?></a>
+				<a href="javascript:;"<?php if (!$val['answer_info']['user_rated_thanks']) { ?> onclick="AWS.User.answer_user_rate($(this), 'thanks', <?php echo $val['answer_info']['answer_id']; ?>);"<?php } ?> class="aw-icon-thank-tips text-color-999" data-original-title="<?php _e('感谢热心的回复者'); ?>" data-toggle="tooltip" title="" data-placement="bottom"><i class="icon icon-thank"></i><?php if ($val['answer_info']['user_rated_thanks']) { ?><?php _e('已感谢'); ?><?php } else { ?><?php _e('感谢'); ?><?php } ?></a>
 				<?php } ?>
 				<a href="javascript:;" onclick="AWS.dialog('favorite', {item_id:<?php echo $val['answer_info']['answer_id']; ?>, item_type:'answer'});" class="text-color-999"><i class="icon icon-favor"></i><?php _e('收藏'); ?></a>
 				<a class="text-color-999 dropdown-toggle" data-toggle="dropdown">
