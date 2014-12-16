@@ -202,8 +202,7 @@
                             <div class="aw-mod aw-editor-box">
                                 <div class="mod-head">
                                     <div class="wmd-panel">
-                                        <div id="wmd-button-bar"></div>
-                                        <textarea class="wmd-input form-control autosize" id="wmd-input" rows="15" name="message"><?php echo htmlspecialchars($this->draft_content['message']); ?></textarea>
+                                        <textarea class="wmd-input form-control autosize editor" id="wmd-input" rows="15" name="message">&nbsp;&nbsp;<?php echo $this->question_info['question_detail']; ?></textarea>
                                     </div>
                                 </div>
                                 <div class="mod-body clearfix">
@@ -223,9 +222,7 @@
                                     </div>
                                     <?php } ?>
                                 </div>
-                                <div class="mod-footer">
-                                    <div id="wmd-preview" class="wmd-panel wmd-preview"></div>
-                                </div>
+
                             </div>
 
                         </div>
@@ -253,21 +250,13 @@
                         <div class="mod-body">
                             <ul>
                                 <li>
-                                    <h3><?php _e('邀请'); ?>:</h3>
-                                    <!-- 站内邀请 -->
-                                    <div class="aw-invite-box">
+                                     <h3><?php _e('工单分配'); ?>:</h3>
+                                    <!-- 特殊组邀请 -->
+                                    <div class="aw-invite-box" id="aw-spec-invite-box">
                                         <div class="mod-head clearfix">
-                                            <div class="invite-list <?php if (!$this->invite_users) { ?> hide<?php } ?>">
-                                                <?php _e('已邀请'); ?>:
-                                                <?php if ($this->invite_users) {
-                                                    foreach($this->invite_users AS $invite_user) { ?>
-                                                    <a class="text-color-999 invite-list-user" data-id="<?php echo $invite_user['recipient_info']['uid']; ?>" href="people/<?php echo $invite_user['recipient_info']['url_token']; ?>" data-id="<?php echo $invite_user['recipient_info']['uid']; ?>" data-original-title="<?php echo $invite_user['recipient_info']['user_name']; ?>" data-placement="bottom" data-toggle="tooltip"><img src="<?php echo get_avatar_url($invite_user['recipient_info']['uid'], 'mid'); ?>" /></a><?php
-                                                    }
-                                                } ?>
-                                            </div>
-                                            <?php if ($this->ticket_info['status'] != 'closed') { ?>
+                                             <?php if ($this->ticket_info['status'] != 'closed') { ?>
                                             <div class="search-box">
-                                                <input id="invite-input" class="form-control" type="text"  placeholder="<?php _e('搜索你想邀请的人...'); ?>"/>
+                                                <input id="ticket-invite-input" class="form-control" type="text"  placeholder="<?php _e('搜索你想邀请的人...'); ?>"/>
                                                 <div class="aw-dropdown">
                                                     <p class="title"><?php _e('没有找到相关结果'); ?></p>
                                                     <ul class="aw-dropdown-list"></ul>
@@ -275,6 +264,42 @@
                                                 <i class="icon icon-search"></i>
                                             </div>
                                             <?php } ?>
+                                           <div class="invite-list <?php if (!$this->assign_service) { ?> hide<?php } ?>">
+                                                <?php _e('已邀请'); ?>:
+                                                <?php if ($this->invite_users) {
+                                                    foreach($this->invite_users AS $invite_user) { ?>
+                                                    <a class="text-color-999 invite-list-user" data-id="<?php echo $invite_user['recipient_info']['uid']; ?>" href="people/<?php echo $invite_user['recipient_info']['url_token']; ?>" data-id="<?php echo $invite_user['recipient_info']['uid']; ?>" data-original-title="<?php echo $invite_user['recipient_info']['user_name']; ?>" data-placement="bottom" data-toggle="tooltip"><img src="<?php echo get_avatar_url($invite_user['recipient_info']['uid'], 'mid'); ?>" /></a><?php
+                                                    }
+                                                } ?>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <!-- end 邀请 -->
+                                </li>
+                                <li>
+                                    <h3><?php _e('邀请'); ?>:</h3>
+                                    <!-- 工单邀请 -->
+                                    <div class="aw-invite-box" id="aw-ticket-invite">
+                                        <div class="mod-head clearfix">
+                                            <?php if ($this->ticket_info['status'] != 'closed') { ?>
+                                            <div class="search-box">
+                                                <input id="ticket-input" class="form-control" type="text"  placeholder="<?php _e('搜索你想邀请的人...'); ?>"/>
+                                                <div class="aw-dropdown">
+                                                    <p class="title"><?php _e('没有找到相关结果'); ?></p>
+                                                    <ul class="aw-dropdown-list"></ul>
+                                                </div>
+                                                <i class="icon icon-search"></i>
+                                            </div>
+                                            <?php } ?>
+                                              <div class="invite-list <?php if (!$this->invite_users) { ?> hide<?php } ?> ticket-invite-list">
+                                                <?php _e('已邀请'); ?>:
+                                                <?php if ($this->invite_users) {
+                                                    foreach($this->invite_users AS $invite_user) { ?>
+                                                    <a class="text-color-999 invite-list-user" data-id="<?php echo $invite_user['recipient_info']['uid']; ?>" href="people/<?php echo $invite_user['recipient_info']['url_token']; ?>" data-id="<?php echo $invite_user['recipient_info']['uid']; ?>" data-original-title="<?php echo $invite_user['recipient_info']['user_name']; ?>" data-placement="bottom" data-toggle="tooltip"><img src="<?php echo get_avatar_url($invite_user['recipient_info']['uid'], 'mid'); ?>" /></a><?php
+                                                    }
+                                                } ?>
+                                            </div>
                                         </div>
                                     </div>
                                     <!-- end 站内邀请 -->
@@ -285,7 +310,7 @@
                                     <form action="ticket/ajax/change_priority/" id="priority">
                                         <input type="hidden" name="id" value="<?php echo $this->ticket_info['id']; ?>">
 
-                                        <select name="rating" class="form-control" id="priSelect">
+                                        <select name="rating" class="form-control" id="pri_select">
                                             <option value="low"<?php if ($this->ticket_info['priority'] == 'low') { ?> selected="selected"<?php } ?>><?php _e('低'); ?></option>
                                             <option value="normal"<?php if ($this->ticket_info['priority'] == 'normal') { ?> selected="selected"<?php } ?>><?php _e('中'); ?></option>
                                             <option value="high"<?php if ($this->ticket_info['priority'] == 'high') { ?> selected="selected"<?php } ?>><?php _e('高'); ?></option>
@@ -299,7 +324,7 @@
                                     <form action="ticket/ajax/change_rating/" id="rating">
                                         <input type="hidden" name="id" value="<?php echo $this->ticket_info['id']; ?>">
 
-                                        <select name="rating" class="form-control" id="priSelect">
+                                        <select name="rating" class="form-control" id="rate_select">
                                             <option value="valid"<?php if ($this->ticket_info['rating'] == 'valid') { ?> selected="selected"<?php } ?>><?php _e('有效'); ?></option>
                                             <option value="invalid"<?php if ($this->ticket_info['rating'] == 'invalid') { ?> selected="selected"<?php } ?>><?php _e('无效'); ?></option>
                                             <option value="undefined"<?php if ($this->ticket_info['rating'] == 'undefined') { ?> selected="selected"<?php } ?>><?php _e('未评级'); ?></option>
@@ -354,7 +379,7 @@
 <script>
     $(function ()
     {
-        $('#priSelect').change(function ()
+        $('#pri_select').change(function ()
         {
             $.post(G_BASE_URL + '/ticket/ajax/change_priority/',
             {
@@ -364,7 +389,6 @@
             {
                 if (result.errno != 1)
                  {
-
                     AWS.alert(result.err);
                 }
                 else
@@ -372,7 +396,27 @@
 
                 }
             }, 'json');
-        })
+        });
+
+        $('#rate_select').change(function ()
+        {
+            $.post(G_BASE_URL + '/ticket/ajax/change_rating/',
+            {
+                'rating': $(this).val(),
+                'id': TICKET_ID
+            }, function (result)
+            {
+                if (result.errno != 1)
+                 {
+                    AWS.alert(result.err);
+                }
+                else
+                {
+
+                }
+            }, 'json');
+        });
+
     })
 </script>
 

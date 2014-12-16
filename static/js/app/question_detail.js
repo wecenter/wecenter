@@ -5,6 +5,8 @@ var UNINTERESTED_COUNT;
 
 $(function()
 {
+
+
     //问题页添加评论
     AWS.Init.init_comment_box('.aw-add-comment');
 
@@ -80,6 +82,7 @@ $(function()
 			}
 		});
 	}
+
 
 	//关注用户列表
 	$.get(G_BASE_URL + '/question/ajax/get_focus_users/question_id-' + QUESTION_ID, function (result) {
@@ -201,16 +204,31 @@ $(function()
 	    });
     }
 
+
     //邀请用户下拉绑定
+
     AWS.Dropdown.bind_dropdown_list($('.aw-invite-box #invite-input'), 'invite');
+    // modify by wecenter
+    AWS.Dropdown.bind_dropdown_list($('#aw-spec-invite-box #ticket-invite-input'), 'ticket');
+    AWS.Dropdown.bind_dropdown_list($('#aw-ticket-invite #ticket-input'), 'ticket');
 
-    //邀请用户回答点击事件
-	$(document).on('click', '.aw-invite-box .aw-dropdown-list a', function () {
-	    AWS.User.invite_user($(this),$(this).find('img').attr('src'));
+    // modify by wecenter
+     $(document).on('click', '#aw-spec-invite-box .aw-dropdown-list a', function () {
 
-        // modify by wecenter
+        AWS.User.ticket_invite_spec_user($(this),$(this).find('img').attr('src'));
+    });
+
+    //  modify by wecenter
+    $(document).on('click', '#aw-ticket-invite .aw-dropdown-list a', function () {
+
         AWS.User.ticket_invite_user($(this),$(this).find('img').attr('src'));
+    });
+    // 邀请用户回答点击事件
+	$(document).on('click', '.aw-question-detail .aw-invite-box .aw-dropdown-list a', function () {
+	    AWS.User.invite_user($(this),$(this).find('img').attr('src'));
 	});
+
+
 
 	//相关链接按钮
 	$('.aw-question-detail .aw-add-question-related').click(function()

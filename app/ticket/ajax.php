@@ -227,7 +227,7 @@ class ajax extends AWS_CONTROLLER
 
         $this->model('ticket')->change_rating($ticekt_info['id'], $this->user_id, $_POST['rating']);
 
-        H::ajax_json_output(AWS_APP::RSM(null, -1, null));
+        H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('修改评级成功')));
     }
 
     public function remove_action()
@@ -394,9 +394,9 @@ class ajax extends AWS_CONTROLLER
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('该用户已被邀请')));
         }
 
-        $this->model('question')->invite_user($ticket_info['id'], $this->user_id, $user_info['uid']);
+        $this->model('ticket')->invite_user($ticket_info['id'], $this->user_id, $user_info['uid']);
 
-        H::ajax_json_output(AWS_APP::RSM(null, -1, null));
+        H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('邀请成功')));
     }
 
     public function cancel_invite_action()
