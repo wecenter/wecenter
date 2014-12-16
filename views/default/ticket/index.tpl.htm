@@ -240,7 +240,7 @@
                                 <li><?php _e('序号'); ?>: <?php echo $this->ticket_info['id']; ?></li>
                                 <!-- <li><?php _e('来源'); ?>: <?php echo $this->ticket_info['source']; ?></li> -->
                                 <li><?php _e('请求人'); ?>: <a class="aw-user-name" href="people/<?php echo $this->ticket_info['user_info']['url_token']; ?>" data-id="<?php echo $this->ticket_info['user_info']['uid']; ?>"><?php echo $this->ticket_info['user_info']['user_name'];?></a></li>
-                                <li><?php _e('处理人'); ?>: <?php if ($this->ticket_info['service_info']) { ?><a class="aw-user-name" href="people/<?php echo $this->ticket_info['service_info']['url_token']; ?>" data-id="<?php echo $this->ticket_info['service_info']['uid']; ?>"><?php echo $this->ticket_info['user_info']['user_name'];?></a><?php } else { _e('未分配'); } ?></li>
+                                <li><?php _e('处理人'); ?>: <?php if ($this->ticket_info['service_info']) { ?><a class="aw-user-name" href="people/<?php echo $this->ticket_info['service_info']['url_token']; ?>" data-id="<?php echo $this->ticket_info['service_info']['uid']; ?>"><?php echo $this->ticket_info['service_info']['user_name'];?></a><?php } else { _e('未分配'); } ?></li>
                             </ul>
                         </div>
                     </div>
@@ -249,12 +249,13 @@
                     <div class="aw-mod order-operate">
                         <div class="mod-body">
                             <ul>
+                                <?php if ($this->ticket_info['status'] != 'closed') { ?>
                                 <li>
                                      <h3><?php _e('工单分配'); ?>:</h3>
                                     <!-- 特殊组邀请 -->
                                     <div class="aw-invite-box" id="aw-spec-invite-box">
                                         <div class="mod-head clearfix">
-                                             <?php if ($this->ticket_info['status'] != 'closed') { ?>
+
                                             <div class="search-box">
                                                 <input id="ticket-invite-input" class="form-control" type="text"  placeholder="<?php _e('搜索你想邀请的人...'); ?>"/>
                                                 <div class="aw-dropdown">
@@ -263,20 +264,11 @@
                                                 </div>
                                                 <i class="icon icon-search"></i>
                                             </div>
-                                            <?php } ?>
-                                           <div class="invite-list <?php if (!$this->assign_service) { ?> hide<?php } ?>">
-                                                <?php _e('已邀请'); ?>:
-                                                <?php if ($this->invite_users) {
-                                                    foreach($this->invite_users AS $invite_user) { ?>
-                                                    <a class="text-color-999 invite-list-user" data-id="<?php echo $invite_user['recipient_info']['uid']; ?>" href="people/<?php echo $invite_user['recipient_info']['url_token']; ?>" data-id="<?php echo $invite_user['recipient_info']['uid']; ?>" data-original-title="<?php echo $invite_user['recipient_info']['user_name']; ?>" data-placement="bottom" data-toggle="tooltip"><img src="<?php echo get_avatar_url($invite_user['recipient_info']['uid'], 'mid'); ?>" /></a><?php
-                                                    }
-                                                } ?>
-                                            </div>
-
                                         </div>
                                     </div>
                                     <!-- end 邀请 -->
                                 </li>
+
                                 <li>
                                     <h3><?php _e('邀请'); ?>:</h3>
                                     <!-- 工单邀请 -->
@@ -304,6 +296,7 @@
                                     </div>
                                     <!-- end 站内邀请 -->
                                 </li>
+                                <?php } ?>
 
                                 <li>
                                     <h3><?php _e('优先级'); ?>:</h3>
