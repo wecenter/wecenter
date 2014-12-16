@@ -377,6 +377,11 @@ class ajax extends AWS_CONTROLLER
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('该工单不存在')));
         }
 
+        if ($ticket_info['status'] == 'closed')
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('工单已关闭')));
+        }
+
         $user_info = $this->model('account')->get_user_info_by_uid($_POST['uid']);
 
         if (!$user_info)
@@ -448,6 +453,11 @@ class ajax extends AWS_CONTROLLER
         if (!$ticket_info)
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('该工单不存在')));
+        }
+
+        if ($ticket_info['status'] == 'closed')
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('工单已关闭')));
         }
 
         $user_info = $this->model('account')->get_user_info_by_uid($_POST['uid']);
