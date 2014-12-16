@@ -41,6 +41,11 @@ class ticket_class extends AWS_MODEL
     {
         $where = array();
 
+        if ($filter['ids'] AND is_array($filter['ids']) AND is_digits($filter['ids']))
+        {
+            $where[] = 'id IN (' . implode(', ', $filter['ids']) . ')';
+        }
+
         if (is_digits($filter['uid']))
         {
             $where[] = 'uid = ' . $filter['uid'];
@@ -120,7 +125,12 @@ class ticket_class extends AWS_MODEL
             return $result['count'];
         }
 
-        return $this->fetch_page('ticket', implode(' AND ', $where), 'time DESC', $page, $per_page);
+        if ($page AND $per_page)
+        {
+            return $this->fetch_page('ticket', implode(' AND ', $where), 'time DESC', $page, $per_page);
+        }
+
+        return $this->fetch_all('ticket', implode(' AND ', $where));
     }
 
     public function get_replies_list_by_ticket_id($ticket_id, $page, $per_page)
@@ -671,5 +681,77 @@ class ticket_class extends AWS_MODEL
         }
 
         return $data;
+    }
+
+    public function get_hot_topics($days = null, $page = null, $per_page = null, $count = false)
+    {
+
+        $time = (is_digits($days)) ? ' AND `add_time` > '. (time() - $days * 24 * 60 * 60) : '';
+
+        if ($count)
+        {
+            $result = $this->query_row('SELECT count(DISTINCT `topic_id`) AS `count` FROM `' . $this->get_table('topic_relation') . '` WHERE `type` = "ticket"' . $time);
+
+            return $result['count'];
+        }
+
+        $limit = ($page AND $per_page) ? ' LIMIT ' . calc_page_limit($page, $per_page) : '';
+
+        $hot_topics_query = $this->query_all('SELECT `topic_id`, count(*) AS `count` FROM `' . $this->get_table('topic_relation') . '` WHERE `type` = "ticket"' . $time . ' GROUP BY `topic_id` ORDER BY `count` DESC' . $limit);
+
+        if ($hot_topics_query)
+        {
+            foreach ($hot_topics_query AS $hot_topic)
+            {
+                $topic_ids[] = $hot_topic['topic_id'];
+            }
+
+            $tickets_query = $this->query_all('SELECT `topic_id`, `item_id` FROM `' . $this->get_table('topic_relation') . '` WHERE `topic_id` IN (' . implode(', ', $topic_ids) . ')');
+
+            foreach ($tickets_query AS $val)
+            {
+                $ticket_ids[] = $val['item_id'];
+
+                $topic_ticket[$val['topic_id']][] = $val['item_id'];
+            }
+
+            $hot_topics_list = $this->model('topic')->get_topics_by_ids($topic_ids);
+
+            $tickets_list = $this->get_tickets_list(array('ids' => $ticket_ids));
+
+            $hot_topics = array();
+
+            foreach ($hot_topics_query AS $val)
+            {
+                $hot_topics[$val['topic_id']] = $hot_topics_list[$val['topic_id']];
+
+                $hot_topics[$val['topic_id']]['tickets_count'] = $val['count'];
+
+                $hot_topics[$val['topic_id']]['unassigned_tickets_count'] = 0;
+                $hot_topics[$val['topic_id']]['pending_tickets_count'] = 0;
+                $hot_topics[$val['topic_id']]['closed_tickets_count'] = 0;
+
+                foreach ($tickets_list AS $ticket_info)
+                {
+                    if (in_array($ticket_info['id'], $topic_ticket[$val['topic_id']]))
+                    {
+                        if ($ticket_info['status'] == 'closed')
+                        {
+                            $hot_topics[$val['topic_id']]['closed_tickets_count']++;
+                        }
+                        else if ($ticket_info['service'])
+                        {
+                            $hot_topics[$val['topic_id']]['pending_tickets_count']++;
+                        }
+                        else
+                        {
+                            $hot_topics[$val['topic_id']]['unassigned_tickets_count']++;
+                        }
+                    }
+                }
+            }
+        }
+
+        return $hot_topics;
     }
 }

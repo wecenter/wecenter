@@ -320,16 +320,26 @@ class main extends AWS_CONTROLLER
 
     public function topic_action()
     {
-        if (!$this->user_info['permission']['is_administortar'] AND !$this->user_info['permission']['is_service'])
+        if (!$this->user_info['permission']['is_administortar'])
         {
             H::redirect_msg(AWS_APP::lang()->_t('你所在用户组没有权限查看工单话题'));
         }
+
+        $topics_list = $this->model('ticket')->get_hot_topics($_GET['days'], $_GET['page'], $this->per_page);
+
+        TPL::assign('topics_list', $topics_list);
 
         TPL::assign('my_pending_tickets',
             $this->model('ticket')->get_tickets_list(array(
                 'service' => $this->user_id,
                 'status' => 'pending'
         ), null, null, true));
+
+        TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
+            'base_url' => get_js_url('/ticket/topic/' . 'days-' . $_GET['days']),
+            'total_rows' => $this->model('ticket')->get_hot_topics($_GET['days'], null, null, true),
+            'per_page' => $this->pre_page
+        ))->create_links());
 
         TPL::output('ticket/topic');
     }

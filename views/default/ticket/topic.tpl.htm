@@ -8,7 +8,7 @@
                 <!-- 侧边栏 -->
                 <div class="col-sm-12 col-md-3 aw-side-bar hidden-xs hidden-sm">
                     <div class="aw-mod side-nav">
-                        <h2><i class="icon icon-order"></i>工单</h2>
+                        <h2><i class="icon icon-order"></i><?php _e('工单'); ?></h2>
                         <ul>
                             <li>
                                 <a href="ticket/service-me__status-pending"><?php _e('我的待处理工单'); ?><span class="badge"><?php echo $this->my_pending_tickets; ?></span></a>
@@ -60,165 +60,42 @@
                     <div class="aw-mod aw-topic-list">
                         <div class="mod-head">
                             <ul class="nav nav-tabs aw-nav-tabs active hidden-xs">
-                                <li><a href="">30 天</a></li>
-                                <li><a href="">7 天</a></li>
-                                <li class="active"><a href="">全部</a></li>
+                                <li><a href="ticket/topic/days-30"<?php if ($_GET['days'] == '30') { ?> class="active"<?php } ?>><?php _e('%s 天', '30'); ?></a></li>
+                                <li><a href="ticket/topic/days-7"<?php if ($_GET['days'] == '7') { ?> class="active"<?php } ?>><?php _e('%s 天', '7'); ?></a></li>
+                                <li><a href="ticket/topic/"<?php if (!$_GET['days']) { ?> class="active"<?php } ?>><?php _e('全部'); ?></a></li>
                                 <h2>
-                                    <i class="icon icon-count"></i> 热门话题
+                                    <i class="icon icon-count"></i> <?php _e('热门话题'); ?>
                                 </h2>
                             </ul>
                         </div>
+
                         <div class="mod-body clearfix">
+                            <?php if ($this->topics_list) {
+                                foreach ($this->topics_list AS $topic_info) { ?>
                             <div class="aw-item">
                                 <!-- 话题图片 -->
-                                <a data-id="84" href="http://192.168.1.145/wecenter/?/topic/User_Experience" class="img aw-border-radius-5">
-                                    <img alt="" src="http://192.168.1.145/wecenter/uploads/topic/20141010/e799142422fd3825dfec0f8056cd6935_50_50.png">
+                                <a data-id="<?php echo $topic_info['topic_id']; ?>" href="topic/<?php echo $topic_info['url_token']; ?>" class="img aw-border-radius-5">
+                                    <img alt="" src="<?php echo get_topic_pic_url('mid', $topic_info['topic_pic']); ?>">
                                 </a>
                                 <!-- end 话题图片 -->
                                 <p class="clearfix">
                                     <!-- 话题内容 -->
                                     <span class="topic-tag">
-                                        <a data-id="84" href="http://192.168.1.145/wecenter/?/topic/User_Experience" class="text">用户体验</a>
+                                        <a data-id="<?php echo $topic_info['topic_id']; ?>" href="topic/<?php echo $topic_info['url_token']; ?>" class="text"><?php echo $topic_info['topic_title']; ?></a>
                                     </span>
                                     <!-- end 话题内容 -->
                                 </p>
                                 <p class="text-color-999">
-                                    本周有 <b>510</b> 个相关工单 • <b>1020</b> 个已解决 • <b>2</b> 个处理中 • <b>2</b> 个未解决
+                                    <?php if ($_GET['days']) { if ($_GET['days'] == '30') _e('本月有'); else if ($_GET['days'] == '7') _e('本周有'); } else _e('共有'); ?>
+                                    <?php _e('<b>%s</b> 个相关工单', $topic_info['tickets_count']); ?> • <?php _e('<b>%s</b> 个已解决', $topic_info['closed_tickets_count']); ?> • <?php _e('<b>%s</b> 个处理中', $topic_info['pending_tickets_count']); ?> • <?php _e('<b>%s</b> 个未分配', $topic_info['unassigned_tickets_count']); ?>
                                 </p>
                             </div>
-                            <div class="aw-item">
-                                <!-- 话题图片 -->
-                                <a data-id="84" href="http://192.168.1.145/wecenter/?/topic/User_Experience" class="img aw-border-radius-5">
-                                    <img alt="" src="http://192.168.1.145/wecenter/uploads/topic/20141010/e799142422fd3825dfec0f8056cd6935_50_50.png">
-                                </a>
-                                <!-- end 话题图片 -->
-                                <p class="clearfix">
-                                    <!-- 话题内容 -->
-                                    <span class="topic-tag">
-                                        <a data-id="84" href="http://192.168.1.145/wecenter/?/topic/User_Experience" class="text">用户体验</a>
-                                    </span>
-                                    <!-- end 话题内容 -->
-                                </p>
-                                <p class="text-color-999">
-                                    本周有 <b>510</b> 个相关工单 • <b>1020</b> 个已解决 • <b>2</b> 个处理中 • <b>2</b> 个未解决
-                                </p>
-                            </div>
-                            <div class="aw-item">
-                                <!-- 话题图片 -->
-                                <a data-id="84" href="http://192.168.1.145/wecenter/?/topic/User_Experience" class="img aw-border-radius-5">
-                                    <img alt="" src="http://192.168.1.145/wecenter/uploads/topic/20141010/e799142422fd3825dfec0f8056cd6935_50_50.png">
-                                </a>
-                                <!-- end 话题图片 -->
-                                <p class="clearfix">
-                                    <!-- 话题内容 -->
-                                    <span class="topic-tag">
-                                        <a data-id="84" href="http://192.168.1.145/wecenter/?/topic/User_Experience" class="text">用户体验</a>
-                                    </span>
-                                    <!-- end 话题内容 -->
-                                </p>
-                                <p class="text-color-999">
-                                    本周有 <b>510</b> 个相关工单 • <b>1020</b> 个已解决 • <b>2</b> 个处理中 • <b>2</b> 个未解决
-                                </p>
-                            </div>
-                            <div class="aw-item">
-                                <!-- 话题图片 -->
-                                <a data-id="84" href="http://192.168.1.145/wecenter/?/topic/User_Experience" class="img aw-border-radius-5">
-                                    <img alt="" src="http://192.168.1.145/wecenter/uploads/topic/20141010/e799142422fd3825dfec0f8056cd6935_50_50.png">
-                                </a>
-                                <!-- end 话题图片 -->
-                                <p class="clearfix">
-                                    <!-- 话题内容 -->
-                                    <span class="topic-tag">
-                                        <a data-id="84" href="http://192.168.1.145/wecenter/?/topic/User_Experience" class="text">用户体验</a>
-                                    </span>
-                                    <!-- end 话题内容 -->
-                                </p>
-                                <p class="text-color-999">
-                                    本周有 <b>510</b> 个相关工单 • <b>1020</b> 个已解决 • <b>2</b> 个处理中 • <b>2</b> 个未解决
-                                </p>
-                            </div>
-                            <div class="aw-item">
-                                <!-- 话题图片 -->
-                                <a data-id="84" href="http://192.168.1.145/wecenter/?/topic/User_Experience" class="img aw-border-radius-5">
-                                    <img alt="" src="http://192.168.1.145/wecenter/uploads/topic/20141010/e799142422fd3825dfec0f8056cd6935_50_50.png">
-                                </a>
-                                <!-- end 话题图片 -->
-                                <p class="clearfix">
-                                    <!-- 话题内容 -->
-                                    <span class="topic-tag">
-                                        <a data-id="84" href="http://192.168.1.145/wecenter/?/topic/User_Experience" class="text">用户体验</a>
-                                    </span>
-                                    <!-- end 话题内容 -->
-                                </p>
-                                <p class="text-color-999">
-                                    本周有 <b>510</b> 个相关工单 • <b>1020</b> 个已解决 • <b>2</b> 个处理中 • <b>2</b> 个未解决
-                                </p>
-                            </div>
-                            <div class="aw-item">
-                                <!-- 话题图片 -->
-                                <a data-id="84" href="http://192.168.1.145/wecenter/?/topic/User_Experience" class="img aw-border-radius-5">
-                                    <img alt="" src="http://192.168.1.145/wecenter/uploads/topic/20141010/e799142422fd3825dfec0f8056cd6935_50_50.png">
-                                </a>
-                                <!-- end 话题图片 -->
-                                <p class="clearfix">
-                                    <!-- 话题内容 -->
-                                    <span class="topic-tag">
-                                        <a data-id="84" href="http://192.168.1.145/wecenter/?/topic/User_Experience" class="text">用户体验</a>
-                                    </span>
-                                    <!-- end 话题内容 -->
-                                </p>
-                                <p class="text-color-999">
-                                    本周有 <b>510</b> 个相关工单 • <b>1020</b> 个已解决 • <b>2</b> 个处理中 • <b>2</b> 个未解决
-                                </p>
-                            </div>
-                            <div class="aw-item">
-                                <!-- 话题图片 -->
-                                <a data-id="84" href="http://192.168.1.145/wecenter/?/topic/User_Experience" class="img aw-border-radius-5">
-                                    <img alt="" src="http://192.168.1.145/wecenter/uploads/topic/20141010/e799142422fd3825dfec0f8056cd6935_50_50.png">
-                                </a>
-                                <!-- end 话题图片 -->
-                                <p class="clearfix">
-                                    <!-- 话题内容 -->
-                                    <span class="topic-tag">
-                                        <a data-id="84" href="http://192.168.1.145/wecenter/?/topic/User_Experience" class="text">用户体验</a>
-                                    </span>
-                                    <!-- end 话题内容 -->
-                                </p>
-                                <p class="text-color-999">
-                                    本周有 <b>510</b> 个相关工单 • <b>1020</b> 个已解决 • <b>2</b> 个处理中 • <b>2</b> 个未解决
-                                </p>
-                            </div>
-                            <div class="aw-item">
-                                <!-- 话题图片 -->
-                                <a data-id="84" href="http://192.168.1.145/wecenter/?/topic/User_Experience" class="img aw-border-radius-5">
-                                    <img alt="" src="http://192.168.1.145/wecenter/uploads/topic/20141010/e799142422fd3825dfec0f8056cd6935_50_50.png">
-                                </a>
-                                <!-- end 话题图片 -->
-                                <p class="clearfix">
-                                    <!-- 话题内容 -->
-                                    <span class="topic-tag">
-                                        <a data-id="84" href="http://192.168.1.145/wecenter/?/topic/User_Experience" class="text">用户体验</a>
-                                    </span>
-                                    <!-- end 话题内容 -->
-                                </p>
-                                <p class="text-color-999">
-                                    本周有 <b>510</b> 个相关工单 • <b>1020</b> 个已解决 • <b>2</b> 个处理中 • <b>2</b> 个未解决
-                                </p>
-                            </div>
+                            <?php }
+                            } ?>
                         </div>
+
                         <div class="mod-footer clearfix">
-                            <div class="page-control">
-                                <ul class="pagination pull-right">
-                                    <li class="active">
-                                        <a href="javascript:;">1</a>
-                                    </li>
-                                    <li><a href="">2</a></li>
-                                    <li><a href="">3</a></li>
-                                    <li><a href="">4</a></li>
-                                    <li><a href="">&gt;</a></li>
-                                    <li><a href="">&gt;&gt;</a></li>
-                                </ul>
-                            </div>
+                            <?php if ($this->pagination) echo $this->pagination; ?>
                         </div>
                     </div>
                 </div>
