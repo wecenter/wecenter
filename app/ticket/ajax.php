@@ -476,7 +476,7 @@ class ajax extends AWS_CONTROLLER
 
         $this->model('ticket')->assign_service($ticket_info['id'], $user_info['uid']);
 
-        H::ajax_json_output(AWS_APP::RSM(null, 1, null));
+        H::ajax_json_output(AWS_APP::RSM(null, -1, null));
     }
 
     public function ticket_statistic_action()
