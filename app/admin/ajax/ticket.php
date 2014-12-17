@@ -33,11 +33,27 @@ class ajax_ticket extends AWS_ADMIN_CONTROLLER
 
     public function save_service_group_action()
     {
+        if (!$_POST['remove_group'] AND !$_POST['new_group'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择要新增或删除的客服组')));
+        }
 
-    }
+        if ($_POST['remove_group'] AND is_array($_POST['remove_group']))
+        {
+            foreach ($_POST['remove_group'] AS $remove_group)
+            {
+                $this->model('ticket')->remove_service_group($remove_group);
+            }
+        }
 
-    public function edit_service_group_action()
-    {
+        if ($_POST['new_group'] AND is_array($_POST['new_group']))
+        {
+            foreach ($_POST['new_group'] AS $new_group)
+            {
+                $this->model('ticket')->add_service_group($new_group);
+            }
+        }
 
+        H::ajax_json_output(AWS_APP::RSM(null, 1, null));
     }
 }
