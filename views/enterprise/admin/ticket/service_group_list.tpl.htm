@@ -15,13 +15,14 @@
 		</div>
 		<div class="mod-body tab-content">
 			<div class="table-responsive">
-				<form id="batchs_form" action="admin/ajax/ticket/save_service_user_group/" method="post" onsubmit="return false;">
-					<table class="table table-striped" id="members_table">
+				<form id="batchs_form" action="admin/ajax/ticket/save_service_user_group/" method="post" >
+					<table class="table table-striped" id="batchs_table">
 						<thead>
 							<tr>
 								<th><input type="checkbox" class="check-all"></th>
 								<th>ID</th>
 								<th><?php _e('客服组名称'); ?></th>
+								<th></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -48,7 +49,7 @@
 						</tbody>
 					</table>
 					<div class="mod-table-foot">
-						<a class="btn btn-primary add"><?php _e('新增'); ?></a>
+						<a class="btn btn-primary add" onclick="$('#batchs_table').append('<tr>' + $('#group_add_form').html() + '</tr>')"><?php _e('新增'); ?></a>
 						<a class="btn btn-primary" onclick="AWS.ajax_post($('#batchs_form'));"><?php _e('保存'); ?></a>
 						<a class="btn btn-danger" onclick="AWS.ajax_post($('#batchs_form'));"><?php _e('删除'); ?></a>
 					</div>
