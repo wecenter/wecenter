@@ -906,6 +906,28 @@
                         </div>
                     </td>
                 </tr>
+
+                <!-- wecenter enterprise -->
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('启用工单系统'); ?>:</span>
+                            <div class="col-sm-6 col-xs-8">
+                                <div class="btn-group mod-btn">
+                                    <label type="button" class="btn mod-btn-color">
+                                        <input type="radio" name="ticket_enabled" value="Y"<?php if ($this->setting['ticket_enabled'] == 'Y') { ?> checked="checked"<?php } ?> /> <?php _e('是'); ?>
+                                    </label>
+
+                                    <label type="button" class="btn mod-btn-color">
+                                        <input type="radio" name="ticket_enabled" value="N"<?php if ($this->setting['ticket_enabled'] != 'Y') { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <!-- end wecenter enterprise  -->
+
             </table>
         </div>
 
