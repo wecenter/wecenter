@@ -775,7 +775,7 @@ class ticket_class extends AWS_MODEL
     {
         $group_info = $this->model('account')->get_user_group_by_id($group_id);
 
-        if (!$group_info OR $group_info['type'] != 2)
+        if (!$group_info OR $group_info['type'] != 2 OR $group_info['custom'] != 2)
         {
             return false;
         }
