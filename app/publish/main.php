@@ -41,12 +41,9 @@ class main extends AWS_CONTROLLER
 				H::redirect_msg(AWS_APP::lang()->_t('指定问题不存在'));
 			}
 
-			if (!$this->user_info['permission']['is_administortar'] AND !$this->user_info['permission']['is_moderator'] AND !$this->user_info['permission']['edit_question'])
+			if (!$this->user_info['permission']['is_administortar'] AND !$this->user_info['permission']['is_moderator'] AND !$this->user_info['permission']['edit_question'] AND $question_info['published_uid'] != $this->user_id)
 			{
-				if ($question_info['published_uid'] != $this->user_id)
-				{
-					H::redirect_msg(AWS_APP::lang()->_t('你没有权限编辑这个问题'), '/question/' . intval($_GET['id']));
-				}
+				H::redirect_msg(AWS_APP::lang()->_t('你没有权限编辑这个问题'), '/question/' . $question_info['question_id']);
 			}
 
 			TPL::assign('question_info', $question_info);
@@ -128,12 +125,9 @@ class main extends AWS_CONTROLLER
 				H::redirect_msg(AWS_APP::lang()->_t('指定文章不存在'));
 			}
 
-			if (!$this->user_info['permission']['is_administortar'] AND !$this->user_info['permission']['is_moderator'] AND !$this->user_info['permission']['edit_article'])
+			if (!$this->user_info['permission']['is_administortar'] AND !$this->user_info['permission']['is_moderator'] AND !$this->user_info['permission']['edit_article'] AND $article_info['uid'] != $this->user_id)
 			{
-				if ($article_info['uid'] != $this->user_id)
-				{
-					H::redirect_msg(AWS_APP::lang()->_t('你没有权限编辑这个文章'), '/article/' . intval($_GET['id']));
-				}
+				H::redirect_msg(AWS_APP::lang()->_t('你没有权限编辑这个文章'), '/article/' . $article_info['id']);
 			}
 
 			TPL::assign('article_info', $article_info);
