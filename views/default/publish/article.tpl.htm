@@ -141,7 +141,7 @@
 
 <script type="text/javascript">
 	var ATTACH_ACCESS_KEY = '<?php echo $this->attach_access_key; ?>';
-	var CATEGORY_ID = <?php echo intval($_POST['category_id']); ?>;
+	var CATEGORY_ID = <?php echo $this->article_info['category_id']; ?>;
 	var PUBLISH_TYPE = 'article';
 </script>
 
