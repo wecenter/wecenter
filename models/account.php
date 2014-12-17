@@ -1213,9 +1213,13 @@ class account_class extends AWS_MODEL
 
         $where[] = (defined('ENTERPRISE_EDITION') AND $type === 0) ? 'type IN (' . $type . ' AND 2)' : 'type = ' . $type;
 
-        if ($custom !== null)
+        if (isset($custom))
         {
             $where[] = 'custom = ' . intval($custom);
+        }
+        else if (defined('ENTERPRISE_EDITION'))
+        {
+            $where[] = 'custom <> 2';
         }
 
         if ($users_groups = $this->fetch_all('users_group', implode(' AND ', $where)))
