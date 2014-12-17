@@ -45,7 +45,7 @@ class main extends AWS_CONTROLLER
 			{
 				if ($question_info['published_uid'] != $this->user_id)
 				{
-					H::redirect_msg(AWS_APP::lang()->_t('你没有权限编辑这个问题'), '/question/' . $_GET['id']);
+					H::redirect_msg(AWS_APP::lang()->_t('你没有权限编辑这个问题'), '/question/' . intval($_GET['id']));
 				}
 			}
 
@@ -58,19 +58,19 @@ class main extends AWS_CONTROLLER
 		else if ($this->is_post() AND $_POST['question_detail'])
 		{
 			TPL::assign('question_info', array(
-				'question_content' => $_POST['question_content'],
-				'question_detail' => $_POST['question_detail']
+				'question_content' => htmlspecialchars($_POST['question_content']),
+				'question_detail' => htmlspecialchars($_POST['question_detail'])
 			));
 
-			$question_info['category_id'] = $_POST['category_id'];
+			$question_info['category_id'] = intval($_POST['category_id']);
 		}
 		else
 		{
 			$draft_content = $this->model('draft')->get_data(1, 'question', $this->user_id);
 
 			TPL::assign('question_info', array(
-				'question_content' => $_POST['question_content'],
-				'question_detail' => $draft_content['message']
+				'question_content' => htmlspecialchars($_POST['question_content']),
+				'question_detail' => htmlspecialchars($draft_content['message'])
 			));
 		}
 
@@ -86,7 +86,7 @@ class main extends AWS_CONTROLLER
 
 		if (!$question_info['category_id'] AND $_GET['category_id'])
 		{
-			$question_info['category_id'] = $_GET['category_id'];
+			$question_info['category_id'] = intval($_GET['category_id']);
 		}
 
 		if (get_setting('category_enable') == 'Y')
@@ -132,7 +132,7 @@ class main extends AWS_CONTROLLER
 			{
 				if ($article_info['uid'] != $this->user_id)
 				{
-					H::redirect_msg(AWS_APP::lang()->_t('你没有权限编辑这个文章'), '/article/' . $_GET['id']);
+					H::redirect_msg(AWS_APP::lang()->_t('你没有权限编辑这个文章'), '/article/' . intval($_GET['id']));
 				}
 			}
 
@@ -146,8 +146,8 @@ class main extends AWS_CONTROLLER
 		else if ($this->is_post() AND $_POST['message'])
 		{
 			TPL::assign('article_info', array(
-				'title' => $_POST['title'],
-				'message' => $_POST['message']
+				'title' => htmlspecialchars($_POST['title']),
+				'message' => htmlspecialchars($_POST['message'])
 			));
 		}
 		else
@@ -155,8 +155,8 @@ class main extends AWS_CONTROLLER
 			$draft_content = $this->model('draft')->get_data(1, 'article', $this->user_id);
 
 			TPL::assign('article_info', array(
-				'title' => $_POST['title'],
-				'message' => $draft_content['message']
+				'title' => htmlspecialchars($_POST['title']),
+				'message' => htmlspecialchars($draft_content['message'])
 			));
 		}
 
