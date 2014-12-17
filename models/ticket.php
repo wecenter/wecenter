@@ -647,41 +647,46 @@ class ticket_class extends AWS_MODEL
                 return false;
         }
 
+        $data = array();
+
         $result = $this->query_all($query);
 
-        if ($filter == 'pending_ticket')
+        if ($result)
         {
-            for ($i=0; $i<=$days; $i++)
+            if ($filter == 'pending_ticket')
             {
-                $date = gmdate('Y-m-d', strtotime('-' . ($days - $i). ' days'));
-
-                $data[$i] = 0;
-
-                foreach ($result AS $val)
+                for ($i=0; $i<=$days; $i++)
                 {
-                    if ($val['close_date'] == '1970-01-01' OR strtotime($val['close_date']) > strtotime($date))
+                    $date = gmdate('Y-m-d', strtotime('-' . ($days - $i). ' days'));
+
+                    $data[$i] = 0;
+
+                    foreach ($result AS $val)
                     {
-                        $data[$i] += $val['count'];
+                        if ($val['close_date'] == '1970-01-01' OR strtotime($val['close_date']) > strtotime($date))
+                        {
+                            $data[$i] += $val['count'];
+                        }
                     }
                 }
             }
-        }
-        else
-        {
-            foreach ($result AS $val)
+            else
             {
-                $res[$val['statistic_date']] = $val;
-            }
-
-            for ($i=0; $i<=$days; $i++)
-            {
-                $date = gmdate('Y-m-d', strtotime('-' . ($days - $i). ' days'));
-
-                $data[$i] = 0;
-
-                if ($res[$date])
+                foreach ($result AS $val)
                 {
-                    $data[$i] += $res[$date]['count'];
+                    $res[$val['statistic_date']] = $val;
+                }
+
+                for ($i=0; $i<=$days; $i++)
+                {
+                    $date = gmdate('Y-m-d', strtotime('-' . ($days - $i). ' days'));
+
+                    $data[$i] = 0;
+
+                    if ($res[$date])
+                    {
+                        $data[$i] += $res[$date]['count'];
+                    }
                 }
             }
         }
@@ -763,12 +768,38 @@ class ticket_class extends AWS_MODEL
 
     public function add_service_group($group_name)
     {
+        $group_name = trim($group_name);
+
+        if (!$group_name)
+        {
+            return false;
+        }
+
         return $this->insert('users_group', array(
             'type' => 2,
             'custom' => 2,
             'group_name' => $group_name,
             'permission' => 'a:15:{s:16:"publish_question";s:1:"1";s:21:"publish_approval_time";a:2:{s:5:"start";s:0:"";s:3:"end";s:0:"";}s:13:"edit_question";s:1:"1";s:10:"edit_topic";s:1:"1";s:12:"manage_topic";s:1:"1";s:12:"create_topic";s:1:"1";s:17:"redirect_question";s:1:"1";s:13:"upload_attach";s:1:"1";s:11:"publish_url";s:1:"1";s:15:"publish_article";s:1:"1";s:12:"edit_article";s:1:"1";s:19:"edit_question_topic";s:1:"1";s:15:"publish_comment";s:1:"1";s:10:"is_service";s:1:"1";s:14:"publish_ticket";s:1:"1";}'
         ));
+    }
+
+    public function edit_service_group($group_id, $group_name)
+    {
+        $group_name = trim($group_name);
+
+        if (!$group_name)
+        {
+            return false;
+        }
+
+        $group_info = $this->model('account')->get_user_group_by_id($group_id);
+
+        if (!$group_info OR $group_info['type'] != 2 OR $group_info['custom'] != 2)
+        {
+            return false;
+        }
+
+        return $this->model('account')->update_user_group_data($group_info['group_id'], array('group_name' => $group_name));
     }
 
     public function remove_service_group($group_id)
@@ -780,6 +811,6 @@ class ticket_class extends AWS_MODEL
             return false;
         }
 
-        return $this->model('account')->delete_user_group_by_id($group_info['id']);
+        return $this->model('account')->delete_user_group_by_id($group_info['group_id']);
     }
 }
