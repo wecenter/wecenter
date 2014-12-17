@@ -11,18 +11,18 @@
                                 '<div class="btn-group mod-btn">'+
                                     '<label type="button" class="btn mod-btn-color">'+
                                     '<div class="iradio_square-blue checked" style="position: relative;">'+
-                                        '<input type="radio" id="on_ticket" name="ticket_enabled" value="Y"<?php if ($this->setting['ticket_enabled'] == 'Y') { ?> checked="checked"<?php } ?> style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);" /> '+
+                                        '<input type="radio" id="on_ticket" name="ticket_enabled" value="Y"<?php if ($this->setting["ticket_enabled"] == "Y") { ?> checked="checked"<?php } ?> style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);" /> '+
                                         '<ins class="iCheck-helper" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"></ins>'+
                                     '</div>'+
-                                    '<?php _e('是'); ?>'+
+                                    '<?php _e("是"); ?>'+
                                     '</label>'+
 
                                     '<label type="button" class="btn mod-btn-color">'+
                                     '<div class="iradio_square-blue" style="position: relative;">'+
-                                        '<input type="radio" id="off_ticket" name="ticket_enabled" value="N"<?php if ($this->setting['ticket_enabled'] != 'Y') { ?> checked="checked"<?php } ?> style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);" />'+
+                                        '<input type="radio" id="off_ticket" name="ticket_enabled" value="N"<?php if ($this->setting["ticket_enabled"] != "Y") { ?> checked="checked"<?php } ?> style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);" />'+
                                         '<ins class="iCheck-helper" style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"></ins>'+
                                         '</div>'+
-                                        '<?php _e('否'); ?>'+
+                                        '<?php _e("否"); ?>'+
                                     '</label>'+
                                 '</div>'+
                             '</div>'+
@@ -62,5 +62,13 @@
             })
     })
 </script>
+<?php } ?>
 
+<?php if ($this->user_info['permission']['is_administortar'] && $_GET['c'] == 'user' && $_GET['act'] == 'group_edit') { ?>
+<script type="text/javascript">
+    $(document).ready(function ()
+    {
+        $('#settings_form .tab-content .table-striped').append("\n    <tr>\n        <td>\n            <div class=\"form-group\">\n                <span class=\"col-sm-4 col-xs-3 control-label\"><?php _e('允许管理工单'); ?>:</span>\n                <div class=\"col-sm-6 col-xs-8\">\n                    <div class=\"btn-group mod-btn\">\n                        <label type=\"button\" class=\"btn mod-btn-color\">\n                            <input type=\"radio\" name=\"is_service\" value=\"1\"<?php if ($this->group_pms['is_service']) { ?> checked=\"checked\"<?php } ?> /> <?php _e('是'); ?>\n                        </label>\n\n                        <label type=\"button\" class=\"btn mod-btn-color\">\n                            <input type=\"radio\" name=\"is_service\" value=\"0\"<?php if (!$this->group_pms['is_service']) { ?> checked=\"checked\"<?php } ?> /> <?php _e('否'); ?>\n                        </label>\n                    </div>\n                </div>\n            </div>\n        </td>\n    </tr>\n\n    <tr>\n        <td>\n            <div class=\"form-group\">\n                <span class=\"col-sm-4 col-xs-3 control-label\"><?php _e('允许发布工单'); ?>:</span>\n                <div class=\"col-sm-6 col-xs-8\">\n                    <div class=\"btn-group mod-btn\">\n                        <label type=\"button\" class=\"btn mod-btn-color\">\n                            <input type=\"radio\" name=\"publish_ticket\" value=\"1\"<?php if ($this->group_pms['publish_ticket']) { ?> checked=\"checked\"<?php } ?> /> <?php _e('是'); ?>\n                        </label>\n\n                        <label type=\"button\" class=\"btn mod-btn-color\">\n                            <input type=\"radio\" name=\"publish_ticket\" value=\"0\"<?php if (!$this->group_pms['publish_ticket']) { ?> checked=\"checked\"<?php } ?> /> <?php _e('否'); ?>\n                        </label>\n                    </div>\n                </div>\n            </div>\n        </td>\n    </tr>\n");
+    })
+</script>
 <?php } ?>
