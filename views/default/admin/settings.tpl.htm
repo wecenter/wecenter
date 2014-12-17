@@ -907,7 +907,7 @@
                     </td>
                 </tr>
 
-                <!-- wecenter enterprise -->
+                <?php if (defined('ENTERPRISE_EDITION')) { ?>
                 <tr>
                     <td>
                         <div class="form-group">
@@ -926,8 +926,7 @@
                         </div>
                     </td>
                 </tr>
-                <!-- end wecenter enterprise  -->
-
+                <?php } ?>
             </table>
         </div>
 
