@@ -760,4 +760,26 @@ class ticket_class extends AWS_MODEL
 
         return $hot_topics;
     }
+
+    public function add_service_group($group_name)
+    {
+        return $this->insert('users_group', array(
+            'type' => 2,
+            'custom' => 2,
+            'group_name' => $group_name,
+            'permission' => 'a:15:{s:16:"publish_question";s:1:"1";s:21:"publish_approval_time";a:2:{s:5:"start";s:0:"";s:3:"end";s:0:"";}s:13:"edit_question";s:1:"1";s:10:"edit_topic";s:1:"1";s:12:"manage_topic";s:1:"1";s:12:"create_topic";s:1:"1";s:17:"redirect_question";s:1:"1";s:13:"upload_attach";s:1:"1";s:11:"publish_url";s:1:"1";s:15:"publish_article";s:1:"1";s:12:"edit_article";s:1:"1";s:19:"edit_question_topic";s:1:"1";s:15:"publish_comment";s:1:"1";s:10:"is_service";s:1:"1";s:14:"publish_ticket";s:1:"1";}'
+        ));
+    }
+
+    public function remove_service_group($group_id)
+    {
+        $group_info = $this->model('account')->get_user_group_by_id($group_id);
+
+        if (!$group_info OR $group_info['type'] != 2)
+        {
+            return false;
+        }
+
+        return $this->model('account')->delete_user_group_by_id($group_info['id']);
+    }
 }
