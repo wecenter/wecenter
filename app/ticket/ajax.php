@@ -657,4 +657,33 @@ class ajax extends AWS_CONTROLLER
             )
         )));
     }
+
+    public function service_group_statistic_action()
+    {
+        if (!$this->user_info['permission']['is_administortar'])
+        {
+            exit();
+        }
+
+        if (!$_GET['days'])
+        {
+            $_GET['days'] = 7;
+        }
+
+        $statistic = $this->model('ticket')->service_group_statistic($_GET['days']);
+
+        if (!$statistic)
+        {
+            exit();
+        }
+
+        foreach ($statistic AS $val)
+        {
+            $data['labels'][] = $val['group_name'];
+
+            $data['data'][] = $val['tickets_count'];
+        }
+
+        exit(json_encode($data));
+    }
 }

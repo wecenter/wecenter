@@ -813,4 +813,54 @@ class ticket_class extends AWS_MODEL
 
         return $this->model('account')->delete_user_group_by_id($group_info['group_id']);
     }
+
+    public function service_group_statistic($days = null)
+    {
+        if (!is_digits($days))
+        {
+            return false;
+        }
+
+        $data = array();
+
+        $groups_list = $this->model('account')->get_user_group_list(2, 2);
+
+        if ($groups_list)
+        {
+            foreach ($groups_list AS $group_info)
+            {
+                $data[$group_info['group_id']] = array(
+                    'group_id' => $group_info['group_id'],
+                    'group_name' => $group_info['group_name'],
+                    'tickets_count' => 0
+                );
+            }
+
+            $time = ' AND time > '. (time() - $days * 24 * 60 * 60);
+
+            $service_tickets_count_query = $this->query_all('SELECT `service`, COUNT(*) AS count FROM ' . get_table('ticket') . ' WHERE `service` <> 0' . $time . ' GROUP BY `service` DESC');
+
+            if ($service_tickets_count_query)
+            {
+                foreach ($service_tickets_count_query AS $val)
+                {
+                    $service_uids[] = $val['service'];
+
+                    $service_tickets_count[$val['service']] = $val['count'];
+                }
+
+                $service_list = $this->model('account')->get_user_info_by_uids($service_uids);
+
+                foreach ($service_list AS $service_info)
+                {
+                    if ($service_info['group_id'] AND $data[$service_info['group_id']] AND $service_tickets_count[$service_info['uid']])
+                    {
+                        $data[$service_info['group_id']]['tickets_count'] = $data[$service_info['group_id']]['tickets_count'] + $service_tickets_count[$service_info['uid']];
+                    }
+                }
+            }
+        }
+
+        return $data;
+    }
 }
