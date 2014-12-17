@@ -1,8 +1,17 @@
 <?php if ($this->user_info['permission']['is_administortar'] && $_GET['act'] == 'settings' && $_GET['category'] == 'contents') { ?>
-<script type=\"text/javascript\">
+<script type="text/javascript">
     $(document).ready(function ()
     {
         $('#settings_form .tab-content .table-striped').append("\n    <tr>\n        <td>\n            <div class=\"form-group\">\n                <span class=\"col-sm-4 col-xs-3 control-label\"><?php _e('启用工单系统'); ?>:</span>\n                <div class=\"col-sm-6 col-xs-8\">\n                    <div class=\"btn-group mod-btn\">\n                        <label type=\"button\" class=\"btn mod-btn-color\">\n                            <input type=\"radio\" name=\"ticket_enabled\" value=\"Y\"<?php if ($this->setting['ticket_enabled'] == 'Y') { ?> checked=\"checked\"<?php } ?> /> <?php _e('是'); ?>\n                        </label>\n\n                        <label type=\"button\" class=\"btn mod-btn-color\">\n                            <input type=\"radio\" name=\"ticket_enabled\" value=\"N\"<?php if ($this->setting['ticket_enabled'] != 'Y') { ?> checked=\"checked\"<?php } ?> /> <?php _e('否'); ?>\n                        </label>\n                    </div>\n                </div>\n            </div>\n        </td>\n    </tr>\n");
+    })
+</script>
+<?php } ?>
+
+<?php if ($this->user_info['permission']['is_administortar'] && $_GET['act'] == 'group_edit' && $_GET['c'] == 'user') { ?>
+<script type="text/javascript">
+    $(document).ready(function ()
+    {
+        $('#settings_form .tab-content .table-striped').append("\n    <tr>\n        <td>\n            <div class=\"form-group\">\n                <span class=\"col-sm-4 col-xs-3 control-label\"><?php _e('客服组'); ?>:</span>\n                <div class=\"col-sm-6 col-xs-8\">\n                    <div class=\"btn-group mod-btn\">\n                        <label type=\"button\" class=\"btn mod-btn-color\">\n                            <input type=\"radio\" name=\"is_service\" value=\"1\"<?php if ($this->group_pms['is_moderator']) { ?> checked=\"checked\"<?php } ?> /> <?php _e('是'); ?>\n                        </label>\n\n                        <label type=\"button\" class=\"btn mod-btn-color\">\n                            <input type=\"radio\" name=\"is_service\" value=\"0\"<?php if (!$this->group_pms['is_moderator']) { ?> checked=\"checked\"<?php } ?> /> <?php _e('否'); ?>\n                        </label>\n                    </div>\n                </div>\n            </div>\n        </td>\n    </tr>\n");
     })
 </script>
 <?php } ?>
