@@ -157,9 +157,15 @@ class ticket_class extends AWS_MODEL
             'status' => 'pending'
         );
 
-        if ($from AND is_digits($from_id))
+        if ($from AND in_array($from, array('weibo', 'email')) AND is_digits($from_id))
         {
+            $to_save_ticket['source'] = $from;
+
             $to_save_ticket[$from . '_id'] = $from_id;
+        }
+        else if (in_weixin())
+        {
+            $to_save_ticket['source'] = 'weixin';
         }
 
         $ticket_id = $this->insert('ticket', $to_save_ticket);
