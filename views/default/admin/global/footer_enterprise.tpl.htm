@@ -1,6 +1,6 @@
-<?php if ($this->user_info['permission']['is_administortar'] && $_GET['act'] == 'settings' && $_GET['category'] == 'contents') { ?>
+<?php if ($this->user_info['permission']['is_administortar'] && $_GET['c'] == 'main' && $_GET['act'] == 'settings' && $_GET['category'] == 'contents') { ?>
 <script type="text/javascript">
-    $(function ()
+    $(document).ready(function ()
     {
         $('#settings_form .tab-content .table-striped tbody').append(
                 '<tr>'+
