@@ -4,10 +4,9 @@
     {
         $('.aw-publish-btn .dropdown-list ul').append("<li><a href=\"<?php echo get_js_url('/ticket/publish/'); ?>\"><?php _e('工单'); ?></a></li>");
 
-        if (G_REQUEST_URL == '/publish/' || G_REQUEST_URL == '/publish/article/')
-        {
-            $('.aw-main-content ul.aw-nav-tabs').prepend("<li><a href=\"<?php echo get_js_url('/ticket/publish/'); ?>\"><?php _e('工单'); ?></a></li>");
-        }
+        <?php if ($_GET['app'] == 'publish' && $_GET['c'] == 'main' && ($_GET['act'] == 'index' || $_GET['act'] == 'article')) { ?>
+        $('.aw-main-content ul.aw-nav-tabs').prepend("<li><a href=\"<?php echo get_js_url('/ticket/publish/'); ?>\"><?php _e('工单'); ?></a></li>");
+        <?php } ?>
     })
 </script>
 <?php } ?>
