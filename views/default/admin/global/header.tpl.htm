@@ -20,6 +20,7 @@
     var G_UPLOAD_URL = "<?php echo get_setting('upload_url'); ?>";
     var G_USER_ID = "<?php echo $this->user_id; ?>";
     var G_POST_HASH = "";
+    var G_REQUEST_URL = "/<?php echo $_GET['app']; ?>/<?php if ($_GET['act'] && $_GET['act'] != 'index') { echo $_GET['act']; ?>/<?php } ?>";
 </script>
 <?php if (is_array($this->_import_css_files)) { ?>
 <?php foreach ($this->_import_css_files AS $import_css) { ?>
