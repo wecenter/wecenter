@@ -277,6 +277,8 @@ var AWS =
 						{
 							$('.aw-feed-list').append(result.rsm.ajax_html);
 
+							$('.aw-comment-box-btn .btn-success, .btn-reply').removeClass('disabled');
+
 							$.scrollTo($('#' + $(result.rsm.ajax_html).attr('id')), 600, {queue:true});
 
 							// 文章
@@ -285,9 +287,12 @@ var AWS =
 							// 问题
 							$('.question_answer_form').detach();
 
-							if (USER_ANSWERED)
+							if ($('.aw-replay-box.question').length)
 							{
-								$('.aw-replay-box').append('<p align="center">一个问题只能回复一次, 你可以在发言后 ' + ANSWER_EDIT_TIME + ' 分钟内编辑回复过的内容</p>');
+								if (USER_ANSWERED)
+								{
+									$('.aw-replay-box').append('<p align="center">一个问题只能回复一次, 你可以在发言后 ' + ANSWER_EDIT_TIME + ' 分钟内编辑回复过的内容</p>');
+								}
 							}
 						}
 						else if(result.rsm.url)
