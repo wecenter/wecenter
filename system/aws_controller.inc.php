@@ -117,8 +117,6 @@ class AWS_CONTROLLER
 
 		if (defined('ENTERPRISE_EDITION'))
 		{
-			TPL::import_css('css/enterprise.css');
-
 			TPL::import_js('js/enterprise.js');
 		}
 
