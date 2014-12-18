@@ -45,8 +45,6 @@ class main extends AWS_CONTROLLER
 			{
 				H::redirect_msg(AWS_APP::lang()->_t('你没有权限编辑这个问题'), '/question/' . $question_info['question_id']);
 			}
-
-			TPL::assign('question_info', $question_info);
 		}
 		else if (!$this->user_info['permission']['publish_question'])
 		{
@@ -54,21 +52,20 @@ class main extends AWS_CONTROLLER
 		}
 		else if ($this->is_post() AND $_POST['question_detail'])
 		{
-			TPL::assign('question_info', array(
+			$question_info = array(
 				'question_content' => htmlspecialchars($_POST['question_content']),
-				'question_detail' => htmlspecialchars($_POST['question_detail'])
-			));
-
-			$question_info['category_id'] = intval($_POST['category_id']);
+				'question_detail' => htmlspecialchars($_POST['question_detail']),
+				'category_id' => intval($_POST['category_id'])
+			);
 		}
 		else
 		{
 			$draft_content = $this->model('draft')->get_data(1, 'question', $this->user_id);
 
-			TPL::assign('question_info', array(
+			$question_info = array(
 				'question_content' => htmlspecialchars($_POST['question_content']),
 				'question_detail' => htmlspecialchars($draft_content['message'])
-			));
+			);
 		}
 
 		if ($this->user_info['integral'] < 0 AND get_setting('integral_system_enabled') == 'Y' AND !$_GET['id'])
@@ -81,9 +78,9 @@ class main extends AWS_CONTROLLER
 			TPL::assign('attach_access_key', md5($this->user_id . time()));
 		}
 
-		if (!$question_info['category_id'] AND $_GET['category_id'])
+		if (!$question_info['category_id'])
 		{
-			$question_info['category_id'] = intval($_GET['category_id']);
+			$question_info['category_id'] = ($_GET['category_id']) ? intval($_GET['category_id']) : 0;
 		}
 
 		if (get_setting('category_enable') == 'Y')
@@ -111,6 +108,8 @@ class main extends AWS_CONTROLLER
 			TPL::import_js('js/fileupload.js');
 		}
 
+		TPL::assign('question_info', $question_info);
+
 		TPL::assign('recent_topics', @unserialize($this->user_info['recent_topics']));
 
 		TPL::output('publish/index');
@@ -130,7 +129,6 @@ class main extends AWS_CONTROLLER
 				H::redirect_msg(AWS_APP::lang()->_t('你没有权限编辑这个文章'), '/article/' . $article_info['id']);
 			}
 
-			TPL::assign('article_info', $article_info);
 			TPL::assign('article_topics', $this->model('topic')->get_topics_by_item_id($article_info['id'], 'article'));
 		}
 		else if (!$this->user_info['permission']['publish_article'])
@@ -139,24 +137,30 @@ class main extends AWS_CONTROLLER
 		}
 		else if ($this->is_post() AND $_POST['message'])
 		{
-			TPL::assign('article_info', array(
+			$article_info = array(
 				'title' => htmlspecialchars($_POST['title']),
-				'message' => htmlspecialchars($_POST['message'])
-			));
+				'message' => htmlspecialchars($_POST['message']),
+				'category_id' => intval($_POST['category_id'])
+			);
 		}
 		else
 		{
 			$draft_content = $this->model('draft')->get_data(1, 'article', $this->user_id);
 
-			TPL::assign('article_info', array(
+			$article_info =  array(
 				'title' => htmlspecialchars($_POST['title']),
 				'message' => htmlspecialchars($draft_content['message'])
-			));
+			);
 		}
 
 		if (($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator'] OR $article_info['uid'] == $this->user_id AND $_GET['id']) OR !$_GET['id'])
 		{
 			TPL::assign('attach_access_key', md5($this->user_id . time()));
+		}
+
+		if (!$article_info['category_id'])
+		{
+			$article_info['category_id'] = ($_GET['category_id']) ? intval($_GET['category_id']) : 0;
 		}
 
 		if (get_setting('category_enable') == 'Y')
@@ -178,6 +182,8 @@ class main extends AWS_CONTROLLER
 			// fileupload
 			TPL::import_js('js/fileupload.js');
 		}
+
+		TPL::assign('article_info', $article_info);
 
 		TPL::output('publish/article');
 	}
