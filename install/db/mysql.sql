@@ -834,7 +834,9 @@ CREATE TABLE `[#DB_PREFIX#]users_group` (
   `reputation_higer` int(11) DEFAULT '0',
   `reputation_factor` float DEFAULT '0' COMMENT '威望系数',
   `permission` text COMMENT '权限设置',
-  PRIMARY KEY (`group_id`)
+  PRIMARY KEY (`group_id`),
+  KEY `type` (`type`),
+  KEY `custom` (`custom`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8 COMMENT='用户组';
 
 CREATE TABLE `[#DB_PREFIX#]users_notification_setting` (

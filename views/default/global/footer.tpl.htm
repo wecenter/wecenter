@@ -21,9 +21,10 @@
 <?php echo get_setting('statistic_code'); ?>
 
 <!-- DO NOT REMOVE -->
+<div id="aw-ajax-box" class="aw-ajax-box"></div>
+
 <?php if (defined('ENTERPRISE_EDITION')) TPL::output('global/footer_enterprise.tpl.htm'); ?>
 
-<div id="aw-ajax-box" class="aw-ajax-box"></div>
 <div style="display:none;" id="__crond">
 	<script type="text/javascript">
 		$(document).ready(function () {

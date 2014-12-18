@@ -1189,6 +1189,13 @@ class ajax extends AWS_ADMIN_CONTROLLER
             'publish_comment'
         );
 
+        if (defined('ENTERPRISE_EDITION'))
+        {
+            $permission_array[] = 'is_service';
+
+            $permission_array[] = 'publish_ticket';
+        }
+
         $group_setting = array();
 
         foreach ($permission_array as $permission)
