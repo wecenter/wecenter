@@ -107,7 +107,11 @@ class notify_class extends AWS_MODEL
 			));
 
 			$this->model('account')->update_notification_unread($recipient_uid);
-
+			
+	if (get_setting('facebook_login_enabled') == 'Y' OR get_setting('facebook_app_id') OR get_setting('facebook_app_secret')){
+			 $this->model('openid_facebook')->facebook_notification($recipient_uid, $notification_id, $sender_uid);
+			}
+			
 			return $notification_id;
 		}
 	}
