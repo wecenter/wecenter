@@ -386,4 +386,21 @@ class openid_facebook_class extends AWS_MODEL
 
         return $facebook_user_info[$uid];
     }
+    	public function facebook_notification($uid, $notification_id, $sender_uid)
+	{
+		
+	   $fb_template = $this->model('account')->get_user_info_by_uids(array($sender_uid))['user_name'];
+       $fb_template = $fb_template . " sent you a message.";
+       $fb_id = $this->model('openid_facebook')->get_facebook_user_by_uid($uid)['id'];
+	   $graph_url = "https://graph.facebook.com/".$fb_id."/notifications";
+	   $app_access_token = get_setting('facebook_app_id')."|".get_setting('facebook_app_secret');
+	   $post_data = "access_token=".$app_access_token."&template=".$fb_template."&href=index.php";
+	   $url = $graph_url;
+	       $response = HTTP::request($url, 'POST', $post_data, 5);
+	   if ($response)
+       {
+        return $response;
+       }
+
+	}
 }
