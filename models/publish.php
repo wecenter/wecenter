@@ -236,9 +236,9 @@ class publish_class extends AWS_MODEL
 		));
 	}
 
-	public function publish_question($question_content, $question_detail, $category_id, $uid, $topics = null, $anonymous = null, $attach_access_key = null, $ask_user_id = null, $create_topic = true, $from = null, $from_id = null)
+	public function publish_question($question_content, $question_detail, $category_id, $uid, $topics = null, $anonymous = null, $attach_access_key = null, $ask_user_id = null, $create_topic = true, $from = null)
 	{
-		if ($question_id = $this->model('question')->save_question($question_content, $question_detail, $uid, $anonymous, null, $from, $from_id))
+		if ($question_id = $this->model('question')->save_question($question_content, $question_detail, $uid, $anonymous, null, $from))
 		{
 			set_human_valid('question_valid_hour');
 
@@ -298,11 +298,19 @@ class publish_class extends AWS_MODEL
 
 			$this->model('posts')->set_posts_index($question_id, 'question');
 
-			if ($from AND is_digits($from_id))
+			if ($from AND is_array($from))
 			{
-				$this->update($from, array(
-					'question_id' => $question_id
-				), 'id = ' . $from_id);
+				foreach ($from AS $type => $from_id)
+				{
+					if (!is_digits($from_id))
+					{
+						continue;
+					}
+
+					$this->update($type, array(
+						'question_id' => $question_id
+					), 'id = ' . $from_id);
+				}
 			}
 		}
 

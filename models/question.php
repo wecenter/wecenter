@@ -114,7 +114,7 @@ class question_class extends AWS_MODEL
 	 *
 	 * @return boolean true|false
 	 */
-	public function save_question($question_content, $question_detail, $published_uid, $anonymous = 0, $ip_address = null, $from = null, $from_id = null)
+	public function save_question($question_content, $question_detail, $published_uid, $anonymous = 0, $ip_address = null, $from = null)
 	{
 		if (!$ip_address)
 		{
@@ -133,9 +133,17 @@ class question_class extends AWS_MODEL
 			'ip' => ip2long($ip_address)
 		);
 
-		if ($from AND is_digits($from_id))
+		if ($from AND is_array($from))
 		{
-			$to_save_question[$from . '_id'] = $from_id;
+			foreach ($from AS $type => $from_id)
+			{
+				if (!is_digits($from_id))
+				{
+					continue;
+				}
+
+				$to_save_question[$type . '_id'] = $from_id;
+			}
 		}
 
 		$question_id = $this->insert('question', $to_save_question);
