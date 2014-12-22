@@ -132,10 +132,10 @@
                         <div class="col-sm-6">
                             <div class="aw-mod title-mod agent">
                                 <div class="mod-head">
-                                	<select class="form-control pull-right date-picker">
+                                	<!-- <select class="form-control pull-right date-picker">
                                     	<option value="7" checked>最近7天</option>
                                     	<option value="30">最近30天</option>
-                                    </select>
+                                    </select> -->
                                     <h3><?php _e('代理月度报表（处理工单数）'); ?></h3>
                                 </div>
                                 <div class="mod-body" style="height:250px;"></div>
@@ -475,61 +475,68 @@
         // 代理月度报表
         $.get(G_BASE_URL + '/ticket/ajax/service_group_statistic/', function (result) //可传入months = num参数
         {
-            var chart = echarts.init($('.agent .mod-body')[0]);
-            var series = [];
-            for (var i = 0; i < result.legend.length; i++)
-            {
-            	var data = {
-            		name: result.legend[i],
-                    type:'bar',
-                    data: result.data[i]
-            	}
+        	if (!result.legend.length)
+        	{
+        		$('.agent .mod-body').append('<p class="none">暂无数据</p>');
+        	}
+        	else
+        	{
+        		var chart = echarts.init($('.agent .mod-body')[0]);
+	            var series = [];
+	            for (var i = 0; i < result.legend.length; i++)
+	            {
+	            	var data = {
+	            		name: result.legend[i],
+	                    type:'bar',
+	                    data: result.data[i]
+	            	}
 
-            	series.push[data];
-            }
-            var option = {
-                tooltip : {
-                    trigger: 'item',
-                    formatter: "{b} <br>{a} : {c} " //({d}%)
-                },
-                color: ['#79cc47', '#66b7ff'],
-                grid: {
-		            x: 50,
-		            y: 65,
-		            x2: 50,
-		            y2: 50,
-		            backgroundColor: '#fff',
-		            borderColor: '#fff'
-		        },
-		        legend: {
-			        data:result.legend
-			    },
-                toolbox: {
-                    show : false,
-                    feature : {
-                        mark : {show: true},
-                        dataView : {show: true, readOnly: false},
-                        magicType : {show: true, type: ['line', 'bar']},
-                        restore : {show: true},
-                        saveAsImage : {show: true}
-                    }
-                },
-                calculable : true,
-                xAxis : [
-                    {
-                        type : 'category',
-                        data : result.labels
-                    }
-                ],
-                yAxis : [
-                    {
-                        type : 'value'
-                    }
-                ],
-                series : series
-            };
-            chart.setOption(option);
+	            	series.push(data);
+	            }
 
+	            var option = {
+	                tooltip : {
+	                    trigger: 'item',
+	                    formatter: "{b} <br>{a} : {c} " //({d}%)
+	                },
+	                color: ['#79cc47', '#66b7ff'],
+	                grid: {
+			            x: 50,
+			            y: 65,
+			            x2: 50,
+			            y2: 50,
+			            backgroundColor: '#fff',
+			            borderColor: '#fff'
+			        },
+			        legend: {
+				        data:result.legend
+				    },
+	                toolbox: {
+	                    show : false,
+	                    feature : {
+	                        mark : {show: true},
+	                        dataView : {show: true, readOnly: false},
+	                        magicType : {show: true, type: ['line', 'bar']},
+	                        restore : {show: true},
+	                        saveAsImage : {show: true}
+	                    }
+	                },
+	                calculable : true,
+	                xAxis : [
+	                    {
+	                        type : 'category',
+	                        data : result.labels
+	                    }
+	                ],
+	                yAxis : [
+	                    {
+	                        type : 'value'
+	                    }
+	                ],
+	                series : series
+	            };
+	            chart.setOption(option);
+        	}
         }, 'json');
     });
 </script>

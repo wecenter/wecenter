@@ -24,6 +24,7 @@
 .title-mod{margin:0 0 30px;border:1px solid #e6e6e6;}
 .title-mod .mod-head h3{height:50px;margin:0;padding:0 20px;line-height:50px;background-color: #fafafa;border-bottom: 1px solid #e6e6e6;}
 .title-mod .mod-head select{width: 150px;margin:7px 20px 0 0;}
+.title-mod .mod-body p.none{line-height:250px;font-size: 16px;text-align: center;}
 .title-mod.count .mod-footer{border-top: 1px solid #e6e6e6;}
 .title-mod.count .mod-footer ul li{float: left;width: 25%;height:100px;padding:20px 0;background: #fafafa;border-left:1px solid #e6e6e6;text-align: center;color: #999;}
 .title-mod.count .mod-footer ul li:first-child{border-left: none;}
