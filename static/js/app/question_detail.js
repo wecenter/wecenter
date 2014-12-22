@@ -18,7 +18,10 @@ $(function()
 	{
 		ITEM_IDS = ITEM_IDS.split(',');
 
-		var editor = CKEDITOR.replace( 'wmd-input' );
+		if ($('#wmd-input').length)
+		{
+			var editor = CKEDITOR.replace( 'wmd-input' );
+		}
 
 		if ($('.aw-upload-box').length)
 		{
