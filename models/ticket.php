@@ -83,7 +83,7 @@ class ticket_class extends AWS_MODEL
 
         if (isset($filter['reply_took_hours']['min']))
         {
-            $where[] = '`reply_time` <> 0';
+            $where[] = '`reply_time` <> 0 AND `reply_time` >= `time`';
 
             if (isset($filter['reply_took_hours']['max']) AND $filter['reply_took_hours']['min'] < $filter['reply_took_hours']['max'])
             {
@@ -97,7 +97,7 @@ class ticket_class extends AWS_MODEL
 
         if (isset($filter['close_took_hours']['min']))
         {
-            $where[] = '`close_time` <> 0';
+            $where[] = '`close_time` <> 0 AND `close_time` >= `time`';
 
             if (isset($filter['close_took_hours']['max']) AND $filter['close_took_hours']['min'] < $filter['close_took_hours']['max'])
             {
