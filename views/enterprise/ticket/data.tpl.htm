@@ -473,11 +473,20 @@
     	});
 
         // 代理月度报表
-        $.get(G_BASE_URL + '/ticket/ajax/end_ticket_statistic/', {
-            'days' : 30
-        }, function (result)
+        $.get(G_BASE_URL + '/ticket/ajax/service_group_statistic/', function (result) //可传入months = num参数
         {
             var chart = echarts.init($('.agent .mod-body')[0]);
+            var series = [];
+            for (var i = 0; i < result.legend.length; i++)
+            {
+            	var data = {
+            		name: result.legend[i],
+                    type:'bar',
+                    data: result.data[i]
+            	}
+
+            	series.push[data];
+            }
             var option = {
                 tooltip : {
                     trigger: 'item',
@@ -492,6 +501,9 @@
 		            backgroundColor: '#fff',
 		            borderColor: '#fff'
 		        },
+		        legend: {
+			        data:result.legend
+			    },
                 toolbox: {
                     show : false,
                     feature : {
@@ -506,7 +518,7 @@
                 xAxis : [
                     {
                         type : 'category',
-                        data : ["<?php _e('1月'); ?>", "<?php _e('2月'); ?>", "<?php _e('3月'); ?>", "<?php _e('4月'); ?>", "<?php _e('5月'); ?>", "<?php _e('6月'); ?>", "<?php _e('7月'); ?>", "<?php _e('8月'); ?>", "<?php _e('9月'); ?>", "<?php _e('10月'); ?>", "<?php _e('11月'); ?>", "<?php _e('12月'); ?>"]
+                        data : result.labels
                     }
                 ],
                 yAxis : [
@@ -514,20 +526,10 @@
                         type : 'value'
                     }
                 ],
-                series : [
-                    {
-                        name:"<?php _e('处理工单'); ?>",
-                        type:'bar',
-                        data:[2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3]
-                    },
-                    {
-                        name:"<?php _e('处理工单'); ?>",
-                        type:'bar',
-                        data:[2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3]
-                    }
-                ]
+                series : series
             };
             chart.setOption(option);
+
         }, 'json');
     });
 </script>
