@@ -672,18 +672,25 @@ class ajax extends AWS_CONTROLLER
 
         $statistic = $this->model('ticket')->service_group_statistic($_GET['months']);
 
-        $i = 0;
+        $data['legend'] = array();
 
-        foreach ($statistic AS $statistic_by_group)
+        $data['data'] = array();
+
+        if ($statistic)
         {
-            $data['legend'][] = $statistic_by_group['group_name'];
+            $i = 0;
 
-            foreach ($statistic_by_group['tickets_count'] AS $val)
+            foreach ($statistic AS $statistic_by_group)
             {
-                $data['data'][$i][] = $val['count'];
-            }
+                $data['legend'][] = $statistic_by_group['group_name'];
 
-            $i++;
+                foreach ($statistic_by_group['tickets_count'] AS $val)
+                {
+                    $data['data'][$i][] = $val['count'];
+                }
+
+                $i++;
+            }
         }
 
         for ($i=0; $i<=$_GET['months']; $i++)
