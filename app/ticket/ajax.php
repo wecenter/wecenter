@@ -486,7 +486,7 @@ class ajax extends AWS_CONTROLLER
             exit();
         }
 
-        if (!is_digits($_GET['days']))
+        if (!is_digits($_GET['days']) OR $_GET['days'] === '0')
         {
             $_GET['days'] = 7;
         }
@@ -523,7 +523,7 @@ class ajax extends AWS_CONTROLLER
             exit();
         }
 
-        if (!$_GET['days'])
+        if (!$_GET['days'] OR $_GET['days'] === '0')
         {
             $_GET['days'] = 7;
         }
@@ -563,7 +563,7 @@ class ajax extends AWS_CONTROLLER
             exit();
         }
 
-        if (!$_GET['days'])
+        if (!$_GET['days'] OR $_GET['days'] === '0')
         {
             $_GET['days'] = 7;
         }
@@ -614,7 +614,7 @@ class ajax extends AWS_CONTROLLER
             exit();
         }
 
-        if (!$_GET['days'])
+        if (!$_GET['days'] OR $_GET['days'] === '0')
         {
             $_GET['days'] = 7;
         }
@@ -665,7 +665,7 @@ class ajax extends AWS_CONTROLLER
             exit();
         }
 
-        if (!is_digits($_GET['months']))
+        if (!is_digits($_GET['months']) OR $_GET['months'] === '0')
         {
             $_GET['months'] = 5;
         }
@@ -695,10 +695,8 @@ class ajax extends AWS_CONTROLLER
 
         for ($i=0; $i<=$_GET['months']; $i++)
         {
-            $months[] = gmdate('m月', strtotime('first day of ' . ($_GET['months'] - $i) . ' months ago'));
+            $data['labels'][] = gmdate('m月', strtotime('first day of ' . ($_GET['months'] - $i) . ' months ago'));
         }
-
-        $data['labels'] = $months;
 
         exit(json_encode($data));
     }
