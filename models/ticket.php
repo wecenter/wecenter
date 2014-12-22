@@ -814,9 +814,9 @@ class ticket_class extends AWS_MODEL
         return $this->model('account')->delete_user_group_by_id($group_info['group_id']);
     }
 
-    public function service_group_statistic($days = null)
+    public function service_group_statistic($months = null)
     {
-        if (!is_digits($days))
+        if (!is_digits($months))
         {
             return false;
         }
@@ -827,18 +827,26 @@ class ticket_class extends AWS_MODEL
 
         if ($groups_list)
         {
+            for ($i=0; $i<=$months; $i++)
+            {
+                $data_by_month[] = array(
+                    'month' => gmdate('Y-m', strtotime('first day of ' . ($months - $i) . ' months ago')),
+                    'count' => 0
+                );
+            }
+
+            $time = ' AND time > '. strtotime('first day of ' . $months . ' months ago');
+
             foreach ($groups_list AS $group_info)
             {
                 $data[$group_info['group_id']] = array(
                     'group_id' => $group_info['group_id'],
                     'group_name' => $group_info['group_name'],
-                    'tickets_count' => 0
+                    'tickets_count' => $data_by_month
                 );
             }
 
-            $time = ' AND time > '. (time() - $days * 24 * 60 * 60);
-
-            $service_tickets_count_query = $this->query_all('SELECT `service`, COUNT(*) AS count FROM ' . get_table('ticket') . ' WHERE `service` <> 0' . $time . ' GROUP BY `service` DESC');
+            $service_tickets_count_query = $this->query_all('SELECT `service`, COUNT(*) AS count, FROM_UNIXTIME(`close_time`, "%Y-%m") AS `statistic_month` FROM ' . get_table('ticket') . ' WHERE `service` <> 0' . $time . ' GROUP BY `service` ASC, `statistic_month` ASC');
 
             if ($service_tickets_count_query)
             {
@@ -846,16 +854,22 @@ class ticket_class extends AWS_MODEL
                 {
                     $service_uids[] = $val['service'];
 
-                    $service_tickets_count[$val['service']] = $val['count'];
+                    $service_tickets_count_by_service[$val['service']][$val['statistic_month']] = $val['count'];
                 }
 
                 $service_list = $this->model('account')->get_user_info_by_uids($service_uids);
 
                 foreach ($service_list AS $service_info)
                 {
-                    if ($service_info['group_id'] AND $data[$service_info['group_id']] AND $service_tickets_count[$service_info['uid']])
+                    if ($service_info['group_id'] AND $data[$service_info['group_id']] AND $service_tickets_count_by_service[$service_info['uid']])
                     {
-                        $data[$service_info['group_id']]['tickets_count'] = $data[$service_info['group_id']]['tickets_count'] + $service_tickets_count[$service_info['uid']];
+                        foreach ($data[$service_info['group_id']]['tickets_count'] AS $key => $group_data)
+                        {
+                            if ($service_tickets_count_by_service[$service_info['uid']][$group_data['month']])
+                            {
+                                $data[$service_info['group_id']]['tickets_count'][$key]['count'] += $service_tickets_count_by_service[$service_info['uid']][$group_data['month']];
+                            }
+                        }
                     }
                 }
             }

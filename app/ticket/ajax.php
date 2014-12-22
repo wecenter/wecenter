@@ -665,24 +665,33 @@ class ajax extends AWS_CONTROLLER
             exit();
         }
 
-        if (!$_GET['days'])
+        if (!is_digits($_GET['months']))
         {
-            $_GET['days'] = 7;
+            $_GET['months'] = 5;
         }
 
-        $statistic = $this->model('ticket')->service_group_statistic($_GET['days']);
+        $statistic = $this->model('ticket')->service_group_statistic($_GET['months']);
 
-        if (!$statistic)
+        $i = 0;
+
+        foreach ($statistic AS $statistic_by_group)
         {
-            exit();
+            $data['legend'][] = $statistic_by_group['group_name'];
+
+            foreach ($statistic_by_group['tickets_count'] AS $val)
+            {
+                $data['data'][$i][] = $val['count'];
+            }
+
+            $i++;
         }
 
-        foreach ($statistic AS $val)
+        for ($i=0; $i<=$_GET['months']; $i++)
         {
-            $data['labels'][] = $val['group_name'];
-
-            $data['data'][] = $val['tickets_count'];
+            $months[] = gmdate('m月', strtotime('first day of ' . ($_GET['months'] - $i) . ' months ago'));
         }
+
+        $data['labels'] = $months;
 
         exit(json_encode($data));
     }
