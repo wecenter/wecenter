@@ -428,10 +428,7 @@
                 'id': $(this).attr('data-id')
             }, function (result) {
                if (result.errno == 1) {
-
-                if (('#remove-reply').attr('data-id') == $('#remove-reply').parents('.aw-item').attr('data-id')) {
                     $('#remove-reply').parents('.aw-item').fadeOut();
-                }
                }
             }, 'json')
         })
