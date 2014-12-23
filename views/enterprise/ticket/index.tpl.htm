@@ -423,12 +423,15 @@
         });
 
         // 删除工单评论
-        $('#remove-reply').on('click', function () {
+        $('#remove-reply').on('click', function ()
+        {
             $.post(G_BASE_URL + '/ticket/ajax/remove_reply/',
             {
                 'id': $(this).attr('data-id')
-            }, function (result) {
-               if (result.errno == 1) {
+            }, function (result)
+            {
+               if (result.errno == 1)
+               {
                     $('#remove-reply').parents('.aw-item').fadeOut();
                }
             }, 'json')
