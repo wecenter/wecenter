@@ -573,12 +573,16 @@ class publish_class extends AWS_MODEL
 
 			$attach_url = get_setting('upload_url') . '/' . $item_type . '/' . $date_dir . '/';
 
+			$attach_path = get_setting('upload_dir') . '/' . $item_type . '/' . $date_dir . '/';
+
 			$attach_list[$data['id']] = array(
 				'id' => $data['id'],
 				'is_image' => $data['is_image'],
 				'file_name' => $data['file_name'],
 				'access_key' => $data['access_key'],
+				'file_location' => $data['file_location'],
 				'attachment' => $attach_url . $data['file_location'],
+				'path' => $attach_path . $data['file_location']
 			);
 
 			if ($data['is_image'] == 1 AND $size)

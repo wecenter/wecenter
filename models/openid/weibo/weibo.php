@@ -260,8 +260,6 @@ class openid_weibo_weibo_class extends AWS_MODEL
                         }
 
                         $this->model('publish')->add_attach('weibo_msg', $upload_data['orig_name'], $msg_info['access_key'], $now, basename($upload_data['full_path']), true);
-
-                        $msg_info['has_attach'] = 1;
                     }
 
                     $this->model('publish')->update_attach('weibo_msg', $msg_info['id'], $msg_info['access_key']);

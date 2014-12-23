@@ -1280,3 +1280,22 @@ function array_key_sort_asc_callback($a, $b)
 
 	return ($a['sort'] < $b['sort']) ? -1 : 1;
 }
+
+public function get_random_filename($dir, $file_ext)
+{
+	if (!$dir OR !file_exists($dir))
+	{
+		return false;
+	}
+
+	$dir = rtrim($dir, '/') . '/';
+
+	$filename = md5(mt_rand(1, 99999999) . microtime());
+
+	if (file_exists($dir . $filename . '.' . $file_ext))
+	{
+		return get_random_filename($dir, $file_ext);
+	}
+
+	return $filename . $file_ext;
+}
