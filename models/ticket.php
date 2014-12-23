@@ -212,7 +212,7 @@ class ticket_class extends AWS_MODEL
 
         $this->delete('ticket_log', 'ticket_invite = ' . $ticket_info['id']);
 
-        $attachs = $this->model('publish')->get_attach('ticket', $question_id);
+        $attachs = $this->model('publish')->get_attach('ticket', $ticket_info['id']);
 
         if ($attachs)
         {
@@ -280,6 +280,16 @@ class ticket_class extends AWS_MODEL
         if ($reply_info)
         {
             return false;
+        }
+
+        $attachs = $this->model('publish')->get_attach('ticket_reply', $reply_info['id']);
+
+        if ($attachs)
+        {
+            foreach ($attachs as $attach)
+            {
+                $this->model('publish')->remove_attach($attach['id'], $attach['access_key']);
+            }
         }
 
         return $this->delete('ticket_reply', 'id = ' . $reply_info['id']);
@@ -876,5 +886,64 @@ class ticket_class extends AWS_MODEL
         }
 
         return $data;
+    }
+
+    public function save_ticket_to_question($ticket_id)
+    {
+        $ticket_info = $this->get_ticket_info_by_id($ticket_id);
+
+        if (!$ticket_info)
+        {
+            return false;
+        }
+
+        $topic_ids = $this->model('topic')->get_topics_by_item_id($ticket_info['id'], 'ticket');
+
+        $topics = array();
+
+        if ($topic_ids)
+        {
+            $topics_info = $this->model('topic')->get_topics_by_ids($topic_ids);
+
+            foreach ($topics_info AS $topic_info)
+            {
+                $topics[] = $topic_info['topic_title'];
+            }
+        }
+
+        $attachs = $this->model('publish')->get_attachs('ticket', $ticket_info['id'], null);
+
+        if ($attachs)
+        {
+            $now = time();
+
+            foreach ($attachs AS $attach)
+            {
+                $new_dir = get_setting('upload_dir') . '/' . 'question' . '/' . gmdate('Ymd', $now) . '/';
+
+                $file_ext = end(explode('.', $attach['file_location']));
+
+                $new_filename = get_random_filename($new_dir, $file_ext);
+
+                if (@copy($attach['path'], $new_dir . $new_filename))
+                {
+                    if ($attach['is_image'])
+                    {
+                        $old_dir = dirname($attach['path']) . '/';
+
+                        foreach (AWS_APP::config()->get('image')->attachment_thumbnail AS $key => $val)
+                        {
+                            $thumb_pre = $val['w'] . 'x' . $val['h'] . '_';
+
+                            @copy($old_dir . $thumb_pre . $attach['file_location'], $new_dir . $thumb_pre . $new_filename);
+                        }
+                    }
+
+                    $this->model('publish')->add_attach('question', htmlspecialchars_decode($attach['file_name']), md5($ticket_info['uid'] . $now), $now, $new_filename, $attach['is_image']);
+                }
+            }
+        }
+
+        return $this->model('publish')->publish_question($ticket_info['title'], $ticket_info['message'], null, $ticket_info['uid'], $topics, null, $ticket_info['access_key'], null, false, array('ticket' => $ticket_info['id']));
     }
 }

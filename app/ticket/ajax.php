@@ -111,7 +111,7 @@ class ajax extends AWS_CONTROLLER
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('你没有权限回复该工单')));
         }
 
-        $reply_id = $this->model('ticket')->reply_ticket($ticket_info['id'], $_POST['message'], $this->user_id);
+        $reply_id = $this->model('ticket')->reply_ticket($ticket_info['id'], $_POST['message'], $this->user_id, $_POST['attach_access_key']);
 
         if (!$reply_id)
         {
