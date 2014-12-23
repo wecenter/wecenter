@@ -1,4 +1,4 @@
- <div class="aw-item" id="answer_list_<?php echo $this->reply_info['id']; ?>">
+ <div class="aw-item" id="answer_list_<?php echo $this->reply_info['id']; ?>" data-id="<?php echo $this->reply_info['id']; ?>">
     <div class="mod-head">
     <a class="anchor" name="answer_<?php echo $this->reply_info['id']; ?>"></a>
         <!-- 用户头像 -->
@@ -38,5 +38,14 @@
         </ul>
         <?php } ?>
         <!-- end 评论内容 -->
+    </div>
+     <div class="mod-footer">
+        <!-- 删除评论 -->
+        <div class="meta clearfix">
+            <span class="text-color-999 pull-right"><?php echo date_friendly($val['add_time'], 604800, 'Y-m-d'); ?></span>
+            <a href="javascript:;" id="remove-replay" class="text-color-999"><i class="icon icon-delate"></i> 删除</a>
+
+        </div>
+        <!-- end 删除评论-->
     </div>
 </div>
