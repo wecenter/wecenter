@@ -277,7 +277,7 @@ class ticket_class extends AWS_MODEL
     {
         $reply_info = $this->get_ticket_reply_by_id($id);
 
-        if ($reply_info)
+        if (!$reply_info)
         {
             return false;
         }
