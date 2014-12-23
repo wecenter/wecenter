@@ -614,19 +614,15 @@
 </div>
 
 <script type="text/javascript">
-	ATTACH_ACCESS_KEY = '<?php echo $this->attach_access_key; ?>';
-	ITEM_IDS = '<?php echo addslashes($_GET['item_id']); ?>';
-	COMMENT_UNFOLD = '<?php echo addslashes($_GET['comment_unfold']); ?>';
-
-	QUESTION_ID = <?php echo $this->question_info['question_id'];?>;
-	UNINTERESTED_COUNT = <?php echo get_setting('uninterested_fold'); ?>;
-
-	ANSWER_EDIT_TIME = <?php echo get_setting('answer_edit_time'); ?>;
-
-	USER_ANSWERED = '<?php echo $this->user_answered; ?>';
-
-	UPLOAD_ENABLE = '<?php echo get_setting('upload_enable') ?>';
-
+	var ATTACH_ACCESS_KEY = '<?php echo $this->attach_access_key; ?>';
+	var ITEM_IDS = '<?php echo addslashes($_GET['item_id']); ?>';
+	var COMMENT_UNFOLD = '<?php echo addslashes($_GET['comment_unfold']); ?>';
+	var QUESTION_ID = <?php echo $this->question_info['question_id'];?>;
+	var UNINTERESTED_COUNT = <?php echo get_setting('uninterested_fold'); ?>;
+	var ANSWER_EDIT_TIME = <?php echo get_setting('answer_edit_time'); ?>;
+	var USER_ANSWERED = '<?php echo $this->user_answered; ?>';
+	var UPLOAD_ENABLE = '<?php echo get_setting('upload_enable') ?>';
+	var ANSWER_TYPE = 'answer';
 </script>
 
 <script type="text/javascript" src="<?php echo G_STATIC_URL; ?>/js/app/question_detail.js"></script>
