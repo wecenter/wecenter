@@ -919,21 +919,23 @@ class ticket_class extends AWS_MODEL
             }
         }
 
-        $attachs = $this->model('publish')->get_attachs('ticket', $ticket_info['id'], null);
+        $attachs = $this->model('publish')->get_attach('ticket', $ticket_info['id'], null);
 
         if ($attachs)
         {
             $now = time();
 
+            $attach_access_key = md5($ticket_info['uid'] . $now);
+
             foreach ($attachs AS $attach)
             {
-                $new_dir = get_setting('upload_dir') . '/' . 'question' . '/' . gmdate('Ymd', $now) . '/';
+                $new_dir = get_setting('upload_dir') . '/' . 'questions' . '/' . gmdate('Ymd', $now) . '/';
 
                 $file_ext = end(explode('.', $attach['file_location']));
 
                 $new_filename = get_random_filename($new_dir, $file_ext);
 
-                if (@copy($attach['path'], $new_dir . $new_filename))
+                if (@make_dir($new_dir) AND @copy($attach['path'], $new_dir . $new_filename))
                 {
                     if ($attach['is_image'])
                     {
@@ -947,11 +949,11 @@ class ticket_class extends AWS_MODEL
                         }
                     }
 
-                    $this->model('publish')->add_attach('question', htmlspecialchars_decode($attach['file_name']), md5($ticket_info['uid'] . $now), $now, $new_filename, $attach['is_image']);
+                    $this->model('publish')->add_attach('question', htmlspecialchars_decode($attach['file_name']), $attach_access_key, $now, $new_filename, $attach['is_image']);
                 }
             }
         }
 
-        return $this->model('publish')->publish_question($ticket_info['title'], $ticket_info['message'], null, $ticket_info['uid'], $topics, null, $ticket_info['access_key'], null, false, array('ticket' => $ticket_info['id']));
+        return $this->model('publish')->publish_question($ticket_info['title'], $ticket_info['message'], null, $ticket_info['uid'], $topics, null, $attach_access_key, null, false, array('ticket' => $ticket_info['id']));
     }
 }
