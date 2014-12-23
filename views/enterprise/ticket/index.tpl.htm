@@ -166,7 +166,7 @@
                                         <!-- 删除评论 -->
                                         <?php if ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?>
                                         <div class="meta clearfix">
-                                            <span class="text-color-999 pull-right"><?php echo date_friendly($val['add_time'], 604800, 'Y-m-d'); ?></span>
+                                            <span class="text-color-999 pull-right"><?php echo date_friendly($reply['time'], 604800, 'Y-m-d'); ?></span>
                                            <a href="javascript:;" id="remove-reply" data-id="<?php echo $reply['id']; ?>" class="text-color-999"><i class="icon icon-delate"></i> 删除</a>
 
                                         </div>
