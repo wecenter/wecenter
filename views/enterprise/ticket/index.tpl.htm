@@ -121,7 +121,7 @@
                         <div class="mod-body aw-feed-list">
                             <?php if ($this->replies_list) {
                                 foreach ($this->replies_list AS $reply) { ?>
-                                <div class="aw-item" id="answer_list_<?php echo $reply['id']; ?>">
+                                <div class="aw-item" id="answer_list_<?php echo $reply['id']; ?>" data-id="<?php echo $reply['id']; ?>">
                                     <div class="mod-head">
                                         <a class="anchor" name="answer_<?php echo $reply['id']; ?>"></a>
                                         <!-- 用户头像 -->
@@ -423,13 +423,15 @@
 
         //
         $('#remove-reply').on('click', function () {
-            var id = $(this).attr('data-id');
             $.post(G_BASE_URL + '/ticket/ajax/remove_reply/',
             {
-                'id': id
+                'id': $(this).attr('data-id')
             }, function (result) {
                if (result.errno == 1) {
-                $(this).parents(".aw-item .mod-body").detach();
+
+                if (('#remove-reply').attr('data-id') == $('#remove-reply').parents('.aw-item').attr('data-id')) {
+                    $('#remove-reply').parents('.aw-item').fadeOut();
+                }
                }
             }, 'json')
         })
