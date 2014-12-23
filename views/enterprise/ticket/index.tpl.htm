@@ -124,7 +124,7 @@
                         <div class="mod-body aw-feed-list">
                             <?php if ($this->replies_list) {
                                 foreach ($this->replies_list AS $reply) { ?>
-                                <div class="aw-item" id="answer_list_<?php echo $reply['id']; ?>">
+                                <div class="aw-item" id="answer_list_<?php echo $reply['id']; ?>" data-id="<?php echo $reply['id']; ?>">
                                     <div class="mod-head">
                                         <a class="anchor" name="answer_<?php echo $reply['id']; ?>"></a>
                                         <!-- 用户头像 -->
@@ -168,7 +168,7 @@
                                         <?php if ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?>
                                         <div class="meta clearfix">
                                             <span class="text-color-999 pull-right"><?php echo date_friendly($reply['time'], 604800, 'Y-m-d'); ?></span>
-                                           <a href="javascript:;" id="remove-reply" data-id="<?php echo $reply['id']; ?>" class="text-color-999"><i class="icon icon-delate"></i> 删除</a>
+                                           <span id="remove-reply" data-id="<?php echo $reply['id']; ?>" class="text-color-999">删除</span>
 
                                         </div>
                                           <?php } ?>
@@ -422,15 +422,14 @@
             }, 'json');
         });
 
-        //
+        // 删除工单评论
         $('#remove-reply').on('click', function () {
-            var id = $(this).attr('data-id');
             $.post(G_BASE_URL + '/ticket/ajax/remove_reply/',
             {
-                'id': id
+                'id': $(this).attr('data-id')
             }, function (result) {
                if (result.errno == 1) {
-                $(this).parents(".aw-item .mod-body").detach();
+                    $('#remove-reply').parents('.aw-item').fadeOut();
                }
             }, 'json')
         })
