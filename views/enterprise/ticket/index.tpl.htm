@@ -11,7 +11,6 @@
                                 <?php echo $this->ticket_info['title']; ?>
                             </h1>
 
-                            <?php if ($this->user_id) { ?>
                             <div class="operate clearfix">
                                 <!-- 下拉菜单 -->
                                 <div class="btn-group pull-left">
@@ -26,7 +25,7 @@
                                                 <?php } ?>
                                             </li>
 
-                                            <?php if ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_service'] OR $this->ticket_info['status'] != 'closed') { ?>
+                                            <?php if ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_service'] OR $this->user_id == $this->ticket_info['id'] AND $this->ticket_info['status'] != 'closed') { ?>
                                             <li>
                                                 <a href="javascript:;" onclick="AWS.ajax_request(G_BASE_URL + '/ticket/ajax/change_status/', 'id=<?php echo $this->ticket_info['id']; ?>&status=<?php if ($this->ticket_info['status'] == 'closed') { ?>pending<?php } else { ?>closed<?php } ?>');"><?php if ($this->ticket_info['status'] == 'closed') _e('打开工单'); else _e('关闭工单'); ?></a>
                                             </li>
@@ -48,7 +47,6 @@
                                 </div>
                                 <!-- end 下拉菜单 -->
                             </div>
-                            <?php } ?>
                         </div>
 
                         <div class="mod-body">
@@ -379,7 +377,7 @@
 
 <script type="text/javascript">
     ATTACH_ACCESS_KEY = '<?php echo $this->attach_access_key; ?>';
-    ITEM_IDS = '<?php echo addslashes($_GET['item_id']); ?>';
+    ITEM_IDS = "<?php echo addslashes($_GET['item_id']); ?>";
 
     TICKET_ID = <?php echo $this->ticket_info['id'];?>;
     var PUBLISH_TYPE = 'ticket';
