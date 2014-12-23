@@ -1297,5 +1297,5 @@ function get_random_filename($dir, $file_ext)
 		return get_random_filename($dir, $file_ext);
 	}
 
-	return $filename . $file_ext;
+	return $filename . '.' . $file_ext;
 }
