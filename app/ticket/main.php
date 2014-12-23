@@ -142,7 +142,16 @@ class main extends AWS_CONTROLLER
 
         $ticket_info['service_info'] = $users_list[$ticket_info['service']];
 
-        $ticket_info['message'] = FORMAT::parse_attachs(nl2br(FORMAT::parse_markdown($ticket_info['message'])));
+        $ticket_info['message'] = nl2br(FORMAT::parse_markdown($ticket_info['message']));
+
+        if ($ticket_info['has_attach'])
+        {
+            $ticket_info['attachs'] = $this->model('publish')->get_attach('ticket', $ticket_info['id'], 'min');
+
+            $ticket_info['insert_attach_ids'] = FORMAT::parse_attachs($ticket_info['message'], true);
+
+            $ticket_info['message'] = FORMAT::parse_attachs($ticket_info['message']);
+        }
 
         if ($ticket_log)
         {
@@ -160,7 +169,29 @@ class main extends AWS_CONTROLLER
             {
                 $replies_list[$key]['user_info'] = $users_list[$reply_info['uid']];
 
-                $replies_list[$key]['message'] = FORMAT::parse_attachs(nl2br(FORMAT::parse_markdown($reply_info['message'])));
+                $replies_list[$key]['message'] = nl2br(FORMAT::parse_markdown($reply_info['message']));
+
+                if ($reply_info['has_attach'])
+                {
+                    $has_attach_reply_ids[] = $reply_info['id'];
+                }
+            }
+
+            if ($has_attach_reply_ids)
+            {
+                $reply_attachs = $this->model('publish')->get_attachs('ticket_reply', $has_attach_reply_ids, 'min');
+
+                foreach ($replies_list AS $key => $reply_info)
+                {
+                    if ($reply_info['has_attach'])
+                    {
+                        $replies_list[$key]['attachs'] = $reply_attachs[$reply_info['id']];
+
+                        $replies_list[$key]['insert_attach_ids'] = FORMAT::parse_attachs($reply_info['message'], true);
+
+                        $replies_list[$key]['message'] = FORMAT::parse_attachs($reply_info['message']);
+                    }
+                }
             }
 
             TPL::assign('replies_list', $replies_list);

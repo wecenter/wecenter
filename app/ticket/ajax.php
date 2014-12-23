@@ -479,6 +479,40 @@ class ajax extends AWS_CONTROLLER
         H::ajax_json_output(AWS_APP::RSM(null, -1, null));
     }
 
+    public function save_to_question_action()
+    {
+        if (!$this->user_info['permission']['is_administortar'] OR !$this->user_info['permission']['is_service'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('你没有权限删除回复')));
+        }
+
+        if (!$_POST['id'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择回复')));
+        }
+
+        $ticket_info = $this->model('ticket')->get_ticket_info_by_id($_POST['id']);
+
+        if (!$ticket_info)
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('回复不存在')));
+        }
+
+        if ($this->model('ticket')->get_question_info_by_ticket_id($ticket_info['id']))
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('此工单已发布到问题')));
+        }
+
+        $question_id = $this->model('ticket')->save_ticket_to_question($ticket_info['id']);
+
+        if (!$question_id)
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('发布失败')));
+        }
+
+        H::ajax_json_output(AWS_APP::RSM(array('url' => get_js_url('/question/' . $question_id)), 1, null));
+    }
+
     public function ticket_statistic_action()
     {
         if (!$this->user_info['permission']['is_administortar'])

@@ -888,6 +888,16 @@ class ticket_class extends AWS_MODEL
         return $data;
     }
 
+    public function get_question_info_by_ticket_id($ticket_id)
+    {
+        if (!is_digits($ticket_id))
+        {
+            return false;
+        }
+
+        return $this->fetch_row('question', 'ticket_id = ' . $ticket_id);
+    }
+
     public function save_ticket_to_question($ticket_id)
     {
         $ticket_info = $this->get_ticket_info_by_id($ticket_id);
@@ -897,15 +907,13 @@ class ticket_class extends AWS_MODEL
             return false;
         }
 
-        $topic_ids = $this->model('topic')->get_topics_by_item_id($ticket_info['id'], 'ticket');
+        $topics_query = $this->model('topic')->get_topics_by_item_id($ticket_info['id'], 'ticket');
 
         $topics = array();
 
-        if ($topic_ids)
+        if ($topics_query)
         {
-            $topics_info = $this->model('topic')->get_topics_by_ids($topic_ids);
-
-            foreach ($topics_info AS $topic_info)
+            foreach ($topics_query AS $topic_info)
             {
                 $topics[] = $topic_info['topic_title'];
             }
