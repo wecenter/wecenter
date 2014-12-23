@@ -89,7 +89,7 @@ class openid_weibo_weibo_class extends AWS_MODEL
             return AWS_APP::lang()->_t('微博发布用户不存在');
         }
 
-        $this->model('publish')->publish_question($msg_info['text'], null, null, $published_user['uid'], null, null, $msg_info['access_key'], $msg_info['uid'], false, 'weibo_msg', $msg_info['id']);
+        $this->model('publish')->publish_question($msg_info['text'], null, null, $published_user['uid'], null, null, $msg_info['access_key'], $msg_info['uid'], false, array('weibo_msg' => $msg_info['id']));
     }
 
     public function reply_answer_to_sina($question_id, $comment)
@@ -260,8 +260,6 @@ class openid_weibo_weibo_class extends AWS_MODEL
                         }
 
                         $this->model('publish')->add_attach('weibo_msg', $upload_data['orig_name'], $msg_info['access_key'], $now, basename($upload_data['full_path']), true);
-
-                        $msg_info['has_attach'] = 1;
                     }
 
                     $this->model('publish')->update_attach('weibo_msg', $msg_info['id'], $msg_info['access_key']);

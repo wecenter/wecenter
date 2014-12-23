@@ -15,6 +15,7 @@ CREATE TABLE `[#DB_PREFIX#]ticket` (
   `received_email_id` int(10) UNSIGNED DEFAULT NULL,
   `reply_time` int(10) UNSIGNED NOT NULL DEFAULT '0',
   `close_time` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `has_attach` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `priority` (`priority`),
   KEY `status` (`status`),
@@ -37,6 +38,7 @@ CREATE TABLE `[#DB_PREFIX#]ticket_reply` (
   `uid` int(10) UNSIGNED NOT NULL DEFAULT '0',
   `time` int(10) UNSIGNED NOT NULL DEFAULT '0',
   `ip` bigint(11) UNSIGNED DEFAULT NULL,
+  `has_attach` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `ticket_id` (`ticket_id`),
   KEY `uid` (`uid`),
@@ -73,3 +75,5 @@ CREATE TABLE `[#DB_PREFIX#]ticket_invite` (
 UPDATE `[#DB_PREFIX#]users_group` SET `permission` = 'a:17:{s:16:"is_administortar";s:1:"1";s:12:"is_moderator";s:1:"1";s:16:"publish_question";s:1:"1";s:21:"publish_approval_time";a:2:{s:5:"start";s:0:"";s:3:"end";s:0:"";}s:13:"edit_question";s:1:"1";s:10:"edit_topic";s:1:"1";s:12:"manage_topic";s:1:"1";s:12:"create_topic";s:1:"1";s:17:"redirect_question";s:1:"1";s:13:"upload_attach";s:1:"1";s:11:"publish_url";s:1:"1";s:15:"publish_article";s:1:"1";s:12:"edit_article";s:1:"1";s:19:"edit_question_topic";s:1:"1";s:15:"publish_comment";s:1:"1";s:10:"is_service";s:1:"1";s:14:"publish_ticket";s:1:"1";}' WHERE `group_id` = 1;
 
 INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES ('ticket_enabled', 's:1:"N";');
+
+ALTER TABLE `[#DB_PREFIX#]_question` ADD `ticket_id` int(10) UNSIGNED DEFAULT NULL, ADD INDEX `ticket_id`;

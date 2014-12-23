@@ -83,7 +83,7 @@ class ticket_class extends AWS_MODEL
 
         if (isset($filter['reply_took_hours']['min']))
         {
-            $where[] = '`reply_time` <> 0';
+            $where[] = '`reply_time` <> 0 AND `reply_time` >= `time`';
 
             if (isset($filter['reply_took_hours']['max']) AND $filter['reply_took_hours']['min'] < $filter['reply_took_hours']['max'])
             {
@@ -97,7 +97,7 @@ class ticket_class extends AWS_MODEL
 
         if (isset($filter['close_took_hours']['min']))
         {
-            $where[] = '`close_time` <> 0';
+            $where[] = '`close_time` <> 0 AND `close_time` >= `time`';
 
             if (isset($filter['close_took_hours']['max']) AND $filter['close_took_hours']['min'] < $filter['close_took_hours']['max'])
             {
@@ -212,7 +212,7 @@ class ticket_class extends AWS_MODEL
 
         $this->delete('ticket_log', 'ticket_invite = ' . $ticket_info['id']);
 
-        $attachs = $this->model('publish')->get_attach('ticket', $question_id);
+        $attachs = $this->model('publish')->get_attach('ticket', $ticket_info['id']);
 
         if ($attachs)
         {
@@ -280,6 +280,16 @@ class ticket_class extends AWS_MODEL
         if ($reply_info)
         {
             return false;
+        }
+
+        $attachs = $this->model('publish')->get_attach('ticket_reply', $reply_info['id']);
+
+        if ($attachs)
+        {
+            foreach ($attachs as $attach)
+            {
+                $this->model('publish')->remove_attach($attach['id'], $attach['access_key']);
+            }
         }
 
         return $this->delete('ticket_reply', 'id = ' . $reply_info['id']);
@@ -814,9 +824,9 @@ class ticket_class extends AWS_MODEL
         return $this->model('account')->delete_user_group_by_id($group_info['group_id']);
     }
 
-    public function service_group_statistic($days = null)
+    public function service_group_statistic($months = null)
     {
-        if (!is_digits($days))
+        if (!is_digits($months))
         {
             return false;
         }
@@ -827,18 +837,26 @@ class ticket_class extends AWS_MODEL
 
         if ($groups_list)
         {
+            for ($i=0; $i<=$months; $i++)
+            {
+                $data_by_month[] = array(
+                    'month' => gmdate('Y-m', strtotime('first day of ' . ($months - $i) . ' months ago')),
+                    'count' => 0
+                );
+            }
+
+            $time = ' AND time > '. strtotime('first day of ' . $months . ' months ago');
+
             foreach ($groups_list AS $group_info)
             {
                 $data[$group_info['group_id']] = array(
                     'group_id' => $group_info['group_id'],
                     'group_name' => $group_info['group_name'],
-                    'tickets_count' => 0
+                    'tickets_count' => $data_by_month
                 );
             }
 
-            $time = ' AND time > '. (time() - $days * 24 * 60 * 60);
-
-            $service_tickets_count_query = $this->query_all('SELECT `service`, COUNT(*) AS count FROM ' . get_table('ticket') . ' WHERE `service` <> 0' . $time . ' GROUP BY `service` DESC');
+            $service_tickets_count_query = $this->query_all('SELECT `service`, COUNT(*) AS count, FROM_UNIXTIME(`close_time`, "%Y-%m") AS `statistic_month` FROM ' . get_table('ticket') . ' WHERE `service` <> 0' . $time . ' GROUP BY `service` ASC, `statistic_month` ASC');
 
             if ($service_tickets_count_query)
             {
@@ -846,21 +864,86 @@ class ticket_class extends AWS_MODEL
                 {
                     $service_uids[] = $val['service'];
 
-                    $service_tickets_count[$val['service']] = $val['count'];
+                    $service_tickets_count_by_service[$val['service']][$val['statistic_month']] = $val['count'];
                 }
 
                 $service_list = $this->model('account')->get_user_info_by_uids($service_uids);
 
                 foreach ($service_list AS $service_info)
                 {
-                    if ($service_info['group_id'] AND $data[$service_info['group_id']] AND $service_tickets_count[$service_info['uid']])
+                    if ($service_info['group_id'] AND $data[$service_info['group_id']] AND $service_tickets_count_by_service[$service_info['uid']])
                     {
-                        $data[$service_info['group_id']]['tickets_count'] = $data[$service_info['group_id']]['tickets_count'] + $service_tickets_count[$service_info['uid']];
+                        foreach ($data[$service_info['group_id']]['tickets_count'] AS $key => $group_data)
+                        {
+                            if ($service_tickets_count_by_service[$service_info['uid']][$group_data['month']])
+                            {
+                                $data[$service_info['group_id']]['tickets_count'][$key]['count'] += $service_tickets_count_by_service[$service_info['uid']][$group_data['month']];
+                            }
+                        }
                     }
                 }
             }
         }
 
         return $data;
+    }
+
+    public function save_ticket_to_question($ticket_id)
+    {
+        $ticket_info = $this->get_ticket_info_by_id($ticket_id);
+
+        if (!$ticket_info)
+        {
+            return false;
+        }
+
+        $topic_ids = $this->model('topic')->get_topics_by_item_id($ticket_info['id'], 'ticket');
+
+        $topics = array();
+
+        if ($topic_ids)
+        {
+            $topics_info = $this->model('topic')->get_topics_by_ids($topic_ids);
+
+            foreach ($topics_info AS $topic_info)
+            {
+                $topics[] = $topic_info['topic_title'];
+            }
+        }
+
+        $attachs = $this->model('publish')->get_attachs('ticket', $ticket_info['id'], null);
+
+        if ($attachs)
+        {
+            $now = time();
+
+            foreach ($attachs AS $attach)
+            {
+                $new_dir = get_setting('upload_dir') . '/' . 'question' . '/' . gmdate('Ymd', $now) . '/';
+
+                $file_ext = end(explode('.', $attach['file_location']));
+
+                $new_filename = get_random_filename($new_dir, $file_ext);
+
+                if (@copy($attach['path'], $new_dir . $new_filename))
+                {
+                    if ($attach['is_image'])
+                    {
+                        $old_dir = dirname($attach['path']) . '/';
+
+                        foreach (AWS_APP::config()->get('image')->attachment_thumbnail AS $key => $val)
+                        {
+                            $thumb_pre = $val['w'] . 'x' . $val['h'] . '_';
+
+                            @copy($old_dir . $thumb_pre . $attach['file_location'], $new_dir . $thumb_pre . $new_filename);
+                        }
+                    }
+
+                    $this->model('publish')->add_attach('question', htmlspecialchars_decode($attach['file_name']), md5($ticket_info['uid'] . $now), $now, $new_filename, $attach['is_image']);
+                }
+            }
+        }
+
+        return $this->model('publish')->publish_question($ticket_info['title'], $ticket_info['message'], null, $ticket_info['uid'], $topics, null, $ticket_info['access_key'], null, false, array('ticket' => $ticket_info['id']));
     }
 }

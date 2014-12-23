@@ -111,7 +111,7 @@ class ajax extends AWS_CONTROLLER
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('你没有权限回复该工单')));
         }
 
-        $reply_id = $this->model('ticket')->reply_ticket($ticket_info['id'], $_POST['message'], $this->user_id);
+        $reply_id = $this->model('ticket')->reply_ticket($ticket_info['id'], $_POST['message'], $this->user_id, $_POST['attach_access_key']);
 
         if (!$reply_id)
         {
@@ -486,7 +486,7 @@ class ajax extends AWS_CONTROLLER
             exit();
         }
 
-        if (!is_digits($_GET['days']))
+        if (!is_digits($_GET['days']) OR $_GET['days'] === '0')
         {
             $_GET['days'] = 7;
         }
@@ -523,7 +523,7 @@ class ajax extends AWS_CONTROLLER
             exit();
         }
 
-        if (!$_GET['days'])
+        if (!$_GET['days'] OR $_GET['days'] === '0')
         {
             $_GET['days'] = 7;
         }
@@ -563,7 +563,7 @@ class ajax extends AWS_CONTROLLER
             exit();
         }
 
-        if (!$_GET['days'])
+        if (!$_GET['days'] OR $_GET['days'] === '0')
         {
             $_GET['days'] = 7;
         }
@@ -614,7 +614,7 @@ class ajax extends AWS_CONTROLLER
             exit();
         }
 
-        if (!$_GET['days'])
+        if (!$_GET['days'] OR $_GET['days'] === '0')
         {
             $_GET['days'] = 7;
         }
@@ -665,23 +665,37 @@ class ajax extends AWS_CONTROLLER
             exit();
         }
 
-        if (!$_GET['days'])
+        if (!is_digits($_GET['months']) OR $_GET['months'] === '0')
         {
-            $_GET['days'] = 7;
+            $_GET['months'] = 5;
         }
 
-        $statistic = $this->model('ticket')->service_group_statistic($_GET['days']);
+        $statistic = $this->model('ticket')->service_group_statistic($_GET['months']);
 
-        if (!$statistic)
+        $data['legend'] = array();
+
+        $data['data'] = array();
+
+        if ($statistic)
         {
-            exit();
+            $i = 0;
+
+            foreach ($statistic AS $statistic_by_group)
+            {
+                $data['legend'][] = $statistic_by_group['group_name'];
+
+                foreach ($statistic_by_group['tickets_count'] AS $val)
+                {
+                    $data['data'][$i][] = $val['count'];
+                }
+
+                $i++;
+            }
         }
 
-        foreach ($statistic AS $val)
+        for ($i=0; $i<=$_GET['months']; $i++)
         {
-            $data['labels'][] = $val['group_name'];
-
-            $data['data'][] = $val['tickets_count'];
+            $data['labels'][] = gmdate('m月', strtotime('first day of ' . ($_GET['months'] - $i) . ' months ago'));
         }
 
         exit(json_encode($data));
