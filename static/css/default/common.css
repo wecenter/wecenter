@@ -414,7 +414,6 @@ a.aw-load-more-content{display: block;}
 .aw-question-detail .more-operate{position:relative;margin:0 !important;}
 .aw-question-detail .more-operate > a, .aw-question-detail .more-operate em{margin-left: 15px;}
 .aw-question-detail .aw-edit-topic-box .aw-dropdown{width: 418px;}
-.aw-question-detail .markitup-box br:first-child, .aw-question-comment .markitup-box br:first-child {display: none;}
 
 /* 问题修改日志 */
 .aw-question-edit .mod-head h2{font-size: 20px;}
