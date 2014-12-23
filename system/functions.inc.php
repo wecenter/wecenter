@@ -1281,7 +1281,7 @@ function array_key_sort_asc_callback($a, $b)
 	return ($a['sort'] < $b['sort']) ? -1 : 1;
 }
 
-public function get_random_filename($dir, $file_ext)
+function get_random_filename($dir, $file_ext)
 {
 	if (!$dir OR !file_exists($dir))
 	{
