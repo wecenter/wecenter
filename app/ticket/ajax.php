@@ -122,13 +122,15 @@ class ajax extends AWS_CONTROLLER
 
         $reply_info['user_info'] = $this->user_info;
 
-        $reply_info['message'] = FORMAT::parse_attachs(nl2br(FORMAT::parse_markdown($reply_info['message'])));
+        $reply_info['message'] = nl2br(FORMAT::parse_markdown($reply_info['message']));
 
         if ($reply_info['has_attach'])
         {
             $reply_info['attachs'] = $this->model('publish')->get_attach('ticket', $reply_info['id'], 'min');
 
             $reply_info['insert_attach_ids'] = FORMAT::parse_attachs($reply_info['message'], true);
+
+            $reply_info['message'] = FORMAT::parse_attachs($reply_info['message']);
         }
 
         TPL::assign('reply_info', $reply_info);
