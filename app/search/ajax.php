@@ -95,7 +95,7 @@ class ajax extends AWS_CONTROLLER
 			$result = array();
 		}
 
-		if ($_GET['is_question_id'])
+		if ($_GET['is_question_id'] AND is_digits($_GET['q']))
 		{
 			$question_info = $this->model('question')->get_question_info_by_id($_GET['q']);
 
