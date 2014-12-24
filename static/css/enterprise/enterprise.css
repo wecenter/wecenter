@@ -33,7 +33,7 @@
 .invite-list {position: relative; overflow: inherit!important;}
 .cancel-invite {position: absolute;top: 25px;left: 0;z-index: 2;line-height: 25px; cursor: pointer;}
 .ticket-invite-user {position: relative;display: inline-block;}
-#remove-reply {cursor: pointer;}
+.remove-reply {cursor: pointer;}
 
 /* 热门话题 */
 .aw-work-wrap .aw-topic-list{margin-bottom: 30px;}
