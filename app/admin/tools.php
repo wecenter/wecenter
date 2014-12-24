@@ -123,6 +123,66 @@ class tools extends AWS_ADMIN_CONTROLLER
         }
     }
 
+    public function markdown_to_bbcode_action()
+    {
+        switch ($_GET['type'])
+        {
+            default:
+                if ($questions_list = $this->model('question')->fetch_page('question', null, 'question_id ASC', $_GET['page'], $_GET['per_page']))
+                {
+                    foreach ($questions_list as $key => $val)
+                    {
+                        $this->model('question')->update('question', array(
+                            'question_detail' => FORMAT::markdown_2_bbcode($val['question_detail'])
+                        ), 'question_id = ' . intval($val['question_id']));
+                    }
+
+                    H::redirect_msg(AWS_APP::lang()->_t('正在转换问题内容 Markdown') . ', ' . AWS_APP::lang()->_t('批次: %s', $_GET['page']), '/admin/tools/markdown_to_bbcode/page-' . ($_GET['page'] + 1) . '__per_page-' . $_GET['per_page']);
+                }
+                else
+                {
+                    H::redirect_msg(AWS_APP::lang()->_t('准备继续...'), '/admin/tools/markdown_to_bbcode/page-1__type-answer__per_page-' . $_GET['per_page']);
+                }
+            break;
+
+            case 'answer':
+                if ($answer_list = $this->model('question')->fetch_page('answer', null, 'answer_id ASC', $_GET['page'], $_GET['per_page']))
+                {
+                    foreach ($answer_list as $key => $val)
+                    {
+                        $this->model('answer')->update_answer_by_id($val['answer_id'], array(
+                            'answer_content' => FORMAT::markdown_2_bbcode($val['answer_content'])
+                        ));
+                    }
+
+                    H::redirect_msg(AWS_APP::lang()->_t('正在转换回答内容 Markdown') . ', ' . AWS_APP::lang()->_t('批次: %s', $_GET['page']), '/admin/tools/markdown_to_bbcode/page-' . ($_GET['page'] + 1) . '__type-answer__per_page-' . $_GET['per_page']);
+                }
+                else
+                {
+                    H::redirect_msg(AWS_APP::lang()->_t('准备继续...'), '/admin/tools/markdown_to_bbcode/page-1__type-topic__per_page-' . $_GET['per_page']);
+                }
+            break;
+
+            case 'topic':
+                if ($topic_list = $this->model('topic')->get_topic_list(null, 'topic_id ASC', $_GET['per_page'], $_GET['page']))
+                {
+                    foreach ($topic_list as $key => $val)
+                    {
+                        $this->model('topic')->update('topic', array(
+                            'topic_description' => FORMAT::markdown_2_bbcode($val['topic_description'])
+                        ), 'topic_id = ' . intval($val['topic_id']));
+                    }
+
+                    H::redirect_msg(AWS_APP::lang()->_t('正在转换话题内容 Markdown') . ', ' . AWS_APP::lang()->_t('批次: %s', $_GET['page']), '/admin/tools/markdown_to_bbcode/page-' . ($_GET['page'] + 1) . '__type-topic__per_page-' . $_GET['per_page']);
+                }
+                else
+                {
+                    H::redirect_msg(AWS_APP::lang()->_t('Markdown 转换完成'), '/admin/tools/');
+                }
+            break;
+        }
+    }
+
     public function update_question_search_index_action()
     {
         if ($questions_list = $this->model('question')->fetch_page('question', null, 'question_id ASC', $_GET['page'], $_GET['per_page']))
