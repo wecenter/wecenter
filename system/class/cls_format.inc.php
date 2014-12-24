@@ -73,9 +73,9 @@ class FORMAT
 			return preg_replace_callback('/\[attach\]([0-9]+)\[\/attach\]/i', 'parse_attachs_callback', $str);
 		}
 	}
-	
+
 	public static function parse_bbcode($text)
-	{		
+	{
 		return load_class('Services_BBCode')->parse($text);
 	}
 
@@ -85,7 +85,7 @@ class FORMAT
 		{
 			return false;
 		}
-		
+
 		return self::parse_bbcode($text);
 
 		return load_class('Services_Markdown')->transform($text);
@@ -195,6 +195,42 @@ class FORMAT
 		$text = preg_replace('/\[(?![\/]?attach)[^\[\]]{1,}\]/', '', $text);
 
 		return $text;
+	}
+
+	public static function markdown_2_bbcode($text)
+	{
+		$text = htmlspecialchars_decode($text);
+
+		$text = preg_replace('/\*\*((?:(?!\*\*).)+)\*\*/', '[b]\1[/b]', $text);
+		$text = preg_replace('/\*((?:(?!\*).)+)\*/', '[i]\1[/i]', $text);
+		$text = preg_replace('/##((?:(?!##).)+)(?:##)?/', '[size=16]\1[/size]', $text);
+		$text = preg_replace('/!!\[(?:(?!\]).)*\]\(((?:(?!\)).)+)\)/', '[video]\1[/video]', $text);
+		$text = preg_replace('/!\[(?:(?!\]).)*\]\(((?:(?!\)).)+)\)/', '[img]\1[/img]', $text);
+		$text = preg_replace('/\[(?:(?!\]).)+\]\(((?:(?!\)).)+)\)/', '[url]\1[/url]', $text);
+		$text = preg_replace('/\{\{\{(((?!\}\}\}).)+)\}\}\}/s', '[code]\1[/code]', $text);
+		$text = preg_replace('/^>((?:(?!\n\n).)+)/ms', '[quote]\1[/quote]', $text);
+
+		preg_match_all('/(^\d+\. .+\n?)+/m', $text, $num_list);
+		if ($num_list[0])
+		{
+			foreach ($num_list[0] AS $value)
+			{
+				$new_value = trim(preg_replace('/^\d+\. (.+)/m', '[*]\1[/*]', $value));
+				$text = str_replace($value, "[list=1]\n$new_value\n[/list]", $text);
+			}
+		}
+
+		preg_match_all('/(^- .+\n?)+/m', $text, $nor_list);
+		if ($nor_list[0])
+		{
+			foreach ($nor_list[0] AS $value)
+			{
+				$new_value = trim(preg_replace('/^- (.+)/m', '[*]\1[/*]', $value));
+				$text = str_replace($value, "[list]\n$new_value\n[/list]", $text);
+			}
+		}
+
+		return htmlspecialchars($text);
 	}
 
 	public static function sub_url($url, $length)
