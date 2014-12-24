@@ -2013,7 +2013,7 @@ AWS.Dropdown =
 	        break;
 
 	        case 'redirect' :
-	            url = G_BASE_URL + '/search/ajax/search/?q=' + encodeURIComponent(data) + '&type=questions&limit=30';
+	            url = G_BASE_URL + '/search/ajax/search/?q=' + encodeURIComponent(data) + '&type=questions&limit=30&is_question_id=1';
 	        break;
 
 	        case 'invite' :
@@ -2138,7 +2138,7 @@ AWS.Dropdown =
 	                    {
 	                        $(selector).parent().find('.aw-dropdown-list').append(Hogan.compile(AW_TEMPLATE.questionRedirectList).render(
 	                        {
-	                            'url': "'" + G_BASE_URL + "/question/ajax/redirect/', 'item_id=" + $(selector).attr('data-id') + "&target_id=" + a['search_id'] + "&is_question_id=1'",
+	                            'url': "'" + G_BASE_URL + "/question/ajax/redirect/', 'item_id=" + $(selector).attr('data-id') + "&target_id=" + a['search_id'] + "'",
 	                            'name': a['name']
 	                        }));
 	                    });
