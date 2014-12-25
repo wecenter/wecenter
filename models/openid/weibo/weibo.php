@@ -73,25 +73,18 @@ class openid_weibo_weibo_class extends AWS_MODEL
         return $services_info;
     }
 
-    public function save_msg_info_to_question($id)
+    public function save_msg_info_to_question($id, $uid)
     {
-        $published_user = get_setting('weibo_msg_published_user');
-
-        if (!$published_user['uid'])
+        if (!is_digits($uid))
         {
-            return AWS_APP::lang()->_t('微博发布用户不存在');
+            return false;
         }
 
         $msg_info = $this->get_msg_info_by_id($id);
 
-        if (!$msg_info)
+        if (!$msg_info OR $msg_info['question_id'] OR $msg_info['ticket_id'])
         {
-            return AWS_APP::lang()->_t('微博消息 ID 不存在');
-        }
-
-        if ($msg_info['question_id'] OR $msg_info['ticket_id'])
-        {
-            return AWS_APP::lang()->_t('该微博消息已被导入');
+            return false;
         }
 
         $this->model('publish')->publish_question($msg_info['text'], null, null, $published_user['uid'], null, null, $msg_info['access_key'], $msg_info['uid'], false, array('weibo_msg' => $msg_info['id']));

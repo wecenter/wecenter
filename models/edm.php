@@ -428,25 +428,21 @@ class edm_class extends AWS_MODEL
         return true;
     }
 
-    public function save_received_email_to_question($id)
+    public function save_received_email_to_question($id, $uid)
     {
+        if (!is_digits($uid))
+        {
+            return false;
+        }
+
         $received_email = $this->get_received_email_by_id($id);
 
-        if (!$received_email)
+        if (!$received_email OR $received_email['question_id'] OR $received_email['ticket_id'])
         {
-            return AWS_APP::lang()->_t('已导入邮件不存在');
+            return false;
         }
 
-        $receiving_email_global_config = get_setting('receiving_email_global_config');
-
-        $publish_user = $receiving_email_global_config['publish_user'];
-
-        if (!$publish_user['uid'])
-        {
-            return AWS_APP::lang()->_t('邮件发布用户不存在');
-        }
-
-        $this->model('publish')->publish_question($received_email['subject'], $received_email['content'], null, $publish_user['uid'], null, null, $received_email['access_key'], $received_email['uid'], false, array('received_email' => $received_email['id']));
+        $this->model('publish')->publish_question($received_email['subject'], $received_email['content'], null, $uid, null, null, $received_email['access_key'], $received_email['uid'], false, array('received_email' => $received_email['id']));
     }
 
     public function reply_answer_by_email($question_id, $comment)
