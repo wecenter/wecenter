@@ -2089,7 +2089,7 @@ AWS.Dropdown =
 	        break;
 
 	        case 'redirect' :
-	            url = G_BASE_URL + '/search/ajax/search/?q=' + encodeURIComponent(data) + '&type=questions&limit=30';
+	            url = G_BASE_URL + '/search/ajax/search/?q=' + encodeURIComponent(data) + '&type=questions&limit=30&is_question_id=1';
 	        break;
 
 	        case 'invite' :

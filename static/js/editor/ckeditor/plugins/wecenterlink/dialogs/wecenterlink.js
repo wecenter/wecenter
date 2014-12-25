@@ -24,7 +24,6 @@
                                     var element = editor.document.createElement( 'a' );
                                     element.setAttribute( 'href', this.getValue() );
                                     element.setHtml(this.getValue());
-                                    console.log(element);
                                     editor.insertElement( element );
                                 }
                             }
