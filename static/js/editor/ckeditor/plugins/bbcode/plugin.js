@@ -636,6 +636,9 @@
 						delete element.attributes.listType;
 					},
 					a: function( element ) {
+						// Modify by kk
+						if (element.children[0] == undefined)
+							return false;
 						if ( !element.attributes.href )
 							element.attributes.href = element.children[ 0 ].value;
 					},
