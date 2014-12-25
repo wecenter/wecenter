@@ -221,7 +221,7 @@ class topic_class extends AWS_MODEL
 		return $this->fetch_one('topic', 'topic_id', "topic_title = '" . $this->quote(htmlspecialchars($topic_title)) . "'");
 	}
 
-	public function save_topic($topic_title, $uid = null, $auto_create = true)
+	public function save_topic($topic_title, $uid = null, $auto_create = true, $topic_description)
 	{
 		$topic_title = str_replace(array('-', '/'), '_', $topic_title);
 

@@ -111,7 +111,7 @@
 								<?php if ($this->question_info['attachs']) {  ?>
 								<div class="aw-upload-img-list">
 								<?php foreach ($this->question_info['attachs'] AS $attach) { ?>
-								<?php if ($attach['is_image'] AND !in_array($attach['id'], $this->question_info['attachs_ids'])) { ?>
+								<?php if ($attach['is_image'] AND (!$this->question_info['attachs_ids'] OR !in_array($attach['id'], $this->question_info['attachs_ids']))) { ?>
 									<a href="<?php echo $attach['attachment']; ?>" target="_blank" data-fancybox-group="thumb" rel="lightbox"><img src="<?php echo $attach['attachment']; ?>" class="img-thumbnail" alt="<?php echo $attach['file_name']; ?>" /></a>
 								<?php } ?>
 								<?php } ?>
@@ -126,7 +126,7 @@
 								<div class="mod-body">
 									<ul>
 										<?php foreach ($this->question_info['attachs'] AS $attach) { ?>
-										<?php if (!$attach['is_image'] AND !in_array($attach['id'], $this->question_info['attachs_ids'])) { ?>
+										<?php if (!$attach['is_image'] AND (!$this->question_info['attachs_ids'] OR !in_array($attach['id'], $this->question_info['attachs_ids']))) { ?>
 											<li><a href="<?php echo download_url($attach['file_name'], $attach['attachment']); ?>"><?php echo $attach['file_name']; ?></a></li>
 										<?php } ?>
 										<?php } ?>
@@ -336,7 +336,7 @@
 										<?php if ($val['attachs']) {  ?>
 										<div class="aw-upload-img-list">
 										<?php foreach ($val['attachs'] AS $attach) { ?>
-										<?php if ($attach['is_image'] AND !($val['insert_attach_ids'] AND in_array($attach['id'], $val['insert_attach_ids']))) { ?>
+										<?php if ($attach['is_image'] AND (!$val['insert_attach_ids'] OR !in_array($attach['id'], $val['insert_attach_ids']))) { ?>
 											<a href="<?php echo $attach['attachment']; ?>" target="_blank" data-fancybox-group="thumb" rel="lightbox"><img src="<?php echo $attach['attachment']; ?>" class="img-thumbnail" alt="<?php echo $attach['attach_name']; ?>" /></a>
 										<?php } ?>
 										<?php } ?>
@@ -346,7 +346,7 @@
 										<?php if ($val['attachs']) {  ?>
 										<ul class="aw-upload-file-list">
 											<?php foreach ($val['attachs'] AS $attach) { ?>
-											<?php if (!$attach['is_image'] AND !($val['insert_attach_ids'] AND in_array($attach['id'], $val['insert_attach_ids']))) { ?>
+											<?php if (!$attach['is_image'] AND (!$val['insert_attach_ids'] OR !in_array($attach['id'], $val['insert_attach_ids']))) { ?>
 												<li><a href="<?php echo download_url($attach['file_name'], $attach['attachment']); ?>"><i class="icon icon-attach"></i><?php echo $attach['file_name']; ?></a></li>
 											<?php } ?>
 											<?php } ?>
@@ -474,8 +474,7 @@
 							<div class="aw-mod aw-editor-box">
 								<div class="mod-head">
 									<div class="wmd-panel">
-							            <div id="wmd-button-bar"></div>
-							            <textarea class="wmd-input form-control autosize" id="wmd-input" rows="15" name="answer_content"><?php echo htmlspecialchars($this->draft_content['message']); ?></textarea>
+							           <textarea class="wmd-input form-control autosize editor" id="wmd-input" rows="15" name="answer_content"><?php echo htmlspecialchars($this->draft_content['message']); ?></textarea>
 							        </div>
 								</div>
 								<div class="mod-body clearfix">
@@ -494,9 +493,6 @@
 										<span class="text-color-999 aw-upload-tips hidden-xs"><?php _e('允许'); ?> : <?php echo get_setting('allowed_upload_types'); ?></span>
 									</div>
 									<?php } ?>
-								</div>
-								<div class="mod-footer">
-									<div id="wmd-preview" class="wmd-panel wmd-preview"></div>
 								</div>
 							</div>
 
@@ -618,19 +614,15 @@
 </div>
 
 <script type="text/javascript">
-	ATTACH_ACCESS_KEY = '<?php echo $this->attach_access_key; ?>';
-	ITEM_IDS = '<?php echo addslashes($_GET['item_id']); ?>';
-	COMMENT_UNFOLD = '<?php echo addslashes($_GET['comment_unfold']); ?>';
-
-	QUESTION_ID = <?php echo $this->question_info['question_id'];?>;
-	UNINTERESTED_COUNT = <?php echo get_setting('uninterested_fold'); ?>;
-
-	ANSWER_EDIT_TIME = <?php echo get_setting('answer_edit_time'); ?>;
-
-	USER_ANSWERED = '<?php echo $this->user_answered; ?>';
-
-	UPLOAD_ENABLE = '<?php echo get_setting('upload_enable') ?>';
-
+	var ATTACH_ACCESS_KEY = '<?php echo $this->attach_access_key; ?>';
+	var ITEM_IDS = '<?php echo addslashes($_GET['item_id']); ?>';
+	var COMMENT_UNFOLD = '<?php echo addslashes($_GET['comment_unfold']); ?>';
+	var QUESTION_ID = <?php echo $this->question_info['question_id'];?>;
+	var UNINTERESTED_COUNT = <?php echo get_setting('uninterested_fold'); ?>;
+	var ANSWER_EDIT_TIME = <?php echo get_setting('answer_edit_time'); ?>;
+	var USER_ANSWERED = '<?php echo $this->user_answered; ?>';
+	var UPLOAD_ENABLE = '<?php echo get_setting('upload_enable') ?>';
+	var ANSWER_TYPE = 'answer';
 </script>
 
 <script type="text/javascript" src="<?php echo G_STATIC_URL; ?>/js/app/question_detail.js"></script>
