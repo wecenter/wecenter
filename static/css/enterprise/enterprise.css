@@ -35,7 +35,7 @@
 .ticket-invite-list .icon {position: absolute;top: -12px;right: -6px;width: 16px;height: 16px;z-index: 2; line-height: 16px; text-align: center; border-radius: 50%;background: #f00;color: #fff;cursor: pointer;font-size: 12px;}
 .ticket-invite-list .invite-list-user{position: relative;}
 .ticket-invite-list li {margin-right: 3px;padding: 0;}
-
+#ticket-input {display: inline-block;}
 .remove-reply {cursor: pointer;}
 
 /* 热门话题 */
