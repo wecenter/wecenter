@@ -345,7 +345,7 @@
                                 <li>
                                     <h3><?php _e('话题'); ?></h3>
                                     <!-- 话题bar -->
-                                    <div class="aw-topic-bar ticket_topic_editor" id="question_topic_editor" data-type="ticket" data-id="<?php echo $this->ticket_info['id']; ?>">
+                                    <div class="aw-topic-bar ticket_topic_editor" id="question_topic_editor" data-type="ticket" data-url="<?php echo base_url(); if (get_setting('url_rewrite_enable') != 'Y') { ?>/<?php echo rtrim(G_INDEX_SCRIPT, '/'); } ?>/ticket/ajax/remove_topic_relation/" data-id="<?php echo $this->ticket_info['id']; ?>">
                                         <div class="tag-bar clearfix">
                                             <?php if ($this->ticket_topics) {
                                                 foreach($this->ticket_topics AS $topic) { ?>
