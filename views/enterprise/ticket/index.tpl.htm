@@ -286,23 +286,18 @@
                                     <!-- 工单邀请 -->
                                     <div class="aw-invite-box" id="aw-ticket-invite">
                                         <div class="mod-head clearfix">
-                                              <div class="invite-list <?php if (!$this->invite_users) { ?> hide<?php } ?> ticket-invite-list">
-                                                <?php _e('已邀请'); ?>:
-
-                                                <?php if ($this->invite_users) {
-                                                    foreach($this->invite_users AS $invite_user) { ?>
-                                                    <a class="text-color-999 invite-list-user" data-id="<?php echo $invite_user['recipient_info']['uid']; ?>" data-original-title="<?php echo $invite_user['recipient_info']['user_name']; ?>" data-placement="right" data-toggle="tooltip"><img src="<?php echo get_avatar_url($invite_user['recipient_info']['uid'], 'mid'); ?>" />
-                                                    <i data-id="<?php echo $invite_user['recipient_info']['uid']; ?>" class=" cancel-invite icon icon-delete" onclick="AWS.User.ticket_disinvite_user($(this))"></i>
-
-                                                     </a>
-
-
-                                                    <?php
-                                                }
-
-                                                } ?>
-
-                                            </div>
+                                              <ul class="invite-list <?php if (!$this->invite_users) { ?> hide<?php } ?> ticket-invite-list clearfix">
+                                              <span class="pull-left"><?php _e('已邀请'); ?>:</span>
+                                                <?php if ($this->invite_users) { ?>
+                                                    <?php foreach($this->invite_users AS $invite_user) { ?>
+                                                    <li class="pull-left">
+                                                        <a class="invite-list-user text-color-999" data-id="<?php echo $invite_user['recipient_info']['uid']; ?>" data-original-title="<?php echo $invite_user['recipient_info']['user_name']; ?>" data-placement="right" data-toggle="tooltip"><img src="<?php echo get_avatar_url($invite_user['recipient_info']['uid'], 'mid'); ?>" />
+                                                            <i data-id="<?php echo $invite_user['recipient_info']['uid']; ?>" class="icon icon-delete" onclick="AWS.User.ticket_disinvite_user($(this))"></i>
+                                                        </a>
+                                                    </li>
+                                                <?php } ?>
+                                               <?php } ?>
+                                            </ul>
                                             <?php if ($this->ticket_info['status'] != 'closed') { ?>
                                             <div class="search-box">
                                                 <input id="ticket-input" class="form-control" type="text"  placeholder="<?php _e('搜索你想邀请的人...'); ?>"/>
@@ -458,10 +453,6 @@
             }, 'json')
         });
 
-        $(document).on('mouseover', '.cancel-invite', function ()
-        {
-            $(this).tooltip('show');
-        });
     })
 
     // 邀请别人回答工单
@@ -475,22 +466,24 @@
         {
             if (result.errno == -1)
             {
-                if (selector.parents('#aw-ticket-invite').find('.invite-list a').length == 0)
+                if (result.err)
                 {
-                    selector.parents('#aw-ticket-invite').find('.invite-list').show();
+                    AWS.alert(result.err);
                 }
-                selector.parents('#aw-ticket-invite').find('.invite-list').append('<a class="ticket-invite-user text-color-999 invite-list-user" data-toggle="tooltip" data-placement="right" data-original-title="'+ selector.attr('data-value') +'"><img src='+ img +' /><i class="cancel-invite icon icon-delete" data-id="<?php echo $invite_user['recipient_info']['uid']; ?>" onclick="AWS.User.ticket_disinvite_user($(this))" ></i></span></a>');
-
-
-
+                else
+                {
+                    if (selector.parents('#aw-ticket-invite').find('.invite-list a').length == 0)
+                    {
+                        selector.parents('#aw-ticket-invite').find('.invite-list').show();
+                    }
+                        selector.parents('#aw-ticket-invite').find('.invite-list').append('<li class="pull-left"><a class="invite-list-user text-color-999" data-id="' + selector.attr('data-id') + '" data-toggle="tooltip" data-placement="right" data-original-title="'+ selector.attr('data-value') +'"><img src='+ img +' /><i class="icon icon-delete" data-id="' + selector.attr('data-id') + '" onclick="AWS.User.ticket_disinvite_user($(this))" ></i> </a> </li>');
+                }
             }
             else if (result.errno != -1)
             {
                 AWS.alert(result.err);
             }
         }, 'json');
-
-
     }
 
     //  邀请客服回答工单
@@ -529,9 +522,14 @@
             {
                 $.each($('#aw-ticket-invite .invite-list-user'), function (i, e)
                 {
-                    if ($('#aw-ticket-invite .invite-list-user').attr('data-id') == selector.attr('data-id'))
+                    if ($(this).attr('data-id') == selector.attr('data-id'))
                     {
-                        $(this).detach();
+                        $(this).parent().detach();
+
+                        if ($('#aw-ticket-invite .invite-list li').length == 0)
+                        {
+                            $('#aw-ticket-invite .invite-list').hide();
+                        }
                     }
                 });
             }

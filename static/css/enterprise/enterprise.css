@@ -1,5 +1,6 @@
 /* 企业版 */
 .aw-mod.order-operate ul li{margin-bottom: 5px;}
+#aw-ticket-invite .search-box .aw-dropdown-list li,#aw-spec-invite-box .search-box .aw-dropdown-list li {margin-bottom: 0;}
 .aw-mod.order-operate h3{margin-bottom: 5px;}
 .aw-mod.order-operate .aw-topic-bar{margin:0;}
 .aw-mod.order-operate .aw-topic-bar input{width: 100% !important;}
@@ -7,7 +8,7 @@
 /* 问题详情页 */
 .aw-invite-box{border:none;}
 .aw-invite-box .mod-head{padding:0;background-color: #fff;}
-.aw-invite-box .mod-head .invite-list{margin:0 0 5px;}
+.aw-invite-box .mod-head .invite-list{margin:0 0 10px;}
 .aw-invite-box .mod-head .search-box{margin:0;}
 .aw-invite-box .mod-head input{width: 100%;}
 
@@ -31,8 +32,10 @@
 .title-mod.count .mod-footer ul li b{display: block;margin-bottom:10px;font-size: 26px;color: #666;}
 .ticket_topic_editor .aw-dropdown {top: 35px;}
 .invite-list {position: relative; overflow: inherit!important;}
-.cancel-invite {position: absolute;top: -2px;right: -2px;padding:2px;width: 11px;height: 11px; z-index: 2;line-height: 11px; font-size: 11px;border-radius: 50%;background: #f00;color: #fff;cursor: pointer;}
-.invite-list-user{position: relative;}
+.ticket-invite-list .icon {position: absolute;top: -12px;right: -6px;width: 16px;height: 16px;z-index: 2; line-height: 16px; text-align: center; border-radius: 50%;background: #f00;color: #fff;cursor: pointer;font-size: 12px;}
+.ticket-invite-list .invite-list-user{position: relative;}
+.ticket-invite-list li {margin-right: 3px;padding: 0;}
+
 .remove-reply {cursor: pointer;}
 
 /* 热门话题 */
