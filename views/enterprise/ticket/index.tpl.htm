@@ -345,7 +345,7 @@
                                 <li>
                                     <h3><?php _e('话题'); ?></h3>
                                     <!-- 话题bar -->
-                                    <div class="aw-topic-bar ticket_topic_editor" id="question_topic_editor" data-type="question" data-id="<?php echo $this->ticket_info['id']; ?>">
+                                    <div class="aw-topic-bar ticket_topic_editor" id="question_topic_editor" data-type="ticket" data-id="<?php echo $this->ticket_info['id']; ?>">
                                         <div class="tag-bar clearfix">
                                             <?php if ($this->ticket_topics) {
                                                 foreach($this->ticket_topics AS $topic) { ?>
@@ -533,6 +533,157 @@
                     }
                 });
             }
+        });
+    }
+
+    AWS.Init.init_topic_edit_box =  function(selector) //selector -> .aw-edit-topic
+    {
+        $(selector).click(function ()
+        {
+            var _topic_editor = $(this).parents('.aw-topic-bar'),
+                data_id = _topic_editor.attr('data-id'),
+                data_type = _topic_editor.attr('data-type');
+
+            if (!_topic_editor.hasClass('active'))
+            {
+                _topic_editor.addClass('active');
+
+                if (!_topic_editor.find('.topic-tag .close').length)
+                {
+                    _topic_editor.find('.topic-tag').append('<a class="close"><i class="icon icon-delete"></i></a>');
+                }
+            }
+            else
+            {
+                _topic_editor.addClass('active');
+            }
+
+            // 判断插入编辑box
+            if (_topic_editor.find('.aw-edit-topic-box').length == 0)
+            {
+                _topic_editor.append(AW_TEMPLATE.editTopicBox);
+
+                // 给编辑box添加按钮添加事件
+                _topic_editor.find('.add').click(function ()
+                {
+                    if (_topic_editor.find('#aw_edit_topic_title').val() != '')
+                    {
+                        switch (data_type)
+                        {
+                            case 'publish':
+                                _topic_editor.find('.tag-bar').prepend('<span class="topic-tag"><a class="text">' + _topic_editor.find('#aw_edit_topic_title').val() + '</a><a class="close" onclick="$(this).parents(\'.topic-tag\').remove();"><i class="icon icon-delete"></i></a><input type="hidden" value="' + _topic_editor.find('#aw_edit_topic_title').val() + '" name="topics[]" /></span>').hide().fadeIn();
+
+                                _topic_editor.find('#aw_edit_topic_title').val('');
+                            break;
+
+                            case 'question':
+                                $.post(G_BASE_URL + '/topic/ajax/save_topic_relation/', 'type=question&item_id=' + data_id + '&topic_title=' + encodeURIComponent(_topic_editor.find('#aw_edit_topic_title').val()), function (result)
+                                {
+                                    if (result.errno != 1)
+                                    {
+                                        AWS.alert(result.err);
+
+                                        return false;
+                                    }
+
+                                    _topic_editor.find('.tag-bar').prepend('<span class="topic-tag" data-id="' + result.rsm.topic_id + '"><a href="' + G_BASE_URL + '/topic/' + result.rsm.topic_id + '" class="text">' + _topic_editor.find('#aw_edit_topic_title').val() + '</a><a class="close"><i class="icon icon-delete"></i></a></span>').hide().fadeIn();
+
+                                    _topic_editor.find('#aw_edit_topic_title').val('');
+                                }, 'json');
+                            break;
+
+                            // modify by wecenter 添加工单话题
+                            case 'ticket':
+                                $.post(G_BASE_URL + '/ticket/ajax/save_topic_relation/',
+
+                                'item_id=' + data_id + '&topic_title=' + encodeURIComponent(_topic_editor.find('#aw_edit_topic_title').val()),
+
+                                function (result)
+                                {
+                                    if (result.errno != 1)
+                                    {
+                                        AWS.alert(result.err);
+
+                                        return false;
+                                    }
+                                    _topic_editor.find('.tag-bar').prepend('<span class="topic-tag" data-id="' + result.rsm.topic_id + '"><a href="' + G_BASE_URL + '/topic/' + result.rsm.topic_id + '" class="text">' + _topic_editor.find('#aw_edit_topic_title').val() + '</a><a class="close"><i class="icon icon-delete"></i></a></span>').hide().fadeIn();
+
+                                    _topic_editor.find('#aw_edit_topic_title').val('');
+                                }, 'json');
+                            break;
+
+                            case 'article':
+                                $.post(G_BASE_URL + '/topic/ajax/save_topic_relation/', 'type=article&item_id=' + data_id + '&topic_title=' + encodeURIComponent(_topic_editor.find('#aw_edit_topic_title').val()), function (result)
+                                {
+                                    if (result.errno != 1)
+                                    {
+                                        AWS.alert(result.err);
+
+                                        return false;
+                                    }
+
+                                    _topic_editor.find('.tag-bar').prepend('<span class="topic-tag" data-id="' + result.rsm.topic_id + '"><a href="' + G_BASE_URL + '/topic/' + result.rsm.topic_id + '" class="text">' + _topic_editor.find('#aw_edit_topic_title').val() + '</a><a class="close"><i class="icon icon-delete"></i></a></span>').hide().fadeIn();
+
+                                    _topic_editor.find('#aw_edit_topic_title').val('');
+                                }, 'json');
+                            break;
+
+
+                            case 'topic':
+                                $.post(G_BASE_URL + '/topic/ajax/save_related_topic/topic_id-' + data_id, 'topic_title=' + encodeURIComponent(_topic_editor.find('#aw_edit_topic_title').val()), function (result)
+                                {
+                                    if (result.errno != 1)
+                                    {
+                                        AWS.alert(result.err);
+
+                                        return false;
+                                    }
+
+                                    _topic_editor.find('.tag-bar').prepend('<span class="topic-tag"><a href="' + G_BASE_URL + '/favorite/tag-' + encodeURIComponent(_topic_editor.find('#aw_edit_topic_title').val()) + '" class="text">' + _topic_editor.find('#aw_edit_topic_title').val() + '</a><a class="close"><i class="icon icon-delete"></i></a></span>').hide().fadeIn();
+
+                                    _topic_editor.find('#aw_edit_topic_title').val('');
+                                }, 'json');
+                            break;
+
+                            case 'favorite':
+                                $.post(G_BASE_URL + '/favorite/ajax/update_favorite_tag/', 'item_id=' + data_id + '&item_type=' + _topic_editor.attr('data-item-type') + '&tags=' + encodeURIComponent(_topic_editor.find('#aw_edit_topic_title').val()), function (result)
+                                {
+                                    if (result.errno != 1)
+                                    {
+                                        AWS.alert(result.err);
+
+                                        return false;
+                                    }
+
+                                    _topic_editor.find('.tag-bar').prepend('<span class="topic-tag"><a href="' + G_BASE_URL + '/favorite/tag-' + encodeURIComponent(_topic_editor.find('#aw_edit_topic_title').val()) + '" class="text">' + _topic_editor.find('#aw_edit_topic_title').val() + '</a><a class="close"><i class="icon icon-delete"></i></a></span>').hide().fadeIn();
+
+                                    _topic_editor.find('#aw_edit_topic_title').val('');
+                                }, 'json');
+                            break;
+                        }
+                    }
+                });
+
+                // 给编辑box取消按钮添加事件
+                _topic_editor.find('.close-edit').click(function ()
+                {
+                    _topic_editor.removeClass('active');
+                    _topic_editor.find('.aw-edit-topic-box').hide();
+                    _topic_editor.find('.aw-edit-topic').show();
+                });
+
+                AWS.Dropdown.bind_dropdown_list($(this).parents('.aw-topic-bar').find('#aw_edit_topic_title'),'topic');
+            }
+
+            $(this).parents('.aw-topic-bar').find('.aw-edit-topic-box').fadeIn();
+
+            // 是否允许创建新话题
+            if (!G_CAN_CREATE_TOPIC)
+            {
+                $(this).parents('.aw-topic-bar').find('.add').hide();
+            }
+
+            $(this).hide();
         });
     }
 
