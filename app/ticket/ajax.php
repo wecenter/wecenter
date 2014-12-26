@@ -275,7 +275,7 @@ class ajax extends AWS_CONTROLLER
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('话题标题不能包含 / 与 -')));
         }
 
-        $ticket_info = $this->model('ticket')->get_ticket_info_by_id($_POST['ticket_id']);
+        $ticket_info = $this->model('ticket')->get_ticket_info_by_id($_POST['item_id']);
 
         if (!$ticket_info)
         {
@@ -287,7 +287,7 @@ class ajax extends AWS_CONTROLLER
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('话题标题字数不得超过 %s 字节', get_setting('topic_title_limit'))));
         }
 
-        if (count($this->model('topic')->get_topics_by_item_id($_POST['item_id'], 'ticket')) >= get_setting('question_topics_limit') AND get_setting('question_topics_limit'))
+        if (count($this->model('topic')->get_topics_by_item_id($ticket_info['id'], 'ticket')) >= get_setting('question_topics_limit') AND get_setting('question_topics_limit'))
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('单个工单话题数量最多为 %s 个, 请调整话题数量', get_setting('question_topics_limit'))));
         }
@@ -314,12 +314,12 @@ class ajax extends AWS_CONTROLLER
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择话题')));
         }
 
-        if (!$_POST['ticket_id'])
+        if (!$_POST['item_id'])
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择工单')));
         }
 
-        $ticket_info = $this->model('ticket')->get_ticket_info_by_id($_POST['ticket_id']);
+        $ticket_info = $this->model('ticket')->get_ticket_info_by_id($_POST['item_id']);
 
         if (!$ticket_info)
         {
