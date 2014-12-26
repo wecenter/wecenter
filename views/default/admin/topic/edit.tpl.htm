@@ -7,22 +7,32 @@
 	<div class="mod">
 		<div class="mod-head">
 			<h3>
+				<?php if ($this->topic_info) { ?>
 				<span class="pull-left"><?php _e('话题编辑'); ?></span>
+				<?php } else { ?>
+				<ul class="nav nav-tabs">
+					<li><a href="admin/topic/list/"><?php _e('话题管理'); ?></a></li>
+					<li><a href="admin/topic/parent/"><?php _e('根话题'); ?></a></li>
+					<li class="active"><a href="admin/topic/edit/"><?php _e('新建话题'); ?></a></li>
+				</ul>
+				<?php } ?>
 			</h3>
 		</div>
 
 		<div class="tab-content mod-content">
 			<table class="table table-striped">
+				<?php if ($this->topic_info) { ?>
 				<tr>
 					<td>
 						<div class="form-group">
 							<span class="col-sm-4 col-xs-3 control-label"><?php _e('缩略图'); ?>:</span>
 							<div class="col-sm-5 col-xs-8">
-								<a id="topic_pic_uploader"><img src="<?php echo get_topic_pic_url('mid', $this->topic_info['topic_pic']); ?>" alt="" id="topic_pic" class="img-polaroid" /></a>
+								<a id="topic_pic_uploader"><img src="<?php echo get_topic_pic_url('mid', $this->topic_info['topic_pic']); ?>" alt="" id="topic_pic" class="img-polaroid" name="topic_pic" /></a>
 							</div>
 						</div>
 					</td>
 				</tr>
+				<?php } ?>
 
 				<tr>
 					<td>
@@ -46,6 +56,7 @@
 					</td>
 				</tr>
 
+				<?php if ($this->topic_info) { ?>
 				<tr>
 					<td>
 						<div class="form-group">
@@ -64,6 +75,7 @@
 						</div>
 					</td>
 				</tr>
+				<?php } ?>
 
 				<tr>
 					<td>
@@ -128,10 +140,12 @@
 
 <script type="text/javascript">
 	$(document).ready(function () {
+		<?php if ($this->topic_info) { ?>
 		if ($('#topic_pic_uploader').length)
 		{
 			var fileupload = new FileUpload('avatar', $('#topic_pic_uploader'), $('#topic_pic'), G_BASE_URL + '/topic/ajax/upload_topic_pic/topic_id-<?php echo $this->topic_info['topic_id']; ?>', 'topic_pic');
 		}
+		<?php } ?>
 
 		// 根话题选择
 		$.each($('#parent_topic_select option'), function (i, e)

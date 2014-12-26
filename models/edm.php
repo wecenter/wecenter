@@ -138,7 +138,7 @@ class edm_class extends AWS_MODEL
             {
                 $from_name = $task_data[$item['taskid']]['from_name'];
             }
-            
+
             $task_data[$item['taskid']]['message'] = str_replace('[#UNSUBSCRIPTION_LINK#]', get_js_url('/account/edm/unsubscription/' . urlencode(base64_encode($item['email'])) . ',' . md5($item['email'] . G_SECUKEY)), $task_data[$item['taskid']]['message']);
 
             $message = $task_data[$item['taskid']]['message'] . '<p><center>为确保我们的邮件不被当做垃圾邮件处理，请把 ' . get_setting('from_email') . ' 添加为你的联系人。</center></p><p><center>如果内容显示不正确, 请<a href="' . get_js_url('/account/edm/mail/' . $item['taskid']) . '">点此查看在线版</a>。<img src="' . get_js_url('/account/edm/ping/' . urlencode(base64_encode($item['email'])) . '|' . md5($item['email'] . G_SECUKEY)) . '|' . $item['taskid'] . '" alt="" width="1" height="1" /></center></p>';
@@ -428,25 +428,21 @@ class edm_class extends AWS_MODEL
         return true;
     }
 
-    public function save_received_email_to_question($id)
+    public function save_received_email_to_question($id, $uid)
     {
+        if (!is_digits($uid))
+        {
+            return false;
+        }
+
         $received_email = $this->get_received_email_by_id($id);
 
-        if (!$received_email)
+        if (!$received_email OR $received_email['question_id'] OR $received_email['ticket_id'])
         {
-            return AWS_APP::lang()->_t('已导入邮件不存在');
+            return false;
         }
 
-        $receiving_email_global_config = get_setting('receiving_email_global_config');
-
-        $publish_user = $receiving_email_global_config['publish_user'];
-
-        if (!$publish_user['uid'])
-        {
-            return AWS_APP::lang()->_t('邮件发布用户不存在');
-        }
-
-        $this->model('publish')->publish_question($received_email['subject'], $received_email['content'], null, $publish_user['uid'], null, null, $received_email['access_key'], $received_email['uid'], false, 'received_email', $received_email['id']);
+        $this->model('publish')->publish_question($received_email['subject'], $received_email['content'], null, $uid, null, null, $received_email['access_key'], $received_email['uid'], false, array('received_email' => $received_email['id']));
     }
 
     public function reply_answer_by_email($question_id, $comment)
@@ -514,17 +510,17 @@ class edm_class extends AWS_MODEL
                 break;
         }
     }
-    
+
 	public function is_unsubscription($email)
 	{
 		return $this->fetch_one('edm_unsubscription', 'id', "`email` = '" . $this->quote($email) . "'");
 	}
-	
+
 	public function unsubscription_user($email)
-	{		
+	{
 		$this->delete('edm_taskdata', "`email` = '" . $this->quote($email) . "'");
 		$this->delete('edm_userdata', "`email` = '" . $this->quote($email) . "'");
-		
+
 		$this->insert('edm_unsubscription', array(
 			'email' => $email,
 			'time' => time()

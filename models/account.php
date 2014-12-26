@@ -1209,9 +1209,11 @@ class account_class extends AWS_MODEL
 
     public function get_user_group_list($type = 0, $custom = null)
     {
-        $where[] = 'type = ' . intval($type);
+        $type = intval($type);
 
-        if ($custom !== null)
+        $where[] = (defined('ENTERPRISE_EDITION') AND $type === 0) ? 'type IN (0, 2)' : 'type = ' . $type;
+
+        if (isset($custom))
         {
             $where[] = 'custom = ' . intval($custom);
         }

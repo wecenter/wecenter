@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta content="text/html" charset="utf-8" http-equiv="Content-Type" />
+    <link rel="stylesheet" type="text/css" href="icon.css" />
+    <link rel="stylesheet" type="text/css" href="wecenter-editor.css" />
+</head>
+<body>
+	<form>
+    	<textarea name="editor1" class="editor" id="editor1" rows="10" cols="80"></textarea>
+    </form>
+
+    <!-- <form>
+        <textarea name="editor2" class="editor" id="editor2" rows="10" cols="80"></textarea>
+    </form> -->
+    
+    <script type="text/javascript" src="jquery.js"></script>
+	<script type="text/javascript" src="ckeditor.js"></script>
+    
+	<script>
+    	// Replace the <textarea id="editor1"> with a CKEditor
+    	// instance, using default configuration.
+
+        $.each($('.editor'), function ()
+        {
+            var editor = CKEDITOR.replace( $(this).attr('name') ), _this = $(this);
+
+            // The "change" event is fired whenever a change is made in the editor.
+            editor.on( 'change', function( evt ) {
+                // getData() returns CKEditor's HTML content.
+                _this.val(evt.editor.getData());
+                console.log( 'Total bytes: ' + evt.editor.getData());
+
+            });
+        })
+
+    	
+
+    </script>
+</body>
+</html>

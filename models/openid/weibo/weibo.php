@@ -73,23 +73,21 @@ class openid_weibo_weibo_class extends AWS_MODEL
         return $services_info;
     }
 
-    public function save_msg_info_to_question($id)
+    public function save_msg_info_to_question($id, $uid)
     {
+        if (!is_digits($uid))
+        {
+            return false;
+        }
+
         $msg_info = $this->get_msg_info_by_id($id);
 
-        if (!$msg_info)
+        if (!$msg_info OR $msg_info['question_id'] OR $msg_info['ticket_id'])
         {
-            return AWS_APP::lang()->_t('微博消息 ID 不存在');
+            return false;
         }
 
-        $published_user = get_setting('weibo_msg_published_user');
-
-        if (!$published_user['uid'])
-        {
-            return AWS_APP::lang()->_t('微博发布用户不存在');
-        }
-
-        $this->model('publish')->publish_question($msg_info['text'], null, null, $published_user['uid'], null, null, $msg_info['access_key'], $msg_info['uid'], false, 'weibo_msg', $msg_info['id']);
+        $this->model('publish')->publish_question($msg_info['text'], null, null, $published_user['uid'], null, null, $msg_info['access_key'], $msg_info['uid'], false, array('weibo_msg' => $msg_info['id']));
     }
 
     public function reply_answer_to_sina($question_id, $comment)
@@ -260,8 +258,6 @@ class openid_weibo_weibo_class extends AWS_MODEL
                         }
 
                         $this->model('publish')->add_attach('weibo_msg', $upload_data['orig_name'], $msg_info['access_key'], $now, basename($upload_data['full_path']), true);
-
-                        $msg_info['has_attach'] = 1;
                     }
 
                     $this->model('publish')->update_attach('weibo_msg', $msg_info['id'], $msg_info['access_key']);

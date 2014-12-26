@@ -255,9 +255,8 @@ function get_weixin_rule_image($image_file, $size = '')
 
 function import_editor_static_files()
 {
-	TPL::import_js('js/editor/Markdown.Converter.js');
-	TPL::import_js('js/editor/Markdown.Sanitizer.js');
-	TPL::import_js('js/editor/Markdown.Editor.js');
+	TPL::import_js('js/editor/ckeditor/ckeditor.js');
+	TPL::import_js('js/editor/ckeditor/adapters/jquery.js');
 }
 
 function get_chapter_icon_url($id, $size = 'max', $default = true)
@@ -287,4 +286,14 @@ function base64_url_encode($parm)
 function base64_url_decode($parm)
 {
 	return json_decode(base64_decode(strtr($parm, '-_,', '+/=')), true);
+}
+
+function remove_assoc($from, $type, $id)
+{
+	if (!$from OR !$type OR !is_digits($id))
+	{
+		return false;
+	}
+
+	return $this->query('UPDATE ' . $this->get_table($from) . ' SET `' . $type . '_id` = NULL WHERE `' . $type . '_id` = ' . $id);
 }

@@ -91,9 +91,12 @@ class weixin_class extends AWS_MODEL
 
     public function get_account_info_by_id($account_id)
     {
-        $account_id = intval($account_id);
+        if (!is_digits($account_id))
+        {
+            return false;
+        }
 
-        if ($account_id == 0)
+        if ($account_id === 0 OR $account_id === '0')
         {
             return $this->get_master_account_info();
         }
@@ -144,14 +147,12 @@ class weixin_class extends AWS_MODEL
 
     public function update_setting_or_account($account_id, $account_info)
     {
-        $account_id = intval($account_id);
-
-        if (!$account_info)
+        if (!is_digits($account_id))
         {
             return false;
         }
 
-        if ($account_id == 0)
+        if ($account_id === 0 OR $account_id === '0')
         {
             return $this->model('setting')->set_vars($account_info);
         }
@@ -1289,9 +1290,7 @@ class weixin_class extends AWS_MODEL
 
     public function remove_weixin_account($account_id)
     {
-        $account_id = intval($account_id);
-
-        if ($account_id == 0)
+        if (!is_digits($account_id) OR $account_id === 0 OR $account_id === '0')
         {
             return false;
         }
