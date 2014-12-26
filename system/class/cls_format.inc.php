@@ -207,9 +207,10 @@ class FORMAT
 		$text = preg_replace('/!!\[(?:(?!\]).)*\]\(((?:(?!\)).)+)\)/', '[video]\1[/video]', $text);
 		$text = preg_replace('/!\[(?:(?!\]).)*\]\(((?:(?!\)).)+)\)/', '[img]\1[/img]', $text);
 		$text = preg_replace('/\[(?:(?!\]).)+\]\(((?:(?!\)).)+)\)/', '[url]\1[/url]', $text);
-		$text = preg_replace('/\{\{\{(((?!\}\}\}).)+)\}\}\}/s', '[code]\1[/code]', $text);
+		$text = str_ireplace(array('{{{', '}}}'), array('[[[', ']]]'), $text);
+		$text = preg_replace('/\[\[\[(((?!\]\]\]).)+)\]\]\]/s', '[code]\1[/code]', $text);
 		$text = preg_replace('/^>((?:(?!\n\n).)+)/ms', '[quote]\1[/quote]', $text);
-/*
+
 		preg_match_all('/(^\d+\. .+\n?)+/m', $text, $num_list);
 		if ($num_list[0])
 		{
@@ -229,7 +230,7 @@ class FORMAT
 				$text = str_replace($value, "[list]\n$new_value\n[/list]", $text);
 			}
 		}
-*/
+
 		return htmlspecialchars($text);
 	}
 
