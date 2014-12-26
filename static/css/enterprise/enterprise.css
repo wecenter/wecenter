@@ -31,8 +31,8 @@
 .title-mod.count .mod-footer ul li b{display: block;margin-bottom:10px;font-size: 26px;color: #666;}
 .ticket_topic_editor .aw-dropdown {top: 35px;}
 .invite-list {position: relative; overflow: inherit!important;}
-.cancel-invite {position: absolute;top: 25px;left: 0;z-index: 2;line-height: 25px; cursor: pointer;}
-.ticket-invite-user {position: relative;display: inline-block;}
+.cancel-invite {position: absolute;top: -2px;right: -2px;padding:2px;width: 11px;height: 11px; z-index: 2;line-height: 11px; font-size: 11px;border-radius: 50%;background: #f00;color: #fff;cursor: pointer;}
+.invite-list-user{position: relative;}
 .remove-reply {cursor: pointer;}
 
 /* 热门话题 */

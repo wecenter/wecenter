@@ -115,11 +115,6 @@ class AWS_CONTROLLER
 			'js/app.js',
 		));
 
-		if (defined('ENTERPRISE_EDITION'))
-		{
-			TPL::import_js('js/enterprise.js');
-		}
-
 		// 产生面包屑导航数据
 		$this->crumb(get_setting('site_name'), base_url());
 
