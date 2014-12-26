@@ -1677,79 +1677,6 @@ AWS.User =
 	    });
 	},
 
-	// modify by wecenter 邀请别人回答工单
-	ticket_invite_user: function(selector, img, url) {
-
-		$.post(G_BASE_URL + '/ticket/ajax/invite_user/',
-	    {
-	        'ticket_id': TICKET_ID,
-	        'uid': selector.attr('data-id')
-	    }, function (result)
-	    {
-	    	var url = selector.parents('.aw-dropdown').find('.aw-dropdown-list a').attr('data-url');
-	    	var uid = selector.parents('.aw-dropdown').find('.aw-dropdown-list a').attr('data-id');
-	        if (result.errno == -1)
-	        {
-	            if (selector.parents('#aw-ticket-invite').find('.invite-list a').length == 0)
-	            {
-	                selector.parents('#aw-ticket-invite').find('.invite-list').show();
-	            }
-	            selector.parents('#aw-ticket-invite').find('.invite-list').append(' <div class="ticket-invite-user" "><a class="text-color-999 invite-list-user" href="'+ url +'" data-toggle="tooltip" data-placement="right" data-original-title="'+ selector.attr('data-value') +'"><img src='+ img +' /></a><span class="cancel-invite" data-id="'+ uid +'" onclick="AWS.User.ticket_disinvite_user($(this))" ></span></div>');
-	            // selector.parents('#aw-ticket-invite').find('.invite-list' ).append('<span class="cancel-invite">' + 取消 +'</span>').attr('onclick','AWS.User.ticket_disinvite_user($(this))')
-
-	        }
-	        else if (result.errno != -1)
-	        {
-	            AWS.alert(result.err);
-	        }
-	    }, 'json')
-
-	},
-
-	// modify by wecenter 邀请客服回答工单
-	ticket_invite_spec_user: function(selector, img) {
-		$.post(G_BASE_URL + '/ticket/ajax/assign_service/',
-	    {
-	        'ticket_id': TICKET_ID,
-	        'uid': selector.attr('data-id')
-	    }, function (result)
-	    {
-	    	var deal_ticket = $('.aw-side-bar .order-status #deal-ticket-user').text();
-
-	        if (result.err)
-	        {
-	            AWS.alert(result.err);
-	        }
-	        else
-	        {
-	        	deal_ticket = $('.aw-side-bar .order-status #deal-ticket-user').text(selector.attr('data-value'));
-	        }
-	    }, 'json')
-
-	},
-
-	// modify by wecenter 取消邀请回答工单
-	ticket_disinvite_user: function(selector) {
-		$.post(G_BASE_URL + '/ticket/ajax/cancel_invite/',
-		{
-		 	'ticket_id': TICKET_ID,
-	        'uid': selector.attr('data-id')
-	    }, function (result)
-	    {
-	        if (result.errno != -1)
-	        {
-	            $.each($('#aw-ticket-invite .ticket-invite-user'), function (i, e)
-	            {
-	                if ($('#aw-ticket-invite .ticket-invite-user').attr('data-id') == selector.attr('data-id'))
-	                {
-	                    $(this).detach();
-	                }
-	            });
-	        }
-	    });
-	},
-
-
 	// 问题感谢
 	question_thanks: function(selector, question_id)
 	{
@@ -2094,7 +2021,6 @@ AWS.Dropdown =
 
 	        case 'invite' :
 	        case 'inbox' :
-	        case 'ticket' : //modify by wecenter
 	            url = G_BASE_URL + '/search/ajax/search/?type=users&q=' + encodeURIComponent(data) + '&limit=10';
 	        break;
 
@@ -2258,7 +2184,6 @@ AWS.Dropdown =
 
 	                case 'inbox' :
 	                case 'invite' :
-	                case 'ticket' :
 	                    $.each(result, function (i, a)
 	                    {
 	                        $(selector).parent().find('.aw-dropdown-list').append(Hogan.compile(AW_TEMPLATE.inviteDropdownList).render(
@@ -2768,26 +2693,6 @@ AWS.Init =
 		                                return false;
 		                            }
 
-		                            _topic_editor.find('.tag-bar').prepend('<span class="topic-tag" data-id="' + result.rsm.topic_id + '"><a href="' + G_BASE_URL + '/topic/' + result.rsm.topic_id + '" class="text">' + _topic_editor.find('#aw_edit_topic_title').val() + '</a><a class="close"><i class="icon icon-delete"></i></a></span>').hide().fadeIn();
-
-		                            _topic_editor.find('#aw_edit_topic_title').val('');
-		                        }, 'json');
-	                        break;
-
-	                        // modify by wecenter 添加工单话题
-	                        case 'ticket':
-		                        $.post(G_BASE_URL + '/ticket/ajax/save_topic_relation/',
-
-		                        'ticket_id=' + data_id + '&topic_title=' + encodeURIComponent(_topic_editor.find('#aw_edit_topic_title').val()),
-
-		                        function (result)
-		                        {
-		                            if (result.errno != 1)
-		                            {
-		                                AWS.alert(result.err);
-
-		                                return false;
-		                            }
 		                            _topic_editor.find('.tag-bar').prepend('<span class="topic-tag" data-id="' + result.rsm.topic_id + '"><a href="' + G_BASE_URL + '/topic/' + result.rsm.topic_id + '" class="text">' + _topic_editor.find('#aw_edit_topic_title').val() + '</a><a class="close"><i class="icon icon-delete"></i></a></span>').hide().fadeIn();
 
 		                            _topic_editor.find('#aw_edit_topic_title').val('');

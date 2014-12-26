@@ -120,7 +120,7 @@ $(document).ready(function ()
             case 'ticket':
                 $.post(G_BASE_URL + '/ticket/ajax/remove_topic_relation/', {
                     'topic_id': $(this).parents('.topic-tag').attr('data-id'),
-                    'ticket_id': data_id
+                    'item_id': data_id
                 }, function()
                 {
                     $('#aw-ajax-box').empty();
