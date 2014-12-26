@@ -20,20 +20,25 @@
                     <tr>
                         <td>
                             <div class="form-group">
-                                <span class="col-sm-4 col-xs-3 control-label"><?php _e('开启邮件导入'); ?>:</span>
+                                <span class="col-sm-4 col-xs-3 control-label"><?php _e('导入邮件消息至'); ?>:</span>
 
                                 <div class="col-sm-6 col-xs-8">
-                                    <div class="btn-group mod-btn">
-                                        <label type="button" class="btn mod-btn-color">
-                                            <input type="radio" name="enabled" value="Y"<?php if ($this->receiving_email_global_config['enabled'] == 'Y') { ?> checked="checked"<?php } ?> />
-                                            <?php _e('是'); ?>
-                                        </label>
+                                    <label class="checkbox-inline">
+                                        <input type="radio" name="enabled" value="question"<?php if ($this->receiving_email_global_config['enabled'] == 'question') { ?> checked="checked"<?php } ?> />
+                                        <?php _e('问题'); ?>
+                                    </label>
 
-                                        <label type="button" class="btn mod-btn-color">
-                                            <input type="radio" name="enabled" value="N"<?php if ($this->receiving_email_global_config['enabled'] != 'Y') { ?> checked="checked"<?php } ?> />
-                                            <?php _e('否'); ?>
-                                        </label>
-                                    </div>
+                                    <?php if (defined('ENTERPRISE_EDITION')) { ?>
+                                    <label class="checkbox-inline">
+                                        <input type="radio" name="enabled" value="ticket"<?php if ($this->receiving_email_global_config['enabled'] == 'ticket') { ?> checked="checked"<?php } ?> />
+                                        <?php _e('工单'); ?>
+                                    </label>
+                                    <?php } ?>
+
+                                    <label class="checkbox-inline">
+                                        <input type="radio" name="enabled" value="N"<?php if ($this->receiving_email_global_config['enabled'] == 'N') { ?> checked="checked"<?php } ?> />
+                                        <?php _e('关闭'); ?>
+                                    </label>
                                 </div>
                             </div>
                         </td>
@@ -76,7 +81,7 @@
             <div class="mod-table-foot mod-one-btn">
                 <div class="center-block">
                 <?php if ($this->receiving_email_global_config['publish_user']['uid']) { ?>
-					 <input type="button" value="<?php _e('保存设置'); ?>" class="btn btn-primary"/>
+                     <input type="button" value="<?php _e('保存设置'); ?>" class="btn btn-primary"/>
                 <?php } else { ?>
                      <input type="button" value="<?php _e('保存设置'); ?>" class="btn btn-primary" onclick="AWS.ajax_post($('#receiving_email_global_config_form'));" />
                 <?php } ?>
@@ -91,17 +96,17 @@
         <?php if ($this->receiving_email_global_config['publish_user']['uid']) { ?>
         $('.center-block .btn-primary').click(function(){
 
-	        if($('.aw-admin-email ul:eq(1)').find("li").length <=0){
+            if($('.aw-admin-email ul:eq(1)').find("li").length <=0){
 
-	        	AWS.alert('请设置邮件内容对应提问用户！')
+                AWS.alert('请设置邮件内容对应提问用户！')
 
-	        	return false;
-	        }else{
-	        	
-	        	AWS.ajax_post($('#receiving_email_global_config_form'));
-	        }
+                return false;
+            }else{
+
+                AWS.ajax_post($('#receiving_email_global_config_form'));
+            }
         });
-        
+
         function delEmail(_this)
         {
             var tempDom = $('<input type="text" class="form-control search-input" placeholder="设置此账号对应用户">');
@@ -113,9 +118,9 @@
 
             AWS.Dropdown.bind_dropdown_list($('.search-input'), 'adminEmailUser');
         }
-        
+
         <?php } else { ?>
-        
+
         AWS.Dropdown.bind_dropdown_list($('.search-input:eq(0)'), 'adminEmailUser');
 
         function delEmail(_this)
