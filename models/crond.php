@@ -107,6 +107,21 @@ class crond_class extends AWS_MODEL
     // 每五分钟执行
     public function five_minutes()
     {
+        if (defined('ENTERPRISE_EDITION'))
+        {
+            if (get_setting('weibo_msg_enabled') == 'ticket')
+            {
+                $this->model('ticket')->save_weibo_msg_to_ticket_crond();
+            }
+
+            $receiving_email_global_config = get_setting('receiving_email_global_config');
+
+            if ($receiving_email_global_config['enabled'] == 'ticket')
+            {
+                $this->model('ticket')->save_received_email_to_ticket_crond();
+            }
+        }
+
         $this->model('admin')->notifications_crond();
 
         $this->model('active')->send_valid_email_crond();

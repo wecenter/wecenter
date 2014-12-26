@@ -80,8 +80,6 @@ class admin_class extends AWS_MODEL
                                 'question_approval' => $this->count('approval', 'type = "question"'),
                                 'article_approval' => $this->count('approval', 'type = "article"'),
                                 'article_comment_approval' => $this->count('approval', 'type = "article_comment"'),
-                                'weibo_msg_approval' => $this->count('weibo_msg', 'question_id IS NULL'),
-                                'received_email_approval' => $this->count('received_email', 'question_id IS NULL'),
                                 'unverified_modify_count' => $this->count('question', 'unverified_modify_count <> 0'),
 
                                 // 用户举报
@@ -105,6 +103,18 @@ class admin_class extends AWS_MODEL
                                 // 邮件导入失败
                                 'receive_email_error' => $admin_notifications['receive_email_error']
                             );
+
+        if (get_setting('weibo_msg_enabled') == 'question')
+        {
+            $admin_notifications['weibo_msg_approval'] = $this->count('weibo_msg', 'question_id IS NULL AND ticket_id IS NULL');
+        }
+
+        $receiving_email_global_config = get_setting('receiving_email_global_config');
+
+        if ($receiving_email_global_config['enabled'] == 'question')
+        {
+            $admin_notifications['received_email_approval'] = $this->count('received_email', 'question_id IS NULL AND ticket_id IS NUL');
+        }
 
         AWS_APP::cache()->set('admin_notifications', $admin_notifications, 1800);
 
