@@ -202,12 +202,12 @@ class FORMAT
 		$text = htmlspecialchars_decode($text);
 
 		$text = preg_replace('/\*\*((?:(?!\*\*).)+)\*\*/', '[b]\1[/b]', $text);
-		$text = preg_replace('/\*((?:(?!\*).)+)\*/', '[i]\1[/i]', $text);
-//		$text = preg_replace('/##((?:(?!##).)+)(?:##)?/', '[size=16]\1[/size]', $text);
+//		$text = preg_replace('/\*((?:(?!\*).)+)\*/', '[i]\1[/i]', $text);
+		$text = preg_replace('/##((?:(?!##).)+)(?:##)?/', '[size=16]\1[/size]', $text);
 		$text = preg_replace('/!!\[(?:(?!\]).)*\]\(((?:(?!\)).)+)\)/', '[video]\1[/video]', $text);
-		$text = preg_replace('/!\[(?:(?!\]).)*\]\(((?:(?!\)).)+)\)/', '[img]\1[/img]', $text);
+//		$text = preg_replace('/!\[(?:(?!\]).)*\]\(((?:(?!\)).)+)\)/', '[img]\1[/img]', $text);
 		$text = preg_replace('/\[(?:(?!\]).)+\]\(((?:(?!\)).)+)\)/', '[url]\1[/url]', $text);
-		$text = preg_replace('/\{\{\{(((?!\}\}\}).)+)\}\}\}/s', '[code]\1[/code]', $text);
+//		$text = preg_replace('/\{\{\{(((?!\}\}\}).)+)\}\}\}/s', '[code]\1[/code]', $text);
 		$text = preg_replace('/^>((?:(?!\n\n).)+)/ms', '[quote]\1[/quote]', $text);
 /*
 		preg_match_all('/(^\d+\. .+\n?)+/m', $text, $num_list);
