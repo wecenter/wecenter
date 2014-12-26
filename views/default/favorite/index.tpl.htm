@@ -128,15 +128,6 @@
 
 					<?php TPL::output('block/sidebar_menu.tpl.htm'); ?>
 
-					<div class="aw-mod invite-join">
-						<div class="mod-head">
-							<h3><?php _e('邀请好友加入社区'); ?><?php if ($this->user_info['invitation_available']) { ?><em class="badge badge-info"><?php echo $this->user_info['invitation_available']; ?></em><?php } ?></h3>
-						</div>
-						<div class="mod-body">
-							<a href="invitation/" class="btn btn-mini btn-success"><?php _e('发送邀请'); ?></a>
-						</div>
-					</div>
-
 					<!-- 可能感兴趣的人/或话题 -->
 					<?php TPL::output('block/sidebar_recommend_users_topics.tpl.htm'); ?>
 				</div>
