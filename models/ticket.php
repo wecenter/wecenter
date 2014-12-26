@@ -145,7 +145,7 @@ class ticket_class extends AWS_MODEL
         return $this->fetch_page('ticket_reply', 'ticket_id = ' . $ticket_id, 'time ASC', $page, $per_page);
     }
 
-    public function save_ticket($title, $message, $uid, $attach_access_key = null, $from = null, $from_id = null)
+    public function save_ticket($title, $message, $uid, $attach_access_key = null, $from = null)
     {
         $to_save_ticket = array(
             'title' => htmlspecialchars($title),
@@ -157,11 +157,19 @@ class ticket_class extends AWS_MODEL
             'status' => 'pending'
         );
 
-        if ($from AND in_array($from, array('weibo', 'email')) AND is_digits($from_id))
+        if ($from AND is_array($from))
         {
-            $to_save_ticket['source'] = $from;
+            foreach ($from AS $type => $from_id)
+            {
+                if (!is_digits($from_id))
+                {
+                    continue;
+                }
 
-            $to_save_ticket[$from . '_id'] = $from_id;
+                $to_save_ticket['source'] = $type;
+
+                $to_save_ticket[$type . '_id'] = $from_id;
+            }
         }
         else if (in_weixin())
         {
@@ -176,21 +184,22 @@ class ticket_class extends AWS_MODEL
 
             if ($attach_access_key)
             {
-                if ($weibo_msg_id)
-                {
-                    $this->model('weibo')->update_attach($weibo_msg_id, $ticket_id, $attach_access_key);
-                }
-                else
-                {
-                    $this->model('publish')->update_attach('ticket', $ticket_id, $attach_access_key);
-                }
+                $this->model('publish')->update_attach('ticket', $ticket_id, $attach_access_key);
             }
 
-            if ($from AND is_digits($from_id))
+            if ($from AND is_array($from))
             {
-                $this->update($from, array(
-                    'ticket_id' => $ticket_id
-                ), 'id = ' . $from_id);
+                foreach ($from AS $type => $from_id)
+                {
+                    if (!is_digits($from_id))
+                    {
+                        continue;
+                    }
+
+                    $this->update($type, array(
+                        'ticket_id' => $question_id
+                    ), 'id = ' . $from_id);
+                }
             }
         }
 
@@ -216,10 +225,39 @@ class ticket_class extends AWS_MODEL
 
         if ($attachs)
         {
-            foreach ($attachs as $attach)
+            foreach ($attachs AS $attach)
             {
                 $this->model('publish')->remove_attach($attach['id'], $attach['access_key']);
             }
+        }
+
+        if ($ticket_info['weibo_msg_id'])
+        {
+            if ($ticket_info['question_id'])
+            {
+                remove_assoc('weibo_msg', 'ticket', $ticket_info['id']);
+            }
+            else
+            {
+                $this->model('openid_weibo_weibo')->del_msg_by_id($ticket_info['weibo_msg_id']);
+            }
+        }
+
+        if ($ticket_info['received_email_id'])
+        {
+            if ($ticket_info['question_id'])
+            {
+                remove_assoc('received_email', 'ticket', $ticket_info['id']);
+            }
+            else
+            {
+                $this->model('edm')->remove_received_email($ticket_info['received_email_id']);
+            }
+        }
+
+        if ($ticket_info['question_id'])
+        {
+            remove_assoc('question', 'ticket', $ticket_info['id']);
         }
 
         return true;
@@ -919,6 +957,20 @@ class ticket_class extends AWS_MODEL
             }
         }
 
+        $from = array(
+            'ticket' => $ticket_info['id']
+        );
+
+        if ($ticket_info['weibo_msg_id'])
+        {
+            $from['weibo_msg'] = $ticket_info['weibo_msg_id'];
+        }
+
+        if ($ticket_info['received_email_id'])
+        {
+            $from['received_email'] = $ticket_info['received_email'];
+        }
+
         $attachs = $this->model('publish')->get_attach('ticket', $ticket_info['id'], null);
 
         if ($attachs)
@@ -949,11 +1001,82 @@ class ticket_class extends AWS_MODEL
                         }
                     }
 
-                    $this->model('publish')->add_attach('question', htmlspecialchars_decode($attach['file_name']), $attach_access_key, $now, $new_filename, $attach['is_image']);
+                    $this->model('publish')->add_attach('question', $attach['file_name'], $attach_access_key, $now, $new_filename, $attach['is_image']);
                 }
             }
         }
 
-        return $this->model('publish')->publish_question($ticket_info['title'], $ticket_info['message'], null, $ticket_info['uid'], $topics, null, $attach_access_key, null, false, array('ticket' => $ticket_info['id']));
+        return $this->model('publish')->publish_question($ticket_info['title'], $ticket_info['message'], null, $ticket_info['uid'], $topics, null, $attach_access_key, null, false, $from);
+    }
+
+    public function save_weibo_msg_to_ticket_crond()
+    {
+        $weibo_msgs_list = $this->fetch_all('weibo_msg', 'question_id IS NULL AND ticket_id IS NULL');
+
+        if (!$weibo_msgs_list)
+        {
+            return true;
+        }
+
+        foreach ($weibo_msgs_list AS $weibo_msg)
+        {
+            $attachs = $this->model('publish')->get_attach('weibo_msg', $weibo_msg['id'], null);
+
+            if ($attachs)
+            {
+                $now = time();
+
+                $attach_access_key = md5($weibo_msg['uid'] . $now);
+
+                foreach ($attachs AS $attach)
+                {
+                    $new_dir = get_setting('upload_dir') . '/' . 'ticket' . '/' . gmdate('Ymd', $now) . '/';
+
+                    $file_ext = end(explode('.', $attach['file_location']));
+
+                    $new_filename = get_random_filename($new_dir, $file_ext);
+
+                    if (@make_dir($new_dir) AND @copy($attach['path'], $new_dir . $new_filename))
+                    {
+                        if ($attach['is_image'])
+                        {
+                            $old_dir = dirname($attach['path']) . '/';
+
+                            foreach (AWS_APP::config()->get('image')->attachment_thumbnail AS $key => $val)
+                            {
+                                $thumb_pre = $val['w'] . 'x' . $val['h'] . '_';
+
+                                @copy($old_dir . $thumb_pre . $attach['file_location'], $new_dir . $thumb_pre . $new_filename);
+                            }
+                        }
+
+                        $this->model('publish')->add_attach('ticket', $attach['file_name'], $attach_access_key, $now, $new_filename, $attach['is_image']);
+                    }
+                }
+            }
+
+            $this->save_ticket($weibo_msg['text'], null, $weibo_msg['uid'], $attach_access_key, array(
+                'weibo_msg' => $weibo_msg['id']
+            ));
+        }
+    }
+
+    public function save_received_email_to_ticket_crond()
+    {
+        $received_email_list = $this->fetch_all('received_email', 'question_id IS NULL AND ticket_id IS NULL');
+
+        if (!$received_email_list)
+        {
+            return true;
+        }
+
+        foreach ($received_email_list AS $received_email)
+        {
+            $this->save_ticket($received_email['subject'], $received_email['content'], $received_email['uid'], null, array(
+                'received_email' => $received_email['id']
+            ));
+        }
+
+        return true;
     }
 }

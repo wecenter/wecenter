@@ -1212,11 +1212,13 @@ CREATE TABLE `[#DB_PREFIX#]weibo_msg` (
   `uid` int(10) NOT NULL,
   `weibo_uid` bigint(20) NOT NULL,
   `question_id` int(11) DEFAULT NULL,
+  `ticket_id` int(11) DEFAULT NULL,
   PRIMARY KEY `id` (`id`),
   KEY `created_at` (`created_at`),
   KEY `uid` (`uid`),
   KEY `weibo_uid` (`weibo_uid`),
-  KEY `question_id` (`question_id`)
+  KEY `question_id` (`question_id`),
+  KEY `ticket_id` (`ticket_id`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8 COMMENT='新浪微博消息列表';
 
 CREATE TABLE `[#DB_PREFIX#]weixin_qr_code` (
@@ -1255,12 +1257,13 @@ CREATE TABLE `[#DB_PREFIX#]received_email` (
   `subject` varchar(255) DEFAULT NULL,
   `content` text,
   `question_id` int(11) DEFAULT NULL,
+  `ticket_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `uid` (`uid`),
   KEY `config_id` (`config_id`),
   KEY `message_id` (`message_id`),
   KEY `date` (`date`),
-  KEY `question_id` (`question_id`)
+  KEY `ticket_id` (`ticket_id`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8 COMMENT='已导入邮件列表';
 
 CREATE TABLE `[#DB_PREFIX#]weixin_third_party_api` (

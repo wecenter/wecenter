@@ -287,3 +287,13 @@ function base64_url_decode($parm)
 {
 	return json_decode(base64_decode(strtr($parm, '-_,', '+/=')), true);
 }
+
+function remove_assoc($from, $type, $id)
+{
+	if (!$from OR !$type OR !is_digits($id))
+	{
+		return false;
+	}
+
+	return $this->query('UPDATE ' . $this->get_table($from) . ' SET `' . $type . '_id` = NULL WHERE `' . $type . '_id` = ' . $id);
+}

@@ -5,7 +5,7 @@ if (!defined('IN_ANWSION'))
     die;
 }
 
-if (!$_GET['page'])
+if (!is_digits($_GET['page']))
 {
     $_GET['page'] = 1;
 }

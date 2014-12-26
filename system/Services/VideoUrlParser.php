@@ -389,27 +389,21 @@ class Services_VideoUrlParser
 	{
 		preg_match("#\?v=([0-9a-zA-Z_\-]+)#", $url, $matches);
 
-		$link = "http://www.youtube.com/v/{$matches[1]}?version=3&hl=th_TH";
-
-		$retval = self::_cget($link);
-
-		if ($retval)
-		{
-			$contents = self::_fget($url);
-
-			preg_match_all("#<title>([^<]+)<\/title>#", $contents, $contentMatches);
-
-			$data['img'] = "http://img.youtube.com/vi/{$matches[1]}/0.jpg";
-			$data['title'] = $contentMatches[1][0];
-			$data['url'] = $url;
-			$data['iframe'] = "http://www.youtube-nocookie.com/embed/{$matches[1]}";
-
-			return $data;
-		}
-		else
+		if (!$matches[1])
 		{
 			return false;
 		}
+
+		//$contents = self::_fget($url);
+
+		//preg_match_all("#<title>([^<]+)<\/title>#", $contents, $contentMatches);
+
+		$data['img'] = "http://img.youtube.com/vi/{$matches[1]}/0.jpg";
+		//$data['title'] = $contentMatches[1][0];
+		$data['url'] = $url;
+		$data['iframe'] = "http://www.youtube-nocookie.com/embed/{$matches[1]}";
+
+		return $data;
 	}
 
 	/*
