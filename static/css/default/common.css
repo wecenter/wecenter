@@ -18,7 +18,7 @@ select{width: auto;}
 .badge.badge-important{background: #ff3333;}
 .table-bordered > thead > tr > th, .table-bordered > thead > tr > td{border-bottom-width:1px;}
 /* modal */
-.modal-backdrop, .modal-backdrop.fade.in{filter:alpha(opacity=20) !important;opacity: 0.2 !important; }
+.modal-backdrop, .modal-backdrop.fade.in{filter:alpha(opacity=20);opacity: 0.2; }
 /* 重载bootstrap按钮 */
 .btn:active, .btn.active{box-shadow: none;}
 .btn-mini{min-width: 64px;min-width:44px\0;height:24px;padding:0 10px;line-height:24px;font-weight: normal;font-size:12px;}
@@ -335,7 +335,6 @@ a.aw-load-more-content{display: block;}
 .aw-side-bar .aw-mod ul li{padding:3px 0;}
 .aw-mod.user-detail{padding-bottom: 10px;}
 .aw-mod.user-detail .aw-topic-bar{margin:0;}
-.aw-mod.invite-join .mod-body{margin: 10px 0;}
 .aw-mod.new-announce{margin-bottom:20px;padding:10px;background: #FCFDDB;border: 1px solid #F9F2A7 !important;}
 .aw-mod.new-announce .mod-head h3{margin:0;}
 /* 导航条 */
