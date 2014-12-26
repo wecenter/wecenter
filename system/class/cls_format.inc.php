@@ -203,7 +203,7 @@ class FORMAT
 
 		$text = preg_replace('/\*\*((?:(?!\*\*).)+)\*\*/', '[b]\1[/b]', $text);
 		$text = preg_replace('/\*((?:(?!\*).)+)\*/', '[i]\1[/i]', $text);
-		$text = preg_replace('/##((?:(?!##).)+)(?:##)?/', '[size=16]\1[/size]', $text);
+//		$text = preg_replace('/##((?:(?!##).)+)(?:##)?/', '[size=16]\1[/size]', $text);
 		$text = preg_replace('/!!\[(?:(?!\]).)*\]\(((?:(?!\)).)+)\)/', '[video]\1[/video]', $text);
 		$text = preg_replace('/!\[(?:(?!\]).)*\]\(((?:(?!\)).)+)\)/', '[img]\1[/img]', $text);
 		$text = preg_replace('/\[(?:(?!\]).)+\]\(((?:(?!\)).)+)\)/', '[url]\1[/url]', $text);
