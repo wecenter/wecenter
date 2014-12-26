@@ -265,7 +265,7 @@ class ajax extends AWS_CONTROLLER
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请输入话题标题')));
         }
 
-        if (!$_POST['ticket_id'])
+        if (!$_POST['item_id'])
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择工单')));
         }
