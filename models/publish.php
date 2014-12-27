@@ -532,11 +532,11 @@ class publish_class extends AWS_MODEL
 		return true;
 	}
 
-	public function get_attach_by_id($id)
+	public function get_attach_by_id($id, $size = 'square')
 	{
 		if ($attach = $this->fetch_row('attach', 'id = ' . intval($id)))
 		{
-			$data = $this->parse_attach_data(array($attach), $attach['item_type'], 'square');
+			$data = $this->parse_attach_data(array($attach), $attach['item_type'], $size);
 
 			return $data[$id];
 		}
