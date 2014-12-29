@@ -157,16 +157,20 @@ class article_class extends AWS_MODEL
 
 	public function remove_comment($comment_id)
 	{
-		if ($comment_info = $this->get_comment_by_id($comment_id))
+		$comment_info = $this->get_comment_by_id($comment_id);
+
+		if (!$comment_info)
 		{
-			$this->delete('article_comments', 'id = ' . intval($comment_id));
-
-			$this->update('article', array(
-				'comments' => $this->count('article_comments', 'article_id = ' . $comment_info['article_id'])
-			), 'id = ' . $comment_info['id']);
-
-			return true;
+			return false;
 		}
+
+		$this->delete('article_comments', 'id = ' . $comment_info['id']);
+
+		$this->update('article', array(
+			'comments' => $this->count('article_comments', 'article_id = ' . $comment_info['article_id'])
+		), 'id = ' . $comment_info['article_id']);
+
+		return true;
 	}
 
 	public function update_article($article_id, $title, $message, $topics, $category_id, $create_topic)
