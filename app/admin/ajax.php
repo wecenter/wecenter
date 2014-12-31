@@ -222,17 +222,24 @@ class ajax extends AWS_ADMIN_CONTROLLER
         switch ($_POST['type'])
         {
             case 'weibo_msg':
+                if (get_setting('weibo_msg_enabled') != 'question')
+                {
+                    H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('导入微博消息至问题未启用')));
+                }
+
                 switch ($_POST['batch_type'])
                 {
                     case 'approval':
+                        $published_user = get_setting('weibo_msg_published_user');
+
+                        if (!$published_user['uid'])
+                        {
+                            H::ajax_json_output(AWS_APP::RSM(AWS_APP::lang()->_t('微博发布用户不存在')));
+                        }
+
                         foreach ($_POST['approval_ids'] AS $approval_id)
                         {
-                            $result = $this->model('openid_weibo_weibo')->save_msg_info_to_question($approval_id);
-
-                            if ($result)
-                            {
-                                H::ajax_json_output(AWS_APP::RSM(null, -1, $result));
-                            }
+                            $this->model('openid_weibo_weibo')->save_msg_info_to_question($approval_id, $published_user['uid']);
                         }
 
                         break;
@@ -249,17 +256,26 @@ class ajax extends AWS_ADMIN_CONTROLLER
                 break;
 
             case 'received_email':
+                $receiving_email_global_config = get_setting('receiving_email_global_config');
+
+                if ($receiving_email_global_config['enabled'] != 'question')
+                {
+                    H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('导入邮件至问题未启用')));
+                }
+
                 switch ($_POST['batch_type'])
                 {
                     case 'approval':
+                        $receiving_email_global_config = get_setting('receiving_email_global_config');
+
+                        if (!$receiving_email_global_config['publish_user']['uid'])
+                        {
+                            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('邮件发布用户不存在')));
+                        }
+
                         foreach ($_POST['approval_ids'] AS $approval_id)
                         {
-                            $result = $this->model('edm')->save_received_email_to_question($approval_id);
-
-                            if ($result)
-                            {
-                                H::ajax_json_output(AWS_APP::RSM(null, -1, $result));
-                            }
+                            $this->model('edm')->save_received_email_to_question($approval_id, $receiving_email_global_config['publish_user']['uid']);
                         }
 
                         break;
@@ -1862,18 +1878,12 @@ class ajax extends AWS_ADMIN_CONTROLLER
                 break;
 
             case 'weibo_msg_enabled':
-                if ($_POST['uid'] == 1)
+                if (in_array($_POST['uid'], array('question', 'ticket', 'N')))
                 {
-                    $weibo_msg_enabled = 'Y';
+                    $this->model('setting')->set_vars(array(
+                        'weibo_msg_enabled' => $_POST['uid']
+                    ));
                 }
-                else
-                {
-                    $weibo_msg_enabled = 'N';
-                }
-
-                $this->model('setting')->set_vars(array(
-                    'weibo_msg_enabled' => $weibo_msg_enabled
-                ));
 
                 break;
         }
@@ -2122,7 +2132,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
         $this->model('setting')->set_vars(array(
             'receiving_email_global_config' => array(
-                'enabled' => ($_POST['enabled'] == 'Y') ? 'Y' : 'N',
+                'enabled' => (in_array($_POST['enabled'], array('question', 'ticket'))) ? $_POST['enabled'] : 'N',
                 'publish_user' => array(
                     'uid' => $user_info['uid'],
                     'user_name' => $user_info['user_name'],

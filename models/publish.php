@@ -261,7 +261,7 @@ class publish_class extends AWS_MODEL
 
 			if ($attach_access_key)
 			{
-				if (is_digits($from['weibo_msg']))
+				if (is_digits($from['weibo_msg']) AND !$from['ticket'])
 				{
 					$this->model('openid_weibo_weibo')->update_attach($from['weibo_msg'], 'qusetion', $question_id, $attach_access_key);
 				}
