@@ -1,38 +1,38 @@
-﻿/**
+/**
  * @license Copyright (c) 2003-2014, CKSource - Frederico Knabben. All rights reserved.
  * For licensing, see LICENSE.md or http://ckeditor.com/license
  */
 
 CKEDITOR.editorConfig = function( config ) {
-	
-	// %REMOVE_START%
-	// The configuration options below are needed when running CKEditor from source files.
-	config.plugins = 'wecenterattach,wecenterimage,wecenterlink,wecentervideo,removeformat,blockquote,maximize,basicstyles,button,toolbar,enterkey,entities,floatingspace,wysiwygarea,fakeobjects,link,list,undo,bbcode,codeTag';
-	//font, sourcearea
-	config.skin = 'bootstrapck';
-
-	config.height = '250';
-
-	config.autoUpdateElement = true;
-
-	// %REMOVE_END%
-
 	// Define changes to default configuration here.
 	// For complete reference see:
 	// http://docs.ckeditor.com/#!/api/CKEDITOR.config
 
+	config.plugins = 'sourcearea,removeformat,bbcode,wecenterattach,wecenterimage,wecenterlink,wecentervideo,blockquote,maximize,codeTag,basicstyles,button,toolbar,enterkey,entities,floatingspace,wysiwygarea,fakeobjects,link,list,undo';
+	//sourcearea
+	config.language = 'zh-cn';
+
+	config.skin = 'bootstrapck';
+
+	config.height = '250';
+
+	//config.plugins = 'sourcearea,wecenterattach,wecenterimage,wecenterlink,wecentervideo,removeformat,blockquote,maximize,basicstyles,button,toolbar,enterkey,entities,floatingspace,wysiwygarea,fakeobjects,link,list,undo,codeTag';
+
 	// The toolbar groups arrangement, optimized for a single toolbar row.
 	// config.toolbarGroups = [
-	// 	{ name: 'basicstyles', groups: [ 'bold', 'Italic' ] },
-	// 	{ name: 'paragraph',   groups: [ 'list', 'blocks', 'align', 'bidi', 'code' ] },
-	// 	{ name: 'links', groups: [ 'links', 'insert' ] },
+	// 	{ name: 'document',	   groups: [ 'mode', 'document', 'doctools' ] },
+	// 	{ name: 'clipboard',   groups: [ 'clipboard', 'undo' ] },
 	// 	{ name: 'editing',     groups: [ 'find', 'selection', 'spellchecker' ] },
 	// 	{ name: 'forms' },
+	// 	{ name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
+	// 	{ name: 'paragraph',   groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ] },
+	// 	{ name: 'links' },
+	// 	{ name: 'insert' },
 	// 	{ name: 'styles' },
 	// 	{ name: 'colors' },
 	// 	{ name: 'tools' },
 	// 	{ name: 'others' },
-	// 	{ name: 'document',	   groups: [ 'mode', 'document', 'doctools' ] }
+	// 	{ name: 'about' }
 	// ];
 
 	config.toolbar = 'Full';
@@ -44,13 +44,10 @@ CKEDITOR.editorConfig = function( config ) {
 
 	]
 
-	config.fontSize_sizes = '14/14px;16/16px;';
-
 	// The default plugins included in the basic setup define some buttons that
 	// are not needed in a basic editor. They are removed here.
-	config.removeButtons = 'Cut,Copy,Paste,Undo,Redo,Anchor,Subscript,Superscript';
+	config.removeButtons = 'Cut,Copy,Paste,Undo,Redo,Anchor,Underline,Strike,Subscript,Superscript';
 
 	// Dialog windows are also simplified.
 	config.removeDialogTabs = 'link:advanced';
-
 };

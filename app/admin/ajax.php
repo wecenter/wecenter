@@ -1320,23 +1320,28 @@ class ajax extends AWS_ADMIN_CONTROLLER
                 $update_data['email'] = htmlspecialchars($_POST['email']);
             }
 
-            if ($_POST['invitation_available'])
-            {
-                $update_data['invitation_available'] = intval($_POST['invitation_available']);
-            }
-
-            $update_data['verified'] = $_POST['verified'];
+            $update_data['invitation_available'] = intval($_POST['invitation_available']);
 
             $verify_apply = $this->model('verify')->fetch_apply($user_info['uid']);
 
-            if ($verify_apply AND $verify_apply['type'] != $update_data['verified'])
+            if ($verify_apply)
             {
+                $update_data['verified'] = $_POST['verified'];
+
                 if (!$update_data['verified'])
                 {
                     $this->model('verify')->decline_verify($user_info['uid']);
                 }
+                else if ($update_data['verified'] != $verify_apply['type'])
+                {
+                    $this->model('verify')->update_apply($user_info['uid'], null, null, null, null, $update_data['verified']);
+                }
+            }
+            else if ($update_data['verified'])
+            {
+                $this->model('verify')->add_apply($user_info['uid'], null, null, $_POST['verified']);
 
-                $this->model('verify')->update_apply($user_info['uid'], null, null, null, null, $update_data['verified']);
+                $this->model('verify')->approval_verify($user_info['uid']);
             }
 
             $update_data['valid_email'] = intval($_POST['valid_email']);
