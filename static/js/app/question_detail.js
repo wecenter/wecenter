@@ -20,7 +20,17 @@ $(function()
 
 		if ($('#wmd-input').length)
 		{
-			var editor = CKEDITOR.replace( 'wmd-input' );
+			var editor = CKEDITOR.replace( 'wmd-input');
+
+			// 自动保存草稿
+			editor.on( 'blur', function( evt ) {
+				if (evt.editor.getData().length)
+				{
+					$.post(G_BASE_URL + '/account/ajax/save_draft/item_id-' + QUESTION_ID + '__type-answer', 'message=' + evt.editor.getData(), function (result) {
+						$('#answer_content_message').html(result.err + ' <a href="#" onclick="$(\'textarea#advanced_editor\').attr(\'value\', \'\'); AWS.User.delete_draft(QUESTION_ID, \'answer\'); $(this).parent().html(\' \'); return false;">' + _t('删除草稿') + '</a>');
+					}, 'json');
+				}
+			});
 		}
 
 		if ($('.aw-upload-box').length)
@@ -50,16 +60,6 @@ $(function()
 	    $('#load_uninterested_answers a').click(function()
 	    {
 	    	$('#uninterested_answers_list').toggle();
-	    });
-
-		//自动保存草稿
-		$('textarea.wmd-input').bind('blur', function() {
-			if ($(this).val() != '')
-			{
-				$.post(G_BASE_URL + '/account/ajax/save_draft/item_id-' + QUESTION_ID + '__type-answer', 'message=' + $(this).val(), function (result) {
-					$('#answer_content_message').html(result.err + ' <a href="#" onclick="$(\'textarea#advanced_editor\').attr(\'value\', \'\'); AWS.User.delete_draft(QUESTION_ID, \'answer\'); $(this).parent().html(\' \'); return false;">' + _t('删除草稿') + '</a>');
-				}, 'json');
-			}
 		});
 
 		//自动展开评论
@@ -206,7 +206,6 @@ $(function()
 	    	}
 	    });
     }
-
 
     //邀请用户下拉绑定
 
