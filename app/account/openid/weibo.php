@@ -188,7 +188,7 @@ class openid_weibo extends AWS_CONTROLLER
 
                     $this->crumb(AWS_APP::lang()->_t('完善资料'), '/account/login/');
 
-                    TPL::assign('register_url', '/account/ajax/weibo/register/');
+                    TPL::assign('register_url', 'account/ajax/weibo/register/');
 
                     TPL::assign('user_name', AWS_APP::session()->weibo_user['screen_name']);
 
