@@ -1,5 +1,4 @@
 <?php TPL::output('global/header.tpl.htm'); ?>
-
 <div class="aw-container-wrap">
     <div class="container">
         <div class="row">
@@ -214,7 +213,8 @@
                             <div class="aw-mod aw-editor-box">
                                 <div class="mod-head">
                                     <div class="wmd-panel">
-                                        <textarea class="wmd-input form-control autosize editor" id="wmd-input" rows="15" name="message">&nbsp;&nbsp;<?php echo $this->question_info['question_detail']; ?></textarea>
+                                        <textarea class="wmd-input form-control autosize editor" id="wmd-input" rows="15" name="message">&nbsp;&nbsp;<?php echo htmlspecialchars($this->draft_content['message']); ?></textarea>
+
                                     </div>
                                 </div>
                                 <div class="mod-body clearfix">
@@ -381,6 +381,7 @@
     ITEM_IDS = "<?php echo addslashes($_GET['item_id']); ?>";
 
     TICKET_ID = <?php echo $this->ticket_info['id'];?>;
+    QUESTION_ID = <?php echo $this->ticket_info['id'];?>;
     var ANSWER_TYPE = 'ticket_reply';
     var USER_ANSWERED = 0;
 </script>
@@ -452,6 +453,9 @@
                }
             }, 'json')
         });
+       // 删除草稿
+
+
 
     })
 
