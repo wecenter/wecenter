@@ -193,7 +193,7 @@ class openid_twitter extends AWS_CONTROLLER
 
                     $this->crumb(AWS_APP::lang()->_t('完善资料'), '/account/login/');
 
-                    TPL::assign('register_url', '/account/ajax/twitter/register/');
+                    TPL::assign('register_url', 'account/ajax/twitter/register/');
 
                     TPL::assign('user_name', AWS_APP::session()->twitter_user['name']);
 
