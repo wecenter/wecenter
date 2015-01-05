@@ -114,7 +114,7 @@ class question_class extends AWS_MODEL
 	 *
 	 * @return boolean true|false
 	 */
-	public function save_question($question_content, $question_detail, $published_uid, $anonymous = 0, $ip_address = null, $from = null, $from_id = null)
+	public function save_question($question_content, $question_detail, $published_uid, $anonymous = 0, $ip_address = null, $from = null)
 	{
 		if (!$ip_address)
 		{
@@ -133,9 +133,17 @@ class question_class extends AWS_MODEL
 			'ip' => ip2long($ip_address)
 		);
 
-		if ($from AND is_digits($from_id))
+		if ($from AND is_array($from))
 		{
-			$to_save_question[$from . '_id'] = $from_id;
+			foreach ($from AS $type => $from_id)
+			{
+				if (!is_digits($from_id))
+				{
+					continue;
+				}
+
+				$to_save_question[$type . '_id'] = $from_id;
+			}
 		}
 
 		$question_id = $this->insert('question', $to_save_question);
@@ -399,12 +407,31 @@ class question_class extends AWS_MODEL
 
 		if ($question_info['weibo_msg_id'])
 		{
-			$this->model('weibo')->del_msg_by_id($question_info['weibo_msg_id']);
+			if ($question_info['ticket_id'])
+			{
+				remove_assoc('weibo_msg', 'question', $question_info['question_id']);
+			}
+			else
+			{
+				$this->model('openid_weibo_weibo')->del_msg_by_id($question_info['weibo_msg_id']);
+			}
 		}
 
 		if ($question_info['received_email_id'])
 		{
-			$this->model('edm')->remove_received_email($question_info['received_email_id']);
+			if ($question_info['ticket_id'])
+			{
+				remove_assoc('received_email', 'question', $question_info['question_id']);
+			}
+			else
+			{
+				$this->model('edm')->remove_received_email($question_info['received_email_id']);
+			}
+		}
+
+		if ($question_info['ticket_id'])
+		{
+			remove_assoc('ticket', 'question', $question_info['question_id']);
 		}
 	}
 

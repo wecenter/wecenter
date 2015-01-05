@@ -8,12 +8,25 @@ $(function()
 	{
 		ITEM_ID = $('#article_id').val();
 	}
+    else
+    {
+        ITEM_ID = '';
+    }
+
+	// 初始化编辑器
+	var editor = CKEDITOR.replace( 'wmd-input' );
+
+    editor.on( 'blur', function( evt ) {
+        $('#wmd-input').val(evt.editor.getData());
+    } );
 
     if (ATTACH_ACCESS_KEY != '' && $('.aw-upload-box').length)
     {
-    	var fileupload = new FileUpload('file', '.aw-editor-box .aw-upload-box .btn', '.aw-editor-box .aw-upload-box .upload-container', G_BASE_URL + '/publish/ajax/attach_upload/id-' + PUBLISH_TYPE + '__attach_access_key-' + ATTACH_ACCESS_KEY)
+    	var fileupload = new FileUpload('file', '.aw-editor-box .aw-upload-box .btn', '.aw-editor-box .aw-upload-box .upload-container', G_BASE_URL + '/publish/ajax/attach_upload/id-' + PUBLISH_TYPE + '__attach_access_key-' + ATTACH_ACCESS_KEY, {
+				'editor' : editor
+			});
     }
-    
+
     if (ITEM_ID && G_UPLOAD_ENABLE == 'Y' && ATTACH_ACCESS_KEY != '')
     {
         if ($(".aw-upload-box .upload-list").length) {
@@ -31,12 +44,12 @@ $(function()
     }
 
     AWS.Dropdown.bind_dropdown_list($('.aw-mod-publish #question_contents'), 'publish');
-    
+
     //初始化分类
 	if ($('#category_id').length)
 	{
 		var category_data = '', category_id;
-		
+
 		$.each($('#category_id option').toArray(), function (i, field) {
 			if ($(field).attr('selected') == 'selected')
 			{
@@ -48,7 +61,7 @@ $(function()
 				{
 					category_data += ',';
 				}
-				
+
 				category_data += "{'title':'" + $(field).text() + "', 'id':'" + $(field).val() + "'}";
 			}
 		});
@@ -77,7 +90,7 @@ $(function()
 
 	//自动展开话题选择
 	$('.aw-edit-topic').click();
-	
+
     // 自动保存草稿
 	$('textarea.wmd-input').bind('blur', function() {
 		if ($(this).val() != '')
@@ -87,5 +100,5 @@ $(function()
 			}, 'json');
 		}
 	});
-	
+
 });

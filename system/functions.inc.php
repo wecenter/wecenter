@@ -160,14 +160,14 @@ function valid_ip($ip)
 }
 
 /**
- * 检查字符串或数组内的字符串是否为纯数字
+ * 检查整型、字符串或数组内的字符串是否为纯数字（十进制数字，不包括负数和小数）
  *
- * @param string or array
+ * @param integer or string or array
  * @return boolean
  */
 function is_digits($num)
 {
-	if (!isset($num))
+	if (!$num AND $num !== 0 AND $num !== '0')
 	{
 		return false;
 	}
@@ -184,10 +184,8 @@ function is_digits($num)
 
 		return true;
 	}
-	else
-	{
-		return Zend_Validate::is($num, 'Digits');
-	}
+
+	return Zend_Validate::is($num, 'Digits');
 }
 
 if (! function_exists('iconv'))
@@ -429,7 +427,7 @@ function date_friendly($timestamp, $time_limit = 604800, $out_format = 'Y-m-d H:
 
 	if ($formats == null)
 	{
-		$formats = array('YEAR' => '%s 年前', 'MONTH' => '%s 月前', 'DAY' => '%s 天前', 'HOUR' => '%s 小时前', 'MINUTE' => '%s 分钟前', 'SECOND' => '%s 秒前');
+		$formats = array('YEAR' => AWS_APP::lang()->_t('%s 年前'), 'MONTH' => AWS_APP::lang()->_t('%s 月前'), 'DAY' => AWS_APP::lang()->_t('%s 天前'), 'HOUR' => AWS_APP::lang()->_t('%s 小时前'), 'MINUTE' => AWS_APP::lang()->_t('%s 分钟前'), 'SECOND' => AWS_APP::lang()->_t('%s 秒前'));
 	}
 
 	$time_now = $time_now == null ? time() : $time_now;
@@ -440,7 +438,7 @@ function date_friendly($timestamp, $time_limit = 604800, $out_format = 'Y-m-d H:
 		$seconds = 1;
 	}
 
-	if ($time_limit != null && $seconds > $time_limit)
+	if (!$time_limit OR $seconds > $time_limit)
 	{
 		return date($out_format, $timestamp);
 	}
@@ -1107,6 +1105,8 @@ function curl_get_contents($url, $timeout = 10)
 	curl_setopt($curl, CURLOPT_URL, $url);
 	curl_setopt($curl, CURLOPT_TIMEOUT, $timeout);
 	curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
+	curl_setopt($curl, CURLOPT_HEADER, FALSE);
+	curl_setopt($curl, CURLOPT_FOLLOWLOCATION, TRUE);
 
 	if (substr($url, 0, 8) == 'https://')
 	{
@@ -1279,4 +1279,23 @@ function array_key_sort_asc_callback($a, $b)
 	}
 
 	return ($a['sort'] < $b['sort']) ? -1 : 1;
+}
+
+function get_random_filename($dir, $file_ext)
+{
+	if (!$dir OR !file_exists($dir))
+	{
+		return false;
+	}
+
+	$dir = rtrim($dir, '/') . '/';
+
+	$filename = md5(mt_rand(1, 99999999) . microtime());
+
+	if (file_exists($dir . $filename . '.' . $file_ext))
+	{
+		return get_random_filename($dir, $file_ext);
+	}
+
+	return $filename . '.' . $file_ext;
 }

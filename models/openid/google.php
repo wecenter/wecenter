@@ -193,9 +193,9 @@ class openid_google_class extends AWS_MODEL
         return true;
     }
 
-    public function refresh_access_token($id)
+    public function refresh_access_token($uid)
     {
-        $user_info = $this->get_google_user_by_id($id);
+        $user_info = $this->get_google_user_by_uid($uid);
 
         if (!$user_info)
         {
@@ -244,7 +244,7 @@ class openid_google_class extends AWS_MODEL
         $this->update('users_google',  array(
             'access_token' => htmlspecialchars($result['access_token']),
             'expires_time' => time() + intval($result['expires_in'])
-        ), 'id = ' . $id);
+        ), 'id = ' . $user_info['id']);
 
         return true;
     }

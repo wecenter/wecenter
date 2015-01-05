@@ -11,13 +11,13 @@
             <?php if (count($this->accounts_list) > 1) { ?>
             <div class="dropdown pull-right">
                 <a class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-                    <?php if ($this->account_id == 0) { _e('主账号'); } else { _e('子账号 %s', $this->account_id); } ?>
+                    <?php if ($this->account_info['id'] === 0) { _e('主账号'); } else { _e('子账号 %s', $this->account_info['id']); } ?>
                     <span class="caret"></span>
                 </a>
 
                 <ul class="dropdown-menu weixin-dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
                     <?php foreach ($this->accounts_list AS $account_info) {
-                        if ($account_info['id'] == $this->account_id) { continue; } ?>
+                        if ($account_info['id'] == $this->account_info['id']) { continue; } ?>
                     <li role="presentation">
                         <a role="menuitem" tabindex="-1" href="admin/weixin/reply/id-<?php echo $account_info['id']; ?>"><?php if ($account_info['id'] == 0) { _e('主账号'); } else { _e('子账号 %s', $account_info['id']); } ?></a>
                     </li>
@@ -45,7 +45,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <input type="hidden" name="account_id" value="<?php echo $this->account_id; ?>" />
+                    <input type="hidden" name="account_id" value="<?php echo $this->account_info['id']; ?>" />
 
                     <?php if ($this->rule_list) { foreach ($this->rule_list AS $rule_info) { ?>
                     <input type="hidden" name="rule_ids[]" value="<?php echo $rule_info['id']; ?>" />
@@ -57,8 +57,8 @@
                             <?php } else { ?> - <?php } ?>
                         </td>
                         <td><?php if ($rule_info['image_file']) { ?><span class="label label-info"><?php _e('图文消息'); ?></span> <?php } ?><?php echo $rule_info['title']; ?></td>
-                        <td><?php if (!$this->echo_rule_list[$rule_info['keyword']]) { ?><input class="flag-action" type="radio" value="<?php echo $rule_info['keyword']; ?>" name="is_subscribe"<?php if (get_setting('weixin_subscribe_message_key') == $rule_info['keyword']) { ?> checked="checked"<?php } ?> /><?php } else { ?>-<?php } ?></td>
-                        <td><?php if (!$this->echo_rule_list[$rule_info['keyword']]) { ?><input class="flag-action" type="radio" value="<?php echo $rule_info['keyword']; ?>" name="is_no_result"<?php if (get_setting('weixin_no_result_message_key') == $rule_info['keyword']) { ?> checked="checked"<?php } ?> /><?php } else { ?>-<?php } ?></td>
+                        <td><?php if (!$this->echo_rule_list[$rule_info['keyword']]) { ?><input class="flag-action" type="radio" value="<?php echo $rule_info['keyword']; ?>" name="is_subscribe"<?php if ($this->account_info['weixin_subscribe_message_key'] == $rule_info['keyword']) { ?> checked="checked"<?php } ?> /><?php } else { ?>-<?php } ?></td>
+                        <td><?php if (!$this->echo_rule_list[$rule_info['keyword']]) { ?><input class="flag-action" type="radio" value="<?php echo $rule_info['keyword']; ?>" name="is_no_result"<?php if ($this->account_info['weixin_no_result_message_key'] == $rule_info['keyword']) { ?> checked="checked"<?php } ?> /><?php } else { ?>-<?php } ?></td>
                         <td class="nowrap">
                             <a href="admin/weixin/reply_edit/id-<?php echo $rule_info['id']; ?>" data-toggle="tooltip" class="icon icon-edit md-tip" title="<?php _e('编辑'); ?>"></a>
                             <a onclick="AWS.ajax_request(G_BASE_URL + '/admin/ajax/weixin/remove_reply_rule/', 'id=<?php echo $rule_info['id']; ?>');" data-toggle="tooltip" class="icon icon-trash md-tip" title="<?php _e('删除'); ?>"></a>
@@ -69,7 +69,7 @@
                 </table>
                 </form>
                 <div class="mod-table-foot mod-one-btn">
-                    <a class="btn btn-primary" href="admin/weixin/reply_edit/account_id-<?php echo $this->account_id; ?>" id="batch_approval"><?php _e('添加规则'); ?></a>
+                    <a class="btn btn-primary" href="admin/weixin/reply_edit/account_id-<?php echo $this->account_info['id']; ?>" id="batch_approval"><?php _e('添加规则'); ?></a>
                 </div>
             </div>
         </div>

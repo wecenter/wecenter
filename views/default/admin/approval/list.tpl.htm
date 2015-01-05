@@ -16,9 +16,9 @@
 
                     <li class="<?php if ($_GET['type'] == 'article_comment') { ?> active<?php } ?>"><a href="admin/approval/list/type-article_comment"><?php _e('文章评论'); ?> (<?php echo $this->article_comment_count; ?>)</a></li>
 
-                    <li class="<?php if ($_GET['type'] == 'weibo_msg') { ?> active<?php } ?>"><a href="admin/approval/list/type-weibo_msg"><?php _e('新浪微博'); ?> (<?php echo $this->weibo_msg_count; ?>)</a></li>
+                    <?php if (get_setting('weibo_msg_enabled') == 'question') { ?><li class="<?php if ($_GET['type'] == 'weibo_msg') { ?> active<?php } ?>"><a href="admin/approval/list/type-weibo_msg"><?php _e('微博消息'); ?> (<?php echo $this->weibo_msg_count; ?>)</a></li><?php } ?>
 
-                    <li class="<?php if ($_GET['type'] == 'received_email') { ?> active<?php } ?>"><a href="admin/approval/list/type-received_email"><?php _e('邮件咨询'); ?> (<?php echo $this->received_email_count; ?>)</a></li>
+                    <?php $receiving_email_global_config = get_setting('receiving_email_global_config'); if ($receiving_email_global_config['enabled'] == 'question') { ?><li class="<?php if ($_GET['type'] == 'received_email') { ?> active<?php } ?>"><a href="admin/approval/list/type-received_email"><?php _e('邮件咨询'); ?> (<?php echo $this->received_email_count; ?>)</a></li><?php } ?>
                 </ul>
             </h3>
         </div>

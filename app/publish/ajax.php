@@ -37,16 +37,12 @@ class ajax extends AWS_CONTROLLER
 
     public function fetch_question_category_action()
     {
-        if (get_setting('category_enable') == 'Y')
+        if (get_setting('category_enable') != 'Y')
         {
-            echo $this->model('system')->build_category_json('question', 0);
-        }
-        else
-        {
-            echo json_encode(array());
+            exit(json_encode(array()));
         }
 
-        exit;
+        exit($this->model('system')->build_category_json('question', 0));
     }
 
     public function attach_upload_action()
@@ -58,19 +54,25 @@ class ajax extends AWS_CONTROLLER
 
         switch ($_GET['id'])
         {
+            case 'article':
+            // Modify by WeCenter
+            case 'ticket':
+            case 'ticket_reply':
+                $item_type = $_GET['id'];
+
+                break;
+
             case 'question':
                 $item_type = 'questions';
-            break;
 
-            case 'article':
-                $item_type = 'article';
-            break;
+                break;
 
             default:
+                $_GET['id'] = 'answer';
+
                 $item_type = 'answer';
 
-                $_GET['id'] = 'answer';
-            break;
+                break;
         }
 
         AWS_APP::upload()->initialize(array(
@@ -156,7 +158,7 @@ class ajax extends AWS_CONTROLLER
             $output['class_name'] = $this->model('publish')->get_file_class(basename($upload_data['full_path']));
         }
 
-        echo htmlspecialchars(json_encode($output), ENT_NOQUOTES);
+        exit(htmlspecialchars(json_encode($output), ENT_NOQUOTES));
     }
 
     public function article_attach_edit_list_action()
@@ -658,7 +660,7 @@ class ajax extends AWS_CONTROLLER
 
             if (get_setting('question_topics_limit') AND sizeof($_POST['topics']) > get_setting('question_topics_limit'))
             {
-                H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('单个问题话题数量最多为 %s 个, 请调整话题数量', get_setting('question_topics_limit'))));
+                H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('单个文章话题数量最多为 %s 个, 请调整话题数量', get_setting('question_topics_limit'))));
             }
         }
         if (get_setting('new_question_force_add_topic') == 'Y' AND !$_POST['topics'])

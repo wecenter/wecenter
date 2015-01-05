@@ -91,9 +91,12 @@ class weixin_class extends AWS_MODEL
 
     public function get_account_info_by_id($account_id)
     {
-        $account_id = intval($account_id);
+        if (!is_digits($account_id))
+        {
+            return false;
+        }
 
-        if ($account_id == 0)
+        if ($account_id === 0 OR $account_id === '0')
         {
             return $this->get_master_account_info();
         }
@@ -144,14 +147,12 @@ class weixin_class extends AWS_MODEL
 
     public function update_setting_or_account($account_id, $account_info)
     {
-        $account_id = intval($account_id);
-
-        if (!$account_info)
+        if (!is_digits($account_id))
         {
             return false;
         }
 
-        if ($account_id == 0)
+        if ($account_id === 0 OR $account_id === '0')
         {
             return $this->model('setting')->set_vars($account_info);
         }
@@ -374,7 +375,7 @@ class weixin_class extends AWS_MODEL
                 break;
 
             case 'image':
-                if (get_setting('weixin_account_role') != 'service')
+                if (get_setting('weixin_account_role') != 'subscription' AND get_setting('weixin_account_role') != 'service')
                 {
                     break;
                 }
@@ -1289,9 +1290,7 @@ class weixin_class extends AWS_MODEL
 
     public function remove_weixin_account($account_id)
     {
-        $account_id = intval($account_id);
-
-        if ($account_id == 0)
+        if (!is_digits($account_id) OR $account_id === 0 OR $account_id === '0')
         {
             return false;
         }
@@ -1333,7 +1332,7 @@ class weixin_class extends AWS_MODEL
 
         $app_secret = get_setting('weixin_app_secret');
 
-        if (!$app_id OR !$app_secret OR get_setting('weixin_account_role') != 'service')
+        if (get_setting('weixin_account_role') != 'service' OR !$app_id OR !$app_secret)
         {
             return false;
         }
@@ -1401,7 +1400,7 @@ class weixin_class extends AWS_MODEL
                     {
                         unset($sub_val['key']);
 
-                        if (strstr($sub_val['url'], base_url()) AND (!$account_role OR $account_role == 'service'))
+                        if (strstr($sub_val['url'], base_url()) AND $account_info['weixin_account_role'] == 'service')
                         {
                             $sub_val['url'] = $this->model('openid_weixin_weixin')->redirect_url($sub_val['url']);
                         }
@@ -1423,7 +1422,7 @@ class weixin_class extends AWS_MODEL
             {
                 unset($val['key']);
 
-                if (strstr($val['url'], base_url()) AND $account_role == 'service')
+                if (strstr($val['url'], base_url()) AND $account_info['weixin_account_role'] == 'service')
                 {
                     $val['url'] = $this->model('openid_weixin_weixin')->redirect_url($val['url']);
                 }

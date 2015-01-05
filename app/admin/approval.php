@@ -31,11 +31,41 @@ class approval extends AWS_ADMIN_CONTROLLER
 			$_GET['type'] = 'question';
 		}
 
+		TPL::assign('answer_count', $this->model('publish')->count('approval', "type = 'answer'"));
+
+		TPL::assign('question_count', $this->model('publish')->count('approval', "type = 'question'"));
+
+		TPL::assign('article_count', $this->model('publish')->count('approval', "type = 'article'"));
+
+		TPL::assign('article_comment_count', $this->model('publish')->count('approval', "type = 'article_comment'"));
+
+		TPL::assign('unverified_modifies_count', $this->model('question')->count('question', 'unverified_modify_count <> 0'));
+
+		if (get_setting('weibo_msg_enabled') == 'question')
+		{
+			TPL::assign('weibo_msg_count', $this->model('openid_weibo_weibo')->count('weibo_msg', 'question_id IS NULL AND ticket_id IS NULL'));
+		}
+		else if ($_GET['type'] == 'weibo_msg')
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('导入微博消息至问题未启用')));
+		}
+
+		$receiving_email_global_config = get_setting('receiving_email_global_config');
+
+		if ($receiving_email_global_config['enabled'] == 'question')
+		{
+			TPL::assign('received_email_count', $this->model('edm')->count('received_email', 'question_id IS NULL AND ticket_id IS NULL'));
+		}
+		else if ($_GET['type'] == 'received_email')
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('导入邮件至问题未启用')));
+		}
+
 		switch ($_GET['type'])
 		{
 			case 'weibo_msg':
 			case 'received_email':
-				$approval_list = $this->model('admin')->fetch_page($_GET['type'], 'question_id IS NULL', 'id ASC', $_GET['page'], $this->per_page);
+				$approval_list = $this->model('admin')->fetch_page($_GET['type'], 'question_id IS NULL AND ticket_id IS NULL', 'id ASC', $_GET['page'], $this->per_page);
 
 				$found_rows = $this->model('admin')->found_rows();
 
@@ -55,20 +85,6 @@ class approval extends AWS_ADMIN_CONTROLLER
 
 				break;
 		}
-
-		TPL::assign('answer_count', $this->model('publish')->count('approval', "type = 'answer'"));
-
-		TPL::assign('question_count', $this->model('publish')->count('approval', "type = 'question'"));
-
-		TPL::assign('article_count', $this->model('publish')->count('approval', "type = 'article'"));
-
-		TPL::assign('article_comment_count', $this->model('publish')->count('approval', "type = 'article_comment'"));
-
-		TPL::assign('weibo_msg_count', $this->model('weibo')->count('weibo_msg', 'question_id IS NULL'));
-
-		TPL::assign('received_email_count', $this->model('edm')->count('received_email', 'question_id IS NULL'));
-
-		TPL::assign('unverified_modifies_count', $this->model('question')->count('question', 'unverified_modify_count <> 0'));
 
 		if ($approval_list)
 		{
@@ -129,7 +145,12 @@ class approval extends AWS_ADMIN_CONTROLLER
 		switch ($_GET['type'])
 		{
 			case 'weibo_msg':
-				$approval_item = $this->model('weibo')->get_msg_info_by_id($_GET['id']);
+				if (get_setting('weibo_msg_enabled') != 'question')
+				{
+					H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('导入微博消息至问题未启用')));
+				}
+
+				$approval_item = $this->model('openid_weibo_weibo')->get_msg_info_by_id($_GET['id']);
 
 				if ($approval_item['question_id'])
 				{
@@ -141,6 +162,13 @@ class approval extends AWS_ADMIN_CONTROLLER
 				break;
 
 			case 'received_email':
+				$receiving_email_global_config = get_setting('receiving_email_global_config');
+
+				if ($receiving_email_global_config['enabled'] != 'question')
+				{
+					H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('导入邮件至问题未启用')));
+				}
+
 				$approval_item = $this->model('edm')->get_received_email_by_id($_GET['id']);
 
 				if ($approval_item['question_id'])

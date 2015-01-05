@@ -8,7 +8,7 @@
 		<?php if ($val['question_info']['anonymous'] == 0 OR !$val['question_info']) { ?><a data-id="<?php echo $val['user_info']['uid']; ?>" class="aw-user-img aw-border-radius-5" href="people/<?php echo $val['user_info']['url_token']; ?>"><img src="<?php echo get_avatar_url($val['user_info']['uid'], 'mid'); ?>" alt="<?php echo $val['user_info']['user_name']; ?>" /><?php if ($val['user_info']['verified']) { ?><?php if ($val['user_info']['verified'] == 'personal') { ?><i class="icon icon-v"></i><?php } else { ?><i class="icon icon-v i-ve"></i><?php } ?><?php } ?></a><?php } else { ?><a href="javascript:;" class="aw-user-img aw-border-radius-5"><img src="<?php echo G_STATIC_URL; ?>/common/avatar-mid-img.png" alt="<?php _e('匿名用户'); ?>" /></a><?php } ?>
 		<p class="text-color-999">
 			<?php if ($val['last_action_str']) { ?><?php echo $val['last_action_str']; ?> • <?php echo date_friendly($val['add_time']); ?> • <?php } ?>
-			
+
 			<?php if (isset($val['article_info']['comments'])) { ?>
 				<a href="<?php echo $val['link']; ?>" class="text-color-999"><?php _e('%s 个评论', $val['article_info']['comments']); ?></a>
 			<?php } else { ?>
@@ -17,7 +17,7 @@
 				</a>
 				<?php } ?>
 				<?php if ($_GET['filter'] == 'focus') { ?>
-					 • <?php if ($val['topics']) { ?><?php _e('已添加到'); ?> 
+					 • <?php if ($val['topics']) { ?><?php _e('已添加到'); ?>
 					<?php foreach($val['topics'] as $t_key => $t_val) { if ($t_key > 2) { break; } ?><a href="topic/<?php echo $t_val['url_token']; ?>" class="aw-topic-name" data-id="<?php echo $t_val['topic_id']; ?>"><?php echo $t_val['topic_title']; ?></a> <?php } ?><?php if (sizeof($val['topics']) > 3) { ?> <?php _e('等'); ?> <?php _e('%s 个话题', sizeof($val['topics'])); ?><?php } else { ?><?php _e('话题'); ?><?php } ?>
 					<?php } else { ?><a href="question/<?php echo $val['question_info']['question_id']; ?>" class="text-color-999"><?php _e('添加话题'); ?></a><?php } ?>
 				<?php } else if (!$_GET['filter']) { ?><span class="pull-right hide"><a class="text-color-999" href="javascript:;" onClick="AWS.User.question_uninterested($(this).parents('div.aw-item'), <?php echo $val['question_info']['question_id']; ?>);"><?php _e('不感兴趣'); ?></a></span><?php } ?>
@@ -45,7 +45,7 @@
 		</div>
 		<div id="detail_more_<?php echo $val['history_id']; ?>" class="hide markitup-box">
       		<?php echo nl2br(strip_ubb($val['comment_info']['message'])); ?>
-		</div>    
+		</div>
 		<!-- end 文章评论内容 -->
 	</div>
 	<?php } else if ($val['answer_info']) { ?>
@@ -56,7 +56,7 @@
       		<?php if (cjk_strlen($val['answer_info']['answer_content']) > 130) { ?>
         	<a href="javascript:;" class="showMore" onclick="AWS.content_switcher($('#detail_<?php echo $val['history_id']; ?>'), $('#detail_more_<?php echo $val['history_id']; ?>'));"><?php _e('显示全部'); ?> »</a>
         	<?php } ?>
-        	
+
 			<?php if ($val['answer_info']['attachs']) { ?>
 				<div class="aw-upload-img-list width-auto">
 					<?php foreach($val['answer_info']['attachs'] AS $t_key => $t_val) { ?>
@@ -67,7 +67,7 @@
 					<?php endif; ?>
 				  <?php } ?>
 				</div>
-				
+
 				<div class="aw-upload-file-list">
 					<?php foreach($val['answer_info']['attachs'] AS $t_key => $t_val) { ?>
 					<?php if (!$t_val['is_image']): ?>
@@ -79,16 +79,16 @@
 		</div>
 		<div id="detail_more_<?php echo $val['history_id']; ?>" class="hide markitup-box">
       		<?php echo nl2br(strip_ubb($val['answer_info']['answer_content'])); ?>
-        	
+
 			<?php if ($val['answer_info']['attachs']) { ?>
 				<div class="aw-upload-img-list active">
 					<?php foreach($val['answer_info']['attachs'] AS $t_key => $t_val) { ?>
-					<?php if ($t_val['is_image']): ?>								
+					<?php if ($t_val['is_image']): ?>
 						<a href="<?php echo $t_val['attachment']; ?>" target="lightbox" data-fancybox-group="thumb" rel="lightbox"><img class="img-thumbnail" src="<?php echo $t_val['attachment']; ?>" alt="" /></a>
 					<?php endif; ?>
 				  <?php } ?>
 				</div>
-				
+
 				<div class="aw-upload-file-list">
 					<?php foreach($val['answer_info']['attachs'] AS $t_key => $t_val) { ?>
 					<?php if (!$t_val['is_image']): ?>
@@ -97,7 +97,7 @@
 				  <?php } ?>
 				</div>
 			<?php } ?>
-		</div>    
+		</div>
 		<!-- end 评论内容 -->
 	</div>
 	<div class="mod-footer">
@@ -116,7 +116,7 @@
 			</span>
 			<span class="pull-right more-operate">
 				<?php if ($this->user_id != $val['uid']) { ?>
-				<a href="javascript:;"<?php if (!$val['user_rated_thanks']) { ?> onclick="AWS.User.answer_user_rate($(this), 'thanks', <?php echo $val['answer_info']['answer_id']; ?>);"<?php } ?> class="aw-icon-thank-tips text-color-999" data-original-title="<?php _e('感谢热心的回复者'); ?>" data-toggle="tooltip" title="" data-placement="bottom"><i class="icon icon-thank"></i><?php if ($val['user_rated_thanks']) { ?><?php _e('已感谢'); ?><?php } else { ?><?php _e('感谢'); ?><?php } ?></a>
+				<a href="javascript:;"<?php if (!$val['answer_info']['user_rated_thanks']) { ?> onclick="AWS.User.answer_user_rate($(this), 'thanks', <?php echo $val['answer_info']['answer_id']; ?>);"<?php } ?> class="aw-icon-thank-tips text-color-999" data-original-title="<?php _e('感谢热心的回复者'); ?>" data-toggle="tooltip" title="" data-placement="bottom"><i class="icon icon-thank"></i><?php if ($val['answer_info']['user_rated_thanks']) { ?><?php _e('已感谢'); ?><?php } else { ?><?php _e('感谢'); ?><?php } ?></a>
 				<?php } ?>
 				<a href="javascript:;" onclick="AWS.dialog('favorite', {item_id:<?php echo $val['answer_info']['answer_id']; ?>, item_type:'answer'});" class="text-color-999"><i class="icon icon-favor"></i><?php _e('收藏'); ?></a>
 				<a class="text-color-999 dropdown-toggle" data-toggle="dropdown">
@@ -124,14 +124,14 @@
 				</a>
 				<div aria-labelledby="dropdownMenu" role="menu" class="aw-dropdown shareout pull-right">
 					<ul class="aw-dropdown-list">
-						<li><a onclick="AWS.User.share_out('tsina', $(this).parents('.aw-item').find('.markitup-box').eq(0).text(), '<?php echo $val['link']; ?>');"><i class="icon icon-weibo"></i> <?php _e('新浪微博'); ?></a></li>
+						<li><a onclick="AWS.User.share_out('tsina', $(this).parents('.aw-item').find('.markitup-box').eq(0).text(), '<?php echo $val['link']; ?>');"><i class="icon icon-weibo"></i> <?php _e('微博'); ?></a></li>
 						<li><a onclick="AWS.User.share_out('qzone', $(this).parents('.aw-item').find('.markitup-box').eq(0).text(), '<?php echo $val['link']; ?>');"><i class="icon icon-qzone"></i> <?php _e('QZONE'); ?></a></li>
 						<li><a onclick="AWS.User.share_out('weixin', $(this).parents('.aw-item').find('.markitup-box').eq(0).text(), '<?php echo $val['link']; ?>');"><i class="icon icon-wechat"></i> <?php _e('微信'); ?></a></li>
 					</ul>
 				</div>
 			</span>
 		</div>
-		<!-- end 社交操作 -->	
+		<!-- end 社交操作 -->
 	</div>
 	<?php } ?>
 </div>

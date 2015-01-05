@@ -72,7 +72,7 @@ class ajax_google extends AWS_CONTROLLER
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('Google 账号信息不存在')));
         }
 
-        if ($this->model('openid_google')->get_google_user_by_id($google_user['id']))
+        if ($this->model('openid_google')->get_google_user_by_id(AWS_APP::session()->google_user['id']))
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('此 Google 账号已被绑定')));
         }

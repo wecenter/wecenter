@@ -53,9 +53,21 @@ if (defined('IN_SAE'))
 }
 else
 {
-	error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT);
+	if (version_compare(PHP_VERSION, '5.4', '>='))
+	{
+		error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT & ~E_WARNING);
+	}
+	else
+	{
+		error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT);
+	}
 
 	define('TEMP_PATH', dirname(dirname(__FILE__)) . '/tmp/');
+}
+
+if (file_exists(AWS_PATH . 'enterprise.php'))
+{
+	require_once(AWS_PATH . 'enterprise.php');
 }
 
 if (function_exists('get_magic_quotes_gpc'))

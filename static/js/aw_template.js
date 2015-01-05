@@ -72,7 +72,7 @@ var AW_TEMPLATE = {
 			'</div>',
 
 	'editCommentBox' :
-				'<div class="modal fade alert-box aw-edit-comment-box">'+
+				'<div class="modal fade alert-box aw-edit-comment-box aw-editor-box">'+
 				'<div class="modal-dialog">'+
 					'<div class="modal-content">'+
 						'<div class="modal-header">'+
@@ -162,7 +162,7 @@ var AW_TEMPLATE = {
 					'<div class="modal-body">'+
 						'<p>' + _t('将问题重定向至') + '</p>'+
 						'<div class="aw-question-drodpwon">'+
-							'<input id="question-input" class="form-control" type="text" data-id="{{data_id}}" placeholder="' + _t('搜索问题') + '" />'+
+							'<input id="question-input" class="form-control" type="text" data-id="{{data_id}}" placeholder="' + _t('搜索问题或问题 ID') + '" />'+
 							'<div class="aw-dropdown"><p class="title">' + _t('没有找到相关结果') + '</p><ul class="aw-dropdown-list"></ul></div>'+
 						'</div>'+
 						'<p class="clearfix"><a href="javascript:;" class="btn btn-large btn-success pull-right" onclick="$(\'.alert-box\').modal(\'hide\');">' + _t('放弃操作') + '</a></p>'+

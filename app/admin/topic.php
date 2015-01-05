@@ -190,14 +190,23 @@ class topic extends AWS_ADMIN_CONTROLLER
 
 	public function edit_action()
 	{
-		$this->crumb(AWS_APP::lang()->_t('话题编辑'), 'admin/topic/edit/');
-
-		if (!$topic_info = $this->model('topic')->get_topic_by_id($_GET['topic_id']))
+		if ($_GET['topic_id'])
 		{
-			H::redirect_msg(AWS_APP::lang()->_t('话题不存在'), '/admin/topic/list/');
-		}
+			$this->crumb(AWS_APP::lang()->_t('话题编辑'), 'admin/topic/edit/');
 
-		TPL::assign('topic_info', $topic_info);
+			$topic_info = $this->model('topic')->get_topic_by_id($_GET['topic_id']);
+
+			if (!$topic_info)
+			{
+				H::redirect_msg(AWS_APP::lang()->_t('话题不存在'), '/admin/topic/list/');
+			}
+
+			TPL::assign('topic_info', $topic_info);
+		}
+		else
+		{
+			$this->crumb(AWS_APP::lang()->_t('新建话题'), 'admin/topic/edit/');
+		}
 
 		TPL::assign('parent_topics', $this->model('topic')->get_parent_topics());
 

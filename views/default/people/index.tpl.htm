@@ -32,11 +32,10 @@
                                     <?php echo $this->job_name; ?>
                                 </span>
                                 <?php } ?>
-                                <?php if ((get_setting('qq_t_enabled') == 'Y' OR get_setting('sina_weibo_enabled') == 'Y') AND ($this->sina_weibo_url OR $this->qq_weibo_url)) { ?>
+                                <?php if (get_setting('sina_weibo_enabled') == 'Y' AND $this->sina_weibo_url) { ?>
                                 <span>
                                     <?php _e('绑定认证'); ?>
-                                    <?php if ($this->sina_weibo_url AND get_setting('sina_weibo_enabled') == 'Y') { ?><a href="<?php if ($this->sina_weibo_url) { ?><?php echo $this->sina_weibo_url; ?><?php } else { ?>javascript:;<?php } ?>" title="<?php _e('新浪微博'); ?>"><i class="icon icon-weibo"></i></a><?php } ?>
-                                    <?php if ($this->qq_weibo_url AND get_setting('qq_t_enabled') == 'Y') { ?><a href="<?php if ($this->user_info['weibo_visit']) { ?><?php echo $this->qq_weibo_url; ?><?php } else { ?>javascript:;<?php } ?>" title="<?php _e('腾讯微博'); ?>"><i class="icon icon-txweibo"></i></a><?php } ?>
+                                    <?php if ($this->sina_weibo_url AND get_setting('sina_weibo_enabled') == 'Y') { ?><a href="<?php if ($this->sina_weibo_url) { ?><?php echo $this->sina_weibo_url; ?><?php } else { ?>javascript:;<?php } ?>" title="<?php _e('微博'); ?>"><i class="icon icon-weibo"></i></a><?php } ?>
                                 </span>
                                 <?php } ?>
                             </p>
@@ -74,8 +73,8 @@
                             <ul class="nav nav-tabs aw-nav-tabs">
                                 <li class="active"><a href="#overview" id="page_overview" data-toggle="tab"><?php _e('概述'); ?></a></li>
                                 <li><a href="#questions" id="page_questions" data-toggle="tab"><?php _e('发问'); ?><span class="badge"><?php echo $this->user['question_count']; ?></span></a></li>
-                                <li><a href="#answers" id="page_answers" data-toggle="tab"><?php _e('回复'); ?><span class="badge"><?php echo $this->user['answer_count']; ?></span></span></a></li>
-                                <li><a href="#articles" id="page_articles" data-toggle="tab"><?php _e('文章'); ?></a></li>
+                                <li><a href="#answers" id="page_answers" data-toggle="tab"><?php _e('回复'); ?><span class="badge"><?php echo $this->user['answer_count']; ?></span></a></li>
+                                <li><a href="#articles" id="page_articles" data-toggle="tab"><?php _e('文章'); ?><span class="badge"><?php echo $this->user['article_count']; ?></span></a></li>
                                 <li><a href="#focus" id="page_focus" data-toggle="tab"><?php _e('关注'); ?></a></li>
                                 <li><a href="#actions" id="page_actions" data-toggle="tab"><?php _e('动态'); ?></a></li>
                                 <li><a href="#detail" id="page_detail" data-toggle="tab"><?php _e('详细资料'); ?></a></li>
@@ -295,11 +294,10 @@
                                         <h3><?php _e('详细资料'); ?></h3>
                                     </div>
                                     <div class="mod-body aw-user-center-details">
-                                        <?php if ((get_setting('qq_t_enabled') == 'Y' OR get_setting('sina_weibo_enabled') == 'Y') AND ($this->sina_weibo_url OR $this->qq_weibo_url)) { ?>
+                                        <?php if (get_setting('sina_weibo_enabled') == 'Y' AND $this->sina_weibo_url) { ?>
                                         <dl>
                                             <dt><span><?php _e('绑定认证'); ?>:</span></dt>
-                                            <?php if ($this->sina_weibo_url AND get_setting('sina_weibo_enabled') == 'Y') { ?><dd><a href="<?php if ($this->sina_weibo_url) { ?><?php echo $this->sina_weibo_url; ?><?php } else { ?>javascript:;<?php } ?>" class="text-color-999"><i class="icon icon-weibo"></i><?php _e('新浪微博'); ?></a></dd><?php } ?>
-                                            <?php if ($this->qq_weibo_url AND get_setting('qq_t_enabled') == 'Y') { ?><dd><a href="<?php if ($this->user_info['weibo_visit']) { ?><?php echo $this->qq_weibo_url; ?><?php } else { ?>javascript:;<?php } ?>" class="text-color-999"><i class="icon icon-txweibo"></i><?php _e('腾讯微博'); ?></a></dd><?php } ?>
+                                            <?php if ($this->sina_weibo_url AND get_setting('sina_weibo_enabled') == 'Y') { ?><dd><a href="<?php if ($this->sina_weibo_url) { ?><?php echo $this->sina_weibo_url; ?><?php } else { ?>javascript:;<?php } ?>" class="text-color-999"><i class="icon icon-weibo"></i><?php _e('微博'); ?></a></dd><?php } ?>
                                         </dl>
                                         <?php } ?>
                                     <dl>
@@ -391,7 +389,7 @@
                                         <table class="table table-hover aw-table">
                                             <thead>
                                                 <tr class="info">
-                                                    <th width="14%"><?php _e('时间'); ?></th> 
+                                                    <th width="14%"><?php _e('时间'); ?></th>
                                                     <th width="8%"><?php _e('数额'); ?></th>
                                                     <th width="8%"><?php _e('余额'); ?></th>
                                                     <th width="17%"><?php _e('描述'); ?></th>
@@ -448,7 +446,7 @@
                             </p>
                             <?php } ?>
                         </div>
-                        
+
                     </div>
                     <div class="aw-mod people-following">
                         <div class="mod-body">

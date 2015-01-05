@@ -12,16 +12,16 @@
 						<i class="icon icon-qq"></i>
 						<p>
 						<?php if ($this->qq) { ?>
-							<?php echo $this->qq['nick']; ?>
+							<?php echo $this->qq['nickname']; ?>
 						<?php }  else { ?>
 							<?php _e('QQ账号') ;?>
 						<?php } ?>
 						</p>
 
 						<?php if ($this->qq) { ?>
-						<a href="account/qq/del_bind_qq/" class="btn btn-normal btn-gray"><?php _e('取消绑定'); ?></a>
+						<a href="account/openid/qq/unbind/" class="btn btn-normal btn-gray"><?php _e('取消绑定'); ?></a>
 						<?php } else { ?>
-						<a href="account/qq/binding_qq/" class="btn btn-normal btn-success"><?php _e('绑定'); ?></a>
+						<a href="account/openid/qq/bind/" class="btn btn-normal btn-success"><?php _e('绑定'); ?></a>
 						<?php } ?>
 					</li>
 					<?php } ?>
@@ -33,13 +33,13 @@
 							<?php if ($this->sina_weibo) { ?>
 								<a href="http://weibo.com/<?php echo $this->sina_weibo['id']; ?>" target="_blank"><?php echo $this->sina_weibo['name']; ?></a>
 							<?php } else { ?>
-								<?php _e('新浪微博'); ?>
+								<?php _e('微博'); ?>
 							<?php } ?>
 						</p>
 						<?php if ($this->sina_weibo) { ?>
-						<a href="account/sina/del_bind/" class="btn btn-normal btn-gray"><?php _e('取消绑定'); ?></a>
+						<a href="account/openid/weibo/unbind/" class="btn btn-normal btn-gray"><?php _e('取消绑定'); ?></a>
 						<?php } else { ?>
-						<a href="account/sina/binding/" class="btn btn-normal btn-success"><?php _e('绑定'); ?></a>
+						<a href="account/openid/weibo/bind/" class="btn btn-normal btn-success"><?php _e('绑定'); ?></a>
 						<?php } ?>
 					</li>
 					<?php } ?>
@@ -73,9 +73,9 @@
 							<?php } ?>
 						</p>
 						<?php if ($this->google) { ?>
-						<a href="account/google/unbind/" class="btn btn-normal btn-gray"><?php _e('取消绑定'); ?></a>
+						<a href="account/openid/google/unbind/" class="btn btn-normal btn-gray"><?php _e('取消绑定'); ?></a>
 						<?php } else { ?>
-						<a href="account/google/bind/" class="btn btn-normal btn-success"><?php _e('绑定'); ?></a>
+						<a href="account/openid/google/bind/" class="btn btn-normal btn-success"><?php _e('绑定'); ?></a>
 						<?php } ?>
 					</li>
 					<?php } ?>
@@ -91,9 +91,9 @@
 							<?php } ?>
 						</p>
 						<?php if ($this->facebook) { ?>
-						<a href="account/facebook/unbind/" class="btn btn-normal btn-gray"><?php _e('取消绑定'); ?></a>
+						<a href="account/openid/facebook/unbind/" class="btn btn-normal btn-gray"><?php _e('取消绑定'); ?></a>
 						<?php } else { ?>
-						<a href="account/facebook/bind/" class="btn btn-normal btn-success"><?php _e('绑定'); ?></a>
+						<a href="account/openid/facebook/bind/" class="btn btn-normal btn-success"><?php _e('绑定'); ?></a>
 						<?php } ?>
 					</li>
 					<?php } ?>
@@ -109,9 +109,9 @@
 							<?php } ?>
 						</p>
 						<?php if ($this->twitter) { ?>
-						<a href="account/twitter/unbind/" class="btn btn-normal btn-gray"><?php _e('取消绑定'); ?></a>
+						<a href="account/openid/twitter/unbind/" class="btn btn-normal btn-gray"><?php _e('取消绑定'); ?></a>
 						<?php } else { ?>
-						<a href="account/twitter/bind/" class="btn btn-normal btn-success"><?php _e('绑定'); ?></a>
+						<a href="account/openid/twitter/bind/" class="btn btn-normal btn-success"><?php _e('绑定'); ?></a>
 						<?php } ?>
 					</li>
 					<?php } ?>

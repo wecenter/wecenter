@@ -887,6 +887,25 @@
                         </div>
                     </td>
                 </tr>
+
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('启用帮助中心'); ?>:</span>
+                            <div class="col-sm-6 col-xs-8">
+                                <div class="btn-group mod-btn">
+                                    <label type="button" class="btn mod-btn-color">
+                                        <input type="radio" name="enable_help_center" value="Y"<?php if ($this->setting['enable_help_center'] == 'Y') { ?> checked="checked"<?php } ?> /> <?php _e('是'); ?>
+                                    </label>
+
+                                    <label type="button" class="btn mod-btn-color">
+                                        <input type="radio" name="enable_help_center" value="N"<?php if ($this->setting['enable_help_center'] != 'Y') { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
             </table>
         </div>
 
@@ -1357,7 +1376,7 @@
                 <tr>
                     <td>
                         <div class="form-group">
-                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('开启新浪微博登录功能'); ?>:</span>
+                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('开启微博登录功能'); ?>:</span>
                             <div class="col-sm-6 col-xs-8">
                                 <div class="btn-group mod-btn">
                                     <label type="button" class="btn mod-btn-color">
@@ -1375,11 +1394,11 @@
                 <tr>
                     <td>
                         <div class="form-group">
-                            <span class="col-sm-4 col-xs-3 control-label textwrap"><?php _e('新浪微博 AppKey(akey)'); ?>:</span>
+                            <span class="col-sm-4 col-xs-3 control-label textwrap"><?php _e('微博 App Key'); ?>:</span>
                             <div class="col-sm-5 col-xs-8">
                                 <input name="sina_akey" type="text" class="form-control" value="<?php echo $this->setting['sina_akey']; ?>"/>
 
-                                <span class="help-block"><?php _e('AppKey 需要到 <a href="http://open.weibo.com/" target="_blank">新浪微博开放平台</a> 申请 (注意: 请申请网站不要申请应用)'); ?></span>
+                                <span class="help-block"><?php _e('AppKey 需要到 <a href="http://open.weibo.com" target="_blank">微博开放平台</a> 申请 (注意: 请申请网站不要申请应用)'); ?></span>
                             </div>
                         </div>
                     </td>
@@ -1387,7 +1406,7 @@
                 <tr>
                     <td>
                         <div class="form-group">
-                            <span class="col-sm-4 col-xs-3 control-label textwrap"><?php _e('新浪微博 AppKey(skey)'); ?>:</span>
+                            <span class="col-sm-4 col-xs-3 control-label textwrap"><?php _e('微博 App Secret'); ?>:</span>
                             <div class="col-sm-5 col-xs-8">
                                 <input name="sina_skey" type="text" class="form-control" value="<?php echo $this->setting['sina_skey']; ?>"/>
                             </div>
@@ -1480,7 +1499,7 @@
                             <div class="col-sm-5 col-xs-8">
                                 <input name="google_client_id" type="text" class="form-control" value="<?php echo $this->setting['google_client_id']; ?>"/>
 
-                                <span class="help-block"><?php _e('请到 <a href="https://console.developers.google.com" target="_blank">Google Developers Console</a> 申请。Redirect URI 必填，值为 <code>%s</code>', get_js_url('/account/google/bind/')); ?></span>
+                                <span class="help-block"><?php _e('请到 <a href="https://console.developers.google.com" target="_blank">Google Developers Console</a> 申请。Redirect URI 必填，值为 <code>%s</code>', get_js_url('/account/openid/google/bind/')); ?></span>
                             </div>
                         </div>
                     </td>

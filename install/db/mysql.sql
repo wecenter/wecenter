@@ -738,6 +738,7 @@ CREATE TABLE `[#DB_PREFIX#]users` (
   `fans_count` int(10) NOT NULL DEFAULT '0' COMMENT '粉丝数',
   `friend_count` int(10) NOT NULL DEFAULT '0' COMMENT '观众数',
   `invite_count` int(10) NOT NULL DEFAULT '0' COMMENT '邀请我回答数量',
+  `article_count` int(10) NOT NULL DEFAULT '0' COMMENT '文章数量',
   `question_count` int(10) NOT NULL DEFAULT '0' COMMENT '问题数量',
   `answer_count` int(10) NOT NULL DEFAULT '0' COMMENT '回答数量',
   `topic_focus_count` int(10) NOT NULL DEFAULT '0' COMMENT '关注话题数量',
@@ -833,7 +834,9 @@ CREATE TABLE `[#DB_PREFIX#]users_group` (
   `reputation_higer` int(11) DEFAULT '0',
   `reputation_factor` float DEFAULT '0' COMMENT '威望系数',
   `permission` text COMMENT '权限设置',
-  PRIMARY KEY (`group_id`)
+  PRIMARY KEY (`group_id`),
+  KEY `type` (`type`),
+  KEY `custom` (`custom`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8 COMMENT='用户组';
 
 CREATE TABLE `[#DB_PREFIX#]users_notification_setting` (
@@ -857,18 +860,16 @@ CREATE TABLE `[#DB_PREFIX#]users_online` (
 CREATE TABLE `[#DB_PREFIX#]users_qq` (
   `id` bigint(11) unsigned NOT NULL AUTO_INCREMENT,
   `uid` int(11) NOT NULL COMMENT '用户在本地的UID',
-  `type` VARCHAR(20) NULL DEFAULT NULL COMMENT '类别',
+  `nickname` varchar(64) DEFAULT NULL,
   `openid` varchar(128) DEFAULT '',
-  `name` varchar(64) DEFAULT NULL COMMENT '微博昵称',
-  `location` varchar(255) DEFAULT NULL COMMENT '地址',
   `gender` varchar(8) DEFAULT NULL,
   `add_time` int(10) DEFAULT NULL COMMENT '添加时间',
   `access_token` varchar(64) DEFAULT NULL,
-  `oauth_token_secret` varchar(64) DEFAULT NULL,
-  `nick` varchar(64) DEFAULT NULL,
+  `refresh_token` varchar(64) DEFAULT NULL,
+  `expires_time` int(10) DEFAULT NULL,
+  `figureurl` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `uid` (`uid`),
-  KEY `type` (`type`),
   KEY `add_time` (`add_time`),
   KEY `access_token` (`access_token`),
   KEY `openid` (`openid`)
@@ -1211,11 +1212,13 @@ CREATE TABLE `[#DB_PREFIX#]weibo_msg` (
   `uid` int(10) NOT NULL,
   `weibo_uid` bigint(20) NOT NULL,
   `question_id` int(11) DEFAULT NULL,
+  `ticket_id` int(11) DEFAULT NULL,
   PRIMARY KEY `id` (`id`),
   KEY `created_at` (`created_at`),
   KEY `uid` (`uid`),
   KEY `weibo_uid` (`weibo_uid`),
-  KEY `question_id` (`question_id`)
+  KEY `question_id` (`question_id`),
+  KEY `ticket_id` (`ticket_id`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8 COMMENT='新浪微博消息列表';
 
 CREATE TABLE `[#DB_PREFIX#]weixin_qr_code` (
@@ -1254,12 +1257,13 @@ CREATE TABLE `[#DB_PREFIX#]received_email` (
   `subject` varchar(255) DEFAULT NULL,
   `content` text,
   `question_id` int(11) DEFAULT NULL,
+  `ticket_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `uid` (`uid`),
   KEY `config_id` (`config_id`),
   KEY `message_id` (`message_id`),
   KEY `date` (`date`),
-  KEY `question_id` (`question_id`)
+  KEY `ticket_id` (`ticket_id`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8 COMMENT='已导入邮件列表';
 
 CREATE TABLE `[#DB_PREFIX#]weixin_third_party_api` (

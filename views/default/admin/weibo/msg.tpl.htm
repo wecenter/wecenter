@@ -13,19 +13,24 @@
             <table class="table table-striped">
                 <tr><td>
                 <div class="form-group">
-                    <span class="col-sm-4 col-xs-3 control-label"><?php _e('接收新浪微博消息'); ?>:</span>
+                    <span class="col-sm-4 col-xs-3 control-label"><?php _e('导入微博消息至'); ?>:</span>
                     <div class="col-sm-6 col-xs-8">
-                        <div class="btn-group mod-btn">
-                            <label type="button" class="btn mod-btn-color">
-                                <input type="radio" name="weibo_msg_enabled" value="Y"<?php if (get_setting('weibo_msg_enabled') == 'Y') { ?> checked="checked"<?php } ?> />
-                                <?php _e('是'); ?>
-                            </label>
+                        <label class="checkbox-inline">
+                            <input type="radio" name="weibo_msg_enabled" value="question"<?php if (get_setting('weibo_msg_enabled') == 'question') { ?> checked="checked"<?php } ?> />
+                            <?php _e('问题'); ?>
+                        </label>
 
-                            <label type="button" class="btn mod-btn-color">
-                                <input type="radio" name="weibo_msg_enabled" value="N"<?php if (get_setting('weibo_msg_enabled') != 'Y') { ?> checked="checked"<?php } ?> />
-                                <?php _e('否'); ?>
-                            </label>
-                        </div>
+                        <?php if (defined('ENTERPRISE_EDITION')) { ?>
+                        <label class="checkbox-inline">
+                            <input type="radio" name="weibo_msg_enabled" value="ticket"<?php if (get_setting('weibo_msg_enabled') == 'ticket') { ?> checked="checked"<?php } ?> />
+                            <?php _e('工单'); ?>
+                        </label>
+                        <?php } ?>
+
+                        <label class="checkbox-inline">
+                            <input type="radio" name="weibo_msg_enabled" value="N"<?php if (get_setting('weibo_msg_enabled') == 'N') { ?> checked="checked"<?php } ?> />
+                            <?php _e('关闭'); ?>
+                        </label>
                     </div>
                 </div>
                 </td></tr>
@@ -46,7 +51,7 @@
                             <?php if ($this->tmp_service_users_info) { foreach ($this->tmp_service_users_info AS $tmp_service_user_info) { ?>
                             <li>
                                 <a class="reply-name" href="people/<?php echo $tmp_service_user_info['url_token']; ?>" target="_blank"><img src="<?php echo get_avatar_url($tmp_service_user_info['uid'], 'min'); ?>" alt="" /><?php echo $tmp_service_user_info['user_name']; ?></a>
-                                <a class="btn btn-primary btn-sm" href="account/sina/binding/uid-<?php echo $tmp_service_user_info['uid']; ?>" target="_blank"><?php _e('绑定新浪微博'); ?></a>
+                                <a class="btn btn-primary btn-sm" href="account/sina/binding/uid-<?php echo $tmp_service_user_info['uid']; ?>" target="_blank"><?php _e('绑定微博'); ?></a>
                                 <a class="btn btn-danger btn-sm delete" data-id="<?php echo $tmp_service_user_info['uid']; ?>" data-actions="del_service_user"><?php _e('删除用户'); ?></a>
                             </li>
                             <?php } } ?>
@@ -98,14 +103,7 @@
 $(function(){
     $('input[name="weibo_msg_enabled"]').on('ifClicked', function()
     {
-        if (this.value == 'Y')
-        {
-            AWS.ajax_request(G_BASE_URL + '/admin/ajax/weibo_batch/', 'action=weibo_msg_enabled&uid=1');
-        }
-        else
-        {
-            AWS.ajax_request(G_BASE_URL + '/admin/ajax/weibo_batch/', 'action=weibo_msg_enabled&uid=0');
-        }
+        AWS.ajax_request(G_BASE_URL + '/admin/ajax/weibo_batch/', 'action=weibo_msg_enabled&uid=' + this.value);
     });
 
     AWS.Dropdown.bind_dropdown_list($('.aw-admin-weibo-publish input'), 'adminPublishUser');

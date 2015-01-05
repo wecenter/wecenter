@@ -96,7 +96,7 @@ class ajax_weixin extends AWS_ADMIN_CONTROLLER
         }
 
         H::ajax_json_output(AWS_APP::RSM(array(
-            'url' => get_js_url('admin/weixin/third_party_access/id-' . $_POST['account_id'])
+            'url' => get_js_url('/admin/weixin/third_party_access/id-' . $_POST['account_id'])
         ), 1, null));
     }
 
@@ -238,10 +238,14 @@ class ajax_weixin extends AWS_ADMIN_CONTROLLER
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('错误的请求')));
         }
 
+        $_POST['weixin_mp_token'] = trim($_POST['weixin_mp_token']);
+
         if (!$_POST['weixin_mp_token'])
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('微信公众平台接口 Token 不能为空')));
         }
+
+        $_POST['weixin_encoding_aes_key'] = trim($_POST['weixin_encoding_aes_key']);
 
         if ($_POST['weixin_encoding_aes_key'] AND strlen($_POST['weixin_encoding_aes_key']) != 43)
         {
@@ -254,10 +258,11 @@ class ajax_weixin extends AWS_ADMIN_CONTROLLER
         }
 
         $account_info = array(
-                            'weixin_mp_token' => trim($_POST['weixin_mp_token']),
+                            'weixin_mp_token' => $_POST['weixin_mp_token'],
                             'weixin_account_role' => $_POST['weixin_account_role'],
                             'weixin_app_id' => trim($_POST['weixin_app_id']),
-                            'weixin_app_secret' => trim($_POST['weixin_app_secret'])
+                            'weixin_app_secret' => trim($_POST['weixin_app_secret']),
+                            'weixin_encoding_aes_key' => $_POST['weixin_encoding_aes_key']
                         );
 
         switch ($_POST['type'])

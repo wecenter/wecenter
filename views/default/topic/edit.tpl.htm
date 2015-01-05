@@ -37,14 +37,10 @@
 								<div class="mod-head">
 									<form id="topic_form" action="topic/ajax/edit_topic/" method="post" onsubmit="return false">
 											<div class="wmd-panel">
-									            <div id="wmd-button-bar"></div>
-									            <textarea class="wmd-input form-control autosize" id="wmd-input" rows="15" name="topic_description"><?php echo $this->topic_info['topic_description']; ?></textarea>
+												<textarea class="wmd-input form-control autosize editor" id="wmd-input" rows="15" name="topic_description">&nbsp;&nbsp;<?php echo $this->topic_info['topic_description']; ?></textarea>
 									        </div>
 										<input type="hidden" name="topic_id" value="<?php echo $this->topic_info['topic_id']; ?>" />
 									</form>
-								</div>
-								<div class="mod-footer">
-									<div id="wmd-preview" class="wmd-panel wmd-preview"></div>	
 								</div>
 							</div>
 						</div>
@@ -74,6 +70,8 @@
 <script type="text/javascript">
 	$(function()
 	{
+		var editor = CKEDITOR.replace( 'wmd-input' );
+
 		if ($('#topic_pic_uploader').length)
 		{
 			var fileUpload = new FileUpload('avatar', $('#topic_pic_uploader'), $('#topic_pic_uploader'), G_BASE_URL + '/topic/ajax/upload_topic_pic/topic_id-<?php echo $this->topic_info['topic_id']; ?>', {'loading_status' : '#uploading_status'});

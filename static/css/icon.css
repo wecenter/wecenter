@@ -1,10 +1,10 @@
 @font-face {
 	font-family: 'icomoon';
-	src:url('../fonts/icomoon.eot?-oldkva');
-	src:url('../fonts/icomoon.eot?#iefix-oldkva') format('embedded-opentype'),
-		url('../fonts/icomoon.woff?-oldkva') format('woff'),
-		url('../fonts/icomoon.ttf?-oldkva') format('truetype'),
-		url('../fonts/icomoon.svg?-oldkva#icomoon') format('svg');
+	src:url('../fonts/icomoon.eot?g11fns');
+	src:url('../fonts/icomoon.eot?#iefixg11fns') format('embedded-opentype'),
+		url('../fonts/icomoon.woff?g11fns') format('woff'),
+		url('../fonts/icomoon.ttf?g11fns') format('truetype'),
+		url('../fonts/icomoon.svg?g11fns#icomoon') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -23,6 +23,18 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
+.icon-format:before {
+	content: "\e65f";
+}
+.icon-strike:before {
+	content: "\e65e";
+}
+.icon-full:before {
+	content: "\e65d";
+}
+.icon-gene:before {
+	content: "\e600";
+}
 .icon-count:before {
 	content: "\e65a";
 }
@@ -279,23 +291,23 @@
 	content: "\e605";
 }
 .icon-agree:before {
-	content: "\e600";
-}
-.icon-disagree:before {
 	content: "\e606";
 }
-.icon-reply:before {
+.icon-disagree:before {
 	content: "\e607";
 }
-.icon-draft:before {
+.icon-reply:before {
 	content: "\e608";
 }
-.icon-check:before {
+.icon-draft:before {
 	content: "\e609";
 }
-.icon-invite:before {
+.icon-check:before {
 	content: "\e60a";
 }
-.icon-edit:before {
+.icon-invite:before {
 	content: "\e60b";
+}
+.icon-edit:before {
+	content: "\e65c";
 }

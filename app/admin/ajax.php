@@ -138,9 +138,19 @@ class ajax extends AWS_ADMIN_CONTROLLER
             }
         }
 
-        if ($_POST['weixin_encoding_aes_key'] AND strlen($_POST['weixin_encoding_aes_key']) != 43)
+        if ($_POST['weixin_mp_token'])
         {
-            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('微信公众平台接口 EncodingAESKey 应为 43 位')));
+            $_POST['weixin_mp_token'] = trim($_POST['weixin_mp_token']);
+        }
+
+        if ($_POST['weixin_encoding_aes_key'])
+        {
+            $_POST['weixin_encoding_aes_key'] = trim($_POST['weixin_encoding_aes_key']);
+
+            if (strlen($_POST['weixin_encoding_aes_key']) != 43)
+            {
+                H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('微信公众平台接口 EncodingAESKey 应为 43 位')));
+            }
         }
 
         if ($_POST['set_notification_settings'])
@@ -212,17 +222,24 @@ class ajax extends AWS_ADMIN_CONTROLLER
         switch ($_POST['type'])
         {
             case 'weibo_msg':
+                if (get_setting('weibo_msg_enabled') != 'question')
+                {
+                    H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('导入微博消息至问题未启用')));
+                }
+
                 switch ($_POST['batch_type'])
                 {
                     case 'approval':
+                        $published_user = get_setting('weibo_msg_published_user');
+
+                        if (!$published_user['uid'])
+                        {
+                            H::ajax_json_output(AWS_APP::RSM(AWS_APP::lang()->_t('微博发布用户不存在')));
+                        }
+
                         foreach ($_POST['approval_ids'] AS $approval_id)
                         {
-                            $result = $this->model('weibo')->save_msg_info_to_question($approval_id);
-
-                            if ($result)
-                            {
-                                H::ajax_json_output(AWS_APP::RSM(null, -1, $result));
-                            }
+                            $this->model('openid_weibo_weibo')->save_msg_info_to_question($approval_id, $published_user['uid']);
                         }
 
                         break;
@@ -230,7 +247,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
                     case 'decline':
                         foreach ($_POST['approval_ids'] AS $approval_id)
                         {
-                            $this->model('weibo')->del_msg_by_id($approval_id);
+                            $this->model('openid_weibo_weibo')->del_msg_by_id($approval_id);
                         }
 
                         break;
@@ -239,17 +256,26 @@ class ajax extends AWS_ADMIN_CONTROLLER
                 break;
 
             case 'received_email':
+                $receiving_email_global_config = get_setting('receiving_email_global_config');
+
+                if ($receiving_email_global_config['enabled'] != 'question')
+                {
+                    H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('导入邮件至问题未启用')));
+                }
+
                 switch ($_POST['batch_type'])
                 {
                     case 'approval':
+                        $receiving_email_global_config = get_setting('receiving_email_global_config');
+
+                        if (!$receiving_email_global_config['publish_user']['uid'])
+                        {
+                            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('邮件发布用户不存在')));
+                        }
+
                         foreach ($_POST['approval_ids'] AS $approval_id)
                         {
-                            $result = $this->model('edm')->save_received_email_to_question($approval_id);
-
-                            if ($result)
-                            {
-                                H::ajax_json_output(AWS_APP::RSM(null, -1, $result));
-                            }
+                            $this->model('edm')->save_received_email_to_question($approval_id, $receiving_email_global_config['publish_user']['uid']);
                         }
 
                         break;
@@ -518,6 +544,8 @@ class ajax extends AWS_ADMIN_CONTROLLER
         if ($_GET['feature_id'])
         {
             $feature = $this->model('feature')->get_feature_by_id($_GET['feature_id']);
+
+            $feature_id = $feature['id'];
         }
 
         if ($_POST['url_token'])
@@ -538,7 +566,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
             }
         }
 
-        if (! $_GET['feature_id'])
+        if (!$_GET['feature_id'])
         {
             $feature_id = $this->model('feature')->add_feature($_POST['title']);
         }
@@ -941,31 +969,43 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
     public function save_topic_action()
     {
-        if (! $topic_info = $this->model('topic')->get_topic_by_id($_POST['topic_id']))
+        if ($_POST['topic_id'])
         {
-            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('话题不存在')));
+            if (!$topic_info = $this->model('topic')->get_topic_by_id($_POST['topic_id']))
+            {
+                H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('话题不存在')));
+            }
+
+            if ($topic_info['topic_title'] != $_POST['topic_title'] AND $this->model('topic')->get_topic_by_title($_POST['topic_title']))
+            {
+                H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('同名话题已经存在')));
+            }
+
+            $this->model('topic')->update_topic($this->user_id, $topic_info['topic_id'], $_POST['topic_title'], $_POST['topic_description']);
+
+            $this->model('topic')->lock_topic_by_ids($topic_info['topic_id'], $_POST['topic_lock']);
+
+            $topic_id = $topic_info['topic_id'];
+        }
+        else
+        {
+            if ($this->model('topic')->get_topic_by_title($_POST['topic_title']))
+            {
+                H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('同名话题已经存在')));
+            }
+
+            $topic_id = $this->model('topic')->save_topic($_POST['topic_title'], $this->user_id, true, $_POST['topic_description']);
         }
 
-        if ($topic_info['topic_title'] != $_POST['topic_title'] AND $this->model('topic')->get_topic_by_title($_POST['topic_title']))
-        {
-            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('同名话题已经存在')));
-        }
-
-        $this->model('topic')->update_topic($this->user_id, $_POST['topic_id'], $_POST['topic_title'], $_POST['topic_description']);
-
-        $this->model('topic')->set_is_parent($_POST['topic_id'], $_POST['is_parent']);
+        $this->model('topic')->set_is_parent($topic_id, $_POST['is_parent']);
 
         if ($_POST['is_parent'] == 0)
         {
-            $this->model('topic')->set_parent_id($_POST['topic_id'], $_POST['parent_id']);
+            $this->model('topic')->set_parent_id($topic_id, $_POST['parent_id']);
         }
 
-        $this->model('topic')->lock_topic_by_ids($_POST['topic_id'], $_POST['topic_lock']);
-
-        $referer_url = ($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : get_js_url('/admin/topic/list/');
-
         H::ajax_json_output(AWS_APP::RSM(array(
-            'url' => $referer_url
+            'url' => get_js_url('/admin/topic/list/')
         ), 1, null));
     }
 
@@ -1177,6 +1217,13 @@ class ajax extends AWS_ADMIN_CONTROLLER
             'publish_comment'
         );
 
+        if (defined('ENTERPRISE_EDITION'))
+        {
+            $permission_array[] = 'is_service';
+
+            $permission_array[] = 'publish_ticket';
+        }
+
         $group_setting = array();
 
         foreach ($permission_array as $permission)
@@ -1273,23 +1320,28 @@ class ajax extends AWS_ADMIN_CONTROLLER
                 $update_data['email'] = htmlspecialchars($_POST['email']);
             }
 
-            if ($_POST['invitation_available'])
-            {
-                $update_data['invitation_available'] = intval($_POST['invitation_available']);
-            }
-
-            $update_data['verified'] = $_POST['verified'];
+            $update_data['invitation_available'] = intval($_POST['invitation_available']);
 
             $verify_apply = $this->model('verify')->fetch_apply($user_info['uid']);
 
-            if ($verify_apply AND $verify_apply['type'] != $update_data['verified'])
+            if ($verify_apply)
             {
+                $update_data['verified'] = $_POST['verified'];
+
                 if (!$update_data['verified'])
                 {
                     $this->model('verify')->decline_verify($user_info['uid']);
                 }
+                else if ($update_data['verified'] != $verify_apply['type'])
+                {
+                    $this->model('verify')->update_apply($user_info['uid'], null, null, null, null, $update_data['verified']);
+                }
+            }
+            else if ($_POST['verified'])
+            {
+                $verified_id = $this->model('verify')->add_apply($user_info['uid'], null, null, $_POST['verified']);
 
-                $this->model('verify')->update_apply($user_info['uid'], null, null, null, null, $update_data['verified']);
+                $this->model('verify')->approval_verify($verified_id);
             }
 
             $update_data['valid_email'] = intval($_POST['valid_email']);
@@ -1743,7 +1795,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
                 H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('所选用户不存在')));
             }
 
-            $service_info = $this->model('openid_weibo')->get_users_sina_by_uid($user_info['uid']);
+            $service_info = $this->model('openid_weibo_oauth')->get_weibo_user_by_uid($user_info['uid']);
 
             $tmp_service_account = AWS_APP::cache()->get('tmp_service_account');
         }
@@ -1758,7 +1810,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
                         H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('该用户已是回答用户')));
                     }
 
-                    $this->model('weibo')->update_service_account($user_info['uid'], 'add');
+                    $this->model('openid_weibo_weibo')->update_service_account($user_info['uid'], 'add');
 
                     $rsm = array('staus' => 'bound');
                 }
@@ -1792,7 +1844,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
                         H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('该用户不是回答用户')));
                     }
 
-                    $this->model('weibo')->update_service_account($user_info['uid'], 'del');
+                    $this->model('openid_weibo_weibo')->update_service_account($user_info['uid'], 'del');
                 }
                 else
                 {
@@ -1831,18 +1883,12 @@ class ajax extends AWS_ADMIN_CONTROLLER
                 break;
 
             case 'weibo_msg_enabled':
-                if ($_POST['uid'] == 1)
+                if (in_array($_POST['uid'], array('question', 'ticket', 'N')))
                 {
-                    $weibo_msg_enabled = 'Y';
+                    $this->model('setting')->set_vars(array(
+                        'weibo_msg_enabled' => $_POST['uid']
+                    ));
                 }
-                else
-                {
-                    $weibo_msg_enabled = 'N';
-                }
-
-                $this->model('setting')->set_vars(array(
-                    'weibo_msg_enabled' => $weibo_msg_enabled
-                ));
 
                 break;
         }
@@ -1865,7 +1911,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
         switch ($_POST['type'])
         {
             case 'weibo_msg':
-                $approval_item = $this->model('weibo')->get_msg_info_by_id($_POST['id']);
+                $approval_item = $this->model('openid_weibo_weibo')->get_msg_info_by_id($_POST['id']);
 
                 if ($approval_item['question_id'])
                 {
@@ -1968,7 +2014,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
         switch ($approval_item['type'])
         {
             case 'weibo_msg':
-                $this->model('weibo')->update('weibo_msg', array(
+                $this->model('openid_weibo_weibo')->update('weibo_msg', array(
                     'text' => $approval_item['text']
                 ), 'id = ' . $approval_item['id']);
 
@@ -2091,7 +2137,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
         $this->model('setting')->set_vars(array(
             'receiving_email_global_config' => array(
-                'enabled' => ($_POST['enabled'] == 'Y') ? 'Y' : 'N',
+                'enabled' => (in_array($_POST['enabled'], array('question', 'ticket'))) ? $_POST['enabled'] : 'N',
                 'publish_user' => array(
                     'uid' => $user_info['uid'],
                     'user_name' => $user_info['user_name'],

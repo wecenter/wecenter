@@ -40,7 +40,7 @@
 			      	<?php if ($this->user_id) { ?>
                     <li><a href="home/"<?php if ($_GET['app'] == 'home') { ?> class="active"<?php } ?>><i class="icon icon-home"></i> <?php _e('动态'); ?></a></li>
                     <?php } ?>
-                    <li><a href="<?php echo get_setting('base_url'); ?>" class="<?php if (!$_GET['app'] OR $_GET['app'] == 'explore') { ?>active<?php } ?>"><i class="icon icon-ul"></i> <?php _e('发现'); ?></a></li>
+                    <li><a href="<?php echo get_setting('base_url'); ?>" class="<?php if (!$_GET['app'] OR $_GET['app'] == 'explore') { ?>active<?php } ?>"><i class="icon icon-list"></i> <?php _e('发现'); ?></a></li>
 
 					<!-- <li><a href="question/" class="<?php if ($_GET['app'] == 'question') { ?>active<?php } ?>"><?php _e('问题'); ?></a></li>
 
@@ -61,7 +61,7 @@
 						</div>
 					</li>
 					<?php } ?>
-					<li><a href="help/" <?php if ($_GET['app'] == 'help') { ?>class="active"<?php } ?>><i class="icon icon-bulb"></i> <?php _e('帮助'); ?></a></li>
+					<?php if (get_setting('enable_help_center') == 'Y') { ?><li><a href="help/"<?php if ($_GET['app'] == 'help') { ?> class="active"<?php } ?>><i class="icon icon-bulb"></i> <?php _e('帮助'); ?></a></li><?php } ?>
 			      </ul>
 			    </nav>
 			</div>

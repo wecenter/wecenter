@@ -208,7 +208,7 @@ class publish_class extends AWS_MODEL
 
 		if ($question_info['weibo_msg_id'])
 		{
-			$this->model('weibo')->reply_answer_to_sina($question_info['question_id'], cjk_substr($answer_content, 0, 110, 'UTF-8', '...'));
+			$this->model('openid_weibo_weibo')->reply_answer_to_sina($question_info['question_id'], cjk_substr($answer_content, 0, 110, 'UTF-8', '...'));
 		}
 
 		if ($question_info['received_email_id'])
@@ -223,7 +223,7 @@ class publish_class extends AWS_MODEL
 	{
 		if ($attach_access_key)
 		{
-			$this->shutdown_update('attach', array(
+			$this->update('attach', array(
 				'wait_approval' => 1
 			), "access_key = '" . $this->quote($attach_access_key) . "'");
 		}
@@ -236,9 +236,9 @@ class publish_class extends AWS_MODEL
 		));
 	}
 
-	public function publish_question($question_content, $question_detail, $category_id, $uid, $topics = null, $anonymous = null, $attach_access_key = null, $ask_user_id = null, $create_topic = true, $from = null, $from_id = null)
+	public function publish_question($question_content, $question_detail, $category_id, $uid, $topics = null, $anonymous = null, $attach_access_key = null, $ask_user_id = null, $create_topic = true, $from = null)
 	{
-		if ($question_id = $this->model('question')->save_question($question_content, $question_detail, $uid, $anonymous, null, $from, $from_id))
+		if ($question_id = $this->model('question')->save_question($question_content, $question_detail, $uid, $anonymous, null, $from))
 		{
 			set_human_valid('question_valid_hour');
 
@@ -261,9 +261,9 @@ class publish_class extends AWS_MODEL
 
 			if ($attach_access_key)
 			{
-				if ($weibo_msg_id)
+				if (is_digits($from['weibo_msg']) AND !$from['ticket'])
 				{
-					$this->model('weibo')->update_attach($weibo_msg_id, $question_id, $attach_access_key);
+					$this->model('openid_weibo_weibo')->update_attach($from['weibo_msg'], 'qusetion', $question_id, $attach_access_key);
 				}
 				else
 				{
@@ -298,11 +298,19 @@ class publish_class extends AWS_MODEL
 
 			$this->model('posts')->set_posts_index($question_id, 'question');
 
-			if ($from AND is_digits($from_id))
+			if ($from AND is_array($from))
 			{
-				$this->update($from, array(
-					'question_id' => $question_id
-				), 'id = ' . $from_id);
+				foreach ($from AS $type => $from_id)
+				{
+					if (!is_digits($from_id))
+					{
+						continue;
+					}
+
+					$this->update($type, array(
+						'question_id' => $question_id
+					), 'id = ' . $from_id);
+				}
 			}
 		}
 
@@ -342,6 +350,10 @@ class publish_class extends AWS_MODEL
 			ACTION_LOG::save_action($uid, $article_id, ACTION_LOG::CATEGORY_QUESTION, ACTION_LOG::ADD_ARTICLE, htmlspecialchars($title), htmlspecialchars($message), 0);
 
 			$this->model('posts')->set_posts_index($article_id, 'article');
+
+			$this->shutdown_update('users', array(
+				'article_count' => $this->count('article', 'uid = ' . intval($uid))
+			), 'uid = ' . intval($uid));
 		}
 
 		return $article_id;
@@ -448,7 +460,7 @@ class publish_class extends AWS_MODEL
 				break;
 			}
 
-			$this->shutdown_update($item_type, array(
+			$this->update($item_type, array(
 				'has_attach' => 1
 			), $update_key . ' = ' . $item_id);
 		}
@@ -498,7 +510,7 @@ class publish_class extends AWS_MODEL
 					break;
 			}
 
-			return $this->shutdown_update($attach['item_type'], array(
+			return $this->update($attach['item_type'], array(
 				'has_attach' => 0
 			), $update_key . ' = ' . $attach['item_id']);
 		}
@@ -561,12 +573,16 @@ class publish_class extends AWS_MODEL
 
 			$attach_url = get_setting('upload_url') . '/' . $item_type . '/' . $date_dir . '/';
 
+			$attach_path = get_setting('upload_dir') . '/' . $item_type . '/' . $date_dir . '/';
+
 			$attach_list[$data['id']] = array(
 				'id' => $data['id'],
 				'is_image' => $data['is_image'],
 				'file_name' => $data['file_name'],
 				'access_key' => $data['access_key'],
+				'file_location' => $data['file_location'],
 				'attachment' => $attach_url . $data['file_location'],
+				'path' => $attach_path . $data['file_location']
 			);
 
 			if ($data['is_image'] == 1 AND $size)

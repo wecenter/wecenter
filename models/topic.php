@@ -221,7 +221,7 @@ class topic_class extends AWS_MODEL
 		return $this->fetch_one('topic', 'topic_id', "topic_title = '" . $this->quote(htmlspecialchars($topic_title)) . "'");
 	}
 
-	public function save_topic($topic_title, $uid = null, $auto_create = true)
+	public function save_topic($topic_title, $uid = null, $auto_create = true, $topic_description)
 	{
 		$topic_title = str_replace(array('-', '/'), '_', $topic_title);
 
@@ -567,10 +567,30 @@ class topic_class extends AWS_MODEL
 
 	public function get_focus_users_by_topic($topic_id, $limit = 10)
 	{
-		if ($uids = $this->query_all("SELECT DISTINCT uid FROM " . $this->get_table('topic_focus') . " WHERE topic_id = " . intval($topic_id), $limit))
+		$user_list = array();
+
+		$uids = $this->query_all("SELECT DISTINCT uid FROM " . $this->get_table('topic_focus') . " WHERE topic_id = " . intval($topic_id), $limit);
+
+		if ($uids)
 		{
-			return $this->model('account')->get_user_info_by_uids(fetch_array_value($uids, 'uid'));
+			$user_list_query = $this->model('account')->get_user_info_by_uids(fetch_array_value($uids, 'uid'));
+
+			if ($user_list_query)
+			{
+				foreach ($user_list_query AS $user_info)
+				{
+					$user_list[$user_info['uid']]['uid'] = $user_info['uid'];
+
+					$user_list[$user_info['uid']]['user_name'] = $user_info['user_name'];
+
+					$user_list[$user_info['uid']]['avatar_file'] = get_avatar_url($user_info['uid'], 'mid');
+
+					$user_list[$user_info['uid']]['url'] = get_js_url('/people/' . $user_info['url_token']);
+				}
+			}
 		}
+
+		return $user_list;
 	}
 
 	public function get_item_ids_by_topics_id($topic_id, $type = null, $limit = null)
