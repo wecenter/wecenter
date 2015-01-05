@@ -4,20 +4,18 @@
 			<div class="modal-body clearfix">
 				<div class="aw-mod">
 					<div class="mod-head">
-						<h2>Hi，<?php echo $this->user_info['user_name']; ?>, <?php _e('欢迎来到'); ?> <?php echo get_setting('site_name'); ?></h2>
+						<h2>Hi , <?php echo $this->user_info['user_name']; ?><br/><?php _e('欢迎来到'); ?> <?php echo get_setting('site_name'); ?></h2>
 						<ul>
 							<li class="active">
-								<i class="icon-register-arrow pull-right"></i>
-								<em>1</em>
-								<?php _e('完善基本资料'); ?>
+								1. <?php _e('完善基本资料'); ?>
+								<i></i>
 							</li>
 							<li>
-								<em>2</em>
-								<?php _e('关注热门话题'); ?>
+								2. <?php _e('关注热门话题'); ?>
+								<i></i>
 							</li>
 							<li>
-								<em>3</em>
-								<?php _e('关注热门用户'); ?>
+								3. <?php _e('关注热门用户'); ?>
 							</li>
 						</ul>
 					</div>
@@ -27,31 +25,34 @@
 						<div class="aw-complete-data">
 							<div class="pull-left side-bar">
 								<img id="aw-upload-img" src="<?php echo get_avatar_url($this->user_id, 'max'); ?>" title="" alt=""/>
-								<span><?php _e('支持 jpg、gif、png 等格式的图片'); ?></span>
-								<p class="clearfix"><a class="btn btn-mini btn-success pull-right clearfix" id="welcome_avatar_uploader"><?php _e('上传头像'); ?></a> </p>
+								<p class="clearfix text-center"><a class="btn btn-success clearfix" id="welcome_avatar_uploader"><?php _e('上传头像'); ?></a> </p>
 								<p id="aw-img-uploading" class="hide"><i class="aw-loading"></i><?php _e('文件上传中...'); ?></p>
 
 							</div>
-							<div class="pull-left">
-								<p>
-									<?php _e('一句话介绍'); ?><br />
-									<input type="text" class="form-control" placeholder="<?php _e('如：80后IT男..'); ?>" id="welcome_signature" value="<?php if ($this->user_info['signature']) { echo $this->user_info['signature']; } ?>" name="signature" />
-								</p>
-								<p>
-									<?php _e('性别'); ?>:
-									<label>
-										<input type="radio" name="sex" value="1"<?php if ($this->user_info['sex'] == 1) { ?> checked="checked"<?php } ?> />
-									<?php _e('男'); ?>
-									</label> &nbsp;
-									<label>
-									<input type="radio" name="sex" value="2"<?php if ($this->user_info['sex'] == 2) { ?> checked="checked"<?php } ?> />
-									<?php _e('女'); ?>
-									</label> &nbsp;
-									<label>
-									<input type="radio" name="sex" value="3"<?php if (!$this->user_info['sex']) { ?> checked="checked"<?php } ?> />
-									<?php _e('保密'); ?>
-									</label>
-								</p>
+							<div class="pull-left form-horizontal">
+								<div class="form-group">
+								    <label class="col-sm-2 control-label"><?php _e('性别'); ?>:</label>
+								    <div class="col-sm-10">
+								    	<label>
+											<input type="radio" name="sex" value="1"<?php if ($this->user_info['sex'] == 1) { ?> checked="checked"<?php } ?> />
+											<?php _e('男'); ?>
+										</label> &nbsp;
+										<label>
+											<input type="radio" name="sex" value="2"<?php if ($this->user_info['sex'] == 2) { ?> checked="checked"<?php } ?> />
+											<?php _e('女'); ?>
+										</label> &nbsp;
+										<label>
+											<input type="radio" name="sex" value="3"<?php if (!$this->user_info['sex']) { ?> checked="checked"<?php } ?> />
+											<?php _e('保密'); ?>
+										</label>
+								    </div>
+  								</div>
+  								<div class="form-group">
+								    <label class="col-sm-2 control-label"><?php _e('介绍'); ?>:</label>
+								    <div class="col-sm-10">
+								    	<input type="text" class="form-control" placeholder="<?php _e('如：80后IT男..'); ?>" id="welcome_signature" value="<?php if ($this->user_info['signature']) { echo $this->user_info['signature']; } ?>" name="signature" />
+								    </div>
+								</div>
 							</div>
 						</div>
 						</form>
@@ -76,23 +77,21 @@
 						<h2>Hi，<?php echo $this->user_info['user_name']; ?>, <?php _e('欢迎来到'); ?> <?php echo get_setting('site_name'); ?></h2>
 						<ul>
 							<li class="active">
-								<em>1</em>
-								<?php _e('完善基本资料'); ?>
+								1. <?php _e('完善基本资料'); ?>
+								<i></i>
 							</li>
 							<li class="active">
-								<i class="icon-register-arrow pull-right"></i>
-								<em>2</em>
-								<?php _e('关注热门话题'); ?>
+								2. <?php _e('关注热门话题'); ?>
+								<i></i>
 							</li>
 							<li>
-								<em>3</em>
-								<?php _e('关注热门用户'); ?>
+								3. <?php _e('关注热门用户'); ?>
 							</li>
 						</ul>
 					</div>
 					<div class="mod-body">
-						<div class="aw-card-box-list clearfix">
-							<p class="clearfix"><a class="pull-right " onclick="welcome_step('2');">换一批</a></p>
+						<div class="aw-first-login-suggest-list clearfix">
+							<p class="clearfix title"><a class="pull-right " onclick="welcome_step('2');">换一批</a></p>
 							<ul id="welcome_topics_list" class="clearfix"></ul>
 						</div>
 					</div>
@@ -117,22 +116,19 @@
 						<h2>Hi，<?php echo $this->user_info['user_name']; ?>, <?php _e('欢迎来到'); ?> <?php echo get_setting('site_name'); ?></h2>
 						<ul>
 							<li class="active">
-								<em>1</em>
-								<?php _e('完善基本资料'); ?>
+								1. <?php _e('完善基本资料'); ?>
 							</li>
 							<li class="active">
-								<em>2</em>
-								<?php _e('关注热门话题'); ?>
+								2. <?php _e('关注热门话题'); ?>
 							</li>
 							<li class="active">
-								<em>3</em>
-								<?php _e('关注热门用户'); ?>
+								3. <?php _e('关注热门用户'); ?>
 							</li>
 						</ul>
 					</div>
 					<div class="mod-body">
-						<div class="aw-card-box-list clearfix">
-							<p class="clearfix"><a class="pull-right " onclick="welcome_step('3');">换一批</a></p>
+						<div class="aw-first-login-suggest-list clearfix">
+							<p class="clearfix title"><a class="pull-right " onclick="welcome_step('3');">换一批</a></p>
 							<ul id="welcome_users_list" class="clearfix"></ul>
 						</div>
 					</div>

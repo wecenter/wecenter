@@ -8,7 +8,7 @@ CKEDITOR.editorConfig = function( config ) {
 	// For complete reference see:
 	// http://docs.ckeditor.com/#!/api/CKEDITOR.config
 
-	config.plugins = 'sourcearea,removeformat,bbcode,wecenterattach,wecenterimage,wecenterlink,wecentervideo,blockquote,maximize,codeTag,basicstyles,button,toolbar,enterkey,entities,floatingspace,wysiwygarea,fakeobjects,link,list,undo';
+	config.plugins = 'removeformat,bbcode,wecenterattach,wecenterimage,wecenterlink,wecentervideo,blockquote,maximize,codeTag,basicstyles,button,toolbar,enterkey,entities,floatingspace,wysiwygarea,fakeobjects,link,list,undo';
 	//sourcearea
 	config.language = 'zh-cn';
 
