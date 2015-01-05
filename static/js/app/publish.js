@@ -35,7 +35,6 @@ $(function()
                     return false;
                 } else {
                     $.each(data['rsm']['attachs'], function (i, v) {
-                    	console.log(v);
                         fileupload.setFileList(v);
                     });
                 }
