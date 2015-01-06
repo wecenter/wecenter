@@ -188,7 +188,7 @@ class openid_facebook extends AWS_CONTROLLER
 
                     $this->crumb(AWS_APP::lang()->_t('完善资料'), '/account/login/');
 
-                    TPL::assign('register_url', '/account/ajax/facebook/register/');
+                    TPL::assign('register_url', 'account/ajax/facebook/register/');
 
                     TPL::assign('user_name', AWS_APP::session()->facebook_user['name']);
 

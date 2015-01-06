@@ -188,7 +188,7 @@ class openid_qq extends AWS_CONTROLLER
 
                     $this->crumb(AWS_APP::lang()->_t('完善资料'), '/account/login/');
 
-                    TPL::assign('register_url', '/account/ajax/qq/register/');
+                    TPL::assign('register_url', 'account/ajax/qq/register/');
 
                     TPL::assign('user_name', AWS_APP::session()->qq_user['nickname']);
 

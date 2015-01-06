@@ -26,8 +26,9 @@ textarea.cke_dialog_ui_input_textarea:focus
             box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
 }.cke_dialog
 {
+    top: 30px!important;
+
     visibility: visible;
-    top: 30px !important;
 }.cke_dialog_body
 {
     z-index: 1;
@@ -35,7 +36,7 @@ textarea.cke_dialog_ui_input_textarea:focus
     border: 1px solid #999;
     border-radius: 4px;
     background: #fafafa;
-    box-shadow: 0 20px 20px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 20px 20px rgba(0,0,0,.3);
 }.cke_browser_gecko19 .cke_dialog_body
 {
     position: relative;
@@ -48,13 +49,13 @@ textarea.cke_dialog_ui_input_textarea:focus
 
     position: relative;
 
+    min-height: 16.43px;
     padding: 15px;
 
     cursor: move;
 
     color: #333;
     border-bottom: 1px solid #e5e5e5;
-    min-height: 16.43px;
 }.cke_dialog_contents
 {
     overflow: auto;
@@ -71,6 +72,7 @@ textarea.cke_dialog_ui_input_textarea:focus
 
     margin-top: 22px;
     padding: 17px 30px 5px;
+
     background: #fafafa;
 }.cke_dialog_footer
 {
@@ -173,6 +175,8 @@ textarea.cke_dialog_ui_input_textarea:focus
     border-top: 0;
 }.cke_dialog_close_button
 {
+    font-size: 18px;
+
     position: absolute;
     z-index: 5;
     top: 9px;
@@ -181,17 +185,13 @@ textarea.cke_dialog_ui_input_textarea:focus
     height: 20px;
 
     cursor: pointer;
+    cursor: pointer;
     text-align: center;
 
+    opacity: .2;
+    color: #000;
     background-repeat: no-repeat;
     background-position: 0 0;
-
-    font-size: 18px;
-    color: #000;
-    opacity: 0.2;
-}
-.cke_dialog_close_button::before, .cke_hidpi .cke_dialog_close_button::before{
-    content: '×';
 }.cke_dialog_close_button span
 {
     display: none;
@@ -207,7 +207,7 @@ textarea.cke_dialog_ui_input_textarea:focus
     cursor: pointer;
 }.cke_ltr .cke_dialog_close_button
 {
-    right: 5px;
+    right: 10px;
 }.cke_rtl .cke_dialog_close_button
 {
     left: 6px;
@@ -339,8 +339,8 @@ a.cke_dialog_ui_button_ok:hover
     background: #2981db;
 }a.cke_dialog_ui_button_cancel
 {
-    background-color: #eee;
     color: #999;
+    background-color: #eee;
 }a.cke_dialog_ui_button_cancel:focus
 {
     outline: 0;
@@ -530,6 +530,7 @@ a.cke_dialog_ui_button_ok:hover
 }.cke_dialog_ui_html
 {
     line-height: 150%;
+
     white-space: normal;
 }a.cke_smile
 {

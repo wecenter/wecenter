@@ -2,13 +2,14 @@
 <?php foreach ($this->topics_list AS $key => $val) { ?>
 <li>
 	<a class="img" ><img src="<?php echo get_topic_pic_url('mid', $val['topic_pic']); ?>" alt="" /></a>
-	<span class="topic-tag"><a class="text"><?php echo $val['topic_title']; ?></a></span>
-	<p>
-		<a href="javascript:;" class="btn btn-mini btn-success follow pull-right<?php if ($val['has_focus']) { ?> active<?php } ?>" onclick="AWS.User.follow($(this), 'topic', <?php echo $val['topic_id']; ?>);"><span><?php if ($val['has_focus']) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?></span></a>
-		<?php _e('%s 人关注', $val['focus_count']); ?>
+	<a href="javascript:;" class="btn btn-success follow pull-right<?php if ($val['has_focus']) { ?> active<?php } ?>" onclick="AWS.User.follow($(this), 'topic', <?php echo $val['topic_id']; ?>);"><span><?php if ($val['has_focus']) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?></span>
+			 <em>|</em> <b><?php echo $val['focus_count']; ?></b>
+		</a>
+	<p class="clearfix">
+		<span class="topic-tag"><a class="text"><?php echo $val['topic_title']; ?></a></span>
 	</p>
 	<p>
-		<span><?php _e('该话题有 %s 个讨论', $val['discuss_count']); ?></span>
+		<span class="text-color-999"><?php _e('%s 个讨论', $val['discuss_count']); ?></span>
 	</p>
 </li>
 <?php } ?>
