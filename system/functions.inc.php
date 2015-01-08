@@ -424,6 +424,11 @@ function date_friendly($timestamp, $time_limit = 604800, $out_format = 'Y-m-d H:
 	{
 		return date($out_format, $timestamp);
 	}
+	
+	if (!$timestamp)
+	{
+		return false;
+	}
 
 	if ($formats == null)
 	{
