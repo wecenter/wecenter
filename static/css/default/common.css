@@ -442,6 +442,8 @@ a.aw-load-more-content{display: block;}
 blockquote {margin: 0 0 16px;padding: 0 15px;font-size: 14px;color: #777;border-left: 4px solid #ddd;}
 .markitup-box pre br, .markitup-box ul + br, .markitup-box ol + br {display: none;}
 .markitup-box b, .markitup-box strong {color: #333;}
+.markitup-box ol, .markitup-box ul, .markitup-box dl{padding: 0 40px;}
+.markitup-box ul{list-style: disc;}
 
 /* 问题修改日志 */
 .aw-question-edit .mod-head h2{font-size: 20px;}
