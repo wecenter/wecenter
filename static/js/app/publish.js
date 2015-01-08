@@ -16,10 +16,6 @@ $(function()
 	// 初始化编辑器
 	var editor = CKEDITOR.replace( 'wmd-input' );
 
-    editor.on( 'blur', function( evt ) {
-        $('#wmd-input').val(evt.editor.getData());
-    } );
-
     if (ATTACH_ACCESS_KEY != '' && $('.aw-upload-box').length)
     {
     	var fileupload = new FileUpload('file', '.aw-editor-box .aw-upload-box .btn', '.aw-editor-box .aw-upload-box .upload-container', G_BASE_URL + '/publish/ajax/attach_upload/id-' + PUBLISH_TYPE + '__attach_access_key-' + ATTACH_ACCESS_KEY, {
