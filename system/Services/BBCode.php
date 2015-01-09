@@ -102,7 +102,8 @@ class Services_BBCode
         $this->bbcode_table["/\[quote\](.*?)\[\/quote\]/is"] = '_quote_callback';
         
         // Replace [size=30]...[/size] with <span style="font-size:30%">...</span>
-        $this->bbcode_table["/\[size=(\d+)\](.*?)\[\/size\]/is"] = '_size_callback';
+        // Modify by wecenter
+        //$this->bbcode_table["/\[size=(\d+)\](.*?)\[\/size\]/is"] = '_size_callback';
         
         // Replace [s] with <del>
         $this->bbcode_table["/\[s\](.*?)\[\/s\]/is"] = '_s_callback';
