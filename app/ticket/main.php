@@ -300,11 +300,14 @@ class main extends AWS_CONTROLLER
             ), null, null, true));
         }
 
-        TPL::assign('my_pending_tickets',
-            $this->model('ticket')->get_tickets_list(array(
-                'service' => $this->user_id,
-                'status' => 'pending'
-        ), null, null, true));
+        if ($this->user_info['permission']['is_service'])
+        {
+            TPL::assign('my_pending_tickets',
+                $this->model('ticket')->get_tickets_list(array(
+                    'service' => $this->user_id,
+                    'status' => 'pending'
+            ), null, null, true));
+        }
 
         TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
             'base_url' => get_js_url('/ticket/' . 'uid-' . $_GET['uid'] . '__service-' . $_GET['service'] . '__status-' . $_GET['status']),
@@ -321,6 +324,8 @@ class main extends AWS_CONTROLLER
         {
             H::redirect_msg(AWS_APP::lang()->_t('你所在用户组没有权限查看工单统计'));
         }
+
+        $this->crumb(AWS_APP::lang()->_t('综合数据表'), '/ticket/data/');
 
         TPL::assign('pending_tickets_count',
             $this->model('ticket')->get_tickets_list(array(
@@ -340,11 +345,14 @@ class main extends AWS_CONTROLLER
                 'distinct' => 'uid'
         ), null, null, true));
 
-        TPL::assign('my_pending_tickets',
-            $this->model('ticket')->get_tickets_list(array(
-                'service' => $this->user_id,
-                'status' => 'pending'
-        ), null, null, true));
+        if ($this->user_info['permission']['is_service'])
+        {
+            TPL::assign('my_pending_tickets',
+                $this->model('ticket')->get_tickets_list(array(
+                    'service' => $this->user_id,
+                    'status' => 'pending'
+            ), null, null, true));
+        }
 
         TPL::output('ticket/data');
     }
@@ -356,15 +364,20 @@ class main extends AWS_CONTROLLER
             H::redirect_msg(AWS_APP::lang()->_t('你所在用户组没有权限查看工单话题'));
         }
 
+        $this->crumb(AWS_APP::lang()->_t('热门话题'), '/ticket/topic/');
+
         $topics_list = $this->model('ticket')->get_hot_topics($_GET['days'], $_GET['page'], $this->per_page);
 
         TPL::assign('topics_list', $topics_list);
 
-        TPL::assign('my_pending_tickets',
-            $this->model('ticket')->get_tickets_list(array(
-                'service' => $this->user_id,
-                'status' => 'pending'
-        ), null, null, true));
+        if ($this->user_info['permission']['is_service'])
+        {
+            TPL::assign('my_pending_tickets',
+                $this->model('ticket')->get_tickets_list(array(
+                    'service' => $this->user_id,
+                    'status' => 'pending'
+            ), null, null, true));
+        }
 
         TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
             'base_url' => get_js_url('/ticket/topic/' . 'days-' . $_GET['days']),
@@ -381,6 +394,8 @@ class main extends AWS_CONTROLLER
         {
             H::redirect_msg(AWS_APP::lang()->_t('你所在用户组没有权限发布工单'));
         }
+
+        $this->crumb(AWS_APP::lang()->_t('发布工单'), '/ticket/publish/');
 
         TPL::assign('draft_content', $this->model('draft')->get_data(1, 'ticket', $this->user_id));
 
@@ -402,5 +417,63 @@ class main extends AWS_CONTROLLER
         }
 
         TPL::output('ticket/publish');
+    }
+
+    public function my_action()
+    {
+        if (!$this->user_info['permission']['publish_ticket'])
+        {
+            H::redirect_msg(AWS_APP::lang()->_t('你所在用户组没有权限发布工单'));
+        }
+
+        $this->crumb(AWS_APP::lang()->_t('我的工单'), '/ticket/my/');
+
+        $tickets_list = $this->model('ticket')->get_tickets_list(array(
+            'uid' => $this->user_id
+        ), $_GET['page'], $this->per_page);
+
+        $tickets_count = $this->model('ticket')->found_rows();
+
+        if ($tickets_list)
+        {
+            foreach ($tickets_list AS $ticket_info)
+            {
+                if ($ticket_info['service'])
+                {
+                    $uids[] = $ticket_info['service'];
+                }
+            }
+
+            $users_list = $this->model('account')->get_user_info_by_uids($uids);
+
+            foreach ($tickets_list AS $key => $ticket_info)
+            {
+                if ($ticket_info['service'])
+                {
+                    $tickets_list[$key]['service_info'] = $users_list[$ticket_info['service']];
+                }
+            }
+        }
+
+        TPL::assign('tickets_list', $tickets_list);
+
+        TPL::assign('tickets_count', $tickets_count);
+
+        if ($this->user_info['permission']['is_service'])
+        {
+            TPL::assign('my_pending_tickets',
+                $this->model('ticket')->get_tickets_list(array(
+                    'service' => $this->user_id,
+                    'status' => 'pending'
+            ), null, null, true));
+        }
+
+        TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
+            'base_url' => get_js_url('/ticket/my/'),
+            'total_rows' => $tickets_count,
+            'per_page' => $this->pre_page
+        ))->create_links());
+
+        TPL::output('ticket/my');
     }
 }

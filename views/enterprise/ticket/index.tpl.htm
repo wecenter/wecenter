@@ -257,11 +257,11 @@
                         </div>
                     </div>
 
-                    <?php if ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_service']) { ?>
                     <div class="aw-mod order-operate">
                         <div class="mod-body">
                             <ul>
-                                <?php if ($this->ticket_info['status'] != 'closed') { ?>
+                                <?php if ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_service']) {
+                                    if ($this->ticket_info['status'] != 'closed') { ?>
                                 <li>
                                      <h3><?php _e('工单分配'); ?>:</h3>
                                     <!-- 客服邀请 -->
@@ -360,6 +360,7 @@
                                     </div>
                                     <!-- end 话题bar -->
                                 </li>
+                                <?php } ?>
 
                                 <li>
                                     <h3><?php _e('工单状态'); ?></h3>
@@ -368,7 +369,6 @@
                             </ul>
                         </div>
                     </div>
-                    <?php } ?>
                 </div>
                 <!-- end 侧边栏 -->
             </div>
