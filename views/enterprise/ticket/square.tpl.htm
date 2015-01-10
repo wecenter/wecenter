@@ -83,7 +83,7 @@
                                 <?php if ($this->tickets_list) {
                                     foreach ($this->tickets_list AS $ticket_info) { ?>
                                 <tr>
-                                    <td class="text-center"><em class="label label-<?
+                                    <td class="text-center"><em class="label label-<?php
                                     switch ($ticket_info['priority']) {
                                         case 'low':
                                             ?>default<?
@@ -122,7 +122,7 @@
                                     <td>#<?php echo $ticket_info['id']; ?></td>
                                     <td><a href="ticket/<?php echo $ticket_info['id']; ?>"><?php echo $ticket_info['title']; ?></a></td>
                                     <td><a href="people/<?php echo $ticket_info['user_info']['uid']; ?>"><?php echo $ticket_info['user_info']['user_name']; ?></a></td>
-                                    <td><?
+                                    <td><?php
                                     switch ($ticket_info['source']) {
                                         case 'local':
                                             _e('本站');
