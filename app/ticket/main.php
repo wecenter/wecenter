@@ -43,6 +43,11 @@ class main extends AWS_CONTROLLER
     {
         $this->pre_page = 100;
 
+        if ($_GET['notification_id'])
+        {
+            $this->model('notify')->read_notification($_GET['notification_id'], $this->user_id);
+        }
+
         $ticket_info = $this->model('ticket')->get_ticket_info_by_id($_GET['id']);
 
         if (!$ticket_info)
@@ -87,7 +92,14 @@ class main extends AWS_CONTROLLER
                 $_GET['page'] = 1;
             }
 
-            $replies_list = $this->model('ticket')->get_replies_list_by_ticket_id($ticket_info['id'], $_GET['page'], $this->pre_page);
+            if ($_GET['reply_id'])
+            {
+                $replies_list = array($this->model('ticket')->get_ticket_reply_by_id($_GET['reply_id']));
+            }
+            else
+            {
+                $replies_list = $this->model('ticket')->get_replies_list_by_ticket_id($ticket_info['id'], $_GET['page'], $this->pre_page);
+            }
 
             if ($replies_list)
             {

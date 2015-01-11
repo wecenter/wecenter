@@ -70,9 +70,14 @@ class ajax extends AWS_CONTROLLER
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('页面停留时间过长,或内容已提交,请刷新页面')));
         }
 
-        $this->model('draft')->delete_draft(1, 'ticket', $this->user_id);
-
         $ticket_id = $this->model('ticket')->save_ticket($_POST['title'], $_POST['message'], $this->user_id, $_POST['attach_access_key']);
+
+        if (!$ticket_id)
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('发布失败')));
+        }
+
+        $this->model('draft')->delete_draft(1, 'ticket', $this->user_id);
 
         H::ajax_json_output(AWS_APP::RSM(array(
             'url' => get_js_url('/ticket/' . $ticket_id)
@@ -118,7 +123,18 @@ class ajax extends AWS_CONTROLLER
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('回复失败')));
         }
 
+        $this->model('draft')->delete_draft(1, 'ticket_reply', $this->user_id);
+
         $reply_info = $this->model('ticket')->get_ticket_reply_by_id($reply_id);
+
+        if ($ticket_info['uid'] != $this->user_id)
+        {
+            $this->model('notify')->send($reply_info['uid'], $ticket_info['uid'], notify_class::TYPE_TICKET_REPLIED, notify_class::CATEGORY_TICKET, 0, array(
+                'from_uid' => $reply_info['uid'],
+                'ticket_id' => $ticket_info['id'],
+                'reply_id' => $reply_info['id']
+            ));
+        }
 
         $reply_info['user_info'] = $this->user_info;
 
@@ -157,14 +173,14 @@ class ajax extends AWS_CONTROLLER
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择工单优先级')));
         }
 
-        $ticekt_info = $this->model('ticket')->get_ticket_info_by_id($_POST['id']);
+        $ticket_info = $this->model('ticket')->get_ticket_info_by_id($_POST['id']);
 
-        if (!$ticekt_info)
+        if (!$ticket_info)
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('工单不存在')));
         }
 
-        $this->model('ticket')->change_priority($ticekt_info['id'], $this->user_id, $_POST['priority']);
+        $this->model('ticket')->change_priority($ticket_info['id'], $this->user_id, $_POST['priority']);
 
         H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('修改优先级成功')));
     }
@@ -186,19 +202,27 @@ class ajax extends AWS_CONTROLLER
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择工单状态')));
         }
 
-        $ticekt_info = $this->model('ticket')->get_ticket_info_by_id($_POST['id']);
+        $ticket_info = $this->model('ticket')->get_ticket_info_by_id($_POST['id']);
 
-        if (!$ticekt_info)
+        if (!$ticket_info)
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('工单不存在')));
         }
 
-        if ($ticekt_info['uid'] != $this->user_id AND !$this->user_info['permission']['is_administortar'] AND !$this->user_info['permission']['is_service'])
+        if ($ticket_info['uid'] != $this->user_id AND !$this->user_info['permission']['is_administortar'] AND !$this->user_info['permission']['is_service'])
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('你没有权限更改工单')));
         }
 
-        $this->model('ticket')->change_status($ticekt_info['id'], $this->user_id, $_POST['status']);
+        $this->model('ticket')->change_status($ticket_info['id'], $this->user_id, $_POST['status']);
+
+        if ($ticket_info['uid'] != $this->user_id AND $_POST['status'] == 'closed')
+        {
+            $this->model('notify')->send($this->user_id, $ticket_info['uid'], notify_class::TYPE_TICKET_CLOSED, notify_class::CATEGORY_TICKET, 0, array(
+                'from_uid' => $this->user_id,
+                'ticket_id' => $ticket_info['id']
+            ));
+        }
 
         H::ajax_json_output(AWS_APP::RSM(null, 1, null));
     }
@@ -220,14 +244,14 @@ class ajax extends AWS_CONTROLLER
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择工单评级')));
         }
 
-        $ticekt_info = $this->model('ticket')->get_ticket_info_by_id($_POST['id']);
+        $ticket_info = $this->model('ticket')->get_ticket_info_by_id($_POST['id']);
 
-        if (!$ticekt_info)
+        if (!$ticket_info)
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('工单不存在')));
         }
 
-        $this->model('ticket')->change_rating($ticekt_info['id'], $this->user_id, $_POST['rating']);
+        $this->model('ticket')->change_rating($ticket_info['id'], $this->user_id, $_POST['rating']);
 
         H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('修改评级成功')));
     }

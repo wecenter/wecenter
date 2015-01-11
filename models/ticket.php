@@ -130,7 +130,19 @@ class ticket_class extends AWS_MODEL
             return $this->fetch_page('ticket', implode(' AND ', $where), 'time DESC', $page, $per_page);
         }
 
-        return $this->fetch_all('ticket', implode(' AND ', $where));
+        $tickets_list_query = $this->fetch_all('ticket', implode(' AND ', $where));
+
+        $tickets_list = array();
+
+        if ($tickets_list_query)
+        {
+            foreach ($tickets_list_query AS $ticket_info)
+            {
+                $tickets_list[$ticket_info['id']] = $ticket_info;
+            }
+        }
+
+        return $tickets_list;
     }
 
     public function get_replies_list_by_ticket_id($ticket_id, $page, $per_page)

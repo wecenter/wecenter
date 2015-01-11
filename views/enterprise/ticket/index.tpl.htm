@@ -117,7 +117,7 @@
                         <div class="mod-head">
                             <ul class="nav nav-tabs aw-nav-tabs active">
 
-                                <h2 class="hidden-xs"><?php if ($_GET['single']) { ?><?php _e('查看单个回答'); ?><?php } else { ?><?php _e('%s 个回复', $this->replies_count); ?><?php } ?></h2>
+                                <h2 class="hidden-xs"><?php if ($_GET['reply_id']) _e('查看单个回复'); else _e('%s 个回复', $this->replies_count); ?></h2>
                             </ul>
                         </div>
                         <div class="mod-body aw-feed-list">
@@ -178,7 +178,7 @@
                             <?php } ?>
                         </div>
                         <div class="mod-footer">
-                            <?php if ($_GET['single']) { ?>
+                            <?php if ($_GET['reply_id']) { ?>
                                 <a href="ticket/<?php echo $this->ticket_info['id']; ?>" class="aw-load-more-content">
                                     <span><?php _e('查看全部回复'); ?></span>
                                 </a>
