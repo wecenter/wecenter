@@ -265,7 +265,7 @@
                                 <li>
                                      <h3><?php _e('工单分配'); ?>:</h3>
                                     <!-- 客服邀请 -->
-                                    <div class="aw-invite-box" id="aw-spec-invite-box">
+                                    <div class="aw-spec-invite-box" id="aw-spec-invite-box">
                                         <div class="mod-head clearfix">
                                             <div class="search-box">
                                                 <input id="ticket-invite-input" class="form-control" type="text"  placeholder="<?php _e('分配工单给客服...'); ?>"/>
@@ -284,7 +284,7 @@
                                 <li>
                                     <h3><?php _e('邀请'); ?>:</h3>
                                     <!-- 工单邀请 -->
-                                    <div class="aw-invite-box" id="aw-ticket-invite">
+                                    <div class="aw-ticket-invite" id="aw-ticket-invite">
                                         <div class="mod-head clearfix">
                                               <ul class="invite-list <?php if (!$this->invite_users) { ?> hide<?php } ?> clearfix">
                                               <span class="pull-left"><?php _e('已邀请'); ?>:</span>
@@ -385,15 +385,17 @@
     var ANSWER_TYPE = 'ticket_reply';
     var USER_ANSWERED = 0;
 </script>
-
 <script type="text/javascript" src="<?php echo G_STATIC_URL; ?>/js/app/question_detail.js"></script>
 <script>
     // 绑定事件
     $(function ()
     {
+
+
         // modify by wecenter
         AWS.Dropdown.bind_dropdown_list($('#aw-spec-invite-box #ticket-invite-input'), 'invite');
         AWS.Dropdown.bind_dropdown_list($('#aw-ticket-invite #ticket-input'), 'invite');
+
 
         // modify by wecenter
         $(document).on('click', '#aw-spec-invite-box .aw-dropdown-list a', function ()

@@ -32,10 +32,14 @@
 .title-mod.count .mod-footer ul li b{display: block;margin-bottom:10px;font-size: 26px;color: #666;}
 .ticket_topic_editor .aw-dropdown {top: 35px;}
 .invite-list {position: relative; overflow: inherit!important;}
-#aw-ticket-invite .invite-list .icon {position: absolute;top: -12px;right: -6px;width: 16px;height: 16px;z-index: 2; line-height: 16px; text-align: center; border-radius: 50%;background: #f00;color: #fff;cursor: pointer;font-size: 12px;}
-#aw-ticket-invite .invite-list .invite-list-user{position: relative;}
-#aw-ticket-invite .invite-list span {margin-right: 5px;line-height: 40px;}
-#aw-ticket-invite .invite-list li {margin-right: 5px;padding: 0;}
+.aw-ticket-invite, .aw-spec-invite-box {position: relative;}
+.aw-ticket-invite .mod-head input, .aw-spec-invite-box .mod-head input {width: 100%;}
+.aw-ticket-invite .mod-head .icon-search, .aw-spec-invite-box .mod-head .icon-search {position: absolute;right: 10px;top: 10px;}
+.aw-ticket-invite .invite-list li img, .aw-spec-invite-box .invite-list li img {width: 30px;height: 30px;border-radius: 4px;}
+.aw-ticket-invite .invite-list .icon {position: absolute;top: -12px;right: -6px;width: 16px;height: 16px;z-index: 2; line-height: 16px; text-align: center; border-radius: 50%;background: #f00;color: #fff;cursor: pointer;font-size: 12px;}
+.aw-ticket-invite .invite-list .invite-list-user{position: relative;}
+.aw-ticket-invite .invite-list span {margin-right: 5px;line-height: 40px;}
+.aw-ticket-invite .invite-list li {margin-right: 5px;padding: 0;}
 #ticket-input {display: inline-block;}
 .remove-reply {cursor: pointer;}
 
