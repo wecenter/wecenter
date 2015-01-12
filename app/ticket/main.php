@@ -232,102 +232,148 @@ class main extends AWS_CONTROLLER
 
     public function index_square_action()
     {
-        if (!$this->user_info['permission']['is_administortar'] AND !$this->user_info['permission']['is_service'])
+        if ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_service'])
         {
-            H::redirect_msg(AWS_APP::lang()->_t('你所在用户组没有权限查看工单'));
-        }
+            $this->crumb(AWS_APP::lang()->_t('工单列表'), '/ticket/');
 
-        $this->crumb(AWS_APP::lang()->_t('工单列表'), '/ticket/');
-
-        if ($_GET['uid'] == 'me')
-        {
-            $filter['uid'] = $this->user_id;
-        }
-
-        if ($_GET['service'] == 'me')
-        {
-            $filter['service'] = $this->user_id;
-        }
-        else if ($_GET['service'] == 'none')
-        {
-            $filter['service'] = 0;
-        }
-
-        if (!$_GET['page'])
-        {
-            $_GET['page'] = 1;
-        }
-
-        $tickets_list = $this->model('ticket')->get_tickets_list($filter, $_GET['page'], $this->per_page);
-
-        $tickets_count = $this->model('ticket')->found_rows();
-
-        if ($tickets_list)
-        {
-            foreach ($tickets_list AS $ticket_info)
+            if ($_GET['uid'] == 'me')
             {
-                $uids[] = $ticket_info['uid'];
+                $filter['uid'] = $this->user_id;
+            }
 
-                if ($ticket_info['service'])
+            if ($_GET['service'] == 'me')
+            {
+                $filter['service'] = $this->user_id;
+            }
+            else if ($_GET['service'] == 'none')
+            {
+                $filter['service'] = 0;
+            }
+
+            if (!$_GET['page'])
+            {
+                $_GET['page'] = 1;
+            }
+
+            $tickets_list = $this->model('ticket')->get_tickets_list($filter, $_GET['page'], $this->per_page);
+
+            $tickets_count = $this->model('ticket')->found_rows();
+
+            if ($tickets_list)
+            {
+                foreach ($tickets_list AS $ticket_info)
                 {
-                    $uids[] = $ticket_info['service'];
+                    $uids[] = $ticket_info['uid'];
+
+                    if ($ticket_info['service'])
+                    {
+                        $uids[] = $ticket_info['service'];
+                    }
+                }
+
+                $users_list = $this->model('account')->get_user_info_by_uids($uids);
+
+                foreach ($tickets_list AS $key => $ticket_info)
+                {
+                    $tickets_list[$key]['user_info'] = $users_list[$ticket_info['uid']];
+
+                    if ($ticket_info['service'])
+                    {
+                        $tickets_list[$key]['service_info'] = $users_list[$ticket_info['service']];
+                    }
                 }
             }
 
-            $users_list = $this->model('account')->get_user_info_by_uids($uids);
+            TPL::assign('tickets_list', $tickets_list);
 
-            foreach ($tickets_list AS $key => $ticket_info)
+            TPL::assign('tickets_count', $tickets_count);
+
+            if (!$_GET['service'] AND !$_GET['status'])
             {
-                $tickets_list[$key]['user_info'] = $users_list[$ticket_info['uid']];
+                TPL::assign('valid_tickets_count',
+                    $this->model('ticket')->get_tickets_list(array(
+                        'rating' => 'valid',
+                        'days' => 7
+                ), null, null, true));
 
-                if ($ticket_info['service'])
+                TPL::assign('invalid_tickets_count',
+                    $this->model('ticket')->get_tickets_list(array(
+                        'rating' => 'invalid',
+                        'days' => 7
+                ), null, null, true));
+
+                TPL::assign('closed_tickets_count',
+                    $this->model('ticket')->get_tickets_list(array(
+                        'status' => 'closed',
+                        'days' => 7
+                ), null, null, true));
+            }
+
+            if ($this->user_info['permission']['is_service'])
+            {
+                TPL::assign('my_pending_tickets',
+                    $this->model('ticket')->get_tickets_list(array(
+                        'service' => $this->user_id,
+                        'status' => 'pending'
+                ), null, null, true));
+            }
+
+            TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
+                'base_url' => get_js_url('/ticket/' . 'uid-' . $_GET['uid'] . '__service-' . $_GET['service'] . '__status-' . $_GET['status']),
+                'total_rows' => $tickets_count,
+                'per_page' => $this->pre_page
+            ))->create_links());
+
+            TPL::output('ticket/square');
+        }
+        else
+        {
+            if (!$this->user_info['permission']['publish_ticket'])
+            {
+                H::redirect_msg(AWS_APP::lang()->_t('你所在用户组没有权限发布工单'));
+            }
+
+            $this->crumb(AWS_APP::lang()->_t('我的工单'), '/ticket/');
+
+            $tickets_list = $this->model('ticket')->get_tickets_list(array(
+                'uid' => $this->user_id
+            ), $_GET['page'], $this->per_page);
+
+            $tickets_count = $this->model('ticket')->found_rows();
+
+            if ($tickets_list)
+            {
+                foreach ($tickets_list AS $ticket_info)
                 {
-                    $tickets_list[$key]['service_info'] = $users_list[$ticket_info['service']];
+                    if ($ticket_info['service'])
+                    {
+                        $uids[] = $ticket_info['service'];
+                    }
+                }
+
+                $users_list = $this->model('account')->get_user_info_by_uids($uids);
+
+                foreach ($tickets_list AS $key => $ticket_info)
+                {
+                    if ($ticket_info['service'])
+                    {
+                        $tickets_list[$key]['service_info'] = $users_list[$ticket_info['service']];
+                    }
                 }
             }
+
+            TPL::assign('tickets_list', $tickets_list);
+
+            TPL::assign('tickets_count', $tickets_count);
+
+            TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
+                'base_url' => get_js_url('/ticket/'),
+                'total_rows' => $tickets_count,
+                'per_page' => $this->pre_page
+            ))->create_links());
+
+            TPL::output('ticket/my');
         }
-
-        TPL::assign('tickets_list', $tickets_list);
-
-        TPL::assign('tickets_count', $tickets_count);
-
-        if (!$_GET['service'] AND !$_GET['status'])
-        {
-            TPL::assign('valid_tickets_count',
-                $this->model('ticket')->get_tickets_list(array(
-                    'rating' => 'valid',
-                    'days' => 7
-            ), null, null, true));
-
-            TPL::assign('invalid_tickets_count',
-                $this->model('ticket')->get_tickets_list(array(
-                    'rating' => 'invalid',
-                    'days' => 7
-            ), null, null, true));
-
-            TPL::assign('closed_tickets_count',
-                $this->model('ticket')->get_tickets_list(array(
-                    'status' => 'closed',
-                    'days' => 7
-            ), null, null, true));
-        }
-
-        if ($this->user_info['permission']['is_service'])
-        {
-            TPL::assign('my_pending_tickets',
-                $this->model('ticket')->get_tickets_list(array(
-                    'service' => $this->user_id,
-                    'status' => 'pending'
-            ), null, null, true));
-        }
-
-        TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
-            'base_url' => get_js_url('/ticket/' . 'uid-' . $_GET['uid'] . '__service-' . $_GET['service'] . '__status-' . $_GET['status']),
-            'total_rows' => $tickets_count,
-            'per_page' => $this->pre_page
-        ))->create_links());
-
-        TPL::output('ticket/square');
     }
 
     public function data_action()
@@ -429,63 +475,5 @@ class main extends AWS_CONTROLLER
         }
 
         TPL::output('ticket/publish');
-    }
-
-    public function my_action()
-    {
-        if (!$this->user_info['permission']['publish_ticket'])
-        {
-            H::redirect_msg(AWS_APP::lang()->_t('你所在用户组没有权限发布工单'));
-        }
-
-        $this->crumb(AWS_APP::lang()->_t('我的工单'), '/ticket/my/');
-
-        $tickets_list = $this->model('ticket')->get_tickets_list(array(
-            'uid' => $this->user_id
-        ), $_GET['page'], $this->per_page);
-
-        $tickets_count = $this->model('ticket')->found_rows();
-
-        if ($tickets_list)
-        {
-            foreach ($tickets_list AS $ticket_info)
-            {
-                if ($ticket_info['service'])
-                {
-                    $uids[] = $ticket_info['service'];
-                }
-            }
-
-            $users_list = $this->model('account')->get_user_info_by_uids($uids);
-
-            foreach ($tickets_list AS $key => $ticket_info)
-            {
-                if ($ticket_info['service'])
-                {
-                    $tickets_list[$key]['service_info'] = $users_list[$ticket_info['service']];
-                }
-            }
-        }
-
-        TPL::assign('tickets_list', $tickets_list);
-
-        TPL::assign('tickets_count', $tickets_count);
-
-        if ($this->user_info['permission']['is_service'])
-        {
-            TPL::assign('my_pending_tickets',
-                $this->model('ticket')->get_tickets_list(array(
-                    'service' => $this->user_id,
-                    'status' => 'pending'
-            ), null, null, true));
-        }
-
-        TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
-            'base_url' => get_js_url('/ticket/my/'),
-            'total_rows' => $tickets_count,
-            'per_page' => $this->pre_page
-        ))->create_links());
-
-        TPL::output('ticket/my');
     }
 }
