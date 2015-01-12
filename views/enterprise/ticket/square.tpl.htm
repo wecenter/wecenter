@@ -10,9 +10,6 @@
                     <div class="aw-mod side-nav">
                         <h2><i class="icon icon-order"></i><?php _e('工单'); ?></h2>
                         <ul>
-                            <li>
-                                <a href="ticket/my/"><?php _e('我的工单'); ?></a>
-                            </li>
                             <?php if ($this->user_info['permission']['is_service']) { ?>
                             <li>
                                 <a href="ticket/service-me__status-pending"<?php if ($_GET['service'] == 'me' AND $_GET['status'] == 'pending') { ?> class="active"<?php } ?>><?php _e('我的待处理工单'); ?><span class="badge"><?php echo $this->my_pending_tickets; ?></span></a>

@@ -11,55 +11,10 @@
                         <h2><i class="icon icon-order"></i><?php _e('工单'); ?></h2>
                         <ul>
                             <li>
-                                <a href="ticket/my/" class="active"><?php _e('我的工单'); ?></a>
-                            </li>
-                            <?php if ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_service']) {
-                                if ($this->user_info['permission']['is_service']) { ?>
-                            <li>
-                                <a href="ticket/service-me__status-pending"><?php _e('我的待处理工单'); ?><span class="badge"><?php echo $this->my_pending_tickets; ?></span></a>
-                            </li>
-                            <?php } ?>
-                            <li>
-                                <a href="ticket/service-none__status-pending"><?php _e('未分配工单'); ?></a>
-                            </li>
-                            <li>
-                                <a href="ticket/status-pending"><?php _e('所有待处理工单'); ?></a>
-                            </li>
-                            <li>
-                                <a href="ticket/"><?php _e('所有工单'); ?></a>
-                            </li>
-                            <?php } ?>
-                        </ul>
-                    </div>
-
-                    <?php if ($this->user_info['permission']['is_administortar']) { ?>
-                    <div class="aw-mod side-nav">
-                        <h2><i class="icon icon-count"></i><?php _e('统计分析'); ?></h2>
-                        <ul>
-                            <li>
-                                <a href="ticket/data/"><?php _e('综合数据表'); ?></a>
-                            </li>
-                            <li>
-                                <a href="ticket/data/"><?php _e('业绩报表'); ?></a>
-                            </li>
-                            <li>
-                                <a href="ticket/topic/"><?php _e('热门话题'); ?></a>
+                                <a href="ticket/" class="active"><?php _e('我的工单'); ?></a>
                             </li>
                         </ul>
                     </div>
-
-                    <div class="aw-mod side-nav">
-                        <h2><i class="icon icon-job"></i><?php _e('管理中心'); ?></h2>
-                        <ul>
-                            <li>
-                                <a><?php _e('渠道管理'); ?></a>
-                            </li>
-                            <li>
-                                <a href="admin/ticket/service_group_list/" target="_blank"><?php _e('客服组管理'); ?></a>
-                            </li>
-                        </ul>
-                    </div>
-                    <?php } ?>
                 </div>
                 <!-- end 侧边栏 -->
 

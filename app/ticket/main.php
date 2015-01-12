@@ -326,13 +326,8 @@ class main extends AWS_CONTROLLER
 
             TPL::output('ticket/square');
         }
-        else
+        else if ($this->user_info['permission']['publish_ticket'])
         {
-            if (!$this->user_info['permission']['publish_ticket'])
-            {
-                H::redirect_msg(AWS_APP::lang()->_t('你所在用户组没有权限发布工单'));
-            }
-
             $this->crumb(AWS_APP::lang()->_t('我的工单'), '/ticket/');
 
             $tickets_list = $this->model('ticket')->get_tickets_list(array(
@@ -373,6 +368,10 @@ class main extends AWS_CONTROLLER
             ))->create_links());
 
             TPL::output('ticket/my');
+        }
+        else
+        {
+            H::redirect_msg(AWS_APP::lang()->_t('你所在的用户组没有权限查看工单'));
         }
     }
 
