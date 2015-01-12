@@ -229,9 +229,11 @@ class ticket_class extends AWS_MODEL
 
         $this->delete('ticket', 'id = ' . $ticket_info['id']);
 
+        $this->delete('ticket_reply', 'ticket_id = ' . $ticket_info['id']);
+
         $this->delete('ticket_log', 'ticket_id = ' . $ticket_info['id']);
 
-        $this->delete('ticket_log', 'ticket_invite = ' . $ticket_info['id']);
+        $this->delete('ticket_invite', 'ticket_id = ' . $ticket_info['id']);
 
         $attachs = $this->model('publish')->get_attach('ticket', $ticket_info['id']);
 
