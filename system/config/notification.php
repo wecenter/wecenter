@@ -125,3 +125,15 @@ $config['action_details'][notify_class::TYPE_QUESTION_REFUSED] = array(
 	'combine' => 0,
 	'desc' => AWS_APP::lang()->_t('问题未通过审核')
 );
+
+$config['action_details'][notify_class::TYPE_TICKET_REPLIED] = array(
+	'user_setting' => 0,
+	'combine' => 0,
+	'desc' => AWS_APP::lang()->_t('我的工单被回复')
+);
+
+$config['action_details'][notify_class::TYPE_TICKET_CLOSED] = array(
+	'user_setting' => 0,
+	'combine' => 0,
+	'desc' => AWS_APP::lang()->_t('我的工单被关闭')
+);
