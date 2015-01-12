@@ -478,8 +478,9 @@
 			},
 
 			openTag : function( tag ) {
+				// Modify by wecenter
 				// 兼容chrome p标签被过滤
-				if (tag == 'p')
+				if (tag == 'p' || tag == 'div')
 				{
 					this.lineBreak( 1 );
 				}
@@ -745,8 +746,8 @@
 						}
 
 						element.name = tagName;
-						// Modify by wecenter 屏蔽字体大小和颜色
-						//value && ( element.attributes.option = value );
+
+						value && ( element.attributes.option = value );
 
 						return null;
 					},
