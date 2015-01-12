@@ -281,6 +281,9 @@ var AWS =
 
 							$.scrollTo($('#' + $(result.rsm.ajax_html).attr('id')), 600, {queue:true});
 
+							// 删除草稿绑定事件
+							EDITOR.removeListener('blur', EDITOR_CALLBACK);
+
 							// 文章
 							$('#comment_editor').val('');
 
