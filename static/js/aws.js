@@ -155,6 +155,9 @@ var AWS =
 	    	AWS.loading('show');
 
 	    	$('.btn-reply').addClass('disabled');
+
+	    	// 删除草稿绑定事件
+			EDITOR.removeListener('blur', EDITOR_CALLBACK);
 	    }
 
 	    var custom_data = {
@@ -280,9 +283,6 @@ var AWS =
 							$('.aw-comment-box-btn .btn-success, .btn-reply').removeClass('disabled');
 
 							$.scrollTo($('#' + $(result.rsm.ajax_html).attr('id')), 600, {queue:true});
-
-							// 删除草稿绑定事件
-							EDITOR.removeListener('blur', EDITOR_CALLBACK);
 
 							// 文章
 							$('#comment_editor').val('');

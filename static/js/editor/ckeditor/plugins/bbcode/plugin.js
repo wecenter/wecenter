@@ -478,6 +478,11 @@
 			},
 
 			openTag : function( tag ) {
+				// 兼容chrome p标签被过滤
+				if (tag == 'p')
+				{
+					this.lineBreak( 1 );
+				}
 				if ( tag in bbcodeMap ) {
 					if ( this.getRule( tag, 'breakBeforeOpen' ) )
 						this.lineBreak( 1 );
