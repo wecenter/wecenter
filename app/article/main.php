@@ -59,7 +59,7 @@ class main extends AWS_CONTROLLER
 
 		$article_info['user_info'] = $this->model('account')->get_user_info_by_uid($article_info['uid'], true);
 
-		$article_info['message'] = FORMAT::parse_attachs(nl2br(FORMAT::parse_markdown($article_info['message'])));
+		$article_info['message'] = FORMAT::parse_attachs(nl2br(FORMAT::parse_bbcode($article_info['message'])));
 
 		if ($this->user_id)
 		{

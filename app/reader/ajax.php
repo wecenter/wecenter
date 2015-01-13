@@ -78,7 +78,7 @@ class ajax extends AWS_CONTROLLER
 					'signature' => $users_info[$val['uid']]['signature'],
 					'agree_count' => $val['agree_count'],
 					'agree_users' => $this->model('answer')->get_vote_user_by_answer_id($val['answer_id']),
-					'answer_content' => FORMAT::parse_attachs(nl2br(FORMAT::parse_markdown($val['answer_content']))),
+					'answer_content' => FORMAT::parse_attachs(nl2br(FORMAT::parse_bbcode($val['answer_content']))),
 					'add_time' => date_friendly($val['add_time']),
 					'uid' => $val['uid'],
 				);
@@ -89,7 +89,7 @@ class ajax extends AWS_CONTROLLER
 				$output['questions'][$val['question_id']] = array(
 					'question_id' => $val['question_id'],
 					'question_content' => $val['question_content'],
-					'question_detail' => FORMAT::parse_attachs(nl2br(FORMAT::parse_markdown($val['question_detail']))),
+					'question_detail' => FORMAT::parse_attachs(nl2br(FORMAT::parse_bbcode($val['question_detail']))),
 					'answer_users' => $val['answer_users'],
 					'focus_count' => $val['focus_count'],
 					'view_count' => $val['view_count'],

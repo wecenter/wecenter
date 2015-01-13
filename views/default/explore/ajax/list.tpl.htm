@@ -47,7 +47,7 @@
 		<!-- 文章内容调用 -->
 		<div class="markitup-box">
 			<div class="img pull-right"></div>
-			<?php echo FORMAT::parse_attachs(nl2br(FORMAT::parse_markdown(cjk_substr($val['message'], 0, 130, 'UTF-8', '...')))); ?>
+			<?php echo FORMAT::parse_attachs(nl2br(FORMAT::parse_bbcode(cjk_substr($val['message'], 0, 130, 'UTF-8', '...')))); ?>
 
 		</div>
 		<?php if (cjk_strlen($val['message']) > 130) { ?>

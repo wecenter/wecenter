@@ -1716,7 +1716,7 @@ class weixin_class extends AWS_MODEL
                                                 'author' => $user_info['user_name'],
                                                 'title' => $article_info['title'],
                                                 'content_source_url' => get_js_url('/m/article/' . $article_info['id']),
-                                                'content' => FORMAT::parse_markdown($article_info['message']),
+                                                'content' => nl2br(FORMAT::parse_bbcode($article_info['message'])),
                                                 'show_cover_pic' => '0'
                                             );
 
@@ -1771,7 +1771,7 @@ class weixin_class extends AWS_MODEL
                                                 'author' => $user_info['user_name'],
                                                 'title' => $question_info['question_content'],
                                                 'content_source_url' => get_js_url('/m/question/' . $question_info['question_id']),
-                                                'content' => FORMAT::parse_markdown($question_info['question_detail']),
+                                                'content' => nl2br(FORMAT::parse_bbcode($question_info['question_detail'])),
                                                 'show_cover_pic' => '0'
                                             );
 
