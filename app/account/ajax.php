@@ -1105,7 +1105,7 @@ class ajax extends AWS_CONTROLLER
 
 	public function areas_json_data_action()
 	{
-		readfile(ROOT_PATH . 'static/js/areas.js');
+		readfile(G_STATIC_URL . '/js/areas.js');
 	}
 
 	public function integral_log_action()
