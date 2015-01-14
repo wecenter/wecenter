@@ -39,18 +39,16 @@
 		var G_NOTIFICATION_INTERVAL = <?php echo intval(get_setting('unread_flush_interval')) * 1000; ?>;
 		var G_CAN_CREATE_TOPIC = "<?php echo $this->user_info['permission']['create_topic']; ?>";
 		var G_REQUEST_URL = "/<?php echo $_GET['app']; ?>/<?php if ($_GET['act'] && $_GET['act'] != 'index') { echo $_GET['act']; ?>/<?php } ?>";
+		var G_TIMESTAMP = <?php echo $this->timestamp; ?>;
 
 		<?php if (human_valid('question_valid_hour')) { ?>
 		var G_QUICK_PUBLISH_HUMAN_VALID = true;
 		<?php } ?>
 
-		<?php if (in_weixin()) { ?>
-		var G_IN_WEIXIN = true;
-
-		<?php if (get_setting('weixin_account_role') == 'service') { ?>
-		var G_TIMESTAMP = <?php echo $this->timestamp; ?>;
-		var G_NONCESTR = <?php echo $this->noncestr; ?>;
-		var G_SIGNATURE = "<?php echo $this->signature; ?>";
+		<?php if (in_weixin() && (get_setting('weixin_account_role') == 'service')) { ?>
+		var G_WEIXIN_APP_ID = "<?php echo get_setting('weixin_app_id'); ?>";
+		var G_WEIXIN_NONCESTR = <?php echo $this->noncestr; ?>;
+		var G_WEIXIN_SIGNATURE = "<?php echo $this->signature; ?>";
 		<?php } ?>
 		<?php } ?>
 	</script>
