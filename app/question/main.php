@@ -251,7 +251,7 @@ class main extends AWS_CONTROLLER
 				$answer['user_rated_thanks'] = $answer_users_rated_thanks[$answer['answer_id']];
 				$answer['user_rated_uninterested'] = $answer_users_rated_uninterested[$answer['answer_id']];
 
-				$answer['answer_content'] = $this->model('question')->parse_at_user(FORMAT::parse_attachs(nl2br(FORMAT::parse_markdown($answer['answer_content']))));
+				$answer['answer_content'] = $this->model('question')->parse_at_user(FORMAT::parse_attachs(nl2br(FORMAT::parse_bbcode($answer['answer_content']))));
 
 				$answer['agree_users'] = $answer_agree_users[$answer['answer_id']];
 				$answer['agree_status'] = $answer_vote_status[$answer['answer_id']];
@@ -301,7 +301,7 @@ class main extends AWS_CONTROLLER
 			}
 		}
 
-		$question_info['question_detail'] = FORMAT::parse_attachs(nl2br(FORMAT::parse_markdown($question_info['question_detail'])));
+		$question_info['question_detail'] = FORMAT::parse_attachs(nl2br(FORMAT::parse_bbcode($question_info['question_detail'])));
 
 		TPL::assign('question_info', $question_info);
 		TPL::assign('question_focus', $this->model('question')->has_focus_question($question_info['question_id'], $this->user_id));

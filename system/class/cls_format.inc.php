@@ -75,20 +75,13 @@ class FORMAT
 	}
 
 	public static function parse_bbcode($text)
-	{
-		return load_class('Services_BBCode')->parse($text);
+	{		if (!$text)		{			return false;		}		
+		return self::parse_links(load_class('Services_BBCode')->parse($text));
 	}
-
+	// 兼容旧版本
 	public static function parse_markdown($text)
 	{
-		if (!$text)
-		{
-			return false;
-		}
-
 		return self::parse_bbcode($text);
-
-		return load_class('Services_Markdown')->transform($text);
 	}
 
 	public static function bbcode_2_markdown($text)

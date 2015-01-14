@@ -207,7 +207,7 @@ $(document).ready(function ()
         detector: function () {
             this.select(["<?php echo $this->user_info['province']; ?>", "<?php echo $this->user_info['city']; ?>"]);
         },
-        dataUrl: G_BASE_URL + '/account/ajax/areas_json_data/'
+        dataUrl: G_STATIC_URL + '/js/areas.js'
     });
 });
 </script>

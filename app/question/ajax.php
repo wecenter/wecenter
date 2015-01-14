@@ -617,7 +617,7 @@ class ajax extends AWS_CONTROLLER
 			}
 
 			$answer_info['user_info'] = $this->user_info;
-			$answer_info['answer_content'] = $this->model('question')->parse_at_user(FORMAT::parse_attachs(nl2br(FORMAT::parse_markdown($answer_info['answer_content']))));
+			$answer_info['answer_content'] = $this->model('question')->parse_at_user(FORMAT::parse_attachs(nl2br(FORMAT::parse_bbcode($answer_info['answer_content']))));
 
 			TPL::assign('answer_info', $answer_info);
 
