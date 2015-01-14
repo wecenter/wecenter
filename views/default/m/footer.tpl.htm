@@ -165,6 +165,7 @@
 		<script type="text/javascript">
 		$(function()
 		{
+			wx.ready(function() {
 			// 判断是否微信打开
 			if (typeof G_IN_WEIXIN != 'undefined' && G_IN_WEIXIN == true)
 		    {
@@ -209,10 +210,61 @@
 	                            "desc" : ($('#weixin-desc').text()=='') ? $('meta[name="description"]').attr('content') : $('#weixin-desc').text()
 	                        });
 	                    });
+
+
+
 						clearInterval(weixin_handler);
 					}
 				}, 500);
+
+				var fileUpload  = {
+					localId: [],
+					serverId: [],
+					imageUrls: []
+				};
+				$('.aw-upload-box .icon-pic').on('click',function() {
+					wx.chooseImage({
+						success: function(res) {
+							images.localId = res.localIds;
+							$('.upload-list').innerHTML = ('已选择 ' + res.localIds.length + ' 张图片');
+						}
+					})
+				});
+
+				$('.insert-file').on('click',function() {
+                	if (fileUpload.localId.length == 0) {
+                    	alert('请先选择图片');
+                    	return;
+                	}
+				})
+                var i = 0, length = fileUpload.localId.length;
+                fileUpload.serverId = [];
+                function upload() {
+                    wx.uploadImage({
+                        localId: fileUpload.localId[i],
+                        success: function(res) {
+                            i++;
+                            alert('已上传：' + i + '/' + length + ", 服务器正在处理，请稍候...");
+                            fileUpload.serverId.push(res.serverId);
+                            if (i < length) {
+                                upload();
+                            } else {
+                                //alert("服务器:"+images.serverId.join(","));
+                                $.post(G_BASE_URL + '/publish/ajax/attach_upload/id-answer__attach_access_key' + '-' + ATTACH_ACCESS_KEY, {"srvids": fileUpload.serverId.join(",")}, function(res) {
+                                    alert("全部上传完成:" + res);
+                                    var obj = JSON.parse(res);
+                                    fileUpload.imageUrls = obj['urls'];
+                                });
+                            }
+                        },
+                        fail: function(res) {
+                            alert(JSON.stringify(res));
+                        }
+                    });
+                }
+                upload();
 		    }
+		})
 		});
 		</script>
 	</body>
