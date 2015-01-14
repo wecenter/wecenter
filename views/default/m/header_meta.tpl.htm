@@ -48,14 +48,11 @@
 		var G_IN_WEIXIN = true;
 
 		<?php if (get_setting('weixin_account_role') == 'service') { ?>
-		var G_TIMESTAMP = "<?php echo $this->timestamp; ?>";
-		var G_NONCESTR = "<?php echo $this->noncestr; ?>";
+		var G_TIMESTAMP = <?php echo $this->timestamp; ?>;
+		var G_NONCESTR = <?php echo $this->noncestr; ?>;
 		var G_SIGNATURE = "<?php echo $this->signature; ?>";
 		<?php } ?>
 		<?php } ?>
-		var WEIXIN_APP_ID = "<?php echo get_setting('weixin_app_id'); ?>";
-		var WEIXIN_APP_USER = "<?php echo get_setting('weixin_account_role'); ?>";
-
 	</script>
 
 	<?php if (is_array($this->_import_js_files)) { ?>
