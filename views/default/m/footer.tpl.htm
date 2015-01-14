@@ -161,46 +161,110 @@
 			<?php echo get_setting('statistic_code'); ?>
 		</div>
 		<!-- / DO NOT REMOVE -->
-		<?php if (in_weixin() && (get_setting('weixin_account_role') == 'service')) { ?>
+		<?php if (in_weixin() && get_setting('weixin_account_role') == 'service') { ?>
 		<script src="//res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 		<script type="text/javascript">
 		$(function()
 		{
-			wx.config({
-				debug: false,
-				appId: G_WEIXIN_APP_ID,
-				timestamp: G_TIMESTAMP,
-				nonceStr: G_WEIXIN_NONCESTR,
-				signature: G_WEIXIN_SIGNATURE,
-				jsApiList: [
-				'checkJsApi',
-				'chooseImage',
-				'previewImage',
-				'uploadImage',
-				'downloadImage',
-				'getNetworkType',
-				]
-			});
+			 // if ($('.aw-question-detail .markitup-box img')[0])
+				// {
+				// 	var weixin_img_url = $('.aw-question-detail .markitup-box img').first().attr('src'),
+				//         weixin_img_first = $('.aw-question-detail .markitup-box img').first().attr('src').replace(/(.*\/){0,}([^\.]+.*)/ig, "$2"),
+				//         weixin_img_url = weixin_img_url.replace(weixin_img_first,'90x90_' + weixin_img_first);
+				// }
+				// else
+				// {
+				// 	var weixin_img_url = location.protocol + '//' + location.host + location.pathname + 'static/common/weixin_default_image.png';
+				// }
+			$('.aw-upload-box, #previewImage, #uploadImage').hide(); //微信里面隐藏原来的上传按钮以及未选择图片前的预览和上传
 
 			wx.ready(function () {
-				$('.header').hide();
-				 if ($('.aw-question-detail .markitup-box img')[0])
-				{
-					var weixin_img_url = $('.aw-question-detail .markitup-box img').first().attr('src'),
-				        weixin_img_first = $('.aw-question-detail .markitup-box img').first().attr('src').replace(/(.*\/){0,}([^\.]+.*)/ig, "$2"),
-				        weixin_img_url = weixin_img_url.replace(weixin_img_first,'90x90_' + weixin_img_first);
-				}
-				else
-				{
-					var weixin_img_url = location.protocol + '//' + location.host + location.pathname + 'static/common/weixin_default_image.png';
-				}
-			})
+
+				wx.config({
+					debug: false,
+					appId: G_WEIXIN_APP_ID,
+					timestamp: G_TIMESTAMP,
+					nonceStr: G_WEIXIN_NONCESTR,
+					signature: G_WEIXIN_SIGNATURE,
+					jsApiList: [
+					'checkJsApi',
+					'chooseImage',
+					'previewImage',
+					'uploadImage',
+					'downloadImage',
+					'getNetworkType',
+					]
+				});
+
+				// 上传图片
+				var images = {
+					localId: [],
+					serverId: [],
+					imageUrls: []
+				};
+				$('#chooseImage').on('click', function () {
+				 	console.log('1')
+					wx.chooseImage({
+						success: function (res) {
+							images.localId = res.localIds;
+							$('#chooseImage').append('<li>hhhhhhh</li>');
+							$('#previewImage, #uploadImage').show()
+
+						}
+					})
+				})
+
+				$('#previewImage').on('click', function () {
+					if (images.imageUrls.length <= 0) {
+						//alert('没图片');
+						return
+					}
+					wx.previewImage({
+						current:images.imageUrls[0],
+						urls: images.imageUrls
+					});
+				})
+
+				$('#uploadImage').on('click', function () {
+					if (images.localId.length == 0) {
+						//alert('先选择图片');
+						return
+					}
+					var i = 0,length = images.localId.length;
+					images.serverId = [];
+					function upload() {
+						wx.uploadImage({
+							localId: images.localId[i],
+							isShowProgressTips: 1,
+							success: function (res) {
+								i++;
+								//alert('已上传');
+								images.serverId.push(res.serverId);
+								if (i < length) {
+									upload();
+								} else {
+									$.post(G_BASE_URL + '/publish/ajax/attach_upload/id-answer__attach_access_key' + '-' + ATTACH_ACCESS_KEY, {"srvids": images.serverId.join(",")}, function () {
+										$('#uploadImage').innerHTML = '上传完成';
+									})
+								}
+							},
+							fail: function (res) {
+								alert(JSON.stringify(res));
+							}
+						});
+					}
+					upload();
+				})
 
 
-			wx.error(function(res) {
+			});
+
+
+			wx.error(function (res) {
   	    		console.log(res.errMsg);
   			});
-		});
+
+		 })
 		</script>
 
 		<?php } ?>
