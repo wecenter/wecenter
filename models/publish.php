@@ -213,7 +213,7 @@ class publish_class extends AWS_MODEL
 
 		if ($question_info['received_email_id'])
 		{
-			$this->model('edm')->reply_answer_by_email($question_info['question_id'], nl2br(FORMAT::parse_markdown($answer_content)));
+			$this->model('edm')->reply_answer_by_email($question_info['question_id'], nl2br(FORMAT::parse_bbcode($answer_content)));
 		}
 
 		return $answer_id;

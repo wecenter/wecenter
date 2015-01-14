@@ -244,7 +244,7 @@ class approval extends AWS_ADMIN_CONTROLLER
 
 		if ($_GET['action'] != 'edit')
 		{
-			$approval_item['content'] = nl2br(FORMAT::parse_markdown($approval_item['content']));
+			$approval_item['content'] = nl2br(FORMAT::parse_bbcode($approval_item['content']));
 		}
 
 		TPL::assign('approval_item', $approval_item);
