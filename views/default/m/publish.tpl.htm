@@ -87,7 +87,7 @@
 <!-- end 内容 -->
 
 <script type="text/javascript">
-    var CATEGORY_ID = <?php echo intval($_POST['category_id']); ?>;
+    var CATEGORY_ID = <?php echo $this->question_info['category_id']; ?>;
     var ATTACH_ACCESS_KEY = '<?php echo $this->attach_access_key; ?>';
     var PUBLISH_TYPE = 'question';
 
