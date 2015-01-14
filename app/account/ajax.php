@@ -1103,11 +1103,6 @@ class ajax extends AWS_CONTROLLER
 		}
 	}
 
-	public function areas_json_data_action()
-	{
-		readfile(ROOT_PATH . 'static/js/areas.js');
-	}
-
 	public function integral_log_action()
 	{
 		if ($log = $this->model('integral')->fetch_all('integral_log', 'uid = ' . $this->user_id, 'time DESC', (intval($_GET['page']) * 10) . ', 10'))
