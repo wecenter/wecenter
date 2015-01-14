@@ -473,4 +473,49 @@ class openid_weixin_weixin_class extends AWS_MODEL
             return $file;
         }
     }
+
+    public function get_jsapi_ticket($access_token)
+    {
+        if (!$access_token)
+        {
+            return false;
+        }
+
+        $cached_ticket = 'weixin_jsapi_ticket_' . md5($access_token);
+
+        $jsapi_ticket = AWS_APP::cache()->get($jsapi_ticket);
+
+        if ($jsapi_ticket)
+        {
+            return $jsapi_ticket;
+        }
+
+        $result = curl_get_contents(self::WEIXIN_API . 'ticket/getticket?access_token=' . $access_token . '&type=jsapi');
+
+        if (!$result)
+        {
+            return false;
+        }
+
+        $result = json_decode($result, true);
+
+        if (!$result['ticket'])
+        {
+            return false;
+        }
+
+        AWS_APP::cache()->set($cached_ticket, $result['ticket'], 60);
+
+        return $result['ticket'];
+    }
+
+    public function generate_jsapi_ticket_signature($jsapi_ticket, $noncestr, $timestamp, $url)
+    {
+        if (!$jsapi_ticket OR !$noncestr OR !$timestamp OR !$url)
+        {
+            return false;
+        }
+
+        return sha1('jsapi_ticket=' . $jsapi_ticket . '&noncestr=' . $noncestr . '&timestamp=' . $timestamp . '&url=' . $url);
+    }
 }

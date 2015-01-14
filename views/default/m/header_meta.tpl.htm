@@ -23,7 +23,7 @@
 	<?php } ?>
 	<?php } ?>
 
-	<?php $post_hash_var_name = strtoupper(md5(time() . $this->userinfo['salt'])); ?>
+	<?php $post_hash_var_name = strtoupper(md5($this->timestamp . $this->userinfo['salt'])); ?>
 	<script type="text/javascript">
 		var _<?php echo $post_hash_var_name; ?>="<?php echo new_post_hash(); ?>";
 		var G_POST_HASH=_<?php echo $post_hash_var_name; ?>;
@@ -43,8 +43,15 @@
 		<?php if (human_valid('question_valid_hour')) { ?>
 		var G_QUICK_PUBLISH_HUMAN_VALID = true;
 		<?php } ?>
+
 		<?php if (in_weixin()) { ?>
 		var G_IN_WEIXIN = true;
+
+		<?php if (get_setting('weixin_account_role') == 'service') { ?>
+		var G_TIMESTAMP = "<?php echo $this->timestamp; ?>";
+		var G_NONCESTR = "<?php echo $this->noncestr; ?>";
+		var G_SIGNATURE = "<?php echo $this->signature; ?>";
+		<?php } ?>
 		<?php } ?>
 		var WEIXIN_APP_ID = "<?php echo get_setting('weixin_app_id'); ?>";
 		var WEIXIN_APP_USER = "<?php echo get_setting('weixin_account_role'); ?>";
