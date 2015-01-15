@@ -212,8 +212,8 @@
 						}
 					})
 				})
-
-				$('#uploadImage, #pubUploadImage').on('click', function () {
+				// 回复时上传图片
+				$('#uploadImage').on('click', function () {
 					if (images.localId.length == 0) {
 						//alert('先选择图片');
 						return
@@ -232,6 +232,37 @@
 									upload();
 								};
 								$.post(G_BASE_URL + '/publish/ajax/attach_upload/id-answer__attach_access_key' + '-' + ATTACH_ACCESS_KEY, {"weixin_media_id": images.serverId.join(",")}, function () {
+										$('#uploadImage').innerHTML = '上传完成';
+									})
+								}
+							},
+							fail: function (res) {
+								alert(JSON.stringify(res));
+							}
+						});
+					}
+					upload();
+				})
+				// 发布问题是上传图片
+				$('#pubUploadImage').on('click', function () {
+					if (images.localId.length == 0) {
+						//alert('先选择图片');
+						return
+					}
+					var i = 0,length = images.localId.length;
+					images.serverId = [];
+					function upload() {
+						wx.uploadImage({
+							localId: images.localId[i],
+							isShowProgressTips: 1,
+							success: function (res) {
+								i++;
+								//alert('已上传');
+								images.serverId.push(res.serverId);
+								if (i < length) {
+									upload();
+								};
+								$.post(G_BASE_URL + '/publish/ajax/attach_upload/id-question__attach_access_key' + '-' + ATTACH_ACCESS_KEY, {"weixin_media_id": images.serverId.join(",")}, function () {
 										$('#uploadImage').innerHTML = '上传完成';
 									})
 								}
