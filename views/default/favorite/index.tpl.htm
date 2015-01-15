@@ -37,9 +37,11 @@
 									</div>
 									<div class="mod-body">
 										<?php if ($val['answer_info']) { ?>
+										<?php if ($val['answer_info']['anonymous'] == 0) { ?>
 										<p class="text-color-999">
 											<a class="aw-user-name" data-id="<?php echo $val['user_info']['uid']; ?>" href="people/<?php echo $val['user_info']['url_token']; ?>"><?php echo $val['user_info']['user_name']; ?></a><?php if ($val['user_info']['signature']) { ?> - <?php echo $val['user_info']['signature']; ?><?php } ?>
 										</p>
+										<?php } ?>
 
 										<!-- 评论内容 -->
 										<div class="content">
