@@ -56,6 +56,30 @@ class AWS_CONTROLLER
 			}
 		}
 
+		$timestamp = time();
+
+		self::assign('timestamp', $timestamp);
+
+		if (in_weixin())
+		{
+			$noncestr = mt_rand(1000000000, 9999999999);
+
+			self::assign('noncestr', $noncestr);
+
+			$jsapi_ticket = $this->model('openid_weixin_weixin')->get_jsapi_ticket($this->model('openid_weixin_weixin')->get_access_token(get_setting('weixin_app_id'), get_setting('weixin_app_secret')));
+
+			$url = ($_SERVER['HTTPS'] AND !in_array(strtolower($_SERVER['HTTPS']), array('off', 'no'))) ? 'https' : 'http';
+
+			$url .= '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+
+			self::assign('signature', $this->model('openid_weixin_weixin')->generate_jsapi_ticket_signature(
+				$jsapi_ticket,
+				$noncestr,
+				$timestamp,
+				$url
+			));
+		}
+
 		$this->user_info['group_name'] = $user_group['group_name'];
 		$this->user_info['permission'] = $user_group['permission'];
 
