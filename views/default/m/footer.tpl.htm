@@ -233,8 +233,7 @@
 								}
 								$.post(G_BASE_URL + '/publish/ajax/attach_upload/id-answer__attach_access_key' + '-' + ATTACH_ACCESS_KEY, {"weixin_media_id": images.serverId.join(",")}, function () {
 										$('#uploadImage').innerHTML = '上传完成';
-									})
-								}
+								})
 							},
 							fail: function (res) {
 								alert(JSON.stringify(res));
@@ -264,8 +263,7 @@
 								}
 								$.post(G_BASE_URL + '/publish/ajax/attach_upload/id-question__attach_access_key' + '-' + ATTACH_ACCESS_KEY, {"weixin_media_id": images.serverId.join(",")}, function () {
 										$('#uploadImage').innerHTML = '上传完成';
-									})
-								}
+								})
 							},
 							fail: function (res) {
 								alert(JSON.stringify(res));
