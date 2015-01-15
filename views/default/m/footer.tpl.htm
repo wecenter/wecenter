@@ -193,7 +193,7 @@
 				// {
 				// 	var weixin_img_url = location.protocol + '//' + location.host + location.pathname + 'static/common/weixin_default_image.png';
 				// }
-			$('.aw-upload-box, #previewImage, #uploadImage').hide(); //微信里面隐藏原来的上传按钮以及未选择图片前的预览和上传
+			$('.aw-upload-box').hide(); //微信里面隐藏原来的上传按钮
 
 			wx.ready(function () {
 
@@ -208,8 +208,6 @@
 					wx.chooseImage({
 						success: function (res) {
 							images.localId = res.localIds;
-							$('#chooseImage').append('<li>hhhhhhh</li>');
-							$('#previewImage, #uploadImage').show()
 
 						}
 					})
@@ -219,7 +217,7 @@
 					if (images.imageUrls.length <= 0) {
 						//alert('没图片');
 						return
-					}
+					};
 					wx.previewImage({
 						current:images.imageUrls[0],
 						urls: images.imageUrls
