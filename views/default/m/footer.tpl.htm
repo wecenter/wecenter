@@ -165,13 +165,16 @@
 		<script src="//res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 		<script>
 			wx.config({
-					debug: true,
+					debug: false,
 					appId: G_WEIXIN_APP_ID,
 					timestamp: G_TIMESTAMP,
 					nonceStr: G_WEIXIN_NONCESTR,
 					signature: G_WEIXIN_SIGNATURE,
 					jsApiList: [
 					'checkJsApi',
+					'onMenuShareTimeline',
+					'onMenuShareAppMessage',
+					'onMenuShareQQ',
 					'chooseImage',
 					'previewImage',
 					'uploadImage',
@@ -183,111 +186,96 @@
 		<script type="text/javascript">
 		$(function()
 		{
-			 // if ($('.aw-question-detail .markitup-box img')[0])
-				// {
-				// 	var weixin_img_url = $('.aw-question-detail .markitup-box img').first().attr('src'),
-				//         weixin_img_first = $('.aw-question-detail .markitup-box img').first().attr('src').replace(/(.*\/){0,}([^\.]+.*)/ig, "$2"),
-				//         weixin_img_url = weixin_img_url.replace(weixin_img_first,'90x90_' + weixin_img_first);
-				// }
-				// else
-				// {
-				// 	var weixin_img_url = location.protocol + '//' + location.host + location.pathname + 'static/common/weixin_default_image.png';
-				// }
-			$('.aw-upload-box').hide(); //微信里面隐藏原来的上传按钮
 
 			wx.ready(function () {
 
-				// 上传图片
-				var images = {
-					localId: [],
-					serverId: [],
-					imageUrls: [] //预览地址
-				};
-				$('#chooseImage, #pubChooseImage').on('click', function () {
-				 	console.log('1')
-					wx.chooseImage({
+				// 自定义分享
+				if ($('.aw-question-detail .markitup-box img')[0])
+				{
+					var weixin_img_url = $('.aw-question-detail .markitup-box img').first().attr('src'),
+						weixin_img_first = $('.aw-question-detail .markitup-box img').first().attr('src').replace(/(.*\/){0,}([^\.]+.*)/ig, "$2"),
+						weixin_img_url = weixin_img_url.replace(weixin_img_first,'90x90_' + weixin_img_first);
+				}
+				else
+				{
+					var weixin_img_url = location.protocol + '//' + location.host + location.pathname + 'static/common/weixin_default_image.png';
+				}
+
+				var weixin_handler = setInterval(function()
+				{
+					wx.onMenuShareTimeline({
+						"img_url": weixin_img_url,
+						"title" : document.title,
+						"link" : link,
+						"desc" : ($('#weixin-desc').text()=='') ? $('meta[name="description"]').attr('content') : $('#weixin-desc').text(),
+
+						trigger: function (res) {
+							alert('点击分享到朋友圈');
+						},
 						success: function (res) {
-							images.localId = res.localIds;
-
+							//alert('已分享');
+						},
+						cancel: function (res) {
+							//alert('已取消');
+						},
+						fail: function (res) {
+							alert(JSON.stringify(res));
 						}
-					})
-				});
-				// 回复时上传图片
-				$('#uploadImage').on('click', function () {
-					if (images.localId.length == 0) {
-						//alert('先选择图片');
-						return
-					}
-					var i = 0,length = images.localId.length;
-					images.serverId = [];
-					function upload() {
-						wx.uploadImage({
-							localId: images.localId[i],
-							isShowProgressTips: 1,
-							success: function (res) {
-								i++;
-								//alert('已上传');
-								images.serverId.push(res.serverId);
-								if (i < length) {
-									upload();
-								}
-								$.post(G_BASE_URL + '/publish/ajax/attach_upload/id-answer__attach_access_key' + '-' + ATTACH_ACCESS_KEY, {"weixin_media_id": images.serverId.join(",")}, function () {
-										$('#uploadImage').innerHTML = '上传完成';
-								})
-							},
-							fail: function (res) {
-								alert(JSON.stringify(res));
-							}
-						});
-					}
-					upload();
-				});
-				// 发布问题时上传图片
-				$('#pubUploadImage').on('click', function () {
-					if (images.localId.length == 0) {
-						//alert('先选择图片');
-						return
-					}
-					var i = 0,length = images.localId.length;
-					images.serverId = [];
-					function upload() {
-						wx.uploadImage({
-							localId: images.localId[i],
-							isShowProgressTips: 1,
-							success: function (res) {
-								i++;
-								//alert('已上传');
-								images.serverId.push(res.serverId);
-								if (i < length) {
-									upload();
-								}
-								$.post(G_BASE_URL + '/publish/ajax/attach_upload/id-question__attach_access_key' + '-' + ATTACH_ACCESS_KEY, {"weixin_media_id": images.serverId.join(",")}, function () {
-										$('#uploadImage').innerHTML = '上传完成';
-								})
-							},
-							fail: function (res) {
-								alert(JSON.stringify(res));
-							}
-						});
-					}
-					upload();
-				})
+					});
 
+					wx.onMenuShareAppMessage({
+						"img_url": weixin_img_url,
+						"title" : document.title,
+						"link" : link,
+						"desc" : ($('#weixin-desc').text()=='') ? $('meta[name="description"]').attr('content') : $('#weixin-desc').text(),
+
+						trigger: function (res) {
+							alert('点击发送给朋友');
+						},
+						success: function (res) {
+							//alert('已分享');
+						},
+						cancel: function (res) {
+							//alert('已取消');
+						},
+						fail: function (res) {
+							alert(JSON.stringify(res));
+						}
+
+					});
+
+					wx.onMenuShareQQ({
+						"img_url": weixin_img_url,
+						"title" : document.title,
+						"link" : link,
+						"desc" : ($('#weixin-desc').text()=='') ? $('meta[name="description"]').attr('content') : $('#weixin-desc').text(),
+						trigger: function (res) {
+							alert('点击分享到QQ');
+						},
+						complete: function (res) {
+							alert(JSON.stringify(res));
+						},
+						success: function (res) {
+							//alert('已分享');
+						},
+						cancel: function (res) {
+							//alert('已取消');
+						},
+						fail: function (res) {
+							alert(JSON.stringify(res));
+						}
+					});
+
+					clearInterval(weixin_handler);
+
+				}, 500);
 			});
 
-
 			wx.error(function (res) {
-  	    		alert(res.errMsg);
-  			});
+				alert(res.errMsg);
+			});
 
 		 })
-		</script>
-
-		<?php } else { ?>
-		<script>
-		$(function () {
-			$('#chooseImage, #uploadImage').hide()
-		})
 		</script>
 		<?php } ?>
 	</body>

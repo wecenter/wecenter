@@ -215,18 +215,14 @@
 					<?php } ?>
 
 					<!-- 上传控件 -->
-		            <div class="aw-upload-box">
-		                <a class="icon icon-pic">
-		                	<span class="tips">上传图片</span>
-		                </a>
-		            </div>
+					<div class="aw-upload-box">
+						<a class="icon icon-pic">
+							<span class="tips">上传图片</span>
+						</a>
+					</div>
 
-		            <!-- end 上传控件 -->
-
-		            <div class="upload-container"></div>
-		             <!-- modify weixin 内置浏览器图片 -->
-		            <button id="chooseImage" class="btn">选择图片</button>
-		            <button id="uploadImage" class="btn">上传</button>
+					<!-- end 上传控件 -->
+					<div class="upload-container"></div>
 
 				</div>
 			</form>
@@ -245,7 +241,7 @@
 	var USER_ANSWERED = '<?php echo $this->user_answered; ?>';
 
 	$(document).ready(function () {
-        var fileupload = new FileUpload('file', '.aw-upload-box .icon-pic', '.aw-replay-box .upload-container', G_BASE_URL + '/publish/ajax/attach_upload/id-answer__attach_access_key' + '-' + ATTACH_ACCESS_KEY, {'deleteBtnTemplate' : '<a class="delete-file"><i class="icon icon-delete"></i></a>', 'insertBtnTemplate' : '<a class="insert-file"><i class="icon icon-insert"></i></a>'})
+		var fileupload = new FileUpload('file', '.aw-upload-box .icon-pic', '.aw-replay-box .upload-container', G_BASE_URL + '/publish/ajax/attach_upload/id-answer__attach_access_key' + '-' + ATTACH_ACCESS_KEY, {'deleteBtnTemplate' : '<a class="delete-file"><i class="icon icon-delete"></i></a>', 'insertBtnTemplate' : '<a class="insert-file"><i class="icon icon-insert"></i></a>'})
 
 		// 自动保存草稿
 		if ($('#answer_form textarea').length)
@@ -271,17 +267,17 @@
 		});
 
 		//回复折叠显示按钮
-	    $('#load_uninterested_answers').click(function()
-	    {
-	        if ($('#uninterested_answers_list').is(':visible'))
-	        {
-	            $('#uninterested_answers_list').hide();
-	        }
-	        else
-	        {
-	            $('#uninterested_answers_list').show();
-	        }
-	    });
+		$('#load_uninterested_answers').click(function()
+		{
+			if ($('#uninterested_answers_list').is(':visible'))
+			{
+				$('#uninterested_answers_list').hide();
+			}
+			else
+			{
+				$('#uninterested_answers_list').show();
+			}
+		});
 
 		if ($('#uninterested_answers_list li.aw-item').length > 0)
 		{
