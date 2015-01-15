@@ -178,7 +178,7 @@
 					'downloadImage',
 					'getNetworkType',
 					]
-			});
+			})
 		</script>
 		<script type="text/javascript">
 		$(function()
@@ -201,7 +201,7 @@
 				var images = {
 					localId: [],
 					serverId: [],
-					imageUrls: []
+					imageUrls: [] //预览地址
 				};
 				$('#chooseImage, #pubChooseImage').on('click', function () {
 				 	console.log('1')
@@ -211,7 +211,7 @@
 
 						}
 					})
-				})
+				});
 				// 回复时上传图片
 				$('#uploadImage').on('click', function () {
 					if (images.localId.length == 0) {
@@ -242,8 +242,8 @@
 						});
 					}
 					upload();
-				})
-				// 发布问题是上传图片
+				});
+				// 发布问题时上传图片
 				$('#pubUploadImage').on('click', function () {
 					if (images.localId.length == 0) {
 						//alert('先选择图片');
@@ -288,7 +288,7 @@
 		<?php } else { ?>
 		<script>
 		$(function () {
-			$('#chooseImage, #previewImage, #uploadImage').hide()
+			$('#chooseImage, #uploadImage').hide()
 		})
 		</script>
 		<?php } ?>
