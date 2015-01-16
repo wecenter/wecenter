@@ -1000,12 +1000,11 @@ class main extends AWS_CONTROLLER
 		}
 		else if ($this->is_post() AND $_POST['question_detail'])
 		{
-			TPL::assign('question_info', array(
-				'question_content' => $_POST['question_content'],
-				'question_detail' => $_POST['question_detail']
-			));
-
-			$question_info['category_id'] = $_POST['category_id'];
+			$question_info = array(
+				'question_content' => htmlspecialchars($_POST['question_content']),
+				'question_detail' => htmlspecialchars($_POST['question_detail']),
+				'category_id' => intval($_POST['category_id'])
+			);
 		}
 		else if ($_GET['weixin_media_id'])
 		{
@@ -1024,10 +1023,10 @@ class main extends AWS_CONTROLLER
 		{
 			$draft_content = $this->model('draft')->get_data(1, 'question', $this->user_id);
 
-			TPL::assign('question_info', array(
-				'question_content' => $_POST['question_content'],
-				'question_detail' => $draft_content['message']
-			));
+			$question_info = array(
+				'question_content' => htmlspecialchars($_POST['question_content']),
+				'question_detail' => htmlspecialchars($draft_content['message'])
+			);
 		}
 
 		if ($this->user_info['integral'] < 0 AND get_setting('integral_system_enabled') == 'Y' AND !$_GET['id'])
@@ -1035,23 +1034,26 @@ class main extends AWS_CONTROLLER
 			H::redirect_msg(AWS_APP::lang()->_t('你的剩余积分已经不足以进行此操作'));
 		}
 
-		if (!$question_info['category_id'] AND $_GET['category_id'])
+		if (($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator'] OR $question_info['published_uid'] == $this->user_id AND $_GET['id']) OR !$_GET['id'])
 		{
-			$question_info['category_id'] = $_GET['category_id'];
+			TPL::assign('attach_access_key', md5($this->user_id . time()));
+		}
+
+		if (!$question_info['category_id'])
+		{
+			$question_info['category_id'] = ($_GET['category_id']) ? intval($_GET['category_id']) : 0;
 		}
 
 		if (get_setting('category_enable') == 'Y')
 		{
 			TPL::assign('question_category_list', $this->model('system')->build_category_html('question', 0, $question_info['category_id']));
 		}
-		if (($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator'] OR $question_info['published_uid'] == $this->user_id AND $_GET['id']) OR !$_GET['id'])
-		{
-			TPL::assign('attach_access_key', md5($this->user_id . time()));
-		}
 
 		TPL::import_js(array(
 			'js/fileupload.js'
 		));
+
+		TPL::assign('question_info', $question_info);
 
 		TPL::assign('body_class', 'active');
 
