@@ -102,14 +102,18 @@
 					<ul>
 						<li>
 							<form method="post" action="publish/">
+								<?php if ($this->topic_info['topic_title']) { ?>
 								<input type="hidden" value="<?php echo $this->topic_info['topic_title']; ?>" name="topics[]" />
+								<?php } ?>
 								<a onclick="$(this).parents('form').submit();"><?php _e('问题'); ?></a>
 							</form>
 							
 						</li>
 						<li>
 							<form method="post" action="publish/article/">
+								<?php if ($this->topic_info['topic_title']) { ?>
 								<input type="hidden" value="<?php echo $this->topic_info['topic_title']; ?>" name="topics[]" />
+								<?php } ?>
 								<a onclick="$(this).parents('form').submit();"><?php _e('文章'); ?></a>
 							</form>
 						</li>
