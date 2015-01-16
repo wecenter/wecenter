@@ -161,7 +161,7 @@
 			<?php echo get_setting('statistic_code'); ?>
 		</div>
 		<!-- / DO NOT REMOVE -->
-		<?php if (in_weixin() && get_setting('weixin_account_role') == 'service') { ?>
+		<?php if (in_weixin()) { ?>
 		<script type="text/javascript">
 		$(function()
 		{
@@ -191,7 +191,7 @@
 					});
 					WeixinJSBridge.on('menu:share:appmessage', function(argv) {
 						WeixinJSBridge.invoke('sendAppMessage', {
-							"img_url":weixin_img_url,
+							"img_url": weixin_img_url,
 							"title" : document.title,
 							"link" : location.href,
 							"desc" : ($('#weixin-desc').text()=='') ? $('meta[name="description"]').attr('content') : $('#weixin-desc').text()

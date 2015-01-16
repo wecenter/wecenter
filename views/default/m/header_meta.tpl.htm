@@ -44,13 +44,6 @@
 		<?php if (human_valid('question_valid_hour')) { ?>
 		var G_QUICK_PUBLISH_HUMAN_VALID = true;
 		<?php } ?>
-
-		<?php if (in_weixin() && (get_setting('weixin_account_role') == 'service')) { ?>
-		var G_WEIXIN_APP_ID = "<?php echo get_setting('weixin_app_id'); ?>";
-		var G_WEIXIN_NONCESTR = <?php echo $this->noncestr; ?>;
-		var G_WEIXIN_SIGNATURE = "<?php echo $this->signature; ?>";
-		<?php } ?>
-		<?php?>
 	</script>
 
 	<?php if (is_array($this->_import_js_files)) { ?>
