@@ -203,7 +203,7 @@ $(document).ready(function () {
         detector: function () {
             this.select(["<?php echo $_GET['province']; ?>", "<?php echo $_GET['city']; ?>"]);
         },
-        dataUrl: G_BASE_URL + '/account/ajax/areas_json_data/'
+        dataUrl: G_STATIC_URL + '/js/areas.js'
     });
 });
 </script>
