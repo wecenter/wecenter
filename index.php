@@ -7,7 +7,7 @@
 |   © 2011 - 2014 WeCenter. All Rights Reserved
 |   http://www.wecenter.com
 |   ========================================
-|   Support: WeCenter@qq.com
+|   Support: WeCenter@qq.com  && dotalk.cn
 |
 +---------------------------------------------------------------------------
 */
