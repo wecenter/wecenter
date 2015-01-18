@@ -698,12 +698,6 @@ function fetch_salt($length = 4)
  */
 function compile_password($password, $salt)
 {
-	// md5 password...
-	if (strlen($password) == 32)
-	{
-		return md5($password . $salt);
-	}
-
 	$password = md5(md5($password) . $salt);
 
 	return $password;
