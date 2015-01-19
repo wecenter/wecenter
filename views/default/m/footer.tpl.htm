@@ -161,121 +161,46 @@
 			<?php echo get_setting('statistic_code'); ?>
 		</div>
 		<!-- / DO NOT REMOVE -->
-		<?php if (in_weixin() && get_setting('weixin_account_role') == 'service') { ?>
-		<script src="//res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
-		<script>
-			wx.config({
-					debug: false,
-					appId: G_WEIXIN_APP_ID,
-					timestamp: G_TIMESTAMP,
-					nonceStr: G_WEIXIN_NONCESTR,
-					signature: G_WEIXIN_SIGNATURE,
-					jsApiList: [
-					'checkJsApi',
-					'onMenuShareTimeline',
-					'onMenuShareAppMessage',
-					'onMenuShareQQ',
-					'chooseImage',
-					'previewImage',
-					'uploadImage',
-					'downloadImage',
-					'getNetworkType',
-					]
-			})
-		</script>
+		<?php if (in_weixin()) { ?>
 		<script type="text/javascript">
 		$(function()
 		{
+			$('.header').hide();
 
-			wx.ready(function () {
-
-				// 自定义分享
-				if ($('.aw-question-detail .markitup-box img')[0])
+			if ($('.aw-question-detail .markitup-box img')[0])
+			{
+				var weixin_img_url = $('.aw-question-detail .markitup-box img').first().attr('src'),
+				weixin_img_first = $('.aw-question-detail .markitup-box img').first().attr('src').replace(/(.*\/){0,}([^\.]+.*)/ig, "$2"),
+				weixin_img_url = weixin_img_url.replace(weixin_img_first,'90x90_' + weixin_img_first);
+			}
+			else
+			{
+				var weixin_img_url = location.protocol + '//' + location.host + location.pathname + 'static/common/weixin_default_image.png';
+			}
+			var weixin_handler = setInterval(function()
+			{
+				if (typeof G_IN_WEIXIN != 'undefined' && G_IN_WEIXIN == true)
 				{
-					var weixin_img_url = $('.aw-question-detail .markitup-box img').first().attr('src'),
-						weixin_img_first = $('.aw-question-detail .markitup-box img').first().attr('src').replace(/(.*\/){0,}([^\.]+.*)/ig, "$2"),
-						weixin_img_url = weixin_img_url.replace(weixin_img_first,'90x90_' + weixin_img_first);
-				}
-				else
-				{
-					var weixin_img_url = location.protocol + '//' + location.host + location.pathname + 'static/common/weixin_default_image.png';
-				}
-
-				var weixin_handler = setInterval(function()
-				{
-					wx.onMenuShareTimeline({
-						"img_url": weixin_img_url,
-						"title" : document.title,
-						"link" : link,
-						"desc" : ($('#weixin-desc').text()=='') ? $('meta[name="description"]').attr('content') : $('#weixin-desc').text(),
-
-						trigger: function (res) {
-							alert('点击分享到朋友圈');
-						},
-						success: function (res) {
-							//alert('已分享');
-						},
-						cancel: function (res) {
-							//alert('已取消');
-						},
-						fail: function (res) {
-							alert(JSON.stringify(res));
-						}
+					WeixinJSBridge.on('menu:share:timeline', function(argv) {
+						WeixinJSBridge.invoke('shareTimeline', {
+							"img_url": weixin_img_url,
+							"title" : document.title,
+							"link" : location.href,
+							"desc" : ($('#weixin-desc').text()=='') ? $('meta[name="description"]').attr('content') : $('#weixin-desc').text()
+						});
 					});
-
-					wx.onMenuShareAppMessage({
-						"img_url": weixin_img_url,
-						"title" : document.title,
-						"link" : link,
-						"desc" : ($('#weixin-desc').text()=='') ? $('meta[name="description"]').attr('content') : $('#weixin-desc').text(),
-
-						trigger: function (res) {
-							alert('点击发送给朋友');
-						},
-						success: function (res) {
-							//alert('已分享');
-						},
-						cancel: function (res) {
-							//alert('已取消');
-						},
-						fail: function (res) {
-							alert(JSON.stringify(res));
-						}
-
+					WeixinJSBridge.on('menu:share:appmessage', function(argv) {
+						WeixinJSBridge.invoke('sendAppMessage', {
+							"img_url": weixin_img_url,
+							"title" : document.title,
+							"link" : location.href,
+							"desc" : ($('#weixin-desc').text()=='') ? $('meta[name="description"]').attr('content') : $('#weixin-desc').text()
+						});
 					});
-
-					wx.onMenuShareQQ({
-						"img_url": weixin_img_url,
-						"title" : document.title,
-						"link" : link,
-						"desc" : ($('#weixin-desc').text()=='') ? $('meta[name="description"]').attr('content') : $('#weixin-desc').text(),
-						trigger: function (res) {
-							alert('点击分享到QQ');
-						},
-						complete: function (res) {
-							alert(JSON.stringify(res));
-						},
-						success: function (res) {
-							//alert('已分享');
-						},
-						cancel: function (res) {
-							//alert('已取消');
-						},
-						fail: function (res) {
-							alert(JSON.stringify(res));
-						}
-					});
-
 					clearInterval(weixin_handler);
-
-				}, 500);
-			});
-
-			wx.error(function (res) {
-				alert(res.errMsg);
-			});
-
-		 })
+				}
+			}, 500);
+		}
 		</script>
 		<?php } ?>
 	</body>
