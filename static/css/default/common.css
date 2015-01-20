@@ -1097,8 +1097,6 @@ a.cke_button{padding:8px 10px !important;cursor: pointer !important;border-radiu
 /* iphone竖屏幕 */
 @media (max-width:414px) {
 	.aw-top-menu-wrap .container {padding: 0;}
-	.aw-container-wrap {padding:0 10px;}
-	.aw-content-wrap {margin:0;}
 	.aw-user-nav {margin-right: 10px;}
 	.aw-question-comment-box .aw-feed-list .aw-item .aw-user-img {display: none;}
 	.aw-feed-list .operate + .operate {margin-left: 1px;}
