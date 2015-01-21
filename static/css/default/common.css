@@ -640,8 +640,8 @@ blockquote {margin: 0 0 16px;padding: 0 15px;font-size: 14px;color: #777;border-
 .aw-mod-topic-edit-box{padding:20px;}
 .aw-mod-topic-edit-box > .mod-head{position: relative;margin:0 0 30px 0;padding:0 0 0 60px;}
 .aw-mod-topic-edit-box .aw-topic-bar{margin:0 0 0 10px;}
-.aw-mod-topic-edit-box #upload-form .file-input{width: 50px;height: 20px;left: 0 !important;top: 30px !important;}
-.aw-mod-topic-edit-box #upload-form .submit{display: none;}
+.aw-mod-topic-edit-box .mod-head .file-input{width: 50px;height: 20px;left: 0 !important;top: 30px !important;}
+.aw-mod-topic-edit-box .mod-head .submit{display: none;}
 .aw-mod-topic-edit-box .mod-head h3{font-size: 20px;line-height: 20px;}
 .aw-mod-topic-edit-box .mod-head .img{position: absolute;left: 0;top: 0;width:50px;height:50px;text-align: center;}
 .aw-mod-topic-edit-box .mod-head .img .mask{position:absolute;bottom:0;display: block;width: 50px;height: 20px;background: #000;opacity: 0.7;filter:alpha(opacity=70);border-radius: 0 0 4px 4px;}
@@ -1097,8 +1097,6 @@ a.cke_button{padding:8px 10px !important;cursor: pointer !important;border-radiu
 /* iphone竖屏幕 */
 @media (max-width:414px) {
 	.aw-top-menu-wrap .container {padding: 0;}
-	.aw-container-wrap {padding:0 10px;}
-	.aw-content-wrap {margin:0;}
 	.aw-user-nav {margin-right: 10px;}
 	.aw-question-comment-box .aw-feed-list .aw-item .aw-user-img {display: none;}
 	.aw-feed-list .operate + .operate {margin-left: 1px;}
