@@ -21,7 +21,9 @@ class admin_class extends AWS_MODEL
 {
     public function fetch_menu_list($select_id)
     {
-        $admin_menu = (array)AWS_APP::config()->get('admin_menu');
+        $admin_menu = (array)AWS_APP::config()->get('admin_menu', array(
+            'permission' => $this->user_info['permission']
+        ));
 
         if (!$admin_menu)
         {

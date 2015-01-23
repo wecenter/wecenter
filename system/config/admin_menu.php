@@ -6,71 +6,74 @@ $config[] = array(
     'children' => array()
 );
 
-$config[] = array(
-    'title' => AWS_APP::lang()->_t('全局设置'),
-    'cname' => 'setting',
-    'children' => array(
-        array(
-            'id' => 'SETTINGS_SITE',
-            'title' => AWS_APP::lang()->_t('站点信息'),
-            'url' => 'admin/settings/category-site'
-        ),
+if ($filter['permission']['is_administortar'])
+{
+    $config[] = array(
+        'title' => AWS_APP::lang()->_t('全局设置'),
+        'cname' => 'setting',
+        'children' => array(
+            array(
+                'id' => 'SETTINGS_SITE',
+                'title' => AWS_APP::lang()->_t('站点信息'),
+                'url' => 'admin/settings/category-site'
+            ),
 
-        array(
-            'id' => 'SETTINGS_REGISTER',
-            'title' => AWS_APP::lang()->_t('注册访问'),
-            'url' => 'admin/settings/category-register'
-        ),
+            array(
+                'id' => 'SETTINGS_REGISTER',
+                'title' => AWS_APP::lang()->_t('注册访问'),
+                'url' => 'admin/settings/category-register'
+            ),
 
-        array(
-            'id' => 'SETTINGS_FUNCTIONS',
-            'title' => AWS_APP::lang()->_t('站点功能'),
-            'url' => 'admin/settings/category-functions'
-        ),
+            array(
+                'id' => 'SETTINGS_FUNCTIONS',
+                'title' => AWS_APP::lang()->_t('站点功能'),
+                'url' => 'admin/settings/category-functions'
+            ),
 
-        array(
-            'id' => 'SETTINGS_CONTENTS',
-            'title' => AWS_APP::lang()->_t('内容设置'),
-            'url' => 'admin/settings/category-contents'
-        ),
+            array(
+                'id' => 'SETTINGS_CONTENTS',
+                'title' => AWS_APP::lang()->_t('内容设置'),
+                'url' => 'admin/settings/category-contents'
+            ),
 
-        array(
-            'id' => 'SETTINGS_INTEGRAL',
-            'title' => AWS_APP::lang()->_t('威望积分'),
-            'url' => 'admin/settings/category-integral'
-        ),
+            array(
+                'id' => 'SETTINGS_INTEGRAL',
+                'title' => AWS_APP::lang()->_t('威望积分'),
+                'url' => 'admin/settings/category-integral'
+            ),
 
-        array(
-            'id' => 'SETTINGS_PERMISSIONS',
-            'title' => AWS_APP::lang()->_t('用户权限'),
-            'url' => 'admin/settings/category-permissions'
-        ),
+            array(
+                'id' => 'SETTINGS_filter['permission']S',
+                'title' => AWS_APP::lang()->_t('用户权限'),
+                'url' => 'admin/settings/category-filter['permission']s'
+            ),
 
-        array(
-            'id' => 'SETTINGS_MAIL',
-            'title' => AWS_APP::lang()->_t('邮件设置'),
-            'url' => 'admin/settings/category-mail'
-        ),
+            array(
+                'id' => 'SETTINGS_MAIL',
+                'title' => AWS_APP::lang()->_t('邮件设置'),
+                'url' => 'admin/settings/category-mail'
+            ),
 
-        array(
-            'id' => 'SETTINGS_OPENID',
-            'title' => AWS_APP::lang()->_t('开放平台'),
-            'url' => 'admin/settings/category-openid'
-        ),
+            array(
+                'id' => 'SETTINGS_OPENID',
+                'title' => AWS_APP::lang()->_t('开放平台'),
+                'url' => 'admin/settings/category-openid'
+            ),
 
-        array(
-            'id' => 'SETTINGS_CACHE',
-            'title' => AWS_APP::lang()->_t('性能优化'),
-            'url' => 'admin/settings/category-cache'
-        ),
+            array(
+                'id' => 'SETTINGS_CACHE',
+                'title' => AWS_APP::lang()->_t('性能优化'),
+                'url' => 'admin/settings/category-cache'
+            ),
 
-        array(
-            'id' => 'SETTINGS_INTERFACE',
-            'title' => AWS_APP::lang()->_t('界面设置'),
-            'url' => 'admin/settings/category-interface'
+            array(
+                'id' => 'SETTINGS_INTERFACE',
+                'title' => AWS_APP::lang()->_t('界面设置'),
+                'url' => 'admin/settings/category-interface'
+            )
         )
-    )
-);
+    );
+}
 
 $config[] = array(
     'title' => AWS_APP::lang()->_t('内容管理'),
@@ -126,6 +129,7 @@ $config[] = array(
     )
 );
 
+
 $config[] = array(
     'title' => AWS_APP::lang()->_t('审核管理'),
     'cname' => 'report',
@@ -156,42 +160,44 @@ $config[] = array(
     )
 );
 
-$config[] = array(
-    'title' => AWS_APP::lang()->_t('内容设置'),
-    'cname' => 'signup',
-    'children' => array(
-        array(
-            'id' => 307,
-            'title' => AWS_APP::lang()->_t('导航设置'),
-            'url' => 'admin/nav_menu/'
-        ),
+if ($filter['permission']['is_administortar'])
+{
+    $config[] = array(
+        'title' => AWS_APP::lang()->_t('内容设置'),
+        'cname' => 'signup',
+        'children' => array(
+            array(
+                'id' => 307,
+                'title' => AWS_APP::lang()->_t('导航设置'),
+                'url' => 'admin/nav_menu/'
+            ),
 
-        array(
-            'id' => 302,
-            'title' => AWS_APP::lang()->_t('分类管理'),
-            'url' => 'admin/category/list/'
-        ),
+            array(
+                'id' => 302,
+                'title' => AWS_APP::lang()->_t('分类管理'),
+                'url' => 'admin/category/list/'
+            ),
 
-        array(
-            'id' => 304,
-            'title' => AWS_APP::lang()->_t('专题管理'),
-            'url' => 'admin/feature/list/'
-        ),
+            array(
+                'id' => 304,
+                'title' => AWS_APP::lang()->_t('专题管理'),
+                'url' => 'admin/feature/list/'
+            ),
 
-        array(
-            'id' => 308,
-            'title' => AWS_APP::lang()->_t('页面管理'),
-            'url' => 'admin/page/'
-        ),
+            array(
+                'id' => 308,
+                'title' => AWS_APP::lang()->_t('页面管理'),
+                'url' => 'admin/page/'
+            ),
 
-        array(
-            'id' => 305,
-            'title' => AWS_APP::lang()->_t('帮助中心'),
-            'url' => 'admin/help/list/'
+            array(
+                'id' => 305,
+                'title' => AWS_APP::lang()->_t('帮助中心'),
+                'url' => 'admin/help/list/'
+            )
         )
-    )
-);
-
+    );
+}
 
 $config[] = array(
     'title' => AWS_APP::lang()->_t('微信微博'),
@@ -265,14 +271,17 @@ $config[] = array(
     )
 );
 
-$config[] = array(
-    'title' => AWS_APP::lang()->_t('工具'),
-    'cname' => 'job',
-    'children' => array(
-        array(
-            'id' => 501,
-            'title' => AWS_APP::lang()->_t('系统维护'),
-            'url' => 'admin/tools/',
+if ($filter['permission']['is_administortar'])
+{
+    $config[] = array(
+        'title' => AWS_APP::lang()->_t('工具'),
+        'cname' => 'job',
+        'children' => array(
+            array(
+                'id' => 501,
+                'title' => AWS_APP::lang()->_t('系统维护'),
+                'url' => 'admin/tools/',
+            )
         )
-    )
-);
+    );
+}
