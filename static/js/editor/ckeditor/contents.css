@@ -61,6 +61,7 @@ ol,ul,dl
 	*margin-right: 0px;
 	/* preserved spaces for list items with text direction other than the list. (#6249,#8049)*/
 	padding: 0 40px;
+	margin:0;
 }
 
 h1,h2,h3,h4,h5,h6

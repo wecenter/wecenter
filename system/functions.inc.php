@@ -1105,7 +1105,7 @@ function curl_get_contents($url, $timeout = 10)
 	curl_setopt($curl, CURLOPT_TIMEOUT, $timeout);
 	curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
 	curl_setopt($curl, CURLOPT_HEADER, FALSE);
-	curl_setopt($curl, CURLOPT_FOLLOWLOCATION, TRUE);
+	curl_setopt($curl, CURLOPT_FOLLOWLOCATION, TRUE);	curl_setopt($curl, CURLOPT_USERAGENT, 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.57 Safari/537.36');	
 
 	if (substr($url, 0, 8) == 'https://')
 	{
