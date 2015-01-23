@@ -25,6 +25,11 @@
 
 <?php if (defined('ENTERPRISE_EDITION')) TPL::output('global/footer_enterprise.tpl.htm'); ?>
 
+<?php if (!$this->user_info['permission']['is_administortar']) { ?>
+<script type="text/javascript">
+</script>
+<?php } ?>
+
 <div style="display:none;" id="__crond">
 	<script type="text/javascript">
 		$(document).ready(function () {
