@@ -43,9 +43,9 @@ if ($filter['permission']['is_administortar'])
             ),
 
             array(
-                'id' => 'SETTINGS_filter['permission']S',
+                'id' => 'SETTINGS_PERMISSIONS',
                 'title' => AWS_APP::lang()->_t('用户权限'),
-                'url' => 'admin/settings/category-filter['permission']s'
+                'url' => 'admin/settings/category-permissions'
             ),
 
             array(
