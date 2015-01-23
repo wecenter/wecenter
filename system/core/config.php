@@ -70,7 +70,7 @@ class core_config
 			}
 
 			$this->config[$config_id] = (object)$config;
-var_dump($filter);
+
 			return $this->config[$config_id];
 		}
 	}

@@ -20,7 +20,7 @@ if (!defined('IN_ANWSION'))
 class admin_class extends AWS_MODEL
 {
     public function fetch_menu_list($select_id)
-    {var_dump($this->user_info['permission']);
+    {var_dump($this->user_info);
         $admin_menu = (array)AWS_APP::config()->get('admin_menu', array(
             'permission' => $this->user_info['permission']
         ));
