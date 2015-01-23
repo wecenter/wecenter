@@ -215,7 +215,7 @@ class admin_class extends AWS_MODEL
                                         );
         }
 
-        if ($notifications['last_version']['build_day'] > G_VERSION_BUILD AND $this->user_info['is_administortar'])
+        if ($notifications['last_version']['build_day'] > G_VERSION_BUILD)
         {
             $notifications_texts[] = array(
                                             'url' => 'http://www.wecenter.com/downloads/',

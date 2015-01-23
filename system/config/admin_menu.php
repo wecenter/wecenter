@@ -192,7 +192,6 @@ $config[] = array(
     )
 );
 
-
 $config[] = array(
     'title' => AWS_APP::lang()->_t('微信微博'),
     'cname' => 'share',
