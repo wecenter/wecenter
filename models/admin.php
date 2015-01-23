@@ -20,7 +20,7 @@ if (!defined('IN_ANWSION'))
 class admin_class extends AWS_MODEL
 {
     public function fetch_menu_list($select_id)
-    {
+    {var_dump($this->user_info['permission']);
         $admin_menu = (array)AWS_APP::config()->get('admin_menu', array(
             'permission' => $this->user_info['permission']
         ));
@@ -217,7 +217,7 @@ class admin_class extends AWS_MODEL
                                         );
         }
 
-        if ($notifications['last_version']['build_day'] > G_VERSION_BUILD AND $this->user_info['is_administortar'])
+        if ($notifications['last_version']['build_day'] > G_VERSION_BUILD AND $this->user_info['permission']['is_administortar'])
         {
             $notifications_texts[] = array(
                                             'url' => 'http://www.wecenter.com/downloads/',
