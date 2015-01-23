@@ -54,7 +54,7 @@ class core_config
 		}
 	}
 
-	function load_config($config_id, $filter = null)
+	function load_config($config_id)
 	{
 		if (! file_exists(AWS_PATH . 'config/' . $config_id . '.php'))
 		{
