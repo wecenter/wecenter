@@ -6,7 +6,7 @@ $config[] = array(
     'children' => array()
 );
 
-if ($this->user_info['permission']['is_administortar'])
+if ($filter['permission']['is_administortar'])
 {
     $config[] = array(
         'title' => AWS_APP::lang()->_t('全局设置'),
@@ -43,9 +43,9 @@ if ($this->user_info['permission']['is_administortar'])
             ),
 
             array(
-                'id' => 'SETTINGS_PERMISSIONS',
+                'id' => 'SETTINGS_filter['permission']S',
                 'title' => AWS_APP::lang()->_t('用户权限'),
-                'url' => 'admin/settings/category-permissions'
+                'url' => 'admin/settings/category-filter['permission']s'
             ),
 
             array(
@@ -160,7 +160,7 @@ $config[] = array(
     )
 );
 
-if ($this->user_info['permission']['is_administortar'])
+if ($filter['permission']['is_administortar'])
 {
     $config[] = array(
         'title' => AWS_APP::lang()->_t('内容设置'),
@@ -271,7 +271,7 @@ $config[] = array(
     )
 );
 
-if ($this->user_info['permission']['is_administortar'])
+if ($filter['permission']['is_administortar'])
 {
     $config[] = array(
         'title' => AWS_APP::lang()->_t('工具'),
