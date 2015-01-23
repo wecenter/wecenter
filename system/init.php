@@ -16,12 +16,15 @@ define('IN_ANWSION', TRUE);
 define('ENVIRONMENT_PHP_VERSION', '5.2.2');
 //define('SYSTEM_LANG', 'en_US');
 
-if (version_compare(PHP_VERSION, ENVIRONMENT_PHP_VERSION, '<'))
+if (substr(PHP_VERSION, -4) == 'hhvm')
+{
+	die('Error: WeCenter not support HHVM currently');
+}
+else if (version_compare(PHP_VERSION, ENVIRONMENT_PHP_VERSION, '<'))
 {
 	die('Error: WeCenter require PHP version ' . ENVIRONMENT_PHP_VERSION . ' or newer');
 }
-
-if (version_compare(PHP_VERSION, '6.0', '>='))
+else if (version_compare(PHP_VERSION, '6.0', '>='))
 {
 	die('Error: WeCenter not support PHP version 6 currently');
 }
