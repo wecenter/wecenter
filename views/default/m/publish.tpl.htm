@@ -104,7 +104,7 @@
 
 		if (ATTACH_ACCESS_KEY != '')
 		{
-			var fileupload = new FileUpload('file' ,'.aw-upload-box .icon-pic', '.aw-upload-box .upload-container', G_BASE_URL + '/publish/ajax/attach_upload/id-question__attach_access_key' + '-' + ATTACH_ACCESS_KEY, {'insertTextarea' : '#publish_detail', 'deleteBtnTemplate' : '<a class="delete-file"><i class="icon icon-delete"></i></a>', 'insertBtnTemplate' : '<a class="insert-file"><i class="icon icon-insert"></i></a>'})
+			var fileupload = new FileUpload('file' ,'.aw-upload-box .icon-pic', '.aw-upload-box .upload-container', G_BASE_URL + '/publish/ajax/attach_upload/id-question__attach_access_key' + '-' + ATTACH_ACCESS_KEY, {'insertTextarea' : '#publish_detail', 'deleteBtnTemplate' : '<a class="delete-file"><i class="icon icon-delete"></i></a>', 'insertBtnTemplate' : '<a class="insert-file"><i class="icon icon-insert"></i></a>', 'editor': $('#publish_detail')});
 		}
 
 		if ($('#category_id').length)
@@ -148,27 +148,28 @@
 			$('#quick_publish_topic_chooser').click();
 		}
 
-		if (document.getElementById('question_id'))
+		if ($('#question_id').length)
 		{
-			ITEM_ID = document.getElementById('question_id').value;
+			ITEM_ID = $('#question_id').val();
 		}
-		else if (document.getElementById('article_id'))
+		else if ($('#article_id').length)
 		{
-			ITEM_ID = document.getElementById('article_id').value;
+			ITEM_ID = $('#article_id').val();
 		}
 
 		// 微信图片发起
 		if ($('input[name="weixin_pic_url"]').val() != undefined)
 		{
-			$('.upload-list').append('<li>'+
-								'<div class="img" style="background-image: url(' + $('input[name="weixin_pic_url"]').val() + ');"></div>'+
-								'<div class="content">'+
-									'<p class="meta">'+
-										'<span class="color-999">图片已插入</span>'+
-										'<a class="insert-file disabled"><i class="icon icon-insert"></i></a>'+
-									'</p>'+
-								'</div>'+
-							'</li>')
+			$('.upload-list').append(
+				'<li>'+
+					'<div class="img" style="background-image: url(' + $('input[name="weixin_pic_url"]').val() + ');"></div>'+
+					'<div class="content">'+
+						'<p class="meta">'+
+							'<span class="color-999">图片已插入</span>'+
+							'<a class="insert-file disabled"><i class="icon icon-insert"></i></a>'+
+						'</p>'+
+					'</div>'+
+				'</li>');
 		}
 
 		if (ITEM_ID && G_UPLOAD_ENABLE == 'Y' && ATTACH_ACCESS_KEY != '')

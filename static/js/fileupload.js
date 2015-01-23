@@ -368,10 +368,14 @@ FileUpload.prototype =
 
     	$(btn).click(function()
 		{
-			// _this.editor.insertHtml("<attach>" + attach_id + "</attach>");
-			_this.editor.insertText("\n[attach]" + attach_id + "[/attach]\n");
-
-			//$(_this.options.insertTextarea).insertAtCaret("\n[attach]" + attach_id + "[/attach]\n");
+			if (typeof CKEDITOR != 'undefined')
+			{
+				_this.editor.insertText("\n[attach]" + attach_id + "[/attach]\n");
+			}
+			else
+			{
+				_this.editor.val( _this.editor.val() + "\n[attach]" + attach_id + "[/attach]\n");
+			}
 		});
 
 		return btn;
