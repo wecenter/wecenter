@@ -676,19 +676,20 @@
 						if ( tagName in convertMap )
 							tagName = convertMap[ tagName ];
 						else if ( tagName == 'span' ) {
-							// Modify by wecenter 屏蔽字体大小和颜色
+							// Modify by wecenter 屏蔽字体颜色
 							// if ( ( value = style.color ) ) {
 							// 	tagName = 'color';
 							// 	value = CKEDITOR.tools.convertRgbToHex( value );
 							// 	console.log(value);
-							// } else if ( ( value = style[ 'font-size' ] ) ) {
-							// 	var percentValue = value.match( /(\d+)%$/ ) ? value.match( /(\d+)%$/ ) : value.match( /(\d+)px$/ );
-							// 	console.log(percentValue);
-							// 	if ( percentValue ) {
-							// 		value = percentValue[ 1 ];
-							// 		tagName = 'size';
-							// 	}
-							// }
+							// } else 
+							if ( ( value = style[ 'font-size' ] ) ) {
+								var percentValue = value.match( /(\d+)%$/ ) ? value.match( /(\d+)%$/ ) : value.match( /(\d+)px$/ );
+								console.log(percentValue);
+								if ( percentValue ) {
+									value = percentValue[ 1 ];
+									tagName = 'size';
+								}
+							}
 						} else if ( tagName == 'ol' || tagName == 'ul' ) {
 							if ( ( value = style[ 'list-style-type' ] ) ) {
 								switch ( value ) {
