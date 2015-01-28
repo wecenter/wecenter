@@ -8,13 +8,26 @@ CKEDITOR.editorConfig = function( config ) {
 	// For complete reference see:
 	// http://docs.ckeditor.com/#!/api/CKEDITOR.config
 
-	config.plugins = 'sourcearea,autogrow,bbcode,removeformat,wecenterattach,wecenterimage,wecenterlink,wecentervideo,blockquote,maximize,codeTag,basicstyles,button,toolbar,entities,floatingspace,wysiwygarea,fakeobjects,link,list,undo,font';
-	//sourcearea, bbcode
+	config.toolbar = 'Full';
+
+	config.toolbar_Full = [
+		 ['FontSize','Cleanup','Bold','Italic','NumberedList','BulletedList', 'Blockquote', 'Code', 'WecenterImage', 'WecenterAttach', 'WecenterLink', 'WecenterVideo', 'Maximize', 'RemoveFormat']
+
+	]
+
+	config.extraPlugins = 'sourcearea,bbcode,wecenterattach,wecenterimage,wecenterlink,wecentervideo,blockquote,codeTag,font';
+
+	config.resize_enabled = false;
+
+	config.autoUpdateElement = true;
+
+	config.removePlugins = "elementspath";
+
 	config.language = 'zh-cn';
 
 	config.skin = 'bootstrapck';
 
-	config.height = '250';
+	config.height = 250;
 
 	//config.plugins = 'sourcearea,wecenterattach,wecenterimage,wecenterlink,wecentervideo,removeformat,blockquote,maximize,basicstyles,button,toolbar,enterkey,entities,floatingspace,wysiwygarea,fakeobjects,link,list,undo,codeTag';
 
@@ -34,15 +47,6 @@ CKEDITOR.editorConfig = function( config ) {
 	// 	{ name: 'others' },
 	// 	{ name: 'about' }
 	// ];
-
-	config.toolbar = 'Full';
-
-	config.toolbar_Full = [
-		 ['FontSize','Cleanup','Bold','Italic',
-		 // 'Strike','Underline',
-		 'NumberedList','BulletedList', 'Blockquote', 'Code', 'WecenterImage', 'WecenterAttach', 'WecenterLink', 'WecenterVideo', 'Maximize', 'RemoveFormat', 'Source']
-
-	]
 
 	config.fontSize_sizes = '16px;18px';
 

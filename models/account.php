@@ -1211,7 +1211,7 @@ class account_class extends AWS_MODEL
     {
         $type = intval($type);
 
-        $where[] = (defined('ENTERPRISE_EDITION') AND $type === 0) ? 'type IN (0, 2)' : 'type = ' . $type;
+        $where[] = (check_extension_package('ticket') AND $type === 0) ? 'type IN (0, 2)' : 'type = ' . $type;
 
         if (isset($custom))
         {
