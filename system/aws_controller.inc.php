@@ -93,7 +93,7 @@ class AWS_CONTROLLER
 
 		if (check_extension_package('ticket') AND get_setting('ticket_enabled') == 'Y')
 		{
-			TPL::import_js('css/ticket.css');
+			TPL::import_css('css/ticket.css');
 		}
 
 		if (defined('SYSTEM_LANG'))
