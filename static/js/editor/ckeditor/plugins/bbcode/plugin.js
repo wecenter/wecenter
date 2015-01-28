@@ -736,14 +736,28 @@
 						} else if ( tagName == 'img' ) {
 							element.isEmpty = 0;
 
+
+
 							// Translate smiley (image) to text emotion.
 							var src = attributes[ 'data-cke-saved-src' ] || attributes.src,
 								alt = attributes.alt;
 
 							if ( src && src.indexOf( editor.config.smiley_path ) != -1 && alt )
+							{
 								return new CKEDITOR.htmlParser.text( smileyMap[ alt ] );
+							}
 							else
-								element.children = [ new CKEDITOR.htmlParser.text( src ) ];
+							{
+								// Modify by wecenter 过滤浏览器粘贴截图
+								if (src.match('data:image/png'))
+								{
+									return false;
+								}
+								else
+								{
+									element.children = [ new CKEDITOR.htmlParser.text( src ) ];
+								}
+							}
 						}
 
 						element.name = tagName;
