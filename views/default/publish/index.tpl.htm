@@ -7,6 +7,9 @@
 				<div class="col-sm-12 col-md-9 aw-main-content">
 					<!-- tab 切换 -->
 					<ul class="nav nav-tabs aw-nav-tabs active">
+						<?php if (check_extension_package('ticket') && get_setting('ticket_enabled') == 'Y' && $this->user_info['permission']['publish_ticket']) { ?>
+						<li><a href="ticket/publish/"><?php _e('工单'); ?></a></li>
+						<?php } ?>
 						<?php if ($this->user_info['permission']['publish_article']) { ?>
 						<li><a href="publish/article/"><?php _e('文章'); ?></a></li>
 						<?php } ?>
