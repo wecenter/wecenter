@@ -28,7 +28,7 @@
                                         <?php _e('问题'); ?>
                                     </label>
 
-                                    <?php if (defined('ENTERPRISE_EDITION')) { ?>
+                                    <?php if (check_extension_package('ticket')) { ?>
                                     <label class="checkbox-inline">
                                         <input type="radio" name="enabled" value="ticket"<?php if ($this->receiving_email_global_config['enabled'] == 'ticket') { ?> checked="checked"<?php } ?> />
                                         <?php _e('工单'); ?>

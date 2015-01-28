@@ -20,7 +20,7 @@
                             <?php _e('问题'); ?>
                         </label>
 
-                        <?php if (defined('ENTERPRISE_EDITION')) { ?>
+                        <?php if (check_extension_package('ticket')) { ?>
                         <label class="checkbox-inline">
                             <input type="radio" name="weibo_msg_enabled" value="ticket"<?php if (get_setting('weibo_msg_enabled') == 'ticket') { ?> checked="checked"<?php } ?> />
                             <?php _e('工单'); ?>
