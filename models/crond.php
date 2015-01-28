@@ -107,7 +107,7 @@ class crond_class extends AWS_MODEL
     // 每五分钟执行
     public function five_minutes()
     {
-        if (defined('ENTERPRISE_EDITION'))
+        if (check_extension_package('ticket'))
         {
             if (get_setting('weibo_msg_enabled') == 'ticket')
             {

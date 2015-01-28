@@ -117,7 +117,7 @@ class AWS_CONTROLLER
 			'js/app.js',
 		));
 
-		if (defined('ENTERPRISE_EDITION'))
+		if (check_extension_package('ticket'))
 		{
 			TPL::import_js('js/enterprise.js');
 		}
