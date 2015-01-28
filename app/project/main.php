@@ -187,10 +187,16 @@ class main extends AWS_CONTROLLER
 		if (get_setting('advanced_editor_enable') == 'Y')
 		{
 			// editor
-			TPL::import_js('js/editor/Markdown.Converter.js');
-			TPL::import_js('js/editor/Markdown.Sanitizer.js');
-			TPL::import_js('js/editor/Markdown.Editor.js');
+			TPL::import_js('js/editor/ckeditor/ckeditor.js');
+			TPL::import_js('js/editor/ckeditor/adapters/jquery.js');
+
 		}
+		if (get_setting('upload_enable') == 'Y')
+		{
+			// fileupload
+			TPL::import_js('js/fileupload.js');
+		}
+
 
 		TPL::import_js('js/jquery.date_input.js');
 
