@@ -182,7 +182,7 @@ class HTTP
 		header("Pragma: no-cache");
 		header('Date: ' . gmdate('D, d M Y H:i:s', $modifytime) . ' GMT');
 		header('Content-Disposition: attachment; ' . self::download_filename_header($filename));
-		//header("Content-Type: application/octet-stream");	// has bug with IE
+		header("Content-Type: application/octet-stream");	// has bug with IE
 		//header('HTTP/1.1 206 Partial Content');
 		header('Accept-Ranges: bytes');
 
@@ -376,7 +376,8 @@ class HTTP
 		curl_setopt($curl, CURLOPT_TIMEOUT, $time_out);
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
 		curl_setopt($curl, CURLOPT_HEADER, FALSE);
-		curl_setopt($curl, CURLOPT_FOLLOWLOCATION, TRUE);		curl_setopt($curl, CURLOPT_USERAGENT, 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.57 Safari/537.36');
+		curl_setopt($curl, CURLOPT_FOLLOWLOCATION, TRUE);
+		curl_setopt($curl, CURLOPT_USERAGENT, 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.57 Safari/537.36');
 
 		switch ($method)
 		{
