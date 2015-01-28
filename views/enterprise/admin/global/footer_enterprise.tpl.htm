@@ -1,8 +1,0 @@
-<?php if ($this->user_info['permission']['is_administortar'] && $_GET['c'] == 'user' && $_GET['act'] == 'group_list') { ?>
-<script type="text/javascript">
-    $(document).ready(function ()
-    {
-        $('.mod-head ul.nav-tabs').append("<li><a href=\"<?php echo get_js_url('/admin/ticket/service_group_list/'); ?>\"><?php _e('客服组'); ?></a></li>");
-    })
-</script>
-<?php } ?>
