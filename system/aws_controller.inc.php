@@ -91,6 +91,11 @@ class AWS_CONTROLLER
 			'js/plug_module/style.css',
 		));
 
+		if (check_extension_package('ticket') AND get_setting('ticket_enabled') == 'Y')
+		{
+			TPL::import_js('css/ticket.css');
+		}
+
 		if (defined('SYSTEM_LANG'))
 		{
 			TPL::import_js(base_url() . '/language/' . SYSTEM_LANG . '.js');
@@ -116,11 +121,6 @@ class AWS_CONTROLLER
 			'js/aw_template.js',
 			'js/app.js',
 		));
-
-		if (check_extension_package('ticket'))
-		{
-			TPL::import_js('js/enterprise.js');
-		}
 
 		// 产生面包屑导航数据
 		$this->crumb(get_setting('site_name'), base_url());
