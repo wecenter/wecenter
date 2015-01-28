@@ -9,6 +9,7 @@
 					<li class="active"><a href="#_members" data-toggle="tab" id="members"><?php _e('会员组'); ?></a></li>
 					<li><a href="#_system" data-toggle="tab" id="system"><?php _e('系统组'); ?></a></li>
 					<li><a href="#_custom" data-toggle="tab" id="custom"><?php _e('特殊组'); ?></a></li>
+					<?php if (check_extension_package('ticket')) { ?><li><a href="admin/ticket/service_group_list/"><?php _e('客服组'); ?></a></li><?php } ?>
 				</ul>
 			</h3>
 		</div>
