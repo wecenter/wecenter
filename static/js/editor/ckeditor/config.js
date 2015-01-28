@@ -19,8 +19,6 @@ CKEDITOR.editorConfig = function( config ) {
 
 	config.resize_enabled = false;
 
-	config.autoUpdateElement = true;
-
 	config.removePlugins = "elementspath";
 
 	config.language = 'zh-cn';
@@ -54,6 +52,10 @@ CKEDITOR.editorConfig = function( config ) {
 	// are not needed in a basic editor. They are removed here.
 	config.removeButtons = 'Cut,Copy,Paste,Undo,Redo,Anchor,Underline,Strike,Subscript,Superscript';
 
+
 	// Dialog windows are also simplified.
 	config.removeDialogTabs = 'link:advanced';
+
+	config.removePlugins = 'enterkey,elementspath';
+
 };
