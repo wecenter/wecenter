@@ -62,7 +62,7 @@
 					</li>
 					<?php } ?>
 					<?php if (get_setting('enable_help_center') == 'Y') { ?><li><a href="help/"<?php if ($_GET['app'] == 'help') { ?> class="active"<?php } ?>><i class="icon icon-bulb"></i> <?php _e('帮助'); ?></a></li><?php } ?>
-					<?php if (check_extension_package('ticket') && get_setting('ticket_enabled') == 'Y') { ?>
+					<?php if (check_extension_package('ticket') && get_setting('ticket_enabled') == 'Y'  && ($this->user_info['permission']['publish_ticket'] || $this->user_info['permission']['is_administortar'] || $this->user_info['permission']['is_service'])) { ?>
 					<li><a href="ticket/"<?php if ($_GET['app'] == 'ticket') { ?> class="active"<?php } ?>><i class="icon icon-order"></i> <?php _e('工单'); ?></a></li>
 					<?php } ?>
 				  </ul>
