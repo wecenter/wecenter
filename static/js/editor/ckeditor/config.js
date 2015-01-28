@@ -8,7 +8,7 @@ CKEDITOR.editorConfig = function( config ) {
 	// For complete reference see:
 	// http://docs.ckeditor.com/#!/api/CKEDITOR.config
 
-	config.plugins = 'bbcode,removeformat,wecenterattach,wecenterimage,wecenterlink,wecentervideo,blockquote,maximize,codeTag,basicstyles,button,toolbar,entities,floatingspace,wysiwygarea,fakeobjects,link,list,undo';
+	config.plugins = 'sourcearea,autogrow,bbcode,removeformat,wecenterattach,wecenterimage,wecenterlink,wecentervideo,blockquote,maximize,codeTag,basicstyles,button,toolbar,entities,floatingspace,wysiwygarea,fakeobjects,link,list,undo,font';
 	//sourcearea, bbcode
 	config.language = 'zh-cn';
 
@@ -43,6 +43,8 @@ CKEDITOR.editorConfig = function( config ) {
 		 'NumberedList','BulletedList', 'Blockquote', 'Code', 'WecenterImage', 'WecenterAttach', 'WecenterLink', 'WecenterVideo', 'Maximize', 'RemoveFormat', 'Source']
 
 	]
+
+	config.fontSize_sizes = '16px;18px';
 
 	// The default plugins included in the basic setup define some buttons that
 	// are not needed in a basic editor. They are removed here.

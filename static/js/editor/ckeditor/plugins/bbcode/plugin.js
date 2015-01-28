@@ -676,19 +676,20 @@
 						if ( tagName in convertMap )
 							tagName = convertMap[ tagName ];
 						else if ( tagName == 'span' ) {
-							// Modify by wecenter 屏蔽字体大小和颜色
+							// Modify by wecenter 屏蔽字体颜色
 							// if ( ( value = style.color ) ) {
 							// 	tagName = 'color';
 							// 	value = CKEDITOR.tools.convertRgbToHex( value );
 							// 	console.log(value);
-							// } else if ( ( value = style[ 'font-size' ] ) ) {
-							// 	var percentValue = value.match( /(\d+)%$/ ) ? value.match( /(\d+)%$/ ) : value.match( /(\d+)px$/ );
-							// 	console.log(percentValue);
-							// 	if ( percentValue ) {
-							// 		value = percentValue[ 1 ];
-							// 		tagName = 'size';
-							// 	}
-							// }
+							// } else 
+							if ( ( value = style[ 'font-size' ] ) ) {
+								var percentValue = value.match( /(\d+)%$/ ) ? value.match( /(\d+)%$/ ) : value.match( /(\d+)px$/ );
+								console.log(percentValue);
+								if ( percentValue ) {
+									value = percentValue[ 1 ];
+									tagName = 'size';
+								}
+							}
 						} else if ( tagName == 'ol' || tagName == 'ul' ) {
 							if ( ( value = style[ 'list-style-type' ] ) ) {
 								switch ( value ) {
@@ -735,14 +736,28 @@
 						} else if ( tagName == 'img' ) {
 							element.isEmpty = 0;
 
+
+
 							// Translate smiley (image) to text emotion.
 							var src = attributes[ 'data-cke-saved-src' ] || attributes.src,
 								alt = attributes.alt;
 
 							if ( src && src.indexOf( editor.config.smiley_path ) != -1 && alt )
+							{
 								return new CKEDITOR.htmlParser.text( smileyMap[ alt ] );
+							}
 							else
-								element.children = [ new CKEDITOR.htmlParser.text( src ) ];
+							{
+								// Modify by wecenter 过滤浏览器粘贴截图
+								if (src.match('data:image/png'))
+								{
+									return false;
+								}
+								else
+								{
+									element.children = [ new CKEDITOR.htmlParser.text( src ) ];
+								}
+							}
 						}
 
 						element.name = tagName;
