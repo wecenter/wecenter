@@ -37,6 +37,8 @@ class main extends AWS_CONTROLLER
         }
 
         $this->pre_page = get_setting('contents_per_page');
+
+        TPL::import_css('css/ticket.css');
     }
 
     public function index_action()
