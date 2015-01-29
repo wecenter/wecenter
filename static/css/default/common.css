@@ -230,7 +230,7 @@ a.aw-load-more-content{display: block;}
 .aw-user-nav .dropdown-list{top:100%;width:122px;border-top:none;border-radius: 0 0 4px 4px;}
 .aw-user-nav .dropdown-list ul li a i{vertical-align:-2px;margin-right: 5px;font-size: 16px;}
 .aw-search-box{margin:10px 0;}
-.aw-search-box input{width: 260px;height: 32px;padding-right:30px;border:none;}
+.aw-search-box input{width: 230px;height: 32px;padding-right:30px;border:none;}
 .aw-search-box #global_search_btns{position: absolute;right: 5px;top: 6px;font-size: 18px;color: #999;}
 .aw-search-box .aw-dropdown{width: 355px;}
 .aw-search-box .aw-dropdown p{height: 38px;line-height: 38px;margin:0;padding:0 10px;font-weight: normal;border-bottom: 1px solid #f0f0f0;}
