@@ -191,12 +191,6 @@ class main extends AWS_CONTROLLER
 			TPL::import_js('js/editor/ckeditor/adapters/jquery.js');
 
 		}
-		if (get_setting('upload_enable') == 'Y')
-		{
-			// fileupload
-			TPL::import_js('js/fileupload.js');
-		}
-
 
 		TPL::import_js('js/jquery.date_input.js');
 
