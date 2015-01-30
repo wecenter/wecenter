@@ -24,7 +24,7 @@
 .aw-user-center-tab .aw-mod .aw-item{padding-top:14px;border-bottom:1px solid #f5f5f5;}
 .aw-user-center-tab .aw-mod .aw-item:first-child{padding-top:0;border-top: none;}
 .aw-user-center-tab .aw-mod .aw-item .mod-head h4.aw-hide-txt{max-width: 645px;}
-.aw-user-center-tab .aw-mod .aw-item .mod-body{position:relative;}
+.aw-user-center-tab .aw-mod .aw-item .mod-body{position:relative;min-height: 30px;}
 .aw-user-center-tab .aw-mod .aw-item .mod-body p.aw-hide-txt{max-width: 610px;}
 .aw-user-center-tab .count{width: 58px;height:30px;margin:0 10px 0 0;padding:0 10px;background-color: #fff;border:1px solid #f5f5f5;border-radius: 4px;line-height: 30px;}
 .aw-user-center-tab .count i{margin-right: 10px;}
