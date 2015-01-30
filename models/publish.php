@@ -110,7 +110,7 @@ class publish_class extends AWS_MODEL
 		return true;
 	}
 
-	public function publish_answer($question_id, $answer_content, $uid, $anonymous = null, $attach_access_key = null, $auto_focus = true)
+	public function publish_answer($question_id, $answer_content, $uid, $anonymous = null, $attach_access_key = null, $auto_focus = true, $reply_to_openid = true)
 	{
 		if (!$question_info = $this->model('question')->get_question_info_by_id($question_id))
 		{
@@ -206,14 +206,17 @@ class publish_class extends AWS_MODEL
 
 		$this->model('posts')->set_posts_index($question_id, 'question');
 
-		if ($question_info['weibo_msg_id'])
+		if ($reply_to_openid)
 		{
-			$this->model('openid_weibo_weibo')->reply_answer_to_sina($question_info['question_id'], cjk_substr($answer_content, 0, 110, 'UTF-8', '...'));
-		}
+			if ($question_info['weibo_msg_id'])
+			{
+				$this->model('openid_weibo_weibo')->reply_answer_to_sina($question_info['question_id'], cjk_substr($answer_content, 0, 110, 'UTF-8', '...'));
+			}
 
-		if ($question_info['received_email_id'])
-		{
-			$this->model('edm')->reply_answer_by_email($question_info['question_id'], nl2br(FORMAT::parse_bbcode($answer_content)));
+			if ($question_info['received_email_id'])
+			{
+				$this->model('edm')->reply_answer_by_email($question_info['question_id'], nl2br(FORMAT::parse_bbcode($answer_content)));
+			}
 		}
 
 		return $answer_id;
@@ -515,7 +518,10 @@ class publish_class extends AWS_MODEL
 			), $update_key . ' = ' . $attach['item_id']);
 		}
 
-		if ($attach['item_type'] == 'question' OR $attach['item_type'] == 'weibo_msg')
+		if (in_array($attach['item_type'], array(
+			'question',
+			'weibo_msg'
+		)))
 		{
 			$attach['item_type'] = 'questions';
 		}
