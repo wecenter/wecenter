@@ -393,8 +393,7 @@ $(function()
 
 	}
 
-	//7月7日新增
-
+	// 点击切换众筹和活动
 	$('.aw-publish-tabs li').click(function(){
 		$('.fire .payback dt').html('<strong>*</strong>项目简介:');
 		$('.tab-content .raise').show();
@@ -428,9 +427,9 @@ $(function()
 		$('.lump dd').find("input").val($num)
 	}
 
-	/**
-	 * 7月14日 修改表单验证，优化代码
-	 */
+
+	//修改表单验证，优化代码
+
 	$('.aw-publish-setting .mod-footer .btn').on('click',function(){
 
 		getCheck($('.date-picker'),'length');
@@ -551,7 +550,6 @@ $(function()
 		}
 
 		// 设置
-
 		function setCookie(name, value, expires) {
 			var expDays = expires * 24 * 60 * 60 * 1000;
 			var expDate = new Date();
