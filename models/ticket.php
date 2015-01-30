@@ -297,19 +297,31 @@ class ticket_class extends AWS_MODEL
             'ip' => ip2long(fetch_ip())
         ));
 
-        if ($reply_id)
+        if (!$reply_id)
         {
-            set_human_valid('answer_valid_hour');
+            return false;
+        }
 
-            if ($attach_access_key)
-            {
-                $this->model('publish')->update_attach('ticket_reply', $reply_id, $attach_access_key);
-            }
+        set_human_valid('answer_valid_hour');
 
-            if (!$ticket_info['reply_time'])
-            {
-                $this->shutdown_update('ticket', array('reply_time' => $now), 'id = ' . $ticket_info['id']);
-            }
+        if ($attach_access_key)
+        {
+            $this->model('publish')->update_attach('ticket_reply', $reply_id, $attach_access_key);
+        }
+
+        if (!$ticket_info['reply_time'])
+        {
+            $this->shutdown_update('ticket', array('reply_time' => $now), 'id = ' . $ticket_info['id']);
+        }
+
+        if ($ticket_info['weibo_msg_id'])
+        {
+            $this->model('openid_weibo_weibo')->reply_answer_to_sina($question_info['question_id'], cjk_substr($answer_content, 0, 110, 'UTF-8', '...'));
+        }
+
+        if ($ticket_info['received_email_id'])
+        {
+            $this->model('edm')->reply_answer_by_email($question_info['question_id'], nl2br(FORMAT::parse_bbcode($answer_content)));
         }
 
         return $reply_id;
@@ -985,42 +997,28 @@ class ticket_class extends AWS_MODEL
             $from['received_email'] = $ticket_info['received_email'];
         }
 
-        $attachs = $this->model('publish')->get_attach('ticket', $ticket_info['id'], null);
+        $attach_access_key = $this->copy_attach('ticket', 'question', $ticket_info['id'], $ticket_info['uid']);
 
-        if ($attachs)
+        $question_id = $this->model('publish')->publish_question(htmlspecialchars_decode($ticket_info['title']), htmlspecialchars_decode($ticket_info['message']), null, $ticket_info['uid'], $topics, null, $attach_access_key, null, false, $from);
+
+        if (!$question_id)
         {
-            $now = time();
+            return false;
+        }
 
-            $attach_access_key = md5($ticket_info['uid'] . $now);
+        $ticket_replies = $this->get_replies_list_by_ticket_id($ticket_info['id'], 1, null);
 
-            foreach ($attachs AS $attach)
+        if ($ticket_replies)
+        {
+            foreach ($ticket_replies AS $reply_info)
             {
-                $new_dir = get_setting('upload_dir') . '/' . 'questions' . '/' . gmdate('Ymd', $now) . '/';
+                $attach_access_key = $this->copy_attach('ticket_reply', 'answer', $reply_info['id'], $reply_info['uid']);
 
-                $file_ext = end(explode('.', $attach['file_location']));
-
-                $new_filename = get_random_filename($new_dir, $file_ext);
-
-                if (@make_dir($new_dir) AND @copy($attach['path'], $new_dir . $new_filename))
-                {
-                    if ($attach['is_image'])
-                    {
-                        $old_dir = dirname($attach['path']) . '/';
-
-                        foreach (AWS_APP::config()->get('image')->attachment_thumbnail AS $key => $val)
-                        {
-                            $thumb_pre = $val['w'] . 'x' . $val['h'] . '_';
-
-                            @copy($old_dir . $thumb_pre . $attach['file_location'], $new_dir . $thumb_pre . $new_filename);
-                        }
-                    }
-
-                    $this->model('publish')->add_attach('question', $attach['file_name'], $attach_access_key, $now, $new_filename, $attach['is_image']);
-                }
+                $this->model('publish')->publish_answer($question_id, htmlspecialchars_decode($reply_info['message']), $reply_info['uid'], null, $attach_access_key, true, false);
             }
         }
 
-        return $this->model('publish')->publish_question($ticket_info['title'], $ticket_info['message'], null, $ticket_info['uid'], $topics, null, $attach_access_key, null, false, $from);
+        return $question_id;
     }
 
     public function save_weibo_msg_to_ticket_crond()
@@ -1034,40 +1032,7 @@ class ticket_class extends AWS_MODEL
 
         foreach ($weibo_msgs_list AS $weibo_msg)
         {
-            $attachs = $this->model('publish')->get_attach('weibo_msg', $weibo_msg['id'], null);
-
-            if ($attachs)
-            {
-                $now = time();
-
-                $attach_access_key = md5($weibo_msg['uid'] . $now);
-
-                foreach ($attachs AS $attach)
-                {
-                    $new_dir = get_setting('upload_dir') . '/' . 'ticket' . '/' . gmdate('Ymd', $now) . '/';
-
-                    $file_ext = end(explode('.', $attach['file_location']));
-
-                    $new_filename = get_random_filename($new_dir, $file_ext);
-
-                    if (@make_dir($new_dir) AND @copy($attach['path'], $new_dir . $new_filename))
-                    {
-                        if ($attach['is_image'])
-                        {
-                            $old_dir = dirname($attach['path']) . '/';
-
-                            foreach (AWS_APP::config()->get('image')->attachment_thumbnail AS $key => $val)
-                            {
-                                $thumb_pre = $val['w'] . 'x' . $val['h'] . '_';
-
-                                @copy($old_dir . $thumb_pre . $attach['file_location'], $new_dir . $thumb_pre . $new_filename);
-                            }
-                        }
-
-                        $this->model('publish')->add_attach('ticket', $attach['file_name'], $attach_access_key, $now, $new_filename, $attach['is_image']);
-                    }
-                }
-            }
+            $attach_access_key = $this->copy_attach('weibo_msg', 'ticket', $weibo_msg['id'], $weibo_msg['uid']);
 
             $this->save_ticket($weibo_msg['text'], null, $weibo_msg['uid'], $attach_access_key, array(
                 'weibo_msg' => $weibo_msg['id']
@@ -1092,5 +1057,56 @@ class ticket_class extends AWS_MODEL
         }
 
         return true;
+    }
+
+    public function copy_attach($old_type, $new_type, $id, $uid)
+    {
+        $attachs = $this->model('publish')->get_attach($old_type, $id, null);
+
+        if (!$attachs)
+        {
+            return false;
+        }
+
+        if ($now)
+        {
+            $now += 1;
+        }
+        else
+        {
+            static $now;
+
+            $now = time();
+        }
+
+        $attach_access_key = md5($uid . $now);
+
+        foreach ($attachs AS $attach)
+        {
+            $new_dir = get_setting('upload_dir') . '/' . $new_type . (($new_type == 'question') ? 's' : '') . '/' . gmdate('Ymd', $now) . '/';
+
+            $file_ext = end(explode('.', $attach['file_location']));
+
+            $new_filename = get_random_filename($new_dir, $file_ext);
+
+            if (@make_dir($new_dir) AND @copy($attach['path'], $new_dir . $new_filename))
+            {
+                if ($attach['is_image'])
+                {
+                    $old_dir = dirname($attach['path']) . '/';
+
+                    foreach (AWS_APP::config()->get('image')->attachment_thumbnail AS $key => $val)
+                    {
+                        $thumb_pre = $val['w'] . 'x' . $val['h'] . '_';
+
+                        @copy($old_dir . $thumb_pre . $attach['file_location'], $new_dir . $thumb_pre . $new_filename);
+                    }
+                }
+
+                $this->model('publish')->add_attach($new_type, $attach['file_name'], $attach_access_key, $now, $new_filename, $attach['is_image']);
+            }
+        }
+
+        return $attach_access_key;
     }
 }
