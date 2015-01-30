@@ -559,7 +559,10 @@ class publish_class extends AWS_MODEL
 
 		foreach ($attach as $key => $data)
 		{
-			if ($item_type == 'question' OR $item_type == 'weibo_msg')
+			if (in_array($item_type, array(
+				'question',
+				'weibo_msg'
+			)))
 			{
 				$item_type = 'questions';
 			}
