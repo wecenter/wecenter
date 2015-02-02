@@ -99,9 +99,22 @@ class crond_class extends AWS_MODEL
             AWS_APP::cache()->set('reputation_calculate_start', 0, 604800);
         }
 
-        $this->model('email')->send_mail_queue(120);
-
         $this->model('online')->delete_expire_users();
+
+        if (check_extension_package('project'))
+        {
+            $expire_orders = $this->fetch_all('product_order', 'add_time < ' . (time() - 600) . ' AND payment_time = 0 AND cancel_time = 0 AND refund_time = 0');
+
+            if ($expire_orders)
+            {
+                foreach ($expire_orders AS $order_info)
+                {
+                    $this->model('project')->cancel_project_order_by_id($order_info['id']);
+                }
+            }
+        }
+
+        $this->model('email')->send_mail_queue(120);
     }
 
     // 每五分钟执行
@@ -140,6 +153,11 @@ class crond_class extends AWS_MODEL
     public function half_hour()
     {
         $this->model('search_fulltext')->clean_cache();
+
+        if (check_extension_package('project'))
+        {
+            $this->model('project')->send_project_open_close_notify();
+        }
 
         $receiving_email_global_config = get_setting('receiving_email_global_config');
 
