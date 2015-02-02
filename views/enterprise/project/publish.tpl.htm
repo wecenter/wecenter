@@ -249,9 +249,9 @@ $(function()
 
 	// 选择日期
 	if (typeof(DateInput) != 'undefined')
-    {
-        $('input.date-picker').date_input();
-    }
+	{
+		$('input.date-picker').date_input();
+	}
 
 	// 地址初始化
 	$('.select_area').LocationSelect({
@@ -354,7 +354,7 @@ $(function()
 
 
 
-	// 回报删除
+	// 删除回报
 	$(document).on('click', '.aw-project-return-list .delete', function()
 	{
 		if ($(this).data('id'))
@@ -378,7 +378,7 @@ $(function()
 		}
 	});
 
-	// 返回一个不重复的id数
+	// 返回 回报列表ID
 	function checkProjectId()
 	{
 		var arr_projectId = [];
@@ -432,7 +432,7 @@ $(function()
 	}
 
 
-	// 整个提交表单验证
+	// 整个表单提交验证
 
 	$('.aw-publish-setting .mod-footer .btn').on('click',function()
 	{
@@ -467,20 +467,20 @@ $(function()
 
 			switch(type){
 				case 'length':
-				fromType(obj.val().length <= 0);
+				formType(obj.val().length <= 0);
 				break;
 
 				case 'check':
-				fromType(! obj.is(":checked"));
+				formType(! obj.is(":checked"));
 				break;
 
 				case 'select':
-				fromType(!obj.find("option").is(":selected"));
+				formType(!obj.find("option").is(":selected"));
 				break;
 
 			}
 
-			function fromType(status){
+			function formType(status){
 
 				if(status){
 					tempObj.removeClass("hide");
