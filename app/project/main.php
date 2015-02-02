@@ -196,7 +196,7 @@ class main extends AWS_CONTROLLER
 
 		if (get_setting('category_enable') == 'Y')
 		{
-			TPL::assign('project_category_list', $this->model('system')->build_category_html('project', 0, $project_info['category_id']));
+			TPL::assign('project_category_list', $this->model('system')->build_category_html('question', 0, $project_info['category_id']));
 		}
 
 		TPL::assign('attach_access_key', md5($this->user_id . time()));
