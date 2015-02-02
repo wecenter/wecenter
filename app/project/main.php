@@ -194,7 +194,7 @@ class main extends AWS_CONTROLLER
 
 		TPL::import_js('js/jquery.date_input.js');
 
-		TPL::assign('category_list', $this->model('system')->get_category_list('project'));
+		TPL::assign('category_list', $this->model('menu')->get_nav_menu_list('project'));
 
 		TPL::assign('attach_access_key', md5($this->user_id . time()));
 
