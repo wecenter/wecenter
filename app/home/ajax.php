@@ -88,6 +88,26 @@ class ajax extends AWS_CONTROLLER
 		{
 			$data = $this->model('actions')->get_user_actions(null, (intval($_GET['page']) * $this->per_page) . ", {$this->per_page}", null, $this->user_id);
 		}
+		else if ($_GET['filter'] == 'activity' AND check_extension_package('project'))
+		{
+			$project_like = $this->model('project')->fetch_all('project_like', 'uid = ' . $this->user_id);
+
+			foreach ($project_like as $project_info)
+			{
+				$project_ids[] = $project_info['project_id'];
+			}
+
+			$this->model('project')->fetch_all('product_order', 'uid = ' . $this->user_id);
+
+			foreach ($product_order as $project_info)
+			{
+				$project_ids[] = $project_info['project_id'];
+			}
+
+			$project_ids = array_unique($project_ids);
+
+			$data = $this->model('project')->get_project_info_by_ids($project_ids, (intval($_GET['page']) * $this->per_page) . ", {$this->per_page}");
+		}
 		else
 		{
  			$data = $this->model('actions')->home_activity($this->user_id, (intval($_GET['page']) * $this->per_page) . ", {$this->per_page}");
