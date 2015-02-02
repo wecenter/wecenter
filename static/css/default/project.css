@@ -146,14 +146,14 @@
 .aw-project-detail .mod-body .tab-pane {top: 0;}
 .aw-project-detail .aw-nav-tabs {padding: 30px 0 0;}
 
-.aw-project-suggest .mod-body {overflow: hidden;margin-top: 5px;}
-.aw-project-suggest .mod-body ul {margin-top: -1px;}
-.aw-project-suggest .mod-body ul li{margin-bottom: 5px;border-top: 1px dashed #e6e6e6;overflow: hidden;}
-.aw-project-suggest .mod-body ul li a{white-space: nowrap;overflow: hidden;text-overflow: ellipsis;display: block;height: 36px; color: #333;line-height: 36px;}
-.aw-project-suggest .mod-body ul li i{color: #fff;background: #58add2;border-radius: 50%;padding: 3px 7px;line-height: 36px;}
-.aw-project-support .mod-body {max-height: 110px;min-height: 50px;overflow: hidden;}
-.aw-project-support .mod-body ul{width: 600px;height: auto;margin-left: 12px;}
-.aw-project-support .mod-body ul li{float: left;margin:0 10px 10px 0;}
+
+.aw-project-suggest .mod-body .aw-user-name img {border-radius: 0;}
+.aw-project-suggest .mod-body .aw-item h4 {max-width: 600px;margin-bottom: 0;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;}
+.aw-project-suggest .mod-body .aw-item p {margin: 0;}
+.aw-project-support .mod-body dl {float: left; width: 50%;margin: 0;padding: 15px 0;border-bottom: 1px solid #f5f5f5;}
+.aw-project-support .mod-body dl dt img {float: left;width: 40px;height: 40px;}
+.aw-project-support .mod-body dl dd {margin-left: 50px;}
+.aw-project-support .mod-body dl dd p {margin: 0;max-width: 228px;line-height: 25px; white-space: nowrap;text-overflow:ellipsis;overflow: hidden;}
 .aw-project-preheat .mod-head{position:relative;padding:10px 20px;color: #333;}
 .aw-project-preheat .mod-head h2{font-size: 20px;}
 .aw-project-preheat .mod-head b{display:block;margin:20px 0;font-size: 28px;}
@@ -275,18 +275,21 @@
 .tab-pane .aw-publish-desc{border-top: none;}
 .modal-content .mod-body{margin-top: 20px;}
 .modal-content .mod-footer{margin-top: 0;}
-.modal-content dt{display: inline-block;width: 100px;float: left;text-align: right;padding-right: 20px;}
-.modal-content dd{display: inline-block;width: 200px;}
-.aw-publish-desc label.hide{display: none;}
-.aw-publish-desc .label-danger{margin: 10px 0 10px 90px;padding:8px ; display: inline-block;}
-.replay-box .col-sm-7{padding:0 6px }
-.bd_weixin_popup{height: 300px !important;}
-#aw-ajax-box .label-danger{padding: 10px 0px;margin-bottom: 15px;}
-.aw-publish-contact{padding:20px !important;}
+.modal-content dt {display: inline-block;width: 100px;float: left;text-align: right;padding-right: 20px;}
+.modal-content dd {display: inline-block;width: 200px;}
+.aw-publish-desc label.hide {display: none;}
+.aw-publish-desc .label-danger {margin: 10px 0 10px 90px;padding:8px ; display: inline-block;}
+.aw-publish-desc .aw-edit-topic-box input {margin-bottom: 0;}
+.replay-box .col-sm-7 {padding:0 6px }
+.bd_weixin_popup {height: 300px !important;}
 .aw-event-publish .aw-publish-setting > .mod-footer {text-align: right;}
+#aw-ajax-box .label-danger {padding: 10px 0px;margin-bottom: 15px;}
+.aw-publish-contact {padding:20px !important;}
+.aw-publish-contact .mod-footer {text-align: center;}
+
 
 /* 支付明细页面 */
-.zc-project-record{margin-top: 20px;}
+.zc-project-record {margin-top: 20px;}
 .zc-project-record .zc-tabs li{width: 14.286%;}
 .zc-project-record.sponsored .zc-tabs li{width: 12.5%;}
 .zc-project-record .project-support-list table{width:100%;font-size: 12px;}
@@ -307,8 +310,6 @@
 /* 统计页面 */
 #flotr-canvas{margin: 8px auto;width: 800px;height: 400px;}
 
-/*编辑器*/
-.markitup-box h3, #markItUpPreviewFrames h3{margin-top:20px;color: #333;font-weight: 400;font-size: 18px;}
 
 /*日期选择控件*/
 .date_selector, .date_selector * {margin: 0;padding: 0;width: auto;height: auto;border: none;background: none;text-align: left;text-decoration: none;cursor: pointer;}

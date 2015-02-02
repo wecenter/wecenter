@@ -32,7 +32,7 @@
 										<dt><strong>*</strong>选择分类:</dt>
 										<dd>
 										<?php if ($this->project_category_list) { ?>
-										<select name="category_id" class="hide" id="category_id">
+										<select name="category_id" id="category_id" class="project-sort">
 											<option value="0">- <?php _e('请选择分类'); ?> -</option>
 											<?php echo $this->project_category_list; ?>
 										</select>
@@ -432,15 +432,15 @@ $(function()
 	$('.aw-edit-topic').click();
 
 	// 整个表单提交验证
-
 	$('.aw-publish-setting .mod-footer .btn').on('click',function()
 	{
 
-		getCheck($('.date-picker'),'length'); //验证日期
-		getCheck($('.col-sm-5 input'),'length'); //验证众筹总额
+		getCheck($('.date-picker'),'length'); // 验证日期
+		getCheck($('.col-sm-5 input'),'length'); // 验证众筹总额
 		getCheck($('.select_area:eq(1)'),'select'); // 验证地址
-		getCheck($('.project-name'),'length'); //验证活动名称
-		getCheck($('.project-sort input'),'check'); // 验证活动分类
+		getCheck($('.project-name'),'length'); // 验证活动名称
+		getCheck($('.project-sort'),'check'); // 验证活动分类
+		getCheck($('iframe'),'editor'); // 验证编辑器内容
 
 		//验证回报设置内容
 		if ( $('.aw-project-return-list tbody tr').length == 0 && $('.aw-project-return-form').is(':visible'))
@@ -462,21 +462,25 @@ $(function()
 
 		function getCheck(obj,type)
 		{
-
+			// 验证函数
 			var tempObj = obj.parents('dd').siblings(".col-sm-8").find('.label-danger')
 
 			switch(type)
 			{
 				case 'length':
-				fromType(obj.val().length <= 0);
-				break;
-
-				case 'check':
-				fromType(! obj.is(":checked"));
+					fromType(obj.val().length <= 0);
 				break;
 
 				case 'select':
-				fromType(!obj.find("option").is(":selected"));
+					fromType(!obj.find("option").is(":selected"));
+				break;
+
+				case 'check':
+					fromType(obj.find('option:eq(0)').is(':selected'));
+				break;
+
+				case 'editor':
+					fromType(obj.contents().find('body').html().trim() == '');
 				break;
 
 			}
@@ -499,16 +503,6 @@ $(function()
 
 			}
 
-		}
-
-		// 验证编辑器器内容
-		var projectContent = $('iframe').contents().find('body').html().trim();
-		if (projectContent == '') {
-			$('iframe').parents('dd').next('.col-sm-8').find('.label-danger').removeClass('hide');
-		} else
-		{
-
-			$('iframe').parents('dd').next('.col-sm-8').find('.label-danger').addClass('hide');
 		}
 	})
 

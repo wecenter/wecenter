@@ -532,7 +532,7 @@ var AW_TEMPLATE = {
 								'</dl>'+
 							'</div>'+
 							'<div class="mod-footer">'+
-							'<a class="btn btn-normal btn-green" >'+ '提交审核 '+ '</a>'+
+							'<a class="btn btn-normal btn-success" >'+ '提交审核 '+ '</a>'+
 							'</div>'+
 						'</div>'+
 					'</div>'+
