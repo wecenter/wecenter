@@ -1310,3 +1310,25 @@ function check_extension_package($package)
 
 	return true;
 }
+
+function get_left_days($timestamp)
+{
+	$left_days = intval(($timestamp - time()) / (3600 * 24));
+
+	if ($left_days < 0)
+	{
+		$left_days = 0;
+	}
+
+	return $left_days;
+}
+
+function get_paid_progress_bar($amount, $paid)
+{
+	if ($amount == 0)
+	{
+		return 0;
+	}
+
+	return intval(($paid / $amount) * 100);
+}

@@ -221,6 +221,30 @@ class tools extends AWS_ADMIN_CONTROLLER
         }
     }
 
+    public function update_project_posts_index_action()
+    {
+        if ($project_list = $this->model('project')->fetch_page('project', 'approved = 1', 'id ASC', $_GET['page'], $_GET['per_page']))
+        {
+            foreach ($project_list as $key => $val)
+            {
+                if ($val['approved'] == 1 AND $val['status'] == 'ONLINE')
+                {
+                    $this->model('posts')->set_posts_index($val['id'], 'project', $val);
+                }
+                else
+                {
+                    $this->model('posts')->remove_posts_index($val['id'], 'project');
+                }
+            }
+
+            H::redirect_msg(AWS_APP::lang()->_t('正在更新活动列表索引') . ', ' . AWS_APP::lang()->_t('批次: %s', $_GET['page']), '?/admin/tools/update_project_posts_index/page-' . ($_GET['page'] + 1) . '__per_page-' . $_GET['per_page']);
+        }
+        else
+        {
+            H::redirect_msg(AWS_APP::lang()->_t('搜索索引更新完成'));
+        }
+    }
+
     public function update_fresh_actions_action()
     {
         if ($this->model('system')->update_associate_fresh_action($_GET['page'], $_GET['per_page']))
