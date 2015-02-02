@@ -2,8 +2,8 @@
 .aw-top-menu-wrap {margin:0;}
 .progress-bar-green {background-color: #93C215;}
 .label-green, .label-green {background-color: #93C215;color: #fff !important;font-weight: normal;font-size:12px;}
-.aw-page-control .active a, .zc-page-control li:hover a, .zc-page-control li:focus a{border:1px solid #84AD14 !important;background-color: #93C215 !important;color: #fff;}
-.zc-page-control li a{color: #93C215;}
+.aw-page-control .active a, .aw-page-control li:hover a, .aw-page-control li:focus a{border:1px solid #84AD14 !important;background-color: #93C215 !important;color: #fff;}
+.aw-page-control li a{color: #93C215;}
 .mod.cell {border:1px solid #ccc;}
 .form-xs {width: 60px;}
 .form-mini {width: 150px;}
@@ -11,23 +11,9 @@
 .date-picker {padding-left:30px !important;background:url('img/calendar.png') no-repeat 7px 9px;}
 .btn-green,.btn-green:hover, .btn-green:focus{padding:5px 15px;border-radius: 5px;color: #fff;}
 .square-page {clear: both;margin-right: 47%;}
-/* tabs切换 */
-.zc-tabs li{width: 16.66%;border-left: 1px solid #DFDFDF;background-color: #E8E8E8;}
-.zc-tabs li:first-child{border-left: none;}
-.zc-tabs li a{margin-right: 0;border-top:2px solid #E8E8E8;border-right: 0;border-radius: 0;color: #666;text-align: center;}
-.zc-tabs li.active a, .zc-tabs li.active a:hover, .zc-tabs li.active a:focus{border-top: 2px solid #2185C5;color: #2185C5;}
-/* 活动广场 */
-.zc-nav-title {margin-bottom: 10px;}
-.zc-nav-title .pull-right {line-height: 40px;}
-.zc-nav-title h2 {margin-right:20px;font-size: 20px;padding-top: 10px;}
-.zc-nav-title span a {margin-right:10px;color: #666;font-size: 12px;}
-.zc-nav-title span a:hover {color: #99CC00;}
-.zc-nav-title .dropdown-menu {min-width: 115px;}
-.zc-nav-title .dropdown-menu ul li {padding:5px 10px;}
-.zc-nav-title .dropdown-menu ul li a {display: block;}
-.zc-nav-title .dropdown-menu ul li.active {background-color: #d6e9f8;}
-.aw-nav-title .dropdown-toggle{border: 1px solid #5aaed3;border-radius: 5px;color: #5aaed3;}
 
+/* 活动广场 */
+.aw-nav-title .dropdown-toggle{border: 1px solid #5aaed3;border-radius: 5px;color: #5aaed3;}
 .aw-nav-filter{margin:0 0 20px;border-radius: 4px; background-color: #fff;border: 1px solid #d3d3d3;}
 .aw-nav-filter .mod-head {border-bottom: 1px solid #d3d3d3;height: 62px;padding: 15px;}
 .aw-nav-filter .mod-head h2 {font-size: 20px;margin: 0;}
@@ -248,7 +234,6 @@
 #project-status .aw-box{border: none;}
 .modal-backdrop {display: none !important;}
 
-
 .aw-event-publish{margin: 0 0 20px 0;padding: 20px 20px 0 20px;border: 1px solid #e6e6e6;border-radius: 5px;background-color: #fff;}
 .aw-event-publish .aw-reset-nav-tabs > li.active a{background:transparent;border-bottom: 2px solid #155faa;}
 .tabbable .row h2{ padding-left: 15px;font-weight: normal;font-size: 22px;}
@@ -258,7 +243,6 @@
 .category-list .radio-inline,.payback .textarea .radio-inline{padding-left: 0;}
 .category-list .radio-inline input,.payback .textarea .radio-inline input{margin: 10px 10px 0 5px;position: inherit;}
 .aw-box strong{ padding: 0 5px;vertical-align: middle;font-size: 16px;line-height: 35px;}
-.clpadding{padding:0;}
 .payback .tips{padding: 10px;border:1px solid #c0eded;background:#f5ffff;}
 .payback .table{margin-top: 30px;border-bottom:1px solid #e6e6e6; }
 .payback .table tbody,.aw-project-return-form {background:#f9f9f9;}
@@ -289,23 +273,27 @@
 
 
 /* 支付明细页面 */
-.zc-project-record {margin-top: 20px;}
-.zc-project-record .zc-tabs li{width: 14.286%;}
-.zc-project-record.sponsored .zc-tabs li{width: 12.5%;}
-.zc-project-record .project-support-list table{width:100%;font-size: 12px;}
-.zc-project-record .project-support-list table img{width: 60px;height: 43px;border-radius: 5px;}
-.zc-project-record .project-support-list table th{padding:15px 0 5px 15px;max-width:200px;border-bottom: 1px solid #ECECEC;text-align: center;font-weight: normal;}
-.zc-project-record .project-support-list table td{padding:15px 0;border-bottom: 1px solid #ECECEC;text-align: center;line-height:34px;}
-.zc-project-record .project-support-list table tbody tr:nth-child(n) th, .zc-project-record .project-support-list table tbody tr:nth-child(n) td{border-bottom:none;}
-.zc-project-record .project-support-list table tbody tr:nth-child(2n) td{padding:0 0 10px 15px;border-bottom:1px solid #ECECEC;text-align: left;}
-.zc-project-record .project-support-list .dl-horizontal dt{width: 60px;}
-.zc-project-record .project-support-list .dl-horizontal dd{margin-left: 70px;text-align: left;}
-.zc-project-record .project-support-list .shipping-form{margin-left: 10px;}
-.zc-project-record .project-support-list .shipping-form .form-mini{float:left;margin-right: 5px;width: 100px;}
+.aw-project-record {background: #fff;}
+.aw-project-record .aw-tabs li{width: 14.286%;border-left: 1px solid #e6e6e6;}
+.aw-project-record.sponsored .aw-tabs li{width: 12.5%;}
+.aw-project-record .project-support-list table{width:100%;font-size: 12px;}
+.aw-project-record .project-support-list table img{width: 60px;height: 43px;border-radius: 5px;}
+.aw-project-record .project-support-list table th{padding:15px 0 5px 15px;max-width:200px;border-bottom: 1px solid #ECECEC;text-align: center;font-weight: normal;}
+.aw-project-record .project-support-list table td{padding:15px 0;border-bottom: 1px solid #ECECEC;text-align: center;line-height:34px;}
+.aw-project-record .project-support-list table tbody tr:nth-child(n) th, .aw-project-record .project-support-list table tbody tr:nth-child(n) td{border-bottom:none;}
+.aw-project-record .project-support-list table tbody tr:nth-child(2n) td{padding:0 0 10px 15px;border-bottom:1px solid #ECECEC;text-align: left;}
+.aw-project-record .project-support-list .dl-horizontal dt{width: 60px;}
+.aw-project-record .project-support-list .dl-horizontal dd{margin-left: 70px;text-align: left;}
+.aw-project-record .project-support-list .shipping-form{margin-left: 10px;}
+.aw-project-record .project-support-list .shipping-form .form-mini{float:left;margin-right: 5px;width: 100px;}
 
 /* 活动管理页面 */
-.zc-project-record.manage .project-support-list table tbody tr:nth-child(n) th, .zc-project-record.manage .project-support-list table tbody tr:nth-child(n) td{border-bottom: 1px solid #ECECEC;}
-.zc-project-record.manage .project-support-list table tbody tr:nth-child(2n) td{padding:15px 0;text-align: center;}
+.aw-project-record .aw-tabs {margin: 0 -15px;height: 43px;}
+.aw-project-record .aw-tabs li:first-child{border-left: none;}
+.aw-project-record .aw-tabs li a{margin-right: 0;border-top:2px solid transparent;border-right: 0;border-radius: 0;color: #666;text-align: center;}
+.aw-project-record .aw-tabs li.active a {border-top: 2px solid #2185C5;color: #2185C5;}
+.aw-project-record.manage .project-support-list table tbody tr:nth-child(n) th, .aw-project-record.manage .project-support-list table tbody tr:nth-child(n) td{border-bottom: 1px solid #ECECEC;}
+.aw-project-record.manage .project-support-list table tbody tr:nth-child(2n) td{padding:15px 0;text-align: center;}
 
 /* 统计页面 */
 #flotr-canvas{margin: 8px auto;width: 800px;height: 400px;}
@@ -352,21 +340,21 @@
 @media (max-width:640px) {
 /* 活动列表 */
     body{background: #fff}
-    .zc-nav-filter .pull-right a{padding: 0 5px 11px 5px;}
-    .zc-project-page .col-md-4 {padding: 0 15px}
-    .zc-project-suggest .mod-body ul li i{top:8px;}
-    .zc-nav-filter .pull-right {float: left !important;margin-left: -10px}
+    .aw-nav-filter .pull-right a{padding: 0 5px 11px 5px;}
+    .aw-project-page .col-md-4 {padding: 0 15px}
+    .aw-project-suggest .mod-body ul li i{top:8px;}
+    .aw-nav-filter .pull-right {float: left !important;margin-left: -10px}
     .aw-side-bar .mod-body ul{margin-right: -20px}
     .aw-side-bar .mod-body li{margin-right: 15px}
     .aw-project-return-list ul li{padding: 10px 29px;}
-    .zc-nav-filter dt{margin-right: 10px;}
-    .zc-nav-filter dd{float: none !important;margin-left: 0;}
-    .zc-nav-filter dd ul li{margin-bottom: 5px;}
-    .zc-project-list ul{width: 100%;}
-    .zc-project-list ul li{float: none;width: 100%;height: auto;margin-left: 10px;}
-    .zc-project-list ul li .mod-head img{width: 100%;}
-    .zc-project-page .col-sm-12{width: 100% !important;}
-    .zc-project-page .zc-project-detail img{max-width: 100%;}
+    .aw-nav-filter dt{margin-right: 10px;}
+    .aw-nav-filter dd{float: none !important;margin-left: 0;}
+    .aw-nav-filter dd ul li{margin-bottom: 5px;}
+    .aw-project-list ul{width: 100%;}
+    .aw-project-list ul li{float: none;width: 100%;height: auto;margin-left: 10px;}
+    .aw-project-list ul li .mod-head img{width: 100%;}
+    .aw-project-page .col-sm-12{width: 100% !important;}
+    .aw-project-page .aw-project-detail img{max-width: 100%;}
     .hr{display: none;}
     /* 活动发起 */
     .aw-event-publish .mod .mod-body > dl > dt{text-align: left;}
@@ -377,10 +365,4 @@
     #aw-ajax-box .modal-content {width: 100%;padding: 0 8px;}
     .formBox {width: 100%;padding-bottom: 80px;border: none;}
     .formBox .main{margin-left: 0}
-/* iphone竖屏幕 */
-
-
-@media (max-width:321px){
-    .kn-ask-account{width: 330px;}
-}
 }

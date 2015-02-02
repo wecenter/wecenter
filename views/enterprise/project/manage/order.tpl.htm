@@ -1,12 +1,12 @@
 <?php TPL::output('global/header.tpl.htm'); ?>
 
-<div class="aw-container-wrap zc-container-wrap zc-project-container-wrap">
+<div class="aw-container-wrap aw-container-wrap aw-project-container-wrap">
 	<div class="aw-container aw-wecenter">
 		<div class="container">
 			<div class="row">
-				<div class="col-sm-12 zc-project-record">
+				<div class="col-sm-12 aw-project-record">
 					<div class="tabbable">
-						<ul class="nav nav-tabs zc-tabs">
+						<ul class="nav nav-tabs aw-tabs">
 							<li<?php if ($_GET['act'] == 'index') { ?> class="active"<?php } ?>><a href="project/manage/"><?php _e('我的项目'); ?></a></li>
 							<li<?php if ($_GET['id'] == 'preparing') { ?> class="active"<?php } ?>><a href="project/manage/order/preparing"><?php _e('等待回报'); ?></a></li>
 							<li<?php if ($_GET['id'] == 'shipped') { ?> class="active"<?php } ?>><a href="project/manage/order/shipped"><?php _e('已发回报'); ?></a></li>
@@ -66,7 +66,7 @@
 										</td>
 										<td>
 											<?php if ($val['project_type'] == 'DEFAULT') { ?>
-											<a data-title="<?php echo nl2br($val['description']); ?>" class="zc-tooltip"><span><?php _e('回报内容'); ?></span></a><?php if ($val['note']) { ?> &nbsp; <a data-title="<?php echo nl2br($val['note']); ?>" class="zc-tooltip"><span><?php _e('备注'); ?></span></a><?php } ?>
+											<a data-title="<?php echo nl2br($val['description']); ?>" class="aw-tooltip"><span><?php _e('回报内容'); ?></span></a><?php if ($val['note']) { ?> &nbsp; <a data-title="<?php echo nl2br($val['note']); ?>" class="aw-tooltip"><span><?php _e('备注'); ?></span></a><?php } ?>
 											<?php } else { ?>-<?php } ?>
 										</td>
 									</tr>
@@ -123,7 +123,7 @@
 
 <script type="text/javascript">
 	$(document).ready(function () {
-		show_card_box('.zc-tooltip', 'tooltip', '0');
+		AWS.show_card_box('.aw-tooltip', 'tooltip', '0');
 	});
 </script>
 

@@ -6,11 +6,11 @@
 </head>
 <body>
 <form action='<?php echo get_js_url('/payment/alipay/'); ?>' method='post'>
-<input type='hidden' name='order_id' value='<?php echo $this->order_info['payment_order_id']; ?>' />
-<input type='hidden' name='project_order_id' value='<?php echo $this->order_info['id']; ?>' />
-<input type='hidden' name='amount' value='<?php echo $this->order_info['amount']; ?>' />
-<input type='hidden' name='params' value='<?php echo $this->params; ?>' />
-<input type="submit" id="payment_submit" value="<?php _e('继续'); ?>" />
+    <input type='hidden' name='order_id' value='<?php echo $this->order_info['payment_order_id']; ?>' />
+    <input type='hidden' name='project_order_id' value='<?php echo $this->order_info['id']; ?>' />
+    <input type='hidden' name='amount' value='<?php echo $this->order_info['amount']; ?>' />
+    <input type='hidden' name='params' value='<?php echo $this->params; ?>' />
+    <input type="submit" id="payment_submit" value="<?php _e('继续'); ?>" />
 </form>
 
 <script type="text/javascript">

@@ -1,12 +1,12 @@
 <?php TPL::output('global/header.tpl.htm'); ?>
 
-<div class="aw-container-wrap zc-container-wrap zc-project-container-wrap">
-	<div class="aw-container aw-wecenter zc-container">
+<div class="aw-container-wrap aw-container-wrap aw-project-container-wrap">
+	<div class="aw-container aw-wecenter">
 		<div class="container">
 			<div class="row">
-				<div class="col-sm-12 zc-project-record manage">
+				<div class="col-sm-12 aw-project-record manage">
 					<div class="tabbable">
-						<ul class="nav nav-tabs zc-tabs">
+						<ul class="nav nav-tabs aw-tabs">
 							<li<?php if (!$_GET['id']) { ?> class="active"<?php } ?>><a href="project/manage/"><?php _e('我的项目'); ?></a></li>
 							<li<?php if ($_GET['id'] == 'preparing') { ?> class="active"<?php } ?>><a href="project/manage/order/preparing"><?php _e('等待回报'); ?></a></li>
 							<li<?php if ($_GET['id'] == 'shipped') { ?> class="active"<?php } ?>><a href="project/manage/order/shipped"><?php _e('已发回报'); ?></a></li>
