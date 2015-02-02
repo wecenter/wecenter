@@ -171,8 +171,8 @@
 .formBox {width: 450px;padding-bottom: 80px; border: 1px solid #e6e6e6;}
 .formBox .title{padding: 0 10px;height: 52px;background: #f9f9f9;}
 .formBox .title h3{vertical-align: middle;font-size: 16px;line-height: 52px;}
-.formBox .title span{ margin: 8px -10px 0 0 ; width: 45px;height: 34px;background: url(../../common/close-btn.png); cursor: pointer;}
-.formBox .main,.formBox .footer{margin-top: 30px;}
+.formBox .title i { margin: 8px -10px 0 0 ; width: 45px;height: 34px; cursor: pointer;}
+.formBox .main,.formBox .footer {margin-top: 30px;}
 .formBox .footer a{ margin-right: 20px; padding:10px 35px; border-color: #5aaed3;border-radius: 7px;background-color: #58B957;color: #fff;}
 .formBox .main{margin-left: -50px;}
 .progress{margin-top: 18px;border-radius: 0;height: 11px;}

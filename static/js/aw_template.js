@@ -545,7 +545,7 @@ var AW_TEMPLATE = {
 				'<div class="modal-content">'+
 					'<div class="formBox">'+
 						'<div class="title">'+
-							'<h3>活动报名 <span class="pull-right" data-dismiss="modal" aria-hidden="true">  </span></h3>'+
+							'<h3>活动报名 <i class="icon icon-delete pull-right" data-dismiss="modal" aria-hidden="true"></i></h3>'+
 						'</div>'+
 
 						'<div class="main ">'+
@@ -591,7 +591,7 @@ var AW_TEMPLATE = {
 				'<div class="modal-content">'+
 					'<div class="formBox">'+
 						'<div class="title">'+
-							'<h3>预约投资 <span class="pull-right" data-dismiss="modal" aria-hidden="true">  </span></h3>'+
+							'<h3>预约投资 <i class="icon icon-delete pull-right" data-dismiss="modal" aria-hidden="true"></i></h3>'+
 						'</div>'+
 
 						'<div class="main ">'+

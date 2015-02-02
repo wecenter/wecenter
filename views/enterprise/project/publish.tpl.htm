@@ -217,7 +217,7 @@
 									</div>
 
 									<div class="mod-footer">
-										<input type="button" class="btn btn-normal btn-success" value="下一步"  />
+										<a href="javascript:;" class="btn btn-normal btn-success">下一步</a>
 									</div>
 								</div>
 							</div>
@@ -453,9 +453,6 @@ $(function()
 			$('.payback .label-danger').addClass("hide");
 		}
 
-
-		AWS.dialog('activityBox',{contact_name:'<?php echo $this->project_info['contact']['name']; ?>',contact_tel:'<?php echo $this->project_info['contact']['mobile']; ?>',contact_qq:'<?php echo $this->project_info['contact']['qq']; ?>'});
-
 		$('#publish-name').val(readCookie('HD_publish_cookie_name'));
 		$('#publish-tel').val(readCookie('HD_publish_cookie_tel'));
 		$('#publish-qq').val(readCookie('HD_publish_cookie_qq'));
@@ -504,6 +501,8 @@ $(function()
 			}
 
 		}
+
+		AWS.dialog('activityBox',{contact_name:'<?php echo $this->project_info['contact']['name']; ?>',contact_tel:'<?php echo $this->project_info['contact']['mobile']; ?>',contact_qq:'<?php echo $this->project_info['contact']['qq']; ?>'});
 	})
 
 	//增加弹出层验证，验证QQ 手机  姓名
