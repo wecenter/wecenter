@@ -33,7 +33,7 @@
 										<dd>
 										<?php if ($this->category_list) { ?>
 										<?php foreach ($this->category_list AS $key => $val) { ?>
-										<label class="radio-inline fromsort">
+										<label class="radio-inline project-sort">
 											<input type="radio" name="category_id" value="<?php echo $val['id']; ?>"<?php if ($val['id'] == $this->project_info['category_id']) { ?> checked="checked"<?php } ?> /> <?php echo $val['title']; ?>
 										</label>
 										<?php } ?>
@@ -47,7 +47,7 @@
 									<dl class="clearfix">
 										<dt><strong>*</strong>活动名称:</dt>
 										<dd>
-											<input type="text" name="title" class="form-control fromactivity" value="<?php echo $this->project_info['title']; ?>" />
+											<input type="text" name="title" class="form-control project-name" value="<?php echo $this->project_info['title']; ?>" />
 										</dd>
 										<div class="col-sm-8">
 											<label class="label label-danger hide">请输入活动名称</label>
@@ -428,17 +428,17 @@ $(function()
 	}
 
 
-	//修改表单验证，优化代码
+	// 表单验证
 
-	$('.aw-publish-setting .mod-footer .btn').on('click',function(){
+	$('.aw-publish-setting .mod-footer .btn').on('click',function()
+	{
 
-		getCheck($('.date-picker'),'length');
-		getCheck($('.col-sm-5 input'),'length');
-		getCheck($('#wmd-input'),'length');
-		getCheck($('.select_area:eq(1)'),'select');
-		/*getCheck($('.aw-edit-topic-box').find('input'));*/
-		getCheck($('.fromactivity'),'length');
-		getCheck($('.fromsort input'),'check');
+		getCheck($('.date-picker'),'length'); //验证日期
+		getCheck($('.col-sm-5 input'),'length'); //验证众筹总额
+		getCheck($('iframe').contents().find('body'),'length'); // 验证编辑器器内容
+		getCheck($('.select_area:eq(1)'),'select'); // 验证地址
+		getCheck($('.project-name'),'length'); //验证活动名称
+		getCheck($('.project-sort input'),'check'); // 验证活动分类
 
 		if ( $('.aw-project-return-list tbody tr').length == 0 && $('.aw-project-return-form').is(':visible'))
 		{
