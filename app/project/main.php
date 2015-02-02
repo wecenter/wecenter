@@ -137,7 +137,7 @@ class main extends AWS_CONTROLLER
 				break;
 			}
 
-			TPL::assign('category_list', $this->model('system')->fetch_category('project'));
+			TPL::assign('category_list', $this->model('menu')->get_nav_menu_list('project'));
 
 			if ($project_list = $this->model('project')->get_projects_list($_GET['category_id'], 1, 'ONLINE', $_GET['page'], get_setting('contents_per_page'), $order_by))
 			{
@@ -194,7 +194,10 @@ class main extends AWS_CONTROLLER
 
 		TPL::import_js('js/jquery.date_input.js');
 
-		TPL::assign('category_list', $this->model('menu')->get_nav_menu_list('project'));
+		if (get_setting('category_enable') == 'Y')
+		{
+			TPL::assign('project_category_list', $this->model('system')->build_category_html('project', 0, $project_info['category_id']));
+		}
 
 		TPL::assign('attach_access_key', md5($this->user_id . time()));
 

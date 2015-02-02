@@ -31,12 +31,11 @@
 									<dl class="category-list clearfix">
 										<dt><strong>*</strong>选择分类:</dt>
 										<dd>
-										<?php if ($this->category_list) { ?>
-										<?php foreach ($this->category_list AS $key => $val) { ?>
-										<label class="radio-inline project-sort">
-											<input type="radio" name="category_id" value="<?php echo $val['id']; ?>"<?php if ($val['id'] == $this->project_info['category_id']) { ?> checked="checked"<?php } ?> /> <?php echo $val['title']; ?>
-										</label>
-										<?php } ?>
+										<?php if ($this->project_category_list) { ?>
+										<select name="category_id" class="hide" id="category_id">
+											<option value="0">- <?php _e('请选择分类'); ?> -</option>
+											<?php echo $this->project_category_list; ?>
+										</select>
 										<?php } ?>
 										</dd>
 										<div class="col-sm-8">
