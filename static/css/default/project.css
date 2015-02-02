@@ -278,7 +278,7 @@
 .modal-content dt{display: inline-block;width: 100px;float: left;text-align: right;padding-right: 20px;}
 .modal-content dd{display: inline-block;width: 200px;}
 .aw-publish-desc label.hide{display: none;}
-.aw-publish-desc .label-danger{margin: 10px 0;padding:8px ; display: inline-block;}
+.aw-publish-desc .label-danger{margin: 10px 0 10px 90px;padding:8px ; display: inline-block;}
 .replay-box .col-sm-7{padding:0 6px }
 .bd_weixin_popup{height: 300px !important;}
 #aw-ajax-box .label-danger{padding: 10px 0px;margin-bottom: 15px;}

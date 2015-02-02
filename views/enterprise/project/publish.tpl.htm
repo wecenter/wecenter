@@ -126,7 +126,7 @@
 												</div>
 											</div>
 										</dd>
-										<div class="col-sm-8" style="margin-left: 90px;">
+										<div class="col-sm-8">
 											<label class="label label-danger hide">请填写活动详情</label>
 										</div>
 									</dl>
@@ -263,9 +263,6 @@ $(function()
 		dataUrl: G_BASE_URL + '/account/ajax/areas_json_data/'
 	});
 
-	// 默认展开话题编辑框和回报设置框
-	$('.aw-add-return').click();
-	$('.aw-edit-topic').click();
 
 	// 众筹回报设置
 	$('.aw-add-return').click(function()
@@ -431,6 +428,9 @@ $(function()
 		$('.lump dd').find("input").val($num)
 	}
 
+	// 默认展开话题编辑框和回报设置框
+	$('.aw-add-return').click();
+	$('.aw-edit-topic').click();
 
 	// 整个表单提交验证
 
@@ -439,15 +439,14 @@ $(function()
 
 		getCheck($('.date-picker'),'length'); //验证日期
 		getCheck($('.col-sm-5 input'),'length'); //验证众筹总额
-		getCheck($('iframe').contents().find('body'),'length'); // 验证编辑器器内容
 		getCheck($('.select_area:eq(1)'),'select'); // 验证地址
 		getCheck($('.project-name'),'length'); //验证活动名称
 		getCheck($('.project-sort input'),'check'); // 验证活动分类
 
+		//验证回报设置内容
 		if ( $('.aw-project-return-list tbody tr').length == 0 && $('.aw-project-return-form').is(':visible'))
 		{
 			$('.payback .label-danger').removeClass("hide");
-
 			return false;
 		}
 		else
@@ -455,45 +454,62 @@ $(function()
 			$('.payback .label-danger').addClass("hide");
 		}
 
-		AWS.dialog('activityBox',{contact_name:'<?php echo $this->project_info['contact']['name']; ?>',contact_tel:'<?php echo $this->project_info['contact']['mobile']; ?>',contact_qq:'<?php echo $this->project_info['contact']['qq']; ?>'})
+
+		AWS.dialog('activityBox',{contact_name:'<?php echo $this->project_info['contact']['name']; ?>',contact_tel:'<?php echo $this->project_info['contact']['mobile']; ?>',contact_qq:'<?php echo $this->project_info['contact']['qq']; ?>'});
 
 		$('#publish-name').val(readCookie('HD_publish_cookie_name'));
 		$('#publish-tel').val(readCookie('HD_publish_cookie_tel'));
 		$('#publish-qq').val(readCookie('HD_publish_cookie_qq'));
 
-		function getCheck(obj,type){
+		function getCheck(obj,type)
+		{
 
 			var tempObj = obj.parents('dd').siblings(".col-sm-8").find('.label-danger')
 
-			switch(type){
+			switch(type)
+			{
 				case 'length':
-				formType(obj.val().length <= 0);
+				fromType(obj.val().length <= 0);
 				break;
 
 				case 'check':
-				formType(! obj.is(":checked"));
+				fromType(! obj.is(":checked"));
 				break;
 
 				case 'select':
-				formType(!obj.find("option").is(":selected"));
+				fromType(!obj.find("option").is(":selected"));
 				break;
 
 			}
 
-			function formType(status){
+			function fromType(status)
+			{
 
-				if(status){
+				if(status)
+				{
 					tempObj.removeClass("hide");
 
 					$('html,body').scrollTop(obj.offset().top - 80)
 
 					return false;
-				}else{
+				}
+				else
+				{
 					tempObj.addClass("hide");
 				};
 
 			}
 
+		}
+
+		// 验证编辑器器内容
+		var projectContent = $('iframe').contents().find('body').html().trim();
+		if (projectContent == '') {
+			$('iframe').parents('dd').next('.col-sm-8').find('.label-danger').removeClass('hide');
+		} else
+		{
+
+			$('iframe').parents('dd').next('.col-sm-8').find('.label-danger').addClass('hide');
 		}
 	})
 
@@ -541,27 +557,27 @@ $(function()
 		}
 	})
 
-		//cookie 存储提交资料
-		 function readCookie(name) {
-			var cookieStr = "; " + document.cookie + "; ";
-			var index = cookieStr.indexOf("; " + name + "=");
-			if (index != -1) {
-				var s = cookieStr.substring(index + name.length + 3, cookieStr.length);
+	//cookie 存储提交资料
+	function readCookie(name) {
+		var cookieStr = "; " + document.cookie + "; ";
+		var index = cookieStr.indexOf("; " + name + "=");
+		if (index != -1) {
+			var s = cookieStr.substring(index + name.length + 3, cookieStr.length);
 				return unescape(s.substring(0, s.indexOf("; ")));
-			} else {
-				return null;
-			}
+		} else {
+			return null;
 		}
+	}
 
-		// 设置
-		function setCookie(name, value, expires) {
-			var expDays = expires * 24 * 60 * 60 * 1000;
-			var expDate = new Date();
-			expDate.setTime(expDate.getTime() + expDays);
-			var expString = expires ? "; expires=" + expDate.toGMTString() : "";
-			var pathString = ";path=/";
-			document.cookie = name + "=" + escape(value) + expString + pathString;
-		}
+	// 设置
+	function setCookie(name, value, expires) {
+		var expDays = expires * 24 * 60 * 60 * 1000;
+		var expDate = new Date();
+		expDate.setTime(expDate.getTime() + expDays);
+		var expString = expires ? "; expires=" + expDate.toGMTString() : "";
+		var pathString = ";path=/";
+		document.cookie = name + "=" + escape(value) + expString + pathString;
+	}
 
 });
 </script>
