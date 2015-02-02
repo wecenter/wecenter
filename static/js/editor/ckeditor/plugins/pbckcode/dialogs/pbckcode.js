@@ -106,6 +106,7 @@ CKEDITOR.dialog.add('pbckcodeDialog', function (editor) {
         contents  : [
             editorPanel
         ],
+        resizable : false,
         onLoad    : function () {
             dialog = this;
             // we load the ACE plugin to our div
@@ -197,10 +198,10 @@ CKEDITOR.dialog.add('pbckcodeDialog', function (editor) {
 /*
  * Resize the ACE Editor
  */
-CKEDITOR.dialog.on('resize', function (evt) {
-    var AceEditor = evt.editor.aceEditor;
-    if (AceEditor !== undefined) {
-        AceEditor.resize();
-    }
-});
+// CKEDITOR.dialog.on('resize', function (evt) {
+//     var AceEditor = evt.editor.aceEditor;
+//     if (AceEditor !== undefined) {
+//         AceEditor.resize();
+//     }
+// });
 
