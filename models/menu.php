@@ -98,19 +98,29 @@ class menu_class extends AWS_MODEL
 					$url_prefix = 'explore/';
 
 					$url_mobile_prefix = 'm/';
-				break;
+
+					break;
 
 				case 'question':
 					$url_prefix = 'question/';
 
 					$url_mobile_prefix = 'm/';
-				break;
+
+					break;
 
 				case 'article':
 					$url_prefix = 'article/';
 
 					$url_mobile_prefix = 'm/article/';
-				break;
+
+					break;
+
+				case 'project':
+					$url_prefix = 'project/';
+
+					$url_mobile_prefix = 'project/';
+
+					break;
 			}
 
 			foreach ($nav_menu_data as $key => $val)

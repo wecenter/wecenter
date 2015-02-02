@@ -450,17 +450,20 @@ class publish_class extends AWS_MODEL
 			{
 				default:
 					$update_key = 'id';
-				break;
+
+					break;
 
 				case 'question':
 				case 'answer':
 					$update_key = $item_type . '_id';
-				break;
+
+					break;
 
 				// Modify by wecenter
 				case 'support':
 					return true;
-				break;
+
+					break;
 			}
 
 			$this->update($item_type, array(
@@ -508,6 +511,7 @@ class publish_class extends AWS_MODEL
 
 				case 'article':
 				case 'weibo_msg':
+				case 'project':
 					$update_key = 'id';
 
 					break;

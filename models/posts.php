@@ -32,11 +32,18 @@ class posts_class extends AWS_MODEL
 			{
 				case 'question':
 					$result = $this->fetch_row('question', 'question_id = ' . intval($post_id));
-				break;
+
+					break;
 
 				case 'article':
 					$result = $this->fetch_row('article', 'id = ' . intval($post_id));
-				break;
+
+					break;
+
+				case 'project':
+					$result = $this->fetch_row('project', 'id = ' . intval($post_id));
+
+					break;
 			}
 
 			if (!$result)
@@ -61,7 +68,8 @@ class posts_class extends AWS_MODEL
 					'agree_count' => $result['agree_count'],
 					'answer_count' => $result['answer_count']
 				);
-			break;
+
+				break;
 
 			case 'article':
 				$data = array(
@@ -76,7 +84,25 @@ class posts_class extends AWS_MODEL
 					'lock' => $result['lock'],
 					'is_recommend' => $result['is_recommend'],
 				);
-			break;
+
+				break;
+
+			case 'project':
+				$data = array(
+					'add_time' => $result['add_time'],
+					'update_time' => $result['update_time'],
+					'category_id' => 0,
+					'is_recommend' => 0,
+					'view_count' => $result['views'],
+					'anonymous' => 0,
+					'popular_value' => 0,
+					'uid' => $result['uid'],
+					'lock' => 0,
+					'agree_count' => 0,
+					'answer_count' => 0
+				);
+
+				break;
 		}
 
 		if ($posts_index = $this->fetch_all('posts_index', "post_id = " . intval($post_id) . " AND post_type = '" . $this->quote($post_type) . "'"))
@@ -279,11 +305,18 @@ class posts_class extends AWS_MODEL
 			{
 				case 'question':
 					$question_ids[] = $data['post_id'];
-				break;
+
+					break;
 
 				case 'article':
 					$article_ids[] = $data['post_id'];
-				break;
+
+					break;
+
+				case 'project':
+					$project_ids[] = $data['post_id'];
+
+					break;
 			}
 
 			$data_list_uids[$data['uid']] = $data['uid'];
@@ -311,6 +344,13 @@ class posts_class extends AWS_MODEL
 			$article_infos = $this->model('article')->get_article_info_by_ids($article_ids);
 		}
 
+		if ($project_ids)
+		{
+			$topic_infos['project'] = $this->model('topic')->get_topics_by_item_ids($project_ids, 'project');
+
+			$project_infos = $this->model('project')->get_project_info_by_ids($project_ids);
+		}
+
 		$users_info = $this->model('account')->get_user_info_by_uids($data_list_uids);
 
 		foreach ($posts_index as $key => $data)
@@ -331,6 +371,11 @@ class posts_class extends AWS_MODEL
 
 				case 'article':
 					$explore_list_data[$key] = $article_infos[$data['post_id']];
+
+					break;
+
+				case 'project':
+					$explore_list_data[$key] = $project_infos[$data['post_id']];
 
 					break;
 			}
