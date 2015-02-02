@@ -11,11 +11,10 @@ CKEDITOR.editorConfig = function( config ) {
 	config.toolbar = 'Full';
 
 	config.toolbar_Full = [
-		 ['FontSize','Cleanup','Bold','Italic','NumberedList','BulletedList', 'Blockquote', 'Code', 'WecenterImage', 'WecenterAttach', 'WecenterLink', 'WecenterVideo', 'Maximize', 'RemoveFormat']
-
+		 ['FontSize','Cleanup','Bold','Italic','NumberedList','BulletedList', 'Blockquote', 'pbckcode', 'WecenterImage', 'WecenterAttach', 'WecenterLink', 'WecenterVideo', 'Maximize', 'RemoveFormat']
 	]
 
-	config.extraPlugins = 'sourcearea,bbcode,wecenterattach,wecenterimage,wecenterlink,wecentervideo,blockquote,codeTag,font';
+	config.extraPlugins = 'pbckcode,sourcearea,bbcode,wecenterattach,wecenterimage,wecenterlink,wecentervideo,blockquote,font';
 
 	config.resize_enabled = false;
 
