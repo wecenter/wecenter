@@ -37,9 +37,8 @@
 											<input type="radio" name="category_id" value="<?php echo $val['id']; ?>"<?php if ($val['id'] == $this->project_info['category_id']) { ?> checked="checked"<?php } ?> /> <?php echo $val['title']; ?>
 										</label>
 										<?php } ?>
-										</dd>
 										<?php } ?>
-
+										</dd>
 										<div class="col-sm-8">
 											<label class="label label-danger hide">请选择分类</label>
 										</div>
@@ -248,6 +247,12 @@ $(function()
 			});
 	}
 
+	// 选择日期
+	if (typeof(DateInput) != 'undefined')
+    {
+        $('input.date-picker').date_input();
+    }
+
 	// 地址初始化
 	$('.select_area').LocationSelect({
 		labels: ["<?php _e('请选择省份或直辖市'); ?>", "<?php _e('请选择城市'); ?>"],
@@ -415,20 +420,19 @@ $(function()
 	})
 
 
-	//初始化 选择项目
+	//初始化选择众筹
 	if($('#projectPost').val() == 'DEFAULT'){
 		$('.aw-publish-tabs li:eq(0)').click();
 	}else if($('#projectPost').val() == 'EVENT'){
 		$('.aw-publish-tabs li:eq(1)').click();
 	}
-
 	if($('.lump dt').text()=='*活动人数:'){
 		var $num = parseInt($('.lump dd').find("input").val());
 		$('.lump dd').find("input").val($num)
 	}
 
 
-	// 表单验证
+	// 整个提交表单验证
 
 	$('.aw-publish-setting .mod-footer .btn').on('click',function()
 	{
