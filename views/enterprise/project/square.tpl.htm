@@ -33,7 +33,7 @@
 									</li>
 									<?php foreach ($this->category_list as $key => $val) { ?>
 									<?php if ($val['title']) { ?>
-									<li <?php if ($_GET['category'] AND $val['type'] == 'category' AND $val['category_id'] == $_GET['category']) { ?> class="active"<?php } ?>>
+									<li <?php if ($val['type'] == 'category' AND $val['id'] == $_GET['category']) { ?> class="active"<?php } ?>>
 										<a href="<?php echo $val['link']; ?>"<?php if ($val['type'] == 'custom') { ?> target="_blank"<?php } ?>><?php echo $val['title']; ?></a>
 										<?php if ($val['child'] && get_setting('nav_menu_show_child') == 'Y') { ?>
 										<div class="aw-dropdown" role="menu" aria-labelledby="dropdownMenu">
