@@ -9,7 +9,7 @@
                     <div class="mod aw-payment-content clearfix">
                         <input type="hidden" name="project_id" value="<?php echo $this->product_info['project_id']; ?>" />
                         <input type="hidden" name="product_id" value="<?php echo $this->product_info['id']; ?>" />
-                        <h1><?php _e('支持'); ?> ¥<?php echo $val['amount']; ?></h1>
+                        <h1><?php _e('支持'); ?> ¥<?php echo intval($this->product_info['amount']); ?></h1>
                         <div class="mod-head content">
                             <div class="mod-body">
                                     <h2><?php _e('回报内容'); ?></h2>
