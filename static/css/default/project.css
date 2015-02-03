@@ -262,7 +262,7 @@
 #aw-ajax-box .label-danger {padding: 10px 0px;margin-bottom: 15px;}
 .aw-publish-contact {padding:20px !important;}
 .aw-publish-contact .mod-footer {text-align: center;}
-
+.aw-publish-desc .col-sm-5.clpadding {margin-left: -15px;}
 
 /* 支付明细页面 */
 .aw-project-record {background: #fff;}
