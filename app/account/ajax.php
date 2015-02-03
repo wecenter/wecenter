@@ -36,8 +36,7 @@ class ajax extends AWS_CONTROLLER
 			'valid_email_active',
 			'request_find_password',
 			'find_password_modify',
-			'weixin_login_process',
-			'areas_json_data'
+			'weixin_login_process'
 		);
 
 		return $rule_action;
