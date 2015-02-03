@@ -137,13 +137,4 @@ CREATE TABLE `[#DB_PREFIX#]project_like` (
   KEY `add_time` (`add_time`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
 
-CREATE TABLE `[#DB_PREFIX#]invite_count` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
-  `uid` int(10) NOT NULL,
-  `invite_uid` int(10) NOT NULL,
-  `add_time` int(10) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `uid` (`uid`),
-  KEY `invite_uid` (`invite_uid`),
-  KEY `add_time` (`add_time`)
-) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
+INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES ('project_enabled', 's:1:"N";');

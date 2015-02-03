@@ -33,6 +33,11 @@ class main extends AWS_CONTROLLER
 
 	public function setup()
 	{
+		if (get_setting('project_enabled') != 'Y')
+		{
+			H::redirect_msg(AWS_APP::lang()->_t('活动系统未启用'), '/');
+		}
+
 		$this->crumb(AWS_APP::lang()->_t('活动'), '/project/');
 
 		TPL::import_css('css/project.css');

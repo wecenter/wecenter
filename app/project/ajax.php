@@ -36,6 +36,11 @@ class ajax extends AWS_CONTROLLER
 	public function setup()
 	{
 		HTTP::no_cache_header();
+
+		if (get_setting('project_enabled') != 'Y')
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('活动系统未启用')));
+		}
 	}
 
 	public function attach_edit_list_action()

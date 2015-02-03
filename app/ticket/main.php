@@ -36,6 +36,8 @@ class main extends AWS_CONTROLLER
             H::redirect_msg(AWS_APP::lang()->_t('工单系统未启用'), '/');
         }
 
+        $this->crumb(AWS_APP::lang()->_t('工单'), '/ticket/');
+
         $this->pre_page = get_setting('contents_per_page');
 
         TPL::import_css('css/ticket.css');
