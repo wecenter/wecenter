@@ -72,8 +72,6 @@ CREATE TABLE `[#DB_PREFIX#]ticket_invite` (
   KEY `time` (`time`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
 
-UPDATE `[#DB_PREFIX#]users_group` SET `permission` = 'a:17:{s:16:"is_administortar";s:1:"1";s:12:"is_moderator";s:1:"1";s:16:"publish_question";s:1:"1";s:21:"publish_approval_time";a:2:{s:5:"start";s:0:"";s:3:"end";s:0:"";}s:13:"edit_question";s:1:"1";s:10:"edit_topic";s:1:"1";s:12:"manage_topic";s:1:"1";s:12:"create_topic";s:1:"1";s:17:"redirect_question";s:1:"1";s:13:"upload_attach";s:1:"1";s:11:"publish_url";s:1:"1";s:15:"publish_article";s:1:"1";s:12:"edit_article";s:1:"1";s:19:"edit_question_topic";s:1:"1";s:15:"publish_comment";s:1:"1";s:10:"is_service";s:1:"1";s:14:"publish_ticket";s:1:"1";}' WHERE `group_id` = 1;
-
 INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES ('ticket_enabled', 's:1:"N";');
 
 ALTER TABLE `[#DB_PREFIX#]question` ADD `ticket_id` int(10) UNSIGNED DEFAULT NULL, ADD INDEX (`ticket_id`);
