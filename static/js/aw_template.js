@@ -578,7 +578,7 @@ var AW_TEMPLATE = {
 						'</form>'+
 						'</div>'+
 						'<div class="footer pull-right">'+
-							'<a onclick="ajax_post($(\'#projectEventForm\'));">确定</a>'+
+							'<a onclick="AWS.ajax_post($(\'#projectEventForm\'));">确定</a>'+
 						'</div>'+
 					'</div>'+
 				'</div>'+

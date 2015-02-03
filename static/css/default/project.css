@@ -130,7 +130,7 @@
 .aw-project-detail .mod-head .aw-topic-bar > a {color: #999;}
 .aw-project-detail .mod-head .aw-topic-bar .topic-tag .text {margin-right: 10px;}
 .aw-project-detail .mod-body .tab-pane {top: 0;}
-.aw-project-detail .mod-body .tab-pane > img {margin: 10px auto 0;}
+.aw-project-detail .mod-body .tab-pane > img {margin: 10px auto 0;max-width: 700px;}
 .aw-project-detail .aw-nav-tabs {padding: 30px 0 0;}
 
 

@@ -35,13 +35,39 @@ class project extends AWS_ADMIN_CONTROLLER
             TPL::assign('approval_list', $approval_list);
 
             TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
-                'base_url' => get_js_url('/admin/project/approval_list/'),
+                'base_url' => get_setting('base_url') . '/?/admin/project/approval_list/',
                 'total_rows' => $found_rows,
                 'per_page' => $this->per_page
             ))->create_links());
         }
 
         TPL::output('admin/project/approval_list');
+    }
+
+    public function approval_batch_action()
+    {
+        define('IN_AJAX', TRUE);
+
+        if (!is_array($_POST['approval_ids']))
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择条目进行操作')));
+        }
+
+        switch ($_POST['batch_type'])
+        {
+            case 'approval':
+            case 'decline':
+                $func = 'set_project_' . $_POST['batch_type'];
+
+                foreach ($_POST['approval_ids'] AS $approval_id)
+                {
+                    $this->model('project')->$func($approval_id);
+                }
+
+                break;
+        }
+
+        H::ajax_json_output(AWS_APP::RSM(null, 1, null));
     }
 
     public function project_list_action()
@@ -63,6 +89,39 @@ class project extends AWS_ADMIN_CONTROLLER
         TPL::assign('menu_list', $this->model('admin')->fetch_menu_list(310));
 
         TPL::output('admin/project/project_list');
+    }
+
+    public function status_batch_action()
+    {
+        define('IN_AJAX', TRUE);
+
+        if (!is_array($_POST['approval_ids']))
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择条目进行操作')));
+        }
+
+        switch ($_POST['batch_type'])
+        {
+            case 'ONLINE':
+            case 'OFFLINE':
+                foreach ($_POST['approval_ids'] AS $approval_id)
+                {
+                    $this->model('project')->set_project_status($approval_id, $_POST['batch_type']);
+                }
+
+                break;
+
+            case 'delete':
+                foreach ($_POST['approval_ids'] AS $approval_id)
+                {
+                    $this->model('project')->remove_project_by_project_id($approval_id);
+                }
+
+                break;
+        }
+
+
+        H::ajax_json_output(AWS_APP::RSM(null, 1, null));
     }
 
     public function order_list_action()
@@ -121,5 +180,19 @@ class project extends AWS_ADMIN_CONTROLLER
         TPL::assign('order_user', $this->model('account')->get_user_info_by_uid($order_info['uid']));
 
         TPL::output('admin/project/edit_order');
+    }
+
+    public function save_order_action()
+    {
+        define('IN_AJAX', TRUE);
+
+        if (!$_POST['id'])
+        {
+            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择订单')));
+        }
+
+        $this->model('project')->update_order($_POST['id'], $_POST);
+
+        H::ajax_json_output(AWS_APP::RSM(null, 1, null));
     }
 }
