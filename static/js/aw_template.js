@@ -455,28 +455,28 @@ var AW_TEMPLATE = {
 			'</div>'+
 		'</div>',
 
-		// Modify by wecenter
-		'ProjectForm' :
-			'<div class="mod aw-project-return-form hide">'+
-				'<form action="" method="" name="">'+
-					'<div class="mod-body">'+
-						'<dl class="clearfix">'+
-							'<dt><strong>*</strong>回报标题:</dt>'+
-							'<dd><input type="text" class="form-control form-normal title"/><label class="label label-danger hide">回报标题与支持额度至少填写一个</label></dd>'+
+	// Modify by wecenter
+	'ProjectForm' :
+		'<div class="mod aw-project-return-form hide">'+
+			'<form action="" method="" name="">'+
+				'<div class="mod-body">'+
+					'<dl class="clearfix">'+
+						'<dt><strong>*</strong>回报标题:</dt>'+
+						'<dd><input type="text" class="form-control form-normal title"/><label class="label label-danger hide">回报标题与支持额度至少填写一个</label></dd>'+
 						'</dl>'+
-						'<dl>'+
-							'<dt><strong>*</strong>支持额度:</dt>'+
-							'<dd><input type="text" class="form-control form-normal amount" name="" /> <label class="label label-danger hide">额度不能为空</label></dd>'+
-						'</dl>'+
-						'<dl class="clearfix">'+
-							'<dt><strong>*</strong>回报内容:</dt>'+
-							'<dd>'+
-								'<textarea rows="5" class="form-control content"></textarea> <label class="label label-danger hide">回报内容不能为空</label>'+
-							'</dd>'+
-						'</dl>'+
-						'<dl>'+
-							'<dt><strong>*</strong>限定名额:</dt>'+
-							'<dd>'+
+					'<dl>'+
+					'<dt><strong>*</strong>支持额度:</dt>'+
+						'<dd><input type="text" class="form-control form-normal amount" name="" /> <label class="label label-danger hide">额度不能为空</label></dd>'+
+					'</dl>'+
+					'<dl class="clearfix">'+
+						'<dt><strong>*</strong>回报内容:</dt>'+
+						'<dd>'+
+							'<textarea rows="5" class="form-control content"></textarea> <label class="label label-danger hide">回报内容不能为空</label>'+
+						'</dd>'+
+					'</dl>'+
+					'<dl>'+
+						'<dt><strong>*</strong>限定名额:</dt>'+
+						'<dd>'+
 								'<label>'+
 									'<input type="radio" name="limit-num" class="limit-num-no" value="false" checked="checked" /> 否 '+
 								'</label>'+
@@ -499,8 +499,8 @@ var AW_TEMPLATE = {
 					'</div>'+
 				'</form>'+
 			'</div>',
-		// Modify by wecenter
-		'activityBox' :
+	// Modify by wecenter
+	'activityBox' :
 			'<div class="modal fade alert-box aw-topic-edit-note-box aw-question-edit" aria-labelledby="myModalLabel" role="dialog">'+
 				'<div class="modal-dialog">'+
 					'<div class="modal-content">'+
@@ -630,3 +630,4 @@ var AW_TEMPLATE = {
 					'</div>'+
 				'</div>'+
 			'</div>'
+}
