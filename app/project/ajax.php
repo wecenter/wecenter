@@ -78,12 +78,17 @@ class ajax extends AWS_CONTROLLER
 
 	public function publish_project_action()
 	{
-		if (empty($_POST['title']))
+		if (!$this->user_info['permission']['publish_project'])
+		{
+			H::redirect_msg(AWS_APP::lang()->_t('你所在用户组没有权限发布活动'));
+		}
+
+		if (!$_POST['title'])
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, - 1, AWS_APP::lang()->_t('请输入项目名称')));
 		}
 
-		if (get_setting('category_enable') == 'N')
+		if (get_setting('category_enable') != 'Y')
 		{
 			$_POST['category_id'] = 1;
 		}
