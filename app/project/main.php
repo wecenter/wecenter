@@ -52,10 +52,10 @@ class main extends AWS_CONTROLLER
 				$this->model('notify')->read_notification($_GET['notification_id'], $this->user_id);
 			}
 
-			if (is_mobile() AND HTTP::get_cookie('_ignore_ua_check') != 'TRUE')
+			/*if (is_mobile() AND HTTP::get_cookie('_ignore_ua_check') != 'TRUE')
 			{
 				HTTP::redirect('/m/project/' . $_GET['id']);
-			}
+			}*/
 
 			if (!$project_info = $this->model('project')->get_project_info_by_id($_GET['id']))
 			{
@@ -124,10 +124,10 @@ class main extends AWS_CONTROLLER
 		}
 		else
 		{
-			if (is_mobile() AND HTTP::get_cookie('_ignore_ua_check') != 'TRUE')
+			/*if (is_mobile() AND HTTP::get_cookie('_ignore_ua_check') != 'TRUE')
 			{
 				HTTP::redirect('/m/project_square/');
-			}
+			}*/
 
 			switch ($_GET['sort'])
 			{

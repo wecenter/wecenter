@@ -368,14 +368,14 @@ class ajax extends AWS_CONTROLLER
 					}
 					else
 					{
-						if (is_mobile())
+						/*if (is_mobile())
 						{
 							$url = get_js_url('/m/add_project_order/' . $order_id);
 						}
 						else
-						{
+						{*/
 							$url = get_js_url('/project/order/init_payment/' . $order_id);
-						}
+						//}
 
 						H::ajax_json_output(AWS_APP::RSM(array(
 							'url' => $url
