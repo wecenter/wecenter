@@ -138,3 +138,14 @@ CREATE TABLE `[#DB_PREFIX#]project_like` (
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
 
 INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES ('project_enabled', 's:1:"N";');
+
+INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES ('alipay_partner', 's:0:"";');
+INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES ('alipay_key', 's:0:"";');
+INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES ('alipay_seller_email', 's:0:"";');
+
+INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES ('alipay_sign_type', 's:3:"MD5";');
+INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES ('alipay_input_charset', 's:5:"utf-8";');
+INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES ('alipay_transport', 's:5:"https";');
+
+INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES ('alipay_private_key', 's:0:"";');
+INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES ('alipay_ali_public_key', 's:0:"";');

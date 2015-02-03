@@ -8,7 +8,7 @@
 |   http://www.anwsion.com
 |   ========================================
 |   Support: zhengqiang@gmail.com
-|   
+|
 +---------------------------------------------------------------------------
 */
 
@@ -25,36 +25,38 @@ class notify extends AWS_CONTROLLER
 	{
 		$rule_action['rule_type'] = 'black';
 		$rule_action['actions'] = array();
-		
+
 		return $rule_action;
 	}
-	
+
 	public function setup()
 	{
 		HTTP::no_cache_header();
 	}
-	
+
 	public function aliwap_action()
 	{
 		$result = $this->model('payment_aliwap')->verifyNotify();
-    	
+
 		$verify_result = 'fail';
-		
+
 		if ($result)
 		{
 			$doc = new DOMDocument();
-			
-			if (AWS_APP::config()->get('aliwap')->sign_type == 'MD5')
-			{
-				$doc->loadXML($_POST['notify_data']);
+
+			switch (get_setting('alipay_sign_type')) {
+				case 'MD5':
+					$doc->loadXML($_POST['notify_data']);
+
+					break;
+
+				case '0001':
+					$doc->loadXML($this->model('payment_aliwap')->decrypt($_POST['notify_data']));
+
+					break;
 			}
-			
-			if (AWS_APP::config()->get('aliwap')->sign_type == '0001')
-			{
-				$doc->loadXML($this->model('payment_aliwap')->decrypt($_POST['notify_data']));
-			}
-			
-			if (!empty($doc->getElementsByTagName("notify")->item(0)->nodeValue))
+
+			if ($doc->getElementsByTagName("notify")->item(0)->nodeValue)
 			{
 				//商户订单号
 				$out_trade_no = $doc->getElementsByTagName("out_trade_no")->item(0)->nodeValue;
@@ -62,21 +64,21 @@ class notify extends AWS_CONTROLLER
 				$trade_no = $doc->getElementsByTagName( "trade_no" )->item(0)->nodeValue;
 				//交易状态
 				$trade_status = $doc->getElementsByTagName( "trade_status" )->item(0)->nodeValue;
-				
+
 				$order = $this->model('payment')->get_order($out_trade_no);
-				
+
 				if ($trade_status == 'TRADE_FINISHED' OR $trade_status == 'TRADE_SUCCESS')
 				{
 					if ($order['extra_param'])
 					{
 						$params = unserialize($order['extra_param']);
 					}
-					
+
 					if (!$order['terrace_id'])
 					{
 						$this->model('payment')->set_order_terrace_id($trade_no, $order['order_id']);
 						$this->model('payment')->set_payment_id('ALIPAY', $order['order_id']);
-						
+
 						if ($params['pay_to_project_order_id'])
 						{
 							if (!$this->model('payment')->pay_to_project_order_id($order['order_id'], $params['pay_to_project_order_id']))
@@ -85,22 +87,21 @@ class notify extends AWS_CONTROLLER
 							}
 						}
 					}
-					
+
 					$verify_result = 'success';
 				}
 			}
 		}
-		
-		echo $verify_result;
-		die;
+
+		exit($verify_result);
 	}
-	
+
 	public function alipay_action()
 	{
 		$result = $this->model('payment_alipay')->verifyNotify();
-    			
+
 		$order = $this->model('payment')->get_order($_POST['out_trade_no']);
-		
+
 		if ($result AND $_POST['total_fee'] == $order['amount'])
 		{
 			if ($_POST['extra_common_param'])
@@ -111,12 +112,12 @@ class notify extends AWS_CONTROLLER
 			{
 				$params = unserialize($order['extra_param']);
 			}
-			
+
 			if (!$order['terrace_id'])
 			{
 				$this->model('payment')->set_order_terrace_id($_POST['trade_no'], $order['order_id']);
 				$this->model('payment')->set_payment_id('ALIPAY', $order['order_id']);
-				
+
 				if ($params['pay_to_project_order_id'])
 				{
 					if (!$this->model('payment')->pay_to_project_order_id($order['order_id'], $params['pay_to_project_order_id']))
@@ -125,15 +126,14 @@ class notify extends AWS_CONTROLLER
 					}
 				}
 			}
-			
+
 			$result = 'success';
 		}
 		else
 		{
 			$result = 'fail';
 		}
-		
-		echo $result;
-		die;
+
+		exit($result);
 	}
 }
