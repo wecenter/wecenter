@@ -7,8 +7,8 @@
 				<div class="col-sm-12 col-md-9 aw-main-content">
 					<!-- tab 切换 -->
 					<ul class="nav nav-tabs aw-nav-tabs active">
-						<?php if (check_extension_package('projetc') && get_setting('projetc_enabled') == 'Y' && ($this->user_info['permission']['is_administortar'] || $this->user_info['permission']['is_moderator'])) { ?>
-						<li><a href="projetc/publish/"><?php _e('活动'); ?></a></li>
+						<?php if (check_extension_package('project') && get_setting('project_enabled') == 'Y' && $this->user_info['permission']['publish_project']) { ?>
+						<li><a href="project/publish/"><?php _e('活动'); ?></a></li>
 						<?php } ?>
 						<?php if (check_extension_package('ticket') && get_setting('ticket_enabled') == 'Y' && $this->user_info['permission']['publish_ticket']) { ?>
 						<li><a href="ticket/publish/"><?php _e('工单'); ?></a></li>
