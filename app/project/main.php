@@ -137,7 +137,10 @@ class main extends AWS_CONTROLLER
 				break;
 			}
 
-			TPL::assign('category_list', $this->model('menu')->get_nav_menu_list('project'));
+			if (get_setting('category_enable') == 'Y')
+			{
+				TPL::assign('category_list', $this->model('menu')->get_nav_menu_list('project'));
+			}
 
 			if ($project_list = $this->model('project')->get_projects_list($_GET['category_id'], 1, 'ONLINE', $_GET['page'], get_setting('contents_per_page'), $order_by))
 			{
