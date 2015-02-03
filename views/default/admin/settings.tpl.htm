@@ -1679,6 +1679,7 @@
                             <span class="col-sm-4 col-xs-3 control-label"><?php _e('支付宝签名方式'); ?>:</span>
                             <div class="col-sm-8 col-xs-8">
                                 <label class="checkbox-inline"><input type="radio" name="alipay_sign_type" value="MD5"<?php if (!$this->setting['alipay_sign_type'] OR $this->setting['alipay_sign_type'] == 'MD5') { ?> checked="checked"<?php } ?> /> MD5</label>
+                                <label class="checkbox-inline"><input type="radio" name="alipay_sign_type" value="RSA"<?php if ($this->setting['alipay_sign_type'] == 'RSA') { ?> checked="checked"<?php } ?> /> RSA</label>
                                 <label class="checkbox-inline"><input type="radio" name="alipay_sign_type" value="0001"<?php if ($this->setting['alipay_sign_type'] == '0001') { ?> checked="checked"<?php } ?> /> 0001</label>
 
                                 <span class="help-block"><?php _e('如不确定请勿更改'); ?></span>
@@ -1722,7 +1723,7 @@
                             <div class="col-sm-5 col-xs-8">
                                 <textarea class="form-control textarea" rows="6" name="alipay_private_key"><?php echo $this->setting['alipay_private_key']; ?></textarea>
 
-                                <span class="help-block"><?php _e('支付宝签名方式为 0001 时必须设置'); ?></span>
+                                <span class="help-block"><?php _e('支付宝签名方式为 RSA 或 0001 时必须设置'); ?></span>
                             </div>
                         </div>
                     </td>
@@ -1735,7 +1736,7 @@
                             <div class="col-sm-5 col-xs-8">
                                 <textarea class="form-control textarea" rows="6" name="alipay_ali_public_key"><?php echo $this->setting['alipay_ali_public_key']; ?></textarea>
 
-                                <span class="help-block"><?php _e('支付宝签名方式为 0001 时必须设置'); ?></span>
+                                <span class="help-block"><?php _e('支付宝签名方式为 RSA 或 0001 时必须设置'); ?></span>
                             </div>
                         </div>
                     </td>
