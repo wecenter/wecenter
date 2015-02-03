@@ -48,8 +48,9 @@
                                     <a href="#discuss" data-toggle="tab">相关讨论</a>
                                 </li>
                                 <li>
-                                    <a href="#support" data-toggle="tab">报名者</a>
+                                    <a href="#support" data-toggle="tab"><?php if ($this->project_info['project_type'] == 'EVENT') { ?> 报名者 <?php } else { ?> 支持者  <?php } ?></a>
                                 </li>
+
                             </ul>
                         </div>
                         <div class="mod-body">
@@ -312,7 +313,7 @@
                             <ul class="pull-left">
                                 <li>
                                     <a href="people/<?php echo $this->project_info['user_info']['url_token']; ?>"><?php echo $this->project_info['user_info']['user_name']; ?></a>
-                                    <p><?php echo $this->project_info['signature']; ?></p>
+                                    <p><?php echo $val['signature']; ?></p>
                                 </li>
                             </ul>
                         </div>

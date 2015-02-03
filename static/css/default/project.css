@@ -2,13 +2,10 @@
 .aw-top-menu-wrap {margin:0;}
 .progress-bar-green {background-color: #93C215;}
 .label-green, .label-green {background-color: #93C215;color: #fff !important;font-weight: normal;font-size:12px;}
-.aw-page-control .active a, .aw-page-control li:hover a, .aw-page-control li:focus a{border:1px solid #84AD14 !important;background-color: #93C215 !important;color: #fff;}
-.aw-page-control li a{color: #93C215;}
 .mod.cell {border:1px solid #ccc;}
 .form-xs {width: 60px;}
 .form-mini {width: 150px;}
 .form-normal {width: 250px;}
-.date-picker {padding-left:30px !important;background:url('img/calendar.png') no-repeat 7px 9px;}
 .btn-green,.btn-green:hover, .btn-green:focus{padding:5px 15px;border-radius: 5px;color: #fff;}
 .square-page {clear: both;margin-right: 47%;}
 
@@ -128,9 +125,8 @@
 .aw-project-detail .mod-head .aw-topic-bar > a {color: #999;}
 .aw-project-detail .mod-head .aw-topic-bar .topic-tag .text {margin-right: 10px;}
 .aw-project-detail .mod-body .tab-pane {top: 0;}
-.aw-project-detail .mod-body .tab-pane > img {margin: 10px auto 0;max-width: 700px;}
+.aw-project-detail .mod-body .tab-pane > img {margin: 10px auto 0;max-width: 100%;}
 .aw-project-detail .aw-nav-tabs {padding: 30px 0 0;}
-
 
 .aw-project-suggest .mod-body .aw-user-name img {border-radius: 0;}
 .aw-project-suggest .mod-body .aw-item h4 {max-width: 600px;margin-bottom: 0;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;}
@@ -157,12 +153,10 @@
 .aw-project-desc .mod-footer b, .aw-project-desc .mod-footer i{color: #333;font-weight: bold;font-size: 16px;}
 .aw-project-desc .mod-footer i{vertical-align: -2px;}
 
-
 .aw-project-payment-refund{padding:10px; margin-top: 10px;background-color:#e6feff;color: #3b6400;font-size: 14px;}
 .aw-project-payment-refund h3{font-size: 16px;}
 .aw-project-payment-refund p{margin-top: 10px;}
 .aw-project-payment-refund p:first-child{margin:0;}
-
 
 
 /*弹出层 表单*/
@@ -287,7 +281,7 @@
 .aw-project-record .project-support-list .shipping-form .form-mini{float:left;margin-right: 5px;width: 100px;}
 
 /* 活动管理页面 */
-.aw-project-record .aw-tabs {margin: 0 -15px;height: 43px;}
+.aw-project-record .aw-tabs {margin: 0 -15px;height: auto;}
 .aw-project-record .aw-tabs li:first-child{border-left: none;}
 .aw-project-record .aw-tabs li a{margin-right: 0;border-top:2px solid transparent;border-right: 0;border-radius: 0;color: #666;text-align: center;}
 .aw-project-record .aw-tabs li.active a {border-top: 2px solid #2185C5;color: #2185C5;}
@@ -299,6 +293,7 @@
 
 
 /*日期选择控件*/
+.date-picker {padding-left:30px !important;background:url('img/calendar.png') no-repeat 7px 9px;}
 .date_selector, .date_selector * {margin: 0;padding: 0;width: auto;height: auto;border: none;background: none;text-align: left;text-decoration: none;cursor: pointer;}
 .date_selector {position: absolute;z-index: 100000;display: none;margin: 0;margin-top: -1px;padding: 10px;border: 1px solid #ccc;background: #fbfbfb;-webkit-box-shadow: 0 0 5px #aaa;-moz-box-shadow: 0 0 5px #aaa;box-shadow: 0 0 5px #aaa;}
 .date_selector_ieframe {position: absolute;z-index: 99999;display: none;}
