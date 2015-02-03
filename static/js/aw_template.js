@@ -455,179 +455,178 @@ var AW_TEMPLATE = {
 			'</div>'+
 		'</div>',
 
-	// Modify by wecenter
-	'ProjectForm' :
-		'<div class="mod zc-project-return-form hide">'+
-			'<form action="" method="" name="">'+
-				'<div class="mod-body">'+
-					'<dl class="clearfix">'+
-						'<dt><strong>*</strong>回报标题:</dt>'+
-						'<dd><input type="text" class="form-control form-normal title"/><label class="label label-danger hide">额度不能为空<br></label>回报标题与支持额度至少填写一个</dd>'+
-					'</dl>'+
-					'<dl>'+
-						'<dt><strong>*</strong>支持额度:</dt>'+
-						'<dd><input type="text" class="form-control form-normal amount" name="" /> <label class="label label-danger hide">额度不能为空</label></dd>'+
-					'</dl>'+
-					'<dl class="clearfix">'+
-						'<dt><strong>*</strong>回报内容:</dt>'+
-						'<dd>'+
-							'<textarea rows="5" class="form-control content"></textarea> <label class="label label-danger hide">回报内容不能为空</label>'+
-						'</dd>'+
-					'</dl>'+
-					'<dl>'+
-						'<dt><strong>*</strong>限定名额:</dt>'+
-						'<dd>'+
-							'<label>'+
-								'<input type="radio" name="limit-num" class="limit-num-no" value="false" checked="checked" /> 否 '+
-							'</label>'+
-							'<label>'+
-								'<input type="radio" name="limit-num" class="limit-num-yes" value="true"/> 是 '+
-							'</label>'+
-							'<label class="count hide">'+
-								'<span class="pull-left">名额数量:</span>'+
-								'<input type="text" class="form-control form-xs pull-left people-amount" name="" />'+
-							'</label>'+
-						'</dd>'+
-					'</dl>'+
-					'<dl>'+
-						'<dt></dt>'+
-						'<dd>'+
-							'<a href="javascript:;" class="btn btn-primary btn-green save">保存</a>'+
-							'<a href="javascript:;" class="btn btn-default cancel">取消</a>'+
-						'</dd>'+
-					'</dl>'+
-				'</div>'+
-			'</form>'+
-		'</div>',
-	// Modify by wecenter
-	'activityBox' :
+		// Modify by wecenter
+		'ProjectForm' :
+			'<div class="mod aw-project-return-form hide">'+
+				'<form action="" method="" name="">'+
+					'<div class="mod-body">'+
+						'<dl class="clearfix">'+
+							'<dt><strong>*</strong>回报标题:</dt>'+
+							'<dd><input type="text" class="form-control form-normal title"/><label class="label label-danger hide">回报标题与支持额度至少填写一个</label></dd>'+
+						'</dl>'+
+						'<dl>'+
+							'<dt><strong>*</strong>支持额度:</dt>'+
+							'<dd><input type="text" class="form-control form-normal amount" name="" /> <label class="label label-danger hide">额度不能为空</label></dd>'+
+						'</dl>'+
+						'<dl class="clearfix">'+
+							'<dt><strong>*</strong>回报内容:</dt>'+
+							'<dd>'+
+								'<textarea rows="5" class="form-control content"></textarea> <label class="label label-danger hide">回报内容不能为空</label>'+
+							'</dd>'+
+						'</dl>'+
+						'<dl>'+
+							'<dt><strong>*</strong>限定名额:</dt>'+
+							'<dd>'+
+								'<label>'+
+									'<input type="radio" name="limit-num" class="limit-num-no" value="false" checked="checked" /> 否 '+
+								'</label>'+
+								'<label>'+
+									'<input type="radio" name="limit-num" class="limit-num-yes" value="true"/> 是 '+
+								'</label>'+
+								'<label class="count hide">'+
+									'<span class="pull-left">名额数量:</span>'+
+									'<input type="text" class="form-control form-xs pull-left people-amount" name="" />'+
+								'</label>'+
+							'</dd>'+
+						'</dl>'+
+						'<dl>'+
+							'<dt></dt>'+
+							'<dd>'+
+								'<a href="javascript:;" class="btn btn-primary btn-green save">保存</a>'+
+								'<a href="javascript:;" class="btn btn-default cancel">取消</a>'+
+							'</dd>'+
+						'</dl>'+
+					'</div>'+
+				'</form>'+
+			'</div>',
+		// Modify by wecenter
+		'activityBox' :
+			'<div class="modal fade alert-box aw-topic-edit-note-box aw-question-edit" aria-labelledby="myModalLabel" role="dialog">'+
+				'<div class="modal-dialog">'+
+					'<div class="modal-content">'+
+							'<div class="kn-box vmod aw-publish-contact">'+
+								'<label class="label label-danger hide"></label>'+
+								'<div class="mod-head">'+
+									'<p>'+
+										'提示：提交审核后点名时间将在 3 个工作日内完成审核，请留意站内通知以及你的邮箱'+
+									'</p>'+
+								'</div>'+
+								'<div class="mod-body">'+
+									'<dl>'+
+										'<dt><strong>*</strong>姓名:</dt>'+
+										'<dd>'+
+											'<input type="text" id="publish-name" class="form-control form-normal" name="contact[name]" value="{{contact_name}}" />'+
+										'</dd>'+
+									'</dl>'+
+									'<dl>'+
+										'<dt><strong>*</strong>手机:</dt>'+
+										'<dd>'+
+											'<input type="text" id="publish-tel" class="form-control form-normal" name="contact[mobile]" value="{{contact_tel}}" />'+
+										'</dd>'+
+									'</dl>'+
+									'<dl>'+
+										'<dt><strong>*</strong>QQ:</dt>'+
+										'<dd>'+
+											'<input type="text" id="publish-qq" class="form-control form-normal" name="contact[qq]" value="{{contact_qq}}" />'+
+										'</dd>'+
+									'</dl>'+
+								'</div>'+
+								'<div class="mod-footer">'+
+								'<a class="btn btn-normal btn-success" >'+ '提交审核 '+ '</a>'+
+								'</div>'+
+							'</div>'+
+						'</div>'+
+					'</div>'+
+				'</div>',
+
+		'projectEventForm' :
 		'<div class="modal fade alert-box aw-topic-edit-note-box aw-question-edit" aria-labelledby="myModalLabel" role="dialog">'+
-			'<div class="modal-dialog">'+
-				'<div class="modal-content">'+
-						'<div class="kn-box vmod zc-publish-contact">'+
-							'<label class="label label-danger hide"></label>'+
-							'<div class="mod-head">'+
-								'<p>'+
-									'提示：提交审核后点名时间将在 3 个工作日内完成审核，请留意站内通知以及你的邮箱'+
-								'</p>'+
+				'<div class="modal-dialog">'+
+					'<div class="modal-content">'+
+						'<div class="formBox">'+
+							'<div class="title">'+
+								'<h3>活动报名 <i class="icon icon-delete pull-right" data-dismiss="modal" aria-hidden="true"></i></h3>'+
 							'</div>'+
-							'<div class="mod-body">'+
-								'<dl>'+
-									'<dt><strong>*</strong>姓名:</dt>'+
-									'<dd>'+
-										'<input type="text" id="publish-name" class="form-control form-normal" name="contact[name]" value="{{contact_name}}" />'+
-									'</dd>'+
-								'</dl>'+
-								'<dl>'+
-									'<dt><strong>*</strong>手机:</dt>'+
-									'<dd>'+
-										'<input type="text" id="publish-tel" class="form-control form-normal" name="contact[mobile]" value="{{contact_tel}}" />'+
-									'</dd>'+
-								'</dl>'+
-								'<dl>'+
-									'<dt><strong>*</strong>QQ:</dt>'+
-									'<dd>'+
-										'<input type="text" id="publish-qq" class="form-control form-normal" name="contact[qq]" value="{{contact_qq}}" />'+
-									'</dd>'+
-								'</dl>'+
+
+							'<div class="main ">'+
+								'<form class="form-horizontal" action="' + G_BASE_URL + '/project/ajax/add_product_order/" onsubmit="return false" role="form" id="projectEventForm" method="post">'+
+								'<input type="hidden" name="project_id" value="{{project_id}}">'+
+								 ' <div class="form-group">'+
+								    '<label class="col-sm-4 control-label">真实姓名:</label>'+
+								   ' <div class="col-sm-7">'+
+								     ' <input type="text" class="form-control" name="name" value="{{contact_name}}" placeholder="' + _t('请务必实名') + '" >'+
+								   ' </div>'+
+								  '</div>'+
+								 ' <div class="form-group">'+
+								  '  <label  class="col-sm-4 control-label">手机:</label>'+
+								    '<div class="col-sm-7">'+
+								      '<input type="text" class="form-control" name="mobile" value="{{contact_tel}}" >'+
+								   ' </div>'+
+								 ' </div>'+
+								 ' <div class="form-group">'+
+								   ' <label  class="col-sm-4 control-label">邮箱:</label>'+
+								   ' <div class="col-sm-7">'+
+								      '<input type="text" class="form-control" name="email" value="{{contact_email}}" >'+
+								    '</div>'+
+								 ' </div>'+
+								 ' <div class="form-group">'+
+								   ' <label  class="col-sm-4 control-label">地址:</label>'+
+								   ' <div class="col-sm-7">'+
+								      '<input type="text" class="form-control" name="address" value="{{contact_address}}" placeholder="' + _t('完整收件地址') + '" >'+
+								    '</div>'+
+								 ' </div>'+
+							'</form>'+
 							'</div>'+
-							'<div class="mod-footer">'+
-							'<a class="btn btn-normal btn-green" >'+ '提交审核 '+ '</a>'+
+							'<div class="footer pull-right">'+
+								'<a onclick="AWS.ajax_post($(\'#projectEventForm\'));">确定</a>'+
 							'</div>'+
 						'</div>'+
 					'</div>'+
 				'</div>'+
 			'</div>',
 
-	'projectEventForm' :
-	'<div class="modal fade alert-box aw-topic-edit-note-box aw-question-edit" aria-labelledby="myModalLabel" role="dialog">'+
-			'<div class="modal-dialog">'+
-				'<div class="modal-content">'+
-					'<div class="formBox">'+
-						'<div class="title">'+
-							'<h3>活动报名 <span class="pull-right" data-dismiss="modal" aria-hidden="true">  </span></h3>'+
-						'</div>'+
+		'projectStockForm' :
+		'<div class="modal fade alert-box aw-topic-edit-note-box aw-question-edit" aria-labelledby="myModalLabel" role="dialog">'+
+				'<div class="modal-dialog">'+
+					'<div class="modal-content">'+
+						'<div class="formBox">'+
+							'<div class="title">'+
+								'<h3>预约投资 <i class="icon icon-delete pull-right" data-dismiss="modal" aria-hidden="true"></i></h3>'+
+							'</div>'+
 
-						'<div class="main ">'+
-							'<form class="form-horizontal" action="' + G_BASE_URL + '/project/ajax/add_product_order/" onsubmit="return false" role="form" id="projectEventForm" method="post">'+
-							'<input type="hidden" name="project_id" value="{{project_id}}">'+
-							 ' <div class="form-group">'+
-							    '<label class="col-sm-4 control-label">真实姓名:</label>'+
-							   ' <div class="col-sm-7">'+
-							     ' <input type="text" class="form-control" name="name" value="{{contact_name}}" placeholder="' + _t('请务必实名') + '" >'+
-							   ' </div>'+
-							  '</div>'+
-							 ' <div class="form-group">'+
-							  '  <label  class="col-sm-4 control-label">手机:</label>'+
-							    '<div class="col-sm-7">'+
-							      '<input type="text" class="form-control" name="mobile" value="{{contact_tel}}" >'+
-							   ' </div>'+
-							 ' </div>'+
-							 ' <div class="form-group">'+
-							   ' <label  class="col-sm-4 control-label">邮箱:</label>'+
-							   ' <div class="col-sm-7">'+
-							      '<input type="text" class="form-control" name="email" value="{{contact_email}}" >'+
-							    '</div>'+
-							 ' </div>'+
-							 ' <div class="form-group">'+
-							   ' <label  class="col-sm-4 control-label">地址:</label>'+
-							   ' <div class="col-sm-7">'+
-							      '<input type="text" class="form-control" name="address" value="{{contact_address}}" placeholder="' + _t('完整收件地址') + '" >'+
-							    '</div>'+
-							 ' </div>'+
-						'</form>'+
-						'</div>'+
-						'<div class="footer pull-right">'+
-							'<a onclick="ajax_post($(\'#projectEventForm\'));">确定</a>'+
+							'<div class="main ">'+
+								'<form class="form-horizontal" action="' + G_BASE_URL + '/project/ajax/add_product_order/" onsubmit="return false" role="form" id="projectEventForm" method="post">'+
+								'<input type="hidden" name="project_id" value="{{project_id}}">'+
+								 ' <div class="form-group">'+
+								    '<label  class="col-sm-4 control-label">预计投资:</label>'+
+								   ' <div class="col-sm-7">'+
+								     ' <input  type="text" class="form-control" name="amount" value="{{contact_money}}">'+
+								    '</div>'+
+								' </div>'+
+								 ' <div class="form-group">'+
+								    '<label class="col-sm-4 control-label">真实姓名:</label>'+
+								   ' <div class="col-sm-7">'+
+								     ' <input type="text" class="form-control" name="name" value="{{contact_name}}">'+
+								   ' </div>'+
+								  '</div>'+
+								 ' <div class="form-group">'+
+								  '  <label  class="col-sm-4 control-label">手机:</label>'+
+								    '<div class="col-sm-7">'+
+								      '<input type="text" class="form-control" name="mobile" value="{{contact_tel}}">'+
+								   ' </div>'+
+								 ' </div>'+
+								 ' <div class="form-group">'+
+								   ' <label  class="col-sm-4 control-label">邮箱:</label>'+
+								   ' <div class="col-sm-7">'+
+								      '<input type="text" class="form-control" name="email" value="{{contact_email}}" >'+
+								    '</div>'+
+								 ' </div>'+
+							'</form>'+
+							'</div>'+
+							'<div class="footer pull-right">'+
+								'<a onclick="ajax_post($(\'#projectEventForm\'));">确定</a>'+
+							'</div>'+
 						'</div>'+
 					'</div>'+
 				'</div>'+
-			'</div>'+
-		'</div>',
-
-	'projectStockForm' :
-	'<div class="modal fade alert-box aw-topic-edit-note-box aw-question-edit" aria-labelledby="myModalLabel" role="dialog">'+
-			'<div class="modal-dialog">'+
-				'<div class="modal-content">'+
-					'<div class="formBox">'+
-						'<div class="title">'+
-							'<h3>预约投资 <span class="pull-right" data-dismiss="modal" aria-hidden="true">  </span></h3>'+
-						'</div>'+
-
-						'<div class="main ">'+
-							'<form class="form-horizontal" action="' + G_BASE_URL + '/project/ajax/add_product_order/" onsubmit="return false" role="form" id="projectEventForm" method="post">'+
-							'<input type="hidden" name="project_id" value="{{project_id}}">'+
-							 ' <div class="form-group">'+
-							    '<label  class="col-sm-4 control-label">预计投资:</label>'+
-							   ' <div class="col-sm-7">'+
-							     ' <input  type="text" class="form-control" name="amount" value="{{contact_money}}">'+
-							    '</div>'+
-							' </div>'+
-							 ' <div class="form-group">'+
-							    '<label class="col-sm-4 control-label">真实姓名:</label>'+
-							   ' <div class="col-sm-7">'+
-							     ' <input type="text" class="form-control" name="name" value="{{contact_name}}">'+
-							   ' </div>'+
-							  '</div>'+
-							 ' <div class="form-group">'+
-							  '  <label  class="col-sm-4 control-label">手机:</label>'+
-							    '<div class="col-sm-7">'+
-							      '<input type="text" class="form-control" name="mobile" value="{{contact_tel}}">'+
-							   ' </div>'+
-							 ' </div>'+
-							 ' <div class="form-group">'+
-							   ' <label  class="col-sm-4 control-label">邮箱:</label>'+
-							   ' <div class="col-sm-7">'+
-							      '<input type="text" class="form-control" name="email" value="{{contact_email}}" >'+
-							    '</div>'+
-							 ' </div>'+
-						'</form>'+
-						'</div>'+
-						'<div class="footer pull-right">'+
-							'<a onclick="ajax_post($(\'#projectEventForm\'));">确定</a>'+
-						'</div>'+
-					'</div>'+
-				'</div>'+
-			'</div>'+
-		'</div>'
-}
+			'</div>'
