@@ -45,6 +45,7 @@ CREATE TABLE `[#DB_PREFIX#]product_order` (
   `cancel_time` int(10) NOT NULL DEFAULT '0',
   `has_attach` tinyint(1) NOT NULL DEFAULT '0',
   `address` varchar(255) DEFAULT NULL,
+  `project_type` varchar(16) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `uid` (`uid`),
   KEY `product_id` (`product_id`),
@@ -55,7 +56,8 @@ CREATE TABLE `[#DB_PREFIX#]product_order` (
   KEY `refund_time` (`refund_time`),
   KEY `add_time` (`add_time`),
   KEY `payment_time` (`payment_time`),
-  KEY `cancel_time` (`cancel_time`)
+  KEY `cancel_time` (`cancel_time`),
+  KEY `project_type` (`project_type`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]project` (
