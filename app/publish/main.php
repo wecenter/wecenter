@@ -183,6 +183,8 @@ class main extends AWS_CONTROLLER
 			TPL::import_js('js/fileupload.js');
 		}
 
+		TPL::assign('recent_topics', @unserialize($this->user_info['recent_topics']));
+
 		TPL::assign('article_info', $article_info);
 
 		TPL::output('publish/article');
