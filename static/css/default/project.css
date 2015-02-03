@@ -44,10 +44,9 @@
 .aw-project-list ul li .mod-footer .status span b{display: block;color: #333;font-weight: bold;font-size: 16px;}
 .aw-project-list ul li .mod-footer .status span.pull-right{margin:0;text-align: right;}
 .aw-project-list .desc .label{padding:10px;background: #cccccc;color: #fff !important;}
-.aw-project-list .desc .label-blue, .aw-project-list .desc .label-blue2{background: #499ef3;}
-.aw-project-list .desc .label-gray {background: #999;}
+.aw-project-list .desc .label-blue, .aw-project-list .desc .label-blue2 {background: #499ef3;}
 .aw-project-list .desc .label-oragin, .aw-project-list .desc .label-oragin2 {background: #FF9500;}
-
+.aw-project-list .desc .label-gray {background: #999!important;}
 /* 侧边栏 */
 .aw-project-page .col-md-4{width: 25%;}
 .aw-project-page .aw-side-bar{padding: 0;border-left: none;}

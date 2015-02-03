@@ -318,7 +318,8 @@
                             </ul>
                         </div>
                         <div class="mod-footer clearfix">
-                            <h3><?php if ($this->project_info['project_type'] == 'DEFAULT') { ?><?php _e('项目简介'); ?><?php } else if ($this->project_info['project_type'] == 'STOCK') { ?><?php _e('发起人简介'); ?><?php } else if ($this->project_info['project_type'] == 'EVENT') { ?><?php _e('活动摘要'); ?><?php } ?></h3>
+                            <h3><?php if ($this->project_info['project_type'] == 'DEFAULT') { ?><?php _e('项目简介'); ?>
+                            <?php } else if ($this->project_info['project_type'] == 'EVENT') { ?><?php _e('活动摘要'); ?><?php } ?></h3>
                             <p>
                                 <?php echo nl2br($this->project_info['summary']); ?>
                             </p>
@@ -334,24 +335,4 @@
         </div>
     </div>
 </div>
-
-<script>
-
-    $(function(){
-        var $imgBtn = $('.aw-project-support .mod-head a')
-        $('.aw-project-support .mod-body li').length >20 ? $imgBtn.show():$imgBtn.hide();
-
-        $imgBtn.click(function(){
-            var aLiLength = Math.ceil(($('.aw-project-support .mod-body li').length)/10),
-            liHeight = $('.aw-project-support .mod-body li:eq(0)').outerHeight(true);
-
-            $imgBtn.hide()
-            $('.aw-project-support .mod-body').css({"overflow":"inherit"});
-            $(".aw-project-support").animate({
-                    height: liHeight * aLiLength + 80,
-                  }, 500 );
-        })
-    })
-</script>
-
 <?php TPL::output('global/footer.tpl.htm'); ?>

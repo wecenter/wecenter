@@ -512,10 +512,9 @@ $(function()
 
 	})
 
-	//弹出层验证，验证QQ 手机  姓名
+	// 弹出层验证，验证QQ 手机  姓名
 	$('#aw-ajax-box').delegate(".btn-success ","click",function()
 	{
-
 		var flag = false;
 
 		var strName = getValue(0),
@@ -530,11 +529,13 @@ $(function()
 			getCheck(strTel,'对不起，请输入正确的手机号');
 			getCheck(strName,'对不起，请输入用户名');
 
-		if(strName.length != 0 && strTel.length != 0 && strQQ.length != 0){
+		if (strName.length != 0 && strTel.length != 0 && strQQ.length != 0)
+		{
 			flag = true;
 		}
 
-		if(flag){
+		if (flag)
+		{
 			setCookie('HD_publish_cookie_name', $('#project_name').val())
 			setCookie('HD_publish_cookie_tel', $('#project_mobile').val())
 			setCookie('HD_publish_cookie_qq', $('#project_qq').val())
