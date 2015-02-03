@@ -160,7 +160,7 @@ if (check_extension_package('project'))
 {
     $config[] = array(
         'title' => '活动管理',
-        'cname' => 'table',
+        'cname' => 'reply',
         'children' => array(
             array(
                 'id' => 310,
