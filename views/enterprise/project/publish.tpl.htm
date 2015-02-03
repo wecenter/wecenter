@@ -374,7 +374,7 @@ $(function()
 		}
 	});
 
-	// 返回 回报列表ID
+	// 返回回报列表ID
 	function checkProjectId()
 	{
 		var arr_projectId = [];
@@ -417,12 +417,17 @@ $(function()
 
 
 	//初始化选择众筹
-	if($('#projectPost').val() == 'DEFAULT'){
+	if($('#projectPost').val() == 'DEFAULT')
+	{
 		$('.aw-publish-tabs li:eq(0)').click();
-	}else if($('#projectPost').val() == 'EVENT'){
+	}
+	else if($('#projectPost').val() == 'EVENT')
+	{
 		$('.aw-publish-tabs li:eq(1)').click();
 	}
-	if($('.lump dt').text()=='*活动人数:'){
+
+	if($('.lump dt').text()=='*活动人数:')
+	{
 		var $num = parseInt($('.lump dd').find("input").val());
 		$('.lump dd').find("input").val($num)
 	}
@@ -435,12 +440,13 @@ $(function()
 	$('.aw-publish-setting .mod-footer .btn').on('click',function()
 	{
 
-		getCheck($('.date-picker'),'length'); // 验证日期
-		getCheck($('.col-sm-5 input'),'length'); // 验证众筹总额
-		getCheck($('.select_area:eq(1)'),'select'); // 验证地址
-		getCheck($('.project-name'),'length'); // 验证活动名称
-		getCheck($('.project-sort'),'check'); // 验证活动分类
-		getCheck($('iframe'),'editor'); // 验证编辑器内容
+		checkForm($('.date-picker'),'length'); // 验证日期
+		checkForm($('.col-sm-5 input'),'length'); // 验证众筹总额
+		checkForm($('.select_area:eq(1)'),'select'); // 验证地址
+		checkForm($('.project-name'),'length'); // 验证活动名称
+		checkForm($('.project-sort'),'check'); // 验证活动分类
+		checkForm($('iframe'),'editor'); // 验证编辑器内容
+
 
 		//验证回报设置内容
 		if ( $('.aw-project-return-list tbody tr').length == 0 && $('.aw-project-return-form').is(':visible'))
@@ -451,13 +457,14 @@ $(function()
 		else
 		{
 			$('.payback .label-danger').addClass("hide");
-		}
+		};
 
+		AWS.dialog('activityBox',{contact_name:'<?php echo $this->project_info['contact']['name']; ?>',contact_tel:'<?php echo $this->project_info['contact']['mobile']; ?>',contact_qq:'<?php echo $this->project_info['contact']['qq']; ?>'});
 		$('#publish-name').val(readCookie('HD_publish_cookie_name'));
 		$('#publish-tel').val(readCookie('HD_publish_cookie_tel'));
 		$('#publish-qq').val(readCookie('HD_publish_cookie_qq'));
 
-		function getCheck(obj,type)
+		function checkForm(obj,type)
 		{
 			// 验证函数
 			var tempObj = obj.parents('dd').siblings(".col-sm-8").find('.label-danger')
@@ -500,13 +507,14 @@ $(function()
 
 			}
 
-		}
+		};
 
-		AWS.dialog('activityBox',{contact_name:'<?php echo $this->project_info['contact']['name']; ?>',contact_tel:'<?php echo $this->project_info['contact']['mobile']; ?>',contact_qq:'<?php echo $this->project_info['contact']['qq']; ?>'});
+
 	})
 
-	//增加弹出层验证，验证QQ 手机  姓名
-	$('#aw-ajax-box').delegate(".btn-green ","click",function(){
+	//弹出层验证，验证QQ 手机  姓名
+	$('#aw-ajax-box .aw-topic-edit-note-box').delegate(".btn-success ","click",function()
+	{
 
 		var flag = false;
 
@@ -533,36 +541,44 @@ $(function()
 			AWS.ajax_post($('#publish_form'));
 		}
 
-		function getValue(num){
-
+		function getValue(num)
+		{
 			var str = $('.mod-body dl:eq('+ num +')', '.aw-publish-contact').find("input").val();
-
 			return str;
 		}
 
-		function getCheck(obj,text){
-			if(obj.length == 0 ){
+		function getCheck(obj,text)
+		{
+			if(obj.length == 0 )
+			{
 				$showText.removeClass("hide").css({'display':'block'}).text(text);
-			}else{
+			}
+			else
+			{
 				$showText.addClass("hide")
 			}
 		}
 	})
 
 	//cookie 存储提交资料
-	function readCookie(name) {
+	function readCookie(name)
+	{
 		var cookieStr = "; " + document.cookie + "; ";
 		var index = cookieStr.indexOf("; " + name + "=");
-		if (index != -1) {
+		if (index != -1)
+		{
 			var s = cookieStr.substring(index + name.length + 3, cookieStr.length);
-				return unescape(s.substring(0, s.indexOf("; ")));
-		} else {
+			return unescape(s.substring(0, s.indexOf("; ")));
+		}
+		else
+		{
 			return null;
 		}
 	}
 
 	// 设置
-	function setCookie(name, value, expires) {
+	function setCookie(name, value, expires)
+	{
 		var expDays = expires * 24 * 60 * 60 * 1000;
 		var expDate = new Date();
 		expDate.setTime(expDate.getTime() + expDays);
