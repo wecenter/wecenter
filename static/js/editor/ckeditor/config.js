@@ -11,15 +11,12 @@ CKEDITOR.editorConfig = function( config ) {
 	config.toolbar = 'Full';
 
 	config.toolbar_Full = [
-		 ['FontSize','Cleanup','Bold','Italic','NumberedList','BulletedList', 'Blockquote', 'Code', 'WecenterImage', 'WecenterAttach', 'WecenterLink', 'WecenterVideo', 'Maximize', 'RemoveFormat']
-
+		 ['FontSize','Cleanup','Bold','Italic','NumberedList','BulletedList', 'Blockquote', 'pbckcode', 'WecenterImage', 'WecenterAttach', 'WecenterLink', 'WecenterVideo', 'Maximize', 'RemoveFormat']
 	]
 
-	config.extraPlugins = 'sourcearea,bbcode,wecenterattach,wecenterimage,wecenterlink,wecentervideo,blockquote,codeTag,font';
+	config.extraPlugins = 'pbckcode,sourcearea,bbcode,wecenterattach,wecenterimage,wecenterlink,wecentervideo,blockquote,font';
 
 	config.resize_enabled = false;
-
-	config.removePlugins = "elementspath";
 
 	config.language = 'zh-cn';
 
@@ -46,16 +43,19 @@ CKEDITOR.editorConfig = function( config ) {
 	// 	{ name: 'about' }
 	// ];
 
+	config.magicline_color = '#ccc';
+
+	config.magicline_everywhere = true;
+
 	config.fontSize_sizes = '16px;18px';
 
 	// The default plugins included in the basic setup define some buttons that
 	// are not needed in a basic editor. They are removed here.
 	config.removeButtons = 'Cut,Copy,Paste,Undo,Redo,Anchor,Underline,Strike,Subscript,Superscript';
 
-
 	// Dialog windows are also simplified.
 	config.removeDialogTabs = 'link:advanced';
 
-	config.removePlugins = 'enterkey,elementspath';
+	config.removePlugins = 'enterkey,elementspath,tabletools,contextmenu';
 
 };
