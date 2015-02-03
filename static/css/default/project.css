@@ -330,3 +330,22 @@
 .order-btn{text-align: center;}
 .order-btn .btn{width: 130px;height: 40px;background: #64b7fd;border-radius: 5px;color: #fff;line-height: 25px;}
 .order .dropdown-toggle {padding: 2px 5px;color: #64b7fd;border: 1px solid #64b7fd;border-radius: 5px;}
+
+/*  响应式 */
+@media (max-width:769px) {
+    .aw-project-list ul li {width: 35%;}
+    .aw-side-bar .aw-project-title .mod-body ul {margin-right: 0;}
+    .aw-side-bar .aw-project-title .mod-body ul li {margin-right: 0;}
+    .aw-side-bar .mod-footer .btn-blue, .aw-side-bar .mod-footer .btn-gray, .aw-side-bar .mod-footer .btn-red {width: 100%;margin-bottom: 10px;}
+}
+
+@media (max-width:667px) {
+    .aw-project-list ul li {width: 50%;}
+    .aw-project-page .col-md-8, .aw-project-page .col-md-4 {width: 100%;padding: 20px;}
+}
+
+@media (max-width:375px) {
+    .aw-project-list ul li {width: 320px;}
+    .aw-nav-filter .mod-body {height: auto;}
+
+}
