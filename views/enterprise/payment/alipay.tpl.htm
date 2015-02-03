@@ -1,10 +1,10 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
-<html xml:lang="zh-cn" lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml"> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="zh-cn" lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 	    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 	    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0" />
 		<title><?php echo $this->page_title; ?></title>
-		
+
 		<style type="text/css">
 		body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td{margin:0;padding:0;}
 		ol,ul{list-style:none;}
@@ -30,7 +30,7 @@
 		fieldset,img,abbr,acronym{border:0;}
 		hr,legend{display:none;}
 		</style>
-		
+
 		<!--/CSS-->
 	</head>
 	<body id='aws_body' class='redirector'>
@@ -52,17 +52,17 @@
 		<input type="hidden" name="extra_common_param" value="<?php echo $this->extra_common_param; ?>" />
 		<input type="submit" id="payment_submit" value="继续" />
 		</form>
-		
+
 		<div id='aws_wrapper'>
 			<h1></h1>
 			<h2><?php _e('提示信息'); ?></h2>
 			<p class='message'>
-				<strong>订单已经保存，如果支付出现问题，请登录知因社区或者支付宝帐号重新支付。谢谢您的支持！</strong>
+				<strong>订单已经保存，如果支付出现问题，请登录 WeCenter 社区或者支付宝帐号重新支付。谢谢您的支持！</strong>
 				<br />
 				<span class='desc'>(<a href="javascript:;" onclick="document.getElementById('payment_submit').click()"><?php _e('如果不想等待, 请点击这里'); ?></a>)</span>
 			</p>
 		</div>
-		
+
 		<script type="text/javascript">
 			setTimeout(function () {
 				document.getElementById('payment_submit').click();

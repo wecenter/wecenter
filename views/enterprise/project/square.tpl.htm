@@ -27,9 +27,29 @@
 							</div>
 							<div class="mod-body clearfix">
 								<div class="pull-left">
-									<a href="project/"<?php if (!$_GET['category_id']) { ?> class="active"<?php } ?>>全部</a>
-										<?php foreach ($this->category_list AS $key => $val) { ?>
-									<a href="project/category_id-<?php echo $val['id']; ?>"<?php if ($val['id'] == $_GET['category_id']) { ?> class="active"<?php } ?>><?php echo $val['title']; ?></a><?php } ?>
+								<?php if ($this->category_list) { ?>
+								<ul>
+									<li <?php if (!$_GET['category'] AND !$this->feature_info) { ?> class="active"<?php } ?>><a href="<?php echo $this->category_list['base']['link']; ?>"><?php _e('全部'); ?></a>
+									</li>
+									<?php foreach ($this->category_list as $key => $val) { ?>
+									<?php if ($val['title']) { ?>
+									<li <?php if (($val['type'] == 'category' AND $_GET['category'] AND $val['category_id'] == $this->category_info['id'])) { ?> class="active"<?php } ?>>
+										<a href="<?php echo $val['link']; ?>"<?php if ($val['type'] == 'custom') { ?> target="_blank"<?php } ?>><?php echo $val['title']; ?></a>
+										<?php if ($val['child'] && get_setting('nav_menu_show_child') == 'Y') { ?>
+										<div class="aw-dropdown" role="menu" aria-labelledby="dropdownMenu">
+											<span></span>
+											<ul class="aw-dropdown-list">
+												<?php foreach ($val['child'] AS $_key => $_val) { ?>
+												<li><a href="<?php echo $_val['link']; ?>"<?php if ($_val['id'] == $this->category_info['id']) { ?> class="active"<?php } ?>><?php echo $_val['title']; ?></a></li>
+												<?php } ?>
+											</ul>
+										</div>
+										<?php } ?>
+									</li>
+									<?php } ?>
+									<?php } ?>
+								</ul>
+								<?php } ?>
 								</div>
 								<div class="pull-right">
 									<a href="javascript:;" class="hr">&nbsp</a>
@@ -80,8 +100,8 @@
 											</span>
 										</div>
 										<div class="desc clearfix">
-											<a href="project/<?php echo $val['id']; ?>" class="pull-left label <?php if ($val['project_type'] == 'DEFAULT') { ?>label-blue<?php } else if ($val['project_type'] == 'STOCK') { ?>label-Purple<?php } else if ($val['project_type'] == 'EVENT') { ?>label-red<?php } ?> <?php if (!$val['approved']) { ?>label-gray<?php } else if ($val['end_time'] < time()) { ?>label-gray<?php } else if ($val['start_time'] > time()) { ?>label-oragin<?php } else { ?><?php if ($val['paid'] > 0) { if ($val['project_type'] == 'STOCK') { ?>label-blue<?php } else { ?>label-oragin<?php } } else if ($val['paid'] >= $val['amount']) { ?>label-oragin<?php } else { ?>label-oragin<?php } ?><?php } ?>" >
-											<?php if ($val['project_type'] == 'DEFAULT') { ?>众筹<?php } else if ($val['project_type'] == 'STOCK') { ?>众筹<?php } else if ($val['project_type'] == 'EVENT') { ?>活动<?php } ?> | <?php if (!$val['approved']) { ?>待审核<?php } else if ($val['end_time'] < time()) { ?>已结束<?php } else if ($val['start_time'] > time()) { ?>预热中<?php } else { ?><?php if ($val['paid'] > 0) { if ($val['project_type'] == 'STOCK') { ?>已筹到<?php } else { ?>进行中<?php } } else if ($val['paid'] >= $val['amount']) { ?>已成功<?php } else { ?>进行中<?php } ?><?php } ?></a>
+											<a href="project/<?php echo $val['id']; ?>" class="pull-left label <?php if ($val['project_type'] == 'DEFAULT') { ?>label-oragin<?php } else if ($val['project_type'] == 'EVENT') { ?>label-blue<?php } ?> <?php if (!$val['approved']) { ?>label-gray<?php } else if ($val['end_time'] < time()) { ?>label-gray<?php } else if ($val['start_time'] > time()) { ?>label-gray<?php } else { ?><?php if ($val['paid'] > 0) { if ($val['project_type'] == 'STOCK') { ?>label-blue<?php } else { ?>label-blue2<?php } } else if ($val['paid'] >= $val['amount']) { ?>label-oragin2<?php } else { ?>label-oragin2<?php } ?><?php } ?>" >
+											<?php if ($val['project_type'] == 'DEFAULT') { ?>众筹<?php } else if ($val['project_type'] == 'EVENT') { ?>活动<?php } ?> | <?php if (!$val['approved']) { ?>待审核<?php } else if ($val['end_time'] < time()) { ?>已结束<?php } else if ($val['start_time'] > time()) { ?>预热中<?php } else { ?><?php if ($val['paid'] > 0) { if ($val['project_type'] == 'STOCK') { ?>已筹到<?php } else { ?>进行中<?php } } else if ($val['paid'] >= $val['amount']) { ?>已成功<?php } else { ?>进行中<?php } ?><?php } ?></a>
 											<a href="topic/<?php echo $val['topic_id']; ?>">支持: <?php echo $val['sponsored_users']; ?></a>
 											<a href="project/<?php echo $val['id']; ?>#project-support">讨论: <?php echo $val['discuss_count']; ?></a>
 

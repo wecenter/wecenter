@@ -107,13 +107,14 @@
 								</tbody>
 								<?php } ?>
 							</table>
+							<div class="mod-footer text-center">
+								<?php if ($this->order_list) { ?>
+									<a class="btn btn-primary" href="project/export/"><?php _e('导出 Excel 表格'); ?></a>
+								<?php } ?>
+								<?php echo $this->pagination; ?>
+							</div>
 						</div>
-						<div class="row">
-							<?php if ($this->order_list) { ?>
-								<a class="btn btn-primary pull-left" href="project/export/"><?php _e('导出 Excel 表格'); ?></a>
-							<?php } ?>
-							<?php echo $this->pagination; ?>
-						</div>
+
 					</div>
 				</div>
 			</div>

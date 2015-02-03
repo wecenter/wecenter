@@ -20,13 +20,13 @@
 .aw-nav-filter .mod-head h2 .icon-users {font-size: 20px;margin-right: 5px;}
 .aw-nav-filter .mod-head .btn-group .btn-sm {padding: 7px 12px;}
 .aw-nav-filter .mod-body {height: 62px; padding: 15px;line-height: 35px;}
-.aw-nav-filter .mod-body .pull-left a {margin-right: 20px; color: #333;}
-.aw-nav-filter .mod-body .pull-left a.active {background: #333;color: #fff;padding: 8px 12px;border-radius: 5px;}
+.aw-nav-filter .mod-body ul li {float: left;}
+.aw-nav-filter .mod-body ul li a {margin-right: 20px; color: #333;}
+.aw-nav-filter .mod-body ul li.active a {background: #333;color: #fff;padding: 8px 12px;border-radius: 5px;}
 .aw-nav-filter .mod-body .pull-right {margin-top: 10px;}
 .aw-nav-filter .mod-body .pull-right a {margin-left: 20px;color: #666;font-size: 12px;padding-bottom: 9px;}
 .aw-nav-filter .mod-body .pull-right a.active {color: #333;border-bottom: 3px solid #0067a6;}
 
-/* 活动项目列表 */
 .aw-project-list {margin-left: 15px;}
 .aw-project-list ul{margin-left: -15px;width: 1000px;}
 .aw-project-list ul li{float: left;margin:0 20px 20px 0;padding:0;width: 31.3%;height: 444px;border:1px solid #D3D3D3;border-bottom-left-radius: 5px;border-bottom-right-radius: 5px;background-color: #fff;}
@@ -47,11 +47,9 @@
 .aw-project-list ul li .mod-footer .status span b{display: block;color: #333;font-weight: bold;font-size: 16px;}
 .aw-project-list ul li .mod-footer .status span.pull-right{margin:0;text-align: right;}
 .aw-project-list .desc .label{padding:10px;background: #cccccc;color: #fff !important;}
-.aw-project-list .desc .label-red{background: #499ef3;}
-.aw-project-list .desc .label-blue{background: #FF9500;}
-.aw-project-list .desc .label-Purple{background: #596680;}
+.aw-project-list .desc .label-blue, .aw-project-list .desc .label-blue2{background: #499ef3;}
 .aw-project-list .desc .label-gray {background: #999;}
-.aw-project-list .desc .label-oragin {background: #FF9500;}
+.aw-project-list .desc .label-oragin, .aw-project-list .desc .label-oragin2 {background: #FF9500;}
 
 /* 侧边栏 */
 .aw-project-page .col-md-4{width: 25%;}
@@ -295,7 +293,7 @@
 .aw-project-record .aw-tabs li.active a {border-top: 2px solid #2185C5;color: #2185C5;}
 .aw-project-record.manage .project-support-list table tbody tr:nth-child(n) th, .aw-project-record.manage .project-support-list table tbody tr:nth-child(n) td{border-bottom: 1px solid #ECECEC;}
 .aw-project-record.manage .project-support-list table tbody tr:nth-child(2n) td{padding:15px 0;text-align: center;}
-
+.aw-project-record .project-support-list .mod-footer {padding: 15px 0;}
 /* 统计页面 */
 #flotr-canvas{margin: 8px auto;width: 800px;height: 400px;}
 
@@ -325,45 +323,15 @@
 .date_selector td.selectable_day:hover, .date_selector td.selectable_day.hover {background: #F2F8FF;color: #246594;}
 
 /*手机支付页面*/
-.zc-project-fonfirm-wrap{padding: 40px 15px 0 15px;}
-.zc-project-fonfirm-wrap span,.zc-project-fonfirm-wrap strong{font-size: 18px;}
-.zc-project-fonfirm-wrap span{color: #64b7fd;font-size: 20px;position: relative;top: 2px;}
-.zc-project-fonfirm-wrap p {color:#888888}
-.zc-project-fonfirm-wrap .tip{background: #edf7ff;color: #64b7fd;padding: 10px;margin: 15px 0;}
-.zc-project-fonfirm-wrap .tip a{}
+.aw-project-fonfirm-wrap{padding: 40px 15px 0 15px;}
+.aw-project-fonfirm-wrap span,.zc-project-fonfirm-wrap strong{font-size: 18px;}
+.aw-project-fonfirm-wrap span{color: #64b7fd;font-size: 20px;position: relative;top: 2px;}
+.aw-project-fonfirm-wrap p {color:#888888}
+.aw-project-fonfirm-wrap .tip{background: #edf7ff;color: #64b7fd;padding: 10px;margin: 15px 0;}
+.aw-project-fonfirm-wrap .tip a{}
 .order{padding: 10px 0;}
 .order p {color: #000;}
 .order input{margin-right: 6px;}
 .order-btn{text-align: center;}
 .order-btn .btn{width: 130px;height: 40px;background: #64b7fd;border-radius: 5px;color: #fff;line-height: 25px;}
 .order .dropdown-toggle {padding: 2px 5px;color: #64b7fd;border: 1px solid #64b7fd;border-radius: 5px;}
-/* iphone横屏幕 */
-@media (max-width:640px) {
-/* 活动列表 */
-    body{background: #fff}
-    .aw-nav-filter .pull-right a{padding: 0 5px 11px 5px;}
-    .aw-project-page .col-md-4 {padding: 0 15px}
-    .aw-project-suggest .mod-body ul li i{top:8px;}
-    .aw-nav-filter .pull-right {float: left !important;margin-left: -10px}
-    .aw-side-bar .mod-body ul{margin-right: -20px}
-    .aw-side-bar .mod-body li{margin-right: 15px}
-    .aw-project-return-list ul li{padding: 10px 29px;}
-    .aw-nav-filter dt{margin-right: 10px;}
-    .aw-nav-filter dd{float: none !important;margin-left: 0;}
-    .aw-nav-filter dd ul li{margin-bottom: 5px;}
-    .aw-project-list ul{width: 100%;}
-    .aw-project-list ul li{float: none;width: 100%;height: auto;margin-left: 10px;}
-    .aw-project-list ul li .mod-head img{width: 100%;}
-    .aw-project-page .col-sm-12{width: 100% !important;}
-    .aw-project-page .aw-project-detail img{max-width: 100%;}
-    .hr{display: none;}
-    /* 活动发起 */
-    .aw-event-publish .mod .mod-body > dl > dt{text-align: left;}
-    .aw-event-publish .mod .mod-body > dl > dd{margin:0;width: 100%;}
-    .form-normal{width: 100%;}
-    .aw-publish-desc .category-list dl dd{float: left;width: auto;}
-    .aw-edit-topic-box input{width: 100% !important;}
-    #aw-ajax-box .modal-content {width: 100%;padding: 0 8px;}
-    .formBox {width: 100%;padding-bottom: 80px;border: none;}
-    .formBox .main{margin-left: 0}
-}
