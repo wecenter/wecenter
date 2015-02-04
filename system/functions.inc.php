@@ -32,16 +32,8 @@ function base_url()
 	$clean_url = isset($_SERVER['PATH_INFO']) ? $_SERVER['PATH_INFO'] : NULL;
 	$clean_url = dirname(rtrim($_SERVER['PHP_SELF'], $clean_url));
 	$clean_url = rtrim($_SERVER['HTTP_HOST'] . $clean_url, '/\\');
-	$clean_url = rtrim($clean_url, '/\\');
 
-	if ($_SERVER['SERVER_PORT'] == 443)
-	{
-		$scheme = 'https';
-	}
-	else
-	{
-		$scheme = 'http';
-	}
+	$scheme = ($_SERVER['HTTPS'] AND !in_array(strtolower($_SERVER['HTTPS']), array('off', 'no'))) ? 'https' : 'http';
 
 	return $scheme . '://' . $clean_url;
 }
