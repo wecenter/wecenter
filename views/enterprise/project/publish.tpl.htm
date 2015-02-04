@@ -200,7 +200,6 @@
 														<tr data-id="<?php echo $val['id']; ?>">
 															<td><?php echo $val['title']; ?></td>
 															<td><?php echo $val['amount']; ?></td>
-															<td><?php if ($val['stock'] == -99) { ?>不限限额<?php } else { ?><?php echo $val['stock']; ?><?php } ?></td>
 															<td><?php echo nl2br($val['description']); ?></td>
 															<td>
 																<a class="delete" data-id="<?php echo $val['id']; ?>" href="javascript:;">删除</a>
@@ -338,7 +337,6 @@ $(function()
 									'<a class="delete" href="javascript:;">删除</a>'+
 									'<input type="hidden" name="project_product[' + projectId + '][title]" value="' + title + '" />'+
 									'<input type="hidden" name="project_product[' + projectId + '][amount]" value="' + amount + '" />'+
-									'<input type="hidden" name="project_product[' + projectId + '][stock]" value="' + form.find('.people-amount').val() + '" />'+
 									'<input type="hidden" name="project_product[' + projectId + '][description]" value="' + content + '" />'+
 								'</td>'+
 							'</tr>';
