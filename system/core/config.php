@@ -56,23 +56,21 @@ class core_config
 
 	function load_config($config_id)
 	{
-		if (! file_exists(AWS_PATH . 'config/' . $config_id . '.php'))
+		if (substr($config_id, -10) == '.extension' OR !file_exists(AWS_PATH . 'config/' . $config_id . '.php'))
 		{
 			throw new Zend_Exception('The configuration file config/' . $config_id . '.php does not exist.');
 		}
-		else
+
+		include_once(AWS_PATH . 'config/' . $config_id . '.php');
+
+		if (!is_array($config))
 		{
-			include (AWS_PATH . 'config/' . $config_id . '.php');
-
-			if (! is_array($config))
-			{
-				throw new Zend_Exception('Your config/' . $config_id . '.php file does not appear to contain a valid configuration array.');
-			}
-
-			$this->config[$config_id] = (object)$config;
-
-			return $this->config[$config_id];
+			throw new Zend_Exception('Your config/' . $config_id . '.php file does not appear to contain a valid configuration array.');
 		}
+
+		$this->config[$config_id] = (object)$config;
+
+		return $this->config[$config_id];
 	}
 
 	public function set($config_id, $data)
