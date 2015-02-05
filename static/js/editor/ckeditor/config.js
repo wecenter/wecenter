@@ -14,7 +14,7 @@ CKEDITOR.editorConfig = function( config ) {
 		 ['FontSize','Cleanup','Bold','Italic','NumberedList','BulletedList', 'Blockquote', 'pbckcode', 'WecenterImage', 'WecenterAttach', 'WecenterLink', 'WecenterVideo', 'Maximize', 'RemoveFormat']
 	]
 
-	config.extraPlugins = 'pbckcode,sourcearea,bbcode,wecenterattach,wecenterimage,wecenterlink,wecentervideo,blockquote,font';
+	config.extraPlugins = 'pbckcode,bbcode,sourcearea,wecenterattach,wecenterimage,wecenterlink,wecentervideo,blockquote,font';
 
 	config.resize_enabled = false;
 
