@@ -188,7 +188,7 @@ class main extends AWS_CONTROLLER
 		{
 			if (!$this->user_info['permission']['publish_project'])
 			{
-				H::redirect_msg(AWS_APP::lang()->_t('你没有权限发起活动'), '/project/');
+				H::redirect_msg(AWS_APP::lang()->_t('你所在用户组没有权限发布活动'), '/project/');
 			}
 
 			$this->crumb(AWS_APP::lang()->_t('发布活动'), '/project/publish/');
