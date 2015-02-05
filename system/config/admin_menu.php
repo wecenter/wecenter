@@ -302,3 +302,8 @@ $config[] = array(
         )
     )
 );
+
+if (file_exists(AWS_PATH . 'config/admin_menu.extension.php'))
+{
+    include_once(AWS_PATH . 'config/admin_menu.extension.php');
+}
