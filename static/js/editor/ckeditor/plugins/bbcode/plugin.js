@@ -381,12 +381,13 @@
 					else if ( piece.length ) {
 						var lastIndex = 0;
 
+						// Modify by wecenter
 						// Create smiley from text emotion.
-						piece.replace( smileyRegExp, function( match, index ) {
-							addElement( new CKEDITOR.htmlParser.text( piece.substring( lastIndex, index ) ), currentNode );
-							addElement( new CKEDITOR.htmlParser.element( 'smiley', { desc: smileyReverseMap[ match ] } ), currentNode );
-							lastIndex = index + match.length;
-						} );
+						// piece.replace( smileyRegExp, function( match, index ) {
+						// 	addElement( new CKEDITOR.htmlParser.text( piece.substring( lastIndex, index ) ), currentNode );
+						// 	addElement( new CKEDITOR.htmlParser.element( 'smiley', { desc: smileyReverseMap[ match ] } ), currentNode );
+						// 	lastIndex = index + match.length;
+						// } );
 
 						if ( lastIndex != piece.length )
 							addElement( new CKEDITOR.htmlParser.text( piece.substring( lastIndex, piece.length ) ), currentNode );
