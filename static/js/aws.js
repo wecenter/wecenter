@@ -150,7 +150,7 @@ var AWS =
 		{
 			var type = 'default';
 		}
-		else if (type == 'reply')
+		else if (type == 'reply && question')
 		{
 			AWS.loading('show');
 
