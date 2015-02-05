@@ -927,6 +927,27 @@
                     </td>
                 </tr>
                 <?php } ?>
+
+                <?php if (check_extension_package('project')) { ?>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('启用活动系统'); ?>:</span>
+                            <div class="col-sm-6 col-xs-8">
+                                <div class="btn-group mod-btn">
+                                    <label type="button" class="btn mod-btn-color">
+                                        <input type="radio" name="project_enabled" value="Y"<?php if ($this->setting['project_enabled'] == 'Y') { ?> checked="checked"<?php } ?> /> <?php _e('是'); ?>
+                                    </label>
+
+                                    <label type="button" class="btn mod-btn-color">
+                                        <input type="radio" name="project_enabled" value="N"<?php if ($this->setting['project_enabled'] != 'Y') { ?> checked="checked"<?php } ?> /> <?php _e('否'); ?>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <?php } ?>
             </table>
         </div>
 
@@ -1617,9 +1638,112 @@
                         </div>
                     </td>
                 </tr>
+
+                <?php if (check_extension_package('payment')) { ?>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <span class="col-sm-4 col-xs-3 control-label textwrap"><?php _e('支付宝账号'); ?>:</span>
+                            <div class="col-sm-5 col-xs-8">
+                                <input name="alipay_seller_email" type="text" class="form-control" value="<?php echo $this->setting['alipay_seller_email']; ?>"/>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <span class="col-sm-4 col-xs-3 control-label textwrap"><?php _e('支付宝合作身份者 ID'); ?>:</span>
+                            <div class="col-sm-5 col-xs-8">
+                                <input name="alipay_partner" type="text" class="form-control" value="<?php echo $this->setting['alipay_partner']; ?>"/>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <span class="col-sm-4 col-xs-3 control-label textwrap"><?php _e('支付宝安全检验码'); ?>:</span>
+                            <div class="col-sm-5 col-xs-8">
+                                <input name="alipay_key" type="text" class="form-control" value="<?php echo $this->setting['alipay_key']; ?>"/>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('支付宝签名方式'); ?>:</span>
+                            <div class="col-sm-8 col-xs-8">
+                                <label class="checkbox-inline"><input type="radio" name="alipay_sign_type" value="MD5"<?php if (!$this->setting['alipay_sign_type'] OR $this->setting['alipay_sign_type'] == 'MD5') { ?> checked="checked"<?php } ?> /> MD5</label>
+                                <label class="checkbox-inline"><input type="radio" name="alipay_sign_type" value="RSA"<?php if ($this->setting['alipay_sign_type'] == 'RSA') { ?> checked="checked"<?php } ?> /> RSA</label>
+                                <label class="checkbox-inline"><input type="radio" name="alipay_sign_type" value="0001"<?php if ($this->setting['alipay_sign_type'] == '0001') { ?> checked="checked"<?php } ?> /> 0001</label>
+
+                                <span class="help-block"><?php _e('如不确定请勿更改'); ?></span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('支付宝字符编码格式'); ?>:</span>
+                            <div class="col-sm-8 col-xs-8">
+                                <label class="checkbox-inline"><input type="radio" name="alipay_input_charset" value="utf-8"<?php if (!$this->setting['alipay_input_charset'] OR $this->setting['alipay_input_charset'] == 'utf-8') { ?> checked="checked"<?php } ?> /> UTF-8</label>
+                                <label class="checkbox-inline"><input type="radio" name="alipay_input_charset" value="gbk"<?php if ($this->setting['alipay_input_charset'] == 'gbk') { ?> checked="checked"<?php } ?> /> GBK</label>
+
+                                <span class="help-block"><?php _e('不建议更改'); ?></span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('支付宝访问模式'); ?>:</span>
+                            <div class="col-sm-8 col-xs-8">
+                                <label class="checkbox-inline"><input type="radio" name="alipay_transport" value="https"<?php if (!$this->setting['alipay_transport'] OR $this->setting['alipay_transport'] == 'https') { ?> checked="checked"<?php } ?> /> HTTPS</label>
+                                <label class="checkbox-inline"><input type="radio" name="alipay_transport" value="http"<?php if ($this->setting['alipay_transport'] == 'http') { ?> checked="checked"<?php } ?> /> HTTP</label>
+
+                                <span class="help-block"><?php _e('如服务器不支持 SSL 请改为 HTTP'); ?></span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('支付宝商户私钥'); ?>:</span>
+                            <div class="col-sm-5 col-xs-8">
+                                <textarea class="form-control textarea" rows="6" name="alipay_private_key"><?php echo $this->setting['alipay_private_key']; ?></textarea>
+
+                                <span class="help-block"><?php _e('支付宝签名方式为 RSA 或 0001 时必须设置'); ?></span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('支付宝公钥'); ?>:</span>
+                            <div class="col-sm-5 col-xs-8">
+                                <textarea class="form-control textarea" rows="6" name="alipay_ali_public_key"><?php echo $this->setting['alipay_ali_public_key']; ?></textarea>
+
+                                <span class="help-block"><?php _e('支付宝签名方式为 RSA 或 0001 时必须设置'); ?></span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <?php } ?>
             </table>
         </div>
-
         <?php } else if ($_GET['category'] == 'cache') { ?>
         <div class="mod-head">
             <h3>

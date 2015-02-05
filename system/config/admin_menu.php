@@ -160,7 +160,7 @@ if (check_extension_package('project'))
 {
     $config[] = array(
         'title' => '活动管理',
-        'cname' => 'table',
+        'cname' => 'reply',
         'children' => array(
             array(
                 'id' => 310,
@@ -302,3 +302,8 @@ $config[] = array(
         )
     )
 );
+
+if (file_exists(AWS_PATH . 'config/admin_menu.extension.php'))
+{
+    include_once(AWS_PATH . 'config/admin_menu.extension.php');
+}
