@@ -161,11 +161,28 @@
 			<?php echo get_setting('statistic_code'); ?>
 		</div>
 		<!-- / DO NOT REMOVE -->
+
+		<?php if (in_weixin()) { ?>
+		<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+		<?php } ?>
+
 		<?php if (in_weixin()) { ?>
 		<script type="text/javascript">
 		$(function()
 		{
 			$('.header').hide();
+
+			wx.config({
+				debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+				appId: '<?php echo get_setting("weixin_app_id"); ?>', // 必填，公众号的唯一标识
+				timestamp: '<?php echo $this->timestamp; ?>', // 必填，生成签名的时间戳
+				nonceStr: '<?php echo $this->noncestr; ?>', // 必填，生成签名的随机串
+				signature: '<?php echo $this->signature; ?>',// 必填，签名，见附录1
+				jsApiList: [
+					'onMenuShareTimeline',
+					'onMenuShareAppMessage',
+					] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+			});
 
 			if ($('.aw-question-detail .markitup-box img')[0])
 			{
@@ -177,28 +194,27 @@
 			{
 				var weixin_img_url = location.protocol + '//' + location.host + location.pathname + 'static/common/weixin_default_image.png';
 			}
+
 			var weixin_handler = setInterval(function()
 			{
-				if (typeof G_IN_WEIXIN != 'undefined' && G_IN_WEIXIN == true)
-				{
-					WeixinJSBridge.on('menu:share:timeline', function(argv) {
-						WeixinJSBridge.invoke('shareTimeline', {
-							"img_url": weixin_img_url,
-							"title" : document.title,
-							"link" : location.href,
-							"desc" : ($('#weixin-desc').text()=='') ? $('meta[name="description"]').attr('content') : $('#weixin-desc').text()
-						});
+				WeixinJSBridge.on('menu:share:timeline', function(argv) {
+					WeixinJSBridge.invoke('wx.onMenuShareTimeline', {
+						"img_url": weixin_img_url,
+						"title" : document.title,
+						"link" : location.href,
+						"desc" : ($('#weixin-desc').text()=='') ? $('meta[name="description"]').attr('content') : $('#weixin-desc').text()
 					});
-					WeixinJSBridge.on('menu:share:appmessage', function(argv) {
-						WeixinJSBridge.invoke('sendAppMessage', {
-							"img_url": weixin_img_url,
-							"title" : document.title,
-							"link" : location.href,
-							"desc" : ($('#weixin-desc').text()=='') ? $('meta[name="description"]').attr('content') : $('#weixin-desc').text()
-						});
+				});
+				WeixinJSBridge.on('menu:share:appmessage', function(argv) {
+					WeixinJSBridge.invoke('wx.onMenuShareAppMessage', {
+						"img_url": weixin_img_url,
+						"title" : document.title,
+						"link" : location.href,
+						"desc" : ($('#weixin-desc').text()=='') ? $('meta[name="description"]').attr('content') : $('#weixin-desc').text()
 					});
-					clearInterval(weixin_handler);
-				}
+				});
+				clearInterval(weixin_handler);
+
 			}, 500);
 		}
 		</script>

@@ -1224,6 +1224,11 @@ class ajax extends AWS_ADMIN_CONTROLLER
             $permission_array[] = 'publish_ticket';
         }
 
+        if (check_extension_package('project'))
+        {
+            $permission_array[] = 'publish_project';
+        }
+
         $group_setting = array();
 
         foreach ($permission_array as $permission)

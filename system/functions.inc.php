@@ -32,16 +32,8 @@ function base_url()
 	$clean_url = isset($_SERVER['PATH_INFO']) ? $_SERVER['PATH_INFO'] : NULL;
 	$clean_url = dirname(rtrim($_SERVER['PHP_SELF'], $clean_url));
 	$clean_url = rtrim($_SERVER['HTTP_HOST'] . $clean_url, '/\\');
-	$clean_url = rtrim($clean_url, '/\\');
 
-	if ($_SERVER['SERVER_PORT'] == 443)
-	{
-		$scheme = 'https';
-	}
-	else
-	{
-		$scheme = 'http';
-	}
+	$scheme = ($_SERVER['HTTPS'] AND !in_array(strtolower($_SERVER['HTTPS']), array('off', 'no'))) ? 'https' : 'http';
 
 	return $scheme . '://' . $clean_url;
 }
@@ -1309,4 +1301,26 @@ function check_extension_package($package)
 	}
 
 	return true;
+}
+
+function get_left_days($timestamp)
+{
+	$left_days = intval(($timestamp - time()) / (3600 * 24));
+
+	if ($left_days < 0)
+	{
+		$left_days = 0;
+	}
+
+	return $left_days;
+}
+
+function get_paid_progress_bar($amount, $paid)
+{
+	if ($amount == 0)
+	{
+		return 0;
+	}
+
+	return intval(($paid / $amount) * 100);
 }

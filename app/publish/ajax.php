@@ -55,9 +55,9 @@ class ajax extends AWS_CONTROLLER
         switch ($_GET['id'])
         {
             case 'article':
-            // Modify by WeCenter
             case 'ticket':
             case 'ticket_reply':
+            case 'project':
                 $item_type = $_GET['id'];
 
                 break;
