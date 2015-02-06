@@ -103,6 +103,34 @@
                 </td>
             </tr>
 
+            <?php if (check_extension_package('project')) { ?>
+            <tr>
+                <td>
+                    <form action="admin/tools/init/" method="post" target="_blank">
+                        <input type="hidden" name="action" value="update_project_posts_index" />
+
+                        <div class="form-group">
+                            <span class="col-sm-3 col-xs-3 control-label middle"><?php _e('更新活动搜索索引'); ?>:</span>
+                            <div class="col-sm-7 col-xs-8 middle">
+                                <?php _e('如果站点搜索功能有问题可以使用此功能修正'); ?>
+
+                                <div class="row">
+                                    <span class="col-sm-1 mod-text-inline"><?php _e('&nbsp 每次处理数量'); ?>:</span>
+                                    <div class="col-sm-6">
+                                        <input type="text" value="300" name="per_page" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-2 col-xs-12">
+                                <input type="submit" class="btn btn-primary" value="<?php _e('开始处理'); ?>">
+                            </div>
+                        </div>
+                    </form>
+                </td>
+            </tr>
+            <?php } ?>
+
             <tr>
                 <td>
                     <form action="admin/tools/init/" method="post" target="_blank">
