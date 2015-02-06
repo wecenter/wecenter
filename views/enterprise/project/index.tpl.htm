@@ -28,9 +28,8 @@
                     <div class="mod aw-project-detail">
                         <div class="mod-head">
                             <div class="aw-breadcrumb">
-                                <a href="project/"><?php _e('活动'); ?></a>
-                                <?php if ($this->project_category_list) { ?>
-                                <a href="project/category_id-<?php echo $this->project_info['category_info']['id']; ?>"><?php echo $this->project_info['category_info']['title']; ?></a><?php } ?>
+                                <a style="display:none;" href="project/"><?php _e('活动'); ?></a>
+                                <a href="project/category_id-<?php echo $this->project_info['category_info']['id']; ?>"><?php echo $this->project_info['category_info']['title']; ?></a>
                                 <div class="aw-topic-bar clearfix">
                                     <?php if ($this->project_topics) { ?>
                                     <?php foreach ($this->project_topics AS $key => $val) { ?>
@@ -336,4 +335,15 @@
         </div>
     </div>
 </div>
+<script>
+    // 判断是否有分类
+    $(function() {
+        if($('.aw-breadcrumb > a:eq(1)').html().trim() != '')
+        {
+            $('.aw-breadcrumb > a:eq(1)').prev().show();
+            $('.aw-breadcrumb > a:eq(1)').addClass('event-category');
+
+        }
+    })
+</script>
 <?php TPL::output('global/footer.tpl.htm'); ?>
