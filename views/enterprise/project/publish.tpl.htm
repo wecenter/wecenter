@@ -245,6 +245,11 @@ $(function()
 			});
 	}
 
+	// 无分类则隐藏
+	if(!$('.category-list dd select').length) {
+		$('.category-list').hide();
+	}
+
 	// 选择日期
 	if (typeof(DateInput) != 'undefined')
 	{
@@ -260,10 +265,6 @@ $(function()
 		},
 		dataUrl: G_STATIC_URL + '/js/areas.js'
 	});
-
-	if(!$('.category-list dd select').length) {
-		$('.category-list').hide();
-	}
 
 
 	// 众筹回报设置
