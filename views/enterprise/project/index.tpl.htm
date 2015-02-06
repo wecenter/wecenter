@@ -29,7 +29,8 @@
                         <div class="mod-head">
                             <div class="aw-breadcrumb">
                                 <a href="project/"><?php _e('活动'); ?></a>
-                                <a href="project/category_id-<?php echo $this->project_info['category_info']['id']; ?>"><?php echo $this->project_info['category_info']['title']; ?></a>
+                                <?php if ($this->project_category_list) { ?>
+                                <a href="project/category_id-<?php echo $this->project_info['category_info']['id']; ?>"><?php echo $this->project_info['category_info']['title']; ?></a><?php } ?>
                                 <div class="aw-topic-bar clearfix">
                                     <?php if ($this->project_topics) { ?>
                                     <?php foreach ($this->project_topics AS $key => $val) { ?>
