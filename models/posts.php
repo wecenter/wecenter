@@ -312,12 +312,13 @@ class posts_class extends AWS_MODEL
 					$article_ids[] = $data['post_id'];
 
 					break;
-/*
+
 				case 'project':
+					continue 2;
+
 					$project_ids[] = $data['post_id'];
 
 					break;
-*/
 			}
 
 			$data_list_uids[$data['uid']] = $data['uid'];
@@ -344,14 +345,14 @@ class posts_class extends AWS_MODEL
 
 			$article_infos = $this->model('article')->get_article_info_by_ids($article_ids);
 		}
-/*
+
 		if ($project_ids)
 		{
 			$topic_infos['project'] = $this->model('topic')->get_topics_by_item_ids($project_ids, 'project');
 
 			$project_infos = $this->model('project')->get_project_info_by_ids($project_ids);
 		}
-*/
+
 		$users_info = $this->model('account')->get_user_info_by_uids($data_list_uids);
 
 		foreach ($posts_index as $key => $data)
@@ -374,16 +375,16 @@ class posts_class extends AWS_MODEL
 					$explore_list_data[$key] = $article_infos[$data['post_id']];
 
 					break;
-/*
+
 				case 'project':
+					continue 2;
+
 					$explore_list_data[$key] = $project_infos[$data['post_id']];
 
 					break;
-*/
 			}
 
 			$explore_list_data[$key]['post_type'] = $data['post_type'];
-
 
 			if (get_setting('category_enable') == 'Y')
 			{
