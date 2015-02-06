@@ -315,7 +315,8 @@ class posts_class extends AWS_MODEL
 
 				case 'project':
 					continue 2;
-					//$project_ids[] = $data['post_id'];
+
+					$project_ids[] = $data['post_id'];
 
 					break;
 			}
@@ -377,7 +378,8 @@ class posts_class extends AWS_MODEL
 
 				case 'project':
 					continue 2;
-					//$explore_list_data[$key] = $project_infos[$data['post_id']];
+
+					$explore_list_data[$key] = $project_infos[$data['post_id']];
 
 					break;
 			}
