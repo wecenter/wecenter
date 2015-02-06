@@ -314,6 +314,8 @@ class posts_class extends AWS_MODEL
 					break;
 
 				case 'project':
+					continue 2;
+
 					$project_ids[] = $data['post_id'];
 
 					break;
@@ -375,13 +377,14 @@ class posts_class extends AWS_MODEL
 					break;
 
 				case 'project':
+					continue 2;
+
 					$explore_list_data[$key] = $project_infos[$data['post_id']];
 
 					break;
 			}
 
 			$explore_list_data[$key]['post_type'] = $data['post_type'];
-
 
 			if (get_setting('category_enable') == 'Y')
 			{
