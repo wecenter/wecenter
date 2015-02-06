@@ -111,7 +111,7 @@
 
 .aw-breadcrumb {margin-bottom: 10px;}
 .aw-breadcrumb a {color: #333;font-size: 14px;}
-.aw-breadcrumb a + a::before {padding:0 5px 0 3px;content:'>';}
+.aw-breadcrumb .event-category:before {padding:0 5px 0 3px;content:'>';}
 .aw-breadcrumb a.edit {margin-left: 5px;color: #999;font-size: 12px;}
 .aw-breadcrumb a.edit::before {padding:0;content: '';}
 .aw-breadcrumb a.edit i {margin:0;color: #666;}
