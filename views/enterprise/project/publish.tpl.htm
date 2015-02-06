@@ -261,6 +261,10 @@ $(function()
 		dataUrl: G_STATIC_URL + '/js/areas.js'
 	});
 
+	if(!$('.category-list dd select').length) {
+		$('.category-list').hide();
+	}
+
 
 	// 众筹回报设置
 	$('.aw-add-return').click(function()
@@ -337,6 +341,7 @@ $(function()
 									'<a class="delete" href="javascript:;">删除</a>'+
 									'<input type="hidden" name="project_product[' + projectId + '][title]" value="' + title + '" />'+
 									'<input type="hidden" name="project_product[' + projectId + '][amount]" value="' + amount + '" />'+
+									'<input type="hidden" name="project_product[' + projectId + '][stock]" value="' + form.find('.people-amount').val() + '" />'+
 									'<input type="hidden" name="project_product[' + projectId + '][description]" value="' + content + '" />'+
 								'</td>'+
 							'</tr>';
