@@ -166,17 +166,17 @@ class main extends AWS_CONTROLLER
 	{
 		if ($_GET['id'])
 		{
+			if (!$this->user_info['permission']['is_administortar'] AND !$this->user_info['permission']['is_moderator'])
+			{
+				H::redirect_msg(AWS_APP::lang()->_t('你没有权限编辑这个项目'), '/project/' . $_GET['id']);
+			}
+
 			if (!$project_info = $this->model('project')->get_project_info_by_id($_GET['id']))
 			{
 				H::redirect_msg(AWS_APP::lang()->_t('该活动不存在'), '/project/');
 			}
 
-			$this->crumb(AWS_APP::lang()->_t('编辑'), '/project/publish/' . $_GET['id']);
-
-			if ($project_info['uid'] != $this->user_id AND !$this->user_info['permission']['is_administortar'] AND !$this->user_info['permission']['is_moderator'])
-			{
-				H::redirect_msg(AWS_APP::lang()->_t('你没有权限编辑这个项目'), '/project/' . $_GET['id']);
-			}
+			$this->crumb(AWS_APP::lang()->_t('编辑活动'), '/project/publish/' . $_GET['id']);
 
 			TPL::assign('project_topics', $this->model('topic')->get_topics_by_item_id($project_info['id'], 'project'));
 
@@ -199,7 +199,6 @@ class main extends AWS_CONTROLLER
 			// editor
 			TPL::import_js('js/editor/ckeditor/ckeditor.js');
 			TPL::import_js('js/editor/ckeditor/adapters/jquery.js');
-
 		}
 
 		TPL::import_js('js/jquery.date_input.js');

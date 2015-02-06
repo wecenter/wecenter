@@ -98,14 +98,19 @@ class ajax extends AWS_CONTROLLER
 			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择项目分类')));
 		}
 
-		if (date('Ymd', strtotime($_POST['start_time'])) < date('Ymd', time()))
+		if (!is_digits($_POST['start_time']) OR !is_digits($_POST['end_time']))
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, - 1, AWS_APP::lang()->_t('活动时间错误')));
+		}
+
+		if (date('Ymd', $_POST['start_time']) < date('Ymd', time()))
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, - 1, AWS_APP::lang()->_t('活动开始时间不能小于当前日期')));
 		}
 
-		if (date('Ymd', strtotime($_POST['end_time'])) <= date('Ymd', strtotime($_POST['start_time'])))
+		if ($_POST['end_time'] <= $_POST['start_time'])
 		{
-			H::ajax_json_output(AWS_APP::RSM(null, - 1, AWS_APP::lang()->_t('活动开始时间不能小于结束时间')));
+			H::ajax_json_output(AWS_APP::RSM(null, - 1, AWS_APP::lang()->_t('活动结束时间必须大于开始时间')));
 		}
 
 		if (!preg_match('/^\d+(\.\d{1,2})?$/', $_POST['amount']) OR intval($_POST['amount']) <= 0)
@@ -213,7 +218,7 @@ class ajax extends AWS_CONTROLLER
 			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('项目不存在')));
 		}
 
-		if ($project_info['uid'] != $this->user_id AND !$this->user_info['permission']['is_administortar'] AND !$this->user_info['permission']['is_moderator'])
+		if (!$this->user_info['permission']['is_administortar'] AND !$this->user_info['permission']['is_moderator'])
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('你没有权限编辑这个项目')));
 		}
@@ -226,6 +231,21 @@ class ajax extends AWS_CONTROLLER
 		if (!$_POST['category_id'])
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('请选择项目分类')));
+		}
+
+		if (!is_digits($_POST['start_time']) OR !is_digits($_POST['end_time']))
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, - 1, AWS_APP::lang()->_t('活动时间错误')));
+		}
+
+		if (date('Ymd', $_POST['start_time']) < date('Ymd', time()))
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, - 1, AWS_APP::lang()->_t('活动开始时间不能小于当前日期')));
+		}
+
+		if ($_POST['end_time'] <= $_POST['start_time'])
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, - 1, AWS_APP::lang()->_t('活动结束时间必须大于开始时间')));
 		}
 
 		if ($_POST['video_link'])
@@ -271,7 +291,7 @@ class ajax extends AWS_CONTROLLER
 			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('页面停留时间过长,或内容已提交,请刷新页面')));
 		}
 
-		$this->model('project')->update_project($_POST['project_id'], $_POST['title'], $_POST['category_id'],  $_POST['country'], $_POST['province'], $_POST['city'], $_POST['summary'], $_POST['description'], $_POST['amount'], $_POST['attach_access_key'], $_POST['topics'], $_POST['video_link']);
+		$this->model('project')->update_project($_POST['project_id'], $_POST['title'], $_POST['category_id'],  $_POST['country'], $_POST['province'], $_POST['city'], $_POST['summary'], $_POST['description'], $_POST['amount'], $_POST['attach_access_key'], $_POST['topics'], $_POST['video_link'], $_POST['start_time'], $_POST['end_time']);
 
 		if ($_POST['project_product'])
 		{

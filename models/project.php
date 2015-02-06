@@ -158,8 +158,8 @@ class project_class extends AWS_MODEL
             'city' => htmlspecialchars($city),
             'summary' => htmlspecialchars($summary),
             'description' => htmlspecialchars($description),
-            'start_time' => strtotime($start_time),
-            'end_time' => strtotime($end_time),
+            'start_time' => intval($start_time),
+            'end_time' => intval($end_time),
             'amount' => $amount,
             'contact' => serialize($contact),
             'category_id' => intval($category_id),
@@ -196,7 +196,7 @@ class project_class extends AWS_MODEL
         return $project_id;
     }
 
-    public function update_project($project_id, $title, $category_id, $country, $province, $city, $summary, $description, $amount, $attach_access_key, $topics, $video_link)
+    public function update_project($project_id, $title, $category_id, $country, $province, $city, $summary, $description, $amount, $attach_access_key, $topics, $video_link, $start_time, $end_time)
     {
         if (!$project_info = $this->get_project_info_by_id($project_id))
         {
@@ -235,7 +235,9 @@ class project_class extends AWS_MODEL
             'update_time' => time(),
             'topic_id' => intval($topic_id),
             'amount' => $amount,
-            'video_link' => strip_tags($video_link)
+            'video_link' => strip_tags($video_link),
+            'start_time' => intval($start_time),
+            'end_time' => intval($end_time),
         ), 'id = ' . intval($project_id));
 
         if ($project_info['approved'] == 1 AND $project_info['status'] == 'ONLINE')
