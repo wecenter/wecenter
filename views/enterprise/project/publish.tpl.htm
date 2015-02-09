@@ -246,33 +246,33 @@
 	//
 	// 时间戳转换成日期
 	//
-	// 开始时间
-	function unix_to_datetime(start_time) {
+	// s 开始时间
+	function toDatetimeStart(start_time) {
 	    var now = new Date(parseInt(start_time) * 1000);
 	    return now.toLocaleString().replace(/\//g, "-").replace(/日/g, " ").replace(/:/g,"-").replace(/ /g,"-");
 	}
 	var start_time = $('.start-time .date-picker').val();
-	var datetime = unix_to_datetime(start_time);
-	var timeArr = datetime.split("-");
-	var ymTime = timeArr[0] + '-' + timeArr[1] + '-' + timeArr[2];
-	var hsTime = timeArr[3] + '-' + timeArr[4] + '-' + timeArr[5];
-	var hsTime = hsTime.replace(/-/g,":");
-	$('.start-time .date-picker').val(ymTime);
-	$('.start-time .unix-time').val(hsTime);
+	var sDatetime = toDatetimeStart(start_time);
+	var sTimeArr = sDatetime.split("-");
+	var sYmTime = sTimeArr[0] + '-' + sTimeArr[1] + '-' + sTimeArr[2];// 年月日
+	var sHsTime = sTimeArr[3] + '-' + sTimeArr[4] + '-' + sTimeArr[5]; //小时分钟
+	var sHsTime = sHsTime.replace(/-/g,":");
+	$('.start-time .date-picker').val(sYmTime);
+	$('.start-time .unix-time').val(sHsTime);
 
-	// 结束时间
-	function unix_to_datetime(end_time) {
+	// e 结束时间
+	function toDatetimeEnd(end_time) {
 	    var now = new Date(parseInt(end_time) * 1000);
 	    return now.toLocaleString().replace(/\//g, "-").replace(/日/g, " ").replace(/:/g,"-").replace(/ /g,"-");
 	}
 	var end_time = $('.end-time .date-picker').val();
-	var datetime = unix_to_datetime(end_time);
-	var timeArr = datetime.split("-");
-	var ymTime = timeArr[0] + '-' + timeArr[1] + '-' + timeArr[2];
-	var hsTime = timeArr[3] + '-' + timeArr[4] + '-' + timeArr[5];
-	var hsTime = hsTime.replace(/-/g,":");
-	$('.end-time .date-picker').val(ymTime);
-	$('.end-time .unix-time').val(hsTime);
+	var eDatetime = toDatetimeEnd(end_time);
+	var eTimeArr = eDatetime.split("-");
+	var eYmTime = eTimeArr[0] + '-' + eTimeArr[1] + '-' + eTimeArr[2];
+	var eHsTime = eTimeArr[3] + '-' + eTimeArr[4] + '-' + eTimeArr[5];
+	var eHsTime = eHsTime.replace(/-/g,":");
+	$('.end-time .date-picker').val(eYmTime);
+	$('.end-time .unix-time').val(eHsTime);
 </script>
 <?php } ?>
 
@@ -502,7 +502,7 @@ $(function()
 		// 日期转换成时间戳
 		//
 		// 开始时间
-		function datetime_to_unix(start_time){
+		function toUnixStart(start_time){
 		    var tmp_datetime = start_time.replace(/:/g,'-');
 		    tmp_datetime = tmp_datetime.replace(/ /g,'-');
 		    var arr = tmp_datetime.split("-");
@@ -510,11 +510,11 @@ $(function()
 		    return parseInt(now.getTime()/1000);
 		}
 		var start_time = $('.start-time .date-picker').val() +' '+ $(".start-time .unix-time").val();
-		var unix = datetime_to_unix(start_time);
+		var unix = toUnixStart(start_time);
 		$('.start-time input[type="hidden"]').val(unix);
 
 		// 结束时间
-		function datetime_to_unix(end_time){
+		function toUnixEnd(end_time){
 		    var tmp_datetime = end_time.replace(/:/g,'-');
 		    tmp_datetime = tmp_datetime.replace(/ /g,'-');
 		    var arr = tmp_datetime.split("-");
@@ -522,7 +522,7 @@ $(function()
 		    return parseInt(now.getTime()/1000);
 		}
 		var end_time = $('.end-time .date-picker').val() +' '+ $(".end-time .unix-time").val();
-		var unix = datetime_to_unix(end_time);
+		var unix = toUnixEnd(end_time);
 		$('.end-time input[type="hidden"]').val(unix);
 
 
