@@ -57,7 +57,12 @@ class weixin extends AWS_CONTROLLER
 
 	public function redirect_action()
 	{
-		if ($_GET['code'] AND get_setting('weixin_app_id'))
+		if (!in_weixin() OR get_setting('weixin_account_role') != 'service')
+		{
+			HTTP::redirect(base64_decode($_GET['redirect']));
+		}
+
+		if ($_GET['code'] AND get_setting('weixin_app_id') AND get_setting('weixin_app_secret'))
 		{
 			if ($access_token = $this->model('openid_weixin_weixin')->get_sns_access_token_by_authorization_code($_GET['code']))
 			{
@@ -274,20 +279,6 @@ class weixin extends AWS_CONTROLLER
 		$this->model('account')->setsession_logout();	// 清除 Session
 
 		HTTP::redirect('https://open.weixin.qq.com/connect/oauth2/authorize?appid=' . get_setting('weixin_app_id') . '&redirect_uri=' . urlencode($redirect_uri) . '&response_type=code&scope=' . urlencode($_GET['scope']) . '&state=' . urlencode($_GET['state']) . '#wechat_redirect');
-	}
-
-	public function mp_redirect_action()
-	{
-		$redirect_uri = base64_decode($_GET['uri']);
-
-		if (strstr($redirect_uri, '?'))
-		{
-			HTTP::redirect($redirect_uri . '&code=' . $_GET['code']);
-		}
-		else
-		{
-			HTTP::redirect($redirect_uri . '?code=' . $_GET['code']);
-		}
 	}
 
 	public function register_action()
