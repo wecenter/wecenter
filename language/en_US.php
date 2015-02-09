@@ -531,7 +531,6 @@ $language['内容列表页显示条数'] ='Content List page displays the number
 $language['首页推荐用户和话题数量'] ='Home Recommended number of users and tag';
 $language['系统维护'] ='System maintenance';
 $language['WeCenter 微信服务状态查询'] ='WeCenter Wechat service status query';
-$language['可以在这里对 http://mp.wecenter.com 的微信服务进行状态查询'] ='You can here http://mp.wecenter.com of Wechat service status query';
 $language['开始处理'] ='Start processing';
 $language['缓存清理'] ='Cache Cleaner';
 $language['当站点进行了数据恢复、升级或者工作出现异常的时候, 你可以使用本功能清除缓存'] ='When a data recovery sites, upgrade or unusual work, you can use this function to clear the cache';
