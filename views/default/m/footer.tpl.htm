@@ -193,17 +193,17 @@
 			};
 			wx.ready(function () {
 				wx.onMenuShareTimeline({
-					"imgUrl": weixin_img_url,
-					"title" : document.title,
-					"link" : location.href,
-					"desc" : ($('#weixin-desc').text()=='') ? $('meta[name="description"]').attr('content') : $('#weixin-desc').text()
+					title : document.title,
+					link : location.href,
+					imgUrl: weixin_img_url,
+					desc: ($('#weixin-desc').text()=='') ? $('meta[name="description"]').attr('content') : $('#weixin-desc').text()
 				});
 
 				wx.onMenuShareAppMessage({
-					"imgUrl": weixin_img_url,
-					"title" : document.title,
-					"link" : location.href,
-					"desc" : ($('#weixin-desc').text()=='') ? $('meta[name="description"]').attr('content') : $('#weixin-desc').text()
+					title: document.title,
+					link: location.href,
+					desc: ($('#weixin-desc').text()=='') ? $('meta[name="description"]').attr('content') : $('#weixin-desc').text(),
+					imgUrl: weixin_img_url,
 				})
 			})
 
