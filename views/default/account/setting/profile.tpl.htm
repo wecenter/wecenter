@@ -88,7 +88,7 @@
 			<dl class="form-horizontal">
 					<dt><label><?php _e('个性网址'); ?>:</label></dt>
 					<dd>
-						<script type="text/javascript">document.write(G_BASE_URL);</script>/people/ <input type="text" class="form-control" value="<?php echo $this->user_info['url_token']; ?>" maxlength="32" name="url_token" style="display:inline;width:30%;margin-bottom:0;"<?php if ($this->user_info['url_token_update'] AND $this->user_info['url_token_update'] > ($this->timestamp - 3600 * 24 * 30)) { ?> disabled="disabled"<?php } ?> />
+						<script type="text/javascript">document.write(G_BASE_URL);</script>/people/ <input type="text" class="form-control" value="<?php echo $this->user_info['url_token']; ?>" maxlength="32" name="url_token" style="display:inline;width:30%;margin-bottom:0;"<?php if ($this->user_info['url_token_update'] AND $this->user_info['url_token_update'] > (TIMESTAMP - 3600 * 24 * 30)) { ?> disabled="disabled"<?php } ?> />
 						<p class="text-color-999"><?php _e('可输入 4~20 位的英文或数字, 30 天内只能修改一次'); ?></p>
 					</dd>
 				</dl>

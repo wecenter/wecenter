@@ -172,7 +172,7 @@ $(document).ready(function() {
 wx.config({
 	debug: false,
 	appId: '<?php echo get_setting("weixin_app_id"); ?>',
-	timestamp: '<?php echo $this->timestamp; ?>',
+	timestamp: '<?php echo TIMESTAMP; ?>',
 	nonceStr: '<?php echo $this->weixin_noncestr; ?>',
 	signature: '<?php echo $this->weixin_signature; ?>',
 	jsApiList: [

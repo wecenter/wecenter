@@ -56,10 +56,6 @@ class AWS_CONTROLLER
 			}
 		}
 
-		$timestamp = time();
-
-		TPL::assign('timestamp', $timestamp);
-
 		$this->user_info['group_name'] = $user_group['group_name'];
 		$this->user_info['permission'] = $user_group['permission'];
 
