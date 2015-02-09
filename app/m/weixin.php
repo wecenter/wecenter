@@ -249,11 +249,6 @@ class weixin extends AWS_CONTROLLER
 
 	public function oauth_redirect_action()
 	{
-		if (!in_weixin())
-		{
-			H::redirect_msg(AWS_APP::lang()->_t('请在微信中打开链接'), '/m/');
-		}
-
 		if (strstr($_GET['uri'], '%'))
 		{
 			$_GET['uri'] = urldecode($_GET['uri']);
@@ -268,17 +263,12 @@ class weixin extends AWS_CONTROLLER
 			$redirect_uri = get_js_url($_GET['uri']);
 		}
 
-		if (get_setting('weixin_account_role') != 'service')
+		if (!in_weixin() OR get_setting('weixin_account_role') != 'service')
 		{
 			HTTP::redirect($redirect_uri);
 		}
 
 		$redirect_info = parse_url($redirect_uri);
-
-		if ($redirect_info['host'] == 'mp.wecenter.com')
-		{
-			$redirect_uri = get_js_url('/m/weixin/mp_redirect/?uri=' . urlencode(base64_encode($redirect_uri)));
-		}
 
 		$this->model('account')->setcookie_logout();	// 清除 COOKIE
 		$this->model('account')->setsession_logout();	// 清除 Session
