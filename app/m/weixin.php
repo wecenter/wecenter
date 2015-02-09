@@ -249,6 +249,11 @@ class weixin extends AWS_CONTROLLER
 
 	public function oauth_redirect_action()
 	{
+		if (!in_weixin())
+		{
+			H::redirect_msg(AWS_APP::lang()->_t('请在微信中打开链接'), '/m/');
+		}
+
 		if (strstr($_GET['uri'], '%'))
 		{
 			$_GET['uri'] = urldecode($_GET['uri']);
