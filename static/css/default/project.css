@@ -1,6 +1,6 @@
 .aw-project-container-wrap, .aw-container-wrap {background-color: none!important;}
 .aw-top-menu-wrap {margin:0;}
-.progress-bar-green {background-color: #93C215;}
+.progress-bar-green {background-color: #93C215;box-shadow: none;}
 .label-green, .label-green {background-color: #93C215;color: #fff !important;font-weight: normal;font-size:12px;}
 .mod.cell {border:1px solid #ccc;}
 .form-xs {width: 60px;}
@@ -26,8 +26,8 @@
 
 .aw-project-list {margin-left: 15px;}
 .aw-project-list ul{margin-left: -15px;width: 1000px;}
-.aw-project-list ul li{float: left;margin:0 20px 20px 0;padding:0;width: 31.3%;height: 444px;border:1px solid #D3D3D3;border-bottom-left-radius: 5px;border-bottom-right-radius: 5px;background-color: #fff;}
-.aw-project-list ul li .mod-head img{width:100%;height: 234px;}
+.aw-project-list ul li{float: left;margin:0 20px 20px 0;padding:0;width: 31.3%;height: 444px;border:1px solid #D3D3D3;border-radius: 5px;background-color: #fff;}
+.aw-project-list ul li .mod-head img{width:100%;height: 234px;border-top-left-radius: 5px;border-top-right-radius: 5px;}
 .aw-project-list ul li .mod-body h3{overflow: hidden;height: 52px;}
 .aw-project-list ul li .mod-body h3 a{color: #333;font-size:18px;line-height: 25px;}
 .aw-project-list ul li .mod-body h3 a:hover{color: #99CC00;}
@@ -50,7 +50,8 @@
 /* 侧边栏 */
 .aw-project-page .col-md-4{width: 25%;}
 .aw-project-page .aw-side-bar{padding: 0;border-left: none;}
-.aw-project-page .aw-side-bar .mod{margin-bottom: 10px;background: #fff;padding: 15px;border-radius: 5px;}
+.aw-project-page .aw-side-bar .aw-project-title{margin-bottom: 10px;padding: 15px;border-radius: 5px;background: #fff;}
+
 .aw-side-bar .tile{position: relative;margin: -16px -15px 0;text-align: center;}
 .aw-side-bar .tile a,.aw-side-bar .blue a,.aw-side-bar .black a{position: relative;display: inline-block;width: 171px;background: #499ef3;color: #fff; width: 100%;line-height: 40px;border-top-left-radius: 5px;border-top-right-radius: 5px;}
 .aw-side-bar .blue a{background: #499ef3;width: 100%}
@@ -79,6 +80,7 @@
 .aw-project-title .mod-head .progress-box {position: relative;}
 .aw-project-title .mod-head .progress {display: inline-block;width: 80%;margin-bottom: 0;}
 .aw-project-title .mod-head p {margin-bottom: 0;}
+.aw-side-bar .aw-project-author {margin-top: 20px;padding: 15px;background: #fff;}
 .aw-project-author .mod-footer .Share h3{padding: 10px 0;margin: 0;line-height: 25px;}
 .aw-project-author .mod-head{margin-bottom: 0;padding:0;}
 .aw-project-author .mod-body li p {margin: -5px 0 0;font-size: 12px;color:#999;}
@@ -94,12 +96,15 @@
 
 .aw-project-return-list div.mod-body, .aw-project-payment-refund div.mod-body{border-bottom: none;}
 .aw-project-return-list ul {text-align: left !important;}
-.aw-project-return-list ul li{overflow: hidden;margin-top: 20px;padding:10px 0;}
+
+.aw-project-return-list div.mod-body {padding-top: 0;padding-bottom: 0;}
+.aw-project-return-list ul li{overflow: hidden;margin-top: 20px;padding:15px;border-radius: 5px; background: #fff;}
 .aw-project-return-list ul li h4{border-bottom: 1px solid #e6e6e6;overflow: hidden;}
 .aw-side-bar .aw-project-return-list .pull-left{font-size: 22px;}
 .aw-project-return-list ul li p{margin: 5px 0; line-height: 25px;}
 .aw-project-return-list ul li .btn-large{width: 100%;background:#58B957; margin-top: 10px;line-height: 25px; font-size: 14px;}
 .aw-side-bar  .aw-project-return-list ul li h4 span{text-indent: 20px;font-size: 12px;display: inline-block;line-height: 37px;}
+.aw-side-bar  .aw-project-return-list ul li h4 span:last-child {color: #999;}
 .aw-project-return-list ul li .label{font-weight: normal;font-size: 12px;}
 .aw-project-return-list ul li .btn-disabled{border-color:#7e7c7c;background-color: #a9a9a9;}
 
@@ -119,13 +124,16 @@
 .aw-project-page .aw-project-detail > .mod-head {margin: 0 -15px; overflow: hidden;}
 .aw-project-detail .mod-head h2 {margin-bottom: 5px;text-align:left; padding:10px 15px;color: #333;font-size: 20px;line-height: 1.5em;}
 .aw-project-detail .mod-head .aw-breadcrumb {display: inline-block;padding: 0 15px;}
-.aw-project-detail .mod-head .aw-topic-bar {display: inline-block;margin: 0 0 0 10px;}
+.aw-project-detail .mod-head .aw-topic-bar {display: inline-block;margin: 0;line-height: 21px;}
 .aw-project-detail .mod-head .aw-topic-bar .topic-tag {float: none;margin: 0;}
 .aw-project-detail .mod-head .aw-topic-bar > a {color: #999;}
 .aw-project-detail .mod-head .aw-topic-bar .topic-tag .text {margin-right: 10px;}
 .aw-project-detail .mod-body .tab-pane {top: 0;}
 .aw-project-detail .mod-body .tab-pane > img {margin: 10px auto 0;max-width: 100%;}
 .aw-project-detail .aw-nav-tabs {padding: 30px 0 0;}
+.aw-project-detail .aw-nav-tabs li {padding: 0 14px;}
+.aw-project-detail .aw-nav-tabs li:first-child {padding-left: 15px;}
+.aw-project-detail .aw-nav-tabs li a {padding: 0; text-align: left;}
 
 .aw-project-suggest .mod-body .aw-user-name img {border-radius: 0;}
 .aw-project-suggest .mod-body .aw-item h4 {max-width: 600px;margin-bottom: 0;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;}
@@ -167,7 +175,7 @@
 .formBox .main,.formBox .footer {margin-top: 30px;}
 .formBox .footer a{ margin-right: 20px; padding:10px 35px; border-color: #5aaed3;border-radius: 7px;background-color: #58B957;color: #fff;}
 .formBox .main{margin-left: -50px;}
-.progress{margin-top: 18px;border-radius: 0;height: 11px;}
+.progress{margin-top: 18px;border-radius: 0;height: 11px;box-shadow: none;}
 
 /* 活动支付页面 */
 .aw-payment .col-md-8 {width: 75%;}
@@ -190,6 +198,7 @@
 .aw-payment .aw-project-list ul li .mod-head img {height: 187px;}
 
 /*发起页面*/
+.cke_combo__fontsize a {line-height: 23px;}
 .aw-event-publish .col-sm-12{position: static;padding: 0px;}
 .aw-event-publish .form-control:focus{border-color: #669900;box-shadow: none;}
 .aw-event-publish .mod{margin-bottom:40px;padding:20px;}
@@ -215,6 +224,7 @@
 .aw-event-publish .aw-publish-desc #upload-attach .upload-attach{position:absolute;top:6px;left:0;width:70px;height:25px;font-size: 100px;opacity: 0;filter:alpha(opacity=0);cursor: pointer;}
 .aw-event-publish .aw-publish-desc #upload-attach .upload-url{margin-left: 10px;}
 .aw-event-publish .aw-publish-desc .aw-edit-topic-box{margin:0;}
+.aw-event-publish .aw-publish-desc .aw-edit-topic-box a {margin: 0 0 0 10px;}
 .aw-event-publish .aw-publish-desc .aw-topic-bar{margin:0;}
 .aw-event-publish .aw-project-return-form{border:1px solid #E6E6E6;}
 .aw-event-publish .aw-project-return-form label{float:left;margin-right: 10px;}
