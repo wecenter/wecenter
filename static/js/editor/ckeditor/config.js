@@ -24,24 +24,8 @@ CKEDITOR.editorConfig = function( config ) {
 
 	config.height = 250;
 
-	//config.plugins = 'sourcearea,wecenterattach,wecenterimage,wecenterlink,wecentervideo,removeformat,blockquote,maximize,basicstyles,button,toolbar,enterkey,entities,floatingspace,wysiwygarea,fakeobjects,link,list,undo,codeTag';
-
-	// The toolbar groups arrangement, optimized for a single toolbar row.
-	// config.toolbarGroups = [
-	// 	{ name: 'document',	   groups: [ 'mode', 'document', 'doctools' ] },
-	// 	{ name: 'clipboard',   groups: [ 'clipboard', 'undo' ] },
-	// 	{ name: 'editing',     groups: [ 'find', 'selection', 'spellchecker' ] },
-	// 	{ name: 'forms' },
-	// 	{ name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
-	// 	{ name: 'paragraph',   groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ] },
-	// 	{ name: 'links' },
-	// 	{ name: 'insert' },
-	// 	{ name: 'styles' },
-	// 	{ name: 'colors' },
-	// 	{ name: 'tools' },
-	// 	{ name: 'others' },
-	// 	{ name: 'about' }
-	// ];
+	// 过滤粘贴内容
+	config.forcePasteAsPlainText = true;
 
 	config.magicline_color = '#ccc';
 
