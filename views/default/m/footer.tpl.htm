@@ -164,9 +164,6 @@
 
 		<?php if (in_weixin()) { ?>
 		<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
-		<?php } ?>
-
-		<?php if (in_weixin()) { ?>
 		<script type="text/javascript">
 		$(function()
 		{
@@ -193,29 +190,23 @@
 			else
 			{
 				var weixin_img_url = location.protocol + '//' + location.host + location.pathname + 'static/common/weixin_default_image.png';
-			}
-
-			var weixin_handler = setInterval(function()
-			{
-				WeixinJSBridge.on('menu:share:timeline', function(argv) {
-					WeixinJSBridge.invoke('wx.onMenuShareTimeline', {
-						"img_url": weixin_img_url,
-						"title" : document.title,
-						"link" : location.href,
-						"desc" : ($('#weixin-desc').text()=='') ? $('meta[name="description"]').attr('content') : $('#weixin-desc').text()
-					});
+			};
+			wx.ready(function () {
+				wx.onMenuShareTimeline({
+					"imgUrl": weixin_img_url,
+					"title" : document.title,
+					"link" : location.href,
+					"desc" : ($('#weixin-desc').text()=='') ? $('meta[name="description"]').attr('content') : $('#weixin-desc').text()
 				});
-				WeixinJSBridge.on('menu:share:appmessage', function(argv) {
-					WeixinJSBridge.invoke('wx.onMenuShareAppMessage', {
-						"img_url": weixin_img_url,
-						"title" : document.title,
-						"link" : location.href,
-						"desc" : ($('#weixin-desc').text()=='') ? $('meta[name="description"]').attr('content') : $('#weixin-desc').text()
-					});
-				});
-				clearInterval(weixin_handler);
 
-			}, 500);
+				wx.onMenuShareAppMessage({
+					"imgUrl": weixin_img_url,
+					"title" : document.title,
+					"link" : location.href,
+					"desc" : ($('#weixin-desc').text()=='') ? $('meta[name="description"]').attr('content') : $('#weixin-desc').text()
+				})
+			})
+
 		}
 		</script>
 		<?php } ?>
