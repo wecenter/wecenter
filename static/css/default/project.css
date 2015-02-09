@@ -276,6 +276,7 @@
 
 /* 支付明细页面 */
 .aw-project-record {background: #fff;}
+.aw-project-record.manage {padding-bottom: 15px;}
 .aw-project-record .aw-tabs li{width: 14.286%;border-left: 1px solid #e6e6e6;}
 .aw-project-record.sponsored .aw-tabs li{width: 12.5%;}
 .aw-project-record .project-support-list table{width:100%;font-size: 12px;}

@@ -147,7 +147,7 @@ class main extends AWS_CONTROLLER
 				TPL::assign('category_list', $this->model('menu')->get_nav_menu_list('project'));
 			}
 
-			if ($project_list = $this->model('project')->get_projects_list($_GET['category_id'], 1, 'ONLINE', $_GET['page'], get_setting('contents_per_page'), $order_by))
+			if ($project_list = $this->model('project')->get_projects_list($_GET['category_id'], 1, 'ONLINE', $_GET['page'], 9, $order_by))
 			{
 				TPL::assign('project_list', $project_list);
 			}
