@@ -164,9 +164,6 @@
 
 		<?php if (in_weixin()) { ?>
 		<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
-		<?php } ?>
-
-		<?php if (in_weixin()) { ?>
 		<script type="text/javascript">
 		$(function()
 		{
@@ -181,6 +178,8 @@
 				jsApiList: [
 					'onMenuShareTimeline',
 					'onMenuShareAppMessage',
+					'onMenuShareQQ',
+					'onMenuShareWeibo'
 					] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
 			});
 
@@ -193,30 +192,67 @@
 			else
 			{
 				var weixin_img_url = location.protocol + '//' + location.host + location.pathname + 'static/common/weixin_default_image.png';
-			}
+			};
 
-			var weixin_handler = setInterval(function()
-			{
-				WeixinJSBridge.on('menu:share:timeline', function(argv) {
-					WeixinJSBridge.invoke('wx.onMenuShareTimeline', {
-						"img_url": weixin_img_url,
-						"title" : document.title,
-						"link" : location.href,
-						"desc" : ($('#weixin-desc').text()=='') ? $('meta[name="description"]').attr('content') : $('#weixin-desc').text()
-					});
-				});
-				WeixinJSBridge.on('menu:share:appmessage', function(argv) {
-					WeixinJSBridge.invoke('wx.onMenuShareAppMessage', {
-						"img_url": weixin_img_url,
-						"title" : document.title,
-						"link" : location.href,
-						"desc" : ($('#weixin-desc').text()=='') ? $('meta[name="description"]').attr('content') : $('#weixin-desc').text()
-					});
-				});
-				clearInterval(weixin_handler);
+			wx.ready(function () {
 
-			}, 500);
-		}
+				// 朋友圈
+				wx.onMenuShareTimeline({
+				    title: document.title, // 分享标题
+				    link: location.href, // 分享链接
+				    imgUrl: weixin_img_url, // 分享图标
+				    success: function () { 
+				        // 用户确认分享后执行的回调函数
+				    },
+				    cancel: function () { 
+				        // 用户取消分享后执行的回调函数
+				    }
+				});
+
+				// 朋友
+				wx.onMenuShareAppMessage({
+				    title: document.title, // 分享标题
+				    desc: ($('#weixin-desc').text()=='') ? $('meta[name="description"]').attr('content') : $('#weixin-desc').text(), // 分享描述
+				    link: location.href, // 分享链接
+				    imgUrl: weixin_img_url, // 分享图标
+				    success: function () { 
+				        // 用户确认分享后执行的回调函数
+				    },
+				    cancel: function () { 
+				        // 用户取消分享后执行的回调函数
+				    }
+				});
+
+				// QQ
+				wx.onMenuShareQQ({
+				    title: document.title, // 分享标题
+				    desc: ($('#weixin-desc').text()=='') ? $('meta[name="description"]').attr('content') : $('#weixin-desc').text(), // 分享描述
+				    link: location.href, // 分享链接
+				    imgUrl: weixin_img_url, // 分享图标
+				    success: function () { 
+				       // 用户确认分享后执行的回调函数
+				    },
+				    cancel: function () { 
+				       // 用户取消分享后执行的回调函数
+				    }
+				});
+
+				// 腾讯微博
+				wx.onMenuShareWeibo({
+				    title: document.title, // 分享标题
+				    desc: ($('#weixin-desc').text()=='') ? $('meta[name="description"]').attr('content') : $('#weixin-desc').text(), // 分享描述
+				    link: location.href, // 分享链接
+				    imgUrl: weixin_img_url, // 分享图标
+				    success: function () { 
+				       // 用户确认分享后执行的回调函数
+				    },
+				    cancel: function () { 
+				        // 用户取消分享后执行的回调函数
+				    }
+				});
+			})
+
+		});
 		</script>
 		<?php } ?>
 	</body>
