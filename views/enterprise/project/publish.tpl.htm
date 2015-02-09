@@ -142,14 +142,11 @@
 									</dl>
 									<dl class="clearfix">
 										<dt><strong>*</strong>开始时间:</dt>
-										<dd>
-
-											<input type="text" class="form-control form-mini pull-left date-picker" name="start_time" value="<?php if ($this->project_info['start_time']) echo $this->project_info['start_time']; ?>" />
-
+										<dd class="start-time">
+											<input type="hidden" name="start_time" value="">
+											<input type="text" class="form-control form-mini pull-left date-picker"  value="<?php if ($this->project_info['start_time']) echo $this->project_info['start_time']; ?>" />
 											<span class="pull-left">&nbsp;&nbsp;-&nbsp;&nbsp;</span>
-											<input type="text" class="form-control form-mini pull-left" value="" placeholder="( 格式: 23:00 )" >
-
-
+											<input type="text" class="form-control form-mini pull-left unix-time" value="<?php if ($this->project_info['start_time']) echo $this->project_info['start_time']; ?>" placeholder="( 格式: 23:00:00 )" >
 										</dd>
 										<div class="col-sm-8">
 											<label class="label label-danger hide">请选择活动时间</label>
@@ -157,11 +154,11 @@
 									</dl>
 									<dl class="clearfix">
 										<dt><strong>*</strong>结束时间:</dt>
-										<dd>
-											<input type="text" class="form-control form-mini  pull-left date-picker" name="end_time" value="<?php if ($this->project_info['end_time']) echo $this->project_info['end_time']; ?>" />
+										<dd class="end-time">
+											<input type="hidden" name="end_time" value="">
+											<input type="text" class="form-control form-mini  pull-left date-picker"  value="<?php if ($this->project_info['end_time']) echo $this->project_info['end_time']; ?>" />
 											<span class="pull-left">&nbsp;&nbsp;-&nbsp;&nbsp;</span>
-
-											<input type="text" class="form-control form-mini pull-left" value="" placeholder="( 格式: 23:00 )" >
+											<input type="text" class="form-control form-mini pull-left unix-time" value="<?php if ($this->project_info['end_time']) echo $this->project_info['end_time']; ?>" placeholder="( 格式: 23:00:00 )" >
 										</dd>
 										<div class="col-sm-8">
 											<label class="label label-danger hide">请选择活动时间</label>
@@ -463,6 +460,33 @@ $(function()
 		checkForm($('.project-sort'),'check'); // 验证活动分类
 		checkForm($('iframe'),'editor'); // 验证编辑器内容
 
+		// 日期转换成时间戳
+		//
+		// 开始时间
+		function datetime_to_unix(start_time){
+		    var tmp_datetime = start_time.replace(/:/g,'-');
+		    tmp_datetime = tmp_datetime.replace(/ /g,'-');
+		    var arr = tmp_datetime.split("-");
+		    var now = new Date(Date.UTC(arr[0],arr[1]-1,arr[2],arr[3]-8,arr[4],arr[5]));
+		    return parseInt(now.getTime()/1000);
+		}
+		var start_time = $('.start-time .date-picker').val() +' '+ $(".start-time .unix-time").val();
+		var unix = datetime_to_unix(start_time);
+		$('.start-time input[type="hidden"]').val(unix);
+
+		// 结束时间
+		function datetime_to_unix(end_time){
+		    var tmp_datetime = end_time.replace(/:/g,'-');
+		    tmp_datetime = tmp_datetime.replace(/ /g,'-');
+		    var arr = tmp_datetime.split("-");
+		    var now = new Date(Date.UTC(arr[0],arr[1]-1,arr[2],arr[3]-8,arr[4],arr[5]));
+		    return parseInt(now.getTime()/1000);
+		}
+		var end_time = $('.end-time .date-picker').val() +' '+ $(".end-time .unix-time").val();
+		var unix = datetime_to_unix(end_time);
+		$('.end-time input[type="hidden"]').val(unix);
+
+
 
 		//验证回报设置内容
 		if ( $('.aw-project-return-list tbody tr').length == 0 && $('.aw-project-return-form').is(':visible'))
@@ -527,6 +551,31 @@ $(function()
 
 
 	})
+
+
+	// 时间戳转换成日期
+	//
+	// 开始时间
+	function unix_to_datetime(start_time) {
+	    var now = new Date(parseInt(start_time) * 1000);
+	    return now.toLocaleString().replace(/\//g, "-").replace(/日/g, " ");
+	}
+	var start_time = $('.start-time .date-picker').val();
+	var datetime = unix_to_datetime(start_time);
+	var timeArr = datetime.split("-");
+	$('.start-time .date-picker').val(timeArr);
+	$('start-time .unix-time').val()
+	// 结束时间
+	function unix_to_datetime(end_time) {
+	    var now = new Date(parseInt(end_time) * 1000);
+	    return now.toLocaleString().replace(/\//g, "-").replace(/日/g, " ");
+	}
+	var end_time = $('.start-time .date-picker').val();
+	var datetime = unix_to_datetime(end_time);
+	$('.end-time .date-picker').val(datetime);
+	$('.end-time .unix-time').val(datetime);
+
+
 
 	// 弹出层验证，验证QQ 手机  姓名
 	$('#aw-ajax-box').delegate(".btn-success ","click",function()
