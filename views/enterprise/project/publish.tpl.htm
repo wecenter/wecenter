@@ -248,28 +248,42 @@
 	//
 	// s 开始时间
 	function toDatetimeStart(start_time) {
-	    var now = new Date(parseInt(start_time) * 1000);
-	    return now.toLocaleString().replace(/\//g, "-").replace(/日/g, " ").replace(/:/g,"-").replace(/ /g,"-");
-	}
-	var start_time = $('.start-time .date-picker').val();
-	var sDatetime = toDatetimeStart(start_time);
-	var sTimeArr = sDatetime.split("-");
-	var sYmTime = sTimeArr[0] + '-' + sTimeArr[1] + '-' + sTimeArr[2];// 年月日
-	var sHsTime = sTimeArr[3] + '-' + sTimeArr[4] + '-' + sTimeArr[5]; //小时分钟
-	var sHsTime = sHsTime.replace(/-/g,":");
-	$('.start-time .date-picker').val(sYmTime);
-	$('.start-time .unix-time').val(sHsTime);
+		var now = new Date(parseInt(start_time) * 1000);
+		return now;
+
+		}
+		var start_time = $('.start-time .date-picker').val();
+		var sDatetime = toDatetimeStart(start_time);
+		var sYear = sDatetime.getFullYear();
+		var sMonth = sDatetime.getMonth() + 1;
+		var sDay = sDatetime.getDate();
+		var sHours = sDatetime.getHours();
+		var sMinuts = sDatetime.getMinutes();
+		var sSeconds = sDatetime.getSeconds();
+		var sYmTime = sYear + '-' + sMonth + '-' + sDay;
+		var sHsTime = sHours + '-' + sMinuts + '-' + sSeconds;
+		var sHsTime = sHsTime.replace(/-/g,":");
+
+		$('.start-time .date-picker').val(sYmTime);
+		$('.start-time .unix-time').val(sHsTime);
+
+
 
 	// e 结束时间
 	function toDatetimeEnd(end_time) {
-	    var now = new Date(parseInt(end_time) * 1000);
-	    return now.toLocaleString().replace(/\//g, "-").replace(/日/g, " ").replace(/:/g,"-").replace(/ /g,"-");
+		var now = new Date(parseInt(end_time) * 1000);
+		return now;
 	}
 	var end_time = $('.end-time .date-picker').val();
-	var eDatetime = toDatetimeEnd(end_time);
-	var eTimeArr = eDatetime.split("-");
-	var eYmTime = eTimeArr[0] + '-' + eTimeArr[1] + '-' + eTimeArr[2];
-	var eHsTime = eTimeArr[3] + '-' + eTimeArr[4] + '-' + eTimeArr[5];
+	var eDatetime = toDatetimeStart(end_time);
+	var eYear = eDatetime.getFullYear();
+	var eMonth =eDatetime.getMonth() + 1;
+	var eDay = eDatetime.getDate();
+	var eHours = eDatetime.getHours();
+	var eMinuts = eDatetime.getMinutes();
+	var eSeconds = eDatetime.getSeconds();
+	var eYmTime = eYear + '-' + eMonth + '-' + eDay;
+	var eHsTime = eHours + '-' + eMinuts + '-' + eSeconds;
 	var eHsTime = eHsTime.replace(/-/g,":");
 	$('.end-time .date-picker').val(eYmTime);
 	$('.end-time .unix-time').val(eHsTime);
