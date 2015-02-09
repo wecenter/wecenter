@@ -118,8 +118,7 @@ class main extends AWS_CONTROLLER
 			'mobile/js/aws-mobile.js',
 			'mobile/js/app.js',
 			'mobile/js/aw-mobile-template.js'
-		));
-	}
+		));				if (in_weixin())		{			$noncestr = mt_rand(1000000000, 9999999999);			TPL::assign('weixin_noncestr', $noncestr);			$jsapi_ticket = $this->model('openid_weixin_weixin')->get_jsapi_ticket($this->model('openid_weixin_weixin')->get_access_token(get_setting('weixin_app_id'), get_setting('weixin_app_secret')));			$url = ($_SERVER['HTTPS'] AND !in_array(strtolower($_SERVER['HTTPS']), array('off', 'no'))) ? 'https' : 'http';			$url .= '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];			TPL::assign('weixin_signature', $this->model('openid_weixin_weixin')->generate_jsapi_ticket_signature(				$jsapi_ticket,				$noncestr,				TIMESTAMP,				$url			));		}	}
 
 	public function home_action()
 	{

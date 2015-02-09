@@ -29,7 +29,7 @@ else if (version_compare(PHP_VERSION, '6.0', '>='))
 	die('Error: WeCenter not support PHP version 6 currently');
 }
 
-define('START_TIME', microtime(TRUE));
+define('START_TIME', microtime(TRUE));define('TIMESTAMP', time());
 
 if (function_exists('memory_get_usage'))
 {
