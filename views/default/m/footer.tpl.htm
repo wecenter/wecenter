@@ -1,259 +1,173 @@
-		<!-- 底部 -->
-		<footer class="text-center text-color-999">
-			Copyright © <?php echo date('Y'); ?> - <?php echo get_setting('site_name'); ?>
-			<p><a href="<?php echo base_url(); ?>/<?php if (get_setting('url_rewrite_enable') != 'Y') { ?><?php echo G_INDEX_SCRIPT; ?><?php } ?>ignore_ua_check-TRUE"><?php _e('访问桌面版网站'); ?></a></p>
-		</footer>
-		<!-- end 底部 -->
+<!-- 底部 -->
+<footer class="text-center text-color-999">
+	Copyright © <?php echo date('Y'); ?> - <?php echo get_setting('site_name'); ?>
+	<p><a href="<?php echo base_url(); ?>/<?php if (get_setting('url_rewrite_enable') != 'Y') { ?><?php echo G_INDEX_SCRIPT; ?><?php } ?>ignore_ua_check-TRUE"><?php _e('访问桌面版网站'); ?></a></p>
+</footer>
+<!-- end 底部 -->
 
-		<!-- DO NOT REMOVE -->
-		<div id="aw-ajax-box" class="aw-ajax-box"></div>
+<!-- DO NOT REMOVE -->
+<div id="aw-ajax-box" class="aw-ajax-box"></div>
 
-		<!-- nav -->
-		<div class="nav">
-			<ul>
-				<?php if ($this->user_id) { ?>
-				<li>
-					<a href="m/home/" <?php if ($_GET['act'] == 'home') { ?>class="active"<?php } ?>><i class="icon icon-list"></i><?php _e('动态'); ?> <i class="icon-tips new-action" <?php if ($this->user_info['notification_unread'] <= 0 ) { ?>style="display:none;"<?php } ?>></i> </a>
-				</li>
-				<?php } ?>
-
-				<li>
-					<a href="m/" <?php if ($_GET['act'] == 'index') { ?>class="active"<?php } ?>><i class="icon icon-home"></i><?php _e('发现'); ?></a>
-				</li>
-
-				<?php if (!$this->user_id) { ?>
-				<li>
-					<a href="m/topic/" <?php if ($_GET['act'] == 'topic') { ?>class="active"<?php } ?>><i class="icon icon-topic"></i><?php _e('话题'); ?></a>
-				</li>
-				<?php } ?>
-
-				<li>
-					<a href="m/publish/"<?php if ($_GET['act'] == 'publish') { ?>class="active"<?php } ?>><i class="icon icon-ask"></i><?php _e('发起'); ?></a>
-				</li>
-
-				<?php if (!$this->user_id) { ?>
-				<li>
-					<a href="m/search/"<?php if ($_GET['act'] == 'search') { ?>class="active"<?php } ?>><i class="icon icon-search"></i><?php _e('搜索'); ?></a>
-				</li>
-				<?php }?>
-				<li>
-					<a class="user"><span class="triangle"></span><i class="icon icon-user"></i><?php _e('我'); ?><?php if (!$this->user_id OR $this->user_info['inbox_unread'] != 0) { ?><i class="icon-tips"></i><?php } ?></a>
-				</li>
-
-				<?php if ($this->user_id) { ?>
-				<li>
-					<a class="more"><span class="triangle"></span><i class="icon icon-more"></i><?php _e('更多'); ?></a>
-				</li>
-				<?php } ?>
-			</ul>
-			<div class="aw-popover user active">
-				<ul>
-					<?php if ($this->user_id) { ?>
-					<li>
-						<a href="people/<?php echo $this->user_info['url_token']; ?>">
-							<span class="label">
-								<img class="img" alt="<?php echo $this->user_info['user_name']; ?>" src="<?php echo get_avatar_url($this->user_info['uid'], 'mid'); ?>" />
-							</span>
-							<?php echo $this->user_info['user_name']; ?>
-						</a>
-					</li>
-					<li>
-						<a href="m/inbox/">
-							<span class="label">
-								<i class="icon icon-inbox"></i>
-							</span>
-							<?php _e('私信'); ?>
-							<?php if ($this->user_info['inbox_unread'] != 0) {?>
-								<span class="badge badge-danger"><?php echo $this->user_info['inbox_unread']?></span>
-							<?php } ?>
-						</a>
-					</li>
-					<li>
-						<a href="m/settings/">
-							<span class="label">
-								<i class="icon icon-setting"></i>
-							</span>
-							<?php _e('设置'); ?>
-						</a>
-					</li>
-					<li>
-						<a href="account/logout/">
-							<span class="label">
-								<i class="icon icon-logout"></i>
-							</span>
-							<?php _e('退出'); ?>
-						</a>
-					</li>
-					<?php } else { ?>
-					<li>
-						<a href="m/login/">
-							<span class="label">
-								<i class="icon icon-login"></i>
-							</span>
-							<?php _e('登录'); ?>
-						</a>
-					</li>
-					<?php if (get_setting('sina_weibo_enabled') == 'Y') { ?>
-					<li>
-						<a href="account/openid/weibo/bind/<?php echo $return_url; ?>">
-							<span class="label">
-								<i class="icon icon-weibo"></i>
-							</span>
-							<?php _e('微博登录'); ?>
-						</a>
-					</li>
-					<?php } ?>
-					<?php if (get_setting('qq_login_enabled') == 'Y') { ?>
-					<li>
-						<a href="account/openid/qq/bind/<?php echo $return_url; ?>">
-							<span class="label">
-								<i class="icon icon-qq"></i>
-							</span>
-							<?php _e('QQ登录'); ?>
-						</a>
-					</li>
-					<?php } ?>
-					<?php if (get_setting('register_type') == 'open') { ?>
-					<li>
-						<a href="m/register/">
-							<span class="label">
-								<i class="icon icon-signup"></i>
-							</span>
-							<?php _e('注册'); ?>
-						</a>
-					</li>
-					<?php } ?>
-					<?php } ?>
-				</ul>
-			</div>
-			<div class="aw-popover more">
-				<ul>
-					<li>
-						<a href="m/search/">
-							<span class="label">
-								<i class="icon icon-search"></i>
-							</span>
-							<?php _e('搜索'); ?>
-						</a>
-					</li>
-					<li>
-						<a href="m/people/">
-							<span class="label">
-								<i class="icon icon-user"></i>
-							</span>
-							<?php _e('用户'); ?>
-						</a>
-					</li>
-					<li>
-						<a href="m/topic/">
-							<span class="label">
-								<i class="icon icon-topic"></i>
-							</span>
-							<?php _e('话题'); ?>
-						</a>
-					</li>
-				</ul>
-			</div>
-		</div>
-		<!-- end nav -->
-
-		<div style="display:none">
-			<?php echo get_setting('statistic_code'); ?>
-		</div>
-		<!-- / DO NOT REMOVE -->
-
-		<?php if (in_weixin()) { ?>
-		<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
-		<script type="text/javascript">
-		$(function()
-		{
-			$('.header').hide();
-
-			wx.config({
-				debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-				appId: '<?php echo get_setting("weixin_app_id"); ?>', // 必填，公众号的唯一标识
-				timestamp: '<?php echo $this->timestamp; ?>', // 必填，生成签名的时间戳
-				nonceStr: '<?php echo $this->noncestr; ?>', // 必填，生成签名的随机串
-				signature: '<?php echo $this->signature; ?>',// 必填，签名，见附录1
-				jsApiList: [
-					'onMenuShareTimeline',
-					'onMenuShareAppMessage',
-					'onMenuShareQQ',
-					'onMenuShareWeibo'
-					] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-			});
-
-			if ($('.aw-question-detail .markitup-box img')[0])
-			{
-				var weixin_img_url = $('.aw-question-detail .markitup-box img').first().attr('src'),
-				weixin_img_first = $('.aw-question-detail .markitup-box img').first().attr('src').replace(/(.*\/){0,}([^\.]+.*)/ig, "$2"),
-				weixin_img_url = weixin_img_url.replace(weixin_img_first,'90x90_' + weixin_img_first);
-			}
-			else
-			{
-				var weixin_img_url = location.protocol + '//' + location.host + location.pathname + 'static/common/weixin_default_image.png';
-			};
-
-			wx.ready(function () {
-
-				// 朋友圈
-				wx.onMenuShareTimeline({
-				    title: document.title, // 分享标题
-				    link: location.href, // 分享链接
-				    imgUrl: weixin_img_url, // 分享图标
-				    success: function () { 
-				        // 用户确认分享后执行的回调函数
-				    },
-				    cancel: function () { 
-				        // 用户取消分享后执行的回调函数
-				    }
-				});
-
-				// 朋友
-				wx.onMenuShareAppMessage({
-				    title: document.title, // 分享标题
-				    desc: ($('#weixin-desc').text()=='') ? $('meta[name="description"]').attr('content') : $('#weixin-desc').text(), // 分享描述
-				    link: location.href, // 分享链接
-				    imgUrl: weixin_img_url, // 分享图标
-				    success: function () { 
-				        // 用户确认分享后执行的回调函数
-				    },
-				    cancel: function () { 
-				        // 用户取消分享后执行的回调函数
-				    }
-				});
-
-				// QQ
-				wx.onMenuShareQQ({
-				    title: document.title, // 分享标题
-				    desc: ($('#weixin-desc').text()=='') ? $('meta[name="description"]').attr('content') : $('#weixin-desc').text(), // 分享描述
-				    link: location.href, // 分享链接
-				    imgUrl: weixin_img_url, // 分享图标
-				    success: function () { 
-				       // 用户确认分享后执行的回调函数
-				    },
-				    cancel: function () { 
-				       // 用户取消分享后执行的回调函数
-				    }
-				});
-
-				// 腾讯微博
-				wx.onMenuShareWeibo({
-				    title: document.title, // 分享标题
-				    desc: ($('#weixin-desc').text()=='') ? $('meta[name="description"]').attr('content') : $('#weixin-desc').text(), // 分享描述
-				    link: location.href, // 分享链接
-				    imgUrl: weixin_img_url, // 分享图标
-				    success: function () { 
-				       // 用户确认分享后执行的回调函数
-				    },
-				    cancel: function () { 
-				        // 用户取消分享后执行的回调函数
-				    }
-				});
-			})
-
-		});
-		</script>
+<!-- nav -->
+<div class="nav">
+	<ul>
+		<?php if ($this->user_id) { ?>
+		<li>
+			<a href="m/home/" <?php if ($_GET['act'] == 'home') { ?>class="active"<?php } ?>><i class="icon icon-list"></i><?php _e('动态'); ?> <i class="icon-tips new-action" <?php if ($this->user_info['notification_unread'] <= 0 ) { ?>style="display:none;"<?php } ?>></i> </a>
+		</li>
 		<?php } ?>
-	</body>
+
+		<li>
+			<a href="m/" <?php if ($_GET['act'] == 'index') { ?>class="active"<?php } ?>><i class="icon icon-home"></i><?php _e('发现'); ?></a>
+		</li>
+
+		<?php if (!$this->user_id) { ?>
+		<li>
+			<a href="m/topic/" <?php if ($_GET['act'] == 'topic') { ?>class="active"<?php } ?>><i class="icon icon-topic"></i><?php _e('话题'); ?></a>
+		</li>
+		<?php } ?>
+
+		<li>
+			<a href="m/publish/"<?php if ($_GET['act'] == 'publish') { ?>class="active"<?php } ?>><i class="icon icon-ask"></i><?php _e('发起'); ?></a>
+		</li>
+
+		<?php if (!$this->user_id) { ?>
+		<li>
+			<a href="m/search/"<?php if ($_GET['act'] == 'search') { ?>class="active"<?php } ?>><i class="icon icon-search"></i><?php _e('搜索'); ?></a>
+		</li>
+		<?php }?>
+		<li>
+			<a class="user"><span class="triangle"></span><i class="icon icon-user"></i><?php _e('我'); ?><?php if (!$this->user_id OR $this->user_info['inbox_unread'] != 0) { ?><i class="icon-tips"></i><?php } ?></a>
+		</li>
+
+		<?php if ($this->user_id) { ?>
+		<li>
+			<a class="more"><span class="triangle"></span><i class="icon icon-more"></i><?php _e('更多'); ?></a>
+		</li>
+		<?php } ?>
+	</ul>
+	<div class="aw-popover user active">
+		<ul>
+			<?php if ($this->user_id) { ?>
+			<li>
+				<a href="people/<?php echo $this->user_info['url_token']; ?>">
+					<span class="label">
+						<img class="img" alt="<?php echo $this->user_info['user_name']; ?>" src="<?php echo get_avatar_url($this->user_info['uid'], 'mid'); ?>" />
+					</span>
+					<?php echo $this->user_info['user_name']; ?>
+				</a>
+			</li>
+			<li>
+				<a href="m/inbox/">
+					<span class="label">
+						<i class="icon icon-inbox"></i>
+					</span>
+					<?php _e('私信'); ?>
+					<?php if ($this->user_info['inbox_unread'] != 0) {?>
+						<span class="badge badge-danger"><?php echo $this->user_info['inbox_unread']?></span>
+					<?php } ?>
+				</a>
+			</li>
+			<li>
+				<a href="m/settings/">
+					<span class="label">
+						<i class="icon icon-setting"></i>
+					</span>
+					<?php _e('设置'); ?>
+				</a>
+			</li>
+			<li>
+				<a href="account/logout/">
+					<span class="label">
+						<i class="icon icon-logout"></i>
+					</span>
+					<?php _e('退出'); ?>
+				</a>
+			</li>
+			<?php } else { ?>
+			<li>
+				<a href="m/login/">
+					<span class="label">
+						<i class="icon icon-login"></i>
+					</span>
+					<?php _e('登录'); ?>
+				</a>
+			</li>
+			<?php if (get_setting('sina_weibo_enabled') == 'Y') { ?>
+			<li>
+				<a href="account/openid/weibo/bind/<?php echo $return_url; ?>">
+					<span class="label">
+						<i class="icon icon-weibo"></i>
+					</span>
+					<?php _e('微博登录'); ?>
+				</a>
+			</li>
+			<?php } ?>
+			<?php if (get_setting('qq_login_enabled') == 'Y') { ?>
+			<li>
+				<a href="account/openid/qq/bind/<?php echo $return_url; ?>">
+					<span class="label">
+						<i class="icon icon-qq"></i>
+					</span>
+					<?php _e('QQ登录'); ?>
+				</a>
+			</li>
+			<?php } ?>
+			<?php if (get_setting('register_type') == 'open') { ?>
+			<li>
+				<a href="m/register/">
+					<span class="label">
+						<i class="icon icon-signup"></i>
+					</span>
+					<?php _e('注册'); ?>
+				</a>
+			</li>
+			<?php } ?>
+			<?php } ?>
+		</ul>
+	</div>
+	<div class="aw-popover more">
+		<ul>
+			<li>
+				<a href="m/search/">
+					<span class="label">
+						<i class="icon icon-search"></i>
+					</span>
+					<?php _e('搜索'); ?>
+				</a>
+			</li>
+			<li>
+				<a href="m/people/">
+					<span class="label">
+						<i class="icon icon-user"></i>
+					</span>
+					<?php _e('用户'); ?>
+				</a>
+			</li>
+			<li>
+				<a href="m/topic/">
+					<span class="label">
+						<i class="icon icon-topic"></i>
+					</span>
+					<?php _e('话题'); ?>
+				</a>
+			</li>
+		</ul>
+	</div>
+</div>
+<!-- end nav -->
+
+<div style="display:none">
+	<?php echo get_setting('statistic_code'); ?>
+</div>
+<!-- / DO NOT REMOVE -->
+
+<?php if (in_weixin()) { ?>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript">$(document).ready(function() {
+	$('.header').hide();
+});wx.config({	debug: false,	appId: '<?php echo get_setting("weixin_app_id"); ?>',	timestamp: '<?php echo $this->timestamp; ?>',	nonceStr: '<?php echo $this->noncestr; ?>',	signature: '<?php echo $this->signature; ?>',	jsApiList: [		'checkJsApi',		'onMenuShareTimeline',		'onMenuShareAppMessage',		'onMenuShareQQ',		'onMenuShareWeibo'		]});var WEIXIN_IMG_COVER;if ($('.aw-question-detail .markitup-box img').length){	WEIXIN_IMG_COVER = $('.aw-question-detail .markitup-box img').first().attr('src');}else{	WEIXIN_IMG_COVER = '<?php echo G_STATIC_URL; ?>/common/weixin_default_image.png';}wx.ready(function () {	wx.checkJsApi({		jsApiList: ["onMenuShareTimeline", "onMenuShareAppMessage", "onMenuShareQQ", "onMenuShareWeibo"],		success: function() {			// 朋友圈			wx.onMenuShareTimeline({				title: document.title,				desc: ($('#weixin-desc').text() == '') ? $('meta[name="description"]').attr('content') : $('#weixin-desc').text(),				link: location.href,				imgUrl: WEIXIN_IMG_COVER			});					// 朋友			wx.onMenuShareAppMessage({				title: document.title,				desc: ($('#weixin-desc').text() == '') ? $('meta[name="description"]').attr('content') : $('#weixin-desc').text(),				link: location.href,				imgUrl: WEIXIN_IMG_COVER			});					// QQ			wx.onMenuShareQQ({				title: document.title,				desc: ($('#weixin-desc').text() == '') ? $('meta[name="description"]').attr('content') : $('#weixin-desc').text(),				link: location.href,				imgUrl: WEIXIN_IMG_COVER			});					// 腾讯微博			wx.onMenuShareWeibo({				title: document.title,				desc: ($('#weixin-desc').text() == '') ? $('meta[name="description"]').attr('content') : $('#weixin-desc').text(),				link: location.href,				imgUrl: WEIXIN_IMG_COVER			});		}	})});
+</script>
+<?php } ?>
+</body>
 </html>
