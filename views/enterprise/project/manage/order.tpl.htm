@@ -95,7 +95,7 @@
 													<input type="hidden" name="order_id" value="<?php echo $val['id']; ?>" />
 													<input type="text" class="form-control form-mini input-sm" name="track_branch" placeholder="<?php _e('物流公司'); ?>" />
 													<input type="text" class="form-control form-mini input-sm" name="track_no" placeholder="<?php _e('物流单号'); ?>" />
-													<input type="button" class="pull-left btn btn-green input-sm" value="<?php _e('发货'); ?>" onclick="ajax_post($('#shipping_form_<?php echo $val['id']; ?>'))" />
+													<input type="button" class="pull-left btn btn-green input-sm" value="<?php _e('发货'); ?>" onclick="AWS.ajax_post($('#shipping_form_<?php echo $val['id']; ?>'))" />
 												</form>
 												<?php } ?>
 											<?php } ?>
