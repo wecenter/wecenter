@@ -208,9 +208,10 @@ a.aw-load-more-content{display: block;}
 .aw-top-nav > nav > ul > li > a i{position:relative;top:2px;font-size: 16px;}
 .aw-top-nav > nav > ul > li > a i.icon-home{top: 1px;}
 .aw-top-nav > nav > ul > li:hover .dropdown-list{display: block;}
-.aw-top-nav > nav > ul > li .dropdown-list{display:none;position: absolute;width:100%;}
-.aw-top-nav > nav > ul > li .dropdown-list ul li a{display:block;height: 32px;line-height: 32px;background: #4dabff;text-align: center;color: #fff;}
+.aw-top-nav > nav > ul > li .dropdown-list{display:none;position: absolute;right:0;width:80px;}
+.aw-top-nav > nav > ul > li .dropdown-list ul li a{display:block;height: 32px;line-height: 32px;padding:0 10px;background: #4dabff;text-align: center;color: #fff;}
 .aw-top-nav > nav > ul > li .dropdown-list ul li a:hover{background: #339dff;}
+.aw-top-nav > nav > ul > li .dropdown-list ul li i{margin-right: 3px;vertical-align: -1px;}
 .aw-top-nav .badge{position: absolute;top: 4px;right: 2px;}
 .aw-top-nav ul li:hover .aw-dropdown{display: block;}
 .aw-top-nav .aw-dropdown{display:none;top:100%;min-width:300px;border-top: none;border-radius: 0 0 4px 4px;}
