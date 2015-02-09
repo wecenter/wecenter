@@ -36,7 +36,7 @@
                                     <span class="topic-tag"><a class="text" href="topic/<?php echo $val['url_token']; ?>"><?php echo $val['topic_title']; ?></a></span>
                                     <?php } ?>
                                     <?php } ?>
-                                    <?php if ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?><a href="project/publish/<?php echo $this->project_info['id']; ?>" class="edit"><i class="icon icon-edit"></i> <?php _e('编辑'); ?></a><?php } ?>
+                                    <?php if ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?><a href="project/publish/<?php echo $this->project_info['id']; ?>" class="icon-inverse edit"><i class="icon icon-edit"></i></a><?php } ?>
                                 </div>
                             </div>
                             <h2><?php echo $this->project_info['title']; ?></h2>

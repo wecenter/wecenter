@@ -119,7 +119,7 @@
 .aw-breadcrumb .event-category:before {padding:0 5px 0 3px;content:'>';}
 .aw-breadcrumb a.edit {margin-left: 5px;color: #999;font-size: 12px;}
 .aw-breadcrumb a.edit::before {padding:0;content: '';}
-.aw-breadcrumb a.edit i {margin:0;color: #666;}
+.aw-breadcrumb a.edit i {margin:0;color: #fff;}
 .aw-project-page .aw-project-detail{padding:15px;border-radius: 5px; background: #fff;}
 .aw-project-page .aw-project-detail > .mod-head {margin: 0 -15px; overflow: hidden;}
 .aw-project-detail .mod-head h2 {margin-bottom: 5px;text-align:left; padding:10px 15px;color: #333;font-size: 20px;line-height: 1.5em;}
