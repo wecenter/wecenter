@@ -143,9 +143,9 @@
 									<dl class="clearfix">
 										<dt><strong>*</strong>活动时间:</dt>
 										<dd>
-											<input type="text" class="form-control form-mini pull-left date-picker" name="start_time" value="<?php if ($this->project_info['start_time']) { echo date('Y-m-d', $this->project_info['start_time']); } ?>" />
+											<input type="text" class="form-control form-mini pull-left date-picker" name="start_time" value="<?php if ($this->project_info['start_time']) echo $this->project_info['start_time']; ?>" />
 											<span class="pull-left">&nbsp;&nbsp;-&nbsp;&nbsp;</span>
-											<input type="text" class="form-control form-mini  pull-left date-picker" name="end_time" value="<?php if ($this->project_info['end_time']) { echo date('Y-m-d', $this->project_info['end_time']); } ?>" />
+											<input type="text" class="form-control form-mini  pull-left date-picker" name="end_time" value="<?php if ($this->project_info['end_time']) echo $this->project_info['end_time']; ?>" />
 										</dd>
 										<div class="col-sm-8">
 											<label class="label label-danger hide">请选择活动时间</label>
