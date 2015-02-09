@@ -61,14 +61,7 @@
 .aw-side-bar .mod-head p{margin-top: 18px;line-height: 20px;}
 .aw-side-bar .mod-head p strong{padding-left: 4px;color: #333;letter-spacing: 2px;font-size: 30px;}
 .aw-side-bar .mod-body{padding:10px 0; }
-.aw-side-bar .aw-project-author .mod-body{border-bottom: none;}
-.aw-side-bar .aw-project-title .mod-body ul{ margin-right: -35px;text-align: center;}
 .aw-side-bar .mod-body li span{font-size: 16px;line-height: 1.8em;color: #333;}
-.aw-side-bar .aw-project-title .mod-body ul li {float: left;margin-right: 22px;color: #999;}
-.aw-side-bar .aw-project-title .mod-footer {margin-top: 0;padding-top: 20px; padding-bottom:5px;text-align: center;border-top: 1px solid #d3d3d3;}
-
-.aw-side-bar .aw-project-title .btn-upload{margin-top: 10px;width: 235px;}
-.aw-side-bar .aw-project-title .mod-footer .file-input{left: -36px !important;width: 235px !important;}
 .aw-side-bar .mod-footer .btn-blue, .aw-side-bar .mod-footer .btn-gray, .aw-side-bar .mod-footer .btn-red{position:relative;font-size: 14px;display: inline-block; padding: 8px 30px;border-radius: 5px;color: #fff;}
 .aw-side-bar .mod-footer .btn-blue{background: #58B957;}
 .aw-side-bar .mod-footer a.btn-red:hover{background:#fb4b56}
@@ -76,11 +69,19 @@
 .aw-side-bar .mod-footer .btn-red{background: #ff6b75;}
 .aw-side-bar .mod-footer .btn-gray-large {background:#999999;width: 100%;}
 .aw-side-bar .mod-footer .btn-red-large {background: #ff6b75;width: 100%;}
+
+.aw-side-bar .aw-project-title .mod-body ul{ margin-right: -35px;text-align: center;}
+.aw-side-bar .aw-project-title .mod-body ul li {float: left;margin-right: 22px;color: #999;}
+.aw-side-bar .aw-project-title .mod-footer {margin-top: 0;padding-top: 20px; padding-bottom:5px;text-align: center;border-top: 1px solid #d3d3d3;}
+.aw-side-bar .aw-project-title .btn-upload{margin-top: 10px;width: 235px;}
+.aw-side-bar .aw-project-title .mod-footer .file-input{left: -36px !important;width: 235px !important;}
 .aw-project-title .mod-head {padding-bottom:0;}
 .aw-project-title .mod-head .progress-box {position: relative;}
 .aw-project-title .mod-head .progress {display: inline-block;width: 80%;margin-bottom: 0;}
 .aw-project-title .mod-head p {margin-bottom: 0;}
-.aw-side-bar .aw-project-author {margin-top: 20px;padding: 15px;background: #fff;}
+
+.aw-side-bar .aw-project-author {margin-top: 20px;padding: 15px;background: #fff;border-radius: 5px;}
+.aw-side-bar .aw-project-author .mod-body{border-bottom: none;}
 .aw-project-author .mod-footer .Share h3{padding: 10px 0;margin: 0;line-height: 25px;}
 .aw-project-author .mod-head{margin-bottom: 0;padding:0;}
 .aw-project-author .mod-body li p {margin: -5px 0 0;font-size: 12px;color:#999;}
@@ -96,14 +97,13 @@
 
 .aw-project-return-list div.mod-body, .aw-project-payment-refund div.mod-body{border-bottom: none;}
 .aw-project-return-list ul {text-align: left !important;}
-
 .aw-project-return-list div.mod-body {padding-top: 0;padding-bottom: 0;}
 .aw-project-return-list ul li{overflow: hidden;margin-top: 20px;padding:15px;border-radius: 5px; background: #fff;}
 .aw-project-return-list ul li h4{border-bottom: 1px solid #e6e6e6;overflow: hidden;}
 .aw-side-bar .aw-project-return-list .pull-left{font-size: 22px;}
 .aw-project-return-list ul li p{margin: 5px 0; line-height: 25px;}
 .aw-project-return-list ul li .btn-large{width: 100%;background:#58B957; margin-top: 10px;line-height: 25px; font-size: 14px;}
-.aw-side-bar  .aw-project-return-list ul li h4 span{text-indent: 20px;font-size: 12px;display: inline-block;line-height: 37px;}
+.aw-side-bar  .aw-project-return-list ul li h4 span{font-size: 12px;display: inline-block;line-height: 37px;}
 .aw-side-bar  .aw-project-return-list ul li h4 span:last-child {color: #999;}
 .aw-project-return-list ul li .label{font-weight: normal;font-size: 12px;}
 .aw-project-return-list ul li .btn-disabled{border-color:#7e7c7c;background-color: #a9a9a9;}
