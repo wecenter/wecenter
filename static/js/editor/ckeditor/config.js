@@ -24,6 +24,8 @@ CKEDITOR.editorConfig = function( config ) {
 
 	config.height = 250;
 
+	config.forcePasteAsPlainText = true;
+
 	//config.plugins = 'sourcearea,wecenterattach,wecenterimage,wecenterlink,wecentervideo,removeformat,blockquote,maximize,basicstyles,button,toolbar,enterkey,entities,floatingspace,wysiwygarea,fakeobjects,link,list,undo,codeTag';
 
 	// The toolbar groups arrangement, optimized for a single toolbar row.
