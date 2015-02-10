@@ -200,6 +200,7 @@ var AWS =
 				case 'default':
 				case 'comments_form':
 				case 'reply':
+				case 'reply_question':
 					AWS.alert(result.err);
 
 					$('.aw-comment-box-btn .btn-success, .btn-reply').removeClass('disabled');
