@@ -430,8 +430,8 @@
 
 			this.setRules( 'quote', {
 				breakBeforeOpen: 1,
-				breakAfterOpen: 0,
-				breakBeforeClose: 0,
+				breakAfterOpen: 1,
+				breakBeforeClose: 1,
 				breakAfterClose: 1
 			} );
 
@@ -685,7 +685,6 @@
 							// } else 
 							if ( ( value = style[ 'font-size' ] ) ) {
 								var percentValue = value.match( /(\d+)%$/ ) ? value.match( /(\d+)%$/ ) : value.match( /(\d+)px$/ );
-								console.log(percentValue);
 								if ( percentValue ) {
 									value = percentValue[ 1 ];
 									tagName = 'size';
@@ -710,7 +709,6 @@
 								var cite = element.children[ 0 ],
 									quoted = element.children[ 1 ],
 									citeText = cite.name == 'cite' && cite.children[ 0 ].value;
-
 								if ( citeText ) {
 									value = '"' + citeText + '"';
 									element.children = quoted.children;
