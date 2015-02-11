@@ -259,6 +259,8 @@
 
                     <div class="aw-mod order-operate">
                         <div class="mod-body">
+                            <div class="alert alert-success hide error_message priority-message ">修改优先级成功</div>
+                            <div class="alert alert-success hide error_message rating-message">修改评级成功</div>
                             <ul>
                                 <?php if ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_service']) {
                                     if ($this->ticket_info['status'] != 'closed') { ?>
@@ -418,8 +420,12 @@
                 'id': TICKET_ID
             }, function (result)
             {
-                if (result.errno != 1)
+                if (result.errno == -1)
                  {
+
+                    $('.priority-message').show();
+                    $('.rating-message').hide();
+                } else {
                     AWS.alert(result.err);
                 }
             }, 'json');
@@ -433,8 +439,11 @@
                 'id': TICKET_ID
             }, function (result)
             {
-                if (result.errno != 1)
+                if (result.errno == -1)
                  {
+                    $('.rating-message').show();
+                    $('.priority-message').hide();
+                } else {
                     AWS.alert(result.err);
                 }
             }, 'json');

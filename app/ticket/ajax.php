@@ -182,7 +182,7 @@ class ajax extends AWS_CONTROLLER
 
         $this->model('ticket')->change_priority($ticket_info['id'], $this->user_id, $_POST['priority']);
 
-        H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('修改优先级成功')));
+        H::ajax_json_output(AWS_APP::RSM(null, -1));
     }
 
     public function change_status_action()
@@ -253,7 +253,7 @@ class ajax extends AWS_CONTROLLER
 
         $this->model('ticket')->change_rating($ticket_info['id'], $this->user_id, $_POST['rating']);
 
-        H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('修改评级成功')));
+        H::ajax_json_output(AWS_APP::RSM(null, -1));
     }
 
     public function remove_action()

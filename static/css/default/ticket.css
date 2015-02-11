@@ -42,7 +42,7 @@
 .aw-ticket-invite .invite-list li {margin-right: 5px;padding: 0;}
 #ticket-input {display: inline-block;}
 .remove-reply {cursor: pointer;}
-
+.alert-success { color: #3c763d;background-color: #dff0d8;border-color: #d6e9c6;}
 /* 热门话题 */
 .aw-work-wrap .aw-topic-list{margin-bottom: 30px;}
 .aw-work-wrap .aw-topic-list .mod-body{padding:0;}
