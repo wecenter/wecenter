@@ -358,8 +358,7 @@ class project_class extends AWS_MODEL
         {
             return false;
         }
-
-        if ($product_info['stock'] != -99 AND $product_info['stock'] > 0)
+        else if ($product_info['stock'] > 0)
         {
             $this->query("UPDATE " . get_table('project_product') . " SET stock = stock - 1 WHERE id = " . $product_info['id']);
         }
@@ -690,7 +689,7 @@ class project_class extends AWS_MODEL
             $this->model('payment_alipay')->closeTrade($order_info['payment_order_id']);
         }
 
-        if ($product_info['stock'] != -99 AND $product_info['stock'] > 0)
+        if ($product_info['stock'] >= 0)
         {
             // 回增库存
             $this->query("UPDATE " . get_table('project_product') . " SET stock = stock + 1 WHERE id = " . $product_info['id']);
