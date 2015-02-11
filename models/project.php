@@ -361,7 +361,7 @@ class project_class extends AWS_MODEL
 
         if ($product_info['stock'] != -99 AND $product_info['stock'] > 0)
         {
-            $this->query("UPDATE " . get_table('project_product') . " SET stock = stock - 1 WHERE id = " . intval($product_id));
+            $this->query("UPDATE " . get_table('project_product') . " SET stock = stock - 1 WHERE id = " . $product_info['id']);
         }
 
         if (intval($product_info['amount']) != 0)
@@ -668,6 +668,11 @@ class project_class extends AWS_MODEL
             return false;
         }
 
+        if (!$product_info = $this->get_product_info_by_id($order_info['product_id']))
+        {
+            return false;
+        }
+
         if ($order_info['payment_time'])
         {
             // 已经被支付
@@ -685,8 +690,11 @@ class project_class extends AWS_MODEL
             $this->model('payment_alipay')->closeTrade($order_info['payment_order_id']);
         }
 
-        // 回增库存
-        $this->query("UPDATE " . get_table('project_product') . " SET stock = stock + 1 WHERE id = " . $order_info['product_id']);
+        if ($product_info['stock'] != -99 AND $product_info['stock'] > 0)
+        {
+            // 回增库存
+            $this->query("UPDATE " . get_table('project_product') . " SET stock = stock + 1 WHERE id = " . $product_info['id']);
+        }
 
         return $this->set_order_cancel_time_by_id($id);
     }
