@@ -271,7 +271,7 @@
                                 <li>
                                     <h4>
                                     <span class="pull-left"><?php echo $val['title']; ?><?php if (intval($val['amount']) > 0) { ?> ¥<?php echo $val['amount']; ?><?php } ?></span>
-                                            <span class="pull-right"><?php if ($val['stock'] == -99) { ?><?php _e('不限额'); ?><?php } else { ?><?php _e('还剩 %s 位', $val['stock']); ?><?php }?></span>
+                                            <span class="pull-right"><?php if ($val['stock'] < 0) { ?><?php _e('不限额'); ?><?php } else { ?><?php _e('还剩 %s 位', $val['stock']); ?><?php }?></span>
                                     </h4>
 
                                     <p><?php echo nl2br($val['description']); ?></p>
