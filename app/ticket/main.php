@@ -245,13 +245,22 @@ class main extends AWS_CONTROLLER
                 $filter['uid'] = $this->user_id;
             }
 
-            if ($_GET['service'] == 'me')
-            {
-                $filter['service'] = $this->user_id;
+            switch ($_GET['service']) {
+                case 'me':
+                    $filter['service'] = $this->user_id;
+
+                    break;
+
+                case 'none':
+                    $filter['service'] = 0;
+
+                    break;
             }
-            else if ($_GET['service'] == 'none')
+
+
+            if ($_GET['status'])
             {
-                $filter['service'] = 0;
+                $filter['status'] = $_GET['status'];
             }
 
             if (!$_GET['page'])
