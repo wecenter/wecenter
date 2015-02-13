@@ -180,7 +180,7 @@
                             </div>
                             <p><?php _e('累计筹集') ?>:</p>
                             <p><strong>￥<?php echo $this->project_info['paid']; ?></strong></p>
-                            <p><?php _e('%s 前须得到', date('Y年m月d日', $this->project_info['end_time'])); ?> ¥<?php echo $this->project_info['amount']; ?></p>
+                            <p><?php _e('%s 前须得到', date('Y年m月d日 H:m', $this->project_info['end_time'])); ?> ¥<?php echo $this->project_info['amount']; ?></p>
                             <div class="progress-box">
                             <div class="progress">
                                 <div class="progress-bar progress-bar-success progress-bar-green" role="progressbar" aria-valuenow="<?php echo get_paid_progress_bar($this->project_info['amount'], $this->project_info['paid']); ?>" aria-valuemin="0" aria-valuemax="<?php echo get_paid_progress_bar($this->project_info['amount'], $this->project_info['paid']); ?>" style="width: <?php echo get_paid_progress_bar($this->project_info['amount'], $this->project_info['paid']); ?>%">
