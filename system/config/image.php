@@ -66,3 +66,18 @@ $config['chapter_thumbnail'] = array(
 		"h" => 50
 	)
 );
+
+$config['uc_avatar_thumbnail'] = array(
+	'big' => array(
+		'w' => 200,
+		'h' => 250
+	),
+	'middle' => array(
+		'w' => 120,
+		'h' => 120
+	),
+	'small' => array(
+		'w' => 48,
+		'h' => 48
+	)
+);
