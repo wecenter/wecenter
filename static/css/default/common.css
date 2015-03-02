@@ -767,6 +767,7 @@ blockquote {margin: 0 0 16px;padding: 0 15px;font-size: 14px;color: #777;border-
 .aw-people-list .aw-item .operate .btn{display: block;margin-bottom: 5px;}
 .aw-people-list .aw-item .aw-user-name{font-size: 14px;}
 .aw-people-list .aw-item p{margin:0;}
+.aw-people-list .aw-item .signature{max-width: 450px;}
 .aw-people-list .aw-item .meta{margin:3px 0;}
 .aw-people-list .aw-item .meta span{margin-right: 10px;}
 .aw-people-list .aw-item .aw-topic-bar{margin:5px 0 0;}
