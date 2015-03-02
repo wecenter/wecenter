@@ -466,6 +466,7 @@ a.cke_button{padding:8px 10px !important;cursor: pointer !important;border-radiu
 .cke_button__removeformat_icon:before {content: "\e65f";}
 
 .aw-editor-box .mod-head{border:1px solid #e6e6e6;border-radius: 4px;}
+.aw-editor-box textarea{border: none;}
 .aw-editor-box .mod-body{position:relative;margin-top: 15px;line-height: 28px;}
 .aw-editor-box .mod-body #question_detail_message{line-height: 34px;}
 .aw-editor-box .mod-body #answer_content_message{margin-right: 10px;}
