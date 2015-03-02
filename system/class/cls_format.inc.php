@@ -75,10 +75,15 @@ class FORMAT
 	}
 
 	public static function parse_bbcode($text)
-	{		if (!$text)		{			return false;		}		
+	{
+		if (!$text)
+		{
+			return false;
+		}
+
 		return self::parse_links(load_class('Services_BBCode')->parse($text));
 	}
-	// 兼容旧版本
+	// 兼容旧版本
 	public static function parse_markdown($text)
 	{
 		return self::parse_bbcode($text);
@@ -199,7 +204,7 @@ class FORMAT
 		$text = preg_replace('/##((?:(?!##).)+)(?:##)?/', '[size=16]\1[/size]', $text);
 		$text = preg_replace('/!!\[(?:(?!\]).)*\]\(((?:(?!\)).)+)\)/', '[video]\1[/video]', $text);
 		$text = preg_replace('/!\[(?:(?!\]).)*\]\(((?:(?!\)).)+)\)/', '[img]\1[/img]', $text);
-		$text = preg_replace('/\[(?:(?!\]).)+\]\(((?:(?!\)).)+)\)/', '[url]\1[/url]', $text);
+		$text = preg_replace('/\[((?:(?!\]).)+)\]\(((?:(?!\)).)+)\)/', '[url=\2]\1[/url]', $text);
 		$text = preg_replace('/{{{(.+?)}}}/s', '[code]\1[/code]', $text);
 		$text = preg_replace('/^>((?:(?!\n\n).)+)/ms', '[quote]\1[/quote]', $text);
 

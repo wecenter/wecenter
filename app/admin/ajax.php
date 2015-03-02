@@ -72,14 +72,19 @@ class ajax extends AWS_ADMIN_CONTROLLER
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('你没有访问权限, 请重新登录')));
         }
 
-        if ($_POST['upload_dir'] AND preg_match('/(.*)\/$/i', $_POST['upload_dir']))
+        if ($_POST['upload_dir'])
         {
-            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('上传文件存放绝对路径不能以 / 结尾')));
+            $_POST['upload_dir'] = rtrim(trim($_POST['upload_dir']), '\/');
         }
 
-        if ($_POST['upload_url'] AND preg_match('/(.*)\/$/i', $_POST['upload_url']))
+        if ($_POST['upload_url'])
         {
-            H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('上传目录外部访问 URL 地址不能以 / 结尾')));
+            $_POST['upload_url'] = rtrim(trim($_POST['upload_url']), '\/');
+        }
+
+        if ($_POST['img_url'])
+        {
+            $_POST['img_url'] = rtrim(trim($_POST['img_url']), '\/');
         }
 
         if ($_POST['request_route_custom'])
@@ -195,6 +200,11 @@ class ajax extends AWS_ADMIN_CONTROLLER
         if ($_POST['slave_mail_config']['server'])
         {
             $_POST['slave_mail_config']['charset'] = $_POST['mail_config']['charset'];
+        }
+
+        if ($_POST['ucenter_path'])
+        {
+            $_POST['ucenter_path'] = rtrim(trim($_POST['ucenter_path']), '\/');
         }
 
         $this->model('setting')->set_vars($_POST);

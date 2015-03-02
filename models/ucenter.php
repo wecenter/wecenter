@@ -141,7 +141,25 @@ class ucenter_class extends AWS_MODEL
 
 		if ($uc_uid > 0)
 		{
-			if (!$user_info = $this->get_uc_user_info($uc_uid))
+			if ($user_info = $this->get_uc_user_info($uc_uid))
+			{
+				// Update password
+				$this->model('account')->update_user_password_ingore_oldpassword($_password, $user_info['uid'], $user_info['salt']);
+
+				// Update username
+				if ($user_info['user_name'] != $username)
+				{
+					if (!$this->model('account')->check_username($username))
+					{
+						$this->model('account')->update_user_name($username, $user_info['uid']);
+
+						$this->update('users_ucenter', array(
+							'username' => htmlspecialchars($username),
+						), 'uc_uid = ' . intval($uc_uid));
+					}
+				}
+			}
+			else
 			{
 				if ($site_user_info = $this->model('account')->get_user_info_by_email($email))
 				{
@@ -172,78 +190,42 @@ class ucenter_class extends AWS_MODEL
 							'username' => $username,
 							'email' => $email
 						));
-
-						if (uc_check_avatar($uc_uid, 'big'))
-						{
-							$avatar = @file_get_contents(UC_API . '/avatar.php?uid=' . $uc_uid . '&size=big');
-
-							if ($avatar)
-							{
-								AWS_APP::upload()->initialize(array(
-									'allowed_types' => 'jpg,jpeg,png,gif',
-									'upload_path' => get_setting('upload_dir') . '/avatar/' . $this->model('account')->get_avatar($new_user_id, '', 1),
-									'is_image' => TRUE,
-									'max_size' => get_setting('upload_avatar_size_limit'),
-									'file_name' => $this->model('account')->get_avatar($new_user_id, '', 2),
-									'encrypt_name' => FALSE
-								))->do_upload('aws_upload_file', $avatar);
-
-								if (!AWS_APP::upload()->get_error())
-								{
-									$upload_data = AWS_APP::upload()->data();
-
-									if ($upload_data)
-									{
-										if ($upload_data['is_image'] == 1)
-										{
-											foreach(AWS_APP::config()->get('image')->avatar_thumbnail AS $key => $val)
-											{
-												$thumb_file[$key] = $upload_data['file_path'] . $this->model('account')->get_avatar($new_user_id, $key, 2);
-
-												AWS_APP::image()->initialize(array(
-													'quality' => 90,
-													'source_image' => $upload_data['full_path'],
-													'new_image' => $thumb_file[$key],
-													'width' => $val['w'],
-													'height' => $val['h']
-												))->resize();
-											}
-										}
-
-										$update_data['avatar_file'] = $this->model('account')->get_avatar($new_user_id, null, 1) . basename($thumb_file['min']);
-
-										// 更新主表
-										$this->model('account')->update_users_fields($update_data, $new_user_id);
-
-										if (!$this->model('integral')->fetch_log($new_user_id, 'UPLOAD_AVATAR'))
-										{
-											$this->model('integral')->process($new_user_id, 'UPLOAD_AVATAR', round((get_setting('integral_system_config_profile') * 0.2)), '上传头像');
-										}
-									}
-								}
-							}
-						}
 					}
 
 					$user_info = $this->model('account')->get_user_info_by_uid($new_user_id, true, false);
 				}
 			}
-			else
+		}
+
+		if (uc_check_avatar($uc_uid, 'big'))
+		{
+			if (!$user_info['avatar_file'])
 			{
-				// Update password
-				$this->model('account')->update_user_password_ingore_oldpassword($_password, $user_info['uid'], $user_info['salt']);
+				$this->model('account')->associate_remote_avatar($user_info['uid'], UC_API . '/avatar.php?uid=' . $uc_uid . '&size=big');
+			}
+		}
+		else
+		{
+			if ($user_info['avatar_file'] AND get_setting('ucenter_path'))
+			{
+				$avatar = get_setting('upload_dir') . '/avatar/' . $this->model('account')->get_avatar($user_info['uid'], '');
 
-				// Update username
-				if ($user_info['user_name'] != $username)
+				$uc_avatar_dir = get_setting('ucenter_path') . '/data/avatar/' . $this->model('account')->get_avatar($uc_uid, '', 1);
+
+				if (!file_exists($uc_avatar_dir))
 				{
-					if (!$this->model('account')->check_username($username))
-					{
-						$this->model('account')->update_user_name($username, $user_info['uid']);
+					make_dir($uc_avatar_dir);
+				}
 
-						$this->update('users_ucenter', array(
-							'username' => htmlspecialchars($username),
-						), 'uc_uid = ' . intval($uc_uid));
-					}
+				foreach(AWS_APP::config()->get('image')->uc_avatar_thumbnail AS $key => $val)
+				{
+					AWS_APP::image()->initialize(array(
+						'quality' => 90,
+						'source_image' => $avatar,
+						'new_image' => $uc_avatar_dir . $this->model('account')->get_avatar($uid, $key, 2),
+						'width' => $val['w'],
+						'height' => $val['h']
+					))->resize();
 				}
 			}
 		}

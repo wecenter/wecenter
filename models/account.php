@@ -1076,11 +1076,14 @@ class account_class extends AWS_MODEL
             'mid',
             'min',
             '50',
-            '150'
+            '150',
+            'big',
+            'middle',
+            'small'
         )) ? $size : 'real';
 
         $uid = abs(intval($uid));
-        $uid = sprintf("%09d", $uid);
+        $uid = sprintf('%\'09d', $uid);
         $dir1 = substr($uid, 0, 3);
         $dir2 = substr($uid, 3, 2);
         $dir3 = substr($uid, 5, 2);
@@ -1391,54 +1394,60 @@ class account_class extends AWS_MODEL
 
     public function associate_remote_avatar($uid, $headimgurl)
     {
-        if ($headimgurl)
+        if (!$headimgurl)
         {
-            if (!$user_info = $this->model('account')->get_user_info_by_uid($uid))
-            {
-                return false;
-            }
-
-            if ($user_info['avatar_file'])
-            {
-                return false;
-            }
-
-            if ($avatar_stream = curl_get_contents($headimgurl, 1))
-            {
-                $avatar_location = get_setting('upload_dir') . '/avatar/' . $this->model('account')->get_avatar($uid, '', 1) . $this->model('account')->get_avatar($uid, '', 2);
-
-                $avatar_dir = str_replace(basename($avatar_location), '', $avatar_location);
-
-                if ( ! is_dir($avatar_dir))
-                {
-                    make_dir($avatar_dir);
-                }
-
-                if (@file_put_contents($avatar_location, $avatar_stream))
-                {
-                    foreach(AWS_APP::config()->get('image')->avatar_thumbnail AS $key => $val)
-                    {
-                        $thumb_file[$key] = $avatar_dir . $this->model('account')->get_avatar($uid, $key, 2);
-
-                        AWS_APP::image()->initialize(array(
-                            'quality' => 90,
-                            'source_image' => $avatar_location,
-                            'new_image' => $thumb_file[$key],
-                            'width' => $val['w'],
-                            'height' => $val['h']
-                        ))->resize();
-                    }
-
-                    $avatar_file = $this->model('account')->get_avatar($uid, null, 1) . basename($thumb_file['min']);
-                }
-            }
+            return false;
         }
 
-        if ($avatar_file)
+        if (!$user_info = $this->model('account')->get_user_info_by_uid($uid))
         {
-            return $this->model('account')->update('users', array(
-                'avatar_file' => $avatar_file
-            ), 'uid = ' . intval($uid));
+            return false;
         }
+
+        if ($user_info['avatar_file'])
+        {
+            return false;
+        }
+
+        if (!$avatar_stream = curl_get_contents($headimgurl, 1))
+        {
+            return false;
+        }
+
+        $avatar_location = get_setting('upload_dir') . '/avatar/' . $this->get_avatar($uid, '');
+
+        $avatar_dir = dirname($avatar_location);
+
+        if (!file_exists($avatar_dir))
+        {
+            make_dir($avatar_dir);
+        }
+
+        if (!@file_put_contents($avatar_location, $avatar_stream))
+        {
+            return false;
+        }
+
+        foreach(AWS_APP::config()->get('image')->avatar_thumbnail AS $key => $val)
+        {
+            AWS_APP::image()->initialize(array(
+                'quality' => 90,
+                'source_image' => $avatar_location,
+                'new_image' => $avatar_dir . $this->model('account')->get_avatar($uid, $key, 2),
+                'width' => $val['w'],
+                'height' => $val['h']
+            ))->resize();
+        }
+
+        $this->model('account')->update('users', array(
+            'avatar_file' => $avatar_file
+        ), 'uid = ' . intval($uid));
+
+        if (!$this->model('integral')->fetch_log($new_user_id, 'UPLOAD_AVATAR'))
+        {
+            $this->model('integral')->process($new_user_id, 'UPLOAD_AVATAR', round((get_setting('integral_system_config_profile') * 0.2)), '上传头像');
+        }
+
+        return true;
     }
 }
