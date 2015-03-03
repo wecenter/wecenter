@@ -686,7 +686,7 @@ blockquote {margin: 0 0 16px;padding: 0 15px;font-size: 14px;color: #777;border-
 .aw-mod-topic-edit-box .mod-head .img .icon-edit{position: relative;top: 1px;margin:0;}
 .aw-mod-topic-edit-box .mod-head .img form{z-index:1;}
 .aw-mod-topic-edit-box .mod-head .img form .file-input{left: 25px !important;top: 20px !important;width: 20px;height: 20px;}
-.aw-mod-topic-edit-box .mod-footer{height:auto;overflow:hidden;margin-top:20px;}
+.aw-mod-topic-edit-box .mod-footer{position:relative;height:auto;overflow:hidden;margin-top:20px;}
 .aw-mod.new-topic .aw-topic-bar{margin:0;}
 /* 话题管理页面 */
 .aw-mod-topic-manage{margin-top: 20px;}
