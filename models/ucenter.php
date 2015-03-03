@@ -222,7 +222,7 @@ class ucenter_class extends AWS_MODEL
 					AWS_APP::image()->initialize(array(
 						'quality' => 90,
 						'source_image' => $avatar,
-						'new_image' => $uc_avatar_dir . $this->model('account')->get_avatar($uid, $key, 2),
+						'new_image' => $uc_avatar_dir . $this->model('account')->get_avatar($uc_uid, $key, 2),
 						'width' => $val['w'],
 						'height' => $val['h']
 					))->resize();
