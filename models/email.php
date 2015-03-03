@@ -60,13 +60,7 @@ class email_class extends AWS_MODEL
 		{
 			$$key = str_replace('[#user_name#]', $data['user_name'], $val);
 			$$key = str_replace('[#site_name#]', get_setting('site_name'), $$key);
-			$$key = str_replace('[#question_title#]', $data['question_title'], $$key);
-			$$key = str_replace('[#message#]', $data['message'], $$key);
-
-			if (preg_match('/question_detail/i', $$key))
-			{
-				$$key = str_replace('[#question_detail#]', $data['question_detail'], $$key);
-			}
+						foreach ($data AS $k => $v)			{				$$key = str_replace('[#' . $k . '#]', $data[$k], $$key);			}
 		}
 
 		if (in_array($action, array(
