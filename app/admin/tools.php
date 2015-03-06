@@ -159,6 +159,24 @@ class tools extends AWS_ADMIN_CONTROLLER
                 }
                 else
                 {
+                    H::redirect_msg(AWS_APP::lang()->_t('准备继续...'), '/admin/tools/markdown_to_bbcode/page-1__type-article__per_page-' . $_GET['per_page']);
+                }
+            break;
+
+            case 'article':
+                if ($article_list = $this->model('article')->fetch_page('article', null, 'id ASC', $_GET['page'], $_GET['per_page']))
+                {
+                    foreach ($article_list as $key => $val)
+                    {
+                        $this->model('article')->update('article', array(
+                            'message' => FORMAT::markdown_2_bbcode($val['message'])
+                        ), 'id = ' . $val['id']);
+                    }
+
+                    H::redirect_msg(AWS_APP::lang()->_t('正在转换文章内容 Markdown') . ', ' . AWS_APP::lang()->_t('批次: %s', $_GET['page']), '/admin/tools/markdown_to_bbcode/page-' . ($_GET['page'] + 1) . '__type-article__per_page-' . $_GET['per_page']);
+                }
+                else
+                {
                     H::redirect_msg(AWS_APP::lang()->_t('准备继续...'), '/admin/tools/markdown_to_bbcode/page-1__type-topic__per_page-' . $_GET['per_page']);
                 }
             break;
