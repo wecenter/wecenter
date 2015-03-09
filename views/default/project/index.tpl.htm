@@ -277,7 +277,7 @@
                                     <p><?php echo nl2br($val['description']); ?></p>
 
                                     <?php if ($this->project_info['start_time'] > time()) { ?>
-                                    <a onclick="$.alert('<?php _e('项目正在预热中, 目前还不能进行现金支持'); ?>');" class="btn btn-green btn-large" target="_blank"><?php if (intval($val['amount']) > 0) { ?><?php _e('支持'); ?> ¥<?php echo $val['amount']; ?><?php } else { echo $val['title']; } ?></a>
+                                    <a onclick="AWS.alert('<?php _e('项目正在预热中, 目前还不能进行现金支持'); ?>');" class="btn btn-green btn-large" target="_blank"><?php if (intval($val['amount']) > 0) { ?><?php _e('支持'); ?> ¥<?php echo $val['amount']; ?><?php } else { echo $val['title']; } ?></a>
                                         <?php } else if ($val['stock'] == 0) { ?>
                                     <a class="btn btn-green btn-large disabled"><?php _e('限额已满'); ?></a>
                                           <?php } else { ?>
