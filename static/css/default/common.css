@@ -475,6 +475,7 @@ a.cke_button{padding:8px 10px !important;cursor: pointer !important;border-radiu
 .markitup-box{position:relative;z-index:1;line-height: 180%;word-wrap: break-word !important;}
 .markitup-box .aw-user-name{font-size: 14px;}
 .markitup-box p{padding: 5px;}
+.markitup-box em{font-style: italic;}
 .markitup-box img{max-width: 540px;}
 .markitup-box pre {padding: 16px;line-height: 20px;overflow: hidden; border: none; border-radius: 3px; background-color: #f7f7f7;font-size: 14px;font-family: monospace;}
 blockquote {margin: 0 0 16px;padding: 0 15px;font-size: 14px;color: #777;border-left: 4px solid #ddd;}
