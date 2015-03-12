@@ -44,7 +44,7 @@ class openid_weixin_third_class extends AWS_MODEL
                 continue;
             }
 
-            $signature = $this->generate_signature($rule['token'], $timestamp, $nonce);
+            $signature = $this->model('weixin')->generate_signature($rule['token'], $timestamp, $nonce);
 
             if (!$signature)
             {
@@ -102,7 +102,7 @@ class openid_weixin_third_class extends AWS_MODEL
             return false;
         }
 
-        return $this->model('weixin')->delete('weixin_third_party_api', 'account_id = ' . $account_id);
+        return $this->delete('weixin_third_party_api', 'account_id = ' . $account_id);
     }
 
     public function remove_third_party_api_by_id($id)
@@ -112,7 +112,7 @@ class openid_weixin_third_class extends AWS_MODEL
             return false;
         }
 
-        return $this->model('weixin')->delete('weixin_third_party_api', 'id = ' . $id);
+        return $this->delete('weixin_third_party_api', 'id = ' . $id);
     }
 
     public function update_third_party_api($id = null, $action, $url, $token, $enabled = null, $account_id = null, $rank = null)
