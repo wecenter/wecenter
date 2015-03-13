@@ -212,9 +212,7 @@ class weixin extends AWS_CONTROLLER
 
 					TPL::assign('access_token', $access_token);
 					TPL::assign('access_user', $access_user);
-
-					TPL::assign('register_url', $this->model('openid_weixin_weixin')->get_oauth_url(get_js_url('/m/weixin/register/redirect-' . urlencode($_GET['redirect'])), 'snsapi_userinfo'));
-
+															if (get_setting('register_type') != 'close' AND get_setting('register_type') != 'invite')					{						TPL::assign('register_url', $this->model('openid_weixin_weixin')->get_oauth_url(get_js_url('/m/weixin/register/redirect-' . urlencode($_GET['redirect'])), 'snsapi_userinfo'));					}					
 					TPL::assign('body_class', 'explore-body');
 
 					TPL::output('m/weixin/authorization');
@@ -282,7 +280,7 @@ class weixin extends AWS_CONTROLLER
 	}
 
 	public function register_action()
-	{
+	{		if (get_setting('register_type') == 'close')		{			H::redirect_msg('本站目前关闭注册');		}		else if (get_setting('register_type') == 'invite')		{			H::redirect_msg('本站只能通过邀请注册');		}		
 		if ($_GET['code'] AND get_setting('weixin_app_id'))
 		{
 			if (!$access_token = $this->model('openid_weixin_weixin')->get_sns_access_token_by_authorization_code($_GET['code']))
