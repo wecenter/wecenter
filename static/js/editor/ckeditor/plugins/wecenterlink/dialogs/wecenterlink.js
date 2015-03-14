@@ -16,15 +16,51 @@
                     elements:
                     [
                         {
-                            id: 'text',
+                            type: 'html',
+                            html : '<p style="margin-bottom:10px;font-size:14px;">链接标题</p>'
+                        },
+                        {
                             type: 'text',
+                            className: 'link_name',
+                            required: false
+                        },
+                        {
+                            type: 'html',
+                            html : '<p style="margin-top:15px;font-size:14px;">链接地址</p>'
+                        },
+                        {
+                            type: 'text',
+                            className: 'link_text',
                             required: true,
                             commit: function () {
-                                if (this.getValue()) {
+                                var value = $('.cke_dialog_body .link_text input').val(), 
+                                    name = $('.cke_dialog_body .link_name input').val();
+                                if (value)
+                                {
                                     var element = editor.document.createElement( 'a' );
-                                    element.setAttribute( 'href', this.getValue() );
-                                    element.setHtml(this.getValue());
+                                    if (name)
+                                    {
+                                        element.setHtml(name);
+                                    }
+                                    else
+                                    {
+                                        element.setHtml(value);
+                                    }
+
+                                    if (value.match(/http:/))
+                                    {
+                                        element.setAttribute( 'href', value );
+                                    }
+                                    else
+                                    {
+                                        element.setAttribute( 'href', 'http://' + value );
+                                    }
+                                    
                                     editor.insertElement( element );
+                                }
+                                else 
+                                {
+                                    return false;
                                 }
                             }
                         }

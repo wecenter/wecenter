@@ -16,7 +16,7 @@
 				</dl>
 				<dl>
 					<dt><?php _e('真实姓名'); ?>:</dt>
-					<dd><?php if ($this->user_info['user_name'] AND $this->user_info['user_name'] != $this->user_info['email']) { ?><?php echo $this->user_info['user_name']; ?><?php } else { ?><input type="text" name="user_name" value="<?php echo $this->user_info['user_name']; ?>" /><?php } ?></dd>
+					<dd><?php if ($this->user_info['user_name'] AND $this->user_info['user_name'] != $this->user_info['email']) { ?><?php echo $this->user_info['user_name']; ?><?php } else { ?><input type="text" name="user_name" value="<?php echo $this->user_info['user_name']; ?>" class="form-control" /><?php } ?></dd>
 				</dl>
 				<dl>
 					<dt><?php _e('性别'); ?>:</dt>
@@ -43,7 +43,6 @@
 						<select name="birthday_m">
 							<option value=""></option>
 							<?php echo H::display_options(array(
-								0 => '',
 								1 => 1,
 								2 => 2,
 								3 => 3,

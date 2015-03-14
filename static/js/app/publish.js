@@ -13,14 +13,26 @@ $(function()
         ITEM_ID = '';
     }
 
-	// 初始化编辑器
-	var editor = CKEDITOR.replace( 'wmd-input' );
+    // 判断是否开启ck编辑器
+	if (G_ADVANCED_EDITOR_ENABLE == 'Y')
+	{
+		// 初始化编辑器
+		var editor = CKEDITOR.replace( 'wmd-input' );
+	}
 
     if (ATTACH_ACCESS_KEY != '' && $('.aw-upload-box').length)
     {
-    	var fileupload = new FileUpload('file', '.aw-editor-box .aw-upload-box .btn', '.aw-editor-box .aw-upload-box .upload-container', G_BASE_URL + '/publish/ajax/attach_upload/id-' + PUBLISH_TYPE + '__attach_access_key-' + ATTACH_ACCESS_KEY, {
-				'editor' : editor
-			});
+    	if (G_ADVANCED_EDITOR_ENABLE == 'Y')
+		{
+	    	var fileupload = new FileUpload('file', '.aw-editor-box .aw-upload-box .btn', '.aw-editor-box .aw-upload-box .upload-container', G_BASE_URL + '/publish/ajax/attach_upload/id-' + PUBLISH_TYPE + '__attach_access_key-' + ATTACH_ACCESS_KEY, {
+					'editor' : editor
+				});
+	    }
+	    else {
+	    	var fileupload = new FileUpload('file', '.aw-editor-box .aw-upload-box .btn', '.aw-editor-box .aw-upload-box .upload-container', G_BASE_URL + '/publish/ajax/attach_upload/id-' + PUBLISH_TYPE + '__attach_access_key-' + ATTACH_ACCESS_KEY, {
+					'editor' : $('.wmd-input')
+				});
+	    }
     }
 
     if (ITEM_ID && G_UPLOAD_ENABLE == 'Y' && ATTACH_ACCESS_KEY != '')
