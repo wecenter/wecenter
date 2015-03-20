@@ -1449,5 +1449,4 @@ class account_class extends AWS_MODEL
         }
 
         return true;
-    }        public function get_clientlogin_sign($user_name)    {    	if (!$user_name)    	{    		return '-';    	}    	    	return md5($user_name . '_' . date('Ymd') . '_' . 'WCTEST');    }
-}
+    }}
