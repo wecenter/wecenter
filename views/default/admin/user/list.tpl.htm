@@ -46,7 +46,7 @@
                             <tr>
                                 <td><input type="checkbox" value="<?php echo $val['uid']; ?>" name="uids[]"></td>
                                 <td><?php echo $val['uid']; ?></td>
-                                <td><a href="people/<?php echo $val['user_name']; ?>" target="_blank"><?php echo $val['user_name']; ?></a> <?php if ($val['forbidden']) { ?><span class="text-color-999">[ <?php _e('封禁'); ?> ]</span><?php } else if (!$val['valid_email']) { ?><span class="text-color-999">[ <?php _e('邮件未验证'); ?> ]</span><?php } ?></td>
+                                <td><a href="people/<?php if ($val['url_token']) echo $val['url_token']; else echo urlencode($val['user_name']); ?>" target="_blank"><?php echo $val['user_name']; ?></a> <?php if ($val['forbidden']) { ?><span class="text-color-999">[ <?php _e('封禁'); ?> ]</span><?php } else if (!$val['valid_email']) { ?><span class="text-color-999">[ <?php _e('邮件未验证'); ?> ]</span><?php } ?></td>
                                 <td><?php echo $val['email']; ?></td>
                                 <td><?php echo $this->mem_group[$val['reputation_group']]['group_name']; ?></td>
                                 <td><?php echo $this->system_group[$val['group_id']]['group_name']; ?></td>
