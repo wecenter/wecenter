@@ -294,7 +294,7 @@ class AWS_MODEL
 		{
 			foreach ($data AS $key => $val)
 			{
-				$update_string[] = '`' . $key . "` = '" . $val . "'";
+				$update_string[] = '`' . $key . "` = '" . addslashes($val) . "'";
 			}
 		}
 
