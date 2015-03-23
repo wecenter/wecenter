@@ -73,7 +73,7 @@ class search_class extends AWS_MODEL
 			$q = implode('', $q);
 		}
 
-		if ($result = $this->fetch_all('topic', "topic_title LIKE '" . $this->quote($q) . "%' AND merged_id = 0", null, calc_page_limit($page, $limit)))
+		if ($result = $this->fetch_all('topic', "topic_title LIKE '" . $this->quote($q) . "%'", null, calc_page_limit($page, $limit)))
 		{
 			foreach ($result AS $key => $val)
 			{

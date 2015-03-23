@@ -1449,5 +1449,4 @@ class account_class extends AWS_MODEL
         }
 
         return true;
-    }
-}
+    }}
