@@ -149,6 +149,11 @@ class ajax extends AWS_CONTROLLER
             $reply_info['message'] = FORMAT::parse_attachs($reply_info['message']);
         }
 
+        if (!$ticket_info['service'] AND ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_service']))
+        {
+            $this->model('ticket')->assign_service($ticket_info['id'], $this->user_id);
+        }
+
         TPL::assign('reply_info', $reply_info);
 
         H::ajax_json_output(AWS_APP::RSM(array(
@@ -495,7 +500,7 @@ class ajax extends AWS_CONTROLLER
 
         $user_group_info = $this->model('account')->get_user_group_by_id($user_info['group_id']);
 
-        if (!$user_group_info['permission']['is_service'])
+        if (!$user_group_info['permission']['is_administortar'] AND !$user_group_info['permission']['is_service'])
         {
             H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('该用户不属于客服组')));
         }

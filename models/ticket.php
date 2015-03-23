@@ -658,7 +658,7 @@ class ticket_class extends AWS_MODEL
 
         $user_group_info = $this->model('account')->get_user_group_by_id($user_info['group_id']);
 
-        if (!$user_group_info['permission']['is_service'])
+        if (!$user_group_info['permission']['is_administortar'] AND !$user_group_info['permission']['is_service'])
         {
             return false;
         }

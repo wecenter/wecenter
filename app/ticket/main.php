@@ -38,7 +38,7 @@ class main extends AWS_CONTROLLER
 
         $this->crumb(AWS_APP::lang()->_t('工单'), '/ticket/');
 
-        $this->pre_page = get_setting('contents_per_page');
+        $this->per_page = get_setting('contents_per_page');
 
         TPL::import_css('css/ticket.css');
     }
@@ -322,7 +322,7 @@ class main extends AWS_CONTROLLER
                 ), null, null, true));
             }
 
-            if ($this->user_info['permission']['is_service'])
+            if ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_service'])
             {
                 TPL::assign('my_pending_tickets',
                     $this->model('ticket')->get_tickets_list(array(
@@ -415,7 +415,7 @@ class main extends AWS_CONTROLLER
                 'distinct' => 'uid'
         ), null, null, true));
 
-        if ($this->user_info['permission']['is_service'])
+        if ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_service'])
         {
             TPL::assign('my_pending_tickets',
                 $this->model('ticket')->get_tickets_list(array(
@@ -440,7 +440,7 @@ class main extends AWS_CONTROLLER
 
         TPL::assign('topics_list', $topics_list);
 
-        if ($this->user_info['permission']['is_service'])
+        if ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_service'])
         {
             TPL::assign('my_pending_tickets',
                 $this->model('ticket')->get_tickets_list(array(
