@@ -188,7 +188,7 @@ class AWS_MODEL
 
 		foreach ($data AS $key => $val)
 		{
-			$debug_data['`' . $key . '`'] = "'" . addslashes($val) . "'";
+			$debug_data['`' . $key . '`'] = "'" . $this->quote($val) . "'";
 		}
 
 		$sql = 'INSERT INTO `' . $this->get_table($table) . '` (' . implode(', ', array_keys($debug_data)) . ') VALUES (' . implode(', ', $debug_data) . ')';
@@ -237,7 +237,7 @@ class AWS_MODEL
 		{
 			foreach ($data AS $key => $val)
 			{
-				$update_string[] = '`' . $key . "` = '" . addslashes($val) . "'";
+				$update_string[] = '`' . $key . "` = '" . $this->quote($val) . "'";
 			}
 		}
 
