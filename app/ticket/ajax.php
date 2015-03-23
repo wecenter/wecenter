@@ -149,7 +149,8 @@ class ajax extends AWS_CONTROLLER
             $reply_info['message'] = FORMAT::parse_attachs($reply_info['message']);
         }
 
-        if (!$ticket_info['service'] AND ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_service']))
+        if (!$ticket_info['service'] AND $ticket_info['uid'] != $this->user_id AND
+            ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_service']))
         {
             $this->model('ticket')->assign_service($ticket_info['id'], $this->user_id);
         }
