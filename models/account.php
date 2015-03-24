@@ -1399,7 +1399,7 @@ class account_class extends AWS_MODEL
             return false;
         }
 
-        if (!$user_info = $this->>get_user_info_by_uid($uid))
+        if (!$user_info = $this->get_user_info_by_uid($uid))
         {
             return false;
         }
