@@ -1416,7 +1416,7 @@ class account_class extends AWS_MODEL
 
         $avatar_location = get_setting('upload_dir') . '/avatar/' . $this->get_avatar($uid, '');
 
-        $avatar_dir = dirname($avatar_location);
+        $avatar_dir = dirname($avatar_location) . '/';
 
         if (!file_exists($avatar_dir))
         {
