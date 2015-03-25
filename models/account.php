@@ -1095,10 +1095,10 @@ class account_class extends AWS_MODEL
 
         if ($return_type == 2)
         {
-            return substr($uid, - 2) . '_avatar_' . $size . '.jpg';
+            return substr($uid, -2) . '_avatar_' . $size . '.jpg';
         }
 
-        return $dir1 . '/' . $dir2 . '/' . $dir3 . '/' . substr($uid, - 2) . '_avatar_' . $size . '.jpg';
+        return $dir1 . '/' . $dir2 . '/' . $dir3 . '/' . substr($uid, -2) . '_avatar_' . $size . '.jpg';
     }
 
     /**
@@ -1399,7 +1399,7 @@ class account_class extends AWS_MODEL
             return false;
         }
 
-        if (!$user_info = $this->model('account')->get_user_info_by_uid($uid))
+        if (!$user_info = $this->get_user_info_by_uid($uid))
         {
             return false;
         }
@@ -1416,7 +1416,7 @@ class account_class extends AWS_MODEL
 
         $avatar_location = get_setting('upload_dir') . '/avatar/' . $this->get_avatar($uid, '');
 
-        $avatar_dir = dirname($avatar_location);
+        $avatar_dir = dirname($avatar_location) . '/';
 
         if (!file_exists($avatar_dir))
         {
@@ -1433,14 +1433,14 @@ class account_class extends AWS_MODEL
             AWS_APP::image()->initialize(array(
                 'quality' => 90,
                 'source_image' => $avatar_location,
-                'new_image' => $avatar_dir . $this->model('account')->get_avatar($uid, $key, 2),
+                'new_image' => $avatar_dir . $this->get_avatar($uid, $key, 2),
                 'width' => $val['w'],
                 'height' => $val['h']
             ))->resize();
         }
 
-        $this->model('account')->update('users', array(
-            'avatar_file' => $avatar_file
+        $this->update('users', array(
+            'avatar_file' => $this->get_avatar($uid)
         ), 'uid = ' . intval($uid));
 
         if (!$this->model('integral')->fetch_log($new_user_id, 'UPLOAD_AVATAR'))
@@ -1449,4 +1449,5 @@ class account_class extends AWS_MODEL
         }
 
         return true;
-    }}
+    }
+}
