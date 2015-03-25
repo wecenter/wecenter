@@ -819,7 +819,7 @@ class account_class extends AWS_MODEL
         if (is_digits($user_name))
         {
             return AWS_APP::lang()->_t('用户名不能为纯数字');
-        }
+        }                if (strstr($user_name, '-'))        {        	return false;        }
 
         $length = strlen(convert_encoding($user_name, 'UTF-8', 'GB2312'));
 
