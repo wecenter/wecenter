@@ -577,7 +577,7 @@ class ajax extends AWS_CONTROLLER
 
 		$this->model('draft')->delete_draft($question_info['question_id'], 'answer', $this->user_id);
 
-		if ($this->publish_approval_valid())
+		if ($this->publish_approval_valid() OR H::sensitive_word_exists($answer_content))
 		{
 			$this->model('publish')->publish_approval('answer', array(
 				'question_id' => $question_info['question_id'],
@@ -612,7 +612,7 @@ class ajax extends AWS_CONTROLLER
 			if ($answer_info['has_attach'])
 			{
 				$answer_info['attachs'] = $this->model('publish')->get_attach('answer', $answer_id, 'min');
-				
+
 				$answer_info['insert_attach_ids'] = FORMAT::parse_attachs($answer_info['answer_content'], true);
 			}
 
