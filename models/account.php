@@ -49,7 +49,7 @@ class account_class extends AWS_MODEL
      */
     public function check_username_sensitive_words($user_name)
     {
-        if (H::sensitive_word_exists($user_name, '', true))
+        if (H::sensitive_word_exists($user_name))
         {
             return true;
         }
