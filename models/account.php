@@ -49,7 +49,7 @@ class account_class extends AWS_MODEL
      */
     public function check_username_sensitive_words($user_name)
     {
-        if (H::sensitive_word_exists($user_name, '', true))
+        if (H::sensitive_word_exists($user_name))
         {
             return true;
         }
@@ -819,7 +819,12 @@ class account_class extends AWS_MODEL
         if (is_digits($user_name))
         {
             return AWS_APP::lang()->_t('用户名不能为纯数字');
-        }                if (strstr($user_name, '-'))        {        	return false;        }
+        }
+
+        if (strstr($user_name, '-'))
+        {
+            return AWS_APP::lang()->_t('用户名不能包含 -');
+        }
 
         $length = strlen(convert_encoding($user_name, 'UTF-8', 'GB2312'));
 

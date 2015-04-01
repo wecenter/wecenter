@@ -304,8 +304,8 @@ class openid_weixin_weixin_class extends AWS_MODEL
         }
 
         $access_user['nickname'] = str_replace(array(
-            '?', '/', '&', '=', '#'
-        ), '', $access_user['nickname']);
+            '?', '/', '&', '=', '#', '-'
+        ), '_', $access_user['nickname']);
 
         if ($this->model('account')->check_username($access_user['nickname']))
         {

@@ -556,7 +556,10 @@ class ajax extends AWS_CONTROLLER
 
         $this->model('draft')->delete_draft(1, 'question', $this->user_id);
 
-        if ($this->publish_approval_valid())
+        if ($this->publish_approval_valid() OR H::sensitive_word_exists(array(
+                $_POST['question_content'],
+                $_POST['question_detail']
+            )))
         {
             $this->model('publish')->publish_approval('question', array(
                 'question_content' => $_POST['question_content'],
@@ -676,7 +679,10 @@ class ajax extends AWS_CONTROLLER
 
         $this->model('draft')->delete_draft(1, 'article', $this->user_id);
 
-        if ($this->publish_approval_valid())
+        if ($this->publish_approval_valid() OR H::sensitive_word_exists(array(
+                $_POST['title'],
+                $_POST['message']
+            )))
         {
             $this->model('publish')->publish_approval('article', array(
                 'title' => $_POST['title'],

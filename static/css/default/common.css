@@ -48,7 +48,7 @@ select{width: auto;}
 /* 公共部分 */
 html{height: 100%;}
 body{margin: 0;height: 100%;font-size:14px; line-height:160%;color: #666;background:url('img/bg.gif') repeat;}
-body, input, button, select, textarea, h1, h2, h3, h4, h5, h6{font-family:'Helvetica Neue', 'STHeiti', 'Microsoft YaHei', Helvetica,Arial,sans-serif;}
+body, input, button, select, textarea, h1, h2, h3, h4, h5, h6{font-family:'Helvetica Neue', 'STHeiti', '微软雅黑', 'Microsoft YaHei', Helvetica,Arial,sans-serif;}
 ul, ol{margin:0;padding:0;list-style:none;}
 h1, h2, h3, h4, h5, h6{margin-top:0;font-size:100%;line-height: 1.7;}
 dd{margin-left: 10px;}
@@ -814,7 +814,7 @@ blockquote {margin: 0 0 16px;padding: 0 15px;font-size: 14px;color: #777;border-
 .aw-card-tips .icon-v.i-ve{background:url('img/icon-v-hover.png') no-repeat \0;}
 
 /* @用户下拉 */
-.content_cursor{position: absolute;z-index:-1;max-width:600px;font-size: 14px;font-family: "Helvetica Neue",Helvetica,Arial,'Microsoft YaHei',sans-serif;word-wrap: break-word;opacity: 0;}
+.content_cursor{position: absolute;z-index:-1;max-width:600px;font-size: 14px;font-family: "Helvetica Neue",Helvetica,Arial,'微软雅黑','Microsoft YaHei',sans-serif;word-wrap: break-word;opacity: 0;}
 .aw-invite-dropdown{position:absolute;left:0;top:0;z-index:1010;min-width:160px;background: #fff;border:1px solid #e6e6e6;border-radius:2px;}
 .aw-invite-dropdown li{padding:5px 10px;cursor: pointer;}
 .aw-invite-dropdown li:hover, .aw-invite-dropdown li.active{background: #f0f0f0;}
