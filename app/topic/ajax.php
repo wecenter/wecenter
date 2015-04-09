@@ -58,7 +58,7 @@ class ajax extends AWS_CONTROLLER
 		switch ($_GET['type'])
 		{
 			case 'best':
-				$action_list = $this->model('topic')->get_topic_best_answer_action_list($_GET['topic_id'], $this->user_id, intval($_GET['page']) * get_setting('contents_per_page') . ', ' . get_setting('contents_per_page'));
+				$action_list = $this->model('topic')->get_topic_best_answer_action_list(intval($_GET['topic_id']), $this->user_id, intval($_GET['page']) * get_setting('contents_per_page') . ', ' . get_setting('contents_per_page'));
 			break;
 
 			case 'favorite':
