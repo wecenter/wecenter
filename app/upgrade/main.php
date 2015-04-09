@@ -96,6 +96,7 @@ class main extends AWS_CONTROLLER
 			20141121,
 			20141205,
 			20141212,
+			20141225,
 			20150315
 		);
 
