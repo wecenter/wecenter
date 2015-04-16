@@ -265,10 +265,13 @@ class H
 		{
 			foreach($content as $key => $val)
 			{
-				$content[$key] = self::sensitive_word_exists($val);
+				if(self::sensitive_word_exists($val))
+				{
+					return true;
+				}
 			}
 
-			return $content;
+			return false;
 		}
 
 		$sensitive_words = explode("\n", get_setting('sensitive_words'));

@@ -160,17 +160,30 @@ class actions_class extends AWS_MODEL
 		if ($action_list_question_ids)
 		{
 			$question_infos = $this->model('question')->get_question_info_by_ids($action_list_question_ids);
+
+			foreach ($question_infos as $key => $val) {
+				$question_infos[$key]['question_detail'] = FORMAT::filter_bbcode($val['question_detail']);
+			}
 		}
 
 		if ($action_list_answer_ids)
 		{
 			$answer_infos = $this->model('answer')->get_answers_by_ids($action_list_answer_ids);
+
+			foreach ($answer_infos as $key => $val) {
+				$answer_infos[$key]['answer_content'] = FORMAT::filter_bbcode($val['answer_content']);
+			}
+
 			$answer_attachs = $this->model('publish')->get_attachs('answer', $action_list_answer_ids, 'min');
 		}
 
 		if ($action_list_project_ids)
 		{
 			$project_infos = $this->model('project')->get_project_info_by_ids($action_list_project_ids);
+
+			foreach ($project_infos as $key => $val) {
+				$project_infos[$key]['description'] = FORMAT::filter_bbcode($val['description']);
+			}
 		}
 
 		if ($action_list_uids)
@@ -181,6 +194,10 @@ class actions_class extends AWS_MODEL
 		if ($action_list_article_ids)
 		{
 			$article_infos = $this->model('article')->get_article_info_by_ids($action_list_article_ids);
+
+			foreach ($article_infos as $key => $val) {
+				$article_infos[$key]['message'] = FORMAT::filter_bbcode($val['message']);
+			}
 		}
 
 		if ($action_list_article_comment_ids)

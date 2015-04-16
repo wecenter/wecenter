@@ -1053,6 +1053,11 @@ class topic_class extends AWS_MODEL
 
 	public function get_topic_best_answer_action_list($topic_ids, $uid, $limit)
 	{
+		if (!is_digits($topic_ids))
+		{
+			return false;
+		}
+
 		$cache_key = 'topic_best_answer_action_list_' . md5($topic_ids . $limit);
 
 		if (!$result = AWS_APP::cache()->get($cache_key))

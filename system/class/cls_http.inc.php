@@ -410,7 +410,7 @@ class HTTP
 
 		$header[] = 'API-RemoteIP: ' . fetch_ip();
 
-		curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
+		if ($header)		{			curl_setopt($curl, CURLOPT_HTTPHEADER, $header);		}
 
 		if (substr($url, 0, 8) == 'https://')
 		{
@@ -419,9 +419,7 @@ class HTTP
 
 			curl_setopt($curl, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1);
 		}
-
-		curl_setopt($curl, CURLOPT_USERAGENT, 'WeCenter/' . G_VERSION);
-
+		
 		if ($cookie AND is_array($cookie))
 		{
 			curl_setopt($curl, CURLOPT_COOKIE, urldecode(http_build_query($cookie, '', '; ')));
