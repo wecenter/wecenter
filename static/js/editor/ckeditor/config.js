@@ -11,8 +11,8 @@ CKEDITOR.editorConfig = function( config ) {
 	config.toolbar = 'Full';
 
 	config.toolbar_Full = [
-		//'','RemoveFormat'
-		 ['FontSize','Cleanup','Bold','Italic','NumberedList','BulletedList', 'Blockquote', 'pbckcode', 'WecenterImage', 'WecenterAttach', 'WecenterLink', 'WecenterVideo', 'Maximize']
+		//'FontSize','RemoveFormat'
+		 ['Cleanup','Bold','Italic','NumberedList','BulletedList', 'Blockquote', 'pbckcode', 'WecenterImage', 'WecenterAttach', 'WecenterLink', 'WecenterVideo', 'Maximize']
 	]
 
 	config.extraPlugins = 'pbckcode,bbcode,sourcearea,wecenterattach,wecenterimage,wecenterlink,wecentervideo,blockquote,font';
