@@ -472,13 +472,13 @@ a.cke_button{padding:8px 10px !important;cursor: pointer !important;border-radiu
 .aw-editor-box .mod-body #question_detail_message{line-height: 34px;}
 .aw-editor-box .mod-body #answer_content_message{margin-right: 10px;}
 .aw-editor-box .aw-upload-tips, .aw-replay-box .aw-upload-tips{position: absolute;left: 100px;top: 3px;}
-.markitup-box{position:relative;z-index:1;line-height: 180%;word-wrap: break-word !important;}
+.markitup-box{position:relative;z-index:1;line-height: 1.6;word-wrap: break-word !important;}
 .markitup-box .aw-user-name{font-size: 14px;}
 .markitup-box p{padding: 5px;}
 .markitup-box em{font-style: italic;}
 .markitup-box img{max-width: 540px;}
 .markitup-box pre {padding: 16px;line-height: 20px;overflow: hidden; border: none; border-radius: 3px; background-color: #f7f7f7;font-size: 14px;font-family: monospace;}
-blockquote {margin: 0 0 16px;padding: 0 15px;font-size: 14px;color: #777;border-left: 4px solid #ddd;}
+blockquote {margin: 0 40px;padding: 0 15px;font-size: 14px;color: #777;border-left: 4px solid #ddd;}
 .markitup-box pre br, .markitup-box ul + br, .markitup-box ol + br {display: none;}
 .markitup-box b, .markitup-box strong {color: #333;}
 .markitup-box ol, .markitup-box ul, .markitup-box dl{padding: 0 40px;}
