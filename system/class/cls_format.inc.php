@@ -83,10 +83,30 @@ class FORMAT
 
 		return self::parse_links(load_class('Services_BBCode')->parse($text));
 	}
+
 	// 兼容旧版本
 	public static function parse_markdown($text)
 	{
 		return self::parse_bbcode($text);
+	}
+
+	public static function filter_bbcode($text)
+	{
+		$text = preg_replace('/\[code\](.*?)\[\/code\]/is', '$1', $text);
+		$text = preg_replace('/\[b\](.*?)\[\/b\]/is', '$1', $text);
+		$text = preg_replace('/\[i\](.*?)\[\/i\]/is', '$1', $text);
+		$text = preg_replace('/\[quote\]\n*(.*?)\n*\[\/quote\]/is', '$1', $text);
+		$text = preg_replace('/\[size=\d+\](.*?)\[\/size\]/is', '$1', $text);
+		$text = preg_replace('/\[s\](.*?)\[\/s\]/is', '$1', $text);
+		$text = preg_replace('/\[u\](.*?)\[\/u\]/is', '$1', $text);
+		$text = preg_replace('/\[url\](.*?)\[\/url\]/is', '$1', $text);
+		$text = preg_replace('/\[url=(.*?)\].*?\[\/url\]/is', '$1', $text);
+		$text = preg_replace('/\[img\](.*?)\[\/img\]/is', '$1', $text);
+		$text = preg_replace('/\[video\](.*?)\[\/video\]/is', '$1', $text);
+		$text = preg_replace('/\[list\](.*?)\[\/list\]/is', '$1', $text);
+		$text = preg_replace('/\[list=(?:1|a)\](.*?)\[\/list\]/is', '$1', $text);
+
+		return $text;
 	}
 
 	public static function bbcode_2_markdown($text)
