@@ -1435,19 +1435,34 @@ AWS.User =
 		switch (type)
 		{
 			case 'question':
-				var url = '/question/ajax/focus/question_id-';
+				var url = '/question/ajax/focus/';
+
+				var data = {
+					'question_id': data_id
+				};
+
 				break;
 
 			case 'topic':
-				var url = '/topic/ajax/focus_topic/topic_id-';
+				var url = '/topic/ajax/focus_topic/';
+
+				var data = {
+					'topic_id': data_id
+				};
+
 				break;
 
 			case 'user':
-				var url = '/follow/ajax/follow_people/uid-';
-			break;
+				var url = '/follow/ajax/follow_people/';
+
+				var data = {
+					'uid': data_id
+				};
+
+				break;
 		}
 
-		$.get(G_BASE_URL + url + data_id, function (result)
+		$.post(G_BASE_URL + url, data, function (result)
 		{
 			if (result.errno == 1)
 			{

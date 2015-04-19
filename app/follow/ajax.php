@@ -28,29 +28,29 @@ class ajax extends AWS_CONTROLLER
 
 	public function follow_people_action()
 	{
-		if (! $_GET['uid'] OR $_GET['uid'] == $this->user_id)
+		if (! $_POST['uid'] OR $_POST['uid'] == $this->user_id)
 		{
 			die;
 		}
 
 		// 首先判断是否存在关注
-		if ($this->model('follow')->user_follow_check($this->user_id, $_GET['uid']))
+		if ($this->model('follow')->user_follow_check($this->user_id, $_POST['uid']))
 		{
 			$action = 'remove';
 
-			$this->model('follow')->user_follow_del($this->user_id, $_GET['uid']);
+			$this->model('follow')->user_follow_del($this->user_id, $_POST['uid']);
 		}
 		else
 		{
 			$action = 'add';
 
-			$this->model('follow')->user_follow_add($this->user_id, $_GET['uid']);
+			$this->model('follow')->user_follow_add($this->user_id, $_POST['uid']);
 
-			$this->model('notify')->send($this->user_id, $_GET['uid'], notify_class::TYPE_PEOPLE_FOCUS, notify_class::CATEGORY_PEOPLE, $this->user_id, array(
+			$this->model('notify')->send($this->user_id, $_POST['uid'], notify_class::TYPE_PEOPLE_FOCUS, notify_class::CATEGORY_PEOPLE, $this->user_id, array(
 				'from_uid' => $this->user_id
 			));
 
-			$this->model('email')->action_email('FOLLOW_ME', $_GET['uid'], get_js_url('/people/' . $this->user_info['url_token']), array(
+			$this->model('email')->action_email('FOLLOW_ME', $_POST['uid'], get_js_url('/people/' . $this->user_info['url_token']), array(
 				'user_name' => $this->user_info['user_name'],
 			));
 		}
