@@ -63,7 +63,7 @@ CREATE TABLE `[#DB_PREFIX#]product_order` (
 CREATE TABLE `[#DB_PREFIX#]project` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `open_notify` int( 10 ) NOT NULL DEFAULT '0',
-  `close_noify` int( 10 ) NOT NULL DEFAULT '0',
+  `close_notify` int( 10 ) NOT NULL DEFAULT '0',
   `uid` int(10) NOT NULL DEFAULT '0',
   `category_id` int(10) NOT NULL DEFAULT '0',
   `title` varchar(255) NOT NULL,
@@ -91,7 +91,7 @@ CREATE TABLE `[#DB_PREFIX#]project` (
   `project_type` varchar(16) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `open_notify` (`open_notify`),
-  KEY `close_noify` (`close_noify`),
+  KEY `close_notify` (`close_notify`),
   KEY `category_id` (`category_id`),
   KEY `title` (`title`),
   KEY `country` (`country`),
