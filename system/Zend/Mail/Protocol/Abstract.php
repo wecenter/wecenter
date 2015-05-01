@@ -258,13 +258,18 @@ abstract class Zend_Mail_Protocol_Abstract
      * @throws Zend_Mail_Protocol_Exception
      * @return boolean
      */
-    protected function _connect($remote)
+    // Modify by WeCenter
+    protected function _connect($transport, $host, $port)
     {
         $errorNum = 0;
         $errorStr = '';
 
+        $remote = $transport . '://' . $host;
+
         // open connection
-        $this->_socket = @stream_socket_client($remote, $errorNum, $errorStr, self::TIMEOUT_CONNECTION);
+        $this->_socket = (function_exists('stream_socket_client')) ?
+            @stream_socket_client($remote . ':' . $port, $errorNum, $errorStr, self::TIMEOUT_CONNECTION)
+            : @fsockopen($remote, $port, $errorNum, $errorStr, self::TIMEOUT_CONNECTION);
 
         if ($this->_socket === false) {
             if ($errorNum == 0) {
