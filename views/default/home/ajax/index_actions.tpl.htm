@@ -38,7 +38,7 @@
 	<div class="mod-body clearfix">
 		<!-- 文章评论内容 -->
 		<div id="detail_<?php echo $val['history_id']; ?>" class="markitup-box">
-      		<?php echo nl2br(strip_ubb(cjk_substr($val['comment_info']['message'], 0, 130, 'UTF-8', '...'))); ?>
+      		<?php echo nl2br(cjk_substr(strip_ubb($val['comment_info']['message']), 0, 130, 'UTF-8', '...')); ?>
       		<?php if (cjk_strlen($val['answer_info']['answer_content']) > 130) { ?>
         	<a href="javascript:;" class="showMore" onclick="AWS.content_switcher($('#detail_<?php echo $val['history_id']; ?>'), $('#detail_more_<?php echo $val['history_id']; ?>'));"><?php _e('显示全部'); ?> »</a>
         	<?php } ?>
@@ -52,7 +52,7 @@
 	<div class="mod-body clearfix">
 		<!-- 评论内容 -->
 		<div id="detail_<?php echo $val['history_id']; ?>" class="markitup-box">
-      		<?php echo nl2br(strip_ubb(cjk_substr($val['answer_info']['answer_content'], 0, 130, 'UTF-8', '...'))); ?>
+      		<?php echo nl2br(cjk_substr(strip_ubb($val['answer_info']['answer_content']), 0, 130, 'UTF-8', '...')); ?>
       		<?php if (cjk_strlen($val['answer_info']['answer_content']) > 130) { ?>
         	<a href="javascript:;" class="showMore" onclick="AWS.content_switcher($('#detail_<?php echo $val['history_id']; ?>'), $('#detail_more_<?php echo $val['history_id']; ?>'));"><?php _e('显示全部'); ?> »</a>
         	<?php } ?>
