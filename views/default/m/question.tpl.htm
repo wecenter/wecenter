@@ -33,7 +33,7 @@
 			<div class="mod-body">
 				<div class="markitup-box clearfix">
 					<?php echo $this->question_info['question_detail']; ?>
-					<div id="weixin-desc" style="display:none;"><?=cjk_substr(str_replace(array("\r","\n"),array(' ',' '), strip_tags($this->question_info['question_detail'])), 0, 130, 'UTF-8', '...');?></div>
+					<div id="weixin-desc" style="display:none;"><?php cjk_substr(str_replace(array("\r","\n"),array(' ',' '), strip_tags($this->question_info['question_detail'])), 0, 130, 'UTF-8', '...'); ?></div>
 
 					<?php if ($this->question_info['attachs']) {  ?>
 						<div class="aw-upload-img-list">

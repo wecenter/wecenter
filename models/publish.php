@@ -148,9 +148,9 @@ class publish_class extends AWS_MODEL
 			}
 		}
 
-		ACTION_LOG::save_action($uid, $answer_id, ACTION_LOG::CATEGORY_ANSWER, ACTION_LOG::ANSWER_QUESTION, htmlspecialchars($answer_content), $question_id);
+		ACTION_LOG::save_action($uid, $answer_id, ACTION_LOG::CATEGORY_ANSWER, ACTION_LOG::ANSWER_QUESTION, $answer_content, $question_id);
 
-		ACTION_LOG::save_action($uid, $question_id, ACTION_LOG::CATEGORY_QUESTION, ACTION_LOG::ANSWER_QUESTION, htmlspecialchars($answer_content), $answer_id, 0, intval($anonymous));
+		ACTION_LOG::save_action($uid, $question_id, ACTION_LOG::CATEGORY_QUESTION, ACTION_LOG::ANSWER_QUESTION, $answer_content, $answer_id, 0, intval($anonymous));
 
 		if ($question_info['published_uid'] != $uid)
 		{
@@ -295,7 +295,7 @@ class publish_class extends AWS_MODEL
 			$this->model('question')->add_focus_question($question_id, $uid, $anonymous, false);
 
 			// 记录日志
-			ACTION_LOG::save_action($uid, $question_id, ACTION_LOG::CATEGORY_QUESTION, ACTION_LOG::ADD_QUESTION, htmlspecialchars($question_content), htmlspecialchars($question_detail), 0, intval($anonymous));
+			ACTION_LOG::save_action($uid, $question_id, ACTION_LOG::CATEGORY_QUESTION, ACTION_LOG::ADD_QUESTION, $question_content, $question_detail, 0, intval($anonymous));
 
 			$this->model('integral')->process($uid, 'NEW_QUESTION', get_setting('integral_system_config_new_question'), '发起问题 #' . $question_id, $question_id);
 
@@ -350,7 +350,7 @@ class publish_class extends AWS_MODEL
 			$this->model('search_fulltext')->push_index('article', $title, $article_id);
 
 			// 记录日志
-			ACTION_LOG::save_action($uid, $article_id, ACTION_LOG::CATEGORY_QUESTION, ACTION_LOG::ADD_ARTICLE, htmlspecialchars($title), htmlspecialchars($message), 0);
+			ACTION_LOG::save_action($uid, $article_id, ACTION_LOG::CATEGORY_QUESTION, ACTION_LOG::ADD_ARTICLE, $title, $message, 0);
 
 			$this->model('posts')->set_posts_index($article_id, 'article');
 
@@ -426,7 +426,7 @@ class publish_class extends AWS_MODEL
 			}
 		}
 
-		ACTION_LOG::save_action($uid, $article_info['id'], ACTION_LOG::CATEGORY_QUESTION, ACTION_LOG::ADD_COMMENT_ARTICLE, htmlspecialchars($message), $comment_id);
+		ACTION_LOG::save_action($uid, $article_info['id'], ACTION_LOG::CATEGORY_QUESTION, ACTION_LOG::ADD_COMMENT_ARTICLE, $message, $comment_id);
 
 		$this->model('posts')->set_posts_index($article_info['id'], 'article');
 

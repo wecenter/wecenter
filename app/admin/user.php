@@ -188,12 +188,17 @@ class user extends AWS_ADMIN_CONTROLLER
 
     public function edit_action()
     {
+        $this->crumb(AWS_APP::lang()->_t('编辑用户资料'), 'admin/user/edit/');
+
         if (!$user = $this->model('account')->get_user_info_by_uid($_GET['uid'], TRUE))
         {
             H::redirect_msg(AWS_APP::lang()->_t('用户不存在'), '/admin/user/list/');
         }
 
-        $this->crumb(AWS_APP::lang()->_t('编辑用户资料'), "admin/user/edit/");
+        if ($user['group_id'] == 1 AND !$this->user_info['permission']['is_administortar'])
+        {
+            H::redirect_msg(AWS_APP::lang()->_t('你没有权限编辑管理员账号'), '/admin/user/list/');
+        }
 
         TPL::assign('job_list', $this->model('work')->get_jobs_list());
         TPL::assign('mem_group', $this->model('account')->get_user_group_by_id($user['reputation_group']));
