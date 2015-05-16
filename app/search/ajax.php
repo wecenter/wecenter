@@ -48,7 +48,7 @@ class ajax extends AWS_CONTROLLER
 			$_GET['search_type'] = null;
 		}
 
-		$search_result = $this->model('search')->search($_GET['q'], $_GET['search_type'], $_GET['page'], get_setting('contents_per_page'), null, $_GET['is_recommend']);
+		$search_result = $this->model('search')->search(cjk_substr($_GET['q'], 0, 64), $_GET['search_type'], $_GET['page'], get_setting('contents_per_page'), null, $_GET['is_recommend']);
 
 		if ($this->user_id AND $search_result)
 		{
@@ -88,7 +88,7 @@ class ajax extends AWS_CONTROLLER
 
 	public function search_action()
 	{
-		$result = $this->model('search')->search($_GET['q'], $_GET['type'], 1, $_GET['limit'], $_GET['topic_ids'], $_GET['is_recommend']);
+		$result = $this->model('search')->search(cjk_substr($_GET['q'], 0, 64), $_GET['type'], 1, $_GET['limit'], $_GET['topic_ids'], $_GET['is_recommend']);
 
 		if (!$result)
 		{

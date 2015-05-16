@@ -157,7 +157,10 @@ var AWS =
 			$('.btn-reply').addClass('disabled');
 
 			// 删除草稿绑定事件
-			EDITOR.removeListener('blur', EDITOR_CALLBACK);
+			if (EDITOR != undefined)
+			{
+				EDITOR.removeListener('blur', EDITOR_CALLBACK);
+			}
 		}
 
 		var custom_data = {

@@ -184,7 +184,7 @@ class ajax extends AWS_CONTROLLER
 			case 'question':
 				$question_info = $this->model('question')->get_question_info_by_id($_GET['item_id']);
 
-				$question_info['question_content'] = cjk_substr($question_info['question_content'], 0, 100, 'UTF-8', '...');
+				$question_info['question_content'] = trim(cjk_substr($question_info['question_content'], 0, 100, 'UTF-8', '...'), "\r\n\t");
 
 				$url = get_js_url('/question/' . $question_info['question_id'] . '?fromuid=' . $this->user_id);
 
@@ -198,7 +198,7 @@ class ajax extends AWS_CONTROLLER
 
 				$question_info = $this->model('question')->get_question_info_by_id($answer_info['question_id']);
 
-				$answer_info['answer_content'] = trim(cjk_substr($answer_info['answer_content'], 0, 100, 'UTF-8', '...'), '\r\n\t');
+				$answer_info['answer_content'] = trim(cjk_substr($answer_info['answer_content'], 0, 100, 'UTF-8', '...'), "\r\n\t");
 
 				$answer_info['answer_content'] = str_replace(array(
 					"\r",
@@ -219,7 +219,7 @@ class ajax extends AWS_CONTROLLER
 			case 'article':
 				$article_info = $this->model('article')->get_article_info_by_id($_GET['item_id']);
 
-				$article_info['message'] = trim(cjk_substr($article_info['message'], 0, 100, 'UTF-8', '...'), '\r\n\t');
+				$article_info['message'] = trim(cjk_substr($article_info['message'], 0, 100, 'UTF-8', '...'), "\r\n\t");
 
 				$article_info['message'] = str_replace(array(
 					"\r",

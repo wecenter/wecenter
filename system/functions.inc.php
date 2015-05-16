@@ -888,10 +888,12 @@ function get_request_route($positive = true)
  */
 function strip_ubb($str)
 {
-	$str = preg_replace('/\[attach\]([0-9]+)\[\/attach]/', '<i>** ' . AWS_APP::lang()->_t('插入的附件') . ' **</i>', $str);
-	$str = preg_replace('/\[[^\]]+\](http[s]?:\/\/[^\[]*)\[\/[^\]]+\]/', "\$1 ", $str);
+	//$str = preg_replace('/\[attach\]([0-9]+)\[\/attach]/', '<i>** ' . AWS_APP::lang()->_t('插入的附件') . ' **</i>', $str);
+	$str = preg_replace('/\[[^\]]+\](http[s]?:\/\/[^\[]*)\[\/[^\]]+\]/', ' $1 ', $str);
 
-	return preg_replace('/\[[^\]]+\]([^\[]*)\[\/[^\]]+\]/', "\$1", $str);
+	$pattern = '/\[[^\]]+\]([^\[]*)\[\/[^\]]+\]/';
+	$replacement = ' $1 ';
+	return preg_replace($pattern, $replacement, preg_replace($pattern, $replacement, $str));
 }
 
 /**
