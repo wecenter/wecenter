@@ -438,6 +438,34 @@ class ajax extends AWS_CONTROLLER
 		H::ajax_json_output(AWS_APP::RSM(null, 1, AWS_APP::lang()->_t('已保存草稿, %s', date('H:i:s', time()))));
 	}
 
+	public function modify_unvalid_email_action()
+	{
+		if (!$user_info = $this->model('account')->get_user_info_by_email(AWS_APP::session()->valid_email))
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('用户不存在')));
+		}
+		
+		if ($user_info['valid_email'] == 1)
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('不允许已认证邮箱用户更改邮箱')));
+		}
+		
+		if ($this->model('account')->check_email($_POST['email']))
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('邮箱地址已被使用')));
+		}
+		
+		$this->model('account')->update_users_fields(array(
+			'email' => strtolower($_POST['email'])
+		), $user_info['uid']);
+		
+		$this->model('active')->new_valid_email($this->user_id);
+		
+		AWS_APP::session()->valid_email = strtolower($_POST['email']);
+		
+		H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('邮件发送成功')));
+	}
+
 	public function send_valid_mail_action()
 	{
 		if (!$this->user_id)
