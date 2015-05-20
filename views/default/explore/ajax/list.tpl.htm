@@ -47,7 +47,7 @@
 		<!-- 文章内容调用 -->
 		<div class="markitup-box">
 			<div class="img pull-right"></div>
-			<?php echo nl2br(cjk_substr(strip_ubb($val['message']), 0, 130, 'UTF-8', '...')); ?>
+			<?php echo cjk_substr(strip_ubb($val['message']), 0, 130, 'UTF-8', '...'); ?>
 
 		</div>
 		<?php if (cjk_strlen($val['message']) > 130) { ?>

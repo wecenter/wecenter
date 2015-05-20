@@ -200,7 +200,7 @@
 						</div>
 						<div class="mod-body">
 							<?php if ($this->topic_info['topic_description']) { ?>
-							<p><?php echo nl2br(cjk_substr(strip_tags($this->topic_info['topic_description']), 0, 128, 'UTF-8', '... &nbsp; <a href="javascript:;" onclick="$(\'#i_about\').click()">查看全部</a>')); ?></p>
+							<p><?php echo cjk_substr(strip_tags($this->topic_info['topic_description']), 0, 128, 'UTF-8', '... &nbsp; <a href="javascript:;" onclick="$(\'#i_about\').click()">查看全部</a>'); ?></p>
 							<?php } else if ($this->topic_info['topic_lock'] == 0 && $this->user_info['permission']['edit_topic']) { ?>
 							<a href="topic/edit/<?php echo $this->topic_info['topic_id']; ?>" class="icon-inverse" class=><i class="icon icon-edit"></i> <?php _e('添加描述'); ?></a>
 							<?php } ?>

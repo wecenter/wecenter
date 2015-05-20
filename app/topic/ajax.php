@@ -85,7 +85,7 @@ class ajax extends AWS_CONTROLLER
 		$topic_info['type'] = 'topic';
 
 		$topic_info['topic_title'] = H::sensitive_words($topic_info['topic_title']);
-		$topic_info['topic_description'] = strip_tags(cjk_substr($topic_info['topic_description'], 0, 80, 'UTF-8', '...'));
+		$topic_info['topic_description'] = cjk_substr(strip_tags($topic_info['topic_description']), 0, 80, 'UTF-8', '...');
 
 		$topic_info['focus_count'] = $topic_info['focus_count'];
 
