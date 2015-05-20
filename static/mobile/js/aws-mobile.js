@@ -302,7 +302,7 @@ var AWS =
         	
             if (result.err)
             {
-                AWS.alert(result.err);
+                alert(result.err);
             }
             else if (result.rsm && result.rsm.url)
             {
@@ -418,51 +418,66 @@ AWS.User =
         }
 
 	    switch (type)
-	    {
-	    	case 'question':
-	    		var url = '/question/ajax/focus/question_id-';
-	    		break;
+		{
+			case 'question':
+				var url = '/question/ajax/focus/';
 
-	    	case 'topic':
-	    		var url = '/topic/ajax/focus_topic/topic_id-';
-	    		break;
+				var data = {
+					'question_id': data_id
+				};
 
-	    	case 'user':
-	    		var url = '/follow/ajax/follow_people/uid-';
-	    	break;
-	    }
+				break;
 
-	    $.get(G_BASE_URL + url + data_id, function (result)
-	    {
-	    	AWS.loading('hide');
-	    	
-	    	if (result.errno == 1)
-	        {
-	            if (result.rsm.type == 'add')
-	            {
-	                selector.addClass('active');
-	            }
-	            else
-	            {
-	            	selector.removeClass('active');
-	            }
-	        }
-	        else
-	        {
-	            if (result.err)
-	            {
-	                AWS.alert(result.err);
-	            }
+			case 'topic':
+				var url = '/topic/ajax/focus_topic/';
 
-	            if (result.rsm.url)
-	            {
-	                window.location = decodeURIComponent(result.rsm.url);
-	            }
-	        }
+				var data = {
+					'topic_id': data_id
+				};
 
-	        selector.removeClass('disabled');
-	        
-	    }, 'json');
+				break;
+
+			case 'user':
+				var url = '/follow/ajax/follow_people/';
+
+				var data = {
+					'uid': data_id
+				};
+
+				break;
+		}
+
+		$.post(G_BASE_URL + url, data, function (result)
+		{
+			if (result.errno == 1)
+			{
+				if (result.rsm.type == 'add')
+				{
+					selector.addClass('active');
+				}
+				else
+				{
+					selector.removeClass('active');
+				}
+			}
+			else
+			{
+				if (result.err)
+				{
+					AWS.alert(result.err);
+				}
+
+				if (result.rsm.url)
+				{
+					window.location = decodeURIComponent(result.rsm.url);
+				}
+			}
+
+			AWS.loading('hide');
+
+			selector.removeClass('disabled');
+
+		}, 'json');
 	},
 
 	// 收藏
