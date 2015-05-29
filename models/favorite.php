@@ -105,7 +105,7 @@ class favorite_class extends AWS_MODEL
 	{
 		return $this->query_all('SELECT DISTINCT title FROM ' . $this->get_table('favorite_tag') . ' WHERE uid = ' . intval($uid) . ' ORDER BY id DESC', $limit);
 	}
-	
+
 	public function get_item_tags_by_item_id($item_id, $item_type)
 	{
 		if ($favorite_tags = $this->fetch_all('favorite_tag', 'item_id = ' . intval($item_id) . " AND `type` = '" . $this->quote($item_type) . "'"))
@@ -215,8 +215,8 @@ class favorite_class extends AWS_MODEL
 			{
 				foreach ($answer_infos AS $key => $data)
 				{
-					$question_ids[$val['question_id']] = $data['question_id'];
-					
+					$question_ids[$data['question_id']] = $data['question_id'];
+
 					$favorite_uids[$data['uid']] = $data['uid'];
 				}
 
@@ -267,7 +267,7 @@ class favorite_class extends AWS_MODEL
 					$favorite_list_data[$key]['article_info'] = $article_infos[$data['item_id']];
 
 					$favorite_list_data[$key]['last_action_str'] = ACTION_LOG::format_action_data(ACTION_LOG::ADD_ARTICLE, $data['uid'], $users_info[$data['uid']]['user_name']);
-					
+
 					$favorite_list_data[$key]['user_info'] = $users_info[$article_infos[$data['item_id']]['uid']];
 				break;
 			}
