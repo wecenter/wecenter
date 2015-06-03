@@ -14,7 +14,7 @@
 
 define('IN_ANWSION', TRUE);
 define('ENVIRONMENT_PHP_VERSION', '5.2.2');
-//define('SYSTEM_LANG', 'en_US');
+define('SYSTEM_LANG', $SYSTEM_LANG);
 
 if (substr(PHP_VERSION, -4) == 'hhvm')
 {
@@ -29,7 +29,8 @@ else if (version_compare(PHP_VERSION, '6.0', '>='))
 	die('Error: WeCenter not support PHP version 6 currently');
 }
 
-define('START_TIME', microtime(TRUE));define('TIMESTAMP', time());
+define('START_TIME', microtime(TRUE));
+define('TIMESTAMP', time());
 
 if (function_exists('memory_get_usage'))
 {
