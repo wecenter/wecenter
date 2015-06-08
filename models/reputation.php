@@ -60,15 +60,9 @@ class reputation_class extends AWS_MODEL
 
 					unset($article_topics_query);
 				}
-			}
-
+			}	
 			foreach ($user_articles as $articles_key => $articles_val)
 			{
-				$article_reputation = 0;	// 文章威望系数
-
-				$s_agree_value = 0;	// 赞同威望系数
-				$s_against_value = 0;	// 反对威望系数
-
 				// 赞同的用户
 				if ($articles_vote_agree_users[$articles_val['id']])
 				{
@@ -87,10 +81,8 @@ class reputation_class extends AWS_MODEL
 					}
 				}
 			}
-
+						$article_reputation = $s_agree_value - $s_against_value;			
 			$reputation_log_factor = get_setting('reputation_log_factor');
-
-			$article_reputation = $s_agree_value - $s_against_value;
 
 			if ($article_reputation < 0)
 			{
