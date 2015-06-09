@@ -37,8 +37,8 @@ class account_class extends AWS_MODEL
      * @return boolean
      */
     public function check_username($user_name)
-    {
-        return $this->fetch_one('users', 'uid', "user_name = '" . $this->quote(trim($user_name)) . "' OR url_token = '" . $this->quote(trim($user_name)) . "'");
+    {    	$user_name = trim($user_name);    	
+        return $this->fetch_one('users', 'uid', "user_name = '" . $this->quote($user_name) . "' OR url_token = '" . $this->quote($user_name) . "'");
     }
 
     /**
@@ -63,9 +63,7 @@ class account_class extends AWS_MODEL
         {
             foreach ($censorusers as $name)
             {
-                $name = trim($name);
-
-                if (!$name)
+                if (!$name = trim($name))
                 {
                     continue;
                 }
@@ -233,7 +231,7 @@ class account_class extends AWS_MODEL
      */
     public function get_user_info_by_email($email, $cache_result = true)
     {
-        if (!$email)
+        if (!H::valid_email($email))
         {
             return false;
         }
@@ -478,9 +476,7 @@ class account_class extends AWS_MODEL
      */
     public function get_notification_setting_by_uid($uid)
     {
-        $setting = $this->fetch_row('users_notification_setting', 'uid = ' . intval($uid));
-
-        if (!$setting)
+        if (!$setting = $this->fetch_row('users_notification_setting', 'uid = ' . intval($uid)))
         {
             return array('data' => array());
         }

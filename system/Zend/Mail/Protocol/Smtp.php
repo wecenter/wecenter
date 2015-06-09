@@ -16,7 +16,7 @@
  * @category   Zend
  * @package    Zend_Mail
  * @subpackage Protocol
- * @copyright  Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id$
  */
@@ -42,7 +42,7 @@
  * @category   Zend
  * @package    Zend_Mail
  * @subpackage Protocol
- * @copyright  Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Mail_Protocol_Smtp extends Zend_Mail_Protocol_Abstract
@@ -156,15 +156,15 @@ class Zend_Mail_Protocol_Smtp extends Zend_Mail_Protocol_Abstract
         parent::__construct($host, $port);
     }
 
+
     /**
      * Connect to the server with the parameters given in the constructor.
      *
      * @return boolean
      */
-    // Modify by WeCenter
     public function connect()
     {
-        return $this->_connect($this->_transport, $this->_host, $this->_port);
+        return $this->_connect($this->_transport . '://' . $this->_host . ':'. $this->_port);
     }
 
 

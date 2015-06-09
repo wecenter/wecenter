@@ -108,15 +108,12 @@ class HTTP
 	{
 		if (preg_match('~&#([0-9]+);~', $filename))
 		{
-			//if (function_exists('iconv'))
-			//{
-				$filename_conv = @iconv('utf-8', 'UTF-8//IGNORE', $filename);
+			$filename_conv = @iconv('utf-8', 'UTF-8//IGNORE', $filename);
 
-				if ($filename_conv !== false)
-				{
-					$filename = $filename_conv;
-				}
-			//}
+			if ($filename_conv !== false)
+			{
+				$filename = $filename_conv;
+			}
 
 			$filename = preg_replace(
 				'~&#([0-9]+);~e',
@@ -409,8 +406,8 @@ class HTTP
 		}
 
 		$header[] = 'API-RemoteIP: ' . fetch_ip();
-
-		if ($header)		{			curl_setopt($curl, CURLOPT_HTTPHEADER, $header);		}
+		
+		curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
 
 		if (substr($url, 0, 8) == 'https://')
 		{

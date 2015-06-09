@@ -16,7 +16,7 @@
  * @category   Zend
  * @package    Zend_Mail
  * @subpackage Protocol
- * @copyright  Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id$
  */
@@ -42,7 +42,7 @@
  * @category   Zend
  * @package    Zend_Mail
  * @subpackage Protocol
- * @copyright  Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id$
  * @todo Implement proxy settings
@@ -258,18 +258,13 @@ abstract class Zend_Mail_Protocol_Abstract
      * @throws Zend_Mail_Protocol_Exception
      * @return boolean
      */
-    // Modify by WeCenter
-    protected function _connect($transport, $host, $port)
+    protected function _connect($remote)
     {
         $errorNum = 0;
         $errorStr = '';
 
-        $remote = $transport . '://' . $host;
-
         // open connection
-        $this->_socket = (function_exists('stream_socket_client')) ?
-            @stream_socket_client($remote . ':' . $port, $errorNum, $errorStr, self::TIMEOUT_CONNECTION)
-            : @fsockopen($remote, $port, $errorNum, $errorStr, self::TIMEOUT_CONNECTION);
+        $this->_socket = @stream_socket_client($remote, $errorNum, $errorStr, self::TIMEOUT_CONNECTION);
 
         if ($this->_socket === false) {
             if ($errorNum == 0) {
