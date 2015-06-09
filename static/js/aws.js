@@ -177,11 +177,24 @@ var AWS =
 			},
 			error: function (error)
 			{
+				console.log(error);
 				if ($.trim(error.responseText) != '')
 				{
 					AWS.loading('hide');
 
 					alert(_t('发生错误, 返回的信息:') + ' ' + error.responseText);
+				}
+				else if (error.status == 0)
+				{
+					AWS.loading('hide');
+
+					alert(_t('网络链接异常'));
+				}
+				else if (error.status == 500)
+				{
+					AWS.loading('hide');
+
+					alert(_t('内部服务器错误'));
 				}
 			}
 		});

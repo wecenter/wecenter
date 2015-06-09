@@ -629,7 +629,7 @@ blockquote {margin: 0 40px;padding: 0 15px;font-size: 14px;color: #777;border-le
 .aw-mod-publish .aw-topic-bar{margin:0;}
 .aw-mod-publish > .mod-footer{margin-top:20px;text-align: right;}
 .aw-mod-publish .mod-footer .aw-anonymity{margin:0 20px;}
-.aw-mod-publish .mod-footer .aw-anonymity input{margin:4px 3px 0 0;margin:0\0;}
+.aw-mod-publish .mod-footer .aw-anonymity input{margin:4px 3px 0 0;}
 .aw-auth-img{margin-bottom: 15px;}
 .aw-auth-img input{width:76px;margin: 0 0 0 5px;}
 .aw-auth-img img{height: 30px;}
@@ -828,7 +828,7 @@ blockquote {margin: 0 40px;padding: 0 15px;font-size: 14px;color: #777;border-le
 .alert-box .modal-header .close{margin:0;color: #9e9e9e;}
 .alert-box .modal-footer{padding-top:0;line-height: 34px;border-top: none;}
 .alert-box .modal-footer button{margin:0 0 0 20px;}
-.modal-dialog textarea, .modal-dialog input{margin-bottom: 10px;}
+.modal-dialog textarea, .modal-dialog input{margin-bottom: 10px;overflow: hidden;}
 .aw-imageVideo-box .modal-dialog, .aw-share-box .modal-dialog, .aw-question-redirect-box .modal-dialog, .aw-inbox .modal-dialog, .aw-topic-edit-note-box .modal-dialog, .aw-favorite-box .modal-dialog{width: 470px;}
 .aw-imageVideo-box .modal-dialog p{width:95%;margin:0 auto;color: #999;}
 .aw-publish-box .modal-dialog{width: 540px;}
