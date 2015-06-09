@@ -783,7 +783,7 @@ function get_login_cookie_hash($user_name, $password, $salt, $uid, $hash_passwor
 		$password = compile_password($password, $salt);
 	}
 
-	$auth_hash_key = md5(G_COOKIE_HASH_KEY . $_SERVER['HTTP_USER_AGENT'] . $_SERVER['HTTP_ACCEPT_LANGUAGE']);
+	$auth_hash_key = md5(G_COOKIE_HASH_KEY . $_SERVER['HTTP_USER_AGENT']);
 
 	return H::encode_hash(array(
 		'uid' => $uid,
