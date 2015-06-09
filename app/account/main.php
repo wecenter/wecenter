@@ -65,8 +65,7 @@ class main extends AWS_CONTROLLER
 			H::redirect_msg(AWS_APP::lang()->_t('正在准备退出, 请稍候...'), '/account/logout/?return_url=' . urlencode($url) . '&key=' . md5(session_id()));
 		}
 
-		$this->model('account')->setcookie_logout();    // 清除 COOKIE
-		$this->model('account')->setsession_logout();   // 清除 Session
+		$this->model('account')->logout();
 
 		$this->model('admin')->admin_logout();
 
