@@ -122,6 +122,7 @@
 							</form>
 
 						</li>
+						<?php if ($this->user_info['permission']['publish_article']) { ?>
 						<li>
 							<form method="post" action="publish/article/">
 								<?php if ($this->topic_info['topic_title']) { ?>
@@ -130,6 +131,7 @@
 								<a onclick="$(this).parents('form').submit();"><?php _e('文章'); ?></a>
 							</form>
 						</li>
+						<?php } ?>
 						<?php if (check_extension_package('ticket') && get_setting('ticket_enabled') == 'Y' && $this->user_info['permission']['publish_ticket']) { ?>
 						<li><a href="ticket/publish/"><?php _e('工单'); ?></a></li>
 						<?php } ?>
