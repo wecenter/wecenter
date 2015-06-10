@@ -1251,12 +1251,7 @@ class ajax extends AWS_CONTROLLER
 			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('当前帐号已经完善资料')));
 		}
 
-		if ($check_result = $this->model('account')->check_username_char($_POST['user_name']))
-		{
-			H::ajax_json_output(AWS_APP::RSM(null, '-1', $check_result));
-		}
-
-		$update_data['user_name'] = htmlspecialchars(trim($_POST['user_name']));
+		$_POST['user_name'] = htmlspecialchars(trim($_POST['user_name']));		if ($check_result = $this->model('account')->check_username_char($_POST['user_name']))		{			H::ajax_json_output(AWS_APP::RSM(null, '-1', $check_result));		}				if ($this->user_info['user_name'] != $_POST['user_name'])		{			if ($this->model('account')->check_username_sensitive_words($_GET['username']) || $this->model('account')->check_username($_GET['username']))			{				H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('用户名已被注册')));			}		}				$update_data['user_name'] = $_POST['user_name'];
 
 		if (! H::valid_email($this->user_info['email']))
 		{
