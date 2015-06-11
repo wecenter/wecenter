@@ -528,14 +528,6 @@
 			},
 
 			text: function( text ) {
-				// Modify by wecenter 粘贴超链接解析
-				if (text.match(/http(s)?:\/\/[\w-]*(\.[\w-]*)+/))
-				{
-					text = text.replace(/http(s)?:\/\/[\w-]*(\.[\w-]*)+/, function ($0)
-                       {
-                         return '[url]' + $0 + '[/url]';
-                       })
-				}
 				this.write( text );
 			},
 
