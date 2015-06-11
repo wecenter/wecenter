@@ -528,6 +528,13 @@
 			},
 
 			text: function( text ) {
+				if (text.match(/http(s)?:\/\/[\w-]*(\.[\w-]*)+/))
+				{
+					text = text.replace(/http(s)?:\/\/[\w-]*(\.[\w-]*)+/, function ($0, $1, $2)
+                       {
+                         return '[url]' + $0 + '[/url]';
+                       })
+				}
 				this.write( text );
 			},
 
