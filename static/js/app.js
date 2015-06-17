@@ -257,9 +257,9 @@ $(window).on('hashchange', function() {
     }
 });
 
-$(window).scroll(function ()
+if ($('.aw-back-top').length)
 {
-    if ($('.aw-back-top').length)
+    $(window).scroll(function ()
     {
         if ($(window).scrollTop() > ($(window).height() / 2))
         {
@@ -269,5 +269,5 @@ $(window).scroll(function ()
         {
             $('.aw-back-top').fadeOut();
         }
-    }
-});
+    });
+}
