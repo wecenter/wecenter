@@ -2,8 +2,6 @@ $(function () {
     // 填入对应日期
     var dateArr = getDate();
 
-    console.log(dateArr);
-
     /**
      * 禁止日历框输入
      */
