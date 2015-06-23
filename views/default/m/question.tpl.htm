@@ -254,7 +254,7 @@
 	var USER_ANSWERED = '<?php echo $this->user_answered; ?>';
 
 	$(document).ready(function () {
-		var fileupload = new FileUpload('file', '.aw-upload-box .icon-pic', '.aw-replay-box .upload-container', G_BASE_URL + '/publish/ajax/attach_upload/id-answer__attach_access_key' + '-' + ATTACH_ACCESS_KEY, {'deleteBtnTemplate' : '<a class="delete-file"><i class="icon icon-delete"></i></a>', 'insertBtnTemplate' : '<a class="insert-file"><i class="icon icon-insert"></i></a>'})
+		var fileupload = new FileUpload('file', '.aw-upload-box .icon-pic', '.aw-replay-box .upload-container', G_BASE_URL + '/publish/ajax/attach_upload/id-answer__attach_access_key' + '-' + ATTACH_ACCESS_KEY, {'deleteBtnTemplate' : '<a class="delete-file"><i class="icon icon-delete"></i></a>', 'insertBtnTemplate' : '<a class="insert-file"><i class="icon icon-insert"></i></a>', 'editor': $('.textarea_content')})
 
 		// 自动保存草稿
 		if ($('#answer_form textarea').length)
