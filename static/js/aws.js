@@ -1509,20 +1509,28 @@ AWS.User =
 		}, 'json');
 	},
 
-	share_out: function(webid, title, url)
+	share_out: function(options)
 	{
-		var url = url || window.location.href;
+		var url = url || window.location.href, pic = '';
 
-		if (title)
+		if (options.title)
 		{
-			var title = title + ' - ' + G_SITE_NAME;
+			var title = options.title + ' - ' + G_SITE_NAME;
 		}
 		else
 		{
 			var title = $('title').text();
 		}
 
-		shareURL = 'http://www.jiathis.com/send/?webid=' + webid + '&url=' + url + '&title=' + title + '';
+		shareURL = 'http://www.jiathis.com/send/?webid=' + options.webid + '&url=' + url + '&title=' + title +'';
+
+		if (options.content)
+		{
+			if ($(options.content).find('img').length)
+			{
+				shareURL = shareURL + '&pic=' + $(options.content).find('img').eq(0).attr('src');
+			}
+		}
 
 		window.open(shareURL);
 	},
