@@ -47,7 +47,7 @@
                                         element.setHtml(value);
                                     }
 
-                                    if (value.match(/http:/))
+                                    if (value.match(/https?:/))
                                     {
                                         element.setAttribute( 'href', value );
                                     }
