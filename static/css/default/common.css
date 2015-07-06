@@ -448,7 +448,7 @@ a.cke_button{padding:8px 10px !important;cursor: pointer !important;border-radiu
 .cke_combo__fontsize{margin:3px 5px 0 5px !important;}
 .cke_combo__fontsize a{margin: 0 !important;}
 .cke_combopanel{height: 78px !important;}
-.cke_button_icon{font-family: 'icomoon' !important;speak: none;font-style: normal;font-weight: normal;font-variant: normal;text-transform: none;line-height: 1;background-image: none !important;font-size: 16px !important;background: none !important;-webkit-font-smoothing: antialiased;-moz-osx-font-smoothing: grayscale;}
+.cke_button_icon{margin:3px !important;font-family: 'icomoon' !important;speak: none;font-style: normal;font-weight: normal;font-variant: normal;text-transform: none;line-height: 1;background-image: none !important;font-size: 16px !important;background: none !important;-webkit-font-smoothing: antialiased;-moz-osx-font-smoothing: grayscale;}
 .cke_button__bold_icon:before {content: "\e63a";}
 .cke_button__italic_icon:before {content: "\e63b";}
 .cke_button__strike_icon:before {content: "\e65e";}
@@ -458,9 +458,11 @@ a.cke_button{padding:8px 10px !important;cursor: pointer !important;border-radiu
 .cke_button__blockquote_icon:before {content: "\e641";}
 .cke_button__pbckcode_icon:before {content: "\e642";}
 .cke_button__wecenterimage_icon:before {content: "\e63f";}
+.cke_button__wecenterimage_icon{margin-top: 4px\0 !important;}
 .cke_button__wecenterlink_icon:before {content: "\e61f";}
 .cke_button__wecentervideo_icon:before {content: "\e640";}
 .cke_button__wecenterattach_icon:before {content: "\e631";}
+.cke_button__wecenterattach_icon{margin-top: 2px !important;}
 .cke_button__source_icon:before {content: "\e609";}
 .cke_button__maximize{position: absolute !important;right: 0;top: 0;}
 .cke_button__maximize_icon:before {content: "\e65d";}
@@ -477,13 +479,14 @@ a.cke_button{padding:8px 10px !important;cursor: pointer !important;border-radiu
 .markitup-box p{padding: 5px;}
 .markitup-box em{font-style: italic;}
 .markitup-box img{max-width: 540px;}
-.markitup-box pre {padding: 16px;line-height: 20px;overflow: hidden; border: none; border-radius: 3px; background-color: #f7f7f7;font-size: 14px;font-family: monospace;}
+.markitup-box pre {margin:10px 0;padding: 16px;line-height: 20px;overflow: hidden; border: none; border-radius: 3px; background-color: #f7f7f7;font-size: 14px;font-family: monospace; white-space: pre-wrap;}
 blockquote {margin: 0 40px;padding: 0 15px;font-size: 14px;color: #777;border-left: 4px solid #ddd;}
 .markitup-box pre br, .markitup-box ul + br, .markitup-box ol + br {display: none;}
 .markitup-box b, .markitup-box strong {color: #333;}
 .markitup-box ol, .markitup-box ul, .markitup-box dl{padding: 0 40px;}
 .markitup-box ol{list-style: decimal;}
 .markitup-box ul{list-style: disc;}
+.markitup-box .aw-upload-img-list img{margin-bottom: 10px;}
 
 /* 问题修改日志 */
 .aw-question-edit .mod-head h2{font-size: 20px;}
@@ -628,7 +631,7 @@ blockquote {margin: 0 40px;padding: 0 15px;font-size: 14px;color: #777;border-le
 .aw-mod-publish .aw-topic-bar{margin:0;}
 .aw-mod-publish > .mod-footer{margin-top:20px;text-align: right;}
 .aw-mod-publish .mod-footer .aw-anonymity{margin:0 20px;}
-.aw-mod-publish .mod-footer .aw-anonymity input{margin:4px 3px 0 0;margin:0\0;}
+.aw-mod-publish .mod-footer .aw-anonymity input{margin:4px 3px 0 0;}
 .aw-auth-img{margin-bottom: 15px;}
 .aw-auth-img input{width:76px;margin: 0 0 0 5px;}
 .aw-auth-img img{height: 30px;}
@@ -827,7 +830,7 @@ blockquote {margin: 0 40px;padding: 0 15px;font-size: 14px;color: #777;border-le
 .alert-box .modal-header .close{margin:0;color: #9e9e9e;}
 .alert-box .modal-footer{padding-top:0;line-height: 34px;border-top: none;}
 .alert-box .modal-footer button{margin:0 0 0 20px;}
-.modal-dialog textarea, .modal-dialog input{margin-bottom: 10px;}
+.modal-dialog textarea, .modal-dialog input{margin-bottom: 10px;overflow: hidden;}
 .aw-imageVideo-box .modal-dialog, .aw-share-box .modal-dialog, .aw-question-redirect-box .modal-dialog, .aw-inbox .modal-dialog, .aw-topic-edit-note-box .modal-dialog, .aw-favorite-box .modal-dialog{width: 470px;}
 .aw-imageVideo-box .modal-dialog p{width:95%;margin:0 auto;color: #999;}
 .aw-publish-box .modal-dialog{width: 540px;}
@@ -957,6 +960,9 @@ blockquote {margin: 0 40px;padding: 0 15px;font-size: 14px;color: #777;border-le
 .aw-404-wrap .aw-search-box .input-group {margin: 0 auto;}
 .aw-404-wrap .aw-search-box .input-group input {width: 460px;padding-right: 50px;}
 .aw-404-wrap .aw-search-box #global_search_btns {top:0;right:0;z-index:10;width:40px;height:32px;border-radius: 0;border-color: #54beff; color: #fff;background-color: #54beff;}
+
+#browser-not-support{position:fixed;bottom:0;z-index:9999;width:100%;padding:20px;background-color: #f2dede;}
+#browser-not-support img{margin-right: 20px;}
 
 /* 帮助中心 */
 .aw-help-center .mod-head {padding: 40px 0;}

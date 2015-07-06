@@ -144,6 +144,7 @@ pre, code {
     line-height: 20px;
     overflow: hidden;
     padding: 16px;
+    margin:10px 0;
 }
 
 pre br:first-child {

@@ -333,7 +333,7 @@ class main extends AWS_CONTROLLER
 		TPL::assign('new_topics', $this->model('topic')->get_topic_list(null, 'topic_id DESC', 10));
 
 		TPL::assign('pagination', AWS_APP::pagination()->initialize(array(
-			'base_url' => get_js_url('/topic/channel-' . $_GET['channel'] . '__topic_id-' . $_GET['topic_id']),
+			'base_url' => get_js_url('/topic/channel-' . $_GET['channel'] . '__topic_id-' . $_GET['topic_id'] . '__day-' . $_GET['day']),
 			'total_rows' => $topics_list_total_rows,
 			'per_page' => 20
 		))->create_links());

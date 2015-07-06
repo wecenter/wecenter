@@ -252,19 +252,29 @@ FileUpload.prototype =
 	oncomplete : function (xhr, li, file)
 	{
 		var _this = this, response, filesize = this.getFIleSize(file);
-
-		if (xhr.readyState == 4 && xhr.status == 200)
+		if (xhr.readyState == 4)
 		{
-            try
-            {
-                response = eval("(" + xhr.responseText + ")");
+			if (xhr.status == 200)
+			{
+	            try
+	            {
+	                response = eval("(" + xhr.responseText + ")");
 
-                this.render(li, response, filesize);
-            }
-            catch(err)
-            {
-                response = {};
-            }
+	                this.render(li, response, filesize);
+	            }
+	            catch(err)
+	            {
+	                response = {};
+	            }
+			}
+			else if (xhr.status == 500)
+			{
+				this.render(li, {'error':_t('内部服务器错误')}, filesize);
+			}
+			else if (xhr.status == 0)
+			{
+				this.render(li, {'error':_t('网络链接异常')}, filesize);
+			}
 		}
 	},
 

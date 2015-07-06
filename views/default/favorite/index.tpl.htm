@@ -46,7 +46,7 @@
 										<!-- 评论内容 -->
 										<div class="content">
 											<div id="detail_<?php echo md5($val['item_id'] . $val['item_type']); ?>">
-									      		<?php echo nl2br(strip_ubb(cjk_substr($val['answer_info']['answer_content'], 0, 130, 'UTF-8', '...'))); ?>
+									      		<?php echo cjk_substr(strip_ubb($val['answer_info']['answer_content']), 0, 130, 'UTF-8', '...'); ?>
 									      		<?php if (cjk_strlen($val['answer_info']['answer_content']) > 130) { ?>
 									        	<a href="javascript:;" class="showMore" onclick="AWS.content_switcher($('#detail_<?php echo md5($val['item_id'] . $val['item_type']); ?>'), $('#detail_more_<?php echo md5($val['item_id'] . $val['item_type']); ?>'));"><?php _e('显示全部'); ?> »</a>
 									        	<?php } ?>

@@ -56,9 +56,9 @@
 										</a>
 										<div aria-labelledby="dropdownMenu" role="menu" class="aw-dropdown shareout pull-right">
 											<ul class="aw-dropdown-list">
-												<li><a onclick="AWS.User.share_out('tsina', $(this).parents('.aw-item').find('h2').text(), '<?php echo base_url(); ?>/article/<?php echo $val['id']; ?>');"><i class="icon icon-weibo"></i> <?php _e('微博'); ?></a></li>
-												<li><a onclick="AWS.User.share_out('qzone', $(this).parents('.aw-item').find('h2').text(), '<?php echo base_url(); ?>/article/<?php echo $val['id']; ?>');"><i class="icon icon-qzone"></i> <?php _e('QZONE'); ?></a></li>
-												<li><a onclick="AWS.User.share_out('weixin', $(this).parents('.aw-item').find('h2').text(), '<?php echo base_url(); ?>/article/<?php echo $val['id']; ?>');"><i class="icon icon-wechat"></i> <?php _e('微信'); ?></a></li>
+												<li><a onclick="AWS.User.share_out({webid: 'tsina', content: $(this).parents('.aw-item').find('.markitup-box')});"><i class="icon icon-weibo"></i> <?php _e('微博'); ?></a></li>
+											<li><a onclick="AWS.User.share_out({webid: 'qzone', content: $(this).parents('.aw-item')});"><i class="icon icon-qzone"></i> <?php _e('QZONE'); ?></a></li>
+											<li><a onclick="AWS.User.share_out({webid: 'weixin', content: $(this).parents('.aw-item')});"><i class="icon icon-wechat"></i> <?php _e('微信'); ?></a></li>
 											</ul>
 										</div>
 									</span>

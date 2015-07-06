@@ -63,7 +63,7 @@ var AWS =
 		                $('#editor_reply').html(result.answer_content.replace('&amp;', '&'));
 		            }, 'json');
 					
-		            var fileupload = new FileUpload('.alert-commentEdit .aw-upload-box .btn', '.alert-commentEdit .aw-upload-box .upload-container', G_BASE_URL + '/publish/ajax/attach_upload/id-answer__attach_access_key-' + ATTACH_ACCESS_KEY, {'insertTextarea': '.alert-commentEdit #editor_reply', 'deleteBtnTemplate' : '<a class="delete-file"><i class="icon icon-delete"></i></a>', 'insertBtnTemplate' : '<a class="insert-file"><i class="icon icon-insert"></i></a>'});
+		            var fileupload = new FileUpload('file', '.alert-commentEdit .aw-upload-box .btn', '.alert-commentEdit .aw-upload-box .upload-container', G_BASE_URL + '/publish/ajax/attach_upload/id-answer__attach_access_key-' + ATTACH_ACCESS_KEY, {'insertTextarea': '.alert-commentEdit #editor_reply', 'deleteBtnTemplate' : '<a class="delete-file"><i class="icon icon-delete"></i></a>', 'insertBtnTemplate' : '<a class="insert-file"><i class="icon icon-insert"></i></a>', 'editor' : ''});
 
 		            if ($(".alert-commentEdit .upload-list").length) {
 			            $.post(G_BASE_URL + '/publish/ajax/answer_attach_edit_list/', 'answer_id=' + data.answer_id, function (data) {
@@ -302,7 +302,7 @@ var AWS =
         	
             if (result.err)
             {
-                AWS.alert(result.err);
+                alert(result.err);
             }
             else if (result.rsm && result.rsm.url)
             {
@@ -345,7 +345,8 @@ AWS.G =
 	loading_timer: '',
 	loading_bg_count: 12,
 	aw_dropdown_list_interval: '',
-	aw_dropdown_list_flag: 0
+	aw_dropdown_list_flag: 0,
+	search_val: ''
 }
 
 AWS.User = 
@@ -418,51 +419,66 @@ AWS.User =
         }
 
 	    switch (type)
-	    {
-	    	case 'question':
-	    		var url = '/question/ajax/focus/question_id-';
-	    		break;
+		{
+			case 'question':
+				var url = '/question/ajax/focus/';
 
-	    	case 'topic':
-	    		var url = '/topic/ajax/focus_topic/topic_id-';
-	    		break;
+				var data = {
+					'question_id': data_id
+				};
 
-	    	case 'user':
-	    		var url = '/follow/ajax/follow_people/uid-';
-	    	break;
-	    }
+				break;
 
-	    $.get(G_BASE_URL + url + data_id, function (result)
-	    {
-	    	AWS.loading('hide');
-	    	
-	    	if (result.errno == 1)
-	        {
-	            if (result.rsm.type == 'add')
-	            {
-	                selector.addClass('active');
-	            }
-	            else
-	            {
-	            	selector.removeClass('active');
-	            }
-	        }
-	        else
-	        {
-	            if (result.err)
-	            {
-	                AWS.alert(result.err);
-	            }
+			case 'topic':
+				var url = '/topic/ajax/focus_topic/';
 
-	            if (result.rsm.url)
-	            {
-	                window.location = decodeURIComponent(result.rsm.url);
-	            }
-	        }
+				var data = {
+					'topic_id': data_id
+				};
 
-	        selector.removeClass('disabled');
-	        
-	    }, 'json');
+				break;
+
+			case 'user':
+				var url = '/follow/ajax/follow_people/';
+
+				var data = {
+					'uid': data_id
+				};
+
+				break;
+		}
+
+		$.post(G_BASE_URL + url, data, function (result)
+		{
+			if (result.errno == 1)
+			{
+				if (result.rsm.type == 'add')
+				{
+					selector.addClass('active');
+				}
+				else
+				{
+					selector.removeClass('active');
+				}
+			}
+			else
+			{
+				if (result.err)
+				{
+					AWS.alert(result.err);
+				}
+
+				if (result.rsm.url)
+				{
+					window.location = decodeURIComponent(result.rsm.url);
+				}
+			}
+
+			AWS.loading('hide');
+
+			selector.removeClass('disabled');
+
+		}, 'json');
 	},
 
 	// 收藏
@@ -701,23 +717,31 @@ AWS.User =
 		}, 'json');
 	},
 
-	share_out: function(webid, title, url)
+	share_out: function(options)
 	{
-		var url = url || window.location.href;
+		var url = url || window.location.href, pic = '';
 
-		if (title)
+		if (options.title)
 		{
-			var title = title + ' - ' + G_SITE_NAME;
+			var title = options.title + ' - ' + G_SITE_NAME;
 		}
 		else
 		{
 			var title = $('title').text();
 		}
-		
-		shareURL = 'http://www.jiathis.com/send/?webid=' + webid + '&url=' + url + '&title=' + title + '';
+
+		shareURL = 'http://www.jiathis.com/send/?webid=' + options.webid + '&url=' + url + '&title=' + title +'';
+
+		if (options.content)
+		{
+			if ($(options.content).find('img').length)
+			{
+				shareURL = shareURL + '&pic=' + $(options.content).find('img').eq(0).attr('src');
+			}
+		}
 
 		window.open(shareURL);
-	},
+	}
 }
 
 AWS.Dropdown = 
@@ -733,53 +757,59 @@ AWS.Dropdown =
 			{
 				AWS.G.aw_dropdown_list_interval = setInterval(function()
 				{
-					if ($(element).val().length >= 2)
+					var val = $(element).val();
+					if (val.length >= 2)
 					{
 						switch (type)
 						{
 							case 'search' : 
 								ul = $('#search_result');
-								$.get(G_BASE_URL + '/search/ajax/search/?q=' + encodeURIComponent($(element).val()) + '&limit=5',function(result)
+								if (val != AWS.G.search_val)
 								{
-									if (result.length > 0)
+									$.get(G_BASE_URL + '/search/ajax/search/?q=' + encodeURIComponent(val) + '&limit=5',function(result)
 									{
-										ul.html('');
-										
-										$.each(result, function(i, e)
+										if (result.length > 0)
 										{
-											switch(result[i].type)
+											ul.html('');
+											
+											$.each(result, function(i, e)
 											{
-												case 'questions' :
-													ul.append('<li class="question"><a href="' + decodeURIComponent(result[i].url) + '">' + result[i].name + '&nbsp;<span class="color-999">' + result[i].detail.answer_count + ' 个回答</span></a></li>');
-													break;
-													
-												case 'articles' :
-													ul.append('<li class="question"><a href="' + decodeURIComponent(result[i].url) + '">' + result[i].name + '&nbsp;<span class="color-999">' + result[i].detail.comments + ' 个评论</span></a></li>');
-													break;
+												switch(result[i].type)
+												{
+													case 'questions' :
+														ul.append('<li class="question"><a href="' + decodeURIComponent(result[i].url) + '">' + result[i].name + '&nbsp;<span class="color-999">' + result[i].detail.answer_count + ' 个回答</span></a></li>');
+														break;
+														
+													case 'articles' :
+														ul.append('<li class="question"><a href="' + decodeURIComponent(result[i].url) + '">' + result[i].name + '&nbsp;<span class="color-999">' + result[i].detail.comments + ' 个评论</span></a></li>');
+														break;
 
-												case 'topics' :
-													ul.append('<li class="topic"><span class="topic-tag"><a class="text" href="' + decodeURIComponent(result[i].url) + '">' + result[i].name  + '</a></span>&nbsp;<span class="color-999">' + result[i].detail.discuss_count + ' 个讨论</span></li>');
-													break;
+													case 'topics' :
+														ul.append('<li class="topic"><span class="topic-tag"><a class="text" href="' + decodeURIComponent(result[i].url) + '">' + result[i].name  + '</a></span>&nbsp;<span class="color-999">' + result[i].detail.discuss_count + ' 个讨论</span></li>');
+														break;
 
-												case 'users' :
-													ul.append('<li class="user"><a href="' + decodeURIComponent(result[i].url) + '"><img class="img" width="25" src="' + result[i].detail.avatar_file + '" /> <span>' + result[i].name + '</span></a></li>');
-													break;
-											}
-										});
-										
-										ul.show();
-										$('.aw-search-result-box .result-mod .all-result').show();
-										$('.aw-search-result-box .result-mod .all-result a').attr('href', G_BASE_URL + '/m/search/?q=' + $(element).val());
-										$('.aw-search-result-box .result-mod .mod-head, .aw-search-result-box .result-mod .tips, .aw-search-result-box .result-mod .aw-load-more').hide();
-										$('.aw-search-result-box .btn-primary').show();
-									}else
-									{
-										ul.hide();
-										$('.aw-search-result-box .result-mod .all-result').hide();
-										$('.aw-search-result-box .tips, .aw-search-result-box .btn-primary').show();
-										$('#search_publish input').val($(element).val());
-									}
-								},'json');
+													case 'users' :
+														ul.append('<li class="user"><a href="' + decodeURIComponent(result[i].url) + '"><img class="img" width="25" src="' + result[i].detail.avatar_file + '" /> <span>' + result[i].name + '</span></a></li>');
+														break;
+												}
+											});
+											
+											ul.show();
+											$('.aw-search-result-box .result-mod .all-result').show();
+											$('.aw-search-result-box .result-mod .all-result a').attr('href', G_BASE_URL + '/m/search/?q=' + val);
+											$('.aw-search-result-box .result-mod .mod-head, .aw-search-result-box .result-mod .tips, .aw-search-result-box .result-mod .aw-load-more').hide();
+											$('.aw-search-result-box .btn-primary').show();
+
+											AWS.G.search_val = val;
+										}else
+										{
+											ul.hide();
+											$('.aw-search-result-box .result-mod .all-result').hide();
+											$('.aw-search-result-box .tips, .aw-search-result-box .btn-primary').show();
+											$('#search_publish input').val($(element).val());
+										}
+									},'json');
+								}
 							break;
 
 							case 'message' :

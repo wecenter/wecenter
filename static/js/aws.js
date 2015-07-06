@@ -157,7 +157,10 @@ var AWS =
 			$('.btn-reply').addClass('disabled');
 
 			// 删除草稿绑定事件
-			EDITOR.removeListener('blur', EDITOR_CALLBACK);
+			if (EDITOR != undefined)
+			{
+				EDITOR.removeListener('blur', EDITOR_CALLBACK);
+			}
 		}
 
 		var custom_data = {
@@ -174,11 +177,24 @@ var AWS =
 			},
 			error: function (error)
 			{
+				console.log(error);
 				if ($.trim(error.responseText) != '')
 				{
 					AWS.loading('hide');
 
 					alert(_t('发生错误, 返回的信息:') + ' ' + error.responseText);
+				}
+				else if (error.status == 0)
+				{
+					AWS.loading('hide');
+
+					alert(_t('网络链接异常'));
+				}
+				else if (error.status == 500)
+				{
+					AWS.loading('hide');
+
+					alert(_t('内部服务器错误'));
 				}
 			}
 		});
@@ -1493,20 +1509,28 @@ AWS.User =
 		}, 'json');
 	},
 
-	share_out: function(webid, title, url)
+	share_out: function(options)
 	{
-		var url = url || window.location.href;
+		var url = url || window.location.href, pic = '';
 
-		if (title)
+		if (options.title)
 		{
-			var title = title + ' - ' + G_SITE_NAME;
+			var title = options.title + ' - ' + G_SITE_NAME;
 		}
 		else
 		{
 			var title = $('title').text();
 		}
 
-		shareURL = 'http://www.jiathis.com/send/?webid=' + webid + '&url=' + url + '&title=' + title + '';
+		shareURL = 'http://www.jiathis.com/send/?webid=' + options.webid + '&url=' + url + '&title=' + title +'';
+
+		if (options.content)
+		{
+			if ($(options.content).find('img').length)
+			{
+				shareURL = shareURL + '&pic=' + $(options.content).find('img').eq(0).attr('src');
+			}
+		}
 
 		window.open(shareURL);
 	},

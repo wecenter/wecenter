@@ -72,7 +72,7 @@ class actions_class extends AWS_MODEL
 			$where_in[] = "(uid IN (" . implode(',', $user_follow_uids) . ") AND associate_action IN(" . ACTION_LOG::ADD_QUESTION . ',' . ACTION_LOG::ANSWER_QUESTION . ',' . ACTION_LOG::ADD_ARTICLE . ',' . ACTION_LOG::ADD_COMMENT_ARTICLE . '))';
 
 			// 增加赞同, 文章评论
-			$where_in[] = "(uid IN (" . implode(',', $user_follow_uids) . ") AND associate_action IN(" . ACTION_LOG::ADD_AGREE .", " . ACTION_LOG::ADD_COMMENT_ARTICLE . ") AND uid <> " . $uid . ")";
+			$where_in[] = "(uid IN (" . implode(',', $user_follow_uids) . ") AND associate_action IN(" . ACTION_LOG::ADD_AGREE_ARTICLE .", " . ACTION_LOG::ADD_COMMENT_ARTICLE . ") AND uid <> " . $uid . ")";
 
 			// 添加问题关注
 			if ($user_focus_questions_ids)
@@ -162,7 +162,7 @@ class actions_class extends AWS_MODEL
 			$question_infos = $this->model('question')->get_question_info_by_ids($action_list_question_ids);
 
 			foreach ($question_infos as $key => $val) {
-				$question_infos[$key]['question_detail'] = FORMAT::filter_bbcode($val['question_detail']);
+				$question_infos[$key]['question_detail'] = strip_ubb($val['question_detail']);
 			}
 		}
 
@@ -171,7 +171,7 @@ class actions_class extends AWS_MODEL
 			$answer_infos = $this->model('answer')->get_answers_by_ids($action_list_answer_ids);
 
 			foreach ($answer_infos as $key => $val) {
-				$answer_infos[$key]['answer_content'] = FORMAT::filter_bbcode($val['answer_content']);
+				$answer_infos[$key]['answer_content'] = strip_ubb($val['answer_content']);
 			}
 
 			$answer_attachs = $this->model('publish')->get_attachs('answer', $action_list_answer_ids, 'min');
@@ -182,7 +182,7 @@ class actions_class extends AWS_MODEL
 			$project_infos = $this->model('project')->get_project_info_by_ids($action_list_project_ids);
 
 			foreach ($project_infos as $key => $val) {
-				$project_infos[$key]['description'] = FORMAT::filter_bbcode($val['description']);
+				$project_infos[$key]['description'] = strip_ubb($val['description']);
 			}
 		}
 
@@ -196,7 +196,7 @@ class actions_class extends AWS_MODEL
 			$article_infos = $this->model('article')->get_article_info_by_ids($action_list_article_ids);
 
 			foreach ($article_infos as $key => $val) {
-				$article_infos[$key]['message'] = FORMAT::filter_bbcode($val['message']);
+				$article_infos[$key]['message'] = strip_ubb($val['message']);
 			}
 		}
 

@@ -33,7 +33,7 @@
 			<div class="mod-body">
 				<div class="markitup-box clearfix">
 					<?php echo $this->question_info['question_detail']; ?>
-					<div id="weixin-desc" style="display:none;"><?=cjk_substr(str_replace(array("\r","\n"),array(' ',' '), strip_tags($this->question_info['question_detail'])), 0, 130, 'UTF-8', '...');?></div>
+					<div id="weixin-desc" style="display:none;"><?php cjk_substr(str_replace(array("\r","\n"),array(' ',' '), strip_tags($this->question_info['question_detail'])), 0, 130, 'UTF-8', '...'); ?></div>
 
 					<?php if ($this->question_info['attachs']) {  ?>
 						<div class="aw-upload-img-list">
@@ -67,7 +67,7 @@
 			<div class="mod-footer">
 				<div class="meta">
 					<a class="aw-invite-replay"><i class="icon icon-inviteask"></i> <?php _e('邀请回复'); ?></a>
-					<a onclick="AWS.User.share_out('tsina');"><i class="icon icon-weibo"></i></a>
+					<a onclick="AWS.User.share_out({webid: 'tsina'});"><i class="icon icon-weibo"></i></a>
 
 					<a class="btn btn-success btn-mini pull-right <?php if ($this->question_focus) { ?> active<?php } ?>" onclick="AWS.User.follow($(this), 'question', <?php echo $this->question_info['question_id']; ?>);"><?php if ($this->question_focus) { ?><?php _e('取消关注'); ?><?php } else { ?><?php _e('关注'); ?><?php } ?></a>
 				</div>
@@ -162,6 +162,19 @@
 		</div>
 		<!-- end 回复列表 -->
 
+		<!-- 折叠回复 -->
+		<div class="aw-replay-list uninterest">
+			<div class="mod-head text-center">
+				<a href="javascript:;" class="aw-load-more-content"><?php _e('%s 个回复被折叠', '<span class="hide_answers_count">0</span>'); ?></a>
+			</div>
+			<div class="mod-body">
+				<div class="hide" id="uninterested_answers_list">
+					<ul></ul>
+				</div>
+			</div>
+		</div>
+		<!-- end 折叠回复 -->
+
 		<!-- 回复box -->
 		<div class="aw-replay-box question">
 			<a name="answer_form"></a>
@@ -241,7 +254,7 @@
 	var USER_ANSWERED = '<?php echo $this->user_answered; ?>';
 
 	$(document).ready(function () {
-		var fileupload = new FileUpload('file', '.aw-upload-box .icon-pic', '.aw-replay-box .upload-container', G_BASE_URL + '/publish/ajax/attach_upload/id-answer__attach_access_key' + '-' + ATTACH_ACCESS_KEY, {'deleteBtnTemplate' : '<a class="delete-file"><i class="icon icon-delete"></i></a>', 'insertBtnTemplate' : '<a class="insert-file"><i class="icon icon-insert"></i></a>'})
+		var fileupload = new FileUpload('file', '.aw-upload-box .icon-pic', '.aw-replay-box .upload-container', G_BASE_URL + '/publish/ajax/attach_upload/id-answer__attach_access_key' + '-' + ATTACH_ACCESS_KEY, {'deleteBtnTemplate' : '<a class="delete-file"><i class="icon icon-delete"></i></a>', 'insertBtnTemplate' : '<a class="insert-file"><i class="icon icon-insert"></i></a>', 'editor': $('.textarea_content')})
 
 		// 自动保存草稿
 		if ($('#answer_form textarea').length)
@@ -266,8 +279,23 @@
 			}
 		});
 
+		//折叠回复
+		$.each($('.aw-replay-list ul li'), function (i, e)
+		{
+			if ($(this).attr('uninterested_count') >= UNINTERESTED_COUNT || $(this).attr('force_fold') == 1)
+			{
+				$('#uninterested_answers_list ul').append($(e));
+			}
+		});
+
+		if ($('#uninterested_answers_list li').length > 0)
+		{
+			$('.uninterest span.hide_answers_count').html($('#uninterested_answers_list li').length);
+			$('.uninterest').fadeIn();
+		}
+
 		//回复折叠显示按钮
-		$('#load_uninterested_answers').click(function()
+		$('.uninterest a').click(function()
 		{
 			if ($('#uninterested_answers_list').is(':visible'))
 			{
@@ -279,11 +307,7 @@
 			}
 		});
 
-		if ($('#uninterested_answers_list li.aw-item').length > 0)
-		{
-			$('#load_uninterested_answers span.hide_answers_count').html($('#uninterested_answers_list li.aw-item').length);
-			$('#load_uninterested_answers').fadeIn();
-		}
+		
 	});
 
 </script>

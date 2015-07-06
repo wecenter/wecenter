@@ -181,8 +181,8 @@
 
             <!-- 推荐问题 -->
             <script type="text/x-template" id="drop_menu_template_suggest_question">
-                <div class="dropdown-menu pull-right">
-                    <div class="mod-head">
+                <div class="dropdown-menu pull-right subtract-two">
+                    <div class="mod-head clearfix">
                         <?php if ($this->category_data) { ?>
                         <div class="mod">
                             <div class="mod-head"><?php _e('分类推荐问题'); ?></div>
@@ -212,7 +212,9 @@
                         </div>
                     </div>
                     <div class="mod-footer">
-                        <li data-value="COMMAND_RECOMMEND_QUESTION"><a><?php _e('全部推荐问题'); ?></a></li>
+                        <ul class="control-height">
+                            <li data-value="COMMAND_RECOMMEND_QUESTION"><a><?php _e('全部推荐问题'); ?></a></li>
+                        </ul>
                     </div>
                 </div>
             </script>

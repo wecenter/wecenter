@@ -438,6 +438,34 @@ class ajax extends AWS_CONTROLLER
 		H::ajax_json_output(AWS_APP::RSM(null, 1, AWS_APP::lang()->_t('已保存草稿, %s', date('H:i:s', time()))));
 	}
 
+	public function modify_unvalid_email_action()
+	{
+		if (!$user_info = $this->model('account')->get_user_info_by_email(AWS_APP::session()->valid_email))
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('用户不存在')));
+		}
+		
+		if ($user_info['valid_email'] == 1)
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('不允许已认证邮箱用户更改邮箱')));
+		}
+		
+		if ($this->model('account')->check_email($_POST['email']))
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('邮箱地址已被使用')));
+		}
+		
+		$this->model('account')->update_users_fields(array(
+			'email' => strtolower($_POST['email'])
+		), $user_info['uid']);
+		
+		$this->model('active')->new_valid_email($this->user_id);
+		
+		AWS_APP::session()->valid_email = strtolower($_POST['email']);
+		
+		H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('邮件发送成功')));
+	}
+
 	public function send_valid_mail_action()
 	{
 		if (!$this->user_id)
@@ -1223,12 +1251,7 @@ class ajax extends AWS_CONTROLLER
 			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('当前帐号已经完善资料')));
 		}
 
-		if ($check_result = $this->model('account')->check_username_char($_POST['user_name']))
-		{
-			H::ajax_json_output(AWS_APP::RSM(null, '-1', $check_result));
-		}
-
-		$update_data['user_name'] = htmlspecialchars(trim($_POST['user_name']));
+		$_POST['user_name'] = htmlspecialchars(trim($_POST['user_name']));		if ($check_result = $this->model('account')->check_username_char($_POST['user_name']))		{			H::ajax_json_output(AWS_APP::RSM(null, '-1', $check_result));		}				if ($this->user_info['user_name'] != $_POST['user_name'])		{			if ($this->model('account')->check_username_sensitive_words($_GET['username']) || $this->model('account')->check_username($_GET['username']))			{				H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('用户名已被注册')));			}		}				$update_data['user_name'] = $_POST['user_name'];
 
 		if (! H::valid_email($this->user_info['email']))
 		{
