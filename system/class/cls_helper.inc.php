@@ -235,7 +235,10 @@ class H
 
 			if (substr($word, 0, 1) == '{' AND substr($word, -1, 1) == '}')
 			{
-				$word = substr($word, 1, -1);
+				$regex[] = substr($word, 1, -1);
+			}
+			else
+			{
 				$word_length = cjk_strlen($word);
 
 				$replace_str = '';
@@ -246,10 +249,6 @@ class H
 				}
 
 				$content = str_replace($word, $replace_str, $content);
-			}
-			else
-			{
-				$regex[] = $word;
 			}
 		}
 
@@ -300,16 +299,14 @@ class H
 
 			if (substr($word, 0, 1) == '{' AND substr($word, -1, 1) == '}')
 			{
-				$word = substr($word, 1, -1);
-
-				if (strstr($content, $word))
+				if (preg_match(substr($word, 1, -1), $content))
 				{
 					return true;
 				}
 			}
 			else
 			{
-				if (preg_match($word, $content))
+				if (strstr($content, $word))
 				{
 					return true;
 				}

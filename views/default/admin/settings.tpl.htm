@@ -896,7 +896,7 @@
                             <span class="col-sm-4 col-xs-3 control-label"><?php _e('敏感词列表'); ?>:</span>
                             <div class="col-sm-5 col-xs-8">
                                 <textarea class="form-control textarea" rows="5" name="sensitive_words"><?php echo $this->setting['sensitive_words']; ?></textarea>
-                                <span class="help-block"><?php _e('内容中如出现敏感词将进入审核，支持普通字符串和正则表达式，每行一个。普通字符串请以 <code>{</code> 开始 <code>}</code> 结束；正则表达式需符合 <a href="http://cn2.php.net/manual/zh/pcre.pattern.php" target="_blank">PCRE 模式</a>。'); ?></span>
+                                <span class="help-block"><?php _e('内容中如出现敏感词将进入审核，支持普通字符串和正则表达式，每行一个。正则表达式请以 <code>{</code> 开始 <code>}</code> 结束，且需符合 <a href="http://cn2.php.net/manual/zh/pcre.pattern.php" target="_blank">PCRE 模式</a>。'); ?></span>
                             </div>
                         </div>
                     </td>
