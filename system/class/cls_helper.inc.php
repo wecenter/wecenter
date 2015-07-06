@@ -233,16 +233,29 @@ class H
 				continue;
 			}
 
-			$replace_str = '';
-
-			$word_length = cjk_strlen($word);
-
-			for($i = 0; $i < $word_length; $i++)
+			if (substr($word, 0, 1) == '{' AND substr($word, -1, 1) == '}')
 			{
-				$replace_str .=  $replace;
-			}
+				$word = substr($word, 1, -1);
+				$word_length = cjk_strlen($word);
 
-			$content = str_replace($word, $replace_str, $content);
+				$replace_str = '';
+
+				for($i = 0; $i < $word_length; $i++)
+				{
+					$replace_str .=  $replace;
+				}
+
+				$content = str_replace($word, $replace_str, $content);
+			}
+			else
+			{
+				$regex[] = $word;
+			}
+		}
+
+		if (isset($regex))
+		{
+			preg_replace($regex, '***', $content);
 		}
 
 		return $content;
@@ -285,9 +298,21 @@ class H
 				continue;
 			}
 
-			if (strstr($content, $word))
+			if (substr($word, 0, 1) == '{' AND substr($word, -1, 1) == '}')
 			{
-				return true;
+				$word = substr($word, 1, -1);
+
+				if (strstr($content, $word))
+				{
+					return true;
+				}
+			}
+			else
+			{
+				if (preg_match($word, $content))
+				{
+					return true;
+				}
 			}
 		}
 
