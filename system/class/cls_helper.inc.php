@@ -43,7 +43,9 @@ class H
 	{
 		//HTTP::no_cache_header('text/javascript');
 
-		echo str_replace(array("\r", "\n", "\t"), '', json_encode(H::sensitive_words($array)));
+		//$array = H::sensitive_words($array);
+
+		echo str_replace(array("\r", "\n", "\t"), '', json_encode($array));
 		exit;
 	}
 
