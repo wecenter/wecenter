@@ -33,6 +33,8 @@ class main extends AWS_CONTROLLER
 
 		if (strstr($path, '..') OR !file_exists($path))
 		{
+			header('HTTP/1.1 404 Not Found');
+
 			H::redirect_msg(AWS_APP::lang()->_t('文件未找到'));
 		}
 

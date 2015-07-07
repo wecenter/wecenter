@@ -46,33 +46,35 @@ class main extends AWS_CONTROLLER
 			HTTP::redirect('/m/people/' . $_GET['id']);
 		}
 
-        if (is_digits($_GET['id']))
-        {
-            if (!$user = $this->model('account')->get_user_info_by_uid($_GET['id'], TRUE))
-            {
-                $user = $this->model('account')->get_user_info_by_username($_GET['id'], TRUE);
-            }
-        }
-        else if ($user = $this->model('account')->get_user_info_by_username($_GET['id'], TRUE))
-        {
+		if (is_digits($_GET['id']))
+		{
+			if (!$user = $this->model('account')->get_user_info_by_uid($_GET['id'], TRUE))
+			{
+				$user = $this->model('account')->get_user_info_by_username($_GET['id'], TRUE);
+			}
+		}
+		else if ($user = $this->model('account')->get_user_info_by_username($_GET['id'], TRUE))
+		{
 
-        }
-        else
-        {
-            $user = $this->model('account')->get_user_info_by_url_token($_GET['id'], TRUE);
-        }
+		}
+		else
+		{
+			$user = $this->model('account')->get_user_info_by_url_token($_GET['id'], TRUE);
+		}
 
-        if (!$user)
-        {
-            H::redirect_msg(AWS_APP::lang()->_t('用户不存在'), '/');
-        }
+		if (!$user)
+		{
+			header('HTTP/1.1 404 Not Found');
 
-        if (urldecode($user['url_token']) != $_GET['id'])
-        {
-            HTTP::redirect('/people/' . $user['url_token']);
-        }
+			H::redirect_msg(AWS_APP::lang()->_t('用户不存在'), '/');
+		}
 
-        $this->model('people')->update_views($user['uid']);
+		if (urldecode($user['url_token']) != $_GET['id'])
+		{
+			HTTP::redirect('/people/' . $user['url_token']);
+		}
+
+		$this->model('people')->update_views($user['uid']);
 
 		TPL::assign('user', $user);
 

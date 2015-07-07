@@ -54,6 +54,8 @@ class main extends AWS_CONTROLLER
 
 		if (!$topic_info)
 		{
+			header('HTTP/1.1 404 Not Found');
+
 			H::redirect_msg(AWS_APP::lang()->_t('话题不存在'), '/');
 		}
 

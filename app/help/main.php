@@ -47,6 +47,8 @@ class main extends AWS_CONTROLLER
 
             if (!$chapter_list)
             {
+                header('HTTP/1.1 404 Not Found');
+
                 H::redirect_msg(AWS_APP::lang()->_t('指定章节不存在'), '/');
             }
 
@@ -69,6 +71,8 @@ class main extends AWS_CONTROLLER
 
             if (!$chapter)
             {
+                header('HTTP/1.1 404 Not Found');
+
                 H::redirect_msg(AWS_APP::lang()->_t('指定章节不存在'), '/help/');
             }
 
