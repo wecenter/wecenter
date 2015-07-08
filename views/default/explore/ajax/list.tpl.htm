@@ -47,7 +47,7 @@
 		<!-- 文章内容调用 -->
 		<div class="markitup-box">
 			<div class="img pull-right"></div>
-			<?php echo nl2br(strip_tags(FORMAT::parse_attachs(FORMAT::parse_bbcode($val['message'])))); ?> <?php if (cjk_strlen($val['message']) > 130) { ?>
+			<?php echo nl2br(strip_tags(FORMAT::parse_attachs(FORMAT::parse_bbcode(trim($val['message']))))); ?> <?php if (cjk_strlen($val['message']) > 130) { ?>
 			<a class="more" href="article/<?php echo $val['id']; ?>">查看全部</a>
 			<?php } ?>
 		</div>
