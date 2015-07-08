@@ -552,11 +552,10 @@ blockquote {margin: 0 40px;padding: 0 15px;font-size: 14px;color: #777;border-le
 .aw-common-list .aw-item .icon-v, .aw-feed-list .aw-item .icon-v{position:absolute;left:-5px;top:-5px;width:18px;height:18px;background-color: #a3d700;color: #fff;text-align: center;line-height: 18px;font-size: 14px;border-radius: 4px;}
 .aw-common-list .aw-item .icon-v.i-ve, .aw-feed-list .aw-item .icon-v.i-ve{background-color: #ffca3f;color: #fff;}
 .aw-common-list .aw-item.article .markitup-box{max-height: 130px;overflow: hidden;}
-.aw-common-list .aw-item.article .img{width: 200px;height: 130px;margin-left: 10px;}
 .aw-common-list .aw-item.article .aw-upload-img-list{position: absolute;right: 10px;top: 0;width: 200px;}
 .aw-common-list .aw-item.article .aw-upload-img-list img{max-width: 200px;}
-.aw-common-list .aw-item.article .markitup-box img{position: absolute;right: 0;top: 0;width: 200px;}
 .aw-common-list .aw-item.article .more{font-size: 12px;}
+.aw-common-list .aw-item.article .inline-img{max-width:160px;max-height:80px;margin:5px 10px 0 0;}
 .aw-common-list .aw-item .aw-question-content .aw-user-name{color: #666;}
 /* 问题列表回复统计 */
 .aw-common-list .aw-question-content h4{margin:0 0 3px;padding-right:20px;font-size:14px;word-wrap:break-word;}

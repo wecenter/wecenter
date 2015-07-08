@@ -47,7 +47,14 @@
 		<!-- 文章内容调用 -->
 		<div class="markitup-box">
 			<div class="img pull-right"></div>
-			<?php echo nl2br(strip_tags(FORMAT::parse_attachs(FORMAT::parse_bbcode($val['message'])))); ?> <?php if (cjk_strlen($val['message']) > 130) { ?>			<a class="more" href="article/<?php echo $val['id']; ?>">查看全部</a>			<?php } ?>		</div>				<div class="hide">			<?php echo FORMAT::parse_attachs(nl2br(FORMAT::parse_bbcode($val['message']))); ?>		</div>
+			<?php echo nl2br(strip_tags(FORMAT::parse_attachs(FORMAT::parse_bbcode($val['message'])))); ?> <?php if (cjk_strlen($val['message']) > 130) { ?>
+			<a class="more" href="article/<?php echo $val['id']; ?>">查看全部</a>
+			<?php } ?>
+		</div>
+		
+		<div class="hide all-content">
+			<?php echo FORMAT::parse_attachs(nl2br(FORMAT::parse_bbcode($val['message']))); ?>
+		</div>
 		<!-- end 文章内容调用 -->
 		<?php } ?>
 	</div>
