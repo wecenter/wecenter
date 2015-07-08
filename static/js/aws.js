@@ -1511,7 +1511,7 @@ AWS.User =
 
 	share_out: function(options)
 	{
-		var url = url || window.location.href, pic = '';
+		var url = options.url || window.location.href, pic = '';
 
 		if (options.title)
 		{
