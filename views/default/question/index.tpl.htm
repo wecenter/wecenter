@@ -127,7 +127,7 @@
 									<ul>
 										<?php foreach ($this->question_info['attachs'] AS $attach) { ?>
 										<?php if (!$attach['is_image'] AND (!$this->question_info['attachs_ids'] OR !in_array($attach['id'], $this->question_info['attachs_ids']))) { ?>
-											<li><a href="<?php echo download_url($attach['file_name'], $attach['attachment']); ?>"><?php echo $attach['file_name']; ?></a></li>
+											<li><a href="<?php echo download_url($attach['file_name'], $attach['attachment']); ?>"><i class="icon icon-attach"></i> <?php echo $attach['file_name']; ?></a></li>
 										<?php } ?>
 										<?php } ?>
 									</ul>
