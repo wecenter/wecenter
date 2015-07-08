@@ -81,7 +81,7 @@ class AWS_CONTROLLER
 		{
 			AWS_APP::session()->human_valid = array();
 		}
-		
+
 		// 引入系统 CSS 文件
 		TPL::import_css(array(
 			'css/common.css',
@@ -239,8 +239,13 @@ class AWS_CONTROLLER
 		return $this;
 	}
 
-	public function publish_approval_valid()
+	public function publish_approval_valid($content = null)
 	{
+		if ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator'])
+		{
+			return false;
+		}
+
 		if ($default_timezone = get_setting('default_timezone'))
 		{
 			date_default_timezone_set($default_timezone);
@@ -300,6 +305,11 @@ class AWS_CONTROLLER
 		if ($this->user_info['default_timezone'])
 		{
 			date_default_timezone_set($this->user_info['default_timezone']);
+		}
+
+		if ($content AND H::sensitive_word_exists($content))
+		{
+			return true;
 		}
 
 		return false;
