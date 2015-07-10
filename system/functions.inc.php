@@ -33,7 +33,7 @@ function base_url()
 	$clean_url = dirname(rtrim($_SERVER['PHP_SELF'], $clean_url));
 	$clean_url = rtrim($_SERVER['HTTP_HOST'] . $clean_url, '/\\');
 
-	$scheme = ($_SERVER['HTTPS'] AND !in_array(strtolower($_SERVER['HTTPS']), array('off', 'no'))) ? 'https' : 'http';
+	$scheme = ($_SERVER['HTTP_HTTPS'] AND !in_array(strtolower($_SERVER['HTTP_HTTPS']), array('off', 'no')) OR $_SERVER['SERVER_PORT'] == 443) ? 'https' : 'http';
 
 	return $scheme . '://' . $clean_url;
 }
