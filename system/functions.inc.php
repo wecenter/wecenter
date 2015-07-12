@@ -33,7 +33,18 @@ function base_url()
 	$clean_url = dirname(rtrim($_SERVER['PHP_SELF'], $clean_url));
 	$clean_url = rtrim($_SERVER['HTTP_HOST'] . $clean_url, '/\\');
 
-	$scheme = ($_SERVER['HTTP_HTTPS'] AND !in_array(strtolower($_SERVER['HTTP_HTTPS']), array('off', 'no')) OR $_SERVER['SERVER_PORT'] == 443) ? 'https' : 'http';
+	# Use $_SERVER['HTTP_HTTPS'] instead of $_SERVER['HTTPS'] if $_SERVER['HTTPS'] does not exist.
+	if (isset($_SERVER['HTTPS']) AND !in_array(strtolower($_SERVER['HTTPS']), array('off', 'no'))
+		OR isset($_SERVER['HTTP_HTTPS']) AND $_SERVER['HTTP_HTTPS'] == '1'
+		OR $_SERVER['SERVER_PORT'] == '443'
+		)
+	{
+		$scheme = 'https';
+	}
+	else
+	{
+		$scheme = 'http';
+	}
 
 	return $scheme . '://' . $clean_url;
 }
