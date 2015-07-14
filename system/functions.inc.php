@@ -33,9 +33,45 @@ function base_url()
 	$clean_url = dirname(rtrim($_SERVER['PHP_SELF'], $clean_url));
 	$clean_url = rtrim($_SERVER['HTTP_HOST'] . $clean_url, '/\\');
 
-	$scheme = ($_SERVER['HTTPS'] AND !in_array(strtolower($_SERVER['HTTPS']), array('off', 'no'))) ? 'https' : 'http';
+     if(!is_ssl()){
+        $proto = 'http://';
+        if ($port == '80') {
+            $port = '';
+        }
+    }else{
+        $proto = 'https://';
+        if ($port == '443') {
+            $port = '';
+        }
+    }
 
-	return $scheme . '://' . $clean_url;
+    if($port !== '') $port = ':'.$port;
+
+    return $proto.$host.$clean_url;
+}
+/**
+ * Check if accessed via HTTPS
+ *
+ * Apache leaves ,$_SERVER['HTTPS'] empty when not available, IIS sets it to 'off'.
+ * 'false' and 'disabled' are just guessing
+ *
+ * @returns bool true when SSL is active
+ */
+function is_ssl(){
+    // check if we are behind a reverse proxy
+    if (isset($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
+        if ($_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') {
+	    return true;
+	} else {
+	    return false;
+	}
+    }
+    if (!isset($_SERVER['HTTPS']) ||
+        preg_match('/^(|off|false|disabled)$/i',$_SERVER['HTTPS'])){
+        return false;
+    }else{
+        return true;
+    }
 }
 
 /**
