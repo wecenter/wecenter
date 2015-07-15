@@ -113,9 +113,9 @@ class main extends AWS_CONTROLLER
 		if (get_setting('ucenter_enabled') != 'Y')
 		{
 			TPL::import_js('js/md5.js');
-		}
+		}				if ($_GET['url'])		{			$return_url = strip_tags(base64_decode($_GET['url']));		}		else		{			$return_url = strip_tags($_SERVER['HTTP_REFERER']);		}
 
-		TPL::assign('return_url', strip_tags($_SERVER['HTTP_REFERER']));
+		TPL::assign('return_url', $return_url);
 
 		TPL::output("account/login");
 	}

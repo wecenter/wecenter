@@ -326,7 +326,7 @@ class ajax extends AWS_CONTROLLER
 					($_POST['_is_mobile'] AND strstr($_POST['return_url'], '/m/') OR
 					strstr($_POST['return_url'], '://') AND strstr($_POST['return_url'], base_url())))
 				{
-					$url = strip_tags($_POST['return_url']);
+					$url = get_js_url($_POST['return_url']);
 				}
 				else if ($_POST['_is_mobile'])
 				{
