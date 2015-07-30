@@ -235,6 +235,21 @@ $(document).ready(function ()
             AWS.check_placeholder($('input[data-placeholder!="true"], textarea[data-placeholder!="true"]'));
         }, 1000);
     }
+
+    if ($('.aw-back-top').length)
+    {
+        $(window).scroll(function ()
+        {
+            if ($(window).scrollTop() > ($(window).height() / 2))
+            {
+                $('.aw-back-top').fadeIn();
+            }
+            else
+            {
+                $('.aw-back-top').fadeOut();
+            }
+        });
+    }
 });
 
 $(window).on('hashchange', function() {
@@ -246,18 +261,3 @@ $(window).on('hashchange', function() {
         }
     }
 });
-
-if ($('.aw-back-top').length)
-{
-    $(window).scroll(function ()
-    {
-        if ($(window).scrollTop() > ($(window).height() / 2))
-        {
-            $('.aw-back-top').fadeIn();
-        }
-        else
-        {
-            $('.aw-back-top').fadeOut();
-        }
-    });
-}
