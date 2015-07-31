@@ -819,9 +819,9 @@ class account_class extends AWS_MODEL
             return AWS_APP::lang()->_t('用户名不能为纯数字');
         }
 
-        if (strstr($user_name, '-') OR strstr($user_name, '.') OR strstr($user_name, '/') OR strstr($user_name, '%'))
+        if (strstr($user_name, '-') OR strstr($user_name, '.') OR strstr($user_name, '/') OR strstr($user_name, '%') OR strstr($user_name, '__'))
         {
-            return AWS_APP::lang()->_t('用户名不能包含 - / . %');
+            return AWS_APP::lang()->_t('用户名不能包含 - / . % 与连续的下划线');
         }
 
         $length = strlen(convert_encoding($user_name, 'UTF-8', 'GB2312'));
