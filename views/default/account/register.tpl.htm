@@ -141,7 +141,10 @@ $(document).ready(function ()
                             }
                             else
                             {
-                                $.get(G_BASE_URL + '/account/ajax/check_username/username' + '-' + encodeURIComponent($(this).val()), function (result)
+                                $.post(G_BASE_URL + '/account/ajax/check_username/', 
+                                    {
+                                        username: encodeURIComponent($(this).val())
+                                    }, function (result)
                                 {
                                     if (result.errno == -1)
                                     {
