@@ -143,7 +143,7 @@ $(document).ready(function ()
                             {
                                 $.post(G_BASE_URL + '/account/ajax/check_username/', 
                                     {
-                                        username: encodeURIComponent($(this).val())
+                                        username: $(this).val()
                                     }, function (result)
                                 {
                                     if (result.errno == -1)
