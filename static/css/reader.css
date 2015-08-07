@@ -21,7 +21,7 @@ input, select, textarea { font: normal 12px Verdana, Arial; }
 .aw-reader-side .filter { line-height: 20px; height: 40px; margin: 0 -15px; padding: 0; color: #999; border-top: 1px solid white; background: #fff; }
 .aw-reader-side .filter .dropdown-list-wrap { position: relative; margin-top: 7px; }
 .aw-reader-side .filter .dropdown-list-wrap span { line-height: 26px; display: block; min-width: 20px; padding: 0 15px; cursor: pointer; text-align: left; color: #666; }
-.aw-reader-side .filter .dropdown-list-wrap i { font-size: 14px; position: absolute; top: 5px; right: 15px; display: block; }
+.aw-reader-side .filter .dropdown-list-wrap i { font-size: 14px; position: absolute; top: 5px; right: 15px; display: block; cursor: pointer;}
 .aw-reader-side .filter .dropdown-list { width: 100%; background: #fff; }
 .aw-reader-side .filter .dropdown-list-wrap ul { position: absolute; z-index: 9999; top: 32px; right: 0; display: none; overflow-y: scroll; width: 100%; max-height: 401px; margin: 0; padding: 0; list-style-type: none; }
 .aw-reader-side .dropdown-list ul li { line-height: 40px; height: 40px; padding: 0 10px; cursor: pointer; border-bottom: 1px solid #f0f0f0; background: none repeat scroll 0 0 #fff; }
@@ -36,7 +36,7 @@ input, select, textarea { font: normal 12px Verdana, Arial; }
 .aw-reader-side .aw-mod ul li:hover, .aw-reader-side .aw-mod ul li.current { color: #fff; background: #499ef3; }
 .aw-reader-side .aw-mod ul li:hover a h2, .aw-reader-side .aw-mod ul li:hover p, .aw-reader-side .aw-mod ul li:hover p strong, .aw-reader-side .aw-mod ul li:hover a span, .aw-reader-side .aw-mod ul li.current a h2, .aw-reader-side .aw-mod ul li.current p, .aw-reader-side .aw-mod ul li.current p strong, .aw-reader-side .aw-mod ul li.current a span { color: #fff; }
 .aw-reader-side .aw-mod ul .loading { line-height: 42px; height: 42px; text-align: center; color: #999; background: url(../common/reader_loading.gif) no-repeat 90px center; }
-.aw-reader-side .aw-mod ul li a { position: relative; display: block; padding: 0; cursor: pointer; }
+.aw-reader-side .aw-mod ul li a { position: relative; display: block; padding: 0 40px 0 0 ; cursor: pointer; }
 .aw-reader-side .aw-mod ul li a i { position: absolute; left: 15px; top: 25px; }
 .aw-reader-side .aw-mod h2 { font-size: 14px; line-height: 20px; overflow: hidden; max-width: 245px; max-height: 40px; margin: 0; padding: 0; text-overflow: ellipsis; color: #333; }
 .aw-reader-side .aw-mod p { font-size: 12px; overflow: hidden; margin: 5px 0 0 0; white-space: nowrap; text-overflow: ellipsis; color: #999; }
