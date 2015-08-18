@@ -42,9 +42,12 @@ $(function()
                 if (data['err']) {
                     return false;
                 } else {
-                    $.each(data['rsm']['attachs'], function (i, v) {
-                        fileupload.setFileList(v);
-                    });
+                	if (data['rsm']['attachs'])
+                	{
+                		$.each(data['rsm']['attachs'], function (i, v) {
+	                        fileupload.setFileList(v);
+	                    });
+                	}
                 }
             }, 'json');
         }
