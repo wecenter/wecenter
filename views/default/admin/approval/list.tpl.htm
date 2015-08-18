@@ -35,8 +35,10 @@
                         <tr>
                             <?php if ($_GET['type'] != 'unverified_modify') { ?>
                             <th><input type="checkbox" class="check-all"></th>
-                            <?php } ?>                            
-                            <th><?php _e('用户'); ?></th>                            
+                            <?php } ?>
+                            
+                            <th><?php _e('用户'); ?></th>
+                            
                             <?php if (in_array($_GET['type'], array('question', 'unverified_modify', 'article', 'received_email'))) { ?>
                             <th><?php _e('标题'); ?></th>
                             <?php } ?>
@@ -54,7 +56,7 @@
                             <?php } ?>
 
                             <td>
-                                <a href="people/<?php echo $this->users_info[$approval_info['uid']]['url_token']; ?>" target="_blank"><?php echo $this->users_info[$approval_info['uid']]['user_name']; ?></a> &nbsp; <?php if ($approval_info['uid'] != $this->user_id) { ?><a href="javascript:;" onclick="AWS.ajax_request(G_BASE_URL + '/admin/ajax/forbidden_user/' , 'uid=<?php echo $approval_info['uid']; ?>&status=<?php echo intval($this->users_info[$approval_info['uid']]['forbidden']) ? 0 : 1; ?>');" title="<?php if ($this->users_info[$approval_info['uid']]['forbidden']) { ?><?php _e('解除封禁'); ?><?php } else { ?><?php _e('封禁用户'); ?><?php } ?>" class="icon <?php if ($this->users_info[$approval_info['uid']]['forbidden']) { ?>icon-plus<?php } else { ?>icon-forbid<?php } ?> md-tip"><?php } ?>
+                                <a href="people/<?php echo $this->users_info[$approval_info['uid']]['url_token']; ?>" target="_blank"><?php echo $this->users_info[$approval_info['uid']]['user_name']; ?></a>
                             </td>
 
                             <?php if (in_array($_GET['type'], array('question', 'unverified_modify', 'article', 'received_email'))) { ?>
@@ -126,6 +128,8 @@
                                 echo $approval_info['id'];
                                 ?>" class="icon icon-edit md-tip" data-original-title="<?php _e('修改内容'); ?>"></a>
                                 <?php } ?>
+                                
+                                <?php if ($approval_info['uid'] != $this->user_id) { ?><a href="javascript:;" onclick="AWS.ajax_request(G_BASE_URL + '/admin/ajax/forbidden_user/' , 'uid=<?php echo $approval_info['uid']; ?>&status=<?php echo intval($this->users_info[$approval_info['uid']]['forbidden']) ? 0 : 1; ?>');" title="<?php if ($this->users_info[$approval_info['uid']]['forbidden']) { ?><?php _e('解除封禁'); ?><?php } else { ?><?php _e('封禁用户'); ?><?php } ?>" class="icon <?php if ($this->users_info[$approval_info['uid']]['forbidden']) { ?>icon-plus<?php } else { ?>icon-forbid<?php } ?> md-tip"><?php } ?>
                             </td>
                         </tr>
                         <?php } ?>
