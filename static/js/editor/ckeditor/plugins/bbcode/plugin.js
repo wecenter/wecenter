@@ -410,10 +410,10 @@
 		}
 
 		// Modify by wecenter
-		if (fragment.children[fragment.children.length - 1].previous.name == 'br')
-		{
-			fragment.children.pop();
-		}
+		// if (fragment.children[fragment.children.length - 1].previous.name == 'br')
+		// {
+		// 	fragment.children.pop();
+		// }
 
 		return fragment;
 	};
