@@ -22,8 +22,6 @@ class openid_weixin_weixin_class extends AWS_MODEL
 {
     const WEIXIN_API = 'https://api.weixin.qq.com/cgi-bin/';
 
-    const WEIXIN_FILE_API = 'http://file.api.weixin.qq.com/cgi-bin/';
-
     const WEIXIN_OAUTH_API = 'https://api.weixin.qq.com/sns/';
 
     public function access_request($app_id, $app_secret, $url, $method, $contents = NULL)
@@ -411,7 +409,7 @@ class openid_weixin_weixin_class extends AWS_MODEL
             'media' => '@' . $file
         );
 
-        $result = HTTP::request(self::WEIXIN_FILE_API . 'media/upload?access_token=' . $this->get_access_token($app_id, $app_secret) . '&type=' . $type, 'POST', $post_data);
+        $result = HTTP::request(self::WEIXIN_API . 'media/upload?access_token=' . $this->get_access_token($app_id, $app_secret) . '&type=' . $type, 'POST', $post_data);
 
         if (!$result)
         {
@@ -452,7 +450,7 @@ class openid_weixin_weixin_class extends AWS_MODEL
             return $cached_file;
         }
 
-        $file = curl_get_contents(self::WEIXIN_FILE_API . 'media/get?access_token=' . $this->get_access_token($app_id, $app_secret) . '&media_id=' . $media_id);
+        $file = curl_get_contents(self::WEIXIN_API . 'media/get?access_token=' . $this->get_access_token($app_id, $app_secret) . '&media_id=' . $media_id);
 
         if ($file)
         {

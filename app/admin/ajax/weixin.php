@@ -346,14 +346,14 @@ class ajax_weixin extends AWS_ADMIN_CONTROLLER
 
         if ($_FILES['main_msg_img']['error'] === UPLOAD_ERR_OK)
         {
-            if ($_FILES['main_msg_img']['type'] != 'image/jpeg')
+            if (!in_array($_FILES['main_msg_img']['type'], array('image/bmp', 'image/png', 'image/jpeg', 'image/gif')))
             {
-                H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('只允许上传 jpeg 格式的图片')));
+                H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('只允许上传 bmp/png/jpeg/jpg/gif 格式的图片')));
             }
 
-            if ($_FILES['main_msg_img']['size'] > '1048576')
+            if ($_FILES['main_msg_img']['size'] > '2097152')
             {
-                H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('图片最大为 1M')));
+                H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('图片最大为 2M')));
             }
 
             $main_msg_img = TEMP_PATH . 'weixin_img.jpg';
