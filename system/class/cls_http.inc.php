@@ -374,7 +374,7 @@ class HTTP
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
 		curl_setopt($curl, CURLOPT_HEADER, FALSE);
 		curl_setopt($curl, CURLOPT_FOLLOWLOCATION, TRUE);
-		
+
 		if (defined('WECENTER_CURL_USERAGENT'))
 		{
 			curl_setopt($curl, CURLOPT_USERAGENT, WECENTER_CURL_USERAGENT);
@@ -391,11 +391,6 @@ class HTTP
 
 				if ($post_fields)
 				{
-					if (is_array($post_fields))
-					{
-						$post_fields = http_build_query($post_fields);
-					}
-	
 					curl_setopt($curl, CURLOPT_POSTFIELDS, $post_fields);
 				}
 			break;
@@ -419,7 +414,7 @@ class HTTP
 		}
 
 		$header[] = 'API-RemoteIP: ' . fetch_ip();
-		
+
 		curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
 
 		if (substr($url, 0, 8) == 'https://')
@@ -429,7 +424,7 @@ class HTTP
 
 			curl_setopt($curl, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1);
 		}
-		
+
 		if ($cookie AND is_array($cookie))
 		{
 			curl_setopt($curl, CURLOPT_COOKIE, urldecode(http_build_query($cookie, '', '; ')));
