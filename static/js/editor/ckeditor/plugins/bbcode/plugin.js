@@ -410,7 +410,7 @@
 		}
 
 		// Modify by wecenter
-		if (fragment.children && fragment.children[fragment.children.length - 1].previous.name == 'br')
+		if (fragment.children && fragment.children[fragment.children.length - 1].previous != null && fragment.children[fragment.children.length - 1].previous.name == 'br')
 		{
 			fragment.children.pop();
 		}
