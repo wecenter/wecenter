@@ -72,4 +72,4 @@ aws_lang['赞'] = 'Like';
 aws_lang['暂无介绍'] = 'No Introduction';
 aws_lang['没有未读通知'] = 'No unread notifications';
 aws_lang['暂无评论'] = 'No comments';
-aws_lang['帮助中心'] = 'Help';
+aws_lang['帮助中心'] = 'Help center';
