@@ -148,7 +148,7 @@
 	<?php if ($this->user_id AND $this->user_info['email'] AND !$this->user_info['valid_email'] AND get_setting('register_valid_type') != 'N') { ?>
 	<div class="aw-email-verify">
 		<div class="container text-center">
-			<?php _e('你的邮箱 %s 还未验证, <a onclick="AWS.ajax_request(G_BASE_URL + \'/account/ajax/send_valid_mail/\');">点击这里重新发送验证邮件</a>', $this->user_info['email']); ?>
+			<a onclick="AWS.ajax_request(G_BASE_URL + '/account/ajax/send_valid_mail/');"><?php _e('你的邮箱 %s 还未验证, 点击这里重新发送验证邮件', $this->user_info['email']); ?></a>
 		</div>
 	</div>
 	<?php } ?>

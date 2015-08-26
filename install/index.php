@@ -94,7 +94,12 @@ switch ($_POST['step'])
 		{
 			$system_require['zlib'] = TRUE;
 		}
-
+		
+		if (function_exists('stream_socket_client'))
+		{
+			$system_require['stream_socket_client'] = TRUE;
+		}
+		
 		// 检测 AWS_PATH 是否有写权限
 		if (is_really_writable(AWS_PATH) OR defined('IN_SAE'))
 		{

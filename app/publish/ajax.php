@@ -509,7 +509,7 @@ class ajax extends AWS_CONTROLLER
                 switch ($upload_error)
                 {
                     default:
-                        H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('保存图片失败，错误为 %s' . $upload_error)));
+                        H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('保存图片失败，错误为: %s', $upload_error)));
 
                         break;
 
