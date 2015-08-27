@@ -194,7 +194,7 @@ class weixin_class extends AWS_MODEL
                 'longitude' => $post_object['Longitude'],
                 'precision' => $post_object['Precision'],
                 'location_X' => $post_object['Location_X'],
-                'location_Y' => $post_object['location_Y'],
+                'location_Y' => $post_object['Location_Y'],
                 'label' => $post_object['Label'],
                 'ticket' => $post_object['Ticket'],
                 'createTime' => $post_object['CreateTime'],
