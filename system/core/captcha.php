@@ -70,12 +70,15 @@ class core_captcha
 		die;
 	}
 
-	public function is_validate($validate_code)
+	public function is_validate($validate_code, $generate_new = true)
 	{
 		if (strtolower($this->captcha->getWord()) == strtolower($validate_code))
 		{
-			$this->captcha->generate();
-
+			if ($generate_new)
+			{
+				$this->captcha->generate();
+			}
+			
 			return true;
 		}
 
