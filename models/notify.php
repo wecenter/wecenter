@@ -1100,7 +1100,7 @@ class notify_class extends AWS_MODEL
 	 */
 	public function clean_mark_read_notifications($period)
 	{
-		while ($notifications = $this->fetch_all('notification', 'read_flag = 1 AND add_time < ' . (time() - $period)))
+		while ($notifications = $this->fetch_all('notification', 'read_flag = 1 AND add_time < ' . (time() - $period), 'notification_id ASC', 1000))
 		{
 			foreach ($notifications AS $k => $v)
 			{
