@@ -56,14 +56,18 @@ class H
 		//return ( ! preg_match("/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix", $email)) ? FALSE : TRUE;
 	}
 
-	public static function redirect_msg($message, $url = NULL, $interval = 5)
+	public static function redirect_msg($message, $url = NULL, $interval = 5, $exit = true)
 	{
 		TPL::assign('message', $message);
 		TPL::assign('url_bit', HTTP::parse_redirect_url($url));
 		TPL::assign('interval', $interval);
 
 		TPL::output('global/show_message');
-		die;
+		
+		if ($exit)
+		{
+			die;
+		}
 	}
 
 	/**

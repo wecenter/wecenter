@@ -467,7 +467,7 @@ class AWS_MODEL
 
 		if ($offset)
 		{
-			$sql .= ' OFFSET ' . $limit;
+			$sql .= ' OFFSET ' . $offset;
 		}
 
 		if (AWS_APP::config()->get('system')->debug)
@@ -569,7 +569,7 @@ class AWS_MODEL
 
 		if ($offset)
 		{
-			$sql .= ' OFFSET ' . $limit;
+			$sql .= ' OFFSET ' . $offset;
 		}
 
 		if (AWS_APP::config()->get('system')->debug)
