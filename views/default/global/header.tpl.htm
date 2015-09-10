@@ -40,7 +40,7 @@
 					<?php if ($this->user_id) { ?>
 					<li><a href="home/"<?php if ($_GET['app'] == 'home') { ?> class="active"<?php } ?>><i class="icon icon-home"></i> <?php _e('动态'); ?></a></li>
 					<?php } ?>
-					<li><a href="<?php echo get_setting('base_url'); ?>" class="<?php if (!$_GET['app'] OR $_GET['app'] == 'explore') { ?>active<?php } ?>"><i class="icon icon-list"></i> <?php _e('发现'); ?></a></li>
+					<li><a href="<?php echo base_url(); ?>" class="<?php if (!$_GET['app'] OR $_GET['app'] == 'explore') { ?>active<?php } ?>"><i class="icon icon-list"></i> <?php _e('发现'); ?></a></li>
 
 					<!-- <li><a href="question/" class="<?php if ($_GET['app'] == 'question') { ?>active<?php } ?>"><?php _e('问题'); ?></a></li>
 
