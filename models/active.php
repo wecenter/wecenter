@@ -97,7 +97,7 @@ class active_class extends AWS_MODEL
 			$uid = $email;
 		}
 
-		return $this->model('email')->action_email('VALID_EMAIL', $uid, get_js_url('/account/valid_email_active/key-' . $active_code_hash), $server);
+		return $this->model('email')->action_email('VALID_EMAIL', $uid, get_js_url('/account/valid_email_active/key-' . $active_code_hash), null, $server);
 	}
 
 	public function new_find_password($uid, $server = 'master')
@@ -111,7 +111,7 @@ class active_class extends AWS_MODEL
 
 		$active_id = $this->model('active')->new_active_code($uid, (time() + 60 * 60 * 24), $active_code_hash, 'FIND_PASSWORD');
 
-		return $this->model('email')->action_email('FIND_PASSWORD', $uid, get_js_url('/account/find_password/modify/key-' . $active_code_hash), $server);
+		return $this->model('email')->action_email('FIND_PASSWORD', $uid, get_js_url('/account/find_password/modify/key-' . $active_code_hash), null, $server);
 	}
 
 	public function clean_expire()
