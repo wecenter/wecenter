@@ -84,7 +84,7 @@ class integral_class extends AWS_MODEL
 
 			switch ($item['action'])
 			{
-				case 'NEWS_QUESTION':
+				case 'NEW_QUESTION':
 				case 'ANSWER_QUESTION':
 				case 'QUESTION_ANSWER':
 				case 'INVITE_ANSWER':
@@ -136,7 +136,7 @@ class integral_class extends AWS_MODEL
 
 			switch ($item['action'])
 			{
-				case 'NEWS_QUESTION':
+				case 'NEW_QUESTION':
 				case 'ANSWER_INVITE':
 				case 'ANSWER_QUESTION':
 				case 'QUESTION_ANSWER':
