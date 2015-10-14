@@ -197,57 +197,64 @@ class weixin extends AWS_ADMIN_CONTROLLER
             }
         }
 
-        if ($_FILES['image']['name'])
+        if ($_POST['use_old_image'])
         {
-            AWS_APP::upload()->initialize(array(
-                'allowed_types' => 'jpg,jpeg,png',
-                'upload_path' => get_setting('upload_dir') . '/weixin/',
-                'is_image' => TRUE
-            ))->do_upload('image');
-
-            if (AWS_APP::upload()->get_error())
-            {
-                switch (AWS_APP::upload()->get_error())
-                {
-                    default:
-                        H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('错误代码') . ': ' . AWS_APP::upload()->get_error()));
-                    break;
-
-                    case 'upload_invalid_filetype':
-                        H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('文件类型无效')));
-                    break;
-                }
-            }
-
-            $upload_data = AWS_APP::upload()->data();
-
-            if (!$upload_data)
-            {
-                H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('上传失败, 请与管理员联系')));
-            }
-
-            AWS_APP::image()->initialize(array(
-                'quality' => 90,
-                'source_image' => $upload_data['full_path'],
-                'new_image' => $upload_data['full_path'],
-                'width' => 640,
-                'height' => 320
-            ))->resize();
-
-            AWS_APP::image()->initialize(array(
-                'quality' => 90,
-                'source_image' => $upload_data['full_path'],
-                'new_image' => get_setting('upload_dir') . '/weixin/square_' . basename($upload_data['full_path']),
-                'width' => 80,
-                'height' => 80
-            ))->resize();
-
+            $image_file = $rule_info['image_file'];
+        }
+        else
+        {
             if ($rule_info['image_file'])
             {
                 @unlink(get_setting('upload_dir') . '/weixin/' . $rule_info['image_file']);
             }
 
-            $image_file = basename($upload_data['full_path']);
+            if ($_FILES['image']['name'])
+            {
+                AWS_APP::upload()->initialize(array(
+                    'allowed_types' => 'jpg,jpeg,png',
+                    'upload_path' => get_setting('upload_dir') . '/weixin/',
+                    'is_image' => TRUE
+                ))->do_upload('image');
+
+                if (AWS_APP::upload()->get_error())
+                {
+                    switch (AWS_APP::upload()->get_error())
+                    {
+                        default:
+                            H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('错误代码') . ': ' . AWS_APP::upload()->get_error()));
+                        break;
+
+                        case 'upload_invalid_filetype':
+                            H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('文件类型无效')));
+                        break;
+                    }
+                }
+
+                $upload_data = AWS_APP::upload()->data();
+
+                if (!$upload_data)
+                {
+                    H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('上传失败, 请与管理员联系')));
+                }
+
+                AWS_APP::image()->initialize(array(
+                    'quality' => 90,
+                    'source_image' => $upload_data['full_path'],
+                    'new_image' => $upload_data['full_path'],
+                    'width' => 640,
+                    'height' => 320
+                ))->resize();
+
+                AWS_APP::image()->initialize(array(
+                    'quality' => 90,
+                    'source_image' => $upload_data['full_path'],
+                    'new_image' => get_setting('upload_dir') . '/weixin/square_' . basename($upload_data['full_path']),
+                    'width' => 80,
+                    'height' => 80
+                ))->resize();
+
+                $image_file = basename($upload_data['full_path']);
+            }
         }
 
         if ($_POST['id'])
