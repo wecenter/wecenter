@@ -169,8 +169,11 @@ $(document).ready(function() {
 	$('.header').hide();
 });
 
+alert(wx);
+alert(typeof wx);
+
 wx.config({
-	debug: false,
+	debug: true,
 	appId: '<?php echo get_setting("weixin_app_id"); ?>',
 	timestamp: '<?php echo TIMESTAMP; ?>',
 	nonceStr: '<?php echo $this->weixin_noncestr; ?>',
