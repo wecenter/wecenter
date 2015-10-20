@@ -677,7 +677,7 @@ class ajax extends AWS_CONTROLLER
                 break;
 
                 case 'upload_invalid_filesize':
-                    die("{'error':'文件尺寸过大, 最大允许尺寸为 " . get_setting('upload_size_limit') .  " KB'}");
+                    die("{'error':'文件尺寸过大, 最大允许尺寸为 " . get_setting('upload_avatar_size_limit') .  " KB'}");
                 break;
             }
 		}

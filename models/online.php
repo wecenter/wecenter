@@ -22,26 +22,26 @@ class online_class extends AWS_MODEL
 {
 	public function online_active($uid, $last_active)
 	{		
-		if (!$uid OR $last_active + 60 > time())
+		if (!$uid OR ($last_active + 60) > time())
 		{
 			return false;
 		}
 		
-		$data = array(
-			'uid' => intval($uid),
+		$online_data = array(
+			'uid' => $uid,
 			'last_active' => time(),
 			'ip' => ip2long(fetch_ip()),
 			'user_agent' => $_SERVER['HTTP_USER_AGENT'],
 			'active_url' => $_SERVER['HTTP_REFERER'],
 		);
 		
-		if ($this->count('users_online', 'uid = ' . intval($uid)))
+		if ($user_online = $this->fetch_row('users_online', 'uid = ' . intval($uid)))
 		{
-			$this->shutdown_update('users_online', $data, 'uid = ' . intval($uid));
+			$this->shutdown_update('users_online', $online_data, 'uid = ' . $user_online['uid']);
 		}
 		else
 		{			
-			$this->insert('users_online', $data);
+			$this->insert('users_online', $online_data);
 		}
 		
 		$online_time = time() - $last_active;
