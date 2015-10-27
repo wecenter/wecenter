@@ -840,18 +840,24 @@ class question_class extends AWS_MODEL
 
 	public function get_invite_users($question_id, $limit = 10)
 	{
+		if ($invite_users_list = AWS_APP::cache()->get('question_invite_users_' . $quesion_id))
+		{
+			return $invite_users_list;
+		}
+	
 		if ($invites = $this->fetch_all('question_invite', 'question_id = ' . intval($question_id), 'question_invite_id DESC', $limit))
 		{
 			foreach ($invites as $key => $val)
 			{
-				$invite_users[] = $val['recipients_uid'];
+				$invite_users[$val['recipients_uid']] = $val['recipients_uid'];
 			}
 
-			if ($invite_users)
-			{
-				return $this->model('account')->get_user_info_by_uids($invite_users);
-			}
+			$invite_users_list = $this->model('account')->get_user_info_by_uids($invite_users);
+		
+			AWS_APP::cache()->set('question_invite_users_' . $quesion_id, $invite_users_list, get_setting('cache_level_normal'));
 		}
+	
+		return $invite_users_list;
 	}
 
 	public function get_invite_question_list($uid, $limit = 10)
