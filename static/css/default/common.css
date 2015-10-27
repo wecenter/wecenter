@@ -536,6 +536,7 @@ blockquote {margin: 0 40px;padding: 0 15px;font-size: 14px;color: #777;border-le
 .aw-invite-box .mod-footer a.active{background-color:#e6e6e6;cursor: default;}
 /* 附件列表  */
 .aw-upload-file-list{margin-bottom: 10px;}
+.aw-upload-file-list i{vertical-align: -2px;}
 /* 相关链接 */
 .aw-question-related-box{position:relative;padding:10px;background-color:#f8f8f8;border:1px solid #e2e2e2;border-radius: 5px;}
 .aw-question-related-box .mod-head{border: none;}
