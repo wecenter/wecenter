@@ -471,16 +471,18 @@ class posts_class extends AWS_MODEL
 
 		if (!$result = AWS_APP::cache()->get($result_cache_key))
 		{
-			$result = $this->fetch_page('posts_index', implode(' AND ', $where), $order_by, $page, $per_page);
-
-			AWS_APP::cache()->set($result_cache_key, $result, get_setting('cache_level_high'));
+			if ($result = $this->fetch_page('posts_index', implode(' AND ', $where), $order_by, $page, $per_page))
+			{
+				AWS_APP::cache()->set($result_cache_key, $result, get_setting('cache_level_high'));
+			}
 		}
 
 		if (!$found_rows = AWS_APP::cache()->get($found_rows_cache_key))
 		{
-			$found_rows = $this->found_rows();
-
-			AWS_APP::cache()->set($found_rows_cache_key, $found_rows, get_setting('cache_level_high'));
+			if ($found_rows = $this->found_rows())
+			{
+				AWS_APP::cache()->set($found_rows_cache_key, $found_rows, get_setting('cache_level_high'));
+			}
 		}
 
 		$this->posts_list_total = $found_rows;

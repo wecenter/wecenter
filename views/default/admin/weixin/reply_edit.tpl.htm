@@ -50,12 +50,15 @@
 						</div>
 					</td>
 				</tr>
-				<?php if ($this->rule_info['image_file'] OR !$this->rule_info) { ?>
 				<tr>
 					<td>
 						<div class="form-group">
 							<span class="col-sm-4 col-xs-3 control-label"><?php _e('图片'); ?>:</span>
 							<div class="col-sm-5 col-xs-8">
+								<?php if ($this->rule_info['image_file']) { ?>
+								<input type="checkbox" name="use_old_image" class="form-control" checked="checked" /> <?php _e('使用原有图片'); ?>
+								<?php } ?>
+
 								<input type="file" name="image" class="form-control" />
 
 								<span class="help-block"><?php _e('文字消息忽略此选项'); ?>, <?php _e('图片会被自动裁剪成 640 x 320 尺寸'); ?>, <?php _e('多个相同关键词的图文消息会被组成图文列表'); ?></span>
@@ -87,7 +90,6 @@
 						</div>
 					</td>
 				</tr>
-				<?php } ?>
 				<tfoot>
 				<tr>
 					<td>
