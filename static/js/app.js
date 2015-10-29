@@ -43,7 +43,7 @@ $(document).ready(function ()
         });
     }
 
-    $('a[rel=lightbox]').fancybox(
+    $('a[rel=lightbox]:visible').fancybox(
     {
         openEffect: 'none',
         closeEffect: 'none',

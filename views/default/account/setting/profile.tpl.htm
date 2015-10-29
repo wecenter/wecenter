@@ -272,7 +272,7 @@ $(document).ready(function () {
         detector: function () {
             this.select(["<?php echo $this->user_info['province']; ?>", "<?php echo $this->user_info['city']; ?>"]);
         },
-		dataUrl: G_STATIC_URL + '/js/areas.js'
+		dataUrl: G_BASE_URL + '/static/js/areas.js'
     });
 
     var fileUpload = new FileUpload('avatar', $('#avatar_uploader'), $('#avatar_src'), G_BASE_URL + '/account/ajax/avatar_upload/', {'loading_status' : '#avatar_uploading_status'});
