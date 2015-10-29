@@ -3,10 +3,13 @@ var document_title = document.title;
 $(document).ready(function () {
 
 	// 检测首页动态更新
-	var checkactionsnew_handle = setInterval(function ()
+	if (G_USER_ID.length > 0) {
 	{
-		check_actions_new(new Date().getTime());
-	}, 60000);
+		var checkactionsnew_handle = setInterval(function ()
+		{
+			check_actions_new(new Date().getTime());
+		}, 60000);
+	}
 
 	// 滚动指定位置
 	if (window.location.hash.indexOf('#!') != -1)

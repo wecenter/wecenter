@@ -517,7 +517,7 @@ class publish_class extends AWS_MODEL
 					break;
 			}
 
-			return $this->update($attach['item_type'], array(
+			$this->update($attach['item_type'], array(
 				'has_attach' => 0
 			), $update_key . ' = ' . $attach['item_id']);
 		}
