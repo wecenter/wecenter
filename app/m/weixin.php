@@ -64,6 +64,11 @@ class weixin extends AWS_CONTROLLER
 
 		if ($_GET['code'] AND get_setting('weixin_app_id') AND get_setting('weixin_app_secret'))
 		{
+			if (!$_GET['redirect'])
+			{
+				$_GET['redirect'] = base64_encode(get_js_url('/'));
+			}
+			
 			if ($access_token = $this->model('openid_weixin_weixin')->get_sns_access_token_by_authorization_code($_GET['code']))
 			{
 				if ($access_token['errcode'])
