@@ -3,7 +3,7 @@ var document_title = document.title;
 $(document).ready(function () {
 
 	// 检测首页动态更新
-	if (G_USER_ID.length > 0) {
+	if (G_USER_ID.length > 0)
 	{
 		var checkactionsnew_handle = setInterval(function ()
 		{
@@ -66,10 +66,10 @@ $(document).ready(function () {
 			$(this).removeClass('active');
 		}
 	});
-	
+
 	// textarea自动增加高度
 	$('.autosize').autosize();
-	
+
 	// 问题评论box
 	AWS.Init.init_comment_box('.aw-add-comment');
 
@@ -94,7 +94,7 @@ $(document).ready(function () {
 		var _this = $(this);
 		$.post(G_BASE_URL + '/topic/ajax/remove_topic_relation/', {'type':$(this).parents('.aw-topic-bar').attr('data-type'), 'item_id' : $(this).parents('.aw-topic-bar').attr('data-id'), 'topic_id' : $(this).parents('.topic-tag').attr('data-id')} , function (result)
 		{
-			if (result.errno == 1) 
+			if (result.errno == 1)
 			{
 				_this.parents('.topic-tag').detach();
 			}else
@@ -162,5 +162,5 @@ $(document).ready(function () {
 	        $('body').removeClass('focus');
 		}
 	})
-	
+
 });
