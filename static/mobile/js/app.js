@@ -3,7 +3,7 @@ var document_title = document.title;
 $(document).ready(function () {
 
 	// 检测首页动态更新
-	if (G_USER_ID.length > 0)
+	if (G_USER_ID.length > 0) 
 	{
 		var checkactionsnew_handle = setInterval(function ()
 		{
